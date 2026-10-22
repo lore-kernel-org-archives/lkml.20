@@ -1,103 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.69.30
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792698646;
-	b=zwQjTFjChECbPIuIhxyYySNbBKO61wCLCjo/e8AJ9+43n/armCqDVRvo8yUYwcVY1KC6
-	 Vdf+9lUCrWwU80ZvawRe06Tk08dL1ihbfDhA63nwH7QBRgOcBNnhjaqrVjLMLOyre/Mb5
-	 nhzsETp8fA5DA/Ip/189ZDfifITnuGSdPYD8wRX/vchilzc1WEN9jWY5+Sg3PnmdRbGxh
-	 2u/47uQLz3BkeNaLsPV119cJdu3OyR6W6g5hgua/sQBvGo3Hiepiir9sMFrWyp+zBgimP
-	 PUR75aBGMfY6XgObjrHqpWiWfqae60RaeUIJXjO/jFtNbg4XJewQNF8rYF58IxvbP4w==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792698646;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:Content-Type:
-	 Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-LD-Processed:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=D0PTUNXXCE28j6tdwnXKopR9qRI2aO59ntVwxtBdqq8=;
-	b=UynwxcHTOHmUMiki9Gq5yL0Lo0dc5IfI9rUG0T5RlwCYhxZUQ/bfJ9sFgTcXaVm8zlmj
-	 DCtWF4Gk2df0kIOrU1lAVkoC6dDgk/vCUWgOw2xXBPGrwJK+eRbCIV93Px2liAw5hjFS5
-	 4KSM/WS5ixLzzglEWLhEXdi9a4p4GiQIqq8A77P/x8Q2+q84lvGdWUPchl/08oB/iWKoA
-	 aY2/XmLexTnPIdF5d/rXh1CF87eAWC/Qqjv22zGp5rKSwKtJHR/qDq5Dz6Ps3r2VvgFwU
-	 AG1hGPfpaeXQDNB60ARWXTZ5d44CmL0qdYJXnYM5illF5UW3Q7U/5NQNYEJwQhPCvcw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=Fs3BTxkd;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.69.30
-Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010030.outbound.protection.outlook.com [52.101.69.30])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792698696;
+	b=Bu9v7huXbrOR0F3t4DS0B1QdZeLRzAWtRkWQakMs8fP7cgu7++1BgHUqPvJwabm5RB/y
+	 GtdL9mC/1t+NXgHot40vWJBCjDQ1QUcEbjsKZOMUfQRVjQ+8a3pPWKFFC75CyuEESP3UX
+	 cE+ktUYhovS1JhTKF5A11fqaNP0iataL29XA89kK922mGwZc4ss2YFxj4S4AGyUFQgJ89
+	 12NpXf/EcZq/xAvzqSYSRiQ8mwD7nIstlNBEv2sj5MlyClB+SfeiUETGbWqMovg5Jc3dW
+	 gfZ4kNjVpEl/e36MjSxD6t1P3HlSSjIffeaKLyd98iVjYxHofzPd6dJ/k9ZkMwnz+LQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792698696;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=IH0Ra0nr8PaH4LOAX8h5ymZ7Q+uvoWAsFcMW2TU0Dos=;
+	b=U/zvTq8sk1HxmXPr65Bsx+FSm3o/87G1fUqg9ZdIdWdXAUOlqM/il2TEOWVmJf8m3TRA
+	 Gr4AbILkhCNu/T96uLMD42U+L7gxl1gaRIz5ASQOSnUh+5Di+oAF5Rzoys6aUGH+mfLuU
+	 nNtBaWQUjd3QyiaIJGzeqxBap2C1lm8+8wuyCoh+6s8W6nV96ujub4bpJhs0kksy6oUO7
+	 a+jbFv7GSRF1T8hIzFQspLXmc0ADxQS40qim6B4LG/NxV3I7iX212fY1uHx/Ae15kKchv
+	 pFmChiOkATNEjVNe9lIcF1vdeBsHGGOAPZPPzIWXzMmbmzM5Jk7JgKKHBpJjsc+FPEg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KNjxQvRr;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70442606A31A;
-	Thu, 22 Oct 2026 19:50:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 70442606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C92D606A319;
+	Thu, 22 Oct 2026 19:51:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=Fs3BTxkd
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=e7ABZGlyeDfBdj2IslxYKzJE33sZSxqWPBFrDVZEVovCbRvnmBSl8i9eEROvGYZReHyVsV6f4NWD0lzy+tUhqc+DZnDIqfcu+zRinL+iPFk3U+Khi1pV1oqOdR/xtq5Ba5bSDoTIttkr4mciK0nlltRNh6JZIvjXUxHdGDOXetf2lxc/9WlE1iZ0Jc6duvs6olEbxf9MAa4S0WV5ds9/CYifQFL20/tWrtKzdn5zB/xAXLzPUkV53dz1mt/AVqlr9xmWKWrmSHENA65A37TSvGuGXHTNXVWohA1m++xdHI5C4wJQJOfpYkHQBwNJ51ishOq6yEKszDr4pe3Z4wxsOg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=D0PTUNXXCE28j6tdwnXKopR9qRI2aO59ntVwxtBdqq8=;
- b=c4DZHbp2ScK/eVRR8dXg0b78Tj4zevIBjddR2euQMmiqmqVr+Y6W0byj8jTJSSbR4Vv10GOxFauR/jKnRxTFWZlE2q4BRjQQ+PlssmyvvWAckbgXdbDpzS3/bIoLbyMNM/Ruqd+GqaFXNJEcQefeqjax1prKV+qO6/fjDZyJ8vAo+XclomQyeSC60ypgkt6jmovmykRvogKfk752+z9tr6nEs3KN4mWaKM84bMCY8l9+JhH9XxI0sIDpzS+7DMyOv5dKFOuHcjIaOj1fw88YP2AH+Qk/6IeXZ2Nvb7GO2D3UynZVEq4IUucrO3AEu5xojyD2QHhqLVDOKEj+9AtsRQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=D0PTUNXXCE28j6tdwnXKopR9qRI2aO59ntVwxtBdqq8=;
- b=Fs3BTxkdKudD072xO+iIrWVs5Mj67vrwld5OJO9PewYdb/0NLLIKXKhruvBKjjSuRVT5j+yZ0ORi1Mf8ttJ7V5rT18Vb+QYdnaZEfPmzc+v70E/xX6CkT39TccF/RvKmw5KWivbffCmmHDVXsg1vmYMeKdvjwm8isL3HaMW3iFbNgQT0m03jBnaiGzpXI2pKpzoRtv1uL4emYyNqZl6ykImovA7oxCZXg65hrWYIzS0HTSnoTifxisRpPdqvJtpInfeRjd6IpoGpGBgzc74ioHl8gaqaJCHTpA88A8oWciO6n8D10YvjtGviYJw4Xr8GYHTx2WL62C5KgDIP2D6OdQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
- by DB9PR04MB8074.eurprd04.prod.outlook.com (2603:10a6:10:24a::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.18; Thu, 22 Oct
- 2026 19:50:42 +0000
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b%6]) with mapi id 15.21.0546.012; Thu, 22 Oct 2026
- 19:50:42 +0000
-From: Frank.Li@oss.nxp.com
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Francesco Dolcini <francesco@dolcini.it>
-Cc: Frank Li <Frank.Li@nxp.com>,
-	Francesco Dolcini <francesco.dolcini@toradex.com>,
-	devicetree@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v1 1/2] arm64: dts: freescale: imx95-verdin: fix i3c2 pinctrl group node name
-Date: Thu, 22 Oct 2026 15:50:35 -0400
-Message-ID: <179269861299.1269298.17884626125062070112.b4-ty@b4>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261002090228.41445-1-francesco@dolcini.it>
-References: <20261002090228.41445-1-francesco@dolcini.it>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: PH5P222CA0010.NAMP222.PROD.OUTLOOK.COM
- (2603:10b6:510:34b::11) To MI3PR04MB12438.eurprd04.prod.outlook.com
- (2603:10a6:290:76::14)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KNjxQvRr
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 73E4C1F01825;
+	Thu, 22 Oct 2026 19:51:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792698695;
+	bh=IH0Ra0nr8PaH4LOAX8h5ymZ7Q+uvoWAsFcMW2TU0Dos=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=KNjxQvRrZjQXjq7oiaVr7km17P6Db8QZ+Y2j7DY00HmG0ziWTQy8riDUBdnXW2EUb
+	 q5/b8o2UoVJOQsxJnozUFW3vQD2s2/Pk635XiQJcJFBdiO2nNsqFxci+X3pXUdGx3l
+	 lOXV9TMSpfAvxF97b06fjiPEb6tI8OTXmMG29tZWz+XLRzz0gIPBOrOCtYLMP7yyhu
+	 NYO6p92tytWaQQ925A7ZrmWu6IQQq/ruXM2if/xR0QSdXX6F04tHs/zMvWPR9xdWQo
+	 w7BMB6CO/FiNY2BbFA5MoNAvYD7/Sd8Hd5z7fSYxqeCy+hvjANSwkBvqIel/HXI3Ic
+	 e7mDa8sQ3sQIA==
+Date: Thu, 22 Oct 2026 12:51:34 -0700
+From: Namhyung Kim <namhyung@kernel.org>
+To: Aaron Tomlin <atomlin@atomlin.com>
+Cc: peterz@infradead.org, mingo@redhat.com, acme@kernel.org,
+	mark.rutland@arm.com, alexander.shishkin@linux.intel.com,
+	jolsa@kernel.org, irogers@google.com, adrian.hunter@intel.com,
+	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH perf-tools-next v9 2/6] perf ftrace: Support filtering
+ return address comments
+Message-ID: <atppRvpvPrm12_Z6@google.com>
+References: <20261021023337.809936-1-atomlin@atomlin.com>
+ <20261021023337.809936-3-atomlin@atomlin.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,87 +60,385 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|DB9PR04MB8074:EE_
-X-MS-Office365-Filtering-Correlation-Id: e8d54929-cdf8-4dd3-b0db-08df3075c16d
-X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|19092799006|23010399003|1800799024|366016|10067099003|22082099003|18002099003|11063799006|56012099006|261009223027099003;
-X-Microsoft-Antispam-Message-Info:
-	eWjX4kwdgerryE3V6gLZXwbnKlxehUMtgaL1LdzB2Tc4HDN92Nh4eGGe8PduhZjMrS3A90eQ1yct+BFJaK68khDMwgL5hkCdWSfrhdOWKW1uuUgzsT2O/XgOhOwG5Iu83MJSTWUTtsbv17itAIdWVJv3sqW210jVO5HMAJ3bjXWcJ205vRW+wUcBqe/XlaYRzDIZnL79nE9JoMSLvipq9H/0xP0iZLbVCFEcL5NzOTVfN+lQxk4OlutEcUi3ex+PkVQjKjOlrxRa1QTsfbHH33S/xWnT4G68Nnom2O7YZGMRblUQ3CenerudrOR+n4UnQOSATSfMPa0RUrx+Cb9OGiDJkvGzbG3LmAJQ1MfwZMXw3QwH/eTzYSOeWynptZzOm8D/CW9dWOh/DqDwdj8M8KlcM7BPk6AKvk3J/6XEadKeczr3AXs0s5De+Bq7Dw1sI+y1r1AZ+1YAPA+xHImJRYK2yM9GjvuuBcg2Gxn88L5iNLn9oeWiSRXTBAlmOzj6PuVZyJizk40cVpmoqCIDI5GZeo4Tn2SFBsSs8Pxiy4hPm/39Dh4xBuTQatOCEPmZ7Ej65LxGYeE7PvCaAdxP76mIEQZrm4Y8bl2KmSrKBlb5Mt5Snq91gSHoFqgI26ZeItlH5lzHmAw4BI/sadmeRZLvYbcqFf1eT5TTixj2aiQ=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(19092799006)(23010399003)(1800799024)(366016)(10067099003)(22082099003)(18002099003)(11063799006)(56012099006)(261009223027099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?b0FYQ01mNmRORVRORmdvMGdMbTdJQitrRzZBdTdEd21RVS90OUM2aXBXWUVR?=
- =?utf-8?B?L25UMkJhekZjVHhESFgxSUJiL3Npank3WjhMTlgvSHFpQUJHK01qUU1waHNz?=
- =?utf-8?B?emN3ZzdSdGdNQ3dWdWtCdE9DdUNpZjdmQTArdWFaV1ZyUU9zdFJlYUt0UVhx?=
- =?utf-8?B?ODlVOS8rN0prbVpiL2h6NHRBMGtZd0tNVFNuemNQN1daSUJiVDVqRWxHRlIz?=
- =?utf-8?B?ZjBYVTlFcUNtSmthT2lWcUhJNWRoNkdFU055NUJwUGFwQnJSU3J2Wmc0SVpY?=
- =?utf-8?B?N1M1WXZrR2hWblhBMW12S2dQTVNqU3p1WFpvT0FuSThMWElJV2dRWnhTdmsw?=
- =?utf-8?B?KzZYRk1OMEJ6YTJaVUszVCtLU2FEbEhEK3NyOGM0dHB0Qko1WjMzdkVaQzhJ?=
- =?utf-8?B?NmVQcjg0VE4xSW5MYVdzNWROY3hldVhnY0tyWm04cjI3Z1daUFNneDdjSjZI?=
- =?utf-8?B?SGtRZWhYVWVpaDZNcFBRR2Y0M1pIYTVLanhqV1BGUFZrZ21BQXRFV2RTb0tt?=
- =?utf-8?B?RFYrbnlEQmZTRkphdzlNK21VUzE3NHlJQS9qZWlLS2IwQlRKc1gvSnE4Mk91?=
- =?utf-8?B?RnFIUmFFOGxKVFpIalJYZHlCVU0waUdjeU5HV25ReHZnMVNRQm9GUE5iWFBD?=
- =?utf-8?B?cnlabUs1V1hEcjdSbWp1UlptQXpYSkhqQzdLa1hOYm1vUXJ3blJvZm1kODBv?=
- =?utf-8?B?WDQzU2k1ZktDL0ljTitwRk5KS1NjOEl4Uk9JUmxmTlVUOEl1Y3Bua29aSkxE?=
- =?utf-8?B?VndVdUtoRUc5OGlmY1NFY0hjR0l0dE5LK0twb2lscEpaT2t2cytHeGIvNE5l?=
- =?utf-8?B?S2ZLbGhpTmkrWVVDbGViVENiYVlVRWZYUWV1dWU5M09wWkQ0TzdWZ0RYazNR?=
- =?utf-8?B?MEViT0RxMGZ3VWo3dTZaWVZwTU9KeVViYk5kcGlyU0thcE12emJaL2MyRXVP?=
- =?utf-8?B?cjJINHBYa2xwSXl5dEJzNDZhN1ZFVXhLbis2d3pBYlQzRFM0emhDYWE1ZGR6?=
- =?utf-8?B?L2lIaWRQSWI5RXkxTTBaWFZDS3RtYWFyU00yL1oxeTNWTldJcGlUTXg2YlRl?=
- =?utf-8?B?bFZ2WUVLaWM4cjUvS0xxYmJrVFNSSllFZC94MzFLeGxraGMvU0xDMWhXM2lR?=
- =?utf-8?B?YndkYVQxN0VreXltVGVOUk1JK3poREU5emt2M0VjclhrOEZ6aXk5V3E2UVlC?=
- =?utf-8?B?d24vZHNEMDhMcU5zZlIreW9MT09OeXZCT0FzRy9HVjFxbklST2ovNzNrVGx1?=
- =?utf-8?B?MzV6dFI1c3JGZis0RGtDcE5zZFJPeStlMkp4N2ZDUk9pRE5NVDFjeFZnUVVW?=
- =?utf-8?B?bDlsSkZTc0R3M3dzY1l2bG9XYU0xcG1JazFBVGlHK295UHdIU2hlWlI4YXUz?=
- =?utf-8?B?RU9ZTnpuK0kwZHJxQzRkVi9ZUENrbjR5MU4wVm5TazdvZEFUdW56YWMrVm1n?=
- =?utf-8?B?WFBqSlA5ODlMUzVCT0IxazdGWnJpWGo2TGdiQkU2djBIdURKcXhmZmVmYXl0?=
- =?utf-8?B?RTcvYXROVXZyb1diUGFqRm1mMDAvMkdvWWprVDFMTE4rWUlMT0g4MzFmQzBl?=
- =?utf-8?B?ZWlSKytyK1pRQXQzOTgvbXA3bThlTGU2Zlh4dkdOaDFlZHJ1dTg4SGVLVWZG?=
- =?utf-8?B?enVRTDI3cEhaVVBDeERMN1RhNzRXbXo5NFNGbXFIcU9JMkErMEpmbTJiQzIw?=
- =?utf-8?B?bUU2VFp4cm1QRFRuci9JUTVrRFZzRDN3eSt2VUhBLzFmZTBaS2EyVjJNbU8y?=
- =?utf-8?B?L1Y1eHhua29aUWZ5ZjFxaDlEbWdTRUtESUd2d3VFVXFvTWVVbm5YdnJoUnhl?=
- =?utf-8?B?Uk42UlhzOUhHN0xPQ0xCQURXYWprTFowYUVQcS9JdEMyMUFDZTNiR3dXZGh3?=
- =?utf-8?B?Q055S1puSUZJWCtlTnVxS0IvZnF5bzY4WklpTW1NRE9xOWxFcEVZanBUUytO?=
- =?utf-8?B?U3EyT1dmcnNkUGdCTEt0dk9VakJ5cS9VUmNBQmVnK1RDNElPcEJSQ2ZXMEgy?=
- =?utf-8?B?d0FjNlpPTkVFKzlxMTNzcnBtcjlSS2Y2OFF2QmdrUGF5MUxKSmQxS3ZuRVlu?=
- =?utf-8?B?c3hJczc3Y0NXWmdVN2MwbkpTTWV0dytMdFNYNXJRbUhYQXhUNmppclZrL0Yv?=
- =?utf-8?B?TXlzSTJMdHVZTjlBYzVnbC9NMlpMRjVBb1VWdVhCOGErQ0duMkJHcGFmZ0V6?=
- =?utf-8?B?bDlvbHFYYisvMHpPNWM2a0VSeXpWY1FsRHh2bDNEWjBwZnZSenRVdW55UjIw?=
- =?utf-8?B?VlRwQi8yVmdPMGFvSm5Sc3U5S05ESTMzeHcyS00ySTBXWmtEQklIaHk2cHp5?=
- =?utf-8?B?b1pzWmhDZzJXQ0xETXJhTWNxYUh5NmpFYmpWYXhyRS93ckJMbjBwbUQ4a3VS?=
- =?utf-8?Q?fTxtMHaxDeVzutdEqXFdcijKNLNUt9Ip+99Jg?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e8d54929-cdf8-4dd3-b0db-08df3075c16d
-X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Oct 2026 19:50:42.5509
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ujpErkLd6NfRnEeF15ZL5CWBn7XTagQiAeayHmsLgJFKM1jzikKRFzrnshebaDwvoG2dsluxOoaunZu83/4KFCQ+rwxlsE0jkemWYktm3wEjqKlHie8JFPMn4EhqXjbr
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR04MB8074
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261021023337.809936-3-atomlin@atomlin.com>
 
-From: Frank Li <Frank.Li@nxp.com>
+Hello,
 
+On Tue, Oct 20, 2026 at 10:33:33PM -0400, Aaron Tomlin wrote:
+> When tracing with the Linux kernel's function graph tracer, enabling
+> funcgraph-retaddr records the return address of each function entry as
+> a comment in the trace stream (e.g. /* <-load_elf_phdrs+0x6c/0xb0 */).
+> While valuable for tracing execution origins, these trailing comments
+> can add considerable visual clutter to the call graph, particularly
+> when examining deeply nested call trees or when synthesising higher-level
+> abstractions.
+> 
+> Introduce support for filtering out return address comments from
+> function graph trace output. Provide a standalone --filter-retaddr
+> flag.
 
-On Fri, 02 Oct 2026 11:02:26 +0200, Francesco Dolcini wrote:
-> The pinctrl group node for I3C2 is named "i3c2cgrp", with a stray "c".
-> Rename it to "i3c2grp" to match the label and the usual naming convention.
+I think we agreed not to have this option in the previous discussion,
+no?  The retaddr will appear only if user passed an option, so you can
+unconditionally filter out the comment if it's not given, right?
 
-Applied to imx/dt64-intend (will appear to linux-next after v7.4-rc1),
-thanks!
+Thanks,
+Namhyung
 
-[1/2] arm64: dts: freescale: imx95-verdin: fix i3c2 pinctrl group node name
-      commit: cbaf847e988f68b46be722a67b9f7484a8e28238
-[2/2] arm64: dts: freescale: imx95-aquila: fix i3c2 pinctrl group node name
-      commit: 54d9772b07144904ac674378df51e808b317940d
-
-Best regards,
---
-Frank Li <Frank.Li@nxp.com>
+> 
+> Key aspects of this implementation:
+> 
+>     1.  Return address parsing and filtering
+> 
+>         Implement ftrace_filter_retaddr() in tools/perf/util/ftrace.c
+>         to locate return address comments and strip them in-place with
+>         memmove(3).
+> 
+>         Additionally, introduce ftrace_parse_retaddr() to parse caller
+>         symbol names and offsets across diverse output styles (standard
+>         format, return values, and bracketed addresses), establishing
+>         the parsing foundation for subsequent inlined callchain
+>         resolution.
+> 
+>     2.  Command-line interface
+> 
+>         Expose --filter-retaddr in tools/perf/builtin-ftrace.c, updating
+>         the documentation in tools/perf/Documentation/perf-ftrace.txt
+>         accordingly.
+> 
+>     3.  Automated verification
+> 
+>         Add a dedicated unit test suite ("Ftrace return address
+>         processing") in tools/perf/tests/ftrace.c to validate comment
+>         parsing and string filtering across all supported formats.
+> 
+> Assisted-by: Antigravity:gemini-3.1-pro
+> Signed-off-by: Aaron Tomlin <atomlin@atomlin.com>
+> ---
+>  tools/perf/Documentation/perf-ftrace.txt |  4 +
+>  tools/perf/builtin-ftrace.c              |  8 ++
+>  tools/perf/tests/Build                   |  1 +
+>  tools/perf/tests/builtin-test.c          |  1 +
+>  tools/perf/tests/ftrace.c                | 81 +++++++++++++++++++++
+>  tools/perf/tests/tests.h                 |  1 +
+>  tools/perf/util/Build                    |  1 +
+>  tools/perf/util/ftrace.c                 | 93 ++++++++++++++++++++++++
+>  tools/perf/util/ftrace.h                 |  5 ++
+>  9 files changed, 195 insertions(+)
+>  create mode 100644 tools/perf/tests/ftrace.c
+>  create mode 100644 tools/perf/util/ftrace.c
+> 
+> diff --git a/tools/perf/Documentation/perf-ftrace.txt b/tools/perf/Documentation/perf-ftrace.txt
+> index 3f3808e513fe..e8105083e67c 100644
+> --- a/tools/perf/Documentation/perf-ftrace.txt
+> +++ b/tools/perf/Documentation/perf-ftrace.txt
+> @@ -134,6 +134,10 @@ OPTIONS for 'perf ftrace trace'
+>  	  - depth=<n>    - Set max depth for function graph tracer to follow.
+>  	  - tail         - Print function name at the end.
+>  
+> +--filter-retaddr::
+> +	Filter out function return address comments (`/* <-caller+offset */`)
+> +	from function_graph output.
+> +
+>  
+>  OPTIONS for 'perf ftrace latency'
+>  ---------------------------------
+> diff --git a/tools/perf/builtin-ftrace.c b/tools/perf/builtin-ftrace.c
+> index 65983259b07e..c715cbebaabe 100644
+> --- a/tools/perf/builtin-ftrace.c
+> +++ b/tools/perf/builtin-ftrace.c
+> @@ -837,6 +837,8 @@ static int __cmd_ftrace(struct perf_ftrace *ftrace)
+>  				break;
+>  			for (int i = 0; i < n; i++) {
+>  				if (buf[i] == '\n') {
+> +					if (ftrace->filter_retaddr)
+> +						ftrace_filter_retaddr(linebuf.buf);
+>  					if (fprintf(stdout, "%s\n", linebuf.buf) < 0)
+>  						break;
+>  					strbuf_setlen(&linebuf, 0);
+> @@ -874,6 +876,8 @@ static int __cmd_ftrace(struct perf_ftrace *ftrace)
+>  			break;
+>  		for (int i = 0; i < n; i++) {
+>  			if (buf[i] == '\n') {
+> +				if (ftrace->filter_retaddr)
+> +					ftrace_filter_retaddr(linebuf.buf);
+>  				if (fprintf(stdout, "%s\n", linebuf.buf) < 0)
+>  					break;
+>  				strbuf_setlen(&linebuf, 0);
+> @@ -885,6 +889,8 @@ static int __cmd_ftrace(struct perf_ftrace *ftrace)
+>  	}
+>  
+>  	if (!ferror(stdout) && linebuf.len > 0) {
+> +		if (ftrace->filter_retaddr)
+> +			ftrace_filter_retaddr(linebuf.buf);
+>  		fprintf(stdout, "%s\n", linebuf.buf);
+>  		strbuf_setlen(&linebuf, 0);
+>  	}
+> @@ -1850,6 +1856,8 @@ int cmd_ftrace(int argc, const char **argv)
+>  		     "Size of per cpu buffer, needs to use a B, K, M or G suffix.", parse_buffer_size),
+>  	OPT_BOOLEAN(0, "inherit", &ftrace.inherit,
+>  		    "Trace children processes"),
+> +	OPT_BOOLEAN_SET(0, "filter-retaddr", &ftrace.filter_retaddr, &ftrace.filter_retaddr_set,
+> +			"Filter out funcgraph return address comments"),
+>  	OPT_INTEGER('D', "delay", &ftrace.target.initial_delay,
+>  		    "Number of milliseconds to wait before starting tracing after program start"),
+>  	OPT_PARENT(common_options),
+> diff --git a/tools/perf/tests/Build b/tools/perf/tests/Build
+> index 395f2866094a..136138932fcb 100644
+> --- a/tools/perf/tests/Build
+> +++ b/tools/perf/tests/Build
+> @@ -72,6 +72,7 @@ perf-test-y += hwmon_pmu.o
+>  perf-test-y += tool_pmu.o
+>  perf-test-y += subcmd-help.o
+>  perf-test-y += kallsyms-split.o
+> +perf-test-y += ftrace.o
+>  
+>  ifeq ($(SRCARCH),$(filter $(SRCARCH),x86 arm arm64 powerpc riscv))
+>  perf-test-$(CONFIG_DWARF_UNWIND) += dwarf-unwind.o
+> diff --git a/tools/perf/tests/builtin-test.c b/tools/perf/tests/builtin-test.c
+> index 880eece0bc12..640d6d327215 100644
+> --- a/tools/perf/tests/builtin-test.c
+> +++ b/tools/perf/tests/builtin-test.c
+> @@ -156,6 +156,7 @@ static struct test_suite *generic_tests[] = {
+>  	&suite__perf_hooks,
+>  	&suite__unit_number__scnprint,
+>  	&suite__mem2node,
+> +	&suite__ftrace,
+>  	&suite__time_utils,
+>  	&suite__jit_write_elf,
+>  	&suite__pfm,
+> diff --git a/tools/perf/tests/ftrace.c b/tools/perf/tests/ftrace.c
+> new file mode 100644
+> index 000000000000..42604811a2fb
+> --- /dev/null
+> +++ b/tools/perf/tests/ftrace.c
+> @@ -0,0 +1,81 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +#include <linux/compiler.h>
+> +#include <linux/kernel.h>
+> +#include <stdio.h>
+> +#include <stdlib.h>
+> +#include <string.h>
+> +#include <unistd.h>
+> +#include "tests.h"
+> +#include "debug.h"
+> +#include "util/ftrace.h"
+> +
+> +static int test_parse_retaddr(void)
+> +{
+> +	char sym[128];
+> +	u64 offset = 0;
+> +
+> +	/* Standard format */
+> +	TEST_ASSERT_VAL("parse standard retaddr",
+> +			ftrace_parse_retaddr("kernel_read() { /* <-load_elf_phdrs+0x6c/0xb0 */",
+> +					     sym, sizeof(sym), &offset));
+> +	TEST_ASSERT_EQUAL("sym name", strcmp(sym, "load_elf_phdrs"), 0);
+> +	TEST_ASSERT_VAL("offset", offset == 0x6c);
+> +
+> +	/* With return value */
+> +	TEST_ASSERT_VAL("parse retaddr with ret",
+> +			ftrace_parse_retaddr(
+> +				"__cond_resched(); /* <-load_elf_phdrs+0x6c/0xb0 ret=0x0 */",
+> +				sym, sizeof(sym), &offset));
+> +	TEST_ASSERT_EQUAL("sym name", strcmp(sym, "load_elf_phdrs"), 0);
+> +	TEST_ASSERT_VAL("offset", offset == 0x6c);
+> +
+> +	/* Bracketed address */
+> +	TEST_ASSERT_VAL("parse bracketed retaddr",
+> +			ftrace_parse_retaddr("foo() { /* <-[0xffffffff818534c8] bar+0x20/0x40 */",
+> +					     sym, sizeof(sym), &offset));
+> +	TEST_ASSERT_EQUAL("sym name", strcmp(sym, "bar"), 0);
+> +	TEST_ASSERT_VAL("offset", offset == 0x20);
+> +
+> +	/* No return address */
+> +	TEST_ASSERT_VAL("no retaddr",
+> +			!ftrace_parse_retaddr("do_filp_open();", sym, sizeof(sym), &offset));
+> +
+> +	return TEST_OK;
+> +}
+> +
+> +static int test_filter_retaddr(void)
+> +{
+> +	char line1[] = "kernel_read() { /* <-load_elf_phdrs+0x6c/0xb0 */";
+> +	char line2[] = "__cond_resched(); /* <-load_elf_phdrs+0x6c/0xb0 ret=0x0 */";
+> +	char line3[] = "do_filp_open();";
+> +
+> +	ftrace_filter_retaddr(line1);
+> +	TEST_ASSERT_EQUAL("filter standard retaddr", strcmp(line1, "kernel_read() {"), 0);
+> +
+> +	ftrace_filter_retaddr(line2);
+> +	TEST_ASSERT_EQUAL("filter retaddr with ret",
+> +			  strcmp(line2, "__cond_resched(); /* ret=0x0 */"), 0);
+> +
+> +	ftrace_filter_retaddr(line3);
+> +	TEST_ASSERT_EQUAL("filter line without retaddr unchanged",
+> +			  strcmp(line3, "do_filp_open();"), 0);
+> +
+> +	return TEST_OK;
+> +}
+> +
+> +static int test__ftrace(struct test_suite *test __maybe_unused, int subtest __maybe_unused)
+> +{
+> +	int ret;
+> +
+> +	ret = test_parse_retaddr();
+> +	if (ret != TEST_OK)
+> +		return ret;
+> +
+> +	ret = test_filter_retaddr();
+> +	if (ret != TEST_OK)
+> +		return ret;
+> +
+> +	return TEST_OK;
+> +}
+> +
+> +DEFINE_SUITE("Ftrace return address processing", ftrace);
+> diff --git a/tools/perf/tests/tests.h b/tools/perf/tests/tests.h
+> index 5982c4e62cd3..cd12ae85ccfa 100644
+> --- a/tools/perf/tests/tests.h
+> +++ b/tools/perf/tests/tests.h
+> @@ -180,6 +180,7 @@ DECLARE_SUITE(perf_hooks);
+>  DECLARE_SUITE(unit_number__scnprint);
+>  DECLARE_SUITE(mem2node);
+>  DECLARE_SUITE(maps);
+> +DECLARE_SUITE(ftrace);
+>  DECLARE_SUITE(time_utils);
+>  DECLARE_SUITE(jit_write_elf);
+>  DECLARE_SUITE(api_io);
+> diff --git a/tools/perf/util/Build b/tools/perf/util/Build
+> index 2c1f880c4c47..5b082d09006d 100644
+> --- a/tools/perf/util/Build
+> +++ b/tools/perf/util/Build
+> @@ -169,6 +169,7 @@ perf-util-y += list_sort.o
+>  perf-util-y += mutex.o
+>  perf-util-y += sharded_mutex.o
+>  perf-util-y += intel-tpebs.o
+> +perf-util-y += ftrace.o
+>  
+>  perf-util-$(CONFIG_PERF_BPF_SKEL) += bpf_counter.o
+>  perf-util-$(CONFIG_PERF_BPF_SKEL) += bpf_counter_cgroup.o
+> diff --git a/tools/perf/util/ftrace.c b/tools/perf/util/ftrace.c
+> new file mode 100644
+> index 000000000000..452231c01568
+> --- /dev/null
+> +++ b/tools/perf/util/ftrace.c
+> @@ -0,0 +1,93 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +#include <linux/compiler.h>
+> +#include <linux/kernel.h>
+> +#include <linux/string.h>
+> +#include <stdio.h>
+> +#include <stdlib.h>
+> +#include <string.h>
+> +#include <ctype.h>
+> +#include "util/ftrace.h"
+> +
+> +/**
+> + * ftrace_parse_retaddr - Parse return address comment from trace line
+> + * @str: The trace line containing the comment
+> + * @sym_name: Buffer to store the parsed symbol name
+> + * @sym_len: Length of the @sym_name buffer
+> + * @offset: Pointer to store the parsed offset
+> + *
+> + * Extract the function name and offset from a funcgraph-retaddr comment
+> + * (e.g. "<-load_elf_phdrs+0x6c/0xb0").
+> + *
+> + * Return: true if successfully parsed, false otherwise.
+> + */
+> +bool ftrace_parse_retaddr(const char *str, char *sym_name, size_t sym_len, u64 *offset)
+> +{
+> +	const char *p = strstr(str, "<-");
+> +	const char *plus;
+> +	const char *bracket;
+> +	size_t name_len;
+> +
+> +	if (!p)
+> +		return false;
+> +
+> +	p += 2;
+> +	while (*p == ' ')
+> +		p++;
+> +
+> +	if (*p == '[') {
+> +		bracket = strchr(p, ']');
+> +		if (bracket)
+> +			p = bracket + 1;
+> +		while (*p == ' ')
+> +			p++;
+> +	}
+> +
+> +	plus = strchr(p, '+');
+> +	if (!plus)
+> +		return false;
+> +
+> +	name_len = plus - p;
+> +	if (name_len == 0 || name_len >= sym_len)
+> +		return false;
+> +
+> +	memcpy(sym_name, p, name_len);
+> +	sym_name[name_len] = '\0';
+> +
+> +	*offset = strtoull(plus + 1, NULL, 16);
+> +	return true;
+> +}
+> +
+> +/**
+> + * ftrace_filter_retaddr - Remove return address comment from trace line
+> + * @str: The trace line to modify
+> + *
+> + * Find and strip the funcgraph-retaddr comment from the trace line
+> + * in-place, removing trailing spaces where applicable.
+> + */
+> +void ftrace_filter_retaddr(char *str)
+> +{
+> +	char *start = strstr(str, "/* <-");
+> +	char *end;
+> +	char *ret_ptr;
+> +
+> +	if (!start)
+> +		return;
+> +
+> +	end = strstr(start, "*/");
+> +	if (!end)
+> +		return;
+> +
+> +	ret_ptr = strstr(start, " ret=");
+> +	if (ret_ptr && ret_ptr < end) {
+> +		memmove(start + 3, ret_ptr + 1, strlen(ret_ptr + 1) + 1);
+> +		return;
+> +	}
+> +
+> +	end += 2; /* skip end-of-comment delimiter */
+> +
+> +	/* Also backtrack any spaces before comment */
+> +	while (start > str && *(start - 1) == ' ')
+> +		start--;
+> +
+> +	memmove(start, end, strlen(end) + 1);
+> +}
+> diff --git a/tools/perf/util/ftrace.h b/tools/perf/util/ftrace.h
+> index 950f2efafad2..50216d3fef64 100644
+> --- a/tools/perf/util/ftrace.h
+> +++ b/tools/perf/util/ftrace.h
+> @@ -39,6 +39,8 @@ struct perf_ftrace {
+>  	int			graph_verbose;
+>  	int			graph_thresh;
+>  	int			graph_tail;
+> +	bool			filter_retaddr;
+> +	bool			filter_retaddr_set;
+>  };
+>  
+>  struct filter_entry {
+> @@ -93,4 +95,7 @@ perf_ftrace__latency_cleanup_bpf(struct perf_ftrace *ftrace __maybe_unused)
+>  
+>  #endif  /* HAVE_BPF_SKEL */
+>  
+> +bool ftrace_parse_retaddr(const char *str, char *sym_name, size_t sym_len, u64 *offset);
+> +void ftrace_filter_retaddr(char *str);
+> +
+>  #endif  /* __PERF_FTRACE_H__ */
+> -- 
+> 2.55.0
+> 
