@@ -1,158 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.103.14.59
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.48
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792691881;
-	b=phT5z+qQWVqUyJWOxDgNDjq+dPxLxT88rI2HDw+YXyzrX6aZjbuqcmcLo7NQVgi6STSG
-	 JxnCZ2g/+J2rxcXOCpQRzwRel7OK6yQeSvoTakDliufu/PgRq3DYyRhPzA9aGY5cMckad
-	 vc9/nZR/MHrrMzazhlBKPPVFH1WrNrRAyYCwfXdHCc6l1Co+SHeehRUrGxurjuQCPrvtz
-	 Zpgku6cgVC/U+wj4NX9DPuyTj9M07SEPX+F+JuXD4mRzVa0S63paYTjdAzZFDg75OQic8
-	 aQuM4FS+KZLOD0mURTTqHzMTfLC+GaxQuGGCILrX6drLHx5xT8qNACO1ONvcPpwBT5g==
+	t=1792691895;
+	b=G8YPliWG2uiTroD91nKOyn4/3skZUwCCUMsRHUdclD3HEKoQYzwRsoSyMWpkiLCy/3sv
+	 aljDmhB2wjy4RhzQ2/4z3E0tMOtQA2kDAD71WW73J8z951IWsqU19eIQxumToQkWTPcj2
+	 ENxwoBMfNCoBlj0eBdVlc5jeKWJKDNWWfXsL9KbbfwFvX0Tlmt1XsnZ2yGzloB7gZe6aU
+	 HIWSkCH+6L6foLKu/2vIox6wvXUWe/AuE1Rv8AlRcgCZjNisDyrR2bTAuc2aIPDskDwY2
+	 +9VXepjwNVTNrMLGblRS75AfnWxuNGNhK+a26LrQJIR2+mUfI/vNmP1oYZOHWqdRQPg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792691881;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:CC:Subject:
-	 Thread-Topic:Thread-Index:Date:Message-ID:References:In-Reply-To:
-	 Accept-Language:Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
-	 msip_labels:x-ms-exchange-messagesentrepresentingtype:
-	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
-	 x-ms-office365-filtering-correlation-id:x-microsoft-antispam:
-	 x-microsoft-antispam-message-info:
-	 x-ms-exchange-antispam-messagedata-chunkcount:
-	 x-ms-exchange-antispam-messagedata-0:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
-	 X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-originalarrivaltime:
-	 X-MS-Exchange-CrossTenant-fromentityheader:
-	 X-MS-Exchange-CrossTenant-id:
-	 X-MS-Exchange-CrossTenant-rms-persistedconsumerorg:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=Al1YF6Q6y6xoEDHIM6UUhKBvJP6jwZPU2G8ULc9n3uk=;
-	b=rO03FlyPvWXEmF9drzUl8zb3+K9GyhGoIGoCU0Sg0/POdVPHUCc36RObwe+a59dWk/Kw
-	 jUDRVJvMcfxWkqRwahgyCZpXRSr8bas84sTCQwKZzrsdQYTeiPEU0X8eI8ZSf/cEF3HYC
-	 Gzbvnd8D8NfLbd7LQst/J7u2z6FBFiDarKThWlmBCuHKY675YI9nOzkLCZlMRC0Ag80V4
-	 m11v0QxWU24nwHO5Ksf1Pz8jeT6Gm/rqGyT50gCq138RnXdx/l/2L90hhLSyA8jXQrCT2
-	 vayn7t+ky/RRg/6AaeSEoDoRSlLadAiccOSwAclHtmxOUu1EZx3sQmWFSH/jmtZzWKA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792691895;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=gOxyJqweGrhnvnodtSAXe9yahnUU1PnlCf3PPg5Ekys=;
+	b=oMjrsPUVjSJUtoObejU5oEirwFjETVYuB9L+m8mMQBPHb7PTei/S3dYXXxAYHlDz6mKd
+	 igOqQyQJnf/TyyYdvmsob/R/rRi0JZy3db9mD0UxaeAS6sJU5HKMqm90ZBXdXjMkZkC+W
+	 5T03ER+Y2Gz+i8d1w1/pF2nBIb/KOdj7vB7tAY/Re9V1cNMXrHbaTjsnA9cPfVPPhnhCg
+	 nWxx7MC3UciJlNRVxNoxBGmkNL5UHjRr08+TZJTXYNyv2PSm/jSc6EOrcLcvLDiA8Kczw
+	 TIM0OOVHU8W03tWZeQeE0xAVz1r3ZWTPwMYLxqycjayqHoVZZFxBMMcJ3gfXfvd+Niw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=outlook.com;
-	spf=pass smtp.mailfrom=outlook.com;
-	dkim=pass header.d=outlook.com header.i=@outlook.com header.a=rsa-sha256 header.s=selector1 header.b=M1jcOnMS;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.103.14.59
-Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazolkn19011059.outbound.protection.outlook.com [52.103.14.59])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=cYnL1MX+;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.48
+Received: from mail-dl1-f48.google.com (mail-dl1-f48.google.com [74.125.82.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CA62606A319
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 17:58:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4CA62606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F059D606A319
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 17:58:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F059D606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=outlook.com header.i=@outlook.com header.a=rsa-sha256 header.s=selector1 header.b=M1jcOnMS
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ql7wriKxEqxWbf5SRRoV+DGomtLn3LniMobEdLTp6VJUQVKwAfZt8QbRCL9eqh1QLa+womKnCC2mzM349mD3jLP12+lM9/ltQC3D5/TTS+r9bNIEBaHKDkCslrBSH74+N21BO59+kgfhnb7yHp2GmozOTnQn6XY/o2GTvmZgtZNnWF67cZ09N+oMLLZAXJMUv5uJEK8oHl2VKMPMyXyqQrWNLcAgSteV1gLXkVCuPQ8p8hZURDnH5xY9+i1eq7104MbdrFtxHol98hmRnwCXzO42dfVAm28wRH0/ZV2RXw2s1NzY6qoL8xzuMKPoru16MmTZO3EGxtdYy0sxslN+IA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Al1YF6Q6y6xoEDHIM6UUhKBvJP6jwZPU2G8ULc9n3uk=;
- b=CLi0+AGBe+9O9jzAFJ0dGPGuTB0U9QTFJ6/Ic1klO1nTo/ge+IoXDQt7Omes+f2E1m8cDrFAF0pCiY+Bj+Rwtb7IQhdafIcFrvq8CDCoQpWCxqIFTCXVR32aWpQ2t2SQ7ZmZeESx5WF9vQvUhJMW7MOkySEljyiMrZK722Ih2xR3bORs9iTl30qDa80elGb4MeM6BkF0eyR52UXLkskIKAYnRcgQULCHRp/22RZRwKFY4oSkMvgy64mK8da0FEvtI44H+7Zvo4jAESFi4VBYPHJXSv2820MnkwdULqBVthrfq7gC1vpSp6GXKUSGlXyMjWOIJpKofbADIy+ZZtejew==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Al1YF6Q6y6xoEDHIM6UUhKBvJP6jwZPU2G8ULc9n3uk=;
- b=M1jcOnMSm7ezo1KCwHRui+NHEgXYMayebQYl3XXzX746/SdAOqUpIQDt1wSPhh2QZoXmZn8ey+gTHc7+V/kxzVJwNDR5rOuOR4SadY12J7+0VkKyj0ZwljHBfnVJHGTCkzM/HhiyeaxtTslooo+P05wr26X0sQ4q5xj5SQboL+yupCSuzmOKtapBzugY++Cxj+yJ6B5uTXu+bbBU6RZDAxZjpuzC6ckevcHWFR29JOd3IXCUWkqBzxNHkpg6ECKd8tjHpshanW53xAaBS8WdAbNmSm9OggT16RGaIj9cYBIGYAwyN8HK1gTg6g3hWGe4cyWhNnTFkVMITYRE7pwBdg==
-Received: from RO2P152MB5105.LAMP152.PROD.OUTLOOK.COM (2603:10d6:10:ba::14) by
- CPWP152MB4109.LAMP152.PROD.OUTLOOK.COM (2603:10d6:103:f9::12) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.546.16; Thu, 22 Oct 2026 17:57:55 +0000
-Received: from RO2P152MB5105.LAMP152.PROD.OUTLOOK.COM
- ([fe80::f919:4e42:f4eb:ecc4]) by RO2P152MB5105.LAMP152.PROD.OUTLOOK.COM
- ([fe80::f919:4e42:f4eb:ecc4%5]) with mapi id 15.21.0546.012; Thu, 22 Oct 2026
- 17:57:55 +0000
-From: =?Windows-1252?Q?C=E9sar_Zapata?= <el_caesar@outlook.com>
-To: "joro@8bytes.org" <joro@8bytes.org>
-CC: "suravee.suthikulpanit@amd.com" <suravee.suthikulpanit@amd.com>,
-	"vasant.hegde@amd.com" <vasant.hegde@amd.com>, "will@kernel.org"
-	<will@kernel.org>, "robin.murphy@arm.com" <robin.murphy@arm.com>,
-	"iommu@lists.linux.dev" <iommu@lists.linux.dev>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: [BUG][AMD IOMMU][VFIO] IVMD exclusion ranges block GPU passthrough on
- ASUS GA403UI, reproduced on 7.4-rc0
-Thread-Topic: [BUG][AMD IOMMU][VFIO] IVMD exclusion ranges block GPU
- passthrough on ASUS GA403UI, reproduced on 7.4-rc0
-Thread-Index: AQHdYkwdalKASy9EAkqg+eUxSukTOLcJ19/V
-Date: Thu, 22 Oct 2026 17:57:54 +0000
-Message-ID:
- <RO2P152MB51051CB0D23C926C671EAC708D652@RO2P152MB5105.LAMP152.PROD.OUTLOOK.COM>
-References:
- <RO2P152MB51059B868259A82B182943F48D652@RO2P152MB5105.LAMP152.PROD.OUTLOOK.COM>
-In-Reply-To:
- <RO2P152MB51059B868259A82B182943F48D652@RO2P152MB5105.LAMP152.PROD.OUTLOOK.COM>
-Accept-Language: es-ES, en-US
-Content-Language: es-ES
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-msip_labels:
-x-ms-exchange-messagesentrepresentingtype: 1
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: RO2P152MB5105:EE_|CPWP152MB4109:EE_
-x-ms-office365-filtering-correlation-id: 1e4dc19d-a015-4dea-9b2f-08df3065ffb9
-x-microsoft-antispam:
- BCL:0;ARA:14566002|31061999003|24021099003|6050399003|24121999003|15030799006|22091999003|51005399006|15080799012|19110799012|8060799015|8062599012|41001999006|40105399003|1602099012|10035399007|26121999007|3430499035|19061999003|102099032|440099028|4302099013|3412199025;
-x-microsoft-antispam-message-info:
- =?Windows-1252?Q?psfEcUnSole7IOoF2xP/43MUBAma9YqVay+rrVRYjBuZeX0EwSXRfWNX?=
- =?Windows-1252?Q?bVNzMAOkBsMWQEbi7ProzC8xhvu3y+bGKDeBZAc/Z1RgvK4UrWzhak2R?=
- =?Windows-1252?Q?YZOHx2vz+lI2ZZllgOZuJqpR8wlLu+nxcN9CscQo2vSoyA570HpbcPm0?=
- =?Windows-1252?Q?vQ/HDY4a1GrfiZHCJ72vJslHgyhVUKVtjjsX5+OpD2CHxeXUWdAPI7cR?=
- =?Windows-1252?Q?mQy+A4YPbqwH5hhs9Nxrw4Oh9+b6jXB2n6UzqzU/cUbK6rD5XQzs4OBK?=
- =?Windows-1252?Q?M72PvrPbZlCh78xyIQWCmBw3WqDm7Q9+5csRY7CZ/RxSBOFETFQH4tCi?=
- =?Windows-1252?Q?oexK3Rgqn3RnmWALr40A+6WOpHHl7fAo6wclD0CRUnZBVr71nx5mMA/J?=
- =?Windows-1252?Q?bOVpN2pTVLUOYbSuBGMywhnF2dPJ1ojGQzfUs7O4dSb+/ECmjFrvOMrs?=
- =?Windows-1252?Q?zgUVrlBzx4NyIWJGrO/PhI9PvVmcm7ZwQ1iSt7Uv8z1JwAVyeY799u2w?=
- =?Windows-1252?Q?yfHiyj2KcbJ1IffvGhx4EMlTo7qo1xoajxHffyOtmkEZD7c49eVrR3fT?=
- =?Windows-1252?Q?0gX2fhY+TPyx74Uc2CMq4kTtdSJba7pKV07CkTKpkKWjdJoeajAc1HmG?=
- =?Windows-1252?Q?ZRqt/jeyeRKDmKrc9c5EckrNPypUiOpAhuH4aqsxN/1cGaXNeR18DzEm?=
- =?Windows-1252?Q?fFWTKT5KbVJm6mYkXQZZVdQAvKgHU4S4EHRlmyZz2f+nupXXXr8pcKZB?=
- =?Windows-1252?Q?bJcgrdSX2QvfMced+ep3jneGn/iuIirgctZKep3P7czJAMLEztLml9Vc?=
- =?Windows-1252?Q?of5uJS07/9AYsOZ5ff2f4bshHjMsemhwC0voOc9R4vnTYiT8DQXJ1YbI?=
- =?Windows-1252?Q?wGG8IK5vHI2QmvtuvUs3BDfLKL020mCOWaQOdytIhuFSvl6MCeSpCV+s?=
- =?Windows-1252?Q?lQX6FJQDa0Z9zNSGNHmPbVc9BIXZavFSRZ6w3r4/6jjC4bFcW8/mnYjE?=
- =?Windows-1252?Q?j8ut+Joe+txO2iwlnIJA9QbAohsVjGSMjZkzyPyE5b4ArQqp/nKnqWwV?=
- =?Windows-1252?Q?dFUSu5s88Os1YW74DczEWILu8SlKEt55waGXQiPAmHRhGL7Kk3etLuef?=
- =?Windows-1252?Q?GOKXKKnb+6QFyN/sWxPIrGDo6KLwCSuUXqM3AlS5q6ubOJNsrOOz3jOe?=
- =?Windows-1252?Q?c42N5tDi7s8bWZ5Iy52alXhOfoVWJ8LzZoIed1flP1oiaiOYWXWD3J4U?=
- =?Windows-1252?Q?A+mvPLJ5M6zv2vO6VVs=3D?=
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?Windows-1252?Q?Loeh8s/L7fnHpBdgwz2nY1wP9WMtT5PV4pELxijP3rBctrGtReJDjjTj?=
- =?Windows-1252?Q?aVHibwH9OOmxPNZNPqxWnbkyOpxxYDi5r5N4ie5t7en3FNHi9P1D4iYX?=
- =?Windows-1252?Q?Np45INGZcuI2hcYV7UrYrSn4dBAFmIyUjVuBjiyFRvPEXW2LZwA10DlI?=
- =?Windows-1252?Q?fz11UYB3VnT8de1N1f16hZmdl46Jmc0s6Vi0pQP+UkHTY1gw3Sxne147?=
- =?Windows-1252?Q?WEejfXdYpwSWArLMplrSlaE+ekracDAeDv3O9rhDAqxX8uDJJXINzAqe?=
- =?Windows-1252?Q?h184LpWK7v8XMm3pmQx5TiSZEIfevs0eqZz2JnezhpyIgqj3YYroBcQr?=
- =?Windows-1252?Q?1oMAXJ1pIjnXUemtagwYq/5tU4LdIntR1qYXtvMH2WUbGzUZwbHbtgxO?=
- =?Windows-1252?Q?h0XsersZBH53MIW2DYQzVJ1O7ZZWVD83xpXuObv9RQTy+LPmP6kv9KHN?=
- =?Windows-1252?Q?28FkwYxFwoev63hLxLBvS4XnhsrD9iBkoHfVjHEyN4rAoDrxiWxg94jO?=
- =?Windows-1252?Q?b3xZaNYbRQ1h+wPU5+0CVlXQJthi7S7jMYRjW/VgVaVSxuGF9/OS+zHy?=
- =?Windows-1252?Q?P2YV1MjcKhRKRLsDvRV1EES/MPQw02OkYu6wbjUDR5qo1s6zlYQI90rj?=
- =?Windows-1252?Q?Jw2G3Q559mBgVRehyxgWfJER8IHw7fw4z17BpFPFebmf+2Emie/EDrQj?=
- =?Windows-1252?Q?WQJkiYrz8SrDNrrAK3wNxRxyNUpNSCINPON0kZmP3W3PQQrCWD5FUSP9?=
- =?Windows-1252?Q?qvOQ6wjvJD7n0ZEVSbAGxHgfsDMpUIq7Ont3aysvexo+kKkZldeE+UX1?=
- =?Windows-1252?Q?cTQJ1kIt03cdlUyo5RFSfC6XJFZCenll+XO6/OclNrwvzADg9M7pxM8a?=
- =?Windows-1252?Q?v5KqafkyeQ+0hlFzyaB8qqTBvrJrxC9ebu1LNSWRHqfNSslDjHYiq8T5?=
- =?Windows-1252?Q?TGTKeyd6gBYlFcCRFUgm/jgxRtTMtNEx1kSFrLtYFLGcQdEV5fYemESP?=
- =?Windows-1252?Q?VGxV2yFtk3XJ8DRMa2Ild1ZjTedS9O29cD7mmrVHcDeXSoDkJeG6X8OL?=
- =?Windows-1252?Q?0mAAbUiDemdMlQfij/yx/cmzvtuADhr6rxOA6JKrbMj7rq3yzk+jIcdD?=
- =?Windows-1252?Q?SLWC4gAvACXlU3l5pUQS5eU2uTkKe/LqOLrOLFLeBKN40S10xGhNFi9/?=
- =?Windows-1252?Q?1yyUDkhaWx+pQGwHBbHBZBUC65wlmd7lEtWdceMXDLzxCorEf/hM64xt?=
- =?Windows-1252?Q?5gbmLwpuWSZs1B5gU+1+XPmcAIpzxif7ee5QJArmFF9FbUdFdJYe/xOJ?=
- =?Windows-1252?Q?ViNi9OfqgVxTb00yF5N8w9SYCSCZz+jWqM3AbR6yMXq5S5PC4mj0bC3f?=
- =?Windows-1252?Q?2dLWwjMiX1R+pw7yBQ3JfJa7xI3CmCNcz4wQHFApuO25KHZXyLAuaOFu?=
- =?Windows-1252?Q?r9J0czQhocOHw/hp2eSoWOy2dRAF2tv+k8h3/p3AxIdNRPuO6uQ19taa?=
- =?Windows-1252?Q?MO3ZTIsv?=
-Content-Type: text/plain; charset="Windows-1252"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=cYnL1MX+
+Received: by mail-dl1-f48.google.com with SMTP id a92af1059eb24-151de818519so567c88.0
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 10:58:14 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792691894; cv=none;
+        d=google.com; s=arc-20260327;
+        b=duRTZB9kxseU+J0vIr3sbcvKvmcWlw7YXWpX37bmQYwK4ZKh2H4zvGHdmw/v1RRhgW
+         iFNuuBy3jENX2E0imEFRXvvGPbkji2EPjYIFbTVAqkKXs0zn0yP/WFjyqIh3VsDQt7ob
+         EYBg4ymEeAroMkRzkXURlXibXVMCgtfBQKu37CZUoulTC6kkxs/BSeXfzdVD+eOqTbOS
+         zr0vceN9IO8vYxWkHol56ZzoJCBx2jCLR1HJd4xr2PDtYG58IyIhebkifDwu8Wj+A1ia
+         0LU74cGjvGXkLNrWX9RCoOBxq0LpYdQ9v5ykvB5eou+ZSjjApO6Dest/PWtl7/bKh8dz
+         lRew==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=gOxyJqweGrhnvnodtSAXe9yahnUU1PnlCf3PPg5Ekys=;
+        fh=rYmsbvehnwNsIqjutQ8KoUBfM5hUub39TcOKYmknptw=;
+        b=V5M5Nw6G6YDqOwd+erUO7FumNSU4Bjo6WYyP1FH5RnuEwEyGl1lSFj/S2CGcSgQZqv
+         PvUv5cpyGZIHQ5HD0mcbOeHfbOzn7iqmWqAjQ0/nPpC4yHSkcSzOLfRblA85Z+n3MJ+F
+         cYJJPTIZ0zdcXkT+dA9qweFv432ln8KZiogJzSuACi+TO2mKpPY8SWXCt673i3GDUiW9
+         dDtNqwe9jwvHYFgHDb1MQiiZQsmwGn9C8u6LeRMhstsHYWobIQ4Dd5E60/9jdKzsI6b6
+         yr4H+IoNYqX7d5hMESGnpAP7heXsH0f4/LIipSAiznXzvBRIeAJUx8Vaz4fS4hetU239
+         M5VA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1792691894; x=1793296694; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=gOxyJqweGrhnvnodtSAXe9yahnUU1PnlCf3PPg5Ekys=;
+        b=cYnL1MX+U1a40hz+XE/VF5umImeX/rli59J7Gx9Ugd2tRq6Cv7JYHI/WhoJiVIXh8w
+         H08IbXhIqQh85qSFS5ZBcGPo2xPRGVyYF1gEprNrKRw6ubElgagEo2WctLlDKoLb0fof
+         W7fm9kVDKi5gvDhWuYEgnRH87wG3cimYyuIx8r54ZZbxVXF+HQHelFceGPTpiR1DxlBa
+         sJFp6cFayuZgG4Yd6XHGI5VIM3FpM3h1/ZEfEQscYLKtHfaoqhuzWzd3OJSVVzOHvYuL
+         Bm0DwkDFtarUd1ojJ1KRAx5W4hyQRvNmNPT2hxd1Sk7RtEGL3eSjGVw3OhjRBPAYP9xu
+         t+Jw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792691894; x=1793296694;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=gOxyJqweGrhnvnodtSAXe9yahnUU1PnlCf3PPg5Ekys=;
+        b=UVOLNcDlkQNrxiP0Y4SEiS/G+PY8rF2dpyt5ikxvB6KRPzT7MOx0i/yD/PDoBWgZa/
+         CT5MUHRJY3W44B8YEJwK7jpEl1XG2wnNz9nIpTQBXxsVFFuCxpLhfQXb0kYsVLgo8rTL
+         q333JJ1G0YQCMWLgGEOC2u0vXAxq3Vpv4h1Cgdm40yjJmFRMcaLH8S7sKusoDvrMkRYO
+         N7cqfpV5WR5ZoTaut4FyMW5UwcjS5TkzwbEM0xgq1cmgOFX3Iw26GIfFcanNXQEEPuZ7
+         /neeL3WPi14T5mSj5MTBMGqFNv8JabGBZXF1dJhA3fw0EZ/LUo5RV4z5C7Q5uJKVEtyf
+         SU/g==
+X-Forwarded-Encrypted: i=1; AKwUvBzbTNfj2UBqpZ6QphBDFfx511l2Fm/5EI5S0rebjEFJ3BO81EbKul0b87CTVSk84E3VmtwO8fJbSMipKeY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK0rToro64aB9i4N9WZa2SN3pbt2ID/G3fcYaEhOsQYImLe6DKX
+	g41vH4ilvufoLaqMdNUBh0cxbPgqqE2uI5zXvl+5I5CU1rgyAarB6q9pZzyvXMZ5gWgqkaAPiSy
+	NfmnPpVvRZYWztVs46L4c2SAxlTiOdSIDaXGNTgo=
+X-Gm-Gg: AYBFou3VDQYb/Pe0K45Uho3o+7iCKj3BkTHrsv8h3qq5yTCAt5MOVj6e3u4dFmPjw20
+	d+67M+2fp4uq0znDPolR9KaYE1cDCOddod0cuJlky6nu+ZiJSks90R22pJcUhuvmeIWjyO4qY6I
+	VYgSITwjwDaIWRPloL5Ph3I9GI9p0KZdvr/OwSa1LYjh7rBI6oPPY9PtEH3Wf+lOORR2BjA4F9Y
+	Fm2qXHhUdkbly6R3+g+hxqzI84GV+Wl4XQ1znBwoOclXMXy/Dr/r3KeGnFb2gDY9gtJjgYPMKNC
+	0vNroxm0xdpv0AtEXr3jT5RZArU28X9ImPLFyOIWX0Z4XASFezl9OCh14ljPT5dausiXhwDavgb
+	+C+IzD1ZcC8Bs7M1Z5meeNxDGKr97YrYcncuwXbPL5LaFD/vvx1or6c2ib7NuziOsU0yhUbWA6O
+	hPek9GiYjCvHS4Jfq001M85veCB0j2paHtgPfcMv6r9PjOIOGIn450
+X-Received: by 2002:a05:701b:2085:10b0:192:ce56:4982 with SMTP id
+ a92af1059eb24-195b384f21cmr17350c88.1.1792691893149; Thu, 22 Oct 2026
+ 10:58:13 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -162,148 +105,178 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-OriginatorOrg: outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: RO2P152MB5105.LAMP152.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1e4dc19d-a015-4dea-9b2f-08df3065ffb9
-X-MS-Exchange-CrossTenant-originalarrivaltime: 22 Oct 2026 17:57:54.9799
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CPWP152MB4109
+References: <20261006154913.2689067-2-val@invisiblethingslab.com>
+ <8b0fbe1a-1410-42d7-8031-611795ae39d9@collabora.com> <4d86ec37-ce27-4556-966e-4b4e80ec0718@invisiblethingslab.com>
+ <f717bc84-57f4-4001-a15b-fcdca67bb9b4@collabora.com> <6c0f26af-e363-46b8-b3b9-8d3910297dc0@collabora.com>
+In-Reply-To: <6c0f26af-e363-46b8-b3b9-8d3910297dc0@collabora.com>
+From: Yiwei Zhang <zzyiwei@google.com>
+Date: Thu, 22 Oct 2026 10:58:01 -0700
+X-Gm-Features: AclHuK8zrBSyPW0ecQ4Wi5vbzBHjWnhi_xIgMiJLjDz9C3zXcHZS3t6jUqqUQ44
+Message-ID: <CAKT=dDmEf3McX50KYxmLDb-oeuYWMBSnkcGGSEfi_PO4pD6qjA@mail.gmail.com>
+Subject: Re: [PATCH v2] drm/virtio: do not enforce blob_alignment in
+ cross-domain contexts
+To: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+Cc: Val Packett <val@invisiblethingslab.com>, David Airlie <airlied@redhat.com>, 
+	Gerd Hoffmann <kraxel@redhat.com>, Gurchetan Singh <gurchetansingh@chromium.org>, 
+	Chia-I Wu <olvaffe@gmail.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+	Simona Vetter <simona@ffwll.ch>, Sergio Lopez <slp@redhat.com>, Yiwei Zhang <zzyiwei@chromium.org>, 
+	Ryan Neph <ryanneph@chromium.org>, dri-devel@lists.freedesktop.org, 
+	virtualization@lists.linux.dev, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-=A0=0A=
-Hello,=0A=
-I would like to report a reproducible AMD IOMMU/VFIO issue on an ASUS ROG Z=
-ephyrus G14 GA403UI, now confirmed using an upstream Linux Mainline Vanilla=
- 7.4.0-rc0 kernel without the proprietary NVIDIA driver.=0A=
-=0A=
-The firmware publishes broad IVMD exclusion ranges that Linux exposes as IO=
-MMU_RESV_DIRECT. Consequently, VFIO refuses to establish an IOMMU domain fo=
-r an otherwise isolated NVIDIA GPU.=0A=
-=0A=
-System information=0A=
-System: ASUS ROG Zephyrus G14 GA403UI_GA403UI=0A=
-CPU: AMD Ryzen 9 8945HS=0A=
-BIOS: GA403UI.311, 06/09/2025=0A=
-Distribution: Fedora 44 Workstation=0A=
-Virtualization: QEMU/KVM with libvirt 12.0.0=0A=
-AMD-Vi: Enabled and operational=0A=
-=0A=
-Kernels tested=0A=
-Fedora 7.2.8-200.fc44.x86_64 =97 VFIO failure reproduced=0A=
-Fedora 7.2.11-200.fc44.x86_64 =97 IOMMU_RESV_DIRECT persists=0A=
-Stable Vanilla 7.3.0-363.vanilla.fc44.x86_64 =97 IOMMU_RESV_DIRECT persists=
-=0A=
-Mainline Vanilla 7.4.0-0.rc0.261022.7be4bc52.302.vanilla.fc44.x86_64 =97 VF=
-IO failure fully reproduced=0A=
-=0A=
-The Mainline test used the in-tree nouveau driver, not the proprietary NVID=
-IA driver.=0A=
-=0A=
-PCI devices and IOMMU group=0A=
-The devices being assigned are:=0A=
-0000:01:00.0 [10de:2860] NVIDIA AD106M / GeForce RTX 4070 Laptop GPU=0A=
-0000:01:00.1 [10de:22bd] NVIDIA High Definition Audio Controller=0A=
-Both functions are isolated in IOMMU group 14, with no unrelated devices.=
-=0A=
-The internal display is driven by the AMD iGPU (65:00.0), allowing the grap=
-hical session to be stopped without disabling the host display hardware.=0A=
-=0A=
-Reserved regions=0A=
-On Mainline 7.4.0-rc0:=0A=
-$ cat /sys/kernel/iommu_groups/14/reserved_regions=0A=
-=0A=
-0x0000000097d36000 0x0000000097d37fff direct=0A=
-0x00000000fee00000 0x00000000feefffff msi=0A=
-0x000000fd00000000 0x000000ffffffffff reserved=0A=
-The same direct region is exposed for many other IOMMU groups, including gr=
-oups 0 through 17.=0A=
-ACPI IVRS / IVMD=0A=
-=0A=
-The firmware IVRS table contains two IVMD type 0x22 entries with exclusion =
-flag 0x08, covering requester IDs 0x0000=960x0fff.=0A=
-Their memory ranges are:=0A=
-0x97d36000=960x97d36fff=0A=
-0x97d37000=960x97d37fff=0A=
-Relevant raw IVRS bytes:=0A=
-00C0: 48 00 00 00 22 01 00 01 22 08 20 00 00 00 FF 0F=0A=
-00D0: 00 00 00 00 00 00 00 00 00 70 D3 97 00 00 00 00=0A=
-00E0: 01 00 00 00 00 00 00 00 22 08 20 00 00 00 FF 0F=0A=
-00F0: 00 00 00 00 00 00 00 00 00 60 D3 97 00 00 00 00=0A=
-0100: 01 00 00 00 00 00 00 00=0A=
-These exclusion entries appear to be responsible for the IOMMU_RESV_DIRECT =
-region affecting the GPU.=0A=
-=0A=
-Reproduction on upstream Mainline 7.4.0-rc0=0A=
-Boot the Mainline Vanilla kernel.=0A=
-Confirm that 01:00.0 uses nouveau and 01:00.1 uses snd_hda_intel.=0A=
-Connect to the host via SSH.=0A=
-Stop GDM and verify that no users remain on the DRM devices.=0A=
-Start an existing Windows 11 QEMU/KVM guest using both PCI functions with l=
-ibvirt managed=3D'yes'.=0A=
-The GPU is successfully rebound to vfio-pci during VM startup.=0A=
-=0A=
-However, VFIO reports:=0A=
-vfio-pci 0000:01:00.0: Firmware has requested this device have a 1:1 IOMMU =
-mapping, rejecting configuring the device without a 1:1 mapping. Contact yo=
-ur platform vendor.=0A=
-The VM fails to start.=0A=
-Libvirt subsequently rolls back the assignment and restores:=0A=
-01:00.0 -> nouveau=0A=
-01:00.1 -> snd_hda_intel=0A=
-=0A=
-This demonstrates that PCI driver binding and unbinding work, but VFIO cann=
-ot establish the required IOMMU domain.=0A=
-=0A=
-The same kernel error was previously reproduced on Fedora 7.2.8 with the pr=
-oprietary NVIDIA driver, followed by successful rollback to the NVIDIA host=
- driver.=0A=
-=0A=
-No ACS override, allow_unsafe_interrupts, vfio-pci.ids=3D, IOMMU bypass par=
-ameters, or local kernel patches were used.=0A=
-=0A=
-Related upstream work=0A=
-This appears closely related to the AMD IOMMU IVMD handling series:=0A=
-[PATCH v2 0/4] iommu/amd: IVMD handling cleanup and ivmd=3D boot override=
-=0A=
-https://lore.kernel.org/all/20260424092213.16976-1-suravee.suthikulpanit@am=
-d.com/=0A=
-=0A=
-In particular, the proposed change to avoid converting IVMD exclusion regio=
-ns into mandatory unity mappings appears relevant to this system.=0A=
-=0A=
-A separate test report from October 1, 2026, also describes broad IVMD excl=
-usion ranges and their conversion from direct to reserved after applying th=
-e v2 series:=0A=
-https://lists.openwall.net/linux-kernel/2026/10/01/120=0A=
-=0A=
-I have not yet applied that patch series to this system, and I cannot confi=
-rm whether it resolves the full VFIO assignment failure here.=0A=
-Fedora bug report https://bugzilla.redhat.com/show_bug.cgi?id=3D2559096=0A=
-The Fedora report has been updated with the full Mainline 7.4.0-rc0 reprodu=
-ction and kernel log.=0A=
-=0A=
-Available diagnostic information=0A=
-I can provide:=0A=
-Complete ACPI IVRS table (ivrs.dat)=0A=
-Decoded IVRS table (ivrs.dsl)=0A=
-Complete kernel log from the Mainline 7.4.0-rc0 failure (attached)=0A=
-lspci -nnk output=0A=
-IOMMU group topology=0A=
-Reserved regions from all groups=0A=
-Relevant libvirt domain XML=0A=
-=0A=
-I am willing to test an updated AMD IOMMU patch series or a diagnostic kern=
-el build, and report the resulting reserved regions, VFIO assignment behavi=
-or, and host recovery.=0A=
-=0A=
-Could you confirm whether the current AMD IVMD handling work is expected to=
- address this case, or whether additional firmware/platform diagnostics wou=
-ld be useful?=0A=
-=0A=
-Regards=0A=
-=0A=
-C=E9sar Z.=0A=
+On Wed, Oct 14, 2026 at 2:02=E2=80=AFPM Dmitry Osipenko
+<dmitry.osipenko@collabora.com> wrote:
+>
+> On 10/10/26 22:40, Dmitry Osipenko wrote:
+> > On 10/8/26 23:59, Val Packett wrote:
+> >>
+> >> On 10/8/26 4:33 AM, Dmitry Osipenko wrote:
+> >>> On 10/6/26 18:42, Val Packett wrote:
+> >>>> VIRTIO_GPU_F_BLOB_ALIGNMENT is designed for GPU rendering context ty=
+pes,
+> >>>> however VIRTIO_GPU_CAPSET_CROSS_DOMAIN is not one of those. Resource=
+s
+> >>>> created under cross-domain contexts are arbitrary shared system memo=
+ry
+> >>>> files, which includes unusual things like Wayland keymaps received
+> >>>> from the host compositor. Do not enforce alignment requirements ther=
+e.
+> >>>>
+> >>>> Fixes: 47248e0d8264 ("drm/virtio: honor blob_alignment requirements"=
+)
+> >>>> Signed-off-by: Val Packett <val@invisiblethingslab.com>
+> >>>> ---
+> >>>>
+> >>>> v2: also check has_virgl_3d to prevent dereferencing NULL vfpriv
+> >>>> v1: https://lore.kernel.org/all/20261006004044.2242154-1-
+> >>>> val@invisiblethingslab.com/
+> >>>>
+> >>>> ~val
+> >>>>
+> >>>> ---
+> >>>>   drivers/gpu/drm/virtio/virtgpu_ioctl.c | 4 +++-
+> >>>>   1 file changed, 3 insertions(+), 1 deletion(-)
+> >>>>
+> >>>> diff --git a/drivers/gpu/drm/virtio/virtgpu_ioctl.c b/drivers/gpu/
+> >>>> drm/virtio/virtgpu_ioctl.c
+> >>>> index 3ddd5481d6bc..4d5ae062834d 100644
+> >>>> --- a/drivers/gpu/drm/virtio/virtgpu_ioctl.c
+> >>>> +++ b/drivers/gpu/drm/virtio/virtgpu_ioctl.c
+> >>>> @@ -551,7 +551,9 @@ static int verify_blob(struct virtio_gpu_device
+> >>>> *vgdev,
+> >>>>       params->blob_flags =3D rc_blob->blob_flags;
+> >>>>       params->blob_hints =3D rc_blob->blob_hints;
+> >>>>   -    if (vgdev->has_blob_alignment &&
+> >>>> +    if (vgdev->has_blob_alignment && vgdev->has_virgl_3d &&
+> >>>> +        (vfpriv->context_init &
+> >>>> VIRTIO_GPU_CONTEXT_INIT_CAPSET_ID_MASK) !=3D
+> >>>> +        VIRTIO_GPU_CAPSET_CROSS_DOMAIN &&
+> >>>>           !IS_ALIGNED(params->size, vgdev->blob_alignment))
+> >>>>           return -EINVAL;
+> >>>>
+> >>> What userspace has this problem and why it re-purposes virtio-gpu to =
+act
+> >>> as udmabuf for arbitrary data that never reaches host?
+> >>
+> >> Sorry, what do you mean by that?
+> >>
+> >> This is not related to data that "never reaches host" at all! The erro=
+r
+> >> I referred to in the patch message literally says "received *from* the
+> >> host"=E2=80=A6??
+> >>
+> >> Guest userspace is any of the cross-domain proxies:
+> >>
+> >> * https://codeberg.org/drakulix/wl-cross-domain-proxy
+> >> * https://github.com/talex5/wayland-proxy-virtwl
+> >> * https://github.com/google/sommelier-rs (or old C++ version)
+> >>
+> >> VIRTIO_GPU_CAPSET_CROSS_DOMAIN "repurposes virtio-gpu" to act as a
+> >> cross-VM UNIX socket transport that supports fd passing. By referring =
+to
+> >> virtio-gpu resources in the send command the guest can make the device
+> >> send the resources' corresponding host fds to the host Wayland
+> >> compositor. It can refer to resources from other contexts, in order to
+> >> present drm/venus/etc rendered buffers on Wayland surfaces. (i.e. the
+> >> host would send the actual dma-buf from virglrenderer) But the resourc=
+es
+> >> created on the cross-domain context itself are system memory buffers,
+> >> generally used for software rendering and miscellaneous Wayland "stuff=
+"
+> >> like keymaps which are sent *from* the host, and exposed to Wayland
+> >> clients in the guest. Socket receive handling in rutabaga-gfx stores
+> >> incoming fds and returns their IDs to the guest, then the guest does a
+> >> CREATE_BLOB with matching blob_id, which creates a virtio-gpu resource
+> >> from the incoming buffer, so the guest can just MAP_BLOB it. These are
+> >> the blobs that are not aligned to anything because they're just
+> >> arbitrary memfds on the host.
+> >
+> > RE "These are the blobs that are not aligned to anything because they'r=
+e
+> > just arbitrary memfds on the host." I'll appreciate confirmation from
+> > people more familiar with Sommelier internals like Gurchetan, Yiwei or =
+Ryan.
+
+Technically there's no need to enforce alignment on keymaps backed by
+memfds, meanwhile those consumed by GPU have the proper alignment told
+by CROSS_DOMAIN_CMD_GET_IMAGE_REQUIREMENTS (unless it fails to do the
+right thing).
+
+> >
+> > In a case it is a correct claim, might be better to remove the
+> > blob_alignment check entirely and let blob sharing fail naturally if
+> > alignment is wrong.
+> >
+>
+> Reproduced the bug with Sommelier.
+>
+> Driver always implicitly rounds up BO size up to PAGE_SIZE for both
+> guest and host blobs [1][2], hence need to retain this old behavior to
+> fix the problem properly.
+>
+> Please send v2
+>
+> [1]
+> https://elixir.bootlin.com/linux/v7.2.10/source/drivers/gpu/drm/virtio/vi=
+rtgpu_object.c#L217
+> [2]
+> https://elixir.bootlin.com/linux/v7.2.10/source/drivers/gpu/drm/virtio/vi=
+rtgpu_vram.c#L210
+>
+> --- a/drivers/gpu/drm/virtio/virtgpu_ioctl.c
+> +++ b/drivers/gpu/drm/virtio/virtgpu_ioctl.c
+> @@ -539,9 +539,15 @@ static int verify_blob(struct virtio_gpu_device *vgd=
+ev,
+>         params->blob_flags =3D rc_blob->blob_flags;
+>         params->blob_hints =3D rc_blob->blob_hints;
+>
+> -       if (vgdev->has_blob_alignment &&
+> -           !IS_ALIGNED(params->size, vgdev->blob_alignment))
+> -               return -EINVAL;
+> +       /*
+> +        * Blob sizes always implicitly rounded up to PAGE_SIZE by the
+> +        * driver, userspace may be unaware of the host's alignment.
+> +        * Round up to the larger of the host and guest page sizes.
+> +        */
+> +       if (vgdev->has_blob_alignment)
+> +               params->size =3D ALIGN(params->size,
+> +                                    max_t(u32, vgdev->blob_alignment,
+> PAGE_SIZE));
+>
+>         return 0;
+>  }
+>
+>
+>
+> --
+> Best regards,
+> Dmitry
+
+I like Dmitry's latest proposal much better. Keeping the alignment
+agnostic to the guest userspace is more seamless, which also covers
+the implicit 4k alignment case without forcing userspace to adapt.
+
+Best,
+Yiwei
