@@ -1,73 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792636096;
-	b=E/pMGzngHapk7mJtb7N3aykPaDyvw+tcgbVUbPqbeY3hjhDFTVXA5ZhN15FSBvJN3wfT
-	 3Cmvz/E+lOmPVHVfYbK6LE0N3CjA3GDyUSz3VQGpLVWTzh4Oetf3gggrSB2fqBsHEc7LU
-	 SVpfdiRYP0MUunI7wKA3DV0fD9ovTe1TKJflZ542+xS5uK276RWUCW8DdTiSUPFA6St7v
-	 L3+0sW2MnlsZ05tkk1YMJsM8l7rSwjLBPzJ++27icF2sUE00pieK7edVZPMojrZP29nGV
-	 hPZCejlWPukA7m93UouFOZM7E60nDH4Sc3DGPrNAvtNOvyilJqe8xgOz7gMmf6AdE7Q==
+	t=1792636164;
+	b=A7tCWCjjzlS9WRYfRK+EiFY/g54uBQknE7zdbyoW4TkpbNDpSbvGGdhvs2YHXv+thxqY
+	 6fu5ntvRk3rtsg6c3Ifh6xARUSnHcOR7k+xF0P9nyC8qGhdrGY8FAVhYXe6RIgNjt+u4Y
+	 T7fVkgUSu6IPVcuf6ZbVg7nGL0aL1LCpV+QAfoy36A/VaBO0Bo/LQAMcaSmYDWxd6mAy0
+	 PkPkGdKTnBzPnst/ru74IUjr9D3sR1zgPY8r02L58HWdFrUhEZv8n3EBJLyuC1Wir6Lu6
+	 9i0ZrBIaLt2f4cV2+HFUyqVmxF3e2lNs+/c8+RPo3O5tr4lZxHYiXsNSG0Lpixii2EA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792636096;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Reply-To:Date:
-	 Mime-Version:X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=r7COp7eSdmI3KWQdqQlR04zrDpvtCg9K9xahMpH03/8=;
-	b=vZuif+jNOSvzzFRT2dD+aA/PkMuZDE7V337M9rDcJ1qM665B/afWmRuAJONi0YYQeZn6
-	 ZFT8s8JB3CASdInBbGp/ZPV52mD0/KJYGBY9mSL/Yp8PSjWVW3MVniJXLi3ragG2Btb+z
-	 //9DJljoiH8uLGMdGztzegkuK3O0DthqKVJWhi4w4o1/8/ed2kVhm1l221+nd/W9JOQaD
-	 SEQ0vU9tq0McHZa/647+tKm25IdxOxEGfIeP/QEuZMxIFd5FS9zQNyqGn7EwS9sIDU02A
-	 2qhMgIlvYDm76z0psQpDOOgWGpnSK9+2sspThNvf5G7wl+Y0HFbieO/+bQgRaMhU2gQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792636164;
+	h=Received:DKIM-Signature:Date:Content-Type:Content-Transfer-Encoding:
+	 MIME-Version:From:Cc:To:In-Reply-To:References:Message-Id:Subject;
+	bh=FSQS9O8mpAsPeW86pVBIvdj87OSEblfkP36UkWEi9KU=;
+	b=U2w22GUvrdgaCZuCdCV+xYg7RBRhST5fBPvCL9bcdH0BVVX5bRSvgo3YgS++BH81mfQd
+	 cOMwmgKjZHtm5I56mbu0zOmfBGqTNnhqR/FS1YWhKgnaTqP5SASy6DL5g3oFbGfDUydUd
+	 hP5pFtwlW5pq1667oxq3ux8sWu0sNs0c4cTpozM3gmouP6kmegNGMwv10oycql5jwcW/B
+	 ME6QSfQndJ18or4enBEQAd67a4nfy8Oef0h1+j1rPh3uih9FQvRu6bWV5FCmObkdRBqGb
+	 Keuu7XOHPHz3kw9VS2L/2PJK9gvCW2RtkWu+7KfSG3lL/tbUtfXz5faD45vARDuqJRw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=Td8AW8Mx;
-	arc=none smtp.remote-ip=209.85.214.199
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dCccHqi9;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F248606A31B
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 02:28:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1F248606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B7D8606A319;
+	Thu, 22 Oct 2026 02:29:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=Td8AW8Mx
-Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2e617b5e9b3so10236845ad.0
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 19:28:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792636095; x=1793240895; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :reply-to:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=r7COp7eSdmI3KWQdqQlR04zrDpvtCg9K9xahMpH03/8=;
-        b=Td8AW8MxqevqQ5s9rozozIe6yUPmCMYWdP1+M1KZ26QmRay/baJiIlJ7r4V95fWpu1
-         Wg1WBH3PfxSejXKwlg7uSiGgVyx5SA0qy7nQ1M800/PHbWxaa8t8Qzl/xtdIW7Yw7tHt
-         OURL1ftyosl7Y4U9inFkhrO/WHXWq/eLX4KXGmiY0hWrr+/BY8MrBVIYQxFFsaND0SKY
-         e63thHRbrmqKChEDgTxlc8A0UZjk4zBegumbVpBtdSrJI5wnX0CDG3GUf1kp269V2tDm
-         q9815mGxRU8lUmGdsUnWkX0HzDwBg6d5X7FkqIQiPYk9BYDNPaeubF6BUqpdN/+xrkOV
-         /5kQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792636095; x=1793240895;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :reply-to:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=r7COp7eSdmI3KWQdqQlR04zrDpvtCg9K9xahMpH03/8=;
-        b=c/2h72cq05D9HpDtBRCWCEym7wrHRhvW0HTkGVfiBqDiCxO9hENu7M9mOG1W923aSp
-         LEIeGMV1NwTS/8fAmq0dtdQnRNjMlgzr8TjOHRUcbBOKQ4YAswj5Mr1aM8KtyuR6PkDH
-         rP7V/pXL2f02QHqOV1lU7G9CVeQvZTT0Hv31okcTVnUaxV1Izi2WKHdnjmDuM6JCb+90
-         DYkYL6KjlcnNCxehVNEerk/8lVO0EN0pK3daGjy9wfUCfBJ2hsw3yuXkS3g1jeMx/q2k
-         Fyn5tDIRV0usslHkx7sT/D5/t9x2/e3RPKijTWU3VFfPSdHKbfzQ+szB+2hpaT8qhM8R
-         p/XQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzzCEI8NiCkh0dX//z+WcJMP9eINV4rEfyH5V3uBd7w1Kuh/rzKvotoX6SSVyBK/TVhx7VcHfsUcOqIXNE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYILlq8EmmQ2QFqzyUKAVJqplfiyaa70hliQQYJTAkhMbR1n/uyQ
-	Ghzq4H5HzO8CIfz0SUWKjb497mk5nYdoBIW2NXfLXm1/ZejDHtVNuQtkomoxrAK1JAkndXJWTbK
-	FrxFg5g==
-X-Received: from plbjk3.prod.google.com ([2002:a17:903:3303:b0:2e4:b03a:397f])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:903:32cb:b0:2e6:13b1:e196
- with SMTP id d9443c01a7336-2ea43d8876bmr28645595ad.74.1792636095139; Wed, 21
- Oct 2026 19:28:15 -0700 (PDT)
-Reply-To: Sean Christopherson <seanjc@google.com>
-Date: Wed, 21 Oct 2026 19:28:11 -0700
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dCccHqi9
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CDD5D1F000C1;
+	Thu, 22 Oct 2026 02:29:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792636164;
+	bh=FSQS9O8mpAsPeW86pVBIvdj87OSEblfkP36UkWEi9KU=;
+	h=Date:From:Cc:To:In-Reply-To:References:Subject;
+	b=dCccHqi9ScYC4HYWLwNalyKxzmm+XvtubgSxnMRdzq3pxqUP4CYFj5n3StHBYixX+
+	 u6NXO6PLAQP0DnyADWatxmIyaYbWuJARU0lwAoLqY+Wgk6JGy85VZFrLKtM1n2HNtd
+	 qUhwzkWfHteETqcvSMzBNRQOJ7PBmDlXnzagW+L0Z+GX77iVGhi2jiQrujP3GUASZC
+	 /T+3UA5Z88mdMm6sX4c8Rjs9lkJ7kalXBrn5BPQl/mVXj3lzcpcXHT+UPDw1X9V7Qw
+	 UGeuVNZds37dQQSrsSMqad+3yVUD+m7q4mJlvTFUWI2iDa+qLfCePhLES6uMlgUh3e
+	 mHytvWup4DadQ==
+Date: Wed, 21 Oct 2026 21:29:22 -0500
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,35 +50,55 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.56.0.218.g1ec904b173-goog
-Message-ID: <20261022022813.303978-1-seanjc@google.com>
-Subject: [PATCH v2 0/2] KVM: x86: Drop deferred updates of EOI bitmaps
-From: Sean Christopherson <seanjc@google.com>
-To: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>
-Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Amirmohammad Eftekhar <amirmohammad.eftekhar@cispa.de>
-Content-Type: text/plain; charset="UTF-8"
-
-Stop deferring EOI bitmap updates.  As pointed out by Amirmohammad, I missed
-this one when removing all the other cases where KVM defers an update until
-vmcs01 is active.
-
-v1: https://lore.kernel.org/all/20261017093016.32348-2-amirmohammad.eftekhar@cispa.de
-
-Sean Christopherson (2):
-  KVM: x86: Switch to vmcs01 to update EOI exiting bitmap on-demand if
-    L2 is active
-  KVM: x86: Consolidate invocations of kvm_x86_ops.load_eoi_exitmap()
-
- arch/x86/include/asm/kvm_host.h |  2 +-
- arch/x86/kvm/regs.h             |  6 ------
- arch/x86/kvm/vmx/vmx.c          |  2 ++
- arch/x86/kvm/x86.c              | 27 +++++++--------------------
- 4 files changed, 10 insertions(+), 27 deletions(-)
+MIME-Version: 1.0
+From: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: Conor Dooley <conor+dt@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+To: Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
+In-Reply-To: <20261021-feature-timeout-ip-v2-1-a037be089518@bruker.com>
+References: <20261021-feature-timeout-ip-v2-0-a037be089518@bruker.com>
+ <20261021-feature-timeout-ip-v2-1-a037be089518@bruker.com>
+Message-Id: <179263613504.745061.2093851751692286121.robh@kernel.org>
+Subject: Re: [PATCH v2 1/2] dt-bindings: bus: Add Altera AXI Timeout Bridge
 
 
-base-commit: 164405e8e9a0378c7e1aff2254625a6553a291f1
--- 
-2.56.0.218.g1ec904b173-goog
+On Wed, 21 Oct 2026 19:56:23 +0000, Vyacheslav Yurkov wrote:
+> The Altera AXI Timeout Bridge is an FPGA IP core placed between an AXI
+> host, such as the HPS-to-FPGA bridge, and peripherals implemented in
+> the FPGA fabric. It forwards transactions unchanged and monitors each
+> one for completion. If a peripheral does not respond in time, the
+> bridge terminates the transaction with an error response so that the
+> host does not hang, raises an interrupt, and reports the address of
+> the timed-out transaction in its control and status registers.
+> 
+> Signed-off-by: Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
+> ---
+>  .../bindings/bus/altr,axi-timeout-bridge-1.0.yaml  | 80 ++++++++++++++++++++++
+>  1 file changed, 80 insertions(+)
+> 
+
+My bot found errors running 'make dt_binding_check' on your patch:
+
+yamllint warnings/errors:
+
+dtschema/dtc warnings/errors:
+Documentation/devicetree/bindings/bus/altr,axi-timeout-bridge-1.0.example.dtb: /example-0/timeout-bridge@10000/timeout-device@100: failed to match any schema with compatible: ['timeout-device']
+
+doc reference errors (make refcheckdocs):
+
+See https://patchwork.kernel.org/project/devicetree/patch/20261021-feature-timeout-ip-v2-1-a037be089518@bruker.com
+
+The base for the series is generally the latest rc1. A different dependency
+should be noted in *this* patch.
+
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
+
+pip3 install dtschema --upgrade
+
+Please check and re-submit after running the above command yourself. Note
+that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+your schema. However, it must be unset to test all examples with your schema.
 
