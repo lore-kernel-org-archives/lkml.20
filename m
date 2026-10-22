@@ -1,73 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.170
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792679307;
-	b=nV6wiEaYHmTGq6yaFncEl0WLiDAKXymSY/ggXeWMKUy3QngKgaEDIsQcSpsRB3NmYlnz
-	 R20zcIrU6mgHe3AoDZKqHdxI4v8S4XrnawBVOozZSX57hekrF+wgsI6Rr2slCVSmfwean
-	 V1vO1k5dBNhVa8eezO0z2GOAVynfeNMxz2xkq52l+JeYyCL/DPBBGjngIQwqzm4SIeTtX
-	 8M9tkC/xyQCCN3LNvAiAjtYaHRAZjVW7iC49RH2mAkG3bpdgewk3AvqZT9v1P2y8xzb2i
-	 lveGtqZLMxNrJjtUAIzxmhi3TZf7cgD6xgZHgG0vexcT9J+LBB5Ym291pZnyKkPdvIA==
+	t=1792679363;
+	b=Seiud594xXaQ5hh0sACsI+h2h/7Z2829CMgR/NRVYpcUWhb7rDbrPaTgCZkS6mwh43aR
+	 mFx25Ma/n5yO2pdDkMRO8qmw8rYrMyf0GJWgH8+Lnj+V87yboJgyEIcDKHY9+TOwAy5xL
+	 mLw54mWeZ3Gz1SrUN7Zcth732dWvuCDG8K14FonMJ2suxtmLvZN9BeGTp47Gc1BoEbRVB
+	 JWNeqqZ74+xJ75hWznPIRrAS+pK9PJO0WAW466lilT9gaWo9I3cbZAb0wRJMExKsfYN9b
+	 KzVN/UK804g4D5GgQWLOUqJlNaVkW1ub269+f1nGWpSWq+mbk3KaQYK5Y8WRLkqF8xA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792679307;
-	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:
-	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
-	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
-	 References:Subject:Content-Type:Content-Transfer-Encoding;
-	bh=6kMmhq36VYEj0XOQSzT3CA4zRST8TSDIcFSnbh3nHTY=;
-	b=v3MNb837i+m/E/B3KOhCD7yDucHDtLeU2ykUuVZCXrlPYYbcx+B4KM+8o2uaLBZ8FmJK
-	 Jflj9lF+Z1OogYg3QKULo21lrF4+xlyfSg3i3StqUMJGlLFADOlgaWi6d7qDvc3Joa1k/
-	 M/uFLRgFGpAzweuoIxbIXuo8qNw5iHe4JYqMWtfVLjj/ZvKPc09NmrjH6avezD5zBYpo4
-	 b+KQkEiFHuMEss04LqSr0uzUXcabAeVX1RwHEGkNMWTkE6RhOdN9o/8Qsg/xs+V4psL0e
-	 6dfw3HrfgvqfIO6p3j/hyZymCci/uZpCsTwoiHL/nPFouy7fdFxbrzs+RndUgAt3gpg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792679363;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=ip3LDVkz43JVMLeEy65y5DnSL95eKEKIg6rsimQU6Ow=;
+	b=5XHGWG4Ay8Pkz1EzsrADJfCmJRdPUSuyCnkzPKpAdBDmInOvw7OH1ixccA4j3KRv0oic
+	 rrz0jOCfmCcItY83qts8hQ7cHHpeOnVkd4eYIXH9JP0qCmo9Y+5Hj/v/KMjAYv3UF325A
+	 rbiixYup6DksReRaY1pQSmaZ1x9iF5UxRvawjuvAWogYfIrDXVBWdp2yriNGPq5USbGwR
+	 PVkyil2KR3SxfvqjuQTqow4DWrTCet4USf0yv9HZzuxDUaP7DRgcfUywgAemWZiW7+fCZ
+	 RROevaaS+bPHkaAA3jUETIevlPL3Fvbndeg1VlTV+yY0VPTA7IEvM+ZEciSsVcg4XEw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FQKXY5Y3;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=cs.unc.edu;
+	spf=pass smtp.mailfrom=cs.unc.edu;
+	dkim=pass header.d=cs.unc.edu header.i=@cs.unc.edu header.a=rsa-sha256 header.s=google header.b=Sh3VG5SY;
+	arc=none smtp.remote-ip=209.85.128.170
+Received: from mail-yw1-f170.google.com (mail-yw1-f170.google.com [209.85.128.170])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABA7E60A263B
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 14:28:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFC31606A32A
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 14:29:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CFC31606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cs.unc.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cs.unc.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FQKXY5Y3
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5125D1F000C4;
-	Thu, 22 Oct 2026 14:28:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792679306;
-	bh=6kMmhq36VYEj0XOQSzT3CA4zRST8TSDIcFSnbh3nHTY=;
-	h=Date:From:To:Cc:In-Reply-To:References:Subject;
-	b=FQKXY5Y3jaDD6bOdfmqj7/w3d0KwDEDdQ5B/4sukBlEXTOm+Uq6PPDWJW2kTGaJw2
-	 iki3ReR6nY3844VGnZ/KgezJH9kAblfSaVy0p6VzfZ4EvCXqZ+kaJbxNasGt6pwEnV
-	 61nKbeR0N4PL9GzksT1qBTingayfj180/YL4kJhpXpaMRJYkXGuBrKusThk63fxXH/
-	 bZF8++foHkbMlbqeOCsRRvM18MPvwAe5+YmiaSaM1ReyixKhOL4LMxgQm+aWIakZYL
-	 G3KJkI2pRDj1HS/Gcokt5QwumGZLdNttI+Flt36LeJnMcBgeMO6Fkqwi4tYak54WgB
-	 uP7rmf/wMiXeA==
-Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
-	by mailfauth.phl.internal (Postfix) with ESMTP id 9C2F6F40066;
-	Thu, 22 Oct 2026 10:28:25 -0400 (EDT)
-Received: from phl-imap-15 ([10.202.2.104])
-  by phl-compute-10.internal (MEProxy); Thu, 22 Oct 2026 10:28:25 -0400
-X-ME-Sender: <xms:iR3aarVjmvMd4uHzTveQm3aUQiMX38v0ZuuqDjEnUbXGXorjgpc0ag>
-    <xme:iR3aaubluyphnDtJd7S7j-s2Flmwhr3j9Dv2lsU_q6urwdRVY0cSp8o15KuqQYnbu
-    T9sg8cMMFb9rxiIDFDJv641OJHZgXhkvAn3waN6DCIR1y2RYKEhEiOU>
-X-ME-Proxy-Cause: dmFkZTEBkP7DGtODa2WUaVOxDTTxBpmdRrLk4G+uNgRAvwhvKqbcfXe3M1e+wE4og1hlaN
-    LHFUNwMS/uWFyo83mTkNFdUj+sVDJyhjvWgFa5vGpyohYMiKAroubejRm9VsrozcW/L+Of
-    1XoOnaPcgjw3htHF39OwaRCec9ItjkG5efEzKfZp8vTfeXUVhbQF2xqn3vhWviRuEjhKzd
-    hwPZu+3TybMjOXkdRuFVdQxV5IUPAsF7p87ZwU4pgZtWN8B0XrT/5fkoMBFP/3UpZyGOBv
-    zw2lg0sAeRo1dnL/cGi2ECHFEN9sw5IryS8uMHczlA1qYaESeXOTlSB95IdaNATEbxblts
-    Y5tg9Uhtu4fWaXj/4LF7sh6i370e3nP2Fpj95o87kH5eYDNbaq/RUvTdTq3lmpwNk172Uc
-    l5SmhHaS/waf4n6hiNmM15JJt5uy1MmWd0TjTrhuOw4iq34ENFzmxGC5OdiWxXU11lbgW0
-    1z6hOFcFtiKlhG+IUX68rOwlyBhv/FWxusA3vTQ1iFCTymLE19TzeqqilXKplXNDlaYhBm
-    l5Bb2ZNXFcepVydP5SvP7ZV0wTL8SuEWEbHzUrSnxCIQ760f+MtDIIfmAKkP8pEs1Rf37u
-    lG+UtVKcjimUMTR9PNrLjkMcVdZ+nYV90jCVPt+m9KEqfqiCC8gSAVKwi82g
-X-ME-Proxy: <xmx:iR3aarAItw2CSSZ-8-Eq5TPxs3-YwZBFH1RILGhKHquUrFRQe7uXWA>
-    <xmx:iR3aagARg8pB8czUmCtU-N0LSmo0bqTH81fTJEX5E-72hc8hekXOcQ>
-    <xmx:iR3aatZYEB1s5GS5JQyj3bKxh1WjBh0ngCP5w6nj2IlweaTQ5GY37Q>
-    <xmx:iR3aatxidFqBbSC3PGXzQ037wSyyR9n--gHp1fMnxRaD0xhvSVzJGQ>
-    <xmx:iR3aaof9Ls-ekSXVkHKcluBSVAZBltSwfyjfpnBBRNuGYwntfQCnQ5vx>
-Feedback-ID: ifa6e4810:Fastmail
-Received: by mailuser.phl.internal (Postfix, from userid 501)
-	id 78C7C782738; Thu, 22 Oct 2026 10:28:25 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key, unprotected) header.d=cs.unc.edu header.i=@cs.unc.edu header.a=rsa-sha256 header.s=google header.b=Sh3VG5SY
+Received: by mail-yw1-f170.google.com with SMTP id 00721157ae682-8b0e21048f8so18566267b3.0
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 07:29:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cs.unc.edu; s=google; t=1792679362; x=1793284162; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ip3LDVkz43JVMLeEy65y5DnSL95eKEKIg6rsimQU6Ow=;
+        b=Sh3VG5SYS86Y/cUu48NcOpZrlstcwtzOP6oDtt0f1lj8SLeLI5pZWs7o+SIp4ix3oT
+         5SggpjHjZ7iWCohx4alswx4ieJz3fvs2sb977apngl3IBzprzk4ulKjhiMFuN6ydLzPY
+         u+OpLY/nMxUyMt/PFrFzJImPdTz/mxUyUWVNKGrEISFLs6U1C1IZZV7uuawmXExSMTo/
+         fLl4ztuQw5RQXnLf6jlBAC9GycJ38e4qI3pKMz8GHe7RDB8g6Qib28eKU+J32wqwYyK5
+         90VRC7sN7POAsHt2h6PjNVLCGTBMGFJ/5KOAClc+KKEbaLuUeqK6opKhBmbEwfSp6jMU
+         PbbQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792679362; x=1793284162;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ip3LDVkz43JVMLeEy65y5DnSL95eKEKIg6rsimQU6Ow=;
+        b=ruAf0pXGFTQKIrXSoXBhb/FEifS3I7Ib8TRtzstyAQu3iWQnZX8DQMy4LntSGFVirx
+         AaJoQl5wzBhT3aefrQzvneVf80SdhCtiFhpn0wRCzfILqXHWvhiwhPA1zHro+7iaKtFo
+         Iwwbsscf7wbWY4wn5q8uMLtbqpKZb3RFO28mhjaM5pCbRN1Td1pDzuhClrPy/2ZqiiLh
+         hLSmKhoMLmfUHEdlodphnij4EUdQcSPjCR7wqbQ9vwlgHDjvF+L9xbNr/Sb231HgwjTm
+         klYbGQXgCrqb4JL3MDT2XCyfQQY3d0Z62wiowPF61p86JTaKNhiho/6bDoIcJXX6RMyS
+         YOrQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwdwSVs/jGOZE9b7Osd/r0X39Py3lgWCjCL6TKzZl8Zu93UnlMKf9Un5+T4oiaBVZQI/e3/egGU8AxEUTU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKlg6wHwR6ykeCuIc4TpmQobjwAmrA/gtwyePm6CxqViIbrHckW
+	i1RBI6S6dEyz7XU1st5BPA9Yn2j49GYgFWUUjr51mYxM1a7NdkqdaA/13Nv97SfwWA==
+X-Gm-Gg: AYBFou3Zi1ZfuAn1byHHm7J8pJaBRNF3ljWw98w7s/sb+ARXWYnFJ5AaTrLyDCVoFby
+	pHhkp7lt/U5qg4iupEoBa1VvtppqJ4d3dTmWJ1rDWJsa+y1++bn/nON0balKwztVggIMXPSs0E2
+	JpPXHPiYkfU3S+2V9rkWCxHgzgBILH93zIibJ+iCZ17zXPO9/5dO3X5rekLW8ttj3VoGq2xTO+M
+	Cg07kA/FbM80c2Sz1bqCdxVy7Se13AYDnnevaWP1iiu3NrfYF5CXUhUugKYZyKQedMa6/Th3Wf1
+	BPTok3jioZdfVNmRFsbnbQqWVZ3dOmco1AFnQ6sTbO8Sg982CbTku3Zp8kI0yqAtV2O2lzHnsWt
+	i2t9oyQ4RzvMrwdqOtY501sDMTmTd9aPIS3a1mHM1rgR8xto3ff6r5kCWkA48imcZa9JNQNg843
+	cvv2z8R8V7KYeuUKlcw7m9ixa0ohQavdlrRQAmegJjZvCpCFcoSE8o6SsdWQYUTfA5NCpRK1DmH
+	aifng2/MYbmFTzfR757Y27Tv6SoLWdhDynhxI298Lc0an/bCAhzMrKN0ld2B+qgT0LgtH09gxGr
+	OCQCetL6466rAizgqmZz0N8f
+X-Received: by 2002:a05:690c:6603:b0:8b0:a171:65e4 with SMTP id 00721157ae682-8b133f979ebmr36772897b3.15.1792679361535;
+        Thu, 22 Oct 2026 07:29:21 -0700 (PDT)
+Received: from cobra01.cs.unc.edu (cobra01.cs.unc.edu. [152.2.130.143])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b1300f3cfesm27329767b3.27.2026.10.22.07.29.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 22 Oct 2026 07:29:21 -0700 (PDT)
+From: Hengyu Liang <hengyul@cs.unc.edu>
+To: jack@suse.cz
+Cc: tytso@mit.edu,
+	linux-ext4@vger.kernel.org,
+	adilger.kernel@dilger.ca,
+	libaokun@linux.alibaba.com,
+	ojaswin@linux.ibm.com,
+	ritesh.list@gmail.com,
+	yi.zhang@huawei.com,
+	dave.hansen@linux.intel.com,
+	akpm@linux-foundation.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] ext4: do not advance i_size on a buffered write that copied nothing
+Date: Thu, 22 Oct 2026 10:29:11 -0400
+Message-ID: <20261022142911.1490979-1-hengyul@cs.unc.edu>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <34dtkdstf5yxg2ulinnh4hocc53gz35ij6k62egi2ykgpyc3a5@zuxt6doiajwq>
+References: <20261009044656.1993196-1-hengyul@cs.unc.edu> <34dtkdstf5yxg2ulinnh4hocc53gz35ij6k62egi2ykgpyc3a5@zuxt6doiajwq>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,53 +107,58 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-ThreadId: AXYV5AzNqYhJ
-Date: Thu, 22 Oct 2026 10:28:05 -0400
-From: "Chuck Lever" <cel@kernel.org>
-To: michael.d.lowman@gmail.com, "Jeff Layton" <jlayton@kernel.org>,
- NeilBrown <neil@brown.name>, "Olga Kornievskaia" <okorniev@redhat.com>,
- "Dai Ngo" <Dai.Ngo@oracle.com>, "Tom Talpey" <tom@talpey.com>,
- "Trond Myklebust" <trondmy@kernel.org>, "Anna Schumaker" <anna@kernel.org>,
- "David S. Miller" <davem@davemloft.net>,
- "Eric Dumazet" <edumazet@kernel.org>, "Jakub Kicinski" <kuba@kernel.org>,
- "Paolo Abeni" <pabeni@redhat.com>, "Simon Horman" <horms@kernel.org>
-Cc: linux-nfs@vger.kernel.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Message-Id: <bfc542d3-4be3-4887-bc93-81403b5a8c11@app.fastmail.com>
-In-Reply-To: <20261022-integ-page-reuse-v1-1-fbe571857d4f@gmail.com>
-References: <20261022-integ-page-reuse-v1-1-fbe571857d4f@gmail.com>
-Subject: Re: [PATCH] SUNRPC: avoid possible page reuse from svcauth_gss_wrap_integ()
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
+Hi Jan,
 
+On Thu 22-10-26 11:48:35, Jan Kara wrote:
+> I agree with the problem but first, Ted has merged rewrite of ext4
+> buffered IO path to iomap your fix would very likely need rebasing, and
+> second:
 
-On Thu, Oct 22, 2026, at 9:10 AM, Michael Lowman via B4 Relay wrote:
-> From: Michael Lowman <michael.d.lowman@gmail.com>
->
-> Commit 7702378ac4d4 ("SUNRPC: Convert svcauth_gss_wrap_integ() to
-> use xdr_stream()") and its parent changed from calculating the
-> integrity checksum in-place in an unused part of the response buffer
-> to calculating in a scratch buffer and appending it to the response
-> stream. While the unused part of the response buffer happened to
-> always end on the first page, the append always occurs on the last.
->
-> If less than 32 bytes remain before the page boundary, some or all
-> of the checksum will be written to the next page. But since the xdr
-> functions do not update the response's page accounting, the page
-> will be immediately available for reuse. Data from another request
-> will overwrite the portion of the checksum on the new page.
->
-> Avoid this by marking the page as used when needed.
->
-> Signed-off-by: Michael Lowman <michael.d.lowman@gmail.com>
-> Fixes: 7702378ac4d4 ("SUNRPC: Convert svcauth_gss_wrap_integ() to use 
-> xdr_stream()")
+Thanks for the review.
 
-Commit d1eafc3bab9f "SUNRPC: in svcauth_gss_wrap_integ() resync
-rq_next_page after the GSS wrap", now in the nfsd-testing branch,
-already addresses this issue. Thanks for confirming the finding!
+In the ext4 dev branch, the iomap buffered path is only used with the
+new buffered_iomap mount option, and it faults the source in before
+->write_begin(), so it does not have this problem. The default
+buffer_head path still does: on 8c4f6e337634, a 100-byte file still
+has a size of 1048586 after a failed pwrite() at 1 MiB + 10, sync and
+remount. The patch applies to the dev branch without changes, and I
+will base v2 on it.
 
+> this is wrong and would leak delayed allocation reservations AFAICT. You
+> should just use ext4_truncate_failed_write() like e.g.
+> ext4_da_write_begin() does on failure.
 
--- 
-Chuck Lever (Come to NFS bake-a-thon! https://nfsv4bat.org)
+I don't think it leaks. ext4_es_remove_extent() gives back the
+reservation of the delayed blocks it removes through
+ext4_da_release_space(), which ext4_iomap_punch_delalloc() also relies
+on in the iomap path.
+
+To check this, I ran my earlier tests on the dev branch with the patch
+as sent and with the helper replaced by ext4_truncate_failed_write(),
+plus a test on an image with the quota feature that reads the user's
+quota usage (which includes reserved space) and the free block count.
+After a failed write past EOF, both versions bring both numbers back
+to their values before the write, and nothing is logged at umount.
+Without the patch, the same case keeps 64 KiB reserved until the inode
+is evicted.
+
+I did not use ext4_truncate_failed_write() because since 665575cff098
+this path is also taken by ordinary writes. When the source page is
+not faulted in yet, the first copy fails, ->write_end() sees
+copied == 0, and generic_perform_write() faults the page in and tries
+again. ext4_truncate_failed_write() would then run ext4_truncate() for
+each such write that starts past EOF, and that frees blocks
+preallocated past EOF with FALLOC_FL_KEEP_SIZE, even though the write
+succeeds right after. In my test, a 64 KiB write from untouched
+anonymous memory into a file with 1 MiB preallocated past EOF leaves
+st_blocks at 2056 with the helper, but drops it to 136 with
+ext4_truncate_failed_write().
+
+So I would prefer to keep the helper. Is that OK with you, or would
+you still rather use ext4_truncate_failed_write()?
+
+Thanks,
+Hengyu
