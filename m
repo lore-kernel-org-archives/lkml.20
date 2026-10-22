@@ -1,135 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.156
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.181
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792637212;
-	b=VhTOFbt2Ga/15AGIpGUs3hDC78J0EaTWUetN8ci8faKs2uAtETevRjCoRiWrhzNQzN7d
-	 g3ZyQff6+KBLPxUcDj5NDvEJ2K060ty+rox3XP5nXVRlmiOiXqS7F0+7WXfGD4fBrMYis
-	 IiFpqrZ+wCwFY+C9KcFEl5cTbz6x/RPwpscNBJSl8m4AlBUoQ++DNSy/rEDn5xTq/1f1q
-	 xc393wA+eu3kpHyq09L2QLwbpK8/YGxJJZm/c6MCAW+qF/pEFeNER1TtdXEuBfy0XIpb6
-	 scLXBGzzR5pqpp/LlKQOSOtSXl25aNoDfZG5BngaT2U1xvc7Cq7MI8wwUAsU1JLGomw==
+	t=1792637241;
+	b=3VSpR/O52ahf1tXHRMqhq+l0cSt4QlVUdwSOj4rxDwzyfwscsI/EOFzFiBOpFSwmZ2hs
+	 bQeiAE2kFXh5MUUScjcW1Gvdl6buBCtD5Pn1aUGJ4y1Mj3aM0l/BV6oZ2Hi7bAfN+ddoq
+	 m4MpJ9fmBbd0S+qsuuj/H8/bqZwSv3JLvZUxlwJX514Kh7oBsswMW6Ma9Y6+6SZqVLi+d
+	 7cSxcVh7QDzJbmmMiiBaiVeFgSSmC4plhuhoIl+np174cFe6ic0DCccIYEoTqoA6W1thN
+	 hUZpiqCROgZI1kwN4Cq4H2PY2DhBgXdDU2rVg2RGaLHu5x/8Ebr0Vb5xt0ka0eSUy1Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792637212;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:Content-Transfer-Encoding:User-Agent:MIME-Version;
-	bh=b8JrLeZmohBXZxoZ8hIHhxCw9MvjJJNFtjwd/KPNiN4=;
-	b=QXHb5cw2lpdH9jE2u/3ZXiezA2bBo+lD+6nnLJJDBDiL5+RZw1vWu0fR3H1cbrNy07bH
-	 uk1AB4DMVtTU4lUOES0WYUCjW0MhX6sgwMhVikJUimBh4NhwPNNPVtgw4aKisLXg2POdr
-	 4mU9ChqNgnIchDPhRciOJPW3dBeRVhtsZwH3LIWbiD5aV6ADziOsS9rybMfpkdb9jm3CE
-	 JmjWhbqDwbmQTCz+eEiIdu2BnVzGOANDDIjWIeBOhYnyg05NmOWByT9RrElLSAgeNUnbQ
-	 q9N9kSy4tbdV5ReEtacA2GqtllnX2lMxd2JHHqJuw6lJ8xC2EugW0WBdq5YDf+LlvZg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792637241;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=Volwfxv4Wq+pPVT4Y+NA3cT3h65Pl/GgAPXC0wXcxI0=;
+	b=o5leT0IlV6unufcAykW/ZacoYkBdBRbX33iYV43x2rOj8ogLbb3mBC70Ckzxsje8dfbo
+	 YKW2BWe1T3Q1YoL3haA5KIb36so6nP1CEpjIg0PqHBHJZWbI+uNkmxuFu/4JbqbyAayj8
+	 vdQ95Ufo95FRSEQCQ/I9Z4bwefeZcUBAHNLRCqPkHG4Kfp+YPoA5sYqpCmrekC+HuaARA
+	 nzijjps7CMtAq/py2R1THk5XohIr3kmaWamXgvLvu9sp9MyKZ+mKEtDTuB2c6Fz5qCoon
+	 UGYUXVai/S09mg9FFdKpqHD1yvxPmjQP2Qbt87pzb/KgPsTNU4A9GNxjuryRlSWgI4A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=themaw.net;
-	spf=pass smtp.mailfrom=themaw.net;
-	dkim=temperror header.d=themaw.net header.i=@themaw.net header.a=rsa-sha256 header.s=fm1 header.b=SlzWuXRT;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=vcwJoROo;
-	arc=none smtp.remote-ip=103.168.172.156
-Received: from fhigh-a5-smtp.messagingengine.com (fhigh-a5-smtp.messagingengine.com [103.168.172.156])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=CIDJEa7K;
+	arc=none smtp.remote-ip=74.125.82.181
+Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D87FD606A31B
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 02:46:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D87FD606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=themaw.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=themaw.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B078A606A319
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 02:47:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B078A606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=temperror header.d=themaw.net header.i=@themaw.net header.a=rsa-sha256 header.s=fm1 header.b=SlzWuXRT;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=vcwJoROo
-Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id D769A14001CD
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 22:46:40 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-01.internal (MEProxy); Wed, 21 Oct 2026 22:46:40 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=themaw.net; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1792637200;
-	 x=1792723600; bh=b8JrLeZmohBXZxoZ8hIHhxCw9MvjJJNFtjwd/KPNiN4=; b=
-	SlzWuXRTtBF2qXe9jA6lVX3HJSnkinOlCatePQkTUUTQmyOpN6ZrpISLmgygl0Xe
-	Cc81PlfuVQ5J6LAm5cZgQNj9+765p4wfd3ua4iqIaNYC9dhjs7ATJn27lFXZLC/l
-	Vvy4qc6aoJKcQPUYoPgLJmhnZiYSx5Q/co/pEXf5/J/mFYrSk/D+T2A/K4ZyM8ev
-	WuVpJdkFbpbZHHCI6imGoWGp4HBDlGgOHBTgsCBKACPSVO7go1iqlhs8JUfle+Bp
-	66ruuiDLVU3oBtj351ArawJOSrWG40DTygF2Qd1BXE16XRqWLWSiel2q8ZHfGrUF
-	W+qIlmdg7QYnDBaCIO1Snw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1792637200; x=
-	1792723600; bh=b8JrLeZmohBXZxoZ8hIHhxCw9MvjJJNFtjwd/KPNiN4=; b=v
-	cwJoROojIG7D8Yiyo6V0wr9zJ2pRVIh71PjrTRn4b+6YL5sSTwTY+7P7EB9lwh+/
-	DgH1RyTg6cKTNYtiCzaE0wI9A8W6AgLUJlSEbk/fTD7zU/ZhLFKcyrIUauUH1y2A
-	QYZEiekK3gSDR90Ln0u6yMi+ZBrfsn7f0S9Tf2ywJHki9gbE14mIuX/gzivUAOdS
-	Cma0bCSSOLlye+1WSmxdjF1tiiG4XwCFqwaspRg21z7djT/2sh/3+f4JTt5+M8Kk
-	7NLNa4Qd2Imv5mq7Hteo5kGIGgnEE3sT/Kfi1+q9zWSBPXL8j1/3mZNR194Dwsrj
-	Gd2lcQjDOCSHGyYklAHJA==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
-	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
-	action=sign d=themaw.net a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1792637200; d=themaw.net;
-	mf=PHJhdmVuQHRoZW1hdy5uZXQ+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:eLmMq5d4g5iejq1Iyy1Wkxsq8uEsxL3iW7beqn4tfI1HYKF
-	1cQAD4w3xOonjL/wnNViKTIHV8AtvugqheTMy6zXT4pf4B5CcZZcdcpyfMxk+ZH7
-	H0uXMWRBiWcRmrMLMhZhO/oBB0JGnEq91vMuuTzMk84SrSsZWSIee0y6vdHgPc2k
-	wFvYaQ/Gml2UW2N6b3goxOnta4mL3kCXUp1eZzUiQHXlzaebO5ESx5FwwGftzOHU
-	bUNV/MVN+4XDMJiLC8QvYp2PTrF/X5sKPxKavaeyvdLBXiuK/25nIQ5W/BcssEWT
-	Qx8uENJUb4VRjtWvTc5dbEljCfA7GTnlaEepRyw==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
-	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
-	action=mi-m=1; hc=13;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to,
-	user-agent;
-Message-Instance: m=1; h=sha256:sdIH6ghOfrgTjW7puJZHRJZvIDPGFStH0tPZPwlN6IY=:b8JrLeZmohBXZxoZ8hIHhxCw9MvjJJNFtjwd/KPNiN4=;
-X-ME-Sender: <xms:D3nZanyYcTuh1SY80zX_Z3VtYIcnX1BBY-veSqerCBSt1doqa07t-g>
-    <xme:D3nZamOykI2EFyFkWfEQmZBOI0PChO7v-hJGRuVXaGDdRxXTVwMYKBZ7a3UWWH1ie
-    0wFBf-nNgac8cM40_1LQq8MsCTxPG02K1VsP2AXBzRBHIBmRQ>
-X-ME-Received: <xmr:D3nZamY4FEZChR6xmOHcfGReLpYofWK_kp1dlI4Zr0JZdcyX4NIsDRciIpTIpQMClhpxXEvmjwj0sZwKY-PCB50KB4IQmiDvalX4Nn6fX_Quu4q5gHoPw9a8dVE>
-X-ME-Proxy-Cause: dmFkZTFJl80OlkxtKrmLpLry8SB+s8EoAdfs4E9kpHOA5dqijSHh+7H/6Ivwl3c5UQ6DPU
-    41bDxgYzHplpsNoe8kwgDj4e1PKdBedBJV72Q4qA5wkBs8ODrr/9rPxc2zUUd+tnYjIwoT
-    ny8AmIaquX3FxGlVZ0wxUuvq9UzFvwMAZ6TafguFw1d36OZgJRVxv2eQRkdEHm1vVeHXFF
-    enmny/KR7qloN3pF57Mt7BDSlLtYw5ioXv2HFdYDF3laRnOa69O9gEnqzvDWKnOWL+0mIp
-    HHUGTUNCYNktwxR355RyWy/dARgku5E1Vam+5YCKNnxnJoQuSH4/+wb6ScnHEQ3FIY85MV
-    AAKXP32OP+0nQTkUZkb3NJlSRBIDpgT3rTLeB7cgMiC4kZHDuhR4f2GzJiGfZSvkpaVFOP
-    cdlLoxz0KKAOhQPEgAUXJIN8/Uf8MWooH7GFvNoWioufSIH7cfK76aZxRoHTb5pIC3fKB9
-    IrXPlTrMZ0z5RGiu/PDUyXn43KzDEn8Gye3Vf1cyrB0QyRIer9FCFe7jiOgcbOZGbFwpih
-    OXLMN/2oBAih4161kXuTVBxcIypuUYKmasZEXorhy9h6zgyfGvDLpZ909if6Ry7f6MKQQx
-    9xmQ6YWBNfFkmT4h1lMILcX2FXpoU1mRB3zuEOk4y7LUlL26+NtemFD+R7/Q
-X-ME-Proxy: <xmx:D3nZaorfBZiF8DSOEZG9VScubghi4xX2nS4sv7IJtC3MTIqGtPOUuw>
-    <xmx:D3nZajwe7dqGiUq7V8x9yzWXpiTmXTyOtphxRL3efFi5e2Oux14WPA>
-    <xmx:D3nZagKfQaQFfha9UVcQtj1T_EGDbTHRmsjFyN5gd1dg44283zuzVQ>
-    <xmx:D3nZal7I8GnVfCh0yAw6Y7uSPUxVAHpDmybX3LJZ4_ChcJOfw3cg5g>
-    <xmx:EHnZarKh3r5ZAsnP8-S-yuCxUC58gm0culffZA-oAHtI_8qarITqTtyZ>
-Feedback-ID: i31e841b0:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 21 Oct 2026 22:46:34 -0400 (EDT)
-Message-ID: <22d41f2a5546d3bc90a1b3ad24ed3656588a854f.camel@themaw.net>
-Subject: Re: [PATCH 0/2] kernfs, autofs: fix pipe lock cycles through sysfs
- stores
-From: Ian Kent <raven@themaw.net>
-To: Tejun Heo <tj@kernel.org>, Krystian Kaniewski
- <krystianmkaniewski@gmail.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J . Wysocki"	
- <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>, Alexander Viro	
- <viro@zeniv.linux.org.uk>, Christian Brauner <brauner@kernel.org>, Jan Kara
-	 <jack@suse.cz>, Ingo Molnar <mingo@redhat.com>, Peter Zijlstra	
- <peterz@infradead.org>, Andrew Morton <akpm@linux-foundation.org>, Jens
- Axboe	 <axboe@kernel.dk>, driver-core@lists.linux.dev,
- autofs@vger.kernel.org, 	linux-fsdevel@vger.kernel.org, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, 
-	syzbot+002fb7b2d0bc53bf7e75@syzkaller.appspotmail.com
-Date: Thu, 22 Oct 2026 10:46:30 +0800
-In-Reply-To: <649966b83b39fcdd25e892fc3c6732a1@kernel.org>
-References: <6aa23178.f81106d8.2ab401.0006.GAE@google.com>
-	 <cover.1792577179.git.krystianmkaniewski@gmail.com>
-	 <649966b83b39fcdd25e892fc3c6732a1@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-1.fc44app2) 
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=CIDJEa7K
+Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-35f036b17easo301280eec.1
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 19:47:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792637240; x=1793242040; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Volwfxv4Wq+pPVT4Y+NA3cT3h65Pl/GgAPXC0wXcxI0=;
+        b=CIDJEa7K7Th2D5+d6rXvj7eE3+NNLCGGQQLzlpxnPaIO5rY4CXw5kfd08tIpHvcfQf
+         TE17lEErHKOWCdWoSSP3WF7wMcXER/FlqwB57wGb/CwtfvDAFjChyQQOw0qYVKxY4VYT
+         9EmWXOgDMns9jj27YBDHjpGDGTxOG5lvSG1b4LGx30nQmVNZc7lyirZpUs4IBxR+Wk9x
+         i6tlW5WLz4SoMsVheMZxlVTFQHa63UcWIywvZYMPw4bVtcjQ9MhaP1pAkibAY+X5ki6J
+         4fhzf6HQqUdKdv35k7jnbsf5l13vFffBWh+rLtDXvvf56/f6Ae7meXz5x25odS8qV6UN
+         ZZzw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792637240; x=1793242040;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Volwfxv4Wq+pPVT4Y+NA3cT3h65Pl/GgAPXC0wXcxI0=;
+        b=DfOvHWCCxYY/hmuh2L0VWFWif9zueSZop8ct8ft7BXbhqMuNDFaSfc9+Xl/kt1219r
+         /CchpE22eQF/9ceZ6HURIYfmkUyLkxD+ShaOrog8kf65sCUQizPcQe45d1cGpIweUvWT
+         AtlgqFWq3Jp0IEtecVAKLh28QvOlnMti7MwvScOkRij31doO7soVrhUw+NL63aN5L9Dq
+         M1pZOmFMSQVZtPGhsWp7dKqoJd/cWYUgaJGFh1N23XdK4khraDPECI2Pb8mkCL3/Cdnn
+         VKNDqYSZlp2NqP/UlwORi7nHxicQqcxzOUh07dw3A1yXL7HIe2EInUwFeFgZCnHZcAUp
+         u6YA==
+X-Forwarded-Encrypted: i=1; AKwUvBz2W3EX5XEXH3/GSiSYz4/y+kAAnK0GQbbIiHuXb++Pn9thOyLsQuwKeYz0fyZmWSJckudxHdUUqp18QJA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLy6cOVdzIOs37cPkirkh8iAoAtZne4SLFXEHEtz8w+XPuyEyrW
+	y3R8KbMrw1+Tcp0desz8YB/gvT9Khiv0lHyeOJbmIWusC4n4mTERuv1s
+X-Gm-Gg: AYBFou0yu2zmz09PKqIRwabCRceIkNscItQJRsDyAfKWUEykiVuGDVcOB03sbDNKYaj
+	L1sQfQqVGJXDmIWOnr5TYfIu/skcjVzLetHXFu/XcLT0psdS4ohuwVNPAaSeEFT5RXUMjPcSL4W
+	22bJEI2uP1JsR0QH6mSiSuPlkrk4hrSPjizaY94Fe4WVlIupFXF4+/YE5kBkSiF8Dj/oE9tIgU2
+	9VH5WoJ5gGHjrCLU2SdFy1Fi/QMeet2k2QF5ik6qWEfbPmauQKft41ggglBI7qJb8RTSM0qyXDU
+	wyDJsZJZ/NIufK34Rv82RpWyjGdzzElgiG4Z4jBa5UQ2FRIer58af/C5yObhGTrsPpbTO5NPGx7
+	DrxHEUWlXHlBaceKjTer+l8i7eRFyvMEFMRnTu381bH09SncaC7STVyBS7yhfnUuU0dGZ88aOiE
+	hOn3ETVHBzr+9QxQYjxjhOzcSlg9YMlef4jTd354tCHKKxIXEkpEa1J3u2UVtUqc7FFeKvbUjC0
+	jNA/C+toRjwmPGLVSOf7nvLUUxqbmyns22B5ycbVT42sA5OzPA36jwvGAhAe+UzxyNv3jsPYKd3
+	/mW0rC5f6jxK9psRKgEaIYp66U/Z3w5IRVpR9NaP8WDO1zE6j4rzYiu741Q8Ka2eyXFF1zU0UTk
+	8WhSpJbwJGsw02wTXETwk7epKZPXW
+X-Received: by 2002:a05:7300:106:b0:35d:d9a9:e455 with SMTP id 5a478bee46e88-3674ef292b9mr6286668eec.21.1792637239772;
+        Wed, 21 Oct 2026 19:47:19 -0700 (PDT)
+Received: from server1868-4.tail96fc24.ts.net ([199.188.91.198])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-368ca914bb8sm2318629eec.5.2026.10.21.19.47.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 21 Oct 2026 19:47:19 -0700 (PDT)
+From: Austin Schuh <austin.linux@gmail.com>
+To: Jens Axboe <axboe@kernel.dk>
+Cc: Austin Schuh <austin.linux@gmail.com>,
+	Pavel Begunkov <asml.silence@gmail.com>,
+	io-uring@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Peter Zijlstra <peterz@infradead.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Davidlohr Bueso <dave@stgolabs.net>,
+	=?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Clark Williams <clrkwllms@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	linux-rt-devel@lists.linux.dev
+Subject: [RFC PATCH 0/2] io_uring: futex wakeups that a preempted lower-priority task can't delay
+Date: Wed, 21 Oct 2026 19:46:54 -0700
+Message-ID: <20261022024701.1574811-1-austin.linux@gmail.com>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -139,48 +106,133 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Wed, 2026-10-21 at 11:48 -1000, Tejun Heo wrote:
-> Hello, Krystian.
->=20
-> On Wed, Oct 21, 2026 at 02:51:48PM +0200, Krystian Kaniewski wrote:
-> > syzbot reports a lockdep cycle &pipe->mutex --> &of->mutex -->
-> > &sbi->pipe_mutex. splice holds a pipe mutex while it calls the
-> > write or
-> > read handler of a kernfs file, kernfs takes of->mutex there, and a
-> > write
-> > to /sys/power/resume looks up a path that can make autofs write a
-> > request
-> > into its daemon pipe and wait for the daemon.
->=20
-> This is an extremely convoluted case that isn't going to happen in
-> any
-> realistic scenario, and it doesn't make sense to change the locking
-> scheme
-> for it. Can we just disallow splice on /sys/power/resume instead?
+Thanks for the prompt reviews, Jens!
 
-I agree but it might not be as simple as disallowing that path.
+I run robot control systems on kernels built with CONFIG_PREEMPT_RT.
+Each process runs an io_uring event loop, and processes publish to each
+other through shared-memory queues, with the publisher waking each
+subscriber's loop.  Real-time and lower-priority processes publish and
+subscribe on the same queues.  The real-time ones run on CPUs kept free
+of interrupts, and the interrupt threads and everything else run on the
+rest.
 
-Not only is the description hard to follow the example is flawed
-because there should not be a mount callback on anything that's
-not an empty directory or an autofs trigger mount (and the above
-should be able to be either (systemd's /proc/sys/fs/binfmt_misc
-is an example of an autofs trigger mount).
+io_uring fits this well, for the same reasons it is fast: most of its
+state is per ring.  The submission and completion rings are shared with
+userspace without a lock, and the kernel-side ring locks belong to the
+ring.  Requests and single futex wait data come from per-ring caches
+once warm, not the slab.  With DEFER_TASKRUN, completions run in the
+ring's own task when it waits, so no other task posts to its completion
+ring, and another task hands it work with a push onto a lock-free list
+and a wake up, taking no lock that sleeps on PREEMPT_RT.  Each of those
+removes a place where a lower-priority task could be holding something
+the real-time task needs.  And io_uring already lets a ring register
+files and buffers once, so each request skips looking them up again.
 
-I mostly can't grok the reproducers for things like this so a
-complicated description makes it so much harder to come up with
-a sensible solution.
+The wakeup between event loops is where that breaks down.  What I need
+is for a real-time publisher to wake a real-time subscriber on time,
+whatever the lower-priority processes on the same queue are doing and
+however busy their CPUs are with interrupts.  Which mechanism carries
+the wakeup doesn't matter to me.  Running the real-time tasks above the
+interrupt threads isn't a great answer: a lower-priority task boosted
+to their priority would then outrank the interrupt threads on the CPUs
+they were moved to, which undoes the isolation.
 
-The other possibility I was thinking about when I saw that report
-is to disallow file systems that don't make sense for automount.
+Each mechanism I've looked at lets a preempted lower-priority task hold
+that wakeup back:
 
-That would take some thought though and isn't entirely clear for
-kernfs since it's used by other file systems that may occasionally
-need to automount something at some point.
+ - A futex wake takes the futex hash bucket lock, and so does every
+   one-shot IORING_OP_FUTEX_WAIT arm, which an event loop does after
+   every wakeup.  On PREEMPT_RT that is a sleeping lock, and priority
+   inheritance lifts the lower-priority holder only to the waker's
+   priority, which loses to threaded interrupt handlers above it.
 
-OTOH, if the problem description could be cleaned up, and
-simplified, I wouldn't be entirely against the change but still
-wouldn't much like it. That's purely because I've always been in
-favor of defensing programming even for cases that are unlikely.
+ - IORING_OP_MSG_RING allocates an io_kiocb per send from a shared slab
+   cache, whose slow path takes the slab's list_lock, a sleeping lock
+   on PREEMPT_RT that any task on the system can be holding.
 
-Ian
+ - eventfd and signals take a spinlock_t, the eventfd's wait queue lock
+   or the target's siglock, which on PREEMPT_RT is a sleeping lock that
+   lower-priority writers and readers of the same eventfd or process
+   hold too.
+
+I measured each on a Jetson Orin Nano with PREEMPT_RT.  A SCHED_FIFO 40
+sender on CPU 4 sends a message every 500us to a SCHED_FIFO 40
+receiver's event loop on CPU 5.  On CPUs 0 and 1, lower-priority
+processes send and receive on the same queue every 200us, starting and
+stopping, beside SCHED_FIFO 50 threads running 20us to 1ms bursts and
+interrupt and system load.  Ten minutes and 1.2 million messages a run.
+Counted here is the real-time sender's time in the call that wakes the
+receiver, which is where it waits on the lock:
+
+                                       runs  over 100us   longest
+  futex, one-shot io_uring wait (7.4)    1       10,285    1.0ms
+  MSG_RING (7.4)                         1           55    1.0ms
+  signal, signalfd (6.18)                2  33,080-36,122  1.7ms
+
+Traced on 6.18, the futex sender waits on the bucket lock, the MSG_RING
+sender on the slab's list_lock, and the signal sender on the receiver's
+siglock, each held by a lower-priority task boosted to 40 and preempted
+by the SCHED_FIFO 50 threads.  The receiver's one-shot futex arms wait
+on the same bucket lock, so for futexes 10,348 messages reached the
+receiver over 100us after they were sent, worst 3.5ms.
+
+The options I see:
+
+ 1. Persistent futex waits and registered wakes: look the futex up
+    once and cache it.  The waker registers the futex word with its
+    ring once, and the waiter arms a wait on it once and keeps it
+    armed.  Both meet in one node for that futex, so a wake goes
+    straight to the cached node and walks its waiters, with no key
+    lookup, no futex hash bucket, no lock that sleeps on PREEMPT_RT
+    and no allocation.  Patch 2; prototyped and measured.
+
+ 2. An allocation-free MSG_RING: IORING_MSG_DOORBELL.  A ring's task
+    registers a doorbell, and a sender ORs bits into a word in the
+    target ctx and wakes its task; the target posts one CQE per drain.
+    Real-time kernels solve this problem the same way: seL4
+    notifications and FreeRTOS task notifications OR bits into a word
+    the waiter owns.  Prototyped on 6.18, not posted: at SCHED_FIFO 40,
+    no message over 100us late, worst 43us.
+
+ 3. Keep MSG_RING's data messages, but take the io_kiocb from a cache
+    on the target ring instead of the slab.  Not prototyped.
+
+Patch 2 is option 1.  A persistent wait posts one CQE per wakeup and
+is re-armed by its slot, without looking the futex up again.  Futexes
+also simplify discovery: a publisher wakes whoever waits on the word
+without knowing who they are, where a doorbell or MSG_RING needs every
+subscriber's ring fd.  In the same test, with persistent waits no send
+took over 100us, the longest 25us, and no message reached the receiver
+over 100us after it was sent, the worst 30.5us.
+
+Patch 2 is here to start the discussion, not as a polished solution.
+It is probably more useful to discuss the design before digging too far
+into the details of that patch.
+
+Patch 1 is a fix to the DEFER_TASKRUN wake up that patch 2 depends on.
+It stands on its own; its commit message has the details.
+
+I'd love any feedback you've got, or suggestions on other options that
+I've missed.
+
+Austin Schuh (2):
+  io_uring: don't let a preempted task_work add hold back the wake up
+  io_uring/futex: add persistent waits and registered wakes
+
+ include/linux/io_uring_types.h |   6 +
+ include/uapi/linux/io_uring.h  |  52 ++-
+ io_uring/futex.c               | 788 ++++++++++++++++++++++++++++++++-
+ io_uring/futex.h               |  28 ++
+ io_uring/io_uring.c            |   1 +
+ io_uring/register.c            |  13 +
+ io_uring/tw.c                  | 124 ++++--
+ io_uring/tw.h                  |   4 +-
+ 8 files changed, 983 insertions(+), 33 deletions(-)
+
+
+base-commit: 5b01d5955ac206e38097f777eff6ab2a8b948c41
+-- 
+2.47.3
+
