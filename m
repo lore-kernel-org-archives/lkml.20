@@ -1,64 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.152
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.97.179.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792661948;
-	b=G4JGlbzmpaQvd/CKQ5rPZFaW2hwfJycS73A9SGxN7XyFnFH+nD916gDqI6dG0Ln07jlk
-	 FzOrz9FeiGpHBw1Ztx0SXbpOb1lD0Hm5aFhgIRh9DuEwBjol35ehII1Yvdy3HnsmiokRi
-	 qBh5RQfOqPPYpXyfgeBguvZrb7J2/r0s7oSPDMsid82w3lGcDcjmc0CSJwLI3eWU8/CNU
-	 Y3DNzKkkvVRZXDa5m6BukqZdYysaR6aKiys6ODDcxEUytKjvZvUEYDKKuHt7ENoBj3FHP
-	 6XoS0NpJjTBHeTHK20AgV3KJlwfc4P5r6YAoO3TJznaowfNQadkYXxniqIVdRD7Q9dQ==
+	t=1792661942;
+	b=lI7ypx0joZpMlVoXIosU5nquALXnzLe0AgpIew8pANi/P8PWeoi71w5oQAXmDSj2chr9
+	 ojuyW2Y0vnOo8BY+6woQGHFpSApLiSFsD5L3neAs0nK8mYduI/FWFnXXSXIv0RVSDV46d
+	 mJRmIQMKGCd14+hBVfJ6xaO1b0GaUq4BSpO+N8CTUOLAHwOPbd2jI7J94cAkqYlYP+3nr
+	 8LlaXmHQtenN/soOd34TLeWZ5rGu7+f/DzfOiTNSE4S7Je9T4WJbAYaFw4KH6o3LN35iC
+	 UT7Oc3e4nY0GEzgbRBIS3C2VWj3Vb0kgmE5LtWZqKDS68L6DZH4IgGwHvLnu+mhJmoQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792661948;
-	h=DMARC-Filter:Received:DKIM-Signature:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Rspamd-Queue-Id;
-	bh=DQQ6Ux9jXPPYVl3eL1qiITspn2MEQEJ2iHgUWM8g/LM=;
-	b=M+wxwN9jTrnjN9C1yRG5VPWUNqBTSpvf7jxK2XWZxXZBj14YIbY7mXME2PmsujGxC/sy
-	 W8Wzukk4O5nUCcJ7R1nAqwIYW//1dW8T5SXWJxJflZ/TpH0zBB6bFwV+E4ylbSwuQIqHt
-	 3n0ZeFX92w7MJsgzUCtWBMeotWkNdOXXNZwm6WLEWzok2QNr16ZsRJY/foWIgvAmUPeEH
-	 9QNi1TUhYN+tYvxecufscYepR/kPz2RGjYEXWf70MRSJzhbE3eufv/wk690RuRvuokEPE
-	 xtV0vd6Ko2T5Zz+wY7+d9pr7AWD9EAXPf4FD8dNlakt2CUkF4i11M+iEAPNFdxPkkCQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792661942;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=OWPsKdHOesUph1DVnQaZQMDjdp6tZdx8drucLPbYHgQ=;
+	b=FqWIWcOImQniRnnZt5yZ5FD7FZ/+K456CgbXJoEAEaA0Jt4pPZVB2FiJns4SCdIsimDV
+	 Hx+ggY8Y3PHpECTlBAXAZtWH2eeVVnN79raKTNhxpDo5xHUJ9Cm0iyx9S+XrbtAJDotCi
+	 q5OIhTOc1jSd/CIQPuU6qIAerVKS5/hjLcJOX9HW0Xk1DF/18ZiBVJeZlHVi3+IHQWUf2
+	 vobDFINLtY58zPAO/Mlzi7uqPtWpd9ACNLA91ZMx42RQZ9T4zzVimw/iB46gLY6s2/4rI
+	 J6RVSXgR8JckKE9tO4aNzHobL5G0WPXrU63itcq5X2XNf2ySUAH5w2pJFCD5zifVgHw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=steffen.cc;
-	spf=pass smtp.mailfrom=steffen.cc;
-	dkim=pass header.d=steffen.cc header.i=@steffen.cc header.a=rsa-sha256 header.s=MBO0001 header.b=UymfAfX9;
-	arc=none smtp.remote-ip=80.241.56.152
-Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
+	dmarc=pass header.from=igalia.com;
+	spf=pass smtp.mailfrom=igalia.com;
+	dkim=pass header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=H4izDL57;
+	arc=none smtp.remote-ip=213.97.179.56
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 980C1606A319;
-	Thu, 22 Oct 2026 09:39:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 980C1606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=steffen.cc
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=steffen.cc
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D48BD606A324
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 09:39:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D48BD606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=steffen.cc header.i=@steffen.cc header.a=rsa-sha256 header.s=MBO0001 header.b=UymfAfX9
-Received: from smtp2.mailbox.org (smtp2.mailbox.org [IPv6:2001:67c:2050:b231:465::2])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4j9Lh82CL3zKn28;
-	Thu, 22 Oct 2026 11:39:04 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=steffen.cc; s=MBO0001;
-	t=1792661944;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=DQQ6Ux9jXPPYVl3eL1qiITspn2MEQEJ2iHgUWM8g/LM=;
-	b=UymfAfX9PRzbKHIOEPe/VKBMbOH0baGrQoa6B9xchnZupYAkYr9RAX/JVh4EseZlkAV9z4
-	i7YyV+7XK8u9QhfMnPx8Yc/lsLWZnrPJd67dI9iLJIHsPHrh7HiPmziDAIzl0Y90EaenOB
-	nom3lTwZBJlbizxYu+Te+LhpeKpyju0qfOaT36QgO8nVTCe269M1ACwmTo4uV4mzuVPAp1
-	EMpMhMCExjNLXe+YCXtltHwBiaKerqrTTeAwqreDQrz4GJPP98YI8pLCWpbMrxe252DMEs
-	59bvoZFl0I4VJsG1EfWszJPlUaxHCe56kS4JfpImkiQvH2+7ZSg/N0r4phBkWA==
-Authentication-Results: outgoing_mbo_mout;
-	dkim=none;
-	spf=pass (outgoing_mbo_mout: domain of lists@steffen.cc designates 2001:67c:2050:b231:465::2 as permitted sender) smtp.mailfrom=lists@steffen.cc
-From: Steffen Dirkwinkel <lists@steffen.cc>
-Date: Thu, 22 Oct 2026 11:38:47 +0200
-Subject: [PATCH RFC net 2/6] net: macb: reprogram TBQP after shuffling the
- TX ring on link-up
+	dkim=pass (2048-bit key, unprotected) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=H4izDL57
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+	s=20170329; h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:
+	Cc:To:From:From:Reply-To; bh=OWPsKdHOesUph1DVnQaZQMDjdp6tZdx8drucLPbYHgQ=; b=
+	H4izDL57w4YC8AGpnVokwKwhtrEVsaCurQ6PDg3ZM2MeLB9qF9wE3pmuVzjucCvSreKVb1GNIm1wx
+	tf4h+JULA7SmaRYKoVGfx6PU89ZCjUwwsqt2bHEr4IJk94G3Osav3Ysxj2OKsyAnSfpxxHuRLOsbk
+	bke/ltoiYlvPl630uPr0KP6OJbhoU8ed88UtZULjc293x0vSrUACfukOHR0nW7Vrgj8wHCGq5OkA2
+	iQ18Q9kF97wNkjzFVRyZhRVIXPM1Fgq5/5AKl7azMiloLMPabL5OiKXwR13OXac7KLmqhou1ekjPz
+	MTn10bs18LwlkYrEoHDnh6ge+7l/N7Etzw==;
+Received: from [81.79.79.1] (helo=localhost)
+	by fanzine2.igalia.com with esmtpsa 
+	(Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+	id 1xJpG7-006erY-10; Thu, 22 Oct 2026 11:38:51 +0200
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+To: linux-kernel@vger.kernel.org
+Cc: dri-devel@lists.freedesktop.org,
+	kernel-dev@igalia.com,
+	Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+	Boris Brezillon <boris.brezillon@collabora.com>,
+	Bradley Morgan <include@grrlz.net>,
+	Chia-I Wu <olv@google.com>,
+	Liviu Dudau <liviu.dudau@arm.com>,
+	Matthew Brost <matthew.brost@intel.com>,
+	Steven Price <steven.price@arm.com>,
+	Tejun Heo <tj@kernel.org>
+Subject: [PATCH v7 1/4] workqueue: Simplify unbound sysfs attribute registration
+Date: Thu, 22 Oct 2026 10:38:45 +0100
+Message-ID: <20261022093848.5727-2-tvrtko.ursulin@igalia.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261022093848.5727-1-tvrtko.ursulin@igalia.com>
+References: <20261022093848.5727-1-tvrtko.ursulin@igalia.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,98 +72,213 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261022-std-macb-v14-send-v1-2-9187bc545bf6@beckhoff.com>
-References: <20261022-std-macb-v14-send-v1-0-9187bc545bf6@beckhoff.com>
-In-Reply-To: <20261022-std-macb-v14-send-v1-0-9187bc545bf6@beckhoff.com>
-To: =?utf-8?q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>, 
- Conor Dooley <conor.dooley@microchip.com>, 
- Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Simon Horman <horms@kernel.org>, Kevin Hao <haokexin@gmail.com>, 
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
- Russell King <linux@armlinux.org.uk>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-rt-devel@lists.linux.dev, 
- Christian Taedcke <christian.taedcke@weidmueller.com>, 
- Nicolai Buchwitz <nb@tipi-net.de>, 
- Andrea della Porta <andrea.porta@suse.com>, stable@vger.kernel.org
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792661936; l=2872;
- i=s.dirkwinkel@beckhoff.com; s=20260625; h=from:subject:message-id;
- bh=PVXdyWnGxC/U+cT1+etV6P/qyYxZAkjmK8bSnBlzMjM=;
- b=kGrSYFlMrLIcORqZZ7UPZaFYiwTWg0ekvlY8Sc8NpclG7BoxG6ZCvoDzUfwV/p+9DcW++/3XW
- Ac8pCcKPAU3AaYJ1Q7okRvv49oTE+lJDYYAZR7sF1oiggbWQKLRAsqV
-X-Developer-Key: i=s.dirkwinkel@beckhoff.com; a=ed25519;
- pk=5DcsaSpVtmm7nCi3Bnw5A4vbXI+sg3hBgt8e2A2U/gw=
-X-Rspamd-Queue-Id: 4j9Lh82CL3zKn28
+Content-Transfer-Encoding: 8bit
 
-From: Christian Taedcke <christian.taedcke@weidmueller.com>
+Instead of manually registering each attribute we can put them in an
+attribute group with a visibility check and device core will handle the
+rest, which simplifies the registration and error unwind.
 
-gem_shuffle_tx_one_ring() rotates the software TX ring so that the
-tail sits at index 0 and resets queue->tx_tail to 0, but it never
-reprograms the hardware transmit buffer queue pointer (TBQP). Other
-paths that reset tx_tail to the ring base (macb_init_buffers() and
-macb_tx_error_task()) also reprogram TBQP to queue->tx_ring_dma; this
-path does not, leaving TBQP pointing at a stale descriptor.
-
-gem_shuffle_tx_rings() runs on every link-up from
-macb_mac_link_up(). After a few link up/down flaps that leave
-un-completed descriptors in the ring, the stale TBQP keeps pointing at
-a descriptor whose used bit is set. When TX is re-enabled on link-up,
-the GEM reads that used descriptor and raises TXUBR. macb_interrupt()
-schedules the TX NAPI, macb_tx_poll() makes no progress (work_done ==
-0) and macb_tx_restart() re-issues TSTART, which makes the controller
-read the same used descriptor again and re-assert TXUBR. As the MAC
-interrupt is level-triggered, it never deasserts and one CPU is pegged
-at 100% in the threaded handler, eventually triggering "sched: RT
-throttling activated" and a dead network interface.
-
-Fix it by reprogramming TBQP to the ring base on every path of
-gem_shuffle_tx_one_ring() that resets tx_tail to 0, mirroring
-macb_tx_error_task(). The early return for an already-aligned tail is
-left untouched as TBQP is already consistent there. This is safe
-because the shuffle runs from macb_mac_link_up() while TE is still
-disabled, so the transmitter is halted.
-
-Fixes: 881a0263d502 ("net: macb: Shuffle the tx ring before enabling tx")
-Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-4-8
-Signed-off-by: Christian Taedcke <christian.taedcke@weidmueller.com>
+Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Cc: Boris Brezillon <boris.brezillon@collabora.com>
+Cc: Bradley Morgan <include@grrlz.net>
+Cc: Chia-I Wu <olv@google.com>
+Cc: Liviu Dudau <liviu.dudau@arm.com>
+Cc: Matthew Brost <matthew.brost@intel.com>
+Cc: Steven Price <steven.price@arm.com>
+Cc: Tejun Heo <tj@kernel.org>
 ---
- drivers/net/ethernet/cadence/macb_main.c | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
+v2:
+ * Fix accidental rename of affinity_scope.
 
-diff --git a/drivers/net/ethernet/cadence/macb_main.c b/drivers/net/ethernet/cadence/macb_main.c
-index 4b5037867537..97494933eb1e 100644
---- a/drivers/net/ethernet/cadence/macb_main.c
-+++ b/drivers/net/ethernet/cadence/macb_main.c
-@@ -823,7 +823,7 @@ static void gem_shuffle_tx_one_ring(struct macb_queue *queue)
- 	if (!count) {
- 		queue->tx_head = 0;
- 		queue->tx_tail = 0;
--		goto unlock;
-+		goto reset_hw_ptr;
+v3:
+ * SYSFS_GROUP_INVISIBLE should not be used for un-named groups.
+---
+ kernel/workqueue.c | 98 ++++++++++++++++++++++++----------------------
+ 1 file changed, 52 insertions(+), 46 deletions(-)
+
+diff --git a/kernel/workqueue.c b/kernel/workqueue.c
+index 41754f4126a6..d8cf546d853f 100644
+--- a/kernel/workqueue.c
++++ b/kernel/workqueue.c
+@@ -7599,8 +7599,8 @@ static const struct attribute_group wq_sysfs_group = {
+ };
+ __ATTRIBUTE_GROUPS(wq_sysfs);
+ 
+-static ssize_t wq_nice_show(struct device *dev, struct device_attribute *attr,
+-			    char *buf)
++static ssize_t nice_show(struct device *dev, struct device_attribute *attr,
++			 char *buf)
+ {
+ 	struct workqueue_struct *wq = dev_to_wq(dev);
+ 	int written;
+@@ -7627,8 +7627,8 @@ static struct workqueue_attrs *wq_sysfs_prep_attrs(struct workqueue_struct *wq)
+ 	return attrs;
+ }
+ 
+-static ssize_t wq_nice_store(struct device *dev, struct device_attribute *attr,
+-			     const char *buf, size_t count)
++static ssize_t nice_store(struct device *dev, struct device_attribute *attr,
++			  const char *buf, size_t count)
+ {
+ 	struct workqueue_struct *wq = dev_to_wq(dev);
+ 	struct workqueue_attrs *attrs;
+@@ -7652,8 +7652,8 @@ static ssize_t wq_nice_store(struct device *dev, struct device_attribute *attr,
+ 	return ret ?: count;
+ }
+ 
+-static ssize_t wq_cpumask_show(struct device *dev,
+-			       struct device_attribute *attr, char *buf)
++static ssize_t unbound_cpumask_show(struct device *dev,
++				    struct device_attribute *attr, char *buf)
+ {
+ 	struct workqueue_struct *wq = dev_to_wq(dev);
+ 	int written;
+@@ -7665,9 +7665,9 @@ static ssize_t wq_cpumask_show(struct device *dev,
+ 	return written;
+ }
+ 
+-static ssize_t wq_cpumask_store(struct device *dev,
+-				struct device_attribute *attr,
+-				const char *buf, size_t count)
++static ssize_t unbound_cpumask_store(struct device *dev,
++				     struct device_attribute *attr,
++				     const char *buf, size_t count)
+ {
+ 	struct workqueue_struct *wq = dev_to_wq(dev);
+ 	struct workqueue_attrs *attrs;
+@@ -7689,8 +7689,8 @@ static ssize_t wq_cpumask_store(struct device *dev,
+ 	return ret ?: count;
+ }
+ 
+-static ssize_t wq_affn_scope_show(struct device *dev,
+-				  struct device_attribute *attr, char *buf)
++static ssize_t affinity_scope_show(struct device *dev,
++				   struct device_attribute *attr, char *buf)
+ {
+ 	struct workqueue_struct *wq = dev_to_wq(dev);
+ 	int written;
+@@ -7708,9 +7708,9 @@ static ssize_t wq_affn_scope_show(struct device *dev,
+ 	return written;
+ }
+ 
+-static ssize_t wq_affn_scope_store(struct device *dev,
+-				   struct device_attribute *attr,
+-				   const char *buf, size_t count)
++static ssize_t affinity_scope_store(struct device *dev,
++				    struct device_attribute *attr,
++				    const char *buf, size_t count)
+ {
+ 	struct workqueue_struct *wq = dev_to_wq(dev);
+ 	struct workqueue_attrs *attrs;
+@@ -7731,8 +7731,8 @@ static ssize_t wq_affn_scope_store(struct device *dev,
+ 	return ret ?: count;
+ }
+ 
+-static ssize_t wq_affinity_strict_show(struct device *dev,
+-				       struct device_attribute *attr, char *buf)
++static ssize_t affinity_strict_show(struct device *dev,
++				    struct device_attribute *attr, char *buf)
+ {
+ 	struct workqueue_struct *wq = dev_to_wq(dev);
+ 
+@@ -7740,9 +7740,9 @@ static ssize_t wq_affinity_strict_show(struct device *dev,
+ 			 wq->attrs->affn_strict);
+ }
+ 
+-static ssize_t wq_affinity_strict_store(struct device *dev,
+-					struct device_attribute *attr,
+-					const char *buf, size_t count)
++static ssize_t affinity_strict_store(struct device *dev,
++				     struct device_attribute *attr,
++				     const char *buf, size_t count)
+ {
+ 	struct workqueue_struct *wq = dev_to_wq(dev);
+ 	struct workqueue_attrs *attrs;
+@@ -7762,14 +7762,40 @@ static ssize_t wq_affinity_strict_store(struct device *dev,
+ 	return ret ?: count;
+ }
+ 
+-static struct device_attribute wq_sysfs_unbound_attrs[] = {
+-	__ATTR(nice, 0644, wq_nice_show, wq_nice_store),
+-	__ATTR(cpumask, 0644, wq_cpumask_show, wq_cpumask_store),
+-	__ATTR(affinity_scope, 0644, wq_affn_scope_show, wq_affn_scope_store),
+-	__ATTR(affinity_strict, 0644, wq_affinity_strict_show, wq_affinity_strict_store),
+-	__ATTR_NULL,
++static DEVICE_ATTR_RW(nice);
++static DEVICE_ATTR_RW(affinity_scope);
++static DEVICE_ATTR_RW(affinity_strict);
++/* Avoid naming clash with the other cpumask */
++static struct device_attribute dev_attr_unbound_cpumask =
++	__ATTR(cpumask, 0644, unbound_cpumask_show, unbound_cpumask_store);
++
++static struct attribute *wq_sysfs_unbound_attrs[] = {
++	&dev_attr_nice.attr,
++	&dev_attr_unbound_cpumask.attr,
++	&dev_attr_affinity_scope.attr,
++	&dev_attr_affinity_strict.attr,
++	NULL,
+ };
+ 
++static umode_t wq_sysfs_unbound_group_visible(struct kobject *kobj,
++					      struct attribute *attr, int n)
++{
++	struct device *dev = kobj_to_dev(kobj);
++	struct workqueue_struct *wq = dev_to_wq(dev);
++
++	if (!(wq->flags & WQ_UNBOUND))
++		return 0;
++
++	return attr->mode;
++}
++
++static const struct attribute_group wq_sysfs_unbound_group = {
++	.is_visible = wq_sysfs_unbound_group_visible,
++	.attrs = wq_sysfs_unbound_attrs,
++};
++
++__ATTRIBUTE_GROUPS(wq_sysfs_unbound);
++
+ static const struct bus_type wq_subsys = {
+ 	.name				= "workqueue",
+ 	.dev_groups			= wq_sysfs_groups,
+@@ -7907,14 +7933,9 @@ int workqueue_sysfs_register(struct workqueue_struct *wq)
+ 	wq_dev->wq = wq;
+ 	wq_dev->dev.bus = &wq_subsys;
+ 	wq_dev->dev.release = wq_device_release;
++	wq_dev->dev.groups = wq_sysfs_unbound_groups;
+ 	dev_set_name(&wq_dev->dev, "%s", wq->name);
+ 
+-	/*
+-	 * attrs are created separately.  Suppress uevent until
+-	 * everything is ready.
+-	 */
+-	dev_set_uevent_suppress(&wq_dev->dev, true);
+-
+ 	ret = device_register(&wq_dev->dev);
+ 	if (ret) {
+ 		put_device(&wq_dev->dev);
+@@ -7922,21 +7943,6 @@ int workqueue_sysfs_register(struct workqueue_struct *wq)
+ 		return ret;
  	}
  
- 	shift = tail % ring_size;
-@@ -872,6 +872,13 @@ static void gem_shuffle_tx_one_ring(struct macb_queue *queue)
- 	/* Make descriptor updates visible to hardware */
- 	wmb();
- 
-+reset_hw_ptr:
-+	/* tx_tail was reset to the ring base, so TBQP must be reprogrammed
-+	 * to match; otherwise it keeps pointing at a stale descriptor. Safe
-+	 * to write directly here as TX is still disabled (called from
-+	 * macb_mac_link_up() before TE is set).
-+	 */
-+	queue_writel(queue, TBQP, lower_32_bits(queue->tx_ring_dma));
- unlock:
- 	spin_unlock_irqrestore(&queue->tx_ptr_lock, flags);
+-	if (wq->flags & WQ_UNBOUND) {
+-		struct device_attribute *attr;
+-
+-		for (attr = wq_sysfs_unbound_attrs; attr->attr.name; attr++) {
+-			ret = device_create_file(&wq_dev->dev, attr);
+-			if (ret) {
+-				device_unregister(&wq_dev->dev);
+-				wq->wq_dev = NULL;
+-				return ret;
+-			}
+-		}
+-	}
+-
+-	dev_set_uevent_suppress(&wq_dev->dev, false);
+-	kobject_uevent(&wq_dev->dev.kobj, KOBJ_ADD);
+ 	return 0;
  }
-
+ 
 -- 
 2.56.0
 
