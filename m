@@ -1,74 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.92.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.113
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792704034;
-	b=AggfJk1Yl3VdVSQpKMm3lUl8sMiLaL4Nivr6wpALtaDtt63/p8Zx7pUNogbbZx/G9yaD
-	 K1rci9/GqUTrQluml6saZ+wT4PjIQBTNKklOfDPZdK+ORq/GnnhZmN4/RjWMCF8TBJigx
-	 FCw9W7oSmWdLsGrZxIrkLEZNSTsscI4IZNhQkb3Rm8hS+uX3rTjgwWhnse2k4WLCEPrXQ
-	 S3d5mCAWQWZZVa2cQdKj6vddVqicZHvg/QinKBeC/Qs4szg3Tv+jmFoo7rxz2+D2wgFlE
-	 nA9Dn2xyD5kap9pJ5ksqP97kzwxxYjKebQ5l8Lz6NYmhQT34cRni9/qCVIoqEgv2sMg==
+	t=1792704050;
+	b=MY+qr8OtYj4vunFvnIO/HcjgkOKajCMabVDBN6AYxlqbKZlwWBZ95oRUWNHXjLqs0JRL
+	 FTfwK/6hEKbzh5VJz/Aczhe4THkne43CjfAHzTCXlh6HJEJePTXY51Pjtuu5kOiwgSR2U
+	 P5zzx6kFkUfUaYomo26hfBcV3evuVt+fNdlYKa+OOfLYIGDhmkxI2UECS/F/fAzgh4LU+
+	 XT1/Yfyg/3g96OcOTNASuKElNz6yTVKi+gxuGVOpCZOqJHoVrP/cqX8TCoTk7kvw4JAOa
+	 M7wpvalZDQrUqlF3BJtxkcosUih2bpWL/GF179B38YT0K9rqcSaD3cydzoYvfHE7WGg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792704034;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=RmERtXTPVBf/bnIMERGkoDkyTulnf+WFY9nfWAMIalA=;
-	b=22TVYQZTlscj8L1QaXhLoXxaaI/2yZbtDuCPXgXkAv5uTtJzNtle9GaiIFzupTHvU5Gz
-	 8Q4ymnyNGFTzsTQP4rKoqIG0n1gp99l76znendIe+wZK9QmUbONH2FnsxQBdczftP2c9M
-	 0XayqewCA+um1XiXubHt4qFI4NAZ4BN5pnpcu2IrSTTYfDI5bmUyDTgaiHIiH7grmNweJ
-	 zJ10g3I9Wd+I2H/TQvt1xZ1k322AVyH69No1T0rmOnDjuK0+/eJLY5W9KEQWsv+8C6NRT
-	 uODrbVi6gvHSruTEvjA8XOC02wR2ChPVjmUD2sKHrlzTNwCXJnUa7xOQBZopzNExnBw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792704050;
+	h=DMARC-Filter:DKIM-Signature:X-Pm-Submission-Id:From:To:Cc:Date:
+	 Subject:Message-ID:Content-Type:Content-Transfer-Encoding:
+	 MIME-Version;
+	bh=kl33B2f2rp7Tzl8du7UR+tDLcQcMWlQpWD02vzFm6xc=;
+	b=Ksr1WV5MyoWl9IZKVvdIKROhERfQOefVhjMd8P9x8C3hCYmNxyRFZT24oJSMYNa1Sq/o
+	 g/sGrKSGzmjkJhpWN5ARX5ltxC6BvLTuP0+A6TrVi4eqnfTdCAJnv4g+L/jjAqMfoXfFh
+	 rSakrixZbH4jrV5o2GbeHA9njt3+/F/L5IyAELRJTmw6iJngh1zOCzHESctI4aYqKjcrX
+	 xSw5YFE1QNWHkaEg2rPvbiwSxlfd/Rdz+O1URIlEp97HpJTUjby75PN2xbxl+YXPuvZag
+	 gKPmca7vG8Naysz4f4ksTonxy1bJm/H4gHiGBcdrvs6aAB4HL5ku9lSNIt+SuLaBObQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=pass smtp.mailfrom=infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=nn91opKh;
-	arc=none smtp.remote-ip=90.155.92.199
-Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
+	dmarc=pass header.from=michaelmcallister.org;
+	spf=pass smtp.mailfrom=michaelmcallister.org;
+	dkim=pass header.d=michaelmcallister.org header.i=@michaelmcallister.org header.a=rsa-sha256 header.s=protonmail2 header.b=ASeIvtUd;
+	arc=none smtp.remote-ip=79.135.106.113
+Received: from mail-106113.protonmail.ch (mail-106113.protonmail.ch [79.135.106.113])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E67D606A31A;
-	Thu, 22 Oct 2026 21:20:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8E67D606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEBDC606A319;
+	Thu, 22 Oct 2026 21:20:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BEBDC606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=michaelmcallister.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=michaelmcallister.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=nn91opKh
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=RmERtXTPVBf/bnIMERGkoDkyTulnf+WFY9nfWAMIalA=; b=nn91opKh1d4g2TM2Z31maWvuLj
-	ggmMblIi1H2gyydd2qZPeZUxZvOKFLJ0DKd4E49dpHdeZJfAxozlfrVwmp6MzVZrmtTTICc+zOE0b
-	XUrkoOU9WCVnzcR1NWN6cg3xYHOtRIdx1MibX5nBjLN1jWLi78xzbMI/1FCBczk3ujFfKlx6MlpIC
-	xT36t4KJVb5/jIY6NcqRvFVkn91iUF/V/EEw5a72JUH0D/8fmiwg38p6tdvS5AfnYKLp3TeYjRHlG
-	D9LfDRRFG8aZiI/IVUj7vYTBmxvP7ZYQnqFqJg1LFXift2oibaqgbB5yqRPuGttAS7zNgkKeDiREm
-	SnmfXNDQ==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by desiato.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xK0D4-000000081iC-3lF5;
-	Thu, 22 Oct 2026 21:20:27 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id 275B6300720; Thu, 22 Oct 2026 23:20:25 +0200 (CEST)
-Date: Thu, 22 Oct 2026 23:20:25 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: Willy Tarreau <w@1wt.eu>
-Cc: "zdi-disclosures@trendmicro.com" <zdi-disclosures@trendmicro.com>,
-	Willem de Bruijn <willemdebruijn.kernel@gmail.com>,
-	Eric Dumazet <edumazet@kernel.org>,
-	"security@kernel.org" <security@kernel.org>,
-	"maintainer:NETWORKING [GENERAL" <davem@davemloft.net>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	"open list:NETWORKING [GENERAL" <netdev@vger.kernel.org>,
-	open list <linux-kernel@vger.kernel.org>
-Subject: Re: ZDI-CAN-33367: New Vulnerability Report
-Message-ID: <20261022212025.GV2823843@noisy.programming.kicks-ass.net>
-References: <BYAPR01MB3830CECF5D0871064C59BA0280662@BYAPR01MB3830.prod.exchangelabs.com>
- <CAL4WiipTihtytPEPj5cSY+=t9NwRwRTfUQ_efCSWPT7nQ=0K0Q@mail.gmail.com>
- <willemdebruijn.kernel.178cac71d218b@gmail.com>
- <20261022160251.GW2009045@noisy.programming.kicks-ass.net>
- <BYAPR01MB383065E105701C81A3D0472D80652@BYAPR01MB3830.prod.exchangelabs.com>
- <atplVXLEE_mNqhek@1wt.eu>
+	dkim=pass (2048-bit key, unprotected) header.d=michaelmcallister.org header.i=@michaelmcallister.org header.a=rsa-sha256 header.s=protonmail2 header.b=ASeIvtUd
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=michaelmcallister.org; s=protonmail2; t=1792704041; x=1792963241;
+	bh=kl33B2f2rp7Tzl8du7UR+tDLcQcMWlQpWD02vzFm6xc=;
+	h=From:To:Cc:Date:Subject:Message-ID:From:To:Cc:Date:Subject:
+	 Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=ASeIvtUd3xRbafUVythv9TzuMap+jlyDt2X+8cKoEp+pJrwIyLp5fxKTJnOw3t66U
+	 oKd+/EXOOPYiE6hBsyrcYnxYysS6th2vNGC8t9v/UWLxBzUyajQW/JJYODmutYr9r5
+	 M0io2S2RUcSCEx5GRV1uPpbWkLjEvJ1oM77eZV/j4S1YZ+cxrX0CtOxgCXprcGskmM
+	 2c0Ibn5Z+0H/zEFW9Y7Zk0S+WNovGaTIBtSJrAbf5rfguDrtKtrMCaLCj4EFTG9Uqn
+	 1x3Ey0dWbApkjxRvGrfHRYH2dlOF76iMHMS78geiaPqgvp/7Tf6QgA3CB74fb5k6AV
+	 0u+CWcALnUooA==
+X-Pm-Submission-Id: 4j9fFf59zjz1DFG7
+From: Michael McAllister <me@michaelmcallister.org>
+To: Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Date: Thu, 22 Oct 2026 22:18:23 +0100
+Subject: [PATCH 0/2] arm64: dts: qcom: Add initial Motorola Moto G10 support
+Message-ID: <cover.1792703903.git.me@michaelmcallister.org>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,21 +65,48 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <atplVXLEE_mNqhek@1wt.eu>
 
-On Thu, Oct 22, 2026 at 09:34:45PM +0200, Willy Tarreau wrote:
-> > We will have some discussions internally, but in the meantime, we will send the cases to you as we always have.
-> > If you don't want to do anything with it, that's fine too. We will release the findings at rejection, or 120 days.
-> > Whichever comes first.
-> 
-> The main problem we're having is that it's not possible to have anyone on
-> your side nor the reporter test a patch. But I won't rehash this, it's not
-> new, but *this* is what makes your reports way more painful to deal with
-> than many other ones. You (unvoluntarily it seems) act as an insulation
-> layer between reporters and develoeprs and that really doesn't help.
+This series adds an initial device tree for the Motorola Moto G10
+(capri), based on the Qualcomm Snapdragon 460 (SM4250). It adds the board
+compatible and describes eMMC, USB-C, power and volume keys, the firmware
+framebuffer, regulators, GPU, Wi-Fi, Bluetooth and remote processors.
 
-This; Willy is far more eloquent than I am, but the zdi reports have
-been very painful. And as said; this has been raised a fair number of
-times.
+The board uses the shared PM6125 and PMI632 definitions, with its own
+reserved-memory layout and firmware PSCI state IDs. Modem, ADSP and GPU
+firmware paths are namespaced under qcom/motorola/capri/.
+
+Native panel, touchscreen, speaker and battery support need separate
+driver and binding submissions and are outside this series.
+
+Based on Qualcomm arm64-for-7.4 (Linux 7.3-rc1). Binding and full DT schema
+checks pass. The W=1 DTB build reports an inherited unused DSI address/size-
+cells warning in sm6115.dtsi, also reproduced with OnePlus Billie2.
+
+Runtime checks covered booting with all eight CPUs, read-only eMMC access
+and USB ECM transfers. simpledrm and the power/volume input devices
+registered. Thermal readings and an active watchdog were observed.
+Physical button events and visible framebuffer output remain unconfirmed.
+GPU, Wi-Fi, Bluetooth, remote processors and suspend were not exercised;
+the minimal RAM image contained no wireless/DSP firmware or modules.
+
+The test ran without a panic or warning backtrace. A PSCI PC-mode firmware
+warning also occurs with the phone's installed kernel; suspend and deeper
+idle states remain untested.
+
+For the stock Android bootloader, testing used out-of-tree handoff code
+to select this DTB while retaining the firmware RAM map, initramfs and
+factory Wi-Fi address, plus an arm64 Image alignment wrapper. That code
+is not included here. No other device-specific driver patches were used.
+
+Michael McAllister (2):
+  dt-bindings: arm: qcom: Add Motorola Moto G10
+  arm64: dts: qcom: Add Motorola Moto G10
+
+ .../devicetree/bindings/arm/qcom.yaml         |   1 +
+ arch/arm64/boot/dts/qcom/Makefile             |   1 +
+ .../boot/dts/qcom/sm4250-motorola-capri.dts   | 452 ++++++++++++++++++
+ 3 files changed, 454 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/qcom/sm4250-motorola-capri.dts
+
+
+base-commit: d053e38e614fb2e383b298ce8fc308a780d7f209
