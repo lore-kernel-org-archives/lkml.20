@@ -1,101 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.180
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792652143;
-	b=CysdVUn6XFWZzwgfpmq/XdAdhroztktSaDU6KIi2XdUiwEQNHLalqG4k/kbpd1YwNesb
-	 0XI8uwYgeHwdwcJ3wum48popTZkcMI1awOttconwW13jU1vbFTosebaxAQPc5aUr+9WUM
-	 5OnYrb5x2ZRDebqXkRth2HoUoVGQB5guOR9rwVkUZFl2w5uwful0HVzWYxDhtfsmWGwqg
-	 OYYKtelNWvwnX4nIvl25T0MGLZaeyEmUz+LSzKwbovMGy2nYRJ72TX9DibDJLX2uXOYQh
-	 PghYGxswUthb8A+gS87gnTTGGNU+Bok79UiAQr/Iwgj2zaMc2nmMw+iOBhD4Ud29MeA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792652143;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=+qOAfSouOX0t5YZwWU2eSWaqspMZR2wrvfeU+oUpg14=;
-	b=bLgY5h2QGUFd3BK+ec/mTlu0Ww0SfBFJ9wnMiuP3/MpcfLJfBRCAX6E3aH3Z59ja/BUq
-	 sg/t4A/t0PmzoORgciDafDOp3EL9zD/DC+YYOLHwfLBaKrAhNT6qCQMqAmfuctlEqpIzT
-	 ezJu736KTds+bmOGBc3dzDod8BmQtlZ2vUvxtWc/sFKxCGFUVSJwScCwrf68gmCfnvs37
-	 Bt/MutW5rwIGrGrtwDHF5enIvgeiA2d1GsUh0trtkZZx5jvzyhp9F6g9HztCgZewpbKNQ
-	 QBds3+2/bJgeSK/sX2DNCDJQFioJ4OYRRKp0OFI/pdIl/O1PFgKjCD0B5b4S2Wtk34w==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=WXOt2KSl;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.180
-Received: from mail-oi1-f180.google.com (mail-oi1-f180.google.com [209.85.167.180])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792652282;
+	b=VEfXIEfz/oU4hV3kqlAFvJwAbH+C4nHYX36Jcokky1kkMs6tExrYs0Ukj2ZwtSMwOAZf
+	 B10PJJwKwm0LcHEiZoVHft/E1uUufomwwJ/muDrK0NjzhWvMZimengtlxeJw60l7r4FwR
+	 3A3TGC/IYo9IFfbVagKMtxdSFdedBC679BgcFkPS/canYrcuu8Eq7X01hs/0k4z/tn1DW
+	 ATZxBswn9kUu4j/L4rLutseG75BneLflc7ae7qUYKu2FIK0YwyQQyxddyN7xgREGxzIhv
+	 zIVFfVzkXXkUiQU6DJnk2K26An5oTR3idrBdxhDB4LC0KpAQYdaMJAg721xeCsAhNFg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792652282;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=vWz9kcn2hWQPiK8Y+BhTHSteUtclFoRKS4X7cWyTqWQ=;
+	b=bFBnTdyWJxNdtDIU03OFXTGe23DBVZPwJFLP6qeOGfC6LRxnkiR2kupBahkPHP1uL0re
+	 8w1GUEObOkq+6xS7MXqiK+XWKdz5emw+cXbaUIhrUXF2gcI3Nvvl5vFDd1BZvrY15aC/O
+	 JVKrXPRfwjDDJd37rDwzD7Xgj+Z/GSRtiJrY6t2bg1/Tc1cz90/7CTR7TT3mmig5J7VvI
+	 YoD9ZrXZI7c0+kwBDZqprUkOppJNmCUfjbRF0xHjPGYfB4shTdPY9OzbtQUzznAK+2Mbl
+	 /pGC3PLB74Gvbkm0nZ/SGfH5aDHBu12s8pjuA4goM1AdH9+J5Wgm8PKV9j1E79XJz2A==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I82ZPsVi;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 681E1606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 06:55:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 681E1606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F42A606A319;
+	Thu, 22 Oct 2026 06:58:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=WXOt2KSl
-Received: by mail-oi1-f180.google.com with SMTP id 5614622812f47-4f55a53898cso733063b6e.3
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 23:55:43 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792652142; cv=none;
-        d=google.com; s=arc-20260327;
-        b=pZgtFloZ+FpDu0oPWxp2URG9/ZkVQVGLBg86v5EJohioLGOq32YLIPnV1h5qydM/+T
-         LCc7pFS1n0WZ3RMXaG3AU/9LxB30DKIAKyvsEO1yJOPj0kNSUo1o65gFCAA3iyu15zvY
-         vkfq+oYd3+S8aCsrBLsIq6i4fEt6q6Cp4VHqnrhQiif1AVW23Sh/fGs4KZddk7NLwyD3
-         tjEfJc6ZEHckTKeAyP3BOWAzEThfPE82rjGgVy+CHe1UtQ8qDnXVCdLscX2X/jBG2Vmq
-         q4wnWiYDjh322mRKRjc+Lo0Iu/0iDqFWeOzPZ5K4vE4wrJKcxONH1CGJHYCeQjphNNKy
-         1b8A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=+qOAfSouOX0t5YZwWU2eSWaqspMZR2wrvfeU+oUpg14=;
-        fh=ndXzLafnsLD1hFMrF07lsM7R+jrCftWGTgmkUZbi2ww=;
-        b=eAN5AGC6KxaS7QJy309QEUNjI5NgUNOiUD5kewjxGDUTWomthVPuuK9Q2MBNiBxuQb
-         jkqlOmBXFSKmdFWbfl10jbW3/zo/NdwjaLN+1f0G6cumE74EznfnabSxcn0d2Axeg1dY
-         diOvvpBAlip3SI5h2gbvNchqGYyORA8izjAooneDrpk3S0L9U4Bfo8JH/vNaCf3iPyhD
-         KRk9T3l6ChCgL69lIaSzd9OoVQSIxdVu0FAPCHmuJ715tW1RulSsDomyvS8WaahQUSEP
-         RkhW0N68/cwfuZdP5/UBvYbm6aBHczmIBmf57Tz0283hDeg+JMBezjwJVnhZY9BRW885
-         GwJQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792652142; x=1793256942; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=+qOAfSouOX0t5YZwWU2eSWaqspMZR2wrvfeU+oUpg14=;
-        b=WXOt2KSlIEx9UYc1uslEROz+hHZnlOEeHWnCzrBw59/M9zikfXJincp7fSqdCiP64e
-         0AsgHWZUi+u8AFnL5GBv8ugm4B05v9sv/0eUxU5lurXBt7wyhniyT8Y4jBIUJgS097n1
-         JtOhJGYOorBMxsZlR7qiMSQTmSeHrSkL5780k2OHgpEPX4RsPvEP/EpYvQ7AWdoifbLa
-         iG3RhqzRcwqiwTVbSsfkZz8ApDLU/nJI3hT25h+ElUTcuKqnkp+JcSTri//SQuTh4Cs7
-         tfYoY6Ngy7LQe9nn07r8QugwjLGz4evJxsgAxqr+BAW3DAqhP6bzuVk0ZpOR+vjxjlnB
-         EjXQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792652142; x=1793256942;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+qOAfSouOX0t5YZwWU2eSWaqspMZR2wrvfeU+oUpg14=;
-        b=pU0LTbTpxxPTwHJHvwq5ztSSz+DN2eASdDhjcUjnuyH6EXt+n4lCMKXUWAMTaymwHG
-         4dxYSRaqIAzDQM8u9QmLtRPZmOSlFxJWEANbLYWCyEMCOK0u43N1rgmlzUtrO1VeBi25
-         cogw/30fYmUUpZF+he+dwKTxZbRjQqoV/uLMrrHcXeZQe9n5gImVazvBFO+m97jIGSIL
-         aFSPCASxfpetr6zk1zXQsmc/5Va6lQKWMom0lw+I/P3hcYi75UaL4+I9ya0jJk3KdQEP
-         H6eGrggtbPRg4KKa3RAyGsKZLJIEwSQ+g9sAdns8HgfMepP5sgrzU3WMgp8YVJQ/Sjfz
-         Rt+Q==
-X-Forwarded-Encrypted: i=1; AKwUvBx5Yg1WszDfhbhsrB+nf40tLYxSN+zQCh/6XW83AYwzoIECUN7Li2GUEpxiO9lADYH15eGEfDZl6qHgdts=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJsb08087Q3MoHLhcS5N/NyY7vGu9MJXrbF2TkayHfz/VRzeGJ0
-	TcZ7deSB3hyfHi3rMB6oD3J8crgiQSlDnAgrze/Ex4yTIsGxuFW9E2RpgscgqUTh04317JUAEpO
-	+39YDVPgW2o+bwWo9gCeQ9pTyfN2NTEU=
-X-Gm-Gg: AYBFou1CkjAItFF3uZkGgODSXEQpeLhMSH+GFKa2m53551Y+QTH3lKVh2KJeuLfH01C
-	DXg3/rifoUToBrys6aQVzF7A1+vW9lj9dkGWcqKBQgfSfBsKXcAGEefC3RKsk222673tHtlRrBA
-	T8mtKb1U5JzTJfgb4sgP4q1iz6npnMWXvERZTDl/eTAm5Vc801Z48ae0EPOv75TvHmMdK28d63N
-	Xf4dPrKCEdy3y4udFRxO5vdgHFyELZwBX9n9v6Y3URO5MuZZBYQRhDPeeIltK7C1IxQDs7YW9sX
-	Hdbtd9/G8I5lqbIssfrs/GFBzNDWc2Okv1CrW5KPchcs3JSnszni75p5xHq5GnNsUI2LUA/37TI
-	0wJ6Jmkeh8MNa1y5+J4tvTyJ7xefHG/n2EGKQAZFF+jt0HO00QlTMRbxhSkBYYWbl0OwGMwkEBb
-	xuuldCgr+8GAy81g==
-X-Received: by 2002:a05:6808:d4c:b0:4f5:e13:95e2 with SMTP id
- 5614622812f47-5534f511f07mr3092508b6e.9.1792652142362; Wed, 21 Oct 2026
- 23:55:42 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I82ZPsVi
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD94A1F000C1;
+	Thu, 22 Oct 2026 06:57:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792652281;
+	bh=vWz9kcn2hWQPiK8Y+BhTHSteUtclFoRKS4X7cWyTqWQ=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=I82ZPsViALFS6BvKGpe3hyRvvjQ4Et4lOSSJwPBwlJP24zg9FaneQBDezFRhZA24b
+	 csdx7m4XNUiGA75N/AKXq24P+9ryCefNDO2WYun+QA0yqfuNXp4Vt2R5AABLABrR5e
+	 GF6qyHUB3EbFppNRFJCcRvaJgGm2UOROdzHxryzptjdTkOsgJO5MlQt/90mOC5x+BN
+	 2ZLfdEzzi/INfdugrAkf66RT371Gqjq0+eX/62ga4XzmORO364EewL2JwWWGNQ+kvl
+	 0H3ZQsxVZYOjk9deg7LETzN5guX+r+1KMsy2y5Y0FTd5437VULn2wjfNxlhejByqsO
+	 nn/usj10FslSg==
+Message-ID: <73d01869-b536-4fcd-a139-6f9d0a043347@kernel.org>
+Date: Thu, 22 Oct 2026 08:57:55 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,45 +51,109 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261002152821.410591-1-yupeng0921@gmail.com> <CAG3TDc1Ydhjx1GD7-ZCqmzYbZv5+DM0O7wPnzKLWJ1ycK9C2sQ@mail.gmail.com>
- <66f87058e7e811af340d920e654117eb@kernel.org>
-In-Reply-To: <66f87058e7e811af340d920e654117eb@kernel.org>
-From: peng yu <yupeng0921@gmail.com>
-Date: Wed, 21 Oct 2026 23:55:30 -0700
-X-Gm-Features: AclHuK8Sypv-7xRYs_lPJ7h3Nm6lMdPqTsjMnjk1hM_VRIlE-PXSuRDM8lifbow
-Message-ID: <CAG3TDc1BgQNuCD75NTCcpmP_d4aLummSP6AN6JuxoAgeEBfmFw@mail.gmail.com>
-Subject: Re: [PATCH v8] nvmet: add cgroup_id to charge namespace I/O to a cgroup
-To: Tejun Heo <tj@kernel.org>
-Cc: Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>, Chaitanya Kulkarni <kch@nvidia.com>, 
-	Keith Busch <kbusch@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>, 
-	=?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, 
-	Josef Bacik <josef@toxicpanda.com>, Jens Axboe <axboe@kernel.dk>, 
-	Maurizio Lombardi <mlombard@arkamax.eu>, cgroups@vger.kernel.org, linux-block@vger.kernel.org, 
-	linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] docs: submitting-patches: Require base tree information
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: Eric Biggers <ebiggers@kernel.org>, linux-doc@vger.kernel.org,
+ workflows@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
+ <rdunlap@infradead.org>, linux-kernel@vger.kernel.org,
+ Konstantin Ryabitsev <konstantin@linuxfoundation.org>
+References: <20261020212235.1143086-1-ebiggers@kernel.org>
+ <363b228a-7e96-481a-b70f-195ba55d025e@kernel.org>
+ <20261021063927.GA31908@sol>
+ <d5d0801e-371c-4836-8b4a-26bff33df46f@kernel.org>
+ <20261021064940.GC31908@sol>
+ <aea2328d-4ea8-45bc-922e-9c1fed94083f@kernel.org>
+ <20261021163242.GB325924@killaraus.ideasonboard.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20261021163242.GB325924@killaraus.ideasonboard.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Wed, Oct 21, 2026 at 2:57=E2=80=AFPM Tejun Heo <tj@kernel.org> wrote:
->
-> Hello, Peng.
->
-> On Tue, Oct 20, 2026 at 06:01:12PM -0700, peng yu wrote:
-> > Hi Tejun, does this patch look good from the cgroup perspective?
->
-> From the cgroup core side, this looks okay to me. However, the current
-> implementation will block the shared submitter when throttled, and it
-> would probably need more work to behave well.
+On 21/10/2026 18:32, Laurent Pinchart wrote:
+> On Wed, Oct 21, 2026 at 01:55:37PM +0200, Krzysztof Kozlowski wrote:
+>>
+>>> there's no base-commit?  Including any historical patch (from
+>>> months/years ago), patches with dependencies, etc.
+>>
+>> Dependency is something else, but for every other patch:
+>> 1. For testing/CI: you apply on top of next
+>> 2. Every other case the maintainer knows where to apply it, because it
+>> is his HEAD of next-branch.
+>>
+>> I am repeating myself, but I really had no single problem of lack of
+>> knowledge where to apply a patch as a maintainer or reviewer of some
+>> subsystem, thus maybe I do not understand the actual problem you are
+>> experiencing.
+> 
+> When I review patches, I often need to apply them to a tree, mainly to
+> see the context, but sometimes also to test them. I have encountered
+> many cases where the patch wouldn't apply on the current for-next branch
+> of the relevant subsystem. That's often because the patch had
+> dependencies. When I'm lucky they are listed manually in the cover
+> letter with a link to a branch, but that's far from being the common
+> case. I then have to ask the submitter to provide a branch, or enough
+> information to recreate a branch. Having base information (base-commit,
+> prerequisite-patch-id, and possibly base-tree) would save me quite some
+> time.
+> 
+> I understand your concern about maintainers cherry-picking and sometimes
+> introducing issues as a result. In that case I also prefer asking the
+> submitter to rebase, retest, and resubmit. That's not what I want to use
+> base information for, in my case it helps with the review process.
 
-Currently the io.max won't block the shared submitters but io.cost and
-io.latency will. If a nvmet subsystem has two namespaces, one namespace is
-blocked by the io.cost or io.latency, the IOs of another namesapce will be
-blocked too. I plan to create a v9 patch, if a namespace has a cgroup, it
-will submit the IOs via the nvmet_wq, then this namespaces won't impact eac=
-h
-other. If it is not the correct way, please let me know.
+That's valid and for 95% (guessing the number...) of cases will be
+solved by having linux-next as a base, thus requiring the base
+information is redundant. It's just linux-next.
 
+When patchset does NOT apply on linux-next or maintainer tree is
+non-obvious, the base should be provided, but that is only "if ->
+should". I think the proposal here is a bit different.
 
-> Thanks.
->
-> --
-> tejun
+Best regards,
+Krzysztof
