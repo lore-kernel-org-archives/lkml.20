@@ -1,51 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.23
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792683979;
-	b=2qQfi2z5V5Eijvz+2EM/89eIiCg7PK+VDx6N2P5XQ6vzgKCKEjIVyDpWD2YuWKAoCFJk
-	 Jb/i5YogOMtnygsJZGiiPl25QBK/UYNxhDfAnutjM0QsfU9Xt2Fdtkz8Ap7ErFydFFbw7
-	 TEj0yvnTGPaZEJ4TGpFWIBXiss1Oit65Z/cZK7XhQCXNIxbZEYw7W1ORYja10NY2w10I1
-	 /x4f4Jn7BaZ5qBHAkcNM4a6IgJ7w8nkuGECd0TTFqxQYHXWvnw88ns64Fk3AhowKb7IQ3
-	 G88wCRf0N/KU3VbqVcLbTRDOdLXyRj8EAwgH1wnWfbt4H96QLI0kfU8zlIDaegZQn6w==
+	t=1792683980;
+	b=G3pvoaDF4FCrcMc1AKpKMkezQoxc9tMWiR/4lh7MM6Jjn+k089MCJDYh2vp2QdBSbHuz
+	 By0OnOfgPguWnBxzKnGVIQk012etKzgoKeddzvo10wDSFTox14+lBfdPy/0z+nErJTsOR
+	 lOtMfdmMtGicbC+LKttqhxi+ujnxRfSppojt3bfR+2/dDQl7FsEX8FbL8UtCEUOLGnrPn
+	 7jbEVYYfVTbuinvwKgdn1uvqGWw+B5ALF9BEeQ/kxOYGBH+gCS1bAR/olx7QmrESneW3A
+	 Ytc2qoMq8Vd2Vs3hx9zCpUhIADKM3ITrT2kQxd8ejpaTb4vwMDr+bDijkGvmkrMo/aA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792683979;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792683980;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
 	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
 	 X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=awem1wxMbcyoRN7ubasIU3CaNIFuN7/ulyonZUTWZ4k=;
-	b=Wii+fCkr5rwv8ZuPR5lATaL89akMC82agForwwMMn6QWCo/L+mAuQhwR/y7/p5G5o8PA
-	 WPe5t1s7w0l07eLAyhBXeQgvLdC2rOluzBWOuYiclMDdlxr+iHmKYpZAmyFr+G/s2qg2w
-	 Vo+TZnHqbqLysJxJBp+ysILDywV0DMOvXiF7kajSZbSYDLM0gSvDst2X9Tv5kP08Lmpva
-	 iCG7xU/pUhEq/RSL82L3MFcsEJ7IP7FaVlCdAVNinwJ95CpLCLJzSqzbAXMDFQXITtDG5
-	 wa7BX3eNVl8MeD6IGuOiReEp8ycVgkj73Hnxqz7PYOSYc/U/K9L791L5m8t9r+fJZmw==
+	bh=xxTPejnJdS/vYzb8yPb8KkE7+Hf7lZNZOOc1KdjszKc=;
+	b=yQL+g6DbF3/volZE9so/DKY2JQDBdiY8Hd3yI3s7MU2CGfCK1KN3Hlw9wKT5IXrg5cdt
+	 Yc8d0NenYEyU7Kc7h4kaKdDOXccPHsMSvIVwxi90Rs00GBaUdtlmCio9Dlm4rcIEgtt8W
+	 /au3yURSObY8t4p2My/OgS59A3nNxeNJcYQNtcSt3sZQuP2nblj5eyogEECsS7dZIOZ6G
+	 bLh4K94ROASYa+WcQQEHcDIXP/PQRfYKvYkitgMUzteZDCDTBYAO2G+YWt3SOQg6Tvggk
+	 eI0xCYDLBdbVTq0YshO8+9of2k7XDD/ddIg8q4XvbCzGIEjHuEzNoOiC7a8WkZlGySg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.dev;
 	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="MN/0h1wr";
-	arc=none smtp.remote-ip=95.215.58.18
-Received: from mta1.migadu.com (out-18.mta1.migadu.com [95.215.58.18])
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=lxBBVpbF;
+	arc=none smtp.remote-ip=95.215.58.23
+Received: from mta1.migadu.com (out-23.mta1.migadu.com [95.215.58.23])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E3B8606A319
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 15:46:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0E3B8606A319
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4864606A31B
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 15:46:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E4864606A31B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=MN/0h1wr
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=lxBBVpbF
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=+Zvwp7hLV/ADvXBOoul5gX9Gn2k4qOEGVrRqgWa9+gc=;
+DKIM-Signature: a=rsa-sha256; bh=b9aN3UoXeOF4eAVozHhQBDfnYXVjdCGwCFhe2u2yLGQ=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792683977; v=1; x=1793288777;
- b=MN/0h1wrhfPzbrIvz4ys54KKaKEQt2MVwyzomN0P7fCWpjn4gfWRB0GEfy6HOXm0v5WqvjO6
- v5BUwoHkqNEOlhMDalV/BzNOn+7KOV/3Yw/jpg3DT5rCDn8bGfby+IJ8eAPWac/AFkuz7Pre4bU
- Nlnk2MLZPaLhVzcUdgcXEdZI=
+ t=1792683978; v=1; x=1793288778;
+ b=lxBBVpbFUM6j/QvZQMW4notzewuwIabFr7/AIsutSlYHjabP5CYz0TWA6XIjUuQ3oysIgolr
+ X2cZKFyYVLH38E7ORtYPCPFzQVvS6Cw/aLP4/Ii90PQmLyfLOhdJ2jFItjCZTPAedR1PQ3dkB9o
+ 26ct4ypGSoIIyVPv/wv/QXe4=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id ae35e2396c30716c;
-	Thu, 22 Oct 2026 15:46:17 +0000
-X-Mizu-Trace-ID: ae35e2396c30716c
+Received: by smtp.migadu.com with ESMTPS id b707346131377bb7;
+	Thu, 22 Oct 2026 15:46:18 +0000
+X-Mizu-Trace-ID: b707346131377bb7
 X-Migadu-Flow: FLOW_OUT
 From: Andrew Jones <andrew.jones@linux.dev>
 To: linux-riscv@lists.infradead.org,
@@ -64,9 +64,9 @@ Cc: linux-kernel@vger.kernel.org,
 	kevin.tian@intel.com,
 	fangyu.yu@linux.alibaba.com,
 	nutty.liu@hotmail.com
-Subject: [PATCH v7 1/5] iommu/dma: Prepare MSI physical address lists
-Date: Thu, 22 Oct 2026 17:45:59 +0200
-Message-ID: <20261022154603.1374754-2-andrew.jones@linux.dev>
+Subject: [PATCH v7 2/5] iommu/dma: Introduce iommu_dma_prepare_msi_list()
+Date: Thu, 22 Oct 2026 17:46:00 +0200
+Message-ID: <20261022154603.1374754-3-andrew.jones@linux.dev>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261022154603.1374754-1-andrew.jones@linux.dev>
 References: <20261022154603.1374754-1-andrew.jones@linux.dev>
@@ -81,168 +81,94 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-IMSIC affinity changes need every possible target mapped. Introduce
-iommu_dma_sw_msi_list() to cache one contiguous IOVA range base for
-a list of targets.
+IMSIC needs an interface to prepare all MSI targets before an IRQ
+affinity change can select one in atomic context.
 
 Signed-off-by: Andrew Jones <andrew.jones@oss.qualcomm.com>
 Signed-off-by: Andrew Jones <andrew.jones@linux.dev>
 ---
- drivers/iommu/dma-iommu.c | 77 +++++++++++++++++++++++++++++++++++----
- drivers/iommu/dma-iommu.h | 10 +++++
- 2 files changed, 80 insertions(+), 7 deletions(-)
+ drivers/iommu/iommu.c | 43 +++++++++++++++++++++++++++++++++++++++++++
+ include/linux/iommu.h |  9 +++++++++
+ 2 files changed, 52 insertions(+)
 
-diff --git a/drivers/iommu/dma-iommu.c b/drivers/iommu/dma-iommu.c
-index 1f624f241ac1..1046b19be584 100644
---- a/drivers/iommu/dma-iommu.c
-+++ b/drivers/iommu/dma-iommu.c
-@@ -59,6 +59,8 @@ struct iommu_dma_options {
- struct iommu_dma_cookie {
- 	struct iova_domain iovad;
- 	struct list_head msi_page_list;
-+	/* Base IOVA of the complete MSI target list */
-+	dma_addr_t msi_list_iova;
- 	/* Flush queue */
- 	union {
- 		struct iova_fq *single_fq;
-@@ -2204,13 +2206,42 @@ static struct list_head *cookie_msi_pages(const struct iommu_domain *domain)
- 	}
+diff --git a/drivers/iommu/iommu.c b/drivers/iommu/iommu.c
+index b486b8bbd1fc..b8d4d601efd4 100644
+--- a/drivers/iommu/iommu.c
++++ b/drivers/iommu/iommu.c
+@@ -4266,4 +4266,47 @@ int iommu_dma_prepare_msi(struct msi_desc *desc, phys_addr_t msi_addr)
+ 	mutex_unlock(&group->mutex);
+ 	return ret;
  }
- 
-+static dma_addr_t iommu_dma_alloc_msi_iova(struct device *dev, struct iommu_domain *domain,
-+					   const phys_addr_t *phys_addrs,
-+					   unsigned int nr_addrs, size_t granule)
-+{
-+	int prot = IOMMU_WRITE | IOMMU_NOEXEC | IOMMU_MMIO;
-+	size_t size = nr_addrs * granule;
-+	dma_addr_t iova;
-+	unsigned int i;
 +
-+	iova = iommu_dma_alloc_iova(domain, size, dma_get_mask(dev), dev);
-+	if (!iova)
-+		return 0;
-+
-+	for (i = 0; i < nr_addrs; i++) {
-+		if (iommu_map(domain, iova + i * granule, phys_addrs[i], granule,
-+			      prot, GFP_KERNEL))
-+			goto out_unmap;
-+	}
-+	return iova;
-+
-+out_unmap:
-+	if (i) {
-+		size_t mapped = i * granule;
-+
-+		WARN_ON_ONCE(iommu_unmap(domain, iova, mapped) != mapped);
-+	}
-+	iommu_dma_free_iova(domain, iova, size, NULL);
-+	return 0;
-+}
-+
- static struct iommu_dma_msi_page *iommu_dma_get_msi_page(struct device *dev,
- 		phys_addr_t msi_addr, struct iommu_domain *domain)
- {
- 	struct list_head *msi_page_list = cookie_msi_pages(domain);
- 	struct iommu_dma_msi_page *msi_page;
- 	dma_addr_t iova;
--	int prot = IOMMU_WRITE | IOMMU_NOEXEC | IOMMU_MMIO;
- 	size_t size = cookie_msi_granule(domain);
- 	static DEFINE_MUTEX(msi_prepare_lock);
- 
-@@ -2235,21 +2266,16 @@ static struct iommu_dma_msi_page *iommu_dma_get_msi_page(struct device *dev,
- 	if (!msi_page)
- 		return NULL;
- 
--	iova = iommu_dma_alloc_iova(domain, size, dma_get_mask(dev), dev);
-+	iova = iommu_dma_alloc_msi_iova(dev, domain, &msi_addr, 1, size);
- 	if (!iova)
- 		goto out_free_page;
- 
--	if (iommu_map(domain, iova, msi_addr, size, prot, GFP_KERNEL))
--		goto out_free_iova;
--
- 	INIT_LIST_HEAD(&msi_page->list);
- 	msi_page->phys = msi_addr;
- 	msi_page->iova = iova;
- 	list_add(&msi_page->list, msi_page_list);
- 	return msi_page;
- 
--out_free_iova:
--	iommu_dma_free_iova(domain, iova, size, NULL);
- out_free_page:
- 	kfree(msi_page);
- 	return NULL;
-@@ -2271,6 +2297,43 @@ int iommu_dma_sw_msi(struct iommu_domain *domain, struct msi_desc *desc,
- 	return 0;
- }
- 
-+/*
-+ * All calls for a DMA domain must supply the same complete target list.
-+ * The group mutex serializes creation and reuse of the cached mapping.
++/**
++ * iommu_dma_prepare_msi_list() - Map the complete list of MSI targets
++ * @desc: MSI descriptor to receive the base IOVA and granule shift
++ * @phys_addrs: Ordered array of target physical addresses
++ * @nr_addrs: Number of targets in the array
++ * @granule: Size and alignment of each target mapping
++ *
++ * Every call for a DMA domain must supply the same complete list, order and
++ * granule. The first call maps the targets into one contiguous IOVA range;
++ * subsequent calls use the cached base. The array is consumed synchronously
++ * and is not retained.
++ *
++ * Each target must be aligned to @granule, which must match the DMA domain's
++ * granule and be at least PAGE_SIZE.
++ *
++ * Without a translated domain, @desc is left unchanged. Only DMA-IOMMU
++ * domains currently support translated MSI target lists.
++ *
++ * Return: 0 on success, or a negative error code on failure.
 + */
-+int iommu_dma_sw_msi_list(struct iommu_domain *domain, struct msi_desc *desc,
-+			  const phys_addr_t *phys_addrs, unsigned int nr_addrs,
-+			  size_t granule)
++int iommu_dma_prepare_msi_list(struct msi_desc *desc, const phys_addr_t *phys_addrs,
++			       unsigned int nr_addrs, size_t granule)
 +{
 +	struct device *dev = msi_desc_to_dev(desc);
-+	struct iommu_dma_cookie *cookie;
-+	unsigned int i;
++	struct iommu_group *group = dev->iommu_group;
++	struct iommu_domain *domain;
++	int ret;
 +
-+	iommu_group_mutex_assert(dev);
-+	if (domain->cookie_type != IOMMU_COOKIE_DMA_IOVA)
-+		return -EOPNOTSUPP;
++	if (!group)
++		return 0;
 +
-+	cookie = domain->iova_cookie;
-+	if (granule < PAGE_SIZE || granule != cookie->iovad.granule)
-+		return -EOPNOTSUPP;
-+	if (!nr_addrs || nr_addrs > SIZE_MAX / granule)
-+		return -EINVAL;
++	ret = iommu_deferred_attach(dev, iommu_get_domain_for_dev(dev));
++	if (ret)
++		return ret;
 +
-+	if (!cookie->msi_list_iova) {
-+		for (i = 0; i < nr_addrs; i++)
-+			if (!IS_ALIGNED(phys_addrs[i], granule))
-+				return -EINVAL;
++	guard(mutex)(&group->mutex);
++	domain = group->domain;
++	if (!domain || domain->type == IOMMU_DOMAIN_IDENTITY)
++		return 0;
 +
-+		cookie->msi_list_iova = iommu_dma_alloc_msi_iova(dev, domain, phys_addrs,
-+								 nr_addrs, granule);
-+		if (!cookie->msi_list_iova)
-+			return -ENOMEM;
-+	}
++	return iommu_dma_sw_msi_list(domain, desc, phys_addrs, nr_addrs, granule);
++}
+ #endif /* CONFIG_IRQ_MSI_IOMMU */
+diff --git a/include/linux/iommu.h b/include/linux/iommu.h
+index 95e32c78dcb7..cf33169ec3e3 100644
+--- a/include/linux/iommu.h
++++ b/include/linux/iommu.h
+@@ -1560,12 +1560,21 @@ static inline void pci_dev_reset_iommu_done(struct pci_dev *pdev)
+ #ifdef CONFIG_IRQ_MSI_IOMMU
+ #ifdef CONFIG_IOMMU_API
+ int iommu_dma_prepare_msi(struct msi_desc *desc, phys_addr_t msi_addr);
++int iommu_dma_prepare_msi_list(struct msi_desc *desc, const phys_addr_t *phys_addrs,
++			       unsigned int nr_addrs, size_t granule);
+ #else
+ static inline int iommu_dma_prepare_msi(struct msi_desc *desc,
+ 					phys_addr_t msi_addr)
+ {
+ 	return 0;
+ }
 +
-+	msi_desc_set_iommu_msi_iova(desc, cookie->msi_list_iova, ilog2(granule));
++static inline int iommu_dma_prepare_msi_list(struct msi_desc *desc,
++					     const phys_addr_t *phys_addrs,
++					     unsigned int nr_addrs, size_t granule)
++{
 +	return 0;
 +}
-+
- static int iommu_dma_init(void)
- {
- 	if (is_kdump_kernel())
-diff --git a/drivers/iommu/dma-iommu.h b/drivers/iommu/dma-iommu.h
-index 040d00252563..2a36ed736910 100644
---- a/drivers/iommu/dma-iommu.h
-+++ b/drivers/iommu/dma-iommu.h
-@@ -21,6 +21,9 @@ void iommu_dma_get_resv_regions(struct device *dev, struct list_head *list);
+ #endif /* CONFIG_IOMMU_API */
+ #endif /* CONFIG_IRQ_MSI_IOMMU */
  
- int iommu_dma_sw_msi(struct iommu_domain *domain, struct msi_desc *desc,
- 		     phys_addr_t msi_addr);
-+int iommu_dma_sw_msi_list(struct iommu_domain *domain, struct msi_desc *desc,
-+			  const phys_addr_t *phys_addrs, unsigned int nr_addrs,
-+			  size_t granule);
- 
- extern bool iommu_dma_forcedac;
- 
-@@ -59,5 +62,12 @@ static inline int iommu_dma_sw_msi(struct iommu_domain *domain,
- 	return -ENODEV;
- }
- 
-+static inline int iommu_dma_sw_msi_list(struct iommu_domain *domain, struct msi_desc *desc,
-+					const phys_addr_t *phys_addrs, unsigned int nr_addrs,
-+					size_t granule)
-+{
-+	return -ENODEV;
-+}
-+
- #endif	/* CONFIG_IOMMU_DMA */
- #endif	/* __DMA_IOMMU_H */
 -- 
 2.56.0
 
