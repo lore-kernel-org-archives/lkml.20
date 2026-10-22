@@ -1,85 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792663103;
-	b=Ks5Y6rAgk57wGMe26xyrtAIwCPHmrcPnp0sgBRg0LMLuLAJ5AUcmE+ES+LmY34ngk/Sr
-	 5nRzwiiU9EJ3thJxLplaynKQNnASEBADi8VSFJWNemkk11gEVALVR0vJcMwC6LQgA5rTq
-	 hy3vxCOBWxQjtGQi5lYudRmJAZr+BJ+80TmMxSShLoGvDFmvCmRjilJR8CgCBesANi5Y6
-	 KCC33lWn/ge1AW9yVwzbJ7Mbn8Z0JLjMG3rt2WevO/WMnqy0J4DepE52n4mj2IotnM2Ci
-	 176j4N1pfU37H+m386CNiuyPa3+QNO5MhC3+bgBUVid0t+Z5evmuPMVVUdJXyKcyi8w==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792663103;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:
-	 References:MIME-Version:Content-Transfer-Encoding:
-	 X-Proofpoint-Reinject:X-QCInternal:X-QCInternal:X-Proofpoint-GUID:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=SkZddS+miUPG28nvMCm9Vl6i3WtxcHtjfJbOTS7q09g=;
-	b=KX8FMJZry6FSF2tVnwbZOzJGU+qIEkntr9j0ljqjhOpeayA42oDKJcySDiGU9hGGa9MI
-	 kf7JAloGE/mF07W/ldI1JDShr0hR/8p6UAtQjQqTvG88FTP9UUpG+3o46OuTn5hOAEJRf
-	 t1+AEyY6E5Ixb/IZxtSL09qZzMjIKoVymkcXpiKg2HbH9y7CQ/OOPTjw7jQTUKF5BASiJ
-	 T2o/NfxTZ2DVrWnOg47ouKkuUMIXgFmHmse9N34wmunnK1m9bCjaicPrhH33E1oEbE0GE
-	 I74TnbVnpMiHbG/3xZwlKNuhKNc/Vy/w50UnCilDxhQi4HE6fb7ZDfPOEv9EsTKfj5Q==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=ZqVlzXEO;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792663100;
+	b=af2UChuu5HXwkolphPQYRJwZ6Ga0HGr4K9JBTrWzVCSR2CgxpJj3SBBbr6TW+MBCBVs2
+	 l0PscOeiBuI4Dbo2N16EGC3Q5dZ73ec5TbEfu+oYwAZvm+FjSiUh8U4dZYXS3CPVjCKDC
+	 bs9CJu0uxs7dRrAHK8CxofQuH7En4w1POlnP+hZE+oxgIIPX39HEUJ4eerZDEJrGfYl30
+	 zXUHlvxeKMVTRt0xTgG0CRbCT/sJXBoLSFKNkzZarlNniXdDlOoFGECJkVsyj3EeCGtpN
+	 ifge5YlmzfZMxyf/WS8j3WZEDJNM8J+Ts0Rpv0kiekKk7TcO1Mj8UQFK/LhKWVbeqGQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792663100;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=v4UMkVlfVtb81/ahh8w+P5lmn3QSfFvadiLrsC4smkA=;
+	b=kQtT5NqzKojgrixF6gfc+lc3Tbk4gvmA1gu9dY5rF95PTQvDP+B2XCzlQ95RWk6gXmkZ
+	 px7ZuMfIxtpDvMLfMAiOhxtTihBfpchRJlvr1yJABlVjhqGJPTLX/vi26z5ijXjVsh287
+	 KZAjJV4Zu1JXD7Eks1tn4vaNrp54GaRKbKRFWuY0aDIjeU1GXtnY9XQ/9vvaeQ3Xv6ZDW
+	 Y8nZLKI09nCnf97idQg07kczxAqK0GJbNwdXOZ6gBRZ+DIr6WOJjdH0WSNCqmpCai2dFX
+	 N2JzyjhBqWZB2WnVP+hioIKECFgYm8JojZynoLOUfxaz00B0JkeRIcs4Qs3ULoP/p0w==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aS9AvGs5;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FB35606A31A;
+	Thu, 22 Oct 2026 09:58:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aS9AvGs5
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1792663100;
+	b=mFE+uhVSUGB+o2h4jqHIel+tZkE55vv2CnOXGBZX1gByL3IbuHX7MtC8rm9et+mmO6oo
+	 JEkCKW71aHa0qeNCraSprMj5XsnatzYVqoxq1Nw1JF7P2qsQK7LK48N4PtlbujwdJX++N
+	 +CWl9RfUqfoSBXpW52fmQpsmK8rJeoDskDlT21QpVrPkGFP17MRLyjWvgUc6Yhqr5AWZk
+	 xJDQ19yZJNNaJOHEEZtXhPwlRMo8PAUOKuAIha7Exwnjgb/+A0SWkWsqWp2DPqXpx1W6+
+	 HHexYm/I8Z6auXcAEwtHPTQhe6OF73ivnbiO2wO/lE6oyRD4TO5u35uNS6oCQH16gdg==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1792663100;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=v4UMkVlfVtb81/ahh8w+P5lmn3QSfFvadiLrsC4smkA=;
+	b=XGMdR9/t3dJ8miGfamaL8qgIZC7SVaPX2MMZxr5SA6rheH6FSlUq2oq2erYMHLDh2Pf7
+	 VgS+yoRGEImzsS3C8IcWsfsezN93aaCo/kfRUxBliZK2YIDHnq274Q34WorZFpY0fK7uO
+	 Pbhp9obvMr93ANIs2osTC6Ghby/xExveKSUO3A1xGbRjvawBGG651PrsEQVdRfAsTTux8
+	 2fDN/9sUsCCLWtKBsLNxUkgtD+sTwsGh48o6tOK/BxCR0INSyaxcM5nrxxXhnDoVkMKWA
+	 cHaKy0xobjh81X3rVtKTGufRCO10Y+76G08jeSgkzoYrK19PA8Awki7Jzhn/yrNOQHQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37990606A337;
-	Thu, 22 Oct 2026 09:58:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 37990606A337
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=ZqVlzXEO
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69M8LntB3194741;
-	Thu, 22 Oct 2026 09:58:14 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=SkZddS+miUP
-	G28nvMCm9Vl6i3WtxcHtjfJbOTS7q09g=; b=ZqVlzXEOCHBOGo+vfU7JJGmJWTP
-	pJ1lqNSdKyjicx5XpzLN01+Cn7UYvC9wrOihu7MLiuYsKRdsbtCc07VIcJ+H1MCn
-	H7525dTwZTffS5ZY1Bk7cDkM+JiLIEz2AhY/+Wu2hbOfGbihCr+HCTAy8LbSditb
-	YNVrfpBi02RRRCh5MGyC+Z1jW3KF0y2475XnU6XKkFqmiaLdpgj32ulcx6rMvLPo
-	y5vjYaY16IGL10qS62lkL9EdME7HMIEub1bx6I0DByiIr4n2gA/kUEqQ0Ew0nLOF
-	uzEmbwnnGr6zXjIpkNEkcRdq8ar1kLh9jsPM6sGGkqxh7RnV9CmGKZyK64A==
-Received: from apblrppmta01.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hfewq0edk-23
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Thu, 22 Oct 2026 09:58:13 +0000 (GMT)
-Received: from pps.filterd (apblrppmta01.qualcomm.com [127.0.0.1])
-	by APBLRPPMTA01.qualcomm.com (8.18.1.11/8.18.1.11) with ESMTP id 69M9hnlv2064408;
-	Thu, 22 Oct 2026 09:43:49 GMT
-Received: from hu-devc-hyd-u22-c.qualcomm.com (hu-ks5-hyd.qualcomm.com [10.147.255.18])
-	by APBLRPPMTA01.qualcomm.com (PPS) with ESMTPS id 69M9hmNu2064400
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Thu, 22 Oct 2026 09:43:49 +0000 (GMT)
-Received: by hu-devc-hyd-u22-c.qualcomm.com (Postfix, from userid 4763723)
-	id E65F2655; Thu, 22 Oct 2026 15:13:47 +0530 (+0530)
-From: Karthik S <karthik.s@oss.qualcomm.com>
-To: Srinivas Kandagatla <srini@kernel.org>,
-        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-Cc: linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Karthik S <karthik.s@oss.qualcomm.com>
-Subject: [PATCH v1 5/5] ASoC: qcom: sc8280xp: Add shikra-iqs-lt9611uxd-evk compatible support
-Date: Thu, 22 Oct 2026 15:13:13 +0530
-Message-Id: <20261022094313.1074873-6-karthik.s@oss.qualcomm.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261022094313.1074873-1-karthik.s@oss.qualcomm.com>
-References: <20261022094313.1074873-1-karthik.s@oss.qualcomm.com>
+	by smtp.kernel.org (Postfix) with ESMTPS id 3D9BF1F000C4;
+	Thu, 22 Oct 2026 09:58:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792663100;
+	bh=v4UMkVlfVtb81/ahh8w+P5lmn3QSfFvadiLrsC4smkA=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=aS9AvGs5SIpcPTERYgv3sRz1cGpSBpLE2YbymNDm1Rxjl+q/r2WJgsze/c5jJrX0f
+	 9XvhY6ajICCrGbieE6Ra25u5SN1Bs9whefzvSLMxPQQpPgZuGqmAQ0P1H8FLxvT2Xz
+	 f5w1MHf03UxvBhujxNMJXeen4S7t9E+/OniQOMkmHHeKqSF43y3dVT8fVqx170nYn1
+	 EjZlxsoImpdG4j7iE7iW14CeG1ladRqZXm4xHjzD3ogPp+sGtgbLuna1LL9z5B9rHY
+	 Rvmf+f7ba5JQ5teOgwb1lm1+W8namjVULFne2s0SnCb80DGlMoLynJT9OxuwWD4PGY
+	 q9qh3+WVK7KwQ==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id AF7FD4355E;
+	Thu, 22 Oct 2026 09:58:18 +0000 (UTC)
+From: Andrei Stancovici via B4 Relay <devnull+andrei.stancovici.analog.com@kernel.org>
+Date: Thu, 22 Oct 2026 12:58:20 +0300
+Subject: [PATCH v2 3/3] iio: adc: ltc2497: add LTC2493 support
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,75 +82,251 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261022-submission-ltc2493-support-v1-v2-3-391d908d2877@analog.com>
+References: <20261022-submission-ltc2493-support-v1-v2-0-391d908d2877@analog.com>
+In-Reply-To: <20261022-submission-ltc2493-support-v1-v2-0-391d908d2877@analog.com>
+To: =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
+ Michael Hennerich <Michael.Hennerich@analog.com>, 
+ Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
+ Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Liam Beguin <liambeguin@gmail.com>, 
+ Joshua Crofts <joshua.crofts1@gmail.com>
+Cc: linux@analog.com, linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ Andrei Stancovici <andrei.stancovici@analog.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792663098; l=8715;
+ i=andrei.stancovici@analog.com; s=20261009; h=from:subject:message-id;
+ bh=y587TS9YqWDIOJvw8dQBhToPnXX1YTN14TsWokMI8DI=;
+ b=eir08n3POeaz1h0QalSSsLxr/ZdJl/6D0heAqsWBphGnIbivgnXmMNb1VbkjZ91QYgtL7cEG6
+ mPUUbi32cSvAOcrdqtk/9axrtYCpR9+Rfa3oWwlNk8pY+M3IN207UZe
+X-Developer-Key: i=andrei.stancovici@analog.com; a=ed25519;
+ pk=wgT+au+blAhVYxhwNgdx0woNl/1p+OCG484rnTRFrsE=
+X-Endpoint-Received: by B4 Relay for andrei.stancovici@analog.com/20261009
+ with auth_id=1140
+X-Original-From: Andrei Stancovici <andrei.stancovici@analog.com>
+Reply-To: andrei.stancovici@analog.com
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-QCInternal: smtphost
-X-QCInternal: smtphost
-X-Proofpoint-GUID: L60Yji6sNZ8ODfi8ZMv0FRiKDOx5n9_z
-X-Proofpoint-ORIG-GUID: L60Yji6sNZ8ODfi8ZMv0FRiKDOx5n9_z
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIyMDAzOSBTYWx0ZWRfX1CLXZhiVKI7N
- 7JP/G/Aluon3Spl5AmQLbtXzIhjM73Qtufdt7PceilgyBiYojNTyC+jXuTePpAwLY9BCTUrWRL2
- SvZpXL7WdhtpoOq6G04PNYYcS0gF7AI=
-X-Authority-Analysis: v=2.4 cv=G4OJgNk5 c=1 sm=1 tr=0 ts=6ad9de35 cx=c_pps
- a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=rJkE3RaqiGZ5pbrm-msn:22 a=EUspDBNiAAAA:8 a=J8V9vG3e9rXIWQFow8gA:9
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIyMDAzOSBTYWx0ZWRfX7EIho9izNVnt
- lbPL6WyBuo1d3QOW9Ye+aRHKOeS9uaUUOJV4UzimIahrlJOqxWBA+8ZzKQdDt2jH5AQevAcBd/i
- Z8JmAZmSD6afwLaX4zcHCsrjxYDDrWIkYDNqEt7qxu3II0K0f/NbrD8wD3A76Lt0vWsUiuW+fUT
- kxSZ6kTSDL+HUHHmWuFO5exCf5vJ+YVDWL1iMGPC7G40dRLw+KkAVg64vSSZwjs1Qz10bXRv0M6
- xFlXbGWkaUJytSy5lxsj0UUGvdsaLjkBjstovYowKdXHoNe0FigJpzkk4YNInTehHyx4vnb/ASR
- yPBdsoJBvuRWzj+9AHsIbMXVrUaRf8syGFrZXTtw192rIb3xIcBHFnMrwcolslBDNHBPstSxY2z
- 6bxJfldHmVoGBu0osgQrKFF3fOQt6lkl8LoSxJvq5p7ofIL1RXSpbJS10cMT70nEebRSeXToig7
- tpFXuWk3tNR8Z1Z2TqQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-22_03,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 clxscore=1015 phishscore=0 lowpriorityscore=0 bulkscore=0
- impostorscore=0 adultscore=0 malwarescore=0 spamscore=0 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610220039
 
-Add machine driver support for the Shikra IQS EVK variant that uses the
-LT9611UXD HDMI bridge as an I2S audio codec instead of the MAX98091.
-The new compatible reuses the generic sc8280xp DAPM widgets and configures
-the codec DAI format for I2S with bit/frame clock driven by the codec.
+From: Andrei Stancovici <andrei.stancovici@analog.com>
 
-Signed-off-by: Karthik S <karthik.s@oss.qualcomm.com>
+The LTC2493 is the 4-channel member of the LTC2499 family: 4 single-ended
+inputs or 2 differential pairs, 24-bit result, and the same command
+format, internal PTAT temperature sensor, 2x speed mode and line-frequency
+rejection as the LTC2499.
+
+For channel enumeration, the parts differ in how many inputs they
+have, so record that count in chip_info and select the corresponding
+channel table from it. A future family member with another input
+count is then one more table and one more row rather than another
+branch in probe.
+
+Datasheet: https://www.analog.com/media/en/technical-documentation/data-sheets/2493fe.pdf
+Signed-off-by: Andrei Stancovici <andrei.stancovici@analog.com>
+
 ---
- sound/soc/qcom/sc8280xp.c | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+Changes in v2:
+- Folded in the previous temperature, 2x speed and rejection patches, so
+  the LTC2493 chip_info entry is complete where the part is introduced
+  (Nuno Sá, Jonathan Cameron).
+- Replaced bool four_channel with u8 num_inputs, and pick the channel
+  table from a set keyed by that count in the core, so another input
+  count is one more table and one more row rather than another branch in
+  probe (Jonathan Cameron). It is named num_inputs rather than
+  num_channels because indio_dev->num_channels represents the complete
+  IIO channel set and is 33 for the 16-input part.
+  pahole, struct ltc2497_chip_info, before -> after: LP64 16 -> 16 bytes,
+  ILP32 12 -> 12 bytes, no holes either way. The u8 lands in the padding
+  the trailing bools already occupied, so nothing was reordered.
+- ltc2496_info and the LTC2497/LTC2499 entries gain num_inputs = 16.
+  Without it those parts match no channel set and fail probe.
+- Dropped the comment above the temperature-channel trim rather than
+  rewording it (Nuno Sá).
+- Dropped Joshua Crofts' Reviewed-by from the old patch 2/6: that patch
+  is now merged with three others and the channel representation it
+  covered has been rewritten, so it needs a fresh look.
+---
+ drivers/iio/adc/ltc2496.c      |  1 +
+ drivers/iio/adc/ltc2497-core.c | 66 +++++++++++++++++++++++++++++++++++++-----
+ drivers/iio/adc/ltc2497.c      | 13 +++++++++
+ drivers/iio/adc/ltc2497.h      |  1 +
+ 4 files changed, 74 insertions(+), 7 deletions(-)
 
-diff --git a/sound/soc/qcom/sc8280xp.c b/sound/soc/qcom/sc8280xp.c
-index 9860a68e2add..66064c31136b 100644
---- a/sound/soc/qcom/sc8280xp.c
-+++ b/sound/soc/qcom/sc8280xp.c
-@@ -541,6 +541,15 @@ static const struct qcom_snd_soc_common shikra_iqs_priv_data = {
- 	.mi2s_bclk_enable = true,
+diff --git a/drivers/iio/adc/ltc2496.c b/drivers/iio/adc/ltc2496.c
+index 5b5b6ab28850..e40440410f60 100644
+--- a/drivers/iio/adc/ltc2496.c
++++ b/drivers/iio/adc/ltc2496.c
+@@ -89,6 +89,7 @@ static void ltc2496_remove(struct spi_device *spi)
+ static const struct ltc2497_chip_info ltc2496_info = {
+ 	.resolution = 16,
+ 	.name = NULL,
++	.num_inputs = 16,
  };
  
-+static const struct qcom_snd_soc_common shikra_iqs_lt9611uxd_priv_data = {
-+	.driver_name = "shikra",
-+	.dapm_widgets = sc8280xp_dapm_widgets,
-+	.num_dapm_widgets = ARRAY_SIZE(sc8280xp_dapm_widgets),
-+	.codec_dai_fmt = SND_SOC_DAIFMT_BC_FC |
-+			 SND_SOC_DAIFMT_NB_NF |
-+			 SND_SOC_DAIFMT_I2S,
+ static const struct of_device_id ltc2496_of_match[] = {
+diff --git a/drivers/iio/adc/ltc2497-core.c b/drivers/iio/adc/ltc2497-core.c
+index c218d87d3a62..9346a39968d0 100644
+--- a/drivers/iio/adc/ltc2497-core.c
++++ b/drivers/iio/adc/ltc2497-core.c
+@@ -420,6 +420,49 @@ static const struct iio_chan_spec _name[] = {                           \
+ LTC2497_DEFINE_CHANNELS(ltc2497core_channel, 0);
+ LTC2497_DEFINE_CHANNELS(ltc2497core_channel_samp_freq, BIT(IIO_CHAN_INFO_SAMP_FREQ));
+ 
++#define LTC2493_DEFINE_CHANNELS(_name, _extra_mask)                     \
++static const struct iio_chan_spec _name[] = {                           \
++	LTC2497_CHAN(0, LTC2497_SGL, "CH0", _extra_mask),               \
++	LTC2497_CHAN(1, LTC2497_SGL, "CH1", _extra_mask),               \
++	LTC2497_CHAN(2, LTC2497_SGL, "CH2", _extra_mask),               \
++	LTC2497_CHAN(3, LTC2497_SGL, "CH3", _extra_mask),               \
++	LTC2497_CHAN_DIFF(0, LTC2497_DIFF, _extra_mask),                \
++	LTC2497_CHAN_DIFF(1, LTC2497_DIFF, _extra_mask),                \
++	LTC2497_CHAN_DIFF(0, LTC2497_DIFF | LTC2497_SIGN, _extra_mask), \
++	LTC2497_CHAN_DIFF(1, LTC2497_DIFF | LTC2497_SIGN, _extra_mask), \
++	LTC2497_TEMP_CHANNEL,                                           \
++}
++
++LTC2493_DEFINE_CHANNELS(ltc2493_channel, 0);
++LTC2493_DEFINE_CHANNELS(ltc2493_channel_samp_freq, BIT(IIO_CHAN_INFO_SAMP_FREQ));
++
++/*
++ * Channel sets keyed by the part's single-ended input count, so that adding a
++ * family member with a different count is a new table and a new row here
++ * rather than a new branch in probe.  num_channels counts the temperature
++ * entry, which probe drops again for parts without the sensor.
++ */
++struct ltc2497core_channel_set {
++	u8 num_inputs;
++	unsigned int num_channels;
++	const struct iio_chan_spec *channels;
++	const struct iio_chan_spec *channels_samp_freq;
 +};
 +
- static const struct qcom_snd_soc_common sm8450_priv_data = {
- 	.driver_name = "sm8450",
- 	.dapm_widgets = sc8280xp_dapm_widgets,
-@@ -608,6 +617,8 @@ static const struct of_device_id snd_sc8280xp_dt_match[] = {
- 	{ .compatible = "qcom,qcs9100-sndcard", .data = &qcs9100_priv_data },
- 	{ .compatible = "qcom,sc8280xp-sndcard", .data = &sc8280xp_priv_data },
- 	{ .compatible = "qcom,shikra-iqs-sndcard", .data = &shikra_iqs_priv_data },
-+	{ .compatible = "qcom,shikra-iqs-lt9611uxd-sndcard",
-+	  .data = &shikra_iqs_lt9611uxd_priv_data },
- 	{ .compatible = "qcom,sm8450-sndcard", .data = &sm8450_priv_data },
- 	{ .compatible = "qcom,sm8475-sndcard", .data = &sm8475_priv_data },
- 	{ .compatible = "qcom,sm8550-sndcard", .data = &sm8550_priv_data },
++static const struct ltc2497core_channel_set ltc2497core_channel_sets[] = {
++	{
++		.num_inputs		= 4,
++		.num_channels		= ARRAY_SIZE(ltc2493_channel),
++		.channels		= ltc2493_channel,
++		.channels_samp_freq	= ltc2493_channel_samp_freq,
++	}, {
++		.num_inputs		= 16,
++		.num_channels		= ARRAY_SIZE(ltc2497core_channel),
++		.channels		= ltc2497core_channel,
++		.channels_samp_freq	= ltc2497core_channel_samp_freq,
++	},
++};
++
+ static const struct iio_info ltc2497core_info = {
+ 	.read_raw = ltc2497core_read_raw,
+ 	.read_avail = ltc2497core_read_avail,
+@@ -430,6 +473,7 @@ int ltc2497core_probe(struct device *dev, struct iio_dev *indio_dev)
+ {
+ 	struct ltc2497core_driverdata *ddata = iio_priv(indio_dev);
+ 	struct iio_map *plat_data = dev_get_platdata(dev);
++	const struct ltc2497core_channel_set *set = NULL;
+ 	int ret;
+ 
+ 	/*
+@@ -441,17 +485,25 @@ int ltc2497core_probe(struct device *dev, struct iio_dev *indio_dev)
+ 	else
+ 		indio_dev->name = dev_name(dev);
+ 
++	for (unsigned int i = 0; i < ARRAY_SIZE(ltc2497core_channel_sets); i++) {
++		if (ltc2497core_channel_sets[i].num_inputs ==
++		    ddata->chip_info->num_inputs) {
++			set = &ltc2497core_channel_sets[i];
++			break;
++		}
++	}
++	if (!set)
++		return -EINVAL;
++
+ 	indio_dev->info = &ltc2497core_info;
+ 	indio_dev->modes = INDIO_DIRECT_MODE;
+ 	if (ddata->chip_info->has_speed_mode)
+-		indio_dev->channels = ltc2497core_channel_samp_freq;
+-	else
+-		indio_dev->channels = ltc2497core_channel;
+-	/* Only the ltc2499 has a temperature channel; it is the last entry. */
+-	if (ddata->chip_info->has_temp)
+-		indio_dev->num_channels = ARRAY_SIZE(ltc2497core_channel);
++		indio_dev->channels = set->channels_samp_freq;
+ 	else
+-		indio_dev->num_channels = ARRAY_SIZE(ltc2497core_channel) - 1;
++		indio_dev->channels = set->channels;
++	indio_dev->num_channels = set->num_channels;
++	if (!ddata->chip_info->has_temp)
++		indio_dev->num_channels--;
+ 
+ 	if (ddata->chip_info->has_rejection_mode) {
+ 		struct iio_chan_spec *channels;
+diff --git a/drivers/iio/adc/ltc2497.c b/drivers/iio/adc/ltc2497.c
+index 4cccd3b7c8ef..644954b785b8 100644
+--- a/drivers/iio/adc/ltc2497.c
++++ b/drivers/iio/adc/ltc2497.c
+@@ -19,6 +19,7 @@
+ #include "ltc2497.h"
+ 
+ enum ltc2497_chip_type {
++	TYPE_LTC2493,
+ 	TYPE_LTC2497,
+ 	TYPE_LTC2499,
+ };
+@@ -173,13 +174,23 @@ static void ltc2497_remove(struct i2c_client *client)
+ }
+ 
+ static const struct ltc2497_chip_info ltc2497_info[] = {
++	[TYPE_LTC2493] = {
++		.resolution = 24,
++		.name = "ltc2493",
++		.num_inputs = 4,
++		.has_temp = true,
++		.has_speed_mode = true,
++		.has_rejection_mode = true,
++	},
+ 	[TYPE_LTC2497] = {
+ 		.resolution = 16,
+ 		.name = NULL,
++		.num_inputs = 16,
+ 	},
+ 	[TYPE_LTC2499] = {
+ 		.resolution = 24,
+ 		.name = "ltc2499",
++		.num_inputs = 16,
+ 		.has_temp = true,
+ 		.has_speed_mode = true,
+ 		.has_rejection_mode = true,
+@@ -187,6 +198,7 @@ static const struct ltc2497_chip_info ltc2497_info[] = {
+ };
+ 
+ static const struct i2c_device_id ltc2497_id[] = {
++	{ .name = "ltc2493", .driver_data = (kernel_ulong_t)&ltc2497_info[TYPE_LTC2493] },
+ 	{ .name = "ltc2497", .driver_data = (kernel_ulong_t)&ltc2497_info[TYPE_LTC2497] },
+ 	{ .name = "ltc2499", .driver_data = (kernel_ulong_t)&ltc2497_info[TYPE_LTC2499] },
+ 	{ }
+@@ -194,6 +206,7 @@ static const struct i2c_device_id ltc2497_id[] = {
+ MODULE_DEVICE_TABLE(i2c, ltc2497_id);
+ 
+ static const struct of_device_id ltc2497_of_match[] = {
++	{ .compatible = "lltc,ltc2493", .data = &ltc2497_info[TYPE_LTC2493] },
+ 	{ .compatible = "lltc,ltc2497", .data = &ltc2497_info[TYPE_LTC2497] },
+ 	{ .compatible = "lltc,ltc2499", .data = &ltc2497_info[TYPE_LTC2499] },
+ 	{ }
+diff --git a/drivers/iio/adc/ltc2497.h b/drivers/iio/adc/ltc2497.h
+index 3a3fd82b21a3..02ca0c946448 100644
+--- a/drivers/iio/adc/ltc2497.h
++++ b/drivers/iio/adc/ltc2497.h
+@@ -47,6 +47,7 @@ enum ltc2497_rejection {
+ struct ltc2497_chip_info {
+ 	const char *name;
+ 	u32 resolution;
++	u8 num_inputs;		/* single-ended inputs */
+ 	bool has_temp;
+ 	bool has_speed_mode;	/* SPD bit in the 2nd config byte (LTC2499/LTC2493) */
+ 	bool has_rejection_mode;	/* FA/FB bits in the 2nd config byte */
+
 -- 
-2.34.1
+2.43.0
+
 
