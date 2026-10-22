@@ -1,59 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792633581;
-	b=i0sXvHmPcLPUeKdReVwDH2gOoWC4di8hUUQenNbe5HppRmfulr4wrI0nwAmZaAQ+iC/J
-	 StIJndw5ZwoqFb6EPCREX+h78hPZZgsPfvZqqUAYEirpU6qxH4sSAxZklaDNC3jg3Ik8A
-	 1aPgdIb/DadTIRkKy2FhnvJrmF8xTmOIfaOb4ySJeSxIiScv2MQGd/rMVaJIz46EhPAna
-	 RwS/CPywCvw1mMXGgB0wNozRJ52iXsHykfmNWSlWH3AQTyqqDBgAaPM62F6N2mHweBF/I
-	 NHp5Wex1WVMOmG1pFmi2WM6933phpWA5udauizZBbkDVwcReXac97TcZCZpcDwGiE7Q==
+	t=1792633666;
+	b=3f+mRdoeUhOPsQtRETdQELWXuaTfsR/xY0wUECDII4WCN8phFWrcyciEoP2N8hjOjZ1V
+	 feb/3PHO+wnH6gFdvdKJEiWpac0srHiKziAXzn8xr2kyH7aptn6rFKvk4L5KogKTZZh+5
+	 +SyoVu145PT551kGlhEgHjYL64cM1yfk1OFmvzjz3kpPG1F9k55fjs7bFtfcQw2U2QJHs
+	 AmOIm94p7eK1AyDA0LG+4GkQJjAOvoTzsu1xIzqFFYtMjUB24C2FcLUP6lKjayAjKUV67
+	 HTAWHS8nmFfEgnKFm3ZpiDqPLu0JlGZAb7sWYasKDr5T+oBVIb9CTjQCUrrrfr9G0zA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792633581;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=3t/lhtMwUqFTKoF3uLxNOnCU7ZEEEAgxIpdnalajtQ8=;
-	b=SVD/FJEuEomvenWrnLeKUlAWrMw6dsZzPwMZlSLK8CqZw8nuEuxtSGwGm9vsXsLJ2Lis
-	 fZMSlbhJvIigYx8VLwGnFp2CqaIWZQLL7hZacgo+12bdSI25+HsW77fhpEOLwquM1s7pe
-	 +eUadhaojmJgyOss+hBRERE7Rz/oIU40JH09IKZnm1nz+Fl9G7ypTls+Y228iV7uoeHJC
-	 YdmGVHc1j4hiR9Yr+5vL1Vp+PKgCBnu/uRdfXXsKcMPFamdnzQI8apekWvbddY1LB0dwY
-	 tqfVZHDAu9WjieubjmEUAzzVenxJFg3CBr3Qi3KHyXmfALIGwONM4nlr8hovtDQiTcg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792633666;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=gYKqhMNUDqm7sf/jtPqhDcMNm1ldVrzzvJB2Y2KBTPk=;
+	b=P0fNB2aRhWJzQ5CZW101xQUuu5+5Bx/hkjY+D+wVAOFsNkw1u8t8SEpzXUww5yRQiWZg
+	 TF5VY7zjgLr2TrBmLdJrhRxONOjYvEtCAlAqwjks3g10w+hW7ZxYsVLvFVEZsKpKt8hWr
+	 3I5bB/aM6qIAOptsOdWCob9FcVdWTa0OmX0zOWy/BtFXLkXqSRrJRTSbaCWsl+7+0vOSm
+	 q1dv9ptyaKJ+7SB9ro/pkLQXYxTRX7QZSGSNBv45UHn3YTdTf5N7Z7MIcfW76UfMc7nw6
+	 NJybdD3H2Q/V9rFErps32y/RWrhbfuMfOHzx6MogWqzHJ/Mvare4Ihd2PUOBDnB/+gA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lEZ06Np6;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=rowland.harvard.edu;
+	spf=fail smtp.mailfrom=g.harvard.edu;
+	dkim=pass header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b=BKYIeId6;
+	arc=none smtp.remote-ip=209.85.219.49
+Received: from mail-qv1-f49.google.com (mail-qv1-f49.google.com [209.85.219.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 205D6606A319;
-	Thu, 22 Oct 2026 01:46:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC4DC606A31A
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 01:47:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AC4DC606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lEZ06Np6
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 732E91F000C1;
-	Thu, 22 Oct 2026 01:46:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792633581;
-	bh=3t/lhtMwUqFTKoF3uLxNOnCU7ZEEEAgxIpdnalajtQ8=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=lEZ06Np6OmQu82WP1TS+x1kPF57zJwSzvw4Oiz1T/hIDZ98jWutoeqkT6kW/cfm3o
-	 xdQueKD8+6iZYiVPHj6ETY6IE/iBq43duTOIlLQflbLoGdBpYJpX+i4GpdvMs3bwFe
-	 xtk30aKYHGDO+/fEI32SRWsr0A+CvOLJNboSNADnU0zDAFBqUgeDOp8VcZtu7+MAa3
-	 gHpYsqA1tEktweRIfr5SIWiJVEj3XOQjJIK8ucz/jVRneL8E9acBA+0ETNj8MdrMx0
-	 U9ix6fyhr2fBW8vPb8MR1VOdhwHV2Y/Qus7ZYKSh6nBRuVWdicopcZuswlBLS+IfQ3
-	 E1k7z3ZvQBqtw==
-Subject:
- Re: [PATCH net] net: ag71xx: reallocate rx buffers when changing the MTU
-From: netdev-bot+sashiko@kernel.org
-To: rosenp@gmail.com
-Cc: netdev@vger.kernel.org, chris.snook@gmail.com, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- o.rempel@pengutronix.de, linux-kernel@vger.kernel.org
-Date: Thu, 22 Oct 2026 01:46:20 +0000
-Message-ID: <179263358000.3135.15720043539701773895@kernel.org>
-In-Reply-To: <20261019014438.199718-1-rosenp@gmail.com>
-References: <20261019014438.199718-1-rosenp@gmail.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key, unprotected) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b=BKYIeId6
+Received: by mail-qv1-f49.google.com with SMTP id 6a1803df08f44-91bbce8b00cso4267306d6.1
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 18:47:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=rowland.harvard.edu; s=google; t=1792633664; x=1793238464; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=gYKqhMNUDqm7sf/jtPqhDcMNm1ldVrzzvJB2Y2KBTPk=;
+        b=BKYIeId63mWxyc6xDN30NqhLOOLTL1DRlGa3e0Naf/jy7KDx1Z0VuTTHzbUoZzMRs/
+         PgT2dIVa/JGQaNooI6ym0Yu8/M03ERvJYWLhG7SJM57fe68Dq0ty5XbIWZc/ClL1i1Sv
+         IQ2cRa5MGI7BWy/GMpSUZCBvXX9i5aOKI0ndUD/E0ONi7fDF+IEV7XaSFslChhm6LesL
+         rMtP+5WJK0jgexST6q/wWN7z9qjbuCVZQo/4y9SvTxZRcMg3rh+bFjNJrqy0AtKo+meH
+         Bd9kkMbB+6aTKmrOiMh5jA4SqzPYJmV6eqKYnSb4xquoSF+l7WmZHn1i5gahrgp7neLv
+         w3eA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792633664; x=1793238464;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=gYKqhMNUDqm7sf/jtPqhDcMNm1ldVrzzvJB2Y2KBTPk=;
+        b=OaAg4oftPtJ6k3qTtFkrQSIHPQLFjLytgPIjcgaRw4GIeIwd3HYcMWy3/la7W9tO1W
+         l94GPTySF+99FaKPPmma4R1dcySKJntGWXlPFzB5H3uh/gYU+B5wOzRs8xJUFZngABAM
+         0FKBqUiwXxZlO1liUBz+jKjcZChYHKIt+pt1IdIuzN7nrpVxMG5i9vfTv8EUGYREaGrj
+         EdREPVyBcjalhuTob9wgyh4PqBcHJVyyqwDYP3Lf0SBEELgIda2guciPb/G6ytJeo1yb
+         tCnBkLAhBxQX26uZOGTI8GUnGFKxwoVMZsrNNZb8ik4SmAdi0oS5s18w+0HowC+KOeDM
+         uBWA==
+X-Forwarded-Encrypted: i=1; AKwUvBzOybJ7gBR+jynUNf/uooa/EQvNn6zoSwWaXPInVCIE5sCg15sWw/Rm6HSR2JyMsX9RfYh/A6jeKDUWd7o=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKeTKVzZIWVUS2EMtdg+soECTzHc/syeq/fj0bgVZtuFoaYTzM9
+	pevbQaNdIRPBrHsWe2IGnUlI5kVABuLnvyoA46zEobQRepaq4BC7F9Pgc4qM1ToreG6yaM9Yekd
+	HlGn3xg==
+X-Gm-Gg: AYBFou1iXYjollrYlOhZ58Bs619ZLjvuGxWccy5KTKCYsAx5tDdgGh/BMhqYl4dcIfV
+	AsfPmVEy/XQ7ahRPnV2OP5f5LYTQs0FtcC0kltAB3hIzGrRdTfxGfVI+gKOWBGwpaJkoPq6yPxR
+	KTGA1G32tdgl2/OOWcTvHUvirwQyjbjrseWOmJckOSDyPHT5+Hvz1EajMjhoHttZ469rKDuMRvB
+	KhN0GLvzs2gOA1Zntvf/SUTC4EN4oWFy9NJqTC8o9iF2bLyr/0txIRdThPV2VEzjYTZAwwp16wD
+	v36BDZvUpBzdS+JXlJw7t0KesK5H8q8WrexPLtQFsRDLepbRHy8bc8Z6u7552hPW5/D0LcY1TBt
+	T8s0R7oY/6+1T4WlNgvdJrlAdzBxBtcLiqEJIyH9jVKNdi6rT5WYN9UCw7tsvOMHlDv3Qb8KK4U
+	xTMUM+Zk0x0zBV+ap/FYFLWVRTA+PKS0xisPIlgotJwYe3Z+LiGvr/GzXlpWAm4KECb4AMxy3ze
+	d1mo7TFwCgVq/odqGajMIsB0yoBLPe6yJH1JhZq3fHZ56mUFDDYxVUz
+X-Received: by 2002:a05:620a:84c4:b0:93f:16d4:3c0a with SMTP id af79cd13be357-93f6248e92emr176006185a.4.1792633664545;
+        Wed, 21 Oct 2026 18:47:44 -0700 (PDT)
+Received: from rowland.harvard.edu ([2601:19b:d01:d210::4791])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93f56e246cesm398743785a.38.2026.10.21.18.47.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 21 Oct 2026 18:47:43 -0700 (PDT)
+Date: Wed, 21 Oct 2026 21:47:39 -0400
+From: Alan Stern <stern@rowland.harvard.edu>
+To: Joe Wang <joe_wang@aspeedtech.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-aspeed@lists.ozlabs.org, linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] usb: ehci: Quiesce controller before halting it on
+ shutdown
+Message-ID: <0acd4f35-4b99-41aa-a9c6-2764a6744c8d@rowland.harvard.edu>
+References: <20261022-upstream_ehci_aspeed_shutdown-v2-1-62712169bc07@aspeedtech.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,176 +98,107 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261022-upstream_ehci_aspeed_shutdown-v2-1-62712169bc07@aspeedtech.com>
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+On Thu, Oct 22, 2026 at 09:21:11AM +0800, Joe Wang wrote:
+> ehci_shutdown() runs from the .shutdown callback during reboot,
+> poweroff and kexec, for example when LinuxBoot firmware boots the
+> final OS. The HCD is not removed in that path, so ehci_stop() is not
+> called and the controller may still be running. ehci_shutdown() then
+> halts it without first turning off the schedules, leaving a DMA master
+> running while the system shuts down.
+> 
+> On ASPEED EHCI controllers, clearing USBCMD.RS while both the periodic
+> and asynchronous schedules are enabled may also leave the controller
+> unable to halt. If an asynchronous transaction runs past the end of
+> the micro-frame after RS is cleared, the controller walks the periodic
+> schedule with a cleared internal buffer, reads from address 0x0 and
+> never sets USBSTS.HCHalted.
+> 
+> If the controller was running, call ehci_quiesce() before halting it,
+> as ehci_stop() and ehci_bus_suspend() already do. Do this after
+> rh_state is set to EHCI_RH_STOPPING, so that URB submissions and
+> hrtimer events cannot re-enable the schedules, and let ehci_quiesce()
+> accept that state: like EHCI_RH_RUNNING, it means the controller may
+> still be doing DMA. The controller-death path in ehci_irq() also sets
+> EHCI_RH_STOPPING, but it has already cleared CMD_RUN, CMD_ASE and
+> CMD_PSE, so a quiesce there cannot re-enable anything.
+> 
+> Signed-off-by: Joe Wang <joe_wang@aspeedtech.com>
+> ---
+> This issue was observed on a customer host platform using the AST2700
+> PCIe EHCI (ehci-pci), and the root cause was confirmed by the ASPEED
+> hardware team in RTL simulation. The stop sequence used here (clear
+> PSE/ASE, wait for PSS/ASS to clear, then clear RS) is their
+> recommended workaround and was confirmed to resolve the issue on that
+> platform.
+> 
+> When the controller is running, the added delay at shutdown is bounded
+> by the two existing 16-uframe handshakes in ehci_quiesce().
+> 
+> Tested on AST2700 (ehci-platform): reboot with a hub and USB mass
+> storage under load, ehci_shutdown() on already halted controllers,
+> and unbind/bind (ehci_stop()); no regressions.
+> ---
+> Changes in v2:
+> - Apply to all EHCI controllers, not only ASPEED (Alan)
+> - Quiesce only if the controller was running (Alan)
+> - Link to v1: https://lore.kernel.org/r/20261016-upstream_ehci_aspeed_shutdown-v1-1-8440c13b5652@aspeedtech.com
+> ---
+>  drivers/usb/host/ehci-hcd.c | 11 ++++++++++-
+>  1 file changed, 10 insertions(+), 1 deletion(-)
 
-Critical: 0 · High: 2 · Medium: 0 · Low: 0
+Acked-by: Alan Stern <stern@rowland.harvard.edu>
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [High] ag71xx_change_mtu() does not handle a failed reopen.
-- [High] ag71xx_change_mtu() calls ag71xx_stop() and ag71xx_open()
-  directly while the netdev is still running and its qdisc and TX path…
-
---
-
-net: ag71xx: reallocate rx buffers when changing the MTU
-
-This patch makes ag71xx_change_mtu() stop and reopen a running interface.
-The rx rings are then refilled with buffers sized for the new MTU before
-the MAC frame length register is programmed. Before this, the new max frame
-length was written straight to the MAC while the rings still held buffers
-sized for the old MTU.
-
-> diff --git a/drivers/net/ethernet/atheros/ag71xx.c b/drivers/net/ethernet/atheros/ag71xx.c
-> index 4e4794c4dfdce..6db5ab8be6aef 100644
-> --- a/drivers/net/ethernet/atheros/ag71xx.c
-> +++ b/drivers/net/ethernet/atheros/ag71xx.c
-> @@ -1766,11 +1766,19 @@ static irqreturn_t ag71xx_interrupt(int irq, void *dev_id)
->  
->  static int ag71xx_change_mtu(struct net_device *ndev, int new_mtu)
+> diff --git a/drivers/usb/host/ehci-hcd.c b/drivers/usb/host/ehci-hcd.c
+> index 3c46bb18c7f3..d9d816eedc66 100644
+> --- a/drivers/usb/host/ehci-hcd.c
+> +++ b/drivers/usb/host/ehci-hcd.c
+> @@ -274,7 +274,7 @@ static void ehci_quiesce (struct ehci_hcd *ehci)
 >  {
-> -	struct ag71xx *ag = netdev_priv(ndev);
-> +	bool running = netif_running(ndev);
-> +
-> +	/* The rx buffers are sized for the MTU at open time and the rx
-> +	 * descriptors carry no buffer length, so a larger MTU must not
-> +	 * reach the MAC before the rings have been refilled.
+>  	u32	temp;
+>  
+> -	if (ehci->rh_state != EHCI_RH_RUNNING)
+> +	if (ehci->rh_state < EHCI_RH_RUNNING)
+>  		return;
+>  
+>  	/* wait for any schedule enables/disables to take effect */
+> @@ -356,6 +356,7 @@ static void ehci_silence_controller(struct ehci_hcd *ehci)
+>  static void ehci_shutdown(struct usb_hcd *hcd)
+>  {
+>  	struct ehci_hcd	*ehci = hcd_to_ehci(hcd);
+> +	bool		was_running;
+>  
+>  	/**
+>  	 * Protect the system from crashing at system shutdown in cases where
+> @@ -367,11 +368,19 @@ static void ehci_shutdown(struct usb_hcd *hcd)
+>  		return;
+>  
+>  	spin_lock_irq(&ehci->lock);
+> +	was_running = ehci->rh_state == EHCI_RH_RUNNING;
+>  	ehci->shutdown = true;
+>  	ehci->rh_state = EHCI_RH_STOPPING;
+>  	ehci->enabled_hrtimer_events = 0;
+>  	spin_unlock_irq(&ehci->lock);
+>  
+> +	/*
+> +	 * Turn off the schedules before halting. rh_state is STOPPING now,
+> +	 * so they cannot be re-enabled.
 > +	 */
-> +	if (running)
-> +		ag71xx_stop(ndev);
-
-[Severity: High]
-
-Is it safe to call ag71xx_stop() here while the qdisc and tx path are
-still live?
-
-On the normal ndo_stop path, __dev_close_many() clears __LINK_STATE_START
-and runs dev_deactivate_many() before it calls ndo_stop, so no xmit is in
-flight. This path skips that step. ag71xx_hw_disable() only does this:
-
-ag71xx_hw_disable() {
-	netif_stop_queue(ag->ndev);
-
-	ag71xx_hw_stop(ag);
-	ag71xx_dma_reset(ag);
-
-	napi_disable(&ag->napi);
-	timer_delete_sync(&ag->oom_timer);
-
-	ag71xx_rings_cleanup(ag);
-}
-
-netif_stop_queue() does not take the tx lock, so it doesn't wait for a CPU
-that is already inside ag71xx_hard_start_xmit().
-
-NAPI is also still enabled during ag71xx_hw_stop() and ag71xx_dma_reset(),
-which can mdelay for several ms. A poll in that window can re-open the
-queue:
-
-ag71xx_poll()
-  ag71xx_tx_packets()
-    if ((ring->curr - ring->dirty) < (ring_size * 3) / 4)
-        netif_wake_queue(ag->ndev);
-
-ag71xx_hard_start_xmit() takes no driver lock. It writes
-ring->buf[i].tx.skb and the descriptors, updates ring->curr and BQL, and
-sets TX_CTRL_TXE. That restarts the tx DMA engine that ag71xx_dma_reset()
-just stopped.
-
-Could this let an xmit run at the same time as ag71xx_rings_cleanup() and
-ag71xx_rings_free(), which kfree(tx->buf) and dma_free_coherent() the
-descriptors?
-
-If the queue was woken, an xmit after the rings are freed but before
-ag71xx_open() would dereference tx->descs_cpu and tx->buf after they have
-been set to NULL. An xmit that races with ag71xx_ring_tx_init() and
-netdev_reset_queue() during the reopen could also corrupt curr/dirty and
-the BQL state.
-
-On DSA setups this can happen while other user ports are still
-transmitting through the conduit, because dsa_user_change_mtu() calls
-dev_set_mtu() on the conduit.
-
-ag71xx_restart_work_func() already uses the same unquiesced
-hw_disable/hw_enable pattern. This patch adds a new trigger for it that is
-reached routinely.
-
->  
->  	WRITE_ONCE(ndev->mtu, new_mtu);
-> -	ag71xx_wr(ag, AG71XX_REG_MAC_MFL,
-> -		  ag71xx_max_frame_len(ndev->mtu));
+> +	if (was_running)
+> +		ehci_quiesce(ehci);
 > +
-> +	if (running)
-> +		return ag71xx_open(ndev);
-
-[Severity: High]
-
-What happens to the device if ag71xx_open() fails here?
-
-ag71xx_open() can fail in two places:
-
-- phylink_of_phy_connect()
-- ag71xx_hw_enable()->ag71xx_rings_init(), which returns -ENOMEM if any
-  rx buffer allocation fails. Those buffers are now sized for the new,
-  possibly larger, MTU.
-
-Both failure paths return before napi_enable():
-
-ag71xx_hw_enable() {
-	ret = ag71xx_rings_init(ag);
-	if (ret)
-		return ret;
-
-	napi_enable(&ag->napi);
-	...
-}
-
-netif_set_mtu_ext() just passes the error up and does not close the device.
-So netif_running() stays true while NAPI is disabled, the rings are freed
-and the PHY is detached.
-
-Any later ag71xx_hw_disable() would then call napi_disable() a second time.
-That can come from ifdown or unregister through ag71xx_stop(), from another
-MTU change, or from a pending restart_work that ag71xx_stop() doesn't
-cancel.
-
-Wouldn't napi_disable_locked() then spin forever with RTNL held?
-
-net/core/dev.c:napi_disable_locked() {
-    ...
-		while (val & (NAPIF_STATE_SCHED | NAPIF_STATE_NPSVC)) {
-			usleep_range(20, 200);
-			val = READ_ONCE(n->state);
-		}
-    ...
-}
-
-The device state is also left inconsistent. ndev->mtu is already set to
-new_mtu even though an error is returned, and NETDEV_CHANGEMTU is never
-sent. Retrying with the same MTU returns 0 right away because of this
-check in netif_set_mtu_ext():
-
-	if (new_mtu == dev->mtu)
-		return 0;
-
-After a NETDEV_CHANGEMTU veto, netif_set_mtu_ext() rolls back by calling
-__netif_set_mtu(dev, orig_mtu) and ignores the result. A failed reopen on
-that path would leave the device in the same state without any error being
-reported.
-
-Before this patch, the handler could not fail. Should the error path
-restore the old MTU and bring the device back up? Or should it at least
-leave NAPI and the rings in a state that a later ag71xx_stop() can handle?
-
+>  	ehci_silence_controller(ehci);
 >  
->  	return 0;
->  }
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261019014438.199718-1-rosenp%40gmail.com
+>  	hrtimer_cancel(&ehci->hrtimer);
+> 
+> ---
+> base-commit: 2f2f7eeef8b0a1a9b9ca998231419873ccae8d4e
+> change-id: 20261016-upstream_ehci_aspeed_shutdown-9ccffedb2a1c
+> 
+> Best regards,
+> -- 
+> Joe Wang <joe_wang@aspeedtech.com>
+> 
