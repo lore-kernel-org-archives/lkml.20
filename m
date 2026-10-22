@@ -1,102 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.99
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792690583;
-	b=qpu/ig8QH4ODwilfJ58E5nS3VCHDTzYhvudHCdaY3U55Hg6p7HYHvGz1QjT+9aCt+8L0
-	 ZOwVm3RnUv2vPTGY/kDBQpGakW4CwO3Pgmk9xRZUuspeDjR5roxRKDAvjFl9zuLPM97QU
-	 lF/6iYnkpdZEWMcBrGl4MeAzm81yHkvVlDUoDKe/aVzZo/olT9BMQYX6bXSL9yt6t91HD
-	 J5GRRJRtPDKnjIL1xWBMHWPGMWYgNXvOC39ak08b6QdBRbWg+dESgyc6saZGi26HESnhh
-	 /Depiui9aXIEYO3HNU+um4343VMXVNXU7HYAt/sSzegd8u4EHyCDjn8UYD5oyJ/nprw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792690583;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
-	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Received:X-Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 X-DetectorID-Processed;
-	bh=aQ9LiTLbh2uxFCSppkL9rHsktv+7lwK3tJuZ2euHX10=;
-	b=em7qo1UliF5U4AyDSrajAcwQEcwt0Pfa+fh6Xg1wJNJ/DDDfjFmQIUXv3a0F+EwF1heb
-	 GlzLOYH/zjmlwEtIlYDmKMBnXrRAdkBplrY4wkaxOdPyQh9jXxpX9SaTAjRDOjypK9ssJ
-	 JX1WM1qViG/aoI/7zYZh9KwUZvyPH0SRIQWYHdTXB53mANlw9jGMpsWToiegd2phtCFGc
-	 Hln9W2WjQUse20Rywfrb+Xi/EzrfM+4+7v2c4dTbKk9uXK8mfc8yqPWp+Bzp6mfExVJCY
-	 ZgBxOVWY8TllWkPV+DgNTLZEM+QDONyzECF5gVDRjgB+fC2M/QYSclYkc34yMEJ/61w==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=broadcom.com;
-	spf=fail smtp.mailfrom=broadcom.com;
-	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=KkyuDElZ;
-	arc=none smtp.remote-ip=209.85.216.99
-Received: from mail-pj1-f99.google.com (mail-pj1-f99.google.com [209.85.216.99])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.52.10
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792690579;
+	b=i611RxAID8XlJiwDXPYxpPP7eACZl/PVlJCeh0uA4bFcqWh7fSeN8SdfxRS8g1NMKv5r
+	 Fecit2M7xrxH9k/bu/4YzyTphcuQaDIVx/gzX86Dkm4zcyQeNdQ1r9y5N5meBXu8awI4H
+	 l4wPnOgYRWV07AMudcxu8YBSyau0MdE+mxa4zFukRZPe7Kw1DmLUJHOwXTGzj1HmGftwR
+	 i4kDlS2HgGyHyu6ybfwxOVm2hu4zwWgfEsN/ZoxhCn38hSFJ6jwPEHNKGM1VxSBuOuTJr
+	 utwwETQMAVEd06hd6a0vNFAhOBIF6BTquJffa/j9GCg+3kbdrq1Y6lhZOySMFw5RllA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792690579;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=ys0ZbqSZjxTcQ8JGafAGIwGRj7KWS9F87pux9gegOGk=;
+	b=DqtOs249UcSkY6gUKUpq5uceP0vI+Wq3poXErJ/SXqsKs8KTc60HQ2wZ1fEA9XrCvRKL
+	 z2TwWY5pDy1GqJ7pwQ9h8Smed72WzBgjG16afEN/3V7ai7p9bc/7du688Q04rjYCivocg
+	 /0obPT3tvS1AQAiQXyTqD7oeDZDRBNh/47MAmUhWapm92QqOIp/d1+W71HZ8RA3rGdkf8
+	 Uy/u/rYHi7T6uyGM2zx/ybj+R2qUrcrNOO+IyBF2Mbq9dM26JxpmSurgcAflDmAtt4kHb
+	 TNQZG+lIdq97U5/P9GTvMCWjLOnCx1iEOheiMiRwJnVdY+UySSnXt8x2SJJZ5aWkevQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=pCHf7NlL;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.52.10
+Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011010.outbound.protection.outlook.com [52.101.52.10])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A465606B7AD
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 17:36:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6A465606B7AD
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98805606A334;
+	Thu, 22 Oct 2026 17:36:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 98805606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=KkyuDElZ
-Received: by mail-pj1-f99.google.com with SMTP id 98e67ed59e1d1-3856d6fbcb3so51628a91.2
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 10:36:23 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792690583; x=1793295383;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:dkim-signature:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=aQ9LiTLbh2uxFCSppkL9rHsktv+7lwK3tJuZ2euHX10=;
-        b=lhCYS0V4DOuKn56lYsb5FFBfrpkZdLW/KXx/tda9aqp8EymJ8LDK6YvSCmjlC8oPEU
-         R9gDLUAZ9NJEc3i5TdJi40KHl8Ma7o7XaiThhIwOBWCgiiSAEr+QCmmbzxENHt9iZmFI
-         8e4fuk9LYH7Esvs11crU8cI04J8Hw3+FTFXBI8aGrjuH+qxpW0wwlraVLUu9nBKYTr+W
-         z0VrIGYizDbiA9WuE1p7KBwgMCVhnT9UiNIzklK8No4p3Xswse77wkuhg4c9xsm5NJpx
-         upteUvKd2W5cE+9pAj/8XmvJ+OmHTUwbm4/8DfzFjFlbSqbN0JqOnycbVZX+9qFL5FMG
-         RvHg==
-X-Forwarded-Encrypted: i=1; AKwUvBwUKFe+Z+pbTALt/y56hJlzEEEESRt+zPZ8xEOVJjWiziTDvVFRLEfKz2oB+TKW8hqzKTBdvuQV40S7HYg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJpMiKmp+rUNvu8j91Hj4svKzNZbZh9qBfHppcH22jsfp/FjStV
-	fkW3aQo9q1goAxDVymLPH0UNuVyj9NDv9jyqlW1Gw6FRHwydEoUijcohH83hJDuduGguBZAE2JW
-	TkEnff/M5M3iseqA8MIYBK6nFxcYN0lyGB7oUt/diyTzpTnnHYUJkS8pUFO2Ajx1IHsRx1pJ+Ud
-	Kt2Va6dl9DbAtdVy6sSM+Wd+Djj25AVFCe8YTSmrroGJmNY+2UkSoFemPDb8KQm6QqRo64FVIlO
-	zDX9y5gLt5A9CRgmhBh4Bbz
-X-Gm-Gg: AYBFou2XiGq4DjO6ilHzXcMXyim9ggcG6V3Bmg2iQBWiCMxJGCdQYcjiog1+TR3T1ch
-	aMBzNcutoLsK+6w3SsooIpa+Kww7sk16Alm1qGH1ohmd4COr4fb/KVOcs8oeSvjg2oklOwt4kbi
-	b/N6eyCTAa0KHunr5DlemzCyhZnQRBbz3speLx+DU3seAW7grozATTjoOeYecysHuzPJb1YSxGw
-	paIMKQy7rsLn1/ll720kQu5fvhOTcOCfnm/q99+3SMln8q+ufvq6/JyykAZaQSXlr7jhOUXRH/7
-	735z703VsOQePMJwWuueGYQOAmqr/hg9gACavtFAG2lRMCTpSdX6P5/heyEN0tmN7+0KZv9J+1G
-	daKW57mlWcUHtNDIt119Vu5G/DeV3NVkowunIoNXT7TGobfARvztXYRzIO2+azRBytgqTBtV01a
-	J5PQ5PLml0rmmQQVfUXYTYB0w0gbnHNMOJRxGJSOQb
-X-Received: by 2002:a17:90b:4d83:b0:3ac:7449:40b4 with SMTP id 98e67ed59e1d1-3ad86f017f8mr5332941a91.45.1792690582654;
-        Thu, 22 Oct 2026 10:36:22 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-17.dlp.protect.broadcom.com. [144.49.247.17])
-        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3adc9333399sm20167a91.3.2026.10.22.10.36.22
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Thu, 22 Oct 2026 10:36:22 -0700 (PDT)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-pf1-f198.google.com with SMTP id d2e1a72fcca58-88c768886a6so83399b3a.2
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 10:36:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1792690580; x=1793295380; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=aQ9LiTLbh2uxFCSppkL9rHsktv+7lwK3tJuZ2euHX10=;
-        b=KkyuDElZruiEKTF+WYjfqgvZyRoqKAU3KXLhrjI4RhGx7qMYnlqLln2+jOzDreR8aA
-         KrVhJtHPL7uKHI5QWkq4K4xwfmJneyc1ZjcEaxmzIRx133Ulmgr11PV3AZO2tdDvDg5t
-         zL5/7Axi+acwjHAz8zhsyXRtcVsyKSxNRUM58=
-X-Forwarded-Encrypted: i=1; AKwUvBwrLXmXhOrrgGWvcROVg50i/D6H2T44qJ9enm68o7/KLe46xJZ8H9k44m4Ry7338wPARntf8ZavKB6crKY=@vger.kernel.org
-X-Received: by 2002:a05:6a00:2d16:b0:89f:7ac5:9d54 with SMTP id d2e1a72fcca58-8a089d0736amr5427158b3a.17.1792690580571;
-        Thu, 22 Oct 2026 10:36:20 -0700 (PDT)
-X-Received: by 2002:a05:6a00:2d16:b0:89f:7ac5:9d54 with SMTP id d2e1a72fcca58-8a089d0736amr5427131b3a.17.1792690580106;
-        Thu, 22 Oct 2026 10:36:20 -0700 (PDT)
-Received: from [10.67.48.245] ([192.19.223.252])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8a0894b4292sm2389220b3a.20.2026.10.22.10.36.18
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 22 Oct 2026 10:36:19 -0700 (PDT)
-Message-ID: <84bf86db-618b-4387-bef7-5cc02078c99e@broadcom.com>
-Date: Thu, 22 Oct 2026 10:36:17 -0700
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=pCHf7NlL
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=zEAqnfG321FDPuHw1W1lzb5moVcB9gU8Wcn7GBhqqTIvz0c1/6gj0KF52Y26wX4O/8dN+YbRTViAbqNdO13uBgqoPskQKg/Pcc7uQHwiFyUkw0TmX1mXx18LQVV1bQ8Bfg9+54Hlc9EwHSrO5eAZZUllVj6RRowEBJfhG7vmkF2ypLKD18E8Lixg61wnCrV9NZCIVc0Ff1nQOuy158yksdmXKQnLSt3wsmPdvcMGHScPG+t0yW4BfKj4hT8llqHSwbCt6bMwDK9ks9tTulrx3/TuzbjUdJfuKHYlj9PfGlbEmaXPgB7l7S88oLOpPQAz6gba3I1YAyv8roNhVDXbuQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ys0ZbqSZjxTcQ8JGafAGIwGRj7KWS9F87pux9gegOGk=;
+ b=aSXZwr4w+SgoRpf92mGJJUeiZ+p/JMGXThLNKEdj3nlwcnjz7MCehGb/It/TMvqRL1DFlAgAy/ltOR8FvxLRVYGw+70s8VgbqKxqU1PsW4vUe2QIPSbbjy58Mmh9wYuoAVInASbEvR3DC9++0m8HFIdutelvLbhmWq1B0LtAFzQx14Ore5aEDrmU1nk+cH87ilvusoVxEc1/iiPU3prpLMzrszd2ZITukpTLF4sxc+/2pmcWV7gdbtWmxyhFfUuqGdjwwRcRa3aplzxdWKlMPNDgGgTM7kd2rOikF6Cb80obivTDow0EoQ/EFfalpDdaUdzGkYRvcyqRuBBNjaq9DQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ys0ZbqSZjxTcQ8JGafAGIwGRj7KWS9F87pux9gegOGk=;
+ b=pCHf7NlLMDA8+bWXcVdyctnLFWedmNIGDLmcusRvHTWdmYUmYb0CpsXDJBdaAdTdccuVTgm4BfmyTjduCzcpk67pY7f69FoqgD6qbqQwY+6BGPcvjk1g4zqDWvGwFEAn/1Xetzk6Eum6Ss8wpxZM49wkk3CdsPAzTfYSPm6Fqqr4GX78S10gYMG3y4qmL/qtz9wDZ/mkzgb/imIN1wf3arjlfmPexr5tpRvxwVar7kgODjLE7d/fPk2oBMV/j6FxRc/3uSGZ+TzKEF95s9WURx8yf/LEXieGp63ffrdn6O2ZHEjuuUzaFUO14QVv58AU4MvzbHaQfaKkvbC4rzT9SA==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from IA4PR12MB932075.namprd12.prod.outlook.com
+ (2603:10b6:207:12d::15) by PH8PR12MB7328.namprd12.prod.outlook.com
+ (2603:10b6:510:214::7) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Thu, 22 Oct
+ 2026 17:36:12 +0000
+Received: from IA4PR12MB932075.namprd12.prod.outlook.com
+ ([fe80::5a6f:1f74:6ccb:cf2f]) by IA4PR12MB932075.namprd12.prod.outlook.com
+ ([fe80::5a6f:1f74:6ccb:cf2f%5]) with mapi id 15.21.0546.016; Thu, 22 Oct 2026
+ 17:36:11 +0000
+Message-ID: <66dec41f-a263-444f-b47b-553a63fd4d74@nvidia.com>
+Date: Thu, 22 Oct 2026 20:36:06 +0300
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net V2] net/mlx5e: SHAMPO: Do not merge PSP packets
+To: Daniel Zahka <daniel.zahka@gmail.com>, Tariq Toukan <tariqt@nvidia.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, netdev@vger.kernel.org,
+ Paolo Abeni <pabeni@redhat.com>
+Cc: Boris Pismenny <borisp@nvidia.com>, Cosmin Ratiu <cratiu@nvidia.com>,
+ Dragos Tatulea <dtatulea@nvidia.com>, Gal Pressman <gal@nvidia.com>,
+ Leon Romanovsky <leon@kernel.org>, open list <linux-kernel@vger.kernel.org>,
+ linux-rdma@vger.kernel.org, Mark Bloch <mbloch@nvidia.com>,
+ Raed Salem <raeds@nvidia.com>, Rahul Rameshbabu <rrameshbabu@nvidia.com>,
+ Saeed Mahameed <saeedm@nvidia.com>
+References: <20261021062805.3466208-1-tariqt@nvidia.com>
+ <DMAG3G194BUB.JJKBBQWZCU5C@gmail.com>
+Content-Language: en-US
+From: Tariq Toukan <tariqt@nvidia.com>
+In-Reply-To: <DMAG3G194BUB.JJKBBQWZCU5C@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR4P281CA0059.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:cc::7) To IA4PR12MB932075.namprd12.prod.outlook.com
+ (2603:10b6:207:12d::15)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,174 +106,195 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/6] ata: ahci_brcm: Initialize the NSP interface clock
- and reset
-To: Damien Le Moal <dlemoal@kernel.org>, linux-arm-kernel@lists.infradead.org
-Cc: Niklas Cassel <cassel@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Ray Jui <rjui@broadcom.com>,
- Scott Branden <sbranden@broadcom.com>,
- Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>, Vinod Koul <vkoul@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Manivannan Sadhasivam <mani@kernel.org>,
- Kishon Vijay Abraham I <kishon@kernel.org>, Tejun Heo <tj@kernel.org>,
- Yendapally Reddy Dhananjaya Reddy <yendapally.reddy@broadcom.com>,
- "open list:LIBATA SUBSYSTEM (Serial and Parallel ATA drivers)"
- <linux-ide@vger.kernel.org>,
- "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, open list <linux-kernel@vger.kernel.org>,
- "open list:GENERIC PHY FRAMEWORK" <linux-phy@lists.infradead.org>
-References: <20261021165555.652102-1-florian.fainelli@broadcom.com>
- <20261021165555.652102-4-florian.fainelli@broadcom.com>
- <79a81f1d-2964-4b2a-80d1-64e01c202468@kernel.org>
-Content-Language: en-US, fr-FR
-From: Florian Fainelli <florian.fainelli@broadcom.com>
-Autocrypt: addr=florian.fainelli@broadcom.com; keydata=
- xsBNBFPAG8ABCAC3EO02urEwipgbUNJ1r6oI2Vr/+uE389lSEShN2PmL3MVnzhViSAtrYxeT
- M0Txqn1tOWoIc4QUl6Ggqf5KP6FoRkCrgMMTnUAINsINYXK+3OLe7HjP10h2jDRX4Ajs4Ghs
- JrZOBru6rH0YrgAhr6O5gG7NE1jhly+EsOa2MpwOiXO4DE/YKZGuVe6Bh87WqmILs9KvnNrQ
- PcycQnYKTVpqE95d4M824M5cuRB6D1GrYovCsjA9uxo22kPdOoQRAu5gBBn3AdtALFyQj9DQ
- KQuc39/i/Kt6XLZ/RsBc6qLs+p+JnEuPJngTSfWvzGjpx0nkwCMi4yBb+xk7Hki4kEslABEB
- AAHNMEZsb3JpYW4gRmFpbmVsbGkgPGZsb3JpYW4uZmFpbmVsbGlAYnJvYWRjb20uY29tPsLB
- IQQQAQgAywUCZWl41AUJI+Jo+hcKAAG/SMv+fS3xUQWa0NryPuoRGjsA3SAUAAAAAAAWAAFr
- ZXktdXNhZ2UtbWFza0BwZ3AuY29tjDAUgAAAAAAgAAdwcmVmZXJyZWQtZW1haWwtZW5jb2Rp
- bmdAcGdwLmNvbXBncG1pbWUICwkIBwMCAQoFF4AAAAAZGGxkYXA6Ly9rZXlzLmJyb2FkY29t
- Lm5ldAUbAwAAAAMWAgEFHgEAAAAEFQgJChYhBNXZKpfnkVze1+R8aIExtcQpvGagAAoJEIEx
- tcQpvGagWPEH/2l0DNr9QkTwJUxOoP9wgHfmVhqc0ZlDsBFv91I3BbhGKI5UATbipKNqG13Z
- TsBrJHcrnCqnTRS+8n9/myOF0ng2A4YT0EJnayzHugXm+hrkO5O9UEPJ8a+0553VqyoFhHqA
- zjxj8fUu1px5cbb4R9G4UAySqyeLLeqnYLCKb4+GklGSBGsLMYvLmIDNYlkhMdnnzsSUAS61
- WJYW6jjnzMwuKJ0ZHv7xZvSHyhIsFRiYiEs44kiYjbUUMcXor/uLEuTIazGrE3MahuGdjpT2
- IOjoMiTsbMc0yfhHp6G/2E769oDXMVxCCbMVpA+LUtVIQEA+8Zr6mX0Yk4nDS7OiBlvOwE0E
- U8AbwQEIAKxr71oqe+0+MYCc7WafWEcpQHFUwvYLcdBoOnmJPxDwDRpvU5LhqSPvk/yJdh9k
- 4xUDQu3rm1qIW2I9Puk5n/Jz/lZsqGw8T13DKyu8eMcvaA/irm9lX9El27DPHy/0qsxmxVmU
- pu9y9S+BmaMb2CM9IuyxMWEl9ruWFS2jAWh/R8CrdnL6+zLk60R7XGzmSJqF09vYNlJ6Bdbs
- MWDXkYWWP5Ub1ZJGNJQ4qT7g8IN0qXxzLQsmz6tbgLMEHYBGx80bBF8AkdThd6SLhreCN7Uh
- IR/5NXGqotAZao2xlDpJLuOMQtoH9WVNuuxQQZHVd8if+yp6yRJ5DAmIUt5CCPcAEQEAAcLB
- gQQYAQIBKwUCU8AbwgUbDAAAAMBdIAQZAQgABgUCU8AbwQAKCRCTYAaomC8PVQ0VCACWk3n+
- obFABEp5Rg6Qvspi9kWXcwCcfZV41OIYWhXMoc57ssjCand5noZi8bKg0bxw4qsg+9cNgZ3P
- N/DFWcNKcAT3Z2/4fTnJqdJS//YcEhlr8uGs+ZWFcqAPbteFCM4dGDRruo69IrHfyyQGx16s
- CcFlrN8vD066RKevFepb/ml7eYEdN5SRALyEdQMKeCSf3mectdoECEqdF/MWpfWIYQ1hEfdm
- C2Kztm+h3Nkt9ZQLqc3wsPJZmbD9T0c9Rphfypgw/SfTf2/CHoYVkKqwUIzI59itl5Lze+R5
- wDByhWHx2Ud2R7SudmT9XK1e0x7W7a5z11Q6vrzuED5nQvkhAAoJEIExtcQpvGagugcIAJd5
- EYe6KM6Y6RvI6TvHp+QgbU5dxvjqSiSvam0Ms3QrLidCtantcGT2Wz/2PlbZqkoJxMQc40rb
- fXa4xQSvJYj0GWpadrDJUvUu3LEsunDCxdWrmbmwGRKqZraV2oG7YEddmDqOe0Xm/NxeSobc
- MIlnaE6V0U8f5zNHB7Y46yJjjYT/Ds1TJo3pvwevDWPvv6rdBeV07D9s43frUS6xYd1uFxHC
- 7dZYWJjZmyUf5evr1W1gCgwLXG0PEi9n3qmz1lelQ8lSocmvxBKtMbX/OKhAfuP/iIwnTsww
- 95A2SaPiQZA51NywV8OFgsN0ITl2PlZ4Tp9hHERDe6nQCsNI/Us=
-In-Reply-To: <79a81f1d-2964-4b2a-80d1-64e01c202468@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: IA4PR12MB932075:EE_|PH8PR12MB7328:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0976ac73-fe7c-47aa-b587-08df3062f6d6
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|1800799024|376014|366016|23010399003|261021123027099003|261022105027099002|56012099006|4143699003|11063799006|261009223027099003|22082099003|10067099003|18002099003|3023799007|261021121427099003;
+X-Microsoft-Antispam-Message-Info:
+	t9ntS8C2eWUArlLTNLOZGf7U/v6MxWA0kTzQVgf5lcIrLkit/UG+8jQbo0H+SanOlGfQ0VQx+SRis1pCc7ljE8DfHYAd3F5ilcHQuz8W2CqOPbwYNB6DWAHGITcqt1HWosxm+SvZVNjSjruVmkEqjDFCq+HB71Y00QsCGAkYGfSf6qJ3sHzNuqnKz4WEv6zXTgy75UbAtE9Jl4YbN47V2ptM784cKDETRF41vOuwRaKve8Wkw97iU9VMzpYolwGoaQR3RPnT6a0etw2yEQGyIx6uvNL7i1c3Xl7ijykMS3wkz3nmWVk2Yq6m9FJtmkUjWJOkY++PYYK2zGdSOuEyEYAtfOFTWQRg1vZBwkO9rp1Qw84ZUlQK/4DCnzCCm5KZ1IX9mq/TQgSJDNbtZwGJUblvMg+phbDzTqg9zgw2Tr2vRVaLd8UNPi84LccaPLAF/0cIAa7meYrJWNlkHIRUxAUt5E9p0zRLltLmcMlZsjDCleh72Z4FvoYnx8GI9wF856XQgbkWfJvD3gfqDHqWJNkae5s1BjGn2T67n8pOp+amkx0eUs6yD7XRHXo3igNkod6XpjWlJTft90tn6Dp88Jv3xC5qksPJ4Ur1izur8lSWM78scUbVfxlm/gU/voZmMdDsciEmr6D/k/MZ7GMs0LeBtCPkrQDDQ1TAtL2EWGI=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA4PR12MB932075.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(1800799024)(376014)(366016)(23010399003)(261021123027099003)(261022105027099002)(56012099006)(4143699003)(11063799006)(261009223027099003)(22082099003)(10067099003)(18002099003)(3023799007)(261021121427099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?RE43VlY2emRqZnhmUDRwQXNBTks0QmIwVjBQRnc5T1pTU3VMRURPVHA3VTRL?=
+ =?utf-8?B?TzFReGNnbXRnQTNMbU0xTSt0MGRkRVpDVEtDZHc4UkxKRlFzbG5IcjVEbzBK?=
+ =?utf-8?B?dXQvNWYxL1NsblhIYm0zVEFuUGJuR25EdG01NVpzeUQzblMxS2FpVkc4QjYv?=
+ =?utf-8?B?b0o1eVNySFZNd0RNcGd2bHhBL2h0MUFxZjRFY1c5bVF3WkZ3cHp6S3BNeWIz?=
+ =?utf-8?B?Vm12Y20zc3dSL1dyRmRIY2RwZkwvZFQ2U2hvOUlPWitMZTN0SmV0YURkenpn?=
+ =?utf-8?B?ZWxaTUpqZHpJNnQ1TUZiQk9JUWorY0xQaFEyU2FmcjV3bzRROVUwaUdRMVdi?=
+ =?utf-8?B?dUswek1pb0RkUWdWSmtPRVExMGQ2bUUvU3FiUGJ6dDNHTE42SldNMWNBYmI5?=
+ =?utf-8?B?MjBpT3J4SkdRcnczTWx1c21YcWNpamNiSnk4NEVQZEJleW1tQlVrb2c4SnlP?=
+ =?utf-8?B?NFA4T0ZkSEpXTHBrVjRtKzA0bXVkY25FbFNhSGM2WXpoaE52S0hCSWVublFz?=
+ =?utf-8?B?WUdWV2c5QmMzc3dTcDFBZndZRk42UmtXZWZNdjJ4d0F4bmZuU1RoNFlSU01v?=
+ =?utf-8?B?S01OTHNuY25aWDNZUHdBOUN1UGxaV29xL0FJanpGcnZYdGlNb0xILzFBRnZW?=
+ =?utf-8?B?MUNJTDg2OXhsWjVVY1pNdmcwUllMdVNIeEl2VFdrc3pXZnNjbWR3K2tFSVVk?=
+ =?utf-8?B?MmQvV3I1aWJjaUlQbGVWVk80bDM1alRQdGpUaW5LdldsNnlkdUVoNGxVUStu?=
+ =?utf-8?B?UVNFd0N0NXA2QTc0VG5EWUJCSjVpVWEySkpHakRnd045RVBkZVFWSVhZL1Nz?=
+ =?utf-8?B?NGMrSFhQMUJ2bUNwdXF3enpSSVJTdEFEUEcweW1KS0RmRFhYTGpwdUxuR2kr?=
+ =?utf-8?B?WXk4Y1RmYVF0M2c3NXVybzhpbGZpT2JzUDBKbE12ZUJLM1FtUlFBRkJKVUVU?=
+ =?utf-8?B?MHoyejl1ZTZQRXJPL1lML2xJazgvemtRd3dzUXlPTkwrbGJadnFhQXJSVnpO?=
+ =?utf-8?B?aC8vSkxkUnB5a2lDMFI0RnZuVHhOeVVZSGtpdXh4K1V3T2tNQ2krdXRjbFBE?=
+ =?utf-8?B?S2xRUFhBeGkvOWx2VFdhS1BzblJWS2RnbDQ3VnRtWXhHMUVWc29kWDM5OUE5?=
+ =?utf-8?B?V0FmN2RzSkJRTGZ4Vm1veStSdjNzdkQwM0pKcWhSUFVCRTBqRC9yck5JMlRV?=
+ =?utf-8?B?bCtRNzlhUlhuckw2bzVHcHRyVGFCM0gxNlFwWXA0eXp4RndpaGozaklGYVQv?=
+ =?utf-8?B?UFZMYWJmbXB2dVk5VjB4VWMrZFRaWkFwOE5meTdUbkpvNXhodTVVZjl4L0xT?=
+ =?utf-8?B?dHhUT0ZnV2VON2VFVnA0OUw2WHN6UjF1QUlYeHJsS2dadDFVRHMzb0FpTnVv?=
+ =?utf-8?B?blZGTy9UNTkzVWdUMHFmZWVFTEdMeGFHSlpCeDgrejVVb0xBa2xJQW5iQ1ZK?=
+ =?utf-8?B?bUZ4ZWZaT1pLZm5OSVV3eXRGQkw4bXJORkE0T3Fxak5RRW51ZzlFMFphczUr?=
+ =?utf-8?B?cnRvUTM3dFZOWnNyVTdzNXk0RkN6N2VJYXd5bzVlYmx0NnlBZHdzS3pscjFj?=
+ =?utf-8?B?ZlZPbGFINmhLWTBIL0ZNUllhQjVOeDZobUlRWnFxdTNLMGw5Yk1hMnhCTE5K?=
+ =?utf-8?B?cmVkbEQ2RXVUYW5pOHhaUmlzUVZyY3hFZWNicXlVU2dhQlZTL2Jrblh3ZGtw?=
+ =?utf-8?B?QUZteEtvNGJ1MUw1SzJqeTZtZEhkVUpCdUFRblM3TkVRTHB3cGlkblc5QXNH?=
+ =?utf-8?B?WGJTMElmUENzRFpIc3NNcEovMUFDb2VIMURuSm5wclh2REFiRGZaU1FHZjFT?=
+ =?utf-8?B?Q0RvbUYrMUx4RHNQSkRHN1FydVBZanlIUU0yMjdXK2E3SmxKNmxiRVh2WjBL?=
+ =?utf-8?B?RTVUb0g4VXhLa2haMjZZNTQxVStWTEQxdHkwcVMxL1ErLzZQTW44MjNuZHdY?=
+ =?utf-8?B?TWVzbmZONDhOUk5HUTZ1Z3VnWGgzQXB4VytYeUZBQlVpajRWMW9nL3NRVWQ5?=
+ =?utf-8?B?MnIxM0QxZ0JtZnFjcHV1V2JCK3dDbmtpU1JYZkZudHdXYmU1SlNMOEQ4NHkv?=
+ =?utf-8?B?YXFHK0RqOFVoWE84b2t5K1NTMmswM0h0a1pKRHcxaUtBN2dsQ054ckVRY2Rk?=
+ =?utf-8?B?d1Fzbk0wU1BJanE2WjNnb0pNNTZYdUNNMkc5a3JHTjNwVjhlL1ZSd0tOcDdS?=
+ =?utf-8?B?ekFGeFJ4RXI0S0ZDdlNlWVhOZ3VON0NBcWNRbzZ6ZUJsT3Y5VmI1NDFiSVpy?=
+ =?utf-8?B?NUpWc3JmakVacDg2VlE5RlQ0RFh0UGZxS0JnemRoNTJCM0svczRoVGxwQ3Zv?=
+ =?utf-8?B?cGRGOVYzZXpISThqQUFRSFB5WENMVzNaSXFidXB6YkF0SFdMd2FTQT09?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0976ac73-fe7c-47aa-b587-08df3062f6d6
+X-MS-Exchange-CrossTenant-AuthSource: IA4PR12MB932075.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Oct 2026 17:36:11.7800
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: c6acJEZd5XLYvjqwLfvRhtCreuTIfRYZJsy/+GcqVAB0zZ4MshEFYJnF6Nv8ssDAMFIAUjwd+svsdNNmT0Olvw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7328
 
-On 10/21/26 23:50, Damien Le Moal wrote:
-> On 2026/10/21 18:55, Florian Fainelli wrote:
->> The NSP probe path assumes firmware has enabled the SATA IDM interface
->> clock and released the core reset. The downstream iProc config_AHCI()
->> sequence explicitly performs both operations before accessing AHCI.
->> Without that setup, a cold boot can access an inactive controller.
+
+
+On 21/10/2026 13:30, Daniel Zahka wrote:
+> On Wed Oct 21, 2026 at 2:28 AM EDT, Tariq Toukan wrote:
+>> From: Cosmin Ratiu <cratiu@nvidia.com>
 >>
->> Map the optional NSP IDM register region and enable the interface clock
->> before releasing reset, retaining the downstream settling intervals.
->> Perform the sequence at probe and resume before reconfiguring SATA.
+>> PSP packets are UDP-encapsulated, and enabling HW GRO (SHAMPO in mlx5)
+>> makes it possible to merge those packets in a silly way:
+>> IP|UDP|PSP1|payload1|PSP2|payload2|...
 >>
->> Keep the resource optional so older device trees continue to rely on
->> firmware initialization.
+>> That happens because the HW GRO machinery doesn't know about PSP and
+>> considers it part of the UDP payload.
 >>
->> Fixes: 3ee2e6dcaa35 ("ata: ahci_brcm: Add support for Broadcom NSP SoC")
->> Signed-off-by: Florian Fainelli <florian.fainelli@broadcom.com>
+>> Reject merging when the incoming CQE has PSP marker or the pending skb
+>> has the PSP extension.
+>>
+>> Fixes: 29d7f433fcec ("net/mlx5e: Add Rx data path offload")
+>> Signed-off-by: Cosmin Ratiu <cratiu@nvidia.com>
+>> Reviewed-by: Dragos Tatulea <dtatulea@nvidia.com>
+>> Signed-off-by: Tariq Toukan <tariqt@nvidia.com>
 >> ---
->>   drivers/ata/ahci_brcm.c | 34 ++++++++++++++++++++++++++++++++++
->>   1 file changed, 34 insertions(+)
+>>   .../ethernet/mellanox/mlx5/core/en_accel/en_accel.h |  6 ++++++
+>>   .../ethernet/mellanox/mlx5/core/en_accel/psp_rxtx.h | 13 +++++++++++++
+>>   drivers/net/ethernet/mellanox/mlx5/core/en_rx.c     |  6 ++++--
+>>   3 files changed, 23 insertions(+), 2 deletions(-)
 >>
->> diff --git a/drivers/ata/ahci_brcm.c b/drivers/ata/ahci_brcm.c
->> index 29be74fedcf0..2ed60806b671 100644
->> --- a/drivers/ata/ahci_brcm.c
->> +++ b/drivers/ata/ahci_brcm.c
->> @@ -6,7 +6,9 @@
->>    */
->>   
->>   #include <linux/ahci_platform.h>
->> +#include <linux/bcma/bcma_regs.h>
->>   #include <linux/compiler.h>
->> +#include <linux/delay.h>
->>   #include <linux/device.h>
->>   #include <linux/init.h>
->>   #include <linux/interrupt.h>
->> @@ -83,6 +85,7 @@ enum brcm_ahci_quirks {
->>   struct brcm_ahci_priv {
->>   	struct device *dev;
->>   	void __iomem *top_ctrl;
->> +	void __iomem *idm;
->>   	u32 port_mask;
->>   	u32 quirks;
->>   	enum brcm_ahci_version version;
->> @@ -230,6 +233,25 @@ static u32 brcm_ahci_get_portmask(struct ahci_host_priv *hpriv,
->>   	return impl;
+>> V2:
+>> - Separated from the patchset.
+>> - Moved the PSP merge check into a helper in psp_rxtx.h, with a stub
+>>    returning true when CONFIG_MLX5_EN_PSP is off, and an en_accel.h
+>>    wrapper, replacing the #ifdef in en_rx.c.
+>> - Also reject merging when the pending skb already has the PSP
+>>    extension, not only when the incoming CQE has the PSP marker.
+>> - Fixed the commit message diagram and capitalized SHAMPO in the
+>>    subject.
+>>
+>> V1:
+>> https://lore.kernel.org/all/20260917175433.4090878-8-tariqt@nvidia.com/
+>>
+>> diff --git a/drivers/net/ethernet/mellanox/mlx5/core/en_accel/en_accel.h b/drivers/net/ethernet/mellanox/mlx5/core/en_accel/en_accel.h
+>> index 3f212e46fc2f..5a340f1435e6 100644
+>> --- a/drivers/net/ethernet/mellanox/mlx5/core/en_accel/en_accel.h
+>> +++ b/drivers/net/ethernet/mellanox/mlx5/core/en_accel/en_accel.h
+>> @@ -218,6 +218,12 @@ static inline void mlx5e_accel_tx_finish(struct mlx5e_txqsq *sq,
+>>   #endif
 >>   }
 >>   
->> +static void brcm_sata_init_idm(struct brcm_ahci_priv *priv)
+>> +static inline bool
+>> +mlx5e_accel_shampo_can_merge(struct mlx5e_rq *rq, struct mlx5_cqe64 *cqe)
 >> +{
->> +	u32 data;
->> +
->> +	if (!priv->idm)
->> +		return;
->> +
->> +	/* Enable the interface clock before taking the SATA core out of reset. */
-> 
-> Long line. Please split before 80 chars.
-> 
->> +	data = readl(priv->idm + BCMA_IOCTL);
->> +	writel(data | BCMA_IOCTL_CLK, priv->idm + BCMA_IOCTL);
->> +	readl(priv->idm + BCMA_IOCTL);
->> +	usleep_range(1000, 2000);
->> +
->> +	data = readl(priv->idm + BCMA_RESET_CTL);
->> +	writel(data & ~BCMA_RESET_CTL_RESET, priv->idm + BCMA_RESET_CTL);
->> +	readl(priv->idm + BCMA_RESET_CTL);
->> +	usleep_range(1000, 2000);
+>> +	return mlx5e_psp_shampo_can_merge(rq->hw_gro_data->skb, cqe);
 >> +}
 >> +
->>   static void brcm_sata_init(struct brcm_ahci_priv *priv)
+>>   static inline int mlx5e_accel_init_rx(struct mlx5e_priv *priv)
 >>   {
->>   	void __iomem *ctrl = priv->top_ctrl + SATA_TOP_CTRL_BUS_CTRL;
->> @@ -369,6 +391,8 @@ static int __maybe_unused brcm_ahci_resume(struct device *dev)
->>   	struct brcm_ahci_priv *priv = hpriv->plat_data;
->>   	int ret = 0;
+>>   	return mlx5e_ktls_init_rx(priv);
+>> diff --git a/drivers/net/ethernet/mellanox/mlx5/core/en_accel/psp_rxtx.h b/drivers/net/ethernet/mellanox/mlx5/core/en_accel/psp_rxtx.h
+>> index 2b080c39cc37..9fd1ee789de0 100644
+>> --- a/drivers/net/ethernet/mellanox/mlx5/core/en_accel/psp_rxtx.h
+>> +++ b/drivers/net/ethernet/mellanox/mlx5/core/en_accel/psp_rxtx.h
+>> @@ -85,6 +85,13 @@ static inline bool mlx5e_psp_is_rx_flow(struct mlx5_cqe64 *cqe)
+>>   	return MLX5_PSP_METADATA_MARKER(be32_to_cpu(cqe->ft_metadata));
+>>   }
 >>   
->> +	brcm_sata_init_idm(priv);
+>> +static inline bool
+>> +mlx5e_psp_shampo_can_merge(struct sk_buff *skb, struct mlx5_cqe64 *cqe)
+>> +{
+>> +	/* PSP packets cannot be merged. */
+>> +	return !skb_ext_exist(skb, SKB_EXT_PSP) && !mlx5e_psp_is_rx_flow(cqe);
+>> +}
 >> +
->>   	ret = reset_control_deassert(priv->rcdev_ahci);
->>   	if (ret)
->>   		return ret;
->> @@ -453,6 +477,14 @@ static int brcm_ahci_probe(struct platform_device *pdev)
->>   	priv->version = (unsigned long)of_id->data;
->>   	priv->dev = dev;
+>>   bool mlx5e_psp_offload_handle_rx_skb(struct net_device *netdev, struct sk_buff *skb,
+>>   				     struct mlx5_cqe64 *cqe);
+>>   #else
+>> @@ -110,6 +117,12 @@ static inline bool mlx5e_psp_is_rx_flow(struct mlx5_cqe64 *cqe)
+>>   	return false;
+>>   }
 >>   
->> +	/* Older NSP device trees rely on firmware to initialize the IDM. */
->> +	if (priv->version == BRCM_SATA_NSP &&
->> +	    platform_get_resource_byname(pdev, IORESOURCE_MEM, "idm")) {
->> +		priv->idm = devm_platform_ioremap_resource_byname(pdev, "idm");
->> +		if (IS_ERR(priv->idm))
->> +			return PTR_ERR(priv->idm);
->> +	}
+>> +static inline bool
+>> +mlx5e_psp_shampo_can_merge(struct sk_buff *skb, struct mlx5_cqe64 *cqe)
+>> +{
+>> +	return true;
+>> +}
 >> +
->>   	priv->top_ctrl = devm_platform_ioremap_resource_byname(pdev, "top-ctrl");
->>   	if (IS_ERR(priv->top_ctrl))
->>   		return PTR_ERR(priv->top_ctrl);
->> @@ -493,6 +525,8 @@ static int brcm_ahci_probe(struct platform_device *pdev)
->>   	if (ret)
->>   		return ret;
+>>   static inline bool mlx5e_psp_offload_handle_rx_skb(struct net_device *netdev,
+>>   						   struct sk_buff *skb,
+>>   						   struct mlx5_cqe64 *cqe)
+>> diff --git a/drivers/net/ethernet/mellanox/mlx5/core/en_rx.c b/drivers/net/ethernet/mellanox/mlx5/core/en_rx.c
+>> index 903af3b3e779..d49f26323b1e 100644
+>> --- a/drivers/net/ethernet/mellanox/mlx5/core/en_rx.c
+>> +++ b/drivers/net/ethernet/mellanox/mlx5/core/en_rx.c
+>> @@ -49,6 +49,7 @@
+>>   #include "en_rep.h"
+>>   #include "en/rep/tc.h"
+>>   #include "ipoib/ipoib.h"
+>> +#include "en_accel/en_accel.h"
+>>   #include "en_accel/ipsec.h"
+>>   #include "en_accel/macsec.h"
+>>   #include "en_accel/psp_rxtx.h"
+>> @@ -2268,8 +2269,9 @@ static void mlx5e_handle_rx_cqe_mpwrq_shampo(struct mlx5e_rq *rq, struct mlx5_cq
+>>   	}
 >>   
->> +	brcm_sata_init_idm(priv);
+>>   	if (*skb &&
+>> -	    !(match && mlx5e_hw_gro_skb_has_enough_space(*skb, data_bcnt,
+>> -							 page_size))) {
+>> +	    !(match &&
+>> +	      mlx5e_hw_gro_skb_has_enough_space(*skb, data_bcnt, page_size) &&
+>> +	      mlx5e_accel_shampo_can_merge(rq, cqe))) {
 > 
-> Here, this is called *before* the clocks are enabled, but in brcm_ahci_resume(),
-> brcm_sata_init() -> brcm_sata_init_idm(() is called *after* the clocks are
-> enabled. Does this matter?
+> nit: we already have the skb from the line above, why go back to the rq
+> just to find the same skb again?
+> 
 
-The NSP platform does not support suspend/resume but the consistency 
-should be preserved, logically this should be just like during 
-initialization, thanks!
--- 
-Florian
+Because we have a followup patch to be submitted soon, that adds a check 
+for TLS. It needs the RQ, not the SKB.
+
+>>   		match = false;
+>>   		mlx5e_shampo_flush_skb(rq, cqe, match);
+>>   	}
+>>
+>> base-commit: b6ef0d965fe8ce0ee4b4dcb58b3511f83003e42d
+> 
+> Makes sense to me:
+> 
+> Reviewed-by: Daniel Zahka <daniel.zahka@gmail.com>
+
+Thanks for the review.
+
