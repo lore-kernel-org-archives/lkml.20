@@ -1,68 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.3
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792652855;
-	b=BAvmKqcU8rtqS7g+R2ksKnjhO91TJYJehWHmyE26MggErrxW3d0iKm6ApRQCGlTxhrAf
-	 xHI54pzA+/IoAmZ/20tDOhWhg/bshkLFlCufNPIVTrs4z4KHbHRCjyoa0dzyPoCVtHbpP
-	 r/8s9nqbp2HkYO/30pa0f/bbGL2TjEhT76zUzojRvRt51wF2if8mbBST/2yxMmGXLNm9v
-	 O+LsagnPb6WwqHmGa5BG65bAFFQ8dHGTK2GW6i3sBSoS+P3H4xf8w4xrgvg4Rn2vdoHc0
-	 EVnSfj9bbM5+VhyiwEjJ4CDtWXp/bU5+EnWFzXDoMHZluyZ3ODCxJBBHDbWs2D3Ye4g==
+	t=1792652895;
+	b=xAyWS84IzuIAgyFkuLTekHGYY79txfsH0usQgJ2MccYKqPb6qq4FP6xAjEIkeYU7PZC1
+	 prn5dzO81ZgIDTljxIhS7dIzyERQVIQ20bOuWuYJu5wlrL32h/7TnAzAsGVU9AigKufw9
+	 ssXkmHNuoktN6h66idK4t+ZWyMd98WJmCBjvNSxnUUW6SCFABUgkZ7zlYsK1OiR80anL0
+	 N3KrduRzJnzTLWTBxnIPmG2pDCggvsIBolrRt3cfJyfKvEmBWGJxQTEd4XIOjjvJ/+VPA
+	 otpLoEkgUfOD7lmzrF6hKKZka9LsLRw64phpqKVboEiNPoEqsYerghxaVKeRsFRfDNg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792652855;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=/hgPbR7JXNLGasTI9O0hP9hHRbEsF7yh4gXR1RTna4Q=;
-	b=jE6WZQJgxotoYF7Q/5YqBsWAJtdVNfkcJcR/j7osYfoXTSFIPllIj9gqQK5EtW98yw0y
-	 dBHkeaIOEdZPwZL9SxB3TTDLPJ0Pt9zj0NTnp4aMMxq0u7Gu3Q3DO6a6Y0M8Eno5nadjx
-	 Z4EDiUbrYwctfLY6Ijco6ctAvckTC3hnv4DNFSxVGByMdq7wV4XizI6yHvuOLAfmRz6D1
-	 BGa7yoUkoOV2R0eRdSgk/v+pJ/UIhbEdr/KuTvGK30vQoRq2xB1jcUtPmbImVGRTHDrid
-	 hxPfF3Grn5afFWYqcHHelNwKIPdJ+Okrgl4gH1G8Dxa2aa/Rcxi73bhH8LQODigscfA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792652895;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=fgWzHiJ6sd4DhFEtsNGAAch+iFtzd00wLbBfGrtrfJY=;
+	b=2sRopPFoufIjzsCK6AH4C7gKhl3LNQKpridkejgig4fwY8geavo0vraolpF3KzDfePPT
+	 fei9+n0G6YQdacNFL2tW/FgCLnGX7+rDpz7zkUSU3Jtc2P+ds0l0hHyw1wPD1mQQ4REom
+	 3AMcOat/ac08F7nq1sqtfNcGCJvp8IWCXes1rw0qha86Rz+y3QpPHSFE5tZbUrOpoa14W
+	 87SQPFhfjZ78yyI2I7wIJqr9KdEKcj0qyeUKdr3IzaaU/k2dac2dyINpZtQo6XONNliZF
+	 q+hEyG4mcpgbehtm0k/kllEbmP8/lQfMcSN9+PST3SgU9gaYsAgsPaHEdzEmOeK84FQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=NDQiF0l7;
-	arc=none smtp.remote-ip=117.135.210.3
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=em10dXw7;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E54F4606A319
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 07:07:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E54F4606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE108606A321;
+	Thu, 22 Oct 2026 07:08:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=NDQiF0l7
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=/h
-	gPbR7JXNLGasTI9O0hP9hHRbEsF7yh4gXR1RTna4Q=; b=NDQiF0l7HdIKQpi8BB
-	d/MlUDt9rULP/rOPWQTjO24WNVkElP1EsLnAOOt4YOHBtSFGp3awwTaY0VFNjemf
-	gBw4wqKD49DWd8XGJcDsgCwE0EB+2LTVrRXJNwS/mZmDOi/qH+ccfwwhaKd1Yszo
-	fion3pe78/6nDfWM4Fg0vVL/Y=
-Received: from localhost (unknown [])
-	by gzsmtp1 (Coremail) with SMTP id PCgvCgBXuHG2tdlqeinZBA--.27934S2;
-	Thu, 22 Oct 2026 15:05:27 +0800 (CST)
-From: Hui Su <sh_def@163.com>
-To: Ingo Molnar <mingo@redhat.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>
-Cc: Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>,
-	Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	Barry Song <baohua@kernel.org>,
-	Chen Yu <yu.c.chen@intel.com>,
-	Yicong Yang <yangyicong@hisilicon.com>,
-	linux-kernel@vger.kernel.org,
-	Hui Su <sh_def@163.com>,
-	Kayra Cizmeci <kayracizmeci@gmail.com>
-Subject: [PATCH v3] sched/topology: Balance cluster static-key updates
-Date: Thu, 22 Oct 2026 16:05:26 +0900
-Message-ID: <20261022070526.728824-1-sh_def@163.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=em10dXw7
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C6ECE1F000C2;
+	Thu, 22 Oct 2026 07:08:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792652894;
+	bh=fgWzHiJ6sd4DhFEtsNGAAch+iFtzd00wLbBfGrtrfJY=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=em10dXw7HIvwH+ncXfHetDTSh1J957nxK22EuuVEHvJVF72N+wfD2iXpztgua/UWI
+	 lnwGvex4a/chAazdCcBSgLAZY2AFv56K2fMUzOhIRBI8le96v4ZIMjo1G4bQDuAcDV
+	 PCSQihp4QVeMNS7/J+2YibKB1NRRSKsKpF7BrwHnBRy5vHJOIMY4LbkQw90MpydWv+
+	 xb+CBbGf7YijTTAwsxyvJ8UGwbYv3hCuUf7goT8kpefdSIb6U5ecJDfuLbTqfA2dVN
+	 H3SUqB+jJAqkuJXvmZm1bbmWofO0Rk5w6Akn/3nPOo7sY804TfDI/WFlAqy+OCxNsN
+	 u6lb1haY19Vqg==
+Message-ID: <b138013c-c2b6-4af9-b5b1-274781d94b89@kernel.org>
+Date: Thu, 22 Oct 2026 09:08:09 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,85 +51,101 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PCgvCgBXuHG2tdlqeinZBA--.27934S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxJF4UCrW5uw1xZr4fZr1fZwb_yoW5Ar13pF
-	4vgrW5Xr47tr1DG3y8Cw18ury5Ga97Jw17Gw15Gw1fGF1DZwnYgr1IvF9I9F1jkrWDAr1a
-	vrnFgw1I9a1DAaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0JUYkshUUUUU=
-X-CM-SenderInfo: xvkbvvri6rljoofrz/xtbC6RmsDGrZtbkm9QAA38
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/5] regulator: dt-bindings: Add regulator-boot-force-off
+ property
+To: Paul Louvel <paul.louvel@bootlin.com>, Conor Dooley <conor@kernel.org>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+ Herve Codina <herve.codina@bootlin.com>,
+ Miquel Raynal <miquel.raynal@bootlin.com>
+References: <20261021-paul-lm51772-v1-0-25f0ffbffa8d@bootlin.com>
+ <20261021-paul-lm51772-v1-1-25f0ffbffa8d@bootlin.com>
+ <20261021-wind-reopen-490475bc470d@spud>
+ <DMAOMKRB8DT6.2DUZQCDZW47X2@bootlin.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <DMAOMKRB8DT6.2DUZQCDZW47X2@bootlin.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-build_sched_domains() increments sched_cluster_active once per newly
-built partition that contains an SD_CLUSTER domain.
-detach_destroy_domains() instead tested the global static key before
-decrementing it, so destroying a cluster-less partition could drop a
-reference owned by another partition and disable cluster-aware
-scheduling while SD_CLUSTER domains remained installed.
+On 21/10/2026 19:11, Paul Louvel wrote:
+> On Wed Oct 21, 2026 at 7:01 PM CEST, Conor Dooley wrote:
+>>> +  regulator-boot-force-off:
+>>> +    description: a regulator may be enabled by default when the system powers up.
+>>> +      A consumer may query the regulator's state during boot and disable it if
+>>> +      it is already enabled, potentially resulting in an unbalanced disable
+>>> +      operation. This property ensures that the regulator is disabled at boot,
+>>> +      regardless of its previous state.
+>>
+>> To be honest, I'm not sure how the commentary about querying the state
+>> or being unbalanced is relevant to the description - that sounds like
+>> something specific to the linux regulator framework?
+> 
+> Yes it is. Maybe I miss something, does this binding is used outside linux ?
+> 
+>>
+>> In fact, I'm not sure why this is needed at all? Can't you just change
+>> the software so that it is okay to disable a regulator that has an
+>> explicit enable count of zero?
+>>
+> 
+> Do you mean by calling regulator_force_disable() instead ? I thinked about that
+> but I don't think this is ideal.
+> Or just patch the core to allow unbalanced disable downstream ?
+> My intent was to provide an upstream solution to the problem I described in the
+> cover letter.
 
-Check the installed domains before detaching them, only while the key is
-enabled, and decrement only when the removed partition contains an
-SD_CLUSTER domain.
+Cover letter does not end up in Git history often, so this patch needs
+rationale. Honestly this looks like duplicating regulator-boot-on
+property in a reversed way, while also focusing on Linux implementation.
+And even when considering Linux implementation, the unused regulators
+ARE turned off, thus there is no need to force them off.
 
-With two cluster-bearing partitions installed, removing a singleton
-partition left the baseline count at 1 where 2 partitions still
-carried SD_CLUSTER; the fixed kernel correctly reports 2.  On an
-asymmetric cluster topology where the parent partition gains no
-cluster domain, the baseline count drops to 0 while a cluster
-partition remains installed; the fixed kernel keeps it at 1.
-
-Fixes: 8881e1639f1f ("sched/fair: Scan cluster before scanning LLC in wake-up path")
-Cc: stable@vger.kernel.org
-Reviewed-by: K Prateek Nayak <kprateek.nayak@amd.com>
-Reviewed-by: Kayra Cizmeci <kayracizmeci@gmail.com>
-Signed-off-by: Hui Su <sh_def@163.com>
----
-
-Changes in v3:
-- Combine SD_CLUSTER detection with the existing domain detach loop,
-  avoiding a second CPU mask walk and RCU read-side section.
-  (Tim Chen)
-- Decrement sched_cluster_active after detaching the domains.
-- Add Cc: stable@vger.kernel.org for stable backport consideration.
-
-v2: https://lore.kernel.org/r/20261021043834.1140951-1-sh_def@163.com
-v1: https://lore.kernel.org/r/20261021034314.864713-1-sh_def@163.com
----
- kernel/sched/topology.c | 14 ++++++++++----
- 1 file changed, 10 insertions(+), 4 deletions(-)
-
-diff --git a/kernel/sched/topology.c b/kernel/sched/topology.c
-index 3dab0253976f..3bf28aefac1c 100644
---- a/kernel/sched/topology.c
-+++ b/kernel/sched/topology.c
-@@ -3314,18 +3314,24 @@ int __init sched_init_domains(const struct cpumask *cpu_map)
- static void detach_destroy_domains(const struct cpumask *cpu_map)
- {
- 	unsigned int cpu = cpumask_any(cpu_map);
-+	bool has_cluster = false;
- 	int i;
- 
- 	if (rcu_access_pointer(per_cpu(sd_asym_cpucapacity, cpu)))
- 		static_branch_dec_cpuslocked(&sched_asym_cpucapacity);
- 
--	if (static_branch_unlikely(&sched_cluster_active))
--		static_branch_dec_cpuslocked(&sched_cluster_active);
--
- 	rcu_read_lock();
--	for_each_cpu(i, cpu_map)
-+	for_each_cpu(i, cpu_map) {
-+		if (!has_cluster && static_branch_unlikely(&sched_cluster_active) &&
-+		    lowest_flag_domain(i, SD_CLUSTER))
-+			has_cluster = true;
-+
- 		cpu_attach_domain(NULL, &def_root_domain, i);
-+	}
- 	rcu_read_unlock();
-+
-+	if (has_cluster)
-+		static_branch_dec_cpuslocked(&sched_cluster_active);
- }
- 
- /* handle null as "default" */
--- 
-2.55.0
-
+Best regards,
+Krzysztof
