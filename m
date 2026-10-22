@@ -1,81 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.21
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792700749;
-	b=oNXcZku/+KlBQ8qVldo4a3vPNX6kMHXmholVRBdN/CzrydWbHnOreyivxp2FVpBS/1DO
-	 kyMxAqtJfYnBvNnaE1sYqN2hEJQmATYngQbk7liapqw8w0sMCbQRIalYV4f5s6zgphZrk
-	 Nd7KQQnGvdmDehF1hFbyh7uNAps8LP21pTZ08m2g3uzlGmPwO08gPnnGQyAmxnWyKtZ7R
-	 xsarKFcd2Xvfqtp4UMPn/pycdtV7cUuhbDqBmzv3ltOCYkK/w+8EEEM1DaFCUuqQaVkI0
-	 gQWesc0zNuHalmJAwQYPQPuA0BSaRwm2FkzP2ldwrOpwKZJoXwrrQox/5OhhxxOxNMQ==
+	t=1792700750;
+	b=pA1aKrY1QygJb1vGmeS/BjI5u7VTU1txQaZXaywibCJBVVLL3ExZYR3xwQKL/CJDFrq5
+	 RPE+iJYjmbx4q9PDwQAYJbUlY8i6DWHhzRP319pPxEtPpgBOnrb5oYkODitePfyXZzUt5
+	 G8gQEqKly7unl/dcvzhpc3W4QEFdHV2LxLIoCrfmOKURz6p73o1hCFO0TJasuVVin8YgE
+	 SnTp52yj26xQHmMK4tP86dp0FLkJZVkgMCVamJTCqnk1t1vr9PUUjToJ+QbsSGl6JSlEc
+	 QB6YSSWMoF0N5T4CsRwQoZscG0T4wX58UZyo9ldUt1uLenC67KEyQ5I0Xmp6FkippUw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792700749;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Subject:
-	 From:To:Cc:Date:In-Reply-To:References:Content-Type:
-	 Content-Transfer-Encoding:User-Agent:MIME-Version;
-	bh=38nCIBC94WdQiZ/zspgbUPpmIOd8dxsp5BuTd9fAGW8=;
-	b=AxRWWHxkDVdbot+rx3v2vAhBGfbsoAgxRNDekxbG7sQ1muDZI2dHmLyEThLipW9SJzU7
-	 /YBr9bDmbTdmn6O0x9VLaKQQR4zOnwUcHHCSVr5BsyfX5lrwaOACGtR0uYTazqar5k6QI
-	 emlLcui9ngKYCR+9JkJWExCMa5pMxcsKW/6xvM2eK0QTAh+I8TmbiBdHhK4MwG8LTCwVW
-	 7o1yX9BJ9VDU10ccOdzlY8sj7Hl91Tn5OXOJ6/LtybYwb+0C8ASH9UKeWQVoI/edh7H5r
-	 Esf0eLcaWao2/8vfgI0E3h/icWEB7+1zvDXUcp/SEUV3rPqjbAyzE0NwruCwAC740Lg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792700750;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=ux1UTnRjOyGqJzOYM5Hv6XVTNeyYxnuotg3pXhf5HHs=;
+	b=kqFNlw8J1jTNj8VwOeWZjeSXHu6JPEQoxOoZ1zsqSe2IKXHGnlP8QYqxoV734ukmo6zu
+	 YydWpT12OeJfvZGFM1huuwTzN6D1vqqxiXpH3amyKMVb2WExxhyrzS9fA/RxcUwkxS0It
+	 TbdvqS+85/zmotrwqflFmFUa1nkXw4YRH0JPqdYYzJiyEGy3Jza6YcQxI0k58Vt83rsud
+	 iYUUH0wNArVfN3IPoIw1Y/EEjc21/zk5K3R6KBLr+Y6wcB6YhBGApjvhq7lXjpX+3giTy
+	 bWaX8DAs3Se+0UsTP/bvMBHyl7Dp5KNgiCf1Q8qzicJdxENZ5O0FnDrpo04yNXTEW+Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=cAG0hr98;
-	arc=none smtp.remote-ip=198.175.65.21
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RLMS0l8S;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52BE3606A31E
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 20:25:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 52BE3606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C58C7606A31F
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 20:25:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=cAG0hr98
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792700749; x=1824236749;
-  h=message-id:subject:from:to:cc:date:in-reply-to:
-   references:content-transfer-encoding:mime-version;
-  bh=38nCIBC94WdQiZ/zspgbUPpmIOd8dxsp5BuTd9fAGW8=;
-  b=cAG0hr98zZp8NQChpIgUnBavna7petBzh62fbJM83U+3rL2+C5fAqkfJ
-   rVpSs27K39G5faRXGksQ1Mnyq6b1TAAk76avZ8zv5+l4PabLZv8t053k3
-   8zrIM+LIcx2erQLqu+yDlQZWYec2S4GygceEuTU0QggT1HrRY3RBgGYTf
-   5HYaC3gNjtrGUkcmwMpSuF0vLguYcAh1MmwiIuzDgDz4ZmQtkKgx71KMw
-   XkoKnZYK1R6lPq1auDeR3zowIRn5xEPI8kod2SnLh/RDogLa0UsyIrTdz
-   vNRnzcmYVX1Q9RmuQWjQdnBLGiJOcOIgJg6TsXFP3KeW7uWWBciq3iDPJ
-   g==;
-X-CSE-ConnectionGUID: twvwVYmlTgGuRqzX6Wv7sQ==
-X-CSE-MsgGUID: vwk9LgEbSg2xx/q8jD66mg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11943"; a="1554273"
-X-IronPort-AV: E=Sophos;i="6.27,172,1787036400"; 
-   d="scan'208";a="1554273"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Oct 2026 13:25:48 -0700
-X-CSE-ConnectionGUID: oLNQg+srTRuGdrX9vzB12g==
-X-CSE-MsgGUID: wI6IEDXrQym2v7dlORp+wg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,172,1787036400"; 
-   d="scan'208";a="3549516"
-Received: from unknown (HELO [10.241.242.209]) ([10.241.242.209])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Oct 2026 13:25:47 -0700
-Message-ID: <6d8ff4593cc93c0033c6537eeac281085726c220.camel@linux.intel.com>
-Subject: Re: [RFC PATCH 0/6] sched/fair: Introduce the SMT_BUDDY_ASSIST
- feature
-From: Tim Chen <tim.c.chen@linux.intel.com>
-To: Li kunyu <likunyu@open-hieco.net>, mingo@redhat.com,
- peterz@infradead.org, 	juri.lelli@redhat.com, vincent.guittot@linaro.org,
- dietmar.eggemann@arm.com, 	rostedt@goodmis.org, bsegall@google.com,
- mgorman@suse.de, vschneid@redhat.com, 	kprateek.nayak@amd.com
-Cc: linux-kernel@vger.kernel.org
-Date: Thu, 22 Oct 2026 13:25:46 -0700
-In-Reply-To: <20261020083746.37068-1-likunyu@open-hieco.net>
-References: <20261020083746.37068-1-likunyu@open-hieco.net>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.1 (3.58.1-1.fc43) 
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RLMS0l8S
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9031D1F031E5
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 20:25:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792700749;
+	bh=ux1UTnRjOyGqJzOYM5Hv6XVTNeyYxnuotg3pXhf5HHs=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=RLMS0l8SrlVSlB+xSKm6w6FYJ1BVIP2OUvpbyz9MikbM20bH8i83IdqYLHnzS4qj9
+	 vo6B8FxfAsRueY9WSJTqmuWYCQSQkIN60PxS1EOjtlPkF8g30tel+vLlAPnohHXmRv
+	 /Vbi1+UaOcDgUZ0i0fi6x/na8nusRwiADaFX9FXU32HXstuRnUFimv6wlTGqn34WfD
+	 QMfTzkYILeeei8YsWI50/UKTnIXVBnU/aSI39gffsIi6/ScqbVu8/ubBXYIWQU9gCd
+	 GSwDnvTkIbRy4NYjw2TbXlJoApzGgMFRPZgGDgCAPArwrn6dScfyWS8TCD77ysDeE5
+	 19uIGvmDPyrRA==
+Received: by mail-dl1-f52.google.com with SMTP id a92af1059eb24-156cbe59622so166623c88.0
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 13:25:49 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxBf1D5PezzlajdrajFIQ83lDRfKMW5ijpaW+sG+Pb8jzZelpA6tCf5H6+jSUilNdPx78v3VweVb9Zel2s=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLH3BV1BOTL6KWC3WhMtYvv6o6XZ5B2ZXgvXTGpM6P9XoxIbqwg
+	37yXIMJ9layvAkLVQ0R9jdZzJ2cGf89xjjzbFe5mFLeV0THCUcXb3mk4UnHK4v9572SF7Pa9eeT
+	8IFEt3pXII+KrpZKYkHcpInvVuPkuhiQ=
+X-Received: by 2002:a05:7022:1707:b0:166:9e0d:3b56 with SMTP id
+ a92af1059eb24-1959a382fb4mr475195c88.38.1792700748990; Thu, 22 Oct 2026
+ 13:25:48 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,71 +59,93 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+References: <20261019-b4-ipe-keyring-rfc-v1-0-156f0b93e843@nvidia.com>
+ <20261019-b4-ipe-keyring-rfc-v1-1-156f0b93e843@nvidia.com>
+ <702ade20-a2f3-4919-97e6-c72faa89399a@kernel.org> <DM4PR12MB61369D00ED2FCFEDAE0E4597DE652@DM4PR12MB6136.namprd12.prod.outlook.com>
+In-Reply-To: <DM4PR12MB61369D00ED2FCFEDAE0E4597DE652@DM4PR12MB6136.namprd12.prod.outlook.com>
+From: Fan Wu <wufan@kernel.org>
+Date: Thu, 22 Oct 2026 13:25:36 -0700
+X-Gmail-Original-Message-ID: <CAKtyLkF3mVu8AXWybMGr3+=0F4OMndcV=M-2m-PGz5afE4H1cw@mail.gmail.com>
+X-Gm-Features: AclHuK-w0c1onI8im_hxrE8Vj8Tb7-7Hy-SNC8hLk4Qv6iomWwee3Oh6ZTdAJrg
+Message-ID: <CAKtyLkF3mVu8AXWybMGr3+=0F4OMndcV=M-2m-PGz5afE4H1cw@mail.gmail.com>
+Subject: Re: [PATCH RFC 1/4] ipe: add the .ipe policy keyring
+To: Manuel Huber <manuelh@nvidia.com>
+Cc: Fan Wu <wufan@kernel.org>, David Howells <dhowells@redhat.com>, 
+	Jarkko Sakkinen <jarkko@kernel.org>, Christian Brauner <brauner@kernel.org>, 
+	Andrew Halaney <andrew@amutable.com>, Paul Moore <paul@paul-moore.com>, 
+	James Morris <jmorris@namei.org>, "Serge E. Hallyn" <serge@hallyn.com>, Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Shuah Khan <shuah@kernel.org>, 
+	Randy Dunlap <rdunlap@infradead.org>, Alexei Starovoitov <ast@kernel.org>, 
+	Daniel Borkmann <daniel@iogearbox.net>, 
+	"linux-security-module@vger.kernel.org" <linux-security-module@vger.kernel.org>, 
+	"keyrings@vger.kernel.org" <keyrings@vger.kernel.org>, 
+	"linux-kselftest@vger.kernel.org" <linux-kselftest@vger.kernel.org>, 
+	"linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>, "bpf@vger.kernel.org" <bpf@vger.kernel.org>, 
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, 2026-10-20 at 16:37 +0800, Li kunyu wrote:
-> [Background]
->=20
-> In high-performance computing (HPC) and cloud computing scenarios,
-> maximizing overall compute throughput and sustaining peak CPU capacity
-> remain critical optimization goals. Within the scheduling domain, the
-> primary optimization focuses include:
->=20
-> 1. Timely responsiveness for task wakeup and execution startup.
->=20
-> 2. Fast and balanced distribution of CPU utilization across cores.
->=20
-> 3. Preferring task migration within shared-cache domains (e.g., L3)
-> before burst workloads arrive, so as to reduce cross-die or
-> cross-node overhead.
->=20
-> During development, the following issues were encountered. The above
-> approach ultimately yielded measurable performance improvements.
->=20
->=20
-> [Problem]
->=20
-> It was found that on servers equipped with the Hygon 7447v CPU (Model 7,
-> 384 logical cores), migrating tasks across LLC scheduling domains during
-> load balancing caused significant performance degradation:
->=20
-> 1. A low L3 cache hitting rate (due to factors such as non-shared L3
-> caches).
->=20
-> 2. The traversal overhead of higher-level scheduling domains (e.g.,
-> cross-NUMA scheduling domains).
->=20
-> Similar issues were also observed on CPUs from other vendors during
-> testing, though the degree of memory bandwidth increase and other
-> latency effects varied. Consequently, a series of patches was developed
-> to address and improve these issues.
->=20
->=20
-> [Solution]
->=20
-> This RFC patch series introduces the SMT_BUDDY_ASSIST scheduling
-> feature. The main work is as follows:
->=20
-> 1. Push CFS tasks to SMT sibling CPUs during periodic load balancing.
->=20
-> 2. Skip SMT-domain balancing after a successful push and avoid pulling
-> the pushed task back.
->=20
-> 3. Restrict newidle balancing so it does not pull from higher-level
-> scheduling domains.
+On Thu, Oct 22, 2026 at 11:02=E2=80=AFAM Manuel Huber <manuelh@nvidia.com> =
+wrote:
+>
+> On Mon, Oct 19, 2026 at 04:15:57PM -0700, Fan Wu wrote:
+> > You might need to explain why the existing keyrings, i.e.
+> > builtin/secondary/platform cannot be used in your scenario. Like the
+> > firmware is not trusted?
+>
+> As touched upon in [1], the scenario uses an ephemeral VM whose
+> IEP policy would be assembled after boot. There is a mix of explicitly
+> trusted dm-verity root hashes and possibly signed dm-verity layers
+> which can vary per VM, so the final IPE policy would not necessarily
+> be known ahead of time.
+>
+> This specific scenario is Kata Containers on Kubernetes. Each
+> Kubernetes pod runs in a headless Kata VM with a static dm-verity
+> protected rootfs, while its container image layers are delivered
+> dynamically as dm-verity protected block devices. The kata-agent acts
+> as trusted bootstrap userspace and would author the IPE policy for that
+> particular guest before starting its workload containers.
+>
+> The firmware is trusted in this scenario. A public policy-signing
+> certificate could be compiled into the builtin keyring or provisioned
+> through the platform or secondary keyrings. Because the policy would be
+> authored inside the guest, however, the corresponding private key would
+> also have to be shipped as a static artifact in the guest rootfs and
+> shared by every guest using that build.
+>
+> Instead, the kata-agent would generate an ephemeral, per-guest
+> policy-signing key pair, provision its public certificate, sign the
+> policy, destroy the private key, and restrict the keyring before
+> allowing untrusted code to execute.
+>
+> A dedicated .ipe keyring thus provides a purpose-specific runtime
+> provisioning path for this scenario. Once the certificate has been
+> added, the keyring can be restricted against further enrollment.
+>
+> I envision other scenarios with similar characteristics may benefit from
+> a dedicated .ipe keyring as well.
+>
+> I could elaborate more on this, e.g., on the how users' deployed
+> container images translate to dm-verity protected image layers etc.
+> (the erofs snapshotter is used and there is no filesystem sharing
+> between host and guest, image layer transport is realized via block
+> device attachment), but I am trying to keep this response brief. Some
+> more breadcrumbs on the combination of containerd, IPE, Kata can be
+> found in [2] and [3].
+>
+> [1] https://lore.kernel.org/r/SJ1PR12MB61246B0BF58BC2B6F0A79D30DE9F2@SJ1P=
+R12MB6124.namprd12.prod.outlook.com
+> [2] https://github.com/containerd/containerd/issues/12081
+> [3] https://github.com/kata-containers/kata-containers/issues/10943
 
-Kunyu,
+Thanks for the explanation. This clarifies a lot. Please include this
+context in the commit message and doc for v2.
 
-Have you tried to set relax_domain_level=3D in boot parameter to
-prevent new idle balance across NUMA nodes?
+Also, one thing I missed earlier: before the policy verification call,
+please also check:
 
-grep . /sys/kernel/debug/sched/domains/cpu0/domain*/{name,level,flags}
+ipe_keyring->restrict_link->check =3D=3D restrict_link_reject
 
-to find the right level for NUMA and also if the SD_BALANCE_NEWIDLE
-is turned off for NUMA after you set relax_domain_level.
+so we make sure the restriction function is the right one.
 
-Wonder how much this will improve things for you.
-
-Thanks.
-
-Tim=20
-
+Fan
