@@ -1,107 +1,40 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=154.81.10.170
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792669087;
-	b=H9elo6zog80JhFKiV5sO2gbZeVQGz+kQKfpVbIYEJ5suI4AUB4vmTv+4H5dh8zHVokfc
-	 TjAqSqlqQg/r2VCzLle7pXfVF2JQiofQhN0yGmJcLyxLBlgRhmqKDtqxG6vYpy8iQZS5z
-	 P7O2Y7HPuXh5y0t6dj/9QUwc9geT99jBsC2XKWRRoR4p+sDNfUEqEWc0rD9J0uzTnltoP
-	 Guj9JW59BEatVbqT3lwOLtdtCMSjtfv51rg2zzN/da/OF98IwiG1Cd9upwkQRiuEDstJl
-	 mtMDF1SK+lZFUFpwxUGx2vsfZqtEW+t48GsRPgSNF9dtVQT6XWedTU0/jPlgo7BxOLQ==
+	t=1792669253;
+	b=y/TVrOCuZnp5EFWuOK4ucg9f83JAsvEcGTUttJ6tUseb+J/KvNNuX4NmMOD3+y+v/sTQ
+	 OJKWC54ZBd4dMX8PZXiqQt3+YmpGblKwFeqNBvYCAmSLpUVB25cF35v5qxBkF+x/+j9tm
+	 bctEJdQkJRrIjYKuZvhSntImlLx/xLYyUGblLFC5ionsuVUuH9WR1Zcaxx7rYvGj/mBf2
+	 55EoX+CKE7xogk1Udy7H3E8W3Ya8+bTiwFAJHccPVn3STzKrKSfKcv8SvaZ7XUjX8bJuV
+	 8KIMbbjXs+rHobfthyg/2KEYrFmwciWsrunh73E7cExan99dVLrZMW+oCRlrfGRZ0eA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792669087;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Spamd-Result:X-Spam-Score:X-Spam-Level:X-Spam-Flag;
-	bh=7+QlMJtzdTUiaiMniT1YJj/g7FxrcjRnFfXwAlxNdpE=;
-	b=HRlc/jjfFWCrKj6nzWhCxPfLzFAApXiU4f2iokvN+GM6s7l6onUeT1s12PLKxhKjP4Dy
-	 9wyuZGCcC0agiifbF3zzdC9E5E3P7RcZqUNGdLahyXHfyuMB9MpZsLV+yyV3EPin76/a+
-	 x9eanOwI1rgPoPirSJLTil5FJdrYtD6DnENE9olDda8mkVMbMPjKn3K5ooCLfPJayek4x
-	 fRL/IeveGuP+iCpeU84pYicu1c6ozU6sBG3yJThgLN3PMNehGfpw7uTmxcGZFzaXTmK8a
-	 8h975zSjl1OpFoO4G64HPG/Tyf1SauCjvnaT/NMDBPt2GyXdKSgvilcYabnBvUZejEw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792669253;
+	h=DMARC-Filter:Received:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-HM-Tid:X-HM-MType:X-HM-Spam-Status;
+	bh=U0Xvu1qIA/L+bG5Y4RTEQS4ShKfxcS6BTZgoVihscQU=;
+	b=Umcu5pYYtVAN/QN46x9yVPtw/6jJ7kE+/F9VjplRlvNEuxCCbEzgiayEHc4PWXKpNVHL
+	 yU8+sE++1wKClBS/nB+fU7MWMiD3G2puBDkt2uVb7naGIiIKnFRT5BWbn1ijkb2SfoBnf
+	 39UmezHlhQgheQF98VulLFRENs1cEHSwSWfqKXirLxFvoSAsduc8nvraZiE3QQ1bEI2uO
+	 oazIFvmiFWGYvzlFmKmVNTNKaurg85DAfpdBtlcGbSxTbpWK58K3ekV6uA90OkAak1W9L
+	 SpTcDTMxj040mmvqjzpT0kfflRglHjkxfW/p0M6HpyI80FCrpEUxFOJ35IYqc4kMw8g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=suse.cz;
-	spf=pass smtp.mailfrom=suse.cz;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=YZqXS8xB;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=NkuvhItb;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=YZqXS8xB;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=NkuvhItb;
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	dmarc=pass header.from=easystack.cn;
+	spf=pass smtp.mailfrom=easystack.cn;
+	arc=none smtp.remote-ip=154.81.10.170
+Received: from mail-m10170.netease.com (mail-m10170.netease.com [154.81.10.170])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7682A606A319;
-	Thu, 22 Oct 2026 11:38:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7682A606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=YZqXS8xB;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=NkuvhItb;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=YZqXS8xB;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=NkuvhItb
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id A5E9F220D3;
-	Thu, 22 Oct 2026 11:38:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1792669084; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=7+QlMJtzdTUiaiMniT1YJj/g7FxrcjRnFfXwAlxNdpE=;
-	b=YZqXS8xBsH92TnIuuGOOGOHPczGqHcNrQ/jcUU/kppQFj45I8SYdzFb9r3Vbo6tsDvdgtQ
-	d4RcUrId0dAPJGiqA/6Isvvj59MJfVyQHQB4YPwEaaevKA2sysza5hwcruRwfkBuST/qfr
-	sKbOUij96SqyXEuhNSFc69BMVstkU1I=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1792669084;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=7+QlMJtzdTUiaiMniT1YJj/g7FxrcjRnFfXwAlxNdpE=;
-	b=NkuvhItbYpR4cTQeyUF/6cHCgBX+2zvQpvSJA2H8P1cDjII2zRVaSfj6B/xHJTY6MREoDS
-	1NuHD5O6G6EjlcAw==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1792669084; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=7+QlMJtzdTUiaiMniT1YJj/g7FxrcjRnFfXwAlxNdpE=;
-	b=YZqXS8xBsH92TnIuuGOOGOHPczGqHcNrQ/jcUU/kppQFj45I8SYdzFb9r3Vbo6tsDvdgtQ
-	d4RcUrId0dAPJGiqA/6Isvvj59MJfVyQHQB4YPwEaaevKA2sysza5hwcruRwfkBuST/qfr
-	sKbOUij96SqyXEuhNSFc69BMVstkU1I=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1792669084;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=7+QlMJtzdTUiaiMniT1YJj/g7FxrcjRnFfXwAlxNdpE=;
-	b=NkuvhItbYpR4cTQeyUF/6cHCgBX+2zvQpvSJA2H8P1cDjII2zRVaSfj6B/xHJTY6MREoDS
-	1NuHD5O6G6EjlcAw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 7B32B133F3;
-	Thu, 22 Oct 2026 11:38:04 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id hadAFpz12WpYdAAAD6G6ig
-	(envelope-from <jack@suse.cz>); Thu, 22 Oct 2026 11:38:04 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
-	id 099CDA1417; Thu, 22 Oct 2026 13:38:04 +0200 (CEST)
-Date: Thu, 22 Oct 2026 13:38:04 +0200
-From: Jan Kara <jack@suse.cz>
-To: Josef Bacik <josef@toxicpanda.com>
-Cc: Alexander Viro <viro@zeniv.linux.org.uk>, 
-	Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, linux-fsdevel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/5] fs: make a mount waiting on another mount killable
-Message-ID: <tmw22jj2hn6g6lklme2j3rsfjvmstzpoicvibvmmv6sivd66oj@nhc4lng25gti>
-References: <20261021-b4-super-lock-unborn-v1-0-0265eddb6dee@toxicpanda.com>
- <20261021-b4-super-lock-unborn-v1-1-0265eddb6dee@toxicpanda.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E317606A319;
+	Thu, 22 Oct 2026 11:40:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9E317606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=easystack.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=easystack.cn
+Received: from [192.168.0.59] (unknown [218.94.118.90])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 205a7933a;
+	Thu, 22 Oct 2026 19:40:40 +0800 (GMT+08:00)
+Message-ID: <94d07572-0b9e-493f-98e4-c751e5838e7e@easystack.cn>
+Date: Thu, 22 Oct 2026 19:40:39 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -111,144 +44,76 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261021-b4-super-lock-unborn-v1-1-0265eddb6dee@toxicpanda.com>
-X-Spamd-Result: default: False [-12.80 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	RCVD_COUNT_THREE(0.00)[3];
-	MIME_TRACE(0.00)[0:+];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	ARC_NA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[6];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email]
-X-Spam-Score: -12.80
-X-Spam-Level: 
-X-Spam-Flag: NO
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 0/7] mm/page_owner: add bpf_iter and kfuncs
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: ast@kernel.org, daniel@iogearbox.net, andrii@kernel.org,
+ eddyz87@gmail.com, memxor@gmail.com, martin.lau@linux.dev, song@kernel.org,
+ yonghong.song@linux.dev, jolsa@kernel.org, emil@etsalapatis.com,
+ ihor.solodrai@linux.dev, vbabka@kernel.org, surenb@google.com,
+ mhocko@suse.com, brendan.jackman@linux.dev, hannes@cmpxchg.org,
+ ziy@nvidia.com, shuah@kernel.org, bpf@vger.kernel.org, linux-mm@kvack.org,
+ linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261021112437.1799213-1-zhen.ni@easystack.cn>
+ <20261021115240.f195a2a55364fe300cbb6983@linux-foundation.org>
+From: "zhen.ni" <zhen.ni@easystack.cn>
+In-Reply-To: <20261021115240.f195a2a55364fe300cbb6983@linux-foundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa16369cb290229kunm3eba54192ba45d
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFJQjdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaH0JIVh8fSk1OGktLHh9IHVYVFA
+	kWGhdVGRETFhoSFyQUDg9ZV1kYEgtZQVlJSkNVQk9VSkpDVUJLWVdZFhoPEhUdFFlBWU9LSFVKS0
+	lPT09IVUpLS1VKQktLWQY+
 
-On Wed 21-10-26 16:46:57, Josef Bacik wrote:
-> A superblock is put on the lists by sget_fc() and becomes usable when
-> vfs_get_tree() sets SB_BORN, after the filesystem has read what it needs
-> from its device or its server.  If that doesn't answer, this takes forever.
-> 
-> Somebody else mounting the same thing finds that superblock in sget_fc()
-> and waits in grab_super() for it to be born, to share it, or to die, to
-> make its own.  It has to.  But it does so in super_lock(), which can't be
-> killed, so one stuck mount collects every later attempt.
-> 
-> mount(2) and fsconfig(2) can fail at this point, as they already do when
-> they are killed while waiting for a superblock to die.
-> 
-> Add super_lock_killable(), in which both the wait for SB_BORN and taking
-> s_umount can be killed, and use it in grab_super().  It tells a superblock
-> which is going away from a wait which was cut short, so it returns an int:
-> 0 with the lock held, -ENOENT, or the error from the wait.
-> 
-> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
 
-...
 
-> +/**
-> + * super_lock - wait for superblock to become ready and lock it
-> + * @sb: superblock to wait for
-> + * @excl: whether exclusive access is required
-> + *
-> + * If the superblock has neither passed through vfs_get_tree() or
-> + * generic_shutdown_super() yet wait for it to happen. Either superblock
-> + * creation will succeed and SB_BORN is set by vfs_get_tree() or we're
-> + * woken and we'll see SB_DYING.
-> + *
-> + * A superblock which is being shut down is not waited for, see
-> + * super_wait_shutdown() and super_wait_shutdown_killable() for that.
-> + *
-> + * The caller must have acquired a temporary reference on @sb->s_passive.
-> + *
-> + * Return: The function returns true if SB_BORN was set and with
-> + *         s_umount held. The function returns false if the superblock
-> + *         is being shut down or SB_DYING was set and without s_umount
-> + *         held.
-> + */
-> +static __must_check bool super_lock(struct super_block *sb, bool excl)
-> +{
-> +	return !super_lock_common(sb, excl, false);
-> +}
-> +
-> +/**
-> + * super_lock_killable - killable super_lock()
-> + * @sb: superblock to wait for
-> + * @excl: whether exclusive access is required
-> + *
-> + * Only for callers which give up altogether when they are killed.
-> + *
-> + * The caller must have acquired a temporary reference on @sb->s_passive.
-> + *
-> + * Return: 0 if SB_BORN was set and with s_umount held. Without s_umount held,
-> + *         -ENOENT if the superblock is being shut down or SB_DYING was set,
-> + *         -EINTR or -ERESTARTSYS if the task was killed.
-> + */
-> +static __must_check int super_lock_killable(struct super_block *sb, bool excl)
-> +{
-> +	return super_lock_common(sb, excl, true);
->  }
-
-IMHO it is subtle that super_lock() and super_lock_killable() have
-different convention for the return value (bool vs int). I'd just make both
-return int and 0 on success. There aren't that many users so the change
-won't even be that painful... Thanks.
-
-								Honza
->  
->  /**
-> @@ -674,25 +722,27 @@ EXPORT_SYMBOL(deactivate_super);
->   * sb->kill() and be marked as SB_DEAD.
->   *
->   * Return: 0 if an active reference could be acquired, -EAGAIN if the
-> - *         superblock is gone and the caller should look again,
-> - *         -ERESTARTSYS if the task was killed while waiting for that.
-> + *         superblock is gone and the caller should look again, -EINTR or
-> + *         -ERESTARTSYS if the task was killed while waiting for either.
->   */
->  static int grab_super(struct super_block *sb)
->  {
-> -	bool locked;
->  	int ret;
->  
->  	refcount_inc(&sb->s_passive);
->  	spin_unlock(&sb_lock);
-> -	locked = super_lock_excl(sb);
-> -	if (locked) {
-> +	ret = super_lock_killable(sb, true);
-> +	if (!ret) {
->  		if (atomic_inc_not_zero(&sb->s_active)) {
->  			put_super(sb);
->  			return 0;
->  		}
->  		super_unlock_excl(sb);
-> +		ret = -ENOENT;
->  	}
-> -	ret = wait_var_event_killable(&sb->s_flags, super_flags(sb, SB_DEAD));
-> +	if (ret == -ENOENT)
-> +		ret = wait_var_event_killable(&sb->s_flags,
-> +					      super_flags(sb, SB_DEAD));
->  	put_super(sb);
->  	return ret ? ret : -EAGAIN;
->  }
+在 2026/10/22 02:52, Andrew Morton 写道:
+> On Wed, 21 Oct 2026 19:24:30 +0800 Zhen Ni <zhen.ni@easystack.cn> wrote:
 > 
-> -- 
-> 2.55.0
+>> page_owner records who allocated every page and is a core memory-debug
+>> facility, but it currently reaches userspace as the debugfs flat dump:
+>> slicing allocations by pid, comm, NUMA node, cgroup or stack, etc.,
+>> means streaming and parsing the entire file in userspace, which is
+>> expensive on large hosts and hard to query live.
 > 
--- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+> Confused.  Your series 8570b65220e8 ("mm/page_owner: add print_mode
+> filter") addressed this significantly?
+> 
+> 
+
+Thank you. I'd like to share some background on how this new approach
+came about.
+
+After series 8570b65220e8 ("mm/page_owner: add print_mode filter"), I
+attempted to further extend the filter capabilities so that userspace
+could more selectively capture page owner results. This effort led to
+the series [PATCH v3 0/8] mm/page_owner: Add PID/TGID/COMM and cgroup
+filtering.
+
+During that discussion, we gradually reached a consensus that "a BPF
+iter" might be a better solution to this problem. The main concerns
+with continuing to extend the kernel-side filter approach were:
+
+  1. As filter capabilities grow, the kernel side needs to handle
+  increasingly complex parameter parsing and various combinations of
+  different filter attributes, which is not conducive to maintainability.
+
+  2. More fundamentally, kernel-side filters cannot provide truly
+  flexible filtering because the filtering logic is hardcoded in the
+  kernel.
+
+At that point, I did a POC to verify the BPF iter direction:
+
+  
+https://lore.kernel.org/linux-mm/99a94068-ab37-47c0-878c-7c1ada5204b2@easystack.cn/
+
+It seems there is broad agreement on this direction. This new series is
+the implementation of that approach.
+
+
+Thanks,
+Zhen
+
+
