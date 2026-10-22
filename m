@@ -1,98 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.176
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.72
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792683848;
-	b=qy8vLb/b7GHY3VUZY6l1/rx7UfHwSgBj70aZhPUR/djEUKD5zjCd6fK1UtM6Bg/Zhoke
-	 RjAetOg15q5HmTPNBg23uyi/uwoaqeZG2/0jVUWEbZmhNeBsGk27IPDdTU8GscGsdkHZW
-	 0mcN4U6BFvEH+vk4CjCni4e6yAZmlUu6VuwpWfa4a6rIbGQi9W7QfTY/zdr+G2kPutvA2
-	 T5NkGn6ru6oVeWmmw/x1JjkawJuYAscYl3ftqeD48VBJj/uomYbJLRCfpKoIfLAjIhkeO
-	 lFW/xVN4Z2YqLsuWQW0T/5G2Chx8zaOriIv3l8R9DFKVrxS1yoZTbwrbPpKoJSZUR0w==
+	t=1792683945;
+	b=hPLscS9MJVC21FkrlDICQMJU1hn2QPRpx2+T3as9jZIIG0l4caVKUDn7oWUEqmNDzXIw
+	 xk/9Tv9qOiNdI+mFUDde6mWSmBGkVNPXNmqcGu1dHxyx88dOoC4krc5HfyETfccrdPwEl
+	 v5GlC4hTyijnNgzbvcuCZKieuCsdCXIPOwoV1eKcjgB95O6n2Kd6hudZ3MRVcNu5KrHJO
+	 lLi+JPCwbw6nhiBH0YPeVLE3UVC7WfXDgApDJjQKwWFDmRbNvh5vAQSIe0+rrWjL31IQF
+	 +uptFemRj8h5uHzwQY+5KCODeaYfUOFwUA8rwlyrZFR8oBcJxeaM1kzzpsXLF/ql0SQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792683848;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:In-Reply-To:References:Message-ID:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	bh=doGDFu72fntktSMaYIfbAaZUxiOF1i8vKvNKZvEixJo=;
-	b=i+L0NtQ/y8/NOc7c1x2pfCqjwa4ibWVkCuwSM1RgsS4n2zph5DDwfmY6N621QPteVwZV
-	 uOF+u1FIS8EvxCUJqi4GeI8XD7YFB+Mhus3PGdTA4ID9lAJNbHUKGpo40DoNrkfWS1rws
-	 fV2fFWmHosrChnMaPRLoHS45wwIRzXqL+Dtn/ImlaJYYinW8ORa5sSoYC1XK4LLEi4iPe
-	 1lHjIcXhG/MFkjth0Ph7g3jZOViCT+MLNJhAjZrGAlLVFdRhlcPO3lCuiQ5oMS3NBy3S0
-	 7JUbNZeZ1Cih/uE4CTzQyY1AhYdlEWjCyPGOGzTjFxzEBxukBhFSHt6JdSdtXbrLdAQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792683945;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=ajpv8h5gBQio2QGq1LWsZTjKm997T/vg6CG4Dei2Gpg=;
+	b=GMcej60Cvp5tZOqVaDQP6/sbf8t5ljz08x2JYfm5vYl96BpXIB2UqtWXMR97+4dZ3Hbg
+	 5BvrTNjArO+QryjQbDCPqfE8Xm3YSAK+5An1dVtYLqLjRDF4/DJ/UF98s71tYuTgP2Jn7
+	 QgR1Kdipia/Gqi5h6wxiF4zzQcMavQPI4gulxqDNV7bd4qEtc/89GqbGMGixTy3fAAS1D
+	 D1qX4YcDNFH8rlkc3x6B64sRvIboCcfYhD8EHxnu2kAvjZldCXzNjoTBNuNlxnMBh4P8d
+	 CILs337BYXYws4PNbM+kxhdyhxBWfJ3L1VdWIqrJmdJMtBN6wMtSpYFwYzW7h0c0k3w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=pW219Xzh;
-	arc=none smtp.remote-ip=74.125.82.176
-Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com [74.125.82.176])
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="Rr0G3T/L";
+	arc=none smtp.remote-ip=91.218.175.72
+Received: from mta0.migadu.com (out-72.mta0.migadu.com [91.218.175.72])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D804606A319
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 15:44:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3D804606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AEA6606A321
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 15:45:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0AEA6606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=pW219Xzh
-Received: by mail-dy1-f176.google.com with SMTP id 5a478bee46e88-3535bf8b3e0so3512511eec.0
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 08:44:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792683847; x=1793288647; darn=vger.kernel.org;
-        h=mime-version:content-transfer-encoding:content-type:message-id
-         :references:in-reply-to:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=doGDFu72fntktSMaYIfbAaZUxiOF1i8vKvNKZvEixJo=;
-        b=pW219Xzh+aEdlSC+vVl0yPy7km0/n8uw8ZrED2cVEbi8joL7ypXHbP9ilLCwvEVy2O
-         UB8Ed/asc7hapoCb1pCOhiVJJRrXg72GS6ND8pS0pb1umj6eFTDA9/3gnNziSIzfq+7O
-         eQwIsN54ACAWmtTtWgt/iNTtZhbnN3IfxH9YSrKNmmoSU715jqJk8ftoSgYPnISxxfbt
-         lU/onYEbn1aVhyW7gGq9/uwQaU2Za4HWKMyD388x7/UUDP003FqS4yBg3WJBKd850BY4
-         T8HFws8rpYIS1uofypw6PMTs08POOKfO/7zNkYnGd1dUP/g0jrt1QthNJcfdxDV1mNeJ
-         P/gg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792683847; x=1793288647;
-        h=mime-version:content-transfer-encoding:content-type:message-id
-         :references:in-reply-to:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=doGDFu72fntktSMaYIfbAaZUxiOF1i8vKvNKZvEixJo=;
-        b=XREkv6B9bGiGGploQ9hswi8c5relNftX2wVXVPTIMIlwDIEkHei8pzaA70fFebg0rO
-         sHW3o7KAvlwjX+CHUpAH8U9KCIcQCzbXel+hmwOjBTRpywzBWcoiOwZzJmhtsVZZNRbk
-         rF7TVrujfCaqNOKz67K8nTpfY+c+BE7hwxw4sm9y+NoGagvIYAw2maD7A6zGA+1gWJgh
-         Mwhz9Bx8XLsaiSqXyIKIe2uEBLyJ3R8PNKwLhuUv5D7Zkv3hl1peaNcKh494bczHngmS
-         DZ4o8lj2/GNnRXijmysJy9/N5yz9BbeWmMsEmyOyCM4GIfM1yXqjoo5mbFDBr+YefSkl
-         c5aw==
-X-Forwarded-Encrypted: i=1; AKwUvBzgT+htLykWxNvV8uDPp/jPxc3Ldvp8QnhPvmJHr3o80uMh3H27UMctpWtK3rM/ddQ/5fe9F6VWTxxnX5I=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJfOPBo5uyOXl9Rha8kA9Hc2UL1WYtkJ/NqqlIs+NUf7KctCjaz
-	DMMsSd+gVPdWigckLPGcVcvo/depgOUL4cWE04wFbI0hz5kkghjNMVKi
-X-Gm-Gg: AYBFou1Ks9yJE2ZEk9Z43DKj7RbKWZmk33Ptr4hRjiX6cJojDy5QwABYdb8eHXOs50d
-	BnaVsh7NsLnEFMzASrmjrYS9v3ZndVwOsAkhEZfimx2gozPQQIS0GlQfttzy0HogNuDeJg0COXg
-	2WbHPmW2+oq7jvr9keZP2Xt/3SDLvTBM9DSrJIlBdLanZY/iaG1WRlijTowsLKp60sC09zzJqRG
-	nB2cZzg+tDTun3YqazHWtbr44T6LUJMom747xGPgCM/2n16tOUDythl/xJ4hiijmksVyt0cPFKm
-	ir9dgxdRyzCFB2cmKt04bxEnNuLg140IqfFWbTGvaE5uggOp+YNsWlRToNrZaoYA0uEB8eyNsO+
-	Hp2204HDt2M6viy2P95/++B+f82PdNqwy8cYlbtt0vZmznmv4ekzeBqQlBBhJ5/r4OlnFBgmrYy
-	GTYeqnxXMx2AXPQgAXuI6JTsRWKj6KLOxYstnGN91T7y9wTrTq1spaZ6AhsrZJPiicDqRZNENwJ
-	hbrgcFMgDPUEU5tgHdPdFFmYIgnLC0SfjFkA3sDoJHGJKo9EZP3zaeJMokIN0jgizd+a9Uh0o5i
-	iKXqowDkMgWjKWAZDqLPSzyV0A==
-X-Received: by 2002:a05:693c:8955:20b0:360:58a9:2704 with SMTP id 5a478bee46e88-3674c63d542mr7841871eec.6.1792683847346;
-        Thu, 22 Oct 2026 08:44:07 -0700 (PDT)
-Received: from [127.0.1.1] (67.216.200.102.16clouds.com. [67.216.200.102])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3673e153519sm18526695eec.3.2026.10.22.08.44.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 08:44:06 -0700 (PDT)
-Date: Thu, 22 Oct 2026 08:44:06 -0700 (PDT)
-From: Cheng Yongkang <teel4res@gmail.com>
-To: Benjamin LaHaise <ben@communityfibre.ca>
-Cc: Alexander Viro <viro@zeniv.linux.org.uk>,
- Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
- linux-aio@kvack.org, linux-fsdevel@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [BUG] fs/aio: io_setup integer wrap can exhaust global aio quota
-In-Reply-To: <20261022152305.GP8374@kvack.org>
-References: <20261022091748.3653127-1-teel4res@gmail.com>
- <20261022152305.GP8374@kvack.org>
-Message-ID: <179268384018.50580.15623131516982541149@gmail.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Rr0G3T/L
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=y0NAk4+1flMSEPJywC+JAVutEj2POM3y6ILJXbaBwYo=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792683941; v=1; x=1793288741;
+ b=Rr0G3T/LEd/M21chZONfkuVh3wTtA479aNgZ16QZzUGzTJmRrVCg/V8UL0dMbzxDOa4D/0uj
+ NiUXdOExh05ow71Xv97mZrKvKj8ERDyKhLOa236fZPoNeOuu0LLNavIleeYYBGdxN9K6fxD2eIZ
+ ZaXuHQGeQTuaj1BranKxJyMs=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 9d8d4721d428ad36;
+	Thu, 22 Oct 2026 15:45:41 +0000
+X-Mizu-Trace-ID: 9d8d4721d428ad36
+X-Migadu-Flow: FLOW_OUT
+From: Andrew Jones <andrew.jones@linux.dev>
+To: akpm@linux-foundation.org
+Cc: linux-kernel@vger.kernel.org
+Subject: [PATCH] mailmap: add entries for Andrew Jones
+Date: Thu, 22 Oct 2026 17:45:32 +0200
+Message-ID: <20261022154532.1374661-1-andrew.jones@linux.dev>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,39 +62,31 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Hi Ben,
+Use my linux.dev address for kernel correspondence, including for
+contributions made with my other email addresses.
 
-Thanks for the reply. I agree with the security triage: reaching this path
-requires root to raise fs.aio-max-nr to an unreasonable value, and I am not
-claiming a memory-safety issue, privilege-boundary bypass, or UAF. The impact
-is limited to global AIO quota accounting under that configuration.
+Signed-off-by: Andrew Jones <andrew.jones@linux.dev>
+---
+ .mailmap | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-I do think there is a factual mismatch regarding the execution path described
-in your reply. The validation raises fs.aio-max-nr to 2147483649 before
-dropping privileges and calling io_setup(0x80000001). In that configuration:
+diff --git a/.mailmap b/.mailmap
+index 0a0be49bc4de..86941eee2a98 100644
+--- a/.mailmap
++++ b/.mailmap
+@@ -87,6 +87,10 @@ Andrej Shadura <andrew@shadura.me> <andrew@beldisplaytech.com>
+ Andrew Donnellan <andrew+kernel@donnellan.id.au> <andrew@donnellan.id.au>
+ Andrew Donnellan <andrew+kernel@donnellan.id.au> <ajd@linux.ibm.com>
+ Andrew Donnellan <andrew+kernel@donnellan.id.au> <andrew.donnellan@au1.ibm.com>
++Andrew Jones <andrew.jones@linux.dev> <ajones@ventanamicro.com>
++Andrew Jones <andrew.jones@linux.dev> <andrew.jones@oss.qualcomm.com>
++Andrew Jones <andrew.jones@linux.dev> <anjones@nvidia.com>
++Andrew Jones <andrew.jones@linux.dev> <drjones@redhat.com>
+ Andrew Morton <akpm@linux-foundation.org>
+ Andrew Murray <amurray@thegoodpenguin.co.uk> <amurray@embedded-bits.co.uk>
+ Andrew Murray <amurray@thegoodpenguin.co.uk> <andrew.murray@arm.com>
+-- 
+2.56.0
 
-  1. max_reqs retains 0x80000001.
-  2. nr_events *= 2 wraps the request to 2.
-  3. The wrapped value passes the ring-size check.
-  4. aio_setup_ring() creates a one-page, 127-slot ring.
-  5. aio_nr += ctx->max_reqs charges the original 0x80000001.
-  6. ioctx_add_table() is called and succeeds.
-  7. A subsequent normal io_setup(1) fails with -EAGAIN.
-
-So, in this tested path, the ioctx is not destroyed before ioctx_alloc()
-returns, and ioctx_add_table() is reached. The ring is small while the global
-quota charge is large.
-
-I agree that this is a low-value, configuration-dependent correctness issue,
-not a security fix. My point is only that treating the configuration as
-unsupported is different from saying the wrapped path is cleaned up before it
-can be installed.
-
-I will be more conservative about AI-assisted findings going forward and will
-set a higher bar for preconditions, security impact, and whether a patch is
-worth maintainer time. If you consider this configuration unsupported, I will
-withdraw the patch.
-
-Thanks,
-Cheng
