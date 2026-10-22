@@ -1,76 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.200
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.81
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792635506;
-	b=sko9u4g7IVZ3Z+V0uaNQv3Oz/vqq1l2t1ZqFsvTYI1ImVhxy636hgJEBqNiHssf0GLIL
-	 i+6Uuwmd9Bc5bcppRPxOpjzKvfvjy/Z+KGGrl2Guki4sQVR1frv2bFOeoWhL/pX0tfo2w
-	 2fWxso/tf/PNEo5httaigNF3/QUnAvJy7ZvVYocAH+lG8xlQj+RLSTXLXC4neekSAhwez
-	 DelF3IS6BlJpQrweA75R7wfzKzIIBWfCCi6petOCrPZddC+UkvCpFYwp/DUheeMJwUGbV
-	 ktQKOJYpyocuhTaI+wkHXmaIrBIRLajL5V1MAr7vwJe/g/9klUJaGnlKsYtvtPwlTjw==
+	t=1792635517;
+	b=fjgvOweQ9wcN6Kjm00AkGVadJ2IaCVhZWZLU+TjRYGWUhIpZ4VmOKvKOJya1UdZwN00F
+	 FAuvtGNSaaSM/cSj/gurDNcoBolX9OTGjaH6jBjhJQJ84hQHOfiWs2LW0K6HhkkB87dno
+	 QGmihfu7t7UftNuPQhXqhtRpFA1crXzz0vKbNImdXuQz5EilMLrvxNnv4z8rWERrE1Zke
+	 T8lEhxtADaGzPYd0cpmrbItMOcMVnoJtSbYcSnz/fMjVDXaqU3MboIPdW/OpFMHuPJLN4
+	 bLG1Lh7/ATELEs/TMbFvEorlnia87VJQNwWZNSW7R3wj/IUz5CvRpYZv7WW0SDZASUg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792635506;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Reply-To:Date:
-	 In-Reply-To:Mime-Version:References:X-Mailer:Message-ID:Subject:From:
-	 To:Cc:Content-Type;
-	bh=J9kW36jpIXb4stgoGGP0Gp0ZwbkfanWyIdpTcVbnUYY=;
-	b=o2TOlnOcIseravmE/ygztTg1bFPKYUTQiDuC7UeNRb3bklNVcMpSlwP9Uph08ugzpin3
-	 H6w/xhjrU4NfTyd+SJxVQm1IEG+KELbG5cYPCoQ2oYZUpPhrvoz2BhrWcfZXANtRbjG6g
-	 fFhMNn9sO0thcAkB7PjqJnWIQtuE0N9CSZy8jGnTw9vLFzieXSf8b+2TsTHO6YYQEMAxC
-	 4S8/WdlCmmozYxebjfoAUpsvp+vk/ggf8VI8CKRluncdIHxxpt++4YWCmzFNjqHZCA/+X
-	 p39rjnxnQEZxKPk0j/LNbfZZS21sm/s1+jxC7W6+t5GljDptNLfvbpSap2LmzlW5m2g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792635517;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Content-Type:Mime-Version:Subject:From:
+	 In-Reply-To:Date:Cc:Content-Transfer-Encoding:Message-Id:References:
+	 To:X-Mailer;
+	bh=5FdXvp0CpV6t+Cak3H9/hip6PpHzjqeJ2F/KsA5v8Bg=;
+	b=bAPQKxwjVodIXFy/cpIzbglvJm5XF2iq9wnpXhTyqkMnjGmszN1FH/iRRrLF2w2n3PKP
+	 ZLJ9/866ignv9yoSValtLFiLGZ3f/Rlrn3S7xvYM6JWXfJYJHma2jURH/IPWQp/TkKJDu
+	 /xTNjKKPvC31G272Lni2Q6Om9ArAQjlYqZFL0V7CFBEmwO+KWt7CMkE7X0BNsg3EOwKND
+	 um656LfnbXpX0nG93WJI111q0Q7xA/dBj/C1Yr8nAkSHB5LHJANENN5cjGArOoxxNcqyg
+	 CmgfJYlX7KEm+tKORgKOxJEoruceS2LIpMbH4ctlvkpkSVj+dEVurCE9jj7IhUuj+Ew==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=JOxpAJ+B;
-	arc=none smtp.remote-ip=209.85.214.200
-Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=IBxQWFNP;
+	arc=none smtp.remote-ip=95.215.58.81
+Received: from mta1.migadu.com (out-81.mta1.migadu.com [95.215.58.81])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3375D606A326
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 02:18:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3375D606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52EA3606A31D
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 02:18:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 52EA3606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=JOxpAJ+B
-Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2e601800e58so18485985ad.2
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 19:18:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792635505; x=1793240305; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:reply-to:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=J9kW36jpIXb4stgoGGP0Gp0ZwbkfanWyIdpTcVbnUYY=;
-        b=JOxpAJ+Bnbk3RfojXwgh8lQCVeLPRcFgsikssuNvG+jeud9ljCrtNTOqgZsc+W+ooI
-         Rh11Y7GtvTj2O1L6MU+qhkjoPlNbm5vNejW4K5yGAD41m82kap/qX8/fLhgI3Mg72eu4
-         hTKxCMWIUXiBHHW3mIxPkpG4WijVcMHv1HcpryhX/Ojy+MBGmv+gWRT8HOF9/Jg468I9
-         YFAjkX5NK/5pdUZD4ptiC0s4hhjlZ5sQZentWb7V0bs0t/n6HHerBRqKWOWMMPgW1t0J
-         Gt2gXxv5dhbLSZ8YKIXnF6pa1FguqN7fM/WuyX0a7PqfdCW6qJSXJz1ef7pASUOKXLTu
-         WN0g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792635505; x=1793240305;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:reply-to:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=J9kW36jpIXb4stgoGGP0Gp0ZwbkfanWyIdpTcVbnUYY=;
-        b=EVyfUuOWHFmjrOJ4Uhj5q6lINSFIGUGA4F4JYi87lKRYMPtSV2DFWsOhZ/MJxyzTjA
-         U7Yci34Ysn7GjaAbFYj9Ekieqa63kIgxSzdNLbiTvwf6S43Hn/NwLEcfQjRKzVOGgSvR
-         iVETYOUpt9N5HsZjzaZYH5HucN8kSQcHLvc/GE4vkegpSp9s+JjqCClUkjvaIq8DBdYv
-         tAjLOI2vsMsgpho3BvuKFUvoyG52ERqEoCZNi82NrQplc/ayP53oS3ifVViMRwAqRp2g
-         Agx8mWLMbnYghiiyAXVwLGV4C1VDptqQww9TT8Hx7ItluwBuf6l9z+IBPxdlHk0tGmhF
-         z1cA==
-X-Forwarded-Encrypted: i=1; AKwUvBz9XnOYm+NAAI1O7tU2Z+lPvgKVbeeHw3/cN7Tl7Oo9aVPtyaobAoSAlT9qkLzH/RfKWmcPztVUYbz3XiY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK3OWidBp5W4Iji50Pa5fC4oiBqCLUhha6YywcD7vP17hKVplyU
-	XQY9g1gPPbaDB5utHdAUYTtnw8L3DdAPM76NNb4wJ9xsS+FXEH8DafIXVtXz3GZqY/NOFFlKNfO
-	btRQtmw==
-X-Received: from plmm4.prod.google.com ([2002:a17:902:c444:b0:2e8:31af:11b0])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:c405:b0:2e8:1f8a:9113
- with SMTP id d9443c01a7336-2ea43cecf95mr35738395ad.40.1792635505357; Wed, 21
- Oct 2026 19:18:25 -0700 (PDT)
-Reply-To: Sean Christopherson <seanjc@google.com>
-Date: Wed, 21 Oct 2026 19:18:20 -0700
-In-Reply-To: <20261022021820.298886-1-seanjc@google.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=IBxQWFNP
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=MPi9YymNFv5TIm/0npc+3JpMtggtpk/tzZ51y3ItgYU=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792635514; v=1; x=1793240314;
+ b=IBxQWFNPCvnFrgSk8wNrkI7Oi/n4lRyy9RW2H4ACiAxmQo+skmFBWY2sjZuCvAUumhz1cqSC
+ D19c9ufAOOOr5StR1gJsNJPR3IXEVxdRLOYYRwKOIasZF9J/E9sLrfcmRQY0jjVEbKCnvaVJ231
+ DA0VtRiikZiT5pSlcn2zXRsk=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta12.migadu.com with ESMTPS id 4b7912ba18c63ef4;
+	Thu, 22 Oct 2026 02:18:34 +0000
+X-Mizu-Trace-ID: 4b7912ba18c63ef4
+X-Migadu-Flow: FLOW_OUT
+Content-Type: text/plain;
+	charset=us-ascii
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,106 +57,82 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261022021820.298886-1-seanjc@google.com>
-X-Mailer: git-send-email 2.56.0.218.g1ec904b173-goog
-Message-ID: <20261022021820.298886-3-seanjc@google.com>
-Subject: [PATCH 2/2] KVM: selftests: Add regression test for KVM writing but
- not reporting vmcs12
-From: Sean Christopherson <seanjc@google.com>
-To: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>
-Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Josef Bacik <josef@toxicpanda.com>, Chris Mason <mason@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.12\))
+Subject: Re: [PATCH] mm/page_counter: use WRITE_ONCE() for emin/elow when
+ parent is the root
+From: Muchun Song <muchun.song@linux.dev>
+In-Reply-To: <20261021204818.3431099-1-shakeel.butt@linux.dev>
+Date: Thu, 22 Oct 2026 10:18:17 +0800
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ Johannes Weiner <hannes@cmpxchg.org>,
+ Michal Hocko <mhocko@kernel.org>,
+ Roman Gushchin <roman.gushchin@linux.dev>,
+ Chris Down <chris@chrisdown.name>,
+ Meta kernel team <kernel-team@meta.com>,
+ linux-mm@kvack.org,
+ cgroups@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ Sashiko <sashiko-bot@kernel.org>
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <DE0BFDD2-1BE5-4FB1-AE66-1D4C7DFACA1F@linux.dev>
+References: <20261021204818.3431099-1-shakeel.butt@linux.dev>
+To: Shakeel Butt <shakeel.butt@linux.dev>
+X-Mailer: Apple Mail (2.3901.100.1.1.12)
 
-When saving nested vCPU state, verify that KVM didn't write any more bytes
-than it reported, and add a sync+save point in the state test to trigger a
-save when L1 is active with a valid shadow VMCS.  Before commit <TBD>, KVM
-would incorrectly save the shadow VMCS into the userspace buffer without
-accounting for the size of the shadow VMCS.
 
-Signed-off-by: Sean Christopherson <seanjc@google.com>
----
- .../testing/selftests/kvm/lib/x86/processor.c |  6 +++++
- tools/testing/selftests/kvm/x86/state_test.c  | 24 ++++++++++---------
- 2 files changed, 19 insertions(+), 11 deletions(-)
 
-diff --git a/tools/testing/selftests/kvm/lib/x86/processor.c b/tools/testing/selftests/kvm/lib/x86/processor.c
-index 8374afd08baf..976d53af6de7 100644
---- a/tools/testing/selftests/kvm/lib/x86/processor.c
-+++ b/tools/testing/selftests/kvm/lib/x86/processor.c
-@@ -1282,10 +1282,16 @@ struct kvm_x86_state *vcpu_save_state(struct kvm_vcpu *vcpu)
- 	if (nested_size) {
- 		state->nested.size = sizeof(state->nested_);
- 
-+		memset(state->nested_, 0xaa, sizeof(state->nested_));
-+
- 		vcpu_nested_state_get(vcpu, &state->nested);
- 		TEST_ASSERT(state->nested.size <= nested_size,
- 			    "Nested state size too big, %i (KVM_CHECK_CAP gave %i)",
- 			    state->nested.size, nested_size);
-+
-+		for (i = state->nested.size; i < nested_size; i++)
-+			TEST_ASSERT((unsigned char)state->nested_[i] == 0xaa,
-+				    "KVM killed the canary at offset %u", i);
- 	} else {
- 		state->nested.size = 0;
- 	}
-diff --git a/tools/testing/selftests/kvm/x86/state_test.c b/tools/testing/selftests/kvm/x86/state_test.c
-index 500b09762555..5bd9a04a3911 100644
---- a/tools/testing/selftests/kvm/x86/state_test.c
-+++ b/tools/testing/selftests/kvm/x86/state_test.c
-@@ -60,13 +60,13 @@ void vmx_l2_guest_code(void)
- 
- 	/* L1 has now set up a shadow VMCS for us.  */
- 	GUEST_ASSERT(vmread(GUEST_RIP) == 0xc0ffee);
--	GUEST_SYNC(10);
--	GUEST_ASSERT(vmread(GUEST_RIP) == 0xc0ffee);
--	vmwrite(GUEST_RIP, 0xc0fffee);
- 	GUEST_SYNC(11);
-+	GUEST_ASSERT(vmread(GUEST_RIP) == 0xc0ffee);
-+	vmwrite(GUEST_RIP, 0xc0fffee);
-+	GUEST_SYNC(12);
- 	GUEST_ASSERT(vmread(GUEST_RIP) == 0xc0fffee);
- 	vmwrite(GUEST_RIP, 0xc0ffffee);
--	GUEST_SYNC(12);
-+	GUEST_SYNC(13);
- 
- 	/* Done, exit to L1 and never come back.  */
- 	vmcall();
-@@ -107,15 +107,17 @@ static void vmx_l1_guest_code(struct vmx_pages *vmx_pages)
- 
- 	vmwrite(SECONDARY_VM_EXEC_CONTROL, SECONDARY_EXEC_SHADOW_VMCS);
- 	vmwrite(VMCS_LINK_POINTER, vmx_pages->shadow_vmcs_gpa);
--
--	vmptrld(vmx_pages->shadow_vmcs_gpa);
--	GUEST_ASSERT(__vmlaunch());
- 	GUEST_SYNC(8);
--	GUEST_ASSERT(__vmlaunch());
--	GUEST_ASSERT(__vmresume());
- 
--	vmwrite(GUEST_RIP, 0xc0ffee);
-+	vmptrld(vmx_pages->shadow_vmcs_gpa);
-+	GUEST_ASSERT(__vmlaunch());
- 	GUEST_SYNC(9);
-+
-+	GUEST_ASSERT(__vmlaunch());
-+	GUEST_ASSERT(__vmresume());
-+
-+	vmwrite(GUEST_RIP, 0xc0ffee);
-+	GUEST_SYNC(10);
- 	GUEST_ASSERT(vmread(GUEST_RIP) == 0xc0ffee);
- 
- 	vmptrld(vmx_pages->vmcs_gpa);
-@@ -126,7 +128,7 @@ static void vmx_l1_guest_code(struct vmx_pages *vmx_pages)
- 	GUEST_ASSERT(vmread(GUEST_RIP) == 0xc0ffffee);
- 	GUEST_ASSERT(__vmlaunch());
- 	GUEST_ASSERT(__vmresume());
--	GUEST_SYNC(13);
-+	GUEST_SYNC(14);
- 	GUEST_ASSERT(vmread(GUEST_RIP) == 0xc0ffffee);
- 	GUEST_ASSERT(__vmlaunch());
- 	GUEST_ASSERT(__vmresume());
--- 
-2.56.0.218.g1ec904b173-goog
+> On Oct 22, 2026, at 04:48, Shakeel Butt <shakeel.butt@linux.dev> =
+wrote:
+>=20
+> page_counter_calculate_protection() runs without locks. Several
+> reclaimers can update the same counter's emin and elow at the same
+> time, and readers such as mem_cgroup_below_min(), =
+mem_cgroup_protection()
+> and the dmem eviction code load them with READ_ONCE().
+>=20
+> Commit b3a7822e5e75 ("mm, memcg: prevent mem_cgroup_protected store
+> tearing") made the main path store emin and elow with WRITE_ONCE(), =
+but
+> it missed the early return for a counter whose parent is the reclaim
+> root. Those two stores are the only plain accesses to emin and elow
+> left.
+>=20
+> With CONFIG_KCSAN_STRICT=3Dy, a few tasks writing to the same cgroup's
+> memory.reclaim trigger reports like this within seconds:
+>=20
+>  BUG: KCSAN: data-race in page_counter_calculate_protection / =
+shrink_node
+>=20
+>  read (marked) to 0xff1f91b146d40e40 of 8 bytes by task 163 on cpu 4:
+>   shrink_node+0x57a/0x1210
+>   do_try_to_free_pages+0x194/0x930
+>   try_to_free_mem_cgroup_pages+0x204/0x3f0
+>   user_proactive_reclaim+0x28a/0x4d0
+>   memory_reclaim+0x35/0x50
+>   ...
+>=20
+>  write to 0xff1f91b146d40e40 of 8 bytes by task 167 on cpu 6:
+>   page_counter_calculate_protection+0x1fa/0x360
+>   mem_cgroup_calculate_protection+0x4e/0x70
+>   shrink_node+0x53e/0x1210
+>   ...
+>=20
+> The default KCSAN config does not report it, because it treats aligned
+> word-sized plain writes as atomic.
+>=20
+> Use WRITE_ONCE() for these two stores as well.
+>=20
+> There is no functional change. Readers already accept stale values, =
+and
+> compilers emit a single word-sized store either way: with GCC 14 the
+> x86-64 object code is the same before and after this change.
+>=20
+> Fixes: b3a7822e5e75 ("mm, memcg: prevent mem_cgroup_protected store =
+tearing")
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Signed-off-by: Shakeel Butt <shakeel.butt@linux.dev>
+
+Acked-by: Muchun Song <muchun.song@linux.dev>
+
+Thanks.
 
