@@ -1,84 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.177
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792668227;
-	b=urnE1bLapYdozhYmktQK7rBKsWvn+tZJnN/rOfB/Yjw+tTxNjtcN4pUNK53PxMi0UAOx
-	 ygRgORIdum2+0i6mhLouWSH8sh5bDU0//g2Y61QJKLR3Nquk7X6XvKRO2uHcXsYc+ioRD
-	 i+OqVgEFBudULaPZBPEYP+DfIIN5gwrx8OhYECt10gZGD/suWHf/jZfzTFem2wTxwq6TX
-	 LMXXiCwY5meblzOnoIAJj2IMRb8a33UHCmnLfpYE0OPxyiiFgyOJ9+79ANcOfRux2ZaeH
-	 AuBuXLN6KU2Bsfvjkm9l//KYFSqMxnV7lwfTOBP25+gZV6RvzrdX7gyy2seAzWwjXpQ==
+	t=1792668229;
+	b=GtRU4OEiVgFsvhUEsnDyotPoGlmwt6G2As58gx74VXYRO0vpufUBlDD4A9xtVU7MEMVN
+	 dUgCHb1zqPL235FbRM03h2utSRSPEmM3aoJz0qZn42Aq/61/izmsUBabzYVboM0Kz+euh
+	 +JBGUmZG70+zxAdv/iSUsXw1rYIbf0zXWrPQcSP8hHqYi9e70uEiDys4pirH2gBwfaVZK
+	 kNQMK03Qs9dMY1elNHYaLbjOQfK2cn2Q0TW4QIgLEb4IREn8smatixIPxtu021H70iXWL
+	 iubB7sb45LOLcY/AujsJHd7zEX/tAQJQYuZwS1DHjhXgqArgpG5jeg0pulYnx/qpldg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792668227;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792668229;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
-	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer;
-	bh=RbuYOQqzgIfOAiaZGXnsrc5kralu1woOsjsJovLSjjs=;
-	b=2UZHO1vZamrbnCgZgdcLVomHcbnafxy5AeO5VZzZs2FMoyDLqUyHSvRq4y6l8dxpt3iN
-	 I2oCRP2FzFSyPdxsFeN7AjMbrtg5kNFVG76y82CIKTJKpSar4RZ1odk3T54ApRn3mUp7i
-	 Dl9K87t+0FIV23Ob/j1vaYLMzReP3hO/b2TIqmeAsiQzouv1yo87RSR1UbnZfAiWMWw8t
-	 Xeh9tWpBgXByeLX7zYEQ82Y1o1A1wuLneHrNiEIYoj+7kYo0+Zoc5iOKxhTY7bFws17pn
-	 f0YFoLM3Cs4xo+WxkV3kVsL6vtDdMaupLoMTIf0Gm991zqNjsdPPtr7ETMFXdXkDRxw==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=xPX5Pyvu3KPuA/BeOQ2DAl4emTBwilJ3yODW3aKnjPs=;
+	b=iu8nz4WFvUVvT2kHShZ56pQ6DoVgeSmwtN8PhLw9ffgVr0goFv99EMhYzZWzkXT+juGu
+	 iIE/KlwCxxT3i2Ktl6a9zoSfylU8z7kHLNU/05GqnbO5oYwbLKdJBBJGUfRAy7DFmNlwZ
+	 zOeLZs4O+fwEqxPgkYjZSO0N/4J/mDNj12v13fR72LW92oKv3TfBYvdOzS0QvtfFEx4XM
+	 UQVcasjvfiXw4aIo3bPD+ZJcBp76md05R4LhkS28AnlTF8LoZouBzxqllTiEMQVO4RtLR
+	 gHDppfGMDt6XvMYT9/0FXWeuRf0t/3wBH/0+qx6l2XhWqVxx45fbyN7JT7Zn13G/6OQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=OrJVOppd;
-	arc=none smtp.remote-ip=74.125.82.177
-Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=qnMao6zB;
+	arc=none smtp.remote-ip=74.125.82.53
+Received: from mail-dl1-f53.google.com (mail-dl1-f53.google.com [74.125.82.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07F3B606A319
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 11:23:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 07F3B606A319
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B7B4606A320
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 11:23:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4B7B4606A320
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=OrJVOppd
-Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-33bb5afa736so233815eec.1
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 04:23:46 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=qnMao6zB
+Received: by mail-dl1-f53.google.com with SMTP id a92af1059eb24-16079d54c17so3259347c88.0
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 04:23:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792668226; x=1793273026; darn=vger.kernel.org;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=RbuYOQqzgIfOAiaZGXnsrc5kralu1woOsjsJovLSjjs=;
-        b=OrJVOppdJmpQzpESNnbFh7FZ8bViWXC3cUjorcBi7DoWTRLoNWKjqoq3ED5QmGPJ60
-         TFiku3HnfFCx/qDcUdPyYOK1MMrLUH4jwgZ03+npwHiehHjRednoyIgHL2zHTFqtOFPO
-         rvVQC//0bD4RTn47Nxh8PIFp31JO8cMFvp8SbdcOPrup676IWiqy/2MzqurMnkI5L/bY
-         9mJ+KRF1njvlEhevTmjxP7VpF5inuFMe44cPCDKJLM46OX6MizS8Tnhj1HQ1CqsFQeNP
-         ofih15laI4RkIeNh2qhO27Y4IchRphFPcLZOCgrz8RJlYK2EJb80Axw6EV/njxNWq6qH
-         rXYA==
+        d=gmail.com; s=20251104; t=1792668228; x=1793273028; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=xPX5Pyvu3KPuA/BeOQ2DAl4emTBwilJ3yODW3aKnjPs=;
+        b=qnMao6zBmkB8laPqkwE731uNdh2Rfbbc/wwRETP88zq+ppjznHTWEr74A9TFIiCXKs
+         8QTyqZmT91XGxm47SdmAOIzeCMOFOlxkkg0GbWzlUDocTOnSqkK1gzuTirc/ts5/jfBg
+         jrjSM5OdRHUF0wwJnas3KFENmnU0Dvz2EtprKgPTymzylLeVcq5wIKvVeUGRrdtYpRoY
+         TdiyFajkatu7UxuFuOxvT3PVmTH+ErB4kS7LsXyIwale85eQm+5E8u1r3RbpYo++PQoR
+         bguTebPwKYv7/iWhGZ8xFpD0xTGIgDf5do/g/wMJapjt+qG/8M4L5A0HTIP7ql+3dpw0
+         qePA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792668226; x=1793273026;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=RbuYOQqzgIfOAiaZGXnsrc5kralu1woOsjsJovLSjjs=;
-        b=q+MH4vvj/2579cVHz7kZfBFOC6RKaELnw4DhcuLXPQTX+xY5brx93UpjvRo6/lr7UR
-         LFhGcdxqCFgFmH8/+SgxSXELbb50RZPfHNgg1uFXBTPXHiXmYUpv4WiDeIgudUtrNsnM
-         45crwJrsocF/TSVMDckYQ3VRcQFLRZEPRrIqDZKrZtKN1vypCKoOvIHejStGtHYRhZWl
-         j2v0zOvOyo6urY8jcWjjPS5P06hHrh4Yf8kLBy/SchUNTkAD3IosvihwqXEER2AS+raX
-         AnSZiCQj0rs/3hGY51tsVRhSO8b02ONGJq8sPKLnNPP5bG+ZFLmP7zpwErLMTbb738Vy
-         ReLA==
-X-Forwarded-Encrypted: i=1; AKwUvBxn7NmeI4OrdMhDLdxqBtauUQCZ6fLGoB50OtAXg2hQzKF4i153JVOhYSQ2vHa7B3Bu6CYuPqV4J+dYwoc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ8WVzmcs/o21EvIT9zQnr8LUUeNgQvb9kf6VNyhWM1K5FE7T8F
-	Rv+wGUjEMUqH7efZDO0wSPM9PD9rwJyj4mVpAOXKjExqyMod3AT6By5v
-X-Gm-Gg: AYBFou1Brp3Vgdf/14W5AyuI256uJmNF9aLuDssT16P9Kt47RoqL/ejNIjkt8DPMonh
-	aWEV30EegA3XPKTRtiGduGSWEazTOJfmxMo2pl9ciUXUyNWe8+ACXTStpCW0LPcmVWBaVGl4D2w
-	r1uFB9PBjCqLdBkvzrkrdR5VISGYEdIAK/HAPyt/X8YVR/+x7no7967Af5hMRTSf8HV1TJ1tEFt
-	lS8i+0aqWWmXa8xvuFjcxHqUZO5KMVDks4b+Z2UZEOkSD6grd1ssyNhxjo/DKFFuYocQWGzsPNG
-	bcCpyYxkkUVMFmlYLYPDa/EeZ4kQE8pDzj7FYKo97bGHysjtMWakGx4EP7c3zoVLHthdCmNn6pW
-	/gIceHWiSnzrBqz8J9XiJRSR688kqw75iP8HhQKBoqF2IBIpdHxHmWfjZ7KjDdOvmQKPIVddUtC
-	MVwSHmutvt7NZTOCVg8g9WHaSE4M2+As//xAYxegSooJyUn/iGj3vbRbDwnZOEuMPMHhfkTnK7w
-	77r4ZAOaETjQSGGM2EMt6ffKxTCjCZG6hTBk9wUmFvyH0zATqINaUQL+MQ7z4WAasR1wYjkZQVo
-	m2iDZLmPb7LtIsOrHg==
-X-Received: by 2002:a05:693c:42d6:b0:368:5521:612f with SMTP id 5a478bee46e88-3685522022emr5243257eec.0.1792668225739;
-        Thu, 22 Oct 2026 04:23:45 -0700 (PDT)
-Received: from o6.lan ([2602:fce1:44f:115e::])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36740cc88b5sm16249400eec.10.2026.10.22.04.23.40
+        d=1e100.net; s=20260707; t=1792668228; x=1793273028;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=xPX5Pyvu3KPuA/BeOQ2DAl4emTBwilJ3yODW3aKnjPs=;
+        b=LW52Hl5kzKi/K5T5aQbfhqwMsJo4v/UZUxG1+PYLEes7yuKL3k4nhzs2Z0PPvEGFid
+         rXiujrOu7XL7E4tSkdBS1tLBBWuHuWe8HWjK2Kaa6BOstGhGvDf2HpOQ9G1RBb1vIE9C
+         M40SGEy5gdR6REMC69YNG5YO3HZAUXWkFmRZk0kocabrRePOhG+hxqDhn79o2cU4lROS
+         /ZjaI020vxxdhMaiZCfmzk8KkZDvtpwgwPQZtsVJB9YyTa/ENb94GiNBFsRwGtWyPOmG
+         /ZRJ4z4gIAUOdIT1Qc5dN7TLNJU3snWrmbQpJsZSYL7NwkIH7oo12R4B2VlbwYvPr7vj
+         5W1Q==
+X-Forwarded-Encrypted: i=1; AKwUvBzXW5aUa0Z1DeWdNkhwWzOaoMP2jfb6MROJdWttAvJmYyikeCK6HPo5wST+GPl2WOTFc6uyE58sOr2flIM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ6073aDTLf2SF2S13QjWh5Zu/R+5ViIX1AM3SoWSjUysR6zfBw
+	QNhruzoPWrI+hidzn2+J6izD6n9PMh1pNKkqJjKjQTTWGfs5brLUt+n4
+X-Gm-Gg: AYBFou2jVEvH1On850gx6necU/5rcl9NRFKUXiu7BwDGK3kDvTPimml6u7QLqJrCRPf
+	CTtyv90aM+ryFede+dfwVMomH8tfhdXTN5Ijt5Kwt1tIKf5np28+eOA20f88xfyykZqc3pF8p47
+	4k2oqBfOa+a980drTfxHKABI/EGqX+2xC314ezn0hvaWCKHb2PZQhEllQo96zF/Ife76IEM2Nbn
+	QxC8K8oOFv+X4u/GlXQP255/0cmQ9gJmdZQJzOBfFKGsymevyFyk1Xx4vxX2SX0RarUbV+/tGoM
+	HEpJIzI3kDxDPk9C+VEJvpxeOJ4TQp7fWRDikLU/IFtJ9MEJLc6mcvZW5qtYdfLbLHACkoeY0f2
+	WnPPcDJ4BY//Qg4lNxK1oI1FrShFnSBwahm6wWEQX6A8myhXEq3Jtq5rDEy1yX1Pz3wAfAj+GN5
+	X8x75Q3A7xIZkbqSq1tOyHcgiT0Xl0Pf1L1LTCSYU46YoPZVz+rOCOULkZhMNkm9MqEfkBIitrd
+	nx7hzVeDvVJ6CCv2E3wM3ObllGbdUxvWP1/na7TbOJ6iCD3mU56vLG38mecQUC5qFTP/uV4bQEN
+	M+h3GfMcpRO6gj1WIAOz81WKSVENmWPqW/9HQIYGpc8rQWJn16b0NMEv2V/gyK+xh8AKmgcfFDg
+	=
+X-Received: by 2002:a05:7022:1187:b0:194:3a84:e67d with SMTP id a92af1059eb24-1943a84ea04mr1111760c88.44.1792668228302;
+        Thu, 22 Oct 2026 04:23:48 -0700 (PDT)
+Received: from nixos ([2405:201:c40d:9039:d12e:70e6:689a:f754])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1903a275026sm21529104c88.5.2026.10.22.04.23.38
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 04:23:45 -0700 (PDT)
+        Thu, 22 Oct 2026 04:23:47 -0700 (PDT)
+From: Ayushman Rout <ayushmanrout27@gmail.com>
+To: bpf@vger.kernel.org
+Cc: Ayushman Rout <ayushmanrout27@gmail.com>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	John Fastabend <john.fastabend@gmail.com>,
+	Stanislav Fomichev <sdf@fomichev.me>,
+	Martin KaFai Lau <martin.lau@linux.dev>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Song Liu <song@kernel.org>,
+	Yonghong Song <yonghong.song@linux.dev>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	Ihor Solodrai <ihor.solodrai@linux.dev>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Jesper Dangaard Brouer <hawk@kernel.org>,
+	Daniel Rosenberg <drosen@google.com>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH bpf-next v2] bpf: Use memmove() to load bytes from an skb and an xdp_buff
+Date: Thu, 22 Oct 2026 16:53:11 +0530
+Message-ID: <20261022112312.31563-1-ayushmanrout27@gmail.com>
+X-Mailer: git-send-email 2.54.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,52 +116,73 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH] mm/vma: avoid broken uffd merge on mremap
-From: Xueyuan Chen <xueyuan.chen21@gmail.com>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Xueyuan Chen <xueyuan.chen21@gmail.com>, 
- Andrew Morton <akpm@linux-foundation.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
- Mike Rapoport <rppt@linux.vnet.ibm.com>, Peter Xu <peterx@redhat.com>, 
- "David Hildenbrand (Arm)" <david@kernel.org>, linux-mm@kvack.org, 
- linux-kernel@vger.kernel.org, shaos <shawnq1@163.com>, 
- stable@vger.kernel.org
-In-Reply-To: <atniL5lYyE28HSTm@gremlin>
-References: <20261020-uffd-remap-fix-v1-1-0f34fc181f0a@kernel.org>
- <179266301162.763593.1501773594946042790.b4-review@b4>
- <atniL5lYyE28HSTm@gremlin>
-Date: Thu, 22 Oct 2026 19:23:38 +0800
-Message-Id: <179266821816.763593.10189260302790417327.b4-reply@b4>
-X-Mailer: b4 0.17-dev
+Content-Transfer-Encoding: 8bit
 
-On 2026-10-22 11:15 +0100, Lorenzo Stoakes (ARM) wrote:
-> On Thu, Oct 22, 2026 at 05:56:51PM +0800, Xueyuan Chen wrote:
-> 
-> > > diff --git a/tools/testing/vma/include/stubs.h b/tools/testing/vma/include/stubs.h
-> > > index be8f5161f92a..f786a585caf0 100644
-> > > --- a/tools/testing/vma/include/stubs.h
-> > > +++ b/tools/testing/vma/include/stubs.h
-> 
-> > > +static inline bool vma_has_uffd_without_event_remap(struct vm_area_struct *vma)
-> > > +{
-> > > +	return false;
-> > > +}
-> > > +
-> >
-> > Would it make sense to have the stub in tools/testing/vma/include/stubs.h
-> > return a configurable bool, e.g. uffd_without_event_remap, and add a test
-> > for the true case? The existing tests would continue to cover the false case.
-> 
-> No, stubs.h are for simple stubs.
-> 
-> Changes like that would be only be made if needed.
+bpf_dynptr_read() on an skb or xdp dynptr ends in bpf_skb_load_bytes()
+or bpf_xdp_load_bytes(). The destination can be a slice of the same
+packet, so it can overlap the source, which memcpy() does not allow.
+On x86 with FSRM memcpy() copies forward, so a destination above the
+source gets the first bytes repeated:
 
-Got it, thanks!
+  p = bpf_dynptr_slice_rdwr(&ptr, 8, NULL, 64);
+  bpf_dynptr_read(p, 64, &ptr, 0, 0);
 
+leaves bytes 8-71 of the packet as bytes 0-7 repeated, not bytes 0-63.
+Reproduced with BPF_PROG_TEST_RUN on both an xdp and a tc program.
+
+Use memmove(), as the store side does since commit 1db084f42884
+("bpf: Use memmove() to store bytes in an skb") and commit ab08863c58b1
+("bpf: Use memmove() to store bytes in an xdp_buff"). A read that spans
+xdp frags still goes through bpf_xdp_copy_buf() and is not changed
+here.
+
+bpf_skb_load_bytes_relative() has the same pattern and is reachable
+from tc and sk_filter programs, so use memmove() there as well.
+Reproduced with BPF_PROG_TEST_RUN on a tc program: loading into a
+slice at offset 8 gave wrong bytes before the change and correct
+bytes after.
+
+Fixes: 2012c867c800 ("bpf: verifier: Accept dynptr mem as mem in helpers")
+Signed-off-by: Ayushman Rout <ayushmanrout27@gmail.com>
+Assisted-by: LLM
+---
+v1: https://lore.kernel.org/bpf/20261021103957.17532-1-ayushmanrout27@gmail.com/
+v1 -> v2: also use memmove() in bpf_skb_load_bytes_relative() (review by bot and Alexei)
+
+ net/core/filter.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/net/core/filter.c b/net/core/filter.c
+index b7ac145b68b1..09c60a58c82a 100644
+--- a/net/core/filter.c
++++ b/net/core/filter.c
+@@ -1789,7 +1789,7 @@ BPF_CALL_4(bpf_skb_load_bytes, const struct sk_buff *, skb, u32, offset,
+ 	if (unlikely(!ptr))
+ 		goto err_clear;
+ 	if (ptr != to)
+-		memcpy(to, ptr, len);
++		memmove(to, ptr, len);
+ 
+ 	return 0;
+ err_clear:
+@@ -1871,7 +1871,7 @@ BPF_CALL_5(bpf_skb_load_bytes_relative, const struct sk_buff *, skb,
+ 	ptr = start + offset;
+ 
+ 	if (likely(ptr + len <= end)) {
+-		memcpy(to, ptr, len);
++		memmove(to, ptr, len);
+ 		return 0;
+ 	}
+ 
+@@ -4298,7 +4298,7 @@ BPF_CALL_4(bpf_xdp_load_bytes, struct xdp_buff *, xdp, u32, offset,
+ 	if (!ptr)
+ 		bpf_xdp_copy_buf(xdp, offset, buf, len, false);
+ 	else
+-		memcpy(buf, ptr, len);
++		memmove(buf, ptr, len);
+ 
+ 	return 0;
+ }
 -- 
-Thanks,
-Xueyuan
+2.54.0
 
