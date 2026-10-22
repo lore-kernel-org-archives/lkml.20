@@ -1,77 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.100
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792703653;
-	b=wJ3Z5gYnpGOxmwt2LHXZqD/6oFq0OD3G6mJl07HdTlq+6xj8/ABPhfZoHOjVQoHOqgZQ
-	 lhSldHq4AfqccHxS5AbHnjYErxIq1J2KqmY3zCU8GxyL33mAcauXa+kGJ2rU9nSm1HXrc
-	 9G6XrkwUqmulMfZ+ijdPEv5f6WgRBzKqPuA983HKxE2pI6mDWD61IO8LF71Brp/kH5IxA
-	 fAkzx9z+IOfRnCNPRwFvHXrgfGkV/fcDiGhFnzm+XszDQQcxVBWQhRaOgSmZRaWKHq0AB
-	 eqDsbuNwein4Kh8vu6eneDZKR1xUhsGlZjEHhHf3nJc/M5IPaTM3ZGVA+hs07FvIJ2g==
+	t=1792703665;
+	b=cbtRnQtaClIGJdBeRg+7yxKIykIXqqd+RRubNg5iO50dJLSld4P0ph10hrtCEvCtB9RZ
+	 zKez7OtX2tIAmjdDV9UGF++0so2f79nGshO4G0Px+tpkDDfe0dFGnK4XBzsN7k3UnplEN
+	 +9sxM7jt2a2qgV21mSL1yBzYsMSEvvANfViI/CbqBm8+7JUPRPQyh4rao5apG8NEKFwUW
+	 nY5lnTu4hYqooJAiPSwIOBq++TPqFIOommx+fQp4DD61kzOBHWNro90iIg/KE1x8x7yXw
+	 7+Gwmofk9y9sS5+DGRAOWaqWVX7KUwFQZDTAwQlz9YK3LahtpJJ0Mwgtg9cfmRHnKBA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792703653;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792703665;
 	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=cgo/eFeOUtGkQiQq30zeOwFtMaZ/aEMkuLlwbVhgkKU=;
-	b=pqQcENfGP8VafHtqRKPeLE6qi7XhB4CX0KiQ+xty6ZNZf2ZwsjyjsKwaLedIxTmMnqcn
-	 0huN/GNgDNkUx9LNJaMfMF2EtvxR1LO3bvTHyRcZDN7mx24/FRtcAPgRbGNhhHp6+cBpH
-	 Kqi2xFOANAOnjIqYrKg66/zPdlMCHlE7j2te3YbQ5LB/1i6cH/MPty1vwmljpb8EGhtEf
-	 YFZMn/uY3NIeOLqpW1LIHB8Y7wIuUjcKNFCuL2Z4Jbko2RhygLhR9+sAt4uft58Wc9EPE
-	 BwzLK+1NVYrPVqppju3/Yo5w6eewdfPzBY68TYrgbdgEHMC4NhIyWtxMtvXy3ITGPRw==
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
+	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Received:X-Received:MIME-Version:References:In-Reply-To:From:Date:
+	 X-Gm-Features:Message-ID:Subject:To:Cc:X-DetectorID-Processed:
+	 Content-Type;
+	bh=Ust+efQxENTh9pkzsCBOB0U2PicirQi+RkWQB/XMxCY=;
+	b=GGoBKqksXMhDSi6SHyobK7b8M760xZ7FUAj/iSkaJfunZXNFDhNUN43j8kxAV36LRZ0H
+	 wDUrfXmpPrR9j00esB+q2qyB7cxRxw51Jp7/zQug9CMAA5nfLOWSitCJVhR5w7i0SmME1
+	 uyY5da7NkZlbrsWYEda+duASkEX+Dc/CeC1+K/bS4CnY6lgo9+orxUNEFeBtG88U67aJm
+	 y9s+R6vSfFhanAWULg/+EGMwMQ7K/fHNyD8R00isLeuhDSnkbICJPwooiEcbg2PHjJj2k
+	 YS3EhBMYa5tLp/00NdS4IOOvY3KhGJCv1UJpY4SL4ZsvM7UnDfYuRojXJY4/6xogoxw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=schn.dev;
-	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.221.172
-Received: from mail-vk1-f172.google.com (mail-vk1-f172.google.com [209.85.221.172])
+	dmarc=pass header.from=broadcom.com;
+	spf=fail smtp.mailfrom=broadcom.com;
+	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=grVc32Zd;
+	arc=none smtp.remote-ip=74.125.224.100
+Received: from mail-yx1-f100.google.com (mail-yx1-f100.google.com [74.125.224.100])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6676F606A320
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 21:14:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6676F606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=schn.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vk1-f172.google.com with SMTP id 71dfb90a1353d-5eabf243d05so139173e0c.2
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 14:14:12 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 716A9606A31A
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 21:14:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 716A9606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=grVc32Zd
+Received: by mail-yx1-f100.google.com with SMTP id 956f58d0204a3-67989a98f8bso289404d50.2
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 14:14:24 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792703651; x=1793308451;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=cgo/eFeOUtGkQiQq30zeOwFtMaZ/aEMkuLlwbVhgkKU=;
-        b=lu61yH5I2CFQZKBJoMqmMRuTKVgP+xqLM6E4VqHV2FCbqCA4QHI3QSwCOYy9NDUEJj
-         nlftiyaAW+GvXDWuNyukCvw9jPXaW5ExF6cZlaGDaZRiiDbyPdbbjPDVUPK1bsPu8HJR
-         WgYPf7N55Jn0BORzR7l2FChfExZwg/ImYoVepZGtczoxMFOzphE2BN3aS4/uV4vLJ062
-         RWvSNmIYmaHy5SlNy9iclngNhwUkFXN63vYi4Kwbx5zoh5S7yVvc54xiwN26wUbfj6Cc
-         lkRIh5BSiqmYgFz3Y8HiuuGUGCcG7q8olc4SKzSt8Y5SilCPWSVelUyTRjv2a3Lotp/n
-         1HbQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwARZDqx9lTib8n+z1rNqqpvCcT22x5f6LX1zlzHkX/MQGjvPX+dOHEX/AJyx5nVHQhWo5GCZyQ3cBL0Yw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKRD4UObvLe94tYjbxn8GIVjQX3qgWJ7NIQys7A1jWVRokaSckp
-	Qv9v+Cf7bRH5SQFWaYW1wxP4iDB9WbJ4w4na0+EwIQs1XeyQN9gySKZV
-X-Gm-Gg: AYBFou2VeOieKrz0dXcFCG2loaImCu635c0R+uigShuR0kQQf9faVJPEiGeZjPv8Zlc
-	Vn4lIqvjORDaa5N7r8hef4HX9FDrjRNiSAbxujy1RlRVBh/nbtCjQBwmwNmlJ8txpz4Y5unJKIB
-	bHmlZED7GJipWnQexET1U2FESoNCj8t18O9AXrFB0DZOyZLtg5Q9o1kxiAVpIl60AQYYXjvYZNt
-	/H7hxX48j04jNc2Ura17tHa1K2I0RwXn/OxMcC7IXH5qhZqxQHTMRflnEhmKhPkfXb7+P3UUN/O
-	IkjADVtwYt3NxmFoZ8gzgBLQoK0vgi1iNbjP2Rxk3G4GNdkgme6e/mkPSYvVr+0ZNTsux9VcCAZ
-	r0s3lhdNsuH6bGsGOFTuuJj+WZTvq59evTmKvJGlIpKIV84Mu0O1Ce1oSIFWv9CuNEnC2L+EYsG
-	9gzGxYHuLjRSwdbdr3DjK1LLMM/JYqZkMOppal+77tV/VqxhTpDr0iO2NLRpsJOLAkK0/wHNGop
-	di80b87g/A4WKD3yT9wxneDoTXoMg/Bm0E/vE9VlioP5/PqjiQUmQSdxQkzqUshBLWptjeOGHv/
-	B7rwYQ6B9g==
-X-Received: by 2002:a05:6122:8b0f:b0:5ea:f220:fd6e with SMTP id 71dfb90a1353d-5ec14a7591fmr39451e0c.11.1792703651172;
-        Thu, 22 Oct 2026 14:14:11 -0700 (PDT)
-Received: from desktop-sofia ([2804:14d:ba4e:8353:8f7f:4b88:a059:f87e])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5ec13f2cfe0sm308493e0c.14.2026.10.22.14.14.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 14:14:10 -0700 (PDT)
-From: Sofia Schneider <sofia@schn.dev>
-To: jikos@kernel.org,
-	bentiss@kernel.org
-Cc: linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Sofia Schneider <sofia@schn.dev>
-Subject: [PATCH v6] HID: hp: Add support for HyperX headset devices
-Date: Thu, 22 Oct 2026 18:13:57 -0300
-Message-ID: <20261022211357.223232-1-sofia@schn.dev>
-X-Mailer: git-send-email 2.56.0
+        d=1e100.net; s=20260707; t=1792703663; x=1793308463;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:dkim-signature:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Ust+efQxENTh9pkzsCBOB0U2PicirQi+RkWQB/XMxCY=;
+        b=X4TuBlHjkPYDmXFl66jYxV45+UBRQkdLo0jyj4t5MVdXmdiXM2ndtQIHyFd2TUjT4F
+         p9OAYWGiXUv6e9+yWNWwAWX5olrXQHT42xN3g4Wrmv6hE8qY70AuqCjeEaRD9XcXJwDl
+         hrn2w6S4UTAECY98kDUIdNN3tCFwtzBkC4YJotYilB7CrDRofKxTibOz7BN6I2JHGgEK
+         1DgfokbnnVc+SeVe7QLTnnj59GueNYN7WkN14At2m6Al+WEOaXhfCoDqG7zX5hJ/L7qn
+         4r7vr8L1l6u6HjgSaBeA4uVQnLgNc1kYcxOmCtGAynGwkTzjdeyKZQ+D5PNmwKaRTx52
+         vKow==
+X-Forwarded-Encrypted: i=1; AKwUvBzVBpMOyKmiHMPOz9wK7IDlW+g71YZxc3C1L5Nyo0HiXIQJQfnaDQKRrdOLSwOXzNdLYoepSbRl22HmEjY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL2L3Z/bSgWd8aCt5dNlXyL4hRje8lmTghNeHXpW+W5FlHaJsUj
+	y1XGmbekFfzopjW++jXTeOkdwCwQaKugBaZLiQn8YRumF6DUCiNl8ggjI6ndC0m8tOrRl2d9X35
+	bdBj7xkDWYEZEgpi0eVjK0dy18Z6QoSxAwlZH/Bnzxd+nX9YiahAQEczBD4gGmeJKDNjUgfjwoo
+	ZLeDx5vRPJ0EZGz3kb1It72AiBS0TGdDe+BTgWRZdNihc12xLkTuKNkcGkRNmCmAUMyavttIYpm
+	E2EgRWIiuBz4my5
+X-Gm-Gg: AYBFou3dXkJo0hkhwmh2UrwRdAs2S+HgD4zI+OCyoKSJViMLV4uOGLt6vbsLLg6BVbV
+	BUOhZ4KgMWyg8Drf3kfyh7dd+3+H8H2FuKB4xUYOTg6BWLqpHKk61XgTvnMry8E5Nldpo3XTYDQ
+	xasWn5TKbr5/rpH6vz9JA8vyI2l2ONohlo8OaxT18njQdE7q3cfC9EZpOCaER1IWtYo77TO1T0n
+	JJInBErm17GqAEqz/P9aV7HsN1oRIKwi4nhZyRgNBhAyftEgGd5N+RTjxFkb0X3xYE7MoGtpe4R
+	XNcDZLDz026Mo4xKboDHSVlRL59g3bUtJpVzxVXIlXxcWtvYoeKFRzzpZqppBXMOE6vRjrdZJ+q
+	5w2zaQb/tCKmqhgvG/pc0kQtL/jbO2ChNjv9RWe8zRApb3fU3WHF/eutNFPM1L9acJzVxYCnZ1i
+	c2k8BrCYP5yjyaMZtaftymDmyO6/Uva4DT
+X-Received: by 2002:a05:690e:d5a:b0:676:8641:27d2 with SMTP id 956f58d0204a3-67a35bf79d2mr205259d50.40.1792703663378;
+        Thu, 22 Oct 2026 14:14:23 -0700 (PDT)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-17.dlp.protect.broadcom.com. [144.49.247.17])
+        by smtp-relay.gmail.com with ESMTPS id 956f58d0204a3-67a340042b8sm18600d50.12.2026.10.22.14.14.22
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Thu, 22 Oct 2026 14:14:23 -0700 (PDT)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-dl1-f69.google.com with SMTP id a92af1059eb24-186c1aae818so584833c88.0
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 14:14:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=broadcom.com; s=google; t=1792703662; x=1793308462; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Ust+efQxENTh9pkzsCBOB0U2PicirQi+RkWQB/XMxCY=;
+        b=grVc32Zdz6TVnCW4nU3vCX5v90MAygDtruZT1D83Hpa5/q/ca510XbyN74u5f4dKu0
+         J/nhBxghdruJGWrT4ZBLk9K2cFWHHFoZs2donLKZWFOYSEa/p10HsqmZ5kXaAg35mFwJ
+         0VNmRXovfsn44N7eQoE11hd5ODSY7SR/4N9pg=
+X-Forwarded-Encrypted: i=1; AKwUvBznEq3GRiWN5y20xXzZs/Tg2M9cJrAYD5GdxG/M14P5zWxoKCVbxfIUwoET0yqeephvg23moCcS8kAdhX0=@vger.kernel.org
+X-Received: by 2002:a05:701b:2701:b0:151:2068:e81f with SMTP id a92af1059eb24-195c26fe967mr547330c88.27.1792703660903;
+        Thu, 22 Oct 2026 14:14:20 -0700 (PDT)
+X-Received: by 2002:a05:701b:2701:b0:151:2068:e81f with SMTP id
+ a92af1059eb24-195c26fe967mr547282c88.27.1792703660067; Thu, 22 Oct 2026
+ 14:14:20 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,531 +98,535 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260811163810.1599747-1-kamal.dasu@broadcom.com>
+ <20260811163810.1599747-4-kamal.dasu@broadcom.com> <CAPx+jO9Gpjb5b8ZpYypCshxKaaK80b5t2TJQTb-pCzas7z8q_A@mail.gmail.com>
+In-Reply-To: <CAPx+jO9Gpjb5b8ZpYypCshxKaaK80b5t2TJQTb-pCzas7z8q_A@mail.gmail.com>
+From: Kamal Dasu <kamal.dasu@broadcom.com>
+Date: Thu, 22 Oct 2026 17:13:42 -0400
+X-Gm-Features: AclHuK8pel21VWAjxLEAPv4rRGS_0EiubXLNQPFqJqaEFDySVWgfKAlMgeLi8oQ
+Message-ID: <CAKekbetFSCXtOAgKYH=sPsv1ykB1CorhhGueYsUvBFowN+CWkQ@mail.gmail.com>
+Subject: Re: [PATCH v9 3/3] mmc: core: Honor keep-power-in-suspend and
+ reset-card-at-resume for (e)MMC
+To: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
+Cc: Ulf Hansson <ulfh@kernel.org>, Florian Fainelli <florian.fainelli@broadcom.com>, 
+	Wolfram Sang <wsa+renesas@sang-engineering.com>, Oleksij Rempel <o.rempel@pengutronix.de>, 
+	Avri Altman <avri.altman@sandisk.com>, Pedro Demarchi Gomes <pedrodemargomes@gmail.com>, 
+	Erick Shepherd <erick.shepherd@ni.com>, Adrian Hunter <adrian.hunter@intel.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	linux-mmc@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+Content-Type: multipart/signed; protocol="application/pkcs7-signature"; micalg=sha-256;
+	boundary="000000000000fcef00065e7458e6"
 
-Introduce a HID driver for HyperX Cloud III Wireless headsets,
-supporting battery reporting and connection status.
+--000000000000fcef00065e7458e6
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Tested with a HyperX Cloud III Wireless only, for lack of
-other testable devices.
+On Mon, Sep 7, 2026 at 9:59=E2=80=AFAM Ulf Hansson <ulf.hansson@oss.qualcom=
+m.com> wrote:
+>
+> On Tue, Aug 11, 2026 at 6:40=E2=80=AFPM Kamal Dasu <kamal.dasu@broadcom.c=
+om> wrote:
+> >
+> > On some platforms, firmware accesses the (e)MMC card directly during
+> > resume from Suspend-to-DRAM, before the kernel's own resume path has
+> > run, in order to load boot code. This requires the card to remain
+> > powered and responsive throughout suspend: putting it to sleep,
+> > sending it a power-off notification, or removing its supply is not
+> > safe, since firmware needs to talk to a live card. Since the card is
+> > never power-cycled, nothing else resets it back to a known state
+> > before the kernel reuses it after resume.
+> >
+> > keep-power-in-suspend / MMC_PM_KEEP_POWER already exist for the first
+> > part, but are only consumed in the SDIO suspend/resume path
+> > (mmc_sdio_suspend()/mmc_sdio_resume()), gated on a per-function
+> > runtime request via sdio_set_host_pm_flags(). (e)MMC has no
+> > equivalent function-driver layer to make that request, and the
+> > requirement here is a fixed platform characteristic rather than a
+> > per-cycle one, so _mmc_suspend() checks host->pm_caps directly
+> > instead of pm_flags.
+> >
+> > reset-card-at-resume covers the second part: when set, _mmc_resume()
+> > resets the host to its initial bus state the same way _mmc_hw_reset()
+> > does for a non-power-cycle reset, before mmc_power_up() and
+> > mmc_init_card() re-identify the card.
+> >
+> > _mmc_suspend()'s fast path requires both MMC_PM_KEEP_POWER and
+> > MMC_CAP2_RESET_AT_RESUME to be set. Keeping the card powered without
+> > also resetting it at resume is not safe for this driver: skipping
+> > mmc_power_off() leaves power_mode at MMC_POWER_ON, so mmc_power_up()
+> > no-ops in _mmc_resume(), and without an explicit reset first,
+> > mmc_init_card() runs against whatever bus speed/width was active
+> > before suspend instead of the initial state it expects. Conversely,
+> > _mmc_resume()'s reset checks pm_flags rather than the
+> > MMC_CAP2_RESET_AT_RESUME capability directly, since pm_flags is only
+> > set when the fast path actually ran -- the only time power_mode is
+> > guaranteed to still be MMC_POWER_ON, and so the only time resetting
+> > the bus before mmc_power_up() is both necessary and safe. Without
+> > that check, MMC_CAP2_RESET_AT_RESUME set on its own would drive the
+> > clock and bus lines while the card's supply is still off following a
+> > normal mmc_power_off().
+> >
+> > The fast path also leaves the card marked suspended without powering
+> > it off, so _mmc_suspend()'s pre-existing early exit for an
+> > already-suspended card can no longer assume there is nothing left to
+> > do: a shutdown, unbind or undervoltage event can still arrive before
+> > the card's next real access lazily triggers _mmc_resume() via runtime
+> > PM, and those events need the normal power-off sequence regardless.
+> > Reselect the card and continue into that sequence in that case,
+> > instead of returning early and silently skipping mmc_poweroff_notify()
+> > and mmc_power_off(). Reset the host to its initial bus state first,
+> > the same way _mmc_resume() does, since firmware may have left the
+> > card in a state that doesn't decode reliably at whatever clock/timing
+> > was negotiated before suspend -- otherwise mmc_select_card() itself
+> > can fail and abort into that same early exit, before ever reaching
+> > the sequence it was supposed to fall through to. If mmc_select_card()
+> > still fails after that reset -- the card may genuinely be gone -- fall
+> > through to mmc_power_off() directly rather than aborting again:
+> > unlike the other steps here, powering off doesn't need a responsive
+> > card, and shutdown/undervoltage need the supply actually removed
+> > regardless.
+> >
+> > host->pm_flags is set alongside marking the card suspended, and
+> > cleared in _mmc_resume(), so host controller resume handlers can tell
+> > power was preserved if they need to.
+>
+> While I certainly appreciate a descriptive commit message, this is a
+> bit overwhelming. Please consider making commit messages a bit less
+> wordy and more to the point.
+>
+> By reading the above, it becomes clear to me that we should really
+> split this patch. Both for reviewing purposes, but also to use the
+> step-by-step approach.
+>
+> I believe the first the patch should take care of the updated
+> interpretation of MMC_PM_KEEP_POWER for eMMC and a second patch on top
+> should deal with the "reset-card-at-resume" thing.
+>
+> Anyway, I understand the code in the mmc core for power management is
+> somewhat tricky to follow. Rather than continue to provide you with
+> in-depth guidance and review comments, allow me to spend a couple of
+> days trying to make the implementation for the above and send out a
+> few patches that you can test.
+>
 
-Signed-off-by: Sofia Schneider <sofia@schn.dev>
----
-v5 -> v6:
-- Initialize USB wireless_status to disconnected in hp_probe() so the sysfs attribute is exposed when the headset is off at boot.
-- Call power_supply_changed() after registering the battery in hp_headset_battery_work() in case battery events arrived during registration.
-- Document that the headset firmware automatically sends unsolicited battery and charging reports upon connection.
+Please let me know if you want me to fix the above issues and send a v10.
 
-v4 -> v5:
-- Rebase onto current hid/for-next to resolve merge conflicts in MAINTAINERS, Kconfig, and Makefile.
-- Call hid_hw_open() in probe() and hid_hw_close() in remove() to ensure raw events are received.
-- Cancel poll_work before stopping hardware in remove().
-- Read drvdata->battery under spinlock in hp_headset_battery_work().
-- Explicitly include all required headers.
-- Minor style fixes.
+Kamal
 
-v3 -> v4:
-- Rename driver to hid-hp.
+> Kind regards
+> Uffe
+>
+> >
+> > Reported-by: Florian Fainelli <florian.fainelli@broadcom.com>
+> > Closes: https://lore.kernel.org/r/20260413180551.3683969-1-florian.fain=
+elli@broadcom.com/
+> > Signed-off-by: Kamal Dasu <kamal.dasu@broadcom.com>
+> > ---
+> > Changes in v9:
+> >   - Sashiko's AI review found two more High severity issues in the
+> >     same shutdown/undervoltage fallback added in v8:
+> >       * Calling mmc_select_card() straight after finding the card
+> >         still marked suspended assumed the card would respond to
+> >         CMD7 as-is, but that's exactly the assumption
+> >         reset-card-at-resume exists to distrust -- firmware may have
+> >         left the card unable to decode commands at whatever
+> >         clock/timing was negotiated before suspend. A CMD7 timeout
+> >         there hit "goto out" and skipped the power-off sequence
+> >         entirely, the same failure mode this fallback was added to
+> >         close in v8. Fixed by resetting the host to its initial bus
+> >         state before mmc_select_card(), the same way _mmc_resume()
+> >         already does before touching the card.
+> >       * Even with that reset, mmc_select_card() can still legitimately
+> >         fail (card genuinely gone). The code still unconditionally
+> >         "goto out" in that case, skipping mmc_power_off() entirely --
+> >         but mmc_power_off() is host/regulator-side only and doesn't
+> >         need a responsive card, so there's no reason a select failure
+> >         should leave the supply on indefinitely for a shutdown or
+> >         undervoltage event, or leave pm_flags/suspended state stuck
+> >         retrying the same failing select on every later call. Fixed
+> >         by falling through to mmc_power_off() directly on select
+> >         failure instead of aborting.
+> >   - Patches 1/3 and 2/3 are unchanged from v8.
+> >
+> > Changes in v8:
+> >   - Sashiko's AI review of v7 found a High severity issue: the
+> >     keep-power fast path marks the card suspended without powering
+> >     it off, but the pre-existing early exit at the top of
+> >     _mmc_suspend() (for an already-suspended card) doesn't know that
+> >     -- it just returns immediately regardless of pm_type. Since the
+> >     system-resume path only re-enables runtime PM rather than calling
+> >     _mmc_resume() directly (that happens lazily, via runtime PM, on
+> >     the card's next real access), a shutdown, unbind or undervoltage
+> >     event landing before that next access would hit the early exit
+> >     and silently skip mmc_poweroff_notify()/mmc_power_off() entirely.
+> >     Fixed by reselecting the card and continuing into the normal
+> >     power-off sequence whenever the card is suspended via our fast
+> >     path but pm_type isn't a plain suspend, instead of a bare early
+> >     exit. Calling _mmc_resume() itself from here isn't an option, since
+> >     _mmc_suspend() already holds the host claim.
+> >
+> > Changes in v7:
+> >   - Sashiko's AI review of v6 found two real, complementary bugs in
+> >     treating MMC_PM_KEEP_POWER and MMC_CAP2_RESET_AT_RESUME as fully
+> >     independent in this driver:
+> >       * keep-power-in-suspend without reset-card-at-resume: confirmed
+> >         on hardware to hang -- _mmc_resume()'s mmc_power_up() no-ops
+> >         since power_mode never left MMC_POWER_ON, so mmc_init_card()
+> >         runs at the pre-suspend bus speed and CMD1 times out.
+> >       * reset-card-at-resume without keep-power-in-suspend: the reset
+> >         block ran mmc_set_clock()/mmc_set_initial_state() ahead of
+> >         mmc_power_up(), while power_mode was still MMC_POWER_OFF from
+> >         a normal suspend-time mmc_power_off() -- driving the clock
+> >         and bus lines before the card's supply is enabled.
+> >     Fixed by requiring both capabilities together for the suspend
+> >     fast path, and checking pm_flags (not the raw capability) for the
+> >     resume-side reset, so it only ever runs when power was actually
+> >     kept this cycle. Verified on hardware: the keep-power-in-suspend-
+> >     without-reset-card-at-resume case now correctly falls through to
+> >     a normal power-off/power-on cycle instead of hanging, and the
+> >     paired-capability case is unaffected (still hardware-verified,
+> >     now with an extra confirmation run after this fix).
+> >
+> > Changes in v6:
+> >   - Reworked around Ulf's two-property split: dropped the
+> >     unconditional mmc_set_clock()/mmc_set_initial_state() reset from
+> >     the suspend-side fast path, and instead perform it in
+> >     _mmc_resume(), gated on the new MMC_CAP2_RESET_AT_RESUME (from
+> >     reset-card-at-resume), matching the property's name and
+> >     description ("before the card can be used, it must be reset").
+> >   - No longer touches MMC_CAP2_NO_POWEROFF_SUSPEND/no-mmc-poweroff-
+> >     suspend at all -- that capability and property are gone, per the
+> >     v4 rework; this patch only adds MMC_CAP2_RESET_AT_RESUME.
+> >
+> > Changes in v5:
+> >   - Only set host->pm_flags |=3D MMC_PM_KEEP_POWER after
+> >     mmc_deselect_cards() succeeds, instead of unconditionally before
+> >     it. Otherwise, if the deselect fails, the card is never marked
+> >     suspended, _mmc_resume() takes its early exit, and the flag never
+> >     gets cleared -- leaking it for the rest of uptime.
+> >
+> > Changes in v4:
+> >   - Gated the fast path on pm_type =3D=3D MMC_POWEROFF_SUSPEND; it was
+> >     previously unconditional, so it wrongly skipped the required
+> >     power-off/notify handling during shutdown, unbind and
+> >     undervoltage as well.
+> >   - Set/clear host->pm_flags |=3D MMC_PM_KEEP_POWER around the suspend/
+> >     resume, mirroring the SDIO convention, so host controller resume
+> >     handlers can tell power was preserved and perform a soft resume
+> >     sequence instead of assuming power was lost.
+> >   - Dropped MMC_CAP2_NO_POWEROFF_SUSPEND and the no-mmc-poweroff-
+> >     suspend DT property entirely. Reuse keep-power-in-suspend /
+> >     MMC_PM_KEEP_POWER instead, per Krzysztof's point that the new
+> >     property described the same contract as the existing one.
+> >     _mmc_suspend() now checks host->pm_caps directly rather than
+> >     pm_flags, since (e)MMC has no per-function driver to make the
+> >     dynamic sdio_set_host_pm_flags()-style request SDIO uses.
+> >
+> > Changes in v3:
+> >   - Reworked _mmc_suspend() to skip poweroff-notify/sleep/power-off
+> >     entirely, not just SLEEP, per Ulf.
+> >   - Renamed to MMC_CAP2_NO_POWEROFF_SUSPEND/no-mmc-poweroff-suspend.
+> >
+> > Changes in v2:
+> >   - Replaced the card-level MMC_QUIRK_BROKEN_SLEEP quirk with a host
+> >     capability, per Ulf.
+> >   - Added Reported-by/Closes crediting Florian.
+> >
+> >  drivers/mmc/core/host.c  |  2 +
+> >  drivers/mmc/core/mmc.c   | 98 +++++++++++++++++++++++++++++++++++++++-
+> >  include/linux/mmc/host.h |  1 +
+> >  3 files changed, 99 insertions(+), 2 deletions(-)
+> >
+> > diff --git a/drivers/mmc/core/host.c b/drivers/mmc/core/host.c
+> > index b7ce3137d452..1622f7846441 100644
+> > --- a/drivers/mmc/core/host.c
+> > +++ b/drivers/mmc/core/host.c
+> > @@ -400,6 +400,8 @@ int mmc_of_parse(struct mmc_host *host)
+> >         if (device_property_read_bool(dev, "no-mmc-hs400"))
+> >                 host->caps2 &=3D ~(MMC_CAP2_HS400_1_8V | MMC_CAP2_HS400=
+_1_2V |
+> >                                  MMC_CAP2_HS400_ES);
+> > +       if (device_property_read_bool(dev, "reset-card-at-resume"))
+> > +               host->caps2 |=3D MMC_CAP2_RESET_AT_RESUME;
+> >
+> >         /* Must be after "non-removable" check */
+> >         if (device_property_read_u32(dev, "fixed-emmc-driver-type", &dr=
+v_type) =3D=3D 0) {
+> > diff --git a/drivers/mmc/core/mmc.c b/drivers/mmc/core/mmc.c
+> > index 05444ecf3909..3a0855a4ca44 100644
+> > --- a/drivers/mmc/core/mmc.c
+> > +++ b/drivers/mmc/core/mmc.c
+> > @@ -2144,8 +2144,55 @@ static int _mmc_suspend(struct mmc_host *host, e=
+num mmc_poweroff_type pm_type)
+> >
+> >         mmc_claim_host(host);
+> >
+> > -       if (mmc_card_suspended(host->card))
+> > -               goto out;
+> > +       if (mmc_card_suspended(host->card)) {
+> > +               /*
+> > +                * Nothing to do for a redundant suspend call. Otherwis=
+e, the
+> > +                * card can only still be marked suspended here because=
+ the
+> > +                * keep-power fast path below left it powered and merel=
+y
+> > +                * deselected -- reselect it and continue into the norm=
+al
+> > +                * power-off sequence below, since shutdown, unbind and
+> > +                * undervoltage need mmc_power_off() regardless of how =
+the
+> > +                * card got here.
+> > +                */
+> > +               if (pm_type =3D=3D MMC_POWEROFF_SUSPEND ||
+> > +                   !(host->pm_flags & MMC_PM_KEEP_POWER))
+> > +                       goto out;
+> > +
+> > +               /*
+> > +                * Firmware may have accessed the card while it stayed
+> > +                * powered through suspend, leaving it in a state the k=
+ernel
+> > +                * can no longer assume it knows. Reset the host to its
+> > +                * initial bus state first, same as _mmc_resume() does =
+before
+> > +                * touching the card, so mmc_select_card() below is tal=
+king
+> > +                * at a clock/timing every card is guaranteed to decode
+> > +                * rather than whatever mode was negotiated before susp=
+end.
+> > +                */
+> > +               mmc_set_clock(host, host->f_init);
+> > +               mmc_set_initial_state(host);
+> > +
+> > +               if (!mmc_host_is_spi(host))
+> > +                       err =3D mmc_select_card(host->card);
+> > +
+> > +               if (err) {
+> > +                       /*
+> > +                        * The card still isn't responding even after t=
+he
+> > +                        * reset above -- it may genuinely be gone. Not=
+hing
+> > +                        * else below needs a responsive card except
+> > +                        * mmc_power_off() itself, which is host/regula=
+tor
+> > +                        * side only, so cut power directly instead of
+> > +                        * leaving the card's supply on indefinitely (a=
+nd
+> > +                        * pm_flags/suspended state stuck retrying this=
+ same
+> > +                        * failing select on every later call).
+> > +                        */
+> > +                       mmc_power_off(host);
+> > +                       host->pm_flags &=3D ~MMC_PM_KEEP_POWER;
+> > +                       mmc_card_set_suspended(host->card);
+> > +                       goto out;
+> > +               }
+> > +
+> > +               mmc_card_clr_suspended(host->card);
+> > +               host->pm_flags &=3D ~MMC_PM_KEEP_POWER;
+> > +       }
+> >
+> >         /*
+> >          * For the undervoltage case, we care more about device integri=
+ty.
+> > @@ -2157,6 +2204,33 @@ static int _mmc_suspend(struct mmc_host *host, e=
+num mmc_poweroff_type pm_type)
+> >                         goto out;
+> >         }
+> >
+> > +       /*
+> > +        * Keep the card powered across an actual suspend; shutdown, un=
+bind
+> > +        * and undervoltage still need the normal power-off path below,
+> > +        * since they aren't guaranteed a subsequent _mmc_resume().
+> > +        *
+> > +        * Check pm_caps, not pm_flags: unlike SDIO, (e)MMC has no
+> > +        * per-function driver to request this via
+> > +        * sdio_set_host_pm_flags(), so it's a fixed platform trait her=
+e.
+> > +        *
+> > +        * Require MMC_CAP2_RESET_AT_RESUME too: without it, _mmc_resum=
+e()
+> > +        * has no way to bring the host back to a state mmc_init_card()=
+ can
+> > +        * use, since mmc_power_up() no-ops when power_mode is already
+> > +        * MMC_POWER_ON. Keeping power without also resetting at resume=
+ is
+> > +        * not a safe combination for this driver.
+> > +        */
+> > +       if (pm_type =3D=3D MMC_POWEROFF_SUSPEND &&
+> > +           (host->pm_caps & MMC_PM_KEEP_POWER) &&
+> > +           (host->caps2 & MMC_CAP2_RESET_AT_RESUME)) {
+> > +               if (!mmc_host_is_spi(host))
+> > +                       err =3D mmc_deselect_cards(host);
+> > +               if (!err) {
+> > +                       host->pm_flags |=3D MMC_PM_KEEP_POWER;
+> > +                       mmc_card_set_suspended(host->card);
+> > +               }
+> > +               goto out;
+> > +       }
+> > +
+> >         if (mmc_card_can_poweroff_notify(host->card) &&
+> >             mmc_host_can_poweroff_notify(host, pm_type))
+> >                 err =3D mmc_poweroff_notify(host->card, notify_type);
+> > @@ -2217,9 +2291,29 @@ static int _mmc_resume(struct mmc_host *host)
+> >         if (!mmc_card_suspended(host->card))
+> >                 goto out;
+> >
+> > +       /*
+> > +        * Firmware or other hardware may have accessed the card while =
+it
+> > +        * stayed powered through suspend, leaving it in a state the ke=
+rnel
+> > +        * can no longer assume it knows. Reset the host to its initial=
+ bus
+> > +        * state like _mmc_hw_reset() does for a non-power-cycle reset,
+> > +        * before mmc_init_card() re-identifies the card.
+> > +        *
+> > +        * Check pm_flags, not the MMC_CAP2_RESET_AT_RESUME capability
+> > +        * directly: pm_flags only ends up set here when _mmc_suspend()
+> > +        * actually took the keep-power fast path this cycle, which is =
+the
+> > +        * only time power_mode is guaranteed to still be MMC_POWER_ON =
+(and
+> > +        * so the only time this reset is both necessary and safe to do
+> > +        * before mmc_power_up() touches the bus).
+> > +        */
+> > +       if (host->pm_flags & MMC_PM_KEEP_POWER) {
+> > +               mmc_set_clock(host, host->f_init);
+> > +               mmc_set_initial_state(host);
+> > +       }
+> > +
+> >         mmc_power_up(host, host->card->ocr);
+> >         err =3D mmc_init_card(host, host->card->ocr, host->card);
+> >         mmc_card_clr_suspended(host->card);
+> > +       host->pm_flags &=3D ~MMC_PM_KEEP_POWER;
+> >
+> >  out:
+> >         mmc_release_host(host);
+> > diff --git a/include/linux/mmc/host.h b/include/linux/mmc/host.h
+> > index ba84f02c2a10..14a407a9f9b7 100644
+> > --- a/include/linux/mmc/host.h
+> > +++ b/include/linux/mmc/host.h
+> > @@ -463,6 +463,7 @@ struct mmc_host {
+> >  #define MMC_CAP2_CRYPTO                0
+> >  #endif
+> >  #define MMC_CAP2_ALT_GPT_TEGRA (1 << 28)       /* Host with eMMC that =
+has GPT entry at a non-standard location */
+> > +#define MMC_CAP2_RESET_AT_RESUME (1 << 29)     /* Card must be reset b=
+efore use at resume */
+> >
+> >         bool                    uhs2_sd_tran;   /* UHS-II flag for SD_T=
+RAN state */
+> >         bool                    uhs2_app_cmd;   /* UHS-II flag for APP =
+command */
+> > --
+> > 2.34.1
+> >
 
-v2 -> v3:
-- Unregister power supply on hid_hw_start() failure in probe() to prevent UAF/resource leak.
+--000000000000fcef00065e7458e6
+Content-Type: application/pkcs7-signature; name="smime.p7s"
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment; filename="smime.p7s"
+Content-Description: S/MIME Cryptographic Signature
 
-v1 -> v2:
-- Call hid_hw_stop() before cancelling work queues in remove() to prevent UAF.
-- Safe unregistration of power supply using the spinlock in remove() to prevent race conditions.
-- Cancel battery_work in the hid_hw_start() error path in probe() to prevent UAF.
-- Dynamically allocate power supply names to avoid sysfs naming collisions.
-
-v1: https://lore.kernel.org/linux-input/20260622022800.D01D51F000E9@smtp.kernel.org/T/
-v2: https://lore.kernel.org/linux-input/20260627204840.2DD671F000E9@smtp.kernel.org/T/
-v3: https://lore.kernel.org/linux-input/20260627210206.1061062-1-sofia@schn.dev/T/
-v4: https://lore.kernel.org/linux-input/20260804032337.315750-1-sofia@schn.dev/
-v5: https://lore.kernel.org/linux-input/20261021183205.13866-1-sofia@schn.dev/
-
- MAINTAINERS           |   6 +
- drivers/hid/Kconfig   |  11 ++
- drivers/hid/Makefile  |   1 +
- drivers/hid/hid-hp.c  | 407 ++++++++++++++++++++++++++++++++++++++++++
- drivers/hid/hid-ids.h |   1 +
- 5 files changed, 426 insertions(+)
- create mode 100644 drivers/hid/hid-hp.c
-
-diff --git a/MAINTAINERS b/MAINTAINERS
-index c7ccc417cf43..4cd885e61731 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -11610,6 +11610,12 @@ F:	include/uapi/linux/hid*
- F:	samples/hid/
- F:	tools/testing/selftests/hid/
- 
-+HID HP DRIVER
-+M:	Sofia Schneider <sofia@schn.dev>
-+L:	linux-input@vger.kernel.org
-+S:	Maintained
-+F:	drivers/hid/hid-hp.c
-+
- HID HYPERX DRIVER
- M:	Benjamin Blume <benjaminblume@posteo.de>
- L:	linux-input@vger.kernel.org
-diff --git a/drivers/hid/Kconfig b/drivers/hid/Kconfig
-index 2481bc01c435..6c0f37f23b0f 100644
---- a/drivers/hid/Kconfig
-+++ b/drivers/hid/Kconfig
-@@ -1252,6 +1252,17 @@ config GREENASIA_FF
- 	(like MANTA Warrior MM816 and SpeedLink Strike2 SL-6635) or adapter
- 	and want to enable force feedback support for it.
- 
-+config HID_HP
-+	tristate "HP HID devices"
-+	depends on USB_HID
-+	select POWER_SUPPLY
-+	help
-+	  Support for HP HID devices, including HyperX headsets.
-+
-+	  Say Y here if you would like to enable support for HP HID devices.
-+	  To compile this driver as a module, choose M here: the module will be called
-+	  hid-hp.
-+
- config HID_HYPERV_MOUSE
- 	tristate "Microsoft Hyper-V mouse driver"
- 	depends on HYPERV_VMBUS
-diff --git a/drivers/hid/Makefile b/drivers/hid/Makefile
-index 43a8eb0f389b..10e6542303e9 100644
---- a/drivers/hid/Makefile
-+++ b/drivers/hid/Makefile
-@@ -66,6 +66,7 @@ obj-$(CONFIG_HID_GYRATION)	+= hid-gyration.o
- obj-$(CONFIG_HID_HOLTEK)	+= hid-holtek-kbd.o
- obj-$(CONFIG_HID_HOLTEK)	+= hid-holtek-mouse.o
- obj-$(CONFIG_HID_HOLTEK)	+= hid-holtekff.o
-+obj-$(CONFIG_HID_HP)		+= hid-hp.o
- obj-$(CONFIG_HID_HYPERV_MOUSE)	+= hid-hyperv.o
- obj-$(CONFIG_HID_HYPERX)	+= hid-hyperx.o
- obj-$(CONFIG_HID_ICADE)		+= hid-icade.o
-diff --git a/drivers/hid/hid-hp.c b/drivers/hid/hid-hp.c
-new file mode 100644
-index 000000000000..723e4bbf9f29
---- /dev/null
-+++ b/drivers/hid/hid-hp.c
-@@ -0,0 +1,407 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ *  HID driver for HP devices
-+ *
-+ *  Supports HyperX Cloud III Wireless headsets.
-+ *
-+ *  Copyright (c) 2026 Sofia Schneider
-+ */
-+
-+#include <linux/hid.h>
-+#include <linux/module.h>
-+#include <linux/power_supply.h>
-+#include <linux/slab.h>
-+#include <linux/spinlock.h>
-+#include <linux/string.h>
-+#include <linux/usb.h>
-+#include <linux/workqueue.h>
-+
-+#include "hid-ids.h"
-+
-+#define HYPERX_POLL_INTERVAL_MS (2 * 60 * 1000)
-+
-+#define HYPERX_REPORT_ID 0x66
-+#define HYPERX_PACKET_SIZE 62
-+
-+#define HYPERX_CMD_GET_CONNECTED 0x82
-+#define HYPERX_CMD_GET_BATTERY 0x89
-+#define HYPERX_CMD_GET_CHARGING 0x8A
-+
-+#define HYPERX_RESP_CONNECTED 0x0B
-+#define HYPERX_RESP_CHARGING 0x0C
-+#define HYPERX_RESP_BATTERY 0x0D
-+
-+#define HYPERX_PREFIX "HP, Inc "
-+
-+struct hp_headset_device {
-+	struct hid_device *hdev;
-+	struct power_supply *battery;
-+	struct power_supply_desc battery_desc;
-+
-+	/* Protects battery, battery_level, is_charging, and is_connected */
-+	spinlock_t lock;
-+	u8 battery_level;
-+	bool is_charging;
-+	bool is_connected;
-+
-+	struct delayed_work poll_work;
-+	struct work_struct battery_work;
-+};
-+
-+static const enum power_supply_property hp_headset_battery_props[] = {
-+	POWER_SUPPLY_PROP_PRESENT,
-+	POWER_SUPPLY_PROP_ONLINE,
-+	POWER_SUPPLY_PROP_CAPACITY,
-+	POWER_SUPPLY_PROP_SCOPE,
-+	POWER_SUPPLY_PROP_STATUS,
-+	POWER_SUPPLY_PROP_MODEL_NAME,
-+	POWER_SUPPLY_PROP_MANUFACTURER,
-+};
-+
-+static int hp_headset_battery_get_property(struct power_supply *psy, enum power_supply_property psp,
-+					   union power_supply_propval *val)
-+{
-+	struct hp_headset_device *drvdata = power_supply_get_drvdata(psy);
-+	unsigned long flags;
-+	int ret = 0;
-+
-+	spin_lock_irqsave(&drvdata->lock, flags);
-+
-+	switch (psp) {
-+	case POWER_SUPPLY_PROP_PRESENT:
-+		val->intval = 1;
-+		break;
-+	case POWER_SUPPLY_PROP_ONLINE:
-+		val->intval = drvdata->is_connected ? 1 : 0;
-+		break;
-+	case POWER_SUPPLY_PROP_CAPACITY:
-+		val->intval = drvdata->battery_level;
-+		break;
-+	case POWER_SUPPLY_PROP_SCOPE:
-+		val->intval = POWER_SUPPLY_SCOPE_DEVICE;
-+		break;
-+	case POWER_SUPPLY_PROP_STATUS:
-+		if (!drvdata->is_connected)
-+			val->intval = POWER_SUPPLY_STATUS_UNKNOWN;
-+		else if (drvdata->is_charging)
-+			val->intval = POWER_SUPPLY_STATUS_CHARGING;
-+		else if (drvdata->battery_level == 100)
-+			val->intval = POWER_SUPPLY_STATUS_FULL;
-+		else
-+			val->intval = POWER_SUPPLY_STATUS_DISCHARGING;
-+		break;
-+	case POWER_SUPPLY_PROP_MODEL_NAME:
-+		val->strval = drvdata->hdev->name;
-+		while (str_has_prefix(val->strval, HYPERX_PREFIX))
-+			val->strval += strlen(HYPERX_PREFIX);
-+		break;
-+	case POWER_SUPPLY_PROP_MANUFACTURER:
-+		val->strval = "HyperX";
-+		break;
-+
-+	default:
-+		ret = -EINVAL;
-+		break;
-+	}
-+
-+	spin_unlock_irqrestore(&drvdata->lock, flags);
-+	return ret;
-+}
-+
-+static int hp_headset_send_command(struct hp_headset_device *drvdata, u8 command)
-+{
-+	struct hid_device *hdev = drvdata->hdev;
-+	u8 *buf;
-+	int ret;
-+
-+	buf = kzalloc(HYPERX_PACKET_SIZE, GFP_KERNEL);
-+	if (!buf)
-+		return -ENOMEM;
-+
-+	buf[0] = HYPERX_REPORT_ID;
-+	buf[1] = command;
-+
-+	ret = hid_hw_raw_request(hdev, HYPERX_REPORT_ID, buf, HYPERX_PACKET_SIZE, HID_OUTPUT_REPORT,
-+				 HID_REQ_SET_REPORT);
-+
-+	if (ret < 0)
-+		hid_err(hdev, "hw_raw_request failed (command 0x%02x)\n", command);
-+
-+	kfree(buf);
-+	return ret;
-+}
-+
-+static void hp_headset_poll_work(struct work_struct *work)
-+{
-+	struct hp_headset_device *drvdata =
-+		container_of(work, struct hp_headset_device, poll_work.work);
-+
-+	hp_headset_send_command(drvdata, HYPERX_CMD_GET_CONNECTED);
-+	hp_headset_send_command(drvdata, HYPERX_CMD_GET_BATTERY);
-+	hp_headset_send_command(drvdata, HYPERX_CMD_GET_CHARGING);
-+
-+	schedule_delayed_work(&drvdata->poll_work, msecs_to_jiffies(HYPERX_POLL_INTERVAL_MS));
-+}
-+
-+static void hp_headset_set_wireless_status(struct hid_device *hdev, bool connected)
-+{
-+	struct usb_interface *intf;
-+
-+	if (!hid_is_usb(hdev))
-+		return;
-+
-+	intf = to_usb_interface(hdev->dev.parent);
-+	usb_set_wireless_status(intf, connected ?
-+					      USB_WIRELESS_STATUS_CONNECTED :
-+					      USB_WIRELESS_STATUS_DISCONNECTED);
-+}
-+
-+static void hp_headset_battery_work(struct work_struct *work)
-+{
-+	struct hp_headset_device *drvdata =
-+		container_of(work, struct hp_headset_device, battery_work);
-+	struct power_supply_config battery_cfg = { .drv_data = drvdata };
-+	struct power_supply *ps;
-+	unsigned long flags;
-+	bool connected;
-+
-+	spin_lock_irqsave(&drvdata->lock, flags);
-+	connected = drvdata->is_connected;
-+	ps = drvdata->battery;
-+	spin_unlock_irqrestore(&drvdata->lock, flags);
-+
-+	hp_headset_set_wireless_status(drvdata->hdev, connected);
-+
-+	if (connected && !ps) {
-+		ps = power_supply_register(&drvdata->hdev->dev,
-+					   &drvdata->battery_desc,
-+					   &battery_cfg);
-+		if (IS_ERR(ps)) {
-+			hid_err(drvdata->hdev, "power_supply_register failed\n");
-+			return;
-+		}
-+
-+		power_supply_powers(ps, &drvdata->hdev->dev);
-+
-+		spin_lock_irqsave(&drvdata->lock, flags);
-+		drvdata->battery = ps;
-+		spin_unlock_irqrestore(&drvdata->lock, flags);
-+
-+		power_supply_changed(ps);
-+	} else if (!connected && ps) {
-+		spin_lock_irqsave(&drvdata->lock, flags);
-+		drvdata->battery = NULL;
-+		spin_unlock_irqrestore(&drvdata->lock, flags);
-+
-+		power_supply_unregister(ps);
-+	}
-+}
-+
-+static void
-+hp_headset_parse_battery_event(struct hp_headset_device *drvdata, u8 *data)
-+{
-+	unsigned long flags;
-+	u8 state1 = data[2];
-+	u8 state2 = data[3];
-+	u8 level = data[4];
-+
-+	/* Battery event is invalid if both states are 0 */
-+	if (state1 == 0 && state2 == 0)
-+		return;
-+
-+	spin_lock_irqsave(&drvdata->lock, flags);
-+
-+	if (drvdata->battery_level != level) {
-+		drvdata->battery_level = level;
-+
-+		if (drvdata->battery)
-+			power_supply_changed(drvdata->battery);
-+	}
-+
-+	spin_unlock_irqrestore(&drvdata->lock, flags);
-+}
-+
-+static void
-+hp_headset_parse_charging_event(struct hp_headset_device *drvdata, u8 *data)
-+{
-+	unsigned long flags;
-+	bool charging = (data[2] == 1);
-+
-+	spin_lock_irqsave(&drvdata->lock, flags);
-+
-+	if (drvdata->is_charging != charging) {
-+		drvdata->is_charging = charging;
-+
-+		if (drvdata->battery)
-+			power_supply_changed(drvdata->battery);
-+	}
-+
-+	spin_unlock_irqrestore(&drvdata->lock, flags);
-+}
-+
-+static void
-+hp_headset_parse_connected_event(struct hp_headset_device *drvdata, u8 *data)
-+{
-+	unsigned long flags;
-+	bool state_changed = false;
-+	bool connected = (data[2] == 1);
-+
-+	spin_lock_irqsave(&drvdata->lock, flags);
-+
-+	if (drvdata->is_connected != connected) {
-+		drvdata->is_connected = connected;
-+		state_changed = true;
-+	}
-+
-+	spin_unlock_irqrestore(&drvdata->lock, flags);
-+
-+	/*
-+	 * When the headset powers on and connects, the firmware automatically
-+	 * sends unsolicited battery (0x0D) and charging (0x0C) reports right
-+	 * after the connection report, so no explicit poll is needed here.
-+	 */
-+	if (state_changed)
-+		schedule_work(&drvdata->battery_work);
-+}
-+
-+static int hp_probe(struct hid_device *hdev, const struct hid_device_id *id)
-+{
-+	struct hp_headset_device *drvdata;
-+	struct power_supply *ps;
-+	unsigned long flags;
-+	int ret;
-+
-+	drvdata = devm_kzalloc(&hdev->dev, sizeof(*drvdata), GFP_KERNEL);
-+	if (!drvdata)
-+		return -ENOMEM;
-+	drvdata->hdev = hdev;
-+	drvdata->is_connected = false;
-+	drvdata->is_charging = false;
-+	drvdata->battery_level = 100;
-+	spin_lock_init(&drvdata->lock);
-+	hid_set_drvdata(hdev, drvdata);
-+
-+	drvdata->battery_desc.type = POWER_SUPPLY_TYPE_BATTERY;
-+	drvdata->battery_desc.properties = hp_headset_battery_props;
-+	drvdata->battery_desc.num_properties = ARRAY_SIZE(hp_headset_battery_props);
-+	drvdata->battery_desc.get_property = hp_headset_battery_get_property;
-+	drvdata->battery_desc.name = devm_kasprintf(&hdev->dev, GFP_KERNEL,
-+						    "hp_headset_battery_%s",
-+						    strlen(hdev->uniq) ?
-+						    hdev->uniq : dev_name(&hdev->dev));
-+	if (!drvdata->battery_desc.name)
-+		return -ENOMEM;
-+
-+	INIT_DELAYED_WORK(&drvdata->poll_work, hp_headset_poll_work);
-+	INIT_WORK(&drvdata->battery_work, hp_headset_battery_work);
-+
-+	ret = hid_parse(hdev);
-+	if (ret) {
-+		hid_err(hdev, "parse failed\n");
-+		return ret;
-+	}
-+
-+	hp_headset_set_wireless_status(hdev, false);
-+
-+	ret = hid_hw_start(hdev, HID_CONNECT_DEFAULT);
-+	if (ret) {
-+		hid_err(hdev, "hw_start failed\n");
-+		goto err_cleanup_battery;
-+	}
-+
-+	ret = hid_hw_open(hdev);
-+	if (ret) {
-+		hid_err(hdev, "hw_open failed\n");
-+		goto err_stop_hw;
-+	}
-+
-+	schedule_delayed_work(&drvdata->poll_work, 0);
-+
-+	return 0;
-+
-+err_stop_hw:
-+	hid_hw_stop(hdev);
-+err_cleanup_battery:
-+	cancel_work_sync(&drvdata->battery_work);
-+
-+	spin_lock_irqsave(&drvdata->lock, flags);
-+	ps = drvdata->battery;
-+	drvdata->battery = NULL;
-+	spin_unlock_irqrestore(&drvdata->lock, flags);
-+
-+	if (ps)
-+		power_supply_unregister(ps);
-+
-+	return ret;
-+}
-+
-+static int hp_raw_event(struct hid_device *hdev, struct hid_report *report, u8 *data, int size)
-+{
-+	struct hp_headset_device *drvdata = hid_get_drvdata(hdev);
-+
-+	if (size < 5 || data[0] != HYPERX_REPORT_ID)
-+		return 0;
-+
-+	switch (data[1]) {
-+	case HYPERX_CMD_GET_CONNECTED:
-+	case HYPERX_RESP_CONNECTED:
-+		hp_headset_parse_connected_event(drvdata, data);
-+		break;
-+
-+	case HYPERX_CMD_GET_BATTERY:
-+	case HYPERX_RESP_BATTERY:
-+		hp_headset_parse_battery_event(drvdata, data);
-+		break;
-+
-+	case HYPERX_CMD_GET_CHARGING:
-+	case HYPERX_RESP_CHARGING:
-+		hp_headset_parse_charging_event(drvdata, data);
-+		break;
-+
-+	default:
-+		break;
-+	}
-+
-+	return 0;
-+}
-+
-+static void hp_remove(struct hid_device *hdev)
-+{
-+	struct hp_headset_device *drvdata = hid_get_drvdata(hdev);
-+	struct power_supply *ps;
-+	unsigned long flags;
-+
-+	cancel_delayed_work_sync(&drvdata->poll_work);
-+
-+	hid_hw_close(hdev);
-+	hid_hw_stop(hdev);
-+
-+	cancel_work_sync(&drvdata->battery_work);
-+
-+	spin_lock_irqsave(&drvdata->lock, flags);
-+	ps = drvdata->battery;
-+	drvdata->battery = NULL;
-+	spin_unlock_irqrestore(&drvdata->lock, flags);
-+
-+	if (ps)
-+		power_supply_unregister(ps);
-+}
-+
-+static const struct hid_device_id hp_devices[] = {
-+	{ HID_USB_DEVICE(USB_VENDOR_ID_HP, USB_DEVICE_ID_HP_HYPERX_CLOUD_III_WIRELESS) },
-+	{}
-+};
-+MODULE_DEVICE_TABLE(hid, hp_devices);
-+
-+static struct hid_driver hp_driver = {
-+	.name = "hp",
-+	.id_table = hp_devices,
-+	.probe = hp_probe,
-+	.raw_event = hp_raw_event,
-+	.remove = hp_remove,
-+};
-+module_hid_driver(hp_driver);
-+
-+MODULE_AUTHOR("Sofia Schneider <sofia@schn.dev>");
-+MODULE_DESCRIPTION("HP HID driver");
-+MODULE_LICENSE("GPL");
-diff --git a/drivers/hid/hid-ids.h b/drivers/hid/hid-ids.h
-index 91319aa6516d..1f6782b3edc6 100644
---- a/drivers/hid/hid-ids.h
-+++ b/drivers/hid/hid-ids.h
-@@ -710,6 +710,7 @@
- #define USB_PRODUCT_ID_HP_PIXART_OEM_USB_OPTICAL_MOUSE_0941	0x0941
- #define USB_PRODUCT_ID_HP_PIXART_OEM_USB_OPTICAL_MOUSE_0641	0x0641
- #define USB_PRODUCT_ID_HP_PIXART_OEM_USB_OPTICAL_MOUSE_1f4a	0x1f4a
-+#define USB_DEVICE_ID_HP_HYPERX_CLOUD_III_WIRELESS              0x05b7
- 
- #define USB_VENDOR_ID_HUION		0x256c
- #define USB_DEVICE_ID_HUION_TABLET	0x006e
--- 
-2.56.0
-
+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
+H0K0rs+X8O45xZIUJlxzf5UZex3BLi1f/H+08rSQULWEtO/ECwkFod2DIzSX7fZdz5RQ1PpziEOp
+goo/JZPYIeCmgt3rIyvMuupj8Ymb0J/velhpXfQuYUM52viw2nmqVcxCwBqyM3Iq7eI4xtEOFRmR
+wxSizd3MSQMf6GCHA4/B/6ttnxhGAr3utaOU+x/RnzG0gPLTW1XRAQ0+GVc/tGFdI864OG1cyrRl
+GvBnHJQSAFOIKwYrUk2oFpgMbafQ6osCAwEAAaOCAdswggHXMA4GA1UdDwEB/wQEAwIFoDAMBgNV
+HRMBAf8EAjAAMIGTBggrBgEFBQcBAQSBhjCBgzBGBggrBgEFBQcwAoY6aHR0cDovL3NlY3VyZS5n
+bG9iYWxzaWduLmNvbS9jYWNlcnQvZ3NnY2NyNnNtaW1lY2EyMDIzLmNydDA5BggrBgEFBQcwAYYt
+aHR0cDovL29jc3AuZ2xvYmFsc2lnbi5jb20vZ3NnY2NyNnNtaW1lY2EyMDIzMGUGA1UdIAReMFww
+CQYHZ4EMAQUDAzALBgkrBgEEAaAyASgwQgYKKwYBBAGgMgoDAjA0MDIGCCsGAQUFBwIBFiZodHRw
+czovL3d3dy5nbG9iYWxzaWduLmNvbS9yZXBvc2l0b3J5LzBBBgNVHR8EOjA4MDagNKAyhjBodHRw
+Oi8vY3JsLmdsb2JhbHNpZ24uY29tL2dzZ2NjcjZzbWltZWNhMjAyMy5jcmwwIgYDVR0RBBswGYEX
+a2FtYWwuZGFzdUBicm9hZGNvbS5jb20wEwYDVR0lBAwwCgYIKwYBBQUHAwQwHwYDVR0jBBgwFoAU
+ACk2nlx6ug+vLVAt26AjhRiwoJIwHQYDVR0OBBYEFOV9h+N/T9ZsJ40qRxh7NYYD+N6MMA0GCSqG
+SIb3DQEBCwUAA4ICAQAKtKh30wv1/30230mCimgUjMWQE/LImRmyfDgrp2IhBVS6mDun+wH8thEB
+WhBHQMz3gsGixU4ZBJG72eWi39IzQ7CGnisJwA0+hsGaGg03AVtFtqo1rXYRZ81MEDOb6BPYLigJ
+RsHbNmrUGR+LsGeUwOWUeRXqBrYaYFrkgHKvVK1NEewv+vUY08n4tsezO3jq0HKhVDY46bMbf8vL
+oQqqhtcQvu2+5FK2jpUayeubpzPwobjEG61RIhBvM0KivY4CB2s9A7qgjL1XBycAybIvG03BbFoT
+t282FqXwk9JU6YihLlt+hpzO9UF7E8GZYlQlVIZOLOvytqilhua+2h77Yy8Jz/FJyIXKuaLPtvb2
+SC2shL7jF28kQbP3QUKwAig+cxwbpngnUkd9D9cXSHVq9PPwYm0A4eAO0YQ/80Uq20+gXF++g0sy
+NKrrV3i0T1dbCd86miGDKvarGzjh7pdsdwNY15liGP6Orib1tnWkJcbtP1rJty4r/mbbxcK8ILO4
+IvTGFG6BfjJ+La0aRt69i1fQmjUWHLwzkLNpw9cJH8/MONZcEJeDkq9WELSyy29bagStk5KHu7NO
+TH65sZg+i/4qmj3DEeEGTr/Shzp4YWSNn4W7NEelr0VgDlwa7xqlwZjXxG4MIJqy0SsQlAwEXtqd
+nH2FpJfzgAetkuyU6DGCAlcwggJTAgEBMGIwUjELMAkGA1UEBhMCQkUxGTAXBgNVBAoTEEdsb2Jh
+bFNpZ24gbnYtc2ExKDAmBgNVBAMTH0dsb2JhbFNpZ24gR0NDIFI2IFNNSU1FIENBIDIwMjMCDEca
+ZUGCu6d0oT1M+zANBglghkgBZQMEAgEFAKCBxzAvBgkqhkiG9w0BCQQxIgQg4X3ZptQtbXp5KcCA
+yBTyI+LseyKTV01LHXMHfUJ43ncwGAYJKoZIhvcNAQkDMQsGCSqGSIb3DQEHATAcBgkqhkiG9w0B
+CQUxDxcNMjYxMDIyMjExNDIyWjBcBgkqhkiG9w0BCQ8xTzBNMAsGCWCGSAFlAwQBKjALBglghkgB
+ZQMEARYwCwYJYIZIAWUDBAECMAoGCCqGSIb3DQMHMAsGCSqGSIb3DQEBBzALBglghkgBZQMEAgEw
+DQYJKoZIhvcNAQEBBQAEggEAczoRVgwwlI7GYF3F9D4HL+aOf10csfcBkj9hglonxLQL2eZIJ7PU
+FBxCaPREUAU0D/K2Kh65MIHSgCBuKSYcFWOkihoJe3qeHcJRF4S3/k7y6PqHSZo2SaqVGZ2i70yi
+cmW0vO/hjHyBjE7iWiYp1eUmhSbYprKSW6EyPcdBmnvz0B91c7dD4fLw9aLlWbuH1Nzi0gRfkTU6
+IX9ldAkWXFXhf59pLAvLulMp39b3g18yEEzNghGK4SK9kZY3ZVHNfb+jgaVus+SiHSDYyVBEx9d2
+RAWbVBggSdzvpMiERsEdVlII+/FW9pSWrSuA2bCr9GehdT89ijE5MWKqfivY0A==
+--000000000000fcef00065e7458e6--
