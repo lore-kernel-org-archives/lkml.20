@@ -1,48 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792629027;
-	b=VnaOjEzo7321Wk40+KlG+Uzv3TaV+dQiVh9jbN+Zb8+xTHqrwVVrLAcobdlr+Ekdr8HM
-	 +Cac4nCn4a4xRlgApdSRj0Jthhg5eXX4ruZ8Wvlt2adNJKVjaP816bXs7eWVUSevmzUpi
-	 idH8ZF/bGiJQXvUdFXjK9tsVvvoEggvnxGugqFFgXtzOWCgF/wZypEFg6QME5YQfxWl3k
-	 FXMgWK7xlMeSJ8ZJl44EX98+8LfDWIXX/8aZnMmXqcqTsGLtYZ/e8MkqhsOqKVkVjDfay
-	 diylxPu0wJTZlpT8OwvbEUCShoK61xOjSWyqoZNCjO6RsM5uocm6AuqbVZFnICTNitA==
+	t=1792629013;
+	b=RGSQrBZF4Be4wJEHDasP+dTXCaUdOMfX8xBSztlea1+ThA4xycKjfF+hRfhYj6CyWU96
+	 dHMZ5sGXx7JRWwmgZUI9hMLfhdBp4AHTUSIuyE0rPe4FRB7eE04CR2zG3PWhyrhSCGCp2
+	 Ljk2cRNDmfFlssCCng6+7TAlZ5F/nhLoZoqJO4edXGS7cU32KpHAh4ILNzzZEgI0vxyLV
+	 qb84k/3UxQw6isaOaq0fHhJbw32k0Qu/fk0ntQaKTbNvSvOlIrJISX1zyWBPnudALM9sj
+	 9ip3V6p9LzCEM/C7bc8o7BrPeu3oSxxFqxIDbuk5CFjIAWBiUB/A1DSaFfRXdh5eDOQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792629027;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792629013;
 	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
 	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
 	 In-Reply-To:To:Cc;
-	bh=ydO0eraG8WZOqDtntjgt0/RZkDKkzqBP3kzZ637E/uM=;
-	b=5f92wwcFz+mnmdAmelH3SAqTWMXPOTrJxW+7E8SvxG/hNbhuTYM5E9QOeBQdLgbjtXoF
-	 duxZczVbH0W5qJIfKF8bKbSKlshvweWCrsZ7TOSwT6R9FmkrPckDTNcWw8IcljhzrAPcd
-	 y2j74pGIkfEKPAZNxNtoAU3RdrBavG1pfzgEDn85G+PHnExLG4SRJ4JAI103s2P/NCJZt
-	 mFeb0D/CN7dx6DuHlbTGy0w/6ekBGNxc5UFbM0oOobsdpcaGHNw8LZsP2BGqOFy/bm8jm
-	 f4CFsjFY/h38ibsYhCXvhotB3FzqZn7j4zeWwldOH6CxgY09axymcoMaYWmZH9V9/Eg==
+	bh=uZkzK/XnREzEVV0ebXbgmbk4W62Yc9eFtRqf1FWlWqk=;
+	b=BfM4t5ctNrP2n8xj6HVHCS7jSJLZXiArP3yB3Fq6ympcoO7ld1Pdz3+cyVHFEBSWXQQb
+	 M9t9AgzYXeufrL0tQMxiCNwFuSwILPUGB6TSoUK2o8wiqnORZk43bJ4qtOYye+6kaI1uJ
+	 D3KET/LEXySsLieDboZfp3ezlvFuQnd3sSvWz8HNkaY6rij7LP3hfIbK+FByPqllzhG+F
+	 azMr8+Nb/9nYRqYmhRJDfqLG5v4tasdUQlOglnDSGDMJRpeGYjow7GBQqp2GS1Hs2bDek
+	 8SYTcX9m1N30rBuHHyGC8pBy21P5FpR8ytypLg+6B3l4RSXw3dFeGJ9U6JaE/Lv9mRQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bybPJTrc;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="j7/C49Wb";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 341A2606A31B;
-	Thu, 22 Oct 2026 00:30:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFD54606A325;
+	Thu, 22 Oct 2026 00:30:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bybPJTrc
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF6D61F000C2;
-	Thu, 22 Oct 2026 00:30:26 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j7/C49Wb
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0734A1F000C1;
+	Thu, 22 Oct 2026 00:30:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792629026;
-	bh=ydO0eraG8WZOqDtntjgt0/RZkDKkzqBP3kzZ637E/uM=;
+	s=k20260515; t=1792629012;
+	bh=uZkzK/XnREzEVV0ebXbgmbk4W62Yc9eFtRqf1FWlWqk=;
 	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=bybPJTrcaRjvtcBX5J2JDrzVGmjeNy9U4LuVcwNJ28AOYdawmjm+PBTSe7V4wd340
-	 GVnDFHryU3k2UUjmodK3UiWsWVxisu1g51LXmOyVfopvkPszfCbQuVobzfIUUwqZdb
-	 fCvABp09JxBJSJqTHEYnaoeu7DEsMlUUa/7f9NeafaLXP4HoMpTM69gt/6zYO3XwTy
-	 FG2fKX0DzgjqerdreAH6DBT4JIhP66hIeNg3DY8FDBALk1LrzakmrIUFudy+2QvZev
-	 PUIV8FqP3PiUVUOyEI6EHNKbx1Gu4g2svCADb5FNOQ+MvLExrik165/bNBQxRBCoRm
-	 LL3OuaZVXIZcw==
+	b=j7/C49WbSMxxG0QijFQKufiYq0Q6dinOiGJm8MkKxqm6StnaJDt8TdIH6Rgcf+keq
+	 JADCWI01KasEN91qaed5UQGW6ajVEcWjFhS4edH5K6ikiH1vaI04BS9WMYQvYiaRPH
+	 7Wkz1rNuBpaxGd0B9C/+F96AA3g3WApR4IfDmlQkpObBgY2IbK7sTDKbTi/qQUH25V
+	 wTesyhUX87grDxMnyia3fA6O+g9/De57gzSXa+cLXdAaYbis9obYauivIQVeCKe4uL
+	 Fmp1+voB3agGWkl7oG/2zx7u1gJh+YYKRR8RpVzpOslzk5NMoITGjrhhkG1Jb+tR0N
+	 ZWyatNxK0iniw==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id B42ED380A963;
-	Thu, 22 Oct 2026 00:30:26 +0000 (UTC)
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id F15A3380A963;
+	Thu, 22 Oct 2026 00:30:11 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -54,42 +54,41 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net] net: sparx5/lan969x: do not clobber the PSFP cycle
- timer update period
+Subject: Re: [PATCH net] net: lan969x: don't disable hardirqs in fdma tx clear
 From: patchwork-bot+netdevbpf@kernel.org
 Message-Id: 
- <179262902520.1378903.18369274366620935912.git-patchwork-notify@kernel.org>
-Date: Thu, 22 Oct 2026 00:30:25 +0000
-References: <20261020-sparx5-psfp-cycle-timer-v1-1-00f2908f096a@microchip.com>
+ <179262901059.1378903.1270598313678764253.git-patchwork-notify@kernel.org>
+Date: Thu, 22 Oct 2026 00:30:10 +0000
+References: 
+ <20261020-lan969x-fdma-tx-clear-irq-v1-1-b9f9d1eda317@microchip.com>
 In-Reply-To: 
- <20261020-sparx5-psfp-cycle-timer-v1-1-00f2908f096a@microchip.com>
+ <20261020-lan969x-fdma-tx-clear-irq-v1-1-b9f9d1eda317@microchip.com>
 To: Daniel Machon <daniel.machon@microchip.com>
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, Steen.Hegelund@microchip.com,
- UNGLinuxDriver@microchip.com, horms@kernel.org, netdev@vger.kernel.org,
+Cc: UNGLinuxDriver@microchip.com, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ Steen.Hegelund@microchip.com, netdev@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
 
 Hello:
 
-This patch was applied to netdev/net-next.git (main)
+This patch was applied to netdev/net.git (main)
 by Jakub Kicinski <kuba@kernel.org>:
 
-On Tue, 20 Oct 2026 10:58:58 +0200 you wrote:
-> sparx5_psfp_init() enables the periodic stream gate cycle timer update,
-> which keeps the cycle start time of each stream gate within one cycle
-> time of the current time. SG_CT_CLKS sets the update period, in system
-> clock cycles.
+On Tue, 20 Oct 2026 10:57:27 +0200 you wrote:
+> lan969x_fdma_tx_clear_buf() runs from the NAPI poll and frees the skbs
+> of completed tx DCBs with napi_consume_skb(), under sparx5->tx_lock.
 > 
-> Before this patch, the update is enabled with a full register write of
-> SG_CT_UPDATE_ENA only, which also sets SG_CT_CLKS to zero. That is below
-> the documented minimum, the number of stream gates (1024 on sparx5 and
-> 256 on lan969x).
+> Before this patch, the lock is taken with spin_lock_irqsave(), so the
+> skbs are freed with hardirqs disabled. RX skbs are marked for page_pool
+> recycling, so when such an skb is forwarded back out and its tx
+> completion frees it here, the free path reaches __page_pool_put_page(),
+> which warns via lockdep_assert_no_hardirq().
 > 
 > [...]
 
 Here is the summary with links:
-  - [net] net: sparx5/lan969x: do not clobber the PSFP cycle timer update period
-    https://git.kernel.org/netdev/net-next/c/5a3dcad8e101
+  - [net] net: lan969x: don't disable hardirqs in fdma tx clear
+    https://git.kernel.org/netdev/net/c/9770818b8a92
 
 You are awesome, thank you!
 -- 
