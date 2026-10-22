@@ -1,64 +1,68 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.97.179.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1792661942;
-	b=vqNSo8TghDJcXuw5JM5BgW9s2RaRe14gC921VQyyR+YIzn9/RjJgNQ+h2dUuWY++f9NR
-	 H8ROQyd4q8D+/8vYjdhBFfN93VOz4NlSHrzXJtBgn0K2Bxd2Sq67jSIEM5TrnlbegrIky
-	 VX/pmRrjPxfYz5a3PRjtrMHv5J1MVUCifJiSHNTQRyEKggg/IKgIRBanUv5VAWlucud25
-	 gwGwjFb0T4nz7IlIeUQICuKEC1kArG9WkWemmeHjP/vxOc+grGxowvjitbI+q43Z/oocs
-	 dG0+rTttMyCqn8qk7kjkm4Nc/WEjX/P0RUezsr7EB8+urPW+MDg27wj53a4LKmCnGhA==
+	b=h+v2TTUEXvRxbMvAkor4DCVYWFdVELlwlwYAB8s/ZPZ/p/41N25oepTU+UVzEdPoRyUD
+	 ALEkKwS8tS2RWmYFJ8DJwcO+fnOe8mEexZF/CcD3JKH6ih5WXYW2hYTTOWmIs8wea+XDh
+	 Sh42ryT/5QKgj/AV51rrUQ/wzqImVPWp08L0KwFMox5KQIZqeVpSJaPWFT5UEVxRppWPy
+	 wR5jjJB/SkqQXFDNWGJcMzlIGNxJa6iwlVmSQyjwL7OG1tRdMLEZIvMMGWv5BIaURAi+7
+	 gFWTelyVsJGMzcfLneXIBmGqG4Eunp2sCMMctSVLIE4lxj4uYaJraFVreauJdIXoHGA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1792661942;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=XjC6tLjuAhdZA6EAag1c8rxrurEQGdNeh8zsiCS6oN4=;
-	b=0bZnT7/K5RAFjYSfRlK5r7D7xI3B0xj/SG0kCljHRo/ik2Hryb+NY2V8O4S3yHxbp+22
-	 JkdHAt8dNxhuZA5zmGav3x6OX8qysQx0Yy6mzgJJaaUYr1nBSO6PwslEmxYTi5a8Ox6Nk
-	 xnVfXh6xtkUba6IVPfkkBZ9GZNNN+2daxSRavdJ6qcocDMgp56q+6Hoavo97vZqKll1Zf
-	 Ak7DNeOce2SEddCS3IKmveusYJu5+Qsc5xJAGYATTgLXz29EBexbA2wDnOLurv7d3aqiD
-	 qlEvr7VDwXg3Qh0dlLXAprh3lcDr1U7PVHeeSd+LMjuLhuYRgak+083DkQ3ACr6k1WQ==
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=nzgktMgiJ6yBcdO1XGeyyVLXrOSYjDfO/Bw7RR9RTlI=;
+	b=2wiQwpcqOwDoIBIy4b39O+vA9Y9HTdJ9vdUeJm+/v4V/3xpkndWLiCI5nX5XvCdOw/MR
+	 T+EHH+BFRjLaHRKRtWGsE/+DOvU+cxaQFiHa9PJ8YdNx/cRi5vBp+HzevEYTNDqF49ZpS
+	 YPA/3FmET74s/Ls8K4mMEjQ9rR8qbASU62k8KFnisovbxnmFS+FHZCsfxgIZZeTkGcSxk
+	 GWd1jbLJCaJE0flSzCFWyFC8mNiN9jmXbXsRDI8HdudbnxaJv4/WTKrh8RKzsH46/owLp
+	 /QcGmEjyb5BdCg0aWtPzKohWF5jxLq1B3BAzMX/DFe3QTwpTv7/gZL+llt2XmEurN6Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=igalia.com;
 	spf=pass smtp.mailfrom=igalia.com;
-	dkim=pass header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=TzStpDly;
+	dkim=pass header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=f3FbgWnA;
 	arc=none smtp.remote-ip=213.97.179.56
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D48A3606A31B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4A67606A326
 	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 09:39:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D48A3606A31B
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D4A67606A326
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=TzStpDly
+	dkim=pass (2048-bit key, unprotected) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=f3FbgWnA
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
 	s=20170329; h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:
-	Cc:To:From:From:Reply-To; bh=XjC6tLjuAhdZA6EAag1c8rxrurEQGdNeh8zsiCS6oN4=; b=
-	TzStpDlyvAVJpfHEDIsiUw2mdadSLGjPEXuOZIACNtz+ZxY0a3cJZNOmqY9IoCm/FTooHdPnEoRPT
-	C+VN6RSUrDwlOCNhoOgqrEolhdcx1yXCM2cWsA+a+xLiEtg11BfxWyDSoFVcjYdyY1OVZALbh9RGs
-	IN/kwJUkfFFbUm8V1cd/mzxfas/CnxEYU8Kv+V64TxNW6PL4CHmi5M/D9ylTRuGLerj8Ek8uowjEh
-	qRxwCUfaWA8cfWxnivp8jVe6vytk5MUwy5+c+az3/dANSNsBdDZFP+5wc8ppuxiMKkxDP1HF6kuIo
-	vjKEZGIDwalHzVe4HPC5EqsS2wB0TEBwVw==;
+	Cc:To:From:From:Reply-To; bh=nzgktMgiJ6yBcdO1XGeyyVLXrOSYjDfO/Bw7RR9RTlI=; b=
+	f3FbgWnAyjN6K0P9Ok+Fe7ZnJXNSTFjCRO07p7WXIZBluRna/VkQgA93kN3FRwgs3LZ7sGispCKnf
+	oyWsS0BF7bTe0joVF394cdFfC5TMAJTjH8p7pLOBPsVpJexBfpMGWLqJtEFUKHY7xmph1WNwLQUHj
+	BstEgahzPqWPBfVHuCmX5Vie0w26HH5LQMaQB8a9KPk4PeCJCx1HDEHwDSomCB39Uyb//QkSxzLsp
+	Xv/WZywXAd8pkdsuAGtQw8rfWtIk69VIcc+eAcwPDmuPCtA+WuJlnzV9mat2qWr1jMrQ/gcJz1CEf
+	th+NGq8s+y6v8ytWOojOPv6b+kfD4ZL72A==;
 Received: from [81.79.79.1] (helo=localhost)
 	by fanzine2.igalia.com with esmtpsa 
 	(Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
-	id 1xJpG6-006erT-Ab; Thu, 22 Oct 2026 11:38:50 +0200
+	id 1xJpG8-006erq-FF; Thu, 22 Oct 2026 11:38:52 +0200
 From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 To: linux-kernel@vger.kernel.org
 Cc: dri-devel@lists.freedesktop.org,
 	kernel-dev@igalia.com,
 	Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
 	Boris Brezillon <boris.brezillon@collabora.com>,
+	Bradley Morgan <include@grrlz.net>,
 	Chia-I Wu <olv@google.com>,
 	Liviu Dudau <liviu.dudau@arm.com>,
 	Matthew Brost <matthew.brost@intel.com>,
 	Steven Price <steven.price@arm.com>,
 	Tejun Heo <tj@kernel.org>
-Subject: [PATCH v7 0/4] Realtime workqueues and panthor realtime submission
-Date: Thu, 22 Oct 2026 10:38:44 +0100
-Message-ID: <20261022093848.5727-1-tvrtko.ursulin@igalia.com>
+Subject: [PATCH v7 3/4] workqueue: Add support for real-time workers
+Date: Thu, 22 Oct 2026 10:38:47 +0100
+Message-ID: <20261022093848.5727-4-tvrtko.ursulin@igalia.com>
 X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261022093848.5727-1-tvrtko.ursulin@igalia.com>
+References: <20261022093848.5727-1-tvrtko.ursulin@igalia.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,98 +74,435 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This is a continuation of the previous discussion which was here:
-https://lore.kernel.org/dri-devel/20260702143745.79293-1-tvrtko.ursulin@igalia.com/
+For use cases such as the DRM scheduler submitting work to the GPU on
+behalf of low latency userspace applications, where latter have sufficient
+privileges to have had successfully obtained realtime Vulkan global
+priority, competing with random background CPU load can create large
+latency spikes which gets in the way of a smooth user experience.
 
-Work is now converted to a much simpler approach by adding real-time scheduling
-workqueues based on Tejun's feedback
+For these situations the existing WQ_HIGHPRI does not bring a noticeable
+improvement and a stronger hint is needed.
 
-To re-cap, when an userspace thread submits GPU work, due how the DRM scheduler
-uses workqueues to feed the GPU, and regardless of the GPU rendering context
-priority, or the CPU scheduling priority of the userspace thread itself, the
-use of workqueues can add significant latency to the submit path.
+Lets add WQ_RT which creates workers with a SCHED_FIFO scheduling class to
+improve this.
 
-When CPU is busy with enough backround load this translates to severe latency
-spikes measured as time between userspace submitting work and GPU actually being
-given that work to execute.
+We use a minimum priority level since we only care about winning the
+contest against normal background CPU load.
 
-With the panthor workqueue upgraded to use WQ_HIGHPRI and varying the CPU
-priority of the submit thread, the test program from
-https://gitlab.freedesktop.org/panfrost/linux/-/work_items/49 reproduces these
-kind of latencies:
-
-         .    N    RT
-    M   27   28    32
-  95%  163  246   809
-  98%  924  991  1882
-
-Legend:
-
-   M = Median submit latency in us
- 95% = Percentile latency in us
-
-   . = Userspace submit thread SCHED_OTHER
-   N = -||= nice -1
-  RT = -||- FIFO 1
-
-Upgrading the panthor workqueues so that the realtime GPU priority queue uses
-WQ_RT, submit latency becomes completely controlled with the median of 14us and
-95 and 98-th percentiles at 23us and 25us respectively.
-
-Important to note is that VK_QUEUE_GLOBAL_PRIORITY_REALTIME already requires
-that userspace either has CAP_SYS_NICE, or the DRM master capability. The latter
-can be had by a single DRM client per GPU, usually the compositor since DRM
-master is required to drive the display hardware. It is not possible to have two
-DRM master clients simultaneously.
-
-On the overall this limits the number of userspace threads which can access the
-RT queue - it either has to be a compositor, or a rendering client which was
-explicitly granted CAP_SYS_NICE.
-
-v2:
- * See patch 1 changelog.
-
-v3:
- * See patch 1 changelog + apologies for v3 following so quickly after v2.
-   I have found a race condition as I expanded the testing to a second platform.
-
-v4:
- * See patch 1 changelog.
-
-v5:
- * Rebased on top of tj/for-7.4 branch.
- * New patch in series simplifies unbound sysfs attribute handling.
- * WQ_RTPRI reworked to fold RT marker into attr->nice.
-
-v6:
- * Fixed accidental sysfs attribute rename (patch 1).
- * Various review feedback as per patch 2 changelog.
-
-v7:
- * Describe DRM master in the cover letter.
- * New patch in series to separate attribute sanitizing steps.
- * WQ_RT updated per the respective change log.
-
+Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 Cc: Boris Brezillon <boris.brezillon@collabora.com>
+Cc: Bradley Morgan <include@grrlz.net>
 Cc: Chia-I Wu <olv@google.com>
 Cc: Liviu Dudau <liviu.dudau@arm.com>
 Cc: Matthew Brost <matthew.brost@intel.com>
 Cc: Steven Price <steven.price@arm.com>
 Cc: Tejun Heo <tj@kernel.org>
+---
+v2:
+ * Limit WQ_RTPRI to unbound workqueues and make it have strict CPU
+   affinitity. (Tejun)
+ * Fixed commit message typos. (AI)
+ * Fixed sysfs handling, max_active setting and user modified nice
+   application. (AI)
 
-Tvrtko Ursulin (4):
-  workqueue: Simplify unbound sysfs attribute registration
-  workqueue: Separate sysfs mutable vs immutable wq attribute sanitizing
-  workqueue: Add support for real-time workers
-  drm/panthor: Create per queue priority workqueues
+v3:
+ * Fix worker->pool null pointer dereference race by moving the
+   global decrement to detach_dying_workers().
+ * Rebase for upstream changes.
 
- Documentation/core-api/workqueue.rst    |   8 +
- drivers/gpu/drm/panthor/panthor_sched.c |  37 +++-
- include/linux/workqueue.h               |   5 +-
- kernel/workqueue.c                      | 237 +++++++++++++++---------
- tools/workqueue/wq_dump.py              |   9 +-
- 5 files changed, 197 insertions(+), 99 deletions(-)
+v4:
+ * Fixed onion unwind.
+ * Moved affinity setting to default attributes.
 
+v5:
+ * Dropped global and local limits.
+ * Documented in workqueue.rst.
+ * Added NR_WQ_ATTRIBUTES.
+ * Reverted BH handling changes.
+
+v6:
+ * Dropped separate attr->prio in favour of RTPRI_NICE_LEVEL checks. (Tejun)
+ * Reworked on top of tj/for-7.4.
+
+v7:
+ * Convert to attrs->prio encoded analoguous to task_struct->prio.
+ * Rename flag to WQ_PRIO and do not re-order enums.
+ * Forbid WQ_RT affinity modifications via sysfs.
+ * Added wq_dump.py support.
+
+v8:
+ * Fix max rt prio confusion.
+ * Initialize priority also in alloc_workqueue_attrs_noprof.
+ * Restrict rt cpumask modifications.
+
+v9:
+ * Reject WQ_RT | __WQ_ORDERED.
+ * Fixed spelling in a comment.
+ * Align RT_PRIORITY with sched_set_fifo_low.
+ * Simplify wq_sysfs_unbound_group_visible and use it to deny modifications.
+ * Print -rt from pr_cont_pool_info.
+ * Keep wq_dump.py more backward compatible.
+ * Disallow RT prio change via apply_workqueue_attrs().
+---
+ Documentation/core-api/workqueue.rst |  8 +++
+ include/linux/workqueue.h            |  5 +-
+ kernel/workqueue.c                   | 92 +++++++++++++++++++---------
+ tools/workqueue/wq_dump.py           |  9 ++-
+ 4 files changed, 83 insertions(+), 31 deletions(-)
+
+diff --git a/Documentation/core-api/workqueue.rst b/Documentation/core-api/workqueue.rst
+index bb770f556568..d699c3832b19 100644
+--- a/Documentation/core-api/workqueue.rst
++++ b/Documentation/core-api/workqueue.rst
+@@ -225,6 +225,14 @@ resources, scheduled and executed.
+   each other.  Each maintains its separate pool of workers and
+   implements concurrency management among its workers.
+ 
++``WQ_RT``
++  Real-time priority workqueues must be created as unbound and will be
++  configured with the strict CPU affinity set. Their worker threads use the FIFO
++  scheduling policy with the lowest applicable priority.
++
++  To be used sparingly for use cases such as the real-time GPU rendering
++  contexts accessible to privileged clients.
++
+ ``WQ_CPU_INTENSIVE``
+   Work items of a CPU intensive wq do not contribute to the
+   concurrency level.  In other words, runnable CPU intensive
+diff --git a/include/linux/workqueue.h b/include/linux/workqueue.h
+index a283766a192a..da9843251018 100644
+--- a/include/linux/workqueue.h
++++ b/include/linux/workqueue.h
+@@ -147,9 +147,9 @@ enum wq_affn_scope {
+  */
+ struct workqueue_attrs {
+ 	/**
+-	 * @nice: nice level
++	 * @prio: priority encoded analogous to task_struct->prio.
+ 	 */
+-	int nice;
++	int prio;
+ 
+ 	/**
+ 	 * @cpumask: allowed CPUs
+@@ -404,6 +404,7 @@ enum wq_flags {
+ 	 */
+ 	WQ_POWER_EFFICIENT	= 1 << 7,
+ 	WQ_PERCPU		= 1 << 8, /* bound to a specific cpu */
++	WQ_RT			= 1 << 9, /* real-time priority, valid only with WQ_UNBOUND */
+ 
+ 	__WQ_DESTROYING		= 1 << 15, /* internal: workqueue is destroying */
+ 	__WQ_DRAINING		= 1 << 16, /* internal: workqueue is draining */
+diff --git a/kernel/workqueue.c b/kernel/workqueue.c
+index c634b20f1874..b34881830b8b 100644
+--- a/kernel/workqueue.c
++++ b/kernel/workqueue.c
+@@ -47,6 +47,7 @@
+ #include <linux/jhash.h>
+ #include <linux/hashtable.h>
+ #include <linux/rculist.h>
++#include <linux/sched/rt.h>
+ #include <linux/nodemask.h>
+ #include <linux/moduleparam.h>
+ #include <linux/uaccess.h>
+@@ -126,7 +127,8 @@ enum wq_internal_consts {
+ 	 * all cpus.  Give MIN_NICE.
+ 	 */
+ 	RESCUER_NICE_LEVEL	= MIN_NICE,
+-	HIGHPRI_NICE_LEVEL	= MIN_NICE,
++	HIGHPRI_PRIORITY	= NICE_TO_PRIO(MIN_NICE),
++	RT_PRIORITY		= MAX_RT_PRIO - 2, /* sched_set_fifo_low() */
+ 
+ 	WQ_NAME_LEN		= 32,
+ 	WORKER_ID_LEN		= 10 + WQ_NAME_LEN, /* "kworker/R-" + WQ_NAME_LEN */
+@@ -1275,7 +1277,7 @@ static bool assign_work(struct work_struct *work, struct worker *worker,
+ 
+ static struct irq_work *bh_pool_irq_work(struct worker_pool *pool)
+ {
+-	int high = pool->attrs->nice == HIGHPRI_NICE_LEVEL ? 1 : 0;
++	int high = pool->attrs->prio == HIGHPRI_PRIORITY ? 1 : 0;
+ 
+ 	return &per_cpu(bh_pool_irq_works, pool->cpu)[high];
+ }
+@@ -1290,7 +1292,7 @@ static void kick_bh_pool(struct worker_pool *pool)
+ 		return;
+ 	}
+ #endif
+-	if (pool->attrs->nice == HIGHPRI_NICE_LEVEL)
++	if (pool->attrs->prio == HIGHPRI_PRIORITY)
+ 		raise_softirq_irqoff(HI_SOFTIRQ);
+ 	else
+ 		raise_softirq_irqoff(TASKLET_SOFTIRQ);
+@@ -2959,7 +2961,8 @@ static int format_worker_id(char *buf, size_t size, struct worker *worker,
+ 		if (pool->cpu >= 0)
+ 			return scnprintf(buf, size, "kworker/%d:%d%s",
+ 					 pool->cpu, worker->id,
+-					 pool->attrs->nice < 0  ? "H" : "");
++					 pool->attrs->prio < NICE_TO_PRIO(0) ?
++					 "H" : "");
+ 		else
+ 			return scnprintf(buf, size, "kworker/u%d:%d",
+ 					 pool->id, worker->id);
+@@ -3018,7 +3021,12 @@ static struct worker *create_worker(struct worker_pool *pool)
+ 			goto fail;
+ 		}
+ 
+-		set_user_nice(worker->task, pool->attrs->nice);
++		if (rt_prio(pool->attrs->prio))
++			sched_set_fifo_low(worker->task);
++		else
++			set_user_nice(worker->task,
++				      PRIO_TO_NICE(pool->attrs->prio));
++
+ 		kthread_bind_mask(worker->task, pool_allowed_cpus(pool));
+ 	}
+ 
+@@ -3910,7 +3918,7 @@ static void bh_worker(struct worker *worker)
+ 
+ 	if (budget_exhausted)
+ 		trace_workqueue_bh_budget_yield(pool, restarts, timeout,
+-						pool->attrs->nice == HIGHPRI_NICE_LEVEL);
++						pool->attrs->prio == HIGHPRI_PRIORITY);
+ }
+ 
+ /*
+@@ -3969,7 +3977,7 @@ static void drain_dead_softirq_workfn(struct work_struct *work)
+ 	 * don't hog this CPU's BH.
+ 	 */
+ 	if (repeat) {
+-		if (pool->attrs->nice == HIGHPRI_NICE_LEVEL)
++		if (pool->attrs->prio == HIGHPRI_PRIORITY)
+ 			queue_work(system_bh_highpri_wq, work);
+ 		else
+ 			queue_work(system_bh_wq, work);
+@@ -4001,7 +4009,7 @@ void workqueue_softirq_dead(unsigned int cpu)
+ 		dead_work.pool = pool;
+ 		init_completion(&dead_work.done);
+ 
+-		if (pool->attrs->nice == HIGHPRI_NICE_LEVEL)
++		if (pool->attrs->prio == HIGHPRI_PRIORITY)
+ 			queue_work(system_bh_highpri_wq, &dead_work.work);
+ 		else
+ 			queue_work(system_bh_wq, &dead_work.work);
+@@ -5005,6 +5013,7 @@ struct workqueue_attrs *alloc_workqueue_attrs_noprof(void)
+ 		goto fail;
+ 
+ 	cpumask_copy(attrs->cpumask, cpu_possible_mask);
++	attrs->prio = DEFAULT_PRIO;
+ 	attrs->affn_scope = WQ_AFFN_DFL;
+ 	return attrs;
+ fail:
+@@ -5015,7 +5024,7 @@ struct workqueue_attrs *alloc_workqueue_attrs_noprof(void)
+ static void copy_workqueue_attrs(struct workqueue_attrs *to,
+ 				 const struct workqueue_attrs *from)
+ {
+-	to->nice = from->nice;
++	to->prio = from->prio;
+ 	cpumask_copy(to->cpumask, from->cpumask);
+ 	cpumask_copy(to->__pod_cpumask, from->__pod_cpumask);
+ 	to->affn_strict = from->affn_strict;
+@@ -5046,7 +5055,7 @@ static u32 wqattrs_hash(const struct workqueue_attrs *attrs)
+ {
+ 	u32 hash = 0;
+ 
+-	hash = jhash_1word(attrs->nice, hash);
++	hash = jhash_1word(attrs->prio, hash);
+ 	hash = jhash_1word(attrs->affn_strict, hash);
+ 	hash = jhash(cpumask_bits(attrs->__pod_cpumask),
+ 		     BITS_TO_LONGS(nr_cpumask_bits) * sizeof(long), hash);
+@@ -5060,7 +5069,7 @@ static u32 wqattrs_hash(const struct workqueue_attrs *attrs)
+ static bool wqattrs_equal(const struct workqueue_attrs *a,
+ 			  const struct workqueue_attrs *b)
+ {
+-	if (a->nice != b->nice)
++	if (a->prio != b->prio)
+ 		return false;
+ 	if (a->affn_strict != b->affn_strict)
+ 		return false;
+@@ -5711,6 +5720,13 @@ static void
+ sanitize_immutable_workqueue_attrs(struct workqueue_struct *wq,
+ 				   struct workqueue_attrs *attrs)
+ {
++	if (wq->flags & WQ_RT) {
++		attrs->prio = RT_PRIORITY;
++		/* Strict CPU affinity for low latency execution. */
++		attrs->affn_scope = WQ_AFFN_CPU;
++		attrs->affn_strict = true;
++	}
++
+ 	if (wq->flags & __WQ_ORDERED)
+ 		attrs->ordered = true;
+ }
+@@ -5721,7 +5737,7 @@ sanitize_mutable_workqueue_attrs(struct workqueue_struct *wq,
+ 				 struct workqueue_attrs *attrs)
+ {
+ 	if (wq->flags & WQ_HIGHPRI)
+-		attrs->nice = HIGHPRI_NICE_LEVEL;
++		attrs->prio = HIGHPRI_PRIORITY;
+ }
+ 
+ static void
+@@ -6126,6 +6142,11 @@ static struct workqueue_struct *__alloc_workqueue(const char *fmt,
+ 			return NULL;
+ 	}
+ 
++	if (WARN_ON_ONCE((flags & WQ_RT) &&
++			 ((flags & (WQ_HIGHPRI | WQ_UNBOUND | __WQ_ORDERED)) !=
++			 WQ_UNBOUND)))
++		return NULL;
++
+ 	/* see the comment above the definition of WQ_POWER_EFFICIENT */
+ 	if ((flags & WQ_POWER_EFFICIENT) && wq_power_efficient)
+ 		flags = (flags & ~WQ_PERCPU) | WQ_UNBOUND;
+@@ -6682,9 +6703,11 @@ static void pr_cont_pool_info(struct worker_pool *pool)
+ 	pr_cont(" flags=0x%x", pool->flags);
+ 	if (pool->flags & POOL_BH)
+ 		pr_cont(" bh%s",
+-			pool->attrs->nice == HIGHPRI_NICE_LEVEL ? "-hi" : "");
++			pool->attrs->prio == HIGHPRI_PRIORITY ? "-hi" : "");
++	else if (rt_prio(pool->attrs->prio))
++		pr_cont(" rt");
+ 	else
+-		pr_cont(" nice=%d", pool->attrs->nice);
++		pr_cont(" nice=%d", PRIO_TO_NICE(pool->attrs->prio));
+ }
+ 
+ static void pr_cont_worker_id(struct worker *worker)
+@@ -6693,7 +6716,7 @@ static void pr_cont_worker_id(struct worker *worker)
+ 
+ 	if (pool->flags & POOL_BH)
+ 		pr_cont("bh%s",
+-			pool->attrs->nice == HIGHPRI_NICE_LEVEL ? "-hi" : "");
++			pool->attrs->prio == HIGHPRI_PRIORITY ? "-hi" : "");
+ 	else
+ 		pr_cont("%d%s", task_pid_nr(worker->task),
+ 			worker->rescue_wq ? "(RESCUER)" : "");
+@@ -7617,7 +7640,11 @@ static ssize_t nice_show(struct device *dev, struct device_attribute *attr,
+ 	int written;
+ 
+ 	mutex_lock(&wq->mutex);
+-	written = scnprintf(buf, PAGE_SIZE, "%d\n", wq->attrs->nice);
++	if (wq->attrs->prio == RT_PRIORITY)
++		written = scnprintf(buf, PAGE_SIZE, "rt\n");
++	else
++		written = scnprintf(buf, PAGE_SIZE, "%d\n",
++				    PRIO_TO_NICE(wq->attrs->prio));
+ 	mutex_unlock(&wq->mutex);
+ 
+ 	return written;
+@@ -7643,19 +7670,21 @@ static ssize_t nice_store(struct device *dev, struct device_attribute *attr,
+ {
+ 	struct workqueue_struct *wq = dev_to_wq(dev);
+ 	struct workqueue_attrs *attrs;
+-	int ret = -ENOMEM;
++	int ret, nice = 0;
++
++	if (sscanf(buf, "%d", &nice) != 1 || nice < MIN_NICE || nice > MAX_NICE)
++		return -EINVAL;
+ 
+ 	mutex_lock(&wq_pool_mutex);
+ 
+ 	attrs = wq_sysfs_prep_attrs(wq);
+-	if (!attrs)
++	if (!attrs) {
++		ret = -ENOMEM;
+ 		goto out_unlock;
++	}
+ 
+-	if (sscanf(buf, "%d", &attrs->nice) == 1 &&
+-	    attrs->nice >= MIN_NICE && attrs->nice <= MAX_NICE)
+-		ret = apply_workqueue_attrs_locked(wq, attrs);
+-	else
+-		ret = -EINVAL;
++	attrs->prio = NICE_TO_PRIO(nice);
++	ret = apply_workqueue_attrs_locked(wq, attrs);
+ 
+ out_unlock:
+ 	mutex_unlock(&wq_pool_mutex);
+@@ -7797,6 +7826,13 @@ static umode_t wq_sysfs_unbound_group_visible(struct kobject *kobj,
+ 	if (!(wq->flags & WQ_UNBOUND))
+ 		return 0;
+ 
++	/* Do not allow priority and affinity changes for RT workers. */
++	if ((wq->flags & WQ_RT) &&
++	     (attr == &dev_attr_nice.attr ||
++	      attr == &dev_attr_affinity_scope.attr ||
++	      attr == &dev_attr_affinity_strict.attr))
++		return 0444;
++
+ 	return attr->mode;
+ }
+ 
+@@ -8321,13 +8357,13 @@ static void __init restrict_unbound_cpumask(const char *name, const struct cpuma
+ 	cpumask_and(wq_unbound_cpumask, wq_unbound_cpumask, mask);
+ }
+ 
+-static void __init init_cpu_worker_pool(struct worker_pool *pool, int cpu, int nice)
++static void __init init_cpu_worker_pool(struct worker_pool *pool, int cpu, int prio)
+ {
+ 	BUG_ON(init_worker_pool(pool));
+ 	pool->cpu = cpu;
+ 	cpumask_copy(pool->attrs->cpumask, cpumask_of(cpu));
+ 	cpumask_copy(pool->attrs->__pod_cpumask, cpumask_of(cpu));
+-	pool->attrs->nice = nice;
++	pool->attrs->prio = prio;
+ 	pool->attrs->affn_strict = true;
+ 	pool->node = cpu_to_node(cpu);
+ 
+@@ -8350,7 +8386,7 @@ static void __init init_cpu_worker_pool(struct worker_pool *pool, int cpu, int n
+ void __init workqueue_init_early(void)
+ {
+ 	struct wq_pod_type *pt = &wq_pod_types[WQ_AFFN_SYSTEM];
+-	int std_nice[NR_STD_WORKER_POOLS] = { 0, HIGHPRI_NICE_LEVEL };
++	int std_prio[NR_STD_WORKER_POOLS] = { DEFAULT_PRIO, HIGHPRI_PRIORITY };
+ 	void (*irq_work_fns[NR_STD_WORKER_POOLS])(struct irq_work *) =
+ 		{ bh_pool_kick_normal, bh_pool_kick_highpri };
+ 	int i, cpu;
+@@ -8402,7 +8438,7 @@ void __init workqueue_init_early(void)
+ 
+ 		i = 0;
+ 		for_each_bh_worker_pool(pool, cpu) {
+-			init_cpu_worker_pool(pool, cpu, std_nice[i]);
++			init_cpu_worker_pool(pool, cpu, std_prio[i]);
+ 			pool->flags |= POOL_BH;
+ 			init_irq_work(bh_pool_irq_work(pool), irq_work_fns[i]);
+ 			i++;
+@@ -8410,7 +8446,7 @@ void __init workqueue_init_early(void)
+ 
+ 		i = 0;
+ 		for_each_cpu_worker_pool(pool, cpu)
+-			init_cpu_worker_pool(pool, cpu, std_nice[i++]);
++			init_cpu_worker_pool(pool, cpu, std_prio[i++]);
+ 	}
+ 
+ 	system_wq = alloc_workqueue("events", WQ_PERCPU | __WQ_DEPRECATED, 0);
+diff --git a/tools/workqueue/wq_dump.py b/tools/workqueue/wq_dump.py
+index 9313ebe0c525..650d4cddf25d 100644
+--- a/tools/workqueue/wq_dump.py
++++ b/tools/workqueue/wq_dump.py
+@@ -122,6 +122,8 @@ POOL_BH                 = prog['POOL_BH']
+ WQ_NAME_LEN             = prog['WQ_NAME_LEN'].value_()
+ cpumask_str_len         = len(cpumask_str(wq_unbound_cpumask))
+ 
++rt_prio = prog.constant('RT_PRIORITY', filename='kernel/workqueue.c')
++
+ print('Affinity Scopes')
+ print('===============')
+ 
+@@ -163,7 +165,12 @@ for pi, pool in idr_for_each(worker_pool_idr):
+ 
+ for pi, pool in idr_for_each(worker_pool_idr):
+     pool = drgn.Object(prog, 'struct worker_pool', address=pool)
+-    print(f'pool[{pi:0{max_pool_id_len}}] flags=0x{pool.flags.value_():02x} ref={pool.refcnt.value_():{max_ref_len}} nice={pool.attrs.nice.value_():3} ', end='')
++    nice = pool.attrs.prio.value_()
++    if nice == rt_prio:
++        nice = 'rt'
++    else:
++        nice = nice - 120 # PRIO_TO_NICE
++    print(f'pool[{pi:0{max_pool_id_len}}] flags=0x{pool.flags.value_():02x} ref={pool.refcnt.value_():{max_ref_len}} nice={nice:3} ', end='')
+     print(f'idle/workers={pool.nr_idle.value_():3}/{pool.nr_workers.value_():3} ', end='')
+     if pool.cpu >= 0:
+         print(f'cpu={pool.cpu.value_():3}', end='')
 -- 
 2.56.0
 
