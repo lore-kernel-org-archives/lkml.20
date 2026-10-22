@@ -1,103 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.174
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792671523;
-	b=fEsmZe67o2tPkuPb9hcppQUO60pL83ZwDAGwisH4YyDkiKJE9S5383mss2vwvVCkpVBa
-	 fiPZk74nRB9iq34jLmquTHVgMebQvhYh8UK6ZLpZITynrDLknLwMeHxqyPfd6qocPXC+t
-	 s503SjSA2vfKP7kVSOvxTxIvhuMxv1M2KpQp0Yg3cnksPRJV9f8ekA5jII6D1xjpigaJr
-	 0wzLmSVvzhdxZnec9j7ym/HylMv7uKvcETAQS0x7QSRzeHMzCajBum23Vte2YPYQ+bH/d
-	 LIVv40zdbg3ClH8zZf4L/QMhkCpWrA60q7tMhmFJagRSAotX3ru05+vS1m/qjkJ88qA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792671523;
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=209.85.210.43
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1792671540;
+	b=L7iUz9+Mb/UeuQBkdnMjSqnbpJpq2SLHSoNixHgDVwcRdJTkMcVMxmMsvXKhEp0YG8sA
+	 sC/K7r/RExfAXtoSihNmSUE+t67ddZC0x3QOpY4lTOI69K3P1EqSlKLHutlO/EwFZfiXJ
+	 LbZbYy9Ax8pK6BE14cySc+Oh2WVxWbZRhfgdVEt7vU5u34nAVgL5lpebNKccU6JQgXKUr
+	 XDCxO0OxG5xSzrVrnUicRo2EAQPcZC4fpqW0Bl4UStSZNtnG84lkpPYPG+iMZEiKEHsdb
+	 /KSVWSjtW8cGEznvkqR9blRRG1duCnuKz3AZuNEew+d71QS/pJhmVS2FRgtwL+ZnViQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792671540;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=DZU48ffXnuc37LAObRV7DmUJm85ZVuXLv374YtKlykA=;
-	b=eJLUSa+SknVuP6O0tSF2cfpzXQueYfhb/WVXh+8kEKylg9IJhjG8av5K3OdVEGU+hN6G
-	 /oZaVuOdlyG+9zQvwaJIUqgepahDJIZDXAXUk8ec8rIaIV8cvmeN+D6fPH14vPQoGWItc
-	 J+wy+Oq3+3N/2S1saTXG64CEPqmA2/9E6MNN1Pf6qxtvqmk5sPQbp3XVNEsQCb47oisnA
-	 rutI88HoJFLUpNYMwT/BC7buD1vBoKtzsnuISSGeHOptsTbxqOlAdLlaYam8nu0bqEYDo
-	 BPRSORVncpu4LKew2VeSbu3X9VQ7O/fI25MuI0iS4IU8SdRXO1JV0PeM+wNHST7kweg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=q2ASOcMa;
-	arc=none smtp.remote-ip=209.85.167.174
-Received: from mail-oi1-f174.google.com (mail-oi1-f174.google.com [209.85.167.174])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=O7MzFnbIsObJkz1l1H1RrtjwBzWrndW2u4bvc7jCYf8=;
+	b=e/NKSW4t1SP/W+EeFr99Jxt99MF55Uv9V+Up97aJqIc01qgczPO1y07XwV/yM6LLMt3q
+	 qj1M95eIoG7/bLlz5PRIAYdv+ocihFUzFIqYxVMzVQTLVZ1/DstTMEoXiJUeF66F86lET
+	 tiuwQ28F7L36mHgJvmef7sqqLDhrw3Bpq48eLThKBv8kl0BpIlGe9P8Dgm6Ui1tKJDrso
+	 OCaLyJ+CnM8X7cZD2XHEIBD8vM9JRzh2I67ZYRLjjQK7MFvPBniMBgfr+9Oc6vVLaQDeI
+	 e4PJZTJVgrNKlFaeYj5mkIdym+ihyyWPTolSNTExvzNXwxxwf9MjUEUin7WzfqWYCEg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=armoriq.io;
+	spf=pass smtp.mailfrom=armoriq.io;
+	dkim=pass header.d=armoriq-io.20251104.gappssmtp.com header.i=@armoriq-io.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=YLUPMQVJ;
+	arc=fail smtp.remote-ip=209.85.210.43
+Received: from mail-ot1-f43.google.com (mail-ot1-f43.google.com [209.85.210.43])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C6A4606A319
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 12:18:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3C6A4606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C70E606A31D
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 12:18:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0C70E606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=armoriq.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=armoriq.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=q2ASOcMa
-Received: by mail-oi1-f174.google.com with SMTP id 5614622812f47-4ed6d69bdfaso971056b6e.3
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 05:18:43 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=armoriq-io.20251104.gappssmtp.com header.i=@armoriq-io.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=YLUPMQVJ
+Received: by mail-ot1-f43.google.com with SMTP id 46e09a7af769-843a4ca671eso948980a34.2
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 05:18:59 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792671539; cv=none;
+        d=google.com; s=arc-20260327;
+        b=IkrxuNynidf3BVNfPAnRW2SM0P72MtvkpKI+bCHZ6Z/qRxWA607XyS9uL3Y6AKPsY2
+         1rEPa9KUdKX+KGS6lPjVhmbeN/PliXbi2LWP1Qo2eKj35E7lkB3w1I9mj2ry4zTYkoOw
+         IeQihsVGJti7hDC0lGRoTUC0OAZKiwwGszrfEWYIWIJszIdvGC/VUEaub9DuCN1Ng5Co
+         Hn6GGJ9BaO75ZvnEfTvZP8L6a5SPyraL1SEr1A+io/SoOqqC5VWdOdKhWJkv0bXSwbjO
+         4SwOWyJ6eGDLbeZC0NnZzhIuRC38vD5v9Q0M/K9Dh/fisJsqs3BDcJzbK1Qo8oYdZqhr
+         iG7w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=O7MzFnbIsObJkz1l1H1RrtjwBzWrndW2u4bvc7jCYf8=;
+        fh=rdOeX9NU1txPbQCyKMTQo8cXPGhFFUC2N9CfA/sG9o8=;
+        b=WoZE1gM7Z9SE/y8HTGj6cNTO4o6yQKTTrDfb3s69lRG8i6viA+ZsgEtEQLwg8VeofV
+         pFxrBkrarVZMUbwB9geVqm9HquqtBhA9TJ/HFqLI0gyMmseYt+y9VM2ehQUegPJrssA6
+         Gbh7YRQC/GFD95UeYLlXfpSXyu/ubJMvA1adA7cXb9nVN93pDOYuOpXAl3RD2gPDof/V
+         OcuRiLrQaffx17x88uVs3pMWh0uQ+C8V9i50rc0n2ELEq3ko+2ZDMp3kqVK46ICydwOF
+         KUxcJn93e/69WrHqOUIg28LlMzoYBIOwbHDzf5ULzTmAMjJkVz2LH2/4PdKPrPI3hrdo
+         uZfg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792671522; x=1793276322; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=DZU48ffXnuc37LAObRV7DmUJm85ZVuXLv374YtKlykA=;
-        b=q2ASOcManVMzJ92iTMR9F0a0jDtHq2cnRLuXEPOk9KgjUwAALFBFWNdo18KZRiCFa1
-         dxie2octdDwzpCG9SLU1Du7nZzm0arzjG3iBWcSfrrCXNLC1MswGwnhwBTzL1XUR4EM/
-         A06ZZngcGr0BqDyxncc6e+VZSUnfpSMhrwoRhGzUTWy3EF+pm3pkIYaBJD1q3ML4TnQ9
-         /ZhQlFr1LbGguUB9F9K7U/r8fyz4qMtkYA+l/Eut5xwYORSyXvZNbvEWVY2vFt+UMC0o
-         F6FU5WKRS3OEAXWApTPvXnjlgKzWGlho2+dFbkCd6qZNzg/y3e2Fw+C9viKmL1sVX5Ee
-         DuMw==
+        d=armoriq-io.20251104.gappssmtp.com; s=20251104; t=1792671539; x=1793276339; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=O7MzFnbIsObJkz1l1H1RrtjwBzWrndW2u4bvc7jCYf8=;
+        b=YLUPMQVJF8HRVC8z0/+XrEs6ev066K/XYVa52+Bkail+lf49nY6jJTtmqI88eqqqsS
+         JyqLtxXkZBgpqap7OKLLgfKTDdkw7sXaj2F0wki4fj815GI8j0FU3WPvBZrpoPt010jG
+         a2eKGzf31l4WZyISy7N2Q9j+tM9WRaZCyHibHUXQ7x2AV10lfY5j4oXlH6Lm0KDXNPTg
+         u4ey+rSbQxYeOt+0Z8HBA+BXKpNpfApwmejs/QWWkARyoKd/k0ifAy3jIR5OPv85JDDu
+         3sVPwOid7UjGYaFQBECFXSA4rQLg1L8OKtRadkaLUwkT+FuuEXmEPh3CQJ3uW1kN25Et
+         daYw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792671522; x=1793276322;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=DZU48ffXnuc37LAObRV7DmUJm85ZVuXLv374YtKlykA=;
-        b=0RCpijg/iXFbSV/aJ7JxQCA8BIKMGnJdR6DRO7foKhH/DTdoNugd2Mabi5z/keYy9q
-         f68ZHq11zc1v9IOyResDIE0ctKmO8vIBm07IiFakYELeka7+moRXkeJNlUQnRS+tBfSg
-         GkJUDofGcF/yVQczJbcswevXmWwdautZCn4xTPmZLNIWDTtodEWlNDe1kVGnhTudbkJK
-         FVdNrhQ+k3rRW9lPBr1D9bGfgCwIkgLPqwYrq1NT6nt+dkNrLJgPelTv7/n5GTqpPzaj
-         bbijwamN4Ca1NRwj2k/RCZXUYHbrDneWY6XeDiM6mdX57WGiopqyMnmccaGIrLMLH2Qp
-         7JFg==
-X-Forwarded-Encrypted: i=1; AKwUvBzMEhalvIBAgNDpIfvmQoYOrl26I8fKZFJFoiq9hipXhnLWOmK4BdYQ8sTLF+zyicKpx+S82YeerdMzGFQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJVDNUzMKOg9k794xhUie5gLIN4YXoRzwYYE0H2F0vEyIddZL5i
-	CwaWXMvL6RIVVYD2jCAPLJZNXrmAWlfwO5k8hCD6jWhx3IS68xGQg864
-X-Gm-Gg: AYBFou0vk++ZMUa1B7l/rkbL9s5y5t/5uFJhi/gfgqDqrHxk8BCW5Xb1fkq+4hOxacl
-	S0KNpk4v/iMnTpBHhCrbkRu+kMUwn9+GYRp29fLdfyTnqNahoYM8aDpYu0P4F5Ma0ce+WjinErK
-	+jxjZYlwebAA2TReTAfxwrXIvPSWnODvd0WqJv73+OL19RiQYmVB4WpqVwoMRmQMr0Cm9LvMdLY
-	75BxW5QbSBj55VFg0OJ8tDwNjI1oM5ixkGZAo114o00Z9Lza5R2ibZeUS6jCeGLHXR50hP0yl0m
-	WyXlEAl72uXhUxe9WqMAPbbYL3l8xzT9nWMLqrF9sozspCLZmE+kCnBXO9t7aaUXoAsmfpJFvpR
-	kKf3VBhDh1xS/agL5C/xIX1TitlQoHbvSwMr+IFKN3vXh1i7vxhht6jEODTY0dFzrlYpVkQnwox
-	DiCZ4/020ZZ1YUoSLicy0FZon7tiXlQ45QyyazwZD6ZOn5imIxTObEw0ckVkDlIezfjGJB5NBj1
-	QdjhFlBE3Eu+iaunq+0GC5fc24+N30Yn7AsznTEKHgB7HC2yeubVp+wqpx9CClGAcyILyTN7Q8x
-	z1gOuz/70MOGYDPs5uPjs6aUpyiET20hYhONvFRc6sI=
-X-Received: by 2002:a05:6808:1301:b0:537:3bdb:2d7b with SMTP id 5614622812f47-5535d4e1eb9mr4210437b6e.11.1792671521547;
-        Thu, 22 Oct 2026 05:18:41 -0700 (PDT)
-Received: from archlinux.lan ([136.34.156.120])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-552b4104048sm4469598b6e.5.2026.10.22.05.18.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 05:18:39 -0700 (PDT)
-From: Danish Khateeb <danishkhateeb03@gmail.com>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Gregory Price <gourry@gourry.net>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Jann Horn <jannh@google.com>,
-	Pedro Falcato <pfalcato@suse.de>,
-	David Hildenbrand <david@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Shuah Khan <shuah@kernel.org>,
-	linux-mm@kvack.org,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Danish Khateeb <danishkhateeb03@gmail.com>
-Subject: [PATCH v3] selftests/mm: merge: keep the far mremap() targets in the carveout
-Date: Thu, 22 Oct 2026 07:18:37 -0500
-Message-ID: <20261022121837.28723-1-danishkhateeb03@gmail.com>
-X-Mailer: git-send-email 2.56.0
+        d=1e100.net; s=20260707; t=1792671539; x=1793276339;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=O7MzFnbIsObJkz1l1H1RrtjwBzWrndW2u4bvc7jCYf8=;
+        b=Qpmah8e5qabtuNMIYc8pjCua7VLx33pXoKP86S5Jr/F+XoDRt4GOpjy4KBpzftWi4U
+         dinBNh1+4sd4lw3Vpn41pkuVr2T9ELuL6KdTk9RXTpfq5YxTqhyrM9tpIGTcN8U0/iyw
+         tC1TCsTQyDTbns0y2111tVCig21fjgl8NpH7V/bmkcp+7/85pmr9thTfBw7j9IstTDCF
+         tYcNRfk7DvTQy/d3Tuh8VzinrQ7+5y5i8nnlCckvSs69Ch0kdgevYR5HeVoxxc+6kYch
+         /Vw0LeuE1vZvu8FLTFvfVMwm05mOXi9Mg0ah8/5gsjJJczeMEZWRpgbVHsuIxwDwbURE
+         YBMw==
+X-Forwarded-Encrypted: i=1; AKwUvByrazfOdiHFDTqebA/7EA8JUL2DSFrueJzpiOjeXUkjMzXcP6xSjnwQK2HXRZ7p09FEsRU8AL2GRVSl95w=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKBrNuTp+94WmMQ2Cev/8TRY2YUTShUuyUqYyPaXFHgzpq+BCyK
+	tKe6/jnl6ZeV229txHCZ7njwY37wi1ckdFUnmLWWKlhdKbEGC1HKd+oj+90JPcTsdNUNc52hjbv
+	p3RzykaBcwsrfYK6qMJhwO+PyHWvb2qpc/ugujpnwVUs=
+X-Gm-Gg: AYBFou34ctwh7VUL4MPcdZ72oL/BXyUWcFh2XWasiRP5FWFV+m9F+RsjQGJ3Wa9cHns
+	+/7ukInMgq5xRkOcAg+GzoSeHt3G73/C/FG0ZbpLsQJQZgcw1LUd3WVzNPNbYsLZVXQlEPIJY5n
+	7rgyeFpl51GPEAVsszq6RO2yw3sUiFnR+Pfr3B3M4+8AFZn2Mhvfy9TNVFLCzcmCeL+EKYYIDEi
+	/O3i85V1bvrlbatmqW5LKBY18WDYQXoOwA/+9xSS4pxcobh/fPHuyS/aeqzs2RO8ZQJX2eQnQue
+	eZGLvz3Q2Nejox6vsXP6IgowTHHWZ1Vr3h1jwL24up7e52A7RnMa+NtVnB4lw45/fsoSpmVMQn2
+	LAyIOm0YuXTm8ofHJ5Rzf3ds6AgYMH87bAv/onitRA3cbIqRP7U5/DOz7GzMZep9GnEpqN52M9b
+	FrjlxYAIfqn9vwlznEXyu/9ZP/B11toZQHJHr7eN7EwaOg9s+0uXW+7Pc=
+X-Received: by 2002:a05:6830:6f85:b0:81c:ebf4:9ff8 with SMTP id
+ 46e09a7af769-84d09218548mr4176798a34.30.1792671538755; Thu, 22 Oct 2026
+ 05:18:58 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,196 +105,33 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261021165748.19304-1-ketan@armoriq.io> <db4e46a6-1788-44a3-a3ab-4fded03591d7@infradead.org>
+In-Reply-To: <db4e46a6-1788-44a3-a3ab-4fded03591d7@infradead.org>
+From: Harihara Sudhan <harisudhan@armoriq.io>
+Date: Thu, 22 Oct 2026 17:48:48 +0530
+X-Gm-Features: AclHuK9VMJQ9vVvn-lB4Iuv5LF_25cVG0XxJiOkPXcZoQJDfSKiJzf7VWJduKT4
+Message-ID: <CAGhg=-NJjXPqeAFMnYVRnbZWQwoGiPqhyhxH_c7zhL-=Jc+qzw@mail.gmail.com>
+Subject: Re: [RFC PATCH] docs: security: Describe the Kernel Assurance Plane design
+To: Randy Dunlap <rdunlap@infradead.org>
+Cc: Ketan Bhardwaj <ketan@armoriq.io>, Paul Moore <paul@paul-moore.com>, 
+	James Morris <jmorris@namei.org>, "Serge E . Hallyn" <serge@hallyn.com>, 
+	linux-security-module@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, linux-doc@vger.kernel.org, 
+	linux-api@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The merge tests map their areas at fixed addresses within a 30-page
-PROT_NONE carveout. Several mremap() tests move an area 1000 or 2000
-pages away to separate it from the others, but those targets are outside
-the carveout, and MREMAP_FIXED unmaps whatever is mapped there.
+On Thu, Oct 22, 2026 at 5:11=E2=80=AFAM Randy Dunlap <rdunlap@infradead.org=
+> wrote:
+> I wondered what this index entry was for and then running
+> 'make htmldocs' complained:
+>
+> Documentation/admin-guide/LSM/index.rst:48: WARNING: toctree contains ref=
+erence to nonexisting document 'admin-guide/LSM/kap' [toc.not_readable]
 
-Under virtme-ng, the shared libraries are packed right above the
-carveout and the dynamic linker starts about 4 MiB above it. The moves
-then replace part of its text with an anonymous mapping, and the test
-crashes in its next lazily bound call:
+Thanks Randy. That entry should not be there: the document lives only
+under Documentation/security and there is no admin-guide page for KAP.
+We'll drop the admin-guide/LSM/index.rst hunk in v2.
 
-  merge[6980]: segfault at 7f7ebb3c1e60 ip 00007f7ebb3c1e60 sp 00007ffd35fbaec8 error 14
-
-Two to four of the mremap() tests then fail with "Test terminated
-unexpectedly by signal 11", depending on the exact layout. On a host
-where libc is mapped at a 2 MiB aligned address, the targets happen to
-land above the dynamic linker and the tests pass.
-
-Since the areas are all within the first 30 pages, moving one by 30
-pages is enough to keep it apart from the others. Add FAR_PAGES for
-that distance, move areas by FAR_PAGES or 2 * FAR_PAGES pages, and make
-the carveout 3 * FAR_PAGES pages so that it covers every target.
-
-Fixes: 4e25f85b9f85 ("tools/testing/selftests: add mremap() unfaulted/faulted test cases")
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Signed-off-by: Danish Khateeb <danishkhateeb03@gmail.com>
----
-
-Notes:
-    v3:
-    - Drop the comment above FAR_PAGES (Lorenzo Stoakes).
-    - Add Lorenzo's Reviewed-by.
-    v2: https://lore.kernel.org/all/20261021164810.45846-1-danishkhateeb03@gmail.com/
-    - Replace the 1000 and 2000 page offsets in the tests with FAR_PAGES
-      and 2 * FAR_PAGES, and derive the carveout size from FAR_PAGES,
-      instead of only enlarging the carveout (Gregory Price).
-    v1: https://lore.kernel.org/all/20261021011929.89150-1-danishkhateeb03@gmail.com/
-    
-    Tested under virtme-ng (9p root, glibc 2.44) on next-20261020 with a
-    KASAN/lockdep kernel, three runs of each binary:
-    
-      merge before:  pass:22 fail:4 skip:1 (SIGSEGV in ld-linux-x86-64.so.2)
-      merge after:   pass:26 fail:0 skip:1
-    
-    On the host (glibc 2.44, libc mapped 2 MiB aligned) the results are the
-    same with and without the patch.
-    
-    An LLM was used to help with this patch.
-
- tools/testing/selftests/mm/merge.c | 33 ++++++++++++++++--------------
- 1 file changed, 18 insertions(+), 15 deletions(-)
-
-diff --git a/tools/testing/selftests/mm/merge.c b/tools/testing/selftests/mm/merge.c
-index 7dd2933417c1..6def490186a9 100644
---- a/tools/testing/selftests/mm/merge.c
-+++ b/tools/testing/selftests/mm/merge.c
-@@ -22,9 +22,12 @@ FIXTURE(merge)
- 	struct procmap_fd procmap;
- };
- 
-+#define FAR_PAGES	30
-+#define CARVEOUT_PAGES	(3 * FAR_PAGES)
-+
- static char *map_carveout(unsigned int page_size)
- {
--	return mmap(NULL, 30 * page_size, PROT_NONE,
-+	return mmap(NULL, CARVEOUT_PAGES * page_size, PROT_NONE,
- 		    MAP_ANON | MAP_PRIVATE, -1, 0);
- }
- 
-@@ -73,7 +76,7 @@ FIXTURE_SETUP(merge)
- 
- FIXTURE_TEARDOWN(merge)
- {
--	ASSERT_EQ(munmap(self->carveout, 30 * self->page_size), 0);
-+	ASSERT_EQ(munmap(self->carveout, CARVEOUT_PAGES * self->page_size), 0);
- 	/* May fail for parent of forked process. */
- 	close_procmap(&self->procmap);
- 	/*
-@@ -115,7 +118,7 @@ FIXTURE_SETUP(merge_with_fork)
- 
- FIXTURE_TEARDOWN(merge_with_fork)
- {
--	ASSERT_EQ(munmap(self->carveout, 30 * self->page_size), 0);
-+	ASSERT_EQ(munmap(self->carveout, CARVEOUT_PAGES * self->page_size), 0);
- 	ASSERT_EQ(close_procmap(&self->procmap), 0);
- 	/* See above. */
- 	prctl(PR_SET_MEMORY_MERGE, 0, 0, 0, 0);
-@@ -660,7 +663,7 @@ TEST_F(merge, mremap_unfaulted_to_faulted)
- 
- 	/* Offset ptr2 further away. */
- 	ptr2 = sys_mremap(ptr2, 5 * page_size, 5 * page_size,
--			  MREMAP_MAYMOVE | MREMAP_FIXED, ptr2 + page_size * 1000);
-+			  MREMAP_MAYMOVE | MREMAP_FIXED, ptr2 + FAR_PAGES * page_size);
- 	ASSERT_NE(ptr2, MAP_FAILED);
- 
- 	/*
-@@ -721,7 +724,7 @@ TEST_F(merge, mremap_unfaulted_behind_faulted)
- 
- 	/* Offset ptr2 further away. */
- 	ptr2 = sys_mremap(ptr2, 5 * page_size, 5 * page_size,
--			  MREMAP_MAYMOVE | MREMAP_FIXED, ptr2 + page_size * 1000);
-+			  MREMAP_MAYMOVE | MREMAP_FIXED, ptr2 + FAR_PAGES * page_size);
- 	ASSERT_NE(ptr2, MAP_FAILED);
- 
- 	/*
-@@ -785,12 +788,12 @@ TEST_F(merge, mremap_unfaulted_between_faulted)
- 
- 	/* Offset ptr3 further away. */
- 	ptr3 = sys_mremap(ptr3, 5 * page_size, 5 * page_size,
--			  MREMAP_MAYMOVE | MREMAP_FIXED, ptr3 + page_size * 2000);
-+			  MREMAP_MAYMOVE | MREMAP_FIXED, ptr3 + 2 * FAR_PAGES * page_size);
- 	ASSERT_NE(ptr3, MAP_FAILED);
- 
- 	/* Offset ptr2 further away. */
- 	ptr2 = sys_mremap(ptr2, 5 * page_size, 5 * page_size,
--			  MREMAP_MAYMOVE | MREMAP_FIXED, ptr2 + page_size * 1000);
-+			  MREMAP_MAYMOVE | MREMAP_FIXED, ptr2 + FAR_PAGES * page_size);
- 	ASSERT_NE(ptr2, MAP_FAILED);
- 
- 	/*
-@@ -870,13 +873,13 @@ TEST_F(merge, mremap_unfaulted_between_faulted_unfaulted)
- 
- 	/* Offset ptr3 further away. */
- 	ptr3 = sys_mremap(ptr3, 5 * page_size, 5 * page_size,
--			  MREMAP_MAYMOVE | MREMAP_FIXED, ptr3 + page_size * 2000);
-+			  MREMAP_MAYMOVE | MREMAP_FIXED, ptr3 + 2 * FAR_PAGES * page_size);
- 	ASSERT_NE(ptr3, MAP_FAILED);
- 
- 
- 	/* Offset ptr2 further away. */
- 	ptr2 = sys_mremap(ptr2, 5 * page_size, 5 * page_size,
--			  MREMAP_MAYMOVE | MREMAP_FIXED, ptr2 + page_size * 1000);
-+			  MREMAP_MAYMOVE | MREMAP_FIXED, ptr2 + FAR_PAGES * page_size);
- 	ASSERT_NE(ptr2, MAP_FAILED);
- 
- 	/*
-@@ -1035,11 +1038,11 @@ TEST_F(merge, mremap_correct_placed_faulted)
- 	 */
- 	ptr3 = &ptr[10 * page_size];
- 	ptr3 = sys_mremap(ptr3, 5 * page_size, 5 * page_size,
--			  MREMAP_MAYMOVE | MREMAP_FIXED, ptr3 + page_size * 2000);
-+			  MREMAP_MAYMOVE | MREMAP_FIXED, ptr3 + 2 * FAR_PAGES * page_size);
- 	ASSERT_NE(ptr3, MAP_FAILED);
- 	ptr2 = &ptr[5 * page_size];
- 	ptr2 = sys_mremap(ptr2, 5 * page_size, 5 * page_size,
--			  MREMAP_MAYMOVE | MREMAP_FIXED, ptr2 + page_size * 1000);
-+			  MREMAP_MAYMOVE | MREMAP_FIXED, ptr2 + FAR_PAGES * page_size);
- 	ASSERT_NE(ptr2, MAP_FAILED);
- 
- 	/*
-@@ -1075,7 +1078,7 @@ TEST_F(merge, mremap_correct_placed_faulted)
- 	 *                  ptr2      \       ptr       \       ptr3
- 	 */
- 	ptr = sys_mremap(ptr, 5 * page_size, 5 * page_size,
--			 MREMAP_MAYMOVE | MREMAP_FIXED, ptr + page_size * 1000);
-+			 MREMAP_MAYMOVE | MREMAP_FIXED, ptr + FAR_PAGES * page_size);
- 	ASSERT_NE(ptr, MAP_FAILED);
- 
- 	/*
-@@ -1110,7 +1113,7 @@ TEST_F(merge, mremap_correct_placed_faulted)
- 	 *                  ptr2      \       ptr       \       ptr3
- 	 */
- 	ptr = sys_mremap(ptr, 5 * page_size, 5 * page_size,
--			 MREMAP_MAYMOVE | MREMAP_FIXED, ptr + page_size * 1000);
-+			 MREMAP_MAYMOVE | MREMAP_FIXED, ptr + FAR_PAGES * page_size);
- 	ASSERT_NE(ptr, MAP_FAILED);
- 
- 	/*
-@@ -1168,7 +1171,7 @@ TEST_F(merge, mremap_correct_placed_faulted)
- 	 *      ptr                     ptr3      \       ptr2
- 	 */
- 	ptr2 = sys_mremap(ptr2, 5 * page_size, 5 * page_size,
--			  MREMAP_MAYMOVE | MREMAP_FIXED, ptr2 + page_size * 1000);
-+			  MREMAP_MAYMOVE | MREMAP_FIXED, ptr2 + FAR_PAGES * page_size);
- 	ASSERT_NE(ptr2, MAP_FAILED);
- 
- 	/*
-@@ -1203,7 +1206,7 @@ TEST_F(merge, mremap_correct_placed_faulted)
- 	 *            ptr                         \       ptr3
- 	 */
- 	ptr3 = sys_mremap(ptr3, 5 * page_size, 5 * page_size,
--			  MREMAP_MAYMOVE | MREMAP_FIXED, ptr3 + page_size * 1000);
-+			  MREMAP_MAYMOVE | MREMAP_FIXED, ptr3 + FAR_PAGES * page_size);
- 	ASSERT_NE(ptr3, MAP_FAILED);
- 
- 	/*
-
-base-commit: fcec4f4bcc1101dbd7e3aff267856b3bbfe128c6
--- 
-2.56.0
-
+Thanks,
+Hari
