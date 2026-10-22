@@ -1,74 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.197
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.200
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792709458;
-	b=nmUwNhS98DQ24xOrIuBZT39RBTjlclCIGTAYIXVzaDGeXdaN62UM8aA/KzKKT1vZww7f
-	 qE3UfE6k88Mehb1AIzCZJsrS0/sOgcnmOBWyUhDo+JI2WR3fRSCBAGh7fCOS+kUrZoiHb
-	 ukxAeSaC1dyEpGJ4wyacBvnnIRQo++wEAvkP+lZtBBQxDnnjaZ3OXxpEacYFIQGzNHIVZ
-	 xaNL5Lz5RI1DmHLa8WQfgM9nR4y+Pi+m/ThYwJ8+SyAQHSyf2lgcecn7LKN0a9Yy1XLl9
-	 a4KtcNLQUo0c7fFx1Us6K/DkzMWvJey7NJHp5MwRj1gHOTtTFDZJYZ8zSJnErnNwtww==
+	t=1792709459;
+	b=EGSB31vBGPbIoALoQQCxDpKj8gQMKjOOtUlTNHVft6vl6Su1zbNzBYvacco2c1dCg2/I
+	 L7U2g8DeEI4XSxkeYk4VxwaAByM/EUsBC51/S/JtZViwWIg2q/YMcLNbIg6q2vJAMp0II
+	 06JTKKRqhia24r6iTUU9ypD9HNwfqNPZBhELCskoAfWjVDKVVWw0BQVLvKvfQchCbOHd3
+	 gcxwMzH97asb+NtggD/h4HGhX479nlG0Ltb2ehkDXX3O7lazcWmB+fVVpVV/pcnJETtTc
+	 vT9kV+Q+NWmQprLAYqvBFgq54dBrEstquIii3bpiaXCFM53ydJFWSrwBkGMF8fVoAEw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792709458;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792709459;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
 	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
 	 Content-Type;
-	bh=M8wkRoJDHKCl2H3ues/+67+xXGDD9mtv8dtHSiakNgQ=;
-	b=J3O3nwyPTlQfjIfb14Ni/xOlX/7f1qPxWW8Mv9IVs+tsPJuUyqlyHr7SDpbC9lLojjYB
-	 93aOToi7aryZgNT9uBN+UP+EktSOyjAISz8PeABVBB4N2DxSK5THst5MW3h6CmayheuNn
-	 g8WradHyEXD37F3dIBGnf6Y86KXhyUFUJCA2sHLddoriVohIx8OiyIujETC8fdHq7VKTr
-	 c5J8NPuMw0i2j/50F+HizD0Ox4zeNb/VorxFJirmwcaQ05krVmhzPvL2uVZINT6xel02N
-	 ztl72NrIVRoUVRkuAa6Vd1CAQYVWEJwW3+/xNB+e6WDk1IOhK1QrTkn2M+1ThIpJoZg==
+	bh=tveVWO7bpJoIkcGyu5OICWvMrLDi2sKmFxgN2k+RxPA=;
+	b=UNS4cUSKTyzdSCP66vZWLF5T39y6vxLFFQT/wRI+kG6LcBjcEwOnDmVpMyskDPxNMCZj
+	 dlS27sd6Y7PWaRYqz6vTw2Zz0yaSahjCfrs5dxV+2ETJJLNLPx9rlEM0Bnw2Q2RFMo/9R
+	 2uk8zHKJapF272+8+rBUfzWwQKDp36ibs/VUkD7hSjWsHrYgWT27SUgIfMtQxdDwLapNb
+	 0NJSpOb6BZgXfkU4CIQWKpVnm+142SWlxW9l6YzCFZhalO/grXfvtm45q4HIpl4n7xHC9
+	 0TA8Ds2VJhMlICELsHGLCXt9CI0PiaTQHkAzZBiQT6rTBg4DOUfyJbEoM+gN3I5kRxA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--dmatlack.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=JSGwrRyA;
-	arc=none smtp.remote-ip=209.85.215.197
-Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=JI1oGfp7;
+	arc=none smtp.remote-ip=209.85.210.200
+Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7559E606A332
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 076F460A262E
 	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 22:50:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7559E606A332
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 076F460A262E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--dmatlack.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=JSGwrRyA
-Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-cd65070d3feso113874a12.0
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=JI1oGfp7
+Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-8a05c820ecbso460041b3a.0
         for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 15:50:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=google.com; s=20251104; t=1792709458; x=1793314258; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=M8wkRoJDHKCl2H3ues/+67+xXGDD9mtv8dtHSiakNgQ=;
-        b=JSGwrRyAkEs5nLY0TI/rFOOQA7leL5Heko62iD6uNJwQpUemrInQKvcrfKXhRYE8kp
-         Fu7QCVVM+pAUJUMVjIvVQhWXGlGz7mkUdg6TEd7aRYsPAzOawRlrhql2unxygupRQEN7
-         uXbo3qO5zxmMdPNMGzVzocKFN4+yRhG+Ny3JHtq1tkOIfUFxM/kUOAvQWKgTu5e5pdJX
-         1WT6FcNwkFErCzQ7gRQ85QghI8Px64bMJZOSIBJk5yg/2VfhNFkrVO3yG0v4Ndk4wC9r
-         O68CgQTd+aUh1N2SSFbXFjrrbgcvJ4eFEgRe0HSygJHnIDbLImt9i+ZBC1HZriG3YW0Z
-         l6aA==
+        bh=tveVWO7bpJoIkcGyu5OICWvMrLDi2sKmFxgN2k+RxPA=;
+        b=JI1oGfp73ClAM+rrrmG0fU/E10DtJ505Iuk7NocRTECK3OS5pKrAR+KGXtLKgD32at
+         Psx+S04EfZlRqm53rtSpodOJ+D+OnJMU3n2xA7CM4nVyMVFXgxwoFoIPE1iz/X/buu/q
+         ZJnrAEXWAFGazTBvdoeZrcHA0Az7y1m+kJ9yuwqbhvB4n05Zm4nI9yryqfFe3hNtRPb0
+         +P8RY/tcc3g9IdFw9xrJICoJ31mVVGCJa6uB67WpN51tSK0Cw/e7wY65Z1ylDeopw5KY
+         YCvOj7BUvMly23jNmQAMu9JRkL38DkL28XTU9UwI10UVUR9QQZ9agQ66wh3xdB2L5HoV
+         QpOA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20260707; t=1792709458; x=1793314258;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=M8wkRoJDHKCl2H3ues/+67+xXGDD9mtv8dtHSiakNgQ=;
-        b=aRvBro+QW+ftkXC52objw0xT1mlsnrmQLxSol7/eTBJ0hrLiI75JeiQvsfTA3bPtId
-         Nm3gs6QRj2yWNXWadsoGuEjnM6hhH/IlpwzGgDZiaGAIcqjc6/qaE6H4evQYIJraLWLF
-         b2XeyNaQq8nPdhRm3ugAVfAdrGjqWy+LERly74LBejxcKAr9FAKpE7Hy0qzTu1yf9TZp
-         J1mCl8DmccpB51im0fe2tWkxzhGLsN/AKPPuuLH505kkV7D+zs+9q9U/I2hDRuBOvsJ0
-         5GUCqV7jzFQ/vWlAmO81vQLRUp1GFP+5M0MGwv7vPmjBW07eqF11MA8AWzcCd/DL+1nw
-         7n1g==
-X-Forwarded-Encrypted: i=1; AKwUvBxK8uY21BSvLhe9W+qbdLrQbGwAgUVW9yuK6uBV9HtrRiKE6Sg8sLH4fA9Y44FWn2v7Cb0jOqqBzLuoRCo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI3lxV18D17FyK/H3lVYp8r1l+3kQQDeUH6Z96LV5QSxtuMupYi
-	FyAJyqvonieSQB37OdNtM08NS9bkXNHbo0/INFmi88lNDn9bwf6vn2pvn4dGj6TiHLJ1A/AtwHB
-	ZQvUmsbUDAFRTYQ==
-X-Received: from pgbm22-n2.prod.google.com ([2002:a05:6a02:6196:20b0:cd6:a6ae:1ba0])
+        bh=tveVWO7bpJoIkcGyu5OICWvMrLDi2sKmFxgN2k+RxPA=;
+        b=OVgTMDzkg4GGY/KAg6nQVcHtoxLvnw+NuBz1+DqpCtt7miJVlWQzG6doHw36oX+8Yy
+         wikT22ZgVh8MV1GEH/kk3DdxtyoXZzsx150ZitGvLIr5saCp+IRHKRW0Dt7bmnWtLDNC
+         muCR7XP619m+5QTBzKFQQ819cl5CmU8XtEqATbSUmTCYIN1yUFSwBeIGDSO1SFTcb4iP
+         v8EuxW1ZgMbAfSrxc9Cuc2grFSJO8gFreQrKoimmkbl6s9FjUCUOpj10gnu2Jyo+pN1l
+         y79tfA8lva2P+0IAqM8kT/BX/mm1wdoZqobo/ONGYR9H8I6Qn3grM+/R5qmc++uiwq3D
+         ecqg==
+X-Forwarded-Encrypted: i=1; AKwUvBzUg4+P7/wOYKE601vB6GouX7RM8mdDLiMocrwJhmMBAmCGGXwrz8JnI9xa+8+0Hp4NpkJfup4GWM7ax2U=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJFFs6vN0uz6Em7Jl0Tbs/20oAFJGH6MJXD+KUwAb2C/NsNuTcq
+	hZYstANSKymyoP7S5cWW0sNestzsw8JKaMEInX5eGCaNHCrK+yTiutqAyaI+HKXREOwBwFieint
+	BWmnDNAW04jfCKw==
+X-Received: from pgww26-n1.prod.google.com ([2002:a05:6a02:2c9a:10b0:cd6:1195:61cb])
  (user=dmatlack job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6300:8001:b0:3e2:78bf:63d6 with SMTP id adf61e73a8af0-3e2a0c4a3a0mr1802376637.46.1792709457482;
- Thu, 22 Oct 2026 15:50:57 -0700 (PDT)
-Date: Thu, 22 Oct 2026 22:50:33 +0000
+ 2002:a05:6a21:8a0e:b0:3e2:335b:1a5d with SMTP id adf61e73a8af0-3e3767c3067mr249935637.71.1792709458271;
+ Thu, 22 Oct 2026 15:50:58 -0700 (PDT)
+Date: Thu, 22 Oct 2026 22:50:34 +0000
 In-Reply-To: <20261022225035.377445-1-dmatlack@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,9 +81,8 @@ Precedence: list
 Mime-Version: 1.0
 References: <20261022225035.377445-1-dmatlack@google.com>
 X-Mailer: git-send-email 2.56.0.257.gf7497c7d27-goog
-Message-ID: <20261022225035.377445-9-dmatlack@google.com>
-Subject: [PATCH v2 08/10] mm/shmem_luo: Allow preserving tmpfs files that are
- still linked
+Message-ID: <20261022225035.377445-10-dmatlack@google.com>
+Subject: [PATCH v2 09/10] mm/shmem_luo: Allow retrieving tmpfs files with O_RDONLY
 From: David Matlack <dmatlack@google.com>
 To: kexec@lists.infradead.org, linux-doc@vger.kernel.org, 
 	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
@@ -99,136 +98,108 @@ Cc: Alexander Graf <graf@amazon.com>, Andrew Morton <akpm@linux-foundation.org>,
 	David Matlack <dmatlack@google.com>
 Content-Type: text/plain; charset="UTF-8"
 
-shmem_luo already accepts any shmem file without links, which includes
-unlinked tmpfs files and files created with O_TMPFILE. Also accept tmpfs
-files that are still linked, so that userspace doesn't have to unlink
-files to preserve them and can keep using them by path until the live
-update.
+Allow userspace to pass O_RDONLY in struct liveupdate_shmem_retrieve_arg
+to retrieve a tmpfs file read-only.
 
-The path of the file isn't preserved. Like other files from tmpfs
-mounts, a linked file is retrieved onto a tmpfs mount chosen by
-userspace, which can then link it at the path it wants.
+open() requires write access for O_TMPFILE, so create the file writable
+like before, then reopen it read-only with dentry_open() using the same
+flags, and drop the writable file. Like open(), which grants the
+requested access to a new file regardless of its mode, don't check
+permission for the read-only open.
 
-While a file is preserved, its size is frozen, so truncating it,
-fallocate() and writes past its end fail with -EPERM. For a linked file,
-this affects everyone who opens the file by its path, so a caller that
-can only read the file, e.g. a world-readable file in /dev/shm, could
-use it to break the owner of the file. So require permission to write to
-the file to preserve it, for all files. Like FS_IOC_ENABLE_VERITY, don't
-require a file opened for writing, so that binaries that are being
-executed can still be preserved through read-only fds, nor a writable
-mount. If the size of the file can't change anyway, because it is
-immutable or on a read-only superblock, also let its owner preserve it.
-Don't let others do that, since the size could change again once the
-file is made writable.
-
-Preserving a file also fills its holes, but don't require any permission
-for that. Anyone who can read a tmpfs file can already fill its holes by
-faulting them in through a read-only mapping, also on read-only mounts
-and for immutable files.
-
-Document the frozen size and the permission requirement.
+Retrieving a file read-only allows a restored binary to be executed
+before the session is finished. LUO keeps the retrieved file open until
+then, and executing a binary that is open for writing fails with
+-ETXTBSY. Being able to execute restored binaries right away matters
+when they are needed to finish restoring the system, e.g. to bring up
+the services that retrieve and finish the remaining sessions.
 
 Assisted-by: LLM
 Signed-off-by: David Matlack <dmatlack@google.com>
 ---
- mm/shmem_luo.c | 55 +++++++++++++++++++++++++++++++++++++++++++++++---
- 1 file changed, 52 insertions(+), 3 deletions(-)
+ include/uapi/linux/liveupdate.h |  6 +++---
+ mm/shmem_luo.c                  | 28 +++++++++++++++++++++-------
+ 2 files changed, 24 insertions(+), 10 deletions(-)
 
+diff --git a/include/uapi/linux/liveupdate.h b/include/uapi/linux/liveupdate.h
+index a9dcc4fcc87b..790742a247e8 100644
+--- a/include/uapi/linux/liveupdate.h
++++ b/include/uapi/linux/liveupdate.h
+@@ -265,9 +265,9 @@ struct liveupdate_session_get_name {
+  *
+  * The kernel creates a new file as if by openat(@dirfd, ".", O_TMPFILE |
+  * @flags, @mode), fills it with the preserved contents, and returns it in
+- * &struct liveupdate_session_retrieve_fd.fd. Like any O_TMPFILE file, the file
+- * is not linked into the filesystem. Userspace can link it with linkat(),
+- * unless @flags contains O_EXCL.
++ * &struct liveupdate_session_retrieve_fd.fd. Unlike open(), O_RDONLY is
++ * allowed. Like any O_TMPFILE file, the file is not linked into the filesystem.
++ * Userspace can link it with linkat(), unless @flags contains O_EXCL.
+  *
+  * If @flags contains unknown flags or O_PATH, if @mode contains unknown mode
+  * bits, or if @dirfd is not on a tmpfs mount, the retrieve fails with -EINVAL.
 diff --git a/mm/shmem_luo.c b/mm/shmem_luo.c
-index ecbeb37d33a8..aba2bc1f18c5 100644
+index aba2bc1f18c5..0b4a9d6e2968 100644
 --- a/mm/shmem_luo.c
 +++ b/mm/shmem_luo.c
-@@ -28,6 +28,23 @@
-  * the file are preserved. All others are reset to default. The preserved
-  * properties are described below.
+@@ -112,9 +112,10 @@
   *
-+ * A tmpfs file can be preserved even if it is linked, but its path is not
-+ * preserved. Userspace chooses where to put the file when retrieving it, as
-+ * described in "Retrieving Tmpfs Files" below.
-+ *
-+ * Preserving a file requires permission to write to it, since preserving it
-+ * affects all of its users, as described below. But the file doesn't need to
-+ * be opened for writing. For example, a binary that is being executed can be
-+ * preserved through a read-only file descriptor. The owner of a file whose
-+ * size can't change anyway, because it is immutable or on a read-only
-+ * superblock, may also preserve it. The file can be preserved through a
-+ * read-only mount.
-+ *
-+ * While a file is preserved, its size can't change and no holes can be punched
-+ * into it. Truncating the file, ``fallocate()`` and writes past the end of the
-+ * file fail with ``-EPERM``. This applies to all users of the file, including
-+ * users that open it by its path.
-+ *
-  * .. note::
-  *    The LUO API is not stabilized yet, so the preserved properties of a memfd
-  *    or tmpfs file are also not stable and are subject to backwards
-@@ -298,6 +315,34 @@ static void shmem_luo_unpreserve_folios(struct kho_vmalloc *kho_vmalloc,
- 	vfree(folios_ser);
- }
- 
-+/*
-+ * Check whether the caller may preserve @file. Preserving the file freezes its
-+ * size until it is unpreserved, for all users of the file, so require
-+ * permission to write to the file. Like FS_IOC_ENABLE_VERITY, don't require a
-+ * file opened for writing, so that e.g. a binary that is being executed can be
-+ * preserved, nor a writable mount. If the size of the file can't change
-+ * anyway, because it is on a read-only superblock or immutable, its owner may
-+ * also preserve it. The size could only change again after the file is made
-+ * writable, which is up to the owner or root.
-+ *
-+ * Preserving the file also fills its holes, but that doesn't need any
-+ * permission: Anyone who can read the file can fill its holes by faulting
-+ * them in through a read-only mapping.
-+ */
-+static int shmem_luo_may_preserve(struct file *file)
-+{
-+	struct mnt_idmap *idmap = file_mnt_idmap(file);
-+	struct inode *inode = file_inode(file);
-+	int err;
-+
-+	err = inode_permission(idmap, inode, MAY_WRITE);
-+	if (err && (sb_rdonly(inode->i_sb) || IS_IMMUTABLE(inode)) &&
-+	    inode_owner_or_capable(idmap, inode))
-+		return 0;
-+
-+	return err;
-+}
-+
- static int shmem_luo_preserve(struct liveupdate_file_op_args *args)
+  * Like any ``O_TMPFILE`` file, the new file is not linked into the filesystem.
+  * Userspace can link it at the path it wants with ``linkat()``, unless it asked
+- * for ``O_EXCL``. Like with ``open()``, the file must be opened for writing.
+- * LUO keeps the file open until the session is finished, so a retrieved binary
+- * can't be executed until then.
++ * for ``O_EXCL``. Unlike ``open()``, the file can be retrieved with
++ * ``O_RDONLY``. LUO keeps the file open until the session is finished, so a
++ * binary retrieved with ``O_RDWR`` or ``O_WRONLY`` can't be executed until
++ * then.
+  *
+  * The blocks of the file are charged to the target mount, so the size limit
+  * and quotas of the mount apply. If the file doesn't fit, the retrieve fails
+@@ -649,7 +650,9 @@ static struct file *shmem_luo_create_memfd(const struct liveupdate_shmem_retriev
+ static struct file *shmem_luo_create_tmpfs_file(const struct liveupdate_shmem_retrieve_arg *arg,
+ 						unsigned int seals)
  {
- 	struct inode *inode = file_inode(args->file);
-@@ -307,6 +352,11 @@ static int shmem_luo_preserve(struct liveupdate_file_op_args *args)
- 	int err = 0, seals;
+-	struct file *file;
++	struct file *file, *ro_file;
++	bool rdonly;
++	int flags;
+ 	int err;
  
- 	inode_lock(inode);
+ 	if (!arg)
+@@ -673,10 +676,16 @@ static struct file *shmem_luo_create_tmpfs_file(const struct liveupdate_shmem_re
+ 
+ 	/*
+ 	 * Create the file like open(O_TMPFILE) does, so that it gets the same
+-	 * flag checks, permission checks, owner and security labels.
++	 * flag checks, permission checks, owner and security labels. open()
++	 * requires write access for O_TMPFILE, so create the file writable and
++	 * reopen it read-only below if that is what userspace asked for. LUO
++	 * keeps the file until the session is finished, and a file opened for
++	 * writing couldn't be executed until then.
+ 	 */
++	flags = O_TMPFILE | O_LARGEFILE | arg->flags;
++	rdonly = (flags & O_ACCMODE) == O_RDONLY;
+ 	file = file_open_root(&fd_file(dir)->f_path, ".",
+-			      O_TMPFILE | O_LARGEFILE | arg->flags, arg->mode);
++			      flags | (rdonly ? O_RDWR : 0), arg->mode);
+ 	if (IS_ERR(file))
+ 		return file;
+ 
+@@ -694,7 +703,12 @@ static struct file *shmem_luo_create_tmpfs_file(const struct liveupdate_shmem_re
+ 	}
+ 	SHMEM_I(file_inode(file))->seals = seals;
+ 
+-	return file;
++	if (!rdonly)
++		return file;
 +
-+	err = shmem_luo_may_preserve(args->file);
-+	if (err)
-+		goto err_unlock_inode;
-+
- 	shmem_freeze(inode, true);
- 
- 	/* Allocate the main serialization structure in preserved memory */
-@@ -362,6 +412,7 @@ static int shmem_luo_preserve(struct liveupdate_file_op_args *args)
- 	kho_unpreserve_free(ser);
- err_unlock:
- 	shmem_freeze(inode, false);
-+err_unlock_inode:
- 	inode_unlock(inode);
- 	return err;
- }
-@@ -710,9 +761,7 @@ static int shmem_luo_retrieve(struct liveupdate_file_op_args *args)
- static bool shmem_luo_can_preserve(struct liveupdate_file_handler *handler,
- 				   struct file *file)
- {
--	struct inode *inode = file_inode(file);
--
--	return shmem_file(file) && !inode->i_nlink;
-+	return shmem_file(file);
++	ro_file = dentry_open(&file->f_path, flags, current_cred());
++	fput(file);
++	return ro_file;
  }
  
- static unsigned long shmem_luo_get_id(struct file *file)
+ static int shmem_luo_retrieve(struct liveupdate_file_op_args *args)
 -- 
 2.56.0.257.gf7497c7d27-goog
 
