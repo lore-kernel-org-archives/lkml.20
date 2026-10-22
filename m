@@ -1,103 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.48
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792634330;
-	b=zqJWUgqTzZIBQKjxGUn+7b9Ey1Xngxop9+jy2e6U8SI5BeL9hRQNTvKBKECPROB9io29
-	 OTq3xOFkjpocLdvV2oEqo2KM2/I0zZeO5p6ZW6F2DxCG++658cvuBKq06X2c+n3Vh1vGo
-	 DA6MadeD2jM1b773xKsF3jrZ5v07ozoGHByFPFAjmDfME/rPYof9v3DRCBGpCfTzGBblW
-	 l70mWDwFQSmWM9nf0zTY+7JNdQIBpk3DUSi93TpA3FdnZYuPlAUsSTzo+QWcI8POnmLkU
-	 acUbml2dPCR6dOJVkw+iExZTjxmFlDUM2RRKYKIS0F4+8OSpyDVmPp6afNKgoG1nxaw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792634330;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.181
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792634342;
+	b=yPbKAnesTxKw3kY7CTMdxeKZF7paxQ6scjnYYLi+VTV0hB69BR1dif0klgxOeV1lUIyJ
+	 ZO1BNPeE5kRYkMv4VvRyQFV5ZIfHSxXKH4MW55OJqnr+HSs6hKxhZNeLgrcShnJPUwj2e
+	 GKuHDHmKK7Vgn2/jNYwyK0yh8BWjfX8vEbUkYahN7YOg1n+dEsIYX81MAnaAmJtEh3bZB
+	 IbhcYc01Ng8X1a2zIcadvfZ6DSvrjVX5COBUIP/FoPsv5TkkUT2H1QCAlf8aFeWUXdeAZ
+	 sSCO8lzP5IyIt30Wzg0YZOwB5eVQnt8KJNGW1pVI8xyYBJqmkKDxJ7KGZkkSum5Rw8A==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792634342;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=J0kSQmA6WteBQ8jad2iaYF5h9jM/IeqgPz50Jq+mBV0=;
-	b=Cr0hg1P9Q3jXIqTYaXkLUOmIyl5Cvtz4HyVQG2LQA+Y8W0Ytq3vXmff3rRkS+U5MT5l/
-	 VShwBwsIAU7YUzYcEeRQyeaqiv4VRF5CStPK5yLOSGW69qkI+5dIwAgcIEVMOUyaEPWNb
-	 sYrgB+BxTeCJ26fJZu4musAh10HzVtpA+rpAh7kN9UAow3PtS0H++IkXUIcGDlBPzONoi
-	 0W+KPxGb1uwNC6CpxnMHIpurLafBhJeNJh4WkhGi0WXX3HKlkMlaeM0YwhGII0MMEehUh
-	 muiZmkRui/2QzOIk7DinGBe+y80bRj7lWohc3opqr+jXjHRA4KISwssIwTbLfErGyqQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=soleen.com;
-	spf=pass smtp.mailfrom=soleen.com;
-	dkim=pass header.d=soleen.com header.i=@soleen.com header.a=rsa-sha256 header.s=google header.b=PUmVa8P4;
-	arc=none smtp.remote-ip=209.85.219.48
-Received: from mail-qv1-f48.google.com (mail-qv1-f48.google.com [209.85.219.48])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=ow6Xf98skWxAAfr4tUT3DSmhy2FgTs7yUfongXRVX40=;
+	b=PaZvtE0tnDyWRbn1CLOt2WM3RWgCOZxXjjC1VAmiv6rIxjaD2uaUWWxQF0ymUjh4dnXY
+	 GSLsHO4zZXqbi704vNQXdBdydGyr03cZqsUztbeOG+6s9LLhSeTS5uhiQq7Pbi6SiXFaU
+	 RznH3WQ0aFSpUleMEBTGi/8w672u547uRXQkIS1XsX6l4248YfiuNd9y4wF+8pVQsbxN8
+	 uKYi/jrhQhM8FoPO9h35U+2HQqUJw+f+ll8FEfWuQNQbF7sk00VKBk8UoHlreJTDsjl6X
+	 eghOsPL5U+mbzlVOgf9gdgGhPEFF6aV0C/tEXu5PWa7XfqBzP0zIsUl4dgTs7v/exAQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=murgatroid.com;
+	spf=pass smtp.mailfrom=murgatroid.com;
+	dkim=pass header.d=murgatroid.com header.i=@murgatroid.com header.a=rsa-sha256 header.s=google header.b=Dn22YTWF;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.181
+Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72681606A32A
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 01:58:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 72681606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=soleen.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=soleen.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FF06606A319
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 01:59:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0FF06606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=murgatroid.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=murgatroid.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=soleen.com header.i=@soleen.com header.a=rsa-sha256 header.s=google header.b=PUmVa8P4
-Received: by mail-qv1-f48.google.com with SMTP id 6a1803df08f44-91b813ac020so18690576d6.3
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 18:58:50 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=murgatroid.com header.i=@murgatroid.com header.a=rsa-sha256 header.s=google header.b=Dn22YTWF
+Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-3550c917fd3so1824845eec.0
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 18:59:01 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792634341; cv=none;
+        d=google.com; s=arc-20260327;
+        b=FM2Bl1awYEV2qs41DI8wtY8kRx2F/Ox8Z6eb6Ph2KBFXFVvVNlCFYUEQJBjNL33CRk
+         1n1xQ1xf8cDhuVPf5wRyrZakc0iwGTI1GttbFCvC4bThscoeBvqjv5eGkxYwCBBT9eV0
+         ebC0BjVCTwvmIOjXQ6b1lrc19Gcdxq1gHuxrBvOPvaQVz2h4dGvDHM4vS9y3ETcScQlR
+         LtIPjEeJQAxB43r4Oc4TfSQX1lHypy3BcXtumDpHKIb7dmKQH3z8w6LDoQ+29gDa5vwP
+         dZEzR619fmmoUfLI0jP08UBVaYAXeeGwavitM3bOen1aEMJdsTJRKrZHCsrw2PDxaBsR
+         1AzA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=ow6Xf98skWxAAfr4tUT3DSmhy2FgTs7yUfongXRVX40=;
+        fh=KXrcdrhHyBmeiQMpIW9QXWuuXDdTHFTQve+eFlf7AuI=;
+        b=mSpoLIvAffnaEtlh2c7+9MBOH/7oLOr/AE6ENs2rNEBFdMnAuanadtw5hVV89nGY1l
+         oeXVmc3xNez0DOFUTePQxUixC/IrFAQk4LCvDgUMNOC7ggHUPjhm16h2xJKGPXSat//T
+         XnwZvAgLZUpChTbm0Pp6j+oFWHLZQ+GK1d+ls3RHj9lVqr4vbYJwAUgsQaBjPs7tee5w
+         +3gIIu7jzgPOtWVKIM4+w9nE/csbgm5MuiYBMysFIl7ryfRcMGyYNIuerSQrhYtXURIX
+         kwzeNRVD25y1bteMHMEaR+CWtAc/dHiKCEYGLRICjmxBS4aWPi6SLKUP/I+ex1ZobdIH
+         tMXA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=soleen.com; s=google; t=1792634329; x=1793239129; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=J0kSQmA6WteBQ8jad2iaYF5h9jM/IeqgPz50Jq+mBV0=;
-        b=PUmVa8P4GAgDqH00UYGRrrwYFCEVFzMNSlfWBitcFu8SGNBdJ/D+S4HRMeA088Bm0Z
-         AaMm2p/uUMllBU8JfTriJUR2UgwEsFxFUpv/c3J82qXPLkg0mmDAn3ZJPQraciJ5STpP
-         j0vb0ZNmKsF3XekJL7DOVsJNfVbdSRKciJUQIK7hjSuxpL4sB7CUdc7UQfcGdDh7uFNH
-         YgUazbQ7VI25dJLLj6FpCgxawS5x1mymdqtjbBclGVeTZoaiXGP8e+YJTnoRvR3njh6Z
-         a25nqsQ2dTRJvCocbJDn6oH7yFGnk6J8YgTLuZu7Qy8iZywDQWjzyWVPooFHjplp4r4W
-         ME6g==
+        d=murgatroid.com; s=google; t=1792634341; x=1793239141; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ow6Xf98skWxAAfr4tUT3DSmhy2FgTs7yUfongXRVX40=;
+        b=Dn22YTWFHXuz5eBGAfgcXhBaSngAcdqW6Ktq+DQbZGylcggyWaChglRW/PsuJhLKQg
+         ttkF4JCIZP0NHjN2sKShcr4i3TjPFg+AUESLvr8tjPomsIvOO3VHDGgnFbu7HXRmkwJz
+         kImqDIsxFiYu0K537EdLnpNStdF056NaZPRo14LbHN/aqM0mWS4rIhbcixaBq8jovoA8
+         W6w1+JotaqCa3STOt6xyC2CdQVdq2ylm+m5PNfmvuVoXH0WeS7zIEsdTk6dsJR64Fv2s
+         xW33Ws90oMWQ2mjlNcvVNYalCROvgRUMnn1KIjCqem8758v8B/qRmxfeeJxCtX06kTx/
+         cZ/w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792634329; x=1793239129;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=J0kSQmA6WteBQ8jad2iaYF5h9jM/IeqgPz50Jq+mBV0=;
-        b=fhRiQ6GprfJoXKx6Ha7le/ZhuFmGQOkOxg3CFxYN8UEZqdaK8Bexe5K1UWNUkPA5Ot
-         eEGVu+NWx9oEaPKD5suOy3beGCX3AleG0ZxLXsrSPZsjLm53jP1hczMXPJfYrlgYv6Jd
-         AK39kHHDzF5mq6vMj+i8f25nPTMzYskOSE/FZrdFXUxyr5FBfXTz7m+9Qd9qPRNvZtXQ
-         DoS9IBKmJYvZt22ij4zA25qkikMmDYDNiJ6hFH1dSRejgZPOY0+Oa6Uagj03kkO/sXxu
-         xjYXO/eCMKChnLIfgdNKG8nJJ7SKxSB1R74pSnWninII7nzFYDrb0+HO7sBJoh0fyT3e
-         R/Uw==
-X-Forwarded-Encrypted: i=1; AKwUvBwpeRXSRRdhxeHhH+TcKL9HFhhO2ayYHI8E5HEd8Hp1pwdlpy9ZoqD/8/pr52tNxBcScoFe5zt+gKqbe0I=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI2K9FjQKo1LUK7a14VtGdpRaHF7bnIbmHXc+5f2oQgvJfKkYUj
-	VsERy9efhZ1c1ZzC9xsopUHWysFP8D6MC7JWq3Ame7Llj99OyZHe9oZTsfQ2wRsSyzA=
-X-Gm-Gg: AYBFou2UCwLikCnlpKMkD/8dZ2ZYrCwEnGFa+6j6w0R0MY1AY7y7r1XLb3wCYNkMIee
-	J6wh7pNo2Q/xGMaUrGvDbBk4bghgM7YoHpj4vTzAFIB0vhAfoBPXB0l2nJBWhOQBewmfJc0cDwj
-	GH3PZLNWLHUVO/Mc+HbQiIEgRcdtpq0JbjHGa3JWSHr2RJBMBxmaMDZ9LOXexPscg+TRTisYgWM
-	+xSsDsKPZVeafX7QlFlHwQQTB3g9zyyfJr5WL794OrZe+IyFo3QkG/feIysINkPIdUyAwcTQGSk
-	OvsL/Hu0gdGe9sDzMpCaiUDKUAzeJQbRva5quDGdgjLwtReAyXyulCyDI2cUkEzAALNE4YA5KdZ
-	fNqhfG+u0/OZ9/0o2zFP1DzC+Bm5Co3yCSi/49fvVkF9GD+btNeT6QP6RDOKEagO2DtR8gJZsN/
-	KPyOfEtEbJJ2y3A+J6ze6KtaIf7BGRSB93akPxigaK8ZHVQwEiTt/my6X3CMMczqqIiKi5+vQ3q
-	uSyuK77UOCMqLgATe743mG43PxIWpfaEUlluOqup765ipW04RY+ze1QGaY2xLPWxs9MPnPO7yih
-	xByELSArII0PCy+Tm085S5NQgtHPX1k3Yk/hhRpiVXy7dXViDnprfvVHQns34GYGN3t0Seh3mS/
-	movJx42wZnkbaMPIqH7NU3w==
-X-Received: by 2002:a05:620a:2851:b0:93e:4d60:d389 with SMTP id af79cd13be357-93f57f1ecf1mr807656985a.25.1792634329416;
-        Wed, 21 Oct 2026 18:58:49 -0700 (PDT)
-Received: from soleen.c.googlers.com.com (16.49.199.35.bc.googleusercontent.com. [35.199.49.16])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93f56e247ffsm397383285a.39.2026.10.21.18.58.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Oct 2026 18:58:48 -0700 (PDT)
-From: Pasha Tatashin <pasha.tatashin@soleen.com>
-To: linux-kselftest@vger.kernel.org,
-	rppt@kernel.org,
-	shuah@kernel.org,
-	akpm@linux-foundation.org,
-	linux-mm@kvack.org,
-	vipinsh@google.com,
-	linux-kernel@vger.kernel.org,
-	pasha.tatashin@soleen.com,
-	dmatlack@google.com,
-	kexec@lists.infradead.org,
-	pratyush@kernel.org,
-	graf@amazon.com
-Subject: [PATCH v3 2/2] selftests: liveupdate: Add tests for LIVEUPDATE_SESSION_FREEZE
-Date: Wed, 21 Oct 2026 21:58:40 -0400
-Message-ID: <20261022015844.2795816-3-pasha.tatashin@soleen.com>
-X-Mailer: git-send-email 2.56.0.218.g1ec904b173-goog
-In-Reply-To: <20261022015844.2795816-1-pasha.tatashin@soleen.com>
-References: <20261022015844.2795816-1-pasha.tatashin@soleen.com>
+        d=1e100.net; s=20260707; t=1792634341; x=1793239141;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ow6Xf98skWxAAfr4tUT3DSmhy2FgTs7yUfongXRVX40=;
+        b=WdJk+Kw+sgVlFPsgWd7Mq8KPjHq2j3Va3S29nWY7jKQwgzk4IJpP3hK1ERGNFAg4M1
+         UkaZ+7iM6zkh7TXGj4uk65CqVECbi5GTCXC3oANxuhUdWhYT+jd/vD9pdeW5WUGKJ43s
+         5BW1HJQ9FVz+sRd9uXc3l3+c+Mf1tgm5+F0KHOQqEAYUu/B5+gzgXUmjlRKwk+G1eD4O
+         StrV0cpc1zGaDOE+rbjx0pc57+eaZCuz33OxqcxARN5MTEvm0cvR5260fGnAIZWsknMU
+         UmabIRKZwEAQej8Y2+OwBMnrR8lGJjUdpIviW2cOHi4f+tEOG4Z9xiawLuIKiyuV6O9a
+         E55Q==
+X-Forwarded-Encrypted: i=1; AKwUvByrKz6sNjYqzMgZ0Sm2NgU1qKFD65okHS6+6dNCwi2VUvrxID4UGuCDiG/S1gDHDun7BedHTyEPCz8aW5k=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKN9Rj+FQJZcaFTpoviIP5Y932HhjqZWgyV5c8YrXKOHB6pU0vo
+	UAwbw8u6xVmZNJkLNoQdtKI32bD9rNcSNJ9E4zbm9g5RkRWdkwkD2MnIdOLCwMzsvapPf6OONaS
+	wttm58bqKTQ4IdfbAoPcpWjv8y7X/wELptbPkmOCC
+X-Gm-Gg: AYBFou33qQ9IEiSiwIjNrXhFRsoGUYZHaBL/CrRt9Mf8GUFBJha9QQB7ZDxdZwKzedi
+	17D6lP3dpFKRuLnbZUo5eXnHVGT4IxkSJ7mdd/GTTis0AWtZE4TEcZk67OhVZFk+vu2qtmFwAU2
+	QxVjRDSovdUOeP4b34SWBiJyd+FqdMeiJPZhxcCAQAIv6cVvmplK/IMtaNv0k5q3Akum9eubrUH
+	mLEbzs1ZsS/dkxNE4ac4iemWyOqVSKMfYAv/YVzDMMDAuc/GIA1AVmk8BcErnAsNrurd/cdNYy6
+	q8lhGLdaaifg4fLT+1A3x9V4H6C0kCwk48xPlIllrskqYbWYy9hJJW8E46MZ0j226p+8HaSju5U
+	7eMO/RiXkyUXZaObxHzCAAUYdMZhMaIvcofGxZVnu4kLFBF4XJgf3kPPSQ/XdhaBfe2Jcdm21Ox
+	NLu9qHY5JkUMMiwQy0t35glugqj4hsxNQzDfo=
+X-Received: by 2002:a05:7300:e70c:b0:351:1bdb:e3b7 with SMTP id
+ 5a478bee46e88-3674cb37bb2mr5335214eec.15.1792634341036; Wed, 21 Oct 2026
+ 18:59:01 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,145 +105,104 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261019023420.83976-1-ch@murgatroid.com> <20261019023420.83976-2-ch@murgatroid.com>
+ <4470c427937d26035d81b99ee7d06e2a602ee4d7.camel@linux.intel.com>
+In-Reply-To: <4470c427937d26035d81b99ee7d06e2a602ee4d7.camel@linux.intel.com>
+From: Christopher Hoover <ch@murgatroid.com>
+Date: Wed, 21 Oct 2026 18:58:49 -0700
+X-Gm-Features: AclHuK-UlpT4QZJ3hk8thqk-ORABl_Te8RQcU0z-w1fijnZP-8kQdVwWN9ZtSy0
+Message-ID: <CACw0PsaJr6E0Y3AXoGKDUiKp4vsaA+GEJjPqEhYuSoKqDp1jUA@mail.gmail.com>
+Subject: Re: [PATCH v3 1/3] HID: hid-sensor-hub: Synchronize callback removal
+ with raw events
+To: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
+Cc: Jonathan Cameron <jic23@kernel.org>, Jiri Kosina <jikos@kernel.org>, 
+	Benjamin Tissoires <bentiss@kernel.org>, Lixu Zhang <lixu.zhang@intel.com>, 
+	Joshua Crofts <joshua.crofts1@gmail.com>, David Lechner <dlechner@baylibre.com>, 
+	=?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
+	Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org, linux-input@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Provide luo_session_freeze() in the liveupdate test library and add unit
-tests in liveupdate.c covering the LIVEUPDATE_SESSION_FREEZE ioctl. The
-tests verify that non-zero reserved bits are rejected with -EINVAL, an
-outgoing session with preserved files can be frozen early, freezing an
-already frozen session returns -EBUSY, and attempting to preserve an
-additional file descriptor into a frozen session fails with -EBUSY.
+>  Is this issue actually reproduced or it was found by some AI tools?
 
-Also freeze the test session early in luo_kexec_simple.c to exercise
-LIVEUPDATE_SESSION_FREEZE across a kexec reboot, and verify that
-attempting to freeze a retrieved incoming session returns -EINVAL.
+Real life.   I wedged my kernel several times with an MCP2221A usb i2c brid=
+ge.
 
-Reviewed-by: Pratyush Yadav <pratyush@kernel.org>
-Signed-off-by: Pasha Tatashin <pasha.tatashin@soleen.com>
----
- .../liveupdate/lib/include/libliveupdate.h    |  1 +
- .../selftests/liveupdate/lib/lu_utils.c       | 10 ++++
- .../testing/selftests/liveupdate/liveupdate.c | 49 +++++++++++++++++++
- .../selftests/liveupdate/luo_kexec_simple.c   |  8 +++
- 4 files changed, 68 insertions(+)
 
-diff --git a/tools/testing/selftests/liveupdate/lib/include/libliveupdate.h b/tools/testing/selftests/liveupdate/lib/include/libliveupdate.h
-index fa07fed08364..15a7db3a6b3e 100644
---- a/tools/testing/selftests/liveupdate/lib/include/libliveupdate.h
-+++ b/tools/testing/selftests/liveupdate/lib/include/libliveupdate.h
-@@ -26,6 +26,7 @@ int luo_create_session(int luo_fd, const char *name);
- int luo_retrieve_session(int luo_fd, const char *name);
- int luo_session_finish(int session_fd);
- int luo_get_session_name(int session_fd, char *name, size_t name_len);
-+int luo_session_freeze(int session_fd);
- 
- int luo_ensure_nofile_limit(long min_limit);
- int luo_session_preserve_fd(int session_fd, int fd, __u64 token);
-diff --git a/tools/testing/selftests/liveupdate/lib/lu_utils.c b/tools/testing/selftests/liveupdate/lib/lu_utils.c
-index 74d41115c281..6315746ff08f 100644
---- a/tools/testing/selftests/liveupdate/lib/lu_utils.c
-+++ b/tools/testing/selftests/liveupdate/lib/lu_utils.c
-@@ -198,6 +198,16 @@ int luo_session_finish(int session_fd)
- 	return 0;
- }
- 
-+int luo_session_freeze(int session_fd)
-+{
-+	struct liveupdate_session_freeze arg = { .size = sizeof(arg) };
-+
-+	if (ioctl(session_fd, LIVEUPDATE_SESSION_FREEZE, &arg) < 0)
-+		return -errno;
-+
-+	return 0;
-+}
-+
- void create_state_file(int luo_fd, const char *session_name, int token,
- 		       int next_stage)
- {
-diff --git a/tools/testing/selftests/liveupdate/liveupdate.c b/tools/testing/selftests/liveupdate/liveupdate.c
-index 2dedd5fc2534..74004e4276f5 100644
---- a/tools/testing/selftests/liveupdate/liveupdate.c
-+++ b/tools/testing/selftests/liveupdate/liveupdate.c
-@@ -530,4 +530,53 @@ TEST_F(liveupdate_device, preserve_many_files)
- 	ASSERT_EQ(close(session_fd), 0);
- }
- 
-+/*
-+ * Test Case: Session Freeze
-+ *
-+ * Verifies that an outgoing session can be frozen early via
-+ * LIVEUPDATE_SESSION_FREEZE, rejects non-zero reserved bits with -EINVAL,
-+ * that subsequent freeze attempts return -EBUSY, and that attempting to
-+ * preserve an additional file descriptor into a frozen session fails with
-+ * -EBUSY.
-+ */
-+TEST_F(liveupdate_device, session_freeze)
-+{
-+	struct liveupdate_session_freeze bad_arg = {
-+		.size = sizeof(bad_arg),
-+		.reserved = 1,
-+	};
-+	int session_fd, mem_fd1, mem_fd2;
-+
-+	self->fd1 = open(LIVEUPDATE_DEV, O_RDWR);
-+	if (self->fd1 < 0 && errno == ENOENT)
-+		SKIP(return, "%s does not exist", LIVEUPDATE_DEV);
-+	ASSERT_GE(self->fd1, 0);
-+
-+	session_fd = luo_create_session(self->fd1, "session-freeze-test");
-+	ASSERT_GE(session_fd, 0);
-+
-+	mem_fd1 = memfd_create("freeze-memfd-1", 0);
-+	ASSERT_GE(mem_fd1, 0);
-+	ASSERT_EQ(luo_session_preserve_fd(session_fd, mem_fd1, 0x1111), 0);
-+
-+	/* Non-zero reserved field must fail with -EINVAL */
-+	EXPECT_EQ(ioctl(session_fd, LIVEUPDATE_SESSION_FREEZE, &bad_arg), -1);
-+	EXPECT_EQ(errno, EINVAL);
-+
-+	/* Freeze the session early */
-+	ASSERT_EQ(luo_session_freeze(session_fd), 0);
-+
-+	/* Subsequent freeze attempt on an already frozen session must fail with -EBUSY */
-+	EXPECT_EQ(luo_session_freeze(session_fd), -EBUSY);
-+
-+	/* Preserving a file after freeze must fail with -EBUSY */
-+	mem_fd2 = memfd_create("freeze-memfd-2", 0);
-+	ASSERT_GE(mem_fd2, 0);
-+	EXPECT_EQ(luo_session_preserve_fd(session_fd, mem_fd2, 0x2222), -EBUSY);
-+
-+	ASSERT_EQ(close(session_fd), 0);
-+	ASSERT_EQ(close(mem_fd1), 0);
-+	ASSERT_EQ(close(mem_fd2), 0);
-+}
-+
- TEST_HARNESS_MAIN
-diff --git a/tools/testing/selftests/liveupdate/luo_kexec_simple.c b/tools/testing/selftests/liveupdate/luo_kexec_simple.c
-index 786ac93b9ae3..9bc8dab2e074 100644
---- a/tools/testing/selftests/liveupdate/luo_kexec_simple.c
-+++ b/tools/testing/selftests/liveupdate/luo_kexec_simple.c
-@@ -40,6 +40,11 @@ static void run_stage_1(int luo_fd)
- 			  TEST_MEMFD_TOKEN);
- 	}
- 
-+	ksft_print_msg("[STAGE 1] Freezing session '%s' early...\n",
-+		       TEST_SESSION_NAME);
-+	if (luo_session_freeze(session_fd) < 0)
-+		fail_exit("luo_session_freeze for '%s'", TEST_SESSION_NAME);
-+
- 	close(luo_fd);
- 	daemonize_and_wait();
- }
-@@ -60,6 +65,9 @@ static void run_stage_2(int luo_fd, int state_session_fd)
- 	if (session_fd < 0)
- 		fail_exit("luo_retrieve_session for '%s'", TEST_SESSION_NAME);
- 
-+	if (luo_session_freeze(session_fd) != -EINVAL)
-+		fail_exit("luo_session_freeze on incoming session did not return -EINVAL");
-+
- 	ksft_print_msg("[STAGE 2] Restoring and verifying memfd (token %#x)...\n",
- 		       TEST_MEMFD_TOKEN);
- 	mfd = restore_and_verify_memfd(session_fd, TEST_MEMFD_TOKEN,
--- 
-2.56.0.218.g1ec904b173-goog
-
+On Wed, Oct 21, 2026 at 6:22=E2=80=AFPM Srinivas Pandruvada
+<srinivas.pandruvada@linux.intel.com> wrote:
+>
+> On Sun, 2026-10-18 at 19:34 -0700, Christopher Hoover wrote:
+> > sensor_hub_raw_event() holds pdata->lock while it looks a callback up
+> > in dyn_callback_list and calls its capture_sample() and send_event().
+> > sensor_hub_remove_callback() takes only dyn_callback_lock, so it can
+> > unlink a callback and return while another CPU is between the lookup
+> > and the call.  The sensor drivers remove their callback in .remove()
+>
+> Two spaces before "The".
+>
+> > and keep the struct hid_sensor_hub_callbacks in memory that devres
+> > frees right after, so a report racing an unbind can call through
+> > freed function pointers.
+> >
+> > Take pdata->lock in sensor_hub_remove_callback() too, outside
+> > dyn_callback_lock as in sensor_hub_raw_event(), so the removal waits
+> > for a report in flight.  pdata->lock is otherwise only taken in
+> > sensor_hub_raw_event(), and callbacks are removed from process
+> > context.
+> >
+> > Fixes: 401ca24fb34a ("HID: sensors: introduce sensor framework")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Christopher Hoover <ch@murgatroid.com>
+> > Reviewed-by: Joshua Crofts <joshua.crofts1@gmail.com>
+> > ---
+> >  drivers/hid/hid-sensor-hub.c | 12 ++++++++++--
+> >  1 file changed, 10 insertions(+), 2 deletions(-)
+> >
+> > diff --git a/drivers/hid/hid-sensor-hub.c b/drivers/hid/hid-sensor-
+> > hub.c
+> > index 6470a290ebfc..7cf9f398592e 100644
+> > --- a/drivers/hid/hid-sensor-hub.c
+> > +++ b/drivers/hid/hid-sensor-hub.c
+> > @@ -173,7 +173,14 @@ int sensor_hub_remove_callback(struct
+> > hid_sensor_hub_device *hsdev,
+> >       struct sensor_hub_data *pdata =3D hid_get_drvdata(hsdev-
+> > >hdev);
+> >       unsigned long flags;
+> >
+> > -     spin_lock_irqsave(&pdata->dyn_callback_lock, flags);
+> > +     /*
+> > +      * sensor_hub_raw_event() holds pdata->lock while it looks
+> > up a
+> > +      * callback and calls it.  Taking it here too means no
+> > report is
+> > +      * still using the callback once it is unlinked, so its
+> > owner may
+> > +      * free it as soon as this returns.
+> > +      */
+> > +     spin_lock_irqsave(&pdata->lock, flags);
+> > +     spin_lock(&pdata->dyn_callback_lock);
+> >       list_for_each_entry(callback, &pdata->dyn_callback_list,
+> > list)
+> >               if (callback->usage_id =3D=3D usage_id &&
+> >                                               callback->hsdev =3D=3D
+> > hsdev) {
+> > @@ -181,7 +188,8 @@ int sensor_hub_remove_callback(struct
+> > hid_sensor_hub_device *hsdev,
+> >                       kfree(callback);
+> >                       break;
+> >               }
+> > -     spin_unlock_irqrestore(&pdata->dyn_callback_lock, flags);
+> > +     spin_unlock(&pdata->dyn_callback_lock);
+> > +     spin_unlock_irqrestore(&pdata->lock, flags);
+> >
+>
+> The patch looks fine. Is this issue actually reproduced or it was found
+> by some AI tools?
+>
+> Thanks,
+> Srinivas
+>
+> >       return 0;
+> >  }
