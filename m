@@ -1,60 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.67.36.66
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792669898;
-	b=VAs94OSvt4u1lS7QyfCb4ZnX1QZnpLdvJEIrsZHq8r1W2RsXwgN07BeSGmeqB/lY4kV6
-	 gGblIGXGmHVGdE1DWcHMBCtFW71hC8nPOxnhISBNLndsyd0f2j0Z6dykWEsVal5OkxvS5
-	 X0ISwKU++aV/TbIdhBs+rV7oblGi2BNnge0v3dsFQCorGaAnnz2hvYKVZxJZTnTwO/hLG
-	 JpxHjVUwYoTN1HIouWVplHdAU7R0h4M8v376THDH4kHqkzlz2Rv9FUYDyfIJjXJ5//Sgj
-	 E/b0h+ObrRbCEGGG8Mb/9dDkk1+Q82iybRTyCnE2hUBI1zrdR0C84jpXCtydbvODFGA==
+	t=1792669910;
+	b=NbQtCWH0WHFr1CyS3Ky12Xo4dm7vb5GC5keVdoG7SAL2kMeCuAlt/WJ+rhiATpLZaYw2
+	 nHZSSNpfCqvzwdqFQZI3tj9uQHOrrfUkEncjfi8d2TAplz2EELr46Z/NuxP4F415bxpMs
+	 BUJoT/oZv2amCLFAajDMMsIRAuz4MsWUt9tOSah2iMUOdBxIfi8iCV3dX4tc9nwQ6u3PZ
+	 RlzURPousTsnn6hMBNEJ51elbPnSo4dKdLZM14Tce/jFWppMRhbipfX0k5NY42Egqcj8f
+	 Kp9KdvgiNB5Hf5ItE/JPty87Y8wUhCVnpvx2vreAA8wLy7B4IKVnDeuN6WO4umEVO2g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792669898;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:From:Date:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
-	 References:In-Reply-To:To:Cc:X-Developer-Signature:X-Developer-Key:
-	 Autocrypt:OpenPGP;
-	bh=5Wa+jB46T/psHrPfUTpKP4YlCYHokeX6xqGnHidnuSg=;
-	b=asZz92Qrp8xss5XYtj7z+lD7dAbpXAezuGyCk8qG14/23L7DtzM+fIMhCFURMPrEi4m9
-	 zLLBL9pkUfsbpDyLJJwo8OxQIBJ7B2YYwe8N3Z9trlOkXA54fB88/vozhNuQ3DCyKz8Rk
-	 wog/bCHFqcnqafYj6sOrjQMUKyX8mDOMTfUy0B78PcUGnjuRPgb6auiHj0fGmtaN3+1wP
-	 uR0UJEAkEDLkLLgleYO5ykEcEzs8KrpgG01DhG4EjSB6Gj83QdBnd2GrPkPOHdvF4yQyJ
-	 6twGGdfZ40UFEm4H9+fv3c4mWcV9Kq0mKNkP+rqrMa4UA59YTB3Vhd/NbGZJ1ursWsw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792669910;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Spam-Flag:X-Spam-Level:X-Spamd-Result:X-Spam-Score;
+	bh=CcMtzXV2Q8QoG5e/gEZ6v0nstf58huEIMEd8B3QCXD0=;
+	b=4eR399ZiHCVwRuuf1MRYwr5LV/2M2h6FVN172E+mk5108iMUH+eZ9XRcQYlGeqJdh6gF
+	 fNOO2twD28k13poHeNlqR6dSfshanqygb/n1ZuyxPSzOnUZQQGnywoMkUu/AbysPEkaCL
+	 L+hVwci6jpb5EeG2DykC0dHGXkNt3qjTD45nnk4AtLaIBiZ8OA9K/KY4LL7WipcHoTwU+
+	 fLhWjUFZclw0GdHYXkc2jPNPt1xh/g3tuiqMzhRvCgIVlIP7PxAxFsAeNdS55WHtlaUPW
+	 nQEc+j724FJBzMn5TVUEh3EG1Da9wqD7T4MrRslS9RjQxt8+4ps5hjGmVcz5jy6Bw2A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=posteo.de;
-	spf=pass smtp.mailfrom=posteo.de;
-	dkim=pass header.d=posteo.de header.i=@posteo.de header.a=rsa-sha256 header.s=1984.8680eb header.b=b2NJBvk2;
-	arc=none smtp.remote-ip=185.67.36.66
-Received: from mout02.posteo.de (mout02.posteo.de [185.67.36.66])
+	dmarc=none header.from=suse.cz;
+	spf=pass smtp.mailfrom=suse.cz;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=gJGkUhZp;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=DFOFpeSA;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=Sl6g4Fup;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=sKkxGY8r;
+	arc=none smtp.remote-ip=195.135.223.131
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B29A6606A324
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 11:51:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B29A6606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=posteo.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0485606A323;
+	Thu, 22 Oct 2026 11:51:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C0485606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=posteo.de header.i=@posteo.de header.a=rsa-sha256 header.s=1984.8680eb header.b=b2NJBvk2
-Received: from submission (posteo.de [185.67.36.169]) 
-	by mout02.posteo.de (Postfix) with ESMTPS id 424EE240109
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 13:51:36 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=posteo.de;
-	s=1984.8680eb; t=1792669896;
-	bh=5Wa+jB46T/psHrPfUTpKP4YlCYHokeX6xqGnHidnuSg=;
-	h=From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:To:Cc:Autocrypt:OpenPGP:From;
-	b=b2NJBvk2zQ3FWFXX3dcz3ahMP8k4c7ZSb3OMdtMiurf8VaQD3TlDe5dansUXbnrjK
-	 pRI2/wiLcC9yrDscXpscrP8uKINNoPLy4jQRUytwNwtXi0QBa8K6cyNrlMgDoppfz6
-	 JYyblAwRLeK2NPYsZKIKGppzrPIU5ZWxQl09pjMmeuV7yXIS4xOiuZCbBC6/Pck2hJ
-	 MqtsMQLp/4FDa+kolNFO5tzY5bi67kEHdeBLbqD7TAqNRcU/VC1y2GDraY8Fw1/37/
-	 IUnVWxW/d4hjFqDM9BotmmxFK0/tL3x6TEEjA/IOcdUAQNnhN3917DzHhOSkpcjSYt
-	 7ooq+57MTf8AA==
-Received: from customer (localhost [127.0.0.1])
-	by submission (posteo.de) with ESMTPSA id 4j9Pd03MKCz9rxM;
-	Thu, 22 Oct 2026 13:51:32 +0200 (CEST)
-From: Markus Probst <markus.probst@posteo.de>
-Date: Thu, 22 Oct 2026 11:51:34 +0000
-Subject: [PATCH v5 2/4] tty: serdev: Export functions to pause receive_buf
- callback calls
+	dkim=pass (1024-bit key, unprotected) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=gJGkUhZp;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=DFOFpeSA;
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=Sl6g4Fup;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=sKkxGY8r
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id E55D51F7C4;
+	Thu, 22 Oct 2026 11:51:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1792669908; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=CcMtzXV2Q8QoG5e/gEZ6v0nstf58huEIMEd8B3QCXD0=;
+	b=gJGkUhZpuBlDUNvFW5Knax/qK0O0bKiyggnPb5ybcEROISMFjwPBt30AN7SSiY6XvCbms4
+	o6A/Um9BvNxKdAFTfltwAPWNknxtIqiNeN67s2HjsPkhQ2km8rGomu4rutFCVbGF2NrFKF
+	anpNO6c3gH2sv4wCXSqRlTSKRE0h6eI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1792669908;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=CcMtzXV2Q8QoG5e/gEZ6v0nstf58huEIMEd8B3QCXD0=;
+	b=DFOFpeSAF2bqNptuIe7wuHBsszRyVj9FbkXAtXcLyel1yq5WwsNOY1+9JtdtKyMANHDUF6
+	5jGOkXFpCEuXLZCA==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1792669907; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=CcMtzXV2Q8QoG5e/gEZ6v0nstf58huEIMEd8B3QCXD0=;
+	b=Sl6g4Fupis7hxr0w9WV74GNIL/4Kd5RvIBH2TtOrFvqXOccBHoa6s/CIP169nOP+jLa/xT
+	TsH1NrMNdPu3Qzam7K+pInH0EM+/G54oPO4sBBQERZs48T8Bq+vBom+N4IvD8x5KSXq1+s
+	gwnTB1r9L3T+ahXigIDNN+yG8qEVErA=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1792669907;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=CcMtzXV2Q8QoG5e/gEZ6v0nstf58huEIMEd8B3QCXD0=;
+	b=sKkxGY8rg15QiTMH5pnnI1KFgb7JeIEi2WQUaCtvAM0hPNt6kHNe7W2ebnzZdchFeQtXl+
+	fhf6cIS1fy7gQ4AQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id C7F2D133F3;
+	Thu, 22 Oct 2026 11:51:47 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id fOX9KdP42WqdBAAAD6G6ig
+	(envelope-from <jack@suse.cz>); Thu, 22 Oct 2026 11:51:47 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+	id 5DF29A1417; Thu, 22 Oct 2026 13:51:43 +0200 (CEST)
+Date: Thu, 22 Oct 2026 13:51:43 +0200
+From: Jan Kara <jack@suse.cz>
+To: Josef Bacik <josef@toxicpanda.com>
+Cc: Alexander Viro <viro@zeniv.linux.org.uk>, 
+	Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, linux-fsdevel@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 3/5] fs: make BLKFLSBUF's wait for a superblock killable
+Message-ID: <ly27r66db2a4yxpg57sjnshen4dxygc5nkkofmdflvnrht7spx@zuutwesrz5go>
+References: <20261021-b4-super-lock-unborn-v1-0-0265eddb6dee@toxicpanda.com>
+ <20261021-b4-super-lock-unborn-v1-3-0265eddb6dee@toxicpanda.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,273 +111,93 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261022-rust_serdev_probe_refactor-v5-2-a27d862a415a@posteo.de>
-References: <20261022-rust_serdev_probe_refactor-v5-0-a27d862a415a@posteo.de>
-In-Reply-To: <20261022-rust_serdev_probe_refactor-v5-0-a27d862a415a@posteo.de>
-To: Ayush Singh <ayush@beagleboard.org>, Johan Hovold <johan@kernel.org>, 
- Alex Elder <elder@kernel.org>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
- Gary Guo <gary@garyguo.net>, 
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
- Danilo Krummrich <dakr@kernel.org>, 
- Daniel Almeida <daniel.almeida@collabora.com>, 
- Tamir Duberstein <tamird@kernel.org>, 
- Alexandre Courbot <acourbot@nvidia.com>, 
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
- Eric Biggers <ebiggers@kernel.org>, Ard Biesheuvel <ardb@kernel.org>, 
- Lorenzo Stoakes <ljs@kernel.org>, Vlastimil Babka <vbabka@kernel.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Uladzislau Rezki <urezki@gmail.com>, 
- Jiri Slaby <jirislaby@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>
-Cc: greybus-dev@lists.linaro.org, linux-serial@vger.kernel.org, 
- rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
- driver-core@lists.linux.dev, Markus Probst <markus.probst@posteo.de>
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6268;
- i=markus.probst@posteo.de; h=from:subject:message-id;
- bh=TBEbgKOahK8kpVp88wqvmv/91b5jYLtnVvGf2tHuz4k=;
- b=owEBiQJ2/ZANAwAIATR2H/jnrUPSAcsmYgBq2fi+Bqgij8RdrzDtg7mPSPGO055Q7+5HNm3IG
- Xif1xCg2UuJAk8EAAEIADkWIQSCdBjE9KxY53IwxHM0dh/4561D0gUCatn4vhsUgAAAAAAEAA5t
- YW51MiwyLjUrMS4xMiwyLDIACgkQNHYf+OetQ9L/Ug//daH9RZgDWNZYQxrfFNvaQ0wmv5Q841c
- t63byVRLuzVTAvg75v9H1KVpx1CCJK/gIll6wMxbILCSgqbvWpQdXw/PkTZky15GtvDLe0LdHdk
- p7aVY4x+eBeYxIdESPaYdbWhKgxx8MusSScEwJLzzQswrGqPG+ZzBmqurc0mw+bCHwsHn/qzDWR
- XDQzkefJ0cU7S38Pn6Us6iF1YuMrb2hEyERvWmkXuwlpqtWeIUcKpM04NnFNVdIP7w7T2XYMvYG
- ruU5ZtaeeXxJPrSwfMy13SvseTXNBSgQuAGdSU6uSYgQ7HIYC2a01QlX9xt+PcLXAj94f3oliv2
- 9pu31zeWeIlTvr6YKe6jhVSrFYqDMGOzsBxJpIL4FRsaiFiRl72wYcW0lHE4jNL3bhP5iESZy4W
- /TYVeoOFPOaxkNC0apNXxDx7c/3RojG/ianhaUTfu55cL8r8n865bAl1UNhIiHWg8tN514oPsU2
- GkvnMYt29JiDNd7G+tZQ+jinPUBN3pUDZt56FQ6HTL5A463D+yLerEmGkx38qEDxH7aviladQDA
- 8+OIpjmpMggvP564BHAlhnL6uRpnUnc6cewFfHBm1GOEm+CoOL7eRbKniFxyCrjF7KhKEhDuVpk
- VBhZb/yUYoEUJ9Grz8aeul4iuA15g1qpyx7rChXCB0sSn5D4s2U0=
-X-Developer-Key: i=markus.probst@posteo.de; a=openpgp;
- fpr=827418C4F4AC58E77230C47334761FF8E7AD43D2
-Autocrypt: addr=markus.probst@posteo.de; prefer-encrypt=mutual;
-  keydata=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
-  aBeNN4ijKZchBXHPgVx+YtWRHfcm4l8=
-OpenPGP: url=https://posteo.de/keys/markus.probst@posteo.de.asc; preference=encrypt
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261021-b4-super-lock-unborn-v1-3-0265eddb6dee@toxicpanda.com>
+X-Spam-Flag: NO
+X-Spam-Level: 
+X-Spamd-Result: default: False [-12.80 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_COUNT_THREE(0.00)[3];
+	MIME_TRACE(0.00)[0:+];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	ARC_NA(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[6];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,toxicpanda.com:email,suse.com:email]
+X-Spam-Score: -12.80
 
-These functions will be used to simply the serdev rust abstraction. It
-also contributes to the fixing of 2 race conditions in the serdev rust
-abstraction.
+On Wed 21-10-26 16:46:59, Josef Bacik wrote:
+> fs_bdev_sync() syncs the filesystems on a block device for BLKFLSBUF.  It
+> can already be killed while it waits for one which is being unmounted.  For
+> one which is still being mounted it waits for SB_BORN, and then for
+> s_umount, in super_lock(), which can't be killed.  If the mount is stuck on
+> that very device, so is the ioctl.
+> 
+> Use super_lock_killable() and stop the walk when the task is killed, as for
+> the unmount.  All BLKFLSBUF does afterwards is invalidate_bdev(), which
+> leaves dirty pages and pages under writeback alone.
+> 
+> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
 
-Signed-off-by: Markus Probst <markus.probst@posteo.de>
----
- drivers/tty/serdev/core.c           | 44 ++++++++++++++++++++++++++++++++++++-
- drivers/tty/serdev/serdev-ttyport.c | 36 ++++++++++++++++++++++++++++++
- include/linux/serdev.h              |  6 +++++
- 3 files changed, 85 insertions(+), 1 deletion(-)
+Christian has just pulled some changes in this area so please rebase on top
+of them. Otherwise the changes look ok to me.
 
-diff --git a/drivers/tty/serdev/core.c b/drivers/tty/serdev/core.c
-index 77e8e1d4d2a6..af1470e33620 100644
---- a/drivers/tty/serdev/core.c
-+++ b/drivers/tty/serdev/core.c
-@@ -191,6 +191,45 @@ void serdev_device_close(struct serdev_device *serdev)
- }
- EXPORT_SYMBOL_GPL(serdev_device_close);
- 
-+/**
-+ * serdev_device_pause_rx() - pause data receive
-+ * @serdev:	serdev device
-+ *
-+ * Pause calls to receive_buf.
-+ *
-+ * Note that if a call to receive_buf is currently executed, the function will
-+ * sleep until it has finished.
-+ */
-+void serdev_device_pause_rx(struct serdev_device *serdev)
-+{
-+	struct serdev_controller *ctrl = serdev->ctrl;
-+
-+	if (!ctrl || !ctrl->ops->pause_rx)
-+		return;
-+
-+	ctrl->ops->pause_rx(ctrl);
-+}
-+EXPORT_SYMBOL_GPL(serdev_device_pause_rx);
-+
-+/**
-+ * serdev_device_resume_rx() - resume data receive
-+ * @serdev:	serdev device
-+ *
-+ * Resume calls to receive_buf.
-+ *
-+ * This can be called even if not paused to ensure data receive is active.
-+ */
-+void serdev_device_resume_rx(struct serdev_device *serdev)
-+{
-+	struct serdev_controller *ctrl = serdev->ctrl;
-+
-+	if (!ctrl || !ctrl->ops->resume_rx)
-+		return;
-+
-+	ctrl->ops->resume_rx(ctrl);
-+}
-+EXPORT_SYMBOL_GPL(serdev_device_resume_rx);
-+
- static void devm_serdev_device_close(void *serdev)
- {
- 	serdev_device_close(serdev);
-@@ -402,6 +441,7 @@ EXPORT_SYMBOL_GPL(serdev_device_break_ctl);
- static int serdev_drv_probe(struct device *dev)
- {
- 	const struct serdev_device_driver *sdrv = to_serdev_device_driver(dev->driver);
-+	struct serdev_device *sdev = to_serdev_device(dev);
- 	int ret;
- 
- 	ret = dev_pm_domain_attach(dev, PD_FLAG_ATTACH_POWER_ON |
-@@ -409,7 +449,9 @@ static int serdev_drv_probe(struct device *dev)
- 	if (ret)
- 		return ret;
- 
--	return sdrv->probe(to_serdev_device(dev));
-+	serdev_device_resume_rx(sdev);
-+
-+	return sdrv->probe(sdev);
- }
- 
- static void serdev_drv_remove(struct device *dev)
-diff --git a/drivers/tty/serdev/serdev-ttyport.c b/drivers/tty/serdev/serdev-ttyport.c
-index 7d2d50d7e1a4..8fce7daa619f 100644
---- a/drivers/tty/serdev/serdev-ttyport.c
-+++ b/drivers/tty/serdev/serdev-ttyport.c
-@@ -7,8 +7,10 @@
- #include <linux/tty.h>
- #include <linux/tty_driver.h>
- #include <linux/poll.h>
-+#include "../tty.h"
- 
- #define SERPORT_ACTIVE		1
-+#define SERPORT_PAUSE_RX	2
- 
- struct serport {
- 	struct tty_port *port;
-@@ -36,6 +38,9 @@ static size_t ttyport_receive_buf(struct tty_port *port, const u8 *cp,
- 	if (!test_bit(SERPORT_ACTIVE, &serport->flags))
- 		return 0;
- 
-+	if (test_bit(SERPORT_PAUSE_RX, &serport->flags))
-+		return 0;
-+
- 	ret = serdev_controller_receive_buf(ctrl, cp, count);
- 
- 	dev_WARN_ONCE(&ctrl->dev, ret > count,
-@@ -183,6 +188,35 @@ static bool ttyport_close(struct serdev_controller *ctrl)
- 	return true;
- }
- 
-+static void ttyport_pause_rx(struct serdev_controller *ctrl)
-+{
-+	struct serport *serport = serdev_controller_get_drvdata(ctrl);
-+
-+	guard(mutex)(&serport->lock);
-+
-+	scoped_guard(mutex, &serport->receive_lock)
-+		set_bit(SERPORT_PAUSE_RX, &serport->flags);
-+
-+	if (test_bit(SERPORT_ACTIVE, &serport->flags))
-+		tty_buffer_cancel_work(serport->tty->port);
-+}
-+
-+static void ttyport_resume_rx(struct serdev_controller *ctrl)
-+{
-+	struct serport *serport = serdev_controller_get_drvdata(ctrl);
-+
-+	guard(mutex)(&serport->lock);
-+
-+	if (!test_bit(SERPORT_PAUSE_RX, &serport->flags))
-+		return;
-+
-+	scoped_guard(mutex, &serport->receive_lock)
-+		clear_bit(SERPORT_PAUSE_RX, &serport->flags);
-+
-+	if (test_bit(SERPORT_ACTIVE, &serport->flags))
-+		tty_buffer_restart_work(serport->tty->port);
-+}
-+
- static unsigned int ttyport_set_baudrate(struct serdev_controller *ctrl, unsigned int speed)
- {
- 	struct serport *serport = serdev_controller_get_drvdata(ctrl);
-@@ -287,6 +321,8 @@ static const struct serdev_controller_ops ctrl_ops = {
- 	.get_tiocm = ttyport_get_tiocm,
- 	.set_tiocm = ttyport_set_tiocm,
- 	.break_ctl = ttyport_break_ctl,
-+	.pause_rx = ttyport_pause_rx,
-+	.resume_rx = ttyport_resume_rx,
- };
- 
- struct device *serdev_tty_port_register(struct tty_port *port,
-diff --git a/include/linux/serdev.h b/include/linux/serdev.h
-index 0f4e81c0950d..02773554e759 100644
---- a/include/linux/serdev.h
-+++ b/include/linux/serdev.h
-@@ -89,6 +89,8 @@ struct serdev_controller_ops {
- 	int (*get_tiocm)(struct serdev_controller *);
- 	int (*set_tiocm)(struct serdev_controller *, unsigned int, unsigned int);
- 	int (*break_ctl)(struct serdev_controller *ctrl, unsigned int break_state);
-+	void (*pause_rx)(struct serdev_controller *ctrl);
-+	void (*resume_rx)(struct serdev_controller *ctrl);
- };
- 
- /**
-@@ -194,6 +196,8 @@ static inline size_t serdev_controller_receive_buf(struct serdev_controller *ctr
- int serdev_device_open(struct serdev_device *);
- void serdev_device_close(struct serdev_device *);
- int devm_serdev_device_open(struct device *, struct serdev_device *);
-+void serdev_device_pause_rx(struct serdev_device *serdev);
-+void serdev_device_resume_rx(struct serdev_device *serdev);
- unsigned int serdev_device_set_baudrate(struct serdev_device *, unsigned int);
- void serdev_device_set_flow_control(struct serdev_device *, bool);
- int serdev_device_write_buf(struct serdev_device *, const u8 *, size_t);
-@@ -233,6 +237,8 @@ static inline int serdev_device_open(struct serdev_device *sdev)
- 	return -ENODEV;
- }
- static inline void serdev_device_close(struct serdev_device *sdev) {}
-+static inline void serdev_device_pause_rx(struct serdev_device *serdev) {}
-+static inline void serdev_device_resume_rx(struct serdev_device *serdev) {}
- static inline unsigned int serdev_device_set_baudrate(struct serdev_device *sdev, unsigned int baudrate)
- {
- 	return 0;
+								Honza
 
+> ---
+>  fs/super.c | 20 ++++++++++++--------
+>  1 file changed, 12 insertions(+), 8 deletions(-)
+> 
+> diff --git a/fs/super.c b/fs/super.c
+> index 40f92ffa39c1..ecba64ed0c2a 100644
+> --- a/fs/super.c
+> +++ b/fs/super.c
+> @@ -1676,17 +1676,21 @@ static void fs_bdev_sync(struct block_device *bdev)
+>  
+>  	for (sb_dev = super_dev_first(dev); sb_dev; sb_dev = super_dev_next(sb_dev)) {
+>  		struct super_block *sb = sb_dev->sd_sb;
+> +		int ret;
+>  
+> -		if (!super_lock_shared(sb)) {
+> -			if (super_wait_shutdown_killable(sb)) {
+> -				super_dev_put(sb_dev);
+> -				return;
+> -			}
+> +		ret = super_lock_killable(sb, false);
+> +		if (!ret) {
+> +			if (sb->s_root && (sb->s_flags & SB_ACTIVE))
+> +				sync_filesystem(sb);
+> +			super_unlock_shared(sb);
+>  			continue;
+>  		}
+> -		if (sb->s_root && (sb->s_flags & SB_ACTIVE))
+> -			sync_filesystem(sb);
+> -		super_unlock_shared(sb);
+> +		if (ret == -ENOENT)
+> +			ret = super_wait_shutdown_killable(sb);
+> +		if (ret) {
+> +			super_dev_put(sb_dev);
+> +			return;
+> +		}
+>  	}
+>  }
+>  
+> 
+> -- 
+> 2.55.0
+> 
 -- 
-2.55.0
-
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
