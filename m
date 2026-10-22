@@ -1,79 +1,78 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1792679276;
-	b=zvYw/AK3q2Tx0eNnLvfsUU1IoE5ioH/ymn20d7hI4qUNCdORkpRYAEB+Des8EPw7LNfd
-	 Py3lnzAeVkq+Ij7rBOUmJYuIrch1ZBLxLlttr5/RkAs55ROhgbbku9gA1djuSWb6UjIvc
-	 3jB0K+D0Ff69eIhuGkve0az0Kkn8Kr7lD+X84rhtNWpAqGdfO/Js5c4lK6HNLYtrZDx41
-	 OEd64PV+vM4IWXjxZZoyQ/Yx9hd25kaOEWHxH1QDQu33EJqGVG8SsYDm8E67UEIJmAkcj
-	 9hEfWfFhVTKJE97GdSSctxe3oKVZjFMnXp4mjwvR5N9tnlCfb/TnUgcRPH/UvqnXxPg==
+	b=g6n356fKKmQexJZbOAdJHb3u7jBlwDhsHpt2jZs07Jkv3LGqLKBODph0tGseX2QveeHj
+	 ++hB+eGhZLE2UDfsMKL8da0ftQNlnnS4pj3PqfieSIWPfdrVt/lHcR2cg02DNO101lXdD
+	 4u/nD9cl3lW4CEX9SZ5xs/zzflcoJo4s+uJZ8a2ctBsYPb1RNlHHAKLfN1NNvWYqLYVo4
+	 bvxw/gx4wLtwgnzgIE55ZEynT9RkEZFP5CbW0ddaLMHPlUSKAmuj3gR97BfWGULz72byE
+	 yGPk1KBTBZIgGl9fO5mR7Z5eKG+fShg+VLm4umYa+OLEUM3403403WoOcMq2/zaxubQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1792679276;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=PchrU+Va3DZaNKNckQ858GV5JoQCVK375UKKXHl3JXA=;
-	b=D3LN05cS7FSDpIvuW5YRO7W/sPeEvjCdBZT4ObzqcIga5hGWAve6PWegmDD9XpDFZef+
-	 /LrlnZI+OvZBGX1gEu/xe+43aLSoZhYhpBlLVh836CCQQVHHEYDpbEOufp0W2MqIjyJmh
-	 25A1SONDwTeEcoAQdxeflPPx+1fTJ37sGZOn0qC7vmKfoo352gz6j25/ODwpshKy1ebq2
-	 UqsrlsH6J4fNnjIHbrDipLKR/AIp6EmJwtIvKvgKnRVgYsvI2BZuxknAAqayzQ7w5pu+B
-	 DAUgryqyxDkWEGY5dQnhoy4cbvfyzqqhd90+JZFSC8TjI+K4I6EOwqWgEwuMBHm+eEw==
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=aRXYllM9CBSwb+oBFdWQ8OrqxDITeiZO+tNWy7el8F8=;
+	b=g2wglbXTQ4577eV4ce6uSAuNrXP/pkCjXycXGrgGp+ju2xqZuekkRKwuaTJLoNVTbNxk
+	 f0CfLWYfldkpt1HFanrer8S/E4O47xclHZXiBahBRKPJjPYrA2oYa93iOh7B7XuQBEtKm
+	 OTHRqD+IZ8CsnCvsgdgIb+aLlLHmIKv22Ovaw3fMFlCGXm8ansn+EbtFJZvX+QLlzOYdq
+	 RGMB4kSgWs7hcAUDI6ZLRwTxmN5E2+oF7iOtEIqvt01yB2vXjJxGp2vD30uTI4rI1Sy9J
+	 cbb6Ar+z3jaBr2poGryaDk/T/sBaZqrehIQQIorXlSvno3UySVASXP8tz+IKNDWsTjg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VadbGkM7;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KYIW2WCv;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 101A5606A31A;
-	Thu, 22 Oct 2026 14:27:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79924606A324;
+	Thu, 22 Oct 2026 14:27:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VadbGkM7
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KYIW2WCv
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1792679275;
-	b=BmH1FibkTi6Lu9OxjV9eefwuuwuu9l4w9uM0xEx4DF6jjpnl6sYSCn9atvFp75j+2dik
-	 eYvZJwYZWDyTdGAr/r27HFNCIpbE10gd7F7DgrvzJG5Q0UHnfvNNilcf24ZRDtLaIdEbN
-	 NLLJUH65/IBh3r2Lm4gO4tx98aVm7unrRVRJXe63LIxWfW1DfFUjHKzKXOnn6mI5q73jS
-	 hdd9hgJBDbgRUf9Cv/LFlWJQG7m9T9Y9Rlp+F/AdORzjS9YhpX9rtLlx2OMr5+RGYhteo
-	 BWljocwepyEbvvngFJbxw0YgD/q2hhQxLjJbk7h82cIUlBiBRbr8rEwfAEpNoCXpXiQ==
+	t=1792679276;
+	b=TV8pCw86nIsom3aYUfkNYsBEQ9Hp4Gsorpn2Sd5jzJ8bomPJaU4zyLZIl9HCSR08qotC
+	 KvFhOFEKsuHDnEGwGcNyWQteoSpFq9K0kdwrizbJd18gOLp6RZpmXV5ccQOy62UQEc9kc
+	 b0FrWtUjzlrzAOTDyITMIecjpgb0vl2eBDrOWls/L8HawSRj3mTWLwFWw2ECUHTOM6vUh
+	 28wkOWNcgxXyZbz459nuoNpgtGamlTU6EliOHJcQ1b7/a4rQw8Pgs/1rATELzeFmA5dyR
+	 1fwivHQTQqRU7h6yrb+sBF7HzzmrsFYYZDgKD9HPyR0504n0/VUr5d0MhfsjT6s/lgA==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1792679275;
+	c=relaxed/relaxed; t=1792679276;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=PchrU+Va3DZaNKNckQ858GV5JoQCVK375UKKXHl3JXA=;
-	b=YRVD1lLcqLvZ2RFHk/Hl/sEQEKChy2+RgFqMrkrtAwjUWAWwelfTrR7M59kwrGQbMPX4
-	 Jp54xBwmHaFgVsSj1bsBLxZnDqwg2iyBYAC40DmwhWIBIGpHqMqYmRW4Wbp7fEeY8bKj/
-	 SlJNA+mtk7I/aoNxqLIobHdCUbjjBM/cLw+mph6L9Yb++haolFvmkMzBZUnn8LygPes3f
-	 1polyAeJkV+qHtXaavzOqDpNlYZxRnscHuNQqfN6gw/jlILRmuTOhil7N3E4vkFfbP3er
-	 iDaQYy3crDFwmSwHuh8Za4/02eMAfUKbW4ZILrWHbO4JeFvpqpZwZwAWPLiJEi6y7qA==
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=aRXYllM9CBSwb+oBFdWQ8OrqxDITeiZO+tNWy7el8F8=;
+	b=meaL3YfIDOwJi3xE5gV4cOeAclZStyT4ary+3ddsnbdFPIIZAEBotN/TY98wQxgZOFuI
+	 vnARA+dX78TB61Ai2TwoBL3TGBJuyBgqhwuvy5NngeUT8wprftUTH4ffL972M4xBDlHk8
+	 im6md0rC0xPmxio8lpX4fGp3uZeTuuQIYQGr8ErmmSnjL6sQRXwLzxp8EcS/tmJRNc+Xo
+	 cVNGxHgGZaoV2I2P8pa5ruiVHoOW1pdFgy+jNS5RAlckycArhSw1ZHyeKEaZwApz1CJKK
+	 FliSFAGdgxPOmmmC3SZjrApNVqhCGNP5TYS2QZyeBBwPD8t6vb6IngrLV+GRBbBfpEg==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 26F0C1F000C9;
+	by smtp.kernel.org (Postfix) with ESMTPS id 26C391F000C7;
 	Thu, 22 Oct 2026 14:27:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792679275;
-	bh=PchrU+Va3DZaNKNckQ858GV5JoQCVK375UKKXHl3JXA=;
+	s=k20260515; t=1792679276;
+	bh=aRXYllM9CBSwb+oBFdWQ8OrqxDITeiZO+tNWy7el8F8=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=VadbGkM7bWbg9Aje6k89FCVwOXNUdSTYT458Na67GeS3wabl8+FCfrNPJ2kpQ5RjS
-	 RNQ/VUj8+LYKSTbC/zA3pkw8f4FWhxSuCf6b8A07DgREW4g/F3YW9uPEphQ30O04KA
-	 0wKNdGjvLW1TbNqbK4cGGYKDmmLyRrLZsT1x+wsO6Br/AlHjTQG8DietO+fh1wBN/v
-	 Ntmogm51OWk5YX3IuAhHahFfmVs4Kk8MRhOGfr5TxDqBMoVJhoHuJ5R0EOm74GUFsE
-	 X6y0ILqNoaDjkN4l3jb5lMimr23YGOpuLqYpjLtyok3ufNHAtIDRtzulzrKgAkNTAr
-	 V9nY7/viRytpA==
+	b=KYIW2WCvG50rkORsOGHA6ymmChI0sB9Hkk8SSfbinbmG5VH86wB5wjw3sIOAhfVjY
+	 J4CXXEdKg3L/7tfwu9gIqDNsYka2sDwbRLY5ul2GS/XlLzX8wmaCgAWwKreZ4crbqe
+	 /GsCNavhsVAbUPjfqsqvTJVQqpw2t0ad4AnqdTKb/jSAShB6DLF/fGFVYZtLp7b1IW
+	 5KRqYE47mhMqWIdWul5Qse/G3qFy1DoWk8O+zQeAOs9qrhhaeiFSTf2evNaDHmsz7T
+	 99kaKwwT59AAmRozwhROgZIOH0OYnxQdjp5+xNoNqO/RuNyTs3h740h98z8UkDi3+o
+	 GObTKpjUcv3Mg==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 871B74359A;
+	by lkml.kernel.org (Postfix) with ESMTP id 98F0C435B9;
 	Thu, 22 Oct 2026 14:27:54 +0000 (UTC)
 From: =?utf-8?q?St=C3=A9phane_Grosjean_via_B4_Relay?= <devnull+s.grosjean.peak-system.fr@kernel.org>
-Date: Thu, 22 Oct 2026 16:27:46 +0200
-Subject: [PATCH v6 01/13] can: peak_usb: fix missing CAN_ERR_FLAG when
- reporting error counters
+Date: Thu, 22 Oct 2026 16:27:48 +0200
+Subject: [PATCH v6 03/13] can: peak_usb: sort ctrlmode_supported flags
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,8 +83,7 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20261022-canfd_check_channel_idx-v6-1-197704231551@peak-system.fr>
+Message-Id: <20261022-canfd_check_channel_idx-v6-3-197704231551@peak-system.fr>
 References: <20261022-canfd_check_channel_idx-v6-0-197704231551@peak-system.fr>
 In-Reply-To: <20261022-canfd_check_channel_idx-v6-0-197704231551@peak-system.fr>
 To: Marc Kleine-Budde <mkl@pengutronix.de>, 
@@ -93,51 +91,128 @@ To: Marc Kleine-Budde <mkl@pengutronix.de>,
  Wolfgang Grandegger <wg@grandegger.com>, 
  =?utf-8?q?St=C3=A9phane_Grosjean?= <s.grosjean@peak-system.fr>, 
  Dan Carpenter <error27@gmail.com>, Lukas Magel <lukas.magel@posteo.net>
-Cc: linux-can@vger.kernel.org, linux-kernel@vger.kernel.org, 
- =?utf-8?q?Stefan_G=C3=BCnther?= <stefangun@pm.me>, stable@vger.kernel.org
+Cc: linux-can@vger.kernel.org, linux-kernel@vger.kernel.org
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792679273; l=1235;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792679273; l=4357;
  i=s.grosjean@peak-system.fr; s=20261020; h=from:subject:message-id;
- bh=yJYGMmDCA5H1YtV9p82vQMvFYiAXoP2GMFxyPs3vVf0=;
- b=giTbEhTDNz1JKGA3Nk9D3GSrBLoWSPvbnnTIHpcUF8ZsSexcQ7ZlE05peeDe8Iqr8U6Fv6Gol
- RpuAxRy2t86CfYYlij4CxeLs+N5zlrQ6ZAloDrY4zhZuo0pnNvNY7Yw
+ bh=MYONh3sP/YxQkbkdVfbPovx+Teoc4eh5O2DBc8w60Zc=;
+ b=M9uLMlESbqIhlqSzzYdpOu3lr+n/uFOHVO0RT8WyZDYWGht0dfnSY1PfQ1s35D7EvsuivXOia
+ 3vwPrKde+OkATLTjX+/AD4GdUznuEDHQTfdRP0DIZS/ghEn4vQKmJWO
 X-Developer-Key: i=s.grosjean@peak-system.fr; a=ed25519;
  pk=bP7QV2zvvAKAfConZlUOGKGEcXL64SNUpVUm++Ai+/c=
 X-Endpoint-Received: by B4 Relay for s.grosjean@peak-system.fr/20261020
  with auth_id=1250
 X-Original-From: =?utf-8?q?St=C3=A9phane_Grosjean?= <s.grosjean@peak-system.fr>
 Reply-To: s.grosjean@peak-system.fr
+Content-Transfer-Encoding: 8bit
 
-From: Stefan Günther <stefangun@pm.me>
+From: Stéphane Grosjean <s.grosjean@peak-system.fr>
 
-When the device reports error counters, the driver incorrectly uses an
-assignment (=) instead of a bitwise OR (|=) for CAN_ERR_CNT. This wipes
-out the CAN_ERR_FLAG and CAN_ERR_CRTL flags, causing the error frame to
-be sent to userspace as a regular CAN frame with ID 0x200.
+Order the CAN_CTRLMODE_* flags in ctrlmode_supported according to
+their numerical values.
 
-Fix this by using a bitwise OR to preserve the flags.
+This is a cosmetic change only and does not alter the driver
+behavior.
 
-Signed-off-by: Stefan Günther <stefangun@pm.me>
-Cc: stable@vger.kernel.org
-Fixes: 3e5c291c7942 ("can: add CAN_ERR_CNT flag to notify availability of error counter")
-Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+Signed-off-by: Stéphane Grosjean <s.grosjean@peak-system.fr>
 ---
- drivers/net/can/usb/peak_usb/pcan_usb.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/net/can/usb/peak_usb/pcan_usb.c     |  3 ++-
+ drivers/net/can/usb/peak_usb/pcan_usb_fd.c  | 32 ++++++++++++++++++-----------
+ drivers/net/can/usb/peak_usb/pcan_usb_pro.c |  3 ++-
+ 3 files changed, 24 insertions(+), 14 deletions(-)
 
 diff --git a/drivers/net/can/usb/peak_usb/pcan_usb.c b/drivers/net/can/usb/peak_usb/pcan_usb.c
-index 8fd058c32856..785224e00c4e 100644
+index 785224e00c4e..169c00d93463 100644
 --- a/drivers/net/can/usb/peak_usb/pcan_usb.c
 +++ b/drivers/net/can/usb/peak_usb/pcan_usb.c
-@@ -526,7 +526,7 @@ static int pcan_usb_decode_error(struct pcan_usb_msg_context *mc, u8 n,
- 			/* Supply TX/RX error counters in case of
- 			 * controller error.
- 			 */
--			cf->can_id = CAN_ERR_CNT;
-+			cf->can_id |= CAN_ERR_CNT;
- 			cf->data[6] = mc->pdev->bec.txerr;
- 			cf->data[7] = mc->pdev->bec.rxerr;
- 		}
+@@ -1016,7 +1016,8 @@ const struct peak_usb_adapter pcan_usb = {
+ 	.name = "PCAN-USB",
+ 	.device_id = PCAN_USB_PRODUCT_ID,
+ 	.ctrl_count = 1,
+-	.ctrlmode_supported = CAN_CTRLMODE_3_SAMPLES | CAN_CTRLMODE_LISTENONLY |
++	.ctrlmode_supported = CAN_CTRLMODE_LISTENONLY |
++			      CAN_CTRLMODE_3_SAMPLES |
+ 			      CAN_CTRLMODE_CC_LEN8_DLC,
+ 	.clock = {
+ 		.freq = PCAN_USB_CRYSTAL_HZ / 2,
+diff --git a/drivers/net/can/usb/peak_usb/pcan_usb_fd.c b/drivers/net/can/usb/peak_usb/pcan_usb_fd.c
+index 0d46f4ce5dca..82502594a409 100644
+--- a/drivers/net/can/usb/peak_usb/pcan_usb_fd.c
++++ b/drivers/net/can/usb/peak_usb/pcan_usb_fd.c
+@@ -1198,9 +1198,11 @@ const struct peak_usb_adapter pcan_usb_fd = {
+ 	.name = "PCAN-USB FD",
+ 	.device_id = PCAN_USBFD_PRODUCT_ID,
+ 	.ctrl_count = PCAN_USBFD_CHANNEL_COUNT,
+-	.ctrlmode_supported = CAN_CTRLMODE_FD |
+-			CAN_CTRLMODE_3_SAMPLES | CAN_CTRLMODE_LISTENONLY |
+-			CAN_CTRLMODE_ONE_SHOT | CAN_CTRLMODE_CC_LEN8_DLC,
++	.ctrlmode_supported = CAN_CTRLMODE_LISTENONLY |
++			      CAN_CTRLMODE_3_SAMPLES |
++			      CAN_CTRLMODE_ONE_SHOT |
++			      CAN_CTRLMODE_FD |
++			      CAN_CTRLMODE_CC_LEN8_DLC,
+ 	.clock = {
+ 		.freq = PCAN_UFD_CRYSTAL_HZ,
+ 	},
+@@ -1274,9 +1276,11 @@ const struct peak_usb_adapter pcan_usb_chip = {
+ 	.name = "PCAN-Chip USB",
+ 	.device_id = PCAN_USBCHIP_PRODUCT_ID,
+ 	.ctrl_count = PCAN_USBFD_CHANNEL_COUNT,
+-	.ctrlmode_supported = CAN_CTRLMODE_FD |
+-		CAN_CTRLMODE_3_SAMPLES | CAN_CTRLMODE_LISTENONLY |
+-		CAN_CTRLMODE_ONE_SHOT | CAN_CTRLMODE_CC_LEN8_DLC,
++	.ctrlmode_supported = CAN_CTRLMODE_LISTENONLY |
++			      CAN_CTRLMODE_3_SAMPLES |
++			      CAN_CTRLMODE_ONE_SHOT |
++			      CAN_CTRLMODE_FD |
++			      CAN_CTRLMODE_CC_LEN8_DLC,
+ 	.clock = {
+ 		.freq = PCAN_UFD_CRYSTAL_HZ,
+ 	},
+@@ -1350,9 +1354,11 @@ const struct peak_usb_adapter pcan_usb_pro_fd = {
+ 	.name = "PCAN-USB Pro FD",
+ 	.device_id = PCAN_USBPROFD_PRODUCT_ID,
+ 	.ctrl_count = PCAN_USBPROFD_CHANNEL_COUNT,
+-	.ctrlmode_supported = CAN_CTRLMODE_FD |
+-			CAN_CTRLMODE_3_SAMPLES | CAN_CTRLMODE_LISTENONLY |
+-			CAN_CTRLMODE_ONE_SHOT | CAN_CTRLMODE_CC_LEN8_DLC,
++	.ctrlmode_supported = CAN_CTRLMODE_LISTENONLY |
++			      CAN_CTRLMODE_3_SAMPLES |
++			      CAN_CTRLMODE_ONE_SHOT |
++			      CAN_CTRLMODE_FD |
++			      CAN_CTRLMODE_CC_LEN8_DLC,
+ 	.clock = {
+ 		.freq = PCAN_UFD_CRYSTAL_HZ,
+ 	},
+@@ -1426,9 +1432,11 @@ const struct peak_usb_adapter pcan_usb_x6 = {
+ 	.name = "PCAN-USB X6",
+ 	.device_id = PCAN_USBX6_PRODUCT_ID,
+ 	.ctrl_count = PCAN_USBPROFD_CHANNEL_COUNT,
+-	.ctrlmode_supported = CAN_CTRLMODE_FD |
+-			CAN_CTRLMODE_3_SAMPLES | CAN_CTRLMODE_LISTENONLY |
+-			CAN_CTRLMODE_ONE_SHOT | CAN_CTRLMODE_CC_LEN8_DLC,
++	.ctrlmode_supported = CAN_CTRLMODE_LISTENONLY |
++			      CAN_CTRLMODE_3_SAMPLES |
++			      CAN_CTRLMODE_ONE_SHOT |
++			      CAN_CTRLMODE_FD |
++			      CAN_CTRLMODE_CC_LEN8_DLC,
+ 	.clock = {
+ 		.freq = PCAN_UFD_CRYSTAL_HZ,
+ 	},
+diff --git a/drivers/net/can/usb/peak_usb/pcan_usb_pro.c b/drivers/net/can/usb/peak_usb/pcan_usb_pro.c
+index b6be8c19e537..4c3d89a160af 100644
+--- a/drivers/net/can/usb/peak_usb/pcan_usb_pro.c
++++ b/drivers/net/can/usb/peak_usb/pcan_usb_pro.c
+@@ -1072,7 +1072,8 @@ const struct peak_usb_adapter pcan_usb_pro = {
+ 	.name = "PCAN-USB Pro",
+ 	.device_id = PCAN_USBPRO_PRODUCT_ID,
+ 	.ctrl_count = PCAN_USBPRO_CHANNEL_COUNT,
+-	.ctrlmode_supported = CAN_CTRLMODE_3_SAMPLES | CAN_CTRLMODE_LISTENONLY |
++	.ctrlmode_supported = CAN_CTRLMODE_LISTENONLY |
++			      CAN_CTRLMODE_3_SAMPLES |
+ 			      CAN_CTRLMODE_ONE_SHOT,
+ 	.clock = {
+ 		.freq = PCAN_USBPRO_CRYSTAL_HZ,
 
 -- 
 2.53.0
