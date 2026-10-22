@@ -1,65 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.245
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792673071;
-	b=dKEw4WhibxBVTm/O+loM8HKZ27BWFsIVbBBLlD77xhYNMoEzec+RHDnB4W07Halw22v3
-	 tHC9f5oa8bErxi8PzjuOsOZZ073l8+bOFJYskN3+ISu2IJUI0QcICFetUzNMZ9sUnGyhq
-	 3SRqpIF0f10UB12DvIDOzyucNlNR7WbFoWpXJOk0824v/zGGCLKKTa9KVxwkcw8NOsnHr
-	 n5xhyI44P4uItF01do+Is1MQN6K8MgUNDwCl15zMIuyf+dhqeVcvMbQffj/OSxT61hLwm
-	 ZdcWqiAaO5jBtsWIwpaeN/Q7eg0bI+f7KBxpsjmr/ID2pNB6t2hCllLli0Lw9oy+xdA==
+	t=1792673123;
+	b=Ds11P3wdTqIkSPFyqWW2LgeYbHRDESa588IJlX7jEuJmYBmVwtIFokXNi1U3I7A3WjK+
+	 +NjuieRtW9HTf0DGqBZpmUVbP7OKUsDw1rZ2WxOSjwriCcF4xqXdtfR47F+QlDxSvlMvt
+	 zyaYvcSm/EIGKjF9zKMpfzUqCrz+32Esd9wASx8KC+cSXUoHsMUmQPSx0nUiVE3Njk4Q9
+	 i/c3YLUOkUIMK1Sm6J8yIyM5d2GevSocqhjzBAm0vPq0Qtr4SKvomyESxBo1eVa6k4kCh
+	 AYF3NRzEYt0dHVVnpqGv5yUVuFXvrcTIuYWPwjoHQymhjCQHspW8LnMZdsizu85GTcA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792673071;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792673123;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=pyVn8H5UXt3BLVqfMlIJEvVqPcujqAmn/WVCRP5QjZI=;
-	b=kzyDe+kRsfk1CN987/QuP3ToCJkXGijyUUl/S9WC4doGKihASluy87fjXTVxXwxrtNXy
-	 qXRwrYkI9UYKk/CX6m7LKhXPks01yWq09hkuNUpAtMlvzWn3kY0Uvkzky9y9cskU6AnCd
-	 t7t9xyZydGLJJjnRO1lz8pLJ/swz1zzsi/KnXW+iUP9j+ZhUvGExyMeRFJrUQ1d5+LojA
-	 /OzeLxlSh8raJsOdbBxKab+BJztWKV7Y8MN9+4hrjTkGsWLxfi1Sr8gP1CtiZcZ5RQ/qL
-	 r32d62Tw2iccXmqQiU4aE0+76pC5O6Ijq27I0YvmijxgoO5yF4/uULtf1BwOTJ3mDug==
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=/e/DML6VhtXmgchh3D6VG9pyLDvWkm3EATTpFCuaGRU=;
+	b=ZvLt8z+La/Da17cv1q22huP5lxd67PVvl497bHXI9kBvor6COQUTwe6Dxc/0+V5HC6G9
+	 2vHGqjVZaqrFqY4U5yCUxCSA3nFuvsQgkchzpgC5AyFxgt/GzPeotl5WCb3rovIrsqXOP
+	 RKrj9LM/MeN5KdaCwioJ9gapmUt/MwPQtGG8Ujs+DAkPoIjPU/0KzX0UTXWvNM1dUf9ON
+	 f+G+WYMuSHlZQ9zM96AwhuMf+gYZ1TP7Vq0uvP6b+1fi5MbU4fBxGFN+I7q+N3awA8n/A
+	 +SUCuw0RZKll68vdXNat7uVTcRNnhaGTILbPILODCaiG4427/Vcg0XpPcTKptw2ntFw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.dev;
 	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=VRZvxV1V;
-	arc=none smtp.remote-ip=91.218.175.44
-Received: from mta0.migadu.com (out-44.mta0.migadu.com [91.218.175.44])
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="okvv/uDS";
+	arc=none smtp.remote-ip=95.215.58.245
+Received: from mta1.migadu.com (out-245.mta1.migadu.com [95.215.58.245])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5563F606A31B
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 12:44:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5563F606A31B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C002606A319
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 12:45:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1C002606A319
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=VRZvxV1V
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=okvv/uDS
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=vD/enoTp0wWpkf87JUVBmcvUu/gi1TwgrWzJFcE4+LY=;
+DKIM-Signature: a=rsa-sha256; bh=o6tCkHrPXDXhUkW2Vt2Sq4pwRH/wGrxJv76uyLTjs3U=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792673068; v=1; x=1793277868;
- b=VRZvxV1Vptk9DOhqUW/WfhVcwF9APQFsRQAfqq4+lZSoQbnvvVGBVIvSgVy7Z1H2Hw0CpNGD
- 8sVwGGJc5UL+QSNJk+bG1DGWmyuCARFySoviegFqwo7CySe9ixYWi5L4U3TNVLuNmr4FJ80Tx9f
- 6k0AN06u/QAiXth7SVRg2El4=
+ t=1792673121; v=1; x=1793277921;
+ b=okvv/uDSMVdtUW3PVNE6GhlTCQI1AUXhJnra80miBUS03Z78F36usxu3yOBnVZIAQLPrbjO2
+ Qe0VYmVCEhbtr64u5JnJnmUlW7c4WgeqS4DhoQ9YnZ8bT07CvMZVR1Kke/2Aa+t6+JtUDQu6bS7
+ LNWKj1qqkvUEMLUutK83rETM=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 74c2161678412173;
-	Thu, 22 Oct 2026 12:44:28 +0000
-X-Mizu-Trace-ID: 74c2161678412173
+Received: by smtp.migadu.com with ESMTPS id e24c385dd572482f;
+	Thu, 22 Oct 2026 12:45:21 +0000
+X-Mizu-Trace-ID: e24c385dd572482f
 X-Migadu-Flow: FLOW_OUT
-Date: Thu, 22 Oct 2026 14:44:23 +0200
-From: "Pankaj Raghav (Samsung)" <pankaj.raghav@linux.dev>
-To: Daejun Park <daejun7.park@samsung.com>
-Cc: Carlos Maiolino <cem@kernel.org>, linux-xfs@vger.kernel.org, 
-	Christoph Hellwig <hch@lst.de>, "Darrick J. Wong" <djwong@kernel.org>, 
-	Dave Chinner <dgc@kernel.org>, Chuck Lever <cel@kernel.org>, Jeff Layton <jlayton@kernel.org>, 
-	Dai Ngo <Dai.Ngo@oracle.com>, Sergey Bashirov <sergeybashirov@gmail.com>, 
-	Andrey Albershteyn <aalbersh@kernel.org>, linux-nfs@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH v4 4/9] xfs: clamp a pNFS LAYOUTCOMMIT extent before
- computing its end
-Message-ID: <atoFF7QhbenJOFUl@quentin>
-References: <20261020-xfs-pnfs-batch-v4-0-9230fa2ca4a4@samsung.com>
- <20261020-xfs-pnfs-batch-v4-4-9230fa2ca4a4@samsung.com>
+From: Zenghui Yu <zenghui.yu@linux.dev>
+To: linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Cc: akpm@linux-foundation.org,
+	vbabka@kernel.org,
+	surenb@google.com,
+	mhocko@suse.com,
+	brendan.jackman@linux.dev,
+	hannes@cmpxchg.org,
+	ziy@nvidia.com,
+	"Zenghui Yu (Huawei)" <zenghui.yu@linux.dev>
+Subject: [PATCH] mm/page_alloc: remove unneeded forward declaration of __free_pages_ok()
+Date: Thu, 22 Oct 2026 20:45:04 +0800
+Message-ID: <20261022124504.75642-1-zenghui.yu@linux.dev>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,41 +70,32 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261020-xfs-pnfs-batch-v4-4-9230fa2ca4a4@samsung.com>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Oct 20, 2026 at 12:08:47PM +0900, Daejun Park wrote:
-> xfs_fs_commit_blocks() clamps the end of each committed extent to the
-> file size, but computes the end as offset + length first. A length
-> from the client can make that sum wrap around, and the loop then
-> passes the client's length, unclamped, to xfs_iomap_write_unwritten().
-> The range wraps there as well, and xfs_bmapi_write() maps nothing.
-> Before the previous two patches, that failed an assertion on XFS_DEBUG
-> kernels, which is a BUG with XFS_ASSERT_FATAL, and otherwise returned
-> -ENOSR, which nfsd warns about as a non-standard errno. With
-> XFS_BMAPI_CONVERT_ONLY, the LAYOUTCOMMIT fails with -EIO and converts
-> nothing, even when every block up to the size is allocated.
-> 
-> With pynfs as the client and an RW layout for the first 64 KiB of a
-> 2 MiB sparse file, a LAYOUTCOMMIT of 2^64 - 4 KiB at 4 KiB got
-> NFS4ERR_IO, "nfsd: non-standard errno: -63" and a WARNING, or the
-> assertion on XFS_DEBUG. With the previous two patches, it gets
-> NFS4ERR_IO and the laid-out range stays unwritten.
-> 
-> Clamp the length to what is left below the size before adding it to
-> the offset. The extent then ends at the size, its allocated part is
-> converted, and the LAYOUTCOMMIT gets NFS4ERR_IO at the hole after it.
-> 
-> Fixes: 527851124d10 ("xfs: implement pNFS export operations")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Daejun Park <daejun7.park@samsung.com>
-> Reviewed-by: Christoph Hellwig <hch@lst.de>
-> ---
->  fs/xfs/xfs_pnfs.c | 4 +---
->  1 file changed, 1 insertion(+), 3 deletions(-)
-Looks good.
-Reviewed-by: Pankaj Raghav <p.raghav@samsung.com>
+From: "Zenghui Yu (Huawei)" <zenghui.yu@linux.dev>
 
+All remaining callers of __free_pages_ok() appear after its definition, so
+the forward declaration near the top of mm/page_alloc.c is no longer
+needed.  Remove it.
+
+Signed-off-by: Zenghui Yu (Huawei) <zenghui.yu@linux.dev>
+---
+ mm/page_alloc.c | 2 --
+ 1 file changed, 2 deletions(-)
+
+diff --git a/mm/page_alloc.c b/mm/page_alloc.c
+index 0396c50b96f0..6db90e0aa929 100644
+--- a/mm/page_alloc.c
++++ b/mm/page_alloc.c
+@@ -216,8 +216,6 @@ gfp_t gfp_allowed_mask __read_mostly = GFP_BOOT_MASK;
+ unsigned int pageblock_order __read_mostly;
+ #endif
+ 
+-static void __free_pages_ok(struct page *page, unsigned int order,
+-			    fpi_t fpi_flags);
+ static void reserve_highatomic_pageblock(struct page *page, int order,
+ 					 struct zone *zone);
+ 
 -- 
-Pankaj
+2.56.0
+
