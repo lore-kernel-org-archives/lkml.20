@@ -1,94 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792701744;
-	b=5fksoqdhR7amzZYR/LSvc/ZtdfanwO2U+K1L3flsecRjsW4f9Td+rxtEEJzo5r/yLhj6
-	 3xrUwH3F32eOcZ6gGdYD65X+2iON+5C4g/PuQgtr8BIu8f9BB5YZSis6ijznZHO7Mpl0O
-	 b/RKllLUjeE1swHQCqScOXyFY4kdXqE81KPsgD5Mp21AhaGHciZI/j+kg1ujhHKoBJe71
-	 EJT8jVa+Ul8jcJo299YUEfZkl5UoXtyKwfQbZhBpE4Nb7kOPcpF1ggdcevZRo90Kgk1cH
-	 bF5h067UvVYlJxyg4gI+SGw97N20frwIX65VUba0u4twQG/1HmLeMSwVqHrTWQ2xJUA==
+	t=1792701882;
+	b=2nxy1Xi+9Mr3DhOGWWGrrD/n51J4E79/gBBvJj1lVex7qcJRB7IF0FDRrWi03RPTYyB1
+	 EqPO4lT2DoOBbczrmzphoDhltw/x14bnjY1xNPOrkey/0ddKpW26AtDkKGYKi/F2xB0Yh
+	 kJyPs68PjH7lV+jobHBDKkditEUaxL+Lkytyl40mGeyiE6K/kiJ0xgGjdtqwzSY2xOz6+
+	 +q9JG3Z9SD7As2Jceo3nQrhQ3R6A5CDYucG1uTAJscfR+1dBl3DLF74JHo1HQhztR/Ps4
+	 Fzpue2s4G3uosHW9FhLLW0o5Q9KE/zng0PlxchgfKMOzGDvjB3MkKVejO/j5Npr0uew==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792701744;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=JhXZAj91SNuMu9he9BgFHy/gIFPKUvXivW06Udy0qjA=;
-	b=o30unnlckXP6GeUflV5GLkMP8AzlLMl+Vv6sCWAp4feOMzH7010D/fY74OzzxdPI2wZ9
-	 mdksICAqry3idx0IDihawgxvYXywoeH7T/e3YszZI9mBYhcvNFr2U3FqRsMEankNtPs+I
-	 /V8x8CdWEwTzNRpKeuOeIGPysQTALRzAlUFKIz9xccfdVES52DOu+JzmDyuSkqrNgz8e2
-	 p8c9nlL6lnlcFfHiE+IgYH+R2UhMpcX8jwBjQ66dkdFLbGUNXXnZgUm5bZRUAoNqDxxXN
-	 9azG8Wu/dWIGshyxyK4wzAIm5p/UDb2WUdFDd67bI6UsaNWPEWBp47bYsCNH38qMqkg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792701882;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=jlxncGVxFpDK01Emwf1U5Zgiqw0FwYi9EULoLejK12k=;
+	b=UlO9lEdhXt0NC4lYcA97/GHSz3e2HwyrT9YiMYW5JNfC4KkXye28zioT/KjwQ6dIsTj7
+	 S8eS1twz0ADhgiI7EQSCPz2UKefRggHbYEce+9eg+eB4m5Mz8Ivo7x60kM7muHo3mtJra
+	 PuqgSjwxi3leHJTBMEWVn87jZ9aHh75hIye7I/utW9lJf8oGfxSukavCADGoco6Uc4SR9
+	 G2g8EVPliKvmjoagSmevGZ0MdRMlwfqa/EWXWxl8VpWyc2g4/nHmDATtE4m/AXQKe636e
+	 bvR9Wd3mY/9JJ12dr3pbzRW6HFhNi72nb7LwAQy4TCTCSrA1lU5pJFW/hqoqgkpLuHA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=RXETzTLY;
-	arc=none smtp.remote-ip=209.85.221.43
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CJyr09h1;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03617606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 20:42:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 03617606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DBD6606A31B;
+	Thu, 22 Oct 2026 20:44:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=RXETzTLY
-Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-48c4d870d54so124443f8f.2
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 13:42:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792701742; x=1793306542; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=JhXZAj91SNuMu9he9BgFHy/gIFPKUvXivW06Udy0qjA=;
-        b=RXETzTLY07AsvZwWvneX90vtGwd7RsrE4SOu1HSjw+tA9JENKVIDQLmNDoM/bM4ERM
-         BxOkfGwg3yiih0LofnWs2eptL9+l7j5ZLPhMK/DLu7zsPRO0wxeeGSdjdfnsnKY1NaBx
-         W+sXX/BrmAWrJt+MjLoB9tdSUw8xFALnLMPPbwwajzZU3lO2bAzqp6GMkzOkdkmgwyE+
-         fQw/1lcUyG0Vf7REq4AE/xX26rIvudWdTLW8PPFaOZdyM51dFDN3wMVDNk8iQ9qSmGBV
-         evxzrbks2K50g7cAm/5qe1bkgmnoJtPXJYSlGPYYMuf5Emd2pyEwxP6PgbDT/qimQUQG
-         e2vg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792701742; x=1793306542;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=JhXZAj91SNuMu9he9BgFHy/gIFPKUvXivW06Udy0qjA=;
-        b=TGPXvf41UjWSESPuXcsGOWX5DGMFCqvmnubio8hcMD6HT4yZ5+tUQvJN1l9dTHqN8b
-         /oN6uSPBuROnt/Y2wdx46zsEbhwralemPqRJPDTiCUXwxdbpuOVRawjMyLgqw2BBT1cJ
-         Fs2fKD9QcuE+UcSbBlzMj46T1YWsd0g9rMVFDa/aUEKre4lvrq6sQgJW9/3duc9rusM9
-         Edr801I+nh7oYUlpQtAhLxYDV+rr3pXAao4nb6Ynx+Jk6E2t0dboUl9Q1yeDA6vIsVg+
-         OZZpvgTqN6PqCzW80oDEWF6XfYY9LdsTZ5IchOER8fyt2ZjrhzueceIeisftj/7c0e6O
-         lwVQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx8F9GecJuZ7poulscAC/3n/s6EsvrLj8WW8SIxLFtgqIM8AD5YKBURNronNi27I8lYmAkvU2dHIe+n2Lg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ+kDu11PzyZK9v1dVAhl4H1RA/ku9nZKJbusVrSWasN8rMPlLQ
-	sWEp7S34Nq/pXfONGBU0QLqJb/qEn6Um6fW69sBTjf5/Ww2k2Xjp0ZiO
-X-Gm-Gg: AYBFou3uUUeDlxzdKFcMXmZnpGREVrjHZjpU9MSpRe5uHIrpX6tPN8KKqs2VQf+FO1+
-	eqwg1VfxtJzJSfq7PZSfrz1XPrgQCO2idEc/QhLoux2m42ePbf+OWrARx+dTV3oTQOnAsQhehvs
-	k/gIB/0mFw/pYRqTjN/5u9Pj4+p6nMIYYrkbVoRmVOh2fWAZJsW0CnmfB2Qu/7ZYpKgjGyNff2w
-	Cpf9E5NGLmUodRJfQUdHcszmzUDlDC6jycf+Bs7LPzc5TjpPmkWe+wRFev9YJVlVN2L1NYIShnX
-	3hIhlEjePseK4MwO1oBGNVrRA+W9wMaAMM+kK91XOWN9mF+JWkCrmQAS1wspK5s7VxCR2kqY1Cq
-	WRMRcrT9e0RnX83atvcFqod9bSy/fbu8oQpgyESvx9HuqFgZJX8Y4datHsRRStXCQCSmVEI9O2x
-	hUARVIz1z2Kq3nMkNb/PFECvYYFneHtlNQTK+hKxjhQd00HuPcymt/tHT+mHu/k5wdNFpMdLPJQ
-	I/vwLuhEE8DEXwHnJhcAuvoc6HED9s4NzimPiZ0uNxcDoWHFaD/3onUW5mHvCO/TCX2G3gDisiL
-	veC6HUx48ZYM4fo5uMAyUdrBDD7JHImLYVTdpWI+
-X-Received: by 2002:a05:6000:29cc:b0:488:8850:50ec with SMTP id ffacd0b85a97d-48e264d4203mr8976716f8f.46.1792701741736;
-        Thu, 22 Oct 2026 13:42:21 -0700 (PDT)
-Received: from dohko.chello.ie (188-141-5-72.dynamic.upc.ie. [188.141.5.72])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e37edcf9csm476853f8f.4.2026.10.22.13.42.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 13:42:21 -0700 (PDT)
-From: David Carlier <devnexen@gmail.com>
-To: Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>
-Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	=?UTF-8?q?Thomas=20Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>,
-	linux-trace-kernel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	David Carlier <devnexen@gmail.com>
-Subject: [PATCH] tracing: Define common event fields before enabling boot events
-Date: Thu, 22 Oct 2026 21:42:18 +0100
-Message-ID: <20261022204218.1222647-1-devnexen@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CJyr09h1
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C5A531F01829;
+	Thu, 22 Oct 2026 20:44:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792701882;
+	bh=jlxncGVxFpDK01Emwf1U5Zgiqw0FwYi9EULoLejK12k=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=CJyr09h1dL75Ikg9c1ncuVXJFgFKylIswGGHvDKqT/RjSgnB7qNhYNwzEicodYYA3
+	 nBknJPS46IQZ+DS/Yas3bOx/ps8Ds6cMOEG7DXVxbaSfi0VaKcgTvXdU2eNE+6YV0s
+	 CimepLsxhxhDy/hT76eN0VLq3wbRjhavCjSXFwzjh318WDkMmpiiYZQ1Ibs42U1WiE
+	 y2ZM7+ZtcuGg1reNDoj8cWZ63Im7NJGDoYBqIsJcJbh5ec6JMD7tY06PCQx3HOXL3n
+	 FMg9WHHM3DCmFnDKsrZxJwsQwqGi5VL3gX9ToU68hQTBPPu9aOKnlhkNwMdt0lpqB9
+	 Pe7kutQkpFlRA==
+Date: Thu, 22 Oct 2026 22:44:32 +0200
+From: Alejandro Colomar <alx+linux-hardening@kernel.org>
+To: Steven Rostedt <rostedt@goodmis.org>
+Cc: Kees Cook <kees@kernel.org>, Bill Wendling <morbo@google.com>, 
+	"Matthew Wilcox (Oracle)" <willy@infradead.org>, Andrew Morton <akpm@linux-foundation.org>, 
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, David Gow <david@davidgow.net>, Petr Mladek <pmladek@suse.com>, 
+	Shuvam Pandey <shuvampandey1@gmail.com>, linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org
+Subject: Re: [PATCH v5 06/12] seq_buf: Add seq_buf_strlen()
+Message-ID: <atp1fpREBhWiytaH@debian>
+References: <20261005155653.late.426-kees@kernel.org>
+ <20261005155708.1471260-6-kees@kernel.org>
+ <20261016145928.16eddc9a@gandalf.local.home>
+ <202610221058.C5626C5172@keescook>
+ <atpmAQ932J3_8IvJ@debian>
+ <20261022155726.7f20c4cb@gandalf.local.home>
+ <atptYsHyS6YGtzPV@debian>
+ <20261022162000.18aa4162@gandalf.local.home>
+ <atpyCU3fDyU95hbY@debian>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,33 +66,158 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="33adycpuwhpuz37o"
+Content-Disposition: inline
+In-Reply-To: <atpyCU3fDyU95hbY@debian>
 
-event_trace_enable() parses trace_event= filters before
-event_trace_init_fields() has defined the common and generic fields,
-so a filter on common_pid or comm fails and the event stays off until
-event_trace_enable_again().
 
-Fixes: 084100a1b579 ("tracing: Parse filter from boot event string")
-Signed-off-by: David Carlier <devnexen@gmail.com>
----
- kernel/trace/trace_events.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+--33adycpuwhpuz37o
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx+linux-hardening@kernel.org>
+To: Steven Rostedt <rostedt@goodmis.org>
+Cc: Kees Cook <kees@kernel.org>, Bill Wendling <morbo@google.com>, 
+	"Matthew Wilcox (Oracle)" <willy@infradead.org>, Andrew Morton <akpm@linux-foundation.org>, 
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, David Gow <david@davidgow.net>, Petr Mladek <pmladek@suse.com>, 
+	Shuvam Pandey <shuvampandey1@gmail.com>, linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org
+Subject: Re: [PATCH v5 06/12] seq_buf: Add seq_buf_strlen()
+Message-ID: <atp1fpREBhWiytaH@debian>
+References: <20261005155653.late.426-kees@kernel.org>
+ <20261005155708.1471260-6-kees@kernel.org>
+ <20261016145928.16eddc9a@gandalf.local.home>
+ <202610221058.C5626C5172@keescook>
+ <atpmAQ932J3_8IvJ@debian>
+ <20261022155726.7f20c4cb@gandalf.local.home>
+ <atptYsHyS6YGtzPV@debian>
+ <20261022162000.18aa4162@gandalf.local.home>
+ <atpyCU3fDyU95hbY@debian>
+MIME-Version: 1.0
+In-Reply-To: <atpyCU3fDyU95hbY@debian>
 
-diff --git a/kernel/trace/trace_events.c b/kernel/trace/trace_events.c
-index a1ac2a02f4e2..e52351dd0e5e 100644
---- a/kernel/trace/trace_events.c
-+++ b/kernel/trace/trace_events.c
-@@ -5022,8 +5022,8 @@ void __init trace_event_init(void)
- {
- 	event_trace_memsetup();
- 	init_ftrace_syscalls();
--	event_trace_enable();
- 	event_trace_init_fields();
-+	event_trace_enable();
- }
- 
- #ifdef CONFIG_EVENT_TRACE_STARTUP_TEST
--- 
-2.55.0
+> Date: 2026-10-22 22:38:12+0200
+> From: Alejandro Colomar <alx+linux-hardening@kernel.org>
+>
+> Hi Steven,
+>=20
+> > Date: 2026-10-22 16:20:00-0400
+> > From: Steven Rostedt <rostedt@goodmis.org>
+> >
+> > On Thu, 22 Oct 2026 22:11:27 +0200
+> > Alejandro Colomar <alx+linux-hardening@kernel.org> wrote:
+> >=20
+> > > Agree.
+> > >=20
+> > > But still, a better design would do:
+> > >=20
+> > > 	static inline void
+> > > 	seq_buf_set_overflow(struct seq_buf *s)
+> > > 	{
+> > > 		s->p =3D NULL;
+> > > 	}
+> > >=20
+> > > This is way more robust, and also easier to understand.  My head is
+> > > boiling when trying to review this patch set for correctness.  That's
+> > > not a good sign.
+> >=20
+> > But that loses all data. We still want access to what was written.
+>=20
+> No, it doesn't lose data.  My proposal is to have this:
+>=20
+> 	struct my_seq_buf {
+> 		// .buffer points to the start of the buffer
+> 		char  *buffer;
+>=20
+> 		/* .p points to the current position.  This is the last
+> 		 * '\0' that has been written to the buffer.  On
+> 		 * truncation, it is a NULL pointer.
+> 		 */
+> 		char  *p;
+>=20
+> 		/* .end always holds ARRAY_END(buffer).  It is a pointer
+> 		 * one-past-the-last character in the buffer.
+> 		 */
+> 		char  *end;
+> 	};
+>=20
+> This would be initialized as (of course, wrapper in static inline
+> functions as needed) this:
+>=20
+> 	char            buf[100];
+> 	struct seq_buf  b;
+>=20
+> 	b.buffer =3D buf;
+> 	b.p =3D buf;
+> 	b.end =3D ARRAY_END(buf);
+>=20
+> Then, you would write to it as:
+>=20
+> 	b.p =3D stpecpy(b.p, b.end, "foo");
+> 	b.p =3D stpecpy(b.p, b.end, "bar");
+> 	...
+> 	b.p =3D stpecpy(b.p, b.end, "baz");
+> 	if (b.p =3D=3D NULL)
+> 		goto fail;
+>=20
+> Then, at some point, you might want to initialize a new buffer out of
+> the remainings of it:
+>=20
+> 	struct seq_buf  b2;
+>=20
+> 	if (b.p =3D=3D NULL)
+> 		goto fail;
+> 	b2.start =3D b.p;
 
+s/start/buffer/
+
+> 	b2.p =3D b.p;
+> 	b2.end =3D b.end;
+>=20
+> See how simple this becomes?  (So much that you may doubt the necessity
+> of the set of APIs at all, but they don't hurt much either.)
+
+I didn't mention it, but I think it's obvious: you can still read the
+string by reading 's.buffer'.
+
+
+Cheers,
+Alex
+
+>=20
+>=20
+> Cheers,
+> Alex
+>=20
+> >=20
+> > -- Steve
+>=20
+> --=20
+> <https://www.alejandro-colomar.es>
+
+
+
+--=20
+<https://www.alejandro-colomar.es>
+
+--33adycpuwhpuz37o
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmradbAACgkQ64mZXMKQ
+wqmSZQ//exn/b6LJ5pZotM1Ld0/oThPZEK0iZZrF2VSlfy0HWZy507IwDSNzrFG/
+XvFjkByM/dlvHzIHW34EKPK/5PGGUm8Yk9yv1ecPhcr+GiukQrgvHEshFSmz8+kN
+NxCrB9Sb3FTE6QqA11P1eayg3N4FA45tn0ogpigi0l0CrWgPXeEmzKjIJnez05OP
+NgBG8wjWp/wmbKLr96oEYvAr8/fG0xah6mKewplwLZ42/A75XJ2/N9wZLvnZ0gr+
+/pMOW+mUwxopF/aVsvFkzdUJxQ1wCls1Y1S5C3lEhF95e3Ht5Gqm7cjfjbHQelhy
+ka8Ld1aLl2E7txHwsGKvDFZr8JN8C0ErsblYHCHaZqc4YMEFjxChHgyul2LvZ3wj
+yvhZCkzMd4D+IAvhAdPNqKrTT+EPn9kmnAaYQztccOE1dYF9LoLTgMSKfGd0DUn0
+cSKWGRT+wBFTXwIGbWz8DZmK1Wu06phqkk8y4hrj5NJw1iXcjpt92OGm/fm7mCJ3
+KbkqQvhxnXLXnuLChbvuDCRWT6YT2DWE3YNfSjxb2kcaDC5GNVPg4gl1HOT00+OT
+6jYiFkSISx9SK3EAah+j4M4r2HVXUDdFaMO7sl7jVpi9T74b8/5HIfRvQ5V/KKps
+QmujfAnkDemG4mAb5yakkY00VIe6Wz0ftw09m3DhuFfyZvbUFXs=
+=I9WC
+-----END PGP SIGNATURE-----
+
+--33adycpuwhpuz37o--
