@@ -1,104 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.181
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.225
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792707454;
-	b=x4n8sWejCr2XL77MOfMXpuUYxW9qvuo9zdBUn1/cSnS4o5JSsiPPBKU9169fe6cYXA0B
-	 TfYGM6u98odBVgE51clpnGSqPY2qK8zR0mToW1pV8Qxa4qoQ3zhcHMiCjoUD/e9zX1kp+
-	 7bSiNQDzArByK8vy8K2EGdkycjTCAMBcIv/+TkavFcCaSj0FExBAXgeKIBPMPESdux3px
-	 RN7zp009Q8K4k6ZPfYFjLG9PIj7n19LNqvkKRnOTBbFixiuPoWGywQN0hllsciPk+jWwu
-	 9WFRJPon2fG/JOpKQeaD6dfE9DiRvrEYmSyfdyZEqTl39jONe1Ys4UJy76+/W/dGQyQ==
+	t=1792707463;
+	b=r+njmGqJ+8R1h2qjNwi84cPpPHGx4Mji7OEfcZVvOU1H3AUXwkFOLFpHwhv5uQl9iVq2
+	 JYiXANof36mrJdC8KzJ4F55WLUIpZp2wiqGN0fzij+qn+bMBQByYKUUGStDCbSlmUOAOF
+	 w1ZX7eTdlNA/BVhwPn327RknLZ/jP0PnmR4bevtCXvCXGwboACPAtbWCJDTJSC4PG5JoU
+	 G5zbpHgcksv3UTnUAMskA7JN88RVt5G8DfyxdoIRJqMgSnzn5QkR34EpEdfLL2j8w157b
+	 ggbU6UkQsaGxaqfAjV0YEwZ0d5T91izYXA5GuHW8htk+DsYIw4u/k/QgRBjilDNs+Dw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792707454;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792707463;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=/WIkpltfnb+vy/iRWdcQeenTOR+kthNZwD1BDIJsCtY=;
-	b=eF5DFtQxuk4BW2nnX0t9Na5SZ/9UXSKHxHyUJg34yaHC3GdGjp6cxy02rP7LTxNSw5RM
-	 +lQvLidQpKyUAwM0duUasM/VFUzXLFU8qLQJdtjDfPGz2MAI01zH8d+EKUdqfDwq9jclN
-	 aHDo5Lx2ZHLBpYDRRW6WOJG2VBP93bbIqlYZ7AoyuJBVGMZk2op4rwsqgsgIDRTE61/AN
-	 fdHKmNZ2J6XxwZQCtZfB0Mjo9UOn7i35aRWnQHTgOdRA6rnQgc3nZ+piRW+vOpGpiM44Z
-	 PIWPVaUvQpQzrjYYSDx8s+T1qhEbbqTK+aS9Dj+bm3xBrYQa5Lioq0qRecsOQto+msA==
+	 X-Relaying-Domain:Received:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=YNahYpdiHw66I6uTFiHrxOfpUUmCwHBpQrn5JBUBdX0=;
+	b=ZCtoKjgkUCnMSd7/jfnFeg3CzAdcz67MOmeY1LkTJwddjSOl3MXHJeIn6+134/fR3t9q
+	 RZrjGrJ2tnuAjW+i9uIE8V5w7qTP8ekjMKgOXe5zP9Qbj4hxXVqekaSgfEVMDDT2aXXXR
+	 96973Mu3Gn+YQVvGbXkSKwhxNkhr6n4YshEyRy+6d3qMTc8cb5puJZ9cbQSvhjH/v9YIp
+	 z7fnRoehlZOx75vTCBNkcnalb/a3slBu+1z/Dm+kOj4gNu0qQobiWWdJXelbiltOnu0Ao
+	 8XheSOna05EvL53mdUnswyVgSsplh626VIjVsPyIH6SXBNwakF0aeRqW9ckLO7+XFUA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=JFpZ94Ob;
-	arc=none smtp.remote-ip=209.85.221.181
-Received: from mail-vk1-f181.google.com (mail-vk1-f181.google.com [209.85.221.181])
+	dmarc=pass header.from=purestorage.com;
+	spf=pass smtp.mailfrom=purestorage.com;
+	arc=none smtp.remote-ip=209.85.214.225
+Received: from mail-pl1-f225.google.com (mail-pl1-f225.google.com [209.85.214.225])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2A57606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 22:17:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E2A57606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=JFpZ94Ob
-Received: by mail-vk1-f181.google.com with SMTP id 71dfb90a1353d-5eafa528803so130977e0c.1
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 15:17:33 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F34F606A320
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 22:17:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5F34F606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
+Received: by mail-pl1-f225.google.com with SMTP id d9443c01a7336-2e987a2ba0cso1674995ad.3
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 15:17:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792707453; x=1793312253; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=/WIkpltfnb+vy/iRWdcQeenTOR+kthNZwD1BDIJsCtY=;
-        b=JFpZ94Ob3Fm6+qT3OvTYTxeHkpIEU9c+VZ8lDQaWmzPXF/uzU7JrLsmPMCYrUuiLQZ
-         1Wtx830OvhlAppc3G4T8svioQktLUvKgcZ1KZ3v03L38/G98omE3XjY0OAmiH6DmV3ar
-         iNs2BkVv9aPFu0Ck7fqp1MbCrDMvzbcrKtbLnpRYO9esYY5a0rpVfaZeST8FDrRLZ0rw
-         JL3+G/uUiDflNKH7CHP3Nlk/zXwq97RxcLtFlvcXrIBOpsXfAHtyPvsF09Lqb76JVHHq
-         jYyQMy7aMRjpbqqg/cZb2pE3wbP8ckVY5j9uytlgLoOjBec8ATLlTrk36iNJhhBXKKlS
-         n3Ew==
+        d=purestorage.com; s=google2022; t=1792707457; x=1793312257; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=YNahYpdiHw66I6uTFiHrxOfpUUmCwHBpQrn5JBUBdX0=;
+        b=ITdXEEFwOsKvT22iHUZFrynJxZnWnuXSRIjKtFYLTUPo+CPVpGf4DJwgUQK+asp28r
+         rxfE1Q820IdErvASV5C0Nb5Yi1+B+5cK3QyA4UGS7U68YSI2vAOab3c6BjurOxQQ4OU2
+         ySAwgGVlP4vX1MbiKQop7GR9GlGYCHs99BSCCuw8nnPtkZhbOXSjhO1t7qme1+83tecA
+         gRC07vMD/kfFDpl45eS76+ZAcs2crPcvQD6TgnJXzpAJPpwboU+eFgRrhRjSVB4Umov3
+         CkSsdQXSVQioBPhdFTWrKpnQHAPvZO1Nvn1H9EG9crVvlszx1lJFyJsJA4swEbkmeJYG
+         km8Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792707453; x=1793312253;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/WIkpltfnb+vy/iRWdcQeenTOR+kthNZwD1BDIJsCtY=;
-        b=j/mCfNo2+uGxi97VZjk5yMcp8rXYYG0dnMnyCa8hiqbimEVGCZNeDjSQ52wpaF2i21
-         rs8uJRZHSEfT3cnLHpfVQqf6nU4b9uHASBS635nXrOHmXjhkIlINH2vIu3OBiYlZCTUP
-         NG2NgEeYHdcidCu8+iBD1VZ0Nav2TAKBiKVsleGL94KYU9vBIpooMdb9yiT6jpMXInnk
-         borhgDXj6iY7BPaW5DJ34BYTfiOTwfr5YEIGOF10jLHicqxqxteWdOTyOx2Ac8jtslW8
-         n+g5RcQS/nODpUi/GZcr4j7UEdAvz4yDEuv9tuSmKbFW1PRmSQqFOeOTswx8sl5+5VLb
-         29Vw==
-X-Forwarded-Encrypted: i=1; AKwUvBwwfibj5jXrTmJm2PVwrvKzKpA4Uk022/pLfxFwHjpsTiyS5Gid03OyoMZJJ/MMKsAkiJY/HDfDk5QbnxU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIbLgbfaV4uOLt8HfkYwYJD3d40HZ8GSLeYxnk7/y0b9JZZwQlo
-	rQ0vjJzJZ1VPJEZw8b1JleEQDBYHau84mwE+l1RlGTovKY+HPhW2Qv7v
-X-Gm-Gg: AYBFou2/RymjlOHKRRX1Q/VL2U04kTtAfaGkgnNj1ZY6BJJOkmNAgV2u2qEpWuUxAvw
-	fY6QcXSpho/kkLVdoO/nD0VReaYhNrs/0RhiadVv5VDrN5x8veTR0ap+6pbH72BG1O+9HWgJ3YB
-	gYEBdZd41rS+jA+qyMe051jMdguQV6ndFwxleRFFv9cI4CdVSysH8gpSLaTneeUWLj5Djlfw5l1
-	Lwuuxt5hFmhQ71zC/oTh6efNwsRkx3xK+SCPhLXSjk4T+m8TwgavtlpnhVcOclwEqRKadkeAXYu
-	eo9mwLHSQCweOIrvDwFqqIpuyBG/6wu5BUHIdl0LSEpw0U0E4HFIY1L/uQarLhDKp3kaP1vWfhZ
-	mu//agNG9SnnQcFAd9xJqMd00QP5WQpR5UwKExxrsT2GftVqAgbdVf18+HywKs7EPEZb6ENvrkj
-	Y85Wj+x1ipsS4dcv1a7RLSm3LOIuS0tcTTygUTCK38+bOB3ivfqkRCEtyrmU6Vo0xUjpSK9yi1j
-	S3RpOw0NmZvRvhhknfCbjki1AKxSiODYKFD/Wyld77j4Be+oA==
-X-Received: by 2002:a05:6122:178c:b0:5ea:ae99:9b2c with SMTP id 71dfb90a1353d-5ec14ab087cmr87153e0c.14.1792707452787;
-        Thu, 22 Oct 2026 15:17:32 -0700 (PDT)
-Received: from unix.. ([181.229.23.179])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5ec13f2cfe0sm456271e0c.14.2026.10.22.15.17.28
+        d=1e100.net; s=20260707; t=1792707457; x=1793312257;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=YNahYpdiHw66I6uTFiHrxOfpUUmCwHBpQrn5JBUBdX0=;
+        b=gjxh//XMDGjc2ElgcLFCaJQdTlZ09ABV5YHzRtAj5EhNT+bzCwPW9G8I4aEUEDQ8Vv
+         WjfsPxHfCGCTBiON4uqiPhBFdHgf2LO0+UeOhiQhURrNjzF3BMlrb1nej2yb7uaoXu+W
+         vdB1a/A6SI1cn7LNWFvvgdJs3q4L3R4D4HCSRg4IISfHXr/SEDQQnWUXc6Abrvt3tkJc
+         OoniyC4N4vzxiLXfHbU3Qw8qlVHjf3jfuubVungC54PuUAYnuT8U+PBc75mRzjvTZ/u7
+         n+ZfZ3/KDJJFCHkRtzRPbMBEeuBnxoJAJHHP2aC84z36gG0fAGY2ZEG4xwhG5wQpsNtx
+         Lc8Q==
+X-Forwarded-Encrypted: i=1; AKwUvBz4K9sN64foznEJ8QJ+RLimbs+wKKlr8ZFER7/PLQMMGEwFKzNz1Wo4nIYq6JM+aiZ/WRPn/UM5n2X9PY0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIUutROEJ2ns76wNjsKmbwBLTRR7F1tMW1JktXkDXtfJq+s//kx
+	/bzZWfd0CHXK8pQkUTR8EespNNV8scgF+bz2sRCqDRTiLqP/VeCe7IIe4bF+3+4XrHhK+qNJsBA
+	G/tnLXOwTtI2ewFcMijVSX7UOIgmPiBSWSeF+tVb7tTJlB6oNKDfU
+X-Gm-Gg: AYBFou1Hlag2WuC0rNip7PELITyPbdXNGT8kpUgwvM3KWkS9PKwfl7csyjunVFIIznp
+	g7QrxnuiWKyQHf9TUhXAraUmqZjgBBdas4QWC+oYr3Cq5Exb/HnWyzH7KoJQakgyhRHMZfCmw+f
+	qyEzNG5qa0eJEuxBBjyLMjP4PL4mObncZTYZEkDANBDRbumqbSZisEOYRt11aiE1sqTTFCqBSlf
+	uir6O5aV9YY5pVAhjHsRsQJM5ZqRaYqlXddkkKwlQNabs2tJkwrcJpIWlovDisTDQ7CFI+22jzZ
+	p/p0TPZPe+HE1wx0iHP5oqDBEOTzc0oosN5QQ4ILhiSsEaa2jHcjiZEW2W8tRXvAeCVdmZIQdVy
+	0Sk1bbM5Q43ZzMUOIppY=
+X-Received: by 2002:a17:90b:1d01:b0:3a4:b30b:b501 with SMTP id 98e67ed59e1d1-3adce0c8601mr212606a91.9.1792707456674;
+        Thu, 22 Oct 2026 15:17:36 -0700 (PDT)
+Received: from c7-smtp-2026.dev.purestorage.com ([2620:125:9017:12:36:3:6:0])
+        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3ada48fcfd9sm2854915a91.6.2026.10.22.15.17.36
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 15:17:32 -0700 (PDT)
-From: =?UTF-8?q?Iv=C3=A1n=20Ezequiel=20Rodriguez?= <ivanrwcm25@gmail.com>
-To: Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	x86@kernel.org
-Cc: "H . Peter Anvin" <hpa@zytor.com>,
-	Shuah Khan <shuah@kernel.org>,
-	Christian Brauner <brauner@kernel.org>,
-	Rick Edgecombe <rick.p.edgecombe@intel.com>,
-	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	=?UTF-8?q?Iv=C3=A1n=20Ezequiel=20Rodriguez?= <ivanrwcm25@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2 1/2] x86/shstk: free shadow stack when copy_thread() fails
-Date: Thu, 22 Oct 2026 19:17:20 -0300
-Message-ID: <20261022221722.619233-2-ivanrwcm25@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261022221722.619233-1-ivanrwcm25@gmail.com>
-References: <20261015023147.519257-1-ivanrwcm25@gmail.com>
- <20261022221722.619233-1-ivanrwcm25@gmail.com>
+        Thu, 22 Oct 2026 15:17:36 -0700 (PDT)
+X-Relaying-Domain: purestorage.com
+Received: from dev-rjethwani.dev.purestorage.com (dev-rjethwani.dev.purestorage.com [10.17.2.234])
+	by c7-smtp-2026.dev.purestorage.com (Postfix) with ESMTP id 01C50439BE;
+	Thu, 22 Oct 2026 16:17:36 -0600 (MDT)
+Received: by dev-rjethwani.dev.purestorage.com (Postfix, from userid 1557719937)
+	id F374ADC48A1; Thu, 22 Oct 2026 16:17:35 -0600 (MDT)
+From: Rishikesh Jethwani <rjethwani@purestorage.com>
+To: netdev@vger.kernel.org
+Cc: Rishikesh Jethwani <rjethwani@purestorage.com>,
+	John Fastabend <john.fastabend@gmail.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Sabrina Dubroca <sd@queasysnail.net>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net v2 1/4] tls: device: fix record start in the tls_device_decrypted tracepoint
+Date: Thu, 22 Oct 2026 16:14:57 -0600
+Message-ID: <20261022221732.1397620-2-rjethwani@purestorage.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20261022221732.1397620-1-rjethwani@purestorage.com>
+References: <20261022221732.1397620-1-rjethwani@purestorage.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,79 +106,104 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-copy_thread() maps a shadow stack for a CLONE_VM child and can still
-fail in set_new_tls(). That error returns through bad_fork_cleanup_io,
-which does not call exit_thread(). bad_fork_cleanup_thread does, but
-only after copy_thread() has returned 0.
+tls_device_decrypted() reports the TCP sequence of the record it is
+classifying as tcp_sk(sk)->copied_seq - rxm->full_len. The original
+strparser read every record out of the TCP receive queue before the TLS
+layer looked at it, so copied_seq had already moved past the record.
 
-commit 748c90c69336 ("x86/shstk: Remove useless clone error handling")
-removed the shstk_free() on this path, assuming exit_thread() would
-run. It does not. Each rejected clone leaves one shadow-stack VMA in
-the parent's mm until the mm dies: one map_count slot, pages not
-populated. The size follows the clone stack, or RLIMIT_STACK when
-that size is zero.
+The TLS-specific strparser leaves the record in the TCP receive queue in
+its normal mode and only calls tcp_read_done() from
+tls_strp_msg_consume(), after decryption. When the tracepoint fires,
+copied_seq still points at the first byte of the record, and the
+reported tcp_seq is one record length too low.
 
-Free only after set_new_tls() fails, via a dedicated cleanup label.
-Nest the TLS error check under CLONE_SETTLS so the successful path
-returns 0 explicitly. The allocation error returns earlier, while
-the child's base still aliases the parent. shstk_free() ignores a
-cleared base and a different mm, so CLONE_VFORK and !CLONE_VM stay
-no-ops. The exit_thread() path is left alone, so the double unmap
-that commit avoided does not come back. The io bitmap is still
-shared only when TLS setup succeeds.
+In copy mode (e.g. when the receive queue is short under memory
+pressure or with a collapsed receive window, or the record spans
+overlapping or mixed decrypted/undecrypted skbs), tcp_read_sock() has
+already advanced copied_seq past the record. It can also consume a FIN
+that ends the record's last skb, which adds one byte of sequence space
+absent from the record length, so subtracting the length reports a
+start one byte too high. copied_seq cannot tell whether a FIN was
+consumed, so the start must be saved before the read.
 
-Tested with user shadow stack enabled, on one config with and without
-this change. Sixteen clone3() calls with CLONE_VM|CLONE_SETTLS and an
-out-of-range TLS leaked 16 shadow-stack VMAs without the fix. With it,
-the VMA count was unchanged and call/return on the parent still used
-the original shadow stack.
+Record the TCP sequence in the strparser whenever it starts parsing a
+new record, before anything can switch it to copy mode, and report that
+via a new tls_strp_msg_seq() helper. The value is then valid in both
+modes without having to track which path entered copy mode.
 
-Fixes: 748c90c69336 ("x86/shstk: Remove useless clone error handling")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Iván Ezequiel Rodriguez <ivanrwcm25@gmail.com>
+No functional change beyond the tracepoint argument.
+
+Found by code inspection while working on TLS 1.3 hardware offload
+support.
+
+Fixes: 84c61fe1a75b ("tls: rx: do not use the standard strparser")
+Signed-off-by: Rishikesh Jethwani <rjethwani@purestorage.com>
 ---
- arch/x86/kernel/process.c | 13 ++++++++++---
- 1 file changed, 10 insertions(+), 3 deletions(-)
+ include/net/tls.h    | 2 ++
+ net/tls/tls.h        | 6 ++++++
+ net/tls/tls_device.c | 2 +-
+ net/tls/tls_strp.c   | 3 +++
+ 4 files changed, 12 insertions(+), 1 deletion(-)
 
-diff --git a/arch/x86/kernel/process.c b/arch/x86/kernel/process.c
-index 346c438ac880..451594fa5481 100644
---- a/arch/x86/kernel/process.c
-+++ b/arch/x86/kernel/process.c
-@@ -176,7 +176,7 @@ int copy_thread(struct task_struct *p, const struct kernel_clone_args *args)
- 	struct fork_frame *fork_frame;
- 	struct pt_regs *childregs;
- 	unsigned long new_ssp;
--	int ret = 0;
-+	int ret;
+diff --git a/include/net/tls.h b/include/net/tls.h
+index e57bef58851e..e1e48a25cafa 100644
+--- a/include/net/tls.h
++++ b/include/net/tls.h
+@@ -123,6 +123,8 @@ struct tls_strparser {
+ 	bool msg_ready;
  
- 	childregs = task_pt_regs(p);
- 	fork_frame = container_of(childregs, struct fork_frame, regs);
-@@ -263,12 +263,19 @@ int copy_thread(struct task_struct *p, const struct kernel_clone_args *args)
- 	}
+ 	struct strp_msg stm;
++	/* TCP sequence of the first byte of the current record. */
++	u32 seq;
  
- 	/* Set a new TLS for the child thread? */
--	if (clone_flags & CLONE_SETTLS)
-+	if (clone_flags & CLONE_SETTLS) {
- 		ret = set_new_tls(p, tls);
-+		if (ret)
-+			goto shstk_free;
-+	}
- 
--	if (!ret && unlikely(test_tsk_thread_flag(current, TIF_IO_BITMAP)))
-+	if (unlikely(test_tsk_thread_flag(current, TIF_IO_BITMAP)))
- 		io_bitmap_share(p);
- 
-+	return 0;
-+
-+shstk_free:
-+	shstk_free(p);
- 	return ret;
+ 	struct sk_buff *anchor;
+ 	struct work_struct work;
+diff --git a/net/tls/tls.h b/net/tls/tls.h
+index 60a37bdaaa25..a9f7fd79c69e 100644
+--- a/net/tls/tls.h
++++ b/net/tls/tls.h
+@@ -227,6 +227,12 @@ static inline bool tls_strp_msg_mixed_decrypted(struct tls_sw_context_rx *ctx)
+ 	return ctx->strp.mixed_decrypted;
  }
  
++static inline u32 tls_strp_msg_seq(struct tls_sw_context_rx *ctx)
++{
++	DEBUG_NET_WARN_ON_ONCE(!ctx->strp.msg_ready);
++	return ctx->strp.seq;
++}
++
+ #ifdef CONFIG_TLS_DEVICE
+ int tls_device_init(void);
+ void tls_device_cleanup(void);
+diff --git a/net/tls/tls_device.c b/net/tls/tls_device.c
+index f11d0528fc43..fbfe6ec3df04 100644
+--- a/net/tls/tls_device.c
++++ b/net/tls/tls_device.c
+@@ -990,7 +990,7 @@ int tls_device_decrypted(struct sock *sk, struct tls_context *tls_ctx)
+ 		is_encrypted = 0;
+ 	}
+ 
+-	trace_tls_device_decrypted(sk, tcp_sk(sk)->copied_seq - rxm->full_len,
++	trace_tls_device_decrypted(sk, tls_strp_msg_seq(sw_ctx),
+ 				   tls_ctx->rx.rec_seq, rxm->full_len,
+ 				   is_encrypted, is_decrypted);
+ 
+diff --git a/net/tls/tls_strp.c b/net/tls/tls_strp.c
+index 6cc222008d95..5d5e8c3fd5ad 100644
+--- a/net/tls/tls_strp.c
++++ b/net/tls/tls_strp.c
+@@ -526,6 +526,9 @@ static int tls_strp_read_sock(struct tls_strparser *strp)
+ 
+ 	tls_strp_load_anchor_with_queue(strp, inq);
+ 	if (!strp->stm.full_len) {
++		/* Save the record start before copy mode advances copied_seq. */
++		strp->seq = tcp_sk(strp->sk)->copied_seq;
++
+ 		if (inq < TLS_HEADER_SIZE)
+ 			return tls_strp_read_copy(strp, true);
+ 		if (!tls_strp_check_queue_ok(strp, TLS_HEADER_SIZE))
 -- 
-2.43.0
+2.50.1
 
