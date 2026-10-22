@@ -1,99 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.179
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792674769;
-	b=RKv6L9PCNsxDfyQLMJAo3VgXavQQ/yLe+sCfwSGo2FvdPCX84PJIA1vVPh+7GNwmztDP
-	 8df2mOTk3jKezIIM4eAonThQaBTt2SXTdDeSCDeZ71lZ9A2n2ePvsg4fAXjuhytcz/VnX
-	 drGH8aWXZu35GutCgJ4xfp7JfT+E9euBJRP2ArrUuhiCLFD2+YawtdXVHzFI2Z0kwNrTd
-	 F438AinTayC+dE/JzdjycupSyBnEGc7KN7a/dZTYdffPqho68iEKTIpeNkRMgp0chrazy
-	 BpXg9byVFCj+EIi6ScC4Coos0p42nsx9fgKC60T8lUvgRBO/0JBHaIF/TNq1YX6MoVA==
+	t=1792674797;
+	b=Lphw/CajLqF9bZ84hI2fpRoLUT4+S22EqKH2L72MM861WoHJ7zd/lc07GvoGs3ypEd+U
+	 Y65cFe7slgQt819Rf74puce1I2sdKKpduAE0blD3ZQ+9MFygiza9ck2kjT3LJbqUOjWpR
+	 W5HTwG+bWdeq0p0P61IgUIo742Nko9sRGRA/1p1jN3dbotM+qLbEYzAlunvPOX9iZkicd
+	 DPLoc8mkbTizi2DEfiw/UcZ9dv2pfXuTNZ5I22ZRLJMMjZkBSobZCH0EbPrw1vDvrup9v
+	 YL0KNEn4jgfLNDT2UDz0sFuRSbGkiHhPZ10n6mIJhKr6Zr6DHXtLZ5QmaVbT70IOEhg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792674769;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=nfYEKhh0NOwW5bByBsDPAiJ4npQywhU8FLsAEbKDB48=;
-	b=lYujOMnXseYqgub8r7v3LQVfqQRdQRdN7vrCIJLdcYWHgbhUsd7S8E/UZ3/U6cGN2S+x
-	 mBTC+AKbBrVTIwDuErc/VR4oDi0SCimF+fpP+H6ACQfBKsXBq+j1wMNKbbjPZoe9jt+N9
-	 ym5IYISiyeMzCLsyhUD0+1od7cyOStMAyE31iNE+wreZOveDz7mIcYFAuMmob1VRThhG0
-	 hlflw0h9tuQGglnHWlhKS1fuge5nFYZHyVYfQcl9liUrzdBNjfF1DRUNCoQHratK8SrXt
-	 uAl7THzvL65VKB2OEbW/pkzIE8d6ky6inopbQ2P907vufl99OG06dsGvo+zIFnbkXHw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792674797;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=xlaV1V+yQ3J8w/w8Ck84D01xkjHZK2MyUGosH96xsm4=;
+	b=SODFDxOuYnUTM9ndsFzdfgdAmqq1h4NmlQRouTgh73DrzdyOgdudus372ScXGeTTg7Wm
+	 Ts9/65uhfu2zLOAvSJ5Z1fJDGZabkUZImO8TyInEAtKqmlC2oQCxzryjPKhP3Nm/cTixz
+	 rV3vD3AnLrjZ1Ol3b7t2z5H5r0Y8t705ZxPNkt5901SgDWRIhWD4OhQ7b3ztvFrKskvHy
+	 oo51XTC+spkQxJpOaItPYOtCCxmw3FQCoP75Gnho8ZBF0B2JB9id+5Rn1+oAF09jUdnX0
+	 IUC5rr639Ajj4+yIxhL8RvwLQc1Go48LNp2a3t8aIXR94+KSgfZOwtotrgv9cRh+nfw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=KxXoZ8Xw;
-	arc=none smtp.remote-ip=209.85.167.179
-Received: from mail-oi1-f179.google.com (mail-oi1-f179.google.com [209.85.167.179])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=DNZcQL0z;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B442606A327
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 13:12:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2B442606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40FD2606A319;
+	Thu, 22 Oct 2026 13:13:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=KxXoZ8Xw
-Received: by mail-oi1-f179.google.com with SMTP id 5614622812f47-4f488ba6e90so387637b6e.3
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 06:12:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792674768; x=1793279568; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=nfYEKhh0NOwW5bByBsDPAiJ4npQywhU8FLsAEbKDB48=;
-        b=KxXoZ8Xwh7KC2aQALTuewMxWvaHNn6UmnLWRXkdyerqGZENDMu+EfBR6edkfMvKdgc
-         kVxgq6n7IYfs19f7pP0x0wxd2WAJThGvfW4qbYt113uERGax1qPT1YyNMcY+gzKmyTzQ
-         KM/6ahsIzcVF/Z+Z9bh08ezu7HaC4vIcStgj5Y8ayIq4J5XRVIyAAGQXZPO9rlfrBAWs
-         jziHTij+XebNr+CLXAIQx4oEZSpzH51xVQdB576N1VmKF117KmzHs6qV1gwuiUOFz6fY
-         b2Yno05KXnSn46h+3DYEoRlJSWrtEGC88CJTLtlmbUwYy81ZsDIgt92VFny5a13vjJ35
-         eAdg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792674768; x=1793279568;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=nfYEKhh0NOwW5bByBsDPAiJ4npQywhU8FLsAEbKDB48=;
-        b=Hn7I5rLHor+ZnRMIlKnv0xiWQOYa/OAUpDddnOGn8EmKSLsGsNlSPYb4rZBZMI5pkD
-         3eDUfQq0+m0jfdjknNpd2OpifwgNBxPxjZQVSvThujt/9d91v+IwNwbLSpr+3hENd8Aj
-         tFXMs4WDOonsIniZo3f+4fSGxsjZ36cInT4ziwVStSrFQSp1ZxS07i3FBdLENtyKFmdv
-         63YtgrcuCtG3hWfdOHohDk+wd1ChuMxTqoD23pnwwXXAK1P6CG2PCFmL/fLFojnW7oQO
-         254hRHUSlVMhL98M35k51JSFtYJS7J5w0o+AEnLemY1EGnVSr6HhGQf3BcwRJC63Ztug
-         Wx4Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxLpE5G5XZMx6kdfIGzs3i2RSGF5hV/wQCGIu9yJfuvoozT+QJQCFhB3+IPgqqLmFYtJfxzjAJ/BFRgAEU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL18vD0X0xMRnpTHdRAr3mYu7DWJhWaWgL40E7FnH4RseFo0KIS
-	Yuw88d/AmKpapqLflDwVvlAZD7Df40cudUXWdsfJ65VlTjHhb86fP+h7Gxdg2FET
-X-Gm-Gg: AYBFou0MzQMIk9J+7dTwN0cLnv2AdKoRopswIMhGNs64t75rffijcbNlPODmLhzSUjm
-	UCaaUfuugtSrjKcPBswkpbhEQLlchgx9zZS4CpXSu8PFtIdvmNZZI+UFS0HxPJBnOCoL2kY8Jso
-	xQGr89WDaksME3Ie3GQAOqhSwFCohE12xb+WTwIfQlvWmH1pHSNcrnKpFIXQ1foAEzvEmnku0JC
-	QknP5oTw/DuTDQtelItIdF2Iql1Kti51E8JVrNobwPbiO+XfxE9FciWtcZoU89FIBI/kbGv6akU
-	w5XkicbkPfKslDYb7/gj4K0i6JXTtgrwn2feYF+cbikPZjzY6J9JsUObHAEr1k4OLmOnmOcfD2R
-	aIyPsKR9KoCQuRUnNvkDpRwSfhzjozX42aPvwelAvFcW4qGMmXrWVN0GLA1KusT1jQ+R2xlPgBH
-	f3vlqF/kTOY5goq85jNqa1KPQIhPfDeQMbrQMNLsjBcgasDDRuOPsZoM++P/b12FEtgVSCF7wwz
-	9hN50Jycsg5FrPq0ZnDSarVaA+5BUv5FvvMEb1HPKfRQqly4FtD8oAnaipyOzfyZNMDewISTiFq
-	H+FZPkhSDvqlQ10NdIvH78HC1sey12ko5OEYLA==
-X-Received: by 2002:a05:6808:30a6:b0:4b9:a88b:888e with SMTP id 5614622812f47-5535be9e63cmr3845871b6e.36.1792674768107;
-        Thu, 22 Oct 2026 06:12:48 -0700 (PDT)
-Received: from 1u1g-b650-0212.nvidia.com ([72.25.70.131])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-552b6da2902sm4259863b6e.11.2026.10.22.06.12.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 06:12:46 -0700 (PDT)
-From: Samarth Narang <samarth.colleges@gmail.com>
-To: Jason Gunthorpe <jgg@nvidia.com>,
-	Kevin Tian <kevin.tian@intel.com>
-Cc: Joerg Roedel <joro@8bytes.org>,
-	Will Deacon <will@kernel.org>,
-	Robin Murphy <robin.murphy@arm.com>,
-	Andrea Parri <parri.andrea@gmail.com>,
-	Shuah Khan <shuah@kernel.org>,
-	iommu@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Samarth Narang <samarth.colleges@gmail.com>
-Subject: [PATCH 0/2] iommu: Propagate iova_bitmap_set() errors through read_and_clear_dirty
-Date: Thu, 22 Oct 2026 06:10:13 -0700
-Message-ID: <20261022131015.3281745-1-samarth.colleges@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=DNZcQL0z
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5240B1F000C1;
+	Thu, 22 Oct 2026 13:13:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1792674796;
+	bh=xlaV1V+yQ3J8w/w8Ck84D01xkjHZK2MyUGosH96xsm4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=DNZcQL0z3lmwG2/ll8BW3r8AVu0q/Zb7r4HFXCKMxwool0fDvQs9tz2YhS4gW1UTo
+	 0/0I0JfWjZ3MrG0/Wx5ib8lt53kQ+2rbnJxNmSH76EadYFtvxInLxfTYyP4UjxtHUM
+	 haFiKTF1W4YYKMIFBVj5sIOFdLQ02Dp/PDdDDqDk=
+Date: Thu, 22 Oct 2026 15:05:27 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Jiayi Li <lijiayi@kylinos.cn>
+Cc: Oliver Neukum <oneukum@suse.com>,
+	Alan Stern <stern@rowland.harvard.edu>,
+	Michal Pecio <michal.pecio@gmail.com>, linux-usb@vger.kernel.org,
+	linux-scsi@vger.kernel.org, usb-storage@lists.one-eyed-alien.net,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] usb: uas: wait for pending commands before unbinding
+Message-ID: <2026102214-citrus-reselect-b26d@gregkh>
+References: <20261022123401.319479-1-lijiayi@kylinos.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,43 +56,129 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261022123401.319479-1-lijiayi@kylinos.cn>
 
-This is a follow-up series on a6ec38d74c08 ("iommufd/iova_bitmap: Fail
-GET_DIRTY_BITMAP when a bitmap page cannot be pinned"), which keeps the
-first iova_bitmap_set() error in the iova_bitmap so the ioctl fails. As
-Jason suggested, this series propagates the error up the call chain
-instead.
+On Thu, Oct 22, 2026 at 08:34:01PM +0800, Jiayi Li wrote:
+> USB core normally disables interface endpoints before calling
+> uas_disconnect(). This cancels pending URBs while the device may still
+> be processing the associated commands. Some storage bridges then stop
+> responding after a driver rebind and need a disconnect and reconnect
+> to recover.
+> 
+> Enable soft unbinding and block new SCSI requests before waiting for
+> pending commands to finish. This keeps the endpoints available until
+> the wait completes. Stop waiting when USB core marks the device as
+> not attached, and continue with the existing cleanup on timeout.
+> 
+> Keep requests blocked when leaving the preparation step, including on
+> timeout. Set resetting before unblocking the host so that queued
+> requests cannot submit new URBs during teardown.
+> 
+> ---
+> diff --git a/drivers/usb/storage/uas.c b/drivers/usb/storage/uas.c
+> index 2651629..58a67d7 100644
+> --- a/drivers/usb/storage/uas.c
+> +++ b/drivers/usb/storage/uas.c
+> @@ -9,6 +9,7 @@
+>   */
+>  
+>  #include <linux/blkdev.h>
+> +#include <linux/delay.h>
+>  #include <linux/slab.h>
+>  #include <linux/types.h>
+>  #include <linux/module.h>
+> @@ -1211,16 +1212,55 @@ static int uas_reset_resume(struct usb_interface *intf)
+>  	return 0;
+>  }
+>  
+> +static void uas_pre_disconnect(struct usb_interface *intf)
+> +{
+> +	struct Scsi_Host *shost = usb_get_intfdata(intf);
+> +	struct uas_dev_info *devinfo = (struct uas_dev_info *)shost->hostdata;
+> +	unsigned long flags, start_time;
+> +
+> +	spin_lock_irqsave(shost->host_lock, flags);
+> +	scsi_block_requests(shost);
+> +	spin_unlock_irqrestore(shost->host_lock, flags);
+> +
+> +	start_time = jiffies;
+> +	for (;;) {
+> +		if (READ_ONCE(devinfo->udev->state) == USB_STATE_NOTATTACHED)
+> +			return;
+> +
+> +		flush_work(&devinfo->work);
+> +
+> +		if (!usb_wait_anchor_empty_timeout(&devinfo->sense_urbs, 5000))
+> +			break;
+> +
+> +		if (!usb_wait_anchor_empty_timeout(&devinfo->data_urbs, 500))
+> +			break;
+> +
+> +		if (time_after(jiffies, start_time + 5 * HZ))
+> +			break;
+> +		if (uas_cmnd_list_empty(devinfo))
+> +			return;
+> +
+> +		msleep(20);
+> +	}
+> +
+> +	shost_printk(KERN_ERR, shost, "%s: timed out\n", __func__);
+> +}
+> +
+>  static void uas_disconnect(struct usb_interface *intf)
+>  {
+>  	struct Scsi_Host *shost = usb_get_intfdata(intf);
+>  	struct uas_dev_info *devinfo = (struct uas_dev_info *)shost->hostdata;
+>  	unsigned long flags;
+>  
+> +	uas_pre_disconnect(intf);
+> +
+>  	spin_lock_irqsave(&devinfo->lock, flags);
+>  	devinfo->resetting = 1;
+>  	spin_unlock_irqrestore(&devinfo->lock, flags);
+>  
+> +	if (shost->host_self_blocked)
+> +		scsi_unblock_requests(shost);
+> +
+>  	cancel_work_sync(&devinfo->work);
+>  	usb_kill_anchored_urbs(&devinfo->cmd_urbs);
+>  	usb_kill_anchored_urbs(&devinfo->sense_urbs);
+> @@ -1260,6 +1300,7 @@ static void uas_shutdown(struct usb_interface *intf)
+>  
+>  static struct usb_driver uas_driver = {
+>  	.name = "uas",
+> +	.soft_unbind = 1,
+>  	.probe = uas_probe,
+>  	.disconnect = uas_disconnect,
+>  	.pre_reset = uas_pre_reset,
 
-Patch 1 makes iova_bitmap_set() and iommu_dirty_bitmap_record() return
-an error, and makes the iommupt and io-pgtable-arm dirty walkers stop on
-it before clearing the IOPTE. We only clear the dirty bit after it has
-been recorded in the user bitmap, which prevents a failed
-GET_DIRTY_BITMAP from losing the dirty state of the IOPTEs. This should
-also address the case Andrea raised for the -EPROTO path: with this
-series, an entry that did not fit stays dirty for the retry.
+Hi,
 
-Patch 2 adds a corresponding selftest. It fails on the current for-next
-and passes with patch 1.
+This is the friendly patch-bot of Greg Kroah-Hartman.  You have sent him
+a patch that has triggered this response.  He used to manually respond
+to these common problems, but in order to save his sanity (he kept
+writing the same thing over and over, yet to different people), I was
+created.  Hopefully you will not take offence and will fix the problem
+in your patch and resubmit it so that it can be accepted into the Linux
+kernel tree.
 
-Tested on x86_64 in a 2 vCPU QEMU/KVM guest with the iommufd selftest
-(mock iommupt domain, CONFIG_DEBUG_GENERIC_PT=y): the new test is the
-only change in outcome, with no WARN in dmesg.
+You are receiving this message because of the following common error(s)
+as indicated below:
 
-Samarth Narang (2):
-  iommu: Return iova_bitmap_set() errors from read_and_clear_dirty
-  iommufd/selftest: Test GET_DIRTY_BITMAP with an unpinnable bitmap page
-
- drivers/iommu/generic_pt/iommu_pt.h     | 29 +++++++++-----
- drivers/iommu/io-pgtable-arm.c          |  5 ++-
- drivers/iommu/iommufd/iova_bitmap.c     | 18 ++++++---
- include/linux/iommu.h                   | 27 ++++++++-----
- include/linux/iova_bitmap.h             |  9 +++--
- tools/testing/selftests/iommu/iommufd.c | 50 +++++++++++++++++++++++++
- 6 files changed, 110 insertions(+), 28 deletions(-)
+- Your patch does not have a Signed-off-by: line.  Please read the
+  kernel file, Documentation/process/submitting-patches.rst and resend
+  it after adding that line.  Note, the line needs to be in the body of
+  the email, before the patch, not at the bottom of the patch or in the
+  email signature.
 
 
-base-commit: 04bcf84613346b973a8cc0c59238b6b5bc902688
--- 
-2.53.0
+If you wish to discuss this problem further, or you have questions about
+how to resolve this issue, please feel free to respond to this email and
+Greg will reply once he has dug out from the pending patches received
+from other developers.
 
+thanks,
+
+greg k-h's patch email bot
