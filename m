@@ -1,67 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.117.254.33
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.243.244.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792661460;
-	b=CAH6DuyiPyfwd+fOP2KPOQxVJuzZvL1mqJCdywpdq6K5xacg0dhkH33iytdUUQizn7dl
-	 CDqBBcdLIphjl2cdThcVoks0/UfxHuAsE1hmk+PvpE/RPptoXD83h5iNEqJ/rT2cWT2y5
-	 QXyDtdeYR1RDd/rf3VWzmFwsmjpcZcq7o3Xgor+X0r2GGcYHfA96GMzhrPUumYkSh83ll
-	 7yKEv3o9Q1yC4t6J/NUwhMmFENlMEs2tjbHz2fI3wD3TCz2W4838YOR8gwL3F3Dtwfh3S
-	 yBTC2MfFeBXdNxl8lFYAqd2ReS4HGuLmERc3WKpu9nN5ikShFULh1vnQ8rAsrDa26VQ==
+	t=1792661584;
+	b=k0alQCtXTV25c5hP9ClWrNs1cD6fer6RglwwXAEPrdqOsLeNm5POPZNCYb35O5iQ16/J
+	 RGcjAHYb4jwdSHc7bSfbji5L43ICsc/3eFnCw4CIQ16sO9zQaw0fyEe18k12CA9tXHmDk
+	 kWrbhPTPy3+Q5uA20VVoaiiiE6cT0eK1TImIhdmpGgARHg9Dn8Ls4QQmQLapn2EsOsXIN
+	 /BeSLwSViF7nF3fQ39chpTt+OYkOSCAD7Ks2bzsopP20f6P7EGpehuApL8rHhP6SkVpPz
+	 wSZIaJqEK8Tut/H7/a8Byk3zhD8+e3Qyi/ert+obh/OrqAU9wM1Mwk+lin8ARmuwsrQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792661460;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:X-UD-Smtp-Session:Date:
-	 From:To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=bgMmuHFkYogLF/Eeq6wTohVNZfvdHb4m4Si1W26cc2I=;
-	b=Z6rDcrjOk3tcwS8S9hHp29vPfwtG2xxvAEnV7kYlyMC8B7gODcZxt/9cAYQvQAkC8Jm/
-	 XHGCPUuhx5Rsq1RDnN+/+kJxCc2Pd0iD4/eiwHJUijbt/TQ9Rokmfcqzb5YJ6KDTpWesm
-	 J3dnbaRUL76LhkvMERn/v7HCrQZlpfjqWpgOpwQmru38fv1v50OK4WRgdJYDkXaQZ1R7z
-	 pMjtfjCPmxqiTHm0ybwtfTQfgq29+1Yy47e5Kn30c/C+g04eINd7EN+mq12TFSeuA+QGt
-	 4jGm/mMhh6diuF3oOSJauEwF5Cnsz3Vged8XOnRFTFurGW2K7+Z6T04WzqRKLy5pYvw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792661584;
+	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
+	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:From:To:Cc:
+	 Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:
+	 X-QQ-XMRINFO:X-QQ-RECHKSPAM;
+	bh=MNO86/vPNqNj1ipvoo0nLkf4S6QTI8ifhfqmHv8QTLc=;
+	b=RnKAW4WsNJPsZ/L6//4h9hVZ18+gZA7Z7aeZII10A1R0udnmg7Fq50c4Z2+fRkztVGQk
+	 6PfV554WWZRQ5L/mbd3xC3EX/02dNk2x0pnH56CZfD4bDOfk6077EA/gNzDrbINCCvXPh
+	 SjESOP1iSrNYNeuMlEkWI4b1bbYZF9nDc5orCNThVcSk/BTyT83QiZx55n1EX1ZS4H/aN
+	 cPO8/SH9tGWI6AzCiBd6NBdmuH4vH2//zulvtaIOkfYeY1+l7sqCB3Y3zc3z3++Cznpoa
+	 805sg3CdiAa/OLuUEkIcxEt9nmNRGfLth7FLWMu/AWVHnSnnKT8iaBW+qnnPDJDaUhw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=sang-engineering.com;
-	spf=pass smtp.mailfrom=sang-engineering.com;
-	dkim=pass header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=RdnH1TWy;
-	arc=none smtp.remote-ip=194.117.254.33
-Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=none header.from=linux.spacemit.com;
+	spf=none smtp.mailfrom=linux.spacemit.com;
+	dkim=pass header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=X0XWt5ef;
+	arc=none smtp.remote-ip=54.243.244.52
+Received: from smtpbguseast3.qq.com (smtpbguseast3.qq.com [54.243.244.52])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94FCE606A31B
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 09:30:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 94FCE606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3A93606A319;
+	Thu, 22 Oct 2026 09:32:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B3A93606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=RdnH1TWy
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	sang-engineering.com; h=date:from:to:cc:subject:message-id
-	:references:mime-version:content-type:in-reply-to; s=k1; bh=bgMm
-	uHFkYogLF/Eeq6wTohVNZfvdHb4m4Si1W26cc2I=; b=RdnH1TWy6ekLjoFVP53U
-	94XgulBdcTkQPPwtZIXJxxjYUYmpBDAvQvN5dVogERKmDpfiqVLQtHAyDd6Ratmi
-	6NIxTIjQ5UVtvjYkQVJqoAy+/QHT0BO51JVnttmgBjtT+KYNGtd3ObJiK6opRBxx
-	TisXC7ShjvqtnEzeUb0/49RnRglCjeSbYG3njtF0bjdEwzfruAjOXO0no0HzKrxi
-	rnscx+2gatzXkf0qe5e342vijZ+gUKrQv9eD+0Z+U2e060q/NOyqiKNQEzt/wuiL
-	uhTpx3IGz52lFdD4JOLjzxi2PYq2POlIWy+bqIcTl0Kaf5DPPZr28E03TJRhzWJy
-	rQ==
-Received: (qmail 1087945 invoked from network); 22 Oct 2026 11:30:56 +0200
-Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 22 Oct 2026 11:30:56 +0200
-X-UD-Smtp-Session: l3s3148p1@r89FhWpeGIgujns/
-Date: Thu, 22 Oct 2026 11:30:55 +0200
-From: wsa+renesas <wsa+renesas@sang-engineering.com>
-To: Biju Das <biju.das.jz@bp.renesas.com>
-Cc: "biju.das.au" <biju.das.au@gmail.com>, Ulf Hansson <ulfh@kernel.org>,
-	"linux-mmc@vger.kernel.org" <linux-mmc@vger.kernel.org>,
-	"linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: Re: [PATCH v24 08/15] mmc: renesas_sdhi: Add
- TMIO_MMC_INTERNAL_DIVIDER flag
-Message-ID: <atnXz00Hci6R-7Ux@shikoro>
-References: <20260820171657.62815-1-biju.das.jz@bp.renesas.com>
- <20260820171657.62815-9-biju.das.jz@bp.renesas.com>
- <aplBTMnnF1V71BDL@shikoro>
- <TY3PR01MB1134610EEF7D300BA8890357A86B22@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=X0XWt5ef
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
+	s=mxsw2412; t=1792661527;
+	bh=MNO86/vPNqNj1ipvoo0nLkf4S6QTI8ifhfqmHv8QTLc=;
+	h=From:To:Subject:Date:Message-Id:MIME-Version;
+	b=X0XWt5efgrf16/36sevCEXi6yunRWAcucw825CKt1LPupt3ONBsTaYTaBeFVr46nF
+	 89oAuMdGdmfpwPnIHopjLBnWitATyAS260kcxADP7y1gA5HD7hpfTzF+oz3b2hO+8g
+	 EdOdBwcH6yUeyPJ/sArS0EdCAyGoVpZAn94dfhtU=
+X-QQ-mid: zesmtpsz4t1792661521tf8c4d186
+X-QQ-Originating-IP: dPy+WkuC9bdncRwOP6S9bDiBeHuFCmOE3cM24EOhmeQ=
+Received: from SW-U22IC-015.dc.com ( [120.237.158.181])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Thu, 22 Oct 2026 17:31:59 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 12619411188459355194
+EX-QQ-RecipientCnt: 8
+From: Peixin Xie <peixin.xie@linux.spacemit.com>
+To: sashal@kernel.org
+Cc: linux-acpi@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	patches@lists.linux.dev,
+	peixin.xie@linux.spacemit.com,
+	rafael.j.wysocki@intel.com,
+	rafael@kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH AUTOSEL 6.18-6.1] ACPI: scan: Defer device power initialization
+Date: Thu, 22 Oct 2026 17:31:58 +0800
+Message-Id: <20261022093158.739937-1-peixin.xie@linux.spacemit.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261019135441.1420968-273-sashal@kernel.org>
+References: <20261019135441.1420968-273-sashal@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,114 +74,39 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="3gL2mKKOOA5mRAgO"
-Content-Disposition: inline
-In-Reply-To: <TY3PR01MB1134610EEF7D300BA8890357A86B22@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpsz:linux.spacemit.com:qybglogicsvrsz:qybglogicsvrsz3b-0
+X-QQ-XMAILINFO: OC9B+nDkeCKkI9jAP7HbmnP3PO7SHXtCwDR6cXqg+/YW6pEM8g68anKk
+	qROa5eHOEw7NRGKKuv/m0MV3VtfWAFoMKlmUl/HJsbP8XncOLyGbF7WjJbyVFZREGVMe6yj
+	SZuO1kO9EzfjiPwyVZlFA5eXV+UZL5zjhldM2YSB2LPfRI2J6a16VokQEH78aDS2kw6CWIY
+	QFfnwVgVDVmj7nKjnoWVHOVpW0notiuM1spT2Wgi6rwuva+VnHNcJkGgkmPii661KwtGdWX
+	uGjW+3RZ3kUTrQ+X2RxrtNX1Dj9HlnRTHB3XvHJD+zfsThqLuI5wR4vNa3cxyS8Vq04HUQp
+	/cUhz9ocmLC5O5p7B47t6v6rmpCZVobZ+1HLAyNgltFHBRp4HMyNpiPN5oHZSVoglrt7KGf
+	1XafMpJ1LzYe5fRspSkHyYj4jckuWAFiKNdFlzydI+H1AAvgoHHvwfcjVLL+NG3LfuWEVuV
+	/kzSod1Fgvk7Y19zxUjcyGF2xIe2w+S43wdIP6rgv994bj/oPmBaeW74KsN3IEh03oadhZb
+	I/jKr9PzcrYDIIz84mwvyLUnKbKguloTzGGrfCF9vumk0V2TEBvTcSfaMfrUFaqRo0OZ56O
+	+4W+1OUV7DnR+3Ye3CeAAXCY/BkImD6y/+LwSognyx4v7EEclMnW5RKQfXl3Vmmdd/jxxcq
+	bjZK0vtcL5LbbtkzmkNBZ8JMFtw4xpmyYdpFAP7orowQ+E1IIDv82LGYyWmurxK8UDZ1lSF
+	LcdyeW95WnqP5VHBpgKcVKUmtZgR1+Px99S/jIc+JVyDSxD01b3v3DxK3V81UiERDVETS+r
+	M/YvfNlIV6YOqMGc7hzuQXFVEadHCOg1YHSlb/N6NgDSvGCWfQysWrQIyGJr3snhO9/8u64
+	IU9RoDCXbBs3HWU45GNhH/Fyho/PYgf1+pwUOyOEsJoe4m2aOsVOID9ee88VijECXX+PWUN
+	SvLQUg0qIUjZOpsJ8UehPzhNygYIUlDe3MXWLFvnS+Dq3BoC1p3yGcFHuFD9o755U8zWISj
+	xlxzdFiSZ/FoNVV6BZGgBEdGwbQOjHpHvGO0Uy2VTkdC04cQSH+uUs6wFmoRN3dsROqf9hh
+	6+rNZb8M/jp
+X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
+X-QQ-RECHKSPAM: 0
 
---3gL2mKKOOA5mRAgO
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Hi Sasha,
 
-Hi Biju,
+Please drop this from AUTOSEL for all targeted stable branches.
 
-> > static unsigned int renesas_sdhi_clk_get_rate(struct tmio_mmc_host *hos=
-t,
-> > 					      struct clk *clk)
-> > {
-> > 	unsigned int freq =3D clk_get_rate(clk);
-> >=20
-> > 	return host->pdata->flags & TMIO_MMC_INTERNAL_DIVIDER ? freq / 2 : fre=
-q; }
-> >=20
-> > Was this AI generated?
->=20
-> I kept 2 function as renesas_sdhi_is_internal_divider_enabled() is reused=
- in
-> renesas_sdhi_set_clock()while adding support for HS400 mode.
->=20
-> Currently, we decided to focus only for basic RZ/G3L support. So I can me=
-rge it into
-> Single function as you suggested.
+This patch has been reverted. And Rafael has started a new thread to
+discuss a replacement fix.
 
-Please do. And if the flag is checked later again, I think we can just
-check the flag. We don't need a helper for checking each flag, or?
+Link:
+https://lore.kernel.org/lkml/6029658.DvuYhMxLoT@rafael.j.wysocki/
+https://lore.kernel.org/lkml/6044499.DvuYhMxLoT@rafael.j.wysocki/
 
->=20
-> >=20
-> > > @@ -184,10 +205,14 @@ static unsigned int
-> > > renesas_sdhi_clk_update(struct tmio_mmc_host *host,
-> > >
-> > >  	clk_set_rate(ref_clk, best_freq);
-> > >
-> > > -	if (priv->clkh)
-> > > +	if (priv->clkh) {
-> > > +		if (host->pdata->flags & TMIO_MMC_INTERNAL_DIVIDER)
-> > > +			clkh_shift =3D 1;
-> >=20
-> > No, this needs to be handled a bit above where clkh_shift is initially =
-set up, so we have it all in one
-> > block.
->=20
-> There is a difference here.
->=20
-> SDx_Clock (HS clk) Figure 4.4-8 Block Diagram of the Deformed Clock Syste=
-m (7)
-> IMCLK =3D SDx_Clock/2
->=20
-> SD_Clock  Figure 6.2-2 Functional Diagram of Clock Divider for SD_CLK
->=20
-> Currently framework request a clk to set, we set HS clk first, followed by
-> SD_CLK.
->=20
-> On RZ/G3L, SD_CLK value is based on internal divider.
->=20
-> For HS400 mode, SD_CLK =3D SDx_Clock(HS clk)/2
->=20
-> For Non-HS400 mode, SD_CLK =3D SDx_Clock(HS clk)/4
->=20
-> I don't find an easy way to move this logic to the above.
-
-I get an idea what is the problem here, but I am still confused about
-one thing. I'll summarize what I understood:
-
-* as of this patch, HS400 is not supported on G3L
-* so, in renesas_sdhi_clk_update(), 'clk_shift' value is 2 before clock
-  calculation
-* as HS400 is not supported yet, the internal divider is always active
-* so, you need to decrease the 'clk_shift' value from 2 to 1 after clock
-  calculation
-
-So far, so good. My expectation is now that when you add HS400 mode, you
-would need some extra code keeping 'clk_shift' at 2 because the internal
-divider is disabled then. But I don't find such code in later patches.
-
-What am I missing?
-
-Thanks and happy hacking,
-
-   Wolfram
-
-
---3gL2mKKOOA5mRAgO
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmrZ188ACgkQFA3kzBSg
-KbZW+w/9FDXVFDcXzKJv7Zx9UjskHBdfXgUqtxPLq109Y1kdg/Mgvk3oNTJ70IMj
-A125l1ch4FlFZOlulIt+1UXWLqeB5UJgE/mLk+k/t0UGP/XNENddjgT23VhbWZmR
-PDDtqc3VygI+KXQ2DObPnbQedT0OMUM1FZuOxXntrx9ej5izywlYodI3p4tEEzn3
-DP0OEl8OXgiXVFCttHwIIZaqHRxZZxa19ZPVFwsTXgJqucacHIOyzT8PZ7fVnBPq
-YRRqECM1q7WriEJjXV0wf5F1SF6QtJ83sn5cwqMw/+4rfSQgbW+//7KqYqMD0MNn
-TnQVIWPLUlssaekQ2Rvu0LBfQNeKnCfWKxV+Kde2yy6T7lO/yp8wGNuCTxEwRhDq
-UPEPJvsVNsWcFnciqEBgKo1nn2hDHYqRzvgObptvQTFLDiG031zXzX0J8BUvoZgG
-vq799wP09GaGyZw5WUBxqa3FORreEwHfPnUy5OuV4tTBgLCrIiX7QJbdGzDHuWbU
-ULW9HrBbcMYW8BQeVIBznyR2qZp2PYaSO3C7S5JsXK+NdEcnfv0shTAjYXcSXZtc
-wwEi0AtyZURP7DjzPXvt6QDKjGQ8Z/xslWnClrnfLKK6gSWwTqgjsHDcmwAg0eKD
-Mv9Cxz5PP3SWZXWU6x99dXptpPUIFV3zt0BHmk8kbohHWanNsbs=
-=T5Ds
------END PGP SIGNATURE-----
-
---3gL2mKKOOA5mRAgO--
+Thanks,
+Peixin
