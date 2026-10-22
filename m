@@ -1,79 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.214.177
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792687599;
-	b=1Q4PrQ6rr9pPe2RNG2cJIae0HNoc1fsU+8MEBqX5TBNiXLPeKcAh3RkQS9Ubqb5dl+h4
-	 EpShriiBhiKXXq8ggBfSSGXmPh3hQCSPhtJP5gwrxgp5PTdtgwfyESjhSNfmvz7hLDYIS
-	 UfhPW5I95M8u1TRW1PxvLMY2d8yLy5Mtxt3loXpj39LMeCa2WnntD1MWw4n2RF79MITNt
-	 EXKDn61GYZKCa5E8zEMx2GcFxZ8vozOm4STuZdhv0vaONN3ztWC05qNiPErH4/Ez2jANt
-	 Ptll47qNYoHnYLc8nXm+SizktK6RmjGO04Cdi3Zn1s+6+TCf0h6699HMsfD91TLJKcA==
+	t=1792687598;
+	b=QEQjc95mPYzXsT/ghsmV1iEZW3/ZMOEyk02umjJ98PESncx38AZEWFX5PcY3tKpuKivV
+	 GnYRM3YX9y89A8hOWSZL5i3maFeUswd9uadRr4tB2g7tI73QXFe4BvJN+X2jR2yzZLr2g
+	 GbXtpfgaesSAJq0RGAlo5Nk/9bwmJVxjBiSbgrnjoUqcILdra86LqynYrMWg9x3he9sp7
+	 Ovf0VHbxwgvl1lqXK+XHoONk29FlRnq8H8bqIF3hAdIAtXaHziHXw742cqRvt0P/7Ixao
+	 rkj1sU8x0ppCd+jYBRHbs69lF0f+daoSnf8VRcTw7ZxpqEPbxYXKTk8YaHfHKt+s2bQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792687599;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=8MPpLo9g8WmfTBzYjDgl1YuODB/LFoNptN280IeFyBE=;
-	b=yLAHK5XAp5fbzfcRQzpx7C5QIlpnHOXYbjG69NidCvUldlPGGTOg7nNg2PckatCkJNAn
-	 UV1zxfSzO/z5W3C3ioSwhiP5eCyBmEY059u960hlMbKo8XDqF9ERnmNrikwYVu03rJw8h
-	 4w5Ak+yxn9UuSsWWowmgKYP5G3YawD2XGjp67LiQAPWZoCxinwlORCP0JMfppMQOyWMPE
-	 m2oKSD5yo3PlIrprxf6fTJa/mRN88JXwwBlyppO1XVrNUFAd/1fhtuz4qFjTCdqozZJUv
-	 pACmbW42GP14zZhMf6vpT4jmzbw8rRgVMTRVL7/P4ISAWq94P/zQTcu8AOBfvneNuQw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792687598;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=uWReZSZPnxFWoJInKY4s3rEgmqruohf2mZWoSu7TMG0=;
+	b=DSWtV8FXVSlKIt53W9GhZgGMGZdpAAQEqTAEgCKX6SNgQSPoDFtKbILToD7QoUbS7Ide
+	 gcp5p6jF6Nj95iFQ/mt+OXC35hXg/+bmOXBAhpdXe5BOddJxelFbHEu84ZTbv0zByZbhB
+	 +XWWNsXiW7vPUJ3FJU2n8tsPxud+kq/Saxj7k2itgCl0mJhqYJJhv2vNsH8+CVvjfkqX/
+	 E2dHeV3gwXAbdlBZUsmWZr+OAy81aE4wLZZ43F/lMwsB3fQZZqG9iBOwLAQXGE8AwuC24
+	 PDcRiEIT2PerNrlNQPPMUsAUfYZL07LssAx9xu8/ypPQ2BHwcdoZcp9MmnosP3yUfQQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V5QWTSwY;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84AA8606A319;
-	Thu, 22 Oct 2026 16:46:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V5QWTSwY
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1792687599;
-	b=EE77ZGeAuyizkhiMFaBwPiMGDYDSDDaBaceEhj3/RYsshZJ7vTFihKarumEEovWrX/fc
-	 Dl3KzPWTdFkGAf2xc9ofklmBsbvebw30ILCmUigtMoAjtX6uLrxMlYGhr/ldvm7pWlnut
-	 /ZHg6Kb/prp8BCLhpousGODVQM8f0qCj0rFPCOvFue8EQ4uJUoK1iUsvVstvG3Ur3VWiF
-	 MGIGkid/PKeoMmTXQwZwtIu/XDfZKbm3w+vnTYkztvp1d1W+KBJ86HhamuSgAJ4r5XdkZ
-	 pnvoYUoK/c3hgz7RGe7MaD/x7TawW5Ma+5HIZGD0nzoNo92aIVYTIXn2m0VSDcL2HKg==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1792687599;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=8MPpLo9g8WmfTBzYjDgl1YuODB/LFoNptN280IeFyBE=;
-	b=WxfQjnkrBQoK3f6aU6ZEQyD1NcfB8y0J3e8l7S/ThZGdH61N78NzzmQdOIcfxe1apfOw
-	 GK/smtg5Ppjn7qALT+G1SxY97rk+4TqITBQqASWcjCq1dI5aYyXwjxnmIeI2Dkn7t+kKd
-	 57mmfTnRbNNm+sgl12oCSNqISrG2Pwrca497P8aNLYT6mHogjj+aKx82o37/+MVIN/rll
-	 K3ItgQ2PofTMz7kPRPnj+TWMwMh0pKaCgIGFvAL7InN010xhg9ap33UEH7luhqNBE0bsY
-	 hqoFi0/z44gy7qCDC4kIgUbDbbzE18gnkNrzFtIDECLDihUWRYL/aKMHYIlqHlMIxqw==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=GwsFZfAG;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.214.177
+Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 9A8EB1F01825;
-	Thu, 22 Oct 2026 16:46:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792687599;
-	bh=8MPpLo9g8WmfTBzYjDgl1YuODB/LFoNptN280IeFyBE=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=V5QWTSwYr/J+3WexfvGixiQ5Xczrz43XYlHletgDdEGGa7Af/ljYYH231HBeZEazL
-	 hgGPN4OD6GppuYxIC9DOdReVCOREhkWoCWg8EX0WDZ0MinIFwjK4zpqRlYxPRfNpg5
-	 J8NwMhhYfc28t+xsseQ90+IipUzpgAiu6IyAbwKQb7HslqhjRPG1jXaQwAT7v7FdrY
-	 aiQvtUrcpJczV3qLetmVv1InNTAMmdelS5IBTNSQzV8UA+a91sW3OJHgIDV3qDUDIP
-	 1QaZIv/F5VqzhqcNgsaeHe/P1sfFwj8D6iqCWxTZmHNiJabWRmOCB82ne4cVD4vtll
-	 lwZoKtNAKIcKg==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 0083441E7F;
-	Thu, 22 Oct 2026 16:46:38 +0000 (UTC)
-From: Aiden Isik via B4 Relay <devnull+aidenisik.member.fsf.org@kernel.org>
-Date: Thu, 22 Oct 2026 17:46:36 +0100
-Subject: [PATCH 1/2] dt-bindings: phy: samsung,usb3-drd-phy: Add Exynos5515
- compatible
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA2DB606A31D
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 16:46:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BA2DB606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=GwsFZfAG
+Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-2e8d6fcbba0so65915ad.1
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 09:46:37 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792687597; cv=none;
+        d=google.com; s=arc-20260327;
+        b=EjO0ycJ/6I/+xEvGm5UyUVEj56JDWOsu63NPIPeeVa+wFUV95bsHxGPmgg5yfXNgBf
+         UuXg4d8Pff9Lrvgwr57GY1PXRuBdj7FPFNQSlY5GSEFzpnEA0/kdMQlJQW7gsSKb/Yn3
+         I+RDFcqOHtMM3dCcxlAdCBo62nmmy7qC4P1a9RM2/hCcJSTq7CjOjknxcBZiFxEx7fBv
+         NLX42dk1CFxz5arEmVIbqxgQ4LiCgGpFvvukFaB/lU8l5G+R3BvaHYGBwHAe1c2A/I/E
+         mjFr9TWUmDNjXRqrSzP3PC4cI8hw/6JxGKhGUl4+Ac37Onyo1W4p4qn8XeHYaLH4TZNp
+         ZEuw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=uWReZSZPnxFWoJInKY4s3rEgmqruohf2mZWoSu7TMG0=;
+        fh=y+iY4WF6Aqg+lWJa/lerlr7A0vRlLgQ7Tal/XJCx1dk=;
+        b=nLgMP9sxU510tJWI1t4BxVRUel9vyBDqQgzO+3/qy9vwW57rJeEh+Qbltu3d4JYfIw
+         vHg3qB8sftXR2FlhCfCFD0nUPJsnsdIYQR8A5ytJyT6Y+H8Ia0pw67CzfrUoRlMRrYq6
+         +VZOtypDImKNqEpRzr1BGJIUFLn+W+jr9C8RmhI0QMxiFQ64L6ykY3NoMhBl31XGRUFt
+         cFi/Id+DrfyAR3PIqy/HTlAviMn2oGz7Mdj7hW7PqDNbP/xR3l/DKgFsOR0YM9D1e+ZU
+         ftPSG9qH2RmnldgM4/lBdQZaJweCKT0PGpqy2SfVzHxzu7SGqk+gYb1rLbJ7OXqZJRP4
+         dI9w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1792687597; x=1793292397; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=uWReZSZPnxFWoJInKY4s3rEgmqruohf2mZWoSu7TMG0=;
+        b=GwsFZfAGN5WK9cknlncIZ+dExC3F9P6aYB8Y7HxgAhobV6QAQgPWZoSO354JKjEpvF
+         FPWjKKUDWFpR/YFwVogODJfj5PyEUOMF2ed4wZsK6z0h0/jjE0OHp2Dne6/F0bjLNt4V
+         X3UpSMUASG0FzhAq8jRMWIVOcqp0k6ZLrJ2KiPPyu1RNTtI+lXFv8RoRTXowpr3bE+Qs
+         T2nwQWAFaJ/pzE9nSsvssHt7ZOMRI2yjJu1Foq78zmJdr0k4DBeOfbHt5rIHOZYLxSbc
+         T22YUmHcNVpH9EqeeA3KGKLqdKdYuXVhf2cjKdTVXTRsMUbawAqtlBw5WxvgxN+WH6T0
+         7aFA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792687597; x=1793292397;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=uWReZSZPnxFWoJInKY4s3rEgmqruohf2mZWoSu7TMG0=;
+        b=iygNqhKG5y/oku9DDItYqZwg9xug3V5IiIX63abqqWIr7KCK+fr57fO7igflShpMO1
+         yUHv75wc37UTi2cnkVOHvkXFNAniSfpH0lCln0x9CPgZ/AP95QKahC/aVMz2mqCyveXv
+         akj9Nsq7g3k5aQJhDEE3YzkuJgnKxyjEwL6WJ6Sn1xajhqVdFoJq+8Mv4+FzKx9M2LJv
+         Czgwnv1b1KQwBGqAhGH1KbFfRocO8J+zT4QQ3MpraJsgWsGzoor+Eg1whLPZfIv64qup
+         wbN15G4hbWwhW9LZUi+eSAzl0CHxZSVdYNQhIbplaK7WJfrcANw2qHDc5K/EWxGJYLK/
+         /gXw==
+X-Forwarded-Encrypted: i=1; AKwUvBwZWG6FH9Cca3v5OIb4GAco+8DsRcaag08HNzbrEhTePsG7+pBuDgJRoNoXyb1mSu8FZgVznD0nw6EC+vo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIAxuAHyVzjB2LKJigRxPR+knSfaM/l/2uZXvVleRD5lwpOKPnO
+	AFs6Ha7j/POZYsSNIvZwxS32Gd0dR6mAfTMXGfTQNDj11PfmtB1lXVsJ7wf5FnhK1A8bdfbv36p
+	6lwo3OGmbhSbPl6qGSO6/wUb/V3dBe58AHlitq4MU
+X-Gm-Gg: AYBFou2unOp/CdiQLSZVyk+Edm3/kCmiK78HAl92sjQa6AFKLtYCbCasXEe7bODz/xK
+	BjSADnl3ib9XhjvmBBhOnBsAI21GTGIGkzx7WSodltbH+y/5JTG+LyKf+PTp/6fnNhmW+Qaouuj
+	zz+CaGvNaF3q1B5S1bD4QP9sHPjt7voZgBt5+3Fpn+cCzWllT+7QLJQcql4uw7c2GJaPzbTJTOI
+	mczTxkUjaZhHgJyn0LQxl0tSH5yT8oIV9rBW69O+DuxgmR3s/dROidEQgtL1AaoGjLoBOpdN5Jr
+	FdVUmYXj2UtuDu7AlCoIepKGQ8i1qrh2oeLFGr6UfwPO3OU0osEI2zzc5PP0as7sWMeCwis4+tV
+	pQStCr7/S+V02S8Ehp6Kx+HyX4QRh1bJhu5PUIa5YvFSRFxfed5SUH0oxK5N2Whb2VTgDfOp2gj
+	HOPbNsB56juRphTF8pDkufeg==
+X-Received: by 2002:a17:902:db11:b0:2bd:3bfd:74f1 with SMTP id
+ d9443c01a7336-2ea63088254mr5085175ad.2.1792687596491; Thu, 22 Oct 2026
+ 09:46:36 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,80 +105,28 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261022-for-next-lucky7-usb-phy-v1-1-2e47f8484bf4@member.fsf.org>
-References: <20261022-for-next-lucky7-usb-phy-v1-0-2e47f8484bf4@member.fsf.org>
-In-Reply-To: <20261022-for-next-lucky7-usb-phy-v1-0-2e47f8484bf4@member.fsf.org>
-To: Vinod Koul <vkoul@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Marek Szyprowski <m.szyprowski@samsung.com>, 
- Sylwester Nawrocki <s.nawrocki@samsung.com>, 
- Peter Griffin <peter.griffin@linaro.org>, 
- Alim Akhtar <alim.akhtar@samsung.com>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, linux-phy@lists.infradead.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org, 
- Aiden Isik <aidenisik@member.fsf.org>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1354;
- i=aidenisik@member.fsf.org; h=from:subject:message-id;
- bh=TSsA+fRx4RBo19oCHI+BqN+RycpJHWo/dLkXD94y3zQ=;
- b=owEBiQJ2/ZANAwAIAUknAbLEetfrAcsmYgBq2j3ssieeYp5OpBBa7/6qfdEtFIdA4uG3F7T2S
- 7t+nJe7sCeJAk8EAAEIADkWIQSDy8UkXGpc3JNbEaVJJwGyxHrX6wUCato97BsUgAAAAAAEAA5t
- YW51MiwyLjUrMS4xMiwyLDIACgkQSScBssR61+sn+RAA5RsY9YeLzM9rKsLA3zt2qepMy9qla5K
- 8Ym4GmxLjGv4RGD1b34/5GxOOjTG19kRdtsQQkK8Cai+N79QSEw3IcfiMIjplw/iIbdgGyLRdBo
- X4lyTKCnB6ElPcURLBg5hdUuw5nzs820738ld96WELDcelDiZFmzfSQgjWORZYlRdZXK35ODdBA
- 0Eo3SDYoExdOsqjcQEb7yfRdwhU5q5D3/vaub0F/JjmbaHk7JWAn48PCTOf6SLr/kAO8tA6GU56
- Z+0G6oVqzGXSBI4TyXnXQwbWB0eMCgVYedtNByQhWs5w+GdwJKUhJVce/AloHaTBvKbj6154NeE
- ZLFcNZ6usUTnzGQtY6tLQcHkGGYC56oJdpinpvOpzpndeLrSmP3ySjjgJDGYb8vAIeSaus8Kbg+
- iKtSuTBqWviOXF0+IB03T6BAQ8bvaIH2LPuUrtzuGy9se5e6cx0SmJe6lRnf0mTVAoh5qDczFnJ
- 56gC8Lvhqrq3VpqKl8oMLpREgn1qU9P810ITZjTW12Scj7tsXvojTZ/myNUzdGSRAzcrt121o1Y
- PcpwzYnU8uJFz6VCUFBYar3Y+mX3KwjVdUsBRK92wZkpoZX5pwDcnQcHmyG9f1YI0WSGVadHQ9h
- MJ53kzDKK+VyQmOdwT4B8ScpFh33mcRrmFTcA/flKQUU/9jCZYOs=
-X-Developer-Key: i=aidenisik@member.fsf.org; a=openpgp;
- fpr=83CBC5245C6A5CDC935B11A5492701B2C47AD7EB
-X-Endpoint-Received: by B4 Relay for aidenisik@member.fsf.org/default with
- auth_id=956
-X-Original-From: Aiden Isik <aidenisik@member.fsf.org>
-Reply-To: aidenisik@member.fsf.org
-Content-Transfer-Encoding: 7bit
+References: <20261021162538.1852602-1-mic@digikod.net>
+In-Reply-To: <20261021162538.1852602-1-mic@digikod.net>
+From: Jann Horn <jannh@google.com>
+Date: Thu, 22 Oct 2026 18:45:59 +0200
+X-Gm-Features: AclHuK9zuGI6ax3vqvDDohM9t-hsk36f5joo8NmHv8Bwy_LXI-q37xMxgIQtv9M
+Message-ID: <CAG48ez3Rptvjvt=t_YEcBHHwYGD4zmPtc6tk+gPLtorZY7WEFg@mail.gmail.com>
+Subject: Re: [GIT PULL] Landlock update for v7.4-rc1
+To: =?UTF-8?B?TWlja2HDq2wgU2FsYcO8bg==?= <mic@digikod.net>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>, Christian Brauner <brauner@kernel.org>, 
+	=?UTF-8?Q?G=C3=BCnther_Noack?= <gnoack@google.com>, 
+	Haofeng Li <lihaofeng@kylinos.cn>, Paul Moore <paul@paul-moore.com>, Tingmao Wang <m@maowtm.org>, 
+	Wang Yan <wangyan01@kylinos.cn>, linux-hardening@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-security-module@vger.kernel.org, 
+	llvm@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Aiden Isik <aidenisik@member.fsf.org>
+On Wed, Oct 21, 2026 at 6:28=E2=80=AFPM Micka=C3=ABl Sala=C3=BCn <mic@digik=
+od.net> wrote:
+> Jann Horn (1):
+>       cred: clarify that task_struct::cred is only for the current task
 
-Add the compatible string for exynos5515-usbdrd-phy. This PHY is
-compatible with the Exynos5420 PHY when running in High-Speed mode,
-in that it uses two clocks, phy and ref, so document it as such.
-
-Signed-off-by: Aiden Isik <aidenisik@member.fsf.org>
----
- Documentation/devicetree/bindings/phy/samsung,usb3-drd-phy.yaml | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/Documentation/devicetree/bindings/phy/samsung,usb3-drd-phy.yaml b/Documentation/devicetree/bindings/phy/samsung,usb3-drd-phy.yaml
-index a1b3d9e6a094..a9af03066d8d 100644
---- a/Documentation/devicetree/bindings/phy/samsung,usb3-drd-phy.yaml
-+++ b/Documentation/devicetree/bindings/phy/samsung,usb3-drd-phy.yaml
-@@ -30,6 +30,7 @@ properties:
-       - samsung,exynos5250-usbdrd-phy
-       - samsung,exynos5420-usbdrd-phy
-       - samsung,exynos5433-usbdrd-phy
-+      - samsung,exynos5515-usbdrd-phy
-       - samsung,exynos7-usbdrd-phy
-       - samsung,exynos7870-usbdrd-phy
-       - samsung,exynos850-usbdrd-phy
-@@ -233,6 +234,7 @@ allOf:
-             enum:
-               - samsung,exynos5250-usbdrd-phy
-               - samsung,exynos5420-usbdrd-phy
-+              - samsung,exynos5515-usbdrd-phy
-               - samsung,exynos7870-usbdrd-phy
-               - samsung,exynos850-usbdrd-phy
-               - samsung,exynos990-usbdrd-phy
-
--- 
-2.54.0
-
-
+FYI, that already is in mainline as
+https://git.kernel.org/linus/b030ffaedc1d638f232f6992406cdcdcc82d5602,
+it went through the LSM tree.
