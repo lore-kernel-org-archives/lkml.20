@@ -1,55 +1,115 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792700750;
-	b=pA1aKrY1QygJb1vGmeS/BjI5u7VTU1txQaZXaywibCJBVVLL3ExZYR3xwQKL/CJDFrq5
-	 RPE+iJYjmbx4q9PDwQAYJbUlY8i6DWHhzRP319pPxEtPpgBOnrb5oYkODitePfyXZzUt5
-	 G8gQEqKly7unl/dcvzhpc3W4QEFdHV2LxLIoCrfmOKURz6p73o1hCFO0TJasuVVin8YgE
-	 SnTp52yj26xQHmMK4tP86dp0FLkJZVkgMCVamJTCqnk1t1vr9PUUjToJ+QbsSGl6JSlEc
-	 QB6YSSWMoF0N5T4CsRwQoZscG0T4wX58UZyo9ldUt1uLenC67KEyQ5I0Xmp6FkippUw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792700750;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=ux1UTnRjOyGqJzOYM5Hv6XVTNeyYxnuotg3pXhf5HHs=;
-	b=kqFNlw8J1jTNj8VwOeWZjeSXHu6JPEQoxOoZ1zsqSe2IKXHGnlP8QYqxoV734ukmo6zu
-	 YydWpT12OeJfvZGFM1huuwTzN6D1vqqxiXpH3amyKMVb2WExxhyrzS9fA/RxcUwkxS0It
-	 TbdvqS+85/zmotrwqflFmFUa1nkXw4YRH0JPqdYYzJiyEGy3Jza6YcQxI0k58Vt83rsud
-	 iYUUH0wNArVfN3IPoIw1Y/EEjc21/zk5K3R6KBLr+Y6wcB6YhBGApjvhq7lXjpX+3giTy
-	 bWaX8DAs3Se+0UsTP/bvMBHyl7Dp5KNgiCf1Q8qzicJdxENZ5O0FnDrpo04yNXTEW+Q==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RLMS0l8S;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.195.24
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792700812;
+	b=z7mFbnkhb8RKXLZNCUJXwMjNNGmKW8Ng9KXi+nQk6/MQLilXN+Al0cDIb+m3kg5MY4b2
+	 VVBJuRCCymxeS1OveUgz7RGgMKkWyE5+EzuRwNCgvPdVOErBQ237AtRRo3dCTbJTGaTx3
+	 xpHb+iR2biQjbs5l+v9KVc/qCYYuyazbDGXKjOQmFv5S7t6md8oCfLEV11QPM4Ex/5Zk+
+	 fWjh2VZUJBAUbOa9yjHjc0JGznbsDds9YkkrgGPsvGB4jBPDvV7TRAXgkJ7HN9THp3B8a
+	 AFzs3vTFjSQxeynSF3YDH+Mrynv0vel3cwCTNzyZfvrnduhSUf2EFogugIFefQHbgvw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792700812;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=LSww0/NCg4HJF95oQ/lFta6QyzltxA/RyJvhUyX0mpU=;
+	b=Youjd+vkINLwzzbK7vEnFQaQNfZ4ClrGo7STyDi8GkJrUmXWHeHYuL3QGmFbdIW6yNR6
+	 sbtZmdaO03RQRRj4Ohotu27WmFb2fafJ+/AOZun/1TrjgFHjZRahuLaKCUVQdHcAXy6IU
+	 HAXbJ2rWtNbL6vnxk+0CWFs2q8TyzI9SUCbLgbXuMBenDabuu/dVfNaEKMcILm51nHhtE
+	 pFac6isMBXkercx2DKtiBUQ0qkxdRGLHjTCOVLkYZmxXkB4dM+vTmlEGR3JyG8cSumYyD
+	 j20fkeLD9508gH+f+9ZWtAlfEZbnxv0OHwC8NwboVHjB9iAjMlRM5/d9ouOa8WWFL2w==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=cM3erzI0;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.195.24
+Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012024.outbound.protection.outlook.com [40.93.195.24])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C58C7606A31F
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 20:25:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4488F606A319;
+	Thu, 22 Oct 2026 20:26:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4488F606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RLMS0l8S
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9031D1F031E5
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 20:25:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792700749;
-	bh=ux1UTnRjOyGqJzOYM5Hv6XVTNeyYxnuotg3pXhf5HHs=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=RLMS0l8SrlVSlB+xSKm6w6FYJ1BVIP2OUvpbyz9MikbM20bH8i83IdqYLHnzS4qj9
-	 vo6B8FxfAsRueY9WSJTqmuWYCQSQkIN60PxS1EOjtlPkF8g30tel+vLlAPnohHXmRv
-	 /Vbi1+UaOcDgUZ0i0fi6x/na8nusRwiADaFX9FXU32HXstuRnUFimv6wlTGqn34WfD
-	 QMfTzkYILeeei8YsWI50/UKTnIXVBnU/aSI39gffsIi6/ScqbVu8/ubBXYIWQU9gCd
-	 GSwDnvTkIbRy4NYjw2TbXlJoApzGgMFRPZgGDgCAPArwrn6dScfyWS8TCD77ysDeE5
-	 19uIGvmDPyrRA==
-Received: by mail-dl1-f52.google.com with SMTP id a92af1059eb24-156cbe59622so166623c88.0
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 13:25:49 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxBf1D5PezzlajdrajFIQ83lDRfKMW5ijpaW+sG+Pb8jzZelpA6tCf5H6+jSUilNdPx78v3VweVb9Zel2s=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLH3BV1BOTL6KWC3WhMtYvv6o6XZ5B2ZXgvXTGpM6P9XoxIbqwg
-	37yXIMJ9layvAkLVQ0R9jdZzJ2cGf89xjjzbFe5mFLeV0THCUcXb3mk4UnHK4v9572SF7Pa9eeT
-	8IFEt3pXII+KrpZKYkHcpInvVuPkuhiQ=
-X-Received: by 2002:a05:7022:1707:b0:166:9e0d:3b56 with SMTP id
- a92af1059eb24-1959a382fb4mr475195c88.38.1792700748990; Thu, 22 Oct 2026
- 13:25:48 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=cM3erzI0
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=uNuKF3+tDuvKxx6nkW4v4huJDKlgeErpV6y1m4ASQ63PpuT7ULqhmjLbdOloQkjOGtDy0jUtrP29srCEDnuwLLYcQC6mRSL2ESc3mRxIHcpXfjVliyDA//1zntMg6STgD633JkANuFnyrlCeAasg2gdhd8uPVrb4t0JrCblNhaLOMQcuJieH74+xm97f9t+ybhU+qCO2E7rivOrruBtrRt1JaVKwVMUjMff1Jy23vB1FAzb6d/1erwPuoJHSoG/s3Cobn5dxl6ufbjLTZqc50HbUv5k/N5rUyN3BCVIn4yNmyOwceVaOO5fRas5/HEYv4UKTsdJOJkp1R6EzSTbLdA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=LSww0/NCg4HJF95oQ/lFta6QyzltxA/RyJvhUyX0mpU=;
+ b=Y471B/Eq3ZRod375GYz+lcn0ih21GrQJE/ZQLbkA7j24gB+G1EsanyGGAIbpt7FChRAcRiexdVfC2sKkaK4QAdSJnnksuY3CBVzev9MugXDy53NpuKxMDCSbnNuTH3KH6hrLT0grCkULwWxXIuONkw6HD3aLASFMmd0lyG+i+vciZzjbWquYPERtXc1virOvR7wtZibbJcl8NNUgjv75hoBnsItuIjcExTBc0Val+L6n6rxKz/aezz4rD5MU6XJqMHJ0Jkodt15TaDQdT2bvWfYlr4GPRBtJXp7JJmTnmT+BFhywe+MP86h+RwiD5BUJwooBO4bfdH4t+cVP1lMT9g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=LSww0/NCg4HJF95oQ/lFta6QyzltxA/RyJvhUyX0mpU=;
+ b=cM3erzI03W7eW7Erenovjjt1AcSK2ee3jMPMTpKyIUxOTbiw5nlIdQC0mIzr7tinP5KARjnZELtai2VVgz8ERYTiE2j+T/sTvYXF3dA7m3UTK9x5aQIXYD/U4M/euKrYAXD7YEoE8HNF/u3jeN67jOH4JxX7FyqRGxv5suVMXok=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from CH8PR12MB9766.namprd12.prod.outlook.com (2603:10b6:610:2b6::10)
+ by SA0PR12MB7076.namprd12.prod.outlook.com (2603:10b6:806:2d5::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Thu, 22 Oct
+ 2026 20:26:49 +0000
+Received: from CH8PR12MB9766.namprd12.prod.outlook.com
+ ([fe80::be0f:431f:5f27:96d9]) by CH8PR12MB9766.namprd12.prod.outlook.com
+ ([fe80::be0f:431f:5f27:96d9%5]) with mapi id 15.21.0546.012; Thu, 22 Oct 2026
+ 20:26:49 +0000
+Message-ID: <a51baa2d-1a2e-45f6-a862-d82b4b5a3f3e@amd.com>
+Date: Thu, 22 Oct 2026 15:26:47 -0500
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH 2/4] PCI/CXL: Populate and insert/remove
+ pdev->coh_resource[]
+To: Ankit Agrawal <ankita@nvidia.com>,
+ "linux-cxl@vger.kernel.org" <linux-cxl@vger.kernel.org>,
+ "linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Cc: "dave@stgolabs.net" <dave@stgolabs.net>,
+ "jic23@kernel.org" <jic23@kernel.org>,
+ "dave.jiang@intel.com" <dave.jiang@intel.com>,
+ "alison.schofield@intel.com" <alison.schofield@intel.com>,
+ "vishal.l.verma@intel.com" <vishal.l.verma@intel.com>,
+ Jason Gunthorpe <jgg@nvidia.com>,
+ "aneesh.kumar@kernel.org" <aneesh.kumar@kernel.org>,
+ "aik@amd.com" <aik@amd.com>,
+ "yilun.xu@linux.intel.com" <yilun.xu@linux.intel.com>,
+ "iweiny@kernel.org" <iweiny@kernel.org>,
+ "ming.li@zohomail.com" <ming.li@zohomail.com>,
+ Richard Cheng <icheng@nvidia.com>, "bhelgaas@google.com"
+ <bhelgaas@google.com>, Srirangan Madhavan <smadhavan@nvidia.com>,
+ "ilpo.jarvinen@linux.intel.com" <ilpo.jarvinen@linux.intel.com>,
+ "Smita.KoralahalliChannabasappa@amd.com"
+ <Smita.KoralahalliChannabasappa@amd.com>,
+ "andriy.shevchenko@linux.intel.com" <andriy.shevchenko@linux.intel.com>,
+ "linux-coco@lists.linux.dev" <linux-coco@lists.linux.dev>
+References: <20261005070252.84810-1-ankita@nvidia.com>
+ <20261005070252.84810-3-ankita@nvidia.com>
+ <bf41f28d-5fb0-4b10-b2f2-3c7dcefdda57@amd.com>
+ <SAWPR12MB999267EF0CA5F3E284C1BC8A89B0672@SAWPR12MB999267.namprd12.prod.outlook.com>
+Content-Language: en-US
+From: "Bowman, Terry" <terry.bowman@amd.com>
+In-Reply-To: <SAWPR12MB999267EF0CA5F3E284C1BC8A89B0672@SAWPR12MB999267.namprd12.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: DS7P220CA0047.NAMP220.PROD.OUTLOOK.COM
+ (2603:10b6:8:224::15) To CH8PR12MB9766.namprd12.prod.outlook.com
+ (2603:10b6:610:2b6::10)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,93 +119,101 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261019-b4-ipe-keyring-rfc-v1-0-156f0b93e843@nvidia.com>
- <20261019-b4-ipe-keyring-rfc-v1-1-156f0b93e843@nvidia.com>
- <702ade20-a2f3-4919-97e6-c72faa89399a@kernel.org> <DM4PR12MB61369D00ED2FCFEDAE0E4597DE652@DM4PR12MB6136.namprd12.prod.outlook.com>
-In-Reply-To: <DM4PR12MB61369D00ED2FCFEDAE0E4597DE652@DM4PR12MB6136.namprd12.prod.outlook.com>
-From: Fan Wu <wufan@kernel.org>
-Date: Thu, 22 Oct 2026 13:25:36 -0700
-X-Gmail-Original-Message-ID: <CAKtyLkF3mVu8AXWybMGr3+=0F4OMndcV=M-2m-PGz5afE4H1cw@mail.gmail.com>
-X-Gm-Features: AclHuK-w0c1onI8im_hxrE8Vj8Tb7-7Hy-SNC8hLk4Qv6iomWwee3Oh6ZTdAJrg
-Message-ID: <CAKtyLkF3mVu8AXWybMGr3+=0F4OMndcV=M-2m-PGz5afE4H1cw@mail.gmail.com>
-Subject: Re: [PATCH RFC 1/4] ipe: add the .ipe policy keyring
-To: Manuel Huber <manuelh@nvidia.com>
-Cc: Fan Wu <wufan@kernel.org>, David Howells <dhowells@redhat.com>, 
-	Jarkko Sakkinen <jarkko@kernel.org>, Christian Brauner <brauner@kernel.org>, 
-	Andrew Halaney <andrew@amutable.com>, Paul Moore <paul@paul-moore.com>, 
-	James Morris <jmorris@namei.org>, "Serge E. Hallyn" <serge@hallyn.com>, Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Shuah Khan <shuah@kernel.org>, 
-	Randy Dunlap <rdunlap@infradead.org>, Alexei Starovoitov <ast@kernel.org>, 
-	Daniel Borkmann <daniel@iogearbox.net>, 
-	"linux-security-module@vger.kernel.org" <linux-security-module@vger.kernel.org>, 
-	"keyrings@vger.kernel.org" <keyrings@vger.kernel.org>, 
-	"linux-kselftest@vger.kernel.org" <linux-kselftest@vger.kernel.org>, 
-	"linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>, "bpf@vger.kernel.org" <bpf@vger.kernel.org>, 
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH8PR12MB9766:EE_|SA0PR12MB7076:EE_
+X-MS-Office365-Filtering-Correlation-Id: d67c8402-863f-4635-9816-08df307acd08
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|23010399003|7416014|376014|1800799024|22082099003|18002099003|10067099003|261021121427099003|261009223027099003|11063799006|4143699003|261022105027099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	SRAA9T+QzN4NXTrwBJ0mvURW0xwfPzeYkPUKmybwVFk6JtcAXcTFml+BgrQ7rG/DWmgKUyP0p6QYr3XXxjVvxyyi5+3UFVEvsxcfYvCPn/Uq10oyGQdYBxjBkzaWD95HTICOKa11opVM9nJuj3LhgAdDrUG8worKURyf2T1tP+b3AeqB1P1dbWONu75uvSxjnX/1riN4Mp50CkSHHXnVSUiWUzJaFzYEgByqomY3KYhy6r2Cww3e/ck5DG5eqXMKA48B6IyYWEeErIdWVpYSCaRJvtFQpdkIoI4XQr52f839rmDpfX3B5oumXIFcbcMhVHEUeR1zxDEWmrQW3IZIqaz7RuEftM9GfUq4xJitCxlD7os05kepvce8eLyqmz6H1NFXto/mrx9EKqGwNX+WUjdH7kKJDCEgd/doSTIa/+3hjUDtTy7M8aNCYWn+uyain4SEGrlQKCtpH2nTS6xu2PbHo904weHyYORRlaKEO3k9TiGArUJtxgsMuIJLNDcT4r1s0sV5hvC9HzjYpdmHlX3q+B+/GoJCaqltofMPh8Tj1ZllRUAsw4S7sZ/GBRVXcYU1SUs+efIEp2YWKa07tVNtAtLZCCYXFjBR8h5tSAEWxUWJWWO3+qEJ8z0xRrMqRF6WvY/srIyfOyQgVARGt2GfeIOGTAMIafBi0UP9+6g=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH8PR12MB9766.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(7416014)(376014)(1800799024)(22082099003)(18002099003)(10067099003)(261021121427099003)(261009223027099003)(11063799006)(4143699003)(261022105027099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?ZXBZTHZPbFFOOVg1ZGR4dU9QLzNQYW9iT3liNWFwTU1NVlg5UDliMmQ4VVB3?=
+ =?utf-8?B?cFRadHFCM1RQRi9Ga1VocXdxYjNYakZYT2RhYWE5MFJENTZKL2pWVDdCMU5y?=
+ =?utf-8?B?NEp6VUd5U1RlOEpzb3hOSk9XVldWUEFHMDdERTFCVDM2SXM1Z1dBREE3QW5B?=
+ =?utf-8?B?bzZyUjlyd3RzSTJ4M1BsMkExYkp4TUt4cGI3dXgvQ0hHUTZPcko3a2VzdXhh?=
+ =?utf-8?B?bUUzWmptYnRHQ2ZBVTAzTURLdjc0Um1kTkF6blJ4SVE5VXZvRmsxWDZJdm5U?=
+ =?utf-8?B?OGp5UWFENGd6UUdYcm11RmR2S3Q4Qm1WQlFJMWVNeTdvaVRpQy91bGRjcWNm?=
+ =?utf-8?B?YW5kZ1B4N3UvRGgwNTZNbnE5R3lsU2xTUmtHejdTeExLSWpHbG5hYzJJVTQy?=
+ =?utf-8?B?UUVHZFVvMUl3TVRKeUR5WEp0LzFrYmRrR3EvZkYrdXNxUjV2MlgwYjBzLzNI?=
+ =?utf-8?B?bk8vL29jMERmYjA0R1YyMjUrSUdWZjl0T3VXR2VrMVY2R3Z1dVpoNmdzNU16?=
+ =?utf-8?B?eWdYMmpvZi9JVjhiM3U5MVNFazkvWWlBRStLcElZTGp4bkhpZ3VXb2xiTFVR?=
+ =?utf-8?B?TkRRazl0clBWSXNhdDI2M1dIUVNKL1o0NzVDUmF0aUJFZkZSdUtRZi85RUdn?=
+ =?utf-8?B?NmpqWWNUN2pES1VDTWdPdFVuRGU5a3lWMkxFSElWRmtPVzQ3bzg1U2pjUmJW?=
+ =?utf-8?B?ZzNWekxuWldHeUFCWDlaYlA2akZYWWlqNWtBTXY3bmZjb0ZyTUcxK1daVXRk?=
+ =?utf-8?B?N0JFdGZKYmtJejhOZE53eFd4Y3pvRTR2QXBpcnpWQ09wVEVuL1R2aWl1VG9W?=
+ =?utf-8?B?YkNiNTFYSUkycUtzS3dRbEtJS3NNVi9Jdlp5MG9INEorQWFjWHFCeDRBOEFW?=
+ =?utf-8?B?Yi81ZlV1ZVlDaWhybU9jSGFMY2FTdW1WNXo3RkFIaXdCbWlHbE03ZE1WclFE?=
+ =?utf-8?B?RGxmSzVHU1h0cnhSNWZmbFlmS2taZVdKOFgza1J3dFlrSTMySmdsQ2pDY29Z?=
+ =?utf-8?B?dlRQN1owMGwxMFkzRFh5Zi9rQVZRWUxEL0IvVU5sWlJlSFErdHg1Nng0bWVX?=
+ =?utf-8?B?RitMMm44UForM3ZuZXJLYm5yQUROYzlzNU9wcURPUW9Cdmp2WGdEZGxEOHhO?=
+ =?utf-8?B?dUNjbE1CRGRibTRnYlNvUzZ0YWpMODFabVRvQjRFY3gzakNJS3FLakZGcjR3?=
+ =?utf-8?B?bm5WUlJFMkVXYzA4dGozeGpBWkdaek5kK3JmaU5PUWE5eUhhZTZCajJ4UldU?=
+ =?utf-8?B?V2g1R2xWWmN2SzJqMjZuSmZLc01FZU1RNDJ3ME5meGxHM3ZldkI0VUozQlJo?=
+ =?utf-8?B?QXYwOXR1QTZCR2lPZm0zR3g3V0Vsc3BERENIQ0V4ejZrLzZNUUxPSEZ0a1cy?=
+ =?utf-8?B?STBRd1ZCZ01jY2RhZGhJeE1mTWd1Nm40eFlEMzdycVNIWDRUK1k2SVlkZUEz?=
+ =?utf-8?B?Wjhobm8vOFdkbGVJcWlYU3BNSzJtYlVJcmxnTFpoZ2dVZitHRFZQTHhta0sz?=
+ =?utf-8?B?NDhmdUVwbDRoWjVlc3p1VEgzOVFjVFk1ZVBMOVJaaGpGNmM3OTl4ZkZQbDFa?=
+ =?utf-8?B?ZjRXL05Ddm5zd0VId3RuMWdZOGxwQm9USC9FL3ZXOXBxUHJBT1R6c0dsdHJR?=
+ =?utf-8?B?SlhJR0REaWZMM3Z2MHBHQmROZzQxNi9qNWFqcEZ3U0ZsZFA3MVVvTDNCRS9Q?=
+ =?utf-8?B?OEdFU2J2eHBTY2xGRG9CVFZyNitibzlQKzlhRzFEMVlGZGlORGlMWGlJcGRH?=
+ =?utf-8?B?Ukh5VmJxUFF0WFZRSVNWWU5SUDFQeXczZ012Yk9IUzhBd0hUYThvcGFHT3lP?=
+ =?utf-8?B?dVlRVHZYbUFSSlpaL2c4d1dCWFlHcitjWjZac25JaFBkK2s5UzdRMlpTZFE4?=
+ =?utf-8?B?TXVFRDRtcUxreHpFdHBYRWJaOTZVZ2FvRTgrZDhpQWhsUjhyeEpsRis4ekEr?=
+ =?utf-8?B?TnFhYWhFZXYvSjBad2k4Y0YzaVUwZzhkSUpxb1ZzNGpoTGsvWWl6SlFzRkto?=
+ =?utf-8?B?TDBKYnkzcVh1ZVVKa2lsL3NXSHNQT2hYc1JaTW5ha1BRM2Z4SUFwekZVMFdl?=
+ =?utf-8?B?YlZ2SzRlTTNycFdVeHNxOWcvdXBON0NISEFGZ2h5Qjg1a3RyZGMzUWtJa2FM?=
+ =?utf-8?B?VnV4ZHc4YVBMWW9TbGhBSWRXVmZCVDdidmwrcGtqMUlkVEtQeFJFZks4TGhF?=
+ =?utf-8?B?MmZmV3RldXBVS3ZWY0UyUXBPcjhhVWZUdGtvb2RnOHUzMTZaQ3haaHpteXk0?=
+ =?utf-8?B?b0NaaXVLdzdzY1ZNNkxlNE11d2hUaHE1Ym1SUkZ5ditUTWRxeldETDIxRGpj?=
+ =?utf-8?Q?j3/LV/iS9Jfowmqiww?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d67c8402-863f-4635-9816-08df307acd08
+X-MS-Exchange-CrossTenant-AuthSource: CH8PR12MB9766.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Oct 2026 20:26:49.5555
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: DOepami2nlhC646/l2srvtXolim1lVb837PiyHNXx1Pc/i7r6lDDwkFuCX71b/ip44Er7SEFe88cQiuW3A+vjQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB7076
 
-On Thu, Oct 22, 2026 at 11:02=E2=80=AFAM Manuel Huber <manuelh@nvidia.com> =
-wrote:
->
-> On Mon, Oct 19, 2026 at 04:15:57PM -0700, Fan Wu wrote:
-> > You might need to explain why the existing keyrings, i.e.
-> > builtin/secondary/platform cannot be used in your scenario. Like the
-> > firmware is not trusted?
->
-> As touched upon in [1], the scenario uses an ephemeral VM whose
-> IEP policy would be assembled after boot. There is a mix of explicitly
-> trusted dm-verity root hashes and possibly signed dm-verity layers
-> which can vary per VM, so the final IPE policy would not necessarily
-> be known ahead of time.
->
-> This specific scenario is Kata Containers on Kubernetes. Each
-> Kubernetes pod runs in a headless Kata VM with a static dm-verity
-> protected rootfs, while its container image layers are delivered
-> dynamically as dm-verity protected block devices. The kata-agent acts
-> as trusted bootstrap userspace and would author the IPE policy for that
-> particular guest before starting its workload containers.
->
-> The firmware is trusted in this scenario. A public policy-signing
-> certificate could be compiled into the builtin keyring or provisioned
-> through the platform or secondary keyrings. Because the policy would be
-> authored inside the guest, however, the corresponding private key would
-> also have to be shipped as a static artifact in the guest rootfs and
-> shared by every guest using that build.
->
-> Instead, the kata-agent would generate an ephemeral, per-guest
-> policy-signing key pair, provision its public certificate, sign the
-> policy, destroy the private key, and restrict the keyring before
-> allowing untrusted code to execute.
->
-> A dedicated .ipe keyring thus provides a purpose-specific runtime
-> provisioning path for this scenario. Once the certificate has been
-> added, the keyring can be restricted against further enrollment.
->
-> I envision other scenarios with similar characteristics may benefit from
-> a dedicated .ipe keyring as well.
->
-> I could elaborate more on this, e.g., on the how users' deployed
-> container images translate to dm-verity protected image layers etc.
-> (the erofs snapshotter is used and there is no filesystem sharing
-> between host and guest, image layer transport is realized via block
-> device attachment), but I am trying to keep this response brief. Some
-> more breadcrumbs on the combination of containerd, IPE, Kata can be
-> found in [2] and [3].
->
-> [1] https://lore.kernel.org/r/SJ1PR12MB61246B0BF58BC2B6F0A79D30DE9F2@SJ1P=
-R12MB6124.namprd12.prod.outlook.com
-> [2] https://github.com/containerd/containerd/issues/12081
-> [3] https://github.com/kata-containers/kata-containers/issues/10943
+On 10/20/2026 3:41 AM, Ankit Agrawal wrote:
+>>> +
+>>> +             *res = DEFINE_RES_NAMED_DESC(config->hpa_range.start,
+>>> +                                          range_len(&config->hpa_range),
+>>> +                                          "CXL coherent memory",
+>>> +                                          IORESOURCE_MEM, IORES_DESC_NONE);
+>>> +
+>>
+>> On platforms using Normalized Addressing the Endpoint decoders contain DPA ranges. This 
+>> patch will then record DPA ranges as a result. Translating this requires call to prm_cxl_dpa_spa() ?
+>> The challenge is the PRM in drivers/cxl/core/atl.c may not be initialized this early.
+>>
+> 
+> Yeah, good point. On the platforms that I used, the HDM are precommitted
+> and have HPA. But I agree, the snapshot must not silently record a DPA.
+> 
+> Is there an existing way to tell at this point that the endpoint decoder is
+> DPA-based? If yes, I intend to fail close with coh_resource[] left unpopulated
+> Or would you prefer populating lazily until translations are available?
+> 
 
-Thanks for the explanation. This clarifies a lot. Please include this
-context in the commit message and doc for v2.
+Hi Ankit,
 
-Also, one thing I missed earlier: before the policy verification call,
-please also check:
+For an example, normalized decoding is detected in core/atl.c:cxl_prm_setup_root(). Of course
+this runs much later after cxl_core is loaded. Normalized decoder targets have the following at 
+the Endpoint HDM target entries:
+(hpa_range.start == cxled->dpa_res->start)
 
-ipe_keyring->restrict_link->check =3D=3D restrict_link_reject
+-Terry
+> 
+>>> +             conflict = insert_resource_conflict(&iomem_resource, res);
+>>> +             if (conflict) {
+>>> +                     pci_warn(pdev,
 
-so we make sure the restriction function is the right one.
-
-Fan
