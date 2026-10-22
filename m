@@ -1,71 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792691377;
-	b=5ZzOWzhIV7g45jXeshN2+vwUz7IAhJzSEdWl9H0hIfwDSNtF2/ZlrAYsom/HtyJnGf5X
-	 e0Xj9WNB5LCufm7+jZ+RyJraVa+sV2fYqWeSNDjc2pASh9FpaFe47kto9HyLask05J2hO
-	 7goiQxhEDQGgP8eQU2Yk06dhmZnxPepFywII/MpZfBQeYNGb8dwmLGFy0qUmBPvRnVeVA
-	 zWVNSCV/ops4TOGI3Pj0uUxUj0ypcd+uyQ4eRLiVmRKyVd2ip6ZX9ZKFp0lkIPkDC5V5m
-	 VwhBwsVM0kk4YR0FnqcdMJA/IgTPy9qa7WKFHMjn7Ba/9bbn7coROFKx+3PMFyTSXIQ==
+	t=1792691378;
+	b=TGpg3JqFKcj1jqwYhO57hUp7E7wipeO2hskxXTUkW7Cgbe+m01mtLFzeqRarGfTGblfj
+	 RXzoOTeneSCSpwWpWzjys+fOX9IP59Zsn5R6lX/9El2oQTQK+zeOXUzE5qL3wWW4Pt1FB
+	 I9+O1KAs8I6LbN7tC4AgEzQqD8z53PtJzadxCMEafMWblPV1BZb92E2iAEp+SAk1AJjAU
+	 XKH2YpSiK+sM2aqX89yNv65Rgr5vHPOnd8ZsucBA++ljwZvsJnTa9w0a4jpD3z8q+HCoI
+	 KBNmQSBj+7RsWhGC7SZxW+laihoX4XpaXiskQmGmgEYBGkFskJUyheGEI0eShr7eN7g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792691377;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=HmShLIi0Try9xlFwdP7Bt6IdYlCRVmbmMWtY33HkzA4=;
-	b=wwT2tyyrIYyZ2EeoX2EfQaaB5Gg9YTncFRdmaGEmeYNSKLsibOidF6MIbke8Us3sPkKr
-	 XALBTMxQA5z94m8Q7KlDUKj9j2FUK8pDnexlokcWnsHdCDgZEnOw+9pPuqqPnBtrVqFAX
-	 oglJXV4wHFrGFBWOGE9YhCMUzZOxjNBzokvGPyWe+b7yB7NS4yfDv6grBLnpSXiuD1iyL
-	 YOog77xcFoIdHOdD5A8a8+4zsbjGg/6t70vW7UM1qd2wDTkDI4Q1xAeopYOOdMgxpLtYe
-	 wi9V0clEiOh0CohZ3pj/Yf+EyhiL2Z8FFdpkAyVAv0F6EfSkh9LsU2DcMVgLFzqQLZg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792691378;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 MIME-Version:Content-Type:Content-Disposition;
+	bh=AwIS1i3ffZKVAhd7LsOceqlLuxbwFIFXGY5DCgZ5zaY=;
+	b=ZUdYCTB49LaScwCyjI9P6Wn4tU/i9w0unV3GVC0OMeF9EqJanotDMepwSGW4NDMPE5qd
+	 3L7036/9dSZBw/JFnShgKRwbMIDy0h2uPvxIYmRB3Mk/2VEgjG/Cm7N0PTGb1B/vWk1Jf
+	 NWlfwFA+DoBB5yiru+XCtc2aMWue5BUMbog+YXoF56r1F7wJfnj62B1MrvbunE3bic2u0
+	 UlxllnhpBurczeNrnIE/5UU5wHhMX/SLeaMuxbBmIbXurMY/Z9i+hX4l9DN5cYS5kzNHY
+	 okbfO26zBzW7YO0J0Ta6ocbT8jjc4Q5DvKGAzAzDAQufBdxKY6Jf19XfgbY2+c3KGPg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=linux.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.128.47
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MEirMU9S;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4745606A31B
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 17:49:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A4745606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a1e266fca2so532085e9.3
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 10:49:35 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792691374; x=1793296174;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=HmShLIi0Try9xlFwdP7Bt6IdYlCRVmbmMWtY33HkzA4=;
-        b=0kEND2xf3fBy1KJqmJVDswWYa9ne+xTAHgwzJwiaTBM1RPiVkbi5NpkqgMmVMTDirH
-         1ychTUA0XbQrHKj0KFydqlIyCEKKBsT7GUdj688usg8ta3HW0b5LrHUW40M/LKmalEeC
-         Y1lTAX63iLUNGD/ZgT5rOpZp0umuFFEdEQzJZl6y/dnK6DS4zT0XxUT5P2talVcQQnEr
-         PST5eTK91SvpgLxlZkXbpCdi7rziqyTDPs7hhvzsZKA2UMr6AxqrmlKtj0DvB8gT4r2O
-         WDEuvTs+yfU6JHW2HF0SEHq3W4jkXAzEBbLIOOrPKkaelIofp0OSUvg7O1Qc0P5mMzCJ
-         G6Ww==
-X-Forwarded-Encrypted: i=1; AKwUvBx9CTnMLhEpwDHzoyPLOD0uZQjMewVFYWwDypiK0pPgUtIgHccXVjmBDXDwaiVGLF3YSNVBzTzJrP4EoyU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLn+LOCZGI1e8faByq7WFWFRqQl+K9HGHO4WDKWmbHdqATa2eGJ
-	cA/QhI7ivHIOb3XGyqFGS+YA+Zm5W8Bnk4MWKdFpSMSTzoAHeAI3Vajv
-X-Gm-Gg: AYBFou1BHZUhcU+IdNgW8kepkt8O1QAUh3f1Lunj/ki0C2GL59a5dlwdeLVwqkviQTA
-	SrBb3XMnpCP54EVLnzXF1xtXqmeOQbAXlQNBGqTjLuU6K3FUaG2OW4XIvYKdxSjQkpUOtRe3V5b
-	IIqRxqv+45t5XJlOxJ3g16MyaqGcpETJbEq7v7iT41YMouT3ltxWsIilRTQyvuSogSgwAxg7B9P
-	R90rsNOAopN1aXcc9HRxcHesiqXnDl4EMoKiqWI2MX5ncJ6AWu4eSXEV+8bL5IgvLEn67E5xHfV
-	9sTPMDdGi+OSOik+BzDBONchFJb9KpUvlgUxXWSIuID3Pix4+Hp9Ehx3q/5suDMQ8C742ZZ5wCG
-	NxQq5pDuCRYgCrM6t7JcYLapiUs9NtSdX9Y6lrwNZ4KsIGOQ8G1RElxl3q5MAvjO2vROOBQMSBf
-	iCKOtMi7zqolvSvZjfeqHN5VWGf4q3Y/ixmi344uC9GfqTFgvTqRL0WuySJPGr731khe/Zj1n1Y
-	EeIBqp5R0S3tZsuCmRv9/vHksXWbZOtziX9MNUN/oAzC7H4snV4K549plIx1dVja9qZ/vOrpp3/
-	wP3AEJ8vBg==
-X-Received: by 2002:a05:600c:4684:b0:4a1:d36f:1ba0 with SMTP id 5b1f17b1804b1-4a1fdd74b6cmr122177475e9.35.1792691373949;
-        Thu, 22 Oct 2026 10:49:33 -0700 (PDT)
-Received: from [192.168.1.135] ([81.79.62.202])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a21047b2absm13451355e9.13.2026.10.22.10.49.32
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 22 Oct 2026 10:49:33 -0700 (PDT)
-Message-ID: <a23b3a53-9cdf-4e32-8ca8-a80d927d65e2@linux.com>
-Date: Thu, 22 Oct 2026 18:49:32 +0100
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F825606A324
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 17:49:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MEirMU9S
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C9EC1F031E9;
+	Thu, 22 Oct 2026 17:49:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792691378;
+	bh=AwIS1i3ffZKVAhd7LsOceqlLuxbwFIFXGY5DCgZ5zaY=;
+	h=Date:From:To:Cc:Subject;
+	b=MEirMU9SAyjAAKvjexPnSDEoBzdMYwuZ5/wHDN/4lnYpBpJMWCD1pMCmAhraymlmI
+	 KHNretVB+c+J6SVMce4K9EUhHES+0jreVxoMNC0fWNVdphUFs5vrg4lnzcgBAHb/fU
+	 v1kK+G3W+PRuANK0+x967EWhttpas0xBXrWYldy9V5almuEStni2neLSAoB3BVprbp
+	 pPybgoInRt5cObvpNvaXilc3R/iRBbEv8ZUpZ1cJogV2XIveeKVUF3gEfeaC2ovxLI
+	 80n5IqMGlYaYpzZ0vQb7nQ4NkqGmlGz1FA7dY2u8fwKfulhw8F6HTILg34VU0yph1i
+	 SR+vJ9aXyh2QA==
+Date: Thu, 22 Oct 2026 10:49:37 -0700
+From: Kees Cook <kees@kernel.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: linux-kernel@vger.kernel.org, Andrea Parri <parri.andrea@gmail.com>,
+	Jaidev Shastri <jaidevshastri@vt.edu>, Kees Cook <kees@kernel.org>
+Subject: [GIT PULL] pstore updates for v7.4-rc1
+Message-ID: <202610221048.DB2F64A17@keescook>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,88 +55,51 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 8/8] dt-bindings: net: ethernet-controller: tabulate
- who adds the RGMII delays
-To: Conor Dooley <conor@kernel.org>
-Cc: xianwei.zhao@amlogic.com, Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Maxime Chevallier <maxime.chevallier@bootlin.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>, netdev@vger.kernel.org,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20261010105900.247342-1-tanure@linux.com>
- <20261010105900.247342-9-tanure@linux.com>
- <20261012-suds-karaoke-efc4acf056af@spud>
-Content-Language: en-US
-From: Lucas Tanure <tanure@linux.com>
-In-Reply-To: <20261012-suds-karaoke-efc4acf056af@spud>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-On 12/10/2026 20:18, Conor Dooley wrote:
-> On Sat, Oct 10, 2026 at 11:59:00AM +0100, Lucas Tanure wrote:
->> The informative section explains in prose how phy-mode, the delay
->> properties in the MAC node and the mode handed to the PHY fit together,
->> and says itself that developers often get this wrong. A reader has to
->> work through several paragraphs before answering the one question they
->> usually have: for this phy-mode and these properties, which part adds
->> which delay.
->>
->> Add a table that answers it at a glance, with one row for every
->> combination the properties allow.
->>
->> Assisted-by: LLM
->> Signed-off-by: Lucas Tanure <tanure@linux.com>
-> 
-> If the net guys think this is valuable,
-> Acked-by: Conor Dooley <conor.dooley@microchip.com>
-> 
-Thanks, but I will drop this patch as is wrong.> (although for something 
-like this, us acking probably ain't needed,
-> ehh?)
-> 
->> ---
->>   .../bindings/net/ethernet-controller.yaml      | 18 ++++++++++++++++++
->>   1 file changed, 18 insertions(+)
->>
->> diff --git a/Documentation/devicetree/bindings/net/ethernet-controller.yaml b/Documentation/devicetree/bindings/net/ethernet-controller.yaml
->> index 1bafd687dcb1..bba27a9feb61 100644
->> --- a/Documentation/devicetree/bindings/net/ethernet-controller.yaml
->> +++ b/Documentation/devicetree/bindings/net/ethernet-controller.yaml
->> @@ -339,6 +339,24 @@ additionalProperties: true
->>   # has added. Failure to remove the delay will result in a
->>   # non-functioning link.
->>   #
->> +# Put together, with the two properties in the MAC node, this is who
->> +# adds each delay:
->> +#
->> +#   phy-mode    tx-internal-delay-ps  rx-internal-delay-ps  TX delay    RX delay
->> +#   rgmii       -                     -                     PCB trace   PCB trace
->> +#   rgmii-id    -                     -                     PHY         PHY
->> +#   rgmii-id    present               -                     MAC         PHY
->> +#   rgmii-id    -                     present               PHY         MAC
->> +#   rgmii-id    present               present               MAC         MAC
->> +#   rgmii-txid  -                     -                     PHY         PCB trace
->> +#   rgmii-txid  present               -                     MAC         PCB trace
->> +#   rgmii-rxid  -                     -                     PCB trace   PHY
->> +#   rgmii-rxid  -                     present               PCB trace   MAC
->> +#
->> +# A property for a clock the PCB already delays is not in this table.
->> +# It is either the fine tuning described next, or a mistake the MAC
->> +# should report as a fatal error.
->> +#
->>   # Sometimes there is a need to fine tune the delays. Often the MAC or
->>   # PHY can perform this fine tuning. In the MAC node, the Device Tree
->>   # properties 'rx-internal-delay-ps' and 'tx-internal-delay-ps' should
->> -- 
->> 2.56.0
->>
+Hi Linus,
 
+Please pull these pstore updates for v7.4-rc1. They're mainly fixes for
+error handling and corner cases.
+
+Thanks!
+
+-Kees
+
+The following changes since commit df2908090cda368b01ff43709f51890076c56157:
+
+  Linux 7.3-rc2 (2026-09-06 15:07:20 -0700)
+
+are available in the Git repository at:
+
+  https://git.kernel.org/pub/scm/linux/kernel/git/kees/linux.git tags/pstore-v7.4-rc1
+
+for you to fetch changes up to 7c756181175d50200be487affa905e973f6cbaf5:
+
+  pstore: publish big_oops_buf after max_compressed_size (2026-09-21 20:55:04 -0700)
+
+----------------------------------------------------------------
+pstore updates for v7.4-rc1
+
+- don't leave an ERR_PTR in the ramoops zone pointer (Andrea Parri)
+
+- reject persistent RAM zones too small for the buffer header (Andrea Parri)
+
+- publish big_oops_buf after max_compressed_size (Jaidev Shastri)
+
+----------------------------------------------------------------
+Andrea Parri (2):
+      pstore: don't leave an ERR_PTR in the ramoops zone pointer
+      pstore: reject persistent RAM zones too small for the buffer header
+
+Jaidev Shastri (1):
+      pstore: publish big_oops_buf after max_compressed_size
+
+ fs/pstore/platform.c | 12 +++++++++---
+ fs/pstore/ram.c      |  1 +
+ fs/pstore/ram_core.c |  6 ++++++
+ 3 files changed, 16 insertions(+), 3 deletions(-)
+
+-- 
+Kees Cook
