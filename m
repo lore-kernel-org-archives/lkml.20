@@ -1,73 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.70
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=78.133.224.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792695933;
-	b=i3pNt0rolrdz95zIDvljt0U+8Hmkka38oxNDUiE12b/YdecTmk5Oi0rQN+D62JL+6Q8t
-	 NN7FWMx1JDu3b6gLS7rcYIP8e0Gpf6tS7j5Mc8VJ5QXsyXNtkQqu1B8hsxwd6XDXyo/Be
-	 HpDMONYfH9nY7+PWStE449g5ptdEbQS4sg9xKPaiv7iA0iweUzzwzjwYUJWWMFEIfrhPx
-	 AkpOCtX7LmPgWVjINcjNUfKXJnOh5c8WTYgxxz4SRY09WWIio32YtX4JpkLY5HSTyfSuD
-	 VFGpoutfvDMtyKsIxwLS4pDMgY7XIdeeI8o7y68+7mjRF47mCEryUQQUl1N0aMP2EZw==
+	t=1792696071;
+	b=SP1QHDp3UlzCeu7N+FHSigmorDGWYfvBE3LSUICLnsNpJQ+qY4fjItnKACjWdgIAZwZx
+	 KO8ITtcJwQungU0IoDB4k8GSayxsFYc0sw2tpukUwy219hM3KiKih3HQDacrKZwF3ZOFC
+	 CJoPN9HQaalxSNH6np0Yt2dRwJd0wufCHCFEV+2VpXgibyBdbYFjhPgsJ1h6ksZsfyyzI
+	 2hz+jn3AkH5TAhwcTRycHw+/Bw3wi1JLNj3VL5kVn+0cnb5MFKuSfO3TbePMSOSWYlAdl
+	 8alo5TmPOzQjkmjSMfK+ojFeGK67RR4tw8FMufMuZoNvlUVUzrkqC0blBMGIo9jLd1w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792695933;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Reply-To:Date:
-	 Mime-Version:X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=bSKzXB4NLO5kv40pAwCTXZ306urEqJ2r+C8Y4J7qwDE=;
-	b=J4VT2M3urGrOOlQCqkkFA0Dsp4lKz3UmbFnu1kIR9Av6GX9IJip4MOHE1rDvsSEIH7fS
-	 9vDQmOaGUNGXefplH6aBoimMenERuS2dapptP4kaYosUvmqlREgS3Zt3ZCDgfJ69V2Epp
-	 L7Bw9PqQXbUku5jx8dd2CRWSNiCsDEhm/tR52D76aNqLDHaORD3rX2ZBv78o8fQhVYgUt
-	 TLmz2BkDJsYiUAPkwsKg2MM4m/F1KPxZV2Ka6q9Tf6fcGO+f8P76o4YwecC7xz3dbWbka
-	 mpgiRNEM9KHKPuW73FqjlOxgApIKEniFZXDb9u5KJpv/iy5O/chU5lmEMz0YfksQjng==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792696071;
+	h=DMARC-Filter:Received:Received:Date:From:To:cc:Subject:In-Reply-To:
+	 Message-ID:References:User-Agent:MIME-Version:Content-Type;
+	bh=3ljvcb14XNhLnHcOmJEx73K2+x2OStvM/Cj3DPoChpc=;
+	b=PaDhStsi62lnW7W6DZYdTod1U+Q70HT5rgGm5ZoogRUqhhXKmmGa5wqSYAjo+ipCztuR
+	 LR2ilK3pIw/5lXZfXAc4mISE9+vPj6O3cpxrR7uwOBYhnl2euOfhtcgV4yHXLR+DnLZOy
+	 sLv2T/kdVwS6ChFpWnf8rAXUZ1qh/iBsSDuHsMQuG2tR6KDOAKbW1QajjXnBJAAs4d0+G
+	 7kv/0iHvRFE9Yw9XfoJAASH5immbvA+e1189ZqO+tOdv4dYriEJJ12Seff8gTfolPbuq6
+	 J0qBbWkxtiHxuspKp4I/Saj3JxFN+bEnpJ4ErOFx1biJhZMF49bwBb4ZTWjxKmTLFvw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=TTZHvwxC;
-	arc=none smtp.remote-ip=209.85.216.70
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABB16606A324
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 19:05:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ABB16606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=TTZHvwxC
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-3ada6ccd402so116480a91.2
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 12:05:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792695932; x=1793300732; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :reply-to:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=bSKzXB4NLO5kv40pAwCTXZ306urEqJ2r+C8Y4J7qwDE=;
-        b=TTZHvwxCeV0S6xd1yoFOXssyFDfpjKTkmry19u6LNCVRbFBmCS6vCAGpTQ34sDuy72
-         XaFKgV1e5xA/wEvSKRd8F30qwtcZMoCf6OlKC3KJOtQLn5shcx190SZGjzMks0eamIvC
-         LAo1cKHzacz1mV/RZ58HbtVrnJA3LWqzXJtLa5FLJLOVQPfXAzSkdhwtsrl+hlmjK1VR
-         BH+/qunKOL141QQRXhKaGEAQXges/qetn4PrwyRR9PlCsIE7H0CSWjXDLkxwsoBgOgwh
-         r9fq7PfpavLZSnMqG89j93hNOFYge3nhrJWYB8rqB1/iNLRCzVZ8n6MDIIxFibfO4XSd
-         mfhg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792695932; x=1793300732;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :reply-to:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=bSKzXB4NLO5kv40pAwCTXZ306urEqJ2r+C8Y4J7qwDE=;
-        b=Uc6BI2hn1mF7Ww1/KbkpCT0DKPz5es05yPtqiYOgyYHtKlURl1H4+PBaD8QPXmJ1af
-         KcXXqx/5eerJn9ytElwY5FzynmIAN+Mv0gjQ4VsfqgdaseiO/t+TGdvoCR5tvgtXtd+x
-         9RYCHYW7vwAyJnKN50AhZyggkoveTU9IXdPMU7hzcudcms/ZqT1WIS48fqLpyp32k2r0
-         DGPIKhBgOX55pF0bXIzzZGN8USvtEJlQjHt4AI3RSrlprb8XMDsZwtmsIfcEp01sQEjF
-         EDsj9d3ex2kQsKMyF8xFbUzJj4QNUmzDUXeBBwxxMOV0u++y8Cpi8E5mgS9OXCzmgsh5
-         k85g==
-X-Forwarded-Encrypted: i=1; AKwUvBzTfelkXo0TBTLPQY64N/HAfnWbS6WuVYSLIuDwnD81TVLrMYIaxZ7yrhN0qN+BXuL0pD0UNWsQmvS5HSM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKtRPsBVgFdzieBFOmWdXcMXFVALlXsNgb6hOUUNiRB8IkOScLn
-	RkR0nXransBxJ+V7bZe5OQaVcrXMAdTiBysi7blV4y0PTSAgYJu0OMDwtYPEEdOi67lV3DpwaHa
-	3UXINhg==
-X-Received: from pjpr9.prod.google.com ([2002:a17:90a:a089:b0:3ac:a379:dc7c])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:3b47:b0:3ac:77c8:ac29
- with SMTP id 98e67ed59e1d1-3ad86cd5f20mr4685879a91.15.1792695931855; Thu, 22
- Oct 2026 12:05:31 -0700 (PDT)
-Reply-To: Sean Christopherson <seanjc@google.com>
-Date: Thu, 22 Oct 2026 12:05:28 -0700
+	dmarc=none header.from=orcam.me.uk;
+	spf=none smtp.mailfrom=orcam.me.uk;
+	arc=none smtp.remote-ip=78.133.224.34
+Received: from angie.orcam.me.uk (angie.orcam.me.uk [78.133.224.34])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id BBDB9606A31B;
+	Thu, 22 Oct 2026 19:07:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BBDB9606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=orcam.me.uk
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=orcam.me.uk
+Received: by angie.orcam.me.uk (Postfix, from userid 500)
+	id B9A2692009E; Thu, 22 Oct 2026 21:07:47 +0200 (CEST)
+Received: from localhost (localhost [127.0.0.1])
+	by angie.orcam.me.uk (Postfix) with ESMTP id B362F92009C;
+	Thu, 22 Oct 2026 20:07:47 +0100 (BST)
+Date: Thu, 22 Oct 2026 20:07:47 +0100 (BST)
+From: "Maciej W. Rozycki" <macro@orcam.me.uk>
+To: Imre Kaloz <kaloz@kernel.org>
+cc: Thomas Bogendoerfer <tsbogend@alpha.franken.de>, 
+    linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] MIPS: SGI-IP27: Install the cache error vector on every
+ CPU
+In-Reply-To: <20261021190253.30128-1-kaloz@kernel.org>
+Message-ID: <alpine.DEB.2.21.2610221953220.22065@angie.orcam.me.uk>
+References: <20261021190253.30128-1-kaloz@kernel.org>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,31 +50,37 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.56.0.257.gf7497c7d27-goog
-Message-ID: <20261022190530.541789-1-seanjc@google.com>
-Subject: [PATCH 0/2] KVM: VMX: Clear vmx->fail on exit to userspace
-From: Sean Christopherson <seanjc@google.com>
-To: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>
-Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, syzbot@google.com
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
 
-Clear vmx->fail before exiting to userspace to report a failed VM-Entry to
-fix a splat triggered by syzkaller where the stale vmx->fail confuses the
-force nested VM-Exit flow.  Found on a Google-internal kernel, but the
-reproducer (will attach) works on upstream (but only on CPUs without CET,
-because it generates a VM-Fail by injecting #UD with an error code).
+On Wed, 21 Oct 2026, Imre Kaloz wrote:
 
-Sean Christopherson (2):
-  KVM: VMX: Clear vmx->fail before exiting to userspace on failed
-    VM-Enter
-  KVM: VMX: Dedup VM-Enter error handling for VM-Fail and VM-Exit
+> diff --git a/arch/mips/sgi-ip27/ip27-smp.c b/arch/mips/sgi-ip27/ip27-smp.c
+> index 62733e049570..0fef66b86959 100644
+> --- a/arch/mips/sgi-ip27/ip27-smp.c
+> +++ b/arch/mips/sgi-ip27/ip27-smp.c
+> @@ -133,6 +135,18 @@ static void ip27_init_cpu(void)
+>  	per_cpu_init();
+>  }
+>  
+> +static void ip27_init_secondary(void)
+> +{
+> +	/*
+> +	 * The hub flips the low 128K of the attribute 0 uncached alias per
+> +	 * CPU slice and the cache error vector is fetched through that alias,
+> +	 * so the copy trap_init() made through TO_UNCAC() only serves slice 0.
+> +	 */
+> +	memcpy((void *)CKSEG1ADDR(0x100), (void *)TO_UNCAC(0x100), 0x80);
 
- arch/x86/kvm/vmx/vmx.c | 15 ++++-----------
- 1 file changed, 4 insertions(+), 11 deletions(-)
+ This just copies instructions between the same physical memory locations, 
+from an XKPHYS mapping to its corresponding KSEG1 mapping, i.e. the bus 
+addresses are the same, so please give a more elaborate explanation how 
+this is supposed to work.  I guess I'm just missing something, but that 
+has to be obvious from the contribution itself, also for other people that 
+may come across this change in the repo in the future.
 
+ Also, please don't cc stable with submissions targeting mainline, fixes 
+will be picked up for backporting based on the Cc: tag in the commit 
+description.
 
-base-commit: 164405e8e9a0378c7e1aff2254625a6553a291f1
--- 
-2.56.0.257.gf7497c7d27-goog
-
+  Maciej
