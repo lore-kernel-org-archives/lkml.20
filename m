@@ -1,62 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792678570;
-	b=O3sju413FxiojEOay22SeTfTzQ1gsG4ucgkfFSnmXMGEFQfxu3ICxy56tnPYAvucElY3
-	 OD+QpaXNj2qcVQVNCh98oDf4FgBvJ3sBOxeXiBlGClFxbqF3ht5uILpu3Z7wEBnCAXsjF
-	 dL2EWZmCxBNO/Y0b54U4nJoncdEpLwH6cRAJjwzGDsu0x/5N/hlpzOXANqwJWqsvY18gw
-	 y0f1bs32tdAX1hIjRrM8iyS0CKsXUaqI6DIseN/GQtvcldcu5fEiCvfHsgjFzKM0HTuOe
-	 aGwij9O/pbAznF9GZf2SyvSh7g8d64pTtjXAj4O+pv6ia7TChAEoID2cg+AjNCt/jTw==
+	t=1792678593;
+	b=SWQ9xSfwLDs72Fpp12XuKyternKuQeiKItEUftdtOU00oECFYNL5vkL8eCnIR4KVbfKl
+	 UaPX6HXk9Tew78d3yoKxSyM2aC5reILFFn8lJ4Ig9zx8mXD88giBgLXA+h+BDy8vAJAft
+	 Q6/dgshmKe1m5nP6HpzlhCaCtFeG7J2V6AU+mYfh8OUniWzUWVedr2syTFdMkPtYa3ovb
+	 RW6GRRrrV/rWb069FG15v2VVXzIJqRNcIlbDenPHsg5W6lA6/A5bCvVC0EA6e6E6xprUu
+	 yTaZjnR0Mkw3x2iUfvldhfaFCIBpvlD0S8M3xBGU/2mEM5qvZ/3ftPqTp+tVvBbBtnQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792678570;
-	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
+	a=rsa-sha256; c=relaxed/relaxed; t=1792678593;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=lpl3OE4xi+emQnd2ymjWmYelonGod8M5Db2OfAC4qJ8=;
-	b=afqeoerz5Xo2drSRrNjJLmZiKRG4xIHtl9CGVMQvW8Xa3iMJHXzSK3WsE4IfSGMn7e3J
-	 2uOsHBPXgJZII4RMHp6/UNibxSEtLILiwAMEx5JxtifAZ/S4GvWICh6b8isG+nQQ2PgYL
-	 c9TDqKHQZ020ppHRPWMHEB/pfg788YRhl7GUmR5NKRIkH8XCzMCu1a1eLVNhT1hsmARsr
-	 Lw9QOQ5ejQtARW/yef3Hc2sB4LPiiAvNjj7SJ9PHQ4KkqH5gLr3VF+ceevYC7VG4pxRQj
-	 keMDBvbvaZe8JpGB3Ct9LGr6vmWnc3SOYt7xnBMdvvkgZ1UuLQtsDUPdIKap0bw8GaQ==
+	bh=Qo2LeBxv5OkAJSNgBlJ5JOD4tGRiFhNDOXoyP7LP9nA=;
+	b=ZPKGKNycVrLPytBZZbOUbE61ZtNd/xcFvJrqCTd9zM5WqwhvCif2kDlZU4FWm/QwFvvV
+	 swyp/lgN7DexIlOX0hiSw4AKIIsFCh2mGlh432+17nRDRQHdnb3wJ6vQl83TDxOzn+7jD
+	 rL2uG8k1+grwjcpojbW6UoXZ9Y1EJo3yFYZoHf2UfG51M8CY4F3l7XpBDhulGP5IPb1jg
+	 Igx0NEaTsRFoSZYXaVVf9WKNpO0DunMthwBpcrj0biVPOPovz8Z+6FBDQaL1rp9UJ6vk4
+	 X1nCFwiLbi74AAMmh1l+liCth8yWtAh0LCZOiGl5dKIUjW/JjrXbElrtIwQrWLI6HIA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WcbDjYJQ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eajDPUQj;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8A96606A319;
-	Thu, 22 Oct 2026 14:16:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C076606A319;
+	Thu, 22 Oct 2026 14:16:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WcbDjYJQ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8CAFB1F000C1;
-	Thu, 22 Oct 2026 14:16:09 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eajDPUQj
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D6F041F000C1;
+	Thu, 22 Oct 2026 14:16:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792678569;
-	bh=lpl3OE4xi+emQnd2ymjWmYelonGod8M5Db2OfAC4qJ8=;
+	s=k20260515; t=1792678593;
+	bh=Qo2LeBxv5OkAJSNgBlJ5JOD4tGRiFhNDOXoyP7LP9nA=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=WcbDjYJQs86qA9PomFj38c7a5wcyWNxS8e8Lgr2wVebLmc++NFi/FTAwOFNNzeBf4
-	 ltTCbDa47gQvwW8g2Foh/oOhx6Dcu6lrF4pcTFqjKZ/r7+PN1/BmUN0fjlXTAluk3w
-	 sifpRKXyyLSztMu6PNxAkP2ApIwxYT+pW8ZJbHeeAd3igJjzr7T00Mjt4FHWCHC7E0
-	 qYXbBqYfqMDWEWyeQbhQ/1jWaDLXX77JkHDboTEtvOeeyYvcwptnz6yh8hcHr84NCc
-	 SO4/pOpDr9WCYH09sC+h4v9zEfK3NGOtlCyL0QzCAVrrYQ2NyE85Zdd/+c1Nt39YIp
-	 at/SJcNwJJ04g==
-Received: from johan by xi.lan with local (Exim 4.99.5)
-	(envelope-from <johan@kernel.org>)
-	id 1xJtaR-00000000Oep-1Dyh;
-	Thu, 22 Oct 2026 16:16:07 +0200
-Date: Thu, 22 Oct 2026 16:16:07 +0200
-From: Johan Hovold <johan@kernel.org>
-To: Mark Brown <broonie@kernel.org>
-Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	linux-kernel@vger.kernel.org, driver-core@lists.linux.dev,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>
-Subject: Re: [PATCH v1 1/1] regmap: irq: Get rid of duplicate check in
- regmap_del_irq_chip()
-Message-ID: <atoap3uV702MXAjB@hovoldconsulting.com>
-References: <20261021205036.1013622-1-andriy.shevchenko@linux.intel.com>
- <atnFxRi4DSKL2TWr@hovoldconsulting.com>
- <atoPG1nCj9yF_eEt@sirena.org.uk>
+	b=eajDPUQjIGygbgk43cbknX0e23miJGV9zhPJGGV+gqyljbY3VrHytwqTOHttWZ9vi
+	 e+K90MbFepLEzGXJFIX6mI+gvvpgcPhZ8A+j81Fj0rEEtrq9FpdLug0thuIw8KQ+4k
+	 n2E+RLj7ZOBNcN/eO9SiM75MPx/y4pjb4YzdonMvOQerFP4OxH7vW0mj3X8BLmEO7y
+	 oMcD4qCYn6F9Tc/d9KTVjjs9Lqy9Nb2Rddtd23LdyWEDG6OAea5mSZ67svnrIXnGLz
+	 wkKlgzAYRGqmmyEEeZeVOPQQLgFzECaDsQ13P+3UAvt9+vPuG7MswnfYmrov7Y0opT
+	 ixPUqr1FEGBdQ==
+Date: Thu, 22 Oct 2026 09:16:32 -0500
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Artem Novak <artem122novak@gmail.com>
+Cc: daniel.lezcano@linaro.org, geert+renesas@glider.be,
+	devicetree@vger.kernel.org, conor+dt@kernel.org,
+	linux-renesas-soc@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] dt-bindings: timer: renesas,tmu: Add SH7305 support
+Message-ID: <179267859148.1090186.14465037186984905301.robh@kernel.org>
+References: <20261022044135.275485-1-artem122novak@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,51 +57,28 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="T+2h9DrZ05msVl5e"
-Content-Disposition: inline
-In-Reply-To: <atoPG1nCj9yF_eEt@sirena.org.uk>
-
-
---T+2h9DrZ05msVl5e
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20261022044135.275485-1-artem122novak@gmail.com>
 
-On Thu, Oct 22, 2026 at 02:26:51PM +0100, Mark Brown wrote:
-> On Thu, Oct 22, 2026 at 10:13:57AM +0200, Johan Hovold wrote:
-> > On Wed, Oct 21, 2026 at 10:50:35PM +0200, Andy Shevchenko wrote:
-> > > irq_dispose_mapping() already 0-aware, so there is no need to
-> > > perform the same test outside of the call. Get rid of duplicate
-> > > check in regmap_del_irq_chip().
->=20
-> > > -		virq =3D irq_find_mapping(d->domain, hwirq);
-> > > -		if (virq)
-> > > -			irq_dispose_mapping(virq);
-> > > +		irq_dispose_mapping(irq_find_mapping(d->domain, hwirq));
->=20
-> > This just makes the code less readable, and for no good reason.
->=20
-> Is there intended to be a benefit from the error check?  It seems like a
-> microopotimisation that just removes robustness from something that
-> really should not be a hot path.
 
-The code as it stands is easier to read and obviously correct (and
-matches the preceding comment); you don't need look up the definition of
-irq_dispose_mapping() and parse a ternary conditional to determine that.
+On Wed, 21 Oct 2026 22:41:35 -0600, Artem Novak wrote:
+> Add the SH7305 compatible string to the Renesas TMU Device Tree
+> binding.
+> 
+> Exclude SH7305 from the mandatory resets property, following
+> the convention used for older SuperH TMU implementations.
+> 
+> Signed-off-by: Artem Novak <artem122novak@gmail.com>
+> ---
+> Changes in v2:
+> - Rename the compatible string to renesas,tmu-sh7305.
+> - Sort the compatible string alphabetically.
+> - Exempt SH7305 from the mandatory resets property.
+> 
+>  Documentation/devicetree/bindings/timer/renesas,tmu.yaml | 2 ++
+>  1 file changed, 2 insertions(+)
+> 
 
-Johan
+Acked-by: Rob Herring (Arm) <robh@kernel.org>
 
---T+2h9DrZ05msVl5e
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iJEEABYKADkWIQQHbPq+cpGvN/peuzMLxc3C7H1lCAUCatoaohsUgAAAAAAEAA5t
-YW51MiwyLjUrMS4xMiwyLDIACgkQC8XNwux9ZQi7xgEAoG/MQUBgsWVQh0ctgBTb
-kK1XLypu2Wxx55RVb1f9picBAPNT7gjy0R6isXAG62hFS0ziGZlMHUxxIEeTS5FK
-y2UD
-=ymo5
------END PGP SIGNATURE-----
-
---T+2h9DrZ05msVl5e--
