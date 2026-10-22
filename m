@@ -1,52 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792691588;
-	b=jJ1oSZDyE/SLX6/rj4jMekeY9ACr0v+7QtFGe57yx60n8JdP+4iNNbCtWulxge9iJcmD
-	 Irf2wzL+0Ch+EsBAFzJV9BuKAawuQHFRScpWWnPxuyav7zZ2qUnW8BcjSZOjbl1QzwoxY
-	 DP32SMYQpFDZmvv4WVMRzbBIuF+cxpXDtc/euvueKQeQGrKP8TQ5RJNVbtQhc/aYMHggA
-	 uJoe4/Es4L2VnEScBvLkfM0eAxvoOxAkdAKPbgEO5uTxeV4zPUGXj9XdNciYdkG9fLX3V
-	 ELYF7OFwgbYMlWcM3yQC/bc+k/Q4gWKglF6gp+EYn0u/PK6c/AuVYVgMUYB65zcU4TQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792691588;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 MIME-Version:Content-Type:Content-Disposition;
-	bh=xhCCJORsYkbbt3/0ac4oNQtAsUXRf5TCNiJxFVRjTGk=;
-	b=TV7HySXLoan5rM5iT2JWXGqFkw8JT+R/lHZ+SmR1+DeSN1KDjDU3pt2UtOrLt0Zkz0qr
-	 9RJeRRa8TiMnmpRqrjA5G3XPkN9Ub7RWyeCoNsLEGCZluT2yABWulLZR0H8IqDyLFBrXQ
-	 bwM3Qdd6r9Ti0qUx2xsEPCuctJCoJfa6g8AGjeXktWl3YQiGh+e7RjZy6Rx7lMzCpOxvv
-	 HOkRhEBqQVmi0ewLoKVc0iYPil05UAKzubvKay4QSrr57RsqELaE/uVZrviNJVv1ezRmr
-	 2QOktH8Br6VuciPGaYEbxgGch+Wxp710asc7ALxBeBvKDY9JTqHQSRPvgYsHtqnGrSw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GNAyyZRG;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.171
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792691585;
+	b=JwXFxq+9elg7woE5Vd8EGw5zVu11ROM/kqLirhM1B0kU9y/x12DfYpSWXN2MuEJUvSgD
+	 BxvsyprsNczQy/cfTqNqH+dMRKmIgKxkgF6CgHc/onWGPEoTCyUZpIsneZ0mYpCbpLFsW
+	 +FvjxtVSibU2RS7j4YVmfJdgSiURQKc9g2kSF8T51/Utc9XnOIJ/jzBOPmZCIaljNsFrh
+	 lTwUrDRjgyk449mdKBnBbp9cXZbE5sX2uGpBY7jp5uuIjEo390kk08YKeKQLjkROD0/yp
+	 DO8bWHYWY089yvTNdZfbp+HSZ6wVdtdaOtC1JixMYXHbGsneeJLO8HUm7yrK6oSkifw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792691585;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=3caCbj25DMKEJr+iPP66wR6DUJgaEfAKCjBL8Q8RuKs=;
+	b=Ok+F6+V+0IzRmAn3Jw4G49DXP3GbRLZrOLPx73VnCOG1t4LD7kRItwjuJsfWAtK6fga6
+	 Hz40dy29r3h+v9lhDk//ig0e9rRGyVDV6oLrd/hszjC5+d+wuZInJOq5Uz47ZjCIlZ00b
+	 btka6SWrzz5E+01egDERl5F4NcO2M5v0l0BU57imaLV2B0mUc7b6Uj4Efr2M9/usp+MbV
+	 uJKxN3jOcW2RtAaBhtAm9oj/ChBriek1aLlmy6RWqMoSgSoNebaCBib1OU0/92fVDoLXE
+	 hVRcH9NjdPH/Y90uLWfi4+tdUkrtLNjenxm6tt4YflvQZoIJkRmIM1SNHypdPBwYjRg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=CdWRFVVR;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.171
+Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79A38606A319
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 17:53:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 750C5606A31F
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 17:53:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 750C5606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GNAyyZRG
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 100621F01825;
-	Thu, 22 Oct 2026 17:53:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792691588;
-	bh=xhCCJORsYkbbt3/0ac4oNQtAsUXRf5TCNiJxFVRjTGk=;
-	h=Date:From:To:Cc:Subject;
-	b=GNAyyZRGIfBeYpiN1nxb4u7kr/CgDWFMBZ9J5hvws0b0iLBMWplQQhWifDm06fx1y
-	 qShp1z82hno3X7yDAWdzwHjuODSUrUerN3x6zpctiEi9Jm6B+Y/65k3gWiDs59PL2n
-	 f0Ix+6LifQ/nlnwHLqQ4ENfFf1nRIuw4o47hPrckJ9pZR/KpL2JzIgNFu6aZizF+vP
-	 aeTWZwu1IfgfVtinkdNXv5NMt3Ft1YGORPn3YpcuLOeDx9QnuzCBy3o5ZftxdjCjZM
-	 oOLDiKYeCdJzhP7PQSNYfvx4plc82W4PC0s8pdF2ugcO63a9oaJEa57meJFw8McJyz
-	 81KhBDQ4MC/uQ==
-Date: Thu, 22 Oct 2026 10:53:07 -0700
-From: Kees Cook <kees@kernel.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: linux-kernel@vger.kernel.org, Bradley Morgan <brads@mainlining.org>,
-	Cong Wang <cwang@multikernel.io>, Hui Peng <benquike@gmail.com>,
-	Kees Cook <kees@kernel.org>
-Subject: [GIT PULL] seccomp updates for v7.4-rc1
-Message-ID: <202610221051.2E6D9ADDB1@keescook>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=CdWRFVVR
+Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-35829219da8so1345457eec.0
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 10:53:05 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792691584; cv=none;
+        d=google.com; s=arc-20260327;
+        b=o+ZoQ2V2xwaG6eKb4zS2NyghKqeqX4jyv+0N9DL8QJTsoqz8J1Og14LAnhtcxlsUfi
+         +65HLMcwkRG0EkLSGNtToLkzg+jMS9+xBaDH2li3eGyhHrlwpCYsxZQhoUEm3xJmIiK9
+         EDhQn6ihybrz9mqh/r1AEYqiKd6TSRmxgNbCTpRgr3thVQ2W+aKgdpSZpSrcAMlSUQUl
+         RkrZbQXqtpH1tf8wxVId1vElixErDokfSQV6EDvnPzhE7kzOdUDCZ2kRnPiRvYMUkOX3
+         rCi9NyYqftj+pVRGl4CIMyePCjmHA5pbG6pnjWnEnBsqlbhDzcxalmP+8kAzeRsvVwaq
+         r7/Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=3caCbj25DMKEJr+iPP66wR6DUJgaEfAKCjBL8Q8RuKs=;
+        fh=NZfudvWa/PIoggWegxqdZsggKxq3/k1nWC/eHxDHenQ=;
+        b=YLnecpStBAkp6ojCQM01biLOtfaXwsJMAqeQRstezX7VwYzbIKB5kYP5W6S1VMguN5
+         C6wgfGifce02Yq8a1f8Ux8rr390xkpvGzcCMGJe+rdX7OahIfuSri2x9LFuVEp2ymPHA
+         /xPZsxANzwMFK6ds4pHuGjlOmdvJ636nQ7KBgTSLPYg8MtEseRVe7sry2k+ut7nDh7Ew
+         8xfCTh0SUzYYnyHwdGSQntq6sBPGKACWhcLIJW1X/o7INzQ1nXVLHPV7gezWEhJm+2TA
+         H3j/rhh/B9W3keFfA7HGFMMHOnmOKqv7ri8Hz3Q9uzU6dHjKpkUT9VIFACvfa668Ao5g
+         yvTw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792691584; x=1793296384; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=3caCbj25DMKEJr+iPP66wR6DUJgaEfAKCjBL8Q8RuKs=;
+        b=CdWRFVVRQFA7nUIEbW9/tuJ4GmATopKWcFmos2aLIz3VeptOn8kVZBD1BAB0fOT5ti
+         iH2TdABNtqgWFySel6gPxtwrMOUDidEbyaIWboNu3OWXv2xFwD2l65i1ZRPbb81GTRNk
+         7cwzieID3NXpEioeJiX2lh15lDBWOycH3jFXVZuBdOZB3BWFLdfINCnxJgob/hpFPx+v
+         N8AJMVFlDMH6aMCcHJXW2au0INS95a1s8MAiYvFXIAqnwbNiNQpFd+gzIEONWen23FBv
+         NEbhhdP68Wz/JBqcjICoTozj1zQKg8BF3eyJym3D99zB3Wwg6gK7lK2ZZpZsCIDkYJYG
+         wliQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792691584; x=1793296384;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=3caCbj25DMKEJr+iPP66wR6DUJgaEfAKCjBL8Q8RuKs=;
+        b=Dc8ousUx9TqracrDxQ0Ros9KAqoa8dkX4dm6gc8ndnAywAjdreDyrRR3C8Z5BcwgC0
+         3AD5ZYWh5cfETITr5Z1gQbacZi2MJA+VF/JiWXqVcSEH/vskyXWGMeNdB7vPJ+Y1jnE3
+         /EaQUPk4LkpXVKrE2LnIttfwUxBLQiqpD5d1PqHqw7G0N85VCbLdd9HLEPk8abxxrnvm
+         YhNgCaMSVVOqsugljuBmeFUm6Oph0QWappd0JL/hIn609E0i/R5nLqgb1RzElxSW/BfH
+         2kiZgkujfJTSALMVKA6Rik8Ub7mwGEQpIhmSLVlPIELdIgM7XeckV33Pyr4uplJ7YXdk
+         7Tig==
+X-Forwarded-Encrypted: i=1; AKwUvBzBZ33y1yzyDNu4Hau9aW9CBQ/PdQZXF6hY0IaeRv7UWv4WKAEjUGHX0eAByAwYhr6P1r03+3nXbZY14dE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLQTLMMfJo1/yNSWxwnqx9XiaiTCFhcTe0jolEpkL3VxvqYLpFC
+	qCUb5JCUe2aFFN56DVMOrg5/qBtgVbYnRD47gemYtMaQiG+Fijc5o9RsvHUfviQHYvrScdCLTr9
+	hRpUWf4ssQbs5U1uaSx3htgkOLnH2gfY=
+X-Gm-Gg: AYBFou0TYOKM3pxt091PggK0KE2YnPFEcmw3bhARdQtzip2ljGYrj09fv2lbAFxfS+p
+	kryKZX0KoAhun7s7qkRhrNvQVEiCFk5MuXN+OoTA3Gi5ir9pcRYdYHha1IT/uWtgYN+V6Unv/eK
+	zEkMWSU4mLgpSv2LucvnIy5vL+hVqIFfxmFAFylL7ZGF2zdTEQ1tgvnRCULuNcVKhsoV/Zmp6VB
+	dtQBE2aZnrY/AxXr5BnNq066dK85g6Ota+Vf4SKt4/GXn6Es3H5lxu8P0MELBmJKtQEHQdP7VLH
+	1Wd14l8ENrS+l67j4rByXPgxfh6OntYrKrUMyVpl/7GVPeSk/NbR032a6u4lEmLRB2NVH2uVSM9
+	eTsES0RQ7BPi1FHOE96tKyNQv2j0s9Y5ZdXMAW16Vw8rw0L83fFNOBU+PC7cyikFVKdag+mk=
+X-Received: by 2002:a05:7023:d08:b0:190:716:4822 with SMTP id
+ a92af1059eb24-19599bd3be6mr253220c88.8.1792691584483; Thu, 22 Oct 2026
+ 10:53:04 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -56,63 +104,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+References: <20261015130628.184279-1-clamor95@gmail.com> <d3648f08-17b2-4a90-8c23-3036cf71f1e1@sirena.org.uk>
+In-Reply-To: <d3648f08-17b2-4a90-8c23-3036cf71f1e1@sirena.org.uk>
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+Date: Thu, 22 Oct 2026 20:52:52 +0300
+X-Gm-Features: AclHuK804zMlj-QH-mnS-Z0lN9YQ0e8iLQ84s-klji9qX-wEVgx75tAGWTn5j64
+Message-ID: <CAPVz0n3goYTds2oVExJUwNcOr4kHAHUntCt0yHMueOnJ3GxCGQ@mail.gmail.com>
+Subject: Re: [PATCH v1 0/1] ASoC: dt-bindings: nvidia,tegra-audio: Consolidate
+ all codec support into a single schema
+To: Mark Brown <broonie@kernel.org>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Thierry Reding <thierry.reding@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, 
+	linux-sound@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Linus,
+=D1=87=D1=82, 15 =D0=B6=D0=BE=D0=B2=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 16:0=
+9 Mark Brown <broonie@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
+>
+> On Thu, Oct 15, 2026 at 04:06:27PM +0300, Svyatoslav Ryhel wrote:
+> > The number of codecs supported by the NVIDIA Tegra audio complex is
+> > increasing, which leads to an increasing number of bindings with minima=
+l
+> > changes. The main differences between codecs are the compatible strings
+> > and possible pin configurations. With the introduction of auxiliary
+> > devices, a definitive description of possible pin configurations become=
+s
+> > nearly impossible.
+>
+> Please don't send cover letters for single patches, if there is anything
+> that needs saying put it in the changelog of the patch or after the ---
+> if it's administrative stuff.  This reduces mail volume and ensures that
+> any important information is recorded in the changelog rather than being
+> lost.
 
-Please pull these seccomp updates for v7.4-rc1. These are mainly
-improvements to USER_NOTIF behaviors.
+Hello Mark!
 
-Thanks!
+Just FYI, this commit should be applicable to the current next since
+it was made on top of the recently merged Tegra ASoC schema for
+wm8994.
 
--Kees
-
-The following changes since commit df2908090cda368b01ff43709f51890076c56157:
-
-  Linux 7.3-rc2 (2026-09-06 15:07:20 -0700)
-
-are available in the Git repository at:
-
-  https://git.kernel.org/pub/scm/linux/kernel/git/kees/linux.git tags/seccomp-v7.4-rc1
-
-for you to fetch changes up to e32008340585a12783045c4426fbb963cfa11b7e:
-
-  selftests/seccomp: Split fork_and_close into clone and close tests (2026-10-06 02:02:49 -0700)
-
-----------------------------------------------------------------
-seccomp updates for v7.4-rc1
-
-- allow addfd to transfer O_PATH descriptors (Cong Wang)
-
-- allow restarting interrupted unreceived notifications (Cong Wang)
-
-- fix SECCOMP_ADDFD_FLAG_SEND when interrupted (Hui Peng)
-
-- Various docs and test clean-ups
-
-----------------------------------------------------------------
-Cong Wang (5):
-      seccomp: allow restarting interrupted unreceived notifications
-      selftests/seccomp: cover restart of unreceived notifications
-      docs/seccomp: describe the SECCOMP_FILTER_FLAG_RESTART_BEFORE_RECV flag
-      seccomp: allow addfd to transfer O_PATH descriptors
-      selftests/seccomp: test addfd with an O_PATH descriptor
-
-Hui Peng (1):
-      seccomp: restore knotif->state when SECCOMP_ADDFD_FLAG_SEND is interrupted
-
-Kees Cook (2):
-      seccomp: Document RESTART_BEFORE_RECV and O_PATH addfd
-      selftests/seccomp: Split fork_and_close into clone and close tests
-
- Documentation/userspace-api/seccomp_filter.rst |  37 ++
- include/linux/seccomp.h                        |   3 +-
- include/uapi/linux/seccomp.h                   |   2 +
- tools/include/uapi/linux/seccomp.h             |   2 +
- kernel/seccomp.c                               |  26 +-
- tools/testing/selftests/seccomp/seccomp_bpf.c  | 642 +++++++++++++++++++++++++
- 6 files changed, 704 insertions(+), 8 deletions(-)
-
--- 
-Kees Cook
+Best regards,
+Svyatoslav R.
