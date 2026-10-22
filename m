@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792687345;
-	b=N4iHe3RVOfS0tuPEI9K/O0Jm/Y9S9PP7aLFlsugTINr5mFZHrQXs0CObmWbFX5IaCSf6
-	 LdxoI+/tczrnfkUQHCRX5WElqaTOi4Bdf/UMQwseJs2XJafhL/uQ9pQwzHbyqHFOq6MBx
-	 skV/viXnwaqv/3iHpxlOF2kfSHjJof3IVCSrjUcuCKfpi/80wBkYy7hUz8+uRn389Fg9D
-	 tLZ4JGyOKrbA/u3skEUdi30ZfJJSxd0JLCJlFy4zn1ADwhstXpOg6gyPJq34QHTdKHjiY
-	 Zmofvmr81kSu+XIzz8jRo/58ioZGDe+qH3CNNSf7fDZEhLfMuovm05BqufpXdfyFeiw==
+	t=1792687358;
+	b=PnvP3DGd7F/DV6dLOxf80bN3rLrcxgw5Cu5s+RPG44mSqQ6F0dOgl5Q+82y1FfMhsyhl
+	 Vs0QlaPpWb+K16wxeaCZ9q8fHuh31DVaeRPFJJxMgYLuSaTDAbn2BI6SL8CjzfT4IsLQq
+	 KS36vFEa5G11JF9TCWbGkzgijglZJsOTa6aNPLNJNMKRrsc1QJ+pbzc2meODrmYeXKzbV
+	 aSt7OBXHSpPDfyKfmnzmZqqk8jr2K9Fc4G859SBwY0F9M1zFUjx48UMAUWJS56L5nfagz
+	 Dl8qbYxeDYUqccc92Ivm4u+NhnBWBDQVH/iekLwbE0UhldSZ4tvsCoJV2//ycbv70mg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792687345;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792687358;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=hXdIlgvfbcMFAqvWezQr9rqCpt7ASFWoYvc8UsUa6j4=;
-	b=uKCglQl6SGZMGJRH0xdiVK9UdLNxMmPwKW2u74b/GiSQgzDrGjdEmaJ8uZjewKEu2RUp
-	 G+fhljNDINDt1YsCzfDtZXNmqbTuyxY6j3437n9aVltyNRqcPpNqDBg0P7GXI1pq0eQst
-	 SBcxHgRlXrxH7pwdeKIfWQcKLt2nUfk8euAqfTYZMFCwz/8c2ROITWZIlFOsaJCRnDm1M
-	 G9Dwd9y0no5xQX6ZVYw0Pz80PjIfii9FS+cnANtGb6c2BVVeMo+e1y40FT/2zUYdeqH3y
-	 ouI/j69XWoGVvsZZDLUAEZXeLBRTkJ2OwEJyuOZ6GHOh/6s4f2+Vfd6jr58RPZKr/6g==
+	bh=jmbJBLbEKgv9jA5Ot3v67VcMUMs8UAriUTIRE7uFg08=;
+	b=xGKy/Exg8D+KTOQeK6gvVHbciS8MU/gEBmrUxU8jRtCfFkPL+BvqEymgJMuKwOyBB8A7
+	 xoI/C4RUfnAuZ45WRu278k/EPwO2rvB1fCFd6b3ZG2cggweK+P1J5Uwrf2mtoeaPaKEfC
+	 FqLS8RP2Mh+9lNKYVKeCNXCuvDha0MNVrFbFSyTIX/AzIjDyYJzGAahxaYsmFUDsiER3s
+	 Pysgww5Z3Am4zY5ya1RZvIzbbmaJXtEReM46UQlOqncLVCA4Fh8iaXicol3S3KbOEa8mj
+	 vZhGM8Th4PtkttdY4yaYq3qtTRTyAB6JkI85R/C53n/1wm1rM27ZGXk/CyKNXNHnWRw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=TyQbf+bM;
-	arc=none smtp.remote-ip=209.85.221.54
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=oXcixrpN;
+	arc=none smtp.remote-ip=209.85.221.44
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCB0E606A319
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 16:42:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BCB0E606A319
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B8A0606A32D
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 16:42:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2B8A0606A32D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=TyQbf+bM
-Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-48df54150dfso1347174f8f.0
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 09:42:24 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=oXcixrpN
+Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-48e20ed3b9dso1996630f8f.2
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 09:42:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792687343; x=1793292143; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792687345; x=1793292145; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=hXdIlgvfbcMFAqvWezQr9rqCpt7ASFWoYvc8UsUa6j4=;
-        b=TyQbf+bMDrbcgKouWkSfoAi5JottDRZBdFP5S6Q0pU95+sPvoUAPFqQUJhugGkg+en
-         7io2ATGs9CebdPAqlGilGEkHYhez9rJECvJZeMYtMoZaUBR2nB9ydZHCBsQquKerC+xL
-         B30J6aGjrmwF0Aj8u0CrelWg+zNaUqHKzGmaakC0CqKEk9FR5g5I/2PiN+3xMtQ9xYIk
-         RUyywb+pQDPynhdf4AIvh52MubjCLlq06Oso8pCBgWExz/S+7DMkV+zDBk4Xd4yhg5Jd
-         DVW6/OE3BETubwdCJsW371bnHHcfgjtcuttX+bYB50pnNgQZMphMQrpBB8/hWnlD7D23
-         Zdew==
+        bh=jmbJBLbEKgv9jA5Ot3v67VcMUMs8UAriUTIRE7uFg08=;
+        b=oXcixrpNx5kMQgBtfJVgT37oNmSp4Hg5Pmk0KK+rTuBgHPWyIVd58669NL+hApY68G
+         CnUtVpTQwsUdr73YWFbpjGNQtQhfbVC7a1M4D3r5whQmfkcrWnK8a3Xdc0noe+LoF809
+         0CItgolz5nI9ojMnOECkNbJCfSzYJmWhmsgCu+87u0Z9DUm9mDFkJE6z20Amc9uV45rC
+         IPwnrN1rs6i3xOp9SUP0gW+D2VG4TjywvQJ74a2HpkUALiZ/wcAI8/CGvr5m2F/N6VeR
+         5equw/ttobD2mp65N7BYTxWppx4R0ejVBvTj5Y9uU4XovHgG6wrZpJXdLR0hcuGtVhj6
+         9CtA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792687343; x=1793292143;
+        d=1e100.net; s=20260707; t=1792687345; x=1793292145;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=hXdIlgvfbcMFAqvWezQr9rqCpt7ASFWoYvc8UsUa6j4=;
-        b=e0A+EIsakjTpjRyEKUwjnnNTRMn+SIorOAQkfZ1ERBH1NxelBeyP02K8SNtbUtOGmC
-         5XHI9Vdp+mzLODkZQp+jWozyHScMxI/Hp5IdQbgCsx7KJFp5M4LE8WcXbkBfo8ltcTsl
-         Tlnuj8X1foW//OeRxFV7ZyxH3CQEDcC+WyS65QOoqC7GIMerTV4dxh1MnksGOHDVLvwH
-         mFOG0fGU+HtnwU4FJJeA14agjbllAE7rn8/B7BgXR6UrBTHStW9+m3rTQ5r+yxXSM5cu
-         +EK4iZKuKxxmGruHk8+Su82kQGNX2wfkqnUgyL1xXOo6Hwh8lOYYzRM1IiuJDceCCaZo
-         u49w==
-X-Forwarded-Encrypted: i=1; AKwUvBzBjVkGsgD9UDL+arwoAb8A/kXPMjySJYoGVp2/5pn+o6R2k6JDPJca8BMR4luhVTuPTSwv0flI5rbvTfE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIg4v/MSzA99cJhVfB2zaxi7Bv2WBHwKD5wk3gshg4nsnhh5B+A
-	VDiQ3zk5ObvI9XNfcBf8vmmJa4QToYEfyttTBBwrrbal8r/tb2n8qnrr
-X-Gm-Gg: AYBFou32MMkzD7HPqvLxBYnGP9jVKsQic4vjHj5fA1fDIaIPbCnNB1hVKG+JyZnOej1
-	W4EYdfzXIukfAB9oSnBi+3Q8XxchM0hxgS5tm+lVR49ZyUHIG/rwCnZ0uhHGjGp1qqK6JBWJ7TN
-	2AqyhLoCFo7ZK0j4W9iPDDdsQfg+IC9BbWl0iX834R++iiC2ndVjqVHOmsfBgPK9TopRsqlS0uS
-	xDD6UmDzTSf/vQ5xtOO+qQlGJAvy9cXNtu1IYQ+uTlDbrZdOgDWLimTtOF0YQqUNvZkHwR295tY
-	Ha1PqSiCNugTMTIVNh5bYSEPCBeYl2P/JHqENcn49FWSDJmwWFCVixWXfsY2m4LWEaHIIg/h9XR
-	1hMKXGEHZsDKZipmia7eTfXNw74J27GO+LeayJiKkt8O7Ld/iVdF2YwhTMk8+D+6fsXqQ5c3Diu
-	JKylCTXCZH6R4iVYePun9WGayNb1C2QOkVDD6RmfgNlQfmvamGSnuTNe4W+7MArvlXwVqK0NSrJ
-	8460M4bRIKtMlFsWP/AxEFlSEuIs1RICPhbQaxPYcuNMN2DbagIPBOWDadmv0H0jU5z2+rA7Gu7
-	4WehrQ==
-X-Received: by 2002:a5d:68c2:0:b0:48d:f6d2:9c88 with SMTP id ffacd0b85a97d-48e26508ba9mr9389330f8f.47.1792687342840;
-        Thu, 22 Oct 2026 09:42:22 -0700 (PDT)
+        bh=jmbJBLbEKgv9jA5Ot3v67VcMUMs8UAriUTIRE7uFg08=;
+        b=xvi+hvRzs7oiRqLT6mYJWM9qop0saOJDRcu8EfZvZTczQJD7LXeq2NPYFXY+a+TT+n
+         op6sdMIxRJuByW7iumKZAobbW23gRAg/bvjSO+y8CbeTEYTOt24oHFT4iWBDWpzlYfPg
+         pvKuy+1bZKAesPAPLQfw8XTU4RPKp+HFvFWV62Fz+C0DKQ9U0k31RS7p8NRBVks0oPvr
+         9+o6bG8kNz3LBxmb5labdgQD+RbFwH7c5Up+fC3PnoyT6/zu0F6eXVq5Pi4T91d3IjIP
+         Mt60wwqiDAOqUJa2V9/Sm+KwWv7YbGTTprsucBlfpzFgvLvaFVWW5hWItiOX1J1UewM4
+         GdGg==
+X-Forwarded-Encrypted: i=1; AKwUvBwxbAUcnM4lpYZqPK299sCMTT5t+/rFW58pyVVHgxD8NE8S7fTifddGpbt0nED6oxiTwq4yMH6ZNHH/bR0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKfCaKkgtOb9dvUxMFpACqbbZ4NYUOJ1As1HJIWV619FEJ65pvD
+	Ggv4La8Utf7k3jORJjD8GW2TlnQ422Whu9hE/tG1LUsInOktqz3Ft0BK
+X-Gm-Gg: AYBFou246Bme59/+FVcxp3d/XLsL6jrbYaUP/wX+zDJ8ngj7OnJpq9oD4EJQ0Q9YN3n
+	HCvGqGHkgzVrx5sKb2t7fchqAxqAk11a+zhSXsAdicU7d+TMimtN26cT8es8F3zkCBG5FX/3bf9
+	kJsZtqg6cY/YeYsiqjbtWKxVrvzTEDDgDFRGgrATKs0Fl/0HvegcpNWKi6rpBjqgWl0SX2dqXGE
+	dFaM8/IedKFI5W0bI18VnrJ2NmoIwJ297hZ99B45fzd735zc/MNinZ+5PMR7f5qbNmbK2NqcA15
+	0UXRkOyxoOLuZVyCOowVCyvzHB/OYPxEDZycAj58wIaAYdIyCp0fr9r2KCYmCrWCI4y/pCS7/BY
+	NR2mXcgzNOMn4P1mvyMDw+/6Ng8Uv/LQTREW0FIwyMK/qOAujlAcD89JS/xblWyjpA7HRfOt0Iu
+	zZPj265oJfUQjYTM5Ah4wrSTwjaqBbOUu4LiPam/Joc5s6wKwhrdTSA5l8/6rkxcO66q6ge4Jhr
+	rRi52N+zd6U7OpwIWX4NwlORjlzGkW2+bGnQrGhD3AvlX2xi07dx2qcXmmC1n2ETw2G6kTl/ARw
+	uwVpTA==
+X-Received: by 2002:a05:6000:2001:b0:48b:1c:d6e1 with SMTP id ffacd0b85a97d-48e264dd0e4mr12439317f8f.43.1792687344535;
+        Thu, 22 Oct 2026 09:42:24 -0700 (PDT)
 Received: from localhost.localdomain ([188.190.249.216])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e2584c3b0sm15040175f8f.57.2026.10.22.09.42.21
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e2584c3b0sm15040175f8f.57.2026.10.22.09.42.23
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 09:42:22 -0700 (PDT)
+        Thu, 22 Oct 2026 09:42:24 -0700 (PDT)
 From: Vladyslav Tymoshchuk <tvlad744@gmail.com>
 To: Bjorn Andersson <andersson@kernel.org>,
 	Konrad Dybcio <konradybcio@kernel.org>
@@ -102,9 +102,9 @@ Cc: Abel Vesa <abelvesa@kernel.org>,
 	linux-hardening@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Vladyslav Tymoshchuk <tvlad744@gmail.com>
-Subject: [RFC PATCH 1/4] soc: qcom: pmic_glink: Hold back notifications over system sleep
-Date: Thu, 22 Oct 2026 19:41:48 +0300
-Message-ID: <20261022164151.592-2-tvlad744@gmail.com>
+Subject: [RFC PATCH 2/4] soc: qcom: pmic_glink: Report wakeup events on behalf of clients
+Date: Thu, 22 Oct 2026 19:41:49 +0300
+Message-ID: <20261022164151.592-3-tvlad744@gmail.com>
 X-Mailer: git-send-email 2.45.1.windows.1
 In-Reply-To: <20261022164151.592-1-tvlad744@gmail.com>
 References: <20261022164151.592-1-tvlad744@gmail.com>
@@ -119,348 +119,265 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The GLINK interrupt is not suspended, so the PMIC GLINK messages keep
-reaching the clients during system suspend and resume, and while the
-system is in suspend-to-idle. The clients handle most notifications in
-work on the system workqueue, which is not freezable, so the work can
-run before the devices it uses have resumed:
+The GLINK interrupt is requested with IRQF_NO_SUSPEND, but it is not a
+wakeup interrupt: most PMIC GLINK messages, battery status updates for
+one, must not wake up the system. A notification that arrives during
+system sleep is now held back until the system has resumed, so the
+client sees it too late to report it as a wakeup event.
 
-- ucsi_glink passes connector changes on to the UCSI core, whose
-  connector work switches the USB role and sets the Type-C muxes and
-  switches. On SM8750, unplugging the USB cable while the system is in
-  suspend-to-idle makes dwc3-qcom access its registers with the clocks
-  off, and the SoC resets. Other boards hit I2C transfers on suspended
-  controllers from the same work, to a PS8830 retimer or an FSA4480
-  switch.
+Decide in pmic_glink, when the notification arrives: it is a wakeup
+event if the client's device may wake up the system and the client's
+wakeup filter, if the client has set one, accepts it. The client
+driver picks the default with device_init_wakeup() or
+device_set_wakeup_capable(), and user space can change it through
+power/wakeup, like for any other device. Report a hard wakeup event,
+so that it also brings the system out of suspend-to-idle.
 
-- pmic_glink_altmode had the same problem with its worker, which
-  commit c7c56b6ec077 ("soc: qcom: pmic_glink: Fix device access from
-  worker during suspend") moved to system_freezable_wq as a stop-gap.
+While a wakeup notification is held back, keep the wakeup source of
+the client's device active, so that autosleep, or a suspend started
+through /sys/power/wakeup_count, does not put the system back to sleep
+before the client has seen it. Release it right before the callback
+rather than after it, as the client may keep the same wakeup source
+active from there.
 
-Rather than have each client defer its work, defer the notifications
-in pmic_glink: queue them from ->prepare() on, and from ->complete()
-schedule work on system_freezable_wq that passes them on to the
-clients. The work runs once the tasks have been thawed, after all the
-devices have resumed. Until it has run, new notifications are queued
-behind the old ones, so the clients get them in order. Responses are
-passed on right away, as the client that sent the request is waiting
-for them.
+Responses are not wakeup events, the client is waiting for them.
 
-The clients treat a notification as the latest state, or as a hint to
-read the current state, so an identical notification adds nothing:
-keep only the latest copy. Keep at most 64 notifications, drop the
-oldest beyond that, and say how many were lost.
+Keep the device passed to devm_pmic_glink_client_alloc() in the client
+for this, and document the function. No in-tree client enables wakeup
+on its device yet, so nothing changes for them.
 
-Hold back the service UP too, as on UP the clients start using the
-remote, and pass it on after the deferred notifications. Pass DOWN on
-right away, so that the clients stop using the remote, and drop the
-deferred notifications with it, as they came from the remote that went
-away.
-
-ucsi_glink learns from a notification that a UCSI command has
-completed, so a command still in flight at ->prepare() completes only
-after the system has resumed. The timeout of the UCSI core does not
-count the time spent in suspend, only the time the system takes to
-suspend and resume.
-
-qcom_battmgr calls power_supply_changed() for most notifications, which
-keeps the system awake through the wakeup source of the power supply.
-For a notification that is held back, this now happens after the
-system has resumed, so it no longer aborts a suspend started through
-/sys/power/wakeup_count.
-
-Fixes: 58ef4ece1e41 ("soc: qcom: pmic_glink: Introduce base PMIC GLINK driver")
 Signed-off-by: Vladyslav Tymoshchuk <tvlad744@gmail.com>
 ---
 I used an AI assistant (Claude) for the analysis and to draft this
 patch and its description; I reviewed the result. The testing is
 described in the cover letter.
 
- drivers/soc/qcom/pmic_glink.c | 177 ++++++++++++++++++++++++++++++++--
- 1 file changed, 168 insertions(+), 9 deletions(-)
+ drivers/soc/qcom/pmic_glink.c       | 104 ++++++++++++++++++++++++++--
+ include/linux/soc/qcom/pmic_glink.h |   2 +
+ 2 files changed, 100 insertions(+), 6 deletions(-)
 
 diff --git a/drivers/soc/qcom/pmic_glink.c b/drivers/soc/qcom/pmic_glink.c
-index 84fd0c82c0c4..748b335be6ef 100644
+index 748b335be6ef..c629df8009e6 100644
 --- a/drivers/soc/qcom/pmic_glink.c
 +++ b/drivers/soc/qcom/pmic_glink.c
-@@ -14,8 +14,11 @@
+@@ -9,12 +9,14 @@
+ #include <linux/module.h>
+ #include <linux/of.h>
+ #include <linux/platform_device.h>
++#include <linux/pm_wakeup.h>
+ #include <linux/rpmsg.h>
+ #include <linux/slab.h>
  #include <linux/soc/qcom/pdr.h>
  #include <linux/soc/qcom/pmic_glink.h>
  #include <linux/spinlock.h>
-+#include <linux/string.h>
-+#include <linux/workqueue.h>
+ #include <linux/string.h>
++#include <linux/suspend.h>
+ #include <linux/workqueue.h>
  
  #define PMIC_GLINK_SEND_TIMEOUT (5 * HZ)
-+#define PMIC_GLINK_MAX_DEFERRED	64
+@@ -70,11 +72,15 @@ struct pmic_glink_client {
+ 	struct list_head node;
  
- enum {
- 	PMIC_GLINK_CLIENT_BATT = 0,
-@@ -50,6 +53,14 @@ struct pmic_glink {
- 	/* serializing clients list updates */
- 	spinlock_t client_lock;
- 	struct list_head clients;
-+
-+	/* notifications held back over system sleep */
-+	spinlock_t defer_lock;
-+	bool defer;
-+	struct list_head deferred;
-+	unsigned int num_deferred;
-+	unsigned int num_dropped;
-+	struct work_struct deliver_work;
- };
+ 	struct pmic_glink *pg;
++	struct device *dev;
+ 	unsigned int id;
  
- static struct pmic_glink *__pmic_glink;
-@@ -66,6 +77,12 @@ struct pmic_glink_client {
+ 	void (*cb)(const void *data, size_t len, void *priv);
+ 	void (*pdr_notify)(void *priv, int state);
++	bool (*wakeup_filter)(const void *data, size_t len, void *priv);
  	void *priv;
++
++	bool stay_awake;
  };
  
-+struct pmic_glink_deferred_msg {
-+	struct list_head node;
-+	size_t len;
-+	u8 data[] __counted_by(len);
-+};
+ struct pmic_glink_deferred_msg {
+@@ -83,6 +89,16 @@ struct pmic_glink_deferred_msg {
+ 	u8 data[] __counted_by(len);
+ };
+ 
++static void pmic_glink_client_relax(struct pmic_glink_client *client)
++{
++	lockdep_assert_held(&client->pg->client_lock);
++
++	if (client->stay_awake) {
++		client->stay_awake = false;
++		pm_relax(client->dev);
++	}
++}
 +
  static void _devm_pmic_glink_release_client(struct device *dev, void *res)
  {
  	struct pmic_glink_client *client = (struct pmic_glink_client *)res;
-@@ -149,13 +166,77 @@ int pmic_glink_send(struct pmic_glink_client *client, void *data, size_t len)
+@@ -91,9 +107,26 @@ static void _devm_pmic_glink_release_client(struct device *dev, void *res)
+ 
+ 	spin_lock_irqsave(&pg->client_lock, flags);
+ 	list_del(&client->node);
++	pmic_glink_client_relax(client);
+ 	spin_unlock_irqrestore(&pg->client_lock, flags);
+ }
+ 
++/**
++ * devm_pmic_glink_client_alloc() - allocate a client of the PMIC GLINK service
++ * @dev:	client device, a child of the pmic_glink device
++ * @id:		owner of the messages for the client
++ * @cb:		called, in atomic context, with each message for the client
++ * @pdr:	called, in atomic context, with the state of the remote service
++ * @priv:	passed to @cb, @pdr and the wakeup filter
++ *
++ * A notification for a client whose @dev may wake up the system, see
++ * device_may_wakeup(), is a wakeup event, unless the wakeup filter of the
++ * client rejects it. Notifications that arrive during system sleep reach @cb
++ * once the system has resumed.
++ *
++ * Return: the client, to be registered with pmic_glink_client_register(), or
++ * an ERR_PTR() on failure.
++ */
+ struct pmic_glink_client *devm_pmic_glink_client_alloc(struct device *dev,
+ 						       unsigned int id,
+ 						       void (*cb)(const void *, size_t, void *),
+@@ -108,6 +141,7 @@ struct pmic_glink_client *devm_pmic_glink_client_alloc(struct device *dev,
+ 		return ERR_PTR(-ENOMEM);
+ 
+ 	client->pg = pg;
++	client->dev = dev;
+ 	client->id = id;
+ 	client->cb = cb;
+ 	client->pdr_notify = pdr;
+@@ -120,6 +154,22 @@ struct pmic_glink_client *devm_pmic_glink_client_alloc(struct device *dev,
+ }
+ EXPORT_SYMBOL_GPL(devm_pmic_glink_client_alloc);
+ 
++/**
++ * pmic_glink_client_set_wakeup_filter() - select the wakeup notifications
++ * @client:	client from devm_pmic_glink_client_alloc(), not registered yet
++ * @filter:	called, in atomic context, with each notification for the client
++ *		while its device may wake up the system; returns true to wake
++ *		the system up
++ *
++ * Without a filter, every notification for the client is a wakeup event.
++ */
++void pmic_glink_client_set_wakeup_filter(struct pmic_glink_client *client,
++					 bool (*filter)(const void *, size_t, void *))
++{
++	client->wakeup_filter = filter;
++}
++EXPORT_SYMBOL_GPL(pmic_glink_client_set_wakeup_filter);
++
+ void pmic_glink_client_register(struct pmic_glink_client *client)
+ {
+ 	struct pmic_glink *pg = client->pg;
+@@ -166,6 +216,15 @@ int pmic_glink_send(struct pmic_glink_client *client, void *data, size_t len)
  }
  EXPORT_SYMBOL_GPL(pmic_glink_send);
  
-+static void pmic_glink_dispatch(struct pmic_glink *pg, const void *data, size_t len)
++static bool pmic_glink_is_wakeup_event(struct pmic_glink_client *client,
++				       const void *data, size_t len)
 +{
-+	const struct pmic_glink_hdr *hdr = data;
-+	struct pmic_glink_client *client;
-+	unsigned long flags;
-+
-+	spin_lock_irqsave(&pg->client_lock, flags);
-+	list_for_each_entry(client, &pg->clients, node) {
-+		if (client->id == le32_to_cpu(hdr->owner))
-+			client->cb(data, len, client->priv);
-+	}
-+	spin_unlock_irqrestore(&pg->client_lock, flags);
-+}
-+
-+static bool pmic_glink_defer(struct pmic_glink *pg, const void *data, size_t len)
-+{
-+	struct pmic_glink_deferred_msg *msg;
-+
-+	guard(spinlock_irqsave)(&pg->defer_lock);
-+
-+	if (!pg->defer)
++	if (!device_may_wakeup(client->dev))
 +		return false;
 +
-+	/* An identical notification brings nothing new, keep the latest copy */
-+	list_for_each_entry(msg, &pg->deferred, node) {
-+		if (msg->len == len && !memcmp(msg->data, data, len)) {
-+			list_move_tail(&msg->node, &pg->deferred);
-+			return true;
-+		}
-+	}
-+
-+	if (pg->num_deferred == PMIC_GLINK_MAX_DEFERRED) {
-+		msg = list_first_entry(&pg->deferred, struct pmic_glink_deferred_msg, node);
-+		list_del(&msg->node);
-+		kfree(msg);
-+		pg->num_deferred--;
-+		pg->num_dropped++;
-+	}
-+
-+	msg = kmalloc_flex(*msg, data, len, GFP_ATOMIC);
-+	if (!msg) {
-+		pg->num_dropped++;
-+		return true;
-+	}
-+
-+	msg->len = len;
-+	memcpy(msg->data, data, len);
-+	list_add_tail(&msg->node, &pg->deferred);
-+	pg->num_deferred++;
-+
-+	return true;
++	return !client->wakeup_filter || client->wakeup_filter(data, len, client->priv);
 +}
 +
-+static void pmic_glink_drop_deferred(struct pmic_glink *pg)
-+{
-+	struct pmic_glink_deferred_msg *msg, *tmp;
+ static void pmic_glink_dispatch(struct pmic_glink *pg, const void *data, size_t len)
+ {
+ 	const struct pmic_glink_hdr *hdr = data;
+@@ -174,8 +233,12 @@ static void pmic_glink_dispatch(struct pmic_glink *pg, const void *data, size_t
+ 
+ 	spin_lock_irqsave(&pg->client_lock, flags);
+ 	list_for_each_entry(client, &pg->clients, node) {
+-		if (client->id == le32_to_cpu(hdr->owner))
+-			client->cb(data, len, client->priv);
++		if (client->id != le32_to_cpu(hdr->owner))
++			continue;
 +
-+	guard(spinlock_irqsave)(&pg->defer_lock);
-+
-+	list_for_each_entry_safe(msg, tmp, &pg->deferred, node) {
-+		list_del(&msg->node);
-+		kfree(msg);
-+	}
-+	pg->num_deferred = 0;
-+}
-+
++		/* From here on, the client keeps the system awake if it needs to */
++		pmic_glink_client_relax(client);
++		client->cb(data, len, client->priv);
+ 	}
+ 	spin_unlock_irqrestore(&pg->client_lock, flags);
+ }
+@@ -235,8 +298,11 @@ static void pmic_glink_drop_deferred(struct pmic_glink *pg)
  static int pmic_glink_rpmsg_callback(struct rpmsg_device *rpdev, void *data,
  				     int len, void *priv, u32 addr)
  {
--	struct pmic_glink_client *client;
++	struct pmic_glink_client *client;
  	struct pmic_glink_hdr *hdr;
  	struct pmic_glink *pg = dev_get_drvdata(&rpdev->dev);
--	unsigned long flags;
++	bool notification, deferred;
++	unsigned long flags;
  
  	if (len < sizeof(*hdr)) {
  		dev_warn(pg->dev, "ignoring truncated message\n");
-@@ -164,12 +245,12 @@ static int pmic_glink_rpmsg_callback(struct rpmsg_device *rpdev, void *data,
- 
+@@ -246,11 +312,30 @@ static int pmic_glink_rpmsg_callback(struct rpmsg_device *rpdev, void *data,
  	hdr = data;
  
--	spin_lock_irqsave(&pg->client_lock, flags);
--	list_for_each_entry(client, &pg->clients, node) {
--		if (client->id == le32_to_cpu(hdr->owner))
--			client->cb(data, len, client->priv);
--	}
--	spin_unlock_irqrestore(&pg->client_lock, flags);
-+	/* The sender of a request is waiting for the response */
-+	if (le32_to_cpu(hdr->type) != PMIC_GLINK_REQ_RESP &&
-+	    pmic_glink_defer(pg, data, len))
-+		return 0;
+ 	/* The sender of a request is waiting for the response */
+-	if (le32_to_cpu(hdr->type) != PMIC_GLINK_REQ_RESP &&
+-	    pmic_glink_defer(pg, data, len))
+-		return 0;
++	notification = le32_to_cpu(hdr->type) != PMIC_GLINK_REQ_RESP;
 +
-+	pmic_glink_dispatch(pg, data, len);
++	/* Defer under client_lock, to set stay_awake before it is delivered */
++	spin_lock_irqsave(&pg->client_lock, flags);
++	deferred = notification && pmic_glink_defer(pg, data, len);
++	list_for_each_entry(client, &pg->clients, node) {
++		if (client->id != le32_to_cpu(hdr->owner))
++			continue;
++
++		if (deferred) {
++			if (pmic_glink_is_wakeup_event(client, data, len)) {
++				pm_stay_awake(client->dev);
++				pm_system_wakeup();
++				client->stay_awake = true;
++			}
++			continue;
++		}
++
++		if (notification && pmic_glink_is_wakeup_event(client, data, len))
++			pm_wakeup_hard_event(client->dev);
+ 
+-	pmic_glink_dispatch(pg, data, len);
++		client->cb(data, len, client->priv);
++	}
++	spin_unlock_irqrestore(&pg->client_lock, flags);
  
  	return 0;
  }
-@@ -210,6 +291,13 @@ static void pmic_glink_del_aux_device(struct pmic_glink *pg,
- 	auxiliary_device_uninit(aux);
- }
- 
-+static bool pmic_glink_deferring(struct pmic_glink *pg)
-+{
-+	guard(spinlock_irqsave)(&pg->defer_lock);
-+
-+	return pg->defer;
-+}
-+
- static void pmic_glink_state_notify_clients(struct pmic_glink *pg)
+@@ -330,6 +415,7 @@ static void pmic_glink_deliver_work(struct work_struct *work)
  {
- 	struct pmic_glink_client *client;
-@@ -217,13 +305,18 @@ static void pmic_glink_state_notify_clients(struct pmic_glink *pg)
+ 	struct pmic_glink *pg = container_of(work, struct pmic_glink, deliver_work);
+ 	struct pmic_glink_deferred_msg *msg;
++	struct pmic_glink_client *client;
+ 	unsigned int dropped;
  	unsigned long flags;
  
- 	if (pg->client_state != SERVREG_SERVICE_STATE_UP) {
--		if (pg->pdr_state == SERVREG_SERVICE_STATE_UP && pg->ept)
-+		/* On UP the clients use the remote, hold that back as well */
-+		if (pg->pdr_state == SERVREG_SERVICE_STATE_UP && pg->ept &&
-+		    !pmic_glink_deferring(pg))
- 			new_state = SERVREG_SERVICE_STATE_UP;
- 	} else {
- 		if (pg->pdr_state == SERVREG_SERVICE_STATE_DOWN || !pg->ept)
- 			new_state = SERVREG_SERVICE_STATE_DOWN;
+@@ -354,6 +440,12 @@ static void pmic_glink_deliver_work(struct work_struct *work)
+ 		kfree(msg);
  	}
  
-+	if (pg->pdr_state == SERVREG_SERVICE_STATE_DOWN || !pg->ept)
-+		pmic_glink_drop_deferred(pg);
++	/* Release the clients whose notifications were dropped */
++	spin_lock_irqsave(&pg->client_lock, flags);
++	list_for_each_entry(client, &pg->clients, node)
++		pmic_glink_client_relax(client);
++	spin_unlock_irqrestore(&pg->client_lock, flags);
 +
- 	if (new_state != pg->client_state) {
- 		spin_lock_irqsave(&pg->client_lock, flags);
- 		list_for_each_entry(client, &pg->clients, node)
-@@ -233,6 +326,40 @@ static void pmic_glink_state_notify_clients(struct pmic_glink *pg)
- 	}
- }
+ 	pmic_glink_state_notify_clients(pg);
  
-+static void pmic_glink_deliver_work(struct work_struct *work)
-+{
-+	struct pmic_glink *pg = container_of(work, struct pmic_glink, deliver_work);
-+	struct pmic_glink_deferred_msg *msg;
-+	unsigned int dropped;
-+	unsigned long flags;
-+
-+	guard(mutex)(&pg->state_lock);
-+
-+	for (;;) {
-+		spin_lock_irqsave(&pg->defer_lock, flags);
-+		msg = list_first_entry_or_null(&pg->deferred, struct pmic_glink_deferred_msg, node);
-+		if (!msg) {
-+			pg->defer = false;
-+			dropped = pg->num_dropped;
-+			pg->num_dropped = 0;
-+			spin_unlock_irqrestore(&pg->defer_lock, flags);
-+			break;
-+		}
-+
-+		list_del(&msg->node);
-+		pg->num_deferred--;
-+		spin_unlock_irqrestore(&pg->defer_lock, flags);
-+
-+		pmic_glink_dispatch(pg, msg->data, msg->len);
-+		kfree(msg);
-+	}
-+
-+	pmic_glink_state_notify_clients(pg);
-+
-+	if (dropped)
-+		dev_warn(pg->dev, "%u notifications lost during system sleep\n", dropped);
-+}
-+
- static void pmic_glink_pdr_callback(int state, char *svc_path, void *priv)
- {
- 	struct pmic_glink *pg = priv;
-@@ -315,6 +442,10 @@ static int pmic_glink_probe(struct platform_device *pdev)
- 	spin_lock_init(&pg->client_lock);
- 	mutex_init(&pg->state_lock);
+ 	if (dropped)
+diff --git a/include/linux/soc/qcom/pmic_glink.h b/include/linux/soc/qcom/pmic_glink.h
+index 7cddf1027752..786d2f35a9a9 100644
+--- a/include/linux/soc/qcom/pmic_glink.h
++++ b/include/linux/soc/qcom/pmic_glink.h
+@@ -28,6 +28,8 @@ struct pmic_glink_client *devm_pmic_glink_client_alloc(struct device *dev,
+ 						       void (*cb)(const void *, size_t, void *),
+ 						       void (*pdr)(void *, int),
+ 						       void *priv);
++void pmic_glink_client_set_wakeup_filter(struct pmic_glink_client *client,
++					 bool (*filter)(const void *, size_t, void *));
+ void pmic_glink_client_register(struct pmic_glink_client *client);
  
-+	INIT_LIST_HEAD(&pg->deferred);
-+	spin_lock_init(&pg->defer_lock);
-+	INIT_WORK(&pg->deliver_work, pmic_glink_deliver_work);
-+
- 	pg->data = of_device_get_match_data(&pdev->dev);
- 	if (!pg->data)
- 		return -EINVAL;
-@@ -377,6 +508,8 @@ static void pmic_glink_remove(struct platform_device *pdev)
- {
- 	struct pmic_glink *pg = dev_get_drvdata(&pdev->dev);
- 
-+	cancel_work_sync(&pg->deliver_work);
-+
- 	pdr_handle_release(pg->pdr);
- 
- 	if (pg->data->client_mask & BIT(PMIC_GLINK_CLIENT_BATT))
-@@ -386,10 +519,35 @@ static void pmic_glink_remove(struct platform_device *pdev)
- 	if (pg->data->client_mask & BIT(PMIC_GLINK_CLIENT_UCSI))
- 		pmic_glink_del_aux_device(pg, &pg->ucsi_aux);
- 
-+	pmic_glink_drop_deferred(pg);
-+
- 	guard(mutex)(&__pmic_glink_lock);
- 	__pmic_glink = NULL;
- }
- 
-+static int pmic_glink_prepare(struct device *dev)
-+{
-+	struct pmic_glink *pg = dev_get_drvdata(dev);
-+
-+	guard(spinlock_irqsave)(&pg->defer_lock);
-+	pg->defer = true;
-+
-+	return 0;
-+}
-+
-+static void pmic_glink_complete(struct device *dev)
-+{
-+	struct pmic_glink *pg = dev_get_drvdata(dev);
-+
-+	/* Runs once the tasks are thawed, all devices have resumed by then */
-+	queue_work(system_freezable_wq, &pg->deliver_work);
-+}
-+
-+static const struct dev_pm_ops pmic_glink_pm_ops = {
-+	.prepare = pmic_glink_prepare,
-+	.complete = pmic_glink_complete,
-+};
-+
- static const struct pmic_glink_data pmic_glink_adsp_data = {
- 	.client_mask = BIT(PMIC_GLINK_CLIENT_BATT) |
- 		       BIT(PMIC_GLINK_CLIENT_ALTMODE) |
-@@ -418,6 +576,7 @@ static struct platform_driver pmic_glink_driver = {
- 	.driver = {
- 		.name = "qcom_pmic_glink",
- 		.of_match_table = pmic_glink_of_match,
-+		.pm = pm_sleep_ptr(&pmic_glink_pm_ops),
- 	},
- };
- 
+ #endif
 -- 
 2.43.0
 
