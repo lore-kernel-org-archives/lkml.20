@@ -1,102 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1792673916;
-	b=fVRjXlLDy/aK3Br08Cvo+2OFN/gPiJtHP6YDsSCkzKRxWFkLiIVZ1IrSkwX8V475Pu+5
-	 boyra2tOWae7SIlB6PHekjNtsX+znaouyAyTi3ZuetiUqLBgeVKu2mV2uiFPU6eTmoaB+
-	 eaeXo5Jt7ZmGUTkutRcTxuO04KKIYuGVitcEoKQr0zEokH2QmB1zCM0+cEIy/StfPFcis
-	 HkykIh3XJhAU0FSIZEEq7a88EhpZe9+JZsAg6679i4ltiTq5dQ2PTiZ0CBr3GqvfNzdMG
-	 N1Hhz8NeOX6y1Eg0LuClSTaCCh5XJ76u1wprfUjG3NK3xs3ngRMylAS1sBxgmryx5tw==
+	b=Ic3mHRYQGDr32+SFKdMM4fAbA9x+n0iFDpLPvyxg0knxCqP5+Y2WzQpfmW50oETyLd9j
+	 6ilnCbEK3Z8r29TFfPuVRnBLbiuGrG4pRUdHShmPaSrk+UHIWbrg25wnnWqoJDAyz7JVh
+	 CvNwgvfezhgjd7QqKyF43m1DTwNZP6PZaKZmf1FvZnihL7VifoArnJGooauBnrPhG+Jcf
+	 DLavR5W1xuqL3WkJ87vlTOf+Ivsfshr+Qa3kZtv2aC8xLYSHMeQSL+w7zfmj7b84Fss81
+	 RvK2iU+JpNwrHjFQOpmkxKfIQaTfWQiulTqOHQ9rbyCCapbBGfC/QYIjipmo2ttITjw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1792673916;
 	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
 	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
 	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Mailer:X-Mutt-Fcc;
-	bh=kotNI+NV8koDhHE4Okh6cXBlCdjWFXScAsrnexeAUHw=;
-	b=pcw0tuwii86+VzdyxwHDKjhwB6H4ZN2IzmKZ31UnpLKDU477eyg0x0i7EvrvL8wb3h0V
-	 D8FW1QmPqbFaKbaI7Whpd2RMNhK9PGeryjCO7M/RlooBZBzlgZ55/VxgTNykknp9ruBYs
-	 bxz3kKQ0WzjkA8/9Nb4jfm08OWjZw3E5mzZeG6SHypFcP92TZp0T0LXI7z3UKJ2BQatYg
-	 fhwz/ifj0fn5f/F9jpHRR+yYRfyJU5JqtzxIKtgt16V86Z+MgwTtZge8/GoBHBUXObfq3
-	 Iurk6cGk9VZmpamun1fsBB9xEl7DdxSVW1+OO4nWyRhVERAc+L4AJ2QFsfTMrv70Cwg==
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To:X-Mailer:
+	 X-Mutt-Fcc;
+	bh=n2146TWUgdwHvS4zjmu5EqVSZcyKohA+l2jbGNsx8S4=;
+	b=Gs/1o5Wr62OGIHpN414Cb2bN7Bm/lCx590SNYl99TJzD0rCrbSIGg9FGYYOV8JnUxfas
+	 bKymnOFdGRLSXMYnGr3/XsMtjBBy4Xd+7S6buM4xwGhOclsZSysGI490FFiI8uHGMiU54
+	 IlVZGrl4hPF0V8JX8I+JEN3+JfefwibbfmEk9jK1unJFRdzMWTAeyIwLDddKXcRjx98TC
+	 cDOTsiPQVWv6Cp5f48nTYXayURqxrnxuUBwwMTPfWl8DJj1ZBWLOp9gn7dqgFq+Qn+SKn
+	 Tw9ddrLI83ucU9VvDEGW4bY6OXT9HrbeWgzPVWzv4lSpG2UY2A7/9PPL3ZSGSZ/2uBQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=redhat.com;
 	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=BVhAC2n9;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=QMG4QEV4;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=O9or39Vr;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=MpJlP5E9;
+	arc=none smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C48160A3806
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80C8760A2604
 	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 12:58:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9C48160A3806
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 80C8760A2604
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=BVhAC2n9;
-	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=QMG4QEV4
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=O9or39Vr;
+	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=MpJlP5E9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
 	s=mimecast20190719; t=1792673914;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=kotNI+NV8koDhHE4Okh6cXBlCdjWFXScAsrnexeAUHw=;
-	b=BVhAC2n9JHxM49DObKbM/nuVFdvR++IGzarXFA41LE4K3BhErEFn/oOrysfvi8p62IOowd
-	TzJxsMR3jtMyY9C9wgiFm48bR97IY1l5EJjZfp6oQbyjykN/cxl0U+WlLx4QoxJF5Gf19o
-	Xrey7lwtaJ0eOnVKNTqhehZX6BCIpeo=
-Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
- [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=n2146TWUgdwHvS4zjmu5EqVSZcyKohA+l2jbGNsx8S4=;
+	b=O9or39Vrb3GGgJ2zHzHuonrZjAv10bKSToF5UrlSYxxbsvHB4PoWf4j1dZswiFjsbwZu1S
+	PVPjoF6nWonWZxioyEswxMYaBDEgDF2O09uoD9G8CnGGjC6Kzd61+tn4YAAd3SdhG0dTFN
+	Z7fxwQLrnOBY0F5yan8VMzlz5kQ+T3Y=
+Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
+ [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-606-ilPerWLvNFq8xndTIg9ILQ-1; Thu, 22 Oct 2026 12:58:27 +0000
-X-MC-Unique: ilPerWLvNFq8xndTIg9ILQ-1
-X-Mimecast-MFC-AGG-ID: ilPerWLvNFq8xndTIg9ILQ_1792673906
-Received: by mail-wr1-f72.google.com with SMTP id ffacd0b85a97d-48b02d63407so1184301f8f.0
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 05:58:27 -0700 (PDT)
+ us-mta-505-gVwlB4I-P_y_iyt3I_GFfQ-1; Thu, 22 Oct 2026 12:58:31 +0000
+X-MC-Unique: gVwlB4I-P_y_iyt3I_GFfQ-1
+X-Mimecast-MFC-AGG-ID: gVwlB4I-P_y_iyt3I_GFfQ_1792673910
+Received: by mail-wr1-f71.google.com with SMTP id ffacd0b85a97d-48e00f3929bso633525f8f.0
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 05:58:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1792673906; x=1793278706; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=kotNI+NV8koDhHE4Okh6cXBlCdjWFXScAsrnexeAUHw=;
-        b=QMG4QEV49fZe5ws1VbdM/x5dcWdh0Ve//Fsm8F8xqXVGUxxte0UD5HXhJSrDzxZjkM
-         FNxMPsPVBcPFYggBYvMxaUoouadikrargATm4CYDLE5wQsuj35kxXxQAuzR4+pg/Wap0
-         F/YKWRmHulkBym/Ct/N37epnpSrINSnRBnSIWAv06ekei6+U7sJas3xonCxNbVJUb/tF
-         o9uX7+Dyk2cRFWu6QhDI0xrgdYxjGOE2PH6R2htPa2A18DLXaBqwoudI9K71vvEO8SWx
-         YfLB1Nerj51GJ5gLqMrAy7doAqiN3B8A4WW+VtjNmwR1boaMSFc2HcuF1RkzShvYTQCz
-         RcOA==
+        d=redhat.com; s=google; t=1792673910; x=1793278710; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=n2146TWUgdwHvS4zjmu5EqVSZcyKohA+l2jbGNsx8S4=;
+        b=MpJlP5E9duoQMHTdqOlS484UdpyR2kEAttkD0SJ2jlLZ7g/YptXm3vFUqFw2aI+fMd
+         xvBHPckKcFrZLqMxI0oMysbLMWmRcL8rpZ90okYUayMBWd6OmUMjFINxPlrI48FARXHw
+         L749cnhAlhQF4zbcpYio+jfzCXPrgtLhKoUYiZUYLr/K0Utoxt/sngOzH9dwWnEjCbfT
+         nyMG4TL3GD1+VV7EwupFGsyoBhs8cxlVjXOrOdB85Feq66X8lbtSWsLtFGKcq0FL5o+l
+         FvxjKREfjdvbMZnaQdnUapkynHb/cNCERjUjK6HIA7MaVG/cEy6bfCgwQzPK7sznZi68
+         J/MA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792673906; x=1793278706;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=kotNI+NV8koDhHE4Okh6cXBlCdjWFXScAsrnexeAUHw=;
-        b=yWx52LdVdmXhUnv06AEgLieLNeYL4OjAftTcg6bXk0OlquIVsMZvNLW7XuwQF8x8aj
-         F2Y0Av4J94A43Q40fQTnvsmo2YSHBYIvxyRCXd2YP3nQZdsM4vC4biDlfnoSAc7h0Evk
-         k6ydJGQF3XW8XBQk4MuvmTXB2I8DiSpNuCrSSQ+2zaJl0TzsVWABvo0wWXqmwI1abENk
-         sXHEv66VkZwyUUMb7A3pyrIwbRW7LS5nc6bwpBkjy8mldXCOPVmiohyF80Xjj8f5gAyn
-         J3h+M0xmBNOY7gh60Pfmj0Bj9A1/FgHXESRy9SKHUqH6BcMZIjj4ykdXKqDPYhZwbp6/
-         /OEQ==
-X-Gm-Message-State: AFq9FYLtwziOkiBkh9tq85+znG9mtWYmZU2ErKqXvw1jfuuhdUKL/BkE
-	DFY3teRYXaJGPRyZ85GKSBHWcz7wskS3HhnactWs12HFvKlqM7kWABaxi6ufJxT7ZHOBVr3BmF4
-	Pd9XRRWGclv+ZWoLCSKjfJG/7Xucon59oFd4vaRELNRR7Och/GHLuGAMeRgcv3mqhH/DlFgKqW7
-	KuFCWQ4vyB2KZ12AIJRPfiSmjzPLABw8iVd2FT58LvEIs=
-X-Gm-Gg: AYBFou39KMJWd/Kf5cnfS5FrYXzfUGeLdSr/m115zCdlsYRwR4LPjH4LfpiX+NdGcGZ
-	b8jSuHuPDdbGBoq6uDoF+i1rpofsuTXcg/I5ueW9tQ1s5Kdelf9aFr12TVFYHGT+BmPs7ucuXOq
-	Dfmvq+Dnt+Iq47Lx9ReDWIegEj7MbkEMDvA6hDxNFt9TUdcO8nvC5gk2AIaudS4pf39RP4YYixt
-	lZeN88qP9QM/uGuh8t7chy/lpOwDK0Tm0e+s3tYasP05N4qxikVIFlaMnUhq4WEMa24pEsbcuMM
-	zveY5qpZ9V85+yv6ytZUQJApKDrVrHUsneaY6jwjljuu/HWI7gqWznvhLdUovSI4KW0=
-X-Received: by 2002:a05:6000:186b:b0:48d:fdc0:8bf2 with SMTP id ffacd0b85a97d-48e264d6ac5mr10492470f8f.41.1792673905737;
-        Thu, 22 Oct 2026 05:58:25 -0700 (PDT)
-X-Received: by 2002:a05:6000:186b:b0:48d:fdc0:8bf2 with SMTP id ffacd0b85a97d-48e264d6ac5mr10492388f8f.41.1792673904824;
-        Thu, 22 Oct 2026 05:58:24 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1792673910; x=1793278710;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=n2146TWUgdwHvS4zjmu5EqVSZcyKohA+l2jbGNsx8S4=;
+        b=ob84mYXC7kA+8R6A2GusaNDczJzoQbyNHSt0beBRTGozDjLLwqpJG701wMVD9q/1xc
+         v+W97fUlvivJagcgGysuIJsvKbLR6Orv4Q+Nw9dxsgNj4GXtT6qNTSJdXh9zJ/EKM6OZ
+         Zvn55uCqcTCrVtUyZtVAHzNdKPe8z2rNhPdn4U+1Ft81QUyyHQ8RyXgFBXN5uFEpooPU
+         mLVT/dGFHC14aWXie46YDSSpQ+cx+R7YWMRoDmjzA4KcJM87NGiju5szh06BsxLzT2xY
+         WZO+IP4+6CcuD0d1zMQFtGckVQBBblz8Cod/dPEQlpaHPnkdiLnCqOTh4lSt0YPa7A+1
+         ow8g==
+X-Gm-Message-State: AFq9FYKxF+vBnY+i1uLhPHeKv22o9wQYxPBwSGfUPnN84WJTQ019YmiY
+	dZvaR1DYdVERPMI02b+tmZC9YGT2Cnt+I4KST1T5NkQHmueJAAd71K5Mh6wMxDuQRJmEj8t+jS4
+	lSKIOXXoLiP8vdAqAiUgroYvFr0kipZ8RsU8gehvgI2aBm+XwfIdapd88cRgKdylLR1WnA1Mbih
+	gZ8DBfRAz0+3E7BBJeZSk33p+wyaOmLBm5RG96wKKqwo4=
+X-Gm-Gg: AYBFou2OSiE3811t1fp/ZBlEXzVehzv+NB1+39p0IrP1mxtODdb4sGD7xUQplOcHe2S
+	P1vFKOAWMg6KE+6EUlRld1O0VaQ3ZPgLOOLan8sK9F4e58uimWxwz6ZN2nvUaR0FpgvyixfXXS5
+	6UrZnVi0i3ayFTdz7P8NL5P10CToFhc7EZ3B+4V3OGVDdN9dbNylPKxleMQi+vtQdQ5nd8yheC7
+	6Cnj9Ih3xGUyH7fan26yf0CDoK2CQP2LH8p98PT3sfzWma61vrbvq6ySAIFdiFlrgVh2VVP4t/5
+	Zr2I35e9mPCqLfJNQty7e2ChMTmFfR6tje4LyOBedfgdQgNqY357ypwKuhNPFxeAavg=
+X-Received: by 2002:a05:600c:34d6:b0:4a2:bbd:ea3a with SMTP id 5b1f17b1804b1-4a20bbdea84mr19221575e9.6.1792673909744;
+        Thu, 22 Oct 2026 05:58:29 -0700 (PDT)
+X-Received: by 2002:a05:600c:34d6:b0:4a2:bbd:ea3a with SMTP id 5b1f17b1804b1-4a20bbdea84mr19221005e9.6.1792673909044;
+        Thu, 22 Oct 2026 05:58:29 -0700 (PDT)
 Received: from redhat.com ([2a0d:6fc0:1536:fc00:b838:383:1c7:6e81])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e254f093asm12758884f8f.4.2026.10.22.05.58.19
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a203b29907sm65756795e9.3.2026.10.22.05.58.25
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 05:58:21 -0700 (PDT)
-Date: Thu, 22 Oct 2026 08:58:18 -0400
+        Thu, 22 Oct 2026 05:58:28 -0700 (PDT)
+Date: Thu, 22 Oct 2026 08:58:24 -0400
 From: "Michael S. Tsirkin" <mst@redhat.com>
 To: linux-kernel@vger.kernel.org
 Cc: Willem de Bruijn <willemdebruijn.kernel@gmail.com>,
@@ -112,9 +114,14 @@ Cc: Willem de Bruijn <willemdebruijn.kernel@gmail.com>,
 	netdev@vger.kernel.org, virtualization@lists.linux.dev,
 	Max Krasnyansky <maxk@qualcomm.com>,
 	Rusty Russell <rusty@rustcorp.com.au>,
-	Paulos Yibelo <habte.yibelo@gmail.com>
-Subject: [PATCH net v5 4/7] net: resolve uncommon partial checksums at ingress
-Message-ID: <342bf5331e12b2e5b940510293233bb8bce46127.1792668082.git.mst@redhat.com>
+	Willem de Bruijn <willemb@google.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Simon Horman <horms@kernel.org>, linux-doc@vger.kernel.org
+Subject: [PATCH net v5 5/7] net: add a sysctl to opt out of virtio net hdr
+ checksum validation
+Message-ID: <2beba4c8b84c811120b6100bcccd8b90e7458787.1792668082.git.mst@redhat.com>
 References: <cover.v5.git.mst@redhat.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -125,417 +132,272 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
 In-Reply-To: <cover.v5.git.mst@redhat.com>
 X-Mailer: git-send-email 2.51.2.2891.g4157995a80.dirty
 X-Mutt-Fcc: =sent
 
-As reported first by Paulos Yibelo <habte.yibelo@gmail.com> (after which
-others, credited below, found more ways the bug can affect users) a
-virtio net header can place CHECKSUM_PARTIAL at any in-packet offset.
-If that state is retained, later checksum completion can modify the
-packet after protocol processing has made decisions from it.
+The ingress validation as implemented by the previous
+patch is stricter than what it replaced: GSO
+packets whose checksum metadata matches no transport header are
+dropped, and non-GSO ones get their checksum completed in place.
+Such packets used to pass with the metadata unvalidated,
+and with no overhead.
 
-Let's fix that: let's validate csum_start and csum_offset and only keep
-CHECKSUM_PARTIAL when csum_start and csum_offset match a parsed TCP or
-UDP header, while handling VLAN headers, IPv4 options and IPv6 extension
-headers.  Complete other non-GSO checksums immediately, before any
-protocol processing runs.
+I judge that this should not affect any deployments, but there is still
+some risk that it does.  In case a deployment depends on them anyway,
+provide a per-netns switch to get the old behavior back:
 
-We can't easily "complete the checksum" for GSO we don't recognize - GSO
-assumes knowledge of the protocol. We could segment ignoring the
-checksum then do whatever csum_start and csum_offset say, but that
-seems like an overkill for something that shouldn't happen.
+echo 0 > /proc/sys/net/core/virtio_net_hdr_validate
 
-There's some risk here:
-- non-gso packets which can't be parsed get checksum calculated in
-  software, adding performance overhead
-- gso packets which can't be parsed get dropped
+The default is validating.
 
-Note that for zero copy, userspace can change the data after the
-checksum has been calculated.  This is fundamental to zero copy by
-design, and the only outcome is a bad checksum and a packet drop.
-
-To mitigate the risks, the following patch will add a sysctl knob to
-bypass the resolution. This is reasonable if the setup is such that
-there is no protocol processing at all.
-
-UDP tunnel headers get the same handling on the inner header.
-
-Packets without VIRTIO_NET_HDR_F_NEEDS_CSUM are unaffected.
-
-Reported-by: Paulos Yibelo <habte.yibelo@gmail.com>
-Reported-by: Chris Arges <carges@cloudflare.com>
-Tested-by: Chris Arges <carges@cloudflare.com>
-Fixes: f43798c27684 ("tun: Allow GSO using virtio_net_hdr")
-Suggested-by: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
+Reviewed-by: Björn Töpel <bjorn@kernel.org>
+Reviewed-by: Willem de Bruijn <willemb@google.com>
 Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
 ---
 
 Notes (changelog):
     v4->v5:
-        caller changes moved to "account for ingress-resolved
-        virtio net hdr state" (Willem de Bruijn)
-        a packet too small to be GSO: ignore the tunnel GSO request,
-        complete wild metadata in place (sashiko)
-        document the zero copy interaction (sashiko)
-        honor a preset skb->protocol on ethernet: the stack uses it,
-        except on loopback which re-parses the frame (sashiko)
+        document the netns lifetime requirement (sashiko)
 
- include/linux/virtio_net.h | 283 ++++++++++++++++++++++++++++++++++++-
- 1 file changed, 279 insertions(+), 4 deletions(-)
+ Documentation/admin-guide/sysctl/net.rst | 19 +++++++++
+ include/linux/virtio_net.h               | 27 +++++++++++++
+ include/net/netns/core.h                 |  1 +
+ net/core/dev.c                           |  7 ++++
+ net/core/net_namespace.c                 |  1 +
+ net/core/sysctl_net_core.c               | 50 ++++++++++++++++++++++++
+ 6 files changed, 105 insertions(+)
 
+diff --git a/Documentation/admin-guide/sysctl/net.rst b/Documentation/admin-guide/sysctl/net.rst
+index e586e17fc7a5..3c0223575438 100644
+--- a/Documentation/admin-guide/sysctl/net.rst
++++ b/Documentation/admin-guide/sysctl/net.rst
+@@ -246,6 +246,25 @@ processes are dropped unless socket option SOF_TIMESTAMPING_OPT_TSONLY is set.
+ Default: 1 (on)
+ 
+ 
++virtio_net_hdr_validate
++-----------------------
++
++When processing packets with a virtio net header (through tun, tap, a
++packet socket or a virtio network device) that request checksum offload
++(VIRTIO_NET_HDR_F_NEEDS_CSUM), validate the packet: complete the checksum
++in software, or drop the packet where the header does not match it.
++
++When disabled, the header is trusted not to corrupt the packet, and the
++checksum is offloaded to hardware (or not verified if it never reaches
++hardware). This is only safe if no protocol is processing the packets.
++
++The setting is per network namespace, but only writable by the host
++root: root inside a network namespace created by an unprivileged user
++cannot disable the validation.
++
++Default: 1 (on)
++
++
+ wmem_default
+ ------------
+ 
 diff --git a/include/linux/virtio_net.h b/include/linux/virtio_net.h
-index 013c6c7e2dea..52852a33a2db 100644
+index 52852a33a2db..cea70ccf0ed4 100644
 --- a/include/linux/virtio_net.h
 +++ b/include/linux/virtio_net.h
-@@ -5,7 +5,11 @@
+@@ -5,6 +5,7 @@
  #include <linux/if_vlan.h>
  #include <linux/ip.h>
  #include <linux/ipv6.h>
-+#include <linux/netdevice.h>
++#include <linux/jump_label.h>
+ #include <linux/netdevice.h>
  #include <linux/udp.h>
-+#include <net/gso.h>
-+#include <net/ip.h>
-+#include <net/ipv6.h>
- #include <net/tcp.h>
- #include <uapi/linux/tcp.h>
- #include <uapi/linux/virtio_net.h>
-@@ -48,6 +52,205 @@ static inline int virtio_net_hdr_set_proto(struct sk_buff *skb,
- 	return 0;
+ #include <net/gso.h>
+@@ -78,6 +79,20 @@ static inline struct iphdr *virtio_net_ip4_parse(struct sk_buff *skb,
+ 	*thoff = nhoff + iph->ihl * sizeof(u32);
+ 	return iph;
  }
++/* Defined in net/core/dev.c, enabled while any network namespace
++ * has net.core.virtio_net_hdr_validate set to 0.
++ */
++DECLARE_STATIC_KEY_FALSE(virtio_net_hdr_validate_disabled_key);
++
++/* Failsafe: a namespace can disable the check with
++ * net.core.virtio_net_hdr_validate.
++ * The caller must keep the netns of skb->dev alive.
++ */
++static inline bool virtio_net_hdr_validate_disabled(struct sk_buff *skb)
++{
++	return static_branch_unlikely(&virtio_net_hdr_validate_disabled_key) &&
++	       !READ_ONCE(dev_net(skb->dev)->core.sysctl_virtio_net_hdr_validate);
++}
  
-+/* TODO: nothing virtio specific here, move to ip.h */
-+
-+/*
-+ * Pull and minimally validate the IPv4 header at @nhoff.
-+ * Returns the header and stores the transport header offset in
-+ * @thoff, or NULL if truncated or malformed.  Only the fixed header
-+ * is guaranteed linear; callers that need the options or the
-+ * transport header must pull further.
-+ */
-+static inline struct iphdr *virtio_net_ip4_parse(struct sk_buff *skb,
-+						  unsigned int nhoff,
-+						  unsigned int *thoff)
-+{
-+	struct iphdr *iph;
-+
-+	if (!pskb_may_pull(skb, nhoff + sizeof(struct iphdr)))
-+		return NULL;
-+
-+	iph = (struct iphdr *)(skb->data + nhoff);
-+	if (iph->version != 4 ||
-+	    iph->ihl < sizeof(struct iphdr) / sizeof(u32))
-+		return NULL;
-+
-+	*thoff = nhoff + iph->ihl * sizeof(u32);
-+	return iph;
-+}
-+
-+/* Where does the L3 header start, and what protocol is it?
-+ * Handles Ethernet and VLAN headers; other devices use the
-+ * network header offset the caller set up.
-+ */
-+static inline bool
-+virtio_net_l3_start(struct sk_buff *skb, int *nhoff, __be16 *proto)
-+{
-+	/* skb->dev is only guaranteed to be set since 44378d02c5aa
-+	 * ("net: always dissect GSO packets in
-+	 * __virtio_net_hdr_to_skb()"), do not crash when it is not.
+ /* Where does the L3 header start, and what protocol is it?
+  * Handles Ethernet and VLAN headers; other devices use the
+@@ -189,6 +204,12 @@ virtio_net_csum_partial_ok_at_offset(struct sk_buff *skb, u8 hdr_gso_type,
+ 	unsigned int thoff;
+ 	int ip_proto;
+ 
++	/* Failsafe: a namespace opted out of the validation,
++	 * trust the checksum metadata as before.
 +	 */
-+	if (WARN_ON_ONCE(!skb->dev))
-+		return false;
-+
-+	/* A preset protocol is what the stack will use, except on
-+	 * loopback which re-parses the frame: loopback_xmit() calls
-+	 * eth_type_trans() on it.
-+	 */
-+	if (skb->dev->type == ARPHRD_ETHER ||
-+	    skb->dev->type == ARPHRD_LOOPBACK) {
-+		if (!pskb_may_pull(skb, ETH_HLEN))
-+			return false;
-+		*nhoff = ETH_HLEN;
-+		*proto = skb->protocol;
-+		if (!*proto || skb->dev->type == ARPHRD_LOOPBACK)
-+			*proto = eth_hdr(skb)->h_proto;
-+		if (eth_type_vlan(*proto)) {
-+			*proto = __vlan_get_protocol(skb, *proto, nhoff);
-+			if (!*proto)
-+				return false;
-+		}
-+	} else {
-+		*nhoff = skb_network_offset(skb);
-+		/* An unset network header shows up as an offset
-+		 * outside of the packet.
-+		 */
-+		if (*nhoff < 0 || (unsigned int)*nhoff >= skb->len)
-+			return false;
-+		*proto = skb->protocol;
-+		if (!*proto) {
-+			const struct iphdr *iph;
-+
-+			/* A packet socket bound to ETH_P_ALL leaves the
-+			 * protocol unset: infer it from the IP version
-+			 * at the network header.
-+			 */
-+			if (!pskb_may_pull(skb, *nhoff + 1))
-+				return false;
-+			iph = (const struct iphdr *)(skb->data + *nhoff);
-+			if (iph->version == 4)
-+				*proto = htons(ETH_P_IP);
-+			else if (iph->version == 6)
-+				*proto = htons(ETH_P_IPV6);
-+		}
-+	}
-+	return true;
-+}
-+
-+/* Walk the L3 header at @nhoff: where does its transport header
-+ * start, and which protocol is it?  Returns false if the header
-+ * is truncated, malformed or fragmented.
-+ */
-+static inline bool
-+virtio_net_l4_start(struct sk_buff *skb, unsigned int nhoff, __be16 proto,
-+		    unsigned int *thoff, int *ip_proto)
-+{
-+	if (proto == htons(ETH_P_IP)) {
-+		const struct iphdr *iph = virtio_net_ip4_parse(skb, nhoff, thoff);
-+
-+		if (!iph || ip_is_fragment(iph))
-+			return false;
-+		*ip_proto = iph->protocol;
++	if (virtio_net_hdr_validate_disabled(skb))
 +		return true;
-+	}
 +
-+	if (proto == htons(ETH_P_IPV6)) {
-+		const struct ipv6hdr *iph;
-+		int flags = 0;
-+
-+		if (!pskb_may_pull(skb, nhoff + sizeof(*iph)))
-+			return false;
-+		iph = (const void *)(skb->data + nhoff);
-+		if (iph->version != 6)
-+			return false;
-+		*thoff = nhoff + sizeof(*iph);
-+		*ip_proto = iph->nexthdr;
-+		if (*ip_proto != IPPROTO_TCP && *ip_proto != IPPROTO_UDP) {
-+			*thoff = nhoff;
-+			/* Find the transport header behind any
-+			 * extension headers, AH included.
-+			 */
-+			*ip_proto = ipv6_find_hdr(skb, thoff, -1, NULL,
-+						  &flags);
-+			if (*ip_proto < 0 || flags & IP6_FH_F_FRAG)
-+				return false;
-+		}
+ 	if (!virtio_net_l4_start(skb, nhoff, proto, &thoff, &ip_proto))
+ 		return false;
+ 
+@@ -231,6 +252,9 @@ virtio_net_csum_partial_ok(struct sk_buff *skb, u8 hdr_gso_type)
+ 	int nhoff;
+ 	__be16 proto;
+ 
++	if (virtio_net_hdr_validate_disabled(skb))
 +		return true;
-+	}
 +
-+	return false;
-+}
-+
-+/* Does checksum metadata match a known TCP or UDP header? */
-+static inline bool
-+virtio_net_csum_partial_ok_at_offset(struct sk_buff *skb, u8 hdr_gso_type,
-+				     unsigned int nhoff, __be16 proto)
-+{
-+	unsigned int thoff;
-+	int ip_proto;
-+
-+	if (!virtio_net_l4_start(skb, nhoff, proto, &thoff, &ip_proto))
-+		return false;
-+
-+	if (skb_checksum_start_offset(skb) != thoff)
-+		return false;
-+
-+	switch (ip_proto) {
-+	case IPPROTO_TCP:
-+		if (skb->csum_offset != offsetof(struct tcphdr, check) ||
-+		    !pskb_may_pull(skb, thoff + sizeof(struct tcphdr)))
-+			return false;
-+		break;
-+	case IPPROTO_UDP:
-+		if (skb->csum_offset != offsetof(struct udphdr, check) ||
-+		    !pskb_may_pull(skb, thoff + sizeof(struct udphdr)))
-+			return false;
-+		break;
-+	default:
-+		return false;
-+	}
-+
-+	switch (hdr_gso_type & ~VIRTIO_NET_HDR_GSO_ECN) {
-+	case VIRTIO_NET_HDR_GSO_NONE:
+ 	if (!virtio_net_l3_start(skb, &nhoff, &proto))
+ 		return false;
+ 
+@@ -522,6 +546,9 @@ virtio_net_tnl_offsets_ok(struct sk_buff *skb, bool outer_isv6,
+ 	unsigned int thoff;
+ 	int ip_proto;
+ 
++	if (virtio_net_hdr_validate_disabled(skb))
 +		return true;
-+	case VIRTIO_NET_HDR_GSO_TCPV4:
-+		return proto == htons(ETH_P_IP) && ip_proto == IPPROTO_TCP;
-+	case VIRTIO_NET_HDR_GSO_TCPV6:
-+		return proto == htons(ETH_P_IPV6) && ip_proto == IPPROTO_TCP;
-+	case VIRTIO_NET_HDR_GSO_UDP:
-+	case VIRTIO_NET_HDR_GSO_UDP_L4:
-+		return ip_proto == IPPROTO_UDP;
-+	default:
-+		return false;
++
+ 	if (!virtio_net_l3_start(skb, &nhoff, &proto))
+ 		return false;
+ 	if (outer_isv6 != (proto == htons(ETH_P_IPV6)))
+diff --git a/include/net/netns/core.h b/include/net/netns/core.h
+index 9ef3d70e5e9c..02ce232fe9a9 100644
+--- a/include/net/netns/core.h
++++ b/include/net/netns/core.h
+@@ -18,6 +18,7 @@ struct netns_core {
+ 	u8	sysctl_txrehash;
+ 	u8	sysctl_tstamp_allow_data;
+ 	u8	sysctl_bypass_prot_mem;
++	u8	sysctl_virtio_net_hdr_validate;
+ 
+ #ifdef CONFIG_PROC_FS
+ 	struct prot_inuse __percpu *prot_inuse;
+diff --git a/net/core/dev.c b/net/core/dev.c
+index e76762e29360..43b8823c83f6 100644
+--- a/net/core/dev.c
++++ b/net/core/dev.c
+@@ -128,6 +128,7 @@
+ #include <linux/if_vlan.h>
+ #include <linux/ip.h>
+ #include <net/ip.h>
++#include <linux/virtio_net.h>
+ #include <net/mpls.h>
+ #include <linux/ipv6.h>
+ #include <linux/in.h>
+@@ -2389,6 +2390,12 @@ EXPORT_SYMBOL(tcf_sw_enabled_key);
+ 
+ DEFINE_STATIC_KEY_FALSE(netstamp_needed_key);
+ EXPORT_SYMBOL(netstamp_needed_key);
++
++/* Enabled while any network namespace has net.core.virtio_net_hdr_validate
++ * set to 0.
++ */
++DEFINE_STATIC_KEY_FALSE(virtio_net_hdr_validate_disabled_key);
++EXPORT_SYMBOL(virtio_net_hdr_validate_disabled_key);
+ #ifdef CONFIG_JUMP_LABEL
+ static atomic_t netstamp_needed_deferred;
+ static atomic_t netstamp_wanted;
+diff --git a/net/core/net_namespace.c b/net/core/net_namespace.c
+index da5f881fbd3b..8a21baaa7e6d 100644
+--- a/net/core/net_namespace.c
++++ b/net/core/net_namespace.c
+@@ -396,6 +396,7 @@ static __net_init void preinit_net_sysctl(struct net *net)
+ 	net->core.sysctl_optmem_max = 128 * 1024;
+ 	net->core.sysctl_txrehash = SOCK_TXREHASH_ENABLED;
+ 	net->core.sysctl_tstamp_allow_data = 1;
++	net->core.sysctl_virtio_net_hdr_validate = 1;
+ 	net->core.sysctl_txq_reselection = msecs_to_jiffies(1000);
+ }
+ 
+diff --git a/net/core/sysctl_net_core.c b/net/core/sysctl_net_core.c
+index eb35da3556f4..3e4037b82a97 100644
+--- a/net/core/sysctl_net_core.c
++++ b/net/core/sysctl_net_core.c
+@@ -18,6 +18,8 @@
+ #include <linux/slab.h>
+ #include <linux/sched/isolation.h>
+ #include <linux/hex.h>
++#include <linux/virtio_net.h>
++#include <linux/jump_label.h>
+ 
+ #include <net/ip.h>
+ #include <net/sock.h>
+@@ -678,6 +680,43 @@ static struct ctl_table net_core_table[] = {
+ 	},
+ };
+ 
++/* Protects changes to virtio_net_hdr_validate_disabled_key and each
++ * net->core.sysctl_virtio_net_hdr_validate.  The packet path reads
++ * the value without a lock.
++ */
++static DEFINE_MUTEX(virtio_net_hdr_validate_mutex);
++
++static int virtio_net_hdr_validate_sysctl(const struct ctl_table *table,
++					  int write, void *buffer,
++					  size_t *lenp, loff_t *ppos)
++{
++	u8 *value = table->data;
++	u8 old, new;
++	int ret;
++
++	/* Root in a user namespace must not be able to weaken the
++	 * validation for the network namespace it controls.
++	 */
++	if (write && !capable(CAP_NET_ADMIN))
++		return -EPERM;
++
++	mutex_lock(&virtio_net_hdr_validate_mutex);
++
++	old = READ_ONCE(*value);
++	ret = proc_dou8vec_minmax(table, write, buffer, lenp, ppos);
++	new = READ_ONCE(*value);
++	if (write && !ret && old != new) {
++		if (new)
++			static_branch_dec(&virtio_net_hdr_validate_disabled_key);
++		else
++			static_branch_inc(&virtio_net_hdr_validate_disabled_key);
 +	}
++
++	mutex_unlock(&virtio_net_hdr_validate_mutex);
++
++	return ret;
 +}
 +
-+static inline bool
-+virtio_net_csum_partial_ok(struct sk_buff *skb, u8 hdr_gso_type)
-+{
-+	int nhoff;
-+	__be16 proto;
-+
-+	if (!virtio_net_l3_start(skb, &nhoff, &proto))
-+		return false;
-+
-+	return virtio_net_csum_partial_ok_at_offset(skb, hdr_gso_type, nhoff,
-+						   proto);
-+}
-+
-+/*
-+ * Handle a packet whose checksum metadata does not match the packet:
-+ * GSO packets are dropped, as segmentation needs one checksum per
-+ * segment; others are completed in software.
-+ */
-+static inline int __virtio_net_resolve_csum_partial_mismatch(struct sk_buff *skb)
-+{
-+	if (skb_is_gso(skb))
-+		return -EINVAL;
-+
-+	return skb_checksum_help(skb) ?: 1;
-+}
-+
- static inline int __virtio_net_hdr_to_skb(struct sk_buff *skb,
- 					  const struct virtio_net_hdr *hdr,
- 					  bool little_endian, u8 hdr_gso_type)
-@@ -194,11 +397,35 @@ static inline int __virtio_net_hdr_to_skb(struct sk_buff *skb,
- 	return 0;
- }
- 
-+/*
-+ * Return value:
-+ * 0 - success
-+ * >0 - checksum was completed in software (slow path)
-+ * <0 - failure
-+ */
- static inline int virtio_net_hdr_to_skb(struct sk_buff *skb,
- 					const struct virtio_net_hdr *hdr,
- 					bool little_endian)
- {
--	return __virtio_net_hdr_to_skb(skb, hdr, little_endian, hdr->gso_type);
-+	typeof(skb->transport_header) old_transport = skb->transport_header;
-+	int ret = __virtio_net_hdr_to_skb(skb, hdr, little_endian,
-+					  hdr->gso_type);
-+
-+	if (ret < 0)
-+		return ret;
-+
-+	if (skb->ip_summed != CHECKSUM_PARTIAL ||
-+	    virtio_net_csum_partial_ok(skb, hdr->gso_type))
-+		return 0;
-+
-+	/*
-+	 * Here we do not trust the checksum metadata.
-+	 * __virtio_net_hdr_to_skb set the transport header to csum_start
-+	 * from virtio hdr, restore it to a known good value.
-+	 */
-+	skb->transport_header = old_transport;
-+
-+	return __virtio_net_resolve_csum_partial_mismatch(skb);
- }
- 
- /* This function must be called after virtio_net_hdr_from_skb(). */
-@@ -282,6 +509,35 @@ static inline unsigned int virtio_l3min(bool is_ipv6)
- 	return is_ipv6 ? sizeof(struct ipv6hdr) : sizeof(struct iphdr);
- }
- 
-+/* Do the tunnel offsets match the outer headers in the frame?
-+ * The L3 header the tunnel claims must be the one the frame
-+ * carries, with UDP following it at @outer_th.
-+ */
-+static inline bool
-+virtio_net_tnl_offsets_ok(struct sk_buff *skb, bool outer_isv6,
-+			  unsigned int outer_th)
-+{
-+	int nhoff;
-+	__be16 proto;
-+	unsigned int thoff;
-+	int ip_proto;
-+
-+	if (!virtio_net_l3_start(skb, &nhoff, &proto))
-+		return false;
-+	if (outer_isv6 != (proto == htons(ETH_P_IPV6)))
-+		return false;
-+	if (!virtio_net_l4_start(skb, nhoff, proto, &thoff, &ip_proto))
-+		return false;
-+
-+	return ip_proto == IPPROTO_UDP && outer_th == thoff;
-+}
-+
-+/*
-+ * Return value:
-+ * 0 - success
-+ * >0 - checksum was completed in software (slow path)
-+ * <0 - failure
-+ */
- static inline int
- virtio_net_hdr_tnl_to_skb(struct sk_buff *skb,
- 			  const struct virtio_net_hdr_v1_hash_tunnel *vhdr,
-@@ -293,6 +549,7 @@ virtio_net_hdr_tnl_to_skb(struct sk_buff *skb,
- 	unsigned int inner_nh, outer_th, inner_th;
- 	unsigned int inner_l3min, outer_l3min;
- 	u8 gso_inner_type, gso_tunnel_type;
-+	__be16 inner_proto;
- 	bool outer_isv6, inner_isv6;
- 	int ret;
- 
-@@ -335,9 +592,12 @@ virtio_net_hdr_tnl_to_skb(struct sk_buff *skb,
- 	/* Let the basic parsing deal with plain GSO features. */
- 	ret = __virtio_net_hdr_to_skb(skb, hdr, true,
- 				      hdr->gso_type & ~gso_tunnel_type);
--	if (ret)
-+	if (ret < 0)
- 		return ret;
- 
-+	if (!virtio_net_tnl_offsets_ok(skb, outer_isv6, outer_th))
-+		return -EINVAL;
-+
- 	/* In case of USO, the inner protocol is still unknown and
- 	 * `inner_isv6` is just a guess, additional parsing is needed.
- 	 * The previous validation ensures that accessing an ipv4 inner
-@@ -353,7 +613,7 @@ virtio_net_hdr_tnl_to_skb(struct sk_buff *skb,
- 	}
- 
- 	skb_set_inner_protocol(skb, inner_isv6 ? htons(ETH_P_IPV6) :
--						 htons(ETH_P_IP));
-+			    htons(ETH_P_IP));
- 	if (hdr->flags & VIRTIO_NET_HDR_F_UDP_TUNNEL_CSUM) {
- 		if (!tnl_csum_negotiated)
- 			return -EINVAL;
-@@ -368,7 +628,22 @@ virtio_net_hdr_tnl_to_skb(struct sk_buff *skb,
- 	skb->inner_mac_header = inner_nh + skb_headroom(skb);
- 	skb->transport_header = outer_th + skb_headroom(skb);
- 	skb->encapsulation = 1;
--	return 0;
-+
-+	if (!skb_is_gso(skb))
-+		skb_shinfo(skb)->gso_type &= ~(SKB_GSO_UDP_TUNNEL_CSUM |
-+					       SKB_GSO_UDP_TUNNEL);
-+
-+	/*
-+	 * We know VIRTIO_NET_HDR_F_NEEDS_CSUM was set so __virtio_net_hdr_to_skb
-+	 * set CHECKSUM_PARTIAL.
-+	 */
-+	inner_proto = inner_isv6 ? htons(ETH_P_IPV6) : htons(ETH_P_IP);
-+	if (virtio_net_csum_partial_ok_at_offset(skb, gso_inner_type, inner_nh,
-+						 inner_proto))
-+		return 0;
-+
-+	/* A tunnel header implies GSO, so drop. */
-+	return __virtio_net_resolve_csum_partial_mismatch(skb);
- }
- 
- /* Checksum-related fields validation for the driver */
+ static const struct ctl_table netns_core_table[] = {
+ #if IS_ENABLED(CONFIG_RPS)
+ 	{
+@@ -737,6 +776,15 @@ static const struct ctl_table netns_core_table[] = {
+ 		.extra1		= SYSCTL_ZERO,
+ 		.extra2		= SYSCTL_ONE
+ 	},
++	{
++		.procname	= "virtio_net_hdr_validate",
++		.data		= &init_net.core.sysctl_virtio_net_hdr_validate,
++		.maxlen		= sizeof(u8),
++		.mode		= 0644,
++		.proc_handler	= virtio_net_hdr_validate_sysctl,
++		.extra1		= SYSCTL_ZERO,
++		.extra2		= SYSCTL_ONE
++	},
+ 	/* sysctl_core_net_init() will set the values after this
+ 	 * to readonly in network namespaces
+ 	 */
+@@ -841,6 +889,8 @@ static __net_exit void sysctl_core_net_exit(struct net *net)
+ 	tbl = net->core.sysctl_hdr->ctl_table_arg;
+ 	unregister_net_sysctl_table(net->core.sysctl_hdr);
+ 	BUG_ON(tbl == netns_core_table);
++	if (!net->core.sysctl_virtio_net_hdr_validate)
++		static_branch_dec(&virtio_net_hdr_validate_disabled_key);
+ #if IS_ENABLED(CONFIG_RPS)
+ 	kfree(net->core.rps_default_mask);
+ #endif
 -- 
 MST
 
