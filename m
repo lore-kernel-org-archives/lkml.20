@@ -1,56 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.37.111.173
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792698696;
-	b=Bu9v7huXbrOR0F3t4DS0B1QdZeLRzAWtRkWQakMs8fP7cgu7++1BgHUqPvJwabm5RB/y
-	 GtdL9mC/1t+NXgHot40vWJBCjDQ1QUcEbjsKZOMUfQRVjQ+8a3pPWKFFC75CyuEESP3UX
-	 cE+ktUYhovS1JhTKF5A11fqaNP0iataL29XA89kK922mGwZc4ss2YFxj4S4AGyUFQgJ89
-	 12NpXf/EcZq/xAvzqSYSRiQ8mwD7nIstlNBEv2sj5MlyClB+SfeiUETGbWqMovg5Jc3dW
-	 gfZ4kNjVpEl/e36MjSxD6t1P3HlSSjIffeaKLyd98iVjYxHofzPd6dJ/k9ZkMwnz+LQ==
+	t=1792698751;
+	b=0EBhy0SA63WPlYdaT1682I3BXDMaY2tIiMbKCS8IZiztQHM1OjXlS6mulgfaFRZcQ/T/
+	 COpkrnbNB/VPPAJWV8Pye+vY3StZn3zHG+LeUYs5O1gooqvbVxVj3o+azT/ytwAsMS9HY
+	 YO6P3mXm9gXOyNUQq4gwpy91j79au7jCdq1dtvREXCSEsA5Y+U6wP9caYIg+oEr1FRUku
+	 CDlj5LGN5gDSAFMOm5gsSYO+3J1nryUXmuj7hgnLgLYJlSYd7kaiTZobnQs1qVFrixoAg
+	 BTUhYknkF8/JK5VIaZTcSGJIzdM209fJPrp+xwgKZBkSlkmnBGafDTpXlRV1J8kW6Uw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792698696;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=IH0Ra0nr8PaH4LOAX8h5ymZ7Q+uvoWAsFcMW2TU0Dos=;
-	b=U/zvTq8sk1HxmXPr65Bsx+FSm3o/87G1fUqg9ZdIdWdXAUOlqM/il2TEOWVmJf8m3TRA
-	 Gr4AbILkhCNu/T96uLMD42U+L7gxl1gaRIz5ASQOSnUh+5Di+oAF5Rzoys6aUGH+mfLuU
-	 nNtBaWQUjd3QyiaIJGzeqxBap2C1lm8+8wuyCoh+6s8W6nV96ujub4bpJhs0kksy6oUO7
-	 a+jbFv7GSRF1T8hIzFQspLXmc0ADxQS40qim6B4LG/NxV3I7iX212fY1uHx/Ae15kKchv
-	 pFmChiOkATNEjVNe9lIcF1vdeBsHGGOAPZPPzIWXzMmbmzM5Jk7JgKKHBpJjsc+FPEg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792698751;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Autocrypt:Content-Type:
+	 Content-Transfer-Encoding:User-Agent:MIME-Version;
+	bh=iITsCaDoR2wRK6QR8PxH+D2OefapnUznwanjO6I0WB8=;
+	b=g3r7A3kq69w0F02+M6g5hZgtEqJ2bIxATPnYm+PXpHQpJeR6/TrVFC3UetTNmM3NS3b/
+	 BMFRug9prnxzvq2e2OS/MsP3IuJ7QKPOBLKmdkwTjoK0NCgtVmPkwN34uRRm8ML0cwqkJ
+	 aF7se34L9zx2Vj20GodZ2esyrSadg6Pc3MvlN/LAhCC2CVDiPvgc8eWGvKo8pqpfDC4pT
+	 DgQ3++9mISlh8XMmCGcPAgxU8EhD+tloxv3SGKo11LOwZqaicA83hmPrlj/0gfZ8A33pI
+	 WuR4YXzpCKNSYo6lhPlJofn7MD5pF3k9WOpDdUbqj+HQJO8Byyhh2dr23m/3kZYHDeA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KNjxQvRr;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=HansenPartnership.com;
+	spf=pass smtp.mailfrom=HansenPartnership.com;
+	dkim=pass header.d=hansenpartnership.com header.i=@hansenpartnership.com header.a=rsa-sha256 header.s=20151216 header.b=L9h1clPV;
+	arc=none smtp.remote-ip=198.37.111.173
+Received: from lamorak.hansenpartnership.com (lamorak.hansenpartnership.com [198.37.111.173])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C92D606A319;
-	Thu, 22 Oct 2026 19:51:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DEA7606A31A;
+	Thu, 22 Oct 2026 19:52:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2DEA7606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=HansenPartnership.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=HansenPartnership.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KNjxQvRr
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 73E4C1F01825;
-	Thu, 22 Oct 2026 19:51:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792698695;
-	bh=IH0Ra0nr8PaH4LOAX8h5ymZ7Q+uvoWAsFcMW2TU0Dos=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=KNjxQvRrZjQXjq7oiaVr7km17P6Db8QZ+Y2j7DY00HmG0ziWTQy8riDUBdnXW2EUb
-	 q5/b8o2UoVJOQsxJnozUFW3vQD2s2/Pk635XiQJcJFBdiO2nNsqFxci+X3pXUdGx3l
-	 lOXV9TMSpfAvxF97b06fjiPEb6tI8OTXmMG29tZWz+XLRzz0gIPBOrOCtYLMP7yyhu
-	 NYO6p92tytWaQQ925A7ZrmWu6IQQq/ruXM2if/xR0QSdXX6F04tHs/zMvWPR9xdWQo
-	 w7BMB6CO/FiNY2BbFA5MoNAvYD7/Sd8Hd5z7fSYxqeCy+hvjANSwkBvqIel/HXI3Ic
-	 e7mDa8sQ3sQIA==
-Date: Thu, 22 Oct 2026 12:51:34 -0700
-From: Namhyung Kim <namhyung@kernel.org>
-To: Aaron Tomlin <atomlin@atomlin.com>
-Cc: peterz@infradead.org, mingo@redhat.com, acme@kernel.org,
-	mark.rutland@arm.com, alexander.shishkin@linux.intel.com,
-	jolsa@kernel.org, irogers@google.com, adrian.hunter@intel.com,
-	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH perf-tools-next v9 2/6] perf ftrace: Support filtering
- return address comments
-Message-ID: <atppRvpvPrm12_Z6@google.com>
-References: <20261021023337.809936-1-atomlin@atomlin.com>
- <20261021023337.809936-3-atomlin@atomlin.com>
+	dkim=pass (1024-bit key, unprotected) header.d=hansenpartnership.com header.i=@hansenpartnership.com header.a=rsa-sha256 header.s=20151216 header.b=L9h1clPV
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+	d=hansenpartnership.com; s=20151216; t=1792698750;
+	bh=BvdrRZOCMvMIJhNryp7q/vU2kHzDW0VLWASRL9wdWXc=;
+	h=Message-ID:Subject:From:To:Date:In-Reply-To:References:From;
+	b=L9h1clPVfOQI7X7Dq1yxnXQ/zy/GBxNLCyRvZ0U0oBRyqEqBzJE4vBz13P/yNmgRB
+	 00MbbUFE4mL72uyxFGbwzlkPr4MIl1BADI0h4CIwxkQgzbCUMTAsMc0WtSCJcG5kaf
+	 fjDSkUaBwT2w6MKlhrK+jd41mviAd3Ek1vJXyiJA=
+Received: from lingrow.int.hansenpartnership.com (unknown [IPv6:2601:5c4:4300:d341::8309])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by lamorak.hansenpartnership.com (Postfix) with ESMTPSA id 419AC1C0594;
+	Thu, 22 Oct 2026 15:52:29 -0400 (EDT)
+Message-ID: <827296091dbd27becdf85ad8301f94cb16025afb.camel@HansenPartnership.com>
+Subject: Re: [PATCH RFC 00/20] attestation: Add a common subsystem and TDX
+ support
+From: James Bottomley <James.Bottomley@HansenPartnership.com>
+To: Jason Gunthorpe <jgg@nvidia.com>, Mimi Zohar <zohar@linux.ibm.com>
+Cc: Jiri Pirko <jiri@resnulli.us>, Dionna Glaze <drdeeglaze@gmail.com>, 
+ Jarkko Sakkinen <jarkko@kernel.org>, linux-coco@lists.linux.dev,
+ linux-kernel@vger.kernel.org, 	linux-api@vger.kernel.org, x86@kernel.org,
+ kvm@vger.kernel.org, 	linux-doc@vger.kernel.org, david.quigley@intel.com,
+ lukas@wunner.de, 	ksinyuk@kernel.org, rodrigo.vivi@intel.com,
+ cedric.xing@intel.com, sameo@meta.com, 	aik@amd.com,
+ jpiotrowski@nvidia.com, qinkun@google.com, pgonda@google.com, 
+	jic23@kernel.org, alistair.francis@wdc.com, ankita@nvidia.com, 
+	suzuki.poulose@arm.com, kas@kernel.org, rick.p.edgecombe@intel.com, 
+	elena.reshetova@intel.com, dave.hansen@linux.intel.com, 
+	sathyanarayanan.kuppuswamy@linux.intel.com, peter.fang@intel.com, 
+	roberto.sassu@huawei.com
+Date: Thu, 22 Oct 2026 15:52:28 -0400
+In-Reply-To: <20261022194527.GE3746973@nvidia.com>
+References: 
+	<CANwfdvUhuQ6L+w+91iDZD=diMmaJ6_2ZsFKkcoiKWOmPMC1oKg@mail.gmail.com>
+	 <20261019225658.GS13920@nvidia.com> <ath4vwt7KGyDXKVJ@FV6GYCPJ69>
+	 <103486a4a29ecc7b72940dd051c00ae59266bd05.camel@linux.ibm.com>
+	 <20261021143529.GP3008132@nvidia.com>
+	 <95b895522bb314187ac1cdc5d0c143c01f0705a9.camel@HansenPartnership.com>
+	 <20261022131141.GD3008132@nvidia.com>
+	 <db0f90dde6421c3f2ca0164ea042e73d13b4d02b.camel@HansenPartnership.com>
+	 <20261022191911.GB3746973@nvidia.com>
+	 <d3274fc7bea368e7e117fdffcff2193210d9d8b7.camel@linux.ibm.com>
+	 <20261022194527.GE3746973@nvidia.com>
+Autocrypt: addr=James.Bottomley@HansenPartnership.com;
+ keydata=mQENBE58FlABCADPM714lRLxGmba4JFjkocqpj1/6/Cx+IXezcS22azZetzCXDpm2MfNE
+ lecY3qkFjfnoffQiw5rrOO0/oRSATOh8+2fmJ6el7naRbDuh+i8lVESfdlkoqX57H5R8h/UTIp6gn
+ 1mpNlxjQv6QSZbl551zQ1nmkSVRbA5TbEp4br5GZeJ58esmYDCBwxuFTsSsdzbOBNthLcudWpJZHU
+ RfMc0ew24By1nldL9F37AktNcCipKpC2U0NtGlJjYPNSVXrCd1izxKmO7te7BLP+7B4DNj1VRnaf8
+ X9+VIApCi/l4Kdx+ZR3aLTqSuNsIMmXUJ3T8JRl+ag7kby/KBp+0OpotABEBAAG0N0phbWVzIEJvd
+ HRvbWxleSA8SmFtZXMuQm90dG9tbGV5QEhhbnNlblBhcnRuZXJzaGlwLmNvbT6JAVgEEwEIAEICGw
+ MGCwkIBwMCBhUIAgkKCwQWAgMBAh4BAheAAhkBFiEE1WBuc8i0YnG+rZrfgUrkfCFIVNYFAml2ZBI
+ FCS3GUMIACgkQgUrkfCFIVNZKjQf/deRzlXZClKxTC/Ee2yEPqqS7mm/INUA49KdQQ5oIhSxkUBy0
+ 9J4qjMIo5F8ZFkFTqikBqeL35LKu7O7rn8WETfX8Bxvos3HUsl3jHo34DES4MUFIpoQPgtiLRGwLb
+ K0cVCAArR2u2qj4ABmTRrs1I1kvdjEw6gatOuXtEe/j5O2fvfzTq9GBr0Q3n2IAsFXi4hLlx6VPE8
+ tyWUZ8BWJKtih3JAeUiXFvASL3McV0rV9RnU0VbjEQEhSE7PMYhWpnDC9AyBb0lXJllQRvC3NSkUB
+ 8KVQgNNxRPss0WE/nBoZ4dFA42jTyzTz8lNylxZoAWV7WJb3QxVg4oCodRVrxxrQhSmFtZXMgQm90
+ dG9tbGV5IDxqZWpiQGtlcm5lbC5vcmc+iQFVBBMBCAA/AhsDBgsJCAcDAgYVCAIJCgsEFgIDAQIeA
+ QIXgBYhBNVgbnPItGJxvq2a34FK5HwhSFTWBQJgS5mYBQkbNYS9AAoJEIFK5HwhSFTWBpwIAL5Bk3
+ 5FB34U6iHmDzzgdCbxLTs43T/YQyJpcGIvopBvnI/fDY8oSG6Df64/O6B+1R+A8TDp6ZG5ysUWnCC
+ 6GuIaEHemBYkitMPglR6+sGCMQY7O0mlsPvdssvKK1KI9Bno4VU6ogaF2qVzefSqg1Djmf/DcsxWP
+ rI/jdJ8FB5AYR2rjIdDFc+zRdAJuavo1/anyY2wgpFh/3R8IOYAEfWV9nGgYkf9+tA4EIn1sxE0I3
+ L5oW2N3mbyRrkzuBwO8ztMCwqEPk7moWzhokcZqMXiAIahaZdkashJC+s2X2RZSGCy+g+pvY5NN4B
+ BVG5XwLgVBqbHMTcxE0fbmPqz+q6O0LEphbWVzIEJvdHRvbWxleSA8amVqYkBoYW5zZW5wYXJ0bmV
+ yc2hpcC5jb20+iQFXBBMBCABBFiEE1WBuc8i0YnG+rZrfgUrkfCFIVNYFAmODZ5ACGwMFCRs1hL0F
+ CwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQgUrkfCFIVNZu0Af/TzvL2/NdgAcw9uN3x60H8
+ jc4QUq14VpxcFEFEMpcj1morkX/G93V+56HBBaXZj+yK8PhxIA/SIz+sU7C/0YvKuvzakP8ZX/7WJ
+ e32SOUtjfr/VTaqjIBzNj6OxLvZpmNbBw7s6DwhhNpHOWqJ/1ml+PtDRDV71IB58yVqQjp1xlNKVl
+ ZppcJ5908EJzsFnRIVjiQiDSKoppqB2BCibBbrWcln7CiWMyOC/cco6SIn6twH+f7+aivJ3xGcOE2
+ a9gBKF5rNi9TBoX9oyPmshv/TDmnohsVrH7AYXlGYfZTk15SWEiROh1QX8/uD9wl/gcIv5EDUpT/F
+ L2jzOsA5663bw==
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,385 +115,27 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261021023337.809936-3-atomlin@atomlin.com>
 
-Hello,
+On Thu, 2026-10-22 at 16:45 -0300, Jason Gunthorpe wrote:
+> On Thu, Oct 22, 2026 at 03:37:46PM -0400, Mimi Zohar wrote:
+>=20
+> > > Advisory entries shouldn't matter with a scheme like this.
+> >=20
+> > IMA has something called violations (e.g. open-writers, ToMToU),
+> > which are more
+> > than just advisory.=C2=A0 They intentionally invalidate the IMA
+> > measurement list
+> > since the measurement cannot be trusted.
+>=20
+> Maybe I got lost, but when James said "advisory" I understood this as
+> the TCG type that does not get included in a PCR extend.
 
-On Tue, Oct 20, 2026 at 10:33:33PM -0400, Aaron Tomlin wrote:
-> When tracing with the Linux kernel's function graph tracer, enabling
-> funcgraph-retaddr records the return address of each function entry as
-> a comment in the trace stream (e.g. /* <-load_elf_phdrs+0x6c/0xb0 */).
-> While valuable for tracing execution origins, these trailing comments
-> can add considerable visual clutter to the call graph, particularly
-> when examining deeply nested call trees or when synthesising higher-level
-> abstractions.
-> 
-> Introduce support for filtering out return address comments from
-> function graph trace output. Provide a standalone --filter-retaddr
-> flag.
+No, I meant the TCG type where the event description isn't part of the
+measurement (and thus can contain pretty much anything).  In IMA
+measurements, the path is part of the log but isn't part of the
+measurement (primarily because it's not reliable: a mount namespace
+could make it anything it wants).
 
-I think we agreed not to have this option in the previous discussion,
-no?  The retaddr will appear only if user passed an option, so you can
-unconditionally filter out the comment if it's not given, right?
+Regards,
 
-Thanks,
-Namhyung
-
-> 
-> Key aspects of this implementation:
-> 
->     1.  Return address parsing and filtering
-> 
->         Implement ftrace_filter_retaddr() in tools/perf/util/ftrace.c
->         to locate return address comments and strip them in-place with
->         memmove(3).
-> 
->         Additionally, introduce ftrace_parse_retaddr() to parse caller
->         symbol names and offsets across diverse output styles (standard
->         format, return values, and bracketed addresses), establishing
->         the parsing foundation for subsequent inlined callchain
->         resolution.
-> 
->     2.  Command-line interface
-> 
->         Expose --filter-retaddr in tools/perf/builtin-ftrace.c, updating
->         the documentation in tools/perf/Documentation/perf-ftrace.txt
->         accordingly.
-> 
->     3.  Automated verification
-> 
->         Add a dedicated unit test suite ("Ftrace return address
->         processing") in tools/perf/tests/ftrace.c to validate comment
->         parsing and string filtering across all supported formats.
-> 
-> Assisted-by: Antigravity:gemini-3.1-pro
-> Signed-off-by: Aaron Tomlin <atomlin@atomlin.com>
-> ---
->  tools/perf/Documentation/perf-ftrace.txt |  4 +
->  tools/perf/builtin-ftrace.c              |  8 ++
->  tools/perf/tests/Build                   |  1 +
->  tools/perf/tests/builtin-test.c          |  1 +
->  tools/perf/tests/ftrace.c                | 81 +++++++++++++++++++++
->  tools/perf/tests/tests.h                 |  1 +
->  tools/perf/util/Build                    |  1 +
->  tools/perf/util/ftrace.c                 | 93 ++++++++++++++++++++++++
->  tools/perf/util/ftrace.h                 |  5 ++
->  9 files changed, 195 insertions(+)
->  create mode 100644 tools/perf/tests/ftrace.c
->  create mode 100644 tools/perf/util/ftrace.c
-> 
-> diff --git a/tools/perf/Documentation/perf-ftrace.txt b/tools/perf/Documentation/perf-ftrace.txt
-> index 3f3808e513fe..e8105083e67c 100644
-> --- a/tools/perf/Documentation/perf-ftrace.txt
-> +++ b/tools/perf/Documentation/perf-ftrace.txt
-> @@ -134,6 +134,10 @@ OPTIONS for 'perf ftrace trace'
->  	  - depth=<n>    - Set max depth for function graph tracer to follow.
->  	  - tail         - Print function name at the end.
->  
-> +--filter-retaddr::
-> +	Filter out function return address comments (`/* <-caller+offset */`)
-> +	from function_graph output.
-> +
->  
->  OPTIONS for 'perf ftrace latency'
->  ---------------------------------
-> diff --git a/tools/perf/builtin-ftrace.c b/tools/perf/builtin-ftrace.c
-> index 65983259b07e..c715cbebaabe 100644
-> --- a/tools/perf/builtin-ftrace.c
-> +++ b/tools/perf/builtin-ftrace.c
-> @@ -837,6 +837,8 @@ static int __cmd_ftrace(struct perf_ftrace *ftrace)
->  				break;
->  			for (int i = 0; i < n; i++) {
->  				if (buf[i] == '\n') {
-> +					if (ftrace->filter_retaddr)
-> +						ftrace_filter_retaddr(linebuf.buf);
->  					if (fprintf(stdout, "%s\n", linebuf.buf) < 0)
->  						break;
->  					strbuf_setlen(&linebuf, 0);
-> @@ -874,6 +876,8 @@ static int __cmd_ftrace(struct perf_ftrace *ftrace)
->  			break;
->  		for (int i = 0; i < n; i++) {
->  			if (buf[i] == '\n') {
-> +				if (ftrace->filter_retaddr)
-> +					ftrace_filter_retaddr(linebuf.buf);
->  				if (fprintf(stdout, "%s\n", linebuf.buf) < 0)
->  					break;
->  				strbuf_setlen(&linebuf, 0);
-> @@ -885,6 +889,8 @@ static int __cmd_ftrace(struct perf_ftrace *ftrace)
->  	}
->  
->  	if (!ferror(stdout) && linebuf.len > 0) {
-> +		if (ftrace->filter_retaddr)
-> +			ftrace_filter_retaddr(linebuf.buf);
->  		fprintf(stdout, "%s\n", linebuf.buf);
->  		strbuf_setlen(&linebuf, 0);
->  	}
-> @@ -1850,6 +1856,8 @@ int cmd_ftrace(int argc, const char **argv)
->  		     "Size of per cpu buffer, needs to use a B, K, M or G suffix.", parse_buffer_size),
->  	OPT_BOOLEAN(0, "inherit", &ftrace.inherit,
->  		    "Trace children processes"),
-> +	OPT_BOOLEAN_SET(0, "filter-retaddr", &ftrace.filter_retaddr, &ftrace.filter_retaddr_set,
-> +			"Filter out funcgraph return address comments"),
->  	OPT_INTEGER('D', "delay", &ftrace.target.initial_delay,
->  		    "Number of milliseconds to wait before starting tracing after program start"),
->  	OPT_PARENT(common_options),
-> diff --git a/tools/perf/tests/Build b/tools/perf/tests/Build
-> index 395f2866094a..136138932fcb 100644
-> --- a/tools/perf/tests/Build
-> +++ b/tools/perf/tests/Build
-> @@ -72,6 +72,7 @@ perf-test-y += hwmon_pmu.o
->  perf-test-y += tool_pmu.o
->  perf-test-y += subcmd-help.o
->  perf-test-y += kallsyms-split.o
-> +perf-test-y += ftrace.o
->  
->  ifeq ($(SRCARCH),$(filter $(SRCARCH),x86 arm arm64 powerpc riscv))
->  perf-test-$(CONFIG_DWARF_UNWIND) += dwarf-unwind.o
-> diff --git a/tools/perf/tests/builtin-test.c b/tools/perf/tests/builtin-test.c
-> index 880eece0bc12..640d6d327215 100644
-> --- a/tools/perf/tests/builtin-test.c
-> +++ b/tools/perf/tests/builtin-test.c
-> @@ -156,6 +156,7 @@ static struct test_suite *generic_tests[] = {
->  	&suite__perf_hooks,
->  	&suite__unit_number__scnprint,
->  	&suite__mem2node,
-> +	&suite__ftrace,
->  	&suite__time_utils,
->  	&suite__jit_write_elf,
->  	&suite__pfm,
-> diff --git a/tools/perf/tests/ftrace.c b/tools/perf/tests/ftrace.c
-> new file mode 100644
-> index 000000000000..42604811a2fb
-> --- /dev/null
-> +++ b/tools/perf/tests/ftrace.c
-> @@ -0,0 +1,81 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +#include <linux/compiler.h>
-> +#include <linux/kernel.h>
-> +#include <stdio.h>
-> +#include <stdlib.h>
-> +#include <string.h>
-> +#include <unistd.h>
-> +#include "tests.h"
-> +#include "debug.h"
-> +#include "util/ftrace.h"
-> +
-> +static int test_parse_retaddr(void)
-> +{
-> +	char sym[128];
-> +	u64 offset = 0;
-> +
-> +	/* Standard format */
-> +	TEST_ASSERT_VAL("parse standard retaddr",
-> +			ftrace_parse_retaddr("kernel_read() { /* <-load_elf_phdrs+0x6c/0xb0 */",
-> +					     sym, sizeof(sym), &offset));
-> +	TEST_ASSERT_EQUAL("sym name", strcmp(sym, "load_elf_phdrs"), 0);
-> +	TEST_ASSERT_VAL("offset", offset == 0x6c);
-> +
-> +	/* With return value */
-> +	TEST_ASSERT_VAL("parse retaddr with ret",
-> +			ftrace_parse_retaddr(
-> +				"__cond_resched(); /* <-load_elf_phdrs+0x6c/0xb0 ret=0x0 */",
-> +				sym, sizeof(sym), &offset));
-> +	TEST_ASSERT_EQUAL("sym name", strcmp(sym, "load_elf_phdrs"), 0);
-> +	TEST_ASSERT_VAL("offset", offset == 0x6c);
-> +
-> +	/* Bracketed address */
-> +	TEST_ASSERT_VAL("parse bracketed retaddr",
-> +			ftrace_parse_retaddr("foo() { /* <-[0xffffffff818534c8] bar+0x20/0x40 */",
-> +					     sym, sizeof(sym), &offset));
-> +	TEST_ASSERT_EQUAL("sym name", strcmp(sym, "bar"), 0);
-> +	TEST_ASSERT_VAL("offset", offset == 0x20);
-> +
-> +	/* No return address */
-> +	TEST_ASSERT_VAL("no retaddr",
-> +			!ftrace_parse_retaddr("do_filp_open();", sym, sizeof(sym), &offset));
-> +
-> +	return TEST_OK;
-> +}
-> +
-> +static int test_filter_retaddr(void)
-> +{
-> +	char line1[] = "kernel_read() { /* <-load_elf_phdrs+0x6c/0xb0 */";
-> +	char line2[] = "__cond_resched(); /* <-load_elf_phdrs+0x6c/0xb0 ret=0x0 */";
-> +	char line3[] = "do_filp_open();";
-> +
-> +	ftrace_filter_retaddr(line1);
-> +	TEST_ASSERT_EQUAL("filter standard retaddr", strcmp(line1, "kernel_read() {"), 0);
-> +
-> +	ftrace_filter_retaddr(line2);
-> +	TEST_ASSERT_EQUAL("filter retaddr with ret",
-> +			  strcmp(line2, "__cond_resched(); /* ret=0x0 */"), 0);
-> +
-> +	ftrace_filter_retaddr(line3);
-> +	TEST_ASSERT_EQUAL("filter line without retaddr unchanged",
-> +			  strcmp(line3, "do_filp_open();"), 0);
-> +
-> +	return TEST_OK;
-> +}
-> +
-> +static int test__ftrace(struct test_suite *test __maybe_unused, int subtest __maybe_unused)
-> +{
-> +	int ret;
-> +
-> +	ret = test_parse_retaddr();
-> +	if (ret != TEST_OK)
-> +		return ret;
-> +
-> +	ret = test_filter_retaddr();
-> +	if (ret != TEST_OK)
-> +		return ret;
-> +
-> +	return TEST_OK;
-> +}
-> +
-> +DEFINE_SUITE("Ftrace return address processing", ftrace);
-> diff --git a/tools/perf/tests/tests.h b/tools/perf/tests/tests.h
-> index 5982c4e62cd3..cd12ae85ccfa 100644
-> --- a/tools/perf/tests/tests.h
-> +++ b/tools/perf/tests/tests.h
-> @@ -180,6 +180,7 @@ DECLARE_SUITE(perf_hooks);
->  DECLARE_SUITE(unit_number__scnprint);
->  DECLARE_SUITE(mem2node);
->  DECLARE_SUITE(maps);
-> +DECLARE_SUITE(ftrace);
->  DECLARE_SUITE(time_utils);
->  DECLARE_SUITE(jit_write_elf);
->  DECLARE_SUITE(api_io);
-> diff --git a/tools/perf/util/Build b/tools/perf/util/Build
-> index 2c1f880c4c47..5b082d09006d 100644
-> --- a/tools/perf/util/Build
-> +++ b/tools/perf/util/Build
-> @@ -169,6 +169,7 @@ perf-util-y += list_sort.o
->  perf-util-y += mutex.o
->  perf-util-y += sharded_mutex.o
->  perf-util-y += intel-tpebs.o
-> +perf-util-y += ftrace.o
->  
->  perf-util-$(CONFIG_PERF_BPF_SKEL) += bpf_counter.o
->  perf-util-$(CONFIG_PERF_BPF_SKEL) += bpf_counter_cgroup.o
-> diff --git a/tools/perf/util/ftrace.c b/tools/perf/util/ftrace.c
-> new file mode 100644
-> index 000000000000..452231c01568
-> --- /dev/null
-> +++ b/tools/perf/util/ftrace.c
-> @@ -0,0 +1,93 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +#include <linux/compiler.h>
-> +#include <linux/kernel.h>
-> +#include <linux/string.h>
-> +#include <stdio.h>
-> +#include <stdlib.h>
-> +#include <string.h>
-> +#include <ctype.h>
-> +#include "util/ftrace.h"
-> +
-> +/**
-> + * ftrace_parse_retaddr - Parse return address comment from trace line
-> + * @str: The trace line containing the comment
-> + * @sym_name: Buffer to store the parsed symbol name
-> + * @sym_len: Length of the @sym_name buffer
-> + * @offset: Pointer to store the parsed offset
-> + *
-> + * Extract the function name and offset from a funcgraph-retaddr comment
-> + * (e.g. "<-load_elf_phdrs+0x6c/0xb0").
-> + *
-> + * Return: true if successfully parsed, false otherwise.
-> + */
-> +bool ftrace_parse_retaddr(const char *str, char *sym_name, size_t sym_len, u64 *offset)
-> +{
-> +	const char *p = strstr(str, "<-");
-> +	const char *plus;
-> +	const char *bracket;
-> +	size_t name_len;
-> +
-> +	if (!p)
-> +		return false;
-> +
-> +	p += 2;
-> +	while (*p == ' ')
-> +		p++;
-> +
-> +	if (*p == '[') {
-> +		bracket = strchr(p, ']');
-> +		if (bracket)
-> +			p = bracket + 1;
-> +		while (*p == ' ')
-> +			p++;
-> +	}
-> +
-> +	plus = strchr(p, '+');
-> +	if (!plus)
-> +		return false;
-> +
-> +	name_len = plus - p;
-> +	if (name_len == 0 || name_len >= sym_len)
-> +		return false;
-> +
-> +	memcpy(sym_name, p, name_len);
-> +	sym_name[name_len] = '\0';
-> +
-> +	*offset = strtoull(plus + 1, NULL, 16);
-> +	return true;
-> +}
-> +
-> +/**
-> + * ftrace_filter_retaddr - Remove return address comment from trace line
-> + * @str: The trace line to modify
-> + *
-> + * Find and strip the funcgraph-retaddr comment from the trace line
-> + * in-place, removing trailing spaces where applicable.
-> + */
-> +void ftrace_filter_retaddr(char *str)
-> +{
-> +	char *start = strstr(str, "/* <-");
-> +	char *end;
-> +	char *ret_ptr;
-> +
-> +	if (!start)
-> +		return;
-> +
-> +	end = strstr(start, "*/");
-> +	if (!end)
-> +		return;
-> +
-> +	ret_ptr = strstr(start, " ret=");
-> +	if (ret_ptr && ret_ptr < end) {
-> +		memmove(start + 3, ret_ptr + 1, strlen(ret_ptr + 1) + 1);
-> +		return;
-> +	}
-> +
-> +	end += 2; /* skip end-of-comment delimiter */
-> +
-> +	/* Also backtrack any spaces before comment */
-> +	while (start > str && *(start - 1) == ' ')
-> +		start--;
-> +
-> +	memmove(start, end, strlen(end) + 1);
-> +}
-> diff --git a/tools/perf/util/ftrace.h b/tools/perf/util/ftrace.h
-> index 950f2efafad2..50216d3fef64 100644
-> --- a/tools/perf/util/ftrace.h
-> +++ b/tools/perf/util/ftrace.h
-> @@ -39,6 +39,8 @@ struct perf_ftrace {
->  	int			graph_verbose;
->  	int			graph_thresh;
->  	int			graph_tail;
-> +	bool			filter_retaddr;
-> +	bool			filter_retaddr_set;
->  };
->  
->  struct filter_entry {
-> @@ -93,4 +95,7 @@ perf_ftrace__latency_cleanup_bpf(struct perf_ftrace *ftrace __maybe_unused)
->  
->  #endif  /* HAVE_BPF_SKEL */
->  
-> +bool ftrace_parse_retaddr(const char *str, char *sym_name, size_t sym_len, u64 *offset);
-> +void ftrace_filter_retaddr(char *str);
-> +
->  #endif  /* __PERF_FTRACE_H__ */
-> -- 
-> 2.55.0
-> 
+James
