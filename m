@@ -1,73 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.70
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.138
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792690711;
-	b=n89nrL4m5bEjeiJqw2CMjjpJqQBMyKGPhIyBQaylWdZDWtEUkMZ3HQYE/XcjsAuSz5bs
-	 +doiH2gQJpzbxePiX2oasNxIzJp5wEoF1EnUlqzfyR2QNkR5DS9+jroqx7mcVf2mCD7GL
-	 WUvorkb2Tbq+a82OtWs0Qh34XQJ0vpFNekkPpES4U7w1dfbezV9emzaB7+z9IYrnkjOVQ
-	 drbAv+dIxmkwrGjhobPm4cmcl/12TzDqzyTDgD8M1wHRcr+U+HusV/nhpEf1m5zflGIrY
-	 Hbp/V+XDDX9VTXH+x0J03l36yaalZ77JjAturxy99P9qS24DMroUaSjxaqk8Pggkpdg==
+	t=1792690782;
+	b=Xkq3qyHXEiWfnWI853n+7U3ncW/A9ypGc4UB6o0vLkIiRs4OC8WjrbswKzay+JlcJjC4
+	 APeqylTtEFGCZeBJOIEByEsK8/UwzMolbX0USxBbLE1VjfJG+Dxgi2gzcrK8pT8sABWTa
+	 HWkc92CLIqWTPT9EFQolnE6teCKW3MZHo8fDBBvzFcA37R+oQA69+K9ikfVGea1HZd21b
+	 r6o0gGn2206+bvcYCbB7zOg4+xDV3HSPDKPVwPqII85trxLGwXDwBdc0SnClqGBwqJRLY
+	 GaErgPdm8JS74Q6VjbTN082ms+hksAVtAoIwGtdz0F6cv1sqVjrCpqvDAj5//zw0pow==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792690711;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792690782;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Received:Date:In-Reply-To:Mime-Version:
-	 References:X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=9N5nOe+oo4V6R+TK+YKdXm540y3qbeMY86DYHWBNfzc=;
-	b=Ctso2lveVRLKVvkzvTtGJDySwG8wNcktozSQMnfmS6wBqpwTxgOwUJ9iWq9pmqUKaf7E
-	 mPDQsGhdWqeeXrq72wGa1rziWa7UbOTWwhsd9yOeTcjmmC5xk//3kVePjqO+nk5tHv8SL
-	 CDtj4ePVcSGLwk7c6/tmW4ghx8zSgLQppovPZLiyU4AlggNhL2he9gwvG8bhIiq62dPxH
-	 KR5oPJFFTocxDd04lKB9k7xgcXxTdZWqMmmLX0xJtOcxEz6ojUsKIiwSnngyWA2Om72Tb
-	 U3NSc77v8pM3b4w0eoOyxdKJhzoIJq/y/RmkJwCsJR6V6W+WySTh78lSFH1tj+TR5Vw==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=i/noOztbS2t6WZeL5Ffb7JJaj+8g0AIhxEQ+LUXgBF4=;
+	b=RSHM9IgpnMaE01tywqi6QIvOEbfwmjuAI8nQ1JxQ8v105UgKhlA32P+THRfahkS1iswR
+	 uKYA4P2h21GiQ5SwWKwzykHL4c33Lm3Di7WFuJI9mvUXS4mKopO7S6OSWAiuO5s0VZY3q
+	 A3GU5O8zSYRlR3+8E5LP/1ggxVvuX14nc6vsePTHoXaeQntr4QfW4kJ6fq6ZzJf7xXQ5p
+	 K2v8QxJ2dSvgAqNZrXXRs3wCRdXgvw9AgyaU+EDGXh/sorI33WTq+db8AiIyRIlVBrjZr
+	 FdAv/wtzJu1AtFaVay+w09RMYNBfqsm0Fv5v55fcyozzGItGp+lMtBE+VlajXV5lDoQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--abhishekbapat.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=BB+koyOo;
-	arc=none smtp.remote-ip=74.125.82.70
-Received: from mail-dl1-f70.google.com (mail-dl1-f70.google.com [74.125.82.70])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=r9foKYqO;
+	arc=none smtp.remote-ip=74.125.227.138
+Received: from mail-pj2-f10.google.com (mail-pj2-f10.google.com [74.125.227.138])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC68B606A339
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 17:38:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CC68B606A339
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--abhishekbapat.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5515B606A31E
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 17:39:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5515B606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=BB+koyOo
-Received: by mail-dl1-f70.google.com with SMTP id a92af1059eb24-1383723dfddso16552c88.0
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 10:38:30 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=r9foKYqO
+Received: by mail-pj2-f10.google.com with SMTP id d9443c01a7336-2df921c1d0eso7133335ad.1
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 10:39:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792690710; x=1793295510; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=9N5nOe+oo4V6R+TK+YKdXm540y3qbeMY86DYHWBNfzc=;
-        b=BB+koyOoRPY/VH0OhYzExBKZka7MjvHJ/ZXWJddSqhS/B+wL3ncPTfIIo6ak37BqC4
-         JvjJ6M7jr/2SeV90CX3t2WOFXppLb3yDW5HjVTWEA1yblMMHRIjwNccfEOeBAJPQFa/E
-         LnNoH8AyW7cUJJgb6VQZtxkVzX6g4D72Fypux78qrgTrYo/mIuQ4SP368Y9ITaV0o9PI
-         6IsvZ++qXgWPFajxUekQmgZO6lFfn3Ar4t40YFyWF6fh+l4NGp+Axv+67hm5K0xT57WD
-         V7piQb47iE6wlGd0Wq5e9KdvCbf7MuOZ/bgLJ1COGAS02DFGkp4lZ7mTqGxoBEytq7Tz
-         iPAA==
+        d=gmail.com; s=20251104; t=1792690781; x=1793295581; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=i/noOztbS2t6WZeL5Ffb7JJaj+8g0AIhxEQ+LUXgBF4=;
+        b=r9foKYqOLCGeFTWsNvX1SY7qNK0YpcGUhWiUzillccvc067Z5eH6LNl1BhiJzf5SNl
+         zXBGTeEhMW4lJVEw2Mt3BH8S2TjxK3PUm8ID7dH78sVgcw3V3MuoJ6y8aBUSOrxHXHGH
+         2tvIdn4LUOeB6tjGY/3DNzq8GgSw9KXRIuH0On/gjKlU2OnvpwfBO1AYGXehQPx9YMvK
+         x1lWssudXhYG9jZJpALKTl/+K/E8M/pTBiKYjObzYiQnf/cmQPZ/bENQEY7lNruaOHIL
+         iLVL8L8dYgmID8Cfr9KkA0JmxitOA693A5HtpscmxuLcNrjMkuDYsmMiUtZkYvR+l4dA
+         iCKg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792690710; x=1793295510;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1792690781; x=1793295581;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=9N5nOe+oo4V6R+TK+YKdXm540y3qbeMY86DYHWBNfzc=;
-        b=u91j2oE9PbKG1oM5DoLPRZwZgaJs5Q3NkLmdPpn6KTUBL8SqCB0r1fbmJfjhX041G7
-         Xp/cOH9nGQ0VCypVdLbn3yH1YnrMmqXW4uoyez1yvqUgFTibZIRhmY+FS5Nup2XDoc8z
-         gA+/q8OUjE76o1PHlbal6jV26N/1d4JCFS6pYOFMzpsqd3HtmimZDCnoCQrTWZ/vYBxe
-         3uOEpgRjVazoctePHb3w5gsj3sShkeGXxFjh4ru3U/QUYAkPDLaosYjB6q+lExmxHoCr
-         AruRHIOOafh+QifzXle5rBnUrQu2PBMqIBXiUy55CIBn9rMatWK5osSEKSjE2XcGZrwF
-         W14A==
-X-Gm-Message-State: AFq9FYLfNpoBF8fSPlAywsGmGiIXze4u6h04sd55zjshIcy+1v9o2nZJ
-	ldF5c99Q2po0kU5aoW3tYb+SbLy3nw9EYyCVBd/075NwzU6Rm5O2c6uPRdhk/v/CYSlniGIiyUg
-	kSmCp2J/upXjbLf9FnGhez8IMXPFxEmp9Ug==
-X-Received: from dldz19-n2.prod.google.com ([2002:a05:701b:4193:20b0:163:a42e:b837])
- (user=abhishekbapat job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:7022:7f14:b0:151:6e80:ba7e with SMTP id a92af1059eb24-1909fc7c7e7mr6852867c88.4.1792690709680;
- Thu, 22 Oct 2026 10:38:29 -0700 (PDT)
-Date: Thu, 22 Oct 2026 17:38:22 +0000
-In-Reply-To: <cover.1792690544.git.abhishekbapat@google.com>
+        bh=i/noOztbS2t6WZeL5Ffb7JJaj+8g0AIhxEQ+LUXgBF4=;
+        b=mnucdtsBEGIjLJDN8DtGysGLc5+1lVSiSMIm791+4JqIRDK5ihKy4OwArhp6WIEB7M
+         95k/5yaxGc3Dfgo9Uav/JIqx6KfvkvYIPDOr66IJXt5EVBxuzFThDvrUvsWlY9VMJwh/
+         fWAPgz7K1qGnMlA8fTxlyi7MsWBpfls1v0HmjE5Gkax6nxOd4hzGKTNtx0E0Bw27u4uz
+         awFKnUzWOTLAONnI2y27gCdOkeqRpGsRgpKFyDX8GWx5GuIIBGynQRE33s5BPf1kaY14
+         8SjBc2xEYBBZLJKPx/hFXkTtHiQVBA9cQM4GSaZpkGbcOC0RrNIh2WeoJzXPRAiUNp6+
+         gGyg==
+X-Forwarded-Encrypted: i=1; AKwUvBwKemSTIPVJ1NDurT8URDMS5qM0ycMla/cblVJKPdCjpcJOwcODc187+B5G2e+gE6g6XP2S8F1MLD518xk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKcHViv17GY8CaWSm6u7/C14DqH4cCqxsmgimo1/gDlZtw1jjmO
+	V52yy1bW1PGabbVFxRgkZCK4TImwQDGVgZT9GsIljGouI5435pyxff4OU3GQitSTq5E=
+X-Gm-Gg: AYBFou0XHRo6Rp5SjmIg3JYTKsM+HPuoTXv96ka5VigU89uSisL44vwJX8n7COu2Wk4
+	looYbUoi1CMY4b1GHsvi7yyuynSSulXaUNR6d1StDxUsYrdBpXFNFhriIxKcSoNTQ55tOyFuFMl
+	38u3im/vU6+ISp62ZgICsSTAiHgOLGNFZqNOVhQn9IOhI3UKO9M7L1Cf1qpokIQIw4QdEy8FvFp
+	w2uoZUi5edzBjaxi6m0cPJRt3GK9dfBnf/hp8apSSi4PcXNVacMh7kV9WPRxPz0krQaMhgD+8o9
+	ekOmDBl5wyAKQMuwpY9ZwuLhcNt2ZbmUD5RthGqzWHCJXeWzoQWvbZDp/Uiko8iuepty0lT3DBI
+	ieh5mWaGhrYMqMVg+dmkfqSxemorYcTkZ07FQ3PEw/kBQ9adcDiQz73yS+jZgCFjS6HLP/9qP+v
+	j81o+rssUjCeAbcdUNpxzAZYOLRHJ3FN6lSIjH0MYzt5YmGlbZX555lU0AuQUGTlb1YPgszsMvU
+	PuJGZKCNMMUfcJqZVOcEXVvfs+cDHWrtMEkv9/HJzXntNKvsSkZwSotHLZrgMRt6fVLuTawLb6m
+	NBLy
+X-Received: by 2002:a17:903:4b0e:b0:2e9:a166:f7fe with SMTP id d9443c01a7336-2ea440a4ec4mr51883235ad.62.1792690781547;
+        Thu, 22 Oct 2026 10:39:41 -0700 (PDT)
+Received: from localhost.localdomain ([121.128.174.79])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ea7b3d15ffsm1483045ad.56.2026.10.22.10.39.39
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Thu, 22 Oct 2026 10:39:41 -0700 (PDT)
+From: Yongjun Gwon <d3bugee@gmail.com>
+To: Namjae Jeon <linkinjeon@kernel.org>
+Cc: Sergey Senozhatsky <senozhatsky@chromium.org>,
+	Tom Talpey <tom@talpey.com>,
+	ChenXiaoSong <chenxiaosong@chenxiaosong.com>,
+	linux-cifs@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] ksmbd: serialize directory emptiness checks with readdir
+Date: Fri, 23 Oct 2026 02:38:32 +0900
+Message-ID: <20261022173832.14696-1-d3bugee@gmail.com>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,95 +96,99 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <cover.1792690544.git.abhishekbapat@google.com>
-X-Mailer: git-send-email 2.56.0.257.gf7497c7d27-goog
-Message-ID: <f577c773058265f0eb7fe2c10fb6aa4003445a00.1792690544.git.abhishekbapat@google.com>
-Subject: [PATCH v4 3/4] alloc_tag: Extend allocinfo_filter to support tracing queries
-From: Abhishek Bapat <abhishekbapat@google.com>
-To: Suren Baghdasaryan <surenb@google.com>, Hao Ge <hao.ge@linux.dev>, 
-	Andrew Morton <akpm@linux-foundation.org>
-Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
-	linux-trace-kernel@vger.kernel.org, Abhishek Bapat <abhishekbapat@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Extend the allocinfo filtering mechanism to allow users to filter tags
-based on their trace state.
+SMB2 QUERY_DIRECTORY holds fp->readdir_lock while it calls iterate_dir()
+on fp->filp. An SMB2 SET_INFO request with FILE_DISPOSITION_INFORMATION
+can resolve the same FileId and call ksmbd_vfs_empty_dir() on the same
+filp without that lock.
 
-Signed-off-by: Abhishek Bapat <abhishekbapat@google.com>
-Acked-by: Suren Baghdasaryan <surenb@google.com>
-Acked-by: Hao Ge <hao.ge@linux.dev>
+iterate_dir()'s inode read lock permits concurrent readers and does not
+serialize per-file iterator state. ext4 stores its dx readdir cursor and
+fname RB tree in file->private_data. Concurrent reset or refill can
+therefore free a fname node while the other worker still traverses it or
+retains its RB-tree link, resulting in use-after-free accesses.
+
+An authenticated SMB client with list and delete rights on a directory in
+a writable KSMBD share backed by ext4 can trigger this when the directory
+takes the dx readdir path. The client overlaps an SMB2 QUERY_DIRECTORY
+request with an SMB2 SET_INFO request carrying FILE_DISPOSITION_INFORMATION
+on one live FileId.
+
+In one x86_64 SMP KASAN multi-shot guest using ksmbd-for-next at
+171df27077fb, the unmodified kernel reported a cross-worker use-after-free
+before a panic. The first report's access and free stacks show the two
+request paths directly (trimmed):
+
+  BUG: KASAN: slab-use-after-free in ext4_htree_store_dirent+0x488/0x550
+  Read of size 8 by task kworker/2:0/29
+  Workqueue: ksmbd-io handle_ksmbd_work
+  Call Trace:
+   ext4_htree_store_dirent+0x488/0x550
+   htree_dirblock_to_tree+0x535/0x990
+   ext4_htree_fill_tree+0x319/0xba0
+   ext4_readdir+0x175a/0x2f40
+   iterate_dir+0x1b6/0x630
+   smb2_query_dir+0x1003/0x1cc0
+
+  Freed by task 279:
+   free_rb_tree_fname+0x67/0xc0
+   ext4_readdir+0x13a9/0x2f40
+   iterate_dir+0x1b6/0x630
+   ksmbd_vfs_empty_dir+0xa2/0x100
+   smb2_set_info+0x2ffa/0x45d0
+
+Take fp->readdir_lock across the entire emptiness check. This places both
+iterators over that handle's filp in the same lock domain while
+preserving the disposition status handling. The exact code change
+completed a warning-free x86_64 KASAN bzImage build. Tracing three request
+pairs showed that the two iterate_dir() calls no longer overlapped and the
+expected statuses were preserved. A further 1,600 reproducer iterations
+completed with expected statuses and no KASAN report, Oops, or panic.
+
+The reproducer and complete guest configuration are available privately
+to maintainers on request.
+
+Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Yongjun Gwon <d3bugee@gmail.com>
 ---
- include/uapi/linux/alloc_tag.h | 8 ++++++--
- mm/alloc_tag.c                 | 8 ++++++++
- 2 files changed, 14 insertions(+), 2 deletions(-)
+ fs/smb/server/smb2pdu.c | 11 ++++++++---
+ 1 file changed, 8 insertions(+), 3 deletions(-)
 
-diff --git a/include/uapi/linux/alloc_tag.h b/include/uapi/linux/alloc_tag.h
-index dafcba2f7e2c..a96054ac2237 100644
---- a/include/uapi/linux/alloc_tag.h
-+++ b/include/uapi/linux/alloc_tag.h
-@@ -38,7 +38,8 @@ struct allocinfo_counter {
- 	__u64 bytes;
- 	__u64 calls;
- 	__u8 accurate;
--	__u8 pad[7];
-+	__u8 trace_on;
-+	__u8 pad[6];
- } __attribute__((aligned(8)));
+diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
+index da82d80..f5fe3cf 100644
+--- a/fs/smb/server/smb2pdu.c
++++ b/fs/smb/server/smb2pdu.c
+@@ -8918,6 +8918,7 @@ static int set_file_disposition_info(struct ksmbd_work *work,
+ 				     struct smb2_file_disposition_info *file_info)
+ {
+ 	struct inode *inode;
++	int err;
  
- struct allocinfo_tag_data {
-@@ -54,7 +55,8 @@ enum {
- 	ALLOCINFO_FILTER_INACCURATE,
- 	ALLOCINFO_FILTER_MIN_SIZE,
- 	ALLOCINFO_FILTER_MAX_SIZE,
--	__ALLOCINFO_FILTER_LAST = ALLOCINFO_FILTER_MAX_SIZE
-+	ALLOCINFO_FILTER_TRACE_ON,
-+	__ALLOCINFO_FILTER_LAST = ALLOCINFO_FILTER_TRACE_ON
- };
+ 	if (!(fp->daccess & FILE_DELETE_LE)) {
+ 		pr_err("no right to delete : 0x%x\n", fp->daccess);
+@@ -8932,9 +8933,13 @@ static int set_file_disposition_info(struct ksmbd_work *work,
+ 		if (ksmbd_has_stream_without_delete_share(fp))
+ 			return -ESHARE;
  
- #define ALLOCINFO_FILTER_MASK_MODNAME		(1 << ALLOCINFO_FILTER_MODNAME)
-@@ -64,6 +66,7 @@ enum {
- #define ALLOCINFO_FILTER_MASK_INACCURATE	(1 << ALLOCINFO_FILTER_INACCURATE)
- #define ALLOCINFO_FILTER_MASK_MIN_SIZE		(1 << ALLOCINFO_FILTER_MIN_SIZE)
- #define ALLOCINFO_FILTER_MASK_MAX_SIZE		(1 << ALLOCINFO_FILTER_MAX_SIZE)
-+#define ALLOCINFO_FILTER_MASK_TRACE_ON		(1 << ALLOCINFO_FILTER_TRACE_ON)
- 
- #define ALLOCINFO_FILTER_MASKS \
- 	((1 << (__ALLOCINFO_FILTER_LAST + 1)) - 1)
-@@ -75,6 +78,7 @@ struct allocinfo_filter {
- 	__u64 max_size;
- 	/* filter criteria only; see allocinfo_counter.accurate for actual accuracy */
- 	__u64 inaccurate;
-+	__u64 tracing;
- };
- 
- struct allocinfo_get_at {
-diff --git a/mm/alloc_tag.c b/mm/alloc_tag.c
-index 9ff9dd04d692..0d4d267c065f 100644
---- a/mm/alloc_tag.c
-+++ b/mm/alloc_tag.c
-@@ -250,6 +250,7 @@ static void allocinfo_to_params(struct codetag *ct,
- 	data->counter.bytes = counters->bytes;
- 	data->counter.calls = counters->calls;
- 	data->counter.accurate = !alloc_tag_is_inaccurate(ct_to_alloc_tag(ct));
-+	data->counter.trace_on = alloc_tag_is_traced(ct_to_alloc_tag(ct));
- }
- 
- /*
-@@ -323,6 +324,13 @@ static bool matches_filter(struct codetag *ct, struct allocinfo_filter *filter,
- 			return false;
- 	}
- 
-+	if (filter->mask & ALLOCINFO_FILTER_MASK_TRACE_ON) {
-+		bool tracing = alloc_tag_is_traced(ct_to_alloc_tag(ct));
-+
-+		if (tracing != !!(filter->tracing))
-+			return false;
-+	}
-+
- 	return true;
- }
- 
+-		if (S_ISDIR(inode->i_mode) && !ksmbd_stream_fd(fp) &&
+-		    ksmbd_vfs_empty_dir(fp) == -ENOTEMPTY)
+-			return -EBUSY;
++		if (S_ISDIR(inode->i_mode) && !ksmbd_stream_fd(fp)) {
++			mutex_lock(&fp->readdir_lock);
++			err = ksmbd_vfs_empty_dir(fp);
++			mutex_unlock(&fp->readdir_lock);
++			if (err == -ENOTEMPTY)
++				return -EBUSY;
++		}
+ 		smb_break_all_levII_oplock_for_delete(work, fp);
+ 		ksmbd_fd_set_delete_pending(fp);
+ 	} else {
+
+base-commit: 171df27077fb49b4af2c53ad2cedcd0e39664fe8
 -- 
-2.56.0.257.gf7497c7d27-goog
+2.55.0
 
