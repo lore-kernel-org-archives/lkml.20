@@ -1,79 +1,78 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792682350;
-	b=z+czLZu/nt6l/E7U2eN11Rjq0JRHtEL6NFers7jmEkwA9Pwo0q8p5nu10vRYakh5/Pem
-	 SyCaumCfAdrbGQP+XIOpfy1kmnVr4hpRjU1Jk+7zByCTnbh7IfEaYQ4NcHjlk1/kDutQ6
-	 8yU2YFu8VwZfm90iarbvnqx90XVyJU6XqpvSanBSKVvN49cTpi2wKOknMItarneiMYolf
-	 aIYHpJz+zNOr3Z0mDfoKn5x7EBHng445zVdEDFKChhn3BZYQOn41t5dUouoTrM6i7MAff
-	 W052aAKflsT7nMX4fEspVUsT0si+e/7qCtITME5YS6farJtW3wbJYmQRO9LO3jAeSAQ==
+	t=1792682353;
+	b=rdis2a1DI6X3zNeOwwFTAnkFnLhwTBS1V1kRel3RSph5KwFxv88HI+RYHD8Kr9WoXpFc
+	 2JgE3dhOjoRxVKzwanLU1Ms8+XounvJ2mXthswNktOFaVaF3kmVdHq19P2UvYvhEVL8sJ
+	 5NSbUmgzlfZ862gRJ1zCdn9AflvO5Bw++PB0JnyBEJjk9FSpzMWLYrxUcOBAo1kpVCwwP
+	 SCfFu1lAr1RW/Q6lRQC3Oi+SsdLKA5Dwk5h4wc9l+JWBowozeqEJI/8hYVZ6wwuCL7O28
+	 6KBJYnXPr+GEszZ5dhkm9yaI0dzpUiF0f+PIrq4GHRZJ+N93cGh7JuXqezhs4YmH9sA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792682350;
-	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=s8461N4x6bAd9nJahZR75PpHJ9523zVsVCtLDHgioC8=;
-	b=LV7UdNrOVbf6vyQaQZ3Ir6783xXWLKRb4wg66OU8RVwMDkdpVxTGNV5XXNeArU4TF6+n
-	 u8JgCK0G+szOqXVAZgzCLI9vSClOY3ZXUC7pRdafslPDK+wg/63PQT38wByP59LtLYcPa
-	 MV5n/RiySlI6KWKATJ7rxN5Ae5e7yOY7FXHPXV7GIlmjC2EYT3wI/rVaIBNFq7OlwNelm
-	 imjP36VMPJAvIFvIKon/uxwUcNWVHSx+PfXEHnEdyd2ct+wz37fDdn+HZBIizTsWPYspC
-	 h4zvG/2aJKvdog2G3C/aj70K6GNqc82PADmSQoR37Xaj77LEb6PZWkRhyxl7e3zovWA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792682353;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=6+KUMNWETbOIm1etOJvqfpofFQZLeiAo3ByMDioY4WU=;
+	b=rh+FJXMpFqIuKTYN9L7k7uThpwI5KnuPqvXqli5uDGXzqz+Y9OPWxKzLL1ZsOvxRx434
+	 1VoZ5kpHyQM2XFWsSvCb9uEDpgjgiaLff4Bqj8BCVtjMItK4CiyWHtU3CuewPcq9PFOjX
+	 +auU30cXdsjMD3EFusatTmYStYqvz4O/lsH0pEnOD1YXJ6sBw/19B7ePmJpuHYoGrlmUu
+	 VQtxJerHKfZaRw3NeEi9tYKOeJBnG1u/smzxKu/GXSvrVMZAvkw+Uz3IZfvuXN5Stv5wC
+	 7YMOU27ijqmmULQ6Bf8iNQzImv9dvnrQ5uICmdikZaIzgbRsMQ47NxaRgdPZoVKTMaw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Il4+S/7p";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UkMkVaMR;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB5C7606CC42;
-	Thu, 22 Oct 2026 15:19:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5003606CC49;
+	Thu, 22 Oct 2026 15:19:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Il4+S/7p
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UkMkVaMR
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1792682349;
-	b=aPuG9em0hhrVsF5iokravzKPyiPC3pPAE+ddDHznvGlu5uAZhNwfoe+xoUnaBdgBtM/m
-	 1A0FgYnb0n6Xyakfqi1xlZ0jD58xpER0oXFolGWMbhUbcOoGWU+cHGRNnMKKaRWIqx+ho
-	 IGMzErWbuifbU6zlYinWx2LP8y6VgKkYj8MigmAeMc/dd3lXzq/Os8zLHi6LDZ2F+dSmH
-	 4SCietQ4j4JW8Z4M/+hEfT0IDw30FZnwyIHPaqFAQpPLpDuwcN7l49GTyA6mwKEu7OILC
-	 sVwtx/k7b5JZGpOn1fRqj+DdFKzjm3MLNLd2cEUcQEb798E3qCoMmfptBUdRiUffnQg==
+	t=1792682352;
+	b=0qmLwQAqJg8htCiJh2prayla+QSJXGbrtEw+IKYzfBYIwsIW05tfGQ3sPF8Cz3idd01n
+	 MK3w/m34BoqzrOxi4iOohbJ0V/GP2r4XvBpseU1ddY+2GCvtKcUhFiRGW7Z9zs+IK8ZjH
+	 w3weykxdIRrcFM3MAe2DVvY/US8ihUY+0sw4s4/sJVmIapz5dUve6QM7xFeO+DLJmHcK+
+	 BC92tR9JnpvkpELODYcjL1nbIuEj8dL6yzt8J0RgZ0YtD1zXgnZgR5Dkn5JZqmaC83Qzw
+	 N6uo5+b2RVLyVQRLAncgT9CXaj/FE1yJnc3Khh2yDCy5DySnBeM+gphbCwQf8pbtejA==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1792682349;
-	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=s8461N4x6bAd9nJahZR75PpHJ9523zVsVCtLDHgioC8=;
-	b=lcyxS8Jko8Sr/OWVAHSqj++eUr/I7dN+aBiaSgGPQ9A/Yr7Z2AI3teRlhxpAtwlXGCb7
-	 lyn1zmcucMyu4vPpbS8lQKfD2sGMjagNtPEGZzla7Ulfd78wSQJNIEqqMpebWRx5hi1hB
-	 UT745mBjPRI0C5bCoCBPKRFibeX2hFlUNycN01pWRD5ymGrGvoBttCmscUmHlBHoF0+xr
-	 g/2KvpmX3rcpSdgGt0Fow68J2CaC8+9WxQlOH7AR41LfCz/qIx1WQ6RBPiy/xDL/ZjNYp
-	 YuY5qajNxhpLpG4rv3l0AzJnKAvGgPAtQifE1uVplx9KqljHHX6+bMm1pifmtrP+zlQ==
+	c=relaxed/relaxed; t=1792682352;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=6+KUMNWETbOIm1etOJvqfpofFQZLeiAo3ByMDioY4WU=;
+	b=z7xenscEQKLaVKcBAn3/hqFgBAe47ucOVQnxqt37PGShSJos7PfoESWqjH1656m++exr
+	 8hgCMG5MxzUFCvX975C9NlB5hBCrGPVk9kgL5HEn3Cp11EipEA6IYQI2upThisiCj3z/H
+	 biNaGxWa2tanDjazNITsM5jeiOS6Q9D7OjMBXcKwMOVq+SaM3TvBR7ZdfRDBTKkGT7BDy
+	 EqoyF6nAD+bZT9oahBRtoBhYDsUI9bFqCl0ogTxHts9Om7jEAXf/WVLZGPRLEykrhfnA0
+	 Qijd1mCqRHDKUbvzgdMWbPsaczmB0w0uYkqwp3kVrLNx/aucgB4X55BlwYm4kZt+MVQ==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 929C51F01825;
-	Thu, 22 Oct 2026 15:19:08 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id 825971F031ED;
+	Thu, 22 Oct 2026 15:19:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792682349;
-	bh=s8461N4x6bAd9nJahZR75PpHJ9523zVsVCtLDHgioC8=;
-	h=From:Subject:Date:To:Cc:Reply-To;
-	b=Il4+S/7pKcYheXI/6/z+C3XKEBFcowDQMLZkC3Jtpn/VcdNWMXRhdTY89HahVLYfX
-	 hSpCZGGz3ANlkx0H64/jysXGKE8DtL8gsxg5QKV68h4/T2pEOCuvuvFg6qxFU01T9P
-	 8Z0acnWedIhAgvSu4D0/QCOPvF1OMZXUmW3zHP8H1E2FKlTVKvmcqP+u166x6+r08C
-	 be6lYerdqTlgRefJIOMuGzjjTP7O6cXvF+qRXK9lKURgnlQTjxn04WpYE6t5pK5rIH
-	 t6eagxzSZIFVAWpKsDENWyYmZeG/VbCUxCQOcdCag2RPHvwrs0kAb1vff7UOU/ceG0
-	 9h5cDA4LU21XA==
+	s=k20260515; t=1792682352;
+	bh=6+KUMNWETbOIm1etOJvqfpofFQZLeiAo3ByMDioY4WU=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=UkMkVaMRETkcUXeOOihD1HEZocJL8C0LNJOb0sRg3PkG1dZJgra5bb9aSThLT3eKq
+	 YyUWLu9XtFWCrgG23TYSkqr9tH/4Faqa/epS2HSFGWkhDHx9kxlVd7d2p2KGa0oOy5
+	 Z3+ZVCCdega5k/Jgnnq0og6WAWu5oIb0NJRUy1MPCQzYv4sRiv5LQGjLV2/Ghiy8n9
+	 OQN5HNfRUVQKAiwa4y5BVNJSsGyAtJ9EYu7NfR2pDzJz/BygHjvwp48q6FPRe8cbUD
+	 FSGmBZBvuBumDDOQXu6OpPWU8twjSuoFkp6oezH5pnr8NDeJfpmx8Gl3BWLWCSg+hK
+	 utIYjkHFHCSVQ==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id E27B641E49;
-	Thu, 22 Oct 2026 15:19:07 +0000 (UTC)
+	by lkml.kernel.org (Postfix) with ESMTP id B761B41E6F;
+	Thu, 22 Oct 2026 15:19:08 +0000 (UTC)
 From: Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org>
-Subject: [PATCH v2 00/10] iio: frequency: ad9910: add IIO backend support
-Date: Thu, 22 Oct 2026 12:18:58 -0300
-Message-Id: <20261022-ad9910-backend-support-v2-0-0ff7f0bff326@analog.com>
+Date: Thu, 22 Oct 2026 12:19:08 -0300
+Subject: [PATCH v2 10/10] docs: iio: ad9910: document DRCTL pin control
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,12 +83,9 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-B4-Tracking: v=1; b=H4sIAGMp2moC/3WNyw6CMBBFf4V0bc1MqTxc+R+GRWlHqI+2aYFoC
- P8u4NrlSe49Z2aJoqXEztnMIk02We9WEIeM6V65jrg1KzMBooA6B65MXSPwVukHOcPTGIKPA8d
- SydJgKWUObD2HSDf73sXX5sdpbO+kh822LXqbBh8/e3nCbbdHEPD0LzIhB55rgYWsdEWiuCinn
- r47av9izbIsX7sMNCjPAAAA
-X-Change-ID: 20260930-ad9910-backend-support-17a47d174430
+Message-Id: <20261022-ad9910-backend-support-v2-10-0ff7f0bff326@analog.com>
+References: <20261022-ad9910-backend-support-v2-0-0ff7f0bff326@analog.com>
+In-Reply-To: <20261022-ad9910-backend-support-v2-0-0ff7f0bff326@analog.com>
 To: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, 
  linux@analog.com, devicetree@vger.kernel.org, linux-pwm@vger.kernel.org, 
  linux-doc@vger.kernel.org, 
@@ -103,102 +99,180 @@ Cc: Olivier Moysan <olivier.moysan@foss.st.com>,
  =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, 
  Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
  Randy Dunlap <rdunlap@infradead.org>, 
- Rodrigo Alencar <rodrigo.alencar@analog.com>, 
- Conor Dooley <conor.dooley@microchip.com>
+ Rodrigo Alencar <rodrigo.alencar@analog.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792682347; l=3858;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792682347; l=6219;
  i=rodrigo.alencar@analog.com; s=default; h=from:subject:message-id;
- bh=0eDi3cJlO2Kr5JHOSDc8le20UlTOxTiPawBS9a/r7Yw=;
- b=sxcKxjCN9UmZ2Bs3ih1g5pqsK/jnxHT9HQq5BAZRrooMewHfSK9NAtArw3Q2C1l8AQ9zbUoJk
- P/9zAYqltf6AVzz1rJBJm2VIvzNkTuEaY+ciBXsXoVAxPJFmHcH+Eiy
+ bh=9AdEqIZ+bYqk9Lw6P7OuqM0LPTI0z5xHBJLcZX+ImKY=;
+ b=uXb3PIln3CqI5BQMvSFeUzmQlLZ1I31Q5FdLc+gCuiqatzRl2MJl5j89dMPyZZ2mimGOwRjBy
+ HED3yDG8d7YByxQfFGWKiPN+Wp+AtN+j4n5YOh7bgHJBjxBBepXlNJT
 X-Developer-Key: i=rodrigo.alencar@analog.com; a=ed25519;
  pk=ULeHbgU/OYh/PG/4anHDfLgldFItQHAhOktYRVLMFRo=
 X-Endpoint-Received: by B4 Relay for rodrigo.alencar@analog.com/default
  with auth_id=561
 X-Original-From: Rodrigo Alencar <rodrigo.alencar@analog.com>
 Reply-To: rodrigo.alencar@analog.com
+Content-Transfer-Encoding: 7bit
 
-This series extends the AD9910 DDS driver with support for an IIO backend,
-enabling data streaming through the parallel data port, and with control of
-the DRCTL pin, which defines the slope direction of the digital ramp
-generator (DRG).
+From: Rodrigo Alencar <rodrigo.alencar@analog.com>
 
-The parallel data port allows modulation of the DDS core parameters
-(amplitude, phase, frequency or polar) at up to the PDCLK rate, which is
-SYSCLK / 4. Such data rates require an FPGA IP core as the data source, so
-an AXI backend driver is added for the AD9910 HDL reference design. Besides
-streaming data from memory via DMA, the IP core also drives the PROFILE[2:0]
-and DRCTL pins. The latter is exposed as a PWM output, so that the frontend
-driver can consume it through the PWM framework without depending on the
-backend being present.
-
-The backend is optional: the AD9910 remains functional through the SPI
-control interface alone, hence the new devm_iio_backend_get_optional()
-helper.
+Document the integration_time attribute of the digital ramp generator
+(DRG) rising and falling channels, and describe how the DRCTL pin
+waveform is generated from those values according to the dwell_en
+configuration. Add usage examples for triangular and sawtooth sweeps
+driven through the DRCTL pin.
 
 Signed-off-by: Rodrigo Alencar <rodrigo.alencar@analog.com>
 ---
-Changes in v2:
-- IIO Backend: Use device_property_present() when getting optional backends.
-- AD9910 Backend: Move PWM driver to waveform semantics.
-- AD9910 Backend: sync PWM configs when sysclk updates.
-- Misc changes addressing other feedback (including sashiko's).
-- Link to v1: https://patch.msgid.link/20261015-ad9910-backend-support-v1-0-3c21648c8e26@analog.com
+ Documentation/iio/ad9910.rst | 90 +++++++++++++++++++++++++++++++++++++++++---
+ 1 file changed, 84 insertions(+), 6 deletions(-)
 
-To: Rodrigo Alencar <rodrigo.alencar@analog.com>
-To: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-To: linux-iio@vger.kernel.org
-To: linux@analog.com
-To: linux-kernel@vger.kernel.org
-To: devicetree@vger.kernel.org
-To: linux-pwm@vger.kernel.org
-To: linux-doc@vger.kernel.org
-Cc: Nuno Sá <nuno.sa@analog.com>
-Cc: Michael Hennerich <Michael.Hennerich@analog.com>
-Cc: Jonathan Cameron <jic23@kernel.org>
-Cc: David Lechner <dlechner@baylibre.com>
-Cc: Andy Shevchenko <andy@kernel.org>
-Cc: Olivier Moysan <olivier.moysan@foss.st.com>
-Cc: Rob Herring <robh@kernel.org>
-Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
-Cc: Conor Dooley <conor+dt@kernel.org>
-Cc: Uwe Kleine-König <ukleinek@kernel.org>
-Cc: Jonathan Corbet <corbet@lwn.net>
-Cc: Shuah Khan <skhan@linuxfoundation.org>
-Cc: Randy Dunlap <rdunlap@infradead.org>
+diff --git a/Documentation/iio/ad9910.rst b/Documentation/iio/ad9910.rst
+index aab569f561db..bff55cca8c82 100644
+--- a/Documentation/iio/ad9910.rst
++++ b/Documentation/iio/ad9910.rst
+@@ -85,13 +85,13 @@ system clock (SYSCLK) which affects all other channels.
+      - ``drg_rising_frequency``
+      - ``drg_frequency``
+      - DRG frequency rising-ramp parameters: limit code, dwell enable,
+-       ramp clock, rate of change.
++       ramp clock, rate of change, integration time.
+ 
+    * - ``out_frequency132``
+      - ``drg_falling_frequency``
+      - ``drg_frequency``
+      - DRG frequency falling-ramp parameters: limit code, dwell enable,
+-       ramp clock, rate of change.
++       ramp clock, rate of change, integration time.
+ 
+    * - ``out_phase130``
+      - ``drg_phase``
+@@ -104,13 +104,13 @@ system clock (SYSCLK) which affects all other channels.
+      - ``drg_rising_phase``
+      - ``drg_phase``
+      - DRG phase rising-ramp parameters: limit code, dwell enable, ramp clock,
+-       rate of change.
++       rate of change, integration time.
+ 
+    * - ``out_phase132``
+      - ``drg_falling_phase``
+      - ``drg_phase``
+      - DRG phase falling-ramp parameters: limit code, dwell enable, ramp clock,
+-       rate of change.
++       rate of change, integration time.
+ 
+    * - ``out_altcurrent130``
+      - ``drg_amplitude``
+@@ -123,13 +123,13 @@ system clock (SYSCLK) which affects all other channels.
+      - ``drg_rising_amplitude``
+      - ``drg_amplitude``
+      - DRG amplitude rising-ramp parameters: limit code, dwell enable,
+-       ramp clock, rate of change.
++       ramp clock, rate of change, integration time.
+ 
+    * - ``out_altcurrent132``
+      - ``drg_falling_amplitude``
+      - ``drg_amplitude``
+      - DRG amplitude falling-ramp parameters: limit code, dwell enable,
+-       ramp clock, rate of change.
++       ramp clock, rate of change, integration time.
+ 
+    * - ``out_altcurrent140``
+      - ``ram``
+@@ -493,6 +493,60 @@ Ramp channel attributes
+        from the hardware step size and the current ramp clock. Writing
+        requires ``sampling_frequency`` to be configured first.
+ 
++   * - ``integration_time``
++     - s
++     - Time interval assigned to the ramp direction, which is used to generate
++       the DRCTL pin waveform. See `DRCTL pin control`_. Rising and falling
++       ramp channels of all destinations share the same underlying value for
++       their respective directions. The written value is adjusted to the
++       resolution supported by the PWM provider.
++
++DRCTL pin control
++^^^^^^^^^^^^^^^^^
++
++The DRCTL pin selects the DRG slope direction: a logic high drives the ramp
++towards the upper limit and a logic low drives it towards the lower limit.
++When a PWM is assigned to the DRCTL pin (via the ``pwms`` and ``pwm-names``
++devicetree properties), the driver generates the DRCTL waveform from the
++``integration_time`` of the rising and falling ramp channels, according to the
++``dwell_en`` configuration:
++
++.. flat-table::
++   :header-rows: 1
++
++   * - Rising ``dwell_en``
++     - Falling ``dwell_en``
++     - DRCTL waveform
++
++   * - 1
++     - 1
++     - DRCTL is held high for the rising ``integration_time`` and then held
++       low for the falling ``integration_time``. The PWM period is the sum of
++       both intervals. If a ramp reaches its limit before its interval
++       elapses, the output dwells at that limit.
++
++   * - 0
++     - 1
++     - Sawtooth rising ramp: a new ramp starts at every DRCTL rising edge,
++       which happens periodically at the rising ``integration_time``. The
++       falling ``integration_time`` is not used.
++
++   * - 1
++     - 0
++     - Sawtooth falling ramp: a new ramp starts at every DRCTL falling edge,
++       which happens periodically at the falling ``integration_time``. The
++       rising ``integration_time`` is not used.
++
++   * - 0
++     - 0
++     - Bidirectional continuous ramp. DRCTL is not relevant and it is held
++       low.
++
++The DRCTL output is disabled when the resulting PWM period is zero, e.g., when
++the relevant ``integration_time`` attributes are set to ``0``. Without a PWM
++assigned to the DRCTL pin, writing to ``integration_time`` fails with
++``-EOPNOTSUPP``.
++
+ Usage examples
+ ^^^^^^^^^^^^^^
+ 
+@@ -525,6 +579,30 @@ Configure a frequency sweep from 40 MHz to 60 MHz with a rate of change of
+   # Enable the DRG with frequency as the destination
+   echo 1 > /sys/bus/iio/devices/iio\:device0/out_frequency130_en
+ 
++With the same limits and rate of change, each ramp takes 0.8 ms to complete.
++Configure a PWM-driven triangular sweep that dwells 0.2 ms at each limit:
++
++.. code-block:: bash
++
++  # Enable dwell on both limits, so DRCTL controls the ramp direction
++  echo 1 > /sys/bus/iio/devices/iio\:device0/out_frequency131_dwell_en
++  echo 1 > /sys/bus/iio/devices/iio\:device0/out_frequency132_dwell_en
++
++  # DRCTL high for 1 ms (rising ramp) and low for 1 ms (falling ramp)
++  echo 0.001 > /sys/bus/iio/devices/iio\:device0/out_frequency131_integration_time
++  echo 0.001 > /sys/bus/iio/devices/iio\:device0/out_frequency132_integration_time
++
++Configure a rising sawtooth sweep that restarts every 1 ms:
++
++.. code-block:: bash
++
++  # No dwell at the upper limit: the ramp returns to the lower limit
++  echo 0 > /sys/bus/iio/devices/iio\:device0/out_frequency131_dwell_en
++  echo 1 > /sys/bus/iio/devices/iio\:device0/out_frequency132_dwell_en
++
++  # A new rising ramp starts every 1 ms
++  echo 0.001 > /sys/bus/iio/devices/iio\:device0/out_frequency131_integration_time
++
+ RAM mode
+ --------
+ 
 
----
-Rodrigo Alencar (10):
-      iio: frequency: ad9910: powerdown fix
-      iio: backend: add devm_iio_backend_get_optional()
-      dt-bindings: iio: frequency: add adi,ad9910-axi-backend
-      dt-bindings: iio: frequency: ad9910: add io-backends property
-      iio: frequency: ad9910: move channel indexes into a shared header
-      iio: frequency: ad9910: add axi backend driver
-      iio: frequency: ad9910: support drctl control
-      iio: frequency: ad9910: support iio backend
-      iio: ABI: add integration_time for output channels
-      docs: iio: ad9910: document DRCTL pin control
-
- Documentation/ABI/testing/sysfs-bus-iio            |  17 +
- .../iio/frequency/adi,ad9910-axi-backend.yaml      |  74 +++
- .../bindings/iio/frequency/adi,ad9910.yaml         |  38 ++
- Documentation/iio/ad9910.rst                       |  90 +++-
- MAINTAINERS                                        |   3 +
- drivers/iio/frequency/Kconfig                      |  19 +
- drivers/iio/frequency/Makefile                     |   1 +
- drivers/iio/frequency/ad9910-axi-backend.c         | 525 +++++++++++++++++++++
- drivers/iio/frequency/ad9910.c                     | 420 ++++++++++++++---
- drivers/iio/frequency/ad9910.h                     |  44 ++
- drivers/iio/industrialio-backend.c                 |  38 ++
- include/linux/iio/backend.h                        |   2 +
- 12 files changed, 1205 insertions(+), 66 deletions(-)
----
-base-commit: 43ffda3c7f8456bbe641ae8249a077a361b97880
-change-id: 20260930-ad9910-backend-support-17a47d174430
-
-Best regards,
---  
-Rodrigo Alencar <rodrigo.alencar@analog.com>
+-- 
+2.43.0
 
 
