@@ -1,82 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792653280;
-	b=ED3ubKej4TJ+92R9yR3WE3vNwYu/+3U0JPh8VuBRgWi/tU0p6BH7CaIwLzGSLlDv8Xew
-	 dTmHHvhELphQdQvP18RjKbJsuL4ahisFCaAal1MUjGwtg5vEtUEAL7CI5LCYzF25OFAu0
-	 9yc9eZIvLzY/i7dSkBZyz5rcr0+GBGMjmDNQEXeTnbhkBiTPBb+PCt/2aPfzQPTXECQzs
-	 EoYiFFgnz2dGdk20t+HTPsv/LjT43CwviTckjPsd/lUR1K1B2m5pQlMFTV5wpnDqGyC0U
-	 TfT9qKERUgHgTtf+U6xWmowgGffHrTARB0pjoGIV/IFmoisAIyY2sgjcz/y1dwuqzmQ==
+	t=1792653286;
+	b=dXRaHHiAMlHJeoYM9aMiVcispnQ16Vvqe7VRzoIIjr6k+K/8yfSlxmXCr3ZNarsh9r80
+	 a4akp0Rj3rU50jPiCRP5NeiPki0C3c/muX8Bko2GAQT4SjPMlpbdnrhuuLGgcwTz75cf4
+	 dp/Ni5FKIM7tTFC4Z+RZ/lx4O6OWIoRb/Me+aqelBpMNCtCyv0l28EeVYjQ0WFLCqLFQs
+	 norj8ueDE5CPCRkF1TFpNxgjrrP9Wx5EBDYYnpKwAtZ/AXoe1mMYkA/XwSQ7iwYo2Za3t
+	 EM1GTM2Myen9bVMOrJ41N5DFQT6j6nARS5HsSod2pjVk1Ji07XIBLivr/W/boHABTfw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792653280;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792653286;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=t8ltOwjxA6KeKnGObAuyhyG+hzNLbLDdGdsDrm0q03I=;
-	b=bdDnfMl3oFUOMwSIJBINBEfYcWgF9A4YgYMalTbRZBGLSducS96ygc7A3Gez16N43amb
-	 67KzFmF1Hzl9AXYTBokoGK2Alg9aatmNsfwlTJQybbLJ+CPQBG3vpD1V0ulPyKZe0fNkF
-	 3ei7d8amJcvDnABgI56fIV5WT5DLqBTEnd571lebnFAIOMLIhkHyHfnaHk67uW7RJfdA2
-	 qjsokLJ9/vHXvDWxadPykk5qoBUKymLUtSXe4NGZUHnBIPAcVJ+z8HTN0b6p1gd7ud88P
-	 QFjnnI03B9tVP7OKfi38AfTE+/BU6LzMK/CwpUtFhD19FkGyNT+DOHs7S4CFGgYArSg==
+	bh=rbQd37yNdLoEoUUb1uI07DktRFDbgbFgP3dMH/u8vgc=;
+	b=Z33/06ekfo7qOVO/9sI1W5fGZI1GP7Re4/CxUQH5elgnQysPyLpKu52b9xgC/HykU5d3
+	 s3Vm+FqEXsg8WzpDG40DIae2T3goH/1XpNULPoeVFj4TGuPFXiPbfyw/d8havt31pnr6d
+	 2ryO+3eL23+rszeHzWcczTWuF7I4kAevUFIl7WTg6dtM+8zFGiDkhUDr+6MvmyY6+nNDJ
+	 LlaATbfFOlNByHQYsCCNBy6bvSz8eGxgmwOsQpTp5UVBkZxon91wj1fCGa6dtQswEOdeA
+	 Zcer85J69y/dsQU6297sa7on/gXgwPpyS/UkDP9Gf589Qoci/j9x07NaN/mb11ebiqw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=CfGCSdab;
-	arc=none smtp.remote-ip=74.125.82.45
-Received: from mail-dl1-f45.google.com (mail-dl1-f45.google.com [74.125.82.45])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=BFZUQwc0;
+	arc=none smtp.remote-ip=74.125.82.54
+Received: from mail-dl1-f54.google.com (mail-dl1-f54.google.com [74.125.82.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E84D4606A31B
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 07:14:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E84D4606A31B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFF9A606A325
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 07:14:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EFF9A606A325
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=CfGCSdab
-Received: by mail-dl1-f45.google.com with SMTP id a92af1059eb24-181516de561so247382c88.1
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 00:14:39 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=BFZUQwc0
+Received: by mail-dl1-f54.google.com with SMTP id a92af1059eb24-1931ff67a29so1329089c88.1
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 00:14:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792653279; x=1793258079; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792653285; x=1793258085; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=t8ltOwjxA6KeKnGObAuyhyG+hzNLbLDdGdsDrm0q03I=;
-        b=CfGCSdab2SO2BZvAkr8SlDMq+axi7u/ywHZv15FNsOpdUqbJSQQFIzb6Tn6UrvewUd
-         rz4MziqbMsrTh1X6wZx8j/7+//73PcjF/+gMRaGxDo7V8pwDJ9+qUGvtlZQ6Py7wOrp2
-         Mh7GYYO7o8wk7HWI38hcCKn5vAY4Miu7HhBzf1/d3XwVdYxaDe9O0pIWE738ZabjktQF
-         yTmAINEJeOO/1H+LvfTVsUNkBOu9MltCB7XTTSvzZimNurGpwYl5m4MSDCtexlJtMBcY
-         5Cip6/qeuAiuvTgK97HF6bjIsBfhoafSw5RAOeKIg4KCSnaTjQL0OPQNKHr5NE1TxKO5
-         Rifw==
+        bh=rbQd37yNdLoEoUUb1uI07DktRFDbgbFgP3dMH/u8vgc=;
+        b=BFZUQwc0glnGG0PC89J6I5yzkEC2MR9OBVnxAlTWSNJ8PjQOGdEdTojkyZ000fkN7e
+         /dLlw/5WtvHT5jU1Yxb+WnqLDWSfzrof6bbJL5BZmrl46WtCGkJg1OKvHcF6eU990bAV
+         QkHS0G/s1TMlcc/SSQtVmAUmBSr7R0IzoGXCX5PvLjuokmEWSK3+cL7NJtu2hTzoBPQw
+         GG0wDpoO3cgyMe2DJJPE3vuBX0vjYr5isphipLLx2VirrFABjVhrX9oCuv1HUbrkPgMw
+         PJJ41YcltJaXXf0As8L62f7a0Q+dPDQjyiJoOoXy2zqV4PouQ59trMIUpagKBt8KDJSM
+         FKHg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792653279; x=1793258079;
+        d=1e100.net; s=20260707; t=1792653285; x=1793258085;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=t8ltOwjxA6KeKnGObAuyhyG+hzNLbLDdGdsDrm0q03I=;
-        b=b3mpBrV7vm9cO8MTCmplwQMB6yUwv9K7h8uGuvT5BWCe78f/R6QkzUMVoi8xUrkUee
-         k23dOlrlwEpOMbEwK9yugurHGfxwkNdlbgcBimaTgwOC61AXhqeZmvL3sa58h8d3ik6l
-         ONvycC0GtB7bvfznWobPrOPWkm311AgdeiZ1dgowdoRtLxo0g2eG88TyTVVsddij8Sp6
-         HA/2iV8UQ4pr07Ot+oz2q4oHPyLyakXoI9cQKsXUEyNc1O+FtURRnjzPnpG4BDIe1ztI
-         29ojgQotB9EZyt3+TGieWLWNotvAtn019QotUFd1tgaqw+wyzLR1/zjUZ+wBDs/UqLnl
-         aodQ==
-X-Forwarded-Encrypted: i=1; AKwUvBySqFf4gK/cc1Yb7VtnRuAVC5yJDk3aPJJd/tiG1whJvT13PqNjzUB4Q8tVR9fsFhDX/Q8twh2W3tUx/VA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLusf8+fs+Sl5A6s6GE8wjATNGO1WpEVvcl/SDo4MYm75TvGCgB
-	Dzbfw0zbIh3gLdpvD493dDKA354bCJV4IHkmLwxmmam38URoEfDvtf4BmsRB7uxCv2M=
-X-Gm-Gg: AYBFou1B2sJVbXynyAFex6xEIbyfJf48Pd8ZwoyjH6jueJWYRdwqmkavzwgegUUWsQA
-	GAsPQKXklU/SoAP+rjMbeestlai+DHL7ZF5/FM2PzV/KgsSOCZhG8hK6ZmJ3a+9FxMoNby3T0EY
-	cF3CsyGLuxPmvoPATcdYW832cp7kj5XHNYi9YaputQJb2q0bOzNV9m1EmE7+Zj0R0AtWSYvjl/l
-	X0J78rZ2XWfoUFttGv5YH7foM0TkofLMmas/wJG7Cq9KwRjYOIKnSg9jiP2JF9QJdJD6CqqkbYj
-	VxGtDErHVVjjewmHJP/rOL4+yHoHrCSQkfTaPKNFvIEmTOABdKCc4yt5WdqT4cSK0hB04VdAFx2
-	10pOnom6WSoXxI1poXRrQ0PRvn00m4T4YlZRIJQ15Bi92IvlsABQ6LTKFHZ6Bl7iR6gpGlIc62U
-	XcBc+2EF11dUuktBP87KeOYSgE3NtMVLzS1ajtmi0H1Jy3rQY7MrBmQlvlw94Lp+9YD5KFCqAsj
-	NPbRzl606SajZKDnbdE5n+nyw6r/A229w1pF5TV5gvCdQxS13tQ+g==
-X-Received: by 2002:a05:701b:42d3:10b0:15b:1959:15e0 with SMTP id a92af1059eb24-192f2d2203dmr2161433c88.4.1792653279017;
-        Thu, 22 Oct 2026 00:14:39 -0700 (PDT)
+        bh=rbQd37yNdLoEoUUb1uI07DktRFDbgbFgP3dMH/u8vgc=;
+        b=2vXN7gCRCQMb8iNlzGEIZ4ATQ4n8ltGlwYxOemwIL4pAMU30d2u6eo8vwBb6R1Bd+7
+         5lZlrTtint0w1cJcokV6Bc3PADo4Pu/1/bimXDAHtckiz1khvzx5SQKLN9gwpv0kxNS3
+         MR/j+ms1Aoy0Cdo64SaAQCLaxYO0rB8x7riuVsI0xBVFhHPFx4z0BwNKCp7POv4pDBcx
+         bYCOQ6+Zbl06fhI3CrzaGwvcYpm8AKQupXmnFgMawqlyC8URSqP0vySzF2rud13Aafet
+         u+/X8i2M3Wvhh9FZ8B9TjgoMFM6lLRw9KrCe7PD3vXzeoENuyaKwcCJF46UEUHOojoIk
+         HEFg==
+X-Forwarded-Encrypted: i=1; AKwUvBxWcQDUhHHW0o86VR5psMoYg8fD8/3evG5VdYkblMsF7p6q3p8L8TqYaSFJf7ptNUDRPmr7QT7+aQFO/1U=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKVpOR/JXLytBnkgZAAZmTdZm3Id53XMDQ+q/W05MMVps+c63NK
+	Ug89+ggkqjr+Vj9hTs/ocfqAEyJmMwsEb+VZ5M2kVIpCmzo+PFVxIOLi
+X-Gm-Gg: AYBFou1ONTPys7am86jl2vUnLVvjWPxVXLzqW3ILfDlu6+M3TkKeCxctXFycjS55Eh4
+	FmVkVr8NsShQh3zh2NSoHzYJfmC0ecmDzHyMq/0u7BRZTza4yOmk3/jajVWnLbeQ/2nwFYevWlv
+	BwfMPs28yp6Ee73YyyID4rbbIRZKp1Fh2Fd/3jGbALVlmNB1Gt1BKzdk1CLiI0j0Q/Nikbea38G
+	l/t3bEdyO+D34wDtvU0TlmR9CLV/8ZG6nCf/rlLF7t68SUM3ntMLBnWK/g5LmoiD+G800wVCac2
+	aDXuK1g+QYR8uMj3vt9vmBT5VNrpbA8/LmzONb3RMlJxxZ4wuhPKyQjGwvgBUD1j+H1TZIAKIOw
+	3pZM7GUQR6/IgUefrm3rp7OTjUQEUJ0WKPq+fVuEE+BT2Uz9Xn4nBonf7FtlG5OQdhiNS3UiZhF
+	RqrlMYRZpejjuFJ8kDXTVsPICfhFcprETIVY3zqKX/EtSTOUFZ6BDFrJ1FP7yfTrFMqUtqpg643
+	deRxpMZpgRQtzBfhI99s4bV26pFzY+UzA6VbX09mPOjFmaBrD2pjjonPeKVD02oDGj6ztWjats=
+X-Received: by 2002:a05:7022:c43:b0:194:3a84:e67a with SMTP id a92af1059eb24-1943a84eaabmr325046c88.41.1792653285121;
+        Thu, 22 Oct 2026 00:14:45 -0700 (PDT)
 Received: from fedora-x1e ([210.89.35.119])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1903bd6b7ccsm11112321c88.13.2026.10.22.00.14.34
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1903bd6b7ccsm11112321c88.13.2026.10.22.00.14.39
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 00:14:38 -0700 (PDT)
+        Thu, 22 Oct 2026 00:14:44 -0700 (PDT)
 From: Saikiran <bjsaikiran@gmail.com>
 To: loic.poulain@oss.qualcomm.com
 Cc: rfoss@kernel.org,
@@ -92,9 +92,9 @@ Cc: rfoss@kernel.org,
 	linux-arm-msm@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	linux-media@vger.kernel.org
-Subject: [PATCH v1 1/2] i2c: qcom-cci: Select pinctrl states during runtime PM
-Date: Thu, 22 Oct 2026 12:44:17 +0530
-Message-ID: <20261022071418.26895-2-bjsaikiran@gmail.com>
+Subject: [PATCH v1 2/2] media: ov02c10: Fix sensor power sequencing
+Date: Thu, 22 Oct 2026 12:44:18 +0530
+Message-ID: <20261022071418.26895-3-bjsaikiran@gmail.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261022071418.26895-1-bjsaikiran@gmail.com>
 References: <20261022071418.26895-1-bjsaikiran@gmail.com>
@@ -109,65 +109,77 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The CCI runtime PM callbacks only gate the controller clocks, leaving the
-bus pins in their default state while the controller is suspended. On the
-Lenovo Yoga Slim 7x, this can back-power the camera sensor through SDA and
-SCL after its supplies have been disabled, contributing to brownouts on
-subsequent power cycles.
+The OV02C10 driver enables MCLK before the sensor supplies and disables it
+after the supplies. This can back-power the sensor through MCLK while its
+supplies are off and contributes to camera brownouts on the Lenovo Yoga
+Slim 7x.
 
-Select the sleep pinctrl state before disabling the clocks so that the
-configured pull-downs can take effect. Restore the default state before
-enabling the clocks on resume, and return to the sleep state if enabling
-the clocks fails.
+Follow the power sequence used by the firmware on this platform: enable the
+supplies before MCLK and disable MCLK before the supplies. Hold reset for
+at least 1 ms before disabling MCLK on power-off, and wait at least 10 ms
+after releasing reset on power-on to allow the sensor to start up.
+
+Update the power-on error path to disable the supplies if enabling MCLK
+fails.
 
 Tested-on: Lenovo Yoga Slim 7x (Snapdragon X Elite)
 Signed-off-by: Saikiran <bjsaikiran@gmail.com>
 ---
- drivers/i2c/busses/i2c-qcom-cci.c | 14 +++++++++++++-
- 1 file changed, 13 insertions(+), 1 deletion(-)
+ drivers/media/i2c/ov02c10.c | 20 +++++++++++---------
+ 1 file changed, 11 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/i2c/busses/i2c-qcom-cci.c b/drivers/i2c/busses/i2c-qcom-cci.c
-index 873e901a23d7..fba5f664eeaa 100644
---- a/drivers/i2c/busses/i2c-qcom-cci.c
-+++ b/drivers/i2c/busses/i2c-qcom-cci.c
-@@ -10,6 +10,7 @@
- #include <linux/module.h>
- #include <linux/of.h>
- #include <linux/platform_device.h>
-+#include <linux/pinctrl/consumer.h>
- #include <linux/pm_runtime.h>
+diff --git a/drivers/media/i2c/ov02c10.c b/drivers/media/i2c/ov02c10.c
+index 221cb93126ec..42aa43ea0a22 100644
+--- a/drivers/media/i2c/ov02c10.c
++++ b/drivers/media/i2c/ov02c10.c
+@@ -661,12 +661,13 @@ static int ov02c10_power_off(struct device *dev)
+ 	struct ov02c10 *ov02c10 = to_ov02c10(sd);
  
- #define CCI_HW_VERSION				0x0
-@@ -474,6 +475,11 @@ static void cci_disable_clocks(struct cci *cci)
- static int __maybe_unused cci_suspend_runtime(struct device *dev)
- {
- 	struct cci *cci = dev_get_drvdata(dev);
-+	int ret;
+ 	gpiod_set_value_cansleep(ov02c10->reset, 1);
++	usleep_range(1000, 1100);
 +
-+	ret = pinctrl_pm_select_sleep_state(dev);
-+	if (ret)
-+		return ret;
++	clk_disable_unprepare(ov02c10->img_clk);
  
- 	cci_disable_clocks(cci);
- 	return 0;
-@@ -484,10 +490,16 @@ static int __maybe_unused cci_resume_runtime(struct device *dev)
- 	struct cci *cci = dev_get_drvdata(dev);
- 	int ret;
+ 	regulator_bulk_disable(ARRAY_SIZE(ov02c10_supply_names),
+ 			       ov02c10->supplies);
  
--	ret = cci_enable_clocks(cci);
-+	ret = pinctrl_pm_select_default_state(dev);
- 	if (ret)
- 		return ret;
- 
-+	ret = cci_enable_clocks(cci);
-+	if (ret) {
-+		pinctrl_pm_select_sleep_state(dev);
-+		return ret;
-+	}
-+
- 	cci_init(cci);
+-	clk_disable_unprepare(ov02c10->img_clk);
+-
  	return 0;
  }
+ 
+@@ -682,23 +683,24 @@ static int ov02c10_power_on(struct device *dev)
+ 		usleep_range(5000, 6000);
+ 	}
+ 
+-	ret = clk_prepare_enable(ov02c10->img_clk);
++	ret = regulator_bulk_enable(ARRAY_SIZE(ov02c10_supply_names),
++				    ov02c10->supplies);
+ 	if (ret < 0) {
+-		dev_err(dev, "failed to enable imaging clock: %d", ret);
++		dev_err(dev, "failed to enable regulators: %d", ret);
+ 		return ret;
+ 	}
+ 
+-	ret = regulator_bulk_enable(ARRAY_SIZE(ov02c10_supply_names),
+-				    ov02c10->supplies);
++	ret = clk_prepare_enable(ov02c10->img_clk);
+ 	if (ret < 0) {
+-		dev_err(dev, "failed to enable regulators: %d", ret);
+-		clk_disable_unprepare(ov02c10->img_clk);
++		dev_err(dev, "failed to enable imaging clock: %d", ret);
++		regulator_bulk_disable(ARRAY_SIZE(ov02c10_supply_names),
++				       ov02c10->supplies);
+ 		return ret;
+ 	}
+ 
+ 	if (ov02c10->reset) {
+ 		gpiod_set_value_cansleep(ov02c10->reset, 0);
+-		usleep_range(5000, 5500);
++		usleep_range(10000, 11000);
+ 	}
+ 
+ 	return 0;
 -- 
 2.56.0
 
