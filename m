@@ -1,97 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.40.44.15
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792697951;
-	b=36JWUqA5JmIHLMFsMOXAQQUZoVMh8Se9LSbbAqygeuiP7qRcco2YixHliX3MDC6qn4Nv
-	 hwumqU3nVnVuVpa+X3fH/ZuBtykbL+Cm1em9fD6Q7t8q32kBZ99GNkV5S4vDccJJ++5PV
-	 yAHOVWWi9eZX3ZHPq1Zj6cMoLwOFH4rb+j3EA8QQKVsfCJadCz3Uepro4rrIL01sE320H
-	 0NrMIpcgFnfzdvH125ElYJg9zkVIGJyIefcLc+XH/5TPbs2TWUA5bN3FKnb/42bKe+jam
-	 EtXrufvbYtoQuZ381V0ng3gW/5gI8IDAU4QoRPsk8ed38M9Lg9v9z5w4/fVr9udbNeQ==
+	t=1792697990;
+	b=N/ICGNMlyQSyAGMA9ULRbkBG8G+qp7C8jR+DyjrRer/GXY+jWRXXggwjl9Ue4QDbMwpp
+	 EGtHOo6fEm334Wl0nSC3slt2UbC3SCVJ7q3jtBR4JSn7bvmBFLYxXHHPdn7NL5+FSrREs
+	 Sq6sX5UMAgqzZYw8Q6gM4QD3emVJjlckwR6T6k6TKaZAtuZ/4tSD9rp4dFPRV+DUi9toH
+	 n+iyVr5LGhuh0+yZsWPBMFVmoh664sjsdyIEBdV21+a7E8r2FnglxUJj2PwGBS47Ndw+S
+	 YEMvWi37DAtu6JrfbAPxXEMzo/6QwNXHg4xxF6lFrL6wpYOcDNJCt6lzcNs7JHpDAbQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792697951;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=b6uibeAd1xqDy+X+4zICpkfe89xnFGYtmkkgNj7URCQ=;
-	b=Oj9Ns+oJIidqdL/b0MWPGflBzJMeZy/KLUNS9uudbE1A8mo94I/rFuePwqgw2/3EGGud
-	 qDxyobuL2eNROCP9UoLz6eAp3bP6TQr5ExYY+C+Ar+cWzJjR+oF0Ku5yznuQGl6MJ9InY
-	 jQt7alBx8WgIBtwgmaEUsWkBGHpcbsSFCF9/a4Wqen1C4E+DaZJVshwX3Bk66za4Wvr+h
-	 XbBI/pgidWfXbHoZuopCxfDKZKJjAmXgWkm4EnxXNW5rrA15VEmjgvNpbgIFDChl1BI9+
-	 KLWnvCI/+NQQKlo8Hsfv+yHwqiN7iYgpYH2jrq0PWaSZtsRtFwEzAsbSwdk2JnzB+dA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792697990;
+	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 X-Mailer:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Stat-Signature:X-Rspamd-Server:X-Rspamd-Queue-Id:X-Spam-Status:
+	 X-Session-Marker:X-Session-ID:DKIM-Signature:X-HE-Tag:X-HE-Meta;
+	bh=84oPn/1DzKyrYik5POoJOGSmwXIfTEl8rAG9I8F9rV0=;
+	b=He60XobVtxGJhRUx6vOkPIKZkfTeu/mJ9f2Ql0hJSlopzXfsiJRSQCbkJfncqCbWDQhW
+	 yTJqM3CNW9EryI0H1oUXGMlyxtZozBuFfcCONm70m6IeVTZQfKajJSMggcXYDUuZIlXfF
+	 9WQ1roNvReb5+6/6VRDT9WbP/61+2jwWgUDqyhfsGcx2RmzjK2J8fPgCR4+6IeV6QBICi
+	 M2OGt9K+/ZHRxQSwvm2k+lX9Yx/09VLv+FAJKNMgcvShTw5TUd4ELuoO4rqCWFCGhBQqd
+	 pwnNBDx2xiTz/v1n9sKK3BtzcIf2oI5XBTonRYCMmv3WLzT5ot3nnOptaqJ4YxRmC+Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="T2Sn3/UE";
-	arc=none smtp.remote-ip=209.85.221.46
-Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=goodmis.org;
+	spf=pass smtp.mailfrom=goodmis.org;
+	dkim=pass header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=K6DKij9M;
+	arc=none smtp.remote-ip=216.40.44.15
+Received: from relay.hostedemail.com (smtprelay0015.hostedemail.com [216.40.44.15])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4E99606A31D
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 19:39:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A4E99606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AC4C606A31B
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 19:39:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9AC4C606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=T2Sn3/UE
-Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-48c4d99c32bso110142f8f.1
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 12:39:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792697949; x=1793302749; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=b6uibeAd1xqDy+X+4zICpkfe89xnFGYtmkkgNj7URCQ=;
-        b=T2Sn3/UEFIQ1gguvi01Rzg/SOPhtehuu7dboerUrQmiNO46RHQNB2EhECSbVnGsKQn
-         0Jp9c1ai2rMR21RCZjCHOm0uGTam9CvOm9oHHbd9TbWetuY2R+h9GDqlxiBHrOXZELmx
-         12jv2oDL1jo272xUoP8GUf9/h1PY5KmFMBqtvd7MsGuaJSPYApXVqT18ySivJR/gStyp
-         5LW+1+kWLs6RiIJ+SDl5MAw/oNFs9LAVgY1IhxS2z+YrVXmUqqJqGd95bxpOKIJyxJxA
-         b0ENTpfmQpfQKQyuha5XV9uuJJ0foKhVQ/MY013ia3gB943uAFVAgljj0rX9U+YT2BYZ
-         LNtA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792697949; x=1793302749;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=b6uibeAd1xqDy+X+4zICpkfe89xnFGYtmkkgNj7URCQ=;
-        b=adcfl1jn5u6Kas4mtRlSJ+jtKrnAHWZnXodNeX3AFva6849VejLrFkvL713SmlM16h
-         MSmXe09q3y88Yk1E4sCelN35v98CNZcCSIMuJZFK0paNrxt/y9JmFC2X1XUAcgpZhtBZ
-         flYs8+RN6GDYb4xQ5LtL+6RF4MEuT/9J+dvY9eyicVKgJPkXfyt9AwWUImaAvVVdqGZY
-         AxvSsJ3qOgsmsF6imXwfJFMsw7mPu08On5IelZ0ij0U9xh/n2QP6YTtgrJdHuTXghktg
-         l6Rw6EdH8Oiq/i8NwG4li7uLg0aU0EyL1D+YWsGkh+0RXugdDcmDv2Wro3/yu4zN7f+V
-         htOw==
-X-Forwarded-Encrypted: i=1; AKwUvBy/NkaENTWNu6wqko9C9qwH4v3/OW5JhWaWYxKoH/nK9eBDCeUZMfqv9CoO3C64xCir87tgguAazmaCAUc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLgS0ETmKRVUsP5SdBqM2pqLp74WzNR2MXjvJvrGcTtUcJw0gdy
-	Tq3yeLQjqcM2rC/WNQeQXFC1Au/9jP8/QgoxWXMSt9+jwetyEHYVe5Ny
-X-Gm-Gg: AYBFou1r36O+P7VbF9nSRzs6Bl6IKljMEEhXDnqF7HYp3pPV+QBjDuVXIW/S2sBntW8
-	fZRJyoi3IA3htk+bU8I+v0eD0I3Dno5yQYXGp0PvL4+pZL2E2nmOjp1YdnB/wJZR69w+oXKJeSd
-	MKmi7903dVqebjtAW5Gl6JWOaifE4gHKsmc2DXXPDQ+8lw9N1Ap0/bVcmw3f7x4ENIwxck5R4ni
-	5lPCbJ//7fXIOdquxnDnsRZeDfwkGgOaiZsWm7oEVFdzszg7zxnPnzaRjmXwJeYFIdHBGG3U1iK
-	FkEeUTNPHnfjJxMcPwTgt4V33qQMsaNP+hWiMIoifPLzbl/9Ab1fURwDRflizOxaZcKs85uZdfy
-	Tw6NsEgCukUqfGjlyaVciBzISqGiAsMVuWk5t3ydD9SVJ9W9jUlH8u6XVNOBnW1UT5Zi8YlWK2I
-	qF80AxHjY5lBiGJDroXmSmk7TEhGzNiiujlIvcGYQP+0MWkv1HCe1nUIzzYxAX2fdSaknRFBZq9
-	xrnEtzfhaZ1RzhFoxCsqkYFpS7hUFdwPeIodiJxuyazt6drl1CM3Bpa7IANI11q6kp2DqYBLewj
-	6qzcwaX2uHoyASdQqfcx9pPePHNnT5IybnFiNA5Dfck1DQ//ibFNqUxLSfle
-X-Received: by 2002:a05:6000:46c8:b0:48d:eec6:308b with SMTP id ffacd0b85a97d-48e264af00emr8712598f8f.21.1792697948972;
-        Thu, 22 Oct 2026 12:39:08 -0700 (PDT)
-Received: from Ansuel-XPS24.localdomain (93-34-92-187.ip49.fastwebnet.it. [93.34.92.187])
-        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-48e38026a7fsm69730f8f.15.2026.10.22.12.39.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 12:39:07 -0700 (PDT)
-From: Christian Marangi <ansuelsmth@gmail.com>
-To: Stefan Roese <sr@denx.de>,
-	Andi Shyti <andi.shyti@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Wolfram Sang <wsa@kernel.org>,
-	linux-i2c@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org
-Cc: Christian Marangi <ansuelsmth@gmail.com>
-Subject: [PATCH RESEND] i2c: mt7621: fix copying uninitialized kernel stack with reduced page_len
-Date: Thu, 22 Oct 2026 21:38:51 +0200
-Message-ID: <20261022193853.670625-1-ansuelsmth@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (1024-bit key, unprotected) header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=K6DKij9M
+Received: from omf14.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay09.hostedemail.com (Postfix) with ESMTP id F3F6C801A3;
+	Thu, 22 Oct 2026 19:39:47 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf14.hostedemail.com (Postfix) with ESMTPA id BE5B933;
+	Thu, 22 Oct 2026 19:39:45 +0000 (UTC)
+Date: Thu, 22 Oct 2026 15:39:44 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: LKML <linux-kernel@vger.kernel.org>, Masami Hiramatsu
+ <mhiramat@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Mark Rutland <mark.rutland@arm.com>, Andrew Morton
+ <akpm@linux-foundation.org>, Aaron Ahmed <aarnahmd@amazon.com>, "Jose
+ Fernandez (Anthropic)" <jose.fernandez@linux.dev>, Yun Zhou
+ <yun.zhou@windriver.com>, pengdonglin <pengdonglin@xiaomi.com>
+Subject: [GIT PULL] ftrace: Updates for v7.4
+Message-ID: <20261022153944.4e66e8c0@gandalf.local.home>
+X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,62 +60,124 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Stat-Signature: nu4pb7rbp4yfmi4m79zk796cak44icma
+X-Rspamd-Server: rspamout01
+X-Rspamd-Queue-Id: BE5B933
+X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
+X-Session-ID: U2FsdGVkX19gmJBnaKg0H6ziGjo3MNPsxH2uZrpWCjU=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=84oPn/1DzKyrYik5POoJOGSmwXIfTEl8rAG9I8F9rV0=; b=K6DKij9MRKs+a8kpPG29t7s7G9F1SFpRsx38jX8lNWqIe1k7gV85von4OBim23hV1jT07QzZy2KLD/EBoCxazAG+i1FaF8UiKERiTwocfoPdMV8eJj65oA9bnZR1UW7KFKzlG8gwKSbM/i5aXvT3oeortFAYXBu8gcBR28iMdTM=
+X-HE-Tag: 1792697985-841281
+X-HE-Meta: U2FsdGVkX1+z6ETAFyAfpLGlduXbQLD2PrfesbPkBJazzlXuBPOfMHsASOgtXM3p1JyXvC3rmiypYX5m0FX6/3H9gEipR5AHkWZW80sjyZddzazrctivqQoxWuF9bFk3imNfr0ujrQQzoZruupDLC1bizifsH4nVDljsbiZVmUw3pnUPClBpvTWMkXXw6oZPZNyOBjn/wrVVavwk2rQUo1xL+cpIsuLqmLYhKcXkeGM+GwzGQ5S2G8TIqPwfJNizydcdCGNVsKK17eSho8y7YmLr4P2Y3ElaGx20vDNz1W75PetZx4L1T/4Z0S9JrFhw1Mj4oWAuWXwxilRTnee+9HW2gF4ODv3m
 
-When a page_len is less than 5 bytes in mtk_i2c_xfer, uninitialized kernel
-stack data is copied and written to REG_SM0D1_REG. Equally on the read
-part, an unnecessary read is done.
 
-Guard these extra copy/write and read for the page_len to fix leaking
-uninitialized stack memory.
+Linus,
 
-Fixes: d04913ec5f89 ("i2c: mt7621: Add MediaTek MT7621/7628/7688 I2C driver")
-Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
----
- drivers/i2c/busses/i2c-mt7621.c | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
+[
+  Note, there's a slight conflict with Masami's probes pull request as they
+  both touch code in kernel/trace/trace_btf.h where one touches a parameter
+  in a prototype and the other adds a new prototype near that location.
+  It should be a trivial fix up.
+]
 
-diff --git a/drivers/i2c/busses/i2c-mt7621.c b/drivers/i2c/busses/i2c-mt7621.c
-index 0a288c998419..9ea5e3f9a763 100644
---- a/drivers/i2c/busses/i2c-mt7621.c
-+++ b/drivers/i2c/busses/i2c-mt7621.c
-@@ -144,7 +144,6 @@ static int mtk_i2c_xfer(struct i2c_adapter *adap, struct i2c_msg *msgs,
- 	u16 addr;
- 	int i, j, ret, len, page_len;
- 	u32 cmd;
--	u32 data[2];
- 
- 	i2c = i2c_get_adapdata(adap);
- 
-@@ -186,6 +185,8 @@ static int mtk_i2c_xfer(struct i2c_adapter *adap, struct i2c_msg *msgs,
- 
- 		/* transfer data */
- 		for (len = pmsg->len, j = 0; len > 0; len -= 8, j += 8) {
-+			u32 data[2] = { };
-+
- 			page_len = (len >= 8) ? 8 : len;
- 
- 			if (pmsg->flags & I2C_M_RD) {
-@@ -194,7 +195,8 @@ static int mtk_i2c_xfer(struct i2c_adapter *adap, struct i2c_msg *msgs,
- 			} else {
- 				memcpy(data, &pmsg->buf[j], page_len);
- 				iowrite32(data[0], i2c->base + REG_SM0D0_REG);
--				iowrite32(data[1], i2c->base + REG_SM0D1_REG);
-+				if (page_len > 4)
-+					iowrite32(data[1], i2c->base + REG_SM0D1_REG);
- 				cmd = SM0CTL1_WRITE;
- 			}
- 
-@@ -204,7 +206,8 @@ static int mtk_i2c_xfer(struct i2c_adapter *adap, struct i2c_msg *msgs,
- 
- 			if (pmsg->flags & I2C_M_RD) {
- 				data[0] = ioread32(i2c->base + REG_SM0D0_REG);
--				data[1] = ioread32(i2c->base + REG_SM0D1_REG);
-+				if (page_len > 4)
-+					data[1] = ioread32(i2c->base + REG_SM0D1_REG);
- 				memcpy(&pmsg->buf[j], data, page_len);
- 			} else {
- 				if (!(pmsg->flags & I2C_M_IGNORE_NAK)) {
--- 
-2.55.0
+ftrace updates for v7.4:
 
+- Have the stacktrace option work with func-args
+
+  The func_stack_trace option has it's own ftrace handler and so does the
+  func-args option. When they are both set, neither would run. The function
+  tracer itself would error out.
+
+  Allow the stacktrace and function args to work together.
+
+- Avoid BTF lookup in atomic context
+
+  The ftrace_dump() can call function graph tracing output from an atomic
+  context (like an NMI watchdog going off). The BTF lookup is not safe to
+  call from atomic context. Have btf_find_func_proto() return if in atomic
+  context.
+
+- Build trace_btf.c when CONFIG_DEBUG_INFO_BTF is enabled
+
+  New code is depending on trace_btf.c but that only gets built when
+  BPF_SYSCALL is also enabled. As the new code doesn't depend on that, have
+  trace_btf.c get built with just DEBUG_INFO_BTF set.
+
+- Have function graph return values have BTF processing
+
+  Have the return values printed by the function graph tracer use BTF to
+  print the values in better format. For example, if it's a char, short,
+  signed or unsigned, print according to the value defined by BTF.
+
+- Add a "max" field to the function profiler stats
+
+  The function profiler shows all the functions run in the kernel, the
+  number of times they are called, and the total time they took up. Also add
+  a "max" field which holds the longest time a function ran for.
+
+- Fix memory leak in module with all skipped functions
+
+  On module load, the ftrace entries are recorded to keep track of what
+  functions can be traced or not. Some functions may be skipped for various
+  reasons (some defined by the architecture). If all functions in the module
+  are skipped, its data page is not freed and can leak. Catch this case and
+  free the empty page.
+
+- Allow architectures to reject functions from being traced
+
+  Allow architectures to skip a function address by returning zero from
+  ftrace_call_adjust().
+
+- Initialize modname and offset in print_rec()
+
+  The variables modname and offset are initialized by kallsyms_lookup().
+  If that fails, the values are not set, but the code continues to print
+  other information. The modname and offset are used later, but if the
+  kallsyms_lookup() failed, they will not be set.
+
+  If a module is being loaded and unloaded at the same time as reading
+  the available_filter_functions file, it can cause a fault due to the
+  lookup failing and modname and offset being used uninitialized.
+
+
+Please pull the latest trace-ftrace-v7.4 tree, which can be found at:
+
+
+  git://git.kernel.org/pub/scm/linux/kernel/git/trace/linux-trace.git
+trace-ftrace-v7.4
+
+Tag SHA1: 653342b1940a468bfb7104867950db0d5c92a5d8
+Head SHA1: e1f339ff3b83857b93baf8b88186275a413d445e
+
+
+Aaron Ahmed (1):
+      ftrace: Initialize modname and offset in print_rec()
+
+Jose Fernandez (Anthropic) (2):
+      ftrace: Do not leak a module's empty page group
+      ftrace: Let ftrace_call_adjust() reject a patch site
+
+Steven Rostedt (1):
+      ftrace: Have stacktrace option work with func-args
+
+Yun Zhou (1):
+      ftrace: Add max field to function profiler stats
+
+pengdonglin (4):
+      tracing: Avoid BTF lookup in atomic context
+      ftrace: Build trace_btf.c when CONFIG_DEBUG_INFO_BTF is enabled
+      fgraph: Enhance funcgraph-retval with BTF-based type-aware output
+      tracing: Update funcgraph-retval documentation
+
+----
+ Documentation/trace/ftrace.rst       | 96 ++++++++++++++++++++++--------------
+ kernel/trace/Kconfig                 |  2 +-
+ kernel/trace/Makefile                |  2 +-
+ kernel/trace/ftrace.c                | 32 ++++++++++--
+ kernel/trace/trace_btf.c             | 86 ++++++++++++++++++++++++++++++++
+ kernel/trace/trace_btf.h             | 18 +++++++
+ kernel/trace/trace_functions.c       |  5 +-
+ kernel/trace/trace_functions_graph.c | 56 ++++++++++++++++-----
+ 8 files changed, 239 insertions(+), 58 deletions(-)
+---------------------------
