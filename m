@@ -1,102 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.170
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792680353;
-	b=VUh6QAaygT6MeNtTysUdtjP5g4us1QL0vKuFiE49mXQczNqwDHRjkzbXicqxThGur/Qk
-	 mQIe90jw6SXYaB5ohPUyz+1egv9Yu2uQQwftMnpHYCvKYHSIHXylEq4V9Nz/TIq1EQOxp
-	 jTqHevrmv8Kwrp3pDigUBE0QinOWq4otfSy0s/Rvg2YURHDa5RVO9T20i52AxbOowBnPP
-	 c4eATgW0WCtviy2MDIXJdQCtA96zO1Y6dXU9Tw5QpgZpODiG8dTYq/MN7Ql5YyvVlODSJ
-	 gT6zk98di3PU0DJy7IHw+2Vt5MYglL2enfHTOFzPe5GAyHpOEq9ZXBzawN2gwpKjmiw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792680353;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=O7MNmmannnTHpNepj6tElIKAllzu+hiojkNaJAVo5So=;
-	b=jWQUtMswo+xf7fRRv3d9K5JBhyuoxngMvrScIsebtAqAf4uVfc6McUhGMRDyTrVDerCu
-	 TNDEx7oU0/lXlEKiPzVqoGdBBfGaSGue6vx/HIf6o82tX1oklzpo6vvAvgG6kMoBjoXZr
-	 OSs6Z1EOckD+1QM9Pu0o90rOU2DAF7J9GCmyGGGgPU1ZxQkRjFD7aARRuMqT2cAhIfBtA
-	 A4BxvEZW5gaOf77ozIPlgViIyd4DmSSDg0hrMJeZ82BnfEb0sBMLEPnLEP4y8bPG4DyKQ
-	 8mh4sg6euynC7PWMz1cfDL/aESjpra3w0G+ob+kiZRalQd7Qwh59ZKMqkcwYePPrcIg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=r4wRlYH1;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.170
-Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792680394;
+	b=uo566+Q31YyiDWNRrZ1RXSjgLRnkkokojxf29UXC2E7s8iYQDLXuGBtokUcLGcZ9t5nb
+	 nlOGsWt6opwPXgkgVkHbspaVYVI/OovAXyGq8S0nnHr/lHxejLddtg515sRXTkf6O1Ry8
+	 /51TNpUnyXnwaAA3CLbFNLcXPp3EmOAlIIRKZr+5FPH4JpuMmuO4naIIlW4h0kmDWkWrH
+	 zxvKNPADpuQISvSeR3d5BT2KUySfNthB/tItBvmiJ6aO0ON2/6vkTnC2r+8LeIhJz13iK
+	 jtjBEQtlA8QmmKex6Wyo+5f97PLL/RNqyZobUKcJaVfpu7VaLPCZM9shKTAmuPvGB3w==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792680394;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=+oHYwW+2+REHEr6vVJAo/VLToYTJjn8LSKpd6kIFqVk=;
+	b=DK24ncB8EUjla4B93gSkbm78N4gutnUsNnmNJTIfqvjxzHbQq9dZ9HdYEkhX6GamvoGH
+	 nYE5WLTIq70Bc3HGrxspx7hNK4v7tgvdglfBgFpIzQeqPrTOQFvHtAeGfdBgIaUyFOawi
+	 CMO7F1DlosVdB9Lrud2WvqK2Uvq4iKnJwivE6mlZzkbLB3Dc9W4jjDWo8vuI/yB2VVOw/
+	 8getuABF8W96dgx3JVNiGwtO3MCMGR2tA22va1LPk+/5+8xuvFVRmkxHL04EhSVG73vCI
+	 jQRh3+xvtAxQbCwKiNag0TCHSQbztQ0DWEH225S7S2KBGCDxXMd5/OqBwQNBA+pbb6Q==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=evYoGQnh;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DB5C606A31D
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 14:45:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3DB5C606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39446606A31D
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 14:46:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=r4wRlYH1
-Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-3550dd02c9cso189303eec.0
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 07:45:53 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792680352; cv=none;
-        d=google.com; s=arc-20260327;
-        b=su/bSJZu4eQUYrGJepPB7ZucsEyJsfJR1eDqdF9aUys4DFsHtDn1sWrVrv18QCt4Xm
-         AP1kA90mW5bNTcCHifwKtGUR5bvEyiStLjma6tA7ssrhAu91zQBuHvx1Ospy2/QTFhcX
-         W7dsU0qLQbh0ENYCjOpOpbIZ5847p6vzgievgkh2lr9SckKSY1Z49vYZQ4MjtizA2qie
-         xXp5w0kxtG6G/sZkujFNTMymOXr9PjkjCvOXaV2isBSccwy8TD0bW2sR8I4D4WRsNs/T
-         7oWm+89IPF75OaHyhVH9N3HnwsQZh2aU/osblpLf3AmpdS2Rvep3oRIl6JCNa9kH5Ew7
-         M14g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=O7MNmmannnTHpNepj6tElIKAllzu+hiojkNaJAVo5So=;
-        fh=9Z/Zq9fHQeHTdKlg9mMQd+WgFBhRI4TGDi0lH3KE5BY=;
-        b=V66CqXFNU0nevmspBT/StUawftmo3Uif7UblRo/AQhAm0l8b2TZX5a5ZQfv45+7mD0
-         ejia4TAq7Sly701LdM1p8SI/RFK+wCuO+fGu4HG7USQEjuHemN5PdO9AXGkMNr9+1Lsp
-         5i0Oi12LuEWX6lbocIDzMHeiEJeLsVDQ0VSqlxDc8JUvQy+xgY9l+dFmhii/9PSEhj8o
-         4HVcIlTxhafa+rDEBlyYqEQWIe/Ewu+Y6G7Ykaq93fGjnOe1qWrBUBYC/ZeVGuTKdxjS
-         m34O88+FYzAK/deqWSUxQd/VUPR/zX4hmez2N19BxBqntftoS76bFRpjmd3pqzkBiCYg
-         dioA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792680352; x=1793285152; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=O7MNmmannnTHpNepj6tElIKAllzu+hiojkNaJAVo5So=;
-        b=r4wRlYH1jON8AvwU167ICle32qfyo0r3cKuuVZAlkfyydgEodCKRlWUfTUCOfyRtrv
-         mdL9z6oLfA6vJrwiG64+WoBtXs6CNQwnA5Yryd8yI6gn5zTkFJS8CFrN7J078tokjdKQ
-         Mr9D8zGWT5vCh6SqfTVbYeeEWH+PAjcCO2chgojmIr06oIgzklRYmhGwnVR5vAl889MO
-         6YC9CS0uo9j2AhI70vjk+y0CfgHC3ITI5cJeQT9JE2XL3OeLcrmCENsxsgK0XB6N1r9t
-         OijP9/5FnKvqj5cXEUiymJos1KU/Aoig+vy6hJHswIJAyR9ar0R68i5kapWHddIRyAtu
-         qx5w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792680352; x=1793285152;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=O7MNmmannnTHpNepj6tElIKAllzu+hiojkNaJAVo5So=;
-        b=0WhVLRcaAMbEH0kI105UYe6CD/XVA6hbVr+gTFV0i91PL/3kUgaRAJ2bUvzw6/PH3R
-         i8eF09kjY1gJqv/Cj+3xFtOAygqg3pHLklc+dQvLUP9YHEjpEAt2Mx7di+FhMqv83hgX
-         sU919e2Jsj/Bm4rYYl23MLIS+e7U6NqrhcfG4ksSbcG6yIm9jmaI8fMcFGo7Wc55LIb5
-         rZ6BeSYxUrWsnB0NgoLXKHj1He7dyDlHlhvgnPizlj+eaffWoYhfOhVDJHmr52MsPNCb
-         8gMXY+XNJXZaoXwu83lbDSky8kVBREt4sEGg11PoSW+bXAWflOQCP6ftrLz7xQ+eUv0a
-         t1Vw==
-X-Forwarded-Encrypted: i=1; AKwUvBw5FN6LAK+u3PdZht6b4wgTUgH13uwWHRAWPDdMSwl7O/jdnRVmea5aKRHJo7gnXxJYSiaTXLeP63aSeq0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJj1fqItSm0y1occuo2i+Y3T6clvYs7E8i+FCw2rhR6y523AAtP
-	4wRwKQ5zRPiBcxHIQIO65BMPZ2I372e7eMEiV29yl6X1wZuLtwnQ+t9gi5WnEECdp0bfKpCrRKt
-	nm25SOnudzDgm5Lja/KSBPQ9Y6VxPCRg=
-X-Gm-Gg: AYBFou1JCo8ryoXZsFqgIBb3V9Yf1U42uqp3zPdDaaEUZoxAgDxCsE8+gX/BJ0hNeyj
-	Kfv0DTBWucApz5RiSLdnD/1sJzkokjlt0g8R1z7myHo9Nd4VVslZgeEBwAHf01lS0aWgjF6ISsn
-	RoB8ZxaI82roHtsorHLGTMFdBFXtlOOIfJExhsW/J3qpmYbXzQ1JxFFXP6g6ws2spUPIEmHAYO4
-	+cFyBPMeWBn7ElpcyD4G85A96w009LSDLHiCbX7o8nUgeks6SWdRtx8YGsIOj8rEx4GJpTMGQ2I
-	t2+/2mCOOj31rI8ME/0mESO6efQONRyY6/NYmUVRV9INb+tdyWGvlEAEIo2OiYECEtf1TQCQcW/
-	uiuxCKkG9Uix6Q2tC1H5sxOQgsp0a1mekqmJA9QNuWY/BG/bts3k2K8i0y0zG9whLJyVjcBxAmT
-	c/30hH4821CKCg9/Dh3gidzQTGmdjONeI8QQth44wqlGJAF6z+U3ISOuTOQxgwF25CMpiAwB2oL
-	ZXdUiXQe2HR8Vqa3aYbD/0uMsg/gaPeKFai
-X-Received: by 2002:a05:693c:811a:b0:368:8792:720 with SMTP id
- 5a478bee46e88-36887a14b77mr6320743eec.1.1792680352107; Thu, 22 Oct 2026
- 07:45:52 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=evYoGQnh
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F1CDF1F000C1
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 14:46:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792680394;
+	bh=+oHYwW+2+REHEr6vVJAo/VLToYTJjn8LSKpd6kIFqVk=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=evYoGQnhaKWXB1EUzw53tVYYb3TUOPTumq43ZMK3ZxRImqtb8L63DVgipgPElCKcn
+	 rn3YYO461rSh/o0V+2wIczBFEXbY8EFIoGW8PUJkPhH9S+P2Qf66F+Cd9LzZeE4b99
+	 vlCjcB2mE+Apk/QIncbJABC9WktDjk+qPFFmZj/CUp5vsoUN3PJwC30HDSul3VDtJR
+	 ZHTw1ZRGYLRbCzpY2F8UsWqlESlkCTHUNGdb73+VdsPYqHop+922sSjEqrV2I4DmmC
+	 5Q+INjh4TQGvN9YhtnP8NAlbQnH3xvu5nmHc/md5mj7fB7r0VOv3/BLarO3DhGF2rj
+	 xXbp1XAvaITjg==
+Received: by mail-oo1-f53.google.com with SMTP id 006d021491bc7-6cf995766a3so1572519eaf.2
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 07:46:33 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwOTRiguRuUI+tiayzDYsoLnNQ7kfYiC9bAs00zxd/EWHE1Y5wf5AZpoMg0E46TC/n3B31b41V3gnRWN9E=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ6VVD8WebmNubARMuXiIBRwnsTlJjYKBai9uFpgbgstWCX5Al4
+	OxzbkYvcfuiGdnBQOKk7PQJOUgwZ2onZ1CAU4tLtGLildwkHkrZp+8E9NgMsgvlVDUUl8wsnXrH
+	8kpSNvekKNAwbbSjBHSSmjv0qpcQkQM0=
+X-Received: by 2002:a05:6820:160a:b0:6fc:373a:1775 with SMTP id
+ 006d021491bc7-70941a50e37mr3218344eaf.79.1792680393015; Thu, 22 Oct 2026
+ 07:46:33 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,39 +59,99 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261019-rust-cfi-fixes-v1-0-9503472ba738@google.com>
-In-Reply-To: <20261019-rust-cfi-fixes-v1-0-9503472ba738@google.com>
-From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Thu, 22 Oct 2026 16:45:38 +0200
-X-Gm-Features: AclHuK8EKOtLgMJPZNE8Rsgx4kNwJ7cv5GEy9zBG17C1iZxOPqBR29S9pWwIt5Y
-Message-ID: <CANiq72mEp=Vyj9-TcG6_X5_q+8guGQvJFbgmEwQdORn53-V=JA@mail.gmail.com>
-Subject: Re: [PATCH 0/3] rust: Fix CFI type mismatches
-To: Sami Tolvanen <samitolvanen@google.com>
-Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
-	=?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
-	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
-	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
-	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
-	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
-	=?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
-	FUJITA Tomonori <fujita.tomonori@gmail.com>, Frederic Weisbecker <frederic@kernel.org>, 
-	Lyude Paul <lyude@redhat.com>, Thomas Gleixner <tglx@kernel.org>, 
-	Anna-Maria Behnsen <anna-maria@linutronix.de>, John Stultz <jstultz@google.com>, 
-	Stephen Boyd <sboyd@kernel.org>, Abdiel Janulgue <abdiel.janulgue@gmail.com>, 
-	Robin Murphy <robin.murphy@arm.com>, rust-for-linux@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, driver-core@lists.linux.dev
+References: <20261021193151.1819085-2-Jeremy.Jean@oss.cyber.gouv.fr>
+In-Reply-To: <20261021193151.1819085-2-Jeremy.Jean@oss.cyber.gouv.fr>
+From: Eric Dumazet <edumazet@kernel.org>
+Date: Thu, 22 Oct 2026 16:46:21 +0200
+X-Gmail-Original-Message-ID: <CAL4WiiqYwtZ0851Y0M1gOAQ5uU=kjU29Puwjx7+kyR7BqKEpUg@mail.gmail.com>
+X-Gm-Features: AclHuK_eJ8qt7rFIbVyfxXEh_VsPWT_SRnJGCQzv1xMfMCKNtYZIIndkv2R0CTA
+Message-ID: <CAL4WiiqYwtZ0851Y0M1gOAQ5uU=kjU29Puwjx7+kyR7BqKEpUg@mail.gmail.com>
+Subject: Re: [PATCH] tcp: fix authentication bypass via unsupported TCP auth options
+To: =?UTF-8?B?SsOpcsOpbXkgSmVhbg==?= <Jeremy.Jean@oss.cyber.gouv.fr>
+Cc: Neal Cardwell <ncardwell@google.com>, Kuniyuki Iwashima <kuniyu@google.com>, netdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Tue, Oct 20, 2026 at 1:34=E2=80=AFAM Sami Tolvanen <samitolvanen@google.=
-com> wrote:
+Le mer. 21 oct. 2026 =C3=A0 21:32, J=C3=A9r=C3=A9my Jean
+<Jeremy.Jean@oss.cyber.gouv.fr> a =C3=A9crit :
 >
-> This series fixes a few CONFIG_CFI indirect call type mismatches that
-> I've run into while working on Tyr. If we're going to run into a lot
-> of these in future, perhaps we need a better solution than addressing
-> them one at a time?
+> tcp_inbound_hash() parses both TCP-MD5 and TCP-AO options when at
+> least one of the two features is enabled. With TCP_MD5SIG=3Dy and
+> TCP_AO=3Dn, a packet with an AO option reaches the disabled
+> tcp_inbound_ao_hash() stub. That stub returns success, so sockets
+> configured to require MD5 authentication end up accepting
+> unauthenticated data.
+>
+> The inverse configuration with TCP_MD5SIG=3Dn and TCP_AO=3Dy has the same
+> problem for an MD5 option on AO sockets.
+>
+> Make the disabled stubs reject options for the unsupported
+> authentication scheme.
+>
+> Fixes: 0a3a809089eb ("net/tcp: Verify inbound TCP-AO signed segments")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: J=C3=A9r=C3=A9my Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+> ---
+>  include/net/tcp_ao.h | 2 +-
+>  net/ipv4/tcp.c       | 2 +-
+>  2 files changed, 2 insertions(+), 2 deletions(-)
+>
+> diff --git a/include/net/tcp_ao.h b/include/net/tcp_ao.h
+> index 9a2333e62e994..bb249d6df8723 100644
+> --- a/include/net/tcp_ao.h
+> +++ b/include/net/tcp_ao.h
+> @@ -303,7 +303,7 @@ static inline enum skb_drop_reason tcp_inbound_ao_has=
+h(struct sock *sk,
+>                 const struct request_sock *req, int l3index,
+>                 const struct tcp_ao_hdr *aoh)
+>  {
+> -       return SKB_NOT_DROPPED_YET;
+> +       return SKB_DROP_REASON_TCP_AOUNEXPECTED;
+>  }
+>
+>  static inline struct tcp_ao_key *tcp_ao_do_lookup(const struct sock *sk,
+> diff --git a/net/ipv4/tcp.c b/net/ipv4/tcp.c
+> index 87ef6d5cbfeba..7d800b6283bd2 100644
+> --- a/net/ipv4/tcp.c
+> +++ b/net/ipv4/tcp.c
+> @@ -4962,7 +4962,7 @@ tcp_inbound_md5_hash(const struct sock *sk, const s=
+truct sk_buff *skb,
+>                      const void *saddr, const void *daddr,
+>                      int family, int l3index, const __u8 *hash_location)
+>  {
+> -       return SKB_NOT_DROPPED_YET;
+> +       return SKB_DROP_REASON_TCP_MD5UNEXPECTED;
+>  }
+>
+>  #endif
+> --
+> 2.47.3
+>
 
-Applied to `rust-fixes` -- thanks everyone!
+Good catch, thanks.
 
-Cheers,
-Miguel
+The forged AO option makes us skip the unsigned fast path, which is
+the only place where tcp_md5_do_lookup() can return MD5NOTFOUND.
+An attacker able to hit the window of an MD5-protected session (BGP...)
+can therefore inject RST or data with a junk AO option, which is
+exactly what RFC 2385 is supposed to prevent.
+
+Please mention in the changelog that TCP_AO depends on 64BIT: every
+32-bit kernel with TCP_MD5SIG=3Dy is in the vulnerable configuration.
+
+With your patch the stubs now return what the real helpers return for
+a socket without keys (AOUNEXPECTED / MD5UNEXPECTED), so behavior
+becomes consistent across configs. One visible change is that MD5=3Dn,
+AO=3Dy kernels will now drop segments carrying an MD5 option to unkeyed
+sockets, as MD5=3Dy kernels already do. That is fine, but worth one
+sentence.
+
+Optional: bumping LINUX_MIB_TCPAOKEYNOTFOUND / LINUX_MIB_TCPMD5UNEXPECTED
+from the stubs would make these drops visible in nstat.
+
+This is a fix, please send v2 as [PATCH net].
+
+Also please CC TCP-AO folks from Arista
+
+Reviewed-by: Eric Dumazet <edumazet@kernel.org>
