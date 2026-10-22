@@ -1,47 +1,120 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792654444;
-	b=pgIAd6vnP8PvV1hXc3a2yUoMLdkMKO3wjjFqp8G3tb2LhOZ8HclwOd7+2E91vjScVp2W
-	 3ngRbXvI480FZhNTnt1Aa+pM/APfK8j+F/TV4spWl2zqU6BM69r8Vih8mckICPOriNDaN
-	 q4ypmOIM9Tf+6oCOvo/HsE4+QdCAAbfFm95NxXKQ9B1DjL2S76AuYIc3s8mvf2NW7iUpY
-	 OnjclzDQ0qr7PgN0QIYpOw6O/ayfptc4L197UYQrAw2m3pOm5xBY87vnXNnx6m7JtsluG
-	 ILYvZuX3z98XByvfXRk76K5JM3+l4vLurUkH+zRW82gssJfzW+UQ4GMXrF0Whff3NJg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792654444;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Organization:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=EXmo14MNykGN07bA6sS/UaZhsjisvLhN9+lktwXS9t4=;
-	b=dh6rkh5woRWXkUYHSJFtlvN36YA3dId9KLk6L/N7qi/VwdhZOmqv9S5zopldFjY621UG
-	 G9zsKPvgeAuz1Y4S/JqF0Sxu5eThOPjoew/tXw5J/j+nwLpiG7YMDes5l1l6jto1j9N4o
-	 I++pmKTC/ml1N6n0zvbg/Mp1Y8hNl82KN6ZPFb8trgydDxYkjUWVO/UJ5BO+HJAe7XRWc
-	 i1mSEO7Q0Aj3uOHvYEHhFiKki6p5wHZxccZpaF5iFCrm154EMvH0lKDxOSt4SdEvwDh90
-	 j/ApIbzqn4p+PPtSKMNGQ0mdLaIFl6lZ4QMuhUEsJUF36f0Cmk1cs4LZ8e9f2FHU8ng==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ih+gmNB1;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=170.10.129.124
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792654443;
+	b=RQER1o508lKeH5VkhQCMmhJGar5rMbc4J27hI6YEn4FsiF+w1FlJkqcLoCZBG48L+JzN
+	 3OUqOIloM1EDHhr/F4+ftUkB3TIUeY57ixKE0MEKdhuonX7fR28zsG0bxIN8d9d+/n/Ma
+	 T+5Kkb/Uw8coVekLw0fRsfzL9bCe/hb2dtSjmBFkQAq1QlkhALjrr5vhQOuHsm6D/pSqR
+	 dLfnKOO9a/p6Xb91zLPlNIrWH45d9PdbCsT18xiPNselRjLp1jNgKCsXrRH70pciYqir6
+	 iW0VBoLZCIkAYETxdvUZzBz2y9WSk92TNjFs3sKzB42KmnnOQHhxLey3XCkmyndFqTQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792654443;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:MIME-Version:References:In-Reply-To:From:Date:
+	 X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=BcAf1J/2lrij2CTltQkfDHr8Waxgr+ILRHzLs1xcgNM=;
+	b=YbKkYVbQlyKPFbdEV/Wztn3hbOCO5guc+PpNrbXXP65PNTtbIVW6Lx3/mrva/s8X9Vvw
+	 L2bsHdElug+fb5GTPKsqvipIKSRbuN6TzkGFNDCrKWOMhAHmjSdQh8R/IMmU74hky4OPK
+	 ini5nvFnRlvyC0eBIENOoi7goz/B6HYduiFiVV4jYncxqI9xYZFosWNgrQS37hmWyP2GQ
+	 ArNlyUO0C6IMT8yTF+CzLjuLzdvisDj67wRoSxt8w35v9bofEw2iGPKssGFhoe2y6bhWS
+	 1/Sac2M7QXXC099LwH0Mlnv+bFN1lNq6T2TqHAQhLdXvDru8lBy1PT0weMc6wELxKww==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=clg1p9pc;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=IvQzt39S;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB9F8606A31D;
-	Thu, 22 Oct 2026 07:34:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B5EA606A31B
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 07:34:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3B5EA606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ih+gmNB1
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3B171F000C1;
-	Thu, 22 Oct 2026 07:34:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792654443;
-	bh=EXmo14MNykGN07bA6sS/UaZhsjisvLhN9+lktwXS9t4=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Ih+gmNB1PknqfRTD3S0H7jnj02GqqPSb69Y9zURlWSixrqKzMkiELJfykibd9LZHS
-	 66TeG6jXBNUeU1y3tIKZ8GzCKn8Cq5MATLdQ8wFEnSd0GuFViFkqYUqOuzwnmksFWD
-	 4zASIIWYe4te1IEHNIail4FKp3nHlY7iUCw3FPq+zJXBZ4xdGKyGiDOzMQu6wVowhQ
-	 i/TeZltDSqo2zCjUUhPf5KGhUO5iuRfC19l3cLIVuoeY4Ba+SwD+cMGCw0X0tplY4v
-	 AmVkSgiFvKZ2EHn0oxxGTIyHZHnHB57cjMga27o6xmFFcaz0db+a7TSGOZqVi+r8qc
-	 fs4sr0cNIKI/Q==
-Message-ID: <10bb721f-43bb-4a22-a9c5-6ebacda9b6b4@kernel.org>
-Date: Thu, 22 Oct 2026 09:34:01 +0200
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=clg1p9pc;
+	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=IvQzt39S
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1792654442;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=BcAf1J/2lrij2CTltQkfDHr8Waxgr+ILRHzLs1xcgNM=;
+	b=clg1p9pc0wIM7rO49uIB4aIKxK9egJSuSEAF4Oo2Nxf2l+HOwAnmhzNMoNt2jd61WzEo4H
+	+o/1IkqLB91JfWXzasjP4fDc1YFCtFS+DCHY0cLTxnCh/wrZImDSxfFQ4R/mLZ4Zc38qKZ
+	S2dAMJleQkVBI+JeCHvfoyiGMGxTagI=
+Received: from mail-yx1-f72.google.com (mail-yx1-f72.google.com
+ [74.125.224.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-441-sTtL2d2zO2WArAmCMzCgcQ-1; Thu, 22 Oct 2026 07:34:00 +0000
+X-MC-Unique: sTtL2d2zO2WArAmCMzCgcQ-1
+X-Mimecast-MFC-AGG-ID: sTtL2d2zO2WArAmCMzCgcQ_1792654440
+Received: by mail-yx1-f72.google.com with SMTP id 956f58d0204a3-679a2297c50so1727967d50.3
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 00:34:00 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792654440; cv=none;
+        d=google.com; s=arc-20260327;
+        b=LLdD4O67UCc4F6I22vHTUNG5hkeVxkP5puwGqt3K0lgL5EzmqnCeULLLy+elI9JF2U
+         sZlRW3RzSl+u8IaK1snJpSWFcMOSvx/oUZFKTFLhpPEDKJZospT3XJR/LAfE6Viww7rI
+         k0ItLu/5xaAz0pc6mdZm74zzN9IQamcIbMlT1928ujeZP9TvxbFNu08f0JMEo1iBOQqP
+         hW8mEUfplCV7r/NXEPtVWtOUh3JoZXVirIlHyRChgaXRC4K+qGMtc5Y6bjiu2hODso30
+         rBnEwNsN4zCU0KiLPUU9W1zvlKxUTHexdBXdh+pWjikzYNQpt1BDdFisxVlZBoAmpGch
+         teRQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=BcAf1J/2lrij2CTltQkfDHr8Waxgr+ILRHzLs1xcgNM=;
+        fh=2GHeRD8s0YpRWQNscSrCap7J+ETmVuSZ0ots7GR5H30=;
+        b=kTUDsPW0UwJGdLi2wiUHok6awlu6UcPBTiVU8+z4+ZD8g69Ft/HKULnN+pJVPKw7lq
+         cBaicWVGN3D13NAHQuVsXFDFqmJNIWd8YhoFJqBt9ED/lGTTVvrMUtuOQ9YudBF8NlEO
+         9ovoUj7lJh5tfwvsr4JBHRJTeRXSf103kp4pZZRQ5CMeiARcLwIg6cxlfJiB/b6GrHaj
+         61ohSDA/7IHxEWv7MVxremlnZVhYk1vs1TsJl2NifGqIQtCn+IsAfi6yyfvflLbFXjSC
+         g5+JHvHmxb7QEI0kgQIeuB0HGBuvDzjgb5ZwpJz42wUwgSS7HTH6Dvwl5Ig/onQj1acl
+         d32A==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1792654440; x=1793259240; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=BcAf1J/2lrij2CTltQkfDHr8Waxgr+ILRHzLs1xcgNM=;
+        b=IvQzt39S1T35lapZVZmpq2kydUoR2do2RmsqrgtDvU/v1xA+oz2nUZ5Zh7xGR8Mpuy
+         GW9TnqAscnBCVBlSofhuMbFtk8ipqBRP68WI3lWf9XqGTxuzVw7twbs0wMzNGBcYAMuv
+         Hqv4R9HTNMJrtLExUm5mhpKxUGGCASBQtqpUDAkQu0zaxMrwAFycDw9I+0ApW2GRYP3r
+         XbtEL21RcgIQ4V7WmHPxkWGyjvzF1wIH7ytoW6xMywzGZdRz8ZCRJ/h1hVrterL7QOVb
+         evxs9cPwjaPPPL3czrDv74WQ0CZxfGEbO/HhTG1N+6ELxuko818Z5oMjYHQ/HSqgClcE
+         R0cQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792654440; x=1793259240;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=BcAf1J/2lrij2CTltQkfDHr8Waxgr+ILRHzLs1xcgNM=;
+        b=bGbTNxF7czMcz59TOWP3z09Qli8qS4dRX6K3qLhrHp+jppH/OVjmC2/LzlkolAZD/S
+         Z7XRyMWc1SLAnWZgDGK8s60i6Rm1WqwmMjt/BDDAo/scLukLRupF8XAhwTRQRkjDH3vf
+         0ICWPY3Ya9Uo4gkZW8A9b3k/2Riaq0rwIP0KF/W7EV/M81n9IppP40iNdxEwj9w8y24h
+         TwWUa3JXxkKR28U5ByuPi/tj62LMiQHKRxhGUG1ppSF59bN9O0oLVdfgY04PbO4e5Ufr
+         Mgls1mqDOZ+2/wtleO3M7VqB6Tt312QGVKvG0lzzrGCutbqhcp7zBBk+lFxfa6/Y62M0
+         /0CQ==
+X-Forwarded-Encrypted: i=1; AKwUvBykbEWem62HY6Tk5T9m40xjayVpOAF6+6OxebDc5om5SNXtiOqxCOTA8QXEtOg/FUtWJ20hEX/zZeQnkkg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJWfhUOr9qAHZpjfZdp8pPTuWpcQQfuYLiSh1iQLDNHl+vIk6aA
+	RjcUYuC2j+nKlbT6Cx3ewRfrq/aOuVNDnmFqRBKA2pb3TWtQw4Aq6aqwQA7u95KWYUd6uOSNhuM
+	q+xaT515mDKMtPy1lACJ8sbVnjIT6xEonPGEpXsA48IB3aYOUNNVguMyIpJPQow3V+RPxwzwryS
+	Q8a8Niut24SF1DAY3GWGDfjKzw8RTxDlTuiKKHnVnq
+X-Gm-Gg: AYBFou1IUKQremmntGXrsGGwSerB2DAQmTilqxj27K++0yz8k8Tp4ARl6FuYzdz7IIb
+	lcUPqM+NRjXie9YJ46wbb8ty7jYwr9ss887rJ15NqA4TYi252hEa7GRpT2K2kKd4faF+jodtd1/
+	EXUUXzf3EBqTlPoohmqhVwGG/S3qfp/kjIAx9RLct61jmNox+Qxdwzng==
+X-Received: by 2002:a53:ce83:0:b0:679:91c8:8366 with SMTP id 956f58d0204a3-67a0e5c7963mr1269261d50.108.1792654440111;
+        Thu, 22 Oct 2026 00:34:00 -0700 (PDT)
+X-Received: by 2002:a53:ce83:0:b0:679:91c8:8366 with SMTP id
+ 956f58d0204a3-67a0e5c7963mr1269250d50.108.1792654439461; Thu, 22 Oct 2026
+ 00:33:59 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,76 +124,82 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] block: annotate lockless task ioprio accesses
-To: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>,
- Jens Axboe <axboe@kernel.dk>
-Cc: linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
- syzbot+feeb9b5352b9ff89618a@syzkaller.appspotmail.com
-References: <20261019125811.21666-1-ngocthang2710.1999@gmail.com>
- <20261020125233.9820-1-ngocthang2710.1999@gmail.com>
-From: Damien Le Moal <dlemoal@kernel.org>
-Content-Language: en-US
-Organization: Western Digital Research
-In-Reply-To: <20261020125233.9820-1-ngocthang2710.1999@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20260924-port-smem-v3-0-fbc2ea81a654@redhat.com>
+ <20260924-port-smem-v3-1-fbc2ea81a654@redhat.com> <2c748a4d-b416-4f33-a6c7-195ccda6a5ee@oss.qualcomm.com>
+In-Reply-To: <2c748a4d-b416-4f33-a6c7-195ccda6a5ee@oss.qualcomm.com>
+From: Albert Esteve <aesteve@redhat.com>
+Date: Thu, 22 Oct 2026 09:33:46 +0200
+X-Gm-Features: AclHuK9ZBhHeOzYstu_mP2ikq1hvzgJLewdIlmjd_fnmryXddeOSGKMDVXUUqwY
+Message-ID: <CADSE00J1ys0c4RJgAno2U_O8SZuYNV1ZfNcPBM=RsdwoEL_C3g@mail.gmail.com>
+Subject: Re: [PATCH v3 1/4] soc: qcom: smem: add IN_PARTITION_RANGE helper
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Sarannya S <quic_sarannya@oss.qualcomm.com>, 
+	Pranav Mahesh Phansalkar <quic_pphansal@oss.qualcomm.com>, 
+	Sudeepgoud Patil <quic_sudeepgo@oss.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 2026/10/20 14:52, Nguyen Ngoc Thang wrote:
-> __get_task_ioprio() reads task->io_context and ioc->ioprio without
-> task_lock() when called on current, e.g. from init_sync_kiocb() on every
-> write.  set_task_ioprio() can update both for another task at any time,
-> including the first publication of a new io_context.  KCSAN reports it:
-> 
->   BUG: KCSAN: data-race in __kernel_write_iter / set_task_ioprio
->   value changed: 0x0000000000000000 -> 0xffff888109813730
-> 
-> A stale or torn value is harmless, a task simply gets the old or new
-> priority, but the compiler may tear or refetch the accesses and the
-> io_context fields must be visible before the pointer is.
-> 
-> The io_context itself needs no extra protection: only the owning task
-> drops it, in exit_io_context(), so it cannot be freed under a lockless
-> reader running as current.
-> 
-> Publish the pointer with smp_store_release(), read it with READ_ONCE()
-> (address dependency orders the ioprio load), and mark the ioprio
-> accesses.
-> 
-> Reported-by: syzbot+feeb9b5352b9ff89618a@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=feeb9b5352b9ff89618a
-> Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+On Wed, Oct 21, 2026 at 2:23=E2=80=AFPM Konrad Dybcio
+<konrad.dybcio@oss.qualcomm.com> wrote:
+>
+> On 9/24/26 3:10 PM, Albert Esteve wrote:
+> > From: Sarannya S <quic_sarannya@oss.qualcomm.com>
+> >
+> > Add IN_PARTITION_RANGE() to test that a pointer lies in [start, end]
+> > and that pointer + size does not wrap.
+> >
+> > Signed-off-by: Sarannya S <quic_sarannya@oss.qualcomm.com>
+> > Signed-off-by: Pranav Mahesh Phansalkar <quic_pphansal@oss.qualcomm.com=
+>
+> > Signed-off-by: Sudeepgoud Patil <quic_sudeepgo@oss.qualcomm.com>
+> > Signed-off-by: Albert Esteve <aesteve@redhat.com>
+> > ---
+> >  drivers/soc/qcom/smem.c | 12 ++++++++++++
+> >  1 file changed, 12 insertions(+)
+> >
+> > diff --git a/drivers/soc/qcom/smem.c b/drivers/soc/qcom/smem.c
+> > index b5e7bd8c1512..6783a3c533f0 100644
+> > --- a/drivers/soc/qcom/smem.c
+> > +++ b/drivers/soc/qcom/smem.c
+> > @@ -2,6 +2,7 @@
+> >  /*
+> >   * Copyright (c) 2015, Sony Mobile Communications AB.
+> >   * Copyright (c) 2012-2013, The Linux Foundation. All rights reserved.
+> > + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+> >   */
+> >
+> >  #include <linux/debugfs.h>
+> > @@ -88,6 +89,17 @@
+> >  /* Processor/host identifier for the global partition */
+> >  #define SMEM_GLOBAL_HOST     0xfffe
+> >
+> > +/* Entry range check
+> > + * ptr >=3D start : Checks if ptr is greater than the start of access =
+region
+> > + * ptr + size >=3D ptr: Check for integer overflow (On 32bit system wh=
+ere ptr
+> > + * and size are 32bits, ptr + size can wrap around to be a small integ=
+er)
+> > + * ptr + size <=3D end: Checks if ptr+size is less than the end of acc=
+ess region
+> > + */
+> > +#define IN_PARTITION_RANGE(ptr, size, start, end)            \
+> > +     (((void *)(ptr) >=3D (void *)(start)) &&                  \
+> > +      (((void *)(ptr) + (size)) >=3D (void *)(ptr)) && \
+> > +      (((void *)(ptr) + (size)) <=3D (void *)(end)))
+>
+> LLM is unhappy about the 32-bit base and suggests this instead:
+>
+> #define IN_PARTITION_RANGE(ptr, size, start, end)               \
+>         ((void *)(ptr) >=3D (void *)(start) &&                    \
+>          (void *)(ptr) <=3D (void *)(end) &&                      \
+>          (size) <=3D (uintptr_t)(end) - (uintptr_t)(ptr))
+>
 
-The patch title still mentions "annotate", which is really vague. Please change
-the title to be more descriptive. E.g. "use READ_ONCE() to access a task ioprio
-context".
+I see. I will update it in the next version. Thanks.
 
-> diff --git a/block/blk-ioc.c b/block/blk-ioc.c
-> index d15918d7fabb..12ddc672f41d 100644
-> --- a/block/blk-ioc.c
-> +++ b/block/blk-ioc.c
-> @@ -277,9 +277,10 @@ int set_task_ioprio(struct task_struct *task, int ioprio)
->  		if (task->io_context)
->  			kmem_cache_free(iocontext_cachep, ioc);
->  		else
-> -			task->io_context = ioc;
-> +			/* Pairs with READ_ONCE() in __get_task_ioprio() */
-> +			smp_store_release(&task->io_context, ioc);
+> Konrad
+>
 
-This is normally paired with smp_load_acquire(). The generic implementation of
-that is simply a READ_ONCE() followed by an __smp_mb(), but some architectures
-may have their own implementation. So why is it always correct to pair with
-READ_ONCE()? Why not use WRITE_ONCE() here?
-
->  	}
-> -	task->io_context->ioprio = ioprio;
-> +	WRITE_ONCE(task->io_context->ioprio, ioprio);
->  out:
->  	task_unlock(task);
->  	return 0;
-> diff --git a/include/linux/ioprio.h b/include/linux/ioprio.h
-
-
--- 
-Damien Le Moal
-Western Digital Research
