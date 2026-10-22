@@ -1,52 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.226
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792638766;
-	b=s0HDdqEv9Ze0TjfaeHZywyzv2MYEKeBEx4vp9sPYJPPIEcR335PgFlcjAQyh+9HlwmsV
-	 v79Q/iv8ZTsgJiSvjisHQDhfPjIMPzATeF6sxeqO48lePTjwUrfoDLV0YDDAzzjBAZvZP
-	 aB43gmJJ1y2KxagKPWI9aT+TYN6OJPyIMg4M8R2jhqozRhMzMC6XO5BPqV4CTelW0+Xn8
-	 yXUXWqqVKLrp+WqaE0ZOcwYzwKrSO6IRkajR1qeECZBPmXqadWdZCG/chDIZPQEuqz9zR
-	 Jsl1nSga76TTqL9Sd/XGsuxC38vcu3H+9cGKOcFuG86/MhYefw1kerjkBO7vG72O4oA==
+	t=1792638782;
+	b=QwzVNZqtFLFu0TWhS32wcVBrsXTILVOHtNuUr0yxWN1/h8Fa2c4u1Dxj+y0WlYi5rUt+
+	 37jzebrf5lvM6Veg5bqupXa5LyMEScOaTfErG77C7mqh0ymMN5l8oc8OnKsdhs8+rUdwB
+	 KBdR975FcmbhNL4ZeEXEybrGd6AS59+g+5bLc/eElwDeBAY6ve9Z7pqeNHD/zZgvvsoGH
+	 nBxYWSVeELGzoGcGBASjzz03aZRKC4ZIA/8qXkJXhCsOds9Dfum4OQvHPOpYknAN8C1Mg
+	 4DNPNUv12qRMy4zsotidlNoQNBTDHuqdngAllIxkFszwJHP7hD1rZnH8wdL9JVoYg2A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792638766;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:MIME-Version:Date:Content-Type:
-	 Content-Transfer-Encoding:From:Message-ID:TLS-Required:Subject:To:Cc:
-	 In-Reply-To:References;
-	bh=gHNcao2zz3TOY9eeONe/Sj95YjIAXkt7GOBO4ysm2gE=;
-	b=Y+l06qyP4nSoOXYNKiqwb7LNTO0LVoplA8/km7hN+IrsWMi8t49/u8dRZ02um2ECwuIb
-	 wcUV47j2X7FiTulABKQQxYOfS5hpgKwe7YJpiDjqhwiwTwlgb+J3FR0Q5fbQri0N4b6L3
-	 Q82I49rx2sE8zZdqCRtfv4SMdu7kD1aI3pLUMLecZw1fBiccRXmhKJLSZPDpyOf/4VkWT
-	 +OxsB9HPFVxncODoYPUWwra8pI9tt5GF5ryNkT27ZyBk7INuVloSIVerlhEigqKLAX4dh
-	 UQKte3ge8fiFwT6CJ/i+Qy+xRlNqxZTdum4YDWcK87mVioTKNe+Gts266FKNe2kaBvw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792638782;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=JkXp0k1p7Z2vzdKhwQLlNSEM3rV4rY1tJD5BRvLgl0I=;
+	b=brTA9Y31jQWmkeF+HE5ZODyrVLiZiSj8JQOpwcMCLicpnQMPLHLE/4MNoYGgcDfv832p
+	 4/Sq3MQVHXBuW3d0m43DC1iGQILaPVcFpajESvodpxeyKOGuzvh7bLhjhBLsEsBUauFDx
+	 i5ft2EkgIxCbLo4S1azZrLlG3nbiX1FIvLT7u+bYXmku9LY3bbJvIHm96NEmEkvH4IzLD
+	 67O7Iz4DOcoMl5wNlbxJJXGUZYQakyoa75NPYmbx5NAglZelDgutiUps5xxnC/qlK+WBp
+	 BSR55AkjqpP5GGRPf719HC/C8s4wzy43VlnKR423rG9ywexXzufG4SwAqMBLvWw4cpw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=th0lTnIk;
-	arc=none smtp.remote-ip=95.215.58.226
-Received: from mta1.migadu.com (out-226.mta1.migadu.com [95.215.58.226])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m31Tdr4Q;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4687606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 03:12:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A4687606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7DAF606A31A;
+	Thu, 22 Oct 2026 03:13:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=th0lTnIk
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=6Bw96ud+E8C1WT1DxHApkGTGJYLJLqL5o2ZMpK1ydso=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792638762; v=1; x=1793243562;
- b=th0lTnIkipHsrNOeHX9lrq6Hq5Db4COZHcJ+rVt1nx0wZTjcQ6T3d2URzaQBqVxbEkctG1pt
- H6oQEy6ft0Jm1bqGP0cIZXBRRImghT32rrRjvOpo0T6tfgu4/x6HcmVZ1OOegaQK12PcYvBB9vs
- 7ygZjbWulAu1k1/QlVrV0oZA=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id dee6c8581afa933d;
-	Thu, 22 Oct 2026 03:12:42 +0000
-X-Mizu-Trace-ID: dee6c8581afa933d
-X-Migadu-Flow: FLOW_OUT
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m31Tdr4Q
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 58EA91F000C1;
+	Thu, 22 Oct 2026 03:13:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792638781;
+	bh=JkXp0k1p7Z2vzdKhwQLlNSEM3rV4rY1tJD5BRvLgl0I=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=m31Tdr4QzcDD+Upv6cCXgl4TaS+DLwnezLcHKnV7dphWNCFsa377WSQaw1qO3lA5h
+	 EDfDpuchGnpLjHy7WPO8ldiA1uF2DBld1Caf0njsuxA/38N8l0pd9yZqlASpbMi1XU
+	 q9yRxkQA8SoigytduEPAT8YzBkysTPR6hMveUR7MEqCFHdLg9frIX8TnRjUVjktWoP
+	 aKlVJsPCKBagOJls34BA42KZkyvkat00BhXfoH3fgDQv5q+AxZ1mqUlMgwwXknfU1A
+	 sr6tD2EsTo1X7T4AZSlXoBlvX/cDj/XTLLH+0nwXVVnNt2QwOXJiKrYMszp4JexcWv
+	 4UL16wS2MoWZw==
+Message-ID: <sashiko-outbox-180899@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [RFC PATCH 2/2] io_uring/futex: add persistent waits and
+ registered wakes
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Austin Schuh" <austin.linux@gmail.com>
+Cc: linux-rt-devel@lists.linux.dev, linux-kernel@vger.kernel.org
+In-Reply-To: <20261022024701.1574811-3-austin.linux@gmail.com>
+References: <20261022024701.1574811-1-austin.linux@gmail.com>
+ <20261022024701.1574811-3-austin.linux@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 22 Oct 2026 03:13:00 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -55,722 +60,266 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Date: Thu, 22 Oct 2026 03:12:40 +0000
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-From: haoran.jiang@linux.dev
-Message-ID: <58d297c935358f25c351e9636e0f727a0800e787@linux.dev>
-TLS-Required: No
-Subject: Re: [PATCH] LoongArch: add KASAN_VMALLOC support
-To: "Huacai Chen" <chenhuacai@kernel.org>
-Cc: loongarch@lists.linux.dev, kasan-dev@googlegroups.com,
- linux-kernel@vger.kernel.org, kernel@xen0n.name, "Haoran Jiang"
- <jianghaoran@kylinos.cn>
-In-Reply-To: <CAAhV-H4aqcdMFseu+VOjrLREWyR_MNpp45g-3ryAVi0nFNTr+Q@mail.gmail.com>
-References: <20261012080448.134274-1-haoran.jiang@linux.dev>
- <CAAhV-H5jO2HYT+64usWxCuDYu3oVLV__vkBL3J8MpOKEGKL_XQ@mail.gmail.com>
- <4c3a6be6aeef21fc2a19c3525f87485322c47a57@linux.dev>
- <CAAhV-H6o9SrtdPx6g7-rFXSc8BcowR+Umdt60me62BEwFo_EHg@mail.gmail.com>
- <e6e123b78ffe040e80800db1c4aafbbfd20d2f56@linux.dev>
- <CAAhV-H4KLo_jATwME61BLTPC8ns5ahRDme9s2C8GMvH1BkSmJQ@mail.gmail.com>
- <1c828920cc9803090c8c33e4179a779843c61a49@linux.dev>
- <CAAhV-H4aqcdMFseu+VOjrLREWyR_MNpp45g-3ryAVi0nFNTr+Q@mail.gmail.com>
 
-2026=E5=B9=B410=E6=9C=8820=E6=97=A5 18:46, "Huacai Chen" <chenhuacai@kern=
-el.org mailto:chenhuacai@kernel.org?to=3D%22Huacai%20Chen%22%20%3Cchenhua=
-cai%40kernel.org%3E > =E5=86=99=E5=88=B0:
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] io_uring/futex: NULL deref in io_futex_node_get() on !CONFIG_MMU
+- [High] io_uring/futex: busy-spin on teardown from uncleared futex_pending
+- [Medium] io_uring/futex: 32-bit truncation of SQE fields in io_futex_prep=
+()
+--
 
+commit d39ae03333a1ccb677abc6626226b97d34d99fdf
+Author: Austin Schuh <austin.linux@gmail.com>
 
->=20
->=20On Tue, Oct 20, 2026 at 5:40 PM <haoran.jiang@linux.dev> wrote:
->=20
->=20>=20
->=20> 2026=E5=B9=B410=E6=9C=8820=E6=97=A5 15:47, "Huacai Chen" <chenhuaca=
-i@kernel.org mailto:chenhuacai@kernel.org?to=3D%22Huacai%20Chen%22%20%3Cc=
-henhuacai%40kernel.org%3E > =E5=86=99=E5=88=B0:
-> >=20
->=20>  On Tue, Oct 20, 2026 at 10:37 AM <haoran.jiang@linux.dev> wrote:
-> >=20
->=20>  >
-> >  > 2026=E5=B9=B410=E6=9C=8817=E6=97=A5 16:24, "Huacai Chen" <chenhuac=
-ai@kernel.org mailto:chenhuacai@kernel.org?to=3D%22Huacai%20Chen%22%20%3C=
-chenhuacai%40kernel.org%3E > =E5=86=99=E5=88=B0:
-> >  >
-> >  > On Fri, Oct 16, 2026 at 11:05 PM <haoran.jiang@linux.dev> wrote:
-> >  >
-> >  > >
-> >  > > 2026=E5=B9=B410=E6=9C=8814=E6=97=A5 12:43, "Huacai Chen" <chenhu=
-acai@kernel.org mailto:chenhuacai@kernel.org?to=3D%22Huacai%20Chen%22%20%=
-3Cchenhuacai%40kernel.org%3E > =E5=86=99=E5=88=B0:
-> >  > >
-> >  > > Hi, Haoran,
-> >  > >
-> >  > > On Mon, Oct 12, 2026 at 4:05 PM <haoran.jiang@linux.dev> wrote:
-> >  > >
-> >  > > >
-> >  > > > From: Haoran Jiang <jianghaoran@kylinos.cn>
-> >  > > >
-> >  > > > For the page table of the VMALLOC shadow region,
-> >  > > > only a partial page table needs to be established,
-> >  > > > allowing the complete page table entries to be
-> >  > > > populated on demand during use.
-> >  > > >
-> >  > > > ---
-> >  > > > 1,Through the kasan_shallow_populate_pgd/p4d/pud/pmd/pte funct=
-ions,
-> >  > > > page tables are established for the modules and vmalloc region=
-s,
-> >  > > > but the page tables are not fully populated; the complete page
-> >  > > > tables are established automatically when vmalloc is used.
-> >  > > >
-> >  > > Why also change modules together with vmalloc regions? Because t=
-hey
-> >  > > can both alloc/free dynamically, and the current approch can onl=
-y
-> >  > > handle "one time" for modules?
-> >  > >
-> >  > > The shadow memory for modules regions is the same as that of vma=
-lloc regions=EF=BC=8C
-> >  > > full page tables can be built on demand during usage. Memory is =
-allocated
-> >  > > when loading modules, and the shadow memory of the allocated mem=
-ory establishes
-> >  > > complete page tables via `kasan_populate_vmalloc_do`
-> >  > > (load_module->execmem_alloc->kasan_populate_vmalloc_do), similar=
- to riscv and arm64.
-> >  > >
-> >  > The current code can also handle modules, so I want to know the
-> >  > difference. I guess the current code can only handle a module load=
-ing
-> >  > once, but this patch makes it possible to load/unload modules
-> >  > repeatedly. But I'm not sure. Anyway, I don't want something to be=
-come
-> >  > worse.
-> >  >
-> >  > 1,With the current approach, the shadow page tables for the module=
-s
-> >  > region are established via `kasan_map_populate` and `KASAN_VMALLOC=
-=3Dn`.
-> >  > A test module performs an out-of-bounds write to a global array. A=
-fter
-> >  > repeated `insmod`/`rmmod` cycles, the test module reports false po=
-sitives.
-> >  > This is because the current flow does not properly clean up the sh=
-adow data.
-> >  >
-> >  > Taking x86 as an example, since x86 can be configured with KASAN_V=
-MALLOC=3Dn,
-> >  > when KASAN_VMALLOC=3Dn, the correct flow is as follows:
-> >  >
-> >  x86 has some trouble implementing KASAN_VMALLOC? Or does x86's
-> >  solution have its advantage?
-> >=20
->=20>  Huacai
-> >=20
->=20>  On x86, KASAN_VMALLOC is a configurable option; both implementatio=
-ns are supported.
-> >=20
->=20OK, then is the kasan_populate_vmalloc/kasan_release_vmalloc solution
-> better than kasan_alloc_module_shadow/kasan_free_module_shadow
-> solution for modules?
->=20
->=20Huacai
+io_uring/futex: add persistent waits and registered wakes
 
+This commit adds persistent futex waits and registered futex wakes to
+io_uring to avoid futex hash bucket lock contention on PREEMPT_RT. It
+introduces registration opcodes for futex words and uses an RCU-walked node
+table and per-ring pending bitmaps to notify waiting rings without taking
+sleeping locks in the wake path.
 
-The key issue is whether KASAN_VMALLOC is configurable. If it is configur=
-able,=20
-both=20approaches need to be supported; if it is enabled by default along=
- with KASAN,=20
-then=20only the `kasan_populate_vmalloc`/`kasan_release_vmalloc` approach=
- needs to=20
-be=20supported. On arm64, KASAN_VMALLOC is enabled by default when KASAN =
-is enabled.=20
-This=20involves the vmap_stack feature: arm64 tends to keep vmap_stack en=
-abled,=20
-and=20for KASAN to be compatible with vmap_stack, KASAN_VMALLOC must also=
- be enabled.=20
-The=20community patch is as follows.
+> diff --git a/io_uring/futex.c b/io_uring/futex.c
+> index 9203998654ffb..9f5050bfd3d44 100644
+> --- a/io_uring/futex.c
+> +++ b/io_uring/futex.c
 
+[ ... ]
 
-commit acc3042d62cb92c3776767f09f665511c903ef2d
-Author: Lecopzer Chen <lecopzer.chen@mediatek.com>
-Date:   Wed Mar 24 12:05:22 2021 +0800
+> +/*
+> + * A key without FUT_OFF_INODE names its mm by pointer.  The node keeps =
+the
+> + * mm_struct allocated so the pointer can't be reused for another mm whi=
+le
+> + * the node can still be found by it.
+> + */
+> +static bool io_futex_key_has_mm(union futex_key *key)
+> +{
+> +	return !(key->both.offset & FUT_OFF_INODE);
+> +}
+> +
+> +static struct io_futex_node *io_futex_node_get(u32 __user *uaddr,
+> +					       unsigned int flags)
+> +{
+> +	union futex_key key =3D FUTEX_KEY_INIT;
+> +	struct io_futex_node *node, *new =3D NULL;
+> +	struct io_futex_bucket *b;
+> +	int ret;
+> +
+> +	/* Write access, as a waker needs: reading the word is not enough. */
+> +	ret =3D get_futex_key(uaddr, flags, &key, FUTEX_WRITE);
+> +	if (ret)
+> +		return ERR_PTR(ret);
+> +	b =3D io_futex_bucket(&key);
+> +again:
+> +	spin_lock(&b->lock);
+> +	hlist_for_each_entry(node, &b->nodes, hnode) {
+> +		if (futex_match(&node->key, &key)) {
+> +			/* A node at zero has already left the bucket. */
+> +			refcount_inc(&node->ref);
+> +			spin_unlock(&b->lock);
+> +			kfree(new);
+> +			return node;
+> +		}
+> +	}
+> +	if (!new) {
+> +		/* Allocate only on a miss, and not under the lock. */
+> +		spin_unlock(&b->lock);
+> +		new =3D kzalloc_obj(*new, GFP_KERNEL_ACCOUNT);
+> +		if (!new)
+> +			return ERR_PTR(-ENOMEM);
+> +		goto again;
+> +	}
+> +	new->key =3D key;
+> +	new->bucket =3D b;
+> +	INIT_HLIST_HEAD(&new->members);
+> +	refcount_set(&new->ref, 1);
+> +	if (io_futex_key_has_mm(&key))
+> +		mmgrab(key.private.mm);
+> +	hlist_add_head(&new->hnode, &b->nodes);
+> +	spin_unlock(&b->lock);
+> +	return new;
+> +}
+> +
+> +static void io_futex_node_put(struct io_futex_node *node)
+> +{
+> +	if (!refcount_dec_and_lock(&node->ref, &node->bucket->lock))
+> +		return;
+> +	hlist_del(&node->hnode);
+> +	spin_unlock(&node->bucket->lock);
+> +	if (io_futex_key_has_mm(&node->key))
+> +		mmdrop(node->key.private.mm);
 
-...
+[Severity: High]
+Can this trigger a NULL pointer dereference in io_futex_node_get() and
+io_futex_node_put() on !CONFIG_MMU kernels?
 
-   >From Will's suggestion [1]:
-   >
-   >   > I would _really_ like to move to VMAP stack unconditionally, and
-   >
-   >> that would effectively force KASAN_VMALLOC to be set if KASAN is in=
- use
+On !CONFIG_MMU builds, FLAGS_SHARED is defined as 0x0000 in
+kernel/futex/futex.h, so get_futex_key() in kernel/futex/core.c always takes
+the !fshared path, leaves FUT_OFF_INODE unset in key->both.offset, and sets
+key->private.mm to NULL:
 
-...
+kernel/futex/core.c:get_futex_key() {
+	if (!fshared) {
+		if (IS_ENABLED(CONFIG_MMU))
+			key->private.mm =3D mm;
+		else
+			key->private.mm =3D NULL;
 
+		key->private.address =3D address;
+		return 0;
+	}
+}
 
+Because io_futex_key_has_mm() only checks !(key->both.offset & FUT_OFF_INOD=
+E),
+it returns true when CONFIG_MMU is disabled, causing io_futex_node_get() to
+call mmgrab(NULL) and io_futex_node_put() to call mmdrop(NULL). Should
+io_futex_key_has_mm() also check key->private.mm !=3D NULL (or
+IS_ENABLED(CONFIG_MMU))?
 
-At the same time, also remove the `kasan_alloc_module_shadow` approach.
-The community patch is as follows.
+> +	/* A registered wake may still be walking it. */
+> +	kfree_rcu(node, rcu);
+> +}
 
+[ ... ]
 
-commit 00be875879fa676a18415e32f98194db05ee93dc
-Author: Mike Rapoport (IBM) <rppt@kernel.org>
-Date:   Sun May 5 19:06:13 2024 +0300
+> @@ -127,23 +847,69 @@ bool io_futex_remove_all(struct io_ring_ctx *ctx, s=
+truct io_uring_task *tctx,
+>  int io_futex_prep(struct io_kiocb *req, const struct io_uring_sqe *sqe)
+>  {
+>  	struct io_futex *iof =3D io_kiocb_to_cmd(req, struct io_futex);
+> -	u32 flags;
+> +	u32 flags, uflags;
+> =20
+> -	if (unlikely(sqe->len || sqe->futex_flags || sqe->buf_index ||
+> -		     sqe->file_index))
+> +	if (unlikely(sqe->len))
+>  		return -EINVAL;
+> =20
+> +	uflags =3D READ_ONCE(sqe->futex_flags);
+> +	iof->iou_flags =3D uflags;
+> +	iof->member =3D NULL;
+>  	iof->uaddr =3D u64_to_user_ptr(READ_ONCE(sqe->addr));
+>  	iof->futex_val =3D READ_ONCE(sqe->addr2);
+>  	iof->futex_mask =3D READ_ONCE(sqe->addr3);
+>  	flags =3D READ_ONCE(sqe->fd);
+> =20
+> +	if (req->opcode =3D=3D IORING_OP_FUTEX_WAIT) {
+> +		if (uflags & ~(IORING_FUTEX_PERSISTENT | IORING_FUTEX_REARM) ||
+> +		    uflags =3D=3D (IORING_FUTEX_PERSISTENT | IORING_FUTEX_REARM) ||
+> +		    sqe->buf_index)
+> +			return -EINVAL;
+> +		/*
+> +		 * A persistent wait's slot, as a direct descriptor's: index + 1,
+> +		 * or IORING_FILE_INDEX_ALLOC.  A re-arm names the slot the same
+> +		 * way, as a close does.
+> +		 */
+> +		iof->futex_nr =3D READ_ONCE(sqe->file_index);
+> +		if (!(uflags & (IORING_FUTEX_PERSISTENT | IORING_FUTEX_REARM)) !=3D
+> +		    !iof->futex_nr)
+> +			return -EINVAL;
+> +		if (uflags & IORING_FUTEX_REARM) {
+> +			if (iof->uaddr || iof->futex_val || iof->futex_mask ||
+> +			    flags || iof->futex_nr =3D=3D IORING_FILE_INDEX_ALLOC)
+> +				return -EINVAL;
+> +			iof->futex_nr--;
+> +			return 0;
+> +		}
+> +	} else if (sqe->file_index) {
+> +		return -EINVAL;
+> +	} else if (uflags) {
+> +		/* Woken by slot: no word, no count, only the bitset. */
+> +		if (uflags !=3D IORING_FUTEX_REGISTERED || iof->uaddr ||
+> +		    iof->futex_val || flags || !iof->futex_mask ||
+> +		    iof->futex_mask > U32_MAX)
+> +			return -EINVAL;
 
-    arm64: module: remove unneeded call to kasan_alloc_module_shadow
+[Severity: Medium]
+On 32-bit architectures, struct io_futex defines uaddr as void __user * and
+futex_val and futex_mask as unsigned long:
 
+struct io_futex {
+	struct file	*file;
+	void __user	*uaddr;
+	unsigned long	futex_val;
+	unsigned long	futex_mask;
+	...
+};
 
+When io_futex_prep() reads the 64-bit sqe->addr, sqe->addr2, and sqe->addr3
+fields into iof->uaddr, iof->futex_val, and iof->futex_mask, doesn't that
+truncate the upper 32 bits on 32-bit kernels before the validation checks
+run?
 
-x86 keeps KASAN_VMALLOC configurable (when vmap_stack is enabled,=20
-KASAN_VMALLOC=20must also be enabled in order to use KASAN), giving=20
-users=20an additional choice.
+In addition, on 32-bit architectures where unsigned long is 32 bits wide,
+won't the check iof->futex_mask > U32_MAX in io_futex_prep() always be false
+and trigger a compiler tautological-compare warning while failing to reject
+non-zero upper 32 bits in sqe->addr3?
 
+[ ... ]
 
+> diff --git a/io_uring/tw.h b/io_uring/tw.h
+> index 3ade5ad577fda..dc9125ebdd829 100644
+> --- a/io_uring/tw.h
+> +++ b/io_uring/tw.h
 
-For LoongArch, vmap_stack has not yet been implemented. However,=20
-should=20we consider staying consistent with arm64 here by enabling=20
-KASAN_VMALLOC=20by default? If vmap_stack is implemented in the future,
-there will be no need to further consider the issue of enabling=20
-KASAN_VMALLOC,=20and `kasan_populate_vmalloc` can handle both the=20
-modules=20and vmalloc areas at the same time. This approach is also
-the simplest to handle.
+[ ... ]
 
->=20
->=20>=20
->=20> >
-> >  > execmem_arch_setup -> flags =3D EXECMEM_KASAN_SHADOW, the flag is =
-set to EXECMEM_KASAN_SHADOW,
-> >  > and the subsequent flow should select the correct path based on th=
-e EXECMEM_KASAN_SHADOW flag.
-> >  >
-> >  > insmod -> execmem_vmalloc -> (kasan && (kasan_alloc_module_shadow(=
-p, size, GFP_KERNEL)
-> >  > -> register_global -> kasan_poison-> rmmod -> kasan_free_module_sh=
-adow
-> >  > -> vfree(kasan_mem_to_shadow(vm->addr));
-> >  >
-> >  > This flow it establishes the shadow page tables, then poisons them=
-,
-> >  > and cleans up the shadow data when the module is unloaded.
-> >  >
-> >  > However, the current situation on LoongArch is as follows:
-> >  >
-> >  > execmem_arch_setup -> does not set EXECMEM_KASAN_SHADOW
-> >  >
-> >  > insmod -> execmem_vmalloc -> does not call kasan_alloc_module_shad=
-ow
-> >  > -> register_global -> kasan_poison-> rmmod -> kasan_free_module_sh=
-adow
-> >  > -> does not call vfree(kasan_mem_to_shadow(vm->addr));
-> >  >
-> >  > LoongArch does not set EXECMEM_KASAN_SHADOW during initialization,=
- which
-> >  > causes the shadow data not to be properly cleaned up at unload tim=
-e,
-> >  > potentially leading to false positives the next time a module is l=
-oaded.
-> >  >
-> >  > On RISC-V/arm64, KASAN_VMALLOC is enabled by default, and the shad=
-ow page
-> >  > tables for the module region are established and torn down via
-> >  > kasan_populate_vmalloc_do/kasan_release_vmalloc. This is exactly
-> >  > the approach that kasan_shallow_populate aims to implement.
-> >  >
-> >  > 2,kasan_shallow_populate requires fewer page tables than kasan_map=
-_populate,
-> >  > and it can also save memory during initialization.
-> >  >
-> >  > >
-> >  > > >
-> >  > > > If the address is pgd-aligned, the page table is established
-> >  > > > down to the pgd level; if it is pud-aligned, it is established
-> >  > > > down to the pud level, and so on. While establishing the
-> >  > > > /pgd/pud/pmd levels, the page table entries must be initialize=
-d
-> >  > > > to none. For example, a pmd entry of none is an invalid_pte_ta=
-ble.
-> >  > > > Only in this way can the correct page tables be established at
-> >  > > > use time. At the same time, boundary issues must be considered
-> >  > > > when the address is not aligned. For example, mem_to_shadow(MA=
-LLOC_END)
-> >  > > > and mem_to_shadow(vmemmap) are in the same pmd, and the region
-> >  > > > [mem_to_shadow(vmemmap), mem_to_shadow(VMEMMAP_END)] needs to =
-be
-> >  > > > mapped to page 0. To avoid affecting the mem_to_shadow(vmemmap=
-) region,
-> >  > > > only the pmd entries for [mem_to_shadow(MALLOC_END) & PMD_MASK=
-, mem_to_shadow(MALLOC_END)]
-> >  > > > need to be initialized to invalid_pte_table. The remaining pmd=
- entries are left as they are.
-> >  > > >
-> >  > > kasan_pgd_populate(early) populate the page table to early shado=
-w
-> >  > > page, kasan_pgd_populate(!early) populate the page table to norm=
-al
-> >  > > shadow page, and kasan_shallow_populate() populate the page tabl=
-e to
-> >  > > invalid_{pud,pmd,pte}_table?
-> >  > >
-> >  > > It seems you are do similar work as RISCV, and RISCV use three A=
-PIs
-> >  > > for this purpose: kasan_{,early,shallow}_populate_pgd(). But Loo=
-ngArch
-> >  > > use the same API for the 1st and 2nd purpose, can we add a "shal=
-low"
-> >  > > parameter to kasan_pgd_populate() so we can also handle the 3th
-> >  > > purpose?
-> >  > >
-> >  > > Yes. `kasan_shallow_populate()` builds incomplete shadow page ta=
-bles for vmalloc and modules
-> >  > > regions and needs to handle boundaries. As an example:
-> >  > > `mem_to_shadow(VMALLOC_END)` and `mem_to_shadow(vmemmap)` share =
-one PTE table.
-> >  > > The PTE entry for `mem_to_shadow(VMALLOC_END)` must be none, whe=
-reas the PTE entry
-> >  > > for `mem_to_shadow(vmemmap)` points to `early_shadow_page`. The =
-final page table
-> >  > > layout is shown below
-> >  > >
-> >  > > pte +------
-> >  > > +------------------+
-> >  > > |early_shadow_page |
-> >  > > pmd +------------------+
-> >  > > +----------------+ |early_shadow_page |
-> >  > > |early_shadow_pte| +------------------+
-> >  > > +----------------+ | global |
-> >  > > | ptep |-----------+------------------+
-> >  > > +----------------+
-> >  > > | ... | pte
-> >  > > +----------------+ +--------------+
-> >  > > | ... | | global |
-> >  > > pgd +----------------+ +--------------+
-> >  > > +------------------+ | ptep |---------------| global |
-> >  > > | pmdp +----------+----------------+ +--------------+
-> >  > > +------------------+ pmd
-> >  > > | pmdp |----------+--------------+
-> >  > > +------------------+ |invalid_pte |
-> >  > > | | +--------------+
-> >  > > | ... | |invalid_pte |
-> >  > > | | +--------------+
-> >  > > +------------------+
-> >  > > | ... |
-> >  > > +------------------+ pmd
-> >  > > | ... | +------------+
-> >  > > +------------------+ | invalid_pte|
-> >  > > | ... | +------------+
-> >  > > +------------------+ | invalid_pte|
-> >  > > | pmdp |---------- +------------+
-> >  > > +------------------+
-> >  > > | ... |
-> >  > > +------------------+
-> >  > >
-> >  > > `kasan_pgd_populate()` can handle the third case by adding a par=
-ameter. I will implement this in the next version.
-> >  > >
-> >  > > >
-> >  > > > 2,The removal of kasan_populate_early_shadow(mem_to_shadow((vo=
-id *)VMALLOC_START),
-> >  > > > mem_to_shadow((void *)KFENCE_AREA_END)) achieves the same effe=
-ct as
-> >  > > > kasan_pgd_populate(KASAN_SHADOW_START, KASAN_SHADOW_END, NUMA_=
-NO_NODE, true);
-> >  > > > both map this region to a shared zero page. (KASAN_SHADOW_STAR=
-T, KASAN_SHADOW_END)
-> >  > > > already covers (mem_to_shadow((void *)VMALLOC_START), mem_to_s=
-hadow((void *)KFENCE_AREA_END)).
-> >  > > > Other architectures such as arm64/riscv need kasan_populate_ea=
-rly_shadow
-> >  > > > because clear_shadow(KASAN_SHADOW_START, KASAN_SHADOW_END) is =
-performed before
-> >  > > > kasan_populate_early_shadow, so the reserved region must be ma=
-pped to the zero
-> >  > > > page again. On LoongArch, however, the entire shadow space is =
-first mapped to
-> >  > > > page 0 via kasan_pgd_populate, and then page tables are establ=
-ished for the
-> >  > > > required regions, which is simpler and clearer.
-> >  > > >
-> >  > > > 3,pgd_none/p4d_none/pmd_none/pte_none were added to the defini=
-tions of
-> >  > > > __pgd_none/__p4d_none/__pud_none/__pmd_none/__pte_none respect=
-ively
-> >  > > > because kasan_populate_early_vm_area_shadow requires them.
-> >  > > > kasan_populate_early_vm_area_shadow establishes complete KASAN=
- shadow
-> >  > > > page table mappings for the early vmalloc regions before vmall=
-oc_init.
-> >  > > > At this point, complete page tables need to be established, bu=
-t
-> >  > > > kasan_populate_early_vm_area_shadow is called after step 1, at=
- which time
-> >  > > >
-> >  > > I'm a little confusing here. What is "step 1" here?
-> >  > >
-> >  > > Step 1 refers to `kasan_shallow_populate()`. The page tables cre=
-ated after
-> >  > > `kasan_shallow_populate()` are shown in the figure above. We nee=
-d to check
-> >  > > for empty entries using /pgd_none/p4d_none/pmd_none/pone_pte(). =
-Only then
-> >  > > can `kasan_map_populate()` build the full page tables.
-> >  > > `kasan_populate_early_vm_area_shadow()` runs after
-> >  > > `kasan_shallow_populate()` but before `vmalloc_init()`.
-> >  > > At this stage, page tables for vmalloc regions cannot be automat=
-ically
-> >  > > populated on demand, so we need to build full page tables here.
-> >  > >
-> >  > Then it is better to use `kasan_shallow_populate()` rather than `s=
-tep 1`.
-> >  >
-> >  > Huacai
-> >  >
-> >  > >
-> >  > > >
-> >  > > > only incomplete page tables have been established for the vmal=
-loc region.
-> >  > > > The condition for a page table entry to be none requires the
-> >  > > > pgd_none/p4d_none/pmd_none/pte_none checks. Only by correctly =
-determining
-> >  > > > whether an entry is none can the complete page tables be estab=
-lished properly.
-> >  > > >
-> >  > > > Test=EF=BC=9A
-> >  > > >
-> >  > > > https://git.kernel.org/pub/scm/linux/kernel/git/chenhuacai/lin=
-ux-loongson.git
-> >  > > >
-> >  > > > CONFIG_KUNIT=3Dy
-> >  > > >
-> >  > > > CONFIG_KASAN_KUNIT_TEST=3Dm
-> >  > > >
-> >  > > > Add `kunit.enable=3D1 kasan_multi_shot` to the cmdline.
-> >  > > >
-> >  > > > Test with 3-level 16K pages and 4-level 4K pages respectively.
-> >  > > >
-> >  > > > before this patch:
-> >  > > >
-> >  > > > ...
-> >  > > >
-> >  > > > [ 502.760009] ok 68 vmalloc_oob # SKIP Test requires CONFIG_KA=
-SAN_VMALLOC=3Dy
-> >  > > >
-> >  > > > ...
-> >  > > >
-> >  > > > [ 504.016000] # kasan: pass:49 fail:0 skip:26 total:75
-> >  > > > [ 504.016092] # Totals: pass:49 fail:0 skip:26 total:75
-> >  > > > [ 504.016171] ok 1 kasan
-> >  > > >
-> >  > > > after this patch:
-> >  > > >
-> >  > > > ...
-> >  > > >
-> >  > > > [ 531.630760] ok 68 vmalloc_oob
-> >  > > >
-> >  > > > ...
-> >  > > >
-> >  > > > [ 532.891057] # kasan: pass:50 fail:0 skip:25 total:75
-> >  > > > [ 532.891142] # Totals: pass:50 fail:0 skip:25 total:75
-> >  > > > [ 532.891219] ok 1 kasan
-> >  > > >
-> >  > > > Signed-off-by: Haoran Jiang <jianghaoran@kylinos.cn>
-> >  > > >
-> >  > > > ---
-> >  > > > arch/loongarch/Kconfig | 2 +
-> >  > > > arch/loongarch/mm/kasan_init.c | 173 +++++++++++++++++++++++++=
-+++++---
-> >  > > > 2 files changed, 164 insertions(+), 11 deletions(-)
-> >  > > >
-> >  > > > diff --git a/arch/loongarch/Kconfig b/arch/loongarch/Kconfig
-> >  > > > index 2067d1f2ad7a..c95c6fd8a138 100644
-> >  > > > --- a/arch/loongarch/Kconfig
-> >  > > > +++ b/arch/loongarch/Kconfig
-> >  > > > @@ -119,6 +119,7 @@ config LOONGARCH
-> >  > > > select HAVE_ARCH_JUMP_LABEL
-> >  > > > select HAVE_ARCH_JUMP_LABEL_RELATIVE
-> >  > > > select HAVE_ARCH_KASAN if 64BIT
-> >  > > > + select HAVE_ARCH_KASAN_VMALLOC
-> >  > > >
-> >  > > I think this should be limited by 64BIT.
-> >  > >
-> >  > > Huacai
-> >  > >
-> >  > > I will fix this in the next revision.
-> >  > >
-> >  > > >
-> >  > > > select HAVE_ARCH_KFENCE if 64BIT
-> >  > > > select HAVE_ARCH_KGDB if PERF_EVENTS
-> >  > > > select HAVE_ARCH_KSTACK_ERASE
-> >  > > > @@ -187,6 +188,7 @@ config LOONGARCH
-> >  > > > select HOTPLUG_SMT if HOTPLUG_CPU
-> >  > > > select IRQ_FORCED_THREADING
-> >  > > > select IRQ_LOONGARCH_CPU
-> >  > > > + select KASAN_VMALLOC if KASAN
-> >  > > > select LOCK_MM_AND_FIND_VMA
-> >  > > > select MMU_GATHER_MERGE_VMAS if MMU
-> >  > > > select MMU_GATHER_RCU_TABLE_FREE
-> >  > > > diff --git a/arch/loongarch/mm/kasan_init.c b/arch/loongarch/m=
-m/kasan_init.c
-> >  > > > index 92ca0ba86406..962c37316200 100644
-> >  > > > --- a/arch/loongarch/mm/kasan_init.c
-> >  > > > +++ b/arch/loongarch/mm/kasan_init.c
-> >  > > > @@ -17,28 +17,28 @@ static pgd_t kasan_pg_dir[PTRS_PER_PGD] __=
-initdata __aligned(PAGE_SIZE);
-> >  > > > #define __pgd_none(early, pgd) (0)
-> >  > > > #else
-> >  > > > #define __pgd_none(early, pgd) (early ? (pgd_val(pgd) =3D=3D 0=
-) : \
-> >  > > > -(__pa(pgd_val(pgd)) =3D=3D (unsigned long)__pa(kasan_early_sh=
-adow_p4d)))
-> >  > > > +((__pa(pgd_val(pgd)) =3D=3D (unsigned long)__pa(kasan_early_s=
-hadow_p4d)) || pgd_none(pgd)))
-> >  > > > #endif
-> >  > > >
-> >  > > > #ifdef __PAGETABLE_PUD_FOLDED
-> >  > > > #define __p4d_none(early, p4d) (0)
-> >  > > > #else
-> >  > > > #define __p4d_none(early, p4d) (early ? (p4d_val(p4d) =3D=3D 0=
-) : \
-> >  > > > -(__pa(p4d_val(p4d)) =3D=3D (unsigned long)__pa(kasan_early_sh=
-adow_pud)))
-> >  > > > +((__pa(p4d_val(p4d)) =3D=3D (unsigned long)__pa(kasan_early_s=
-hadow_pud)) || p4d_none(p4d)))
-> >  > > > #endif
-> >  > > >
-> >  > > > #ifdef __PAGETABLE_PMD_FOLDED
-> >  > > > #define __pud_none(early, pud) (0)
-> >  > > > #else
-> >  > > > #define __pud_none(early, pud) (early ? (pud_val(pud) =3D=3D 0=
-) : \
-> >  > > > -(__pa(pud_val(pud)) =3D=3D (unsigned long)__pa(kasan_early_sh=
-adow_pmd)))
-> >  > > > +((__pa(pud_val(pud)) =3D=3D (unsigned long)__pa(kasan_early_s=
-hadow_pmd)) || pud_none(pud)))
-> >  > > > #endif
-> >  > > >
-> >  > > > #define __pmd_none(early, pmd) (early ? (pmd_val(pmd) =3D=3D 0=
-) : \
-> >  > > > -(__pa(pmd_val(pmd)) =3D=3D (unsigned long)__pa(kasan_early_sh=
-adow_pte)))
-> >  > > > +((__pa(pmd_val(pmd)) =3D=3D (unsigned long)__pa(kasan_early_s=
-hadow_pte)) || pmd_none(pmd)))
-> >  > > >
-> >  > > > #define __pte_none(early, pte) (early ? pte_none(pte) : \
-> >  > > > -((pte_val(pte) & _PFN_MASK) =3D=3D (unsigned long)__pa(kasan_=
-early_shadow_page)))
-> >  > > > +(((pte_val(pte) & _PFN_MASK) =3D=3D (unsigned long)__pa(kasan=
-_early_shadow_page)) || pte_none(pte)))
-> >  > > >
-> >  > > > static void *mem_to_shadow(const void *addr)
-> >  > > > {
-> >  > > > @@ -242,6 +242,160 @@ static void __init kasan_map_populate(un=
-signed long start, unsigned long end,
-> >  > > > kasan_pgd_populate(start & PAGE_MASK, PAGE_ALIGN(end), node, f=
-alse);
-> >  > > > }
-> >  > > >
-> >  > > > +static void __init kasan_shallow_populate_pte(pmd_t *pmdp, un=
-signed long addr,
-> >  > > > + unsigned long end, int node)
-> >  > > > +{
-> >  > > > + unsigned long next;
-> >  > > > + pte_t *ptep =3D pte_offset_kernel(pmdp, addr);
-> >  > > > +
-> >  > > > + do {
-> >  > > > + next =3D addr + PAGE_SIZE;
-> >  > > > + if (__pte_none(false, ptep_get(ptep)))
-> >  > > > + pte_clear(&init_mm, addr, ptep);
-> >  > > > + } while (ptep++, addr =3D next, addr !=3D end);
-> >  > > > +}
-> >  > > > +
-> >  > > > +static void __init kasan_shallow_populate_pmd(pud_t *pudp, un=
-signed long addr,
-> >  > > > + unsigned long end, int node)
-> >  > > > +{
-> >  > > > + unsigned long next;
-> >  > > > + pmd_t *pmdp =3D pmd_offset(pudp, addr);
-> >  > > > +
-> >  > > > + do {
-> >  > > > + next =3D pmd_addr_end(addr, end);
-> >  > > > +
-> >  > > > + if (__pmd_none(false, pmdp_get(pmdp))) {
-> >  > > > + phys_addr_t pte_phys =3D kasan_alloc_zeroed_page(node);
-> >  > > > +
-> >  > > > + if (IS_ALIGNED(addr, PMD_SIZE) && end - addr >=3D PMD_SIZE) =
-{
-> >  > > > + kernel_pte_init(__va(pte_phys));
-> >  > > > + pmd_populate_kernel(NULL, pmdp, (pte_t *)__va(pte_phys));
-> >  > > > + continue;
-> >  > > > + } else {
-> >  > > > + memcpy(__va(pte_phys), kasan_early_shadow_pte,
-> >  > > > + sizeof(kasan_early_shadow_pte));
-> >  > > > + pmd_populate_kernel(NULL, pmdp, (pte_t *)__va(pte_phys));
-> >  > > > + }
-> >  > > > + }
-> >  > > > + kasan_shallow_populate_pte(pmdp, addr, next, node);
-> >  > > > + } while (pmdp++, addr =3D next, addr !=3D end);
-> >  > > > +}
-> >  > > > +
-> >  > > > +static void __init kasan_shallow_populate_pud(p4d_t *p4dp, un=
-signed long addr,
-> >  > > > + unsigned long end, int node)
-> >  > > > +{
-> >  > > > + unsigned long next;
-> >  > > > + pud_t *pudp =3D pud_offset(p4dp, addr);
-> >  > > > +
-> >  > > > + do {
-> >  > > > + next =3D pud_addr_end(addr, end);
-> >  > > > +
-> >  > > > + if (__pud_none(false, pudp_get(pudp))) {
-> >  > > > +
-> >  > > > + phys_addr_t pmd_phys =3D kasan_alloc_zeroed_page(node);
-> >  > > > +
-> >  > > > + if (IS_ALIGNED(addr, PUD_SIZE) && end - addr >=3D PUD_SIZE) =
-{
-> >  > > > +#ifndef __PAGETABLE_PMD_FOLDED
-> >  > > > + pmd_init(__va(pmd_phys));
-> >  > > > +#endif
-> >  > > > + pud_populate(&init_mm, pudp, (pmd_t *)__va(pmd_phys));
-> >  > > > + continue;
-> >  > > > + } else {
-> >  > > > + memcpy(__va(pmd_phys), kasan_early_shadow_pmd,
-> >  > > > + sizeof(kasan_early_shadow_pmd));
-> >  > > > + pud_populate(&init_mm, pudp, (pmd_t *)__va(pmd_phys));
-> >  > > > +
-> >  > > > + }
-> >  > > > + }
-> >  > > > +
-> >  > > > + kasan_shallow_populate_pmd(pudp, addr, next, node);
-> >  > > > + } while (pudp++, addr =3D next, addr !=3D end);
-> >  > > > +}
-> >  > > > +
-> >  > > > +static void __init kasan_shallow_populate_p4d(pgd_t *pgdp, un=
-signed long addr,
-> >  > > > + unsigned long end, int node)
-> >  > > > +{
-> >  > > > + unsigned long next;
-> >  > > > + p4d_t *p4dp =3D p4d_offset(pgdp, addr);
-> >  > > > +
-> >  > > > + do {
-> >  > > > + next =3D p4d_addr_end(addr, end);
-> >  > > > +
-> >  > > > + if (__p4d_none(false, p4dp_get(p4dp))) {
-> >  > > > +
-> >  > > > + phys_addr_t pud_phys =3D kasan_alloc_zeroed_page(node);
-> >  > > > +
-> >  > > > + if (IS_ALIGNED(addr, P4D_SIZE) && end - addr >=3D P4D_SIZE) =
-{
-> >  > > > +#ifndef __PAGETABLE_PUD_FOLDED
-> >  > > > + pud_init(__va(pud_phys));
-> >  > > > +#endif
-> >  > > > + p4d_populate(&init_mm, p4dp, (pud_t *)__va(pud_phys));
-> >  > > > + continue;
-> >  > > > + } else {
-> >  > > > + memcpy(__va(pud_phys), kasan_early_shadow_pud,
-> >  > > > + sizeof(kasan_early_shadow_pud));
-> >  > > > + p4d_populate(&init_mm, p4dp, (pud_t *)__va(pud_phys));
-> >  > > > + }
-> >  > > > + }
-> >  > > > + kasan_shallow_populate_pud(p4dp, addr, next, node);
-> >  > > > + } while (p4dp++, addr =3D next, addr !=3D end);
-> >  > > > +}
-> >  > > > +
-> >  > > > +static void __init kasan_shallow_populate_pgd(unsigned long a=
-ddr,
-> >  > > > + unsigned long end, int node)
-> >  > > > +{
-> >  > > > + unsigned long next;
-> >  > > > + pgd_t *pgdp;
-> >  > > > +
-> >  > > > + pgdp =3D pgd_offset_k(addr);
-> >  > > > +
-> >  > > > + do {
-> >  > > > + next =3D pgd_addr_end(addr, end);
-> >  > > > +
-> >  > > > + if (__pgd_none(false, pgdp_get(pgdp))) {
-> >  > > > +
-> >  > > > + phys_addr_t p4d_phys =3D kasan_alloc_zeroed_page(node);
-> >  > > > +
-> >  > > > + if (IS_ALIGNED(addr, PGDIR_SIZE) && end - addr >=3D PGDIR_SI=
-ZE) {
-> >  > > > + pgd_init(__va(p4d_phys));
-> >  > > > + pgd_populate(&init_mm, pgdp, (p4d_t *)__va(p4d_phys));
-> >  > > > + continue;
-> >  > > > + } else {
-> >  > > > + memcpy(__va(p4d_phys), kasan_early_shadow_p4d,
-> >  > > > + sizeof(kasan_early_shadow_p4d));
-> >  > > > + pgd_populate(&init_mm, pgdp, (p4d_t *)__va(p4d_phys));
-> >  > > > + }
-> >  > > > + }
-> >  > > > +
-> >  > > > + kasan_shallow_populate_p4d(pgdp, addr, next, node);
-> >  > > > + } while (pgdp++, addr =3D next, addr !=3D end);
-> >  > > > +}
-> >  > > > +
-> >  > > > +static void __init kasan_shallow_populate(unsigned long start=
-, unsigned long end, int node)
-> >  > > > +{
-> >  > > > + unsigned long vaddr =3D (unsigned long)start & PAGE_MASK;
-> >  > > > + unsigned long vend =3D PAGE_ALIGN((unsigned long)end);
-> >  > > > +
-> >  > > > + kasan_shallow_populate_pgd(vaddr, vend, node);
-> >  > > > +}
-> >  > > > +
-> >  > > > +#ifdef CONFIG_KASAN_VMALLOC
-> >  > > > +void __init kasan_populate_early_vm_area_shadow(void *start, =
-unsigned long size)
-> >  > > > +{
-> >  > > > + unsigned long shadow_start, shadow_end;
-> >  > > > +
-> >  > > > + if (!is_vmalloc_or_module_addr(start))
-> >  > > > + return;
-> >  > > > +
-> >  > > > + shadow_start =3D (unsigned long)mem_to_shadow(start);
-> >  > > > + shadow_start =3D ALIGN_DOWN(shadow_start, PAGE_SIZE);
-> >  > > > + shadow_end =3D (unsigned long)mem_to_shadow(start + size);
-> >  > > > + shadow_end =3D ALIGN(shadow_end, PAGE_SIZE);
-> >  > > > +
-> >  > > > + kasan_map_populate(shadow_start, shadow_end, NUMA_NO_NODE);
-> >  > > > +}
-> >  > > > +#endif
-> >  > > > +
-> >  > > > asmlinkage void __init kasan_early_init(void)
-> >  > > > {
-> >  > > > BUILD_BUG_ON(!IS_ALIGNED(KASAN_SHADOW_START, PGDIR_SIZE));
-> >  > > > @@ -297,9 +451,6 @@ void __init kasan_init(void)
-> >  > > > /* Maps everything to a single page of zeroes */
-> >  > > > kasan_pgd_populate(KASAN_SHADOW_START, KASAN_SHADOW_END, NUMA_=
-NO_NODE, true);
-> >  > > >
-> >  > > > - kasan_populate_early_shadow(mem_to_shadow((void *)VMALLOC_ST=
-ART),
-> >  > > > - mem_to_shadow((void *)KFENCE_AREA_END));
-> >  > > > -
-> >  > > > /* Populate the linear mapping */
-> >  > > > for_each_mem_range(i, &pa_start, &pa_end) {
-> >  > > > void *start =3D (void *)phys_to_virt(pa_start);
-> >  > > > @@ -309,9 +460,9 @@ void __init kasan_init(void)
-> >  > > > (unsigned long)mem_to_shadow(end), NUMA_NO_NODE);
-> >  > > > }
-> >  > > >
-> >  > > > - /* Populate modules mapping */
-> >  > > > - kasan_map_populate((unsigned long)mem_to_shadow((void *)MODU=
-LES_VADDR),
-> >  > > > - (unsigned long)mem_to_shadow((void *)MODULES_END), NUMA_NO_N=
-ODE);
-> >  > > > + kasan_shallow_populate((unsigned long)mem_to_shadow((void *)=
-MODULES_VADDR),
-> >  > > > + (unsigned long)mem_to_shadow((void *)VMALLOC_END), NUMA_NO_N=
-ODE);
-> >  > > > +
-> >  > > > /*
-> >  > > > * KAsan may reuse the contents of kasan_early_shadow_pte direc=
-tly, so we
-> >  > > > * should make sure that it maps the zero page read-only.
-> >  > > > --
-> >  > > > 2.43.0
-> >  > > >
-> >  > >
-> >  >
-> >
->
+> @@ -90,7 +91,8 @@ static inline int io_run_task_work(void)
+> =20
+>  static inline bool io_local_work_pending(struct io_ring_ctx *ctx)
+>  {
+> -	return !mpscq_empty(&ctx->work_list);
+> +	return !mpscq_empty(&ctx->work_list) ||
+> +	       atomic_read(&ctx->futex_pending);
+>  }
+
+[Severity: High]
+Could including ctx->futex_pending in io_local_work_pending() cause a busy-=
+spin
+in io_ring_ctx_wait_inflight() during ring teardown?
+
+ctx->futex_pending is only cleared in __io_run_local_work(), which requires
+ctx->submitter_task =3D=3D current. During ring teardown, io_ring_ctx_cance=
+l()
+calls io_cancel_local_task_work(), which drains ctx->work_list under
+uring_lock but does not clear ctx->futex_pending:
+
+io_uring/tw.c:io_cancel_local_task_work() {
+	guard(mutex)(&ctx->uring_lock);
+
+	while (!mpscq_empty(&ctx->work_list)) {
+		...
+	}
+	io_submit_flush_completions(ctx);
+}
+
+If the ring fd is closed from a task other than ctx->submitter_task (or a
+concurrent waker calls io_ring_futex_kick() during teardown) while an
+uncancelable request such as storage I/O is still in flight,
+io_ring_ctx_wait_inflight() sees io_local_work_pending(ctx) remain true on
+every iteration:
+
+io_uring/io_uring.c:io_ring_ctx_wait_inflight() {
+		/* don't sleep on work that's already there and that we can run */
+		if (ran_own && ((tctx && !mpscq_empty(&tctx->task_list)) ||
+		    io_local_work_pending(ctx)))
+			__set_current_state(TASK_RUNNING);
+		else
+			schedule_timeout(1);
+}
+
+Wouldn't that skip schedule_timeout(1) and spin in a tight loop until all
+in-flight requests complete unless io_cancel_local_task_work() also clears
+ctx->futex_pending?
+
+> =20
+>  static inline bool io_task_work_pending(struct io_ring_ctx *ctx)
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261022024701.1574=
+811-1-austin.linux@gmail.com?part=3D2
