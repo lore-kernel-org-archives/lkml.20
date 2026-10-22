@@ -1,111 +1,151 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792664438;
-	b=R3qGIqSlCDCpCjo6ZPM3tSB2LEH4MqCP/tfcg7/GnbPmAJ+N5H+phfQk3LCgy4YJI/Xu
-	 IxaSCqm1nrYa6scv+p6+vcYAupc4AK6Y39qMu17sZnO1ZK1mtm84Bi1yY9FtOXIqPl36n
-	 hDY5U+V7ccltYftqLPERJJAMkFwdyHbC006ukErciLqmU/4BHwb03Qkikkkymf4SH5vov
-	 5mvPnzqoMBYGJ76BMH9rKZPGt6eHTPmFvvgwuDUHhmRmhvI5B0hpyfTEVDEOSa40oAI+t
-	 7trTR34wTIJ4HSLUcou5XU0AyJrrdtMRPCFJjJrQOej+k1M/ATyjRbCW093AOSA/BEQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792664438;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-GUID:X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=CNFluKpc3PiFtbzuhbtuk0N/oHupR2ogDzznwiIe2cw=;
-	b=TYuOOFgm05C8u5WiQpjhZnH/9seGUUSrrn0Q1NTOJBxSaipUHQwk/rDUNhfLDLSpyC6j
-	 9gnLrN68dJVf0yF9QvmeBPnA7JKRMjHpx0F7EwYkAS4AUHiWMbbFZQcWw67kxc/osWrua
-	 gL4kPtzNAmIZMYWmZRz3WUnm3FQ6sfq5ivo2zk/MV95KeBlzoCN0OPpVhzUp59/x/G9gS
-	 gHAERd0+ZBBfsKXU22d9OtR4j21Olusp5gOWsUBMHal189HTVX32+kvAJeyNEcXcomNIt
-	 ePdVz+GcAXq/xr/DOo0ADRCmRTMv13Df5O6ynddAO5Dt/SDs/evbZ683YaqO6ntxmQQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=nkAys81o;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=EesX9ODn;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.209.36
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792664451;
+	b=GL8AlPr3cmfKk+4UXNaqMzX5pwldphO2Ww7odBPetysK4sMi6s2YwgU7px3XVk9z1Mgf
+	 pYcGQkcVWZoCgobxVLw8a2FxXnIdTX5JurCVBhGYChF483FmO3dIJToiSzg7IOj7PdO98
+	 nGp9D6u91jhsmwQ+E9kt5B3mnMvfpUD/fjMx6w0GsNX1Z43dnxIKfp6RggTARbGq6A4I4
+	 3iW3Ux9W2CfuYN9pY09KseX6CmPMOUdgvYgLt5DNmgiWLX5MTKUjehYEPwqv9F3ktcCum
+	 ebHxI/02cjCLGyDoiPdin0H4WSEEdJ9fbsN9DjmiCiM8kG+B6uLMdB3+tvhU4nG7sVg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792664451;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:CC:Subject:
+	 Thread-Topic:Thread-Index:Date:Message-ID:References:In-Reply-To:
+	 Accept-Language:Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
+	 msip_labels:x-ms-publictraffictype:x-ms-traffictypediagnostic:
+	 x-ms-office365-filtering-correlation-id:
+	 x-ms-exchange-atpmessageproperties:x-ms-exchange-senderadcheck:
+	 x-ms-exchange-antispam-relay:x-microsoft-antispam:
+	 x-microsoft-antispam-message-info:x-forefront-antispam-report:
+	 x-ms-exchange-antispam-messagedata-chunkcount:
+	 x-ms-exchange-antispam-messagedata-0:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-originalarrivaltime:
+	 X-MS-Exchange-CrossTenant-fromentityheader:
+	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
+	 X-MS-Exchange-CrossTenant-userprincipalname:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=aYBzU/XppeheFXFmE5BLeoFRNMT681CX4S0wIhaXofA=;
+	b=AL+Y/Vgqp8yOX672t7RaYD3LYtYg8f0g4R5CQjdsJGSMSBMzwKitgCB2MtdfrcFQBEet
+	 txsTHwVhl+oCCPDsi/E9gAvcGwg0Bhpb3sZ4xMWpA8yOIUuYTNbvxOALmAO5vJf0CmG9Q
+	 XDRepMmuNngBGOgiy/f3FYu9Sni7cTySSi+Kh5wzOleo0KnfKfk9pLR+E33cEgnNFjccu
+	 FfCOQstRsJ1+6opv0keS8h8fwEf9jV4ptrTpN+bNOonyWq8XR+YiZN8nL28H38ctNeUTr
+	 Y4WFgqlFTw4cpangAN8qnia68nxe0yjAmVUZRjqU/h7HY7J3R+JywOs0RyRfxNNh0qQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=einfochips.com;
+	spf=pass smtp.mailfrom=einfochips.com;
+	dkim=pass header.d=einfochips.com header.i=@einfochips.com header.a=rsa-sha256 header.s=selector1 header.b=suS+fq5r;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.209.36
+Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012036.outbound.protection.outlook.com [40.107.209.36])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC0EC606A31B
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 10:20:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CC0EC606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B50B606A31A
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 10:20:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2B50B606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=einfochips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=einfochips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=nkAys81o;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=EesX9ODn
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69M9xx9S1962207
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 10:20:37 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	CNFluKpc3PiFtbzuhbtuk0N/oHupR2ogDzznwiIe2cw=; b=nkAys81o1wXYj6RC
-	inL06ScI6mTc1xzSrV6YsKj3o2zTC5XgDk7iH2U44qmE3m2x0OAUKb6FpbD6c+vN
-	UGNZde1EFEo4qbLOoPUQlkXrwlOOm9p4rijXuSEdvwPa0ymFma1gKDOxhFzFnXJC
-	dSxCE7gE9jOoAXy6UEjFe2BBKVuZRR/FKp7hWdIJ7Onf2cn1s74MmOs283yuMRFc
-	2U5EvMdrOcM3KJipkXb5wD+Tw6ZKb+P49JupCtaKs0AcHY2IMJ5GEWITfI0D86TC
-	OaxOS0hdmyGrLyCL+7IsySd/g8s2+wGRKW6fmeTxjYouw+awRT41BvX4nX9CdU1l
-	71UD5w==
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hf93aj0b3-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 10:20:36 +0000 (GMT)
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-3a46f0f158dso1161327a91.1
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 03:20:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792664436; x=1793269236; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=CNFluKpc3PiFtbzuhbtuk0N/oHupR2ogDzznwiIe2cw=;
-        b=EesX9ODnKI0dNemzZXyDX44Uiw6sZpilS7Td2J/7h4gX4HqRMMPH4qPZjR8ltOdGFg
-         6DZeoNJzUYqkBaGGjIJ0zpIs9LjaKat2na59Hdl+pB1F46IboKAhV+f0NGwXQUVehWoD
-         h0HnSZ5pDmYmoQfwuGMTrco681MmIvtrnyLJ3hUSwDYbQA9aPJzEvWH67HPQYWviZqui
-         sxLpNKWxw66ge0D/Eq1NqEntJksR4rLxJ1p8xrxJ/T+X6+PTr7o14BkaFoniAnezXsrn
-         KW8cyV1l7C2aAAM6/cG3a8ZqD6fOZxrchK7TCTT8oeyNVAUH3GjqqS+xNlc1/V2D0Nbe
-         miEA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792664436; x=1793269236;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=CNFluKpc3PiFtbzuhbtuk0N/oHupR2ogDzznwiIe2cw=;
-        b=K7QGMDChvXgLF1tU9Mz7exFCdAGksif3fooDA2hpUN+UY0q27J8TamwGN2SAWeCu+9
-         7kvuxtRED9UCoCaHzgAnbHCWOJjIVrB9RsNp5nShhrF87T9mLyGgktGmvgudmk8SaUoQ
-         59BCAWonaNU+0/rEOyXNOONGGva9gdW4kntRPF2TKl4WYGsH8XPgcv4eR7xRQ+vXKB1w
-         WDYzDRiGAua7Nt5iRDKJTILQUSfP95F1q5vDeloaG6a1m+4HosAF1gCelS9PbYm1yNh9
-         dUSO6y4FygUGJDpesu7VSUjiEWDJdh619hPENp5qoJDtWsqIP0WW2sZz+MzMbm9rlp38
-         412A==
-X-Forwarded-Encrypted: i=1; AKwUvBw1RQP5xReV2XO2CqcwhXB5afEhpHAsHkPBWKFGi4xQES+jCNNKx+vZavwPdjPb0cE+7vPJqzzvxumQcEc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJJcCYD3IOuxNjomSAqyND8azIhdanMQGprl/28Axblbkswt8K7
-	//nhB1eUjcmnZJfz0lQoL8Soja7BJsjfgLnSLnDyRG2lNO92ntgTWja9heelpzA8QTT8MOvMupV
-	7gwGUahyH2XjdxLOsYNe+rSiVFy5klhDDiTuE1kiZOEBrAT0hzQwCMXaMV+Wp8W5Yre0=
-X-Gm-Gg: AYBFou1kVAX4d0itrTGqxM+vQE9u49mrTDqVGTpy52GsmahADbra2to9VV/VLrro0tX
-	fovQxC9eD/GO+FzUCdKjvO+0Ih5Te+t26iZF0ROCoWLv2sceJPvWsxDJv/9AyNqtwc9LGDIUPwt
-	YV8MSNKRm5EQIQFNW5EmjYI6AQSmW70+yShfFXGki8n5kJqB2O7SA34Ri0aPdSQaUTiG3RkdL7q
-	MIWnL0tk2k83+oFxsELGSh4IRry+fQ2wsp1KXJCIdz0Aohx15n6GRhttVSFf2p6ZvFKQyQEnxIC
-	BEIbe6zABEvAp61VAUUpgfeMjNg00EWJZUVwi1Tg4FMuHfqyqM2BAA6e/oEfX20En7aJvTOOOOG
-	9xpC0ANyd/emHiF798nfpcefL
-X-Received: by 2002:a17:90b:288a:b0:3a6:d850:bf16 with SMTP id 98e67ed59e1d1-3ada6c8df85mr1039595a91.23.1792664436185;
-        Thu, 22 Oct 2026 03:20:36 -0700 (PDT)
-X-Received: by 2002:a17:90b:288a:b0:3a6:d850:bf16 with SMTP id 98e67ed59e1d1-3ada6c8df85mr1039576a91.23.1792664435599;
-        Thu, 22 Oct 2026 03:20:35 -0700 (PDT)
-Received: from [10.233.17.96] ([114.94.8.21])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ada4896c71sm3844903a91.6.2026.10.22.03.20.32
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 22 Oct 2026 03:20:35 -0700 (PDT)
-Message-ID: <808fbc06-f1e7-4deb-9209-4056ab2e1a55@oss.qualcomm.com>
-Date: Thu, 22 Oct 2026 18:20:31 +0800
+	dkim=pass (1024-bit key, unprotected) header.d=einfochips.com header.i=@einfochips.com header.a=rsa-sha256 header.s=selector1 header.b=suS+fq5r
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=voP3I5d7tZnNnCS3rDboqWiLEnPb/0R1jIeAcatDhfrM9F1zERhZg+WwL+VOhRiI9TJ9VKmVZCp0od0T0BwZsBkqnuIrJaCOL1GwAQvRiTKlsoj6lbQvSt858Jxa/hFZN7yTMVockr3KGwU9R9fFNN27xpFeguf8ybm3lDNnKKVNLFBvA2OBwqPMXABEWugVrSamhNPj6Gy3T1vbvjqvOWNvxxAzdCZJY1lgtFtyA9ND4E+SbcyjlAnzCY2LGKahQ6aBnBvQ+KtqFCpElLxkpuOF5O19KWE5xVKGUfmosQ9PCHlttiSZ4xeCgiW+hloXWT96r8UrVaVL/nqKGMs5uw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=aYBzU/XppeheFXFmE5BLeoFRNMT681CX4S0wIhaXofA=;
+ b=kEnk0zVIivTv3YdvPydomjrStoKkNz1iyOPNSE9HNMNwdB9SKONDDo92KlsdYILN0KuU05CijgAb6aBoMmwz+c2mf+NLS4BX5a0dSW2V1l6f7K3tCkYBrDJBL4gNrCDEh2nFoN2W4JEeZQL1ybPqfAeifiwVWEW1wYaJZ+2QcNZGWOoHHbml3dHoYOOQWYu1IOSB5T0R3AUCs9RfHVJ5hQ2WJ9vLAOtb2ZguL9B+kr71XfVRlw8r/NycrDgTf4W63vFMJbXrxgb5x/IhWOwUKMlrm6D/HlrkX5dHz0yq0wRT8wUNlnEJpEz+ShZkNHTwQmREyK1EJxye3GVzsM+9zw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=einfochips.com; dmarc=pass action=none
+ header.from=einfochips.com; dkim=pass header.d=einfochips.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=einfochips.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=aYBzU/XppeheFXFmE5BLeoFRNMT681CX4S0wIhaXofA=;
+ b=suS+fq5rW6V5bcvVqDICmRKiTbJCfpBnWfyZRW1F4dEJgpiX0wArIWKgL8ACVJc4v86LdHchoVl+b85y/0Rpg1pPK0MJ+IY8/HK7hMIn8/0l4fXZWsciGpKnlpdTHO9SOnSOU+SDVxCxVAVZitcLz2pJLdqoT/dePYIQIRkCGEg=
+Received: from BY5PR04MB7025.namprd04.prod.outlook.com (2603:10b6:a03:22f::17)
+ by SJ0PR04MB7469.namprd04.prod.outlook.com (2603:10b6:a03:296::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Thu, 22 Oct
+ 2026 10:20:49 +0000
+Received: from BY5PR04MB7025.namprd04.prod.outlook.com
+ ([fe80::97f1:60bb:2ae8:6f01]) by BY5PR04MB7025.namprd04.prod.outlook.com
+ ([fe80::97f1:60bb:2ae8:6f01%4]) with mapi id 15.21.0546.012; Thu, 22 Oct 2026
+ 10:20:48 +0000
+From: Pinkesh Vaghela <pinkesh.vaghela@einfochips.com>
+To: Conor Dooley <conor@kernel.org>
+CC: Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
+	Jonathan Cameron <jic23@kernel.org>, Samuel Holland
+	<samuel.holland@sifive.com>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "linux-riscv@lists.infradead.org"
+	<linux-riscv@lists.infradead.org>, Darshan Prajapati
+	<darshan.prajapati@einfochips.com>
+Subject: Re: [PATCH] cache: sifive_ccache: Enable all ways when no LIM is
+ reserved
+Thread-Topic: [PATCH] cache: sifive_ccache: Enable all ways when no LIM is
+ reserved
+Thread-Index: AQHdYg8BHevFmech/kmjtw7J+NG/nA==
+Date: Thu, 22 Oct 2026 10:20:47 +0000
+Message-ID:
+ <BY5PR04MB70254A39FF5BC39716B23E5783652@BY5PR04MB7025.namprd04.prod.outlook.com>
+References: <20261021130906.2501060-1-pinkesh.vaghela@einfochips.com>
+ <20261021-negation-carol-e42b4ecf3726@spud>
+In-Reply-To: <20261021-negation-carol-e42b4ecf3726@spud>
+Accept-Language: en-US, en-GB
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+msip_labels:
+ MSIP_Label_879e395e-e3b5-421f-8616-70a10f9451af_ActionId=cf2522fc-10a0-40b2-a933-263add331aac;MSIP_Label_879e395e-e3b5-421f-8616-70a10f9451af_ContentBits=0;MSIP_Label_879e395e-e3b5-421f-8616-70a10f9451af_Enabled=true;MSIP_Label_879e395e-e3b5-421f-8616-70a10f9451af_Method=Standard;MSIP_Label_879e395e-e3b5-421f-8616-70a10f9451af_Name=879e395e-e3b5-421f-8616-70a10f9451af;MSIP_Label_879e395e-e3b5-421f-8616-70a10f9451af_SetDate=2026-10-22T10:15:10Z;MSIP_Label_879e395e-e3b5-421f-8616-70a10f9451af_SiteId=0beb0c35-9cbb-4feb-99e5-589e415c7944;MSIP_Label_879e395e-e3b5-421f-8616-70a10f9451af_Tag=10,
+ 3, 0, 1;
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=einfochips.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: BY5PR04MB7025:EE_|SJ0PR04MB7469:EE_
+x-ms-office365-filtering-correlation-id: c5bc1fca-0e41-4bf0-d424-08df30262406
+x-ms-exchange-atpmessageproperties: SA
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|23010399003|366016|1800799024|376014|38070700021|261021121427099003|11063799006|4143699003|56012099006|261009223027099003|55112099003|18002099003|10067099003|22082099003|6133799003;
+x-microsoft-antispam-message-info:
+ 2wNV7J1RSDbxi5a+0YxUdcVjvSk5F1xmn9qoSEbeCZWkPY8LCgSto9hxKszxzmHPmIxvrwA7GEMU6d9/H0CQFgyiVyyeHRkxxHzZ+pzw6Q/2WJEUIsK92NumWL57G3SvGBFE9ooGS+K31URuhgqzWDfMMF5jEZTBjGjz2c+YAXZnuOxmrv8yzT6Y9sL73YZGe1dVqH/a6iWkE9eGfR+Hj4vdQydZCbjGo1nuQaCwzAMcovQ7ecJq71Pdr3BAxN01bo79UahjTTkNOyaCriepa01o7V1qLt9eAZ1e8fuXkHuPs+nMUFOCCjbRAsZpZC+CE6i2HVXhbM1tQeQU53VWDf+lDIPkb96o6rGLChR/1s2Io8fyjImgUFoza4f5M2SnACed6UL6ZudvadYarg87PzA5T8Z16AAV44xiVgE6vtoqTFJrpPkTSMjQpecNCqEMM7T8FSbITdQzOSOEiyyTglWbFxzRBI/7E5J1gPW8j42QKPMmwczxphhJDcgaSrYyRqYnWsMLKKw8QcJSsQcve69ao/x3vAJnZVNP8sbyPvAkVPCvbcqbWXTYSgLlqKCLH7NGnnlWt+Vt4n5cvl2/aoQ8GXnxc5uNxTdYmXCYHuNTR0IHIfF4NYI0lCw2MFONb1rlpAD94ESFnYXUn1Z5DxzSPvomvy5YO94JYzmXabys450LmY/qx2u148YVW6mKvPiFvHiXFSOpj5Wwjp7nNLg5XAw2e9dDmfs+wvXNOgw=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BY5PR04MB7025.namprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(38070700021)(261021121427099003)(11063799006)(4143699003)(56012099006)(261009223027099003)(55112099003)(18002099003)(10067099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?u290nuHyGTrrfEqocU2q3tDsbzFbpQwYsJCrAfqKP8bMk3FP2DDTuxsmwUOA?=
+ =?us-ascii?Q?/yJTG6IBtMzwPNLMcDSBhl1AW5bWtYaEG81hu1T1XVYtK25Capz/VG2jG3nW?=
+ =?us-ascii?Q?S3/J7FKknqJKn5PJEXsZw00tR0hgRN+ltGQECKgNRAY6wXbBmlf43lNxNCr9?=
+ =?us-ascii?Q?5wEU3G9GLC2e6a6OzUzLr883Ptgt9a2IUh4Dx3rv+aldwgAzKqJW9+D/QtEP?=
+ =?us-ascii?Q?pmdCjij7lzUJHYRU9zNPTl9bau+t4yeJmDh0xjdQHjkVot6kYTGm1IJtHb7X?=
+ =?us-ascii?Q?484kskA2AitbMiOz3pqHYBaPpB+eXdMdB0W8ghgSpZZBgVeIKzxyj/kRC9WO?=
+ =?us-ascii?Q?ghRPjPjRyftgp9kXxzQ0l54nvUWlZB4Pou8WiAzVUV3bmVMRcszjkFaY7lSG?=
+ =?us-ascii?Q?86ZzEHrEP+pxqC/hw6b4yTLywxVUvZqspFR2twVeH2peTavrwqsMSIjuEzGl?=
+ =?us-ascii?Q?TF+Ld3Bxt9iwScKzreNEHoUPSxtaResQpEW2B5X8R+Pn/evjdzYBjVYrvQtl?=
+ =?us-ascii?Q?ZbBKB4cZtpyFubj64emqq0m0FQmIG1IX4Zg4a1na/pWAfkaCtEr9SchP/sxo?=
+ =?us-ascii?Q?IFsxtrPib3fHgwvbSlOOf5O87ewOhgRyUuwxyAqKfd/AHeFvNp0MGEaya/Ou?=
+ =?us-ascii?Q?QBt+ra8n+YIrl47MVi8WhsmmCFvmpd7ajQy2M10qJB6S/ijahJlodzhw43CA?=
+ =?us-ascii?Q?TT7v3urXRAg/X0wr08jAey4tzGGmi5k7F/EIpOWzVdfDouhfp/TJncL33KU+?=
+ =?us-ascii?Q?uwYCdyfvMnXmuoAYZBAh4W/vc66Y47172Klp36QFen78fZ/NbLDsU+Kd1dCs?=
+ =?us-ascii?Q?vrP0D1hHEPyRPmLoYBUKRINkF5mz8hpAZuc5vkleHq0z83NldCI0fI0wykvJ?=
+ =?us-ascii?Q?YTd2RqOgMviY1eRvX1RlW9Yoz+lbb/bHdqOba1MnLBgrzqRiMkkWvgys72JZ?=
+ =?us-ascii?Q?T46OePbe0yid/E1lfKa2WgEJk5adz2QGxnzppJculsamaj1sgT9nqXsQ/DFQ?=
+ =?us-ascii?Q?A4H5rZ1JLFo/w2+YSShFYqmfUy/ZIuwRbPTmXLDTmiexd/Zornw4t7QbnXkL?=
+ =?us-ascii?Q?IycBPfBvdhf25lp5bpsiSJxK+kSA7o1Dci5dZtIlqxM5KcI2NZC6PzKZoa2k?=
+ =?us-ascii?Q?AoCjpgHdjPxTbAaEs6MEtkNr73hK4n+gO7AQSInY7Np+RbXS4WgGWAWe/I5S?=
+ =?us-ascii?Q?7KQKFPFh0FycPQVHotSm4AzoEAORFPNNV3pcSHOp54PHV2r0jVhPRjBvHLhQ?=
+ =?us-ascii?Q?+TLIIdsbL1XdzOaUY5z2xIH3+j1fro9yZlknHgWI6fZqRVC74Yqzu9MBDTWQ?=
+ =?us-ascii?Q?wndMUTIVtZYKWj9sX13sSLQNk4Tyygfl+D2IO72Xj7t0zwdcnDEsdu1lO6Z/?=
+ =?us-ascii?Q?A2IJWfuOviCRkqw4rMQ/5/jNxcH8xqgL2CsvCUjYby5uZI/5I9mHn6LkeWcw?=
+ =?us-ascii?Q?AhoF61+O/0qDzgD0sOg/mrpk8E67mQNkaRNTfX7Ha6aPytyMJIRgmAcuKtZZ?=
+ =?us-ascii?Q?1fW5Y4EFPWGDuxjmUPpwa5yiHifAGWcYlrkOyWCPCTlgImLnOHQGAiHXbdi4?=
+ =?us-ascii?Q?nwukDSsxy80HKIbWsZJ3tBIH4mP95cOPln6NX5Rm5YACseW6p3o2pfvdlZdg?=
+ =?us-ascii?Q?dsbh7iB3tzXkYRumhOkmc5wwU5fhiIzOvYs4pG8JsylvXKw0s/9Y4ZXmuFIl?=
+ =?us-ascii?Q?w4lFxkScom1VK699b9sxRsq0mWf+/LIE3JQKIqlrV825yuOnC0PUHxsukUzN?=
+ =?us-ascii?Q?STnyDZpnQ5RNxm6opPyAf0fQSlyg8xU=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,182 +155,124 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v3 2/2] net: phy: aquantia: add get_features()
- for AQR113C
-To: netdev-bot+sashiko@kernel.org
-Cc: andrew@lunn.ch, hkallweit1@gmail.com, linux@armlinux.org.uk,
-        davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
-        pabeni@redhat.com, netdev@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20261016-net-phy-aqr113c-fix-pma-capability-v3-2-0bbb1b84035d@oss.qualcomm.com>
- <179243437352.3135.719818276407053323@kernel.org>
-Content-Language: en-US
-From: Hongmei Xu <hongmei.xu@oss.qualcomm.com>
-In-Reply-To: <179243437352.3135.719818276407053323@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIyMDA0MSBTYWx0ZWRfX0Ib3QmllPYdi
- S91ogVZpy4t8YxigyWUCGluvgk0TOdrB+qsOJXvDa1idNLoBhKNkduKb5EheUfrjqlwgocvLnvD
- s/zU5IVb4Arucwnxc6D7pmn9AdAA+ej3diu3YxzjQuKSA5ghxG/4W2IjhPKfRf3+mWS9pT0A0Nv
- wx3Ng2K95T7ca1s71JZQllf/cZESGrmTeKsMxA2XM9J/Dzf7+85HFJujam+MN9WQ+ZitEwA0U6G
- m5d3amQ0dWoZi5yC3/DftuiG6UrhGlv4hfPHoXNwqe9oBGBUFKm2C6QKwMDDz5PFTQXyRE2A+PM
- uCWJdvD2Edk3FgEwWdTccoJQxOUZqEQR01Agl56F5UG/QIKXagv00pjTzKO31OiHfraP9uO3nrZ
- e0kQueTM4OP20flmyx96rHwOGB/jeopbnKdCpadD1vw3ARZ4z0BiWMEaRawn5ZkpI8iMM6gaJ/+
- EUC4lAuwoqHHDBVGw1Q==
-X-Proofpoint-GUID: dgsGnHE2PiynFyrwgUORSuJxfSsJUjOg
-X-Authority-Analysis: v=2.4 cv=feg4WEQF c=1 sm=1 tr=0 ts=6ad9e374 cx=c_pps
- a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=Uz3yg00KUFJ2y2WijEJ4bw==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=VwQbUJbxAAAA:8 a=Ghr841LcyMZEtTkRx-IA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=uKXjsCUrEbL0IQVhDsJ9:22
-X-Proofpoint-ORIG-GUID: dgsGnHE2PiynFyrwgUORSuJxfSsJUjOg
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIyMDA0MSBTYWx0ZWRfXx8C081quja7F
- 5bbcCXFG+EshQVluVGsuKIjYHrTHZLYYlTd/wSFI5kIcUbSkiPv4yv89RhBUcq9XTGZSEsvTDiY
- PD9CjDXmAX8mW6teB4iRh+/3wNbYfl8=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-22_04,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 lowpriorityscore=0 impostorscore=0 bulkscore=0 suspectscore=0
- spamscore=0 adultscore=0 priorityscore=1501 malwarescore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610220041
+X-OriginatorOrg: einfochips.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BY5PR04MB7025.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c5bc1fca-0e41-4bf0-d424-08df30262406
+X-MS-Exchange-CrossTenant-originalarrivaltime: 22 Oct 2026 10:20:48.1195
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 0beb0c35-9cbb-4feb-99e5-589e415c7944
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: Cqx0GN3Tw+TolWI51n3djnDU1ohVyzGEovMkUqcfQwXXaTCH8yhyxO/UpKu+I/Bi3l/rxtJCyp/6r2t34IlmTMHIlRhLt6S1WBwWtNG6p4I=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR04MB7469
 
-The commit message is inaccurate in v3 — genphy_c45_pma_read_abilities()
-is still called via the chain. The v4 commit message corrects this.
-Fixes: tag added.
 
-On 10/20/2026 2:26 AM, netdev-bot+sashiko@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 2 potential
-> issue(s) to consider.
-> 
-> Critical: 0 · High: 0 · Medium: 1 · Low: 1
-> 
-> If you believe none of the issues are legitimate, please reply to each
-> issue of Medium severity or higher and explain why the AI is wrong.
-> If any of them are legitimate and you plan to respin, please let patchwork
-> know by including "pw-bot: cr" as a separate line at the end of your reply
-> (one such reply per series is enough).
-> 
-> - [Medium] The commit message says the patch adds get_features() to
->    "explicitly declare 10G/5G/2.5G/1G support instead of relying on PMA…
-> - [Low] The patch is written as a fix for a hardware-reporting defect
->    ("AQR113c does not correctly report its supported PMA capabilities"),…
-> 
-> --
-> 
-> net: phy: aquantia: add get_features() for AQR113C
-> 
-> This adds an aqr113c_get_features() callback to the AQR113C entry in
-> aqr_driver[]. The callback builds on aqr111_get_features() and also sets
-> 10000baseT_Full in phydev->supported. The commit message says the PHY
-> does not correctly report its PMA capabilities.
-> 
->> diff --git a/drivers/net/phy/aquantia/aquantia_main.c b/drivers/net/phy/aquantia/aquantia_main.c
->> index ed5631f2956ee..8213d9a15b4fe 100644
->> --- a/drivers/net/phy/aquantia/aquantia_main.c
->> +++ b/drivers/net/phy/aquantia/aquantia_main.c
->> @@ -1096,6 +1096,23 @@ static int aqr111_get_features(struct phy_device *phydev)
->>   	return 0;
->>   }
->>   
->> +static int aqr113c_get_features(struct phy_device *phydev)
->> +{
->> +	/* Generic C45 PMA abilities do not fully describe the PHY's copper
->> +	 * autonegotiation modes, so add the 10G mode explicitly.
->> +	 */
->> +	int ret;
->> +
->> +	ret = aqr111_get_features(phydev);
->> +	if (ret)
->> +		return ret;
->> +
->> +	linkmode_set_bit(ETHTOOL_LINK_MODE_10000baseT_Full_BIT,
->> +			 phydev->supported);
->> +
->> +	return 0;
->> +}
-> 
-> [Severity: Medium]
-> Does the commit message match what this code does? It says:
-> 
->    Add get_features() to explicitly declare 10G/5G/2.5G/1G support
->    instead of relying on PMA register reads.
-> 
-> The call chain still starts with the generic PMA reads:
-> 
-> aqr113c_get_features()
->    aqr111_get_features()
->      aqr115c_get_features()
->        genphy_c45_pma_read_abilities()
-> 
-> So phydev->supported is still built from the PMA registers. On top of
-> that, the chain only adds 2500baseT_Full in aqr115c_get_features(),
-> 5000baseT_Full in aqr111_get_features() and 10000baseT_Full here.
-> 
-> Nothing in this chain sets 1000baseT_Full explicitly. It still comes only
-> from the PMA extended abilities register:
-> 
-> drivers/net/phy/phy-c45.c:genphy_c45_pma_read_ext_abilities() {
->      ...
-> 	linkmode_mod_bit(ETHTOOL_LINK_MODE_1000baseT_Full_BIT,
-> 			 phydev->supported,
-> 			 val & MDIO_PMA_EXTABLE_1000BT);
->      ...
-> }
-> 
-> The comment in the function gives a third version ("add the 10G mode
-> explicitly"). It does not mention that 5G and 2.5G are also forced
-> through the callees.
-> 
-> Could the commit message and the comment say which abilities the AQR113C
-> PMA registers (MDIO_PMA_EXTABLE / MDIO_PMA_NG_EXTABLE) actually
-> misreport? For example, if the PHY already reports 10GBASE-T in
-> MDIO_PMA_EXTABLE, the extra linkmode_set_bit() here does nothing.
-> 
-> [ ... ]
-> 
->> @@ -1446,6 +1463,7 @@ static struct phy_driver aqr_driver[] = {
->>   	.get_sset_count = aqr107_get_sset_count,
->>   	.get_strings    = aqr107_get_strings,
->>   	.get_stats      = aqr107_get_stats,
->> +	.get_features   = aqr113c_get_features,
-> 
-> [Severity: Low]
-> The commit message describes this as a fix for a hardware reporting
-> problem. Should it have a Fixes: tag?
-> 
-> This commit added the AQR113C entry in aqr_driver[] without a
-> get_features callback:
-> 
->    commit 12cf1b89a668 ("net: phy: Add support for AQR113C EPHY")
-> 
-> Because of that, phy_probe() has always used
-> genphy_c45_pma_read_abilities() for this PHY:
-> 
-> drivers/net/phy/phy_device.c:phy_probe() {
->      ...
-> 	else if (phydrv->get_features)
-> 		err = phydrv->get_features(phydev);
-> 	else if (phydev->is_c45)
-> 		err = genphy_c45_pma_read_abilities(phydev);
->      ...
-> }
-> 
-> Earlier fixes for the same quirk on related Aquantia PHYs had Fixes:
-> tags. Two examples are 17cbfcdd85f6 ("net: phy: aquantia: AQR115c fix up
-> PMA capabilities") and 8f61d73306c6 ("net: phy: aquantia: remove usage
-> of phy_set_max_speed").
-> 
-> Would something like this be appropriate?
-> 
->    Fixes: 12cf1b89a668 ("net: phy: Add support for AQR113C EPHY")
-> 
-> Without the tag, stable kernels that support AQR113C may not pick up this
-> change.
-> 
-> [ ... ]
-> 
+Hi Conor,
+=20
+On Wed, Oct 21, 2026 at 10:43 PM +0530, Conor Dooley wrote:
+> On Wed, Oct 21, 2026 at 06:39:06PM +0530, Pinkesh Vaghela wrote:
+> > The composable cache resets with only way 0 enabled, while the
+> > remaining ways are available as Loosely Integrated Memory (LIM).
+> > Systems that do not reserve LIM therefore use only one cache way
+> > unless software increases WayEnable.
+>=20
+> This is not true in the general case, firmware may intercede to set the w=
+ays as
+> it pleases.
+>=20
+> > When no memory-region property is present, DT describes no LIM
+> > reservation for the cache controller. Validate the reported way count,
+> > then enable all cache ways so Linux can use the full cache capacity.
+> >
+> > When memory-region is present, leave WayEnable unchanged because
+> > enabled ways cannot be returned to LIM until reset. This may leave
+> > more ways assigned to LIM than required, but avoids consuming reserved
+> LIM.
+> >
+> > Apply this policy to all compatibles handled by the driver. Firmware
+> > or
+>=20
+> I know this is going to cause problems for all the microchip boards, whic=
+h
+> maybe should have reserved LIM but never did because the LIM was never
+> put in the devicetree as memory in the first place.
+> They also don't suffer from the problem you mention because firmware sets
+> the ways up.
+>=20
+> > DT configurations that require LIM must provide memory-region;
+> > otherwise, Linux will convert all disabled ways to cache.
+>=20
+> I don't like this behavioural change, it's never been mandatory to have a
+> reserved memory region for the LIM. I'm only in favour of doing this on
+> devices where we know it is actually required to be done. The eic7700 I
+> assume is one such device.
+>=20
+> Cheers,
+> Conor.
 
+Thanks for pointing this out.
+=20
+I agree that firmware may have already configured the cache/LIM
+partition, so applying this behavior generally could overwrite that
+configuration.
+=20
+EIC7700 firmware does not enable the additional cache ways, leaving
+only way 0 enabled when no LIM is reserved.
+=20
+I will restrict the change to EIC7700 using a device-specific quirk
+while retaining the memory-region check. Would this approach be
+acceptable?
+=20
+Regards,
+Pinkesh
+
+>=20
+> > Signed-off-by: Pinkesh Vaghela <pinkesh.vaghela@einfochips.com>
+> > ---
+> >  drivers/cache/sifive_ccache.c | 22 ++++++++++++++++++++++
+> >  1 file changed, 22 insertions(+)
+> >
+> > diff --git a/drivers/cache/sifive_ccache.c
+> > b/drivers/cache/sifive_ccache.c index 2acb8bdf06d5..17b6ba8ab984
+> > 100644
+> > --- a/drivers/cache/sifive_ccache.c
+> > +++ b/drivers/cache/sifive_ccache.c
+> > @@ -117,6 +117,22 @@ static void ccache_config_read(void)
+> >  	pr_info("Index of the largest way enabled: %u\n", cfg);  }
+> >
+> > +static int ccache_enable_all_ways(void) {
+> > +	u32 config, ways;
+> > +
+> > +	config =3D readl(ccache_base + SIFIVE_CCACHE_CONFIG);
+> > +	ways =3D FIELD_GET(SIFIVE_CCACHE_CONFIG_WAYS_MASK, config);
+> > +	if (!ways) {
+> > +		pr_err("Invalid cache configuration: zero ways\n");
+> > +		return -EINVAL;
+> > +	}
+> > +
+> > +	writel(ways - 1, ccache_base + SIFIVE_CCACHE_WAYENABLE);
+> > +
+> > +	return 0;
+> > +}
+> > +
+> >  static const struct of_device_id sifive_ccache_ids[] =3D {
+> >  	{ .compatible =3D "eswin,eic7700-l3-cache",
+> >  	  .data =3D (void *)(QUIRK_NONSTANDARD_CACHE_OPS) }, @@ -319,6
+> +335,12
+> > @@ static int __init sifive_ccache_init(void)
+> >  		goto err_unmap;
+> >  	}
+> >
+> > +	if (!of_property_present(np, "memory-region")) {
+> > +		rc =3D ccache_enable_all_ways();
+> > +		if (rc)
+> > +			goto err_unmap;
+> > +	}
+> > +
+> >  #ifdef CONFIG_RISCV_NONSTANDARD_CACHE_OPS
+> >  	if (quirks & QUIRK_NONSTANDARD_CACHE_OPS) {
+> >  		riscv_cbom_block_size =3D SIFIVE_CCACHE_LINE_SIZE;
+> > --
+> > 2.34.1
+> >
