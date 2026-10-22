@@ -1,98 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792641406;
-	b=V/M5s9Cdv+MPLFLFe3mqrTa/wk3GuWI6o/plH6JIwidXiVnM6zaVQV0/pyZtfLpzOoYE
-	 qf7/7gFmqKDNchq96j/KeOenvoQBqvhArTbff7bhdD6g5LM7WarVm5cejpbys+Qr5ca9/
-	 IV7vlKO1SVQbIx6RX37pGkiDmTYlkdBBfCGkpK5NCkwZ1x5ut6x+l0pT81mOw00tzzg2m
-	 b92K51HAWeCr7rMQuQMjtjhM2+TLMdVr8AL+1Mc6KltaybFqldYpadYX5f04NTXtpJJiz
-	 PBGn/PgoR0Fvb0UwGu1jbOgJTzDFpw8EV8FSxUOJk01782ueF2kCuIiBBXiVHuzXg3A==
+	t=1792641575;
+	b=pKzwp/aulvHVQEfrNEugCobqkEA65BLY2q5tQ41bzdWsPWSNzZtWiWPN/UjakkTliFKj
+	 G0Od2b+XWYpB5Et1Irv/7VZNaUtcZP/j8mcLdx+g+CT3j7elEvQoiCcMMfmrQnVLmv7G3
+	 MYGSBGtSur/sLJ9RkHVCARPJHrSRT6MvFDVx+KRSfl1ofNYiA8KifUfLH+qWymHc/5XN8
+	 0Rz8KdYiBtnSRkZLugkTOGu+boULeMX+xwA/UTtZ8UIiruk952wwjZTJGCfhPcg7tlebP
+	 k+k5kuoROZdwhw6A3QoYWCMYq5+wIGNFF7jAiasiPe1f+rYJ1Rb+yGtZV5Hia3Q6ZKw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792641406;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
-	 In-Reply-To;
-	bh=4zpbVCWKZmceTwhBAX7y3KNuUyer4M902oUozSRjXxE=;
-	b=FvfJteOkLyExlJlRpk7XTjzyssevsSpt++0XLSeCD5hnyX1PvHvHMc5Jy3YYR4/kqoZh
-	 Asa9/SE7DNwflrjDYww1Ft0+MdbXImg+gNAAfJ9a9NbTYkEbMfwswIqM+WSP9QjCNYuDA
-	 mVUDSBpFgyL78j1zBHVBmniShWNEuSfj4t7NVQ4REFsyS9rW3Nt2PUVeAtx/i6jSMbH4N
-	 XFpUN9rAZrNRr+q6FoDkp2O16WuWmMa4dhWYj/B4SA+xhwJ5kciyHOWsQenO51nf/cBUn
-	 cqz/Dt322O3Rh9W/FDZAo8b2zb0HhyZRm0GDoh6xKeEkJuPrSpuObuakZWhZRrun+FA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792641575;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=XfnE7enxTP+WkIDLd7AT1Dde/8uqdSrCYp0NNo8s+Jo=;
+	b=PYU5EE7oIeaYi2UNDcopsWYgIrNbFlXikP9bbK6KZJ+fP/lgHlfX8kEDn7SMlRi95z5N
+	 Fa/TM1xRPVgAtequ+Fu7uM92DHlS076cQE1oi2AVgZh4LDcFDYV0yM+ZXSoSZMNsuuQav
+	 35qDF6TJcO1uBz3qows9yJDhlJuTHnLDKWI/nPbWKG0Q4sr1aP+SyCEI8Vt9cOIOq1LiV
+	 WsxYaI7Fh3BCnxvucrvIaBytLES9LTI8Fjt0F8HgfVFZmnBEwfiVKzwW46ECojFcgCtLZ
+	 aWbQ0IYhHIsmrxz2uaGYSo6dE3WupdeR9ykdMkEBMn3jyasgB2+bRKZToFe7YNFBVxA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.128.48
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hPg6zk7w;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4AE9606A31B
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 03:56:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E4AE9606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a20568c8c0so2167485e9.1
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 20:56:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792641399; x=1793246199; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=4zpbVCWKZmceTwhBAX7y3KNuUyer4M902oUozSRjXxE=;
-        b=PjDfxDYaeeH1mCabakxNUf/Je0GJPuMfok6BtPBW1A8VCVt8YKjYOh2NFo2XPeWCLS
-         fd2r07Tb+0P6MQQNs3BNA+u/U6aQTn+VdQYjs/h52reNJQsHmuoaDE851CCi93meSCl8
-         dO4goZTu+N1qj5mBFdKz1FlYgx8n6cML5oCcgjBwOH8wxxFcAfJmY9MlKSa46l1nhu9I
-         eLgTr4Kax+08eA1obSMUTEelGyuNabD0NP1si49LdDmk/20QrxYuM6eAWcLGfrQ8SIHD
-         C/0NbSkAV03lr5XghNHhjtutCF3rSjot8jum6HU0j/y6zP3zh6tOgdUBTGnvK+YOarBk
-         Rdig==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792641399; x=1793246199;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=4zpbVCWKZmceTwhBAX7y3KNuUyer4M902oUozSRjXxE=;
-        b=IQHJOgVaiwolnipv9xUmGCbbIBaUJnFjMY5oFHvBl0VjU1VMfhK95/I77Vfb8UST8a
-         MK+xH10KCy2g03zrc5d2OO5RDTZ0omq27T4LUW2p3yzWH5fIKeOb07vxOaZ1SH8WAB+k
-         /6bZPrUvXbM+l71k6IpTsxIevxPtpQkX8m2Lf4ld36mbrK8CejI3xLGvF9hN5znF8NqW
-         bELNlpOHnhWcwQDr4Cg8ywhf4uQBc+E+5UQFhPm5EPQppgPcJjK4cbjU5qUWXw30TVUC
-         4FdFqQmtT2sheTHv0TtRav2iqqWcuDb0IjQ/3WVB09nNn65PB+v5++jGT5sZZTwivtRb
-         O8dA==
-X-Forwarded-Encrypted: i=1; AKwUvByHGMF3VpMOKxxoBe1nAcWa2JkEw9zg320sCR3RqD5eLSwT/efQcGMg90CRBkPdzBVO7SuVwNDyQyBEWmo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIZ37+idL6l/92Oz/3etCTYLkMP43Op7KaXOGYxlwxmyrC0q/mv
-	uiPczivTmMZI4snaZEoPrtoXCWHy+Qa7seiKGdvaNov+f5wMYyZG4VY6
-X-Gm-Gg: AYBFou3b+wGMY5qyR5bmo6d7FZkafkUfgZ3REPDc019TdbY8eCtOOdaDWasNwH+kOAY
-	8Sg1y2aHxrSSp8bEzi3u+B/nKsC7yj+IWxce/zs8KAzGYujekA6eNeQHswbkz1AzFcSHb3tv3h6
-	qQqruCa/c8SaENcRbrulD0SG8iJro5WXD2fRpgMd7wx5yl/FXZdRLxn8HqCZYWEwuzCDba/duh/
-	YW93s8SvbwJHiRY0jGRJUda/klz935YWWa/VBakIeO2NlkJLFdXiMSkjyiCOaa4+v4nn9E1C1l1
-	aMtdTZonpjqtoAisx+/XamjYjEzfo4jk1WEq5OxS5VNwJbZHK0tR31GI2QQCnkKrRkya7SNEK8a
-	zNebKD8HLEkz3zGNNoD7W0PdtQnM8YUPuDdYYUxAq3Ln3mGfbSQzHQUiZvdBeh4zKMVHS0tiTUd
-	t3+uTArTspdPnmagWHtPYkPtY7U1sGIlzqX4B48m5ASnHXxfdYwU9SXBLjXY/zob+jDVE3vsuth
-	f4b9GU+86Y9Ib/eE3EKxnhcbIEy2Z6Zr9h6uxMRhfWcp7ifwdcNmht7Yz+jp1YU8AQxIY2b3Hu4
-	foSVaGMVAVvrYJP2DapZtcjAD2LgPWca5G+Bxa7EHHpKXAWyDpbPdE+PyKPhu02IM2lP4TAyW/H
-	PsZrOWTrifQebcHQlMLpCcIGYREfCk33M3GNyBwVTohlmyDjyU1GurFUCrzLtUw==
-X-Received: by 2002:a05:600c:609a:b0:4a1:7bd4:d07d with SMTP id 5b1f17b1804b1-4a1fdd64e88mr75312025e9.34.1792641399195;
-        Wed, 21 Oct 2026 20:56:39 -0700 (PDT)
-Received: from unknown748F3CBA5068 (dynamic-2a02-3100-ad43-d501-2c28-bb72-120d-420e.310.pool.telefonica.de. [2a02:3100:ad43:d501:2c28:bb72:120d:420e])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1fd0f4427sm86914085e9.3.2026.10.21.20.56.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Oct 2026 20:56:38 -0700 (PDT)
-Date: Thu, 22 Oct 2026 05:56:36 +0200
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Tomasz Figa <tfiga@chromium.org>
-Cc: linux-media@vger.kernel.org, 
-	Marek Szyprowski <m.szyprowski@samsung.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Hans de Goede <hansg@kernel.org>, 
-	Hans Verkuil <hverkuil@kernel.org>, Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
-	Tomasz Stanislawski <t.stanislaws@samsung.com>, Sumit Semwal <sumit.semwal@linaro.org>, 
-	Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/4] media: videobuf2: add opt-in DMA-BUF CPU access
-Message-ID: <atmEfHtoW0Ato4P6@gmail.com>
-References: <cover.1792392288.git.kmehltretter@gmail.com>
- <673c04ad9dcc4f12685c076193ebad9e48e5f08d.1792392288.git.kmehltretter@gmail.com>
- <CAAFQd5Djx0kjeFpzPWEgRV5_MhiJAW8tg-2C+cYxqMf45u_-RA@mail.gmail.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3102E606A319;
+	Thu, 22 Oct 2026 03:59:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hPg6zk7w
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B7EC71F000C1;
+	Thu, 22 Oct 2026 03:59:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792641574;
+	bh=XfnE7enxTP+WkIDLd7AT1Dde/8uqdSrCYp0NNo8s+Jo=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=hPg6zk7wA87tvU7+ek8WeuPXi6plGzBFPLvDtfkF5kdajBE7D7228QOzFnxR5kOQ8
+	 W4MO8C1MFowXyDPY1BVGSVWy28w1w5CD3hvi0TatE7cOYgcUJS7bPApqP5B3pQCg54
+	 GDT6oJYgA86diVoefW9fBlBIYYOlwOdUKh6fpHt+3hw1X98g3s3D5CHWsenp9TG/4e
+	 c4JD6iPoKEzQTM5im1bTJMtRJZOK3QrjD+A0IxYi5W+jEmtXYCcCn4XSdXEriHDMmQ
+	 ohxnkZQVyV8l68mJqhj9cFiaL59M9voGvFSK6dLtiNiWAvAIa5avajMhEio/yes9dV
+	 6RJw10VWJ9SJg==
+Message-ID: <8b077ae2-250b-4181-94bd-8b87e9927807@kernel.org>
+Date: Thu, 22 Oct 2026 05:59:31 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,67 +51,95 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAAFQd5Djx0kjeFpzPWEgRV5_MhiJAW8tg-2C+cYxqMf45u_-RA@mail.gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] serial: qcom-geni: Set UPSTAT_AUTOCTS for hardware flow
+ control
+To: Michael McAllister <me@michaelmcallister.org>,
+ linux-serial@vger.kernel.org
+Cc: gregkh@linuxfoundation.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261021202603.42888-1-me@michaelmcallister.org>
+Content-Language: en-US
+From: Jiri Slaby <jirislaby@kernel.org>
+Autocrypt: addr=jirislaby@kernel.org; keydata=
+ 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
+In-Reply-To: <20261021202603.42888-1-me@michaelmcallister.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Thu, Oct 22, 2026 at 01:20:45AM +0100, Tomasz Figa wrote:
-> On Mon, Oct 19, 2026 at 4:14 PM Karl Mehltretter <kmehltretter@gmail.com> wrote:
-> > Add a queue flag to do so from buf_prepare() through buf_finish(). Use
-> > read access for output and write access for capture. Map imports
-> > bidirectionally because CPU and device access directions are opposite.
-> > Pass the mapping direction to attach_dmabuf() so USERPTR and MMAP keep
-> > the queue's normal direction.
-> 
-> This isn't right. For the regular vb2 mem ops (dma-sg, dma-contig), a
-> buffer in the prepared state is expected to be ready for hardware
-> usage, meaning only the hardware can access it until the buffer is
-> finished. The vmalloc ops are special in a way that CPU is the
-> "hardware".
+On 21. 10. 26, 22:26, Michael McAllister wrote:
+> diff --git a/drivers/tty/serial/qcom_geni_serial.c b/drivers/tty/serial/qcom_geni_serial.c
+> index a851b8f0ef..5782b89c84 100644
+> --- a/drivers/tty/serial/qcom_geni_serial.c
+> +++ b/drivers/tty/serial/qcom_geni_serial.c
+> @@ -1503,6 +1503,7 @@ static void qcom_geni_serial_set_termios(struct uart_port *uport,
+>   	struct qcom_geni_serial_port *port = to_dev_port(uport);
+>   	unsigned int baud;
+>   	unsigned long timeout;
+> +	unsigned long flags;
+>   	u32 bits_per_char;
+>   	u32 tx_trans_cfg;
+>   	u32 tx_parity_cfg;
+> @@ -1596,6 +1597,14 @@ static void qcom_geni_serial_set_termios(struct uart_port *uport,
+>   	writel(bits_per_char, uport->membase + SE_UART_RX_WORD_LEN);
+>   	writel(stop_bit_len, uport->membase + SE_UART_TX_STOP_BIT_LEN);
+>   
+> +	/* CTS gates TX in hardware; no CTS interrupt updates hw_stopped. */
+> +	uart_port_lock_irqsave(uport, &flags);
 
-Agreed. vivid can select vb2_dma_contig_memops while patch 4 enables
-uses_cpu_access unconditionally.
+Why not to use scoped_guard()?
 
-Automatic handling belongs in vb2_vmalloc_memops. Regular DMA memops
-need separate handling.
+> +	if (termios->c_cflag & CRTSCTS)
+> +		uport->status |= UPSTAT_AUTOCTS;
+> +	else
+> +		uport->status &= ~UPSTAT_AUTOCTS;
+> +	uart_port_unlock_irqrestore(uport, flags);
+> +
+>   	trace_geni_serial_set_termios(uport->dev, baud, bits_per_char,
+>   				      tx_trans_cfg, tx_parity_cfg, rx_trans_cfg,
+>   				      rx_parity_cfg, stop_bit_len);
 
-> > Keep this opt-in because some vb2-vmalloc drivers pass buffers to
-> > hardware. End access in process context because DMA-BUF callbacks may
-> > sleep.
-> 
-> That is at least unexpected, but also probably wrong (I haven't
-> checked all the drivers) - the vmalloc mem ops are expected to be used
-> by drivers that only access the buffer contents from the CPU.
-
-One current exception is AMD ISP4. It combines VB2_DMABUF with
-vb2_vmalloc_memops, imports and pins the DMA-BUF through amdgpu, and
-passes the resulting GPU address to ISP firmware.
-
-> Putting all the above together, what I think we need is:
->  1) prepare/finish ops in vb2_vmalloc_memops to invoke the
-> dma_buf_begin/end_cpu_access() API if the buffer is backed by a
-> DMA-buf,
->  2) some vb2 API for drivers using the regular (dma-) memops to invoke
-> the dma_buf_begin/end_cpu_access() API for them when they need to
-> perform some CPU accesses to the buffers - typically they would do
-> that in their vb2_ops::buf_prepare/finish callbacks, but definitelly
-> must not after the buffer is already prepared.
-> 
-> It sounds like this series focuses on uvcvideo and vivid, which likely
-> means that 1) alone would be enough to fix the original problem. WDYT?
-
-1) alone would cover the original vmalloc problem.
-
-But today it would also mark the ISP4 hardware interval as CPU access.
-
-The memops finish() callback may also run from vb2_buffer_done() in
-atomic context, while dma_buf_end_cpu_access() may sleep.
-
-The callbacks are void, so errors cannot be returned.
-
-Should ISP4 move to different memops, or should CPU access remain
-opt-in for vb2-vmalloc queues?
-
-Thanks,
-Karl
+thanks,
+-- 
+js
+suse labs
