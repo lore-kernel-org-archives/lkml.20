@@ -1,72 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.198
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.197
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792646570;
-	b=lciDDQUPmQzXVC4JaF6eIndua1Zna2qh5lVKZZEU4I+xZGoOxp33FQdR95zEaqeerS1H
-	 3XXr25xOn7vsDPK2lqsJMYgmvurrXYkliL2SgCwcymPSrlls0Re9RCHGzgG6+02SCaNtw
-	 uxsQcTFmRSw3NsEiQYlvAofP+M/xBzr4836ZH7NtHaZy/aGNBvAHo/K+HUVL6q9gNWd8H
-	 +I+nZZoCPUNrGH52HWKltjI6XoqqbSsz/h+aF5aLwLAHaC25iRzgR4swOSWDHo5aVrfgB
-	 lcKR1flgFuUNQUdS/hVwDMdZCR8dzPRXV8cW3PqlbPYhyKkICBCOsAlqtdIu5lZkcKQ==
+	t=1792646578;
+	b=2+Ii6k/TP5ryyEGZzdqGu7fvKklICh0mFno9bUn8ndDCmJPT9v2h2FDwQklr6WDQ6VgI
+	 jg9gC5PVpVev+KQ8mPy/PgsAOxFJ6dR8qYVJHZ5RX5McXiF4JwcKr+jvc3ljmwyoSy5Li
+	 lBGbN6NPOXUu2mIdrY8n5RPCUNVuf1hLOVfD0fIh1xMINC/9tDVCSCfiKL6YLgU3ow2tV
+	 ArmQPcni0EaqFVoedCpUYND0YLMyx9MIhqR+qF6RCOzwhfEqUPpe6CghRRS2/6tH2NSEv
+	 /o9cswSi+1k+R/IWhLNRJZrSmXNTsxSN7WVUCUUnAedIIizvlKY1IDsGz5n0Schq4Kg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792646570;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792646578;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
-	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=i0ib49ykkVTIXodpiuOe5mlbictVGMpVlOsQqgxbR10=;
-	b=4DPbK/7dAEPXr0lZJj0DG+1SZDwft6v/taG4mtTGK7X6NRzxVaUS1AKaGRGdw3JM82GL
-	 C7kEzN8ZIzkFS38OyOwXY2NPkFk1qAnc1aH1t/LFAQkd1++YFGbk97kGT2d1RaHHF1aBp
-	 25zCW+HYSk7ybhhVljR8icnYDrWBnndXZ9k0F0UUH3tUiGg8vYBMXNZEBFrnRlbtp4OmY
-	 uQB9HEgRCObwAvld/NLgn2bwYektfL4Uk8BRvDXvs08sEFIT/x6KNXDSBdty2+aQfiZ/9
-	 GNN9LfWgpCpP18YcEzLpEJM8NdzLbDkDmzHDFjHcXJl7aCiGpAuv3+HYyCllJXZk3VQ==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
+	 Content-Type;
+	bh=3L/lDtmSjNcVzmRigKEhrofpE79lZ1IJN11/qW4zHvM=;
+	b=rged0SNN2lIVN0ROG8sd1OT11XL9iVwohPcqWmnn1OLfhwf4wEnpCTqg0Na8uRkqqVp5
+	 8Hy+lZjnWw+ravVZJCvffW1wBnuthMq53StVX5lb7styHVojb/ld8bV02+OaKX/lgUfQJ
+	 RulVmtJQQQZ57N7Rdw77PDdBA8ys3zNr0XQ/4/zpVK9vgdw6HiVvX8RLbGbLTikH3StiI
+	 xZxWDL0qrnL0UkDQq/OVB5NEYHCa4RDfvLAAjz5SCCHzwxcwQUa0HwE/Hn3QzRSP+faX2
+	 TgL7Hc0NZLG2gYBl5EkeRk4Zb7VlMXyKsYxZgt4cTYypNr7vWGtOfNqoPrD6X0TaiWQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--chihsheng.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=rM7fLbxE;
-	arc=none smtp.remote-ip=209.85.210.198
-Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com [209.85.210.198])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=hidp6np1;
+	arc=none smtp.remote-ip=209.85.215.197
+Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12092606A319
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 05:22:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 12092606A319
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF425606A319
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 05:22:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BF425606A319
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--chihsheng.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=rM7fLbxE
-Received: by mail-pf1-f198.google.com with SMTP id d2e1a72fcca58-8a0522cdaf3so1118618b3a.0
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 22:22:49 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=hidp6np1
+Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-cd6532dbd7bso952542a12.2
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 22:22:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792646569; x=1793251369; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=i0ib49ykkVTIXodpiuOe5mlbictVGMpVlOsQqgxbR10=;
-        b=rM7fLbxEmxtqe2XJH1ckPcC/HR+nt8Dd4dtFlo7ZfuauTjoo8LBPk7DWoCc0/T6azY
-         LuATYY3nULYR2Pgqc0FtNZuzTZYgUrotN30vkn+Sd3jq4fQ8zzcXziUCYcECp+RxVvjY
-         P2WZyj5iatmlIlFph2BMkt2BfewIw7LrGyPHqWdRMyKXnP1Jhq1MeLbyPiMpRUYUKJZk
-         ftKIPeL1MQ29kyleADBfHaNJyxbntfwffdwd+PbJaANkENTMH3si7SSaLQO6vdRVdWRN
-         2qq0FmwkVFDhXbSext4RGrSBHXVtg1tQhSneW0IUk8rtfNN6Srk2KL0CZzSIkY3mR8XR
-         PrNg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792646569; x=1793251369;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20251104; t=1792646577; x=1793251377; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=i0ib49ykkVTIXodpiuOe5mlbictVGMpVlOsQqgxbR10=;
-        b=DV/feluw60DzzPyBXimCb26eKqQGkokHhP5jMNN4Uw5UULk3Trrwh7cTppHzlDh3/O
-         FJd6uIFxaxwkrl27tLAYpFbwRCf5XArVAjfA6YwaQn39ctw2Lmq8fm9HSvjnkjrzzbxJ
-         hKwdqOZcUGu1XWn/RLu1sIm4AdDw3uzgVVz5XvmQ3U9nGkxBtskvc/qwaHg+VpWxY6Y1
-         rjaYTa8XSUCx/I1GVMjSHH0dWVISa2hPsf0yEXt+/ktU79/Rrh7+vl20T0siIXCNCRyM
-         KFUIqanvCyI5Xmn8a9UVRXhmono8HWsCX8d8oz5wQE5BjUY07ve0Off1YEpSlrYApXWT
-         5gJg==
-X-Forwarded-Encrypted: i=1; AKwUvBxaQsNLV1d+wC9bp7z3slMb0IlxSLpr2DfOBkgkyxb92THGZyD2MFwjI6U7izmZKwFBHfyQr1XF3ZeskPc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI5LYcbgAENzTB7lpoO2V01xVqHVsgZSXiuzLAVYNaSUuVyTHge
-	0v5Zpx/7skDAk0Hj+RarOFEvHQKOXN6pYeq+9XBcLvlK5Dvg8jkwLqjAA/n5ThevWIQ09GgOyfi
-	oXW1tbtYGyfyJV05S6w==
-X-Received: from pfwo8.prod.google.com ([2002:a05:6a00:1bc8:b0:8a2:1bc3:8884])
+        bh=3L/lDtmSjNcVzmRigKEhrofpE79lZ1IJN11/qW4zHvM=;
+        b=hidp6np1w4lB6HvB4Si8+x6PctJhO0E1dOFcIJFC2o0MHK9y7sji6ZxtWZgEyEOyDq
+         nbxODKk3yS0bz5HTvgEb9IanfwRBTH6Sp9h5CHXgVtzFHRD9Q8j9HuXwkHauQlyrbGre
+         VMKzhVwi51OLIvLOc1Yx6zt6nyYykDcjSPma84qMJppCtocQNdOzKUORpcf455JdGo9W
+         hUe6DLPXuvxvXG8PZxhQBfGtON7/6Pv5qJj9HXIzH3rC1UwS7wEFOskqW9I2tYmD91XB
+         WHcF22ffR1ywWpz9OV05MScfYOEfwjh2VUQJ52wy47CJHcogaqKegEF6xeN9gVLK72dF
+         /NWQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792646577; x=1793251377;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=3L/lDtmSjNcVzmRigKEhrofpE79lZ1IJN11/qW4zHvM=;
+        b=c/LT6WlNh0L1zOfMCuy6/yuC3qibWekLdDVDm+6+Gxz/4i78opPQ4et89rsqAxSkkQ
+         GoA5GyZC74YkhYjuvpWsPO44UNqSQyIiZnSanZGBBKEFy00Al8hdfDbAIJ5XOk+k5lfC
+         JfkIafBbHjzQRc3RnVUdwo0l1kj6eNUGmXuCgMNYy35L2DAv0SS5Cg35Y9HiaI840d7V
+         atVugSExvUgVU73IRmSmnq0eNuLxq7aje6rbSYqr++G/GSZvvrYXsbOG233b2n1o6oSy
+         TUFxCKQR487/+DAx/ouY7WEH5hBIarp7EvZxeyglE4mbo64BYHac03VgucH26+zXHi0Y
+         jRzw==
+X-Forwarded-Encrypted: i=1; AKwUvBzXIzuDhzHyxDCwsTI2eP0xA4hdXKCCeM3k6v8pl4CU8dlXgC+PM8C8fl2kpmAhOWotcuJzc0U3PGaFdsc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKcvbiyLEEFJF3oRtQk02wHSdOcJwEmMilO0ILMPWS+deKAFhBv
+	eL4K8206yNTKthBi/lkjDMWPGTpJDDXRa4EBWHqMdUPGBMTQOUGxl2l/mc3jobRimw5mTA7p5qT
+	7gaoAYGcdQlaPp5rXmA==
+X-Received: from pgme24-n1.prod.google.com ([2002:a05:6a02:6c98:10b0:cc7:4919:5ed9])
  (user=chihsheng job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6a00:349a:b0:881:4b47:f31a with SMTP id d2e1a72fcca58-8a089cdf1a4mr3211775b3a.11.1792646569217;
- Wed, 21 Oct 2026 22:22:49 -0700 (PDT)
-Date: Thu, 22 Oct 2026 05:22:44 +0000
+ 2002:a05:6a21:6e86:b0:3de:b120:bb88 with SMTP id adf61e73a8af0-3e287b9dddamr2850752637.2.1792646576926;
+ Wed, 21 Oct 2026 22:22:56 -0700 (PDT)
+Date: Thu, 22 Oct 2026 05:22:45 +0000
+In-Reply-To: <20261022052245.1138709-1-chihsheng@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,10 +79,11 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 Mime-Version: 1.0
+References: <20261022052245.1138709-1-chihsheng@google.com>
 X-Mailer: git-send-email 2.56.0.257.gf7497c7d27-goog
-Message-ID: <20261022052245.1138709-1-chihsheng@google.com>
-Subject: [PATCH 1/2] selftests/cpu-hotplug: Use $(id -u) instead of $UID for
- root check
+Message-ID: <20261022052245.1138709-2-chihsheng@google.com>
+Subject: [PATCH 2/2] selftests/memory-hotplug: Use $(id -u) instead of $UID
+ for root check
 From: Darren Chang <chihsheng@google.com>
 To: shuah@kernel.org, david@kernel.org, osalvador@suse.de
 Cc: linux-kselftest@vger.kernel.org, linux-mm@kvack.org, 
@@ -96,13 +100,13 @@ different shells.
 
 Signed-off-by: Darren Chang <chihsheng@google.com>
 ---
- tools/testing/selftests/cpu-hotplug/cpu-on-off-test.sh | 2 +-
+ tools/testing/selftests/memory-hotplug/mem-on-off-test.sh | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/tools/testing/selftests/cpu-hotplug/cpu-on-off-test.sh b/tools/testing/selftests/cpu-hotplug/cpu-on-off-test.sh
-index 287cfd5809f6..6653507b9348 100755
---- a/tools/testing/selftests/cpu-hotplug/cpu-on-off-test.sh
-+++ b/tools/testing/selftests/cpu-hotplug/cpu-on-off-test.sh
+diff --git a/tools/testing/selftests/memory-hotplug/mem-on-off-test.sh b/tools/testing/selftests/memory-hotplug/mem-on-off-test.sh
+index 611be86eaf3d..11fb70bf1833 100755
+--- a/tools/testing/selftests/memory-hotplug/mem-on-off-test.sh
++++ b/tools/testing/selftests/memory-hotplug/mem-on-off-test.sh
 @@ -10,7 +10,7 @@ prerequisite()
  {
  	msg="skip all tests:"
