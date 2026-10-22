@@ -1,60 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=180.181.231.80
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792656841;
-	b=B2sy/ZtWaZZTPIH+969vDFzbb2N3F30Uq9bshw6I0IJweSoOnjMZHtK+SErue+NE5NW9
-	 VrS/Bb3m3Z7Sph4Lhyl9bF6E5NWwTHvEEmQG/akp3WCu3fxBC0n+vhmE1MQ8gw+KLBUgY
-	 PI4qNwlEL0EVZ+Y5tHPBZALkxCyiUZKbjJ+wEO5lkHNW70LD6mQVyQ5FlO6esJylF9H7G
-	 NTbXZIP/V+Oecfz3JWJfk7V+LmVFhwybwX7xNJX4QbwSGH3/mjORph7UNX2rrENU9A9Za
-	 IhdIo+Ij1ZlFaZ/F2Yr6aCCVNHHkmBkO2SslVeC/VhJB20H0p+Jq6IASFx/6Z6oDQrw==
+	t=1792656876;
+	b=qt3sHT1/WMHdqHYT6rinJ9teCHNArCSryvsglMdGmJHxfMTSpHywZt1S0gRdbqzNjjjM
+	 GpVI40qz9/yGcT19RqTj5lOMnYa6UT+ymE499hGnwJnGOxQmuh20eZPhxBqANlxElxYnW
+	 qULLZ8T7nJNIfBueHMFUcSVTEH+a+FT0rwYWcS7UF8p6XznSsWgXg7t5x7hPc7Z+SUDPg
+	 QKQfplE7EPYmJyoYvoQ/YZySzHo1jJjzDtmoKOuhJB1K9d9wBzCbk/vDavrnH9FIiN/3T
+	 0Ok6o2QOFagOTPIdgvZQOvLNXfIk+9VFEDMDsD81nmoNe/gGfGRTTKxbdej18CfvOIQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792656841;
-	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=BLHP+/kHJwO99BwaYwfCCDH6HJ9jY/45oh1myP2ZCYM=;
-	b=kedn65Rur4SUIKd3tZfHD6trUZrXy9A99JmvT1dsY+J32UvFZQNbDnT/4aD5yyKrIBtT
-	 w30AOUtU8hY56dPBsyXJ1rkwJ21t0OpfJVclrCvbEMsFig6X61AORfGwBF93HXh1UoKOT
-	 LZ0/2rR33b/EYmn31U4WfiM+FbwCj8Yap8JSkUzEcJYNq/75b8qBUYH0swqCH/XfgiCst
-	 93htrQT1dBHqRplp9b0ua8LWW2ImLxrFOTTJJg5/18NReFlpJFFzwkUQBiQMkIUXuGpb3
-	 lBwperzRG87/w4N8OMlLp979+Lw6Gx1bQWpgml+uHTAq6o6FRhH3hGTShJ0ao9A29Ew==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792656876;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=3sD0G4G8uCR6QoPuFMFokC4gDJ/4LjJ7maE0ec9iXuw=;
+	b=nISmTdqSeDOHP9gZqwoM9pnl5XrXijpk2ux63YFZI/+D13C65qXKCS1TbKGzNBQE39kV
+	 N0y4Ek9qUANRvLHJIUz3Wu4GVTiG+vyTSkXTf+PhkuBx6sqFS16dafTfI3fz/3W4NoU//
+	 qgMkFDXtVBIOnNbFcmJ9Lu4NgqWRFB/K6Z8z5j2MtkxD1NA1w/rBkcZZm3XaIE1xvw+iA
+	 3EkM5jGsLOvvRcGfrjPWjKMhWvimFAkvRkzCcVQtpPdbOlgKfrBmp/9BrAXynXE/tu4rW
+	 /SU2a5AqttSIP4Fn2CAMotY86UNY8wmMHd2qFblmQPeuM5Dn4nbzEz9DKEQ3f3ZldXQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ifzOuXkI;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=gondor.apana.org.au;
+	spf=pass smtp.mailfrom=gondor.apana.org.au;
+	dkim=pass header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.a=rsa-sha256 header.s=h01 header.b=a6C+nt7i;
+	arc=none smtp.remote-ip=180.181.231.80
+Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2A14606A319;
-	Thu, 22 Oct 2026 08:14:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFEFC606A31A;
+	Thu, 22 Oct 2026 08:14:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EFEFC606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ifzOuXkI
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E29F1F000C1;
-	Thu, 22 Oct 2026 08:14:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792656840;
-	bh=BLHP+/kHJwO99BwaYwfCCDH6HJ9jY/45oh1myP2ZCYM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ifzOuXkIsSakZ7IAtpndh+vE1IhJ6sgXnbMho9rtU+GaWdUEp8QGHvZmbtDYrbr6Y
-	 QuQUcyazos4jLbPMkM38TrM0jwdPvihg4DPuNhzfj3YCWsQjvqsi1ARIweRInyT4f9
-	 LbGf5e2fZPiXDFEpy3Xf1e2bu656Em5g2r3GfTTG9Y2+39b6KcqahYoLopDc+PtPJD
-	 kfwzlFRGeoUfryHBW3jtWOrmFDJuccg9uouQ9HgPUGjM/u1ucGKSwRXfsGJ5/i9DVo
-	 4KXpMvYYC4QgOBmcODfTc4fjOdBkiCwy01OjYwQYOlfeM01igQNj8iZG7EMpAxmlQA
-	 b8RyowLkFRGkw==
-Received: from johan by xi.lan with local (Exim 4.99.5)
-	(envelope-from <johan@kernel.org>)
-	id 1xJnvx-000000002Xv-480a;
-	Thu, 22 Oct 2026 10:13:57 +0200
-Date: Thu, 22 Oct 2026 10:13:57 +0200
-From: Johan Hovold <johan@kernel.org>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: linux-kernel@vger.kernel.org, driver-core@lists.linux.dev,
-	Mark Brown <broonie@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>
-Subject: Re: [PATCH v1 1/1] regmap: irq: Get rid of duplicate check in
- regmap_del_irq_chip()
-Message-ID: <atnFxRi4DSKL2TWr@hovoldconsulting.com>
-References: <20261021205036.1013622-1-andriy.shevchenko@linux.intel.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.a=rsa-sha256 header.s=h01 header.b=a6C+nt7i
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
+	from:content-type:reply-to; bh=3sD0G4G8uCR6QoPuFMFokC4gDJ/4LjJ7maE0ec9iXuw=; 
+	b=a6C+nt7iqTVvYfxU6QjSdBPTeQZyNPTtqpAaRGegAEHnBAgGiGQM2em8ubMFe1+mi0LpiuxjZQ1
+	qLGSJSv9CpXaRcaIPaU2lN4fTgfJz/Gl9500tuBzTazyvIeYgAhC4rZxMYr+14zYXZcSHuXpwxYB+
+	C4uP7b6XHYzOuIy1PydxpFYJR1ppAkLStuM3jRxtNCRirVs8nkTiRvGvwHTUE56Z0YwUXsqMx0XR4
+	Ts3zuI4z+xMgD/QjZIShvMPQv4Dc1RAg4zE0Hb3mJ/ySFIs9ZDS9zf63dF4+YXPknPIDlROiP2rr2
+	1FpGMsIHAtCV6LFjeG57eTbtesmtOiF5znOg==;
+Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
+	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
+	id 1xJnw2-00000006Sw6-1DCV;
+	Thu, 22 Oct 2026 16:14:03 +0800
+Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Thu, 22 Oct 2026 16:14:02 +0800
+Date: Thu, 22 Oct 2026 16:14:02 +0800
+From: Herbert Xu <herbert@gondor.apana.org.au>
+To: Suseendran Bhaskaran <suseendranb@google.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	"David S . Miller" <davem@davemloft.net>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Yosry Ahmed <yosry@kernel.org>, Nhat Pham <nphamcs@gmail.com>,
+	Chengming Zhou <chengming.zhou@linux.dev>,
+	Nick Terrell <terrelln@fb.com>, David Sterba <dsterba@suse.com>,
+	SJ Park <sj@kernel.org>, Chris Li <chrisl@kernel.org>,
+	Giovanni Cabiddu <giovanni.cabiddu@intel.com>,
+	Suman Kumar Chakraborty <suman.kumar.chakraborty@intel.com>,
+	linux-crypto@vger.kernel.org, linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] crypto: return -ENOSPC on compression destination
+ overflow
+Message-ID: <atnFygk8xsQ-8Mj5@gondor.apana.org.au>
+References: <20261021205626.3286270-1-suseendranb@google.com>
+ <20261021205626.3286270-2-suseendranb@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,24 +77,50 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261021205036.1013622-1-andriy.shevchenko@linux.intel.com>
+In-Reply-To: <20261021205626.3286270-2-suseendranb@google.com>
 
-On Wed, Oct 21, 2026 at 10:50:35PM +0200, Andy Shevchenko wrote:
-> irq_dispose_mapping() already 0-aware, so there is no need to
-> perform the same test outside of the call. Get rid of duplicate
-> check in regmap_del_irq_chip().
+On Wed, Oct 21, 2026 at 08:56:25PM +0000, Suseendran Bhaskaran wrote:
+> In the acomp/scomp compression interface, callers pass a bounded
+> destination buffer and rely on the return code to distinguish a
+> destination buffer overflow (incompressible input) from genuine
+> compressor failures (such as invalid parameters, uninitialized state, or
+> hardware errors).
 > 
-> Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+> While the multi-segment streaming path in zstd_compress(),
+> crypto/deflate.c, and lib/842/842_compress.c returns -ENOSPC when the
+> destination buffer runs out of space, the single-buffer path
+> zstd_compress_one() (taken when input and output are contiguous single
+> pages, such as in zswap) as well as lz4, lz4hc, lzo, and lzo-rle return
+> -EINVAL instead of -ENOSPC on destination buffer overflow.
+> 
+> For users such as zswap, which reduced its per-CPU compression buffer to
+> a single page in commit 0b1bf60c324a ("mm/zswap: reduce the size of the
+> compression buffer to a single page"), incompressible pages typically
+> overflow the PAGE_SIZE destination buffer due to compressor header/token
+> overhead. Because these compressors return -EINVAL rather than -ENOSPC,
+> zswap cannot distinguish a destination buffer overflow from a compressor
+> failure, causing broken debugfs error accounting (reject_compress_fail
+> vs. reject_compress_poor) or masking real compressor errors.
+> 
+> Update zstd_compress_one(), lz4, lz4hc, lzo, and lzo-rle to return
+> -ENOSPC when the compressed output overflows the destination buffer,
+> matching the streaming path in zstd_compress(), deflate, and 842.
+> 
+> Fixes: f5ad93ffb541 ("crypto: zstd - convert to acomp")
+> Signed-off-by: Suseendran Bhaskaran <suseendranb@google.com>
+> ---
+>  crypto/lz4.c     | 2 +-
+>  crypto/lz4hc.c   | 2 +-
+>  crypto/lzo-rle.c | 2 +-
+>  crypto/lzo.c     | 2 +-
+>  crypto/zstd.c    | 5 ++++-
+>  5 files changed, 8 insertions(+), 5 deletions(-)
 
-> @@ -1039,9 +1038,7 @@ void regmap_del_irq_chip(int irq, struct regmap_irq_chip_data *d)
->  		 * Find the virtual irq of hwirq on chip and if it is
->  		 * there then dispose it
->  		 */
-> -		virq = irq_find_mapping(d->domain, hwirq);
-> -		if (virq)
-> -			irq_dispose_mapping(virq);
-> +		irq_dispose_mapping(irq_find_mapping(d->domain, hwirq));
+I can take this patch through the cryptodev tree.  Is that OK with
+you Yosry?
 
-This just makes the code less readable, and for no good reason.
-
-Johan
+Thanks,
+-- 
+Email: Herbert Xu <herbert@gondor.apana.org.au>
+Home Page: http://gondor.apana.org.au/~herbert/
+PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
