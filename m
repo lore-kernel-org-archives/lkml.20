@@ -1,75 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.70
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792707773;
-	b=zOlN5bqVNVwjtjCWwIUoZ5SwBTTET+RI2oHr+YibxTYfunHlwQ6nsaGMEbVcUZGVxnyX
-	 EdbY/SOq3dgHGmfP8Pa5FWm98UMVu/BkF32GxwKRVGXipg7BUzOHaxqLGh2Hj0VKcF5ga
-	 czNn8xkkQa9LVPlCC217QZyCALKpqJWZtNJuBb0LE2HEv4C35Mm2y7Ai7XP5vk429Q+H7
-	 B3u1cNFyN69yMPDvDOAIGgtJpv8Z+NYu7076N36GJuvktSBhw3Q709suYk1rSbLYAcAE4
-	 chnHUa1jvUVdFB/dadyyFx1yVCRUwJXYDFV7RdJJAc/XaqdLpfFj9176NQTtGTbZjEA==
+	t=1792707778;
+	b=Pmk8Bk+OoREhH6SOCmHHHqREGIGPyQxRtZUeSFW/wo3bPpGWHbO77oKV6Njyo51Nb+cH
+	 PXEPbf7VuencyaSJao6drT5SZN7xuH5J7cr95T2PLJAdxRUuIhUy1Rs5zduL5I2WKp/8q
+	 cChkiSJIZog6/IV2cwnbT3MrsU8GacM9D2ORiP/K2ibvb3X1hBBGPh/KWpRoJt1rxcr50
+	 /sXoU9Koo3r2BWYSf8jjJPfXwAwOwUODtiYjEdMKNZZR0Iop8tM0LuySiwufxHVvDW93Z
+	 THYkSCAfGTomPUj7Qv7S0PVOCI+9fM7WYNFMAqlBoxDrXC9tusM+kQnvjRs8hZodMxA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792707773;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792707778;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
 	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
 	 Content-Type;
-	bh=UVxjYxR2Ga4AD1SUiwzSODCyhRYwmhdSecMtJaDvwRE=;
-	b=Ryxv0cvvPwgLJiuhxUMoq5NXlmV6jmijGKQGuCbbl01EGyNQ4FNsMOsGWpRPlxH1Aq3/
-	 dCXOp+ZOVYkzcWcNu2+lldU04CrD19jagFtW5akxACcHg90WOS1r0JjnKWp2mg9ss7z17
-	 n4WiXuQUVg4qo4ziRRl7yBdET9luYWUV+mSNwqxx1LkoXMIb29jf1dfl8NofhjSD62+Gn
-	 TntjtAlUdsjMgTHHQUjc+OeM5wGp8AC7aWny5+rWFfWMKb2sLzlyHUGGOIzX0fr3dS6on
-	 iLMSjtSWDVdenvvFApqhqI4Rl6Fvj71gqq0iWpsFN7dnce1u4WQPqD45wxtPfaRdMRg==
+	bh=VEcDmqjX6iIrqyD/adxI0CF2vRyPmzipKBsXE9bGWSk=;
+	b=G3NZzUCTbMM0ZX/drQ+Wo3Ia06YaGFAP5tn8aFxkDFZ/WOpZa6Zclighu84SB3Afqcah
+	 EAdOiDvRCQZPIkiX1BQclMozMWbDuQUUJuDkdeFRliv7u0mtdAulwe8lRjBKDlWFq/NCV
+	 ByYsber5PmOopHakvsPPG7aRfpC07LSfdvcGOHaV1CvFoIMnzmGK7Cj/jt3oQk8JsgZHz
+	 9hlpCKKjCvaZH4BQYSuvB0Jinozqb6TRyVKQAoKlQP+P9EQzUVLk4WG/04FBBcQ7uqitO
+	 syjQAQv+uS1VRVMpgpHH+zHBBNZ1lO0qXcSVe4vBKurQzTMLdbClWjyirEh4mDxJ+PA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--irogers.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=nujha08u;
-	arc=none smtp.remote-ip=74.125.82.70
-Received: from mail-dl1-f70.google.com (mail-dl1-f70.google.com [74.125.82.70])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=RwduRJSt;
+	arc=none smtp.remote-ip=74.125.82.199
+Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06788606A31B
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 22:22:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 06788606A31B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26E9B606A319
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 22:22:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 26E9B606A319
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=nujha08u
-Received: by mail-dl1-f70.google.com with SMTP id a92af1059eb24-186c1aae818so808810c88.0
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 15:22:51 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=RwduRJSt
+Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-3510d0baf63so714331eec.1
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 15:22:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792707771; x=1793312571; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1792707777; x=1793312577; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=UVxjYxR2Ga4AD1SUiwzSODCyhRYwmhdSecMtJaDvwRE=;
-        b=nujha08uBiHV9yNntrjzSxB9TFEnEdtdpbZIFap4x/qc94zp3xb6278/2a75sjiezz
-         4ipvrbFLRAA5oICqipsnR0TY263OOlQvINncxfVgszKS7zWARrrbZgBndJXAU7e0kM79
-         xKrcSrB+TuIgn2e7aVtRyh2N83z0Ujo22LzV+KvS7U0FMGMJEbx0RWRhMQajmst5YZCo
-         /4EOFYoK2eQMhQILzx6leHRH3Nd5igmUcwYot1ZfuKJFJwyQ+Z3XJ+GaLKRWF98pBLQq
-         HHDWAov4fWz5iBOXSbsLKiyTRK+8SCbXl9yE94npbHT+Qxlglo/A6EIMR0Ue5alDvEWM
-         ltEQ==
+        bh=VEcDmqjX6iIrqyD/adxI0CF2vRyPmzipKBsXE9bGWSk=;
+        b=RwduRJStXwZAxdvkLIYZizCOL2+HZrnn2jT6infWak1ZmFrwNz+VXESnFBCNo7bPvQ
+         LMVVbGvUMUJuRFAn/U/hZJTXZ/EnhBiuVEDInWghcHRjpJwZnzC0xN07tsvVADq97+VA
+         kRbyVxG+l7Dnh/hHVRHiMTjVtzIUsPKIpCB8TFjPHY74iET+ScWwJc7psvbU/RnEnJZA
+         /ZmETIwF4nYUOpwLNtT1r1mvkn6H+H3esNdP6tdVpq0s4msHyuavZUebm7uHD7InSJKw
+         jyWtuSAEGzockpZwiahkG5WUz5f1Y7r1lEElCNTltmho0/aub5mUq+SfgQwfiwmMkQG3
+         1+bg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792707771; x=1793312571;
+        d=1e100.net; s=20260707; t=1792707777; x=1793312577;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=UVxjYxR2Ga4AD1SUiwzSODCyhRYwmhdSecMtJaDvwRE=;
-        b=XylFl8u5wxbgnF5drWIJDj3UhrZLjXHEfmFz8WB1AvihfR7Nq9O1H+Z8QMC+eE85pR
-         08HZkkJPZ2SA50IsWT6+kvL8Z9jMoouMS1MFcNK0lC7zMzHYF04lgdJ0djCDRSGzxL3I
-         AtcqcP/fOzh27z3XVEtNid5+pEvqHj3L+3ijqnf2C6FXUDkvhX2KcRbECrdD/DNGQxDY
-         p07bX9QWZ1/EtaXDQtB2EilCPsEoqtrru6hYLK/Tnvjq332gOHbmBtwW3UAb+6guBhxl
-         DOV2LIWx2uFjkEYojqBaQBZEA1qUaSmqsdEm4zWpt3o0B01RU6+FvRqZKxaDcmX+DUHr
-         DMoA==
-X-Forwarded-Encrypted: i=1; AKwUvBw3v2qLB7UzD7NaQTEuBMI9uwoOn5z3n4xPzMOf4wwVFQL5GN29CeBccLxx3Kbdhm1m/BdqKe1oXPcLCs4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ/0uUZur6807QoMH7coN+dHYs/5qCOJdFeUR1sJ8Mwi2ZyG17B
-	lbLAvrPMln6GkiRTSEr3Yw4TGC79CGOUADZNWSmNGrE0ffKnvGN71WciQrkroViqmWXadGjf1LL
-	kHBqNJlz+hw==
-X-Received: from dldnz14.prod.google.com ([2002:a05:701a:ca0e:b0:183:f9d:1eaa])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7022:ea51:b0:14f:505d:813
- with SMTP id a92af1059eb24-195c3654b31mr670501c88.41.1792707770695; Thu, 22
- Oct 2026 15:22:50 -0700 (PDT)
-Date: Thu, 22 Oct 2026 15:22:42 -0700
-In-Reply-To: <20261022210753.1851597-1-irogers@google.com>
+        bh=VEcDmqjX6iIrqyD/adxI0CF2vRyPmzipKBsXE9bGWSk=;
+        b=jMcFSzx9gtoWPwG2eLwNPb6kdvuJA456f14BGrqdGLRRIxs3Y55MeXNWc1oxGpPfUK
+         J7DOSM/Tn7nwg+7fMXhPAWT7C3b6dF93fQqc2V7Ny4rQas8I9yj/Coi6B1rsHPGwEWbK
+         VWnYzmTAlu+AosL0gOr8fFbxYCMcEOvcYJXqORtEZFzGFZDc2880NgDuqt5GdLA1c8pK
+         x2uVDvmej5xTSBtjQBkej18gQ9AIJ8G0HvgjLIingAjLKOIoukg9wCH+2e41w0YczTzk
+         OjronkLJl26e5r3siMw0b/Ty6kHenzHMTMPinLxGH2Jgw7vmKme3J1W28h1m7WvTWZSW
+         3SjA==
+X-Forwarded-Encrypted: i=1; AKwUvBxsEJqrtCMPS30tFq1xVii7OrXdI11rwAx+eCyF7k7C5gt/1l5LwDgWDptxB7WVD11gb1o1/Jc9ocNpYZE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKdeqg9XID5wneraHgnS1V0KFvnW/vqnnqYT/4ciOBVloAlny9f
+	un3vxOGiIQXy/ZUJBkaBWtT8dRiP3jkiYH4W4/sTyAvZX3wVvTZG+x0vp5SvjUz//rxH2FixRd8
+	ebNnez86aWg==
+X-Received: from dlah3.prod.google.com ([2002:a05:701b:2603:b0:17a:1e54:4da1])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:701b:4505:10b0:183:e993:7901
+ with SMTP id a92af1059eb24-195c58e8597mr691414c88.17.1792707776885; Thu, 22
+ Oct 2026 15:22:56 -0700 (PDT)
+Date: Thu, 22 Oct 2026 15:22:45 -0700
+In-Reply-To: <20261022222245.2064964-1-irogers@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,10 +79,11 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 Mime-Version: 1.0
-References: <20261022210753.1851597-1-irogers@google.com>
+References: <20261022210753.1851597-1-irogers@google.com> <20261022222245.2064964-1-irogers@google.com>
 X-Mailer: git-send-email 2.56.0.307.g5fe7bd680c-goog
-Message-ID: <20261022222245.2064964-1-irogers@google.com>
-Subject: [PATCH v6 0/3] perf test: Per-test timeouts and JUnit XML schema compliance
+Message-ID: <20261022222245.2064964-4-irogers@google.com>
+Subject: [PATCH v6 3/3] perf test: Don't count mlock budget wait time towards
+ test timeout
 From: Ian Rogers <irogers@google.com>
 To: irogers@google.com, acme@kernel.org, namhyung@kernel.org
 Cc: 9erthalion6@gmail.com, adrian.hunter@intel.com, james.clark@linaro.org, 
@@ -90,93 +91,232 @@ Cc: 9erthalion6@gmail.com, adrian.hunter@intel.com, james.clark@linaro.org,
 	linux-perf-users@vger.kernel.org, mingo@redhat.com, peterz@infradead.org
 Content-Type: text/plain; charset="UTF-8"
 
-This series adds per-test timeout support to 'perf test', improves JUnit
-XML output to validate against strict JUnit schemas, and ensures time
-spent waiting for the shared mlock budget does not count towards a
-test's timeout or reported duration:
+When multiple parallel tests need room in kernel.perf_event_mlock_kb,
+they take turns acquiring the shared mlock_budget->lock mutex in
+run_test_case_mlocked() after being forked in start_test().
 
-1. Add a per-test timeout (default 120s, configurable via '-t'/'--timeout',
-   0 to disable, disabled with '-F'/'--dont-fork'). Forked tests run in
-   their own process groups and the existing polling loops in
-   finish_test() and finish_tests_parallel() check elapsed runtimes,
-   sending SIGTERM on timeout and escalating to SIGKILL after 1 second.
-   Timed out tests are reported as 'TIMEOUT!', listed in the summary,
-   and recorded as '<error message="TIMEOUT" type="timeout">' in JUnit
-   XML output.
+Because child->start_time is recorded in start_test() when the child
+process is forked, any time a test spends waiting in the
+mlock_budget->lock queue would otherwise be counted against both its
+per-test timeout (causing tests later in the queue to time out before
+they even start) and its JUnit XML testcase elapsed time.
 
-2. Update 'perf test -j' output to validate cleanly against both the
-   Apache Ant/Windy Road JUnit schema (JUnit.xsd) and the Jenkins
-   xUnit/Maven Surefire schema (junit-10.xsd), including required
-   '<testsuite>' attributes, '<properties>' from uname, '<system-out/>'
-   and '<system-err/>', self-closing tags, apostrophe escaping, and
-   UTF-8/XML 1.0 codepoint validation.
+Extend struct mlock_budget with a per-slot shared start_time and started
+flag populated in run_test_case_mlocked() once the child acquires
+mlock_budget->lock. In check_child_timeout(), skip tests that are still
+waiting for mlock_budget->lock and measure the timeout from the lock
+acquisition timestamp once started. Also use the post-lock start_time
+when computing the test's elapsed duration.
 
-3. Record each mlock-serialized test's start time in the shared
-   mlock_budget mapping when it acquires mlock_budget->lock in
-   run_test_case_mlocked(), so tests waiting for the mlock budget do not
-   time out while waiting in line and their reported elapsed time
-   reflects actual execution time.
+Signed-off-by: Ian Rogers <irogers@google.com>
+---
+ tools/perf/tests/builtin-test.c | 81 +++++++++++++++++++++++++--------
+ 1 file changed, 63 insertions(+), 18 deletions(-)
 
-v6:
- - Reap finished child tests (invoking kill_timed_out_group()) before
-   draining process.err in finish_test() and finish_tests_parallel(),
-   and skip draining in handle_child_pipe_activity() once a timed out
-   test has finished, so a noisy surviving subprocess cannot block the
-   pipe drain loop before the process group is killed.
-
-v5:
- - Rebase onto tmp.perf-tools-next (patch 3 of v4 was applied upstream)
-   and add Namhyung's Acked-by to patches 1 and 2.
- - Add patch 3 so tests waiting on mlock_budget->lock don't time out
-   while waiting.
- - Increase the default per-test timeout from 60s to 120s. When running
-   the full suite as root (where CAP_IPC_LOCK lifts the mlock limit and
-   mlock_budget is unused), all ~180 non-exclusive tests start
-   simultaneously at t=0 and contend heavily on CPUs, /proc scanning,
-   and vmlinux/DWARF symbol resolution. On a 28-CPU hybrid machine, a
-   60s timeout resulted in 33 timeouts across the parallel burst and
-   large sequential suites; increasing the default to 120s allowed
-   longer tests ('kernel lock contention analysis test' at 115.3s,
-   'task-analyzer python test' at 94.7s, 'perf data type profiling
-   tests' at 92.6s, 'perf metrics value validation' at 91.2s, 'perf
-   record tests' at 79.0s, and 'python profiling with jitdump' at 62.7s)
-   to complete, reducing timeouts from 33 to 2 ('perf record LBR tests'
-   and 'perftool-testsuite_report') and overall suite wall-clock time
-   from 503.5s to 363.9s.
-
-v4:
- - Drop the ITIMER_REAL timer and SIGALRM handler in patch 1, relying on
-   the existing 10ms/100ms polling loops in finish_test() and
-   finish_tests_parallel() to detect timeouts.
- - Only fall back to kill(pid, sig) when kill(-pid, sig) fails, and
-   ignore SIGTERM/SIGINT while waiting for subprocesses in
-   run_test_child().
- - Add patch 3 to avoid stack trace noise in verbose=1 failure snippets.
-
-v3:
- - Block SIGINT/SIGTERM while a test process may be reaped and until its
-   pid is cleared, and skip already reaped tests in the signal path.
-
-v2:
- - Reset SIGALRM to SIG_DFL in the forked test child.
- - Replace the blocking waitpid(-1) loop with a bounded, non-blocking
-   wait that only runs when interrupted by SIGTERM/SIGINT.
- - Ensure the SIGKILL escalation reaches the whole process group before
-   the zombie is reaped.
- - Factor out timespec_diff_secs() and TEST_KILL_GRACE_SECS.
-
-Assisted-by: Antigravity:gemini-3.1-pro
-
-Ian Rogers (3):
-  perf test: Add per-test timeout support
-  perf test: Improve JUnit XML schema compliance and completeness
-  perf test: Don't count mlock budget wait time towards test timeout
-
- tools/perf/Documentation/perf-test.txt |  12 +-
- tools/perf/tests/builtin-test.c        | 662 +++++++++++++++++++------
- tools/perf/tests/tests.h               |   7 +-
- 3 files changed, 535 insertions(+), 146 deletions(-)
-
+diff --git a/tools/perf/tests/builtin-test.c b/tools/perf/tests/builtin-test.c
+index ae599b6cb4c9..0732fede7d54 100644
+--- a/tools/perf/tests/builtin-test.c
++++ b/tools/perf/tests/builtin-test.c
+@@ -79,8 +79,17 @@ static unsigned int test_timeout = 120;
+  * processes and robust so that a test killed while holding it doesn't leave
+  * the budget locked, see mutex_init_pshared_robust().
+  */
++struct mlock_child_time {
++	struct timespec start_time;
++	bool started;
++};
++
+ struct mlock_budget {
+ 	struct mutex lock;
++	size_t size;
++	size_t nr_slots;
++	size_t next_slot;
++	struct mlock_child_time slots[];
+ };
+ 
+ static struct mlock_budget *mlock_budget;
+@@ -384,6 +393,7 @@ struct child_test {
+ 	struct timespec start_time;
+ 	struct timespec end_time;
+ 	struct timespec timeout_time;
++	struct mlock_child_time *mlock_time;
+ };
+ 
+ static jmp_buf run_test_jmp_buf;
+@@ -414,6 +424,8 @@ static int run_test_case_mlocked(struct child_test *child)
+ 	int err;
+ 
+ 	mutex_lock(&mlock_budget->lock);
++	clock_gettime(CLOCK_MONOTONIC, &child->mlock_time->start_time);
++	__atomic_store_n(&child->mlock_time->started, true, __ATOMIC_RELEASE);
+ 	err = run_test_case(child);
+ 	mutex_unlock(&mlock_budget->lock);
+ 
+@@ -459,7 +471,6 @@ static int run_test_child(struct child_process *process)
+ 		SIGABRT, SIGBUS, SIGFPE, SIGILL, SIGINT, SIGPIPE, SIGQUIT, SIGSEGV, SIGTERM,
+ 	};
+ 	struct child_test *child = container_of(process, struct child_test, process);
+-	bool needs_mlock = mlock_budget && child->test->needs_mlock;
+ 	int err, sig;
+ 
+ 	/*
+@@ -486,7 +497,7 @@ static int run_test_child(struct child_process *process)
+ 	pr_debug("---- start ----\n");
+ 	pr_debug("test child forked, pid %d\n", getpid());
+ 
+-	if (needs_mlock)
++	if (child->mlock_time)
+ 		err = run_test_case_mlocked(child);
+ 	else
+ 		err = run_test_case(child);
+@@ -1027,6 +1038,28 @@ static void kill_child_process(pid_t pid, int sig)
+ 		kill(pid, sig);
+ }
+ 
++static bool child_test__started(const struct child_test *child, struct timespec *start_time)
++{
++	if (child->mlock_time) {
++		if (!__atomic_load_n(&child->mlock_time->started, __ATOMIC_ACQUIRE))
++			return false;
++		*start_time = child->mlock_time->start_time;
++		return true;
++	}
++	*start_time = child->start_time;
++	return true;
++}
++
++static double child_test__elapsed_secs(const struct child_test *child,
++				       const struct timespec *end_time)
++{
++	struct timespec start_time;
++
++	if (!child_test__started(child, &start_time))
++		start_time = child->start_time;
++	return timespec_diff_secs(end_time, &start_time);
++}
++
+ static void check_child_timeout(struct child_test *child, const struct timespec *now)
+ {
+ 	pid_t pid;
+@@ -1043,7 +1076,12 @@ static void check_child_timeout(struct child_test *child, const struct timespec
+ 		return;
+ 
+ 	if (!child->timed_out) {
+-		if (timespec_diff_secs(now, &child->start_time) >= test_timeout) {
++		struct timespec start_time;
++
++		if (!child_test__started(child, &start_time))
++			return;
++
++		if (timespec_diff_secs(now, &start_time) >= test_timeout) {
+ 			child->timed_out = true;
+ 			child->timeout_time = *now;
+ 			pr_debug3("Timeout (%us) for test %d.%d (pid %d), sending SIGTERM\n",
+@@ -1262,8 +1300,7 @@ static void finish_test(struct child_test **child_tests, int running_test, int c
+ 		print_test_failure_snippet(stderr, err_output.buf);
+ 
+ 	clock_gettime(CLOCK_MONOTONIC, &end_time);
+-	elapsed = (end_time.tv_sec - child_test->start_time.tv_sec) +
+-		  (end_time.tv_nsec - child_test->start_time.tv_nsec) / 1000000000.0;
++	elapsed = child_test__elapsed_secs(child_test, &end_time);
+ 
+ 	print_test_result(t, curr_suite, curr_test_case, ret, width, /*running=*/0,
+ 			  err_output.buf, elapsed);
+@@ -1539,9 +1576,7 @@ static int finish_tests_parallel(struct child_test **child_tests, size_t num_tes
+ 				 (child->result == TEST_FAIL || child->result == TEST_TIMEOUT))
+ 				print_test_failure_snippet(stderr, child->err_output.buf);
+ 
+-			elapsed = (child->end_time.tv_sec - child->start_time.tv_sec) +
+-				  (child->end_time.tv_nsec -
+-				   child->start_time.tv_nsec) / 1000000000.0;
++			elapsed = child_test__elapsed_secs(child, &child->end_time);
+ 
+ 			print_test_result(child->test, child->suite_num, child->test_case_num,
+ 					  child->result, width, 0, child->err_output.buf, elapsed);
+@@ -1613,6 +1648,9 @@ static int start_test(struct test_suite *test, int curr_suite, int curr_test_cas
+ 		(*child)->process.stdout_to_stderr = 1;
+ 	}
+ 	(*child)->process.no_exec_cmd = run_test_child;
++	if (mlock_budget && test->needs_mlock && !sequential && pass == 1 &&
++	    mlock_budget->next_slot < mlock_budget->nr_slots)
++		(*child)->mlock_time = &mlock_budget->slots[mlock_budget->next_slot++];
+ 	clock_gettime(CLOCK_MONOTONIC, &(*child)->start_time);
+ 	err = start_command(&(*child)->process);
+ 	if (err)
+@@ -2206,10 +2244,10 @@ static struct test_suite **build_suites(void)
+ #undef for_each_suite
+ }
+ 
+-static bool perf_test__shares_mlock_budget(struct test_suite **suites, int argc,
+-					   const char *argv[], struct intlist *skiplist)
++static size_t perf_test__count_mlock_budget(struct test_suite **suites, int argc,
++					    const char *argv[], struct intlist *skiplist)
+ {
+-	int sharing = 0;
++	size_t sharing = 0;
+ 
+ 	/* The selection rules mirrored here are __cmd_test()'s: when they change, change both. */
+ 	for (int curr_suite = 0; suites[curr_suite]; curr_suite++) {
+@@ -2231,10 +2269,8 @@ static bool perf_test__shares_mlock_budget(struct test_suite **suites, int argc,
+ 					       curr_suite, argc, argv))
+ 				sharing += runs_per_test;
+ 		}
+-		if (sharing > 1)
+-			return true;
+ 	}
+-	return false;
++	return sharing;
+ }
+ 
+ /*
+@@ -2257,6 +2293,8 @@ static bool perf_test__mlock_budget_exhaustible(void)
+ static void perf_test__setup_mlock_budget(struct test_suite **suites, int argc,
+ 					  const char *argv[], struct intlist *skiplist)
+ {
++	size_t sharing, size;
++
+ 	/* Nothing can be denied the budget, nothing to take turns for. */
+ 	if (!perf_test__mlock_budget_exhaustible()) {
+ 		pr_debug("Not taking turns using the perf mlock budget: nothing can exhaust it\n");
+@@ -2264,19 +2302,26 @@ static void perf_test__setup_mlock_budget(struct test_suite **suites, int argc,
+ 	}
+ 
+ 	/* Nothing runs at the same time, nothing to share the budget with. */
+-	if (sequential || !perf_test__shares_mlock_budget(suites, argc, argv, skiplist))
++	if (sequential)
++		return;
++
++	sharing = perf_test__count_mlock_budget(suites, argc, argv, skiplist);
++	if (sharing <= 1)
+ 		return;
+ 
+-	mlock_budget = mmap(NULL, sizeof(*mlock_budget), PROT_READ | PROT_WRITE,
++	size = sizeof(*mlock_budget) + sharing * sizeof(mlock_budget->slots[0]);
++	mlock_budget = mmap(NULL, size, PROT_READ | PROT_WRITE,
+ 			    MAP_SHARED | MAP_ANONYMOUS, /*fd=*/-1, /*offset=*/0);
+ 	if (mlock_budget == MAP_FAILED) {
+ 		mlock_budget = NULL;
+ 		pr_err("Failed to map the shared area used to take turns using the perf mlock budget\n");
+ 		return;
+ 	}
++	mlock_budget->size = size;
++	mlock_budget->nr_slots = sharing;
+ 
+ 	if (!mutex_init_pshared_robust(&mlock_budget->lock)) {
+-		munmap(mlock_budget, sizeof(*mlock_budget));
++		munmap(mlock_budget, size);
+ 		mlock_budget = NULL;
+ 		pr_debug("Not taking turns using the perf mlock budget\n");
+ 	}
+@@ -2288,7 +2333,7 @@ static void perf_test__teardown_mlock_budget(void)
+ 		return;
+ 
+ 	mutex_destroy(&mlock_budget->lock);
+-	munmap(mlock_budget, sizeof(*mlock_budget));
++	munmap(mlock_budget, mlock_budget->size);
+ 	mlock_budget = NULL;
+ }
+ 
 -- 
 2.56.0.307.g5fe7bd680c-goog
 
