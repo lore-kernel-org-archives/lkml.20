@@ -1,74 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.198
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792707778;
-	b=Pmk8Bk+OoREhH6SOCmHHHqREGIGPyQxRtZUeSFW/wo3bPpGWHbO77oKV6Njyo51Nb+cH
-	 PXEPbf7VuencyaSJao6drT5SZN7xuH5J7cr95T2PLJAdxRUuIhUy1Rs5zduL5I2WKp/8q
-	 cChkiSJIZog6/IV2cwnbT3MrsU8GacM9D2ORiP/K2ibvb3X1hBBGPh/KWpRoJt1rxcr50
-	 /sXoU9Koo3r2BWYSf8jjJPfXwAwOwUODtiYjEdMKNZZR0Iop8tM0LuySiwufxHVvDW93Z
-	 THYkSCAfGTomPUj7Qv7S0PVOCI+9fM7WYNFMAqlBoxDrXC9tusM+kQnvjRs8hZodMxA==
+	t=1792707774;
+	b=vI/3sd7LxDYCXWoY+huzwAzVo9oDvdy30unz22aP9DeYPH7YcYcfdbxUyt9Ip4sgfita
+	 f514pA17q23LnMyNaL2T6d9cczdtR77egosxL37y4FnI5ULf7ZSoepHZngOe+B7C08RpD
+	 Ybftx0EkgcdOCSURtLC4YmboTwASXIklyoezLrb7wt3J2+rUk6q8jnbcWpMWWVly7WmtP
+	 jOOXCg1KgpToNh5kttjG/gENhjLPypQOC95KdJQpdHaPZ7vUbyQrPkSewGP/vOIF9moiP
+	 XAJv2m9YfR0L1tb+i33WiYlnJbSmukURAUxtQ6W9U9FltrbSJFiJYdaeVPgb51d4pSQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792707778;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792707774;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
 	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
 	 Content-Type;
-	bh=VEcDmqjX6iIrqyD/adxI0CF2vRyPmzipKBsXE9bGWSk=;
-	b=G3NZzUCTbMM0ZX/drQ+Wo3Ia06YaGFAP5tn8aFxkDFZ/WOpZa6Zclighu84SB3Afqcah
-	 EAdOiDvRCQZPIkiX1BQclMozMWbDuQUUJuDkdeFRliv7u0mtdAulwe8lRjBKDlWFq/NCV
-	 ByYsber5PmOopHakvsPPG7aRfpC07LSfdvcGOHaV1CvFoIMnzmGK7Cj/jt3oQk8JsgZHz
-	 9hlpCKKjCvaZH4BQYSuvB0Jinozqb6TRyVKQAoKlQP+P9EQzUVLk4WG/04FBBcQ7uqitO
-	 syjQAQv+uS1VRVMpgpHH+zHBBNZ1lO0qXcSVe4vBKurQzTMLdbClWjyirEh4mDxJ+PA==
+	bh=d9v8tf4KnUpaFCPeFiJmU4TywnzXvXYhrqMUiAWap84=;
+	b=E5herTxZX0bzXCXV+hl9B+jWXnMiq5bUtDZDaKhWm1tDTHJ136AWWW/I6XptvaWceX/+
+	 mFlRydU9u4VUArwuc1T5SgVKk5xmbpPZ4Zxt6wTH1aEQFqPUMtaKQCbRWqndR0UoyFzrr
+	 Em5nWoeIuJJfvxhaDPJ+Qr71kFOBJKKMhq7bvUgOmADvKeYetBdU35kmtbqOiFRKSmUTe
+	 qlK9z8s3+Bsxcm/OQ5X6IWva8uVMXkdTnfTsGhZADN0JuDpnNs8VZe3ZCsC20gzu6Cs4g
+	 I4VAZMxiDAC+O0X/nHtKLVAZnNLlE2pmXWGREKIZf1KnEjvxUoT0VusDNTo7niCv3Ow==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--irogers.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=RwduRJSt;
-	arc=none smtp.remote-ip=74.125.82.199
-Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=NFOxjlR3;
+	arc=none smtp.remote-ip=74.125.82.198
+Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26E9B606A319
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 22:22:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 26E9B606A319
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9FDD606A325
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 22:22:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E9FDD606A325
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=RwduRJSt
-Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-3510d0baf63so714331eec.1
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 15:22:58 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=NFOxjlR3
+Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-33713e5e6daso471002eec.0
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 15:22:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792707777; x=1793312577; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1792707773; x=1793312573; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=VEcDmqjX6iIrqyD/adxI0CF2vRyPmzipKBsXE9bGWSk=;
-        b=RwduRJStXwZAxdvkLIYZizCOL2+HZrnn2jT6infWak1ZmFrwNz+VXESnFBCNo7bPvQ
-         LMVVbGvUMUJuRFAn/U/hZJTXZ/EnhBiuVEDInWghcHRjpJwZnzC0xN07tsvVADq97+VA
-         kRbyVxG+l7Dnh/hHVRHiMTjVtzIUsPKIpCB8TFjPHY74iET+ScWwJc7psvbU/RnEnJZA
-         /ZmETIwF4nYUOpwLNtT1r1mvkn6H+H3esNdP6tdVpq0s4msHyuavZUebm7uHD7InSJKw
-         jyWtuSAEGzockpZwiahkG5WUz5f1Y7r1lEElCNTltmho0/aub5mUq+SfgQwfiwmMkQG3
-         1+bg==
+        bh=d9v8tf4KnUpaFCPeFiJmU4TywnzXvXYhrqMUiAWap84=;
+        b=NFOxjlR3lEtJqEArycV8F7TS4JwdgDAYe5wnQo33H9QWSGTzzvZGdxKuyrj9XkPMNt
+         bAJRcHZ9l8xJWq8pjLjUtZbRvy+03xeeFitQvygiTOMdkxvdRv4aKhA00stitNKhb8R+
+         DUvZ408+775wVmq9bcaqP3HYV0A3Kdv1UrkTCdINGTYzL79iZFVuF5rezr4Ru6T7z2ov
+         Kdp9IHxbSmiwnUxwicHTnMGK9IZBWJGWzlGb/1ObtnbH2ViF5bE9YfE+ishv7rp7XJ6R
+         TlaNKRMX1I05Z+FpptWta9Sgeb96OdyaHqJ846TgsXRHd58zMCYeL+PfA08uLFU/nz91
+         pqZw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792707777; x=1793312577;
+        d=1e100.net; s=20260707; t=1792707773; x=1793312573;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=VEcDmqjX6iIrqyD/adxI0CF2vRyPmzipKBsXE9bGWSk=;
-        b=jMcFSzx9gtoWPwG2eLwNPb6kdvuJA456f14BGrqdGLRRIxs3Y55MeXNWc1oxGpPfUK
-         J7DOSM/Tn7nwg+7fMXhPAWT7C3b6dF93fQqc2V7Ny4rQas8I9yj/Coi6B1rsHPGwEWbK
-         VWnYzmTAlu+AosL0gOr8fFbxYCMcEOvcYJXqORtEZFzGFZDc2880NgDuqt5GdLA1c8pK
-         x2uVDvmej5xTSBtjQBkej18gQ9AIJ8G0HvgjLIingAjLKOIoukg9wCH+2e41w0YczTzk
-         OjronkLJl26e5r3siMw0b/Ty6kHenzHMTMPinLxGH2Jgw7vmKme3J1W28h1m7WvTWZSW
-         3SjA==
-X-Forwarded-Encrypted: i=1; AKwUvBxsEJqrtCMPS30tFq1xVii7OrXdI11rwAx+eCyF7k7C5gt/1l5LwDgWDptxB7WVD11gb1o1/Jc9ocNpYZE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKdeqg9XID5wneraHgnS1V0KFvnW/vqnnqYT/4ciOBVloAlny9f
-	un3vxOGiIQXy/ZUJBkaBWtT8dRiP3jkiYH4W4/sTyAvZX3wVvTZG+x0vp5SvjUz//rxH2FixRd8
-	ebNnez86aWg==
-X-Received: from dlah3.prod.google.com ([2002:a05:701b:2603:b0:17a:1e54:4da1])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:701b:4505:10b0:183:e993:7901
- with SMTP id a92af1059eb24-195c58e8597mr691414c88.17.1792707776885; Thu, 22
- Oct 2026 15:22:56 -0700 (PDT)
-Date: Thu, 22 Oct 2026 15:22:45 -0700
+        bh=d9v8tf4KnUpaFCPeFiJmU4TywnzXvXYhrqMUiAWap84=;
+        b=eibZxjLo69CzrkHH3qEYRI1CjD3Y7KycHdiwUGKteDOSu976Ze6cA+XtT3XFDbvGsS
+         vsZanouqPqDAphJLqAik7nf5migBLeLOuIzl5aUjTfSFxPLpp+/mfjD44/M87ZPjeI5U
+         FpbZgL6QLaIlJ8hIMxyr33/dZiZnXPjuQSmRXcyXhZemjhjHhvaF78HifRUfjGRTXRzh
+         9pdvUChvPZcZddt+RctPAIowOXAzo3tQvurF83Oexs5t3tZ/BXBuVo1/1k2RpPJ9Qjk9
+         g7Z/SsCYw9USIYi9RuqppVHWbDoED1Z14my+iROH8l2NpPYjTMl94kjfHldy73pf9zrS
+         uoQQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxb0dSnUwxuD6yPhszIZAjctYQeZ+OFXnIN5IsKPDl5Y63Cy7QSUcJiLisAo5j0Y0K1pdITuCnOZujioV8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIfiodGZU1J3Rk4iW989XOHwbyMxcuXCoKpAms3yf152QANqGe3
+	hqPewnfTcGd70SGJKg1p/09Bnb/c8Mtc8FldvAb6nLR886MEdwsbpmLjwpM0DNAOWYWETxI7gEw
+	ZR0YVtCknKA==
+X-Received: from dlep17-n1.prod.google.com ([2002:a05:701b:4591:10b0:191:503c:21bd])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7022:f512:b0:15d:f053:18b6
+ with SMTP id a92af1059eb24-195c4f4f932mr565507c88.9.1792707772581; Thu, 22
+ Oct 2026 15:22:52 -0700 (PDT)
+Date: Thu, 22 Oct 2026 15:22:43 -0700
 In-Reply-To: <20261022222245.2064964-1-irogers@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,9 +81,8 @@ Precedence: list
 Mime-Version: 1.0
 References: <20261022210753.1851597-1-irogers@google.com> <20261022222245.2064964-1-irogers@google.com>
 X-Mailer: git-send-email 2.56.0.307.g5fe7bd680c-goog
-Message-ID: <20261022222245.2064964-4-irogers@google.com>
-Subject: [PATCH v6 3/3] perf test: Don't count mlock budget wait time towards
- test timeout
+Message-ID: <20261022222245.2064964-2-irogers@google.com>
+Subject: [PATCH v6 1/3] perf test: Add per-test timeout support
 From: Ian Rogers <irogers@google.com>
 To: irogers@google.com, acme@kernel.org, namhyung@kernel.org
 Cc: 9erthalion6@gmail.com, adrian.hunter@intel.com, james.clark@linaro.org, 
@@ -91,232 +90,611 @@ Cc: 9erthalion6@gmail.com, adrian.hunter@intel.com, james.clark@linaro.org,
 	linux-perf-users@vger.kernel.org, mingo@redhat.com, peterz@infradead.org
 Content-Type: text/plain; charset="UTF-8"
 
-When multiple parallel tests need room in kernel.perf_event_mlock_kb,
-they take turns acquiring the shared mlock_budget->lock mutex in
-run_test_case_mlocked() after being forked in start_test().
+When a test hangs in 'perf test', the entire test run hangs and makes it
+difficult to inspect output from other tests.
 
-Because child->start_time is recorded in start_test() when the child
-process is forked, any time a test spends waiting in the
-mlock_budget->lock queue would otherwise be counted against both its
-per-test timeout (causing tests later in the queue to time out before
-they even start) and its JUnit XML testcase elapsed time.
+Add a new TEST_TIMEOUT result category and a per-test timeout (default
+120 seconds, configurable via '-t'/'--timeout', with 0 to disable). When
+'-F' ('--dont-fork') is specified, timeouts are disabled.
 
-Extend struct mlock_budget with a per-slot shared start_time and started
-flag populated in run_test_case_mlocked() once the child acquires
-mlock_budget->lock. In check_child_timeout(), skip tests that are still
-waiting for mlock_budget->lock and measure the timeout from the lock
-acquisition timestamp once started. Also use the post-lock start_time
-when computing the test's elapsed duration.
+To enforce the timeout:
+- Place each forked test child into its own process group via
+  setpgid(0, 0) in the child and setpgid(pid, pid) in the parent so any
+  subprocesses spawned by shell or workload tests can be terminated
+  together.
+- Check elapsed child runtimes against test_timeout in the existing
+  finish_test() and finish_tests_parallel() polling loops, sending
+  SIGTERM first and escalating to SIGKILL after 1 second if the child
+  process group has not exited.
+- Report timed out tests in red ('TIMEOUT!'), track and display them in
+  the test summary, and emit '<error message="TIMEOUT" type="timeout">'
+  counted under the 'errors' attribute in JUnit XML output.
+- Document '-t'/'--timeout' and '-F'/'--dont-fork' in perf-test.txt.
 
 Signed-off-by: Ian Rogers <irogers@google.com>
+Acked-by: Namhyung Kim <namhyung@kernel.org>
 ---
- tools/perf/tests/builtin-test.c | 81 +++++++++++++++++++++++++--------
- 1 file changed, 63 insertions(+), 18 deletions(-)
+ tools/perf/Documentation/perf-test.txt |   7 +-
+ tools/perf/tests/builtin-test.c        | 294 ++++++++++++++++++++++---
+ tools/perf/tests/tests.h               |   7 +-
+ 3 files changed, 271 insertions(+), 37 deletions(-)
 
+diff --git a/tools/perf/Documentation/perf-test.txt b/tools/perf/Documentation/perf-test.txt
+index f66ccd77bfe7..f85e9b561ac4 100644
+--- a/tools/perf/Documentation/perf-test.txt
++++ b/tools/perf/Documentation/perf-test.txt
+@@ -75,10 +75,15 @@ OPTIONS
+ 	Run each test the given number of times, by default once. This
+ 	option can be useful to determine if a test is flaky.
+ 
++-t::
++--timeout::
++	Timeout for each forked test in seconds, by default 120 seconds. Specify
++	0 to disable the timeout. Ignored when -F/--dont-fork is used.
++
+ -F::
+ --dont-fork::
+ 	Do not fork child for each test, run all tests within single process, this
+-	sets sequential mode.
++	sets sequential mode and disables the per-test timeout.
+ 
+ --dso::
+ 	Specify a DSO for the "Symbols" test.
 diff --git a/tools/perf/tests/builtin-test.c b/tools/perf/tests/builtin-test.c
-index ae599b6cb4c9..0732fede7d54 100644
+index 0751d974a39a..61395b246afe 100644
 --- a/tools/perf/tests/builtin-test.c
 +++ b/tools/perf/tests/builtin-test.c
-@@ -79,8 +79,17 @@ static unsigned int test_timeout = 120;
-  * processes and robust so that a test killed while holding it doesn't leave
-  * the budget locked, see mutex_init_pshared_robust().
-  */
-+struct mlock_child_time {
-+	struct timespec start_time;
-+	bool started;
-+};
-+
- struct mlock_budget {
- 	struct mutex lock;
-+	size_t size;
-+	size_t nr_slots;
-+	size_t next_slot;
-+	struct mlock_child_time slots[];
- };
+@@ -11,9 +11,11 @@
+ #include <execinfo.h>
+ #endif
+ #include <setjmp.h>
++#include <signal.h>
+ #include <stdio.h>
+ #include <stdlib.h>
+ #include <string.h>
++#include <time.h>
  
- static struct mlock_budget *mlock_budget;
-@@ -384,6 +393,7 @@ struct child_test {
+ #include "util/config.h"
+ 
+@@ -68,6 +70,8 @@ static bool list_requisites;
+ static unsigned int runs_per_test = 1;
+ /* Number of lines to include in failure snippet. */
+ static unsigned int failure_snippet_lines = 10;
++/* Timeout per test in seconds (0 for no timeout). */
++static unsigned int test_timeout = 120;
+ /*
+  * The tests mapping ring buffers take turns using their share of
+  * kernel.perf_event_mlock_kb via this mutex, shared with the forked test
+@@ -374,8 +378,11 @@ struct child_test {
+ 	struct strbuf err_output;
+ 	int result;
+ 	bool done;
++	bool timed_out;
++	bool sigkill_sent;
  	struct timespec start_time;
  	struct timespec end_time;
- 	struct timespec timeout_time;
-+	struct mlock_child_time *mlock_time;
++	struct timespec timeout_time;
  };
  
  static jmp_buf run_test_jmp_buf;
-@@ -414,6 +424,8 @@ static int run_test_case_mlocked(struct child_test *child)
- 	int err;
- 
- 	mutex_lock(&mlock_budget->lock);
-+	clock_gettime(CLOCK_MONOTONIC, &child->mlock_time->start_time);
-+	__atomic_store_n(&child->mlock_time->started, true, __ATOMIC_RELEASE);
- 	err = run_test_case(child);
- 	mutex_unlock(&mlock_budget->lock);
- 
-@@ -459,7 +471,6 @@ static int run_test_child(struct child_process *process)
- 		SIGABRT, SIGBUS, SIGFPE, SIGILL, SIGINT, SIGPIPE, SIGQUIT, SIGSEGV, SIGTERM,
- 	};
- 	struct child_test *child = container_of(process, struct child_test, process);
--	bool needs_mlock = mlock_budget && child->test->needs_mlock;
- 	int err, sig;
- 
- 	/*
-@@ -486,7 +497,7 @@ static int run_test_child(struct child_process *process)
- 	pr_debug("---- start ----\n");
- 	pr_debug("test child forked, pid %d\n", getpid());
- 
--	if (needs_mlock)
-+	if (child->mlock_time)
- 		err = run_test_case_mlocked(child);
- 	else
- 		err = run_test_case(child);
-@@ -1027,6 +1038,28 @@ static void kill_child_process(pid_t pid, int sig)
- 		kill(pid, sig);
+@@ -412,6 +419,39 @@ static int run_test_case_mlocked(struct child_test *child)
+ 	return err;
  }
  
-+static bool child_test__started(const struct child_test *child, struct timespec *start_time)
++/* Grace period between SIGTERM and SIGKILL for a timed out test. */
++#define TEST_KILL_GRACE_SECS 1.0
++
++static double timespec_diff_secs(const struct timespec *end, const struct timespec *start)
 +{
-+	if (child->mlock_time) {
-+		if (!__atomic_load_n(&child->mlock_time->started, __ATOMIC_ACQUIRE))
-+			return false;
-+		*start_time = child->mlock_time->start_time;
-+		return true;
++	return (end->tv_sec - start->tv_sec) + (end->tv_nsec - start->tv_nsec) / 1000000000.0;
++}
++
++/*
++ * Reap subprocesses of the test, such as shell scripts running trap cleanup
++ * handlers, for at most TEST_KILL_GRACE_SECS. The wait is bounded so that
++ * subprocesses that ignore the signal can't hang the test, the parent kills
++ * any that remain.
++ */
++static void wait_for_test_subprocesses(void)
++{
++	struct timespec start, now;
++
++	clock_gettime(CLOCK_MONOTONIC, &start);
++	for (;;) {
++		pid_t pid = waitpid(-1, NULL, WNOHANG);
++
++		if (pid > 0)
++			continue;
++		if (pid < 0 && errno != EINTR)
++			break; /* ECHILD, no subprocesses remain. */
++		clock_gettime(CLOCK_MONOTONIC, &now);
++		if (timespec_diff_secs(&now, &start) >= TEST_KILL_GRACE_SECS)
++			break;
++		usleep(10 * 1000);
 +	}
-+	*start_time = child->start_time;
-+	return true;
 +}
 +
-+static double child_test__elapsed_secs(const struct child_test *child,
-+				       const struct timespec *end_time)
-+{
-+	struct timespec start_time;
-+
-+	if (!child_test__started(child, &start_time))
-+		start_time = child->start_time;
-+	return timespec_diff_secs(end_time, &start_time);
-+}
-+
- static void check_child_timeout(struct child_test *child, const struct timespec *now)
+ static int run_test_child(struct child_process *process)
  {
- 	pid_t pid;
-@@ -1043,7 +1076,12 @@ static void check_child_timeout(struct child_test *child, const struct timespec
- 		return;
+ 	const int signals[] = {
+@@ -419,14 +459,23 @@ static int run_test_child(struct child_process *process)
+ 	};
+ 	struct child_test *child = container_of(process, struct child_test, process);
+ 	bool needs_mlock = mlock_budget && child->test->needs_mlock;
+-	int err;
++	int err, sig;
  
- 	if (!child->timed_out) {
--		if (timespec_diff_secs(now, &child->start_time) >= test_timeout) {
-+		struct timespec start_time;
++	/*
++	 * Place the forked test into its own process group (pgid == pid) so
++	 * that any subprocesses it spawns (e.g. shell tests running via
++	 * system() and their child perf/workload processes) inherit this
++	 * process group. On timeout or interruption, signaling -pid kills the
++	 * entire test process tree without leaving orphaned background
++	 * processes or affecting the parent perf process and other tests.
++	 */
++	setpgid(0, 0);
+ 	close_parent_fds();
+ 
+-	err = sigsetjmp(run_test_jmp_buf, 1);
+-	if (err) {
++	sig = sigsetjmp(run_test_jmp_buf, 1);
++	if (sig) {
+ 		/* Received signal. */
+-		err = err > 0 ? -err : -1;
++		err = TEST_FAIL;
+ 		goto err_out;
+ 	}
+ 
+@@ -445,20 +494,33 @@ static int run_test_child(struct child_process *process)
+ 
+ 	check_leaks();
+ err_out:
+-	fflush(NULL);
++	/*
++	 * SIGTERM and SIGINT are sent by the parent to the whole process group,
++	 * on timeout or interruption, so subprocesses were also signaled. Give
++	 * them a chance to finish cleaning up before restoring SIG_DFL. Other
++	 * failures don't signal subprocesses so don't wait for them.
++	 */
++	if (sig == SIGTERM || sig == SIGINT) {
++		signal(SIGTERM, SIG_IGN);
++		signal(SIGINT, SIG_IGN);
++		wait_for_test_subprocesses();
++	}
+ 	for (size_t i = 0; i < ARRAY_SIZE(signals); i++)
+ 		signal(signals[i], SIG_DFL);
++	fflush(NULL);
+ 	return -err;
+ }
+ 
+-#define TEST_RUNNING -3
++#define TEST_RUNNING -4
+ 
+ static struct pollfd *global_pfds;
+ static size_t *global_pfd_indices;
+ static unsigned int summary_tests_passed;
+ static unsigned int summary_subtests_passed;
+ static unsigned int summary_tests_skipped;
++static unsigned int summary_tests_timed_out;
+ static unsigned int summary_tests_failed;
++static struct strbuf summary_timed_out_tests_buf = STRBUF_INIT;
+ static struct strbuf summary_failed_tests_buf = STRBUF_INIT;
+ 
+ static int strbuf_addstr_safe(struct strbuf *sb, const char *s);
+@@ -574,6 +636,18 @@ static int print_test_result(struct test_suite *t, int curr_suite, int curr_test
+ 			color_fprintf(debug_file(), PERF_COLOR_YELLOW, " Skip\n");
+ 	}
+ 		break;
++	case TEST_TIMEOUT:
++		summary_tests_timed_out++;
++		if (test_suite__num_test_cases(t) > 1)
++			strbuf_addf_safe(&summary_timed_out_tests_buf, "  %3d.%1d: %s\n",
++					 curr_suite + 1, curr_test_case + 1,
++					 test_description(t, curr_test_case));
++		else
++			strbuf_addf_safe(&summary_timed_out_tests_buf, "  %3d: %s\n",
++					 curr_suite + 1,
++					 test_description(t, curr_test_case));
++		color_fprintf(debug_file(), PERF_COLOR_RED, " TIMEOUT!\n");
++		break;
+ 	case TEST_FAIL:
+ 	default:
+ 		summary_tests_failed++;
+@@ -599,7 +673,11 @@ static int print_test_result(struct test_suite *t, int curr_suite, int curr_test
+ 		strbuf_addf(&junit_xml_buf,
+ 			    "    <testcase classname=\"%s\" name=\"%s\" time=\"%.2f\">\n",
+ 			    escaped_class, escaped_test, elapsed);
+-		if (result != TEST_OK && result != TEST_SKIP) {
++		if (result == TEST_TIMEOUT) {
++			strbuf_addf(&junit_xml_buf,
++				    "      <error message=\"TIMEOUT\" type=\"timeout\">\n%s\n      </error>\n",
++				    escaped_err);
++		} else if (result != TEST_OK && result != TEST_SKIP) {
+ 			strbuf_addf(&junit_xml_buf,
+ 				    "      <failure message=\"FAILED\">\n%s\n      </failure>\n",
+ 				    escaped_err);
+@@ -628,7 +706,7 @@ static int print_test_result(struct test_suite *t, int curr_suite, int curr_test
+ 
+ static const char * const fail_keywords[] = {
+ 	"error", "fail", "segv", "abort",
+-	"signal", "fatal", "panic", "corrupt", NULL
++	"signal", "fatal", "panic", "corrupt", "timeout", NULL
+ };
+ 
+ static const char *find_next_keyword(const char *str, size_t max_len, size_t *kw_len)
+@@ -876,6 +954,106 @@ static void print_test_failure_snippet(FILE *fp, const char *buf)
+ 	free(line_lens);
+ }
+ 
++static void kill_child_process(pid_t pid, int sig)
++{
++	if (kill(-pid, sig) < 0)
++		kill(pid, sig);
++}
 +
-+		if (!child_test__started(child, &start_time))
-+			return;
++static void check_child_timeout(struct child_test *child, const struct timespec *now)
++{
++	pid_t pid;
 +
-+		if (timespec_diff_secs(now, &start_time) >= test_timeout) {
- 			child->timed_out = true;
- 			child->timeout_time = *now;
- 			pr_debug3("Timeout (%us) for test %d.%d (pid %d), sending SIGTERM\n",
-@@ -1262,8 +1300,7 @@ static void finish_test(struct child_test **child_tests, int running_test, int c
++	/*
++	 * Once the test process has exited, kill_timed_out_group() handles any
++	 * remaining members of the process group before the test is reaped.
++	 */
++	if (!test_timeout || !child || child->done || child->process.finished)
++		return;
++
++	pid = child->process.pid;
++	if (pid <= 0)
++		return;
++
++	if (!child->timed_out) {
++		if (timespec_diff_secs(now, &child->start_time) >= test_timeout) {
++			child->timed_out = true;
++			child->timeout_time = *now;
++			pr_debug3("Timeout (%us) for test %d.%d (pid %d), sending SIGTERM\n",
++				  test_timeout, child->suite_num + 1,
++				  child->test_case_num + 1, pid);
++			kill_child_process(pid, SIGTERM);
++		}
++	} else if (!child->sigkill_sent) {
++		if (timespec_diff_secs(now, &child->timeout_time) >= TEST_KILL_GRACE_SECS) {
++			child->sigkill_sent = true;
++			pr_debug3("Sending SIGKILL to timed out test %d.%d (pid %d)\n",
++				  child->suite_num + 1, child->test_case_num + 1, pid);
++			kill_child_process(pid, SIGKILL);
++		}
++	}
++}
++
++/*
++ * Kill subprocesses of a timed out test that outlived the test process, such
++ * as ones that ignored SIGTERM. Must be called after check_if_command_finished()
++ * reports the test process exited (/proc/<pid>/status state 'Z' on Linux) but
++ * before finish_command() reaps it. The unreaped (zombie) test process still
++ * holds its pid as the process group ID, so the ID can't be reused and
++ * signaling -pid can't hit an unrelated group. If check_if_command_finished()
++ * fell back to waitpid() and already reaped the process, process.finished is
++ * set and signaling -pid is skipped as the PGID is no longer reserved.
++ */
++static void kill_timed_out_group(struct child_test *child)
++{
++	if (!child->timed_out || child->process.finished || child->process.pid <= 0)
++		return;
++
++	pr_debug3("Sending SIGKILL to remaining processes of timed out test %d.%d (pgid %d)\n",
++		  child->suite_num + 1, child->test_case_num + 1, child->process.pid);
++	kill(-child->process.pid, SIGKILL);
++}
++
++/*
++ * Reaping a test process frees its pid, and so its process group ID, for
++ * reuse. SIGINT and SIGTERM are blocked while a test process may be reaped so
++ * that cmd_test_sig_handler() can't run between the reap and the update of
++ * process.finished/pid, and then signal a reused pid or process group.
++ */
++static void block_term_signals(sigset_t *oldset)
++{
++	sigset_t set;
++
++	sigemptyset(&set);
++	sigaddset(&set, SIGINT);
++	sigaddset(&set, SIGTERM);
++	sigprocmask(SIG_BLOCK, &set, oldset);
++}
++
++static int test_command_finished(struct child_test *child)
++{
++	sigset_t oldset;
++	int ret;
++
++	block_term_signals(&oldset);
++	ret = check_if_command_finished(&child->process);
++	sigprocmask(SIG_SETMASK, &oldset, NULL);
++	return ret;
++}
++
++static int reap_child_test(struct child_test *child)
++{
++	sigset_t oldset;
++	int ret;
++
++	block_term_signals(&oldset);
++	kill_timed_out_group(child);
++	ret = finish_command(&child->process);
++	child->process.pid = 0;
++	sigprocmask(SIG_SETMASK, &oldset, NULL);
++	return child->timed_out ? TEST_TIMEOUT : ret;
++}
++
+ static void finish_test(struct child_test **child_tests, int running_test, int child_test_num,
+ 		int width)
+ {
+@@ -925,13 +1103,19 @@ static void finish_test(struct child_test **child_tests, int running_test, int c
+ 			  .events = POLLIN | POLLERR | POLLHUP | POLLNVAL,
+ 			},
+ 		};
++		if (test_timeout > 0) {
++			struct timespec now;
++
++			clock_gettime(CLOCK_MONOTONIC, &now);
++			check_child_timeout(child_test, &now);
++		}
+ 		if (perf_use_color_default) {
+ 			int running = 0;
+ 
+ 			for (int y = running_test; y < child_test_num; y++) {
+ 				if (child_tests[y] == NULL)
+ 					continue;
+-				if (check_if_command_finished(&child_tests[y]->process) == 0)
++				if (test_command_finished(child_tests[y]) == 0)
+ 					running++;
+ 			}
+ 			if (running != last_running) {
+@@ -965,12 +1149,26 @@ static void finish_test(struct child_test **child_tests, int running_test, int c
+ 					err_done = false;
+ 					buf[len] = '\0';
+ 					strbuf_addstr_safe(&err_output, buf);
++				} else if (pfds[0].revents & (POLLHUP | POLLERR | POLLNVAL)) {
++					close(err);
++					err = -1;
++					child_test->process.err = -1;
+ 				}
+ 			}
+ 		}
+-		if (err_done)
+-			err_done = check_if_command_finished(&child_test->process);
++		if (err_done || child_test->timed_out)
++			err_done = test_command_finished(child_test);
++	}
++	if (perf_use_color_default && last_running != -1) {
++		/* Erase "Running (.. active)" line printed before poll/sleep. */
++		fprintf(debug_file(), PERF_COLOR_DELETE_LINE);
+ 	}
++	/*
++	 * Clean up child process before draining the pipe so that any
++	 * surviving subprocesses in a timed out test's process group are
++	 * killed by kill_timed_out_group() before reading until EOF.
++	 */
++	ret = reap_child_test(child_test);
+ 	/* Drain any remaining data from the pipe. */
+ 	if (err >= 0) {
+ 		char buf[512];
+@@ -981,13 +1179,6 @@ static void finish_test(struct child_test **child_tests, int running_test, int c
+ 			strbuf_addstr_safe(&err_output, buf);
+ 		}
+ 	}
+-	if (perf_use_color_default && last_running != -1) {
+-		/* Erase "Running (.. active)" line printed before poll/sleep. */
+-		fprintf(debug_file(), PERF_COLOR_DELETE_LINE);
+-	}
+-	/* Clean up child process. */
+-	ret = finish_command(&child_test->process);
+-	child_test->process.pid = 0;
+ 	if (child_test->err_output.len > 0) {
+ 		struct strbuf merged = STRBUF_INIT;
+ 
+@@ -1000,7 +1191,7 @@ static void finish_test(struct child_test **child_tests, int running_test, int c
+ 	}
+ 	if (verbose > 1)
+ 		fprintf(stderr, "%s", err_output.buf);
+-	else if (verbose == 1 && ret == TEST_FAIL)
++	else if (verbose == 1 && (ret == TEST_FAIL || ret == TEST_TIMEOUT))
  		print_test_failure_snippet(stderr, err_output.buf);
  
  	clock_gettime(CLOCK_MONOTONIC, &end_time);
--	elapsed = (end_time.tv_sec - child_test->start_time.tv_sec) +
--		  (end_time.tv_nsec - child_test->start_time.tv_nsec) / 1000000000.0;
-+	elapsed = child_test__elapsed_secs(child_test, &end_time);
+@@ -1087,6 +1278,9 @@ static void handle_child_pipe_activity(struct child_test *child, short revents)
+ 	if (!revents)
+ 		return;
  
- 	print_test_result(t, curr_suite, curr_test_case, ret, width, /*running=*/0,
- 			  err_output.buf, elapsed);
-@@ -1539,9 +1576,7 @@ static int finish_tests_parallel(struct child_test **child_tests, size_t num_tes
- 				 (child->result == TEST_FAIL || child->result == TEST_TIMEOUT))
++	if (child->timed_out && test_command_finished(child))
++		return;
++
+ 	drain_child_process_err(child);
+ 	/*
+ 	 * If the child closed its end of the pipe (EOF) or encountered
+@@ -1146,6 +1340,7 @@ static int finish_tests_parallel(struct child_test **child_tests, size_t num_tes
+ 	while (next_to_print < num_tests) {
+ 		size_t running_count = 0;
+ 		size_t p;
++		struct timespec now;
+ 
+ 		while (next_to_print < num_tests &&
+ 		       (!child_tests[next_to_print] || child_tests[next_to_print]->done))
+@@ -1155,6 +1350,8 @@ static int finish_tests_parallel(struct child_test **child_tests, size_t num_tes
+ 			break;
+ 
+ 		num_pfds = 0;
++		if (test_timeout > 0)
++			clock_gettime(CLOCK_MONOTONIC, &now);
+ 
+ 		for (i = next_to_print; i < num_tests; i++) {
+ 			struct child_test *child = child_tests[i];
+@@ -1162,7 +1359,10 @@ static int finish_tests_parallel(struct child_test **child_tests, size_t num_tes
+ 			if (!child || child->done)
+ 				continue;
+ 
+-			if (!check_if_command_finished(&child->process))
++			if (test_timeout > 0)
++				check_child_timeout(child, &now);
++
++			if (!test_command_finished(child))
+ 				running_count++;
+ 
+ 			if (child->process.err >= 0) {
+@@ -1218,14 +1418,13 @@ static int finish_tests_parallel(struct child_test **child_tests, size_t num_tes
+ 			if (!child || child->done)
+ 				continue;
+ 
+-			if (check_if_command_finished(&child->process)) {
++			if (test_command_finished(child)) {
++				child->result = reap_child_test(child);
+ 				if (child->process.err >= 0) {
+ 					drain_child_process_err(child);
+ 					close(child->process.err);
+ 					child->process.err = -1;
+ 				}
+-				child->result = finish_command(&child->process);
+-				child->process.pid = 0;
+ 				clock_gettime(CLOCK_MONOTONIC, &child->end_time);
+ 				child->done = true;
+ 			}
+@@ -1269,7 +1468,8 @@ static int finish_tests_parallel(struct child_test **child_tests, size_t num_tes
+ 
+ 			if (verbose > 1)
+ 				fprintf(stderr, "%s", child->err_output.buf);
+-			else if (verbose == 1 && child->result == TEST_FAIL)
++			else if (verbose == 1 &&
++				 (child->result == TEST_FAIL || child->result == TEST_TIMEOUT))
  				print_test_failure_snippet(stderr, child->err_output.buf);
  
--			elapsed = (child->end_time.tv_sec - child->start_time.tv_sec) +
--				  (child->end_time.tv_nsec -
--				   child->start_time.tv_nsec) / 1000000000.0;
-+			elapsed = child_test__elapsed_secs(child, &child->end_time);
- 
- 			print_test_result(child->test, child->suite_num, child->test_case_num,
- 					  child->result, width, 0, child->err_output.buf, elapsed);
-@@ -1613,6 +1648,9 @@ static int start_test(struct test_suite *test, int curr_suite, int curr_test_cas
+ 			elapsed = (child->end_time.tv_sec - child->start_time.tv_sec) +
+@@ -1346,14 +1546,20 @@ static int start_test(struct test_suite *test, int curr_suite, int curr_test_cas
  		(*child)->process.stdout_to_stderr = 1;
  	}
  	(*child)->process.no_exec_cmd = run_test_child;
-+	if (mlock_budget && test->needs_mlock && !sequential && pass == 1 &&
-+	    mlock_budget->next_slot < mlock_budget->nr_slots)
-+		(*child)->mlock_time = &mlock_budget->slots[mlock_budget->next_slot++];
- 	clock_gettime(CLOCK_MONOTONIC, &(*child)->start_time);
- 	err = start_command(&(*child)->process);
- 	if (err)
-@@ -2206,10 +2244,10 @@ static struct test_suite **build_suites(void)
- #undef for_each_suite
++	clock_gettime(CLOCK_MONOTONIC, &(*child)->start_time);
++	err = start_command(&(*child)->process);
++	if (err)
++		return err;
++	/*
++	 * Also set the child's process group in the parent to avoid a race if
++	 * the parent signals -pid before the child executes setpgid(0, 0).
++	 */
++	setpgid((*child)->process.pid, (*child)->process.pid);
+ 	if (sequential || pass == 2) {
+-		err = start_command(&(*child)->process);
+-		if (err)
+-			return err;
+ 		finish_test(child, /*running_test=*/0, /*child_test_num=*/1, width);
+ 		return 0;
+ 	}
+-	return start_command(&(*child)->process);
++	return 0;
  }
  
--static bool perf_test__shares_mlock_budget(struct test_suite **suites, int argc,
--					   const char *argv[], struct intlist *skiplist)
-+static size_t perf_test__count_mlock_budget(struct test_suite **suites, int argc,
-+					    const char *argv[], struct intlist *skiplist)
- {
--	int sharing = 0;
-+	size_t sharing = 0;
- 
- 	/* The selection rules mirrored here are __cmd_test()'s: when they change, change both. */
- 	for (int curr_suite = 0; suites[curr_suite]; curr_suite++) {
-@@ -2231,10 +2269,8 @@ static bool perf_test__shares_mlock_budget(struct test_suite **suites, int argc,
- 					       curr_suite, argc, argv))
- 				sharing += runs_per_test;
+ /* State outside of __cmd_test for the sake of the signal handler. */
+@@ -1373,6 +1579,14 @@ static void print_tests_summary(void)
+ 	pr_info("Passed main tests : %u\n", summary_tests_passed);
+ 	pr_info("Passed subtests   : %u\n", summary_subtests_passed);
+ 	pr_info("Skipped tests     : %u\n", summary_tests_skipped);
++	if (summary_tests_timed_out > 0) {
++		color_fprintf(debug_file(), PERF_COLOR_RED, "Timed out tests   : %u\n",
++			      summary_tests_timed_out);
++		pr_info("List of timed out tests:\n");
++		pr_info("%s", summary_timed_out_tests_buf.buf);
++	} else {
++		color_fprintf(debug_file(), PERF_COLOR_GREEN, "Timed out tests   : 0\n");
++	}
+ 	if (summary_tests_failed > 0) {
+ 		color_fprintf(debug_file(), PERF_COLOR_RED, "Failed tests      : %u\n",
+ 			      summary_tests_failed);
+@@ -1393,12 +1607,15 @@ static void print_tests_summary(void)
+ 				unsigned int total = summary_tests_passed +
+ 						     summary_subtests_passed +
+ 						     summary_tests_skipped +
++						     summary_tests_timed_out +
+ 						     summary_tests_failed;
+ 				fprintf(fp, "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
+ 				fprintf(fp, "<testsuites>\n");
+ 				fprintf(fp,
+-					"  <testsuite name=\"perf-tests\" tests=\"%u\" failures=\"%u\" skipped=\"%u\">\n",
+-					total, summary_tests_failed,
++					"  <testsuite name=\"perf-tests\" tests=\"%u\" failures=\"%u\" errors=\"%u\" skipped=\"%u\">\n",
++					total,
++					summary_tests_failed,
++					summary_tests_timed_out,
+ 					summary_tests_skipped);
+ 				fprintf(fp, "%s", junit_xml_buf.buf);
+ 				fprintf(fp, "  </testsuite>\n");
+@@ -1416,6 +1633,7 @@ static void print_tests_summary(void)
  		}
--		if (sharing > 1)
--			return true;
  	}
--	return false;
-+	return sharing;
+ 	strbuf_release(&junit_xml_buf);
++	strbuf_release(&summary_timed_out_tests_buf);
+ 	strbuf_release(&summary_failed_tests_buf);
  }
  
- /*
-@@ -2257,6 +2293,8 @@ static bool perf_test__mlock_budget_exhaustible(void)
- static void perf_test__setup_mlock_budget(struct test_suite **suites, int argc,
- 					  const char *argv[], struct intlist *skiplist)
- {
-+	size_t sharing, size;
-+
- 	/* Nothing can be denied the budget, nothing to take turns for. */
- 	if (!perf_test__mlock_budget_exhaustible()) {
- 		pr_debug("Not taking turns using the perf mlock budget: nothing can exhaust it\n");
-@@ -2264,19 +2302,26 @@ static void perf_test__setup_mlock_budget(struct test_suite **suites, int argc,
+@@ -1449,13 +1667,19 @@ static int __cmd_test(struct test_suite **suites, int argc, const char *argv[],
+ 		for (size_t x = 0; x < num_tests; x++) {
+ 			struct child_test *child_test = child_tests[x];
+ 
+-			if (!child_test || child_test->process.pid <= 0)
++			/*
++			 * Reaped tests have finished set, or pid cleared, as
++			 * reaping is done with SIGINT/SIGTERM blocked. Don't
++			 * signal them as their pid/pgid may have been reused.
++			 */
++			if (!child_test || child_test->process.pid <= 0 ||
++			    child_test->process.finished)
+ 				continue;
+ 
+ 			pr_debug3("Killing %d pid %d\n",
+ 				  child_test->suite_num + 1,
+ 				  child_test->process.pid);
+-			kill(child_test->process.pid, err);
++			kill_child_process(child_test->process.pid, err);
+ 		}
+ 		goto err_out;
+ 	}
+@@ -1983,6 +2207,8 @@ int cmd_test(int argc, const char **argv)
+ 		    "Run the tests one after another rather than in parallel"),
+ 	OPT_UINTEGER('r', "runs-per-test", &runs_per_test,
+ 		     "Run each test the given number of times, default 1"),
++	OPT_UINTEGER('t', "timeout", &test_timeout,
++		     "Timeout for each test in seconds, default 120s (0 to disable)"),
+ 	OPT_STRING('w', "workload", &workload, "work", "workload to run for testing, use '--list-workloads' to list the available ones."),
+ 	OPT_STRING(0, "record-ctl", &workload_control, "fifo:ctl-fifo[,ack-fifo]",
+ 		   "Write enable to the fifo just before running the workload and disable after, with optional ack from ack-fifo"),
+@@ -2046,8 +2272,10 @@ int cmd_test(int argc, const char **argv)
+ 		return 0;
  	}
  
- 	/* Nothing runs at the same time, nothing to share the budget with. */
--	if (sequential || !perf_test__shares_mlock_budget(suites, argc, argv, skiplist))
-+	if (sequential)
-+		return;
-+
-+	sharing = perf_test__count_mlock_budget(suites, argc, argv, skiplist);
-+	if (sharing <= 1)
- 		return;
+-	if (dont_fork)
++	if (dont_fork) {
+ 		sequential = true;
++		test_timeout = 0;
++	}
  
--	mlock_budget = mmap(NULL, sizeof(*mlock_budget), PROT_READ | PROT_WRITE,
-+	size = sizeof(*mlock_budget) + sharing * sizeof(mlock_budget->slots[0]);
-+	mlock_budget = mmap(NULL, size, PROT_READ | PROT_WRITE,
- 			    MAP_SHARED | MAP_ANONYMOUS, /*fd=*/-1, /*offset=*/0);
- 	if (mlock_budget == MAP_FAILED) {
- 		mlock_budget = NULL;
- 		pr_err("Failed to map the shared area used to take turns using the perf mlock budget\n");
- 		return;
- 	}
-+	mlock_budget->size = size;
-+	mlock_budget->nr_slots = sharing;
+ 	symbol_conf.priv_size = sizeof(int);
+ 	symbol_conf.try_vmlinux_path = true;
+diff --git a/tools/perf/tests/tests.h b/tools/perf/tests/tests.h
+index 5982c4e62cd3..c9e5f2b2bc11 100644
+--- a/tools/perf/tests/tests.h
++++ b/tools/perf/tests/tests.h
+@@ -6,9 +6,10 @@
+ #include "util/debug.h"
  
- 	if (!mutex_init_pshared_robust(&mlock_budget->lock)) {
--		munmap(mlock_budget, sizeof(*mlock_budget));
-+		munmap(mlock_budget, size);
- 		mlock_budget = NULL;
- 		pr_debug("Not taking turns using the perf mlock budget\n");
- 	}
-@@ -2288,7 +2333,7 @@ static void perf_test__teardown_mlock_budget(void)
- 		return;
+ enum {
+-	TEST_OK   =  0,
+-	TEST_FAIL = -1,
+-	TEST_SKIP = -2,
++	TEST_OK      =  0,
++	TEST_FAIL    = -1,
++	TEST_SKIP    = -2,
++	TEST_TIMEOUT = -3,
+ };
  
- 	mutex_destroy(&mlock_budget->lock);
--	munmap(mlock_budget, sizeof(*mlock_budget));
-+	munmap(mlock_budget, mlock_budget->size);
- 	mlock_budget = NULL;
- }
- 
+ #define TEST_ASSERT_VAL(text, cond)					 \
 -- 
 2.56.0.307.g5fe7bd680c-goog
 
