@@ -1,53 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.244
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792674143;
-	b=FY/NMq4uYRLiG6VeRC4o2i6Gm6V61FEtqfDo6cNq4qsIBqkzXoZUGG9KucAC8V+9knkz
-	 x5cZe7yNwbXQg1b8NY3bdLyyeEd0/x9ZrrZWls6jpY3uqOPexyCwTIY4jeSYsbqaisCpE
-	 5/HKva7/gQvXiipnEmzre13wmowncQe/kv7LvdxH46lrjGhup7OUTLCuyytcG4yNEksbN
-	 jSJS3f5ZDkBztfSKZoD0V6ISOveaPyyrZG4UAOkIruG2G46ob/1CPexxLWzeOo4K8I/1u
-	 oF/NkdsYJ/HeGxrTp/QjTgt40n4EK7JBTmaQEf+rOKubeWUa+7mZSUEnUfxrNlybtFg==
+	t=1792674165;
+	b=tZ89vZvHtuT01Z8YNEsBXY4iao1Rjq0hY/im++7oaMmOdhM6LtSaCx6EBkVySogUsoLC
+	 QxPSHt0Hd3jMk5g97aISC8qqKJxuElV7YeJDy7iJFXJgcbIr7Se722Zp7tBP4u0BVPnmz
+	 W8i3dpuSXn7tg0FSd1IIgcX42rXv/+7Z/eYy47QRw6d1+qU1ypo93n+cXJl7Tl3peIaMZ
+	 YV+cZNF4A2GW+pQ3WYcN82qKUzZPyrbPTYGJJt2z8Szt8gFVi7N5f0uI6oxYkkD3IKbF0
+	 H32mi895nQ/TphAh2JJF2Id8H0FxCqtDqIc3OFE7/OIuJkAeUyr3xRMbzU8OvwUvnOw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792674143;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=DoDCGmpaF9TJDAMFtbT2QMrNd5G5ZzhW2VZ6L8kTSQo=;
-	b=Gy/ECttOjZWoe7AyrQxGVOH+qUeb2uLOQuHbday/plljaJakjw/zttXHiUkYTbtLbNMB
-	 oT5kJp67Xwe/eyNrVHryrcAaDSs/U0u+NkqqBNN66zN3ZSUYY/FcEdKgFp1ePbJY+FlY3
-	 ZaMn0yU7frT0p80uFYNpZkD1kEClhe5NZTt0vn3LJN0B9b7ZcQB3apQKpocrS+oA3MWYs
-	 ZcEPrapLFdrPAR6rXh5nXeOaQ55irbQdss/WwFb4BxL+AKjRTUllxDal9iAkm7MDMZmM8
-	 7UcgRQquiNOrSO0lD52+E7GOr8ud0vO3JwM9WsaD+6OHTAwuj11NzkdxyDJjoV5Q+ZA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792674165;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=QaSV8A+DkRJxdjBJ52VGx2q6CxzJmPLWhUU+QwPg4ks=;
+	b=qTxSvpkyKj/U3pXpn8uW9xrRYKoWv2nm0DN4X1D6w1Jgx5FWzMOOpzPGZZ62ieK/3hpA
+	 dCZSY8Ilg+0uxIUOQmbs7WD66ys3yxhoZrVRHIlpXJqsf86Sb/8B9paNjKZ1xZUkDvs7Q
+	 OJVUNYirYUPCY9GQY2vH4fuyqf9jj+jm2GZCF8X7IugLEz72gBIVwFDqMvostNBcv3LwN
+	 mVUB32i69hglahFrpcRrwbuje/lgT71iD+2cHKAW2wIf48hoYOrZCUK7VLgT2BvgmcMRs
+	 5kv+SWxLW6eP87SfG/6ZesW2FK3xgq3cL9xnzePalkjF+tifDyPixVTlNMi93EfumdA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kgFZnq39;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	arc=none smtp.remote-ip=95.215.58.244
+Received: from mta1.migadu.com (out-244.mta1.migadu.com [95.215.58.244])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0677B606A326
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 13:02:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kgFZnq39
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 16F251F000C2;
-	Thu, 22 Oct 2026 13:02:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792674142;
-	bh=DoDCGmpaF9TJDAMFtbT2QMrNd5G5ZzhW2VZ6L8kTSQo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=kgFZnq39CKfZvJT+x/rf0v4DLUYAzQxJmCuHgdfJ6k2Xiy+Wo597OLtq3jiRswqDI
-	 f11ReG6DfZFE3e2E6kJdaQmjP+MFNC1zirKYWL1W0oZBpfXkQMoR7y8Ha3VtuetZeb
-	 9ffirV2bpHhO3GFJCrTic53Mt+teLP1krCUJPfI6JMzku7rixHyZlfbd6VJOcZOj+n
-	 q2ZH9gJmiHG8R3DBqxOBAU5siOBLOveFubDsTuYoMNF3N3l+RTF23fhwcYIxIH8MWU
-	 AxG4qt+JQX6HPxT7ln9wCElyjnCVG6dqMOo5RqkbgB6MMQ5cAWYaKsorXuvjdt3kKZ
-	 SmkEFpzUxujSw==
-Date: Thu, 22 Oct 2026 15:02:19 +0200
-From: Frederic Weisbecker <frederic@kernel.org>
-To: Avi Weiss <thnkslprpt@gmail.com>
-Cc: Waiman Long <longman@redhat.com>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] kthread: fall back when no preferred housekeeping CPU is
- online
-Message-ID: <atoJWzlJwtxY5I3h@localhost.localdomain>
-References: <20261020125518.1114230-1-thnkslprpt@gmail.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07092606A31B
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 13:02:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 07092606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=Blk5PcHa+mtRw2PyDvEKfMHAEAMT011jjsUT7gNzPRI=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792674156; v=1; x=1793278956;
+ b=NYiOL2aHwYbhphng9Va624cVzGa0vU0DNgH3SgHqUB+tthpnyr2mLU6qsIBU3yl5atyh+dg7
+ TlicbWLP+HDJ9ZOCn1VMmGnk+981CDRjr6QpseqGt3xNC9BOAKxB8FeUP+zQg0fWq0q3crur27N
+ 0+VjArtJDc1l43XJDYR7qpos=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 9a0127de9735825e;
+	Thu, 22 Oct 2026 13:02:36 +0000
+X-Mizu-Trace-ID: 9a0127de9735825e
+X-Migadu-Flow: FLOW_OUT
+Date: Thu, 22 Oct 2026 15:02:30 +0200
+From: "Pankaj Raghav (Samsung)" <pankaj.raghav@linux.dev>
+To: Daejun Park <daejun7.park@samsung.com>
+Cc: Carlos Maiolino <cem@kernel.org>, linux-xfs@vger.kernel.org, 
+	Christoph Hellwig <hch@lst.de>, "Darrick J. Wong" <djwong@kernel.org>, 
+	Dave Chinner <dgc@kernel.org>, Chuck Lever <cel@kernel.org>, Jeff Layton <jlayton@kernel.org>, 
+	Dai Ngo <Dai.Ngo@oracle.com>, Sergey Bashirov <sergeybashirov@gmail.com>, 
+	Andrey Albershteyn <aalbersh@kernel.org>, linux-nfs@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH v4 5/9] xfs: limit the count of a pNFS write allocation
+ to one extent
+Message-ID: <atoImJxtg70XcIjS@quentin>
+References: <20261020-xfs-pnfs-batch-v4-0-9230fa2ca4a4@samsung.com>
+ <20261020-xfs-pnfs-batch-v4-5-9230fa2ca4a4@samsung.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,61 +66,64 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261020125518.1114230-1-thnkslprpt@gmail.com>
+In-Reply-To: <20261020-xfs-pnfs-batch-v4-5-9230fa2ca4a4@samsung.com>
 
-Le Tue, Oct 20, 2026 at 03:55:18PM +0300, Avi Weiss a écrit :
-> kthread_fetch_affinity() falls back to the housekeeping mask
-> only when the intersection with the preferred mask is empty.
+> With pynfs as the client and a 32 GiB XFS, an RW LAYOUTGET at offset 0
+> of an empty file for 16 TiB shut the filesystem down: "Corruption of
+> in-memory data (0x8) detected at xfs_trans_mod_sb". With this patch it
+> gets NFS4ERR_NOSPC, also with XFS_DEBUG, XFS keeps running, and less
+> than 8 GiB of the filesystem, one extent's worth, is left free. One
+> for 100 GiB ends the same way, where it got NFS4ERR_NOSPC with nothing
+> allocated before. One for 16 GiB, which fits, is granted the same
+> three extents as before.
 > 
-> If the intersection contains only offline CPUs,
-> set_cpus_allowed_ptr() returns -EINVAL and the kthread keeps
-> its previous affinity, which may still include an isolated CPU.
-> 
-> Check whether the intersection contains an online CPU instead.
-> Fall back to the full housekeeping mask when none are online.
-> 
-> Fixes: e894f6339808 ("kthread: Honour kthreads preferred affinity after cpuset changes")
-> Signed-off-by: Avi Weiss <thnkslprpt@gmail.com>
+> Suggested-by: Darrick J. Wong <djwong@kernel.org>
+> Link: https://lore.kernel.org/r/20261008154017.GO2705364@frogsfrogsfrogs
+> Suggested-by: Christoph Hellwig <hch@lst.de>
+> Link: https://lore.kernel.org/r/20261015060932.GD14035@lst.de
+> Fixes: 527851124d10 ("xfs: implement pNFS export operations")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Daejun Park <daejun7.park@samsung.com>
 > ---
+>  fs/xfs/xfs_pnfs.c | 8 ++++++++
+>  1 file changed, 8 insertions(+)
 > 
-> Tested on x86_64 Linux 7.3.0 with vng/qemu and a kthread with 
-> preferred CPUs 1-2.
-> 
-> With CPU 2 offline and CPU 1 isolated, the unpatched kernel kept
-> affinity 1-2 and set_cpus_allowed_ptr() returned -EINVAL. With the
-> fix, affinity changed to 0,2. Bringing CPU 2 online restored 
-> affinity to 2, and removing isolation restored 1-2.
-> 
->  kernel/kthread.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/kernel/kthread.c b/kernel/kthread.c
-> index cc8cb5d3eab7..fdb8fb07f40b 100644
-> --- a/kernel/kthread.c
-> +++ b/kernel/kthread.c
-> @@ -343,7 +343,7 @@ static void kthread_fetch_affinity(struct kthread *kthread, struct cpumask *cpum
->  	}
->  
->  	cpumask_and(cpumask, pref, housekeeping_cpumask(HK_TYPE_DOMAIN));
-> -	if (cpumask_empty(cpumask))
-> +	if (!cpumask_intersects(cpumask, cpu_online_mask))
->  		cpumask_copy(cpumask, housekeeping_cpumask(HK_TYPE_DOMAIN));
->  }
+> diff --git a/fs/xfs/xfs_pnfs.c b/fs/xfs/xfs_pnfs.c
+> index 19eb18e129..401a790299 100644
+> --- a/fs/xfs/xfs_pnfs.c
+> +++ b/fs/xfs/xfs_pnfs.c
+> @@ -224,6 +224,14 @@ xfs_fs_map_blocks(
+>  		else if (nimaps && imap.br_startblock == HOLESTARTBLOCK)
+>  			end_fsb = min(end_fsb, imap.br_startoff +
+>  					       imap.br_blockcount);
+> +		/*
+> +		 * xfs_bmapi_write() maps at most XFS_MAX_BMBT_EXTLEN blocks
+> +		 * in one mapping, so don't reserve blocks for more. The
+> +		 * range comes from a client, and its block count may not
+> +		 * even fit the 32-bit reservation. The rest of the range
+> +		 * is mapped by a later call.
+> +		 */
+> +		end_fsb = min(end_fsb, offset_fsb + XFS_MAX_BMBT_EXTLEN);
 
-Good catch thank you! Queueing it.
+Isn't it better we add this in xfs_direct_write_iomap_begin() instead of
+adding it in pnfs?
 
+Something like this:
 
-
->  
-> 
-> base-commit: f47d223627f80cb7a1eb14c585fe6cb35de5e984
-> -- 
-> 2.43.0
-> 
+diff --git a/fs/xfs/xfs_iomap.c b/fs/xfs/xfs_iomap.c
+index 329c745e3120..50cf7b0cfc76 100644
+--- a/fs/xfs/xfs_iomap.c
++++ b/fs/xfs/xfs_iomap.c
+@@ -284,6 +284,7 @@ xfs_iomap_write_direct(
+        int                     nr_exts = XFS_IEXT_ADD_NOSPLIT_CNT;
+ 
+        ASSERT(count_fsb > 0);
++       count_fsb = min_t(xfs_filblks_t, count_fsb, XFS_MAX_BMBT_EXTLEN);
+ 
+        resaligned = xfs_aligned_fsb_count(offset_fsb, count_fsb,
+                                           xfs_get_extsz_hint(ip));
 
 -- 
-Frederic Weisbecker
-SUSE Labs
+Pankaj
