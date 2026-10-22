@@ -1,100 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792659686;
-	b=3s3SZYjkZbOqF6thEXcV10TNfHPVEFe8BLV3mAUqqxthPDkDX/HbOBMwe1mpgHCef6h4
-	 1k0kaAaXHmc7T2Cs3iMc9e/OvxDU8El5P21gpfDJGDo+47SglYC4acKfgphMWIRnxPt6K
-	 rdhDZTKI4kgUgpo+WiB6SxO9IhcT6Dv8a9Wrh+myv+ivJfMrpXK8dvALy5qChUSBhSQtk
-	 iE0NAeRg/2qM6LyFuRbnOhvCTCfS5h55PCXcKVt092/BThh+HCsGHTgcLpzvi+eGa+Gsj
-	 bWJcafmFZI7cmVHiZdvhla2zoFEKF1LmpFxLs89QWUEK/FK+yt2bAnwwxPf7Af7P/ag==
+	t=1792659704;
+	b=PqVH0py+HeDcAA4kCbv5ejEVv06RehSxgZJi6kNCbRrF0YPmXvGSBvuWd1qzWAVhDT1x
+	 ruQ6x/VAw7hmsRK1kJvIYHxvfb9SJuFPzPXLSgJprsYg7cV9cjGcJsbsjwrM/9Q2gj15d
+	 BcPr4PktYBlZ+bfb6WOv0vbGExSvWnYNmMlm0QfPDasDxcIk/+OV2VbC3JBHMPdtzPY40
+	 X3qKp+01/S8VWWFUp1IEyIipGDTrlu/4hJy+3rPQ8fsBmR3/O9ybD1+imjHUdol4ulVQP
+	 eyBG5DlBifhx6nuckA28TU2RBFfimYzbmpylLrxqSnRJHbPUcpgJmoac5C5l2ItGzcw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792659686;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792659704;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=1M91N4x2jkXM5IsJ1QyquMgQ5eQNEUvnCoLpXjporvk=;
-	b=zxhDr8SZvigRo1FtlgIo6XRzaIaSm8Wvm9TtZzPJRAMPzJbWL3YEnD/nQn/O7bHB3sFU
-	 MLjBE3Ed+uVmVFYQ/Kq++oVIlOeKalnH87BQA864JcOjj0q63xBh/SN3DIWSedHE+j/FH
-	 If7hrvCo39xIp6n0UTK/LlA5hVztBHQp8z2ahUmKXxNdUzxFz5Zzm24NPLDJtjdlbt51t
-	 2rk4xACtiAVI9grLsU5bE+EK09DgDMFnpBpP119/eVQ1MWBslIM7R8GxLQsPDYxoaN5m6
-	 g76PzNOVC93ITZ0i3n+sml8f+f9Pf00YKjxpmqYs2ijE15uFoTP8J+TwnDQcAsb7X/g==
+	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:X-Mailer:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=bGj6EN/omX0uE5qyyJLIAN+qlCLiq46+bLn+6BlAVTE=;
+	b=At2iSKz3KNT3sK4jKkjqsdPUsPjreZXZ9LQuXnN+FUI8kXDkPj/9X7UpNGJYg0v9BZWW
+	 aSZat1OQzNm+nABtHv8zAhvmtJsQ6KZbK4wqIEd/wUADOyRK4AXUn+dhoTvxAfmdgjLi1
+	 0aRfSeyvQWRnsUPiPJVwjxgT3R63Zn8vTfSOUQnRDHE/e1fDYvvdCyRLtQQd0K94uKbwP
+	 lWD/BABXqvQjEgBi4o8pwIx4xce+q31BlOR03zOQuQcTHxmgcPXm/ZQUrG39bz/9flaie
+	 9QmiOq+e416M3aUwIVkcHl72E1mVkAXRrIdhcOL0CTitpRRLod4HbLICY4pBE7TLl4w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=resnulli.us;
-	spf=pass smtp.mailfrom=resnulli.us;
-	dkim=pass header.d=resnulli.us header.i=@resnulli.us header.a=rsa-sha256 header.s=google header.b=Xm48qF+c;
-	arc=none smtp.remote-ip=209.85.221.48
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Bq4nQQve;
+	arc=none smtp.remote-ip=209.85.221.53
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F75C606A31F
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 09:01:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2F75C606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=resnulli.us
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=resnulli.us
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BFB4606A31D
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 09:01:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5BFB4606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=resnulli.us header.i=@resnulli.us header.a=rsa-sha256 header.s=google header.b=Xm48qF+c
-Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-48df54150dfso1001759f8f.0
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 02:01:23 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Bq4nQQve
+Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-48b060ec084so1208063f8f.0
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 02:01:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=resnulli.us; s=google; t=1792659682; x=1793264482; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1792659703; x=1793264503; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=1M91N4x2jkXM5IsJ1QyquMgQ5eQNEUvnCoLpXjporvk=;
-        b=Xm48qF+cavnI98CF+FEn/aOxyHWgeA3QXlxnHWpH3APrUrU8fL5Hv7ngylFDNiVRFf
-         KLRVlNPYWp5uQRbptpw7dmjARCTX6hyvPjudnH1BR9vJkURRrYYlYsQ4xIGz3EY4nmtx
-         DNKCGAE6z/pV56Q1SmnhXJGfaqt3IIO14tP+14apQIkSbLbaI0Lc9wrxsBqDX4YZSZbo
-         YAWQMfGUijXDz9xbZO0Hp5w2IX3uQnKAZOqRiKKnJcMMWeJUVV9CbO/7a9ZhwP8I3ntm
-         v/lg6DzpLwRLx620WELZZ4owoq2j/v8lkWWZCgphvLuUOyAH4G/QMGpqypk/XZtDnUf9
-         Ixxg==
+        bh=bGj6EN/omX0uE5qyyJLIAN+qlCLiq46+bLn+6BlAVTE=;
+        b=Bq4nQQve9WpfkmCavE54oRtIDUMfl70YbCx4Tp0aRw1ivQw+1HHHSM4oCO2asnOJKg
+         K3aKwrDen8sGxk1IRsoG0We6kOQ5Nuxca20pRXutpZl6/wInZS2ARWW/3XQNVFjbKxmE
+         5ljDDZQadXLS8kptWZJohh0gOEANdV2zWeYdLxuHLn6FnerKO4Mai+39MiivnSVOUlB5
+         3PergsB2Tna5qn7Bfpp83ImepspiuyYOdRXXq9nAKKU6JvEaQ47ELsNqUYrmunWfA5+t
+         9WxooZ469J6MGLSJjVXIFe/79RGYV685VF5mNxa50jO/39R5HycsWGe5XPJgbu7OuNF7
+         eQ4g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792659682; x=1793264482;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1792659703; x=1793264503;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=1M91N4x2jkXM5IsJ1QyquMgQ5eQNEUvnCoLpXjporvk=;
-        b=aKKlv93qMrx/2lFb2cmiyLAVvQ9C9/DDE/wzPc+5hlOudIw9urvnaA8jUz+gv8zcJU
-         p6J/figTBnuHUe7Fg5D0IVRqHJRG3bzSxBe88VxWeTNblOAqKhEfeVFw96cHlLHMdT33
-         AqQI88QL4xLlymhnZICK6iyNrALA9yTsQ4h2hI/VxNLIqdQxkHLpqINCaDcrulb2A7hD
-         AbGNf0JjUp3V1KrJroEGW3RQoWo0+S8HpWIG/aB2o0EBmvSVLT8Qpakarn/8HFDDyr/u
-         FpSX405XonnsqOenNldpIdXWHhbf0BGEvfJZD+1jygPztac4xHEe1k6DhcRPZtj/hY2R
-         0okQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxfnx1lzB5hi5Pxk0dXHtaOm2fQToZfIaKCrDGYBjpt/a6aACtPcO++5n/ssIdApSjd+DS3tvHQqJrI/B8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKogcSz+6uBjvArXALwcMi6P4J9Kg/bmkfSv99+4asAX4QWKm1P
-	w9FXLrfYXApQ8rhGgsavHNL5ch+ThshW7QpG1CXYqD4YeR6dlm2jjSy1vCKMsy86imk=
-X-Gm-Gg: AYBFou0Qsbu0IEj37lv8Xb0fHJlnoE9JGy4Z5WGbeJ0pxZqYccPzbHPDbQZuID5Z4FF
-	Yun8l9Aos+Mht0D+MQ9I5PZahVI1jPiHHaQIAW80eqQfPdTV+s4XDjpJd3fMxXEV3QaozIG7+62
-	2JZEJGTJI1CTMjmq3NSpaOTgt3/V1Q6XdsPqiBqyoQHunckjzqz5WkDLcj7Fr3Q4FzwLtrM0Sg3
-	ZqzFbSLtNx1dz0SNqYDsx/S3e22m4FjF81ON7yTgqbhTA+EPFaRc0ZY779yb3uXLUXiE8nfZMHh
-	CkJTJABpDGlMCrM+u8QKh11Wt7MyyGNQwjiUtztqfJ6hzpUTPceL5tvSfn3lJPeuCLhnxbzFxtx
-	QeuQLl3RrLCfFPCxhfW9bc/jQ1tWu8vIt6gUtMZrLjyj9+Eis80OgZ4KR6zyKZSAcLlSiom5FUs
-	QXPQvYbZ2EoSRf1P8A/kQNaJui6v5UaTWK9rXH9LoJS9bCNypujJTptpjG/CLwP2BO1tbufw6ZA
-	d3F5yyPuHOkmnPkhoVbD0LR9DNSHaTh5H5l2KXt0Il2o3MOhq2ZxQermlvEUbRB
-X-Received: by 2002:a05:6000:e46:b0:48d:b940:af7a with SMTP id ffacd0b85a97d-48e26511828mr6746766f8f.55.1792659682008;
-        Thu, 22 Oct 2026 02:01:22 -0700 (PDT)
-Received: from localhost ([128.77.52.125])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e25834086sm11228550f8f.34.2026.10.22.02.01.21
+        bh=bGj6EN/omX0uE5qyyJLIAN+qlCLiq46+bLn+6BlAVTE=;
+        b=A2xQZ104hjmBJRdsdko7uVRdggldaopkPW2qK9pFckfdysVSoAz8ChQ9gda86R0Z9N
+         drU4NPyfsX7GQdd+WKjVVRIztD6WLzHOMnlScfX+YWv7102xf7GUBQ18R+4yr0krOnq4
+         y0QTXPCkfRX/Er08EasXVV7jyCp1oOr7Lht4BO5OibxxfggR3q2J1TUm+yHN6dXZGXTs
+         3p3vp2zOyT/DY/aUE5rJBKIvEdEqngUJ69pQcuD5Q8Zw956tw1UPMustwasGcEuK+hGR
+         vhl/r22uECeS7BYlzxE7Gg5mygyA8P5dcdyMfofZolx2Cqu3zEISL64xIiUZD8QadPGB
+         xSow==
+X-Forwarded-Encrypted: i=1; AKwUvBxZGgacAePFxciqL8dptC0feZ6RPJhfu0mqGv1EVS1qnM4qR1BL2DZBQ9ZsyFZRtspG8ib3px2oPZTuL8g=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI4Q3832gNPJhufNyIY9lG+gCVtKpAqotkkyNHagtB6pLtw2QD1
+	mMbfRSQT5AraEypw8XtiolnsrXpSoUjyHnV/hslGoZtbUVaBDdgM2WlS
+X-Gm-Gg: AYBFou1YoyBW/ErWENUJwIHC6y5YJGAkkXY5rs2hmLeCd3KvzHKn+DsIw6rtloowfBf
+	EvTiJJTXT1b1OcL+blVcLGGWW2uO/pAgahOPY9LF/cldA5S+PQPH5XeSSVHfsaOsMDzpx1jT4sV
+	cpiHmYUueZI7AqiLcSKQHLiyhH18d6xQDexqlRjaxnXrpKFjZog8xRTdAMxfzdgnw8xq6k1AOzB
+	SYmA8U/9k8o3opFesyzm8sCpRxP3qTKe/+j0+jT+lURfW8U2rjFka6dXV8ncaTbo6Lm2loTpQOm
+	UyGcCwkDMoT3PME6PyLzaEeUWFj1trgwFEbXsKS7SA7rKc5utj4RzTv3b/LRlhm5RJG8DFlcryS
+	3pov9FH136AjsAie45djz/q3iEL9SlNKf5itFjk0gkHs2fBLCsCXlg4AfzYDHX0Au8JkOgz8Tw9
+	D6fnCgTEXQaJEclyczBKRTz/pOB5qHI72slgLY0J47hSEg3N8SHrew7P8v1iMD+hwdQQjggexou
+	LqnVcMf5sLLoY/737CPlmlauOlVpFG+aV9BNg01CfcXrM3AaTpvxLLLjwPDwxFZZg1oAVNipDiF
+	XdKDfS6IvBdIJaoj
+X-Received: by 2002:a05:6000:2c06:b0:48c:4f94:222f with SMTP id ffacd0b85a97d-48e26493580mr9869801f8f.17.1792659702564;
+        Thu, 22 Oct 2026 02:01:42 -0700 (PDT)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e2581eed3sm12230195f8f.12.2026.10.22.02.01.41
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 02:01:21 -0700 (PDT)
-Date: Thu, 22 Oct 2026 11:01:17 +0200
-From: Jiri Pirko <jiri@resnulli.us>
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: linux-coco@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	linux-api@vger.kernel.org, x86@kernel.org, kvm@vger.kernel.org, linux-doc@vger.kernel.org, 
-	jgg@ziepe.ca, david.quigley@intel.com, lukas@wunner.de, ksinyuk@kernel.org, 
-	rodrigo.vivi@intel.com, cedric.xing@intel.com, sameo@meta.com, drdeeglaze@gmail.com, 
-	James.Bottomley@hansenpartnership.com, aik@amd.com, jpiotrowski@nvidia.com, qinkun@google.com, 
-	pgonda@google.com, alistair.francis@wdc.com, ankita@nvidia.com, 
-	suzuki.poulose@arm.com, kas@kernel.org, rick.p.edgecombe@intel.com, 
-	elena.reshetova@intel.com, dave.hansen@linux.intel.com, 
-	sathyanarayanan.kuppuswamy@linux.intel.com, peter.fang@intel.com
-Subject: Re: [PATCH RFC 04/20] Documentation: ctlv: Add userspace ABI
-Message-ID: <atnJUfh0_Y3BRKx3@FV6GYCPJ69>
-References: <20261015145053.3664509-1-jiri@resnulli.us>
- <20261015145053.3664509-5-jiri@resnulli.us>
- <20261021011122.2cd96901@jic23-hlaptop>
+        Thu, 22 Oct 2026 02:01:41 -0700 (PDT)
+Date: Thu, 22 Oct 2026 10:01:40 +0100
+From: David Laight <david.laight.linux@gmail.com>
+To: Alexander Lobakin <aleksander.lobakin@intel.com>
+Cc: Tzu-Ching Yang <shingekinocore@gmail.com>, Eric Biggers
+ <ebiggers@kernel.org>, "Jason A. Donenfeld" <Jason@zx2c4.com>, Ard
+ Biesheuvel <ardb@kernel.org>, "Jose E. Marchesi"
+ <jose.marchesi@oracle.com>, Jakub Kicinski <kuba@kernel.org>, Andrew Morton
+ <akpm@linux-foundation.org>, Simon Horman <horms@kernel.org>, Maciej
+ Fijalkowski <maciej.fijalkowski@intel.com>, <linux-crypto@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] unroll: Make unrolled, unrolled_full and unrolled_none
+ function-like
+Message-ID: <20261022100140.101ddf52@pumpkin>
+In-Reply-To: <0a38e0b0-2508-41c1-bd99-d15c27579307@intel.com>
+References: <20261016025613.2690485-1-shingekinocore@gmail.com>
+	<0a38e0b0-2508-41c1-bd99-d15c27579307@intel.com>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,242 +105,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261021011122.2cd96901@jic23-hlaptop>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Wed, Oct 21, 2026 at 02:11:22AM +0200, jic23@kernel.org wrote:
->On Thu, 15 Oct 2026 16:50:37 +0200
->Jiri Pirko <jiri@resnulli.us> wrote:
->
->> From: Jiri Pirko <jiri@nvidia.com>
->> 
->> Describe the CTLV transport, discovery, wire format and userspace
->> compatibility rules.
->> 
->> Assisted-by: Cursor: GPT-5.6 Sol
->> Assisted-by: Cursor: Claude Opus 5.5
->> Signed-off-by: Jiri Pirko <jiri@nvidia.com>
->In general looks good to me - this let me get my head around
->what was going on nicely (I think!).  A few trivial comments.
->> ---
->>  Documentation/userspace-api/ctlv.rst  | 507 ++++++++++++++++++++++++++
->>  Documentation/userspace-api/index.rst |   1 +
->>  MAINTAINERS                           |   1 +
->>  3 files changed, 509 insertions(+)
->>  create mode 100644 Documentation/userspace-api/ctlv.rst
->> 
->> diff --git a/Documentation/userspace-api/ctlv.rst b/Documentation/userspace-api/ctlv.rst
->> new file mode 100644
->> index 000000000000..5ebca3d4d94a
->> --- /dev/null
->> +++ b/Documentation/userspace-api/ctlv.rst
->
->> +Discovery
->> +---------
->> +
->> +Both uevents, addition and removal, carry the family chain as numbered
->> +properties::
->> +
->> +    CTLV_FAMILY=ctlv-accelerator-foo
->> +    CTLV_COMPATIBLE_0=ctlv
->> +    CTLV_COMPATIBLE_1=ctlv-accelerator
->> +    CTLV_COMPATIBLE_2=ctlv-accelerator-foo
->> +    CTLV_COMPATIBLE_N=3
->> +
->> +``CTLV_FAMILY`` is the family the device answers as, the numbered properties
->> +are its ancestry from the root to that family, and
->> +``CTLV_COMPATIBLE_N`` is how many there are. An index never moves: changing a
->> +family's parent is an ABI
->> +break, adding a descendant only appends.
->
->Odd line wrap.
+On Wed, 21 Oct 2026 17:02:30 +0200
+Alexander Lobakin <aleksander.lobakin@intel.com> wrote:
 
-Will fix.
+> From: Tzu-Ching Yang <shingekinocore@gmail.com>
+> Date: Fri, 16 Oct 2026 10:56:13 +0800
+> 
+> > unrolled, unrolled_full and unrolled_none are object-like macros with  
+> 
+> Because those are attributes. With function-like names such patterns:
+> 
+> unrolled()
+> for (int i = 0; i < n; i++)
+> 
+> are counter-intuitive and confusing.
 
+Is it possible to make the syntax:
+	unrolled_for(....)
 
->
->> +
->> +A program that wants every device, including ones appearing while it starts,
->> +must listen before it looks, which closes the window between enumerating and
->> +subscribing::
->
->> +A whole message with every offset, for a request of one integer and one nest
->> +carrying a string and a further nest::
->> +
->> +    offset  attribute                       len  flags   contents
->> +    ------  ------------------------------  ---  ------  ----------------
->> +         0  root                            120  NESTED  attr_id = 0
->> +        16  .. chunks                        24  -       8-byte integer
->> +        40  .. chunk                         80  NESTED
->> +        56     .. label                      19  -       "ab" and its NUL
->> +        80     .. item                       40  NESTED
->> +        96        .. value                   24  -       8-byte integer
->> +       120  end of message
->> +
->> +    +--------------------------------------------------------------+ 0
->> +    | root: len = 120, flags = NESTED, attr_id = 0                 |
->> +    +--------------------------------------------------------------+ 16
->
->Diagram wise, should chunks and chunk be shown nested inside root like your
->.. above is indicating?
+Or is that made 'all hard and difficult' because he setting is sticky?
 
-Oh sure. Missed that.
+David
 
+> 
+> We have either plain-named attributes like `notrace` (BTW what if you
+> name your variable as `notrace`?) or underscored like `__always_inline`.
+> If you really need to name your variables `unrolled`, then I'd expect
+> changing these macros to `__unrolled` etc, not to `unrolled()`.
+> Although I'm not sure we really need it, there's tons of such macros in
+> the kernel -- try naming your variable `current`.
+> 
+> > lower-case names, so in a file that includes <linux/unroll.h> every
+> > later identifier with one of these names is replaced with a _Pragma()
+> > operator. A local variable or struct member with one of these names  
+> Thanks,
+> Olek
+> 
 
->
->> +    | chunks: len = 24 | payload: 8 bytes                          |
->> +    +--------------------------------------------------------------+ 40
->> +    | chunk: len = 80, flags = NESTED                              |
->> +    |   +--------------------------------------------------------+ | 56
->> +    |   | label: len = 19 | payload: 'a' 'b' 0 | 5 bytes padding | |
->> +    |   +--------------------------------------------------------+ | 80
->> +    |   | item: len = 40, flags = NESTED                         | |
->> +    |   |   +--------------------------------------------------+ | | 96
->> +    |   |   | value: len = 24 | payload: 8 bytes               | | |
->> +    |   |   +--------------------------------------------------+ | | 120
->> +    +--------------------------------------------------------------+
->> +
->> +``label.len`` is 19: its header and three payload bytes, not the five bytes of
->> +padding after it. ``chunk`` counts those five, its ``len`` of 80 being its
->> +header plus ``CTLV_ALIGN(19)`` plus ``CTLV_ALIGN(40)``. A walk over a nest's
->> +children advances by ``CTLV_ALIGN(child.len)``, a walk of one payload by
->> +``child.len``.
->
->...
->
->> +
->> +Request occurrence order
->> +------------------------
->> +
->> +Occurrences of one attribute ID must be contiguous within each request root or
->> +nest. ``A A B`` is valid, while ``A B A`` is not. An ignored unknown attribute
->> +is not an occurrence of any known attribute, but it ends the preceding run, so
->
->An ignored unknown attribute, whilst not understood, ends the preceding run, so ..
->
->(or something like that to avoid saying unknown is not known ;))
-
-True, this is already subject to reword anyway :)
-
-
->
->> +``A ignored-unknown A`` is also invalid. Different IDs otherwise have no
->> +required numeric or schema order.
->> +
->
->> +
->> +Executing an operation
->> +======================
->> +
->> +One ioctl executes every operation::
->> +
->> +    struct ctlv_op_exec {
->> +            __aligned_u64 op_id;
->> +            __aligned_u64 request;      /* struct ctlv_attr __user * */
->> +            __aligned_u64 reply;        /* struct ctlv_attr __user * */
->> +            __u32 request_len;
->> +            __u32 reply_len;
->> +            __aligned_u64 generation;   /* queries only */
->> +            __aligned_u64 cursor;       /* queries only */
->> +            __aligned_u64 reserved[2];  /* must be zero */
->> +    };
->> +
->> +    #define CTLV_IOC_OP_EXEC _IOWR(0xBB, 0x00, struct ctlv_op_exec)
->> +
->> +``request_len`` is how many bytes the kernel may read at ``request`` and
->> +``reply_len`` how many it may write at ``reply``. They are copy boundaries, not
->> +message lengths: a root's ``len`` may be shorter than ``request_len``, the
->> +bytes after it being ignored, and may not be longer. 
->
->I don't really mind this but why have this relaxed? Whatever sent this request
->just filled in the root len so why wouldn't it use the same value for this structure?
-
-Yeah, I was thinking about having it relaxed or not. I did eventually go
-with "why not". Makes userspace live perhaps a *bit* more easier having
-one buffer and buffer_size for multiple op calls.
-
-
->
->
->>``reply_len`` is never
->> +overwritten; the length written is the reply root's ``len``. The pointers are
->> +fixed-width so a 32-bit and a 64-bit process pass the same structure, and in
->> +place of a size field the ioctl number encodes the size and ``reserved``, which
->> +must be zero, covers compatible growth.
->> +
->> +Every action and query carries a physical request root, including an empty
->> +request. ``request_len`` is therefore at least one attr header and at most the
->> +1 MiB transport limit.
->
->Why this particular limit?  Any thought to making that discoverable rather
->than fixed? (with a minimum to allow the operation for the length to be discovered).
-
-OPS_DUMP exposes max size per op already. This limit serves different
-purpose. It is a safeguard againt insane family yaml author. If he would
-try to fit in ridiculously long binary attr, it would provide a clue to
-use blob attr instead. I think that 1M is too big. I would perhaps go
-with 64k initially. As it is kernel internal limit, could be changed in
-any time. Makes sense?
-
-
->
->Maybe it is better to just have fixed size.  I wonder if ultimately we
->may end up with cases where the tlv is just passed on to firmware / device
->(because it is nice and convenient!) and having to split or marshall
->multiple messages would be a pain.
-
-hmm. tlvs passed to device would work, you would just have to take care
-of the blobs inside.
-
-
->
->> The ``request-max-len`` reported by ``ops-dump`` is the
->> +maximum request composed from the known schema; a newer caller may exceed it
->> +with well-formed unknown attrs marked ``IGNORE_IF_UNKNOWN``, up to the
->> +transport limit.
->
->> +
->> +Events
->> +======
->> +
->> +An event reaches a file description that asked for it, and only that one:
->> +
->> +1. subscribe with the ``subscriptions-add`` action, naming operation IDs;
->> +2. read records with ``read()``, one complete record per call;
->> +3. unsubscribe with ``subscriptions-remove``.
->> +
->> +``poll()`` reports readability when a record is queued. Each record is a
->> +header followed by exactly one root attribute::
->> +
->> +    struct ctlv_event_hdr {
->> +            __u32 length;             /* header + aligned root */
->> +            __u32 flags;              /* zero */
->> +            __aligned_u64 op_id;      /* the event op that produced it */
->> +            __aligned_u64 sequence;   /* per file description */
->> +    };
->> +
->> +One ``read()`` returns one record, the header and the aligned root::
->> +
->> +    +---------------------------------------------------------------+ 0
->> +    | length = 24 + CTLV_ALIGN(root.len)     | flags = 0            |
->> +    +---------------------------------------------------------------+ 8
->> +    | op_id: the event operation that produced this record          |
->> +    +---------------------------------------------------------------+ 16
->> +    | sequence: counted per file description                        |
->> +    +---------------------------------------------------------------+ 24
->> +    | root: len, flags = NESTED, attr_id = 0                        |
->> +    |   the event's attributes, exactly as a reply carries them      |
->
->stray space.
-
-Will fix.
-
-
-Thanks!
-
-
->
->> +    +---------------------------------------------------------------+ length
->
->
