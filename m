@@ -1,76 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.197
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792701999;
-	b=duAxz6wqMEFUKeOBEGofyCzon9+uCzPURaruA1znEai3+Cm2s1JQNfLrKuGPdG/qQVhu
-	 FJq28nRc5eWSnf67vJOl9JptTVvER4GkVOWdIjCscQWCI8gcgSUQiOOcZp0j2U/PACDIe
-	 fXRVsoOYrV3HbTbwlPnKbzM+JPTcylNy/gQHrFUF78Bi3jNNiaHcFyBHpCW7lr7T4G5Mc
-	 gBf5CsZJ0CIGGCWfXydIIP3bwyLU9kAN++1nTMRDTkGnw6M48s4WWBKETH61tQbnFcUC/
-	 EaGv9ByldPxfaamL4jEKVd1U+/vITZqynTqdT5HGxKvm9p/o2Z6wXHLXgu0nWMKb9sQ==
+	t=1792701995;
+	b=XrnjFJQ/koBBNOhQjOIlw1sgit4eW8mYwlr8v63CjWSd/ouKkl3suFEu2pwAvoy8fpCk
+	 O8miX/wicWuD8wB/WU24lLSQLUD9SSdwUhjkmErluN8oq/XNAZm1ZF32S0g2IUfOE/e3S
+	 TlXmoxJ1c2a2cVqFAg6dydVIml1gnIDNirNyxfWeBtonx8dUzjLpwiwvkMUv9A760LOlb
+	 34JHk33U/LqZC8XBvJ/AkcuH7l3hae/YjbiGcs/UKScB6hdO/Kr0BrIVbMkmnKdwbqgL5
+	 IemiXCot2nIuJFtPVvlbtjACPzV+Xr3qG6hAJBxo1Gdl5wIjMBg50/dYjxnEkzyEQOw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792701999;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792701995;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
 	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=5EXSTLNSsguQaSynPItTzP5zk0jMq4+PZis12D7icos=;
-	b=3kGbNj/p8QvdmWv+/YXrBy9jnIl7yZKSvSGHSB5cOGIkU/1B0kL7j0vDAP6EAsLDjzEu
-	 /7ZVaBye28Ulzch64qH3xyF0341Xj9NyIUE/iCWuvAQTvpAOO7pm2H6ms+TJpSeMOfgFg
-	 uIGtocf3Q131EaAcElFRyCE97h9y48igw2gNzvlkw7X7Ab9zz7z6OQtlS0LLvmUN/3Ub1
-	 LcWrdN/oT4uTDwIGk9p3tfHqGwGDE1k4oqxD/zD/ROPCVgHh4xi6mRveooSlmGmoOdg5D
-	 So7OpwW3GIVOHwEJdeaETsbDfwy6I90XKQnselWcBA66LTpR5cvm7P4Io2FgByKWa3w==
+	 Content-Type;
+	bh=Ysl1d/0h3aeNG4530gdQo/Cgx+FMPRdnoywPZWHvZao=;
+	b=yZN8JbO7bXF0v1HtXB5nMwrNqtEtonTAWlytU8ZAlSH+vetDAx+7z+Iwkx2MnIczA1Ni
+	 GGOyWrPDKe594ErW7JCVUU8XMecOq/BpKyzU8Fc8h7HomiUHmZRYbB+3D2QQrLpzukeV5
+	 2eZNYQr9h+ns9ejcKoMhCB38JtmD7k94dt/jCvrPu74h9oZmsmDFZSSGpzDUxCiOUq/FZ
+	 uK8duWo+AknSLX4ccKyp9cvdA10WY1C9YkxJufVAi9c3N/sv05VuSx3wbi2j54VV5dopv
+	 MBP+dru8b9OP39Ocl5/KWtQKl8fYTlJ6/UvPRtedFhg9RQnrkv+d8fC8fPmKBxejlyw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--irogers.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=u33GNpRG;
-	arc=none smtp.remote-ip=74.125.82.197
-Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=aQbgPcX1;
+	arc=none smtp.remote-ip=74.125.82.199
+Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A95F9606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 20:46:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A95F9606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7690606A31D
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 20:46:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C7690606A31D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=u33GNpRG
-Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-35cbea41088so273479eec.1
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 13:46:38 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=aQbgPcX1
+Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-341eff9e381so467947eec.1
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 13:46:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792701998; x=1793306798; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:references:mime-version:in-reply-to:date:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=5EXSTLNSsguQaSynPItTzP5zk0jMq4+PZis12D7icos=;
-        b=u33GNpRGviPmex4xNfgxzzF6v4zZMgm6KsvsrIONWfBx5RphfJB+KWNvkgdO9Lxnye
-         V2X0kj7L0OQ/sph5Ul1MFeCAVPl3h42gPfKo2n6PpRML9pZ6X6CcKBao9hQ7k7MKz0jo
-         YSCE77galjDfjLW+6ksA3yhgJ/p4go3+NR01Dpw29tPNePe+3axSy0oYAJL1iKIRg+fb
-         nMnVq0uRmMzfKNjnNooz03c8yvzAaPmzlOVxD9XT0R1ncCwZ8X5Z0UAplqinyVfi6h0Z
-         VoO3VMO8EWTzvD3ckHdFu/qSud+C+8i1kSbi5ThW5IG+cytozbaOOACAe0c54FQX66yG
-         IedQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792701998; x=1793306798;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:references:mime-version:in-reply-to:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20251104; t=1792701994; x=1793306794; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=5EXSTLNSsguQaSynPItTzP5zk0jMq4+PZis12D7icos=;
-        b=E5Xe/euB6IdbXiLK2dHduNCf1BgvwW9az3GkgRWJWfTDLcLtNkqyebQbOrOZBF4LEE
-         0DtibYqsTZsRJqqKisIs8zkE1JXe6rgZve7LtpXCuoUm2ADJEx24IhLRIQX3veFmafB1
-         1nzzRL8c8yMgo2JXQBfAzBtHQeqDgZv1nPwBC0tKMZ2GQpkjDfNaccN9uhRIONFOu1/6
-         L3uKkuvYzhpsKez4jO20AGmX6NNF5yW/CEkDRxaNVMREIv+r/+I2uEPXP0dKD2kIzkvT
-         F2o1Bna//2nLP0hYv5kvQzcXi01a1XyLRKvLs/4h7Ry8v2wqrL4lhf4jBXHyMkU19vrW
-         9wng==
-X-Forwarded-Encrypted: i=1; AKwUvBy2Jaof1Lh0V0y1txfdHDApLiUSKdRFsiscvPlyKC+b6D12Cv3nqzR6sh3zw15UftfTMpIcMr++vajfi2s=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK3xzwkUUKpwfxEV3nnLnf96ZiswrZQX4vUCMiMon1VJmzyV1Ib
-	LhT6UbitxNDKPrr3YYgRWNla5SYdKaCjbPsM34FUPxBH/dSg79m4QQ4LzLyWgetjcyTtXgY541C
-	r15rqKgUbNw==
-X-Received: from dybfc19.prod.google.com ([2002:a05:7300:3e93:b0:359:198a:8046])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7301:608e:b0:35d:4e41:d2c2
- with SMTP id 5a478bee46e88-369d98bcdaemr432842eec.33.1792701997376; Thu, 22
- Oct 2026 13:46:37 -0700 (PDT)
-Date: Thu, 22 Oct 2026 13:46:27 -0700
-In-Reply-To: <20261022204627.1813821-1-irogers@google.com>
+        bh=Ysl1d/0h3aeNG4530gdQo/Cgx+FMPRdnoywPZWHvZao=;
+        b=aQbgPcX1pBs8f1P4KXdtCBMhSowNeKF9oMdqJJPFRsHCO5joE2rxR9MLL60e0iQ+VC
+         kDRf8l78j1ccdlAYvqK+cYABojRKj2NWcTvIl/zm5eZXjNnHA76BVdn+r26/A9ceaTZi
+         176YSSWEDEloOPIGAPzsL5jIqsoHoy7HI5K46ubcgojk2rUgnyZNZ+VrLvx0ITT5Ru5O
+         QW0r/y8MexFXzN5KH78w6H60XwDlahNMkzNWfnoOI58b13yp2ad6nUDm/sCNljzjinQT
+         ZsIkox/7PHljmC5/VeAL1LhVBBc44GlGjlSS4n84n54sAIVej5sFJcCAv2bX8TkfNQu4
+         gppQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792701994; x=1793306794;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Ysl1d/0h3aeNG4530gdQo/Cgx+FMPRdnoywPZWHvZao=;
+        b=OYAJXn3KNK56XY3YKe0pbAgj3aH4VwDUCsnk8V6wqQr/5VJA/5u86DL1Z7S081vt2U
+         Hx+ugyzn9/RAqzj1EhhyldNIr9gqZKC9tRffcGzS7BllAcJHSa9CEaDJyER25nTwYcbD
+         O8CJiwibYsHj2x2eQFXGu4btk0WgFnL1gFlmoTAsUKhsVD80Xt4zMiL+AsIney7kAvMT
+         Z7y9pcb5MZmsuIIE3ZejdwW2pUqXCZr27vko1gGzBcCf0av/N7LDLKjjc4SNIKngQDaN
+         8PVjOTIVFyrMtl1MZdPX9GiUZusUnkw9bwm1HZhciinscDyzV3HdiHxP6B4xioNXCsq9
+         3tQQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxF8QDypdRA3o/3Jld3Um0KD+tXk4G2azKGWPt0vBsXQV3ykTyr9awt1TK9oH/s66vwEfHdmoG+QI/Cq0Y=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJaWCXOIojZWN4N+597B4kcttxS2AZ78j7HNV6UyB7u2ew0cBXk
+	NL8LHqZWuAtTRMvvr/lNKaVj1eGWEPiq1Qx4852J0GOihtMKRWmRsu3zkRJyQMPxefQPReNXW0Y
+	acRM/tmq2Ug==
+X-Received: from dyau28.prod.google.com ([2002:a05:7300:601c:b0:35a:f5b8:c8c])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:693c:87d7:10b0:366:83dd:46f7
+ with SMTP id 5a478bee46e88-369d98074admr318643eec.17.1792701993349; Thu, 22
+ Oct 2026 13:46:33 -0700 (PDT)
+Date: Thu, 22 Oct 2026 13:46:25 -0700
+In-Reply-To: <20261013231430.2163505-1-irogers@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,11 +79,10 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 Mime-Version: 1.0
-References: <20261013231430.2163505-1-irogers@google.com> <20261022204627.1813821-1-irogers@google.com>
+References: <20261013231430.2163505-1-irogers@google.com>
 X-Mailer: git-send-email 2.56.0.307.g5fe7bd680c-goog
-Message-ID: <20261022204627.1813821-3-irogers@google.com>
-Subject: [PATCH v3 2/2] perf test make: Add BPF skeleton build tests for clang
- and bpf-gcc
+Message-ID: <20261022204627.1813821-1-irogers@google.com>
+Subject: [PATCH v3 0/2] perf build: Support building BPF skeletons with bpf-gcc
 From: Ian Rogers <irogers@google.com>
 To: irogers@google.com, acme@kernel.org, cupertino.miranda@oracle.com, 
 	jose.marchesi@oracle.com, namhyung@kernel.org
@@ -93,205 +91,45 @@ Cc: adrian.hunter@intel.com, andrii@kernel.org, eddyz87@gmail.com,
 	linux-perf-users@vger.kernel.org, mingo@redhat.com, peterz@infradead.org, 
 	yonghong.song@linux.dev
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-Add make_bpf_skel_clang (CLANG=3Dclang BPF_GCC=3D) and make_bpf_skel_bpf_gc=
-c
-(BPF_GCC=3Dbpf-gcc CLANG=3D) targets to tools/perf/tests/make when the
-corresponding compiler and BPF skeleton dependencies are available on
-the host.
+Currently the perf build requires clang (>= 12.0.1) to compile BPF
+skeleton programs (.bpf.c -> .bpf.o). bpf-gcc (>= 14.0.0) also supports
+BPF CO-RE and BTF generation and is already supported in
+tools/testing/selftests/bpf/Makefile.
 
-Include tools/build/Makefile.feature and tools/scripts/utilities.mak in
-tools/perf/tests/make to reuse the existing feature checks
-(libelf, zlib, bpf, libopenssl, clang-bpf-co-re, libbfd-threadsafe, and
-llvm-perf) instead of open-coding compiler invocations.
+This series updates the perf build to support both clang and bpf-gcc:
+- Patch 1 updates Makefile.config, Makefile.perf, and bpf_skel.mak to
+  prefer bpf-gcc when building perf with GCC (CC_NO_CLANG=1) and clang
+  when building with Clang/LLVM (CC_NO_CLANG=0), while respecting
+  explicit BPF_GCC=... or CLANG=... command-line overrides and falling
+  back to whichever compiler is available.
+- Patch 2 adds make_bpf_skel_clang and make_bpf_skel_bpf_gcc build-test
+  targets to tools/perf/tests/make, reuses tools/build/Makefile.feature
+  for feature detection, and verifies with
+  'perf check -q feature bpf_skeletons' that BPF skeleton support is
+  enabled (or disabled for make_no_bpf_skel) as expected.
 
-Verify with 'perf check -q feature bpf_skeletons' that BPF skeleton
-support is enabled for both targets and disabled (exit code 1) for
-make_no_bpf_skel.
+v3: Reuse tools/build/Makefile.feature and tools/scripts/utilities.mak
+    in tools/perf/tests/make rather than open-coding compiler feature
+    probes, and explicitly check for exit code 1 from 'perf check' in
+    make_no_bpf_skel so crashes are not masked by shell negation.
+v2: Pass only -dumpfullversion when querying BPF_GCC_VERSION, guard
+    against an empty version string, and fix version-ge3 / version-lt3
+    in tools/scripts/utilities.mak so empty or <3-component version
+    strings do not shift awk fields and evaluate as false in version-lt3.
 
-Assisted-by: Antigravity:gemini-3.1-pro
-Signed-off-by: Ian Rogers <irogers@google.com>
----
- tools/perf/tests/make | 71 +++++++++++++++++++++++++++++++++++--------
- 1 file changed, 58 insertions(+), 13 deletions(-)
+Ian Rogers (2):
+  perf build: Support building BPF skeletons with bpf-gcc
+  perf test make: Add BPF skeleton build tests for clang and bpf-gcc
 
-diff --git a/tools/perf/tests/make b/tools/perf/tests/make
-index 7524de522802..a40390ed47f1 100644
---- a/tools/perf/tests/make
-+++ b/tools/perf/tests/make
-@@ -54,6 +54,7 @@ srctree :=3D $(patsubst %/,%,$(dir $(srctree)))
- endif
-=20
- include $(srctree)/tools/scripts/Makefile.arch
-+include $(srctree)/tools/scripts/utilities.mak
-=20
- # FIXME looks like x86 is the only arch running tests ;-)
- # we need some IS_(32/64) flag to make this generic
-@@ -65,6 +66,7 @@ endif
-=20
- has =3D $(shell which $1 2>/dev/null)
- python_perf_so :=3D $(shell $(MAKE) python_perf_target|grep "Target is:"|a=
-wk '{print $$3}')
-+BPF_GCC ?=3D bpf-gcc
-=20
- # standard single make variable specified
- make_clean_all      :=3D clean all
-@@ -78,6 +80,8 @@ make_extra_tests    :=3D EXTRA_TESTS=3D1
- make_no_jevents     :=3D NO_JEVENTS=3D1
- make_jevents_all    :=3D JEVENTS_ARCH=3Dall
- make_no_bpf_skel    :=3D BUILD_BPF_SKEL=3D0
-+make_bpf_skel_clang :=3D CLANG=3D$(CLANG) BPF_GCC=3D
-+make_bpf_skel_bpf_gcc :=3D BPF_GCC=3D$(BPF_GCC) CLANG=3D
- make_gen_vmlinux_h  :=3D GEN_VMLINUX_H=3D1
- make_no_python_module :=3D NO_PYTHON_MODULE=3D1
- make_no_scripts     :=3D NO_PYTHON_MODULE=3D1
-@@ -127,21 +131,49 @@ make_minimal        +=3D NO_LIBBPF=3D1
- make_minimal        +=3D NO_SDT=3D1 NO_JVMTI=3D1 NO_LIBZSTD=3D1
- make_minimal        +=3D NO_CAPSTONE=3D1
-=20
-+override FEATURE_OUTPUT :=3D $(shell mktemp -d)
-+ifeq ($(FEATURE_OUTPUT),)
-+$(error Failed to create temporary directory for feature checks)
-+endif
-+saved_OUTPUT :=3D $(OUTPUT)
-+override OUTPUT :=3D $(FEATURE_OUTPUT)/
-+FEATURE_DISPLAY_DEFERRED :=3D 1
-+FEATURE_TESTS :=3D libelf zlib bpf libopenssl
-+FEATURE_CHECK_CFLAGS-bpf =3D -I. -I$(srctree)/tools/include -I$(srctree)/t=
-ools/arch/$(SRCARCH)/include/uapi -I$(srctree)/tools/include/uapi
-+include $(srctree)/tools/build/Makefile.feature
-+
- # binutils 2_42 and newer have bfd_thread_init()
--new_libbfd :=3D $(shell echo '#include <bfd.h>' | $(CC) -E -x c - | grep b=
-fd_thread_init)
-+$(call feature_check,libbfd-threadsafe)
-=20
- # Whether libLLVM can be built, which needs the llvm-devel/llvm-dev header=
-s and
--# libraries of version 13 or newer, not just llvm-config. This mirrors the
--# llvm-perf feature test in tools/build/feature/test-llvm-perf.cpp so that
--# libLLVM is only asserted below when the default compiler can really buil=
-d it.
-+# libraries of version 13 or newer, not just llvm-config.
- ifneq ($(call has,$(LLVM_CONFIG)),)
--have_libllvm :=3D $(shell printf '#include <llvm/Support/ManagedStatic.h>\=
-n#include <llvm/Support/raw_ostream.h>\n#if LLVM_VERSION_MAJOR < 13\n#error=
- "llvm-devel/llvm-dev version 13 or greater is required"\n#endif\nint main(=
-){llvm::errs()<<"";llvm::llvm_shutdown();return 0;}\n' | \
--	$(CXX) -x c++ -std=3Dgnu++17 -I$(shell $(LLVM_CONFIG) --includedir 2>/dev=
-/null) - -o /dev/null \
--		-L$(shell $(LLVM_CONFIG) --libdir 2>/dev/null) \
--		$(shell $(LLVM_CONFIG) --libs Core BPF 2>/dev/null) \
--		$(shell $(LLVM_CONFIG) --system-libs 2>/dev/null) >/dev/null 2>&1 && ech=
-o y)
-+  $(call feature_check,llvm-perf)
-+endif
-+
-+ifeq ($(feature-libelf)$(feature-zlib)$(feature-bpf)$(feature-libopenssl),=
-1111)
-+  ifneq ($(call get-executable,$(CLANG)),)
-+    CLANG_VERSION :=3D $(shell $(CLANG) --version | head -1 | sed 's/.*cla=
-ng version \([[:digit:]]\+.[[:digit:]]\+.[[:digit:]]\+\).*/\1/g')
-+    ifneq ($(call version-lt3,$(CLANG_VERSION),12.0.1),1)
-+      $(call feature_check,clang-bpf-co-re)
-+      ifeq ($(feature-clang-bpf-co-re),1)
-+        have_clang_bpf :=3D 1
-+      endif
-+    endif
-+  endif
-+  ifneq ($(call get-executable,$(BPF_GCC)),)
-+    BPF_GCC_VERSION :=3D $(shell $(BPF_GCC) -dumpfullversion 2>/dev/null)
-+    ifneq ($(BPF_GCC_VERSION),)
-+      ifneq ($(call version-lt3,$(BPF_GCC_VERSION),14.0.0),1)
-+        have_bpf_gcc :=3D 1
-+      endif
-+    endif
-+  endif
- endif
-=20
-+$(shell rm -rf -- "$(FEATURE_OUTPUT)")
-+override OUTPUT :=3D $(saved_OUTPUT)
-+
- # $(run) contains all available tests
- run :=3D make_pure
- # Targets 'clean all' can be run together only through top level
-@@ -155,7 +187,7 @@ MAKE_F :=3D $(MAKE) -f $(MK)
- endif
- run +=3D make_python_perf_so
- run +=3D make_debug
--ifneq ($(new_libbfd),)
-+ifeq ($(feature-libbfd-threadsafe),1)
- run +=3D make_nondistro
- # Demangling with libbfd is only built when the C++ ABI's __cxa_demangle
- # isn't available, so it needs a build of its own to be compiled at all.
-@@ -165,7 +197,7 @@ endif
- # a C compiler and a C++ compiler that don't match.
- ifneq ($(call has,clang),)
- run +=3D make_clang
--ifneq ($(new_libbfd),)
-+ifeq ($(feature-libbfd-threadsafe),1)
- run +=3D make_clang_nondistro
- endif
- endif
-@@ -173,6 +205,12 @@ run +=3D make_extra_tests
- run +=3D make_no_jevents
- run +=3D make_jevents_all
- run +=3D make_no_bpf_skel
-+ifeq ($(have_clang_bpf),1)
-+run +=3D make_bpf_skel_clang
-+endif
-+ifeq ($(have_bpf_gcc),1)
-+run +=3D make_bpf_skel_bpf_gcc
-+endif
- run +=3D make_gen_vmlinux_h
- run +=3D make_no_python_module
- run +=3D make_no_scripts
-@@ -306,13 +344,20 @@ test_make_libbpf_dynamic_O :=3D ldd $$TMP_O/perf | gr=
-ep -q libbpf
- # doesn't fail the build, it just quietly turns off everything that needs =
-a
- # C++ compiler. Check a feature that does, otherwise these tests would pas=
-s
- # while producing a perf with less in it than the default build has.
--ifneq ($(have_libllvm),)
-+ifeq ($(feature-llvm-perf),1)
- test_make_clang               :=3D test -x $(PERF_O)/perf && $(PERF_O)/per=
-f check -q feature libLLVM
- test_make_clang_O             :=3D test -x $$TMP_O/perf && $$TMP_O/perf ch=
-eck -q feature libLLVM
- test_make_clang_nondistro     :=3D $(test_make_clang)
- test_make_clang_nondistro_O   :=3D $(test_make_clang_O)
- endif
-=20
-+test_make_no_bpf_skel         :=3D test -x $(PERF_O)/perf && ($(PERF_O)/pe=
-rf check -q feature bpf_skeletons; test $$? -eq 1)
-+test_make_no_bpf_skel_O       :=3D test -x $$TMP_O/perf && ($$TMP_O/perf c=
-heck -q feature bpf_skeletons; test $$? -eq 1)
-+test_make_bpf_skel_clang      :=3D test -x $(PERF_O)/perf && $(PERF_O)/per=
-f check -q feature bpf_skeletons
-+test_make_bpf_skel_clang_O    :=3D test -x $$TMP_O/perf && $$TMP_O/perf ch=
-eck -q feature bpf_skeletons
-+test_make_bpf_skel_bpf_gcc    :=3D test -x $(PERF_O)/perf && $(PERF_O)/per=
-f check -q feature bpf_skeletons
-+test_make_bpf_skel_bpf_gcc_O  :=3D test -x $$TMP_O/perf && $$TMP_O/perf ch=
-eck -q feature bpf_skeletons
-+
- test_make_python_perf_so_O    :=3D test -f $$TMP_O/python/perf.so
- test_make_perf_o_O            :=3D test -f $$TMP_O/perf.o
- test_make_util_map_o_O        :=3D test -f $$TMP_O/util/map.o
-@@ -445,7 +490,7 @@ $(FEATURES_DUMP_FILE_STATIC):
- # The clang tests exist to run feature detection with a compiler other tha=
-n
- # the default one, so they have to do their own and are left out of both t=
-he
- # dependency and the 'FEATURES_DUMP=3D' append below.
--no_features_dump :=3D make_clang make_clang_nondistro
-+no_features_dump :=3D make_clang make_clang_nondistro make_bpf_skel_clang =
-make_bpf_skel_bpf_gcc
- no_features_dump +=3D $(addsuffix _O,$(no_features_dump))
-=20
- # Add feature dump dependency for run/run_O targets
---=20
+ tools/perf/Makefile.config     | 83 +++++++++++++++++++++++++++-------
+ tools/perf/Makefile.perf       |  8 +++-
+ tools/perf/bpf_skel.mak        | 36 ++++++++++-----
+ tools/perf/tests/make          | 71 ++++++++++++++++++++++------
+ tools/scripts/Makefile.include |  1 +
+ tools/scripts/utilities.mak    |  4 +-
+ 6 files changed, 159 insertions(+), 44 deletions(-)
+
+-- 
 2.56.0.307.g5fe7bd680c-goog
 
