@@ -1,109 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792669283;
-	b=pntzR2lDB8Ds/Bvf08Kyy+j1GW/ctteF+bE9oNncAsFtqh7ldJYA4NF4NZPF22iTrB8Y
-	 d8eIoAxzojP4L6QJbRt7Rt34STKZ50AM1Ept0XMCRfq1Rq/eWcTdyAsiEzqNltXS6JdMe
-	 +Ma9TqHs4EuuYYhvhM0huLOcK8PIde3CvecPTuK0uI3gtl0lNtXbpVRQ6NLZkG2U1X9Cm
-	 k3YyDNPltbwoILnVSf2Lg3Mr7XcId9BlvCFhJZ4oFIi7D100GCTNHadWd5FF8Gg1ywETu
-	 JUXlxOJLJTU/11ZQosfvTtjTNzaxPP5980vbDo02indf8iDWWLtmpPboaqPhdpT2O1A==
+	t=1792669370;
+	b=BYHgUb6y8grO5lfJfFYmOxJhehoru13tpO4VcfYVL3ChlTL+0i+blA7gyDLwnj9tjxGs
+	 AdGI3Zj1TfdN/tm5aevTw+IwjLIBmbF/37J1Nouh7kAKeJXCXoptmU03ytyo+dYSm5gA8
+	 p/h/tysdRXjL8A1t9AF2kDeUAlDDVBguqstb2ww+A9AA+eyGYX8K/zM6B7AmNAkX4bzKo
+	 zhgMPZuxZgTzGUBcsrFHelsUjnu467EKLhQedzy7Ms/8LndxDnRuE69Nd6CUI3byWxyBu
+	 O14e2KxVUosxw3UpovgljsJ+7HIucLG/ilcGpZfFnsA2XSwQPibmRlcEpHaJZJ0xXyA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792669283;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Rspamd-Queue-Id:X-Spam-Level:X-Rspamd-Server:
-	 X-Rspamd-Action:X-Spam-Flag:X-Spamd-Result:X-Spam-Score;
-	bh=O/GpDnaCAHI1nEQpDM/+W22P17N3Zfe9ncy6nDWopbc=;
-	b=LTOJDIfhZLMfdIna7hjE8qna53oZrnfiRY+KywkjGXlTjAG9U8d1KGSUTAPn5LKIOKSN
-	 WeL3r28lVEgKFg6nf3ReJGKRc/SmWsDzKNetUE16YiU1ggyLl25FqThfebRDs38JOMtJS
-	 VmP0a1PArjnYnqXz7aDMX2JCQYixyaRJtNQVkPHDcZiJKxNOG7v8a3A4g663JTz2njF1L
-	 qL7wV9HEqogIulz0oifsRl7CQsd0I8nKOqbtUut7VE8QUPo41qqQVh6DJnmEH0WTnqfuU
-	 JUEoo9MKLqY7YSQU/WLksfKY6xe6xwmnJCz8y1hl3pp9o3tpmiuAVcCf7r1yws+mmPg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792669370;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=3C+/zJHk6WbojkSaRVu1xcp7XcfcDsCBGR+H6V7CTEk=;
+	b=wxK5AQ8DgMrAgQnin0lCEu8Tr/j3tSA6TPiKjIi/1GWW5YKyYQ3qcXSE3o3hDg8AhuFk
+	 lk7vdKoabV292WydVXGb7BPFtRbUx+TuclsL/dJ5P+sru5l/eZfM52OjSguBvyCy5g/NV
+	 nYGTqfmiQNjWz9vGswlgD2XBxhjZV0HgNlDNcbUjupdfpOwTEYp/TnG4s9eCh4k+JeNiV
+	 UeFL5T9bbknUNK2FaR5Es05yLptTi1nYtYqUNM0hdkykBSo12tItlGn0UkFpSAF32+Ift
+	 cV1IV4effc0P51j/YE0yPm7JJ94DcA603GvwMkR4OoMVKEklk3rzoNxuce4Ih4RHufg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=suse.cz;
-	spf=pass smtp.mailfrom=suse.cz;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b="2/Sn/1ht";
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=P9faRgZp;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b="2/Sn/1ht";
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=P9faRgZp;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=VWWiqlMc;
+	arc=none smtp.remote-ip=209.85.167.47
+Received: from mail-lf1-f47.google.com (mail-lf1-f47.google.com [209.85.167.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C424606A32E;
-	Thu, 22 Oct 2026 11:41:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3C424606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62111606A319
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 11:42:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 62111606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=2/Sn/1ht;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=P9faRgZp;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=2/Sn/1ht;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=P9faRgZp
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 59AD11F44F;
-	Thu, 22 Oct 2026 11:41:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1792669281; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=O/GpDnaCAHI1nEQpDM/+W22P17N3Zfe9ncy6nDWopbc=;
-	b=2/Sn/1htdzOt5TFoNdLvkUshpu5nvgf7frD3x0+p4NDIECzHZmp8NhFuq1eKT8XRPRbf3g
-	6q2Jv6QwbOmaQ2Xw9UlpH0RoLVTxNFc7YfCdZB8RzmfqkzsIAS31OnALsLsRDcQMlYpmBq
-	v1tDSxKVl7fPTlBvO9S1slbBrzcphSY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1792669281;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=O/GpDnaCAHI1nEQpDM/+W22P17N3Zfe9ncy6nDWopbc=;
-	b=P9faRgZp30Re2WVWhtWTgXPEXnvIJMCThYCeJ8d0OzbLi88mh4fnX415W8cCdM1hnf2VRl
-	GKolWNtFzfweKVAQ==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b="2/Sn/1ht";
-	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=P9faRgZp
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1792669281; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=O/GpDnaCAHI1nEQpDM/+W22P17N3Zfe9ncy6nDWopbc=;
-	b=2/Sn/1htdzOt5TFoNdLvkUshpu5nvgf7frD3x0+p4NDIECzHZmp8NhFuq1eKT8XRPRbf3g
-	6q2Jv6QwbOmaQ2Xw9UlpH0RoLVTxNFc7YfCdZB8RzmfqkzsIAS31OnALsLsRDcQMlYpmBq
-	v1tDSxKVl7fPTlBvO9S1slbBrzcphSY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1792669281;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=O/GpDnaCAHI1nEQpDM/+W22P17N3Zfe9ncy6nDWopbc=;
-	b=P9faRgZp30Re2WVWhtWTgXPEXnvIJMCThYCeJ8d0OzbLi88mh4fnX415W8cCdM1hnf2VRl
-	GKolWNtFzfweKVAQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 31650133F3;
-	Thu, 22 Oct 2026 11:41:21 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id ngQmA2H22WqxdwAAD6G6ig
-	(envelope-from <jack@suse.cz>); Thu, 22 Oct 2026 11:41:21 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
-	id B243EA1417; Thu, 22 Oct 2026 13:41:16 +0200 (CEST)
-Date: Thu, 22 Oct 2026 13:41:16 +0200
-From: Jan Kara <jack@suse.cz>
-To: Josef Bacik <josef@toxicpanda.com>
-Cc: Alexander Viro <viro@zeniv.linux.org.uk>, 
-	Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, linux-fsdevel@vger.kernel.org, 
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=VWWiqlMc
+Received: by mail-lf1-f47.google.com with SMTP id 2adb3069b0e04-5be502e1adaso192902e87.0
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 04:42:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792669369; x=1793274169; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=3C+/zJHk6WbojkSaRVu1xcp7XcfcDsCBGR+H6V7CTEk=;
+        b=VWWiqlMcSkbC/HwnYQ2tqYKnp4hOyjrPbsUYSXS616otXhLnQLNma9hccrXOsyHYAQ
+         XhgxDwlj0dFZs5NVXVKyMePXl/PQr/vfu5ZPLLOZx+a2MEW0DujRZF6r6LeIo5hyj3IP
+         wpcuEzV9NQkQFyQEH6xPwGDhp6BwsSAZTfvigNPA4CUAD3QdDXuqcLdHiIq4AOpRPjIX
+         twKXR0+yQgaN1MlAt0MU3pSjt33FGwfgv7j2st8ppHfuuGfmLbFZe9WB8NyRs8UtDUgV
+         Zf3ar66Z/uAyfqvTkpUaH/wdY8415yq6jElg1QoYpvqYJNoaj1vG0rQ/PMFhhf+lkBIW
+         gf+Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792669369; x=1793274169;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=3C+/zJHk6WbojkSaRVu1xcp7XcfcDsCBGR+H6V7CTEk=;
+        b=mLrqMExDf8xxWV8YZnjddsj/UByk2TvuY9z6jU3ssE2ifXqhf9ShGCIelm9ahFX6je
+         9LAbA9RWLAmr7VNJcIT9TLSVmrtrozoyWb/rcwWWfiTcPfhf4CFHqSNB4RgDVeQ48G+v
+         eZekxKqP4vW0fNccPQbWL6nKsOKWyewYc1oT+ZKouIER8Ewt3gY9cTW0KYFe7dh0hp7t
+         kVMgv8shzo5z601YRBw7B9jV9eo/0ShyNc3AlIyxhy2KXiRHQ1uT5FNm8Rxr5INHHf+y
+         rYftC/2yupgA7FMRJz8GmsR6s0iDXQuSeeIhqlMEXVx9Ud5R0DLy+iIy6rxGmbr3hnyf
+         Dh+Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxYs7njgqx6Y/UmHMyVSLX9uIiWZTfWdW0rZak60scq9m5FPHhZWqIhibi4MNBO7fKT9RN/KTVVJ2eBycA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLZBb2M3JZv0ifyg0C0+sFMqKA4ylpXti5oy8UgcmC7QC5pxDlj
+	NjIZGFtxSqe1wpmykccX58FkAV9dfno2yHmHvYh+gfFb8owY0/S55EFX
+X-Gm-Gg: AYBFou02LEzXjB9u+o3v7Rmek171QqGi9+t3yfaBSX/BeWzNCRNrQsDlsT1HshRJuJe
+	kKDhT7ZV60qKCq8owDmZgMJOvOkkO42HqnJiYmmsRxlhYXkgstR0Y84PVYvfgCj4kUDBsnhLufk
+	JSxjR+glAiZnpOu1CUMueIiwaFyG1aJy4tHcXqeitxvgecWDReJqw3mYGdjwA3pC2scj9y+ktOI
+	qQn0sxnm5iiAQ0ESgtI2+udZe7z40w6S/+IRunt4gOswP5Ywps8nQ6aRfCMOIa3s3kre/9MPyfO
+	FD+0keemGH6YuwdHu0wflJpeOVkLLF33PcA21y3DveAUEGjteanWCQV8NdFobQW/D2+OMZggpVX
+	CY+NEMWfY7aGVsXj9Wvk4hrVgEAkLG9L7KMAjxWLEealYJhxeTqDU2GioEUzbxRD6gSOWF9YnUh
+	muP+BkM9GRM649z8b+weA4yN74MC6wE8nga7UYkL0cVjHtXE3JVvjNtxHYduSUhvhk34lYF2T/n
+	0b3O4xLenHFNVDQZLvoiN7qGPFMZ467623MxsUaS37L/vlvVVAOU8RKhh8hnyMvyIZiiQ==
+X-Received: by 2002:a05:6512:34c8:b0:5bf:a221:ef39 with SMTP id 2adb3069b0e04-5bfa221f3d3mr1123072e87.0.1792669368241;
+        Thu, 22 Oct 2026 04:42:48 -0700 (PDT)
+Received: from localhost.localdomain ([78.40.184.2])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bfa1b94eb2sm987157e87.45.2026.10.22.04.42.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 22 Oct 2026 04:42:47 -0700 (PDT)
+From: Dmitriy Okunev <dokunevdmitriy@gmail.com>
+To: Andreas Gruenbacher <agruenba@redhat.com>
+Cc: lvc-project@linuxtesting.org,
+	David Teigland <teigland@redhat.com>,
+	Steven Whitehouse <swhiteho@redhat.com>,
+	gfs2@lists.linux.dev,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/5] fs: make ustat() and quotactl() killable in lookup
-Message-ID: <m5vkae2g7dj43dyktfvexwdhjkfvbatyykbqaigyjtcwkagood@e7buwoogjqhy>
-References: <20261021-b4-super-lock-unborn-v1-0-0265eddb6dee@toxicpanda.com>
- <20261021-b4-super-lock-unborn-v1-2-0265eddb6dee@toxicpanda.com>
+Subject: [PATCH] gfs2: Check gfs2_metatype_check() return value in revoke_lo_scan_elements()
+Date: Thu, 22 Oct 2026 14:42:36 +0300
+Message-ID: <20261022114236.122037-1-dokunevdmitriy@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -113,89 +96,49 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261021-b4-super-lock-unborn-v1-2-0265eddb6dee@toxicpanda.com>
-X-Rspamd-Queue-Id: 59AD11F44F
-X-Spam-Level: 
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-13.01 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	TO_DN_SOME(0.00)[];
-	ARC_NA(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[toxicpanda.com:email,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.com:email,suse.cz:dkim,suse.cz:email];
-	RCVD_COUNT_THREE(0.00)[3];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	RCVD_TLS_LAST(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[6];
-	DKIM_TRACE(0.00)[suse.cz:+]
-X-Spam-Score: -13.01
+Content-Transfer-Encoding: 8bit
 
-On Wed 21-10-26 16:46:58, Josef Bacik wrote:
-> user_get_super() looks up the superblock for a device number on behalf of
-> ustat(2) and quotactl(2).  If that superblock is still being mounted it
-> waits for SB_BORN, and then for s_umount, in super_lock().  With a mount
-> which is stuck on its device neither system call ever returns, and neither
-> can be killed.
-> 
-> Both fail if there is no superblock for the device, which is what
-> user_get_super() returning NULL means to them.  Use super_lock_killable()
-> and return NULL when the task is killed.
-> 
-> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+revoke_lo_scan_elements() calls gfs2_metatype_check() on every log
+block except the first one, but does not check its return value.
+gfs2_metatype_check() verifies that the block magic and type match
+GFS2_METATYPE_LB and, on mismatch, calls gfs2_withdraw(), which moves
+the filesystem into a terminal state (SDF_WITHDRAWN).  The function
+revoke_lo_scan_elements() keeps parsing the block as a valid
+log descriptor, passes the garbage it reads to gfs2_revoke_add(),
+and continues with the remaining blocks of the journal in the same
+way, eventually returning 0 even though the filesystem has already
+been withdrawn.
 
-Looks good. Feel free to add:
+Check the return value gfs2_metatype_check() and in case of an
+error bail out with -EIO.
 
-Reviewed-by: Jan Kara <jack@suse.cz>
+Found by Linux Verification Center (linuxtesting.org) with SVACE.
 
-								Honza
+Fixes: b3b94faa5fe5 ("[GFS2] The core of GFS2")
+Signed-off-by: Dmitriy Okunev <dokunevdmitriy@gmail.com>
+---
+ fs/gfs2/lops.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
-> ---
->  fs/super.c | 8 +++++++-
->  1 file changed, 7 insertions(+), 1 deletion(-)
-> 
-> diff --git a/fs/super.c b/fs/super.c
-> index 7164c92fe70e..40f92ffa39c1 100644
-> --- a/fs/super.c
-> +++ b/fs/super.c
-> @@ -1172,9 +1172,15 @@ struct super_block *user_get_super(dev_t dev, bool excl)
->  
->  	for (sb_dev = super_dev_first(dev); sb_dev; sb_dev = super_dev_next(sb_dev)) {
->  		struct super_block *sb = sb_dev->sd_sb;
-> +		int ret;
->  
-> -		if (!super_lock(sb, excl))
-> +		ret = super_lock_killable(sb, excl);
-> +		if (ret == -ENOENT)
->  			continue;
-> +		if (ret) {
-> +			super_dev_put(sb_dev);
-> +			return NULL;
-> +		}
->  
->  		/* The pinned entry holds a passive reference, take our own. */
->  		refcount_inc(&sb->s_passive);
-> 
-> -- 
-> 2.55.0
-> 
+diff --git a/fs/gfs2/lops.c b/fs/gfs2/lops.c
+index 6dabe73ad790..2aacd3f774ab 100644
+--- a/fs/gfs2/lops.c
++++ b/fs/gfs2/lops.c
+@@ -936,8 +936,12 @@ static int revoke_lo_scan_elements(struct gfs2_jdesc *jd, u32 start,
+ 		if (error)
+ 			return error;
+ 
+-		if (!first)
+-			gfs2_metatype_check(sdp, bh, GFS2_METATYPE_LB);
++		if (!first) {
++			if (gfs2_metatype_check(sdp, bh, GFS2_METATYPE_LB)) {
++				brelse(bh);
++				return -EIO;
++			}
++		}
+ 
+ 		while (offset + sizeof(u64) <= sdp->sd_sb.sb_bsize) {
+ 			blkno = be64_to_cpu(*(__be64 *)(bh->b_data + offset));
 -- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+2.53.0
+
