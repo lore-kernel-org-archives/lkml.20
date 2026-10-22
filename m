@@ -1,67 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.117.254.33
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792663129;
-	b=KG0OwRl3VAkwbmdT8n+jkIAth54POVGNeJQB30sXZKTwb/dTHmL+Z3vKnSQJIndEv+1n
-	 bL3z58JowUcCoWuHG3Z3Zj1/mpQWr10N7dvrczBVMtO1VfnGBi77gFaaEyAnQovhgvDmn
-	 k6+aXRdoXFrHMTIRvkepXBmn29zfgNk1dFCZcv5N/9w3QYpE4zeJjUWLZRHBnMBcAKBhw
-	 CpWeFtpngJlFQVr97URl0ZMZivUY5FOShJWiuc+jwE040jfdyYqDSFhFYJHt3bJ4VG/wV
-	 GIyij4LHgvRWnJYAERM2dy0L7oPrwQdY9k4f0hwBzdyJH6hxN38NkaHvhcshScMJBSw==
+	t=1792663139;
+	b=qhWABSNnDtHEvEbBc1jS16VFsT6kkQ8RgH1OXgqW/USvobjSgMyXB20QRFJDKO726o1i
+	 o6U1KYSs2sPBh++5qdPaqkGe4DaSFSyrd8o2bjH0PkP5gyKbsNRWzByFdnzJgfp+By5us
+	 TwHBJHtUr+GLm7nLbuVNf1C2zZRTVR282ZsxINiVsgXNfOz6SDWFnxmP2poE1MgnX4cvG
+	 znIUQh/Xwgw4dLC5Qprh6ipWwyVpZQN0xhqQM/SGkcDHvjWkh/loMwWaE2H0WpD1VctW9
+	 u3x0GzO0idAOOzyO2ENgfvWCObpL/IKFvqOOKX88bye8QPP0zW2MrPLRiZ3ChsDoWQA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792663129;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:X-UD-Smtp-Session:Date:
-	 From:To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=zI/Avxi1+u+wYsWO55uH2d8mbN45ZGvy+SEZu2RrbOA=;
-	b=Dx8q5QLp0xLsvVFhPzMSevKdvWEUW8le191tA2riJBNAgkPsR7grjQPleGHheKgAf5Yo
-	 xQ4QydjVmgCf80zWs8dekf1glefT0QBPxrSPdf5qLPRB6MZ+mQVU6mkdFXkvpqqyMI4aX
-	 F6ZRKA8y2VN4dIqXl7+OizdtNcSu5phv/okoce8C3+SUygtKOUjSwJnU7rgutzcdFajPg
-	 E0+wpTZs09je0g7LScM5GbxN3f7bRHuIncfvF9qfOgYMQdauMH/elyuH8AkG/EbvmQ5h/
-	 nA4MWmDGpt2G1AH/WndDMx4qstv+STEFo2Wo4QXTIjl72+cEcn2O6FPcK2GEOIPvDIQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792663139;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=4SnLNd5w0z2j+M0DUYOzSs1MGDbeGkfvlokW6ZHl9ak=;
+	b=pPMolcbVjFfrTyBP2Oayotxc3RluSgyu1QXns7mIq/TvJVtPQMogX8Mw1NeddVaAWqGt
+	 IfAZ41BZ0sZZhMdcprbvGT1+UaEessq18pYHQfiIr0NWedKVXTwior4svU1V9DRTgOTdT
+	 4CGy/r594MY8ztlSb8BWLX17c0igeT5JDTm/40dcfDr0haGxFkYTLr7ovn7SLoDbpyh2v
+	 72ngPoXPFXvNJV0RcvhzNGFYNLzaTQ990hUyceXPV6ZokkWyQKW/aFFKHIxUP5EHpM+yQ
+	 a6D68K9FdF1K+K9aDredpxBShLmfA9dVpnMR8eDQJ5gKx9p3U7oUgdwgEgcha8EgBEA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=sang-engineering.com;
-	spf=pass smtp.mailfrom=sang-engineering.com;
-	dkim=pass header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=EmRR2igZ;
-	arc=none smtp.remote-ip=194.117.254.33
-Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GnpgJrAq;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E28B606A31E
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 09:58:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9E28B606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BE50606A31B;
+	Thu, 22 Oct 2026 09:58:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=EmRR2igZ
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	sang-engineering.com; h=date:from:to:cc:subject:message-id
-	:references:mime-version:content-type:in-reply-to; s=k1; bh=zI/A
-	vxi1+u+wYsWO55uH2d8mbN45ZGvy+SEZu2RrbOA=; b=EmRR2igZoRtiK64J+yWM
-	L8b40xFWg4OkdiEnJJxzsQ+28LSV34UeZ2rnkgt+bPWbt4Ikz3K+xLDNo3AmbVQe
-	W+JYlRWbGoO+DPyN6p9JEpgyiLj0WKLgyFR/+9h9LLFqBYHAAMuPkklAEtPxh0GS
-	Hu+VoM8+sLvoP70CCfeRC22bZx0L1AIzfTWslk+Naa1QDuePKwPjnV+NHLWYFkAd
-	2pTMRCg1xv4clOZalUN4du1iOYJ4yBjkF23Af2Xi7o/MPGctfXsxBEUvVlgjdiSZ
-	oQEV03S7rdrvViVaTbVJpaK7zhzwktB63nD5rm0oti1MwYRoA5r17UKniyC62JLs
-	Zg==
-Received: (qmail 1096776 invoked from network); 22 Oct 2026 11:58:45 +0200
-Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 22 Oct 2026 11:58:45 +0200
-X-UD-Smtp-Session: l3s3148p1@aR/B6GpeKOYujns/
-Date: Thu, 22 Oct 2026 11:58:44 +0200
-From: wsa+renesas <wsa+renesas@sang-engineering.com>
-To: Biju Das <biju.das.jz@bp.renesas.com>
-Cc: "biju.das.au" <biju.das.au@gmail.com>, Ulf Hansson <ulfh@kernel.org>,
-	"linux-mmc@vger.kernel.org" <linux-mmc@vger.kernel.org>,
-	"linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: Re: [PATCH v24 10/15] mmc: renesas_sdhi: Add write32_hook for
- CTL_SD_CARD_CLK_CTL register writes
-Message-ID: <atneT7Q7wZ0qHrC5@shikoro>
-References: <20260820171657.62815-1-biju.das.jz@bp.renesas.com>
- <20260820171657.62815-11-biju.das.jz@bp.renesas.com>
- <aplMNoRlIYbVZH5-@shikoro>
- <TY3PR01MB113465A077155B664C7B4502186B22@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GnpgJrAq
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5FF321F000C1;
+	Thu, 22 Oct 2026 09:58:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792663139;
+	bh=4SnLNd5w0z2j+M0DUYOzSs1MGDbeGkfvlokW6ZHl9ak=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=GnpgJrAqse237anlo1ylTV1VGXMmeCDfb0l4eXb82966faybLMzbc57npZ24D/U20
+	 cIJp55OZ+7DBHCwexWAlIUQPs+MmIFEYA7b6qpjo7pgAVLtZz7DDHAuAuYSpKeSwsi
+	 9VBKuoH0a7LANeivMjNTnleLVkWm+YLafubsHwt2tgE0hnLYANrrmGSkf7PxQ9ejiU
+	 JEX1L/saOROiz/YPVZn4tX8JCeSxEzkcLeu9M4ScH4uWZuPF0EN1qiobU3EyrLGpj7
+	 H0lZFtICBrF2Ixa3sUfYXHYh8Ay75ZUbpZwtB54F9FY0DDiq5lhSGD9qI1o5+AAagl
+	 5knMtM/qh006w==
+Date: Thu, 22 Oct 2026 11:58:56 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
+Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+	Jerome Brunet <jbrunet+clk@baylibre.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+	Alexandre Torgue <alexandre.torgue@foss.st.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-clk@vger.kernel.org, 
+	linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH 2/3] dt-bindings: clock: stm32mp13: add SPI1 to SPI5 bus
+ clocks
+Message-ID: <20261022-scrupulous-toucan-of-judgment-00c8cf@quoll>
+References: <20261020-ups_mp13_clk_spi-v1-0-6c00730945c7@foss.st.com>
+ <20261020-ups_mp13_clk_spi-v1-2-6c00730945c7@foss.st.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,47 +62,29 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="AX2ahRsx66rUrkGg"
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <TY3PR01MB113465A077155B664C7B4502186B22@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+In-Reply-To: <20261020-ups_mp13_clk_spi-v1-2-6c00730945c7@foss.st.com>
 
---AX2ahRsx66rUrkGg
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On Tue, Oct 20, 2026 at 10:31:08AM +0200, Gabriel Fernandez wrote:
+> The STM32MP13 RCC binding only provides the kernel clocks of the SPI
+> and I2S instances (SPIx_K). Their bus interface clocks are missing,
+> whereas the I2S binding requires one as its "pclk" clock.
+> 
+> Add the IDs of the SPI1 to SPI5 bus clocks, as already done for the
+> SPI instances of the STM32MP15.
+> 
+> Drop STM32MP1_LAST_CLK: it is not part of the binding ABI, it would have
+> to change each time an ID is added, and the driver no longer uses it as
+> it defines the number of clocks by itself.
+> 
+> Signed-off-by: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
+> ---
+>  include/dt-bindings/clock/stm32mp13-clks.h | 6 +++++-
+>  1 file changed, 5 insertions(+), 1 deletion(-)
 
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-> > Have you checked that all SoCs handled by this driver support 32-bit ac=
-cess to this register?
->=20
-> Only RZ/G3L has bits more than 16-bits for SD_CLK_CTRL,
-> This patch is a preparatory patch and has no impact on other SoCs.
+Best regards,
+Krzysztof
 
-You are right that this is only a preparatory patch and my comment does
-not really apply here. But whenever SD_CLK_CTRL is accessed later with
-32bit width, then we need to check if the platform supports 32-bit
-writes or if it only supports 16-bit writes.
-
-
---AX2ahRsx66rUrkGg
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmrZ3k8ACgkQFA3kzBSg
-KbYJyw/9GIMJOqMX/IA36J7iN+qASBjPMGBFTk3Mc7xWajqJ/TAs6w1K1UGZdsO+
-9tU/KadWE3VEYjRjExS0SFD4SyvXTlTpL3twzmvHkTCVA+kUGgVLVz4abQWQueCO
-zzgmhQjvYb7olvvioGqVb0TiRVywPrRH/1YM0HmbokzWRm/hVumNUPHpc8mwdiPu
-ijoCSKgRFsIHgZ3N52z14PDZJrdnkrpUnqRo5wnj7I4DE0VL2neCXqD6wD+BX1lL
-Tx/sCNI0cy20Lrm6WkcwoXbtETadtMogZe+KxnacS/HGoOQi2RWn2mw4t7AyP94O
-R41iei4o9dFOugc8w2i/kL2UOfzdu8hGvNcPP+MRkmJFw2CpXKmlrqQ4O95DkY+s
-Tk6fCFiFzWcDhk+DF8Z0opZ5vRpKlvyhe8fSXIOsXWthIqQDDBiYem3RAad93qsB
-oHJJVGtad5eBy8Jpd6CzJC3tY69nxrMZBAat3OxfvOEj8WMiPzc45gckMYMNZ3R8
-5A4O5r4yB+XkGpboFBbqO5rhUunVuFDrSKfOzx9xrtQBtPPxttGTW9oEp402JfKr
-WGnGDyZhWwJvMxfGBf5x+MzKaS3tTcLsNWoxAo9TVF7EZwlKxB6YxCBj/nm98BfL
-J4TvVKbddLhxoKoodqNEiKwBgKZpX9O7DY1hGJX0mAEFDpCE2jE=
-=5jyQ
------END PGP SIGNATURE-----
-
---AX2ahRsx66rUrkGg--
