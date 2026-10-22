@@ -1,97 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.201.2
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792695564;
-	b=fan+5d7l1Gz81PwLjD3b27utPY/7HZXKx3zyq64KTkDTMLvxE1WlefDqCOdIPbT8c0nX
-	 XsOY5UC3wbjijGrqQJmAPWQsIvCO4p84iU3ccre10Wdb0FOawM0Vwkqo3l8EsFHWt4M52
-	 bETx1zTX21K3AnU+u+l0CsotE+j4EOdMDDEZGEoBWkMv1Gy0j1RNMmU5XMOfCiJmjhBZs
-	 zZiimpEw3T9jRTuOjrhKD1+TCP2wHtFnyIFvSR3JsrqMDd6OLh2oBIPBa/kpXyfjg+0Im
-	 7HgRE/P+xJQ6XPzirz7IzsWvIY+Gtq17erwg9F1eDUz/be4Srmk/IA1JMmGd7uypogg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792695564;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:Subject:Cc:To:
-	 From:X-Mailer:References:In-Reply-To:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=2BHLTsR/jOlN4B6iFOIXrBLrUldtpx5d4VdiWYc3fO4=;
-	b=KkdC+su47NFwFbZy9/2t0dUn4EAE1Icpn9ILsrEfg4v6/Sic4BE043TEUI2Qi7AGTYG6
-	 VUGC1fYxjqFvvJPu7PaV8PQP9l42a/7KKJgxAIzuoXqoDfX2LsSaD+ubulvuEKGN9VmDI
-	 NnLNQTxhgfj+SB8/nSPoCo2V4zfRpZmxmXMZphWmj0TsKr9GHZc575OKbjemvGS5TcJ0+
-	 6j+ull1FJG7JR7VRRE5JxqAO/gVXKkWlGQaTeAsCQqw0fe+xxRwccvPlnYZSGNyggQ5rv
-	 KBBBzTBqjwN7ZhJTGvorZDRy1yxXiV+3KoelWUlo2MG1+6ii4VVX22lRIlF8hHFDGJA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=c7aJ1fNJ;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.201.2
-Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazon11013002.outbound.protection.outlook.com [40.93.201.2])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792695701;
+	b=OP7RHL7SLzMMOPUwZj9RdZfFctvm/LE7RFBAPzpczNrQxDQOYG5WFBtviQmS1P63huQb
+	 Jw6MO4AJv2fKxiy+SQspbbfDu36wKCfx0UuFgWyhTQ9Mqjh366Rqg9PW9h4PPc6Vl2S8T
+	 OSm/xPB6WYgfnCpUvlZYwFxUwEFQFI0j0GVaw56IyH7nNQtpY/IVjw1rQX8/h6Av47SSP
+	 eb1hFJt5lwNverLdgbKSjPBih5VknouZ29PRniFoGwrmOH0zgZQztZtWWLND05C+nyUTd
+	 xSuM7c2cJvEa1u+Vi30rYQLrAC2FVPDP7DXSbdSqXLuUVS5sDhz+sDkymn5weglv+1Q==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792695701;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=rs0wUm4z/DbVk/Ptat8LwHiYek8GxKp3J9MUJ5meML4=;
+	b=ZmQkKanOvMc6L5y6eLzF4DVX+j7tghX8rI1qnaRCGw0cSXTG9hgn214G8YLAwgpnnsfM
+	 pQXawOUmb5qLpFTJRGhvngTZ4+Czu9eFHlKD5U6AuzPMLNhRMEtAM48SCljFieiE0aiap
+	 bXAeFYyT7UuqC4eaJ4xQqu8ZO6nHswEGX4zy1fXi5LeeXuUTgRW96TJX735yzuN+c5SOa
+	 3ecKeWLmAz2gfedoHDcD4t6PT9usr1kXhRl+iRCYVJLJDXo7t153/b0bXyMfLak16+oIN
+	 TLuTJVdLa2FmCUuw2usFaszBt+O7jXm44Jwp2g2pTgWXDpsjv+0MU2IJhUuc4wVdpoA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LLfpY2NM;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A1D7606A31F
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 18:59:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4A1D7606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A7B6606A319;
+	Thu, 22 Oct 2026 19:01:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=c7aJ1fNJ
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=LsZxwVEElxZvdRmlCTnMURcBWFuRXD4AY7BE1witvQIfYCRMUozM4DWnTQIEXVDEiExFU/n8/FxRce+2zbaUhNdZXunZEsTx2rG8KdAK1LOscQNQeFsuJ/+VvGEzXDLmfm7i59JI1nvZuU23C0HXnK+5JR1uav3DXa0gRhyU++SoCgZJxn0cgzKMyV0xHNTmYUxXGUddfo36R+TWDsaLBdeul9iWEmEHyuQzwI9+YAY97wX3zWHYoV2FLF7Pti7ep6mXiwBG3zUa8WH9V07ZCKXm6ctYHjpgxk6AJAT+0KeAzzZsxuidLEeP0IYHWHTRQB9Bpj/T6flVJHE51H7BQA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2BHLTsR/jOlN4B6iFOIXrBLrUldtpx5d4VdiWYc3fO4=;
- b=wwPVtK7DNkp9/tV1Rb+2gyXIX1bjaHrXIte/ECX7aEoVJPj5CuaJpZGQ4RzSuNZIXr0tFAdxZZ39UGImHrQghgsY1j4hjWJ88RQlHX8BOCSwNYanAkub8dgNrXkOtwg/1IOfN/VjuDZhBelL+ZWYxA0zO/4Wj9Bl6WOrBr1dLM5z4+P0l27UI7xT5lJO0HUKAnxtgVCwKqTc7MdaqcfaPb6YdaHdHjgzYhzUTjg/x/GlHGdjbQPqh1fBeD+sCJiz4zQtuWypuU+V1OR5NXBKC8qI4xT+Ry9nt1SUD7bn9/tae3CVx7W9B8WxGDqGL4oDfuvuv7J6it8tNSOarfpBTA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2BHLTsR/jOlN4B6iFOIXrBLrUldtpx5d4VdiWYc3fO4=;
- b=c7aJ1fNJEAO8O9BD+7T0AOW+akN7kKkvhFVWA0YiRjz5DgMbeCkBJ5uFt2VBBjnMrDsjkIU9c4zP482UbXWzinpxGQBPmDq9y3QUUVACJ+YAvCfWRgt2MuOtR1k1UKXibXSC4p+xKgk7MXYdEYKGER8Ti821LumrzZD1p7u1FeNqOATW0fsJRZnElqdW6fsxoqi2xjgeYoVAsmx8Qd3ZRC6cqJ7SJGTy/otQFPro9NGVtP7cxEZFw+CRZe3BsotcA5wZdfyz6AecBBtT30e8uceDG145EA29qLL7kizw4WEIEpGyEZ+6mZfK1gwxrW0vomxzhDvkXwJZhkSECwY18Q==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
- by DS7PR12MB9503.namprd12.prod.outlook.com (2603:10b6:8:251::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.23; Thu, 22 Oct
- 2026 18:59:19 +0000
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16%6]) with mapi id 15.21.0522.017; Thu, 22 Oct 2026
- 18:59:19 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 22 Oct 2026 14:59:17 -0400
-Message-Id: <DMBLJDUCMJI6.2RDRAALJ84225@nvidia.com>
-Subject: Re: [PATCH] mm/migrate: wake kcompactd when huge folio migration
- fails in numa balancing
-Cc: "Andrew Morton" <akpm@linux-foundation.org>, "David Hildenbrand"
- <david@kernel.org>, "Matthew Brost" <matthew.brost@intel.com>, "Byungchul
- Park" <byungchul@sk.com>, "Ying Huang" <ying.huang@linux.alibaba.com>,
- "Alistair Popple" <apopple@nvidia.com>, <linux-mm@kvack.org>,
- <linux-kernel@vger.kernel.org>, <kernel-team@meta.com>
-To: "Joshua Hahn" <joshua.hahnjy@gmail.com>, "Gregory Price"
- <gourry@gourry.net>
-From: "Zi Yan" <ziy@nvidia.com>
-X-Mailer: aerc 0.22.0
-References: <20261022172547.1181530-1-joshua.hahnjy@gmail.com>
-In-Reply-To: <20261022172547.1181530-1-joshua.hahnjy@gmail.com>
-X-ClientProxiedBy: YQZPR01CA0015.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:85::20) To IA0PR12MB8374.namprd12.prod.outlook.com
- (2603:10b6:208:40e::7)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LLfpY2NM
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1DBDB1F01825;
+	Thu, 22 Oct 2026 19:01:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792695701;
+	bh=rs0wUm4z/DbVk/Ptat8LwHiYek8GxKp3J9MUJ5meML4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=LLfpY2NM38Ectvk595i3sSkrIIB1Qa09Zn/6PYQFjtkZL9ZQByfimQ1AWSL4vLocN
+	 nKgt84BXHt++6ODdDkpRfuYSCDxsE1n9A7wW5KQeyx9+IVEGOh6uFWPvDL9YrSjKvL
+	 QKXQYYeLMM79aRZrQpnxqxYurg2Jl0WbXnRX75zfOFVWvhbgiGKbNkIv+ZNUBzEjZX
+	 jqLk9qKhrdW8Gd4nBeIS5uxLXPPXBdeow0ZMeuc2CQjtdysldaBB/74jWGAofFIIg6
+	 DlCc9R887q9NAkNtYHBDSVJxvRZ96nR6J4GpoWS5saz2dFGX4C2hVJBtS6iFtF+gS+
+	 1TeiO25XLS88A==
+Date: Thu, 22 Oct 2026 20:01:33 +0100
+From: Conor Dooley <conor@kernel.org>
+To: gaohan@iscas.ac.cn
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Zhiguo Zhu <zhiguo.zhu@linux.alibaba.com>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>,
+	Samuel Holland <samuel.holland@sifive.com>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Anup Patel <anup@brainfault.org>, Icenowy Zheng <uwu@icenowy.me>,
+	Drew Fustini <fustini@kernel.org>, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
+	linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org,
+	Paul Walmsley <paul.walmsley@sifive.com>
+Subject: Re: [PATCH 08/18] dt-bindings: pinctrl: add Zhihe A210 pin controller
+Message-ID: <20261022-gyration-rimmed-98c5a8e1138d@spud>
+References: <20261022-a210-init-v1-0-5e438f972d24@iscas.ac.cn>
+ <20261022-a210-init-v1-8-5e438f972d24@iscas.ac.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,138 +74,275 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|DS7PR12MB9503:EE_
-X-MS-Office365-Filtering-Correlation-Id: b3932136-b231-4484-f915-08df306e936d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|23010399003|376014|7416014|1800799024|18002099003|22082099003|261022105027099003|261022075727099003|11063799006|56012099006|261021121427099003|261021123027099003|261009223027099003|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	iB6eiQriBXotUjUr07ob7gYKZgTGgVxL+ikq6YgW2lrWkdaL+9C892Q8fUR71O+AH2/FZ+9KcAP0Li+SK9heFPCvZGjgaSErtIvuN8cltone1+UdfhMS7aGVvf6Flwa6MWZzBqwgZEl0wUpcdxfNFPdDdrZXN3cYff/8MpqkkJlpLjcNAG200xNuoNbxfFibOYXY8HfqeGrLHk2hNDkbxRZb4Tpny9xxYUiGWWImJzjrSQmz3AxUC4gcirVKZOMqIRwhNZAnLSVovXxiLIfuer64hxFvptjxjRcQIltqjUswl/7ydp2Akp/w/oED1OG5PEWAtFbiRLkIV6vvAgK84x0a0EQ3SChqqEiyp0w2Vnb3ohd0qPFIlmLO4A2aklinEl1Vj1ar0YiNRHeqlt3IGVv/d3Fe5T9V1anOG0q+P2skoaj7VxMmQJMdiTWFfgxWsyGsKzRojE0e4RCXghA/8NCU8kEj3x6jYjnektBGVtIaTkYyj+p3RTx5JB6uCMPMK9mD97v/4GsPAvwRsz2UWg0W1Yh5gvGQ/+L37QZ/mFL1qX1EwcJ9gQ1Q0ke6cy++Zv+56po7mLhiEE3t7g70IF6DsVv3oDKHJNehDdg0DEbootxvrehs+6WAgMF61Ytu1QiM9hD4667xpu4ZWDrmLulwbtrhjvbz/AfeLlV4lE0=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(376014)(7416014)(1800799024)(18002099003)(22082099003)(261022105027099003)(261022075727099003)(11063799006)(56012099006)(261021121427099003)(261021123027099003)(261009223027099003)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?N3FZSnoyZ3hIdE5yNVVjYjhRRHZUMGF3c3AzWDNoeDVlUTFkdmJiUjZyVVh2?=
- =?utf-8?B?NFNtUmNJTG1scjAvRXdHNnVzbTV6SU0zK0k4RmdhUFBwZWRuN244OVk0aXpx?=
- =?utf-8?B?WVZjMUV1L3BKWFlqUTZFQ2Nrb0pINjh0dmxFYXJ2ZjBtMXBLMHUzOWFWTjRj?=
- =?utf-8?B?bDJRWXJlNXpzWmpzWUpaSUZhR2crMmY1aS9WSHJ4cHV0Rk1WSnAvOWlLb1Jw?=
- =?utf-8?B?K05wclVmdmhBeFY5cC8wa0UydmZiN2wrTjNwR0JhRytRZ2JubVRUL1BLeFVG?=
- =?utf-8?B?SmhibFgvRjVBdi85dENjMEtaYk1EOEc3SDZzMW4waWN0RWFlRXNiRkJEWHBC?=
- =?utf-8?B?V0c0Q0xLMmlSdFlCOU0wdDc4eFVZQnNxL0FyTEEwejd1Vkd6OGpXN2ZlaThh?=
- =?utf-8?B?a3dEdlhJUUtmeHNJanVhVkxYOGlOV3hwNm1pemJDcjc5S1FYUEppOWRzMldW?=
- =?utf-8?B?Y3g0cTFzZHo1azhRa01QWTExcFR1RGlFaGpGRUFZV2xKQ3J4S1UwMVVVcCs2?=
- =?utf-8?B?Z0FMRHdvcVBGanVWV21iV3k4QVNRWFJpVSswak9HWlkrbEJmRDFHQmMrNnJG?=
- =?utf-8?B?NjFTcndDMWQ3SlhBQkxtRjJCcVZ5cFVkR2tUTGl4UEZFZTlQQVMzSVZKMGg0?=
- =?utf-8?B?aU9UMytvaGo3aVptVWdZa0hYVUFxc1RtYnNGOHRDay8rb001SFlmWW5tQUxB?=
- =?utf-8?B?Qm53Zm9WWjNKc1VrOFNYMDNFYkpGbEx0MVIxQy9oWER0OWU2cWNTRThLWXox?=
- =?utf-8?B?WVVQWE56eEYxdDJiakJKRjViZ0JqekJEZXBUT1VVS2dhLzBYVUtZTlAya3BE?=
- =?utf-8?B?Mi9VVUY0WTlHeGhFeVRKTUZRZnpMbXdHVE9rMmF5Qkx6YkJSUmplNVZHaGV4?=
- =?utf-8?B?MnF0NHpnclVwdkNIMXVBaXp4ZHlSSjdOa2tGRUxjenRSQ1VMZ3hCRnVEc291?=
- =?utf-8?B?NWFGWFJoZ00rWDRYN1JHeERpVGhNK095NUR1c0g1ZnFVcVVCdGJWbVVTaC9U?=
- =?utf-8?B?d1UvY0d5TXRNeEFqOHhoeTl1UGhhSThsdXlwM0w2WjNBRG5hRVd1YnVWdEtF?=
- =?utf-8?B?eDJSek5landGOVZrN05LUElJdGEyVktuOWFGcTNsc3VML1B5Y01iS0owSUcr?=
- =?utf-8?B?Q0QraVhwYm81VWNFeHBnRzVscVpTcG5GRURTMUx4NEFIMEFmc1g4Qm9XeFJU?=
- =?utf-8?B?cjlIeGxNRWk5cmZiRitxK0pkM2VNVkFyTGhPajdIR081OHJMQnBkYnFWZVAw?=
- =?utf-8?B?UUNCb1ZaZDF4VTRTYUJMRWZtbFRaN3B5eVpSUXc0eWVJeEZ0WlpkU3V4cTkz?=
- =?utf-8?B?YlowYjNseVhSTXAwdDRhYklsRVJVQ3FuWDhGb05YQUs1N2VNVVp1MGlCYzQ3?=
- =?utf-8?B?eWlXV1dRR2NyUGY5bElSTWF4aU04ZWJQMk9LUU85OWhPci9jdUJzRUpCd1Ns?=
- =?utf-8?B?NGRVd2VFMUt3bzdtZUhMR2szRE11WEZwUGkxOUdJQWcxbGUyTEpib2hJQ2pz?=
- =?utf-8?B?RzZqSHNiMGplWEFLRzdDMmtmdWdIbG5Gc0pXYzJHMW1Cemc4TGtudkxnYkpJ?=
- =?utf-8?B?R3hUSXlkb0gzMFhueVRyQXZkQ1RmRmFWOCtVZlE1UzdJNEhmVURuVkplcmlO?=
- =?utf-8?B?bFVjSTJYaFJ1WVdWY25nUitaZWRuUUU4ZVJ5NncySmVyRWZFdHc2NGZYcURY?=
- =?utf-8?B?UlBZOVJlNDFyTUtCMHJzMnJIL2lFZWxUdkg1THVaZHNaSjliSW0xSk5KSUJL?=
- =?utf-8?B?alpmSzY0Y3lyV0pHRUppRWlCNnN4SVVTRWFOdEtQbkhDTFN5bm5hWU53VE1a?=
- =?utf-8?B?a0lJTGFoSS9RdXZZTnFPeFhxRnh3dXNva0tVZUtvREpIM0lNVWtxaDVWczgw?=
- =?utf-8?B?Z3YrWTd2NkRWekNleFN1Vm12d2VhUVo1SlA1MDk5T1ZTeVlma0FoY0c4MjFY?=
- =?utf-8?B?S3p5QXlKNWppQTJvTjkyVXc0SGpYUnUzc3VYVzlTYXlSWnplTUNKZUFqbGJZ?=
- =?utf-8?B?a0d6LzlyZHlGdmRDc3hMdnB1eE8rUmNzRGxOaUJyd0FoVEJLRE80eUR4Yi84?=
- =?utf-8?B?UWpxYW0wcWVKdXUvSEJ5T0JCb09RNjY1Z01lOFBHekhLZy81cFBuM1ZkL2Zk?=
- =?utf-8?B?YmpEV3dSSlkrWXpSRDZmKzd5SUhDMDV5TnhpbjdaZER4Zy9NZzNucG9td0dF?=
- =?utf-8?B?dDQ3L2hjVmZVMXBJSWxKTDRGVVU4dTU0cjUzOU14QUhic0twN2VPSTIrOGIw?=
- =?utf-8?B?ZWdRZ3ZJNDFHZklsVFQ3Z1I5REp2VGZ2V2ZWbWF0TUMyZzEzQzJsZWdOWGhV?=
- =?utf-8?Q?we0nsYd80mGUzuGDyQ?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b3932136-b231-4484-f915-08df306e936d
-X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Oct 2026 18:59:18.9328
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 7kbvP1bvmn5tYqrLGcN6iqObTNPGruM/mJvWEqkEKodQZvUyEdeT7acKPPrS1obl
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB9503
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="2O9Ps+gKElYzliia"
+Content-Disposition: inline
+In-Reply-To: <20261022-a210-init-v1-8-5e438f972d24@iscas.ac.cn>
 
-On Thu Oct 22, 2026 at 1:25 PM EDT, Joshua Hahn wrote:
-> NUMA balancing migrates a misplaced folio if migrate_balanced_pgdat()
-> finds enough headroom on the destination node. For large folios, it then
-> allocates a folio from the destination with GFP_TRANSHUGE_LIGHT, which
-> wakes up neither kswapd nor kcompactd. This means a hot large folio
-> trying to promote to a fragmented destination may never succeed in
-> promotion even after repeated retries.
->
-> Wake kcompactd on the target node when the destination allocation fails
-> for a large folio. Don't wake kswapd, since this path can only be
-> reached if there is enough free memory to service the allocation, but it
-> is too fragmented to serve the large folio allocation.
->
-> This patch has been A/B tested on tiered Meta systems (DRAM + CXL)
-> running identical cacheing workloads. Without this patch, we accumulate
-> around 4.5k failed THP migrations over the span of a day, while the host
-> with this patch accumulates only about 80.
+--2O9Ps+gKElYzliia
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Is proactive compaction enabled? If yes, why does it not help?
-
->
-> Those migration differences leads to about 25% reduced CXL bandwidth
-> usage after applying this patch.
->
-> Signed-off-by: Joshua Hahn <joshua.hahnjy@gmail.com>
+On Thu, Oct 22, 2026 at 03:53:28AM +0800, Han Gao via B4 Relay wrote:
+> From: Zhiguo Zhu <zhiguo.zhu@linux.alibaba.com>
+>=20
+> Add bindings for the four A210 pad controllers. Describe the shared
+> PERI3 SDIO mux and per-pad bias controls.
+>=20
+> Signed-off-by: Zhiguo Zhu <zhiguo.zhu@linux.alibaba.com>
+> Signed-off-by: Han Gao <gaohan@iscas.ac.cn>
 > ---
->  mm/migrate.c | 13 ++++++++++++-
->  1 file changed, 12 insertions(+), 1 deletion(-)
->
-> diff --git a/mm/migrate.c b/mm/migrate.c
-> index 7bdcdb57652f8..67364fe0851c0 100644
-> --- a/mm/migrate.c
-> +++ b/mm/migrate.c
-> @@ -2671,6 +2671,7 @@ static struct folio *alloc_misplaced_dst_folio(stru=
-ct folio *src,
->  	int nid =3D (int) data;
->  	int order =3D folio_order(src);
->  	gfp_t gfp =3D __GFP_THISNODE;
-> +	struct folio *dst;
-> =20
->  	if (order > 0)
->  		gfp |=3D GFP_TRANSHUGE_LIGHT;
-> @@ -2679,7 +2680,17 @@ static struct folio *alloc_misplaced_dst_folio(str=
-uct folio *src,
->  			__GFP_NOWARN;
->  		gfp &=3D ~__GFP_RECLAIM;
->  	}
-> -	return __folio_alloc_node(gfp, order, nid);
+>  .../bindings/pinctrl/zhihe,a210-pinctrl.yaml       | 206 +++++++++++++++=
+++++++
+>  1 file changed, 206 insertions(+)
+>=20
+> diff --git a/Documentation/devicetree/bindings/pinctrl/zhihe,a210-pinctrl=
+=2Eyaml b/Documentation/devicetree/bindings/pinctrl/zhihe,a210-pinctrl.yaml
+> new file mode 100644
+> index 000000000000..51cbb0189f47
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/pinctrl/zhihe,a210-pinctrl.yaml
+> @@ -0,0 +1,206 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/pinctrl/zhihe,a210-pinctrl.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
 > +
-> +	dst =3D __folio_alloc_node(gfp, order, nid);
+> +title: ZhiHe A210 pin controller
 > +
-> +	/*
-> +	 * A node with enough free memory might still be too fragmented to serv=
-e
-> +	 * a large folio. Wake kcompactd to help the next huge folio migration.
-> +	 */
-> +	if (!dst && order > 0)
-> +		wakeup_kcompactd(NODE_DATA(nid), order, gfp_zone(gfp));
+> +maintainers:
+> +  - Zhiguo Zhu <zhiguo.zhu@linux.alibaba.com>
 > +
-> +	return dst;
->  }
-> =20
->  /*
+> +description: |
+> +  Pinmux and pinconf controller of the ZhiHe A210 RISC-V SoC.
+> +
+> +  The pads of the A210 are split into four groups, each managed by its
+> +  own pad controller with a separate register range:
+> +
+> +    AON pad controller     -> zhihe,a210-aon-pinctrl
+> +    PADCTRL0 (peripheral1) -> zhihe,a210-peri1-pinctrl
+> +    PADCTRL1 (peripheral2) -> zhihe,a210-peri2-pinctrl
+> +    PADCTRL2 (peripheral3) -> zhihe,a210-peri3-pinctrl
+> +
+> +  Each pad can be muxed individually to up to 8 different functions,
+> +  though for most pads only a few of those configurations are valid.
+> +  A few pads in the AON group do not support muxing or configuration
+> +  at all.
+> +
+> +  AON, PERI1 and PERI2 pads support configurable drive strength, bias,
+> +  input enable, Schmitt trigger and slew rate. PERI3 has a separate pad
+> +  layout: its six SDIO pads share one mux bit. Select their function with
+> +  the "sdio" group. Per-pad bias can be configured independently.
+> +
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - zhihe,a210-aon-pinctrl
+> +      - zhihe,a210-peri1-pinctrl
+> +      - zhihe,a210-peri2-pinctrl
+> +      - zhihe,a210-peri3-pinctrl
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  clocks:
+> +    maxItems: 1
+> +
+> +  clock-names:
+> +    const: pclk
+> +
+> +patternProperties:
+> +  '-[0-9]+$':
+> +    type: object
+> +
+> +    description:
+> +      A pinmux group referenced by a consumer's pinctrl phandle. It
+> +      contains one subnode per set of pads sharing the same pinmux and
+> +      pinconf settings.
+> +
+> +    additionalProperties: false
+> +
+> +    patternProperties:
+> +      '-pins$':
+> +        type: object
+> +        $ref: /schemas/pinctrl/pincfg-node.yaml#
+> +
+> +        description:
+> +          A pinctrl node describing the pinmux and pinconf settings of
+> +          one or more pads.
+> +
+> +        properties:
+> +          pins:
+> +            $ref: /schemas/pinctrl/pinmux-node.yaml#/properties/pins
+> +            description: List of pads that properties in the node apply =
+to.
+> +
+> +          groups:
+> +            items:
+> +              - const: sdio
+> +
+> +          function:
+> +            $ref: /schemas/pinctrl/pinmux-node.yaml#/properties/function
+> +            enum: [ aouart, aouart_ir, aogpio0, aogpio1, aoi2c0, aoi2c1,
+> +                    aospi, jtag, reset, por, pmic, dvs, uart0, uart1,
+> +                    uart2, uart3, uart4, uart5, uart6, uart7, uart8,
+> +                    uart9, uart0_ir, uart1_ir, uart2_ir, uart3_ir,
+> +                    uart4_ir, uart5_ir, uart6_ir, uart7_ir, uart8_ir,
+> +                    uart9_ir, gpio0, gpio1, gpio2, gpio3, gpio4, gmac0,
+> +                    gmac1, spi0, spi1, qspi0, qspi1, pwm0, pwm1, pwm2,
+> +                    can0, can1, can2, i2s0, i2s1, i2s2, i2s3, i2c0, i2c1,
+> +                    i2c2, i2c3, i2c4, i2c5, i2c6, i2c7, i2c7_smb, sdio,
+> +                    isp0, dptx, usb31, sata_p0, sata_p1, hdmi, zmac,
+> +                    bsel, dbgm, cdbg, pdm, tdm, pcie_x1, pcie_x4,
+> +                    sen_vclk ]
 
+These sorts of things always make me wonder: do uart4 and uart5 actually
+need to be different functions, or can you just use a uart function
+because no pin can potentially have more than one uart muxed to it?
+Ditto for spi, i2c, gpio etc.
 
+> +            description: The mux function to select for the given pins.
+> +
+> +          bias-disable: true
+> +
+> +          bias-pull-up: true
+> +
+> +          bias-pull-down: true
+> +
+> +          drive-strength:
+> +            enum: [ 1, 2, 3, 5, 7, 8, 10, 12, 13, 15, 16, 18, 20, 21, 23,
+> +                    25 ]
+> +            description: Drive strength in mA.
+> +
+> +          input-enable: true
+> +
+> +          input-disable: true
+> +
+> +          input-schmitt-enable: true
+> +
+> +          input-schmitt-disable: true
+> +
+> +          slew-rate:
+> +            maximum: 1
+> +
+> +        oneOf:
+> +          - required: [pins]
+> +          - required: [groups]
+> +
+> +        additionalProperties: false
+> +
+> +allOf:
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          const: zhihe,a210-peri3-pinctrl
+> +    then:
+> +      patternProperties:
+> +        '-[0-9]+$':
+> +          patternProperties:
+> +            '-pins$':
+> +              properties:
+> +                pins:
+> +                  items:
+> +                    enum: [SDIO_CLK, SDIO_CMD, SDIO_DAT0, SDIO_DAT1,
+> +                           SDIO_DAT2, SDIO_DAT3]
 
+Where do these SDIO_CLK etc come from?
 
---=20
-Best Regards,
-Yan, Zi
+> +                function:
+> +                  enum: [sdio, gpio4]
+> +                drive-strength: false
+> +                input-enable: false
+> +                input-disable: false
+> +                input-schmitt-enable: false
+> +                input-schmitt-disable: false
+> +                slew-rate: false
+> +              if:
+> +                required: [function]
+> +              then:
+> +                required: [groups]
 
+Can you please explain why this uses a group for sdio when the binding
+would be more straightforward if you just used pins?
+
+> +    else:
+> +      patternProperties:
+> +        '-[0-9]+$':
+> +          patternProperties:
+> +            '-pins$':
+> +              properties:
+> +                groups: false
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - clocks
+> +  - clock-names
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    pinctrl@2026000 {
+> +        compatible =3D "zhihe,a210-peri1-pinctrl";
+> +        reg =3D <0x2026000 0x1000>;
+> +        clocks =3D <&clk 0>;
+> +        clock-names =3D "pclk";
+> +
+> +        gmac0-0 {
+> +            gmac0-pins {
+> +                bias-disable;
+> +                drive-strength =3D <13>;
+> +                function =3D "gmac0";
+> +                input-disable;
+> +                input-schmitt-disable;
+> +                pins =3D "GPIO0_0", "GPIO0_12";
+
+This is confusingly ordered. pins then function, followed by config
+properties please.
+
+> +                slew-rate =3D <0>;
+> +            };
+> +        };
+> +    };
+> +
+> +  - |
+> +    pinctrl@542000 {
+> +        compatible =3D "zhihe,a210-peri3-pinctrl";
+> +        reg =3D <0x542000 0x1000>;
+> +        clocks =3D <&clk 0>;
+> +        clock-names =3D "pclk";
+> +
+> +        sdio-0 {
+> +            cmd-data-pins {
+> +                bias-pull-up;
+> +                pins =3D "SDIO_CMD", "SDIO_DAT0", "SDIO_DAT1",
+> +                       "SDIO_DAT2", "SDIO_DAT3";
+> +            };
+> +
+> +            sdio-pins {
+> +                function =3D "sdio";
+> +                groups =3D "sdio";
+> +            };
+> +        };
+> +    };
+>=20
+> --=20
+> 2.55.0
+>=20
+>=20
+
+--2O9Ps+gKElYzliia
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCatpdjQAKCRB4tDGHoIJi
+0srGAQD8Wmx4MSx/QsFYOVhzBdh5CqeN76etlocPbBI1pNK9IgD/TU0qur/KGsux
+BhBTt6yZ/hpnHcUVC8fuGBwPAx1ltQs=
+=DM3s
+-----END PGP SIGNATURE-----
+
+--2O9Ps+gKElYzliia--
