@@ -1,102 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.173
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.108.3.165
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792667411;
-	b=y15VKFHFTIuhbLK1vhs4SemX0Pde3OakHxyWUu/FeIcqJcICgwBN/b6epJx7Bp24J3Xf
-	 E0T2ePtnJey2eJIsBQleWgpGEOuMAfPA6RkG5vdSxhQ6x04vnrRApAw83bxs0hlmyqEYt
-	 zPVbdZywM+JcDpiiw9XM1W5MN7XRVr4Jadisp9cupreADhoCAm7QS42ZtdfnBUUfDQbpQ
-	 cnMJC+uz4uHWwfnETFf81ZUIGfMxb6KjsbzBL+QprrAbphnnxg9OBO73i6Ur9EZeesx6X
-	 Z61OVGqocoI2nxAlry9bGw3skSO2aIAmdJn976AUvkkQuCCFlImljG6AIyZqtMD9oPg==
+	t=1792667502;
+	b=e125MQL8FUsP0TPEs92xpZ6YsYkrlGj943SZuryC6upDpHW/MoEPJm4enINaKJbTcXgi
+	 aYXkv8cMvX7ccV9FB0sAGX1njf3gZUospKKZMVPjrF+NB1c+u/FnXuWGZg3+DZ90gxg+1
+	 R7n2ugDoL/JlD6Fjv2jmeWQecwKCNvnjZOV/royytGtT8AOvevxWXt857TZNWTiMn5SoG
+	 m4lD2FCXvt+OvQpQ9YidbUwK3+sWE2CbT8ppsfu++VEUmkv4EXcGpVrLWGnxnjhrUgX8S
+	 6xzzg7x64WCufdluE4OMqQ3B4RiOKoazZnVnkphdMq7gNNaF8HngdMrBZlkMcmzfYGQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792667411;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=HttdTsqkUrjCzFyk9ftzHRVp1fUqafY4l0pZnWl50DI=;
-	b=b1Bs9SzGft4XYu835IHX6JZYbHQ0lC+Un+PQ+1zd6ZPmJ/hhaAkUgSCjlQkK181jpq1t
-	 J4IA3Ootg+S4yAaJSXg/+wKKcUnif+G1wK1wDy4p0IIBJOEFXUSH0IlGoUNL6LfUteePv
-	 5cMyRUXGkbAcUhyhIoJKDasdwMu3MPm628fQRO8CP8t1DbLMdfvb0UTNJ6GDEPZq/Ky+s
-	 6pKF/wE5obexlzFLW4G8MeOpCq4uryon/h06jqOCXrOXAGe+PX65RXyvR4vCFwt45dNRE
-	 Mr2/otnGJELdcROExtkJH1d4jN8N0tHCdvzUOebJZg2VnTNrBZW4ZGyqw3i1RRJUyaQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792667502;
+	h=DMARC-Filter:DKIM-Signature:X-SMAIL-HELO:Received:X-Sender:X-Auth-ID:
+	 X-SMAIL-MID:X-SMAIL-UIID:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=aO379ub4wI8TldG1ke1B+w7i+dmhFEPvESN45/WAwuE=;
+	b=qMrFFGTIMpmiF9loONDKcnlyED19JZccFkor4h00ukZvJeUalAx0cs0teuS3edkT6TIa
+	 IRiU8aObV7mRcqjBWWj2lqebz3wFqLQHt+lZemH0/Y6MKUoLmoaWc9xONSMkUn6L8enNY
+	 SYiZsNPkVhuRTCbNmZpygIPhsO/WiOMyCtUq4tzJzj1ogNPIisgR8+t75ge4Psvs1irn7
+	 KXrneDUpnNLroFEYsZXuObnQME6RSsHOCwWdlyDg9I6XJdWT2xF68+oScRb0eAydSsMsg
+	 LKl6GSx8YJ1ooj9qurtgaQDVxxp4KMcwER76rhPEnlwSfOKC/Ot5c2uSaHIn/6tojIQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=deLDtou7;
-	arc=none smtp.remote-ip=209.85.214.173
-Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=sina.com;
+	spf=pass smtp.mailfrom=sina.com;
+	dkim=pass header.d=sina.com header.i=@sina.com header.a=rsa-sha256 header.s=201208 header.b=yIEjJKu7;
+	arc=none smtp.remote-ip=202.108.3.165
+Received: from mail3-165.sinamail.sina.com.cn (mail3-165.sinamail.sina.com.cn [202.108.3.165])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3460D606A319
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 11:10:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3460D606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 807C6606A31A
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 11:11:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 807C6606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sina.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=deLDtou7
-Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2e8b20a899fso9664255ad.1
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 04:10:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792667410; x=1793272210; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=HttdTsqkUrjCzFyk9ftzHRVp1fUqafY4l0pZnWl50DI=;
-        b=deLDtou7pY1wV3tcwrlAPJ6TbOdXdabgH+WwNfMwMIFV1RKlHobLdD/vu3xE1XzvNC
-         yEJ4/1O64Eyg0Xp8WXxfTTCpmiMUC3PwLmyK2klWzHcb+kWfGNLeyt6UO2FLN/WA6RKc
-         RsIXpdLndMyHHfaU5dtj+1tbed6nj4p8e9d4vtqJB5YFsHx2mYh/eoKBAmF2P3dc4u/O
-         WJMxUr98ScSpVvL8jeSLEg0ae7CITRVEOlUFjG9j58X+nSVm4nZ6oubR4fl+cs+EqsdC
-         tkaooQ7loDDjP1j5lKly7lac1UZhda5UNQwdDHyLD282+J8FiLpzhPTnYqBt9vzbmoHW
-         9JfA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792667410; x=1793272210;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=HttdTsqkUrjCzFyk9ftzHRVp1fUqafY4l0pZnWl50DI=;
-        b=cYZA7xs50sY1P7cTTG73rWLeTc6S+hZFrfTvAzmj4nBv5QJBVHtTok+UtDVFyACpUF
-         sGLCPcq+wC4hCkBAzbRUv3euQ2licKSSOdx2kavA/zrHJ6ZlxOjfKo7eCIJE6m/BWAX2
-         RQpsLoMyy9MSvlVCOaMY0vPSZzscJ+Zpoq+NxIHQLY2JUfD6yd6bZT8P8TCukx3ZzWsn
-         IoVJXcy+MJlmCsly5qjBRCSurdUv40QWQlKjv8XAEl2NX3QBmToC2dFurjY8rEUU4Ygz
-         CC7K4o7rmdtcDrbH6o5+/6IhnHfPOePSSlQpGbFLSHickeOHcwnKBtcqEQffwY7UscT0
-         45/A==
-X-Forwarded-Encrypted: i=1; AKwUvBydmB0iqQSHiqWD85iVvm73CS0InG7EOeSjCX0Y1L7Y+m1y/+1X1SJo8gRUcgyto2syMp2hA41j/MYsDPU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLrn9L0rsDlD32vR9A9yPWWJn32wpZTBbRLF4hlAguZoNntouAM
-	/0L0PnUGAclJSGPT3Np8N+gRb0Rajs3oZUSRMw03lcGashidwMlyRj6Q
-X-Gm-Gg: AYBFou1W6RZaFcbTSOWs3XSjxaRTDE/y++ay5Al+6Z+Qpp7Yr4pnZmM+M2awi/fwFiW
-	mw/aiddtJdZDKKW8OJH09petnioo/+mSA55I+5KrOqDufdFqb6pv3r+QGe5TfVIKF4WeJzHEfsB
-	zh/cYu3RUqwEjcrjqZaLzmFG/5GKw1QS+i4UJ1XUK3FcClOpfnN+ZcTeskB2jqDgT+X6FCroqZ9
-	bPpgTtdqiJ80OZ3Be/tiicmxuv78wdhZWQMbhTM2Ont1o1aP97J2096uQ89roNAyy5B8PWMu4N2
-	wNVWfbvoS3IBJf46KuFJPqvXEBYXXXzX+HolRBQBpbJMmSsk++GpBvOk4fVL16fQOY1AfGJnITd
-	xHr0/EkntVylc6chOeQpmLWYf7cPzwsHP4t/f0yGoRCniTuxGVRKprzy2jS5m2bbPVxGq/pqY/P
-	C5WbM/2Sl74OVJdyCyaqv3HkExK5rHMMl5D4f6bZg8gbIu2rNCSenntgtdXnhmKs79X4DkBvLF0
-	YzcXE6LwjTgDFjkAeDqbxgwW3aNF+JtHNX1vOYa3ImmiZK/KpEcJOruSlxIi9do3q6/7FgGtbNC
-	jt4BZg==
-X-Received: by 2002:a17:903:18e:b0:2e9:66c4:1711 with SMTP id d9443c01a7336-2ea43fabc13mr39536125ad.52.1792667410495;
-        Thu, 22 Oct 2026 04:10:10 -0700 (PDT)
-Received: from arm-a100.. ([140.112.28.118])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ea3b4addfbsm21720685ad.74.2026.10.22.04.10.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 04:10:09 -0700 (PDT)
-From: Tzu-Ching Yang <shingekinocore@gmail.com>
-To: David Laight <david.laight.linux@gmail.com>
-Cc: Alexander Lobakin <aleksander.lobakin@intel.com>,
-	Eric Biggers <ebiggers@kernel.org>,
-	"Jason A. Donenfeld" <Jason@zx2c4.com>,
-	Ard Biesheuvel <ardb@kernel.org>,
-	"Jose E. Marchesi" <jose.marchesi@oracle.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Simon Horman <horms@kernel.org>,
-	Maciej Fijalkowski <maciej.fijalkowski@intel.com>,
-	linux-crypto@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] unroll: Make unrolled, unrolled_full and unrolled_none function-like
-Date: Thu, 22 Oct 2026 19:09:59 +0800
-Message-Id: <20261022110959.1173447-1-shingekinocore@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261022100140.101ddf52@pumpkin>
-References: <20261016025613.2690485-1-shingekinocore@gmail.com> <0a38e0b0-2508-41c1-bd99-d15c27579307@intel.com> <20261022100140.101ddf52@pumpkin>
+	dkim=pass (1024-bit key, unprotected) header.d=sina.com header.i=@sina.com header.a=rsa-sha256 header.s=201208 header.b=yIEjJKu7
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sina.com; s=201208; t=1792667499;
+	bh=aO379ub4wI8TldG1ke1B+w7i+dmhFEPvESN45/WAwuE=;
+	h=From:Subject:Date:Message-ID;
+	b=yIEjJKu78VIE1YF8sngxjIunPgIZbWwUW4h2ma8xusJVG45wdbw3PLCw1L9vD/UfI
+	 +SiIt2yL/Z2J1GV2exX38DiREbJw+hH3QDOX9SfQoG95FsTYThE4XROLHWEdDOtecl
+	 MXaLCp/xFMM05KtBy76CkEydlx4mJi0MMmL71KpU=
+X-SMAIL-HELO: lxu-ped-host..
+Received: from unknown (HELO lxu-ped-host..)([111.198.231.89])
+	by sina.com (10.54.253.33) with ESMTP
+	id 6AD9EF5F00002C32; Thu, 22 Oct 2026 19:11:29 +0800 (CST)
+X-Sender: eadavis@sina.com
+X-Auth-ID: eadavis@sina.com
+Authentication-Results: sina.com;
+	 spf=none smtp.mailfrom=eadavis@sina.com;
+	 dkim=none header.i=none;
+	 dmarc=none action=none header.from=eadavis@sina.com
+X-SMAIL-MID: 7405596685236
+X-SMAIL-UIID: 3AE3FB2CDA4A4D868BE1169E6A8F908D-20261022-191129-1
+From: Edward Adam Davis <eadavis@sina.com>
+To: eadavis@sina.com
+Cc: a.hindborg@kernel.org,
+	leitao@debian.org,
+	linux-kernel@vger.kernel.org,
+	syzbot+4fae162886e497f72228@syzkaller.appspotmail.com,
+	syzkaller-bugs@googlegroups.com
+Subject: [PATCH v3] configfs: Add revalidate for cached dentry to ensure it's ready
+Date: Thu, 22 Oct 2026 19:11:26 +0800
+Message-ID: <20261022111126.112181-1-eadavis@sina.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261022101633.107916-1-eadavis@sina.com>
+References: <20261022101633.107916-1-eadavis@sina.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,33 +74,107 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On Thu, Oct 22, 2026 at 10:01:40AM +0100, David Laight wrote:
-> Is it possible to make the syntax:
-> 	unrolled_for(....)
->
-> Or is that made 'all hard and difficult' because he setting is sticky?
+mkdir() triggers:
+  configfs_mkdir() ->
+   configfs_attach_group() ->
+    populate_groups() ->
+     create_default_group("ana_groups") ->
+      configfs_attach_group() ->
+       populate_groups() ->
+	create_default_group("1")
 
-The pragma binds only to the loop that follows it, so it can go inside
-the macro:
+The creation of an inode for the subdentry 1 under ana_groups failed
+due to fault injection. [1]
 
-#define unrolled_full_for(...) \
-	__pick_unrolled(clang loop unroll(full), GCC unroll 65534) \
-	for (__VA_ARGS__)
+Because helper threads are racing open() on ana_groups, ana_groups has
+dentry refcount > 1. d_delete() skips dentry_unlink_inode(), leaving
+d_inode non-NULL. create_default_group() hits BUG_ON(d_inode(child)) at
+fs/configfs/dir.c:734! [2]
 
-	unrolled_full_for (int i = 0, j = 7; i < 8; i++, j--)
-		s += a[i] * b[j];
+[1]
+FAULT_INJECTION: forcing a failure.
+name failslab, interval 1, probability 0, space 0, times -1
+Call Trace:
+ should_failslab+0xa8/0x100
+ kmem_cache_alloc_noprof+0xa1/0x600
+ security_inode_alloc+0x39/0x310
+ inode_init_always_gfp+0x97e/0xd30
+ alloc_inode+0x82/0x1b0
+ new_inode+0x1f/0x170
+ configfs_new_inode+0x27/0x410
+ configfs_create+0xb5/0x270
+ configfs_attach_item+0x25f/0xd60
+ configfs_attach_group+0x2a/0x370
+ create_default_group+0x87/0x180
+ configfs_attach_group+0x169/0x370
+ configfs_mkdir+0x6f0/0x9e0
+ vfs_mkdir+0x40c/0x620
 
-GCC 8 to 16 and Clang 17 to 23 unroll this fully, and the same works
-with break and continue in the body, nested loops and a loop inside
-another macro. The count form has the same shape:
+[2]
+ kernel BUG at fs/configfs/dir.c:734!
+ Oops: invalid opcode: 0000 [#1] SMP KASAN NOPTI
+ RIP: 0010:create_default_group+0x17c/0x180
+ Call Trace:
+  configfs_attach_group+0x169/0x370
+  configfs_mkdir+0x6f0/0x9e0
+  vfs_mkdir+0x40c/0x620
 
-	unrolled_count_for (4, int i = 0; i < n; i++)
-		s += a[i];
+The root cause is a race condition between open and mkdir. Add a revalidate
+for cached dentries to prevent open from accessing directories that are not
+yet ready.
 
-As a fourth option, the _for forms would replace the four unrolled*
-macros: no clash with identifiers, and the loop reads like
-for_each_*(); the cost is a new loop spelling at every user. Olek,
-Eric, would you prefer this over options 1 to 3 from my earlier reply?
+Fixes: 7063fbf22611 ("[PATCH] configfs: User-driven configuration filesystem")
+Reported-by: syzbot+4fae162886e497f72228@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=4fae162886e497f72228
+Tested-by: syzbot+4fae162886e497f72228@syzkaller.appspotmail.com
+Signed-off-by: Edward Adam Davis <eadavis@sina.com>
+---
+v1 -> v2: using revalidate to make it's ready
+v2 -> v3: add LOOKUP_RCU check
 
-Thanks,
-Tzu-Ching
+ fs/configfs/dir.c | 20 ++++++++++++++++++++
+ 1 file changed, 20 insertions(+)
+
+diff --git a/fs/configfs/dir.c b/fs/configfs/dir.c
+index eda80c2a2d38..76f453ed4adb 100644
+--- a/fs/configfs/dir.c
++++ b/fs/configfs/dir.c
+@@ -16,6 +16,7 @@
+ #include <linux/module.h>
+ #include <linux/slab.h>
+ #include <linux/err.h>
++#include <linux/namei.h>
+ 
+ #include <linux/configfs.h>
+ #include "configfs_internal.h"
+@@ -65,8 +66,27 @@ static void configfs_d_iput(struct dentry * dentry,
+ 	iput(inode);
+ }
+ 
++static int configfs_d_revalidate(struct inode *dir, const struct qstr *name,
++			 struct dentry *dentry, unsigned int flags)
++{
++	struct inode *inode = d_inode(dentry);
++	struct configfs_dirent * parent_sd = dentry->d_fsdata;
++
++	if (flags & LOOKUP_RCU)
++		return -ECHILD;
++
++	if (!inode)
++		return -ECHILD;
++
++	if (!configfs_dirent_is_ready(parent_sd))
++		return -ECHILD;
++
++	return 1;
++}
++
+ const struct dentry_operations configfs_dentry_ops = {
+ 	.d_iput		= configfs_d_iput,
++	.d_revalidate   = configfs_d_revalidate,
+ };
+ 
+ #ifdef CONFIG_LOCKDEP
+-- 
+2.43.0
+
