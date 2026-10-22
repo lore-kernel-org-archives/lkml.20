@@ -1,111 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792665660;
-	b=UfygD0Rdwq/BJMWSN6LOo5IjYsJPIfgY3OAvmd4QJqjRYEUNdD1Px7b+98A15f812jpT
-	 zJagwdURn9gtIijrrK+BfHX30k4l3H5TnrTRUrYifrd55NA/3KaCtRNAxHKA5SY3YRSl8
-	 rwNrrrjBinUL8j+p8/EuBP1yk9FaAs6lKJUMzNBWsu4b92skRA46ku/Va7K5KOLBPnIrQ
-	 h/eZ+BxiwXVMS1+W7ItwtKRw9nkU3rxvyuFWcbsFTnwkHdUJBtebRPSgsJwdkDdsphxy+
-	 SfRAYKu+vLaAAPugNGhC6Y1WAAm3oJ/o5xRJNy4bwz9M+unQWhH8Mv62X2zgFxfgFFQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792665660;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:X-Authority-Analysis:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=7YNtUwxM65oNx1GcpLtqDm1RUw+0Y6E4RLo94KlMKPU=;
-	b=ZEFo7lcx9K2kCmoZU9JJm8SJljrEE/NKN77AhhWA0cu4cEEudtvciSU6PBEG5sgJe6Q5
-	 wsUSErrBRd334N+pAVnaLVc8A0//SQN8oQ3fR0wZP8OoucphT5sN+uC8dTdEooOrglwQm
-	 EK9bxi4fvVlLuYlb800S02lIXEcfkUaS9hSWuzXrJViM77ej1xNFK3rHiFDoaiKPdU4Yg
-	 HpnB4KAGErQyL8TUF3xY/KtB3AxDyFKWeiWl4rX+mhwvDMcMJRKb0vTCwTw13GWVIaG2v
-	 vPnFenAhm/QnLIlFAF+Ugchx84znHRUQ27T8eldD9vNhjjOJs3v/aq/61+FixiKWZyw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=crAUTjbF;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=ZZH0bXuc;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.66.48
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792665659;
+	b=OxEH8qOP25ZOBN8LeJeixjoY9yf5XnjAq9owy7nk9bxG4BKQZFR55Dydmk0BuQEmMSd5
+	 PLiNfid+jKQLpcSSf0NZRVnOkh1YBaZMmlzRBfojBiaUm5mXKHbCpG1L+w0tOjMALUnwl
+	 byV7EXxy7Nq/hrtNgi+JGKPkTWu/YjUjNVkDGDADCDoEFvrDE7KxX/gudR6rZAncbsq2e
+	 lJ/mLAyAY77yzbiSwcG1uDvlmxjs4wwiKt6XNOADHA+ir2pvWvH62CnYZa3SZj2XZnVs/
+	 kweL1ldntPH6WDfpsGdaUUce6V34MvfC29++YrjPJARpdayU9G2MjdcwAoug9lqNSuw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792665659;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Date:Subject:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=s7X9GRYih3KTWeByxvkaBjCEPQ6lmV7bfEHQKldNKBQ=;
+	b=XZY/bWmOf+DBvR6Iomkf3uVe0ffqoiroOiemO4oRGO0jSWnY/T2T/7TD1sCCfVRgIZFR
+	 sK82kc7viF2LBesPZhRzV/v2N7WUWoF/rvQQu1LeS04nVOyKyR7sgU649hlvIZpdjp6F5
+	 sIZYbCXqUmgOnaR54jMX6s3Mw7JumUW6C85gAwPvXMISiXcU8BPLpWcWU5m+xxahWlE1+
+	 Q0ytumB0/ikWQqEDfenjFjLqag/cGV9Zw9TzJ2RMVrLt4VWvvqwXmBQ93o0QXy6up8KYy
+	 lIBk7GBiLPnvP2OCtupLSVpbzxFcoreiZh+KA9qmL3RLb3tiqj5f19cnb/NCDZGmw5w==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=b9AmbH1R;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.66.48
+Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012048.outbound.protection.outlook.com [52.101.66.48])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF9B6606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 10:40:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AF9B6606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A66E606A31D
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 10:40:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2A66E606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=crAUTjbF;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=ZZH0bXuc
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69M9xpb03478820
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 10:40:54 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	7YNtUwxM65oNx1GcpLtqDm1RUw+0Y6E4RLo94KlMKPU=; b=crAUTjbFr6+0fev2
-	prazN3ntxMaB87Pkd6triQrAkPeaOHnXvqCRj+sfWcV8wn0thp1piti7vumsX71p
-	p6DawZJpen9AEqq4sGa1VSsiki2qvri9TLNL585TgWDhUedYE8Be6xoeYPoW3WR4
-	KTQH0/vERv7N89xddeF35zIEAnrwxtx4hi0p4SQA0SNXPw5GltkNhG14BXSHfoO/
-	dFrV37GjFYjp1WUk5yNp9baY8ENT7TI/7dnu6rgNe/qcdCY5rPtFRPEetOsaJxwl
-	pFYHiK1RlN0cNtkC89Z/3SYNuBMci13KujMtymmorhAFEe4bzxcEB6+pu8sXqKvC
-	kxHQNQ==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hf93a25kq-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 10:40:53 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93ea6b66e53so41771585a.2
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 03:40:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792665653; x=1793270453; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=7YNtUwxM65oNx1GcpLtqDm1RUw+0Y6E4RLo94KlMKPU=;
-        b=ZZH0bXucSdBxV5mv2SdZHz1NuO66aldssfhhznZfFMSGPcFhvONJ7VT/iiBICenvhr
-         9HUmcfNOh1wqaVJZA22Tzgm2lbx5Jndl31aQ4TgjRuF6CAMQ2VWIgaIBEyqUBq65qS0B
-         oXAG0FfEgBf4CkzybpFXLeSu3mklgjFZanHMeplUCgbr2/VSMlxA6spJjBKl46hQGty8
-         CqOS2oAGVVg1kmRVKgdJNyyIqfRHgmDNLhDc8BKXVLQac33jY8jX9sRVpPUhErkLhHHL
-         BLAWE9iZmYUXszxho15sc3GsJwijBZiz8WK13G01HzgfWmzAV4k/Lz0J7m4Pp7jWZ9ga
-         p8Bg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792665653; x=1793270453;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=7YNtUwxM65oNx1GcpLtqDm1RUw+0Y6E4RLo94KlMKPU=;
-        b=zgULglLrJPVB6tGEnbQT207jo+efcGakTcrmo4VWSXMj8+yKrbQ1LZKAQBjo5DyEO/
-         YuI85lRCB1AWFJnc3kPUlQMQVZyRlUd4OSRlqn5EAqrmAgN3/y015I7JpG4hfk9Oab0P
-         3CzjmZN9yLZg3jTjznoFUIy+/3vmMF+Uqi0xheJHW/d6KKrOT4nQujEkZuTBuQ3KOfa6
-         yQoRc/tDD/OoNVH8aFTKAJ+qblW1LTRvI3E+E80IILvoKP7XZGBrU1rk0qfYu5borE+Z
-         PEaP8TCz2EeeyLps8P+FJ+DI4tzoLrvdf9VIl3nPZIoBnvGGfghzAQVIA7r+8sYoZ/W3
-         pH5w==
-X-Forwarded-Encrypted: i=1; AKwUvBx07c9VNQKHt7CtfICUEB7zWN6aXSLs7fgNof2zZ909sWVN0LMvlkm6sbW6ktEk+qj/oqO5OKsafXEW/DQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKDmWz/wzQyrRVwFm/n2AaMLxB8iyKlFaqYJZ65I6675+UUAUJb
-	dBE1kpJkctBZzEl8IVNULtx1Vd4d+jtjbCSLE7rc9CeFMhLUz6ol1mIXKL9oMesHhRkhxKGtoGL
-	K0f2ssWLee453qNZyDVhpe3B9qlDGu/xH+ByUsjsxNZ09OGpdg/i47YXrHQuik0YjItg=
-X-Gm-Gg: AYBFou3K54q4HyMgjL1rWCxF8MP40G6ywxrOIl6Q7NxzGRPiVuoW1qK6HZV2URQMB00
-	0qSd1vhuIOAA6yg3h5tGTQm2kfNjZeRP4QyZyLvwf6iTJ0uZCRMSzJuAnz77p9vY4liCl6sErwZ
-	aLxqo45YSHFwaN83xzOgoC0hwwI7D5XRWWXuMBwwhE4gjnqFXkHxT3d1Di1neqqRbyXHEplhJnY
-	VzRMaZqtAVec81FfaTZPvHxEp7bX3PDRcb+l78+w1tWaiCGA85kYWd+mF6P5BJJGwf9W/WBkc1c
-	9Bb4otq5E1JljAN283CqBQaM7vBYQvMJ5VlpaTUlkr6wCDbMJksAHwQSdB4cloSjvGaKIc1A4Gg
-	BermseV3sKNX4nP8iSLBG2w==
-X-Received: by 2002:a05:620a:414b:b0:93c:61e0:81ff with SMTP id af79cd13be357-93f57ed211cmr1020948185a.1.1792665652797;
-        Thu, 22 Oct 2026 03:40:52 -0700 (PDT)
-X-Received: by 2002:a05:620a:414b:b0:93c:61e0:81ff with SMTP id af79cd13be357-93f57ed211cmr1020944685a.1.1792665652217;
-        Thu, 22 Oct 2026 03:40:52 -0700 (PDT)
-Received: from [192.168.226.26] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b40316bcd6sm1606316a12.36.2026.10.22.03.40.48
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 22 Oct 2026 03:40:50 -0700 (PDT)
-Message-ID: <08503be4-d40f-45b2-9f78-27f49125909c@oss.qualcomm.com>
-Date: Thu, 22 Oct 2026 12:40:47 +0200
+	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=b9AmbH1R
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ptrVOrn642MuDX1ZzCt5YfoyLB6Pp657psGUZjEWVa3c++NZd5FQcg+iZfIundKD5bW6wbETVn4iyXeW12/s5+EfdLwX5lwcX2POmWM9mGtegOUhwxaPNPTsLTYpO3WRLIqVg0MEFnzUNrvAHoB0yFhFpCtGESjA3hpEK+ThkmNQn5PCvcSTCPxbr7IzylBPkZ8/EtGoRUNHCMoevJIzbOedYz+u5DDVPHUdZbBV9y4mKYhT3ZYo+ugordqAKKhe5M2wH9KHnkZWdILYECyRLGZCSlI2dkeVOuI4eg/CuIeMYeqEll0k6JTMt3wvFHQjozFxSOj8Ka/7qaUl4I7M5w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=s7X9GRYih3KTWeByxvkaBjCEPQ6lmV7bfEHQKldNKBQ=;
+ b=LSZJ0YWx2RnGsmjsPa2QCaJVzKcJLJVswkQ6t1uFOwokxgmsHaX2bPDL6JZz0ZDreNXXQkg4VIwN+CNfycdVytBx7XT4G28KVmWSWql+sc16cCbyCuBqK+AvYKqG9sUPhWNgfbWI7kY2gz/8Y0aIdeM4RSpKRNKoK0xR7xQWg2ifqcnBMkdZ2TON8be4DNCFD2VJ1sOUAOEwhvPjknpoR/g60u0XzVoxi2Vz7/EI7bW8ED9hTQYYfJ7ghiycP0l39KSijbheOYjmOcoPe2Xapqw9AxUDh+3TwnmH/CuKrzaRM7WSrW5yG24rLVrs7DqO+EoDPIFZ85op76JzSiBxuw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=s7X9GRYih3KTWeByxvkaBjCEPQ6lmV7bfEHQKldNKBQ=;
+ b=b9AmbH1Ro5ElW1dgfVRXP7uX+p/OjTD/RExZKF0+eg2AytrB2asb8osd/5EeIQn9FDlCK5QGYG2padh6lyWtCftHbm0KOz7RbW+HFiY+8ce0dFQf27BTxzvHO9E79hHOZYvmkEpA+jFeNXS0ii1tVqJ2qpXzvMtl4En9p467L2hIOXWjRu6GYW/Z0RjhfCYCNeWVxbO5RlhejCKLhOi8eiSiYr7P9TieR6q7Gf5CMC1pmEyK8bfHpzkZR0p33jqhI/POBGkXCyOqI3fyb8WuiU0Zxl1PnLUkMf2qd8d57GQD2PpECHtdP+A28pUTfHH+JXsxcpnWc617LVLWvbWeoA==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from PA6PR04MB11909.eurprd04.prod.outlook.com
+ (2603:10a6:102:51c::22) by GV1PR04MB9149.eurprd04.prod.outlook.com
+ (2603:10a6:150:24::5) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Thu, 22 Oct
+ 2026 10:40:50 +0000
+Received: from PA6PR04MB11909.eurprd04.prod.outlook.com
+ ([fe80::a4b:fa4e:7fe7:e6a2]) by PA6PR04MB11909.eurprd04.prod.outlook.com
+ ([fe80::a4b:fa4e:7fe7:e6a2%7]) with mapi id 15.21.0546.016; Thu, 22 Oct 2026
+ 10:40:50 +0000
+From: haibo.chen@oss.nxp.com
+Date: Thu, 22 Oct 2026 18:45:16 +0800
+Subject: [PATCH v4] mtd: spi-nor: clear the default read_sr2 opcode for
+ Octal DTR flashes
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261022-spi-nor-fix-v4-1-fba3ec3d2b5e@nxp.com>
+X-B4-Tracking: v=1; b=H4sIADvp2WoC/23MsQ7CIBSF4VdpmMXALS3WyfcwDkAvlkFowJCap
+ u8u7aA2cTwn+f6ZJIwOEzlXM4mYXXLBlyEOFTGD8nekri+bAIOWdXCiaXTUh0itmyhqiRoBlBS
+ MFDFGLPdWu97KHlx6hvja4pmv7/9O5pRTg22jVceM1f3FT+PRhAdZKxl+ZbeXUKRshCgMBcp2L
+ +uP5AxgL+sitbWKMS0bA/Irl2V5A/pz8/EYAQAA
+X-Change-ID: 20260928-spi-nor-fix-eb7ebe22a740
+To: Pratyush Yadav <pratyush@kernel.org>, Michael Walle <mwalle@kernel.org>, 
+ Takahiro Kuwano <takahiro.kuwano@infineon.com>, 
+ Miquel Raynal <miquel.raynal@bootlin.com>, 
+ Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>
+Cc: linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ imx@lists.linux.dev, michael@walle.cc, Haibo Chen <haibo.chen@nxp.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792665932; l=6944;
+ i=haibo.chen@nxp.com; s=20250421; h=from:subject:message-id;
+ bh=nwZuUNTOH9BSxo5AJscL2sk47seeCfCOZf/Y0WHCKSc=;
+ b=nbi36uzyWhpH8k8HjA2cpbNP4Oh9eC1Zaq2pNkiPfspowI0h2mXhSiXnoszyNsI48j1bhj6hj
+ 4FMPNbv0VaxC439JAGW5/umWIMD5PGV0ViA7tvpudxf3qFbqWo2ewZG
+X-Developer-Key: i=haibo.chen@nxp.com; a=ed25519;
+ pk=HR9LLTuVOg3BUNeAf4/FNOIkMaZvuwVJdNrGpvKDKaI=
+X-ClientProxiedBy: SI2PR02CA0021.apcprd02.prod.outlook.com
+ (2603:1096:4:195::10) To PA6PR04MB11909.eurprd04.prod.outlook.com
+ (2603:10a6:102:51c::22)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,80 +111,213 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 06/11] phy: qualcomm: qmp-combo: Add v8 PCS-level drive
- level tables for Glymur
-To: Nabige Aala <nabige.aala@oss.qualcomm.com>, Vinod Koul
- <vkoul@kernel.org>,
-        Neil Armstrong <neil.armstrong@linaro.org>,
-        Manivannan Sadhasivam <mani@kernel.org>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Wesley Cheng <wesley.cheng@oss.qualcomm.com>,
-        Abel Vesa
- <abelvesa@kernel.org>,
-        Johan Hovold <johan+linaro@kernel.org>,
-        Bjorn Andersson <quic_bjorande@quicinc.com>,
-        Dmitry Baryshkov <lumag@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
-        linux-kernel@vger.kernel.org,
-        Ritesh Kumar <ritesh.kumar@oss.qualcomm.com>,
-        Mahadevan P <mahadevan.p@oss.qualcomm.com>
-References: <20261001-glymur-phy-v3-v5-0-3848c2615d5a@oss.qualcomm.com>
- <20261001-glymur-phy-v3-v5-6-3848c2615d5a@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20261001-glymur-phy-v3-v5-6-3848c2615d5a@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIyMDA0MiBTYWx0ZWRfXzSDWsav/A0a4
- v1/zwy6UL/REeqPTG0sSzInyJQgGxhcVzeCYayC6JKdSjDLzmL6Z0dYPI6BkmsJPdzDa9rzGFdp
- KqFo9nqF+hFTJqrw7k2UjatL0jCDM7gX2PefFRasV/XJ3oBcZ03AEhbmn+3eiKx1X1zqM/zSzrX
- ddtKYvnHzGvOIjYvNbHaf8wJMYe224++9J8+iYf2nbsLr8iTYDGOQdigcnfJAN+g5jSvs7JTKu2
- awnJ/fWqObNUatsiCOP2qzmurmPb0oiVnmrRbO/mxqTER+keg2aPIacPt8djthiuYtc4owD9s+C
- O8JVNbUynrh75/SzENDvJUsYcmfq5YV3QluWxroCxdxOha6C9lPaFPWQaPqiYlw0TsiRMBl+VL0
- hxPjhhLfP2kXi1DV9CB6q+JM/JfKKLkI1M47TKIMrHiTbgw53gHRFC2PbmaC1f6HTVcTA+4K9Y6
- 4ulMfR8jz/+ZN/49mzw==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIyMDA0MiBTYWx0ZWRfXx5+5p3oeNTYK
- Tk/YGNAaewCdpcjbQEr5gP8Utx4mdrI+s9s48/bIf/mPgdKNCk0F/ufXktGbERrkHH9piAH93ee
- IyJZTouHE0X7D2uPOqq9mHomq4o6GH4=
-X-Proofpoint-GUID: cS2xWFtEsyvkr7WNTUyo28L6482zQTrB
-X-Authority-Analysis: v=2.4 cv=NaFzRGD4 c=1 sm=1 tr=0 ts=6ad9e835 cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=EUspDBNiAAAA:8 a=20IFmG_dcDsSQBPH43QA:9 a=QEXdDO2ut3YA:10
- a=bTQJ7kPSJx9SKPbeHEYW:22
-X-Proofpoint-ORIG-GUID: cS2xWFtEsyvkr7WNTUyo28L6482zQTrB
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-22_04,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 impostorscore=0 suspectscore=0 malwarescore=0 spamscore=0
- phishscore=0 priorityscore=1501 adultscore=0 clxscore=1015 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610220042
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PA6PR04MB11909:EE_|GV1PR04MB9149:EE_
+X-MS-Office365-Filtering-Correlation-Id: d3d920f7-5470-47db-8a22-08df3028f030
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|19092799006|366016|1800799024|23010399003|376014|7416014|6133799003|18002099003|10067099003|261021121427099003|3023799007|5023799004|261009223027099003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	K12awhtxQJQFj/SIGITcgD+WNWfFsX49UacfBOzHAVnT5HCZVv7ZT82t67UIDxgGhVRXQGRNvcWJtiGVbG4xPq5GMWNRAekcss4Bd4r9qe24YsamqaYk/IGey5I3e5NkShU9JsE9E3lIFXbOlXuOwLEvS9iNQ9sPnAMi+W9ag4WIOKO3K4wFH8VUzOa2gDZNt3YW5HHdQhy7PtDinEK/Zs0Iu8221KZl3g7ecLUYk3oND9hC1AQQ5KYqK1Q0fQQiZ+NtNMAYPzw0lUiBWthSaDsMIx71g8ZM5vnQGd0s5RkYrfJJ2wukAImown9ZzguZ0r+I2FVUdj7RF5hDnZ4gjKi2MRJLYlkQ5O/cERzAsKv5uGCT04Z+UvWU6BdxzaNcrB6B8apHar3O/EDzytuyIucqtSzCdyTD/lBlvCp81+MtYnqJPg5ujbUXiT0xOtALM7fsoUQQvMaqH1ZsJRVwjx0Ev9oe/pW51dzCQUTzAzNa6Ip80t1wQBWj/3p7sCr5rgUbxjCtyfEQ8foFk0o28YBrh6d5KH7DgdIRjdTevsdzF8c5eFD80JK5KhCyArpFsAivHjmXTtkjMQu+Hz6FYtnabyumZQFfym0O/wcdq6k=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA6PR04MB11909.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(366016)(1800799024)(23010399003)(376014)(7416014)(6133799003)(18002099003)(10067099003)(261021121427099003)(3023799007)(5023799004)(261009223027099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?ZWI4ckFNWEJNVTJGSUZQbUFuSUtENWp1R0dQR3BtNFgrQTU2MCtDMk4yaHlI?=
+ =?utf-8?B?Z25xU0pORUNuVGZwSyt5NWdyRWtzQWRtSzN3dnp3bEpJMFplMlQzR1VpRm1H?=
+ =?utf-8?B?K0FldjRna2VTdExiR0hMSDVxSWJ2Qyt2MXRrb1JpYkpIUlRnOEIwWXJlTDhy?=
+ =?utf-8?B?aURQY25YT1NEOVNnWjh1d3dCTVAwV1JqWnpheHowRzJLN29lcXprd2plZVdq?=
+ =?utf-8?B?bmU1bmpzOXVncklkTnVZb2tIWHhvQXRUSHFScFIzaGpjT2ZFdVEwOHVKUmZU?=
+ =?utf-8?B?QzVSWkRsWTA3VVN2SmNCMEg1NE5mTk1Vd01sMVZWTy9mOGdSUFVwTUJydzJR?=
+ =?utf-8?B?YVYvWWREdXozNU05Um1kNFpyT3FLUENXNFI0WlZIMVUzRGZxZjNJdVRpSXpv?=
+ =?utf-8?B?WUxlRmV5S1B1Z08yQllDaWEzZzNGaExMOFBDZTF3dnJmZ1pKZ2hMUUxjSnYw?=
+ =?utf-8?B?YnJGYVplczVzaWo4U3R4NVRzamxvNzhRbmd0a3RoM25sZDBCeEk3L0U3Ykxn?=
+ =?utf-8?B?RStZK1cweWp4Qk0rNm16T2p2NEl3Zm5VdnRIVXBvVkVtRnpRU1p6SzNDd0g1?=
+ =?utf-8?B?WUJpUXhPcmJVQWJqOUR6N3dmRFN6c3IvSG9ETGZZbTB2VUEzV3VvM3lTelVz?=
+ =?utf-8?B?VVBsUTM5OG5XT2ZyS3EyVmgrdVZUU2htMkZENVA5dzdKd25VNEtCNDhXMmdD?=
+ =?utf-8?B?a1VWcHltenBrM2ZoaG5sNithRUZndkd2aGJsNDh6YmlhYTY1OWpvZjQxeENB?=
+ =?utf-8?B?TDFiTmpSUVh4RXFkZlNqZGdkTzVQN3h6T2tsV3MyYWpDbGlGblNCMUdGTXVZ?=
+ =?utf-8?B?eWdOVnhBZ0JFUWx1bnd0U0JKbjNFYncyYXo4OFBjL1VYZjRDMnF2NlJzYXJI?=
+ =?utf-8?B?WjIyNjdHTEo0VjNsTDNJV2IxN0R2Q3hZOFhBN2VPTXFYcnpWcjVxdTNWNFJK?=
+ =?utf-8?B?ZmdiTUl2WDlVY0VpZGdYNlE3S21PelVKbjJUN2lXbmQvZUgzNHVRcDgwN2Rk?=
+ =?utf-8?B?V0hob01Pd04vaS9lRm5uN1VjSTVldE94L1AzSm9ZTEFvYlBKTDZDdml2aFl6?=
+ =?utf-8?B?OUE0ejBROU9kK1JDMlhVakI5MzVPbkthRnN2Mmd3dE44WlhvbXI5RDNiajdh?=
+ =?utf-8?B?QnZFQ1ppRmhTeGZYMmR5cDZBVXBJTVMxUWQyRm0ybVJUSUt6L3pEUG5XWUNY?=
+ =?utf-8?B?QlB0NFoxeU1wRjExY2kwZjFKRkFiZjdreDZ5SW1WQ2ZNZEZMc2NNa3NXUmNR?=
+ =?utf-8?B?dm52TlhmeWRMbVh6WXNBZG5KNHJ1VGN6ZmcraGo2QWw3emJST2htTkpTaVZv?=
+ =?utf-8?B?aHFMLzcycmRYMWxyT3dqalkwNlVWaTB5ckU1NFFGbmNUbHYxajUyVkdEMDhY?=
+ =?utf-8?B?dEdCekpzSFRFbHp6QlBTZXVnRlZqVmJXNjE0M01QS2RQckRCcDREU1I1RG5q?=
+ =?utf-8?B?WE5GMXd0YWJYSFBvZ21xem5NYTRqTE1qeG1qQVQxd1F3WC9MVlh1eitDTTJB?=
+ =?utf-8?B?OEVjWStpOHRtbFQvVDdSUEZIY3ZoNGdIZ2l5UjE0TmE1dVBveXJCZzNUaXZU?=
+ =?utf-8?B?Q09kTjhIMy9UK2hNcGtOdmkxUDIxS3g0WnRoRmNlSFhtZElZeW1vTDk2QjhP?=
+ =?utf-8?B?cVNlcW1oT1I4aU1zaU95SzE2MzFuS1FTbDF3b0NVb2IvU2RxM01SWXZJL2tB?=
+ =?utf-8?B?bFdNck0ycklqZm8xUThEZ3dkb1ZIV2dDb2w1N0tBL2FkTzNhZXJPWEU5TG1k?=
+ =?utf-8?B?aFhiOTlpQU5BSW1td3V6cmNQZjJjUnZYaC9FL0FkUVByVDdOSGFkd0dWMEZO?=
+ =?utf-8?B?bExxblExaTNESUxhd21SSmtRb1BWdk0rVVlvT3ZSR2d5R2g1VEtJdm14TDIr?=
+ =?utf-8?B?NHBEbTBHbDZRV1lLVVJXSzNQV1FqUTI5NDJUdHZtUUJwTHhFeXpTT3RsRkR5?=
+ =?utf-8?B?N2RldlFTZ09Sa0pwUHZDM3Iwc3dXeHlSeXNWb21IUHp0YkRuU2t1TDkzcG9p?=
+ =?utf-8?B?akdUbHpZTFZKUjRCV2YrVG1Ndkp2NnZJSnVSSkZGdzg0b0RWTWJQaE8yZmpR?=
+ =?utf-8?B?UVlHRmptUGZZeWVodWVvTlhodmE1Y1JKREZrU3dVWTdGRXNKUjZqKzBRdWIy?=
+ =?utf-8?B?UlN4K1hKZ0JoQitabFVTckp5YVpBY3ZUTyt2bU5wMzRyUW1OeVNWZ2VVc29Z?=
+ =?utf-8?B?YkxLY2o3YTl2bldBMVE1TTMzbkUyVWZxVEtvN3BFaTBMWE1KNTFvd2IxWG45?=
+ =?utf-8?B?SEpRT1RqMlJnNFJjUDlaaVJ0V2dqT2JsaW5oQ3J2TlRwV3RwZWNuekxFTmwz?=
+ =?utf-8?B?bUZGYW1WZXlseHozdTF3V1BDaGxCRFpPa2llSktUMENNUXAzanRveEQxbWgx?=
+ =?utf-8?Q?VgaaF+07poSfaxiNFwCbt/svtWwZMK+VsUXAv?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d3d920f7-5470-47db-8a22-08df3028f030
+X-MS-Exchange-CrossTenant-AuthSource: PA6PR04MB11909.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Oct 2026 10:40:49.9729
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Na8lxPGYieK3JNthvQZ2p2bk3CHhSq7dt/P+aEwW7hIaoSnLAfGJnu8dis0zI6D1CMbDZKhgKjXkMsGrIEldUIAIB9g7vCBO6YDwhjvzmcgnoPIf78foVvZX7RvcyXj0
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV1PR04MB9149
 
-On 10/1/26 11:34 AM, Nabige Aala wrote:
-> From: Ritesh Kumar <ritesh.kumar@oss.qualcomm.com>
-> 
-> Add PCS-level drive level tables for the Glymur (V8) DP PHY:
-> - qmp_dp_v8_ln_drv_lvl_hbr3_hbr2: LN0/LN1_DRV_LVL settings for HBR3/HBR2
-> - qmp_dp_v8_ln_drv_lvl_hbr_rbr: LN0/LN1_DRV_LVL settings for HBR/RBR
-> - qmp_dp_v8_pre_emphasis_hbr_rbr: updated TX_EMP_POST1_LVL values for
->  HBR/RBR
+From: Haibo Chen <haibo.chen@nxp.com>
 
-[...]
+The core defaults opcodes.read_sr2 to the legacy RDCR opcode (0x35), and
+spi_nor_cache_sr_lock_bits() reads SR2 during spi_nor_init(), i.e. after
+the flash has been switched to its runtime protocol. On an octal flash
+running in 8D-8D-8D mode the opcode is extended per cmd_ext_type (e.g.
+0x3535), but RDCR is not a valid register read there: these parts access
+their status/configuration registers through a vendor-specific indirect
+space, if at all. The flash does not answer, the register read times out
+and probe (or resume) fails (on i.MX FlexSPI: -ETIMEDOUT and a controller
+WARN(), seen with a Micron MT35XU01G and a Macronix MX25UW51345G).
 
-> +/* HBR3 & HBR2: DP2_LN0/LN1_DRV_LVL swing settings (PCS level) */
+Clear read_sr2 on every path that enables 8D-8D-8D, so that
+spi_nor_read_sr1_and_sr2() degrades to an SR1-only read and no
+unsupported command is issued. A manufacturer driver that genuinely
+needs an SR2 read in this mode can still install its own opcode in a
+later fixup.
 
-These comments are a bit superfluous
+- spi_nor_parse_profile1(): the common case. The xSPI Profile 1.0 table
+  does not describe any SR2/RDCR read, and it runs before the
+  manufacturer late_init.
+- mt35xu512aba_post_sfdp_fixup(): some mt35xu512aba batches lack the
+  Profile 1.0 table and enable 8D here instead, with the BFPT QER field
+  left at a reserved value so read_sr2 keeps its RDCR default.
+- spi_nor_no_sfdp_init_params(): non-SFDP parts that enable 8D via
+  SPI_NOR_OCTAL_DTR_READ keep the RDCR default too.
 
-[...]
+CMP (the only user of SR2 beyond quad-enable in the locking code) is
+Winbond-specific and is not placed in SR2 on their 8D-capable parts, so
+no octal flash loses a usable SR2 read because of this change.
 
-> +	/* PCS-level drive level tables (v8 / Glymur) */
-> +	const u8 (*ln_drv_lvl_hbr_rbr)[4][4];
-> +	const u8 (*ln_drv_lvl_hbr3_hbr2)[4][4];
+Fixes: b7b63475903c ("mtd: spi-nor: Create a local SR cache")
+Fixes: 63489002d397 ("mtd: spi-nor: Refactor Read Status/Write Status support")
+Signed-off-by: Haibo Chen <haibo.chen@nxp.com>
+---
+Changes in v4:
+- Following the Sashiko review and Miquel's preference, keep the
+  capability-based clear but cover every path that enables 8D-8D-8D, not
+  only the xSPI Profile 1.0 one:
+    - spi_nor_parse_profile1() (the common case, already in v3),
+    - mt35xu512aba_post_sfdp_fixup(): some batches lack the 8D command
+      info in SFDP so Profile 1.0 parsing may not clear it,
+    - spi_nor_no_sfdp_init_params(): non-SFDP parts using
+      SPI_NOR_OCTAL_DTR_READ.
+- Checked all vendor drivers; Micron is the only one that enables 8D
+  outside Profile 1.0 parsing. Macronix and Cypress rely on Profile 1.0.
+- Link to v3: https://lore.kernel.org/r/20261022-spi-nor-fix-v3-1-bffa00b75c27@nxp.com
 
-Why can't we reuse the existing fields?
+Changes in v3:
+- Clear opcodes.read_sr2 in spi_nor_parse_profile1() (capability based)
+  instead of in spi_nor_set_octal_dtr() (runtime-protocol based), as
+  suggested by Miquel and Michael. It runs for octal-capable parts and
+  before the manufacturer late_init, so a driver can still install its
+  own SR2 opcode afterwards.
+- Confirmed on a Micron MT35XU01G (i.MX95) and a Macronix MX25UW51345G
+  (i.MX8ULP): both publish the xSPI Profile 1.0 table, and 0x35 is not a
+  valid SR2 read in 8D mode on either.
+- Drop the Assisted-by tag (removed upstream for 7.3).
+- Link to v2: https://lore.kernel.org/r/20260929-spi-nor-fix-v2-1-75440cfe4e76@nxp.com
 
-Konrad
+Changes in v2:
+- Rework the fix following review: instead of guarding the read at runtime
+  in spi_nor_read_sr2(), clear the default RDCR opcode.read_sr2 once, at the
+  point the switch to Octal DTR succeeds (spi_nor_set_octal_dtr()).
+- Key the clear off the real runtime protocol so a flash that advertises
+  Octal DTR but runs in (x)STR (host without 8D support) keeps its RDCR.
+- Drop the swp.c change and the -EOPNOTSUPP handling; a cleared read_sr2
+  already means "no SR2 read", handled by the existing debugfs caching path.
+- Trim the code comment; move the details to the commit message.
+- Link to v1: https://lore.kernel.org/r/20260928-spi-nor-fix-v1-1-ce65ba90cfbd@nxp.com
+---
+ drivers/mtd/spi-nor/core.c      |  6 ++++++
+ drivers/mtd/spi-nor/micron-st.c | 10 ++++++++++
+ drivers/mtd/spi-nor/sfdp.c      | 11 +++++++++++
+ 3 files changed, 27 insertions(+)
+
+diff --git a/drivers/mtd/spi-nor/core.c b/drivers/mtd/spi-nor/core.c
+index 90524c58602e1c27cd83951ab0cdd3669a2ebfd6..8ded5cd12669161a95d7c08773b5a3a9a5f9b3ac 100644
+--- a/drivers/mtd/spi-nor/core.c
++++ b/drivers/mtd/spi-nor/core.c
+@@ -2711,6 +2711,12 @@ static void spi_nor_no_sfdp_init_params(struct spi_nor *nor)
+ 		spi_nor_set_read_settings(&params->reads[SNOR_CMD_READ_8_8_8_DTR],
+ 					  0, 20, SPINOR_OP_READ_FAST,
+ 					  SNOR_PROTO_8_8_8_DTR);
++		/*
++		 * The default SR2 read opcode(35h) is not usable in
++		 * 8D-8D-8D mode; drop it so spi_nor_init() does not issue an
++		 * unsupported command.
++		 */
++		params->opcodes.read_sr2 = 0;
+ 	}
+ 
+ 	if (no_sfdp_flags & SPI_NOR_OCTAL_DTR_PP) {
+diff --git a/drivers/mtd/spi-nor/micron-st.c b/drivers/mtd/spi-nor/micron-st.c
+index f97f2dead8c2f175564410871c896260dc31aad3..cff774a83d7656ca2d7dc5af13a78c8c520b1dd9 100644
+--- a/drivers/mtd/spi-nor/micron-st.c
++++ b/drivers/mtd/spi-nor/micron-st.c
+@@ -181,6 +181,16 @@ static int mt35xu512aba_post_sfdp_fixup(struct spi_nor *nor)
+ 	nor->params->rdsr_dummy = 8;
+ 	nor->params->rdsr_addr_nbytes = 0;
+ 
++	/*
++	 * Some batches do not expose the 8D-8D-8D command information through
++	 * SFDP (see above), so spi_nor_parse_profile1() may not run and clear
++	 * the default SR2 read opcode(35h). Drop it here as well: it is not a
++	 * valid register read in 8D-8D-8D mode and would time out during
++	 * spi_nor_init(). Clearing it again when it was already cleared is
++	 * harmless.
++	 */
++	nor->params->opcodes.read_sr2 = 0;
++
+ 	/*
+ 	 * The BFPT quad enable field is set to a reserved value so the quad
+ 	 * enable function is ignored by spi_nor_parse_bfpt(). Make sure we
+diff --git a/drivers/mtd/spi-nor/sfdp.c b/drivers/mtd/spi-nor/sfdp.c
+index 4a3f82e97cef8a76c9704918aa6558ca4e2f2b97..722eeff71d0df8c47ec7bdd795c08ba1bdf5e9cc 100644
+--- a/drivers/mtd/spi-nor/sfdp.c
++++ b/drivers/mtd/spi-nor/sfdp.c
+@@ -1344,6 +1344,17 @@ static int spi_nor_parse_profile1(struct spi_nor *nor,
+ 	 */
+ 	nor->params->hwcaps.mask |= SNOR_HWCAPS_PP_8_8_8_DTR;
+ 
++	/*
++	 * The xSPI Profile 1.0 table does not describe a Read Configuration
++	 * Register (RDCR, 35h) instruction, and the single-byte RDCR default
++	 * is not usable in 8D-8D-8D mode. Drop the SR2 read opcode for these
++	 * octal-capable flashes so spi_nor_read_sr1_and_sr2() degrades to an
++	 * SR1-only read and spi_nor_init() does not issue an unsupported
++	 * command that the flash never answers. A manufacturer driver that
++	 * actually needs SR2 can install its own opcode in a later fixup.
++	 */
++	nor->params->opcodes.read_sr2 = 0;
++
+ out:
+ 	kfree(dwords);
+ 	return ret;
+
+---
+base-commit: 9a482184d910775cf648863148944945b74e2815
+change-id: 20260928-spi-nor-fix-eb7ebe22a740
+
+Best regards,
+-- 
+Haibo Chen <haibo.chen@nxp.com>
+
