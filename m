@@ -1,67 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792678912;
-	b=S7xJFWE9FHuJQ4wjECHdD0M3zbeUgxidSWldLq1skV329yMOrGVEPJmcTPMRhszyjUs7
-	 lw2Hl27o9EzEnvn57sWXlJ+rHL2aNlOvnFQFRA+qUFpf0ZxXUVmbFOTFdlRg5TPInsAuF
-	 /1MexM5jGqpYghxSmZYHE7VonRtUAEuO9heFsFM8PHn1iBBqIYoNr9YLfYtFaEkEAW8cx
-	 NEJX3V9cGEv2oZv+VN0KdOeZHn4v85UsHie9xEkxXzEs7aT+546G9acQr5A/8+ngjzeUO
-	 keeEfUS9/ZgGPXX62hlXFxrfy/XctqRHWA5mTf39GZGCKSGH27mgauDBYEtXB303wUQ==
+	t=1792678986;
+	b=NN6loEOQrD8iK32tchpPNaYNCjUOG3rPPEzcdR8BDHwfoG4frJ+8EMMzTUlI9Y1OA6mv
+	 CbS7B727Fbj2OIcSkf+0VfXhn81kA/aVb+8YJ/PFPJdP6xQyZagRCicfx/6K3vE9pKvMX
+	 KsHb79Z7K3Occb+QtcjmbDm9fCuT1OUIuyXaUHHTPZY5DtPmcLwQx3IGui5Sdz6vZKF/J
+	 R/bPQhjz8sEkmc0ZrmmxK4nR2SXfbeP48Xq1dYtR81lbynTO95F5kEZWU93UmKNO9BbME
+	 rgfNHQqkVQo98xP0FSHGCkATc426WPbGucvv9812qjxlkA7Ix+3xs/LBPL0e33coMpg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792678912;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=UgVlXRgVv5/x1DXWmVGKmIRruqBZ1ifqROjMLIcwpQI=;
-	b=wERCfMDGYz302LiswWoCJZpsp5xGzMjZeoUSDAIc5L5bLLXtI0nmhXcsc1/5uixNfYwq
-	 f9WmCYUUCJS924kNBYLwuMTrGv3O1w1yfRpt85FMPGWkprueJsBYpMBfWEKirTgPmWsdm
-	 1OOxpQJCdMxjD358UQXAZT54ofX6OwNwgyyjWB/qKqTCPwP0NEC/lltkGXj69Eo3+3Ezh
-	 iHsK8ntZHscNE3mRJcaU/mvvCGPbikz48NHkh/bCiUl9K6wnARdLyVo1xSQlbgjrGz11R
-	 vr/ZkxWwsX5Yrxo9wpBScRPfC4Egn2sZ07A8bpc04Glf5ZCiEMQjivWgcLmxWXvv5nw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792678986;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:X-B4-Tracking:To:Cc:X-Mailer;
+	bh=myYidWIIbWAkZv9VR701i1PRbNKaJd28wzAcC9LDW4Q=;
+	b=SwER6iV/2p/NkOPSecIWgRGgTxsVGUR58MwtfU0EknuZVUoLTCUp5Ga77V0YCFTGZM8V
+	 skitq2/XZOChGplh0FWo/Z116uBtgXR+kAyr8Quk28OTggGcaTfGvGWPLYm+7vgJoYWaI
+	 NAgMAEtuIMvnIzRKbfC6AkOHGyOPq3mDaLxrEV3Xx6MO494CJAeOPM+8rDqiN89k0YBTr
+	 S0ZvxLCzMvM/d7L8gZqgP642oM8B7h5eVtew9LPg1Tf2QsWlZeO3cR9iIWoyo9X5rl0x1
+	 zXkJJDC9hXAE15B7+6bpayxoiMkZtZfUi5J8+iIa1vG8annNqE9ERyLF/BH91Xh1cbQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=dniXRB4Z;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 21D7C606A31A;
-	Thu, 22 Oct 2026 14:21:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 21D7C606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=oefI+SRh;
+	arc=none smtp.remote-ip=209.85.128.44
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CD16606A31A
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 14:23:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4CD16606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=dniXRB4Z
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id EBCFC2C34;
-	Thu, 22 Oct 2026 07:21:46 -0700 (PDT)
-Received: from arm.com (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id E3BA83F7B4;
-	Thu, 22 Oct 2026 07:21:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1792678910; bh=AjDgKxtJPU0cDSM8jjetpkKUyPIl0mcA2sgghiP/fy8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=dniXRB4ZD77Kv5qxyizSr8v8KtL/ukXit7rt6xFRKUWRWqRwmE6iH72fHbbiOthgT
-	 t8pkLhHcMrKIjkL9hOIAKcTHcKAD8dALDouiCVdrInxKtCYCKPKtoN/P52CBgRrqBV
-	 0dUXbOk3kfv9WFL09chD0AKAzIdjKVCTHS+KjbMo=
-Date: Thu, 22 Oct 2026 15:21:42 +0100
-From: Catalin Marinas <catalin.marinas@arm.com>
-To: Roberto Sassu <roberto.sassu@huaweicloud.com>
-Cc: will@kernel.org, mark.rutland@arm.com, chenhuacai@kernel.org,
-	kernel@xen0n.name, maddy@linux.ibm.com, mpe@ellerman.id.au,
-	npiggin@gmail.com, chleroy@kernel.org, pjw@kernel.org,
-	palmer@dabbelt.com, aou@eecs.berkeley.edu, alex@ghiti.fr,
-	tglx@kernel.org, mingo@redhat.com, bp@alien8.de,
-	dave.hansen@linux.intel.com, hpa@zytor.com, robh@kernel.org,
-	saravanak@kernel.org, x86@kernel.org, linux-kernel@vger.kernel.org,
-	loongarch@lists.linux.dev, linuxppc-dev@lists.ozlabs.org,
-	linux-riscv@lists.infradead.org, devicetree@vger.kernel.org,
-	zohar@linux.ibm.com, noodles@fb.com,
-	linux-integrity@vger.kernel.org,
-	linux-security-module@vger.kernel.org,
-	Roberto Sassu <roberto.sassu@huawei.com>
-Subject: Re: [PATCH v2] kexec: Select ima_get/free_kexec_buffer() with
- CONFIG_HAVE_IMA_KEXEC(_OF)
-Message-ID: <atob9ulCwxZgyWyL@arm.com>
-References: <20261020083727.1906495-1-roberto.sassu@huaweicloud.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=oefI+SRh
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a2072b9832so4296065e9.1
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 07:23:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792678985; x=1793283785; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=myYidWIIbWAkZv9VR701i1PRbNKaJd28wzAcC9LDW4Q=;
+        b=oefI+SRhk4UgRTuRM47u+1b04l6u5XLZOSIZ66bQL0wJyvbFLyM4Ug/lbN3QkWZI0b
+         vZkYcN3S/tijHM0jbhSVJ9GrpeQ+VVma7DHe7Xe6o2cTEh2kFW9zVZP8Njct1r58gts1
+         K2vN+nVpb066Ma84PrlKbqLcb7FBWH3zjd/ojMYzg7/W3WbFRGAQDLFtgaP/mSoavT5q
+         MmvuNaBgH0kt4kr6S9AG4Rwuiz7eY+UpY66O+XI5zbk1BrNDxhrONRgMBHNqbZGaH8o0
+         EemoURaaZkqTZg3hfKpYE1pKu2e0FqTXt96gmF0D96zTEKF16Y+zZahIOkVqthsS1+LH
+         dChg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792678985; x=1793283785;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=myYidWIIbWAkZv9VR701i1PRbNKaJd28wzAcC9LDW4Q=;
+        b=sQGQ8wYP5bdqXj+FJY6F5grIBTP2g9J5WKrrSfzBLwPqPqmL0AFVnAfbhrKG6Yry3V
+         L0g1d8c4Gz/5tw8j7rBXzEIJQwpmuqacQhNhEieCUSQdjufq+D4wo7KGpcj3YvHvGe/q
+         /MQRd4pVe++kRqWIEeEZYTWtkSBiAFChCTrgH54Jyihh/8C1cTY7tMAvYIMd+1oS1q2l
+         4pY5470oPLfYIIV8sbSirwsmNKGxxwUq2YielfNGa4WAxG4A0DLJhy4tBrQ9BvI223XD
+         NAjMVUSVOvO/M9wxL42up15e0jITftx/OedYr2c/zlcABGUH7jnDggk1ilKBmunCxqEi
+         zfDA==
+X-Forwarded-Encrypted: i=1; AKwUvBwiAG+LKps5c6duQlEpj0kQre4pjWOFa5MH9HIFGTI3xppqoQda8VPngnj3Q8WxolCGxNiMMtQf/l3ITZs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKDId73aMn+emv0R5FrJeNz8hCwR/2PaH8h5uYha07NdFwE0RuA
+	oKyty2XwCePVex6VWC2iKSZ3mplN+DZuB1k7qkIvOwJ2MRodZeUngYKG
+X-Gm-Gg: AYBFou39LcKpaD1AsOchS0TnhHlsWNY61UChkUst9OJCQ3yW6h2IptQK0YHS6w/S61h
+	EfgJfsgTgSI/D0m9JoJAK3egrcxsmnybgYkXvVFptc+Wqtoxcqdb8lP++eZd3BCQnEUlVSViUWP
+	O55dC79E9/LjFueiGGPqS5kWylj2ehWnp5JCKZZT/sUim/nJy9XjKpWsh3MtHR3nr4xaB7entF+
+	vYqmGJV1A5D07/+K0nlvMwWMt6crieYXN0rDVTwALwIA1F/Oo5+unoL2XrgLnmW3D6/D5U6518b
+	PTZOgmb5BjxpVa3575MkjQ8lJwTuJ1XLvhEJSXSF9/anOAsbYUPiA6sIpYcCm+x5xQIETRRF0a5
+	bBGr06+chJKrSAyVKvDvA+VWI22O3M7H7naHmdAUwj6KnuXUW7gKo6pc4vRg9AxxQnyv9x+RAIw
+	pPTNavnBsHR4W65o82fzYv4+0uG41HS0dY0KFfHRLoFUWuMaGWMmdIKPSy7E3bdPlFTgPv6hgCM
+	5nvVxpg9EG+GLN+a4DJLxf3qn1eyu+XNav6KGvtDv4ODhuFV1KEz/2BPl7AzIDcdSFLi4oncOoK
+	7q3YG2dL8mJ2Ay9V8HJwn5rQL7t/FDuf3LOB75FygGQ+LLDp8pNkjIU=
+X-Received: by 2002:a05:600c:a49:b0:49f:ffa2:1c72 with SMTP id 5b1f17b1804b1-4a204b20321mr50739115e9.11.1792678984170;
+        Thu, 22 Oct 2026 07:23:04 -0700 (PDT)
+Received: from ernest.hoecke-nb (248.201.173.83.static.wline.lns.sme.cust.swisscom.ch. [83.173.201.248])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a207b29276sm95945435e9.6.2026.10.22.07.23.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 22 Oct 2026 07:23:03 -0700 (PDT)
+From: Ernest Van Hoecke <ernestvanhoecke@gmail.com>
+Date: Thu, 22 Oct 2026 16:22:59 +0200
+Subject: [PATCH v3] arm64: dts: freescale: imx8mp-verdin: Add Cortex-M7
+ remoteproc
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,35 +91,103 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261020083727.1906495-1-roberto.sassu@huaweicloud.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261022-verdin-imx8mp-m7-v3-1-af284e28531d@toradex.com>
+X-B4-Tracking: v=1; b=H4sIAEIc2moC/4XNTQ6CMBAF4KuQrh3TH1KoK+9hXNR2kC4KpDUNh
+ HB3BxYmunHxFm+S983KMqaAmV2qlSUsIYdxoKJOFXO9HZ4IwVNnkkstuORQMPkwQIhzGyeIDVh
+ tUOpWt00tGM2mhF2YD/J2p96H/BrTcnwoYr8eGDfiF+spzkZMFhJav0ARwEE5o2qDzj9MdyXJe
+ pzPboxsx4v8gIJz8ReUBDZeqFoRSPkGt217A40DcXcRAQAA
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>
+Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+X-Mailer: b4 0.13.0
 
-On Tue, Oct 20, 2026 at 10:37:27AM +0200, Roberto Sassu wrote:
-> From: Roberto Sassu <roberto.sassu@huawei.com>
-> 
-> On x86, if CONFIG_OF_FLATTREE is enabled, the kernel uses the device tree
-> implementation of ima_get/free_kexec_buffer(). However, x86 passes the IMA
-> buffer location through setup_data, not through the device tree, so the
-> buffer is never found and the IMA measurement list is not carried over
-> across kexec.
-> 
-> Introduce CONFIG_HAVE_IMA_KEXEC_OF (which selects CONFIG_HAVE_IMA_KEXEC)
-> and select it for the architectures that pass the IMA buffer location
-> through the device tree, via of_kexec_alloc_and_setup_fdt() (arm64,
-> powerpc and riscv). Build the device tree implementation of
-> ima_get/free_kexec_buffer() only if the new option is enabled.
-> 
-> Select the new option also on LoongArch, to preserve the current behavior
-> and avoid a link failure. LoongArch does not pass the buffer location to
-> the next kernel yet; this will be addressed separately.
-> 
-> Finally, don't select it for x86, and use x86's own setup_data-based
-> implementation regardless of CONFIG_OF_FLATTREE.
-> 
-> Fixes: b69a2afd5afc ("x86/kexec: Carry forward IMA measurement log on kexec")
-> Signed-off-by: Roberto Sassu <roberto.sassu@huawei.com>
+From: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
 
-For arm64:
+Describe the Cortex-M7 remote processor available on the Verdin iMX8M
+Plus SoM.
 
-Acked-by: Catalin Marinas <catalin.marinas@arm.com>
+Signed-off-by: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+---
+This patch was previously part of the Verdin iMX8M OV5640 series and is
+now sent separately, as requested on v2.
+---
+Changes in v3:
+- Split out of the Verdin iMX8M OV5640 series (Frank)
+- Move the UART_4 overlay to the shared Toradex Cortex-M UART series:
+  https://lore.kernel.org/r/20261022-v1-imx95-overlays-v2-0-c769d6eb54fd@toradex.com
+- Link to v2: https://lore.kernel.org/r/20261001-verdin-imx8mp-hmp-camera-ready-v2-0-7d1343ecd3ec@toradex.com
+
+Changes in v2:
+- Rebase
+- Link to v1: https://lore.kernel.org/r/20260910-verdin-imx8mp-hmp-camera-ready-v1-0-3c9349ecdb9f@toradex.com
+---
+ arch/arm64/boot/dts/freescale/imx8mp-verdin.dtsi | 33 ++++++++++++++++++++++++
+ 1 file changed, 33 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/freescale/imx8mp-verdin.dtsi b/arch/arm64/boot/dts/freescale/imx8mp-verdin.dtsi
+index 9fee2cf9ef54..45a4713c260f 100644
+--- a/arch/arm64/boot/dts/freescale/imx8mp-verdin.dtsi
++++ b/arch/arm64/boot/dts/freescale/imx8mp-verdin.dtsi
+@@ -77,6 +77,18 @@ key-wakeup {
+ 		};
+ 	};
+ 
++	imx8mp-cm7 {
++		compatible = "fsl,imx8mp-cm7";
++		clocks = <&clk IMX8MP_CLK_M7_DIV>;
++		mbox-names = "tx", "rx", "rxdb";
++		mboxes = <&mu 0 1
++			  &mu 1 1
++			  &mu 3 1>;
++		memory-region = <&vdev0buffer>, <&vdev0vring0>, <&vdev0vring1>,
++				<&rsc_table>;
++		syscon = <&src>;
++	};
++
+ 	sound_hdmi: sound-hdmi {
+ 		compatible = "fsl,imx-audio-hdmi";
+ 		model = "audio-hdmi";
+@@ -185,6 +197,27 @@ reserved-memory {
+ 
+ 		/* Use the kernel configuration settings instead */
+ 		/delete-node/ linux,cma;
++
++		vdev0vring0: vdev0vring0@55000000 {
++			reg = <0 0x55000000 0 0x8000>;
++			no-map;
++		};
++
++		vdev0vring1: vdev0vring1@55008000 {
++			reg = <0 0x55008000 0 0x8000>;
++			no-map;
++		};
++
++		rsc_table: rsc-table@550ff000 {
++			reg = <0 0x550ff000 0 0x1000>;
++			no-map;
++		};
++
++		vdev0buffer: vdev0buffer@55400000 {
++			compatible = "shared-dma-pool";
++			reg = <0 0x55400000 0 0x100000>;
++			no-map;
++		};
+ 	};
+ };
+ 
+
+---
+base-commit: 7f47e8eafbf55a2ad0697e5d28f5e6cff2fa42f9
+change-id: 20261020-verdin-imx8mp-m7-a69e26868741
+
+Best regards,
+-- 
+Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+
