@@ -1,83 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792674142;
-	b=TYjpuFhrhjD71Jag2Kev1x82hrECdSu4AA0vxt2lzIvlk3kw0hb1mgE6MCsWK7FbAZPk
-	 eUGRBF4DeWTmqhKF71Px9vlTTkyxDfCQWuP7M2ryWVCSzsAff0YdQ+imyDKaGN76LHGUC
-	 vgvO+B1/JFCoSgYHK9sa5rO/vGTsGhdzud1K446MtfJnVVzwKQ9IhKdUH8pOfb4shaSRq
-	 /Brrw5srMg7tPaP2OUP66Ml5m+MfM65ppBot9/gXl+IKb2qg6mCSdpEW8HSQXulZUOIm0
-	 Dmu0IYjq+oZJpVCYuAjT0+uESOZE5LEUGQmQrJkCKDvSBC6z8XtzX/DLIxmIIUWov6Q==
+	t=1792674143;
+	b=FY/NMq4uYRLiG6VeRC4o2i6Gm6V61FEtqfDo6cNq4qsIBqkzXoZUGG9KucAC8V+9knkz
+	 x5cZe7yNwbXQg1b8NY3bdLyyeEd0/x9ZrrZWls6jpY3uqOPexyCwTIY4jeSYsbqaisCpE
+	 5/HKva7/gQvXiipnEmzre13wmowncQe/kv7LvdxH46lrjGhup7OUTLCuyytcG4yNEksbN
+	 jSJS3f5ZDkBztfSKZoD0V6ISOveaPyyrZG4UAOkIruG2G46ob/1CPexxLWzeOo4K8I/1u
+	 oF/NkdsYJ/HeGxrTp/QjTgt40n4EK7JBTmaQEf+rOKubeWUa+7mZSUEnUfxrNlybtFg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792674142;
-	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
-	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=4HuGv5ZRH/AtF4S4hVGB2td/V1pIJ3gKoiIbsSKyuhk=;
-	b=sEm+96/P6H08bru8mnMIILqn+byIrqL8JfUCDfP39B6/CNOMoIEMOacm5G2m9kMoAQrs
-	 f7hTWnOwgMzjqShA7ubl+Z4Yd3tKqhcLLE/Veh4XzlnsYSIyM8uUXHi4kTTksZJstnSg/
-	 Yb3yHQhjOrM3PSCfwanW6KgeORj+nITgy9DXxDlhUTAAkAbxgTElpa4tECeJuauCVCA9I
-	 dU+vISKAtoXFUcx3nlSY5rxcV319HNxYzoYpKx62MZu4GxytlBt6NWVKINi3IJhSG6RXh
-	 9yckABfvLoKJl1TErCyDKXp1/fz09S38+HVWhTejlp9VUUDf4bq5D74CZwXPYqO+jvg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792674143;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=DoDCGmpaF9TJDAMFtbT2QMrNd5G5ZzhW2VZ6L8kTSQo=;
+	b=Gy/ECttOjZWoe7AyrQxGVOH+qUeb2uLOQuHbday/plljaJakjw/zttXHiUkYTbtLbNMB
+	 oT5kJp67Xwe/eyNrVHryrcAaDSs/U0u+NkqqBNN66zN3ZSUYY/FcEdKgFp1ePbJY+FlY3
+	 ZaMn0yU7frT0p80uFYNpZkD1kEClhe5NZTt0vn3LJN0B9b7ZcQB3apQKpocrS+oA3MWYs
+	 ZcEPrapLFdrPAR6rXh5nXeOaQ55irbQdss/WwFb4BxL+AKjRTUllxDal9iAkm7MDMZmM8
+	 7UcgRQquiNOrSO0lD52+E7GOr8ud0vO3JwM9WsaD+6OHTAwuj11NzkdxyDJjoV5Q+ZA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gukAl2Vz;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kgFZnq39;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1A24606A31A;
-	Thu, 22 Oct 2026 13:02:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0677B606A326
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 13:02:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gukAl2Vz
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 05CB21F000C1;
-	Thu, 22 Oct 2026 13:02:20 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kgFZnq39
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 16F251F000C2;
+	Thu, 22 Oct 2026 13:02:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792674141;
-	bh=4HuGv5ZRH/AtF4S4hVGB2td/V1pIJ3gKoiIbsSKyuhk=;
+	s=k20260515; t=1792674142;
+	bh=DoDCGmpaF9TJDAMFtbT2QMrNd5G5ZzhW2VZ6L8kTSQo=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=gukAl2VzLfgw+LefWfQff69EA3FCD4cWTlc07QUqCAQE584rjjznNHti3vCl/lEgv
-	 H4U+4qwTUVVEb8w+TXjGZs5su3BvvfwVDLfxR4FlO5+AyLsEiSBwRFAr7Gjv50t4Vp
-	 rFHpOiVNA9z/cO370CX7qrnKgugQNLSaKoc/+dpjdZmcxFVqcUGYF3Tb2K2nD3kG6T
-	 gG4xlrrSo5HtPT4IERUO3SWx2avtjDeidhyWej4+8ENVpYV47hgnXjMO1aNmbzqpNW
-	 Q40NFfFSnlHB++K3iCQ0rO8zmA4+b66Vg0O5BgGNb5bVCWNqvDOL1RnnxxmiXpO//l
-	 xMiLC/cj8P2UQ==
-Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
-	by mailfauth.ams.internal (Postfix) with ESMTP id 66900198003A;
-	Thu, 22 Oct 2026 09:02:18 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-06.internal (MEProxy); Thu, 22 Oct 2026 09:02:19 -0400
-X-ME-Sender: <xms:WQnaapTr8GvbsUJAfOv97XwN1xdGS_kaCfN1cRsFq2jYvZj38kREww>
-    <xme:WQnaaqUVPUSVDFK0uHhV69ovcrBc6OqdWEXlLKLH_M59lwCPZKU6lDUIc-R1IE5Ha
-    szRSGZXoU01lliTHpuF1XXFgXwoq9hiecQPG-idwvLCvBFZn4tJsyLS>
-X-ME-Received: <xmr:WQnaaud_OxSQ0gkz9X5tYMwfv-bwJeExWr3m5ZvV6b35agwo75SUprprHnU>
-X-ME-Proxy-Cause: dmFkZTEvFcltCV3rbb+SUdH6HdqghYdFA006W/sOuoLejeYB8OZVAiAdEvFfhoxp4aDjDf
-    Nrh67OJON03Gd/PBrjnw1ermn1KRh5c782xteXhRV8EAKkCo1vfXN5IIpU5VxGJufymJDI
-    zOkJfkEPXF18SFWiIZP+tjpcJvgk0DFb9T3Id3Lx0iKSJXzygfzebjr9JOxaxd57v7wSvp
-    /ESbV6sntPKQWwGAONXhUU1s1eYU+utn2GP0wDd63WK+mNEniuz1T2LFmfRAKU3QaT18f4
-    1pZAW7EhvJThlt9eCkRnOPkx71x2aeAqqbl2o5w+4DK4j3DLOVvcYaBm9IkK4V8gQX9UZc
-    XJzfXOaAqPcaLjuG57uQVEvlTG8a2NRohq8peiNNlWEBzRsAkgBN/cMnsCF5yUss0xk+nY
-    JIVyovh8ZQ/GNMFdxgH2luifQeZOhpskM4E8qo7JweVhRILYyqublekNYP3e5xwBvAMwR3
-    m4RbyKdfIS6qLTsiV8+ffp+uQj+c7TcE1HJs4+n2Lgnha4ils3HpjBSyIdbBhiC6zE/bAK
-    8aUi4kKG1Lc8b0CLxj4s5VCzCYpsvxyVI64QDiGSFBuWukE3R9RqTDBSwFodZcRcURld1Y
-    hD4J+wgxg0EnjX1TEWGTebZKKO2+u448obJsRjl/1ddaVUwbrHK83UGQmIfQ
-X-ME-Proxy: <xmx:WQnaatxe5gC_Uri40zV4nTMdfLaat1g6mzgQ37vhNVXFKXi4_Gr5mQ>
-    <xmx:WQnaapGTcaoGwLF0_6wvjC5_PuIRGvx5fu6PQic1O3fI-9rDY5Szig>
-    <xmx:WQnaas1YIkQ0ILP5XTQAPKImH1-4jbFYBRBu2T_0feI1PJISP9RWfg>
-    <xmx:WQnaah8ZYPeI77tT5kzOkS6qbi8j2H5IX24c2eoIPSLZDa8x_YK63g>
-    <xmx:WQnaavHXdoazp9bcr14PKOB0vhwwo7YpAmuXD_L84-fUxleCtaq6DHfc>
-Feedback-ID: i10464835:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 22 Oct 2026 09:02:17 -0400 (EDT)
-Date: Thu, 22 Oct 2026 14:02:16 +0100
-From: Kiryl Shutsemau <kas@kernel.org>
-To: moe@flashbots.net
-Cc: Rick Edgecombe <rick.p.edgecombe@intel.com>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, linux-coco@lists.linux.dev, kvm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] virt: tdx-guest: Poll Quote status with exponential
- backoff
-Message-ID: <atoHWgQF-0vlTRK4@thinkstation>
-References: <20261021-tdx-guest-quote-poll-v1-1-919a87812ecb@flashbots.net>
+	b=kgFZnq39CKfZvJT+x/rf0v4DLUYAzQxJmCuHgdfJ6k2Xiy+Wo597OLtq3jiRswqDI
+	 f11ReG6DfZFE3e2E6kJdaQmjP+MFNC1zirKYWL1W0oZBpfXkQMoR7y8Ha3VtuetZeb
+	 9ffirV2bpHhO3GFJCrTic53Mt+teLP1krCUJPfI6JMzku7rixHyZlfbd6VJOcZOj+n
+	 q2ZH9gJmiHG8R3DBqxOBAU5siOBLOveFubDsTuYoMNF3N3l+RTF23fhwcYIxIH8MWU
+	 AxG4qt+JQX6HPxT7ln9wCElyjnCVG6dqMOo5RqkbgB6MMQ5cAWYaKsorXuvjdt3kKZ
+	 SmkEFpzUxujSw==
+Date: Thu, 22 Oct 2026 15:02:19 +0200
+From: Frederic Weisbecker <frederic@kernel.org>
+To: Avi Weiss <thnkslprpt@gmail.com>
+Cc: Waiman Long <longman@redhat.com>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] kthread: fall back when no preferred housekeeping CPU is
+ online
+Message-ID: <atoJWzlJwtxY5I3h@localhost.localdomain>
+References: <20261020125518.1114230-1-thnkslprpt@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -87,71 +57,61 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <20261021-tdx-guest-quote-poll-v1-1-919a87812ecb@flashbots.net>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261020125518.1114230-1-thnkslprpt@gmail.com>
 
-On Wed, Oct 21, 2026 at 05:16:32PM +0000, Moe Mahhouk via B4 Relay wrote:
-> The latency was found while measuring TD boot and attestation times.
-> The code and this changelog were written with an AI coding assistant,
-> Claude (Claude Code, model Claude Opus 5.5), which also ran the tests.
-> Tested on mainline a804c5742 in a TDX guest (KVM host v7.0, QEMU 11.1.2,
-> TDX module 1.5.34, Intel QGS) with 40 Quote requests per kernel; builds
-> with W=1 and passes checkpatch.pl.
-
-Does anybody find this kind of dump useful? Maybe move after --- ?
-
-> @@ -271,18 +273,25 @@ static struct tdx_quote_buf *alloc_quote_buf(void)
->   */
->  static int wait_for_quote_completion(struct tdx_quote_buf *buf, u32 timeout)
->  {
-> -	int i = 0;
-> +	unsigned long deadline = jiffies + timeout * HZ;
-> +	unsigned int sleep_us = 100;
->  
->  	/*
-> -	 * Quote requests usually take a few seconds to complete, so waking up
-> -	 * once per second to recheck the status is fine for this use case.
-> +	 * A local Quote Generation Service usually completes the request
-> +	 * within a few milliseconds. Poll with an exponential backoff, from
-> +	 * 100 us up to 100 ms, so that a fast Quote is noticed promptly while
-> +	 * a slow one costs at most ten wakeups per second.
->  	 */
-> -	while (buf->status == GET_QUOTE_IN_FLIGHT && i++ < timeout) {
-> -		if (msleep_interruptible(MSEC_PER_SEC))
-> +	while (READ_ONCE(buf->status) == GET_QUOTE_IN_FLIGHT) {
-> +		if (time_after(jiffies, deadline))
-> +			return -ETIMEDOUT;
-> +		if (signal_pending(current))
->  			return -EINTR;
-> +		usleep_range(sleep_us, 2 * sleep_us);
-
-usleep_range() in uninterruptible.
-
-Why not use the same msleep_interruptible(), but with shorten interval?
-
-        unsigned long deadline = jiffies + secs_to_jiffies(timeout);
-        unsigned int sleep_ms = 1;
-
-        while (READ_ONCE(buf->status) == GET_QUOTE_IN_FLIGHT) {
-                if (time_after(jiffies, deadline))
-                        return -ETIMEDOUT;
-                if (msleep_interruptible(sleep_ms))
-                        return -EINTR;
-                sleep_ms = min(2 * sleep_ms, 100);
-        }
-
-        return 0;
-
-
-> +		sleep_us = min(2 * sleep_us, 100 * USEC_PER_MSEC);
+Le Tue, Oct 20, 2026 at 03:55:18PM +0300, Avi Weiss a écrit :
+> kthread_fetch_affinity() falls back to the housekeeping mask
+> only when the intersection with the preferred mask is empty.
+> 
+> If the intersection contains only offline CPUs,
+> set_cpus_allowed_ptr() returns -EINVAL and the kthread keeps
+> its previous affinity, which may still include an isolated CPU.
+> 
+> Check whether the intersection contains an online CPU instead.
+> Fall back to the full housekeeping mask when none are online.
+> 
+> Fixes: e894f6339808 ("kthread: Honour kthreads preferred affinity after cpuset changes")
+> Signed-off-by: Avi Weiss <thnkslprpt@gmail.com>
+> ---
+> 
+> Tested on x86_64 Linux 7.3.0 with vng/qemu and a kthread with 
+> preferred CPUs 1-2.
+> 
+> With CPU 2 offline and CPU 1 isolated, the unpatched kernel kept
+> affinity 1-2 and set_cpus_allowed_ptr() returned -EINVAL. With the
+> fix, affinity changed to 0,2. Bringing CPU 2 online restored 
+> affinity to 2, and removing isolation restored 1-2.
+> 
+>  kernel/kthread.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/kernel/kthread.c b/kernel/kthread.c
+> index cc8cb5d3eab7..fdb8fb07f40b 100644
+> --- a/kernel/kthread.c
+> +++ b/kernel/kthread.c
+> @@ -343,7 +343,7 @@ static void kthread_fetch_affinity(struct kthread *kthread, struct cpumask *cpum
 >  	}
 >  
-> -	return (i == timeout) ? -ETIMEDOUT : 0;
-> +	return 0;
+>  	cpumask_and(cpumask, pref, housekeeping_cpumask(HK_TYPE_DOMAIN));
+> -	if (cpumask_empty(cpumask))
+> +	if (!cpumask_intersects(cpumask, cpu_online_mask))
+>  		cpumask_copy(cpumask, housekeeping_cpumask(HK_TYPE_DOMAIN));
+>  }
 
-Hm. The current code is broken: on a real timeout i ends up at
-timeout + 1
+Good catch thank you! Queueing it.
+
+
+
+>  
+> 
+> base-commit: f47d223627f80cb7a1eb14c585fe6cb35de5e984
+> -- 
+> 2.43.0
+> 
 
 -- 
-  Kiryl Shutsemau / Kirill A. Shutemov
+Frederic Weisbecker
+SUSE Labs
