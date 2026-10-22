@@ -1,20 +1,20 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.127.25
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.56.61
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792653327;
-	b=jnFFwyBR23bf1ZgOCD26PJvS5ATTq1LEP2UF643bnAoRL3VMZLrRw0CDO6hDVAOUfVsi
-	 H2Oez8+gtgkwWQRUnt6ZI+tXAK4NlXCEzZ0AK/AUM/NZXX8+UF90Q5K3QrdFGTxa1WesC
-	 DbE1L8c7duDRCIo2tKx/XrBla8GAPqbdACexmUDXkSo5iD68KCMpC8ooShriTKu23BtEg
-	 4gl31B6Gvv6Sb/4o89Ox087w9Ko31XP23YduxqZzwoQ3qcntMtoWhnY/hetb/FppQjW73
-	 yoiFikwLrsXeM06ZWpMHfj+BcDTDXbViGcjlWeOmBaMCHYGG9kzUZmSZ5v+JvKEBWtg==
+	t=1792653380;
+	b=TY2bOEc57mS7MNuHkBUgecwLRB4y/cn9OlNGO5JWnKvQ3KJEirH6Y7RG4incS3SPGFC0
+	 Il0zoai8VQn3OGXwXAR9qztWbeop41pABSlZz5tREUr3PGZMSz2lR8nfMGKcwhsuOhBAU
+	 Zu8ielkfEb/CMZchiIVZi/uwhxCzcAV1jkZppdJSLUD9eerV+V/f3Nbr83cSR2wdznqZR
+	 dPEBdSUdevNQy0Lt8Xy/d0gVGAvdgN+sjj4NyjygmYfSaXr6jiPFdC0kTgnbeHKi7gIfp
+	 2XmtO/N5tEg8ndFArW/mRBC4J/e25lio32pY5AW7HL5Gts9ryPUx55RC/K05XzQjGoA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792653327;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
-	 Date:Message-Id:X-Mailer:Content-Transfer-Encoding:Content-Type:
-	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
+	a=rsa-sha256; c=relaxed/relaxed; t=1792653380;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:From:Content-Language:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
 	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
 	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
 	 X-MS-Exchange-CrossTenant-Network-Message-Id:
@@ -24,68 +24,80 @@ ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
 	 X-MS-Exchange-CrossTenant-UserPrincipalName:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=7Q3N5y6FeOIbRETnf3xz+mjBCnf/3IxLfp/xZa/Pu/w=;
-	b=UuivePt2QR6m3YE8U5O7d070TECOLrRWpFSWKp2veSVpSe9bVjdtlWqX049DjWpovis2
-	 jAR+OhtXhiRxlkB54dtfCtNcVyQe+MhJJa1xSTggxQ3dkTWuV18m9JfEckinZ/NlMoS1X
-	 GkrUqTsQu2vrE7ZUAUv4VlPr0QWIi2Cy9O9eTGy1/gxw92krRkMH9jR2zAbdQOITcN8GG
-	 NcXEkfniTwabPFAwcCouB/DcUEF7wI88P6bkL0Cl9Kw7ZWd7mfziq1UMi6RWGJIPT8+CG
-	 274PR4keqplRTlxs5F8RLRkXE+fY1J9KjCS4fzACNC4+F4NDsnlLR9m3D+MjngoLReQ==
+	bh=0vj8N67BISoQNb9JnmEl9lhNOssRDE36mqWhGAzhZY4=;
+	b=Y4r9IiEi8j0gzacu+tpawPpy7ncJ3ZFsbP8vbUblhb5A6JwaAz/lQV4M8aBIbfIMk0H0
+	 3953FIpiiAWFUoI3haPDsK3JmrbFE6iOh/nOs7qEourXdGJ1JretGmGP/aYGWdDzKphit
+	 qbBpue7eRb8vTkG0qdYPZUQyFbY20yerbeMOaaDrZISaq+uomyXly4id8tZj48nleIpSF
+	 OTABsX49MFLyP3bSgcMQi/yYl0aGP+0rHP8kDv5/G7jshQ/45mo7BW3ylEHfPsJH3TfZE
+	 tCS9CgDifTbylNFOJlioqs2a8TxDoti2HsukdonKKO1ejTV8lydlMVgs0FwTcHkPOgg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=vivo.com;
-	spf=pass smtp.mailfrom=vivo.com;
-	dkim=pass header.d=vivo.com header.i=@vivo.com header.a=rsa-sha256 header.s=selector2 header.b=B+owjcRu;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.127.25
-Received: from TYDPR03CU002.outbound.protection.outlook.com (mail-japaneastazon11013025.outbound.protection.outlook.com [52.101.127.25])
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=kLHJCmJO;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.56.61
+Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010061.outbound.protection.outlook.com [52.101.56.61])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA3E5606A319;
-	Thu, 22 Oct 2026 07:15:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AA3E5606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=vivo.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=vivo.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFAF6606A31E;
+	Thu, 22 Oct 2026 07:16:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BFAF6606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=vivo.com header.i=@vivo.com header.a=rsa-sha256 header.s=selector2 header.b=B+owjcRu
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=kLHJCmJO
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=dXjrURLWoKy5GfUDBpk+FbnDkfmy1xF+0zY8/IWYHssiAiOEMf0v2B7yL05j9YxiQiE9qZ4QcE2/YuqF4ucaqRVIC3Ibqexp85aaHaorSEy8Yw56LfFlDF5Xa29qlxXJSOKuw0bi4EttQ0prSJ0kXveGEibDUcPKc5kghaH/7oLMtFpPzuBDIz8aa4/llNOQkuIcX5JoFzfBkcPtDekAaZt0zr+7qOEttJa/B1ro2mAyvX5UUdX+43iiwc0oNnUPdzu2LA/eT370N2FIBtEV8pLp2BQYYqUrkqjUeDATDMZJVTYLM/ubWGggmVQ2G/vKQiF2Xbqv3eb5RlCDI2wsHA==
+ b=JYJsOKrDhqb9ZvxwlrrOtz1F9mON5Uzpq5xPhTtktUxbu+G6YTooh/FEfCU9wwQKEzex16TNa0FMdpdwDbIcelgj+EgEYjsqrIsrsNwwDAnu2C83mzKtN8k1euUJFFzXVYqjJHAb9mX8Oh2FlIvFJ7KVUJp0N7U4D0DsGPunuNPOaTSv+lmUm899yn6dUppHfxNc3VhyPF0uXNC7mWSqT7LccMjbiyL8aE8LurfFeAEjPe0mNYSQUpH4/9xAbqTooI8pClYOUCgp5Phuel95DrBSDz6rM8mMhzv/o1qvp1NTmWfQ+9YF5MPFIlAU5L/0PEfgCYWxuWkS0qAkuT96AA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=7Q3N5y6FeOIbRETnf3xz+mjBCnf/3IxLfp/xZa/Pu/w=;
- b=bXULQmqEfly5sfocbIEcoOqEGk3eZB+lZDbDosTaDfkAoMhf4ZPII6eG8NDvMuooFKW0RDoIk5EhTA3wxp0qA0qVmpR7TeWgrygxSvUtakc+0BZ16/zmOhke8oOVlv74s3bNrkRkCOah0Ca4zqy+YpxHIBNxE01zk8fmdgNh8ooWKzVIlmB4ZojJYZ2vQs+lG1NXdt7GmdaOAchkUwAe6h8jv3HMyeOjwqLOmmHKlbLKWJg2vDbl+B3GAblCY0oHKCImOQXQebaS0AG6o0RIQdZ/zuPm/CdTMSED3LpjqN1/5vm/hacnAemp1avZp3hv5h/tKheCi1mnSzokh10/LA==
+ bh=0vj8N67BISoQNb9JnmEl9lhNOssRDE36mqWhGAzhZY4=;
+ b=aQfrDHuox7UqEmJp57pj6nncxU0Ko6BC3AH64fQivZaI1cYsi9Z+K90RaZcTGMZzgRBom6SBNviIicErqfEHbOmBGNRhnfpV9M75ONF3eW2K55yhitmMVfbYuuo1k0WndPF3SAJrmfLKW6A3oXSt46+uYDXjeVs1G7Coy3Q18INzGEwL/MbDsZk9PY6SMsfgy0m7T4Y8jyLj6p8eGPa/mcBnGsRUZug8d5F/KL5rHHdyk0YuQHKevnCrvG4laIY4pqdrX4UdRc5bxrnekIuW0ex+7H0MMpyhl3w2v4b4997Mqb7jjH35sM6JONVFVpmZPIQC2tmhl+Wxj31UWSLyew==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=vivo.com; dmarc=pass action=none header.from=vivo.com;
- dkim=pass header.d=vivo.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vivo.com; s=selector2;
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7Q3N5y6FeOIbRETnf3xz+mjBCnf/3IxLfp/xZa/Pu/w=;
- b=B+owjcRuZOLtRvFnkTrKmR+XH5fIQg/T+2+mOh5YYg4KNOV9fm2B5gY0b/lUqaJixvk/ZwoQBcAiFCzHDWmdoCZm9iMlE/XFVOPluqDOT8E2cRqQm9acfgLqzYQKbghBy4vXIvx8XrAJTXZAS4IXJI5sF2nnZyKGoBWKXtZhqAjtX6tzQnZ97wz0NM7mU6NR5AqrsWNaEo1ZpnYCL8MdqdYqJGahzxQcTobCdQz0FLLmNic/0CQZ060yquXQwzU7xok9BC3YozFgk9YMBpsLz3cCibMeqHF/FxQGewJvswebJLTTwlvREHbXNETwwLp2THzjSgOKanCNcN1qcxsICA==
+ bh=0vj8N67BISoQNb9JnmEl9lhNOssRDE36mqWhGAzhZY4=;
+ b=kLHJCmJO3gnqfJRSEkhNcie01jDNQXH8Dm67HbfqKN/83/xqFwUaXZ2JgiyW4MikxJ55mcSO6QMDojZ2zVa1t+dlpGxluaFiLNQeGGeKO4/mQxA33qTfCVASKF1x1tFVRI6bkFEGY4P8uucm84AJCSuAFaQL/pifrq//ksV4VdU=
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=vivo.com;
-Received: from TYUPR06MB6217.apcprd06.prod.outlook.com (2603:1096:400:358::7)
- by TYSPR06MB6435.apcprd06.prod.outlook.com (2603:1096:400:47c::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.2; Thu, 22 Oct
- 2026 07:15:23 +0000
-Received: from TYUPR06MB6217.apcprd06.prod.outlook.com
- ([fe80::8d51:58c7:42f3:ecc]) by TYUPR06MB6217.apcprd06.prod.outlook.com
- ([fe80::8d51:58c7:42f3:ecc%4]) with mapi id 15.21.0546.012; Thu, 22 Oct 2026
- 07:15:23 +0000
-From: Lianqin Hu <hulianqin@vivo.com>
-To: perex@perex.cz,
-	tiwai@suse.com
-Cc: linux-kernel@vger.kernel.org,
-	linux-sound@vger.kernel.org,
-	hulianqin@vivo.com
-Subject: [PATCH] ALSA: usb-audio: Add iface reset and delay quirk for RYDZ Technology USB Headphone
-Date: Thu, 22 Oct 2026 15:14:56 +0800
-Message-Id: <20261022071456.14256-1-hulianqin@vivo.com>
-X-Mailer: git-send-email 2.39.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: JH0PR01CA0041.apcprd01.prod.exchangelabs.com
- (2603:1096:990:5c::11) To TYUPR06MB6217.apcprd06.prod.outlook.com
- (2603:1096:400:358::7)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from SA1PR12MB999228.namprd12.prod.outlook.com
+ (2603:10b6:806:4db::10) by PH0PR12MB8029.namprd12.prod.outlook.com
+ (2603:10b6:510:26c::8) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.16; Thu, 22 Oct
+ 2026 07:16:13 +0000
+Received: from SA1PR12MB999228.namprd12.prod.outlook.com
+ ([fe80::4dba:119e:8e7c:37b3]) by SA1PR12MB999228.namprd12.prod.outlook.com
+ ([fe80::4dba:119e:8e7c:37b3%6]) with mapi id 15.21.0546.012; Thu, 22 Oct 2026
+ 07:16:13 +0000
+Message-ID: <d9304f91-2371-460b-8616-15a4f96c5674@amd.com>
+Date: Thu, 22 Oct 2026 18:16:04 +1100
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH v6 09/11] iommufd: Add the vdevice TSM request ioctl
+To: Jason Gunthorpe <jgg@nvidia.com>,
+ "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>
+Cc: linux-coco@lists.linux.dev, iommu@lists.linux.dev,
+ linux-kernel@vger.kernel.org, kvm@vger.kernel.org,
+ Jason Gunthorpe <jgg@ziepe.ca>, Bjorn Helgaas <helgaas@kernel.org>,
+ Joerg Roedel <joro@8bytes.org>, Jonathan Cameron <jic23@kernel.org>,
+ Kevin Tian <kevin.tian@intel.com>, Nicolin Chen <nicolinc@nvidia.com>,
+ Samuel Ortiz <sameo@rivosinc.com>, Steven Price <steven.price@arm.com>,
+ Suzuki K Poulose <Suzuki.Poulose@arm.com>, Will Deacon <will@kernel.org>,
+ Xu Yilun <yilun.xu@linux.intel.com>,
+ Shameer Kolothum <shameerali.kolothum.thodi@huawei.com>,
+ Paolo Bonzini <pbonzini@redhat.com>
+References: <20260917140159.1163281-1-aneesh.kumar@kernel.org>
+ <20260917140159.1163281-10-aneesh.kumar@kernel.org>
+ <179027891417.104879.282447770434616733.b4-review@b4>
+From: Alexey Kardashevskiy <aik@amd.com>
+Content-Language: en-US
+In-Reply-To: <179027891417.104879.282447770434616733.b4-review@b4>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: SY5P282CA0040.AUSP282.PROD.OUTLOOK.COM
+ (2603:10c6:10:206::8) To SA1PR12MB999228.namprd12.prod.outlook.com
+ (2603:10b6:806:4db::10)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,87 +108,191 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TYUPR06MB6217:EE_|TYSPR06MB6435:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5bab5615-297f-4c3e-9e4d-08df300c3cc6
+X-MS-TrafficTypeDiagnostic: SA1PR12MB999228:EE_|PH0PR12MB8029:EE_
+X-MS-Office365-Filtering-Correlation-Id: dd949fba-9903-4a4d-176a-08df300c5aaf
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|23010399003|52116014|376014|366016|38350700014|261021123027099003|56012099006|11063799006|261009223027099003|10067099003|18002099003|261021121427099003;
+	BCL:0;ARA:13230040|366016|1800799024|7416014|376014|23010399003|56012099006|4143699003|11063799006|261021135927099003|261021121427099003|261009223027099003|10067099003|18002099003|22082099003|3023799007;
 X-Microsoft-Antispam-Message-Info:
-	J1KlJTEOviV58b7GEtf6t8SOK/3/r2P31g56EXED4Pj1RigYypsSkjlQO9tb7/VfjVh/jfch9hnuSCr6Ll+OREVBid/9gj6dNxl/vXPtrrQdmY4uanmCvceDrJ9+3Jd0rfogUAllPNfUZJZ1hMCNVHOz72zFAb+M6Rz1KfCrJ4gzmU+rMFTEjzPUDXwmBVWoIkJr2QzPwUqI3fenKf3fFEIu7za0Qf5c3Q14oyszPG4qcdbJfSIPpp3OO1m2QyGziJkecpeUnerv214R1dikcx1UWBHwGFytoCeYcrmJX63bx2o8SDn7bQeyWgkH2rH7XPJ7iDLXk3w3wirHFJLJljlkGFEt3MAsTA+O8LjgnsZf+A9y0k8Ejp1bZMZwq87OUnQDX70ZlyXH6S3/oM9qKC4tXYDX+GnbnRsdIcRAiuAaRrjTQEx9I07so7l3kLCWF1dRf6mQl7+a0Cv8wgQB4H3gVy5mQxLxFeUrAzDPMP6WwuKsxu4JZHmBc563I/76B0OKF5WPO038JnPRKfCqEceQhS4ZlGttKLb4c+pEv6YwseT5wlxzfCvJ02geaBnMFFakPFBwUa8rLpWY1OIRoMGa9VagfRNNi4UkvLpucHjQg9eG+Ub4YubRU3NhjMXsyhWMVdi3DdJ6sfOTEc8XzNAEz+sN5s6BGp7h+UcParxgN/jARtR1WdoDIR94lc9lnuHZZcvFgc4o2E0vRhpEwoeNrhDD3EpcYlfOpsyGJYc=
+	uuRVTLiJYsJR9LQTcMRG6UP5DVV6CGfExqqf2aYAWQXTnVdUnWZwSAnRWxNBpuDSFK+KpqS653IwD5uS51st5pwx6MpccYhJXw3TScc4LBbTeEG2x49oHAmwgCj9CDwKWnoHiaESvyzuNSavfD/dJAPsF/6XV1T3D/BRqOWYlk2y/RQmIgGABq754nGlRVnpD3vDeV932XGj90hPw8JUiC0/KuJppti3EM+NtZfq1yOryLtCl7metGZnXmAPiSCiRiLnUOovLiwI7K0OfNOYpNi3D6vswNbdGKpIBb4FEzy1zLjxzdxUouhPRmi/UlkjiAn0O2mF1dwrrrz20nxKtbAYaIL2hxrID6yu/yBAZ0tNN8LHPVapdcms89ADDWcMNZGXLcFVPAP4Bh7tFRZoPhlOgdyHUiBFCVj6U+P3sbQlOa170Cqp/f7YVC8GgAtLkNy6er/w3x/1lxkuLMd1aM55CWh6PqyxCg2ggsHVHrA2PFiPpW9G/jcFw45FMik25NEL2nlIjPiGtI2SgyZefAD7urn+a0u5urNuo/Yb3H8GCu6ZDfVP6sdPE1YM3+6ZcKNkzkymDBiQa4U3XTxDb8bNuFro7CfGKWpVszbFn8TJjW0F2v3q+cRNwfEVtfW3BP2bX8kiaVJpg+lQFtCBYg6Fzq8P6T540pkmN5PcL5s=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYUPR06MB6217.apcprd06.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(52116014)(376014)(366016)(38350700014)(261021123027099003)(56012099006)(11063799006)(261009223027099003)(10067099003)(18002099003)(261021121427099003);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SA1PR12MB999228.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(7416014)(376014)(23010399003)(56012099006)(4143699003)(11063799006)(261021135927099003)(261021121427099003)(261009223027099003)(10067099003)(18002099003)(22082099003)(3023799007);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?WEYxs5kfa9SrrmyhPnfvxrq3T83DJSdeL8BemiKWcwvMgRB1IkRrp8nybazu?=
- =?us-ascii?Q?Qv2xUxLefZCaVBpC+Rqq6NiavPlDTeIhzO/sMDADeBbjl/jRPbWp9QSs5nPV?=
- =?us-ascii?Q?DPd2Rx8sp6doQyPlSSP8D3hvbDAWsQT/qPy6TItVRk2rSobenCLOEu0ygRkV?=
- =?us-ascii?Q?RLbdUJEiluFiL2l3e8IHEwkxGtxuO4dXP3qL7lQYejcEXjy89ab5ZwzftXqS?=
- =?us-ascii?Q?5MJSb/7i9+bXnQ9QnMCrziYmX9qsCK2/j80SNrZZPz3LoIKhknJucP0Cx2DS?=
- =?us-ascii?Q?ff+bIoAKpXxCfnMAfkg+RyTSc/VBtPgBV1GA1jFccIkPzIIT7jAxDS4ikUSo?=
- =?us-ascii?Q?NAb3ipcRvCCnUkS0lmR7lqgxy5mH+iZV79MGsBxQeYJE6903fACLzLby27/W?=
- =?us-ascii?Q?1tF+IVN1nR4sSwL20XOOsZ6lHV//TWPry2GnzeKxGiU3OgWzPA8fBY5FzC7L?=
- =?us-ascii?Q?vLCeS+L6A4FfZ/HLnLpglILwsGRgA0xA18VFz4Jynix1S47pBV+/2RD4M/gM?=
- =?us-ascii?Q?nu5NvslFfBjUD/bVvW1wAQUFizsQN/yBrEszw233YqcRRi5QRZFmb952PAxX?=
- =?us-ascii?Q?1I7GSkogQgLrKYhkBoREYzvO923mLNJYxx0tbsVELbyrhZ1TRFwmypTfGrHZ?=
- =?us-ascii?Q?iCr8LGC8aACtNpDOPg442OFj46c7QNAMWGMXg2tFfrj+fnPfPe3LI8RNov/q?=
- =?us-ascii?Q?B4zjoilSmkfBhzr/ODYFBCSwZ6uVd1yHrMj54KVfbMnHDox66dZmHqnOz3Hb?=
- =?us-ascii?Q?derd8DoZguDZGx4EyOFirFwFPDAX8qxcf7ePy3eZ3RswLu7YRxpJ2BPzzZvo?=
- =?us-ascii?Q?3CsITBzZM0vbw9QpXkHhQc1U4EeEHqmJTY7W2ndVpRLhEYF9nDQ+Y6UH1+2w?=
- =?us-ascii?Q?rPhLsmjkgVhNtNHZ5munFeKIMYK1u9bu0CaZPzrWxzd4Kd9zpK3e8+fP3ZWC?=
- =?us-ascii?Q?ivZCrh7WLfONGH++so8rlHizu2HzqVUmpZ84KewZi4bg235HqUCkevjhz/rj?=
- =?us-ascii?Q?2nAZkuODb5SRHZgl2UDnrDGlllFqxYE1ZUdrdhvBKBabaporo541cKQow+6p?=
- =?us-ascii?Q?aVnGX2qSLXvB15yuX1opxJqDKM3JWqzb61+VRs7j1Jb1d2aec2mWlz99jjUQ?=
- =?us-ascii?Q?vNF04Y+JEvWoQgrr8NMFn2QURyq3smx82FJyxkhVioxAENuTl1JCu4iX9gRq?=
- =?us-ascii?Q?YcfmQUxLq4EK0UKFx574i1dKfXWCe9U+gGZ6Yr2Bk6Hp8aask1PsAwBOGBMK?=
- =?us-ascii?Q?N/mD3j46zEDC8WLzgTFaKaMXZU2j8BANVY7It+qZ6XTXKXGe56pRFSO2HH5Q?=
- =?us-ascii?Q?KvJYOMEmffNLrAzg7AXzGrwe113WZE5+LgQVyNik0cmgJB642q6STxkElLgW?=
- =?us-ascii?Q?SdvkS+Sg56qWiFFf+RX1HUW9FVW4iuNobJ09Nzc+dur14f2FoZj4O4eJLF1v?=
- =?us-ascii?Q?qGk6y1LJrRGiwlX98z+ckMMpWxDv+GiQXyzbY5dJ0Ac2EAYUKCtU+3WICL9r?=
- =?us-ascii?Q?Wp7sD4cR1G0Rs7Q9asrfx3vW8Efj8HH4B1qG+Fagcx8rzIzpGda2GUIc65Ep?=
- =?us-ascii?Q?jUhtawbZbRU8Kn9GmatkpfrHepFCaSIC+qNVZXjjm40XxBLP/WUsLKgBr1X3?=
- =?us-ascii?Q?qHEJMpEkrlnT0Smv53nhxWvJ/8vogaUjaR9jxR2do1XSHDbsyaf+MZ2HDej6?=
- =?us-ascii?Q?JIOJ6SFKFQuRCwrw+ryhWDkd2wvvhwt58B3KHKvM8Y7/+dHcIzkcV3XQ3cqE?=
- =?us-ascii?Q?ut3MJEFNOg=3D=3D?=
-X-OriginatorOrg: vivo.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5bab5615-297f-4c3e-9e4d-08df300c3cc6
-X-MS-Exchange-CrossTenant-AuthSource: TYUPR06MB6217.apcprd06.prod.outlook.com
+	=?utf-8?B?ajNUbnJwSFlqZ1RzeExkbE5yU0E2VHhjUmtxRTVJM0JPRGtYV2lXUXQxTUNC?=
+ =?utf-8?B?TUtHbnk5bnE0QWtrYUMraEh2dCsyc293UkZhcUk2TEx5dFNxTFkzdmU0SUgv?=
+ =?utf-8?B?bHZIdkxqVUJjYlVKMGQzU2JHUG9WWGVReTB5bXN5VWNXNzM1ZW15SXRXZE1I?=
+ =?utf-8?B?Sm9BY0pFUmxNeEVjbVozcTZSeDg5VFpCWEVYc1pleXZNeEN6VHNOYXhoRFQ2?=
+ =?utf-8?B?SW1GeFcrQ29kZmluTm5CdGVyYUhmdFpkQWRJdlF2dkJkaDA3M3crQXJFNFRm?=
+ =?utf-8?B?Z3oxVjNJQXhhbWppbjNBaGx2R3JrSlkydnVISTk4WENiVjMrdFBkVVJsd0Fi?=
+ =?utf-8?B?cVF4UW10d281MjZRSHlvTWZ4aFhNWVFaTi9LaDg5SyswNTBlYjkvU3FReFpi?=
+ =?utf-8?B?bXdlVjlTYTUwVUpTY014QnBRUHdrYlF4QUdFdkFMQmY4ZTJnQktBS091OXBM?=
+ =?utf-8?B?MjhwWUg0ekJxMFhOWFdISnJsOU1pSGEvS05weE5KTk9xbHBkZFhUYjNiT2xK?=
+ =?utf-8?B?aFJuRTFiTStQNWlzSWQ0QXF2LzFoc0FoejZBTUdobFhaNFZTS1dQbHk0c0U3?=
+ =?utf-8?B?OTdkdC9yeGl0amJtVXdXQmZ1bDQ3Vk94QTN5UnlXdDJSblMvMk9XMm41SXNi?=
+ =?utf-8?B?YWVYTWNDTW9NMGVLQ1RhVDh5Z2U3YWQzK2JyMkRqVTFxc20wTWlMajNETktv?=
+ =?utf-8?B?em1CNUZWR3dpZmpHMjc3cCtWdnJZSjJxc3ZLRThRaWFwZkljTWR2OVY5S1VP?=
+ =?utf-8?B?TTYwRkJpNTNSR3JSZE9EZXRWeHlrOFh6V1Rac3FRWUxDTDZ4MXpuNFNSQTla?=
+ =?utf-8?B?NnRzMCtsQlErQWxYa3JqOE1pYVFmZ1RrZjBxemw5SmtpbEhzS2IrZmxUbkRn?=
+ =?utf-8?B?S203SU14RzByYitybnROd1h6V2cyVUNYTnRmblFJK3RzeXVER2VkTWs1N2Qx?=
+ =?utf-8?B?TXF5QzFOR3dYNXpvZzkrZHlOdnJ3OXoyRXNtUzJjdm8wd1hUOUxyTk5lYmlR?=
+ =?utf-8?B?OEM1UnJJWE8reUEwUGcrWVBselU0dms4ekE2aC9memtaOXNPVnRBREVrWFpi?=
+ =?utf-8?B?MTlBR284NzNWd0pIZ0lQNVNoeUFUYjlVYjlUOGxkRWJ3eFV4anlFMWI2a1Bt?=
+ =?utf-8?B?Ym5PbmZBNHhJYjUweFBEanBvcGd1V285SjlDc2RGdWRyb0hzZUtOQjJTdWdo?=
+ =?utf-8?B?L09iV0hFckRqNTJIOTNRRWUvZ3ZuaEhYTmE3UmxzT1BwejVuMnByVTlpeGt0?=
+ =?utf-8?B?eHFCZHBzSG5ZcXlJQXZtV2hpajA2UzZRMDE4Yktpek4rNkkwQ1dXcGRyR0Jn?=
+ =?utf-8?B?bXZYTGd2Y20ydk0xK2xjb3VRaUNBTEJkY05SUnkrUFNnMEtteWEzd0hWSFQy?=
+ =?utf-8?B?N1VxaXdnakhyRFRoc0p0SlVZcFpyUG1tYjhlYmhpZTlGbUJJcHRNekVQc1dK?=
+ =?utf-8?B?a21GRFltMkNWTnZQOVZFMFYzM2hEc3lZMUZNRjU5ajVsZlB3WlZqTldBRW5X?=
+ =?utf-8?B?VHU5aW9PbjNPYzRSRXExSm4waGY0TW9rYnpta2dobEw4VVJtTjA4OHM0aWtM?=
+ =?utf-8?B?V2lMYlpNYXE0SmE1dmtZOVZsZGlqTWVmVldnMGJKN3NxN2Q5S0pwSzFDTnlj?=
+ =?utf-8?B?MTdpNWdKRVlDaHZuQ2Q3YldrenZweEVZY1dJTUVmSmZKeU1rQkpVUW1tSytX?=
+ =?utf-8?B?YnA2cytsdWdhRUVYcUJjdWxTVG9YVERtZzJ0R0ZoYytaUkR1U2E1OE9pUUVE?=
+ =?utf-8?B?MlNXcmdYbFJ0bVZWQWpLdFFmcHB4Y3c5T2lEUVZxT3JBNE11bDNLdWdaZ2FU?=
+ =?utf-8?B?YzF6TmNuTlF4cy9vd1lUdmtwWjZnRGNqa1VtMlp5NkhrRkMzMTd6U0phUWZW?=
+ =?utf-8?B?b0hFUHJHcHZSdlluejUrRUxUWXdMUWxGdlYxeGNVREJxbjBDdGJVTjY4aDRw?=
+ =?utf-8?B?NGdJZHdncjdYR1lEOFB5VGpHTEtBdWdWVDdNaFFHVVFxeHZCN2VUS2JaNith?=
+ =?utf-8?B?S3FFWFFzN0RGc3oxTGtLVWRDbmdibnh4bUtCT1I5Yjg1cCtZQTYwZmoxd1h5?=
+ =?utf-8?B?RmRnNmdHRktKWDluRmswZDBmcFh2MTl1OEF1SFc4ZlZ0SDZVb0lSRGdVdTZ2?=
+ =?utf-8?B?eEp4Y1doNlBGZnVpNlB1ZStiK21KYkJya3FHVUtqWGVXbjhXZloxa3pRZDlp?=
+ =?utf-8?B?emEzKzMyNU5vemxFSXdjWThnZlNyK2s4SFVITkdtTXdMTHpZdjFMQVZ1dWJY?=
+ =?utf-8?B?SGMrOU9ZM3hMYWFFY1E2eW93VlpJSkZROEdRaUp6R1hDT0pwL1BGRmZZT0Jl?=
+ =?utf-8?Q?l7SGKbzhaStwZ3AabD?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: dd949fba-9903-4a4d-176a-08df300c5aaf
+X-MS-Exchange-CrossTenant-AuthSource: SA1PR12MB999228.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Oct 2026 07:15:22.9643
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Oct 2026 07:16:13.1353
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 923e42dc-48d5-4cbe-b582-1a797a6412ed
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: hxJRhrWTKkky/KPb6qxear7GyxBGmdAKPEBlxL0Gff6Hye6/PKWIQGkAwaPA7swTlQUogPiDTQQvcBHU6Zh/dw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYSPR06MB6435
+X-MS-Exchange-CrossTenant-UserPrincipalName: GPeOPDFKINDgU9fgdNCb148HS1btYt3qjWYPUCMfplgkKNoH764O4Ff0/6uSKTeWEvvPft34INNO2zblOef1iA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB8029
 
-Setting up the interface when suspended/resuming fails on this card.
-Adding a reset and delay quirk will eliminate this problem.
 
-usb 1-1: New USB device found, idVendor=0124, idProduct=0c36
-usb 1-1: New USB device strings: Mfr=1, Product=2, SerialNumber=3
-usb 1-1: Product: USB Headphone
-usb 1-1: Manufacturer: RYDZ Technology
-usb 1-1: SerialNumber: 202601131108
 
-Signed-off-by: Lianqin Hu <hulianqin@vivo.com>
----
- sound/usb/quirks.c | 2 ++
- 1 file changed, 2 insertions(+)
+On 25/9/26 05:41, Jason Gunthorpe wrote:
+>> [ ... 95 lines skipped ... ]
+>> +static bool iommufd_vdevice_tsm_req_arch_valid(u32 tvm_arch)
+>> +{
+>> +	switch (tvm_arch) {
+>> +	case IOMMU_VDEVICE_TSM_TVM_ARCH_CCA:
+>> +	case IOMMU_VDEVICE_TSM_TVM_ARCH_SEV:
+>> +	case IOMMU_VDEVICE_TSM_TVM_ARCH_TDX:
+>> +		return true;
+>> +	default:
+>> +		return false;
+>> +	}
+>> +}
+> 
+> Generally speaking we should not do things like this, the viommu
+> object should declare what it supports if we want to have validation
+> on the iommufd side.
+> 
+>> [ ... 140 lines skipped ... ]
+>> +#ifdef CONFIG_TSM
+>> +/**
+>> + * struct tsm_guest_req_info - parameters for a guest-initiated TSM request
+>> + * @op: operation for the guest-initiated request
+>> + * @tvm_arch: guest TVM architecture
+>> + * @req: request data buffer filled by guest
+>> + * @req_len: the size of @req filled by guest
+>> + * @resp: response data buffer filled by host
+>> + * @resp_len: the size of @resp buffer filled by guest
+>> + */
+>> +struct tsm_guest_req_info {
+>> +	enum iommu_vdevice_tsm_guest_req_op op;
+>> +	enum iommu_vdevice_tsm_guest_tvm_arch tvm_arch;
+>> +	sockptr_t req;
+>> +	size_t req_len;
+>> +	sockptr_t resp;
+>> +	size_t resp_len;
+>> +};
+> 
+> Why is this struct in tsm land?
+> 
+> I'm not seeing why the iommufd interface should be locked to tsm, as I
+> said other viommus need this kind of command channel too. Can't we
+> have a general one?
+> 
+> Why would it ever not be tied to userspace pointers? I don't want
+> an in kernel user ever using this kind of struct?
 
-diff --git a/sound/usb/quirks.c b/sound/usb/quirks.c
-index a54fabce7920..d8e138b97fbd 100644
---- a/sound/usb/quirks.c
-+++ b/sound/usb/quirks.c
-@@ -2238,6 +2238,8 @@ static const struct usb_audio_quirk_flags_table quirk_flags_table[] = {
- 		   QUIRK_FLAG_FORCE_IFACE_RESET | QUIRK_FLAG_IFACE_DELAY),
- 	DEVICE_FLG(0x0124, 0x0c21, /* Generic USB Headphone */
- 		   QUIRK_FLAG_FORCE_IFACE_RESET | QUIRK_FLAG_IFACE_DELAY),
-+	DEVICE_FLG(0x0124, 0x0c36, /* RYDZ Technology USB Headphone */
-+		   QUIRK_FLAG_FORCE_IFACE_RESET | QUIRK_FLAG_IFACE_DELAY),
- 	DEVICE_FLG(0x03f0, 0x654a, /* HP 320 FHD Webcam */
- 		   QUIRK_FLAG_GET_SAMPLE_RATE | QUIRK_FLAG_MIC_RES_16),
- 	DEVICE_FLG(0x041e, 0x3000, /* Creative SB Extigy */
+
+This mimics the TSM's pci_tsm_guest_req() API which it is a kernel component we did not want to hardcode to use userspace pointers as it does not have uAPI. Makes no sense in tsm_guest_req_info though.
+
+
+>> [ ... 34 lines skipped ... ]
+>> +/**
+>> + * enum iommu_vdevice_tsm_guest_req_op - operation for guest TSM requests
+>> + * @TSM_REQ_VALIDATE_MMIO: Validate MMIO for the TDI
+>> + * @TSM_REQ_SET_TDI_STATE: Set TDI state
+>> + * @TSM_REQ_SEV_ENABLE_DMA: Enable SEV DMA
+> 
+> That seems wrong.. The hypervisor should not have control over T=1
+> DMA.
+
+This is a guest request to the PSP which does control T=1, the HV is forwarding it and does some extra stuff while there. Probably could be decoupled and go to a separate ioctl().
+
+The HV does not control DMA, it is for configuring DTE in a specific way - the domainid becomes reserved (and its sDTE counterpart starts working) and some other DTE bits have to match whatever the PSP writes to sDTE ("I" == IOTLB enable) and probably more.
+
+And then, yeah, "something something RMP" == cut 2MB mappings if corresponding RMP is not 2MB.
+
+Thanks,
+
+> 
+>> + * @TSM_REQ_SEV_DISABLE_DMA: Disable SEV DMA
+>> + * @TSM_REQ_READ_OBJECT: Read a TSM object
+>> + * @TSM_REQ_REGEN_OBJECT: Regenerate a TSM object
+>> + * @TSM_REQ_OBJECT_INFO: Read TSM object information
+>> + */
+> 
+> These operations will need alot more commentary. Use kdocs inside the
+> enum below to make that easier.
+> 
+>> [ ... 10 lines skipped ... ]
+>> +/**
+>> + * struct iommu_vdevice_tsm_req - ioctl(IOMMU_VDEVICE_TSM_REQ)
+>> + * @size: sizeof(struct iommu_vdevice_tsm_req)
+>> + * @vdevice_id: vDevice ID the guest request is for
+>> + * @op: One of enum iommu_vdevice_tsm_guest_req_op
+>> + * @tvm_arch: One of enum iommu_vdevice_tsm_guest_tvm_arch
+>> + * @req_len: Size in bytes of the input payload at @req_uptr
+>> + * @resp_len: Size in bytes of the output buffer at @resp_uptr
+>> + * @req_uptr: Userspace pointer to the guest-provided request payload
+>> + * @resp_uptr: Userspace pointer to the guest response buffer
+>> + * @tsm_code: TSM-specific result code returned by the TSM implementation
+>> + *
+>> + * Forward a TSM request to the TSM bound vDevice. This is intended for
+>> + * guest TSM/TDISP message transport where the host kernel only marshals
+>> + * bytes between userspace and the TSM implementation.
+>> + *
+>> + * The request operation is guest initiated. The TSM backend validates
+>> + * @tvm_arch against its bound TVM architecture assumptions.
+>> + *
+>> + * The request payload is read from @req_uptr/@req_len. If a response is
+>> + * expected, userspace provides @resp_uptr/@resp_len as writable storage for
+>> + * response bytes returned by the TSM path.
+>> + *
+>> + * The ioctl is only suitable for commands and results that the host kernel
+>> + * has no use, the host is only facilitating guest to TSM communication.
+>> + */
+>> +struct iommu_vdevice_tsm_req {
+>> +	__u32 size;
+>> +	__u32 vdevice_id;
+>> +	__u32 op;
+>> +	__u32 tvm_arch;
+>> +	__u32 req_len;
+>> +	__u32 resp_len;
+>> +	__aligned_u64 req_uptr;
+>> +	__aligned_u64 resp_uptr;
+>> +	__aligned_u64 tsm_code;
+> 
+> out_tsm_code
+> 
+
 -- 
-2.39.0
+Alexey
 
