@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792679278;
-	b=z7h64t0hUcnG/n2Lu9H05Y85YHfUIrHjj/oDd8N40ofoMM81+FtJPSueU/A1zcw24nz8
-	 QNV9RU2XLznT1tqW1n/tiBFhBf4QCXh1NrLpLqlfjmxJy8S9m3388OhwO95Daj6Ir8xuY
-	 gYFrCVFf/fZEZ9oMOusGU9BjDprlLUb+9EC4Zbz+ETfNFcc+Yn8XqdAPyRixJbn9FMFxH
-	 nTwjr/iUfVaOlwGPMxgQf3cxuoitSOujr6XHg2UtpLZSfrvSFDklhvxrFoNNPnx+LoOlj
-	 dYptxsIUYAEsQM6VsTfNkFGNBpRYZ6VYoe88yo6s8+862ssMGOAaSh+CC4ovUx+paFA==
+	t=1792679279;
+	b=SzmGQ4JSeucoL1Hq1EwHa1+YYIsmW1KZ145y+S8YbhXyn8QHXlDshRXrGjpnbf0y4Leh
+	 a58fZQfqniD2Fej7+s6sbM/pfvPPPmpnwcAumTU2uMPiq8wTI+GNQZQEASCymle1q42wF
+	 vMmLdk2bqK0icgVMh4OeyhmPxn18vobASlL39SzGtXgeMnaOJCpjHfAPdbXr9kAOD59AT
+	 cOVEZeWJi5flEl/GUAXwkncFVNslPlTZMo0+nLoB6QJbM0Al4eJeFcK7Dxdz+l3sN3PCr
+	 ORMorIcfjOHTJ+uFDmr/eYX4Oh0Oi/BHzMmDWpFSPnq1MHVAdJhMM5gbmZWH4k9xpDg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792679278;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792679279;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=z3Q/F1hKo12UzltDcxktZvkpVgU/i8MT+AakMBaj5g0=;
-	b=nW7pSLkcIoZ6cV0NzWUEx3WVv3BSN/TFvINqXCKWGjd76p0r6v8iWlonEUvoiR9xijgp
-	 6ay5UfPbflh40RNh8lb6Hv4tmz2kM4JfzHVQb9wsBr0rfWBQBY86SfyqOu9WvpATzfRoc
-	 feWDBUSGhoaq2x8A+S9PEIQvEhT0/2X0uhd/+JIs4HgObyAJlAx8DARUv1GGMX0L42wib
-	 eAjAU3xXRH2FApZX/li6HPTRCAeao2LZRqj5n5IZiPaCkR0oU2B/2FPGuD1OGjnmbF/ZM
-	 c0vaEwc+JpVKRWQalCB0f9iE45x1C0B6bdKQ5WGAoxt/x9mH3GS+Bt6crVvrNgXsGng==
+	bh=YMTpGwMtuCdk8eeM1ATjk5r+ogZhvierRSm8aCm0NWw=;
+	b=aUmXtcmxr0isCnSPYcamjqSWK4R9V6OKiXtMwkfsSaQ9hLKB8qAHLrtDxSSS1GRgC7QK
+	 aciQR6bKXKfbSf7wzJMxj4iR44jTBwp65YsELrgl+VDQbKa0l/0kMXD0h2JDz5J5CRdHP
+	 gdGAg3AKKhgqBib+MtCRTnUhUquHHDRDXzSFlejvf4R3UBZwOFWfD5Eh5GFLMgOG4sAmg
+	 JXOsvliavK7jsjg+P23K3wICg74oS8H5H4dVkYJ9DD9r46/nYFsJdt1xfLjRgi4bdKdM6
+	 F/XP4i2bKGGu50tg/FvBhQlw7ANh3Oe2w2EO8FedcNg7CHHjakk3Fe7mp7CalLYgczg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m8K7QvRz;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Lad6DL66;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C244606A335;
-	Thu, 22 Oct 2026 14:27:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0609060A2606;
+	Thu, 22 Oct 2026 14:27:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m8K7QvRz
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Lad6DL66
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
 	t=1792679278;
-	b=RazUV1nBm1+7v+YkPNL+o8to8f5brIFyyzyPF78ywTMHPuf4O5i7LB7o3/dkaYOZPvKk
-	 z19oskSue0bVsIqgaB3rWaKeZzGhGmxu1Io5oqSM8lHHbOvaCssTEkAhE0Gsix9L/rwTb
-	 S8k0OpdOjIeti3nns5FC8dqNY9w1IQJTC3zVEd37NJEEat1raV/ACGnT1MWMrcVKbgVih
-	 O0SKVTVlblj/dC58p9n5Rto95/xOn1smTjfhujBjUrjqZa/ga8WE2rkmdC2U31otKPpJ4
-	 nzZm2RVIWiPeOxhOU3JyPUlQESvsSoZXPtkXx+ivdNzOwZTRg+B01yd+c5fS8RN1Wng==
+	b=mrGCA6p18/riaQasrjM+Otm9pNIyKtdmmPqPuV3JlJZ7xdShAOZuyo/ZO+4+lvOPExC8
+	 Bfy+43nMma73OUdcrW+/tzUMDicwA5KhWE1uSXZIPmkhbyRov6y40Fkee+IwQ52KipWFX
+	 qEzk8n1XvZiK91eAKu/g7XcmAz4kGPhFeLnZevKb0w7wBXoJPDC4uPimHKJlt1ARY2riU
+	 RT7legPAtARybbHHEDn3rlBadTtQcnW8CAYfx+kvxnTtDMkUuefNVklDqyLSf84NOKmBU
+	 T1LBQBsZLiuhWOfyzaBAvimEEU55448mFFq3lYhhKeswTytQ1A8ZKckZun02oPCsYzA==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
 	c=relaxed/relaxed; t=1792679278;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=z3Q/F1hKo12UzltDcxktZvkpVgU/i8MT+AakMBaj5g0=;
-	b=NAdnfovWjyIXi0r7GFCUT/YdaQPP5LnhbbG+v1eqAcZ57eC0mQPeKwQFPJfoMhSYT+o8
-	 ljAV+O4xzpGASDQ37eb2YN2O4yeA3mhcIbR1OXDUZzyoED9bxmgFm/H6qlNscdKdc0w2E
-	 NygBETATEWpXQb0/liPR/HkBIm4AAAwYxy6FR/MyCXk2H3hM6Vm3xLY8IMAXJW/o/s/U8
-	 KWPUdYznEXmX2IwkGlt6oZzOCjojkhCjcIdm4n9rVjYifwXvHvy3/tRzO604CoE6JkiuQ
-	 csAliyuHGXOBzcJ3UpvyUxLkM3P+eUNE00NlABEQ/w+Mr/Ol4EcNo6XQU8gnyj/RH3Q==
+	bh=YMTpGwMtuCdk8eeM1ATjk5r+ogZhvierRSm8aCm0NWw=;
+	b=3rzWPN1YfT8/DLQpKvQ13Y0IqYJe3Phe4O9y7PmZogj5Rk1aI4txOSBs39qljuu0tj+8
+	 mUYq98A8UInh6gBlFgLYqQRlh5rw9hl/RA51Ccn1vNb5Nw58jbFYe64WeYETGos6H2R9n
+	 nSdmy03hhxEBERMWS86i7HmMGemRgw18wtsD8YK1GNr7pLgKoPUT7WJ4hU+IgUfruhxay
+	 eZ92kCBrvi68lEcnqTyDREe+ZYmhNDXTTDmse1BPUX3qcjaF4s+PV0CVdy1wVQ1Lop54x
+	 P+4wb1MKHa4f/OnxDKZ61AgupM1KMwDMkqtcqSnXzQerSyrUtQuaaXrKkZx9z6TRycw==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id B6BBB1F000C5;
-	Thu, 22 Oct 2026 14:27:56 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id 171C51F000CB;
+	Thu, 22 Oct 2026 14:27:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1792679278;
-	bh=z3Q/F1hKo12UzltDcxktZvkpVgU/i8MT+AakMBaj5g0=;
+	bh=YMTpGwMtuCdk8eeM1ATjk5r+ogZhvierRSm8aCm0NWw=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=m8K7QvRzU0agRS6eJMVeWU946U7gnkGQ3FKJXPbrBg00ESb+bmjLnWjWF6Kei/uqE
-	 l6UtjnLP+CRwS4nshtBlyus1Xc1At+CqV4s73ifDU09hdvdyZdqhro1v0NN2z+UFPn
-	 hRQOi7mBs2D1bH11Rkwoj1AFmjf16Z1ISATOmodT5zmYqmsrW2Z0z6cbPd7i0+vOFo
-	 U5nu10doakCtGgGcD9uXUSyzA3IEwv4Ds9nVyTPBwMuWTueRzQ6FnzbWi18mPLwbuN
-	 Uo7qZBaouKdLyvrAH61tQNfd4v282tQOGyZ1AQQb9wDPDC888aCq22AHe0v0NP/F2C
-	 qEcSK2Wmd5PJA==
+	b=Lad6DL66Iu2788E0F4B6UYyw/lkI8ITa3yKP7cNYKdv7h4ngb/XSAaOaal2nUI7rF
+	 gyXWAIPd8Wezd4Oj9JVKprS41/aJIKb4xAkqxAXl/Zwi8cywRe/VwjWbL9L1Gc1CUt
+	 7XmLJyThp5EBK2zPuhEDoxyW/rhfTqFvnPCbd9M4mU8TPf9B9kvH7uE7ljzTcEmbb/
+	 bwmuMcDHH7Paw1Xbo9xzsbTalTl5biu7TZbDBjXeAQc54FBseOimoWRwRyQT8Y3DEv
+	 UUDwqdQqe4WJUn8Ns1rtJZrMgyGpj+ohmYV9MPfsK5RzCUCut9OJtY40RI7ZNVABvi
+	 TJVPjy165vUqw==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id BBACC435C9;
+	by lkml.kernel.org (Postfix) with ESMTP id DE0AF435DB;
 	Thu, 22 Oct 2026 14:27:54 +0000 (UTC)
 From: =?utf-8?q?St=C3=A9phane_Grosjean_via_B4_Relay?= <devnull+s.grosjean.peak-system.fr@kernel.org>
-Date: Thu, 22 Oct 2026 16:27:52 +0200
-Subject: [PATCH v6 07/13] can: peak_usb: fix RX cursor desync for
- self-received RTR frames with SRR
+Date: Thu, 22 Oct 2026 16:27:56 +0200
+Subject: [PATCH v6 11/13] can: peak_usb: don't read past the message in
+ PCAN-USB Pro decoders
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,7 +84,7 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261022-canfd_check_channel_idx-v6-7-197704231551@peak-system.fr>
+Message-Id: <20261022-canfd_check_channel_idx-v6-11-197704231551@peak-system.fr>
 References: <20261022-canfd_check_channel_idx-v6-0-197704231551@peak-system.fr>
 In-Reply-To: <20261022-canfd_check_channel_idx-v6-0-197704231551@peak-system.fr>
 To: Marc Kleine-Budde <mkl@pengutronix.de>, 
@@ -92,14 +92,13 @@ To: Marc Kleine-Budde <mkl@pengutronix.de>,
  Wolfgang Grandegger <wg@grandegger.com>, 
  =?utf-8?q?St=C3=A9phane_Grosjean?= <s.grosjean@peak-system.fr>, 
  Dan Carpenter <error27@gmail.com>, Lukas Magel <lukas.magel@posteo.net>
-Cc: linux-can@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org
+Cc: linux-can@vger.kernel.org, linux-kernel@vger.kernel.org
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792679273; l=2690;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792679273; l=3195;
  i=s.grosjean@peak-system.fr; s=20261020; h=from:subject:message-id;
- bh=mApkAfccXTsPiO3L4GSVDt6kudt+4wswdWbEh4fUo1E=;
- b=29W3wbxGi5Gosh7OwQt1vDZwmWwDhheAnVVits9FZd23vH5Yw2jXmD5MpKuRtIU6KN/vdbBc2
- wLV9Eab8KJwDvnVpGzDNcSbhwcB96eXPSSOB4Ngh6a4f/YqjtYTsK+k
+ bh=flMPKg1xIa7U4jARAjBvLBR6Xz2OZahn+0Fz2bTlglc=;
+ b=RYpH9P4KoJ7SRI+sjY8/2tof1puaCeu/23xklN9hRabFPT651NEUswmjPgE+L2Xcg7GM3mMxU
+ uatOiuoJ2xrAzhKKh3ncjxk+kQBk4MdcuJ9sMSv8VJhZZ1GAW4ICBOv
 X-Developer-Key: i=s.grosjean@peak-system.fr; a=ed25519;
  pk=bP7QV2zvvAKAfConZlUOGKGEcXL64SNUpVUm++Ai+/c=
 X-Endpoint-Received: by B4 Relay for s.grosjean@peak-system.fr/20261020
@@ -110,77 +109,85 @@ Content-Transfer-Encoding: 8bit
 
 From: Stéphane Grosjean <s.grosjean@peak-system.fr>
 
-pcan_usb_encode_msg() appends a one-byte "writer id" whenever
-PCAN_USB_TX_SRR is set in can_id_flags, for both RTR and non-RTR
-frames: the data block and the SRR writer id byte are two independent,
-unconditional steps.
+The messages received from a PCAN-USB Pro device start with a record
+count, followed by records whose size depends on their type, given by
+their first byte. Both pcan_usb_pro_decode_buf() and
+pcan_usb_pro_wait_rsp() trust this count:
 
-pcan_usb_decode_data() only consumed that extra byte in the non-RTR
-branch, inside the same conditional block that reads the CAN data
-payload. A self-received RTR frame with the SRR bit set (e.g. a
-loopback echo with CAN_CTRLMODE_LOOPBACK) therefore left the RX cursor
-one byte short, causing the private id byte to be misparsed as the
-next record's status/len byte and the rest of the URB to be misparsed
-or rejected.
+- pcan_usb_pro_decode_buf() reads the type of the next record before
+  checking that this record starts inside the URB. When the device
+  claims more records than the URB holds, it reads the byte following
+  the URB data, which is beyond the 1024-byte RX buffer when the URB
+  fills it;
+- pcan_usb_pro_wait_rsp() doesn't check the records against the
+  received length at all. Since the count is a 32-bit value, a bogus
+  response makes it walk the records past the command buffer.
 
-Move the private id byte skip out of the RTR/non-RTR branch so it is
-applied whenever SRR is set, matching the encoder's layout.
+Stop decoding a message at its end in both functions, and in
+pcan_usb_pro_wait_rsp() also reject a record that doesn't fit in the
+message.
 
-Since a frame can now be dropped when this byte is missing, update
-rx_bytes together with rx_packets, once the frame has been fully
-decoded.
+Found by Sashiko AI review.
 
-Fixes: 3a7939495ce8 ("can: peak_usb: PCAN-USB: add support of loopback and one-shot mode")
-Cc: stable@vger.kernel.org
+Fixes: d8a199355f8f ("can: usb: PEAK-System Technik PCAN-USB Pro specific part")
 Assisted-by: LLM
 Signed-off-by: Stéphane Grosjean <s.grosjean@peak-system.fr>
 ---
- drivers/net/can/usb/peak_usb/pcan_usb.c | 22 +++++++++++++---------
- 1 file changed, 13 insertions(+), 9 deletions(-)
+ drivers/net/can/usb/peak_usb/pcan_usb_pro.c | 18 +++++++++++++++---
+ 1 file changed, 15 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/net/can/usb/peak_usb/pcan_usb.c b/drivers/net/can/usb/peak_usb/pcan_usb.c
-index 93da0fd4f10e..6a5ecb10c4f3 100644
---- a/drivers/net/can/usb/peak_usb/pcan_usb.c
-+++ b/drivers/net/can/usb/peak_usb/pcan_usb.c
-@@ -655,6 +655,7 @@ static int pcan_usb_decode_data(struct pcan_usb_msg_context *mc, u8 status_len)
- 	struct sk_buff *skb;
- 	struct can_frame *cf;
- 	struct skb_shared_hwtstamps *hwts;
-+	u8 rx_bytes = 0;
- 	u32 can_id_flags;
+diff --git a/drivers/net/can/usb/peak_usb/pcan_usb_pro.c b/drivers/net/can/usb/peak_usb/pcan_usb_pro.c
+index f94494e01f4a..b869a20438cf 100644
+--- a/drivers/net/can/usb/peak_usb/pcan_usb_pro.c
++++ b/drivers/net/can/usb/peak_usb/pcan_usb_pro.c
+@@ -244,9 +244,9 @@ static int pcan_usb_pro_wait_rsp(struct peak_usb_device *dev,
+ 	for (i = 0; !err && i < PCAN_USBPRO_RSP_SUBMIT_MAX; i++) {
+ 		struct pcan_usb_pro_msg rsp;
+ 		union pcan_usb_pro_rec *pr;
++		u8 *pc, *rsp_end;
+ 		u32 r, rec_cnt;
+ 		u16 rec_len;
+-		u8 *pc;
  
- 	skb = alloc_can_skb(mc->netdev, &cf);
-@@ -696,18 +697,21 @@ static int pcan_usb_decode_data(struct pcan_usb_msg_context *mc, u8 status_len)
+ 		err = usb_bulk_msg(dev->udev,
+ 			usb_rcvbulkpipe(dev->udev, PCAN_USBPRO_EP_CMDIN),
+@@ -271,13 +271,18 @@ static int pcan_usb_pro_wait_rsp(struct peak_usb_device *dev,
+ 		pc = pcan_msg_init(&rsp, pum->u.rec_buffer,
+ 			actual_length);
  
- 		memcpy(cf->data, mc->ptr, cf->len);
- 		mc->ptr += rec_len;
-+		rx_bytes = cf->len;
-+	}
++		rsp_end = pum->u.rec_buffer + actual_length;
+ 		rec_cnt = le32_to_cpu(*rsp.u.rec_cnt);
  
--		/* Ignore next byte (client private id) if SRR bit is set */
--		if (can_id_flags & PCAN_USB_TX_SRR) {
--			if ((mc->ptr + 1) > mc->end)
--				goto decode_failed;
--			mc->ptr++;
--		}
--
--		/* update statistics */
--		mc->netdev->stats.rx_bytes += cf->len;
-+	/* Ignore next byte (client private id) if SRR bit is set.
-+	 * Note: this test must be done even when the frame is an RTR frame.
-+	 */
-+	if (can_id_flags & PCAN_USB_TX_SRR) {
-+		if ((mc->ptr + 1) > mc->end)
-+			goto decode_failed;
-+		mc->ptr++;
- 	}
+ 		/* loop on records stored into message */
+ 		for (r = 0; r < rec_cnt; r++) {
++			/* rec_cnt comes from the device: stay in the message */
++			if (pc >= rsp_end)
++				break;
 +
-+	/* update statistics */
- 	mc->netdev->stats.rx_packets++;
-+	mc->netdev->stats.rx_bytes += rx_bytes;
+ 			pr = (union pcan_usb_pro_rec *)pc;
+ 			rec_len = pcan_usb_pro_sizeof_rec[pr->data_type];
+-			if (!rec_len) {
++			if (!rec_len || pc + rec_len > rsp_end) {
+ 				netdev_err(dev->netdev,
+ 					   "got unprocessed record in msg\n");
+ 				pcan_dump_mem("rcvd rsp msg", pum->u.rec_buffer,
+@@ -745,8 +750,15 @@ static int pcan_usb_pro_decode_buf(struct peak_usb_device *dev, struct urb *urb)
+ 	rec_cnt = le16_to_cpu(*usb_msg.u.rec_cnt_rd);
+ 	for (; rec_cnt > 0; rec_cnt--) {
+ 		union pcan_usb_pro_rec *pr = (union pcan_usb_pro_rec *)rec_ptr;
+-		u16 sizeof_rec = pcan_usb_pro_sizeof_rec[pr->data_type];
++		u16 sizeof_rec;
++
++		/* rec_cnt comes from the device: don't read past the message */
++		if (rec_ptr >= msg_end) {
++			err = -EBADMSG;
++			break;
++		}
  
- 	/* convert timestamp into kernel time */
- 	hwts = skb_hwtstamps(skb);
++		sizeof_rec = pcan_usb_pro_sizeof_rec[pr->data_type];
+ 		if (!sizeof_rec) {
+ 			netdev_err(netdev,
+ 				   "got unsupported rec in usb msg:\n");
 
 -- 
 2.53.0
