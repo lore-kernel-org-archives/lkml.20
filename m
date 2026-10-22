@@ -1,58 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.225
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792634468;
-	b=b+4aqelNfKBxPce2oSwOdJTXcS4L857RfAT8+OxVxQU72R8fiOyO6EslO6VikI+2h5ga
-	 1G/egWXrUza/oeuX6WMHauOUnVnUj8+smqOf1uOP5D3o5oyaFHptr9wEmBxGek6B7CAPY
-	 wGlVTGZpCJla9yNZi4NJZ97sZQ17MTytGcDUbYbxPRRPUhkyfldLhEpH/R56ARE3gP3TO
-	 ppnD61XPUgqjPOIxmyyFjJYQUs0XYl2kcQceV7Z8yMLz5aWEU2qMDrWxRRZFfucEPyTOt
-	 KkJVpPXu26pYL7APeN8jEOKFl8EMM0v4p5/F/880JoLlDdDzc0aRBrKSR1IJZJ/slKA==
+	t=1792634518;
+	b=pw3c7mVaoOA7rVesVwxXCS9ivKAd+hMMIEZ21qgVzuA07ez+JWS3oRcYsMMd8iSBgzbd
+	 iF/uzwKaib4y16Q7JBlm3MEfhVP46+Ox0Jwv6CTlkeZMBj28333PE6cmB93jXEV6+DL8G
+	 0f30ltYm9PDc2AYr7rpuHLnzQ58olymU0nugen7xjokDbntYriiSpHRKRrddkvK2tYz1S
+	 tE4sBCk1AxrxMraZjGRYFY0G4jIBvTcx91zSyPl+zZJDLKNS4XXJjh2z0swESNvoCMFT2
+	 IE1z1VnAbeG61Zk0pP6fjEksbhob9LKnfyEGwK271xoez+zpMFTGaQVoL3um4Q8j/Sg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792634468;
-	h=DMARC-Filter:dkim-signature:Received:Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=loBgwUbLOnAAak0q9uGjIQKEwQ4a4j4TVh8P+20MXEg=;
-	b=TsW8l/UCyh5OCp5iA7oqWRwA/AO4TZbKsSBOLLMWEDfNQzxhd0b8B14UgtMBMkbqLtlu
-	 Cm7R4nq8lWZOpIIWoWD026uWUXTYRbUZez4a7G5Db7dMl6BcIoIYQI2eNcs/jxGUKe1x/
-	 w4AXVadi06pxer6TndPgFkFzm0cpA4Yjs+gib2RwGchAAN9NCx0avMtOfEea9BqwANtDv
-	 3MneyhycFPubfMk2A2wgjbJyEIjhqjaXzGzmp/P+unCZoZnp+8I4hisEK7hlQOsNqXRn1
-	 zqkUchWnOSaubRYQ5+KSkcF8q+vNMfuDr5/h3GveeJzU3nX4L6tkyelW4q8ifDCpsew==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792634518;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=JizkY6RQw85+M+7HrEzzFgyVMl7LWpk8mebiUA+WKrs=;
+	b=ReCOHplfjiJhkJ8IFJkaJFp5vk6b3n8iSJGxl1vdaJjnWuDCBo1uUjM2WCwY7kd9Vwn5
+	 vmABDJI7LlB2zUAKtDnO4OL58WqHbGKVf5n4PV+B+LwUhjcDswo7ZCDGYy65PijdmtP0e
+	 z2w++yC3WHgZetQqInfLwFhnhZ+TKfGfJTRD1v5TyRrLJpf8sTJq552NfzZdZe5OeImH/
+	 K7u219eoIcOqIHYsMHeGbbk2fAOvo9uxKyJDvYNWjNRrccKzwXBkPWm3iKMMTuaSA8vCj
+	 2tK6vvPFUsrn2mTMJuUslxBsSRIl3CZSiU8RULjilX1jt6vU6dcpbLehnYIvEbMbW4g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=huawei.com;
-	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=Q+4ivRAN;
-	arc=none smtp.remote-ip=113.46.200.225
-Received: from canpmsgout10.his.huawei.com (canpmsgout10.his.huawei.com [113.46.200.225])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mypvE88V;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBDB8606A31A;
-	Thu, 22 Oct 2026 02:01:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DBDB8606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFEF2606A319;
+	Thu, 22 Oct 2026 02:01:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=Q+4ivRAN
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=loBgwUbLOnAAak0q9uGjIQKEwQ4a4j4TVh8P+20MXEg=;
-	b=Q+4ivRANcgbbFZT+RuqnOmzfQRgx/LVfmZmJnBznw3aijzTfLqiAXmQFPpHZ4wQr5N/a+UnSk
-	9QkwZygXGFsy6k2d0kw287r6cGCOPL2MK5xfPM3ACXVTWwq6O1+K0stbkZqxhIDb9q0MkhN+DRw
-	UTGHL86gM/CDOpMtrrbG38U=
-Received: from mail.maildlp.com (unknown [172.19.163.200])
-	by canpmsgout10.his.huawei.com (SkyGuard) with ESMTPS id 4j98WL5Vhfz1K972;
-	Thu, 22 Oct 2026 10:00:46 +0800 (CST)
-Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
-	by mail.maildlp.com (Postfix) with ESMTPS id 2FEAB40563;
-	Thu, 22 Oct 2026 10:00:51 +0800 (CST)
-Received: from [10.67.110.68] (10.67.110.68) by kwepemk200008.china.huawei.com
- (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 22 Oct
- 2026 10:00:49 +0800
-Message-ID: <31d63208-3ef2-420f-a0c2-d9d6d49c5e21@huawei.com>
-Date: Thu, 22 Oct 2026 10:00:49 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mypvE88V
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E28D41F000C1;
+	Thu, 22 Oct 2026 02:01:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792634517;
+	bh=JizkY6RQw85+M+7HrEzzFgyVMl7LWpk8mebiUA+WKrs=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=mypvE88VWLhc22iiz8845ISZKAwFtObGQZs3O5SEbhji+PLKosFwnnDA1HJxAUXtG
+	 EIPqdLvKLnuUEdmcAGHdOdHRDJwSgrNU3nRHuFnkIQCQTRsx5TZMUt+JZHoyBupTS1
+	 zJHUWHvsvWgDnyPCXCfyZmWgpiEyfSwNFmhMwcu0NTPp0f+h6vZzyYLSuc1uUqKaF+
+	 MWxZSs8H4HJHAX9DZuE+BwTgJu2W3PfFoJxjEzwWRPmxpaYc3TBTM6AN3aog+tkjJ9
+	 qohh7vmPTNZI5aHF0q3GwvL58wJ1O83N8784b5jh2ISg83YELtsBoU2klqYQ/7Dumu
+	 Fhre5EyeeyAbw==
+Subject: Re: [PATCH net v2] net: ag71xx: re-enable TX interrupts on RX OOM
+From: netdev-bot+sashiko@kernel.org
+To: rosenp@gmail.com
+Cc: netdev@vger.kernel.org, chris.snook@gmail.com, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ o.rempel@pengutronix.de, linux-kernel@vger.kernel.org
+Date: Thu, 22 Oct 2026 02:01:56 +0000
+Message-ID: <179263451640.3135.7594958508098386565@kernel.org>
+In-Reply-To: <20261019020147.213746-1-rosenp@gmail.com>
+References: <20261019020147.213746-1-rosenp@gmail.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,193 +62,182 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v9 3/8] crash_core: serialize crash header preparation
- against hotplug
-To: Wandun <chenwandun1@gmail.com>, <robh@kernel.org>, <baoquan.he@linux.dev>,
-	<rppt@kernel.org>, <m.szyprowski@samsung.com>
-CC: <catalin.marinas@arm.com>, <will@kernel.org>, <mark.rutland@arm.com>,
-	<chenhuacai@kernel.org>, <kernel@xen0n.name>, <pjw@kernel.org>,
-	<palmer@dabbelt.com>, <aou@eecs.berkeley.edu>, <alex@ghiti.fr>,
-	<tglx@kernel.org>, <mingo@redhat.com>, <bp@alien8.de>,
-	<dave.hansen@linux.intel.com>, <x86@kernel.org>, <hpa@zytor.com>,
-	<saravanak@kernel.org>, <akpm@linux-foundation.org>,
-	<pasha.tatashin@soleen.com>, <pratyush@kernel.org>, <ruirui.yang@linux.dev>,
-	<robin.murphy@arm.com>, <linux-arm-kernel@lists.infradead.org>,
-	<linux-kernel@vger.kernel.org>, <loongarch@lists.linux.dev>,
-	<linux-riscv@lists.infradead.org>, <devicetree@vger.kernel.org>,
-	<kexec@lists.infradead.org>, <linux-mm@kvack.org>, <iommu@lists.linux.dev>
-References: <20261021083011.2170525-1-chenwandun1@gmail.com>
- <20261021083011.2170525-4-chenwandun1@gmail.com>
- <12e4e687-1ff0-41b2-bdf8-7f48b29e1f2f@huawei.com>
- <a1665f9e-3116-47bc-974e-98dce408fa37@gmail.com>
-From: Jinjie Ruan <ruanjinjie@huawei.com>
-In-Reply-To: <a1665f9e-3116-47bc-974e-98dce408fa37@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
- kwepemk200008.china.huawei.com (7.202.194.74)
 
+Thank you for your contribution! Sashiko AI review found 4 potential
+issue(s) to consider.
 
+Critical: 0 · High: 0 · Medium: 1 · Low: 3 (1)
 
-在 2026/10/21 17:48, Wandun 写道:
-> 
-> 
-> On 10/21/26 17:13, Jinjie Ruan wrote:
->>
->>
->> 在 2026/10/21 16:30, Wandun Chen 写道:
->>> From: Wandun Chen <chenwandun@lixiang.com>
->>>
->>> crash_prepare_headers() counts memory ranges before populating the
->>> allocated crash_mem array. The weak implementation used by ARM64,
->>> RISC-V and LoongArch walks memblock.memory, while x86 performs the same
->>> two-pass operation over system RAM resources. Concurrent memory hotplug
->>> can change range source between the two walks and make the populate
->>> pass overflow cmem->ranges.
->>>
->>> Take device_hotplug_lock when preparing crash headers during
->>> kexec_file_load(). The x86/riscv memory hotplug path already takes
->>> device_hotplug_lock, so call __crash_prepare_headers() directly
->>> to avoid recursive locking.
->>>
->>> Sashiko reported this issue in [1].
->>>
->>> Fixes: 3751e728cef2 ("arm64: kexec_file: add crash dump support")
->>> Fixes: 1bcca8620a91 ("LoongArch: Add crash dump support for kexec_file")
->>> Fixes: 8acea455fafa ("RISC-V: Support for kexec_file on panic")
->>> Fixes: dd5f726076cc ("kexec: support for kexec on panic using new system call")
->>> Signed-off-by: Wandun Chen <chenwandun@lixiang.com>
->>> Link: https://sashiko.dev/#/message/20260806101002.1F84E1F000E9@smtp.kernel.org [1]
->>> Acked-by: Baoquan He <baoquan.he@linux.dev>
->>> ---
->>>  arch/riscv/kernel/crash.c  |  2 +-
->>>  arch/x86/kernel/crash.c    |  2 +-
->>>  include/linux/crash_core.h |  2 ++
->>>  kernel/crash_core.c        | 17 +++++++++++++++--
->>>  4 files changed, 19 insertions(+), 4 deletions(-)
->>>
->>> diff --git a/arch/riscv/kernel/crash.c b/arch/riscv/kernel/crash.c
->>> index fe5a4b306aae..ac8df2edf2a7 100644
->>> --- a/arch/riscv/kernel/crash.c
->>> +++ b/arch/riscv/kernel/crash.c
->>> @@ -70,7 +70,7 @@ void arch_crash_handle_hotplug_event(struct kimage *image, void *arg)
->>>  	 * Create the new elfcorehdr reflecting the changes to CPU and/or
->>>  	 * memory resources.
->>>  	 */
->>> -	if (crash_prepare_headers(true, &elfbuf, &elfsz, NULL)) {
->>> +	if (__crash_prepare_headers(true, &elfbuf, &elfsz, NULL)) {
->>>  		pr_err("unable to create new elfcorehdr");
->>>  		goto out;
->>>  	}
->>> diff --git a/arch/x86/kernel/crash.c b/arch/x86/kernel/crash.c
->>> index e6f23933a6df..bef008a0cb22 100644
->>> --- a/arch/x86/kernel/crash.c
->>> +++ b/arch/x86/kernel/crash.c
->>> @@ -465,7 +465,7 @@ void arch_crash_handle_hotplug_event(struct kimage *image, void *arg)
->>>  	 * Create the new elfcorehdr reflecting the changes to CPU and/or
->>>  	 * memory resources.
->>>  	 */
->>> -	if (crash_prepare_headers(IS_ENABLED(CONFIG_X86_64), &elfbuf, &elfsz, NULL)) {
->>> +	if (__crash_prepare_headers(IS_ENABLED(CONFIG_X86_64), &elfbuf, &elfsz, NULL)) {
->>>  		pr_err("unable to create new elfcorehdr");
->>>  		goto out;
->>>  	}
->>> diff --git a/include/linux/crash_core.h b/include/linux/crash_core.h
->>> index bc087124cd78..28e7a81cf263 100644
->>> --- a/include/linux/crash_core.h
->>> +++ b/include/linux/crash_core.h
->>> @@ -61,6 +61,8 @@ extern int crash_prepare_elf64_headers(struct crash_mem *mem, int need_kernel_ma
->>>  				       void **addr, unsigned long *sz);
->>>  extern int crash_prepare_headers(int need_kernel_map, void **addr,
->>>  				 unsigned long *sz, unsigned long *nr_mem_ranges);
->>> +int __crash_prepare_headers(int need_kernel_map, void **addr, unsigned long *sz,
->>> +			    unsigned long *nr_mem_ranges);
->>>  extern int crash_exclude_core_ranges(struct crash_mem **cmem);
->>>  
->>>  struct kimage;
->>> diff --git a/kernel/crash_core.c b/kernel/crash_core.c
->>> index faa0f22dbb41..8a861a946e26 100644
->>> --- a/kernel/crash_core.c
->>> +++ b/kernel/crash_core.c
->>> @@ -16,6 +16,7 @@
->>>  #include <linux/mm.h>
->>>  #include <linux/cpuhotplug.h>
->>>  #include <linux/memblock.h>
->>> +#include <linux/device.h>
->>>  #include <linux/kmemleak.h>
->>>  #include <linux/crash_core.h>
->>>  #include <linux/reboot.h>
->>> @@ -344,8 +345,8 @@ int crash_exclude_core_ranges(struct crash_mem **cmem)
->>>  	return 0;
->>>  }
->>>  
->>> -int crash_prepare_headers(int need_kernel_map, void **addr, unsigned long *sz,
->>> -			  unsigned long *nr_mem_ranges)
->>> +int __crash_prepare_headers(int need_kernel_map, void **addr, unsigned long *sz,
->>> +			    unsigned long *nr_mem_ranges)
->>>  {
->>>  	unsigned int max_nr_ranges;
->>>  	struct crash_mem *cmem;
->>> @@ -382,6 +383,18 @@ int crash_prepare_headers(int need_kernel_map, void **addr, unsigned long *sz,
->>>  	return ret;
->>>  }
->>>  
->>> +int crash_prepare_headers(int need_kernel_map, void **addr, unsigned long *sz,
->>> +			  unsigned long *nr_mem_ranges)
->>> +{
->>> +	int ret;
->>> +
->>> +	lock_device_hotplug();
->>> +	ret = __crash_prepare_headers(need_kernel_map, addr, sz, nr_mem_ranges);
->>> +	unlock_device_hotplug();
->>
->> I think this patch conflicts with my changes and would also conflict
->> with the implementation of arm64 crash hotplug.
->>
->> https://lore.kernel.org/all/20260921090450.807575-15-ruanjinjie@huawei.com/
->>
-> Have these patches already been merged? My current work is based on the latest
-> linux-next. If they have already been merged into the maintainer's branch,
-> please let me know, I will update my tree and rebase/re-adapt my changes accordingly.
-> 
-> 
-> Also, regarding the changes in kernel/crash_core.c: it looks like we modified
-> the same spot, the change is not wrong, is that right?
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Hi Wandun,
+- [Medium] The RX-OOM exit in ag71xx_poll()
+  (drivers/net/ethernet/atheros/ag71xx.c, around line 1732) now calls…
+- [Low] NAPI can now be scheduled with TX_PS unmasked, which the driver
+  did not allow before.
+- [Low] In ag71xx_poll()'s OOM exit (lines 1731-1732), the new TX unmask
+  runs after an unchecked napi_complete().
+- [Low] The concern says the unlocked INT_ENABLE read-modify-write
+  (ag71xx_sb/ag71xx_cb, lines 417-435), together with the new TX unmask,…
 
-However, I think someone should have informed me in advance; otherwise,
-doing duplicate fix work is pointless.
+Pre-existing issues:
+- [Low] The concern says the new TX enable in the OOM path can set TX_PS
+  in AG71XX_REG_INT_ENABLE again after ag71xx_hw_stop() has cleared it,…
 
-I see that part of your patch series modifies code I previously changed,
-but I was not CC'd.
+--
 
-> 
->> arm64 crash hotplug:
->> https://lore.kernel.org/all/20260918100442.3841135-18-ruanjinjie@huawei.com/
-> 
-> In addition, if arm64 gains crash hotplug support, the code there would indeed
-> need to be modified (to avoid a deadlock). As of now, arm64 crash hotplug
-> support has not been merged yet either, has it? I just want to make sure I
-> haven't missed anything.
+net: ag71xx: re-enable TX interrupts on RX OOM
 
-Yes, you are right. If your patch series will be merged soon, I will
-develop based on it.
+This commit makes the RX out-of-memory exit in ag71xx_poll() unmask the
+TX interrupt after napi_complete(). Before this change, INT_POLL stayed
+masked until the OOM timer fired, so TX completions were held off for
+about 100ms.
 
-> 
->>
->>> +
->>> +	return ret;
->>> +}
->>> +
->>>  /**
->>>   * crash_exclude_mem_range - exclude a mem range for existing ranges
->>>   * @mem: mem->range contains an array of ranges sorted in ascending order
->>
-> 
+> diff --git a/drivers/net/ethernet/atheros/ag71xx.c b/drivers/net/ethernet/atheros/ag71xx.c
+> index 4e4794c4dfdce..3e582a7fa314a 100644
+> --- a/drivers/net/ethernet/atheros/ag71xx.c
+> +++ b/drivers/net/ethernet/atheros/ag71xx.c
+> @@ -1729,6 +1729,7 @@ static int ag71xx_poll(struct napi_struct *napi, int limit)
+>  
+>  	mod_timer(&ag->oom_timer, jiffies + AG71XX_OOM_REFILL);
+>  	napi_complete(napi);
+> +	ag71xx_int_enable(ag, AG71XX_INT_TX);
+
+[Severity: Medium]
+With TX_PS unmasked here, does every TX completion during RX OOM now run
+a full poll that lands back on the oom label?
+
+ag71xx_interrupt() schedules the whole NAPI poll for any INT_POLL bit:
+
+    if (likely(status & AG71XX_INT_POLL)) {
+        ag71xx_int_disable(ag, AG71XX_INT_POLL);
+        ...
+        napi_schedule(&ag->napi);
+    }
+
+While allocation keeps failing, ag71xx_poll() goes straight back to oom:
+
+    rx_done = ag71xx_rx_packets(ag, limit);
+
+    if (!rx_ring->buf[rx_ring->dirty % rx_ring_size].rx.rx_buf)
+        goto oom;
+
+Each of these passes does three things:
+
+  - ag71xx_rx_packets()->ag71xx_ring_rx_refill() tries another atomic
+    napi_alloc_frag().
+  - It prints netif_err(ag, rx_err, ndev, "out of memory\n") again, with
+    no ratelimit. NETIF_MSG_RX_ERR is in AG71XX_DEFAULT_MSG_ENABLE, so
+    this message shows with default settings.
+  - mod_timer() pushes oom_timer forward again.
+
+Before this change the path ran at most once per AG71XX_OOM_REFILL. Now
+it can run once per TX IRQ for as long as memory stays short and TX
+traffic keeps flowing.
+
+The commit message says TX delivery is restored "while NAPI waits for RX
+buffer memory". It looks like NAPI actually keeps retrying at the TX
+interrupt rate, and the OOM_REFILL backoff no longer applies. Is that
+intended?
+
+[Severity: Low]
+Does this break the driver's rule of masking interrupts before NAPI is
+scheduled?
+
+ag71xx_interrupt() always masks AG71XX_INT_POLL before napi_schedule().
+ag71xx_oom_timer_handler() schedules NAPI without masking anything:
+
+    static void ag71xx_oom_timer_handler(struct timer_list *t)
+    {
+        struct ag71xx *ag = timer_container_of(ag, t, oom_timer);
+
+        napi_schedule(&ag->napi);
+    }
+
+That was fine while the OOM exit left all of INT_POLL masked. With TX_PS
+now unmasked, a poll started by the timer can run with TX interrupts
+live. A TX IRQ during that poll masks POLL partway through and sets
+NAPI_STATE_MISSED.
+
+The reverse case can also happen. A poll driven by a TX IRQ can leave
+the OOM state through the normal exit, which calls
+ag71xx_int_enable(ag, AG71XX_INT_POLL). The oom_timer armed above is
+never cancelled, so it later schedules a spurious poll with all POLL
+interrupts enabled.
+
+Neither case seems to corrupt state. Is the extra poll and interrupt
+traffic expected, though?
+
+[Severity: Low]
+This isn't a bug introduced by this patch, but can this new enable set
+TX_PS in AG71XX_REG_INT_ENABLE again after ag71xx_hw_stop() has cleared
+it?
+
+ag71xx_hw_disable() stops the hardware before it quiesces NAPI and the
+timer:
+
+    ag71xx_hw_stop(ag);
+    ag71xx_dma_reset(ag);
+
+    napi_disable(&ag->napi);
+    timer_delete_sync(&ag->oom_timer);
+
+ag71xx_fast_reset() does not quiesce NAPI at all. The normal exit in
+ag71xx_poll() already re-enables AG71XX_INT_POLL in the same window, so
+the window predates this change.
+
+The new line's effect there looks negligible:
+
+  - ag71xx_dma_reset() clears the pending PS count.
+  - TX DMA is stopped.
+  - ag71xx_hw_start() later overwrites INT_ENABLE with AG71XX_INT_INIT.
+
+[Severity: Low]
+Should this unmask depend on what napi_complete() returns?
+
+include/linux/netdevice.h documents napi_complete_done() as returning
+"false if device should avoid rearming interrupts".
+Documentation/networking/napi.rst says "IRQ should only be unmasked
+after a successful call to napi_complete_done()".
+
+napi_complete_done() returns false in these cases:
+
+  - NAPIF_STATE_NPSVC or NAPIF_STATE_IN_BUSY_POLL is set.
+  - NAPIF_STATE_MISSED was set, and NAPI has been rescheduled.
+
+TX_PS can now be unmasked during timer-driven polls, so MISSED can
+happen here. In those cases TX is unmasked while NAPI is still
+scheduled, which gives a spurious IRQ.
+
+This would follow the documented contract:
+
+    if (napi_complete(napi))
+        ag71xx_int_enable(ag, AG71XX_INT_TX);
+
+The existing normal exit path has the same unchecked pattern, but this
+patch adds a new instance of it.
+
+[Severity: Low]
+ag71xx_int_enable() does an unlocked read-modify-write of
+AG71XX_REG_INT_ENABLE through ag71xx_sb():
+
+    iowrite32(ioread32(r) | mask, r);
+
+Could the new TX unmask race with ag71xx_int_disable() in
+ag71xx_interrupt() and lose an update?
+
+As far as I can tell this is harmless in practice:
+
+  - AG71XX depends on ATH79 || COMPILE_TEST, and ATH79 is uniprocessor.
+    Two polls can't interleave their read-modify-writes.
+  - A hardirq that preempts this read-modify-write can only lose its own
+    mask. TX_PS stays asserted and the line is level-sensitive, so the
+    interrupt fires again and ag71xx_interrupt() masks POLL again.
+
+The worst case looks like one extra interrupt.
 
 -- 
-Best regards,
-Jinjie
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261019020147.213746-1-rosenp%40gmail.com
