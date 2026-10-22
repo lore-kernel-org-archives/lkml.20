@@ -1,58 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792671687;
-	b=J6YbbY+MJ6kW1ptpsROfwppohMeQLUqjjtuYT6obN81n5hasvOv+3qu8/y46TgTWBl/b
-	 KPs4IQxV+RhyrcvxIoRjGiDok7h/DA1FQBN/oOgWcrTgtwXOsxuT4FimoIFgkrseP5z49
-	 l44Kc/vrQxvBL5LEgOKiGZLAxH4kDKNFq1ClJCR1a1rMV0Cdx6JAGMMhmR7Da0G94uWHc
-	 jydQvsZRyHdSAWxbtvgvmcBschyfAq3d6+KbDnXZLXe6To3+QYwv7tg0lpyfi56XA4crE
-	 og80bn2Im+rXIzPeJc8xHsdEE7J/Um3ixFjyJz0wPNBFzwLm2OfHVM2fkCWdXZOkyKQ==
+	t=1792671739;
+	b=IYyWgdyob0j6WkqTv3ATsbxyzMK7gotilY5zyVqcJ8pvXRgk2/ITxEoQVc2OyYmTw2kF
+	 QrDzJkb8djqbXR7e2j9JP9zZeHip60svy9lRQWAT8c/H7XgJOfYkNuAYz7HV2bwtdffvH
+	 WIjPrS/JZLrlnUKnTlk905maMZv4ejMWkcFRYW6+h8Kx8mzx6KkAQUSkFN2C7J8fBJ5e2
+	 qa0QRV9o3VyeloppIX2RKt2sxWePjjBJ8p2xH6SW06pKtBWNWNXFzZvhAMQvm3CQ2jKCn
+	 5kMBbUSLo4voRJVI/MX6DDD9ZnjPGvAH1ycZuXhuZ6V9T2U6Qceuuhnq5vL7LdUusSg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792671687;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 X-Last-TLS-Session-Version;
-	bh=1VTsfeIcf9nFY7Rv1wMZ4skGRa0nTl0ky4r8SPGR3hc=;
-	b=XMtgcjB2ffKwZ8gGfH2WPkYA2oFuoMo4UztxvZnhusJUREKNKufDtaodXECHA+CyNy6u
-	 2ESO45Q+xqFR/SDLs/58Dt1/2I7GOo1LCIEVHO4q0Jw7UiRuacxHkCwsneEpEYgAdwzCZ
-	 M8VEct3E/zJ6ZFqhqBQQBItUO3yTsJEtwiISFeXn9njFcJpccIY83hb3NdHfipsLwfgsr
-	 SSTPtL+gb5MMNB2jMDnJ/vT6iIXz82t/37veyTzdADlRO8T9Ue/B/ocsz8RU7qpaY5+JE
-	 EAwcRyA/C94wS8oKZl8AUxP0WVVyVPWRP5fJeVHqKSWqCGZkY5zpfUQvJJDa9cZvZJw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792671739;
+	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-Cookie;
+	bh=fxsG7s/nP9jQhWaNRX3b4QYNypinmSZSM9Kctebdsng=;
+	b=wp/I16oCBnUWmEFS6rjgOkxXJ+8v3b1m48R/Kr+Zu6HP1m+WjEW508sVSn+/CalyXve2
+	 64bmVJG0kRInxFDSPpRAwew3s/BqklUalKETxiP5zxyU2FXEzmLhqGe1wAsMcr6EAfxV4
+	 MQ4zwONivskCSw8Sxn/wdEfGkGmHh5yJ7kvadgr+MVVjEvZKJwi80VQjgq72UkSbQPmQd
+	 UJVAmur106WESrRTTB/Wb7ktlZ+XY8NWv81sR/O/CDL1Y7T3JVJH0LKlaAs39tejd1JmQ
+	 Vtl+48oHrFPderQ+XyOZspG/45DRNnXZz0u2WmNUwtgeKSkphpoKooJFGa7lfw0B9Ag==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b="v/vkvFg4";
-	arc=none smtp.remote-ip=185.246.84.56
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TAAtEb9Q;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 551B9606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 12:21:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 551B9606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D8DE606A31A;
+	Thu, 22 Oct 2026 12:22:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=v/vkvFg4
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id C00F51A12CC;
-	Thu, 22 Oct 2026 12:21:22 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 8B7D560360;
-	Thu, 22 Oct 2026 12:21:22 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 90EEF10328EFA;
-	Thu, 22 Oct 2026 14:21:13 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1792671677; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=1VTsfeIcf9nFY7Rv1wMZ4skGRa0nTl0ky4r8SPGR3hc=;
-	b=v/vkvFg4cURUfgmRhuPtPSwfjiFpjkuw/55sY2/cT/mPqpRRDFwnTTcLby7SnO5yw+ndnW
-	C/OlluRS+DNtb5VLK5nYMRBZjmDV1551uu8bp9JDEx0BV2fKSdNUJEerDT/o9FcxBJ+vtc
-	aJuUeGwbcJF/Z/EVl78l1ibzw7clkB4RrhX2LEvfEzWxhxkLvIvcdDTLoBjINUrVI4yDN2
-	brY3FgViNXRNfFhog/jnZNCTMltztu/B9jXqLqS20c8RIjAppp0BJ0HwELi1owiAsLanKV
-	EC5cOIIgG9OmNEGko1YB/z1B/yd+gRjhv/Klu//uJ90KUgCcx3U0Yzuz2asVdQ==
-Message-ID: <3a9f47f0-884a-49c0-a0a3-d68ea8bdf015@bootlin.com>
-Date: Thu, 22 Oct 2026 14:21:12 +0200
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TAAtEb9Q
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 59EF81F000C1;
+	Thu, 22 Oct 2026 12:22:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792671738;
+	bh=fxsG7s/nP9jQhWaNRX3b4QYNypinmSZSM9Kctebdsng=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=TAAtEb9QLpKoma1Q0gjKIdvfVGSju5O8E1vjEkDxLQIrKu4SAm+Nroh6gcYndvS1d
+	 TJB+/U0AKs48eXTWlM1q4Ty1dp8Kqjp0R4h+12uwhixUYQQ8/mJmgLw155gEudH+uq
+	 YkQyfNPAWRyrRblC3+t7J4MU7pWWCpdQV5sESq3ICsRta+ibf7cG9dLv1l/Uaep145
+	 k3UxRMygXyAfJHSdj+RvN/kcHJtOnOpudZgYWivos2R65zPckMN5n1Joitzx0B0lZo
+	 dI+ZDrHAGz4dRoliWYUsRa4kprVsAh3eNWlJPfhEXwFFz5hMBTQhG323H6c0vkf2zO
+	 cY6Gk2VkfS6vA==
+Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
+	id 345A01AC5994; Thu, 22 Oct 2026 13:22:16 +0100 (BST)
+Date: Thu, 22 Oct 2026 13:22:16 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Paul Louvel <paul.louvel@bootlin.com>
+Cc: Conor Dooley <conor@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+	Herve Codina <herve.codina@bootlin.com>,
+	Miquel Raynal <miquel.raynal@bootlin.com>
+Subject: Re: [PATCH 1/5] regulator: dt-bindings: Add regulator-boot-force-off
+ property
+Message-ID: <atn_-NKv45AsROu3@sirena.co.uk>
+References: <20261021-paul-lm51772-v1-0-25f0ffbffa8d@bootlin.com>
+ <20261021-paul-lm51772-v1-1-25f0ffbffa8d@bootlin.com>
+ <20261021-wind-reopen-490475bc470d@spud>
+ <DMAOMKRB8DT6.2DUZQCDZW47X2@bootlin.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,55 +69,60 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Betterbird (Linux)
-Subject: Re: [PATCH net v2] net: pse-pd: don't enable a PI again while
- disabling it
-To: netdev-bot+sashiko@kernel.org, ross@r-sc.ca
-Cc: netdev@vger.kernel.org, github@szelinsky.de, o.rempel@pengutronix.de,
- andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, linux-kernel@vger.kernel.org
-References: <20261019220835.613-1-ross@r-sc.ca>
- <179266373570.3135.5306089916848589884@kernel.org>
-From: Kory Maincent <kory.maincent@bootlin.com>
-Content-Language: en-US
-In-Reply-To: <179266373570.3135.5306089916848589884@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="pkNQdC15AoDpHePh"
+Content-Disposition: inline
+In-Reply-To: <DMAOMKRB8DT6.2DUZQCDZW47X2@bootlin.com>
+X-Cookie: FEELINGS are cascading over me!!!
 
 
+--pkNQdC15AoDpHePh
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-On 10/22/26 12:08, netdev-bot+sashiko@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential
-> issue(s) to consider.
-> 
-> Critical: 0 · High: 1 · Medium: 0 (4) · Low: 0
-> 
-> If you believe none of the issues are legitimate, please reply to each
-> issue of Medium severity or higher and explain why the AI is wrong.
-> If any of them are legitimate and you plan to respin, please let patchwork
-> know by including "pw-bot: cr" as a separate line at the end of your reply
-> (one such reply per series is enough).
-> 
-> - [High] The fix is incomplete: the PI being disabled is still enabled
->    again, and the power budget still leaks, on the priority-eviction path.
-> 
-> Pre-existing issues:
-> - [Medium] The priority cut-off in pse_pw_d_retry_power_delivery()
->    (drivers/net/pse-pd/pse_core.c) never takes effect.
+On Wed, Oct 21, 2026 at 07:11:51PM +0200, Paul Louvel wrote:
+> On Wed Oct 21, 2026 at 7:01 PM CEST, Conor Dooley wrote:
+> > On Wed, Oct 21, 2026 at 12:27:42PM +0200, Paul Louvel wrote:
 
-Can you take a look at the above issues?
-The other ones are currently in discussion with Kyle due to similar 
-report he faced on his series.
+> >> +  regulator-boot-force-off:
+> >> +    description: a regulator may be enabled by default when the system powers up.
+> >> +      A consumer may query the regulator's state during boot and disable it if
+> >> +      it is already enabled, potentially resulting in an unbalanced disable
+> >> +      operation. This property ensures that the regulator is disabled at boot,
+> >> +      regardless of its previous state.
 
-> - [Medium] pse_set_config_isr() (drivers/net/pse-pd/pse_core.c line 1211)
->    tests `notifs & PSE_BUDGET_EVAL_STRAT_DYNAMIC`.
-> - [Medium] pse_pi_disable() (drivers/net/pse-pd/pse_core.c lines 701-719)
->    always returns 0, even when _pse_pi_disable() fails (for example an…
-> - [Medium] In the disconnection branch of pse_set_config_isr()
->    (drivers/net/pse-pd/pse_core.c lines 1233-1243), isr_pd_detected is…
-> -- 
-Köry Maincent, Bootlin
-Embedded Linux and kernel engineering
-https://bootlin.com
+> > To be honest, I'm not sure how the commentary about querying the state
+> > or being unbalanced is relevant to the description - that sounds like
+> > something specific to the linux regulator framework?
 
+I'm fairly sure this is about masking some driver bug, a driver should
+never be disabling something it didn't enable.
+
+> Yes it is. Maybe I miss something, does this binding is used outside linux ?
+
+Pretty sure u-boot uses it.
+
+> > In fact, I'm not sure why this is needed at all? Can't you just change
+> > the software so that it is okay to disable a regulator that has an
+> > explicit enable count of zero?
+
+> Do you mean by calling regulator_force_disable() instead ? I thinked about that
+> but I don't think this is ideal.
+
+No, you should only be using that API for recovering from catastrophic
+hardware errors where you're cutting power to do something like
+preventing physical damange to the system and serious disruption to
+other users is an acceptable cost.
+
+--pkNQdC15AoDpHePh
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQReagvpf3TrrA7BoYYv73Ows9A4iQUCatn/9QAKCRAv73Ows9A4
+ibcyAQDAnbZAC1joyjtWIJfqNfT4By0MnDRYQTkbGcBTWj/oLwEA3pV4tzvaNh9w
+d2EXmquN8kCQSDRLSPWLMgtTGcUbYwc=
+=igGC
+-----END PGP SIGNATURE-----
+
+--pkNQdC15AoDpHePh--
