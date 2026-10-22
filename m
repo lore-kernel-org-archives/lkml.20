@@ -1,48 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.241
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792648700;
-	b=1Jsfn4jJLFvG7pI4qnTfTWf96NOiumSuCC4foIjyorMLJSNmYOcso1ZQVZ+RoIFrVdzJ
-	 yNKEaN2EyoTN6pyk4fYpjurWSYKVStDYL1iBQzM+nbJ3aThxr2du7Deel6XNw+NvHIDin
-	 xojzDK+F6ZDSWYvdFeFptWzKg1/qUVTehexPldRe1lqiILtBGeJHRO26Ef3CtiQjL6aON
-	 XBP6c33xBxVwlAp+uZY3wjlxsXTVUKzrBfJUnFT0IV78yr8aWzQXw0gp+eFWHjZ766SJ+
-	 xxut3GgtCgYYpQFzlrIIY6/FVsLmWNBJrkZ4FpxXrXFsEWWdENmpN0W8Qn8OzIRhrNA==
+	t=1792648800;
+	b=IVWvgaBzHTiO9R4TDf/0GXdrBzP2GJP9QM+W/UL4tcTBa9lZaXYIr6iO5iH1KuL0kNGd
+	 6/RIYY6cKyQ0rrzFzRnwo0a/mZ0hVTR5K2eJFrrlWZ4f2PsWMfvFvFcM657uG9IPBBi8O
+	 VwEeprzvqddxOszwstaV7iEBJiAE6Dt/ZbyKeU3Z/n6oXvbeo2eOJaNd/IJ1yKod1DQrw
+	 iCW2GHNoR1h7q//MPOA+H8vBeskVsH36/kYDxO5avr5I4Ft1sssxdCUzQH52pdg5QDPlW
+	 UaIOIOFKSgFhqkDd5YwEq+rwnu3Gz3eChg6AJAlp1ILL6Ka9u1uH2LlYNA+Ach1ZMPQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792648700;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding:X-CM-TRANSID:
-	 X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
-	bh=lop1HsMsxUGw4mXUZtviND4KSaGoUoHPS58M2aTNKLs=;
-	b=sXuWeqSOkGBUZpL/pOhJ4kuTjTwFsJvpv3iY8Dct41wgp+42Ena1ClH01LFfQbTuqARX
-	 woTYbs8JQ/tltDO2GoRVBuzcJ7rFIrtSyXy415kzmaaZctKJt1n34cZ+IMpzehVbe2LPN
-	 8uXVADt2AsRlXellUZP+YY0gUCq1WeMqKTBVWoTJ/odSpAt9k6ZdFsrOhU23Fkz5crF4u
-	 eKnljrFQW6PJeFGWEBtGqP8WFqKmiKuEOWBdkC73x3Dtty7MkE4UyiNLSgoIuHTrmHbWq
-	 b/RW5dIMH2ob8gb88ClBNXEKBGMbWjuFA1hxiCvcgb6ZviZ4YwqvcJf7F410nAv/kbg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792648800;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=fIYrm7yyO053Wq4oC47ELZ+0yKxy2k7LASYVZFoQqEo=;
+	b=IZTyiVGfKnjJlJUeS9mnfrxmAL0jLBzNDdfe/ROq+O28gdzjtPD8JpXxuItIL+Z+pm0/
+	 fjdWhH8I9njXhsDJbYw/iw+Wt+y0ZZL3CA26+WSwQ1Ml2x3uZHp19uxVnker0hc8m87bK
+	 RPiPCOXxNostOKYc4jHXAkeKhedytaD9PysjpuuXZREFIIalOofPQnrGv4yA2odgQ2fHl
+	 sLZSclmzN+b+RRpRds8IbIQQicsNhOTYjWzk18dhd99PQds3N2KHgCX7mWByUpmnNLB/Y
+	 Ifr6P398HgAfYeP7rQHLIS1GylAl0e/UsC70J007o5aVPTHs3hzC5fAwQZyGE0y//Lg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=iscas.ac.cn;
-	spf=pass smtp.mailfrom=iscas.ac.cn;
-	arc=none smtp.remote-ip=159.226.251.81
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Pp2rajOZ;
+	arc=none smtp.remote-ip=95.215.58.241
+Received: from mta1.migadu.com (out-241.mta1.migadu.com [95.215.58.241])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54FB6606A319;
-	Thu, 22 Oct 2026 05:58:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 54FB6606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from ar (unknown [42.86.112.99])
-	by APP-03 (Coremail) with SMTP id rQCowABnckD2pdlqipdrCw--.1489S2;
-	Thu, 22 Oct 2026 13:58:14 +0800 (CST)
-From: Sun Yuechi <sunyuechi@iscas.ac.cn>
-To: Bjorn Helgaas <bhelgaas@google.com>
-Cc: Lukas Wunner <lukas@wunner.de>,
-	Alexander Gruhlke <gruhlke@mailbox.org>,
-	linux-pci@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] PCI: Ignore Immediate Readiness on Samsung PM9D3a NVMe
-Date: Wed, 21 Oct 2026 22:58:14 -0700
-Message-ID: <20261022055814.2566044-1-sunyuechi@iscas.ac.cn>
-X-Mailer: git-send-email 2.56.0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 430E9606A31A
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 05:59:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 430E9606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Pp2rajOZ
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=3/3qEHo3NcT3tbB1SW5QCfRuQZuQpW8oQBAxm/9MJKw=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792648797; v=1; x=1793253597;
+ b=Pp2rajOZCLeruQH4lUdhCj8/VrhDvtVawgDKltYN/WfBNIYr2BRyhN7ORtui83q2AGdnYwTY
+ JCCKB5ZOGdboP36eOF06L2VtatmcywZN9Hh9R36mccgkjXqlxqvcx/pnmDHIubKy3OIffp5BeY7
+ 1GOF90mfM7AJqZv56n8AQFfA=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta10.migadu.com with ESMTPS id 422a1f02f778a91c;
+	Thu, 22 Oct 2026 05:59:57 +0000
+X-Mizu-Trace-ID: 422a1f02f778a91c
+X-Migadu-Flow: FLOW_OUT
+Date: Thu, 22 Oct 2026 13:59:50 +0800
+From: Hangbin Liu <hangbin.liu@linux.dev>
+To: Tianyi Chen <hi@tychen.cc>
+Cc: netdev@vger.kernel.org, dsahern@kernel.org, idosch@nvidia.com,
+	davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+	pabeni@redhat.com, horms@kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net] ipv4: igmp: report interface group allocation
+ failure on join
+Message-ID: <atmmVvSN1SEvsjzf@fedora>
+References: <179260356668.911829.6576504063198285556@tychen.cc>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,59 +65,148 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowABnckD2pdlqipdrCw--.1489S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7KFW5uF15Jw48trWxWF1rWFg_yoW8XFykpr
-	W5Wr95ZrZ2gr1UX3yjvw1fuas0yanYy3yjk3y8t3sFg3ZrCryDXa4fJFy5Gr9xArZ2qrWa
-	v3Z8Jw1kJa1jqaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUkSb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I
-	8E87Iv6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI
-	64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8Jw
-	Am72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lc7CjxVAaw2AFwI0_JF0_Jw1l
-	42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJV
-	WUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1DMIIYrxkI7VAK
-	I48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r
-	4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY
-	6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjxUgtr4UUUUU
-X-CM-SenderInfo: 5vxq53phfkxq5lvft2wodfhubq/1tbiCRIIAmrZhEoilwACsb
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <179260356668.911829.6576504063198285556@tychen.cc>
 
-The Samsung PM9D3a [144d:a80e] (MZWL63T8HFLT-00B07, firmware LDD5702Q)
-advertises Immediate Readiness, so pcie_flr() doesn't wait after FLR,
-but the drive returns ~0 for up to 6 ms.  The config restore runs about
-1 ms after the FLR, so the BARs and Command register are lost and
-neither vfio-pci nor a rebound nvme driver can reach the device:
+Hi Tianyi,
+On Thu, Oct 22, 2026 at 02:23:59AM +0900, Tianyi Chen wrote:
+> setsockopt(IP_ADD_MEMBERSHIP) can return 0 while the group was never
+> joined on the interface.  __ip_mc_join_group() publishes the socket-side
+> ip_mc_socklist in inet->mc_list before calling ____ip_mc_inc_group().
+> That helper returns void, so when its kzalloc_obj() fails it returns
+> without creating the interface-side ip_mc_list and the syscall still
+> reports success.  The socket then passes IP_MSFILTER but cannot receive
+> the group's traffic: no IGMP report is generated, the group is absent
+> from /proc/net/igmp, and the receive path drops the datagrams.  Closing
+> the socket also decrements the interface group for every published
+> ip_mc_socklist, so it can remove a group that another socket joined.
+> 
+> Make the helper return -ENOBUFS on allocation failure, call it before
+> publishing iml, and free iml on failure.  The object is charged with
+> sock_kmalloc(), so sock_kfree_s() with the same size keeps
+> sk_omem_alloc balanced; it was never published and has no source list
+> yet, so no RCU free is needed.  Successful joins still publish the fully
+> initialized socket-side record after the interface group exists.  RTNL
+> serializes the writers, not the RCU readers; this ordering prevents a
+> published socket membership without a device group.
+> 
+> The legacy void wrapper keeps its best-effort behaviour: interface-up,
+> init, bridge and tunnel callers cannot report an allocation failure.  A
+> query does not recreate a missing group; only a later successful
+> inc_group call can.  The silent failure predates the 2019 helper split
+> (9fb20801dab4); there is no recent regression to tag with Fixes.
 
-  pci 0008:01:00.0: reset via flr
-  pci 0008:01:00.0: restore config 0x10: 0xffffffff -> 0x10010004
-  nvme 0008:01:00.0: error -ENODEV: probe failed
+I think the fix could be Linux-2.6.12-rc2.
 
-Ignore Immediate Readiness on this device too, so pcie_flr() waits.
+> 
+> Reproduced with fail-nth on v6.19 and v7.3-rc2.  N=2 fails the helper's
 
-Fixes: 10baa9b4df40 ("PCI: Drop unnecessary retries when restoring BARs")
-Signed-off-by: Sun Yuechi <sunyuechi@iscas.ac.cn>
----
-Tested on two PM9D3a drives on a v7.2.6 kernel with 0f8b5d90d179
-backported: FLR-to-restore delay goes from ~1 ms to ~100 ms, BARs
-are preserved, and nvme rebind and vfio-pci both work.
+Is there any details about the reproducer?
 
- drivers/pci/quirks.c | 1 +
- 1 file changed, 1 insertion(+)
+> kzalloc_obj(): the original returns 0 with no interface group and 0/4
+> multicast datagrams delivered; this change returns -ENOBUFS, leaves no
+> socket or interface state, and a later join delivers 2/2.  On the
+> original, closing the half-joined socket also removes a second socket's
+> group; the patched kernel keeps it.  Normal joins, the existing-group
+> users++ path and source-specific joins (allowed 2/2, filtered 0/2) are
+> unchanged.
+> 
+> Assisted-by: LLM
+> Signed-off-by: Tianyi Chen <hi@tychen.cc>
+> ---
+>  net/ipv4/igmp.c | 37 ++++++++++++++++++++++++++++---------
+>  1 file changed, 28 insertions(+), 9 deletions(-)
+> 
+> diff --git a/net/ipv4/igmp.c b/net/ipv4/igmp.c
+> index d56355aca797..81a100330630 100644
+> --- a/net/ipv4/igmp.c
+> +++ b/net/ipv4/igmp.c
+> @@ -1566,9 +1566,15 @@ static void inet_ifmcaddr_notify(struct net_device *dev,
+>  
+>  /*
+>   *	A socket has joined a multicast group on device dev.
+> + *
+> + *	Returns 0 if the interface now has a reference to the group, or
+> + *	-ENOBUFS if the new group could not be allocated.  Callers that can
+> + *	report an error to userspace must check it: a socket that reports a
+> + *	successful join while the interface has no group cannot receive the
+> + *	group's traffic.
+>   */
+> -static void ____ip_mc_inc_group(struct in_device *in_dev, __be32 addr,
+> -				unsigned int mode, gfp_t gfp)
+> +static int ____ip_mc_inc_group(struct in_device *in_dev, __be32 addr,
+> +			       unsigned int mode, gfp_t gfp)
+>  {
+>  	struct ip_mc_list __rcu **mc_hash;
+>  	struct ip_mc_list *im;
+> @@ -1595,12 +1601,12 @@ static void ____ip_mc_inc_group(struct in_device *in_dev, __be32 addr,
+>  	if  (im) {
+>  		WRITE_ONCE(im->users, im->users + 1);
+>  		ip_mc_add_src(in_dev, &addr, mode, 0, NULL, 0);
+> -		goto out;
+> +		return 0;
+>  	}
+>  
+>  	im = kzalloc_obj(*im, gfp);
+>  	if (!im)
+> -		goto out;
+> +		return -ENOBUFS;
+>  
+>  	WRITE_ONCE(im->users, 1);
+>  	im->interface = in_dev;
+> @@ -1630,13 +1636,18 @@ static void ____ip_mc_inc_group(struct in_device *in_dev, __be32 addr,
+>  	inet_ifmcaddr_notify(in_dev->dev, im, RTM_NEWMULTICAST);
+>  	if (!in_dev->dead)
+>  		ip_rt_multicast_event(in_dev);
+> -out:
+> -	return;
+> +	return 0;
+>  }
+>  
+>  void __ip_mc_inc_group(struct in_device *in_dev, __be32 addr, gfp_t gfp)
+>  {
+> -	____ip_mc_inc_group(in_dev, addr, MCAST_EXCLUDE, gfp);
+> +	/*
+> +	 * Legacy void interface: interface-up, init, bridge and tunnel
+> +	 * callers cannot report an allocation failure.  Keep the best-effort
+> +	 * behaviour.  A query does not recreate a missing group; only a later
+> +	 * successful inc_group call can.
+> +	 */
+> +	(void)____ip_mc_inc_group(in_dev, addr, MCAST_EXCLUDE, gfp);
+>  }
+>  EXPORT_SYMBOL(__ip_mc_inc_group);
+>  
+> @@ -2386,11 +2397,19 @@ static int __ip_mc_join_group(struct sock *sk, struct ip_mreqn *imr,
+>  		goto done;
+>  
+>  	memcpy(&iml->multi, imr, sizeof(*imr));
+> -	iml->next_rcu = inet->mc_list;
+>  	iml->sflist = NULL;
+>  	iml->sfmode = mode;
+> +	/*
+> +	 * Make the interface group exist before publishing the socket's
+> +	 * membership: success must mean the group can actually receive.
+> +	 */
+> +	err = ____ip_mc_inc_group(in_dev, addr, mode, GFP_KERNEL);
+> +	if (err) {
+> +		sock_kfree_s(sk, iml, sizeof(*iml));
+> +		goto done;
+> +	}
+> +	iml->next_rcu = inet->mc_list;
+>  	rcu_assign_pointer(inet->mc_list, iml);
+> -	____ip_mc_inc_group(in_dev, addr, mode, GFP_KERNEL);
+>  	err = 0;
+>  done:
+>  	return err;
+> 
+> base-commit: df2908090cda368b01ff43709f51890076c56157
+> -- 
+> 2.56.0
+> 
 
-diff --git a/drivers/pci/quirks.c b/drivers/pci/quirks.c
-index 1aa87a3ef9ed..706e128f408c 100644
---- a/drivers/pci/quirks.c
-+++ b/drivers/pci/quirks.c
-@@ -5645,6 +5645,7 @@ static void quirk_no_imm_ready(struct pci_dev *dev)
- }
- DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_SAMSUNG, 0xa80c, quirk_no_imm_ready);
- DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_SAMSUNG, 0xa80d, quirk_no_imm_ready);
-+DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_SAMSUNG, 0xa80e, quirk_no_imm_ready);
- 
- static void quirk_no_ext_tags(struct pci_dev *pdev)
- {
--- 
-2.56.0
+BTW, I feel there are too many comments generated by the LLM.
+I wonder if others share the same feeling.
 
+Thanks
+Hangbin
