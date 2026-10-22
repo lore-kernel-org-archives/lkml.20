@@ -1,53 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792673584;
-	b=EgpSLnHECgaGsvlGSW7z29VjVrT1ZmtMbaT6+u6QBJEBqTDySzw0CmvccpMs8uQqdW1z
-	 qTTOGx+uhzDSBOgDQR+4nW9CLu4NJ0phVYPpYnjGIRX1EsCHq19XMT7VF0RxXhF0FvG7H
-	 bet1/eBeYUC14XCq3ijWjXfegbJ0ao4dtVUTB48zaHaJj0fnQE/IzMvgevPq5Pcspi1ls
-	 vdPF4a1zvze9P4BVcjrmjOe8x/AHs3uh7PaPs+m5dzc22YgyMimxwgqyiE70FBMRMt0nd
-	 j5bW4mladbpaHzAH/rD2ltGKYwn2Fq/rmiVPGtRk1UMmFMR2NkHuCdUhsjkb2aPeKzg==
+	t=1792673579;
+	b=yR00kmagTUc1xFf6VSia3ziSGuyQNWuhba2FH1wGhKZIdMUVThnZeEFBVlv2YEZKWptt
+	 7bZC9mm54vfx3296xRWmSPjGCh32iU1TTRIV/hQhkX1CvkI9jW4Ng0nUrhhemNRcsrkjK
+	 jC17mhtMw0RAUlx7BfgdyqnQak/WOEbQbIgOQajTYjErrd4aV6MLqQZC80UWczS2SJ4iX
+	 O0N4W0LpCn922pCz7+6tWBtaNDT8qr6+no9J0je9/l2lJULyunXohW6zkuuHtoNUIULjC
+	 Cg0o6icuZc2HUnvR9q77hpr4txAkfoPLztBqsZv39eJqTSAYmN7yN6LSKTn+WQQExog==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792673584;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792673579;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=qTdxIjwF0CBphPx6QBICzBF4QJdGWk+rlqebDhD0eR4=;
-	b=nu8HSd7UhXTZNZIxaEKIGLKVjlxVlmLjxdoj7Qdo4V0Gh6GpWJsFcSToMNTRaM3svMGL
-	 SZT8DYgvEwtW9gVFq+aK+1Cc32OyptmmveVyGPJNTDd4kPqsToJlh5ynvLxAU2B9mdFTq
-	 EkDxRp5SQxcL4UzQhPB8faIvaijznhNMPn6tL+oEYmpaI06bpY0kEh8VxvyTg/ArX1Ufk
-	 xXC5qjLpP9L0riDTH2mlPVMseLtDIcazhjVknOJFvKqsQZiL79RNUz7/0F9QWjgfy8rZU
-	 nVyPY/xGgAdSoKzZ9p1gifTFeWtZQ6x/jvtjQul/55VYwPEWTE+pZVXrO08ap6GMszQ==
+	bh=rD/zYPBi22vsuAiR4tO4UQi89pBhgDe4H1fTUVyIAbI=;
+	b=GfwrF6xhGL94ywLZQlPnYnUwtZiIrc2orxu3G614/MsfaoEdI3UApUFgLdYx3vhtcSdz
+	 CEhH1x7/LrFSUQNUQH+Zx6iTMwWA8tKrf/WFm3IX4WdhBGx2qD3wAKW0YhzoI74IH8FbZ
+	 ClCqG5vHPoUWm7hUVL1EUJpCW4YRHsZ/6LGUUsJSaQ3J2ErZ3/tGNdDO2fUHfW3NJ90rA
+	 2tas15WhXEwM2UYXCMGp+wXa034oVFNlfzTFbQAeyomh/SjoJ83wRV50XghehgXP/TyzE
+	 k1cj4koTTvdTPhU2wJRUbwSsLkfmPUt4RT+jBqVP0PF2DOntbQArE8Qu1t+nqXl3QgA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JPy3rvES;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IBOUgA8P;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96698606A333
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 12:53:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36996606A322
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 12:52:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JPy3rvES
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4163D1F000C5;
-	Thu, 22 Oct 2026 12:53:03 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IBOUgA8P
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E4EA51F000C3;
+	Thu, 22 Oct 2026 12:52:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792673584;
-	bh=qTdxIjwF0CBphPx6QBICzBF4QJdGWk+rlqebDhD0eR4=;
+	s=k20260515; t=1792673578;
+	bh=rD/zYPBi22vsuAiR4tO4UQi89pBhgDe4H1fTUVyIAbI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=JPy3rvESoWrcsCOyr6huaonU7SSQUACKLwnlV9CO8i0PIBbgQoX8GUv07efy94s2X
-	 DvyV5B3AAvXXpTRfp997kRA2Sj6yMe1aEA7biPYJ2MguZdexCOutW0bx3zlpSekwOa
-	 Q0BkfKtXWl9wScDxw0VE0R4+mYk4y7zTsZ6WZ8KCsGBnx4jdZ9rfsdEvPmC9eBfovN
-	 8Vnt5v24z1VLKlgqVr9+9mhzpPoN/NOadhuR/8s30NcHXNtPvXvEh0NOPfm6KgSRse
-	 aURBOMfXpWEPhMWVyJnYy9tT4hGIp1UsaoZp/exFGEe12FmmjOtkI1mbgoBbOcxTwK
-	 V5SiyiBMJ+MfQ==
+	b=IBOUgA8Pb8Wqvp+WCfY5ecnoUrksSDJ/VCHXIWx/OlGyCNK04Rh9mZAkGOjHCAN12
+	 IWz9gGumN/zMrC+h31N0thY1PKy2dj1JHrk08uu8TMYDRMXVu65DbFw8XXbm2VX4nO
+	 EO0C2jdhaLP2jUc+3b8x03VPDlmNb1F4abT11AKd/biaNjTWkBVFdHi9ziiSx+kyHM
+	 1ULlrGkiWcq34WE+WWrk96r/8c+fcmoIL09BIqy23x5E+AyMOtlTObn7PWFqpaEGh4
+	 r5hLxC6jnJlVdHaWpVSqY/KbgUCnXvATnNxOCoW/Wf1DIu3xIsZFaT15SCUELaKVMC
+	 jcB8h0PAslBsg==
 From: Chao Yu <chao@kernel.org>
 To: jaegeuk@kernel.org
 Cc: linux-f2fs-devel@lists.sourceforge.net,
 	linux-kernel@vger.kernel.org,
 	Chao Yu <chao@kernel.org>,
 	stable@kernel.org
-Subject: [PATCH 6/7] f2fs: fix to serialize truncation of COW blocks w/ GC
-Date: Thu, 22 Oct 2026 12:52:43 +0000
-Message-ID: <20261022125244.2205275-6-chao@kernel.org>
+Subject: [PATCH 2/7] f2fs: fix to return -EIO from f2fs_sync_fs() if cp_error is set
+Date: Thu, 22 Oct 2026 12:52:39 +0000
+Message-ID: <20261022125244.2205275-2-chao@kernel.org>
 X-Mailer: git-send-email 2.56.0.218.g1ec904b173-goog
 In-Reply-To: <20261022125244.2205275-1-chao@kernel.org>
 References: <20261022125244.2205275-1-chao@kernel.org>
@@ -64,110 +64,121 @@ Content-Transfer-Encoding: 8bit
 
 From: Chao Yu <chao@kernel.org>
 
-GC migrates blocks of COW inode w/ the COW inode and its i_gc_rwsem,
-however f2fs_ioc_start_atomic_write() truncates blocks of the reused
-COW inode w/o holding COW inode's i_gc_rwsem, it only holds the
-original inode's locks, so the truncation can race w/ GC.
+f2fs_sync_fs() returns 0 w/o doing checkpoint once cp_error is set, so
+its callers can not tell whether checkpoint was done or not.
 
-Case #1: GC caches stale data of a freed block in meta cache
+For a file which needs a checkpoint to persist its fsynced data, e.g. a
+compressed file (CP_COMPRESSED), f2fs_do_sync_file() calls
+f2fs_sync_fs(). So if shutdown (e.g. F2FS_GOING_DOWN_NOSYNC) races w/
+fsync, after f2fs_sync_file() passed its cp_error check, fsync() returns
+0 while neither checkpoint nor fsync node blocks were written: after
+recovery, the fsynced data of the compressed file is rolled back to an
+old version or lost.
 
-- GC (phase 3, cow inode C)		- ioctl(F2FS_IOC_START_ATOMIC_WRITE)
-- f2fs_down_write_trylock(C's i_gc_rwsem[WRITE])
-- ra_data_block(C, j)
- - f2fs_grab_cache_folio(orig mapping, j)
- - f2fs_get_dnode_of_data(C, j)
- : get P
- - f2fs_put_dnode()
- - f2fs_is_valid_blkaddr(P)
- - f2fs_folio_wait_writeback()
- - f2fs_wait_on_block_writeback()
-					- f2fs_ioc_start_atomic_write()
-					 - f2fs_down_write(orig's i_gc_rwsem)
-					 - f2fs_do_truncate_blocks(C, 0, true)
-					  - f2fs_truncate_data_blocks_range()
-					   - f2fs_set_data_blkaddr(NULL_ADDR)
-					   - f2fs_invalidate_blocks(P)
-					    - f2fs_invalidate_internal_cache(P)
-					    : nothing is cached
- - f2fs_grab_cache(META, P)
- : cache P in META[P]
- - f2fs_submit_cache_read(P)
- : SIT of P is still valid
-					    - update_sit_entry(P, -1)
-					    : P was freed
-- end_io: f2fs_cache_set_uptodate(META[P])
-: META[P] is stale for a freed block
+In addition, syncfs(2) and F2FS_IOC_WRITE_CHECKPOINT report false
+success on a stopped filesystem as well, whereas other filesystems
+return -EIO from ->sync_fs after shutdown.
 
-On superblock w/o encrypt, verity and compression features, checkpoint
-does not truncate meta cache, so META[P] survives after checkpoint, then:
+Note that f2fs_write_checkpoint() already returns -EIO if cp_error is
+set, so callers of f2fs_sync_fs() have to handle -EIO anyway.
 
-- checkpoint, P can be reused
-- writeback of victim's atomic write
- - do_write_block()
- : allocate P, write victim's data to P, META[P] is not invalidated
-- GC phase 3: ra_data_block(victim's cow inode, k)
-: META[P] is uptodate, skip reading
-- GC phase 4: move_data_block(victim's cow inode, k)
-: META[P] is uptodate, skip reading
- - memcpy(tentry, sentry)
- - f2fs_update_data_blkaddr(newaddr)
-: victim's block was overwritten w/ stale data
+So let's return -EIO from f2fs_sync_fs() if cp_error is set, and in
+f2fs_do_sync_file(), bail out w/o clearing FI_APPEND_WRITE and
+FI_UPDATE_WRITE if f2fs_sync_fs() fails, as the non-checkpoint path
+already does after f2fs_fsync_node_caches().
 
-Case #2: GC reports a false inconsistency error
+For shutdown, F2FS_GOING_DOWN_METASYNC and F2FS_GOING_DOWN_NEED_FSCK
+have already converted -EIO from f2fs_sync_fs() to 0, however,
+F2FS_GOING_DOWN_FULLSYNC fails w/ -EIO once cp_error is set, e.g. when
+the filesystem is shutdown again, because:
 
-- GC (phase 3, cow inode C)		- ioctl(F2FS_IOC_START_ATOMIC_WRITE)
-- ra_data_block(C, j)
- - f2fs_get_dnode_of_data(C, j)
- : get P
- - f2fs_put_dnode()
-					- f2fs_do_truncate_blocks(C, 0, true)
-					 - f2fs_invalidate_blocks(P)
-					  - update_sit_entry(P, -1)
- - f2fs_is_valid_blkaddr(P, DATA_GENERIC_ENHANCE)
- : or in f2fs_submit_cache_read()
-  - __is_bitmap_valid()
-   - f2fs_err("Inconsistent error blkaddr:...")
-   - set_sbi_flag(SBI_NEED_FSCK)
-   - dump_stack()
-   - f2fs_handle_error(ERROR_INVALID_BLKADDR)
+- f2fs_do_shutdown
+ - bdev_freeze
+  - fs_bdev_freeze
+   - freeze_super
+    - sync_filesystem
+     - f2fs_sync_fs_super
+      - f2fs_sync_fs
+      : return -EIO due to cp_error
+    - f2fs_freeze
+    : return -EIO due to cp_error as well
 
-All other truncation paths hold i_gc_rwsem[WRITE] of the truncated
-inode, let's hold COW inode's i_gc_rwsem[WRITE] during truncation of
-COW blocks as well, then GC will skip COW blocks due to failure of
-f2fs_down_write_trylock().
+whereas other filesystems return 0 in this case. So let's do the
+conversion for all shutdown modes at the end of f2fs_do_shutdown(), and
+only if cp_error is set, so that the error is still returned to the
+caller if the filesystem was not stopped, e.g. bdev_freeze() fails due
+to other reasons.
 
 Cc: stable@kernel.org
-Fixes: f18d00769336 ("f2fs: use meta inode for GC of COW file")
+Fixes: 1f227a3e215d ("f2fs: stop all the operations by cp_error flag")
 Signed-off-by: Chao Yu <chao@kernel.org>
 ---
- fs/f2fs/file.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+ fs/f2fs/file.c  | 16 ++++++++++------
+ fs/f2fs/super.c |  2 +-
+ 2 files changed, 11 insertions(+), 7 deletions(-)
 
 diff --git a/fs/f2fs/file.c b/fs/f2fs/file.c
-index 363039da3ab2..3a7093a7c12e 100644
+index b077e4eb790d..27e295bdce1c 100644
 --- a/fs/f2fs/file.c
 +++ b/fs/f2fs/file.c
-@@ -2445,11 +2445,20 @@ static int f2fs_ioc_start_atomic_write(struct file *filp, bool truncate)
- 		F2FS_I(fi->cow_inode)->atomic_inode = inode;
- 	} else {
- 		/* Reuse the already created COW inode */
-+		struct f2fs_inode_info *cfi = F2FS_I(fi->cow_inode);
-+
- 		f2fs_bug_on(sbi, get_dirty_pages(fi->cow_inode));
+@@ -417,6 +417,8 @@ static int f2fs_do_sync_file(struct file *file, loff_t start, loff_t end,
+ 	if (cp_reason) {
+ 		/* all the dirty node pages should be flushed for POR */
+ 		ret = f2fs_sync_fs(inode->i_sb, 1);
++		if (ret)
++			goto out;
  
- 		invalidate_mapping_pages(fi->cow_inode->i_mapping, 0, -1);
+ 		/*
+ 		 * We've secured consistency through sync_fs. Following pino
+@@ -2564,11 +2566,8 @@ int f2fs_do_shutdown(struct f2fs_sb_info *sbi, unsigned int flag,
+ 	case F2FS_GOING_DOWN_METASYNC:
+ 		/* do checkpoint only */
+ 		ret = f2fs_sync_fs(sb, 1);
+-		if (ret) {
+-			if (ret == -EIO)
+-				ret = 0;
++		if (ret)
+ 			goto out;
+-		}
+ 		f2fs_stop_checkpoint(sbi, false, STOP_CP_REASON_SHUTDOWN);
+ 		break;
+ 	case F2FS_GOING_DOWN_NOSYNC:
+@@ -2584,8 +2583,6 @@ int f2fs_do_shutdown(struct f2fs_sb_info *sbi, unsigned int flag,
+ 		set_sbi_flag(sbi, SBI_IS_DIRTY);
+ 		/* do checkpoint only */
+ 		ret = f2fs_sync_fs(sb, 1);
+-		if (ret == -EIO)
+-			ret = 0;
+ 		goto out;
+ 	default:
+ 		ret = -EINVAL;
+@@ -2613,6 +2610,13 @@ int f2fs_do_shutdown(struct f2fs_sb_info *sbi, unsigned int flag,
  
-+		/*
-+		 * GC migrates COW blocks w/ cow inode and its i_gc_rwsem, so
-+		 * hold it to serialize truncation of COW blocks w/ GC.
-+		 */
-+		f2fs_down_write_nested(&cfi->i_gc_rwsem[WRITE],
-+						SINGLE_DEPTH_NESTING);
- 		ret = f2fs_do_truncate_blocks(fi->cow_inode, 0, true);
-+		f2fs_up_write(&cfi->i_gc_rwsem[WRITE]);
- 		if (ret)
- 			goto out_unlock;
- 	}
+ 	f2fs_update_time(sbi, REQ_TIME);
+ out:
++	/*
++	 * If filesystem has already stopped, e.g. it was shutdown before,
++	 * bdev_freeze() or f2fs_sync_fs() will fail w/ -EIO, let's return
++	 * 0 for such case, as other filesystems did.
++	 */
++	if (ret == -EIO && f2fs_cp_error(sbi))
++		ret = 0;
+ 
+ 	trace_f2fs_shutdown(sbi, flag, ret);
+ 
+diff --git a/fs/f2fs/super.c b/fs/f2fs/super.c
+index 149ad6061097..ba2ec6123251 100644
+--- a/fs/f2fs/super.c
++++ b/fs/f2fs/super.c
+@@ -2130,7 +2130,7 @@ int f2fs_sync_fs(struct super_block *sb, int sync)
+ 	int err = 0;
+ 
+ 	if (unlikely(f2fs_cp_error(sbi)))
+-		return 0;
++		return -EIO;
+ 	if (unlikely(is_sbi_flag_set(sbi, SBI_CP_DISABLED)))
+ 		return 0;
+ 
 -- 
 2.49.0
 
