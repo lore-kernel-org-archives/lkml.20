@@ -1,96 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792641204;
-	b=QYXtjJN1OaTzdhYNi18D43+Jkpw6LBN4KBuk3xSiG/0qeByixLJj2mUqcHfqy4m7GCho
-	 zV6i3VEud8zmKJ7MkebLbvTGR58yI9wwJ0qXyRb+lGw7WRFhZY5BjLbx6Wx6aGchuD9v0
-	 pPt+0ecn6H8lRB0fq4euCWDORbcnnhM3QAyUK99HnQ6z18Q/rUIEOXzWI9AatalKuaNax
-	 bllwcx95/OkjF85i+DwL23K30wP9GXiIrPAbS8n3SCXOfd7oc5NU3AarZbpwdqPe6jV8r
-	 /ypgmXOnnnwlzPIyDZEBk2jBamTZRVa/npEWbRqrOWsxTuWXqtotzVpvSS8LqAhioWQ==
+	t=1792641206;
+	b=vzafVdWWVj8XN7OtkJTUykVs8QsupBmmaHpXkQF6oRT+5jp4ehvmjqy93v3BbxiMs1qa
+	 iJJQFHlASNYf1dDHmSOCxWNnw3cBXN5uRpV8K4wqK2sXQmdWx6nrJh4zvs18EKCjWMUfA
+	 GhMHJl9qbUjQvPb8VOemW7fn4I66gpqtFzn6xTjWiIp72VUWge+WifNUmaGJpNdSUcvXb
+	 uyJA8yBCPyeR0mme751X6dkQ7unu2jfgrOfXxRjORdNqCy1UceCqTe0gmg3QoJbkrPInF
+	 aWKwuZVj69JymoidUc7iDDIfDn3AxNh5zjGdOXOt7kfySN2d6/msQuHmK8+/YRBjPkA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792641204;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=YTwXX/e+2q2uxgf0ajbM0Q4u9v6L0C35gNVhAj4Ee6k=;
-	b=nBG4SMTreDKA8/l3kFYbxfa5nrYsxpEqFB1TB8tIMZ70n8JSmmiW0N1KZmhXm+skfj8K
-	 eGuQQALkqLIKCm9D/FbutD/OJ/ytScTIP9UdqjPJ8T7MrE/1BmVHfZnT6PVcLSsB2jWiB
-	 ox4EXyajSPl+IOF72lLHP7Ly99QTw7VwjWwcOaoJrVgnanv22wlghe9cjFhgSh5dThwNi
-	 4EGxTCMmZ3NrNSkXdoIToQXXE+Sw795/touT6rT8gvUCdMkmVyJtLbStovQnojC01X2fU
-	 tnxf0kVMHU1xqBd0HxHnVPV4hiJxwP3jtwmftpsinYgmbe4a3LOv0AAD3w1LX8iW19A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792641206;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:Content-Type:Content-Transfer-Encoding:MIME-Version;
+	bh=AYxNwlYjoI2/uyAaF5PFCrzANhHSTAvl+pCJ088T5bY=;
+	b=ZDvvKfGdFHHUQQiCcfYUUBQzVWgT/rIBIOpNBF1oB4tw+IbopnJBg/VsPV8HX/8dZYAb
+	 HL8XWt2ueequx2XfSqj86ScILXfC0dPZHSIuOktG0LPG4E28mzjm/5HHSakoybrqa7zGp
+	 GkcoCU/M1KeUV7caSnS6/lQRKu7MJO0evagHlI7dDNrp1rWgRMB08CXiAHiiOuATxMCNH
+	 ztNYAAkRrqC5+z7YA9DxoeGsMBan+/ul9/+QZsEzGJVkiJFhCXW4qjunnadfu06PiKwGW
+	 2sOB7CzH9H21T8sKOoy4obSEd8TUOHBfuPcbikOJ5qdp1ReUU0m1Wsp3J6tmA3FuXwA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
+	dmarc=none header.from=kylinos.cn;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=kvW1+URm;
-	arc=none smtp.remote-ip=209.85.128.51
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+	arc=none smtp.remote-ip=74.125.82.46
+Received: from mail-dl1-f46.google.com (mail-dl1-f46.google.com [74.125.82.46])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79AD7606A31B
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 03:53:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 79AD7606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6C5A606A324
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 03:53:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E6C5A606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=kvW1+URm
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a20a37703bso194555e9.1
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 20:53:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792641203; x=1793246003; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=YTwXX/e+2q2uxgf0ajbM0Q4u9v6L0C35gNVhAj4Ee6k=;
-        b=kvW1+URmU0ECHNTcv+pAMwpCdKdf1Ev/KIEfNw0Svw7ZNxJkwaQttbnsNLEF8cufJE
-         7uOv2ivfFhtzOxA4dncYRkG0mF8zw23nUyVhYh5QzZZwoa13L6X5o/LMdnjjmYyyELRD
-         RxwzrtF3BEWvUMjCeDyicRIj1d0ITNxhC1qWwqWLJsUbfZiAJfc/o0shHWZY7P3hPk61
-         G+4xid8lr/mX/rPe/8re6vBh6FdFz74g1n6wQMubjBswqnChcWqc6TC67Ne89ezpmmea
-         wYD71w8CoIRhTIOX3W0sAihcRhQ3gW1pS6j/JAO+rNAgNRqYJsRLP8CQE45fazRb/QmO
-         RotA==
+Received: by mail-dl1-f46.google.com with SMTP id a92af1059eb24-15943c9c005so1681505c88.1
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 20:53:25 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792641203; x=1793246003;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=YTwXX/e+2q2uxgf0ajbM0Q4u9v6L0C35gNVhAj4Ee6k=;
-        b=Q+rske1tEzwlT3HjP5jZajGA4ncrgpAkDYakAZhUU7NoQJmCh/OXqYJ3kapcSavG5L
-         ffbdw2y+pJMANayXYGeqcmM+SRXZ441IPL4JPE6SC/soekYhNFfIeL63Od4IfOfHSpo+
-         TcKrGwuJKyFoPEaArGEsCFw0QO92yZvbaaA4VR+X3Y62YMaIKoDVupYiKmzfYKcMJ5e3
-         Ec3EyqvW91tiMOhScnLHyz1emDNcsG6RK45FTk6OSmlpSVn+kDG53DTZZVZkeR0OXplk
-         HvSBe8iaB0hKN9HYBKWIaWkfIihlwYequ1XA1Bq20f273lpbCoNFqG6E1KCce7DkytFk
-         zBsQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwPMFKm+fT8biPp8IQ22c+8ffDSCPGa8Q6hz49T9T6674+njmH36pBX7pO0AbOVVoL9hV+pkXHIDJh6glY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLYIz9vsh+wM+xlP1SP/VjIxCk+F4vVEZEKgi3JsnqtXuK4cqVk
-	FVnTwTulZgiwZv9dxP+mbQPCd905Xe1uDT1PNnk4PK9HTosVsvh4eLCT
-X-Gm-Gg: AYBFou3d3E8AwqUEvbjFT2qg0YY/D/NYps+E1pCMWhYCyNVVICmjlg5PJOVPQxMuACY
-	v71hPnt6PtkTAw1cS4ldSyiF4nt2aZ0gD1PTFEylW2XpGVWbRkzzF5yAnhHGVZSl5oRdV6K9ttg
-	Vq6vhTt4ytkYJop3Qvm8acexztodsuipJQNLnpcrtD9muwqdKrs7miolE8+elQ8nKHWiIINMTcb
-	FM0WHtk233FbDONu0fNIqvo7PHFYbyIaA0xTDiXrhfMWX5Jg3r3uCElFMCRmvY6eWGZF6KAs/SE
-	uiPTO3zUpGIXpOPCgNlZY2u82zLFqBl485A6S1xz2BqWFC/A2qyfVVs30CskfOfCgaYfaI7MLqS
-	97kMIASo0t4IMB4OAznSM4cqWee/T9ShqeKrPV2hNJto/ffftnd9/RERBhneebdXzq1z9WkKeN/
-	Su11P//IL8NJ6926c8+biTgRh1G4BNKsoxdl/AXcVZL1Z9vGIOX5cBt+D1kG22qhetuz0dl7M7f
-	uDR2SEg8SKgUMM9r7tBHe4N+7aqgao1D7DW2E5mU9Hw19xgrYtThSPhV8tbw4hk8iECtw8sPBS3
-	aLc8I/BnxjH+DK8OPEQNImQWsOX8BZduWJ99JiHXrbuoPaT+IkA+QA==
-X-Received: by 2002:a05:600c:4f53:b0:4a1:ce33:1536 with SMTP id 5b1f17b1804b1-4a1fdd20d2amr83625905e9.9.1792641202626;
-        Wed, 21 Oct 2026 20:53:22 -0700 (PDT)
-Received: from SurHub.localdomain ([102.213.69.52])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e258426f4sm9507239f8f.54.2026.10.21.20.53.19
+        d=1e100.net; s=20260707; t=1792641205; x=1793246005;
+        h=mime-version:content-transfer-encoding:content-type:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=AYxNwlYjoI2/uyAaF5PFCrzANhHSTAvl+pCJ088T5bY=;
+        b=tw2gh+Dw2X8iN0YGMYpH/hJN35l0dgeRALSqyS6A5XhztqSLv4iraKc+tgpGJYXgdN
+         f0RnjzkB3p1I4di+AYIxWVF0g76H0hEux8XSvyvIMcVnula1kLPpmtvXxl8ZGVSZyyD/
+         Imm8xHhPxfjGOM18rrGQ1HcyT1J5vEm8hidOuek0sqbgTiLB/mo+S2ilXVDcCfXZ28TS
+         TJMerskqybQszIWPMOr7oUdOHZB5O6WnENv1pUSw2eoO9lGbXwWvzFYpPOhyCENgnAUH
+         MPnpPxp/z3XcNa1kLptPs9AfG2IRYWHh5FSvOs6LP2BUEeAW5yJVeMoqR7te0pMPRNX+
+         LqnQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwn5bSj906rfiYjsD7dMH4XmkecB2Rck4gUvdcjKU0MG7lHvCPBZoU86QntuwYvnIkmpOkr1abBGBa8V4I=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKzKJ7u91fzbUmmGGO1D9e+yggFlPwZv2yYJPb5ug1NEnnbis6z
+	wBUCtUdaLuYUcq05ahcp6D16TVf2th7PEQrFgHI1FaFiImYrH4XtyZmp
+X-Gm-Gg: AYBFou1NTa4vvRXCsFiF5ZmFmdKTB7tzwn9FJKY6/i4H6BaNJzfF5tm4XjNH45ORZHB
+	z13NUOwYCRr1SsXfVXFNXQkU+1drTj0OKuxPqF8PzVKvd30EIcNHqGlEF7oeYz6cjeWYG3eCvmG
+	PLOFLeChBq9/XTrfh/FFhj8UMOHxvJqSZDr4IilEV9GFJjwKeLtFsve9Rl5m6Ly3CG3oR9USe4Q
+	nW4SRopKoWsQwI1MMskAcsQzehJq5CbzlSOadbnZrVIy9cqSjWl2Uvs5m449izI9tquceH/ACM1
+	+B3GxSFtYRWX5E1YdTH5EGqEyHARBknQjJd+8qert/JH67Wvfs9FD1riuImE7Bo5az1F3uvboHu
+	9vCQOacfUED2/Ulkr/ND4B+pEFzwAY8S00pvB52A0Hv4ZAZJ+2yM2WnQrI7WEKD2s9ac6lSOwdz
+	vKWtJFjG9AmBVeTx4oSSfXqWa4AVOjcLKA4PLwj7zXZEJAaT7a4BpID7NCgKd/LjFZQYGzIi0Iz
+	nPFCCzqof+P+zdlBKY+PSy4d7816a40jQ3tA87cagrwQNjWu5kUGvObUY97HdFv7xJzoRgYLvju
+	9hdNVtZOjiQFBWkRxn/Cb0GA8PFY5j87dnAV95bDp9W4EH0j75Vtb21cRUA=
+X-Received: by 2002:a05:7023:a5a:b0:143:6080:668f with SMTP id a92af1059eb24-190a6adc7b9mr4481368c88.7.1792641204525;
+        Wed, 21 Oct 2026 20:53:24 -0700 (PDT)
+Received: from 1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.ip6.arpa ([185.220.238.36])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1903e02901fsm10979489c88.22.2026.10.21.20.53.21
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Oct 2026 20:53:22 -0700 (PDT)
-From: Abdifatah Suruur <suruurism@gmail.com>
-To: linux-cifs@vger.kernel.org
-Cc: Paulo Alcantara <pc@manguebit.org>,
-	Namjae Jeon <linkinjeon@kernel.org>,
-	Ronnie Sahlberg <ronniesahlberg@gmail.com>,
-	Shyam Prasad N <sprasad@microsoft.com>,
-	Tom Talpey <tom@talpey.com>,
-	Bharath SM <bharathsm@microsoft.com>,
-	samba-technical@lists.samba.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] smb: client: reject short SESSION_SETUP responses
-Date: Thu, 22 Oct 2026 06:53:14 +0300
-Message-ID: <20261022035314.17801-1-suruurism@gmail.com>
-X-Mailer: git-send-email 2.53.0
+        Wed, 21 Oct 2026 20:53:24 -0700 (PDT)
+From: Hongyu Xie <xiehongyu1@kylinos.cn>
+To:
+ Greg KH <gregkh@linuxfoundation.org>, Alan Stern <stern@rowland.harvard.edu>
+Cc: linux-usb@vger.kernel.org, Oliver Neukum <oliver@neukum.org>,
+ Hans de Goede <hansg@kernel.org>, linux-kernel@vger.kernel.org
+Subject: [PATCH 0/3] usb: core: fix three use-after-free windows in the USB
+ anchor protocol
+Date: Thu, 22 Oct 2026 11:53:21 +0800
+Message-ID: <179264120148.17277.68253767316647311@kylinos.cn>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,91 +82,100 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-smb2_check_message() accepts frames shorter than struct smb2_pdu when
-the SMB2 status is non-zero, before the minimum-PDU check added by
-b4694f269e66d. A 64-byte STATUS_MORE_PROCESSING_REQUIRED SESSION_SETUP
-response is therefore accepted even though it cannot contain the
-SecurityBufferOffset and SecurityBufferLength fields.
+Anchors are usually embedded in driver-private structures, and several
+anchor API returns -- a non-zero usb_wait_anchor_empty_timeout(),
+usb_kill_anchored_urbs(), usb_poison_anchored_urbs() and
+usb_scuttle_anchored_urbs() -- license the caller to free that memory.
+The wakeup protocol backing this license has three windows in which a
+URB giveback or unanchor still touches the anchor after the caller has
+been told it is unused:
 
-The parser then reads those fields from stale bytes left in the reused
-receive buffer by an earlier frame. With a long stale
-SecurityBufferLength, decode_ntlmssp_challenge() copies up to about
-64 KB from beyond the receive object and sends the data back to the
-server in the NTLMv2 AUTHENTICATE target info.
+ 1. The waiter's condition check and the giveback's suspend_wakeups
+    decrement plus wake_up() were not serialized, so the waiter could
+    return while a giveback was still in flight.  Reported by syzbot
+    repeatedly since 2019; patch 1 references the two reports this
+    analysis is built on.
 
-Reject short MPR SESSION_SETUP responses before the short-error path,
-and validate SecurityBufferOffset + SecurityBufferLength against the
-received response length before decoding the challenge.
+ 2. __usb_hcd_giveback_urb() captured urb->anchor at the top of the
+    function but incremented suspend_wakeups only after DMA unmapping
+    and the usbmon hooks.  A concurrent unanchor could empty the anchor
+    with suspend_wakeups still zero, so the waiter returned and freed
+    the anchor underneath the pending increment.  No syzbot report is
+    attributed to this interleaving; it was found by extending the
+    analysis of patch 1.  Patch 2 folds the capture, the increment and
+    the unanchor into a single anchor->lock critical section.
 
-The ordering bypass is not new: the short-error early return predates
-b4694f269e66d, and the unvalidated SecurityBufferLength read predates
-the 2016 raw NTLMSSP split in 166cea4dc3a4, so all supported stable
-trees are affected. Reproduced on 6.6.87.2; the path is unchanged on
-mainline.
+ 3. usb_unanchor_urb() and the giveback read urb->anchor and only then
+    acquire anchor->lock; between the two the anchor can already have
+    been freed.  This gap is as old as usb_unanchor_urb() itself and
+    cannot be closed with a reference count: the first dereference of
+    the freshly read pointer would have to be the increment itself.
+    Patch 3 therefore turns the wakeup protocol into a lifetime
+    protocol: the lockless anchor reads run in RCU read-side critical
+    sections, urb->anchor is published with rcu_assign_pointer(), and
+    every return that lets the caller free the anchor holds a
+    suspend_wakeups pin across one synchronize_rcu() first.
 
-Cc: stable@vger.kernel.org
-Signed-off-by: Abdifatah Suruur <suruurism@gmail.com>
-Reviewed-by: Namjae Jeon <linkinjeon@kernel.org>
----
- fs/smb/client/smb2misc.c | 16 ++++++++++++++++
- fs/smb/client/smb2pdu.c  |  9 +++++++--
- 2 files changed, 23 insertions(+), 2 deletions(-)
+Patch 3 changes contracts, stated up front:
 
-diff --git a/fs/smb/client/smb2misc.c b/fs/smb/client/smb2misc.c
-index 5e5cf92d1..e107d4e79 100644
---- a/fs/smb/client/smb2misc.c
-+++ b/fs/smb/client/smb2misc.c
-@@ -225,6 +225,22 @@ smb2_check_message(char *buf, unsigned int pdu_len, unsigned int len,
- 		return 1;
- 	}
- 
-+	/*
-+	 * A SESSION_SETUP response that asks for more processing carries a
-+	 * security blob and is parsed as a normal reply. Do not let the
-+	 * short-error path below accept a frame that cannot hold the fixed
-+	 * response fields; the minimum-PDU check later is unreachable once
-+	 * the early return has accepted the frame.
-+	 */
-+	if (command == SMB2_SESSION_SETUP_HE &&
-+	    shdr->Status == STATUS_MORE_PROCESSING_REQUIRED &&
-+	    len < smb2_min_pdu_len[command]) {
-+		cifs_server_dbg(VFS,
-+				"SMB2 SESSION_SETUP response too short: %u < %zu\n",
-+				len, smb2_min_pdu_len[command]);
-+		return 1;
-+	}
-+
- 	if (len < pdu_size) {
- 		if ((len >= hdr_size)
- 		    && (shdr->Status != 0)) {
-diff --git a/fs/smb/client/smb2pdu.c b/fs/smb/client/smb2pdu.c
-index 5d892300d..f276acf7b 100644
---- a/fs/smb/client/smb2pdu.c
-+++ b/fs/smb/client/smb2pdu.c
-@@ -1857,14 +1857,19 @@ SMB2_sess_auth_rawntlmssp_negotiate(struct SMB2_sess_data *sess_data)
- 		goto out;
- 
- 	u16 boff = le16_to_cpu(rsp->SecurityBufferOffset);
-+	u16 blen = le16_to_cpu(rsp->SecurityBufferLength);
- 
- 	if (offsetof(struct smb2_sess_setup_rsp, Buffer) != boff) {
- 		cifs_dbg(VFS, "Invalid security buffer offset %d\n", boff);
- 		rc = smb_EIO1(smb_eio_trace_sess_buf_off, boff);
- 		goto out;
- 	}
--	rc = decode_ntlmssp_challenge(rsp->Buffer,
--			le16_to_cpu(rsp->SecurityBufferLength), ses);
-+	if ((u32)boff + blen > sess_data->iov[0].iov_len) {
-+		cifs_dbg(VFS, "Invalid security buffer length %u\n", blen);
-+		rc = -EINVAL;
-+		goto out;
-+	}
-+	rc = decode_ntlmssp_challenge(rsp->Buffer, blen, ses);
- 	if (rc)
- 		goto out;
- 
+ - usb_kill_anchored_urbs(), usb_poison_anchored_urbs() and
+   usb_scuttle_anchored_urbs() may now sleep even on an empty anchor.
+   All in-tree callers already sleep (they sit next to usb_kill_urb()
+   calls).
+
+ - usb_wait_anchor_empty_timeout() returns 1 on success instead of the
+   remaining jiffies, and a successful wait -- including one with a
+   zero timeout -- pays one RCU grace period.
+
+ - The cost is one grace period per successful teardown exit.  On
+   x86-64 real hardware, 100 consecutive successful waits on an empty
+   anchor cost 3.1 us per call on the base kernel and 8.2 us with this
+   series, about +5 us per call.  Callers that wait once per batch
+   (zd1211rw) or tear down several anchors at close (btusb) pay this
+   per anchor; it is small next to the URB I/O these paths bracket,
+   but it is the price of the free-after-return guarantee.
+
+No fields are added to struct usb_anchor or struct urb, and no driver
+changes are needed.
+
+Testing:
+
+ - A QEMU/KASAN attack harness reproduced each window separately
+   (deterministic arming for the two giveback windows, a forced free
+   inside the read-to-lock gap for the third) and verified that each
+   patch closes its own window with zero reports under identical
+   pressure.
+
+ - The full stack also ran on real x86-64 hardware with KASAN kernels
+   built from the same base.  The base kernel hits every probe: both
+   deterministic windows fire within 100 iterations (hundreds of probe
+   arm hits), and the natural-race variants hit within 2000 iterations
+   with no arming at all.  The kernel with all three patches runs the
+   identical workload with zero reports -- the attack still executes
+   there, its probes arm hundreds of times too, only the windows are
+   gone.  The zero-timeout contract probe (empty anchor, timeout 0)
+   returns 1 as documented.
+
+checkpatch: 0 errors, 0 warnings for all three patches.  Patch 2 keeps
+one CHECK for an extern prototype in a header, matching the prevailing
+style of that header.
+
+Signed-off-by: Hongyu Xie <xiehongyu1@kylinos.cn>
+
+Hongyu Xie (3):
+  usb: core: Fix use-after-free in anchor wakeup protocol
+  usb: core: Close anchor capture-to-increment race in URB giveback
+  usb: core: Close residual anchor read-to-lock window with RCU
+
+ drivers/usb/core/hcd.c |  10 +-
+ drivers/usb/core/urb.c | 303 +++++++++++++++++++++++++++++++++++------
+ drivers/usb/core/usb.h |   1 +
+ include/linux/usb.h    |   7 +-
+ 4 files changed, 277 insertions(+), 44 deletions(-)
+
+
+base-commit: 22430ae5d90ab288b0ee2ad99ae941f4a666b694
 -- 
-2.53.0
+2.32.0
 
