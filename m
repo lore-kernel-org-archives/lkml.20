@@ -1,95 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792702451;
-	b=w8cqMwjPYVERJ94L05gP+gUDnTUba9AwGXx+4EUsXPfrv8/80F/L1NRDsaTxLqTn2f+w
-	 KGVQtK0PQfKCHw5CQYqY6eCHonPqhFicgvHV8VSI8Y/PM0tp3CQRe9O3ybFqqogTBdQIZ
-	 FSjwthkHuCcAirdYO7EodVYWMlg6929mtXG4nC5ty1bybpB9ZNxgW7rtgnM3L218gmgWT
-	 64XGAhC9YoMBvlLr1BiqWmnxCHnI34ETddnUfRea3N6vtIQA6XhI0WKU88EDgHo48JNku
-	 +y3wDA+RJDOOKyfvKBS3u4dR7DCdAaKiYED9pM75EV6l+m+w4XtC4qta6QaRL8gRhMw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792702451;
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=209.85.208.42
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1792702448;
+	b=iVMApOtB7saxB1eW2Sr6QkRqBXr8OzJBCCXXHQ09nRQ1F28J+nqcL/vlDe9WO/TL+khk
+	 KpN9kepHTyvPA28iuDb1/RcoGDJA76Z3+sTQihDPpzfw3FPCMEUcvB0/lpk3LATxznLCc
+	 mdGMzN5s0IjTzUK1jsPSaGtQ5Y0oaD3m8F7rs8j7aB2y/3NCbi9UsAtMFr8gQBEhwxStz
+	 OQBMVGLhchpjtpdRKrDcMaxmRDVnoeVgXa2Cq2pkJ3nDIIpDC3ZjF2v6qvcowkS2bM7mD
+	 bXdLjHEE5QdOvVqSH3sRClpP/+vDea91Pf8LeO59UDFpyjEQ9furDkEHZzNIO/+blfw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792702448;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=AE4c8qZkLEuD3bWD68hYum0BC77PeC40PBLBKrUJ+TQ=;
-	b=emZUugIHKp0B7Z2Nv7m9Swz3jtf9u3GdmdKTUtKAD1owKkFMgdcieDKQgc0cnvoecpHO
-	 2n2Vb908i+vQIttfmB/Ak/FqTl0pTCR6Q7RKK398cM6mbV/I8M0M4LBXh4pB+GRwX9Lvl
-	 flfTkD4JCJnqd3EI9LZnmpdSlCUa4cF+Y2TjCrY79X0X52SkJumlmVwdDiB3T9GkFCiSt
-	 +dQIkaA27nT0bGvBT1bCsUF9tibBKdD7AIzTL7HULe1Un6XSZp1iDK3BToZitsr6j93xK
-	 twGjnILIcdzQ5J7RWlcANLA/zjtmJRHHc+V33P8ZcASbuq0xjvEkilTSlqs5Ks5GFrw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=n8WRq1XS;
-	arc=none smtp.remote-ip=209.85.128.41
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=q7AHGxYo2F1tyAP4/knTgDUev2PNwFvE7RNfo85FnlQ=;
+	b=sYgJXDUp1+izk5zfRQZHl3b3TyAl8YEtmgxi+dpBuCJyuDpB+geI9lNX8bsay45dbKOl
+	 YR8WRNImWbhFhH8Uu5rX6cqDD82jXQ1Sahs4ilgLXe9PBuLyrc+o05//2HS3U8B35lsnd
+	 LMbYjwO+jVzSsbbvOXv6LKqvIPWPRcN4Fb2Cr4lVXt3BvOuhp2qIhOX4jKInEOQIMoJ7H
+	 WuOsEqJI4zYNhiV62QvCHJf9wtH9DIqU3ZhOF/uzMfY8XZcVE3Lo3q9zMKJOpvOWfLVbD
+	 RtfhAlsVauCfck5NU7tZScxiAAO67LMhEUf5Z4aCIaRxL+yKorEA4wJq2h/ciXUIO8Q==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=soleen.com;
+	spf=pass smtp.mailfrom=soleen.com;
+	dkim=pass header.d=soleen.com header.i=@soleen.com header.a=rsa-sha256 header.s=google header.b=LgLPlGNx;
+	arc=fail smtp.remote-ip=209.85.208.42
+Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com [209.85.208.42])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53C2A606A31D
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 20:54:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 53C2A606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBA9D606A320
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 20:54:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BBA9D606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=soleen.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=soleen.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=n8WRq1XS
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a20bdaf39cso2489645e9.1
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 13:54:10 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=soleen.com header.i=@soleen.com header.a=rsa-sha256 header.s=google header.b=LgLPlGNx
+Received: by mail-ed1-f42.google.com with SMTP id 4fb4d7f45d1cf-6b1a86c0316so251495a12.0
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 13:54:07 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792702446; cv=none;
+        d=google.com; s=arc-20260327;
+        b=UTMj5+WGZPr4Ka9rEbVpm5F++NJY4AEdcxK4ipwsXBlEiaYho01i+FOLuIxUhJbgmT
+         N3vUZ0vEGO4APuEGc4Iu9SbhzNnG5k4YoKuKQ9Jc3dl2SL4QEUlZ2C+G6Ccl8/eun8ut
+         Rhnf4gwXxykiddS2pZQ9Oi3L0B642D4C7neItiV1yVGACJVLvmHZ2e9kUBPuusULHXaE
+         bnEF/+y2YmuZXsz6ezIoAsWaV27x5bhUp3CjqoQ4/wOs/kbQ5k3RvhWKN3KYhi7ZWfT3
+         Go8ha7Ny+dDDFuPCC3GiVg7MQ6TYI3HEMxizBto+8YzB0napuWHm0td4Un9lXYVEnjCm
+         bydQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=q7AHGxYo2F1tyAP4/knTgDUev2PNwFvE7RNfo85FnlQ=;
+        fh=LkVPupS0drKYefIQf+G1DSPZAoJF174UqO0Eu4lDJdo=;
+        b=Ewb8q3xDHTkKbwqBPMEgGgzz01Kg2YjyvSWS8D1f+nRvFlKIvg873Hrk0W51Xbky3Y
+         cgYUBBLCbrU9/t1L5FSRVsYnumxQgMPDx6AQg1Ga1UrUJfDLZoSMAYc9XZmTI8fFMeZP
+         22RPYzXazlQlPkl1qMmd0UzSxeENgCCmJTlRVeqosRzHyQMMVL72GoJhykbnX/ytg9eQ
+         QlnVDGezQfyzNW158ExWv55bELFV0kZ149ka6baek3eu5wr6d/A+l0ADDR8fXQ8VTqwP
+         2q7eaWIyOrQjjnUXpKgnWS4W4qEcIoZrXxTjw9R7uyxgJugPfkT/RAaj6c8069SxSmw/
+         zNbw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792702449; x=1793307249; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=AE4c8qZkLEuD3bWD68hYum0BC77PeC40PBLBKrUJ+TQ=;
-        b=n8WRq1XSfUOhSWeOAVM9FBBn9wnnCTDxt+vRKL19Wv/i1SBQ2McGoHY4n8yI6MOSJd
-         lklpME1hgegMqCIDW+BZQqoHllUddxCvRRTetV5ZDxU/aGGO4ocMyaG8aZ4nhK8gDAU9
-         mG2TeU+VOnRhjGR+IV3PDyOu5gKa2GYouwWviOefXS+BO9t3lMH/JEsD0YFY3YU+2V40
-         3UwudxtvrOXqWEpquXu+5+DOKqmjD96Ewsm5pHtmJqVRHAqOxuAZ2xRA/BBdkuV+1hb9
-         16H23SqYF/dCcVz1Lmw9LFaeEM7tYjU4wispXe4aLQI96rAzqiracV9LSPKsnwIXPkTd
-         K4gg==
+        d=soleen.com; s=google; t=1792702446; x=1793307246; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=q7AHGxYo2F1tyAP4/knTgDUev2PNwFvE7RNfo85FnlQ=;
+        b=LgLPlGNxToMEl/ridbTJTA9mcX1vYVoh8xUituNiM0UbmUD0nXff79LqiFdiLv8de1
+         Kox6RiUxupB1lujhPIT3B0aiITEpEk6N99NPSjkfPJWhzcuMkVFpYQev6Cg+PztUZXBV
+         VlvxMQJk9EfxWnEZI74hJP11wV8xjmiVEOOF0R4/yJ4lgucsrpfm3oRJEqSwn5bMjLNS
+         EuGPsCH3c+umjsomEkN5X8f9bsvlArA/yy9zhQlko7rg7KGq2aUfMmIoIZWh5IhC1Gzk
+         Lf9qNByAGhaOolLCRMCievViqkndKOL7DUWmCft43w+LenxcxtqlDQv796K2pUbSc+pQ
+         rtbw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792702449; x=1793307249;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=AE4c8qZkLEuD3bWD68hYum0BC77PeC40PBLBKrUJ+TQ=;
-        b=O+1xyCzOQoMn9Xw0nMfVPyx61gwCJAWqzG1wcEvlMefOjZc8/QF2jDJhDPsWugMA5V
-         TgSdnGk4CRWbpVJlG12QSQLF/nhBYD19Jx3+iaoZv+BxGa1rvOpzLqonHSHJkhKVrcYe
-         iFiFyaeMuIB7uyBE48IKLZsnyJ6cCeeBDSzws/GYhQCQHhEdJfk3F61ox8SbKgavH9dl
-         U1LhbueetUgKBCW7AbJ95As/jflQpSSUxj1Z6St0f7erY6NOea71RnbUwTv82QnDAg0C
-         Wm2OSfDrJzdm8q5GLRagxs7Fp2N88ZUNPmGCJ3OU6TITiDh/pRgAp3UHAa7RkzSkUt80
-         QG5Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxHmkoh43Sq4fBU3NapZ4g9XbzOnx+Rh8ioJVOZRdgN0Tu6lj1JlMa+A29u2uH1Ey2wDpIgQ7Ai7GQGsZk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJzSDe39MjshbdVhfLfCvOWxGuz27v8TZna5uVc1GE6p1XlZAKr
-	QDlfbqlJHHJx6c0WTQPkiwuQ4eY92e7r8s4NkAL8WmYlmPrtDyFIIGwsreZdaQ==
-X-Gm-Gg: AYBFou3jkKc+B0e7haR5451/kehD6Pg4/APckZy0jQ/J7BzgWCPtk2qM0eHZmnvCu3W
-	JFGtyVkAYjTW6JDRV0C781HitjuEWNWvvoloWmc+iWDNTLutiUNyeqs/lMvMMJKO6h0lX942bjS
-	OwGYwDvg1qN4uy4+0lmSMxqo/H+Il3YhTiqqab+hRVqyXjqRACFekABwDXVk59JQYYsquapnnFl
-	zu8YH57By3r0g4GliMBJnWOogg+JqMOI2Px+7xjl4HIOgT8nUlxjkzHIAVefa9dRkLlfdmG1mnQ
-	X67Vf9lHZcytm0NuiurS1U/qB6Qgh841M53bgnP0YdqVQ9m/zhWK8UYbt7T7F+0fFGPBOLzpR/k
-	dZRwuDS7OnxgxtfNW7MEsPTSpP7ed0ifNmiB6zoxZzuu5JdOK9iK51eEwJDoK6mU1myCu1DqajV
-	denZRpLlCDhqqsEHizqK1TUHQ01a512qHKMN8mbZa5eqyK6Jcv1vZfnajMDnjMh/ulBkDxc6Yrz
-	oA148e5ngkldh8PsoBS9r6SgdeVfQuXSts8EJyiD+sQu0vvXvCQ//zw8WWPfqpjrVO/KpyYo/bL
-	UfjQBHNJW5RIJjHEcWk9XmG4gPLaji+pFoyaZSrk
-X-Received: by 2002:a05:600c:e558:10b0:4a1:d8fc:8165 with SMTP id 5b1f17b1804b1-4a211ce42fdmr2054815e9.20.1792702448539;
-        Thu, 22 Oct 2026 13:54:08 -0700 (PDT)
-Received: from dohko.chello.ie (188-141-5-72.dynamic.upc.ie. [188.141.5.72])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e38025d82sm431076f8f.16.2026.10.22.13.54.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 13:54:08 -0700 (PDT)
-From: David Carlier <devnexen@gmail.com>
-To: Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>
-Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Lee Jones <lee@kernel.org>,
-	linux-trace-kernel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	David Carlier <devnexen@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] tracing: Drop the synthetic event ref when clearing hist triggers
-Date: Thu, 22 Oct 2026 21:53:16 +0100
-Message-ID: <20261022205405.1228742-1-devnexen@gmail.com>
-X-Mailer: git-send-email 2.55.0
+        d=1e100.net; s=20260707; t=1792702446; x=1793307246;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=q7AHGxYo2F1tyAP4/knTgDUev2PNwFvE7RNfo85FnlQ=;
+        b=AybZ/fSoqtoDLZhpkls1Xjir9TZe3r3XWfNycVqafCxKZUXJiA0hS79ybMkqw0GHNW
+         Ng2SCeRJqMdqc06L0ko9u/6lZN//mTTMbVhq4JqIW68RGZJdK8joDqIbHVwl9HN85Bi3
+         Vp9h/o/RVRwOkqhzlgVmWm9BSDvh6FVOKcfmfKjpm+epWCGOpFU+XZ68xsLIhx84T2Vb
+         gf/j7P3iKbg51S7Btx9XBwkq01JCNPgQof/fHlKIj+0Pee7wELGQQ4vctHR1a8+nVAv5
+         Fes+aKEaH0MfWlh+1R2XXbxOuyPoyeSiWdlT2KZ1iDodi0H5l5Ms/zKW4vFrgu5Ywnjr
+         Y/FA==
+X-Forwarded-Encrypted: i=1; AKwUvBxTFbwkfSDTD4NvhItqM/GLmgnp2hOKDXw2pIAJDJL/aqbfp7n0CtV2E9PRVol+0MnU0af8qo2IxOwHgzU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ69kHX7s0Hjxg/HZnMhk9jZx28OrX7Dwovqyv9QCn+7qBxy3U8
+	aO75EUI75d0vueVRwm7cuYvUlRGZ3nmAf+E1tq2hRR/ZLg0nsJ9tUbv3jV/Zl+uZt+uiukMaOwM
+	AAcRM007xWfJvPS0K/8XixD6WWuwcL17s1rsbikno8A==
+X-Gm-Gg: AYBFou3EGCB6EGdndNSl7FVWrgT1kC0eWmvE/Cc/V8dcx5YedJdR2o3aA8ud3uz/CVb
+	iGV3lpTkQIplCBlLuNMJDni0QiWs7d1gt4WUeaOrbr0qo0IQYpV5Vwfz3xI55dHs+v6mxOSvZaW
+	TRs/j0DULZ+/jN/L9onifmsIguU4HyxZb/qsGYL7B/AYkqCG6w9bSMwY7Br7Ci8HEeE8nmKVgIX
+	h8V+94HzEvng8rLD8yqXYPE6bZkTHOI84m+y68g3dvwYZwZntiheuCvxi77xBuemWyCunP2BJna
+	gI/v/OvfQTgv/JHDTx1SHOOky01Tmf7WRsaHjzaJJ2I2l/brPClAf4NXK6LdKomHgTWR2R6fdA7
+	8eNugm8yUY8rzKLhzUkU2lXKsKdMxrb0rPLOOj/cP3BhnRX2cwzU2UQiF7LxImw23PuGZ
+X-Received: by 2002:a05:6402:321c:b0:6b1:c299:b3f8 with SMTP id
+ 4fb4d7f45d1cf-6b432c1a486mr859420a12.33.1792702445990; Thu, 22 Oct 2026
+ 13:54:05 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,103 +104,200 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <CA+CK2bAQbmq3ArP3XMErF_8RC2CUwvgpLY0H83D0nCJTaVKYyA@mail.gmail.com>
+ <9huzecdi6go0.fsf@tarunix.c.googlers.com> <CALzav=dLdJoVy=B1pv0FAurD9OhAzLSTjJNbtjTdJRmSqaB0yw@mail.gmail.com>
+ <CA+CK2bAQRMAEXZyHTEuUN0_Fo59Sn0hBmYbme_J9ewjx6gPyJQ@mail.gmail.com>
+ <atlKsD-aJB3mJr2j@google.com> <CA+CK2bABt4OZO31TenVF2+uBUWVwViWbvfE00=0xbAw=f7K9SA@mail.gmail.com>
+ <atl7peoVHdP5hz7z@google.com> <CA+CK2bBFXnJA1kddbLKGq0DAHDgjYhsTSQQay-xeX7jJC1V_UQ@mail.gmail.com>
+ <CALzav=e=ho2gVrn+7KpZ3ZyasvH2u15-pC-RSRSS7KcMfKqUJQ@mail.gmail.com>
+ <CA+CK2bAJo8dnTOyKMgnnMnk-SCXbTsv+JCLEOWkjyj-wqtEkHg@mail.gmail.com> <atpNFEFIlqAoYIwH@google.com>
+In-Reply-To: <atpNFEFIlqAoYIwH@google.com>
+From: Pasha Tatashin <pasha.tatashin@soleen.com>
+Date: Thu, 22 Oct 2026 16:53:28 -0400
+X-Gm-Features: AclHuK_o-bcMo-_bEmG9OJEk39HO6mWdZ96jtolFahfwsqDnw1LYQXgLWQ4gcJk
+Message-ID: <CA+CK2bB2C3Am5ssRuzYpfiU7_vB81vxMGc19HQLq7N=_7YrbTg@mail.gmail.com>
+Subject: Re: [RFC PATCH v2 3/4] liveupdate: Replace compatibility string with
+ a 2-bit pair feature header
+To: David Matlack <dmatlack@google.com>
+Cc: tarunsahu@google.com, Andrew Morton <akpm@linux-foundation.org>, joro@8bytes.org, 
+	Mike Rapoport <rppt@kernel.org>, Pratyush Yadav <pratyush@kernel.org>, maz@kernel.org, arnd@arndb.de, 
+	jgg@nvidia.com, robin.murphy@arm.com, loganodell@google.com, 
+	oupton@kernel.org, kevin.tian@intel.com, alex@shazbot.org, 
+	dwmw2@infradead.org, pbonzini@redhat.com, seanjc@google.com, will@kernel.org, 
+	Alexander Graf <graf@amazon.com>, Bjorn Helgaas <bhelgaas@google.com>, baolu.lu@linux.intel.com, 
+	linux-arm-kernel@lists.infradead.org, linux-arch@vger.kernel.org, 
+	sagis@google.com, linux-mm@kvack.org, kvmarm@lists.linux.dev, 
+	iommu@lists.linux.dev, linux-pci@vger.kernel.org, kexec@lists.infradead.org, 
+	skhawaja@google.com, kvm@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-clear_event_triggers() frees a hist trigger on a synthetic event without
-dropping the se->ref taken by event_hist_trigger_parse(). Removing an
-instance with such a trigger leaves the synthetic event busy forever.
+On Thu, Oct 22, 2026 at 1:51=E2=80=AFPM David Matlack <dmatlack@google.com>=
+ wrote:
+>
+> On 2026-10-22 12:11 AM, Pasha Tatashin wrote:
+> > On Wed, Oct 21, 2026 at 11:53=E2=80=AFPM David Matlack <dmatlack@google=
+.com> wrote:
+>
+> > > > #define DECLARE_LUO_SER(name, expected_size, ext_flags_count, paylo=
+ad_type) \
+> > > >     struct name {                                                  =
+         \
+> > > >         __u32 size;                                                =
+         \
+> > > >         __u32 flags;                                               =
+         \
+> > > >         __u64 ext_flags[ext_flags_count];                          =
+         \
+> > > >         payload_type payload;                                      =
+         \
+> > > >     };                                                             =
+         \
+> > > >     static_assert(sizeof(struct name) =3D=3D (expected_size),      =
+             \
+> > > >                   "LUO struct " #name " size mismatch!")
+> > > >
+> > > > For example:
+> > > >
+> > > > struct luo_memfd_payload {
+> > > >     __u64 pos;
+> > > >     __u64 size;
+> > > > };
+> > > >
+> > > > DECLARE_LUO_SER(luo_memfd_ser, 24, 0, struct luo_memfd_payload);
+> > >
+> > > This looks pretty reasonable but I would name the payload
+> > > luo_memfd_ser. The combined struct that DECLARE_LUO_SER() creates
+> > > should never be used directly since the offset of the payload in that
+> > > struct is only valid in the current kernel. So I would give that
+> > > struct a special name that makes it obvious you shouldn't be using it=
+.
+> >
+> > Lets drop the fourth macro argument and generate the combined struct na=
+me:
+> >
+> > #define DECLARE_LUO_SER(name, expected_size, ext_flags_count)          =
+    \
+> >     struct name##_hdr {                                                =
+    \
+> >         __u32 size;                                                    =
+    \
+> >         __u32 flags;                                                   =
+    \
+> >         __u64 ext_flags[ext_flags_count];                              =
+    \
+> >         struct name payload;                                           =
+    \
+> >     };                                                                 =
+    \
+> >     static_assert(sizeof(struct name##_hdr) =3D=3D (expected_size),    =
+        \
+> >                   "LUO struct " #name " size mismatch!")
+> >
+> > For example:
+> >
+> > struct luo_memfd_ser {
+> >     __u64 pos;
+> >     __u64 size;
+> > };
+> >
+> > DECLARE_LUO_SER_HDR(luo_memfd_ser, 24, 0);
+>
+> I think we are getting close, bu I have two remaining concerns:
+>
+>  * Reserving bits in each flags word for continuation leaves gaps
+>    in the flag space that users have to know to skip.
 
-Fixes: 4b147936fa50 ("tracing: Add support for 'synthetic' events")
-Cc: stable@vger.kernel.org
-Signed-off-by: David Carlier <devnexen@gmail.com>
----
-Applies on trace/for-next, depends on 3403d9bb27eb ("tracing/histograms: Verify event_call identity when updating synth_event refcount").
- kernel/trace/trace.h                |  2 ++
- kernel/trace/trace_events_hist.c    | 20 +++++++++++++-------
- kernel/trace/trace_events_trigger.c |  2 ++
- 3 files changed, 17 insertions(+), 7 deletions(-)
+Yes, but callers should never manipulate the raw flag words directly,
+and we can provide simple accessor macros or inlines that take a
+contiguous feature ID (0, 1, 2, ...)
 
-diff --git a/kernel/trace/trace.h b/kernel/trace/trace.h
-index 0f0786700f99..e108f95fd609 100644
---- a/kernel/trace/trace.h
-+++ b/kernel/trace/trace.h
-@@ -1915,9 +1915,11 @@ extern const struct file_operations event_inject_fops;
- #ifdef CONFIG_HIST_TRIGGERS
- extern int register_trigger_hist_cmd(void);
- extern int register_trigger_hist_enable_disable_cmds(void);
-+extern void hist_put_synth_event(struct trace_event_file *file);
- #else
- static inline int register_trigger_hist_cmd(void) { return 0; }
- static inline int register_trigger_hist_enable_disable_cmds(void) { return 0; }
-+static inline void hist_put_synth_event(struct trace_event_file *file) { }
- #endif
- 
- extern int register_trigger_cmds(void);
-diff --git a/kernel/trace/trace_events_hist.c b/kernel/trace/trace_events_hist.c
-index f39fa8942673..9419edfd1b67 100644
---- a/kernel/trace/trace_events_hist.c
-+++ b/kernel/trace/trace_events_hist.c
-@@ -6756,6 +6756,17 @@ static bool hist_trigger_check_refs(struct event_trigger_data *data,
- 	return false;
- }
- 
-+void hist_put_synth_event(struct trace_event_file *file)
-+{
-+	struct synth_event *se;
-+
-+	lockdep_assert_held(&event_mutex);
-+
-+	se = find_synth_event_call(file->event_call);
-+	if (se)
-+		se->ref--;
-+}
-+
- static void hist_unregister_trigger(char *glob,
- 				    struct event_trigger_data *data,
- 				    struct trace_event_file *file)
-@@ -6811,7 +6822,6 @@ static void hist_unreg_all(struct trace_event_file *file)
- {
- 	struct event_trigger_data *test, *n;
- 	struct hist_trigger_data *hist_data;
--	struct synth_event *se;
- 
- 	lockdep_assert_held(&event_mutex);
- 
-@@ -6824,9 +6834,7 @@ static void hist_unreg_all(struct trace_event_file *file)
- 			list_del_rcu(&test->list);
- 			trace_event_trigger_enable_disable(file, 0);
- 
--			se = find_synth_event_call(file->event_call);
--			if (se)
--				se->ref--;
-+			hist_put_synth_event(file);
- 
- 			update_cond_flag(file);
- 			if (hist_data->enable_timestamps)
-@@ -6941,9 +6949,7 @@ static int event_hist_trigger_parse(struct event_command *cmd_ops,
- 		}
- 
- 		event_trigger_unregister(cmd_ops, file, glob+1, trigger_data);
--		se = find_synth_event_call(file->event_call);
--		if (se)
--			se->ref--;
-+		hist_put_synth_event(file);
- 		ret = 0;
- 		goto out_free;
- 	}
-diff --git a/kernel/trace/trace_events_trigger.c b/kernel/trace/trace_events_trigger.c
-index 4d2fde996c0f..a2487ad7fef8 100644
---- a/kernel/trace/trace_events_trigger.c
-+++ b/kernel/trace/trace_events_trigger.c
-@@ -643,6 +643,8 @@ clear_event_triggers(struct trace_array *tr)
- 		list_for_each_entry_safe(data, n, &file->triggers, list) {
- 			trace_event_trigger_enable_disable(file, 0);
- 			list_del_rcu(&data->list);
-+			if (data->cmd_ops->trigger_type == ETT_EVENT_HIST)
-+				hist_put_synth_event(file);
- 			if (data->cmd_ops->free)
- 				data->cmd_ops->free(data);
- 		}
--- 
-2.55.0
+enum luo_memfd_feats {
+    LUO_MEMFD_FEAT_HUGETLB =3D 0,
+    LUO_MEMFD_FEAT_SEALS   =3D 1,
+    /* ... */
+    LUO_MEMFD_FEAT_FOO     =3D 15, /* Automatically lands in
+ext_flags[0] bits 0:1 */
+    LUO_MEMFD_NR_FEATS
+};
 
+if (luo_ser_get_feat(hdr, LUO_MEMFD_FEAT_HUGETLB)) {
+    /* handle hugetlb */
+}
+
+>  * struct name##_hdr only matches structs written by the current kernel
+>    (in terms of length of array and offset of payload).
+
+This is not an issue on the incoming path, we never cast incoming data
+to struct name##_hdr or access ->payload directly. Instead, we parse
+the incoming buffer, dynamically compute the header size from the
+continuation bits, and cast the payload offset to "struct name *"
+based on the negotiated feature flags.
+
+>
+> How about this instead:
+>
+> struct luo_ser_hdr {
+>     __u32 size;        /* Size of header + payload in bytes */
+>     __u32 nr_flags;    /* Number of features encoded in flags[] */
+>     __u64 flags[];
+> };
+>
+> Each feature occupies 2 bits of flags[], so feature N is always bits
+> [2N+1:2N] of flags[N / 32], with no gaps:
+>
+>   00: Feature not present
+>   01: Feature present, safe to ignore if not supported
+>   11: Feature present, must be supported by the next kernel
+>   10: Invalid
+>
+> The length of flags[] and the header size are computed directly rather
+> than by walking continuation bits:
+>
+> static inline u32 luo_ser_nr_flag_words(const struct luo_ser_hdr *hdr)
+> {
+>     return DIV_ROUND_UP(hdr->nr_flags, 32);
+> }
+>
+> static inline size_t luo_ser_hdr_size(const struct luo_ser_hdr *hdr)
+> {
+>     return struct_size(hdr, flags, luo_ser_nr_flag_words(hdr));
+> }
+>
+> static inline void *luo_ser_payload(const struct luo_ser_hdr *hdr)
+> {
+>     return (void *)hdr + luo_ser_hdr_size(hdr);
+> }
+>
+> and bounds checking is just luo_ser_hdr_size(hdr) <=3D hdr->size. The
+> payload is always 8-byte aligned.
+>
+> Payload structs are then declared on their own, with no header:
+>
+> struct luo_memfd_ser {
+>     __u64 pos;
+>     __u64 size;
+> };
+> LUO_SER_ASSERT_SIZE(luo_memfd_ser, 16);
+>
+> The static_assert covers the payload to catch embedded structs changing
+> size.  Asserting the header doesn't add anything since its size varies
+> by kernel. And because flags[] is a flexible array, the header can't be
+> embedded in front of a payload in a combined struct; it can only be
+> reached through luo_ser_payload().
+>
+> I think the only downside is that the header increases to 16-bytes when
+> there is at least 1 flag. But I don't think we need to be so concerned
+> about an 8 byte difference...
+
+I would prefer to keep the default header at 8 bytes. With 15 features
+fitting directly inside the base __u32 flags word, adding the first 15
+features to a struct keeps the header at 8 bytes and does not shift
+the payload.
+
+Computation-wise it is also very similar: for the 99% of structs that
+have <=3D 15 features, LUO_FLAGS_CONT is 0, so computing the header size
+is just a single bit test with no loop. Even if a struct ever needs
+ext_flags, the loop will walk at most one or two extra words.
+
+Pasha
