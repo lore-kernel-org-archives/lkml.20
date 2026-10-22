@@ -1,98 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.5
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.69.126.157
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792685549;
-	b=hh2SURKWRWCFDQdBfklCW0LZ6gs3ENJd0zg2X6gTqb7LvMishsI13ZX8XkbRpMoxKal6
-	 92XTmsoPbniPC0ujj7dxquV6uuZUfDu580eUd625fpItBvrQcHcSFUQaqnlgI5BM/uHnG
-	 qAfqZo8+Ip9AoLRrfUQBZqGWvspkOrNHjYJf5gXTqbq7ZM2KUbhZrwdjMgu55lwWnRSJ5
-	 rAyKRMhnLFm1wcU8aBJRKvX+fCgdUyptoXsKtLigRbTEiSYipbsNIqZzqwwm6RsHvMCKO
-	 nXpM8MSvxe64eh3Izaoe2xNdc1g1IqaHmUbkYy4FMfYTR2sPS9Ya4JDMgsZUpu6clVA==
+	t=1792685557;
+	b=CL2AqXWDffXNAp1pdUlTYKdZqMB0V6n+C25fYLYn/2ELMJvb5s2H10hIJS2tv/6Vmqrg
+	 dtJxF05CXUod1bXn0WsW8u4lE719O1GXRktnSeQKGJBT3hPEorIGyuO870m2ARtudobwH
+	 HFfbTusJggiCbA4E6O8zokz4r6iNZy0Bvc/z28vT0Vb9wepszCcN6bTnnQW43X/Pr2zbB
+	 cXbUxU8zv3O3a1Jb5OUrj4BNQK4eLE3iu8FNcBo0c2PcyfQN/WoVYpDJRFQfP0ZJVKzeX
+	 L4ilX82+4SGk1RiMf4uAjgl6txQjCbonv0HjNyUUvfcrVWYYxJjolfkItzhA26sGxJg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792685549;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=FnNIQlLfFFXVSafdO2yY3lRoSSpElbFyVxAcoG+LjMw=;
-	b=VTnnBSKiZdCKb8mnvjGKBquIG82gmTwt4ok8fQ5d7NTDiOQnY6MzRY0o9Z0AYHo083Ab
-	 pePNS35QOhakKtfwRFMyiV0uNQbbW42HChMLPa9YocUmJ5fzIDjq3ZA7FbOolsETuegkL
-	 3em0u/vsTTjOoKuebPHnzMObrQFv49TvuZdEPAMSlxCKA8ezGVxD4m7H8qCEc2U8eip+6
-	 urfopeRCC9F4G99YHKALJBez2qB3QMG+ZRemjmBvLudGzH8Vfy/lKsofQNmHrNFOyx8a7
-	 c60DQnxaFffQzeXyEan6K26dZd/bwNlosRHAOH1Nk3QyL6d0gqywRZVekurBA2vJX8g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792685557;
+	h=DMARC-Filter:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=HDnv1IJIP6oSjhDLM6LlHOM5+fMaByUs67f2+ZyjO6M=;
+	b=naK7pFrh53LXhgqfe/tMl4GkH5YPoEGGLK644Hff3FM6BEOuBxRqmJUgWk1LIpnnC7Oq
+	 iYtbWiLe3hJFcWA89Wfqfjs7/g2CTe99zOLrwBR41IDVP+EtcEXwDhi5/6qJHspoFRTY6
+	 3Fea/OKBkG8Fo+bFBwWyNLYRXAroTj6LX7BKQmwgtGxG6DPG/HN4/eLsS52XZBXeXK1YE
+	 WeWngZx+j0PG8KDt69xF6vdG/yD/FhJdu+et4X1JJyfZcJghDY/O5URWOOT+aq/1UzrgX
+	 0SX1Iqw3BlVCYRUF8nlfGUEJh63MNwEmuSnBX4nvyH8loHW2NJw9AI3XgF8++dlSNQQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=oCKBEtT6;
-	arc=none smtp.remote-ip=74.125.229.5
-Received: from mail-dy2-f5.google.com (mail-dy2-f5.google.com [74.125.229.5])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=weissschuh.net;
+	spf=pass smtp.mailfrom=weissschuh.net;
+	dkim=pass header.d=weissschuh.net header.i=@weissschuh.net header.a=rsa-sha256 header.s=mail header.b=pNzbzt2D;
+	arc=none smtp.remote-ip=159.69.126.157
+Received: from todd.t-8ch.de (todd.t-8ch.de [159.69.126.157])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48BDB606A31E
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 16:12:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 48BDB606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85CA0606A319;
+	Thu, 22 Oct 2026 16:12:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 85CA0606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=weissschuh.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=weissschuh.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=oCKBEtT6
-Received: by mail-dy2-f5.google.com with SMTP id 5a478bee46e88-35de2661992so1923485eec.1
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 09:12:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792685547; x=1793290347; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=FnNIQlLfFFXVSafdO2yY3lRoSSpElbFyVxAcoG+LjMw=;
-        b=oCKBEtT6800fDWa2ooupzqhUmcXVvL5rCvNsdodFhyn5Z9FS3KWPKWbJSqG4oNS+sY
-         MVkpIIN1wlzNaVssy2s7pPenO9BGXlkgpxo9jJ/MYIZ+LKlhJQM59O7T7Gq9F4Dj+CRj
-         YGduUGZhcIqEN+5gYEE/qP7JTW8X8J7nB5q0j4/l8dC7M4/ZaJsYW00YGQl5wFK73yKV
-         gP217Vu9ljH4EAcS5fFEiG1lu/qcQ/YAFMaaPdqjXjSGKnMgqnJDYf9o916+MjRKf6+p
-         ALFeUjEPxXK1fbcfN6vud12azKpRWm3Gi+tTOoRvf8S313S3Wjn61O90ehVHKCM4QwX0
-         PWUg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792685547; x=1793290347;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=FnNIQlLfFFXVSafdO2yY3lRoSSpElbFyVxAcoG+LjMw=;
-        b=wEZVML/HF4380x/T7FCeXMrwioC88IpGG/Sa9U30pGhWtBGgCVPqFkiTzNG2zgWQtO
-         aHmvAWD1+9B0OR28oJ4N+JtC+rdeKIOkKHO+V+M79FIVQxi+ZKvm8JPc23PPIe2BrKGY
-         jyBS4yj8DKBgtFSjqjM+U2zwocfUSDZqwkTirHWL68nI5NvvCweALNmQxa+WcJQWaW4B
-         fDyKlAJumugn81MqLJtDROc9VfnCiGJqqDd5c268/MfPCBY6k0RGuEjg8MVNVrckjvUp
-         pxqpIbVRJT9rmysBSpViFPBq7aJIkWBSPlL8sUn7XZhMqe8VoYlauGWOEaiQ6SZhaIIE
-         3BFA==
-X-Forwarded-Encrypted: i=1; AKwUvBy1/vHPuqqFzUHqTO7WF9cru65JRwYFEaRhFsLJdq8CVIqsVqprSCE7Az95Y8+goGK72aFVHGAZusclOLY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIWfrbfKleCmvh1tNFWu67ALcIM/8SJ5FKpdSRqHhG7u9RXiHam
-	b5sVTnTc2Y0tXqgMokB7bMVWsubGISNP1SqnlkQPWCHbovybM/ismG++
-X-Gm-Gg: AYBFou1l06gl6BVA3kcJP99rgzYKn8c9r0MivfuLgix+AI2boDYhxKy6Fx6wUNoy+he
-	3pGp9DfczLDKkedHA+3nfiJbt2A5LjGUjh2u03rXf/Z+SsrMi+Flvb+OsMkqL39MDEHMk/c6hK6
-	vncZ0g8MZ59ze4gHMCjszyB3+MnXxOZovUXi2NMh0CHTWo3DL6IPm9PElj1KiC0IFqWDdpI/Wga
-	ZPqFqVdWfkPsSTDyO/Jbf/irGhc0BJNviG3VfuudIxLhFY8vaeTD6/dLhB2u9YmNnkkds9Ngbg6
-	P6foEy7u4T9rtmDVErYTTFlWPn+lIBsmUaeITD3NhKcXqKxOuYwPYwz1qYrFumWPP9vLsJZCl6/
-	tZuj4s++HodacfH+9wHDP1ubbh1lZXyLpbhisx65Tb/ULRiQ6YOjP+BN+ZRkgk61lnuAwQYUkHb
-	7eYcm5jHbaRUE6YLVVhIw7I44QqRBhTghCIjpfDNvi9DK6XM06c/MmLQg6bYfv3MHZAq4OaP2Lj
-	vAdZyrSBVjqqG+TU17kNo47bmwPTGLHxuCn8/1v9xKly71hwBK32BwOv28cbOI5NzIG26RF0D6H
-	aKtzjkI=
-X-Received: by 2002:a05:7301:6196:20b0:35b:85fe:5b6e with SMTP id 5a478bee46e88-3674d5495demr7543076eec.22.1792685547207;
-        Thu, 22 Oct 2026 09:12:27 -0700 (PDT)
-Received: from localhost.localdomain ([98.148.34.5])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3674198f1cdsm19774929eec.25.2026.10.22.09.12.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 09:12:26 -0700 (PDT)
-From: Hungyu Lin <dennylin0707@gmail.com>
-To: bsingharora@gmail.com,
-	yang.yang29@zte.com.cn
-Cc: akpm@linux-foundation.org,
-	brads@mainlining.org,
-	wang.yaxin@zte.com.cn,
-	wang.yong12@zte.com.cn,
-	xu.xin@linux.dev,
-	jiang.kun2@zte.com.cn,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Hungyu Lin <dennylin0707@gmail.com>
-Subject: [PATCH v2] delayacct: Preserve delay extrema when aggregating taskstats
-Date: Thu, 22 Oct 2026 16:06:48 +0000
-Message-ID: <20261022160648.37411-1-dennylin0707@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key, unprotected) header.d=weissschuh.net header.i=@weissschuh.net header.a=rsa-sha256 header.s=mail header.b=pNzbzt2D
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=weissschuh.net;
+	s=mail; t=1792685548;
+	bh=atgxzKoRU5cB/A8AIB23NbE+SMIbC5Zx2XbwRgsiy0I=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=pNzbzt2DO6KXWQqyRNCIuCq+gPYyCJQw4G7ivwz51a1bG1oQ8lELCY5qwoeEkn9v0
+	 dhHewMnZTdM6SmvzvKloc7Jyh+H/siH7tdHSgE5QZRqRZnuZf3x2kRTVF3D3vBBkNx
+	 3vnlYi7QeSdrLtm/++nOFEL0MealwwH+lMGqeCWc=
+Date: Thu, 22 Oct 2026 18:12:27 +0200
+From: Thomas =?utf-8?Q?Wei=C3=9Fschuh?= <linux@weissschuh.net>
+To: Daniel Palmer <daniel@0x0f.com>
+Cc: w@1wt.eu, linux-kernel@vger.kernel.org, linux-sh@vger.kernel.org
+Subject: Re: [PATCH] tools/nolibc: sh: enter _start_c with jsr instead of bsr
+Message-ID: <cd8fcccd-aa70-46f9-b497-ec3070b5f8db@t-8ch.de>
+References: <20261022100159.525910-1-daniel@0x0f.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,97 +55,99 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261022100159.525910-1-daniel@0x0f.com>
 
-delayacct_add_tsk() adds each task's statistics to the accumulated TGID
-statistics, but overwrites the delay maxima, minima and peak timestamps.
-Consequently, the last task determines these fields, and a task with no
-recorded delay can erase an earlier task's peak despite a nonzero total.
+Hi Daniel!
 
-For example, a four-thread process has a worker writing copy-on-write
-pages and a last-created thread with no WPCOPY events. With the group
-stopped, getdelays -d -t 49 reports the following before and after the
-fix (WPCOPY excerpt, spacing compacted and timestamp column omitted):
+On 2026-10-22 19:01:59+0900, Daniel Palmer wrote:
+> bsr has limited displacement and cannot reach _start_c if its
+> more than +/-4KiB away.
+> 
+> This starts to show up if you have big programs (static binary
+> of the game Quake in my case) and/or use LTO and things get moved
+> around.
 
-Before:
-  WPCOPY count delay total delay average  delay max  delay min
-          4103     5163661       0.001ms 0.000000ms 0.000000ms
+That is certainly a usecase that justifies making the two other SH4
+nolibc users' binaries a bit larger :-)
 
-After:
-  WPCOPY count delay total delay average  delay max  delay min
-          4101     4680983       0.001ms 0.049292ms 0.000208ms
+> Replace bsr with a calculation of the effective address of
+> _start_c and jsr.
+> 
+> Tested on QEMU and real SH4 and SH4a machines.
+> 
+> Signed-off-by: Daniel Palmer <daniel@0x0f.com>
+> ---
+> 
+> I'm no SuperH asm expert but this works for me. :)
+> Maybe there is a way in C to get _start and _start_c to always
+> be close together that would avoid this entirely?
 
-The timings vary between runs. Before the fix, the zero extrema disagree
-with the individual worker's nonzero values. After the fix, the group
-extrema match the largest maximum and smallest nonzero minimum across
-the individual threads.
+That would be my preference, too.
 
-Keep the largest maximum and its associated timestamp, and combine the
-minima with min_not_zero() since zero denotes an unrecorded delay. Apply
-this to CPU delay and the seven delay types handled by UPDATE_DELAY().
-Single-task queries still start with zeroed statistics and retain the
-task's values.
+Maybe one of these works:
 
-Fixes: 658eb5ab916d ("delayacct: add delay max to record delay peak")
-Fixes: f65c64f311ee ("delayacct: add delay min to record delay peak")
-Cc: stable@vger.kernel.org
-Reviewed-by: Bradley Morgan <brads@mainlining.org>
-Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
----
-Changes in v2:
-- Add a getdelays -d -t before/after example to the commit message, as
-  requested by Andrew Morton.
-- Add Bradley Morgan's Reviewed-by.
-- No code changes.
+1) Put both _start() and _start_c() in a dedicated .text subsection.
 
- kernel/delayacct.c | 23 +++++++++++++++--------
- 1 file changed, 15 insertions(+), 8 deletions(-)
+Apparently the default GNU ld linkerscript contains '*(SORT(.text.sorted.*))'.
+So if we use .text.sorted.nolibc_start for both functions they should
+end up next to each other.
+See https://sourceware.org/binutils/docs/ld/Input-Section-Wildcards.html.
 
-diff --git a/kernel/delayacct.c b/kernel/delayacct.c
-index 479e860aff70..ea1424524654 100644
---- a/kernel/delayacct.c
-+++ b/kernel/delayacct.c
-@@ -12,14 +12,18 @@
- #include <linux/taskstats.h>
- #include <linux/sysctl.h>
- #include <linux/delayacct.h>
-+#include <linux/minmax.h>
- #include <linux/module.h>
- 
- #define UPDATE_DELAY(type) \
- do { \
--	d->type##_delay_max = tsk->delays->type##_delay_max; \
--	d->type##_delay_min = tsk->delays->type##_delay_min; \
--	d->type##_delay_max_ts.tv_sec = tsk->delays->type##_delay_max_ts.tv_sec; \
--	d->type##_delay_max_ts.tv_nsec = tsk->delays->type##_delay_max_ts.tv_nsec; \
-+	if (tsk->delays->type##_delay_max > d->type##_delay_max) { \
-+		d->type##_delay_max = tsk->delays->type##_delay_max; \
-+		d->type##_delay_max_ts.tv_sec = tsk->delays->type##_delay_max_ts.tv_sec; \
-+		d->type##_delay_max_ts.tv_nsec = tsk->delays->type##_delay_max_ts.tv_nsec; \
-+	} \
-+	d->type##_delay_min = min_not_zero(d->type##_delay_min, \
-+					 tsk->delays->type##_delay_min); \
- 	tmp = d->type##_delay_total + tsk->delays->type##_delay; \
- 	d->type##_delay_total = (tmp < d->type##_delay_total) ? 0 : tmp; \
- 	d->type##_count += tsk->delays->type##_count; \
-@@ -174,10 +178,13 @@ int delayacct_add_tsk(struct taskstats *d, struct task_struct *tsk)
- 
- 	d->cpu_count += t1;
- 
--	d->cpu_delay_max = tsk->sched_info.max_run_delay;
--	d->cpu_delay_min = tsk->sched_info.min_run_delay;
--	d->cpu_delay_max_ts.tv_sec = tsk->sched_info.max_run_delay_ts.tv_sec;
--	d->cpu_delay_max_ts.tv_nsec = tsk->sched_info.max_run_delay_ts.tv_nsec;
-+	if (tsk->sched_info.max_run_delay > d->cpu_delay_max) {
-+		d->cpu_delay_max = tsk->sched_info.max_run_delay;
-+		d->cpu_delay_max_ts.tv_sec = tsk->sched_info.max_run_delay_ts.tv_sec;
-+		d->cpu_delay_max_ts.tv_nsec = tsk->sched_info.max_run_delay_ts.tv_nsec;
-+	}
-+	d->cpu_delay_min = min_not_zero(d->cpu_delay_min,
-+					tsk->sched_info.min_run_delay);
- 	tmp = (s64)d->cpu_delay_total + t2;
- 	d->cpu_delay_total = (tmp < (s64)d->cpu_delay_total) ? 0 : tmp;
- 	tmp = (s64)d->cpu_run_virtual_total + t3;
--- 
-2.43.0
+2) Put _start() *into* _start_c:
 
+diff --git a/tools/include/nolibc/crt.h b/tools/include/nolibc/crt.h
+index 714256228914..ebcd0ea2b9f2 100644
+--- a/tools/include/nolibc/crt.h
++++ b/tools/include/nolibc/crt.h
+@@ -115,6 +115,19 @@ void _start_c(long *sp)
+                (*--dtor_func)();
+
+        exit(exitcode);
++
++       __asm__ volatile (
++               ".global _start\n"           /* The C function will have a prologue,         */
++               ".type _start, @function\n"  /* corrupting "sp"                              */
++               ".weak _start\n"
++               "_start:\n"
++
++               "mov sp, r4\n"               /* save argc pointer to r4, as arg1 of _start_c */
++               "bsr _start_c\n"             /* transfer to c runtime                        */
++               "nop\n"                      /* delay slot                                   */
++
++               ".size _start, .-_start\n"
++       );
+ }
+
+ #endif /* NOLIBC_NO_RUNTIME */
+
+But that for all architectures, using macros etc.
+
+If the .text.sorted. solution works, I'd prefer that.
+
+>  tools/include/nolibc/arch-sh.h | 7 ++++++-
+>  1 file changed, 6 insertions(+), 1 deletion(-)
+> 
+> diff --git a/tools/include/nolibc/arch-sh.h b/tools/include/nolibc/arch-sh.h
+> index 996cfbe1bee3..7318f52dcba9 100644
+> --- a/tools/include/nolibc/arch-sh.h
+> +++ b/tools/include/nolibc/arch-sh.h
+> @@ -154,8 +154,13 @@ void __attribute__((weak, noreturn)) __nolibc_entrypoint __nolibc_no_stack_prote
+>  		"_start:\n"
+>  
+>  		"mov sp, r4\n"               /* save argc pointer to r4, as arg1 of _start_c */
+> -		"bsr _start_c\n"             /* transfer to c runtime                        */
+> +		"mova 1f, r0\n"              /* load the effective address of 1: into r0     */
+> +		"mov.l @r0, r1\n"            /* load the distance to _start_c from 1:        */
+> +		"add r0, r1\n"               /* calculate address of _start_c                */
+> +		"jsr @r1\n"                  /* transfer to c runtime                        */
+>  		"nop\n"                      /* delay slot                                   */
+> +		".balign 4\n"
+> +		"1: .long _start_c - 1b\n"   /* Distance from here to _start_c               */
+>  
+>  		".size _start, .-_start\n"
+>  	);
+> -- 
+> 2.55.0
+> 
