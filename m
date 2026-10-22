@@ -1,48 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792629018;
-	b=trjLr/assD/ZQSEDZOuY+VO6PItdejObp7D4sUfGENB72QVu1mz3HsIg3BIXh9s19pzt
-	 Cl1yyE8+sonbIQ0ImM/t+oqxSJdR+a5KtcEtI5Y2bqEhyrQS3bSG+Z7KQ9S1o2Vw8km65
-	 ZisNJNceVp3aj+Nh1bGLxp/d4RB5KzIb5UEk5jWiW9GR+KE6fl+b8G55ASC5kswhkI0uU
-	 9pF5s4s6AF3opbDtyhSKg89I69AyeVzPopCDVWBx3GhFkum731BFS1utMnc1GJOk3TuGr
-	 go2KGKB7TEn8JKCLv195uuHxFGpXVvfKw4s+tdVz97vclLArguwX76lNrI/G6mMgMXA==
+	t=1792629015;
+	b=xLAWnUduyo6tF69VjcMiCbWZ/eLQnOVeMdO8tV7bO0TzkSsY+mQuhf45751hjJHam1vy
+	 0L2Pc1TL2BuInRBCaFUz0NV1pLU1qE1d+eLA367QHVybT8OLbyk/EwS1Q/EgnXH35WvtC
+	 4zlZw9WPUGVkYMN4c8w2xy+hrsTo3rUF8L9hk6lWkVX2u2qBmJ4m5i3cfE6zgawr37fqq
+	 LQKOxNnTwwklCN2+1StnetHQxHIg+qcUfdx2nNfOog6K/Pi/qDrtxA0sn0K7gU5U2YIHU
+	 1O0imlpuySHDHLD7LAj5UjPHzGEAigkHKGNf+s56IobfXlHqktwEfx7HWJWsDvj/+Jw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792629018;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792629015;
 	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
 	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
 	 In-Reply-To:To:Cc;
-	bh=bAiMTnVAiAf3Kz4ElubQPcKVGYEkRh7RA+Bbz6fnqOw=;
-	b=lvCOJp3901rsvleJhVXSMzuoRY5GxOaqjCIUOvS70WAxEFPRz1xLRu1RzrV7aNYakuHK
-	 O+jmaKyYit8EcgszumNGJr4+xc5WTawgrYbi5iiXx+TxzHGrgGrYBZ6Q20OnMLl9pCGjk
-	 CkEAQVBWoTP5hyaNrYncItSFY5zA8aN7rtf4jdQaPqfeUXZetIPRPv44XbAQ2aB0UJfwV
-	 IQ/IoR/jjQVg0uxavJHaov3/aTbVmSI7sgBtD8OuSkEseR1eM/gRvRZ3NgwsjDfobJbsh
-	 5IL2l5EarCkkrMDq1vg0kB4qZoR1q9sJ8wLIhcUsfxIz5ZyXK9HFLGo/6RI8pG1eJ4g==
+	bh=3mJzhrpoxuYrCmmHFAca45B8JBZuEIGuuX3tUAue25w=;
+	b=AQZc1KyJTHGRJ9NRBHmGlM+M8NDDZjM1nId/0gEk7Y4k7sXX9Kg+j365T6PIYSjPIZ+o
+	 bJqlAebmtRpXTxfqdS7Ke/bd0sylfR3i7yPT33SYr+if/ehIsnJi2fLEYo4R9gjWYs89g
+	 lfiJUDSViMBVbQqMuFAn4+xuvCRl0k/lEXbQmAFTglDS02KEJxY0ojFhRMl3KOojyhQr6
+	 ByFSE4SBQHD3eWbWO+ewfKzxowlKZg1+R+R10jQFEDRcaOEVhz3fKHBdrL8fO2u1NsFJE
+	 kEhba0f/GrSkssy1rESLCC5JB4DBybYByJmdYaP226SQPu6mlZ/wOtswtaui6yLnAvA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bGPo3AUx;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HkLWnI79;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68CC2606A333;
-	Thu, 22 Oct 2026 00:30:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B7CD606A327;
+	Thu, 22 Oct 2026 00:30:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bGPo3AUx
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 43BC81F000C9;
-	Thu, 22 Oct 2026 00:30:18 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HkLWnI79
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06E8E1F000C1;
+	Thu, 22 Oct 2026 00:30:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792629018;
-	bh=bAiMTnVAiAf3Kz4ElubQPcKVGYEkRh7RA+Bbz6fnqOw=;
+	s=k20260515; t=1792629015;
+	bh=3mJzhrpoxuYrCmmHFAca45B8JBZuEIGuuX3tUAue25w=;
 	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=bGPo3AUxBAHqjOjMengyLm8bEJrfbRD21LkofqwB/zJj/ZHUELhewWgVJ32IGs3tw
-	 aoxPupmqQqzCDdi9KvQI8CsqPaiIpmqD1B0g1zjhZuNN2caAiulRIhNkzF/tJafxaP
-	 Yuw7bPr/5WIly479xpYyMctgROuxN9GHYlWCFlQZGodKohFD7htbRpl276Q/pnZaf7
-	 1mMIbugmGyndG031WS86p4fM65vaqOX59XmnjxVeeZL0UsTZYrMhJSOFuGBvY1z563
-	 vGbZHInw6iV4pjjTGoZakFfFjpmS9jfEQi4n3giyQWYm1KdbCUp3eHyO1+1KhM+zLG
-	 JDjudorVamj9Q==
+	b=HkLWnI79onTJmrX11iYHjKPBesf/qdh667Qd26q0HmwkwmQ0T+S1WE1MtGO9EEvUC
+	 JpKkBLPGiRBghm3U5cy1jJ0UoueVLHDEehor59RQ0wai6LJz7vcWWpiS94ajUkaj2D
+	 qB7Ej0f/cI1s1cDxOh6KfQDWeEvSfQyojXEfeXpJM+zlt+NNrx3AMMCqq7cqKwm58r
+	 EHx/hi7qV1m5wU/8SD+STMKaGaj3r/Ih5/xaoP7r4ch5bcARY4rPnrmWprjWBaMT3t
+	 tlwul6FmRCokTV06wYrHCNOf91JGh5aqVgAwcWLyGOIDcVlZN/sdymvKSCrGjeJY3A
+	 9pDel8g7fV6NA==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 3A1C4380A963;
-	Thu, 22 Oct 2026 00:30:18 +0000 (UTC)
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id F147A380A963;
+	Thu, 22 Oct 2026 00:30:14 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -54,39 +54,40 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net] net: hibmcge: set netdev_ops before hbg_init() to fix
- NULL pointer dereference
+Subject: Re: [PATCH net] pppoe: delete session hash entries by pointer match
 From: patchwork-bot+netdevbpf@kernel.org
 Message-Id: 
- <179262901677.1378903.766655502279729876.git-patchwork-notify@kernel.org>
-Date: Thu, 22 Oct 2026 00:30:16 +0000
-References: <20261016110421.2288670-1-shaojijie@huawei.com>
-In-Reply-To: <20261016110421.2288670-1-shaojijie@huawei.com>
-To: Jijie Shao <shaojijie@huawei.com>
-Cc: davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
- pabeni@redhat.com, andrew+netdev@lunn.ch, shenjian15@huawei.com,
- liuyonglong@huawei.com, chenhao418@huawei.com, yangshuaisong@h-partners.com,
- ningwei15@huawei.com, shiyongbang@huawei.com, fengzheng6@huawei.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+ <179262901348.1378903.6285875327252867524.git-patchwork-notify@kernel.org>
+Date: Thu, 22 Oct 2026 00:30:13 +0000
+References: <20261020092118.47416-1-qingfang.deng@linux.dev>
+In-Reply-To: <20261020092118.47416-1-qingfang.deng@linux.dev>
+To: Qingfang Deng <qingfang.deng@linux.dev>
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, kees@kernel.org, horms@kernel.org,
+ manizada@pm.me, ericwouds@gmail.com, nbd@nbd.name, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
 
 Hello:
 
 This patch was applied to netdev/net.git (main)
 by Jakub Kicinski <kuba@kernel.org>:
 
-On Fri, 16 Oct 2026 19:04:21 +0800 you wrote:
-> The driver assigns netdev_ops after hbg_init(), but hbg_init() calls
-> hbg_mdio_init() -> hbg_phy_connect() -> phy_connect_direct() ->
-> phy_attach_direct() -> phy_link_topo_add_phy(), which invokes
-> netdev_need_ops_lock(). With CONFIG_NET_SHAPER enabled, this function
-> dereferences dev->netdev_ops->net_shaper_ops. Since netdev_ops is still
-> NULL at this point, a NULL pointer dereference occurs.
+On Tue, 20 Oct 2026 17:21:11 +0800 you wrote:
+> pppoe_connect() copies the requested PPPoE address to a socket before
+> attempting to insert the socket into the session hash table. If the
+> tuple already exists, __set_item() returns -EALREADY, but the copied
+> address and ifindex remain set on the failed socket.
+> 
+> Closing that socket then deletes the existing socket's hash entry
+> through pppoe_release(), preventing it from receiving further session
+> traffic. An unprivileged process in the same network namespace can
+> trigger this through a duplicate connection attempt.
 > 
 > [...]
 
 Here is the summary with links:
-  - [net] net: hibmcge: set netdev_ops before hbg_init() to fix NULL pointer dereference
-    https://git.kernel.org/netdev/net/c/9b8ae9aaa1b8
+  - [net] pppoe: delete session hash entries by pointer match
+    https://git.kernel.org/netdev/net/c/b5b8c81836e2
 
 You are awesome, thank you!
 -- 
