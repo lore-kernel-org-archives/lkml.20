@@ -1,74 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.194.8.81
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.213
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792661151;
-	b=MCVDCVifg0fj3/26Usjzs7frecb+8SUrSHOEP3mga/6uNFUJ5Nsegsm/kCwtGeEmp6Pv
-	 Kdm+6xpCEa+lyw4BmXULYjf29sRrp+TYpJY8jnvwTg7TIolgim+63Z8MZy8XUQEQuo6PL
-	 dgPu10lwj5fwNFj4gQboPjtwKmFxfgNTrQifApXwUOsyCs7yhqLx+Tmw8eLfb5sHEeuWU
-	 +sNDo5tZ+LmT1bMrVKjYj/QN3viKySh8PhES7a9CT3qhdHAKfpnSdFguyO+H7DWfwU9Ks
-	 TZWiUUSM3nC2HUELb52Dd9I8H6j/msuwmNgtbq8k3tPlfYJHSxSyNJPMYW/mwhlNtcA==
+	t=1792661161;
+	b=0Lx6C3WfeaXQyJAQowTzT6g8d1r1ED8x02aS4IcMN4fQmU/ph7m9c4rVfe412j6LqdwA
+	 lS4Aes7M08DwjK+1/3kNyB1Rzb+IXb9dUFL8nMF1eGJI5Urxj7uXP4+rRI0UBaSTK+juT
+	 cEr+3p+1pHnAPU0/edRPgWAOH+6MMOTE5kr533D/i2UudRmaykE+/XiH1UKSz++r0iBs1
+	 wJobo92k/M2Xpv8mx6Rjg6XWBP1f/tIu+KN2doKrrlFSUcXs3ld5gorhD7dVALNCFOV2u
+	 0SqhBMWS5C+tDtP2aVzOxPwNJVAQXCCbWCfmgn9fm111iDVG6LcGlSGY1FL9obqmTLQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792661151;
-	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=P0yLNScvKloWayj6m2JS8KQwpfW0PaSmZECjKePOOcQ=;
-	b=YlzEfgMsGp8vGvsmLADHm+fuRFeOPg8fv9krgE56GNAuIFl374XizKeG3We8yDorH8xi
-	 9ADSwbT2ieDj+ojBk3vzwpBEqxN3u8PYmpIn4PaW/U3w+18f9/x30wQ3Nxt/ZWEP0sw/0
-	 yiRxGkySLzO5Uh/HPNhayn0ynrgN+Hyv72ElAomB4J5idX2vJlhWDldbQTYLMtAnz0WOp
-	 VDTxTSL2ztpN577fRPWlizA5XjP8WQadstLuIQJT3ODfYU0G2NAOW0vDpunB99r99qRlR
-	 1SYzuk8xqKjwbd+EWx9ca7UsBvKwIt6RIFv9oDzbxuwBjxlSx4zbl2PmX0+zIUvGaBQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792661161;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=e65khfUaHCP6/D9wIaXcR6LUeZfk9iEAEPWmjZIWemQ=;
+	b=hZGadq+3gJZ/frx/FxDidy6WquTtDeHJU6mK10y+ANw5Rs+JKqQVzoJAZeq6J3nnD6aa
+	 lnQr3yuebiANTYuQdHFLr9h39fXSdt0ySxqc8EM/+H+xnJ6tMTBC/xhWS6Ml/jUzPJev6
+	 jfN9o+qitboQApALtea5P6Y/Y8u3gkvQFJ+txne00bwDdavj1HHEy7cW48sxTsYoCOCtP
+	 JyY6epttO2gMPXF5VaauNi+jEEwPcolBHY91oMcnBJQ8GqCFm3jKvu6hx1QEv4cg6jS2E
+	 B9GxOtSFBv6vb5gkTqG48+Nti4cpsmdGp8ICJgLX6fNf0aSAqVSG9H+atm7TGGdj3qA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=dolcini.it;
-	spf=pass smtp.mailfrom=dolcini.it;
-	dkim=pass header.d=dolcini.it header.i=@dolcini.it header.a=rsa-sha256 header.s=default header.b=m3R8cqC9;
-	arc=none smtp.remote-ip=217.194.8.81
-Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=aQzGcYSJ;
+	arc=none smtp.remote-ip=95.215.58.213
+Received: from mta1.migadu.com (out-213.mta1.migadu.com [95.215.58.213])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3A98606A31D;
-	Thu, 22 Oct 2026 09:25:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E3A98606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB6B3606A330
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 09:25:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DB6B3606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=dolcini.it header.i=@dolcini.it header.a=rsa-sha256 header.s=default header.b=m3R8cqC9
-Received: from francesco-nb (93-49-2-63.ip317.fastwebnet.it [93.49.2.63])
-	by mail11.truemail.it (Postfix) with ESMTPA id ABE0A1F921;
-	Thu, 22 Oct 2026 11:25:40 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
-	s=default; t=1792661141;
-	bh=P0yLNScvKloWayj6m2JS8KQwpfW0PaSmZECjKePOOcQ=; h=From:To:Subject;
-	b=m3R8cqC9bN5rVAb3hFAteUVOrvqJuH6oDlJJpvVXlBd2+MauylWg+f/aqhz9A0QcA
-	 d+OsiaxgschYB0IDOSnkv8s1mse4K9lQTg6WbjqzTuO37lEq+/gleMONdXV5NKwTxC
-	 T4Jenk+3pBQoOrN466ELQl4fWydTW2uz9dr2iS2ICkQD72X7+GYQX5m03cFwPgrbV7
-	 jjSqCQjxDERBCC4WDQdiyb4Nzia6QVjizaKvZx5iQQMW6eZEhhee4o6n0jOwAkxeNO
-	 YVX3LOAYYYNq90P7evM2r98BcmO910JKpFCoR9EcsG3jGHQ0jX4v9byTr3zuV1wb1p
-	 mWEi80kUDDNDg==
-Date: Thu, 22 Oct 2026 11:25:36 +0200
-From: Francesco Dolcini <francesco@dolcini.it>
-To: Christoph Niedermaier <cniedermaier@dh-electronics.com>
-Cc: Marek Vasut <marex@nabladev.com>,
-	Francesco Dolcini <francesco@dolcini.it>,
-	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"imx@lists.linux.dev" <imx@lists.linux.dev>,
-	kernel <kernel@dh-electronics.com>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH 1/2] ARM: dts: imx6ull-dhcor-maveo-box: Remove unused SPI
- device
-Message-ID: <20261022092536.GA232648@francesco-nb>
-References: <20261021134435.17350-1-cniedermaier@dh-electronics.com>
- <1073daf0-3676-4123-9ca4-c182ea5883a3@nabladev.com>
- <20261021183704.GA1116319@francesco-nb>
- <d4b9c444-a848-4b4f-9273-1c832db45fc8@nabladev.com>
- <71d725ee47804205826bdda322fdfdb6@dh-electronics.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=aQzGcYSJ
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=yKky5zwjDEiXYOuxlzTb2hAkObSonZWJnKevDcbqw5s=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792661158; v=1; x=1793265958;
+ b=aQzGcYSJY4Y44abIM2pUyVx7mdnm21f3196qilXwtaaFr7XQmDX5FRrAPzpaI+fHvnsPLwQX
+ vMrvsPXXJCsGZgLuntbfvbbEjAAPVY+otp5ntzlHFES+44N1BzKLb7ObzTabzZP6kAX1tZT2d24
+ z3R7N9NZYxdtId4PyUOCqi00=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 6c22803f8b49d8a0;
+	Thu, 22 Oct 2026 09:25:58 +0000
+X-Mizu-Trace-ID: 6c22803f8b49d8a0
+X-Migadu-Flow: FLOW_OUT
+From: Huiwen He <huiwen.he@linux.dev>
+To: linkinjeon@kernel.org
+Cc: linux-cifs@vger.kernel.org,
+	senozhatsky@chromium.org,
+	tom@talpey.com,
+	chenxiaosong@chenxiaosong.com,
+	tj@kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [RFC PATCH 1/4] workqueue: export attribute and sysfs setup helpers
+Date: Thu, 22 Oct 2026 17:25:11 +0800
+Message-ID: <20261022092514.2590010-2-huiwen.he@linux.dev>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261022092514.2590010-1-huiwen.he@linux.dev>
+References: <20261022092514.2590010-1-huiwen.he@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,39 +70,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <71d725ee47804205826bdda322fdfdb6@dh-electronics.com>
+Content-Transfer-Encoding: 8bit
 
-Hello Christoph,
+From: Huiwen He <hehuiwen@kylinos.cn>
 
-On Thu, Oct 22, 2026 at 09:12:12AM +0000, Christoph Niedermaier wrote:
-> From: Marek Vasut <marex@nabladev.com>
-> Sent: Wednesday, October 21, 2026 8:56 PM
-> > On 10/21/26 8:37 PM, Francesco Dolcini wrote:
-> >> On Wed, Oct 21, 2026 at 07:19:30PM +0200, Marek Vasut wrote:
-> >>> On 10/21/26 3:44 PM, Christoph Niedermaier wrote:
+The workqueue attribute helpers are not available to modules.
 
-[...]
+Export the allocation, application and release helpers for GPL modules.
+Also export workqueue_sysfs_register() so a module can apply attributes
+before exposing its queue in sysfs.
 
-> >>>> --- a/arch/arm/boot/dts/nxp/imx/imx6ull-dhcor-maveo-box.dts
-> >>>> +++ b/arch/arm/boot/dts/nxp/imx/imx6ull-dhcor-maveo-box.dts
-> >>>> @@ -60,14 +60,6 @@ &ecspi4 {
-> >>>>     pinctrl-0 = <&pinctrl_ecspi4>;
-> >>>>     pinctrl-names = "default";
-> >>>>     status = "okay";
-> >>>
-> >>> Drop "status = "okay"" too , since this controller will be unused ?
-> >>
-> >> you can instantiate a new device on the SPI bus from userspace. up to
-> >> you, but if I was a user I would appreciate to have it enabled.
-> > Good point -- Christoph, is this the (use)case here , can the user do that?
-> 
-> I don't think that's the case, since there isn't currently an SPI device
-> connected to this interface. Nevertheless, I'd be interested to know how
-> to instantiate a new device from user space.
+Signed-off-by: Huiwen He <hehuiwen@kylinos.cn>
+---
+ kernel/workqueue.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-Documentation/spi/instantiating-devices.rst
-
-Francesco
+diff --git a/kernel/workqueue.c b/kernel/workqueue.c
+index 1ae3732a2c51..ec4709395594 100644
+--- a/kernel/workqueue.c
++++ b/kernel/workqueue.c
+@@ -4822,6 +4822,7 @@ void free_workqueue_attrs(struct workqueue_attrs *attrs)
+ 		kfree(attrs);
+ 	}
+ }
++EXPORT_SYMBOL_GPL(free_workqueue_attrs);
+ 
+ /**
+  * alloc_workqueue_attrs - allocate a workqueue_attrs
+@@ -4850,6 +4851,7 @@ struct workqueue_attrs *alloc_workqueue_attrs_noprof(void)
+ 	free_workqueue_attrs(attrs);
+ 	return NULL;
+ }
++EXPORT_SYMBOL_GPL(alloc_workqueue_attrs_noprof);
+ 
+ static void copy_workqueue_attrs(struct workqueue_attrs *to,
+ 				 const struct workqueue_attrs *from)
+@@ -5618,6 +5620,7 @@ int apply_workqueue_attrs(struct workqueue_struct *wq,
+ 
+ 	return ret;
+ }
++EXPORT_SYMBOL_GPL(apply_workqueue_attrs);
+ 
+ /**
+  * unbound_wq_update_pwq - update a pwq slot for CPU hot[un]plug
+@@ -7746,6 +7749,7 @@ int workqueue_sysfs_register(struct workqueue_struct *wq)
+ 	kobject_uevent(&wq_dev->dev.kobj, KOBJ_ADD);
+ 	return 0;
+ }
++EXPORT_SYMBOL_GPL(workqueue_sysfs_register);
+ 
+ /**
+  * workqueue_sysfs_unregister - undo workqueue_sysfs_register()
+-- 
+2.43.0
 
