@@ -1,63 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792682172;
-	b=PjfNNNEnZuJMpQ/GZg0O7x2tJuIVe6JfL1a8uF1dFMKtqJmFyIARSfzitXeQslHgeQi+
-	 klp69PwIu4cABXlDJlpiVBh4LET/5smncY1w1b8E3PVEHIj+PJZfdCJAzQEBedaDKJOkk
-	 CiQANDDovKr+Ma4F+C6J2DKje+24pNYRmnDEDV83zq0vNSJJcsrJ/bjbZJ9v8W2VPTZUO
-	 nQ7JNZeGPv6Cod2nJVvgbJfNGgsefWCIWVb/myp5ZKwu8xJ1ljOTtKyHUOndzNG25ETUn
-	 hIICMh2bpHp8aRvWr0n/H8Cl4Bi3iDjA5Eb6t6Yl6yyS8ije9jjRfI8g79C9Yl1b0cw==
+	t=1792682208;
+	b=RTJFFhLaXAuFJFsVfUSooFQuMYMIawCE5JzDQ7xvLl+wIiJvnUJkh+zItm8tS93/zWaE
+	 Awma+ZpRNMvmxMkhB4lAXV0qhoXjhYSECpjRWieVxatgTG6x72KPdVrgEoiCihwTfxDOs
+	 opgMaAByoLWfBqDTrLs0llUefRrxqRdCCazjlLCs1YEdvxZWD6ess+yDw+YhGWruL90jx
+	 1QAa/7Pmq1TD8A8qEXUzNKTAHVWk8ANcyFTQ/NS7IhQBBc4gA6ehGKHESpwqzdZhWVuSg
+	 dz5uZNNTOgwdnKhl7OdIDSRT8JbEDFRJ+Opd1GDLsLKpKUAjenK+1latQqI0gkVBgRw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792682172;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=pYWpbYgGwt9N5yTmTwh36JAVgl/KWWKdODyVXc8tpS0=;
-	b=WyJuRVAAkIwflDCKdcaqSzFcWhN1SN/S5vZtWM+rnC/Oo7veSHso4VlGkbSWnRgt/GSZ
-	 nZJEWNnvc503mDPQIKA+5cjb4D7y59T603UuLDis0uv39cYi4oQEppITNAEkDVQVkVpWS
-	 7vLSJd6zhIuGYbO8ByAFlzVN1i5TkUQtog8zmN2PEbK12LAl4SaXLYAKLmEcprVQcIDwb
-	 LfoPfpaAECPD+Z+JDkdojkqeoWKQu2eDFq4xJ/griOPFvKwU34Xm+IPkYBEIU0anZaoWy
-	 IQzo1iFtMUpFJlFu0IDk8SxZtPxO2Im6js1FLLW0WpB7px1a5B8DzmYEIdcHMA9L1/A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792682208;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
+	bh=xUZNRCeZ9z5gfh4C0SQt/91FcFEsF8PF7oTyP3jiUAE=;
+	b=4T9HJjMxyrRxWcwzCthrnt4rCMflQKrAOLwQw9c3LU1bniIXW5EX1C/NmQ5cjZgxu/3J
+	 ZtJIiHbI2L0xUXuxvnSWUB8MQZbzJi7L0Vv3q169M1WPfdw01DkXTX3i5jksqOwtZSLYk
+	 oAiwATdi9RF5LkevYGcKgI46blhiizfHj5D1d5z6x1OugtUpYDSXFy3pbIJybTc0inTyg
+	 +AdfdSWdrjuZwgtMxov/EauWtZSLrl/LW6l5UG947mCKDLJigBJr+YPV4A1BdUiXovBai
+	 7pY5qHGdgQlObLzSHs1GyCtMj6RMNHQ34Z7oE65kF+OdfNj2csId2HXkRKkA6U6E4nw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Wh3bmJfM;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=PQNQg77c;
+	arc=none smtp.remote-ip=209.85.161.54
+Received: from mail-oo1-f54.google.com (mail-oo1-f54.google.com [209.85.161.54])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 911E9606ACE3
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 15:16:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A89CA606ACE3
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 15:16:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A89CA606ACE3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Wh3bmJfM
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9985F1F01825;
-	Thu, 22 Oct 2026 15:16:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792682172;
-	bh=pYWpbYgGwt9N5yTmTwh36JAVgl/KWWKdODyVXc8tpS0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Wh3bmJfMiXRkGh0rDkEgacTHwwriqEh1Zdv59qRbyh1Ip82/jt4NmwocooAAg9yJu
-	 ZVG5xGhBitNCxzsa03RdgQnZsIcB4Eeynb8zfy1xjgc+FN8Tya8iYTGz5QDVTxhM52
-	 lx0fZB16UdHWN+VXvISnAjA9s9THtncArOOUpHyg7StvB97e74P9oJ/ttUfiUg2nKH
-	 tEXfmFwaszcVIGW2VoEuRDHlK8qt3n4grnM/F7eMmqPo7uegt3wynMEPrzGn4mThGj
-	 5A8awiVHjRl4LGuG8w6r3fdWTyh7xFs5TRlRxisqOBEqDU+smc5Rav76PYXM7A3ZV3
-	 yaff0WjzfStTA==
-Date: Thu, 22 Oct 2026 09:16:10 -0600
-From: Keith Busch <kbusch@kernel.org>
-To: Andrea Parri <parri.andrea@gmail.com>
-Cc: Justin Tee <justintee8345@gmail.com>,
-	Naresh Gottumukkala <nareshgottumukkala83@gmail.com>,
-	Paul Ely <paul.ely@broadcom.com>, Christoph Hellwig <hch@lst.de>,
-	Sagi Grimberg <sagi@grimberg.me>,
-	Chaitanya Kulkarni <kch@nvidia.com>,
-	James Smart <jsmart833426@gmail.com>,
-	Johannes Thumshirn <johannes.thumshirn@wdc.com>,
-	Damien Le Moal <dlemoal@kernel.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Krzysztof =?iso-8859-1?Q?Wilczy=B4nski?= <kwilczynski@kernel.org>,
-	Niklas Cassel <cassel@kernel.org>, linux-nvme@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 0/4] nvmet: fix read data, status and length checks in
- fc, zns and pci-epf
-Message-ID: <atoouj9RiG1Ik5I5@kbusch-mbp>
-References: <20261022132934.3592924-1-parri.andrea@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=PQNQg77c
+Received: by mail-oo1-f54.google.com with SMTP id 006d021491bc7-6d290b10a35so882292eaf.2
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 08:16:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792682206; x=1793287006; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=xUZNRCeZ9z5gfh4C0SQt/91FcFEsF8PF7oTyP3jiUAE=;
+        b=PQNQg77c9YG3sMVbs/CRq0dD0jdqBK16WUU/HsZLvNRmD61ES2q5Gq7LW9qCfkXlV5
+         X6b2DjRZxuGdiriIhuEKnr7aSeVz41KF1PzdNamzm2BE901YBOl9tE2ooIcKGQteDybK
+         KhbfsOTlAIQjCUV8SOBe0l3TmnMyLkfva4pk1fTo9jKhSgRR3UXjdMKgk+X6HZMYoql9
+         sosC7O5QaEd7hQK9rAO4AP425tqoMxzI28lFLGLNBcMyUmbBWM4rE+4Ik0h9vsUxWlCn
+         69adrX1U02e2t9gzo/dHFpIJqnn0Tzbt8A7K4VCvdNWRfY2N2yL2CQ2cc9bq7LsFTRJP
+         A2xg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792682206; x=1793287006;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=xUZNRCeZ9z5gfh4C0SQt/91FcFEsF8PF7oTyP3jiUAE=;
+        b=trVdc+rPaKIvIK7rRXDg0dpNJt0wnsEG7xfXb8k54sn5/hE15X7dHpp7mb2fKYdsMa
+         DJQkeRZL+gquuYpW5SUomsLZDEQJ0wfdiwjY63RfBcOZOB6Zj4NCuSRnT83K74JzJ+jq
+         fCSL7OUgo9Apg3BdHCUrlDnITs6Ka5VLhD4LijjjW/ReOPGGi/37V1mj3XkIcvgojg5F
+         Er77FBemRQoOHEwBr1kIWSsGn3E9eJA9ZfX49M0ILK9ScHQj1wUp8iYD8YvPOOjalg4i
+         kNU0JgB91Xrqj+/w0J3sg1IXxoExa0ZWaKY0PP3DG3gqVsfTJmk7s2lXsjPamyflmDAP
+         wPBw==
+X-Forwarded-Encrypted: i=1; AKwUvBxB4N8gBn7SgXSzUM21nW6CIm2JjuOSRGxvSGYeH1h3Zz5+7JqG2IjbfuR1HDWHOD6HP90kbpy0Xa/F4a0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIoWHNHAwK8GK5uD7L+qHhi5nEgVq24up6fUQ3ETmTY+TSDT80h
+	azZdf8UNJqWTejmfF8qbR4L3Pj4uK0jFCv4yT0nvq82w5e3RZ/I1ZdtS
+X-Gm-Gg: AYBFou1zx1E4qHBVdbYs8aLa1xtcuDPAlNVD6vWX/kZH3POGe/uoEAHQLyZVGfWc5Yq
+	Z4mHOltvOydoVGT4+WeUjLkNS7jpgEC5liYkAdmcMrF5qII0uEJuYT3yQl4OrRHasxFTKWmZufu
+	7QMh8rM59lvP4MV9cCtNc0suRFoElCfKTHzSpgZDKvDRz8XeThVe4tWSJcwcHuvnGZxCGAJW1Q/
+	X5bHay/rZ7f5bqZ6emLAYnr9aLwSmUl8lSxqkTf1BPptkuTDnJubtkcLkPRK+sC2RRwSMcW/s/U
+	9b8qFofHhuTBEwHfS7EzhzsAPksooPobYbGNX1s5RXvwntRpz661wk8/qd/bjM6nIyBRp4lQTvl
+	8VPTPf3cUNeiAx+pu9krcNyjtSR+NikbwLD4B5qRh2znYINIruBSkmEBIs745amlNyRoKoQSHCZ
+	z6Yjn+TGuvBZn2H8usI+KRmE/qoSp0GD1i3jGgMCraI4JJi9AT5Lk10SjqFQguP0OXL1Qlnjin+
+	xhlAdxXCzG6Czija1Zc+a1nzX3bnXO+ESGvxxQ0WOGbRlxOJoBGxDpQG2Sc1soj+9Zi4msmGw5R
+	wUZJwkTAipXyeJZlVsPUtOmnin7FEPKx5u1lrvbIT3dI8ywcHoQw5gsXD2l6sj/ZiUb3shvHo4p
+	TxZVGBuV1c6w+nrDTXg9+9kGencYfHOdeJMbrcNadfUz1R4Kj4Ci+LG0vx7cP/2jXfv2mlVblBI
+	Z8Wvs=
+X-Received: by 2002:a05:6820:2219:b0:6ff:fcf5:40e9 with SMTP id 006d021491bc7-70942610aaemr3372897eaf.70.1792682206527;
+        Thu, 22 Oct 2026 08:16:46 -0700 (PDT)
+Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4a7d5eb8fc0sm4685631fac.1.2026.10.22.08.16.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 22 Oct 2026 08:16:44 -0700 (PDT)
+From: James Hilliard <james.hilliard1@gmail.com>
+Subject: [PATCH net v5 0/5] ptp: make virtual clock sampling and teardown
+ failure-safe
+Date: Thu, 22 Oct 2026 09:16:40 -0600
+Message-Id: <20261022-ptp-vclock-sampling-v5-0-06ceace17bac@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,41 +94,93 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261022132934.3592924-1-parri.andrea@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/33Oz2rDMAwG8FcpPtdDsl0T99T3KDs4spya5R9xM
+ Bsl7z6Tw+hKt+Mn8f2ku8i8JM7ifLiLhUvKaRprOB0Pgm5+7FimULNQoCw4DXJeZ1mon+hDZj/
+ MfRo76UBF1xhoyGlRm/PCMX3u6lWMvIr3OrylvE7L136p4L76Fy0oURJiS2itQ8+XbvCpf6Np2
+ L2ifgwEOL02lATZcEAVTEDw8dnQDwbq14auRtDMhr1VkeyzYR6NP/4w1aDW2xipIW5/Gdu2fQM
+ rWwO0hwEAAA==
+X-Change-ID: 20260930-ptp-vclock-sampling-902f98408c93
+To: netdev@vger.kernel.org, Paolo Abeni <pabeni@redhat.com>, 
+ Jakub Kicinski <kuba@kernel.org>, 
+ Richard Cochran <richardcochran@gmail.com>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, Yangbo Lu <yangbo.lu@nxp.com>, 
+ Miroslav Lichvar <mlichvar@redhat.com>
+Cc: Eric Dumazet <edumazet@kernel.org>, 
+ "David S. Miller" <davem@davemloft.net>, linux-kernel@vger.kernel.org, 
+ Vadim Fedorenko <vadim.fedorenko@linux.dev>, 
+ James Hilliard <james.hilliard1@gmail.com>
+X-Mailer: b4 0.15.2
 
-On Thu, Oct 22, 2026 at 03:29:29PM +0200, Andrea Parri wrote:
-> A connected host can currently receive stale target memory through two
-> nvmet transports, and ZNS answers a Zone Management Receive whose NUMD
-> byte count wraps.
-> 
-> The FC transport sends a read buffer even when the command completes with
-> an error.  Some errors occur before the command handler initializes that
-> buffer, so the host receives data left in the allocation.
-> 
-> The PCI endpoint transport allocates each read segment at the length of
-> the host's SGL data descriptor and sends every segment in full, even when
-> the descriptors describe more than the command transfers.  The excess
-> reaches the host uninitialized, on any successful read.
-> 
-> Patch 1 makes the FC transport send read data only for successful
-> commands, matching the TCP and RDMA transports.  Patch 2 rejects NUMD
-> values whose byte count wraps the u32 length calculation instead of
-> accepting the wrapped request.
-> 
-> Patch 3 fixes a related PCI endpoint bug that patch 4 depends on.  The
-> transport reports every error it detects itself as a successful
-> completion, because nvmet_pci_epf_complete_iod() reloads the status from
-> a CQE that only the nvmet core fills in, so even a write whose data
-> could not be fetched is reported as written.  Patch 4 then makes the
-> transport reject SGLs whose data descriptors do not add up to the
-> command's data length.
-> 
-> Patches 1 and 2 were tested on top of nvme-7.4 over the loop, tcp, rdma
-> (rdma_rxe) and fc (fcloop) transports, with a zoned null_blk namespace
-> for patch 2.  Without them, a failed Identify over fc returns data and a
-> wrapping NUMD is accepted; with them, neither occurs on any of the four
-> transports.
+Fix virtual-clock sampling errors, registration rollback and parent
+teardown in separate patches. Keep failed PHC reads out of the timecounter
+and serialize extended samples with virtual-clock adjustments. Also
+preserve the zero sentinel for packets without hardware timestamps.
 
-Looks good to me. Applied to nvme-7.4.
+Retain the existing cyclecounter mask, scaling and conversion windows.
+Retry the first failed refresh promptly, then back off consecutive failures
+up to the normal refresh interval. Queue the first refresh immediately
+after registration. Prolonged sampling gaps remain subject to the existing
+half-wrap conversion window and full-wrap sampling limit.
+
+Changes in v5:
+- Replace the fixed 10 ms failure retry with per-clock exponential backoff,
+  starting at 10 ms and capped at the normal two-second interval. Reset
+  the retry state after a successful refresh, following Sashiko's report
+  and Paolo Abeni's review.
+- Report: https://lore.kernel.org/r/179245576913.3135.17393378308394380121@kernel.org
+- Rebase onto current net.
+- Link to v4: https://patch.msgid.link/20261015-ptp-vclock-sampling-v4-0-cba6ffc8ceb6@gmail.com
+
+Changes in v4:
+- Retry failed refreshes after 10 ms, keeping the normal two-second
+  interval after success.
+- Queue the first refresh immediately after registration, while keeping
+  counter initialization before publication.
+- Clarify the half-wrap conversion window and full-wrap sampling limit.
+- Document the zero-input return from ptp_convert_timestamp().
+- Add Vadim Fedorenko's Reviewed-by tags to patches 1 and 5.
+- Rebase onto current net.
+- Link to v3: https://patch.msgid.link/20261013-ptp-vclock-sampling-v3-0-d3ee4ea62fc6@gmail.com
+
+Changes in v3:
+- Split the independent fixes into separate patches, as requested by Paolo.
+- Retain the existing timecounter arithmetic and conversion windows; drop
+  the full-width rewrite and extended-read anchor updates from v2.
+- Propagate registration errors through sysfs, including a failed initial
+  PHC sample, and initialize the counter before publishing the clock.
+- Preserve absent hardware timestamps instead of converting zero.
+- Correct the sysfs teardown rationale and its Fixes tag.
+- Rebase onto current net.
+- Link to v2: https://patch.msgid.link/20261005-ptp-vclock-sampling-v2-0-8ed12d4d10af@gmail.com
+
+Changes in v2:
+- Drain virtual clock sysfs changes before parent unregister walks children.
+- Use full-width samples and overflow-safe scaling across long sampling gaps.
+- Update the anchor for extended and cross-timestamp reads under the clock lock.
+- Link to v1: https://patch.msgid.link/20260930-ptp-vclock-sampling-v1-1-c11bc16691ae@gmail.com
+
+Assisted-by: Codex:gpt-6-astra
+---
+James Hilliard (5):
+      ptp: drain virtual clock sysfs operations before unregistering children
+      ptp: unwind partially completed virtual clock creation
+      ptp: vclock: propagate physical clock sampling errors
+      ptp: vclock: serialize extended samples with counter updates
+      ptp: vclock: preserve missing hardware timestamps
+
+ drivers/ptp/ptp_clock.c          |   5 ++
+ drivers/ptp/ptp_private.h        |   5 +-
+ drivers/ptp/ptp_sysfs.c          |  18 +++++-
+ drivers/ptp/ptp_vclock.c         | 117 ++++++++++++++++++++++++++-------------
+ include/linux/ptp_clock_kernel.h |   2 +-
+ 5 files changed, 104 insertions(+), 43 deletions(-)
+---
+base-commit: f4377bf85887f57b59abb5479f7660a81ffe4449
+change-id: 20260930-ptp-vclock-sampling-902f98408c93
+
+Best regards,
+--  
+James Hilliard <james.hilliard1@gmail.com>
+
