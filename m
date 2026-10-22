@@ -1,52 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=78.133.224.34
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792640065;
-	b=cHKL6q4b5E1Rq23J6mfNd5HAIuFdSs+uDbW6mgiW5TM41lO4BjO46dlCngT86x6bUszT
-	 enpXJpQAvIOnmlqryg/Ke+XQjgvEQoSO2JoZDntpM60xsQqvSQ2/TeKQ0WxmMVw702S6i
-	 /Nv7NJ4XtGfzMcxr0XaavgAedbdW9Yj/mXK1C11MpNFrLnjZizy2DNvdBX8MjjGgARVyE
-	 3JhklGirVUrtdEK8OlQ+RdtH/hIg5yXEC6zW4+TD7zkQm9gV4O7jiGF9EHtdvC3XDzaE9
-	 V8glMs5SaiZuW+5O6ZDB/IJ3is7h7jNhN0f5yIMqqVQQTGEKqDgfA8Z3SIx3hqJSeWA==
+	t=1792640098;
+	b=eNziZXF5S7dT6RSiNfUv36UNwi0zVATDFoR4ja0ObmpTO3mj6EoHVbToY3nRxkqLrnAi
+	 cv/ofm47PD1SsFZvlPT71eZWA/KirSOBpREGD81SiFFZ3GRWRF9E0pnAttSbSsWMRdiu9
+	 FlGCihZd9HwjNQtwA6gqJF8qe4pgCatELCFGpb/r+loYc/qYzol+F3K/NNTVC9YU2opdm
+	 mlAqkAc95Z4SmhFm0plJr3vV2KpL4waWsLRldtSKS6FcyGOdvzeVFhij99VplccD+gcAL
+	 vzjmmb99fBAQMppt3j56rcaIzx6oWJA1mOmckK9hQz6knj04ymojaHTGXhewutP6wqA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792640065;
-	h=DMARC-Filter:Received:Received:Date:From:To:cc:Subject:In-Reply-To:
-	 Message-ID:References:User-Agent:MIME-Version:Content-Type;
-	bh=3ilS53cVgDiLeeXsr23MPVxO4sxG3qd4lTAwsjvkdXE=;
-	b=3DP69TwVBNW7F5UEzFLrTISzVkT0cUOTwCMXbdhey7L71yXKT2/2fysujtBngC56jWIN
-	 m1EYudvH/hi57qSxjFFLOH4/RGOt/yVR3jpkuGqBb36VjiXWogQGZ3zximztzRBOqDf7f
-	 lBlBRmf7KJY+HOE1+3DgvqR8s/N4Xk9jzbiqiUDmZHZxdpZbztxGaPAtGcnGD/omBU2Qk
-	 vpyQ+qFANhqvyW2HVgaR1dti0GwXwwTkvbMlGMIPJXfuTlc69eg3di30wgeFAdypAvb3A
-	 mDJNwRvPv851913XnzdWE74M457Su7clhRkXzEJz45SKW9goS9B/m3NOYeR7FTu/Wcw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792640098;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Scanned-By;
+	bh=RowDvTGb4ELInwDHcAfgOokyo9acekEdzcJ9i+SgpJo=;
+	b=KYMh+RqNDknSHAL4/0/TwECJuyoEbcrXwJWkU3vAt2B2TpaEt7lH1zgLDRfJ2LLXrJOQ
+	 bjiJU1gYS9ykxPheW/zX/V5bTz0/8qLFxLxXA1+2PIl09ww/ulaSXZwh4T7JMOScI7prd
+	 ecbbbYUZaEqlMoKltYm8MsM+S9FrIF/ssXNq55JnrV2tQ9gFoj4zeooK3SiFlT4kvJ2Fk
+	 9y17rNopRAv7aYRHCne448eD8D7DKKWjTk6ophJ6tsb5JpeRqjvHKC+NsleTevXbULVjM
+	 CdqbDAfqZDTqRVJTIW5+5UNURHlnLP3iujXeUapbj/7Z1SNQvP3z1Weh8vW3k8vjY4w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=orcam.me.uk;
-	spf=none smtp.mailfrom=orcam.me.uk;
-	arc=none smtp.remote-ip=78.133.224.34
-Received: from angie.orcam.me.uk (angie.orcam.me.uk [78.133.224.34])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3649E606A31B;
-	Thu, 22 Oct 2026 03:34:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3649E606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=orcam.me.uk
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=orcam.me.uk
-Received: by angie.orcam.me.uk (Postfix, from userid 500)
-	id 024E892009C; Thu, 22 Oct 2026 05:34:21 +0200 (CEST)
-Received: from localhost (localhost [127.0.0.1])
-	by angie.orcam.me.uk (Postfix) with ESMTP id F1D0792009B;
-	Thu, 22 Oct 2026 04:34:21 +0100 (BST)
-Date: Thu, 22 Oct 2026 04:34:21 +0100 (BST)
-From: "Maciej W. Rozycki" <macro@orcam.me.uk>
-To: Arnd Bergmann <arnd@arndb.de>
-cc: Arnd Bergmann <arnd@kernel.org>, 
-    Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-    Jiri Slaby <jirislaby@kernel.org>, 
-    Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-    Hugo Villeneuve <hvilleneuve@dimonoff.com>, 
-    =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>, 
-    linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org
-Subject: Re: [PATCH] [v3] serial: 8250: remove obsolete and broken PORT_RSA
- support
-In-Reply-To: <215c694e-bb97-4c21-ae5b-308c03e21611@app.fastmail.com>
-Message-ID: <alpine.DEB.2.21.2610220418380.22065@angie.orcam.me.uk>
-References: <20261019090017.430425-1-arnd@kernel.org> <alpine.DEB.2.21.2610210422160.22065@angie.orcam.me.uk> <alpine.DEB.2.21.2610210500560.22065@angie.orcam.me.uk> <215c694e-bb97-4c21-ae5b-308c03e21611@app.fastmail.com>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=dXiuUNG8;
+	arc=none smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAB75606A319
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 03:34:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AAB75606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=dXiuUNG8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1792640096;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=RowDvTGb4ELInwDHcAfgOokyo9acekEdzcJ9i+SgpJo=;
+	b=dXiuUNG8XGzwW65WYYRTKCeEqlz7fwYXtnvECN8We4Wh89Y2z10AQfbq6ks1hyV0itp9M7
+	UqKuqBOO9KGq9CSDPP3+YrnPrIGn3KWmNT2ve9JRN+FnpzRbIVD28/sQenoJMgupL+lA8y
+	qnpQO+Bmbee+jVMmhKeRD+kQG+yKXGo=
+Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-241-dbi6avkgMBKkYmVRBiayhA-1; Wed,
+ 21 Oct 2026 23:34:53 -0400
+X-MC-Unique: dbi6avkgMBKkYmVRBiayhA-1
+X-Mimecast-MFC-AGG-ID: dbi6avkgMBKkYmVRBiayhA_1792640091
+Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 1DECA19560B8;
+	Thu, 22 Oct 2026 03:34:51 +0000 (UTC)
+Received: from [100.91.18.181] (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 37A057DE;
+	Thu, 22 Oct 2026 03:34:49 +0000 (UTC)
+Message-ID: <d8786672-a864-4029-8b15-ecfc7f0d734a@redhat.com>
+Date: Wed, 21 Oct 2026 23:34:48 -0400
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -56,22 +71,96 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] cgroup/cpuset: Fix task checking when enabling a
+ partition
+To: Guopeng Zhang <guopeng.zhang@linux.dev>, tj@kernel.org
+Cc: ridong.chen@linux.dev, hannes@cmpxchg.org, mkoutny@suse.com,
+ shuah@kernel.org, cgroups@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-kselftest@vger.kernel.org, Guopeng Zhang <zhangguopeng@kylinos.cn>
+References: <20261020133615.124373-1-guopeng.zhang@linux.dev>
+Content-Language: en-US
+From: Waiman Long <longman@redhat.com>
+In-Reply-To: <20261020133615.124373-1-guopeng.zhang@linux.dev>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
 
-On Wed, 21 Oct 2026, Arnd Bergmann wrote:
+On 10/20/26 9:36 AM, Guopeng Zhang wrote:
+> From: Guopeng Zhang <zhangguopeng@kylinos.cn>
+>
+> Creating a child partition can fail when tasks are present in its
+> descendants, even though the parent has no tasks of its own.
+>
+> On a cgroup v2 system with CPUs 0-7 online:
+>
+>      cd /sys/fs/cgroup
+>      echo +cpuset > cgroup.subtree_control
+>      mkdir A
+>      echo 1-2 > A/cpuset.cpus
+>      echo root > A/cpuset.cpus.partition
+>      echo +cpuset > A/cgroup.subtree_control
+>      mkdir A/B
+>      echo 1-2 > A/B/cpuset.cpus
+>      echo +cpuset > A/B/cgroup.subtree_control
+>      mkdir A/B/C
+>      echo 1-2 > A/B/C/cpuset.cpus
+>      echo $$ > A/B/C/cgroup.procs
+>      echo root > A/B/cpuset.cpus.partition
+>      cat A/B/cpuset.cpus.partition
+>      root invalid (Parent unable to distribute cpu downstream)
+>      cat A/cpuset.cpus.effective
+>      1-2
+>
+> B should be a valid root, leaving A with an empty effective CPU list.
+> The task in C belongs to B's partition and does not need CPUs in A.
+>
+> partition_is_populated() is called with B as excluded_child, but
+> continue only skips B in the pre-order walk. The walk still visits C
+> and finds the task there, so A is considered populated.
+>
+> Fix this by skipping the whole excluded subtree with
+> css_rightmost_descendant(), as is already done for valid child
+> partitions. Also add a test case to test_cpuset_prs.sh with a task in
+> a grandchild cpuset.
+>
+> Fixes: b1bcaed1e39a ("cpuset: Treat cpusets in attaching as populated")
+> Signed-off-by: Guopeng Zhang <zhangguopeng@kylinos.cn>
+> ---
+>   kernel/cgroup/cpuset.c                            | 4 ++--
+>   tools/testing/selftests/cgroup/test_cpuset_prs.sh | 3 +++
+>   2 files changed, 5 insertions(+), 2 deletions(-)
+>
+> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
+> index 585a982249ad..71644482faa7 100644
+> --- a/kernel/cgroup/cpuset.c
+> +++ b/kernel/cgroup/cpuset.c
+> @@ -478,10 +478,10 @@ static inline bool partition_is_populated(struct cpuset *cs,
+>   
+>   	rcu_read_lock();
+>   	cpuset_for_each_descendant_pre(cp, pos_css, cs) {
+> -		if (cp == cs || cp == excluded_child)
+> +		if (cp == cs)
+>   			continue;
+>   
+> -		if (is_partition_valid(cp)) {
+> +		if (cp == excluded_child || is_partition_valid(cp)) {
+>   			pos_css = css_rightmost_descendant(pos_css);
+>   			continue;
+>   		}
+> diff --git a/tools/testing/selftests/cgroup/test_cpuset_prs.sh b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
+> index d04aad697b96..9978c560b398 100755
+> --- a/tools/testing/selftests/cgroup/test_cpuset_prs.sh
+> +++ b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
+> @@ -452,6 +452,9 @@ TEST_MATRIX=(
+>   	# Enabling partition with child cpusets is allowed
+>   	"   C0-1    C1      .    C2-3    P1      .      .      .     0 A1:0-1|A2:1 A1:P1"
+>   
+> +	# Tasks below a new partition belong to it, not to its parent.
+> +	" C1-2:P1 C1-2 C1-2:T    .      .      P1     .      .     0 A1:|A2:1-2|A3:1-2 A1:P1|A2:P1"
+> +
+>   	# A partition root with non-partition root parent is invalid| but it
+>   	# can be made valid if its parent becomes a partition root too.
+>   	"   C0-1    C1      .    C2-3     .      P2     .      .     0 A1:0-1|A2:1 A1:P0|A2:P-2"
+Reviewed-by: Waiman Long <longman@redhat.com>
 
-> >  Or, to self-correct after a few more mind cycles spent on this piece, the 
-> > region below `port->iobase' is an expansion of one above, where standard 
-> > 8250 registers of the onboard serial port reside.  Which makes even more 
-> > sense, to me anyway.
-> 
-> Good catch, so it should still work the same way it was originally
-> designed, though I think it still requires a modified setserial to
-> set PORT_RSA, or a boot time argument for autoconfiguration with
-> UART_CONFIG_TYPE.
-
- Well, this is ISA, what do you expect?  We've dropped lots of stuff that 
-required perhaps even more complex manual configuration already (QIC-02 
-tapes, anyone?).
-
-  Maciej
