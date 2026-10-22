@@ -1,99 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.169
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792704585;
-	b=XbD83jKeNYM6UMIsDqPLdd9wbZWXtVJbbOGPKNx7QYRIWQzrmrtUqC1+spQMMWmlzBJx
-	 Nh4AapE3VsJ06wdhhQe+osIhW/ISROTD/XCICuFpvbjxIUnpYgU08QGAPy+9PkbAENLuk
-	 LYvuBuewcMx76JcTuROg7700bpF1pIoI0MCy7Hp8B2giuv87H08s7brD94ZhrCC++Rrx2
-	 bw65Ktwip1sNal6/B1RVA0PyaCNQMgDPzTsSU1BDAUbUuLsn0E7tY7OG1v/pv4xRFvM76
-	 JoLxocvVHuCCnGv5V0pe5zT0UuV+QvkkfaH6QzrHI/3OIxMegNiHL7sY77TtN2e9GTQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792704585;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=7J25Ol6OoVWSYnoEuI8c8YQySc1v4KBrwsp24rZ47ZI=;
-	b=YGkCSJLEefACi9+VpNFY3UdUk3VO8LyBrTaE0j6U4s/+MPpRogdmEpxQczoHMbV6P2Dg
-	 hhP+h7f+xhhxNogTuHZmqasZsDCYQmz5+eF5bdEXK63iJ9/EYrZIjFciizgYZCDuCaLLn
-	 N2lXKHcRkscDQnrOxbNY5/SlvqKYeBcQlVN4pOHMwfRSdEgkEqwq8juOERtrKRYqAQ+Hr
-	 ms9Ezn0VeTV7z9Lpumi8xRdcte50wdXnRhRJlktKSgD6ShguuONOQZmgABu82vBRtiHQt
-	 /OuZT4h/uErhhwMdtcj7WlDoRpMgC35ahtTXQL5EREF4lzJru9ZolVRlxU3MVs+f16g==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=KeHky5D4;
-	arc=none smtp.remote-ip=209.85.214.169
-Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.70.51
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792704748;
+	b=aCXLQUdUEPLyvLJ1ohHNKBnBlWYNC8ZXChgu6VPZLUL+lXYlEtSTAtleqzYMnNxZbZ16
+	 zkRtsmw6VNibNCr6gUF2NRxaAJuWeuV2iY4j5sUfRY1ta8LvTZyjAVQjnuhB+se4/ZZ9t
+	 /8+vpHMqQitZXwxwyh3/ARkEDgEEa61HtKuTmagmZy62p97CAolrQSCEIII/zlS/Tk1kW
+	 P3YZeSbwyu94U0ma0F0JZU9EqzZ8n0eHt8HiOj8PeHIhsdKcUPYMR6AwXV+M3FIjESNgn
+	 o7DzbhZAzmnBiDcU2qwa8t25vhaNoLD8FX6RCe5zvV3iaRA+J3G6KB7WYLTFW3Wf4Zw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792704748;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:Content-Type:
+	 Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-LD-Processed:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=2OjDSp0+jFFFhlvnLvNIBbFm+t0Q+yFcC11j7CCf+0c=;
+	b=hMj274N5D1J1uy7t7odrnopi3Nqk1BoYFDlPCJz2WYAVBenXUXPf/wPdttf6BdMc9iwr
+	 OgKzmXXIQMl1q9afc03lLEooTZJbEZPkaMdBDuXCBwrzHnnkxuoHxrAlBH+tK0yj3Hu4g
+	 Zb57fXnJQlAXuAL0zVpCPTx8iLHtLcqdhSmq1KVaE9/TyTWE/Dqz4gE55L5KfRUNDqBJO
+	 C6bHMHNotS6zn+Ny3ZIuhioP8ffCpR/NlqhtFvzZJBzGDXZ4xj4NfKmVHwEOa4zy3BvQQ
+	 wJ5paKHRbmcto/rAwVm1kdKTl2gYb4L6m8yFtiR82GKt/xxaxbg0oXuxaQ1sItAYRdw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=v1Zsmryu;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.70.51
+Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011051.outbound.protection.outlook.com [52.101.70.51])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E303E606A31B
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 21:29:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E303E606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9764E606A319;
+	Thu, 22 Oct 2026 21:32:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9764E606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=KeHky5D4
-Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2e812e2b31bso1047215ad.3
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 14:29:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792704584; x=1793309384; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=7J25Ol6OoVWSYnoEuI8c8YQySc1v4KBrwsp24rZ47ZI=;
-        b=KeHky5D4w1jTNabuJnhEKXIjEGl39SlghNWMWb0j6R5A8Qnk9REYC7g1bxUVpe7Qi4
-         gecwTVCzi1vTPBYBYXT4mAJjBVb4o5kRVGOvqy/+C0g1tiKF57y9RC0gZp706CsTzwJx
-         /ZaqEdGN3EprOAlATAR9c0XPIVuiCE4NPy+BJiQYphKIc0oYeh7GuJG2rXMSAP55ZYj3
-         bo2ZF6kDYUtazOBZdUO9fPG+Xh7LdJ+4xafYiWF5OeO+eyLUcpX1zZuHDYlFjBDk6w+B
-         MrEBwkF3Y028tBcnR+AIphPMRXQzQ0bEBWVd/MRE4+Flq+TfSwttnAO23JGBHiIodhtP
-         Hefw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792704584; x=1793309384;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=7J25Ol6OoVWSYnoEuI8c8YQySc1v4KBrwsp24rZ47ZI=;
-        b=v0ykiAqnO+J+yK4EbNDO4pbCzoZfHBqNzG+TvgWYjV4Spfic1ffs1H4IoJgXe5i8nA
-         HAIV8Y2vWiKGLUy/I3x6mLreQUhf+L2psS7Jv+6R+HUmTSYkwYJRzt7tXxAP3wk3iLnq
-         FRhbXcb/F5dFbxzYyYKRTGsARevlBBDjekapdqBvxmBsqtc0e6NFf4QRRNgKl+TrrjcL
-         ORfMF7PopBTUznfUIB0S19fV3dVoPjOV5eVu4Lo6evLe2wNW7Wn+lD+r5Yf1REvhoisJ
-         Hzwyd3Wh2tZK1ijaMby2PSUuH530eCOrxXSdZcD9R2m2rCWp5A64vHQOKlEdCfZDMVSK
-         0z8Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxLl4tJbwsTAl5uQt0sl0D06825Xo6Uo53w2PfJMrM85cpn4mR2TGxA5TI7WmyX0PKb9EJ9yPYsMJFDdMc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIk06iAyCesTtyg2ydGsnf7+QcT45c7n9nl2gsfDF/E6FktFGBI
-	uFLVBkGViNzBaB4U5R7KdqJCkcFJjtxd2c+bPnyo6Kw+mKAAHPhXpogK
-X-Gm-Gg: AYBFou1ZGfaWGxpc4WSnAJQmTqfs6UEoOILzNNqxchscGToa1SgzGfVIWjttMEOyQ8+
-	lUNz7aT2pIK9D3yXUkSwc8swPG2/us6iU+t5GYwdILZ5MXKPbTj5ptfuiyfM3xayBTAnQbLy6IU
-	SoR+10QwaaSn7sA+a4objYDNK7KXxiBEEIcVC6drDyH+mOvEER7LX6u0+sA1eeGCD/qYcB3TuQo
-	zrJgEw1pplWwEBB29X6x3KUIzj9ygsiU11NtKuqhn9A7lRx5mE3AcKXhLmjuuA9N/zTM6bA0AzO
-	WL3dmxFE2oBGyizEGtoruCDfUumwncfw6cOMcsJgrC6q4fYlNIJritTchVMxNVbVOktHqcRYDUj
-	Boubs+brGsOOWyp6nvSC+r0QAA3jBZy+EHKiLYbUA8CqCbX1X+SILeeyRsIfJGSmv5i/j3Ajv7b
-	YqZFGvhMRh3IzwYnDmiBdqeKWUB8uS4ccmnz3ClKPr2yYYBBVAoEMjiiR55lbwcWkhnfdJDvM49
-	cnjuU6Qq83W5y05WJBHla50GcrcN+sstIjVxxIo2x+gFDW68ZHKPmZc9A86ucXOHXwI+gY6E6Px
-	fx+w/2Chf/PDMPiHGFAT5XVJVjmyRvunor5X828qwR3oD9IUDjenp/L1Ad6yB0nwA8xjwxMhnie
-	F4aWYGB7/+tBaFipvuWIYxts=
-X-Received: by 2002:a17:90b:3806:b0:3ac:7842:bd50 with SMTP id 98e67ed59e1d1-3adcdfdb688mr169990a91.15.1792704584283;
-        Thu, 22 Oct 2026 14:29:44 -0700 (PDT)
-Received: from ryzen ([2601:644:8000:37f::e34])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3adca08e785sm606547a91.0.2026.10.22.14.29.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 14:29:43 -0700 (PDT)
-From: Rosen Penev <rosenp@gmail.com>
-To: linux-wireless@vger.kernel.org
-Cc: Felix Fietkau <nbd@nbd.name>,
-	Lorenzo Bianconi <lorenzo@kernel.org>,
-	Ryder Lee <ryder.lee@mediatek.com>,
-	Shayne Chen <shayne.chen@mediatek.com>,
-	Sean Wang <sean.wang@mediatek.com>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	linux-kernel@vger.kernel.org (open list:ARM/Mediatek SoC support),
-	linux-arm-kernel@lists.infradead.org (moderated list:ARM/Mediatek SoC support),
-	linux-mediatek@lists.infradead.org (moderated list:ARM/Mediatek SoC support)
-Subject: [PATCH wireless] wifi: mt76: mt76x02: restart mac_work after a channel change
-Date: Thu, 22 Oct 2026 14:29:41 -0700
-Message-ID: <20261022212941.3666724-1-rosenp@gmail.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=v1Zsmryu
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=phFsGIORmmtAQ+mxSI4rwkGR9N6xgU8+Y6SGBLG05tRHQYhFqQ5C9QkR4z0zm1VELoQowJ76zc9zvhfa4cEtx1RJ6dsCNf/iVEYViYq8EZZMPzwlWayEsQlmGxkoxrtZD1FYkE9oSHvY6FpAbRvJK6UwINUQoH6wozNsU/Dy16qT54Jum80vnZwRZWdWfbpkgGSHL8LuYrw7CMKdUZ3JC8LU0z6BJyJnBOL4sYn8GHXUct0dyal3v9JBRDYA4FRo9G7O3cH4s3BBe8yfKEbGXbQvnGYGGA8AYbuKfcK7mtGeb/wdy2W1WDJyUcqcgqlS/jG54Y4TJYgyUZRgclHuZA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=2OjDSp0+jFFFhlvnLvNIBbFm+t0Q+yFcC11j7CCf+0c=;
+ b=vCDPmKab2KII6pfRKtD/YMr8QiUJRQATseYJZzcUrsJ3IpGp1ycGdgRWgqnUWi9DPCiPmzAa0BwtSi5Pp0N7VeJZECBucrP6HMeaxDE2LrVP8q4I2JHFdIaH0JKPK4QtT/RIn560tidVA78NP4N0AR0y+jn6Z2xT66RxrrNOsGz2oj7slB7PkFKnnrg20UcugJCbruXgHUaDxPd7evZmAwhN47mapRj0q7oU4o0TyecopwoZG7bwEEtAyASSQFl+TTXj2YMZVWMDQyuucYCqhf/j9XIr5Ds/o5Ugu44KvLXn6rF5Fo/i7LCBzscO5bv8W9Wpki8VliL3u9uOeA//og==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=2OjDSp0+jFFFhlvnLvNIBbFm+t0Q+yFcC11j7CCf+0c=;
+ b=v1ZsmryujWLSNSq+MUFjPsZDaJM3l1s7VkcTcnKEEWaluI27xHvB+DzVyUkpwugjNyUPkinJxl0di4695c5Uy8AqW6okJSyNJ6/54hXQqM2h/QStfeatwW9IBPib2TCF37LXBu0KTsGnzOb6As08BPj4oyk2svmYI+bYDBA/mLYz3xHYdnM7YcylYN6Tu/7BzPwEWPsgY3Z4MpO5YQuOLQauY9kqXB7sRXkp1egp+PEn93xSfB3MBRtLg3Ku2tkpHmncXWNZ0YdNQusJMsW3t+SySZHsm65EUY7Z4KmcPISD59WwQ/BZpmhyaANZ8ao3sGRpp7BCbvH3mV88EAx5tA==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
+ by AM8PR04MB7329.eurprd04.prod.outlook.com (2603:10a6:20b:1d0::23) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.17; Thu, 22 Oct
+ 2026 21:32:24 +0000
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b%6]) with mapi id 15.21.0546.012; Thu, 22 Oct 2026
+ 21:32:24 +0000
+From: Frank.Li@oss.nxp.com
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Francesco Dolcini <francesco@dolcini.it>
+Cc: Frank Li <Frank.Li@nxp.com>,
+	Francesco Dolcini <francesco.dolcini@toradex.com>,
+	devicetree@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v1] arm64: dts: colibri-imx8x-aster: Enable I2C bus
+Date: Thu, 22 Oct 2026 17:32:17 -0400
+Message-ID: <179270471307.1376912.8643007825204379432.b4-ty@b4>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261022161708.690702-1-francesco@dolcini.it>
+References: <20261022161708.690702-1-francesco@dolcini.it>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: DS0PR17CA0013.namprd17.prod.outlook.com
+ (2603:10b6:8:191::11) To MI3PR04MB12438.eurprd04.prod.outlook.com
+ (2603:10a6:290:76::14)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,74 +107,91 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|AM8PR04MB7329:EE_
+X-MS-Office365-Filtering-Correlation-Id: 94af48bf-da70-4884-b6fb-08df3083f697
+X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|19092799006|1800799024|376014|7416014|23010399003|366016|22082099003|10067099003|18002099003|11063799006|261009223027099003|261022105027099003|261022075727099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	FHU2qNaPFVlXjaRq23Igm73v8j6nCUi4CI5dlXx2AYrxvuMcRtako6DTc4+qA8K+CbbJNgjG2mMEzANE9724F74jZXOdMKMvtTauEYyUfKo6lYHAoqn+ooXBNBrMQ6fWxs0MUDxbxOfXyKbTE4SisVXHM8IiPIE5/4t36lkesFWiusYJF+xGeeAnh3ythPFWrPMhnhChY8Uxil1RzOIClruCrt4fjpDrPyNEuhmG+qK9b/pOTLEPloBTSJQCjrCMSvHYiDwtvSBMSJ6ZYPlv6sSITb4OVt+3I1lGojsJU50LbuGrI0C20MhIC1Ug/aQLj8VDm4waPxo2E8h87OAhiYgll3CSRjbNuuXBCrIgI33hEthhT6OoiRp/MhQ1XDWcnAmgP3XMJn2VLOM5xr+LfGXzo+e3kgKI8F9RXpnyWgOi0dxai0jjDybAIFwwiMeb3XPYEYaWUrJV9osNfBqkOv0o+27UFbDbJTp5pw6N9phoup38uywjYQafyUvsKrhHVqBtxFjvqnywNabkR57qcw+iJkvFMmMKOAG6CjzuG3yAzKjZZuTUoaCrQXuGQvyY81228SDmiUwdBMds9q8NARkUmRv7zNF8mWgpYCSnrgfy261wyq+xta33iek9smxZjNvJqo5n4DuoMFs8Q5ppOoc9q5/WV4/bzN57xcRr1Jk=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(1800799024)(376014)(7416014)(23010399003)(366016)(22082099003)(10067099003)(18002099003)(11063799006)(261009223027099003)(261022105027099003)(261022075727099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?aWMwcDhndmd0c0NSWENQb3FoVG9IU3R5OTlnTzQwWjdnQmZyOC8rZ0c1MFVH?=
+ =?utf-8?B?bjVEWnR4NnVnSStDV2VBWHpMZGVaaCtjeXQ2dGVEWEJURW5PS2hrbXhIemI3?=
+ =?utf-8?B?Q25COFQrVEN6NG5zRG1DbDR3NDVMQzM2T1hOV2JmMUJJN3VYSUJVeC9RdVRN?=
+ =?utf-8?B?QW92OUJIdGsxS3dlWEpuU3dDZ290UzhDWm1tUzdzbzRVaDcvcHZFTnJWdWVj?=
+ =?utf-8?B?aXl0ZzBVbXdVc3h3SUJGaXVwUzdJVXZVdjdrVm53K0J5YVpWcUZySXF4M2kv?=
+ =?utf-8?B?bzJ5RDlKTEYvTEZyeStNS2dmWFpjZWZSTVBvdVFHQmtJbEwxTVF2TlFNSjgx?=
+ =?utf-8?B?SFRObXpsQ2xWZGtPTmFyY1pnUWJIWWhKbllNc1JDZGVucTE5dGhQZU83MHMz?=
+ =?utf-8?B?SHlnSXdNcVpjUlA4aHZ5blRsSE85azdpWlRFNDgzYW1HZHY3VTgxcDhybmJj?=
+ =?utf-8?B?d0hzdS81Qk1OQ0daTE9QL3JYTGp4YUdwa0ZSRmRWWnpuM0NOWTNqQ3ZCRUx6?=
+ =?utf-8?B?dThhZklDbHdYS3BVU2l0RWg1RCs1cXl1a1kwOEwzTUdXMEN0TTRGRVE2NzhP?=
+ =?utf-8?B?aU5naVpBaGtMbUZNdVg5N0x6MDJ0VVhSNXh0cEd3enRsSVdhOCsrZlgzcDZB?=
+ =?utf-8?B?L3h0bHdjbSt5RldCUVdIRGxjeXR0SDF4RmxVakJudkFCZU1HM3ZGZHBoUW9a?=
+ =?utf-8?B?V0dzdklrUnNGeHdaaFhweFZMYmFOK3NTajFZQTdrK1pUMlhLZTk3UlBLbmZn?=
+ =?utf-8?B?eXFBV0FIb0VibW9wVkFKOTROT0EyWEFRdWVuamd6TDVkUVd0MXZRc2xHWUlk?=
+ =?utf-8?B?Um5OaVg2MC9MV0phYytVYlhEYkRQR09pck00cUg0TlhScDRBbUpqdVcrNVFX?=
+ =?utf-8?B?VmZFeWRRbUg1WThpRFA1Tm5qd2pKVmtzVko3WDhTVXRGVjJsMGZrMHFqbll2?=
+ =?utf-8?B?V3RNQjFQQWg4VEc4TWJlQmNCVWhWSFJ3WXljVlhZVWNHbGtCajhXWS9VYUow?=
+ =?utf-8?B?N3lpeFVLL2FUL3FZb2prTzJqb2diaTVLV3Fqci9aemJnRHZDYjVuMHBZOTNV?=
+ =?utf-8?B?cVIyTElxNEhXeWp0cnYzNmRucHBtT28yL0t2MGJGMUE0eHM2Rk1keGgrcWpt?=
+ =?utf-8?B?bUJNb0I5ZUVValRMOFFEUmVxWFFMTTVpb24vWVdsM0NUdWg5bjNISzlNU2dG?=
+ =?utf-8?B?YUlGb1VtdGY2WHhaUWdkSWtYSVFkVjdGbFp2cmVqTnROTFF1UlNUWEprWW5i?=
+ =?utf-8?B?TnhWQStZME5xTmVybmdpOGtGNkdkWEF5WGNSWlNtNVB1WUd0YTFpRGV1ZUJZ?=
+ =?utf-8?B?cnM3MXdhU0JmaXBON3hGMmt2RW9XeFcrNDQreE5kNStweCtqbUVpamNNRmw4?=
+ =?utf-8?B?SlRmNTA4RjJkQnZlSTV2QVZTM25BOVgzMURmRWM4bWJNY2ZXVDRGUFZ4L0Rv?=
+ =?utf-8?B?WS9HM2NaM0E2QW9rck5WQmJrazBML2dkbTFpUDJCWGY3b21Ga3BsZWlJUUhx?=
+ =?utf-8?B?RUZ2THhZTGw2MmhsVTk5NDRhd2sxT1VJYmUrdUNkVnpPZTZSdnBWMTNUd1lY?=
+ =?utf-8?B?WXN0UzNhN2FUQ2RkTnhTMGlNOXFXaVU5d0hwd0JVOW9qQmRmZEVBbExrODNF?=
+ =?utf-8?B?Y3puUS9uM3JHSzhNb3kxUld1ZEhNMjNnaVhKVzRpak83MEVQMlNvRmxqeG5n?=
+ =?utf-8?B?UVBWMklCUXljbU5QS1FJcDFKM2x3dlpwUlU1bmRaOHNxRThrZEgzaGFEbnhO?=
+ =?utf-8?B?ZUx0aUlsbVQwbHd3VFAwdlJiQnBOb0V6S3pXM1c5dkZxRXBwWFBoTUxvNklI?=
+ =?utf-8?B?RjczQWd4UjRUd3hzemRocU1uMExGMWt4a0psU0RGdjIzazVsNTBiYUdxb0JV?=
+ =?utf-8?B?anlKL3ZSUkZSL0ltV29RaTU1NU03NGhjbW1QaEk0QUorNXFhZnVReUxkdnFy?=
+ =?utf-8?B?T0ZGZFlsOXRvelhjOGNuSFhocVlyTkY1UG53bGtZOFVrRndzT3lnSlc3Q0ln?=
+ =?utf-8?B?SVdWRk1JaFlSak13UHNxY2Rhd0J3cUt1WnMvYmJVNUdtTGNSVlJpZUQwck9l?=
+ =?utf-8?B?S2k3bzFFclRrN3RxTTNValZpSG1GSmtTK2w1Qlk2bzZCWkY5WTJhMHQ0Lzc4?=
+ =?utf-8?B?YW05WnVaUHVvVUE4Q2d5UHAwSFZDMHFpeWVrZTRFVzZqTDlvZXR4ZXpydndr?=
+ =?utf-8?B?VldnYWdHTEI4N3JMcU11cklyZDhYbnd6cHRYem5GS08xeUVtVHYwd25HcHBp?=
+ =?utf-8?B?NTJHNmdhUE85d1h1RmNYbXpRSUxBTkpaeEZYQU1jRXpES2FzTGgxU2VLQjZC?=
+ =?utf-8?B?YlhxN0FteFVHbUtEZzRKdlBaZnhUK3pONDhiT3ZvMkxVRnRmZ1Y4ZGR6Wm9H?=
+ =?utf-8?Q?QrImdC4U/TecPNPrMCW2cGe/J/vuZNSbMh2FL?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 94af48bf-da70-4884-b6fb-08df3083f697
+X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Oct 2026 21:32:24.6704
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: dmZsvxR30X2PE+qEj7i4uvbgH/gUJMf/U7+3QTKrAdU8b/n9iSjpqsp8ZPbyJkWbPwq2Uz1FFQValrb9oYO1g0GiaHyKnSpY3r88RRq8FDWFPK4eLDrj1FarKp3rLVoa
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM8PR04MB7329
 
-Since the channel change code moved to the core, mt76_set_channel()
-cancels phy->mac_work before calling the driver's set_channel op. The
-mt7603, mt7615 and mt7915 set_channel ops queue mac_work again, but the
-mt76x0 and mt76x2 ones do not, and they only queue it in their start
-op. After the first channel change, which happens on every interface
-up, association and scan, mt76x02_mac_work never runs again.
+From: Frank Li <Frank.Li@nxp.com>
 
-mt76x02_mac_work calls mt76_tx_status_check() to time out frames that
-wait for a TX status report. Without it, frames whose report is lost
-stay in the wcid pktid idr until another report happens to sweep them.
-On an MT7612U station sending 25 Mbit/s of UDP, 48 such frames piled
-up within seconds. They kept their AQL airtime and their socket memory,
-and the sender blocked on a full socket send buffer for up to 30 s
-until a connection monitor probe swept them. The work also collects the
-survey, A-MPDU and EDCCA statistics and checks for MAC errors.
 
-Queue mac_work again at the end of the set_channel ops.
+On Thu, 22 Oct 2026 18:17:06 +0200, Francesco Dolcini wrote:
+> The Colibri standard I2C bus (SODIMM 194/196) is available on the Aster
+> carrier board on the 40-pin extension header X20, the Arduino UNO header
+> X18 and the capacitive touch connector X3, with pull-ups on the carrier.
+>
+> Enable the bus to allow userspace access to I2C devices connected
+> through this interface.
+>
+> [...]
 
-Fixes: f4fdd7716290 ("wifi: mt76: partially move channel change code to core")
-Assisted-by: LLM
-Signed-off-by: Rosen Penev <rosenp@gmail.com>
----
- drivers/net/wireless/mediatek/mt76/mt76x0/main.c     | 2 ++
- drivers/net/wireless/mediatek/mt76/mt76x2/pci_main.c | 2 ++
- drivers/net/wireless/mediatek/mt76/mt76x2/usb_main.c | 2 ++
- 3 files changed, 6 insertions(+)
+Applied to imx/dt64-intend, will see in linux-next after v7.4-rc1,
+thanks!
 
-diff --git a/drivers/net/wireless/mediatek/mt76/mt76x0/main.c b/drivers/net/wireless/mediatek/mt76/mt76x0/main.c
-index a5c40d350612..a2763cf648b5 100644
---- a/drivers/net/wireless/mediatek/mt76/mt76x0/main.c
-+++ b/drivers/net/wireless/mediatek/mt76/mt76x0/main.c
-@@ -26,6 +26,8 @@ int mt76x0_set_channel(struct mt76_phy *mphy)
- 		tasklet_enable(&dev->dfs_pd.dfs_tasklet);
- 	}
- 	mt76x02_pre_tbtt_enable(dev, true);
-+	ieee80211_queue_delayed_work(mt76_hw(dev), &dev->mphy.mac_work,
-+				     MT_MAC_WORK_INTERVAL);
- 
- 	return 0;
- }
-diff --git a/drivers/net/wireless/mediatek/mt76/mt76x2/pci_main.c b/drivers/net/wireless/mediatek/mt76/mt76x2/pci_main.c
-index 550644676201..ab4d0e3f79bc 100644
---- a/drivers/net/wireless/mediatek/mt76/mt76x2/pci_main.c
-+++ b/drivers/net/wireless/mediatek/mt76/mt76x2/pci_main.c
-@@ -49,6 +49,8 @@ int mt76x2e_set_channel(struct mt76_phy *phy)
- 
- 	tasklet_enable(&dev->dfs_pd.dfs_tasklet);
- 	tasklet_enable(&dev->mt76.pre_tbtt_tasklet);
-+	ieee80211_queue_delayed_work(mt76_hw(dev), &dev->mphy.mac_work,
-+				     MT_MAC_WORK_INTERVAL);
- 
- 	return 0;
- }
-diff --git a/drivers/net/wireless/mediatek/mt76/mt76x2/usb_main.c b/drivers/net/wireless/mediatek/mt76/mt76x2/usb_main.c
-index 66b06a493d95..57550ab3b7da 100644
---- a/drivers/net/wireless/mediatek/mt76/mt76x2/usb_main.c
-+++ b/drivers/net/wireless/mediatek/mt76/mt76x2/usb_main.c
-@@ -45,6 +45,8 @@ int mt76x2u_set_channel(struct mt76_phy *mphy)
- 	mt76x2_mac_resume(dev);
- 
- 	mt76x02_pre_tbtt_enable(dev, true);
-+	ieee80211_queue_delayed_work(mt76_hw(dev), &dev->mphy.mac_work,
-+				     MT_MAC_WORK_INTERVAL);
- 
- 	return err;
- }
--- 
-2.56.0
+[1/1] arm64: dts: colibri-imx8x-aster: Enable I2C bus
+      commit: ae05b3817c0c5216b829ee4a096adc3833bc33b1
 
+Best regards,
+--
+Frank Li <Frank.Li@nxp.com>
