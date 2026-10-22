@@ -1,99 +1,129 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.51
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792638185;
-	b=vcBij7+HKapHF3doqDkUGhdkndFMtO0X00JLodgUdB/bsTERUxUoamnMO6dshf2nlnco
-	 Ph/n8UTKIqqAB9Rr56I5X0rB+j1aPMT27qZkixb4SAjGnH5mgXMm0S2xDEswE+aX58e4q
-	 oj5VAL0nKry7m6pmxmwFwwDP6Hl/KpxO/8ZeXjmTdnAG2TvHiqXRzmvn58Lhp2JL+iJxx
-	 7qWlf8QoK8XzLLKAGB3aoAH5sMq+drhw1qZg2zP7Xg2y/VdJmBLjR5640pcXc80BCspa/
-	 XYDg1RbzbEKQcehMJXmQC6bEIb4j68WLfeg732hg85NnhOPiLDJ9Vd9uq3m1F+cvKdQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792638185;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=eqWdgaTceNT3JTDi/LY16DDScdb29oYTmDXWPTVKTb8=;
-	b=nlJaQ1+5iCF3L130Ql3nFgqdvqMF0AiqTTs/hJeJHaPlyqDVnQlLDfKX+bnt/hTwzExb
-	 6osgjAOLuv2oC2vfutrEK9q2rooNAU1zFL7bm6ucDHUomEds6ozp3lgGYEErJz+FG2Av2
-	 FGVCeCnHhV+yqBAysYBA6bkMDWY5UVJXHntPD9AO5BywAZx02rxN/cO1Zk3eS/RXzcTZU
-	 GrajBh1HvnCIs7mqqudjpUXprrHYdhuWK69RkmlnvPZERV+dFz7QbQXQ4wx5DQze3vsNN
-	 WKngVOlRuydgqsGcrqSzXNTcXpHocappopt7uMShRtVBopC1YYU6bviP/Gp1r5aiBRw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=clyso.com;
-	spf=pass smtp.mailfrom=clyso.com;
-	dkim=pass header.d=clyso.com header.i=@clyso.com header.a=rsa-sha256 header.s=google header.b=H7GaxLru;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.51
-Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com [209.85.208.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.156
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792638261;
+	b=vbzQPgmyWLEJCNDfS/Eu+pHHqT4IiGrticWX/gUCqLdDks3sjyusFJ4J/vtv3IYurwls
+	 DXIuOsf5pjfIckZOxN18gS4XbdXe+WOTEzO+OMMAOoGrDle217rtX4HMhn1j7Pn0pVzeH
+	 xPjcT+SrmRXvTqAViMY0yHKFU1wTcSDADlR1RkG8AhBByl9S76lqm8qXXrjsVlHRUlcEv
+	 5V7BBDJHXnEYm5LUxP4TV+VdasBoIPCN4JoTqTJKrLPpsvuyUnKNV05iZHvzRFp1LcUO2
+	 oiNR5p62o93EBPac+KoG5+7bN0j6kFb/DoDRm+5NU0jBBK/6e/FBSuS+WVN8xnWUEzA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792638261;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:Content-Transfer-Encoding:User-Agent:MIME-Version;
+	bh=4AcN5b87i+Iu63HjZpCRi9YS6a1Nnst3QYA+jp1uq8A=;
+	b=UOwhB+x5q57dkGB1Jh7jlv4TqliCFze0E4uq7j1+KU3U7ZAh0JhnKSRpIKgFlk6IcHGO
+	 qGqHGwJHuAQDQifReqPsH57H0wrKDMLjK3iQHPEJZf9GU/MXgzLj1pgRocM9wBvU7fYqX
+	 lzY+wY39djH96lSvldP9eofReQuo3QOfAPQZMwm/pP8jvgCkyiK+Tuvn6YhenYKcyn+2M
+	 n+2HjM0a3VhNazKw4UGXjEdmswH7GJgfQSX17sEqW8LTvDfnI0raE5m+a3zQ2qsVL9M4H
+	 RuDdo8ngRIROLSIhiTtrug+OQyFXCFMaG1Ppm7Y3Q1nEM7pdoNXm0updsJFgLxPPT7Q==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=themaw.net;
+	spf=pass smtp.mailfrom=themaw.net;
+	dkim=pass header.d=themaw.net header.i=@themaw.net header.a=rsa-sha256 header.s=fm1 header.b=G+0R6s6L;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=vKpAFjkq;
+	arc=none smtp.remote-ip=103.168.172.156
+Received: from fhigh-a5-smtp.messagingengine.com (fhigh-a5-smtp.messagingengine.com [103.168.172.156])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D58E606A31B
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 03:03:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8D58E606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=clyso.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=clyso.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4D40606A319
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 03:04:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C4D40606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=themaw.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=themaw.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=clyso.com header.i=@clyso.com header.a=rsa-sha256 header.s=google header.b=H7GaxLru
-Received: by mail-ed1-f51.google.com with SMTP id 4fb4d7f45d1cf-6b1aa2848d2so1990806a12.3
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 20:03:02 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792638181; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Ba6ZuagfoGsAwzARyiBCM3Uyj2vOV5A7U7oZ4Fcn+//yMJbJmEh1yJPMcaxNjCME07
-         Lk7pPosbKcIULm3/z37dQ+VeGMYwTLZw98R8H5ST485bq2Yuh65P6ef6QsXmNgZcsE1p
-         HQYJgpxjqZ2EPAZ6y/JIgG0Rryv7D58YNJGIs88MEJ+hTV5HcU1Qa7Foz0OnTgW/xMuU
-         gxGTQ4me+Zi7HHDpn6uknosZMiqjLLjg5brbCL20+OgjqoMQCPvlpvBSfaxb063s4u62
-         4JDPf+LqEJ7TmT+DnqVrzJSIIx13BjmKkBY8kKIAeNML85C6RJSmJAigQTfvlzk6qQkR
-         MQ1w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=eqWdgaTceNT3JTDi/LY16DDScdb29oYTmDXWPTVKTb8=;
-        fh=yNJGpRmhZxoXsuCk+idqLLlE5ENTpBApmEPAP97naJ0=;
-        b=jzTwyBSWHLii7LBZyXfzgFgi0hJedkzS+5nPRL4r2o5JAqMJ1KPhuWW9iIgMAUEVhT
-         15vzkEm4F2tHUEoXFMx0b0xLV1l1of/iTs94DAWYlyNNJ/PH3DGQ8Ntb2+7phrU9ZjcQ
-         WRMXg4P+mGZf+gamJFyD75lovu8Lhc55L423Mhd3UradpQRNP9uk+FSyRT1U/cpmtSPO
-         SoZ/YYNI2q7FXMWmPQLhGowCSbOPx77pVRaL5979QHK02TSWkFTCzufm8Nq5fjk+IUPL
-         53vAmbyHPk/QVSfBbRC2tyrgsAb5t9cvZ8LKNug7V7iG4l5PptT+k2rUkXSiuz/UVFu3
-         KYvw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=clyso.com; s=google; t=1792638181; x=1793242981; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=eqWdgaTceNT3JTDi/LY16DDScdb29oYTmDXWPTVKTb8=;
-        b=H7GaxLruOseJUgK9SLX7ZGvMVOeS6F8IXC+Noiy5jhFCOauHyBMhcBWW/Kjc2KHArH
-         Oam2yxuVkPNC7dMAMf8ovHzaRVM3cSsAyEOFhe5M5yybGLL6S54FJxdM/C4AXWy2bo71
-         pNNC3IyumbfHGZIYGJl4Z5eHGFT6jM8fm/BqYsCLX/o8qUNoh4MbtbWsFforxdQkIK7H
-         e6ehoVmjBWGVrmgVgbxZWHMoaMDtzfXmMBerCw4tchyJtIs/sq908R571BxBfbBa4tFk
-         VYYUnlCVwRGA/fS8JEI9qIPtmaghcGgAOXd7mUaMPOr5rqtKkbRpkfUTGucborA/wlBU
-         sc8w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792638181; x=1793242981;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=eqWdgaTceNT3JTDi/LY16DDScdb29oYTmDXWPTVKTb8=;
-        b=G8lY/5cRnJdhGnBimtEkm35qrdPBFEwi7XU8TQ/idhoUt1dLjH7VpNza9eX6Mgfeny
-         TM3c+9bn94Iv3Y66KkLFbIipeGQUFVoGkDUPrMWaFLWeqcro0R8/IU3iyyEsoysHxjj9
-         eTdsS66NnC2ZDhq+VpsJiVtixeNxq3IoBSf424yJ5Ucb2cK3YLamr1YYWDJTR5B6K/Ra
-         wvomAqAS0LuiCw3tWquo8NOLB6ggqFeb9+3KWASNOi/u13uAjbCjOzbpzLY4ETUlDz+M
-         fsn6Uc+mWUSmVE6MDyefwkypE2RgKhCT/bAPYIBlgsxSk0MVc2p12MHuZ7E7/gTJXbrA
-         L8yA==
-X-Forwarded-Encrypted: i=1; AKwUvBy7s9zuyP2MbEuFNlWzYT2NdFTu0sV6DE0S6WhOpnmlMzBr/IytfbTb7963n7WQ4ugQRqE2fZY7wT3H8r4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKkPvX7BQsusPVpxTpsPcTckdvicgEFT4ewnA3gasHFpjBlq04q
-	RtvfZAsa4GCGoicHkdPo08f4EEFKm5phnyYvQeZEhTWzHWt4B/CBv6PbC+cZTWIgaS1BsxIgKYn
-	abK9gKHsi2y90f3WADrxf3br61aJQ8Gn2SmqqKDKqfWZzzgtqg9OU3fIvbQ==
-X-Gm-Gg: AYBFou2ab4NQKp5ls4/T4xlmJvwnD07DmU5e/5IvW1dTn/fyZDJ2YO15FTE4XIOGcZt
-	JomxzOtDOVd1az6fk4lBrl8/TU8D/Feym2bMPYniFIonoXFbAp5RA+m6Bh4WzlpZsWIqN6ayKoY
-	p03xt6ySFd5RIQ62qvDIKW9A9Jo9xro2//DTmDgsTX5mctOvSLlMFPLYMUYDiBQHJCQoEw40HIf
-	psuD3KTuOOgdoIvEggpMcNdjNh6fJKNklUEkCnx4WkHUqxBiciKfO+ZTFs1xB+uAM/bCpbzkl3/
-	LZcYZijk7fYoUvShFWzKh9r9/8wSxXf5+fXO7/6T/CsApcvDrUCqIxGHdGWIjCZaZmunsC6QPHF
-	XQuSJ80CAoNFP1w7NGWnaqA/0zF0tkvhjrB8NXnw=
-X-Received: by 2002:a17:907:c317:b0:c41:6de7:7dee with SMTP id
- a640c23a62f3a-c46791a97f8mr354514966b.7.1792638181499; Wed, 21 Oct 2026
- 20:03:01 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=themaw.net header.i=@themaw.net header.a=rsa-sha256 header.s=fm1 header.b=G+0R6s6L;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=vKpAFjkq
+Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id E836614001C7
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 23:04:19 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-10.internal (MEProxy); Wed, 21 Oct 2026 23:04:19 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=themaw.net; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1792638259;
+	 x=1792724659; bh=4AcN5b87i+Iu63HjZpCRi9YS6a1Nnst3QYA+jp1uq8A=; b=
+	G+0R6s6LL8RcvXClmyysbCsM1AElfVMk05rbZVjj8ZtxyeUuxIaBfWJPTY+QIS2V
+	LhWgyHQUBWya3jqWSpnZdKh404nkCI94cawkxSMUkr9YeWrweWnACoC83SG3S9KK
+	kCXuWm6164d5vbuSHpa/1hwGQFg2GLUP0s52WPYDLcUxce0aUlmm2rUiFN3fKG5U
+	90ZBqjbbnKQdsek/i7WEbbAwXhNuoceGcpLo4YWpZoWygHezC+PEOTmBO2C0qz7R
+	ezY34bwDPU8x4jsZFRQl5yr2zi7MhfFeP247on2NXCzg8jmz2azKpQBZDBxpCupb
+	uWtWG9q6UO05FMxv1L0ArA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1792638259; x=
+	1792724659; bh=4AcN5b87i+Iu63HjZpCRi9YS6a1Nnst3QYA+jp1uq8A=; b=v
+	KpAFjkq6eBhkPal0vKO2CMuePumxk4YycWmkHKPqw2FPE4h7rBhgqdg5EFxZENvX
+	uKGdfqQ6mawo58YA8kvfb/6bTT5h23FqeRZRVyZ9Rxk1x8PLE/4QMGaEzAgOU7tz
+	R9P7W5I/EwCn5kXL/WCmLTthnH+449uWLDfS+YREhlZAYW3jPIlvR2WxPMalY5YW
+	BeJ8ikHdcz2maG9t+9Pc8tU5wXuT5vYtW9SZfedpIvF44UA9YKEb4TbLWFNotUn9
+	QKrimwgW7f4rWaQhLsbrt474rlgS/+kjscqNgABQ1rcgQv6MZ6rr1SL1J4ylMdQg
+	Fsqw3Rp7iNJ985qWL224A==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
+	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
+	action=sign d=themaw.net a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1792638259; d=themaw.net;
+	mf=PHJhdmVuQHRoZW1hdy5uZXQ+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm1:rsa-sha256:GwXP5ba8QpGvyDMtdjre6w26XFIjITOgwaqi+6el1jEmYs3
+	prR3mleCJo+j/2xca7a+fl96GfNghaYIn50j6S/z4/RU8JYhG/o+t7NDdwMJxzqV
+	RCThKQ7DOs4UCGCNsPuPfiQz5e27qaXsS/1To+mp+fHGYVu9pDH0vU/MUwetnz+k
+	Wvuv6ZyETFwTK0uxDiGEbgITLIQ9zLYU6S23yW0C/C5oCtX1t1dOW+MLO/FWYgp+
+	zAhR7tvTvwNHKkrUiMz/kNbm5Z85llBoTeEgJbQ3A5h5Bxxafpv+mx2iSELlnuIF
+	TYHrhSyNujEI7bvd+6ckWI5nplvvUQH5EFqQXiA==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
+	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
+	action=mi-m=1; hc=13;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to,
+	user-agent;
+Message-Instance: m=1; h=sha256:ard6IWUdN+0NvZpDPdz2I4nCTA1gcy99OonEFkzENaU=:9zU4aTz1izuvjxNOLHa2ypDjvFC1TVDHgkdK7rr5xOY=;
+X-ME-Sender: <xms:M33ZaicuIRtZW8ZmdK-U51qgJ32wc5qSrzz9TUPdkv7De-9BHbM4Gw>
+    <xme:M33ZauyQP-0RZsCm4o5kKeXYUVEg_oqnH1ohVuosh28qckCpixiwk_fNT-x0QqgsJ
+    Wnff5z13hecLQbvMRgihx8VlqggFNe7jtCBTZU4GD6PB9LZFA>
+X-ME-Received: <xmr:M33ZanKR8ui2XQ3Z_ku1unyCcMgXpDJdPFbKAUlS7AnxZsUVEa8akXLpBzE11v8mlVDK1z6AauJp6DXSpysJGNIVKa0uBj0r8rbtsK6Yn03X_ibiQ8--UFGyAdA>
+X-ME-Proxy-Cause: dmFkZTGQ2pltWB4u5eLwn46xUUh5jETZv9Xmmi0YOSem3ck9DPixYXT8NAy/JY6RqDtkGK
+    aK8WVZAYruMZGXWJxvwDd0K5gUiSktjYuC8mds16vV4er4YG9VQ9FmMeOL/JUlwAhxZkzS
+    LH4E42i4pMd26d11tZX46s05wLvCnlSRKub0/rlZvnzzCaLEtLb6HbBGMVXSyDuYg6D9+q
+    IOlRHvn1xuze33Tyc+qwp+EV3EdLkDlsbjRaVCARGiaJZjzwuiQ7+MLr3iSWFpWiAlAN6L
+    HDka2kModJtT8K0H8waKKiQbkpoj4WXVI2S9SMkhhjIP+1EvAfGpxH6QYode/ooJl3siBL
+    q3CQAkfHVITWMfcwQIx+7KdCmwR5io2NgLYtfST8llulJYcL6BeYKrKD7sA/XSM1P76E4j
+    Z0rTF0153oFryCv4GqGbIVC+U/8E0gVHW71HdEfL6kApBC0o7ECBXOF/HAf8GQwmVzrP2L
+    37Xa30um7ahxARLLnoTUoxfrOHquRXha5TT4nLwnQKnCUyi6ggCADeQFgveshQXR4ffRwI
+    QoOLk5+7f1oTZfTQLMcSWBsgGNYiAnVf7WAuAFocexJ9ZceT0N5gefDkQNOzaofryhIPlS
+    FcEb6ioy9zPrxRZ0nIRrSM3hcjko1LhxwbyNzgMASctxjEPxfHirCXkC6c+g
+X-ME-Proxy: <xmx:M33ZagEPmRwG9P50ltDG8bvrDHPqNI4IK7KFASFNbglFLvy6QJlpTQ>
+    <xmx:M33Zaj95EuUcs8Wlw3_Kn1ytrcgFsCMaDycI67E1MATzLbPME9RH2Q>
+    <xmx:M33ZagLwgZuk5BUfOc22XKFnThZMdBeoF7YwSHibXv1HMQSXK4-NUA>
+    <xmx:M33Zahv507qfC9JfrKETzOqxgSNchGTznA9fWnvAnIhadFKZeVhAQQ>
+    <xmx:M33ZaqzYK7gNh47kTvPPHbJif4wdApotwjMS0viJTPc1udtisQHHKeUG>
+Feedback-ID: i31e841b0:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 21 Oct 2026 23:04:16 -0400 (EDT)
+Message-ID: <9fa5947c0e40f629044f22cf5ebbaa9bf3d6d6fd.camel@themaw.net>
+Subject: Re: [PATCH v4 1/5] VFS: don't count references through ->d_parent
+From: Ian Kent <raven@themaw.net>
+To: NeilBrown <neil@brown.name>, Alexander Viro <viro@zeniv.linux.org.uk>, 
+ Christian Brauner	 <brauner@kernel.org>, Jan Kara <jack@suse.cz>, Amir
+ Goldstein <amir73il@gmail.com>
+Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, Jake Edge
+	 <jake@lwn.net>
+Date: Thu, 22 Oct 2026 11:04:14 +0800
+In-Reply-To: <fc2c9191a50a782fa6560349060ddfd763ec2ab0.camel@themaw.net>
+References: <20261019000810.1837917-1-neilb@ownmail.net>
+		  <20261019000810.1837917-2-neilb@ownmail.net>
+		 <179257644849.1724252.12278532043596915181@noble.neil.brown.name>
+	 <fc2c9191a50a782fa6560349060ddfd763ec2ab0.camel@themaw.net>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-1.fc44app2) 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,266 +133,427 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261021170613.1144381-1-sunyuechi@iscas.ac.cn>
-In-Reply-To: <20261021170613.1144381-1-sunyuechi@iscas.ac.cn>
-From: Xiubo Li <xiubo.li@clyso.com>
-Date: Thu, 22 Oct 2026 05:02:50 +0200
-X-Gm-Features: AclHuK_rJLQFSxHqbVLM_IjCoLrCiui5eY0DXoL0WX29TvTRda1lVx23utsbBJg
-Message-ID: <CAOJNxR+bfs_g7t4qkZyfcWJAd2W51LH0skzzOpSztSZqCjuqeg@mail.gmail.com>
-Subject: Re: [PATCH] ceph: reconnect on peer reset even if the mdsmap says the
- MDS is active
-To: Sun Yuechi <sunyuechi@iscas.ac.cn>
-Cc: idryomov@gmail.com, amarkuze@redhat.com, slava@dubeyko.com, 
-	ceph-devel@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
 
-On Wed, Oct 21, 2026 at 19:06, Sun Yuechi wrote:
-> Since commit 39fe30315893 ("ceph: harden send_mds_reconnect and handle
-> active-MDS peer reset"), mds_peer_reset() tears the session down instead
-> of reconnecting when our mdsmap shows the rank past RECONNECT.
->
-> That map can be stale.  An MDS killed and restarted on the same address
-> resets our connection before the monitors report the rank as failed, so
-> the session is torn down while the map still says active.
+On Wed, 2026-10-21 at 19:47 +0800, Ian Kent wrote:
+> On Wed, 2026-10-21 at 20:54 +1100, NeilBrown wrote:
+> > On Mon, 19 Oct 2026, NeilBrown wrote:
+> > > From: NeilBrown <neil@brown.name>
+> > >=20
+> > > The number of negative child dentries that a given dentry can
+> > > have
+> > > is
+> > > effectively unbounded, so counting the references through -
+> > > > d_parent can
+> > > overflow ->d_lockref.count.
+> > >=20
+> > > We only use this count so that we can know when there are no
+> > > remaining
+> > > references including from children.=C2=A0 However most children appea=
+r
+> > > on the
+> > > ->d_children list and the few remaining children (inactive
+> > > DCACHE_DENTRY_CURSORs) only exist in a context were a separate
+> > > reference
+> > > is held on the parent.
+> > >=20
+> > > So if we count whether d_children is nonempty (i.e.=C2=A0 dget() when
+> > > it
+> > > becomes non-empty, dput() when it comes empty) and require
+> > > children
+> > > not
+> > > on ->d_children to have a reference on the parent some other way
+> > > (which
+> > > they already do), then ->d_lockref.count will not overflow and we
+> > > can
+> > > still know exactly when all references, including through -
+> > > > d_parent,
+> > > are gone.
+> >=20
+> > sashiko discovered a real bug here as autofs depends on d_count()
+> > including the number of child dentries.=C2=A0 This is easily fixed.
+> Umm ... oops!
+>=20
+> Yes it does but that's purely to establish if there's any additional
+> references held indicating an open file or working directory within
+> the directory although I'm not sure I actually use it for individual
+> directories. The mount reference count changes that Al did some time
+> ago should mean that ino_count can be eliminated and the mount count
+> alone used instead.
 
-Agreed.  The local teardown trusts a map that the peer reset itself
-says is out of date.  Once the session has been unregistered,
-check_new_map() has nothing to reconnect, and the new rank 0 evicts us.
+Ok, so I "do" use this to check if an individual directory is in use
+but your right about it being a straight forward change. All that
+should be needed is special casing empty directories and removing the
+increment/decrement of ->ino_count in ->mkdir() and ->rmdir(). You
+shouldn't need to worry about directories that aren't empty since they
+shouldn't be covered by a mount so autofs won't be looking to expire
+them.
 
-> Send the reconnect and let the MDS decide, as before that commit.  A
-> daemon restarted on the old address has a new nonce, so the reconnect
-> does not get through, and check_new_map() reconnects once a map carries
-> the rank's new address.
-
-I checked this path.  The session stays in RECONNECTING, but
-check_new_map() compares the whole ceph_entity_addr, nonce included.
-So both a standby taking over and the same daemon coming back on the
-old ip:port end up in ceph_con_close(), RESTARTING and a fresh
-send_mds_reconnect().  Nothing is left stuck in RECONNECTING.
-
-> An MDS that really is active replies with
-> CLOSE, and handle_session() unregisters the session so that new
-> requests open a fresh one, which is what that commit intended.
-
-Yes.  Server::handle_client_reconnect() denies a reconnect outside the
-reconnect window, or for a closed session, by sending
-CEPH_SESSION_CLOSE ("denied reconnect attempt").  A sessionless
-reconnect gets CEPH_SESSION_REJECT.  So the "reject or ignore" premise
-in 39fe30315893 does not hold for the ignore part.  The client side then
-unregisters the session, removes its caps and kicks the waiting
-requests.
-
-A few nits, none of them blocking:
-
-1. It would help to say in the changelog that this is a partial revert:
-   only the mds_peer_reset() half of 39fe30315893 goes away, and the
-   send_mds_reconnect() hardening stays.  Please also mention that the
-   active MDS denies the reconnect with CLOSE.
-
-2. The reproducer needs the client to send no MDS request between the
-   peer reset and the new map.  If a request is issued in that window,
-   it registers a new session.  check_new_map() then reconnects that
-   session when the address changes, so the bug is hidden.  Even then,
-   39fe30315893 has already dropped all of the client's caps with
-   remove_session_caps(), while a real reconnect keeps them.  That seems
-   worth a sentence too.
-
-> -       if (rc)
-> +       rc = send_mds_reconnect(mdsc, s);
-> +       if (rc && rc != -ESTALE && rc != -ENOENT)
-
-3. check_new_map() still warns on every non-zero return of
-   send_mds_reconnect().  Its -ESTALE/-ENOENT cases are logged by
-   send_mds_reconnect() itself, just like here.  Not for this patch,
-   but the two callers could be made consistent in a follow-up.
-
-> +        * Send the reconnect and let the MDS decide; one that is past
-> +        * RECONNECT replies with CLOSE and handle_session() closes the
-
-4. Nit: "replies with CLOSE (or REJECT if it has no session for us)".
-
-Tested on x86_64 with a 7.3.0-rc1 based kernel (KASAN, lockdep,
-kmemleak) against a vstart cluster from Ceph main: 1 MON, 3 OSDs, and
-two MDSes with allow_standby_replay set (one active plus one
-standby-replay).  Only ceph.ko was swapped between the runs; libceph.ko
-was identical.
-
-Each run did the following.  A writer keeps a file open and stops
-issuing requests during the window.  iptables drops the kernel client's
-established monitor connection.  The active MDS gets SIGKILL and is
-restarted on the same address with --public_addrv.  Once the client logs
-"closed our session", the block is lifted.  After the takeover the run
-checks ls, a new write, a read and further writes on the held fd.
-
-  stale map, MDS restarted on the old address:
-    without the patch: 4 of 4 runs evicted ("session blocklisted",
-                       "rejected session"), EACCES afterwards
-    with the patch:    3 of 3 runs "reconnect start" ->
-                       "reconnect success" -> "recovery completed",
-                       no errors from the writer
-
-  "client evict" by the active MDS, mds_session_blocklist_on_evict=false:
-    without the patch: 2 of 2 recover with a new session
-    with the patch:    2 of 2 "reconnect denied", then a new session,
-                       I/O fine
-
-No KASAN, lockdep or kmemleak reports.
-
-Reviewed-by: Xiubo Li <xiubo.li@clyso.com>
-Tested-by: Xiubo Li <xiubo.li@clyso.com>
-
-Thanks,
-- Xiubo
-
-On Wed, 21 Oct 2026 at 19:06, Sun Yuechi <sunyuechi@iscas.ac.cn> wrote:
->
-> Since commit 39fe30315893 ("ceph: harden send_mds_reconnect and handle
-> active-MDS peer reset"), mds_peer_reset() tears the session down instead
-> of reconnecting when our mdsmap shows the rank past RECONNECT.
->
-> That map can be stale.  An MDS killed and restarted on the same address
-> resets our connection before the monitors report the rank as failed, so
-> the session is torn down while the map still says active.  When a
-> standby then takes over the rank in up:reconnect, check_new_map() has
-> no session left to reconnect, the new MDS evicts and blocklists us
-> after mds_reconnect_timeout, and the mount returns EACCES until it is
-> unmounted:
->
->   libceph: mds0 (2)10.89.20.12:6800 session reset
->   ceph: [...]: mds0 closed our session
->   (mds) evicting unresponsive client ceph-c1 (14900), after waiting
->         49.7175 seconds during MDS startup
->
-> Send the reconnect and let the MDS decide, as before that commit.  A
-> daemon restarted on the old address has a new nonce, so the reconnect
-> does not get through, and check_new_map() reconnects once a map carries
-> the rank's new address.  An MDS that really is active replies with
-> CLOSE, and handle_session() unregisters the session so that new
-> requests open a fresh one, which is what that commit intended.
->
-> Skip the warning for -ESTALE and -ENOENT: send_mds_reconnect() already
-> logs those, and the removed code was silent for closed and rejected
-> sessions.
->
-> Tested on riscv64 (7.2.6 kernel, Ceph 21, one active MDS with a
-> standby-replay): SIGKILL the active MDS while dropping the client's
-> monitor traffic until it logs "closed our session".  Evicted in 4 of 4
-> runs without the patch, "reconnect success" in 3 of 3 with it.  Eviction
-> by an active MDS without blocklist still recovers with a new session,
-> 2 of 2 runs.
->
-> Fixes: 39fe30315893 ("ceph: harden send_mds_reconnect and handle active-MDS peer reset")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Sun Yuechi <sunyuechi@iscas.ac.cn>
-> ---
->  fs/ceph/mds_client.c | 84 +++++---------------------------------------
->  1 file changed, 9 insertions(+), 75 deletions(-)
->
-> diff --git a/fs/ceph/mds_client.c b/fs/ceph/mds_client.c
-> index d4ef8a355a48..d23250af0750 100644
-> --- a/fs/ceph/mds_client.c
-> +++ b/fs/ceph/mds_client.c
-> @@ -7236,7 +7236,7 @@ static void mds_peer_reset(struct ceph_connection *con)
->  {
->         struct ceph_mds_session *s = con->private;
->         struct ceph_mds_client *mdsc = s->s_mdsc;
-> -       int session_state;
-> +       int rc;
->
->         pr_warn_client(mdsc->fsc->client, "mds%d closed our session\n",
->                        s->s_mds);
-> @@ -7246,82 +7246,16 @@ static void mds_peer_reset(struct ceph_connection *con)
->                 return;
->
->         /*
-> -        * Only reconnect if MDS is in its RECONNECT phase.  An MDS past
-> -        * RECONNECT (REJOIN, CLIENTREPLAY, ACTIVE) will reject reconnect
-> -        * attempts, so those states fall through to session teardown below.
-> +        * Our mdsmap may be stale: an MDS restarted on the same address
-> +        * resets the connection before we learn that the rank failed.
-> +        * Send the reconnect and let the MDS decide; one that is past
-> +        * RECONNECT replies with CLOSE and handle_session() closes the
-> +        * session so that new requests open a fresh one.
->          */
-> -       if (ceph_mdsmap_get_state(mdsc->mdsmap, s->s_mds) == CEPH_MDS_STATE_RECONNECT) {
-> -               int rc = send_mds_reconnect(mdsc, s);
-> -
-> -               if (rc)
-> -                       pr_warn_client(mdsc->fsc->client,
-> -                                      "mds%d reconnect failed: %d\n",
-> -                                      s->s_mds, rc);
-> -               return;
-> -       }
-> -
-> -       /*
-> -        * MDS is active (past RECONNECT).  It will not accept a
-> -        * CLIENT_RECONNECT from us, so tear the session down locally
-> -        * and let new requests re-open a fresh session.
-> -        *
-> -        * Snapshot session state with READ_ONCE, then revalidate under
-> -        * mdsc->mutex before acting.  The subsequent mdsc->mutex
-> -        * section rechecks s_state to catch concurrent transitions, so
-> -        * the lockless snapshot here is safe.  s->s_mutex is taken
-> -        * separately for cleanup after unregistration, which avoids
-> -        * introducing a new s->s_mutex + mdsc->mutex nesting.
-> -        */
-> -       session_state = READ_ONCE(s->s_state);
-> -
-> -       switch (session_state) {
-> -       case CEPH_MDS_SESSION_RESTARTING:
-> -       case CEPH_MDS_SESSION_RECONNECTING:
-> -       case CEPH_MDS_SESSION_CLOSING:
-> -       case CEPH_MDS_SESSION_OPEN:
-> -       case CEPH_MDS_SESSION_HUNG:
-> -       case CEPH_MDS_SESSION_OPENING:
-> -               mutex_lock(&mdsc->mutex);
-> -               if (s->s_mds >= mdsc->max_sessions ||
-> -                   mdsc->sessions[s->s_mds] != s ||
-> -                   s->s_state != session_state) {
-> -                       pr_info_client(mdsc->fsc->client,
-> -                                      "mds%d state changed to %s during peer reset\n",
-> -                                      s->s_mds,
-> -                                      ceph_session_state_name(s->s_state));
-> -                       mutex_unlock(&mdsc->mutex);
-> -                       return;
-> -               }
-> -
-> -               ceph_get_mds_session(s);
-> -               s->s_state = CEPH_MDS_SESSION_CLOSED;
-> -               __unregister_session(mdsc, s);
-> -               __wake_requests(mdsc, &s->s_waiting);
-> -               mutex_unlock(&mdsc->mutex);
-> -
-> -               mutex_lock(&s->s_mutex);
-> -               cleanup_session_requests(mdsc, s);
-> -               remove_session_caps(s);
-> -               mutex_unlock(&s->s_mutex);
-> -
-> -               wake_up_all(&mdsc->session_close_wq);
-> -
-> -               mutex_lock(&mdsc->mutex);
-> -               kick_requests(mdsc, s->s_mds);
-> -               mutex_unlock(&mdsc->mutex);
-> -
-> -               ceph_put_mds_session(s);
-> -               break;
-> -       case CEPH_MDS_SESSION_CLOSED:
-> -       case CEPH_MDS_SESSION_REJECTED:
-> -               break;
-> -       default:
-> +       rc = send_mds_reconnect(mdsc, s);
-> +       if (rc && rc != -ESTALE && rc != -ENOENT)
->                 pr_warn_client(mdsc->fsc->client,
-> -                              "mds%d peer reset in unexpected state %s\n",
-> -                              s->s_mds,
-> -                              ceph_session_state_name(session_state));
-> -               break;
-> -       }
-> +                              "mds%d reconnect failed: %d\n", s->s_mds, rc);
->  }
->
->  static void mds_dispatch(struct ceph_connection *con, struct ceph_msg *msg)
-> --
-> 2.56.0
->
+Ian
+>=20
+> In fact I still need to post a fix for may_umount_tree() that uses
+> those changes ... maybe now's the time so you have example usage.
+>=20
+> Sigh ... time ... time ... time ...
+>=20
+> Ian
+> >=20
+> > sashiko also reported a false-positive with the fsnotify changes
+> > because
+> > it didn't account for group->mark_mutex providing exclusion.
+> >=20
+> > It also suggested a useful improvement for d_next_sibling_sched()
+> > to
+> > always skip all cursors.
+> >=20
+> > I'll resend after the merge window closes.
+> >=20
+> > NeilBrown
+> >=20
+> >=20
+> > >=20
+> > > __d_move() allows that dentries might not be on any d_children
+> > > list
+> > > as
+> > > is the case for IS_ROOT() dentries.=C2=A0 Rather than track when this
+> > > is
+> > > the
+> > > case we dget() either parent if they have an empty d_children
+> > > before
+> > > children are moved around, then dput() if they turn out to be
+> > > empty
+> > > afterwards.=C2=A0 This will increment dentry if it IS_ROOT(), and the=
+n
+> > > decrement it afterwards, and will decrement the refcount on
+> > > old_parent
+> > > if its ->d_children becomes empty.
+> > >=20
+> > > To help with this, dput_dlock() is added which warns rather than
+> > > decrementing to zero (which should never happen).
+> > >=20
+> > > When a DCACHE_CURSOR dentry is added to d_children, it is only
+> > > ever
+> > > added "before" or "behind" an existing child, so it will never be
+> > > the
+> > > first child added, and so never needs to adjust the refcount on
+> > > the
+> > > parent.=C2=A0 If it remains on the list until dput() it could be the
+> > > last
+> > > child to be removed, in which case normal handling applies in
+> > > dentry_unlist() (where it has been moved from dentry_kill().=C2=A0
+> > > When
+> > > a
+> > > cursor is deliberately removed from the d_children list the
+> > > refcount
+> > > must be decremented if that leaves the list empty.
+> > >=20
+> > > hlist_move_behind() and hlist_move_before() are added to simplify
+> > > moving
+> > > a cursor within the d_children list.=C2=A0 This results in some
+> > > duplicate code
+> > > as they share a common prefix with d_detach_cursor() (hlist_del)
+> > > which is currently factored out.=C2=A0 We can expect the compiler to
+> > > optimise
+> > > this away and don't need to clutter the C code with it.
+> > >=20
+> > > Signed-off-by: NeilBrown <neil@brown.name>
+> > > ---
+> > > =C2=A0fs/dcache.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0 | 40 +++++++++++++++++++++++++++++++++---
+> > > --
+> > > --
+> > > =C2=A0fs/internal.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0 | 10 ++++++++++
+> > > =C2=A0fs/libfs.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0 | 14 +++++++-------
+> > > =C2=A0include/linux/dcache.h | 17 ++++++++++++++++-
+> > > =C2=A0include/linux/list.h=C2=A0=C2=A0 | 30 +++++++++++++++++++++++++=
++++++
+> > > =C2=A05 files changed, 96 insertions(+), 15 deletions(-)
+> > >=20
+> > > diff --git a/fs/dcache.c b/fs/dcache.c
+> > > index f44c7b39c3b3..3a4d0a025447 100644
+> > > --- a/fs/dcache.c
+> > > +++ b/fs/dcache.c
+> > > @@ -670,6 +670,8 @@ static inline void dentry_unlist(struct
+> > > dentry
+> > > *dentry)
+> > > =C2=A0		return;
+> > > =C2=A0	}
+> > > =C2=A0	__hlist_del(&dentry->d_sib);
+> > > +	if (hlist_empty(&dentry->d_parent->d_children))
+> > > +		dentry->d_parent->d_lockref.count--;
+> > > =C2=A0	/*
+> > > =C2=A0	 * Cursors can move around the list of children.=C2=A0 While
+> > > we'd been
+> > > =C2=A0	 * a normal list member, it didn't matter - ->d_sib.next
+> > > would've
+> > > @@ -843,7 +845,7 @@ static struct dentry *dentry_kill(struct
+> > > dentry
+> > > *dentry)
+> > > =C2=A0	spin_unlock(&dentry->d_lock);
+> > > =C2=A0	if (likely(can_free))
+> > > =C2=A0		dentry_free(dentry);
+> > > -	if (parent && --parent->d_lockref.count) {
+> > > +	if (parent && parent->d_lockref.count) {
+> > > =C2=A0		spin_unlock(&parent->d_lock);
+> > > =C2=A0		return NULL;
+> > > =C2=A0	}
+> > > @@ -1997,7 +1999,9 @@ struct dentry *d_alloc(struct dentry *
+> > > parent, const struct qstr *name)
+> > > =C2=A0	 * don't need child lock because it is not subject
+> > > =C2=A0	 * to concurrency here
+> > > =C2=A0	 */
+> > > -	dentry->d_parent =3D dget_dlock(parent);
+> > > +	dentry->d_parent =3D parent;
+> > > +	if (hlist_empty(&parent->d_children))
+> > > +		dget_dlock(parent);
+> > > =C2=A0	hlist_add_head(&dentry->d_sib, &parent->d_children);
+> > > =C2=A0	spin_unlock(&parent->d_lock);
+> > > =C2=A0
+> > > @@ -2016,7 +2020,7 @@ struct dentry *d_alloc_cursor(struct dentry
+> > > *
+> > > parent)
+> > > =C2=A0	struct dentry *dentry =3D d_alloc_anon(parent->d_sb);
+> > > =C2=A0	if (dentry) {
+> > > =C2=A0		dentry->d_flags |=3D DCACHE_DENTRY_CURSOR |
+> > > DCACHE_NORCU;
+> > > -		dentry->d_parent =3D dget(parent);
+> > > +		dentry->d_parent =3D parent;
+> > > =C2=A0	}
+> > > =C2=A0	return dentry;
+> > > =C2=A0}
+> > > @@ -2778,7 +2782,9 @@ struct dentry *d_alloc_parallel(struct
+> > > dentry
+> > > *parent,
+> > > =C2=A0
+> > > =C2=A0	new->d_flags |=3D DCACHE_PAR_LOOKUP;
+> > > =C2=A0	spin_lock(&parent->d_lock);
+> > > -	new->d_parent =3D dget_dlock(parent);
+> > > +	new->d_parent =3D parent;
+> > > +	if (hlist_empty(&parent->d_children))
+> > > +		dget_dlock(parent);
+> > > =C2=A0	hlist_add_head(&new->d_sib, &parent->d_children);
+> > > =C2=A0	if (parent->d_flags & DCACHE_DISCONNECTED)
+> > > =C2=A0		new->d_flags |=3D DCACHE_DISCONNECTED;
+> > > @@ -3106,12 +3112,21 @@ static void __d_move(struct dentry
+> > > *dentry,
+> > > struct dentry *target,
+> > > =C2=A0
+> > > =C2=A0	/* ... and switch them in the tree */
+> > > =C2=A0	dentry->d_parent =3D target->d_parent;
+> > > +
+> > > +	/*
+> > > +	 * Ensure ref count on parents reflect d_children being
+> > > non-empty,
+> > > +	 * which they almost certainly are.=C2=A0 If either end up
+> > > being empty,
+> > > +	 * this is handled below after the moves.
+> > > +	 */
+> > > +	if (hlist_empty(&old_parent->d_children))
+> > > +		dget_dlock(old_parent);
+> > > +	if (dentry->d_parent !=3D old_parent &&
+> > > +	=C2=A0=C2=A0=C2=A0 hlist_empty(&dentry->d_parent->d_children))
+> > > +		dget_dlock(dentry->d_parent);
+> > > +
+> > > =C2=A0	if (!exchange) {
+> > > =C2=A0		copy_name(dentry, target);
+> > > =C2=A0		target->d_hash.pprev =3D NULL;
+> > > -		dentry->d_parent->d_lockref.count++;
+> > > -		if (dentry !=3D old_parent) /* wasn't IS_ROOT */
+> > > -			WARN_ON(!--old_parent->d_lockref.count);
+> > > =C2=A0	} else {
+> > > =C2=A0		target->d_parent =3D old_parent;
+> > > =C2=A0		swap_names(dentry, target);
+> > > @@ -3124,6 +3139,17 @@ static void __d_move(struct dentry
+> > > *dentry,
+> > > struct dentry *target,
+> > > =C2=A0	if (!hlist_unhashed(&dentry->d_sib))
+> > > =C2=A0		__hlist_del(&dentry->d_sib);
+> > > =C2=A0	hlist_add_head(&dentry->d_sib, &dentry->d_parent-
+> > > > d_children);
+> > > +
+> > > +	/*
+> > > +	 * Adjust parent refcounts if either d_children ended up
+> > > empty.
+> > > +	 * This should only ever be old_parent.
+> > > +	 */
+> > > +	if (hlist_empty(&old_parent->d_children))
+> > > +		dput_dlock(old_parent);
+> > > +	if (dentry->d_parent !=3D old_parent &&
+> > > +	=C2=A0=C2=A0=C2=A0 hlist_empty(&dentry->d_parent->d_children))
+> > > +		dput_dlock(dentry->d_parent);
+> > > +
+> > > =C2=A0	__d_rehash(dentry);
+> > > =C2=A0	fsnotify_update_flags(dentry);
+> > > =C2=A0	fscrypt_handle_d_move(dentry);
+> > > diff --git a/fs/internal.h b/fs/internal.h
+> > > index c658c8a5ebd5..59b2b8030b6c 100644
+> > > --- a/fs/internal.h
+> > > +++ b/fs/internal.h
+> > > @@ -235,6 +235,16 @@ extern struct dentry *__d_lookup(const
+> > > struct
+> > > dentry *, const struct qstr *);
+> > > =C2=A0extern struct dentry *__d_lookup_rcu(const struct dentry
+> > > *parent,
+> > > =C2=A0				const struct qstr *name,
+> > > unsigned
+> > > *seq);
+> > > =C2=A0
+> > > +static inline void d_detach_cursor(struct dentry *cursor)
+> > > +{
+> > > +	if (hlist_unhashed(&cursor->d_sib))
+> > > +		return;
+> > > +	hlist_del_init(&cursor->d_sib);
+> > > +	if (hlist_empty(&cursor->d_parent->d_children))
+> > > +		/* That was the last child, must drop implied
+> > > reference */
+> > > +		dput_dlock(cursor->d_parent);
+> > > +}
+> > > +
+> > > =C2=A0/*
+> > > =C2=A0 * pipe.c
+> > > =C2=A0 */
+> > > diff --git a/fs/libfs.c b/fs/libfs.c
+> > > index 27d7dc16fcb0..60586fe65895 100644
+> > > --- a/fs/libfs.c
+> > > +++ b/fs/libfs.c
+> > > @@ -128,9 +128,7 @@ static struct dentry *scan_positives(struct
+> > > dentry *cursor,
+> > > =C2=A0			count =3D 1;
+> > > =C2=A0		}
+> > > =C2=A0		if (need_resched()) {
+> > > -			if (!hlist_unhashed(&cursor->d_sib))
+> > > -				__hlist_del(&cursor->d_sib);
+> > > -			hlist_add_behind(&cursor->d_sib, &d-
+> > > > d_sib);
+> > > +			hlist_move_behind(&cursor->d_sib, &d-
+> > > > d_sib);
+> > > =C2=A0			p =3D &cursor->d_sib.next;
+> > > =C2=A0			spin_unlock(&dentry->d_lock);
+> > > =C2=A0			cond_resched();
+> > > @@ -166,9 +164,10 @@ loff_t dcache_dir_lseek(struct file *file,
+> > > loff_t offset, int whence)
+> > > =C2=A0			to =3D scan_positives(cursor, &dentry-
+> > > > d_children.first,
+> > > =C2=A0					=C2=A0=C2=A0=C2=A0 offset - 2, NULL);
+> > > =C2=A0		spin_lock(&dentry->d_lock);
+> > > -		hlist_del_init(&cursor->d_sib);
+> > > =C2=A0		if (to)
+> > > -			hlist_add_behind(&cursor->d_sib, &to-
+> > > > d_sib);
+> > > +			hlist_move_behind(&cursor->d_sib, &to-
+> > > > d_sib);
+> > > +		else
+> > > +			d_detach_cursor(cursor);
+> > > =C2=A0		spin_unlock(&dentry->d_lock);
+> > > =C2=A0		dput(to);
+> > > =C2=A0
+> > > @@ -210,9 +209,10 @@ int dcache_readdir(struct file *file, struct
+> > > dir_context *ctx)
+> > > =C2=A0		p =3D &next->d_sib.next;
+> > > =C2=A0	}
+> > > =C2=A0	spin_lock(&dentry->d_lock);
+> > > -	hlist_del_init(&cursor->d_sib);
+> > > =C2=A0	if (next)
+> > > -		hlist_add_before(&cursor->d_sib, &next->d_sib);
+> > > +		hlist_move_before(&cursor->d_sib, &next->d_sib);
+> > > +	else
+> > > +		d_detach_cursor(cursor);
+> > > =C2=A0	spin_unlock(&dentry->d_lock);
+> > > =C2=A0	dput(next);
+> > > =C2=A0
+> > > diff --git a/include/linux/dcache.h b/include/linux/dcache.h
+> > > index 4b1ff99608e0..3b595adff7b4 100644
+> > > --- a/include/linux/dcache.h
+> > > +++ b/include/linux/dcache.h
+> > > @@ -324,7 +324,7 @@ extern char *dentry_path(const struct dentry
+> > > *,
+> > > char *, int);
+> > > =C2=A0/* Allocation counts.. */
+> > > =C2=A0
+> > > =C2=A0/**
+> > > - * dget_dlock -	get a reference to a dentry
+> > > + * dget_dlock -	get a reference to a dentry while locked
+> > > =C2=A0 * @dentry: dentry to get a reference to
+> > > =C2=A0 *
+> > > =C2=A0 * Given a live dentry, increment the reference count and retur=
+n
+> > > the dentry.
+> > > @@ -339,6 +339,21 @@ static inline struct dentry
+> > > *dget_dlock(struct
+> > > dentry *dentry)
+> > > =C2=A0	return dentry;
+> > > =C2=A0}
+> > > =C2=A0
+> > > +/**
+> > > + * dput_dlock -	put a reference to a dentry while locked
+> > > + * @dentry: dentry to get a reference to
+> > > + *
+> > > + * Given a live dentry, decrement the reference count and return
+> > > the dentry.
+> > > + * Caller must hold @dentry->d_lock.=C2=A0 The dentry must still hav=
+e
+> > > + * a reference after the decrement.=C2=A0 This can be used when two
+> > > + * references are held and one must be dropped.
+> > > + */
+> > > +static inline struct dentry *dput_dlock(struct dentry *dentry)
+> > > +{
+> > > +	if (!WARN_ON(dentry->d_lockref.count <=3D 1))
+> > > +		dentry->d_lockref.count--;
+> > > +	return dentry;
+> > > +}
+> > > =C2=A0
+> > > =C2=A0/**
+> > > =C2=A0 * dget - get a reference to a dentry
+> > > diff --git a/include/linux/list.h b/include/linux/list.h
+> > > index 77fb62f79928..a94eec20275f 100644
+> > > --- a/include/linux/list.h
+> > > +++ b/include/linux/list.h
+> > > @@ -1123,6 +1123,36 @@ static inline void hlist_add_behind(struct
+> > > hlist_node *n,
+> > > =C2=A0		WRITE_ONCE(n->next->pprev, &n->next);
+> > > =C2=A0}
+> > > =C2=A0
+> > > +/**
+> > > + * hlist_move_behind - move an hlist node to a new location in
+> > > list
+> > > + * @n: hlist node to be moved
+> > > + * @prev: hlist node after which @n should be added.
+> > > + *
+> > > + * @n may be on the list or unhashed but must not be @prev.
+> > > + * It is removed if necessary and re-added after @prev.
+> > > + */
+> > > +static inline void hlist_move_behind(struct hlist_node *n,
+> > > +				=C2=A0=C2=A0=C2=A0=C2=A0 struct hlist_node *prev)
+> > > +{
+> > > +	hlist_del_init(n);
+> > > +	hlist_add_behind(n, prev);
+> > > +}
+> > > +
+> > > +/**
+> > > + * hlist_move_before - move an hlist node to a new location in
+> > > list
+> > > + * @n: hlist node to be moved
+> > > + * @next: hlist node before which @n should be added.
+> > > + *
+> > > + * @n may be on the list or unhashed but must not be @next.
+> > > + * It is removed if necessary and re-added before @next.
+> > > + */
+> > > +static inline void hlist_move_before(struct hlist_node *n,
+> > > +				=C2=A0=C2=A0=C2=A0=C2=A0 struct hlist_node *next)
+> > > +{
+> > > +	hlist_del_init(n);
+> > > +	hlist_add_before(n, next);
+> > > +}
+> > > +
+> > > =C2=A0/**
+> > > =C2=A0 * hlist_add_fake - create a fake hlist consisting of a single
+> > > headless node
+> > > =C2=A0 * @n: Node to make a fake list out of
+> > >=20
+> > > base-commit: f909e534f5e34feb2ea2701d54df63e21aa506fc
+> > > --=20
+> > > 2.50.0.107.gf914562f5916.dirty
+> > >=20
+> > >=20
+> > >=20
