@@ -1,99 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.177
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792667590;
-	b=Z/yCl+Vmrk28clENAgl1HL2LNTHx8S7vBj9zHtx+do1JFa9lM6ktwa4qcZdLnCz05PyQ
-	 igemaNUPeDcVde+aj6Chy8+hoOPVnKobNbSSvCkDiDQgZM9mLIEUzFHNBy/2+1+CfPBBe
-	 hgs5AQ0tju4VT+i9iuOdC8fJOMvhAVh1YPQT3/xC0PTkhFold8hdMbRMl+0NlF5dEhGDR
-	 hGgwMTByJTM5r146HDoU32Rqs+S3jGPn0SezKPw+tdYXifqJPLOeDdnnCEW9npu3iL+nu
-	 T6fnp9MRPilwDuRUXnQVdvoC3UIOTz2hrXSe/O3am4g9Qq5gs2eOKA9E7ppW/Lh9UKw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792667590;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.181
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792667629;
+	b=N3R/194jt1wPSsPCIbQjscZa+sZpg2DNlKYMCYm6l9kvj306cd1u8zAYfpkrKQUR5sw+
+	 TgVusKWtasJOn+TbOiXDX9cvyyygDo2rrSQK02l4Uv0YbjeiVxxexUQ+67iwItnBqLAxL
+	 7F/bcA7WmVJpxPwPOXFFb+vScZrEsD40Hvw2LP2zPpAtV5yRBpOW0pYfvqCf2XhOpQ7Ko
+	 283kDFn7QZIWPrIpo90IXasb3hrBo8fDXPVBezA08PpWEy8LlgPbX3lPSLOR0n1EaNi5B
+	 W9vHkQRw/8bZvuXiNy7y9iK8xXwoBGb0ID97yGgxMuzD3yW/Nqidf7s4/Ujd4EKrBPA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792667629;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=O85oEWnqbB7A3aswtwEX6Ghna+/vXCw0tN0v3/yndfs=;
-	b=TYP9ka14RM6cYkrW1ugX8eksE9YQ//1jojUfF1eZ1vlRFfeDEgAnBBFfp1n2iyL+dnvS
-	 EMoNrS7RsCYsfU2ZnOfLGkV3uKW0f0BRpGRgO3HJ6xm/lSTovp9KCkqdiOxVOMFeCbnlP
-	 Qtq3na0kb3ehQLMGXFO7SKH0qfii7oyeL6zkdI1sYlEWgEZs//S5tAU1S9SONGc9PR5wy
-	 hMkXq1faun2Ez1VFHhnSiqEjRgU1OHdvhkzbVjqmNwLShIUTFucS8B9cHcss+tMvbAItw
-	 K3NXpsGgPcVzwRGFLOrl2PbSJVZPNR8GvKFM+T2qRCoHXHxPEFG7nB+C4hIQvq7hEDQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=R8rZRziw5q/fRuMqRbAHHvpJXFcm/wFSyNjqHk2EOSU=;
+	b=ZuhWs8JeizGkfDbo4tuFsO0duOlO6IHmwvCDAKODurXU03FMzMpUV0JFT2I+eUmLpe4w
+	 BSWkfMg+524lcIHZI/hBPgOxawOD+ioonKpciQb7ZqyqKw9Lx6yrOlhRWG5kg/w3bMKWw
+	 iMOydmWdDqLcMPR6szHMCWS8pV51Ea7MASTORZKfrwRJ8YXgpP5NvLHmCxhU5J8hbV08F
+	 065bQOazONj+OFS+UyAuT/+zvO9KIkQFCoaKxK/8mqkH+jAX4MhdBvAsXwZ7yA6mddSFy
+	 SE7NnOB7r4rwzXRgBbaOAM190gJ4TAqqmsOeKQd9Uq+GA3zkjuax66cRxKc4MEcpWOw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="XU9/dvRS";
-	arc=none smtp.remote-ip=74.125.82.177
-Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=XzcsCzOK;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.181
+Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A698C606A31F
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 11:13:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A698C606A31F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B30F606A31A
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 11:13:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8B30F606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=XU9/dvRS
-Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-3645f0f3fcdso2926424eec.0
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 04:13:09 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=XzcsCzOK
+Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-34c522572bfso188116eec.3
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 04:13:44 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792667624; cv=none;
+        d=google.com; s=arc-20260327;
+        b=cfMwDWxDbIxD03jimeQ25rFWRGf+wormTO2c8lzMldcaC6oyvkrRiiJdO07oueN91W
+         BileSwC3gmw6lchvZ3IyUUNWMHbMjmd7he/lGLc9Ui3Zf5JiUMDiH1cOOEmLHhqDh+R5
+         gBT/fpr5C+rGzBIGXwAIxu4MXvip5MpViTsb16oyKjwrYv3KMLL5hqLZjhQ2ZTpv3PHV
+         NBiPQ8t88pQJlLwuGTbZ8ToceQsCVtErjhgEUS1jLNlO6NYJIemDiNyEI4kqR0ENpD+m
+         PHbfweGlNw2UUdyaLVHtc3IFkqKBhta+OY++SjYO/tBd93dT/0JFdZZKffqNGO9J1Emn
+         jI9A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=R8rZRziw5q/fRuMqRbAHHvpJXFcm/wFSyNjqHk2EOSU=;
+        fh=Z6UbKo6HAcqcrf+FW4TCUCDN8EXNVOovbu+XqTYw8qU=;
+        b=Exh5Z8LL7POc+2sjIM/ku4oQpvh2eQQhAR7ziwat299eyMuyPJpR8XLsZvA4xEQPwV
+         oaf0tPUK4zIMiRJuXKqK2Tv4A8uRwkyslvs5ubQRKCtI51+kQLWqammELNDMfXrE3VhQ
+         1BUqZyvCzLYGJRftjR3/Zc4zCarCTKp8yZrn0+oe6nw1WFGPAUbrUjYw8ps0VBG5M3o2
+         NsAEwc5d5m2vToTJnp2eB9asR4+axMOocgQXb5mnXW+bqRsifhpmk4vp893aWJUrSmb4
+         HoCwr4i9YUsva+hqHm30NmmM0XwLeaJj42WMNmcKolBfVtLCdau5OYYqpakAnDtVZZhY
+         g1VA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792667589; x=1793272389; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=O85oEWnqbB7A3aswtwEX6Ghna+/vXCw0tN0v3/yndfs=;
-        b=XU9/dvRSHYB+giTZMeAi9/POi2ADnlIdyVKYNXDcXxlyNMpfOuQihfv2TUQdzwrDfH
-         O9vcXGpPR7zy+HiiYg8K4+YLoaZl2gNa0NWbdRXwiBeNz3Kr0diyzhVhw0/q/lWIgOQJ
-         Yaz2A5k2RXxN7Xviy7NRWoF5hM0z0guCpp2LvrPABd1AP6p0iYVAhhRwtDCi4t9xhAF/
-         CwDEPiIMQk146avf+XPAnDcPOuSu0gs2gjEO463Hx/OR+48Ky68UxBgkMaw8PhPZ9zIG
-         t302diJwq3KupsyYif6yfvdRXbVnFeOiCM6H7P4VxvBmp0kdxLdHyRmynhlFnb4JoL+A
-         fYLw==
+        d=gmail.com; s=20251104; t=1792667624; x=1793272424; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=R8rZRziw5q/fRuMqRbAHHvpJXFcm/wFSyNjqHk2EOSU=;
+        b=XzcsCzOKIM1dH7X3ne5kpMLOkyW/kS/lF37y0oepZqm1lgSq0khIYNbARTOd93oqMU
+         TfXjKrpV5RZBx81RtZXBePBatu/+IAWU3v4339o0MHOYOStsXtZ1gZg+ftfhrJJ97o9X
+         jqknYd4gvq1/exI/EqLx798hDLeSye599FMXrfnHhM0GvQ2yXwCcnFwSF9N9+LTzHkyh
+         vFCD63AmEY3JMAQwK+XD8g1FJcFNszVqG2czhj24/nSh5TVzQtFFLGhnadtrjVjEoHGV
+         b5OBD27hWUq70n97TAknRmxcqTPS8aubwZjUdzwNgjSOnK0TLvQ6uQ6EHWUf7qS8H1w3
+         NK9Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792667589; x=1793272389;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=O85oEWnqbB7A3aswtwEX6Ghna+/vXCw0tN0v3/yndfs=;
-        b=X6zQ+hmW2ktM2tuDkiF8Qol53y89sdfdrYplv2Ef8BmzlxodmAV7VS8lK3+WFZwzKb
-         bWS9UEZHR7nyddLEdpI69jUlmpewfAXix4E1FJMhrGr/F37hCiv53rp2q1a4O4X4TTQk
-         a1tMpBwZ75xrphg0rgi9UDZX9pIFfdruY0IA+d1c1+g2eoUw5LEMCfzD5JUuzAkq3Nbr
-         0lEW/oPIQcXYFWQte7DFG8QPrDwYiLKvt8fqOiIZThRrsaI8dlNsk8Qfml6andVigJvt
-         RITuaoDPEzcu8hdeby/EDvu9lF2kWdIIAi+3sBsefHLwPmV099m4EtUzyPy70RuhmN/q
-         7rAw==
-X-Forwarded-Encrypted: i=1; AKwUvByUa+X7bi6vbsUwp6d4CN5nS/parozFVehw1YQnKdzzds3ZFmXEmk+NL1eZlPpM6jbwSa2tVLhvfDr9+k4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKYaqnBNKntbu06dLkwKaDmtFG4llgwzOh3dphmzH9AWPwvc3xg
-	aS6I+yXnaGBDP7wknrPa21yDv2CgRs1H1FVJwhTh2ljN8jRb6cBkIv5j
-X-Gm-Gg: AYBFou0yHAWmaZ1YFbX+ZUrMtYo3gTWMuV7Vzw3znk/eJrf6aHGeqg/+cVmbBr2hoz9
-	JFrYR27JrDjfBtiI7rV+YN3+Gyjsi8b7jFBA7EOVDg/msVz6QIeEwDBvRGuGm1YwnZs0i7iK3gp
-	5q1zbMQ4XTYd4YMUs1P299RB1l3hHfhoGWDW8GnF4GmGHWGU4Tk8OyGCBFCJc981Mw1eqUQ8dVb
-	AAzu80+E56Rv7oecvfsUZjfikloG6T1GerEode1J8MDYZCA9Nl+5RaYzlM9PdHJS8BK1IjRlSzk
-	1oJP9KESw1yWqEtIIpnUw17Ln+YLrASAQGNvkXVV1FOC25pPfU4fRQfp3ZkavKYjNqNHuQsicGm
-	WBZWPWE7ihGj0N4cUNHwy6weVNoP7M1/xMgUSktHHtyE5EHs44tceM+z2NT4kNkSR9ltup4shUA
-	HKJT9F7k8BtiJSqot5IRUN5UHgiDvNEOwyuYikiaDsI+8WEQbuyARGr0VXAwBjQ2HfXVw8URnqM
-	a7tx6kRJE/xUC5j6u9OiYT2qpIP9F9TRLj+ThpRLtUio3ziWo+yAi0Rbhr6aTk7G0TUCTcrEywM
-	kjC3Ypn222S/VjmYXC4NDHHTmiFtUYRLJVLfvqExAgJh1nGNIySFpW5ry3l4EWJW0B4=
-X-Received: by 2002:a05:693c:87d3:20b0:369:7c:bfce with SMTP id 5a478bee46e88-369008c220fmr1910947eec.14.1792667588795;
-        Thu, 22 Oct 2026 04:13:08 -0700 (PDT)
-Received: from nugod-NUC15CRHU5.tail9f095a.ts.net ([218.237.104.87])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-368ca914bb8sm6369653eec.5.2026.10.22.04.13.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 04:13:07 -0700 (PDT)
-From: HyeongJun An <sammiee5311@gmail.com>
-To: Takashi Iwai <tiwai@suse.com>
-Cc: Ivan Orlov <ivan.orlov0322@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Shuah Khan <shuah@kernel.org>,
-	linux-sound@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	HyeongJun An <sammiee5311@gmail.com>
-Subject: [PATCH 3/3] selftests: ALSA: pcmtest: Test pausing a capture stream
-Date: Thu, 22 Oct 2026 20:12:44 +0900
-Message-ID: <906d65ff1cf78f5e173a5476eadcbca285aa2b17.1792660433.git.sammiee5311@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <cover.1792660433.git.sammiee5311@gmail.com>
-References: <cover.1792660433.git.sammiee5311@gmail.com>
+        d=1e100.net; s=20260707; t=1792667624; x=1793272424;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=R8rZRziw5q/fRuMqRbAHHvpJXFcm/wFSyNjqHk2EOSU=;
+        b=mfBO/KxPLULwjU3/GmmnTpz/Pltu/w00It866hM1EppAAw3NGGdQxw5tnO3CQNRrPt
+         0r4N4yU+VFLPUqXANhIqX8fE6cXGLObd8BEmx/tJ86aTdfoY26qbEzEWNga2yFG2EynV
+         /tz5J3QexuI9xoqbrKLN2FKSjxV6+I9sIZdNOLBCmaMQKCAUdame1W0dHOcRSQgD1XEM
+         +gelte0rrgQx9fPQrg8HpHFjDtU38my3qW2BN4qtdPRR6qru0PRSragprvZgR0QI23dz
+         0IzFY0T5X/L3YBaiXm9iSGs3ISEaiR86gKL/F5OOTxu+70doVQB2ox+BWqXQ+COAdeQp
+         wpaA==
+X-Forwarded-Encrypted: i=1; AKwUvBxkNiUZegQEvIdQjMcaHMM8CZA0yq8WQdvtt4qqE5DvUp/c0bUPma49JJIsarEVD+yV/BoiWsjThaGeMsA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYICzuncBEJvaD3KMaIeuMnIGezHb5xrXGrp5EDpiABbO7x/KTNN
+	TD/qJw1ZOO3O9XUy9RREEGy65vaBTe7eNG7TdRZe43t5ELhbiMnQTi6v4JvI70CEtJf9Ehr8UAh
+	FCMbABENNEsD8tTacWaMbQMPj5CouLMU=
+X-Gm-Gg: AYBFou03ErSBJRZR/BQSvrd9WaO30pkGqJ8quXLM0pjPBmbFHwQc8+37Jm/IiP4+Otq
+	SOxOAQkfN/nBjjgHnV4+6SOVmF5zpz3fHQZ/E+ZKIiCopNcq8wNbfsOCbWYlUV9Uf+aSv/WzjTa
+	jt7M7thIweFxk7ZQn1803+GJSRaZtXCDUID0LruBsX1TZgGKzL7vrfz97NkrNahdmt3SrW4Yh8c
+	42p3/dXgF/ZoO5BXktBSCnAUNdKV8/hRzcDQrNP48ljsCeaH6sU95QH1XX9DbQxa8ovI2BGI3J4
+	rDYq1yJzymcsxA1bnvUirZ8SatnEDGQrBGxqRnGJbziUogoSQ7hcqbhOT+gIxtmJVniKLNsqm7F
+	RPr734YGxc9xZo4MZpB3hGtFcORk3ZX+nKLvx+w9vdV6n/EVk84obTQ+85QkNbqcUqa73srQpKS
+	xb9Ebskro6qpgBVsKORBgXW0DUQjHyMIdmdY1yQ1ApdgLf7NkDqvsCWvLbFDFAvq/7mKMYvpodI
+	15GtupXAO6EZUr/jYeP5YhzZECO8lvHIp2L
+X-Received: by 2002:a05:693c:42d6:b0:368:5521:612f with SMTP id
+ 5a478bee46e88-3685522022emr5207256eec.0.1792667623553; Thu, 22 Oct 2026
+ 04:13:43 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,89 +106,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260928011123.450800-1-alistair.francis@wdc.com>
+ <as_r8n7p_wdbChuQ@google.com> <CAKmqyKOkmwompJqaP2k-oJicmXmqHY4E0wuLcrvkHLx+oauQ2Q@mail.gmail.com>
+ <DM596TT7E841.1U05OKY9N6I6C@nvidia.com> <CAKmqyKMbs_N6C8MAKGUU11DW1y5nJRWPqnUcrVZoyi0SDjsv3g@mail.gmail.com>
+In-Reply-To: <CAKmqyKMbs_N6C8MAKGUU11DW1y5nJRWPqnUcrVZoyi0SDjsv3g@mail.gmail.com>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Thu, 22 Oct 2026 13:13:30 +0200
+X-Gm-Features: AclHuK8IRxRyOadDqQczFV7IA6tccuepCRvhA3-QGnHUz-1woYEjtN6EKSEPPVw
+Message-ID: <CANiq72kWv2HHniM3HXM=DkTbaNWSHsqfA_dKQNihfAdmA_sgnQ@mail.gmail.com>
+Subject: Re: [PATCH v4 00/22] lib: Rust implementation of SPDM
+To: Alistair Francis <alistair23@gmail.com>
+Cc: Alexandre Courbot <acourbot@nvidia.com>, Alice Ryhl <aliceryhl@google.com>, lukas@wunner.de, 
+	linux-cxl@vger.kernel.org, akpm@linux-foundation.org, 
+	Jonathan.Cameron@huawei.com, rust-for-linux@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, jic23@kernel.org, bhelgaas@google.com, 
+	alistair@alistair23.me, djbw@kernel.org, linux-pci@vger.kernel.org, 
+	wilfred.mallawa@wdc.com, a.hindborg@kernel.org, gregkh@linuxfoundation.org, 
+	alex.gaynor@gmail.com, benno.lossin@proton.me, boqun.feng@gmail.com, 
+	bjorn3_gh@protonmail.com, tmgross@umich.edu, gary@garyguo.net, 
+	ojeda@kernel.org, Alistair Francis <alistair.francis@wdc.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The driver supports pause, but no test uses it.
+On Thu, Oct 22, 2026 at 6:34=E2=80=AFAM Alistair Francis <alistair23@gmail.=
+com> wrote:
+>
+> Oh! That is a great idea. I have added that locally and it's pretty
+> nice. I'll tidy it up a bit more and then send a v5
 
-Add a capture test that pauses the stream halfway for half a second.
-The core does not read the hardware pointer while the stream is
-paused, so a driver that keeps running shows up only at the release,
-as a jump of the pointer. Check that the jump is under a tenth of a
-second, and that the data carries on from where it stopped.
+Yeah, to clarify, abstractions do not need to be complete. In fact,
+they should only cover whatever you as a user need, since the kernel
+does not want dead code anyway.
 
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: HyeongJun An <sammiee5311@gmail.com>
----
- .../selftests/alsa/test-pcmtest-driver.c      | 49 +++++++++++++++++++
- 1 file changed, 49 insertions(+)
+In general, though, we also avoid adding them locally and we involve
+the subsystem maintainers etc.
 
-diff --git a/tools/testing/selftests/alsa/test-pcmtest-driver.c b/tools/testing/selftests/alsa/test-pcmtest-driver.c
-index 380364ee7924..b796a5613c6f 100644
---- a/tools/testing/selftests/alsa/test-pcmtest-driver.c
-+++ b/tools/testing/selftests/alsa/test-pcmtest-driver.c
-@@ -7,6 +7,7 @@
-  */
- #include <errno.h>
- #include <string.h>
-+#include <unistd.h>
- #include <alsa/asoundlib.h>
- #include "kselftest_harness.h"
- 
-@@ -362,6 +363,54 @@ TEST_F(pcmtest, reset_ioctl) {
- 	snd_pcm_close(handle);
- }
- 
-+/*
-+ * Here we pause a capture stream halfway. The core does not read the hardware pointer while
-+ * the stream is paused, so a driver that keeps running only shows up after the release, as a
-+ * jump of the pointer. The data must also continue where it stopped, so the whole buffer still
-+ * matches the patterns.
-+ */
-+TEST_F(pcmtest, capture_pause) {
-+	snd_pcm_t *handle;
-+	snd_pcm_sframes_t read_res, paused_avail, avail, frames, half;
-+	unsigned char *samples;
-+	struct pcmtest_test_params *params = &self->params;
-+
-+	samples = calloc(params->sec_buf_len * params->time, 1);
-+	ASSERT_NE(samples, NULL);
-+
-+	snd_pcm_sw_params_alloca(&self->swparams);
-+	snd_pcm_hw_params_alloca(&self->hwparams);
-+	ASSERT_EQ(setup_handle(&handle, self->swparams, self->hwparams, params,
-+			       self->card, SND_PCM_STREAM_CAPTURE), 0);
-+
-+	frames = params->rate * params->time;
-+	half = frames / 2;
-+	read_res = snd_pcm_readi(handle, samples, half);
-+	ASSERT_EQ(read_res, half);
-+
-+	ASSERT_EQ(snd_pcm_pause(handle, 1), 0);
-+	ASSERT_EQ(snd_pcm_state(handle), SND_PCM_STATE_PAUSED);
-+	paused_avail = snd_pcm_avail(handle);
-+	ASSERT_GE(paused_avail, 0);
-+	usleep(500000);
-+
-+	/*
-+	 * At 8000 Hz the pause is 4000 frames long. Allow a tenth of a second (800 frames) for
-+	 * the release.
-+	 */
-+	ASSERT_EQ(snd_pcm_pause(handle, 0), 0);
-+	avail = snd_pcm_avail(handle);
-+	ASSERT_GE(avail, 0);
-+	ASSERT_LT(avail - paused_avail, (snd_pcm_sframes_t)params->rate / 10);
-+	read_res = snd_pcm_readi(handle, samples + snd_pcm_frames_to_bytes(handle, half),
-+				 frames - half);
-+	ASSERT_EQ(read_res, frames - half);
-+	snd_pcm_close(handle);
-+
-+	ASSERT_EQ(find_capture_mismatch(samples, params), -1);
-+	free(samples);
-+}
-+
- /*
-  * Here we check that an error from each PCM callback reaches user space. The driver returns
-  * the error while the matching 'inject_*_err' parameter is set, and works again once it is
--- 
-2.43.0
-
+Cheers,
+Miguel
