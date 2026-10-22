@@ -1,95 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792697745;
-	b=hHrL0hvdvjCd7P7K9feXGMfKdos/aQ/P0NAPvY/OUkxr8iXEbas0RAdRf4Q37fq96EYh
-	 URGs+Qi4LxuYHgR1ViOZhSTfOnIrh4XHaBRtQCbEbIREBik6B8SOhkyxwZNtCwyg+dkPk
-	 8TXJWUDF5jvjDrsUtGNQH3sKocs4c8ZHOckCQaTH+zjIG8kllfKsx2xTirg2p6n6Y+S//
-	 8SnfEANy6wPiWrV/uQdtjgbJ6ORdLYALSEbeDaiCP+95H/e71YyGgExswt8DLZQ/jLgeZ
-	 ge39JFweGtXWwRCn/w7z3fkyK7w6zXQy41P82B9nVTh1+CiQIY98yuTfIxfkMsm7gsg==
+	t=1792697804;
+	b=YkcReKgGucUHr0FgsGSskYwwTYXpL2Iw2RLbaX6eXDApzS5u/T9kXVjzTVw2LqH1Z7qF
+	 iI+DkRKr1rep9MzDDvRshtkrpP+VrYrFy+VRlzwCeps7Magi8cyLmJdGf1hKHQWrQHrBr
+	 9R7Lvyp3HEHkCOD8wA40iE2ku45fRWwA6DeBWIVqYn+LPVs+SGJMJFJqyvvD6NQ8hZ1Ti
+	 0NDH5nfvp+2ShYnNQobLo35HbYkGsgjjj2qOX8Ct/Pe4CR74uH/LI/IMDLIYcXguWYPQ5
+	 dTS3xI3zyKvo9qYrSg6rRbM+dgmMYaZeFiUriZVBuywo8eHH6zEv2YC4oJxkj6yKF4g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792697745;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792697804;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=tGnlBktFh5eVn0yoSJXVJDZQZm2aLj1/BTVa+INKrzo=;
-	b=RhIbQARFcA0cS/PzU2z8oBbeiZWcJdD9lv0qd6Y97EDvrX7Ix23UZwJYfN1oVFUN0vPm
-	 Jt7TGcEJSDopD2Y/ZTg9vw4Na661Z/fAgjr3BcpCjtATDJlr+c8eUmG3tuhcS0FBZ4f3x
-	 D0wFRsV8Km4DYIwW5eBycuSq7USVXmYLD1GN6ZUT41xNVrD/rlPY7271z5XThmhFUUOde
-	 PCkDxKVjr8CY6gl1pe0MqpbflHumurHYvTTU8sVPS6WISP4tPnCmrnGJI6HeGSv3ogbG3
-	 MPQUpOaSI+dxRYyjVnyCW7Sd7W8XE2Z44WrNKhv1jVYKvEOMDaFyGW5voRnhQknl5Zw==
+	bh=PZPvfX1rm0qpo9fUpVJwjmTY46uavpRGLm5yVTqEhw4=;
+	b=qj3z3mwefQHbZnzfTyHMplv/Bw/g7+97W5zu0g2Xlk/+qi1Fojgu3GE2r6HjIM0zm5D/
+	 fnM+qrnNszOpzvZu9eEDI+EiJCF8iwDxEfRKOLDONk/07yDlKpZHodHQKk+DqubrE0tHV
+	 mVfOXlHoFcsCZDWV9CjOHTDiYPs6H9T8ncZg6VK+jjoI+lZeCoKwBrg2huR8QhUyIc9NB
+	 kMIVOHltU2nPGJHqaYTo+c7qWqnRWCItcqTMTacM+M16iu8sRCmDb8/2OBIkjZgJUIUss
+	 F23cJN1bMWSMkv8uRATgWcEsFOBXoOOlzH8+6ArFG+UHC+bFh0X/luKFf3megfg3F9w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="Gc8BxcR/";
-	arc=none smtp.remote-ip=209.85.216.47
-Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=aux0XHRy;
+	arc=none smtp.remote-ip=209.85.218.54
+Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com [209.85.218.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B850A606A31E
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 19:35:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B850A606A31E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69231606A31D
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 19:36:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 69231606A31D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Gc8BxcR/
-Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-3a4cdc9025bso126001a91.0
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 12:35:44 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=aux0XHRy
+Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-c3fd91337baso24942666b.3
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 12:36:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792697744; x=1793302544; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792697803; x=1793302603; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=tGnlBktFh5eVn0yoSJXVJDZQZm2aLj1/BTVa+INKrzo=;
-        b=Gc8BxcR/0O5k85KrrxERVtErIyEf3cZabHxvh7EqbjetE3siOF05Hl+LxAc2DJ3yxE
-         0FkJOVPjiXzAnEVio4bEer8cUlMDPRFhK8GKLE6C3juZ0ZkygzEzi3KGdZZeAwSZVlYK
-         44k80htg3yNeRB9DERPcTRimtlHzaKvrtaPJeRyM+MD1MhLDblZZFLLsgyszlsLbnkKI
-         cyDgNkEmeZ+6tk5N/xdZlCSZZyq2Hst+nwO01LhHmqqTn73H6DJ/dXLEc7+lj0gIwKhf
-         Q6Ch+Tba3tBLf1z5sfm085QXQXj7izRovs7TvZ+zInqt3X7LbdUE1kkaf/5PBxK9fSei
-         8e3g==
+        bh=PZPvfX1rm0qpo9fUpVJwjmTY46uavpRGLm5yVTqEhw4=;
+        b=aux0XHRy9keUSnl9ec248N3wTjgf+6vJY7w6kgBPN5l50LjSLm7+/XsAJiL2CUKTxT
+         GiBpbm03ztMLKK68x9VGwy2yy0EnOJS5JEW31xXsDPNyMhrfdMiqtVe6xJHmFdKxKsI9
+         qAw0hOmL7iXRDT+y4K82k0+Vfb4E/bY58CYnrHSNSYx8tmsxoEw34S9VLwp1GaLjY/x3
+         TfUlTrkkagRbZr7Jq6ABqsY0iwdlcp46LEDG4mUImr5/kHBQKQKjKuEZrJc/as6WNHlJ
+         VyhxtAZ6iHkgAt1tM6A6+4Z9cuhk9cf2Py/iFFtcLxLP8Dor+dDfGjpQO1Q8fjqlylZd
+         t4Ig==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792697744; x=1793302544;
+        d=1e100.net; s=20260707; t=1792697803; x=1793302603;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=tGnlBktFh5eVn0yoSJXVJDZQZm2aLj1/BTVa+INKrzo=;
-        b=b5nqjMtNpI9QfVeixhV9vN0nDy7sE/5vZNB0zNLzmYr8bzdyRQXS3dRkDkIYWCcqod
-         HFlpygVlm4xPXpN44+lLqx7v7WWTvRbaPCE5gzvl6D8lCY3ub5uMTZ1Ia44j2fPSs4L8
-         ck/SQSCtdvecfRMxrPkb1slO3mZ2suly33BzIPnVsMAvcImlgb7gqomBYIH6yQeLcsc1
-         BNuKHqMGzr1EOsd3MP39Ke+YFp6hLTz4YfJHd0b2rCbagi8nSLJe3kN1mEXaDZE0coFz
-         ZSO6KEj/J5mowrVOrD2VKoObGwM0lvcP6CHKIxn9yateB5g0eQj3h9nJhyt7IG9/7LEL
-         VNUg==
-X-Forwarded-Encrypted: i=1; AKwUvBwclD0siu9m4Kp2A6oW4zvfyvkzcGX1ErrsU9fvAPRhFOKj6+kkt19No/RQX4E6yh0h9T2Pd4fBUnEdHC8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJJGZM1ib0dxNsf03KiVOIYR0MosxcMjc8Ep76b4EolvDb4tXaR
-	GNnqUP04UI/JVm9t2Hwi1YFttDQcoPK71pwUVqOufg35RXzUNW27aLcu
-X-Gm-Gg: AYBFou2LC5b3RdzFNeot0axDktkTy6Br9XpyV+PnnCgLnQaHFjWIBPXd50kCeHYeids
-	l0GR3q/HZoDXf0AxYBclBB073w5Io8lgqKef3WJc7T9LFZ1aQfFsQ0fN9Y6/hANJm/H39kO3h30
-	YfPJlS0QSROrjh91KykhroUnMqY9CaV/cSZ0XXW6y/7Ex1hDNwz+fltSg5+9NPSLxXdJ1jwfJpL
-	0wSCby2VkrajbVUu2NmbJ6xHLr9qjvf5f+QobDFmCMC0YPowbNf2ymmiPFrO0v0di2gg3frOBCC
-	aF0q+xTyqKiMR4FQno60uNGJLfOr166yU6LSfRdK6ithCzHVOiaAZMxwoB0i9m/LfhngpB9Ya+t
-	n5DkU36CL3egHHLdHQfphnpJnUJcNTycHmxSPwuCRl2ewmjTkSpn3ZAnFu9kcQo2V1JeSqzhhHH
-	M3keyGwkwRyjRyMfOKPELDao7+bdWiySDNNuhYBOnp31lIZ9EpalzVRmo0k28HB8DaTEP5a4G7J
-	A7HKhB/IXx/hIzZ1z9qoc+qLChJLb/aEgK2HRXNGfgK+J/y88QBgbBIOo9NoqUnTDi5YbjPvefC
-	8AubsR6c82HKQnnTZUs8pbw9tLjDv47r
-X-Received: by 2002:a17:90a:d610:b0:3ab:7031:d962 with SMTP id 98e67ed59e1d1-3ad86ef29c0mr4945649a91.41.1792697743922;
-        Thu, 22 Oct 2026 12:35:43 -0700 (PDT)
-Received: from casta ([42.116.198.195])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3adca62e46csm272182a91.1.2026.10.22.12.35.41
+        bh=PZPvfX1rm0qpo9fUpVJwjmTY46uavpRGLm5yVTqEhw4=;
+        b=f0ziYp0YQYWoVjoHXmuCrFMhUSuOARRzyghStVMYN+TVDAPqeS39AwuMKCz6Dm1HQw
+         oj6CaoVo1mt0XDPIsRqKDs3rafYHSOxVK54nvuy5URJSf445gnoImXEvUlbmr7t3qfJb
+         jCozEDir/h0NZPab6t3+Q6r76fWT7y5K7SZEiznXiI0i+TjU3b2uifj/t7Rh/nViHxLC
+         13/ivU643cqHb8iCXusSyvjvhC4w0V6zgk2l5KNXCTTQtaQAwHftFZUAgEtJj2kUZ7nC
+         0Xwcfj+2F0iQypHhg5gF2+X32K2tU9KZNX4xwo41sgeSrUUyJODIWQ7ieGdRxUyH1Qr/
+         zoJA==
+X-Forwarded-Encrypted: i=1; AKwUvBzMSN656jnVO4aBW0xVRa25Mezryj+yuDqFcvbHf/waOVWGrbF5zVglDLono/+Ql5ll1Omud6P/9XuOqa4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJLXajrazO5KtP7uTF44/aSOJq8KLSRMMZdOnJIYF+8knLerUg9
+	JpKgWsUYpYWzgGIVpawzh4WjoLKZCxPGSyh7w1aC4eYfLwttgXjQYSnx
+X-Gm-Gg: AYBFou2DCw0XYjXURSpKJRkwtvlq4OzBolacE8J+5P65LriT4CkmzPiEMGadW5N9SBc
+	kBzxNBEZRloLQNqCSSkXY52s8TBsPd+RofQVGvv+/ReIpS9dJx34UG9escKkGNJe6er62MA23tG
+	2y6/wigGMNZe0wtLDBsUg17v9HBaUg3HqFIpYsFsIsGRd6WUwLMzQQQaOxML93Kv0Xrg8/Rgk9n
+	rg1Uw3y8sFZ9EnDOAoR4R8TRiNIGsqThCT07l+Es7Aawe6QUZYLPcxo3I8bCMCsIh68i0ngSKY3
+	XV65rfws5SePp+YHvVtRk32CAMXRJR7juv+KSh25U8kAWMT/ZWWk8CDACCwSMAmVRgMd9z0VPDz
+	waa0pPq2o6rWNY+bXe3skOB+S2LHRMwNQ4hljIoCdIQHsgCOySItxPmqCsT1A6FC7cEoHUa1EzP
+	PfTeMV2Mh/exzmIVH9YD/uYOJ5smuWZcStygtPkBX/UmMURd6sauitBTw59IqV6ECs3fSNfjbPV
+	wIqCuXN+ADPi+kYvpC3l09c8wbr9IlbwtyaBPTkpuVfIPFIFA==
+X-Received: by 2002:a17:907:dac:b0:c3f:98d4:dfe2 with SMTP id a640c23a62f3a-c46a908932cmr24015266b.18.1792697802406;
+        Thu, 22 Oct 2026 12:36:42 -0700 (PDT)
+Received: from localhost ([2a03:2880:32ff:4f::])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c46a5ca4fa2sm22651766b.49.2026.10.22.12.36.41
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 12:35:43 -0700 (PDT)
-From: Nguyen Duy Nhat Anh <neganhat@gmail.com>
-To: mchehab@kernel.org
-Cc: llinux-media@vger.kernel.org,
+        Thu, 22 Oct 2026 12:36:41 -0700 (PDT)
+From: Vlad Poenaru <vlad.wing@gmail.com>
+To: Jinqian Yang <yangjinqian1@huawei.com>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Marc Zyngier <maz@kernel.org>
+Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Michael Chan <michael.chan@broadcom.com>,
+	Pavan Chebbi <pavan.chebbi@broadcom.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Breno Leitao <leitao@debian.org>,
+	Andrew Preece <apreece@meta.com>,
+	netdev@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	Nguyen Duy Nhat Anh <neganhat@gmail.com>,
-	syzbot+809dfc586f33fc44b6ac@syzkaller.appspotmail.com
-Subject: [PATCH 3/3] media: em28xx: fix refcount underflow in em28xx_free_v4l2()
-Date: Fri, 23 Oct 2026 02:35:22 +0700
-Message-ID: <20261022193522.12996-1-neganhat@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261022193159.12713-1-neganhat@gmail.com>
-References: <20261022193159.12713-1-neganhat@gmail.com>
+	regressions@lists.linux.dev
+Subject: Re: [PATCH] irqchip/gic-v3-its: Enable dynamic MSI-X allocation
+Date: Thu, 22 Oct 2026 12:36:20 -0700
+Message-ID: <20261022193620.2152038-1-vlad.wing@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260715035437.700601-1-yangjinqian1@huawei.com>
+References: <20260715035437.700601-1-yangjinqian1@huawei.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,44 +108,50 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-em28xx_free_v4l2() is registered as the v4l2_dev release callback, invoked
-when v4l2_dev's reference count drops to zero.
+Hi,
 
-Calling v4l2_device_unregister() from inside this callback causes an extra
-call to v4l2_device_put() on a zero reference count, triggering a refcount_t
-underflow (0 -> -1) and a kernel BUG in lib/refcount.c.
+Commit 0d6a7c417983 ("irqchip/gic-v3-its: Enable dynamic MSI-X
+allocation"), merged for v7.3-rc1, breaks bnxt_en on our loving Grace
+machines. Reverting it fixes the problem on current mainline.
 
-Fix this by removing v4l2_device_unregister() from em28xx_free_v4l2() and
-calling it in em28xx_v4l2_fini() during teardown instead.
+Hardware:
+  - NVIDIA Grace (Neoverse V2), ACPI, GICv3 + ITS
+  - Broadcom BCM57508 (BCM957508-N1200FJ), FW 230.0.165.3, bnxt_en
+  - The same platform with a Mellanox NIC (mlx5) is not affected
 
-Reported-by: syzbot+809dfc586f33fc44b6ac@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=809dfc586f33fc44b6ac
-Signed-off-by: Nguyen Duy Nhat Anh <neganhat@gmail.com>
----
- drivers/media/usb/em28xx/em28xx-video.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+The trigger is a ring resize: a boot-time udev .link file with
+RxBufferSize=max, i.e. "ethtool -G eth0 rx 4095 tx 4095". The close
+path never gets the HWRM_RING_FREE completions, then TX times out and
+the machine hangs:
 
-diff --git a/drivers/media/usb/em28xx/em28xx-video.c b/drivers/media/usb/em28xx/em28xx-video.c
-index d653341ffd16..45b62655ca3b 100644
---- a/drivers/media/usb/em28xx/em28xx-video.c
-+++ b/drivers/media/usb/em28xx/em28xx-video.c
-@@ -2332,7 +2332,6 @@ static void em28xx_free_v4l2(struct v4l2_device *v4l2_dev)
- 	struct em28xx *dev = v4l2->dev;
- 
- 	v4l2_ctrl_handler_free(&v4l2->ctrl_handler);
--	v4l2_device_unregister(v4l2_dev);
- 	dev->v4l2 = NULL;
- 	kfree(v4l2);
- 	kref_put(&dev->ref, em28xx_free_device);
-@@ -2462,7 +2461,7 @@ static int em28xx_v4l2_fini(struct em28xx *dev)
- 	 * The em28xx_free_v4l2() release callback will be invoked once all
- 	 * userspace file handles to the video device nodes are closed.
- 	 */
--	v4l2_device_put(&v4l2->v4l2_dev);
-+	v4l2_device_unregister(&v4l2->v4l2_dev);
- 
- 	return 0;
- }
--- 
-2.55.0
+  [   58.221] bnxt_en 0002:01:00.0 eth0: Resp cmpl intr err msg: 0x51
+  [   58.221] bnxt_en 0002:01:00.0 eth0: hwrm_ring_free type 1 failed. rc:fffffff0 err:0
+  ... (repeats every ~3.7s for every ring)
+  [  215.539] bnxt_en 0002:01:00.0 eth0: NETDEV WATCHDOG: CPU: 69: transmit queue 18 timed out 5118 ms
+  [  215.539] bnxt_en 0002:01:00.0 eth0: TX timeout detected, starting reset task!
 
+Bisecting v7.2..v7.3-rc3 on this machine points at the irq-drivers
+merge (8b5d31123f41), and within it:
+
+  good: 9023960b74ab ("irqchip: Remove redundant dev_err()/dev_err_probe()")
+  bad:  0d6a7c417983 ("irqchip/gic-v3-its: Enable dynamic MSI-X allocation")
+
+On current mainline (f47d223627f8) the same machine fails at ~55s;
+with the commit reverted it runs cleanly.
+
+So far it only reproduces with our debug config (KASAN, lockdep,
+DEBUG_PAGEALLOC, DMA_API_DEBUG, CPUMASK_OFFSTACK, ...), not with our
+production config. I haven't narrowed down which option matters.
+
+My guess is that with pci_msix_can_alloc_dyn() now true behind the ITS,
+bnxt switches to dynamic MSI-X allocation and something on that path
+loses the completion interrupts, but I haven't root-caused it.
+
+Happy to test patches or collect more data.
+
+Reported-by: Andrew Preece <apreece@meta.com>
+
+#regzbot introduced: 0d6a7c417983b
+
+Thanks,
+Vlad
