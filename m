@@ -1,113 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792653553;
-	b=Xb5rz7nBtRRUY3mp1sBWHnoEQPjW/Gni4VQQBDwMz0ZTj6T2gugxkK36dN00PeGrbzMW
-	 deCS2g7rT7ffmdnvAfmbIko1mHJDOtlGaAOYjHCcaPH5JilPYhjwSdVwJ+8BNLyBPhjf5
-	 ad6BuqTw+vqEc0OAehueZmOVC3Fk3707XyYLV068uRWZ+IpMIqxHhpNbfyUW883MHwb/v
-	 LwGNtPLJWQLOdpOiHxXk1U38vmb4wDSc0a6T+1hBiHMLMVO8H3gJVQWI5RfqTrtW9i/S3
-	 C1wnZjQJ+07EE1A1MvCkCcFY/uGvU8yNm+bFYcjNvLJ1p4HIlfTY1lz39ytgEoXXREA==
+	t=1792653568;
+	b=5dD1FVVY5HyppgfL53a7OsPbp/UQtaOsd6G9Tsr3FkomJ2SyVrR5wr3Yw1GmvkcDfY0U
+	 gbCEh4v0tWOVv/WrC45Fx6mQOzdAsaIulxcWjCEX8aF90QWWdZLX34mvZ7fiFN66SNFtz
+	 e7itrlIdyDJpxEOXQQyFV6SldbXJrBCqAClYpNAZMuVemZYci7HwnfOgeLNJAKCp60w2m
+	 RMpKvJYus8krUjrDJoZUPlY3JVk24/JyKdWNWjQxDz6MIQXEgnCjZjsHqHLhpV1QB6sMn
+	 0QPmqSHiiW+Gi7Gie5yQprA0osKK+xTzxU8yNVChTpILXaMLHfxgjPutEZSnWaqQH2A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792653553;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:From:To:Cc:Subject:In-Reply-To:References:Date:
-	 Message-ID:MIME-Version:Content-Type;
-	bh=pCGbRXaaCKhpFnqdJpERzrBbBhy2ekz2jJLuNljluiE=;
-	b=EhZfEd9dbqgIR/NnYnfkg2do6BrstRmMlfpW8+lRC2nDbxILIankc89/WpGycWJEzonM
-	 mjkgwIx7+YdmLRdTjiKS8WQb0Ocr4TxAod0ikbLCpMW+C5ojlzf1Klr9XUf+WwaaoVyXt
-	 KDG/Pd/Ia/0a1PtVJFpF2uGQpUHWjnPk+NmxGZ5txEzrk5/b7QrwvFyVzftDxVZkpYU1k
-	 c8EiYDhXEABi8lgLHo3pehLZ9/0GHfl2ls90g8oGASHIvCNDZt8fZ5idTO4ovrUO9vGpQ
-	 ravp/ig4l+ZQ8Lw9wysdCxruLNnF+jhbvuBWpgnmr5bBTckILN2Tg4pMDFV1RwILqfA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792653568;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=Nf3jSk7w1j+okvpezp41LPgG6BghIMDC87ldAfN1ggo=;
+	b=WEmg7DC1/6f3D7VQEtWACvXUcxtk4AQUErSCjOg4GN1HbMzQ0CmQ1ttAynJOxZnIY/P0
+	 Ic3bIDDHC9tAYR8ck6P6k2JAMKVFNLCRXuJ5XlR/0+VBTKGCcWUVniUaRtxyomfxR3OCk
+	 5W+FauMKQT6VQzoskgHdOW63MIOPx0Yf/lOhwoM3eHbi2fm3ZbHofNXU96aH1YmcJCEv8
+	 NsGrIyko08np+KkYIAcjrA5XEJ1raSBn2YlNbM9HsgCapEmpIBh1hqkKKPHFMOGO+HNkC
+	 ghYnkEC2jr9B+SccRSG6jkWy8NRXvlm01eXI893NPK/OE6J94d9kY1UcRucDwxPbf+w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=IVWj9cFr;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=uFS4iDHj;
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=m32+gmS1;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=HFmts7vs;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00952606A31E
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 07:19:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 00952606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A043F606A31A
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 07:19:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A043F606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=IVWj9cFr;
-	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=uFS4iDHj
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1792653552;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=pCGbRXaaCKhpFnqdJpERzrBbBhy2ekz2jJLuNljluiE=;
-	b=IVWj9cFrg5LuPxhNgK7dSxj5+8jxNhsldxlljQCciWlyrxxEaFDsZSQU5/Yhx3eNngRLXd
-	+7rO2RB9z43dec46uAH56BfEUWlnrhhUXfBqdQI0JlRsMJBX/PxqiRrv+RZQNw/YPSTWZi
-	DLsmXgSGPoHYNEKxjRAhLuVC/vkPOQI=
-Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
- [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-651-64eQ5_KsP9y7ZxczsC4RPQ-1; Thu, 22 Oct 2026 07:19:04 +0000
-X-MC-Unique: 64eQ5_KsP9y7ZxczsC4RPQ-1
-X-Mimecast-MFC-AGG-ID: 64eQ5_KsP9y7ZxczsC4RPQ_1792653543
-Received: by mail-wr1-f69.google.com with SMTP id ffacd0b85a97d-48e17d30a79so946734f8f.3
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 00:19:03 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=m32+gmS1;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=HFmts7vs
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69M701EV2714176
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 07:19:26 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	Nf3jSk7w1j+okvpezp41LPgG6BghIMDC87ldAfN1ggo=; b=m32+gmS1Ymgq9JAz
+	909NtzQRlLitABxi+BEbDuyTVdl0Tfme/4QwK7FCvNftCP5Ro+9ZqYZoH5KdhcXe
+	2l0fewiOP9qDBRoBHxPQD9+yeoahvjMqNb0gZghc3DC/t7RxBSwEYemaMi0KmsxP
+	JKuZiMMl2L8o1VlUE9MaQ7nw/HEpUf9FKwnyKPx7lJc8ObyytvsYG/uWQAaYckhY
+	HVVi2rYzJ7hbE3C0ZnliDhzGigHl+qsz7YtfrIw3gJb4skPLHpv1n1dLakzb90e4
+	oIOqlnzo11KIZrSj1XGscGwf0RtpkIUiUJvIeQgVY4a4lWwpi+ggExICml39zqpI
+	bLKhZQ==
+Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com [209.85.160.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hf93bs69u-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 07:19:26 +0000 (GMT)
+Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-53568f05f8bso4192101cf.3
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 00:19:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1792653543; x=1793258343; darn=vger.kernel.org;
-        h=content-type:mime-version:message-id:date:references:in-reply-to
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+        d=oss.qualcomm.com; s=google; t=1792653566; x=1793258366; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=pCGbRXaaCKhpFnqdJpERzrBbBhy2ekz2jJLuNljluiE=;
-        b=uFS4iDHjq1WCIYSq9HdPgVFdyoBQ7ZZkODpIaf95JSuJ8Jj/R8QIXO6/nwA3cu6mp9
-         A8kG1aWAo4q5T70EXc/bEnYmMz5QMQ2vgYjdWH3pRsFjypddPg4bMnFI2NYHMRA3m3SV
-         DXRxo9qrWwV3LQhlA5tHuvSMTfDjFOYisrYv+/Ws1V1EeUWmnOVPMIBBP3CG0N65mv+a
-         1zhjsNT/+NO57NNjZCbWfaq2ISpILRacs8DnwSOPZw0Q2zjYe3ti9PfG+CdGDC1rSuY4
-         EFipAZFCauDJIVQvxoEh4VCyiF+VNjGxplAUeu0H3WQQXx6UFQtWnkWIjhloR9zPyt0M
-         j9fw==
+        bh=Nf3jSk7w1j+okvpezp41LPgG6BghIMDC87ldAfN1ggo=;
+        b=HFmts7vsImyCOEdAlE39KgvF+SV7PEbRoMJ+yTcnycpUz2J1Pv7sePCw3AyCZCrERy
+         nbab86v8bW5n56GzG7QjCJ4W/0cKk2fEFvz2sC1PV+SYAnzToXGXwaMq7yUGIuSnhI+T
+         dUXomsHIlGKFJYWnibqmOJEZcTDT70VcJUkRM4kWgxSAG3M9XG47+2X1538BufOCPnaF
+         Iyc1FcVe07Atq0w8FYwzUn/K6h7888fKohoNewKkLWcmni8gmSihl1Ig3yNWvd355dYV
+         VGvmfU/BrZnZY+E2AbKiU6cOnLNomnrfTNDmFJ8nOo/ue5oI+RtZA0YTf8RisZrKqpBS
+         Td1Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792653543; x=1793258343;
-        h=content-type:mime-version:message-id:date:references:in-reply-to
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=pCGbRXaaCKhpFnqdJpERzrBbBhy2ekz2jJLuNljluiE=;
-        b=hSk7Poq7c1EzENJ9CcOEpSJ7jqhMbW5aWVKq4wedQ/O3lok3Itn01MpCPLY5W3henL
-         bdZVEj4JFa4az98W/fKNOeuyuIFINklOsYIVRJ9niYsz6gKYXEpxHCJeEucasLubaXPV
-         yyvtYZtuDmuxAnDQ/i2z7HwPiA25+40/UnbAnjfYaKk7ATQC2EnILwMW3pTi3CyF4xIX
-         X8ZkER3S4jZW+4juV1Jx1CROEbqAbhVwm12Ryyy49xq19dXjnfw0rzm5UCw7EvmqO/wQ
-         2fFUpDOEcFKc0Beli5dq7+J8DC1J47NiFnmJmaylTRStuSORocmL2+VzdSsQ+FwWQiOL
-         s+jw==
-X-Forwarded-Encrypted: i=1; AKwUvByS8eFOjFZsZmdcurZUeVfbxnkYvB49QIlIxMMNKV8cm4k4iAqMzlZ9PBuiQHWNBC3/POOGA6qTz20iSY4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKOatVscBVwPjTAk7VAFL/R+cRU441Uu1yatmR5WtUqG2BKk1oB
-	tLTEAANsliTNJKorZYx1bhPPtX7hy5VeAfVAqA5G9T8u/IuPZrOUdxh7S7sX1t3uG1a7HzEbco7
-	Kp1I3BEjyApiL5R0qDjCcBn2GtRRDYHmoZlcxkYycbFfRMHPiYQfSWytUhHmmwrhgM4qP2lbTMg
-	==
-X-Gm-Gg: AYBFou1/1nk+ZQuq2NwsQ+38mWVru1O6wg4bUwhOkv3iknkEnKjP9GdTIgKoLoVn+/p
-	daWqFq2ath+0MyYJVIfYNNgzoL3RbiKHEVSR0KCVvrj3+2Z7pabZg+n6Uc/t/L/lvOxmPpQYD35
-	xHFumKEn+08TEU4RzkpHaz9495LQWZ9q0GM9b1qLH5stzi+TtduZXscQbiXXq0tIwqTdiQgAlDX
-	zm5ARQlUXfJOKxGAkwBNEg9H3t1Hwx/Csu1+1RIddJ+9I3HGOyLj1HKMDyHM18NF2lta5ZAD1uo
-	a9Kbge7/iSA/2jYn6wCDtt7ONq74CmYSbf7qJilHAlELuvIj+7uLmw0bBPFwz4+pN2wBYUMPRsu
-	YrkVkDjFSuCQqfBnvk1vMlxEvH93fVs14AqhStK8SJw==
-X-Received: by 2002:a05:6000:1843:b0:487:2777:6354 with SMTP id ffacd0b85a97d-48e2650d1b0mr9235340f8f.48.1792653542970;
-        Thu, 22 Oct 2026 00:19:02 -0700 (PDT)
-X-Received: by 2002:a05:6000:1843:b0:487:2777:6354 with SMTP id ffacd0b85a97d-48e2650d1b0mr9235300f8f.48.1792653542565;
-        Thu, 22 Oct 2026 00:19:02 -0700 (PDT)
-Received: from vkuznets-thinkpadx1carbongen12.rmtcz.csb (g3.ign.cz. [91.219.240.17])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e258420fasm11055933f8f.50.2026.10.22.00.19.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 00:19:02 -0700 (PDT)
-From: Vitaly Kuznetsov <vkuznets@redhat.com>
-To: Sean Christopherson <seanjc@google.com>, Paolo Bonzini
- <pbonzini@redhat.com>
-Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, Amirmohammad Eftekhar
- <amirmohammad.eftekhar@cispa.de>
-Subject: Re: [PATCH] KVM: x86/hyperv: Explicitly reject VP Assist Page reads
- if cache was clobbered
-In-Reply-To: <20261022021227.295495-1-seanjc@google.com>
-References: <20261022021227.295495-1-seanjc@google.com>
-Date: Thu, 22 Oct 2026 09:19:01 +0200
-Message-ID: <kuptsmerymy.fsf@vkuznets-thinkpadx1carbongen12.rmtcz.csb>
+        d=1e100.net; s=20260707; t=1792653566; x=1793258366;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Nf3jSk7w1j+okvpezp41LPgG6BghIMDC87ldAfN1ggo=;
+        b=SUBz1BBXfA8VKIHMuB/48FX3J4vc132tojRlBClPL5EtpG6t9VJ0NMDN5CXR3EzXkn
+         q5mLs7qEhISE0id0GJ2B3d9bSk2N75gchj5eh8GaL6s0oni0wfYWKD2CRqZhscoU49xT
+         R0989372NRYWCO6PDNr630Bgbv7Zm6RbnRipfOIPdCRRs0smCXZonBbl4mu07PLqpvSz
+         5Muqqb7yC879Xdebv9E+jfEHYOHCL+XgXvDQxK0z6IngBYp19v++7cgez49K4NBYw5ap
+         19GEzmK3gXRTqA2nENC+qq//jC7+N4znfjBUwEnWzAqqjOtfx0mrB2PT4/LE5istOyNk
+         H39g==
+X-Forwarded-Encrypted: i=1; AKwUvBxMMes9i/9V1f/L/cwG4rZRGh4YBWbYcpid1GJ92Xd1fdEy+cnKOktph0b3vzuHQRZqy5dXPsA8PZ+muIo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJVn3E3RzTgGD9OThqstTMVjh6dYzJH7Sm/SXVB9HPlRLBCJOtg
+	++RapGJjcTpoobHfjIHRximQ5gJGX1P0hW4igiZ5pXE3jI7JAtmUlJlKbBn7x65TbA7rIOlqOtr
+	jCEeHT14zuEZi3nWBhkdGsVuE1Qb8ZLAjEhsbUphEXOKaYHE3rNCQn0JUec6hGtEt8uY=
+X-Gm-Gg: AYBFou1o7DEE5s4POydpG0kFORX98OKDWgGcdvxTiK1/KsU6g2VyB0/C837IKXyC3JM
+	Yapv51w9L++dXh8ztUuacNk3BErdHmCETlQtI5s1NjEutP6sYtWgiB5OEdpuJNTY0RKU/qVrbIf
+	eSCgujseTe8lCwGF0+doRefd7B/ZVuOiM7lOGrQlXhYpsB2z8xHmuyIXsKMqLvdDC+ganjzzV+7
+	0HkstGlHREPpMx5kh7M1wv+347zDmG6QwOW9iKgulqGVsaRfT9mm6xF5hRlD95Uc4sVAerf744x
+	GmiFFc2CFF23E7xW/BuxVkOrTvQYyAwI9YPxBbejU4nrslTnYENrbpGwb+kS+wpTpajwJVq5ZNj
+	EVBk7oyK8ywMm7l97ZXZJcw==
+X-Received: by 2002:ac8:5d15:0:b0:535:496:56ab with SMTP id d75a77b69052e-5369b1c0348mr85871741cf.0.1792653565633;
+        Thu, 22 Oct 2026 00:19:25 -0700 (PDT)
+X-Received: by 2002:ac8:5d15:0:b0:535:496:56ab with SMTP id d75a77b69052e-5369b1c0348mr85871531cf.0.1792653565233;
+        Thu, 22 Oct 2026 00:19:25 -0700 (PDT)
+Received: from [192.168.226.26] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c468a59b91asm76726866b.52.2026.10.22.00.19.22
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 22 Oct 2026 00:19:24 -0700 (PDT)
+Message-ID: <aa6dda5b-419f-425f-a9b5-198a9bf7eac2@oss.qualcomm.com>
+Date: Thu, 22 Oct 2026 09:19:21 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -117,58 +115,87 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 05/14] drm/msm/a8xx: Add missing a850 ifpc reglist
+ entries
+To: Rob Clark <robin.clark@oss.qualcomm.com>, dri-devel@lists.freedesktop.org
+Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+        Alexander Koskovich <akoskovich@pm.me>,
+        Jie Zhang <jie.zhang@oss.qualcomm.com>,
+        Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+        Bhaskar Reddy Valluru <bvalluru@qti.qualcomm.com>,
+        Sean Paul <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>,
+        Dmitry Baryshkov <lumag@kernel.org>,
+        Abhinav Kumar
+ <abhinav.kumar@linux.dev>,
+        Jessica Zhang <jesszhan0024@gmail.com>,
+        Marijn Suijten <marijn.suijten@somainline.org>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        open list <linux-kernel@vger.kernel.org>
+References: <20261021204244.67160-1-robin.clark@oss.qualcomm.com>
+ <20261021204244.67160-6-robin.clark@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20261021204244.67160-6-robin.clark@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: CcuPfrD-UAl2DAhIsoGxIa6NTufov-wE
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIyMDAyOCBTYWx0ZWRfX5mlACfCu/Edx
+ u4e3XxuePkm6OenQCeWyFsg8qE8nnN6JJ8uFEbK6phHOij1wWHQs7Sf7UwInySgXOI8quZDoB6P
+ KrpY0UFI6mOXkYeEcy0/fykxHJ6XpySRHHJQ/Gc8Wg35hLdue3e0eV6kYb7pMkL1pejRkwKnlaM
+ Bnjv0FwBQzFzGc3dXOxCZfOUuAubbDrgpnGmcRHnYfetpVcMqh+xxK/Z6GuMRjPwYb+/cGxl6pU
+ wH6VsmPPD26mdqlNnEJp75H/ZRu1wYP/ygsDR3D3ReR93SwhZOsdxQDMS2dZ77oEaaedQymbCYt
+ 502or4ksCVudp7xw6ZnMDgRWOUqWsso6jCjEmhHJyMLMYiKu3EoD0x5bnn78QP8hZPY8n3//czu
+ YOZYskXHNTn8FRNhPcQz0tfeJDWbo9ILrQIQakXAss6NY2aaF6WpVPg8PXY1LJ4e7R4ARyRjPhA
+ dDShzbDmBWOOZNwGhjQ==
+X-Authority-Analysis: v=2.4 cv=HJxWhYtv c=1 sm=1 tr=0 ts=6ad9b8fe cx=c_pps
+ a=WeENfcodrlLV9YRTxbY/uA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=EUspDBNiAAAA:8 a=ZG9rikoeVC3lgFHVExcA:9 a=QEXdDO2ut3YA:10
+ a=kacYvNCVWA4VmyqE58fU:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIyMDAyOCBTYWx0ZWRfX05AWdOPydCkQ
+ GrconPKpN7IrZqU2xQYpVliMePZ7qXnfqUJH8Wc2b+D89J4WT5V0L/TON8B/sAWWMRDSVcNUd/3
+ TWDvfGbFe9LDNdPOLPMNRrLtNIrLVo0=
+X-Proofpoint-ORIG-GUID: CcuPfrD-UAl2DAhIsoGxIa6NTufov-wE
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-22_03,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 malwarescore=0 phishscore=0 lowpriorityscore=0 suspectscore=0
+ clxscore=1015 priorityscore=1501 adultscore=0 impostorscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610220028
 
-Sean Christopherson <seanjc@google.com> writes:
-
-> Don't try to read the VP Assist Page if the shared PV EOI cache has been
-> reconfigured via KVM's actual PV EOI MSR, as trying to read 624 bytes of
-> info when the cache is setup for only 1 byte will trip the sanity check
-> WARN in kvm_read_guest_offset_cached().  Ideally, KVM wouldn't use shared
-> state to track the VP Assist Page, but in practice no sane guest enables
-> both KVM's PV EOI and Hyper-V's Assist Page at different addresses, i.e.
-> not allowing both to co-exist independently is "fine".
->
-> Fixes: b63cf42fd1d8 ("kvm/x86: implement hv EOI assist")
-> Cc: stable@vger.kernel.org
-> Reported-by: Amirmohammad Eftekhar <amirmohammad.eftekhar@cispa.de>
-> Closes: https://lore.kernel.org/all/20261017093016.32348-7-amirmohammad.eftekhar@cispa.de
-> Signed-off-by: Sean Christopherson <seanjc@google.com>
-
-Reviewed-by: Vitaly Kuznetsov <vkuznets@redhat.com>
-
-(I am, however, thinking it would be better in the long term to either
-separate KVM PV / Hyper-V PV state here or even consider a 'big
-hammer' and make these two (+Xen?) mutually exclusive for all PV
-features.)
-
+On 10/21/26 10:41 PM, Rob Clark wrote:
+> We want to save/restore all of the CP_PROTECT regs across IFPC.
+> 
+> Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
 > ---
->  arch/x86/kvm/hyperv.c | 9 +++++++++
->  1 file changed, 9 insertions(+)
->
-> diff --git a/arch/x86/kvm/hyperv.c b/arch/x86/kvm/hyperv.c
-> index 5d2e3617c952..c08eeaac8bb7 100644
-> --- a/arch/x86/kvm/hyperv.c
-> +++ b/arch/x86/kvm/hyperv.c
-> @@ -949,6 +949,15 @@ int kvm_hv_get_assist_page(struct kvm_vcpu *vcpu)
->  	if (!hv_vcpu || !kvm_hv_assist_page_enabled(vcpu))
->  		return -EFAULT;
->  
-> +	/*
-> +	 * KVM reuses its own PV EOI feature to emulate Hyper-V's EOI Assist,
-> +	 * and rather stupidly reuses the same MSR and cache storage.  Treat
-> +	 * the assist page as inaccessible if the shared state is configured
-> +	 * only for PV EOI's single byte of data.
-> +	 */
-> +	if (vcpu->arch.pv_eoi.data.len < sizeof(struct hv_vp_assist_page))
-> +		return -EFAULT;
-> +
->  	return kvm_read_guest_cached(vcpu->kvm, &vcpu->arch.pv_eoi.data,
->  				     &hv_vcpu->vp_assist_page, sizeof(struct hv_vp_assist_page));
->  }
->
-> base-commit: 814607cd40df80d5727957adaa857e0feca43497
 
--- 
-Vitaly
 
+>  drivers/gpu/drm/msm/adreno/a8xx_catalog.c | 7 +++++++
+>  1 file changed, 7 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/msm/adreno/a8xx_catalog.c b/drivers/gpu/drm/msm/adreno/a8xx_catalog.c
+> index 55a805ab438c..45cd986ad4b5 100644
+> --- a/drivers/gpu/drm/msm/adreno/a8xx_catalog.c
+> +++ b/drivers/gpu/drm/msm/adreno/a8xx_catalog.c
+> @@ -1477,6 +1477,13 @@ static const u32 a850_ifpc_reglist_regs[] = {
+>  	REG_A8XX_CP_PROTECT_GLOBAL(53),
+>  	REG_A8XX_CP_PROTECT_GLOBAL(54),
+>  	REG_A8XX_CP_PROTECT_GLOBAL(55),
+> +	REG_A8XX_CP_PROTECT_GLOBAL(56),
+> +	REG_A8XX_CP_PROTECT_GLOBAL(57),
+> +	REG_A8XX_CP_PROTECT_GLOBAL(58),
+> +	REG_A8XX_CP_PROTECT_GLOBAL(59),
+> +	REG_A8XX_CP_PROTECT_GLOBAL(60),
+> +	REG_A8XX_CP_PROTECT_GLOBAL(61),
+> +	REG_A8XX_CP_PROTECT_GLOBAL(62),
+>  	REG_A8XX_CP_PROTECT_GLOBAL(63),
+
+Sounds like we should autogen this part of the list?
+
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+
+Konrad
