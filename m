@@ -1,66 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.194.8.81
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792685844;
-	b=Z83T1XSamzLgKXgHFqgvC4nqIfLNgCpzgEmUGgNbWPSH2PmCx1uToKAlQNSlw1x99k31
-	 /4n5NKqgzI5CtAeEFhYRCasTx7sHZO3eiOukPQ0j8h3kOQA1otDbUOAhlRzBAUvyvAPaG
-	 kjIrmDcbhZt45cOD5p9TGGO3gKrzeUuFY/XludBTA83aMC9LcYGHCRR24i2RWA/ugc7bn
-	 yMeYZToX51ho71OB44uzeBG1jJhXtTNqrs1qs5XAXoYJJkfLl16oa5/lpUQ06fpDBQ0Qy
-	 Qfuc2GZfzefupM8t2asM+NCy2wbdrLjxuZKBwa/shKjHJ5eHi72SkoCWZv3pwNYlMQg==
+	t=1792685883;
+	b=KpV+A6ZQ1RzWaZJyJN8cEjqe9sybIdn5p68uGWz9t7W/6AJPGAhhj6siK26ncnB7nYen
+	 ymM0DGo9FvV51BWq/N7BCDfDXWuC84chSOvcwPW7H1eXWW0bzfMPsc8wjcuDhWCmTfKvb
+	 2fSVVTSz9ZtlRJZW/IfcEJktwJClj1523GCmDeDndUIeSYLlgdlpelXoLjutvhj1la95k
+	 UHQat0AeVp7fWUBk5gIkwyL7inwaNEao05DxEr5H9fK5/iZ07ptr/Mi+41wZo3itibxc+
+	 Y3peR2LfnC2KKl/2D0hB5jYYxUYLVydWkCx9WHIJ0k1C5rR1ahURH1KlKJRonvbtNww==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792685844;
-	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=MN0UiazmxeHW7SqU7RVeg38ZMCu0rsCgqZRvdUxxdfo=;
-	b=DtnITSqhMgauns4oIMSHSclIhCpLhyV4heRIZEYMIINky2IFj0SsjZDc712NYrWsS6ku
-	 ryWhytJ0XOmN7qmrq6IYKYmRb15sLvZkGuM4gOOgaU0iv9RA6J3FddREAAP3L800x6rBq
-	 BSAoJmyOWZ98UynXezRdiMGHgNvSddGuM4tJOB2B88UOj7DHWoMpb4VJZxSYp+eKuddae
-	 wloouH6tj1ukkG/99lQwsHB24pY6tz8gG6ne68on0fPN4HQEQo6ZiSnaoC7uCpIW2ul6z
-	 JnVuDagKi0GcvoA8mrAe/yFkNyUYKRl9BgTeIErGVhuypf+Xhz5dUrRxP9MWV3tkEeg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792685883;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Content-Type:User-Agent:MIME-Version:
+	 X-SRS-Rewrite;
+	bh=aL8Lz8oTC0vMWqMCB3RZJ/T430i81FckMIiN5boXTww=;
+	b=PTBD+EAriqGiqp2V/Qx25wbRZVXDjtEbI6Dw7clxtmdRphZkR3TmVnlUEkqnOZeRW3wM
+	 YPEdhYoBpPEme9UEIz9HoTpP0xWR0m99m4ZgS3YCUyIDHmGPdIGDQTEfZjN/hfXN6MPh1
+	 jLdZJTNw0ghGjerIPlsCW01JqFaZ/Y7tPm9wR88+z97w/byrbLF4msXSeDUpikOrXGFZW
+	 G9OfgSFBo8Dg/+LWnoZIPL8wXt0faVDw++zP1ctNTSLKOgQ3P7jDYuYw7wZgaKmFxgTVf
+	 FxSrRAMHQjx+Y5D7X/6Ar6gNBtJXQ2/swSy9RL7oIx7bQpOrI/NE0S7/LejvSPnwzyA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=dolcini.it;
-	spf=pass smtp.mailfrom=dolcini.it;
-	dkim=pass header.d=dolcini.it header.i=@dolcini.it header.a=rsa-sha256 header.s=default header.b=krTZQ7DU;
-	arc=none smtp.remote-ip=217.194.8.81
-Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
+	dmarc=pass header.from=infradead.org;
+	spf=none smtp.mailfrom=casper.srs.infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=lLH8OXIa;
+	arc=none smtp.remote-ip=90.155.50.34
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1954606A31A;
-	Thu, 22 Oct 2026 16:17:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C1954606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94521606A31A
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 16:18:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 94521606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=casper.srs.infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=dolcini.it header.i=@dolcini.it header.a=rsa-sha256 header.s=default header.b=krTZQ7DU
-Received: from francesco-nb.. (93-49-2-63.ip317.fastwebnet.it [93.49.2.63])
-	by mail11.truemail.it (Postfix) with ESMTPA id EFFF61FB4F;
-	Thu, 22 Oct 2026 18:17:18 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
-	s=default; t=1792685839;
-	bh=MN0UiazmxeHW7SqU7RVeg38ZMCu0rsCgqZRvdUxxdfo=; h=From:To:Subject;
-	b=krTZQ7DUtT0stj2dVB8QD+m2a5CLYrzcVr3zk9IutgFqpT2z9HhO95gbkV5KbZj/D
-	 kkdJ9I9S5VCm8+cU3n5VeJZ6x8Sjr1mrPh02zmpDAVMpKmgcy77wZe1sHXESQSIioW
-	 fX8xRnTF6wzkUn3xAC+moTMEfTBJUm0NM+frmKHJBVoO+ZHHci2Q9/FqDgNB+7Rask
-	 AGYsiCo5ZnDFMZb3MpMqialws5eykADppY4iC+ut/R+sfBl86YLgzqIfArTdgpvxsZ
-	 ZxNexj5KK8OMYx+O+TjLabCCl4sfIexEFrdryMztsmQBM/nmT9uN2JrUVy1E4i7SFW
-	 DiMYxNU+eUCPg==
-From: Francesco Dolcini <francesco@dolcini.it>
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>
-Cc: Francesco Dolcini <francesco.dolcini@toradex.com>,
-	devicetree@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v1] arm64: dts: colibri-imx8x-aster: Enable I2C bus
-Date: Thu, 22 Oct 2026 18:17:06 +0200
-Message-ID: <20261022161708.690702-1-francesco@dolcini.it>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=lLH8OXIa
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=MIME-Version:Content-Type:References:
+	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=aL8Lz8oTC0vMWqMCB3RZJ/T430i81FckMIiN5boXTww=; b=lLH8OXIaFSqLDObdbOarZ5KvIA
+	hcFaLkTccrTqFdmzuaJvH6XEuv1t8m1Yv2nXjwYc5kk7SyPjmrifYlH8EL9HlbrQDvVgXtlGFic0c
+	bIIr0nF5eY/hULJUEvaxG29DsHBwZPWhPT8oeFqjotTkzZev05XtdUvCh0N5N3+wZPc8vpqnFKqdd
+	AzpbTab+MEJg63efeUTg8sWYe0LlLfzWSyxOklye+/YQfpVPEJPYbK+RLxHKsbbRwi5yZG7ClwcqE
+	P4+LHOSh6n10QEsHbNFaLNrcUnfPmyyzaGBEOUcKyR2PT63s9HEQCwYQppH2icbl+zDU5nlXVS+Dc
+	DSNgTLPA==;
+Received: from 54-240-197-233.amazon.com ([54.240.197.233] helo=freeip.amazon.com)
+	by casper.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xJvUN-00000002UJq-0mp0;
+	Thu, 22 Oct 2026 16:17:59 +0000
+Message-ID: <dcd54b0dee114929415a9573d3bd64eeb95225bd.camel@infradead.org>
+Subject: Re: [PATCH 0/5] timekeeping: Reduce magnitude of ntp_error
+From: David Woodhouse <dwmw2@infradead.org>
+To: Miroslav Lichvar <mlichvar@redhat.com>, Rodolfo Giometti
+	 <giometti@enneenne.com>
+Cc: Thomas Gleixner <tglx@kernel.org>, John Stultz <jstultz@google.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Ryan Luu <rluu@amazon.com>, Julien Ridoux
+ <ridouxj@amazon.com>, 	linux-kernel@vger.kernel.org
+Date: Thu, 22 Oct 2026 17:17:58 +0100
+In-Reply-To: <atoVLqWfyJtCfci2@localhost>
+References: <20261001202134.33929-1-dwmw2@infradead.org>
+	 <8431ae22ee7c7a786c93d8c0bbc85366f39291bd.camel@infradead.org>
+	 <66dde3d2-edbc-45ef-b6c2-2c35a822733c@enneenne.com>
+	 <atoVLqWfyJtCfci2@localhost>
+Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
+	boundary="=-RrWHcmlah0aWtoEAjnBh"
+User-Agent: Evolution 3.62.0-0ubuntu1~ppa1~24.04 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,38 +73,169 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
 
-From: Francesco Dolcini <francesco.dolcini@toradex.com>
 
-The Colibri standard I2C bus (SODIMM 194/196) is available on the Aster
-carrier board on the 40-pin extension header X20, the Arduino UNO header
-X18 and the capacitive touch connector X3, with pull-ups on the carrier.
+--=-RrWHcmlah0aWtoEAjnBh
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Enable the bus to allow userspace access to I2C devices connected
-through this interface.
+On Thu, 2026-10-22 at 15:52 +0200, Miroslav Lichvar wrote:
+> On Thu, Oct 22, 2026 at 11:05:18AM +0200, Rodolfo Giometti wrote:
+> > On 21/10/26 16:37, David Woodhouse wrote:
+> > > Ping? Patches 1-4 of this should be ready to merge now.
+> > >=20
+> > > So is number 5 as far as I'm concerned, but I'm happy to entertain
+> > > further discussion if anyone has an opinion they want to share.
+> >=20
+> > Number 5 changes the timestamps PPS_FETCH returns to userspace, so I'd
+> > still like an explicit OK from its users, such as chrony and others,
+> > before it goes in.
+>=20
+> I'm ok with it. As described, I don't think it's going to cause any
+> issues, especially for low-rate PPS, but I don't like much that the
+> clock is inconsistent with other sources of timestamps that the
+> application is getting. That can be addressed later.
 
-Signed-off-by: Francesco Dolcini <francesco.dolcini@toradex.com>
----
- arch/arm64/boot/dts/freescale/imx8x-colibri-aster.dtsi | 5 +++++
- 1 file changed, 5 insertions(+)
+Yeah, I do wonder if at least adjtimex() should report a 'corrected'
+time. But as you say, we can address that later. I'm still trying to
+work out the get/set reference stuff which is what I need to do next.
 
-diff --git a/arch/arm64/boot/dts/freescale/imx8x-colibri-aster.dtsi b/arch/arm64/boot/dts/freescale/imx8x-colibri-aster.dtsi
-index f7bbb2153ae0..11b1d45e5dfd 100644
---- a/arch/arm64/boot/dts/freescale/imx8x-colibri-aster.dtsi
-+++ b/arch/arm64/boot/dts/freescale/imx8x-colibri-aster.dtsi
-@@ -26,6 +26,11 @@ &fec1 {
- 	status = "okay";
- };
- 
-+/* Colibri I2C */
-+&i2c1 {
-+	status = "okay";
-+};
-+
- &iomuxc {
- 	pinctrl-names = "default";
- 	pinctrl-0 = <&pinctrl_hog0>;
--- 
-2.47.3
+> For the PTP_SYS_OFFSET_EXTENDED ioctl, is there a possibility the
+> application could see an out-of-order system clock timestamp in the
+> list?
 
+Theoretically, the snapshot correction is trading monotonicity for
+accuracy =E2=80=94 it asks ktime_get_snapshot_id() to tell the *truth* by
+compensating for the known ntp_error, even if the time reported is
+"earlier" than a timestamp which was previously reported.
+
+So the time reported by a tickless kernel can wander around the "ideal"
+all it likes, and userspace still gets to discipline the ideal.=20
+
+In practice, it's only going to be non-monotonic w.r.t. the "fast" time
+reported by clock_gettime(), not with other samples obtained through
+ktime_get_snapshot_id().=20
+
+The first patch in this series fixes the known case where ntp_error
+retrospectively jumps, which would cause such a non-monotonicity in the
+snapshots themselves.
+
+
+--=-RrWHcmlah0aWtoEAjnBh
+Content-Type: application/pkcs7-signature; name="smime.p7s"
+Content-Disposition: attachment; filename="smime.p7s"
+Content-Transfer-Encoding: base64
+
+MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCCE8Ew
+ggWvMIIEl6ADAgECAhANkOKMSmGXhF5eMl0rsRhvMA0GCSqGSIb3DQEBDAUAMGUxCzAJBgNVBAYT
+AlVTMRUwEwYDVQQKEwxEaWdpQ2VydCBJbmMxGTAXBgNVBAsTEHd3dy5kaWdpY2VydC5jb20xJDAi
+BgNVBAMTG0RpZ2lDZXJ0IEFzc3VyZWQgSUQgUm9vdCBHMjAeFw0yNDAzMTMwMDAwMDBaFw0zNDAz
+MTIyMzU5NTlaMGIxCzAJBgNVBAYTAlVTMRcwFQYDVQQKEw5EaWdpQ2VydCwgSW5jLjE6MDgGA1UE
+AxMxRGlnaUNlcnQgQXNzdXJlZCBHMiBTTUlNRSBSU0E0MDk2IFNIQTM4NCAyMDI0IENBMTCCAiIw
+DQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBAOfSIeC0vv1xPQ+dgSxbIIrkaru6skAWJYaGFzmv
+q4Kq+2wU2jxhcWlJg/JeP5jEkq/LM3pn5aaLao79j+XRmS7J1ZpJKUODJVoM4s9MQJhTMvo4qS5Z
+S64g6QR7Obkz3I1Lr3aWeSBmDDEyzue+NKtuWZ1Cxy3RdXo/w5HgRc3l2AercOM3Gt1XonTzEtTb
+Z/Hwc0Sn9Gz8RmGRK6Ka4hVDl8q/2l110KaV233Kh5etP0csXS8MIMdVRfRu3sc5hp13DG7lCKzK
+72a2GEpI8Wpl26G6I1/LMzz/98T+FqjTqxsdquk7Cj7m2vKGLW1BorpQH7WFGPdJQXJe1hfbfiZA
+CcVdCtl4nAacFacmsiArZBfX7AQGL7isvHUwwYFEtcApyGW4p2Lt+t8nvU0CANA6BHOpOz1xOP8W
+mAESbUriIjyuTUf3fJ9oDNCurVqhASMJCDaWI3lYX/QAoiAzt6akqbbZxo2ujW7mGGqc0KxqE2cs
+h2T79v7pC8aUtHBfwNrTR19GnZVxE0eQ7ViIQhR6mpSaUQFA9sG+cmD2G8TnCgYsLa0q8De6F61a
+CBevQGHNzrbZ3JAMneveYg/Jy1XxQHDRcvrMfWKe0jjcWbdKYlaGVPm5V1ILwYz7Yv5ewo3NUrxI
+GJiywe9qPhuJSDZs7VehTuI0FxGIsgKzVjgbAgMBAAGjggFcMIIBWDASBgNVHRMBAf8ECDAGAQH/
+AgEAMB0GA1UdDgQWBBT3m6JO05fF9DQPQw6Bhc6RkzKv+TAfBgNVHSMEGDAWgBTOw0q5mVXyuNtg
+v6l+vVa1lzan1jAOBgNVHQ8BAf8EBAMCAYYwHQYDVR0lBBYwFAYIKwYBBQUHAwQGCCsGAQUFBwMC
+MHkGCCsGAQUFBwEBBG0wazAkBggrBgEFBQcwAYYYaHR0cDovL29jc3AuZGlnaWNlcnQuY29tMEMG
+CCsGAQUFBzAChjdodHRwOi8vY2FjZXJ0cy5kaWdpY2VydC5jb20vRGlnaUNlcnRBc3N1cmVkSURS
+b290RzIuY3J0MEUGA1UdHwQ+MDwwOqA4oDaGNGh0dHA6Ly9jcmwzLmRpZ2ljZXJ0LmNvbS9EaWdp
+Q2VydEFzc3VyZWRJRFJvb3RHMi5jcmwwEQYDVR0gBAowCDAGBgRVHSAAMA0GCSqGSIb3DQEBDAUA
+A4IBAQA+b8Uw53sDspdZgukU+qzLyyHkcjlxGGhHlP+zrmDLKm1wEFvCRS2pili3Hy67i8N4N5NU
+vw5Rg6kv3lxb9S9Rktxk43k+tvm68pl7OxQE55ZjVY87P0lUPGwEqOOwLLyH02ZQcsfq5p5LrOH9
+0JvmvZ1yy73HS+VpDAqOlytE0NSvTIRqFFkKQGQwfjvtql9YflujuNNvJztjBaHKYZsnNSg+J38o
+jYq4TP3pSg3UdVH0PncVjPQyqxC9xef5Xae92Kbkzol3x7Nel3A1bwAkalrDMspvTHvey6LfiBks
+FIqviTnoy7fgjaRAJgHS+RXx/cmuRd3rUAclSVVrYu8RMIIHAzCCBOugAwIBAgIQAzUotrsybJHx
+HTjKOIVdIDANBgkqhkiG9w0BAQsFADBiMQswCQYDVQQGEwJVUzEXMBUGA1UEChMORGlnaUNlcnQs
+IEluYy4xOjA4BgNVBAMTMURpZ2lDZXJ0IEFzc3VyZWQgRzIgU01JTUUgUlNBNDA5NiBTSEEzODQg
+MjAyNCBDQTEwHhcNMjYwNzE4MDAwMDAwWhcNMjgwMTA0MjM1OTU5WjAeMRwwGgYDVQQDDBNkd213
+MkBpbmZyYWRlYWQub3JnMIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEA2pYux73kdbYX
+sWF8f1u6DJP91qcqaZetsyfPkZk0B+MmXmAEv0kVes5n15V2mbDThOnpoPFly0UugQO9JYqLfrtD
+tKD5yL58fgrDB9Dw+LQikgrHafl6YSCds5AvUu/8hw2J6noKrcOLJpKlKn9Fl/4IB9Q3JIdLx5aa
+EtTqMalIPqHFOlgrJ7s+aua8xbB8YQ9ahqYBXWRJNv3P/2b1DYtdrz1oqZPE3CcB8Pc6Gf2a1Tcm
+6TAgtEx7Cf1BFcrsrMz7TWHmGQITieNb2r9UYWSc2Gp+GtYFNJCgT0JJXKUBIauPMKBLteYrL8Fo
+ff/uY44dC/mDWjdCP/5x0qelPQjlBvWdHL5zvBTOj06rJ0m3HNI/hnIcDh0Qu2j9reb9rLVcdym6
+bWmBM4uDEB8Zv9Ph0KTBFSy1IosyakuD1j1Os30EzjGfbi0EUXIvnOcYbTBAbM5UAzrxEHMhBvoX
+Pvnx+OyvjJmc9tWxTX6AcSz+m40esbT17URBeZS18afgieiikm5TynlUYP1LciR3hSgGVzvGXnKO
+02VDFR5itGWdRKZ2W5wIShNfWfhSa0D0K5UdIDt5Qc7sjzwK1Yb1sY5Tu0uA5mhIS82q1ov83uxB
+sFkriNnhGv/M1NCDVLBiOMsHu73qUM+yKmgKLwF9Hfn9WI25glbAMI4S5r3hYzcCAwEAAaOCAfcw
+ggHzMB8GA1UdIwQYMBaAFPebok7Tl8X0NA9DDoGFzpGTMq/5MB0GA1UdDgQWBBRcYhqbcGzn1jrT
+JOZaB8O7qllDpzAwBgNVHREEKTAngRNkd213MkBpbmZyYWRlYWQub3JngRBkYXZpZEB3b29kaG91
+LnNlMBQGA1UdIAQNMAswCQYHZ4EMAQUBAjAOBgNVHQ8BAf8EBAMCBeAwHQYDVR0lBBYwFAYIKwYB
+BQUHAwIGCCsGAQUFBwMEMIGpBgNVHR8EgaEwgZ4wTaBLoEmGR2h0dHA6Ly9jcmwzLmRpZ2ljZXJ0
+LmNvbS9EaWdpQ2VydEFzc3VyZWRHMlNNSU1FUlNBNDA5NlNIQTM4NDIwMjRDQTEuY3JsME2gS6BJ
+hkdodHRwOi8vY3JsNC5kaWdpY2VydC5jb20vRGlnaUNlcnRBc3N1cmVkRzJTTUlNRVJTQTQwOTZT
+SEEzODQyMDI0Q0ExLmNybDCBjQYIKwYBBQUHAQEEgYAwfjAkBggrBgEFBQcwAYYYaHR0cDovL29j
+c3AuZGlnaWNlcnQuY29tMFYGCCsGAQUFBzAChkpodHRwOi8vY2FjZXJ0cy5kaWdpY2VydC5jb20v
+RGlnaUNlcnRBc3N1cmVkRzJTTUlNRVJTQTQwOTZTSEEzODQyMDI0Q0ExLmNydDANBgkqhkiG9w0B
+AQsFAAOCAgEAocabrh1cPd5s3vY5rnlBVQSTc7zs2ZWs67dAIltR+05WELrYClVzzUhMs/LOJPlr
+EUo45UDDomXq38DxFepaPd9+iNLjXfn33EX/IG44j04lU/oF/Rg9VeQILkYLbCZ/x9wOjNHZc4SN
+ydY7Dhvf/sT5aBz88u7D5+azZJ7Qf1U57wYseCH1Mt0nDrtr5y19IJ8D9xJJ33RFL6vfpHZBBAQ8
++3RqkKNxLoV2aFvQhxdhjNLDqTv3LjUIdicwPraN7JkxEu7CV2Lka7eRqJgkWL7SK0YmBjGpRafs
++icP/ON5RCCKTTb6VlX8eTG2sJJfsFhvJNCCt6xexbWzWtIrfP7NvPBvwBB737AyEGBZkS5aNizT
+McURJGTv9UKvBh1LF/+tNhYtLvPCN7oecGzhCHht9jcwSkygTo3Y6YlK3QgOu+ncmiBbfeuwlLZ1
+LxbYvG6hgNqXv7u6YyADbYajAQJXJ2OQen39pm3Q/AQSyLYG+B8lDglWsM8tYXPlEdrYJcksGK6F
+nqIX6Bumn43rBooLJdiZp4WmfWdL2pxe+LxRDjprmqu1WprixDxULSTOKJZoqTlugs6y3Bc+if+s
+gHnBBtz9WQ6MtPHkh7zONDAFIKcBmv8OqPQCx0F3Wv3OEybwMpXx0OsKgK8wLldaX1pXcMuyDgTL
+Sqs0AV0OHUgwggcDMIIE66ADAgECAhADNSi2uzJskfEdOMo4hV0gMA0GCSqGSIb3DQEBCwUAMGIx
+CzAJBgNVBAYTAlVTMRcwFQYDVQQKEw5EaWdpQ2VydCwgSW5jLjE6MDgGA1UEAxMxRGlnaUNlcnQg
+QXNzdXJlZCBHMiBTTUlNRSBSU0E0MDk2IFNIQTM4NCAyMDI0IENBMTAeFw0yNjA3MTgwMDAwMDBa
+Fw0yODAxMDQyMzU5NTlaMB4xHDAaBgNVBAMME2R3bXcyQGluZnJhZGVhZC5vcmcwggIiMA0GCSqG
+SIb3DQEBAQUAA4ICDwAwggIKAoICAQDali7HveR1thexYXx/W7oMk/3Wpyppl62zJ8+RmTQH4yZe
+YAS/SRV6zmfXlXaZsNOE6emg8WXLRS6BA70liot+u0O0oPnIvnx+CsMH0PD4tCKSCsdp+XphIJ2z
+kC9S7/yHDYnqegqtw4smkqUqf0WX/ggH1Dckh0vHlpoS1OoxqUg+ocU6WCsnuz5q5rzFsHxhD1qG
+pgFdZEk2/c//ZvUNi12vPWipk8TcJwHw9zoZ/ZrVNybpMCC0THsJ/UEVyuyszPtNYeYZAhOJ41va
+v1RhZJzYan4a1gU0kKBPQklcpQEhq48woEu15isvwWh9/+5jjh0L+YNaN0I//nHSp6U9COUG9Z0c
+vnO8FM6PTqsnSbcc0j+GchwOHRC7aP2t5v2stVx3KbptaYEzi4MQHxm/0+HQpMEVLLUiizJqS4PW
+PU6zfQTOMZ9uLQRRci+c5xhtMEBszlQDOvEQcyEG+hc++fH47K+MmZz21bFNfoBxLP6bjR6xtPXt
+REF5lLXxp+CJ6KKSblPKeVRg/UtyJHeFKAZXO8Zeco7TZUMVHmK0ZZ1EpnZbnAhKE19Z+FJrQPQr
+lR0gO3lBzuyPPArVhvWxjlO7S4DmaEhLzarWi/ze7EGwWSuI2eEa/8zU0INUsGI4ywe7vepQz7Iq
+aAovAX0d+f1YjbmCVsAwjhLmveFjNwIDAQABo4IB9zCCAfMwHwYDVR0jBBgwFoAU95uiTtOXxfQ0
+D0MOgYXOkZMyr/kwHQYDVR0OBBYEFFxiGptwbOfWOtMk5loHw7uqWUOnMDAGA1UdEQQpMCeBE2R3
+bXcyQGluZnJhZGVhZC5vcmeBEGRhdmlkQHdvb2Rob3Uuc2UwFAYDVR0gBA0wCzAJBgdngQwBBQEC
+MA4GA1UdDwEB/wQEAwIF4DAdBgNVHSUEFjAUBggrBgEFBQcDAgYIKwYBBQUHAwQwgakGA1UdHwSB
+oTCBnjBNoEugSYZHaHR0cDovL2NybDMuZGlnaWNlcnQuY29tL0RpZ2lDZXJ0QXNzdXJlZEcyU01J
+TUVSU0E0MDk2U0hBMzg0MjAyNENBMS5jcmwwTaBLoEmGR2h0dHA6Ly9jcmw0LmRpZ2ljZXJ0LmNv
+bS9EaWdpQ2VydEFzc3VyZWRHMlNNSU1FUlNBNDA5NlNIQTM4NDIwMjRDQTEuY3JsMIGNBggrBgEF
+BQcBAQSBgDB+MCQGCCsGAQUFBzABhhhodHRwOi8vb2NzcC5kaWdpY2VydC5jb20wVgYIKwYBBQUH
+MAKGSmh0dHA6Ly9jYWNlcnRzLmRpZ2ljZXJ0LmNvbS9EaWdpQ2VydEFzc3VyZWRHMlNNSU1FUlNB
+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
+eroNkXojVin5Q/A1tg1rd2UAAAAAAAA=
+
+
+--=-RrWHcmlah0aWtoEAjnBh--
