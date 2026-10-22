@@ -1,113 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792675709;
-	b=C445I2/yzol8VzxNNSNXHF5HqYca7MmTHcrSVH9MhzNB3h1j/pTw3j5hzSxScFjiXsTE
-	 r+yY4lHFL8wh5iOdXPTKMcE6N8Z/Anf0Y0Rf424xIxkjCJG0wxKfhSbSRUuiP0E98ncfV
-	 zDkAQTDK4ONpWyKkJFyHA+76NcPbT1fWM53RSxtI6OFsyKpYjzUgGm8rbEjAGqV8DOYJj
-	 XB9PmoRZSHNXrAayq4R9L+i/lN6eqFc7fd9/Lk4nB4704vMqkCKX85FpGw1W5g3PXII5s
-	 h4zLYtdbjQJaFJU/clzmEZVFtXSHexj59nK4O7QPVp/Kka+sWDRyBzzqDe8GIuFaGCw==
+	t=1792675711;
+	b=NKjTGf+IzoKnbA4tKO0dwS5op0j+C1PekzyIgZoIpYVEs91WYQISwpVIcVSGk4krnd+G
+	 ZIseHNVGzSWaPjYbJ0FhqScdX8qyJO/lNECwS3izxXYSG9Bus6/bQK1t2RX+R6un8N7i9
+	 Rgpz69B1tU1QkwkZaYAS34MaSlF0w/+IVq1PcxiRyAjWkvemFIuQTmhVkcEfhwI+GjLxX
+	 p5kYPozzV/1fwiDnc7yGlEsDXKpe5N/0eX92/rx3pwdu/d9Zx8KvdA1nS69lnBo19NhMq
+	 TUZ4sN8ce9HM37miwJApjzYkV/N1SlqBEO2nvRd/mo5HFnP6gNZFWe22tDkluHlIzOw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792675709;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:
-	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=Hdqxyn2F/krFbhfo7FhJaA24z9+SJBSeDt9UzhP3juo=;
-	b=p45zvY1VfEmzhkSTDAuG/b/CdTCo8O9+MgS1U5hAoTthcjNj+WGrsfdTAnuKBSRKhHtq
-	 F3UniBQ+XdgsbZF0ExVVFn0qdrjbDaUGXh7czTI0Rp1xm7rK3A4Temvzz2wQVsaRVb3X6
-	 zdKHdZKm3KtdA9v55OO3fEllAJhKyC7Sc7BbMQvA6yuLeVrETwePLCYP1BAdeq4xPCS3C
-	 iV3NQLGZ83o8OnU/iZS3gHMkdoBWKaT2dbEOagepa3XeiCp4bXjmq3LbxAeA1wspx2uyK
-	 qIOxppiZuhxivdfzwnwAqvNH5XibRiFK+aorSy4iLDCt83y08qJ0fE6IDjE+OKkTIEA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792675711;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=LcT+KP9K464dUVVNerb9of+gGfIt5gtSXv2jKmAZWX0=;
+	b=wYmkCNJmNhbYpGgtpupCCmOURKJgbT165pk/4sjnAXNIiPd+nSsk7r11oLcHIiBjf3/G
+	 36cUBAQBV+/i/WaVkhOHapfTutcCcMsoba6s2uG6omsNLUVsDuCI7/pM58MWPuESNAObv
+	 Zag6BSr/MVeY1lUP9O7zCE+66BRbx03ifHp08eRNSRuyfdPBKKbR3i51+nRVMweYC3C0x
+	 1MAubpoP1PBYnycC7LjjsxRjKwsTKoHsRGxWpwhq7ydCW4XC4O4afOti5GfOnsgfZX6n0
+	 yeG+73wMRSoVerHHqKJp7cgWIw/zvBTe7TnHUwY4vJZDQg7XB6tsKDGk2vySR2jfBSg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=CZeVLEBj;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Z+iBRFUV;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=riscstar.com;
+	spf=pass smtp.mailfrom=riscstar.com;
+	dkim=pass header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=m68WI4N3;
+	arc=none smtp.remote-ip=209.85.161.53
+Received: from mail-oo1-f53.google.com (mail-oo1-f53.google.com [209.85.161.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDADF606A335
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 13:28:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EDADF606A335
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3574460A260F
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 13:28:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3574460A260F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=CZeVLEBj;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Z+iBRFUV
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69MA0XmU3923224
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 13:28:28 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	Hdqxyn2F/krFbhfo7FhJaA24z9+SJBSeDt9UzhP3juo=; b=CZeVLEBjvIzXrdp6
-	zNw2wVWiVgTpKCuap4rZ8nsMAD6kvXwxI6y7tAIpX9cFwskWJuBu4UADQJEcuFxR
-	U1zWyh1NfibE0s5kX7xA/LMUmfeXap8Jz956NFBzEUUYH0lCbq7uuXxoL98J9SDQ
-	ZSIA0q8ti6SVppbUHO5aXVjbt/eaTaZE6UISVh1jpCN2QCxaietQCgoCFD+6aAko
-	Vc+bONyAw/zoLfxEvtSLaLo8sy+qqpLljUOSYKJYVa7OO8yKjaIgyfGXVleoC22p
-	MZ1Q9OzwT4IlHXhVjGXqbpac21/MjbeSwpbD4Bu1999+rVbg1iLAyf0PXX4Ju0JN
-	lF+8lw==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hf93bkqrn-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 13:28:28 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93f33438950so413658485a.1
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 06:28:28 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=m68WI4N3
+Received: by mail-oo1-f53.google.com with SMTP id 006d021491bc7-6d290b10a35so815458eaf.2
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 06:28:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792675707; x=1793280507; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Hdqxyn2F/krFbhfo7FhJaA24z9+SJBSeDt9UzhP3juo=;
-        b=Z+iBRFUVQ2DGnZ76aEkcAF/s/MlMNxvEZBnr697Mb9Sci6juYgWVI2OHeDt4OiyQrg
-         XdwiGvEoSH0HFsTxUcCIs1ME/pQ3HxjHSKUKWwt5KgsHALBUNwVy6LbWFqT63shktdhV
-         0Q6i6rU9Ju4T0NCOgLXJuRl8V7KID8P4RCVQtOVPjNIsu0TthY1bFv+OiUjEAiXP5xvv
-         gATuHxWcP+B/rNv8ZX4ImglNrcIh+3q7/DBLYvZpV21hkNE700Iz1+dUiUnL4m82VWyu
-         1YQo8I1T+uwivwL6zBWBgO0Cyzw/tMNGrNcrJyS3moa5JY+RhTf1L7sM8z5ZtkBBJKs+
-         X8DQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792675707; x=1793280507;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1792675705; x=1793280505; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Hdqxyn2F/krFbhfo7FhJaA24z9+SJBSeDt9UzhP3juo=;
-        b=2vk6RJAJbfq6kGRSHScfrtlHxnbwKzVjQEtQt4sNK9JqEAp1D0DQufFq35vwpA6ImA
-         D9UK7/75ZWCi/32btUyvK2StBSmrrwTOl8ikUC7W4kDmBM5GqlObo9IrPWQXDCFm7OY/
-         5ztk+7szgvUZqBoiBxejMSZryYH4k3qA5U5wSh04oaeDXzaabuipNWEA5JUGPzg5Wj7r
-         6zATVspg8ELEMvVZWAIZBZq3ZQHh6Ms+8elbMQcU9hRaA3zxYiP4CtmyS2e7zytTtLMK
-         fATQwp+ihcCmRNnGS1mBrs434sHWjhc6EaPXSvhkNTenrZI9JRJmoL3xML1HpGoT3t/k
-         56xQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxQTdjDZFwEoLMAqlOKmDiSInbelnT8piadiPrlUlrHlqf4BjnYxUaeTPbeTgpzIRdArHK2Z+ap0hO1HQ8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK7ChMTN+dcy4CExRLWwMQCrtByOyGgWTaTYxL4oxNOLkBiVgEe
-	Wrh3szkXzb4/5MXDufVjy9EdLnKpt/YgKQ2BEOGBLl3zAAUdlF83HfkE4K98hzQNpwuCJ76nrpE
-	fTgYwPX4jDVrN1Fd58bBXYnTpuIbTFY5kDaB62E2Q6MI91hQHK2fowwObnHi+kHI2MH0=
-X-Gm-Gg: AYBFou2RStwysxi2uE+7Sm0g5ObU5Z0Eq312c1UhK9qSeO6odMOSTv7JotpirytvAzk
-	e2+9VxowJMT2fL++e1c+1UqqMlkjLzQ1GcbtfzHIkjEOvYpqIz/WsblVFvCWYmEpXqDhWFnHERK
-	zAzSnanpOfD0Wxuw9kal5H9Bezcm4fruTIokS0hMqP3ugzOs+FKSLFhAz2WxwkoHwbSqLsiV9/b
-	i4BnYaNrHTSvZx1cF8V9NgMDeFGqp14qrh6toiLZlavGsf5+ZNXWAD/K9sqe7wuGaqV2zFED8RF
-	Qi7y/Ywad3YLoQAxdlN9ZbmamWq6srVGaVUD7D8zskgX8KJY9wVjzVXA7SAxaSuMZGAbT0FPMPk
-	++li9y5G9CMETvzaOFYiUlq8IQSNV90amEZbNCsSq3oYd1IM0spCtyQp4vsCe9AA7ffzOkBDewK
-	SABnPI27BGwjKk
-X-Received: by 2002:a05:620a:1b86:b0:939:b099:d52f with SMTP id af79cd13be357-93f57fa0c2bmr964765385a.20.1792675707185;
-        Thu, 22 Oct 2026 06:28:27 -0700 (PDT)
-X-Received: by 2002:a05:620a:1b86:b0:939:b099:d52f with SMTP id af79cd13be357-93f57fa0c2bmr964757285a.20.1792675706572;
-        Thu, 22 Oct 2026 06:28:26 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3ac4f6683edsm8762201fa.22.2026.10.22.06.28.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        bh=LcT+KP9K464dUVVNerb9of+gGfIt5gtSXv2jKmAZWX0=;
+        b=m68WI4N3AjZaPE0Zubwg4t8mUQyL1aREQyjpSuwgV/luMaGd6rdpsGVu8x4dqtbBLQ
+         HEIqwsIOBXlJfpKN/ZXShBB/tY6viZJ3ZF2dEb3JDBgZG8vsRWNLMLGONRJLCIv6rBCf
+         JY6Sa019FJvi7sHjJLkGbZAVQVS1KIlRleKRPhsBF8OMYZFvS55YtVZ8JtOy2DW0tqyG
+         +uma+NkyFWf+i0bLlgc4SxNRelDjH8TZWLAdPeVq3LyFvTUd82zIGcBjDr9m9UTHmW41
+         4QQxiIYukCyHgJZ2rJfnj9tSq10jQ762g86ds66sxvRxR48nEC2cD87prqr7rd767m2v
+         vf5Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792675705; x=1793280505;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=LcT+KP9K464dUVVNerb9of+gGfIt5gtSXv2jKmAZWX0=;
+        b=Pxgbk7v5FtWyyu2yRVcgAM7wbJRZr9bFjaEfdGrYI1SwAYQbxY8VAmr2YVNpgKiCMd
+         CYwt3QWWzXK+EPObK03HHHjFTjh4Bwdd4P1m52+OYCgKSzyhXQyB6rCNIej9V9IzvC4S
+         5CdcHW1JSNkVZYMrVpHfbneBRZe+8pYlLJcyvV/41FSGvcANjzRbAcOApuArTbZSplvk
+         p9gkMC7eH5sCc23WeUd7PPHmsqVmIfWfbekyNj20AoHkpo+W6LPa3l/TnK4wvlnEIBGJ
+         iTNfvj2b0H9jhNhJq7JA7441JVY5aiBmFWMB2kkY+gFCeZs1mHOe8vgfrgSjyrvPkAxg
+         uYtg==
+X-Forwarded-Encrypted: i=1; AKwUvBxw+SXbIPnd136IxTBhZxa46VL2lxhezUBEq2wUhZ9jcT/S7UFVHouZ1MTk0/k5MJ2by/QyF9orIMU4LNw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJzIOrxo4Jx9pvUJygFBbEXuqpRVqBXnlH3ts6EQYkZMObOMhh1
+	hlNC7kXfOB9rHQh6iaN/svee8hjjBEoHDBtUY8opPpqANIE2AD3Y0X+pAiEGNtX62/Q=
+X-Gm-Gg: AYBFou32Ny3veIN9nYRnNOIgcgRm9wwK0WpoyGJ6FuTRepawzYVfDwrOTDi0XzeK8vk
+	Ek2W3gM4/VrVNjj5ROzrANOT9LDnlHptEmpXY3O6r8d9E4pteEZ5v9HMMnjo9folEdCs8Lw1H4K
+	hG2wKILStOhio0cCBGCJ+dZi9TTM02SFq1SbFTzFw9e+0IDQtWsVLcTtNzSfkXgdsW5gZF76hj+
+	VBUbcfDalL30DEeeEbMQq+HP0wlhL+K92NsPeccUF9g3Pg6rYVktl1l7VOJMtZUYD9aofjJxKJL
+	f6yYrwNQRg0b6yOv+PdPG3AgyLljHu/qn4uWdeq1T+gxM+rc35n9pNkS63EMcni+9iHQlArwwZE
+	xcrphSgh/icgQu7IWqRcl4hKrYEdaETmhPxgT6BIyTRZ56yPprisM8KDyy5Gg5Y9yTQyE/XnQVJ
+	MeAYkt7d7UUdASsufYU2ioxM0sZ6XHw9W8qJfIc7oIhTr/sG03g7OeC+pInlHSscaBwcQwE7S+5
+	2jO5fycR+qx666u+MTWkocnBCYfv4U/7jeBoXuR5L1CfxC83uedNbRn
+X-Received: by 2002:a05:6808:4482:b0:4d3:9029:5ab3 with SMTP id 5614622812f47-553585760c1mr3346235b6e.35.1792675705007;
         Thu, 22 Oct 2026 06:28:25 -0700 (PDT)
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Date: Thu, 22 Oct 2026 16:28:00 +0300
-Subject: [PATCH v6 5/9] drm/bridge: aux-hpd: let drivers pass IRQ_HPD
- events
+Received: from [172.22.22.28] ([73.62.185.64])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-552b745f968sm4259064b6e.14.2026.10.22.06.28.24
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 22 Oct 2026 06:28:24 -0700 (PDT)
+Message-ID: <6d683673-39de-4986-a593-68a5a495e764@riscstar.com>
+Date: Thu, 22 Oct 2026 08:28:23 -0500
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -117,180 +91,82 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] staging: greybus: Use fsleep() for delay
+To: pavankumaryalagada@gmail.com, greybus-dev@lists.linaro.org,
+ outreachy@lists.linux.dev
+Cc: pure.logic@nexus-software.ie, johan@kernel.org, elder@kernel.org,
+ gregkh@linuxfoundation.org, linux-staging@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+References: <20261022110238.38824-1-pavankumaryalagada@gmail.com>
+Content-Language: en-US
+From: Alex Elder <elder@riscstar.com>
+In-Reply-To: <20261022110238.38824-1-pavankumaryalagada@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261022-hpd-irq-events-v6-5-337ea3ddaa62@oss.qualcomm.com>
-References: <20261022-hpd-irq-events-v6-0-337ea3ddaa62@oss.qualcomm.com>
-In-Reply-To: <20261022-hpd-irq-events-v6-0-337ea3ddaa62@oss.qualcomm.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Andrzej Hajda <andrzej.hajda@intel.com>,
-        Neil Armstrong <neil.armstrong@linaro.org>,
-        Robert Foss <rfoss@kernel.org>,
-        Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
-        Jonas Karlman <jonas@kwiboo.se>,
-        Jernej Skrabec <jernej.skrabec@gmail.com>,
-        Luca Ceresoli <luca.ceresoli@bootlin.com>,
-        Jani Nikula <jani.nikula@linux.intel.com>,
-        Rodrigo Vivi <rodrigo.vivi@intel.com>,
-        Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
-        Tvrtko Ursulin <tursulin@ursulin.net>,
-        Francesco Dolcini <francesco@dolcini.it>,
-        Kevin Hilman <khilman@baylibre.com>,
-        Jerome Brunet <jbrunet@baylibre.com>,
-        Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
-        Rob Clark <robin.clark@oss.qualcomm.com>,
-        Dmitry Baryshkov <lumag@kernel.org>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Pengyu Luo <mitltlatltl@gmail.com>,
-        Chaoyi Chen <chaoyi.chen@rock-chips.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
-        linux-usb@vger.kernel.org, intel-gfx@lists.freedesktop.org,
-        intel-xe@lists.freedesktop.org, linux-amlogic@lists.infradead.org,
-        linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
-        freedreno@lists.freedesktop.org
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4192;
- i=dmitry.baryshkov@oss.qualcomm.com; h=from:subject:message-id;
- bh=BIcHzWfG5902z+M7u42M0vyUpcn4l5zulhIbCsx30p0=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBq2g9mw1u0Qd3LxnGa4XtQ4wMod6I5wyqNjSx7t
- HCKz5kq/4WJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCatoPZgAKCRCLPIo+Aiko
- 1VRBCACUkpGMPsojQ3/lvQ8NRygF2i1lg6dnHEaRu8EQVPRRVWIa53q0uMadWWOGZqz0KqyGsi4
- e3ui4UA02KecreOJWaWscbiD1o//uWQlzFOv/6TEua08RyqDy5I5/1sefYM3Fr3LRPl/qXmA1Dw
- qNsQZyPGy+bei7bgQKZoVGTa1qbtAAfLFqQy4lLrjdsma70Dtowl+OmBmq7NdNH1SsFzQUosJ7J
- 77O4afqIMKLgcq03RDbuMOdMltfXZRflGuGUM1jRUYO4qMY/BkpberJF0/5UheSZaZQJ9ZMBVj8
- tIbuROk2cB61iFAkifJ9LQeJdEnnEOVv/pbf6WMLnnRXao5B
-X-Developer-Key: i=dmitry.baryshkov@oss.qualcomm.com; a=openpgp;
- fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIyMDA1MyBTYWx0ZWRfXyInqKk1+4/HD
- N2tIrSXhnSKu4L/MSKuIZKmygCji79iYMbvKBJBp5xyHP8f5fcKYJ49xWfwiA9eFiWxDKPABZRN
- 62R8bOB+Kx1Oqg7BZSHx7vmq5oFXLHzcqUf4hdS+8i66OJjrS6yobBZ2+zAeK4U5Kjazar/PczJ
- hEGgRIExO+7fZcM00dS/ZpIPdN97RrckHhbQYp9jvWqi1u/Hgj26s5ZHVt1klVg4mMHbSCdCTua
- wQHtUr+p4PJvVnxjOuRP9+BVSyAkluCGBhsongyyOS8LqqaTJm+nZmgW4XRA6K9skoplcVbLRn0
- A4Z0s7bRyf+yT0D//BPImsCgClE5KjpDnrEKLuILPlqNYJl/PW5CXUe0yUJk9eCQQnVlDKGYDuh
- 5YvMeIrpI120YXKj5QQdiqqje2jMoQ==
-X-Proofpoint-GUID: 5q51p85vjX4QPI4MgTL5z40cz-eZ6a3X
-X-Proofpoint-ORIG-GUID: 5q51p85vjX4QPI4MgTL5z40cz-eZ6a3X
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIyMDA1MyBTYWx0ZWRfX/TQHyPoTM04v
- c8ksASjkb7Frxuhfe7KAt07azBSwShGqdh2qckM4b0jgLkuSS23bmw5BZJYPzTEgdQE9FiQ7Ef5
- 3Js+Nt0vY0LXL5YHy50Dv2xvyzTt85E=
-X-Authority-Analysis: v=2.4 cv=CMy/zhrD c=1 sm=1 tr=0 ts=6ada0f7c cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22 a=pGLkceISAAAA:8
- a=QyXUC8HyAAAA:8 a=EUspDBNiAAAA:8 a=8Y3P-FUPaDH5FmT9qQkA:9 a=QEXdDO2ut3YA:10
- a=PEH46H7Ffwr30OY-TuGO:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-22_04,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 adultscore=0 malwarescore=0 bulkscore=0 phishscore=0
- spamscore=0 suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
- definitions=main-2610220053
 
-The DisplayPort standard defines a special kind of HPD events called
-IRQ_HPD. These events are used to notify DP Source about the events on
-the Sink side.
+On 10/22/26 6:02 AM, pavankumaryalagada@gmail.com wrote:
+> From: Yalagada Pavan Kumar <pavankumaryalagada@gmail.com>
+> 
+> In the loopback function, usleep_range() is used for short delays
+> and msleep() for longer delays. This requires choosing the delay
+> function based on the requested time and converting microseconds
+> to milliseconds when using msleep().
+> 
+> Replace both functions with fsleep(), which selects a suitable
+> delay method based on the requested time. This avoids the need
+> to choose the delay function and convert the time manually.
+> 
+> Suggested-by: Alex Elder <elder@riscstar.com>
+> Signed-off-by: Yalagada Pavan Kumar <pavankumaryalagada@gmail.com>
 
-Let users of aux-hpd, the UCSI and PMIC GLINK drivers pass the IRQ_HPD
-events to the DisplayPort drivers.
+Your description above is pretty good, but I agree with
+Johan's comment.  In fact, you should think about and
+understand exactly how that behavior changes with the
+switch to using fsleep().
+- When would the delay be different from before?
+- When it differs--by how much does it differ?
+- Is this amount significant?
+And the third question gets at exactly what Johan was
+saying should be included in the patch description.
 
-The drm_aux_hpd_bridge_notify() is kept to ease merging of the series,
-preventing extra cross-tree merges. It will be removed once all
-drivers are converted. The drm_bridge_hpd_notify() function is kept for
-the drivers which only care about the connector status and will always
-pass DRM_CONNECTOR_NO_EXTRA_STATUS as the extra status.
+We want to know not just the mechanics of the change,
+but at a higher level, what is its effect?
 
-Reviewed-by: Pengyu Luo <mitltlatltl@gmail.com>
-Acked-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
----
- drivers/gpu/drm/bridge/aux-hpd-bridge.c | 11 +++++++----
- include/drm/bridge/aux-bridge.h         | 13 +++++++++++--
- 2 files changed, 18 insertions(+), 6 deletions(-)
+You don't need to provide a super high level of detail
+in this particular change, but you should demonstrate
+somehow that you've thought about these things.
 
-diff --git a/drivers/gpu/drm/bridge/aux-hpd-bridge.c b/drivers/gpu/drm/bridge/aux-hpd-bridge.c
-index a2e525aa5788..930a03496ac5 100644
---- a/drivers/gpu/drm/bridge/aux-hpd-bridge.c
-+++ b/drivers/gpu/drm/bridge/aux-hpd-bridge.c
-@@ -137,16 +137,19 @@ struct device *drm_dp_hpd_bridge_register(struct device *parent, struct device_n
- EXPORT_SYMBOL_GPL(drm_dp_hpd_bridge_register);
- 
- /**
-- * drm_aux_hpd_bridge_notify - notify hot plug detection events
-+ * drm_aux_hpd_bridge_notify_extra - notify hot plug detection events
-  * @dev: device created for the HPD bridge
-  * @status: output connection status
-+ * @event: extra status bits like DRM_CONNECTOR_DP_IRQ_HPD
-  *
-  * A wrapper around drm_bridge_hpd_notify() that is used to report hot plug
-  * detection events for bridges created via drm_dp_hpd_bridge_register().
-  *
-  * This function shall be called in a context that can sleep.
-  */
--void drm_aux_hpd_bridge_notify(struct device *dev, enum drm_connector_status status)
-+void drm_aux_hpd_bridge_notify_extra(struct device *dev,
-+				     enum drm_connector_status status,
-+				     enum drm_connector_dp_event event)
- {
- 	struct auxiliary_device *adev = to_auxiliary_dev(dev);
- 	struct drm_aux_hpd_bridge_data *data = auxiliary_get_drvdata(adev);
-@@ -154,9 +157,9 @@ void drm_aux_hpd_bridge_notify(struct device *dev, enum drm_connector_status sta
- 	if (!data)
- 		return;
- 
--	drm_bridge_hpd_notify(&data->bridge, status);
-+	drm_bridge_hpd_notify_extra(&data->bridge, status, event);
- }
--EXPORT_SYMBOL_GPL(drm_aux_hpd_bridge_notify);
-+EXPORT_SYMBOL_GPL(drm_aux_hpd_bridge_notify_extra);
- 
- static int drm_aux_hpd_bridge_attach(struct drm_bridge *bridge,
- 				     struct drm_encoder *encoder,
-diff --git a/include/drm/bridge/aux-bridge.h b/include/drm/bridge/aux-bridge.h
-index c2f5a855512f..233ca885736f 100644
---- a/include/drm/bridge/aux-bridge.h
-+++ b/include/drm/bridge/aux-bridge.h
-@@ -25,7 +25,9 @@ struct auxiliary_device *devm_drm_dp_hpd_bridge_alloc(struct device *parent, str
- int devm_drm_dp_hpd_bridge_add(struct device *dev, struct auxiliary_device *adev);
- struct device *drm_dp_hpd_bridge_register(struct device *parent,
- 					  struct device_node *np);
--void drm_aux_hpd_bridge_notify(struct device *dev, enum drm_connector_status status);
-+void drm_aux_hpd_bridge_notify_extra(struct device *dev,
-+				     enum drm_connector_status status,
-+				     enum drm_connector_dp_event event);
- #else
- static inline struct auxiliary_device *devm_drm_dp_hpd_bridge_alloc(struct device *parent,
- 								    struct device_node *np)
-@@ -44,9 +46,16 @@ static inline struct device *drm_dp_hpd_bridge_register(struct device *parent,
- 	return NULL;
- }
- 
--static inline void drm_aux_hpd_bridge_notify(struct device *dev, enum drm_connector_status status)
-+static inline void drm_aux_hpd_bridge_notify_extra(struct device *dev,
-+						   enum drm_connector_status status,
-+						   enum drm_connector_dp_event event)
- {
- }
- #endif
- 
-+static inline void drm_aux_hpd_bridge_notify(struct device *dev, enum drm_connector_status status)
-+{
-+	drm_aux_hpd_bridge_notify_extra(dev, status, DRM_CONNECTOR_NO_EXTRA_STATUS);
-+}
-+
- #endif
+Please submit a new version of the patch and reword
+the description a bit to concisely capture why it
+makes sense to make the change, and why you believe
+that the change in behavior is likely harmless.
 
--- 
-2.47.3
+Thanks.
+
+					-Alex
+
+> ---
+>   drivers/staging/greybus/loopback.c | 8 ++------
+>   1 file changed, 2 insertions(+), 6 deletions(-)
+> 
+> diff --git a/drivers/staging/greybus/loopback.c b/drivers/staging/greybus/loopback.c
+> index efc69c10cffe..2fe845eaef29 100644
+> --- a/drivers/staging/greybus/loopback.c
+> +++ b/drivers/staging/greybus/loopback.c
+> @@ -898,12 +898,8 @@ static int gb_loopback_fn(void *data)
+>   		gb->send_count++;
+>   		mutex_unlock(&gb->mutex);
+>   
+> -		if (us_wait) {
+> -			if (us_wait < 20000)
+> -				usleep_range(us_wait, us_wait + 100);
+> -			else
+> -				msleep(us_wait / 1000);
+> -		}
+> +		if (us_wait)
+> +			fsleep(us_wait);
+>   	}
+>   
+>   	gb_pm_runtime_put_autosuspend(bundle);
 
