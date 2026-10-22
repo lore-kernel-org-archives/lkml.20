@@ -1,111 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792657287;
-	b=qFId4xl20BpSsmnTGu5WToPTrsvGEPnjHqfgvAs+PKTYHOvRphrIejUkzjdilcbPQUE4
-	 RDMi83fDIEH1H3PNihPX07jbDxIAmZ7JUcJ6zMCCjMtA8/yl3ERwEC3GeW89brn0vj3C2
-	 SA7LEPAIadyXfKBHLqyDgTQQs/Jm/D0MWWkav3sf1V800c5E9D1h3dzMC+7c4RVZuGMvY
-	 rt0/aX1YjVnblGz6UBVSGOs+Gv9fInhMTVHQk+hooI2ivWgQaAOL3zaRfYIc9vuZC9pOG
-	 7rAlRlAEYnOTNVWGaaxlCv6l8LnrJVP71Roggbw/V6h63VLzCucB9vTWKvOGXSZRKEg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792657287;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-GUID:X-Authority-Analysis:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=RPKC0G3svzZySgdTXNHviH8utgpoM2NG1yCxQMLdS6g=;
-	b=xSKflEZjmVeBu3IAoiJh0HpeUXzgcZH8Uepu8kuVJHmmfgRqhX/aioRaYEnlc08rvDbJ
-	 10nMQbtpBhwZ01sUIj31OAOjvpe/na+vKSbqCMPhMiws0QnSzrrnZi+3B5nEf/wSu2W2C
-	 +VjXinmu/zD0iAf1p4XwdM54QyFiMfwtI/L9+IQTwnlyrBcxylPo9XeKeaIl+nwb3DeVD
-	 WYvgJvK+aanmVu+7obxKBsdlVQ7uk9cXbR8iLrjWLa3TS1zCk+Dhc91IQh6Qr4xoVTTAG
-	 Ym7cIb2NUcuP4LB+i1cQlxa82o0OlLwft07iuOs10d53lHmcRlxUpSxda06f/E216pw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Kn5z8E4e;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=UqdbrkDA;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.74.110
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792657356;
+	b=jaEX9I2j1CuN3TIz89+z3qyr2FT9EfHEv5fw6adRsecDUCZ26XdiIjCsKVlefYLVBt8M
+	 PFjQSb88v3E0j1wX2pkQHDMXdgmj+xY+P14QpmA25Je0XNBBXcTpBktwC5A4d+9PaLijd
+	 bt1vxc21liNcrGqw8xWU8bm8Znf+VvMfsTt258iLrxy9LcxYxR65QnJfAxsYAOmDwoRMO
+	 oxpiJ7dLzzJ5Huxx7O56XgpAJE0u5uJY8d2j2fgONKErlqwy03Maf4ptjTNj05cxWEVeC
+	 NOjOQgvHhfm+epb1lZyQ21t6ONpqW0+fnbpEalsAB0qRJDlwKoE/fVvlslbkY6931bg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792657356;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:Content-Transfer-Encoding:Content-Type:
+	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=bUlrYIl8YkaAmq6Vp9xo+/oYMPzAZQdQRqM5rWh23wo=;
+	b=yjZ8r5dfTAWlSGMfaCwvQnHbFm5c3nj5gUo9TlnPOQhwrEnivlimx1NjRgC9Siyg33JS
+	 f16Hu4v5+15obzzyx494cqXaKlRvpTwuTsM3tqAY+aBz1KIF5GptpBg6H5+AQEVJR3S2z
+	 UyAh4XOJRrMhB473MhPdMAoJkY/MMFP0itK8+IrRu65nJ8KnMZUO3NEH4haHNoTrFyW0Z
+	 Y56y8x5Qv55YMrt206L2sT5yuxybk3c0wTGnzhDmMk3PFjvARpI2rxfU392U6bQhLqQ/S
+	 ekaduV/aHGGy8nAIblZGQJZvMhM7kKTll9sNG9MqwHfxbZ9Z4xE9CinIYh578pJtQKw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=valinux.co.jp;
+	spf=pass smtp.mailfrom=valinux.co.jp;
+	dkim=pass header.d=valinux.co.jp header.i=@valinux.co.jp header.a=rsa-sha256 header.s=selector1 header.b=fCuHr81O;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.74.110
+Received: from OS0P286CU010.outbound.protection.outlook.com (mail-japanwestazon11021110.outbound.protection.outlook.com [40.107.74.110])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE96B606A32C
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 08:21:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CE96B606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE37A606A319;
+	Thu, 22 Oct 2026 08:22:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BE37A606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valinux.co.jp
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=valinux.co.jp
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Kn5z8E4e;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=UqdbrkDA
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69M7072g4136673
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 08:21:26 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	RPKC0G3svzZySgdTXNHviH8utgpoM2NG1yCxQMLdS6g=; b=Kn5z8E4eI7K/JXRs
-	FKquDba+8ziR7L+sCHEgY4v+EkWgG+ebGXazLHfA8L3jGRW3/rH76cwVr+0ascoy
-	pDePS7cQ2DRtll529OVK/4nKwgUE4BF6bUQlndogx6mKDKRudBG78QlB1KFwKZAa
-	huwXVWvBXS0/fywhgFlBDIiG02fc3mdI3TkyG2HisuGw82qtn8/G/otIYNcHW2Ub
-	mb9gLzxQP/Y0+hxS3/DTlRV37A9oYhRykTDYo78aZZmb8yh0Y4vDdMwz7NkvFzKe
-	lXaPGCvUbsAQyfi0SuDOXmYMCzhxjoLzz7YetXgo3nEHmaVgYSziy/DCUrhSJOcy
-	XfngUQ==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hf93d9e4s-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 08:21:25 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93f2bdebfc5so45610985a.1
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 01:21:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792657285; x=1793262085; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=RPKC0G3svzZySgdTXNHviH8utgpoM2NG1yCxQMLdS6g=;
-        b=UqdbrkDApGebTTgu5I33bJTgjWVVHZZjyeRFx2QrCixg6NWz9jW6GbTPS90SpKnO1t
-         86wkVhhbSgt3gf/Jo7YLHoxX6LQ2b6oYrKM8MdiviE0G3j3ugH0arnZGO20A0M8S9U27
-         1RBlvhExrpf7o/ac3zahjzYTxpXFYdOd8BjtICTvXagmJvclq7gDPzAcDH7dwWow/eBw
-         iF8+7oLInVs2KA4WdyXyUaS+zyqwsSlbGY8b3v4hqJEaGFchb9v+6EF83ubbyvqFNSi0
-         t0rUf93KzOm/fPjnlP3p/twYK0LYnxGbnOsrpG3SZ250mxtPCD7VDSMHCp3pYhSl+r4V
-         IvNg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792657285; x=1793262085;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=RPKC0G3svzZySgdTXNHviH8utgpoM2NG1yCxQMLdS6g=;
-        b=2L/imiYObRT6Rcj6BX7xFZn6hREJoRYDZC8z9dREzHPbELhX6x7Phl16csizLWTKIx
-         z+FdfIJUuqiCirYBoxIXbZgkx+z4DisF7PA+Cmx0SqdC6oaJvZFR3flRxplf1miPEU1H
-         8b5k5j1UoufKQYWPeBV4KXyxTodKGDBN0ipLuBP9jRgonu/P51bwn7gaO72gsX29DQXX
-         kB1ZXcT6U2K/q4rRfPudLQty9xX/8U6SXwSsb+G6/2Uhc7ps0ZVj0bK6OSQwHf4jCHyA
-         LLKFj1Q64FkyGH1bvRXeCtWGEP/tBnmT+QN5eNBRCYRqGGHpYKyaLqY7rWSFaUu9IuUR
-         iBKw==
-X-Forwarded-Encrypted: i=1; AKwUvBzjXkaSwfbMXdjpsfvTtgdf08MTIQngeB/dd9JGw6ivU2hV7CymthuPH5U4xsoBD0oPwYt/0Xw4pPSU4c0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKORRSBdwjkD2b/RY1xknmiIIqLGmERNy7qayBh4sbnAxhie4Ky
-	utU4DUZs2gTrBRdzVtiBbCytSb9BJgxC4pvVsNVm7jDhVSEcu9gq8qGTqcYXwPKRC8+ikdCt6Xj
-	ymSeN/Dz0/0XzrufXKAY1TBIp/pphBRbeanIXzXHaaweIRrZB8GnokBfm2kijX3iB16E=
-X-Gm-Gg: AYBFou3j6sdAKwLH9JjElPLo0QEfv19gWVvym0p5w4iz2BxNV9Z7Rkz+gz6KvGqIH9z
-	qJfeyAUtjLIRZclBgTID6yVt/UWq2qdDHKKDagR9/KM5l1hYTwmazORiPjbWnUwQr/jfhJjSYgN
-	s4pXSnujvfVejJps7JBvapGyda4HQa/VJss7UCMu2kjeZe31AuqGMlJ5TxxTk4U3FpRb7OLbj5n
-	5CWQFg0CZyui/pOkROXKX3U4ft5schX1mScBgd8KZd99o0nL9ckV1VPy0CYn5ZLRf8eTN5tJ212
-	BSFtVn2AHDDpp53nKsY9NxcZkLbOasqOj65NbKJzBABRlCUlpnI9PwsZz9VZmVddn/dgUv646YS
-	tAzGyIi7i3DCnrtOfa8xo3Q==
-X-Received: by 2002:a05:620a:19a0:b0:93e:54fc:2c79 with SMTP id af79cd13be357-93f57f72681mr910049585a.5.1792657284981;
-        Thu, 22 Oct 2026 01:21:24 -0700 (PDT)
-X-Received: by 2002:a05:620a:19a0:b0:93e:54fc:2c79 with SMTP id af79cd13be357-93f57f72681mr910047785a.5.1792657284557;
-        Thu, 22 Oct 2026 01:21:24 -0700 (PDT)
-Received: from [192.168.226.26] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c468a5743bfsm78940566b.44.2026.10.22.01.21.22
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 22 Oct 2026 01:21:23 -0700 (PDT)
-Message-ID: <79ade748-b8fa-4d9f-9ac5-7f1635cf8109@oss.qualcomm.com>
-Date: Thu, 22 Oct 2026 10:21:21 +0200
+	dkim=pass (1024-bit key, unprotected) header.d=valinux.co.jp header.i=@valinux.co.jp header.a=rsa-sha256 header.s=selector1 header.b=fCuHr81O
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=bFaUQvs6xrc1/I2iguRfhcK/O1yGHACztHXYxzhR7yt7Ag5as/yt4JwIu/m/DvS+YWiYnO6ulJzfhsfgvqQJBOFVOfb6QJpt5vUkqWV8fLqHi9Q3+X2DMpFxHDTPOLeVcPLASJUz2xaQKNBO3vjI6N6Ahb8D90UPdM9eCz0aDnapun9e3GNVEBGXx+wRgP2kpbQecIvbLqbQz108hOGoUnRNLCXiyeg82j5O0vlWW8YpoT+/04oZ1dGvGUKephfEFPSB/uicUv9p+M5xHBUPu7jsW6cYNjxmIR2rGRXlVw92m9iOdblAIsFzf6L37Of3f8KrOfnf394g5FNwJjDP9g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=bUlrYIl8YkaAmq6Vp9xo+/oYMPzAZQdQRqM5rWh23wo=;
+ b=xocVbxiAolHQsoSWvxG9ia/SrV7sg3KC0B92nQzUQXe92egffBkioRHbok5JPng3hY44yCNamL2slURaJbFAT9ARL9mV532tJXbdQtp8iiF2FVy+Zuvg3WDT3ZNYVH1PiTBiMgQ46w8W4+fFQ2koFLYmsNrMPIKHXHWLH17Oqi8ToCDycaBl3V49pCJ1OVNTkOQvN7l5lJGJ99Ixf3VObf/SVKWnBXmYvSzOqeDRRrZUAtLvIriva25kns0epK2BN8UqEEenesSbmuD8W78i8BkUnQi6QmL/VJ+FQ6Uj7jg8bjTEOZZyXKJP5MjQikiZUBjwPcnNZzIZI5nVOzpbMA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=valinux.co.jp; dmarc=pass action=none
+ header.from=valinux.co.jp; dkim=pass header.d=valinux.co.jp; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=valinux.co.jp;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=bUlrYIl8YkaAmq6Vp9xo+/oYMPzAZQdQRqM5rWh23wo=;
+ b=fCuHr81O8bv9wrO31FrzrMtmsR8UXmIvIwgc4l4Xw6psq8mBxyljAQ7QE8XlXr90n6bNxxyesCX0StyvQ34XvxtrNFOp64Dca+eFe31HUa74yV0t8gqrBXnlh7OsPDYp/FEa8VZ3SXtpgUoIL0UUF7umosCoScIWTh4O+nf/5mA=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=valinux.co.jp;
+Received: from TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM (2603:1096:405:325::11)
+ by OSCP286MB5275.JPNP286.PROD.OUTLOOK.COM (2603:1096:604:353::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Thu, 22 Oct
+ 2026 08:22:33 +0000
+Received: from TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
+ ([fe80::cce5:2aa8:53f9:dba9]) by TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
+ ([fe80::cce5:2aa8:53f9:dba9%5]) with mapi id 15.21.0546.012; Thu, 22 Oct 2026
+ 08:22:33 +0000
+From: Koichiro Den <den@valinux.co.jp>
+To: Frank Li <Frank.Li@kernel.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Kishon Vijay Abraham I <kishon@kernel.org>,
+	Jon Mason <jdmason@kudzu.us>,
+	Dave Jiang <dave.jiang@intel.com>,
+	Allen Hubbe <allenbh@gmail.com>,
+	Niklas Cassel <cassel@kernel.org>
+Cc: Bjorn Helgaas <bhelgaas@google.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Jingoo Han <jingoohan1@gmail.com>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Jerome Brunet <jbrunet@baylibre.com>,
+	linux-pci@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	ntb@lists.linux.dev
+Subject: [PATCH v8 00/10] PCI: endpoint: Remote DMA support via vNTB
+Date: Thu, 22 Oct 2026 17:22:20 +0900
+Message-ID: <20261022082230.3164834-1-den@valinux.co.jp>
+X-Mailer: git-send-email 2.54.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: TY4P301CA0022.JPNP301.PROD.OUTLOOK.COM
+ (2603:1096:405:2b1::14) To TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:405:325::11)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,81 +111,203 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] arm64: dts: qcom: talos: Mark USB controllers as DMA
- coherent
-To: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20261021-talos-dma-coherent-usb-v1-1-df0400a2c64d@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20261021-talos-dma-coherent-usb-v1-1-df0400a2c64d@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIyMDAzMyBTYWx0ZWRfX060xIaVIlXif
- 20T5Agrzz+ZUli1HQnu6155FdD7o4GT6it4UlL97esjSa7Q/vj2ebTxFl74oO7kwmzdrIahfEDZ
- vD/ktc5huIFv/R9WUKw5EmrSuBIsPx4=
-X-Proofpoint-ORIG-GUID: 6FSPD902Po1a4pwo4pclpNz-7rYaFFkF
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIyMDAzMyBTYWx0ZWRfX54ftlSnyYtoy
- JyC4YU6WZJSC+dIX2qcqkmEapqnfS8lLBcv+Mk7x4iTL9VCKJioV/7kVMrDkDWFY52NGhwhCC4K
- zQdaBJR1ezsuIfd7VV5R7F3aklHcDziU06JxHPfgNSO5Rb/mTRX6txTu9bWKZxQMLp4QEFCYuO+
- 56wpKu5bfG7n8I98nyHbxgJhJz1fK20Fu5vVy6zr8/fMfjkyuUAzirQZ5gx5VJVVO8f9yldtRaX
- fnGAy1bmgPMRlsUhTWgZger6RQy9cxGn3Ra24uWNCGFd6mkJIB6laLFdXNjN8fzpEM5qDbL/06Y
- 5e6LX3hfgWginABw5QFyuC6IdS+WVzqpRFmdx+f7SVvoinpqV4PxkUx51G5cWq6mkPc7wo9eLpW
- en27WorPaGYfGp9VCaZf5lR6Za6qn9zdJXTvcM53yoHiZJFXYA4RmhcWcIkGMfe8yf4MjYotyHc
- QuspA+SkinTkkKc4HZA==
-X-Proofpoint-GUID: 6FSPD902Po1a4pwo4pclpNz-7rYaFFkF
-X-Authority-Analysis: v=2.4 cv=TIPQ2Fla c=1 sm=1 tr=0 ts=6ad9c785 cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=EUspDBNiAAAA:8 a=kYKLuziri_h7pMepM0gA:9 a=QEXdDO2ut3YA:10
- a=PEH46H7Ffwr30OY-TuGO:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-22_03,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 malwarescore=0 clxscore=1015 adultscore=0 priorityscore=1501
- suspectscore=0 impostorscore=0 lowpriorityscore=0 spamscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610220033
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TY7P286MB6866:EE_|OSCP286MB5275:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3346d00a-08dd-4ab4-1850-08df30159eed
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|10070799003|7416014|376014|23010399003|1800799024|6133799003|18002099003|10067099003|261021121427099003|261021123027099003|56012099006|261009223027099003;
+X-Microsoft-Antispam-Message-Info:
+	btlt5mnWV7Bbjz17anPBITTWQhXm+g7KmIhnWNMD8EPKVzlI/v6qJp3v3yOuEksBjoaS2aAJ3uD4UfzMi6wSIj7MNgCm3Uhofd9PhqmO9JpD3rxb6fRdq0qEum2Ty5Xjj9eGwvaYnfuaEVeo1g+M/gAZMlbpSjD1lQuqp+fcab+qtSmoppfgT0nRFELaJ9QKFV8FWitR72UjEW7MkLDdS3mMB+HsQTAvGnlGeAbn8vxmgfneqEctDKO66dJ1okMygz5HNggG4YfWoXBZphVCQuJv4E3Pxu5ZBQpYoSwdW2QVm54lt2cWNp/eP2tOiJKD9coTpaU9EYQICP23efP6RPeyMPtkDT5z2XL/0Q+3nGmhTaXf/LwejqBbIR5JhiV70rYo961ODIaSPoGc7nqrKSEs8Yx7jFiuuHTSI1IotjjA0xDahWHJQz+BgTUrognFHwS8ghuNXJazpkCEqlLUfa314ISF2qB/LymUgu6CwiKCs0NzstpTTYnWv8eR9RymsrWArXeigZEiahs4AmHmcr8w9uOCTDVsTyDHbv8I3tLqsNb1qM7M1bHIiZwtet74NUhaX/faphhuQJE0g0Gt5ILwkfwSVFcIGElmLyDhaDqOLQ4x7S2dkTXrDh9hOGXq
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(10070799003)(7416014)(376014)(23010399003)(1800799024)(6133799003)(18002099003)(10067099003)(261021121427099003)(261021123027099003)(56012099006)(261009223027099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?A0jZogoa+C77pAlWab11Njz9QthRUP2kU7sNx7fNesmqWog4ywpMDx4zQmT3?=
+ =?us-ascii?Q?9EFsE9iNHE5TAZtY67i7fbyZrSucfm1LR9BPlm/MsIPku6qc3VYk3MWDC7zS?=
+ =?us-ascii?Q?veUTvPR99q+XRp/PKhVgvyLmaSB1UCoPDO8XIBtGNG/T+udALuvIZVgdstl0?=
+ =?us-ascii?Q?VJReRGVijuIFZ9lC4aOUBZGkGRVcDWcpKm5MvIypKiswZS+d3XcHnhQ7MdvX?=
+ =?us-ascii?Q?JbzZAY9G4yE425FTS3lUkJWfJHJ318Y36fFjqhOTWL8hKcj9unqwPm7C/ihl?=
+ =?us-ascii?Q?Umk2FwQH7cqjNqFlYy8gJiFAzABsv/ucioBLR+i3jYpFP9v4G2DeqI5A/etY?=
+ =?us-ascii?Q?xLj/kT0aESPWG++t3XviKUW/5TZlnk/I5COX8s35So9QZ/gGIWRiyOO0H/QW?=
+ =?us-ascii?Q?fp+OuZlHD6EIl8Uu35fqjRYcaNIvJV2D8j/hWfj2bTL7jwNxPBdErgEXT0wP?=
+ =?us-ascii?Q?xTREL7MuMxb6Eer6lRUlH94ofCEYxbQowHRTJyafH6EFv5fWPmQbG9ggnS5k?=
+ =?us-ascii?Q?9zDMHaHjHwiPgfniy73Yb3HtoM6bRPELWgwff0zp9ickCy9MLq+8s1fBZn6A?=
+ =?us-ascii?Q?IUvqxmMhrDcbUrQJYsHpKKi1besKO5XuxC7RfbfLZytfFCNIRCUD29cUs0N9?=
+ =?us-ascii?Q?Xl2NSkm9IWL9DVBsQzZU8XT8ajEfrjrxDx1th1kuQYVMdUqa6fainFUiV3bl?=
+ =?us-ascii?Q?sa143L6UKMJvxe4GfFTP67Y6a0Y3rVwaoVWAv5K8HvOaHlrVWC+bmF+zPgon?=
+ =?us-ascii?Q?WiZ0MxydWr8NBP78eLkZ0WzrQMGGHRkIuoe3iV6gkPUGU6ZqDFNljZbJaURg?=
+ =?us-ascii?Q?cLV1OCLSXKOYVzLjwy91x8dWdQRISKf15W0ETzTg3iSjmKfdHAp5O01O9P8h?=
+ =?us-ascii?Q?LhsjhWey6j4t+IXBCO3wIIgAZPzLNcmWObaWYzf4sFnkh82rcrSO83xH75kD?=
+ =?us-ascii?Q?vPMGIzpBt8HsI7A1R/mQZudUTHtdZJndogKG27rAWsj1QNqbRjR8JhSNHraJ?=
+ =?us-ascii?Q?rijcSmV2wUIk52YUoOGMXGulE+v92M3PVTNQv1jcG8cNt5g9LFoLI6C7GuoO?=
+ =?us-ascii?Q?wugg/D/TwGB48ox94gEZWV+sbupa+KGqRK4w/aBunhc/7GSsNs3yB8u3xWWx?=
+ =?us-ascii?Q?74WqpDN82/vuXE2r/Vf1Vyqkf57Sx6mCBEqZpwH+bj5OTNUEGonNpVOMGavl?=
+ =?us-ascii?Q?x9aza57bONePi3UynvpleDH2vfs1SnsAp3R+HnUJe546FriAOUd88rszLKE6?=
+ =?us-ascii?Q?nijKkwZ9yA+WxtsGMsg5RCgQGDw9Bk0tNEUpNDQ9vE7sa+x/BwYpWAdHJTmm?=
+ =?us-ascii?Q?6kFVyBDwRj7fS9TRoO2cCvAp14+G7wb/++ASr29aPc3BNp9GkzGdET7JQXj+?=
+ =?us-ascii?Q?cmT04JH6Zf+2gqL3bKPKpp8ylie6fBuTM56LrTCtnqQP4912x2IM/VekCASq?=
+ =?us-ascii?Q?/IYQ9m4c41ijDzH/03acZHxHL0mfOOFnaHSA0ZzGRIVC0pEjhXRyhEhTfbdq?=
+ =?us-ascii?Q?29PeADiJMLuwQlY1avrmvwTlPpMbZ8m27lK1V/DN5NiuO/dmcle//zWEB8tY?=
+ =?us-ascii?Q?0uqm1JCPPoaV8Lj34dZnJHi/Xyfjr1T+93A1I6uXjvVp6kajBczB23Cwj82y?=
+ =?us-ascii?Q?7hCwr0Tk6eEePo8uhxtgRGtA8r1/ObTH11AaPPBTMTBVTj6GzbMFSfgupUIT?=
+ =?us-ascii?Q?/HZegMCLxx76m3jSHojdvEaGLOfxoreTanUM1p2GJ47snyqzvg56vt4+w12b?=
+ =?us-ascii?Q?edpctUuB871QLOOYnEZqo6vJqPvz99AmfVpF3mB77+JKEfK7qY/l?=
+X-OriginatorOrg: valinux.co.jp
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3346d00a-08dd-4ab4-1850-08df30159eed
+X-MS-Exchange-CrossTenant-AuthSource: TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Oct 2026 08:22:33.0002
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 7a57bee8-f73d-4c5f-a4f7-d72c91c8c111
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: YDd2UCi+52nHCcZE108AnQcyQ+vLwgr5AWmlRj3xLdHJn6rsHwxNktbYzhaZIltNFssL7CC8l9H72vOONaDs1w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: OSCP286MB5275
 
-On 10/21/26 7:28 PM, Krishna Kurapati wrote:
-> Both USB controllers on Talos are DMA coherent. Add property indicating
-> the same.
-> 
-> Signed-off-by: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
-> ---
+Hi,
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+This series lets host Linux use EPC-local DMA read (RC-to-EP) channels
+through vNTB. I also tried a separate PCI DMA EPF, which reached v7 [1],
+but came back to this vNTB-embedded approach after discussion.
 
-I asked an LLM to find is_rpmh && !dwc3_dma_coherent. It gave me:
+An EPC-local DMA engine can use host DMA addresses (IOVAs when an IOMMU
+is enabled) as PCI addresses to reach any host buffer mapped for the
+endpoint. Letting the RC side drive its read channels also gives the RC
+a direct path into endpoint-local buffers.
 
-- kodiak
-- lemans
-- monaco
-- qdu1000
-- sc7180
-- sc8180x
-- sc8280xp
-- sdm670
-- sdm845
-- sdx75
-- sm6350
-- sm8150
-- sm8250
-- sm8350
-- sm8450
-- talos (fixed by this patch)
-- qcom-sdx55
-- qcom-sdx65
+A major motivation is direct TX in ntb_transport. Both sides could use
+the same dmaengine-based TX path (ie. symmetric), sending directly to RX
+buffer DMA addresses supplied by the peer. This would avoid MW bounce
+buffers and per-transfer MW remapping for payloads in both directions.
 
-should we mark all of these coherent?
+This assumes both sides trust each other. The RC side still programs DMA
+over PCIe MMIO, so this is expected to pay off for large data transfers.
 
-Konrad
+DesignWare eDMA is the only supported dmaengine backend for now. Other
+EPC-local DMA engines can be added if there is a need and they have a
+suitable programming interface.
+
+This series does not include a consumer for the dmaengine channels exposed
+to RC Linux. Native HDMA support is also left out to keep the series from
+growing too large.
+
+Setting pci-epf-vntb's 'dma_bar' configfs attribute enables DMA export.
+The default is -1, which leaves it disabled. pci-epf-ntb only switches to
+the shared control layout header and is functionally unchanged.
+
+
+Dependency
+==========
+
+Based on next-20261020, which includes the following dmaengine series
+needed to build these patches:
+
+  [PATCH v4 0/3] dmaengine: dw-edma: Prepare channels for remote use
+  https://lore.kernel.org/r/20260912174023.1227397-1-den@valinux.co.jp/
+
+
+Proposed merge plan
+===================
+
+Patches 1-7 are for the PCI tree, and patches 8-10 for the NTB tree.
+The NTB patches need the shared header as updated by patches 4-6.
+
+
+Compatibility matrix
+====================
+
+"Old" means next-20261020 without this series, and "new" means with it
+applied. The table describes expected behavior.
+
+  EP                              | Old host     | New host
+  --------------------------------+--------------+----------
+  Old                             | OK*          | OK*
+  New (dma_bar = -1)              | OK*          | OK*
+  New (dedicated DMA BAR)         | OK*          | OK
+  New (shared MW/DMA BAR)         | OK**         | OK
+
+  *  NTB works without DMA.
+  ** NTB works without DMA. An "Old" host treats the whole shared BAR
+     as an MW, so the EP falls back to that layout at LINK_UP and the
+     DMA ranges are no longer mapped.
+
+
+Testing
+=======
+
+The existing MW-based ntb_netdev path worked with DMA export disabled
+(dma_bar = -1) and enabled with the following EP-side BAR settings:
+
+* Dedicated DMA BAR configuration on RK3588 Rock 5B:
+
+  ctrl_bar = 0
+  mw1_bar  = 2
+  db_bar   = 4
+  dma_bar  = 5
+
+* MW-shared DMA BAR configuration on R-Car S4 Spider:
+
+  ctrl_bar = 0
+  mw1_bar  = 2
+  dma_bar  = 2
+  db_bar   = 4
+
+I tested all combinations in the compatibility matrix with ntb_netdev.
+
+Best regards,
+Koichiro
+---
+Changes in v8:
+  - Fall back to exposing the whole shared BAR as an MW for hosts
+    without MW/DMA boundary support (ie. "Old" Host), instead of
+    rejecting LINK_UP. (Frank)
+  - Link to v7: https://lore.kernel.org/r/20261021042229.2280937-1-den@valinux.co.jp/
+
+Changes in v7:
+  - Split and reorder the patches for the PCI and NTB trees. (Frank)
+  - Reject LINK_UP from hosts without MW/DMA boundary support when
+    a BAR is shared. (Frank)
+  - Link to v6: https://lore.kernel.org/r/20261020054948.1218370-1-den@valinux.co.jp/
+
+Changes in v6:
+  - Add a prep patch that moves the control region layout to
+    include/linux/pci-epf-ntb.h, shared by pci-epf-ntb, pci-epf-vntb and
+    ntb_hw_epf. (Frank)
+
+For earlier changes, see v5:
+https://lore.kernel.org/r/20261009045949.1109871-1-den@valinux.co.jp/
+
+[1] Superseded approach, PCI DMA EPF, v7:
+    https://lore.kernel.org/r/20260813063757.3131865-1-den@valinux.co.jp/
+
+
+Koichiro Den (10):
+  PCI: endpoint: Add DMA auxiliary resource metadata
+  PCI: dwc: Expose endpoint DMA resources
+  PCI: endpoint: pci-epf-vntb: Move epf_ntb_is_bar_used() up
+  PCI: endpoint: Add pci-epf-ntb.h for the shared NTB control layout
+  PCI: endpoint: pci-epf-vntb: Export endpoint DMA channels
+  PCI: endpoint: pci-epf-vntb: Allow DMA and MW to share a BAR
+  Documentation: PCI: endpoint: Document vNTB DMA export
+  NTB: ntb_hw_epf: Use the shared NTB control layout
+  NTB: ntb_hw_epf: Discover vNTB-embedded DMA
+  NTB: ntb_hw_epf: Support DMA and MW sharing a BAR
+
+ Documentation/PCI/endpoint/pci-vntb-howto.rst |  32 +-
+ MAINTAINERS                                   |   1 +
+ drivers/ntb/hw/epf/ntb_hw_epf.c               | 410 +++++++--
+ .../pci/controller/dwc/pcie-designware-ep.c   | 107 ++-
+ drivers/pci/endpoint/functions/pci-epf-ntb.c  |  85 +-
+ drivers/pci/endpoint/functions/pci-epf-vntb.c | 838 +++++++++++++++---
+ include/linux/pci-epc.h                       |  34 +-
+ include/linux/pci-epf-ntb.h                   |  90 ++
+ 8 files changed, 1320 insertions(+), 277 deletions(-)
+ create mode 100644 include/linux/pci-epf-ntb.h
+
+
+base-commit: 8f7df005a7564bd7ffa75da9c3085d5b996f1e16
+-- 
+2.54.0
+
