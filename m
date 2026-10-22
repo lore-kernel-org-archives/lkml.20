@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1792711705;
-	b=AI77NrwBq7aQtcBM6H1Ak/jY1lX0Lk3ivxQ/M/14J+DDXOEmGiK81r1t4OocD4y0lqqw
-	 363CL87cUZ2V+fd465LzmZoJh72+Uydm0veOWJ+4xdBqVBESF6H77D3m6sWYxaLhSpmD3
-	 9JPvutTQIvv6lxM+n6A9TGTEhf4l6hk+0B8xyph59vDtZUZ7ZOjVmHm6qQhBhPAoOwX1f
-	 j3kzg51dfxYkxE9OzGPdt0PXAPKcafUO4PJh8Jv6poPEdFID88R9SBibKK7NISyfEH2Ya
-	 PqHXVCfeog9HfjjFGPVjT8IAwIhMO/acrHses9MM7SJ8zEKf+2CdsTilQsTFMtsT4Mg==
+	b=S+PKTY0h3206Hr2eOB3ha7xLsQnXwAK2PePW30FQoyE77LAUGfcGJt91SgUn5BTANzV4
+	 DZWesvN5R8vkc0R5KwVWH6x40vyex97CBr9frrRo0aC6+tqsMmpA6fQJZ06wNEo7ASG7v
+	 CZBa6Xx462vq7U4ZKqONyjP9TpPdzqaXyzVRHpyo0+VQ6JzVZGNSobtGd5t9IjJi0JwGb
+	 saTrHRXg1kZSAT0OCYU+mNm4FEQVZRzafH85T/NlV2VJgCgUML2SYFl4qEnCsfkO2Wj64
+	 R3z0W1hqVGVIa9AZj/qWyoKyly1soBZrXm0KrB6t3Aah5gpn0zrrd+7q2ZDij8vgdiw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1792711705;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=1O1pte7rpJod9KeylwniShQAVICyfOPuRH3+HRv7drY=;
-	b=KDS5LRlSM1Ak2JgpC5xU1vaC0L7TiM87jYtakjCwZBspWRhavqeNjKT9VdOBpevObQSi
-	 DuZOl2kWCFdNnlCBl1H3ribRLcS+KsxPYY1jflDU69TMNQG5hHm2aN7xG9zOJCdprEhqM
-	 eF7DkRIT8mADnNdgfLbCGUL2s6Sc5nHHwXxAUVONHZTxVEtRPwnSSOj7/3eP9P6pvc1kg
-	 f3bpBHjEjUkvqBz5uHM67QXTUHJot5d2GKezI+BvS6He/R8tlPeRPhwcwq2sFsYTfpq2C
-	 AF4dqW+WwjyZKettbYdgdt3SzfIKxqZxSRC/QIhl2OYTm3drojq3ARrgPhxBXNiUm6Q==
+	bh=GSyw6Ljics0B0SjVoVtEY0jzr9tQ8ltn7Ym8k/iOA0U=;
+	b=ANAB5patTfKntdzS9K9NERvcS93jqQ82MpabsI4PVICqvms/wQhBneVoGRF29+d71S53
+	 M7Pa0nRmdfctblgdTHFJCCpXA8wDV0wsi0IHwLB+EzjzQrCb3ipn85vMgczBruGDSVhJZ
+	 dH/K268GHfPWHfcYY+PNPY51uMoz73IOPYopJbviCQKq13xv6JeDHO51RlTuOS6ailz/8
+	 nmZ+H88BIcUM8gI3yIhwVIrwbJv8j1oQGdYMDD8VQuDPH2QqwdunEyaCcSe6pHA2tHJAs
+	 yl2T9rqqKMI4wkO1Sdc3pUS8N3WiMEcDY3zxAS6eGoeEN8XlZ8Ig/6PRR4cavIuZvxQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D3fyHHWb;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gFJYFEm9;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78B436073FE8;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 326F16073FD7;
 	Thu, 22 Oct 2026 23:28:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D3fyHHWb
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gFJYFEm9
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
 	t=1792711705;
-	b=r7ApgCW41QVjavedxQqDcjpqAbR5Xr8XjJQuWkD9w1k2zicr8VDEoqpRKeywOD/YR8SP
-	 6x2Sv4iVNk4mY9tRIJKd2RTP88CZFvtDQUMQvQmtQeHsYlJftdDNa1X1GnGy8f25fLMTB
-	 giazIRB7c9WWu6hA6H5wFbz+FVpuJ8yDS30k7TQsmD5zuf209p13s906NHk+0yzEa4MdK
-	 mampo7zv3W1bXWqeVCr0BbEFpJcQNOOoZ5DucZA3HJ0HQJ5Lq3uMrZefBnhBNtPSuD2gz
-	 3V+yqJNFFSGZ6wkaI6YKiH/igeHhb78QLhTkoYyrH1TVRaqndvztzo8MRLAtAIPkS6A==
+	b=X9ixk91bXKFYRmardpY49+nfd4BKvfg2Pd/G+kBE5kqIEvUgPlk13M/UsoEl5gI2A0jo
+	 yIAz1zbDFZE25o2dvC95O9ns7EPbS/CZhUWgjly2TVniFZrnpFhd23dgBBjlnKOmPmiUE
+	 paagw2b19eab3EEDreUaA4yd3clW2WOgAHLKmdrcvTHyvCM87lehF8JJuCxcnAk//9+rM
+	 2YOt8R9/rhjlsKOB0qi4emN7VB+OEARHVjOp2/KtVKcXGG+QTJz01UuYQBum8i1kD95Er
+	 RddLGHed74sOjLF829mfbBG4bj+pw/Qks0hxQSO1dyk2UntS5xRfOhKrgDeZ0uejkgA==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
 	c=relaxed/relaxed; t=1792711705;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=1O1pte7rpJod9KeylwniShQAVICyfOPuRH3+HRv7drY=;
-	b=v9tXrgjOiepls7/F5b5zBGDDLPpL+VTSRi8B3fCwHro0ql+EfqA+/5AQU5wrfVAbI8ac
-	 zkJHMxrf1RKjvPGqya2o8NGU4ZSEpX2s7vJVXmaYG+PjanidIMGBSbSGORjZk8+UDNFIS
-	 BVh5uCZkCYlT7/0XUeyQLqMdci3D+ZalPNpdhFN88l4c9Xv+857uAriIGDSTccEsmwNgy
-	 8+ACin1UD36xk/6ETfXpt/BuQr2oHLwwB2TIEN96Iqr9dSU/I65zg9tmEu1IpP/t8z2Ds
-	 Zyzw/9wwoLgVxirfbtCCvAmE60fYfmp852Vw7uS8AfB+9oG8MYz0V4SjrNGaBwee8jQ==
+	bh=GSyw6Ljics0B0SjVoVtEY0jzr9tQ8ltn7Ym8k/iOA0U=;
+	b=0y5u8C6lAc1ovphGEpOzYStrbT+SFL7KVRZadS8myc+pxvUrLiKtHHAu66figpIlZZq2
+	 PO8qBmTf4wguC7/ScNiyPtJ9VS3VbPmkXo0PeGXSSry2H+zL62c741wQcM3dk/61bp/j7
+	 hMncaBDQQnpcaKWnxZSCDoJTeOvFnYbUskAQHSRiZVvhEv+lVIn2vtcEsHWF1CWOlMChU
+	 MocuX/3XaFx/D0FuL87/w92Gs0fYKN6O0MfTPacoD6i8Pob13FI5lGMoKylCqn56TaBHC
+	 tZ67U4poQUzZaUmg3pPAb3akK+gi+XKA8ahI/67n8H2EIkKcAHo3FHYQtjD6bCwffSQ==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 1EAB91F011A6;
-	Thu, 22 Oct 2026 23:28:19 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id 853E31F011BF;
+	Thu, 22 Oct 2026 23:28:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1792711705;
-	bh=1O1pte7rpJod9KeylwniShQAVICyfOPuRH3+HRv7drY=;
+	bh=GSyw6Ljics0B0SjVoVtEY0jzr9tQ8ltn7Ym8k/iOA0U=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=D3fyHHWbP0cEzNpCHSnYPxBOM7yjCuc5fsAT7DtLOlsK+7EcBrWd686FFnwxYHZTy
-	 76Ac+COC6lrDr35RkvFbTLtCTMSWK7Lu4qzpVp39bYNaSqP2OTvYX3NLda3/re5AHZ
-	 G8jR88kGMUGXmNkS+uXM57IjZEdjj2DwU0c9iwXflM7OBKBCgIrFG6GlJg/hKM4D+K
-	 fsuT4iSvyou9jJjxIQQuXrVuUgvz9LC4wU5DBvbKMt0NXqkyqfOpiz+k2VkBh3EfdJ
-	 sqKpTRTNphI5+DSpCLx68EVG7+UbjZQvJXNr0ak9fcQc8gIGsW+C4TVTbrbbg/Ljcn
-	 yQ8II6aJSQIpQ==
+	b=gFJYFEm94cycUDvhjQs84BUNbfD12od55Y9D9SwbKwwrcJONMi/Et+yVvxxbwYWNf
+	 nl+1iDhlPGLpD3YbiF3rpCV+KjJU1YFOZxMC31fR3LzlUHbKz/8hK1S18s2BF3vlVf
+	 XubnMuC5E3T5MbZdJxR9TNFTgUPHuWpPQnvJdHXl/i/FBaWKiXy6y8KytAwkYsN/Ht
+	 anQuVCixaHdCS5ujPhRcRrKG5lQ2Ztbt4Xn2lVC+rvrYy3RoSWoIhDNufjrs4IrsfW
+	 t8hNPnL0iAjxhZBBlsGveZaC86+YhHaPDhum+CRxmkfmHnayLsPRhewq0VmJg8WZdO
+	 MJ9s2pfctyZiw==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 77DB9420FB;
+	by lkml.kernel.org (Postfix) with ESMTP id 6D494420F7;
 	Thu, 22 Oct 2026 23:27:50 +0000 (UTC)
 From: Ackerley Tng via B4 Relay <devnull+ackerleytng.google.com@kernel.org>
-Date: Thu, 22 Oct 2026 16:28:18 -0700
-Subject: [PATCH RFC v2 46/50] samples/kvm: Implement get_pfn provider
- operation
+Date: Thu, 22 Oct 2026 16:28:17 -0700
+Subject: [PATCH RFC v2 45/50] samples/kvm: Implement attach and release
+ provider ops in sample provider
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,7 +84,7 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261022-gmem-alternative-providers-v2-46-5dd1dc6c660a@google.com>
+Message-Id: <20261022-gmem-alternative-providers-v2-45-5dd1dc6c660a@google.com>
 References: <20261022-gmem-alternative-providers-v2-0-5dd1dc6c660a@google.com>
 In-Reply-To: <20261022-gmem-alternative-providers-v2-0-5dd1dc6c660a@google.com>
 To: Alex Williamson <alex@shazbot.org>, Alexander Graf <graf@amazon.de>, 
@@ -135,11 +135,11 @@ Cc: kvm@vger.kernel.org, linux-doc@vger.kernel.org,
  linux-kselftest@vger.kernel.org, linux-mm@kvack.org, llvm@lists.linux.dev, 
  Ackerley Tng <ackerleytng@google.com>
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792711665; l=2288;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792711665; l=1898;
  i=ackerleytng@google.com; s=20260225; h=from:subject:message-id;
- bh=bXiMo/29sunbuD+D3YtdW/0ZD1dlMXBq3S4o9V1nmWA=;
- b=LubVvmekbGEL4qJWwfPec8oSMZvh3Y2RjF8dyEzW5bd0aBY8/BgAlTFxHuNlSCp1RS5cnvglh
- ae7FJdAKp5oA3R/ugOUNqkjkZb/wJiuqKvcMsFXTMemQ+V6m+xh7YEl
+ bh=KGuPGvRWcbKGcEsNC27FbqmF987N6l1g/xr1+ZAzxc4=;
+ b=Z8JHLu6Ste4p8ZrYRqK06GDhAVo48QV4XZ+VWzhKHyf7aaqsyXhbrwWLtjaRHzGTMt3dr8qvY
+ 4A+I9EpN32UAecHoaXDspE+Lg0dT9WcHVIl7AcXBRh4n+ovXjEly61w
 X-Developer-Key: i=ackerleytng@google.com; a=ed25519;
  pk=sAZDYXdm6Iz8FHitpHeFlCMXwabodTm7p8/3/8xUxuU=
 X-Endpoint-Received: by B4 Relay for ackerleytng@google.com/20260225 with
@@ -150,28 +150,16 @@ Content-Transfer-Encoding: 7bit
 
 From: Ackerley Tng <ackerleytng@google.com>
 
-Implement the .get_pfn callback in mps_gmem_provider_ops to operate as a
-direct PFN provider for guest_memfd.
+Implement the guest_memfd provider operations in the sample memory
+provider module, providing .attach and .release callbacks.
 
-Implementing .get_pfn satisfies guest_memfd's provider operations
-requirement, enabling mem_provider_sample files to be attached as
-resource_fd memory providers for guest_memfd.
+In .attach, take a reference to the provider file (get_file) to keep the
+provider context alive while attached. In .release, release the file
+reference via fput.
 
-In mps_gmem_get_pfn(), return the physical frame number corresponding to
-the requested index from the CMA reservation, returning -EFAULT if the
-page was marked absent via MPS_SET_PRESENT.
-
-Checking test_bit(index, info->absent) is done locklessly without
-holding info->lock:
-- test_bit() is an atomic memory read.
-- Locklessness prevents lock inversion and deadlocks. In guest_memfd,
-  the guest page fault path (kvm_gmem_get_pfn()) holds
-  filemap_invalidate_lock_shared while calling .get_pfn(). Avoiding
-  info->lock in .get_pfn() ensures no lock inversions exist between
-  filemap_invalidate_lock and info->lock.
-- Similarly, while kvm_gmem_revoke() now takes an explicit pfn and avoids
-  calling back into .get_pfn(), avoiding info->lock in .get_pfn() keeps
-  the lookup path completely lock-free and robust.
+Attach the provider operations to mps_file_fops.gmem_provider_ops so that
+provider file descriptors created by the sample module can be passed as
+resource_fd to guest_memfd.
 
 Signed-off-by: Ackerley Tng <ackerleytng@google.com>
 ---
@@ -179,39 +167,48 @@ Signed-off-by: Ackerley Tng <ackerleytng@google.com>
  1 file changed, 20 insertions(+)
 
 diff --git a/samples/kvm/mem_provider_sample.c b/samples/kvm/mem_provider_sample.c
-index d9e57484c3933..a43c76d2259e7 100644
+index 397ebb3773f39..d9e57484c3933 100644
 --- a/samples/kvm/mem_provider_sample.c
 +++ b/samples/kvm/mem_provider_sample.c
-@@ -132,9 +132,29 @@ static void mps_gmem_release(void *provider)
- 	fput(resource_file);
+@@ -17,6 +17,7 @@
+ #include <linux/file.h>
+ #include <linux/fs.h>
+ #include <linux/gfp.h>
++#include <linux/guest_memfd.h>
+ #include <linux/io.h>
+ #include <linux/miscdevice.h>
+ #include <linux/mm.h>
+@@ -118,11 +119,30 @@ static long mps_file_ioctl(struct file *file, unsigned int cmd,
+ 	}
  }
  
-+static int mps_gmem_get_pfn(void *provider, pgoff_t index, unsigned long *pfn,
-+			    int *max_order)
++static void *mps_gmem_attach(struct inode *gmem_inode,
++			     struct file *resource_file)
 +{
-+	struct file *resource_file = provider;
-+	struct mps_info *info = resource_file->private_data;
-+
-+	if (index >= info->npages)
-+		return -EINVAL;
-+
-+	if (test_bit(index, info->absent))
-+		return -EFAULT;
-+
-+	*pfn = info->base_pfn + index;
-+	if (max_order)
-+		*max_order = 0;
-+
-+	return 0;
++	return get_file(resource_file);
 +}
 +
- static const struct guest_memfd_provider_operations mps_gmem_provider_ops = {
- 	.attach		= mps_gmem_attach,
- 	.release	= mps_gmem_release,
-+	.get_pfn	= mps_gmem_get_pfn,
++static void mps_gmem_release(void *provider)
++{
++	struct file *resource_file = provider;
++
++	fput(resource_file);
++}
++
++static const struct guest_memfd_provider_operations mps_gmem_provider_ops = {
++	.attach		= mps_gmem_attach,
++	.release	= mps_gmem_release,
++};
++
+ static const struct file_operations mps_file_fops = {
+ 	.owner		= THIS_MODULE,
+ 	.release	= mps_file_release,
+ 	.unlocked_ioctl	= mps_file_ioctl,
+ 	.compat_ioctl	= compat_ptr_ioctl,
++	.gmem_provider_ops = &mps_gmem_provider_ops,
  };
  
- static const struct file_operations mps_file_fops = {
+ static long mps_ctl_new_file(void __user *uarg)
 
 -- 
 2.56.0.257.gf7497c7d27-goog
