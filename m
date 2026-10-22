@@ -1,78 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792646835;
-	b=gb+WwKsvKeFu9KVaCGw1xGpizhUy8ARiArLUEowWRtIpyUT0P8I0ejf6240D1OYn3lul
-	 npU75o2Yg19KkezJBFlq2FRR4VH1WCxFaksandCCLfORpi1UdlpwIdCoeXvDFCBOdcBlD
-	 BFSIk9IP5XxluZ1JYkZRxNcU9FrsVI0rFF52VQt61cfwqxoZAq+TeaA8eQXIuzjSHKdyE
-	 IOajm7Eokfi6ikdFin+aS7gye5O+ORUBgxEkki7cqV0qod47+SE7f2q5WwlNNAbfHgbV5
-	 HNFxna+Eu3Om5K0vaakSgBekvxZvae7ZMiQvd/lAobqn/hMnH5vwHFu5SisEv3by7Iw==
+	t=1792646928;
+	b=nV/C5TGHFo7nAjegU8E3wtkQreGqnsw2OX2nV01otZz5Y10KF5KgxCakb2yPH+ewZ4bo
+	 Qu3EYlP1Mt7UewaqKHixO34GR9OM2X/IC6qvsJI0PnUXk0JpKXf2KzS8vQOscIR05EfL7
+	 3fTx9cyt1jyC+qejk2fk54bloqZ8IA0o4zmVMxlNDKQwnASXUZJUIgryfHQfJ8YSPnF0g
+	 EddayLBrja2TB6vy5GwUM12YCpNpO4E7W22uJ1SchF2+3jdX677TW/Fhdu5IAJL1iJEmx
+	 Wx1EYY9RboJifaWlIba42JhH5P9MFBjxtI9TOFW1poeWvSH22IuNJ95Q2qMhaiJi93A==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792646835;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=vZw7X4lb3ksfrAnMAuxx2fg6EzYIhAqap3eUmHgRVu0=;
-	b=gvTj6MlmyNA/Z47k7o5Ffij39amdFDZHw9k7K5OT/Fu19MP0qYS5gdf/LpnkKJBJ4BZb
-	 aqkV1oksTc9O7zBgUMO1QuTLlkEOq5kOWGM617Y7YFnmxoUAbCVSTONvor96xfhFtlp4+
-	 PVmKl/vymWPgWGOZ/245C9sBRFDqToNQGCwLLkVFFHlaTe6P+mOwTYYelBYHbEliucKoE
-	 ZHk4qAbO2vIw3A/i3MfGK4rpyFy7D1tB6/W0o22U4RidGHTNi7RsjNUi3KqtXShAVakBk
-	 MXozyrVDytjhqfTe/9xPsi7Kd3pW2mZMA3hjKUPI4L7ONz+w6Yytjb7ur+9Vf8Ykx5w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792646928;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Sent-From:X-URL:X-Accept-Language:
+	 X-Accept-Content-Type;
+	bh=nrZ90vxW5F0O0qymJ+TK7fg60kgFlpMGsZONq7pZ5CE=;
+	b=BW1vVTh2N0O3gtFW40U4Ul6RPSsjM9lKEYcxL8FcDOVhXV+nnZdvjls9idgTg/CV95TG
+	 h9hkfLXn6Ap7I06RPJNymEnrSOtbQhgT5B6dsU9m6C1ZPMrW40HAw6EE2fuo2hr1EVcxk
+	 qXtrumHzNilMcScJtK7PlN1etUThSIOlEUiHU5GB/yvWKR4vUoXmJYJdTiS8VlbJz9/Ek
+	 jcOk9pUPQ+shJ57fOezGoLGK+A5GqzyZU8GHehYvF/LmAeZ8qHvKRzjn/6bRqBuMux1Im
+	 G1d3odEMMqrP969U0sfsC9OvS+hQYBBIJILakSCrUPlCviIhBGATTbzK95iDuUwf9rw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nE9PSI1B;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68868606A31F;
-	Thu, 22 Oct 2026 05:27:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nE9PSI1B
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1792646835;
-	b=m3r7tcjnBXTd+X8wnNnjUljdNzM79xURcz28VK3iFotYLctYACR6GFv/tfHW/3KZ58Er
-	 BannArVORXj76rnc9JKu2pRGBODPMepR2KVo7IYTx/eXN+tCwHknv52hLfsJ/t2QBW2aV
-	 q1yTec6htU6hSk4C83SP07oj2TT05YIo7qJ1wYxoqBSNyeygmtOmiSVDb23gJ07VvAmEy
-	 YpYRnBU3hu2kozsrG9Q9PM5rMpdiD3OHk+hLXKyZTECMZnXYDVK7C2IfcWJIZ+6A55IER
-	 4SVsyotjHKXywlcgvVGAqADOsN9qPEYQelNAl2pTRWvcF288JhrSH+eOloGyaSDsOQw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1792646835;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=vZw7X4lb3ksfrAnMAuxx2fg6EzYIhAqap3eUmHgRVu0=;
-	b=Zg/GoOg2lqqHmZQ7IPhKNXC+4cxywKbG48aFV6nsHj6UeaLeVLIUVvxXO58P82YCj0po
-	 YSpe1UsuFdCrZghULqSQKCsKi9jKmBnGvN6HN2yILfBH5BGWp3Awiq72gf08v32mOe0wD
-	 iXqsOw+S3vJS8xmKxNU/wWUUPevD5SpW5ZfzvzTE/cy5vdS/B8T/YKZyl/0N6y7iF+9hG
-	 eGn5JdZlevkSJRZlRLVjKKqLne0HVuznUAxo09ceK+VNxs123PSwQyMrDxFRQWd/O84/S
-	 yzQpazJ/Z4dh33fbTJRHCyBGTHcemjinw3sA3ub2Ngzm96LH/yMmZui46AhIQcwFOqw==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	dmarc=none header.from=pengutronix.de;
+	spf=pass smtp.mailfrom=pengutronix.de;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=Z8hRfSWR;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id DB12D1F000C1;
-	Thu, 22 Oct 2026 05:27:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792646835;
-	bh=vZw7X4lb3ksfrAnMAuxx2fg6EzYIhAqap3eUmHgRVu0=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=nE9PSI1BkQuX2JUDgREpDWRGo7njCyJXhZe28t7966XvBP7eHNTW33TFCAJuh/m+7
-	 hZQ863cuG5OXkk5m3bYA/aBsNvj346k5j11xK+DS/Cc3tdSXZYFPkLWMAnhmFS6DE9
-	 I7ssWcD2EyMiRqJsKrStswgVAm0GTWo783Diy3ysdBUXbxxRp7kSvX5gUUYHBYgyGb
-	 20raI00TICV+o9rs9TPs+ycE7dSfu3/LJD8e+IitHwBbNJzxdfl5MP4JMXWq5LEpJi
-	 3eD/twfgzHDnW2HXFsh8Ob4/drVQXa8Jv5feXRP28ZZwEISGWHxv0XFRLjaOU6+vPH
-	 7QCThpYUSU2xw==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 4F315434E9;
-	Thu, 22 Oct 2026 05:27:13 +0000 (UTC)
-From: Zhentao Guo via B4 Relay <devnull+zhentao.guo.amlogic.com@kernel.org>
-Date: Thu, 22 Oct 2026 13:27:01 +0800
-Subject: [PATCH v12 3/6] media: dt-bindings: Add Amlogic V4L2 video decoder
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8127606A319;
+	Thu, 22 Oct 2026 05:28:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B8127606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=Z8hRfSWR
+Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
+	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id BBFB62009B1;
+	Thu, 22 Oct 2026 07:28:43 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1792646923;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=nrZ90vxW5F0O0qymJ+TK7fg60kgFlpMGsZONq7pZ5CE=;
+	b=Z8hRfSWRqyKEG2BpmZ4mOchFCkURjjophHm/2DrSpIUd0MLRTqod8gT+M1Ag1VS0DOkehE
+	RJ3jyVsPkbogE3wzyj5dVuKsnelGFu7JPWmwVj9iJuMQF27iYug6hNkg7Dn/pA4TG1lb5s
+	jqzX6y5lj35cbyc3LcCIjfDvIl/6IEcNkSs7YSRy2wl/hPOZf/o8mlQciEMG6z0et45dLM
+	NZqBhU0KQYNdFPyn5Ulyqju24NTPc38wDcIAqcFCxOsKlZcMB1wkQ5Aiw/DEzgPlUKMw7v
+	FLcQTDR0aXs/mv1U7VuPGpxhnzJOgvtpb1PK/B6KCPo6ju1SLLeWSzRPmzHClQ==
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1792646923; a=rsa-sha256;
+	cv=none;
+	b=FdkAsQ/tHah4m1UwMFmzClIo8bAr+WbAICReatEwfHIA+NFB4xO8f268OlxhMKT7YaW7d3
+	BNMR2vA3b5PWlshazHTTmlhtewXa5m8kUvXhOO4bw5XwP4pGUefBvRisMMlQNQheCZcJb2
+	F+HQxUprRPKZXT2ITG7kMmcyUpGeaU3SH2Y0iss3jD6+woS+z6oeB+SYy8/ETN4N4g7WNg
+	fSejQkdZs+W7eRHU2127Bh05Tat1MfUZBfgNIoyZHchIMTa0j6pzOmqJ//KSfZfdsyDRW6
+	KfxqFWAdkglOcpHvCLSbv4Dz5Rd11HPFXpULFqxB3MxOw45vVIQoz2kSC6tO3w==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=ore@pengutronix.de
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1792646923;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=nrZ90vxW5F0O0qymJ+TK7fg60kgFlpMGsZONq7pZ5CE=;
+	b=FKUzo1oyhvEOGbstDK+XSY+f6Z6oXTR/kW86kwYhVFkzgjMNWPKYk1dwkxz58wDQEyfXWj
+	5WGgAuC65dMrC4sEs9ukpP8A++kYeoj22jzFPGOCoPAgBsN2GZgRLiWQYAnq149oADPEml
+	izQ/TkL8O7MPcLzUvlKSNv/WJvBHQHn3ml/4jbhCpn+Rfy1dzimNym1U5hFrLnotgHwT68
+	ZgNNzFDiq3R2BYQShlHRqPg0roIeVSCXBMNOvarfs/I1wjDYH36zPVpGbrW7rV1ygJEW61
+	BKRzVjMPtwUACqVTRz8BUeAxlHHad8UaL6N4V/vREzT0LVn73usQea7+kD2XrA==
+Received: from pty.whiteo.stw.pengutronix.de ([2a0a:edc0:2:b01:1d::c5])
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <ore@pengutronix.de>)
+	id 1xJlM3-000ewZ-27;
+	Thu, 22 Oct 2026 07:28:43 +0200
+Received: from ore by pty.whiteo.stw.pengutronix.de with local (Exim 4.98.2)
+	(envelope-from <ore@pengutronix.de>)
+	id 1xJlM3-00000009PzD-2FYv;
+	Thu, 22 Oct 2026 07:28:43 +0200
+Date: Thu, 22 Oct 2026 07:28:43 +0200
+From: Oleksij Rempel <o.rempel@pengutronix.de>
+To: Carlo Szelinsky <github@szelinsky.de>
+Cc: Kory Maincent <kory.maincent@bootlin.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Kyle Swenson <kyle.swenson@est.tech>, Ross Cawston <ross@r-sc.ca>,
+	netdev-bot+sashiko@kernel.org, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net v2 09/14] net: pse-pd: unregister from the controller
+ list before freeing PI data
+Message-ID: <atmfC4HmHr6RoIvm@pengutronix.de>
+References: <20261020171249.853085-1-github@szelinsky.de>
+ <20261020171249.853085-10-github@szelinsky.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,167 +106,38 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261022-b4-s4-vdec-upstream-v12-3-616240978792@amlogic.com>
-References: <20261022-b4-s4-vdec-upstream-v12-0-616240978792@amlogic.com>
-In-Reply-To: <20261022-b4-s4-vdec-upstream-v12-0-616240978792@amlogic.com>
-To: Nicolas Dufresne <nicolas.dufresne@collabora.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org, 
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
- devicetree@vger.kernel.org, Zhentao Guo <zhentao.guo@amlogic.com>, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792646831; l=3663;
- i=zhentao.guo@amlogic.com; s=20251024; h=from:subject:message-id;
- bh=sdpnxZqgnjpHOtW3zEsr+0hEfJ2Oq9V4xODbhYXkAYs=;
- b=GOiymRYreeaoKRFwe4SQyASgsTUzFHSGFZZar2eJxjGY5P2HmFfDGJF67XUBGD1zFrFlrHyQ5
- OjEiadj7KuICaBsHqr6TQgdztMOB0ZGWycEd3yPlExUDi8O2jU81bF7
-X-Developer-Key: i=zhentao.guo@amlogic.com; a=ed25519;
- pk=5yfDKrjreXwcAoEUsdtWafy6YN500upXp/CgtnXjLVU=
-X-Endpoint-Received: by B4 Relay for zhentao.guo@amlogic.com/20251024 with
- auth_id=555
-X-Original-From: Zhentao Guo <zhentao.guo@amlogic.com>
-Reply-To: zhentao.guo@amlogic.com
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261020171249.853085-10-github@szelinsky.de>
+X-Sent-From: Pengutronix Hildesheim
+X-URL: http://www.pengutronix.de/
+X-Accept-Language: de,en
+X-Accept-Content-Type: text/plain
 
-From: Zhentao Guo <zhentao.guo@amlogic.com>
+On Tue, Oct 20, 2026 at 07:12:44PM +0200, Carlo Szelinsky wrote:
+> pse_controller_unregister() frees the PI array while the controller is
+> still on pse_controller_list, and only removes it from the list
+> afterwards. of_pse_control_get() walks that list under pse_list_mutex
+> and reads pcdev->pi[i].np in of_pse_match_pi(). A consumer that probes
+> at that moment can read the freed PI array.
+> 
+> Remove the controller from the list first, before the worker is
+> drained, the power domains are flushed and the PI array is freed. Both
+> sides take pse_list_mutex, so once the controller is off the list, no
+> new lookup can find it, and a lookup that is already running finishes
+> before the PI array is freed.
+> 
+> Found by code inspection. Not reproduced.
+> 
+> Fixes: 9be9567a7c59 ("net: pse-pd: Add support for PSE PIs")
+> Reviewed-by: Kory Maincent <kory.maincent@bootlin.com>
+> Signed-off-by: Carlo Szelinsky <github@szelinsky.de>
 
-Add bindings for Amlogic hardware decoder accelerator.
+Acked-by: Oleksij Rempel <o.rempel@pengutronix.de>
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Signed-off-by: Zhentao Guo <zhentao.guo@amlogic.com>
----
- .../devicetree/bindings/media/amlogic,s4-vdec.yaml | 114 +++++++++++++++++++++
- 1 file changed, 114 insertions(+)
-
-diff --git a/Documentation/devicetree/bindings/media/amlogic,s4-vdec.yaml b/Documentation/devicetree/bindings/media/amlogic,s4-vdec.yaml
-new file mode 100644
-index 000000000000..75b9ba3cb08d
---- /dev/null
-+++ b/Documentation/devicetree/bindings/media/amlogic,s4-vdec.yaml
-@@ -0,0 +1,114 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+# Copyright (C) 2025 Amlogic, Inc. All rights reserved
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/media/amlogic,s4-vdec.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Amlogic Video Decode Accelerator
-+
-+maintainers:
-+  - Zhentao Guo <zhentao.guo@amlogic.com>
-+
-+description:
-+  The Video Decoder Accelerator present on Amlogic SOCs.
-+  It supports stateless h264 decoding.
-+
-+properties:
-+  compatible:
-+    const: amlogic,s4-vdec
-+
-+  reg:
-+    maxItems: 2
-+
-+  reg-names:
-+    items:
-+      - const: dos
-+      - const: dmc
-+
-+  interrupts:
-+    maxItems: 2
-+
-+  interrupt-names:
-+    items:
-+      - const: hvdec
-+      - const: vdec
-+
-+  clocks:
-+    items:
-+      - description: Clock for dos core
-+      - description: Clock for vdec core
-+      - description: Clock for hvdec core
-+
-+  clock-names:
-+    items:
-+      - const: dos
-+      - const: vdec
-+      - const: hvdec
-+
-+  power-domains:
-+    maxItems: 2
-+
-+  power-domain-names:
-+    items:
-+      - const: vdec
-+      - const: hvdec
-+
-+  resets:
-+    maxItems: 1
-+
-+  amlogic,canvas:
-+    description: Canvas maintains an index-to-physical-address
-+     mapping table that allows the 16-bit AMRISC decoder core
-+     to access 32-bit or 64-bit physical address.
-+    $ref: /schemas/types.yaml#/definitions/phandle
-+
-+  amlogic,secure-monitor:
-+    description: Used to decrypt and load the signed decoder
-+     firmware through ARM SMC (Secure Monitor Call).
-+    $ref: /schemas/types.yaml#/definitions/phandle
-+
-+required:
-+  - compatible
-+  - reg
-+  - reg-names
-+  - interrupts
-+  - clocks
-+  - clock-names
-+  - power-domains
-+  - power-domain-names
-+  - resets
-+  - amlogic,canvas
-+  - amlogic,secure-monitor
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+    #include <dt-bindings/clock/amlogic,s4-pll-clkc.h>
-+    #include <dt-bindings/clock/amlogic,s4-peripherals-clkc.h>
-+    #include <dt-bindings/power/meson-s4-power.h>
-+    #include <dt-bindings/reset/amlogic,meson-s4-reset.h>
-+    video-codec@fe320000 {
-+      compatible = "amlogic,s4-vdec";
-+      reg = <0xfe320000 0x10000>,
-+            <0xfe036000 0x20>;
-+      reg-names = "dos",
-+                  "dmc";
-+      interrupts = <GIC_SPI 91 IRQ_TYPE_EDGE_RISING>,
-+                   <GIC_SPI 92 IRQ_TYPE_EDGE_RISING>;
-+      clocks = <&clkc_periphs CLKID_DOS>,
-+               <&clkc_periphs CLKID_VDEC_SEL>,
-+               <&clkc_periphs CLKID_HEVCF_SEL>;
-+      clock-names = "dos",
-+                    "vdec",
-+                    "hvdec";
-+      power-domains = <&pwrc PWRC_S4_DOS_VDEC_ID>,
-+                      <&pwrc PWRC_S4_DOS_HEVC_ID>;
-+      power-domain-names = "vdec",
-+                           "hvdec";
-+      resets = <&reset RESET_DOS>;
-+      amlogic,canvas = <&canvas>;
-+      amlogic,secure-monitor = <&sm>;
-+    };
-
+Thank you!
 -- 
-2.42.0
-
-
+Pengutronix e.K.                           |                             |
+Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
+31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
+Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-5555 |
