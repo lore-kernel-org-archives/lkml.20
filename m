@@ -1,76 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=31.31.198.150
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792709180;
-	b=zPMp9JBd0cPw8qp342qSVU0XHk8thBxEb2bfqje0f62Whqs0qEke2sD4sujbr/DS262l
-	 zCtldzm7uu+xlDjk7tcp07ZFdJoAY5fUrRPj0KO8vM4tYmG6Ub7qjScEdn7pbZJrL7Auh
-	 cfKubv1aqcvM2iK+LqXfgr0imHedhhLZPH0Pn4KOLmyZvU65VXNIfUOqRT4XJHuQZGkZH
-	 nCbELuDDXYi8i0A1X/yO9nb65U0rwvrMY7Izx41DaQUR3CQreNaL6sbbj2XBipBtIdU+e
-	 QS31bsgPDkYfFTlub1X8YIyAzSk04ql9UqvT3cwsaU5RkxmGE9JdwN/Snfq2bmoHh+Q==
+	t=1792709216;
+	b=fG5jJuNRKasQeFNQ5lfdOO+FbGfij8ll4sP6E+LRNDMCCwkPOfGxNiFteNFhJ+5cDJcA
+	 9U0H7qPzRIS0DxtbQ8+uMPwxwIB5W50vPK1b89j5Yg+3SNytN/EE3k+Xa79SLRFgLOMh0
+	 OnQMTsN/zgoxKDgzy5kWfGRYp2RqWThNQOyCEFLbvpl7pPaqYsNDv+EpjWZShNsGcJ8ef
+	 E7xBJC/C7q2PhJ/O0GOSa0LFSEDpIdy9YwSVNJZOaKPsL+m40vXax3WapBw5G9Jm3RIfk
+	 YDdIVD9eRLwG4iFfhLyhkcHYWwOgwbh/C5hQjTxmfVE60+XKSs36BO5C6R6pn2+/vGw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792709180;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:User-Agent:Message-ID:Subject:From:To:Cc:
-	 Content-Type;
-	bh=/cC5AQLjLOUYQ/9NvP6+8QudcZ61euNdmrltEH58TGI=;
-	b=keE8lKGKzsS/uqmkRcp37rNlFRUZe0JfLxq7kPCeAtNpkQNV7LlNlF9YCE6JHtHdBXay
-	 drwdyOyE/Bh1MSShSP1uKeGQAAHXbZa3DeJM++Pn4hgMJQYEkcKOiiHndT2wJmL0GxDrn
-	 hNkZiC7DcvfcfOlgQ50VB1+bh/bGvGlq8uCEo5PoPru+EvAitOHj1rcriYgxAx3nv8Vm5
-	 +ehrkI1tyF2OA+pmEg4TowKnVCr/u4elT2chzZOwJa2FBzytxeaxO/f81JuVuOkE/XyUb
-	 c2tUpiacNQPl3OnTEKOaWjjBPR1fCsrCYZwShHjElFTzRvpMQ5KY5+EsUWm9f5sf5KA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792709216;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=6HVNSAC2pVzM5gmZ1G4vnaKyC0gGDE4WBClKRG3TuP0=;
+	b=isSC3VZeSVX3UGCCFUMUnufuLFC3CNzx/48JzZ/jntmHVaHyWwRZvqzQ6/HTRrFcHvak
+	 ibD/pT5R84jcrFaTAvx4V7y0CTdSzVIyD5xlBIF6nbkXiboTX1ZChHSqYdAczi6MpDazY
+	 0gOQWOBuToU4FkRELG5vyATtd9ynQYbBedE9khmc6qJikns0mPnTA+Cu5OLHNU+3Gdwz4
+	 /20G41OkSSv+gHWIZOgCcUhWluPibtT7fjiCPsvYhhcUEdgghywJnaVvdq14cwV33mW00
+	 VStRK/Nb/HbW3DVthpCw3EgbE7NvG5ZNUtl2Nj+uKXuLJVr8C0nekBVE8QXD5IATLCg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--wfelipe.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=V9dimx24;
-	arc=none smtp.remote-ip=209.85.214.199
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=minlexx.ru;
+	spf=none smtp.mailfrom=minlexx.ru;
+	dkim=pass header.d=minlexx.ru header.i=@minlexx.ru header.a=rsa-sha256 header.s=dkim header.b=pHseHkyd;
+	arc=none smtp.remote-ip=31.31.198.150
+Received: from sm24.hosting.reg.ru (sm24.hosting.reg.ru [31.31.198.150])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A48D606A31D
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 22:46:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5A48D606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--wfelipe.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4A22606A325;
+	Thu, 22 Oct 2026 22:46:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A4A22606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=minlexx.ru
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=minlexx.ru
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=V9dimx24
-Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2e9995cea88so1915065ad.0
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 15:46:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792709180; x=1793313980; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:user-agent:references
-         :mime-version:in-reply-to:date:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=/cC5AQLjLOUYQ/9NvP6+8QudcZ61euNdmrltEH58TGI=;
-        b=V9dimx24kbBHXJ1P8vGSuF2WRcO3WtupmscAFAK7qit1JBN7+rsaM4uQ0QvOmi3B1e
-         OlPJWZjH+841XvikNKbTweptQtwW3JkFjd/+cGweNrqzY4QnLyQWb2s3zuR8SLvbmlC6
-         lrAmFBMaZxtIWv0wLtertobAQ7V6rLTmYDqBr4WWPm8KQSjJxxmV47sKaKi0yTdUMOl0
-         wIioL1Us5cnqm4kvrZbnr395yEyIcU7hI9JAzGmXFBfOdlLsFFuiuhFDd/sfNAIN3tE2
-         FYzb3iI+/Vpj1UwveLgeo6Vx/begviZEwvJoW6PntMNwAP6xvIwxxNwGNAyvkKefV0Ns
-         CtgQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792709180; x=1793313980;
-        h=content-type:cc:to:from:subject:message-id:user-agent:references
-         :mime-version:in-reply-to:date:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=/cC5AQLjLOUYQ/9NvP6+8QudcZ61euNdmrltEH58TGI=;
-        b=sSj5mRaX1gvdhF3UWE9y8wDdPsRc0vOyc9r5ATD/C56re6UytfMEd/hCwlwC/inH3U
-         jcF/4gaHBrqu89quOFgJjARQd39lPuUfvpzcNcK5HaSKf3RpBKjBwk73kUFiBxCjiz8L
-         1NHXk/eZOmJyDYpzAInpmZasTOVMaaSS+AyTNkx88R2/n34YZmsE7vYx2eOw+3LC+bOt
-         hn29aeBn5gymPH1lo7xAAQyRI2DdQ0n9TnLMRFi2ngwknWQDnRpmK/MZpcM2JFpEgXsX
-         NfScaBW05nPxBe9uzDEa5C6BUkHhBQ+hgjxbaYFKgenWOvMGXgMMObCq5QIMxkXJaSCc
-         gfXw==
-X-Forwarded-Encrypted: i=1; AKwUvBwHxelDHuAHNtCbMA4O54AwoLJkrl/oC98J8LQBLVplQ/lph6R8oU23aT8hNy3EIkynBWMfgwnNoUH6LPI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJr4LbgU9oQWo9WLnboNfaubIu6azNR4k2exn1nDjYK6y26G9RB
-	j5PPK1bDjPY3yeDwmbRiAoOvif6zdQv32xZ9swvreRZSx4AtJm4FJ+8RdNF61kd1CQBRBcM0nAy
-	PzdRJ4nnu9g==
-X-Received: from plbjk4.prod.google.com ([2002:a17:903:3304:b0:2e2:f517:75b])
- (user=wfelipe job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:f687:b0:2df:8382:918b
- with SMTP id d9443c01a7336-2ea7bc6f70emr7274925ad.0.1792709179486; Thu, 22
- Oct 2026 15:46:19 -0700 (PDT)
-Date: Thu, 22 Oct 2026 22:46:19 +0000
-In-Reply-To: <atpzgIOeEecUN9Qu@slm.duckdns.org> (Tejun Heo's message of "Thu,
- 22 Oct 2026 10:35:12 -1000")
+	dkim=pass (1024-bit key, unprotected) header.d=minlexx.ru header.i=@minlexx.ru header.a=rsa-sha256 header.s=dkim header.b=pHseHkyd
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=minlexx.ru;
+	s=dkim; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:References:
+	Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+	List-Post:List-Owner:List-Archive;
+	bh=6HVNSAC2pVzM5gmZ1G4vnaKyC0gGDE4WBClKRG3TuP0=; b=pHseHkydBg+Ddj7cbPBtrmwDUC
+	wiwDDkr+9kmxC0UP9dguzqQjY8PcyMlPYunuV6YQd10sIL9V+XygJy6RqLfEMQVu5fCTFM7WIOhf8
+	cUMKYQenwJzxLNgu1nor/LJDIdg/UA9sbe+2BX5EDDrJvYQeaeU21UhLucOxChIkb7kM=;
+Received: 
+	by sm24.hosting.reg.ru with esmtpsa (TLS1.3) tls TLS_AES_128_GCM_SHA256
+	(envelope-from <alexeymin@minlexx.ru>)
+	id 1xK1Yg-00000002Ukl-3uPN;
+	Fri, 23 Oct 2026 01:46:51 +0300
+Message-ID: <2424c934-c928-42f5-9159-01381d81bc86@minlexx.ru>
+Date: Fri, 23 Oct 2026 01:46:50 +0300
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,50 +57,89 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261022155352.1293020-1-wfelipe@google.com> <20261022155352.1293020-3-wfelipe@google.com>
- <atpzgIOeEecUN9Qu@slm.duckdns.org>
-User-Agent: mu4e 1.12.15; emacs 30.2
-Message-ID: <p973mrs5tkuc.fsf@wfelipe-west1.c.googlers.com>
-Subject: Re: [PATCH 2/3] workqueue: expose per-workqueue stats in debugfs
-From: Wilson Felipe Pereira <wfelipe@google.com>
-To: Tejun Heo <tj@kernel.org>
-Cc: Lai Jiangshan <jiangshanlai@gmail.com>, Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Shuhao Tan <tanshuhao@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/4] power: supply: qcom_smbx: report charger state
+ changes
+To: fabricioakio@gmail.com, Casey Connolly <casey.connolly@linaro.org>,
+ Sebastian Reichel <sre@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>
+Cc: Robin Snyders <robin@snyders.xyz>, David Heidelberg <david@ixit.cz>,
+ phone-devel@vger.kernel.org, Richard Acayan <mailingradian@gmail.com>,
+ linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Sebastian Reichel <sebastian.reichel@collabora.com>
+References: <20261003-qcom-smbx-chg-state-change-v1-0-fffaef446932@gmail.com>
+ <20261003-qcom-smbx-chg-state-change-v1-2-fffaef446932@gmail.com>
+Content-Language: en-US
+From: Alexey Minnekhanov <alexeymin@minlexx.ru>
+In-Reply-To: <20261003-qcom-smbx-chg-state-change-v1-2-fffaef446932@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Tejun Heo <tj@kernel.org> writes:
+On 03.10.2026 22:45, Fabricio Akio via B4 Relay wrote:
+> From: Fabricio Akio <fabricioakio@gmail.com>
+> 
+> Nothing notifies consumers when the charging state changes on its own,
+> as when a charge completes, so they can keep a stale status.
+> 
+> Request the chg-state-change interrupt when the device tree provides
+> it, and notify consumers when it fires.
+> 
+> Fixes: 8648aeb5d7b7 ("power: supply: add Qualcomm PMI8998 SMB2 Charger driver")
+> Signed-off-by: Fabricio Akio <fabricioakio@gmail.com>
+> ---
+>   drivers/power/supply/qcom_smbx.c | 24 ++++++++++++++++++++++++
+>   1 file changed, 24 insertions(+)
+> 
+> diff --git a/drivers/power/supply/qcom_smbx.c b/drivers/power/supply/qcom_smbx.c
+> index f5557b8cc92a..3738eb8638bc 100644
+> --- a/drivers/power/supply/qcom_smbx.c
+> +++ b/drivers/power/supply/qcom_smbx.c
+> @@ -762,6 +762,15 @@ static irqreturn_t smb_handle_usb_icl_change(int irq, void *data)
+>   	return IRQ_HANDLED;
+>   }
+>   
+> +static irqreturn_t smb_handle_chg_state_change(int irq, void *data)
+> +{
+> +	struct smb_chip *chip = data;
+> +
+> +	power_supply_changed(chip->chg_psy);
+> +
+> +	return IRQ_HANDLED;
+> +}
+> +
+>   static irqreturn_t smb_handle_wdog_bark(int irq, void *data)
+>   {
+>   	struct smb_chip *chip = data;
+> @@ -1078,6 +1087,21 @@ static int smb_probe(struct platform_device *pdev)
+>   	if (rc < 0)
+>   		return rc;
+>   
+> +	/* Optional: not every device tree lists it */
+> +	irq = platform_get_irq_byname_optional(pdev, "chg-state-change");
+> +	if (irq > 0) {
+> +		rc = devm_request_threaded_irq(chip->dev, irq, NULL,
+> +					       smb_handle_chg_state_change,
+> +					       IRQF_ONESHOT, "chg-state-change",
+> +					       chip);
+> +		if (rc < 0)
+> +			return dev_err_probe(chip->dev, rc,
+> +					     "Couldn't request irq chg-state-change\n");
+> +	} else if (irq != -ENXIO) {
+> +		return dev_err_probe(chip->dev, irq,
+> +				     "Couldn't get irq chg-state-change\n");
+> +	}
+> +
+>   	devm_device_init_wakeup(chip->dev);
+>   
+>   	rc = devm_pm_set_wake_irq(chip->dev, chip->cable_irq);
+> 
 
-> On Thu, Oct 22, 2026 at 03:53:35PM +0000, Wilson Felipe Pereira wrote:
->> struct pool_workqueue tracks runtime counters in pwq->stats[],
->> pwq->total_in_flight, and pwq->nr_active, but reading them currently
->> requires tools/workqueue/wq_monitor.py with drgn and kernel DWARF
->> debuginfo. This makes it impractical to inspect workqueue stats on
->> systems without drgn or debug symbols.
->>
->> Add /sys/kernel/debug/workqueue/stats to expose per-workqueue stats
->> directly from the kernel. Iterate over the workqueues list under RCU and
->> sum wq->retired_stats[] with each pwq's stats[], total_in_flight, and
->> nr_active to report queued, active, and running work items alongside the
->> cumulative pwq->stats[] counters.
->
-> This isn't really a justification. What do you use these numbers for? If
-> this is for live monitoring, why debugfs? If for debugging, what's wrong
-> with drgn?
+Tested-by: Alexey Minnekhanov <alexeymin@minlexx.ru>
 
-This will mainly be used for continuous monitoring and exporting the
-stats from the machine (CPU time, queued backlog, etc.). Also to quickly
-check if any item is queued or stuck.
-
-Why not drgn? For continuous monitoring, running drgn on every machine,
-with vmlinux debuginfo, and memory footprint from Python/drgn, while
-having CONFIG_PROC_KCORE available, it adds up. Having a simple file
-interface, it can be read from an existing monitoring collector.
-
-Why debugfs? If sysfs is picked, not all queues are in
-/sys/bus/workqueue/devices/. Using debugfs, a single file can include
-all queues. If you have a suggestion, I'm open to change this series.
-
-Thanks!
+--
+Regards,
+Alexey Minnekhanov
