@@ -1,106 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=85.215.255.53
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792692243;
-	b=PPIVuAAN5/aIVVWULUQrOMP7Ml6xVq6oQXRTFU2BJ/CoF8wyWH90DQtcJ/FkP+GEq7bU
-	 1EWURlDrTcOyi/VZqFUxAyVeSWTefm8Lyo6oXDs9zogSg2KGXeLxVgfohEmarb0pmT3Ar
-	 lrxiUy0FaMkIA9MxyK+3k79DsNoB7nP0nsm3aLOOvr1w/V3ZsAhAhrt1Mvubtg0qBGLrN
-	 7d5N4XTQ6gQ1j7E0Icg0MGzb1V+D1oKupoGPnVYXzqgmsIWlH0h/qFen55L8z8LQSLMQ9
-	 rd4+uiv2CguXWDUivwLWyj4V1JH9Fl5MFprVD8EZHPuMq3Hw81gq+rBeoy7v/V4U0PA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792692243;
-	h=DMARC-Filter:X-RZG-CLASS-ID:DKIM-Signature:DKIM-Signature:X-RZG-AUTH:
-	 Received:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:Content-Transfer-Encoding:User-Agent:MIME-Version;
-	bh=BM23w28C0QkzQA2JRplHbyEjl4bhPIjwO4EI/zhVOKc=;
-	b=Hk5h3vvQI/1TXTUtta6JQ5Sgr1Ux9ZtT35atoAtiPKvVQX4HTDUxhE9zWawRChdK7ptu
-	 A0O59P7bCWIp0mcJFBfepUGOx3/zwXQl0mtNOPWgnrQsaDqANqfDKq/ewNb1aYCKUEV4S
-	 TXQZBf6jCMw5hnhzZrPx3MDUKDyEr6OWIs/4UOgRiSvTX387zA24HcsOaLwMPigcOEc08
-	 7tsnd26j84x79fLHK4BMGPIHh2qV74F63XmgdGowi1r+xwVfejuKfQbYMTfNZxnpteTkK
-	 bQX1uICUKgE3tj0AzoVks1rWMcTBMfKfBSGrJmDSCSb8Q4jEj1dlPkl76mfxJOc44rw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=iokpp.de;
-	spf=none smtp.mailfrom=iokpp.de;
-	dkim=pass header.d=iokpp.de header.i=@iokpp.de header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=W6g6O2fY;
-	dkim=pass header.d=iokpp.de header.i=@iokpp.de header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=kOg3vhIu;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=85.215.255.53
-Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de [85.215.255.53])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.137.202.136
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792692290;
+	b=U9pLtiUxBEniFSeuL3xfTihqUng0NyGF4ARSzRjF/G5MNk4WvAfdNwHNgxrMo1LNOOB2
+	 XpNZ3hKisqo7eJzPI4kVR3qPyuw+Y8LkKcydH6cBzPl4LsAGl9xn/rTFR/ya+2BQwhG16
+	 W4hXRzyP5Q5zPFfEzTrVdTERSlm/6FrSLjEm+q4imwBq36Eloz3+Vixs9SlkYpQg6FMc/
+	 gaMI2Y88xoTMpQ54Q4GwCYBdUu+UxKX0QwycJSM64YTubEHuxtK0swfHezjly5zR1deAT
+	 O/oZAd01uBRJjnJU304qoW5BwAYLBb5Sxsu3laswYt25bL8fVYVPrYZVPdb63nU7Whg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792692290;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=RhnfvKmfoxy+HUbDsORpInOXf0Z9ck2xlJJLmjkZQrQ=;
+	b=wKlFg5x+9IXxaqIqGze0znFrnDDWrdJLKX9zysd/fUOAIj/6I0bTUkeAS7pcyOsF6jN+
+	 d13sGMHbPzDSOpXNeCatRTqMSurXUet2tRqZX/y/NyIvPYbpD9AxRd4TeLdY2t+YhsxS9
+	 S839MWwjt1pOEmQfN3BbK70eCUlogtRAUhA7+Ht4YoYfQk6biCQIzJhrmJqBFnLhp6hzd
+	 6EplL86cYKNQv5biB2InnVQHXtLfwkdwHqwBqKeXwwIUUDH7yvlNx4KZ/Ph/mJL6Nyuqx
+	 bvo1FXqD9W95+qWeQhATG+K1MW/OBxdP0YMYMMJZiWgxEcZvQMzgAAnQS9y0H4SNHPg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=zytor.com;
+	spf=pass smtp.mailfrom=zytor.com;
+	dkim=pass header.d=zytor.com header.i=@zytor.com header.a=rsa-sha256 header.s=2026092801 header.b=wS32jOje;
+	arc=none smtp.remote-ip=198.137.202.136
+Received: from mail.zytor.com (terminus.zytor.com [198.137.202.136])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 201FB606A319;
-	Thu, 22 Oct 2026 18:04:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 201FB606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=iokpp.de
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=iokpp.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58917606A31B;
+	Thu, 22 Oct 2026 18:04:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 58917606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zytor.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zytor.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=iokpp.de header.i=@iokpp.de header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=W6g6O2fY;
-	dkim=pass header.d=iokpp.de header.i=@iokpp.de header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=kOg3vhIu
-ARC-Seal: i=1; a=rsa-sha256; t=1792692204; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=UneEW5AHMyQvY0q6ZzB4DaipAhefbkNYZpfgpgut789f0re0SWkDfkXHP0aNNaMz5P
-    EslQFpi+t/DUpesYNzhuj/MIAAvozb4LhGy+FdJHpAkPI7FNtIwiPGYDWyi0ZrJbGdlU
-    WLQ0kSKT7j0rykszvJtkJb10wYnivanjp2hdfPq7mZqIhaIZYxUEowodKkm8veIhvmNL
-    CoPbLw2hLgTVBk1ROtSomuGOJ5iGWsWJ5AT+UbigQLXi+XDFZVjsq3CCBX5MP1wmUSVA
-    knaA2y/ofDK8y6hQ6cgeZyppKCjNJq4YsEJuVMXIkC9l4mH9hkchHnumf+l3KA9AnKyK
-    eCDQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1792692204;
-    s=strato-dkim-0002; d=strato.com;
-    h=References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Cc:Date:
-    From:Subject:Sender;
-    bh=BM23w28C0QkzQA2JRplHbyEjl4bhPIjwO4EI/zhVOKc=;
-    b=dNOHtfFDDjFRGDfc1HqJU347VIqMN/Ne3DRKV15es2hUr37IShDASUkNke/EgXxzWv
-    L4Wb+xwkDTrzb2D7P24d6tqGEFUYYwX85r5eY+R+LxqbNwKG6XXazFd72j/ZQSd9xK/2
-    /8LBymr3tBeX7IXGq61aYQ7tm/TlxCA6QSmF2CnVS5iP3vG4L5vLvz7nifyHB922Q3hu
-    7Uek+eDyNJkb+/gpMptro3YuG5Gwr7OPID6ozoQkoNy58xArJvDag54sRU0gybgQi3p7
-    XlxcYoCqEjVBoUTKSs/bWy3O3YmkrptR6QYZDmRqvVL1CXn3H6FJkBwqpP5tiQKJYoLg
-    W/cA==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo01
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1792692204;
-    s=strato-dkim-0002; d=iokpp.de;
-    h=References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Cc:Date:
-    From:Subject:Sender;
-    bh=BM23w28C0QkzQA2JRplHbyEjl4bhPIjwO4EI/zhVOKc=;
-    b=W6g6O2fY5/8dklWLd2dGAWiuXdn1lBCawcEa+oLC7aXtTYpvbmNCmS+JQjt4gb3QG/
-    QsXYmHvI9eipWZrWKTF2DjGn5+GAvnvCO8LVT+SC+NmluC8TDXBYMID/D38x1mhZ+I3x
-    o4GEMVM8vVj6tIIFUMQYYqKDGvmX8Usm3DoWMHErZd/8u/SiMfmpD0Tr88ZesBt5qHyc
-    zva3qqlDC8wdMdsK3R1uefshLEfdvc3ziHkxBVFnKW5EaBzkEoA4lR6mZKcsfjjDXgxk
-    oJEn2H5s82yooNkURx6UF6a0TcGDPo7ejGHDQOJycbdQL9XoBlu+FU0D4+76gaCgUgjG
-    c5eQ==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1792692204;
-    s=strato-dkim-0003; d=iokpp.de;
-    h=References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Cc:Date:
-    From:Subject:Sender;
-    bh=BM23w28C0QkzQA2JRplHbyEjl4bhPIjwO4EI/zhVOKc=;
-    b=kOg3vhIu1mN15qvkkyc8xDDwUypBREXFveofMgWnPcwGXDXCYyHUf4B9WYt89nL/ch
-    dzoR/c8JCDhgmcawEJAA==
-X-RZG-AUTH: ":LmkFe0i9dN8c2t4QQyGBB/NDXvjDB6pBSe9tgBDSDt0V0DBslXBtZUxPOub3IZyk"
-Received: from [10.176.237.181]
-    by smtp.strato.de (RZmta 55.6.3 AUTH)
-    with ESMTPSA id z831ad29MI3NbKs
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
-	(Client did not present a certificate);
-    Thu, 22 Oct 2026 20:03:23 +0200 (CEST)
-Message-ID: <eabb22d532ceca9177a0d674fc5afc030785f286.camel@iokpp.de>
-Subject: Re: [PATCH v5 4/6] scsi: ufs: core: Fix double release in
- ufshcd_eh_timed_out()
-From: Bean Huo <beanhuo@iokpp.de>
-To: Stanley Jhu <stanleyjhu@google.com>, "Martin K . Petersen"
- <mkp@kernel.org>,  linux-scsi@vger.kernel.org
-Cc: "James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>,  Bart
- Van Assche <bvanassche@acm.org>, Alim Akhtar <alim.akhtar@samsung.com>,
- Bean Huo <beanhuo@micron.com>,  Peter Wang <peter.wang@mediatek.com>, Can
- Guo <can.guo@oss.qualcomm.com>, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org
-Date: Thu, 22 Oct 2026 20:03:21 +0200
-In-Reply-To: <20261022034443.3034432-5-stanleyjhu@google.com>
-References: <20261022034443.3034432-1-stanleyjhu@google.com>
-	 <20261022034443.3034432-5-stanleyjhu@google.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.44.4-0ubuntu2.1 
+	dkim=pass (2048-bit key, unprotected) header.d=zytor.com header.i=@zytor.com header.a=rsa-sha256 header.s=2026092801 header.b=wS32jOje
+Received: from [172.27.3.124] (c-76-133-66-138.hsd1.ca.comcast.net [76.133.66.138])
+	(authenticated bits=0)
+	by mail.zytor.com (8.18.1/8.17.1) with ESMTPSA id 69MI2jre822700
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NO);
+	Thu, 22 Oct 2026 11:02:46 -0700
+DKIM-Filter: OpenDKIM Filter v2.11.0 mail.zytor.com 69MI2jre822700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zytor.com;
+	s=2026092801; t=1792692174;
+	bh=RhnfvKmfoxy+HUbDsORpInOXf0Z9ck2xlJJLmjkZQrQ=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=wS32jOjeFWsFEs7/XC2lmhjx+vaso38Aa1yvVUAkT9A1W3myWjPjlKJ97J5iL0Ywq
+	 bPF69gGCe7jooHw6vT1puqfAAMWwIenPVsBB0BtjXDHBnYwO13DlDPhjiEozTqjEHM
+	 Tnne7bJIubMKnpcLaITiN/m+5GZf8SNZmR76JFs4RsiRgOXjXb7KnOu57Xbk4+jf0R
+	 res/2bYXDI5YQACu5N7auw0s2PeA2biV4pFQrygkfChnNdCyphEU5uiDFSgPKPiKVV
+	 mrz+yPrxO0ZpIXSlYj8frGR29U2PsHFm2Ceilf5VQYeo3Indd2RWAuBubWzuARjG4V
+	 DyvcySggronVQ==
+Message-ID: <9d875fab-fdad-413e-9737-6160fac2a406@zytor.com>
+Date: Thu, 22 Oct 2026 11:00:24 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -110,30 +60,73 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [patch 16/18] x86/entry: Get rid of the sys_ni_syscall()
+ indirection
+To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+        Thomas Gleixner <tglx@kernel.org>
+Cc: LKML <linux-kernel@vger.kernel.org>,
+        Peter Zijlstra
+ <peterz@infradead.org>,
+        Michael Ellerman <mpe@ellerman.id.au>,
+        Shrikanth Hegde <sshegde@linux.ibm.com>, linuxppc-dev@lists.ozlabs.org,
+        Kees Cook <kees@kernel.org>, Huacai Chen <chenhuacai@kernel.org>,
+        loongarch@lists.linux.dev, Paul Walmsley <pjw@kernel.org>,
+        Palmer Dabbelt <palmer@dabbelt.com>, linux-riscv@lists.infradead.org,
+        Sven Schnelle <svens@linux.ibm.com>, linux-s390@vger.kernel.org,
+        x86@kernel.org, Mark Rutland <mark.rutland@arm.com>,
+        Jinjie Ruan <ruanjinjie@huawei.com>, Andy Lutomirski <luto@kernel.org>,
+        Oleg Nesterov <oleg@redhat.com>,
+        Richard Henderson <richard.henderson@linaro.org>,
+        Russell King <linux@armlinux.org.uk>,
+        Catalin Marinas <catalin.marinas@arm.com>, Guo Ren <guoren@kernel.org>,
+        Geert Uytterhoeven <geert@linux-m68k.org>,
+        Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+        Helge Deller
+ <deller@gmx.de>,
+        Yoshinori Sato <ysato@users.sourceforge.jp>,
+        Richard Weinberger <richard@nod.at>, Chris Zankel <chris@zankel.net>,
+        linux-arm-kernel@lists.infradead.org, linux-alpha@vger.kernel.org,
+        linux-csky@vger.kernel.org, linux-m68k@vger.kernel.org,
+        linux-mips@vger.kernel.org, linux-parisc@vger.kernel.org,
+        linux-sh@vger.kernel.org, linux-um@lists.infradead.org,
+        Arnd Bergmann <arnd@arndb.de>, Vineet Gupta <vgupta@kernel.org>,
+        Will Deacon <will@kernel.org>, Brian Cain <bcain@kernel.org>,
+        Michal Simek <monstr@monstr.eu>, Dinh Nguyen <dinguyen@kernel.org>,
+        "David S. Miller" <davem@davemloft.net>,
+        Andreas Larsson <andreas@gaisler.com>,
+        linux-snps-arc@lists.infradead.org, linux-hexagon@vger.kernel.org,
+        linux-openrisc@vger.kernel.org, sparclinux@vger.kernel.org,
+        linux-arch@vger.kernel.org,
+        =?UTF-8?Q?Michal_Such=C3=A1nek?= <msuchanek@suse.de>,
+        Jonathan Corbet <corbet@lwn.net>, linux-doc@vger.kernel.org
+References: <20260707181957.433213175@kernel.org>
+ <20260707190254.493733289@kernel.org> <20261022142425.3Wx-RrU5@linutronix.de>
+ <20261022150235.V2CSdtmu@linutronix.de>
+Content-Language: en-US, sv-SE
+From: "H. Peter Anvin" <hpa@zytor.com>
+In-Reply-To: <20261022150235.V2CSdtmu@linutronix.de>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Thu, 2026-10-22 at 11:44 +0800, Stanley Jhu wrote:
-> In SDB mode, a command that times out during a power management
-> operation can be released twice:
->=20
-> 1. The command times out while its normal completion is running.
-> 2. The completion path clears BIT(rq->tag) in hba->outstanding_reqs and
-> =C2=A0=C2=A0 releases the command. It has not called scsi_done() yet, so
-> =C2=A0=C2=A0 SCMD_STATE_COMPLETE is still clear.
-> 3. ufshcd_eh_timed_out() recovers the link, sees SCMD_STATE_COMPLETE
-> =C2=A0=C2=A0 clear, clears BIT(rq->tag) in hba->outstanding_reqs without =
-checking
-> =C2=A0=C2=A0 whether it was still set, and releases the same command a se=
-cond
-> =C2=A0=C2=A0 time.
->=20
-> Return SCSI_EH_DONE when ufshcd_clear_outstanding_reqs() returns 0, as
-> another path has already claimed the command.
->=20
-> Fixes: 01d5e237b339 ("scsi: ufs: core: Handle PM commands timeout before =
-SCSI
-> EH")
-> Cc: stable@vger.kernel.org
-> Reviewed-by: Peter Wang <peter.wang@mediatek.com>
-> Signed-off-by: Stanley Jhu <stanleyjhu@google.com>
+On 2026-10-22 08:02, Sebastian Andrzej Siewior wrote:
+> On 2026-10-22 16:24:30 [+0200], To Thomas Gleixner wrote:
+>> The test could be updated via the hunk below in case the new behaviour
+>> is what is expected. hpa made the extension to the test in commit
+>> 795e2a023b808 ("selftests/x86/syscall: Add tests under ptrace to
+>> syscall_numbering_64").
+>>
+>> diff --git a/tools/testing/selftests/x86/syscall_numbering.c b/tools/testing/selftests/x86/syscall_numbering.c
+>> index ca0eca7b9dced..1435394fba022 100644
+>> --- a/tools/testing/selftests/x86/syscall_numbering.c
+>> +++ b/tools/testing/selftests/x86/syscall_numbering.c
+> 
+> Now I notice the fix depends on CONFIG_X86_X32_ABI=y (fails for =n).
+> But we want to get rid of it anyway so…
+> CONFIG_IA32_EMULATION is not affected (with the fix).
+> 
+It would be very simple to probe for by issuing a simple system call like
+getppid() with the x32 bit set.
 
-Reviewed-by: Bean Huo <beanhuo@micron.cmo>
+	-hpa
+
