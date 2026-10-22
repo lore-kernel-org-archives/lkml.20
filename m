@@ -1,51 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.169
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.175
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792654352;
-	b=fF2VNx/w9Hf8bEBWDahpvIKTsJICoQ9FNGpGcOvG/wnPZDUUlXb8IDYdZCzoTWM/fWtY
-	 Ilce1IWXspMEI49fEZ6CRYLGNxJSm9QnsUI0IF8K4BlGd2Nu5vtE8h1ip3AkH3SJ8OsDZ
-	 t4W/8tl+SU1HgVAG00cu1AS4xT906cgma4GbFoTX3oVMmQ7U7Xjzb6qWMmPvx4hz7rb4D
-	 5Ncy/0dFgzcoxti5CDBzSGQm68+8GXZH/L6YQCRZTPO2dkAp9MTBXJbNBQ5JnzGCd+pj7
-	 KK0S1qWOT1hND10E0myWRjvmQ2zOq7NG3grxvM0K1k3O4k4xMF0Z5gwXMajZ5QWoHgg==
+	t=1792654358;
+	b=3gbV2lKgfTJrH8nfDH2F3S4nns/i6aUP0+RVI1HrFu6tJHlWltevAKOmPZfVGOL+CDo/
+	 MSkyAg3rzUkx2pO/BHvDMq913HD1N4uiWqLlizH/5Q2Kn6UVwsuAA8q5BvlsGgmYMiKK+
+	 z79p22JP8O//Np4CJxf116HtvLoR9unENW+wNoqhw3KChbHa8mfIKj8zXBh8PhY4F3ATL
+	 kUBUeu3meLH0Rknvucplan6+5kRPuQoZPIhER+odIXtFKOpWUNjEpdDDsYNWK7xx5uLQx
+	 CB7nk2GqqrDuX7RjZB10TJYQfqq2gtirXlPEMsGd57eNtSjp5sxzCp99hqZSxPVt6NQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792654352;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792654358;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
 	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
 	 X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=shS6wb4SxltOTjdgk1Wlp7Kf8IQyAouUieYOJaXFqOM=;
-	b=iOBtTUiuySemKaoU+SyjbILE9H7Lb72a2cC1JNmrosD+Y2v5ghigVoQIGYZfRa35kCuY
-	 HZVm3q4dMu7oiaqx/CoSdx7O/xwEo9K5KI5Jc+Jzto7k6Z5IoyogaVnvfpRQcwkGxMb9q
-	 maQZfY2AZWRb6nTkLesNpx2m4BiMVvsWvx2Y4hc8gpDgbDNQSrG/W5VYVm2eJLVK710Jj
-	 5U1YEbg5Xl1Ux9zdN+NJw/YIPKDCE54J1ZrbekY0GexWF5MMhk/3FOuHr66hxlCPScwt6
-	 5ftw9X52dtaSnNaUDGEgx+xIYJUT3Tzvh/dTPQ1FOSSueQu6Pv/PJTPXa6ZB28QTaUQ==
+	bh=t96VkQI1QtBR4oHBW18DVNKMMxlz6mxmTHkgR+EXUQA=;
+	b=anYqIMf3KO5QdEGr9Zf3a+U876oPY1029IMcNEX3SallT0OUAJ+jXGjSdPTtAAh/7R3A
+	 tPZBWu77Dm0OlRg4RHg0UOyuEPxYIT0fk1ucAN3AimhUAJZMtmFNT7DlllBw4jOWcbges
+	 dsWBVbll46niwOTJZQyBzVKTWLJpieBtB9Bb2tfKxE0d+kCBE6taqtL2TRMHnu8D6tb1m
+	 AFcPv5jZ1KjVIM9iyZ/slZB37zh6gmDCcfNsfKI5e/OU26WxhtTVtEwlkpNyQICPMzHyn
+	 OXLSWtolrGVgU+6n5cKJEivcLndqNE1gz3h4n59uEP2bJW917HtyNphKN06ZJfVyY6g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.dev;
 	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=bBFKOg2+;
-	arc=none smtp.remote-ip=95.215.58.169
-Received: from mta1.migadu.com (out-169.mta1.migadu.com [95.215.58.169])
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Dprvjl+K;
+	arc=none smtp.remote-ip=95.215.58.175
+Received: from mta1.migadu.com (out-175.mta1.migadu.com [95.215.58.175])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CD4B606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 07:32:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6CD4B606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C57A606A319
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 07:32:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9C57A606A319
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=bBFKOg2+
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Dprvjl+K
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=4qCDIHcFOvOripPLAZTCjyU1r8ZVx1IqYJGTBjnYmRA=;
+DKIM-Signature: a=rsa-sha256; bh=IX4lDX3UPiFBBi3OMqFi2xks6o7jTO1Q2KveUJZdLoE=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792654349; v=1; x=1793259149;
- b=bBFKOg2+qDahAv1qC389H7IhpDH6QEhO3gi4oe+02KR9WvZclof1JxMmaIdknjrjzkdINb+l
- QEZbl+LGQuRapWfClApfYRKgk7pxeWgeonrNENuREE++FF21+VSGH5JtvK+fVUL334L4A7zyMLh
- 2/SfmbQQU/LkjpTXdTcMRChg=
+ t=1792654355; v=1; x=1793259155;
+ b=Dprvjl+K7btLYtHWi7GpHLwvqywaLkMghRAhwwilncey2TifpQswpbEfX1sdQ78QgoK2LnAA
+ QEYJw4kM8YPBUICq/eEM6TgQjrI+NDoBqqv+LJokonH/rjpufA6xnU3wOk7qtWlXvOdJxjcHmBv
+ g9anrEhaUnQ7X0uqYN24Mrc0=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 5a2389d28bf66d2c;
-	Thu, 22 Oct 2026 07:32:29 +0000
-X-Mizu-Trace-ID: 5a2389d28bf66d2c
+Received: by smtp.migadu.com with ESMTPS id 7539dc5461ec0d7f;
+	Thu, 22 Oct 2026 07:32:35 +0000
+X-Mizu-Trace-ID: 7539dc5461ec0d7f
 X-Migadu-Flow: FLOW_OUT
 From: Qi Zheng <qi.zheng@linux.dev>
 To: muchun.song@linux.dev,
@@ -56,9 +56,9 @@ To: muchun.song@linux.dev,
 Cc: linux-mm@kvack.org,
 	linux-kernel@vger.kernel.org,
 	Qi Zheng <zhengqi.arch@bytedance.com>
-Subject: [PATCH v2 4/5] mm: hugetlb: avoid recursive CMA allocation during migration
-Date: Thu, 22 Oct 2026 15:31:48 +0800
-Message-ID: <35120f1e65b135ebc7885a85bb39baab90882820.1792651104.git.zhengqi.arch@bytedance.com>
+Subject: [PATCH v2 5/5] mm: hugetlb: enable CMA allocation for PMD-sized pages
+Date: Thu, 22 Oct 2026 15:31:49 +0800
+Message-ID: <5edd1dc82bd3b0b09005c0b36cafa2f7baea6d3d.1792651104.git.zhengqi.arch@bytedance.com>
 X-Mailer: git-send-email 2.48.1
 In-Reply-To: <cover.1792651104.git.zhengqi.arch@bytedance.com>
 References: <cover.1792651104.git.zhengqi.arch@bytedance.com>
@@ -75,250 +75,188 @@ Content-Transfer-Encoding: 8bit
 
 From: Qi Zheng <zhengqi.arch@bytedance.com>
 
-Contiguous allocation can migrate allocated HugeTLB folios or replace free
-HugeTLB folios while holding a CMA allocation mutex. Allocating a
-replacement through CMA would recurse into that allocation path once
-non-gigantic HugeTLB pages can use CMA.
+Allow hugetlb_cma=<capacity>@<page-size> to select the architecture's PMD
+size in addition to its existing CMA size. PMD pages are 2M on x86-64 and
+2M, 32M or 512M on arm64 with 4K, 16K or 64K base pages.
 
-Pass allow_cma through the migration and fresh allocation helpers, and
-disable it for MR_CONTIG_RANGE and free folio replacement. Move the CMA
-attempt into the common allocation path, retaining the gigantic size
-restriction. Honor hugetlb_cma_only even when allow_cma is false.
+Give PMD pages their own pool while preserving the existing sharing among
+gigantic sizes. Unsuffixed arguments and an explicit default size continue
+to configure the default pool. Gigantic PMD sizes retain access to that
+pool when no PMD pool is reserved. Apply this mapping consistently to
+allocation, CMA-only policy and boot-time accounting.
 
-The existing gigantic migration restriction is unchanged.
+Try buddy allocation first for non-gigantic PMD pages, with CMA as a
+fallback, to reduce CMA migration and leave CMA capacity for later
+allocations. Preserve CMA-only policy and CMA-first allocation for
+gigantic pages.
+
+Align reservations to both the selected page size and CMA's minimum
+alignment, and use a bitmap granularity no larger than the selected order.
+Keep the original CMA area names and give PMD areas distinct names.
+Document the syntax and pool selection.
 
 Assisted-by: LLM
 Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
 ---
- include/linux/hugetlb.h |  4 +--
- mm/hugetlb.c            | 69 +++++++++++++++++++++--------------------
- mm/mempolicy.c          |  2 +-
- mm/migrate.c            |  3 +-
- 4 files changed, 40 insertions(+), 38 deletions(-)
+ .../admin-guide/kernel-parameters.txt         | 40 ++++++++++++-------
+ mm/hugetlb.c                                  | 18 ++++-----
+ mm/hugetlb_cma.c                              | 22 +++++-----
+ 3 files changed, 45 insertions(+), 35 deletions(-)
 
-diff --git a/include/linux/hugetlb.h b/include/linux/hugetlb.h
-index 5029c72418631..38612f7b3478f 100644
---- a/include/linux/hugetlb.h
-+++ b/include/linux/hugetlb.h
-@@ -736,7 +736,7 @@ struct folio *alloc_hugetlb_folio(struct vm_area_struct *vma,
- 				unsigned long addr, bool cow_from_owner);
- struct folio *alloc_hugetlb_folio_nodemask(struct hstate *h, int preferred_nid,
- 				nodemask_t *nmask, gfp_t gfp_mask,
--				bool allow_alloc_fallback);
-+				bool allow_alloc_fallback, bool allow_cma);
- struct folio *alloc_hugetlb_folio_reserve(struct hstate *h, int preferred_nid,
- 					  nodemask_t *nmask, gfp_t gfp_mask);
+diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
+index c06cb660a3ce4..0cc77e648f396 100644
+--- a/Documentation/admin-guide/kernel-parameters.txt
++++ b/Documentation/admin-guide/kernel-parameters.txt
+@@ -2065,31 +2065,43 @@ Kernel parameters
+ 			Note that this parameter only applies to non-gigantic huge pages.
  
-@@ -1172,7 +1172,7 @@ alloc_hugetlb_folio_reserve(struct hstate *h, int preferred_nid,
- static inline struct folio *
- alloc_hugetlb_folio_nodemask(struct hstate *h, int preferred_nid,
- 			nodemask_t *nmask, gfp_t gfp_mask,
--			bool allow_alloc_fallback)
-+			bool allow_alloc_fallback, bool allow_cma)
- {
- 	return NULL;
- }
+ 	hugetlb_cma=	[HW,CMA,EARLY] The size of a CMA area used for allocation
+-			of gigantic hugepages. Or using node format, the size
+-			of a CMA area per node can be specified.
++			of hugepages. Or using node format, the size of a CMA area
++			per node can be specified.
+ 			The size can be an absolute value (e.g., 2G) or a
+ 			percentage of the total memory or node memory (e.g., 20%).
+ 			Percentage-derived sizes are rounded down to a multiple of
+-			the architecture's gigantic hugepage size and may become
+-			zero.
+-			Format: nn[KMGTPE] or nn% or (node format)
+-				<node>:nn[KMGTPE][,<node>:nn[KMGTPE]] or
+-				<node>:nn%[,<node>:nn%]
+-
+-			The size must be a multiple of the gigantic page size.
++			the larger of the selected hugepage size and CMA's minimum
++			alignment, and may become zero.
++			Format: nn[KMGTPE][@<page-size>] or nn%[@<page-size>]
++				or (node format)
++				<node>:nn[KMGTPE][,<node>:nn[KMGTPE]][@<page-size>] or
++				<node>:nn%[,<node>:nn%][@<page-size>]
++
++			An optional @<page-size> suffix selects the architecture's
++			default CMA hugepage size or a supported PMD size. If
++			omitted, the default is used. For node format, append
++			the suffix after the entire node list. Repeat the
++			parameter to configure the two pools independently.
++
++			For CMA allocation, PMD pages use the PMD pool if reserved.
++			Otherwise, gigantic PMD pages use the default pool. Other
++			gigantic page sizes always share the default pool.
++
++			The size must be aligned to both the selected hugepage
++			size and CMA's minimum alignment.
+ 			When using node format, this applies to each per-node size.
+ 			Missaligned values are dropped with a warning.
+ 
+-			Reserve a CMA area of given size and allocate gigantic
+-			hugepages using the CMA allocator. If enabled, the
+-			boot-time allocation of gigantic hugepages is skipped.
++			For gigantic page sizes with a reserved CMA pool, normal
++			boot-time allocation is skipped. With hugetlb_cma_only=1,
++			early CMA allocation is used where supported.
+ 
+ 	hugetlb_cma_only=
+ 			[HW,CMA,EARLY] When allocating new HugeTLB pages, only
+ 			try to allocate from the CMA areas.
+ 
+-			This option does nothing if hugetlb_cma= is not also
+-			specified.
++			This option only affects page sizes with a CMA pool
++			successfully reserved by hugetlb_cma=.
+ 
+ 	hugetlb_free_vmemmap=
+ 			[KNL] Requires CONFIG_HUGETLB_PAGE_OPTIMIZE_VMEMMAP
 diff --git a/mm/hugetlb.c b/mm/hugetlb.c
-index 6b08074d11f52..c1a8d00be11ac 100644
+index c1a8d00be11ac..bad5cd4978c5e 100644
 --- a/mm/hugetlb.c
 +++ b/mm/hugetlb.c
-@@ -1362,18 +1362,8 @@ static struct folio *dequeue_hugetlb_folio(struct hstate *h, gfp_t gfp_mask,
- static struct folio *alloc_gigantic_frozen_folio(int order, gfp_t gfp_mask,
- 		int nid, nodemask_t *nodemask)
+@@ -1835,22 +1835,20 @@ static struct folio *only_alloc_fresh_hugetlb_folio(struct hstate *h,
  {
--	struct folio *folio;
--
--	folio = hugetlb_cma_alloc_frozen_folio(order, gfp_mask, nid, nodemask);
--	if (folio)
--		return folio;
--
--	if (hugetlb_cma_exclusive_alloc(order))
--		return NULL;
--
--	folio = (struct folio *)alloc_contig_frozen_pages(1 << order, gfp_mask,
--							  nid, nodemask);
--	return folio;
-+	return (struct folio *)alloc_contig_frozen_pages(1 << order, gfp_mask,
-+							 nid, nodemask);
- }
- #else /* !CONFIG_ARCH_HAS_GIGANTIC_PAGE || !CONFIG_CONTIG_ALLOC */
- static struct folio *alloc_gigantic_frozen_folio(int order, gfp_t gfp_mask, int nid,
-@@ -1841,37 +1831,47 @@ static struct folio *alloc_buddy_frozen_folio(int order, gfp_t gfp_mask,
- 
- static struct folio *only_alloc_fresh_hugetlb_folio(struct hstate *h,
- 		gfp_t gfp_mask, int nid, nodemask_t *nmask,
--		nodemask_t *node_alloc_noretry)
-+		nodemask_t *node_alloc_noretry, bool allow_cma)
- {
--	struct folio *folio;
-+	struct folio *folio = NULL;
+ 	struct folio *folio = NULL;
  	int order = huge_page_order(h);
++	bool cma_only = hugetlb_cma_exclusive_alloc(order);
  
  	if (nid == NUMA_NO_NODE)
  		nid = numa_mem_id();
  
--	if (order_is_gigantic(order))
--		folio = alloc_gigantic_frozen_folio(order, gfp_mask, nid, nmask);
--	else
--		folio = alloc_buddy_frozen_folio(order, gfp_mask, nid, nmask,
--						 node_alloc_noretry);
-+	if (allow_cma && order_is_gigantic(order))
-+		folio = hugetlb_cma_alloc_frozen_folio(order, gfp_mask, nid, nmask);
-+	if (!folio) {
-+		if (hugetlb_cma_exclusive_alloc(order))
-+			return NULL;
+-	if (allow_cma && order_is_gigantic(order))
++	if (!order_is_gigantic(order) && !cma_only)
++		folio = alloc_buddy_frozen_folio(order, gfp_mask, nid, nmask,
++						 node_alloc_noretry);
 +
-+		if (order_is_gigantic(order))
-+			folio = alloc_gigantic_frozen_folio(order, gfp_mask, nid, nmask);
-+		else
-+			folio = alloc_buddy_frozen_folio(order, gfp_mask, nid, nmask,
-+							 node_alloc_noretry);
-+	}
-+
++	if (!folio && allow_cma)
+ 		folio = hugetlb_cma_alloc_frozen_folio(order, gfp_mask, nid, nmask);
+-	if (!folio) {
+-		if (hugetlb_cma_exclusive_alloc(order))
+-			return NULL;
+ 
+-		if (order_is_gigantic(order))
+-			folio = alloc_gigantic_frozen_folio(order, gfp_mask, nid, nmask);
+-		else
+-			folio = alloc_buddy_frozen_folio(order, gfp_mask, nid, nmask,
+-							 node_alloc_noretry);
+-	}
++	if (!folio && order_is_gigantic(order) && !cma_only)
++		folio = alloc_gigantic_frozen_folio(order, gfp_mask, nid, nmask);
+ 
  	if (folio)
  		init_new_hugetlb_folio(folio);
+diff --git a/mm/hugetlb_cma.c b/mm/hugetlb_cma.c
+index c279c3f548705..5071f0ae012bd 100644
+--- a/mm/hugetlb_cma.c
++++ b/mm/hugetlb_cma.c
+@@ -180,11 +180,13 @@ static int __init hugetlb_cma_parse(char *p)
+ 			pr_warn("hugetlb_cma: invalid parameter %s\n", p);
+ 			return -EINVAL;
+ 		}
+-		if (!order || page_size != (PAGE_SIZE << order) ||
++		if ((page_size != PMD_SIZE &&
++		     page_size != (PAGE_SIZE << order)) ||
+ 		    !arch_hugetlb_valid_size(page_size)) {
+ 			pr_warn("hugetlb_cma: unsupported page size in %s\n", p);
+ 			return -EINVAL;
+ 		}
++		order = ilog2(page_size) - PAGE_SHIFT;
+ 	}
+ 
+ 	if (!order) {
+@@ -339,14 +341,7 @@ static void __init hugetlb_cma_reserve_pool(struct hugetlb_cma_pool *pool,
+ 	if (!pool->size)
+ 		return;
+ 
+-	/*
+-	 * HugeTLB CMA reservation is required for gigantic
+-	 * huge pages which could not be allocated via the
+-	 * page allocator. Just warn if there is any change
+-	 * breaking this assumption.
+-	 */
+-	VM_WARN_ON(order <= MAX_PAGE_ORDER);
+-	hugepage_size = PAGE_SIZE << order;
++	hugepage_size = max(PAGE_SIZE << order, CMA_MIN_ALIGNMENT_BYTES);
+ 
+ 	if (config->percent) {
+ 		unsigned long orig_size = pool->size;
+@@ -437,14 +432,19 @@ static void __init hugetlb_cma_reserve_pool(struct hugetlb_cma_pool *pool,
+ 			size = min(per_node, pool->size - reserved);
+ 		}
+ 
+-		snprintf(name, sizeof(name), "hugetlb%d", nid);
++		if (pool == &hugetlb_cma[HUGETLB_CMA_DEFAULT])
++			snprintf(name, sizeof(name), "hugetlb%d", nid);
++		else
++			snprintf(name, sizeof(name), "hugetlb-%lukB-%d",
++				 (PAGE_SIZE << order) / SZ_1K, nid);
 +
- 	return folio;
- }
- 
- /*
-- * Common helper to allocate a fresh hugetlb folio. All specific allocators
-- * should use this function to get new hugetlb folio
-+ * Common helper to allocate a fresh hugetlb folio. All special allocators
-+ * should use this function to get new hugetlb folio.
-  *
-  * Note that returned folio is 'frozen':  ref count of head page and all tail
-  * pages is zero, and the accounting must be done in the caller.
-  */
- static struct folio *alloc_fresh_hugetlb_folio(struct hstate *h,
--		gfp_t gfp_mask, int nid, nodemask_t *nmask)
-+		gfp_t gfp_mask, int nid, nodemask_t *nmask, bool allow_cma)
- {
- 	struct folio *folio;
- 
--	folio = only_alloc_fresh_hugetlb_folio(h, gfp_mask, nid, nmask, NULL);
-+	folio = only_alloc_fresh_hugetlb_folio(h, gfp_mask, nid, nmask, NULL,
-+					       allow_cma);
- 	if (folio)
- 		hugetlb_vmemmap_optimize_folio(h, folio);
- 	return folio;
-@@ -1911,7 +1911,7 @@ static struct folio *alloc_pool_huge_folio(struct hstate *h,
- 		struct folio *folio;
- 
- 		folio = only_alloc_fresh_hugetlb_folio(h, gfp_mask, node,
--					nodes_allowed, node_alloc_noretry);
-+					nodes_allowed, node_alloc_noretry, true);
- 		if (folio)
- 			return folio;
- 	}
-@@ -2103,7 +2103,7 @@ static struct folio *alloc_surplus_hugetlb_folio(struct hstate *h,
- 		goto out_unlock;
- 	spin_unlock_irq(&hugetlb_lock);
- 
--	folio = alloc_fresh_hugetlb_folio(h, gfp_mask, nid, nmask);
-+	folio = alloc_fresh_hugetlb_folio(h, gfp_mask, nid, nmask, true);
- 	if (!folio)
- 		return NULL;
- 
-@@ -2139,14 +2139,14 @@ static struct folio *alloc_surplus_hugetlb_folio(struct hstate *h,
- }
- 
- static struct folio *alloc_migrate_hugetlb_folio(struct hstate *h, gfp_t gfp_mask,
--				     int nid, nodemask_t *nmask)
-+				     int nid, nodemask_t *nmask, bool allow_cma)
- {
- 	struct folio *folio;
- 
- 	if (hstate_is_gigantic(h))
- 		return NULL;
- 
--	folio = alloc_fresh_hugetlb_folio(h, gfp_mask, nid, nmask);
-+	folio = alloc_fresh_hugetlb_folio(h, gfp_mask, nid, nmask, allow_cma);
- 	if (!folio)
- 		return NULL;
- 
-@@ -2219,7 +2219,8 @@ struct folio *alloc_hugetlb_folio_reserve(struct hstate *h, int preferred_nid,
- 
- /* folio migration callback function */
- struct folio *alloc_hugetlb_folio_nodemask(struct hstate *h, int preferred_nid,
--		nodemask_t *nmask, gfp_t gfp_mask, bool allow_alloc_fallback)
-+		nodemask_t *nmask, gfp_t gfp_mask, bool allow_alloc_fallback,
-+		bool allow_cma)
- {
- 	struct folio *folio = NULL;
- 
-@@ -2238,7 +2239,7 @@ struct folio *alloc_hugetlb_folio_nodemask(struct hstate *h, int preferred_nid,
- 			gfp_mask |= __GFP_THISNODE;
- 
- 		folio = alloc_migrate_hugetlb_folio(h, gfp_mask, preferred_nid,
--						    nmask);
-+						    nmask, allow_cma);
- 	}
- 
- 	if (folio)
-@@ -2722,8 +2723,8 @@ static int alloc_and_dissolve_hugetlb_folio(struct folio *old_folio,
- 		if (!new_folio) {
- 			spin_unlock_irq(&hugetlb_lock);
- 			gfp_mask = htlb_alloc_mask(h) | __GFP_THISNODE;
--			new_folio = alloc_fresh_hugetlb_folio(h, gfp_mask,
--							      nid, NULL);
-+			new_folio = alloc_fresh_hugetlb_folio(h, gfp_mask, nid,
-+							      NULL, false);
- 			if (!new_folio)
- 				return -ENOMEM;
- 			goto retry;
-@@ -3443,13 +3444,13 @@ static void __init hugetlb_hstate_alloc_pages_onenode(struct hstate *h, int nid)
- 			gfp_t gfp_mask = htlb_alloc_mask(h) | __GFP_THISNODE;
- 
- 			folio = only_alloc_fresh_hugetlb_folio(h, gfp_mask, nid,
--					&node_states[N_MEMORY], NULL);
-+					&node_states[N_MEMORY], NULL, true);
- 			if (!folio && !list_empty(&folio_list) &&
- 			    hugetlb_vmemmap_optimizable(h)) {
- 				prep_and_add_allocated_folios(h, &folio_list);
- 				INIT_LIST_HEAD(&folio_list);
- 				folio = only_alloc_fresh_hugetlb_folio(h, gfp_mask, nid,
--						&node_states[N_MEMORY], NULL);
-+						&node_states[N_MEMORY], NULL, true);
- 			}
- 			if (!folio)
- 				break;
-@@ -6357,7 +6358,7 @@ static struct folio *alloc_hugetlb_folio_vma(struct hstate *h,
- 	 * consuming a reservation. Set the alloc_fallback to false to indicate
- 	 * that breaking the per-node hugetlb pool is not allowed in this case.
- 	 */
--	folio = alloc_hugetlb_folio_nodemask(h, node, nodemask, gfp_mask, false);
-+	folio = alloc_hugetlb_folio_nodemask(h, node, nodemask, gfp_mask, false, true);
- 	mpol_cond_put(mpol);
- 
- 	return folio;
-diff --git a/mm/mempolicy.c b/mm/mempolicy.c
-index 0884c629670dd..a99ab927cd81a 100644
---- a/mm/mempolicy.c
-+++ b/mm/mempolicy.c
-@@ -1471,7 +1471,7 @@ static struct folio *alloc_migration_target_by_mpol(struct folio *src,
- 		gfp = htlb_alloc_mask(h);
- 		nodemask = policy_nodemask(gfp, pol, ilx, &nid);
- 		return alloc_hugetlb_folio_nodemask(h, nid, nodemask, gfp,
--				htlb_allow_alloc_fallback(MR_MEMPOLICY_MBIND));
-+				htlb_allow_alloc_fallback(MR_MEMPOLICY_MBIND), true);
- 	}
- 
- 	if (folio_test_large(src))
-diff --git a/mm/migrate.c b/mm/migrate.c
-index 7bdcdb57652f8..670556bf5de2c 100644
---- a/mm/migrate.c
-+++ b/mm/migrate.c
-@@ -2213,7 +2213,8 @@ struct folio *alloc_migration_target(struct folio *src, unsigned long private)
- 		gfp_mask = htlb_modify_alloc_mask(h, gfp_mask);
- 		return alloc_hugetlb_folio_nodemask(h, nid,
- 						mtc->nmask, gfp_mask,
--						htlb_allow_alloc_fallback(mtc->reason));
-+						htlb_allow_alloc_fallback(mtc->reason),
-+						mtc->reason != MR_CONTIG_RANGE);
- 	}
- 
- 	if (folio_test_large(src)) {
+ 		/*
+ 		 * Note that 'order per bit' is based on smallest size that
+ 		 * may be returned to CMA allocator in the case of
+ 		 * huge page demotion.
+ 		 */
+ 		res = cma_declare_contiguous_multi(size, hugepage_size,
+-					HUGETLB_PAGE_ORDER, name,
++					min_t(unsigned int, order, HUGETLB_PAGE_ORDER), name,
+ 					&pool->cma[nid], nid);
+ 		if (res || !cma_validate_zones(pool->cma[nid])) {
+ 			pr_warn("hugetlb_cma: %s: err %d, node %d\n",
 -- 
 2.54.0
 
