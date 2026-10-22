@@ -1,112 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792680749;
-	b=EQ0XtFU6UrpixPqPqwCelFVpOFkptD/O9BLuPrzTYEpgWjuAXDO5oP3hlUlXTvRkS7lx
-	 RwJCfh3rb4f1SQBAzDMiHxAXuQDI4A/ss/3Bc0BmU0TeJh14k0g2fnOd8lMK7XirZWx4P
-	 WvX40odQ3dvNzLq5jZegoanY+dqbGV9MHQsbqNEfiamocRxQAzrzcIJjzsY93V4sNnzSz
-	 QqadecLgzK2HCQr1ln+7a15cUbmNLM+WpUlmi9uOO2AnEUoAJPh4Vqjzij+Tyc0n1G35V
-	 kHHr8hre27Dgp60gNxZYQNCq2T7NH3pVqFG7p0cpvU76ELuP+GeEV9V2TWDyNAQOH4A==
+	t=1792680471;
+	b=sYD59j4/Y4L/5idVJyYjjuF1l46bJetZv0gdIGnVmygKe/HO7Q3KJmBayDRWtWXuSAYM
+	 sj4zqLnQQNFTRjzrKi//OKvkR9IGvhjGwwHXLtcqE1VOJDgc2PxmQKGCpLFafelokqI+7
+	 FF+4uZd2k8bhdOnCtR3uB+WdEvsgnAS2NvaJqdPOalM5mpnBRS9zR5V7w02GN56b+0BhR
+	 ZLxGSkMpI0pni+guXrI89YQBZzYvVFloSHDBYMHXQJlG0IbU6kJgZ+nN0W2CVpyj2B5eu
+	 xH84VpxFrL1QqHQWN8IGK87r1tdI+4Jgdnfd2ScTZ3a/QjOqBAx7kZB2eYvkQytVIyg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792680749;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=zz3vJ+tdljdortEYQn2RoJm5sKkXNeTDkPHmzvrfEm4=;
-	b=1Xc0jA+Wx7lLHwQYiSfYMEHk23T8nJTcgr5YGklHg+g97RfebirGdi3wrN3icOUK3F0d
-	 EAapLDtD4Z1Br9xOea7fvIlSIpl9OSiRSMopYmhVWyNMPoTH6Zj41M+a3Wxm9MDG+oi6I
-	 n/SArZWGuCRD5CpFZZdIoTkBHSqXVIhE5R17scpibXX7UftAVf99+99F9lATRX0HOdK6o
-	 qWM8drprQ84o7gYIRQYJO/u2AN8XsGxb78cV3FYys/qChmQLcgv14sXqVN9I1YBqbHesa
-	 YkZJ4u7huwdxJHuCI4F/sC3TZqMlnRuuxCuZw3ZR++dD4aR/ttkLIgV8YOlUjMq54xg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792680471;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:
+	 References:MIME-Version:Content-Transfer-Encoding:
+	 X-Proofpoint-Reinject:X-QCInternal:X-QCInternal:X-Proofpoint-GUID:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=UUSDmlVMcwhr9iutDz3uUlfo+9Wxwrfjom0SeIArEXE=;
+	b=S462VJHJcFiOU61tmzmNMRaVATRJNb07WqhkB5WSRcps5S3AM0cYBmmeGzY9AbVFA10z
+	 dh2M9a2/2edHzL8gNDom+hvAlwWPSeDkXtOVmTSGPkjEAsGwki5bLGRhZUgFO6cC1v3Gc
+	 eA5eDY20K5qCpBN4oD4eftLME0JjWWoPnRLhs+YL91T6F6n6LcPzn7ywDLv9JY175cPnd
+	 Vpp6xbk8p4wdvVUzoSKEdXXojakhzSsjwvYFHkIzkSVyVpz7lRSmYmcK5GVulADbRbdJr
+	 xULniTvtzzycLlU4BUAzDOMBvT62ELmT3SjHU7p2b14Lzk0mcJQTK0hdcT01zUFFkUw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=h97chLeM;
-	arc=none smtp.remote-ip=209.85.221.182
-Received: from mail-vk1-f182.google.com (mail-vk1-f182.google.com [209.85.221.182])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=f4Ma57WR;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1152A606A31D
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 14:52:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1152A606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6A0B606A324;
+	Thu, 22 Oct 2026 14:47:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E6A0B606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=h97chLeM
-Received: by mail-vk1-f182.google.com with SMTP id 71dfb90a1353d-5eadef147ffso1563125e0c.3
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 07:52:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792680747; x=1793285547; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:subject
-         :references:in-reply-to:message-id:cc:to:from:date:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=zz3vJ+tdljdortEYQn2RoJm5sKkXNeTDkPHmzvrfEm4=;
-        b=h97chLeMQCZNzvkoumQfDwfsbUMYXR+71RuEfZnfNoge5E1oEsO+BRG/G33uP9E7nT
-         LkT4SSmsiLL62g79JGydfS4/Hg7vzPuEIhx4TJeXf2uhV6lhKvPFAuGkVHc/xGNTnhoW
-         R3fDdC5bsamDGMbCV1bvrpDKCpj7SeR3PyMgSIjw6R18lIBk3qre4/ykYGL9VddqNOCt
-         4XoQCl+LBKDLMM7+HkULREAlDdXTbuMb2m/42cuHtAXuF5SI0sDcOEtxo9dUATfN5INd
-         As9bmkq3tMW2IacKbYlCdJ9yNSGLeRPLgRSLTORil5I6Ennq1nYmn6ZomCwV9/XfBcnF
-         sG0A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792680747; x=1793285547;
-        h=content-transfer-encoding:content-type:mime-version:subject
-         :references:in-reply-to:message-id:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=zz3vJ+tdljdortEYQn2RoJm5sKkXNeTDkPHmzvrfEm4=;
-        b=t3Q3+jzFQUpBfra4p3baa4mhFY0TJ8JjtYAWkkLKxc2fAoKW+HJdWz8dUcNvs6OCH5
-         VA/UfN/v23SH+mXw8Ccu05bULlrEviZBH1RcQgRxpSbjmIZyPG0uzGxYbat98MYNzox1
-         BdKH/2V1dD+spidz1KaHTVx0WKLdFhZdvByn0QQcZPUiMdZ+RQpcT2g5dDf3UocwLzHV
-         jyNKMYkQNQFoCd5N4qi0bNIZXyKBPDWlNDwmnA8EtVQjOnDrb4ZUF9etQ3TUOPXFv/+V
-         WWnTueSslREFD1VRaGjvcMWHq1fSB4WfQutS9coZuHJ74Zey9ri4h5XLw696AyDJVxsS
-         d7vg==
-X-Forwarded-Encrypted: i=1; AKwUvBzzP+NCH1m2JFEbH7Sp1Jf/UB9Xivg5BIhi/pmc78hJuuFoCR52ZFMabNBeH79xSQ+A/IjdelGI0lc073A=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK4tftSrNSsqQiMRYFbTlYnHsIlqHbXCgkpt0apoPtv8aGdj+ZE
-	PP9lfKeSHMHR6lWEBY67jcxo+mgOHvoWKJvNAyhnKmJrIOvJlO4V0pBj
-X-Gm-Gg: AYBFou0TIYrhyW6yTiju2YBbCJrzDKodXRMakN7jIMnRJoJYuIax0V5samhWxKXvZY8
-	SiYBa3+LUnAxTYEycAYmcL8WzI+MC36cXUCEyD+TK7R3Ml1j/m+VNCkQ1is55dQh6wqQpdnr864
-	jwlWPKB0CLEAWsl2tEWswiugs+4Xk6a0kcAd1iNClfSjdVndwTFDtyZkKESDGF7QvNBib/9vR/b
-	bR1qFsY9DSmXqzBsC//EGsu2HcOj9+mTgP1lZ+kDEOxAK3fzPrbwbb5eQymEeO2sSqua+5AxnEn
-	TCiuRITtrKvV76lQLReabo0dlW1KE9AOPYbf2X5ndkPo/y8aDZ3y7I1hZy68lIpzqr321KzOyp2
-	2nB8HsuAFsPx5C0zo39bGUuBU76yM4htRdVyoUsry2eie8wXWHuyL5IIaDyl9IDpvcBtncxnmv8
-	nGfxIaj6ewba5Mkv7aWVsYYh48gAl7CVBRBn9odReTMNgnMKlMrOf4YY5ltcsWqwC248vFTDgWw
-	onTp9vzyi7H5mqXvBjmJOu4n4ADhly3QL6ZEnozlchI4ay1Va/TfVXx9NawcKSf0E0/J8eW9xRu
-	HBUrxGYaYnDCK81sEG4tF+z2pjQHGrMaZoCMZ+/RRJxXiMQz0L6pCteK0yaiAMcIf0hvRD91BqL
-	gyMeh7eGqm6AljH7xgko=
-X-Received: by 2002:a05:6122:488f:b0:5e9:731b:850a with SMTP id 71dfb90a1353d-5eaebe17275mr2877249e0c.11.1792680746890;
-        Thu, 22 Oct 2026 07:52:26 -0700 (PDT)
-Received: from gmail.com (111.46.245.35.bc.googleusercontent.com. [35.245.46.111])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5eae97be404sm7084683e0c.7.2026.10.22.07.52.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 07:52:26 -0700 (PDT)
-Date: Thu, 22 Oct 2026 10:52:25 -0400
-From: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
-To: "Michael S. Tsirkin" <mst@redhat.com>, 
- linux-kernel@vger.kernel.org
-Cc: Willem de Bruijn <willemdebruijn.kernel@gmail.com>, 
- Chris Arges <carges@cloudflare.com>, 
- =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>, 
- Phil Sutter <phil@nwl.cc>, 
- Jason Wang <jasowangio@gmail.com>, 
- =?UTF-8?B?RXVnZW5pbyBQw6lyZXo=?= <eperezma@redhat.com>, 
- Xuan Zhuo <xuanzhuo@linux.alibaba.com>, 
- Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, 
- Eric Dumazet <edumazet@kernel.org>, 
- Jakub Kicinski <kuba@kernel.org>, 
- Paolo Abeni <pabeni@redhat.com>, 
- netdev@vger.kernel.org, 
- virtualization@lists.linux.dev, 
- Max Krasnyansky <maxk@qualcomm.com>, 
- Rusty Russell <rusty@rustcorp.com.au>, 
- Paulos Yibelo <habte.yibelo@gmail.com>
-Message-ID: <willemdebruijn.kernel.2987fc5710162@gmail.com>
-In-Reply-To: <342bf5331e12b2e5b940510293233bb8bce46127.1792668082.git.mst@redhat.com>
-References: <cover.v5.git.mst@redhat.com>
- <342bf5331e12b2e5b940510293233bb8bce46127.1792668082.git.mst@redhat.com>
-Subject: Re: [PATCH net v5 4/7] net: resolve uncommon partial checksums at
- ingress
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=f4Ma57WR
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69MEFUmR4098301;
+	Thu, 22 Oct 2026 14:47:44 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=qcppdkim1; bh=UUSDmlVMcwh
+	r9iutDz3uUlfo+9Wxwrfjom0SeIArEXE=; b=f4Ma57WRIqhZSzt46TiyC57qZhX
+	S5RyeQJhuHdIcAeXzQnZ+0fIo3zCQTgEPFWqgl4hEfHKxlDSt9lBv9cuUuGSK+dr
+	wbK2j2kbcZttbP5suPr4DMUqD880VspjeKFGMGlNZotnAtZ+Xwb+QkvKS83QZiO8
+	ptmhsVMJ2GngEpzVc2JB0Dj8IWRUeTai03KTRgfzMUHILSA9DUIFmLm54hoVwMOI
+	NqZCGizVueor6qyYOZ9GOMn/+waXldVQ29d6tq0a3dnnGQjkwLI5i4RGt381sRyB
+	BE2jkdWNp1adV9Pi4rg06r1H5nctBEOQIpcNKqljHIuQ147hKwiI2LbpqrQ==
+Received: from apblrppmta02.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hfewq33w6-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Thu, 22 Oct 2026 14:47:43 +0000 (GMT)
+Received: from pps.filterd (apblrppmta02.qualcomm.com [127.0.0.1])
+	by APBLRPPMTA02.qualcomm.com (8.18.1.11/8.18.1.11) with ESMTP id 69MEfWbj1932677;
+	Thu, 22 Oct 2026 14:41:32 GMT
+Received: from hu-devc-hyd-u22-c.qualcomm.com (hu-mohis-hyd.qualcomm.com [10.147.253.64])
+	by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 69MEfVmS1932657
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Thu, 22 Oct 2026 14:41:31 +0000 (GMT)
+Received: by hu-devc-hyd-u22-c.qualcomm.com (Postfix, from userid 4840500)
+	id D4F8065A; Thu, 22 Oct 2026 20:11:30 +0530 (+0530)
+From: Mohit Sharma <mohit.sharma@oss.qualcomm.com>
+To: Srinivas Kandagatla <srini@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Mark Brown <broonie@kernel.org>
+Cc: Ajay Kumar Nandam <ajay.nandam@oss.qualcomm.com>,
+        Liam Girdwood <lgirdwood@gmail.com>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+        linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Mohit Sharma <mohit.sharma@oss.qualcomm.com>, stable@vger.kernel.org
+Subject: [PATCH 2/2] soc: qcom: apr: Publish GPR callback before client probe
+Date: Thu, 22 Oct 2026 20:11:30 +0530
+Message-Id: <20261022144130.2443667-3-mohit.sharma@oss.qualcomm.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261022144130.2443667-1-mohit.sharma@oss.qualcomm.com>
+References: <20261022144130.2443667-1-mohit.sharma@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -116,457 +89,98 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-QCInternal: smtphost
+X-QCInternal: smtphost
+X-Proofpoint-GUID: DN5y412NKtRmmEGG_ZXkBzbD-ZOv26nM
+X-Proofpoint-ORIG-GUID: DN5y412NKtRmmEGG_ZXkBzbD-ZOv26nM
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIyMDA1OCBTYWx0ZWRfX2/Oe6Hy2TyLi
+ C8HapLbTFBMuVe41S3s5QFJNX6ql3TQ8XS1WyMa2Gj5ZJfkJarzISF33B+zN9epLdzdDpuqmk8T
+ LLgHr+6V+i0OZeYqvQKmCbAxxZkR8jw=
+X-Authority-Analysis: v=2.4 cv=G4OJgNk5 c=1 sm=1 tr=0 ts=6ada220f cx=c_pps
+ a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=rJkE3RaqiGZ5pbrm-msn:22 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8
+ a=gUX7mVKeEC_5i4-4ascA:9
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIyMDA1OCBTYWx0ZWRfX/GtrjWmIuFVZ
+ l0tFg/iEG90uzx3nucTubDVlwdGsKw6/x2YjX1+2gZwI/AeoFSNh9Lz8DDZZWg6Toq1h7Gejiv7
+ wa+LT7VxjPPXx5FLc32ctQKk7cGcCLCwphDtkFBMllbrc2BuGnLgjVfzEEWcv/NZQXoaKoRrc5o
+ +XKfI2XWJLO6HbmiqvR03Dh+rM/FAgD24QZjW0Cr88AYO7PQ3ZVUPyVF3GWd3H9w7ckALGv8oN/
+ 6bdIhNbdmzUIk4DwZgZyr45t662vHnGk0F2e9JV7zsoyOXieW7Yo+C/F/hh63JlDowt0FMbbyiJ
+ CCs4tPkZQLsfBAY2mevkn889Qa98jdu/81fnMQGOyCWT+yONczurOhic+qZWsgrCtuKaRNoOI5V
+ zt7cCHn/XJmWzEWBRPkPk/Z/Qh9shFoQ8jkNSlNnqJN6tHtShTcKceIdJULSTUBAihdkcwj41H1
+ cVZ3zax9IFCQ0tpvX6A==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-22_05,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 clxscore=1015 phishscore=0 lowpriorityscore=0 bulkscore=0
+ impostorscore=0 adultscore=0 malwarescore=0 spamscore=0 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610220058
 
-Michael S. Tsirkin wrote:
-> As reported first by Paulos Yibelo <habte.yibelo@gmail.com> (after which
-> others, credited below, found more ways the bug can affect users) a
-> virtio net header can place CHECKSUM_PARTIAL at any in-packet offset.
-> If that state is retained, later checksum completion can modify the
-> packet after protocol processing has made decisions from it.
-> 
-> Let's fix that: let's validate csum_start and csum_offset and only keep
-> CHECKSUM_PARTIAL when csum_start and csum_offset match a parsed TCP or
-> UDP header, while handling VLAN headers, IPv4 options and IPv6 extension
-> headers.  Complete other non-GSO checksums immediately, before any
-> protocol processing runs.
-> 
-> We can't easily "complete the checksum" for GSO we don't recognize - GSO
-> assumes knowledge of the protocol. We could segment ignoring the
-> checksum then do whatever csum_start and csum_offset say, but that
-> seems like an overkill for something that shouldn't happen.
-> 
-> There's some risk here:
-> - non-gso packets which can't be parsed get checksum calculated in
->   software, adding performance overhead
-> - gso packets which can't be parsed get dropped
-> 
-> Note that for zero copy, userspace can change the data after the
-> checksum has been calculated.  This is fundamental to zero copy by
-> design, and the only outcome is a bad checksum and a packet drop.
-> 
-> To mitigate the risks, the following patch will add a sysctl knob to
-> bypass the resolution. This is reasonable if the setup is such that
-> there is no protocol processing at all.
-> 
-> UDP tunnel headers get the same handling on the inner header.
-> 
-> Packets without VIRTIO_NET_HDR_F_NEEDS_CSUM are unaffected.
-> 
-> Reported-by: Paulos Yibelo <habte.yibelo@gmail.com>
-> Reported-by: Chris Arges <carges@cloudflare.com>
-> Tested-by: Chris Arges <carges@cloudflare.com>
-> Fixes: f43798c27684 ("tun: Allow GSO using virtio_net_hdr")
-> Suggested-by: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
-> Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
-> ---
-> 
-> Notes (changelog):
->     v4->v5:
->         caller changes moved to "account for ingress-resolved
->         virtio net hdr state" (Willem de Bruijn)
->         a packet too small to be GSO: ignore the tunnel GSO request,
->         complete wild metadata in place (sashiko)
->         document the zero copy interaction (sashiko)
->         honor a preset skb->protocol on ethernet: the stack uses it,
->         except on loopback which re-parses the frame (sashiko)
-> 
->  include/linux/virtio_net.h | 283 ++++++++++++++++++++++++++++++++++++-
->  1 file changed, 279 insertions(+), 4 deletions(-)
-> 
-> diff --git a/include/linux/virtio_net.h b/include/linux/virtio_net.h
-> index 013c6c7e2dea..52852a33a2db 100644
-> --- a/include/linux/virtio_net.h
-> +++ b/include/linux/virtio_net.h
-> @@ -5,7 +5,11 @@
->  #include <linux/if_vlan.h>
->  #include <linux/ip.h>
->  #include <linux/ipv6.h>
-> +#include <linux/netdevice.h>
->  #include <linux/udp.h>
-> +#include <net/gso.h>
-> +#include <net/ip.h>
-> +#include <net/ipv6.h>
->  #include <net/tcp.h>
->  #include <uapi/linux/tcp.h>
->  #include <uapi/linux/virtio_net.h>
-> @@ -48,6 +52,205 @@ static inline int virtio_net_hdr_set_proto(struct sk_buff *skb,
->  	return 0;
->  }
->  
-> +/* TODO: nothing virtio specific here, move to ip.h */
-> +
-> +/*
-> + * Pull and minimally validate the IPv4 header at @nhoff.
-> + * Returns the header and stores the transport header offset in
-> + * @thoff, or NULL if truncated or malformed.  Only the fixed header
-> + * is guaranteed linear; callers that need the options or the
-> + * transport header must pull further.
-> + */
-> +static inline struct iphdr *virtio_net_ip4_parse(struct sk_buff *skb,
-> +						  unsigned int nhoff,
-> +						  unsigned int *thoff)
-> +{
-> +	struct iphdr *iph;
-> +
-> +	if (!pskb_may_pull(skb, nhoff + sizeof(struct iphdr)))
-> +		return NULL;
-> +
-> +	iph = (struct iphdr *)(skb->data + nhoff);
-> +	if (iph->version != 4 ||
-> +	    iph->ihl < sizeof(struct iphdr) / sizeof(u32))
-> +		return NULL;
-> +
+A GPR service driver can issue synchronous commands from its probe path,
+or populate child devices which issue commands before the parent probe
+returns. The APR/GPR bus currently installs the GPR service callback only
+after the service driver's probe has completed.
 
-Pulling again if ihl != 0 should probably have been here too.
+If a response arrives while the client probe is still running, GPR finds
+the destination service but cannot dispatch the response because the
+service callback is NULL. The client waiting for the response eventually
+times out.
 
-Else we have to verify that all callers safely pull. Note that
-iph will become stale after another pull.
+This was observed intermittently on Qualcomm Lemans and Monaco platforms
+when q6apm child probing sent an APM shared-memory map command before the
+parent probe returned. The failure has the following signature:
 
-> +	*thoff = nhoff + iph->ihl * sizeof(u32);
-> +	return iph;
-> +}
-> +
-> +/* Where does the L3 header start, and what protocol is it?
-> + * Handles Ethernet and VLAN headers; other devices use the
-> + * network header offset the caller set up.
-> + */
-> +static inline bool
-> +virtio_net_l3_start(struct sk_buff *skb, int *nhoff, __be16 *proto)
-> +{
-> +	/* skb->dev is only guaranteed to be set since 44378d02c5aa
-> +	 * ("net: always dissect GSO packets in
-> +	 * __virtio_net_hdr_to_skb()"), do not crash when it is not.
-> +	 */
-> +	if (WARN_ON_ONCE(!skb->dev))
-> +		return false;
-> +
-> +	/* A preset protocol is what the stack will use, except on
-> +	 * loopback which re-parses the frame: loopback_xmit() calls
-> +	 * eth_type_trans() on it.
-> +	 */
-> +	if (skb->dev->type == ARPHRD_ETHER ||
-> +	    skb->dev->type == ARPHRD_LOOPBACK) {
-> +		if (!pskb_may_pull(skb, ETH_HLEN))
-> +			return false;
-> +		*nhoff = ETH_HLEN;
-> +		*proto = skb->protocol;
+  qcom-apm ... CMD timeout for [100100c] opcode
+  q6apm-dai ... Audio Start: Buffer Allocation failed rc = -110
+  snd-sc8280xp ... ASoC: can't create pcm MultiMedia1 Playback :-110
 
-Why this change now?
+Install the GPR callback before invoking the client probe so responses to
+probe-time commands can be dispatched. Clear the callback again if probe
+fails, and preserve the existing callback ordering for APR clients.
 
-skb->protocol cannot be trusted (to be consistent with actual packet
-content).
+Fixes: ec1471a898cc ("soc: qcom: apr: Add GPR support")
+Cc: stable@vger.kernel.org
+Co-developed-by: Ajay Kumar Nandam <ajay.nandam@oss.qualcomm.com>
+Signed-off-by: Ajay Kumar Nandam <ajay.nandam@oss.qualcomm.com>
+Signed-off-by: Mohit Sharma <mohit.sharma@oss.qualcomm.com>
+---
+ drivers/soc/qcom/apr.c | 15 +++++++++++++--
+ 1 file changed, 13 insertions(+), 2 deletions(-)
 
-Express goal is to take the actual packet content instead of relying
-on this spoofable field.
-
-On top of that there are issues around setting protocol to IP and
-inserting VLAN headers. That would skip the eth_type_vlan branch.
-
-IMHO, we should only use skb->protocol if no other source to detect
-protocol exist, i.e., if no L2 header exists.
-
-Also, instead of preferring one over the other, we could actually
-read both and
-
-    if (skb->protocol &&
-        skb->protocol != eth_hdr(skb)->h_proto)
-            return false;
-
-
-> +		if (!*proto || skb->dev->type == ARPHRD_LOOPBACK)
-> +			*proto = eth_hdr(skb)->h_proto;
-> +		if (eth_type_vlan(*proto)) {
-> +			*proto = __vlan_get_protocol(skb, *proto, nhoff);
-> +			if (!*proto)
-> +				return false;
-> +		}
-> +	} else {
-> +		*nhoff = skb_network_offset(skb);
-> +		/* An unset network header shows up as an offset
-> +		 * outside of the packet.
-> +		 */
-> +		if (*nhoff < 0 || (unsigned int)*nhoff >= skb->len)
-> +			return false;
-> +		*proto = skb->protocol;
-
-Same
-
-> +		if (!*proto) {
-> +			const struct iphdr *iph;
-> +
-> +			/* A packet socket bound to ETH_P_ALL leaves the
-> +			 * protocol unset: infer it from the IP version
-> +			 * at the network header.
-> +			 */
-> +			if (!pskb_may_pull(skb, *nhoff + 1))
-> +				return false;
-> +			iph = (const struct iphdr *)(skb->data + *nhoff);
-> +			if (iph->version == 4)
-> +				*proto = htons(ETH_P_IP);
-> +			else if (iph->version == 6)
-> +				*proto = htons(ETH_P_IPV6);
-> +		}
-> +	}
-> +	return true;
-> +}
-> +
-> +/* Walk the L3 header at @nhoff: where does its transport header
-> + * start, and which protocol is it?  Returns false if the header
-> + * is truncated, malformed or fragmented.
-> + */
-> +static inline bool
-> +virtio_net_l4_start(struct sk_buff *skb, unsigned int nhoff, __be16 proto,
-> +		    unsigned int *thoff, int *ip_proto)
-> +{
-> +	if (proto == htons(ETH_P_IP)) {
-> +		const struct iphdr *iph = virtio_net_ip4_parse(skb, nhoff, thoff);
-> +
-> +		if (!iph || ip_is_fragment(iph))
-> +			return false;
-> +		*ip_proto = iph->protocol;
-> +		return true;
-> +	}
-> +
-> +	if (proto == htons(ETH_P_IPV6)) {
-> +		const struct ipv6hdr *iph;
-> +		int flags = 0;
-> +
-> +		if (!pskb_may_pull(skb, nhoff + sizeof(*iph)))
-> +			return false;
-> +		iph = (const void *)(skb->data + nhoff);
-> +		if (iph->version != 6)
-> +			return false;
-> +		*thoff = nhoff + sizeof(*iph);
-> +		*ip_proto = iph->nexthdr;
-> +		if (*ip_proto != IPPROTO_TCP && *ip_proto != IPPROTO_UDP) {
-> +			*thoff = nhoff;
-> +			/* Find the transport header behind any
-> +			 * extension headers, AH included.
-> +			 */
-> +			*ip_proto = ipv6_find_hdr(skb, thoff, -1, NULL,
-> +						  &flags);
-> +			if (*ip_proto < 0 || flags & IP6_FH_F_FRAG)
-> +				return false;
-> +		}
-> +		return true;
-> +	}
-> +
-> +	return false;
-> +}
-> +
-> +/* Does checksum metadata match a known TCP or UDP header? */
-> +static inline bool
-> +virtio_net_csum_partial_ok_at_offset(struct sk_buff *skb, u8 hdr_gso_type,
-> +				     unsigned int nhoff, __be16 proto)
-> +{
-> +	unsigned int thoff;
-> +	int ip_proto;
-> +
-> +	if (!virtio_net_l4_start(skb, nhoff, proto, &thoff, &ip_proto))
-> +		return false;
-> +
-> +	if (skb_checksum_start_offset(skb) != thoff)
-> +		return false;
-> +
-> +	switch (ip_proto) {
-> +	case IPPROTO_TCP:
-> +		if (skb->csum_offset != offsetof(struct tcphdr, check) ||
-> +		    !pskb_may_pull(skb, thoff + sizeof(struct tcphdr)))
-> +			return false;
-> +		break;
-> +	case IPPROTO_UDP:
-> +		if (skb->csum_offset != offsetof(struct udphdr, check) ||
-> +		    !pskb_may_pull(skb, thoff + sizeof(struct udphdr)))
-> +			return false;
-> +		break;
-> +	default:
-> +		return false;
-> +	}
-> +
-> +	switch (hdr_gso_type & ~VIRTIO_NET_HDR_GSO_ECN) {
-> +	case VIRTIO_NET_HDR_GSO_NONE:
-> +		return true;
-> +	case VIRTIO_NET_HDR_GSO_TCPV4:
-> +		return proto == htons(ETH_P_IP) && ip_proto == IPPROTO_TCP;
-> +	case VIRTIO_NET_HDR_GSO_TCPV6:
-> +		return proto == htons(ETH_P_IPV6) && ip_proto == IPPROTO_TCP;
-> +	case VIRTIO_NET_HDR_GSO_UDP:
-> +	case VIRTIO_NET_HDR_GSO_UDP_L4:
-> +		return ip_proto == IPPROTO_UDP;
-> +	default:
-> +		return false;
-> +	}
-> +}
-> +
-> +static inline bool
-> +virtio_net_csum_partial_ok(struct sk_buff *skb, u8 hdr_gso_type)
-> +{
-> +	int nhoff;
-> +	__be16 proto;
-> +
-> +	if (!virtio_net_l3_start(skb, &nhoff, &proto))
-> +		return false;
-> +
-> +	return virtio_net_csum_partial_ok_at_offset(skb, hdr_gso_type, nhoff,
-> +						   proto);
-> +}
-> +
-> +/*
-> + * Handle a packet whose checksum metadata does not match the packet:
-> + * GSO packets are dropped, as segmentation needs one checksum per
-> + * segment; others are completed in software.
-> + */
-> +static inline int __virtio_net_resolve_csum_partial_mismatch(struct sk_buff *skb)
-> +{
-> +	if (skb_is_gso(skb))
-> +		return -EINVAL;
-> +
-> +	return skb_checksum_help(skb) ?: 1;
-> +}
-> +
->  static inline int __virtio_net_hdr_to_skb(struct sk_buff *skb,
->  					  const struct virtio_net_hdr *hdr,
->  					  bool little_endian, u8 hdr_gso_type)
-> @@ -194,11 +397,35 @@ static inline int __virtio_net_hdr_to_skb(struct sk_buff *skb,
->  	return 0;
->  }
->  
-> +/*
-> + * Return value:
-> + * 0 - success
-> + * >0 - checksum was completed in software (slow path)
-> + * <0 - failure
-> + */
->  static inline int virtio_net_hdr_to_skb(struct sk_buff *skb,
->  					const struct virtio_net_hdr *hdr,
->  					bool little_endian)
->  {
-> -	return __virtio_net_hdr_to_skb(skb, hdr, little_endian, hdr->gso_type);
-> +	typeof(skb->transport_header) old_transport = skb->transport_header;
-> +	int ret = __virtio_net_hdr_to_skb(skb, hdr, little_endian,
-> +					  hdr->gso_type);
-> +
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	if (skb->ip_summed != CHECKSUM_PARTIAL ||
-> +	    virtio_net_csum_partial_ok(skb, hdr->gso_type))
-> +		return 0;
-> +
-> +	/*
-> +	 * Here we do not trust the checksum metadata.
-> +	 * __virtio_net_hdr_to_skb set the transport header to csum_start
-> +	 * from virtio hdr, restore it to a known good value.
-> +	 */
-> +	skb->transport_header = old_transport;
-> +
-> +	return __virtio_net_resolve_csum_partial_mismatch(skb);
->  }
->  
->  /* This function must be called after virtio_net_hdr_from_skb(). */
-> @@ -282,6 +509,35 @@ static inline unsigned int virtio_l3min(bool is_ipv6)
->  	return is_ipv6 ? sizeof(struct ipv6hdr) : sizeof(struct iphdr);
->  }
->  
-> +/* Do the tunnel offsets match the outer headers in the frame?
-> + * The L3 header the tunnel claims must be the one the frame
-> + * carries, with UDP following it at @outer_th.
-> + */
-> +static inline bool
-> +virtio_net_tnl_offsets_ok(struct sk_buff *skb, bool outer_isv6,
-> +			  unsigned int outer_th)
-> +{
-> +	int nhoff;
-> +	__be16 proto;
-> +	unsigned int thoff;
-> +	int ip_proto;
-> +
-> +	if (!virtio_net_l3_start(skb, &nhoff, &proto))
-> +		return false;
-> +	if (outer_isv6 != (proto == htons(ETH_P_IPV6)))
-> +		return false;
-> +	if (!virtio_net_l4_start(skb, nhoff, proto, &thoff, &ip_proto))
-> +		return false;
-> +
-> +	return ip_proto == IPPROTO_UDP && outer_th == thoff;
-> +}
-> +
-> +/*
-> + * Return value:
-> + * 0 - success
-> + * >0 - checksum was completed in software (slow path)
-> + * <0 - failure
-> + */
->  static inline int
->  virtio_net_hdr_tnl_to_skb(struct sk_buff *skb,
->  			  const struct virtio_net_hdr_v1_hash_tunnel *vhdr,
-> @@ -293,6 +549,7 @@ virtio_net_hdr_tnl_to_skb(struct sk_buff *skb,
->  	unsigned int inner_nh, outer_th, inner_th;
->  	unsigned int inner_l3min, outer_l3min;
->  	u8 gso_inner_type, gso_tunnel_type;
-> +	__be16 inner_proto;
->  	bool outer_isv6, inner_isv6;
->  	int ret;
->  
-> @@ -335,9 +592,12 @@ virtio_net_hdr_tnl_to_skb(struct sk_buff *skb,
->  	/* Let the basic parsing deal with plain GSO features. */
->  	ret = __virtio_net_hdr_to_skb(skb, hdr, true,
->  				      hdr->gso_type & ~gso_tunnel_type);
-> -	if (ret)
-> +	if (ret < 0)
->  		return ret;
->  
-> +	if (!virtio_net_tnl_offsets_ok(skb, outer_isv6, outer_th))
-> +		return -EINVAL;
-> +
->  	/* In case of USO, the inner protocol is still unknown and
->  	 * `inner_isv6` is just a guess, additional parsing is needed.
->  	 * The previous validation ensures that accessing an ipv4 inner
-> @@ -353,7 +613,7 @@ virtio_net_hdr_tnl_to_skb(struct sk_buff *skb,
->  	}
->  
->  	skb_set_inner_protocol(skb, inner_isv6 ? htons(ETH_P_IPV6) :
-> -						 htons(ETH_P_IP));
-> +			    htons(ETH_P_IP));
->  	if (hdr->flags & VIRTIO_NET_HDR_F_UDP_TUNNEL_CSUM) {
->  		if (!tnl_csum_negotiated)
->  			return -EINVAL;
-> @@ -368,7 +628,22 @@ virtio_net_hdr_tnl_to_skb(struct sk_buff *skb,
->  	skb->inner_mac_header = inner_nh + skb_headroom(skb);
->  	skb->transport_header = outer_th + skb_headroom(skb);
->  	skb->encapsulation = 1;
-> -	return 0;
-> +
-> +	if (!skb_is_gso(skb))
-> +		skb_shinfo(skb)->gso_type &= ~(SKB_GSO_UDP_TUNNEL_CSUM |
-> +					       SKB_GSO_UDP_TUNNEL);
-> +
-> +	/*
-> +	 * We know VIRTIO_NET_HDR_F_NEEDS_CSUM was set so __virtio_net_hdr_to_skb
-> +	 * set CHECKSUM_PARTIAL.
-> +	 */
-> +	inner_proto = inner_isv6 ? htons(ETH_P_IPV6) : htons(ETH_P_IP);
-
-on second thought, if having to respin, might as well fold the trivial
-fix in patch 7 in here from the start.
-
-> +	if (virtio_net_csum_partial_ok_at_offset(skb, gso_inner_type, inner_nh,
-> +						 inner_proto))
-> +		return 0;
-> +
-> +	/* A tunnel header implies GSO, so drop. */
-
-no longer true for the above !skb_is_gso(skb) case
-
-> +	return __virtio_net_resolve_csum_partial_mismatch(skb);
->  }
->  
->  /* Checksum-related fields validation for the driver */
-> -- 
-> MST
-> 
-
-
+diff --git a/drivers/soc/qcom/apr.c b/drivers/soc/qcom/apr.c
+index ea7f83916d8d..829e5c8fdf98 100644
+--- a/drivers/soc/qcom/apr.c
++++ b/drivers/soc/qcom/apr.c
+@@ -365,13 +365,24 @@ static int apr_device_probe(struct device *dev)
+ {
+ 	struct apr_device *adev = to_apr_device(dev);
+ 	struct apr_driver *adrv = to_apr_driver(dev->driver);
++	struct packet_router *apr = dev_get_drvdata(dev->parent);
+ 	int ret;
+ 
++	if (apr->type == PR_TYPE_GPR)
++		adev->svc.callback = adrv->gpr_callback;
++
+ 	ret = adrv->probe(adev);
+-	if (!ret)
++	if (ret) {
++		if (apr->type == PR_TYPE_GPR)
++			adev->svc.callback = NULL;
++
++		return ret;
++	}
++
++	if (apr->type != PR_TYPE_GPR)
+ 		adev->svc.callback = adrv->gpr_callback;
+ 
+-	return ret;
++	return 0;
+ }
+ 
+ static void apr_device_remove(struct device *dev)
+-- 
+2.34.1
