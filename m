@@ -1,111 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792706359;
-	b=5U5OUlN6212edR9CgxUbjsksI6cnShAHdHrb7iJOVv9pWcAwqHEiDI5ku+e9Pyh4Xl0C
-	 vPKInpTGIzpTknEXVYDeg5vJu23WK+YfNNV33uKrPhfQgwN1VVo5JeZAa8fJ5E5iJ1OkY
-	 gyMxjD/8Kn6zjtBgo+Zd4looT0pqfRQdFDFZEMhq9LdwlLM/KNu1wIZCNEVc1hmR+ZVhk
-	 Cn6VqCHwj2Yg7jOK+QkaI8/Ng+3bZ0TAoAlYI7yrw4K8Z8H+qiv51e325HyrjwfFsDjoY
-	 IVCtAgfzoUKaJIs1PkOLxg++epxc0nlwF/V95lPXAtOtDxTB4p9cciZ/y/cZWaBYfUw==
+	t=1792706533;
+	b=h0h1/6dtyk8A1VoB5i+iCnIEGMg0/cCu0GFYW0ORjIomsiAFXYZX4H8BiOmPfS+0XjQp
+	 vNyiZhPBwjH7t23qkOO5gA02SS6cqkKX5xu+/IOjkF0+a+9zMEPUbgSePgvGRSYIDWa3e
+	 3B0J9pHTzu7f/yJZRHd9eQt29ofwgSMEYNpYqG+N/memV+1+QO6nAIKdAN+n/RfS5K/lk
+	 alq3MbHJQQVwIl1pxCMzxzygw6faE+RqWf3C0LW006BWznf0M4SALNGdqfc7IjZ+fsEMq
+	 2nni4JbKFoZuZ0/oLvbQPUNEbEZFr5fpQpLVRPO5TIq3JHoRkM2JvJxydB673uQg+vg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792706359;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
-	 X-Authority-Analysis:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=bCeckdKdRs/lhQimfyBgMy/Z9gSui80Hd8DZQ3MEnzI=;
-	b=d/uOiT6A9Gd5amoPfIGCNg++RTJpueSomhPuClgrILnYohHp+bWF/QQE27LcSMnfb4Kj
-	 E0YvDGska0zqn5U9R/0YVame7TewE5/1EcXXFbia4Q9v1I5bIoEP/UqX1hLbjnbUFG4Jb
-	 4YALAgTJn3B7NCEKPdDmGu1uKq1tN7tHSEgJXHOqWDNJhNsS5R44yPwBHi7AMzYaoEUtf
-	 XWC1T2OXaDwBEAm+wO8+KhHAjM3McIZH519gqxH2eqaevNeNRvIhYIGmQd+jCIwsGdhst
-	 ka7ASOM0v8w9ZCN7spm+j1yKteMeTtUhIEaCUTUJR0qOiYvM8chigCKgxBHav5aYw0Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792706533;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=dR5/JZntk+U4h5/aN1mZNZOoNy870AQ8Dt4+e9dHiWk=;
+	b=NaegYnInmiAqQqPxfpyRbkJ2QJLuDOXp8C9/1pAmzfIU6kXhrhZLgjBIiKwofPexZ8u0
+	 tKMQD3n6ZTDrd13YJbgKK5N2NZJPciZOhC4O2IvqJaE6DllZTsfl6dsWVFocFpnxwJ2cb
+	 cRpfC6Ayzn7KClT2Tg4eKpP7c5gChzBLzzpAAYM0G1TjBh+4RF8c2gGjup+M0EBEPpUOh
+	 niXZd7A50gLRN7vaYSA1+ahw8gSavGv2qm/YRmLiskv0yGzCMn8rkDIAXc3/zNFcwH+WH
+	 zhdS3m+FWLdsM2EpSWR+p7aJR9pM+vNcX5kmASqF1mm40T+P5rHBqkwHT5I0yG2fyoA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=UZmV8jud;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=LXeWbeU0;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EGUHcFnr;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDE2E606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 21:59:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DDE2E606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 186D1606A319
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 22:02:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=UZmV8jud;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=LXeWbeU0
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69MIHaXt1495585
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 21:59:18 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	bCeckdKdRs/lhQimfyBgMy/Z9gSui80Hd8DZQ3MEnzI=; b=UZmV8jud7YWRPOtv
-	hNcNO7klJAE7b/jwqCkSRr8PFzhUmm8gkePeokyGv/GLZsRDSfORZ0waMqEZuMeX
-	VjkucJjAC5z5u58WdcMn+XvSGc5ElbA6ana78qAD2gWaN72RibitousIkPlmAagp
-	q4CmD2NCD1ArZn7KM/0lAF9zkLrSYtXVVsi9LOSeNA4cs3+ZpqSn2f0bNCEmZp5a
-	91ZYoGarLvTQp3iazLZeogr5p5eTggLQwcsQ1mnGxyu1jjzYDDlJLQ7SO4um2Jqj
-	0bnVhsnkKyq+J9G+nxVHV1ATF9S7eafebnuOC3WhvvORFu+yoKSizeBO1eknRZNq
-	pQbprA==
-Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hfqmr8q8p-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 21:59:18 +0000 (GMT)
-Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-35c3c370b17so440892eec.0
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 14:59:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792706357; x=1793311157; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=bCeckdKdRs/lhQimfyBgMy/Z9gSui80Hd8DZQ3MEnzI=;
-        b=LXeWbeU0ZPNsCoF7ZabV5rZM7tGUr4/50lW31YiRYZcePlLiOlUX6HjaOnBy9K1IBX
-         QDOfbrL7aRnaPuriAThyH4xsARwaKRdWyhuChmNVBRvK6AMhU/Mlpw3nv9BXT+rVzIYP
-         nFilWHtJuS3WOiXiVkqgNcDbUUJQE0TH5oTuIfqsMDF0ye/1YZJh69aqJMiStRi3iMij
-         Aj3hFnAa3rC7ENEIkVaueXzSCKCf7Wm8RKyEz37p6+mUKnnAm6d41UgEhaJOp63hFvLP
-         oWwVDqwi/9ry2jZUqkB+a511XFYBms6YUa0e1Rm8TYusOeusLVLR0GTPEhrUgMVlQZ4I
-         uUDg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792706357; x=1793311157;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=bCeckdKdRs/lhQimfyBgMy/Z9gSui80Hd8DZQ3MEnzI=;
-        b=ThbLDM/vzoqb+AEgZ3rI7bj/ZBT2VhJ7ZsQMzmw5/9iu46MxfOappFojEpN7kenGgR
-         jDnL7pfnVY4e/pn90ngKH/Sne1v7eb8l2aqjSN61FkEEILivbvVI8orlcRDLf1RZVldt
-         HsFqIcA21CX2SXYGwE7nObjgELd+WmIe2ygPO19w/Q4HN8/fO4AcIRFVRY3dn/bJJZvP
-         v+/qylRYgJj/dG5Vvp2OrlEAYzz0vfC4JYThHyHauoNcielgrPADKD5s7qstIjPCFa8K
-         oYgBfJN4x32wstVVsAiCJd4HFjCeiGuxl93voFT9Eu71cxSPDnZKtPFI0mV8m0AOJ36T
-         jxTg==
-X-Forwarded-Encrypted: i=1; AKwUvBwJ1VcuLBZBfpnuVHYE6SQbgyMyN23gIiENLNR1z8EhNz6Qb2xAKpdtpF25kHXPYLz0l8MQRI7KR2baouE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIC/TjRtmMZt6I6MlmSfQdu3hbAO8wNFZew7aGlGB9/f3V8iA1v
-	MZSBvFC9WODv9dxG9yqsU4tUbfbgXEuUj6uoyw6UdiVobYoTQYTFQ+v6CjVfO0PPbbBmS3r7HSF
-	b5ppo+JA6guzUkyHPA8jruJ2HwZ6VpeVqGG5wXDWYWZESu1XAs5ZENllO8ZABzckQ4T4=
-X-Gm-Gg: AYBFou3pwGYnah4VG3sf7PjLEGVpSu+p7GxmSR60v8u6yQ0frld4XAfGAwqXjNIh84o
-	aEHjiK8YonUnB/fMeMH1h776CV11Dk44+SGRGokE4X4hMkaOTn8DrckG+K+hTS1oUX8amrBh8XW
-	aE4AOi3wOpr595z/qSXeycrcYyeqNCsSV4TpfKO1jfFX5H2QDboVXBACgEWDteDQExjBMuvMAyV
-	rsS6FsL8NAkDxNjXiFD5G6R3Q/8AQ+rjgZVqdNIHx1pCHmHTmbs9+4bfa6gvwet4RYXT5wIw+xl
-	kVNtOE2EZ9QgvQDh+nkERVhLczdOtJCZSyILuZ28spE7KaP39D1syr6HhOy3fego9dqGZ0V5/nN
-	LLa8IEpwRcG/P2GnOBK3BzpSl
-X-Received: by 2002:a05:693c:20cf:20b0:369:1401:c5c2 with SMTP id 5a478bee46e88-369d9866e98mr470790eec.26.1792706357160;
-        Thu, 22 Oct 2026 14:59:17 -0700 (PDT)
-X-Received: by 2002:a05:693c:20cf:20b0:369:1401:c5c2 with SMTP id 5a478bee46e88-369d9866e98mr470754eec.26.1792706356491;
-        Thu, 22 Oct 2026 14:59:16 -0700 (PDT)
-Received: from [192.168.1.13] ([106.222.228.226])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369d9d89b14sm685365eec.14.2026.10.22.14.59.10
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 22 Oct 2026 14:59:15 -0700 (PDT)
-Message-ID: <bd3b073b-cae5-4ea8-8ed4-063db0aa5e64@oss.qualcomm.com>
-Date: Fri, 23 Oct 2026 03:29:08 +0530
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EGUHcFnr
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF5B51F01825;
+	Thu, 22 Oct 2026 22:02:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792706532;
+	bh=dR5/JZntk+U4h5/aN1mZNZOoNy870AQ8Dt4+e9dHiWk=;
+	h=From:To:Cc:Subject:Date;
+	b=EGUHcFnr7xc/2FhXy8vW9EKdFMBOrUFYAiSSVgRcVCJ8KCZVL7QvgGRU5AiYbBJ8w
+	 vu9+nE7DIar8Rz00xAuNwdxA2y16Yk9NEdUT937aN90RGWM5HHyVlR/k+Z+/eT6sG9
+	 La4ZRwRjO/UjBRh64ltXkBsWybT0wR520MkkYn9jY6YLNcZR3v96BOxDsNH2edG/NK
+	 3m0Tkdlu8EbwKwhLd7RWKkUjxqgvPiAG49VUvwZ54Uny9z9BhjLb+JFZ+oizgUd08m
+	 HwZ4fNIIEzZC2FP7CT0e+smhpSLKcBVhlaHm+Hnw/cQZJknqIf823NVMfNrj/G9Jqh
+	 zy3XjWe6mFyTA==
+From: "Barry Song (Xiaomi)" <baohua@kernel.org>
+To: akpm@linux-foundation.org,
+	linux-mm@kvack.org
+Cc: hui.zhu@linux.dev,
+	axelrasmussen@google.com,
+	baohua@kernel.org,
+	baolin.wang@linux.alibaba.com,
+	david@kernel.org,
+	hannes@cmpxchg.org,
+	linux-kernel@vger.kernel.org,
+	ljs@kernel.org,
+	mhocko@kernel.org,
+	qi.zheng@linux.dev,
+	ryncsn@gmail.com,
+	shakeel.butt@linux.dev,
+	weixugc@google.com,
+	yuanchu@google.com,
+	zhuhui@kylinos.cn,
+	baoquan.he@linux.dev,
+	liuxiang.277@bytedance.com,
+	wangzicheng@honor.com,
+	lianux.mm@gmail.com,
+	kasong@tencent.com,
+	liam@infradead.org,
+	surenb@google.com,
+	mhocko@suse.com,
+	rppt@kernel.org,
+	zhangbo56@xiaomi.com,
+	lyugaofei@xiaomi.com,
+	ridong.chen@linux.dev,
+	kunwu.chan@gmail.com
+Subject: [RFC PATCH v5 00/14] mm: mglru: fix swappiness behavior
+Date: Fri, 23 Oct 2026 06:01:49 +0800
+Message-Id: <20261022220203.91911-1-baohua@kernel.org>
+X-Mailer: git-send-email 2.39.3 (Apple Git-146)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,178 +83,233 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/3] drm/msm/a5xx: Reset the GPU when resuming it
-To: fabricioakio@gmail.com
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
-        freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
-        Paul Sajna <sajattack@postmarketos.org>,
-        Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Dmitry Baryshkov <lumag@kernel.org>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-References: <20261019-a5xx-gpu-pm-v2-0-457aafbb28da@gmail.com>
- <20261019-a5xx-gpu-pm-v2-1-457aafbb28da@gmail.com>
-Content-Language: en-US
-From: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-In-Reply-To: <20261019-a5xx-gpu-pm-v2-1-457aafbb28da@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: lYm5dEW7PQ4cJs0k8XiqdTkHTyQnpdlt
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIyMDA4NyBTYWx0ZWRfX95cIzQg4Uss2
- 8uXnGCC9h2TISliX4NnG9u/lLqAjRng3thbUm/bftTWVihaZdj+U4g/8/ecr7hskOlCxZEuWA+z
- vKyHCO/wSwbvpee+/Yxo2nktoXF3JcY=
-X-Authority-Analysis: v=2.4 cv=VNZIDNPX c=1 sm=1 tr=0 ts=6ada8736 cx=c_pps
- a=cFYjgdjTJScbgFmBucgdfQ==:117 a=ipsIN8yD8anPosRfiFfp5w==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=VwQbUJbxAAAA:8 a=Gbw9aFdXAAAA:8 a=pGLkceISAAAA:8 a=aq2bxKA37D_GVACvEnsA:9
- a=QEXdDO2ut3YA:10 a=scEy_gLbYbu1JhEsrz4S:22 a=9vIz8raoGPyDa4jBFAYH:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIyMDA4NyBTYWx0ZWRfXwYrzhxw+ASxY
- yLOzc8UqqcrliJRD3ooyGGZGiKku3MXOmRTG8HCxTXtGXhGwj/ic1LxiGtegaS+n/mz40lGEqHO
- T5geB0kttBTYi+eEKqD+Qq85VOkQva0hgq1OMa7+vKACCqUSLf5aOYrMaE4kdbJsvGJNNENUXba
- jlhfcSdkORN/OCfUhMKgeZdXnogMDU/ZTiFsQH7c6cXhkvBZV2I0GFbAE4oDNakRQFl1AGivYsu
- aEAiKX8S7oTRVj8lt68TZxKeI6/qSDmJNF6NWTn6bHMvKkuGDzsvqOxuMDvcNm9Wb/iKmISA8Ms
- xnUAIBIQv/6zEKugF/d0eReaGHwls2u2O2aHW5f51z9oGEcYi/z1cfTCUT5tjtWTjJ8/v5br3E3
- 5Sl0/GDyW5FPggk6/EUzb8ffDA4tbArbctX4at52S72ePw3Ad9xHw54y7G4/eCSUw3rFqRzVvpt
- bFkdsT51Klw0fzoZHyA==
-X-Proofpoint-ORIG-GUID: lYm5dEW7PQ4cJs0k8XiqdTkHTyQnpdlt
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-22_06,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 suspectscore=0 bulkscore=0 adultscore=0 phishscore=0
- impostorscore=0 spamscore=0 lowpriorityscore=0 malwarescore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610220087
+Content-Transfer-Encoding: 8bit
 
+Classic LRU respects swappiness, while MGLRU only partially honors it
+when selecting the scan type, resulting in a much smaller overall
+impact.
 
+For example, when building the kernel in a memcg limited to 1024 MB
+of memory, with swappiness=200, CLRU barely scans or reclaims file
+pages, while MGLRU still reclaims a significant number of them.
+Similarly, with swappiness=1, MGLRU does not reclaim as many file
+pages as expected for such an extreme swappiness value:
 
-On 10/20/2026 7:35 AM, Fabricio Akio via B4 Relay wrote:
-> From: Fabricio Akio <fabricioakio@gmail.com>
-> 
-> On SDM630, SDM660 and MSM8998 the GPU's GX power domain belongs to its
-> SMMU, not to the GPU, so GX switches off only once the SMMU suspends as
+pgsteal_file
+swappiness   CLRU          MGLRU(no patches)
+1            5,894,538     756,589
+36           799,998       497,282
+71           548,331       415,612
+106          407,012       383,814
+141          253,737       354,249
+176          189,003       347,805
+200          0             346,078
 
-This is incorrect. There is no Adreno GPU where SMMU is powered by GX. I looked
-at the DT of SDM630 and I don't understand it. Seems like a creative workaround
-to vote different power domains.
+pgsteal_anon
+swappiness   CLRU          MGLRU(no patches)
+1            3,962,404     2,768,654
+36           2,830,250     2,976,260
+71           3,121,386     3,142,954
+106          3,521,720     3,382,383
+141          3,504,471     2,970,859
+176          3,592,335     3,163,130
+200          14,095,617    3,209,132
 
-Please reword GX -> CX here. Adreno SMMU is powered by CX GDSC in every chipset.
-In some chipsets, the core GPU blocks are also powered via CX GDSC. So it
-makes sense to do a SW RESET in case CX didn't collapse due to a vote from the
-SMMU driver or something.
+pgscan_file
+swappiness   CLRU          MGLRU(no patches)
+1            10,270,808    886,997
+36           1,010,341     569,036
+71           656,136       490,972
+106          460,326       436,042
+141          295,184       403,132
+176          235,147       390,358
+200          0             398,363
 
-> well. A GPU resumed with GX still on keeps its state, and the CP keeps
-> its ringbuffer read pointer. a5xx_hw_init() then rewinds the ringbuffer
-> and writes CP_ME_INIT at its start, while the CP goes on from its old
-> position, executes stale ringbuffer contents and hangs:
-> 
->   timeout waiting to drain ringbuffer 0 rptr/wptr = 23/C
-> 
-> Soft reset the GPU in a5xx_pm_resume() once it is powered, so that
-> every resume starts from the reset state. The downstream driver resets
-> only when it finds the GPU's power left on; resetting a GPU that was
-> powered off changes nothing, and on A508 the reset takes about 2 us of
-> a resume of about 1.5 ms, so do it every time.
-> 
-> The reset also clears the busy counter, which msm_gpu_pm_resume() has
-> just sampled as devfreq's baseline. Take the baseline again after the
-> reset, or the next devfreq poll subtracts the old count from the new
-> one, wraps, and sets the GPU to its top frequency.
-> 
-> Signed-off-by: Fabricio Akio <fabricioakio@gmail.com>
-> ---
-> Changes in v2:
-> - Take devfreq's busy-cycle baseline again after the reset, which
->   clears the busy counter (Sashiko)
-> 
-> Tested on A508 only; the reset runs on every A5xx.
-> 
-> A stall with the same signature, the CP's read pointer past the write
-> pointer just after CP_ME_INIT, was reported on an A509:
-> https://lore.kernel.org/linux-arm-msm/20260308-adreno-ringbuffer-drain-timeout-recovery-v1-1-985a33faf108@postmarketos.org/
-> This may be the root cause of the A509 stall Paul Sajna reported there.
-> ---
->  drivers/gpu/drm/msm/adreno/a5xx_gpu.c | 15 +++++++++++++++
->  drivers/gpu/drm/msm/msm_gpu.h         |  1 +
->  drivers/gpu/drm/msm/msm_gpu_devfreq.c | 17 +++++++++++++++++
->  3 files changed, 33 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c b/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
-> index 16c7335c4b1f..0aff8252a00f 100644
-> --- a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
-> +++ b/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
-> @@ -1367,6 +1367,21 @@ static int a5xx_pm_resume(struct msm_gpu *gpu)
->  	if (ret)
->  		return ret;
->  
-> +	/*
-> +	 * The GX power domain is not necessarily switched off while we are
-> +	 * suspended: on SDM630, SDM660 and MSM8998 it follows the GPU's SMMU
-> +	 * rather than the GPU. If it stayed on, the CP still holds its old
-> +	 * ringbuffer read pointer and would execute stale ringbuffer contents
-> +	 * once hw_init restarts it. Soft reset the GPU so that it always
-> +	 * resumes from its reset state.
-> +	 */
-> +	gpu_write(gpu, REG_A5XX_RBBM_SW_RESET_CMD, 1);
-> +	gpu_read(gpu, REG_A5XX_RBBM_SW_RESET_CMD);
-> +	gpu_write(gpu, REG_A5XX_RBBM_SW_RESET_CMD, 0);
-> +
-> +	/* The reset cleared the busy counter devfreq has just sampled */
-> +	msm_devfreq_resample_busy(gpu);
+pgscan_anon
+swappiness   CLRU          MGLRU(no patches)
+1            19,341,957    5,960,884
+36           17,530,774    6,394,951
+71           18,624,264    6,673,569
+106          20,088,558    6,976,364
+141          19,686,813    6,206,580
+176          20,936,177    6,344,854
+200          45,313,873    6,295,581
 
-Instead of a new API, we can just move msm_devfreq_resume() here. That will align
-with the A6xx sequence.
+refault_file
+swappiness   CLRU          MGLRU(no patches)
+1            5,795,115     678,254
+36           720,877       419,659
+71           469,270       338,518
+106          331,584       308,983
+141          174,509       277,375
+176          113,352       272,390
+200          0             269,349
 
--Akhil.
+refault_anon
+swappiness   CLRU          MGLRU(no patches)
+1            738,618       578,308
+36           451,410       665,723
+71           514,961       657,870
+106          633,161       786,893
+141          648,640       662,673
+176          668,779       708,969
+200          4,816,312     672,514
 
-> +
->  	/* Adreno 505, 506, 508, 509, 510, 512 needs manual RBBM sus/res control */
->  	if (!(adreno_is_a530(adreno_gpu) || adreno_is_a540(adreno_gpu))) {
->  		/* Halt the sp_input_clk at HM level */
-> diff --git a/drivers/gpu/drm/msm/msm_gpu.h b/drivers/gpu/drm/msm/msm_gpu.h
-> index d27d54bdb7a7..0e0768c15bcc 100644
-> --- a/drivers/gpu/drm/msm/msm_gpu.h
-> +++ b/drivers/gpu/drm/msm/msm_gpu.h
-> @@ -735,6 +735,7 @@ static inline struct msm_context *msm_context_get(
->  void msm_devfreq_init(struct msm_gpu *gpu);
->  void msm_devfreq_cleanup(struct msm_gpu *gpu);
->  void msm_devfreq_resume(struct msm_gpu *gpu);
-> +void msm_devfreq_resample_busy(struct msm_gpu *gpu);
->  void msm_devfreq_suspend(struct msm_gpu *gpu);
->  void msm_devfreq_boost(struct msm_gpu *gpu, unsigned factor);
->  void msm_devfreq_active(struct msm_gpu *gpu);
-> diff --git a/drivers/gpu/drm/msm/msm_gpu_devfreq.c b/drivers/gpu/drm/msm/msm_gpu_devfreq.c
-> index 2e1d5c343272..2e963bff3f61 100644
-> --- a/drivers/gpu/drm/msm/msm_gpu_devfreq.c
-> +++ b/drivers/gpu/drm/msm/msm_gpu_devfreq.c
-> @@ -242,6 +242,23 @@ void msm_devfreq_resume(struct msm_gpu *gpu)
->  	devfreq_resume_device(df->devfreq);
->  }
->  
-> +/*
-> + * Take a new busy cycles baseline, for a GPU that resets its busy counter
-> + * after msm_devfreq_resume() has sampled it.
-> + */
-> +void msm_devfreq_resample_busy(struct msm_gpu *gpu)
-> +{
-> +	struct msm_gpu_devfreq *df = &gpu->devfreq;
-> +	unsigned long sample_rate;
-> +
-> +	if (!has_devfreq(gpu))
-> +		return;
-> +
-> +	mutex_lock(&df->lock);
-> +	df->busy_cycles = gpu->funcs->gpu_busy(gpu, &sample_rate);
-> +	mutex_unlock(&df->lock);
-> +}
-> +
->  void msm_devfreq_suspend(struct msm_gpu *gpu)
->  {
->  	struct msm_gpu_devfreq *df = &gpu->devfreq;
-> 
+In this patchset, patches 1-8 from Kairui introduce a model that uses
+refaults to determine nr_to_scan[] for both file and anon in MGLRU.
+For each reclaim operation, we calculate how many file and anon
+folios to scan, similar to CLRU, rather than relying on
+get_type_to_scan() and fallback mechanisms to decide what to
+reclaim, which have proven rather unreliable in honoring swappiness.
+
+This model also allows scanning and reclaiming from the two youngest
+generations, including the youngest generation itself. This can help
+resolve OOM situations[1] and reduce the need for aging.
+
+Patch 9 from Barry fixes a cold/hot inversion exacerbated by patches
+1–8 (which also exists in mainline) and improves reclaim efficiency.
+
+Patches 10-13 from Gaofei and Barry optimize aging based on folio
+distribution imbalance and improve reclaim behavior at extreme
+swappiness values such as 1 and 200.
+
+Patch 14 from Bo Zhang addresses the GFP_NOIO issue in MGLRU.
+
+After the patchset, the results track CLRU across the full swappiness
+range (see table below), with more file scanning at low swappiness
+and more anon scanning at high swappiness.
+
+pgsteal_file
+swappiness   CLRU          MGLRU         MGLRU+patches
+1            5,894,538     756,589       7,394,183
+36           799,998       497,282       526,176
+71           548,331       415,612       433,353
+106          407,012       383,814       347,647
+141          253,737       354,249       314,437
+176          189,003       347,805       261,677
+200          0             346,078       188
+
+pgsteal_anon
+swappiness   CLRU          MGLRU         MGLRU+patches
+1            3,962,404     2,768,654     5,362,153
+36           2,830,250     2,976,260     2,736,749
+71           3,121,386     3,142,954     3,246,589
+106          3,521,720     3,382,383     3,074,851
+141          3,504,471     2,970,859     3,178,409
+176          3,592,335     3,163,130     3,650,544
+200          14,095,617    3,209,132     14,538,399
+
+pgscan_file
+swappiness   CLRU          MGLRU         MGLRU+patches
+1            10,270,808    886,997       16,246,260
+36           1,010,341     569,036       614,389
+71           656,136       490,972       484,769
+106          460,326       436,042       367,969
+141          295,184       403,132       328,943
+176          235,147       390,358       268,142
+200          0             398,363       188
+
+pgscan_anon
+swappiness   CLRU          MGLRU         MGLRU+patches
+1            19,341,957    5,960,884     7,646,122
+36           17,530,774    6,394,951     5,914,405
+71           18,624,264    6,673,569     7,167,762
+106          20,088,558    6,976,364     7,821,921
+141          19,686,813    6,206,580     8,495,970
+176          20,936,177    6,344,854     10,585,375
+200          45,313,873    6,295,581     30,313,342
+
+refault_file
+swappiness   CLRU          MGLRU         MGLRU+patches
+1            5,795,115     678,254       7,315,064
+36           720,877       419,659       448,199
+71           469,270       338,518       355,269
+106          331,584       308,983       270,736
+141          174,509       277,375       237,643
+176          113,352       272,390       184,908
+200          0             269,349       102
+
+refault_anon
+swappiness   CLRU          MGLRU         MGLRU+patches
+1            738,618       578,308       1,383,725
+36           451,410       665,723       543,071
+71           514,961       657,870       683,874
+106          633,161       786,893       669,716
+141          648,640       662,673       719,231
+176          668,779       708,969       901,918
+200          4,816,312     672,514       5,511,787
+
+[1] https://github.com/ryncsn/emm-test-project/tree/master/file-anon-mix-pressure
+
+RFC v5:
+* Remove the aging optimizations, which have been merged - thanks for Baolin,
+  Baoqun, Lian Wang, Kairui, Kunwu, Ridong reviewing on this;
+* Add Kairui's model for determining nr_to_scan[] for both types.
+* Fix cold/hot inversion for rejected folios - Barry.
+* Improve and clean up imbalanced aging, and optimize extreme
+  swappiness values of 1 and 200 - Gaofei, Barry.
+* Address the GFP_NOIO issue in MGLRU - Bo Zhang.
+* RFC v4 link:
+ https://lore.kernel.org/linux-mm/20260812121658.69965-1-baohua@kernel.org/ 
+
+RFC v4:
+* Clean up isolate_folios() based on Baolin's feedback. Thanks!
+* Further improve isolate_folios() and scan_folios(), including
+  handling of exhausted reclaim types.
+* Add fixes and performance improvements to inc_min_seq(),
+  and reduce lock contention.
+* Improve the handling of imbalanced aging and remaining
+  generation-based aging.
+*  RFC v3 link:
+ https://lore.kernel.org/linux-mm/20260731083843.37811-1-baohua@kernel.org/
+
+RFC v3:
+ - Added Ridong's patch of improving isolate_folios() readability;
+ - for lru_gen_imbalanced(), apply some suggestions from Zicheng
+   and Kairui, considering lruvec size and use macro;
+ - drop "mm: mglru: only fall back when reclaim is running at high
+   priority"
+ - mitigate aging for balanced swappiess value(near middle 100)
+   as swappiness bias is less a concern for them; but slightly
+   increased aging overhead might not be good.
+ *  RFC v2 link:
+   https://lore.kernel.org/linux-mm/20260726122123.7614-1-baohua@kernel.org/
+
+RFC v2:
+ - Quickly address a few issues raised in the Sashiko comments so
+   reviewers can ignore v1 and review a cleaner version instead.
+   https://sashiko.dev/#/patchset/20260726012946.18684-1-baohua@kernel.org
+   Thanks, Sashiko!
+
+Barry Song (Xiaomi) (3):
+  mm/mglru: Avoid placing rejected folios below populated gen
+  mm/mglru: Reduce LRU lock contention by shrinking folio batches in
+    inc_min_seq
+  mm/mglru: Make swappiness=1 file reclaim more aggressive
+
+Bo Zhang (1):
+  mm/mglru: Avoid scan anon while swapcache is low for GFP_NOIO
+    allocation
+
+Kairui Song (8):
+  mm/mglru: report evictable sizes per type
+  mm/mglru: extract lruvec_populated_min_seq() helper
+  mm/mglru: reclaim from the oldest populated gen
+  mm/mglru: lift the forced protection of reclaimer
+  mm/mglru: skip zones above reclaim_idx instead of rotating them
+  mm/mglru: return for unavailable anon reclaim earlier
+  mm/mglru: balance anon and file scan budget by refault rate
+  mm/mglru: lift youngest gen protection for higher priority
+
+lyugaofei (2):
+  mm/mglru: Run aging when pages are rare outside the youngest gen
+  mm/mglru: Avoid prolonged anon reclaim with swappiness=200
+
+ include/linux/mm_inline.h |  22 +-
+ mm/vmscan.c               | 482 ++++++++++++++++++++++++--------------
+ 2 files changed, 332 insertions(+), 172 deletions(-)
+
+-- 
+2.34.1
 
