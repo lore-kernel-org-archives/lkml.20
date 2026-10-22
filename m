@@ -1,75 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.197
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.198
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792702905;
-	b=Jpa9QxJPfBVuVItZlUD7Qmgbt4vwwOhW4pQNj8RvAyK7C2Rg3cnC+DZNBNmFe1L4qI3j
-	 nd0rFSjhkqQutNAsVszN/e9SkyORB7trFcRnYcVLv4a9ULyovUw5aVGs21g6K+uXrf0NT
-	 TBDO/rBXQZqJI9C6PNDQD6/DBIJ8jH3wE8TcBm8HPIbX2nBpkzwXCxXeOBip4GblyQ23w
-	 bDoy6hF6QXfHWT9vR04yFSFn8aVkwVqSHKYwy3PLzd/6NEeASymuSgWRe6m749/eKJSk2
-	 BTT8aHlg0idz+MMbFxfKgAKVp5JI8EJmS1xiuGK4PpffHBspcQlPMwtKwqERFkFt2iw==
+	t=1792702901;
+	b=M0HL/eK1nCbqv8lG7Y/jNL+XhUSclVHUOmRiRh3FOZ9fvbl2asXjF7+XW+gB4htkj9Og
+	 RKRpjDOlLjcgElt74CBRgrAsZz7PuxQBxqdzeOrf/TUDkL9fbM0jjR0v79plevKC7nz2I
+	 KBLFzq49qbKV2VU9KOEgInfLjK/IrGbyteJFdF/v+fm6z5a7iRxGoLNmElUtvee4whgYA
+	 U3u7sUKFhngR0d+LF8M5+UbEE8oHOUFZN+1fIub/8hV+4syg+4v7MpdR//FzBG5q2s045
+	 I2Ofl3WdVRdHy0eBCZtIIjSmU9MyXbQxtFghTi6pjn/rg+DoUgaic/28m/O+NU/UGRw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792702905;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792702901;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Reply-To:Date:
 	 In-Reply-To:Mime-Version:References:X-Mailer:Message-ID:Subject:From:
 	 To:Cc:Content-Type;
-	bh=XC+w9Viu2qvKH/AbWhn/9WyIQrAbEorvKdSI99G+qIU=;
-	b=KAx5crsiTPuq6DRsy8YAdj2ESG5Qx8vS+iSeo5pdLB6OKzO8UJuR2z0zYWaPHUroMoHC
-	 DyBlaD5HGITdhjGxRF8zI5D+Pwr8RWQ3+xr+euuA9neNSPVxvD0GjV83xxQ030AyN1mLr
-	 pnU5/37UHv+mz0kakf3K6T3FgEJ38QXEpHR7hxtOoymkjte5aW0UB3GS1XdDq2xyLQsG8
-	 BsfxTZdS8c5PHLNKgISIJ3GGJb/wdJNh1yL4lADho7kXy3fSiD0Cfe5qwY4XIoYvE9/wS
-	 M2gCpGk9f6ESGUDCaTTTl07ism4rQQO1FqNde1nrMskDRBjKY37IPkpACD+BJSAnMcA==
+	bh=7uJDCwCkysKuVFqnR+oL0K2mJJYjE4p2eqvTotGVZOQ=;
+	b=KrGPPeJ19ms9fjVyPBZgZfWuRjp46IPKJz+R67gkKyA1kbEeE9gAtq8Gg6lHEICrCxqo
+	 8Y+9rvQR7nRcCzkmjqmC3UE1Tb5kgRfUC1570PhV/TUajreHMgLG3vMusHVQwlmLCsjV+
+	 8Bzc9EjaMN28KsE5oPiuR4QU3jqFk1eVCTOsZPzJpPj+dTY9dcvlfeINBenueJQdHdpE0
+	 FGJTxlEtR0XaJYyO4EStjsoyGNblOnA1Q/kYLAe993nQwrj9EV6pj8Ea4+BlMST5hwzg6
+	 CS80bYjUMt1Fpa99miVnowou5Br2K3aWoj/UMlv+NmUlfS+J3r9utubmWLvNPF754lg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=OAGQh1ep;
-	arc=none smtp.remote-ip=209.85.210.197
-Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com [209.85.210.197])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b="XV/ysb8p";
+	arc=none smtp.remote-ip=209.85.210.198
+Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com [209.85.210.198])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBA9B606A31F
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 21:01:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BBA9B606A31F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63804606A320
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 21:01:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 63804606A320
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=OAGQh1ep
-Received: by mail-pf1-f197.google.com with SMTP id d2e1a72fcca58-8a08e315b5cso103711b3a.2
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 14:01:44 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=XV/ysb8p
+Received: by mail-pf1-f198.google.com with SMTP id d2e1a72fcca58-89e96c03cd0so193898b3a.1
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 14:01:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792702904; x=1793307704; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1792702901; x=1793307701; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:reply-to:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=XC+w9Viu2qvKH/AbWhn/9WyIQrAbEorvKdSI99G+qIU=;
-        b=OAGQh1epfJHTzzkKC00Rc02e3G6EADCMR1FYg+BFxSqKf7JqEO72l8z/xtsW2NRzE7
-         aIMn4ykNCXab6KyYeT9x+YM0b8B38SpGzPk40vfJAOWh2biVnNMwEVYIZYJW1UfnsdLw
-         ophwiDmt+QVDlVsFElirdkHjMPIXT17TbpP1rVMvDyVkD1ZLutR9YvjOUc7/T5ArKrXH
-         54vt5JFStsOEfUGnH1LGwfFy+b5PjdBCQZaGKVlVckuiSLZ/V9PRnWTtxZeU9dxZO4zU
-         G1yGgWWmeZrySWveyYqZ62FczeIx/zAe7ZiilLp0JEIdF1Et4fsaKR9xg19g2XZcVyda
-         b3oQ==
+        bh=7uJDCwCkysKuVFqnR+oL0K2mJJYjE4p2eqvTotGVZOQ=;
+        b=XV/ysb8pfPHharbiARoQQlq8ZqXMfi8kP/4QuAbepg/9ffXoj8Nv74DkHuu28x0HQR
+         AlyvMWihII72yockngArcqqY75VOv0e6PubevFPp16wjdiIjBH2Q1focyeq74Bn8XHBj
+         O8JpN7jzjxq78WqkGQNYcG8Lbq0Zmm3+7www3jNdEBE4axAsvYuAKw6SP1H35DyWkj4F
+         941PwVZsPCcRBtrsS0t/BJuEkXXC6lXB5NMtqv3dewx66pYrtriopkn8r3UzEnXVjOdW
+         bSii2VK5dJEqFVaZmI4rFPLGePLkj913eMzvIZ9PF0NS6Bqru/xzbyg3kZUG6PhIUrNU
+         ft1g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792702904; x=1793307704;
+        d=1e100.net; s=20260707; t=1792702901; x=1793307701;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:reply-to:x-gm-message-state:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=XC+w9Viu2qvKH/AbWhn/9WyIQrAbEorvKdSI99G+qIU=;
-        b=LijdVd7e1K2BZtjG7J43xf5PPRLAwQNTvXC2ffWF+sYK/iEMfv2+kqGW0wsGY3ssRa
-         AS0/Acueup2RlaYnsCgKlyY4y+l1JWzTV4u09awi6i67dKaqUIcZMybct0a/oboS13h4
-         2FlGKh6teg6zKgnTuMUBtj2NpFOB0EA7GMhoEW2ZJyOGub+3h5m/cvrd3HzExDU+afPc
-         brFwYacd1pB3YMd/pCLHfYLIynJ1GSwfPb1qOZ8HeGU2FNPVJBWkKa/P/EqQVD4UDic3
-         x5pl3Xwmq+Bjrr6E5pL3X3WLUHxH85LugyMJT4/R4cBz4kCeyIPvsdPC+f+7exb3ya4J
-         JLFg==
-X-Forwarded-Encrypted: i=1; AKwUvBzNMlB53/wBFbc5Tq188r/cQQavcN1HEG9q9uDVWds6WzHCwz0uOGEHbFKNgrsPniqPajRgIyvOVd65mJc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJdRLWOOy61BeMvAfgqV3LL8CZ8uWhsE+PoOdhUPkfzIfJg95jn
-	uC6mRTGGxH0JM6KlzzHC9Fwy6FK7bM0F1YfdZrL2MSWKax1cbaGW+df1IOcw0h13yPUWNUpQSq1
-	hquxHlg==
-X-Received: from pfoa26.prod.google.com ([2002:aa7:865a:0:b0:890:3943:6267])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:330b:b0:87d:ee98:606
- with SMTP id d2e1a72fcca58-8a2c604340cmr293927b3a.23.1792702903840; Thu, 22
- Oct 2026 14:01:43 -0700 (PDT)
+        bh=7uJDCwCkysKuVFqnR+oL0K2mJJYjE4p2eqvTotGVZOQ=;
+        b=UvkhtKn/3muqBGYhSQ8m1u/d3ENdItugfxp3AbcfOUXOmXSOoeRhqS/ZXZzatPkdzO
+         ZJ5+uQXznuwp0f0Scy0LNWhJc31N4SlNsfmdVSruDOX+S8BvvYBmWxvaFJrF/deGGgIP
+         s8au7uJvybLJowBLkkMCpdfTqgHCjO7ZTW5CooyX7hDCdNx74hda2OSha8moxHPPrusX
+         4k7+O5SdbmWW/o72GXFELfyseajt+fxw/pr5elcwRH3VFaBq61B9FDwPFKz8ApPQz+AW
+         BDYXYiY+/5hmmhpFIL7sYTH56BrLswoxI1TABXnFyDOyWjmd8N1b/NJxTTSlMKCw6gGz
+         45YA==
+X-Forwarded-Encrypted: i=1; AKwUvBzcEiHeWsf65WFlIW9xpAgRLHUwNzv1bJU3cgmpYg98D3qVduM+DdBJMEwaW86P4O1cg3taFUIWCYqHF+0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLQp1mIYFvLvWbgHkVU+0SacCp/LLpz4kw+/VBfzY3NByk17cPd
+	tcI2xOeH3CoF/AkFW5QD6GVYtWvGKCb+oaBtJg6ybcG1ssj5SvSSxzRGZNNfcFxPdbmz/TQ3tWN
+	7ZEAJVA==
+X-Received: from pfbii5.prod.google.com ([2002:a05:6a00:8c85:b0:8a0:4085:d831])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:174c:b0:878:34d7:699a
+ with SMTP id d2e1a72fcca58-8a2c76598d3mr228889b3a.42.1792702900543; Thu, 22
+ Oct 2026 14:01:40 -0700 (PDT)
 Reply-To: Sean Christopherson <seanjc@google.com>
-Date: Thu, 22 Oct 2026 14:01:34 -0700
+Date: Thu, 22 Oct 2026 14:01:32 -0700
 In-Reply-To: <20261022210134.612848-1-seanjc@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -82,9 +82,8 @@ Precedence: list
 Mime-Version: 1.0
 References: <20261022210134.612848-1-seanjc@google.com>
 X-Mailer: git-send-email 2.56.0.257.gf7497c7d27-goog
-Message-ID: <20261022210134.612848-4-seanjc@google.com>
-Subject: [PATCH v2 3/3] KVM: TDX: Reject KVM_TDX_INIT_VM if indexed CPUID
- functions don't match
+Message-ID: <20261022210134.612848-2-seanjc@google.com>
+Subject: [PATCH v2 1/3] x86/cpuid: Mark CPUID function 0x23 as being indexed
 From: Sean Christopherson <seanjc@google.com>
 To: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>, 
 	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
@@ -95,62 +94,29 @@ Cc: "H. Peter Anvin" <hpa@zytor.com>, kvm@vger.kernel.org, linux-kernel@vger.ker
 	Changyuan Lyu <changyuanl@google.com>, Sashiko <sashiko-bot@kernel.org>
 Content-Type: text/plain; charset="UTF-8"
 
-Reject KVM_TDX_INIT_VM if userspace doesn't configure the canonical CPUID
-entries correctly with respect to KVM_CPUID_FLAG_SIGNIFCANT_INDEX to fix a
-bug where userspace could bypass the TSX and WAITPKG checks by simply not
-marking a CPUID.0x7 entry as being indexed.  This also sets the stage for
-more in-depth validation of the incoming CPUID configuration.
+Add function 0x23 to the set of CPUID functions that are indexed, as per
+the SDM and the many sub-leafs defined in leaf_types.h.
 
-This is obviously an ABI change and diverges from KVM's general approach of
-"let userspace do what it wants".  In practice, no "real" VMM that supports
-TDX misconfigures a TD's CPUID entries in this way, i.e. the probability of
-actually breaking userspace is basically nil.  And unlike normal VMs, where
-KVM has full control and thus can deal with bizarre CPUID input without too
-much fuss, TDX VMs require extra care due to the TDX Module also reacting
-to the CPUID configuration, i.e. KVM_TDX_INIT_VM needs to be more strict
-than KVM_SET_CPUID{,2} to avoid creating potentially dangerous-to-the-host
-setups.
-
-Opportunistically rename the helper to make it more obvious that it's
-checking if the passed in @entry is unsupported, as opposed to returning a
-set of unsupported entries or something.
-
-Fixes: 6d415778f106 ("KVM: TDX: Disable support for TSX and WAITPKG")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/kvm/20260604024927.E22311F00893@smtp.kernel.org
+Reported-by: Rick Edgecombe <rick.p.edgecombe@intel.com>
+Closes: https://lore.kernel.org/all/213d614fe73e183a230c8f4e0c8fa1cc3d45df39.camel@intel.com
 Cc: stable@vger.kernel.org
 Signed-off-by: Sean Christopherson <seanjc@google.com>
 ---
- arch/x86/kvm/vmx/tdx.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+ arch/x86/include/asm/cpuid/api.h | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/arch/x86/kvm/vmx/tdx.c b/arch/x86/kvm/vmx/tdx.c
-index 37d088f6f7a8..6abf92ffec24 100644
---- a/arch/x86/kvm/vmx/tdx.c
-+++ b/arch/x86/kvm/vmx/tdx.c
-@@ -151,8 +151,12 @@ static void tdx_clear_unsupported_cpuid(struct kvm_cpuid_entry2 *entry)
- 		clear_waitpkg(entry);
- }
- 
--static bool tdx_unsupported_cpuid(const struct kvm_cpuid_entry2 *entry)
-+static bool tdx_is_unsupported_cpuid_entry(const struct kvm_cpuid_entry2 *entry)
- {
-+	if (cpuid_function_is_indexed(entry->function) !=
-+	    !!(entry->flags & KVM_CPUID_FLAG_SIGNIFCANT_INDEX))
-+		return true;
-+
- 	return has_tsx(entry) || has_waitpkg(entry);
- }
- 
-@@ -2393,7 +2397,7 @@ static int setup_tdparams_cpuids(struct kvm_cpuid2 *cpuid,
- 		if (!entry)
- 			continue;
- 
--		if (tdx_unsupported_cpuid(entry))
-+		if (tdx_is_unsupported_cpuid_entry(entry))
- 			return -EINVAL;
- 
- 		copy_cnt++;
+diff --git a/arch/x86/include/asm/cpuid/api.h b/arch/x86/include/asm/cpuid/api.h
+index 82eddfa2347b..25b22b173f2a 100644
+--- a/arch/x86/include/asm/cpuid/api.h
++++ b/arch/x86/include/asm/cpuid/api.h
+@@ -181,6 +181,7 @@ static __always_inline bool cpuid_function_is_indexed(u32 function)
+ 	case 0x1d:
+ 	case 0x1e:
+ 	case 0x1f:
++	case 0x23:
+ 	case 0x24:
+ 	case 0x8000001d:
+ 		return true;
 -- 
 2.56.0.257.gf7497c7d27-goog
 
