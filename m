@@ -1,53 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.97.179.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792684389;
-	b=S8U/a2ewUC5WshWzgnLww1IScjHnom3S3M0lzaOEsQ1RjnHK+c8ffHfm1L/QLeH1dhaW
-	 8qwHtKsttdZ2dd7K+fOOf6+QtU8xSRfy8/zg0t+IrWHeyuA3dxjCD3hMlKNOaEtrzlJK4
-	 OyDbfdjT3HPhhDmwT6fClm/o4+n/0E8QDUViSr4LVRbRj0RKGTPOKfPiLkWRntLPf9w6B
-	 fbkP4wP7Ef8ka8lCe6emP+qFgEkGcW/eFGeiQG71LT1cmLlP6NKczdPmetmM/ujohJILE
-	 u/a3yHod/K0fnHwO8yAwpdCqenRFwKit8mCeXlQnpUDIQcD3Y6qe3rcHGRaSjiW5nzA==
+	t=1792684421;
+	b=A+kPbB/AF5loI3RwI729xNvFpjKhUaVR/cMp/LXphShSusP1mUbtWI+/XdD+3TKGEe5a
+	 dBAwwprKeAWkuxNfVdjkvde5iDq7E1Ai8s013opciNmlSLgQ51ydea/C/GfHHDPMBPu2g
+	 6gOjy2TnJ/nK7OYID6flLBmGmwOybn6r2pM4eLSdwFNvm7lIjTx9kjywFw51GFuOV4cZU
+	 qKiHr8X98qtnBSLUpLqYpK2sYfKEi9ZMYfx6rxIdXXg291wtwGySnifc0vAqrzc8U6eKT
+	 tTPkTtvyf8f00Pt7TcaaqFDZnetoi9ddOE7TXRyH47eQutJtdoV203ddQJTHWo/aCTg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792684389;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=FC4eFsO01rcXqLH7YHA3uDKUlJxUSk705KFFMzLmvQQ=;
-	b=yTxjLn5hele6o588FNwOv9qRUacgnaARG3uGBV3gNwngQVcJG7y8vr9GyzlUUK+DIvPg
-	 iiCVh0iUNTDVrtWNzCc0m+At2UNtvb+NO2lOcCXllP7PoBoSFS14BtAFRdVHiiES9NRWx
-	 tfs0x+wt051F9lSXBpXVL8Uh4GfBrz8EtyIuRBMDtzDfYI/ED8kzycS+YkPRQYIPxXJMl
-	 luIfLc/Z2d5fmUd/aU0cjDIdL2kneFzLc0MFGntNqtYdIDMe/U4OO+mH1hGXNVw151ChW
-	 XZB5aSRwHZi1LW+cPi5nYDxXSKJhO1OCIAMUXcvOEpqRFpLUjVe4fUq6uk1Pkgd+85g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792684421;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=YnrR2nv+E++a1n7gcEZCRuy8BYssAp+zlEpZEr5SoWQ=;
+	b=VqNVox00uq829HE+I9XRYHIusEDQyPHG3tJ7wFqyilpjWCOPw+E0tTJKerc5RHdnrmwU
+	 Z2ioMsR3CL2d5QZ7NC6n5gc3CNKyydVpR7a6iLLsZezgT+uOsy4ysSFK7Bkd2ANrku1H1
+	 VA8A0LoHZmbucxp735H9kcKKlloHe6LkBBZARBWi+ceq49y02OiVhYCL/4Xy49qerUo5e
+	 7P8PRVyQgTt9yGoFSic3AdvVCn1paDirrBZGIzpcjfSnFHzp6pN7/qvz02lQBSlQsWGBP
+	 ITvWwxNGk71w4U8wd7PPq+0TvgVkzFZ0ZT7vTentb6dd1cez3G/m4ry1iZROHRnxgbA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=Igalia.com;
-	spf=pass smtp.mailfrom=Igalia.com;
-	dkim=pass header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=PKfQ3107;
-	arc=none smtp.remote-ip=213.97.179.56
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=dRAM0fzz;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=IPzThDW6;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B781F606A326;
-	Thu, 22 Oct 2026 15:53:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B781F606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=Igalia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=Igalia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87732606A319
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 15:53:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 87732606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=PKfQ3107
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
-	s=20170329; h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
-	MIME-Version:Date:Message-ID:From:Reply-To;
-	bh=FC4eFsO01rcXqLH7YHA3uDKUlJxUSk705KFFMzLmvQQ=; b=PKfQ3107rKT1VMujuAHMJ/WzFy
-	qCZqJaiRKMEUVjxt5mqwp7pTmS3TuIEVDKSF9hM7PxSGeFX/9v5aZRT60aZm9iOkdHbvuDKcSN3P2
-	p1PEg2oHXtohazoq1YXKP1SjE3EApaXC0KM60oO3bahfEJ4nx1sTLSIIH7OO+5MwI5+nE0AVHvj8z
-	u2BbOHVsHKeB+3oGR5lCXXrgOO+C9YVCMD4CtzCfZPDidOAnNVJUCWDg/R+bC9Gbmwd/7V1cZT/Po
-	YoH4UiAaS9aiH1qxkTeyH8fXyRRZf8kqiWI4+jTUf7deNCPpM/ylQmGE2fN+ldFdJ/kQMfJeSRN5v
-	g84OhrKA==;
-Received: from c-73-157-168-91.hsd1.or.comcast.net ([73.157.168.91] helo=[192.168.1.133])
-	by fanzine2.igalia.com with esmtpsa 
-	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
-	id 1xJv5u-006wgQ-Se; Thu, 22 Oct 2026 17:52:43 +0200
-Message-ID: <b93caf6d-1277-4e86-98a6-139f9cf8fb4c@Igalia.com>
-Date: Thu, 22 Oct 2026 08:52:34 -0700
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=dRAM0fzz;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=IPzThDW6
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69MEFxMG3555251
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 15:53:33 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	YnrR2nv+E++a1n7gcEZCRuy8BYssAp+zlEpZEr5SoWQ=; b=dRAM0fzziD+TMvKh
+	PJUzQUWyv0qh0oUF62rO6FLa5NtPq8Mo+5cUp6Fecga9ufUdz3f2DuzSTxd+WJQd
+	+dcn1H4zNUJZPuCbkU3aKF7JRLVOPghoFrAYMYe5PB/4COfnDIbiWSV+4+XGJXsA
+	2+M9Th7ezgJa/Qe5e6/8fjeLK6BiULQt1E+7zjWoDWeTS+EwgvsMEEgtVKPR2HFc
+	7dTUfKIUZQDgk2VAvEqZCzV0u71N47xCzFgbBoIZkiYAFtMBkXkSpfKr+r1FUK7z
+	oPL0zzb7mhSqpAH6K/oscXLGeF29mzcAv63pPxeVfYjBFLrUfGpEXyltrdWTjBTf
+	eAnMDg==
+Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com [209.85.219.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hf93aca6h-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 15:53:33 +0000 (GMT)
+Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-91bf35c4c78so68566d6.0
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 08:53:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1792684413; x=1793289213; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=YnrR2nv+E++a1n7gcEZCRuy8BYssAp+zlEpZEr5SoWQ=;
+        b=IPzThDW693B6gXrcuAF0fDIJOKz+p85HydW8DMXNCOf4l0CzDH1CMsJtuMLhOpX2oR
+         ICvVfz7V0gxymI30WuPP3uoUSiqp0ojx1QcYG7VWqY2w02tLgELAt+n5zCd53bnNJUX1
+         hcIGO064XdNLAhGSeRv+AHiTjYH7/amR3ITNV/EBnkqW1ICZmXz+6LnzzBFyMDd8yxv+
+         wOs5EyjfParmGl1ZnUPpU7naMrhmLWUYT+2/17P/FXk0+fs5cNcuXGgvEssmZYJ9lRQs
+         TA5IsuOwuXtAk3WwP47oYS5b2MT8HgAPSNlcdJtdHHv3i8WQIGuK8XOZk5cGip8EjeBF
+         YflA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792684413; x=1793289213;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=YnrR2nv+E++a1n7gcEZCRuy8BYssAp+zlEpZEr5SoWQ=;
+        b=sdzh86l+ncPiJK+yFnfADl2kXB/atuDfzmAS2uHz/mhH6WxJS6/IJSugYqLhkdjeJK
+         JCO8qagRdxFZ9vejmjFZeskm8FPRYvSzWL7orUBPZI54T6eD+ZC5MjEd8UIViNT6mLGT
+         fc+HVSuX/0u39jTSpMuyXNcro25Mw1OmYzfUi1NR1LHrdvTHO4XlDV5K5F5qFEJzAlAs
+         +sZlcTazEyAYHWW1Y+ompcdrC9QD6mSkBvomXrN0YoRiZWo/J6VKyZhsEaN6xenCvBy8
+         iilw0h+czMz5WQQrKLoHj4FICtLinbPaOHx7QCJ6HSljO1iI7vbTJ12gKLsrmo/1SDEQ
+         ciIA==
+X-Forwarded-Encrypted: i=1; AKwUvBz2ksxrwv2Tbv55bwvW01f9dh5ZWsZj99jZOiyjHdiQa5k6G+CcZP3j1RvXOj2dcXxddtUJSTicPaHUNl8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJxhQDBxOczw3HYzjS9uKnnvczM1w/7Itgu3BdB0hskHAWYoJPd
+	3k8zJ8xaRKSyd5xBpiy8dQom+waiwmEeqlHDbY9cTQ8+j+Q2ag3pU3B0yXTR7yT7/pZapGzgavS
+	SRujc6DIGwCQ5XRFoA3EcBBB85bEf1mE0lMAATu87B+J9Km+kbDFbMRT/NaNV1BzgYI8=
+X-Gm-Gg: AYBFou1fceAhgAp81kdswdw41Jde5FPDRZUWzy1WEFvY3gfM8y0jGjLH/CbBVyI6x3R
+	WPggxRpDgsPJbMpJxLzl+8PymimubX6+oQOI80bvqohcPh8zJvRJiBJsBhmTEDjK5RqEgoiZ3OT
+	8zvTRKED+Bg8Xy9zVxxmS9H+rsjWPj6iJeYTKxVcUj+ydSNcCUpdoz/lAbOtu82XApkTUXBQxVJ
+	9z2lC7f6hYkFncbIQV6fXBoIQFRncd97aVbJ3Vgzndl+NjiiXXwjTXR/PG1tBccw9ITVXBxB3ps
+	omG3qHMXjgzV26SN3nwX9Ohm3AbjKked36zkkGWqReW8FsKj3vdl8WIKXdV7a6dLXCIziOGJ+ih
+	MWUiI29Cw6FQ0O3vP65QMJw==
+X-Received: by 2002:a05:620a:172b:b0:939:8bc:8826 with SMTP id af79cd13be357-93f57e897a9mr1170113485a.2.1792684412561;
+        Thu, 22 Oct 2026 08:53:32 -0700 (PDT)
+X-Received: by 2002:a05:620a:172b:b0:939:8bc:8826 with SMTP id af79cd13be357-93f57e897a9mr1170109185a.2.1792684412062;
+        Thu, 22 Oct 2026 08:53:32 -0700 (PDT)
+Received: from [192.168.226.26] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c46a5ce8ca6sm1162566b.67.2026.10.22.08.53.29
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 22 Oct 2026 08:53:31 -0700 (PDT)
+Message-ID: <c78304c6-f553-4537-909c-de37c09e72c4@oss.qualcomm.com>
+Date: Thu, 22 Oct 2026 17:53:28 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,109 +116,100 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 8/9] drm: writeback: clean up writeback connectors in
- drm_connector_cleanup()
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Liviu Dudau <liviu.dudau@arm.com>,
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
- Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Magnus Damm <magnus.damm@gmail.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
- Louis Chauvet <louis.chauvet@bootlin.com>,
- Mihail Atanassov <mihail.atanassov@arm.com>, Eric Anholt <eric@anholt.net>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Brian Starkey <brian.starkey@arm.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- linux-renesas-soc@vger.kernel.org
-References: <20261019-wb-drop-encoder-v7-0-d4288a26eb54@oss.qualcomm.com>
- <20261019-wb-drop-encoder-v7-8-d4288a26eb54@oss.qualcomm.com>
- <d792066e-c857-4e80-8587-44a58ab75815@Igalia.com>
- <gjeqgaewd5omwhdmepqcsrjq3pph722j6rjtoedot5rqsjsaht@h55ako6z42dt>
-Content-Language: en-GB
-From: John Harrison <John.Harrison@Igalia.com>
-In-Reply-To: <gjeqgaewd5omwhdmepqcsrjq3pph722j6rjtoedot5rqsjsaht@h55ako6z42dt>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Subject: Re: [PATCH v5 07/11] phy: qualcomm: qmp-combo: Extract common DP PHY
+ init sequence
+To: Nabige Aala <nabige.aala@oss.qualcomm.com>, Vinod Koul
+ <vkoul@kernel.org>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Manivannan Sadhasivam <mani@kernel.org>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Wesley Cheng <wesley.cheng@oss.qualcomm.com>,
+        Abel Vesa
+ <abelvesa@kernel.org>,
+        Johan Hovold <johan+linaro@kernel.org>,
+        Bjorn Andersson <quic_bjorande@quicinc.com>,
+        Dmitry Baryshkov <lumag@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
+        linux-kernel@vger.kernel.org,
+        Ritesh Kumar <ritesh.kumar@oss.qualcomm.com>,
+        Mahadevan P <mahadevan.p@oss.qualcomm.com>,
+        Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+References: <20261001-glymur-phy-v3-v5-0-3848c2615d5a@oss.qualcomm.com>
+ <20261001-glymur-phy-v3-v5-7-3848c2615d5a@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20261001-glymur-phy-v3-v5-7-3848c2615d5a@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=JudkP84C c=1 sm=1 tr=0 ts=6ada317d cx=c_pps
+ a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=EUspDBNiAAAA:8 a=G15zOZzxmr7XqyTgzFkA:9 a=QEXdDO2ut3YA:10
+ a=pJ04lnu7RYOZP9TFuWaZ:22
+X-Proofpoint-ORIG-GUID: aJqVY5RS8rkSBPldmhxaCkA5vQqfN_nP
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIyMDA2MyBTYWx0ZWRfX/ytbWiM7NvZs
+ EQa5fAtCquwvqXwaPk3H1qfjV5TKEaEFwq1ms8YTbkfG6bgHbzlq3ea/F0v8+cm+JOv8gDm1CT2
+ rz4fkGCzeZ35HP+kscG+cFHP4asUhBA=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIyMDA2MyBTYWx0ZWRfXw/ZGYi4nKI/L
+ svyDtUD7jSExjnUt6OCSXnmW34lXogTkWOG46oDWdLZlsGrbFA9vN2wb/zmU8BmFdrp8XPvOSAn
+ snHuBT2JhDsMsrTNTiRk5KMZuauU1nyhRZql8z8zUyzJJzy4jmetdlyMRF/IEF17Wo9NKtKuajg
+ S7NJTjjdNZmMEwXyAtk83a3KdmXVhyrnHa4NMOn+Y6vTsQqk5F7vuX3m59sjHkCWajuCUvYA4KV
+ s5Z5BJvpt3gW5uekAhwb30AqbVnSqYpnouRbJjcYLZp077xStIb3yP3/GGJzjLY5jd4dklkNlvn
+ TLiNVw/T2JzPMbUrTUXsrsJ4ytdwTadkKkV7EbKHxUBDdolUZ2OHRTqEU9crnT+8mqEQPcalRX/
+ /W8TWxNXxVdp/YSvPfqitYHfYFUskJxtL+bKWXTmntCdUNmBIttQ5rqVHR4zk1l1vOuDL1FUYOC
+ ktGAx2wC/NeSj/qYMww==
+X-Proofpoint-GUID: aJqVY5RS8rkSBPldmhxaCkA5vQqfN_nP
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-22_05,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 priorityscore=1501 malwarescore=0 impostorscore=0
+ suspectscore=0 spamscore=0 lowpriorityscore=0 adultscore=0 phishscore=0
+ bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
+ definitions=main-2610220063
 
-On 10/22/26 04:59, Dmitry Baryshkov wrote:
-> On Wed, Oct 21, 2026 at 11:22:48AM -0700, John Harrison wrote:
->> On 10/19/26 06:12, Dmitry Baryshkov wrote:
->>> Only drmm_writeback_connector_init() registers
->>> drm_writeback_connector_cleanup(). Connectors set up with
->>> drm_writeback_connector_init() (amdgpu, komeda, malidp, rcar-du, vc4)
->>> never drop the formats blob or free the jobs still on the queue, leaking
->>> them together with their framebuffer and fence references.
->>>
->>> Call drm_writeback_connector_cleanup() from drm_connector_cleanup() for
->>> writeback connectors, the same way the HDMI audio and SCDC state is torn
->>> down there, so it runs for both kinds of initialization. The drmm action
->>> now just wraps it. Clearing the blob pointer makes the second invocation
->>> a no-op and also covers drm_connector_cleanup() being called after a
->>> failed __drm_writeback_connector_init().
->>>
->>> Fixes: 935774cd71fe ("drm: Add writeback connector type")
->>> Assisted-by: LLM
->>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
->>> ---
->>>    drivers/gpu/drm/drm_connector.c     |  3 +++
->>>    drivers/gpu/drm/drm_crtc_internal.h |  3 +++
->>>    drivers/gpu/drm/drm_writeback.c     | 30 +++++++++++++++++++++++-------
->>>    3 files changed, 29 insertions(+), 7 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
->>> index 893716a9e489..1c2bef5e0636 100644
->>> --- a/drivers/gpu/drm/drm_connector.c
->>> +++ b/drivers/gpu/drm/drm_connector.c
->>> @@ -929,6 +929,9 @@ void drm_connector_cleanup(struct drm_connector *connector)
->>>    	if (connector->hdmi.scdc_work_initialized)
->>>    		cancel_delayed_work_sync(&connector->hdmi.scdc_work);
->>> +	if (connector->connector_type == DRM_MODE_CONNECTOR_WRITEBACK)
->>> +		drm_writeback_connector_cleanup(connector);
->>> +
->> Could this be done via a new connector->funcs->cleanup() vfunc or something?
->> Set that inside the writeback init path and it is guaranteed to then only be
->> called for objects that explicitly requested it. That would be more robust
->> and would keep sashiko happy. It would also keep a writeback connector
->> specific declaration out of the crtc_internal header.
-> I'd rather not do it. These are the generic properties of every
-> writeback connector. The answer to Sahiko would be that yes, currently
-> all DRM_MODE_CONNECTOR_WRITEBACK use drm_writeback_connector. Once that
-> is changed for the Intel driver, the condition might/would change here.
-Except for the KUNIT selftests at least. I'm not sure about the HDMI 
-issues but Sashiko is correct that some of the tests hack up partial 
-structures and I can reproduce a bunch of the AMD ones hitting 
-out-of-bounds accesses with the 'connector_type' based clean up. Locally 
-hacking it to just add an extra bool that is only set in the full init 
-path fixes the issue. Using a vfunc cleanup member would be nicer than 
-having a specific writeback flag ontop of the connector type. The other 
-option is to re-work all the selftests to allocate full writeback 
-connector objects in the first place. Again, having an explicitly set 
-vfunc would fix all those and just be more robust in general.
+On 10/1/26 11:34 AM, Nabige Aala wrote:
+> From: Ritesh Kumar <ritesh.kumar@oss.qualcomm.com>
+> 
+> Extract the common DP PHY initialization sequence shared between
+> qmp_v456_configure_dp_phy() and qmp_v8_configure_dp_phy() into a new
+> qmp_combo_configure_dp_phy_common() function.
+> 
+> The common sequence covers:
+> - Validation that dp_aux_cfg2 is configured for the platform
+> - Writing dp_phy_cfg1 and dp_aux_cfg2 hardware-specific register values
+> - Calling configure_dp_mode() for TypeC lane orientation
+> - Programming AUX_CFG1, TX lane control registers
+> - Invoking configure_dp_clocks() callback
+> - PHY_CFG reset/enable sequence
+> - Polling COM_C_READY_STATUS and COM_CMN_STATUS for PLL lock
+> 
+> Refactor qmp_v456_configure_dp_phy() to call the common function,
+> removing the duplicated initialization code. Update
+> qmp_v8_configure_dp_phy() to call qmp_combo_configure_dp_phy_common()
+> directly instead of going through qmp_v456_configure_dp_phy().
+> 
+> Signed-off-by: Ritesh Kumar <ritesh.kumar@oss.qualcomm.com>
+> Signed-off-by: Mahadevan P <mahadevan.p@oss.qualcomm.com>
+> Signed-off-by: Nabige Aala <nabige.aala@oss.qualcomm.com>
+> Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+> ---
+>  drivers/phy/qualcomm/phy-qcom-qmp-combo.c | 99 ++++++++++++++++++-------------
+>  1 file changed, 59 insertions(+), 40 deletions(-)
+> 
+> diff --git a/drivers/phy/qualcomm/phy-qcom-qmp-combo.c b/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
+> index 5446b8333a1e..fc35da80e57f 100644
+> --- a/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
+> +++ b/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
+> @@ -3489,6 +3489,7 @@ static const struct qmp_phy_cfg glymur_usb3dpphy_cfg = {
+>  	.configure_dp_tx	= qmp_v4_configure_dp_tx,
+>  	.configure_dp_clocks	= qmp_v8_configure_dp_clocks,
+>  	.configure_dp_phy	= qmp_v8_configure_dp_phy,
+> +
 
-Note, it's not just the audio selftests that go boom. E.g. 
-dm_test_crtc_set_crc_source_dprx_no_connector, 
-dm_test_dmub_hpd_callback_unknown_type_match and 
-dm_test_register_hpd_handlers_valid all fail. I've only tried the AMD 
-ones at the moment, I'm not able to run the VC4 tests.
+Please either put this newline in the prior patches or drop, otherwise
+it's noise
 
-Note further, there are a lot of unrelated failures in the AMD selftests 
-at the moment :(. I had to fix a bunch of other issues to get a clean 
-run! Will post some patches shortly.
-
-Regarding i915/Xe, I have updated those patch sets to run on your new 
-baseline and I have the IGTs passing. At least, as well as they did with 
-the prior versions. So no particular concerns from there.
-
-John.
-
+Konrad
