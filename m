@@ -1,105 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.97.179.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792661894;
-	b=CfRZTfhymInVK4x/oBtIuyPm4mcuX6FJ52X3+6LX/BVHoC8YhTHAgCzfUmUzEviIVBuk
-	 wpsO+rhSvEltp8EFDblIuoVdk9ybirjPbv9R/9Ho0aiLMKZ5cnnfUMLHSQnu2IVCNaRwF
-	 FZK5NpzoSzdbY5vvaPhZQKR3aB8nNS7O7qbNOhDzR4QHY1+D5Yl21RnjNdo2eIq6qNbNW
-	 qqqbc25HE7x0NvaPUH0l56jTs2GkkbuvHNrxSYNvilkRL+E8HLUwoDERKmZHc8VZXcDFo
-	 JQ3XGC69m/++a5MjWErCJTHPS2LYO+sIkHwjjX4Qzcum70PYUEoUWGu+k+zAvQnaz1w==
+	t=1792661942;
+	b=KEDapReDBumW70I0uIUa7y0tmtbx1g44A41b+mqQ7U0MQx+Ao3AnqWHys1rJZPmmGpzx
+	 G9j5zyUUCukbWtZfIm+EKQC/mXz5PFZkOXeR1ydHgwLklbgL2IMSoayHKlDMdwj5xk9/b
+	 yVHelb1w8aa447gXkavVpYMMEEdZrU/ci7va9kM6wosUWQP3OA3eCaAVQDDtRPJr3yxgf
+	 YJDamvncK03ImdSoPWWlWxw1lNv2SCphaoX1GOVGzrnn/CaRe1hF+kJkh3ZXfeSmZINE+
+	 frYmIEq8HpbDIxlyINupwTO8P2okCO3o8dCWt3SQ6idhAitfVtMR+zD/29gqXRRmiIg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792661894;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding:Content-Type;
-	bh=Yzwu7Mo7blUPO2g2psRpJeiXJWtUOEqjjPI2Ak0wJ68=;
-	b=I5gOH/5wetB8vEyEVLIilHL+iCUBhe8nbOl011r5TEeoyeVzO8C/lpzgo3q0hsiN15Bd
-	 HdmlfzC5PY9gvbonk8xYOGmHpXOj5znOalcqbrvH7TRky6cxoNx57gc9ZOu0AtBBHo4m9
-	 xVezjgN/UEw0p2GwIWyECdc/PrR3ae0C1+ff53nFIXBp0EWDvuW7AP45fMbkrZWAr8WAQ
-	 Vyt3x8XZPhSKqPvGtSmIZYkJRYr5vUREqxrHcsGZTCmwEMEsEl3Id3C9W3/67N4vtuojh
-	 NHkK8u0GiC4nlqyQSVFldAPat8eKMxWpq3sUkCu7Du7Ph28R8F89qkT8RAF0dRNahtg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792661942;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=d/esycuTb9nfJgABmuNcc5M22++wxUVlqxX/q/QqJUE=;
+	b=fApmiID+RyQIMDH2CuTYJbgunwQeu5f9JtpKf4M4tC7VJxa5cHmy2FOYTJUjsr1XXnUb
+	 KVOLPqnxerXl2px/PbSn2gNWyc0rKGFfruXaOKaIQKOnG5slRWUaISY73AEZ1I/jQy+Fs
+	 FKuWBLWopGDqMeVxQ7KHpe2vuCE+yC6SlfYymynXFg5sILZ8OFWeU7tZUnzEjqCR91VRy
+	 5/AArYUirWNYQg+mESXNvC13nK8wF9zAq/Qux2RVbEhFGq16RgUehI1BCEA3zLhxz8UxH
+	 rnTYwlFINRv7i6L29gfIRuvLjeehPBQ0g7lZxp0AkuziGFAF5KrET7JZe+Hnz/tZ3yA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="dKU/AE2X";
-	arc=none smtp.remote-ip=209.85.218.49
-Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com [209.85.218.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=igalia.com;
+	spf=pass smtp.mailfrom=igalia.com;
+	dkim=pass header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=i3iEehNH;
+	arc=none smtp.remote-ip=213.97.179.56
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85468606A319
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 09:38:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 85468606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE924606A328
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 09:39:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AE924606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=dKU/AE2X
-Received: by mail-ej1-f49.google.com with SMTP id a640c23a62f3a-c40e30c26a4so105103266b.0
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 02:38:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792661893; x=1793266693; darn=vger.kernel.org;
-        h=content-type:content-transfer-encoding:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Yzwu7Mo7blUPO2g2psRpJeiXJWtUOEqjjPI2Ak0wJ68=;
-        b=dKU/AE2XlsC7GcWUGeGpQLt0ZDOploOIt9TkwpjyXXpNkXM66tiQQU3PdJQ6YC4eqC
-         7hu3ePU433r6xt92ffRnYkgKDbvLPW7yu6du2EQp6Wjv/TwNni+cuHZCwDBi/nVtnaNy
-         OTRLqzaVMETwbad+9Xmd1SPzaCyJpTnX8pbq0Rea/YPDrSA2YuojfiPoPqmwzh+lzLxG
-         TNllcY2VYwQBqP6vP/Cxuky9Ab2VmodQpf29JEJNNkpTOqasJ6MzHFIjxne4Wd0/YO5U
-         liYC4YzUiTebLacLHzw/aKKl0vJ9JhrpSQSV6JysLowoxESrymrjH7h0JXj5c4uJQFZB
-         99kQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792661893; x=1793266693;
-        h=content-type:content-transfer-encoding:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Yzwu7Mo7blUPO2g2psRpJeiXJWtUOEqjjPI2Ak0wJ68=;
-        b=xnQUXFTPoUYJ3+kEfsOg4LyUPPLaoMXskplnluP4wXLeeys4LTFb3cBvRThsy5r6LS
-         yiAe4byfMfXHs6Vq9N38G5OkFwjB3k1VG5Z7Fr8FdhNemwV2dH12lTNPoZ+TH4eIm+mh
-         voJ68bcV4CowiVTBQAolUsLbCanTnjKhkPXv6kzjOVzzY9BHh2s1JChKxc1AmJyAbGXF
-         JH+b7hMtCuWD1sMU09lXV7PXi26K9PBw5F8d80c60FCiMzKW9ZFtzoek2ZcWwRDofwqM
-         jI8dkb99IO1ankRx+tO0jwL35JPcDutu10QlUfmR8IzpDaHnM39mZX2UdG4DDOQLQTZ0
-         Sblg==
-X-Forwarded-Encrypted: i=1; AKwUvByWOMxAEDOw1D+Xla19i21Vo4OQegccXr4S3PldJ1pnS6UTNZF6R6JwPRcYXc239ktNXDJNMIDsLJn5yas=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLeZBdZ8U3Of50zPVK0J970lNfvdDP5L2u9eTcUIK+n0Kwpikm8
-	duW+erzubGjTPzb34x1zzCU2/ooWwcZH7cRgz7toou4yDlXCYUc/9m4J
-X-Gm-Gg: AYBFou35WEcK399+AwcfKsZylzfQSK5nxqUqugOeFWfsoir72PWiUinB0Na4wi5FHXk
-	FkzOt1BmPTGhzuQ9bOdbT40dnnRJf8f319zoMbE9i6cnljBfBqcV06faBp+mM7V2Jmv/W8FZKU2
-	hsxIlruGdUnrJmnsxMG3EMXHfH/Jy9pwQ5uPhh9YFh9rjE4g35n46NbLgnKYEbSkboWo3v9lsLZ
-	4sA09GU2vRwxaEcrRy5X/fGhRA2uAoP8CZ9/4vM2pt5jWPluXxcRJfHB+QnA4fl4NPaU4uDEzBF
-	oC3P+S/DylbcWk1iVfj6kV6tZrEvFwjH+jPeQZSy/G9nQePmH4hJB0K675fFwjNXmLvJCdGQmcR
-	3XoQ8qfzmQ6m4p7ET3x6tlPEEUdA4+kj0d16c7M6PbKGpQ/6ynWPBAELHJKItBOhCGvFRTH0VEQ
-	B2TPu9NMi1EuWCqCamC48SJoh+YTpAi8OUTAkxza3PhS94l8kQ9Psh3fSS1ts3lL42hEF3FacrX
-	UXdhKM3781v1uDek62f4bIC+Q8BU2rxxhgnxMYld2IXVja80xSBKdCfGkb0F2OWTaU=
-X-Received: by 2002:a17:907:d18:b0:c2e:616b:6763 with SMTP id a640c23a62f3a-c468d5d92b9mr198921066b.3.1792661892804;
-        Thu, 22 Oct 2026 02:38:12 -0700 (PDT)
-Received: from hp-omen-16.localnet ([193.107.16.241])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c468a55c1c3sm87755766b.32.2026.10.22.02.38.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 02:38:12 -0700 (PDT)
-From: Dmitry Yashin <dmt.yashin@gmail.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Johannes Berg <johannes@sipsolutions.net>,
- Philipp Zabel <p.zabel@pengutronix.de>, Heiko Stuebner <heiko@sntech.de>,
- netdev@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org, Dmitry Yashin <dmt.yashin@gmail.com>
-Subject:
- Re: [PATCH v2 1/5] dt-bindings: net: rfkill-gpio: document reset-gpios
- property
-Date: Thu, 22 Oct 2026 14:38:07 +0500
-Message-ID: <W90ai6epRoWrikRmhqTrfA@gmail.com>
-In-Reply-To: <20261019-aggressive-frigatebird-of-courage-9cc7d6@quoll>
-References:
- <20261016-ok3568-c-v2-0-068d68430e6d@gmail.com>
- <20261016-ok3568-c-v2-1-068d68430e6d@gmail.com>
- <20261019-aggressive-frigatebird-of-courage-9cc7d6@quoll>
+	dkim=pass (2048-bit key, unprotected) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=i3iEehNH
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+	s=20170329; h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:
+	Cc:To:From:From:Reply-To; bh=d/esycuTb9nfJgABmuNcc5M22++wxUVlqxX/q/QqJUE=; b=
+	i3iEehNH+Ev9jFhoCSTTS9zlu2nHb8rrximAqBTq4jga8NdQPV21sWgijSKxPoVtmftCQ6VoBksmA
+	v/M0Ah1x2+LhqmSlrSkgfgQNn1S+UY9T9m/zTX8hZHyVD1aB34gAWGYkp2nh8jKPAske9e2v/hvCn
+	ezX/AlargJofR9htYM3jLTAttDoznjd6ooD4ajcHOP86L8iVsQKXUoJneU9NoU24h0cLlvgKHXoMo
+	1ZobIVbzp1Z7kmZRYOJUvMQXZKJQWo0JztvUhUwVbIWCBPCTNwW0UkVNbJyeD0tG7JkTaODszTVmO
+	qzOr2tm1K9i2BZsGS5vy7DK0iLzjWBiHYA==;
+Received: from [81.79.79.1] (helo=localhost)
+	by fanzine2.igalia.com with esmtpsa 
+	(Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+	id 1xJpG9-006ers-5z; Thu, 22 Oct 2026 11:38:53 +0200
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+To: linux-kernel@vger.kernel.org
+Cc: dri-devel@lists.freedesktop.org,
+	kernel-dev@igalia.com,
+	Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+	Boris Brezillon <boris.brezillon@collabora.com>,
+	Chia-I Wu <olv@google.com>,
+	Liviu Dudau <liviu.dudau@arm.com>,
+	Matthew Brost <matthew.brost@intel.com>,
+	Steven Price <steven.price@arm.com>,
+	Tejun Heo <tj@kernel.org>
+Subject: [PATCH v7 4/4] drm/panthor: Create per queue priority workqueues
+Date: Thu, 22 Oct 2026 10:38:48 +0100
+Message-ID: <20261022093848.5727-5-tvrtko.ursulin@igalia.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261022093848.5727-1-tvrtko.ursulin@igalia.com>
+References: <20261022093848.5727-1-tvrtko.ursulin@igalia.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,20 +71,104 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
-On Monday, 19 October 2026 11:49:17 +05 Krzysztof Kozlowski wrote:
-> That's the same pin. This was sent multiple times, why is this time
-> different?
+Split the single workqueue shared between the driver internal logic and
+DRM scheduler use into separate ones, where the DRM scheduler one is
+created per GPU priority level using the appropriate mapping to
+workqueue priorities.
 
-Indeed I overlooked previous discussion on the same change. Thank you.
-I did a few more tests with the wwan modem. And since this approach to
-handle modem reset more like a workaround, I'll just drop this patch
-with rfkill node from V3.
+Low and medium GPU priority are served by a normal workqueue,
+high is server by a WQ_HIGHPRI instance, while realtime GPU priority is
+using the newly added WQ_RTPRI flag for lowest possible latency.
 
+These workqueues are device global and for all three we set the maximum
+concurrency to two in order to keep the GPU optimally fed with work.
+
+Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Cc: Boris Brezillon <boris.brezillon@collabora.com>
+Cc: Chia-I Wu <olv@google.com>
+Cc: Liviu Dudau <liviu.dudau@arm.com>
+Cc: Matthew Brost <matthew.brost@intel.com>
+Cc: Steven Price <steven.price@arm.com>
+Cc: Tejun Heo <tj@kernel.org>
+---
+ drivers/gpu/drm/panthor/panthor_sched.c | 37 ++++++++++++++++++++++---
+ 1 file changed, 33 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/gpu/drm/panthor/panthor_sched.c b/drivers/gpu/drm/panthor/panthor_sched.c
+index 5b34032deff8..257895e5e48b 100644
+--- a/drivers/gpu/drm/panthor/panthor_sched.c
++++ b/drivers/gpu/drm/panthor/panthor_sched.c
+@@ -152,11 +152,18 @@ struct panthor_scheduler {
+ 	 *
+ 	 * Used for the scheduler tick, group update or other kind of FW
+ 	 * event processing that can't be handled in the threaded interrupt
+-	 * path. Also passed to the drm_gpu_scheduler instances embedded
+-	 * in panthor_queue.
++	 * path.
+ 	 */
+ 	struct workqueue_struct *wq;
+ 
++	/**
++	 * @submit_wq: Per priority workqueues for the DRM scheduler
++	 *
++	 * Passed to the drm_gpu_scheduler instances embedded
++	 * in panthor_queue based on the queue priority.
++	 */
++	struct workqueue_struct *submit_wq[PANTHOR_CSG_PRIORITY_COUNT];
++
+ 	/**
+ 	 * @heap_alloc_wq: Workqueue used to schedule tiler_oom works.
+ 	 *
+@@ -3582,8 +3589,14 @@ group_create_queue(struct panthor_group *group,
+ 		goto err_free_queue;
+ 	}
+ 
++	if (group->priority >= ARRAY_SIZE(group->ptdev->scheduler->submit_wq) ||
++	    !group->ptdev->scheduler->submit_wq[group->priority]) {
++		ret = -EINVAL;
++		goto err_free_queue;
++	}
++
+ 	sched_args.name = queue->name;
+-
++	sched_args.submit_wq = group->ptdev->scheduler->submit_wq[group->priority];
+ 	ret = drm_sched_init(&queue->scheduler, &sched_args);
+ 	if (ret)
+ 		goto err_free_queue;
+@@ -4073,6 +4086,15 @@ static void panthor_sched_fini(struct drm_device *ddev, void *res)
+ 	if (!sched || !sched->csg_slot_count)
+ 		return;
+ 
++	if (sched->submit_wq[PANTHOR_CSG_PRIORITY_MEDIUM])
++		destroy_workqueue(sched->submit_wq[PANTHOR_CSG_PRIORITY_MEDIUM]);
++
++	if (sched->submit_wq[PANTHOR_CSG_PRIORITY_HIGH])
++		destroy_workqueue(sched->submit_wq[PANTHOR_CSG_PRIORITY_HIGH]);
++
++	if (sched->submit_wq[PANTHOR_CSG_PRIORITY_RT])
++		destroy_workqueue(sched->submit_wq[PANTHOR_CSG_PRIORITY_RT]);
++
+ 	if (sched->wq)
+ 		destroy_workqueue(sched->wq);
+ 
+@@ -4174,7 +4196,14 @@ int panthor_sched_init(struct panthor_device *ptdev)
+ 	 */
+ 	sched->heap_alloc_wq = alloc_workqueue("panthor-heap-alloc", WQ_UNBOUND, 0);
+ 	sched->wq = alloc_workqueue("panthor-csf-sched", WQ_MEM_RECLAIM | WQ_UNBOUND, 0);
+-	if (!sched->wq || !sched->heap_alloc_wq) {
++	sched->submit_wq[PANTHOR_CSG_PRIORITY_MEDIUM] = alloc_workqueue("panthor-drm", WQ_MEM_RECLAIM | WQ_UNBOUND, 2);
++	sched->submit_wq[PANTHOR_CSG_PRIORITY_LOW] = sched->submit_wq[PANTHOR_CSG_PRIORITY_MEDIUM];
++	sched->submit_wq[PANTHOR_CSG_PRIORITY_HIGH] = alloc_workqueue("panthor-drm-high", WQ_HIGHPRI | WQ_MEM_RECLAIM | WQ_UNBOUND, 2);
++	sched->submit_wq[PANTHOR_CSG_PRIORITY_RT] = alloc_workqueue("panthor-drm-rt", WQ_RT | WQ_MEM_RECLAIM | WQ_UNBOUND, 2);
++	if (!sched->wq || !sched->heap_alloc_wq ||
++	    !sched->submit_wq[PANTHOR_CSG_PRIORITY_MEDIUM] ||
++	    !sched->submit_wq[PANTHOR_CSG_PRIORITY_HIGH] ||
++	    !sched->submit_wq[PANTHOR_CSG_PRIORITY_RT]) {
+ 		panthor_sched_fini(&ptdev->base, sched);
+ 		drm_err(&ptdev->base, "Failed to allocate the workqueues");
+ 		return -ENOMEM;
 -- 
-Dmt-Y
-
-
+2.56.0
 
