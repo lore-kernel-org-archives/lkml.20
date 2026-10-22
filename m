@@ -1,110 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.70.183.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792680874;
-	b=cggG4sxUO76chXW+9egsK/1/yCGfLv4hRopQECLj6iK+R1CXsNrPWl7+O6v8fyygv9Ph
-	 0PGkgnZ7Wb+VvRFCMEdWqhE4ifEEcPXsuU6p3uT935yhDWtA8cW9BYasZCPufohLwsCHB
-	 eNs5N78oLzQBvRNIr62snw82fDVisHICASdHIR3yzFMc/d56yGxF5zfZRDDaJk2szgmCY
-	 yUKzA5+wwT8jlLCvGPSKIXzmHc6oApTa3vFUt5HoNWw8BpZO4cDnNl2tHenWe6zo7+i52
-	 a8ClPRGUWuP49RoYlLeWNG4CyvH7FSvvwGPoRwnJ6+zRTJM+M7Q3xzRDcEWL9APPKHA==
+	t=1792680989;
+	b=JxBfkp906ZAPdaO3BzIagCejhuVzivf3RDEF5IQ6WrQFqCMUMMnEVmAuPErVk/7aDL/J
+	 VPM26w+uPJ/uL4bJaiJYCThKMls2aRe3csh+F22UJh5dtfWRsIO8jM7sAcAQPFfrHB2pp
+	 oZCXVVUAYruVvAmXghj7O4ZJYBbARomvkknNQMTS6xDJu3NU5KLadLJKAJLtVcT3s9iCp
+	 EaJaX/r0TRwcuwhgc2BMElOF8gGswya0DeEvbObKUaxyddU1MQp3KRxVtp4ltAvvbp+3W
+	 7VcHmXLk/SCz0W8ooIm3ONtLjT9ZgQbQzprDXit3r1JxkB3ZH+ujsgdjNwYuXWfsc0Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792680874;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=LeyVFsqCqVWi/yTiZu/t1rp7LlLuz+7A3YoONaVMHFI=;
-	b=q+uw6ZSGO2I9Rdhf0wR5ieuY2hEhr1fBUF21sq4v1SER3LYAKwRS3saE722owY/9PJEN
-	 jYV1FPCuM0wyWjXC9K63Z4Fw3ikbHmqbRXyZRbK6vO7wrx/xhSmN2tm5gAB1FuECj3Ga+
-	 s8XSUJ/4Oh7Se/zpQvdXnf7uQUoJuPka5s8nEtV9fjjoYkgkGQAWh/Fsa1sZGPqbN8GDP
-	 nJIrviGdI8qEHKsRdRFZYP0DyWGXCd0HlfcJX42VUnzKlkbqXurJqEmKH9RNcutkCwLr0
-	 LWCBZcJK9fEAnxTgcmFmi1Lv22lNLc1MzO97Gh8P1dHxuNIIN1M70wAvBE1Xq9hZfqA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792680989;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding:X-GND-Sasl:X-GND-Score:
+	 X-GND-Cause:X-GND-State;
+	bh=Bo7M4JhjEAp6ZI2fBYkRnkPkrD1NgLG4BN3e/nf8n7o=;
+	b=aDWKVNsmawctNRw/RIK+iV0fToJNvMohbgr4xKgToE+y/PUn0MJ0bvaJoQ3XCF/WgdL5
+	 bVVzgtpkNsWb2AXHX3mcjndhCEBlW7hwjHHvzfSkQFRZqa92CG4s8eDlkoULUn93frwFS
+	 prtosg6DndbCMqOGgSH2U48kbOcCTmH0MW7CSw2u4spkrLCGNbexeI6iGBFHgF9k9ChCL
+	 ver9HaEdUS7rGwrWb6j1Qbn0dvJsGD+9/WOz6BvOtnKAiLkZYqqG4W1LuafUR4YHzsmjH
+	 ih4tzic0YoCg74jDmoWyaAdhGDNHMn5RSG3Uir2LAkBWtE599zAwBC44gMolcOXio/Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b="FNu/nGsG";
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=IBhFJD+R;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dmarc=none header.from=ghiti.fr;
+	spf=pass smtp.mailfrom=ghiti.fr;
+	arc=none smtp.remote-ip=217.70.183.195
+Received: from relay3-d.mail.gandi.net (relay3-d.mail.gandi.net [217.70.183.195])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3F6D606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 14:54:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A3F6D606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=FNu/nGsG;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=IBhFJD+R
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69MEFTH0376549
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 14:54:32 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=LeyVFsqCqVWi/yTiZu/t1r
-	p7LlLuz+7A3YoONaVMHFI=; b=FNu/nGsGUGijxpOunvpAFg313nntuufV14mIIT
-	limhirkmXmrBmRiwMvw88X0yLt8F3mvnvnMn7CGMJIS+DqODnB4qclY7195jk+Nd
-	pX2tCdXY9juGiSVl9+xBVskQIpSN3mF0GCoHK3lhc1S/1gwlf10hpmcJXAA7KWjK
-	kpcVpTskb1YQ9gzGVFlCRERPzQ69inOCwCpzrjTGZ5HxPF0zxyon0x69U0Wx6UnF
-	5FkR0UAgWNCVxTdyeqvuuRl3ItquW0v6dNmHjNsBv5uo0cxj9OyF6ozYDeWf2fBd
-	D2mJrINo9nwDH7SaTv+YThP1Jtm57LzImeRMatAIFS/A8aEA==
-Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hf93bm6su-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 14:54:32 +0000 (GMT)
-Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-3510d0baf63so4418206eec.1
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 07:54:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792680871; x=1793285671; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=LeyVFsqCqVWi/yTiZu/t1rp7LlLuz+7A3YoONaVMHFI=;
-        b=IBhFJD+RqeqclMEX7pIpqrUS+jJBVwSZCY/LFxNaf5i1dACGbFRdSmyu5zoCLvZzSx
-         W0mECvPoaIvUm3VEKHE/QzOfXFuuF2PuzjG0oj9hVkqa50/RSfNrqdsDAaXEL7csw17f
-         EwTQtyYyXfbdB/Q2Fvt2cGQz8CNOcC/2OSU1y/mfBDVXnP3ucriJH9QrM/dhtvFAtSjj
-         tQJJiaZvWiYVjyKXinds5f/Uy0vNUvtevNpfu7kgZmUFydDJZPFOGPOLcy4W6TY5AkdS
-         mo3pBw5DHaQoY8+hcLVYFNBjQyHU8jEKarbYTxpt3P+pz0+RVIQvMJ2S8YMwc9PdnDXT
-         ZtYA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792680871; x=1793285671;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=LeyVFsqCqVWi/yTiZu/t1rp7LlLuz+7A3YoONaVMHFI=;
-        b=Whh8AIGzJoJQ4cC6WtxV/6HlBTGwZuMEKu7WajeoOwVnEkdD/MyxtS0dgjgoH1IQAq
-         3Bo+lDTvqCr9yocoAFYx1AdSCZI+Z+VHZQLwqvqTJ+zVWiNrXZyGAo5TSmzgXTFv74pZ
-         cZ5q2rh5cqBoVEiBp2FJobKYZmHOLnwjF+RW7T5t/0HP+JKKtdTEpTidLP8CNxJKQnwq
-         VISktChJc6xZAkDgS+JSi/T/jKbQ2KYCbTRob/0IlDNOs5v61IPjE7dSQf4yePM/Eg19
-         KxveBFnwJDk+xJ9ZoqRADB1+A/OqrE9Q/OjnaF4hLtSQQ0Emz/qW986FjWKcX2z+xKcj
-         1joQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwdFGrpfzeTvvLikzQRdb3k0s65WpyDPI7n2KdDAnkwdGFpEg2Z5YmknGKuS9oDz5H3bmw1ZzyJy0RPiZM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJsG5ydgeD1dLMnv7NlOOINjI2gfS2aw6qdOvK2za5RpB39ohpa
-	SFX/0tI+eZ8UcZ6m8rhDX0BuzEkc8xQly6jx0MiGwU81BLVtbk4A1opCVisZD7p1cLyOs53bnHg
-	Nyzv0+yRHrp1eNhMXPwBaDFHLqUed3hP7kJKSHLzO5uBGm57NLdHONbtajlctHFK3HL+LKkjvir
-	Q=
-X-Gm-Gg: AYBFou08b7z1M55JonfqWEepdJqpDettM0NALWGypJcZpgmV1LJ0PIxsTSZ2Stujeze
-	fPb2MDddHvwQ9HpT6uY3ONPpSh7VmCJvktER2Ks8A/uVW9pIh0i2EY/UpE27O30ezXasSBZ3JT2
-	ieHW339O4z8eWmzpixVRGio4qiML3vcIrr1rx0y+6WmSDBmyttj/51mqWGQ6ELOTMDfG6JKzTrk
-	gJeHL/gDGf0Ypw3yucoqEch2Bi3o75jFrjNwr1bCim1oKfRorNNRHPCQnbx0RjiJjikneTU/Vot
-	K6XdnWcKL0HlhLPmS1VDVeltZy8gOZJAdd8Ra/De+0lUAhrEhR8wKl+/N3MqrIU/OaphOvEc7Dx
-	wtFQluhHBmFwm9RTER9f0dc2QpMByslOJSMqq
-X-Received: by 2002:a05:7301:8615:b0:359:8492:20ff with SMTP id 5a478bee46e88-3674c43a7a8mr6978994eec.12.1792680871407;
-        Thu, 22 Oct 2026 07:54:31 -0700 (PDT)
-X-Received: by 2002:a05:7301:8615:b0:359:8492:20ff with SMTP id 5a478bee46e88-3674c43a7a8mr6978969eec.12.1792680870900;
-        Thu, 22 Oct 2026 07:54:30 -0700 (PDT)
-Received: from hu-anupvish-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-367411bd2a6sm26250257eec.18.2026.10.22.07.54.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 07:54:30 -0700 (PDT)
-From: Anup Vishwakarma <anup.vishwakarma@oss.qualcomm.com>
-Date: Thu, 22 Oct 2026 20:24:25 +0530
-Subject: [PATCH] remoteproc: qcom: pas: Release DTB firmware after load
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55EBF606A31A
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 14:56:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 55EBF606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ghiti.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ghiti.fr
+Received: by mail.gandi.net (Postfix) with ESMTPSA id A80611F6B5;
+	Thu, 22 Oct 2026 14:56:17 +0000 (UTC)
+From: Alexandre Ghiti <alex@ghiti.fr>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Kairui Song <kasong@tencent.com>,
+	Barry Song <baohua@kernel.org>,
+	Chris Li <chrisl@kernel.org>,
+	Kemeng Shi <shikemeng@huaweicloud.com>,
+	Nhat Pham <nphamcs@gmail.com>,
+	Baoquan He <baoquan.he@linux.dev>,
+	Youngjun Park <youngjun.park@lge.com>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Hugh Dickins <hughd@google.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	David Hildenbrand <david@kernel.org>,
+	Michal Hocko <mhocko@kernel.org>,
+	Qi Zheng <qi.zheng@linux.dev>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Axel Rasmussen <axelrasmussen@google.com>,
+	Yuanchu Xie <yuanchu@google.com>,
+	Wei Xu <weixugc@google.com>,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	Alexandre Ghiti <alex@ghiti.fr>
+Subject: [RFC PATCH 0/1] mm/swap: keep reclaim batches contiguous on swap
+Date: Thu, 22 Oct 2026 16:54:45 +0200
+Message-ID: <20261022145615.2184343-1-alex@ghiti.fr>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -114,93 +68,81 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261022-b4-qcom_pas_dtb_fw_release-v1-1-d92d84a05544@oss.qualcomm.com>
-X-B4-Tracking: v=1; b=H4sIAKAj2moC/yXM0QqCMBQG4FeRc91gG1OoV4kY2/G3FqW2oyWI7
- +6qy+/mW0mQE4RO1UoZ7yRp6AvMoSK+hf4Kldpisto2RlurolMvHp5+DOLbKfru4zMeCAJ1rNk
- 43biawVSCMaNLyy8/X/6WOd7B03ekbdsBhcScl34AAAA=
-X-Change-ID: 20261022-b4-qcom_pas_dtb_fw_release-95c140645cec
-To: Bjorn Andersson <andersson@kernel.org>,
-        Mathieu Poirier <mathieu.poirier@linaro.org>,
-        Neil Armstrong <neil.armstrong@linaro.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org,
-        linux-kernel@vger.kernel.org, stable@vger.kernel.org,
-        Anup Vishwakarma <anup.vishwakarma@oss.qualcomm.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792680867; l=1584;
- i=anup.vishwakarma@oss.qualcomm.com; s=20260805; h=from:subject:message-id;
- bh=40dojUEYiTck5avIuh4BZLBGj7u3joSJCzFWspEillw=;
- b=HMYQhkmCsBufTsqpejcDU81i+XJ/9B031qiPCSbjZs8maM+zPlzrmJBFmkfKc+l0CN3jB4U1m
- iGFeS0C3y5/BwCarm9Ozo6DDo2U4cHbU3laE3PXpypjuIp5xiJveJQz
-X-Developer-Key: i=anup.vishwakarma@oss.qualcomm.com; a=ed25519;
- pk=Y9ilCu91UQrzHOM14SG2IjnmQ1QSroH5uVeBSWEmEDM=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIyMDA1OSBTYWx0ZWRfX+ebJzpe/BL7H
- 4eF7b0kqp8ITca3rOIdL9InmO3ji2qLm9CEi976SV9DFjxGBR48IttKc/PJbeknhdnUXJ7I21u0
- SJZBMpmyb7DNAhWmM400+vPz7osRhWcrpmr9FX/pW0WT03xzz95/fTqXbhM+T8G9Jkw6yhaTexn
- Tvv5fKgIB2imGa0FEH1GuHuGyD7TUzrnrOYqIB5ySyc9MVhlBnz+f3Z7we1R7G5//5jJX/I2MTn
- UYQAls3wuQe6hypNb+tXEQVaDIyIyPMBFXF7A5KcQvwdycNyTy2rMYubGedZoSTgRriR+Opv+rf
- G3PR5SYIxhyLq7ZWRWgBexgbJIMCvf7rMnAhxdnOaJ1UPJOqkFy8JH1AbGd0r+AE6zfQwD6Qv/N
- GcMAt0RtiXlSoF7Q3p5qloAGIiXWGS38IlCkl4simtwWsr9EUgllklDKpxDmrykuMjYlyXOdR/d
- 4XA+6+YIB8z/aHevRHQ==
-X-Proofpoint-GUID: -BGHPbptYK8qXTX-oRvGeVBJbHhWDsZI
-X-Proofpoint-ORIG-GUID: -BGHPbptYK8qXTX-oRvGeVBJbHhWDsZI
-X-Authority-Analysis: v=2.4 cv=CMy/zhrD c=1 sm=1 tr=0 ts=6ada23a8 cx=c_pps
- a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=Y1IhKJFcC3I6eYhxwIsA:9 a=QEXdDO2ut3YA:10
- a=6Ab_bkdmUrQuMsNx7PHu:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIyMDA1OSBTYWx0ZWRfXy6aGjTICBXqo
- f/JYczGd8ElQdDQFvV7tHwW6oG1WShNcyAskMl5y0PdbokKWNUimr9box8eHnvyS4gkPNyq4tXH
- 5CqJvAEmkxcACDvGdXR6J905jzBy2FI=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-22_05,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 lowpriorityscore=0 malwarescore=0 adultscore=0 bulkscore=0
- clxscore=1015 phishscore=0 priorityscore=1501 spamscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610220059
+Content-Transfer-Encoding: 8bit
+X-GND-Sasl: alex@ghiti.fr
+X-GND-Score: -100
+X-GND-Cause: dmFkZTFMd1FM7BbvTA8TCUewrtd1V/1uyK/ULWQ1OY6oegAXsYuboL5juFNAuEozbSuWxXyn3ZpEs16OR9scsQhOOe6quwa1WdK/TeAxD6GuZOyA6DNtoYHmF8D8DQxn9aIPXvLMkYPIijfcxdlh+riLJ17Z5xMNsJE8uI7naZ1//WmJe79ty0aZtgNSYkgOVgzRxsZcG8ooR1CWTdmq0tI6kLAS9IYVEwke3c/ljUJMWmA8Cb4eHcYrdXkpx2GQCMhiLkbNIrJS+QvZwx6jNUZwFAvRhEwazrbTDy8O89f62t7puuFBdjN35sp683cCxJypVYs3+s3TgIL1JAy5SfM4uXWhm09ZV6FSy864o32f8ey/ZG8SCtQ9+huwsXEMSyBZ9m4vSMkWZxph9IOZf40yMeyPT0C300GGC9BsQZrKrKXJC1KVFNZOWMf/RBPBrdrIIY3fyV2x5BJCY5TR8sevFUfnTD36G22WlmSnbUyblF276ven69i7LLHaXDNpHbScQGkvDV53qaFQqTUdFQG+OwHNbB8NAn3QbzlW47jWDJI4LCtmSCcxHw5AnxhgUZ7Fc7cExO/3Fnai9aCA1gqZBXJ0YTtugdctUpaHKlHXWRFpUtGZ7wdDsCaSfWBH+whL4Mi7m3ytR1yPyNFvZpHTWnPNroDuzmMl63Uw58ESCFcaNA
+X-GND-State: clean
 
-qcom_pas_load() releases the DTB firmware only when
-qcom_mdt_pas_load() fails. On success the firmware is never released,
-so the DTB image stays allocated, and each later load leaks another
-struct firmware and an extra reference to the shared firmware buffer.
+7.3 regressed swap I/O: for the same swap volume, a workload that
+rewrites swapped out memory sends many more requests to the device.
+mysql/sysbench in a 256M memcg swapping to an NVMe partition, 7.3
+compared to the previous version:
 
-The firmware is not needed once qcom_mdt_pas_load() returns, since the
-metadata and segments have already been copied. Release it right after
-the call, on both paths, and clear the pointer.
+  device read requests per transaction        +59%
+  device write requests per transaction       +27%
+  throughput, iocost off                      no change
+  throughput, iocost on                       -19%
 
-Fixes: 29814986b82e ("remoteproc: qcom_q6v5_pas: add support for dtb co-firmware loading")
-Cc: stable@vger.kernel.org
-Signed-off-by: Anup Vishwakarma <anup.vishwakarma@oss.qualcomm.com>
----
- drivers/remoteproc/qcom_q6v5_pas.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+Two commits interact:
 
-diff --git a/drivers/remoteproc/qcom_q6v5_pas.c b/drivers/remoteproc/qcom_q6v5_pas.c
-index 2e1e39826ffa..2ac21c502d35 100644
---- a/drivers/remoteproc/qcom_q6v5_pas.c
-+++ b/drivers/remoteproc/qcom_q6v5_pas.c
-@@ -279,9 +279,10 @@ static int qcom_pas_load(struct rproc *rproc, const struct firmware *fw)
- 
- 		ret = qcom_mdt_pas_load(pas->dtb_pas_ctx, pas->dtb_firmware,
- 					pas->dtb_firmware_name, &pas->dtb_mem_reloc);
-+		release_firmware(pas->dtb_firmware);
-+		pas->dtb_firmware = NULL;
- 		if (ret) {
- 			qcom_pas_metadata_release(pas->dtb_pas_ctx);
--			release_firmware(pas->dtb_firmware);
- 			return ret;
- 		}
- 	}
+- Commit 9a42aed48421 ("mm, swap: prefer nonfull over free clusters"),
+  in 6.18, makes order-0 allocations fill nonfull clusters before
+  taking a free one.
 
----
-base-commit: 9a482184d910775cf648863148944945b74e2815
-change-id: 20261022-b4-qcom_pas_dtb_fw_release-95c140645cec
+- Commit 3cedb745d354 ("mm: clarify the folio_free_swap() for
+  do_swap_page()"), in 7.3, frees the swap slot on an exclusive write
+  fault. 7.0 to 7.2 kept the slot, but only as a side effect of commit
+  4b34f1d82c65 ("mm, swap: free the swap cache after folio is
+  mapped").
 
-Best regards,
---  
-Anup Vishwakarma <anup.vishwakarma@oss.qualcomm.com>
+The freed slots leave holes in full clusters, which then go back on
+the nonfull list. Reclaim allocates slots one folio at a time and
+merges the writes afterwards, so a batch of LRU-adjacent folios gets
+scattered over those holes and is written with many small requests.
+Readahead later finds those pages scattered as well, and needs more
+read requests to bring them back.
 
+I tried three fixes, which perform similarly:
+
+A. Revert 3cedb745d354. This keeps the slot on write fault, but undoes
+   the intent of that commit and keeps swap space pinned under dirty
+   pages.
+
+B. Below 50% swap usage, make order-0 allocations take a free cluster
+   before a nonfull one. This is what the allocator already does, at
+   any usage, on swap devices with discard enabled (swapon
+   --discard=pages). It is about five lines, but the threshold is
+   arbitrary, it stops working as swap fills up, and it applies to
+   every order-0 allocation, using up the free clusters that
+   nonfull-first keeps for mTHP.
+
+C. This patch. Reclaim tells the allocator how many pages of each
+   small order the batch is about to swap out, and those allocations
+   then follow contiguous free slots, in a nonfull cluster if one has
+   them and in a free cluster otherwise. Nothing is reserved, there
+   is no threshold, and nonfull-first is kept.
+
+Same workload as above, 7.3 with C relative to 7.3:
+
+  device read requests per transaction        -12%
+  device write requests per transaction       -36%
+  throughput, iocost off                      no change
+  throughput, iocost on                       +41%
+
+I think C is the way to go. I just add the patch to this regression
+notice so that we have an idea of what it takes to implement, the
+implementation may not be perfect.
+
+I would welcome other ideas.
+
+Alexandre Ghiti (1):
+  mm/swap: allocate contiguous swap slots for a reclaim batch
+
+ mm/shmem.c    |   2 +
+ mm/swap.h     |  10 +++
+ mm/swapfile.c | 211 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++-
+ mm/vmscan.c   |  11 ++-
+ 4 files changed, 229 insertions(+), 5 deletions(-)
+
+base-commit: fcec4f4bcc1101dbd7e3aff267856b3bbfe128c6
