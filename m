@@ -1,107 +1,127 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792665622;
-	b=xAya8P5ecqrI/uyxILUbTdep9C929nyC5/diVnoMgfaQufTEHV+oW/7gZ2rskgMtHkeh
-	 D+2BiEidve8zpDXDdVc9igcez2spXDFRrPDCH9t5DyaNauZ5t8DmWu7vMpMZ6fVJVkkYv
-	 GFYe7n6VJ7ldv67/QrFKxwtzOqSfoDoPFWtWUJsOPQOlPsKfevb82oOeXKuQG6pflm4+0
-	 J5cIKhbE8Q5q3VKXWrLVXAFTN7ZHsrZJ3c7biMwgVjoeLAxMhU1mKfhKMB2Xpf8cTVW2N
-	 0B8wThhjsFfybZTUx9VGEHrXZaQhj4E+YcJs40C0bcjVW8SS9rrEsSCaUtl5isHUWzQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792665622;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:Message-ID:Date:MIME-Version:User-Agent:Subject:
-	 To:Cc:References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=FEKm5nQsGf/I+ugCmSSfq8QJNoZ1NYPo9Xa7ZqzEb5w=;
-	b=SSP1Qw/6/N19R2etgqvw7gcm5JLqMAroVpFjXkfazAYFMx1fuY7X/zuq0+TdthwY0L+T
-	 RofbFWFLRASL8azZyxdh8xSosiBtTidihc3qCkzs9DRXERjf7NFg+SSIN1NUs0KeUEUuJ
-	 mauwfXSJ4b9n1VwOT5V7Vbm062osnrOIVVkd1lew+Wf/LU4mNW8LC92n+KtdDa7m+9aO4
-	 8X6u7XV+aIiaveTruVOuGVy82VYHKWVPJjkAj1dKSLk4lvY7AsDyQpyh4moyMuS0PD0Io
-	 KLH9hCfYEWkVUVxBL4whWtL4vsoS2uKY7QzsWBRIK54xRUYCgMoK3iD9Ywypslx0cEA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=H+aAUIH0;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=BNGnn+Hb;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.193.7
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792665637;
+	b=pqdPDwrUvN8rBoLcT0ZCozdsth6YFT2u1JhNvZFvlT+BkhUzvOBBKsNQ1CYHcGkSAxJz
+	 nObMRFvfAD/h2yMoECSiQNNfQS+91+dhd34f0pQ1joiB19P7+IdhFEW7zNLrgW39lpS7n
+	 h3cGC3m0TVplKYgY+7ee1crTT/Nq2qxaDKSse19tC3Y9xUHQyU+1N7NJ2OGpAvuuIfFIU
+	 5p7xoku6N+g4FAUuvkszf6YHlVpJ66TAwH1id/a4/TivPUSqMdc2IzB3cX7HvReO3uH/5
+	 S/dkcVMpD5A7jzHPCwgM4TFmVrYS6LCE+85SYK5i0YtCWNNCEKWAmGoJTGkm3xraWkQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792665637;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 Content-Transfer-Encoding:Content-Type:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=kboHgt19Dz1TK6Pl0RY67RPVWyrBDrK2fm2eftb+nXQ=;
+	b=cEZzoSCZ8WAQij0SKZcFUDeYx1LXNP864n5hJPgRJyfTPEcoGrJRUwtSQY5tDxLEULkS
+	 CTRcLfkFWai9ChOi22sWPJ2G30UVOP6eESM1pX7wYPQR1ESexO/ko2+4TDX5YPlXg4pOG
+	 HjI+3BG/QM0s7FwjTIQRpFS86wuQE4mvK7BKbH2DSDYC/Zx2IKTmnI8q2D7w90eADvLhg
+	 /ARKIbB0u9/5X1iV3XmEhKjvQz0iw/fXMBZrEuOy4dGLtAiYTYkmrUAwc/NnL/JulPxiD
+	 YmQT9+Zdu2cxm1j1ipWkxxYRNrBMSGxSaoqrYEoo2QXedkNmLGamzU/kobIPzljcuMg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=pfJe5FLa;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.193.7
+Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010007.outbound.protection.outlook.com [52.101.193.7])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CE51606A319
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 10:40:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0CE51606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7326B606A319;
+	Thu, 22 Oct 2026 10:40:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7326B606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=H+aAUIH0;
-	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=BNGnn+Hb
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1792665620;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=FEKm5nQsGf/I+ugCmSSfq8QJNoZ1NYPo9Xa7ZqzEb5w=;
-	b=H+aAUIH0CB7c7yTA6nVQsOgOvq2yvnbZT4sOQtojIefTpq3/oXmGcPBj34wd3dqy+6L9s1
-	1z+SyMUET+CP2h/2KKdIKCMRDt62/9bovCIzlNcq7D8Xx5dpx/ZnxlVn3DfsKS8qsCaWa6
-	HwPTW/4cmawzdKlbFOVqPCghmjn5mjQ=
-Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
- [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-646-K6ZXC_muOuuB9vlAtR6ncg-1; Thu, 22 Oct 2026 10:40:18 +0000
-X-MC-Unique: K6ZXC_muOuuB9vlAtR6ncg-1
-X-Mimecast-MFC-AGG-ID: K6ZXC_muOuuB9vlAtR6ncg_1792665618
-Received: by mail-wm1-f71.google.com with SMTP id 5b1f17b1804b1-4a1dec05668so13220965e9.0
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 03:40:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1792665617; x=1793270417; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=FEKm5nQsGf/I+ugCmSSfq8QJNoZ1NYPo9Xa7ZqzEb5w=;
-        b=BNGnn+Hb1UNwzl0XkCj84/glT4JGR/ZvQvv3wPj85ZRPvZlQKG1qaJV0ne9W1aOLHj
-         ZjacEcR92berX4JLAOLGBKvn8MAQEnidr4uhx68Ui8wmtxCzuefbLSd8+07go83/qaSO
-         JiZ0Y7h5p8+pJnUnds4LwkpQ1c5jiQ13NsYT/t6/xP3OckHsEmQ0D4NrF5k3UR6qdTun
-         G8c1D9bv9nSsquOIRzDFC0RVnB13EDwwxeZfMWgdKWTknaWJVwMeTWW3eFqJj2ZatxUT
-         1rmAtxZc3dAp+pv2Kj/DmC1ch1DNpA/nE3VZ8sFhFuMS+fwVFivKrkiPbnsJr9WM0Enz
-         fsWA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792665617; x=1793270417;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=FEKm5nQsGf/I+ugCmSSfq8QJNoZ1NYPo9Xa7ZqzEb5w=;
-        b=SzCLYjsAl+kH3r2NcHutJGlm2p/Tr3WzvHjHqVBkrU1vMCA6jLwY+RzdFBT5BDTVzt
-         wfBHWyxJ9bSUVJ1TjBjSLMPy5WHvCHQAqmyKNRodmMKOjpCrfGOho5hMneCFykHrfMyy
-         52HxDvcyFc29TPqVjxv/5twbHQkhSlk+oRo2wqhKWyhVFjMmeEF8qhEMoAfWiphL+CG9
-         kujy9yfliFBYi8WHam0Cw02wCwfK6PyPL27w7+i6+OMYDXdfScbSGGVM412vz/Xx0b9P
-         KQZEisdEZJ9icPCGIsY5OChi0j6y/+2FcThzJLyHcVwjUD7JputYPlM+nR1+OtyiqeSL
-         9RVw==
-X-Forwarded-Encrypted: i=1; AKwUvBwz4UEs24ZlWZ5EWHFVgHNZN0KJurvlJjtWGnikWmMFEQbyzfrL1VU8Dof8a3VcKrXAxhxCk/N7KmTJRqQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIcd1IQJ95Rb0neZ+4jIaHjFW5cdYmiQ2ZBJX/rQuQ0OBij4gnW
-	jSaxgmDYehggKxmMhaJ3KLhUD8pYTZdw1VEKaJ5fRt7vD8XkZubLYJ3nNqJokqt7P133dlbLR5U
-	M5pTRoemmqxYhx+cSzaxLWgcyggWtLdfVmwH75Kwzk8YHclN+2D37RuKReMDcD2Qjuw==
-X-Gm-Gg: AYBFou3iH9QrVFBJOe+pM0zVqE7YsypMD/nTgD2YOr7oZrpLO3wRLc1yekQUMcdRERH
-	SvvLsfiBC+1wXfU9B0TZE9kiX5SN8L5Qp7ll9vjdAVTuAZ0YWukfuKGCvFNOtHaYz812L7ue9E0
-	XitMdOv74zilr1eewYko6UVLAaALY9bNRjDxmWsIiovUvahoC+HBLNqg112ULKpAqNoL5AtKRPV
-	cxkZltCXcDp66PVbgJn8ZbzngR5DygVvidDn8z0yO/Uk15Bu5qeJIf9rY+UCV3GS0qMIuoAHcHR
-	swAG2zEcrBEfdI63KwCGH+zXJVk/ujHMDRdT52/hCkrvdteZLB05/AR2TlWARtJtlW3vbHV0/A=
-	=
-X-Received: by 2002:a05:600c:5308:b0:4a2:47:b79c with SMTP id 5b1f17b1804b1-4a20047b7bemr73764735e9.32.1792665617537;
-        Thu, 22 Oct 2026 03:40:17 -0700 (PDT)
-X-Received: by 2002:a05:600c:5308:b0:4a2:47:b79c with SMTP id 5b1f17b1804b1-4a20047b7bemr73764225e9.32.1792665616929;
-        Thu, 22 Oct 2026 03:40:16 -0700 (PDT)
-Received: from [192.168.2.75] ([46.175.183.46])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a207fd494dsm17235475e9.4.2026.10.22.03.40.15
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 22 Oct 2026 03:40:16 -0700 (PDT)
-Message-ID: <9d167482-2cac-42eb-9fa1-c242406c493d@redhat.com>
-Date: Thu, 22 Oct 2026 12:40:13 +0200
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=pfJe5FLa
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=cCp5t3GM2v2uPmKoOGUHKtsHWMMgGMRTz8b4AGmOykXPzxMXj/Y2D+Lu9cO/krumh7BGfOGG9QhMmaS69yVTmhYcybN7hOikcG3aE2kUWOi1kzY3jOBZgck7kXZfejavYZ/miAp+2oX7pIwy+xpLxVmcjZI1PuEJKQ8si2nclfpPbKybn0xH+W0xcL3fwCQVXLKceC3xkRtp6Hb/Mh7vxuuCvYbc7ddeN6/Utg8FmM2VJdlkEgTxFAWHQKN5Hh6xKdBY5hJWXMvXYK6NwIprTSd9h6I7wu/O0pDXSr2Yp7iJpPuF8PPIojOH+xlig45c3CX2a8nus17IsHd3xJb62w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=kboHgt19Dz1TK6Pl0RY67RPVWyrBDrK2fm2eftb+nXQ=;
+ b=R4sqdSdiDw5X9jJpB6lWJO+7e5C7p0QYFT90g1FlvAcCliQRpPqX3RjudXmcmpu/DPL5SKnCFwtrA5feIk4VarLn+4AS4PclJ1/M5MfLR4FAW7FxtV8b6JBPemeFfYKZSEhj0wG/4X6s9yvjLGbmIKzwRyWgJRS9DdfpLmWRcTGIUc7B0tt8PkrbrZjWkv18Zm8GN3FG8T/JPsenzNsWIVJWp0pDlGZxZNlyz030IyFFyG6JfuGAT+6J+7PDMZCIliOCux9yeGOW164vXb5a96pT1Gn21c1VYid4/z59KEw594U4JmQhB82jzCadNLu0WNhvsO2v3GFl0UQ9UQ1VDg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=kboHgt19Dz1TK6Pl0RY67RPVWyrBDrK2fm2eftb+nXQ=;
+ b=pfJe5FLakhkUWA+yf6vlQpMVWMKzlYC/+qCSP5+L7UBphGYUKDSOam46D3mgMspLFmrfxVfeWXrBNodzZREhLWBfaE2RHl3PIGhjwixxr/M/Da9ngyjmApv5CZsKAAXOAIRQkRpoOgUDTXhzpewxB7T5EkmbbqzHpgpVAeCa5YDwJSDv//lJZxOjGklvwryCvVRTB2RwuxkS+S3o1qIoUBtuHfyc/OfTbVKiaqpHlV6ZsHF6Ad7X1QF9LaCJueNqqQBUxWOF6911PLg5Tom0Pn0yPu3mOtUr6ln+OKEFjHJv/6GTyEXbqa4rdrXP2j6Hc/HcOsq2sMXxwaf2Vwk5Qw==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from PH7PR12MB5974.namprd12.prod.outlook.com (2603:10b6:510:1d9::19)
+ by MW4PR12MB6756.namprd12.prod.outlook.com (2603:10b6:303:1e9::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Thu, 22 Oct
+ 2026 10:40:30 +0000
+Received: from PH7PR12MB5974.namprd12.prod.outlook.com
+ ([fe80::f5a5:bbc3:e9da:f8a0]) by PH7PR12MB5974.namprd12.prod.outlook.com
+ ([fe80::f5a5:bbc3:e9da:f8a0%3]) with mapi id 15.21.0546.016; Thu, 22 Oct 2026
+ 10:40:30 +0000
+From: Adrian Ambrozewicz <aambrozewicz@nvidia.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Donald Shannon <donalds@nvidia.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Lee Jones <lee@kernel.org>,
+	Pavel Machek <pavel@kernel.org>,
+	Andi Shyti <andi.shyti@kernel.org>,
+	Mark Brown <broonie@kernel.org>,
+	Jiri Slaby <jirislaby@kernel.org>,
+	Corey Minyard <corey@minyard.net>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Len Brown <lenb@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Hans de Goede <hansg@kernel.org>,
+	Lixu Zhang <lixu.zhang@intel.com>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Johan Hovold <johan@kernel.org>,
+	Oliver Neukum <oneukum@suse.com>,
+	Quan Nguyen <quan@os.amperecomputing.com>,
+	Andrew Jeffery <andrew@codeconstruct.com.au>,
+	Jeremy Kerr <jk@codeconstruct.com.au>,
+	linux-usb@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-gpio@vger.kernel.org,
+	linux-leds@vger.kernel.org,
+	linux-i2c@vger.kernel.org,
+	linux-spi@vger.kernel.org,
+	linux-serial@vger.kernel.org,
+	openipmi-developer@lists.sourceforge.net,
+	linux-acpi@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	driver-core@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 00/11] Add NVIDIA LSTP USB adapter drivers
+Date: Thu, 22 Oct 2026 13:40:26 +0300
+Message-ID: <20261022104025.3956402-3-aambrozewicz@nvidia.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <2026101355-species-glance-9ff8@gregkh>
+References: <20261012-lstp-usb-adapter-v1-0-aambrozewicz@nvidia.com> <2026101355-species-glance-9ff8@gregkh>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: FR2P281CA0143.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:98::16) To PH7PR12MB5974.namprd12.prod.outlook.com
+ (2603:10b6:510:1d9::19)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -111,174 +131,88 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH iwl-net 1/3] ice: avoid RTNL deadlock when notifying the
- RDMA auxiliary driver
-To: "Loktionov, Aleksandr" <aleksandr.loktionov@intel.com>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>
-Cc: "Nguyen, Anthony L" <anthony.l.nguyen@intel.com>,
- "Kitszel, Przemyslaw" <przemyslaw.kitszel@intel.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, "David S . Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- "Ertman, David M" <david.m.ertman@intel.com>,
- Shiraz Saleem <shiraz.saleem@intel.com>, Leon Romanovsky <leon@kernel.org>,
- "Maziarz, Kamil" <kamil.maziarz@intel.com>,
- Rafal Rogalski <rafalx.rogalski@intel.com>,
- "Schmidt, Michal" <mschmidt@redhat.com>,
- "linux-rdma@vger.kernel.org" <linux-rdma@vger.kernel.org>,
- "intel-wired-lan@lists.osuosl.org" <intel-wired-lan@lists.osuosl.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "stable@vger.kernel.org" <stable@vger.kernel.org>,
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
- Clark Williams <clrkwllms@kernel.org>, Steven Rostedt <rostedt@goodmis.org>,
- Mateusz Palczewski <mateusz.palczewski@intel.com>,
- "linux-rt-devel@lists.linux.dev" <linux-rt-devel@lists.linux.dev>
-References: <20261019065301.3983537-1-poros@redhat.com>
- <20261019065301.3983537-2-poros@redhat.com>
- <CH3PR11MB566895C406B00646530A5249C9E5662@CH3PR11MB566895.namprd11.prod.outlook.com>
-Content-Language: en-US
-From: Petr Oros <poros@redhat.com>
-In-Reply-To: <CH3PR11MB566895C406B00646530A5249C9E5662@CH3PR11MB566895.namprd11.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5974:EE_|MW4PR12MB6756:EE_
+X-MS-Office365-Filtering-Correlation-Id: f3f1465f-9a94-45e1-e61d-08df3028e4a3
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|23010399003|1800799024|7416014|366016|10067099003|18002099003|22082099003|261021123027099003|261009223027099003|4143699003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	+OnPK/ZkKADamwuB/xW7WSQqdzcrb/H0j5vW+0COGwU6r3VdZcZF91SL8N9riWodjFYbEWrxGHL/u2er0vCr2xaVWb+dJMP2l+L0AvzRcP+iolS5oqaiWgUXrLbncFoY+MB4NB4GiDCD9liRmUyp95whTvJGfMwezF94eu5GM1ch9pG4tGLVpnINM38sDV8BE8/4OhXa4YaeLr6iDe6luItBZbNzrVNFboZVIAWwWv2uxmAoh/hAf/VOydGVKDBRiD7+oEj9pY6I4b0fACqY4j9dbQwxgsr0tJaYCpMFZHkyb6FgqXDlYhNUmY3+smUAOjFUSwXp3zB0Miq/4kMwC3C+q6dZZ3GtYOdE3oUaMwe0ym9xQ+rgwOdKFJfRthaBf1B3hyov5VyywkrkiGsg1nqmTUWrVFLLAup7zcJhYDPISILKskt7IskHsnXj2PKdp4Oy3d8JC2hKVJ8a3oI0pCEWiKDmiWT/snYaoXjUUOZqwkQiq1jOF3cwHD0wpqm/AND7kbA7t7Z5aytRKrh8tBT5C2NLbJnAqSC+vIZWiTCnjYK4oBWvbAdOpiKXyKiNGDdb2+AD56sYfn0X0U071YszKun2mgTBOJSa52cibGx93cYeFhoTrUxoQFbsjJLGrf99W1/MyVsoW9iQXlyaxkZA9YyqBHlsjlZThM/bStQ=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5974.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(1800799024)(7416014)(366016)(10067099003)(18002099003)(22082099003)(261021123027099003)(261009223027099003)(4143699003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?gVYd9T3606e6+ZUoYrgJQDFtt74E1gp+2mZ1QyAEiz6aOuf9oJYPSfBAO1y1?=
+ =?us-ascii?Q?3upxoEvhNE/6rCiNNJIH+H9Ma9a0jpIuZS88v2B9lltVZhkoAVyFkzHFQ6Fz?=
+ =?us-ascii?Q?TqPD1B5ZmexGR3NhaJw6w8ntDnCB5x11LFIKHzjCvfXxp3u3Grh8HoY5oa/S?=
+ =?us-ascii?Q?aDDXqkxAdvIKdjR96Su0QliIrQ4O7UWX5/xhiuwXPF8tZqpVZh46K56YygqW?=
+ =?us-ascii?Q?L7Am0rZkf+Ff0Yb/VomPai+Mn1lLPCpGTwybGhHh/oAqa176IZvtxTWkquCa?=
+ =?us-ascii?Q?Aua9ajpwWlay5GVfRLZdIJ6gAUWL7yGAIRNaWd42LoYuFsBwKCs3ui1n//xU?=
+ =?us-ascii?Q?JLHfCQbBWTPLMcSkKD71Nrv2Imy3jAnFaRqafPrevvbaXsslA57uTx7H5rvb?=
+ =?us-ascii?Q?nhPBRmoG/Yf+nwMAg42W/g99Gw/RKAJdLc8ILerP1lS+8ZjGUhT8M6Dh35Dk?=
+ =?us-ascii?Q?53p4AM8fNVsmN9jiIYzuJbq3Uql8mEapfVc0o2K4NfpnID1HZa6Qd0yssKno?=
+ =?us-ascii?Q?s1eU8hunxc2gDofOwLuvVl/YLzfBQbX1jH2E4dvIfUqpYBDCJTQ4SBGQq0aq?=
+ =?us-ascii?Q?iSbV3MQk7nuIUn/CZRePksIQOgr4pYrIx2qnNzv7s6TjSEW00dWFHLdngzm1?=
+ =?us-ascii?Q?5iDvMtYjsufgevTklSgokourIfqpos3YqOebqyPgeuiPre3AJ/qwZCzcBttI?=
+ =?us-ascii?Q?EmE+FB9qMR33Alote3Qgfi87mieYWyR8A23ZFnmFB874SITanrNUAiqoMzGI?=
+ =?us-ascii?Q?1SO9oJiPZKTodv7mam0tqWxgkXN4SGalVH72WWfkgUt3ZhC9A9taYid/H6p5?=
+ =?us-ascii?Q?w0zdrOSeJqUKDxV+QPq0nzMcxrcQXC/2B+20HoFdyEN3G+/dpxUsoTAzeC4m?=
+ =?us-ascii?Q?+0YEMrTUEaY9ou6XjDdohOma2LQpbFtdE1bRckcnAGVz53BfxZiOSSttpPGW?=
+ =?us-ascii?Q?w1YAzadBtfajXb8APTz7cIxv1sLWSiUZUHzxNq2v/PhC/BJYL2NhChplgIfh?=
+ =?us-ascii?Q?QFDZwBPlbOOiX+gCadzZlzo6Qshew/NZ77bH/Ff2xOJXha6Qk2oYnZClIj/6?=
+ =?us-ascii?Q?pYVvzyyFqY9+jak3D1iQlYc1GDCctZ7ccNBCjRk0/blY7nIog3hxvuFlPrzN?=
+ =?us-ascii?Q?COXjpEZCBeElncg/ALwwqTtOV7h3QNjG1DCIHzQ5DWIeMlOVahPG0oyTIb3X?=
+ =?us-ascii?Q?mVvBxh7DeVEdlu0TlBkgWH8YPbXC/PhMyhyIFKWu7XQUypQ7XYURTQQcw0sp?=
+ =?us-ascii?Q?6gzbXifnTJgGG51PPduAeNt2zFyTDOMRmJMLBZm2RhWnRRZY4Gnzl/mfhqSC?=
+ =?us-ascii?Q?VGmGWHILAF04HyV95WTPtj9RnvV9vqWxBLnyaSy1e5Lsu5bB3HwixnkftWfc?=
+ =?us-ascii?Q?A0NoJyNFL0g30ucOhTy+uuphxDAk8iTybi84J6FUFZiFJlfWRW0k2O2qDHCO?=
+ =?us-ascii?Q?WzB5zf91qFw3QCqV1IC6VJgM8oYnph0MsFSGLWVum9MY7qCK/xxgNPvqABbG?=
+ =?us-ascii?Q?2nIf50IZP+/Mewx2rEFqiUi5REUyZzN4mq7GMWeOkDOko+0KF517ydg2QIvj?=
+ =?us-ascii?Q?I7iowG1MnrkVj3ilwiAWZsUhvxwMwSecIoAI1zV5SjsjNRT4rPLRBcjF14qT?=
+ =?us-ascii?Q?2AQ23Xzq99k/ENcKkMF7W/8sWyABdD/OeWu+nRv2TTBBzbmsXv9O9KBr3yo1?=
+ =?us-ascii?Q?Uzlw6snIBKQZ0ck8XBTaM5w3fZlqPvc1GBTkTPo7gdfzniyMF/DbOef3GAJ1?=
+ =?us-ascii?Q?lVV3jxI6Lg=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f3f1465f-9a94-45e1-e61d-08df3028e4a3
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5974.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Oct 2026 10:40:30.5211
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ryGnCtbVz5eGlNgsfw9MqyG4REoD0G8hTFbkwRbDISxH2zP0uHTAXYLzNUr5LuKEovHbvR9LkB7iipUPee8ghQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB6756
 
+On Tue, Oct 13, 2026 at 01:37:11PM +0200, Greg Kroah-Hartman wrote:
+> > Why the auxiliary bus, and why not MFD
+> > --------------------------------------
+>
+> Neither is ok for USB devices, that's not an argument either way.
 
+Here USB only carries the traffic. The I2C, SPI and GPIO channels are
+ordinary controllers on the board, and their drivers register with
+those subsystems; hosts describe what is wired to them with ACPI, BMCs
+with device tree [1].
 
-On 10/21/26 1:20 PM, Loktionov, Aleksandr wrote:
-> 
-> 
->> -----Original Message-----
->> From: Petr Oros <poros@redhat.com>
->> Sent: Monday, October 19, 2026 8:53 AM
->> To: netdev@vger.kernel.org
->> Cc: Oros, Petr <poros@redhat.com>; Nguyen, Anthony L
->> <anthony.l.nguyen@intel.com>; Kitszel, Przemyslaw
->> <przemyslaw.kitszel@intel.com>; Andrew Lunn <andrew+netdev@lunn.ch>;
->> David S . Miller <davem@davemloft.net>; Eric Dumazet
->> <edumazet@kernel.org>; Jakub Kicinski <kuba@kernel.org>; Paolo Abeni
->> <pabeni@redhat.com>; Ertman, David M <david.m.ertman@intel.com>; Shiraz
->> Saleem <shiraz.saleem@intel.com>; Leon Romanovsky <leon@kernel.org>;
->> Maziarz, Kamil <kamil.maziarz@intel.com>; Rafal Rogalski
->> <rafalx.rogalski@intel.com>; Loktionov, Aleksandr
->> <aleksandr.loktionov@intel.com>; Schmidt, Michal <mschmidt@redhat.com>;
->> linux-rdma@vger.kernel.org; intel-wired-lan@lists.osuosl.org; linux-
->> kernel@vger.kernel.org; stable@vger.kernel.org; Sebastian Andrzej
->> Siewior <bigeasy@linutronix.de>; Clark Williams <clrkwllms@kernel.org>;
->> Steven Rostedt <rostedt@goodmis.org>; Mateusz Palczewski
->> <mateusz.palczewski@intel.com>; linux-rt-devel@lists.linux.dev
->> Subject: [PATCH iwl-net 1/3] ice: avoid RTNL deadlock when notifying the
->> RDMA auxiliary driver
->>
->> ice_send_event_to_aux() blocks on the auxiliary device lock, and the
->> dcbnl callers reach it with the RTNL lock held. The RDMA auxiliary probe
->> takes the two in the opposite order, because __driver_attach() holds the
->> auxiliary device lock across ib_register_device(), which needs the RTNL
->> lock:
->>
->>    systemd-udevd   state:D
->>      really_probe                  <- holds device_lock(&adev->dev)
->>      icrdma_probe
->>      irdma_ib_register_device
->>      ib_register_device
->>      setup_device
->>      irdma_roce_port_immutable
->>      ib_query_port
->>      irdma_query_port
->>      ib_get_eth_speed              <- blocks on rtnl_lock()
->>
->>    lldpad          state:D
->>      rtnetlink_rcv_msg             <- holds rtnl_lock()
->>      dcb_doit
->>      dcbnl_ieee_set
->>      ice_dcbnl_setets
->>      ice_pf_dcb_cfg
->>      ice_send_event_to_aux         <- blocks on device_lock(&adev->dev)
->>
->> Everything else that needs the RTNL lock piles up behind lldpad and the
->> boot never completes. The probe side cannot be changed, so use
->> device_trylock() and report whether the event reached the driver.
->>
->> IIDC_RDMA_EVENT_BEFORE_TC_CHANGE has to arrive before the traffic
->> classes change, so ice_pf_dcb_cfg() refuses the request with -EBUSY
->> rather than run it behind the RDMA driver's back. The critical error and
->> MTU change events are sent from the service task, which consumes their
->> pending bits before sending, so those are re-armed instead.
->> AFTER_TC_CHANGE keeps its fire and forget behaviour, it can be neither
->> refused, the hardware has already changed, nor deferred, every lock that
->> would serialise a deferred delivery against the dcbnl callers forms
->> another cycle.
->>
->> Fixes: 348048e724a0 ("ice: Implement iidc operations")
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Petr Oros <poros@redhat.com>
->> ---
->>   drivers/net/ethernet/intel/ice/ice_dcb_lib.c |  9 ++++++++-
->>   drivers/net/ethernet/intel/ice/ice_idc.c     | 20 ++++++++++++++++----
->>   drivers/net/ethernet/intel/ice/ice_idc_int.h |  2 +-
->>   drivers/net/ethernet/intel/ice/ice_main.c    | 16 ++++++++++++----
->>   4 files changed, 37 insertions(+), 10 deletions(-)
->>
->> diff --git a/drivers/net/ethernet/intel/ice/ice_dcb_lib.c
->> b/drivers/net/ethernet/intel/ice/ice_dcb_lib.c
->> index 0bc6dd37568792..2022b46c990cb2 100644
->> --- a/drivers/net/ethernet/intel/ice/ice_dcb_lib.c
->> +++ b/drivers/net/ethernet/intel/ice/ice_dcb_lib.c
->> @@ -355,8 +355,10 @@ int ice_pf_dcb_cfg(struct ice_pf *pf, struct
->> ice_dcbx_cfg *new_cfg, bool locked)
->>   	struct iidc_rdma_event *event;
->>   	int ret = ICE_DCB_NO_HW_CHG;
->>   	struct ice_vsi *pf_vsi;
->> +	bool dcb_ena;
->>
->>   	curr_cfg = &pf->hw.port_info->qos_cfg.local_dcbx_cfg;
->> +	dcb_ena = test_bit(ICE_FLAG_DCB_ENA, pf->flags);
->>
->>   	/* FW does not care if change happened */
->>   	if (!pf->hw.port_info->qos_cfg.is_sw_lldp)
->> @@ -406,7 +408,12 @@ int ice_pf_dcb_cfg(struct ice_pf *pf, struct
->> ice_dcbx_cfg *new_cfg, bool locked)
->>   	}
->>
->>   	set_bit(IIDC_RDMA_EVENT_BEFORE_TC_CHANGE, event->type);
->> -	ice_send_event_to_aux(pf, event);
->> +	if (!ice_send_event_to_aux(pf, event)) {
->> +		assign_bit(ICE_FLAG_DCB_ENA, pf->flags, dcb_ena);
->> +		kfree(event);
->> +		ret = -EBUSY;
-> -EBUSY doesn't match to any ICE_DCB_* constant, are you sure you tested this case?
-> It looks like it will be processed like ICE_DCB_NO_HW_CHG i.e. no change needed, isn't it?
+usb-ljca is a recent driver for a very similar device, so we modelled
+the core on it: one interface carries GPIO, I2C and SPI, and the core
+creates an auxiliary device per function and attaches its ACPI node.
+LSTP extends that model to device tree.
 
-The negative return takes the same path as the existing -EBUSY for the
-custom Tx scheduler. ice_dcbnl_setets() and setpfc() pass it to dcbnl
-unchanged, only ICE_DCB_NO_HW_CHG is mapped to zero. setapp() and
-cee_set_all() mask every error, that is pre-existing and also hides
--ENOMEM and the AQ errors. I have noted this in the v2 message.
+Whether the next version stays LSTP or becomes a set of divergences
+from an OBMF-ICP driver, as Jeremy suggested, the need is the same: a
+device behind a tunnelled channel is described like one wired straight
+to the BMC, so a board can move between the two without rewriting its
+description.
 
-> 
-> 
->> +		goto free_cfg;
->> +	}
->>   	kfree(event);
->>
->>   	/* avoid race conditions by holding the lock while disabling and
->> diff --git a/drivers/net/ethernet/intel/ice/ice_idc.c
->> b/drivers/net/ethernet/intel/ice/ice_idc.c
->> index 102d63c3018b1f..7fd35ce966ea65 100644
->> --- a/drivers/net/ethernet/intel/ice/ice_idc.c
->> +++ b/drivers/net/ethernet/intel/ice/ice_idc.c
->> @@ -34,30 +34,42 @@ ice_get_auxiliary_drv(struct iidc_rdma_core_dev_info
->> *cdev)
->>    * ice_send_event_to_aux - send event to RDMA AUX driver
->>    * @pf: pointer to PF struct
->>    * @event: event struct
-> 
-> ...
-> 
->>   			kfree(event);
->>   		}
->>   	}
->> --
->> 2.56.0
-> 
+We don't see an architecture that fits better. If you would rather see
+this done differently, what would you suggest? One function per
+interface I'll answer separately.
 
+[1] https://lore.kernel.org/r/20261016084443.1972351-1-aambrozewicz@nvidia.com
+
+Thanks,
+Adrian
