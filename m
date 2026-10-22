@@ -1,86 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=188.68.39.254
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792675477;
-	b=Qu9bxmlGFHQazhJgNqbJdHQozhTS7BYkXtQD75CeQreeOsOad7/tNYPVBxqOsF7pp61U
-	 RSOhZWxjzgtTsJzkQyxdBytqX7Hy9OwJOpB/GP4l7rHxr5h2RSLBE+fxIwNBPQ7Jlgtqb
-	 bbVu2yQxtGBdnifbmzsyLNABXP4dnDqO5q1N1apagoObjytdVanQeW8ei/CIQfPVazjvZ
-	 FX0UDh6EbEtlmR36Vy2pYON7fqoHQ5QR09Zi57ZLxulfVA6qey+xIj1eYSJhSbFqgg5yL
-	 M2G3aMP4G+7ZtTialCXJPD67++WKARgNx21pYFSlTcgiObuQ3HFEWEgW/YNPolg2NvQ==
+	t=1792675481;
+	b=Y+fBsaO+cEScx2GIXH77oqBdOhSH/rkUPZiOprvLdO7pp8H6++bfCX3jpF9XobOMq0OT
+	 9O39qLianzdbexX1Ly9GdSpoJ7kgL4btGvJDyciOmQ+kCI68F2iZ20Hc5dwZ1JK2tCrS1
+	 ggZzwWJuh1mr9RpJrxwN6EP/Q55BJrwd4KXDDqxcAGYG+I/aajB8o8iHRAeZvuUIqhsyU
+	 LUKIRQ42fBWM6GIqMiV+iBrIHgoVhKikSAeDEfjXgCs0oWN9+PjYW7gdroh7ZRfphpxXw
+	 DM+4qH3RYPIv2nmxctsia0GNxBohBctAxtOaH4pB56FspXgMXretLtfJYjoMsVMJXJg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792675477;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:Received:Date:From:To:cc:Subject:
-	 In-Reply-To:Message-ID:References:MIME-Version:Content-Type:
-	 X-Scanned-By;
-	bh=h8PVwHmVxgj3EDuc7a9+2bgJCaWhNY770RjA2x6wCHc=;
-	b=arxUBXv5uwQZzinSgao3xq8VMMTWrCcqYMiXb6SItOK8sLGrg0uwNQhPxY1Kn0EtkwIh
-	 ZujFztWP6TMsy0EKmXu8BZznAJQ+Egmb5JnD5CInVa9ECLXOwCDbwgaDBgeFjBCtGlK+6
-	 aslO4MUJ/I9CDWU7ETao/YebIVnvgZ4UM3k4/CutIJk1GBO2nV22g1ossiITY8GcnCFIt
-	 V+nS4Gnm+fnB+pquSOskXqWSSKMy8zVIp6hJW+iSoIJhTjkEBBKPY19qslBgnyaMW6LPo
-	 0LcaZvo30Ipa4+Ju3oorxbb+wSHoMKWFVDNHwb8r/t3od6PELRplslYQcCLr3N5bmew==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792675481;
+	h=DMARC-Filter:DKIM-Signature:X-secureTransport-forwarded:From:
+	 Complaints-To:To:CC:Subject:Thread-Topic:Thread-Index:Date:Message-ID:
+	 References:In-Reply-To:Accept-Language:Content-Language:
+	 X-MS-Has-Attach:X-MS-TNEF-Correlator:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=v05ZIqnku0GHaJKR3tI3adEDyHJ/1SXZvwlQME+SFNs=;
+	b=lNhbPQsFoDeU3wzAu2y/YKwwjAHdtOJMb4+xqF57tNrpVDEkR4cNjdW/S1R/QqjExv6R
+	 TJahUqYHz1oNFeI8MtHQvM2BBBwmA9fDWA2hIKqACWTB5vEupvM+QFTtbBd2WOB/A1V1z
+	 AaKtdnHu6JvEDwl/3TSxsSngL0W5DmJC2tMR6a55doTPqVI05ZCbkus5reiQjZCoJJfHV
+	 F3PQ91YkNREZXItD65p1sW8uvV/DLunOktvYzA6W0U49P5ujR47/V6Nkh8pPTcRHQjF9p
+	 kB8XwQQlskzIyh1lfyntlgz5gVQK8inebE2uqKEKLXbSM5EbQjgRwuAAgjzoHjkU4xw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=gY23jKcY;
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	dmarc=pass header.from=dh-electronics.com;
+	spf=pass smtp.mailfrom=dh-electronics.com;
+	dkim=pass header.d=dh-electronics.com header.i=@dh-electronics.com header.a=rsa-sha256 header.s=dhelectronicscom header.b="ryxfwYS/";
+	arc=none smtp.remote-ip=188.68.39.254
+Received: from mx2.securetransport.de (mx2.securetransport.de [188.68.39.254])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 195A2606A31F
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 13:24:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 195A2606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A619606A329;
+	Thu, 22 Oct 2026 13:24:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6A619606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=dh-electronics.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dh-electronics.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=gY23jKcY
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1792675475;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=h8PVwHmVxgj3EDuc7a9+2bgJCaWhNY770RjA2x6wCHc=;
-	b=gY23jKcYBnLhVP5+LcoUEkISpZOqdN1S+Vj4yLz+LDvGmYbqM7LlezRkok9vM+JzV9Ny5/
-	1Vv+Jv4QzCM2nOOPMp93la2rQjQAsnDuOMWZjJkQDEYnsxz6Mx5pje40kJdd3diPXouCSB
-	GfDkjR4Q7cqbcrWrDFUZoLqUoevjFns=
-Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-83-8zvWsLXrPvm5QkJJIiVDCg-1; Thu,
- 22 Oct 2026 09:24:31 -0400
-X-MC-Unique: 8zvWsLXrPvm5QkJJIiVDCg-1
-X-Mimecast-MFC-AGG-ID: 8zvWsLXrPvm5QkJJIiVDCg_1792675468
-Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id A7AF918004A9;
-	Thu, 22 Oct 2026 13:24:27 +0000 (UTC)
-Received: from mpatocka-thinkpadx1carbongen12.rmtcz.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 0F90D195608C;
-	Thu, 22 Oct 2026 13:24:20 +0000 (UTC)
-Date: Thu, 22 Oct 2026 15:24:18 +0200 (CEST)
-From: Mikulas Patocka <mpatocka@redhat.com>
-To: Frank.Li@oss.nxp.com
-cc: Alasdair Kergon <agk@redhat.com>, Mike Snitzer <snitzer@kernel.org>, 
-    Benjamin Marzinski <bmarzins@redhat.com>, Song Liu <song@kernel.org>, 
-    Yu Kuai <yukuai@fygo.io>, Li Nan <magiclinan@didiglobal.com>, 
-    Xiao Ni <xiao@kernel.org>, Dan Williams <djbw@kernel.org>, 
-    Herbert Xu <herbert@gondor.apana.org.au>, 
-    "David S. Miller" <davem@davemloft.net>, Jonathan Corbet <corbet@lwn.net>, 
-    Shuah Khan <skhan@linuxfoundation.org>, 
-    Randy Dunlap <rdunlap@infradead.org>, dm-devel@lists.linux.dev, 
-    linux-kernel@vger.kernel.org, linux-raid@vger.kernel.org, 
-    linux-crypto@vger.kernel.org, linux-doc@vger.kernel.org, 
-    Anatolij Gustschin <agust@denx.de>, Saeed Bishara <saeed@marvell.com>, 
-    Rameshwar Prasad Sahu <rsahu@apm.com>, 
-    Thomas Petazzoni <thomas.petazzoni@free-electrons.com>, 
-    Anup Patel <anup.patel@broadcom.com>, Frank Li <Frank.Li@nxp.com>
-Subject: Re: [PATCH RFC 1/4] md/dm-integrity: replace async_tx with synchronous
- xor for journal
-In-Reply-To: <20261015-asycn_tx_remove-v1-1-056a7085e0a1@nxp.com>
-Message-ID: <fb9c7c5c-e377-7926-c8f1-a7f9e93c2d46@redhat.com>
-References: <20261015-asycn_tx_remove-v1-0-056a7085e0a1@nxp.com> <20261015-asycn_tx_remove-v1-1-056a7085e0a1@nxp.com>
+	dkim=pass (2048-bit key, unprotected) header.d=dh-electronics.com header.i=@dh-electronics.com header.a=rsa-sha256 header.s=dhelectronicscom header.b=ryxfwYS/
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dh-electronics.com;
+	s=dhelectronicscom; t=1792675417;
+	bh=v05ZIqnku0GHaJKR3tI3adEDyHJ/1SXZvwlQME+SFNs=;
+	h=From:To:CC:Subject:Date:References:In-Reply-To:From;
+	b=ryxfwYS/s+YzRNbUCr9JFnLUeC8x41M3pWi67C0Vp0cm2O7zhIaS0RY+oAdd/77lf
+	 U7I+R8aVhAn2Q/qDqPT6EIl3AXfpgTKJmTnCx3et5aJpcamWV82UEN02Bjs3edcBXa
+	 ZVMKm/SAyIPxBpH6B80fWQ0v7PxLYzMZROoSUl532EYH/Q6cAZbBQpNRbac2CRlHNC
+	 CEyYS/ZoGsqFaE7xtEKRiphJF5t4Y/JOGjtJWA7nTqJ+wH/o/7Hxr2g2wZdeT5kL5D
+	 bhkEauN0ElHtdyTzM43r77nQBs0RrCQlArdTI5iFXC3aiCpguH9UTmMfM6l6IfBKW9
+	 MbpBuyPSSYBdw==
+X-secureTransport-forwarded: yes
+From: Christoph Niedermaier <cniedermaier@dh-electronics.com>
+Complaints-To: abuse@cubewerk.de
+To: Marek Vasut <marex@nabladev.com>, Conor Dooley <conor@kernel.org>
+CC: "Frank.Li@oss.nxp.com" <Frank.Li@oss.nxp.com>, "imx@lists.linux.dev"
+	<imx@lists.linux.dev>, Guenter Roeck <linux@roeck-us.net>, Jonathan Cameron
+	<jonathan.cameron@oss.qualcomm.com>, Frank Li <Frank.Li@nxp.com>, "Ashish
+ Yadav" <ashish.yadav@infineon.com>, Colin Huang <u8813345@gmail.com>, "Sanman
+ Pradhan" <psanman@juniper.net>, Thorsten Blum <blum@kernel.org>, Troy
+ Mitchell <troy.mitchell@linux.dev>, Eddie James <eajames@linux.ibm.com>,
+	Rodrigo Gobbi <rodrigo.gobbi.7@gmail.com>, "open list:SPI SUBSYSTEM"
+	<linux-spi@vger.kernel.org>, "open list:OPEN FIRMWARE AND FLATTENED DEVICE
+ TREE BINDINGS" <devicetree@vger.kernel.org>, kernel
+	<kernel@dh-electronics.com>, open list <linux-kernel@vger.kernel.org>, "Mark
+ Brown" <broonie@kernel.org>, Rob Herring <robh@kernel.org>, "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Subject: RE: [PATCH 1/1] dt-bindings: spi: Add separate binding for
+ dh,dhcom-board
+Thread-Topic: [PATCH 1/1] dt-bindings: spi: Add separate binding for
+ dh,dhcom-board
+Thread-Index: AQHdXhJ4wetEp3c+RUWeUdg1WJlLHbcAlj2AgAL8T4CAACG3gIABW++AgAFa0RD///l1AIADLsHg
+Date: Thu, 22 Oct 2026 13:23:33 +0000
+Message-ID: <420d783dcdf44abf81d09931bd514b3f@dh-electronics.com>
+References: <20261016205718.877668-1-Frank.Li@oss.nxp.com>
+ <e7095176-44b8-4838-8443-2e515d34cb25@nabladev.com>
+ <20261018-freeway-twitch-e813208aa9af@spud>
+ <fd15f846-94d4-44d8-a42d-5f13a7b18794@nabladev.com>
+ <20261019-cycling-unnatural-c1adbfb5c9d9@spud>
+ <05e66d8f57a44c9aa87cac1c35e82184@dh-electronics.com>
+ <087bdc09-cf57-444e-aa29-f977998b0024@nabladev.com>
+In-Reply-To: <087bdc09-cf57-444e-aa29-f977998b0024@nabladev.com>
+Accept-Language: de-DE, en-US
+Content-Language: de-DE
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -90,106 +91,52 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
 
-
-
-On Thu, 15 Oct 2026, Frank.Li@oss.nxp.com wrote:
-
-> From: Frank Li <Frank.Li@nxp.com>
-> 
-> Remove the dependency on the async_tx framework from dm-integrity's
-> xor_journal() function.  The async_xor() + async_tx_issue_pending_all()
-> pattern is replaced with direct kmap_local_page() + memcpy() +
-> crypto_xor() + kunmap_local() per page, which is simpler and removes
-> the need for #include <linux/async_tx.h>.
-> 
-> async_tx adds significant complexity and maintenance overhead while
-> providing little practical benefit on modern systems, where RAID parity
-> computation is typically performed more efficiently by CPU-based XOR/PQ
-> implementations than by DMA engine offload.
-> 
-> Signed-off-by: Frank Li <Frank.Li@nxp.com>
-
-Reviewed-by: Mikulas Patocka <mpatocka@redhat.com>
-
-> ---
->  drivers/md/dm-integrity.c | 26 ++++++++++++++------------
->  1 file changed, 14 insertions(+), 12 deletions(-)
-> 
-> diff --git a/drivers/md/dm-integrity.c b/drivers/md/dm-integrity.c
-> index 802b377613b06..6bd0623b6402a 100644
-> --- a/drivers/md/dm-integrity.c
-> +++ b/drivers/md/dm-integrity.c
-> @@ -23,7 +23,6 @@
->  #include <crypto/hash.h>
->  #include <crypto/skcipher.h>
->  #include <crypto/utils.h>
-> -#include <linux/async_tx.h>
->  #include <linux/dm-bufio.h>
->  
->  #include "dm-audit.h"
-> @@ -896,7 +895,6 @@ static void complete_journal_op(void *context)
->  static void xor_journal(struct dm_integrity_c *ic, bool encrypt, unsigned int section,
->  			unsigned int n_sections, struct journal_completion *comp)
->  {
-> -	struct async_submit_ctl submit;
->  	size_t n_bytes = (size_t)(n_sections * ic->journal_section_sectors) << SECTOR_SHIFT;
->  	unsigned int pl_index, pl_offset, section_index;
->  	struct page_list *source_pl, *target_pl;
-> @@ -913,14 +911,11 @@ static void xor_journal(struct dm_integrity_c *ic, bool encrypt, unsigned int se
->  
->  	atomic_add(roundup(pl_offset + n_bytes, PAGE_SIZE) >> PAGE_SHIFT, &comp->in_flight);
->  
-> -	init_async_submit(&submit, ASYNC_TX_XOR_ZERO_DST, NULL, complete_journal_op, comp, NULL);
-> -
->  	section_index = pl_index;
->  
->  	do {
->  		size_t this_step;
-> -		struct page *src_pages[2];
-> -		struct page *dst_page;
-> +		void *src0, *src1, *dst;
->  
->  		while (unlikely(pl_index == section_index)) {
->  			unsigned int dummy;
-> @@ -935,11 +930,20 @@ static void xor_journal(struct dm_integrity_c *ic, bool encrypt, unsigned int se
->  		}
->  
->  		this_step = min(n_bytes, (size_t)PAGE_SIZE - pl_offset);
-> -		dst_page = target_pl[pl_index].page;
-> -		src_pages[0] = source_pl[pl_index].page;
-> -		src_pages[1] = ic->journal_xor[pl_index].page;
->  
-> -		async_xor(dst_page, src_pages, pl_offset, 2, this_step, &submit);
-> +		src0 = kmap_local_page(source_pl[pl_index].page);
-> +		src1 = kmap_local_page(ic->journal_xor[pl_index].page);
-> +		dst  = kmap_local_page(target_pl[pl_index].page);
-> +
-> +		memcpy(dst + pl_offset, src0 + pl_offset, this_step);
-> +		crypto_xor(dst + pl_offset, src1 + pl_offset, this_step);
-> +
-> +		kunmap_local(dst);
-> +		kunmap_local(src1);
-> +		kunmap_local(src0);
-> +
-> +		/* mirror async_tx per-page completion accounting */
-> +		complete_journal_op(comp);
->  
->  		pl_index++;
->  		pl_offset = 0;
-> @@ -947,8 +951,6 @@ static void xor_journal(struct dm_integrity_c *ic, bool encrypt, unsigned int se
->  	} while (n_bytes);
->  
->  	BUG_ON(n_sections);
-> -
-> -	async_tx_issue_pending_all();
->  }
->  
->  static void complete_journal_encrypt(void *data, int err)
-> 
-> -- 
-> 2.43.0
-> 
-
+RnJvbTogTWFyZWsgVmFzdXQgPG1hcmV4QG5hYmxhZGV2LmNvbT4NClNlbnQ6IFR1ZXNkYXksIE9j
+dG9iZXIgMjAsIDIwMjYgNDo0MSBQTQ0KPj4+Pj4+PiArKysgYi9Eb2N1bWVudGF0aW9uL2Rldmlj
+ZXRyZWUvYmluZGluZ3Mvc3BpL2RoLGRoY29tLWJvYXJkLnlhbWwNCj4+Pj4+Pj4gQEAgLTAsMCAr
+MSw0NiBAQA0KPj4+Pj4+PiArIyBTUERYLUxpY2Vuc2UtSWRlbnRpZmllcjogR1BMLTIuMC1vbmx5
+IE9SIEJTRC0yLUNsYXVzZQ0KPj4+Pj4+PiArJVlBTUwgMS4yDQo+Pj4+Pj4+ICstLS0NCj4+Pj4+
+Pj4gKyRpZDogaHR0cDovL2RldmljZXRyZWUub3JnL3NjaGVtYXMvc3BpL2RoLGRoY29tLWJvYXJk
+LnlhbWwjDQo+Pj4+Pj4+ICskc2NoZW1hOiBodHRwOi8vZGV2aWNldHJlZS5vcmcvbWV0YS1zY2hl
+bWFzL2NvcmUueWFtbCMNCj4+Pj4+Pj4gKw0KPj4+Pj4+PiArdGl0bGU6IERIIGVsZWN0cm9uaWNz
+IEdtYkggb24tYm9hcmQgQ1BMRCB0cml2aWFsIFNQSSBkZXZpY2UNCj4+Pj4+Pg0KPj4+Pj4+IFRo
+aXMgZG9lcyBub3QgbG9vayBxdWl0ZSByaWdodCwgc2luY2UgY29tcGF0aWJsZSB0aGlzIGlzIHVz
+ZWQgb25seSBvbjoNCj4+Pj4+Pg0KPj4+Pj4+IGFyY2gvYXJtL2Jvb3QvZHRzL2lteDZ1bGwtZGhj
+b3ItbWF2ZW8tYm94LmR0cw0KPj4+Pj4+DQo+Pj4+Pj4gICAgICAgICAgbW9kZWwgPSAiREggZWxl
+Y3Ryb25pY3MgaS5NWDZVTEwgREhDT1Igb24gbWF2ZW8gYm94IjsNCj4+Pj4+PiAgICAgICAgICBj
+b21wYXRpYmxlID0gIm1hcmFudGVjLGlteDZ1bGwtZGhjb3ItbWF2ZW8tYm94IiwNCj4+Pj4+PiAi
+ZGgsaW14NnVsbC1kaGNvci1zb20iLA0KPj4+Pj4+DQo+Pj4+Pj4gU28gdGhlIHdob2xlDQo+Pj4+
+Pj4NCj4+Pj4+PiAgICAgICAgICBzcGlkZXZAMCB7DQo+Pj4+Pj4gICAgICAgICAgICAgICAgICBj
+b21wYXRpYmxlID0gImRoLGRoY29tLWJvYXJkIjsNCj4+Pj4+PiAgICAgICAgICAgICAgICAgIHJl
+ZyA9IDwwPjsNCj4+Pj4+PiAgICAgICAgICAgICAgICAgIHNwaS1jcGhhOw0KPj4+Pj4+ICAgICAg
+ICAgICAgICAgICAgc3BpLWNwb2w7DQo+Pj4+Pj4gICAgICAgICAgICAgICAgICBzcGktbWF4LWZy
+ZXF1ZW5jeSA9IDw1NDAwMDAwMD47DQo+Pj4+Pj4gICAgICAgICAgfTsNCj4+Pj4+Pg0KPj4+Pj4+
+IFNob3VsZCBwcm9iYWJseSB1c2UgYSBkaWZmZXJlbnQgY29tcGF0aWJsZS4NCj4+Pj4+Pg0KPj4+
+Pj4+IENocmlzdG9waCwgd2hhdCBkZXZpY2UgaXMgdGhpcyBvbiB0aGlzIGJvYXJkID8NCj4+DQo+
+PiBUaGVyZSBpcyBubyBkZXZpY2UgY29ubmVjdGVkIHRvIHRoZXNlIHBpbnMsIG9ubHkgYW4gZXh0
+ZW5zaW9uIGNvbm5lY3Rvci4NCj4+IFRoZSAiZGgsZGhjb20tYm9hcmQiIGRldmljZSB3YXMgdXNl
+ZCBvbmx5IHRvIHRlc3QgdGhlIGhhcmR3YXJlIGFuZCB3YXMNCj4+IHVuZm9ydHVuYXRlbHkgZm9y
+Z290dGVuIHRvIGJlIHJlbW92ZWQuIEluIHRoZSBwcm9kdWN0aW9uIHZlcnNpb24sIG5vDQo+PiBk
+ZXZpY2UgaXMgY29ubmVjdGVkIHRvIHRoaXMgaW50ZXJmYWNlLiBJdCBzaG91bGQgYWN0dWFsbHkg
+YmUgcmVtb3ZlZC4NCj4+IFNob3VsZCBJIGNyZWF0ZSBhIHBhdGNoIGZvciB0aGlzPw0KPiANCj4g
+SW4gdGhhdCBjYXNlLCBJIHdvdWxkIHN1Z2dlc3QgdG8gcmVtb3ZlIHRoaXMgd2hvbGUgc3BpZGV2
+QDAgZnJvbSB0aGlzIERUDQo+IHdpdGggcHJvcGVyIEZpeGVzOiB0YWcgLg0KPiANCj4gWy4uLl0N
+Cj4gDQo+ID4+PiBCdXQgaW4gYW55IGNhc2UsIHRoZSBjb21wYXRpYmxlIHN0cmluZyBzaG91bGQg
+bGlrZWx5IGJlIGZpeGVkIGhlcmUsIHRoaXMNCj4gPj4+IGRvZXMgbm90IHNlZW0gcmlnaHQuIFRo
+ZSBkaCxkaGNvbS1ib2FyZCB3YXMgZGVzY3JpYmluZyBzb21lIENQTEQvRlBHQSBvbiBvbmUNCj4g
+Pj4+IG9mIHRoZSBldmFsYm9hcmRzLg0KPiA+Pg0KPiA+PiBZZSBJIGRvbid0IGRpc2FncmVlIHRo
+ZXJlLiAiZGhjb20tYm9hcmQiIHNlZW1zIG5vdCBuZWFybHkgc3BlY2lmaWMNCj4gPj4gZW5vdWdo
+IGFib3V0IHdoYXQgdGhlIGRldmljZSBpcy4NCj4gPg0KPiA+IFRoZXJlIGlzbid0IGFjdHVhbGx5
+IGEgdXNlciBmb3IgdGhpcyBkZXZpY2UsIHNlZSBhYm92ZS4gSXQncyBvbmx5IHVzZWQgZG93bnN0
+cmVhbQ0KPiA+IGF0IERIIGVsZWN0cm9uaWNzIGZvciBhIGNvbm5lY3Rpb24gdG8gYSBQU29DIGNo
+aXAuIEJ1dCBldmVuIGZvciB0aGlzIHB1cnBvc2UsIGl0J3MNCj4gPiBub3QgYmVpbmcgdXNlZCBj
+b3JyZWN0bHkuIFdoYXQgc2hvdWxkIHdlIGRvIG5vdz8NCj4gSSB0aGluayB0aGlzIHBhdGNoIGNh
+biBhbHNvIGJlIGRyb3BwZWQsIHRoZSBkaCxkaGNvbS1ib2FyZCB3b3VsZCBiZSBsZWZ0DQo+IGFz
+IGEgbGVnYWN5IGNvbXBhdGlibGUgZm9yIHRoZSBDUExEL0ZQR0Egb24gdGhlIERIQ09NIFBESzIg
+Ym9hcmQgKHdoZXJlDQo+IGl0IGlzIG5vdCBkZXNjcmliZWQgeWV0LCBidXQgc2hvdWxkIGJlKSAs
+IGFuZCB0aGUgZGgtZGhjb20tYm9hcmQgc2hvdWxkDQo+IHJlbWFpbiBhIHRyaXZpYWwgZGV2aWNl
+LCBzaW5jZSB0aGUgQ1BMRC9GUEdBIGlzIGNvbm5lY3RlZCB2aWEgc29tZQ0KPiBwYXJhbGxlbCBi
+dXMgaWYgSSByZWNhbGwgaXQgcmlnaHQgPw0KDQpZZXMsIG9uIHRoZSBQREsyIHRoZSBDUExEL0ZQ
+R0EgaXMgY29ubmVjdGVkIHZpYSBhIHBhcmFsbGVsIGJ1cy4NCg0KUmVnYXJkcw0KQ2hyaXN0b3Bo
+DQo=
