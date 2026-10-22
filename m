@@ -1,99 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792705724;
-	b=l6G6O1mvXQuNVwJaF1b0gUAYzYnfvxeCADoqcjQKrH0+ExuixmY4u9ekaRIXjyu3jcro
-	 G5KckYyBf34donYZIdTFX9lKee/ubuJa/Pw8hYeAFtj0aW8FVfeS+oLfZ9wmOwO58veW8
-	 HX7tMAhuSP9p7Sx8EYMhbnMnGMe8Apqfuv1EM/q2UHqslshNvJVC9EfJuUQao9sb8FjA6
-	 nIdaFavMRr0kvXFdgelWuzFGkrV6FH7UrC8iv/zYCuzMfMOAnMeD6YfFZcN0KApoazDFy
-	 jMBfz8MWcseC6dIiou7rxuLwXLj7sYuG8dilcsAzir8vts4wjcJ5i0Qyo8Z6zcZzRKA==
+	t=1792705751;
+	b=y5QjaL0hbEx/iEv2OOGvTdNcApMcnmwDAA4m7P2BMYXa6cTbqv4UULpcue9QomZC+KFQ
+	 cQZtd2KCAu0sLtr0ZcmJkxo/CJ3D0PytglM5fVJktV8jAO+qEvx1mo5h6EwDBZ1l5oFg5
+	 mD2Edd7dNGBLRwVtK7T8j1xslPhhe7yBC1fP9ng+ZkD9Y36iDNFhwy6+ms9t6OmfbmYFE
+	 itzAjWnrhYJdBoPuQwfF7TszOimoK3AsZth2Bc7uUlYwXPqn3YI9D5Npbb/YqW4UO2gcU
+	 FkzyGCbO0D+9Fp9sTCPdyhIY+PvGoC+AYo7brN14n4Snu1MxMQLqNAlAc+L8kce0+ug==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792705724;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=SeYJzOStxDcCY5T2FRu069D80kN/5wtqcCKwZQpFtxI=;
-	b=OEcHk+F9a/B4aRL920KOnm9p4EYpDBbkKWc3MmVJ/Aebv4OzlpXftwNgV2rDV3aGh3PE
-	 j1YjUku8Igy6jl97Jub7Hjm8iUiiACoDOj3tU/xRg1bxPOasnkINMynO+S1LJGLkOeXJt
-	 lY84wS+I/afHNJWtBUol+RkbyXMzK6OptNJEHVKj4H5xdXrDlb0f7qtEjwrKKzwpk4z7k
-	 6RE2QV0EMNvbfDNVn/U0Ne76t9Zge1lUeAH80LAyVa398MusPgdLTVdTS/JzPBOZI6Rgf
-	 /eqh5ss7+JSeK26l2kXwCohRS+i5NIT65BSAOQeQESR1hqjm7Gm/eg2S+Bk8uhi99Tw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792705751;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Content-Type:User-Agent:MIME-Version:
+	 X-SRS-Rewrite;
+	bh=0sTjGsVMcqy1bADW/4SQVh6oRTw+efQQI3OSug1w2mY=;
+	b=dFldH+DeR84sxJ64az1QFeItEMqUZkBqSYQ1G4zXM8q9RxttcapvmWfys4IYYVNSaJsm
+	 GhJ2qH+K1E4HPpzQ/G8dC1BNZ8kuISlhVvx9A5a5EmOsPhwbuSv8a5O9IYWmAwYTkD3Mt
+	 cGRhzlcCwRrCZti8w+njUAuiKWP0M9vgDmC5IqiGxp49guSDGNxBIOq5ukgx6512sYyXd
+	 VLBFf6fmYfBxjFbFsjuKkvYbu/BtFKrNzeZG8IvioWAkb5GnX4q5odbOSA0vWXfl4riN+
+	 qCSTWJvYeIX7nW083c+MHWZqn+b4qL7miWnq45V0umILsKyuIfUDqN7gClEo6xJeKxg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="TrKe5/iX";
-	arc=none smtp.remote-ip=209.85.222.51
-Received: from mail-ua1-f51.google.com (mail-ua1-f51.google.com [209.85.222.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=infradead.org;
+	spf=none smtp.mailfrom=casper.srs.infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=XgXwNRhH;
+	arc=none smtp.remote-ip=90.155.50.34
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 469CA606A31E
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 21:48:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 469CA606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4E27606A31B
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 21:49:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B4E27606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=casper.srs.infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=TrKe5/iX
-Received: by mail-ua1-f51.google.com with SMTP id a1e0cc1a2514c-9908c849564so106869241.3
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 14:48:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792705723; x=1793310523; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=SeYJzOStxDcCY5T2FRu069D80kN/5wtqcCKwZQpFtxI=;
-        b=TrKe5/iXcZxJX68DCRVOyHPuanGptudaW0VlYsCyagJw6CW7VK1S7mIBDeMY6Sa9zp
-         NTwWdKLYDuLSljX371yMG3RDo3m/fcNA2TsPYOXNUoKWXrV5f8o2HAnRhTnc9UksLJoa
-         pWXt6CJTy4cSyvCxOmuMH8SFYoxliZROs8wzEF9EwdDVJaDq+VrAJndboyEEOo0+eCL8
-         VB+uAab/EJp5vztPLkhMyHfUIzRt9OkZQuOdMRosywTas/DROXCbYEH90FOnefGo3HBY
-         6jD5DQNNjnJTXUAfxzRWPzc1ofqMCpW0O4ez9EP6UyJ0cWlhWGqMQ6lostlRIA1xTNhL
-         3+/g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792705723; x=1793310523;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=SeYJzOStxDcCY5T2FRu069D80kN/5wtqcCKwZQpFtxI=;
-        b=i0sA8V44ozKHg8y+NRC9yDi7z49L9HvKh0Rny8KXZcNmFkLiX3tzs34Bceq+y90mMl
-         VeauccM4KdZf6cdKWMtA0TCxjzIzn7wQet+iKrU/6MpfZO5+gPjeeRzAQqA42rs27vMb
-         2QILv3s0K3C31iCYRKmahd45BOrzGtdZ2Re+Dv1UiuUGiwRCUwZQYJTXnGopoTH9ZOX+
-         vCZ7AgJG5739ROdU78Do0YFmhnMNd8Gsd5JMF4mtogij++iGHKOboB0mvtN0DHoNXGmw
-         gtKovTmxNl3sscehVnuFhsG8cvc2MsLW8/lWAxnAtHJ9KA5dDoBjESUSURORUp3ip6uE
-         2gcg==
-X-Forwarded-Encrypted: i=1; AKwUvByTvEnwxGVN3RVJYGl3LMFP9BRNG/7ngp9RHneR78A+th8OpQeVF1Tu3FpzNzp6jNPwsX/VfZhsyVoZAy8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKK1nRRrrgPQ6dTfqlqytqxwjTRJtJ+gbUd+pNruMUMMS2kxjEG
-	VtGViRkyf0Wf/RUcGTvTzCOIgK/3/75U9cZ3JeXBnJK2mwJRDHpNqn0L
-X-Gm-Gg: AYBFou2yBcn63sfGw8e3gbRWkZojNHWA1FKcAPAyCwfuD9d8nXDtNpOP8HZVvi41XwW
-	DC44ZYWxKV+XHltZ75vGm/ZmPNMMzPKH9C9FKZ+mVpGT5QDCeZhvisWLlXwYGWAaTasEbPGUUqi
-	VE0ccr6I1rD/atzGb5Ik+bwPpUOpOSxk7wjUH/j88LBISW5H+ZzJQW1pzbBwT24o9PSKeEzHxVb
-	obADELPIHKDTQbHz1gpbqqrQ2sPKF47a3y5ym3fnE55MLarPxGcf743HXSV+RcBM2gNgBK0mtIv
-	8pSdENtHGssXLXHIL/C165zswERnF58QJOHltECzUl9pKlSkiHigxzBEyRJMZflBoHTFzw+4z48
-	OLG/O5TF4zK0D7ZVRErBFiXX+AsPFmOMtXswXcsWN4M26cLapSooA7FcMRqeVz5latQeG1bkzKS
-	gcSQWYhShy80iYK+/9tmfbqZ/2au1JPlhiIHXc/4sTw8jLmDyXMdXAjzJxWBlkW+FsaYN3rjae5
-	2Uky/6rSOwX36xaVRsY5aSwvCmbzgEQUjdZOLTvZs+Ysa2SG1zPqg8hchHdAs3gT/FjsHBks1Yj
-	Tz9AfRpfBTE7tcvbgNO0
-X-Received: by 2002:a05:6102:3f8f:b0:7b3:8f0a:f76c with SMTP id ada2fe7eead31-7ccc32f27e0mr325464137.13.1792705723097;
-        Thu, 22 Oct 2026 14:48:43 -0700 (PDT)
-Received: from Biostar-A520MT ([187.94.15.233])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5ec13deaba5sm443786e0c.1.2026.10.22.14.48.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 14:48:42 -0700 (PDT)
-From: Breno Rodrigues Alves <breno3011alves@gmail.com>
-To: Jonathan Corbet <corbet@lwn.net>
-Cc: linux@armlinux.org.uk,
-	Bart Van Assche <bvanassche@acm.org>,
-	James.Bottomley@HansenPartnership.com,
-	mkp@kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-scsi@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Breno Rodrigues Alves <breno3011alves@gmail.com>
-Subject: Re: [PATCH v4] scsi: arm: Convert acornscsi-io.S to C
-Date: Thu, 22 Oct 2026 18:48:15 -0300
-Message-ID: <20261022214815.86306-1-breno3011alves@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <871p9h1kc7.fsf@trenco.lwn.net>
-References: <20261022183658.58090-1-breno3011alves@gmail.com> <20261022185224.60700-1-breno3011alves@gmail.com> <20261022185224.60700-2-breno3011alves@gmail.com> <871p9h1kc7.fsf@trenco.lwn.net>
+	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=XgXwNRhH
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=MIME-Version:Content-Type:References:
+	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=0sTjGsVMcqy1bADW/4SQVh6oRTw+efQQI3OSug1w2mY=; b=XgXwNRhHEWUh9YV5P4fn4DtiMv
+	YeiHz1+x9TswHlf7D/gs8WDyGBrTe1nMwTlUTXmv0IMbHQOUOto0OqS5Nmuuv/Mkeaq+Hgtur4w3L
+	pWHyTFFL1UNIjkgSMYbeS+vkyrmvI92eCJOHkP6LQlzcoKljZs1hGZmR3umlTyv1O7IPD4gEIgyxv
+	kGwVrKy+AifPngTcsm2j1EKPi0B5lLUhEb9Y9Nl8hSKzy/Pl7PD27pGdQYnnlU0H0xL+mqGgKGSHt
+	/hR6gTJwOOGujpnHpyouIoI9G8yP+f9V6f+eKYb7WRsyASVHiGgOTLZ+oXyCk+RmT+hhUi18uWo3y
+	tAcPCHRA==;
+Received: from 54-240-197-233.amazon.com ([54.240.197.233] helo=freeip.amazon.com)
+	by casper.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xK0en-00000004ogN-3gK2;
+	Thu, 22 Oct 2026 21:49:05 +0000
+Message-ID: <29c0a320fa2fde289980068320f62e6de6b2b7ff.camel@infradead.org>
+Subject: Re: [PATCH 3/5] timekeeping: Bound idle sleep while a phase slew is
+ in flight
+From: David Woodhouse <dwmw2@infradead.org>
+To: John Stultz <jstultz@google.com>
+Cc: Thomas Gleixner <tglx@kernel.org>, Stephen Boyd <sboyd@kernel.org>, 
+ Miroslav Lichvar <mlichvar@redhat.com>, Rodolfo Giometti
+ <giometti@enneenne.com>, Ryan Luu <rluu@amazon.com>,  Julien Ridoux
+ <ridouxj@amazon.com>, linux-kernel@vger.kernel.org
+Date: Thu, 22 Oct 2026 22:49:05 +0100
+In-Reply-To: <CANDhNCoQM0TR1pxX9rRSHv5OZQQnobFpZ3ZUw_rn3gEKMvSUVA@mail.gmail.com>
+References: <20261001202134.33929-1-dwmw2@infradead.org>
+	 <20261001202134.33929-4-dwmw2@infradead.org>
+	 <CANDhNCoQM0TR1pxX9rRSHv5OZQQnobFpZ3ZUw_rn3gEKMvSUVA@mail.gmail.com>
+Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
+	boundary="=-O8Ly6Sr8c6XmSLuWgwLW"
+User-Agent: Evolution 3.62.0-0ubuntu1~ppa1~24.04 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,76 +73,147 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
 
-Hi Jonathan,
 
-Fair question - the change is a conversion, and I do not have a RiscPC
-with an Acorn SCSI card to test on real hardware.  Here is what I did
-test:
+--=-O8Ly6Sr8c6XmSLuWgwLW
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-1. Userspace unit test with a mocked MMIO layer
+On Thu, 2026-10-22 at 14:14 -0700, John Stultz wrote:
+>=20
+> So, again, this looks ok at a high level to me, but I've not really
+> worked through the __do_adjtimex changes.
+>=20
+> My only hesitancy is shashiko has thoughts but I haven't quite sorted
+> out if its a real issue or not:
+> https://sashiko.dev/#/patchset/20261001202134.33929-1-dwmw2%40infradead.o=
+rg?part=3D3
+>=20
+> But assuming you've evaluated and dismissed that concern:
+> Acked-by: John Stultz <jstultz@google.com>
 
-   I built a small harness that compiles acornscsi-io.c unmodified
-   against stub <linux/io.h> and <linux/types.h> headers.  The stubs
-   map readl()/writel()/writeb() onto a byte-addressable "card" buffer
-   and a plain userspace memory buffer.  For each transfer length L in
-   {0, 2, 4, 8, 16, 32, 64, 100, 512, 1000}:
+Ah, I hadn't actually seen that one; I don't think it was sent out.
+Looks like it was right; those bits are indeed reused, and I hadn't
+spotted that. Fixed in my tree now, and I'll run Sashiko locally before
+sending v2.
 
-     - __acornscsi_in: I filled the "card" with L bytes of a known
-       pattern (each 32-bit card word carrying one 16-bit halfword in
-       the low half, garbage in the high half) and verified that the
-       output buffer matched the pattern byte-for-byte.
+Thanks.
 
-     - __acornscsi_out: I filled a userspace buffer with a known
-       pattern, called the function, and verified that each 32-bit card
-       word held the expected halfword duplicated in both halves.
+--=-O8Ly6Sr8c6XmSLuWgwLW
+Content-Type: application/pkcs7-signature; name="smime.p7s"
+Content-Disposition: attachment; filename="smime.p7s"
+Content-Transfer-Encoding: base64
 
-   All 20 cases pass.  This is the harness that caught the two issues
-   the sashiko bot later reported independently - it is not just a
-   smoke test.
+MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCCE8Ew
+ggWvMIIEl6ADAgECAhANkOKMSmGXhF5eMl0rsRhvMA0GCSqGSIb3DQEBDAUAMGUxCzAJBgNVBAYT
+AlVTMRUwEwYDVQQKEwxEaWdpQ2VydCBJbmMxGTAXBgNVBAsTEHd3dy5kaWdpY2VydC5jb20xJDAi
+BgNVBAMTG0RpZ2lDZXJ0IEFzc3VyZWQgSUQgUm9vdCBHMjAeFw0yNDAzMTMwMDAwMDBaFw0zNDAz
+MTIyMzU5NTlaMGIxCzAJBgNVBAYTAlVTMRcwFQYDVQQKEw5EaWdpQ2VydCwgSW5jLjE6MDgGA1UE
+AxMxRGlnaUNlcnQgQXNzdXJlZCBHMiBTTUlNRSBSU0E0MDk2IFNIQTM4NCAyMDI0IENBMTCCAiIw
+DQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBAOfSIeC0vv1xPQ+dgSxbIIrkaru6skAWJYaGFzmv
+q4Kq+2wU2jxhcWlJg/JeP5jEkq/LM3pn5aaLao79j+XRmS7J1ZpJKUODJVoM4s9MQJhTMvo4qS5Z
+S64g6QR7Obkz3I1Lr3aWeSBmDDEyzue+NKtuWZ1Cxy3RdXo/w5HgRc3l2AercOM3Gt1XonTzEtTb
+Z/Hwc0Sn9Gz8RmGRK6Ka4hVDl8q/2l110KaV233Kh5etP0csXS8MIMdVRfRu3sc5hp13DG7lCKzK
+72a2GEpI8Wpl26G6I1/LMzz/98T+FqjTqxsdquk7Cj7m2vKGLW1BorpQH7WFGPdJQXJe1hfbfiZA
+CcVdCtl4nAacFacmsiArZBfX7AQGL7isvHUwwYFEtcApyGW4p2Lt+t8nvU0CANA6BHOpOz1xOP8W
+mAESbUriIjyuTUf3fJ9oDNCurVqhASMJCDaWI3lYX/QAoiAzt6akqbbZxo2ujW7mGGqc0KxqE2cs
+h2T79v7pC8aUtHBfwNrTR19GnZVxE0eQ7ViIQhR6mpSaUQFA9sG+cmD2G8TnCgYsLa0q8De6F61a
+CBevQGHNzrbZ3JAMneveYg/Jy1XxQHDRcvrMfWKe0jjcWbdKYlaGVPm5V1ILwYz7Yv5ewo3NUrxI
+GJiywe9qPhuJSDZs7VehTuI0FxGIsgKzVjgbAgMBAAGjggFcMIIBWDASBgNVHRMBAf8ECDAGAQH/
+AgEAMB0GA1UdDgQWBBT3m6JO05fF9DQPQw6Bhc6RkzKv+TAfBgNVHSMEGDAWgBTOw0q5mVXyuNtg
+v6l+vVa1lzan1jAOBgNVHQ8BAf8EBAMCAYYwHQYDVR0lBBYwFAYIKwYBBQUHAwQGCCsGAQUFBwMC
+MHkGCCsGAQUFBwEBBG0wazAkBggrBgEFBQcwAYYYaHR0cDovL29jc3AuZGlnaWNlcnQuY29tMEMG
+CCsGAQUFBzAChjdodHRwOi8vY2FjZXJ0cy5kaWdpY2VydC5jb20vRGlnaUNlcnRBc3N1cmVkSURS
+b290RzIuY3J0MEUGA1UdHwQ+MDwwOqA4oDaGNGh0dHA6Ly9jcmwzLmRpZ2ljZXJ0LmNvbS9EaWdp
+Q2VydEFzc3VyZWRJRFJvb3RHMi5jcmwwEQYDVR0gBAowCDAGBgRVHSAAMA0GCSqGSIb3DQEBDAUA
+A4IBAQA+b8Uw53sDspdZgukU+qzLyyHkcjlxGGhHlP+zrmDLKm1wEFvCRS2pili3Hy67i8N4N5NU
+vw5Rg6kv3lxb9S9Rktxk43k+tvm68pl7OxQE55ZjVY87P0lUPGwEqOOwLLyH02ZQcsfq5p5LrOH9
+0JvmvZ1yy73HS+VpDAqOlytE0NSvTIRqFFkKQGQwfjvtql9YflujuNNvJztjBaHKYZsnNSg+J38o
+jYq4TP3pSg3UdVH0PncVjPQyqxC9xef5Xae92Kbkzol3x7Nel3A1bwAkalrDMspvTHvey6LfiBks
+FIqviTnoy7fgjaRAJgHS+RXx/cmuRd3rUAclSVVrYu8RMIIHAzCCBOugAwIBAgIQAzUotrsybJHx
+HTjKOIVdIDANBgkqhkiG9w0BAQsFADBiMQswCQYDVQQGEwJVUzEXMBUGA1UEChMORGlnaUNlcnQs
+IEluYy4xOjA4BgNVBAMTMURpZ2lDZXJ0IEFzc3VyZWQgRzIgU01JTUUgUlNBNDA5NiBTSEEzODQg
+MjAyNCBDQTEwHhcNMjYwNzE4MDAwMDAwWhcNMjgwMTA0MjM1OTU5WjAeMRwwGgYDVQQDDBNkd213
+MkBpbmZyYWRlYWQub3JnMIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEA2pYux73kdbYX
+sWF8f1u6DJP91qcqaZetsyfPkZk0B+MmXmAEv0kVes5n15V2mbDThOnpoPFly0UugQO9JYqLfrtD
+tKD5yL58fgrDB9Dw+LQikgrHafl6YSCds5AvUu/8hw2J6noKrcOLJpKlKn9Fl/4IB9Q3JIdLx5aa
+EtTqMalIPqHFOlgrJ7s+aua8xbB8YQ9ahqYBXWRJNv3P/2b1DYtdrz1oqZPE3CcB8Pc6Gf2a1Tcm
+6TAgtEx7Cf1BFcrsrMz7TWHmGQITieNb2r9UYWSc2Gp+GtYFNJCgT0JJXKUBIauPMKBLteYrL8Fo
+ff/uY44dC/mDWjdCP/5x0qelPQjlBvWdHL5zvBTOj06rJ0m3HNI/hnIcDh0Qu2j9reb9rLVcdym6
+bWmBM4uDEB8Zv9Ph0KTBFSy1IosyakuD1j1Os30EzjGfbi0EUXIvnOcYbTBAbM5UAzrxEHMhBvoX
+Pvnx+OyvjJmc9tWxTX6AcSz+m40esbT17URBeZS18afgieiikm5TynlUYP1LciR3hSgGVzvGXnKO
+02VDFR5itGWdRKZ2W5wIShNfWfhSa0D0K5UdIDt5Qc7sjzwK1Yb1sY5Tu0uA5mhIS82q1ov83uxB
+sFkriNnhGv/M1NCDVLBiOMsHu73qUM+yKmgKLwF9Hfn9WI25glbAMI4S5r3hYzcCAwEAAaOCAfcw
+ggHzMB8GA1UdIwQYMBaAFPebok7Tl8X0NA9DDoGFzpGTMq/5MB0GA1UdDgQWBBRcYhqbcGzn1jrT
+JOZaB8O7qllDpzAwBgNVHREEKTAngRNkd213MkBpbmZyYWRlYWQub3JngRBkYXZpZEB3b29kaG91
+LnNlMBQGA1UdIAQNMAswCQYHZ4EMAQUBAjAOBgNVHQ8BAf8EBAMCBeAwHQYDVR0lBBYwFAYIKwYB
+BQUHAwIGCCsGAQUFBwMEMIGpBgNVHR8EgaEwgZ4wTaBLoEmGR2h0dHA6Ly9jcmwzLmRpZ2ljZXJ0
+LmNvbS9EaWdpQ2VydEFzc3VyZWRHMlNNSU1FUlNBNDA5NlNIQTM4NDIwMjRDQTEuY3JsME2gS6BJ
+hkdodHRwOi8vY3JsNC5kaWdpY2VydC5jb20vRGlnaUNlcnRBc3N1cmVkRzJTTUlNRVJTQTQwOTZT
+SEEzODQyMDI0Q0ExLmNybDCBjQYIKwYBBQUHAQEEgYAwfjAkBggrBgEFBQcwAYYYaHR0cDovL29j
+c3AuZGlnaWNlcnQuY29tMFYGCCsGAQUFBzAChkpodHRwOi8vY2FjZXJ0cy5kaWdpY2VydC5jb20v
+RGlnaUNlcnRBc3N1cmVkRzJTTUlNRVJTQTQwOTZTSEEzODQyMDI0Q0ExLmNydDANBgkqhkiG9w0B
+AQsFAAOCAgEAocabrh1cPd5s3vY5rnlBVQSTc7zs2ZWs67dAIltR+05WELrYClVzzUhMs/LOJPlr
+EUo45UDDomXq38DxFepaPd9+iNLjXfn33EX/IG44j04lU/oF/Rg9VeQILkYLbCZ/x9wOjNHZc4SN
+ydY7Dhvf/sT5aBz88u7D5+azZJ7Qf1U57wYseCH1Mt0nDrtr5y19IJ8D9xJJ33RFL6vfpHZBBAQ8
++3RqkKNxLoV2aFvQhxdhjNLDqTv3LjUIdicwPraN7JkxEu7CV2Lka7eRqJgkWL7SK0YmBjGpRafs
++icP/ON5RCCKTTb6VlX8eTG2sJJfsFhvJNCCt6xexbWzWtIrfP7NvPBvwBB737AyEGBZkS5aNizT
+McURJGTv9UKvBh1LF/+tNhYtLvPCN7oecGzhCHht9jcwSkygTo3Y6YlK3QgOu+ncmiBbfeuwlLZ1
+LxbYvG6hgNqXv7u6YyADbYajAQJXJ2OQen39pm3Q/AQSyLYG+B8lDglWsM8tYXPlEdrYJcksGK6F
+nqIX6Bumn43rBooLJdiZp4WmfWdL2pxe+LxRDjprmqu1WprixDxULSTOKJZoqTlugs6y3Bc+if+s
+gHnBBtz9WQ6MtPHkh7zONDAFIKcBmv8OqPQCx0F3Wv3OEybwMpXx0OsKgK8wLldaX1pXcMuyDgTL
+Sqs0AV0OHUgwggcDMIIE66ADAgECAhADNSi2uzJskfEdOMo4hV0gMA0GCSqGSIb3DQEBCwUAMGIx
+CzAJBgNVBAYTAlVTMRcwFQYDVQQKEw5EaWdpQ2VydCwgSW5jLjE6MDgGA1UEAxMxRGlnaUNlcnQg
+QXNzdXJlZCBHMiBTTUlNRSBSU0E0MDk2IFNIQTM4NCAyMDI0IENBMTAeFw0yNjA3MTgwMDAwMDBa
+Fw0yODAxMDQyMzU5NTlaMB4xHDAaBgNVBAMME2R3bXcyQGluZnJhZGVhZC5vcmcwggIiMA0GCSqG
+SIb3DQEBAQUAA4ICDwAwggIKAoICAQDali7HveR1thexYXx/W7oMk/3Wpyppl62zJ8+RmTQH4yZe
+YAS/SRV6zmfXlXaZsNOE6emg8WXLRS6BA70liot+u0O0oPnIvnx+CsMH0PD4tCKSCsdp+XphIJ2z
+kC9S7/yHDYnqegqtw4smkqUqf0WX/ggH1Dckh0vHlpoS1OoxqUg+ocU6WCsnuz5q5rzFsHxhD1qG
+pgFdZEk2/c//ZvUNi12vPWipk8TcJwHw9zoZ/ZrVNybpMCC0THsJ/UEVyuyszPtNYeYZAhOJ41va
+v1RhZJzYan4a1gU0kKBPQklcpQEhq48woEu15isvwWh9/+5jjh0L+YNaN0I//nHSp6U9COUG9Z0c
+vnO8FM6PTqsnSbcc0j+GchwOHRC7aP2t5v2stVx3KbptaYEzi4MQHxm/0+HQpMEVLLUiizJqS4PW
+PU6zfQTOMZ9uLQRRci+c5xhtMEBszlQDOvEQcyEG+hc++fH47K+MmZz21bFNfoBxLP6bjR6xtPXt
+REF5lLXxp+CJ6KKSblPKeVRg/UtyJHeFKAZXO8Zeco7TZUMVHmK0ZZ1EpnZbnAhKE19Z+FJrQPQr
+lR0gO3lBzuyPPArVhvWxjlO7S4DmaEhLzarWi/ze7EGwWSuI2eEa/8zU0INUsGI4ywe7vepQz7Iq
+aAovAX0d+f1YjbmCVsAwjhLmveFjNwIDAQABo4IB9zCCAfMwHwYDVR0jBBgwFoAU95uiTtOXxfQ0
+D0MOgYXOkZMyr/kwHQYDVR0OBBYEFFxiGptwbOfWOtMk5loHw7uqWUOnMDAGA1UdEQQpMCeBE2R3
+bXcyQGluZnJhZGVhZC5vcmeBEGRhdmlkQHdvb2Rob3Uuc2UwFAYDVR0gBA0wCzAJBgdngQwBBQEC
+MA4GA1UdDwEB/wQEAwIF4DAdBgNVHSUEFjAUBggrBgEFBQcDAgYIKwYBBQUHAwQwgakGA1UdHwSB
+oTCBnjBNoEugSYZHaHR0cDovL2NybDMuZGlnaWNlcnQuY29tL0RpZ2lDZXJ0QXNzdXJlZEcyU01J
+TUVSU0E0MDk2U0hBMzg0MjAyNENBMS5jcmwwTaBLoEmGR2h0dHA6Ly9jcmw0LmRpZ2ljZXJ0LmNv
+bS9EaWdpQ2VydEFzc3VyZWRHMlNNSU1FUlNBNDA5NlNIQTM4NDIwMjRDQTEuY3JsMIGNBggrBgEF
+BQcBAQSBgDB+MCQGCCsGAQUFBzABhhhodHRwOi8vb2NzcC5kaWdpY2VydC5jb20wVgYIKwYBBQUH
+MAKGSmh0dHA6Ly9jYWNlcnRzLmRpZ2ljZXJ0LmNvbS9EaWdpQ2VydEFzc3VyZWRHMlNNSU1FUlNB
+NDA5NlNIQTM4NDIwMjRDQTEuY3J0MA0GCSqGSIb3DQEBCwUAA4ICAQChxpuuHVw93mze9jmueUFV
+BJNzvOzZlazrt0AiW1H7TlYQutgKVXPNSEyz8s4k+WsRSjjlQMOiZerfwPEV6lo9336I0uNd+ffc
+Rf8gbjiPTiVT+gX9GD1V5AguRgtsJn/H3A6M0dlzhI3J1jsOG9/+xPloHPzy7sPn5rNkntB/VTnv
+Bix4IfUy3ScOu2vnLX0gnwP3EknfdEUvq9+kdkEEBDz7dGqQo3EuhXZoW9CHF2GM0sOpO/cuNQh2
+JzA+to3smTES7sJXYuRrt5GomCRYvtIrRiYGMalFp+z6Jw/843lEIIpNNvpWVfx5Mbawkl+wWG8k
+0IK3rF7FtbNa0it8/s288G/AEHvfsDIQYFmRLlo2LNMxxREkZO/1Qq8GHUsX/602Fi0u88I3uh5w
+bOEIeG32NzBKTKBOjdjpiUrdCA676dyaIFt967CUtnUvFti8bqGA2pe/u7pjIANthqMBAlcnY5B6
+ff2mbdD8BBLItgb4HyUOCVawzy1hc+UR2tglySwYroWeohfoG6afjesGigsl2JmnhaZ9Z0vanF74
+vFEOOmuaq7VamuLEPFQtJM4olmipOW6CzrLcFz6J/6yAecEG3P1ZDoy08eSHvM40MAUgpwGa/w6o
+9ALHQXda/c4TJvAylfHQ6wqArzAuV1pfWldwy7IOBMtKqzQBXQ4dSDGCBCAwggQcAgEBMHYwYjEL
+MAkGA1UEBhMCVVMxFzAVBgNVBAoTDkRpZ2lDZXJ0LCBJbmMuMTowOAYDVQQDEzFEaWdpQ2VydCBB
+c3N1cmVkIEcyIFNNSU1FIFJTQTQwOTYgU0hBMzg0IDIwMjQgQ0ExAhADNSi2uzJskfEdOMo4hV0g
+MA0GCWCGSAFlAwQCAQUAoIIBezAYBgkqhkiG9w0BCQMxCwYJKoZIhvcNAQcBMBwGCSqGSIb3DQEJ
+BTEPFw0yNjEwMjIyMTQ5MDVaMC8GCSqGSIb3DQEJBDEiBCAQO6GBb8sGhxzfyUqReSlq9O0HaxDa
+ipnUIkPwZ+EnXTCBhQYJKwYBBAGCNxAEMXgwdjBiMQswCQYDVQQGEwJVUzEXMBUGA1UEChMORGln
+aUNlcnQsIEluYy4xOjA4BgNVBAMTMURpZ2lDZXJ0IEFzc3VyZWQgRzIgU01JTUUgUlNBNDA5NiBT
+SEEzODQgMjAyNCBDQTECEAM1KLa7MmyR8R04yjiFXSAwgYcGCyqGSIb3DQEJEAILMXigdjBiMQsw
+CQYDVQQGEwJVUzEXMBUGA1UEChMORGlnaUNlcnQsIEluYy4xOjA4BgNVBAMTMURpZ2lDZXJ0IEFz
+c3VyZWQgRzIgU01JTUUgUlNBNDA5NiBTSEEzODQgMjAyNCBDQTECEAM1KLa7MmyR8R04yjiFXSAw
+DQYJKoZIhvcNAQEBBQAEggIAszgIHO3JvkAR5qR2bJBlygyMHmR8KjaWyQp7HhI21LlsLfzt8CaK
+oXMBtCjU+piZbpy07XB22FoMzHd0xN8bKi6iV+LJdXpTGwyDQ9Acpby7Rq6bhkazLxqNCC3Ukx9P
+1kHhe1rbXe8SgSdh2rEj5zwV3h/n1c71sAPDqc7PCi5WIYW6KWpHIpiSvERWJbT1ATMs9J1k2EMi
+Xl31yePPgCEgdnHz36JZgmVWopoLQUpZh2cWU9JG6YS9EqJyfJDgEFGTlqUlxY8xLZzjY3Tf9/hq
+7oFowUONrMJEsBKsA9F/hL3VuNpr693VVTKJAisppKF0uGnFTKvCqLKaY1eMdXIbbePYrH/8E3KQ
+BA6APlegilbuPqk3H3JgDfQh6y0GwNZuc6PyYFahQjOXvitcGKDWkTZQWiMQsgZ/XmBvComS8NrZ
+mX/RYpgPL4c+9N4D28HhIwW1h44bj4AyY8zbvbFOOw6HL16etaxSLwBBMIp0D/wK30ct5jyBSV4Q
+cOZ45rMVOjC2wbvQ59pOL76v6qnMIRkdpkKF4zgzudTrBVBtP35myLbsNnhBq9n09g+nE1FaVrdg
+MT4zlEy3z1WxEussBA+sO2NvHEmdhrWOUTC3DcHH6t4rEq42OnVqWZ8SONVCYUQTANR+XO6jHKWe
+je0U6bVLNov+Psj69lH2IccAAAAAAAA=
 
-2. Cross-compile for the target
 
-   Built with arm-linux-gnueabi-gcc on rpc_defconfig with
-   CONFIG_SCSI_ACORNSCSI_3=m.  The module links cleanly
-   (acornscsi_mod.ko), and nm on acornscsi-io.o shows:
-
-     00000000 T __acornscsi_in
-     00000104 T __acornscsi_out
-
-   objdump on the resulting object shows that the alignment step
-   compiles to "bic sl, r0, #3", matching the original assembly's
-   "bic r0, r0, #3".
-
-3. Apply to a clean tree and rebuild
-
-   Copied the tree, git reset --hard to the parent commit, applied the
-   patch with "git am".  It applies cleanly; re-running the same
-   compile command produces the same object.  This confirms the patch
-   file itself is intact and does not depend on my working tree state.
-
-4. checkpatch.pl --strict --no-tree on the patch itself
-
-   Reports 0 errors, 0 warnings (with FILE_PATH_CHANGES ignored, as
-   drivers/scsi/arm/ is already covered by MAINTAINERS).
-
-What I did NOT test:
-
- - Real hardware.  I do not have an Acorn RiscPC or the SCSI expansion
-   card.  The unit test proves equivalence with the original assembly
-   semantics, but it cannot prove that the semantics match the actual
-   hardware - only that the C version does the same thing the assembly
-   did.
-
- - Odd transfer lengths through acornscsi.c.  All current callers pass
-   even lengths, so the trailing-byte path is only exercised by the
-   unit test, not by the driver end-to-end.
-
- - Interrupt handling under load.  This is unchanged by the patch (the
-   IRQ path is untouched), so I did not add specific coverage.
-
-If there is a specific test or configuration you would like me to run,
-please let me know.
-
-Breno
+--=-O8Ly6Sr8c6XmSLuWgwLW--
