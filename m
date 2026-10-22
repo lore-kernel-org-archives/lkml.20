@@ -1,102 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.181
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.70
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792703235;
-	b=qMtWVvRncRt7q3OPgh884usDoZDiJzS+3AhWQOjfhhCPJDQwZ+WUm7FMKX5NMsg5z8sN
-	 CbNZ1xKpnEy1syek1e7Muhx3oECGg1R3P/fOvpjjoJshSByWP/WNqmwtOV8Z6qLJ1wVsO
-	 Df9eOEmzTGTAvGLXrIF8cERLTB+HujYbunGgeIiCH82yi5dsBFxP0azLSRVeBLnVqVFvO
-	 T075Gv2JhsmHM2KXevh8hi51Ht9tiIFRfelDrdBQewcJQN8E8iN4V4nCsqeswV3rwHu6I
-	 QpjLCh6diAmhwrba/YA6nAVzKNBDKoFHIXtET6rPkL1miBf+9l3xRMuok0qtjvhHeHw==
+	t=1792703280;
+	b=WDxBpGzvsDQmj7A7Q7EorIHPRPMisLNUp934RPg9jECibKrdX4F4IO0SEdQKo7vPOQgo
+	 46CVLEEuIeeA9HQabUpSCYl23eak64tOCKOIcXGssvN2w6qHxl4pWvu2xApBAWW5+YuIw
+	 KvHVoCZa2NqnQY9xGuBDpOqqYQhNIVGpT9rsceqPw4mqoeKygJK56sz+8GaxnVU3s7xZS
+	 +ly5zuIhgeWrXVW+swAI5XMncThYAQrABdSAwPiCQ59zM/Uoj9VnmqCZ9zrowtBzJfDsj
+	 u9sTcFeo+GYnDf0hEhX1z6E/yUGc2oNXxAeYh6MlKKJFuSpis61AKTlt5SEDs/3sOTA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792703235;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792703280;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=NVvn1gdNdOMG1Op9Y4sTxzvbtS66jmeV2bo4ZFR8VLI=;
-	b=Tvh+XTos+14ki4/PmwdGayc69AaZ32gRertwrqwfWWoCF8K8+A1edRr1+9oac1Bgc8g4
-	 0ucbKhkO00MBm5koiVyQEWeLrnH2689T9XEFpaEqqGpK2bZM/czSu6SK2+eQZ/a45JBON
-	 BjGYCl+s4uxXSDvdryDcvTDvR96kYLmDwxaDbyoybsmENx+bCU1Ri0toBpghTL2j5CC6E
-	 Zu1yz/7av+cEwrLKbiFXtqewovhht+SNEn83xvJxvzklaxGz8MlhUA5Ywgb6YH1LHg83a
-	 P5VbFYpt8PfV2ihI3+qEGhrMb8y7HeJ4P7idDCI4q7t6ZsCF0GvcEQb9OyMKkB4U/VQ==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
+	 Content-Type;
+	bh=jKw4jeb5she+TCjNL++4qL58FUp4JHa8SatGZluz1Ho=;
+	b=Pff7GKk3p/aYCRioRuCEB3NgFQA9R36WY6rhN7NMvNDqEHKi2PTk0CmPCsL8xjnvT2Fp
+	 /c9yN+ZM2RXCP/gmJi0rCV8igNBWiVBo2Fly+qpamK7kYDcM9DW39DliLzE6uPxhqfB9y
+	 9pX9fwX4mZfzwx4X5uESEjUrDfdThqBHB4H/ASeeL8wa6SEUrShFWCaod+WniczcJL5ai
+	 P60oT8JAl05ufkK4dMaP2GA6i27zyYSqr4LVlPMOqwpEcIYNo8f/QA2M6/DuAwdAG5z4r
+	 xKcB6eJ+fHLdZhT5QIF9nsASsJ3YHQC9K64SLtqbGoUsqQ62RpizPrh1dLRqPJdbVRQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=olx4JrPb;
-	arc=none smtp.remote-ip=209.85.128.181
-Received: from mail-yw1-f181.google.com (mail-yw1-f181.google.com [209.85.128.181])
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--irogers.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=bWTWmjKL;
+	arc=none smtp.remote-ip=74.125.82.70
+Received: from mail-dl1-f70.google.com (mail-dl1-f70.google.com [74.125.82.70])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10C65606A319
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 21:07:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 10C65606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2FB4606A31D
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 21:07:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A2FB4606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=olx4JrPb
-Received: by mail-yw1-f181.google.com with SMTP id 00721157ae682-8b0d126f631so2607757b3.2
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 14:07:14 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=bWTWmjKL
+Received: by mail-dl1-f70.google.com with SMTP id a92af1059eb24-193b5eb133eso236665c88.1
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 14:07:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792703234; x=1793308034; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=NVvn1gdNdOMG1Op9Y4sTxzvbtS66jmeV2bo4ZFR8VLI=;
-        b=olx4JrPbTJON6uu/e0HpthkcMLPl3IbXgrBUXnWQ1ZB0ZMNZnS1liLRiNzhzv6Oc02
-         m0oJwdBWjglSWge+n6lYJQ0d1PLVFdRfITrzMmuDuOOk847PZK4ra448K6LqqJQZlEZk
-         RG+oBe1+fleIgogLpmFVTyf8z/DQ1qM4/2byE/Gq3/awQQHakZgLASQIZdPYBCWwsKZg
-         NdJLtV0uwL/7PmyTZVQUdNRufgTAb7cf/JqO3W4J+1WoW+vfmuvQy6RZx+9WfJnHkI7D
-         1LxkOlNLpC6gmCzuSZBtWilHLfmaRao0gNdtwBxhG1lANBSaEbQ3cWE/wubMrHisthjC
-         tfYQ==
+        d=google.com; s=20251104; t=1792703279; x=1793308079; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=jKw4jeb5she+TCjNL++4qL58FUp4JHa8SatGZluz1Ho=;
+        b=bWTWmjKL1a2A93vx8MRnFUdcww9htHXE7z8Z/pmNJB/ac5YLcPU/yId4toCLzkzP+Y
+         A5Gqz9bZS3B+4iL6VV73IyG3sVq/7A9L6x5pudUAlaqr0bC0vn347J5xm4MbUDv3ya2V
+         hy1060lfo7KDdnary6ufPi7fdmmwYlsa9PwxeFU23MmSzq+9SaHLZcoYXctqFrt69s31
+         q/HhLl7Mgw48PwF9M7N2EXFqjKh1pJV1+Gghwt5SPI1s6H/svGB7lCxj/h4U/sSBB56t
+         ccbEmDna3s/IcPvIs/CnqpEUhrlFzVvrY2MFh66Kf+XMpWWpvSVeqdYkS38dTSNlQnIu
+         eIbg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792703234; x=1793308034;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=NVvn1gdNdOMG1Op9Y4sTxzvbtS66jmeV2bo4ZFR8VLI=;
-        b=h6Xe3ch66pCvuLJGpftpit/wh7MWCYoehQGGvnHuMlu2LFyK6Wj3YRYOgYUdM2utLP
-         24gOWFmKuT+cbgenPnRnm7uN1su23FdwqaGSan2xpHgn1GDzptpIn7HUmTzNoAThnoLB
-         P72KgOjDBlPeUw6tJOFUmM88Gw2FsG7uxSFsCguPDntCdI5vyN9ymSNc5PMBFLcEUin7
-         WnrrAJkie7gM42pFaFw4qYvLfHYBPxaNfn7V/tZRMVPV4183WewW8t0FORyACDLg4nMS
-         6xVHiDdbUEEQbs9qOcWTy7EGpBU71wqpyaBo9of8qFL/DqVbCrXKASn1O5q4iSXK/ENP
-         4y5g==
-X-Forwarded-Encrypted: i=1; AKwUvBz+WWv15lNwUK+tS3gxsHofC6wFS8yl/nD2qQs8cQyfbxPB3VzSzeb/+U8Ago/z1GWfmLQ5B97QUYE03Ho=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL4kjrzL2AvyIUxaL52p1l1wQMwyDQxa7fCRTMmRN4hIVnjCJsK
-	5zlecsUTslEJmafjNfFsNMxmOBJZI4sPvWpN8TOT1BbXZR2BLwB9iicD
-X-Gm-Gg: AYBFou1i7kpiYSfA2bmD/qE+iUNmOtgTJT1FNpcZsUjbi1XLNZHiURlTiUo/ahJIkag
-	VG7p/RWc/t9d4+wMtLnAemfRrECIltWjuMGyyWeng/cTSFyrsgpYLblzcdxNUe3847XkbQw7NnR
-	UbdfXCvTGrIxNl49HdzE14j7i70icqa1rRT+Rh4pDtWVEl2F6p9LttUnv3wiB7UDg8md5HajJve
-	V14zPu40kDJOkOkqDBL4UCpLjFRPRpauZI7pu65nHEtqGN1LffS2iaV3+hDV/k2f3vqTX+Y8x7p
-	bBLmRwoal+k3f/Pok2/deQrI2FJn7a32QSUBNoD+ZVsd1AeTZ1kXIlUop9QMy9hegbBu5UCTSFe
-	bMX4SHkVr4Jqz62iwR1Hx0L0VKWyXfk1HQOx/5W9js6M19Yh+FoMdKtQx6oTJeiaTqjS9C1xil1
-	uTi34niftkSpZJKFp6hmhRg+pINPpmhQ+AQ30r/60e5AVOyIIzdA3DBx+J7QEgJlvw8GInUOk6n
-	mlJHxoePTPZO1UjXT2/QFIFgnCdDfHrsoERKN+IrgWMBWmVipESwyjlao9hIRXU0Z17sWRlkaEU
-	LFzmKnLuyg==
-X-Received: by 2002:a05:690c:399:b0:8b0:cee8:53cf with SMTP id 00721157ae682-8b157ba3ca7mr2672967b3.3.1792703233988;
-        Thu, 22 Oct 2026 14:07:13 -0700 (PDT)
-Received: from localhost ([2a03:2880:10ff:f::])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b1560cd3b4sm4094037b3.8.2026.10.22.14.07.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 14:07:13 -0700 (PDT)
-From: Joshua Hahn <joshua.hahnjy@gmail.com>
-To: "Zi Yan" <ziy@nvidia.com>
-Cc: "Joshua Hahn" <joshua.hahnjy@gmail.com>,
-	"Gregory Price" <gourry@gourry.net>,
-	"Andrew Morton" <akpm@linux-foundation.org>,
-	"David Hildenbrand" <david@kernel.org>,
-	"Matthew Brost" <matthew.brost@intel.com>,
-	"Byungchul Park" <byungchul@sk.com>,
-	"Ying Huang" <ying.huang@linux.alibaba.com>,
-	"Alistair Popple" <apopple@nvidia.com>,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	kernel-team@meta.com
-Subject: Re: [PATCH] mm/migrate: wake kcompactd when huge folio migration fails in numa balancing
-Date: Thu, 22 Oct 2026 14:07:11 -0700
-Message-ID: <20261022210712.1239721-1-joshua.hahnjy@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <DMBLJDUCMJI6.2RDRAALJ84225@nvidia.com>
-References: 
+        d=1e100.net; s=20260707; t=1792703279; x=1793308079;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=jKw4jeb5she+TCjNL++4qL58FUp4JHa8SatGZluz1Ho=;
+        b=As/LnBImFaLUsqVlNaT6sZxt5naMdd9I3spotabCd94AX1TfLbyqrKX/TNebTJAy9l
+         ZEIh7cqsQWPMYA9fZHEGyosZHYXHUKvYG7TSDoGbtP6kgB9XRIb7f74qvtXbut33Qx8o
+         LfU195ZVtJx8QRUxiILOb9Zein0l/J+DBIz2AfgCc/PDDl8OLEkXbSImrOnNUSE5YCDn
+         BeLhnp3XEtlYYX8FHHw01DMhlUD23VGqfpxU0PlQiTDz7AcNabpXtoalgVl2NFtKWqjg
+         Xg2BicJHXEbYq65Y5DNQ5Cs05tYd9DucZPMVcNPVtGRRmbw3asdvxakghoag+L5vi5iy
+         EWpg==
+X-Forwarded-Encrypted: i=1; AKwUvBwaKi6MO4zpFPswE8FGoQY2yltDXgFk77PsZQ2emaxjIAEFos0gkCiemZcWJk9lIvMJF9OFItUnqXq1Mv8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLnMzOQAkkV8YXmFvUML9iCzCpos90W4g8hYyfWB6YBtFiCu0rW
+	noDeTPenaugbMv8NHgmSdHp4FpCQWFFrX2QGTq4ne0UUbAPLDJI47aHAtBCX5Utfx+TRk/87aZ+
+	YosVc+gPUug==
+X-Received: from dlea17-n1.prod.google.com ([2002:a05:701b:4211:10b0:191:592e:bf3b])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:701b:4201:10b0:194:f017:5a01
+ with SMTP id a92af1059eb24-1959a47a42amr743965c88.42.1792703278359; Thu, 22
+ Oct 2026 14:07:58 -0700 (PDT)
+Date: Thu, 22 Oct 2026 14:07:50 -0700
+In-Reply-To: <20261012234724.721224-1-irogers@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,94 +78,98 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+References: <20261012234724.721224-1-irogers@google.com>
+X-Mailer: git-send-email 2.56.0.307.g5fe7bd680c-goog
+Message-ID: <20261022210753.1851597-1-irogers@google.com>
+Subject: [PATCH v5 0/3] perf test: Per-test timeouts and JUnit XML schema compliance
+From: Ian Rogers <irogers@google.com>
+To: irogers@google.com, acme@kernel.org, namhyung@kernel.org
+Cc: 9erthalion6@gmail.com, adrian.hunter@intel.com, james.clark@linaro.org, 
+	jolsa@kernel.org, leo.yan@arm.com, linux-kernel@vger.kernel.org, 
+	linux-perf-users@vger.kernel.org, mingo@redhat.com, peterz@infradead.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Thu, 22 Oct 2026 14:59:17 -0400 "Zi Yan" <ziy@nvidia.com> wrote:
+This series adds per-test timeout support to 'perf test', improves JUnit
+XML output to validate against strict JUnit schemas, and ensures time
+spent waiting for the shared mlock budget does not count towards a
+test's timeout or reported duration:
 
-> On Thu Oct 22, 2026 at 1:25 PM EDT, Joshua Hahn wrote:
-> > NUMA balancing migrates a misplaced folio if migrate_balanced_pgdat()
-> > finds enough headroom on the destination node. For large folios, it then
-> > allocates a folio from the destination with GFP_TRANSHUGE_LIGHT, which
-> > wakes up neither kswapd nor kcompactd. This means a hot large folio
-> > trying to promote to a fragmented destination may never succeed in
-> > promotion even after repeated retries.
-> >
-> > Wake kcompactd on the target node when the destination allocation fails
-> > for a large folio. Don't wake kswapd, since this path can only be
-> > reached if there is enough free memory to service the allocation, but it
-> > is too fragmented to serve the large folio allocation.
-> >
-> > This patch has been A/B tested on tiered Meta systems (DRAM + CXL)
-> > running identical cacheing workloads. Without this patch, we accumulate
-> > around 4.5k failed THP migrations over the span of a day, while the host
-> > with this patch accumulates only about 80.
-> 
-> Is proactive compaction enabled? If yes, why does it not help?
+1. Add a per-test timeout (default 120s, configurable via '-t'/'--timeout',
+   0 to disable, disabled with '-F'/'--dont-fork'). Forked tests run in
+   their own process groups and the existing polling loops in
+   finish_test() and finish_tests_parallel() check elapsed runtimes,
+   sending SIGTERM on timeout and escalating to SIGKILL after 1 second.
+   Timed out tests are reported as 'TIMEOUT!', listed in the summary,
+   and recorded as '<error message="TIMEOUT" type="timeout">' in JUnit
+   XML output.
 
-Hi Zi, thanks for taking a look!
+2. Update 'perf test -j' output to validate cleanly against both the
+   Apache Ant/Windy Road JUnit schema (JUnit.xsd) and the Jenkins
+   xUnit/Maven Surefire schema (junit-10.xsd), including required
+   '<testsuite>' attributes, '<properties>' from uname, '<system-out/>'
+   and '<system-err/>', self-closing tags, apostrophe escaping, and
+   UTF-8/XML 1.0 codepoint validation.
 
-Yes, indeed proactive compaction is enabled with vm.compaction_proactiveness
-set to 20. 
+3. Record each mlock-serialized test's start time in the shared
+   mlock_budget mapping when it acquires mlock_budget->lock in
+   run_test_case_mlocked(), so tests waiting for the mlock budget do not
+   time out while waiting in line and their reported elapsed time
+   reflects actual execution time.
 
-Hmm, I wonder why we are seeing this difference then. 
+v5:
+ - Rebase onto tmp.perf-tools-next (patch 3 of v4 was applied upstream)
+   and add Namhyung's Acked-by to patches 1 and 2.
+ - Add patch 3 so tests waiting on mlock_budget->lock don't time out
+   while waiting.
+ - Increase the default per-test timeout from 60s to 120s. When running
+   the full suite as root (where CAP_IPC_LOCK lifts the mlock limit and
+   mlock_budget is unused), all ~180 non-exclusive tests start
+   simultaneously at t=0 and contend heavily on CPUs, /proc scanning,
+   and vmlinux/DWARF symbol resolution. On a 28-CPU hybrid machine, a
+   60s timeout resulted in 33 timeouts across the parallel burst and
+   large sequential suites; increasing the default to 120s allowed
+   longer tests ('kernel lock contention analysis test' at 115.3s,
+   'task-analyzer python test' at 94.7s, 'perf data type profiling
+   tests' at 92.6s, 'perf metrics value validation' at 91.2s, 'perf
+   record tests' at 79.0s, and 'python profiling with jitdump' at 62.7s)
+   to complete, reducing timeouts from 33 to 2 ('perf record LBR tests'
+   and 'perftool-testsuite_report') and overall suite wall-clock time
+   from 503.5s to 363.9s.
 
-One reason that I can think of is that kswapd is awake very often. My
-understanding is that proactive compaction does not run when kswapd is
-on, with the idea being that if we can free memory, compaction becomes
-easier in the future, so we should try when kswapd is done.
+v4:
+ - Drop the ITIMER_REAL timer and SIGALRM handler in patch 1, relying on
+   the existing 10ms/100ms polling loops in finish_test() and
+   finish_tests_parallel() to detect timeouts.
+ - Only fall back to kill(pid, sig) when kill(-pid, sig) fails, and
+   ignore SIGTERM/SIGINT while waiting for subprocesses in
+   run_test_child().
+ - Add patch 3 to avoid stack trace noise in verbose=1 failure snippets.
 
-When they overlap, then proactive reclaim is suppressed, so it could be
-helpful to have a manual trigger to wake it up when a high order
-allocation fails. What do you think? If it would help, I can add this
-detail to the commit message as well.
+v3:
+ - Block SIGINT/SIGTERM while a test process may be reaped and until its
+   pid is cleared, and skip already reaped tests in the signal path.
 
-Thanks again for taking a look, Zi. I hope you have a great day!
-Joshua
+v2:
+ - Reset SIGALRM to SIG_DFL in the forked test child.
+ - Replace the blocking waitpid(-1) loop with a bounded, non-blocking
+   wait that only runs when interrupted by SIGTERM/SIGINT.
+ - Ensure the SIGKILL escalation reaches the whole process group before
+   the zombie is reaped.
+ - Factor out timespec_diff_secs() and TEST_KILL_GRACE_SECS.
 
-> > Those migration differences leads to about 25% reduced CXL bandwidth
-> > usage after applying this patch.
-> >
-> > Signed-off-by: Joshua Hahn <joshua.hahnjy@gmail.com>
-> > ---
-> >  mm/migrate.c | 13 ++++++++++++-
-> >  1 file changed, 12 insertions(+), 1 deletion(-)
-> >
-> > diff --git a/mm/migrate.c b/mm/migrate.c
-> > index 7bdcdb57652f8..67364fe0851c0 100644
-> > --- a/mm/migrate.c
-> > +++ b/mm/migrate.c
-> > @@ -2671,6 +2671,7 @@ static struct folio *alloc_misplaced_dst_folio(struct folio *src,
-> >  	int nid = (int) data;
-> >  	int order = folio_order(src);
-> >  	gfp_t gfp = __GFP_THISNODE;
-> > +	struct folio *dst;
-> >  
-> >  	if (order > 0)
-> >  		gfp |= GFP_TRANSHUGE_LIGHT;
-> > @@ -2679,7 +2680,17 @@ static struct folio *alloc_misplaced_dst_folio(struct folio *src,
-> >  			__GFP_NOWARN;
-> >  		gfp &= ~__GFP_RECLAIM;
-> >  	}
-> > -	return __folio_alloc_node(gfp, order, nid);
-> > +
-> > +	dst = __folio_alloc_node(gfp, order, nid);
-> > +
-> > +	/*
-> > +	 * A node with enough free memory might still be too fragmented to serve
-> > +	 * a large folio. Wake kcompactd to help the next huge folio migration.
-> > +	 */
-> > +	if (!dst && order > 0)
-> > +		wakeup_kcompactd(NODE_DATA(nid), order, gfp_zone(gfp));
-> > +
-> > +	return dst;
-> >  }
-> >  
-> >  /*
-> 
-> 
-> 
-> 
-> -- 
-> Best Regards,
-> Yan, Zi
+Assisted-by: Antigravity:gemini-3.1-pro
+
+Ian Rogers (3):
+  perf test: Add per-test timeout support
+  perf test: Improve JUnit XML schema compliance and completeness
+  perf test: Don't count mlock budget wait time towards test timeout
+
+ tools/perf/Documentation/perf-test.txt |  12 +-
+ tools/perf/tests/builtin-test.c        | 645 +++++++++++++++++++------
+ tools/perf/tests/tests.h               |   7 +-
+ 3 files changed, 523 insertions(+), 141 deletions(-)
+
+-- 
+2.56.0.307.g5fe7bd680c-goog
+
