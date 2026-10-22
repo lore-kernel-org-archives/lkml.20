@@ -1,49 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792677201;
-	b=STKeDF3GEwQtqH3y/vZNCykLz/j0ziz9PpU7azz8Re8hPuTodf6DjTY/dxE9JyWd5qg+
-	 5pjmPTD4JalF09KUp9iRtWO65pIjF6BxcpLwIE7/pq+qGIaUCUyYuhcN7Vizl/Mi6v2a1
-	 C9LDpZ4pkFi/FwFMr+LQrs+yw7CkmEhDIMvCzPKx8G/TqndK58Z5InK/HTRfGvNyVk0iE
-	 p+UO5zM4n+kulacxyLB2lKE4p2cXHsk2Lvh48GztPLmAA7smevxzvz9T8zJlu6DRqxpnx
-	 t1a2NB7YOvoCgZw8pUVvQ/mw/czYSoRXdCYRn4d/UGtvaLtUrpNvvnPeyhgXYuPejvQ==
+	t=1792677197;
+	b=cdXBQ2pRLanX39anSQMvv1B2krZJzS7TV1WD0WA1z7p2T1iUBKZmUgfBJ0drlpd0911c
+	 /h/JA66a019Oi58PIjmvFEnmV5ViDMQ+AWvaxdcbhm0oiBJjA3vVyernfpASOOimCqzW3
+	 6sNfSde3y3QxxblNQ5M3oGaxYkr9yeIw55QzPI5fFSIDDnrWbNSiTam+AInxNODOXvXYG
+	 1Tpr7eN0ScsKGrn9lTj+PKY1CD4izIQBKS3kWsbOg/qJvuD65gBYzDTcbMNoZ+vBoHgjx
+	 pnWjD7/Hp18hs3Oti4KoJfvux2HJ9dwa2vR9Dxb6Kdrx4ISRcC6/4KBDrkLB50G6OZg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792677201;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=HRt7WehTKctLnGbeC7pLAnadKrHTL2sk3kSDhLhx7zo=;
-	b=194RBogsscX9k8ZcqLHnWctzU/VM2sHqhquFXJK/B2hhNWSKjTJk642M5k66jiLtLZs1
-	 Kde/ET34TkReFlWUydqHmp3s7jo8uXUEz77gTO10kQS9Qc+HGdyv9+u5fpSKNJeF+s5x/
-	 mLsLK29JgnmMbTcDWOhmZk3o1+0kf1XOEgSP73Y4MIKTz0K5uUw8Qd5Jm5L/4s+bpLXhZ
-	 YyfWEiPXbsflG76VaWoK3QWEUoR/h75kL8OyUF745CH9wVKXkMyacYpQJM13bRt5lgiVK
-	 qPnNbpnXVe9YvL79Nd4iDpzAChbU7sTqAE/3RPB1bGOtwzQVeu9A+pI9XhbLXnAPupw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792677197;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=DzhR2L4XhC7bpp8sqzRhFdyulkY1Uuqge/MHzZq/OJ4=;
+	b=rPNivdCGX/O3LZEY5J3XpwS5ioveWP+yp+dEvrwkTu6I86ce0zKNdugQpXxxBY0QmXqU
+	 K4b2zOC0Hbqdy/9bt33Wn4c4T0ewFHTzz0CXraE7CFIdeGC7pP4MWjSk31d5qqM716l+G
+	 1EOOI4PW2kfZD2SBdvOAtY4yQBPvo3xaMBRJ9Bu97rpSzr5OPtzS3f36C258dUFd3uyuM
+	 3PbIB9vyijfvZizP1BZtS9eLmY05teIdNkgd5iY5TiFO+IBmPB56M+Xw9v3fuh8Mx+sF6
+	 N4sxHJGMlYOcKU8Olk1s7nB/MZpHTwL6k7M5xn0W8NttGyIZmmQEs7oG90p2mNAbwBQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=L+57qLBu;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=tFntqpmI;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 724DB60A2609
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 13:53:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FE7760A2600
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 13:53:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=L+57qLBu
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 940B51F000D0;
-	Thu, 22 Oct 2026 13:53:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792677201;
-	bh=HRt7WehTKctLnGbeC7pLAnadKrHTL2sk3kSDhLhx7zo=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=L+57qLBuGwCRdPb+IrY0wdf3hAeqmn9FYqvH9JM3eWEPUmPTFxh1cCricOrjbvG/j
-	 ku4JsLFdJyakWLo0wEaCIX2jayOztmolQttZ25pMQf3TmZzTPjH/VCA7lzuG1wBj8z
-	 spTWtyT7dKGgPy5V+THGwmPx/t9EvlZHDGNvhhIR+R8DurPWOxLvuUEXUsvnZnWeIW
-	 /yVUQJfOIwAL7bZo7G6FSzbD4wRh56USkobymqjuu97n9v+tNPgpjqgYaBuZdg2qvu
-	 o57ekE1lOpLYQzMnXLz2IW3HGwQkv2zeA2wE9mH5zymwkM2ZdYDjmSy+kwkwxnyX2P
-	 kyPMQI6BvYxmw==
-From: Maxime Ripard <mripard@kernel.org>
-Date: Thu, 22 Oct 2026 15:53:02 +0200
-Subject: [PATCH v6 01/15] drm/amd/display: Fix planes atomic_create_state
- implementation
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=tFntqpmI
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D0F21F000CB;
+	Thu, 22 Oct 2026 13:53:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1792677197;
+	bh=DzhR2L4XhC7bpp8sqzRhFdyulkY1Uuqge/MHzZq/OJ4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=tFntqpmIwOEH1lNPEzcQDlCmNy20wMHXjhKhlhqemjVR2Rh9Y9rfbYeSpA+sYfJOJ
+	 vQdPEi3wVHXGRl9JGddJeTaPJzPrJDrp1LOS4foXVqt0qUGztsTuCp4U5I+8Zkz2LX
+	 6GYZ0Jd9S+YDvsS7bLmgUwEPxIx9B/vObBxk9Jdk=
+Date: Thu, 22 Oct 2026 15:52:57 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Eduard Zateev <hackerowskiy@gmail.com>
+Cc: johan@kernel.org, elder@kernel.org, greybus-dev@lists.linaro.org,
+	linux-kernel@vger.kernel.org,
+	syzbot+61464b62b688791cc24c@syzkaller.appspotmail.com,
+	syzbot+a2e50fb40695811c2dab@syzkaller.appspotmail.com
+Subject: Re: [PATCH] greybus: operation: keep operation alive while arming
+ timer
+Message-ID: <2026102259-cucumber-clasp-a64a@gregkh>
+References: <20261022134817.1703927-1-hackerowskiy@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,65 +56,64 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261022-drm-reset-state-flag-v6-1-f36d640b7e76@kernel.org>
-References: <20261022-drm-reset-state-flag-v6-0-f36d640b7e76@kernel.org>
-In-Reply-To: <20261022-drm-reset-state-flag-v6-0-f36d640b7e76@kernel.org>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Louis Chauvet <louis.chauvet@bootlin.com>, 
- Haneen Mohammed <hamohammed.sa@gmail.com>, 
- Melissa Wen <melissa.srw@gmail.com>
-Cc: Daniel Stone <daniels@collabora.com>, 
- Harry Wentland <harry.wentland@amd.com>, 
- Jocelyn Falempe <jfalempe@redhat.com>, 
- =?utf-8?q?Jonas_=C3=85dahl?= <jadahl@redhat.com>, 
- =?utf-8?q?Michel_D=C3=A4nzer?= <mdaenzer@redhat.com>, 
- Pekka Paalanen <pekka.paalanen@collabora.com>, 
- Sebastian Wick <sebastian.wick@redhat.com>, Simon Ser <contact@emersion.fr>, 
- Victoria Brekenfeld <victoria@system76.com>, 
- Xaver Hugl <xaver.hugl@kde.org>, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Maxime Ripard <mripard@kernel.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1367; i=mripard@kernel.org;
- h=from:subject:message-id; bh=jPfBSx0AuI4AiSP23xvBSmuv7S2aZHPRkqVpdnQnLP4=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFm3RJ1ddpyrlnhcP91Y5H671vN3BTvfGEanXXHh/rqlr
- zFAJ+1vx1QWBmFOBlkxRZYnMmGnl7cvrnKwX/kDZg4rE8gQBi5OAZiIbC9jvU/0zN++11+/Wd4t
- vujlR2mly9bHGBPXn5W7PyOx/kTvqkeXX926EtuxRGd5Wa1fX67QU8aGW+XKvZnHH7bOlHh1aFP
- T/KPm/dNds43rM8WONpc8sdSdfkapecqcY7ay3uyr6uyZ89cBAA==
-X-Developer-Key: i=mripard@kernel.org; a=openpgp;
- fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261022134817.1703927-1-hackerowskiy@gmail.com>
 
-Commit 2bcec01cf105 ("drm/amdgpu_dm: Convert to atomic_create_state")
-converted the amdgpu planes to use atomic_create_state instead of reset.
+On Thu, Oct 22, 2026 at 03:48:17PM +0200, Eduard Zateev wrote:
+> An operation can complete after gb_message_send() returns but before
+> gb_operation_request_send() arms its timeout timer. The completion
+> worker then sees no active timer, finishes the callback, and drops its
+> operation reference. The request path may still arm the timer, so a later
+> final put frees an operation with an active timer.
+> 
+> Take a temporary reference before sending and keep it through timer
+> setup. After arming the timer, inspect the result under
+> gb_operations_lock. If the operation has already completed,
+> synchronously delete the timer before dropping the temporary reference.
+> 
+> OpenAI Codex assisted with the syzbot investigation, race analysis, patch,
+> and changelog. The syzbot C reproducer drove Greybus ES2 under ARM64 QEMU
+> but did not naturally trigger ODEBUG. In a test-only build, forcing
+> completion work to finish before timer setup left the timer pending when
+> the operation was destroyed before this change and inactive with this
+> change.
+> 
+> Fixes: dbec27298b0d ("staging: greybus: operation: add generic timeout support")
+> Reported-by: syzbot+61464b62b688791cc24c@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=61464b62b688791cc24c
+> Reported-by: syzbot+a2e50fb40695811c2dab@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=a2e50fb40695811c2dab
+> Signed-off-by: Eduard Zateev <hackerowskiy@gmail.com>
+> ---
+>  drivers/greybus/operation.c | 28 ++++++++++++++++++++++++++--
+>  1 file changed, 26 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/greybus/operation.c b/drivers/greybus/operation.c
+> index 7e12ffb2dd6..5bfee8638c9 100644
+> --- a/drivers/greybus/operation.c
+> +++ b/drivers/greybus/operation.c
+> @@ -188,6 +188,18 @@ int gb_operation_result(struct gb_operation *operation)
+>  }
+>  EXPORT_SYMBOL_GPL(gb_operation_result);
+>  
+> +static bool gb_operation_is_in_progress(struct gb_operation *operation)
+> +{
+> +	unsigned long flags;
+> +	bool in_progress;
+> +
+> +	spin_lock_irqsave(&gb_operations_lock, flags);
+> +	in_progress = operation->errno == -EINPROGRESS;
+> +	spin_unlock_irqrestore(&gb_operations_lock, flags);
+> +
+> +	return in_progress;
 
-Unlike reset, atomic_create_state is meant to allocate a new default
-state without any side effect on the hardware or software state.
+What prevents this value from changing right after you unlock and
+return?  This isn't how to handle locking at all, right?
 
-However, during the conversion we forgot to remove the call to destroy
-the existing plane state if any. While this was expected from a reset
-implementation, it's not for an atomic_create_state one. Remove it.
+And how is syzbot testing greybus code?  What userspace / device is it
+attempting to emulate here?
 
-Fixes: 2bcec01cf105 ("drm/amdgpu_dm: Convert to atomic_create_state")
-Signed-off-by: Maxime Ripard <mripard@kernel.org>
----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c | 3 ---
- 1 file changed, 3 deletions(-)
+thanks,
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-index 2f88b9d65b82..779dabb7fc51 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-@@ -1821,7 +1821,4 @@ STATIC_IFN_KUNIT struct drm_plane_state *amdgpu_dm_plane_drm_plane_create_state(
- 	}
- 
--	if (plane->state)
--		plane->funcs->atomic_destroy_state(plane, plane->state);
--
- 	__drm_atomic_helper_plane_state_init(&amdgpu_state->base, plane);
- 	amdgpu_state->degamma_tf = AMDGPU_TRANSFER_FUNCTION_DEFAULT;
-
--- 
-2.55.0
-
+greg k-h
