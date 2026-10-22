@@ -1,97 +1,125 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792712197;
-	b=aVVre5j+s+WN4eBs2IbnECnYhwlPEKgxf6MKmRHynpaNBLQXIaHjkKb3C/YI5TVJXlwu
-	 EjyL1cd084MW/1s74VTiqsaaCbFrq3aU2cEjIFen/HXJx8uapwLoSXHR8xa6lBEo/TpvO
-	 cTSC0ztzE0aC4flChRZLv6lnUn2D1MsZ+lAXy2TxUQpYykGzdAILA/NC0lr7hRvm0q51F
-	 a4Z0OhyyVY57obg5vCLPupM56eZEoxEW/HF6sNDBTX4Pnypkc0MQPUpZ9RARqRsRnZtW7
-	 ebicUZypI3XiNWtMJeZNs967efrZmZTMTEqwlWEVswv6ZW6G8MhMoUg6XCY8TJ969xg==
+	t=1792712341;
+	b=QWZ5YLHdX8jE7cu1L492oOJtzIFokzMBSrPXPCCiCEHOKoc20vigaNNhdYZFcRL+VsOz
+	 /NftMgLjMFRtWEO9LU1qbL0ngkO+hFfnZgZpV6yfg8BxKq73ZlbCfEip1Ad5obZk2Xobe
+	 SJdZmEDsahCedzRTb7m72Bh+d+VVvPsQfmeNQaa4DdTbhuaxBsaE57Y+iAoRdd9L+yaZZ
+	 7N9nHLF7bg1t5FSK0OcTADRvfOVvDXum81807xP3VOb9K0bix+60wb2K2dHA1Vji/e2y9
+	 Hz16SRlW6PvQijVs87h7lhENFxW9l4mBDEb1mRWd60REReAR8r2glC+9mb+Bfn3H0rA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792712197;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=vd0cJ9duAzPWkS9K0wzMKp/efF51QEmYJSWs3p1I1Z0=;
-	b=V++Ht6+OusoOZSlE/hEAuepMdzpEWpC7Kgy5+kDbQf1Y/AHWYvlZ2AaXjlJZAmAEdvq7
-	 mkDqjhKmus+1rLL2mwYWYzlJ5CxpwZc4Eovzic0ZWDUUOscbrsj05M+rf1dS988S6Zk9n
-	 gcIDeGQTgl+FQXzVzfT1IFQdRdayOvNfxuQmhdeT+mTkz5p03ONeS6+7X+o9peGgoVhvf
-	 nhbhVLpzihcUiL1dSn/VB5Xk7ZZg/ggFI2n1hXUw0djHmBae33b2qu6JDWrqUJcHYHe1a
-	 wj+DYOuXkmcPCYOuuJ0fPU/MxN0xbdfypeEfBzSUbjz00yKO9zpjyCJJ3wHU20XJ7eg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792712341;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:Received:Date:From:To:Cc:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=Nqaq+KGmgq+7t4ixqZSLUjFN4QjJmmGs/RCocqmgwTQ=;
+	b=Gwfu32gGFOvgur99kBtjM1DmD7USP9srxxbsme2fS/TlKf/ZWDAlyYVI1pUuCeqTziX+
+	 UdmfuP/IRp44wM6OsA24WYrNgOcDY4MJ6lr7o7kF/+FCbF51n/xeIdB0FgcmkGhYB7dRw
+	 SyOifH7NdtWuIizR/GlVMeCTlFatVzEArI+AM0r3D15oZAZojKxKcRZiANULvDHW/JHrM
+	 gLiHqA+69dFFe1vZ1MX5txYTrCbQurqDnjqvRHc2MiAaajwEEi7UUETg+gp8BowKQaOy4
+	 W+i2JChMaGEY04btCB+hXEvgUs0InfW2lnSZ+EejYPJ8hD9MNfm/z6LEN0lfYAk1geg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=dubeyko.com;
-	spf=pass smtp.mailfrom=dubeyko.com;
-	dkim=pass header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=YWEPFA6l;
-	arc=none smtp.remote-ip=74.125.224.48
-Received: from mail-yx1-f48.google.com (mail-yx1-f48.google.com [74.125.224.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=fnqsRThz;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b="h5T/yWrg";
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C864C606A767
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 23:36:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C864C606A767
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dubeyko.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E795D606A319
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 23:39:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E795D606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=YWEPFA6l
-Received: by mail-yx1-f48.google.com with SMTP id 956f58d0204a3-6740e7ae219so430909d50.1
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 16:36:36 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=fnqsRThz;
+	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=h5T/yWrg
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1792712340;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Nqaq+KGmgq+7t4ixqZSLUjFN4QjJmmGs/RCocqmgwTQ=;
+	b=fnqsRThz9vxDV5ZsV6Ix4ml+uRyXI9Igbef+PSp/B8dHyIa0I0SzOjnhZIQ1D3JT+1SXu7
+	zDnQlS+xSB6SvuMLMPDFlNEzQRfVWfKvblQQJ41r9dfhni+X4JknD0GsHZezpGfwMBssIQ
+	3OZEOjd+l5mTr2AZfykPB9RG48V2YZo=
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
+ [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-460-otVodghdOCWUoBX5nFFglA-1; Thu, 22 Oct 2026 19:38:58 -0400
+X-MC-Unique: otVodghdOCWUoBX5nFFglA-1
+X-Mimecast-MFC-AGG-ID: otVodghdOCWUoBX5nFFglA_1792712338
+Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-49953abe51fso1888765e9.1
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 16:38:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=dubeyko-com.20251104.gappssmtp.com; s=20251104; t=1792712196; x=1793316996; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=vd0cJ9duAzPWkS9K0wzMKp/efF51QEmYJSWs3p1I1Z0=;
-        b=YWEPFA6luN/2OpWohFoAlb8EklkjVbTvPyIgVLi+PhE01t2fCYwAjeGq9IA9anJOb9
-         laSocgVZyAZ0X5vLaAsAH4oMV0MQjWWTPlX7EcMd+8ow7Jh652Q0SiQNRFVy3ZXVfnOf
-         hTx3BoHC7b5QyfMncfJD40E58RaTxbwiZgL/MLulV9hWpRsH8Ceb30musVmJTmTBCjJ3
-         9vtHXR6Q10Kj4OTPBl73ONZYlQq3VLhfURNL8rg6S3Ez9bZQb9gVHO5FWdEEPZ/nr/O9
-         9OwWLlxmowINoFJswGsElE1KTMR0IQwTEzQcq0ZiibCGTvtAdmML0fqJ183x7Q3BMGi4
-         FeJw==
+        d=redhat.com; s=google; t=1792712337; x=1793317137; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Nqaq+KGmgq+7t4ixqZSLUjFN4QjJmmGs/RCocqmgwTQ=;
+        b=h5T/yWrg0r0GPks25qnD0SyfNo3HEgZC79cvuuTP6lbU1oSmnbqekgfCsM8CsUnX+U
+         8RwmK0Ckd/kHXT8P8WCHefOtaMbF4LWwyXoGhr9dr1prXxrQkKwc+07Q2VGcUtEAZhDo
+         TpF+S6hF1iR3bNq6p6JxC+IJKdgwdyFAUtmSFDOrkFc6ngL7n7m1HmgF2sI+b7e/R9Yv
+         uy4cbPFb8f2mh2vrfJNqgYeudUzHKnGX5oGxmB2TpqyzpEcGsT/DgZxCexxLN7uWkDxb
+         pwNXlfITD4f6TfHZ8Npit2ywRDgwEiOgccypkowTuqifqrhU8GGTEf5bRBr/nGs4jTNO
+         5vLw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792712196; x=1793316996;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=vd0cJ9duAzPWkS9K0wzMKp/efF51QEmYJSWs3p1I1Z0=;
-        b=qT2p/uDSUc+qjX/53u4MeZk3DYFLQ4sqSA08ujhbbq5ZTQ6+X0qOcKCA3/xtneGF02
-         rBugER6D5DxcNPctjZPanMo3rviCi0g8FbbvicadjGIuhYbMzOwVbG86uMp0lr24VL2c
-         DkgNyqorM622GU0V7yJtgxiVplTo31T/mNaXpEMYCpy9pCP6kD9QCB/wzrPhl5mmq+xu
-         DMphKSGM38z7zSE8UEwyaK3I2HRePFQhwZZPHjN0PImHofoW4xSk3wWX9XtoIIS+LZCA
-         Lt/8S9wQ0C7+2ZG7z0mcbqRXfDoY7UeydrB8p7xvFhFuNEyjSWb8Ora1rXU2g4SuH9Vg
-         VR+A==
-X-Forwarded-Encrypted: i=1; AKwUvByIZKQEIv3Z1nJsS2/rCNOyDwnbiXnKQC3PDuoW6oRXkjLQAdmCzSYzyfTthP4jbNTs5bEG9ff5I5H0TFY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLo61AhcU/bKVp69TWsB8QUdzL4Pxayn1mbQzVvy3le1JeH8AYm
-	IKYGq1SuhzJvofWOJ1bTy67g9YLvgLm777ndA9o0QNeJ7pCDDh+Ihjk9XYxFI21/0GQ=
-X-Gm-Gg: AYBFou3JVsWvTiNTmnyD63DRwQutn2HEmF4GTivpeyUtA9+zIbG/9asgCAGjWE5Vmil
-	FBGNrWrjYIJtgCRhhzoQyxjZ0Vg7ACYSNRVrimOaMo/jgp63DKYRJn4O9LjDhRnarGfMeKflKJP
-	iDmweM2AnNECCLwhpIL5ZvVdAMd+92g7OzT5TXr1t/Xu/mx7Ch21tlan364VS8lsXwcViPZLaIB
-	9x2hrBl/FUysDzfraTOILhk2DQ5tCFKdvCzbOZO9x4sUzdmU8qo48jy2509SD2+h6HAJviIZY2w
-	MTjuPKP26MD2rgo9Sa1Spba0qJ+72pCOvCo3+kj9TwVLKgesr21W8T5HhkqS0/7lZqdl8BCXwte
-	5NbJvZlUBLqmg4zAUlL8KyOBdGopEOVPjZk52eUhOuePKYBR3X3UHDZPgmYPqGJdabDwRO4rfCa
-	lhYfJgVNl8KYoPqC6GvOquCI5Ul1rP2DNHmtkqOK1sSIZsM8ojLxAW12KvWJ796IifcZRvDlQBO
-	6KrPBuCGP+sYDFaQdYRVjcY8cuiqiWgmoFXc8F0m/K41FpqFV95Jexsf6Hnsz3v8XUbXxrwX6lc
-	jUh9kLrV0DQ5dIdOTfEjRhCayc2YLk+5n8M9KidGCm6NtcpzYSn+LhBi8Q3pXR8lcltU4RkSPYT
-	eONyq6blqLg==
-X-Received: by 2002:a05:690e:1507:b0:679:c803:98db with SMTP id 956f58d0204a3-67a35c0c3famr245359d50.149.1792712195858;
-        Thu, 22 Oct 2026 16:36:35 -0700 (PDT)
-Received: from pop-os.attlocal.net ([2600:1700:6476:1430:5551:17ca:f374:dc57])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67a34009247sm487643d50.11.2026.10.22.16.36.31
+        d=1e100.net; s=20260707; t=1792712337; x=1793317137;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Nqaq+KGmgq+7t4ixqZSLUjFN4QjJmmGs/RCocqmgwTQ=;
+        b=d620yRzmpgxGvdBXTavW4pdpqoGYFs+aOG50eIOLnS5G3bOmltUP/JyR4osWGVdqgS
+         Vq7ilfnkeDPNFKH6B/PbbgJ5snEAclmN4KFZpODr+ujFthykRT8NesFd9/emIcYU5mMS
+         Pa76D4p/kfTPgSv4R0j6raYV0x0vA++iw7H72LM0BUOkttWS4sQn7TvTMdI60yXDBcS6
+         fBFmooSQHmtJcjRnBmSrmPI11CsKYKYHtyqjNmxN5J7h6IzXzvtYvxvepof4vPMTaIwk
+         OFZ2wXRiwO4xaNdBBtLA63lw0x7HofoweIu+6KVe8p/g8tPOJDlyM2GVTXhHgkkwBK9X
+         6KEA==
+X-Forwarded-Encrypted: i=1; AKwUvBzneUaLeoAB+Nz7JIOFwp7OStkbDPjKpK2RMzEYvFXWhNO7rqEjdWhN3C/8yJOcOy7iGzkKofIN35aPlmk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ1qW29F29v83/STHqkTSksF8Vr0jVGOY2+mG0H5OHb8juXuEOi
+	RAVmCd5tyB283XY1Mn97KsEC0XWgWgSI3E7dIkvYwmxuiVy+WFpfiea36HL8x/KnoyOXI5ydfwA
+	5bUmlhvFVijmj1DtgBVjgGQBOc4v/MsG4KtTO6Sfu3G7EZCIg8VZydKIZQRVEX2crZg==
+X-Gm-Gg: AYBFou30qLLc+7g08C7f02h7kL8gEKWpX0I68ch6jt4CddfVER0S4k71HZ81QU74/p5
+	v80eLFcW7L28BCozECtvC4JJAiqzXQNpx0PbPiVpcz7cMGdFzcwsN1IgtZTkVpMRA7omeFqA68L
+	gw4x7phbDuOp0u2zfauBYq3Hwd+0St6AGYmfpCs7r1XVL6TFrZ8dcf6gb+427a4zOVXHJjJUGy9
+	BSut5sKFzemwkaKDDY5LM9CKf6dMNZvRmaJSGZtxYVnOcf7zOrRD2Ky8l9WhCtMFPsWpmglRx7u
+	6E6EaQUgx3Y43eyMyU4sEuW/3TYMEChmZh0KN6h54S/ajn6WMgcBKhJqggevf7W/UFCXQ6c=
+X-Received: by 2002:a05:600c:350e:b0:4a0:1c0e:b057 with SMTP id 5b1f17b1804b1-4a211c7fb6bmr9087325e9.4.1792712337453;
+        Thu, 22 Oct 2026 16:38:57 -0700 (PDT)
+X-Received: by 2002:a05:600c:350e:b0:4a0:1c0e:b057 with SMTP id 5b1f17b1804b1-4a211c7fb6bmr9087035e9.4.1792712337018;
+        Thu, 22 Oct 2026 16:38:57 -0700 (PDT)
+Received: from redhat.com ([2a06:c701:73f6:2400:30a8:9e33:7d82:c035])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a210473567sm30620015e9.12.2026.10.22.16.38.54
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 16:36:34 -0700 (PDT)
-From: Viacheslav Dubeyko <slava@dubeyko.com>
-To: glaubitz@physik.fu-berlin.de,
-	frank.li@vivo.com
-Cc: linux-fsdevel@vger.kernel.org,
+        Thu, 22 Oct 2026 16:38:56 -0700 (PDT)
+Date: Thu, 22 Oct 2026 19:38:53 -0400
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: Chris Arges <carges@cloudflare.com>
+Cc: Willem de Bruijn <willemdebruijn.kernel@gmail.com>,
 	linux-kernel@vger.kernel.org,
-	vdubeyko@coreweave.com,
-	Viacheslav Dubeyko <slava@dubeyko.com>
-Subject: [PATCH] hfs: fix potential race conditions in b-tree functionality
-Date: Thu, 22 Oct 2026 16:35:48 -0700
-Message-ID: <20261022233548.3481882-3-slava@dubeyko.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261022233548.3481882-1-slava@dubeyko.com>
-References: <20261022233548.3481882-1-slava@dubeyko.com>
+	=?iso-8859-1?Q?Bj=F6rn_T=F6pel?= <bjorn@kernel.org>,
+	Phil Sutter <phil@nwl.cc>, Jason Wang <jasowangio@gmail.com>,
+	Eugenio =?iso-8859-1?Q?P=E9rez?= <eperezma@redhat.com>,
+	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	netdev@vger.kernel.org, virtualization@lists.linux.dev,
+	Max Krasnyansky <maxk@qualcomm.com>,
+	Rusty Russell <rusty@rustcorp.com.au>,
+	Paulos Yibelo <habte.yibelo@gmail.com>
+Subject: Re: [PATCH net v5 4/7] net: resolve uncommon partial checksums at
+ ingress
+Message-ID: <20261022193052-mutt-send-email-mst@kernel.org>
+References: <cover.v5.git.mst@redhat.com>
+ <342bf5331e12b2e5b940510293233bb8bce46127.1792668082.git.mst@redhat.com>
+ <willemdebruijn.kernel.2987fc5710162@gmail.com>
+ <atpIiwcUlH5ttBb6@20HS2G4>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,113 +129,104 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <atpIiwcUlH5ttBb6@20HS2G4>
 
-The HFS_BNODE_DELETED flag is checked in hfs_bnode_put()
-under locked tree->hash_lock. Add locking for the case of
-setting the HFS_BNODE_DELETED flag in hfs_bnode_unlink()
-with the goal to avoid potential race conditions.
+On Thu, Oct 22, 2026 at 12:52:36PM -0500, Chris Arges wrote:
+> > > @@ -335,9 +592,12 @@ virtio_net_hdr_tnl_to_skb(struct sk_buff *skb,
+> > >  	/* Let the basic parsing deal with plain GSO features. */
+> > >  	ret = __virtio_net_hdr_to_skb(skb, hdr, true,
+> > >  				      hdr->gso_type & ~gso_tunnel_type);
+> > > -	if (ret)
+> > > +	if (ret < 0)
+> > >  		return ret;
+> > >  
+> 
+> One other case I found in testing is that a producer can set gso_size
+> larger than the remaining packet data. __virtio_net_hdr_to_skb() then
+> succeeds, but intentionally does not install GSO state because the packet
+> is too small to segment. NEEDS_CSUM has still left the skb with
+> CHECKSUM_PARTIAL.
 
-The hfs_btree_write() method should be called under
-tree->tree_lock. Rework logic by adding locking
-the tree->tree_lock for the calls of hfs_btree_write()
-in hfs_write_inode() for the case of Extents and
-Catalog b-tree inodes.
+So why is this a problem? If checksum offset is correct we leave
+packet as CHECKSUM_PARTIAL. That's intentional.
+What does your test do that makes this a problem?
 
-Also, add the lockdep_assert_held() in
-hfs_bmap_reserve(), hfs_bmap_alloc(), and hfs_bmap_free().
+> The following check fixes my test case:
+> 
+> 	if (!virtio_net_hdr_validate_disabled(skb) &&
+> 	    !skb_is_gso(skb))
+> 		return -EINVAL;
+> 
+> A concern I have is this may reject valid packets, so maybe there's a better
+> place for this.
 
-HFS port of the HFS+ commit:
-commit 6dca66d7ba17 ("hfsplus: fix potential race conditions in b-tree functionality")
 
-Signed-off-by: Viacheslav Dubeyko <slava@dubeyko.com>
-cc: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
-cc: Yangtao Li <frank.li@vivo.com>
-cc: linux-fsdevel@vger.kernel.org
----
- fs/hfs/bnode.c |  3 +++
- fs/hfs/btree.c |  5 +++++
- fs/hfs/inode.c | 13 +++++++++++--
- 3 files changed, 19 insertions(+), 2 deletions(-)
+Indeed, it's not uncommon to have small packets with !gso.
 
-diff --git a/fs/hfs/bnode.c b/fs/hfs/bnode.c
-index 1b331108d9c0..93a13ece1eb4 100644
---- a/fs/hfs/bnode.c
-+++ b/fs/hfs/bnode.c
-@@ -271,7 +271,10 @@ void hfs_bnode_unlink(struct hfs_bnode *node)
- 		tree->root = 0;
- 		tree->depth = 0;
- 	}
-+
-+	spin_lock(&tree->hash_lock);
- 	set_bit(HFS_BNODE_DELETED, &node->flags);
-+	spin_unlock(&tree->hash_lock);
- }
- 
- static inline int hfs_bnode_hash(u32 num)
-diff --git a/fs/hfs/btree.c b/fs/hfs/btree.c
-index 4f0ddc76e8c5..b140d8597474 100644
---- a/fs/hfs/btree.c
-+++ b/fs/hfs/btree.c
-@@ -398,6 +398,8 @@ int hfs_bmap_reserve(struct hfs_btree *tree, u32 rsvd_nodes)
- 	u32 count;
- 	int res;
- 
-+	lockdep_assert_held(&tree->tree_lock);
-+
- 	while (tree->free_nodes < rsvd_nodes) {
- 		res = hfs_extend_file(inode);
- 		if (res)
-@@ -424,6 +426,8 @@ struct hfs_bnode *hfs_bmap_alloc(struct hfs_btree *tree)
- 	u8 *data, byte, m;
- 	int i, res;
- 
-+	lockdep_assert_held(&tree->tree_lock);
-+
- 	res = hfs_bmap_reserve(tree, 1);
- 	if (res)
- 		return ERR_PTR(res);
-@@ -500,6 +504,7 @@ void hfs_bmap_free(struct hfs_bnode *node)
- 
- 	hfs_dbg("node %u\n", node->this);
- 	tree = node->tree;
-+	lockdep_assert_held(&tree->tree_lock);
- 	nidx = node->this;
- 	node = hfs_bnode_find(tree, 0);
- 	if (IS_ERR(node))
-diff --git a/fs/hfs/inode.c b/fs/hfs/inode.c
-index cce3a7bb95e9..9dde4b43c88f 100644
---- a/fs/hfs/inode.c
-+++ b/fs/hfs/inode.c
-@@ -468,6 +468,7 @@ int hfs_write_inode(struct inode *inode, struct writeback_control *wbc)
- {
- 	struct inode *main_inode = inode;
- 	struct hfs_find_data fd;
-+	struct hfs_btree *tree;
- 	hfs_cat_rec rec;
- 	int res;
- 
-@@ -481,10 +482,18 @@ int hfs_write_inode(struct inode *inode, struct writeback_control *wbc)
- 		case HFS_ROOT_CNID:
- 			break;
- 		case HFS_EXT_CNID:
--			hfs_btree_write(HFS_SB(inode->i_sb)->ext_tree);
-+			tree = HFS_SB(inode->i_sb)->ext_tree;
-+			mutex_lock_nested(&tree->tree_lock,
-+					  EXTENTS_BTREE_MUTEX);
-+			hfs_btree_write(tree);
-+			mutex_unlock(&tree->tree_lock);
- 			return 0;
- 		case HFS_CAT_CNID:
--			hfs_btree_write(HFS_SB(inode->i_sb)->cat_tree);
-+			tree = HFS_SB(inode->i_sb)->cat_tree;
-+			mutex_lock_nested(&tree->tree_lock,
-+					  CATALOG_BTREE_MUTEX);
-+			hfs_btree_write(tree);
-+			mutex_unlock(&tree->tree_lock);
- 			return 0;
- 		default:
- 			BUG();
--- 
-2.43.0
+See also:
+commit 7c6d2ecbda83150b2036a2b36b21381ad4667762
+    net: be more gentle about silly gso requests coming from user
+    
+
+
+> 
+> > > +	if (!virtio_net_tnl_offsets_ok(skb, outer_isv6, outer_th))
+> > > +		return -EINVAL;
+> > > +
+> > >  	/* In case of USO, the inner protocol is still unknown and
+> > >  	 * `inner_isv6` is just a guess, additional parsing is needed.
+> > >  	 * The previous validation ensures that accessing an ipv4 inner
+> > > @@ -353,7 +613,7 @@ virtio_net_hdr_tnl_to_skb(struct sk_buff *skb,
+> > >  	}
+> > >  
+> > >  	skb_set_inner_protocol(skb, inner_isv6 ? htons(ETH_P_IPV6) :
+> > > -						 htons(ETH_P_IP));
+> > > +			    htons(ETH_P_IP));
+> > >  	if (hdr->flags & VIRTIO_NET_HDR_F_UDP_TUNNEL_CSUM) {
+> > >  		if (!tnl_csum_negotiated)
+> > >  			return -EINVAL;
+> > > @@ -368,7 +628,22 @@ virtio_net_hdr_tnl_to_skb(struct sk_buff *skb,
+> > >  	skb->inner_mac_header = inner_nh + skb_headroom(skb);
+> > >  	skb->transport_header = outer_th + skb_headroom(skb);
+> > >  	skb->encapsulation = 1;
+> > > -	return 0;
+> > > +
+> > > +	if (!skb_is_gso(skb))
+> > > +		skb_shinfo(skb)->gso_type &= ~(SKB_GSO_UDP_TUNNEL_CSUM |
+> > > +					       SKB_GSO_UDP_TUNNEL);
+> > > +
+> > > +	/*
+> > > +	 * We know VIRTIO_NET_HDR_F_NEEDS_CSUM was set so __virtio_net_hdr_to_skb
+> > > +	 * set CHECKSUM_PARTIAL.
+> > > +	 */
+> > > +	inner_proto = inner_isv6 ? htons(ETH_P_IPV6) : htons(ETH_P_IP);
+> > 
+> > on second thought, if having to respin, might as well fold the trivial
+> > fix in patch 7 in here from the start.
+> > 
+> > > +	if (virtio_net_csum_partial_ok_at_offset(skb, gso_inner_type, inner_nh,
+> > > +						 inner_proto))
+> > > +		return 0;
+> > > +
+> > > +	/* A tunnel header implies GSO, so drop. */
+> > 
+> > no longer true for the above !skb_is_gso(skb) case
+> >
+> 
+> virtio_net_csum_partial_ok_at_offset()
+
+Sorry I don't get what you are saying.
+
+>  
+> > > +	return __virtio_net_resolve_csum_partial_mismatch(skb);
+> > >  }
+> > >  
+> > >  /* Checksum-related fields validation for the driver */
+> > > -- 
+> > > MST
+> > > 
+> > 
+> > 
 
