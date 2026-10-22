@@ -1,79 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.41
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792691001;
-	b=M6LSGiORcndu3RC08UZs5V7db1shn/nkmN0oJvDrW5knVXRQdqgSc2+3QteyoTzCH5vp
-	 SQXxUSsA4YgEiiKDoTqEqAg8SN4MGx1NO66o9VWpBIpHb1/PWE1RtT/H2vgmMSjOn+v7U
-	 C+MnIEdfPykDYOXOhbX5zxE7FDdjE7Shl3b6RX0z2q5ymHjwtq5v3v7nfx3HxxkzlCwjw
-	 WSIsVCwzd4HnK3KsYKyfSFLVlFNB28nPSz8xadkKbcLPMEBMU1MwtFm+UcdfFnnxu8k7o
-	 cLP2Zqda4WtpXjdv/7My3h+478quVPyzV288GJBlsIwuJElzDQGvUDpN9jqv83/H8Uw==
+	t=1792691128;
+	b=cDPHTQTeI7WAXSWsxg4/A+5ZXIIQIh1GnuTUUbD6Vo4usgMMRrXzl7AKMfmp9Dm+omtd
+	 m861B7InHPdvW3yL9uq2vGVM7WzeLw34/BgckWqHvnp+9/Mn/c9dirEWcry9EEcv3hDK5
+	 aIXW2/B9vc+9dVc88DF+AcCIS0vd9yL5HTvnjQyTHC0rSuY365X57GmQTwobK5rXTvKoC
+	 DGhKJpRHEeKQFHe6NplWWyFNEgqihXywPQ+cyK+zUGcdkr7QeFfbGRCCTZvm6C2lOSIvw
+	 baoqdBTKnq6kuN834gvkihygb3hVg5eeDNKAsEQAX6PAPjiBAkYbxkPw6OGx6PXov7A==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792691001;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=yETL4knWUPez/VlRTmODuvPK8zAIUkmtTs26pSwP9pg=;
-	b=5biItRZN/XxZp83KAQ9WCSeAEfGiPB0zAJaKknxE/5hUMiS0Tpfjw/uFJAP//eb/FUKg
-	 hskjZBcj1mf81V1gGZTbla5CoVidqKIw2FY/FgUNG2aQDiO4wX6nm7vuwaH8jrLu2isR2
-	 zsCudsgCsOtF8fPqw7FOxzM/fNbM/ElB1zUoUUtlwiMBe0+PpUIn4sq82soPbyDoW52XL
-	 whEBOMjJHhCijyhMNLH/czoZLO21/FsEErWNPC4uSyE+R9TLYovagZ8ZTzF4EqXKQmKMT
-	 bcp50vZrXD1QODd8dZLJkerGi7AS7Ykfc/tW05JgrjA5ntlRqjAUlGY9jQPXqbG0UEQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792691128;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=Q/kJZkRDh+A2dbcPNuvHi4UCiR28b887/rQN2752RCM=;
+	b=WWNwp4kFmHLVWeXfz6k5zByVzucq/Yf0StyxQhTVOHYfqw2VOsa8/8P/CZo5XuQdJ32V
+	 IX9RNMIIwnLKiU4wr4PZTQYlVYNmEuOVm1Fk5JoquWn+OO3qPgzSFtRqjplpUUkVjMfMR
+	 pkhYX2O8u6zs7rWycRcyd5YjJJ3jaA0IhABdiEf5Z5y1CGkCzQQcsKCx2E4dCM3hrtdrG
+	 cCYQXAj9+pW3brCe2dsjzl1Sj1NeCJlyMHNEWiptr8p/h4pqU+yABptM5a6X9rex898uK
+	 6euedROfOGbZ7RAXncyTcMaKx7mNkHSjf0JoNE91Ma0oOhuQnNBbKQ7Q0yGaFJXH+xA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NQGDdrYL;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC9D7606A322;
-	Thu, 22 Oct 2026 17:43:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NQGDdrYL
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1792691000;
-	b=HsDK4bvjnQgHe4we9XB0T6buTjWUEOi6iEZ+pHC0Lt4c+a+oQYzyIGgwkTmzH8h6vgxS
-	 vabsD/MVpdyYlQTaBbifnYxeor29DrGYOeGqYY/dmjBxMeXgNW3FAZC5vwaqjLw8gPxjZ
-	 ik+AzLtZ7E8xyEhpBwsl3kkZQ7EnuagrT8fZQc0keBJVH5FeX2fy2EbgOLvSLBFlLndIz
-	 fFDygb6Svm5U0Khi0igqOiCfPbPZ0VrlfH7OnrLLwVokTpgwXjtJUU8OYAHMWlQEdd+UL
-	 08Epebr/kck+XhxSe8LpYy/3qu2ewAMRl8iYG0PD6zvpoQ8I10+NKSuH3MwgZCfKjAw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1792691000;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=yETL4knWUPez/VlRTmODuvPK8zAIUkmtTs26pSwP9pg=;
-	b=FNB7eZpUDHFubg4ytqntw7HY1qcVuDcqr1wzqPc+BVCg+d6D+K6GNidiTXijG8WIsvg3
-	 IrOux5C59ighwLfNuvDUc86rIKrqD+3hMtXb0bFxRoSGhT5xeNkjRWmFtuvHAmcbAdQ78
-	 M915ainDF4ufv4EQusAM5zZx5v+aEHOGIGpFJCsFHz6n7dfJnJ9S4I+FLLDcP4dpJpUDT
-	 KKNFAWAacO4womq9oYE0kzdbhPObX2KW55sbqpjb9AOPNTtMgFV28J7bu3YS+0/TBztYD
-	 xspLfn1l2odMUJxr3kOXe03Nl5ULbHFBmAIzcLmJdI2/3Pdns9A9y0Zbj41sscmcNbA==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=Ywu47o57;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.41
+Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com [209.85.208.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 686511F031E1;
-	Thu, 22 Oct 2026 17:43:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792691000;
-	bh=yETL4knWUPez/VlRTmODuvPK8zAIUkmtTs26pSwP9pg=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=NQGDdrYL8Cr425TZ1cjS+x099ww88t9C86rOK2UgZ6dj0dUJIfVzbWDAJvSTnvitA
-	 oMYFge7+QjOHL/FOKZ9mPqjuc8re8Kz7oBodfkxgwpczRetXcsQCON2RPZ0NuWzRIv
-	 snFzSc/LoO60C7BiNoXfFBxuZsybBJJkFrdmZjUURBXOh4bzFifTbtH4kZkUCs8YdA
-	 XBsQpsqMllwTY6s86DyHKXEAoqlUTQVy6r5NCgjfkBUzRqMIRoKnWTXc9Xi+tbk6D6
-	 /fyLc2Tg+NvJfFT7bV3X2inxYU52mjeEfH7vUaOEo0TIxrRBcFeBZryzfnJ5LLLfhh
-	 iglCsBuSatDqg==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id E051D41E9D;
-	Thu, 22 Oct 2026 17:43:18 +0000 (UTC)
-From: Manivannan Sadhasivam via B4 Relay <devnull+manivannan.sadhasivam.oss.qualcomm.com@kernel.org>
-Date: Thu, 22 Oct 2026 19:43:10 +0200
-Subject: [PATCH v4 4/4] wifi: ath12k: Connect to the QMI server belonging
- to the device owned by this driver
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E48C606A31E
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 17:45:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5E48C606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=Ywu47o57
+Received: by mail-ed1-f41.google.com with SMTP id 4fb4d7f45d1cf-6b203527bceso3018482a12.0
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 10:45:28 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792691127; cv=none;
+        d=google.com; s=arc-20260327;
+        b=gt5FwFOv/GFVEMQlMCgmecDBlWg65f3a5d3JGAcFFNQWuPRuF+P2kJZbF470WW30Co
+         izVto30uFUFwGmaP3ldYuhxQrUZdQFHpBP7Sn7FYMY7p7V0JlzeyXqOKxX8l2q8aM0wp
+         3PWSUIiz8yaG6KvbrOuNcUhNEMF1nVg5WTvoYKedUQgjx/87KfmUNlEWPQMajuwlAIjJ
+         kryeDDq/9pjYBB7D8CBhCqZFQoNb4OxZ++SMJsJIsA6B9ClvB4Odn17b6PoIGwYtEYZs
+         JkRBSCagkL/cA3YL3KhIOG8Aj4vhQ9S1kLr8beuMTYjz5FGCXy4A8c/PsKPTjpgyc+zs
+         06RA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Q/kJZkRDh+A2dbcPNuvHi4UCiR28b887/rQN2752RCM=;
+        fh=8gcEWYLoDSug1oaD404au/09+NXiEtNFICJeYJptkwQ=;
+        b=PW81waaZS2aZlbxWrGhGDdFQoiW4a6/DPHR9tVJHhX6otx0aH3pUj/vlvmMUOtUE35
+         +aW3l/EZl+CaSYxujujt/rLkKEpl3S9c1qX+EzTaqgZhnuknRQq0LirQ8K+CFf1/ubHf
+         oh/tlYJ1KZSagSwXuWmZ/9AXORHXCLTkF5zgeWxTZKhb9UP9ZbgXCBdrw3g4VhAijp5l
+         IlvzDMtwXD7mFgrx2/c3noMAsjG2oNpovntTBjUy3jct6hK2AFpVp7BktQ+vg4yyOPys
+         iIc+j602R2Wbp/+ZplbN7c+f8OTocSfKj33/wf7HCYf+tTY6w7R3jZ4SBaLb0dg4yuJw
+         mB8w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1792691127; x=1793295927; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Q/kJZkRDh+A2dbcPNuvHi4UCiR28b887/rQN2752RCM=;
+        b=Ywu47o57STgOueJFJYZnS/DfG17FyI0QVCJlrhlBervrjKFBlBoGiV56Ui2N+pl36U
+         DZptDHFgRh3PKLBa0wT7iWQAa8KeFJY6Rboxd7fBnj1Sv/iIId+K7IETi/He+a9EsVGV
+         1tOL4rBQhohGc2sk3KER2z/TL87Xys2WRVISAu1OQ+WQ7pjXw7ZIiV7CnE+kF42dEE/l
+         +BaQn+LVldT7kv9qc84nT0bOkmVJTPeb553Rs3UwQpz+HLJdqA499iAodbL6I/tR5u1l
+         9fQjU8jqaYUDhQOlB79GJXdPxnanMa3BKfurACLZD6mJcKd2feCuExX5O6w5TfL7ovNM
+         TTsA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792691127; x=1793295927;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Q/kJZkRDh+A2dbcPNuvHi4UCiR28b887/rQN2752RCM=;
+        b=IaUYCTjpabanzGSbu9qVN8mx1Z9rvyZy2nNoArM4Ad1TXn9WskCqXhsOM3vOzQYJSW
+         0vppQaHRmiXfd8E9jjT9J9ieVBDTnWKezxpgGXJMmlf+ZJJhZVeWycYsy/TwoXBvv/d9
+         aVKtImYzrwFbVnhiPAONzQ6m16b4K2Gl7aW/0mj85diAOo9pO4/avFS8XEWnIkG0Q0n/
+         vD8eVWxa6hf8vs21Fm+vCMq7maSgBFG/30UrFCuz1UGzZ0wuSlpqCg2GdPazS13dpNw7
+         5mDSkiPULzBIy9q9D+D6lXuSvjJg0vEm1f7595rruIOvPuQ8B5ge3EgI22STmykY+Cc1
+         5UiQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwaqO/RJA+oljci0D1FW1AzYIK+/c8WXs1pYcf9C/WDQsMv6K2ZYQjixBuHiAoLPtE3HmvXMqMCkVkGMNk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKy82YL8+K57TH7ig/ebE50OxW3i3iVjDVx21G+HIsdDVKzdoVh
+	UrX+fijXLY87wT5atWveNROZOojVbP3oKJ1k4IaSNg4oRD2pSeIQaGFy3quxNpOGom7DqkcG4UB
+	8tWH1OOa/OFbPCWBFOT8qIOUtGi61+vdy7HwlkQtW
+X-Gm-Gg: AYBFou2Je3rG85VzYY8iS9t7QBM+UIEps8lCpITv+am/4xSaDm13UpVM468hRqB15yu
+	WcVldpUhSymmaNvr5nX0ugBvkL80Ms5zE1TP5DoqCnnQb0cu6ayV8F5i+WfwPglvO9mFge/juND
+	Nsvt66ThiHcsfJ3a+yF6MgpML8xeF5N3RI7dwqdj0J4W0U/Fm6a9HRwoR/cnu9CpEqwpndUZu7k
+	pUIzSWeGLvRYYQ5iuWfugXz4u+SfmMMFhCvZeGc4BzwU/GHS6LiIDiZrO1KIRCCJDDnbRnhNrsX
+	7yyR3VqJlGfD5D5x4IURULeOghuRpsOMIT5S0vKA2PDmhQ3zrPkTJ1Xtkz0kvrPw8uH4JfUqYT4
+	AIegKILmrx0QiTaK6v9cu6qUFADbG8j2GNE1hjAm6zn4lhOQSXhYR+KfqNq4UnpdvugILT3cAjr
+	9+LiiFmwkk/RigosEGM72OIxQ/vhqzrDUZtAZFJb4dzQfdGF6ul7PnVEdY3hMGNReUsEAgpMYwE
+	V9hQ7Kc
+X-Received: by 2002:a17:906:d553:b0:c26:1649:47ad with SMTP id
+ a640c23a62f3a-c467976e841mr649670766b.35.1792691126016; Thu, 22 Oct 2026
+ 10:45:26 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,157 +106,130 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261022-qrtr-multi-ep-v4-4-c6fdb75fcd3e@oss.qualcomm.com>
-References: <20261022-qrtr-multi-ep-v4-0-c6fdb75fcd3e@oss.qualcomm.com>
-In-Reply-To: <20261022-qrtr-multi-ep-v4-0-c6fdb75fcd3e@oss.qualcomm.com>
-To: Manivannan Sadhasivam <mani@kernel.org>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Simon Horman <horms@kernel.org>, Jeff Johnson <jjohnson@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, netdev@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-wireless@vger.kernel.org, 
- ath11k@lists.infradead.org, ath12k@lists.infradead.org, 
- Bjorn Andersson <andersson@kernel.org>, 
- Chris Lew <christopher.lew@oss.qualcomm.com>, 
- Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>, 
- Raj Kumar Bhagat <raj.bhagat@oss.qualcomm.com>, 
- Juha-Matti Tilli <juha-matti.tilli@iki.fi>, 
- Jeff Hugo <jeff.hugo@oss.qualcomm.com>, 
- Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4303;
- i=manivannan.sadhasivam@oss.qualcomm.com; h=from:subject:message-id;
- bh=12Qa0EpdKE17l7J/TlSWmlYBFBDnMCpE99H5MSImZQM=;
- b=owEBbQGS/pANAwAKAVWfEeb+kc71AcsmYgBq2ks1l0yBojVpshNCZp9U7fxLtGT4aTO89TKkM
- GrxDwXHwP6JATMEAAEKAB0WIQRnpUMqgUjL2KRYJ5dVnxHm/pHO9QUCatpLNQAKCRBVnxHm/pHO
- 9RasB/0UnIGBlYOFagdQugHnjX5NyZ9LrSeSLbzd9ytyzqjrZ1sJN3K0J0QsAsjo8rDOzCCIctD
- HsclzOy/kY9LVwzvBFD5zuzqz3CVaZ5FPNKKJMiI+CPAqYQrDI6D+9A9KiVIKHlILtT75aJMGV9
- 8Y8tezgoEi4/iFy58BaBg3bXm/aet9yVrVEQupGDlSVPJoOk3eI1gCmNFPffDCe9ljKMvJAqRc9
- EsfvOQN53KJcQe8w8IQH18p8XGYHSabx6uxQ2dyZHfl7L/FyJySf7poITdV3HpD3lewqAfugHxh
- DAiSgnlZA7bkBxtK3lR0IJh/SYHTJFe3GlAL9JkSLfqjvu14
-X-Developer-Key: i=manivannan.sadhasivam@oss.qualcomm.com; a=openpgp;
- fpr=C668AEC3C3188E4C611465E7488550E901166008
-X-Endpoint-Received: by B4 Relay for
- manivannan.sadhasivam@oss.qualcomm.com/default with auth_id=461
-X-Original-From: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-Reply-To: manivannan.sadhasivam@oss.qualcomm.com
-Content-Transfer-Encoding: 7bit
+References: <20261003002123.505555-1-jthoughton@google.com>
+ <20261003002123.505555-4-jthoughton@google.com> <B8A44041-1516-4405-976D-534AA2412A49@linux.dev>
+ <CADrL8HUOJwEgjUzefxSUa=AZHj4JO7koonj2_-WYhcL8QcXPZA@mail.gmail.com> <440A9FCF-2B5D-43A9-9B02-C32F5955AC82@linux.dev>
+In-Reply-To: <440A9FCF-2B5D-43A9-9B02-C32F5955AC82@linux.dev>
+From: James Houghton <jthoughton@google.com>
+Date: Thu, 22 Oct 2026 10:44:49 -0700
+X-Gm-Features: AclHuK8OCQjsmkJ8ztkh2B9wQVyT8iKcOFLwut_LnlB7__hy8ym6E5QTYBptOqc
+Message-ID: <CADrL8HWNaurYHGnpvC9qwr6bVU74YhhucCuhoVYcvqmSX+R6+Q@mail.gmail.com>
+Subject: Re: [PATCH v2 03/20] hugetlb_vmemmap: Always flush TLB if needed upon
+ PTE remapping
+To: Muchun Song <muchun.song@linux.dev>, Catalin Marinas <catalin.marinas@arm.com>
+Cc: Will Deacon <will@kernel.org>, Oscar Salvador <osalvador@suse.de>, 
+	Andrew Morton <akpm@linux-foundation.org>, Nikos Nikoleris <nikos.nikoleris@arm.com>, 
+	Linu Cherian <linu.cherian@arm.com>, Mark Rutland <mark.rutland@arm.com>, 
+	David Hildenbrand <david@kernel.org>, Ryan Roberts <ryan.roberts@arm.com>, 
+	Nanyong Sun <sunnanyong@huawei.com>, Yu Zhao <yuzhao@google.com>, 
+	Frank van der Linden <fvdl@google.com>, David Rientjes <rientjes@google.com>, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-mm@kvack.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+On Thu, Oct 22, 2026 at 2:18=E2=80=AFAM Muchun Song <muchun.song@linux.dev>=
+ wrote:
+>
+> > On Oct 22, 2026, at 05:59, James Houghton <jthoughton@google.com> wrote=
+:
+> >
+> > On Wed, Oct 21, 2026 at 2:54=E2=80=AFAM Muchun Song <muchun.song@linux.=
+dev> wrote:
+> >>
+> >> Hi James,
+> >>
+> >>> On Oct 3, 2026, at 08:21, James Houghton <jthoughton@google.com> wrot=
+e:
+> >>>
+> >>> vmemmap_remap_range() can potentially leave the vmemmap in a partiall=
+y
+> >>> optimized state. In this case, a TLB flush should be done if the walk
+> >>> caller asked for it, even if the optimization was not fully applied.
+> >>>
+> >>> A follow-up patch will more completely deal with partially-optimized
+> >>> folios.
+> >>
+> >> Why are we dealing with partial optimization cases right from
+> >> the start?
+> >>
+> >> I know that in patch 12, you try cmpxchg 16 times, and if it
+> >> fails, it leads to the partial optimization state. What I want
+> >> to ask is, why do we limit the maximum number of attempts? Is
+> >> it because during testing you found that this kind of failure
+> >> is very common? If we did not limit the number of attempts,
+> >> was it because during testing you found that the scheduling
+> >> latency caused here is very large? Or is this just defensive
+> >> programming? In my view, scenarios with such intense
+> >> concurrent access to these struct page structures should be
+> >> very rare.
+> >
+> > This was done defensively, yes. With 16 retries, I never hit this
+> > without fault injection. (Perhaps I should try with no retries...)
+> >
+> >> If your testing did not find any problems, my suggestion is
+> >> not to set an upper limit on the number of cmpxchg attempts.
+> >> This should be able to simplify the design of the initial
+> >> version of the code to a certain extent. If we want to
+> >> determine whether an upper limit should be added in the
+> >> future, I think we can add timing monitoring in the arm64
+> >> try_update_vmemmap_pte function and trigger a warning when
+> >> the measured time exceeds a certain threshold. If someone
+> >> reports this kind of warning to the community in the future,
+> >> then I think we can improve it at that time.
+> >>
+> >> What do you think?
+> >
+> > From userspace, you could use kpageflags or page_idle to continuously
+> > access a single struct page over and over again. I think that's a
+>
+> page_idle does not support HugeTLB pages, right? We should only consider
+> /proc/kpageflags; reading this file requires privilege =E2=80=94 unless a=
+ privileged
+> user intentionally creates malicious software.
 
-When two identical ath12k PCIe devices are connected to the same host, both
-advertise the WLFW service with the same service and instance id. The QMI
-lookup reports both servers to each device, so a device may connect to the
-firmware running on the other device.
+Oh yeah, page_idle only uses LRU pages (which HugeTLB pages are not),
+that's right.
 
-But now, QRTR provides each MHI endpoint a unique node id which is
-different from the node id announced by the device. So use the same id to
-pick the correct server. Add a get_qrtr_node_id() HIF callback that returns
-the node id derived from the MHI controller index and zero for transports
-that do not assign one. In the new_server callback, reject any service
-whose node id does not match. A node id of zero disables the check, so
-transports that do not assign one keep their current behavior.
+For kpageflags (and kpagecount and kpagecgroup), I still think it is
+"bad" to provide a mechanism that allows userspace, even privileged
+userspace, to permanently freeze a CPU. Fuzzers could find it, for
+example.
 
-Signed-off-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
----
- drivers/net/wireless/ath/ath12k/hif.h |  9 +++++++++
- drivers/net/wireless/ath/ath12k/pci.c |  9 +++++++++
- drivers/net/wireless/ath/ath12k/qmi.c | 11 +++++++++++
- 3 files changed, 29 insertions(+)
+I wonder what Catalin thinks about my reasoning. :)
 
-diff --git a/drivers/net/wireless/ath/ath12k/hif.h b/drivers/net/wireless/ath/ath12k/hif.h
-index 4de8667690e9..b8592c3d84e7 100644
---- a/drivers/net/wireless/ath/ath12k/hif.h
-+++ b/drivers/net/wireless/ath/ath12k/hif.h
-@@ -32,6 +32,7 @@ struct ath12k_hif_ops {
- 	void (*get_ce_msi_idx)(struct ath12k_base *ab, u32 ce_id, u32 *msi_idx);
- 	int (*panic_handler)(struct ath12k_base *ab);
- 	void (*coredump_download)(struct ath12k_base *ab);
-+	unsigned int (*get_qrtr_node_id)(struct ath12k_base *ab);
- };
- 
- static inline int ath12k_hif_map_service_to_pipe(struct ath12k_base *ab, u16 service_id,
-@@ -162,4 +163,12 @@ static inline void ath12k_hif_coredump_download(struct ath12k_base *ab)
- 	if (ab->hif.ops->coredump_download)
- 		ab->hif.ops->coredump_download(ab);
- }
-+
-+static inline unsigned int ath12k_hif_get_qrtr_node_id(struct ath12k_base *ab)
-+{
-+	if (!ab->hif.ops->get_qrtr_node_id)
-+		return 0;
-+
-+	return ab->hif.ops->get_qrtr_node_id(ab);
-+}
- #endif /* ATH12K_HIF_H */
-diff --git a/drivers/net/wireless/ath/ath12k/pci.c b/drivers/net/wireless/ath/ath12k/pci.c
-index 6441927b5382..9b6108c1abdc 100644
---- a/drivers/net/wireless/ath/ath12k/pci.c
-+++ b/drivers/net/wireless/ath/ath12k/pci.c
-@@ -10,6 +10,7 @@
- #include <linux/pci.h>
- #include <linux/time.h>
- #include <linux/vmalloc.h>
-+#include <net/qrtr.h>
- 
- #include "pci.h"
- #include "core.h"
-@@ -1491,6 +1492,13 @@ static int ath12k_pci_panic_handler(struct ath12k_base *ab)
- 	return NOTIFY_OK;
- }
- 
-+static unsigned int ath12k_pci_get_qrtr_node_id(struct ath12k_base *ab)
-+{
-+	struct ath12k_pci *ab_pci = ath12k_pci_priv(ab);
-+
-+	return qrtr_host_node_id(ab_pci->mhi_ctrl->index);
-+}
-+
- static const struct ath12k_hif_ops ath12k_pci_hif_ops = {
- 	.start = ath12k_pci_start,
- 	.stop = ath12k_pci_stop,
-@@ -1512,6 +1520,7 @@ static const struct ath12k_hif_ops ath12k_pci_hif_ops = {
- #ifdef CONFIG_ATH12K_COREDUMP
- 	.coredump_download = ath12k_pci_coredump_download,
- #endif
-+	.get_qrtr_node_id = ath12k_pci_get_qrtr_node_id,
- };
- 
- static enum ath12k_device_family
-diff --git a/drivers/net/wireless/ath/ath12k/qmi.c b/drivers/net/wireless/ath/ath12k/qmi.c
-index 280e50a1f31d..507062068f8e 100644
---- a/drivers/net/wireless/ath/ath12k/qmi.c
-+++ b/drivers/net/wireless/ath/ath12k/qmi.c
-@@ -9,6 +9,7 @@
- #include "qmi.h"
- #include "core.h"
- #include "debug.h"
-+#include "hif.h"
- #include <linux/of.h>
- #include <linux/firmware.h>
- #include <linux/of_address.h>
-@@ -3940,8 +3941,18 @@ static int ath12k_qmi_ops_new_server(struct qmi_handle *qmi_hdl,
- 	struct ath12k_qmi *qmi = container_of(qmi_hdl, struct ath12k_qmi, handle);
- 	struct ath12k_base *ab = qmi->ab;
- 	struct sockaddr_qrtr *sq = &qmi->sq;
-+	unsigned int node_id;
- 	int ret;
- 
-+	/* Identical devices advertise the same QMI services, so connect only to
-+	 * the QMI server on this device's node. A node id of 0 means the
-+	 * transport has not assigned a unique node id, so accept the server
-+	 * unfiltered.
-+	 */
-+	node_id = ath12k_hif_get_qrtr_node_id(ab);
-+	if (node_id && service->node != node_id)
-+		return -EINVAL;
-+
- 	sq->sq_family = AF_QIPCRTR;
- 	sq->sq_node = service->node;
- 	sq->sq_port = service->port;
+> > pretty good reason to have a bound. Also, the AF can be set even
+> > without an architectural memory access (so a mispredicted branch can
+> > still set AF, for example); that also makes me want to have a bound.
+>
+> However, I don't think this scenario would cause a significant amount of
+> concurrent reads.
 
--- 
-2.43.0
+The fact that AF can be set without an architectural access means we
+can't really reason about what may or may not set the AF. It
+definitely seems implausible for the microarchitecture to continuously
+attempt to set the AF for a generally-unused but valid PTE many times
+in a row, but it isn't forbidden (as far as I can tell).
 
+> >
+> > Catalin also said wanted a bound here. See the bottom of this reply at =
+[1].
+>
+> I see, but I'd still like to explain my reasoning and see what everyone
+> thinks.
 
+Thanks, yeah I'm curious what others think too. I can go either way really.
+
+> >
+> > So I think we should leave it in. The extra complexity is pretty much
+> > entirely in patch #4[2], and I don't think it's too large of a change.
+> > I hope you agree. :)
+>
+> Because I personally feel that having only part of the vmemmap optimized
+> is a somewhat awkward intermediate state =E2=80=94 the all-or-nothing sem=
+antics
+> seems more natural to me. At least until a clear problem actually arises,
+> I'd prefer not to consider it. At the same time, we can also keep the des=
+ign
+> simple.
+
+Yeah that's fair. Thanks for your feedback, Muchun.
