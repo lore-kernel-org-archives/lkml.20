@@ -1,100 +1,120 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.175
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792639628;
-	b=V8NxzvPPUoMq+SZOGwxsL5YjLpbkS8du1JjIFRN3pGd2oNExzDBJOlZNb1ViELg1RdcW
-	 D+CEGuyKSpmwy1BNfFZTyKDBSOfCMp30hvg+ypeZeDwvqc0lvOiRb8tYuG9hwIFU09c2D
-	 JA0M2ZxYXcKCmm12POB/fNX57lTqucmHId/GcbUoaDaMMv2lcHV7AQ9t0f15xSMPiOMzW
-	 yxF2vr8yklsjOVSg2gyBMN7oT7IOmQviXqlR5XyQdHQbFVxSJnUj2pY9w6enA3tOoxBFV
-	 1Rs//5BYBlJEGW+xyPTBYhHLv11ldXw4bOS/YzTeRiG60Mcf9RsKaoAFkYzCdlW8PSA==
+	t=1792639627;
+	b=37RUGW5ZONX7I2Oyfs0ANWeIykbKlR24FqrguvbvJgGWpqkPS7FP3a2LMjdfc3Y3Z//N
+	 sGUCIdIRgPBYjeh87Y2IDu1Z0rMJu98GErUrQqZNWRWuiLY7pqFJrAqywhQnl643/L/Y0
+	 x1tE9ryuBB22RvppiZ3Rpq7ZpsnAv34ETWch4DeawgoUt1GsgmjCh2HbgboC6YA0iqLNk
+	 Xk1k0mzE32Bv/PJ7V2+4nDrf3hKzTkpoV9d3Lq0RK+LzE22aXHGgc67kjM25vBVikgKa4
+	 NtyscXrxF63OzcY7G77tP3alf9J+Zdz2D5RFuXn/3k5tJI6udkCQ6wMf80kJOTI2fHw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792639628;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 To:Cc:Message-ID:In-Reply-To:References:From:Date:Subject;
-	bh=KYeBVoiHSIqb31GJS7/4bkZPdgBAygf1VBuzTNUUPiw=;
-	b=qzPwAieSjRXzhL0cikSsOhRdSdt0cE1GC6r8EQKHyMmK7prPZJuJ6HvRAJ+tnmZOy9+Q
-	 bIotnGU8N312hZp5o2PQDNaKjM34DsYMQ96I11Ciuyqz9eAM5lzc8HIYFBTpKYeiMA3qm
-	 YyOMgN3RSh+RXxhE+KS6WFaZ6VcFXYIZFolgpIHeGEXOKM4xwFK7JNefg2YkfBSp2cBx+
-	 JlvEsTCeetJAHO3PaBgTNFZPSig/+qKdywToh3OLTbZJlKKnuvWfpQJu6W+wAk1kcwWIT
-	 Y9zxYVIJKIWx2lIZkQOfb76/GhsfAkfDzefcfS/H3KD9cwSK8uAU+vO3+YZxyrnvxZg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792639627;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
+	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Proofpoint-Spam-Info:
+	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=GGmZmli6XEiqC9WcTdozsjPuYlwvOxi9MxEGhwdmAzI=;
+	b=L8kI8YmkO7mkWDv7GeNkSsjtH0cWkK0a9eeKnzLDY7vabZ+Or1D+mWCSDMNlzV8ujlRh
+	 FdVkOAjsMpOsHvXx74fDxCOQqMn9lg+ErvghkYPOx4Qy2R4ShPIbiBXm6DxhNja4cuT4J
+	 wXyHatYDBsNF0IrUjZOag9T/lV93mPG9p0gn6zyVlBXZIsMY8DI86aFfcvAJuTu7F/m9j
+	 aJq01J+VKIrQu8twdk1pgptJ4yHgDz2T1NmLaRCc2xQlN4TIEOtK40NrQa8Kcog9kRCYH
+	 PDC31UIf7fbkOSbTHjX6hp1kWiK/3784hKXI3NydPeJ3ehdLKw64aoJdN/kn4lCjphg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=h0hk+9EV;
-	arc=none smtp.remote-ip=209.85.210.175
-Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com [209.85.210.175])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=phO3eKgp;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Pii21JKO;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 285EE606A32D
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 03:27:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 285EE606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1D59606A31A
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 03:27:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A1D59606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=h0hk+9EV
-Received: by mail-pf1-f175.google.com with SMTP id d2e1a72fcca58-870e8b21121so117557b3a.3
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 20:27:08 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=phO3eKgp;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Pii21JKO
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69M1j5e12900648
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 03:27:05 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=GGmZmli6XEiqC9WcTdozsjPu
+	YlwvOxi9MxEGhwdmAzI=; b=phO3eKgpY/wp9HeFoWPJLOFWRlM1OzwTbpzxGa2u
+	lNdCkKoH1oLccrWYbrruuN+KYF774iz+2skToZakXZlWL/ctzgyQMGk9U5oF3oJU
+	O2GLjwTQPqt+AzSw9XzdCFt2HswSRw4IBawDZsbP8428R6JF9umjqsdJkCfnOvXr
+	KH0ajGUv8//6uFi4kFUKRVCjOzIQE0wlEgdQy79898jtm0jYo2B/qwU8uNHVJm6Y
+	LSLKB+Ql6HEsgqTZ70Junp+ueEogCKCeZ4bjTwQsTik89CjlzmroNHMIooqG0ZCC
+	Z6UGMMk4/TOeaFviVlwV1B/pAcHZSULKPspIq1pcCf9Hpg==
+Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hf93c8dyy-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 03:27:05 +0000 (GMT)
+Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-30c0d568830so3316105eec.1
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 20:27:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792639628; x=1793244428; darn=vger.kernel.org;
-        h=subject:date:from:references:in-reply-to:message-id:cc:to:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=KYeBVoiHSIqb31GJS7/4bkZPdgBAygf1VBuzTNUUPiw=;
-        b=h0hk+9EVp2udpisLduAc32kkur4LYmvZfjTD/yI8dnpG46jVinr9t+3drTklQb0l5a
-         IIi2wBW3QrGXsI9paFyCDjci+5L/xSlVLdzkOaxSCOOqh2a+YtpCzWlHjP+C5PmfjK/x
-         rSVyim/GySVOvt4OkJlyYZxsB/C2/nvJve5nf9aK14wSMw2K6w+ZDLsOGNeE+xtLDO3O
-         /5llZTED2uqSTNJvhUPp1hPmSAD9oAsL3AsHgogD2m3CoLWPfPnwtB6HqtbrK+lxKAhd
-         8Pj8MsTHVb3ij4jYEKtgrAJuLIiItSEciJyd2qLva1j+vSTAghgFiYDdukQOkC5uJo79
-         DIqw==
+        d=oss.qualcomm.com; s=google; t=1792639624; x=1793244424; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=GGmZmli6XEiqC9WcTdozsjPuYlwvOxi9MxEGhwdmAzI=;
+        b=Pii21JKOA+7a1HFfCqBwn8A9fxtGhIyIYBlnAkjSixur7eOmG1Boe2Dx6n+x2etO51
+         gw9wHCkXHa8w0YQlZtjbBUn1M+grXwIj/sEhKWmPBylGWb8wsaCXGx5wt5MtpAcnhQWb
+         X6meJnMrJH93+VKhZuHSK4+DOFNths3jMrdVIy43sT2bIdCJCL90QpyiLFmXiWxX7WYU
+         vQ2IhOD7bVyK1lCG4+wqpVXK6dMeuMHWpDDfxdY3K59HwjGCXtO7SfCIPOeFqs6SlhsF
+         msmIrprEE0h1APBvl5ljs+0SL0ngEuuV+96XDBQMbIbpMHc81Ac+k0kki+iU9wKcwGn2
+         TSrw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792639628; x=1793244428;
-        h=subject:date:from:references:in-reply-to:message-id:cc:to:x-gm-gg
+        d=1e100.net; s=20260707; t=1792639624; x=1793244424;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=KYeBVoiHSIqb31GJS7/4bkZPdgBAygf1VBuzTNUUPiw=;
-        b=tFU7CLq9dI2u8UVDlf0Hw3u+GIuDmUQCXhJTtQHJZWsuCj0ekVdRSXDpse2vIjAR4P
-         vbXe+RfAwDp2+TF+6JrA/DcylAhQGqV2Jx63ltNDtsB7i4uULxFHBGwMwgu4cJHELPd6
-         ojYAXBthRzOL73O+0U9QWRSbxsfdFAZpQIA+wZ9P2U0S/fFJO3cRdlgd3+AJ8/JdBUx1
-         6MzRZtcjIgR7kCzMo1zJCVmZICTnrnoQ3gbJkvAbLxosBdNKyo+hdRQnDGt1TxitkJ4w
-         OEdjfmHcezGnLJrM5uUqU2pDaLgMpwR39vTBYg+vWeOqLsutcXtr8JtcQw+6+cob5id6
-         SFUw==
-X-Forwarded-Encrypted: i=1; AKwUvByEHusiQ0eCVQwxWOb/pX8MBufge61X24aMAAEhsIpXd8G44ZDjiMu5bY22Js2FCvs55vYq3RnEuAwsVyM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKRzOdqLEVcqnFeF0vOd02dI9nVaN8ph0SaVjzd6q0RKzQgcPK9
-	axX7yE1buVRXmYhrnTQ9G9lydFNaSTgZtfxBSrrSKZ1rYMUHvOrKfzqn
-X-Gm-Gg: AYBFou2Dd+HI3uoX1HdopHNoATLMgdWfisqBsZRyVdYDap9KlN154g4psFYLaOPRL2H
-	cC9RAwRmHjT3rmSDMC2TR0RjIp2rsjOUxe9r3gxIvf36FfOqt7Iylz+qsrTMZDwcc8No6thFadi
-	O82drBdcYlV8T28lypSAtnrTnB+rwKXoticpcaDdBD2AM89El51Yi6cm6AFr2nWsC7Yca/BXBsA
-	9gON1hMdfhtutYN19GOEY8Hk8gFEPpu8UQJZk8QVVNgmR5iK6+LpFshD9T8RXvYyrmqqYbLP6yf
-	Dk3JyF/yN+pgBSR92n9PUU2DLzv8/6YJhwGLRL0Zu/1CFCYfAqqNzAmiSfpNq1zkAp1kyAiWgrh
-	ekVVrtqH1u4FNZMUCbsN1VZjsgBLq5dWwhWUKzqaEQYuVZKTEtpAG9BPeHnRa3axOU3uVZk0xj7
-	q4U0ZP+3/CibyZFkLfp7wRJqFDFsUszSQHwzsBtvx/t+xyFNwW437VeSpecJ0HtSaxWZHixAcJb
-	h7l1fOxEEL/SoiefOU2pd50ftIzeX9CrcRss+idKau7QJp7jQKSnSNdMPdO7lCKtk2m435yugfh
-	YuJKUcGg9vzaglX7tSb44Rhdpha6pZxc6cJiqUWWlnM=
-X-Received: by 2002:a17:90b:39a7:b0:3ad:50ef:f5ef with SMTP id 98e67ed59e1d1-3ad86f000eemr5853546a91.3.1792639627465;
-        Wed, 21 Oct 2026 20:27:07 -0700 (PDT)
-Received: from msg ([188.253.120.76])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ada48879a0sm2027760a91.4.2026.10.21.20.27.01
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 21 Oct 2026 20:27:07 -0700 (PDT)
-To: netdev@vger.kernel.org
-Cc: steffen.klassert@secunet.com,
-	chopps@labn.net,
-	herbert@gondor.apana.org.au,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	dsahern@kernel.org,
-	idosch@nvidia.com,
-	linux-kernel@vger.kernel.org
-Message-ID: <20261022032129.16118-4-q.h.hack.winter@gmail.com>
-In-Reply-To: <20261022032129.16118-1-q.h.hack.winter@gmail.com>
-References: <20261022032129.16118-1-q.h.hack.winter@gmail.com>
-From: Qihang <q.h.hack.winter@gmail.com>
-Date: Sun, 18 Oct 2026 15:03:23 +0800
-Subject: [PATCH net v6 3/3] xfrm: hold the tunnel device reference across the
- input path
+        bh=GGmZmli6XEiqC9WcTdozsjPuYlwvOxi9MxEGhwdmAzI=;
+        b=hzTt4zmKHGKmDQI7uNm2+UPgVpHvLmVNFm58vripuWQqHJElXNcpoyEo+3I/K6U2Av
+         NkgxEbgoFPUtY+6W6J9wvaSdFb5gV+q+sFW6btBuoE1vrXHcMGqgazqCZaoc1qb0MrUt
+         ff52qMR2WCtkbQsFzCg9TI4u98U6Ai19jdLJ+k2L5IoWKB/KYVcz5i0xfKE1DBRDNhP7
+         WfHhW6Kbe4NnhfCnMdBT8gB6FD7ocdz+4oOnl73tILesaXG1/pq5Yzvy6Wse4XJAq6ci
+         LY7yW2FKJM9UJRQST6OYwt8fwVuSaG+yPQazWEIMuGorntmI5hLpfQozkmhh/oZYMp85
+         HiuA==
+X-Forwarded-Encrypted: i=1; AKwUvBxAnxIanL0sT0jo/y+y8GiG+/iEzIVZsY9NH4mvLz1pv4KA51MkKGafx+y0THrhWk5w3fThiwo00a7PvCo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKCE/+CAWkK5NY4NkZe4T0Q+OpdetfsJzFEYMMpsbMoorWNv3cI
+	EGdI7GhODg5J11D4Sx/VK4fJPJLUtb1zA0e5J37UKyiZtcSrTz+axtdgDuOz5em5yS/Y3pn8N4u
+	Vw3k/ZzSVx/M+ZEpeIV8YqNCvTsqIgTSPQU2z97kr2oykoKROGCDIP/ls9cW8b67VQ+M=
+X-Gm-Gg: AYBFou201Xq+jClJV1dQGnNR63qzED2KxX5KYjajUX50aY+pvaKtRA3OOGuzKaqSmJP
+	agpK9yp100Xmi1QY+7LWjPWZHHvsA3YHNyZOdNrBOtLmzz/EoNcY01ccHjk5HR4MUJy19yAMUEM
+	HCSanpKbjzDdxc4lLBkRTCi4/ayk7g5mnaM/+gExPqHr+/pwM6ddD/HKJbHaUD3t69Pn2D8/xCl
+	bdnnS4FvBAuT+AQ6VgL16uSCloFzQGmuaX6PsXX44KcRM/UrnafVu8VHkYoOBQb88tVVVAk5oAX
+	gStwJvygWKCf2mh99GQLngqJu98CrTmi6IUzHE6ll/W9VsrcF2Z5k1hG9bWzsAYhFYGY3QQA0nh
+	45dhbtN00989iQiqaZ7g2YH3tOfXt9V5MTM/r10hIKzMbWVI0
+X-Received: by 2002:a05:693c:8803:10b0:368:8ab7:2a4c with SMTP id 5a478bee46e88-3688ab72b28mr1840511eec.30.1792639624390;
+        Wed, 21 Oct 2026 20:27:04 -0700 (PDT)
+X-Received: by 2002:a05:693c:8803:10b0:368:8ab7:2a4c with SMTP id 5a478bee46e88-3688ab72b28mr1840490eec.30.1792639623830;
+        Wed, 21 Oct 2026 20:27:03 -0700 (PDT)
+Received: from hu-petche-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3674198f1d8sm17373764eec.24.2026.10.21.20.27.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 21 Oct 2026 20:27:03 -0700 (PDT)
+Date: Wed, 21 Oct 2026 20:27:00 -0700
+From: Peter Chen <peter.chen@oss.qualcomm.com>
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
+        Wesley Cheng <wesley.cheng@oss.qualcomm.com>
+Cc: fabricioakio@gmail.com, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org,
+        Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
+Subject: Re: [PATCH] usb: dwc3: qcom: Check for L2 only when suspending a
+ host with wakeup
+Message-ID: <atmChJYMtjPtW_ZE@hu-petche-lv.qualcomm.com>
+References: <20260928-dwc3-qcom-l2-check-v1-1-43c5c6e97922@gmail.com>
+ <7eb8f0f7-9e5b-44e9-971c-54bfdab23c30@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,337 +123,67 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <7eb8f0f7-9e5b-44e9-971c-54bfdab23c30@oss.qualcomm.com>
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIyMDAxMyBTYWx0ZWRfXwEwkM1N1q8sh
+ 46OXM5SdcA75HoY738LcrsEnjLkemv5+g4F6/3lrtmUg/AZylDpUoHW4Rosp23AjgzxmU0E4eXT
+ q1iY0aI4Uvdeb8LM+dzkOxtzQczb3yo=
+X-Authority-Analysis: v=2.4 cv=ReAFmFtv c=1 sm=1 tr=0 ts=6ad98289 cx=c_pps
+ a=wEP8DlPgTf/vqF+yE6f9lg==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=QFNGBFAix9GFkXGs:21 a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=pGLkceISAAAA:8 a=uQVJHn5EHz_PyVhorDgA:9 a=CjuIK1q_8ugA:10
+ a=bBxd6f-gb0O0v-kibOvt:22
+X-Proofpoint-GUID: gulzeleEOOiRYBrUFfqAdv6fzX1h96dC
+X-Proofpoint-ORIG-GUID: gulzeleEOOiRYBrUFfqAdv6fzX1h96dC
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIyMDAxMyBTYWx0ZWRfXzmsjXYkU/tf6
+ yWkDKLYi1GfxGxKuYdKJFnTThf4pCqeCPZPlNLi99J+s78wcSJVDwTaydQutYASmD0FVNDv/DRl
+ U3bZ6LKf8OnmChqEzCeyPictm1Kns22S3c9bplJjYk6VAdkHbGiEEgi4prffJdpTKd23VDW9uCW
+ rEz3kUn/Jc/+RzDwUH3iLQR5464y2rOzzlDroiPMMtomnsVCtBNPRWBHBj1ftJaf1tugicnNODY
+ mJhAMe6xK9BwF79y6DMUbZLo/z9oQgD4p8dgEQIScZAJW+lZIEGK9CraYYVCEtqpX6YKOpW5N5Y
+ lO6Ou3k6lpFfjp0O4AY2wYwqzZOIOrBld+JIUGSiFFDPVvTQxC5F1cSDihcH+tAXgPNYz4uL1WU
+ mvMVkYk84YMDh/Nsqk0dFxbL5FHcsVVh54JcxuMynXjeyTv0DuEuu0YdZrwC0/hsxgDwuT6sBPp
+ HkhpS8LgEKuOZ0bW6gg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-22_01,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 spamscore=0 suspectscore=0 adultscore=0 lowpriorityscore=0
+ malwarescore=0 bulkscore=0 clxscore=1015 phishscore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610220013
 
-vti_input() and vti6_input_proto() cache the tunnel pointer in the skb
-control buffer without taking a reference.  With async crypto the
-receive callback runs from the crypto completion, after a possible
-device teardown, and dereferences the freed tunnel device:
+On 26-10-21 15:44:52, Konrad Dybcio wrote:
+> On 9/28/26 8:16 PM, Fabricio Akio via B4 Relay wrote:
+> > From: Fabricio Akio <fabricioakio@gmail.com>
+> > 
+> > In peripheral mode the core disconnects and powers the PHY off before
+> > the glue suspends, so the link never enters L2 and every system
+> > suspend logs "HS-PHY not in L2". Check only for a host with wakeup,
+> > the one case that parks the PHY in L2.
+> > 
+> > Signed-off-by: Fabricio Akio <fabricioakio@gmail.com>
+> > ---
+> 
+> I think we should be able to retain the link in L2 in device
+> mode too upon suspend, but that needs more plumbing on the
+> clock/gdsc side? (+Cc)
+> 
 
-    BUG: KASAN: slab-use-after-free in vti_rcv_cb
+From what I see, dwc3 core just keeps gadget (device mode) disconnecting
+when dwc3 core enters suspend. The reason is probably dwc3 core wakeup signal
+(through .dwc3_gadget_wakeup or dwc3_gadget_func_wakeup) is send by software.
+When the system has suspended, no software has run, so can't trigger wakeup.
 
-Take a reference on the tunnel device when the pointer is cached.  The
-tunnel is the device's private area, so the reference keeps the tunnel
-structure alive as well.  xfrm6_rcv_spi() takes the same reference for
-the tunnel it is given; it is a separate entry point, so vti6 does not
-hold the reference twice.
+For runtime suspend, current dwc3 core doesn't consider link suspend event
+(eg, L2/U3) as low power event, and doesn't put dwc3 core entering runtime
+suspend, so the link is always L2 or U3.
 
-A successful vti/vti6 callback leaves the cached tunnel in place for
-xfrm_input() to release after delivery.  A callback that fails only
-updates the error counters; the common drop path releases the reference
-after the skb has been freed.  The helper takes the device out of the
-skb before gro_cells_receive() and transport_finish(), which may already
-consume the skb.  The device reference is therefore always dropped after
-the skb is gone.
+Thinh/Wesley, if I understand wrong, please correct me.
 
-IPTFS consumes the outer skb itself and frees it directly, so it must
-release the reference as well.  The IPTFS state carries the address
-family the tunnel was resolved for, and the caller passes it in.  Add
-xfrm_input_drop() and xfrm_input_consume() for the outer-skb free paths
-in __input_process_payload(), iptfs_input_ordered(), iptfs_input(),
-iptfs_drop_timer() and iptfs_destroy_state().  Only the outer skb
-carries the cached tunnel; the inner skbs built by iptfs_alloc_skb()
-have a zeroed control buffer, so they do not release it.  The drop paths
-keep their skb drop reason and the consumed skb keeps consume_skb()
-semantics.  An inner packet that fails validation reaches the drop path
-before the queued inner packets are delivered; drop those as well so the
-outer skb's reference is not leaked.
-
-The reference is released right after gro_cells_receive(); the NAPI
-that processes the queued skb later still uses skb->dev without a
-reference.  That window is pre-existing and is not changed here.
-
-This depends on the previous two patches: the receive callbacks must
-run before the async dev_put(), and the early drop must know the
-address family to release the reference.
-
-Fixes: df3893c176e9 ("vti: Update the ipv4 side to use it's own receive hook.")
-Fixes: fa9ad96d4905 ("vti6: Update the ipv6 side to use its own receive hook.")
-Cc: stable@vger.kernel.org
-Signed-off-by: Qihang <q.h.hack.winter@gmail.com>
----
-v5:
-- __input_process_payload(): drop the inner packets queued on the
-  delivery list when an inner packet fails validation and jumps to the
-  drop label, so the outer skb's tunnel device reference is released
-  (found by the Sashiko review).
-
- net/ipv4/ip_vti.c      |  3 ++
- net/ipv6/ip6_vti.c     |  2 ++
- net/ipv6/xfrm6_input.c |  3 ++
- net/xfrm/xfrm_inout.h  |  4 +++
- net/xfrm/xfrm_input.c  | 63 +++++++++++++++++++++++++++++++++++++++++-
- net/xfrm/xfrm_iptfs.c  | 42 ++++++++++++++++++----------
- 6 files changed, 102 insertions(+), 15 deletions(-)
-
-diff --git a/net/ipv4/ip_vti.c b/net/ipv4/ip_vti.c
-index 3b80929994a0..0277812852e7 100644
---- a/net/ipv4/ip_vti.c
-+++ b/net/ipv4/ip_vti.c
-@@ -63,6 +63,9 @@ static int vti_input(struct sk_buff *skb, int nexthdr, __be32 spi,
- 
- 		XFRM_TUNNEL_SKB_CB(skb)->tunnel.ip4 = tunnel;
- 
-+		/* Keep the tunnel alive until xfrm_input() is done with the skb. */
-+		dev_hold(tunnel->dev);
-+
- 		if (update_skb_dev)
- 			skb->dev = tunnel->dev;
- 
-diff --git a/net/ipv6/ip6_vti.c b/net/ipv6/ip6_vti.c
-index ab94b3a4ba9c..6715bf10bc85 100644
---- a/net/ipv6/ip6_vti.c
-+++ b/net/ipv6/ip6_vti.c
-@@ -319,6 +319,8 @@ static int vti6_input_proto(struct sk_buff *skb, int nexthdr, __be32 spi,
- 			goto discard;
- 		}
- 
-+		/* Keep the tunnel alive until xfrm_input() is done with the skb. */
-+		dev_hold(t->dev);
- 		rcu_read_unlock();
- 
- 		XFRM_TUNNEL_SKB_CB(skb)->tunnel.ip6 = t;
-diff --git a/net/ipv6/xfrm6_input.c b/net/ipv6/xfrm6_input.c
-index 07edef258984..d27bc24f1b16 100644
---- a/net/ipv6/xfrm6_input.c
-+++ b/net/ipv6/xfrm6_input.c
-@@ -15,6 +15,7 @@
- #include <linux/netfilter.h>
- #include <linux/netfilter_ipv6.h>
- #include <net/ipv6.h>
-+#include <net/ip6_tunnel.h>
- #include <net/xfrm.h>
- #include <net/protocol.h>
- #include <net/gro.h>
-@@ -23,6 +24,8 @@ int xfrm6_rcv_spi(struct sk_buff *skb, int nexthdr, __be32 spi,
- 		  struct ip6_tnl *t)
- {
- 	XFRM_TUNNEL_SKB_CB(skb)->tunnel.ip6 = t;
-+	if (t)
-+		dev_hold(t->dev);
- 	XFRM_SPI_SKB_CB(skb)->family = AF_INET6;
- 	XFRM_SPI_SKB_CB(skb)->daddroff = offsetof(struct ipv6hdr, daddr);
- 	return xfrm_input(skb, nexthdr, spi, 0);
-diff --git a/net/xfrm/xfrm_inout.h b/net/xfrm/xfrm_inout.h
-index efc5e6b2e87b..8bd05f62ad56 100644
---- a/net/xfrm/xfrm_inout.h
-+++ b/net/xfrm/xfrm_inout.h
-@@ -6,6 +6,10 @@
- #ifndef XFRM_INOUT_H
- #define XFRM_INOUT_H 1
- 
-+void xfrm_input_drop(struct sk_buff *skb, unsigned int family,
-+		     enum skb_drop_reason reason);
-+void xfrm_input_consume(struct sk_buff *skb, unsigned int family);
-+
- static inline void xfrm4_extract_header(struct sk_buff *skb)
- {
- 	const struct iphdr *iph = ip_hdr(skb);
-diff --git a/net/xfrm/xfrm_input.c b/net/xfrm/xfrm_input.c
-index 517369ba9efe..369817c870ce 100644
---- a/net/xfrm/xfrm_input.c
-+++ b/net/xfrm/xfrm_input.c
-@@ -120,6 +120,56 @@ static int xfrm_rcv_cb(struct sk_buff *skb, unsigned int family, u8 protocol,
- 	return ret;
- }
- 
-+/*
-+ * The cached tunnel holds one reference on its net_device.
-+ * The address family determines the tunnel type.
-+ */
-+static struct net_device *xfrm_input_take_tunnel_dev(struct sk_buff *skb,
-+						     unsigned int family)
-+{
-+	void *slot = (void *)XFRM_TUNNEL_SKB_CB(skb)->tunnel.ip4;
-+	struct net_device *dev;
-+
-+	if (!slot)
-+		return NULL;
-+
-+	switch (family) {
-+	case AF_INET:
-+		dev = ((struct ip_tunnel *)slot)->dev;
-+		break;
-+	case AF_INET6:
-+		dev = ((struct ip6_tnl *)slot)->dev;
-+		break;
-+	default:
-+		WARN_ON_ONCE(1);
-+		return NULL;
-+	}
-+
-+	XFRM_TUNNEL_SKB_CB(skb)->tunnel.ip4 = NULL;
-+	return dev;
-+}
-+
-+void xfrm_input_drop(struct sk_buff *skb, unsigned int family,
-+		     enum skb_drop_reason reason)
-+{
-+	struct net_device *dev = xfrm_input_take_tunnel_dev(skb, family);
-+
-+	kfree_skb_reason(skb, reason);
-+	if (dev)
-+		dev_put(dev);
-+}
-+EXPORT_SYMBOL(xfrm_input_drop);
-+
-+void xfrm_input_consume(struct sk_buff *skb, unsigned int family)
-+{
-+	struct net_device *dev = xfrm_input_take_tunnel_dev(skb, family);
-+
-+	consume_skb(skb);
-+	if (dev)
-+		dev_put(dev);
-+}
-+EXPORT_SYMBOL(xfrm_input_consume);
-+
- struct sec_path *secpath_set(struct sk_buff *skb)
- {
- 	struct sec_path *sp, *tmp = skb_ext_find(skb, SKB_EXT_SEC_PATH);
-@@ -468,6 +518,7 @@ int xfrm_input(struct sk_buff *skb, int nexthdr, __be32 spi, int encap_type)
- 	const struct xfrm_state_afinfo *afinfo;
- 	struct net *net = dev_net(skb->dev);
- 	struct net_device *dev = skb->dev;
-+	struct net_device *tdev;
- 	int err;
- 	__be32 seq;
- 	__be32 seq_hi;
-@@ -748,7 +799,11 @@ int xfrm_input(struct sk_buff *skb, int nexthdr, __be32 spi, int encap_type)
- 			skb_dst_drop(skb);
- 		if (async)
- 			dev_put(dev);
-+		/* gro_cells_receive() may free the skb. */
-+		tdev = xfrm_input_take_tunnel_dev(skb, family);
- 		gro_cells_receive(&gro_cells, skb);
-+		if (tdev)
-+			dev_put(tdev);
- 		rcu_read_unlock();
- 		return 0;
- 	} else {
-@@ -756,6 +811,7 @@ int xfrm_input(struct sk_buff *skb, int nexthdr, __be32 spi, int encap_type)
- 		if (xo)
- 			xfrm_gro = xo->flags & XFRM_GRO;
- 
-+		tdev = xfrm_input_take_tunnel_dev(skb, family);
- 		err = -EAFNOSUPPORT;
- 		afinfo = xfrm_state_afinfo_get_rcu(family);
- 		if (likely(afinfo))
-@@ -769,6 +825,8 @@ int xfrm_input(struct sk_buff *skb, int nexthdr, __be32 spi, int encap_type)
- 			gro_cells_receive(&gro_cells, skb);
- 		}
- 
-+		if (tdev)
-+			dev_put(tdev);
- 		if (async)
- 			dev_put(dev);
- 		rcu_read_unlock();
-@@ -779,9 +837,12 @@ int xfrm_input(struct sk_buff *skb, int nexthdr, __be32 spi, int encap_type)
- 	spin_unlock(&x->lock);
- drop:
- 	xfrm_rcv_cb(skb, family, xfrm_proto, -1);
-+	tdev = xfrm_input_take_tunnel_dev(skb, family);
-+	kfree_skb(skb);
-+	if (tdev)
-+		dev_put(tdev);
- 	if (async)
- 		dev_put(dev);
--	kfree_skb(skb);
- 	return 0;
- }
- EXPORT_SYMBOL(xfrm_input);
-diff --git a/net/xfrm/xfrm_iptfs.c b/net/xfrm/xfrm_iptfs.c
-index 6920940a35b4..2b202c7570f1 100644
---- a/net/xfrm/xfrm_iptfs.c
-+++ b/net/xfrm/xfrm_iptfs.c
-@@ -709,8 +709,9 @@ static void __iptfs_reassem_done(struct xfrm_iptfs_data *xtfs, bool free)
- 
- 	/* We don't care if it works locking takes care of things */
- 	hrtimer_try_to_cancel(&xtfs->drop_timer);
--	if (free)
--		kfree_skb(xtfs->ra_newskb);
-+	if (free && xtfs->ra_newskb)
-+		xfrm_input_drop(xtfs->ra_newskb, xtfs->x->props.family,
-+				SKB_DROP_REASON_NOT_SPECIFIED);
- 	xtfs->ra_newskb = NULL;
- }
- 
-@@ -1204,15 +1205,23 @@ static bool __input_process_payload(struct xfrm_state *x, u32 data,
- 	skb_abort_seq_read(skbseq);
- 
- 	if (defer) {
--		consume_skb(defer);
-+		xfrm_input_consume(defer, x->props.family);
- 	} else if (!first_skb) {
--		/* skb is the original passed in skb, but we didn't get far
--		 * enough to process it as the first_skb, if we had it would
--		 * either be save in ra_newskb, trimmed and sent on as an skb or
--		 * placed in defer to be freed.
--		 */
--		kfree_skb(skb);
-+		/* The original skb was not consumed as the first inner packet. */
-+		xfrm_input_drop(skb, x->props.family,
-+				SKB_DROP_REASON_NOT_SPECIFIED);
-+	}
-+
-+	/*
-+	 * A validation failure can bypass delivery of @sublist.  Drop the
-+	 * queued skbs so the outer skb's tunnel reference is released.
-+	 */
-+	list_for_each_entry_safe(skb, next, sublist, list) {
-+		skb_list_del_init(skb);
-+		xfrm_input_drop(skb, x->props.family,
-+				SKB_DROP_REASON_NOT_SPECIFIED);
- 	}
-+
- 	return true;
- }
- 
-@@ -1298,7 +1307,8 @@ static void iptfs_input_ordered(struct xfrm_state *x, struct sk_buff *skb)
- 	if (!consumed) {
- 		skb = skbseq.root_skb;
- 		skb_abort_seq_read(&skbseq);
--		kfree_skb(skb);
-+		xfrm_input_drop(skb, x->props.family,
-+				SKB_DROP_REASON_NOT_SPECIFIED);
- 	}
- }
- 
-@@ -1700,7 +1710,8 @@ static enum hrtimer_restart iptfs_drop_timer(struct hrtimer *me)
- 	spin_unlock(&xtfs->drop_lock);
- 
- 	if (skb)
--		kfree_skb_reason(skb, SKB_DROP_REASON_FRAG_REASM_TIMEOUT);
-+		xfrm_input_drop(skb, x->props.family,
-+				SKB_DROP_REASON_FRAG_REASM_TIMEOUT);
- 
- 	if (count) {
- 		list_for_each_entry_safe(skb, next, &list, list) {
-@@ -1751,7 +1762,8 @@ static int iptfs_input(struct xfrm_state *x, struct sk_buff *skb)
- 
- 	list_for_each_entry_safe(skb, next, &freelist, list) {
- 		skb_list_del_init(skb);
--		kfree_skb(skb);
-+		xfrm_input_drop(skb, x->props.family,
-+				SKB_DROP_REASON_NOT_SPECIFIED);
- 	}
- done:
- 	/* We always have dealt with the input SKB, either we are re-using it,
-@@ -2752,11 +2764,13 @@ static void iptfs_destroy_state(struct xfrm_state *x)
- 	hrtimer_cancel(&xtfs->drop_timer);
- 
- 	if (xtfs->ra_newskb)
--		kfree_skb(xtfs->ra_newskb);
-+		xfrm_input_drop(xtfs->ra_newskb, xtfs->x->props.family,
-+				SKB_DROP_REASON_NOT_SPECIFIED);
- 
- 	for (s = xtfs->w_saved, se = s + xtfs->w_savedlen; s < se; s++) {
- 		if (s->skb)
--			kfree_skb(s->skb);
-+			xfrm_input_drop(s->skb, x->props.family,
-+					SKB_DROP_REASON_NOT_SPECIFIED);
- 	}
- 
- 	kfree_sensitive(xtfs->w_saved);
 -- 
-2.54.0 (Apple Git-157)
 
-
+Thanks,
+Peter Chen
