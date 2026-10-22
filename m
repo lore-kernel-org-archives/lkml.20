@@ -1,80 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.12
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.178
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792677629;
-	b=ehj57rBYjncdNIXrgf/eurSwgFDIEUcOyUsdauFJPyoklJERUkzSkcwXXeuJK9y65s0C
-	 rPwsI3uA9l60xCIImKCNeB223LDQ/cpyPMRb4Gxj/qOhYei4QKhPDGpI52Mpd7Jqf0be9
-	 VVB9OTvfC2xyENBTwWyt96z4mS+KFUT5yKPEy7nmnZiUo0+7XB6Lw0W/V/oYFI0hwVu20
-	 HBhc6/pFXu7PyRzz4M+fiWBXmgTGYy/5jquQgtd8SCt8SRmf7/qaTwyg+P4TgF+JEdgfO
-	 pITrZiSS7YrgMWscDWfCUj6CGWF9z644ex6dOFFUT1Kd2wofRO0sMMDyvKOcVcHiHCA==
+	t=1792677649;
+	b=JTSmHC+pMWwzva4bL9NPPoj3oDA9S5ZnEQi19DSXN/JaRUHJ4vH/Rab0wHiCkrZDLqoB
+	 /qg6BsxrUVABx7u1NHBMXu5L/qpqJqVqvJmHvS9loiY20oNNKCfaAJOB3AymL8Ah76KoK
+	 XgA8LZhfWKn/x5sk/PlHlDpf87th9WBbZJp23haqKQ4jQDKCum5hAqOt7JD3SXJ/ufNA4
+	 YQ/0TR2+J7VsEDPHrSZPezxueywQ3QOSD6tY3WTCh2bhvNCK3DEtWXxnbHZJ4ReOURVsB
+	 MA9No6rPcfqcfHrVGITmhyfzV+a5O+LNAOHUsVEZUC3GQ0Qk30cKxX/MrZ7P9jYaxbQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792677629;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=VcKX1i1Y/b+vKX5dsNU3fQuC2xICdi7zLkeShlVUpoY=;
-	b=3SGJkbPHCFxzYJqGkwUJgRIs9o+xIFxLhHFfoqiWiUl76+bhJ2eoi+hxNTEUJbUNCJjp
-	 3FEEybChoaZewrenCyxIOALtJc+OzJm/9O9BK6+O+gl47KLjrSlpSkd9vCx3cydorSLCO
-	 /A+ccy6GgwYQ5Lah/IIGmxrvGlJrazENdh5a+VRzwTUkatglfmFYfDLC8JSECc8jBup86
-	 qGCY64QRNRwDeH5vYBxxLOshKhMoLE0SUXw/VQfETaUuB2Kz0F4uufZURrtmpdXORMSgY
-	 Q+btwPQAXt24jl02RzuWSN1w27zda+daXagRN7ZIB6ymtlNhhTz5qqzCitt6YA+eUtQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792677649;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
+	bh=RYxKdG3hGFUHAS2wMT8TWf0HywRpu62ZcKtPYmwcpl4=;
+	b=Pf7XTj9qmVsqL53nrLq0iiCakTz4zpDxn2BOV9GKccNX0bXmSBH07iccFbhpeUdduLav
+	 Y0G0jj2c9G1dH/hIRzNPdUwsNB4e89ue3NdSmbSnxI2P7GH67HYXSsDGMnGkAz6d7O/Yi
+	 cNOg2E/1fGLcDgimq2ge9sqrdoVy/HxJzAbPxGLBUl3CdP2SAKl5Cv2kiK+2peIC7ti6i
+	 h3alJB21+zD4i11MRzkDm3um4/z2h1FsSJV9ta363FU+vkQktFjaDjcCOF3NfCKDms1wt
+	 yG+LCnFjUWQs8eiNpi3kQ3rEXwBEezlBWqx5uC4SyXa+LDrjs5Pjz1NsbR60Tf2n8bA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="LBXF7Mn/";
-	arc=none smtp.remote-ip=198.175.65.12
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Bxh+hitZ;
+	arc=none smtp.remote-ip=74.125.82.178
+Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 457CB606A31A;
-	Thu, 22 Oct 2026 14:00:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 457CB606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 296E6606A324
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 14:00:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 296E6606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=LBXF7Mn/
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792677628; x=1824213628;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=TEq2jJ1l0b+qgPo8nG9MmyuMLvPG9vpgXkrCzSyHa0E=;
-  b=LBXF7Mn/Ugivq/UurykQ/sxduY+Bul43nABMSZvjm/to1qOVOqByZ2BD
-   2pZ+8tg/CiaKTYjHrl/KcocZoFA75/P9T5RX2PaydT3IlhdY6wjbnqBmo
-   NepD1eK1kQTG7JjXkm8sSGrILBEEpsvg8Q/T76HDWYyeMmljzRPMaf4A4
-   R+2R6SrEg5dYu2R7CfMWuSSMYz71MqN9BbBH6CcULHVlZlLEGctTmnmGe
-   WPIpee8nF4qn4X0Ie6EkAJhrjbxWWT4DDllpL2x0w4iLwLwZDGIrtcZI5
-   b2/L9Y3O6VKRfRpVEneO7Jbbyt7fURfpfqnj10eAkA6axvsWYB6YsEI8j
-   w==;
-X-CSE-ConnectionGUID: SHuDQLQBSWOCj2arzim+/A==
-X-CSE-MsgGUID: UAVGDnXZRJuzKcgAUoiFfA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11942"; a="1305924"
-X-IronPort-AV: E=Sophos;i="6.27,172,1787036400"; 
-   d="scan'208";a="1305924"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Oct 2026 07:00:28 -0700
-X-CSE-ConnectionGUID: vOBU5w8ZTUqRopPIPV0P1w==
-X-CSE-MsgGUID: p+3eJT3+S3ex9FIRgVKwrQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,172,1787036400"; 
-   d="scan'208";a="3776511"
-Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.245.189])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Oct 2026 07:00:25 -0700
-Date: Thu, 22 Oct 2026 17:00:23 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: James Hilliard <james.hilliard1@gmail.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>,
-	Raul E Rangel <rrangel@chromium.org>,
-	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org
-Subject: Re: [PATCH 1/2] serial: 8250: drain canceled TX DMA before reusing
- its buffer
-Message-ID: <atoW90cG8hz-h9tc@ashevche-desk.local>
-References: <20261021-submit-serial-8250-dma-cancel-v1-v1-0-efe2b89f2303@gmail.com>
- <20261021-submit-serial-8250-dma-cancel-v1-v1-1-efe2b89f2303@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Bxh+hitZ
+Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-368581df789so1128225eec.1
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 07:00:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792677648; x=1793282448; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=RYxKdG3hGFUHAS2wMT8TWf0HywRpu62ZcKtPYmwcpl4=;
+        b=Bxh+hitZO2FfVxuz5Qb9/4WIWAKO1lLwLLJ2tAGbDmc/XpxgVHZrEjIvDM/FXCMaOH
+         9ksyLbdCCzsT8O8/74+VYG6Jd5VDQvreFNb5S1p4n90dsLImy18AOoDlyNN3sRtvShor
+         Gj+utQlqLyd4ntudIORPMfB208zKeVn/eFPaD9M73Q/Jp3y40aAgvf+SYE/atC6e+3N1
+         JzK8uT4RTeUtrWvqXTNtzD+mRUCfqxdcIHSdI2NSgMILnxPqQJfUwB7IW1SlJMqGN+78
+         x6igq4CMTL2Uxeg2rNI3sussxWHoPv792Bk2Mew9uXxjg+nM7HOu7OPraJBXudKPCRK9
+         M2EQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792677648; x=1793282448;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=RYxKdG3hGFUHAS2wMT8TWf0HywRpu62ZcKtPYmwcpl4=;
+        b=wH5bUwl1JOFXyeSCiDdDfSORxSlk0IkgWcCtB7pplvE2VKZ/0WRWceYXOfpuj+8oPi
+         LnCL6SRIUlvZ19qjE+vxpfASz78gT4vg0P7q6P2dhhiQ2UbFLYvTfFE13209xQBnQmTw
+         4aTIyBQNDGusCtZiTpMtafoT7p52Vn6aETK4zd34TLq/i3xl2jMxO1+IneBpw4ZmR28H
+         4A16pQv5qln7osCuFC19kmg9B9x5jjFc8Bv5m3KFQJGpkozxuoEQG4ZQzeU+UjHsF12O
+         /zLhVP2ivuUKmRE5brQ7UByoNtLMnt+Ta8d1/NtgMcKmuHCaayzLkbd+VdS8wLua9424
+         TaoA==
+X-Forwarded-Encrypted: i=1; AKwUvBxka1RO03IXroPHH1rdMHsKxAtxBARo5CMMkwVex3yw7pHWjh0EP5ih5bcYHGh0AfLIKVtErggEmQd63wU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL4c1jPP3lSWwvpLrtzUZ5GfozXyTFV6dlZYmE61K5Fhv+gMT/x
+	0d8XEyjBaXvMibIudf+nqYqtnp6Vwe3Y7JgppJADGVc0hFCjJqU22Vzo
+X-Gm-Gg: AYBFou1/ToM5rK0z0/LORdlKpz4zAKdVSd2PDIxtAmRjN0vEI803/UmOa+QwsuPnGg+
+	FN8AZMVVVY9gjc3gm4inPxAbqraykik0Pr58yjmtqJa3X01GUs2fgDKHnJpzmJpdUPhVd6niPyx
+	511xH369fCpHuTXHxjqJH9pKiWSOXCWgSGUOWJvmH6arAr9I1BDTSGbm6YQJ5wqX7mmI4967iSg
+	Q8QGBZpcIVAr2n2F5ifPTvQ7/inYb5U7MZde2EdEwBhrZ7NRRQwaKVxHObfecHxfHPQj2Zvikp1
+	4j4TVf2+KspDQHRfohEsXU8D08j7bNVe6CNlv5V/ykVTmjip4gHf5Ys9/vLzI5RxuTsXwqF2fLq
+	mozg6KSW6kWHmBdLG7Ed8pMFefDOKumd6kf2Q1tUEnrELALgiaBaR6daUC+kW5hXOvu2fqFmSee
+	ZxnoVzSq7TSJVXHrwe/uoxiUg3Y1LkZRv0byTu93VooxkFRRW/r+A3IKVqTQubnTqqSk8Lxsf55
+	LQShYfl6/tfBp04euQKRTiBwXp1y3em3kmzNlO93O3HjBjBaFFlFTalbnzvt7wdNvolOKxc
+X-Received: by 2002:a05:7300:c392:b0:35c:49b9:3166 with SMTP id 5a478bee46e88-368aead362fmr3201965eec.6.1792677647279;
+        Thu, 22 Oct 2026 07:00:47 -0700 (PDT)
+Received: from [127.0.1.1] ([23.254.208.9])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3673e15353csm29420342eec.2.2026.10.22.07.00.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 22 Oct 2026 07:00:46 -0700 (PDT)
+From: Qiliang Yuan <odys.yuan@gmail.com>
+Date: Thu, 22 Oct 2026 22:00:36 +0800
+Subject: [PATCH 1/2] mm/filemap: read ahead downwards on descending
+ VM_HUGEPAGE faults
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,112 +91,198 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261021-submit-serial-8250-dma-cancel-v1-v1-1-efe2b89f2303@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261022-bug-mm-mmap-readahead-descending-v1-1-6d08b34862f2@gmail.com>
+References: <20261022-bug-mm-mmap-readahead-descending-v1-0-6d08b34862f2@gmail.com>
+In-Reply-To: <20261022-bug-mm-mmap-readahead-descending-v1-0-6d08b34862f2@gmail.com>
+To: "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
+ Jan Kara <jack@suse.cz>, Andrew Morton <akpm@linux-foundation.org>, 
+ Vishal Moola <vishal.moola@gmail.com>, fujunjie <fujunjie1@qq.com>
+Cc: Roman Gushchin <roman.gushchin@linux.dev>, 
+ Usama Arif <usama.arif@linux.dev>, linux-fsdevel@vger.kernel.org, 
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ Qiliang Yuan <odys.yuan@gmail.com>, stable@vger.kernel.org
+X-Mailer: b4 0.13.0
 
-On Wed, Oct 21, 2026 at 04:37:43PM -0600, James Hilliard wrote:
-> uart_flush_buffer() resets the transmit kfifo before calling the driver's
-> flush callback. serial8250_tx_dma_flush() terminates DMA asynchronously and
-> clears tx_running, allowing a new write to replace tx_size before the old
-> completion callback has finished. That callback can then consume bytes
-> from the new transmission. The serial core can also overwrite the old
-> DMA source as soon as it reuses the reset kfifo.
-> 
-> Give DMA a private transmit buffer, keeping the kfifo offsets used by
-> FIFO-window providers. Copy only the queued ranges before handing the
-> buffer to the device. Flushing the kfifo can then no longer change an
-> in-flight transfer's source.
-> 
-> Keep tx_running set while a worker synchronizes a successfully terminated
-> channel. Suppress callbacks and new submissions during that interval.
-> The DesignWare idle helpers must not pause or resume a retiring channel.
-> Once synchronization finishes, process the zero-length completion under
-> the port lock and start any data queued after the flush. Reuse the normal
-> completion processing for OMAP too, including its delayed register
-> restore and runtime-PM handling. Drain the worker before releasing DMA
-> resources on shutdown.
-> 
-> Calculate the queued length before calling the platform preparation hook,
-> so it sees the length of the transfer being prepared rather than the
-> previous transfer's length.
-> 
-> If termination fails, leave the buffer owned by the transfer and let its
-> normal completion release it. Do not submit another transfer before that
-> completion. A DMA completion still does not mean that the UART transmitter
-> is empty; the existing line-status checks remain in place.
-> 
-> The race was found by inspecting cancellation and restart while preparing
-> H616 UART DMA support.
+On a VM_HUGEPAGE file mapping, a synchronous fault reads the PMD-sized
+folio that holds the faulting address and the one above it, and maps
+the faulting folio with a PMD. do_sync_mmap_readahead() counts each such
+fault in mmap_miss and stops reading ahead once it passes
+MMAP_LOTSAMISS, while filemap_map_pages() lowers the count for faults
+served from the page cache, but only when it maps them with PTEs.
 
-...
+A reader that moves towards lower offsets, such as memmove() copying
+backwards out of a mapping, never finds its next folio cached: the
+folio above is the one it just read. Every folio is a miss and none is a
+hit, so after about a hundred folios mmap_miss passes the limit and
+every page after that is read on its own. Since the PTEs mapped around
+a fault no longer count as hits, nothing lowers the count for it.
 
-> +static void __dma_tx_complete(void *param)
-> +{
-> +	struct uart_8250_port *p = param;
-> +	struct uart_8250_dma *dma = p->dma;
-> +
-> +	guard(uart_port_lock_irqsave)(&p->port);
+When the folio above the faulting one is cached, read the folio below
+instead, without a readahead mark, and count a PMD mapping of the
+faulting address as a hit the way a PTE mapping is. Such a reader then
+misses on every other folio and hits on the rest.
 
-Add a blank line after guard()() everywhere, otherwise it's harder to see it
-in the code.
+Reading one byte from each page of a 2 GiB file, last page first, in a
+MADV_HUGEPAGE mapping with a cold page cache, read_ahead_kb 8192:
 
-> +	if (!dma->shutting_down && !dma->tx_terminating)
-> +		serial8250_tx_dma_complete(p);
->  }
+                   before       after
+  time            36.76 s      0.41 s
+  major faults     473191         516
 
-...
+Fixes: 0b9c0aeba938 ("mm/filemap: count only the faulting address as a mmap hit")
+Cc: stable@vger.kernel.org
+Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
+---
+ mm/filemap.c | 101 ++++++++++++++++++++++++++++++++++++++++++-----------------
+ 1 file changed, 72 insertions(+), 29 deletions(-)
 
-> +static void serial8250_tx_dma_flush_work(struct work_struct *work)
-> +{
-> +	struct uart_8250_dma *dma = container_of(work, struct uart_8250_dma,
-> +					       tx_flush_work);
-
-Make it a single line.
-
-> +	struct uart_8250_port *p = dma->port;
-> +
-> +	/* Neither the channel nor its buffer may be reused before this returns. */
-> +	dmaengine_synchronize(dma->txchan);
-> +
-> +	guard(uart_port_lock_irqsave)(&p->port);
-> +	dma->tx_terminating = false;
-> +	if (!dma->shutting_down)
-> +		dma->tx_complete(p);
-> +}
-> +
-> +void serial8250_tx_dma_prepare_buffer(struct uart_8250_port *p,
-> +				    struct scatterlist *sgl, unsigned int nents)
-> +{
-> +	struct uart_8250_dma *dma = p->dma;
-> +	struct scatterlist *sg;
-> +	unsigned int i;
-> +
-> +	/* Preserve ring offsets for DMA engines which implement a FIFO window. */
-> +	for_each_sg(sgl, sg, nents, i) {
-> +		size_t offset = sg_dma_address(sg) - dma->tx_addr;
-> +
-> +		memcpy(dma->tx_buf + offset,
-> +		       p->port.state->port.xmit_buf + offset, sg_dma_len(sg));
-> +	}
-> +	dma_sync_single_for_device(dmaengine_get_dma_device(dma->txchan), dma->tx_addr,
-> +				   UART_XMIT_SIZE, DMA_TO_DEVICE);
-> +}
-
-This is a bounce buffer, why do we need it? Shouldn't this be rather the
-respective DMAengine issue on how to treat the pieces?
-
-...
-
-Overall I have a feeling that we turned somewhere in a wrong direction.
-This all activity on 8250 DMA support looks like over engineered approach.
-
-Perhaps we need to reconsider the whole picture?
+diff --git a/mm/filemap.c b/mm/filemap.c
+index 00fd89cf6f550..8a7d1238ae75d 100644
+--- a/mm/filemap.c
++++ b/mm/filemap.c
+@@ -3319,6 +3319,23 @@ static int lock_folio_maybe_drop_mmap(struct vm_fault *vmf, struct folio *folio,
+ 	return 1;
+ }
+ 
++/*
++ * Whether a miss at @index, right below @nr cached pages, comes from a
++ * stream that runs towards lower offsets.
++ */
++static bool filemap_descending(struct address_space *mapping, pgoff_t index,
++			       unsigned long nr)
++{
++	void *entry;
++
++	if (index < nr)
++		return false;
++	rcu_read_lock();
++	entry = xa_load(&mapping->i_pages, index + nr);
++	rcu_read_unlock();
++	return entry && !xa_is_value(entry);
++}
++
+ /*
+  * Synchronous readahead happens when we don't even find a page in the page
+  * cache at all.  We don't want to perform IO under the mmap sem, so if we have
+@@ -3392,13 +3409,20 @@ static struct file *do_sync_mmap_readahead(struct vm_fault *vmf)
+ 		fpin = maybe_unlock_mmap_for_io(vmf, fpin);
+ 		ractl._index &= ~(folio_nr_pages - 1);
+ 		ra->size = folio_nr_pages;
++		ra->async_size = folio_nr_pages;
+ 		/*
+ 		 * Fetch two folios so we get the chance to actually
+-		 * readahead, unless we've been told not to.
++		 * readahead, unless we've been told not to. A stream that
++		 * runs towards lower offsets gets the folio below.
+ 		 */
+-		if (!(vm_flags & VM_RAND_READ))
++		if (!(vm_flags & VM_RAND_READ)) {
+ 			ra->size *= 2;
+-		ra->async_size = folio_nr_pages;
++			if (filemap_descending(mapping, ractl._index,
++					       folio_nr_pages)) {
++				ractl._index -= folio_nr_pages;
++				ra->async_size = 0;
++			}
++		}
+ 		ra->order = thp_order;
+ 		page_cache_ra_order(&ractl, ra);
+ 		return fpin;
+@@ -3896,6 +3920,39 @@ static vm_fault_t filemap_map_order0_folio(struct vm_fault *vmf,
+ 	return ret;
+ }
+ 
++/*
++ * Whether mapping @folio at the faulting address counts as an mmap hit,
++ * which lowers mmap_miss in do_sync_mmap_readahead().
++ */
++static bool filemap_mmap_hit(struct vm_fault *vmf, struct folio *folio)
++{
++	/* Skip the retry of a fault, which maps the folio its miss read */
++	if (vmf->flags & FAULT_FLAG_TRIED)
++		return false;
++	/*
++	 * If there are too many folios that are recently evicted in a file,
++	 * they will probably continue to be evicted. In such situation,
++	 * read-ahead is only a waste of IO. Don't decrease mmap_miss in this
++	 * scenario to make sure we can stop read-ahead.
++	 */
++	if (folio_test_workingset(folio))
++		return false;
++	/*
++	 * VM_SEQ_READ and VM_EXEC mappings skip the mmap_miss increment in
++	 * do_sync_mmap_readahead(), so skip the decrement as well to keep
++	 * the counter symmetric.
++	 */
++	return !(vmf->vma->vm_flags & (VM_SEQ_READ | VM_EXEC));
++}
++
++static void filemap_count_mmap_hit(struct file *file)
++{
++	unsigned short mmap_miss = READ_ONCE(file->f_ra.mmap_miss);
++
++	if (mmap_miss)
++		WRITE_ONCE(file->f_ra.mmap_miss, mmap_miss - 1);
++}
++
+ vm_fault_t filemap_map_pages(struct vm_fault *vmf,
+ 			     pgoff_t start_pgoff, pgoff_t end_pgoff)
+ {
+@@ -3930,10 +3987,16 @@ vm_fault_t filemap_map_pages(struct vm_fault *vmf,
+ 	 * Make an exception for shmem/tmpfs that for long time
+ 	 * intentionally mapped with PMDs across i_size.
+ 	 */
+-	if ((file_end >= folio_next_index(folio) || shmem_mapping(mapping)) &&
+-	    filemap_map_pmd(vmf, folio, start_pgoff)) {
+-		ret = VM_FAULT_NOPAGE;
+-		goto out;
++	if (file_end >= folio_next_index(folio) || shmem_mapping(mapping)) {
++		/* Check before filemap_map_pmd(), which may drop the last ref */
++		bool hit = filemap_mmap_hit(vmf, folio);
++
++		if (filemap_map_pmd(vmf, folio, start_pgoff)) {
++			if (hit)
++				filemap_count_mmap_hit(file);
++			ret = VM_FAULT_NOPAGE;
++			goto out;
++		}
+ 	}
+ 
+ 	addr = vma->vm_start +
+@@ -3968,28 +4031,8 @@ vm_fault_t filemap_map_pages(struct vm_fault *vmf,
+ 		}
+ 		ret |= map_ret;
+ 
+-		/*
+-		 * If there are too many folios that are recently evicted
+-		 * in a file, they will probably continue to be evicted.
+-		 * In such situation, read-ahead is only a waste of IO.
+-		 * Don't decrease mmap_miss in this scenario to make sure
+-		 * we can stop read-ahead.
+-		 *
+-		 * VM_SEQ_READ and VM_EXEC mappings skip the mmap_miss
+-		 * increment in do_sync_mmap_readahead(), so skip the
+-		 * decrement here as well to keep the counter symmetric.
+-		 */
+-		if ((map_ret & VM_FAULT_NOPAGE) &&
+-		    !(vmf->flags & FAULT_FLAG_TRIED) &&
+-		    !folio_test_workingset(folio) &&
+-		    !(vma->vm_flags & (VM_SEQ_READ | VM_EXEC))) {
+-			unsigned short mmap_miss;
+-
+-			mmap_miss = READ_ONCE(file->f_ra.mmap_miss);
+-			if (mmap_miss)
+-				WRITE_ONCE(file->f_ra.mmap_miss,
+-					   mmap_miss - 1);
+-		}
++		if ((map_ret & VM_FAULT_NOPAGE) && filemap_mmap_hit(vmf, folio))
++			filemap_count_mmap_hit(file);
+ 
+ 		folio_unlock(folio);
+ 	} while ((folio = next_uptodate_folio(&xas, mapping, end_pgoff)) != NULL);
 
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.43.0
 
