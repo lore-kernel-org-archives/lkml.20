@@ -1,101 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.214.177
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792687598;
-	b=QEQjc95mPYzXsT/ghsmV1iEZW3/ZMOEyk02umjJ98PESncx38AZEWFX5PcY3tKpuKivV
-	 GnYRM3YX9y89A8hOWSZL5i3maFeUswd9uadRr4tB2g7tI73QXFe4BvJN+X2jR2yzZLr2g
-	 GbXtpfgaesSAJq0RGAlo5Nk/9bwmJVxjBiSbgrnjoUqcILdra86LqynYrMWg9x3he9sp7
-	 Ovf0VHbxwgvl1lqXK+XHoONk29FlRnq8H8bqIF3hAdIAtXaHziHXw742cqRvt0P/7Ixao
-	 rkj1sU8x0ppCd+jYBRHbs69lF0f+daoSnf8VRcTw7ZxpqEPbxYXKTk8YaHfHKt+s2bQ==
+	t=1792687600;
+	b=cKSwD31HUZXoFWDHV3skUECIuypm67P/CDTt6IbqUhouyu3hCl3sznHfD2wA8Hy8lo50
+	 VLlE3Xd08kXznaM+G4UGY6equqi9hU1iMbRwwkvPJ/n9IYey6IhQNfpur+EA93ofzSQgx
+	 yKcn9VLqUhDApY3eXVoMym+OemycyC9XqFSNABo/Sc+LUDl1pSIVCQmLIMXzTw2W5coS2
+	 y/CzIPnqadNPzlK340RzEcqVa7Ml2CXZyPud8dfZ2uXkg2QqjfkwREU5Ivvs73egqde72
+	 e7sLxk+9w+SOeZjUKhhXD9qvWLYS95hlGeyFEIAzVMuHzJroeuVRxPQrj6CxzCRl6Kg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792687598;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=uWReZSZPnxFWoJInKY4s3rEgmqruohf2mZWoSu7TMG0=;
-	b=DSWtV8FXVSlKIt53W9GhZgGMGZdpAAQEqTAEgCKX6SNgQSPoDFtKbILToD7QoUbS7Ide
-	 gcp5p6jF6Nj95iFQ/mt+OXC35hXg/+bmOXBAhpdXe5BOddJxelFbHEu84ZTbv0zByZbhB
-	 +XWWNsXiW7vPUJ3FJU2n8tsPxud+kq/Saxj7k2itgCl0mJhqYJJhv2vNsH8+CVvjfkqX/
-	 E2dHeV3gwXAbdlBZUsmWZr+OAy81aE4wLZZ43F/lMwsB3fQZZqG9iBOwLAQXGE8AwuC24
-	 PDcRiEIT2PerNrlNQPPMUsAUfYZL07LssAx9xu8/ypPQ2BHwcdoZcp9MmnosP3yUfQQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792687600;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=xOTUwgjwiqoVK48MuNeiJ5tobUcs3ededaPQ2qfxPUE=;
+	b=msQZyUKWMli5MtnnPSKlaHmDwJLu2PFzZuk0sstJRlj28NA9aRSf9OUI+Az5QJEMZxVg
+	 TuqkohEFZ+323vyt1xC9uuDHxb7IUUpL0Exm5REQ7Qr58xO2qW80klEG0zFFDetfRIeq6
+	 AU1p0vXkAHmvijtlCMD/jcJXk6QG5wpf9b1/56QjSxobd9V/zXQ5cua1Ovv4/0jeA0CVQ
+	 LuYde5bv0AjybL2PUa8OF5oyX83KrNSVhzvIadXyODXpq0ARGUXgDlyV+IIIre8Af1vYR
+	 V+xyUJHrG4P9h3GPagbOOHmHYZe9gIWOUMe8MhZTkcz+GYmzW2jezH2IqIdcyrIR0ew==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=GwsFZfAG;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.214.177
-Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b7XanTeE;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD2B5606A31B;
+	Thu, 22 Oct 2026 16:46:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b7XanTeE
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1792687599;
+	b=wZAPmm3nhigupYSPPZpHXdED63UAVhULqOOIQfGY4UvvA6VpaHDmmJqqMaxJzE+QUWsh
+	 0BA5aewg15v0tjbAr2iRcgxHNjHoH74YlyZI5gfdsLzOcLmGS8CFJa6dsgpFT4EcjOLAr
+	 UAwvy8qSDnSDqmT0ChsxA+NKCNPkIeedx2YLYMCUeq8JvQFrypOiekf6KPH1PODHreGAu
+	 /f/Ht7AiLS0fD9VCBusg4yXB8LJqN/jxeEs7Oj7lZbTATf5zwNFlQrcZ1l2zNJEMd+EVl
+	 Oj9C/zkrXPzLRn1PLxrMeU0FdjanCmIAZG9/0aD7/QLXhwE1ocIL0KDbuqEUN3pQbdw==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1792687599;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=xOTUwgjwiqoVK48MuNeiJ5tobUcs3ededaPQ2qfxPUE=;
+	b=1Jw8Kcxd3LU9QF+QPzq8v8t4I6XUBjQnkZ0XVjbhP3i7vmWhk42Ig3IFbeudnzU5v7Dx
+	 ypeIeSkvltVg1glrpObDymfzZ0gcXN02J+JGdA7kcQ35JhqtGRX5KG+9c3f/ZnVFktzTl
+	 tvuK3PKyWn0ufZphjLZbU0y8uSr1GQ8IGit18bX1Yt4UNylD0f2IIw7rrTEO4T81sfPZ/
+	 YnMXSHtf0BMoAhkxuF6p74M27f/JSTw5Q30Jlc6Lx/hlpDQCO89j2paptuLQHioIdftUM
+	 xstx/XgQg8rDjC6PcQ3MMVnNFTDugpuTFawzPD4jvVBy3r/1FeIKuFEpOrBB1K8Ln8g==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA2DB606A31D
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 16:46:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BA2DB606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=GwsFZfAG
-Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-2e8d6fcbba0so65915ad.1
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 09:46:37 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792687597; cv=none;
-        d=google.com; s=arc-20260327;
-        b=EjO0ycJ/6I/+xEvGm5UyUVEj56JDWOsu63NPIPeeVa+wFUV95bsHxGPmgg5yfXNgBf
-         UuXg4d8Pff9Lrvgwr57GY1PXRuBdj7FPFNQSlY5GSEFzpnEA0/kdMQlJQW7gsSKb/Yn3
-         I+RDFcqOHtMM3dCcxlAdCBo62nmmy7qC4P1a9RM2/hCcJSTq7CjOjknxcBZiFxEx7fBv
-         NLX42dk1CFxz5arEmVIbqxgQ4LiCgGpFvvukFaB/lU8l5G+R3BvaHYGBwHAe1c2A/I/E
-         mjFr9TWUmDNjXRqrSzP3PC4cI8hw/6JxGKhGUl4+Ac37Onyo1W4p4qn8XeHYaLH4TZNp
-         ZEuw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=uWReZSZPnxFWoJInKY4s3rEgmqruohf2mZWoSu7TMG0=;
-        fh=y+iY4WF6Aqg+lWJa/lerlr7A0vRlLgQ7Tal/XJCx1dk=;
-        b=nLgMP9sxU510tJWI1t4BxVRUel9vyBDqQgzO+3/qy9vwW57rJeEh+Qbltu3d4JYfIw
-         vHg3qB8sftXR2FlhCfCFD0nUPJsnsdIYQR8A5ytJyT6Y+H8Ia0pw67CzfrUoRlMRrYq6
-         +VZOtypDImKNqEpRzr1BGJIUFLn+W+jr9C8RmhI0QMxiFQ64L6ykY3NoMhBl31XGRUFt
-         cFi/Id+DrfyAR3PIqy/HTlAviMn2oGz7Mdj7hW7PqDNbP/xR3l/DKgFsOR0YM9D1e+ZU
-         ftPSG9qH2RmnldgM4/lBdQZaJweCKT0PGpqy2SfVzHxzu7SGqk+gYb1rLbJ7OXqZJRP4
-         dI9w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792687597; x=1793292397; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=uWReZSZPnxFWoJInKY4s3rEgmqruohf2mZWoSu7TMG0=;
-        b=GwsFZfAGN5WK9cknlncIZ+dExC3F9P6aYB8Y7HxgAhobV6QAQgPWZoSO354JKjEpvF
-         FPWjKKUDWFpR/YFwVogODJfj5PyEUOMF2ed4wZsK6z0h0/jjE0OHp2Dne6/F0bjLNt4V
-         X3UpSMUASG0FzhAq8jRMWIVOcqp0k6ZLrJ2KiPPyu1RNTtI+lXFv8RoRTXowpr3bE+Qs
-         T2nwQWAFaJ/pzE9nSsvssHt7ZOMRI2yjJu1Foq78zmJdr0k4DBeOfbHt5rIHOZYLxSbc
-         T22YUmHcNVpH9EqeeA3KGKLqdKdYuXVhf2cjKdTVXTRsMUbawAqtlBw5WxvgxN+WH6T0
-         7aFA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792687597; x=1793292397;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=uWReZSZPnxFWoJInKY4s3rEgmqruohf2mZWoSu7TMG0=;
-        b=iygNqhKG5y/oku9DDItYqZwg9xug3V5IiIX63abqqWIr7KCK+fr57fO7igflShpMO1
-         yUHv75wc37UTi2cnkVOHvkXFNAniSfpH0lCln0x9CPgZ/AP95QKahC/aVMz2mqCyveXv
-         akj9Nsq7g3k5aQJhDEE3YzkuJgnKxyjEwL6WJ6Sn1xajhqVdFoJq+8Mv4+FzKx9M2LJv
-         Czgwnv1b1KQwBGqAhGH1KbFfRocO8J+zT4QQ3MpraJsgWsGzoor+Eg1whLPZfIv64qup
-         wbN15G4hbWwhW9LZUi+eSAzl0CHxZSVdYNQhIbplaK7WJfrcANw2qHDc5K/EWxGJYLK/
-         /gXw==
-X-Forwarded-Encrypted: i=1; AKwUvBwZWG6FH9Cca3v5OIb4GAco+8DsRcaag08HNzbrEhTePsG7+pBuDgJRoNoXyb1mSu8FZgVznD0nw6EC+vo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIAxuAHyVzjB2LKJigRxPR+knSfaM/l/2uZXvVleRD5lwpOKPnO
-	AFs6Ha7j/POZYsSNIvZwxS32Gd0dR6mAfTMXGfTQNDj11PfmtB1lXVsJ7wf5FnhK1A8bdfbv36p
-	6lwo3OGmbhSbPl6qGSO6/wUb/V3dBe58AHlitq4MU
-X-Gm-Gg: AYBFou2unOp/CdiQLSZVyk+Edm3/kCmiK78HAl92sjQa6AFKLtYCbCasXEe7bODz/xK
-	BjSADnl3ib9XhjvmBBhOnBsAI21GTGIGkzx7WSodltbH+y/5JTG+LyKf+PTp/6fnNhmW+Qaouuj
-	zz+CaGvNaF3q1B5S1bD4QP9sHPjt7voZgBt5+3Fpn+cCzWllT+7QLJQcql4uw7c2GJaPzbTJTOI
-	mczTxkUjaZhHgJyn0LQxl0tSH5yT8oIV9rBW69O+DuxgmR3s/dROidEQgtL1AaoGjLoBOpdN5Jr
-	FdVUmYXj2UtuDu7AlCoIepKGQ8i1qrh2oeLFGr6UfwPO3OU0osEI2zzc5PP0as7sWMeCwis4+tV
-	pQStCr7/S+V02S8Ehp6Kx+HyX4QRh1bJhu5PUIa5YvFSRFxfed5SUH0oxK5N2Whb2VTgDfOp2gj
-	HOPbNsB56juRphTF8pDkufeg==
-X-Received: by 2002:a17:902:db11:b0:2bd:3bfd:74f1 with SMTP id
- d9443c01a7336-2ea63088254mr5085175ad.2.1792687596491; Thu, 22 Oct 2026
- 09:46:36 -0700 (PDT)
+	by smtp.kernel.org (Postfix) with ESMTPS id 9A91A1F01828;
+	Thu, 22 Oct 2026 16:46:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792687599;
+	bh=xOTUwgjwiqoVK48MuNeiJ5tobUcs3ededaPQ2qfxPUE=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=b7XanTeEkgtsXzleqBFNxp3n84XIRmr1QuQV7ky0pDNbu60roJ/sGOq5UZqwdNQEk
+	 o9PpxaWNN6Vz/SOOf6yNKY0LE+NROfRmHf+r5wYte2iH1e+9/7+N69NshNCWT0ZdwN
+	 34GN/+QkcUDAheguag9vT7r9HcZux5qhZCBdpMV9M4U6V3JK2fOX212ed6iVMcbpue
+	 5D2JBjd+REibPM+E+JVdO10NQnYwOckJiAuXbkuhhGandHlH5XMWSSbq89wFWBBlLR
+	 t1o8UAB8YCPmaa/6mfZMCyNURpPW/u+Iie1sgBYNE4t4EQt0qDfxDPp+rOq+wwIQLL
+	 Nl/bi7pciQH+A==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 09FEA41E83;
+	Thu, 22 Oct 2026 16:46:38 +0000 (UTC)
+From: Aiden Isik via B4 Relay <devnull+aidenisik.member.fsf.org@kernel.org>
+Date: Thu, 22 Oct 2026 17:46:37 +0100
+Subject: [PATCH 2/2] phy: exynos5-usbdrd: Add support for the Exynos5515
+ usbdrd phy
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,28 +83,120 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261021162538.1852602-1-mic@digikod.net>
-In-Reply-To: <20261021162538.1852602-1-mic@digikod.net>
-From: Jann Horn <jannh@google.com>
-Date: Thu, 22 Oct 2026 18:45:59 +0200
-X-Gm-Features: AclHuK9zuGI6ax3vqvDDohM9t-hsk36f5joo8NmHv8Bwy_LXI-q37xMxgIQtv9M
-Message-ID: <CAG48ez3Rptvjvt=t_YEcBHHwYGD4zmPtc6tk+gPLtorZY7WEFg@mail.gmail.com>
-Subject: Re: [GIT PULL] Landlock update for v7.4-rc1
-To: =?UTF-8?B?TWlja2HDq2wgU2FsYcO8bg==?= <mic@digikod.net>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>, Christian Brauner <brauner@kernel.org>, 
-	=?UTF-8?Q?G=C3=BCnther_Noack?= <gnoack@google.com>, 
-	Haofeng Li <lihaofeng@kylinos.cn>, Paul Moore <paul@paul-moore.com>, Tingmao Wang <m@maowtm.org>, 
-	Wang Yan <wangyan01@kylinos.cn>, linux-hardening@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-security-module@vger.kernel.org, 
-	llvm@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261022-for-next-lucky7-usb-phy-v1-2-2e47f8484bf4@member.fsf.org>
+References: <20261022-for-next-lucky7-usb-phy-v1-0-2e47f8484bf4@member.fsf.org>
+In-Reply-To: <20261022-for-next-lucky7-usb-phy-v1-0-2e47f8484bf4@member.fsf.org>
+To: Vinod Koul <vkoul@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Marek Szyprowski <m.szyprowski@samsung.com>, 
+ Sylwester Nawrocki <s.nawrocki@samsung.com>, 
+ Peter Griffin <peter.griffin@linaro.org>, 
+ Alim Akhtar <alim.akhtar@samsung.com>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, linux-phy@lists.infradead.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org, 
+ Aiden Isik <aidenisik@member.fsf.org>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2950;
+ i=aidenisik@member.fsf.org; h=from:subject:message-id;
+ bh=Kiiu/e8JIBqj1FtLrHXUkttonZWwk3f0gSxzSjnt6Ys=;
+ b=owEBiQJ2/ZANAwAIAUknAbLEetfrAcsmYgBq2j3tvjE8eTgCSASSGRDwhLex1H6pqWKT0Iw0O
+ pESfG41hkSJAk8EAAEIADkWIQSDy8UkXGpc3JNbEaVJJwGyxHrX6wUCato97RsUgAAAAAAEAA5t
+ YW51MiwyLjUrMS4xMiwyLDIACgkQSScBssR61+sMHhAAsUopH+oG44TXLb0KyNZ1uxDtgyammvw
+ MARBRATeyeRUvvyAxR+ENdfAOfQYAoBKDAuo0s2R0jHI8CEzYvzkQ/w8it1CnQjU/j84Ni9j2k5
+ o55ZGjUZggmKNDKtjIRG36rtrkQKcu9zWIN6A+55PfCf1c3FMXf78tKycXPO+pngBm9EgsDD5xd
+ lAHyTOqxxV9EEjd30IQiq2Riey5A0R/5q37GgGPFhEyTzeIfIILPozVq7cg465VfEhpIxzb+zo4
+ ZtYy5tJPU6FicZn1jGewertAY/IfcXQSbdg08kYcgT73zeBL1KXP+Zshiiu5kM+4SZ3Sp9dgoCd
+ 1wS06y7CeLuyRsZHHUAnh348rqbp93z0cjKqhe9Ywz47kHjKBQGNr5Wp7Ar5DRNHtBs7WA9BEd6
+ KH4nChgwGQLetqtmQowuge88XNMiiNmO8TmaQBJynxK5VurmCcWUjt3EL4JE4Kg7kezAWKHecA6
+ izygaxwmaDEIzmRkjFFXY8EKbEtrtP2dzsKi6JPy8Ve0PgZ00daJgeo9Ugx5YQpxGMjOJfh30gG
+ Cb/r58KUUZKVa0ujhjTyXzitf0CBPS2omURAxka7Z5Zilhcs5/a15xfc+3/dYTy1oH0vrF0sDwX
+ iyiBUvLkOJ51XEsg4TRYNw1NlwjQyoDkVMe4V9ASelqVrhbv7u40=
+X-Developer-Key: i=aidenisik@member.fsf.org; a=openpgp;
+ fpr=83CBC5245C6A5CDC935B11A5492701B2C47AD7EB
+X-Endpoint-Received: by B4 Relay for aidenisik@member.fsf.org/default with
+ auth_id=956
+X-Original-From: Aiden Isik <aidenisik@member.fsf.org>
+Reply-To: aidenisik@member.fsf.org
+Content-Transfer-Encoding: 7bit
 
-On Wed, Oct 21, 2026 at 6:28=E2=80=AFPM Micka=C3=ABl Sala=C3=BCn <mic@digik=
-od.net> wrote:
-> Jann Horn (1):
->       cred: clarify that task_struct::cred is only for the current task
+From: Aiden Isik <aidenisik@member.fsf.org>
 
-FYI, that already is in mainline as
-https://git.kernel.org/linus/b030ffaedc1d638f232f6992406cdcdcc82d5602,
-it went through the LSM tree.
+The Exynos5515 USBDRD PHY is a USB PHY which supports USB Super-Speed
+and High-Speed. Add support for High-Speed (UTMI+) operation.
+
+Signed-off-by: Aiden Isik <aidenisik@member.fsf.org>
+---
+ drivers/phy/samsung/phy-exynos5-usbdrd.c | 43 ++++++++++++++++++++++++++++++++
+ 1 file changed, 43 insertions(+)
+
+diff --git a/drivers/phy/samsung/phy-exynos5-usbdrd.c b/drivers/phy/samsung/phy-exynos5-usbdrd.c
+index f10cf7b6e0aa..8718e8f01e46 100644
+--- a/drivers/phy/samsung/phy-exynos5-usbdrd.c
++++ b/drivers/phy/samsung/phy-exynos5-usbdrd.c
+@@ -2075,6 +2075,46 @@ static const struct exynos5_usbdrd_phy_drvdata exynos5433_usbdrd_phy = {
+ 	.n_regulators		= ARRAY_SIZE(exynos5_regulator_names),
+ };
+ 
++static const struct exynos5_usbdrd_phy_tuning exynos5515_tunes_utmi_postinit[] = {
++	PHY_TUNING_ENTRY_PHY(EXYNOS850_DRD_HSPPARACON,
++			     (HSPPARACON_TXVREF | HSPPARACON_TXRISE |
++			      HSPPARACON_TXRES |
++			      HSPPARACON_TXPREEMPPULSE |
++			      HSPPARACON_TXPREEMPAMP |
++			      HSPPARACON_TXHSXV | HSPPARACON_TXFSLS |
++			      HSPPARACON_SQRX | HSPPARACON_OTG |
++			      HSPPARACON_COMPDIS),
++			     (FIELD_PREP_CONST(HSPPARACON_TXVREF, 15) |
++			      FIELD_PREP_CONST(HSPPARACON_TXRISE, 3) |
++			      FIELD_PREP_CONST(HSPPARACON_TXRES, 3) |
++			      FIELD_PREP_CONST(HSPPARACON_TXPREEMPPULSE, 0) |
++			      FIELD_PREP_CONST(HSPPARACON_TXPREEMPAMP, 3) |
++			      FIELD_PREP_CONST(HSPPARACON_TXHSXV, 3) |
++			      FIELD_PREP_CONST(HSPPARACON_TXFSLS, 3) |
++			      FIELD_PREP_CONST(HSPPARACON_SQRX, 7) |
++			      FIELD_PREP_CONST(HSPPARACON_OTG, 2) |
++			      FIELD_PREP_CONST(HSPPARACON_COMPDIS, 7))),
++	PHY_TUNING_ENTRY_LAST
++};
++
++static const struct exynos5_usbdrd_phy_tuning *exynos5515_tunes[PTS_MAX] = {
++	[PTS_UTMI_POSTINIT] = exynos5515_tunes_utmi_postinit,
++};
++
++static const struct exynos5_usbdrd_phy_drvdata exynos5515_usbdrd_phy = {
++	.phy_cfg		= phy_cfg_exynos850,
++	.n_phy_cfg		= ARRAY_SIZE(phy_cfg_exynos850),
++	.phy_ops		= &exynos850_usbdrd_phy_ops,
++	.phy_tunes		= exynos5515_tunes,
++	.pmu_offset_usbdrd0_phy	= EXYNOS990_PHY_CTRL_USB20,
++	.clk_names		= exynos5_clk_names,
++	.n_clks			= ARRAY_SIZE(exynos5_clk_names),
++	.core_clk_names		= exynos5_core_clk_names,
++	.n_core_clks		= ARRAY_SIZE(exynos5_core_clk_names),
++	.regulator_names	= exynos5_regulator_names,
++	.n_regulators		= ARRAY_SIZE(exynos5_regulator_names),
++};
++
+ static const struct exynos5_usbdrd_phy_drvdata exynos7_usbdrd_phy = {
+ 	.phy_cfg		= phy_cfg_exynos5,
+ 	.n_phy_cfg		= ARRAY_SIZE(phy_cfg_exynos5),
+@@ -2936,6 +2976,9 @@ static const struct of_device_id exynos5_usbdrd_phy_of_match[] = {
+ 	}, {
+ 		.compatible = "samsung,exynos5433-usbdrd-phy",
+ 		.data = &exynos5433_usbdrd_phy
++	}, {
++		.compatible = "samsung,exynos5515-usbdrd-phy",
++		.data = &exynos5515_usbdrd_phy
+ 	}, {
+ 		.compatible = "samsung,exynos7-usbdrd-phy",
+ 		.data = &exynos7_usbdrd_phy
+
+-- 
+2.54.0
+
+
