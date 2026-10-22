@@ -1,78 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792675900;
-	b=zaPJqw9qwvgBfAa1OPKK/B2I5/5cNy0Ptz0LjN2jjLf2sPX9d7ml0FKYSP8YbKGDcKGD
-	 kWrbZSFRJaD+X48NvmyHtu4N+wLK4cjRK8aqAlG4xq6/tCSZGCHPUyADxeVor/4FP2E6l
-	 U7/fGqg7qmlCUlC9QoGd2ZSVgOtYHwvwewk6MkJ7oeA9LC91BG+QhZkhFxLM7PxreYWBC
-	 1odcMQ5K6UgGIYecPQ37xr8UZMTOaSwxvfqXzdOrLdzh1xKl5dkOL61b6Hh21T4e6J9dO
-	 HCp7MzgeWsQdKrJH1ITUpgZO9778iYGlG9LmwWmeo646Bel3O223JTO84dvMl9Zn6/w==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792675900;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=0tkDDnV0w78Z3mlPUa+vDDHH1bEm6rgLoCJLEs/Eiwg=;
-	b=N/qiZoaCIv+7l9ccwqZ+A2P8t6sNeQt+jzuEPxJJLTkb+oGCA+/FIcfUH5BiAg6XsqlE
-	 WAbH02MrFDA2XEdu6ugnaafMNyNjYkF7ntDgs9dW98VWGLwNv9mLsh46fNr8hHMUDtxRT
-	 esVOTiAwuOoA3D1qqJfF5kI3N0PFYf1Rp1ipNLnUu8KLa0LyXlOs05dXEOONWo05TOIHg
-	 SAM6lU07dN4QSMCwxBTrbh1esqrHGs4/vLzBCA3jCBUdgF/7YTJx4NdcHGUjjf8GYKr0m
-	 HTjqwmBirmO74vfK/8nWt02CLy9Q2NKjs5PKxNEZ+C+F6ebawWuubW2ZLocmAj6CpGw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hcDd9xmc;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792675911;
+	b=OjCi4N4hoHhZemmJqoN6VwoH8FkZ6jSsNraRnX3nukfURUytEaJthSM9mFDSsT6RIU0h
+	 opfbF0ibxojn97tP4Cz7zsbMe1fTwZBlR/wdXFe9E0Yv1Jpt2+iTIhnTY9H1+abqK+d+Z
+	 cbAd7DDy4BwVWR+vJnky8rsNyXaZ5RppW/voYQ2rSmpai5Amqgqjl+bFFgRaENZCWQWmj
+	 LdL1eu6kC5YtST9XriwK+vIhS6qch9SR4ijeATkG8IsdUeYRTXPP3bkjicaatKnY8ID83
+	 TJ/8q6G9K27sTJyx+gFMBqxLQWnrxORr6g4ZYXLf4CpsWu2c7lXVjrQH+5/mtWyhZxQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792675911;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=unVAESJai7F1UmJzEHO+wzlvQnnF/1GINQlY378qHu4=;
+	b=BhX0Pvhsob6D4mG8rzcLluEnD0IdKwTObOj6dLwYdXczRm5fNNowMvKBuJO1++uTTM3D
+	 7Y+gXlJt06TaaCXJtPW+5TUTUmtXi7ORC1gmfBv+m2obir6H7pKvlLBVLlOkUhhh9+yVV
+	 +SENlHwX74GBk/ERDY5vFWmhIQKswx6dHAdv4U20+boue/FfM9LObmNB1wpkrFFAT9wDB
+	 rGPmbGKevZ1gH1Xt1WNT7weMTWHqp/CNRaQXLAqXICfywrcndNhwjo7ziA4YjpoKTjuQZ
+	 2OYq+9ZFAZoz4TYEyuxWWt+03KwG7lLsGupwzqjezA//Qu3BzK/bA3J3aqBm2IUuQnw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=NFz4ABAQ;
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BD70606A319;
-	Thu, 22 Oct 2026 13:31:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D479A606A33B;
+	Thu, 22 Oct 2026 13:31:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hcDd9xmc
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1792675900;
-	b=rDsnfXfdKbQnPjXgxLgtasEwG8hsdGzI3IJmMGYadYJuHDAT7G7qFhlmeFoFK2PgLyf9
-	 YznxiElSzdoqNmasKYU/SaCGphQmMDYGUEWzu8osyml3xAluvzEXiKpYCCVjBcnO9adW3
-	 Nz0NK7BsKmbv1FWmr9M1sILvvUXsxnnLC2JZksJYMS7M7ohzHIgh/ZK2pQN/Ho/DKdiLs
-	 9coLaK6lrEMRUhdr2omVkTbiAYYOGyv3svqxJHfzsoYFPjRtkuJkQG7XC13qFvn1rq0/o
-	 OJxYNVY3L463T7ihmJ+jneIHtN9rbXgoSXzwq+8AyjlGlwr7Q+EZ4oiAyRBWfBfDYEw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1792675900;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=0tkDDnV0w78Z3mlPUa+vDDHH1bEm6rgLoCJLEs/Eiwg=;
-	b=InIrMYaQMBz22aeJL2SBnDdoaOwqR2YF46kOWN5IcOefH1YarW+FvWti+wmO1A0GL72C
-	 StiPhpShdcFBpiB7MfuublUCNgb7+Lqc2ABS3MjuVGm6bw9Ukvjk121kw4OFFLVwrm8q4
-	 gHRvhvSD59epLbKie8oytc/k7mhT9aTwLPhESicHTf/6fH0lPRpVJTqiQ4IaOLzplNqfl
-	 BKP0JEi1vByDVEGcWjzpJrwspd/g/0OcUs0UoZGky6PBTbkWXcOJHN/n+8Qkfq/0UQoH0
-	 b/KVX3ZeqDW5eW5yWxPxpNVh3VXh3L/a3B2nUdrHHJZ1o8Hlyr6wmsf3Jh9kjoiMARg==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 553F31F000C4;
-	Thu, 22 Oct 2026 13:31:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792675900;
-	bh=0tkDDnV0w78Z3mlPUa+vDDHH1bEm6rgLoCJLEs/Eiwg=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=hcDd9xmc1BMHG0b2bkjS7rXek3ucLzH0BWBH91eNZwx0+ZQoCYmvSDs6ICbL4dQPJ
-	 kAs4W8w3QM+53ot0ww9CErfGVSTSY9QP1olRvSCgkqzbugEngLRJ34ncttcUq3FN8w
-	 Y7DCKeU/fg5Q6PsNPlDe+/jtkf5m2WZJDrgLibuEzC/NLU+CkJFENsyjgFf+7IxXyB
-	 1m7OsKifMDH8B4jLbya8phCJ8Zhs1oL29BVGGL7Oap/dsovCSItHXcMLU8aw5LZEyW
-	 rgLWGoXRYnEuHh1UQFfdhKS3DocwnVlyNdsXmsqiCMCdwQdF9AjvBOB0vnu0eoKMkx
-	 /3COdXaD5kHOA==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id DAE4643592;
-	Thu, 22 Oct 2026 13:31:38 +0000 (UTC)
-From: Daan De Meyer via B4 Relay <devnull+daan.amutable.com@kernel.org>
-Date: Thu, 22 Oct 2026 15:31:12 +0200
-Subject: [PATCH v3 2/2] nbd: drop stale partitions on NBD_CLEAR_SOCK
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=NFz4ABAQ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1498E1F000C1;
+	Thu, 22 Oct 2026 13:31:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1792675910;
+	bh=unVAESJai7F1UmJzEHO+wzlvQnnF/1GINQlY378qHu4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=NFz4ABAQp2vbr4lZ5nTkFb80iPDOMnAyr1zQfTCQfpZitXEgi8Vo/Wue0YC80WX6F
+	 63nxqfyOgmF+WB5jPDHiFnMhPWWI8HpGfjlwZCdgPB5LnBbZmYXq86Co7tqfKIKeQw
+	 FUv8/eV6PIYj+kLeeTNUNo9uxO0HQIVY9Wf8a3b8=
+Date: Thu, 22 Oct 2026 15:31:39 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Martin Wetterwald <martin@wetterwald.eu>
+Cc: Florian Fainelli <florian.fainelli@broadcom.com>,
+	Jai Luthra <jai.luthra@ideasonboard.com>,
+	Gaston Gonzalez <gascoar@gmail.com>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Stefan Wahren <wahrenst@gmx.net>,
+	Phil Elwell <phil@raspberrypi.com>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Umang Jain <uajain@igalia.com>, Kees Cook <kees@kernel.org>,
+	linux-rpi-kernel@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org, linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org, regressions@lists.linux.dev
+Subject: Re: [PATCH v2] platform/raspberrypi: vchiq: register bus at
+ subsys_initcall
+Message-ID: <2026102218-vowel-plutonium-629e@gregkh>
+References: <CAFERDQ0FpdVvA5VJxOyRAE_pgxnPVmFx1tkZio5R272j6Bs4tg@mail.gmail.com>
+ <20261022082927.59030-1-martin@wetterwald.eu>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,82 +64,51 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261022-b4-loop-nbd-stale-partitions-v3-2-7c58ecab69c8@amutable.com>
-References: <20261022-b4-loop-nbd-stale-partitions-v3-0-7c58ecab69c8@amutable.com>
-In-Reply-To: <20261022-b4-loop-nbd-stale-partitions-v3-0-7c58ecab69c8@amutable.com>
-To: Jens Axboe <axboe@kernel.dk>, Christian Brauner <brauner@kernel.org>, 
- Josef Bacik <josef@toxicpanda.com>, 
- Daan De Meyer <daan.j.demeyer@gmail.com>
-Cc: linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, 
- nbd@other.debian.org, Christoph Hellwig <hch@infradead.org>, 
- Bart Van Assche <bvanassche@acm.org>, 
- Shin'ichiro Kawasaki <shinichiro.kawasaki@wdc.com>, 
- Daan De Meyer <daan@amutable.com>, stable@vger.kernel.org
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792675886; l=2227;
- i=daan@amutable.com; s=20260712; h=from:subject:message-id;
- bh=IJsYukTCp+gKDcCUl73TRLZtzYPIPmGwnx1/NOZHD4E=;
- b=SDLMBKjcSDyBAiGNS/QgWYnRmKqNgOs/BmSlZQTKdlkMwZqJHCosTH83xBE6ud2910pRQi4Vw
- UHqCmIIWiHOBf++I5GWOGa8g8zFBOEVxwdKFP0RlMhfUVdpid2D02vt
-X-Developer-Key: i=daan@amutable.com; a=ed25519;
- pk=I1l+WwrtmzRgofA5SQ1wTuJi18fjh91w+f5uRkFeZEA=
-X-Endpoint-Received: by B4 Relay for daan@amutable.com/20260712 with
- auth_id=868
-X-Original-From: Daan De Meyer <daan@amutable.com>
-Reply-To: daan@amutable.com
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261022082927.59030-1-martin@wetterwald.eu>
 
-From: Daan De Meyer <daan@amutable.com>
+On Thu, Oct 22, 2026 at 10:29:24AM +0200, Martin Wetterwald wrote:
+> Since 6.19-rc1, with CONFIG_BCM2835_VCHIQ=y and CONFIG_SND_BCM2835=y
+> (both builtin), the sound cards bcm2835_headphones and bcm2835_hdmi are
+> not detected anymore (vc4-hdmi is not affected).
+> 
+> dmesg shows:
+> 
+>   Driver 'bcm2835-audio' was unable to register with bus_type
+>   'vchiq-bus' because the bus was not initialized.
+> 
+> Since the VCHIQ interface was moved out of staging, its bus is no longer
+> guaranteed to be registered before its client drivers. bcm2835-audio,
+> still in drivers/staging, registers at device_initcall level and now
+> runs first.
+> 
+> Register the bus and the platform driver at subsys_initcall so the bus
+> exists before any client driver, independently of link order. The
+> platform driver probe already returns -EPROBE_DEFER while the firmware
+> is not ready, so probing earlier is safe. When built as modules, this is
+> equivalent to module_init() and nothing changes.
+> 
+> Tested on Raspberry Pi 1B rev2, 1B+, 2B, 3B and 4B with VCHIQ and
+> bcm2835-audio both builtin and both as modules.
+> 
+> Cc: stable@vger.kernel.org
+> Fixes: aa125180c673 ("platform/raspberrypi: Destage VCHIQ interface")
+> Reported-by: Martin Wetterwald <martin@wetterwald.eu>
+> Closes: https://lore.kernel.org/r/CAFERDQ0FpdVvA5VJxOyRAE_pgxnPVmFx1tkZio5R272j6Bs4tg@mail.gmail.com/
+> Reviewed-by: Jai Luthra <jai.luthra@ideasonboard.com>
+> Tested-by: Gaston Gonzalez <gascoar@gmail.com> # Raspberry Pi Zero
+> Signed-off-by: Martin Wetterwald <martin@wetterwald.eu>
+> ---
+> Hi Greg,
+> this is a regression introduced by aa125180c673 (via your tree) in
+> 6.19-rc1 and present in 6.19.y through 7.3.y. If the staging pull for
+> 7.4-rc1 has not been sent yet, could you take it there? Otherwise,
+> staging-linus would be great. Thanks!
 
-Commit 267ec4d7223a ("loop: fix partition scan race between udev and
-loop_reread_partitions()") stopped disk_force_media_change() from
-setting GD_NEED_PART_SCAN. Besides requesting a rescan, that bit was what
-removed stale partitions on the next open, as bdev_disk_changed() drops
-all partitions before it consults disk_has_partscan().
+This is not a staging driver anymore, please route it through the proper
+tree after -rc1 is out.
 
-nbd_clear_sock_ioctl() relied on that. It zeroes the capacity through
-nbd_bdev_reset(), but nothing removes the partitions of the disconnected
-device anymore. With the default max_part=16 they linger until the next
-connect sets GD_NEED_PART_SCAN again. With max_part=0 nothing ever sets
-it, so they are never removed at all, even though nbd does not set
-GENHD_FL_NO_PART and partitions can therefore still be added with BLKPG.
+thanks,
 
-Set GD_NEED_PART_SCAN in nbd_clear_sock_ioctl() so the partitions are
-dropped on the next open. Calling bdev_disk_changed() directly is not an
-option as it needs open_mutex, which nbd_open() acquires under
-config_lock.
-
-Fixes: 267ec4d7223a ("loop: fix partition scan race between udev and loop_reread_partitions()")
-Cc: stable@vger.kernel.org
-Reviewed-by: Christian Brauner (Amutable) <brauner@kernel.org>
-Reviewed-by: Bart Van Assche <bvanassche@acm.org>
-Tested-by: Shin'ichiro Kawasaki <shinichiro.kawasaki@wdc.com>
-Signed-off-by: Daan De Meyer <daan@amutable.com>
----
- drivers/block/nbd.c | 7 +++++++
- 1 file changed, 7 insertions(+)
-
-diff --git a/drivers/block/nbd.c b/drivers/block/nbd.c
-index ffce519bf008..09b4ad70a5d7 100644
---- a/drivers/block/nbd.c
-+++ b/drivers/block/nbd.c
-@@ -1616,6 +1616,13 @@ static void nbd_clear_sock_ioctl(struct nbd_device *nbd)
- 	nbd_clear_sock(nbd);
- 	disk_force_media_change(nbd->disk);
- 	nbd_bdev_reset(nbd);
-+	/*
-+	 * Drop the partitions of the disconnected device on the next open.
-+	 * They can exist even with max_part zero as they may have been added
-+	 * manually with BLKPG. Dropping them here is not possible as that
-+	 * needs open_mutex, which nbd_open() acquires under config_lock.
-+	 */
-+	set_bit(GD_NEED_PART_SCAN, &nbd->disk->state);
- 	if (test_and_clear_bit(NBD_RT_HAS_CONFIG_REF,
- 			       &nbd->config->runtime_flags))
- 		nbd_config_put(nbd);
-
--- 
-2.54.0
-
-
+greg k-h
