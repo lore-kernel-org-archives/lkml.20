@@ -1,97 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792679361;
-	b=bgMvoF0Ur08A/dT1yPEYLo71QNt2rjwVBe0QdB9nvRgW2MdG2vMhLyq1+YYlPlasPpUv
-	 Ergj5CLSgXKubLWaRjip+ukT5J6dLiKMgKqlktLgugKllz7Cr7+v2hXCpgMjBPI2lnzB4
-	 f5xtwvY/IhFyySCLAw43i9YzdJUsRQrB3PlYI6qMGeuoUP/SFBGEPeEylSR7mhYVmksw2
-	 4c7i/AfexYFgoJBATuWYVm42qJhh1mzlGioKrV/4jJCblxxAWKhpZ/fVVs2aGHe0b+Di/
-	 z8TpVXpWtlrtOYoU4FfJ3tV9LvWRYGnsqgRXrLSFSyQZvVSKlmBCq2utHNbp13Ktb+Q==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792679361;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=AepUBMEk9tXpEQAUUGXuQHkD4I3CSkHf6Wpw+Q/6E+o=;
-	b=z1TH/IsBT8WX0pij0s5By4HX93JxqksAbvs3+7lL0vqxxpWlsyupWg8C1755RODCMUjY
-	 +Nmu8oHn9lN+MxFc62iRFjF6zJqQHDqyug5NJxTusItOlTa4Dw50miENXIY61YRHl+QzA
-	 /cuHGACm3Kj4M5oJUH/tYyV9+yh93VkY7L1DRCTjl3kcSXLR9VGn9w4ZhHI4ZJT0g93eS
-	 HZy4FtpJuFSNDhfOep/M+jCtIMASqwMM/Eo80aG0emFmrt6ddeu8XOlytAgqhPMw/Wos9
-	 +E0+r/mWl/9By4LI3X5XwVXn4lvTukc4LxBTQlOKyIdSpicbxSW1oL93Mv+sSeu3ang==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cloudflare.com;
-	spf=pass smtp.mailfrom=cloudflare.com;
-	dkim=pass header.d=cloudflare.com header.i=@cloudflare.com header.a=rsa-sha256 header.s=google09082023 header.b=V95bAJGN;
-	arc=none smtp.remote-ip=209.85.128.53
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.96.80
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792679474;
+	b=X9f9PCXuGMKhsGhhVjVaakfBNtcrS8LisS+m8dKowaEwoYqH4O7mRx2IeOJJe6f00uzV
+	 A7MXcLp6VRqIOxAxN/owFtqXyys83/w0tJsLdukrZ7O6xUsL7A+F1vJCxIwRHJrMJWOZU
+	 Qg3hbnI0vAixMgUdQYhYDrvmlm5RYd41kbudDgjNXjEatIkR4ZIyR6j3vsb3p4q/rbj47
+	 RUMxI1hyOyu3l3UxBi1A7nSDV/0sUbSLTTBorCjeZ6Lo4OLadCWzXvhcljevxzA1w4EuZ
+	 SHKAYlY95pUvPh+S89hvTisuCLy5jgf4Jh29UZvWBLbCFRH08GGDLTfCK2Z1te8ZuiQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792679474;
+	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 References:Content-Type:Content-Disposition:In-Reply-To:
+	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=hXCTjJuClfQgaUB0biMMgiEoiG7JI5xsZjnMtUaMqjc=;
+	b=bVqjRYxBIhBdKEya+v9StKeb89IDeBnZh19BuM9YRYZakBEUt/urtof+/PxjWy+D7Ykm
+	 xqHbwZ31UqsN1oDNbmUd14qksr0Iqjp8+JEQo8MCdf4kPUJ7/0m6X1QbBazr1NOnqTRk2
+	 VYX5MdxoTP19H7+2rnnA96VXHgAFgVApny/eHgN7Yko6erfWHPqmzmx7q9xLErhphS3Aa
+	 m1hU1mS3D1fKPCMxGAE73Ok7ldiwGWBbBU424Vj31lSaGO9nPLIYKNXCGurTYnAoCnBa+
+	 Gu/7EA+ryLja5RYgczoKC1OBEz+mNOpT9ZxOxNP0pr2gjxHsZFf+n+7ISEKMxr/Rzhg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=atomlin.com;
+	spf=pass smtp.mailfrom=atomlin.com;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.96.80
+Received: from LO0P265CU003.outbound.protection.outlook.com (mail-uksouthazon11022080.outbound.protection.outlook.com [52.101.96.80])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CF84606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 14:29:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1CF84606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cloudflare.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cloudflare.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=cloudflare.com header.i=@cloudflare.com header.a=rsa-sha256 header.s=google09082023 header.b=V95bAJGN
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a1e3098ee2so23035595e9.3
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 07:29:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloudflare.com; s=google09082023; t=1792679359; x=1793284159; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=AepUBMEk9tXpEQAUUGXuQHkD4I3CSkHf6Wpw+Q/6E+o=;
-        b=V95bAJGNr/tfX+drDCQCZX4U7BDkZVq85lpx40pCMxooe4zm/itb53JhvYJsPmR5sI
-         hCt2ZsTJIoJMNh5krr8802Qg4jn1UbMYdquCf8WmjQoWwSj8zLqJMgIm87x/YVYhg5AZ
-         AHUGCh8NRd++lTPayE5H63JEBKfZcUwSqbH39qBbwWJb5A2w8SUH7PBwDs3d1s99cd6l
-         wrdfJhzzZgraYywcOgEw/2HPGvXdv7bUU4vbGk/PnIa0aDSjby6kgEoW/sg+IPdvY2v6
-         r9EOBsc842uGFcGOrPDyOglB7HeJRht2AumaGFyPo+0//gJuCEuS0fmQXwaanGMWSqS1
-         sapQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792679359; x=1793284159;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=AepUBMEk9tXpEQAUUGXuQHkD4I3CSkHf6Wpw+Q/6E+o=;
-        b=zobpC/HBG0rNTKadfaXh/3o0sbwk8dPOGzJyn3hxK5yLwJppmef04uJ8QSgSd5p1jH
-         SWSAB732SQ9VADzUMMk6yH35D2BGQ06piuBETYH7XztHNbgEYl++ctdDDyVJQfe6gnpB
-         ANW6re6Vdf4+++pbv06Y80fvMfMTo1eylcAywVlePu4yDS4J+uYpDA+hqoNv08epD4k6
-         zbc69mkL+krfM/3wVVlriiZmEDUY0vbohfGvdw+tjkOGF1OlH9oQcl5LkQLlTYRKkryv
-         rMi2UOCz9oM994ZRC7909Sis9C04RX+f7o/J6rpZDVaWIae4Q1E2H/hJ8dffYu6TNLZH
-         TLjQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwTPK/uQqdbbMpyEigGuHbvqw6SMwlS3jJfdWAJbgNuVXkyuvAl0BfcbLsl8hPhqXGQkk0RB44a4vVpGoY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYItXpeHstIv0+Xg/gv4KqS9BQNsXnE1SaSJOQGJfTwykrmBeW0Y
-	32kzndQzZKGBoLwyQzHytq+YQj7TCf86QjJPao2r8qAEHtGKu5NzupwsMGdArHFsawY=
-X-Gm-Gg: AYBFou0nb7ok/WZcKbc7ccEH1IPMDMYERS3TQqUR8lKY2BiDaNEZPbvKU+uoObYWZqN
-	m12fTpcCoDyaFAr82m+EuLZF2yNljpW1oXtziWv80NpTvwASM/IkxI7sOn6sbKTQ42GBbBNhAhw
-	ZKJH8INBokcnstYQwVzFYNVEnwV7WGnlK/wjMrrpLgV7Y7uzivjjlZZkSlnNi5ZRt9HVRneb0Zp
-	aO0dK9e2SITZsgSLQ4d6E6eOIno2uoUb1ig/KMMdQaX7ktT5JjRH9yv0Ik2rYLJkFMVLct53e/K
-	gO+PWIjHS4lC6mWsW4mZicQbMyhS7JkXOk0GAUxia3jLvCKkZ34Nc40hE10SqjKEq5S7s1q4bBF
-	8RE73ifw68nIPFsY5/YAH4vS7XBvMgwLR6yOyuJtxggz0zvGOeg+gLHuMz7qVAIHy0gD01NSdBG
-	P4nppWgzp8oKvoPoFg+l6iQEE2JXUyy8cC5N8MjVOYf+rq7BQ5Jr/RxMbMjmRRAyHZkPCiXXbaI
-	pWS7FcW2tQrBNv/XvKxlFffzDKzxDK9V16crn4PUV4=
-X-Received: by 2002:a05:600c:6096:b0:4a2:fe1:26db with SMTP id 5b1f17b1804b1-4a20fe1270amr3372125e9.27.1792679359312;
-        Thu, 22 Oct 2026 07:29:19 -0700 (PDT)
-Received: from localhost ([2a09:bac6:37a8:294b::41d:9])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a2101cd7cesm791675e9.0.2026.10.22.07.29.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 07:29:18 -0700 (PDT)
-Date: Thu, 22 Oct 2026 15:29:18 +0100
-From: Matt Fleming <mfleming@cloudflare.com>
-To: Marco Elver <elver@google.com>
-Cc: Caleb Kan <calebkan1106@gmail.com>, 
-	Andrew Morton <akpm@linux-foundation.org>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	kasan-dev@googlegroups.com, Vlastimil Babka <vbabka@kernel.org>, 
-	Alexander Potapenko <glider@google.com>, Dmitry Vyukov <dvyukov@google.com>, 
-	Andrey Konovalov <andreyknvl@gmail.com>, Oscar Salvador <osalvador@suse.de>, 
-	Caleb Kan <ckan@cloudflare.com>, kernel-team@cloudflare.com
-Subject: Re: [PATCH RFC v2 00/11] stackdepot: reduce memory use for
- persistent stack records with a trie
-Message-ID: <atodIhryrdxsU5mB@matt-Precision-5490>
-References: <20260908-stackdepot-trie-v2-0-1996d5cef732@cloudflare.com>
- <ateDvB145CN_R7CA@elver.google.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DDD6606A31E;
+	Thu, 22 Oct 2026 14:31:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9DDD6606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=atomlin.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=dDy1Q5CVgGMGi31T28HEBxGhDgq7xZSbwDgG+kyI7KKltCimxgaqXco8ZA9U0ynry9mkd8W7rUdadaf0cgJ9rtyHE2Qij5nvFa32tS/UE1soyYcW+LDcUcTNeC5raTOznoMCufUAA9A3DPa1Ni2WWBHUXCKJUvaSxiHhuHFhbOl/aQnVn1lwzRL/mFyRV4POFi4opieVNaYRlNVXD3Lg5eb7dq3U77unZ/tkHBrj7vd2blT/eD2ieYCmtQOtHxy3kOW2QbQ39I0Cg2Ie/qaMV+7wrBDy8xoQEeq1+Sj2+UgujcqENzrwfhP2PJYezadQ7pLuZ377x1iS046ZX9308Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001; h=From:Date:Subject:Message-ID:MIME-Version;
+ bh=hXCTjJuClfQgaUB0biMMgiEoiG7JI5xsZjnMtUaMqjc=;
+ b=SpX4BjsHWrvCT1PjauUDayIDkuKi5Df9me3GWnLLU7whZn9RqMTphVWdwPyrDRXcw0bLPwMnxxQ9xvWvMcR1A2aAq6GtHlTLwFKlo+FWZ1p49TpxVK8+ZnXgvepr5l0XPjVXC5z40xzemGMI3fLTREFTMv/HSNo+VuTd2eF9PRZuJxW5uF42CwG+Ovq1IVo8A811LSOnrST6RWLObdA17/GQiumqc2n6nZLQXXrekWmFHyABxFT/gKig/rW2OwPT1rMn6ozw6YKTPi0EWfNZWtLjtV+NcYbGzsp7W/fePQynPs3yQzbASAKM5VTl9jLe30Fx7Sakt1pVnvplpZ/UIA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=atomlin.com; dmarc=pass action=none header.from=atomlin.com;
+ dkim=pass header.d=atomlin.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=atomlin.com;
+Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM (2603:10a6:400:183::5)
+ by LO0P123MB7023.GBRP123.PROD.OUTLOOK.COM (2603:10a6:600:336::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Thu, 22 Oct
+ 2026 14:31:08 +0000
+Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+ ([fe80::cec4:77ab:262e:d230]) by CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+ ([fe80::cec4:77ab:262e:d230%5]) with mapi id 15.21.0546.016; Thu, 22 Oct 2026
+ 14:31:07 +0000
+Date: Thu, 22 Oct 2026 10:31:04 -0400
+From: Aaron Tomlin <atomlin@atomlin.com>
+To: Namhyung Kim <namhyung@kernel.org>
+Cc: peterz@infradead.org, mingo@redhat.com, acme@kernel.org, 
+	mark.rutland@arm.com, alexander.shishkin@linux.intel.com, jolsa@kernel.org, 
+	irogers@google.com, adrian.hunter@intel.com, linux-perf-users@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH perf-tools-next v9 1/6] perf ftrace: Optimise
+ __cmd_ftrace() stack frame with strbuf streaming
+Message-ID: <xk67hbgc4vluketlqbzyggvbl3nqa3mkxaxxyn276ijcdmlobo@2fwziiugn3xr>
+References: <20261021023337.809936-1-atomlin@atomlin.com>
+ <20261021023337.809936-2-atomlin@atomlin.com>
+ <atlRFHWsyxcO8PQJ@google.com>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <atlRFHWsyxcO8PQJ@google.com>
+X-ClientProxiedBy: BN9P223CA0004.NAMP223.PROD.OUTLOOK.COM
+ (2603:10b6:408:10b::9) To CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:400:183::5)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,43 +91,160 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ateDvB145CN_R7CA@elver.google.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CWLP123MB6607:EE_|LO0P123MB7023:EE_
+X-MS-Office365-Filtering-Correlation-Id: f902ebd1-4dbd-414d-fc4b-08df30491c4c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|366016|1800799024|23010399003|7416014|10067099003|56012099006|261021121427099003|6133799003|18002099003|22082099003|261021123027099003|4143699003|5023799004;
+X-Microsoft-Antispam-Message-Info:
+	3LhbQtd35Ixvt09SUxirBZIQQaDMGwyYzrxQsIu2C7B/91QQydT8WdVWqI9fyRnDrfTvYevcyI704Z9+S7Ef57NO0Qcb4g5mLejGAjb9d4nt5adH8PuChcfXSIWPd0UIWRt8Pd0F2tVuCbT03aPOgytv8Erm52ehVPZaZbjEP+2U1eEIZoD1F6ZFSa+2JJgJJbbXHorebp9BXtaa2Q/uKOlQjekwYfuiKi7kb9bTsNZqgQ+sZojMzrIfN9mQ5PwcIrgLOCgPiwL+hMKpan0qOm5/9mXFfLpBthJKatLZsYoTOiqQC7W/kR4eSK1qkGqTFwUb/rk5BBo6EwhwGbXEo0lgRhRoZOJ3bd+vy+nURYP+sCZz3V9Ob7GfItZjRpcZikUYpBQJGcHB5YRD8Vbx9BWWtBr3lSOfrihYxX0p3EWIqr1QOZIoZ93LlVQ0bMHOZ/5xx374Grw0I3YcaAUEHuTMv4/q1yaBWb+EreqKW1IdsKrDoLvxxiXmn4Wpp0xMDWl+O5bL0/7s7FMFP5YQaSDNiDy7rGRQ0a6FbGX64wbScQvg4dCMa1UaNnt+s64RGwy0iC89hD/XsFBBZ1ILE4nM3ZV6QhXSniaLTRtgZj6rhLxdZsLM+XBDVfygzoHaQzzXcgq1V0JbjIL40AopBAKPj+K94H/Eb/U9FQ77ULk=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(23010399003)(7416014)(10067099003)(56012099006)(261021121427099003)(6133799003)(18002099003)(22082099003)(261021123027099003)(4143699003)(5023799004);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?NlFCQ2VlUk93NmRhSGVGaGxxN0FLNzUvT1IzcVJaV3FRUTl5Q0RaZkZFYnZh?=
+ =?utf-8?B?bmJONzBuVnRINU1seEw2WTVWR3VJZ0huWEJlaVJHek9RbnRMZStDRk05L3NX?=
+ =?utf-8?B?Nk02SXJVN01FTVBJUUpBNW9QM1RkNmlPT21GMnBLUzRXd3VDY3JZTzBRUVRZ?=
+ =?utf-8?B?SVdjcXl3TGR0UnZXMkgyb05JOTlHOTBGeXVuRWs0TTgrUlV3UkVUZUZTZWYy?=
+ =?utf-8?B?M3BNMUF2UTdoTGVRd1FwamoxR0hFTHVYSUdWalQ1QVhaUDJYQ1l3ckR4SXMv?=
+ =?utf-8?B?UElDTTdYdjJBb2dpY2hFZVV4dW9XQTVCeHp6aTN5MkFEODMxZ0FNQlJDYWpF?=
+ =?utf-8?B?YmJ3MGZubkZicCtEUmZvMEFvSFhyaWV1VlUxSjNSM0RqaFErenBONlBnaEdJ?=
+ =?utf-8?B?NTdYQWgxbyszKy96RTVYZ3JBb21WSGFPRmpDM1dZWkk3a3JnZ0NZeGhhMUIr?=
+ =?utf-8?B?N1FaK1lZNTc5Y1BVT1ZnNkswNmFKbkJQQTlTYlB3bWtzTE1PZURwSlhFTTN5?=
+ =?utf-8?B?RUtUazNXSjUxSEs5aWZyNElIcWpYdUxmR1hWaGo2Qm43YzdqbWFZUVdlNUhB?=
+ =?utf-8?B?YXBmc0JERTQwNU1sbVdsajl2bVZ5WmRRWW1pTjJSMUQ1VUk2dGdRanpvbkNO?=
+ =?utf-8?B?SGV2VlROUkpUMk9qMEw5V05GUU9aNHRwMm04cURkU2xYS3JIZEduU1Zoc2hi?=
+ =?utf-8?B?N1E0YlJjSGpWYjRoMjJUN0dRR2JmRW5PUnBoMFRDYUFtOW5LTGxlSjRsSTdp?=
+ =?utf-8?B?a3pGUnRpTWNEMWErTWR4REVjeW5OL05HUHVFZ2JQTW91SDJ1STlmNXFzemdE?=
+ =?utf-8?B?ejZGT2hydWZWSVVQRUdnNDdTanBEWVJLTXlSS0JFT0lYWktrNjB3d1ZDQUZa?=
+ =?utf-8?B?aTVJSmNLMlNtZ1FLRjViTTFJRXhmRjhPeDloWlpCckJtMEdLSXMyRGkxQmgr?=
+ =?utf-8?B?dWt4Y1BEaDkyeldxaE1hRXRKOGZXcklkdm1HSWJMRDcybHNyMXJQcU1ONys0?=
+ =?utf-8?B?QktpMnJYaDkwUFp4eldZRzRoT1hWZlJBZjhqcVlxUDFqVzZRbVRUYW9rMjRx?=
+ =?utf-8?B?bjVMNCtoNy9DaTFHZ0gwTjgwUG95d0NwRE4ybTFJd2E3b1Yva1N3bFg0bEw3?=
+ =?utf-8?B?Ri9JOFRuaS8zNDRyU3d3RTR4a1c5R05zVUwxci9mQjdSblR2Wll2YkNqUTU0?=
+ =?utf-8?B?VHptZW9nRDdSOHN3ZlFqdDNHdDlSaUZnTkJLMXlQejh1UlBsZEJrOEc0eTM1?=
+ =?utf-8?B?MmFuenk0Z0xqRCtUWCtOd2ZJSDFjalk1dlpzdDJUanhvdU83Vlp3QWV1RUFy?=
+ =?utf-8?B?bUk4b0pNcnc2QXFuUXpOWTFMVHowa2k3a29GSjZ5UENQc0V5Sjd5VUtmbkpR?=
+ =?utf-8?B?MEFlR3RaZk5YVzNhZ3Y5UDlxLytYVktraUErWEd1eW9KMW1yTGJuSExWT01J?=
+ =?utf-8?B?czgvYzZHR2ZTZm90ckJNdmFDR0J3bHp6V2hQWVRYS0F4UzB5bDRuWEE4V3R3?=
+ =?utf-8?B?akh2b0crcXBnYUhDclBrQ2hjSFJSaUcwNnhpckpwZ3RYaE5MT3J2ckFSRDh0?=
+ =?utf-8?B?ZGNoT1EvaTFXUy93QUZBbnM4T2RkYXpxVmgvZS93YUZzYWNlWHNiZllzUDhn?=
+ =?utf-8?B?eTBvRzNaaDFuREV3anhRNjI4NWpUMU5QZlJPcEdmMkJNT1VvU2Y1K1UwSW9O?=
+ =?utf-8?B?ck9XeFVxTmlxbWhRQTY5Zk1Ma2l3TXdmdFF4UDRzQUhOcTZNWkJSeGJ1YUtw?=
+ =?utf-8?B?YTlmWWlkKzB6QVpxTWk1RUdVTGdUU0k5Smx0RitzY083TzRxSjM0RHRISlI3?=
+ =?utf-8?B?NzdqUGplckJwMWhCSzRkdlhFWlVZY2xJNCtRZDZWS1NjRGVQUndNdEwySzdp?=
+ =?utf-8?B?bXA2TU1DSmlEWXZXZm5hY0Fib3I5clpibUo3WWIyMUgzT0FaNFVjZStjNkF2?=
+ =?utf-8?B?SkZCTjQxcmpmODFzd0p2OWxmMUQ0Mnp2LzhHVDU2SGUwb1hEc1NFSGMrMWU3?=
+ =?utf-8?B?alpBZ29waUNFOGxoK21iNWR3WTVlak5wSTFQby91dndFMW5vOGU4NDBveGk4?=
+ =?utf-8?B?cElEWVNLeWdlRTYyMTBGNHdENVdTSTJlZklnY2I5c0JOK1Y5M083ZEsrZm90?=
+ =?utf-8?B?VHo2Z2Z1RTYwcGlWNGc1cFJmdXVTbHNzN3Jvc1pIL0F0S3pRMi8wdy9NU1J0?=
+ =?utf-8?B?WHg0Szk5L0ZEUHV3amZWZ1NHWlVSTW8zYkcybk9vZDVpeUNjcFNYV0MxK2Fp?=
+ =?utf-8?B?SnF5UTE4VUlsYURqSENnSlRObEpnTlpXQW02NzQ0MnE1K1FwSjIwRjFUSTdV?=
+ =?utf-8?B?T1ZEWUtlNi9EVHBYTk1NVmNTWmNXWmIvRUNiaUQxRTlqQzkzdzllQT09?=
+X-OriginatorOrg: atomlin.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f902ebd1-4dbd-414d-fc4b-08df30491c4c
+X-MS-Exchange-CrossTenant-AuthSource: CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Oct 2026 14:31:07.7631
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: e6a32402-7d7b-4830-9a2b-76945bbbcb57
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 1BGNImpuANB3oojp7sRtKgukQqa5daG3UGS22IEz1DIoGDU4DhV9lV2cXu/lI4TkAlhNb9nALiAb4nnSm4Flow==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO0P123MB7023
 
-On Tue, Oct 20, 2026 at 03:07:40PM +0000, 'Marco Elver' via kernel-team wrote:
-> On Tue, Sep 08, 2026 at 02:13PM +0100, Caleb Kan wrote:
-> > Hi,
+On Wed, Oct 21, 2026 at 04:56:04PM -0700, Namhyung Kim wrote:
+> On Tue, Oct 20, 2026 at 10:33:32PM -0400, Aaron Tomlin wrote:
+> > In __cmd_ftrace(), incoming trace data from trace_pipe was historically
+> > buffered in a fixed 4096-byte array allocated directly on the stack
+> > frame. Furthermore, reads were written directly to stdout via fwrite()
+> > in arbitrary chunk sizes, rather than as discrete, well-delimited
+> > trace lines.
 > > 
-> > This series reduces the memory used by persistent stack depot records by
-> > sharing common frame prefixes in a path-compressed trie.
-> > 
-> > Cloudflare runs KASAN on pre-production servers so allocation and free
-> > stack traces are available when diagnosing memory-safety bugs. On some of
-> > these servers, stack depot exhausted its pool budget even after we raised
-> > stack_depot_max_pools from 8,192 to 32,768. Once the depot is full, a new
-> > persistent trace returns no handle and a later KASAN report can lose the
-> > history needed to explain the bug.
-> > 
-> > With 4 KiB pages, 32,768 order-2 pools allow 512 MiB of stack storage.
-> > Doubling the limit again would allow 1 GiB, but it would not change the
-> > linear growth: the hash backend shares identical complete traces, while
-> > two traces that differ by one frame are still stored independently.
-> > 
-> > The trie is opt-in and disabled by default.
+> > Refactor __cmd_ftrace() to employ dynamic heap allocation for the read
+> > buffer alongside a dynamic struct strbuf to accumulate streamed
+> > characters into whole lines. Pre-allocating the strbuf ensures that
+> > line processing incurs zero heap reallocations during steady-state
+> > polling, while the stack frame of __cmd_ftrace() is reduced by over 96%
+> > (down to ~160 bytes). Robust error and EOF detection on stdout and the
+> > trace stream ensures polling terminates cleanly upon pipeline or pager
+> > exit, while retrying on non-fatal EAGAIN and EINTR conditions prevents
+> > premature termination on non-blocking reads or signal interruptions.
 > 
-> Have you measured how much of the memory reduction comes simply from
-> storing 32-bit compressed frames (patch 9) directly inside the existing
-> hash-backed struct stack_record? That alone cuts frame storage by
-> ~40-45% across *all* callers (including page_owner and KASAN aux stacks)
-> with O(1) lookups and none of the trie/bitmap/RCU complexity. If prefix
-> sharing is still needed on top of that, deduplicating fixed-size (e.g.
-> 4- or 8-frame) immutable segments from caller to callee in the existing
-> hash table (chained via parent_handle) would avoid mutable child arrays,
-> RCU retirement, and the bitmap allocator entirely.
+> I think it's better to split the error handling into its own commit
+> maybe with a Fixes tag.  But I'm curious if it's possible to get EAGAIN
+> on read() after poll().
+> 
+> Thanks,
+> Namhyung
 
-No, I don't think we've done that. But I will run the numbers and
-report back.
+Hi Namhyung
 
-Thanks,
-Matt
+I agree with splitting the error handling and signal resilience into a
+dedicated commit ahead of the stack frame and strbuf streaming change.
+The error handling and non-blocking retry logic is an independent bugfix
+applicable to stable kernels.
+
+Regarding your question about whether read() can return EAGAIN after
+poll(), yes, it can. With trace_pipe configured for non-blocking I/O in
+__cmd_ftrace():
+
+        fcntl(trace_fd, F_SETFL, O_NONBLOCK);
+
+There are indeed several [not limited to the following] scenarios in the
+kernel where read() returns -EAGAIN after poll() reports POLLIN:
+
+    1.  The kernel implementation of non-blocking read on trace_pipe:
+
+        When read() is invoked on trace_pipe, tracing_read_pipe() calls
+        tracing_wait_pipe() in kernel/trace/trace.c:
+
+           static int tracing_wait_pipe(struct file *filp)
+           {
+               struct trace_iterator *iter = filp->private_data;
+
+               while (trace_empty(iter)) {
+                   if ((filp->f_flags & O_NONBLOCK)) {
+                       return -EAGAIN;
+                   }
+                   ...
+               }
+               return 1;
+           }
+
+        Whenever trace_empty(iter) evaluates to true on a non-blocking
+        descriptor, the kernel explicitly returns -EAGAIN.
+
+    2.  TRACE_ITER(BLOCK) trace option:
+
+        See trace_poll() in kernel/trace/trace.c:
+
+           static __poll_t
+           trace_poll(struct trace_iterator *iter, struct file *filp, poll_table *poll_table)
+           {
+               struct trace_array *tr = iter->tr;
+
+               if (trace_buffer_iter(iter, iter->cpu_file))
+                   return EPOLLIN | EPOLLRDNORM;
+
+               if (tr->trace_flags & TRACE_ITER(BLOCK))
+                   /* Always select as readable when in blocking mode */
+                   return EPOLLIN | EPOLLRDNORM;
+               else
+                   return ring_buffer_poll_wait(iter->array_buffer->buffer, iter->cpu_file,
+                                                filp, poll_table, iter->tr->buffer_percent);
+           }
+
+        If block mode is set on the trace instance (e.g. via
+        trace_options), trace_poll() unconditionally returns EPOLLIN |
+        EPOLLRDNORM regardless of whether the ring buffer contains any
+        data. The subsequent non-blocking read() immediately hits the
+        trace_empty() check in tracing_wait_pipe() and returns -EAGAIN.
+
+I will split this into two commits for v10.
+
+Kind regards,
+-- 
+Aaron Tomlin
