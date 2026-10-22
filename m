@@ -1,110 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.146
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=211.75.126.72
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792656516;
-	b=kQF3swqcnJw70My0U3U3/CbTyNgDZelAyOcvdbls/dJF+hpO7DVdy0ip/ggfzeBJWgB1
-	 7P9I9bgWWVqSoGMv2huAgQW23uDcP6sBriTRnq7zA9gcdC9R6Hkyp+G+q+7Kmim6SPwL5
-	 HKU674gqkBJZ11vByUCtQE/kuaVcCpwoBBveuqESt6oWGtJsM1AV2GtCubvvDSQQgNrlB
-	 e/cYskwO/KeonbAACZByViZJfJVNka9QaLUyBg4PNATG057BpesNuDVXMNxNi01bBG44u
-	 gVB8F194eUPxmzwil759cpL5dHCZCiTVrEJ+PuUJ2++PkpTc6U08ysqNqrYUZQ5S1Fw==
+	t=1792656541;
+	b=3t0NPHNTkOOJ+dsiAkR3h9s7NuSUOQtXay2wB0pMrh8h3a7zA5lwa7KbprddXBsbJLAJ
+	 TN+M108uEm5GJGWs109hi9LgJzM7dEknrgfFcyGImVfeHdK/HBPNE6XXXqxdvsju/xQ2q
+	 lOTWJXum/KqhWn+aoy3h0u1Q6WOrkjI99G2OwCfbh/3GCqInr7bf9w8sna1f+pAJKlLaN
+	 2XNpYFVFfaXKL5QutQioICUYBdYnNat2n0Q3zOl9oXDMa7MnnEFGewjggqy9Ov1TDwdRT
+	 dWoEuqPt221+qHwSAg+iu4Xv3rm7L2/jOHpbcD7NyWs2hxY+CAZVCXEol1ueCxbV1VQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792656516;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
-	 MIME-Version:Date:From:To:Cc:Message-Id:Subject:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=qCWsWZXzlIkVJ1bwg/ctXg0ZlNLI2VEgz60sAmLxP3s=;
-	b=QLutbwotRw5mnVlIOmD2CGVyU0ANtCK2lzyp4qAHkC9nJDfKxvYNSPFw9yJDx3V93ZQc
-	 eog6XhlB15Omn5ANSdoAk0BCtksayuO+0/6DzjNdVjjVLlUJ/w7WmdnzAoJplmBhVibih
-	 +PgmIXBv1pOzUrHG8MMNBpIGwYq2MI3+K0/nC9NzieFBpsD4QWF6QadvVbI+h/8ADAxQC
-	 4D31u28D4e6AjqrsBo1j0XJjjSY7jhLDpUjAkHP/tVTDIy5sTj3Pbg0VpqEF3z9BYZjNu
-	 16zFWflvJFUGvposb4Ch7svZx4jcxbpV4b9gWtAv1H63FT5zNrE5bU0znvywvMU1Rdg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792656541;
+	h=DMARC-Filter:X-SpamFilter-By:DKIM-Signature:Received:Received:
+	 Received:Received:From:To:CC:Subject:Thread-Topic:Thread-Index:Date:
+	 Message-ID:References:In-Reply-To:Accept-Language:Content-Language:
+	 x-originating-ip:Content-Type:Content-Transfer-Encoding:MIME-Version;
+	bh=SrQOB/R3SLUbovIU/JTFQuMZaTtCp4c2h+ziHO4QK18=;
+	b=Aqy0kfYwlNU+lywRIj+L33WHI649PFZolXUYZYW4rzMH+81M1SMzPMSXeK3smVZzB2Eo
+	 dPLmo04cSX5THBYrrbP2YOkj+oA+ulFS1SuYMGqx7oRGqBfW/NHjTMFzqXu7vciJnHWQ1
+	 cv8nGG0OGs83vovUrbEf+P1UYEpRsYTLVYSSR/OUzs5qMIbY3FcBq+s31Yy9WKW4URIz3
+	 16f+qnwOvesa72JnfQgRMTQ1Ns/jLdaSRhY+d0KApDQ5GKzvhtrDUgJfvaXo6J9xObR/W
+	 EBRli6Qh8J/WXiVed8sza6zla+F28AwIyuDTAjwb04XdTARsbUnx4kKG0CjLUw2mnIA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arndb.de;
-	spf=pass smtp.mailfrom=arndb.de;
-	dkim=pass header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm1 header.b=paitTs9q;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=AEhiFeJ3;
-	arc=none smtp.remote-ip=103.168.172.146
-Received: from fout-a3-smtp.messagingengine.com (fout-a3-smtp.messagingengine.com [103.168.172.146])
+	dmarc=pass header.from=realtek.com;
+	spf=pass smtp.mailfrom=realtek.com;
+	dkim=pass header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=JtocyhfD;
+	arc=none smtp.remote-ip=211.75.126.72
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68A77606A31B
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 08:08:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 68A77606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01888606A319;
+	Thu, 22 Oct 2026 08:09:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 01888606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm1 header.b=paitTs9q;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=AEhiFeJ3
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfout.phl.internal (Postfix) with ESMTP id 7B81AEC010D
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 04:08:34 -0400 (EDT)
-Received: from ams-imap-03 ([10.64.2.23])
-  by ams-compute-02.internal (MEProxy); Thu, 22 Oct 2026 04:08:34 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:message-id:mime-version:reply-to
-	:subject:subject:to:to; s=fm1; t=1792656512; x=1792742912; bh=qC
-	WsWZXzlIkVJ1bwg/ctXg0ZlNLI2VEgz60sAmLxP3s=; b=paitTs9qANsKZvIo99
-	GI9ouujB8FAtVpC/h3GDMex8Da/32VmqexeW6krGkzwe5DwZ4CQunnlklSp39gqg
-	eE3a7/KlVTXyop/R0h8QWqSjkOZpsm9vN5f0SMmaQgMtM6627f6mAX1Okljyy5eO
-	PwYkgrcDLi5GKb+rY4/Aa4caX1VOWcSSbzZycpC4QkHBoMkdn1mRzCCS4Y4ugTjT
-	YJTpIEhqMkUKJhIMjPOGi+nW5wK35XSCWPG3zfnqagVdX8RTBoMR0mnOvZauMcBB
-	WB1ajM3bxY+BXTlT0SUxog5zbCyF7ifBQ1/7h70KI7c1Tlqcv0N9pKCt8J7MML4Y
-	CxMA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:message-id:mime-version:reply-to:subject
-	:subject:to:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
-	fm2; t=1792656512; x=1792742912; bh=qCWsWZXzlIkVJ1bwg/ctXg0ZlNLI
-	2VEgz60sAmLxP3s=; b=AEhiFeJ3Ljdbt8HsMUcUNlitKocqLR2Vz8bjVGor3TEn
-	patX7XSlMhaA74/KekMnUQ+gGzK4sxdgLYUQQQQHyzstD0quIzKgRaUGzrtdZfXk
-	kFVkqlS2hc88Bc8Ezom/+N79nfsjby0FHUnzR5QBIzZ0GTkG3ZhELCiLGO+PEE7C
-	BAALepJAfYFlj/tYdqcJgTS0qEE1G45BnuFDX+HHYsvqpeiQlQw76Ft4gYN2TGZa
-	Bvc4wT+mX9D1nhtDEkFN+IghXcsT4iqyCLL3p/wto9kOMLlzUUWPwcAXtVu2nXQG
-	njW3x7guhMgqjqOdel46ZMr7gP4iq8g3WgEe7SA9xQ==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
-	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
-	action=sign d=arndb.de a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1792656512; d=arndb.de;
-	mf=PGFybmRAYXJuZGIuZGU+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:VqZU9L9oCeeaKXPIh4wf63R4zZYkxJNWL3Tdbzxvw9KGCg7
-	a+X/HWOrIk9dgYhTk+JFkUw2Mzb0B6xmR+bYet8JyJImlNyzfsyPIq2F/KnpRPSs
-	5dSFi/v3YGpiAPYuDqxRdMGLcXVqTaBt9XBP8ZckH68F7/VSsK3966qeoZsfCtgA
-	MpGdHC3k7Vptbn86V/OA9xDiIu88mVXKauGyPOJT57kyQ2NrLCKmFLYNV65duOkF
-	wY+KwxHzQXXT4Az53x35+NNUmX1cRIAnhXUfUmKCjS+3cfSpJXyQOPuAekHNEfbG
-	O01y1Jns/ckfyvWbcEUsCXGEb7BYjCVlqyaNloA==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
-	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
-	action=mi-m=1; hc=10;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,message-id,mime-version,subject,to;
-Message-Instance: m=1; h=sha256:VBLg5YZtKwSL01YbU5JCaXHeChAmfQl8LIVHi09UDdQ=:036vB2x/PkQq8v8OBqvh3qALNh9htmEL0DcMl4FNkfo=;
-X-ME-Sender: <xms:fsTZamDCCiGL-CaDdP379PxqTvMCDsOd__52AE8awZrXQbWunXKPVw>
-    <xme:fsTZarXWRQiA-eRPcc8A6dt2lNUwncgLSV0tWb0ShOr7WpNPwP8C-GeWRhGSZeL9o
-    gWsogNb3-vXQqYT75r49T7GJu2DWCrqP1YJuJLXsDo01pflzQU65gWj>
-X-ME-Proxy-Cause: dmFkZTFhNJk4VCqz6DYoNlXTSkJrnGFc5admzae8p8EL2R8LQluaUApHOMwtUK97WfxmCO
-    cKgys9XYom4tF6WqSdustQCIWxgJrAetY0hGgGaIoXA7CKM42YJgfuv2EeF1UHPFKscL4m
-    NEZefm4wPilajjgG/Cp4e1Np2mlHUIpmpwBgTRI5lkqXpqKIYoLkVam8vOlgKbLDhaY3JM
-    96qEUHWp3A56ZjLLY36zQ8vNkLIkzBURD09BHMn3b+nO0ZEr8NO/HRXiB86a4OhVFFJLMI
-    SlmwBTGv1HMMTJaQ5yW1KP1niP4TSjGyzYCzJbwn+CXQh8f8CuSYOSQ/tuvUgpuQWDUkfg
-    l1DFpthnVh/KnRmO5qnZ5zlaWt1ehGUuDGrXadK40D+eR4MH5ECSL9S9OxEQvYbRhpbqxb
-    2MPsZ/mS5NWrZG4X6+CHMwvStQQW8sINmLMAibhh2NN2Ab86jnTI0jGaDGrZp7OUCE7RkI
-    lnDBKHpa22ls5xnZ2vp7xpf/0CIlzBeDnLKTs6JgMcLwS1fO7ydLEOPBRnWf71GTF80xWo
-    o4S1UMft8Bx+S/YSIHVMjuVFudUbtvhSw7q8C0um6+lfl8We5o7V0soJRoMyi0Yp1ntfxo
-    kE+THAbIZ8j5rL8hSgVZIqjMf3tSjp8BuD4FyO606jWHEPBCiQTOiDB+KpXQ
-X-ME-Proxy: <xmx:f8TZavuMwy8djJw7D0dDBl1ysndNZpZHnrZVm2jNX9sb6CmY6Gdyug>
-    <xmx:f8TZanVvfcMrQPE4M5DU4QNrRqh58thiCUy1Nu5yL6SdO9AojJiwqw>
-    <xmx:f8TZarElesdIdwjKcYcn-VMwEZrDkFp0vl6KqGfh0gEe4QPipFtbJg>
-    <xmx:f8TZap08rG8GBaM7JAy4lt8_PRxsjgrLPZRA4mzn2NVNJ9fT8R0coQ>
-    <xmx:gMTZaoli7a0deJm3p66BEiXs2gOJoU_MjbjIXj-pWIv0mDx6VaEYXCXA>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id 02C6432A0097; Thu, 22 Oct 2026 04:08:30 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key, unprotected) header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=JtocyhfD
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 69M88W080738026, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
+	t=1792656512; bh=SrQOB/R3SLUbovIU/JTFQuMZaTtCp4c2h+ziHO4QK18=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	b=JtocyhfDotR85/5iXRd5H5dOm2ab6Mhc1Lx64bJAsv9prot2YhTM8Ev1JP73I2Sxc
+	 yPbcywXvE/9FS9btjXDNWN0Hucfxf8EvvDyoAWyhdjO8lKB9rfS+bxckt65laKl0DS
+	 6XTctr1kyMD4jt6jGZRihXN+W2w0MxDxS0Njpt6dreLSFASVpbYtlJY730iI7Y5w5a
+	 Ll93n9jIY/yuMHqi6ubSwSW3cgx0V1+0v0OZpDUbbMnN4vPmoJauHbpSdz9y82JpE7
+	 +wHyZIG1UsGOQANwLUIOO4+b2ZFZ3wRd8zzryRxCVikrlPbOiCeiCUDiZK5i0X6ZYb
+	 VYrKi5Oq0vsKg==
+Received: from mail.realtek.com (rtkexhmbs04.realtek.com.tw[10.21.1.54])
+	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 69M88W080738026
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Thu, 22 Oct 2026 16:08:32 +0800
+Received: from RTKEXHMBS05.realtek.com.tw (10.21.1.55) by
+ RTKEXHMBS04.realtek.com.tw (10.21.1.54) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Thu, 22 Oct 2026 16:08:27 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS05.realtek.com.tw (10.21.1.55) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Thu, 22 Oct 2026 16:08:26 +0800
+Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
+ RTKEXHMBS06.realtek.com.tw ([fe80::b3cc:c263:b82d:e87c%10]) with mapi id
+ 15.02.2562.049; Thu, 22 Oct 2026 16:08:26 +0800
+From: Chih Kai Hsu <hsu.chih.kai@realtek.com>
+To: Jakub Kicinski <kuba@kernel.org>
+CC: "davem@davemloft.net" <davem@davemloft.net>, "netdev@vger.kernel.org"
+	<netdev@vger.kernel.org>, nic_swsd <nic_swsd@realtek.com>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>,
+	"edumazet@google.com" <edumazet@google.com>, "bjorn@mork.no" <bjorn@mork.no>,
+	"pabeni@redhat.com" <pabeni@redhat.com>, "andrew+netdev@lunn.ch"
+	<andrew+netdev@lunn.ch>, "mail@birger-koblitz.de" <mail@birger-koblitz.de>
+Subject: RE: [PATCH net-next v7 05/10] r8152: fix up and down register
+ settings for RTL8156/8156B/8157/8159
+Thread-Topic: [PATCH net-next v7 05/10] r8152: fix up and down register
+ settings for RTL8156/8156B/8157/8159
+Thread-Index: AQHdW7Sw+V1oQp1ZvEmSf7eTjx4JUbcGr0sAgAKOofA=
+Date: Thu, 22 Oct 2026 08:08:26 +0000
+Message-ID: <0595476b3b8f4aefa6f9eb990b17c7d0@realtek.com>
+References: <20261014081904.6491-6-nic_swsd@realtek.com>
+ <20261021005212.1254979-1-kuba@kernel.org>
+In-Reply-To: <20261021005212.1254979-1-kuba@kernel.org>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -114,130 +92,143 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Date: Thu, 22 Oct 2026 10:06:59 +0200
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: "Linus Torvalds" <torvalds@linux-foundation.org>
-Cc: soc@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-Message-Id: <6c776ba1-f114-44c3-96ee-938dcd7ac82d@app.fastmail.com>
-Subject: [GIT PULL 0/4] SoC updates for 7.4
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
 
-At 1252 non-merge changesets, the 7.4 cycle is rather large for the SoC
-tree, and most of that is arm64 devicetree updates, with smaller changes
-for riscv, 32-bit arm and drivers than the last few times. In both
-drivers and devicetree updates, Qualcomm has by far the most contributions
-including two new SoCs and 22 of the 81 new boards, followed by NXP
-with 19 new machines.
-Other new SoCs include the Apple M4/A18pro and Google Tensor 5.
+On Wednesday, October 21, 2026 8:52 AM, Kicinski wrote:
+> This is an AI-generated review of your patch. The human sending this emai=
+l has
+> considered the AI review valid, or at least plausible.
+> ---
+> r8152: fix up and down register settings for RTL8156/8156B/8157/8159
+>=20
+> This commit corrects several up/down and OOB register settings for the
+> RTL8156, RTL8156B, RTL8157 and RTL8159 chips, following the earlier
+> per-generation split of the up/down callbacks. It changes the PLA_RCR1,
+> USB_SPEED_OPTION, Clear_SDR, PLA_BDC_CR/PLA_OOB_CTRL and OOB
+> PLA_RMS/PLA_MTPS settings, and drops PLA_MCU_SPDWN_EN handling from
+> rtl8157_up()/rtl8157_down().
+>=20
+> > diff --git a/drivers/net/usb/r8152.c b/drivers/net/usb/r8152.c index
+> > b245b63fb6aaf..045460a35f383 100644
+> > --- a/drivers/net/usb/r8152.c
+> > +++ b/drivers/net/usb/r8152.c
+>=20
+> [ ... ]
+>=20
+> > @@ -6938,8 +6937,18 @@ static void r8156_enter_oob(struct r8152 *tp)
+> >       rtl_disable(tp);
+> >       rtl_reset_bmu(tp);
+> >
+> > -     ocp_write_word(tp, MCU_TYPE_PLA, PLA_RMS, 1522);
+> > -     ocp_write_byte(tp, MCU_TYPE_PLA, PLA_MTPS, MTPS_DEFAULT);
+> > +     switch (tp->version) {
+> > +     case RTL_VER_16:
+> > +     case RTL_VER_17_QFN68:
+> > +     case RTL_VER_17_QFN100:
+>=20
+> [Severity: Medium]
+> This patch has three Fixes: tags:
+>=20
+>   Fixes: 195aae321c82 ("r8152: support new chips")
+>   Fixes: fd3c7d080df5 ("r8152: Add support for the RTL8157 hardware")
+>   Fixes: ad2a55b63b41 ("r8152: Add support for the RTL8159 chip")
+>=20
+> Will it apply and build on the trees those tags point to?
+>=20
+> RTL_VER_17_QFN68 and RTL_VER_17_QFN100 come from an earlier patch in
+> this series, "r8152: split RTL_VER_17 into QFN68 and QFN100 package
+> variants".
+> Before that patch the enum only has RTL_VER_17.
+>=20
+> rtl8157_up() and rtl8157_down() also only exist after "r8152: split
+> rtl8156_enable/up/down into per-generation functions", which is described=
+ as
+> no functional change. Before that patch there is one shared
+> rtl8156_up() with tp->version >=3D RTL_VER_16 and tp->version < RTL_VER_1=
+6
+> checks.
+>=20
+> So a stable backport would either conflict or need both non-fix patches a=
+s
+> prerequisites. One of them is the package detection change, which makes a=
+n
+> unrecognised PLA_PKG_DET value fall back to RTL_VER_UNKNOWN.
+>=20
+> Could these fixes go to net separately, written against the pre-refactor =
+code? Or
+> could the commit message at least name the prerequisites?
 
-There are a couple of trivial conflicts between the soc/dt and
-soc/drivers branch from a driver that ended up getting merged along
-with the DT changes, and from defconfig changes in a previous bugfix
-branch.
+I will reorder the series so the fixes come first, written against the pre-=
+refactor code,=20
+with the refactor rebased on top.
 
-I had originally planned to include a larger update[1] for 32-bit Arm
-to remove most of the remaining legacy board files that were recently
-deprecated. As the idea was to still have them in the LTS kernel and
-there was some confusion whether that would be 7.3 or 7.4, we ended
-up deferring that branch to 7.5, and the associated drivers likely
-won't be dropped until 7.6.
+>=20
+> > +             ocp_write_word(tp, MCU_TYPE_PLA, PLA_RMS, 1526);
+> > +             ocp_write_byte(tp, MCU_TYPE_PLA, PLA_MTPS, 10 * 1024 /
+> 64);
+> > +             break;
+>=20
+> [ ... ]
+>=20
+> > @@ -6997,6 +7008,11 @@ static void rtl8157_up(struct r8152 *tp)
+> >       }
+> >
+> >       r8153_aldps_en(tp, true);
+> > +
+> > +     /* Enable Clear_SDR */
+> > +     ocp_byte_set_bits(tp, MCU_TYPE_USB, 0xd378, BIT(7));
+> > +     /* Clear SDR bit */
+> > +     ocp_word_clr_bits(tp, MCU_TYPE_USB, 0xcd06, BIT(15));
+> >  }
+>=20
+> [Severity: High]
+> The commit message says:
+>=20
+>   - RTL8156B (VER_13/15) need Clear_SDR enabled on up, which nothing
+>     ever did for them.
+>=20
+> Is the RTL8156B part missing from this patch? These are the only Clear_SD=
+R
+> writes the patch adds. rtl8157_up() is only used for RTL_VER_16,
+> RTL_VER_17_QFN68 and RTL_VER_17_QFN100.
+>=20
+> In rtl_ops_init(), RTL_VER_13 and RTL_VER_15 are bound to rtl8156_up():
+>=20
+>         case RTL_VER_12:
+>         case RTL_VER_13:
+>                 tp->support_2500full    =3D 1;
+>                 fallthrough;
+>         case RTL_VER_15:
+>                 ...
+>                 ops->up                 =3D rtl8156_up;
+>=20
+> This patch does not change rtl8156_up(), and it still writes no Clear_SDR
+> register:
+>=20
+>         r8156_exit_oob(tp);
+>=20
+>         ocp_word_clr_bits(tp, MCU_TYPE_PLA, PLA_MAC_PWR_CTRL3,
+> PLA_MCU_SPDWN_EN);
+>=20
+>         ocp_word_clr_bits(tp, MCU_TYPE_USB, USB_SPEED_OPTION,
+>                           RG_PWRDN_EN | ALL_SPEED_OFF);
+>=20
+>         ocp_write_dword(tp, MCU_TYPE_USB, USB_RX_BUF_TH,
+> 0x00600400);
+>         ...
+>         r8153_aldps_en(tp, true);
+>         r8153_u2p3en(tp, true);
+>=20
+> So every open or resume on an RTL8156B goes through ops->up ->
+> rtl8156_up() without the Clear_SDR enable. The later patches in the serie=
+s don't
+> add it to rtl8156_up() either.
+>=20
+> Should rtl8156_up() get the RTL8156B Clear_SDR writes under an
+> RTL_VER_13/RTL_VER_15 check, or should this bullet come out of the commit
+> message? The 0xd378/0xcd06 writes used for RTL8157/8159 can't be assumed
+> to apply to RTL8156B.
 
-The contributions came from 309 individual developers, the most common
-ones being the usual names:
+I accidentally dropped the corresponding code; I will add it back.
 
-     49 Marek Vasut
-     43 Krzysztof Kozlowski
-     40 Abel Vesa
-     36 Krishna Chaitanya Chundru
-     31 Thierry Reding
-     29 Francesco Dolcini
-     21 Lad Prabhakar
-     21 Frank Li
-     19 Svyatoslav Ryhel
-     19 Judith Mendez
-     18 Dario Binacchi
-     17 Chancel Liu
-     16 Janne Grunau
-     15 Yureka Lilian
-     15 Luca Weiss
-     14 Mukesh Ojha
-     13 Peng Fan
-     12 Taniya Das
-     12 Joachim Eastwood
-     12 Geert Uytterhoeven
-     12 Chuan Liu
-     11 Linus Walleij
-     11 Konrad Dybcio
-
-The dirstat is:
-
-   0.4% Documentation/devicetree/bindings/arm/
-   0.7% Documentation/devicetree/bindings/clock/
-   0.1% Documentation/devicetree/bindings/input/
-   0.1% Documentation/devicetree/bindings/power/
-   0.1% Documentation/devicetree/bindings/soc/starfive/
-   0.1% Documentation/devicetree/bindings/soc/
-   0.2% Documentation/devicetree/bindings/
-   0.1% arch/arm/boot/dts/marvell/
-   2.7% arch/arm/boot/dts/nvidia/
-   2.1% arch/arm/boot/dts/nxp/imx/
-   0.2% arch/arm/boot/dts/nxp/vf/
-   0.1% arch/arm/boot/dts/qcom/
-   0.1% arch/arm/boot/dts/renesas/
-   0.8% arch/arm/boot/dts/st/
-   0.1% arch/arm/boot/dts/ti/omap/
-   0.1% arch/arm/boot/dts/
-   0.1% arch/arm/mach-omap2/
-   0.3% arch/arm/mach-s3c/
-   0.5% arch/arm/
-   0.1% arch/arm64/boot/dts/allwinner/
-   0.1% arch/arm64/boot/dts/amlogic/
-   3.1% arch/arm64/boot/dts/apple/
-   0.2% arch/arm64/boot/dts/broadcom/
-   0.2% arch/arm64/boot/dts/exynos/
-  12.1% arch/arm64/boot/dts/freescale/
-   0.3% arch/arm64/boot/dts/google/
-   0.1% arch/arm64/boot/dts/marvell/
-   0.1% arch/arm64/boot/dts/mediatek/
-   1.0% arch/arm64/boot/dts/nuvoton/
-   3.9% arch/arm64/boot/dts/nvidia/
-  41.0% arch/arm64/boot/dts/qcom/
-   5.8% arch/arm64/boot/dts/renesas/
-   5.7% arch/arm64/boot/dts/rockchip/
-   2.5% arch/arm64/boot/dts/st/
-   0.3% arch/arm64/boot/dts/tesla/
-   1.5% arch/arm64/boot/dts/ti/
-   0.1% arch/arm64/configs/
-   0.5% arch/riscv/boot/dts/spacemit/
-   0.2% arch/riscv/boot/dts/starfive/
-   0.2% arch/riscv/boot/dts/thead/
-   0.1% arch/
-   0.9% drivers/firmware/arm_scmi/transports/
-   0.8% drivers/firmware/arm_scmi/
-   0.2% drivers/firmware/qcom/
-   0.1% drivers/firmware/xilinx/
-   0.2% drivers/input/keyboard/
-   0.5% drivers/memory/tegra/
-   0.2% drivers/memory/
-   1.2% drivers/soc/amlogic/
-   0.1% drivers/soc/apple/
-   0.1% drivers/soc/fsl/qe/
-   0.2% drivers/soc/mediatek/
-   0.7% drivers/soc/qcom/
-   0.1% drivers/soc/renesas/
-   0.1% drivers/soc/samsung/
-   0.1% drivers/soc/starfive/socinfo/
-   0.3% drivers/soc/tegra/fuse/
-   0.1% drivers/soc/tegra/
-   0.2% drivers/
-   1.8% include/dt-bindings/clock/
-   0.3% include/dt-bindings/reset/
-   0.2% include/linux/
-   0.1% include/
- 1235 files changed, 95202 insertions(+), 11056 deletions(-)
-
-       Arnd
-
-[1] https://lore.kernel.org/lkml/2afd5f78-0174-4955-8c1b-be18aea3800b@app.fastmail.com/
+Best Regards,
+Chih-Kai
