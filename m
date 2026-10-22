@@ -1,62 +1,116 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.156.1
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792701882;
-	b=2nxy1Xi+9Mr3DhOGWWGrrD/n51J4E79/gBBvJj1lVex7qcJRB7IF0FDRrWi03RPTYyB1
-	 EqPO4lT2DoOBbczrmzphoDhltw/x14bnjY1xNPOrkey/0ddKpW26AtDkKGYKi/F2xB0Yh
-	 kJyPs68PjH7lV+jobHBDKkditEUaxL+Lkytyl40mGeyiE6K/kiJ0xgGjdtqwzSY2xOz6+
-	 +q9JG3Z9SD7As2Jceo3nQrhQ3R6A5CDYucG1uTAJscfR+1dBl3DLF74JHo1HQhztR/Ps4
-	 Fzpue2s4G3uosHW9FhLLW0o5Q9KE/zng0PlxchgfKMOzGDvjB3MkKVejO/j5Npr0uew==
+	t=1792701901;
+	b=qJ7VuHKtzcj7qIz1FL8xeXwYLeKVm3Zg8i/S85NUVl+9+JOvQxpFb/4LcWN5+bbmzjzT
+	 VF1FmBowkvWy7tqFCYToeEi2o/T8CCxLQ7g4sES7+XQLgdJruToSQ4V4hJ51mvRyM3nhj
+	 2sT9F9oSv49EWZM3DZVJXQGjIUkozwM378E4iqdj1irJNKL7kVNOajVEnCLc7ZIvTtAUh
+	 d6Ly991gYTaOsGrCoieOdWlmpKPbnfydYRwp1cm394HOhzr6xn8+YgIFNMd+t4OQqPvuP
+	 n0YggPdMnkCGDOGiTpLNGfyZ5OhlnyMehsJv/dUrjNeXJoKKs2h5yMVuyYDGqMIp2KA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792701882;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=jlxncGVxFpDK01Emwf1U5Zgiqw0FwYi9EULoLejK12k=;
-	b=UlO9lEdhXt0NC4lYcA97/GHSz3e2HwyrT9YiMYW5JNfC4KkXye28zioT/KjwQ6dIsTj7
-	 S8eS1twz0ADhgiI7EQSCPz2UKefRggHbYEce+9eg+eB4m5Mz8Ivo7x60kM7muHo3mtJra
-	 PuqgSjwxi3leHJTBMEWVn87jZ9aHh75hIye7I/utW9lJf8oGfxSukavCADGoco6Uc4SR9
-	 G2g8EVPliKvmjoagSmevGZ0MdRMlwfqa/EWXWxl8VpWyc2g4/nHmDATtE4m/AXQKe636e
-	 bvR9Wd3mY/9JJ12dr3pbzRW6HFhNi72nb7LwAQy4TCTCSrA1lU5pJFW/hqoqgkpLuHA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792701901;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:Received:Received:Received:Message-ID:Subject:From:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date:
+	 MIME-Version:User-Agent:X-TM-AS-GCONF:X-Proofpoint-Reinject:
+	 X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
+	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=KUa73tAP6sqc80IwZh4prgSCGi9ezU4jrTu+zr0i9qA=;
+	b=cZrtGFsy2maGy51prefipPe4r7xOm4leXD8/Q3qV3Ga3tyIaN3wm6dyUaeFBjSQX6Ghr
+	 5oe6S8zuG0DGtUlb4Nst1SLa/bWGB7twyaTmvvaMdNoXxUiJWubTv4Hga5TTdNc+/6t2B
+	 Jq1emG4cO8UKqd5NoL+0G6Tdb6RUFkmn/uQxHrImmEfK5kwLJzpbUf4A8g/eXHmSzfMIp
+	 xvYWmog7spOKGN3ghPE4feOKzO0/VsL7I4s6rJkKkOCTJ4phtJet2YTQFgyY7SzII+bjG
+	 0JVarCqyFCU/yrrwBMAHeugB6x1wINKa7Wja7hDtueT0fHulbGNEClxMBel6nKK2jRw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CJyr09h1;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=linux.ibm.com;
+	spf=pass smtp.mailfrom=linux.ibm.com;
+	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=INHuFtQX;
+	arc=none smtp.remote-ip=148.163.156.1
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DBD6606A31B;
-	Thu, 22 Oct 2026 20:44:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3CCE606A31A;
+	Thu, 22 Oct 2026 20:45:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B3CCE606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CJyr09h1
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C5A531F01829;
-	Thu, 22 Oct 2026 20:44:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792701882;
-	bh=jlxncGVxFpDK01Emwf1U5Zgiqw0FwYi9EULoLejK12k=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=CJyr09h1dL75Ikg9c1ncuVXJFgFKylIswGGHvDKqT/RjSgnB7qNhYNwzEicodYYA3
-	 nBknJPS46IQZ+DS/Yas3bOx/ps8Ds6cMOEG7DXVxbaSfi0VaKcgTvXdU2eNE+6YV0s
-	 CimepLsxhxhDy/hT76eN0VLq3wbRjhavCjSXFwzjh318WDkMmpiiYZQ1Ibs42U1WiE
-	 y2ZM7+ZtcuGg1reNDoj8cWZ63Im7NJGDoYBqIsJcJbh5ec6JMD7tY06PCQx3HOXL3n
-	 FMg9WHHM3DCmFnDKsrZxJwsQwqGi5VL3gX9ToU68hQTBPPu9aOKnlhkNwMdt0lpqB9
-	 Pe7kutQkpFlRA==
-Date: Thu, 22 Oct 2026 22:44:32 +0200
-From: Alejandro Colomar <alx+linux-hardening@kernel.org>
-To: Steven Rostedt <rostedt@goodmis.org>
-Cc: Kees Cook <kees@kernel.org>, Bill Wendling <morbo@google.com>, 
-	"Matthew Wilcox (Oracle)" <willy@infradead.org>, Andrew Morton <akpm@linux-foundation.org>, 
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, David Gow <david@davidgow.net>, Petr Mladek <pmladek@suse.com>, 
-	Shuvam Pandey <shuvampandey1@gmail.com>, linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org
-Subject: Re: [PATCH v5 06/12] seq_buf: Add seq_buf_strlen()
-Message-ID: <atp1fpREBhWiytaH@debian>
-References: <20261005155653.late.426-kees@kernel.org>
- <20261005155708.1471260-6-kees@kernel.org>
- <20261016145928.16eddc9a@gandalf.local.home>
- <202610221058.C5626C5172@keescook>
- <atpmAQ932J3_8IvJ@debian>
- <20261022155726.7f20c4cb@gandalf.local.home>
- <atptYsHyS6YGtzPV@debian>
- <20261022162000.18aa4162@gandalf.local.home>
- <atpyCU3fDyU95hbY@debian>
+	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=INHuFtQX
+Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69MIE9Vd747378;
+	Thu, 22 Oct 2026 20:43:37 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=KUa73t
+	AP6sqc80IwZh4prgSCGi9ezU4jrTu+zr0i9qA=; b=INHuFtQXCrvxUd/nxpENCk
+	LBin4ksk+tIqygfEHxJCgc8fuK+zI6uY3pyMhhVtAfdvbKX33PDtmswcEUMs0utO
+	nsy8ak9edxpnhH7JQZHv8wLi9v4wj9bLL1wK+XxhecMAEYxtobeSEKCbc0NT4FdU
+	+/3yBMPz5FucCW1CdDwqtct9iHTa3Fd4Rq6XkGW+4uTGOJstJSPwhMzoGdBbvh6G
+	ReHypm9HNVp5RDBpz51+tHDWEIuKBYzkZOjm8qqlWtFi5STgcWHfD2tAjyo4AW9K
+	mmoT0XrUnaITkCcglXXbwnW/LSwhUZBZOfrJbmWs5qeyArT1eumqsDgKJWr3wllw
+	==
+Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hdw591fgy-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Thu, 22 Oct 2026 20:43:36 +0000 (GMT)
+Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma22.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69MIK4dT862992;
+	Thu, 22 Oct 2026 20:43:35 GMT
+Received: from smtprelay02.wdc07v.mail.ibm.com ([172.16.1.69])
+	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4hekdggtr7-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 22 Oct 2026 20:43:35 +0000 (GMT)
+Received: from smtpav05.dal12v.mail.ibm.com (smtpav05.dal12v.mail.ibm.com [10.241.53.104])
+	by smtprelay02.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69MKhZSd31130202
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Thu, 22 Oct 2026 20:43:35 GMT
+Received: from smtpav05.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id F16DF58056;
+	Thu, 22 Oct 2026 20:43:34 +0000 (GMT)
+Received: from smtpav05.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 56C0258052;
+	Thu, 22 Oct 2026 20:43:33 +0000 (GMT)
+Received: from li-43857255-d5e6-4659-90f1-fc5cee4750ad.ibm.com (unknown [9.77.162.217])
+	by smtpav05.dal12v.mail.ibm.com (Postfix) with ESMTP;
+	Thu, 22 Oct 2026 20:43:33 +0000 (GMT)
+Message-ID: <dcc62b1f9a64fae22cacdcde55a2110dc59e7c2d.camel@linux.ibm.com>
+Subject: Re: [PATCH RFC 00/20] attestation: Add a common subsystem and TDX
+ support
+From: Mimi Zohar <zohar@linux.ibm.com>
+To: James Bottomley <James.Bottomley@HansenPartnership.com>,
+        Jason
+ Gunthorpe	 <jgg@nvidia.com>
+Cc: Jiri Pirko <jiri@resnulli.us>, Dionna Glaze <drdeeglaze@gmail.com>,
+        Jarkko Sakkinen <jarkko@kernel.org>, linux-coco@lists.linux.dev,
+        linux-kernel@vger.kernel.org, linux-api@vger.kernel.org,
+        x86@kernel.org, kvm@vger.kernel.org, linux-doc@vger.kernel.org,
+        david.quigley@intel.com, lukas@wunner.de, ksinyuk@kernel.org,
+        rodrigo.vivi@intel.com, cedric.xing@intel.com, sameo@meta.com,
+        aik@amd.com, jpiotrowski@nvidia.com, qinkun@google.com,
+        pgonda@google.com, jic23@kernel.org, alistair.francis@wdc.com,
+        ankita@nvidia.com, suzuki.poulose@arm.com, kas@kernel.org,
+        rick.p.edgecombe@intel.com, elena.reshetova@intel.com,
+        dave.hansen@linux.intel.com,
+        sathyanarayanan.kuppuswamy@linux.intel.com, peter.fang@intel.com,
+        roberto.sassu@huawei.com
+In-Reply-To: <827296091dbd27becdf85ad8301f94cb16025afb.camel@HansenPartnership.com>
+References: 
+	<CANwfdvUhuQ6L+w+91iDZD=diMmaJ6_2ZsFKkcoiKWOmPMC1oKg@mail.gmail.com>
+		 <20261019225658.GS13920@nvidia.com> <ath4vwt7KGyDXKVJ@FV6GYCPJ69>
+		 <103486a4a29ecc7b72940dd051c00ae59266bd05.camel@linux.ibm.com>
+		 <20261021143529.GP3008132@nvidia.com>
+		 <95b895522bb314187ac1cdc5d0c143c01f0705a9.camel@HansenPartnership.com>
+		 <20261022131141.GD3008132@nvidia.com>
+		 <db0f90dde6421c3f2ca0164ea042e73d13b4d02b.camel@HansenPartnership.com>
+		 <20261022191911.GB3746973@nvidia.com>
+		 <d3274fc7bea368e7e117fdffcff2193210d9d8b7.camel@linux.ibm.com>
+		 <20261022194527.GE3746973@nvidia.com>
+	 <827296091dbd27becdf85ad8301f94cb16025afb.camel@HansenPartnership.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 22 Oct 2026 16:43:32 -0400
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,158 +120,71 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="33adycpuwhpuz37o"
-Content-Disposition: inline
-In-Reply-To: <atpyCU3fDyU95hbY@debian>
+User-Agent: Evolution 3.58.3 (3.58.3-2.fc43) 
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-GUID: yaJZ0r2Xr5BFR8E-vk2nMF_ISSMIxKQz
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIyMDA4MCBTYWx0ZWRfX5WqoN2j0T76f
+ ydyr88s51yqER3SZAr+E8/CO9dNbdc21NG9wWUzlJyA4gS+3iOq29Kt8l16rSqQxfTO3BzRvPG5
+ SUO5phcqtnxuuWyo6y8bwgS/aCt/YAM=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIyMDA4MCBTYWx0ZWRfX5C8WVHR/Oo15
+ WrnjbK6XZt7h8nTNGfMhn5nAFujl2P41K+IjoAi3syIZyf/g2U4eeu0O6+QPyc3I50KqO7a0dem
+ imQTLUttWEU3qPs4xrUKyq3uA5tJ0M7TkBrxu6Lq5iTVtvUc6yfYN818UtwAtfBfO7Jub81XNnl
+ vRYEYh6A6Uw797V1rN7XJLaHjJkMO3A/kdQ1hR9MaEgHuBMY0YjROgt2eN7B022jPyy1LKr551/
+ 4wIJYhLd+g9o8Wf25Ask4hkprTmHOiEpM3kblmofJ+iUBa1/zHFXLz2+6Ht44U3R4UvMnulU4rB
+ VhrlnGAdu5EOdSQLVXWZ2zfAYpJMXXLaoR7YqocGz9VqqDFA/w7aLHqbaG+7I7JEtidOBjXkQdq
+ 8MD9MHomuWL8V6IB2wOTaKEkf39va8qAFfxZB9tlgewdfIRVhNZLs80ZLcxWmkaDsjdgEKAI7BV
+ 5KJXr2uCihwLRGYA5pQ==
+X-Proofpoint-ORIG-GUID: TKhfdmFmEYh4lueQyisSIkbNtOqRwnNZ
+X-Authority-Analysis: v=2.4 cv=Ob4NnRTY c=1 sm=1 tr=0 ts=6ada7579 cx=c_pps
+ a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=xvKMnzRlZjCcE3-R3fcA:9
+ a=QEXdDO2ut3YA:10
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-22_06,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 adultscore=0 phishscore=0 spamscore=0 suspectscore=0
+ lowpriorityscore=0 clxscore=1015 impostorscore=0 priorityscore=1501
+ malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
+ definitions=main-2610220080
 
-
---33adycpuwhpuz37o
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx+linux-hardening@kernel.org>
-To: Steven Rostedt <rostedt@goodmis.org>
-Cc: Kees Cook <kees@kernel.org>, Bill Wendling <morbo@google.com>, 
-	"Matthew Wilcox (Oracle)" <willy@infradead.org>, Andrew Morton <akpm@linux-foundation.org>, 
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, David Gow <david@davidgow.net>, Petr Mladek <pmladek@suse.com>, 
-	Shuvam Pandey <shuvampandey1@gmail.com>, linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org
-Subject: Re: [PATCH v5 06/12] seq_buf: Add seq_buf_strlen()
-Message-ID: <atp1fpREBhWiytaH@debian>
-References: <20261005155653.late.426-kees@kernel.org>
- <20261005155708.1471260-6-kees@kernel.org>
- <20261016145928.16eddc9a@gandalf.local.home>
- <202610221058.C5626C5172@keescook>
- <atpmAQ932J3_8IvJ@debian>
- <20261022155726.7f20c4cb@gandalf.local.home>
- <atptYsHyS6YGtzPV@debian>
- <20261022162000.18aa4162@gandalf.local.home>
- <atpyCU3fDyU95hbY@debian>
-MIME-Version: 1.0
-In-Reply-To: <atpyCU3fDyU95hbY@debian>
-
-> Date: 2026-10-22 22:38:12+0200
-> From: Alejandro Colomar <alx+linux-hardening@kernel.org>
->
-> Hi Steven,
->=20
-> > Date: 2026-10-22 16:20:00-0400
-> > From: Steven Rostedt <rostedt@goodmis.org>
-> >
-> > On Thu, 22 Oct 2026 22:11:27 +0200
-> > Alejandro Colomar <alx+linux-hardening@kernel.org> wrote:
+On Thu, 2026-10-22 at 15:52 -0400, James Bottomley wrote:
+> On Thu, 2026-10-22 at 16:45 -0300, Jason Gunthorpe wrote:
+> > On Thu, Oct 22, 2026 at 03:37:46PM -0400, Mimi Zohar wrote:
 > >=20
-> > > Agree.
+> > > > Advisory entries shouldn't matter with a scheme like this.
 > > >=20
-> > > But still, a better design would do:
-> > >=20
-> > > 	static inline void
-> > > 	seq_buf_set_overflow(struct seq_buf *s)
-> > > 	{
-> > > 		s->p =3D NULL;
-> > > 	}
-> > >=20
-> > > This is way more robust, and also easier to understand.  My head is
-> > > boiling when trying to review this patch set for correctness.  That's
-> > > not a good sign.
+> > > IMA has something called violations (e.g. open-writers, ToMToU),
+> > > which are more
+> > > than just advisory.=C2=A0 They intentionally invalidate the IMA
+> > > measurement list
+> > > since the measurement cannot be trusted.
 > >=20
-> > But that loses all data. We still want access to what was written.
+> > Maybe I got lost, but when James said "advisory" I understood this as
+> > the TCG type that does not get included in a PCR extend.
 >=20
-> No, it doesn't lose data.  My proposal is to have this:
+> No, I meant the TCG type where the event description isn't part of the
+> measurement (and thus can contain pretty much anything).
 >=20
-> 	struct my_seq_buf {
-> 		// .buffer points to the start of the buffer
-> 		char  *buffer;
->=20
-> 		/* .p points to the current position.  This is the last
-> 		 * '\0' that has been written to the buffer.  On
-> 		 * truncation, it is a NULL pointer.
-> 		 */
-> 		char  *p;
->=20
-> 		/* .end always holds ARRAY_END(buffer).  It is a pointer
-> 		 * one-past-the-last character in the buffer.
-> 		 */
-> 		char  *end;
-> 	};
->=20
-> This would be initialized as (of course, wrapper in static inline
-> functions as needed) this:
->=20
-> 	char            buf[100];
-> 	struct seq_buf  b;
->=20
-> 	b.buffer =3D buf;
-> 	b.p =3D buf;
-> 	b.end =3D ARRAY_END(buf);
->=20
-> Then, you would write to it as:
->=20
-> 	b.p =3D stpecpy(b.p, b.end, "foo");
-> 	b.p =3D stpecpy(b.p, b.end, "bar");
-> 	...
-> 	b.p =3D stpecpy(b.p, b.end, "baz");
-> 	if (b.p =3D=3D NULL)
-> 		goto fail;
->=20
-> Then, at some point, you might want to initialize a new buffer out of
-> the remainings of it:
->=20
-> 	struct seq_buf  b2;
->=20
-> 	if (b.p =3D=3D NULL)
-> 		goto fail;
-> 	b2.start =3D b.p;
+Thanks for the clarification.
 
-s/start/buffer/
+> In IMA
+> measurements, the path is part of the log but isn't part of the
+> measurement (primarily because it's not reliable: a mount namespace
+> could make it anything it wants).
 
-> 	b2.p =3D b.p;
-> 	b2.end =3D b.end;
->=20
-> See how simple this becomes?  (So much that you may doubt the necessity
-> of the set of APIs at all, but they don't hurt much either.)
+You have a good memory!  Prior to IMA being upstreamed, only the file data =
+hash
+was extended into the TPM PCR.
 
-I didn't mention it, but I think it's obvious: you can still read the
-string by reading 's.buffer'.
+The upstreamed 'ima' template extended the template data hash, containing t=
+he
+file data hash and filename limited to 255 bytes.  Depending on the templat=
+e
+format (e.g. ima-ng, ima-ngv2, ima_sig, ima_sigv2), the file template hash
+contains the full file pathname.
 
-
-Cheers,
-Alex
-
->=20
->=20
-> Cheers,
-> Alex
->=20
-> >=20
-> > -- Steve
->=20
-> --=20
-> <https://www.alejandro-colomar.es>
-
-
-
---=20
-<https://www.alejandro-colomar.es>
-
---33adycpuwhpuz37o
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmradbAACgkQ64mZXMKQ
-wqmSZQ//exn/b6LJ5pZotM1Ld0/oThPZEK0iZZrF2VSlfy0HWZy507IwDSNzrFG/
-XvFjkByM/dlvHzIHW34EKPK/5PGGUm8Yk9yv1ecPhcr+GiukQrgvHEshFSmz8+kN
-NxCrB9Sb3FTE6QqA11P1eayg3N4FA45tn0ogpigi0l0CrWgPXeEmzKjIJnez05OP
-NgBG8wjWp/wmbKLr96oEYvAr8/fG0xah6mKewplwLZ42/A75XJ2/N9wZLvnZ0gr+
-/pMOW+mUwxopF/aVsvFkzdUJxQ1wCls1Y1S5C3lEhF95e3Ht5Gqm7cjfjbHQelhy
-ka8Ld1aLl2E7txHwsGKvDFZr8JN8C0ErsblYHCHaZqc4YMEFjxChHgyul2LvZ3wj
-yvhZCkzMd4D+IAvhAdPNqKrTT+EPn9kmnAaYQztccOE1dYF9LoLTgMSKfGd0DUn0
-cSKWGRT+wBFTXwIGbWz8DZmK1Wu06phqkk8y4hrj5NJw1iXcjpt92OGm/fm7mCJ3
-KbkqQvhxnXLXnuLChbvuDCRWT6YT2DWE3YNfSjxb2kcaDC5GNVPg4gl1HOT00+OT
-6jYiFkSISx9SK3EAah+j4M4r2HVXUDdFaMO7sl7jVpi9T74b8/5HIfRvQ5V/KKps
-QmujfAnkDemG4mAb5yakkY00VIe6Wz0ftw09m3DhuFfyZvbUFXs=
-=I9WC
------END PGP SIGNATURE-----
-
---33adycpuwhpuz37o--
+Mimi
