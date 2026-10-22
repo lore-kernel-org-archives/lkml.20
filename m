@@ -1,76 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.70
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.197
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792708258;
-	b=wpSIqhq6F2yR6BCYC4/5DIO+5dKfyVsKAv9y/h1rBWSkugDruz3/qkiWvADntJoTaW1b
-	 2E9pNG1eERuOTw52HJvaMSSCrIkIBwLNt2TABykJudO4zWesIkb7S8DAXtWFbdVG0JQXy
-	 Gb+RkR0c76dyO9oEEIOYTmvHT0RYT0polvOesYciuefGM9kFdWeTaTlIccUmRt5N/eVFF
-	 qcUw4lgiVmr+CSBAopFJTwArf1n94ZQ3HSyuPAnDXBTjgP1ZWOP4BtK0iYW1nOvESHWB4
-	 8Nk8657nvTy3FlQk7V8FRAMmr7ocSp3PQ0hUXxXyIbXlHACBNNT8zGVFjqqqR/jo/Qw==
+	t=1792708421;
+	b=oQ3IMliULpfdp8tGX4xc9oSj4btJSfBtkHe75PVKulm+kIwFaqRgcjxNy0ANptMX4okR
+	 sj6LQK+FKdAxDgqzPvWS+ZpRkeS0tq50iXn5PRMxWfs3Kfc3gIPC3K4ieEZXLkJVWlu3D
+	 RpXWT7iSWTHb+HkftiYtzBdAFlrq2y4n8lXNv4cvVHXqSc0jlV7MaCG0Ic0Cw50NNwKKX
+	 KmQAa71N6Rbvq48gsNWTRQ1lYyl9zMX1KbNafupPYvKUOzAyVWv1UGGP3I2NLcubZhXda
+	 lCWtFotlOyiXJ/DYcfz/5IaD0RmXkZdODNbXcuScrvUzQ8+MTURpCUzfgmGCI/isTxw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792708258;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Reply-To:Date:
-	 In-Reply-To:Mime-Version:References:X-Mailer:Message-ID:Subject:From:
-	 To:Cc:Content-Type;
-	bh=2bQnvowAK96XJBMT+TQureQmj260BxIC7J5qxK72Tvk=;
-	b=hsGkg9X07QbJf3lO3Kx8EKio59EIYOV1R++KYiR664yZw4XipZU4W92hC/IxwYTCtFFk
-	 no2t6j7Fp2NcANIw2PLbD9Nr3YtNOTFy9+BbbvWqu4QHIZpXi4N1Iuv1XNDlv0qr65yVZ
-	 oPOEeVRyIIrEgEjh4V+70uqKWJIBDnIPWvFaH7H5qE6m3yRPpPceChPlQByLECxNQ3lRi
-	 UUkxEmxYSii0zjN0wbme07QWh4w3lZjki68vzMx6LLwpwhsXh4/HTyNSLSkWTrVwuaWds
-	 2KN6/LF1Jsl3Qv9N8lxBT71kQkkLnqICBPLJfizsYyzbAe9GAwCzBZ6ki/JtCbvo2eg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792708421;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:MIME-Version:X-Received:Date:
+	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
+	 Subject:From:To:Content-Type;
+	bh=2YhGmICq4X0jtn4PR3OTh5SkzrcHalK2T3Oao0NE/oU=;
+	b=pAPMAqyEdVzyTMX+OhnGFT65w+EEfGRInzCuvyK1w0IIDfeVaFK6aYUc4tt0vvPmwALu
+	 7vzxaTNA8Xklu+NtPwDGqGcpEybgNzDUNiNbu2Pz3QI3KoDWkmuiGFDSbTk+ASe5n0Cfn
+	 LsFqoTNLtegUyej9XV4hU9kaBMMfolQwAfeHwTs0tP5q1muVwVBE89OxEszCtyZaCTXm4
+	 ifQeH5rsPmFRn11JWeTYmYM+ny5StgHy4rDYLkPM8L0HYsGRsZvRX+kNK2NCA/1Wp5jJK
+	 Ctus/Lus+C3SN1JSCRktKgyuV1LvvfoVScyhZc86XVlqgM5BzRxP2414+QlFVf/rkPA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b="v8j/GZ+M";
-	arc=none smtp.remote-ip=209.85.216.70
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.167.197
+Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40D49606A33E
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 22:30:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 40D49606A33E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=v8j/GZ+M
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-3adbc9a47fbso251708a91.1
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 15:30:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792708257; x=1793313057; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:reply-to:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=2bQnvowAK96XJBMT+TQureQmj260BxIC7J5qxK72Tvk=;
-        b=v8j/GZ+MorZsPWvTTNc/7/V5m6ckYN0RwurfQT8/YttzOLCPH9nSpPrVgdwQD6FNrt
-         QZCQliYDhb+uil8J38NwyLuXyWbtTnYuWe69c6YDdybpsU6/JEw5KXF2/OsUoSeYryfZ
-         KW6hXmwBui00LvCD0czdDF2gC4T96nRT8iTm8LJbz1dq0lAwyut2CXuK6ZSP/wrcs0SX
-         /Y6g0LlMpYAlQbzlMx9XVd8MVbWZkhpfyFhnkhnlEzFgScwn+Qqa/ywIWChKe6AGMHvR
-         USqjApM7ecazVWsOwH8tL6XEZaLVLh27nrr13A2ujK+GRk0yln+gy5zVKQ2GiOXKx9m6
-         5zOw==
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE2CB606A319
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 22:33:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BE2CB606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-4f9b643ae53so311332b6e.3
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 15:33:40 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792708257; x=1793313057;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:reply-to:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=2bQnvowAK96XJBMT+TQureQmj260BxIC7J5qxK72Tvk=;
-        b=B/r3GehGD/+Vunxv3JTrVGhfqmd3D6kvg2jNb7FhqtZePByngdYxdjLifCMGrJob/H
-         S+sDt+h1jCiTy4QYo5OszPaeTrFsPj1q1nXbqxp/ro0kROrNd2LJDrRWAcfKB/qfN4DJ
-         ZUsZ3O3vxHSkt/NbXEjQb+zlSpxZI2htzzEZZ+9/VDtrzu+YHHVy+qEJ9DvqAJ+Z3fYy
-         Gkk8K/skn5A8t6BCdUiIp/BcPdbY5VTDEDCWSMpfWrb9wpDzywTfgFBHKn+O2VVdpM1c
-         U6buNpcsKlnfQMTX9Cw3QFNmronjI0oX3iJozkIKn5yga6o1936LaHXcaiLIaaUUfUQn
-         vvhw==
-X-Forwarded-Encrypted: i=1; AKwUvBzqrQ+38rWhXf1NM55+gucQi8x0ilVUzL0L4RTDyM9ro0bDlzFPVWnF1V+W5V7qENwK9LoRt76WjTaMnAQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIvHAyXNj/TNVxjHFutNlxLHLL6SawITsBcyAyNhCxxB3DsAy3J
-	XB4LWJf4noMsBhCvRU6VS4rkmLN/PqPn6XjxKvY3vVI7vsOF23gv2d7R00+FWnM4EgFGDxrcDND
-	/8hNYMw==
-X-Received: from pjbcp7.prod.google.com ([2002:a17:90a:fb87:b0:3a8:837d:95c7])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:3810:b0:3ac:80dc:f40a
- with SMTP id 98e67ed59e1d1-3adce5ebc38mr195879a91.16.1792708257349; Thu, 22
- Oct 2026 15:30:57 -0700 (PDT)
-Reply-To: Sean Christopherson <seanjc@google.com>
-Date: Thu, 22 Oct 2026 15:30:51 -0700
-In-Reply-To: <20261022223052.646891-1-seanjc@google.com>
+        d=1e100.net; s=20260707; t=1792708420; x=1793313220;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=2YhGmICq4X0jtn4PR3OTh5SkzrcHalK2T3Oao0NE/oU=;
+        b=lHtA1b8RUQVuud+WuFfFqKdgrGr4N6Lwf4zvt9DLc0PPaJmU30X7zvs8S7WFE7r8Qk
+         TYlafaL1lCtHv+lEFUiAbtrbkmEBnKEZ+IfvoLdKHODmulwT7wBHwcBmQeWoiwNSfxCm
+         FrfCRA06sJKMXzOtYTj801upctT+09MtpYyqyr8upaL6jGwMEUiKyEhQtex+/XMp/GKw
+         PkADhknFjiPrgvtD5ALXIXUVUhdlr99AHFBkZ/qDngJvNe8dqWPK5Xeyuc48mKYZqojy
+         bg2Z6uVB2rhUC/2OQ6Qq2yP7TIQ7EScTeORdJHSYEI5OC3fCLglwKNwvo6vKlALw333c
+         Lqsw==
+X-Forwarded-Encrypted: i=1; AKwUvBw7evgDGbsrWoIF37z+rqY05iuULfrX+6pSrQ7NqL65OvPcwpY7joyMCFQZY1UtzEyGnGx+OftYnrtmORs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLMIKbVxfBISUGD16T37GpAM811UeRsDfcZNjmJnZ+xK5of+WYc
+	dXC5/+2WUrYhZQwwnQEtRBeeafVzfc+dsyNgTZUpSumgfCSlpg7NPEiSBFnJAtTfRCKv3wC3zEH
+	xNziHOTu8Cm+XLE0xUJUwoMUmGhK4A911HYyixiK6AyElZ12p3dVoL4UxA3g=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,60 +57,353 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261022223052.646891-1-seanjc@google.com>
-X-Mailer: git-send-email 2.56.0.257.gf7497c7d27-goog
-Message-ID: <20261022223052.646891-4-seanjc@google.com>
-Subject: [PATCH 3/4] KVM: x86: Recompute EFER.LMA instead of inheriting the
- current value on EFER writes
-From: Sean Christopherson <seanjc@google.com>
-To: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>
-Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org
+MIME-Version: 1.0
+X-Received: by 2002:a05:6808:1209:b0:4c4:9f7e:92ce with SMTP id
+ 5614622812f47-55be85c1e6fmr338343b6e.38.1792708419882; Thu, 22 Oct 2026
+ 15:33:39 -0700 (PDT)
+Date: Thu, 22 Oct 2026 15:33:39 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ada8f43.d1c214cc.659fa.00e0.GAE@google.com>
+Subject: [syzbot] [fs?] possible deadlock in v2_write_dquot
+From: syzbot <syzbot+75d986c18cef4710fc85@syzkaller.appspotmail.com>
+To: jack@suse.com, linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
 Content-Type: text/plain; charset="UTF-8"
 
-Recompute EFER.LMA on bare writes to EFER (via WRMSR or KVM_SET_MSRS)
-instead of carrying forward the current EFER.LMA.  While it _should_ be
-impossible for EFER.LMA to end up in an inconsistent state on such a write,
-KVM has had a rash of exactly those bugs, mostly because SVM is quite lax
-when it comes to consistenty checks, which in turn bleeds into KVM's nested
-SVM implementation.  Retaining the existing EFER is also rather confusing,
-as understanding why keeping EFER.LMA is correct requires a lot of a priori
-knowledge of both x86-64 and KVM.
+Hello,
 
-Keep the core concept of the existing logic as a sanity check: WARN and
-reject the write if the computed EFER.LMA would be toggled, because as
-described above, that _should_ be impossible.
+syzbot found the following issue on:
 
-Signed-off-by: Sean Christopherson <seanjc@google.com>
+HEAD commit:    a0ff06b3a7bd Merge tag 'firewire-fixes-7.3-final' of git:/..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=13a993a9580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=c4b098695335c89f
+dashboard link: https://syzkaller.appspot.com/bug?extid=75d986c18cef4710fc85
+compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
+
+Unfortunately, I don't have any reproducer for this issue yet.
+
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/2a3b826702d4/disk-a0ff06b3.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/6b5a43d8b46c/vmlinux-a0ff06b3.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/3a84903a147f/bzImage-a0ff06b3.xz
+
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+75d986c18cef4710fc85@syzkaller.appspotmail.com
+
+EXT4-fs (loop5): mounted filesystem 00000000-0000-0000-0000-000000000000 r/w without journal. Quota mode: writeback.
+ext4 filesystem being mounted at /1334/file0 supports timestamps until 2038-01-19 (0x7fffffff)
+======================================================
+WARNING: possible circular locking dependency detected
+syzkaller #0 Tainted: G             L     
+------------------------------------------------------
+syz.5.7752/28220 is trying to acquire lock:
+ffff8880535c6248 (&s->s_dquot.dqio_sem){++++}-{4:4}, at: v2_write_dquot+0xab/0x260 fs/quota/quota_v2.c:367
+
+but task is already holding lock:
+ffff88805537bca0 (&dquot->dq_lock){+.+.}-{4:4}, at: dquot_acquire+0x67/0x620 fs/quota/dquot.c:486
+
+which lock already depends on the new lock.
+
+
+the existing dependency chain (in reverse order) is:
+
+-> #9 (&dquot->dq_lock){+.+.}-{4:4}:
+       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
+       __mutex_lock+0x19d/0x1550 kernel/locking/mutex.c:821
+       wait_on_dquot fs/quota/dquot.c:357 [inline]
+       dqget+0x69d/0xbd0 fs/quota/dquot.c:997
+       __dquot_initialize+0x3c8/0xd40 fs/quota/dquot.c:1462
+       __ext4_new_inode+0x7ed/0x3ec0 fs/ext4/ialloc.c:1004
+       ext4_xattr_inode_create fs/ext4/xattr.c:1494 [inline]
+       ext4_xattr_inode_lookup_create+0xb1e/0x1d70 fs/ext4/xattr.c:1604
+       ext4_xattr_block_set+0x223/0x29a0 fs/ext4/xattr.c:1924
+       ext4_xattr_set_handle+0xed9/0x15f0 fs/ext4/xattr.c:2461
+       ext4_xattr_set+0x257/0x340 fs/ext4/xattr.c:2563
+       __vfs_setxattr+0x442/0x480 fs/xattr.c:223
+       __vfs_setxattr_noperm+0x12a/0x660 fs/xattr.c:257
+       vfs_setxattr+0x163/0x360 fs/xattr.c:344
+       do_setxattr fs/xattr.c:662 [inline]
+       filename_setxattr+0x296/0x630 fs/xattr.c:690
+       path_setxattrat+0x408/0x450 fs/xattr.c:734
+       __do_sys_setxattr fs/xattr.c:768 [inline]
+       __se_sys_setxattr fs/xattr.c:764 [inline]
+       __x64_sys_setxattr+0xbc/0xe0 fs/xattr.c:764
+       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+       do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+       entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+-> #8 (&ei->xattr_sem){++++}-{4:4}:
+       down_write+0x96/0x200 kernel/locking/rwsem.c:1631
+       ext4_write_lock_xattr fs/ext4/xattr.h:152 [inline]
+       ext4_inline_data_truncate+0x1cf/0xbd0 fs/ext4/inline.c:1882
+       ext4_truncate+0x444/0x1110 fs/ext4/inode.c:4650
+       ext4_setattr+0x1147/0x1df0 fs/ext4/inode.c:6220
+       notify_change+0xbba/0xea0 fs/attr.c:556
+       do_truncate+0x1c2/0x250 fs/open.c:68
+       handle_truncate fs/namei.c:4300 [inline]
+       do_open fs/namei.c:4840 [inline]
+       path_openat+0x185e/0x2090 fs/namei.c:4999
+       do_file_open+0x23e/0x4a0 fs/namei.c:5028
+       do_sys_openat2+0x115/0x200 fs/open.c:1417
+       do_sys_open fs/open.c:1423 [inline]
+       __do_sys_creat fs/open.c:1501 [inline]
+       __se_sys_creat fs/open.c:1495 [inline]
+       __x64_sys_creat+0x8f/0xc0 fs/open.c:1495
+       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+       do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+       entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+-> #7 (mapping.invalidate_lock#2){++++}-{4:4}:
+       down_read+0x4a/0x330 kernel/locking/rwsem.c:1574
+       filemap_invalidate_lock_shared include/linux/fs.h:1089 [inline]
+       do_page_cache_ra mm/readahead.c:347 [inline]
+       page_cache_ra_order+0xb37/0xee0 mm/readahead.c:558
+       do_sync_mmap_readahead+0x75e/0x990 mm/filemap.c:3443
+       filemap_fault+0x7d9/0x13b0 mm/filemap.c:3597
+       __do_fault+0x138/0x2a0 mm/memory.c:5565
+       do_read_fault mm/memory.c:6000 [inline]
+       do_fault mm/memory.c:6134 [inline]
+       do_pte_missing+0x2215/0x34b0 mm/memory.c:4700
+       handle_pte_fault mm/memory.c:6558 [inline]
+       __handle_mm_fault mm/memory.c:6707 [inline]
+       handle_mm_fault+0x1a53/0x3750 mm/memory.c:6876
+       do_user_addr_fault+0x746/0x1340 arch/x86/mm/fault.c:1394
+       handle_page_fault arch/x86/mm/fault.c:1483 [inline]
+       exc_page_fault+0x6a/0xc0 arch/x86/mm/fault.c:1536
+       asm_exc_page_fault+0x26/0x30 arch/x86/include/asm/idtentry.h:595
+       copy_user_generic arch/x86/include/asm/uaccess_64.h:126 [inline]
+       raw_copy_from_user arch/x86/include/asm/uaccess_64.h:141 [inline]
+       copy_from_user_iter lib/iov_iter.c:67 [inline]
+       iterate_ubuf include/linux/iov_iter.h:30 [inline]
+       iterate_and_advance2 include/linux/iov_iter.h:302 [inline]
+       iterate_and_advance include/linux/iov_iter.h:330 [inline]
+       __copy_from_iter lib/iov_iter.c:261 [inline]
+       _copy_from_iter+0x216/0x1660 lib/iov_iter.c:272
+       copy_from_iter include/linux/uio.h:228 [inline]
+       copy_from_iter_full include/linux/uio.h:245 [inline]
+       skb_do_copy_data_nocache include/net/sock.h:2329 [inline]
+       skb_copy_to_page_nocache include/net/sock.h:2355 [inline]
+       tcp_sendmsg_locked+0x20cf/0x5400 net/ipv4/tcp.c:1310
+       tcp_sendmsg+0x2f/0x50 net/ipv4/tcp.c:1451
+       sock_sendmsg_nosec+0x10e/0x180 net/socket.c:801
+       __sock_sendmsg net/socket.c:815 [inline]
+       sock_write_iter+0x2de/0x3e0 net/socket.c:1266
+       new_sync_write fs/read_write.c:595 [inline]
+       vfs_write+0x612/0xba0 fs/read_write.c:687
+       ksys_write+0x150/0x270 fs/read_write.c:739
+       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+       do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+       entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+-> #6 (sk_lock-AF_INET){+.+.}-{0:0}:
+       lock_sock_nested+0x41/0x100 net/core/sock.c:3837
+       lock_sock include/net/sock.h:1713 [inline]
+       inet_shutdown+0x6a/0x390 net/ipv4/af_inet.c:913
+       nbd_mark_nsock_dead+0x2cb/0x550 drivers/block/nbd.c:319
+       recv_work+0x1cee/0x1e10 drivers/block/nbd.c:1030
+       process_one_work kernel/workqueue.c:3396 [inline]
+       process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3479
+       worker_thread+0xa47/0xfb0 kernel/workqueue.c:3560
+       kthread+0x38b/0x480 kernel/kthread.c:436
+       ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
+       ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+
+-> #5 (&nsock->tx_lock){+.+.}-{4:4}:
+       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
+       __mutex_lock+0x19d/0x1550 kernel/locking/mutex.c:821
+       nbd_handle_cmd drivers/block/nbd.c:1143 [inline]
+       nbd_queue_rq+0x373/0xff0 drivers/block/nbd.c:1207
+       blk_mq_dispatch_rq_list+0x499/0x1990 block/blk-mq.c:2130
+       __blk_mq_do_dispatch_sched block/blk-mq-sched.c:168 [inline]
+       blk_mq_do_dispatch_sched block/blk-mq-sched.c:182 [inline]
+       __blk_mq_sched_dispatch_requests+0xd36/0x1580 block/blk-mq-sched.c:307
+       blk_mq_sched_dispatch_requests+0xd7/0x190 block/blk-mq-sched.c:329
+       blk_mq_run_work_fn+0x16c/0x300 block/blk-mq.c:2545
+       process_one_work kernel/workqueue.c:3396 [inline]
+       process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3479
+       worker_thread+0xa47/0xfb0 kernel/workqueue.c:3560
+       kthread+0x38b/0x480 kernel/kthread.c:436
+       ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
+       ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+
+-> #4 (&cmd->lock){+.+.}-{4:4}:
+       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
+       __mutex_lock+0x19d/0x1550 kernel/locking/mutex.c:821
+       nbd_queue_rq+0xc1/0xff0 drivers/block/nbd.c:1199
+       blk_mq_dispatch_rq_list+0x499/0x1990 block/blk-mq.c:2130
+       __blk_mq_do_dispatch_sched block/blk-mq-sched.c:168 [inline]
+       blk_mq_do_dispatch_sched block/blk-mq-sched.c:182 [inline]
+       __blk_mq_sched_dispatch_requests+0xd36/0x1580 block/blk-mq-sched.c:307
+       blk_mq_sched_dispatch_requests+0xd7/0x190 block/blk-mq-sched.c:329
+       blk_mq_run_work_fn+0x16c/0x300 block/blk-mq.c:2545
+       process_one_work kernel/workqueue.c:3396 [inline]
+       process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3479
+       worker_thread+0xa47/0xfb0 kernel/workqueue.c:3560
+       kthread+0x38b/0x480 kernel/kthread.c:436
+       ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
+       ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+
+-> #3 (set->srcu){.+.+}-{0:0}:
+       srcu_lock_sync include/linux/srcu.h:210 [inline]
+       __synchronize_srcu+0xc9/0x2f0 kernel/rcu/srcutree.c:1462
+       elevator_switch+0x1e8/0x7b0 block/elevator.c:576
+       elevator_change+0x2fa/0x480 block/elevator.c:681
+       elevator_set_default+0x375/0x440 block/elevator.c:754
+       blk_register_queue+0x3f3/0x4e0 block/blk-sysfs.c:992
+       __add_disk+0x6b8/0xdb0 block/genhd.c:531
+       add_disk_fwnode+0x100/0x3a0 block/genhd.c:600
+       add_disk include/linux/blkdev.h:798 [inline]
+       nbd_dev_add+0x733/0xb60 drivers/block/nbd.c:2026
+       nbd_init+0x168/0x1f0 drivers/block/nbd.c:2743
+       do_one_initcall+0x250/0x870 init/main.c:1362
+       do_initcall_level+0x10a/0x1a0 init/main.c:1424
+       do_initcalls+0x59/0xa0 init/main.c:1440
+       kernel_init_freeable+0x29d/0x3e0 init/main.c:1675
+       kernel_init+0x22/0x1d0 init/main.c:1565
+       ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
+       ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+
+-> #2 (&q->elevator_lock){+.+.}-{4:4}:
+       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
+       __mutex_lock+0x19d/0x1550 kernel/locking/mutex.c:821
+       elevator_change+0x1af/0x480 block/elevator.c:679
+       elv_iosched_store+0x504/0x630 block/elevator.c:826
+       queue_attr_store+0x207/0x2b0 block/blk-sysfs.c:906
+       kernfs_fop_write_iter+0x3a4/0x540 fs/kernfs/file.c:345
+       new_sync_write fs/read_write.c:595 [inline]
+       vfs_write+0x612/0xba0 fs/read_write.c:687
+       ksys_write+0x150/0x270 fs/read_write.c:739
+       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+       do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+       entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+-> #1 (&q->q_usage_counter(io)#17){++++}-{0:0}:
+       bio_queue_enter block/blk.h:95 [inline]
+       blk_mq_submit_bio+0x7a7/0x2bb0 block/blk-mq.c:3138
+       __submit_bio_noacct_mq block/blk-core.c:756 [inline]
+       submit_bio_noacct_nocheck+0x2f4/0xa40 block/blk-core.c:790
+       __ext4_read_bh fs/ext4/super.c:181 [inline]
+       ext4_read_bh+0x182/0x230 fs/ext4/super.c:206
+       ext4_bread+0x12d/0x180 fs/ext4/inode.c:1060
+       ext4_quota_read+0x189/0x390 fs/ext4/super.c:7397
+       read_blk fs/quota/quota_tree.c:61 [inline]
+       find_tree_dqentry+0x1fc/0x1090 fs/quota/quota_tree.c:671
+       find_tree_dqentry+0x6c0/0x1090 fs/quota/quota_tree.c:698
+       find_tree_dqentry+0x6c0/0x1090 fs/quota/quota_tree.c:698
+       find_tree_dqentry+0x6c0/0x1090 fs/quota/quota_tree.c:698
+       find_dqentry fs/quota/quota_tree.c:716 [inline]
+       qtree_read_dquot+0x5ac/0x8a0 fs/quota/quota_tree.c:736
+       v2_read_dquot+0x117/0x1d0 fs/quota/quota_v2.c:344
+       dquot_acquire+0x183/0x620 fs/quota/dquot.c:489
+       ext4_acquire_dquot+0x2f0/0x4e0 fs/ext4/super.c:7075
+       dqget+0x725/0xbd0 fs/quota/dquot.c:1002
+       __dquot_initialize+0x33a/0xd40 fs/quota/dquot.c:1462
+       ext4_rename fs/ext4/namei.c:3831 [inline]
+       ext4_rename2+0x758/0x3270 fs/ext4/namei.c:4218
+       vfs_rename+0xbd9/0xef0 fs/namei.c:6207
+       filename_renameat2+0x533/0x9a0 fs/namei.c:6325
+       __do_sys_renameat2 fs/namei.c:6354 [inline]
+       __se_sys_renameat2+0x5a/0x2c0 fs/namei.c:6349
+       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+       do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+       entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+-> #0 (&s->s_dquot.dqio_sem){++++}-{4:4}:
+       check_prev_add kernel/locking/lockdep.c:3209 [inline]
+       check_prevs_add kernel/locking/lockdep.c:3328 [inline]
+       validate_chain kernel/locking/lockdep.c:3952 [inline]
+       __lock_acquire+0x164c/0x2de0 kernel/locking/lockdep.c:5288
+       lock_acquire+0x115/0x350 kernel/locking/lockdep.c:5942
+       down_write+0x96/0x200 kernel/locking/rwsem.c:1631
+       v2_write_dquot+0xab/0x260 fs/quota/quota_v2.c:367
+       dquot_acquire+0x328/0x620 fs/quota/dquot.c:498
+       ext4_acquire_dquot+0x2f0/0x4e0 fs/ext4/super.c:7075
+       dqget+0x725/0xbd0 fs/quota/dquot.c:1002
+       dquot_set_dqblk+0x2b/0xfd0 fs/quota/dquot.c:2777
+       quota_setquota+0x4e0/0x590 fs/quota/quota.c:310
+       __do_sys_quotactl fs/quota/quota.c:961 [inline]
+       __se_sys_quotactl+0x2cc/0x9f0 fs/quota/quota.c:917
+       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+       do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+       entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+other info that might help us debug this:
+
+Chain exists of:
+  &s->s_dquot.dqio_sem --> &ei->xattr_sem --> &dquot->dq_lock
+
+ Possible unsafe locking scenario:
+
+       CPU0                    CPU1
+       ----                    ----
+  lock(&dquot->dq_lock);
+                               lock(&ei->xattr_sem);
+                               lock(&dquot->dq_lock);
+  lock(&s->s_dquot.dqio_sem);
+
+ *** DEADLOCK ***
+
+locks held by syz.5.7752/28220: 2, last CPU#0:
+ #0: ffff8880535c60e8 (&type->s_umount_key#33){++++}-{4:4}, at: __super_lock fs/super.c:62 [inline]
+ #0: ffff8880535c60e8 (&type->s_umount_key#33){++++}-{4:4}, at: super_lock+0x2d6/0x3d0 fs/super.c:124
+ #1: ffff88805537bca0 (&dquot->dq_lock){+.+.}-{4:4}, at: dquot_acquire+0x67/0x620 fs/quota/dquot.c:486
+
+stack backtrace:
+CPU: 0 UID: 0 PID: 28220 Comm: syz.5.7752 Tainted: G             L      syzkaller #0 PREEMPT(lazy) 
+Tainted: [L]=SOFTLOCKUP
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 08/05/2026
+Call Trace:
+ <TASK>
+ dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
+ print_circular_bug+0x2e2/0x300 kernel/locking/lockdep.c:2087
+ check_noncircular+0x12f/0x150 kernel/locking/lockdep.c:2219
+ check_prev_add kernel/locking/lockdep.c:3209 [inline]
+ check_prevs_add kernel/locking/lockdep.c:3328 [inline]
+ validate_chain kernel/locking/lockdep.c:3952 [inline]
+ __lock_acquire+0x164c/0x2de0 kernel/locking/lockdep.c:5288
+ lock_acquire+0x115/0x350 kernel/locking/lockdep.c:5942
+ down_write+0x96/0x200 kernel/locking/rwsem.c:1631
+ v2_write_dquot+0xab/0x260 fs/quota/quota_v2.c:367
+ dquot_acquire+0x328/0x620 fs/quota/dquot.c:498
+ ext4_acquire_dquot+0x2f0/0x4e0 fs/ext4/super.c:7075
+ dqget+0x725/0xbd0 fs/quota/dquot.c:1002
+ dquot_set_dqblk+0x2b/0xfd0 fs/quota/dquot.c:2777
+ quota_setquota+0x4e0/0x590 fs/quota/quota.c:310
+ __do_sys_quotactl fs/quota/quota.c:961 [inline]
+ __se_sys_quotactl+0x2cc/0x9f0 fs/quota/quota.c:917
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7ffb1039e559
+Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007ffb11205028 EFLAGS: 00000246 ORIG_RAX: 00000000000000b3
+RAX: ffffffffffffffda RBX: 00007ffb10625fa0 RCX: 00007ffb1039e559
+RDX: 0000000000000000 RSI: 0000200000000000 RDI: ffffffff80000801
+RBP: 00007ffb10435ab8 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000200000000100 R11: 0000000000000246 R12: 0000000000000000
+R13: 00007ffb10626038 R14: 00007ffb10625fa0 R15: 00007fff0c429e18
+ </TASK>
+
+
 ---
- arch/x86/kvm/msrs.c | 14 ++++++++++++--
- 1 file changed, 12 insertions(+), 2 deletions(-)
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-diff --git a/arch/x86/kvm/msrs.c b/arch/x86/kvm/msrs.c
-index c3cb1575fe66..41f3ec6eb286 100644
---- a/arch/x86/kvm/msrs.c
-+++ b/arch/x86/kvm/msrs.c
-@@ -638,8 +638,18 @@ static int set_efer(struct kvm_vcpu *vcpu, u64 efer)
- 	    (vcpu->arch.efer & EFER_SVME) && !(efer & EFER_SVME))
- 		return 1;
- 
--	efer &= ~EFER_LMA;
--	efer |= vcpu->arch.efer & EFER_LMA;
-+	if ((efer & EFER_LME) && is_paging(vcpu) && is_pae(vcpu))
-+		efer |= EFER_LMA;
-+	else
-+		efer &= ~EFER_LMA;
-+
-+	/*
-+	 * Toggling EFER.LMA on a bare write to EFER should be impossible, as
-+	 * it means KVM allowed architecturally invalid state at some point in
-+	 * the past, i.e. allowed EFER.LMA=1 && (!CR0.PG || !CR4.PAE).
-+	 */
-+	if (WARN_ON_ONCE((efer & EFER_LMA) != (vcpu->arch.efer & EFER_LMA)))
-+		return 1;
- 
- 	r = kvm_x86_call(set_efer)(vcpu, efer);
- 	if (r) {
--- 
-2.56.0.257.gf7497c7d27-goog
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
 
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
