@@ -1,98 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.49
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792706295;
-	b=tPQHdGBJTXjMRs731fRSAOoeXLcGXv77GLAqkX+Ylgz+E85Qe9OddYugM2vlnway6aoF
-	 wXp2a6hE1i1Lnd34eYFAg0c1dB/gJfrJ1fikmR/BJBjyNhZbTyEXuWXYebcRHBwmN+KEk
-	 lisIVGJztCRpocTEWZ/LCll6CXs5s1KxnLeaq7eX6kNKvN5v3guxwruMHa2dyiHm9qqs9
-	 XGuXMboXZLgiFob5YpOj5nrvOn9m373qDv1QdabZGbQYBreNGC50h0eyTX6rMGNzEdCU5
-	 4jm+Zy/YPWr9vOB/rhYGdTD6JoelyhE3+NdBqfH/gleoO2/9/0U/YGN1IRYA5lVfYzw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792706295;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=6eqn12NWtCMzBotu+Ik94sYsNYAT7Cdm0Ga9zAnTZZI=;
-	b=QOAtoYTc1VgjIOwwTJBGC6okITG1E/a1JNvMl+gtbhalfMsSET73uCPSruuAzNzIZ/Rt
-	 rSWG/H3QDjym2rWKTqyvxuE8pWdtAZYwYCPjuK6cRGGweeVsNCl39clH9fOyZwLGLEjyR
-	 jTQRwou/Pd1zHY865gZJinVxZNj2JaCcvPe6WKCn/U0tDXO5D68YO3LfASMsVf517P0rK
-	 ni9WFWSEfE8oh2EViWwPL3k+x63zJMxZ6q0bm5jyGuwqYTSB+oysPiW3A8WEbeOJkZQdE
-	 y02Kj1LPYxMzLFTj6QVaJS0qAq93Boak/0RaODPKJP54yL880sDI2d6wAkT0SgxgGBg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=dbYnZ6p7;
-	arc=none smtp.remote-ip=209.85.221.49
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792706343;
+	b=Oz5oYTtbcpG8u8i1ZQA5z3v9pXZ2ORAyFa1I9XqrGRwcDEbkRWNSaYmXXdq1pC5teLXS
+	 T0JHZJL12NNt3Bjd5U18zkQ4N3ysYb0pfMniwkn3RNckLFpM6i+74thbw5rdWaPH1fBuD
+	 uhnpVp4FijRaP+aklHtI5fjN3DNGE9k2Xb5ITr8xHQ003PW/+J/nLoxV/0FW6z1125Si+
+	 UskVeRenwXEqBjf5gVDFvUTYXtfm4S26xuGKj71Te6m8EDdSx+dO5sylKGKw4yOhONKmA
+	 rhP/SNj/Wy63NjZzLeC6XNWdbiQMgtmslF6b5Yc64xINJtaY6CX1lHHL+4Gncm2XLhw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792706343;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=J4dWhXL+arE5vZ9bVeyPtt6G9OZ41B67BZQznT1XJtM=;
+	b=GKZaPu8Th7XCIrpNrzfCK1fn0t7sK+M/W6Umdnw9r2Aq2Ia5BUfdjjAh1ymR99Gxj9N5
+	 dIFNg3M3sjCxIO9TUUUKPvbdKYE5mXtkmx8fKWgiXGM3cWmm7gL6Y1Qa/Pyen3ZgQd6iK
+	 OeEiI9HCGuRJDzAFCHxzkLnAtcGhz4trAJV7EEIOFN2Ryl99zvQ7zw0po5wEE5tFFWeCQ
+	 ohYx9ftTz1cEQ9ObWJxoNrVvXZ/nh2ieUE7RU7I4frHcoQj9X3evsGXXjFLS7iFVUpz6N
+	 XSddALGaABLX/+cWnwxUdA0N/oGxGh4hwN9pO440+m3lDhHZSn/CuqWmj2FVGsShHdw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="EFtu/Zu6";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81E69606A320;
+	Thu, 22 Oct 2026 21:59:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EFtu/Zu6
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1792706343;
+	b=Z/Y3QxctSAHQ3lnsvsO+so97Lgoh2FsKEJPWH7i5Nu5u/n/kh6mHnMuKIhyEtDDdraaC
+	 m2zW/Pm56RKlbJjJr6cvkC3iLGUv0kl+5jD+apsSWUpIdtfynLz60+tk2ovNKr6enT4QN
+	 PXp8OtsdVbNrzrQ2kxb0ZZ+kmpYfqWD360LDvl8uZ7QLgXnAY5UD0v3uJo/VIz+GHRIlB
+	 IyG7Y29QEdrpkIgRVrESn9y+9RWUhZK6VPauU/1F5gSQfJE6c3PqWDH42gGMrsdmWM/DB
+	 dX50E/f7HA5cj+9FEg3JL0+Mi9NOLY/JuvNtrB9YTAWMWWBIer5Ge1/++D5dQLSe++A==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1792706343;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=J4dWhXL+arE5vZ9bVeyPtt6G9OZ41B67BZQznT1XJtM=;
+	b=arJ9SvAxDFuXXtI3/YnfSt6wDhPlxC8B9pcrLyG9MmisJmt5Vwr1v8ER3d9ma2dK/muw
+	 yLJ9KwldIROonR4aEZg8I1n/tjZspPOxYMEjpd0ulhZpuIU3V9ZC2L5ufZM3eZ4+j6uit
+	 2OkFuvBgjfIEAQgeTKteyV/ygTBaeWcGIx5xeTsXrhHhquNPOwQLMwmbcxL/ulr4O46nD
+	 M+bhrqT6N1U96/t0XPlY/lFuaZIFVcKROx8pWDG2A+hejIFjutQTF7nAnJNx3Rmgo1562
+	 5eqoKJVqai6b7+NDze7mqcs4fT484wMw3ot/ZWhqqro+qJfev3BHBq+0v4aHeQF89hg==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36950606A319
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 21:58:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 36950606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=dbYnZ6p7
-Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-48b001cd92bso130251f8f.2
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 14:58:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792706294; x=1793311094; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6eqn12NWtCMzBotu+Ik94sYsNYAT7Cdm0Ga9zAnTZZI=;
-        b=dbYnZ6p7KNI2eB0lP2GYAyrI/dSU0zd6A64J8f4D53ArlhpPUM1pJKm3y36LLyHc1x
-         l+OVl352DNT+wQUr60HX/NUZrtm5KOnG7e7eqm8hd0PkTqHKjgb+q9tn1pmTSNNNG5Ah
-         wxrr/adLCNOrs5x0wWWb9UfhuoJHub135Gl30LXQFrnEunZkiOsEf0uxJqOZEhU1oPks
-         XkGUR1anIsZEJtUNdpdO3jMbr/lgLOPNPlkFI3UvQMqM4JG39+qJqBN9Tx8YaV/9zywi
-         sFkhDApjo/bHtLX+GSLBX6+k3OcqMvIj5KwpOfZzPvdfxPjykD50sHHU7gevPjAHbYqm
-         PR9A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792706294; x=1793311094;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=6eqn12NWtCMzBotu+Ik94sYsNYAT7Cdm0Ga9zAnTZZI=;
-        b=YL5iwFwDZe5r1OSjMwyZeX42uYEGCYh7D6UqE85dlgkJYpIqz+dIwDQ8UaYAWcbft9
-         XsATUYULcrzr51zPFPXwAtVRO0cutzNwFjFS7O0iO6WEK1sVpyxB2tk4FiMe7fTlA4SL
-         4z+GQBTn+QMwkJj+SqyIiy38XlOvVETxlJ58A0Tjww02IWV0+asueeBij0laix0AZ9Bp
-         YgqBma1zk6/e39ecJDgOU76uWG6CzUohh551htJ7pD0MSpZijY7x4+qMj+4E1Rc1Oj8G
-         ffUMav4FcwOsI9Z9UvO8i7AVxH+iyWuvOqaZR+MK6XvXy1iyWdQhcFdTnPCg02yWJy83
-         4NQQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxVsbQ/fftyG6QSNd8LMgsxzueEYxVtnafs7U5cmWnm7laTCqJmd7fSQfCq1gHliWgGblDjwhQxD4wYaPU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKcgnJXWOfaVRw5j8lwOLWvDQ0hzH6grLxRmvEiGzXCbUhcXfkv
-	30sTssyLV7XinEx6x0pz3qjthWOjpfdQ2evLNOjOk4wfP4Fcb1IxA37f
-X-Gm-Gg: AYBFou2ynQRCLAqTP8HZUp/V8UDlekvq8bSqP5huVBA25C06gHmpudSMmsycVz4OPDx
-	GR0fwVJbK43bFSLyd13qgDFGbZUYL9y8Cj7naNonCth6NVd0q9/s1o6ZHe7mdG83DG+dddXyMk1
-	LbdlKh4EKkUt8YM0mTcUVZtHYfDUXpJnrpNWy0D1TIq1uZqTHZ3K/1KXxz+ZufSU4VzUfemjH4w
-	IR1soFKBj1lIw3kU+s77UPFjQnsPJHzG3I+siYq+BCyFxVTh76rfdDCVC/IS8mrg7oqJ+57CAk6
-	F42KrFBs/wqfYlkw0cgn3/8kAbfruZADblTzS90PEeY6KfAmH96bDEdbaOm610ywT/37diPu4Mj
-	zWiGt/P+H6zvoLYXvvaQNtKx5iMC9nE0BlSnUlfQufvZG5v9DxCS0ACKAp42hUeTfYfmJIbeJsi
-	lWGlRmmEUR5Xl6t48McZ0aFrey+mCasoowlNfODx0P3Hy6T08suk2ebTjhseZVC9ZpPQOedZl0S
-	QMGF2vTKefFXceYsutSMxXaiGN2q4HNuj0W549nWY/G8LHFvK2MXPxFd+aa
-X-Received: by 2002:a5d:5d0e:0:b0:48d:ffce:6cef with SMTP id ffacd0b85a97d-48e384e63f6mr300522f8f.0.1792706293644;
-        Thu, 22 Oct 2026 14:58:13 -0700 (PDT)
-Received: from ArchOarora ([2001:19f0:6c01:2c43:5400:5ff:fef6:1b30])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e37e5dfb6sm701704f8f.0.2026.10.22.14.58.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 14:58:12 -0700 (PDT)
-From: Oarora Etimis <oaroraetimis@gmail.com>
-To: Louis Chauvet <louis.chauvet@bootlin.com>
-Cc: Haneen Mohammed <hamohammed.sa@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Melissa Wen <melissa.srw@gmail.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Harry Wentland <harry.wentland@amd.com>,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	Oarora Etimis <oaroraetimis@gmail.com>
-Subject: [PATCH] drm/vkms: use the gamma LUT of the state being composed
-Date: Fri, 23 Oct 2026 05:58:03 +0800
-Message-ID: <20261022215803.621996-1-oaroraetimis@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	by smtp.kernel.org (Postfix) with ESMTPS id 699BF1F01825;
+	Thu, 22 Oct 2026 21:59:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792706343;
+	bh=J4dWhXL+arE5vZ9bVeyPtt6G9OZ41B67BZQznT1XJtM=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=EFtu/Zu6KCxxNNvI7AEpvEeIo2IHe5ewm69R30m/LBeZ2fYdqSUkEqbkuxhxIV2Wa
+	 CO89SQz6XIlNIph3de93W5jR3I/RDn7E451ZFh5w1uckAaYgkXriarp6YYKQ1KnfNS
+	 VTkh9f3eHIjGdzTMWVnzZvStYnSrM+Ee3tSoP3RxwlZ+K9lfAZS5z6FEURq51tJms8
+	 WwchVKxuzY5QVTGhjql8yTWnFJlLrig8WiutTZgJn9370wRPxgGV6KBQe6mYX2FrrP
+	 rpbHP7Uwt1TjoaEIj3Jg/2WoxAfaV6dATjPSGvW5Rrb0ZDjK8d1NWu4ofBbE2dlF08
+	 rw2SnCSZT0Yow==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id B896241FA6;
+	Thu, 22 Oct 2026 21:59:00 +0000 (UTC)
+From: Nizat Mikayilli via B4 Relay <devnull+nacht.dxdmail.cc@kernel.org>
+Subject: [PATCH v4 0/2] Add Samsung Galaxy Tab S9 Wi-Fi (SM-X710) support
+Date: Thu, 22 Oct 2026 23:58:18 +0200
+Message-Id: <20261022-gts9wifi-dts-v4-0-a361428fe59c@dxdmail.cc>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,62 +83,81 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3XMQQ6CMBCF4auQrq0pQwHrynsYF6XTwiQKpiWII
+ dzdwgoxLt9Lvn9iwXqygZ2TiXk7UKCujUMeEmYa3daWE8bNQECRCiF53Qf1Ikcc+8ARZAn2pHL
+ IJIvk6a2jcc1db3E3FPrOv9f6kC7vn9CQcsFTJ7BElKWV+oIjPjTdj8awpTTAVuc7DVGbTBtVC
+ aeMrX50ttEgdjqLWjsUhasAlVNfep7nDzlaXDElAQAA
+X-Change-ID: 20261004-gts9wifi-dts-d2472e895234
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: Abel Vesa <abelvesa@kernel.org>, linux-arm-msm@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
+ Nizat Mikayilli <nacht@dxdmail.cc>, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792706340; l=2005;
+ i=nacht@dxdmail.cc; s=20261004; h=from:subject:message-id;
+ bh=PfTYWAs2CSTbVke9UM6xjpocxVnW5Km5StAU7TfdOwM=;
+ b=OHn7JOVgbCXm8HZejwM3Kz0D4MBzAQ1UZW2LAbeJcW/oRK59BCpXfyfmFKRckuWxa8fpAGLjo
+ 32lpAB7UDZFAoMGooWKVW9XtcAWMUQULYxG8DQKTZvhueR91dCssu3W
+X-Developer-Key: i=nacht@dxdmail.cc; a=ed25519;
+ pk=Kay3P3pOJq5klUD+0/I8QX8JGOh0CeQXEwRVv7CMm4k=
+X-Endpoint-Received: by B4 Relay for nacht@dxdmail.cc/20261004 with
+ auth_id=1111
+X-Original-From: Nizat Mikayilli <nacht@dxdmail.cc>
+Reply-To: nacht@dxdmail.cc
 
-Compose a frame from crtc_state, but take the gamma LUT from crtc->state,
-which may already be newer: the worker runs from the vblank timer and can
-fall behind a commit. Such a frame combines the planes of one state with
-the LUT of another; the CRC and the writeback output can then be wrong.
+Add devicetree support for the Samsung Galaxy Tab S9 Wi-Fi (SM-X710),
+an SM8550 tablet. Two patches: the qcom.yaml board entry and the board
+DTS describing UFS, microSD, USB 2.0 peripheral via eUSB2 with an NXP
+PTN3222 repeater, keys, GPU, video decoder, ADSP, the CS35L45/VA-macro
+audio path and WCN6855 Wi-Fi/Bluetooth.
 
-Read crtc_state->base.gamma_lut instead, and clear the derived fields when
-there is no LUT.
+Tested on hardware on top of linux-next next-20261002 (boots to a shell
+through U-Boot): storage, microSD, USB gadget, framebuffer console, keys
+including the book-cover switch, CPU frequency scaling, GPU firmware and
+render node, video decoder node, speaker playback, DMIC capture, Wi-Fi
+scanning and Bluetooth firmware loading.
 
-Fixes: db1f254f2cfa ("drm/vkms: Add support to 1D gamma LUT")
-Signed-off-by: Oarora Etimis <oaroraetimis@gmail.com>
 ---
- drivers/gpu/drm/vkms/vkms_composer.c | 14 +++++++++-----
- 1 file changed, 9 insertions(+), 5 deletions(-)
+Changes in v4:
+- Keep the modem carveouts except rmtfs_mem, the MPSS firmware is
+  shipped on this SKU; memtest=1 is clean (Konrad)
+- Add Konrad's Reviewed-by
+- Link to v3: https://lore.kernel.org/r/20261020-gts9wifi-dts-v3-0-afd06fb2d9f9@dxdmail.cc
 
-diff --git a/drivers/gpu/drm/vkms/vkms_composer.c b/drivers/gpu/drm/vkms/vkms_composer.c
-index 0fc915a954ba..ed3c8f1a8db6 100644
---- a/drivers/gpu/drm/vkms/vkms_composer.c
-+++ b/drivers/gpu/drm/vkms/vkms_composer.c
-@@ -609,6 +609,7 @@ void vkms_composer_worker(struct work_struct *work)
- 							  struct vkms_crtc_state,
- 							  composer_work);
- 	struct drm_crtc *crtc = crtc_state->base.crtc;
-+	struct drm_property_blob *gamma_lut = crtc_state->base.gamma_lut;
- 	struct vkms_writeback_job *active_wb = crtc_state->active_writeback;
- 	struct vkms_output *out = drm_crtc_to_vkms_output(crtc);
- 	bool crc_pending, wb_pending;
-@@ -625,19 +626,22 @@ void vkms_composer_worker(struct work_struct *work)
- 	crtc_state->frame_end = 0;
- 	crtc_state->crc_pending = false;
- 
--	if (crtc->state->gamma_lut) {
-+	/* crtc->state may be newer than the state this frame is built from. */
-+	if (gamma_lut && gamma_lut->length) {
- 		s64 max_lut_index_fp;
- 		s64 u16_max_fp = drm_int2fixp(0xffff);
- 
--		crtc_state->gamma_lut.base = (struct drm_color_lut *)crtc->state->gamma_lut->data;
-+		crtc_state->gamma_lut.base = (struct drm_color_lut *)gamma_lut->data;
- 		crtc_state->gamma_lut.lut_length =
--			crtc->state->gamma_lut->length / sizeof(struct drm_color_lut);
-+			gamma_lut->length / sizeof(struct drm_color_lut);
- 		max_lut_index_fp = drm_int2fixp(crtc_state->gamma_lut.lut_length - 1);
--		crtc_state->gamma_lut.channel_value2index_ratio = drm_fixp_div(max_lut_index_fp,
--									       u16_max_fp);
-+		crtc_state->gamma_lut.channel_value2index_ratio =
-+			drm_fixp_div(max_lut_index_fp, u16_max_fp);
- 
- 	} else {
- 		crtc_state->gamma_lut.base = NULL;
-+		crtc_state->gamma_lut.lut_length = 0;
-+		crtc_state->gamma_lut.channel_value2index_ratio = 0;
- 	}
- 
- 	spin_unlock_irq(&out->composer_lock);
+Changes in v3:
+- Add Wi-Fi and Bluetooth (Konrad)
+- Test microSD and audio, update the commit message (Konrad)
+- Add a blank line before status properties (Konrad)
+- Expand the GPIO36..39 and USB comments (Konrad)
+- Add Krzysztof's Acked-by
+- Link to v2: https://lore.kernel.org/r/20261005-gts9wifi-dts-v2-0-c3ac9b0f9ceb@dxdmail.cc
+
+Changes in v2:
+- Use my name for author and Signed-off-by (Conor)
+- Link to v1: https://lore.kernel.org/r/20261004-gts9wifi-dts-v1-0-1f0d7dd47e4a@dxdmail.cc
+
+---
+Nizat Mikayilli (2):
+      dt-bindings: arm: qcom: Add Samsung Galaxy Tab S9 Wi-Fi
+      arm64: dts: qcom: sm8550: Add support for Samsung Galaxy Tab S9 Wi-Fi
+
+ Documentation/devicetree/bindings/arm/qcom.yaml    |   1 +
+ arch/arm64/boot/dts/qcom/Makefile                  |   1 +
+ .../boot/dts/qcom/sm8550-samsung-gts9wifi.dts      | 873 +++++++++++++++++++++
+ 3 files changed, 875 insertions(+)
+---
+base-commit: f0406245cb9855e6318335a8a223551354291a46
+change-id: 20261004-gts9wifi-dts-d2472e895234
+
+Best regards,
 -- 
-2.55.0
+Nizat Mikayilli <nacht@dxdmail.cc>
+
 
