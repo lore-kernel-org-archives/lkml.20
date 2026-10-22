@@ -1,106 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792657808;
-	b=zqkoNW+mnKx/9cx4FVaSImwrzx1OTw26nAYrNGmubdmAOGKgw7/g10tNqm9l3RJR6Skq
-	 6VS629xz9fdiNLQwOHdk9M2885/yAbPHqhfGi8PU/ViD0lLDCA3z3HlFKkWDtySEwj1AP
-	 2cdlYN5TwiLkJD9WyzRYK0ivvyMXM69t9aLW68Wjfz/NhYSVOgQaVBIN7XrDmQCL8tJKL
-	 ZUJFC52lGtkWbT0MnVi9hzoyYzNYnH6DREaRi35TcA9Ba2DF6ojkCKdiM7njZ3PEYFKOi
-	 t09fOOIDrWRccC+l7DHeK4rRUuuQGi5qtIRUMqnTrDP/67TTHqccFFJkzaBVPDBmmXw==
+	t=1792657842;
+	b=blNHrbtvl79n1RM78Jsye40U9cU2Bk8CpJ0a6HeDuFkFAY/pqVk0+yEQUUkOZ5AkC97o
+	 0OTG3XBZKAXWMpygN3rbgkSqokLbXayNhzlNG/hSd98uaAFqjFjZg0CIZLJ0JTd7M7N59
+	 X09Yb5YZS+yhJDanpCTAfCr0+tOhZQ+N1xnqfqPhvyNk/p5B8GSL3KyveLVWCEDzRyEXP
+	 1DhruSP4unMaeX7d+zbcq5008ozQ+v5hotGAzmJ3iJs8ufGjBG+XwAPvbBT2EkdXE4ZWz
+	 YUikiSdqkrutZ2yUo/LX0100Gb+xiCwuwq8fiN0HHTtL07LO9kXd4eFxKPGxJZED2zQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792657808;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=ov64R61JC1VLupte76D4hmlAMcowcOFiftvcocoORZM=;
-	b=nSmiBHwTmWypjqDN1n5XlNRNTKce1U/Q+3/iC7ExW6N5PfuVy2oXsMR/eaJ+QRggECw9
-	 PpmErtR9oVBWiIJSKnTM9rX5adzixXhpnBBASUhL58Tp2RqvFEeQl8OtFMci9Myzmx/G5
-	 SAoFC6vyq+Rrhjzuk6PW8esFchrYZH88gpDkTDuORSGS/lWu18X51Cj+vJBv66AfWu1Tp
-	 wywxLSH+H5kMyR1GZGsOBDY7iy2gYJH5Ikt99XSxPEDcbLO0QOULxQVQEiseC3YQV+cFJ
-	 rWkLePEmSYMvASZqymE3+0lXUOOmFgOpHSoHyM1HrWlPi0ZxdGoElgg87RLsklwVPnA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792657842;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:
+	 References:MIME-Version:Content-Transfer-Encoding:
+	 X-Proofpoint-Reinject:X-QCInternal:X-QCInternal:X-Proofpoint-GUID:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=lqp7gESYa1ShyhgTpKBjc6njpBfzpUi5eGSLc6xa53A=;
+	b=EMUkOlqXlycArmJhhocSO2lo8cbLAhzO8iLuUe5//dgaQWJiHfnqPCLZiCk8lJgfmZxj
+	 Ojpw7lrsKSvvIGX5IYSx5J1q0sd1dWHnfPgqssxG7tDmVPbbCKjvff2B6oOMM9nQznzu5
+	 1EVZGjprOIybIQZxdM4t1FA+2iUOeN/tNRg24WSkL/CeXps4uyBxRFKtLQBbvkVPBCsxj
+	 08TsoYHCSNazswdF6jQO2Urw90WEySXcXq487S1Tag9Vs7f1O4saTotI9wlf0voyMQJ36
+	 LZFnIfUFlw9JZ8Vt+Ty/UsGWMBAKPz7JcwVraCSg0N7rzCDiUCdN3oQI5MR44QcvtUw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=wetterwald.eu;
-	spf=pass smtp.mailfrom=wetterwald.eu;
-	dkim=pass header.d=wetterwald.eu header.i=@wetterwald.eu header.a=rsa-sha256 header.s=wetter header.b=tiW1LSiL;
-	arc=none smtp.remote-ip=209.85.128.50
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Ef6OMphk;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42961606A31E
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 08:30:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 42961606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=wetterwald.eu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wetterwald.eu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89A93606A319;
+	Thu, 22 Oct 2026 08:30:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 89A93606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=wetterwald.eu header.i=@wetterwald.eu header.a=rsa-sha256 header.s=wetter header.b=tiW1LSiL
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a20bde60a0so965625e9.3
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 01:30:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=wetterwald.eu; s=wetter; t=1792657805; x=1793262605; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ov64R61JC1VLupte76D4hmlAMcowcOFiftvcocoORZM=;
-        b=tiW1LSiLFxHEnCtJ/TdykckO4cayeLefOX/1G7kiLugA4BrgYMer4CCDP1cB0iZYcQ
-         EXjTIaEl4vsAjqkQB7fTM8R2TRwM7f/7nsV2utQvH0v4BQjCL3WAx5khRN6hW3PZzuqo
-         BPwydEo4ydwKSIQSiFgRkc/HYklI6mNWPbBeeHePl2janKpZOp5IXNh6OGf9c3rSw+cC
-         C3a5ABtZ5vlECX+VMStLZiqgB3UzNXi+vYBPVgsUwuRiPsu+akBrtUerwsmjFfKvIYL7
-         do2Ro2544IXBqaP+yD3jxC9WT/AQ/LDNtZpyVNs9WSsgEl3mcroJJPehZoXMpa2eav2q
-         7Muw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792657805; x=1793262605;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ov64R61JC1VLupte76D4hmlAMcowcOFiftvcocoORZM=;
-        b=UoLUJPnyOwXceIf3wRtkbQ+IX/FYzVoD5GZPVFl79LPwu8Lzz2hEjG63Gni0Ym7DJp
-         YytQPRnTZggnZwC5wrzANlTjR0ZKyu0lEP4EIcZjAh12x0UWj6Q8ClE8brm9CFYb7i47
-         07agepC0634O1LbRiR88oesdnBuLooPIRfONzJg4KgHjdQ2VHA/pdsk8fiLuElt6Hg7P
-         37n8V1oAiTfMEZtoUPT/ufxkBD992iazhjsAofo3cCo9PEFpHlKQv2w9n4YtuJR5d/5a
-         uJ8sib++gaOT4YP/p4Cfi6gsqBu+dnut2F7wHuFyS6J9aCA1d0NwMwGUWDXiw7ttvERs
-         7+tQ==
-X-Forwarded-Encrypted: i=1; AKwUvBygiJG8BpWo7/pffNlp3YUZW6wIJk0qtpE/xOuT5SwQIQSMIYX4lG7L9Oby8TvL6KIcczUbTuvVMaWllQ0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIbpk2yN9wv/bG+LVZqN3vCdCwVvrJ+FAhNDpR1jnktv6vVSQqD
-	0ekiTNa2TvvPr9XgdcQ9AlIg9tLwWuXvVCZdNZtk/RjG0YVJnt435y1YIuKfpnlKK+I=
-X-Gm-Gg: AYBFou3amWYPteYynMr7tORRvQGTrjlbYpvXHDVDtwCwh0HhX0v+elfqQJFLm4AxANF
-	dKh1SYEar2JwFaLQYyFAmh6yrBt7IXBs3t922cS0RFMEA/O6tJxljLXeDpisMSfFGfQcWaE2ZJo
-	T5UbQqAJKFZKwZHD7SOTgSWeX01ReR5KH04kuBrXbx/XNSVL1Aj0xIFtdudGR1eaTNe1Xije0oV
-	m2IHr+LjzInOzVpWpAtE9pT9D1J50P4eA3na15XRgbr3r8rBixjFBXQJj8ocug9GBmtjQiwz7av
-	M6H04EckYWpEip7wQSnId+BEDkgagMAjd5rjRiZTVihGauudu60HQYBfXjVd0CRQxKukZuvIZNo
-	8zM44fKSSsW/9uPFkzWiKYRT3BWvGdoAJ94tYPM+HkWn7Wq26kMql4LuumL8OS9wm+cpuCz68um
-	dmqLY/btvAgN/jPs0lqaGsHesvN8t5K5DWqOwwisURIrJVUuCDqgyivJykiPrA7HS6gWT4ch5OT
-	GhjUdWhOhKMa9ipgl15xWpQForJVjnOd9IK2XaVeZOYvLePhpOOCQhsnTCG+wbbCJ5/A9dffFSB
-	6rM/8Gk3CpFdi7MmcA4XJgDXsQePYtoJjPql00XYmhd4fPsgACRIoe16dGE=
-X-Received: by 2002:a05:600c:190f:b0:4a2:1a:a11d with SMTP id 5b1f17b1804b1-4a2001aa316mr79122885e9.0.1792657805302;
-        Thu, 22 Oct 2026 01:30:05 -0700 (PDT)
-Received: from localhost.localdomain (2a02-8429-85a0-b901-3ef0-11ff-fe45-70e0.rev.sfr.net. [2a02:8429:85a0:b901:3ef0:11ff:fe45:70e0])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a203a62aaasm53713635e9.15.2026.10.22.01.30.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 01:30:04 -0700 (PDT)
-From: Martin Wetterwald <martin@wetterwald.eu>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Florian Fainelli <florian.fainelli@broadcom.com>,
-	Jai Luthra <jai.luthra@ideasonboard.com>
-Cc: Martin Wetterwald <martin@wetterwald.eu>,
-	Gaston Gonzalez <gascoar@gmail.com>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Stefan Wahren <wahrenst@gmx.net>,
-	Phil Elwell <phil@raspberrypi.com>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Umang Jain <uajain@igalia.com>,
-	Kees Cook <kees@kernel.org>,
-	linux-rpi-kernel@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	regressions@lists.linux.dev
-Subject: [PATCH v2] platform/raspberrypi: vchiq: register bus at subsys_initcall
-Date: Thu, 22 Oct 2026 10:29:24 +0200
-Message-ID: <20261022082927.59030-1-martin@wetterwald.eu>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <CAFERDQ0FpdVvA5VJxOyRAE_pgxnPVmFx1tkZio5R272j6Bs4tg@mail.gmail.com>
-References: <CAFERDQ0FpdVvA5VJxOyRAE_pgxnPVmFx1tkZio5R272j6Bs4tg@mail.gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Ef6OMphk
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69M8Lnsi3194744;
+	Thu, 22 Oct 2026 08:30:34 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=qcppdkim1; bh=lqp7gESYa1S
+	hyhgTpKBjc6njpBfzpUi5eGSLc6xa53A=; b=Ef6OMphkctboh4FvQCToeDRJQhu
+	wz5W8cr9Mmqx/jr8TpFM5NgC4SxNeYsZCdJuyBYHuYj27EtWwmuy9k7V2NSkk/HP
+	3L2e9+d1t+BBu6nVs+FvBl8LfxA9i6uMSZY532QXhFathGVjGW6emZD8t/3x8fHb
+	P+RlO430Xonsiql5RGFK6QFzvpFtvpsp8sP8ndK5YPIibZkD0FJtOCpnTNsYekG+
+	cXvOdHck8AGJFcxVTK+QV7lUgbmiTRBRJjLfmIqjqziPYTlSD09yAErEmzbLnW4n
+	qjZR+HF6TCZhBBw6nVqNX62skRiof3qofIxeaJZ9tpvj5LfoqDxw0GWzdLg==
+Received: from apblrppmta01.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hfewq01pa-119
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Thu, 22 Oct 2026 08:30:34 +0000 (GMT)
+Received: from pps.filterd (apblrppmta01.qualcomm.com [127.0.0.1])
+	by APBLRPPMTA01.qualcomm.com (8.18.1.11/8.18.1.11) with ESMTP id 69M7gRhY1894796;
+	Thu, 22 Oct 2026 07:42:27 GMT
+Received: from hu-devc-hyd-u22-c.qualcomm.com (hu-ks5-hyd.qualcomm.com [10.147.255.18])
+	by APBLRPPMTA01.qualcomm.com (PPS) with ESMTPS id 69M7gQNm1894781
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Thu, 22 Oct 2026 07:42:27 +0000 (GMT)
+Received: by hu-devc-hyd-u22-c.qualcomm.com (Postfix, from userid 4763723)
+	id E81B466C; Thu, 22 Oct 2026 13:12:25 +0530 (+0530)
+From: Karthik S <karthik.s@oss.qualcomm.com>
+To: Srinivas Kandagatla <srini@kernel.org>,
+        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+Cc: linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Karthik S <karthik.s@oss.qualcomm.com>
+Subject: [PATCH v1 4/5] ASoC: qcom: sc8280xp: Conditionally set S16_LE format in hw_params fixup
+Date: Thu, 22 Oct 2026 13:12:19 +0530
+Message-Id: <20261022074220.989787-5-karthik.s@oss.qualcomm.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261022074220.989787-1-karthik.s@oss.qualcomm.com>
+References: <20261022074220.989787-1-karthik.s@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -111,67 +90,67 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-QCInternal: smtphost
+X-QCInternal: smtphost
+X-Proofpoint-GUID: DcxiQkEpaXhoyEXV13DellJX-AwFQzYV
+X-Proofpoint-ORIG-GUID: DcxiQkEpaXhoyEXV13DellJX-AwFQzYV
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIyMDAzMyBTYWx0ZWRfX2OVspjdLHuLQ
+ 0C5Ape2pvcU6rDXypLBSvxXapH8vuwEafEp6nsZE7sJzSf3CQg/jxStowz/zZuCSBjHaWwKxhwv
+ gIWIu2u7E+ahQmMS1oU1yPj3bHA86c8=
+X-Authority-Analysis: v=2.4 cv=G4OJgNk5 c=1 sm=1 tr=0 ts=6ad9c9aa cx=c_pps
+ a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=rJkE3RaqiGZ5pbrm-msn:22 a=EUspDBNiAAAA:8 a=zyXLMBzzrrctIIaRqgEA:9
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIyMDAzMyBTYWx0ZWRfXzim9te7SllcS
+ q0jlYEnFLmpMKbJV9heo0C7Yl0cVYbHHG4EeCZtipj1kZykejkbvzCuLigvU+9r5gpeG/+Ww999
+ jdMrPQUhGDEFc+lvc20L7O/Jbq8iipMk/DwOoBus0C9kVEp6Wgdh5EDDXi2LRLIcnzK4LJ0UyMm
+ Qutlp5kuJqoWF2+GCpN3piX43jj/FOo3G+etZ+BPZ71gHSe9sZxJfkb/51V1wwH9P7PUs3u4L/k
+ xhu3rZoTJ4Dxu+wrRbrUgH1Nqhu8DLzf44ibK+EaFAW0VlJjxTJkzZ06kT9NBq402pVD972dTfb
+ B1VwTF6LTR9YVT1+wrwznTZSdlW4VSiFRzzAERvyu+eUByqCO/IUYkTA7lKz64yQq+DkKAEkPst
+ x7AOQC1IPfDDp8R9GZrtU+swNSsJzjo55SLXzxnOe3gD+eOl9mRYw93Fp2d56kmlQBTyQnVBoBz
+ MtaAVo7hoOR90uJRRpw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-22_03,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 clxscore=1015 phishscore=0 lowpriorityscore=0 bulkscore=0
+ impostorscore=0 adultscore=0 malwarescore=0 spamscore=0 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610220033
 
-Since 6.19-rc1, with CONFIG_BCM2835_VCHIQ=y and CONFIG_SND_BCM2835=y
-(both builtin), the sound cards bcm2835_headphones and bcm2835_hdmi are
-not detected anymore (vc4-hdmi is not affected).
+The be_hw_params_fixup callback unconditionally forced S16_LE format for
+all backend DAIs. MI2S and DisplayPort DAIs need to negotiate format
+freely to support higher bit depths, so skip the format mask for those
+DAI IDs and only apply the S16_LE default for the remaining backends.
 
-dmesg shows:
-
-  Driver 'bcm2835-audio' was unable to register with bus_type
-  'vchiq-bus' because the bus was not initialized.
-
-Since the VCHIQ interface was moved out of staging, its bus is no longer
-guaranteed to be registered before its client drivers. bcm2835-audio,
-still in drivers/staging, registers at device_initcall level and now
-runs first.
-
-Register the bus and the platform driver at subsys_initcall so the bus
-exists before any client driver, independently of link order. The
-platform driver probe already returns -EPROBE_DEFER while the firmware
-is not ready, so probing earlier is safe. When built as modules, this is
-equivalent to module_init() and nothing changes.
-
-Tested on Raspberry Pi 1B rev2, 1B+, 2B, 3B and 4B with VCHIQ and
-bcm2835-audio both builtin and both as modules.
-
-Cc: stable@vger.kernel.org
-Fixes: aa125180c673 ("platform/raspberrypi: Destage VCHIQ interface")
-Reported-by: Martin Wetterwald <martin@wetterwald.eu>
-Closes: https://lore.kernel.org/r/CAFERDQ0FpdVvA5VJxOyRAE_pgxnPVmFx1tkZio5R272j6Bs4tg@mail.gmail.com/
-Reviewed-by: Jai Luthra <jai.luthra@ideasonboard.com>
-Tested-by: Gaston Gonzalez <gascoar@gmail.com> # Raspberry Pi Zero
-Signed-off-by: Martin Wetterwald <martin@wetterwald.eu>
+Signed-off-by: Karthik S <karthik.s@oss.qualcomm.com>
 ---
-Hi Greg,
-this is a regression introduced by aa125180c673 (via your tree) in
-6.19-rc1 and present in 6.19.y through 7.3.y. If the staging pull for
-7.4-rc1 has not been sent yet, could you take it there? Otherwise,
-staging-linus would be great. Thanks!
+ sound/soc/qcom/sc8280xp.c | 11 ++++++++++-
+ 1 file changed, 10 insertions(+), 1 deletion(-)
 
-v2:
-- Reword commit message with more precise description
-- Add Cc: stable@vger.kernel.org
-- Remove redundant Link: pointing to same report as Closes:
-- Collect Tested-by and Reviewed-by tags from v1
-- Link to v1: https://lore.kernel.org/all/20261013131435.1454019-1-martin@wetterwald.eu/
----
- drivers/platform/raspberrypi/vchiq-interface/vchiq_arm.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/platform/raspberrypi/vchiq-interface/vchiq_arm.c b/drivers/platform/raspberrypi/vchiq-interface/vchiq_arm.c
-index e78641703252..d35f5ac5c2e2 100644
---- a/drivers/platform/raspberrypi/vchiq-interface/vchiq_arm.c
-+++ b/drivers/platform/raspberrypi/vchiq-interface/vchiq_arm.c
-@@ -1462,7 +1462,7 @@ static int __init vchiq_driver_init(void)
+diff --git a/sound/soc/qcom/sc8280xp.c b/sound/soc/qcom/sc8280xp.c
+index 6910b992d81c..9860a68e2add 100644
+--- a/sound/soc/qcom/sc8280xp.c
++++ b/sound/soc/qcom/sc8280xp.c
+@@ -240,7 +240,16 @@ static int sc8280xp_be_hw_params_fixup(struct snd_soc_pcm_runtime *rtd,
+ 	struct snd_mask *fmt = hw_param_mask(params, SNDRV_PCM_HW_PARAM_FORMAT);
  
- 	return ret;
- }
--module_init(vchiq_driver_init);
-+subsys_initcall(vchiq_driver_init);
- 
- static void __exit vchiq_driver_exit(void)
- {
+ 	rate->min = rate->max = 48000;
+-	snd_mask_set_format(fmt, SNDRV_PCM_FORMAT_S16_LE);
++	switch (cpu_dai->id) {
++	case PRIMARY_MI2S_RX ... QUATERNARY_MI2S_TX:
++	case QUINARY_MI2S_RX ... QUINARY_MI2S_TX:
++	case DISPLAY_PORT_RX_0:
++	case DISPLAY_PORT_RX_1 ... DISPLAY_PORT_RX_7:
++		break;
++	default:
++		snd_mask_set_format(fmt, SNDRV_PCM_FORMAT_S16_LE);
++		break;
++	}
+ 	channels->min = 2;
+ 	channels->max = 2;
+ 	switch (cpu_dai->id) {
 -- 
-2.56.0
+2.34.1
 
