@@ -1,92 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.181
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.211
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792648349;
-	b=Z5QaoIbJsuJZ6rmTDdfYJHcGj5eLQ0lxAIyRxrXWTauwZY78LD0NhbO9oJyq+EopYaYV
-	 vHg08N3QQI4qu+4dLic1VPiX9DWGpZG0K3+/e4kkfl9ge/f8/nR/vtjI5CZ5iUVVDx1Fi
-	 uSygMigwd0kRFNVGR5V7TvXnpatI2Sejfce5ppPcdWnsFmf06kDobWEJMWdkBV3GDBv8r
-	 8P0pMSeaVvy3kwxD8xvF+dyqpY6vucMtVTchEmGgD+R7Y+E9Gdg6xAAhVCwwQQnQ0AxUF
-	 W/zhqba50J6ZiZzB9bew9iXPKqL9boFQGKzTuEy8r6AUd20DPoEcFak6VCU9NfmBL4A==
+	t=1792648676;
+	b=Uj9z5Badx8vfIrN0mc1hyqbQP9+FisVSC2lIu17X8QVj1GDM95odWjmeCdeBn6lVkeBv
+	 2r6YsApQS+jcsffTIb7yLAHNWmtgXHIIYZS9Ley+rPAajMYoHsgjfvSPQJLGrO0eKGP8Z
+	 rQRfNGqU2s4Xfs+/J1IBom/yKBQq8Pqwf0wgZLW31I2LJTxCLv/ezMvixP2mE7GM4b8Dn
+	 wcqoFhDzLZSdjaMRFy0K8s1IBea3vXFYcqE+ZvOaQJOyRQigT6VLRUCt5fsbhYRaQXSHz
+	 STJto1SmkRhF34hsw0Ohw6ArG+EqRwPchIzAu/08kx+IhusvBJCI/1i/mmp6Vm5L8JA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792648349;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=BH5IrgVHfDgT25PKqEWiKin87YTRG/5R0beXb7uOD5s=;
-	b=gyNxUd4LKI2jUDGnJHDWL9o9r+BjK27FYn7VakeTUpx34kTFbfeD4xmg3TLfgpMxEw9g
-	 SR3HQ+Q89o6mvhSskypg9fnkA0GLBoqp5+ZcblkzCuR5vhSPOu72SCDUdF7qj7+lHav9s
-	 dBLSScSNqeLg77HFHnehgQv45xkT090OGVoJjUD/dAU7O54ZIBnv9KsvqdntSE5uT82GZ
-	 4DAdYjs/5tL7OISccZjTMks3PaUYwGfFMGJib2NXhFYGbJTq1CbJtLd6nP6B6ZtpJ10jq
-	 JEWkSxa7u9F+iIIUzFBDnXp8VVmdLuSnxIsZtGVSuZu12c9zjt7NRXDjFSyEtefcn2A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792648676;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=y1muRzXbh9xEJli8qmeLMn/g2VS9yM5epSDiKrh66q4=;
+	b=sJw1LJ9FZAnlaBJeslA5Eppt/YOu5mV/LOf5WXml8OsMVDESITUljkNeX6b8upoCW41k
+	 Qw7gYsPVmK2WvsAuV5+JQLtDkya3HKLFk/PRyDIFhfT/Eco5nVyMvGZnxqrTWsngRmuGs
+	 tsy2SaT/qXsk7pusVtTI9zbR04LXPXjhbCNvEDPuF9OF66pup32/P3fMJveD1xpbYAjsR
+	 w4FSBR7Rs1ir/uD8/FbLfnL/Z1ovBNQoZpjRQMcH+B0g9frZBWRiahbDpZrL2fZXdDZH9
+	 SjJlUAngqJNDGh+u4y3oNM43uQ8vzXzyQe1MCbJAPtgbCYs50dHyMthB5uK5IMrpGFQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Vhdwqdoa;
-	arc=none smtp.remote-ip=209.85.215.181
-Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com [209.85.215.181])
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=U1gLNmwD;
+	arc=none smtp.remote-ip=95.215.58.211
+Received: from mta1.migadu.com (out-211.mta1.migadu.com [95.215.58.211])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 547AE606A320
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 05:52:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 547AE606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4154B606A319
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 05:57:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4154B606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Vhdwqdoa
-Received: by mail-pg1-f181.google.com with SMTP id 41be03b00d2f7-cd60c5da24cso766303a12.0
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 22:52:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792648349; x=1793253149; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=BH5IrgVHfDgT25PKqEWiKin87YTRG/5R0beXb7uOD5s=;
-        b=VhdwqdoayhkO55Mw9ZjbyQ7FmEYWl1yhoxrP5l0MqlWy87OjJ2SVQu+j2UXXDb6es3
-         m7W1flymrQHul7QxQi00kS8M+kyVHBSVGOge2lgZ6E03WYQZ11vlJ9iwNSRUFZMkTeN0
-         KN3YirsQvFlpQAfoi2YFNkLU2DNIe/qKEdF3BKxnuMtj1bau/ev46tu0TntNif4eC8oY
-         VYFog2FHj3Nt1nSQpgb30dK0LorhAx/k1mcEJQbAZSdEeNiCBzjQi6ZQ0HzCziHKW42b
-         FP9gt4T+apa6npYwfcynww5bHrqn67aEC9Lw1ciwY78150HuBRAbluic95vRLA4TjzOk
-         LxUQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792648349; x=1793253149;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=BH5IrgVHfDgT25PKqEWiKin87YTRG/5R0beXb7uOD5s=;
-        b=F4dttsUiEJQBCc2P/oP4DmGbFlJjH6RRwbQqrh9uVvaM67ZiOZxmYCBKZXZbOB5Szz
-         Z3erL18pmcMZzG0wJmhDIzOcL0P+sSlRA7IsvAsxybxdADpNDyh1WtEbbM9Uum9ofdku
-         0s1E4G8GR4Su0df/jOxtT50xeOt2H3hTZAZ59aekHlGKmOB837X6Z9QouzDjHeOR/v2U
-         cg15j5Ni3IjGqwqIhRDUHKd7g0qfDTT8D9QPgTtco4QQ+pK83NEB3Z89Ft6x3Lfu6+9a
-         EEWxuIngOaETe3LSSdS6+ygvp2zo0g0RH+tr64K0LFHgchWKY08rm01pYSCuFsfk1XpT
-         eiYA==
-X-Forwarded-Encrypted: i=1; AKwUvByuu6Z2hrXP7/VMW9wY71jo5u0DO5ZVufr9H5YV7USd2dNzryJ9KXuPGKm3QpFi5nsvAPTC+8raJ/zR8To=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK2Dof+zzN0lqeXU80JnWOQHsQ91uWXYYFzhxXgy3GeL+W34O6s
-	Pdz54ITdtPJ33OVQZbQ2GtoNW//xQiBNaeomZoGTGE1eBTCIOLM8bQw7
-X-Gm-Gg: AYBFou18Hd5clPTt+qTPVGN5/BuphIcwZWC3a3wmPKO4KwQ9D8jcca9J19SfgKRjg1+
-	bG8HNOBtdhUDZFKz1oSQtlymNetJP89xfHjmhRq92EIcOxrGS0JDNPPXpBXPvQc8RQuZmJOg1rG
-	6eisZu/boysdAVCGVytFWi8M+wye+fo5zhER4TfgfzbrqHSdydX0J2r/WJCCx45Fz7WMN4Kp4We
-	KBxIQFetVtsrdNOFduOtiuQl5CK5GuITfHwBRq8XxSE5wuBBR4g5xtHUkKnIA76N9ioSLPRxkWb
-	nJ+L9d3yZgN850t9C2tAp1phNgf/Lw3rtVrOCVF1AyDtZ1c51VluDPrXSoDxz31dX3nMSFgsWKS
-	2A2rweO8XD7n6zJzRQsAa8QyiB2dSlfarsIeJZgmtTxlz9q/OFJxf27iDkR28vm+3mhrLFNrdOK
-	WFabDsbPuzbp7KTd3YoIwzeBO4uPpE7h35Odj2hW2HhYp7oKPe6t5MgKVjRy92W66I8IoVfJdl+
-	995VyDm4lJtQ0tdwREHnDexozreIvorObv2PE3jD4qqkA==
-X-Received: by 2002:a17:90b:4c49:b0:3ac:9176:e83c with SMTP id 98e67ed59e1d1-3ad86f1bbfdmr3687365a91.12.1792648348367;
-        Wed, 21 Oct 2026 22:52:28 -0700 (PDT)
-Received: from localhost ([27.122.242.71])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ada49544f1sm2526622a91.16.2026.10.21.22.52.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Oct 2026 22:52:27 -0700 (PDT)
-Date: Thu, 22 Oct 2026 14:52:25 +0900
-From: Hyunchul Lee <hyc.lee@gmail.com>
-To: Hongling Zeng <zenghongling@kylinos.cn>
-Cc: linkinjeon@kernel.org, ntfs@lists.linux.dev,
-	linux-kernel@vger.kernel.org, zhongling0719@126.com
-Subject: Re: [PATCH v5] ntfs: handle a failed size rollback in the write
- error path
-Message-ID: <atmkmR-ubMR5WU_e@hyunchul-PC02>
-References: <20261021063221.1410183-1-zenghongling@kylinos.cn>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=U1gLNmwD
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=PlydeHx41hqXII3ZYHptACB8kpve0J1l4KbAMjAMWaI=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792648673; v=1; x=1793253473;
+ b=U1gLNmwDwogY1U9ddiF+QQGTn190SA2h2EtxjFtq6k3rrnXWO41TazixWNcdZMEo9Zz04ccm
+ nlkB4TjohIjTz4JQw2wMFoyJ0x5vVEU5sd/vv/XKxliLEzb7bfH+6r/lcxzK5Rd9eI8YeHGTy5V
+ 6me+fyDFzpuYf/0ZSBZUfEa4=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id ab0e1623da36cf61;
+	Thu, 22 Oct 2026 05:57:52 +0000
+X-Mizu-Trace-ID: ab0e1623da36cf61
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <bb11472d-7533-45a2-87cd-a4338e7a0f29@linux.dev>
+Date: Thu, 22 Oct 2026 13:57:42 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,42 +58,86 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261021063221.1410183-1-zenghongling@kylinos.cn>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] cgroup/cpuset: Fix invalid local partition recovery
+To: Waiman Long <longman@redhat.com>, Tejun Heo <tj@kernel.org>,
+ Ridong Chen <ridong.chen@linux.dev>
+Cc: Johannes Weiner <hannes@cmpxchg.org>, =?UTF-8?Q?Michal_Koutn=C3=BD?=
+ <mkoutny@suse.com>, cgroups@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Guopeng Zhang <zhangguopeng@kylinos.cn>
+References: <20261010075947.333549-1-guopeng.zhang@linux.dev>
+ <20261010075947.333549-3-guopeng.zhang@linux.dev>
+ <16db5b91-677e-47ec-b1de-760111b99d23@redhat.com>
+Content-Language: en-US
+From: Guopeng Zhang <guopeng.zhang@linux.dev>
+In-Reply-To: <16db5b91-677e-47ec-b1de-760111b99d23@redhat.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Wed, Oct 21, 2026 at 02:32:21PM +0800, Hongling Zeng wrote:
-> ntfs_file_write_iter() extends the data and initialized sizes before
-> it copies the user data and restores them when the write then fails.
-> The restoration is best-effort: both results are discarded, even
-> though the extension is already recorded in the dirty MFT record.
-> When the restoration fails too, the extended sizes reach the disk
-> while the VFS inode keeps reporting the old ones: after a remount the
-> file appears grown again, with an uninitialized tail where the failed
-> write never put any data, and nothing records the failure.
+
+
+在 2026/10/22 11:28, Waiman Long 写道:
+> On 10/10/26 3:59 AM, Guopeng Zhang wrote:
+>> From: Guopeng Zhang <zhangguopeng@kylinos.cn>
+>>
+>> An invalid local partition may fail to recover after its exclusive CPU
+>> list is changed to a valid one.
+>>
+>> This can be reproduced on a cgroup v2 system with CPUs 0-7 online:
+>>
+>>      cd /sys/fs/cgroup
+>>      echo +cpuset > cgroup.subtree_control
+>>      mkdir A
+>>      echo 0-7 > A/cpuset.cpus
+>>      echo 0-7 > A/cpuset.cpus.exclusive
+>>      echo root > A/cpuset.cpus.partition
+>>      cat A/cpuset.cpus.partition
+>>      echo 1 > A/cpuset.cpus.exclusive
+>>      cat A/cpuset.cpus.partition
+>>
+>> The first read reports root invalid because all CPUs were requested.
+>> After the mask is changed to CPU 1, the partition should become valid,
+>> but it remains invalid with PERR_NOCPUS.
+>>
+>> update_exclusive_cpumask() calls partition_cpus_change() before updating
+>> cs->exclusive_cpus. update_parent_effective_cpumask() then gets the
+>> old 0-7 mask from user_xcpus() and sets PERR_NOCPUS even though the new
+>> mask leaves CPUs for the parent.
+>>
+>> Move the exclusive_cpus update before partition_cpus_change() so that
+>> the partition update sees the new mask.
+>>
+>> Fixes: 46c521bac592 ("cgroup/cpuset: Enable invalid to valid local partition transition")
+>> Signed-off-by: Guopeng Zhang <zhangguopeng@kylinos.cn>
+>> ---
+>>   kernel/cgroup/cpuset.c | 6 +++++-
+>>   1 file changed, 5 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
+>> index de7553459adc..e96bc66ffa07 100644
+>> --- a/kernel/cgroup/cpuset.c
+>> +++ b/kernel/cgroup/cpuset.c
+>> @@ -2546,10 +2546,14 @@ static int update_exclusive_cpumask(struct cpuset *cs, struct cpuset *trialcs,
+>>           return -ENOMEM;
+>>         trialcs->prs_err = PERR_NONE;
+>> -    partition_cpus_change(cs, trialcs, &tmp);
+>>         spin_lock_irq(&callback_lock);
+>>       cpumask_copy(cs->exclusive_cpus, trialcs->exclusive_cpus);
+>> +    spin_unlock_irq(&callback_lock);
+>> +
+>> +    partition_cpus_change(cs, trialcs, &tmp);
+>> +
+>> +    spin_lock_irq(&callback_lock);
+>>       cpumask_copy(cs->effective_xcpus, trialcs->effective_xcpus);
+>>       if ((old_prs > 0) && !is_partition_valid(cs))
+>>           reset_partition_data(cs);
 > 
-> Keep both undo results: roll the initialized size back first, and
-> roll the data size back only when that rollback succeeded.  The data
-> rollback goes through the same VFS-facing truncate
-> ntfs_setattr_size() uses, which also supports compressed attributes,
-> and keeps the VFS size on the durable data size when it fails.  Its
-> shrink clamps the initialized size to the rolled-back data size,
-> which can sit above the old initialized size, so a failed initialized
-> size rollback would leave the clamp in place and expose the
-> uninitialized tail.  The undo runs under the mapping invalidate lock,
-> like ntfs_setattr_size(), which the truncate expects.  On an undo
-> failure, set NVolSetErrors(), which the next persistence point
-> persists as VOLUME_IS_DIRTY, and log a message for the errors=
-> policy.
+> With the patch series that I have just sent out, I can't reproduce this problem. My patch 2 of the series change update_parent_effective_cpumask() to not use user_xcpus() anymore. So that should fix the problem.
 > 
-> Fixes: 9c87959601e8 ("ntfs: update file operations")
-> Suggested-by: Hyunchul Lee <hyc.lee@gmail.com>
-> Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
 
-Looks good to me.
+Thanks for checking this issue. I'll also test some other scenarios
+with your new patch series applied.
 
-Reviewed-by: Hyunchul Lee <hyc.lee@gmail.com>
-
--- 
 Thanks,
-Hyunchul
+Guopeng
+
