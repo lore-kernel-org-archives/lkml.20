@@ -1,89 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792627216;
-	b=ob3wMnLXEtm/6h809jNSMn4OeATRhVruNUuDUwPLdRYcq5ljoTx0FjHblSz4cl0m+Yey
-	 yCZXU8y2ErtfSPHxEkJgCEwfj2yXpOLbtt1b+ZSbH78vR3r8xw+hYiRRLbIblZgpLsAl5
-	 JcazIqC5QDoQ7d75sQ0QEqL7Aj6WoeQqm1Vg41r/O0h4hJFHkAao4mo7R1Faadbs5VZs4
-	 iqIboTeX7MCqTQIRJdQiFh2PIm0f7bpb2Ty3ZqyKv8V/AArzALcIXNJreFrXkZKnhd5WE
-	 YD2gQN4FFGnZsh4CbkKQWizinOC+Ht2KAjNrQ8fYcBNEfJMY+7JUsBlvaanbGXXDFPA==
+	t=1792627214;
+	b=Hte6PVdab2e/DNk+fB64IrbtgXrVu1NgWDghwEWsl2YBoXXsaFxQb79FJTLfZRyqTgPw
+	 6OQlLuzCSSNhBylk46HCpLJQ0ZgYUOzbVSwUc/H937RqQljWl6ScpF2L/hSm1fKVJbvgT
+	 PdyUEAIgZ81DpkrrMFjNWoTVysJVJoeW4c19G7+R+DjVixqs6WF+rp3K9EEr3sP82Alfa
+	 N/im5+MW+SFVK61AMVD+kQ/vcS/TfM8zGGMlnP5nmAggySx4xYXsTA4e4r9AjEsA1lA7J
+	 /70z8PM+rwLfTX37CMeJqaWfyDCJTeQCaTpmLN9X3sIPviVB13rlsxYe4VoIWfvQJQg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792627216;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
-	bh=YPuKNwql1HIbNGqoX33bMzSynPjwm2jO6JjQ4c2NRG0=;
-	b=lA2dT6NuGAy+350TEwFW2KUuMgBUbTzTL+41aUZOFvmQmhpoO2l/YvNMm7QEXIJm3h4Q
-	 6dJ+p8r0DvodXKcXM6hrakXHzANRfYQXoijvSe069rHB/xRPN2I/8gMl+xKPIZiTVHcWt
-	 h+NrQLy3BpVcSL2ol/cZelINCJM6yqQbQ7w+OsNVHz0kuwa9DREGIDHIgF4bbQ8WHKkoO
-	 UesbM+98FCGDs0fvjVAzdaLXzeXbiRbOE3JR5+fEtp3kZDXKBr1RghYKZTnMm9+nV6Lx8
-	 UvNqj6w0bFg4hhLzGOHmYy64pPssF47JkrbJzp2J2zWGNYMKbOVHYABQ1m1au05xlVw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792627214;
+	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
+	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc;
+	bh=BwyLmULc3FKTl/z76qKZRmzD3ruI26rD0tjv3BHuX+g=;
+	b=jLD+dIpFJ6hyJ75+MC/+E5dv1a+aGl6xkaQFLYSgY8XtP7vpHWOKJqVHf28Vn4up/ctw
+	 RJ/jFKueQ+yjBx+SUKvpWz5AVV5FV22T7qYra3qo637I5+FBi5fsO6HrahN9/YYHyjw4Y
+	 pvUA+JWuN9zpc7GgCuNaPDpPcGMWE57yaUVxXj1RqNwLq9vmyrKZaDnYNLdBBzpbbw6L7
+	 3FcNEZjLlrOH8eYHukamIjnQoeaC+teTUaFhO1mKcu33VPmHXKFrM3EtGXAL5h2uN3+nh
+	 U9Z14pP2JGvtlyXmF0bZbDWJ0rImtqXEte3zSCKluNV0fi72gAWMdGUpGdQWHDoK6cA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=SByisiU6;
-	arc=none smtp.remote-ip=209.85.161.54
-Received: from mail-oo1-f54.google.com (mail-oo1-f54.google.com [209.85.161.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="eo/juyi6";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED03E606A324
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 00:00:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ED03E606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 425F8606A320;
+	Thu, 22 Oct 2026 00:00:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=SByisiU6
-Received: by mail-oo1-f54.google.com with SMTP id 006d021491bc7-702dedeb70dso772448eaf.1
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 17:00:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792627215; x=1793232015; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=YPuKNwql1HIbNGqoX33bMzSynPjwm2jO6JjQ4c2NRG0=;
-        b=SByisiU6fJXNb0cLpxl09Fm0k75RSzbkJ1LipdlzldJm2OfFf5NptDDfAGgYx44eVi
-         /RdV4DDervYxrUvnq4RYVhwKSxhXo9CU7eq2d2/sKCeizfqzCJmhT9xJb/BRxIVDxsvO
-         3ss+kBYwTLCV3FBcUHpjeUkO8cXcrRCAd7xEbgmoZEloRaWYYcigZNlc5eyIwYGXGL49
-         4gxLUKhYDe5qr1oVl5M4CfYbympkunrl1OVi7/ViSk+gXvB5kGoaikAxTZ/ZHLMdAee3
-         HwPoBjW6KqsWQaDgxHgO0UIGzNnSBEbhDU0736Edyaas5oW3fUAIlZUslQmuGFrYM1yZ
-         PvFw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792627215; x=1793232015;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=YPuKNwql1HIbNGqoX33bMzSynPjwm2jO6JjQ4c2NRG0=;
-        b=QsNymXNJb2f4G/tx7cFrUxftjadUClrisn3K4ar0GbR5sjZNHyDXqAouoIH6XvpC0/
-         26f62J5EDAuC+ncaiysqsz6mSDrkUS7yVHTKy4QeOK9N5obon80ZYxN5FtJmHdWQP1Ap
-         QuhTNfLIwNXllXMEhIo6NTE2o5bUXzceYnqf3s7TIN9MNcPqQhTIpj1aMzHz/5BA26WM
-         mo99Nr10WH7325esNCbpA/nhzw/AL5TfoAXw02bYdRBAMlV5qAOU380SERRF59FfGlJw
-         vgnQDrQAzz5aUQyv/r6hlZU/4PXxQWSatLrSbHnIPs+Og+HnSg8eQygmensFFJ9LCHTt
-         5qZg==
-X-Forwarded-Encrypted: i=1; AKwUvByhxI00CpMPqDSilVAgRCTw2JbHc7O9YJk6d9q7na73lPkRhjVbpQC1Nhy9sKoUKj4TreMGN1o/i4981Nk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIH3oqLtSiNqu7JUfu+rjzUvxdQ5L3kIiVjJ4Va12a7nT2QKK/0
-	3yP6+OK6nQhxxFmCHKDKCCFMfR6rHXLzeKmPIV7G/6PSL9KLVxuwQrXL
-X-Gm-Gg: AYBFou3zuoaw9NbRjTsDHcwXri/cil7ZY1YXRxXo3btdof8oqZvgY3HvyzH7A5DBHGe
-	Pd8DdzK5+JLviL0HjO+oa0+g9hS5QIXTJDrPWXJfVnc3aTPyihPhUVrPUUHFKgSsrYeqDYNzw/7
-	jglWbPMUIEyBaH5z8fGUZ92dGhiJFdUBNTLV3fArhEuJ/ZlrqpLCwH2ddJWF4H/1pbiqBWNEImu
-	a4x5OwAjQHCG+ZdaKfbRd5kDlyqpCDdGAbNZR32WwTI4Tp4SrvPB/wUYWn5K2nHkVDaWdDaSX5x
-	nWp72BSuBH1v6zNA6A3Qwr27YjVcqBscTcXsfQXGQKEAGBTevClGx2MM5FLL+FJrCuXiJHPA/vw
-	SLrbjKXIe5CpuC1ZX5Qkejg3rJC1svSdaz6Y+audZU40CTT9E5HGNXhfWCPl2AA+JOylsXyIcpU
-	HSHbG9HbYlEWiF0jyysO9B8qb2721DcI1A5LMjiC6FXqanEa9iPp48C27/cjJB7X8yVCqFWmYIo
-	DZj7yTNGTQgbELCkznAUN8fVzQkgH50uAYpmUhWxOX6KpoLHzPWxoCAkxAUXy0yV+9b3vb+uXcX
-	+opBF8RMXbNcOJDDLLk4BM3fDwCGpZMO/O0FRxtGwf7ljO+00RqCRy4SoW+mbU++xnAHBPU8Qdu
-	1riJ/+ACmonTWSWiPVmIQwdelt+i0pDFwzcHsJnXP0NJBztSVVLVQ2BSALfMzR1ICl8bJ1cPVlw
-	ouu7qe6LX8GuSMUDlbrhk1yh4Z
-X-Received: by 2002:a05:6820:c87:b0:6d2:a9c5:ec7a with SMTP id 006d021491bc7-7093fdbccf6mr2829070eaf.34.1792627214681;
-        Wed, 21 Oct 2026 17:00:14 -0700 (PDT)
-Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-84cbddc7100sm3710064a34.24.2026.10.21.17.00.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Oct 2026 17:00:14 -0700 (PDT)
-From: James Hilliard <james.hilliard1@gmail.com>
-Date: Wed, 21 Oct 2026 18:00:12 -0600
-Subject: [PATCH] i2c: mv64xxx: protect transfers against input clock
- changes
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eo/juyi6
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BDD4D1F000C2;
+	Thu, 22 Oct 2026 00:00:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792627213;
+	bh=BwyLmULc3FKTl/z76qKZRmzD3ruI26rD0tjv3BHuX+g=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=eo/juyi6Lf5iA+PobTqDGC+KnTR550icwvHhI2AhSoSt9FsRK6HsutJJt6H3N2CrH
+	 z1bCm5gVe0RGBFEeunH+iqqTWDTMlRgJdT4eZ/JB8FBD9Cf/KlBxSY14n7Lsd+nr2h
+	 aQ7shM2+2yLwe8xFGTu4QhNz2EA6yeLbVWQBC1WJJ4+M4fwwzyWlXhomVZ8VzLwwht
+	 4qpwcvBjJ8wtcJjsSktZmcnLR8rTN1i4UretOI0pbEgHp6+xO3HNcW79DG2x+8j07g
+	 3i/gTKnYwhYfN9WSF2ZV8t+vndNYevpw5puE4lHyg9wLrJHFC2/i8w51BK09yQuhDh
+	 b7auOI1bGNjww==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id B44CB380A963;
+	Thu, 22 Oct 2026 00:00:13 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,311 +53,68 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261021-submit-i2c-mv64xxx-clock-v1-v1-1-959ea2aa3f90@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/22PwW6EMAxEfwXl3KiJISHlV6o9OI4paQtsCYuQV
- vvvNUuPvVgae+ZpfFeFl8xFddVdLbzlkudJhH2pFA04fbDOSbQCA94asLrc4phXnYH0uPlm33d
- N3zN96c1qhyaFFiCC9UoI14X7vD/p75dTS/yTaT2QhyNiYR0XnGg4VmJY+Of1P/gfT843Kbme0
- DNP8yiVuqphgto7MiFxbXzvwLujUO2Rexc8ROQUQ3qicKVBfusq7qltWpnovKmRjYuI9i0EkCy
- nNjkSDU5dHo9fnKmpbC8BAAA=
-X-Change-ID: 20261021-submit-i2c-mv64xxx-clock-v1-5a0d8722b216
-To: Gregory CLEMENT <gregory.clement@bootlin.com>, 
- Andi Shyti <andi.shyti@kernel.org>
-Cc: linux-i2c@vger.kernel.org, linux-clk@vger.kernel.org, 
- linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org, 
- James Hilliard <james.hilliard1@gmail.com>
-X-Mailer: b4 0.15.2
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net-next v19 00/10] net: phy_port: SFP modules
+ representation
+ and phy_port listing
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179262721228.1368559.2594961555550561911.git-patchwork-notify@kernel.org>
+Date: Thu, 22 Oct 2026 00:00:12 +0000
+References: <20261016133107.54054-1-maxime.chevallier@bootlin.com>
+In-Reply-To: <20261016133107.54054-1-maxime.chevallier@bootlin.com>
+To: Maxime Chevallier <maxime.chevallier@bootlin.com>
+Cc: davem@davemloft.net, andrew@lunn.ch, kuba@kernel.org, edumazet@google.com,
+ pabeni@redhat.com, linux@armlinux.org.uk, hkallweit1@gmail.com,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ thomas.petazzoni@bootlin.com, christophe.leroy@csgroup.eu,
+ herve.codina@bootlin.com, f.fainelli@gmail.com, vladimir.oltean@nxp.com,
+ kory.maincent@bootlin.com, kabel@kernel.org, o.rempel@pengutronix.de,
+ nicveronese@gmail.com, horms@kernel.org, mwojtas@chromium.org,
+ romain.gantois@bootlin.com, daniel@makrotopia.org,
+ dimitri.fedrau@liebherr.com, frank.wunderlich@linux.dev, p.ameruoso@live.it,
+ f@lex.la
 
-The controller's timing divisor is calculated once at probe. On Allwinner
-H616 the input is APB2, which also supplies the UARTs. Changing that shared
-clock leaves I2C using its old divisor and can change SCL during an active
-transfer.
+Hello:
 
-Register an input clock notifier for DT-configured controllers. Calculate
-the prospective timing without modifying the current divisor, then try to
-acquire the adapter bus lock. A running transfer vetoes the change; an idle
-adapter keeps the lock through POST or ABORT so a new transfer cannot start
-between validation and the actual rate change. Do not wait for the bus lock
-under the clock framework lock: a transfer may be waiting there in runtime
-resume. Also reject a change while START or STOP is still pending in an
-active controller, since software completion can precede the physical STOP.
+This series was applied to netdev/net-next.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
 
-Publish the new packed divisor on POST and install it before the next
-transfer. Runtime resume reads the same cached word, so a suspended
-controller needs no register access from the notifier. Preserve the old
-timing on ABORT. Drain notifications before removing the adapter, whose
-device storage is cleared by i2c_del_adapter().
+On Fri, 16 Oct 2026 15:30:55 +0200 you wrote:
+> Hello everyone,
+> 
+> v19 addresses Jakub's comments on the netlink part, the only missing bit
+> is the phy_modes() rework as we'd need that even when CONFIG_NET is off
+> (for OF and generic PHY), so there's no clean place where to put it. It
+> also addresses the medium/high *ashiko issues.
+> 
+> [...]
 
-Keep platform-data controllers on their supplied fixed divisors because
-they do not provide the requested bus frequency needed for recalculation.
+Here is the summary with links:
+  - [net-next,v19,01/10] net: phy: phy_link_topology: Add a helper for opportunistic alloc
+    https://git.kernel.org/netdev/net-next/c/b428d67934b5
+  - [net-next,v19,02/10] net: phy: phy_link_topology: Track ports in phy_link_topology
+    https://git.kernel.org/netdev/net-next/c/9fd93893b6fa
+  - [net-next,v19,03/10] net: phylink: Register a phy_port for MAC-driven SFP cages
+    https://git.kernel.org/netdev/net-next/c/b8335326fe06
+  - [net-next,v19,04/10] net: phy: Create SFP phy_port before registering upstream
+    https://git.kernel.org/netdev/net-next/c/99d78aabd783
+  - [net-next,v19,05/10] net: phy: Represent PHY-less SFP modules with phy_port
+    https://git.kernel.org/netdev/net-next/c/51ebb13c1d96
+  - [net-next,v19,06/10] net: phy: phy_port: Store information about a port's upstream
+    https://git.kernel.org/netdev/net-next/c/9e7cd33fafb2
+  - [net-next,v19,07/10] net: phy: phy_link_topology: Add a helper to retrieve ports
+    https://git.kernel.org/netdev/net-next/c/b06f1e6c85ba
+  - [net-next,v19,08/10] netlink: specs: Add ethernet port listing with ethtool
+    https://git.kernel.org/netdev/net-next/c/01a556b3321e
+  - [net-next,v19,09/10] net: ethtool: Introduce ethtool command to list ports
+    https://git.kernel.org/netdev/net-next/c/27859d18bf41
+  - [net-next,v19,10/10] Documentation: networking: Update the phy_port infrastructure description
+    https://git.kernel.org/netdev/net-next/c/8af404a3844b
 
-Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
----
-Based on i2c/i2c-next with the posted clock-abort fix [0]. The notifier
-holds the adapter lock between PRE_RATE_CHANGE and POST_RATE_CHANGE or
-ABORT_RATE_CHANGE, so an aborted parent change must deliver its matching
-ABORT notification.
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
-[0] https://lore.kernel.org/r/20261021-submit-clk-parent-abort-v1-v1-1-2936181822fc@gmail.com
----
- drivers/i2c/busses/i2c-mv64xxx.c | 137 +++++++++++++++++++++++++++++++++------
- 1 file changed, 117 insertions(+), 20 deletions(-)
-
-diff --git a/drivers/i2c/busses/i2c-mv64xxx.c b/drivers/i2c/busses/i2c-mv64xxx.c
-index 1acba628e16c..e34998b74fdd 100644
---- a/drivers/i2c/busses/i2c-mv64xxx.c
-+++ b/drivers/i2c/busses/i2c-mv64xxx.c
-@@ -24,6 +24,7 @@
- #include <linux/io.h>
- #include <linux/of.h>
- #include <linux/clk.h>
-+#include <linux/notifier.h>
- #include <linux/err.h>
- #include <linux/delay.h>
- 
-@@ -132,8 +133,12 @@ struct mv64xxx_i2c_data {
- 	u32			send_stop;
- 	u32			block;
- 	int			rc;
--	u32			freq_m;
--	u32			freq_n;
-+	u32			baud_div;
-+	u32			bus_freq;
-+	u32			new_baud_div;
-+	struct notifier_block	clk_notifier;
-+	bool			clk_change_ready;
-+	bool			clk_change_locked;
- 	struct clk              *clk;
- 	struct clk              *reg_clk;
- 	wait_queue_head_t	waitq;
-@@ -212,7 +217,7 @@ mv64xxx_i2c_hw_init(struct mv64xxx_i2c_data *drv_data)
- 	}
- 
- 	writel(0, drv_data->reg_base + drv_data->reg_offsets.soft_reset);
--	writel(MV64XXX_I2C_BAUD_DIV_M(drv_data->freq_m) | MV64XXX_I2C_BAUD_DIV_N(drv_data->freq_n),
-+	writel(READ_ONCE(drv_data->baud_div),
- 		drv_data->reg_base + drv_data->reg_offsets.clock);
- 	writel(0, drv_data->reg_base + drv_data->reg_offsets.addr);
- 	writel(0, drv_data->reg_base + drv_data->reg_offsets.ext_addr);
-@@ -751,6 +756,10 @@ mv64xxx_i2c_xfer_core(struct i2c_adapter *adap, struct i2c_msg msgs[], int num)
- 	if (rc)
- 		return rc;
- 
-+	/* The adapter lock excludes rate changes until the transfer finishes. */
-+	writel(READ_ONCE(drv_data->baud_div),
-+		drv_data->reg_base + drv_data->reg_offsets.clock);
-+
- 	BUG_ON(drv_data->msgs != NULL);
- 	drv_data->msgs = msgs;
- 	drv_data->num_msgs = num;
-@@ -813,9 +822,9 @@ static const struct of_device_id mv64xxx_i2c_of_match_table[] = {
- MODULE_DEVICE_TABLE(of, mv64xxx_i2c_of_match_table);
- 
- #ifdef CONFIG_OF
--static int
-+static unsigned long
- mv64xxx_calc_freq(struct mv64xxx_i2c_data *drv_data,
--		  const int tclk, const int n, const int m)
-+		  unsigned long tclk, const int n, const int m)
- {
- 	if (drv_data->clk_n_base_0)
- 		return tclk / (10 * (m + 1) * (1 << n));
-@@ -825,26 +834,96 @@ mv64xxx_calc_freq(struct mv64xxx_i2c_data *drv_data,
- 
- static bool
- mv64xxx_find_baud_factors(struct mv64xxx_i2c_data *drv_data,
--			  const u32 req_freq, const u32 tclk)
-+			  u32 req_freq, unsigned long tclk, u32 *baud_div)
- {
--	int freq, delta, best_delta = INT_MAX;
-+	unsigned long freq, best_freq = 0;
- 	int m, n;
- 
- 	for (n = 0; n <= 7; n++)
- 		for (m = 0; m <= 15; m++) {
- 			freq = mv64xxx_calc_freq(drv_data, tclk, n, m);
--			delta = req_freq - freq;
--			if (delta >= 0 && delta < best_delta) {
--				drv_data->freq_m = m;
--				drv_data->freq_n = n;
--				best_delta = delta;
-+			if (freq <= req_freq && freq > best_freq) {
-+				*baud_div = MV64XXX_I2C_BAUD_DIV_M(m) |
-+					    MV64XXX_I2C_BAUD_DIV_N(n);
-+				best_freq = freq;
- 			}
--			if (best_delta == 0)
-+			if (best_freq && best_freq == req_freq)
- 				return true;
- 		}
--	if (best_delta == INT_MAX)
--		return false;
--	return true;
-+	return best_freq != 0;
-+}
-+
-+static int mv64xxx_i2c_clk_notifier(struct notifier_block *nb,
-+				  unsigned long event, void *arg)
-+{
-+	struct mv64xxx_i2c_data *drv_data =
-+		container_of(nb, struct mv64xxx_i2c_data, clk_notifier);
-+	struct clk_notifier_data *ndata = arg;
-+	struct i2c_adapter *adap = &drv_data->adapter;
-+	int active;
-+	u32 control;
-+
-+	switch (event) {
-+	case PRE_RATE_CHANGE:
-+		/* The adapter's bus lock is not available during registration. */
-+		if (!smp_load_acquire(&drv_data->clk_change_ready))
-+			return NOTIFY_BAD;
-+		if (!mv64xxx_find_baud_factors(drv_data, drv_data->bus_freq,
-+					     ndata->new_rate, &drv_data->new_baud_div))
-+			return NOTIFY_BAD;
-+		/* A transfer can be waiting for the clock framework in runtime PM. */
-+		if (!i2c_trylock_bus(adap, I2C_LOCK_ROOT_ADAPTER))
-+			return NOTIFY_BAD;
-+
-+		/* Software completion can precede the STOP reaching the wire. */
-+		active = pm_runtime_get_if_active(adap->dev.parent);
-+		if (active > 0 || !IS_ENABLED(CONFIG_PM)) {
-+			control = readl(drv_data->reg_base + drv_data->reg_offsets.control);
-+			if (active > 0)
-+				pm_runtime_put(adap->dev.parent);
-+			if (control & (MV64XXX_I2C_REG_CONTROL_START |
-+				       MV64XXX_I2C_REG_CONTROL_STOP)) {
-+				i2c_unlock_bus(adap, I2C_LOCK_ROOT_ADAPTER);
-+				return NOTIFY_BAD;
-+			}
-+		}
-+		drv_data->clk_change_locked = true;
-+		return NOTIFY_OK;
-+	case POST_RATE_CHANGE:
-+		/* Runtime resume can read this without holding the adapter lock. */
-+		if (drv_data->clk_change_locked)
-+			WRITE_ONCE(drv_data->baud_div, drv_data->new_baud_div);
-+		fallthrough;
-+	case ABORT_RATE_CHANGE:
-+		if (drv_data->clk_change_locked) {
-+			drv_data->clk_change_locked = false;
-+			i2c_unlock_bus(adap, I2C_LOCK_ROOT_ADAPTER);
-+		}
-+		return NOTIFY_OK;
-+	default:
-+		return NOTIFY_DONE;
-+	}
-+}
-+
-+static int mv64xxx_i2c_init_clk_notifier(struct mv64xxx_i2c_data *drv_data,
-+				       struct device *dev)
-+{
-+	int ret;
-+
-+	if (!IS_ENABLED(CONFIG_COMMON_CLK) || !drv_data->bus_freq)
-+		return 0;
-+
-+	drv_data->clk_notifier.notifier_call = mv64xxx_i2c_clk_notifier;
-+	ret = devm_clk_notifier_register(dev, drv_data->clk, &drv_data->clk_notifier);
-+	if (ret)
-+		return ret;
-+
-+	/* A rate change is now vetoed until the adapter is registered. */
-+	if (!mv64xxx_find_baud_factors(drv_data, drv_data->bus_freq,
-+				     clk_get_rate(drv_data->clk), &drv_data->baud_div))
-+		return -EINVAL;
-+
-+	return 0;
- }
- 
- static int
-@@ -853,7 +932,8 @@ mv64xxx_of_config(struct mv64xxx_i2c_data *drv_data,
- {
- 	const struct mv64xxx_i2c_regs *data;
- 	struct device_node *np = dev->of_node;
--	u32 bus_freq, tclk;
-+	unsigned long tclk;
-+	u32 bus_freq;
- 	int rc = 0;
- 
- 	/* CLK is mandatory when using DT to describe the i2c bus. We
-@@ -873,7 +953,8 @@ mv64xxx_of_config(struct mv64xxx_i2c_data *drv_data,
- 	    of_device_is_compatible(np, "allwinner,sun6i-a31-i2c"))
- 		drv_data->clk_n_base_0 = true;
- 
--	if (!mv64xxx_find_baud_factors(drv_data, bus_freq, tclk)) {
-+	drv_data->bus_freq = bus_freq;
-+	if (!mv64xxx_find_baud_factors(drv_data, bus_freq, tclk, &drv_data->baud_div)) {
- 		rc = -EINVAL;
- 		goto out;
- 	}
-@@ -920,6 +1001,12 @@ mv64xxx_of_config(struct mv64xxx_i2c_data *drv_data,
- 	return rc;
- }
- #else /* CONFIG_OF */
-+static int mv64xxx_i2c_init_clk_notifier(struct mv64xxx_i2c_data *drv_data,
-+				       struct device *dev)
-+{
-+	return 0;
-+}
-+
- static int
- mv64xxx_of_config(struct mv64xxx_i2c_data *drv_data,
- 		  struct device *dev)
-@@ -1018,8 +1105,8 @@ mv64xxx_i2c_probe(struct platform_device *pd)
- 		return drv_data->irq;
- 
- 	if (pdata) {
--		drv_data->freq_m = pdata->freq_m;
--		drv_data->freq_n = pdata->freq_n;
-+		drv_data->baud_div = MV64XXX_I2C_BAUD_DIV_M(pdata->freq_m) |
-+				     MV64XXX_I2C_BAUD_DIV_N(pdata->freq_n);
- 		drv_data->adapter.timeout = msecs_to_jiffies(pdata->timeout);
- 		drv_data->offload_enabled = false;
- 		memcpy(&drv_data->reg_offsets, &mv64xxx_i2c_regs_mv64xxx, sizeof(drv_data->reg_offsets));
-@@ -1042,6 +1129,10 @@ mv64xxx_i2c_probe(struct platform_device *pd)
- 	platform_set_drvdata(pd, drv_data);
- 	i2c_set_adapdata(&drv_data->adapter, drv_data);
- 
-+	rc = mv64xxx_i2c_init_clk_notifier(drv_data, &pd->dev);
-+	if (rc)
-+		return dev_err_probe(&pd->dev, rc, "Cannot monitor input clock changes\n");
-+
- 	pm_runtime_set_autosuspend_delay(&pd->dev, MSEC_PER_SEC);
- 	pm_runtime_use_autosuspend(&pd->dev);
- 	pm_runtime_enable(&pd->dev);
-@@ -1064,6 +1155,8 @@ mv64xxx_i2c_probe(struct platform_device *pd)
- 		goto exit_free_irq;
- 	}
- 
-+	/* Publish the initialized adapter, including its bus lock, to PRE. */
-+	smp_store_release(&drv_data->clk_change_ready, true);
- 	return 0;
- 
- exit_free_irq:
-@@ -1081,11 +1174,15 @@ mv64xxx_i2c_remove(struct platform_device *pd)
- {
- 	struct mv64xxx_i2c_data		*drv_data = platform_get_drvdata(pd);
- 
-+	/* Drain notifications before i2c_del_adapter() clears adap->dev. */
-+	clk_rate_exclusive_get(drv_data->clk);
-+	WRITE_ONCE(drv_data->clk_change_ready, false);
- 	i2c_del_adapter(&drv_data->adapter);
- 	free_irq(drv_data->irq, drv_data);
- 	pm_runtime_disable(&pd->dev);
- 	if (!pm_runtime_status_suspended(&pd->dev))
- 		mv64xxx_i2c_runtime_suspend(&pd->dev);
-+	clk_rate_exclusive_put(drv_data->clk);
- }
- 
- static const struct dev_pm_ops mv64xxx_i2c_pm_ops = {
-
----
-base-commit: 4ec2365c08de306f52650d8736aef5862baedb8d
-change-id: 20261021-submit-i2c-mv64xxx-clock-v1-5a0d8722b216
-prerequisite-patch-id: efc747efca5603ae05baa198820d8ed7d5caa125
-
-Best regards,
---  
-James Hilliard <james.hilliard1@gmail.com>
 
