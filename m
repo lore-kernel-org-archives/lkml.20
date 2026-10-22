@@ -1,59 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792633222;
-	b=IATYxUfFPSF/vPU6oE/OxZ/kzb4+d9AtkhPvs5kr4dM182Pq127piL1QTk0hur30cCaT
-	 IhP6xZ+EAj6iNm4tJDbOrZGevtcssRLtV+I5w8/doatvMUGDcG1Ti/DLRqPTLf4bTVYdC
-	 7Qszbbkd/rgJE1VAEq0CZdtyflhfW7EPCMdnGgRYcpfTtOt1oHygwdFk0Dtn0nAvYF5NL
-	 KlbfwU2DToRQABy6m/JnUju+ILMWDTEGMDMxRnF1bXv5qKcmMsUNV12govisWWkBfN1is
-	 fsTWLXz99Y1yyVMNs7zkN7O3dKq7bChCqVw8Rg6iVFFj4nRXzEiaxDJjXxXq+IBmZyg==
+	t=1792633449;
+	b=sywq10hf/bKexRVNKw8eVIXJjK7lyNz4guBuJiEykt/JpcTtsssADtAtPh8mRTJg/3PY
+	 URSFH5kXBgcXiPqPz93N3ajF+T1bMYnFeVGs/anKxy2knZZpam3aJ6HcvBu6dEOqJqyK6
+	 ul0CqOlOO+5N6tJpo3biDPZcbKVBYlGcW432yYJCpBVo1aiED/jDC4Vj1IBfQ8Xa7syo2
+	 gKsaRzFOzm1H4lOKdnmt06ZN1gxJ/+TeAZBHmDdX8MIfP+VUA9rTQHSsSQqYM5VLn4xTe
+	 DG3i6OHW1cy5ETzRb6Z3ksdBn57mNYP4hQDMAVrFfEf4gqGvdffn1hTbilwziHrytUQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792633222;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792633449;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=YNGTJfIRAnVRaqsXSD0RrWAO24wZ7eJMSOuVIY6yKoY=;
-	b=5fEaOJiqmxqEZaSUxS+IW1P8SpJJPJQNWVXY46iOjIfklh2cC3VoknyscOOTS5jTbNHk
-	 ghI4P5Qy4caM4Ejc1zyrqY6vtZePiffRR5k0XG+zFW21bb9KRktvBZ8g0sXELtr316en5
-	 icklG2mQZ04m1EDRJnSNBVKkc/YwLfObC3QlwOx4YmnM2A/9cbKmyQG/S4OQkw3QyUHto
-	 Bov98Uk+dMNCq71kJxj6pQ2neez7vvVY++T2SFBVYlQIM1pOlDB/mnAv3EWx1NC9yVMFJ
-	 Ba5rYSp2kt6JqAklajoYfO9/hQU9peHLhhdewWFDRqKamzgnBFROamh371wRoq18now==
+	bh=8kJkMtRp5NxpBwXWK16sC7h36iQ9rBNvoglPnh69ZPY=;
+	b=rYII0cj7dO9ct1Mf/MY/MzlrqLe9yJz+0yTN4R19yiWWOl0rVSM5FZjnVa/RE9oO23pI
+	 8Tpid5eRYu2V60TYrvXdZHUV91l/J2rtL/DYjFgfzDnHh7pRl0imMJ5wxx7TePnbM0woS
+	 7A1DvbznuV/6J+qgmFolSUEnQq14skss8Mlsc09GYGkdD0/2hnqB+mvRsMQu4ONIQaoie
+	 q4lfGRyGGBM+8vCe/+pv5N9EGUZ9oqFmP1lzw0XKhitWdoplgp8/iHxjND87cKXspN6oL
+	 gvLyEv2989uDgDqVr9SXNYqqvRzMBZE+X2n9kSguD+gcnRSCEm8v/LJ94aC3aS3jsgA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Xtyl1WqO;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e+IUCCTE;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5008606A319;
-	Thu, 22 Oct 2026 01:40:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AE76606A319;
+	Thu, 22 Oct 2026 01:44:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Xtyl1WqO
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B77741F000C1;
-	Thu, 22 Oct 2026 01:40:20 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e+IUCCTE
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 728071F000C1;
+	Thu, 22 Oct 2026 01:44:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792633221;
-	bh=YNGTJfIRAnVRaqsXSD0RrWAO24wZ7eJMSOuVIY6yKoY=;
+	s=k20260515; t=1792633448;
+	bh=8kJkMtRp5NxpBwXWK16sC7h36iQ9rBNvoglPnh69ZPY=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Xtyl1WqOVrfK7hNOdX7K37foVg2cPFIdeFsegeyte7BJydwjkHwoFzcN4ffTXtIMs
-	 IFlZrX7O6o0v8Xi45+b1sIFZLgno5qzY4h8m/8fEaYR88rix+8DBaF/nST3cicRkVM
-	 KQs9YK4GYPdMFFGe+C+ayvt2yeWysJSChClQ9OHOoJbWB1+TnpJ4GPwPjFkQJnrgix
-	 gMYpzGS0pi8uOpXGmvpfp0xQRlmXGhE8aa2HTv7OFLySS40v2GwLXE7p0i5RE8zwpX
-	 E+l5R4/GK6tDAwVXxMg3CWCABmdLs/Ftq+4biYONkhNGwwA5VE2eA5RPnE9z3KKNGo
-	 3MuIgb+Ybup1w==
-Date: Wed, 21 Oct 2026 22:40:18 -0300
-From: Arnaldo Carvalho de Melo <acme@kernel.org>
-To: Namhyung Kim <namhyung@kernel.org>
-Cc: Sasha Levin <sashal@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@redhat.com>, Mark Rutland <mark.rutland@arm.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	James Clark <james.clark@linaro.org>,
-	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] perf build: Add MINIMAL=1 to build without optional
- features
-Message-ID: <atlpgvF_WELAFSuD@x2>
-References: <20261018135321.3986899-1-sashal@kernel.org>
- <atlICVt3ItifkPZb@google.com>
+	b=e+IUCCTEbtNq4Zu3iaNqbFH7jfR+WK2dtZAdbT2YhzTLC2yaG5YZqifkaDGBpZ1r5
+	 DvIPqe215G9szWDx/EusZPWbqIPkt0XBaOkG26wa2uowUPc9WJO025v5C4V0MJ5uv5
+	 CfxxrWTyUXIrBGEwxEq7eNBrz9iUc++V+WDUgamAh/zpD6mdmUOdK2Z2SJylIEO6Rc
+	 e4n3JqvON/J9mZo/+9w+dxFgcv56gi+e4ar3lZT2QsEXQ1vQ5BvpEEupCvAOnsA2SK
+	 S+lDqYZopPeAz0Ty8BgPvraDI/Y24Sp/DCQpD6L07WM+lxqQakQprGA1n0vfDtSv2p
+	 t9VIoGnsEpcKw==
+Date: Thu, 22 Oct 2026 01:44:05 +0000
+From: Tzung-Bi Shih <tzungbi@kernel.org>
+To: sean@starlabs.systems
+Cc: Brian Norris <briannorris@chromium.org>,
+	Julius Werner <jwerner@chromium.org>,
+	kernel test robot <lkp@intel.com>, chrome-platform@lists.linux.dev,
+	linux-kernel@vger.kernel.org, oe-kbuild-all@lists.linux.dev
+Subject: Re: [PATCH] firmware: coreboot: Fix CFR error-pointer handling
+ warning
+Message-ID: <atlqZb-LZkkuUIz0@google.com>
+References: <CABtds-16eUH6ah3Rr9R=N2605TPdFgDekM5oXVeWqGcmYfWqag@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,42 +61,27 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <atlICVt3ItifkPZb@google.com>
+In-Reply-To: <CABtds-16eUH6ah3Rr9R=N2605TPdFgDekM5oXVeWqGcmYfWqag@mail.gmail.com>
 
-On Wed, Oct 21, 2026 at 04:17:29PM -0700, Namhyung Kim wrote:
-> On Sun, Oct 18, 2026 at 09:53:21AM -0400, Sasha Levin wrote:
-> > Turning off every optional feature takes a long list of NO_* variables,
-> > and the list has to follow features as they are added and renamed. The
-> > one in tests/make for make_minimal has fallen behind: it leaves
-> > libtraceevent, jevents, slang, AIO, LZMA, zlib, libLLVM and Rust to be
-> > detected, so a make_minimal build still needs libtraceevent and python.
-> > 
-> > Add MINIMAL=1, which turns off every optional feature, the BPF
-> > skeletons, and the shellcheck, mypy and pylint runs. perf then builds,
-> > natively or cross, with no library beyond the C library and without
-> > python, pkg-config, clang or rustc, and the result does not depend on
-> > what is installed on the build machine.
-> > 
-> > A MINIMAL=1 build also leaves out the notices that post unwind and
-> > python support are disabled, which it asked for, and the one about the
-> > pkg-config search path for cross builds, as pkg-config is not needed
-> > then.
-> > 
-> > It is handled in Makefile.perf rather than Makefile.config, as
-> > Makefile.config is included after the pkg-config, shellcheck, mypy and
-> > pylint setup.
-> > 
-> > Use it for make_minimal in tests/make.
-> > 
-> > Suggested-by: Ian Rogers <irogers@google.com>
-> > Link: https://lore.kernel.org/r/CAP-5=fWFY-tpJz2vcBZvurwdZY5gwd8cuTemE9q1rtZ0Vi0dng@mail.gmail.com
-> > Assisted-by: LLM
-> > Signed-off-by: Sasha Levin <sashal@kernel.org>
+On Wed, Oct 21, 2026 at 07:57:49AM +0000, sean@starlabs.systems wrote:
+> From 4e74bf1ccc0f61b4712f688eab66a7750f693243 Mon Sep 17 00:00:00 2001
+> From: Sean Rhodes <sean@starlabs.systems>
+> Date: Wed, 21 Oct 2026 08:55:54 +0100
+> Subject: [PATCH] firmware: coreboot: Fix CFR error-pointer handling warning
+
+It looks like the patch is malformed.  I'll remove these when applying it.
+
+> The scoped kfree cleanup already ignores error pointers, so passing the
+> pointer through no_free_ptr() before PTR_ERR() is unnecessary. It also
+> makes the IS_ERR/PTR_ERR expressions appear inconsistent to Coccinelle.
 > 
-> Acked-by: Namhyung Kim <namhyung@kernel.org>
+> Return PTR_ERR() directly. The scoped cleanup still leaves error pointers
+> untouched while freeing successful allocations on later returns.
+> 
+> Fixes: f2e05ce9763f ("firmware: coreboot: Add CFR firmware attributes driver")
+> Reported-by: kernel test robot <lkp@intel.com>
+> Closes: https://lore.kernel.org/oe-kbuild-all/202610210637.LiJ3U0ob-lkp@intel.com/
+> Signed-off-by: Sean Rhodes <sean@starlabs.systems>
 
-Not tested but:
-
-Acked-by: Arnaldo Carvalho de Melo <acme@redhat.com>
-
-- Arnaldo
+I'll queue this after -rc1 and send it as a fix.  Thanks for the quick
+patch.
