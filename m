@@ -1,88 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.179
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792705994;
-	b=tmrq6JoI10Uo0L6iqbshsBQZw23JXayRAG2HfSOdfHKp5kSEQgxlobt6MEM4ZuimXMfn
-	 YLPA+jOVr8A9NGfyUq4CC0ZcXz+Nq7/R4J3g5zGvWH1XzjVSuzZLzryuvBjL0Bq3CzDuT
-	 uCLDQGXrlrany2A1zFrF05geWkMuMCXJH9pGAqVeYyk6eEfPswmGHyc+8f6kymtvecKqw
-	 2843MQ3VzH8H5uE9YDMDs8wMFeq87JnVwI2YqnQ4jvHHY7qrV88u2NOc/HMbDq4anjBqy
-	 iDygxm7JClb3KsdBbyhY0VowNdnSdrsCF2t0Tol4PMetoOy7sxnPpyIYY4DBN8LMxmQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792705994;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=gxelPk6ZytprQYsPLhQ7wCDi9Bqcy2qLUW6bdd5fyas=;
-	b=VaP4KSXNRx6vyQtnZsfVRejB13lRjhcnDaJtLSJbbf/0oOHwhT/IIHGzHRdFPh0G+BS6
-	 N23vHrqDU8AjjDuvBHjLFrqmXk9iqjOpPZgGTqQsKHk1+nboTQ17KCL042mpoVmhibQsl
-	 e6b6t7oQAijkJR6mk1dhLULLzLBXFmh39H65iYnqo2jE8f6wWANP8VHYajO/e8IzGVw0a
-	 Enkuw7jMI1UQknTBt6hCRK//zFaBFG6MBxU+1n/7gSkHBIrfavXWpeqe9bcaW7fsEDwMQ
-	 F9iv/NwPp9RwN3mAlrOJF+Ig5NuZjaZk91H1x57NfWve2vCDHTyy631hajxQmE/p8HQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=lMvs7mKt;
-	arc=none smtp.remote-ip=74.125.82.179
-Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792705989;
+	b=SJv44DSLdLO0LKhKzkabNREY9nEc41gBLEyAGaB1rfNvb0MxXs860d1hjUxYFXmis5Ib
+	 O5tw5Z7cuP13pExPx/AwuXVNY/384/MmOHNBWkAgDeAITVJFy5I4/2dYsREq2gSy/FuaT
+	 AjyunKKwSLboesAwRZGOAdH2fD93lTm/nT31saMl/EaBcTGX9nabCISkFuS3l/OOHQc9K
+	 OUSoWl8ONVoaV17qhtedhyDG2SBdmr1ltTj43cxUqh2uNJYeXBfcO1z/rdwsFQiRSWMY3
+	 +DhIPI3Z2ztLYlvjrugoZL70ao1YgBBnEYfVpwo/I6szwi1HTk3tL478DeWhKrr34iA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792705989;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=nwMxmAB7zKCpQjoLCsCioWT9WOsoTyLEjiLRi7z7+AM=;
+	b=sPa8+QbqTGD7Oet35jfs6rTc0vWMS6KONyzQXVyRwVSYxrWzkC8qvaLW/loKxL4r9E5k
+	 YpMk8y48LbZ62/5ROFGBQx5mB9hN5ntiJbxqApMtcYnVytKVslzUpWNQ65rheu+N24fuy
+	 1wua5BAGS/IedXjER3Zbnq/9PsZO9glugPZ/D4MwmtzqSMMVfDuKDuwN9pxCm1N+qwfyr
+	 kT2SoOufMdtOHtEPJ2IiCWgtBR3WWpBfouW0TGxYoymWmCYlk2Q2h7uHijP52eJHmDj7F
+	 qZE6DsRLRXAdz/TtCNQ/hueOPDJgOuo8yMY+BHzSKPj2lh5WvNY7PWS+14kMOQ56tMw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="d+/GU+Zv";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8206C606A33C;
+	Thu, 22 Oct 2026 21:53:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d+/GU+Zv
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1792705989;
+	b=w5mjGfeHGD9hctfHTCp6FMcjrbIvBFFcyScT7xlZdkZTBZoYqsW6/c8ZCC5tpvUDOcA/
+	 I8SOtbm1Yv8V64OOYxrk1nl1FVflcmRcGp9QR3ln0qVthiF5ZSxNczQ39RuXnV3WYfY0e
+	 4C/piG3l1hWnZQ9pfaB5URobcBRSawcetIl4NESzNBOVep8AsyeMVUwfj3eYM41D1zXt6
+	 BBO6GNts9OsXUpTjsU/v6rI9V0t6dXoCP1WNjL4+Xu4EP/HGBEOPmuVmbtvtFJDskQIFo
+	 y302/INPTHlbip5YT9ohEXHiBU1WJ6yc9ntSbXnEkP7xlcBa1S28gJ+Xw1l2dWMpilQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1792705989;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=nwMxmAB7zKCpQjoLCsCioWT9WOsoTyLEjiLRi7z7+AM=;
+	b=due8GBSK6kKNSSd+3lUDcGSDjWciO9xAG7mkJc2UDaBHIKCwLUgk87nOsFB0glZLUrBZ
+	 C1rou37yCnihQdTJOIaHJ9a5QIlCxiVzTOMs987vYN5s4XPpRGJVYQE1PSy6wcZN+yWKY
+	 phiPoDFaS68+jjHfPDOVt6hg/x9oD35blna5yfB6Hh6uBcxEZWbcv7cJyTpppk8a35PLu
+	 yR2QdYH9EtS2tpeBVEeP6+SUByPtgMbkkJhAbF4uz7oj5XGxyw7yPco6eBhnHEg6chUTF
+	 m8x02AGOGpZQfhJn6mKOcv/U4cnH+KX5DTo0IWb1C7znzOYkfRopji/aDcozIKkSYCg==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EB4C60A2602
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 21:53:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6EB4C60A2602
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=lMvs7mKt
-Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-354ba08cfd1so493014eec.1
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 14:53:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792705993; x=1793310793; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=gxelPk6ZytprQYsPLhQ7wCDi9Bqcy2qLUW6bdd5fyas=;
-        b=lMvs7mKt2goRR3E7XKFcNsskAqipH2+jWWLWLLP5AG2y8Y/ibZrYGhpy2USVDZbFxC
-         tdqizyjf07B3ZXjbgGWvWHSP3ctGxZPSmIqlDAUmi8gRscL94fsHphh2+Vp0t/BcRNBb
-         H/wBJ4lgdCVPRzaWq2v5KWLHuHl57pND+K8DSIYYAGkmccFaEFOyv0X/GW/WMHpwSWRS
-         Ed8PJlAf/2laLwlezpIeir28PoC8hT/xW0NnqB3xSCklg/hWl/2TdZLNSGhUfj2TxHij
-         clDzyzHi8fqhMU3whXVgrH0cXSdAL4K71UaXFMqaSaBTkut9EzkWZxpGeVGZFEapLvY/
-         R5Cw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792705993; x=1793310793;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=gxelPk6ZytprQYsPLhQ7wCDi9Bqcy2qLUW6bdd5fyas=;
-        b=CKLAMADHOX2oioQ7q1RCBsZZ7iSBnNaJsxo465Rq0bDwT9atPTs3RLnchLb9hNctQK
-         UrqVy4rl+j1POJ11/ejULfEjDMeiB+J81YgpSvzyuJtjRmpRKi/J8XS+Pu4QaWsdsJ9d
-         P7ESG76PSlfg6+2D7l4GT0OL8+CfIetctdxJ5QkyJvdD3mjF6UM+0GRHlWXreNxpUh4d
-         0kv2qz7Z/dNBrG8zG/jZkeCOe8c9OacyehsIdW3f54K2EldOAZvLIm+3oukWzEF0H2CP
-         KgerUwhjaiZ8gIUjFKSSNr/FELi6/0aOsmM9d5Qx5OFsvVr1KstiwjWjtgggMinuvVHQ
-         Mc7A==
-X-Forwarded-Encrypted: i=1; AKwUvBy5sIFKgQHAVCLIPdvlAeobUZ+OoD0wQ8BqnXN+Gtegx3IkpJ1aNU8MpkObXK8G5NibmTkuYcTV9BPwMMA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL/PtKqLU3OHFcW1/8mTP+kEKRLgFXln1lmwenQsgiDyZbtqZvI
-	tA748e+VLO15hC3zgBmiCbtbIn7u9KPSK6d6nP7P6dpMkTkcL+all7dHjhH0Lw==
-X-Gm-Gg: AYBFou2MuzQ9DvnlELeKVGharqD9hNdHBuKfHF8rIHbFxoDoaUqq/dEA2AC1mu5n4IO
-	sli3rqqsqrf2NgFd/+hQaPyELJvtYAEJwSGy8RmIfbWnHDlLvM4HV8q8xz5SGJW/C9vf7bI5lKa
-	xfWXd8FWwBm80ZyV+4zcwcRydeowBIbdcLPYKr+R3OAhjCm8kFTfSO7rQjkdZUHOLQTbvYe8Km0
-	+WXBVibNwCA0hCPU63qiwGLHx4yO/mwJ++zGLNjlcKZg9h/rZgYlKizHwj1pn/3E7rStxZIdGiD
-	58gsFn7qv3wfAfV+eUX9F9wP9RKph+WMGWlGZv0skf5P8ws0PkEo3cyiofIduwDz3RF11zAbXPk
-	ArBPALmvfk6Zya3dM+79uGQ5odLhYBrx8CmCSztikOlzE/3CvKB6/z0vFWdkc6YmohNRTyyeq1w
-	Gk43YsO+/271za55a+JDTwM392Uc5dcTnRL0tsmziDB+Ih970zknc8bWNGnm/PwDr4uTOO76wvt
-	/VnbQZnrpfGsSkX/O4Ww+eh+0/zXPivrIQew1sz8jweziUFdepkRfeaWHpNKVfpnFG/yMRWxX8t
-	AOfePW0r7cUcwvL/EqkYtV6SKNQCcmfcUcDS7XymNddx
-X-Received: by 2002:a05:7022:4588:b0:14d:3c0c:79e9 with SMTP id a92af1059eb24-195c4f4ef8amr912186c88.11.1792705993359;
-        Thu, 22 Oct 2026 14:53:13 -0700 (PDT)
-Received: from dtor-ws.sjc.corp.google.com ([2a00:79e0:2ebe:8:f2d1:b7cb:a745:829f])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-195ec82eabfsm1110403c88.19.2026.10.22.14.53.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 14:53:12 -0700 (PDT)
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Date: Thu, 22 Oct 2026 14:52:49 -0700
-Subject: [PATCH v3 5/5] gpiolib: of: use __free(device_node) in
- of_get_named_gpiod_flags()
+	by smtp.kernel.org (Postfix) with ESMTPS id 5AAD61F031E4;
+	Thu, 22 Oct 2026 21:53:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792705989;
+	bh=nwMxmAB7zKCpQjoLCsCioWT9WOsoTyLEjiLRi7z7+AM=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=d+/GU+Zv9XcJhflI4ugnEoASJ/y9LaoIyzUlAKyJ0CsfKvUGFzke8MG2N4W/3KrAw
+	 j24ip0dkkeGBloWBVbaCKvBnQvtiWVJZ1VfZix7eI8WV9LZbiEiZ7fIC07OE+M644i
+	 Oh626I/cn4NLw3Imo1hIZ3+yEfjDgVjlmzz6rd5qosC3+FvRuvNqqhtPs5y3pQtwto
+	 XGH4adH8zr7lOTOKHTx0m8WyjuCRAvnimqfbOR5+q9oBCnE/pWISeMmonF/5OeFwj3
+	 InTeQHyHzAzOXW5djBlkLD1GjFFQHcl09cjRkJCxkiLtoRHUluqN3IvzMxv1mxBN3g
+	 srH6JgZ66WyUQ==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id CF13341F99;
+	Thu, 22 Oct 2026 21:53:05 +0000 (UTC)
+From: Ronald Claveau via B4 Relay <devnull+linux-kernel-dev.aliel.fr@kernel.org>
+Date: Thu, 22 Oct 2026 23:52:41 +0200
+Subject: [PATCH 3/4] clk: meson: g12a: fix swapped VID_PLL and VID_PLL_DIV
+ clock ids for g12b
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,62 +84,64 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261022-fix-g12a-clk-v1-3-e2bd8f3f1afa@aliel.fr>
+References: <20261022-fix-g12a-clk-v1-0-e2bd8f3f1afa@aliel.fr>
+In-Reply-To: <20261022-fix-g12a-clk-v1-0-e2bd8f3f1afa@aliel.fr>
+To: Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jerome Brunet <jbrunet@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
+ Brian Masney <bmasney+clk@redhat.com>, Kevin Hilman <khilman@baylibre.com>, 
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
+ Jian Hu <jian.hu@amlogic.com>
+Cc: linux-amlogic@lists.infradead.org, linux-clk@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Ronald Claveau <linux-kernel-dev@aliel.fr>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1163;
+ i=linux-kernel-dev@aliel.fr; h=from:subject:message-id;
+ bh=8rtE4N9DTIQOCn9hKMflNgrg74QraAIVcHNIzm/ZuJM=;
+ b=owGbwMvMwCWm1SvKXP3cUInxtFoSQ9at1n0s9qH3l+eu4Wm6GXlp6aT5T9/8n/DwbMqtNSfj3
+ fe2JItO6ChlYRDjYpAVU2Tpn2t54t3lo2e+7lFPgZnDygQyhIGLUwAmcpGfkWESw7Y2JtWzi/Yy
+ JB8P2ZTEZvXz8VmF0K7WNfw1alv5j/ExMnSVMu23YbFfeEHhf/N21WM3+GZdD65abmjvvlXNdp/
+ AVB4A
+X-Developer-Key: i=linux-kernel-dev@aliel.fr; a=openpgp;
+ fpr=DFD863F61375BF917F0012173953305EF1D0EC3E
+X-Endpoint-Received: by B4 Relay for linux-kernel-dev@aliel.fr/default with
+ auth_id=744
+X-Original-From: Ronald Claveau <linux-kernel-dev@aliel.fr>
+Reply-To: linux-kernel-dev@aliel.fr
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261022-gpiolib-of-v3-5-42c3b6439fba@gmail.com>
-References: <20261022-gpiolib-of-v3-0-42c3b6439fba@gmail.com>
-In-Reply-To: <20261022-gpiolib-of-v3-0-42c3b6439fba@gmail.com>
-To: Bartosz Golaszewski <brgl@kernel.org>, 
- Linus Walleij <linusw@kernel.org>
-Cc: linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org
-X-Mailer: b4 0.17-dev-e56a4
 
-Manage the gpiospec.np device node reference in
-of_get_named_gpiod_flags() using __free(device_node) so that error paths
-can return directly and the out label can be dropped.
+From: Ronald Claveau <linux-kernel-dev@aliel.fr>
 
-Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+In g12b onecell data table CLKID_VID_PLL points to g12a_vid_pll_div
+and CLKID_VID_PLL_DIV points to g12a_vid_pll. So the ids are swapped.
+
+Swap the ids back to their right entries.
+
+Fixes: d43628e9bca6 ("clk: meson: g12a: Add support for G12B CPUB clocks")
+Signed-off-by: Ronald Claveau <linux-kernel-dev@aliel.fr>
 ---
- drivers/gpio/gpiolib-of.c | 13 +++++--------
- 1 file changed, 5 insertions(+), 8 deletions(-)
+ drivers/clk/meson/g12a.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpio/gpiolib-of.c b/drivers/gpio/gpiolib-of.c
-index e741a4f218f4..25b97109f97e 100644
---- a/drivers/gpio/gpiolib-of.c
-+++ b/drivers/gpio/gpiolib-of.c
-@@ -430,17 +430,17 @@ static struct gpio_desc *of_get_named_gpiod_flags(const struct device_node *np,
- 		return ERR_PTR(ret);
- 	}
- 
-+	struct device_node *chip_np __free(device_node) = gpiospec.np;
-+
- 	struct gpio_device *gdev __free(gpio_device_put) =
- 				of_find_gpio_device_by_xlate(&gpiospec);
--	if (!gdev) {
--		desc = ERR_PTR(-EPROBE_DEFER);
--		goto out;
--	}
-+	if (!gdev)
-+		return ERR_PTR(-EPROBE_DEFER);
- 
- 	desc = of_xlate_and_get_gpiod_flags(gpio_device_get_chip(gdev),
- 					    &gpiospec, flags);
- 	if (IS_ERR(desc))
--		goto out;
-+		return desc;
- 
- 	if (flags)
- 		of_gpio_flags_quirks(np, propname, flags, index);
-@@ -449,9 +449,6 @@ static struct gpio_desc *of_get_named_gpiod_flags(const struct device_node *np,
- 		 __func__, propname, np, index,
- 		 PTR_ERR_OR_ZERO(desc));
- 
--out:
--	of_node_put(gpiospec.np);
--
- 	return desc;
- }
- 
+diff --git a/drivers/clk/meson/g12a.c b/drivers/clk/meson/g12a.c
+index 07105b2089c3..0a738c3c7fb5 100644
+--- a/drivers/clk/meson/g12a.c
++++ b/drivers/clk/meson/g12a.c
+@@ -4849,9 +4849,9 @@ static struct clk_hw *g12b_hw_clks[] = {
+ 	[CLKID_HDMI_PLL_OD]		= &g12a_hdmi_pll_od.hw,
+ 	[CLKID_HDMI_PLL_OD2]		= &g12a_hdmi_pll_od2.hw,
+ 	[CLKID_HDMI_PLL]		= &g12a_hdmi_pll.hw,
+-	[CLKID_VID_PLL]			= &g12a_vid_pll_div.hw,
++	[CLKID_VID_PLL]			= &g12a_vid_pll.hw,
+ 	[CLKID_VID_PLL_SEL]		= &g12a_vid_pll_sel.hw,
+-	[CLKID_VID_PLL_DIV]		= &g12a_vid_pll.hw,
++	[CLKID_VID_PLL_DIV]		= &g12a_vid_pll_div.hw,
+ 	[CLKID_VCLK_SEL]		= &g12a_vclk_sel.hw,
+ 	[CLKID_VCLK2_SEL]		= &g12a_vclk2_sel.hw,
+ 	[CLKID_VCLK_INPUT]		= &g12a_vclk_input.hw,
 
 -- 
-2.56.0.257.gf7497c7d27-goog
+2.43.0
+
 
