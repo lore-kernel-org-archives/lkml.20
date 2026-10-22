@@ -1,66 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=199.89.1.14
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792684629;
-	b=09maRbRdhbdvrrA3YKHxoa8LcffcWuZwRIyV49jjLKICpKCBElA2mXQ+rWpcCqcomuZo
-	 tcAtaGYgfGnRmdB6LpjjgAsVFlgSdPDEfEtlc8cT0NZ+9TbvqjZM+uUD9Zte0NK/GMGNT
-	 IAPHqugfaREqHUGcVhNj9L/tbLaw1UY8axNloPBh8+DfmpJ33YwP9cqrKZqCA3xPJ27pR
-	 BjexXT8gQBJZIYeTpTNtm+ZCOktuPDfxZbVYrUbESK37/bpDqTOHXG2aKiTMCaLGZk/ja
-	 oyt9V7lfSpaEH9FDALJLwNFkhFKjfHLJnA71pkZrziRSH8pAMw5Lpzhw/tmVmSSHS4Q==
+	t=1792684656;
+	b=r6EsYaIKLE4DSfCGCdmaVFCEKA8IGIBQBCSB3rPHdEnLU1P667aBo8nh7/zDSCqwomtc
+	 eSzRPw07ZwxrjRbkGclLh11782+952UtTTvEAu6YGeFWZiLGDjRxr2deYlzjg5+aZGXeI
+	 uDz2RSPAlHLs26GRN4v0PC4kACNYboV5mc/idzDoWC7fOx1XGNNdg/bb8qWgX5daNK0HP
+	 Mnp07ZY12HA1UO4+YmTjd4QpQHYNv+q5eH4vHa3Dbe3qiVhXL0e/J64vfAVqjSVMOtICH
+	 1RLB63gvfwEBsyrmsDNQsfd39pOoVUFnUFdKLWltDdGnhN5USFj2fgsQVUlMQcbsKGA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792684629;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Virus-Scanned:Received:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=FX/sU3FBedZKsYkZYV38KBHElp5MTIf0KxoEfx1Y/RY=;
-	b=RDcLuuOsTenntf/cfvInCNN6jfzwYGtg7gkGjiKfG36amAth4DqvviycL5WkK1RCgnNA
-	 Ie9MeDVpqpfDgyHg9Z/CXqRxkW2xMVCKtoN4gJ9QCAKKGljyRpTHaOH8UGKL4fPTkL5Ka
-	 8YQVZxqK89sWU5GyL21JBTcrYizojt1q1V7/QiuTpxh6k3pcIIvlWbR1ewy64tY5NE361
-	 RYbVX0llDVIyteD2Sl9U2q/bD3g4K3W51Q8wSKuRY7wSI2jYTo/uTfajuwdIdcsmn4I9k
-	 W13W/c207LaVBErZwZt6G8qq7bOvnum6o91md4Hy8DXVtapTf0xo7v0x80+ZjewUOBw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792684656;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
+	bh=bCyNFGNC5QAv5YoFhc+XguwmFWmtXQoZNr4gvZ9GhCA=;
+	b=m1tvB+wY5h8EyRO/I6Clc6kEwe8CNdv2AhHpoo6XF1yBX16WOU4j/nvMJe7I8NFEBnCd
+	 AfmzytR7VIetO07IQUOHIU++1ma51KXvxqrL2a51qlLCTdZc/dveyOZHwL8ggYLMkQLLF
+	 UG5DmtYlfKyDN2aWgmyoRsXE4IKL7bzh8Q53wElGI8SpuafGz2JYyzb1YtvG2zsXO+lyj
+	 4MsoXa2Jv5zlsX0Ay4ZGU2umlIuKbJaHRELf836Lp5G4tFn21qxGq1KcYAvX1yEAYtC09
+	 YNeTxekClFj9rCzVbm811EifjNplJ0GdC+inpz0OX68DkM/PxYQLd3oacV8weQlDDUw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=acm.org;
-	spf=pass smtp.mailfrom=acm.org;
-	dkim=pass header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b="DIS/zmcX";
-	arc=none smtp.remote-ip=199.89.1.14
-Received: from 011.lax.mailroute.net (011.lax.mailroute.net [199.89.1.14])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=none header.from=baylibre.com;
+	spf=pass smtp.mailfrom=baylibre.com;
+	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=mopEgmah;
+	arc=none smtp.remote-ip=209.85.128.45
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E3B8606A319;
-	Thu, 22 Oct 2026 15:57:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0E3B8606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF594606A31A
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 15:57:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AF594606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=DIS/zmcX
-Received: from localhost (localhost [127.0.0.1])
-	by 011.lax.mailroute.net (Postfix) with ESMTP id 4j9W4N3M4Vz1XM30h;
-	Thu, 22 Oct 2026 15:57:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
-	content-transfer-encoding:content-type:content-type:in-reply-to
-	:from:from:content-language:references:subject:subject
-	:user-agent:mime-version:date:date:message-id:received:received;
-	 s=mr01; t=1792684626; x=1795276627; bh=FX/sU3FBedZKsYkZYV38KBHE
-	lp5MTIf0KxoEfx1Y/RY=; b=DIS/zmcXbCt1BwILH255jWVcBc6m9gM7HNq9VI/4
-	e5o3U163TDXtnQUZXxvB92eZVdHIvvPxVi1zr4YZLXjU+2FzfmVk19ax1hxR2MU6
-	5aozhp4P5xXOQmRR1duzaQZvZ9v6j1FgMEEfbOJSRjnAGQNOSv84VwHwfcCF+/Ji
-	TY6NaTVg3tx7A4XKzYa63rh1X794Q6QWni67K5p8YcOYTY1Gt4HMjdDGIYYNKIZ5
-	sljKcQthdhsn6vea5O9t0rWgRVZOGmizbdITy9P/BOX9e5wqwReNEyNqwFMLebi0
-	ayl9+Gfgtdk1ZnyOuwD5ESsM4P+P5imwg70QdB56f5HOsw==
-X-Virus-Scanned: by MailRoute
-Received: from 011.lax.mailroute.net ([127.0.0.1])
- by localhost (011.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
- id ogSJCXhAogOe; Thu, 22 Oct 2026 15:57:06 +0000 (UTC)
-Received: from [100.80.231.125] (unknown [104.135.182.41])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: bvanassche@acm.org)
-	by 011.lax.mailroute.net (Postfix) with ESMTPSA id 4j9W4K5SsTz1XM30g;
-	Thu, 22 Oct 2026 15:57:05 +0000 (UTC)
-Message-ID: <65d23010-ca3e-402f-8384-732678b6ffb3@acm.org>
-Date: Thu, 22 Oct 2026 08:57:04 -0700
+	dkim=pass (2048-bit key, unprotected) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=mopEgmah
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a1fbd52ab6so13692265e9.0
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 08:57:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1792684653; x=1793289453; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=bCyNFGNC5QAv5YoFhc+XguwmFWmtXQoZNr4gvZ9GhCA=;
+        b=mopEgmahGi2LZ/MpaHEcX854qnec/UxPeuBg/hGh/Z9nqojzxFpELxS5fnOV7Ltg+9
+         Gu+BuVPMR0i/9krCj8jdSbsiDRrbzaKK9/0x3Oh6BYf7feHfZLq9C/pypGvH48fJZQNS
+         OoENBd9sWkdVdvP/6JYfb+eE8DWXUUVdJMnUm5YLcqYZ093zo6wW5TD8XhCyDUKicZAD
+         wdO2+v0YRLJ3j4PWEOrXP8MJnwWGsaqquCM89EB0hjYjSodI1yeqMauHYpgy9nEeDDWv
+         uPCsmw/luwwKeW3N7URKQ/DABaSPe9OHD4HGV0R7QRryY5gehPYFx5qxdbr8ZAoE7vx+
+         QIaQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792684653; x=1793289453;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=bCyNFGNC5QAv5YoFhc+XguwmFWmtXQoZNr4gvZ9GhCA=;
+        b=kwlk4HrpY2o+GH1DPUxb30MOR7PdNDxKPUqH16iKWOntNqMukEkf0eIGGt6Vv8qgIX
+         VLyQp+JB8HDVuAgrlxAIBoAhmYdk36f0YHYfmjUCAQdDw6LN57jNObHzCG/I0Awoaahe
+         1WmPFjA/Rac3whYq4BhYeLMpyZaKe0TILvVzTOoADI8vLZtUrbvzQ+6Gm/XJeQaohzF+
+         rpr5GpJMJ8DPnuBnp2wbtysDe+bqhckUIjI4DKZE4YZIRhqRLLrbzVLDqjc8uMCBtDsK
+         ON4NBxn1v8fYyCH9SLrfUQZ2YMjyhrrogCsXHv213/wbbDFRUKDyt85G/TuPTu1OkJCe
+         Rb4g==
+X-Forwarded-Encrypted: i=1; AKwUvByJygDxdWs4bx97Q4l6BkgmyiFyODPoAizIL5BlJmos/yjwSDPXrFoNLj8wmJ0iDvz/VO/P6kI69IEf9Wo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKgmLmzJjJkzRNo+Q/10Pkz/rvWha7FZOPpZ9F6/mh8t5R338yQ
+	z9sYTuzMA0Arsor2AKoCTt0mO9Rwvj4LIe8B0/YWgKuCcXvE93bUXsKYdiGehDxph0I=
+X-Gm-Gg: AYBFou1rcCW0lnhci3BG4uJchU9szXoNM3pJK7TWlWIOSw7cQnpYiSnOixHHybAOFkZ
+	lA7SkWhV0mkuiBZ81OwSQx3HIVAv14wRMGW5/Ovqzjf1e0gwU50J3feK/c7+4mirilTrzrbPCPq
+	DsO6tCb2g1KqZp+mtNaBz+e1bvyikLCNw/04Js5vKEZCgcOdPrR5dXIOPvF2qTXsFkN8rzzbjU7
+	/2C1q5vR4oN8D/F5oGmyporV/gQqjgcnHNOBXhqbeTFmVi0WYfQFUl3DTNs94joJFwT/0RxnZCZ
+	vEIPvTB/d+Em6deO8Upi7rjJQpEfO7KECbjCDBH34b/26y8xu0tvTcPEUcpK0yE/RdE9EySotH1
+	1cCBPhmgIsfd5YeOQRP7p3FxhSLst1szjB723snV/S+Q5sLSkcUrzewnEWLd3FIcAPjJOo3eUXc
+	fXDqi4kh+1FxhAAxh4Dq4GifXEY3JvuAVTRzi1gAO3KsmGP2dEog1kVm8p9IyQHwP+nv8/VVvSU
+	rZvFEPYIJMV5x8DCfPvfoiHJ6TcWqM3qUQkdGuM2YDNU+4StXpRjXgRBB8uGF57E9/E0B9rxH4E
+	eD0NVyncZboWesCUkOduERAMHB/v
+X-Received: by 2002:a05:600c:3548:b0:4a1:e774:370c with SMTP id 5b1f17b1804b1-4a1fdd145edmr114281495e9.30.1792684652964;
+        Thu, 22 Oct 2026 08:57:32 -0700 (PDT)
+Received: from [127.0.0.1] (mob-83-225-32-96.net.vodafone.it. [83.225.32.96])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1fcd360e4sm96519725e9.4.2026.10.22.08.57.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 22 Oct 2026 08:57:32 -0700 (PDT)
+From: Carlo Caione <ccaione@baylibre.com>
+Date: Thu, 22 Oct 2026 17:57:26 +0200
+Subject: [PATCH] MAINTAINERS: cover all the headers in ARM/Amlogic Meson
+ SoC CLOCK FRAMEWORK
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,26 +91,53 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/2] RDMA/srpt: widen the indirect RDMA context
- counters
-To: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-Cc: Leon Romanovsky <leon@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>,
- linux-rdma@vger.kernel.org, target-devel@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20261022143901.2991062-1-yhlee@isslab.korea.ac.kr>
- <20261022143901.2991062-3-yhlee@isslab.korea.ac.kr>
-Content-Language: en-US
-From: Bart Van Assche <bvanassche@acm.org>
-In-Reply-To: <20261022143901.2991062-3-yhlee@isslab.korea.ac.kr>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20261022-upstream-maintainers-clk-headers-v1-1-d09dd4db01d6@baylibre.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWNQQrCMBBFr1Jm7UAz2CBeRVzEdGJHbSwzqQild
+ 2+qiw/vbd5fwFiFDc7NAsofMXnnKu7QQBxCvjNKXx2oJe9aIpwnK8phxDFILnWshvH1xIFDv3O
+ K5P0pHV3qAtTMpJzk+7u4XP9u8+3BsexdWNcN9iE8poQAAAA=
+X-Change-ID: 20261022-upstream-maintainers-clk-headers-fc2668f41f5a
+To: Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jerome Brunet <jbrunet@baylibre.com>, linux-amlogic@lists.infradead.org
+Cc: linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Carlo Caione <ccaione@baylibre.com>
+X-Mailer: b4 0.16.0
 
-On 10/22/26 7:39 AM, Yehyeong Lee wrote:
-> Make both counters int, the type the values they accumulate already have.
+The ARM/Amlogic Meson SoC CLOCK FRAMEWORK section was written when the
+GXBB and Meson8 headers were the only clock headers, and only the A1
+ones were added to it since. The headers of the AXG, G12A, A9, C3, S4
+and T7 clock controllers in include/dt-bindings/clock/ are not covered,
+so ./scripts/get_maintainer.pl does not return this section for them.
 
-Why int, which is signed, instead of an unsigned type?
+Match every amlogic,* clock header, and the axg* and g12a* ones.
 
-Thanks,
+Signed-off-by: Carlo Caione <ccaione@baylibre.com>
+---
+ MAINTAINERS | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-Bart.
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 3a19da74d00c..e5bda99b3015 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -2555,7 +2555,9 @@ L:	linux-amlogic@lists.infradead.org
+ S:	Maintained
+ F:	Documentation/devicetree/bindings/clock/amlogic*
+ F:	drivers/clk/meson/
+-F:	include/dt-bindings/clock/amlogic,a1*
++F:	include/dt-bindings/clock/amlogic,*
++F:	include/dt-bindings/clock/axg*
++F:	include/dt-bindings/clock/g12a*
+ F:	include/dt-bindings/clock/gxbb*
+ F:	include/dt-bindings/clock/meson*
+ 
+
+---
+base-commit: 363f97a1ce635b86be7fd263d56a040fbd87bdbb
+change-id: 20261022-upstream-maintainers-clk-headers-fc2668f41f5a
+
+Best regards,
+--  
+Carlo Caione <ccaione@baylibre.com>
+
