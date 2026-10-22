@@ -1,76 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.9
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792664388;
-	b=gXfJn1Yg/0niIc6QrImtmBYKuDH8eCCtMnBYreepIz/Hf0WUUPQ502UtQsiNA5GWp2ZD
-	 FuNJ2qFea0UexbMIe+D00pu4Rbe2Es6HSMW7/nx4nftziYi4CBYCoNAXsBk2tMMuNIzm7
-	 Mdb9THn9uri4AQ2lPKFVomMmGBZqLIfoJEJoMVnpS2kLOLa7QzPqLtc7Cx8BTwoPVH1RH
-	 6xsDueNsLA621c+RNW2X0fHAVjQULY7Y083Yr7fzckntJ8o9iHBnqfjH9Bw7raAV0LiM5
-	 HA8hlj9gA+j6kETMjhMg6RDT0Kv1fIENSQT997kcYPIzOfduFUEVsN01+xB/6lQ8tUQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792664388;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:Date:To:cc:
-	 Subject:In-Reply-To:Message-ID:References:MIME-Version:Content-Type;
-	bh=l7W4b9OM3w7aZUcPr3GA7zM7H5bAXzEKkvW6TiSrbHo=;
-	b=UBqLXdimDmO6L0QmOgYM0/GFIDgR9QoYoyyrdLFLoQaZ8Y2Mf/WtixBRBjc9mg1/XWRU
-	 CxEafdW73xEHrT+tM7bwcfH91clFBIirjzXTR2dbWK4RnYzk8f1KZ/eyxj40NOnpbWQbR
-	 +Pr+BHsoiMgHz4kW/VEKXQmfJAnssShhXLAZvOo5Ika+uMWxKgqGZFfeXpdrrbw6hObZ7
-	 0Kpi/BifevlexQXr+ZZNsqHPbJ6YwkNe7EYtkbYDiHSi5t/6syTFXFwsStPI6Aapo1xMP
-	 FZk+Z2jS5lbMJ2JzFHKfTGTLx71VbMCm2mAqClfoi6IUxcAUttmEtIGD+IQMnW1A8Bw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="C/xXpXjP";
-	arc=none smtp.remote-ip=192.198.163.9
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.222.180
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792664397;
+	b=O1DKCwfCEwZeAKlWOR7BerFkcabBJ241YKRvsAE33yUjd00o9RDqJn0UdGFnceT+6uCd
+	 LJMAt3tftrnTohTJjV80DjvQcqEkNkaf6qA9LSHl9qOkdY1RBOLHjcZ4PbwukHu13ORHN
+	 2Buq0O7Iom3HgxI60YKqkldniAeEYZjkzsgn2fcaL9vN3W/zNcUe+LDR47btHA/66EH51
+	 gqDmJVn9iy6dtOUB/jtiWKWx0uR/BjAF4UjwUj/EqywxGM4wc2xacawzpqmsTJHuXAvAF
+	 W/h3xZ2EV3WePYJ1ztZpak056S4HwvDfHdArjJk9FamSyesg0r8MjYL6fFG6TDLMZDw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792664397;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=8RseLjNm8lG/7UmlycVln9er/NWi2dNp7MDnl6ITlr8=;
+	b=Eh5CBgq4ysAw6THgTf3MGM8oHeQIMcDQB06M+dCUByu4Cj6wu/zvR0PWxK2HldyuYBx4
+	 EQivFElSg1BrwJllb9KJ5U82XgYzTn5+SlOYS917Xm4x9SCT4/urjYFos4NbUKOJNWg1x
+	 vRRiUdIvoSy+Cm1Y7X6wPpRTaTDTg3HIygWDC/PvFOHqCl+yRZDSPURwJC3klIHAqd8su
+	 Tsj0rrbvj99nIPJ4ozd2+AQTTCDlEBIBbCM/isa6OuwRtiQUw8JXwSXhd+oO8Z3jbejtl
+	 ZgP9pV1rZu/ZjWYQQOmzfyDvZn2LqhkXAf2+DLTejsiqpzHiSqzrlok8jKSMGEwgouQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=aUJzr1v9;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.222.180
+Received: from mail-qk1-f180.google.com (mail-qk1-f180.google.com [209.85.222.180])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9A33606A31B
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 10:19:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D9A33606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D20C606A31B
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 10:19:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2D20C606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=C/xXpXjP
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792664387; x=1824200387;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=RSuwUQ0sXYuLEUIHlbVE3xx4xHsDdpGiUAb7E6nsLzM=;
-  b=C/xXpXjP49Gm31lpzmf/NPWVJsE8I5y3sRAt+z1MgRpla2N/evrE9ORf
-   bkPYpoHYhLBJwufHpU8cjyi93uNHt+Lj5rjGXpV69wqFyQDzaESOq/RJb
-   DOT7GejTDRQCwaHLL+8IxgHcxRPUFWr2smnp0AgmZEpVSHmS7e1Bk0jeQ
-   nWuTMmLtNYNW70uNDYKAUvC7uiLBqur50/0RL78Fi7PqOpnAUCt5CI8uC
-   ubXgdtr5/9vdeBbMyEVURCymOh0yX9ziwjruxmRetAVfpY3j7TinfCSqP
-   2VhwHj3sFrx+ILDpO5sOphge88fHUoMMlk6XzZXVvBq7XHJuWUYj0wxSl
-   g==;
-X-CSE-ConnectionGUID: 6KS36AKMQJKl/nUeJmtoLw==
-X-CSE-MsgGUID: CpaDhyEGR6S0Do6kM7168g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11942"; a="1297538"
-X-IronPort-AV: E=Sophos;i="6.27,172,1787036400"; 
-   d="scan'208";a="1297538"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
-  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Oct 2026 03:19:46 -0700
-X-CSE-ConnectionGUID: Po4/K/vPS3upp4GXM+E7mA==
-X-CSE-MsgGUID: +gr6xd94RoOsUQDt+MDnEQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,172,1787036400"; 
-   d="scan'208";a="3274138"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.253])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Oct 2026 03:19:44 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Thu, 22 Oct 2026 13:19:39 +0300 (EEST)
-To: Navon John Lukose <navonjohnlukose@gmail.com>
-cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-    Lee Jones <lee@kernel.org>, 
-    Mika Westerberg <mika.westerberg@linux.intel.com>, mfd@lists.linux.dev, 
-    LKML <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v2] mfd: intel-lpss: Set d3hot_delay to 0
-In-Reply-To: <20261022040453.45797-1-navonjohnlukose@gmail.com>
-Message-ID: <42bbb588-8750-0985-4daf-57608cb09c46@linux.intel.com>
-References: <20261022040453.45797-1-navonjohnlukose@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=aUJzr1v9
+Received: by mail-qk1-f180.google.com with SMTP id af79cd13be357-93f3c895a0eso149054985a.2
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 03:19:56 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792664396; cv=none;
+        d=google.com; s=arc-20260327;
+        b=UlXxQeR/BlaFem8PhKYugPOcPcqZEtmseUJZDKv4yY675LCfdnaulbC0584MWpPyzQ
+         duVnT4QC+xMsIiwRe8VQxiDrexQkqx/Js0vX2E9rc6d6pSF8DQ8cGn5YPAx0o8KOoF9b
+         RYv2lkpqpTiPgKWJ906RiGXKRnvdhl37zJUu/CsimS8BoI7nE+lx561BCdhAbCgmLTVm
+         vzLIzBTsAH5IoZBbCukjIKsXEHvjztBQm4953VJ+7r7d3aWChzQ4SaE0D2HRLEN+VWqx
+         0+KZcJ7vcEF5AuPXOM8jR/unWHEiYcdiR753ZoGJKQ/dSWzSUaX6h4t2PHqJNajJKZth
+         z9DQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=8RseLjNm8lG/7UmlycVln9er/NWi2dNp7MDnl6ITlr8=;
+        fh=PMo8TOz+LnJBCxJ18doH/BhfYRAUL3Gbb5LyIkeFrSw=;
+        b=TkWYr+NtKuQnnw2UQnWRet+NSWQuyhoenAQtBjqVyEjiQECIadt99awuQtn2+57ug4
+         p08KEM02gy0Z5FgpM9K7Aw+VPKl8HVOMsxwadMPDU9ghY2BMp1cHfwTGlKRuq+esORLl
+         a4bO6NEEpK//BeF0OjEiJnZbaiVud7TsVULiwQb6x+zeNpdw1KTYj8UgSaFpaH23pZCR
+         D0b/oxQG6z6LJuVoLuKG45Ve/plpxeEoTnBhQ5OYbMUL1l99kKzcBAltNETwFJ5eqT2H
+         c7NK9QoMngOKNp92+k68qkB7j74EKIKDlUTbplXcT1oTCryWxbHd63UGg+bCjICC0UWf
+         nVzw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792664396; x=1793269196; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=8RseLjNm8lG/7UmlycVln9er/NWi2dNp7MDnl6ITlr8=;
+        b=aUJzr1v9HCvAKgJ2UTSl8mUeU+wQVplCGtZ0YUMOEGg5oZysXD+REwtONRHf2+MJaZ
+         TwbRR8NGkA5aslgmvc+A3rI2NLGykz2FM0Y235FgmMy2pN6yoonoSjsMkmV2qHLsrzrS
+         ArykiZlvdF6zdtSVaQuQdjwN0UYexGcAi4UAXOwm2Rq7EYHU6ABZDFMkZb+dXNcPUJbj
+         I1ZRscTqYWKBiZM5BvMddh0R4SUTA/SazjdbXcWkdOpBVSA+escj8OFMeCdv2lKxXlsB
+         kAhaw/CBDr14ZkanQZgTp0YPRdGdSF7aqYsnAceXTbiW8azyhku13EGgH6W3WZJP3d3e
+         dBTA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792664396; x=1793269196;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=8RseLjNm8lG/7UmlycVln9er/NWi2dNp7MDnl6ITlr8=;
+        b=ghSycbwNJ6L4yiTGzzzBa/AYuelWBra9XTwFVgaA6nKT5jlPM5PdPcdTxQ1EZQD/x2
+         mjENwPU73T2I5I2TEkJVGyHYz6yCiSpZpuk3Oon/5kGL1JkqsuxSRzPF79a3AYRHY9ru
+         X8ygIS7vY+kbApSqX9PkhxUXWzGdvkC9QKj6AwA52nBuzbUV2HA74fbSWsE4JabtRI9Y
+         gAmN/xhQoy3mU71iElEVowLQiM2LQgvizauE/pG5Ory53ayp5zB/P/mtCHYz4d1mJxlv
+         dlKJRinXs/NlElIysSihsCODSZlgQZ1+v1j8OXacp1JObpnYRaM8IBSF+OCD1DZ0xSxu
+         3qSA==
+X-Forwarded-Encrypted: i=1; AKwUvBzrpqjmr210SmNGLJuMphVpr7oPP0pqShj9mbgMKrZz5pTeV5DTQpwrB2IR3G6P0btSrUvMTNms66bWDX4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI1VgBHGM/jSwPR0ZjRWPw5m1Gs9E/4+3M8OSrKRKfvZdPMIQTI
+	uvidBduu7VtJY7JLMAof4AfEl5wiewiXpc/u7ridKFZ2qci5icDuaJqPJhlZjnH6w0cCY2K8WNo
+	ABJXYXV8zP4/DcsyHTgaE9f2pVxedinrPr44FnOhc0Q==
+X-Gm-Gg: AYBFou0zaVwxiuY6q2XSf4a61Y8VFXXt4t4yIax8JJTr8zeV99CLME1+b4zOoouK/BT
+	uQIMGozI2zn/FuQjBF8X1QYjDWwSo1LMrjNgtObdbwnLMRNUQMy/fbWA8jOP7j9/0HTxbn3kgIb
+	/PlNtcopfSXafnBWqFvhKTy0q/fAIzWw8YfwU02WsnybHtzUFPY0jCFZu2hplYcSotSAEXJ55Xc
+	bwIcm51hq9u/SlhJ3mazf0jdbbcH6/5DuUPXGHtzmJOOa7vxvBht9KXZkVHhEOV0DHLerR3+tTa
+	0fU+f8CEEpog4BA6p0U2V+qQt6H+6ZoVKd/Y9cFPSuSRd7wUot94IbEtHSspYUGQ7ebTSGrxmtQ
+	LhDrZgOk4W6o7ViKLWee0wTNLwCxJBqn7rL2OCMo=
+X-Received: by 2002:a05:620a:6504:b0:93f:277b:313d with SMTP id
+ af79cd13be357-93f57e404e7mr834687385a.2.1792664395296; Thu, 22 Oct 2026
+ 03:19:55 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,68 +103,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+References: <20261021085458.196742-1-physicalmtea@gmail.com> <d58ea6de-e17c-4426-afd1-0b67ead16b7c@oracle.com>
+In-Reply-To: <d58ea6de-e17c-4426-afd1-0b67ead16b7c@oracle.com>
+From: Jia Jia <physicalmtea@gmail.com>
+Date: Thu, 22 Oct 2026 18:19:19 +0800
+X-Gm-Features: AclHuK9FeuqH6i9COjZB1uH64DnGhDow9zmoJpb-bjLKr8MhdWEwBKDQwH0c-T0
+Message-ID: <CAJwVaM+nBJ15=XwdV_wefNxd8iyxxSWjd-K8k_VAAc8yoyUZJg@mail.gmail.com>
+Subject: Re: [PATCH] vhost-scsi: fix page reference leak in misaligned I/O fallback
+To: Mike Christie <michael.christie@oracle.com>
+Cc: "Michael S . Tsirkin" <mst@redhat.com>, Jason Wang <jasowangio@gmail.com>, 
+	Paolo Bonzini <pbonzini@redhat.com>, Stefan Hajnoczi <stefanha@redhat.com>, 
+	=?UTF-8?Q?Eugenio_P=C3=A9rez?= <eperezma@redhat.com>, 
+	virtualization@lists.linux.dev, kvm@vger.kernel.org, netdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Thu, 22 Oct 2026, Navon John Lukose wrote:
+>
+> On 10/21/26 3:54 AM, Jia Jia wrote:
+> > diff --git a/drivers/vhost/scsi.c b/drivers/vhost/scsi.c
+> > index 4f8c0260bc9e..b7e41c0a91d4 100644
+> > --- a/drivers/vhost/scsi.c
+> > +++ b/drivers/vhost/scsi.c
+> > @@ -883,11 +883,16 @@ vhost_scsi_map_to_sgl(struct vhost_scsi_cmd *cmd,
+> >       vhost_scsi_revert_map_iov_to_sgl(iter, *sgl, sg);
+> >
+> >       iov_iter_revert(iter, bytes);
+> > +     /*
+> > +      * pages[npages] is the first page not added to the SG list.  The
+>
+> Just a minor nit. There's an extra space before "The" in the comment.
+>
 
-> intel-lpss-pci already clears d3cold_delay, but every runtime resume of an
-> LPSS controller still sleeps the default 10 ms d3hot_delay in
-> pci_power_up().
-> 
-> The PCI spec asks for those 10 ms on D3hot->D0. Mika pointed out that the
+Thanks for pointing this out. I'll remove it and send a v2.
 
-Please include the surname too. Since you'll have the email address in 
-Mika's tag that's probably enough (otherwise you should include the email 
-as well).
-
-> LPSS controllers are not really PCI-connected devices, so the delay is
-> likely not needed. quirk_remove_d3hot_delay() drops it on several older
-> Intel chipsets, Cherry Trail among them, and commit 815b4448198f ("i3c:
-> mipi-i3c-hci-pci: Set d3hot_delay to 0 for Intel controllers") does the
-> same for the Intel I3C controllers.
-> 
-> Nothing misbehaves with the delay in place, so this only shortens resume.
-> On Arrow Lake-H (Lenovo Yoga Pro 7 14IAH10) the touchpad's I2C controller
-> autosuspends after 1 s idle, and the first report afterwards waits for the
-> resume. With d3hot_delay set to 0 the i2c-hid interrupt handler for that
-> report takes 1.1-1.9 ms instead of 12.6-14.4 ms, with no I2C errors. Only
-> Arrow Lake-H was tested.
-
-I don't like how this changelog is structured.
-
-You should make it clear at the beginning that there's some delay 
-(introducing the problem you're trying to address early) even if 
-everything "works" with the delay and that the delay is due to default 10 
-ms D3hot->D0 wait.
-
-And only then proceed with in depth explanation about the delay and why 
-it's not needed.
-
--- 
- i.
-
-> Signed-off-by: Navon John Lukose <navonjohnlukose@gmail.com>
-> ---
-> 
-> Notes:
->     Changes since RFC:
->     - Drop RFC and add the review discussion to the changelog (Andy).
->     
->     RFC: https://lore.kernel.org/r/20261016114347.23633-1-navonjohnlukose@gmail.com
-> 
->  drivers/mfd/intel-lpss-pci.c | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/drivers/mfd/intel-lpss-pci.c b/drivers/mfd/intel-lpss-pci.c
-> index 63a3fb58566..5672f033e5c 100644
-> --- a/drivers/mfd/intel-lpss-pci.c
-> +++ b/drivers/mfd/intel-lpss-pci.c
-> @@ -70,6 +70,7 @@ static int intel_lpss_pci_probe(struct pci_dev *pdev,
->  		info->quirks = quirk_pci_info->driver_data;
->  
->  	pdev->d3cold_delay = 0;
-> +	pdev->d3hot_delay = 0;
->  
->  	/* Probably it is enough to set this for iDMA capable devices only */
->  	pci_set_master(pdev);
-> 
+> Patch looks ok otherwise. Thanks.
+>
+> Reviewed-by: Mike Christie <michael.christie@oracle.com>
+>
+>
+> > +      * remaining data starts at offset in that page.
+> > +      */
+> >       while (bytes) {
+> > -             n = min_t(unsigned int, PAGE_SIZE, bytes);
+> > +             n = min_t(unsigned int, PAGE_SIZE - offset, bytes);
+> >
+> >               put_page(pages[npages++]);
+> >               bytes -= n;
+> > +             offset = 0;
+> >       }
+> >
+> >       return -EINVAL;
+> > --
+> > 2.47.0
+> >
+>
