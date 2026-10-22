@@ -1,77 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792674332;
-	b=Mls9/AfPN+MOldRRD8ymcA9dH5gT9O/2+geApsz9tml4KWfWUgBAz3a0Qra9qMIanqiK
-	 LnakQ3Mhud74jHmEvoc55WbyWLVgXtrB4G0BsNdHYm/Xnik+JpE9UHkICJLhJbcldbD6/
-	 upmwgS0qFstm+n5CFK0W+9CqJv1z8JgpAcOYLsREEJW85/aDOr5c4btzl9DUqYiKNx6qI
-	 mjKk6HooufbxpTMfllPRXfeP6bbdYPxsQqS4qsh3vYdV+EJhnvUnRuTguGmHv04MizAFT
-	 z79jD3tbNJL6YAaQJkm8yxEtqcVp5iyE6urvR2Q9VZzlw9yTjpTrKeCAHuKnSTgI7RA==
+	t=1792674405;
+	b=TR8Hg/2MTya/I++qML6GC82xVwcfdEredm+cZ5TYyNdRthmAy0l3hX74/KQmeFEOOeT4
+	 pat5cysMmaIQ2U1awEX/HLr6tiMnYVqKXJGTtJn44//CZg7FGmK9wUssQoPbQ8xEQgSOy
+	 H/0Z8xPlXJoWG2fEirlOOsuNwF0EoYhni86+u7Olr1e3do89NRr8k29GutAV+wgZ6w3jl
+	 1cEcUun9BJ4PPghfQTT69He2MP45rkJKQK2GOl4wDuB5Ug/Dpp8KdGIAo5otrJpuw8xZH
+	 SfFVQPn7uRmpD/eOOn388GtJds5gtgMgHHDhrPWXHW79JsQ9T+EYvOMnEorwAyHu5Sw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792674332;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Rspamd-Queue-Id:X-Spam-Level:
-	 X-Rspamd-Server:X-Rspamd-Action:X-Spam-Flag:X-Spamd-Result:
-	 X-Spam-Score;
-	bh=8im1UzNMkFwAjrjrRVbJ8a8P3900EWF9/5lDbm3fB04=;
-	b=KjxTI3tPhl/qwCkrHiwy10yOXVa1q52jDRP1RefnkjDOk8koqI89j/QkfargyWzN2rDS
-	 2XxlRSA0KYJ9/92W+Tw8ZwCXJHgzzX6U5M1ofjTue1550gXrWMCMjAwvo5hHm/0rTIJAM
-	 lz8//toM3BNMFclmKdhf0fb7B+7eTY9KfI+Ie6q6Btjm8dUhvsEHB3AVHEF0Wf/MHAnJw
-	 nJbQWAA5gcqiCCTcqjHjF/BD3MfmwOKxjNVMOhmn0e0z5duTwFrWSsverKSiN1O80wlTC
-	 LWUvZf+SoxpOCtIC2pdUWErhMea8H6gD+nNxJNiipbWvEtMaRymF3FOVb2698FkpzeQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792674405;
+	h=Received:DKIM-Signature:From:To:Cc:Cc:In-Reply-To:References:Subject:
+	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=bwnwU5rYjaVApPDY1R+OeaLnX+sV5D1rI1i70ddm8ko=;
+	b=fhOCyJrVELCBTcDbQ4xB3FNL53R5m7za8lP+L2zZzq5LeC4BPi4oMPxKvaby8LMaRdeH
+	 63kOL9BZxBzOJRrC1b5EXs0DXByPACUmX532BmjDT+EK80NUEMvMuwASgl6mYusJPq1Kt
+	 P+S5vNdGD9mMWzX+edbUUg0nwwFXspyZ/fH25P+vj7E5BactBNDm8W5DrZkJ+GpN9Kbmo
+	 H0OGWPjcO8Q2pjCvJEZ8Ru3PWkOXVv5aQ5+azZHZs4dhWZ2F7IiYEsz39C2cnNmDw4PAf
+	 +XNp8Xz3HbugGT9qywB8Mc2EMfG/ZMNc8lQBI513Y52TNxaBqGwo6nJN3N9P0Xs2VxA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.com;
-	spf=pass smtp.mailfrom=suse.com;
-	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=susede1 header.b=eDyXJGTR;
-	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=susede1 header.b="c/OahpSx";
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UPd13Ive;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCE6E606A31D
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 13:05:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DCE6E606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C538F606A319;
+	Thu, 22 Oct 2026 13:06:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=susede1 header.b=eDyXJGTR;
-	dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=susede1 header.b=c/OahpSx
-Received: from kunlun.suse.cz (unknown [IPv6:2a07:de40:b306:2000::2])
-	by smtp-out2.suse.de (Postfix) with ESMTP id 0C1091F7C4;
-	Thu, 22 Oct 2026 13:05:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1792674330; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=8im1UzNMkFwAjrjrRVbJ8a8P3900EWF9/5lDbm3fB04=;
-	b=eDyXJGTRvOtgZWqm/ObsnKIcYp/L+m0pmOrwVSqd2VVQZLQM7OzJ3kvA2hXH/a9iUndZQ7
-	coPt56yLZRgp86t5sDXKQHN+NO+Mzu955geSx3xvCwGX0eC10ySW7T1W7ORDlROl84KHrE
-	Id46NkflLM3DmV3eFwsqlRZJDQllJ7E=
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.com header.s=susede1 header.b="c/OahpSx"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1792674329; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=8im1UzNMkFwAjrjrRVbJ8a8P3900EWF9/5lDbm3fB04=;
-	b=c/OahpSxvk3uFr63kd7tvQjVPBHv8HjfErF4JBM9HCrqIMl6dFYXjup1pRj2FW7mgoYJro
-	80p3SYbDmKJQj36Mun5lNpWqYGzF4t2Yp95pm5oXMJGWlpCGWVQNBmg/jb1uoKtcEoT3FS
-	8OwPyJxUXAg7j+ZpRjedRrBiDIcZMOs=
-From: Anthony Iliopoulos <ailiop@suse.com>
-To: Mark Fasheh <mark@fasheh.com>,
-	Joel Becker <jlbec@evilplan.org>,
-	Joseph Qi <joseph.qi@linux.alibaba.com>
-Cc: ocfs2-devel@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 2/2] ocfs2: replace ocfs2-specific inode flags with generic ones
-Date: Thu, 22 Oct 2026 15:04:57 +0200
-Message-ID: <20261022130457.69343-3-ailiop@suse.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261022130457.69343-1-ailiop@suse.com>
-References: <20261022130457.69343-1-ailiop@suse.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UPd13Ive
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2E2A91F000C2;
+	Thu, 22 Oct 2026 13:06:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792674404;
+	bh=bwnwU5rYjaVApPDY1R+OeaLnX+sV5D1rI1i70ddm8ko=;
+	h=From:To:Cc:Cc:In-Reply-To:References:Subject:Date;
+	b=UPd13IveMy2vSe/HFnfY8W3k0mp+nEMkSa/XuUkrIVCdjvBsZFoF2ckjpxiXBBVm/
+	 voa729hm8qNPWvFJQt7I72JmQFGGh6Lgt0FW/er46LdQ+iJFPHsEggtXgzDZHBoHIf
+	 TM66VEB9EFHc83G1ZchVFAeC0D4E4hbdffoNbw7xboY2wX9/mJUlZzrUItav53vnlg
+	 OIUY6qUNMB63O/6oQnICM0kyw6x+3C/8S5QNb9RrTq2h63n17tK40VZzj7b/Gpuu2P
+	 dVIde4idCzZBKI2y+LWr/vqPIN9q8cmOZ7LW+73Ew/g5u7dRlpLTqdX96xtInI2V29
+	 UqsDQowqLu2vw==
+From: Christian Brauner <brauner@kernel.org>
+To: Josef Bacik <josef@toxicpanda.com>
+Cc: Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>
+Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20261021-b4-super-lock-unborn-v1-0-0265eddb6dee@toxicpanda.com>
+References: <20261021-b4-super-lock-unborn-v1-0-0265eddb6dee@toxicpanda.com>
+Subject: Re: [PATCH 0/5] fs: don't let a stuck mount take everybody else
+ with it
+Message-Id: <20261022-gehackt-unscharf-neugliederung-0f5691b3a177@brauner>
+Date: Thu, 22 Oct 2026 15:06:11 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,172 +59,56 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: 0C1091F7C4
-X-Spam-Level: 
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-2.87 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_SPAM_SHORT(2.94)[0.979];
-	HFILTER_HOSTNAME_UNKNOWN(2.50)[];
-	ONCE_RECEIVED(1.20)[];
-	RDNS_NONE(1.00)[];
-	HFILTER_HELO_IP_A(1.00)[kunlun.suse.cz];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-0.999];
-	R_MISSING_CHARSET(0.50)[];
-	HFILTER_HELO_NORES_A_OR_MX(0.30)[kunlun.suse.cz];
-	R_DKIM_ALLOW(-0.20)[suse.com:s=susede1];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	DIRECT_TO_MX(0.00)[git-send-email 2.56.0];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b306:2000::2:from];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	DKIM_SIGNED(0.00)[suse.com:s=susede1];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[5];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b306:2000::2:from];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCVD_COUNT_ZERO(0.00)[0];
-	DKIM_TRACE(0.00)[suse.com:+];
-	FROM_EQ_ENVFROM(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[kunlun.suse.cz:helo,suse.com:dkim,suse.com:email]
-X-Spam-Score: -2.87
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev-ce4c1
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1584; i=brauner@kernel.org;
+ h=from:subject:message-id; bh=xl7J3jxIvVE51xp4/7iYovq/Hbs3GdLm4/CkZk99kbI=;
+ b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWTd4krcqZ56k3312uIo1o6+47MEozZPfXsh/O197dsf7
+ lkunzTVsaOUhUGMi0FWTJHFod0kXG45T8Vmo0wNmDmsTCBDGLg4BWAiz4QZ/sotUYppPx7UZf9d
+ z6u65eCPCWvlfv2N5Npztbvze+zsHWsZGc60bN15muuR1sfU2o1zDtqKFuxer5ayOqLaYA2/jHp
+ kLCMA
+X-Developer-Key: i=brauner@kernel.org; a=openpgp;
+ fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 
-The ocfs2 inode flag macros are alias definitions for the generic fs
-flags. Remove these redundant macros, most of which are anyway unused,
-and use the generic flags directly.
+On Wed, 21 Oct 2026 16:46:56 +0000, Josef Bacik wrote:
+> fs: don't let a stuck mount take everybody else with it
+> 
+> Hello,
+> 
+> This is the follow up to the stuck unmount series, and it applies on top
+> of it (vfs-7.5.super).
+> 
+> [...]
 
-Signed-off-by: Anthony Iliopoulos <ailiop@suse.com>
+I resolved the merge conflict locally. I'll massage the helpers a bit
+and get a patch out in a bit.
+
 ---
- fs/ocfs2/inode.c    | 24 ++++++++++++------------
- fs/ocfs2/ioctl.c    |  8 ++++----
- fs/ocfs2/ocfs2_fs.h | 27 ---------------------------
- 3 files changed, 16 insertions(+), 43 deletions(-)
 
-diff --git a/fs/ocfs2/inode.c b/fs/ocfs2/inode.c
-index 180107a11046..64d92d30aa31 100644
---- a/fs/ocfs2/inode.c
-+++ b/fs/ocfs2/inode.c
-@@ -107,16 +107,16 @@ void ocfs2_set_inode_flags(struct inode *inode)
- 	inode->i_flags &= ~(S_IMMUTABLE |
- 		S_SYNC | S_APPEND | S_NOATIME | S_DIRSYNC);
- 
--	if (flags & OCFS2_IMMUTABLE_FL)
-+	if (flags & FS_IMMUTABLE_FL)
- 		inode->i_flags |= S_IMMUTABLE;
- 
--	if (flags & OCFS2_SYNC_FL)
-+	if (flags & FS_SYNC_FL)
- 		inode->i_flags |= S_SYNC;
--	if (flags & OCFS2_APPEND_FL)
-+	if (flags & FS_APPEND_FL)
- 		inode->i_flags |= S_APPEND;
--	if (flags & OCFS2_NOATIME_FL)
-+	if (flags & FS_NOATIME_FL)
- 		inode->i_flags |= S_NOATIME;
--	if (flags & OCFS2_DIRSYNC_FL)
-+	if (flags & FS_DIRSYNC_FL)
- 		inode->i_flags |= S_DIRSYNC;
- }
- 
-@@ -125,18 +125,18 @@ void ocfs2_get_inode_flags(struct ocfs2_inode_info *oi)
- {
- 	unsigned int flags = oi->vfs_inode.i_flags;
- 
--	oi->ip_attr &= ~(OCFS2_SYNC_FL|OCFS2_APPEND_FL|
--			OCFS2_IMMUTABLE_FL|OCFS2_NOATIME_FL|OCFS2_DIRSYNC_FL);
-+	oi->ip_attr &= ~(FS_SYNC_FL | FS_APPEND_FL | FS_IMMUTABLE_FL |
-+			FS_NOATIME_FL | FS_DIRSYNC_FL);
- 	if (flags & S_SYNC)
--		oi->ip_attr |= OCFS2_SYNC_FL;
-+		oi->ip_attr |= FS_SYNC_FL;
- 	if (flags & S_APPEND)
--		oi->ip_attr |= OCFS2_APPEND_FL;
-+		oi->ip_attr |= FS_APPEND_FL;
- 	if (flags & S_IMMUTABLE)
--		oi->ip_attr |= OCFS2_IMMUTABLE_FL;
-+		oi->ip_attr |= FS_IMMUTABLE_FL;
- 	if (flags & S_NOATIME)
--		oi->ip_attr |= OCFS2_NOATIME_FL;
-+		oi->ip_attr |= FS_NOATIME_FL;
- 	if (flags & S_DIRSYNC)
--		oi->ip_attr |= OCFS2_DIRSYNC_FL;
-+		oi->ip_attr |= FS_DIRSYNC_FL;
- }
- 
- struct inode *ocfs2_ilookup(struct super_block *sb, u64 blkno)
-diff --git a/fs/ocfs2/ioctl.c b/fs/ocfs2/ioctl.c
-index 2d95c1e5ad8b..2d962da9ba5c 100644
---- a/fs/ocfs2/ioctl.c
-+++ b/fs/ocfs2/ioctl.c
-@@ -78,7 +78,7 @@ int ocfs2_fileattr_get(struct dentry *dentry, struct file_kattr *fa)
- 	flags = OCFS2_I(inode)->ip_attr;
- 	ocfs2_inode_unlock(inode, 0);
- 
--	fileattr_fill_flags(fa, flags & OCFS2_FL_VISIBLE);
-+	fileattr_fill_flags(fa, flags & FS_FL_USER_VISIBLE);
- 
- 	return status;
- }
-@@ -105,11 +105,11 @@ int ocfs2_fileattr_set(const struct mnt_idmap *idmap,
- 	}
- 
- 	if (!S_ISDIR(inode->i_mode))
--		flags &= ~OCFS2_DIRSYNC_FL;
-+		flags &= ~FS_DIRSYNC_FL;
- 
- 	oldflags = ocfs2_inode->ip_attr;
--	flags = flags & OCFS2_FL_MODIFIABLE;
--	flags |= oldflags & ~OCFS2_FL_MODIFIABLE;
-+	flags = flags & FS_FL_USER_MODIFIABLE;
-+	flags |= oldflags & ~FS_FL_USER_MODIFIABLE;
- 
- 	/* Check already done by VFS, but repeat with ocfs lock */
- 	status = -EPERM;
-diff --git a/fs/ocfs2/ocfs2_fs.h b/fs/ocfs2/ocfs2_fs.h
-index c501eb3cdcda..53ddeb5e762f 100644
---- a/fs/ocfs2/ocfs2_fs.h
-+++ b/fs/ocfs2/ocfs2_fs.h
-@@ -235,33 +235,6 @@
- #define OCFS2_INDEXED_DIR_FL	(0x0008)
- #define OCFS2_HAS_REFCOUNT_FL   (0x0010)
- 
--/* Inode attributes, keep in sync with EXT2 */
--#define OCFS2_SECRM_FL			FS_SECRM_FL	/* Secure deletion */
--#define OCFS2_UNRM_FL			FS_UNRM_FL	/* Undelete */
--#define OCFS2_COMPR_FL			FS_COMPR_FL	/* Compress file */
--#define OCFS2_SYNC_FL			FS_SYNC_FL	/* Synchronous updates */
--#define OCFS2_IMMUTABLE_FL		FS_IMMUTABLE_FL	/* Immutable file */
--#define OCFS2_APPEND_FL			FS_APPEND_FL	/* writes to file may only append */
--#define OCFS2_NODUMP_FL			FS_NODUMP_FL	/* do not dump file */
--#define OCFS2_NOATIME_FL		FS_NOATIME_FL	/* do not update atime */
--/* Reserved for compression usage... */
--#define OCFS2_DIRTY_FL			FS_DIRTY_FL
--#define OCFS2_COMPRBLK_FL		FS_COMPRBLK_FL	/* One or more compressed clusters */
--#define OCFS2_NOCOMP_FL			FS_NOCOMP_FL	/* Don't compress */
--#define OCFS2_ECOMPR_FL			FS_ECOMPR_FL	/* Compression error */
--/* End compression flags --- maybe not all used */
--#define OCFS2_BTREE_FL			FS_BTREE_FL	/* btree format dir */
--#define OCFS2_INDEX_FL			FS_INDEX_FL	/* hash-indexed directory */
--#define OCFS2_IMAGIC_FL			FS_IMAGIC_FL	/* AFS directory */
--#define OCFS2_JOURNAL_DATA_FL		FS_JOURNAL_DATA_FL /* Reserved for ext3 */
--#define OCFS2_NOTAIL_FL			FS_NOTAIL_FL	/* file tail should not be merged */
--#define OCFS2_DIRSYNC_FL		FS_DIRSYNC_FL	/* dirsync behaviour (directories only) */
--#define OCFS2_TOPDIR_FL			FS_TOPDIR_FL	/* Top of directory hierarchies*/
--#define OCFS2_RESERVED_FL		FS_RESERVED_FL	/* reserved for ext2 lib */
--
--#define OCFS2_FL_VISIBLE		FS_FL_USER_VISIBLE	/* User visible flags */
--#define OCFS2_FL_MODIFIABLE		FS_FL_USER_MODIFIABLE	/* User modifiable flags */
--
- /*
-  * Extent record flags (e_node.leaf.flags)
-  */
--- 
-2.56.0
+Applied to the vfs-7.5.super branch of the vfs/vfs.git tree.
+Patches in the vfs-7.5.super branch should appear in linux-next soon.
+
+Please report any outstanding bugs that were missed during review in a
+new review to the original patch series allowing us to drop it.
+
+It's encouraged to provide Acked-bys and Reviewed-bys even though the
+patch has now been applied. If possible patch trailers will be updated.
+
+Note that commit hashes shown below are subject to change due to rebase,
+trailer updates or similar. If in doubt, please check the listed branch.
+
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
+branch: vfs-7.5.super
+
+[1/5] fs: make a mount waiting on another mount killable
+      https://git.kernel.org/vfs/vfs/c/c1d254f3c8aa
+[2/5] fs: make ustat() and quotactl() killable in lookup
+      https://git.kernel.org/vfs/vfs/c/d88c310d4e27
+[3/5] fs: make BLKFLSBUF's wait for a superblock killable
+      https://git.kernel.org/vfs/vfs/c/e7c9543797a7
+[4/5] fs: don't make sync(2) wait for unborn superblocks
+      https://git.kernel.org/vfs/vfs/c/3924b255e480
+[5/5] fs: skip unborn superblocks in drop_caches and Q_SYNC
+      https://git.kernel.org/vfs/vfs/c/02303f78a82d
 
