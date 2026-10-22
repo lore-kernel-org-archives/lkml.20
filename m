@@ -1,68 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=43.163.128.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.137.202.133
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792647253;
-	b=KlrHVFBcC5cNQGK48Yxph1ztB8BE1KI37gRBEQb11VrokFGd6sjutT3LsmjmoGWOkZHe
-	 G+7iCAYd8lXQOyqNc61Z2vA4fTUAelB9jcy0pN2dLNq268aWHJAkmVRvxZCDR5PDhTexN
-	 oU9Kh1uzexCMoA/5KkHCQf/Oadw2Kj0Y73ExeVC3MvZshyTOitiVqVOuiSauIWgkOVBro
-	 Dz3oNcLyJUOMPPK2QMNrMQmi39CumTPaGi7n59jsHYN5oY64Csg7+ZBzrzat9PLHgMVDi
-	 bpr16c5EpVIaPQKh1mHguxgsOixSPnZTIRRArdH7zWLG/O51bDITbEl/FW2DL7NW/Ig==
+	t=1792647709;
+	b=r6j4Jdj5DFHr1OEAmVa5bQ2TJX3HX/bSo0IKLU5X6HBqhqAKO8EHDKif7gS4un8fMTIq
+	 V/jLnslCg1lJP/eTuoBpBHyUtnywxrflI5IrvOF7F4ckcy9Mhx3QzhOPoL73HmBSkziLJ
+	 BpNHScOAmyFUsbZlUx/8VUhTBC3DAotEF264BgD/hRvvzgstGMo6EFnU6p7fnnXDp23Vf
+	 u8m0UkldFhUyph/GUXm1dZaa5E9nuGwzhUEOy2vSIFKC39kbpZzBpB+5gElAy9QAq9sZ/
+	 YFZjMqywgEKjRVlP8e0pIkChLzetSv0x0M1J9N7UUOe1wyzoh2LotnRVBb50uH7w8yg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792647253;
-	h=DMARC-Filter:DKIM-Signature:X-QQ-XMRINFO:X-QQ-XMAILINFO:From:To:Cc:
-	 Subject:Mime-Version:Content-Type:Content-Transfer-Encoding:Date:
-	 X-Priority:Message-ID:X-QQ-MIME:X-Mailer:X-QQ-Mailer:References:
-	 In-Reply-To:X-QQ-mid;
-	bh=ds0gPqcUBP6L02Z/8E2crybbPUoGn59iBftHI08WL+0=;
-	b=i1HApVAStE/fheYitrmUwA05i7/aTbmAjp8T7cq+br38WiIeC3grNTBe67vS74JpFuqD
-	 Xr9nMlJHQAbPjedZge10T/rqYU9h1QNKgJ942u5l1a4hSCRfgKr3zVNip209HfaKF+bbd
-	 JqFcSgZfyhwaMxV7dZngbrZthVYrSG0WWy7FsgWqpMjKOZ9vfbw3j+en4yIpg/Qsu+72E
-	 hm80BVr8gU/4LupN2vG/7XLF0SXyd8lO9Ujt+rx2T4IJ0fkvI0nKX2iNtyUBl6fxASU+t
-	 4DGDczLTrEiCxyb1JkTNf/vj4ajJ8ubORGaaMps9pwbeXyRScwP6dhDZtSBLZPJzM7A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792647709;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=pVPyH3GoZBrVKP0Ttqz+/rHi2Rfgtq7gjnCe7XfjZjw=;
+	b=qq1hOgu5LgKON8PH9pJ4xT6hkjbRZgjTt92iS6+C1HNUJFMYkGqwx55fYxrCf4sWDmGV
+	 H9wyZ3+a6wh1uMJc+wuO9PDaGkNmsRvJ15CIpLTR1VX01T4h9gKlkx6beGPz3+xsj4743
+	 Nu88UUy0JGYfc9bW0ie8c/I/0VeDmmmSWcFmWhHJNfKMqMwGfHd2An2s78JnKI1KbPh+Q
+	 aT5PS0dv9gAcx8U2qLpmOdgorGt9xs0a3+n2XqV6YfbiY092S5D9eAMFJeJb5gOKpTflE
+	 m65Rfp3FDfs1AX7wIRgQErb9MDTANS0BRtIBhF6FERa/WrvAeJlmIP1T9wBffQOC+OA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=qq.com;
-	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=h+FwYlqT;
-	arc=none smtp.remote-ip=43.163.128.49
-Received: from xmbghk7.mail.qq.com (xmbghk7.mail.qq.com [43.163.128.49])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=infradead.org;
+	spf=pass smtp.mailfrom=infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=Wkb+IYPK;
+	arc=none smtp.remote-ip=198.137.202.133
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99BBE606A31B;
-	Thu, 22 Oct 2026 05:34:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 99BBE606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68750606A319;
+	Thu, 22 Oct 2026 05:41:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 68750606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=h+FwYlqT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1792647243; bh=ds0gPqcUBP6L02Z/8E2crybbPUoGn59iBftHI08WL+0=;
-	h=From:To:Cc:Subject:Date:References:In-Reply-To;
-	b=h+FwYlqTXgik5If3mRRsEVYopsIgtFSMYaP28ZusSHv97d6QMxi1q5+lQrRojqo0i
-	 Lote634BZGuOddK1Yxmt+rdrq/5kMqIyam1vRK9bNh1qz3LJ8OjX9Hv0UgBUK8K15t
-	 LnvekWnyUNS0m+DYfJrDJbnbnXX5pkEqcGkf7r8A=
-X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
-X-QQ-XMAILINFO: MhG7PnEq6uVZHX1/fLwaNH4gNTfoyBXS9ICP9bBvYMJm10JGRqKmUPNfnZovbK
-	 nS7LD3DnZM7PG6RiQaSUv5jA6wcYID4CXviFq5wgLYtO/p9oKsmGavyZL23IQr7d0d0757wXjmQq7
-	 yQ7P4DlSJst9LAB48rnkgVe6bMMGzgnOMnx2w510aEb7WmMOZugA+FKA7dFvUSF3uk29l84MQCVWa
-	 jQFL/6ymo+L5sPEnKeO+fuYDDV04n5JfOPyZEFeAEmfXWUAB8OTy/p4ZQ0lksVvz66JR0MwPQoyDb
-	 n5LAxPqjoQkDSVYojlFvKE3QRWo8Nw4pbcgx4sO7HHLYRRdk9PdPe1dl9Oz8L3gwwLZpO2vxs5hei
-	 qATp4aaTQFXj3yXC1oG+ha4AW+3PduUTMWV52PMWa7MyzJ6vjj4gJqIyME5EoA42vB0JgxZ7NY2Wo
-	 9myLFVs1KHj6pNKchD7+yXWnERL3VjkJvvBiZMlLb+FmlEJNA1LZYvJvP7REb9kMKka3Qc/kMWdpw
-	 ME+RFtbLfk9lZ3u5hhUqIRHqnTf9HAtOaX3qkfGVxMghLWghcRkCcjp4YduvxdIgqa1UNak48VkSA
-	 TlF32t4i+7UTKw6wipXCWXomB5M6/VJB6cp/POqY8gU7URPIvvU4LD0ukvML2czWLuGUYH6r30P/m
-	 bXX6boLd8ugiSZw7/nbZ+RGDcnBecAq+r9/slaKApRUKH7s6zm7GotVwmdnJX9S+l+rdESnP8wViE
-	 9vbJL80OFI3AlQqnZEpKIeUtv1OELzKLi9bW/Ak0ZE/uS42Sx35Z7jFPP1A6vwGu63jbHjFK2hvdT
-	 aBnJvGGAzxze/RxDGZcoRUCiglOCmYcbCRxQ+BkyuLIVrFgllCCVH4GP9So5GCpK4pC842+2Woz3H
-	 /x0wBngA2q2A7jL3A4irwZ7fQe06KnNpbK6/KiHbsZ/CwDFMDYmJAPFfRA/yGUucc0EF5M1edwKPd
-	 c8e3odi6IFHoUhzcHqXa1FRKkNwZNlZ1NgdSi1gSFjCRn53/lCjp4yXQ+W6Ng6LzXU9RbIkD7soUE
-	 HaUAEHfrtNxYdCY9egQi/AEZt8oWCx2fFBPqR3sDpr3zBscPLFvJxBqm6q1PwCEUu0SMeN+rBHNVM
-	 iuzehjqgE1gJVCUlbFuba+5M
-From: "=?utf-8?B?Q3VuaGFvIEx1?=" <1579567540@qq.com>
-To: "=?utf-8?B?QW5kcmV3IEx1bm4=?=" <andrew@lunn.ch>
-Cc: "=?utf-8?B?U3RlcGhlbiBCb3lk?=" <sboyd@kernel.org>, "=?utf-8?B?QnJpYW4gTWFzbmV5?=" <bmasney+clk@redhat.com>, "=?utf-8?B?SmVyb21lIEJydW5ldA==?=" <jbrunet+clk@baylibre.com>, "=?utf-8?B?Um9iIEhlcnJpbmc=?=" <robh@kernel.org>, "=?utf-8?B?S3J6eXN6dG9mIEtvemxvd3NraQ==?=" <krzk+dt@kernel.org>, "=?utf-8?B?Q29ub3IgRG9vbGV5?=" <conor+dt@kernel.org>, "=?utf-8?B?SGVpa28gU3R1ZWJuZXI=?=" <heiko@sntech.de>, "=?utf-8?B?UGhpbGlwcCBaYWJlbA==?=" <p.zabel@pengutronix.de>, "=?utf-8?B?RWxhaW5lIFpoYW5n?=" <zhangqing@rock-chips.com>, "=?utf-8?B?TGVlIEpvbmVz?=" <lee@kernel.org>, "=?utf-8?B?TGludXMgV2FsbGVpag==?=" <linusw@kernel.org>, "=?utf-8?B?QmFydG9zeiBHb2xhc3pld3NraQ==?=" <brgl@kernel.org>, "=?utf-8?B?UmljaGFyZCBDb2NocmFu?=" <richardcochran@gmail.com>, "=?utf-8?B?VWxmIEhhbnNzb24=?=" <ulfh@kernel.org>, 
-	"=?utf-8?B?QW5kaSBTaHl0aQ==?=" <andi.shyti@kernel.org>, "=?utf-8?B?R3JlZyBLcm9haC1IYXJ0bWFu?=" <gregkh@linuxfoundation.org>, "=?utf-8?B?SmlyaSBTbGFieQ==?=" <jirislaby@kernel.org>, "=?utf-8?B?SmlzaGVuZyBaaGFuZw==?=" <jszhang@kernel.org>, "=?utf-8?B?QW5kcmV3IEx1bm4=?=" <andrew+netdev@lunn.ch>, "=?utf-8?B?RGF2aWQgUy4gTWlsbGVy?=" <davem@davemloft.net>, "=?utf-8?B?RXJpYyBEdW1hemV0?=" <edumazet@kernel.org>, "=?utf-8?B?SmFrdWIgS2ljaW5za2k=?=" <kuba@kernel.org>, "=?utf-8?B?UGFvbG8gQWJlbmk=?=" <pabeni@redhat.com>, "=?utf-8?B?RGF2aWQgV3U=?=" <david.wu@rock-chips.com>, "=?utf-8?B?UmFmYWVsIEouIFd5c29ja2k=?=" <rafael@kernel.org>, "=?utf-8?B?RGFuaWVsIExlemNhbm8=?=" <daniel.lezcano@kernel.org>, "=?utf-8?B?WmhhbmcgUnVp?=" <rui.zhang@intel.com>, "=?utf-8?B?THVrYXN6IEx1YmE=?=" <lukasz.luba@arm.com>, 
-	"=?utf-8?B?TWF4aW1lIENoZXZhbGxpZXI=?=" <maxime.chevallier@bootlin.com>, "=?utf-8?B?TWF4aW1lIENvcXVlbGlu?=" <mcoquelin.stm32@gmail.com>, "=?utf-8?B?QWxleGFuZHJlIFRvcmd1ZQ==?=" <alexandre.torgue@foss.st.com>, "=?utf-8?B?Vmlub2QgS291bA==?=" <vkoul@kernel.org>, "=?utf-8?B?TmVpbCBBcm1zdHJvbmc=?=" <neil.armstrong@linaro.org>, "=?utf-8?B?TWFuaXZhbm5hbiBTYWRoYXNpdmFt?=" <mani@kernel.org>, "=?utf-8?B?VGhpbmggTmd1eWVu?=" <Thinh.Nguyen@synopsys.com>, "=?utf-8?B?SmFlaG9vbiBDaHVuZw==?=" <jh80.chung@samsung.com>, "=?utf-8?B?U2hhd24gTGlu?=" <shawn.lin@rock-chips.com>, "=?utf-8?B?bGludXgtY2xr?=" <linux-clk@vger.kernel.org>, "=?utf-8?B?ZGV2aWNldHJlZQ==?=" <devicetree@vger.kernel.org>, "=?utf-8?B?bGludXgtYXJtLWtlcm5lbA==?=" <linux-arm-kernel@lists.infradead.org>, 
-	"=?utf-8?B?bGludXgtcm9ja2NoaXA=?=" <linux-rockchip@lists.infradead.org>, "=?utf-8?B?bGludXgta2VybmVs?=" <linux-kernel@vger.kernel.org>, "=?utf-8?B?bWZk?=" <mfd@lists.linux.dev>, "=?utf-8?B?bGludXgtZ3Bpbw==?=" <linux-gpio@vger.kernel.org>, "=?utf-8?B?bmV0ZGV2?=" <netdev@vger.kernel.org>, "=?utf-8?B?bGludXgtcG0=?=" <linux-pm@vger.kernel.org>, "=?utf-8?B?bGludXgtaTJj?=" <linux-i2c@vger.kernel.org>, "=?utf-8?B?bGludXgtc2VyaWFs?=" <linux-serial@vger.kernel.org>, "=?utf-8?B?bGludXgtbW1j?=" <linux-mmc@vger.kernel.org>, "=?utf-8?B?bGludXgtc3RtMzI=?=" <linux-stm32@st-md-mailman.stormreply.com>, "=?utf-8?B?bGludXgtcGh5?=" <linux-phy@lists.infradead.org>, "=?utf-8?B?bGludXgtdXNi?=" <linux-usb@vger.kernel.org>
-Subject: Re: [PATCH 16/27] net: stmmac: dwmac-rk: Add RK3572 support
+	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=Wkb+IYPK
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
+	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
+	bh=pVPyH3GoZBrVKP0Ttqz+/rHi2Rfgtq7gjnCe7XfjZjw=; b=Wkb+IYPKcmGAULpRkQRky0WaY+
+	uH6s+FXiNNVvdIa4iiu3r/sEifPsAb4+TdwMbK8+bBT6q5bI6Ih7roTMWzWa/DfcdOJbwXjReS1ic
+	OFpq8Vg1ZCLyqkvdrTjd8Uusonp8W9g1cHtqMoXDbUGQU5AzUEuEl/jugB9J16T/VjgNj+qy1bxRo
+	QDXXRQ0UR2eSqojfz7BxsAiU8olQtK9leY5PEghxLjm/yulVaYoRpECY11HUW0j2ok7nZk3v65XcV
+	SHkHOMCZZH6+QoNNvINg/E8wet8oTlvPxt5A+bB8wCVktUm8KAshkRVF3pVSqzzcA/U3ErHyArDuq
+	Sy5Sr4Pg==;
+Received: from [50.53.43.113] (helo=[192.168.254.34])
+	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1xJlYT-0000000DPf8-3CQ0;
+	Thu, 22 Oct 2026 05:41:33 +0000
+Message-ID: <d57ce591-2399-4bd4-ae70-8fdabf63ae82@infradead.org>
+Date: Wed, 21 Oct 2026 22:41:32 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,29 +57,189 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: text/plain;
-	charset="utf-8"
-Content-Transfer-Encoding: base64
-Date: Thu, 22 Oct 2026 13:33:59 +0800
-X-Priority: 3
-Message-ID: <tencent_DC0344109BFDE09B646864649812CA465409@qq.com>
-X-QQ-MIME: TCMime 1.0 by Tencent
-X-Mailer: QQMail 2.x
-X-QQ-Mailer: QQMail 2.x
-References: <20261022-add-board-ok3572-c-v1-0-0b0fd85a31ee@qq.com>
- <20261022-add-board-ok3572-c-v1-16-0b0fd85a31ee@qq.com>
-	<b1ab0503-628c-4f96-af38-727d4be06f8a@lunn.ch>
-In-Reply-To: <b1ab0503-628c-4f96-af38-727d4be06f8a@lunn.ch>
-X-QQ-mid: xmsezb41-0t1792647239txf7q5rwo
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC] changes.rst: introduce 'Required for'-column
+To: Manuel Ebner <manuelebnerli@mailbox.org>, Jonathan Corbet
+ <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ linux-kbuild@vger.kernel.org, oe-kbuild-all@lists.linux.dev,
+ linux-debuggers@vger.kernel.org, tools@linux.kernel.org,
+ "open list:DOCUMENTATION PROCESS" <workflows@vger.kernel.org>,
+ "open list:DOCUMENTATION" <linux-doc@vger.kernel.org>,
+ open list <linux-kernel@vger.kernel.org>
+Cc: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>,
+ Nicolas Schier <n.schier@fritz.com>
+References: <20261007163736.3942745-2-manuelebnerli@mailbox.org>
+Content-Language: en-US
+From: Randy Dunlap <rdunlap@infradead.org>
+In-Reply-To: <20261007163736.3942745-2-manuelebnerli@mailbox.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-SGkgQW5kcmV3LAoKPiBZb3UgbmVlZCB0byBzcGxpdCB0aGlzIHBhdGNoZXMgcGVyIHN1YnN5
-c3RlbS4gUGxlYXNlIHNlbmQgYWxsCj4gbmV0d29ya2luZyBwYXRjaGVzIHRvIG5ldGRldiwg
-b25jZSB0aGUgbWVyZ2Ugd2luZG93IGNsb3Nlcy4KPgo+IGh0dHBzOi8vd3d3Lmtlcm5lbC5v
-cmcvZG9jL2h0bWwvbGF0ZXN0L3Byb2Nlc3MvbWFpbnRhaW5lci1uZXRkZXYuaHRtbAoKVGhh
-bmsgeW91IGZvciB0aGUgZ3VpZGFuY2UuIEkgYXBvbG9naXplIGZvciB0aGUgaW5jb252ZW5p
-ZW5jZS4gSSdsbCBzcGxpdCB0aGUKc2VyaWVzIGJ5IHN1YnN5c3RlbSBhbmQgc2VuZCB0aGUg
-UkszNTcyIEV0aGVybmV0IGJpbmRpbmcgYW5kIGR3bWFjLXJrIGRyaXZlcgpjaGFuZ2VzIHRv
-Z2V0aGVyIGFzIGEgc2VwYXJhdGUgc2VyaWVzIHRvIG5ldGRldiBhZnRlciBOb3ZlbWJlciA5
-LCAyMDI2LgoKQmVzdCByZWdhcmRzLApDdW5oYW8=
+Hi,
+
+On 10/7/26 9:37 AM, Manuel Ebner wrote:
+> The optional tag isn't obvious nor defined. Therefore remove the tag and
+> add column 'Required for' to make it easier to define the need for the tools.
+> 
+> CC: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+> CC: Nicolas Schier <n.schier@fritz.com>
+> ---
+> If anybody has info to add to or refine the new column I would appreciate it a lot.
+> Please forward this to list or people which can contribute to this patch.
+> 
+> There's also the option to remove the 'Command to check the version'-column
+> and refer to scripts/ver_linux - and with this also removing the duplicated
+> information-issue.
+> 
+> [v3]
+>  Rearange column space of the table in order to add column instead of replacing column
+>  add some requirements to the table
+> 
+> [v2]
+>  Ditch footnotes in favor of a column
+>  Replace 'Check Version Command'-column with optional-column
+>  https://lore.kernel.org/all/20260831152523.638881-1-manuelebnerli@mailbox.org/
+> 
+> [v1]
+>  https://lore.kernel.org/all/20260812122426.1636227-2-manuelebnerli@mailbox.org/
+> ---
+>  Documentation/process/changes.rst | 97 ++++++++++++++++---------------
+>  1 file changed, 51 insertions(+), 46 deletions(-)
+> 
+> diff --git a/Documentation/process/changes.rst b/Documentation/process/changes.rst
+> index 28f2ca633..dafe0530f 100644
+> --- a/Documentation/process/changes.rst
+> +++ b/Documentation/process/changes.rst
+> @@ -1,13 +1,14 @@
+>  .. _changes:
+>  
+> -Minimal requirements to compile the Kernel
+> -++++++++++++++++++++++++++++++++++++++++++
+> +Minimal requirements to interact with the Kernel
+> +++++++++++++++++++++++++++++++++++++++++++++++++
+>  
+>  Intro
+>  =====
+>  
+> -This document is designed to provide a list of the minimum levels of
+> -software necessary to run the current kernel version.
+> +This document is designed to provide a list of the minimum versions of
+> +software necessary to change code, compile, install and boot the current
+> +kernel version.
+>  
+>  This document is originally based on my "Changes" file for 2.0.x kernels
+>  and therefore owes credit to the same people as that file (Jared Mauch,
+> @@ -27,48 +28,52 @@ running a Linux kernel.  Also, not all tools are necessary on all
+>  systems; obviously, if you don't have any PC Card hardware, for example,
+>  you probably do not need to concern yourself with pcmciautils.
+>  
+> -====================== ===============  ========================================
+> -        Program        Minimal version       Command to check the version
+> -====================== ===============  ========================================
+> -bash                   4.2              bash --version
+> -bc                     1.06.95          bc --version
+> -bindgen (optional)     0.71.1           bindgen --version
+> -binutils               2.30             ld -v
+> -bison                  2.0              bison --version
+> -btrfs-progs            0.18             btrfs --version
+> -Clang/LLVM (optional)  17.0.1           clang --version
+> -e2fsprogs              1.41.4           e2fsck -V
+> -flex                   2.5.35           flex --version
+> -gdb                    7.2              gdb --version
+> -GNU awk (optional)     5.1.0            gawk --version
+> -GNU C                  8.1              gcc --version
+> -GNU make               4.0              make --version
+> -GNU tar                1.28             tar --version
+> -GRUB                   0.93             grub --version || grub-install --version
+> -gtags (optional)       6.6.5            gtags --version
+> -iptables               1.4.2            iptables -V
+> -jfsutils               1.1.3            fsck.jfs -V
+> -kmod                   13               kmod -V
+> -mcelog                 0.6              mcelog --version
+> -mkimage (optional)     2017.01          mkimage --version
+> -nfs-utils              1.0.5            showmount --version
+> -openssl & libcrypto    1.0.0            openssl version
+> -pahole                 1.26             pahole --version
+> -pcmciautils            004              pccardctl -V
+> -pigz (optional)        2.4              pigz --version
+> -PPP                    2.4.0            pppd --version
+> -procps                 3.2.0            ps --version
+> -Python                 3.9.x            python3 --version
+> -quota-tools            3.09             quota -V
+> -Rust (optional)        1.85.0           rustc --version
+> -Sphinx\ [#f1]_         3.4.3            sphinx-build --version
+> -squashfs-tools         4.0              mksquashfs -version
+> -udev                   081              udevadm --version
+> -util-linux             2.10o            mount --version
+> -xfsprogs               2.6.0            xfs_db -V
+> -====================== ===============  ========================================
+> -
+> -.. [#f1] Sphinx is needed only to build the Kernel documentation
+> +==============  ========  =======================  ========================================
+> +    Program     Minimal      Command to check                  Required for
+> +                version         the version
+> +==============  ========  =======================  ========================================
+> +bash            4.2       bash --version           general requirement
+> +bc              1.06.95   bc --version             Kbuild (
+
+Something missing after the '('?
+
+> +bindgen         0.71.1    bindgen --version        CONFIG_RUST=y
+> +binutils        2.30      ld -v
+> +bison           2.0       bison --version          Kbuild (.config)
+> +btrfs-progs     0.18      btrfs --version
+> +Clang/LLVM      17.0.1    clang --version          alternative to GNU C (gcc)
+> +e2fsprogs       1.41.4    e2fsck -V                ext4
+> +flex            2.5.35    flex --version           Kbuild (.config)
+> +gdb             7.2       gdb --version            Debugging
+> +GNU awk         5.1.0     gawk --version           objtool, CONFIG_SYSTEM_BLACKLIST_HASH_LIST=y
+> +GNU C           8.1       gcc --version            alternative to Clang/LLVM (clang)
+> +GNU make        4.0       make --version
+> +GNU tar         1.28      tar --version
+> +GRUB            0.93      grub --version ||
+> +                          grub-install --version
+> +gtags           6.6.5     gtags --version          to generate tag files through ``make gtags``
+> +iptables        1.4.2     iptables -V
+> +jfsutils        1.1.3     fsck.jfs -V
+> +kmod            13        kmod -V
+> +mcelog          0.6       mcelog --version
+> +mkimage         2017.01   mkimage --version        Flat Image Tree (FIT) or ARCH=arc, arm or powerpc
+> +nfs-utils       1.0.5     showmount --version
+> +openssl         1.0.0     openssl version
+> +pahole          1.26      pahole --version
+> +pcmciautils     004       pccardctl -V
+> +pigz            2.4       pigz --version           Compile and boot with KPGZIP=y
+> +PPP             2.4.0     pppd --version
+> +procps          3.2.0     ps --version
+> +Python          3.9.x     python3 --version
+> +quota-tools     3.09      quota -V
+> +Rust            1.85.0    rustc --version          CONFIG_RUST=y
+> +Sphinx          3.4.3     sphinx-build --version   build kernel documentation
+> +squashfs-tools  4.0       mksquashfs -version
+> +udev            081       udevadm --version
+> +util-linux      2.10o     mount --version
+> +xfsprogs        2.6.0     xfs_db -V
+> +==============  ========  =======================  ========================================
+> +    Program     Minimal      Command to check                  Required for
+> +                version      check the version
+> +==============  ========  =======================  ========================================
+
+On my build of 'make htmldocs', the table ending confuses docutils.
+Did you build this with 'make htmldocs'?
+
+Documentation/process/changes.rst:73: WARNING: Blank line required after table. [docutils]
+Documentation/process/changes.rst:75: WARNING: Block quote ends without a blank line; unexpected unindent. [docutils]
+Documentation/process/changes.rst:419: ERROR: Malformed table.
+Bottom border or header rule does not match top border.
+
+==============  ========  =======================  ========================================
+
+...
+
+Getting updated software
+======================== [docutils]
+
+-- 
+~Randy
 
