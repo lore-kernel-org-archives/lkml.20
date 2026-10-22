@@ -1,75 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.200
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.180
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792709459;
-	b=EGSB31vBGPbIoALoQQCxDpKj8gQMKjOOtUlTNHVft6vl6Su1zbNzBYvacco2c1dCg2/I
-	 L7U2g8DeEI4XSxkeYk4VxwaAByM/EUsBC51/S/JtZViwWIg2q/YMcLNbIg6q2vJAMp0II
-	 06JTKKRqhia24r6iTUU9ypD9HNwfqNPZBhELCskoAfWjVDKVVWw0BQVLvKvfQchCbOHd3
-	 gcxwMzH97asb+NtggD/h4HGhX479nlG0Ltb2ehkDXX3O7lazcWmB+fVVpVV/pcnJETtTc
-	 vT9kV+Q+NWmQprLAYqvBFgq54dBrEstquIii3bpiaXCFM53ydJFWSrwBkGMF8fVoAEw==
+	t=1792709512;
+	b=e2YSZ2Z951MEJiCdRL1MrKTJBfABaB3QpUYuCiqLQMit6aSudKOwBixkvcM1onuzIeZk
+	 8Sgqdy+Y80MjaDmiMu8jJ0MUbUoIQfNa14D5wctKFpgcf1CKJ8RetIWS2hXRM+El4W1hh
+	 QmKZto5gnY2+dMswSbRDRDGJkI5jmB5KZiJAnNjDZtdiue85JVCIPWl5wXRZOEcOx0PA9
+	 uTKm7nqj6YmutBzwREneih9eBgxbg91ojL+PzSt6Ccis/pMvp2cRLfSnh5a2Wfxg8P6Hl
+	 X2vcdnTn8RF57J3rdNOooKAYnASi9XftQygFGWnRIgpt1OzeBnmeX51Awnw2YoOT/OQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792709459;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792709512;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
-	 Content-Type;
-	bh=tveVWO7bpJoIkcGyu5OICWvMrLDi2sKmFxgN2k+RxPA=;
-	b=UNS4cUSKTyzdSCP66vZWLF5T39y6vxLFFQT/wRI+kG6LcBjcEwOnDmVpMyskDPxNMCZj
-	 dlS27sd6Y7PWaRYqz6vTw2Zz0yaSahjCfrs5dxV+2ETJJLNLPx9rlEM0Bnw2Q2RFMo/9R
-	 2uk8zHKJapF272+8+rBUfzWwQKDp36ibs/VUkD7hSjWsHrYgWT27SUgIfMtQxdDwLapNb
-	 0NJSpOb6BZgXfkU4CIQWKpVnm+142SWlxW9l6YzCFZhalO/grXfvtm45q4HIpl4n7xHC9
-	 0TA8Ds2VJhMlICELsHGLCXt9CI0PiaTQHkAzZBiQT6rTBg4DOUfyJbEoM+gN3I5kRxA==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=X6mPg6UiwEtZQv33ZuddKbr9Vgpx/S+VOXpbm0Wczao=;
+	b=l2tBgzPxeVAs2HdJ97lFt4dXUe7Mt8juH9Xx6M8rKsQLDfun/v5deX9ov5GVMO1wXaRk
+	 iqoKJ1zj+5iGX2Tgb6EehuWaJGv9I96QNIfBKMzQ5L+nZPCk5x7PPFyvciqVABuQA1QZy
+	 +Uu7Bne69cxoUIdNu41IQT4eRwwBu+hkieNkE4cIHHTOWoWqUnVv/hH2j7Uy22nZAg0qx
+	 4iqsYIvlCvbEw0RSjGyrgBwyVub/E4TiO24dXQWCVeNh3681KgmHh6D/H3GPB3UASv4j/
+	 8nxS4TaCNa0igQMORgcTolt0tdkjs6B/BMxF1rfyCtsf91wchfofxbHZ1D46BAMqiHw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--dmatlack.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=JI1oGfp7;
-	arc=none smtp.remote-ip=209.85.210.200
-Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=acXV3egG;
+	arc=none smtp.remote-ip=74.125.82.180
+Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 076F460A262E
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 22:50:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 076F460A262E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--dmatlack.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EED74606A31B
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 22:51:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EED74606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=JI1oGfp7
-Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-8a05c820ecbso460041b3a.0
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 15:50:58 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=acXV3egG
+Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-3645f0f3fcdso537182eec.0
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 15:51:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792709458; x=1793314258; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=tveVWO7bpJoIkcGyu5OICWvMrLDi2sKmFxgN2k+RxPA=;
-        b=JI1oGfp73ClAM+rrrmG0fU/E10DtJ505Iuk7NocRTECK3OS5pKrAR+KGXtLKgD32at
-         Psx+S04EfZlRqm53rtSpodOJ+D+OnJMU3n2xA7CM4nVyMVFXgxwoFoIPE1iz/X/buu/q
-         ZJnrAEXWAFGazTBvdoeZrcHA0Az7y1m+kJ9yuwqbhvB4n05Zm4nI9yryqfFe3hNtRPb0
-         +P8RY/tcc3g9IdFw9xrJICoJ31mVVGCJa6uB67WpN51tSK0Cw/e7wY65Z1ylDeopw5KY
-         YCvOj7BUvMly23jNmQAMu9JRkL38DkL28XTU9UwI10UVUR9QQZ9agQ66wh3xdB2L5HoV
-         QpOA==
+        d=gmail.com; s=20251104; t=1792709511; x=1793314311; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=X6mPg6UiwEtZQv33ZuddKbr9Vgpx/S+VOXpbm0Wczao=;
+        b=acXV3egGoTGYDjhdvrmZk497EKmTNRskbF9WlLcG7GYMYMFF1ksn4VI2y7BZGpMJCZ
+         SwrJOiYphQOIuAHhJrkM4WmIKjioss1sLDSUBi72gPDta58g5qXAoWl6R8biJdB8dGvU
+         A3vg6/M4WwR7KJRZqikZ4deUJnjrt+Ngt87dL6uJ16ObnnY8RGiKI3Aau6b5HcUaAVd8
+         JhmSgl3bNjAaODm64JbQTBHDJdY0zDM3obmTalXqc6cYPRs+rc+YE4tBCyltdg42g1X9
+         yg+Kmru7yX8g9EF+eGMF56pXr7WfdyPuJxdHgulU6ykalltNNB7ciJ9cRPVlIXkeGkyb
+         aqfw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792709458; x=1793314258;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=tveVWO7bpJoIkcGyu5OICWvMrLDi2sKmFxgN2k+RxPA=;
-        b=OVgTMDzkg4GGY/KAg6nQVcHtoxLvnw+NuBz1+DqpCtt7miJVlWQzG6doHw36oX+8Yy
-         wikT22ZgVh8MV1GEH/kk3DdxtyoXZzsx150ZitGvLIr5saCp+IRHKRW0Dt7bmnWtLDNC
-         muCR7XP619m+5QTBzKFQQ819cl5CmU8XtEqATbSUmTCYIN1yUFSwBeIGDSO1SFTcb4iP
-         v8EuxW1ZgMbAfSrxc9Cuc2grFSJO8gFreQrKoimmkbl6s9FjUCUOpj10gnu2Jyo+pN1l
-         y79tfA8lva2P+0IAqM8kT/BX/mm1wdoZqobo/ONGYR9H8I6Qn3grM+/R5qmc++uiwq3D
-         ecqg==
-X-Forwarded-Encrypted: i=1; AKwUvBzUg4+P7/wOYKE601vB6GouX7RM8mdDLiMocrwJhmMBAmCGGXwrz8JnI9xa+8+0Hp4NpkJfup4GWM7ax2U=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJFFs6vN0uz6Em7Jl0Tbs/20oAFJGH6MJXD+KUwAb2C/NsNuTcq
-	hZYstANSKymyoP7S5cWW0sNestzsw8JKaMEInX5eGCaNHCrK+yTiutqAyaI+HKXREOwBwFieint
-	BWmnDNAW04jfCKw==
-X-Received: from pgww26-n1.prod.google.com ([2002:a05:6a02:2c9a:10b0:cd6:1195:61cb])
- (user=dmatlack job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6a21:8a0e:b0:3e2:335b:1a5d with SMTP id adf61e73a8af0-3e3767c3067mr249935637.71.1792709458271;
- Thu, 22 Oct 2026 15:50:58 -0700 (PDT)
-Date: Thu, 22 Oct 2026 22:50:34 +0000
-In-Reply-To: <20261022225035.377445-1-dmatlack@google.com>
+        d=1e100.net; s=20260707; t=1792709511; x=1793314311;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=X6mPg6UiwEtZQv33ZuddKbr9Vgpx/S+VOXpbm0Wczao=;
+        b=vTcjQGVH8Ciaxve8b7pgJLG02kgXSyrAYyfurMqTegYvgQ6Fz0bkFsWJzp8Pcc3aOE
+         NnVNqHDLVC8wWixwYzgJ5sA/ajhzsIuFr8qeVXbAufRFHoBEQrhY3F+CzvUvqc3C6ZtI
+         TDERRnlomRsAJXTQ5pG5IEhnyDQdC/N5dD4cX9GkDoFqVROsob67FA8MZ+42Wm5q+94R
+         eGqqQDRE4CyKyaxuFLD1l+oKtUa/COzn5PPbD9ECmY43siCCHfVI1LIEH5Ti89N2tlzb
+         RDdHli2RGs0aOdg5rSkqfagbpuNDBleGW4oH8JksUe/7iK+rnfk1YZvMlL0enpuCMLqL
+         E73A==
+X-Forwarded-Encrypted: i=1; AKwUvBxWhbJ1HEBKMBCVzuidbuZcA4xRCcDRZ2AVUVlTmceuwEJtkZKYUU62jxbj4OqS0KDX/8YDPxISKGY0B6c=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIuU5pY8tztb4QuZJyjVDSJDnGua380BoduhBU9ymfjjKyMPIW3
+	3/dfpcxtfSvuhOAeaJ1j3UexVd655FecZEF4SobFriVdytdb+e04ngYw
+X-Gm-Gg: AYBFou3eUpimy2jDy5BLDqX31b43toXncay0gfoOrtL39f5DEMiDDOm4F98rmF/eFt+
+	FDMXf1E0BQC/0uJBPw1aF2aTZza4yyWhFyIkBhcyAF1p0S943puujRTHog+0L3BO2szfebJffrv
+	qkK1QQ54vYvd7DJa/F1jX+OpXecutqoxLmQpcMyTP51fkqd3d8smLCLwilKumT5lP2L/80lLb57
+	R/4FVsP/dmVdufTk1jQ9pji7zlRxGfgwxgA1jw2d5LCe3P4luBQRZkJgDFchMfaqAb1KZtt1gFo
+	UvqZjYyVvLdouQtsqspwIF1xc3nSi+zLprJB95880x9CWpcAHZBZCIgmxsOl3qgFN1NNXZgNZV0
+	4wb58XFFDmuzjD+WIS9vWaPm2avA+0ko8rNxw4o8wwZ26eqJyJ2/CkLk4i1RXKhbayxlTTnjz8a
+	J4adlq0On4m/uTLNZ3AmokwVWrBdXklmHZhh5ifhGAFQ19wvDkyltgu5WjXV0AXBDKJlRsbEGDb
+	U+/Uibw8fI65ZQwbDITFAsixCkJXmd6ch3HZGV9YCr9z34E+3xqxZ/BY41RjD2N7LGbqJcixpk7
+	+weioBdA87K4c3oJia79sw==
+X-Received: by 2002:a05:7300:ae21:b0:360:ca2f:ce6f with SMTP id 5a478bee46e88-369d90e3646mr708317eec.1.1792709510886;
+        Thu, 22 Oct 2026 15:51:50 -0700 (PDT)
+Received: from google.com ([2a00:79e0:2ebe:8:f2d1:b7cb:a745:829f])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369d9db6865sm1071997eec.17.2026.10.22.15.51.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 22 Oct 2026 15:51:50 -0700 (PDT)
+Date: Thu, 22 Oct 2026 15:51:47 -0700
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: Geert Uytterhoeven <geert@linux-m68k.org>
+Cc: Michael Schmitz <schmitzmic@gmail.com>, 
+	Miro Kropacek <miro.kropacek@gmail.com>, linux-m68k@vger.kernel.org, linux-input@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v5] m68k: Fix atari mouse movement
+Message-ID: <atqTLxkEusWSS-wf@google.com>
+References: <20261021000338.2160223-1-miro.kropacek@gmail.com>
+ <20261021022336.2232886-1-miro.kropacek@gmail.com>
+ <c77944ee-f170-ce57-9065-d7d49fcfed6e@gmail.com>
+ <CAMuHMdXWHXjbCNojoukGq4OWvLSibk-goJo4quLdbOj01neOew@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,128 +99,61 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261022225035.377445-1-dmatlack@google.com>
-X-Mailer: git-send-email 2.56.0.257.gf7497c7d27-goog
-Message-ID: <20261022225035.377445-10-dmatlack@google.com>
-Subject: [PATCH v2 09/10] mm/shmem_luo: Allow retrieving tmpfs files with O_RDONLY
-From: David Matlack <dmatlack@google.com>
-To: kexec@lists.infradead.org, linux-doc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
-	linux-mm@kvack.org
-Cc: Alexander Graf <graf@amazon.com>, Andrew Morton <akpm@linux-foundation.org>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, Christian Brauner <brauner@kernel.org>, 
-	David Hildenbrand <david@kernel.org>, Hugh Dickins <hughd@google.com>, Jonathan Corbet <corbet@lwn.net>, 
-	"Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>, Michal Hocko <mhocko@suse.com>, 
-	Mike Rapoport <rppt@kernel.org>, Pasha Tatashin <pasha.tatashin@soleen.com>, 
-	Pratyush Yadav <pratyush@kernel.org>, Randy Dunlap <rdunlap@infradead.org>, 
-	Samiullah Khawaja <skhawaja@google.com>, Shuah Khan <skhan@linuxfoundation.org>, 
-	Suren Baghdasaryan <surenb@google.com>, Vlastimil Babka <vbabka@kernel.org>, 
-	David Matlack <dmatlack@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAMuHMdXWHXjbCNojoukGq4OWvLSibk-goJo4quLdbOj01neOew@mail.gmail.com>
 
-Allow userspace to pass O_RDONLY in struct liveupdate_shmem_retrieve_arg
-to retrieve a tmpfs file read-only.
+On Wed, Oct 21, 2026 at 09:32:00AM +0200, Geert Uytterhoeven wrote:
+> On Wed, 21 Oct 2026 at 04:51, Michael Schmitz <schmitzmic@gmail.com> wrote:
+> > Am 21.10.2026 um 15:23 schrieb Miro Kropacek:
+> > > Kernels are built with -funsigned-char since version 6.2, resulting in
+> > > the signed 8-bit position deltas reported by the IKBD being
+> > > misinterpreted as unsigned.
+> > >
+> > > The hook is handed a raw IKBD packet, so take it as a byte stream and
+> > > apply the sign to the two displacement values alone.
+> > >
+> > > Fixes: 3bc753c06dd02a35 ("kbuild: treat char as always unsigned")
+> > > Link: https://lists.debian.org/debian-68k/2026/08/msg00000.html
+> > > Suggested-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+> > > Signed-off-by: Miro Kropacek <miro.kropacek@gmail.com>
+> > > Cc: linux-input <linux-input@vger.kernel.org>
+> > > ---
+> > >
+> > > Changes in v5:
+> > >
+> > > - take the packet as u8 * and cast only the two displacement values,
+> > >   as suggested; this drops the call-site cast v4 needed, and with it
+> > >   the -Wpointer-sign warning
+> > > - add the types include atarikb.h now relies on
+> > >
+> > > The same cast of the two displacement values was tested on an Atari
+> > > Falcon030 with CT60 in v1 of this patch; v5 differs from it only in the
+> > > type of the hook argument.
+> > >
+> > > Michael's Reviewed-by from v3 is dropped, as the approach has changed
+> > > twice since.
+> >
+> > Dmitry's reasoning makes sense to me, so we're back on v1 with no change
+> > in functionality.
+> 
+> If it's just a byte stream, one might not bother doing s/char/u8/, as both
+> are the same type anyway... and then we're really back at v1.
 
-open() requires write access for O_TMPFILE, so create the file writable
-like before, then reopen it read-only with dentry_open() using the same
-flags, and drop the writable file. Like open(), which grants the
-requested access to a new file regardless of its mode, don't check
-permission for the read-only open.
+I'd prefer to have u8 at least in input.
 
-Retrieving a file read-only allows a restored binary to be executed
-before the session is finished. LUO keeps the retrieved file open until
-then, and executing a binary that is open for writing fails with
--ETXTBSY. Being able to execute restored binaries right away matters
-when they are needed to finish restoring the system, e.g. to bring up
-the services that retrieve and finish the remaining sessions.
+> 
+> > Looks good to me, feel free to add my Reviewed-by if it helps get this
+> > merged.
+> 
+> Reviewed-by: Geert Uytterhoeven <geert@linux-m68k.org>
+> for the arch/m68k files:
+> Acked-by: Geert Uytterhoeven <geert@linux-m68k.org>
 
-Assisted-by: LLM
-Signed-off-by: David Matlack <dmatlack@google.com>
----
- include/uapi/linux/liveupdate.h |  6 +++---
- mm/shmem_luo.c                  | 28 +++++++++++++++++++++-------
- 2 files changed, 24 insertions(+), 10 deletions(-)
+Could you please re-post v1? Can;t seem to find it.
 
-diff --git a/include/uapi/linux/liveupdate.h b/include/uapi/linux/liveupdate.h
-index a9dcc4fcc87b..790742a247e8 100644
---- a/include/uapi/linux/liveupdate.h
-+++ b/include/uapi/linux/liveupdate.h
-@@ -265,9 +265,9 @@ struct liveupdate_session_get_name {
-  *
-  * The kernel creates a new file as if by openat(@dirfd, ".", O_TMPFILE |
-  * @flags, @mode), fills it with the preserved contents, and returns it in
-- * &struct liveupdate_session_retrieve_fd.fd. Like any O_TMPFILE file, the file
-- * is not linked into the filesystem. Userspace can link it with linkat(),
-- * unless @flags contains O_EXCL.
-+ * &struct liveupdate_session_retrieve_fd.fd. Unlike open(), O_RDONLY is
-+ * allowed. Like any O_TMPFILE file, the file is not linked into the filesystem.
-+ * Userspace can link it with linkat(), unless @flags contains O_EXCL.
-  *
-  * If @flags contains unknown flags or O_PATH, if @mode contains unknown mode
-  * bits, or if @dirfd is not on a tmpfs mount, the retrieve fails with -EINVAL.
-diff --git a/mm/shmem_luo.c b/mm/shmem_luo.c
-index aba2bc1f18c5..0b4a9d6e2968 100644
---- a/mm/shmem_luo.c
-+++ b/mm/shmem_luo.c
-@@ -112,9 +112,10 @@
-  *
-  * Like any ``O_TMPFILE`` file, the new file is not linked into the filesystem.
-  * Userspace can link it at the path it wants with ``linkat()``, unless it asked
-- * for ``O_EXCL``. Like with ``open()``, the file must be opened for writing.
-- * LUO keeps the file open until the session is finished, so a retrieved binary
-- * can't be executed until then.
-+ * for ``O_EXCL``. Unlike ``open()``, the file can be retrieved with
-+ * ``O_RDONLY``. LUO keeps the file open until the session is finished, so a
-+ * binary retrieved with ``O_RDWR`` or ``O_WRONLY`` can't be executed until
-+ * then.
-  *
-  * The blocks of the file are charged to the target mount, so the size limit
-  * and quotas of the mount apply. If the file doesn't fit, the retrieve fails
-@@ -649,7 +650,9 @@ static struct file *shmem_luo_create_memfd(const struct liveupdate_shmem_retriev
- static struct file *shmem_luo_create_tmpfs_file(const struct liveupdate_shmem_retrieve_arg *arg,
- 						unsigned int seals)
- {
--	struct file *file;
-+	struct file *file, *ro_file;
-+	bool rdonly;
-+	int flags;
- 	int err;
- 
- 	if (!arg)
-@@ -673,10 +676,16 @@ static struct file *shmem_luo_create_tmpfs_file(const struct liveupdate_shmem_re
- 
- 	/*
- 	 * Create the file like open(O_TMPFILE) does, so that it gets the same
--	 * flag checks, permission checks, owner and security labels.
-+	 * flag checks, permission checks, owner and security labels. open()
-+	 * requires write access for O_TMPFILE, so create the file writable and
-+	 * reopen it read-only below if that is what userspace asked for. LUO
-+	 * keeps the file until the session is finished, and a file opened for
-+	 * writing couldn't be executed until then.
- 	 */
-+	flags = O_TMPFILE | O_LARGEFILE | arg->flags;
-+	rdonly = (flags & O_ACCMODE) == O_RDONLY;
- 	file = file_open_root(&fd_file(dir)->f_path, ".",
--			      O_TMPFILE | O_LARGEFILE | arg->flags, arg->mode);
-+			      flags | (rdonly ? O_RDWR : 0), arg->mode);
- 	if (IS_ERR(file))
- 		return file;
- 
-@@ -694,7 +703,12 @@ static struct file *shmem_luo_create_tmpfs_file(const struct liveupdate_shmem_re
- 	}
- 	SHMEM_I(file_inode(file))->seals = seals;
- 
--	return file;
-+	if (!rdonly)
-+		return file;
-+
-+	ro_file = dentry_open(&file->f_path, flags, current_cred());
-+	fput(file);
-+	return ro_file;
- }
- 
- static int shmem_luo_retrieve(struct liveupdate_file_op_args *args)
+Thanks.
+
 -- 
-2.56.0.257.gf7497c7d27-goog
-
+Dmitry
