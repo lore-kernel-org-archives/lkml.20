@@ -1,75 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.15
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=37.230.196.243
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792669807;
-	b=zQUsyT44ZpEvXUJcyzjuNyh3wGBYvrKqYGgrvienk3OBajhWxP58Vh4aw1Apdvj7kCAJ
-	 j0ePrOORix1Ka8lBapSJmHzhq+YOXY83Guw+cbq/r3k494knIT3+qhqBqGCoR5tAAiBZM
-	 s3hPwEOcJNttk9hbF0RXe9+7+iJvQ41lLA1tdfQpwrL42wunO7gvim3nR4kduXQ099EfA
-	 +ruDcLXJO/HGMD0EnWu6BPlhmOpvbp4hbPK3lLFpzPAsfSsP/qyQdrO3CiaVt+zUiWywB
-	 Y0HEkpvwStFmxTGCCvTxkOLXEVpPFPllJmCwIO/nSRcirAApTkJYL8GROKVNZr6WbUA==
+	t=1792669837;
+	b=HGA3V4mi7dhelqc5Ewwj8eX5LpcI22Aw5Lb5sUuXbV4JlL5lCxROiMyN6EqwHqcQlPqe
+	 /8mKiS6Zzno/1+zimaJynwOOlH62Uaq2GoEyBNYMA1LYY5iyGl8b4ZuVKel154koSfgUE
+	 czUiyX+pj3UxPk9VRwdsXGi9wEz94alVhXZ6sd+ajKcKmjiSqA4xXAIWKwrISFVCdZty4
+	 7mbTEXoeRo+vhchix7ZfJ1GTaSPRjEbEc1GVbmKln3Cgq6ca89QZO8eb9y9XniSyygkUv
+	 +JzXJFyAqft7yUAw9qOadiHhK46gmPTva9DylGEO/PhAN1P4V3F6XswEImX4JMZOhdg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792669807;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=iLUqibiwK3FxvsTU5Nsm7GhHMalzQ1/ODjyCmbCtqDw=;
-	b=Veg3HChBUDatPRaOv8vaCtA2/cuEtKuLIVcZ96KyfQceaC4hl1G+NsM9d2k1nW16/sgJ
-	 DJMNhcdLxXiXvFCt7dcI/nrHdRRSKADWu+J5iYb8XLzSkH5yLZ9VT6rGmpGpXrJYtVqzM
-	 OwxELzvn5TjEGlAv6WIwhgHwPdhRuXEiqPiTemMX9QTp1HYW3pX+PWqLRdPflWJYGYC7v
-	 N/Pd5b91qXmWAqbrRIT2tjaZBw6Y6PiqGdQ6uWlVELIhkBVAoqjwpk2Ful5jnGctUQarc
-	 Vwr4vXBM+x+tUr0tVF3ny+VIKOwWVXEJ93osS1pa+eOgJgH9K7KoyFWM6qWVZMP8t9Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792669837;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:X-KSMG-AntiPhishing:X-KSMG-AntiSpam-Auth:
+	 X-KSMG-AntiSpam-Envelope-From:X-KSMG-AntiSpam-Info:
+	 X-KSMG-AntiSpam-Interceptor-Info:X-KSMG-AntiSpam-Lua-Profiles:
+	 X-KSMG-AntiSpam-Method:X-KSMG-AntiSpam-Rate:X-KSMG-AntiSpam-Status:
+	 X-KSMG-AntiSpam-Version:X-KSMG-AntiVirus:X-KSMG-AntiVirus-Status:
+	 X-KSMG-LinksScanning:X-KSMG-Message-Action:X-KSMG-Rule-ID;
+	bh=3oJECff/6TmNjjeVvttGOtHn9ZcQvbn4GEFnSWveklU=;
+	b=x4WSyoAhVNnXtoSZ6BlHK+S4nAmQo10GPMKWspTZqasguSBwCKaEEb/9o20Vp3I+NDMy
+	 RzXgHjSJxi8zN53LzGlQqX4fkFm0ieyoLjkVP7zB9QzTEMSSk7gQ1JlGN24jQf75KOamv
+	 EJPZ5oX9iO2Nt4xHQUZkn5qx7CmuUEeiT1Nn0CJf0cFgON5M3zEpOuLhTNl1kycbNQYhb
+	 zjlxddsuR81oof1cJ7u5xQZl8wqYCVvrlFfbrRpvPFJEVpy+JgSzMePFe2//riXegMcfh
+	 QVNpJqyq/mf+L1rmhpwi5IXk7SqPf27zzEJguNBgjd3dI5ziMTPQnCeGAdQVVRLCyxg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=WWIixEBq;
-	arc=none smtp.remote-ip=192.198.163.15
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=astralinux.ru;
+	spf=pass smtp.mailfrom=astralinux.ru;
+	dkim=pass header.d=astralinux.ru header.i=@astralinux.ru header.a=rsa-sha256 header.s=mail header.b=HTyTEdqo;
+	arc=none smtp.remote-ip=37.230.196.243
+Received: from mail-gw01.astralinux.ru (mail-gw01.astralinux.ru [37.230.196.243])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AFD3606A319;
-	Thu, 22 Oct 2026 11:50:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5AFD3606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C6D5606A319;
+	Thu, 22 Oct 2026 11:50:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6C6D5606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=astralinux.ru
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=astralinux.ru
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=WWIixEBq
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792669807; x=1824205807;
-  h=date:from:to:cc:subject:message-id:mime-version:
-   content-transfer-encoding:in-reply-to;
-  bh=2DrVNaultXTc1qQbNwuEhIGizd9g653dYUGKXABLVkM=;
-  b=WWIixEBqDu+f684CdpeC/SXgj1fiyTID+GjtcIcxpV42uDLfgn8QMe33
-   Kbr7Zqm6fTvZ8Eucoer3yA/k3hWJ6MgUnOzE/hnnHOZLgPEU1TF1DqVF4
-   zvCn18W8maSQmtiNpiWRdm1LnEw+XNzGRYp4XrraPtrpX+jhQndN16UUa
-   HL/2qNk2hhaLjIhFsJv4mJMuyaMLtdV1rp0EQ62OK8qn1ozs/CUb7Y4xM
-   qW1Waj54GOY8d/n+kBf6ghgnwu+3j8JJyN5fyLMk/oooKxtynnG1fT91g
-   kcLSRnRqScb/HkxPGHSw7FNB+TCc0Hw5jHpMOBFc/i3mADWa8QXuz5Y9J
-   A==;
-X-CSE-ConnectionGUID: NlLxPTqKTDWxQnSr+FIu5w==
-X-CSE-MsgGUID: MoiYBZjyQISj9oNt/ANWPA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11942"; a="1424580"
-X-IronPort-AV: E=Sophos;i="6.27,172,1787036400"; 
-   d="scan'208";a="1424580"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
-  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Oct 2026 04:50:06 -0700
-X-CSE-ConnectionGUID: f4ACdk9iSEKaX/l8gm+dSA==
-X-CSE-MsgGUID: rW4AbCNxTTqgfeKYUSIrrQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,172,1787036400"; 
-   d="scan'208";a="3734970"
-Received: from ly-workstation.sh.intel.com (HELO ly-workstation) ([10.239.182.64])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Oct 2026 04:50:03 -0700
-Date: Thu, 22 Oct 2026 19:50:00 +0800
-From: kernel test robot <yi1.lai@intel.com>
-To: Jackie Liu <liu.yun@linux.dev>
-Cc: oe-lkp@lists.linux.dev, lkp@intel.com, linux-kernel@vger.kernel.org,
-	linux-pm@vger.kernel.org, ltp@lists.linux.it, tglx@kernel.org,
-	mingo@redhat.com, bp@alien8.de, dave.hansen@linux.intel.com,
-	x86@kernel.org, yi1.lai@intel.com
-Subject: Re: [PATCH] cpufreq: Avoid fallback values in cpuinfo_avg_freq
-Message-ID: <202610221936.40b4334f-lkp@intel.com>
+	dkim=pass (2048-bit key, unprotected) header.d=astralinux.ru header.i=@astralinux.ru header.a=rsa-sha256 header.s=mail header.b=HTyTEdqo
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=astralinux.ru;
+	s=mail; t=1792669830;
+	bh=RoWr8fDzA3UyiihscIKqmbkE7eoSYQCoE7+XgXJK44A=;
+	h=From:To:Cc:Subject:Date:From;
+	b=HTyTEdqoYwizTzEYXMjLAM94msMUUplS2R0b9qpWvlMv9sotVUSxUt2vrGgEtLITG
+	 /Zpk26HeDyflyFT8rV3DAeJCck/2TdWCCplJXLLL0qiP+m92h4dLk4vSAsodwAD4H0
+	 YQTCcr43mePI0lzg5HsSNJ7w61IEUqMqv7zM9osCwEWoty/3T7jkxJyypSdLr8IX2/
+	 qfXQ9G2DnpQ4vcwM2OqGzSAgTCVqkOibrYbvcq8ipuTQwH95z0KJU0MsvtW9zNMSYH
+	 pRv4pssvBIPHJlGzTE1MnueOeTz9A4ZCcpEZVgG7uZTRkRmM1PFsQlp3fcLSZibt5g
+	 vgX0JEO/Tiymw==
+Received: from gca-sc-a-srv-ksmg01.astralinux.ru (localhost [127.0.0.1])
+	by mail-gw01.astralinux.ru (Postfix) with ESMTP id 03268259D9;
+	Thu, 22 Oct 2026 14:50:30 +0300 (MSK)
+Received: from new-mail.astralinux.ru (unknown [10.205.207.10])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail-gw01.astralinux.ru (Postfix) with ESMTPS;
+	Thu, 22 Oct 2026 14:50:27 +0300 (MSK)
+Received: from DESKTOP-D46TNHI (unknown [10.198.49.111])
+	by new-mail.astralinux.ru (Postfix) with ESMTPA id 4j9Pbk4BDfz2Khh;
+	Thu, 22 Oct 2026 14:50:26 +0300 (MSK)
+From: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
+To: stable@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>,
+	Sasha Levin <sashal@kernel.org>,
+	Chris Mason <clm@meta.com>,
+	Chuck Lever <cel@kernel.org>,
+	Anna Schumaker <anna@kernel.org>,
+	Trond Myklebust <trondmy@kernel.org>,
+	Jeff Layton <jlayton@kernel.org>,
+	NeilBrown <neil@brown.name>,
+	Olga Kornievskaia <okorniev@redhat.com>,
+	Dai Ngo <Dai.Ngo@oracle.com>,
+	Tom Talpey <tom@talpey.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	linux-nfs@vger.kernel.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	lvc-project@linuxtesting.org,
+	Chuck Lever <chuck.lever@oracle.com>,
+	Anna Schumaker <anna.schumaker@hammerspace.com>
+Subject: [PATCH 5.10] xprtrdma: Fix bcall rep leak and unbounded peek
+Date: Thu, 22 Oct 2026 14:50:02 +0300
+Message-ID: <20261022115004.1615-1-mdmitrichenko@astralinux.ru>
+X-Mailer: git-send-email 2.54.0.windows.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,140 +98,122 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261019065358.66115-1-liu.yun@linux.dev>
+X-KSMG-AntiPhishing: NotDetected
+X-KSMG-AntiSpam-Auth: dkim=none
+X-KSMG-AntiSpam-Envelope-From: mdmitrichenko@astralinux.ru
+X-KSMG-AntiSpam-Info: LuaCore: 131 0.3.131 f330ffd1b9dcd8f1d29707120f19686573775fe7, {Tracking_from_domain_doesnt_match_to}, new-mail.astralinux.ru:7.1.1;127.0.0.199:7.1.2;astralinux.ru:7.1.1;d41d8cd98f00b204e9800998ecf8427e.com:7.1.1, FromAlignment: s
+X-KSMG-AntiSpam-Interceptor-Info: scan successful
+X-KSMG-AntiSpam-Lua-Profiles: 206897 [Oct 22 2026]
+X-KSMG-AntiSpam-Method: none
+X-KSMG-AntiSpam-Rate: 0
+X-KSMG-AntiSpam-Status: not_detected
+X-KSMG-AntiSpam-Version: 6.1.1.27
+X-KSMG-AntiVirus: Kaspersky Secure Mail Gateway, version 2.1.0.7854, bases: 2026/10/22 03:54:00 #28723736
+X-KSMG-AntiVirus-Status: NotDetected, skipped
+X-KSMG-LinksScanning: NotDetected
+X-KSMG-Message-Action: skipped
+X-KSMG-Rule-ID: 1
 
+From: Chris Mason <clm@meta.com>
 
-Hello,
+commit c7653d5cebc8492c77ec0415b5e9c0fb3e644bc6 upstream.
 
-kernel test robot noticed "ltp.runpwtests03.fail" on:
+rpcrdma_is_bcall() decodes a reply's first words to decide whether
+the frame is a backchannel call. Two issues in that decode path
+let a short or malformed reply leak the receive buffer and drain
+the Receive queue.
 
-commit: e5f9d99762e285664eea5ecbab004c8444930f22 ("[PATCH] cpufreq: Avoid fallback values in cpuinfo_avg_freq")
-url: https://github.com/intel-lab-lkp/linux/commits/Jackie-Liu/cpufreq-Avoid-fallback-values-in-cpuinfo_avg_freq/20261019-145358
-base: https://git.kernel.org/cgit/linux/kernel/git/rafael/linux-pm.git linux-next patch link: https://lore.kernel.org/all/20261019065358.66115-1-liu.yun@linux.dev/
-patch subject: [PATCH] cpufreq: Avoid fallback values in cpuinfo_avg_freq
+First, the speculative peek
 
-in testcase: ltp
-version: ltp-x86_64-1255a3be5-1_20261017 with following parameters:
+    p = xdr_inline_decode(xdr, 0);
+    /* five p++ reads follow */
 
-	test: power_management_tests
+asks xdr_inline_decode() for zero bytes, which returns xdr->p
+without consulting xdr->end. The five subsequent __be32 reads can
+then walk up to 20 bytes past the wire payload into stale regbuf
+contents and misclassify the reply as a backchannel call.
 
+Second, after the post-peek
 
-config: x86_64-rhel-9.4-ltp
-compiler: gcc-14
-test machine: 8 threads 1 sockets Intel(R) Core(TM) i7-4790T CPU @ 2.70GHz (Haswell) with 16G memory
+    p = xdr_inline_decode(xdr, 3 * sizeof(*p));
+    if (unlikely(!p))
+            return true;
 
-(please refer to attached dmesg/kmsg for entire log/backtrace)
+the short-header arm returns true without calling
+rpcrdma_bc_receive_call(). The contract with the caller is that a
+true return transfers ownership of rep to the backchannel path:
 
+    rpcrdma_reply_handler()
+      if (rpcrdma_is_bcall(r_xprt, rep))
+              return;        /* bare return, skips out_post */
+      ...
+    out_post:
+      rpcrdma_post_recvs(r_xprt, credits + ...);
 
+Because rpcrdma_bc_receive_call() never ran, no one took rep, but
+rpcrdma_reply_handler still bare-returns past rpcrdma_rep_put()
+and rpcrdma_post_recvs(). The rep, with its persistently
+DMA-mapped receive buffer, is orphaned on rb_all_reps and freed
+only at transport teardown. This completion reposts nothing, so
+its slot is reclaimed only when a later forward-channel reply
+reaches out_post and rpcrdma_post_recvs() allocates a fresh rep to
+backfill; absent that traffic the Receive queue drains and the
+peer's Sends draw RNR NAKs.
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <yi1.lai@intel.com>
-| Closes: https://lore.kernel.org/oe-lkp/202610221936.40b4334f-lkp@intel.com
+Fix by consulting xdr->end after the zero-length peek so the five
+__be32 reads cannot run unless 20 bytes of wire payload remain. A
+byte-precise comparison against xdr->end is required because a
+non-4-aligned receive rounds the stream's word count up past the
+true payload. Also return false from the short-header arm so the
+reply falls through the normal out_norqst cleanup chain
+(rpcrdma_rep_put() plus rpcrdma_post_recvs()).
 
+Fixes: 41c8f70f5a3d ("xprtrdma: Harden backchannel call decoding")
+Assisted-by: kres:claude-opus-4-7
+Signed-off-by: Chris Mason <clm@meta.com>
+Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
+Signed-off-by: Anna Schumaker <anna.schumaker@hammerspace.com>
+[ mdmitrichenko: 5.10 lacks commit 84dff5eb86ce ("rpcrdma: Fix
+  comments about reverse-direction operation"), which replaced the
+  out_short label with a direct return. Return false directly here as
+  well and drop the out_short label together with its pr_warn(), which
+  would be unused otherwise. ]
+Signed-off-by: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
+---
+Backport fix for CVE-2026-72466
+ net/sunrpc/xprtrdma/rpc_rdma.c | 8 +++-----
+ 1 file changed, 3 insertions(+), 5 deletions(-)
 
-PATH=/lkp/benchmarks/ltp:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/lkp/lkp/src/bin
-2026-10-21 16:24:03 cd /lkp/benchmarks/ltp
-2026-10-21 16:24:03 export LTP_RUNTIME_MUL=2
-2026-10-21 16:24:03 export LTPROOT=/lkp/benchmarks/ltp
-2026-10-21 16:24:03 kirk -f power_management_tests Host information
-	Hostname:   lkp-hsw-d05
-	Python:     3.13.5 (main, Jun 13 2026, 14:18:01) [GCC 14.2.0]
-	Directory:  /tmp/kirk.root/tmp_2s1ns12
-
-Connecting to SUT: default
-
-Suite: power_management_tests
-─────────────────────────────
- [1;37mcpufreq_intel:  [0m [1;32mpass [0m |  [1;33mtainted [0m  (0.282s)
- [1;37mrfim01:  [0m [1;36mskip [0m |  [1;33mtainted [0m  (0.017s)
- [1;37mhigh_freq_hwp_cap_cppc:  [0m [1;36mskip [0m |  [1;33mtainted [0m  (0.015s)
- [1;37mrunpwtests03:  [0m [1;31mfail [0m |  [1;33mtainted [0m  (0.532s)
- [1;37mrunpwtests04:  [0m [1;32mpass [0m |  [1;33mtainted [0m  (0.011s)
- [1;37mrunpwtests06:  [0m [1;32mpass [0m |  [1;33mtainted [0m  (0.048s)
-
-Execution time: 1.103s
-
-Disconnecting from SUT: default
-
-Target information
-──────────────────
-Kernel:   Linux 7.3.0-rc7+ #1 SMP PREEMPT_DYNAMIC Thu Oct 22 00:04:36 CST 2026
-Cmdline:  ip=::::lkp-hsw-d05::dhcp
-          root=/dev/ram0
-          RESULT_ROOT=/result/ltp/power_management_tests/lkp-hsw-d05/debian-13-x86_64-20250902.cgz/x86_64-rhel-9.4-ltp/gcc-14/e5f9d99762e285664eea5ecbab004c8444930f22/0
-          BOOT_IMAGE=/pkg/linux/x86_64-rhel-9.4-ltp/gcc-14/e5f9d99762e285664eea5ecbab004c8444930f22/vmlinuz-7.3.0-rc7+
-          branch=internal-devel/devel-hourly-20261020-060911
-          job=/lkp/jobs/scheduled/lkp-hsw-d05/ltp-power_management_tests-debian-13-x86_64-20250902.cgz-e5f9d99762e2-20261022-15031-ddtgwr-1.yaml
-          user=lkp
-          ARCH=x86_64
-          kconfig=x86_64-rhel-9.4-ltp
-          commit=e5f9d99762e285664eea5ecbab004c8444930f22
-          intremap=posted_msi
-          max_uptime=7200
-          LKP_SERVER=internal-lkp-server
-          nokaslr
-          selinux=0
-          debug
-          apic=debug
-          sysrq_always_enabled
-          rcupdate.rcu_cpu_stall_timeout=100
-          net.ifnames=0
-          printk.devkmsg=on
-          panic=-1
-          softlockup_panic=1
-          nmi_watchdog=panic
-          oops=panic
-          load_ramdisk=2
-          prompt_ramdisk=0
-          drbd.minor_count=8
-          systemd.log_level=err
-          ignore_loglevel
-          console=tty0
-          earlyprintk=ttyS0,115200
-          console=ttyS0,115200
-          vga=normal
-          rw
-          keep_initrds=/osimage/pkg/debian-13-x86_64-20250902.cgz/ltp-x86_64-1255a3be5-1_20261017.cgz
-Machine:  unknown
-Arch:     x86_64
-RAM:      14035028 kB
-Swap:     0 kB
-Distro:   debian 13
-
-────────────────────────
-      TEST SUMMARY
-────────────────────────
-Suite:   power_management_tests
-Runtime: 0.905s
-Runs:    6
-
-Results:
-    Passed:   194
-    Failed:   1
-    Broken:   0
-    Skipped:  2
-    Warnings: 0
-
- [1;31mFailures: [0m
-    • runpwtests03
-
-Session stopped
-LTP test details
-----------------
-runpwtests03: Power_Management03 1 TFAIL: CPUFREQ sysfs tests
-
-
-
-The kernel config and materials to reproduce are available at:
-https://download.01.org/0day-ci/archive/20261022/202610221936.40b4334f-lkp@intel.com
-
-
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
-
+diff --git a/net/sunrpc/xprtrdma/rpc_rdma.c b/net/sunrpc/xprtrdma/rpc_rdma.c
+index b8174c77dfe1..c9e179b7366e 100644
+--- a/net/sunrpc/xprtrdma/rpc_rdma.c
++++ b/net/sunrpc/xprtrdma/rpc_rdma.c
+@@ -1146,6 +1146,8 @@ rpcrdma_is_bcall(struct rpcrdma_xprt *r_xprt, struct rpcrdma_rep *rep)
+ 
+ 	/* Peek at stream contents without advancing. */
+ 	p = xdr_inline_decode(xdr, 0);
++	if ((char *)xdr->end - (char *)p < 5 * XDR_UNIT)
++		return false;
+ 
+ 	/* Chunk lists */
+ 	if (xdr_item_is_present(p++))
+@@ -1170,14 +1172,10 @@ rpcrdma_is_bcall(struct rpcrdma_xprt *r_xprt, struct rpcrdma_rep *rep)
+ 	 */
+ 	p = xdr_inline_decode(xdr, 3 * sizeof(*p));
+ 	if (unlikely(!p))
+-		goto out_short;
++		return false;
+ 
+ 	rpcrdma_bc_receive_call(r_xprt, rep);
+ 	return true;
+-
+-out_short:
+-	pr_warn("RPC/RDMA short backward direction call\n");
+-	return true;
+ }
+ #else	/* CONFIG_SUNRPC_BACKCHANNEL */
+ {
+-- 
+2.43.0
 
