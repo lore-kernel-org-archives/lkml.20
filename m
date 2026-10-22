@@ -1,52 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.231.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792654633;
-	b=ALYwgSGjulh8CiO/TdwYPXd7WQhTE/HgyR31mj+RfUk1gWdK10QJ1UB+Nj1pRwY9AMGC
-	 0GNQODXzSNcSrxfgxbe5TJMONzRc8dRJcxHioDRlh+LTIWLsmqw8ljEpqO1xbGu0XCjl/
-	 OcJ8ln6ydRNi3ZwiqW2PEMyiGwNIfPFqe/GoZkjBXGFBgkCONe3XhpuIlv5OljTWDBgmz
-	 peHKa0ku8LaKcy3kBTCoW6Ca7TiFI4gmnGfqjPP0OYZi1gGR9jQpg/wWE+DxiJRmgl60r
-	 QtGv8B1FSs7cqBP3lPgjk8W4/FUWatKv6amklpQkOix9H7VdrFVMAzkWm9e5SI5qvQQ==
+	t=1792654637;
+	b=xoChY3tSlUMkbOL/CoDf4WcfE3YbC4OWN9e19H8+qyujI/BnCIM6vnOnuVv2LxxZI7ed
+	 mBB60qbVJzGaRcaTFDTijaB5LFcS1U4jtT4NJenzDt/+RADfhZ5pqjx7Viged4Qdioody
+	 JP9JYjTPccjD7q2S6QFi3eEln+iPTij3sF2SrHz9Hh2d+aRde70xCDe08UkG8leITg+dG
+	 0jVx7UyOg19XP7e4FniUwuKoIGkPB6UkcFj10dB7gSWD4rIpBe5nI0/FwnGmFNVAKL3W6
+	 MGuk0XSYoNBq/f9cSfSo+yzBsaVpYoIJaTMvCnz4P0WpCetmfcQ6cKTzzpRYn34F6NQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792654633;
-	h=DMARC-Filter:DKIM-Signature:To:Cc:Mime-Version:X-Lms-Return-Path:
-	 Date:References:X-Original-From:From:Subject:User-Agent:
-	 Content-Transfer-Encoding:Message-Id:Received:In-Reply-To:
-	 Content-Type;
-	bh=w5JhBMDEbj3cx1oXbt0JanKqGYutt/sE8OJ/dFm3amE=;
-	b=HyeRyAvu9S0d88lri7gLzlY4qd3KrWoP+1N8D22REe5+dzY+WnSZkXIMdcYHsMAnC0Ni
-	 0wvllEhPFkHU9lMQJkiyubs1WL3m0PnLSt7LJSMqB/UooU7cgZ9sEUtyYJt92MuH0QTl2
-	 zGOV9nbZxIxKv2z4v76d2W8A1w4ospjPmBdg9CJTkeiJQWNYXtpDk69dSEfXxnluHryRo
-	 0U8/SA5U2NUs3CFnovPxau028BSfCuZQWfGA9SUcuslSNX7nkGTM9/sJCZ56ceowpvWem
-	 kE/qaVgstNX1K+968Oi9bpm1oOnt2xx+Yx+3IGuED3Vyr1IeUkSs87BP+M7GByO/RXg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792654637;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=/9fEXjgWK+5EHi3FibFeHP1l+KFsWv8kl3bq+SGJzBY=;
+	b=QeDoM0IrrFia9XBO71Qz4VHvcjiRSWSUhxJ3GWvZRgaMkitkxo6Hgw3jE/BlHRyv5Xi+
+	 K2jfpZfzozWoTbv261oNtJKB1bxk+oxNFSbmDCY7arkVgCfW+6FwvuDIQ8Tb183zZBat+
+	 RRk6FOPP3VxPfOwLhu+nvsJihI5pBH61RpSgjPA++gKe2fDei9hyCjVLZ3QfbD3eLBP7M
+	 Uej3gIqY1wrGc4+4CemfKf/IjijkWmsgtnL6rKWuIBaRhb4SGaxC5+cOW5JHMW0Axk4Ql
+	 z8SDVnSm1lIX4BJfkL3rCChRMZoTnRcuPMDEas6BpQlqVg9cOSv6WZYb1AxIi9RbMfg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=fnnas.com;
-	spf=pass smtp.mailfrom=fnnas.com;
-	dkim=pass header.d=fnnas-com.20200927.dkim.feishu.cn header.i=@fnnas-com.20200927.dkim.feishu.cn header.a=rsa-sha256 header.s=s1 header.b=1prZsu3E;
-	arc=none smtp.remote-ip=209.127.231.46
-Received: from va-2-46.ptr.blmpb.com (va-2-46.ptr.blmpb.com [209.127.231.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JQwZvaCV;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBFAF606A319
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 07:37:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CBFAF606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=fnnas.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fnnas.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60CC8606A322
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 07:37:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=fnnas-com.20200927.dkim.feishu.cn header.i=@fnnas-com.20200927.dkim.feishu.cn header.a=rsa-sha256 header.s=s1 header.b=1prZsu3E
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=s1; d=fnnas-com.20200927.dkim.feishu.cn; t=1792654625;
-  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
- reply-to:content-type:mime-version:in-reply-to:message-id;
- bh=w5JhBMDEbj3cx1oXbt0JanKqGYutt/sE8OJ/dFm3amE=;
- b=1prZsu3E8rL2v8O5jb1Q9CAaQiqQJz+BrHGbyXmMg00SKSE1YhqkLi8UqhxsUWaqbtU9ql
- yGt44B4h7rnSK36E8ZIPpdEL2nxNsI4Xei89w11P7BDvplqDoVZFGolxuiOl4li42DNNgu
- 88lExzD9+IKpKnWfqucLepQrTvFpxY+WasoliXiAyH163ZqCz6ZGI9uwxBxJeNIdzzUQ17
- mXd2/mNxjhvI0wLCnyMQTRHwM5vY8wazd9l35kOLEriY6GH/c33JtmrnUwyGReB3fm6hQy
- Jo+MFzeaNBxl9QC8tUCVoUsF4mPR+UST3N+8MvHOsUm7AxT7JyUV4Zf/pUOAKA==
-To: "Doug V Johnson" <me@dougvj.me>, <linux-raid@vger.kernel.org>
-Cc: <song@kernel.org>, <yukuai@fygo.io>, <magiclinan@didiglobal.com>, 
-	<xiao@kernel.org>, <linux-kernel@vger.kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JQwZvaCV
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ECC1D1F000CB
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 07:37:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792654636;
+	bh=/9fEXjgWK+5EHi3FibFeHP1l+KFsWv8kl3bq+SGJzBY=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=JQwZvaCVhjDioasnofk93mEz6Hxtkx7HIlMtDOal7shCM4Hw4d2yhVoofG3xNag0q
+	 X7m0x19DFiGD+cMb5nMjmLEka6nHcwV2FGlgC+MOGqpOGK/u1LWVnkdp2NvDBfF5so
+	 ZR6lN88qCo0I7eFCsmoQWIB/3CqQdlSLpWhqJEnPGoPnNPgwLROkUqG6zTzAUGe13i
+	 +MomN8iyCsljSThsqqfeqYGBVNFpKTMjZpoENfgMRKzyLi9bCax1zfiUgpp3SuxvF8
+	 nMFkNkGhZtNVnhy/HKW2W6/pjFI3BXnRINMZRBfTUy/2NS8MPpmNO7Fh8vd8np4BjP
+	 jPmVEYq+Ro+UA==
+Received: by mail-ed1-f53.google.com with SMTP id 4fb4d7f45d1cf-6b1b13e09ffso2145911a12.3
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 00:37:15 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBz8iUxcgLglUtJdWzB7MnW+OchoNMF9t2Jd5VyCB5fRtSx++DqDA0zOQzUxAmlt7xtE0XCqJCt/89GqkG8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJIe7PCamEZ3igWQ0SZ+pncHNGIUopqt8Mxv4++4tKRU+/Uaydz
+	ZEHbiCg9/W6G4qx9KAyU6yJYqij9p3veUo/q70YgC3BCdpMpRaQ4Wbq1cwCrmSD+Og8Ih5YD8Aj
+	x+tMfJoSJc6yWkbfemLVaOpgcDrwWdvg=
+X-Received: by 2002:a05:6402:4489:b0:6b1:c7ae:ec40 with SMTP id
+ 4fb4d7f45d1cf-6b408e06542mr3630391a12.4.1792654634648; Thu, 22 Oct 2026
+ 00:37:14 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -55,86 +58,67 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-X-Lms-Return-Path: <lba+26ad9bd1f+1963fd+vger.kernel.org+chencheng@fnnas.com>
-Date: Thu, 22 Oct 2026 15:36:59 +0800
-References: <20261016042537.277516-1-me@dougvj.me> <010101a142f57e37-cd14b78d-54cd-447b-9888-87f166a937ab-000000@us-west-2.amazonses.com>
-X-Original-From: Chen Cheng <chencheng@fnnas.com>
-From: "Chen Cheng" <chencheng@fnnas.com>
-Subject: Re: [PATCH v4 1/3] md/raid5: freeze and interrupt reshape when handling failed reshape
-User-Agent: Mozilla Thunderbird
-Content-Transfer-Encoding: 7bit
-Message-Id: <323c8d9f-319e-4f9e-a258-63a33a0e6200@fnnas.com>
-Received: from [192.168.8.25] ([183.34.163.217]) by smtp.feishu.cn with ESMTPS; Thu, 22 Oct 2026 15:37:02 +0800
-In-Reply-To: <010101a142f57e37-cd14b78d-54cd-447b-9888-87f166a937ab-000000@us-west-2.amazonses.com>
-Content-Type: text/plain; charset=UTF-8
+MIME-Version: 1.0
+References: <20261021144524.364143-1-yaojiale02@163.com> <20261021144524.364143-6-yaojiale02@163.com>
+In-Reply-To: <20261021144524.364143-6-yaojiale02@163.com>
+From: Huacai Chen <chenhuacai@kernel.org>
+Date: Thu, 22 Oct 2026 15:37:01 +0800
+X-Gmail-Original-Message-ID: <CAAhV-H4vM=2QP++udx9ZrRSqszKxqFtk_44v6wozTzXhof5e+g@mail.gmail.com>
+X-Gm-Features: AclHuK_AJuJIsK7gC6j48HUSTFZkH-rDHhLYzk2zC8jiWYZT2RAg3ZFTnsvOLaM
+Message-ID: <CAAhV-H4vM=2QP++udx9ZrRSqszKxqFtk_44v6wozTzXhof5e+g@mail.gmail.com>
+Subject: Re: [PATCH v2 5/6] irqchip/loongarch-cpu: validate MADT LIO-PIC entries
+To: Jiale Yao <yaojiale02@163.com>
+Cc: WANG Xuerui <kernel@xen0n.name>, Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, 
+	Jianmin Lv <lvjianmin@loongson.cn>, Marc Zyngier <maz@kernel.org>, loongarch@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 2026/10/16 12:25, Doug V Johnson wrote:
-> Set the reshape freeze flag to prevent automatic reshape resumption
-> and interrupt the current reshape with md_sync_error() so that a
-> reshape always stops no matter how the failed reshape is triggered.
-> 
-> Previously, if there were no faulty or out of sync devices but there
-> was an unrecoverable read, the reshape continued and was not cancelled
-> after handle_failed_reshape(). This caused some data corruption as
-> block writes were cancelled but the reshape nonetheless continued.
-> 
-> Prior to Chen's fix, the kernel would deadlock with a failed stripe
-> read.  That case also caused some data corruption, so Chen's patch
-> did not introduce corruption in this case.
-> 
-> An example test case showing how this happened before this fix is
-> demonstrated by the following:
-> 
-> Simplified example (schematic logical sector numbers):
-> 
->    1. Before reshape, destination D contains data for logical 20-27.
->       The new geometry will use D for logical 100-107.
-> 
->    2. Inject bad-block metadata on enough members that the old source
->       stripe cannot be reconstructed. Logical sector 100 now returns
->       a read error; sectors 101-107 are still readable.
-> 
->    3. Reshape tries to read the source block for logical 100-107.
->       The bad-block records prevent a successful read/reconstruction.
->       Failure cleanup cancels the destination write:
-> 
->         Source: logical 100-107 --X--> destination D
->                                       still contains data for 20-27
-> 
->    4. Without interruption, reshape continues and completes.
->       The new mapping now sends reads of logical 100-107 to D.
-> 
->    5. Reading logical 100-107 succeeds, but returns data for 20-27.
->       Previously readable sectors 101-107 now return wrong data.
-> 
-> Code that injects bad blocks to demonstrate this problem before and
-> after Chen's fix as well as after this patch can be found here:
-> 
-> Link: https://github.com/dougvj/md-raid-reshape-badblock-corruption-test
-> 
-> Fixes: 788e4139463f ("md/raid5: fix reshape deadlock while failed devices more than max degraded")
-> Link: https://patch.msgid.link/20260624075824.2601110-1-chencheng@fnnas.com
-> Assisted-by: LLM
-> Signed-off-by: Doug V Johnson <me@dougvj.me>
+Hi, Jiale,
+
+On Wed, Oct 21, 2026 at 10:45=E2=80=AFPM Jiale Yao <yaojiale02@163.com> wro=
+te:
+>
+> The LIO-PIC MADT callback passes a typed record to the controller
+> initialization code without checking that the complete record is
+> present. A truncated firmware entry can therefore lead to out-of-bounds
+> field reads.
+>
+> Reject incomplete LIO-PIC entries before passing them to the
+> initialization helper.
+>
+> Fixes: b2d3e3354e2a ("irqchip: Add LoongArch CPU interrupt controller sup=
+port")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Jiale Yao <yaojiale02@163.com>
 > ---
->   drivers/md/raid5.c | 4 ++++
->   1 file changed, 4 insertions(+)
-> 
-> diff --git a/drivers/md/raid5.c b/drivers/md/raid5.c
-> index b91545ce090d..86ea65559576 100644
-> --- a/drivers/md/raid5.c
-> +++ b/drivers/md/raid5.c
-> @@ -3773,6 +3773,10 @@ static void handle_failed_reshape(struct r5conf *conf, struct stripe_head *sh,
->   	bool was_expanding = test_and_clear_bit(STRIPE_EXPANDING, &sh->state);
->   	bool was_ready = test_and_clear_bit(STRIPE_EXPAND_READY, &sh->state);
->   
-> +	/* Freeze reshaping to prevent data loss */
-> +	set_bit(MD_RECOVERY_FROZEN, &conf->mddev->recovery);
-> +	md_sync_error(conf->mddev);
-> +
->   	if (was_expanding || was_ready) {
->   		atomic_dec(&conf->reshape_stripes);
->   		wake_up(&conf->wait_for_reshape);
+>  drivers/irqchip/irq-loongarch-cpu.c | 3 +++
+>  1 file changed, 3 insertions(+)
+>
+> diff --git a/drivers/irqchip/irq-loongarch-cpu.c b/drivers/irqchip/irq-lo=
+ongarch-cpu.c
+> index 84ce24889488..6185825477f4 100644
+> --- a/drivers/irqchip/irq-loongarch-cpu.c
+> +++ b/drivers/irqchip/irq-loongarch-cpu.c
+> @@ -119,6 +119,9 @@ static int __init liointc_parse_madt(union acpi_subta=
+ble_headers *header,
+>  {
+>         struct acpi_madt_lio_pic *liointc_entry =3D (struct acpi_madt_lio=
+_pic *)header;
+>
+> +       if (BAD_MADT_ENTRY(liointc_entry, end))
+> +               return -EINVAL;
+If the madt entry is invalid, the control flow probably cannot arrive
+here. On the other hand, All loongson-specific drivers, such as
+irq-loongarch-cpu.c, irq-loongarch-avec.c, irq-loongarch-ir.c,
+irq-loongson-liointc.c, irq-loongson-eiointc.c, irq-loongson-htvec.c,
+irq-loongson-pch-pic.c, use the same logic. Why is this one special?
 
-Reviewed-by: Chen Cheng <chencheng@fnnas.com>
+Huacai
+> +
+>         return liointc_acpi_init(irq_domain, liointc_entry);
+>  }
+>
+> --
+> 2.34.1
+>
