@@ -1,70 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.139
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792660111;
-	b=q+Cw/NDrRE7hkNYB9cASlRI8d5oWlhbeIX1MMhrubbCj4LJppZQqQHIru3ZaeJpOtH61
-	 grr00GgVqoKNnxkRV4sTzi3PV0s+J6BfmTvWcIWIwcZEDW052+Yt0eUGLjIeBHw9mYwiS
-	 CBvsVHu4Gs1FUb9kKQqSPkFu9vh0lfNfSsWj5DwgVK0dCusJ4y5mMu1jV2JEu1Y9/IvLO
-	 VQW8zD+i2k8Chcl95cRUqpe3xtBYJt5jj9hBUhuKl21BG379qXUqumEWWAa01VFIUNh0O
-	 NR5lVwSN8pNx9AJ9b5zmsoWF5RCbQJnpp9+goijttOG+klu2Y4fwy/eEdV5UkDOCZ7g==
+	t=1792660134;
+	b=rE7h5WWtS4L9kNZzTbZp3aCh+6pyyXvPmgkwPZ6qleqvi7U7c7jpj1Qypdk0IrFOY14i
+	 3L05vxTPIcztNowx/COPxXk+RisZiuNs0McHh1udsuG1ItYztnQsoVLaWFimLP5rIPkQf
+	 psDCN4duxDI2vJLsUoxFrewX1bX89sVXJgp6xdABF85AQHtrR8XmuKSEnbM7TKWimDMI+
+	 yIegi9fByIfx7wqw9wyuGJvXoWLhSW0PM+9ehpp4+5qkSoB9zgQQGxOdNsm2MIcgidCX4
+	 MlhWPnmOnbN3X7B+kT1Fm9iuHSNzJ3NirJIpPgemkLkShGvo17bke21uzttLAgjMx+Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792660111;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=FnPAv4piVPBvJnqlLGMEnfUI5qWz/TzWKkbWb8G7NQ0=;
-	b=SGHi/mu5Ani3CDg/WFm0KglTDjEdJ48yQczrUbwv3FFIGU5Oy/QsFc1qtgGH8j/pTy+l
-	 G6o8bFQ38T8toQHqVzzlMpqSfqRTeWcMU9c6B+35Htz/dLC2+9hWiM5nqeb6gquTfNiyt
-	 V/I9sCCB8ejuxBrbjVkycINFNzDJZaByYKHDkQbVV0dV6SBLegNkFgK+4YRY7Ztq5VA36
-	 FW61fhU2u3oFZwGV2+0rMUFvSUqmVTSywQ/n1yNC+Mw7DP2pK/oqwD9iKriE1T1e1WY4B
-	 PeDVakYGmQT5uBut6IutgUekOE2HVuR5iSHT+r7PNl7W6oHuSD7paesrVSjOHfthzFg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792660134;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=z1KCiZXaYqBijXtyLiF7iqAfRTB1Jk4N5AT6pA0XCE0=;
+	b=leS5eruDGv7L1M8TawW+hJHzaoygsQZiWasOnKcfwee99XQPsMlGTS+XQnt3MpbU0tky
+	 9bz6SH0oVGCBX57F2i6GkmRAS2MdyfeZd+BS86P+2LBoWgwmJfQG3sl9QNgdgkYv3Cq12
+	 byQtCzFNyY/hnILHV/mqSEd3FaDxbqQLwaKwwXQM4KCDbjZUmlqxuQlPk54ZezLYmGnUe
+	 4A6BQWLsOxiu5tsHwg5hM5HRR9d0RieWPzhk8QQ3wCmEI/cI/gwuCCv7YidR/ZZqDYeSI
+	 2U42I2h/7aR88ay0Cif25lfxcENY2UdqNG3UtlTRd/4qt6w6MnR9DdLT3csBcDiZZxg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=ve3U1wmN;
-	arc=none smtp.remote-ip=111.22.67.139
-Received: from cmccmta6.chinamobile.com (cmccmta6.chinamobile.com [111.22.67.139])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 91F6B606A31A;
-	Thu, 22 Oct 2026 09:08:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 91F6B606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=DGDiiUox;
+	arc=none smtp.remote-ip=209.85.216.46
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5009B606A31E
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 09:08:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5009B606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=ve3U1wmN
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=DGDiiUox
+Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-3ac677668a9so1666832a91.2
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 02:08:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=ve3U1wmNKvAKWU8zgJGJIVIotNyD/lmrVRwuEeNGTi8Qrgi4pp9P8wnZHw1xAjOyM9hJhEECm+yr0
-	 1kr2K6PGw2urpF6Do13YE/mTH5vVwb+MSOjbeskuI19qw/ED2pdHQXVrYplY4YdTnwigKH87Aj6obv
-	 2/UfiKKDdgfaiTCU=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app01-12001 (RichMail) with SMTP id 2ee16ad9d284a4a-0a136;
-	Thu, 22 Oct 2026 17:08:21 +0800 (CST)
-X-RM-TRANSID:2ee16ad9d284a4a-0a136
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from localhost.localdomain (unknown[223.108.79.101])
-	by rmsmtp-syy-appsvr06-12006 (RichMail) with SMTP id 2ee66ad9d282d89-13201;
-	Thu, 22 Oct 2026 17:08:20 +0800 (CST)
-X-RM-TRANSID:2ee66ad9d282d89-13201
-From: Xia Yan <yanxia@cmss.chinamobile.com>
-To: netdev@vger.kernel.org
-Cc: andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
+        d=gmail.com; s=20251104; t=1792660133; x=1793264933; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=z1KCiZXaYqBijXtyLiF7iqAfRTB1Jk4N5AT6pA0XCE0=;
+        b=DGDiiUox8g5DWm4NM2MUWCnUYBeWFLrx5WYD7PER66ZKxapFQPoch5z5zk9jN1/z22
+         Uz+IJKfTQjv1qrK4d/C5gzY/n0FRhvZmLxSgK6Eeq/ev0p7amf2VOXjb/I4PEVUEuK0X
+         hOD3xVCrd8TNvqeDtu95vVzWLPRvcdcQ0XwXhNIbyZXhTglXcM9R9M8pn+1RqwsEJI3t
+         ZTLm3H2CWRnnO/I0vghS0wjSFZHeq81EfoomaAoMlIgh4Z9vfawRoIUAaC60UDHxyBsX
+         qD4FWISRS2It3TeA/uhZB6I91Ca6XRy5iASgcCiR2fKB8tE/ahMNPnWSl4vc5Hu0C3Wb
+         IIsA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792660133; x=1793264933;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=z1KCiZXaYqBijXtyLiF7iqAfRTB1Jk4N5AT6pA0XCE0=;
+        b=AW5GMgQo+j4T3Re1RiWzq706Q6DWHuhB9CAo+uAkuFsi+RlkKGJS0s+2Uxr2kz4udj
+         7Q9UhxeUz7v8np5j2+3WUs1v5IAJpnlz66ulqGlNbBntHAvGViXrLcQERTLNnHxDYkRe
+         CJfgi4G1CsVC/cr7cRJ7xiCxJMYFMfLxLF59CrI63oVo+fWqGDwl2N2Zb8+KQvIn3jrB
+         zVokwGfT/sQU8M6drX1APAvqq2Q3lJS/WZj4egxkdsjBYnWLDEyA2Jl6f+YAK1PE7la/
+         DuvBO+K06+/cXi/OqEM5dtGHj1PZykNCEhRhtm6QdxBDceBpNSlUjZaxNNynfNADkKUh
+         mUJA==
+X-Forwarded-Encrypted: i=1; AKwUvBzOtN1p+YvFCUWA6uAKaF/8iX/+rQ9tYvbEOT0rtaSVCswN6AoQ9CMYvXnsdYIrcnHxvCAcN5znP0nnyGg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ3/P3v0FTE0pKngVic80kWCYH9GwH5Q50jH/Xp0l7US4W/gFxf
+	rBsLq0q4bQxClTKzWgWgqOSA0BI/RwoNHqvZiDivg8M2PYhRsTvZe2vF
+X-Gm-Gg: AYBFou3doTmxIrvSsJtMjJeRpTKHwzJyv4SfRxX5oMFIiIzC7MwY/xr5g2yBh5Yafiy
+	e6G0QYhtV7gbTQiyBAYeaIkbV4YW8hb+1UkwJb1VAmBRbbkDcyqQ/iY4ub56Am77SNDrkH9c4dz
+	mr+o3H0wdUj+ZJv0RlY9T/FQYr5n0PvCmUZs/cwAEEXDm/Mu1v+1mMdujauMRstlp5N2uA28U+F
+	Kg8VYBcAgCRn0N1kmJ5sQK3crD/YBsZT36Le0SniR3kCG30CqUdj3gTDAuF0Rb0FlbLafHG68Mi
+	g9It6G9b9aRau2D+KsPvLz/XO3m5PsEITFRWwhXL83r3oFiZ9t9jCIYfZ1wS8SsdVN3xrlMTFRT
+	K1uS6hQ72Bis/lhOeKptEaDdN1gHggF3TBAjbguBgpZPBIQ4FyZAoIIYiETTXyaqsRtWwsZno+E
+	i/kLj/24HpJMiWRWnxr4TatKsYTc12TB/2NqY5Pfhy6fUC5aNE0B+TE+2tD59sATj35MpQhLwJF
+	A/v2oPZoogHZAFeQcbjJcP0WFj2aWsb3GneK+7BDuJhejyaWSdu/obsN+tzzAqW6BSYcJxo
+X-Received: by 2002:a17:90b:c0b:b0:3ad:8ecc:5907 with SMTP id 98e67ed59e1d1-3ad8ecc5cf2mr2334684a91.56.1792660132383;
+        Thu, 22 Oct 2026 02:08:52 -0700 (PDT)
+Received: from localhost ([111.228.63.84])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ada490c096sm3325111a91.7.2026.10.22.02.08.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 22 Oct 2026 02:08:52 -0700 (PDT)
+From: Cen Zhang <zzzccc427@gmail.com>
+To: mark@fasheh.com,
+	jlbec@evilplan.org,
+	joseph.qi@linux.alibaba.com
+Cc: heming.zhao@suse.com,
+	ocfs2-devel@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org,
-	yana06070@163.com
-Subject: [PATCH net] macvlan: fix passthru promiscuity accounting while down
-Date: Thu, 22 Oct 2026 17:08:09 +0800
-Message-ID: <20261022090809.12019-1-yanxia@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.43.0
+	baijiaju1990@gmail.com,
+	jjzuming@gmail.com,
+	zzzccc427@gmail.com
+Subject: [PATCH v4 1/2] ocfs2: snapshot dentry names in file and setattr traces
+Date: Thu, 22 Oct 2026 17:08:41 +0800
+Message-Id: <pm-ocfs2-objects-candidate-0088-v7-6324344256f0c3b1c3d8-1@gmail.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <pm-ocfs2-objects-candidate-0088-v7-6324344256f0c3b1c3d8-0@gmail.com>
+References: <pm-ocfs2-objects-candidate-0088-v7-6324344256f0c3b1c3d8-0@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,52 +103,269 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-macvlan_changelink() adjusts the lower device's promiscuity count when
-NOPROMISC changes, even if the passthru macvlan is down. The reference
-is acquired in macvlan_open() and released in macvlan_stop(), so a down
-interface has no reference to change.
+The open, fsync, read, write and splice-read trace calls pass the live
+dentry name and length to the shared ocfs2__file_ops event class.
+ocfs2_setattr() passes the same unprotected arguments to its own event.
+Both events size and copy a __string field separately. A reference to
+the dentry does not pin the external storage backing an individual name.
 
-Clearing NOPROMISC while down leaves an extra reference after the next
-open/stop cycle. Setting it while down can remove a reference held by
-another user of the lower device.
+With an event enabled, a caller can be preempted after loading the name
+pointer. A long-to-short rename can then replace the name and reclaim its
+old external allocation before the trace callback sizes or copies it,
+provided no other snapshot retains that allocation.
 
-Guard the count adjustment with netif_running(dev). Keep storing the
-requested flags while down so the next open uses the new setting.
+The setattr inode lock does not exclude every rename: a same-directory
+rename of a source directory need not take that directory's inode lock.
+It can therefore change the dentry name while setattr records its event.
+Inline names and separately loaded lengths can also change during trace
+record sizing and copying.
 
-Comparing changelink with open/stop exposed the unmatched count changes;
-the same issue was also described in earlier macvlan reviews. A netlink
-test on UML reproduced both DOWN cases before the fix and verified the
-expected counts afterwards. Repeated flag updates, two open/stop cycles,
-deletion and bidirectional small-frame delivery were also checked.
+Take a dentry name snapshot around each of these six trace calls and
+pass both the string and length from the snapshot. Check event enablement
+before taking a snapshot. Keep the event classes and formats unchanged.
 
-Full x86_64 builds completed with WERROR disabled for allmodconfig, and
-WERROR and KASAN disabled for allyesconfig, including the resulting
-dependency changes. Neither comparison showed new diagnostics.
+Also remove the redundant NULL-inode check in the read callback.
+file_inode() returns the open file's inode, which is already used by the
+trace call above the check.
 
-Fixes: df8ef8f3aaa6 ("macvlan: add FDB bridge ops and macvlan flags")
-Link: https://lore.kernel.org/netdev/179170088566.434549.4699134797461783473@kernel.org/
-Link: https://lore.kernel.org/netdev/20261016003009.2692872-1-kuba@kernel.org/
+The historical report below is from the read path.
+
+KASAN report as below:
+
+    BUG: KASAN: slab-use-after-free in strlen+0x85/0xa0
+    Read of size 1 at addr ffff88810a5b2b18 by task python3/496
+
+    [CPU and host details omitted.]
+    Call Trace:
+     <TASK>
+     dump_stack_lvl+0x93/0xd0
+     print_report+0xce/0x630
+     ? strlen+0x85/0xa0
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __virt_addr_valid+0x20e/0x420
+     ? strlen+0x85/0xa0
+     kasan_report+0xe0/0x110
+     ? strlen+0x85/0xa0
+     strlen+0x85/0xa0
+     trace_event_raw_event_ocfs2__file_ops+0xf0/0x480
+     ? __pfx_trace_event_raw_event_ocfs2__file_ops+0x10/0x10
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? pmbd_probe_hit_cookie+0xe7/0x1c0
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __pfx_pmbd_probe_hit_cookie+0x10/0x10
+     ocfs2_file_read_iter+0x6cd/0xb30
+     ? __pfx_ocfs2_file_read_iter+0x10/0x10
+     ? selinux_file_permission+0x11d/0x540
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? security_file_permission+0x26/0x80
+     vfs_read+0x7d2/0xc20
+     ? __pfx_vfs_read+0x10/0x10
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __pfx_do_sys_openat2+0x10/0x10
+     ksys_read+0x111/0x200
+     ? __pfx_ksys_read+0x10/0x10
+     ? irqentry_exit+0xbe/0x820
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? trace_hardirqs_on_prepare+0x11d/0x150
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     do_syscall_64+0x114/0x620
+     entry_SYSCALL_64_after_hwframe+0x77/0x7f
+    [User register dump omitted.]
+     </TASK>
+
+    Allocated by task 489:
+     kasan_save_stack+0x33/0x60
+     kasan_save_track+0x14/0x30
+     __kasan_kmalloc+0xaa/0xb0
+     __kmalloc_noprof+0x2de/0x780
+     __d_alloc+0x5fc/0x8c0
+     d_alloc_parallel+0x106/0x11d0
+     lookup_open+0x3ff/0x13e0
+     path_openat+0x95e/0x2020
+     do_file_open+0x21e/0x470
+     do_sys_openat2+0xf4/0x1b0
+     __x64_sys_openat+0x136/0x1e0
+     do_syscall_64+0x114/0x620
+     entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+    Freed by task 0:
+     kasan_save_stack+0x33/0x60
+     kasan_save_track+0x14/0x30
+     kasan_save_free_info+0x3b/0x60
+     __kasan_slab_free+0x5f/0x80
+     __rcu_free_sheaf_prepare+0x65/0x2a0
+     rcu_free_sheaf_nobarn+0x1d/0x50
+     rcu_core+0x6be/0x1ed0
+     handle_softirqs+0x1fa/0x8d0
+     __irq_exit_rcu+0x113/0x1e0
+     irq_exit_rcu+0xe/0x20
+     sysvec_apic_timer_interrupt+0x6c/0x80
+     asm_sysvec_apic_timer_interrupt+0x1a/0x20
+
+    The buggy address belongs to the object at ffff88810a5b2b00
+     which belongs to the cache kmalloc-rcl-192 of size 192
+    The buggy address is located 24 bytes inside of
+     freed 192-byte region [ffff88810a5b2b00, ffff88810a5b2bc0)
+
+    [Page and shadow-memory dumps omitted.]
+
+Fixes: 468eedde23d6 ("ocfs2: Remove mlog(0) from fs/ocfs2/file.c")
 Cc: stable@vger.kernel.org
-Signed-off-by: Xia Yan <yanxia@cmss.chinamobile.com>
+Assisted-by: LLM
+Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
 ---
- drivers/net/macvlan.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ fs/ocfs2/file.c | 100 +++++++++++++++++++++++++++++++-----------------
+ 1 file changed, 64 insertions(+), 36 deletions(-)
 
-diff --git a/drivers/net/macvlan.c b/drivers/net/macvlan.c
-index afad90b..a48c9e6 100644
---- a/drivers/net/macvlan.c
-+++ b/drivers/net/macvlan.c
-@@ -1664,7 +1664,8 @@ static int macvlan_changelink(struct net_device *dev,
- 	if (data && data[IFLA_MACVLAN_FLAGS]) {
- 		__u16 flags = nla_get_u16(data[IFLA_MACVLAN_FLAGS]);
- 		bool promisc = (flags ^ vlan->flags) & MACVLAN_FLAG_NOPROMISC;
--		if (macvlan_passthru(vlan->port) && promisc) {
-+		if (macvlan_passthru(vlan->port) && promisc &&
-+		    netif_running(dev)) {
- 			int err;
+diff --git a/fs/ocfs2/file.c b/fs/ocfs2/file.c
+index d6e977ba6565..c6e7606ff9e1 100644
+--- a/fs/ocfs2/file.c
++++ b/fs/ocfs2/file.c
+@@ -85,10 +85,17 @@ static int ocfs2_file_open(struct inode *inode, struct file *file)
+ 	int mode = file->f_flags;
+ 	struct ocfs2_inode_info *oi = OCFS2_I(inode);
  
- 			if (flags & MACVLAN_FLAG_NOPROMISC)
-
+-	trace_ocfs2_file_open(inode, file, file->f_path.dentry,
+-			      (unsigned long long)oi->ip_blkno,
+-			      file->f_path.dentry->d_name.len,
+-			      file->f_path.dentry->d_name.name, mode);
++	if (trace_ocfs2_file_open_enabled()) {
++		struct dentry *dentry = file->f_path.dentry;
++		struct name_snapshot name;
++
++		take_dentry_name_snapshot(&name, dentry);
++		trace_ocfs2_file_open(inode, file, dentry,
++				      oi->ip_blkno,
++				      name.name.len, name.name.name,
++				      mode);
++		release_dentry_name_snapshot(&name);
++	}
+ 
+ 	if (file->f_mode & FMODE_WRITE) {
+ 		status = dquot_initialize(inode);
+@@ -174,11 +181,17 @@ static int ocfs2_sync_file(struct file *file, loff_t start, loff_t end,
+ 	tid_t commit_tid;
+ 	bool needs_barrier = false;
+ 
+-	trace_ocfs2_sync_file(inode, file, file->f_path.dentry,
+-			      oi->ip_blkno,
+-			      file->f_path.dentry->d_name.len,
+-			      file->f_path.dentry->d_name.name,
+-			      (unsigned long long)datasync);
++	if (trace_ocfs2_sync_file_enabled()) {
++		struct dentry *dentry = file->f_path.dentry;
++		struct name_snapshot name;
++
++		take_dentry_name_snapshot(&name, dentry);
++		trace_ocfs2_sync_file(inode, file, dentry,
++				      oi->ip_blkno,
++				      name.name.len, name.name.name,
++				      (unsigned long long)datasync);
++		release_dentry_name_snapshot(&name);
++	}
+ 
+ 	if (unlikely(ocfs2_emergency_state(osb)))
+ 		return -EROFS;
+@@ -1132,15 +1145,19 @@ int ocfs2_setattr(struct mnt_idmap *idmap, struct dentry *dentry,
+ 	int had_lock;
+ 	struct ocfs2_lock_holder oh;
+ 
+-	trace_ocfs2_setattr(inode, dentry,
+-			    (unsigned long long)OCFS2_I(inode)->ip_blkno,
+-			    dentry->d_name.len, dentry->d_name.name,
+-			    attr->ia_valid,
+-				attr->ia_valid & ATTR_MODE ? attr->ia_mode : 0,
+-				attr->ia_valid & ATTR_UID ?
++	if (trace_ocfs2_setattr_enabled()) {
++		struct name_snapshot name;
++
++		take_dentry_name_snapshot(&name, dentry);
++		trace_ocfs2_setattr(inode, dentry, OCFS2_I(inode)->ip_blkno,
++				    name.name.len, name.name.name, attr->ia_valid,
++				    attr->ia_valid & ATTR_MODE ? attr->ia_mode : 0,
++				    attr->ia_valid & ATTR_UID ?
+ 					from_kuid(&init_user_ns, attr->ia_uid) : 0,
+-				attr->ia_valid & ATTR_GID ?
++				    attr->ia_valid & ATTR_GID ?
+ 					from_kgid(&init_user_ns, attr->ia_gid) : 0);
++		release_dentry_name_snapshot(&name);
++	}
+ 
+ 	status = ocfs2_emergency_state(osb);
+ 	if (unlikely(status)) {
+@@ -2392,11 +2409,17 @@ static ssize_t ocfs2_file_write_iter(struct kiocb *iocb,
+ 	int direct_io = iocb->ki_flags & IOCB_DIRECT ? 1 : 0;
+ 	int nowait = iocb->ki_flags & IOCB_NOWAIT ? 1 : 0;
+ 
+-	trace_ocfs2_file_write_iter(inode, file, file->f_path.dentry,
+-		(unsigned long long)OCFS2_I(inode)->ip_blkno,
+-		file->f_path.dentry->d_name.len,
+-		file->f_path.dentry->d_name.name,
+-		(unsigned int)from->nr_segs);	/* GRRRRR */
++	if (trace_ocfs2_file_write_iter_enabled()) {
++		struct dentry *dentry = file->f_path.dentry;
++		struct name_snapshot name;
++
++		take_dentry_name_snapshot(&name, dentry);
++		trace_ocfs2_file_write_iter(inode, file, dentry,
++					    OCFS2_I(inode)->ip_blkno,
++					    name.name.len, name.name.name,
++					    (unsigned int)from->nr_segs);
++		release_dentry_name_snapshot(&name);
++	}
+ 
+ 	if (!direct_io && nowait)
+ 		return -EOPNOTSUPP;
+@@ -2542,17 +2565,16 @@ static ssize_t ocfs2_file_read_iter(struct kiocb *iocb,
+ 	int direct_io = iocb->ki_flags & IOCB_DIRECT ? 1 : 0;
+ 	int nowait = iocb->ki_flags & IOCB_NOWAIT ? 1 : 0;
+ 
+-	trace_ocfs2_file_read_iter(inode, filp, filp->f_path.dentry,
+-			(unsigned long long)OCFS2_I(inode)->ip_blkno,
+-			filp->f_path.dentry->d_name.len,
+-			filp->f_path.dentry->d_name.name,
+-			to->nr_segs);	/* GRRRRR */
+-
++	if (trace_ocfs2_file_read_iter_enabled()) {
++		struct dentry *dentry = filp->f_path.dentry;
++		struct name_snapshot name;
+ 
+-	if (!inode) {
+-		ret = -EINVAL;
+-		mlog_errno(ret);
+-		goto bail;
++		take_dentry_name_snapshot(&name, dentry);
++		trace_ocfs2_file_read_iter(inode, filp, dentry,
++					   OCFS2_I(inode)->ip_blkno,
++					   name.name.len, name.name.name,
++					   to->nr_segs);
++		release_dentry_name_snapshot(&name);
+ 	}
+ 
+ 	if (!direct_io && nowait)
+@@ -2624,11 +2646,17 @@ static ssize_t ocfs2_file_splice_read(struct file *in, loff_t *ppos,
+ 	ssize_t ret = 0;
+ 	int lock_level = 0;
+ 
+-	trace_ocfs2_file_splice_read(inode, in, in->f_path.dentry,
+-				     (unsigned long long)OCFS2_I(inode)->ip_blkno,
+-				     in->f_path.dentry->d_name.len,
+-				     in->f_path.dentry->d_name.name,
+-				     flags);
++	if (trace_ocfs2_file_splice_read_enabled()) {
++		struct dentry *dentry = in->f_path.dentry;
++		struct name_snapshot name;
++
++		take_dentry_name_snapshot(&name, dentry);
++		trace_ocfs2_file_splice_read(inode, in, dentry,
++					     OCFS2_I(inode)->ip_blkno,
++					     name.name.len, name.name.name,
++					     flags);
++		release_dentry_name_snapshot(&name);
++	}
+ 
+ 	/*
+ 	 * We're fine letting folks race truncates and extending writes with
 
