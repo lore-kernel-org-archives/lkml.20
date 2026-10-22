@@ -1,78 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.3
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792652896;
-	b=Mbi499qTkWpFcVLmrgPGA3GKPAIvddsfUH1NvWeNb7lO6uHKCG2gcBowmmUvuFCTbSjB
-	 UXmPWMtEnOlVqiK2yZmpYaUPyLTc52k7O03SQprAs1IiZ02KAJqTPuBMV+aqL48mDVFcs
-	 1UUVqJDbkwIxjJ9VutJMSKwquHqBjhAq6DIFv+o3+tmZp6ftMSsE4VGIsNksk1zBQqxop
-	 rWZv6J0o9UcrtD9ePxeWbswBe2z9YSvAEYBWbR8yA6oOdeZZBIpwdVKRC9kwKCLDxawqe
-	 C4tojuR9DPOpWGzZhMNu7lDlrFknXjSon6D6dd9rIEtCqtTgOpPOi6uRz/Us1arkILQ==
+	t=1792652932;
+	b=hhLr8HXuLbII8hsn8p9sZsSM8EarCok3wYLbUruHLPznelLkhaortz8PUEoZbbZBNdtv
+	 4CWIN1tr60UuKiO5siyx2VXF1dY34AChFKvdSp8Tc+mHHwUQXlgT4z/mWxa4m5EFqFpht
+	 QzpDDUVU1RcA9AXFuvPSBiobWv4u93LaBVwEa07++2SrKUSz3kl/c8sQMuePe6xfr4a0n
+	 nRAtSnyBRL6xby8+gzFkGiAFnb3OYoc1nx8tLB1eF+aXVs2sXvtz0ud5uz1WJNjXzBqTJ
+	 VHoRjlI+Rjk63EMkcVbVkVLs+19A8HzF8/W9sko/9pO5d7IXYW8roZNpjfrfTPkQWMA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792652896;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=ObZvU+XQmGZG3o23DiXFT3XrTWwzGNWdvfr2/vc5O34=;
-	b=35K5k343UvTCD1BjjaUaihTDtqpYKERCO0hhygiwv4enBZtrzDIDwYaOrbxpJ6iHDipc
-	 DV8FGtQ2LjgKGNuzhjddtId8LY8vuk8ffgSdy8gysT5Y0pMFnjAtWJQnJwwDsvq+MKf68
-	 mWJSG2aF1e1HRCONA7oGP6Z7Gl3dDYSBh75KC4HLSjV6RXkitfJi2OAoMD+XGdXCL5ZNq
-	 BTa1+KL4z+xlTbrtyInB8hc+YQuJTYblhSiW3Dx2LjtDvtGmnVEEDSNVrWgVsi0ujGol/
-	 XAg/KIA1SsnKpQiEAvX6RmF42ZtZ3l/1u5zl1da4+YYY3chqlR0ymgkcQNDa46F4KUg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792652932;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=KcS3uuJ2aUxEQ7xZoI70yenV90PwGHNj1xxTD8qG/FM=;
+	b=YO/oJQVakgcBe6TSNRZWiWmPU3Aoe60yky150+3yiuPMTViYni8QSWAm5xrfdJrGPGOq
+	 E6US9uLRXb2KtVDzwol80jCyM8GpJIRyP3TeGbxzPCngT1Vilim5sqAv8xbZdrNoROKqz
+	 3vbPMfO6MNbE97tQpDzlRyjWSEMGjBslYbFfOsrNz8UWRQBoM+fULUAJW24qzPeat6a0J
+	 9l9dTw/KIN/duN+Loczmxi+BiM1cvylUuEibEqRJN3UQoi6PRY1HcVKeT7RtJN+1LBD5b
+	 L3YLYpuAIQA1autS+Ca/VWqLX8TRGUhporcIo8jT7ZGkLixHxJ6juN5YTN9veg0ahGg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=bkz7W+ZG;
-	arc=none smtp.remote-ip=192.198.163.11
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=UGq1LVk5;
+	arc=none smtp.remote-ip=117.135.210.3
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9D6F606A31B;
-	Thu, 22 Oct 2026 07:08:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D9D6F606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9413606A319;
+	Thu, 22 Oct 2026 07:08:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E9413606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=bkz7W+ZG
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792652896; x=1824188896;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=x7UcIOl68v/yplQB3o2tSi3KkbbDcGf5tiMGGiPZRXI=;
-  b=bkz7W+ZGO2qCZXZHlXpTs6cDrvW0W7o7Rl8Fb5PppmrcoEM1aBClvrv/
-   hErnSagpR688QVbcGRoKoN0HE5tgso+arRzubTwRV82CTc11GBYtkih7b
-   8wYm2hKZoc8sCYxjoD5qthM7nriDlwm2qI8V/5SDpeN2cfMAGWE6ax2cS
-   yA98zKpx41Y5RMofPCiyWjlBW96RMMyswO17S73Ys1JVuIkoB0R+0Rpu2
-   MnIueRC9EoK65i730i74VX6m+C2xpi+EVGFVMdFqOWTN9b1XWV9zoFEr7
-   W4scflZbEH2hi6g12wj2au2EkBQxRcnLDQR7QjQlisOVGippmHZ0Z9WcM
-   w==;
-X-CSE-ConnectionGUID: RK98V18bSfmE/VsWWy+ptQ==
-X-CSE-MsgGUID: MAHrjdgJQXSl03BZxqhkhQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11942"; a="1292731"
-X-IronPort-AV: E=Sophos;i="6.27,171,1787036400"; 
-   d="scan'208";a="1292731"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Oct 2026 00:08:15 -0700
-X-CSE-ConnectionGUID: 1/fnXGRAS9OfXNqmigeYGw==
-X-CSE-MsgGUID: OloM3ZDvTbK4FxaeL/NkQw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,171,1787036400"; 
-   d="scan'208";a="3694020"
-Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.245.189])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Oct 2026 00:08:12 -0700
-Date: Thu, 22 Oct 2026 10:08:10 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Arnav Kapoor <kapoorarnav43@gmail.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	Rodrigo Alencar <rodrigo.alencar@analog.com>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] iio: core: fix signed integer overflow in
-Message-ID: <atm2WhX9KDkbUIPk@ashevche-desk.local>
-References: <20261021225306.623361-1-kapoorarnav43@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=UGq1LVk5
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=Kc
+	S3uuJ2aUxEQ7xZoI70yenV90PwGHNj1xxTD8qG/FM=; b=UGq1LVk5QcMugP7u6v
+	wY76UERXMcJFLAEozzv6QGymtxLkk/xYeycUBpNJ6cpFgzvmAl8b96BCvpKuJCg3
+	IHx98UGz+5ndMI8oncDHDFDJpEza4tvYKz7VPpKabWQ3icUNolE8Poii3aWFiAFF
+	KCmNT1cfYEEpfviu8wGid3O4U=
+Received: from thinkpadx13gen2i.. (unknown [])
+	by gzga-smtp-mtada-g0-3 (Coremail) with SMTP id _____wDnz2ZLttlqamq+Bw--.15190S2;
+	Thu, 22 Oct 2026 15:07:56 +0800 (CST)
+From: Zongmin Zhou <min_halo@163.com>
+To: shuah@kernel.org,
+	pjw@kernel.org,
+	palmer@dabbelt.com,
+	aou@eecs.berkeley.edu
+Cc: alex@ghiti.fr,
+	linux-kselftest@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Zongmin Zhou <zhouzongmin@kylinos.cn>
+Subject: [PATCH] selftests: riscv: check all elements in vector register init test
+Date: Thu, 22 Oct 2026 15:07:28 +0800
+Message-Id: <20261022070728.35671-1-min_halo@163.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,89 +65,53 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261021225306.623361-1-kapoorarnav43@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wDnz2ZLttlqamq+Bw--.15190S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7AF47tFy8XFy3Aw45JFyUGFg_yoW8AF1kp3
+	yFk34YyryfWa92qa18Cr4UJr4rWa1fJrWDArn8Aw4DA3yfWas2qFyxtF1jqa47Ar4Fyrs0
+	v3Z2vFyfua1DGaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jbHUDUUUUU=
+X-CM-SenderInfo: pplqsxxdorqiywtou0bp/xtbC0QzRfWrZtkwv8QAA3m
 
-+Cc: Rodrigo
+From: Zongmin Zhou <zhouzongmin@kylinos.cn>
 
-On Thu, Oct 22, 2026 at 04:22:48AM +0530, Arnav Kapoor wrote:
-> __iio_str_to_fixpoint() accumulates the integer part of the parsed number
-> into an int. Feeding it a string with more digits than an int can hold
-> overflows that variable, which is undefined behaviour. The same happens
-> when the parsed value is INT_MIN and the sign is applied afterwards.
-> 
-> The parser is reachable from userspace via the writable IIO channel
-> attributes, for example the "sampling_frequency" or "in_voltage_scale"
-> ones, and via the exported iio_str_to_fixpoint() helper used by a
-> number of IIO drivers. A user writing a long enough string therefore
-> triggers a signed integer overflow.
-> 
-> Accumulate the integer and the fractional part in a s64 and reject
-> values that do not fit into an int with -ERANGE. The limit for the
-> integer part depends on the sign as the sign is applied only after the
-> whole string has been parsed.
+The register scrubbing test attempts to read each element with
+vmv.x.s and advance to the next element with vsrl.vi reg, reg, 8.
+However, vsrl.vi shifts each element independently and never moves
+the next element into element 0.  With SEW=8, the immediate 8 is
+also truncated to 0, making the instruction a no-op.  The loop
+therefore re-reads element 0 vl times, and leftover data in any
+other element goes unnoticed.
 
-This needs a Fixes tag, otherwise it probably won't needed as Rodrigo working
-towards tons of improvements in this area.
+Replace the shift with vslidedown.vi reg, reg, 1, which actually
+moves the elements down by one.  The instruction has the same
+encoding in RVV 1.0 and the T-Head vector extension 0.7.1, so it is
+safe to use on both code paths of the test.
 
-OTOH, Rodrigo's test cases might be good as part of this fix as well.
+Fixes: 57d7713af93e ("selftests: riscv: Fix vector tests")
+Signed-off-by: Zongmin Zhou <zhouzongmin@kylinos.cn>
+---
+ tools/testing/selftests/riscv/vector/v_exec_initval_nolibc.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-...
-
-> -	int i = 0, f = 0;
-> +	s64 i = 0, f = 0;
-> +	s64 limit;
->  	bool integer_part = true, negative = false;
-
-While at it, make it reversed xmas tree order.
-
-...
-
-> +	/*
-> +	 * The integer part is accumulated as a magnitude and the sign is only
-> +	 * applied once the whole string has been parsed. Hence the limit
-> +	 * depends on the sign.
-> +	 */
-> +	limit = negative ? (s64)INT_MAX + 1 : INT_MAX;
-
-Wow, what's wrong with INT_MIN?
-
->  	while (*str) {
->  		if ('0' <= *str && *str <= '9') {
->  			if (integer_part) {
-> -				i = i * 10 + *str - '0';
-> +				i = i * 10 + (*str - '0');
-
-What's the point in changing this line?
-
-> +				if (i > limit)
-> +					return -ERANGE;
->  			} else {
-> -				f += fract_mult * (*str - '0');
-> +				f += (s64)fract_mult * (*str - '0');
->  				fract_mult /= 10;
->  			}
->  		} else if (*str == '\n') {
-
->  	}
-
-...
-
-> +	*integer = (int)i;
-> +	*fract = (int)f;
-
-Why do you need explicit castings?
-
-...
-
-Do you know about APIs in overflow.h? I think you wanted to use something
-from there.
-
+diff --git a/tools/testing/selftests/riscv/vector/v_exec_initval_nolibc.c b/tools/testing/selftests/riscv/vector/v_exec_initval_nolibc.c
+index 91e31f185b85..7f6fb0f93691 100644
+--- a/tools/testing/selftests/riscv/vector/v_exec_initval_nolibc.c
++++ b/tools/testing/selftests/riscv/vector/v_exec_initval_nolibc.c
+@@ -40,7 +40,8 @@ int main(int argc, char **argv)
+ 			".option push\n\t"					\
+ 			".option arch, +v\n\t"					\
+ 			"vmv.x.s %0, " __stringify(register) "\n\t"		\
+-			"vsrl.vi " __stringify(register) ", " __stringify(register) ", 8\n\t" \
++			"vslidedown.vi " __stringify(register) ", " \
++				__stringify(register) ", 1\n\t" \
+ 			".option pop\n\t"					\
+ 			: "=r" (value));					\
+ 		if (value != 0x00) {						\
 -- 
-With Best Regards,
-Andy Shevchenko
+2.34.1
 
+
+No virus found
+		Checked by Hillstone Network AntiVirus
 
