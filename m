@@ -1,79 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792711705;
-	b=cVAKWtED/zAbDLGUTEoD+irfiuLOBbHml1iuSRNAh88ZTTf8y4zOaFGfpLnssSKEELFp
-	 xufETMUgMQdntrR4XcgBC6UnHTbqkXO9cwqp3gp9lHLQ3doF0UG7L3kENeIXgff0kJExi
-	 m0ZH+9PDn2dwd3g36cE8Ag0JO4vE124kcyu8DVzThdsJwj3lFVMYWyFkuY2LhAP6UDHnW
-	 ikyLAgAuGsDdJkpIR08mNaYNWcKJ06UCjIp4h/41YYE/YYcExx01inRAbYEZyHPs4l5IT
-	 sw4PtLQPHlh0BZrbr9ryiu/B8vf2F2IKGycLWiqnetUO78CP5mzqEuTaXhCQfGwatSA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792711705;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=v99w5dxZ3ep55xTaoBSOh99kTn+5G5ENEYSH2yCjB/w=;
-	b=4zKuvynuLFrwOqT5p0uyn77NEB37Z+pwvpY43Qa2iJMEryQqoWteYs0n1hH0k43kntR6
-	 0Jw/ucKQiQIVBhPG1pznVhQJFZ/QVaa10bHCkZyipT42074gJ2IJdV96Mlqw724N4qyM0
-	 tjzy2DwFKG0WS8UQEjWcTc8cNeG6U/Q55KgTYeU3+qirdvkPEtsfKNeI2lJgVwygHtQwH
-	 +hAWekrFPc5LB4Z0yVOfVQDPfM2QuY4StxkVyA1GW8hKOkOc7rcGYxvDRCnUud/7Z24Cm
-	 hICk0k2m0ps1w9yS7HGFWHRAeghCJ2jQ7qby1/5ppysJOkQhoIqVq6XmbA+NGO1qxfg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ca8ueo2L;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11B036073FD0;
-	Thu, 22 Oct 2026 23:28:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ca8ueo2L
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1792711705;
-	b=p1BvIvZFLbRIaSIqOzKK+AHKOsdvsqTIvqkEf7WozPEQAV0ctujEhh2QjO3MzoVsCdZB
-	 vfFOYaOExAoV4MKjwIidSgMaAJJ+ErO1bdhF8AaCywnDw0EG4GEaG0XRqtq1unlRRfMAW
-	 qqXGtsEB5iSuNkMLonjHh5mNzEURADUX7lczpGsuTi6HTqIgczCyHeX3CDt5vrrOKPtX8
-	 OiEmDSTCQlQv5keSuztEfWU5XnzCX7JY+NzqMtQo61+oRDeL+x9hA2FhZo04KutSr/TLL
-	 c1kwoKrZRNGZhSbMXxpPsWyUQw93Imb6TmwW7gH0guWZpwg8s0bWOWXYt0I7XQ7Kb4g==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1792711705;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=v99w5dxZ3ep55xTaoBSOh99kTn+5G5ENEYSH2yCjB/w=;
-	b=g+5PKxF1wb88sGGlIXcJsguRrUwOScd7TO3RinG+LhFi1o5TUPy4ZdpGky5qkQxVFjEa
-	 reIG3+ldXP043aULW9+QB98rEtwQpJ1uO1mPOGH4RmOMt9VkmjByPlIsK7CMprfDBtCH9
-	 PGNEr/VoDp/ypnjTSjOL+/TvUwfnsahPyzw5OP6nLRsuaOjlQOuhNJ7bqdOLto6oS00Wo
-	 DUJmlnoDkooOvmf1aeIf742Q2wEEYa0WBp66JCozavAkORWqtHh1JNiPw0n9clBa9unaF
-	 uVlo5Ytk7FL3em4dvcNjSAimoAC7Xu3l77KoZEmhtARYuRaIiMct0fL7RlkddKQqDZA==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=62.72.0.81
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792712144;
+	b=OFVWhmhD+6TXOUQW9tUYjQqlbKioKcLzZ8I9twoJxCIRUHGDsV/N8wtdECavHhmbUttO
+	 SZhlSBD+em76GGKo0UTjlsje3zrITe40aL8WbhwKLpKiEmzopYrEUZThyT8ITZzHae+sj
+	 v2ogQHjEu88Uj8FAtPnC4A/MsZ5qBC/0gNKzaZVNPuJAE8KVF3Z2cImHKw6Xs3FHk7ont
+	 WV7ExU99ATFo4dVkfDWymd9MfoCHTbayZO4xsLa/2R4aQEFTeeFeevpZi8+lDcjdCFv3E
+	 HCfd/Dkhd6EBd3kMI5v1a6p11sSliNOaMTsWfCELb8OGLpcX+5msPpXAV5PPg+gGH2Q==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792712144;
+	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=3rZsUW/t975keV+PsdM/QVuwN5VmNIdhd9sOD/k3Cj0=;
+	b=3D8R4+zvRK0Pl0Ui8N3+ZPAgq0M8WPzzJskYHnhRF9WijGNIyWChDS/rRXTeWL3HNqx0
+	 9T8UTTuzZM3vPSe2MRNbQwLptTqQ7Gq3x+syCDuvxGVU2FphX0Q5JzAuIUw8a6tOH3szM
+	 q7fn059rdEriD3gy6EWkDrJhb5cSZp3lC7jP7j9/HOe3WTxmZ6QJbYUYkx+Tk4SwDtTNg
+	 8vMrLhmIOn2DevlZ+P5mFsKRc2zT2jdEwE4I3aCT/KH8hIzSqFB4pvum/RaSCDPy2T5R0
+	 ZVF2cqxrIJWpHKCXjfldxfxKIZJVLWJZyw+Rt+qG1DkXlSgypgGeEDMpR16p2P4Y/Tw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gentwo.org;
+	spf=pass smtp.mailfrom=gentwo.org;
+	dkim=pass header.d=gentwo.org header.i=@gentwo.org header.a=rsa-sha256 header.s=default header.b=XQwVCcDl;
+	arc=none smtp.remote-ip=62.72.0.81
+Received: from gentwo.org (gentwo.org [62.72.0.81])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 391011F01190;
-	Thu, 22 Oct 2026 23:28:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792711704;
-	bh=v99w5dxZ3ep55xTaoBSOh99kTn+5G5ENEYSH2yCjB/w=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=ca8ueo2L1XU02A0VBu+te87wAf50B3Jm+68yRqpgsYTtQwSQILMEdUeKgTyT7pEH9
-	 7AzxpJvDpVmNVHmYgkW9l0qerRAuPJ7hUS2DE85gDiSpMoYIIDuISKfrXsT0lGY47T
-	 RQlC4GCHWvlCSZ455VzktbvM3B7lIJT/WnSBaPwPgpF+UPPb7UjcJOkQvX9iuhRmLe
-	 qXMAcR97PHAdQ42cAJTbELjO2OPwVO3bF3Je05rCkMRMeU1It4/zTwqcAEyIK3VObC
-	 dv8GNFa3ldyhZWovs5str6nHIItEKRUkCLVrrFsczBfo+LTh1VRVAID1Px8SCXbSI4
-	 zeRrtWq2Hfldw==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 8327F420FF;
-	Thu, 22 Oct 2026 23:27:50 +0000 (UTC)
-From: Ackerley Tng via B4 Relay <devnull+ackerleytng.google.com@kernel.org>
-Date: Thu, 22 Oct 2026 16:28:19 -0700
-Subject: [PATCH RFC v2 47/50] samples/kvm: Implement put_pfn_range provider
- operation
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8D50606A31B
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 23:35:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A8D50606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=gentwo.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gentwo.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=gentwo.org header.i=@gentwo.org header.a=rsa-sha256 header.s=default header.b=XQwVCcDl
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gentwo.org;
+	s=default; t=1792712137;
+	bh=jrV/IxGbHVYF0qqZq6DY+V5oozOvXQzLj5lILV5c1M0=;
+	h=From:Date:Subject:To:Cc:From;
+	b=XQwVCcDlayyAlX12D34bUwhCL1c4UIM9owFW6qpIPS6aEA5SEkQNQkSCJRTsRklBm
+	 PWp0DQ1gA/nqITNhcu3UIjr+Lzoqty64flwOC6PWinFX6mYF7MoRt2bGk+kM7fPVbp
+	 MDYiYj4k0cbuOvbuscE4as2KOXJ5chhHjy7Ts8xg=
+Received: from sut02sys-r112.scc-lab.amperecomputing.com (localhost [127.0.0.1])
+	by gentwo.org (Postfix) with ESMTPS id 1B98C401A2;
+	Thu, 22 Oct 2026 16:35:37 -0700 (PDT)
+From: "Shubhang Kaushik (Ampere)" <sh@gentwo.org>
+Date: Thu, 22 Oct 2026 16:35:20 -0700
+Subject: [PATCH] mm/vmalloc: reject overflowing vm_map_ram page counts
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,131 +56,73 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261022-gmem-alternative-providers-v2-47-5dd1dc6c660a@google.com>
-References: <20261022-gmem-alternative-providers-v2-0-5dd1dc6c660a@google.com>
-In-Reply-To: <20261022-gmem-alternative-providers-v2-0-5dd1dc6c660a@google.com>
-To: Alex Williamson <alex@shazbot.org>, Alexander Graf <graf@amazon.de>, 
- Alexander Viro <viro@zeniv.linux.org.uk>, 
- Alexey Kardashevskiy <aik@amd.com>, 
- Andrew Morton <akpm@linux-foundation.org>, 
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
- Ashish Kalra <ashish.kalra@amd.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- Baolu Lu <baolu.lu@linux.intel.com>, Bill Wendling <morbo@google.com>, 
- Borislav Petkov <bp@alien8.de>, Catalin Marinas <catalin.marinas@arm.com>, 
- Christian Brauner <brauner@kernel.org>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Connor Williamson <connordw@amazon.com>, 
- Dave Hansen <dave.hansen@linux.intel.com>, 
- Dave Jiang <dave.jiang@intel.com>, David Hildenbrand <david@kernel.org>, 
- David Rientjes <rientjes@google.com>, David Woodhouse <dwmw2@infradead.org>, 
- Erdem Aktas <erdemaktas@google.com>, Frank van der Linden <fvdl@google.com>, 
- Fred Griffoul <fgriffo@amazon.co.uk>, Fred Griffoul <griffoul@gmail.com>, 
- Gregory Price <gourry@gourry.net>, "H. Peter Anvin" <hpa@zytor.com>, 
- Hugh Dickins <hughd@google.com>, Ingo Molnar <mingo@redhat.com>, 
- Jacob Pan <jacob.pan@linux.microsoft.com>, 
- James Houghton <jthoughton@google.com>, Jan Kara <jack@suse.cz>, 
- Jason Gunthorpe <jgg@ziepe.ca>, Jianxiong Gao <jxgao@google.com>, 
- Joerg Roedel <joro@8bytes.org>, Joey Gouly <joey.gouly@arm.com>, 
- John Starks <John.Starks@microsoft.com>, Jonathan Corbet <corbet@lwn.net>, 
- Justin Stitt <justinstitt@google.com>, Kevin Tian <kevin.tian@intel.com>, 
- Lorenzo Stoakes <ljs@kernel.org>, Marc Zyngier <maz@kernel.org>, 
- Michael Roth <michael.roth@amd.com>, Mike Rapoport <rppt@kernel.org>, 
- Nathan Chancellor <nathan@kernel.org>, 
- Nick Desaulniers <ndesaulniers@google.com>, 
- Nicolin Chen <nicolinc@nvidia.com>, Oliver Upton <oupton@kernel.org>, 
- Paolo Bonzini <pbonzini@redhat.com>, Pratyush Yadav <pratyush@kernel.org>, 
- Randy Dunlap <rdunlap@infradead.org>, Robin Murphy <robin.murphy@arm.com>, 
- Samiullah Khawaja <skhawaja@google.com>, 
- Sean Christopherson <seanjc@google.com>, Shuah Khan <shuah@kernel.org>, 
- Steffen Eiden <seiden@linux.ibm.com>, Steven Price <steven.price@arm.com>, 
- Suzuki K Poulose <suzuki.poulose@arm.com>, 
- Tarun Sahu <tarunsahu@google.com>, Thomas Gleixner <tglx@kernel.org>, 
- Tom Lendacky <thomas.lendacky@amd.com>, Tycho Andersen <tycho@kernel.org>, 
- Vishal Annapurve <vannapurve@google.com>, 
- Vlastimil Babka <vbabka@kernel.org>, Will Deacon <will@kernel.org>, 
- Xu Yilun <yilun.xu@linux.intel.com>, Yan Zhao <yan.y.zhao@intel.com>, 
- Zenghui Yu <yuzenghui@huawei.com>, x86@kernel.org, 
- Shuah Khan <skhan@linuxfoundation.org>, Fuad Tabba <fuad.tabba@linux.dev>
-Cc: kvm@vger.kernel.org, linux-doc@vger.kernel.org, 
- linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-kselftest@vger.kernel.org, linux-mm@kvack.org, llvm@lists.linux.dev, 
- Ackerley Tng <ackerleytng@google.com>
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792711665; l=2119;
- i=ackerleytng@google.com; s=20260225; h=from:subject:message-id;
- bh=pi2zso59ygjDMW0jQ8vMvbcQ7Mg17Pfm1HpOzHVZMT4=;
- b=FeDMpombwEf/FE13JwARgBMWuXk+ng4trAiHCZK87Mj+RPNNvF/snx58olAl1/HscRsy0XR/d
- fXqX41lY3XdCh+hR/hmQDnI3YEr/FF1ORAq9/bz1EuVkc/iBWwk4zYH
-X-Developer-Key: i=ackerleytng@google.com; a=ed25519;
- pk=sAZDYXdm6Iz8FHitpHeFlCMXwabodTm7p8/3/8xUxuU=
-X-Endpoint-Received: by B4 Relay for ackerleytng@google.com/20260225 with
- auth_id=649
-X-Original-From: Ackerley Tng <ackerleytng@google.com>
-Reply-To: ackerleytng@google.com
 Content-Transfer-Encoding: 7bit
+Message-Id: <20261022-vmalloc-reject-overflow-v1-1-5fde0042ffb9@gentwo.org>
+X-B4-Tracking: v=1; b=H4sIALed2moC/x3MQQqDMBBG4avIrDugI3HRq0gXIf2jU6IpkxIL4
+ t0buvwW751UYIpC9+4kQ9WieW8Ybh2F1e8LWJ/NJL1MQy/CdfMp5cCGF8KHc4XFlA+GGyU4N8U
+ xemr12xD1+z/Pj+v6Ae6MR+ppAAAA
+X-Change-ID: 20261022-vmalloc-reject-overflow-e532c556f3fa
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ Uladzislau Rezki <urezki@gmail.com>, Nicholas Piggin <npiggin@gmail.com>, 
+ Shubhang Kaushik <shubhang@os.amperecomputing.com>, 
+ "Christoph Lameter (Ampere)" <cl@gentwo.org>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ "Shubhang Kaushik (Ampere)" <sh@gentwo.org>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792712137; l=1615;
+ i=sh@gentwo.org; s=20251010; h=from:subject:message-id;
+ bh=jrV/IxGbHVYF0qqZq6DY+V5oozOvXQzLj5lILV5c1M0=;
+ b=SzBwHj++h+fkwY+1kXehypo54pxgSUEaigbNFY/5izvxXwfy7xCiw3YV+kcCPzHA/7Eb9UNpN
+ bJc+xN+7lD/Au/hr0EX0htn+tSU2rNB/LA7E90yob+38UbTliKjJilk
+X-Developer-Key: i=sh@gentwo.org; a=ed25519;
+ pk=jc8YIRvxPSyJaBRe5y+a4N0RXKBUEcAh8+OFhlROXPY=
 
-From: Ackerley Tng <ackerleytng@google.com>
+vm_map_ram() converts its unsigned int page count to an unsigned long
+byte size without checking for overflow.
 
-When guest_memfd hole punches or destroys an instance backed by a PFN
-provider, it invokes .put_pfn_range to release the physical memory back
-to the provider.
+On 32-bit kernels, a count greater than ULONG_MAX >> PAGE_SHIFT wraps
+the byte size.  vm_map_ram() passes that size to both alloc_vmap_area()
+and vmap_pages_range(), so it can allocate and map only the wrapped
+number of pages while returning success for the original larger request.
 
-Implement the .put_pfn_range callback in mps_gmem_provider_ops to clear
-the CMA pages across the released range via clear_highpage(). This
-ensures that subsequent accesses to punched ranges observe zeroed memory,
-matching POSIX fallocate hole-punching semantics and preventing stale data
-from being observed when pages are reused.
+For example, with 4 KiB pages, a count of 1048577 produces a
+PAGE_SIZE byte size after wrapping, allowing a one-page mapping.
 
-Signed-off-by: Ackerley Tng <ackerleytng@google.com>
+Reject page counts whose byte size cannot be represented.
+
+Fixes: db64fe02258f ("mm: rewrite vmap layer")
+Signed-off-by: Shubhang Kaushik (Ampere) <sh@gentwo.org>
 ---
- samples/kvm/mem_provider_sample.c | 17 +++++++++++++++++
- 1 file changed, 17 insertions(+)
+ mm/vmalloc.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
-diff --git a/samples/kvm/mem_provider_sample.c b/samples/kvm/mem_provider_sample.c
-index a43c76d2259e7..dee15179959b2 100644
---- a/samples/kvm/mem_provider_sample.c
-+++ b/samples/kvm/mem_provider_sample.c
-@@ -17,6 +17,7 @@
- #include <linux/file.h>
- #include <linux/fs.h>
- #include <linux/gfp.h>
-+#include <linux/highmem.h>
- #include <linux/guest_memfd.h>
- #include <linux/io.h>
- #include <linux/miscdevice.h>
-@@ -40,6 +41,21 @@ struct mps_info {
- 	unsigned long *absent;		/* taken away by MPS_SET_PRESENT */
- };
+diff --git a/mm/vmalloc.c b/mm/vmalloc.c
+index bea9f76ed7e74247d4ce919250c2f02dd5c36483..e98d3aa551fe205ebd9826daad9ad6bd578b91ea 100644
+--- a/mm/vmalloc.c
++++ b/mm/vmalloc.c
+@@ -3083,10 +3083,15 @@ EXPORT_SYMBOL(vm_unmap_ram);
+  */
+ void *vm_map_ram(struct page **pages, unsigned int count, int node)
+ {
+-	unsigned long size = (unsigned long)count << PAGE_SHIFT;
++	unsigned long size;
+ 	unsigned long addr;
+ 	void *mem;
  
-+static void mps_gmem_put_pfn_range(void *provider, pgoff_t index,
-+				   size_t nr_pages)
-+{
-+	struct file *resource_file = provider;
-+	struct mps_info *info = resource_file->private_data;
-+	size_t i;
++	if (count > ULONG_MAX >> PAGE_SHIFT)
++		return NULL;
 +
-+	if (index >= info->npages)
-+		return;
++	size = (unsigned long)count << PAGE_SHIFT;
 +
-+	nr_pages = min_t(size_t, nr_pages, info->npages - index);
-+	for (i = 0; i < nr_pages; i++)
-+		clear_highpage(info->cma_pages + index + i);
-+}
-+
- /* Byte range [offset, offset + len) of @info as page indices. */
- static int mps_range(struct mps_info *info, u64 offset, u64 len,
- 		     unsigned long *start, unsigned long *end)
-@@ -155,6 +171,7 @@ static const struct guest_memfd_provider_operations mps_gmem_provider_ops = {
- 	.attach		= mps_gmem_attach,
- 	.release	= mps_gmem_release,
- 	.get_pfn	= mps_gmem_get_pfn,
-+	.put_pfn_range	= mps_gmem_put_pfn_range,
- };
- 
- static const struct file_operations mps_file_fops = {
+ 	if (likely(count <= VMAP_MAX_ALLOC)) {
+ 		mem = vb_alloc(size, GFP_KERNEL);
+ 		if (IS_ERR(mem))
 
+---
+base-commit: 7be4bc52fd9e0e55dc9a2e0232b89427d2c4b614
+change-id: 20261022-vmalloc-reject-overflow-e532c556f3fa
+
+Best regards,
 -- 
-2.56.0.257.gf7497c7d27-goog
-
+Shubhang Kaushik (Ampere) <sh@gentwo.org>
 
