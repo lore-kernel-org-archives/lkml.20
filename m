@@ -1,90 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792692355;
-	b=h5iMmj7KnfvXV1xtTbKNz7Z+CrZ/7XgqrSGszyInFDdcGhF36QFu21JqADrVLnHYbkSS
-	 tKvg5YNR6mAPk2WZIH2IRI3E8gAH4b8hE+nufGkXuwdnvYbtvFj8KI4Z3h2pBy5cXBqjq
-	 o5h1T8KoQJyysN1Y2BifYnNJ4DoSSF6AecQQLrDC5le/RBPKUaggjoRz/uBLtVVDqAJWN
-	 BwZ/0O59qkjvXBsPNur0P8/dH81j/U/zN1o5V96HQvU6jgSNBND6wEuZKSi+7v9xBsZQx
-	 TJ7d41JAs82dBbv/H/X4LDpNTX7MiANSzMbVYgxUgCVXfUDRCXs7hF6E0SPY/4KqJUA==
+	t=1792692393;
+	b=1p5FyrFHOBBLh/xbkylJxwlNPRdO+MsxKzoErPmiBdTKtWSlJFdkseLaAMu+MQtNJ6bm
+	 FWrlGrGjd0ewFXhPP03boFHwc531NgeYbgTlK8Jc8Shv2uTVR3Lplw/mJ8mdQ+kO/31SZ
+	 lDpdGO9hIT67exjxes35/MIjUUYa40RrwUrU47y12y3XLdJiR8d9kgYTTlG5s6qOjLqlB
+	 hyQUlyfEhQD+2Y1O/clDJDrQcR+jKxoFshRrTadH6sCHCCYzRtOAWoAxVyDLm45ID0X/L
+	 EFOgjEwb11t8RlemX+0gruInxMUnizpehovpGdJ5hKef+fp6La6XBkB+S+jW7U7AuQQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792692355;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=1zSXtHvPpLsfUt5yAbkPli0w54wQnxBQcvrvtnILKFE=;
-	b=MiYfH2IE5hO9J15ccYs4ePjoInxCazdNJSMm7zELC0ldv5OOrvU6Wys1UgCe2xE8BJze
-	 P4yEChK2Ius3ru79zEkSQ1Ia0awxPy5gTpwVehHJczyNVSjov/itzZj7uLUPmvMdRRok7
-	 F9d1ddRQZ2tabjP8nduhksR68VPOmmifPqwANQCYhp/3lZJCk0UrMC/JG1YD62z9glj7M
-	 wb2FKPg80NV+si12jidis0GxCSp9W7E3/MBtnSeSCMqiIszn0v21on7U2EaYGRy+dqM14
-	 Ck5vFzbtyOmfvjpYQqKgIY2X5IA+Nz7NlLzdHDskrwVrRdQzMurpQqxkmd93mcd5z7w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792692393;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=Yer8ubWHNy/lk45efo9R29z8i1PYgjz6ECbWxwFT1Cc=;
+	b=A5dGlmMH18ySEqpQNF74SjAWLZcIL+vlWL1D7/B8Qx7ZzljnfTP/cxef6c1k9YDyH/QB
+	 +Mj8Xto5zMNhcVknjn7vXJntKDxsOhoeSXAoZ8woVyUQsjSonBgrCUA1dqkt1+sPr9shC
+	 K1s6kuBEWNw1meZXhpzWlCD1jx/IpLLJl1AH1g72/8SmkZ3WYUS6l6lhZoFT7CccGBekd
+	 R0VxQn1Trp4HdFYLhqSQyc0RiSzfIDOqGVIuCfaLiwa/pgro7++aVko+NIbKBqW/jc95r
+	 C8BrDx4cKwKm1QWjfgZgbEzgX7MPwG82pL8LeaclJQYNy5LaiyDhMgQMm07MCTyiYFA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=gXMiaecm;
-	arc=none smtp.remote-ip=209.85.216.46
-Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RMHkI0FQ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F765606A319
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 18:05:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8F765606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7982606A31A;
+	Thu, 22 Oct 2026 18:06:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=gXMiaecm
-Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-3adc4590de4so93318a91.2
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 11:05:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792692354; x=1793297154; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=1zSXtHvPpLsfUt5yAbkPli0w54wQnxBQcvrvtnILKFE=;
-        b=gXMiaecmWs+UySZpVS0T/CtxT4fNYCxtTMWgas0Qjjg9B6oP+tRZsDAQc+8V9H+Uq/
-         o5PRknHa3WLZ+JHJiEfKR8urT/+zGbRihNL0cVHJM1LuggK2C8ZFYz1R0VdtR5fWDzAe
-         3RkGbhN+jlMTBK0gzId5Imc86K6tP2gUGHxsw1B6aeJFy2M+asuWmf4q3Yp+8hLWtSCK
-         QBS/qzBi+3VPWOYz0IT48I0tq8RqQYf6/rG6YzTURG3b2ZmE7GDiO+FIhJibxPnmPYmV
-         ZZQhMV+MUqGd3eyg68brQfwjDeh/7I4mB+UY23Cd3uvgxU4GwgVa7NDTKoYgOgAWQZYK
-         A3ZQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792692354; x=1793297154;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=1zSXtHvPpLsfUt5yAbkPli0w54wQnxBQcvrvtnILKFE=;
-        b=fktUsTqK5WkMZObwyMaSzjBzHOjgXaMXOMpAnkMg0hV8Ih9JedoqAHkuD8RYJ3jlc7
-         e8RRJphNrM3OlsAdnGCbSYTpPKwnIdcIAqR5V3RzrKBV1KxP8uwjsjg4Ldh4FuRHnX+g
-         600QuciHeQ5vjClqozjKmlFQYUZTHGMNLeHh6mOdIq3XxkSPzeckvnzu6k9RiV96ubte
-         blGL8nTyEAmDiXmkiuu1VOO9BAHXX0Zvs0RNS6+bAjjEdgWBmU/v14FPBqlPkY0wdBdZ
-         VC1mZsiMm1zwMtV82CEFCDiqInkrcac8UVUn2cjAlT597LoLEqr5TnK9tqf5M701da1N
-         ALzw==
-X-Forwarded-Encrypted: i=1; AKwUvBxvj4z3lnzG9X6VclRaG2cR4d1Sko2DC0bTwoSNIk1gUn2i8HsK3Skn9M7bFRYSFgtdgKSNiQXk3TsuGRc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKdetWPPkZzDjPVC7XbHdFRjmBJlnT9X7c2zhpOUSMor/6/fvdW
-	d2Nc2lqzQ28LxHLs6BTyDAonOlFYSTWIvDPA1pJIVA5rVTNqwlFz78rkDSdr
-X-Gm-Gg: AYBFou2Ix2wx5YtGWtWk4pFbR8RGNG3GRTWx+WKWMSwkbgIJM765mBrAbaZsGJlpgFq
-	p3ZQCD7EmAZbypyhEngeE3MXdrx8L+lXbPoTL7jdp8DdiW6W6B91BIar/LE5xiPXtIl19DPeGnG
-	Uk+I4UhapGWqJBybUNZ9MggfhEYXLrnSoI+XriGrpo0AWXfpCz8lR9GnMwdEV5JSCocoNgPaAxg
-	CkwUML1dImMGit+KQCU9MrFEa+wrJpSXwO1bbMtUlZJEv457s+z5lUEC12J09dQ3ZZYVRGdz645
-	74A0tbYVuy+PzMMtItosjK6GUJi0Bv/jndw+Aeu84THD+ucZpc2hvibR3JEhaS29V+ypxsG68La
-	AZ18obv5+qLUVR7zx+Xfx3QGmUu7QEv2PFSdezfMxrm/2m62M/Cvjob+TRR2JYh7DhZKg+6Bujs
-	eTt5bX51X4tqdNeOe0IGyiE4gCS4K97U3Vm7OyrED9yMU7sfdHw2DjILvz9bNAYP5jfm8uIvbaM
-	fQHjfi6qdeQExKrM4rw/6XvXiVLlVpDMcwtOTd8mFJ/77EWaJZG/KjBRiB88hazGyeIbowmdISL
-	ubCxm5nQSu9J/LLp4p6+UAacpIOcuYEZU55+BzM=
-X-Received: by 2002:a17:90b:50cb:b0:3ac:da41:ef7e with SMTP id 98e67ed59e1d1-3ad86f650acmr5217438a91.52.1792692353889;
-        Thu, 22 Oct 2026 11:05:53 -0700 (PDT)
-Received: from MalHyuk.localdomain ([211.201.32.99])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3adc961bb13sm136044a91.3.2026.10.22.11.05.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 11:05:53 -0700 (PDT)
-From: "JongHyuk Kim(MalHyuk)" <malhyuk97@gmail.com>
-To: rostedt@goodmis.org,
-	mhiramat@kernel.org
-Cc: linux-trace-kernel@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] tracing: Reject a filter expression that ends on a dangling operator
-Date: Fri, 23 Oct 2026 03:05:49 +0900
-Message-ID: <20261022180549.3260375-1-malhyuk97@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RMHkI0FQ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F5FB1F01825;
+	Thu, 22 Oct 2026 18:06:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792692392;
+	bh=Yer8ubWHNy/lk45efo9R29z8i1PYgjz6ECbWxwFT1Cc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=RMHkI0FQgzO7BqMvQqqkHN1EI6E+LTsLJtVis45l5kv6vSsRwUWCN7I5rhEO135ag
+	 7QFQJxB3x+co1bNe/ccs9+Etyiw6rvPUCPLTYbKzU3P0vqYzw5JeoNaH2x2VAVJ7EC
+	 KqQQl6FmgmY8izVY7rl4MbZeaFEx1jZTnmmiHKp/lj1tTil3V9INjRBb70XdPRNCjY
+	 kg42qpwP/yEahDooBakrq/U2IHLMFLUUgtG0SCN9lLjYfiTHykyXrlzOmBJ+f9YEJk
+	 BIEsKboa0ILC/+k/bxMQy+RWyhIyP6VKvtvhza++m8n+5eaizFpS1kXEr4sCPb3Qr2
+	 R93w+Xaljxx/w==
+Date: Thu, 22 Oct 2026 11:06:32 -0700
+From: Kees Cook <kees@kernel.org>
+To: Steven Rostedt <rostedt@goodmis.org>
+Cc: Bill Wendling <morbo@google.com>,
+	"Matthew Wilcox (Oracle)" <willy@infradead.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	David Gow <david@davidgow.net>, Petr Mladek <pmladek@suse.com>,
+	Shuvam Pandey <shuvampandey1@gmail.com>,
+	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org
+Subject: Re: [PATCH v5 06/12] seq_buf: Add seq_buf_strlen()
+Message-ID: <202610221058.C5626C5172@keescook>
+References: <20261005155653.late.426-kees@kernel.org>
+ <20261005155708.1471260-6-kees@kernel.org>
+ <20261016145928.16eddc9a@gandalf.local.home>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,97 +63,117 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261016145928.16eddc9a@gandalf.local.home>
 
-predicate_parse() seeds every program entry with prog[N].target = N-1, so
-prog[0].target starts at -1. That -1 is meant to be replaced before the
-second pass runs, either by update_preds() when a pending PROCESS_AND or
-PROCESS_OR is retired, or by the prog[N-1].target = N assignment that
-fixes up the last entry.
+On Fri, Oct 16, 2026 at 02:59:28PM -0400, Steven Rostedt wrote:
+> On Mon,  5 Oct 2026 08:56:56 -0700
+> Kees Cook <kees@kernel.org> wrote:
+> 
+> > +/*
+> > + * NUL-terminate the buffer in @s: directly after the data when there is
+> > + * room for it, otherwise in the last byte of the buffer. @s->size must not
+> > + * be zero.
+> > + *
+> > + * Returns: the offset of the NUL.
+> > + */
+> > +static inline size_t __seq_buf_terminate(struct seq_buf *s)
+> > +{
+> > +	size_t end;
+> > +
+> > +	if (seq_buf_buffer_left(s))
+> > +		end = s->len;
+> > +	else
+> > +		end = s->size - 1;
+> > +
+> > +	s->buffer[end] = 0;
+> 
+> Hmm, I just realized that this could inadvertently overflow the buffer. If
+> len == size, it may not be overflowed. If using seq_buf_putmem() and
+> filling the entire buffer, calling this would force an overflow as we just
+> truncated the last byte.
 
-A filter string that ends on an operator reaches the second pass with
-neither having happened. The pending PROCESS_OR of "a || b &&" is only
-retired after the "*next == '&'" early break, so update_preds() is never
-called for it, and the trailing operator is not itself an error: the
-inner loop breaks, the outer loop sees the NUL and falls through to out.
-With N == 2 the prog[N-1] assignment repairs index 1, and prog[0].target
-is still -1 when the second pass dereferences prog[target].
+Hm, yes. So the "else" branch needs to include:
 
-Reproducing it needs no tracefs mount and no privilege, because the
-filter can be set through PERF_EVENT_IOC_SET_FILTER on a tracepoint
-event, and neither ftrace_profile_set_filter() nor create_filter()
-checks any capability. An ordinary user can open such an event at the
-default perf_event_paranoid of 2 as long as exclude_kernel is set:
+	s->len = s->size + 1;
 
-	struct perf_event_attr a = {
-		.type = PERF_TYPE_TRACEPOINT, .size = sizeof(a),
-		.config = <id of any syscalls:sys_enter_*>,
-		.disabled = 1, .exclude_kernel = 1, .exclude_hv = 1,
-	};
-	int fd = perf_event_open(&a, 0, -1, -1, 0);
-	ioctl(fd, PERF_EVENT_IOC_SET_FILTER,
-	      "common_pid==1||common_pid==1&&");
+> 
+> > +
+> > +	return end;
+> > +}
+> > +
+> >  /**
+> >   * seq_buf_str - get NUL-terminated C string from seq_buf
+> >   * @s: the seq_buf handle
+> > @@ -98,7 +119,14 @@ static inline unsigned int seq_buf_used(struct seq_buf *s)
+> >   *
+> >   * Note, if this is called when the buffer has overflowed, then
+> >   * the last byte of the buffer is zeroed, and the len will still
+> > - * point passed it.
+> > + * point passed it. The same happens when the buffer is exactly
+> > + * full: the NUL takes the place of the last byte written, which is
+> > + * lost, though seq_buf_used() still counts it.
+> > + *
+> > + * A zero-sized seq_buf has nowhere to put a NUL, so the empty string
+> > + * is returned instead of writing to @s->buffer. Any other seq_buf
+> > + * returns @s->buffer, even when it holds an empty string, so callers
+> > + * always get their own buffer back.
+> >   *
+> >   * After this function is called, s->buffer is safe to use
+> >   * in string operations.
+> > @@ -107,17 +135,44 @@ static inline unsigned int seq_buf_used(struct seq_buf *s)
+> >   */
+> >  static inline const char *seq_buf_str(struct seq_buf *s)
+> >  {
+> > -	if (WARN_ON(s->size == 0))
+> > +	if (s->size == 0)
+> >  		return "";
+> >  
+> > -	if (seq_buf_buffer_left(s))
+> > -		s->buffer[s->len] = 0;
+> > -	else
+> > -		s->buffer[s->size - 1] = 0;
+> > +	__seq_buf_terminate(s);
+> >  
+> >  	return s->buffer;
+> >  }
+> >  
+> > +/**
+> > + * seq_buf_strlen - get the length of the NUL-terminated C string in seq_buf
+> 
+> Hmm,
+> 
+> I don't really like the way this modifies the string, as the request is
+> just to return the string length.
+> 
+> Just like the above, this could cause an inadvertent overflow.
+> 
+> I could envision a use case where we want to use the entire buffer and do
+> not expect it to be nul terminated. And this function could be used to get
+> the length to print. That is, it may want to use the entire length.
 
-On v6.12.112 built with KASAN this gives, within a few seconds of boot,
-from uid 1000:
+Non-C String users would be using seq_buf_used(), not seq_buf_strlen().
 
-  BUG: KASAN: slab-out-of-bounds in process_preds+0x151e/0x1b60
-  Read of size 4 at addr ffff888102657c74 by task poc/123
-  CPU: 0 UID: 1000 PID: 123 Comm: poc Not tainted 6.12.112 #1
-  Call Trace:
-   process_preds+0x151e/0x1b60
-   create_filter+0x113/0x1e0
-   ftrace_profile_set_filter+0x10c/0x6b0
-   _perf_ioctl+0x992/0x1830
-   perf_ioctl+0x60/0x90
-   __x64_sys_ioctl+0x134/0x1a0
+> 
+> Having "strlen()" modify the string just seems wrong to me.
 
-Four boots, four reports, 2.7 s to 11.4 s after boot.
+No, this is absolutely required. It's nonsensical to work on a C String
+without termination. (And it's the entire purpose of this series...)
 
-A dangling operator always leaves its PROCESS_AND or PROCESS_OR bit set
-on the operator stack, so testing for that at out covers every form of
-the expression, including the ones where the unresolved entry is not
-index 0, such as "a && b || c &&".
+> Is it really needed? If the user wants to make sure the string is
+> terminated, it should use the next patch's "seq_buf_terminate()".
 
-Note that this changes the result for three shapes that are accepted
-today without reading out of bounds, because the entry they leave
-unresolved happens to be repaired by the prog[N-1] assignment: "a ||",
-"a &&" and "a && b ||" now return -EINVAL with "Meaningless filter
-expression" instead of installing a filter. They have no right-hand side
-to evaluate, so rejecting them uniformly seemed better than resolving
-the pending operator at out and giving a trailing operator a meaning.
+The ergonomics on this are very bad. I explicitly don't want to leave a
+foot-gun around for this. :) (i.e. require all C String users also
+remember to terminate it first; the whole point of the API is to have
+the string always be safe.)
 
-I verified this by building the same config with and without the patch
-and running both under KASAN. The trigger above goes from a KASAN report
-to -EINVAL and the whole boot produces no report; "a && b || c &&",
-"a ||" and "a &&" also become -EINVAL; and seven well formed filters
-including parenthesised and negated ones are accepted unchanged on both.
+> And we need to update it so that if seq_buf_terminate() causes a
+> truncation, it needs to set that it overflowed.
 
-Fixes: 80765597bc58 ("tracing: Rewrite filter logic to be simpler and faster")
-Cc: stable@vger.kernel.org
-Signed-off-by: JongHyuk Kim(MalHyuk) <malhyuk97@gmail.com>
----
- kernel/trace/trace_events_filter.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+That I agree with. I will send a patch on top of the series since this
+has been in -next for a while and the merge window is here now. :P
 
-diff --git a/kernel/trace/trace_events_filter.c b/kernel/trace/trace_events_filter.c
-index 1111111..2222222 100644
---- a/kernel/trace/trace_events_filter.c
-+++ b/kernel/trace/trace_events_filter.c
-@@ -602,6 +602,13 @@ predicate_parse(const char *str, int nr_parens, int nr_preds,
- 		goto out_free;
- 	}
- 
-+	if (*top & (PROCESS_AND | PROCESS_OR)) {
-+		/* Expression ended on an operator with no right-hand side */
-+		ret = -EINVAL;
-+		parse_error(pe, FILT_ERR_INVALID_FILTER, ptr - str);
-+		goto out_free;
-+	}
-+
- 	if (!N) {
- 		/* No program? */
- 		ret = -EINVAL;
 -- 
-2.43.0
-
+Kees Cook
