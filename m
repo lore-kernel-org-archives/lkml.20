@@ -1,62 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=130.136.161.50
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792686689;
-	b=TYhv7AudWGI5GhVTW4H7Nm6zFMoQ532CBx8rkmW4nQsfI+YMDj2KNa1rIejC2dja+K9P
-	 Mz3UGX0bEj/ZlGmVAxGTjvVTVR2pX5ASNrCr9rgBP50VAIFu+2Fa+F6HexBK0a6O7H038
-	 zMeKAXFNF7T2WvRZ+vej1nU/DNevbjxrwKk1j2SqvYX6yOcx8sqdrwHewWbnhor/BcF6p
-	 E4AW64YIEgZYPOKvzmqUac+lez8r/5MkJIDTjcqH/nQQH80NgKzPAKAFwxV+lRLQ+B+D7
-	 0yFAac64ekyCh6NiCTHoKlzqkzu9yr9tp4AcZWl3UQlx9I2Ud3Tctww2kyDmAOf5deg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792686689;
-	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=dqBO/1DhScXJoH993IsuLEdQfKPtaBI5+DWNmPettbk=;
-	b=g0BoKBxTc0jx0LXvrITCoFxx3kU4b5WlcBV2aaZdNukTKy2Xlmptsq08eiHz/gXsV/Pf
-	 gn2NhCSEBBngviTCr67PJRoxoaexBQQ7+3XQCgQmMbFaygnBA65KJHlZUrJO30dLypLBd
-	 evG1N06ZPjfTdt7bzLf3az55Gm27i4WeArP8XyaQhRrYAzAdiTLZqgV60NZnT3vwBhRpi
-	 YNrdgyai6IKDwz9RZvc0TTsLVSyIhTsd3y/qB1f4p3VNXi0X3IYwSAMDy0Wqci60wVJVm
-	 4+JWzRqAQusF3WvU5t9e1pEoSXjTd3RO/R4GmEBfzpz5NXLnu54QuKaEn6wF6aHfxHQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cs.unibo.it;
-	spf=pass smtp.mailfrom=cs.unibo.it;
-	arc=none smtp.remote-ip=130.136.161.50
-Received: from mail.virtlab.unibo.it (mail.virtlab.unibo.it [130.136.161.50])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3107E606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 16:31:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3107E606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cs.unibo.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cs.unibo.it
-Received: from cs.unibo.it (unknown [94.32.99.206])
-	by mail.virtlab.unibo.it (Postfix) with ESMTPSA id 458301C006E;
-	Thu, 22 Oct 2026 18:31:12 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=cs.unibo.it;
-	s=virtlab; t=1792686672;
-	bh=fdZnlNUu/aR/LPydmbT6dOU/LEaViX/83I6GrIBSCF4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=L6UX1lfY57HUSj+8GXZxBmjuuST2IC1mvYEsQe5689C4RG9qb9mBx5nOxsSZYCybd
-	 Lkk+JYywkjb69COHqqJJ+JkeXYQ2vVzXBgAaIBfIYYEUnQv6vkowR2/rfgAAzrhiJm
-	 sx0WjDPzcHAxHCV3tIue7at48Kipb/HpEvFn4+uA=
-Date: Thu, 22 Oct 2026 18:31:10 +0200
-From: Renzo Davoli <renzo@cs.unibo.it>
-To: Mukesh Kumar Chaurasiya <mkchauras@gmail.com>
-Cc: Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Davide Berardi <berardi.dav@gmail.com>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	Christophe Leroy <chleroy@kernel.org>,
-	Michal =?iso-8859-1?Q?Such=E1nek?= <msuchanek@suse.de>,
-	Shrikanth Hegde <sshegde@linux.ibm.com>,
-	Thomas Gleixner <tglx@kernel.org>, linuxppc-dev@lists.ozlabs.org,
-	linux-kernel@vger.kernel.org, Oleg Nesterov <oleg@redhat.com>,
-	"Dmitry V . Levin" <ldv@strace.io>,
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
-	Andrew Morton <akpm@linux-foundation.org>
-Subject: Re: [PATCH] powerpc/syscall: Return the preset value of skipped
- syscalls
-Message-ID: <ato6Tq0aKdqqdqyJ@cs.unibo.it>
-References: <20261018151539.440213-1-renzo@cs.unibo.it>
- <athm2nYVnq6vYBY3@li-1a3e774c-28e4-11b2-a85c-acc9f2883e29.ibm.com>
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792686705;
+	b=UxsQ1rZIZpfC89Zq8q4zNWBuqfuppfJyZoVAC71H73ht+qgxrB7/7Wdn2LWFhvLICs6f
+	 Ld5TFGf4RXCqH1yDIWkmQzI0+yQRnwWrqMZPEqBaSGOM4WkxT4OWSjh3HjK8HT1kdt0x7
+	 Playdp36iB3ALQ3b7yiJPTVS+cYNQeDWeAcfQz81yF51vN8pkZCgoKRF5upUfWfkQDLTr
+	 fqOzh/BKASJqv9Z87kz+rPnXuXIj04qFqtoQ8JBiewtkuc7AbU6L99bHZ0Q+SEwSc9bF4
+	 L/6zsDlA3jjiC7MAeSWXK9UYsspV+jVcuNWGvNAuw2Sa5nh4pFDe2SoplNH1DyoLoTg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792686705;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=OWR3Q3e3d/pc6155fxCnxozc2RqjxLkDdKmAHsnPwx4=;
+	b=h8EDdB1pw05cb/OBPGuwY3ll8VS59KEn31EhF2rrDlwLZqPiJ6IshYyMv/3IDIs2ayzl
+	 iNW6xEUyz/5SUAS4Wt1/l+qGnXCoBrfhrGPCLSJDVwC9t90j8sy/J15v/GFPIhPIdjaF2
+	 u+HrguEfav4GnostkChMLFtf8N4vBN7HSNAF3Q0SP+05tRewHydIr7SYldbAsTaYkJAzu
+	 McDz3NHsAbUPVvqh6rTsLjzW6I4tWsCjp8ChWr7JHGYSfP+UEjGn3PwVYwZJLqKolmw7j
+	 WGySfvbKicAarmfjUfuTMt/V4fn2xoRljhtA6K9AE07GrGEUz3PVmvhZLmOXaH/QUvw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LoRLW8vR;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CA06606A31B;
+	Thu, 22 Oct 2026 16:31:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LoRLW8vR
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1792686705;
+	b=AqGSAoYpCH+wsUap7xA4YP3z2ukAnCAZePTOUv5Mp6WUhp6HlgkSxTLuuGHoULr5sHLu
+	 946kFTsHQZHaPgizdBWPuCo7PntX+68Xn8yvNY94vhlL0GDG9ghRJ5PFqg5Z6SQwUthM4
+	 rNaEtmzEK/QWQhNKLRj74O9XrzmvxPQSswHtQ2hnLpueLEl41nxPrCCBwtDON/yXujTK4
+	 P+Qw/ZHUtf0bV3vCkEBtAItfDQmwEf+DOhejWJYD/DnoiQSw5frjhtdey3846PBm9736I
+	 uWxBnmQcWl/ocoB6fxEofidIwbYs6iHKRRboHAaSP2PsRQmYWMSXz8U+KIFFyrrr2pQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1792686705;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=OWR3Q3e3d/pc6155fxCnxozc2RqjxLkDdKmAHsnPwx4=;
+	b=N5wgtX3om580JJMtec/BIk7dhaqtvLC8RoVGTBjP1XPOCS99pUlV5arBXn7kdImMH4UW
+	 7kmgtV6ZMoQyqRtR0Jfzlm9uUu9wMLTCvFp7y0X/MSYqI99E1emsf4jI0hLHBm7MruYwR
+	 KnvxQBj0MGby3NXizTqjsYCfnVb3zAwMlMLGjrN42iG5rG0e7j9L9ts5ytNsEgPXNzrfC
+	 8wnjIRn2KBVlZ9cuqqCanCORQmzW9tr7PNyPn+igGK9yhQtx93avd1juvd7p7IPgkmYeD
+	 OnOKStdjKm5e1i6dGS1UvlpoXYLS2m9WV9FcSDmPivhWahZ0Bhjh5GkwGinDZqdT0hQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 93C9C1F01825;
+	Thu, 22 Oct 2026 16:31:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792686705;
+	bh=OWR3Q3e3d/pc6155fxCnxozc2RqjxLkDdKmAHsnPwx4=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=LoRLW8vR2TtuW0l3gG/cZMgzbZrWaodxBOpGODKvoyIEbKQxlZe4PGjpdazEkHJJa
+	 oBy3EgQ7YJQC4jbcJku1Xsy7GwGn4XUG2LbR1p2Kb9eE5O4bmmEZO/19SN3AeZWlF6
+	 IIaEOEDepBb3k78ggZoNJX3yOmQt53CzT8CVp/ka5BK/cPK09k8WESLZF00B++D1Yy
+	 cI7SrMKdGBYGoJKZ5fGrvw2Mv0ofvaYU+r9LYYtf2g3GeFliruqCb/p20tOu+Ih1+B
+	 xY6IB+7e8EJV0T0Ha4Gi3KxG6PuqNU0tj3GPvlxe7GiEceqp7dIgW9ZQnVC3KAgoYk
+	 0TL8/yijWz86A==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 26DC241E5E;
+	Thu, 22 Oct 2026 16:31:44 +0000 (UTC)
+From: Moe Mahhouk via B4 Relay <devnull+moe.flashbots.net@kernel.org>
+Subject: [PATCH v2 0/2] virt: tdx-guest: Fix and speed up the wait for a
+ Quote
+Date: Thu, 22 Oct 2026 16:31:40 +0000
+Message-Id: <20261022-tdx-guest-quote-poll-v2-0-7543c6eb2d36@flashbots.net>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,321 +84,114 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="3g9jXhBakJsc42lj"
-Content-Disposition: inline
-In-Reply-To: <athm2nYVnq6vYBY3@li-1a3e774c-28e4-11b2-a85c-acc9f2883e29.ibm.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAGw62moC/4WNQQ6CMBBFr0Jm7Zi2iUJdeQ/DgpYp1BAKnUIwh
+ LsLeACXL3n//RWYoieGR7ZCpNmzD/0O6pKBbau+IfT1zqCEukuhJKZ6wWYiTjhOIREOoetQuNw
+ 4e9NaCAP7dIjk/HJmX+WPeTJvsuloHUbrOYX4OX9neXh/LmaJErXUVZEXUpE1T9dV3JqQ+NpTg
+ nLbti8JCUDJzgAAAA==
+X-Change-ID: 20261021-tdx-guest-quote-poll-0f7bfc59900b
+To: Kiryl Shutsemau <kas@kernel.org>, 
+ Rick Edgecombe <rick.p.edgecombe@intel.com>, 
+ Dave Hansen <dave.hansen@linux.intel.com>, 
+ Erdem Aktas <erdemaktas@google.com>, Tom Lendacky <thomas.lendacky@amd.com>, 
+ Dan Williams <djbw@kernel.org>
+Cc: Jun Miao <jun.miao@intel.com>, 
+ Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>, 
+ x86@kernel.org, linux-coco@lists.linux.dev, kvm@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Moe Mahhouk <moe@flashbots.net>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792686704; l=3531;
+ i=moe@flashbots.net; s=20261021; h=from:subject:message-id;
+ bh=DYmK4oPQkThsFh4mvvlu6tFsPRIGyH2P5nY+9Z1k3W0=;
+ b=/hezUodkMv3i/qPGzbVp7F0293YaL/KtY9UMvJD0VEFGPsx4CbQuFrYTgY8WYpCt0OeHkM+aC
+ YDsXU+U8SljBtVevMD2pvO1xwaPSQcRLr4cMy/OMrYZxycy9RixbJEb
+X-Developer-Key: i=moe@flashbots.net; a=ed25519;
+ pk=hJTKfjLno/YESrpxMIKDJk34GM+/8Tol+24XK2b4xf0=
+X-Endpoint-Received: by B4 Relay for moe@flashbots.net/20261021 with
+ auth_id=1259
+X-Original-From: Moe Mahhouk <moe@flashbots.net>
+Reply-To: moe@flashbots.net
 
---3g9jXhBakJsc42lj
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Getting a TDX Quote takes at least one second, because
+wait_for_quote_completion() sleeps a full second before each status
+check, while a local Quote Generation Service answers in a few
+milliseconds. Patch 2 polls with an exponential backoff instead.
 
-On Wed, Oct 21, 2026 at 12:47:36PM +0530, Mukesh Kumar Chaurasiya wrote:
-> > How this was found and tested: QEMU pseries (TCG, -cpu power9), ppc64le
-> > guest config, v7.3-rc6 (7b63ef2d55f2), with a small reproducer
-> > (ppc_skip_repro.c, available on request) which
-> > 
-> Hey,
-> Can you share the reproducer?
-> 
-> Regards,
-> Mukesh
+In v1, Kiryl noticed that the same loop gets a real timeout wrong.
+Patch 1 fixes that on its own, so that it can be backported; patch 2
+then replaces the loop.
 
-sure, it is here attached.
+The GHCI SetupEventNotifyInterrupt mechanism would avoid polling
+altogether, but it relies on the VMM implementing that service. This
+series keeps the existing polling model, which works with any VMM.
 
-The output here follows.
+Jun Miao posted a patch for the same latency in September [1]. It polls
+every 2 ms with read_poll_timeout() and lowers the timeout to 1 s, and
+has had no review so far. This series keeps the 30 s timeout and backs
+off instead of polling at a fixed rate. Patch 1 is needed for released
+kernels either way.
 
-before patch:
-tracer syscall after PTRACE_SET_SYSCALL_INFO(EXIT)         FAIL (got 0, want 1)
-tracee sees value set at syscall-exit stop                 PASS (got 0, want 0)
-    tracee got 0
-seccomp skip via regs, success value, sc                   FAIL (got 1, want 0)
-seccomp skip via regs, error value,   sc                   PASS (got 0, want 0)
-    tracee got 0
-seccomp skip via regs, success value, scv                  FAIL (got 1, want 0)
-seccomp skip via regs, error value,   scv                  PASS (got 0, want 0)
-FAIL: 3 failure(s)
+[1] https://lore.kernel.org/all/20260917102202.750895-1-jun.miao@intel.com/
 
-after patch:
-tracer syscall after PTRACE_SET_SYSCALL_INFO(EXIT)         PASS (got 1, want 1)
-tracee sees value set at syscall-exit stop                 PASS (got 0, want 0)
-seccomp skip via regs, success value, sc                   PASS (got 0, want 0)
-seccomp skip via regs, error value,   sc                   PASS (got 0, want 0)
-seccomp skip via regs, success value, scv                  PASS (got 0, want 0)
-seccomp skip via regs, error value,   scv                  PASS (got 0, want 0)
-OK: 0 failure(s)
+Testing on mainline a804c5742 in a TDX guest (KVM host v7.0, QEMU
+11.1.2, TDX module 1.5.34, Intel QGS, guest HZ=250), through
+configfs-tsm:
+- Latency, 40 back-to-back Quotes: 1021-1024 ms each before, 6-12 ms
+  (median 8 ms) with the series. msleep_interruptible() rounds up to
+  jiffies; v1's usleep_range() got 2-3 ms.
+- Timeout, with a QGS socket that accepts and never answers. QEMU fails
+  such a request itself after 30 s, so for this test getquote_timeout
+  was lowered to 5 s: without patch 1 the request fails with -EIO and
+  no message, with it -ETIMEDOUT and "GetQuote request timedout". With
+  the default 30 s and the old loop, QEMU's error lands in the last
+  sleep and is reported as -ETIMEDOUT, the second case in patch 1.
+- SIGTERM to a reader waiting on such a request: it exits within one
+  10 ms tick of /proc/uptime with the series, as before it; with v1 it
+  took 110 ms.
+- W=1 build of drivers/virt/coco/tdx-guest/ and checkpatch.pl --strict
+  are clean.
 
-Thank you, Regards,
-	renzo
+The patches and this cover letter were written with an AI coding
+assistant, Claude (Claude Code, model Claude Opus 5.5), which also ran
+the tests.
 
---3g9jXhBakJsc42lj
-Content-Type: text/x-csrc; charset=us-ascii
-Content-Disposition: attachment; filename=ppc_skip_repro.c
+---
+Changes in v2:
+- New patch 1: fix the timeout detection on its own, for backporting
+  (Kiryl)
+- Patch 2: msleep_interruptible() with a 1-100 ms backoff instead of
+  usleep_range(), which sleeps uninterruptibly (Kiryl)
+- Patch 2: secs_to_jiffies() for the deadline
+- Test and tool notes moved from the changelog to this cover letter
+  (Kiryl)
+- Link to v1: https://patch.msgid.link/20261021-tdx-guest-quote-poll-v1-1-919a87812ecb@flashbots.net
 
-// SPDX-License-Identifier: GPL-2.0
-/*
- * Reproducer for two powerpc syscall-skip problems introduced with
- * GENERIC_ENTRY / TIF_SYSCALL_RET (commit 69cb2be898be):
- *
- *  1. syscall_set_return_value() sets TIF_SYSCALL_RET on current, so when a
- *     tracer uses PTRACE_SET_SYSCALL_INFO (op == EXIT) the flag lands on the
- *     *tracer*, whose next system call is silently skipped.
- *
- *  2. When a syscall is skipped, system_call_exception() returns
- *     syscall_get_error(), so a non-error return value set by a tracer
- *     (or by SECCOMP_RET_USER_NOTIF) is replaced by 0.
- *
- * Test 2 is run with both the "sc" and the "scv 0" system call instructions
- * on powerpc.  On x86_64 the same tests are run with "syscall" as a control.
- *
- * Build: $CC -static -O2 -o ppc_skip_repro ppc_skip_repro.c
- */
-#define _GNU_SOURCE
-#include <errno.h>
-#include <signal.h>
-#include <stddef.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
-#include <sys/auxv.h>
-#include <sys/prctl.h>
-#include <sys/ptrace.h>
-#include <sys/syscall.h>
-#include <sys/wait.h>
-#include <linux/filter.h>
-#include <linux/seccomp.h>
+To: Kiryl Shutsemau <kas@kernel.org>
+To: Rick Edgecombe <rick.p.edgecombe@intel.com>
+To: Dave Hansen <dave.hansen@linux.intel.com>
+To: Erdem Aktas <erdemaktas@google.com>
+To: Tom Lendacky <thomas.lendacky@amd.com>
+To: Dan Williams <djbw@kernel.org>
+To: Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
+Cc: x86@kernel.org
+Cc: linux-coco@lists.linux.dev
+Cc: kvm@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
 
-#ifndef PTRACE_GET_SYSCALL_INFO
-# define PTRACE_GET_SYSCALL_INFO 0x420e
-#endif
-#ifndef PTRACE_SET_SYSCALL_INFO
-# define PTRACE_SET_SYSCALL_INFO 0x4212
-#endif
-#define PSI_ENTRY	1
-#define PSI_EXIT	2
+---
+Moe Mahhouk (2):
+      virt: tdx-guest: Fix timeout detection in wait_for_quote_completion()
+      virt: tdx-guest: Poll Quote status with exponential backoff
 
-struct psi {
-	unsigned char op, reserved;
-	unsigned short flags;
-	unsigned int arch;
-	unsigned long long ip, sp;
-	union {
-		struct { unsigned long long nr, args[6]; } entry;
-		struct { long long rval; unsigned char is_error; } exit;
-		struct { unsigned long long nr, args[6]; unsigned int ret_data, reserved2; } seccomp;
-	};
-};
+ drivers/virt/coco/tdx-guest/tdx-guest.c | 19 +++++++++++++------
+ 1 file changed, 13 insertions(+), 6 deletions(-)
+---
+base-commit: 7be4bc52fd9e0e55dc9a2e0232b89427d2c4b614
+change-id: 20261021-tdx-guest-quote-poll-0f7bfc59900b
 
-#define MAGIC 42
+Best regards,
+--  
+Moe Mahhouk <moe@flashbots.net>
 
-#if defined(__powerpc64__)
-# define PT_R0		0
-# define PT_R3		3
-# define PT_CCR		38
-# define PT_TRAP	40
-# define CR0_SO		0x10000000UL
-# ifndef PPC_FEATURE2_SCV
-#  define PPC_FEATURE2_SCV 0x00100000
-# endif
 
-/* getpid via "sc": error is reported in CR0.SO with a positive errno */
-static long sys_getpid_sc(void)
-{
-	register long r0 __asm__("r0") = __NR_getpid;
-	register long r3 __asm__("r3");
-	unsigned long cr;
-
-	__asm__ volatile(".long 0x44000002\n\tmfcr %2"		/* sc */
-			 : "+r"(r0), "=r"(r3), "=r"(cr)
-			 :
-			 : "r4", "r5", "r6", "r7", "r8", "r9", "r10", "r11",
-			   "r12", "ctr", "xer", "cr0", "memory");
-	return (cr & CR0_SO) ? -r3 : r3;
-}
-
-/* getpid via "scv 0": error is reported as a negative value */
-static long sys_getpid_scv(void)
-{
-	register long r0 __asm__("r0") = __NR_getpid;
-	register long r3 __asm__("r3");
-
-	__asm__ volatile(".long 0x44000001"			/* scv 0 */
-			 : "+r"(r0), "=r"(r3)
-			 :
-			 : "r4", "r5", "r6", "r7", "r8", "r9", "r10", "r11",
-			   "r12", "lr", "ctr", "xer", "cr0", "cr1", "cr5",
-			   "cr6", "cr7", "memory");
-	return r3;
-}
-
-/* Skip the syscall the old-fashioned way: r0 = -1, r3/ccr = return value */
-static int poke_skip(pid_t pid, long val)
-{
-	long trap = ptrace(PTRACE_PEEKUSER, pid, PT_TRAP * 8, 0);
-	long ccr = ptrace(PTRACE_PEEKUSER, pid, PT_CCR * 8, 0);
-
-	if ((trap & 0xfff0) != 0x3000)	/* "sc": positive errno + CR0.SO */
-		ccr = val < 0 ? (ccr | CR0_SO) : (ccr & ~CR0_SO);
-	if ((trap & 0xfff0) != 0x3000 && val < 0)
-		val = -val;
-	return ptrace(PTRACE_POKEUSER, pid, PT_R0 * 8, -1L) ||
-	       ptrace(PTRACE_POKEUSER, pid, PT_R3 * 8, val) ||
-	       ptrace(PTRACE_POKEUSER, pid, PT_CCR * 8, ccr);
-}
-#elif defined(__x86_64__)
-static long sys_getpid_sc(void)
-{
-	long ret;
-
-	__asm__ volatile("syscall" : "=a"(ret) : "a"((long)__NR_getpid)
-			 : "rcx", "r11", "memory");
-	return ret;
-}
-
-static int poke_skip(pid_t pid, long val)
-{
-	return ptrace(PTRACE_POKEUSER, pid, 15 * 8 /* orig_rax */, -1L) ||
-	       ptrace(PTRACE_POKEUSER, pid, 10 * 8 /* rax */, val);
-}
-#else
-# error unsupported architecture
-#endif
-
-static int failures;
-
-static void report(const char *name, long got, long want)
-{
-	printf("%-58s %s (got %ld, want %ld)\n", name,
-	       got == want ? "PASS" : "FAIL", got, want);
-	if (got != want)
-		failures++;
-}
-
-static pid_t start_tracee(void)
-{
-	pid_t pid = fork();
-
-	if (pid == 0) {
-		if (ptrace(PTRACE_TRACEME, 0, 0, 0))
-			_exit(90);
-		raise(SIGSTOP);
-	}
-	return pid;
-}
-
-static int wait_stop(pid_t pid)
-{
-	int status;
-
-	if (waitpid(pid, &status, 0) != pid || !WIFSTOPPED(status))
-		return -1;
-	return status >> 8;
-}
-
-static long child_result(pid_t pid)
-{
-	int status;
-
-	if (waitpid(pid, &status, 0) != pid || !WIFEXITED(status))
-		return -1000;
-	return WEXITSTATUS(status);
-}
-
-/*
- * Test 1: the tracer sets the getpid() return value at the syscall-exit
- * stop with PTRACE_SET_SYSCALL_INFO, then makes a system call of its own.
- */
-static void test_tracer_flag(void)
-{
-	pid_t me = getpid(), pid = start_tracee();
-	struct psi info;
-	long mine;
-
-	if (pid == 0)
-		_exit(syscall(__NR_getpid) == MAGIC ? 0 : 1);
-
-	wait_stop(pid);
-	ptrace(PTRACE_SETOPTIONS, pid, 0, PTRACE_O_TRACESYSGOOD);
-	for (;;) {
-		ptrace(PTRACE_SYSCALL, pid, 0, 0);
-		if (wait_stop(pid) != (SIGTRAP | 0x80))
-			break;
-		memset(&info, 0, sizeof(info));
-		ptrace(PTRACE_GET_SYSCALL_INFO, pid, sizeof(info), &info);
-		if (info.op == PSI_EXIT)
-			break;
-	}
-	info.exit.rval = MAGIC;
-	info.exit.is_error = 0;
-	if (ptrace(PTRACE_SET_SYSCALL_INFO, pid, sizeof(info), &info))
-		perror("PTRACE_SET_SYSCALL_INFO");
-
-	/* The very next syscall of the tracer must not be affected. */
-	mine = sys_getpid_sc();
-	report("tracer syscall after PTRACE_SET_SYSCALL_INFO(EXIT)", mine, me);
-
-	ptrace(PTRACE_CONT, pid, 0, 0);
-	report("tracee sees value set at syscall-exit stop", child_result(pid), 0);
-}
-
-/*
- * Test 2: seccomp RET_TRACE on getpid; at the seccomp stop the tracer skips
- * the syscall by setting the number to -1 and the return value with
- * PTRACE_POKEUSER (what existing ptrace users do).
- */
-static void test_seccomp_skip(const char *name, long (*do_getpid)(void), long val)
-{
-	struct sock_filter filter[] = {
-		BPF_STMT(BPF_LD | BPF_W | BPF_ABS, offsetof(struct seccomp_data, nr)),
-		BPF_JUMP(BPF_JMP | BPF_JEQ | BPF_K, __NR_getpid, 0, 1),
-		BPF_STMT(BPF_RET | BPF_K, SECCOMP_RET_TRACE),
-		BPF_STMT(BPF_RET | BPF_K, SECCOMP_RET_ALLOW),
-	};
-	struct sock_fprog prog = { .len = 4, .filter = filter };
-	pid_t pid = start_tracee();
-
-	if (pid == 0) {
-		long ret;
-
-		if (prctl(PR_SET_NO_NEW_PRIVS, 1, 0, 0, 0) ||
-		    syscall(__NR_seccomp, SECCOMP_SET_MODE_FILTER, 0, &prog))
-			_exit(91);
-		ret = do_getpid();
-		/* exit status: 0 if correct, 1 otherwise; print what we got */
-		if (ret != val)
-			fprintf(stderr, "    tracee got %ld\n", ret);
-		_exit(ret == val ? 0 : 1);
-	}
-
-	wait_stop(pid);
-	ptrace(PTRACE_SETOPTIONS, pid, 0, PTRACE_O_TRACESECCOMP);
-	ptrace(PTRACE_CONT, pid, 0, 0);
-	if (wait_stop(pid) != (SIGTRAP | (PTRACE_EVENT_SECCOMP << 8))) {
-		report(name, -1, 0);
-		return;
-	}
-	if (poke_skip(pid, val))
-		perror("poke");
-	ptrace(PTRACE_CONT, pid, 0, 0);
-	report(name, child_result(pid), 0);
-}
-
-int main(void)
-{
-	setvbuf(stdout, NULL, _IONBF, 0);
-	test_tracer_flag();
-	test_seccomp_skip("seccomp skip via regs, success value, sc", sys_getpid_sc, MAGIC);
-	test_seccomp_skip("seccomp skip via regs, error value,   sc", sys_getpid_sc, -ENOENT);
-#ifdef __powerpc64__
-	if (getauxval(AT_HWCAP2) & PPC_FEATURE2_SCV) {
-		test_seccomp_skip("seccomp skip via regs, success value, scv", sys_getpid_scv, MAGIC);
-		test_seccomp_skip("seccomp skip via regs, error value,   scv", sys_getpid_scv, -ENOENT);
-	} else {
-		printf("scv not available, skipping scv tests\n");
-	}
-#endif
-	printf("%s: %d failure(s)\n", failures ? "FAIL" : "OK", failures);
-	return !!failures;
-}
-
---3g9jXhBakJsc42lj--
