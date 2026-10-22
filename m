@@ -1,70 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.35
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.198
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792640648;
-	b=t7mB6ov0y36nnD4i7PQN5F/wtPGxiQT3jF73A4MGZ46UNtR5OjTmpntWG8dbPF6oWjpF
-	 hQd7HQydk1Qqee650JFzzcXXZsn7uwikeiP47oMvf4F07omEPUKV+0bVahPD1yMe7hlnI
-	 xbdGWv7ldAgFj9rWDKOenrXamjyk1l4r8yo0z00uBXHrIolrsq/g0QeTZaNp1avsrrxy1
-	 GaOoI9OKQV/m1xPAb80FTbQKv+oxbrr9wM5o9YcphAiiFyE/vh3sWl/YOrS0Vg/wUrCGQ
-	 c4qE5SAWmFS6K9elS+iWRQxV6zttjOiCB4QaVkR0/Su0vtpj7GnAGE5bOkSem6mHC4g==
+	t=1792640688;
+	b=v6mZRugb6RWK3rNWV+I6KbHQOkyAqdHs4RQqZ8obGKOtKaR8anFsTSWilmEsJLxdIJdU
+	 sMolESTVCGJbl5oMX28zIZGT6v3AutjSTGKjcnZ10H4zpfEs4RZvTAHNDEKLlsfco1Z8w
+	 6qbrcue9DKPglBSvFFdDn79d+uqc1jhfbHEPvxYaSLEEnCi1rPP1ZD0m0VSJH3QK/lL5F
+	 13TEJ9V9khpSd5AAMvk9Ha3s9CMEICQRFqgTqBl7uOGA3yJuzM8/45iMGF3SnV9WngHV2
+	 SDpiSxfda1XVbkH/vfSJQY1ra7mn2kf66jFeeiYFzDG6rq/j68N0PeQnbxLsUN8+n5A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792640648;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=IGL2LF3kJfnJotSm7Ou+7Cd5xevBu/wfRGoJVJcdsiA=;
-	b=tx7XdGSUFfk2ATQ6uhPiebMkD5VRd2LoiS9soCXVY76WKVymBdInY626RS6PCrWMPpkf
-	 sB/BpV+PLFH4/8fye8bG61pjmLiJzMaU7pD6HKo3hq51ub1CudYUuQS8vOESoSjt4Duio
-	 0wRF8hdchS0uB3kHKcb/JKAzokn/Rb7nDUl+ijdnxVVKLV3w5RLiR+RnsuwVHBJ94+CJD
-	 ze4Si+QgZk6KttiFsWcZ7/PEPAy5XAJDuKFzJCLWBKyIAwGlgNHAs8+vp+8Kiu7jSDDNQ
-	 Jb5/ENpBAlhJkeU+dL7CB8FT3BQZkYngo4VaLklnFl9T2Mw+fwoo2VH5TmFYj2a1o9w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792640688;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
+	 Content-Type;
+	bh=QysHKveO/DaUTR/+yTGHWsUkdc+eQUjN9l+8Og8ZM+o=;
+	b=wBPM48obHJmTGTvDLGYfzMMipOtT303mN+1Q8FKhbBcwH2wj329KHNErlM3hILeJLXFq
+	 uLou6JrfSQ9YI4g/JsmkXZ2/PrdQeZX+bFu1lcSMyQ7Oav00AcA9cMJXMKbGszUT3Bhrr
+	 F8nzKVAW2PE92/0jOZvGp0REC5bkyWMqa2tHDe0V1YX2E6Nco6K9laUOvFaoOHMw4b5um
+	 Ocirkj2Ad+xLoHdpJNZgzFhjRWVmEWUvAp0sedJXi8dCp2bMaX07U+7skF3MCvwsqoIIC
+	 Xq793Di2EfIAHrb1RY8xTjImAMn+539+K+yhK//BywTV+uOA+kp8GDi0BfPx9J1nZlg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=EemzBdJL;
-	arc=none smtp.remote-ip=91.218.175.35
-Received: from mta0.migadu.com (out-35.mta0.migadu.com [91.218.175.35])
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b="fuf/+Nka";
+	arc=none smtp.remote-ip=209.85.215.198
+Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F563606A319
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 03:44:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6F563606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B45BC606A336
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 03:44:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B45BC606A336
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=EemzBdJL
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=IGL2LF3kJfnJotSm7Ou+7Cd5xevBu/wfRGoJVJcdsiA=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792640645; v=1; x=1793245445;
- b=EemzBdJLgzf4lhA6aMHbAJOCPffQw+e5zVl+lHrgS2T1nZecoxmi8smyCmiKdWunBwVwltxe
- NOBI5nKmzuWGbL5tPS2iywxbAsiabv1KJrIgSRQ5eJqABYN7wtpc63zzCNBW5Duq2D5YooU/aFP
- 2GQEogvLzX5FHGJ1umDcUGYU=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id d29a87ff2bdc911e;
-	Thu, 22 Oct 2026 03:44:05 +0000
-X-Mizu-Trace-ID: d29a87ff2bdc911e
-X-Migadu-Flow: FLOW_OUT
-From: Lance Yang <lance.yang@linux.dev>
-To: songmuchun@bytedance.com
-Cc: osalvador@suse.de,
-	akpm@linux-foundation.org,
-	rppt@kernel.org,
-	qi.zheng@linux.dev,
-	lance.yang@linux.dev,
-	jthoughton@google.com,
-	david@kernel.org,
-	muchun.song@linux.dev,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 01/12] mm: hugetlb_vmemmap: remove HugeTLB-specific vmemmap optimization macros
-Date: Thu, 22 Oct 2026 11:43:58 +0800
-Message-ID: <20261022034358.44302-1-lance.yang@linux.dev>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20261020115306.813483-2-songmuchun@bytedance.com>
-References: <20261020115306.813483-2-songmuchun@bytedance.com>
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=fuf/+Nka
+Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-cd6969473a4so850457a12.0
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 20:44:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1792640687; x=1793245487; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=QysHKveO/DaUTR/+yTGHWsUkdc+eQUjN9l+8Og8ZM+o=;
+        b=fuf/+NkaZQep/4Dm3Bg0EttWWWZKtCXjz1Bs2Hzhxd1HMvgjlfMN5iHvd/uMxBUKAG
+         8gXExvEgAUfElOkB2pA4tDmZHy++9uj84uc7Iku+4Gy+YhUuUP+GSuFMxACXLmEHkBcL
+         4RpxuDkr4Q5xTNduhcLTFkfmYoGWd6lAmgL2ziWsJv/HSOapfQS8KUGnBY+vYUoRcfr9
+         Pk5u5YILLBrQxiqRbU2GIpPSlH9oSWgT4Bk9l7x4U5SXCq9mxKUzvaNB9RpBMwqT6Q8i
+         f6VNJ3F9mUMEYLKRWXBzZ7RJZK3q/bjSkgdqgel4SOgiQGMxPz4ivRINqMoDyk54hCg6
+         FzSg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792640687; x=1793245487;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=QysHKveO/DaUTR/+yTGHWsUkdc+eQUjN9l+8Og8ZM+o=;
+        b=DWXBmLIMu9oY3I3Ze2ZhDsLfeXIW0579tpMS3QvTPpda2iG8jNHBx1bWSKG7YMGD6p
+         FXRvi4BMd5rpzSf8Rpg9WYXNQffbmmV/gfw3dJosqP91noCZ0XXiQmM+uXQ1KOp6OJ80
+         gEDIY1Ipcu531murPuYikqSkUGjlXZjC84+9wylPhCdUWdbcrtpgV2Cdoji73nkpncOx
+         yKkrMUqSBqhfz0Q+YFCpVgUMJg4UYC91Fsala/erJgY2xyVK4bwgZF6asOBWRRrxA1D/
+         556oPx9hzfQBVvzqCmHtWKT68jQU/oNoo8paqK84Nkk0kfRoTVJrFNEWsTt0izprXoaZ
+         M02A==
+X-Forwarded-Encrypted: i=1; AKwUvBz42MdGTZPLsSWgdBxbaimpQQI0AJZhpTJso9ihZr4R++RrAVkMY18eOVAQvfMAjqdl33PCW3xDmhSbUog=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLg/AJ9a3qCnW5qGmpisAvZwl/fdyboM/OhHLkSOSsJvSq1Mv7f
+	63KvQN7RI0bUTyWOGp+dwijSvtc+OpNPblqIIXwICg8RcA8qbapX/NAld0RBU7p57/afgrULVPL
+	GqRzFn2f03LAKzlYHwmqzGQ==
+X-Received: from pgbx7-n1.prod.google.com ([2002:a05:6a02:63c7:10b0:cc7:97a1:90ad])
+ (user=stanleyjhu job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:6a21:1789:b0:3e2:1922:c13b with SMTP id adf61e73a8af0-3e287ee40d7mr2467505637.60.1792640686752;
+ Wed, 21 Oct 2026 20:44:46 -0700 (PDT)
+Date: Thu, 22 Oct 2026 11:44:38 +0800
+In-Reply-To: <20261022034443.3034432-1-stanleyjhu@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,19 +78,49 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+References: <20261022034443.3034432-1-stanleyjhu@google.com>
+X-Mailer: git-send-email 2.56.0.218.g1ec904b173-goog
+Message-ID: <20261022034443.3034432-2-stanleyjhu@google.com>
+Subject: [PATCH v5 1/6] scsi: ufs: core: Remove an always-false WARN_ONCE()
+From: Stanley Jhu <stanleyjhu@google.com>
+To: "Martin K . Petersen" <mkp@kernel.org>, linux-scsi@vger.kernel.org
+Cc: "James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>, 
+	Bart Van Assche <bvanassche@acm.org>, Alim Akhtar <alim.akhtar@samsung.com>, 
+	Bean Huo <beanhuo@micron.com>, Peter Wang <peter.wang@mediatek.com>, 
+	Can Guo <can.guo@oss.qualcomm.com>, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
+The WARN_ONCE() in ufshcd_poll() can never fire. completed_reqs is set
+to ~tr_doorbell & hba->outstanding_reqs on the line above, and
+hba->outstanding_reqs cannot change in between because ufshcd_poll()
+holds hba->outstanding_lock. So completed_reqs & ~hba->outstanding_reqs
+is always zero. Remove it. No functional change.
 
-On Tue, Oct 20, 2026 at 07:52:55PM +0800, Muchun Song wrote:
->Vmemmap optimization is no longer HugeTLB-specific, so the remaining
->HugeTLB-local reserve macros are redundant.
->
->Replace them with the generic definitions to remove duplication and keep
->the HugeTLB vmemmap code aligned with the common optimization macros.
->
->Signed-off-by: Muchun Song <songmuchun@bytedance.com>
->---
+Cc: stable@vger.kernel.org
+Reviewed-by: Bean Huo <beanhuo@micron.com>
+Reviewed-by: Peter Wang <peter.wang@mediatek.com>
+Reviewed-by: Bart Van Assche <bvanassche@acm.org>
+Signed-off-by: Stanley Jhu <stanleyjhu@google.com>
+---
+ drivers/ufs/core/ufshcd.c | 3 ---
+ 1 file changed, 3 deletions(-)
 
-Reviewed-by: Lance Yang <lance.yang@linux.dev>
+diff --git a/drivers/ufs/core/ufshcd.c b/drivers/ufs/core/ufshcd.c
+index bcc2512bf34b..12aafcf1f9b3 100644
+--- a/drivers/ufs/core/ufshcd.c
++++ b/drivers/ufs/core/ufshcd.c
+@@ -6072,9 +6072,6 @@ static int ufshcd_poll(struct Scsi_Host *shost, unsigned int queue_num)
+ 	spin_lock_irqsave(&hba->outstanding_lock, flags);
+ 	tr_doorbell = ufshcd_readl(hba, REG_UTP_TRANSFER_REQ_DOOR_BELL);
+ 	completed_reqs = ~tr_doorbell & hba->outstanding_reqs;
+-	WARN_ONCE(completed_reqs & ~hba->outstanding_reqs,
+-		  "completed: %#lx; outstanding: %#lx\n", completed_reqs,
+-		  hba->outstanding_reqs);
+ 	if (queue_num == UFSHCD_POLL_FROM_INTERRUPT_CONTEXT) {
+ 		/* Do not complete polled requests from interrupt context. */
+ 		ufshcd_clear_polled(hba, &completed_reqs);
+-- 
+2.56.0.218.g1ec904b173-goog
+
