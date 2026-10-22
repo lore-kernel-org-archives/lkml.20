@@ -1,66 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.57.252
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792657900;
-	b=1B/7yrnhBAGuExA8LnkKntl440wslRrf5fePPts3okHjAMk/+TicYWBcifA9bdrpPQMs
-	 CzIt6dX1hY36x6LjpeRz+5K12BWO9YALN2xW4AKcr9/+Rf8BVkcWiEqgl+HfWimh78UEX
-	 sNxkyEDx99toqzeTmzPw+yI7myUXETPx1Am6FrBfOssIk5J7tU5QktN59n6E222VOf26D
-	 8KfPulKu57fw5atot1sgcnu5eBhYvKIfScLy6eBBieLo048LTPB1jhlMpTiGd5GYIVogG
-	 JVvIG+p/HkjauI+SkXQwLe4M0/PEriA3c5XaeNC9o359s+BVQlj9kMuo83bEpa02k6w==
+	t=1792657951;
+	b=EVkwi3kFGDFDQqqmD/N7/UKHZDwK4IWUtBkVHUAEKmbZCGo7Xw+P/aDwpFlsd1XxCnZQ
+	 3CivmnIzNd0bSPRHPMFJgQdWZl6Oi0qcp7+ZJxhxh7tNfQb6++07xtxpEIW5hLd3UCSNw
+	 l17lr3U6tkeWahWlilXDN9ExArhwarK5N5rzAGvaqbnz1V+9BTg8U/NZtgMqem8C8n+/e
+	 CVE8zxl0erFT0pDkskXWi8s5ong/xk3t31fqkfp8Lijs16RazFl52QiIWNeJaE4zSYq6O
+	 bg5SBVOp0qUeTuoH/4SuV4fA3zS11uEyIO60N5raa7IhNu69+DQZDDFoE3c+CPltJcQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792657900;
-	h=DMARC-Filter:DKIM-Signature:X-QQ-XMRINFO:X-QQ-XMAILINFO:From:To:Cc:
-	 Subject:Mime-Version:Content-Type:Content-Transfer-Encoding:Date:
-	 X-Priority:Message-ID:X-QQ-MIME:X-Mailer:X-QQ-Mailer:References:
-	 In-Reply-To:X-QQ-mid;
-	bh=STANDc24tjLvIjwpWVUmAsj3lx2tDmc6YgtW+icG3B4=;
-	b=LdMaiqQ0jAmNr5aLP5A5xO4xXdhyabr+aNyZ/h1/B9FYj+fDzYLI4H3zU/i9FJ6WK3h0
-	 z9NE6uZfxj2Tn025Wln0EsWqCIsNsZMTP25OUSMh6SFJ55pWT5s0IVK3uiBrKnHJClpdO
-	 KRC0CAjE4nRHHREI2X1p/6c6+/8FrUuq0CxkK0EOYBGs7a6MSPdrksA6MS+hfkh1KO7gt
-	 V5/vtDtjSU3sgA/HmkOdGTRML/cyv8nuFjf27qq38dP9jy29OBaWM4RlY3zMLdXHnBYOh
-	 GD4nv8H4gJA5AAqKKxI/f4N3gBKBXrK6Zft06QI97kHu4iHHaUDIpLCFWpcSduqgaDg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792657951;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:Received:Received:From:In-Reply-To:
+	 MIME-Version:References:Date:X-Gmail-Original-Message-ID:
+	 X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type;
+	bh=rSb3gqzPgZ1tZs3TI6bW8xnBVV1dPUQEQ5MNgZW8yjk=;
+	b=sS8i4SQ5NfUwbbwqYtEs7ploTZj+SfZX4MKWtbwBaOt3l6KlPRs6yt+hO38EQeIVi/2g
+	 hTMDsWMPwbiS03TPmh2/EeLlDSfHBXFbakdu59/7tpBqXQOQvuJ1sWIubmlcYmiHoNeHJ
+	 NSkhSN5Mx8gTRDdyDe6rTGqb4aZrSqfLk/7DLaB2zznUswyFzVnDvKZm3b/m4eTdUpN71
+	 QDB29a/n0l+m2frErWM88LInHxXaaQgsGvjzdbXCLQ/ACrEK7aPXg8Q8nVBriYHs4fSfJ
+	 ZsZGkdZANLqYNmh0e+mBYm3cqZ1blQjbmHdHn+ZUZbSMgXbKhteTANsf9vogFXIoX4A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=qq.com;
-	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=fUyjrIWN;
-	arc=none smtp.remote-ip=162.62.57.252
-Received: from out162-62-57-252.mail.qq.com (out162-62-57-252.mail.qq.com [162.62.57.252])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hrR4kazx;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A03C9606A31B;
-	Thu, 22 Oct 2026 08:31:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A03C9606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F446606A31B
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 08:32:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=fUyjrIWN
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1792657892; bh=STANDc24tjLvIjwpWVUmAsj3lx2tDmc6YgtW+icG3B4=;
-	h=From:To:Cc:Subject:Date:References:In-Reply-To;
-	b=fUyjrIWNZngROUclxWWKZVyN/bRgeThQB4k/DjoUpctc/a8tx8gCiSYfCCsdEKoOT
-	 eI6Fcpgm5nbNe6p1TI3zdXAuoVAgFwv97ir6Fo0KXMCbikO9gAi1ZiyB5afHEPF11I
-	 YMmMjBP4xH0nfUlUFSPm7uP4PbORqu3v0foxg+a8=
-X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
-X-QQ-XMAILINFO: MdmyWVu0InhAZ8CuOl+WbGFKb0ebdFMF3mPSDUyiHYO6r7cCGW4mjYzB3NBROn
-	 A9jpVSF4u5EGvEY+hd9HqK0oJrog5xvbOMlpipPRJufSIYbzcDiHl7z1PQMAap6nUQRMYmsXXrTj2
-	 tk0tu+feORbWkh2MZvFlU6kFWGBDTovA9C78iIph96PStjs9Es57Lo5xtDOysKUKMazNBnBIRzXyV
-	 MrDMJ/nR6ENpT11vObm03xfcgHiUZmvbLYBNxYzkM9rWk/c8kXIUlrVRHSrjx1mJjWSwuR5ikLS90
-	 IA9oWFvjt5F1LrALDB8oYuhsvLYKtLJ5ZkmJZCMyfCvCIOrYeHecIvDsFyx+oo5L4n3vgJ4ILNe7w
-	 IWF/UoBKpSMC6IECVj2Z9f319IRWT7EtoQ3/KSPMVurUnn/z6RI9NhVutrd7FEEPyf2psClNX8xxs
-	 s3PodM+x6fnfX+HsW82g3vD8H2txXYRk7zN+9LrD09FtOt6JshsmPGwwAeMukpJ98J91aFKfwVtXG
-	 hBG+k2dK0PJajAwkc9bcbgYtz+Q2QR/RrNM6mtAf6w1rBmXaym1TMdQrgHoBFJdV2Yq2POKQKAvme
-	 EL86NXj9H2XUOECt/ikrQ4GvvRhc0W9Wo5HM2Kne7g8Tierj5RJN8KGA9QCQrgBYDnaAMIirrE89H
-	 /jI/jnpkPoEF6rQGbKH3V/RamkwDMVcm5rYvbUthGDSPKmiwUJk1kKo+Iyv/ZHZrmPUxG48EfbqTn
-	 HwXwLKP5guQm5Gr592nEMxLOh8CzkPL9PdfBHto0MAlW9nSWwpa6DmlElREMdAJrqEaSDrqmzII0S
-	 sRL9obZFk6mBkHY4RseG3hqBrBd+TNy0yz+nfoR6xF3WORhgAZbTIwwUQwf4/zUhc5WO6AamzLy7e
-	 JEZv0CDUEAtadJBWrvTVq+ZCI77/7ajFV0NgGLf9cPk9NrxnZnSqBHWuF/1iL6D3H7rwgSZ5puDA8
-	 FC5wND+fVe7bNKWVf/B3mWtxt6n1/TKztIPBU/DRVcT1NTS4JlKx6oT9ngX/okTR18+YLz8bG04q4
-	 K40wSnuLyRd1DNII7GNYR7vz6pxerbM2KyZCwhtwsaRd49zRlHj2xiYVP5iDbcjjkWk/Vy7nD++zK
-	 zkFHOwuBXxHfZg==
-From: "=?utf-8?B?Q3VuaGFvIEx1?=" <1579567540@qq.com>
-To: "=?utf-8?B?SGVpa28gU3TDvGJuZXI=?=" <heiko@sntech.de>
-Cc: "=?utf-8?B?RWxhaW5lIFpoYW5n?=" <zhangqing@rock-chips.com>, "=?utf-8?B?bGludXgtY2xr?=" <linux-clk@vger.kernel.org>, "=?utf-8?B?ZGV2aWNldHJlZQ==?=" <devicetree@vger.kernel.org>, "=?utf-8?B?bGludXgtYXJtLWtlcm5lbA==?=" <linux-arm-kernel@lists.infradead.org>, "=?utf-8?B?bGludXgtcm9ja2NoaXA=?=" <linux-rockchip@lists.infradead.org>, "=?utf-8?B?bGludXgta2VybmVs?=" <linux-kernel@vger.kernel.org>, "=?utf-8?B?bWZk?=" <mfd@lists.linux.dev>, "=?utf-8?B?bGludXgtZ3Bpbw==?=" <linux-gpio@vger.kernel.org>, "=?utf-8?B?bmV0ZGV2?=" <netdev@vger.kernel.org>, "=?utf-8?B?bGludXgtcG0=?=" <linux-pm@vger.kernel.org>, "=?utf-8?B?bGludXgtaTJj?=" <linux-i2c@vger.kernel.org>, "=?utf-8?B?bGludXgtc2VyaWFs?=" <linux-serial@vger.kernel.org>, "=?utf-8?B?bGludXgtbW1j?=" <linux-mmc@vger.kernel.org>, 
-	"=?utf-8?B?bGludXgtc3RtMzI=?=" <linux-stm32@st-md-mailman.stormreply.com>, "=?utf-8?B?bGludXgtcGh5?=" <linux-phy@lists.infradead.org>, "=?utf-8?B?bGludXgtdXNi?=" <linux-usb@vger.kernel.org>
-Subject: Re: [PATCH 07/27] clk: rockchip: Add RK3572 clock and reset support
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hrR4kazx
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E154B1F000C6
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 08:32:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792657950;
+	bh=rSb3gqzPgZ1tZs3TI6bW8xnBVV1dPUQEQ5MNgZW8yjk=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=hrR4kazxMKpZk80Mg5hTjMw9b9GVE9+Hpfjb90a6sWe5QdDJDBnMWPb3/Q2R+rE5E
+	 GkdjB+3grR2nngi+D5xHBnZEcfBVVBacCYgYEJIMQh8PykUTZOqLWu5lV9xs1BSApg
+	 JWOlRAxMb97XeE0e2f6QaA2qzQ3YNEsXh2Ty1RR6fVb0wWAqm9d/4knXD8ItapcUtW
+	 mdxJ8rCIqmtzkoHpNrdALYkf2ESFmlRte+iShhYudpPbclyEHdVGz+Q1TVhTDm8tIU
+	 8w5IgGtC36Tot2YCzO4XSf0kB2xRkthGyw9yx/b7QYyvd8BNHtKhU2zJq8oipA5JDh
+	 e2qJsueRe4xFQ==
+Received: by mail-lj1-f176.google.com with SMTP id 38308e7fff4ca-3ab07d956f2so9764261fa.0
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 01:32:30 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByvINOekrn3/fo0cQIHHkPeAUSvxuBb6MtnYNnL70MVEh71PkZJhRUD6DhArLmilzDoSLpqdpUZ6tZpVuA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIoHciSaXAIqQPWw8ifTZv3yl4ARzzo6AMLkMDwYKapmDErc5fG
+	NrnaYhRFaih/lwm5AQna/A2LSmkwSTHtIuBwBFm9hjOUZTxg9GKxS2+xTwR4X7/d4nxszhpqnNP
+	+h5eAT5hcp+w+VrddjoLwExvwoSH913g7fuku2xSMng==
+X-Received: by 2002:a2e:a7cf:0:b0:3a9:d70c:f75e with SMTP id
+ 38308e7fff4ca-3ac4415825fmr11368791fa.7.1792657949635; Thu, 22 Oct 2026
+ 01:32:29 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 22 Oct 2026 01:32:28 -0700
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 22 Oct 2026 01:32:28 -0700
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <20261021195112.41138-1-me@michaelmcallister.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,33 +64,41 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: text/plain;
-	charset="utf-8"
-Content-Transfer-Encoding: base64
-Date: Thu, 22 Oct 2026 16:31:30 +0800
-X-Priority: 3
-Message-ID: <tencent_48E1098E2322016888397E2F4D1D34343208@qq.com>
-X-QQ-MIME: TCMime 1.0 by Tencent
-X-Mailer: QQMail 2.x
-X-QQ-Mailer: QQMail 2.x
-References: <20261022-add-board-ok3572-c-v1-0-0b0fd85a31ee@qq.com>
- <2339330.72vocr9iq0@diego>
- <tencent_791C8CE4050020CEF9E536C9D3B4CA9C250A@qq.com>
-	<2117228.PIDvDuAF1L@diego>
-In-Reply-To: <2117228.PIDvDuAF1L@diego>
-X-QQ-mid: xmsezb41-0t1792657890ti513lphq
+MIME-Version: 1.0
+References: <20261021195112.41138-1-me@michaelmcallister.org>
+Date: Thu, 22 Oct 2026 01:32:28 -0700
+X-Gmail-Original-Message-ID: <CAMRc=MfFKKaKspq21eB6sw15WJJ9f5MuS_RQ372z68h5yt1oxA@mail.gmail.com>
+X-Gm-Features: AclHuK_tvu9Ry3auqtVWhfpeNgoUj6kWm18hi7mgN4LxsSz4oTEUyQavlf84pwI
+Message-ID: <CAMRc=MfFKKaKspq21eB6sw15WJJ9f5MuS_RQ372z68h5yt1oxA@mail.gmail.com>
+Subject: Re: [PATCH bluetooth] Bluetooth: qca: Fix the WCN3950 NVM baud rate offset
+To: Michael McAllister <me@michaelmcallister.org>
+Cc: brgl@kernel.org, marcel@holtmann.org, luiz.dentz@gmail.com, 
+	lumag@kernel.org, linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-bluetooth@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-SGkgSGVpa28sCgo+IFJvY2tjaGlwIGhhcyBwdWJsaXNoZWQgYSBkZXZlbG9wbWVudCBicmFu
-Y2ggYmFzZWQgb24gNi4xMiBvbiBnaXRodWIgWzBdIC4KPiBUaGlzIGluY2x1ZGVzIHRoaXMg
-Y2xvY2sgZHJpdmVyIFsxXSBhbmQgbW9zdCBsaWtlbHkgYWxsIHRoZSBvdGhlciBwYXJ0cyBh
-cyB3ZWxsLgo+IFlvdSBjYW4gdXNlIHRoaXMgdG8gY3Jvc3MtcmVmZXJlbmNlLgo+Cj4gSWYg
-dGhlcmUgYXJlIG11bHRpcGxlIGF1dGhvcnMgY2hhbmdpbmcgdGhlIHJrMzU3Mi1zcGVjaWZp
-YyBwYXJ0cyBvZiBhIGZpbGUsCj4gcGxlYXNlIHVzZSB0aGUgZmlyc3QgcGF0Y2ggYXV0aG9y
-IGZyb20gdGhhdCBoaXN0b3J5IGZvciB5b3VyIHBhdGNoLCBhcyB3ZQo+IGRvbid0IHdhbnQg
-dG8gcmVwbGljYXRlIHRoZSBkZXZlbG9wbWVudCBoaXN0b3J5IGZyb20gdGhhdCB2ZW5kb3Ig
-a2VybmVsCj4gdHJlZS4KClRoYW5rIHlvdSBmb3IgdGhlIGxpbmsgYW5kIGNsYXJpZmljYXRp
-b24uCgpJJ2xsIGNyb3NzLXJlZmVyZW5jZSB0aGUgUkszNTcyIGNoYW5nZXMgd2l0aDoKICBy
-b2NrY2hpcC1saW51eC9rZXJuZWw6ZGV2ZWxvcC02LjEyCgpCZXN0IHJlZ2FyZHMsCkN1bmhh
-bwo=
+On Wed, 21 Oct 2026 21:51:12 +0200, Michael McAllister
+<me@michaelmcallister.org> said:
+> WCN3950 uses the HCI transport tag layout that stores the UART baud rate
+> at byte 1, like WCN3991. However, QCA_WCN3950 precedes QCA_WCN3991 in
+> qca_btsoc_type, so qca_tlv_check_data() writes the baud rate to byte 2
+> instead.
+>
+> On a Motorola Moto G10 with WCN3950 and cmnv12.bin, configuring a 3 Mbps
+> UART therefore leaves the NVM baud rate at its default 3.2 Mbps and
+> overwrites the following byte. Firmware download completes, but the
+> subsequent HCI_RESET times out and Bluetooth initialization fails.
+>
+> Include WCN3950 in the byte-1 case so the NVM baud rate matches the host
+> UART without altering the following transport parameter.
+>
+> Fixes: d5712c511cb3 ("Bluetooth: qca: add WCN3950 support")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
 
+This tag is now gone, you don't have to add it.
+
+> Signed-off-by: Michael McAllister <me@michaelmcallister.org>
+> ---
+
+Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
