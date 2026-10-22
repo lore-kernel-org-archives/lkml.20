@@ -1,82 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792671370;
-	b=tWWfFUXtNUK29TsWKLCRADqpSuvslmK7RfCsbO7CWS3JJQBEf6JsPqlJ5B7CKoNDDPcd
-	 +XX/aotTRQTRrnCBwpzcvhh8x9H6QkxqfZ8QjoguJNAZRfjMZ9prqWyx+bdmiUpXQBB5c
-	 53OPTbJx/4yFfsdZ2Yvo6WFbPRR0dL/p5jtesXwIYlR1akGMVvw7qE/wb+yCTuq+yuvJc
-	 Cgow419/ChV9CHVqZYS7waNkH2vvmZx24q7V61OUOobqDklu5HjmbWayMo74Mx/0dsSaj
-	 UGLWsL6FLmrpwvg8JC2A5X9eUTpLEeZGBxWFgldtRniQZLGMN1bxf1xha7oHr09iSJQ==
+	t=1792671405;
+	b=aezY1K6CGtkht6tNTR8OpNRR7KL8BX/pgfYv/ypwVNzaKrNt6cnWUisd5Q/CZO1zzVQV
+	 CdLgZaiwOiA7dacQsPcu1DWiVZuVEbEJxMJ4mTbI8ss6DkDl90TiqrDfZ3Qs/pwr6Bi8C
+	 FmLbVxswcsrVAQ43rIjfRgnV8FMafDp3WHmyQVuccm32czIMf4ettfUwzd9eTg6VuC6zi
+	 4UBfaxdubLz0sa+hqstQz+ZQS/xk8bCtd8/79DO1q/8tF/1h68mVkixwOk+ppPf+TscL/
+	 K6bJtDGx2ce4tO2bzMtr3pezJo3kwnpz3Po4XboieTVZp3HhBp6HPVEsyrWSk1sXekw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792671370;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792671405;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=5qFhcXtpPNQ4iHtcXx0HviFmqvNOXw+CZfFu7wOonTI=;
-	b=V03B/UT8pebQuvjuNjl/CAdGVZJ9UZnkVJ1HtSZziqRHstuuDGAKTAzLIIU0RKRvS3YI
-	 IdUOWbZ5kqYq9/Xgr/CTi+p7bV4OvsF3p+c7rgltTrGOMgwKUdXFDWXUGUokyykjDouY6
-	 InnjYTkFwhSSu0xSH1LrURPXQg0H08eCgEyMfdE4yi1VF6Fuxw3Q3Q07bukPRvlbRc0Gn
-	 7UZzdh+E3H4s9/v9VsJyjQQUYKkfQcxYheGXXC72+0f3/zGJQEfNgqt9nX0M8xS5DwPpZ
-	 PSnmn+B0z6eLAP+srE4MRTDV1pl0rK6EhFE/122OkAzQicy8XzDjTJ5RV86nGeBzNRQ==
+	bh=bBrHNmc7PbGGn5lyfOcxeR3zOs/o7WqUiB6nA5M0+7g=;
+	b=JUWeLBgtWkvY+TynjksGJQz0HIPcSzojnqAhSAuHCa2b6IiNGkhaw0y4/0mEuv3UwgJM
+	 2BOAR1LOzIxw4PKv5xX6hz7nWJU/cTs5lnXuqROMBzl+4J6lz/JDwRT/tqw3mfXT0OBl3
+	 V+QbEmBoVs/tYdLFddheB81ftKJFAZ7ziRzMLKhhPm8pZWIBHfctxR1TNK5pKyPMN2BKi
+	 0OZI8Tjxq4RWH0nN+Qdvs8Jr1r7Gy7y15g8A3orIIHqbbTZGy9WkGTGYQTkBbM557CQXE
+	 Xv3CsLdeBZzN3leTV28v5RFHl5dpb2R0YJBYGUfkl+x7HTTlAWqDdFqieYFiUh1QKMQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=XUOXXste;
-	arc=none smtp.remote-ip=209.85.216.44
-Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=PqFqk2Bn;
+	arc=none smtp.remote-ip=209.85.216.48
+Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E423E606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 12:16:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E423E606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFE34606A31A
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 12:16:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CFE34606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=XUOXXste
-Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-3acb11973c3so1413397a91.3
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 05:16:09 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=PqFqk2Bn
+Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-3adac5b29ebso332504a91.2
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 05:16:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792671369; x=1793276169; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792671404; x=1793276204; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:message-id:date
          :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=5qFhcXtpPNQ4iHtcXx0HviFmqvNOXw+CZfFu7wOonTI=;
-        b=XUOXXsteiw3BXYoIobrs26WPljc79UDjHfe/moBZ4pg4CIXgqHp0aSrpr6PqwU8U+V
-         wPPXCy9uuwubckcZRvioCP5UtPLWLVoB8dp0qciHpYNVF2E9vaBFD6oPAVvITZ/Kd2Jx
-         wFH7MMdRuOINx1vhBPcnFseSCD/qLBLcwzGfXPCMUrOfUiQLVHb1lYPTmZLRo9LigJSI
-         T37cdpry/S27k41eTA9wilhr7CC52M7NI8G0SsSj+i0iEqzcIeuaswo7p/eqg4sAI4Ka
-         KRDLE7oKn4fQCvV48JSSGq1GpK80G8g2FUKc5vLsEIlXln+TIYhLqgTLWyMuN9VATSQG
-         J7uA==
+        bh=bBrHNmc7PbGGn5lyfOcxeR3zOs/o7WqUiB6nA5M0+7g=;
+        b=PqFqk2Bn6B1j7bDpEQYx9WIZ0ehLDS5VViOBQ8t+zlYJzoRZEv+iTgtCsTLU/BUG2Q
+         7qnn4IOJ5mYCNRnJga7zmNIig5dOr1m0gYHzfMLcYs7vFKTisD30F2sz7Kk4xebtvlAP
+         PA0R3Y3AANWiQyyRMl2mmz5U2smFwyW2ReDX3GHoQXni5CUJl9X6fOUyp1Cur9XNH8Xn
+         wvu1e8AC652+Qv6igOd2ywYn3vd3BP2L06qP549xidwOatJXX8jXw3gmE7CXWFGK58h8
+         5eL5wI6jy4XZPWI70x8sjbUSzOVZ9V5Ec2vdnfzCs7RXk0RSbFSPl9vroM2kvcs20inA
+         o91A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792671369; x=1793276169;
+        d=1e100.net; s=20260707; t=1792671404; x=1793276204;
         h=content-transfer-encoding:content-type:mime-version:message-id:date
          :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=5qFhcXtpPNQ4iHtcXx0HviFmqvNOXw+CZfFu7wOonTI=;
-        b=Ia+21yDszbY+cytrtsRjyXdGg3rd5VAMzKaKrFbG3sE9J8z9mQBJxydSwKl9Fl50yd
-         neuIP9GdFCx3YTMGJU+EXirjl+AZw14wzN77t931RDkuYix/FEQP5ipp8e76zjv1GWWt
-         vqcx3eIzI978hKGBfORaXV7VJ61QDYOI+FiGwrbu6bx4+YV4g93G9iPJV+WUkeat+WlS
-         j41bAKlTK5Mhb2e4yO/ZLigBdgn/JjItfvM9FaVlb/ybUoYybme+78J686I8H33MDjQB
-         3xOt+zpX4u6uz/b9ryIM3IMfWrMDRSmYKmxHVjDprVc2fr6mS8Jh8S/5p6xcxeUsLOtz
-         K8Ow==
-X-Forwarded-Encrypted: i=1; AKwUvBxe5CyWxBWcG64JToGoLIwHdnrpYCQ4hUPOaTIJ7C//R7B8m8UH9UI4MahxoN0vcwZxAzfgUX7YKxFvxzs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLEBTUjNGZGPwL9LlQzcZOVIf9pqdNTudFBlrl6cdM5dWJsqMNh
-	/A/wS1YUAFiiTrWPSU1wGBuLWUcWX/vtK0Ju8TLRgCwwBgT2KrUabRvq
-X-Gm-Gg: AYBFou2vEUvgq8zar4YNmxaVrETC+q3DcbIRcjvLx26Nv9LEgTQ9OZyeczjN9Xw1Vkv
-	olY7/1K8tNpwv0C7VyJCvNRC24DxSrURITs8CqKN/nwMnhCLuN5C2hXpC5GbssacO2mUY2Ya4b4
-	eerFq2a0haIkxCOue8XoJYPB3agWLeN7zHYTSQP1vYAOU9GAlqAEFzsYhwgKBxsSPHNLi74xnU+
-	OO5yBaVdq0YVLzfPON8pipX3foUFwBRlvT++P6vgp+ETOndPwWaEPuaH/hxCUEDF5Ssu8YMoxaH
-	3HFc5fZW6/C7/HGKPA5nYdQ0u0fGFrbYadaC7B7EwpDexgSvA2dKsN3PY2Upi1PKLG3tbIffgNw
-	qCTMl24PlGMojLHw+NLuWRUAeiaNioeAQgvLqY9qroJlCld0P/whs6C4jJ8ncfoT5HuCcjsAIAC
-	VExJjUVdTOQe6G9gbT0B/WUw+vqltxzGTtthwhZVbYhSzROK0kU31VaYWfZUurBvcEcQojzPANo
-	V815djo3GEM2naEot4nJA1URs4Uyi86bPba+kMaAxejHBavKB0=
-X-Received: by 2002:a17:90b:4f8e:b0:3a4:b418:94ce with SMTP id 98e67ed59e1d1-3ad86dca5acmr4275618a91.1.1792671369156;
-        Thu, 22 Oct 2026 05:16:09 -0700 (PDT)
+        bh=bBrHNmc7PbGGn5lyfOcxeR3zOs/o7WqUiB6nA5M0+7g=;
+        b=uhw1YdPty/UhE3cLkBQK8fvFC+kYp8l8PG+8NLE9HhAgYkBCtk5FPPVu4uuTuwY30H
+         Avp2+Q8Nn1LpRwmndrAWJA1kx478rDJg4rSGHNQX/CjUHxrTMfYrQvujK99c+cNJCWmg
+         v47Mz8rvUlxolC7G+VkAfUTh9ZcDvmgrj3SE4+aahfdZc4SJw5A869ZztEgzWSyn+HEU
+         52HJsjocrbVNLHd1vikyiZ6PF2LptN9Y5Q+KwzdmUYqdWAcQbZ5jTnsf+DH6wmQl+DF3
+         hiW5ollk/v/xALBYeP3+W3dVOqpiq6JoqsUaYT6bQ7GGNQd4+fZc1o98ke1Bik+G/F1M
+         rP0w==
+X-Forwarded-Encrypted: i=1; AKwUvBwiTr4pbpI9QiSnE7oFoMYbEGlr0txSTTXjlr5e8ZVfI7Q8ts+Z0WRABdq5PrB/piRhGLh8HeNB7LwaldI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI5moxS6FGBrVpgEhwzQrzIGiAGOiSUDg6igx1tkDKpHS9hHZ07
+	8L9gqkP0SvpluZ1W+LDPbx3PSuGIz5fq/fBJF2oHu5dyYTqdnhL1zId1
+X-Gm-Gg: AYBFou05g6JRS7XDUKYsyekNV+LF2Y3dYq2uTpy5KY5xE+5ieYW4usJDOGf7hha97B9
+	LBQ1Bl0SImJTFaRGhNGWPdqojiPibAveengzd13hQaQLaHUdAjVTSqbQlajdfdbte8wcz6Aq25K
+	Z/rgiYIb6wtfgnP2Cf7F/CcHQFaYUeZM+ddfFbfBWG+cWwQpCsIJXe38C9ycXIbXam3CVXhjil6
+	HySHn6hzCzaOJtbgkCLE1deGlCf4eMKACfKvlRXJr+jKCRAoMewlnl2M4n0mzzP58t3rvXcngYz
+	NToMAJgMaz5wojvHkKzPaVAfQiHCw0k8vV03+y5PxRZVUZlKeNOAx3hYSV3mEmuCDrvzwrFhtq0
+	R0O+UXQqmQ9vnyB0k6YpHm2CDSDe2cbSI4hRQ21W36hQXduTK3GqTFmSLaAih+LV0VAwwoAqTj+
+	1shE3IbvkcyiWIUKicTLWcSiBXgvwsTyYysrt1veS3NymId3jQ+WmWm6CVfYYXH7zMdUdYVJy6k
+	7gKOEei1vVn6A0MyxZU1+NcWnOORTdwgjoEwpz6gjuNmnAMDG8=
+X-Received: by 2002:a17:90b:3d86:b0:3ac:e6a:1b2b with SMTP id 98e67ed59e1d1-3ad86cb08f3mr4143140a91.0.1792671404071;
+        Thu, 22 Oct 2026 05:16:44 -0700 (PDT)
 Received: from localhost ([111.228.63.84])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ada490e5f8sm4073161a91.9.2026.10.22.05.16.05
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ada490d4bfsm4782330a91.10.2026.10.22.05.16.40
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 05:16:08 -0700 (PDT)
+        Thu, 22 Oct 2026 05:16:43 -0700 (PDT)
 From: Cen Zhang <zzzccc427@gmail.com>
 To: marcel@holtmann.org,
 	luiz.dentz@gmail.com
@@ -85,9 +85,9 @@ Cc: linux-bluetooth@vger.kernel.org,
 	baijiaju1990@gmail.com,
 	jjzuming@gmail.com,
 	zzzccc427@gmail.com
-Subject: [PATCH] Bluetooth: msft: Revalidate address filters before canceling
-Date: Thu, 22 Oct 2026 20:16:03 +0800
-Message-Id: <pm-bluetooth-objects-candidate-0237-v16-2fe5728c6cabc061bbcf@gmail.com>
+Subject: [PATCH] Bluetooth: hci_sync: Copy the LE accept list under hdev->lock
+Date: Thu, 22 Oct 2026 20:16:36 +0800
+Message-Id: <pm-bluetooth-objects-candidate-0158-v12-0137c5e23ffb6986d911@gmail.com>
 X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -101,77 +101,70 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-An address filter selected by msft_cancel_address_filter_sync() must
-still be a live entry in msft->address_filters. The callback instead
-trusts the raw pointer queued by msft_monitor_device_evt(), and its
-HCI_UP test only describes the controller's current state.
+The LE accept-list mirror consists of bdaddr_list entries that are
+added, removed and freed under hdev->lock. The ordinary branch of
+hci_update_accept_list_sync() traverses this list without that lock.
+The request worker's req_lock does not serialize raw HCI completions,
+and the RCU sections protect connection and pending-action lookups,
+not the accept-list nodes.
 
-On a configured controller using Microsoft address filters, a lost
-monitor-device event can queue cancellation of an ADDED filter while
-HCIDEVRESET holds req_lock. If reset closes and reopens successfully,
-the following ordering is possible:
+Changing connectability can reach this iterator through
+set_connectable_sync(), hci_update_connectable_sync(),
+hci_update_passive_scan_sync() and hci_passive_scan_sync(). With a
+populated mirror, a privileged raw HCI sender can issue
+HCI_OP_LE_CLEAR_ACCEPT_LIST while request work is reconciling it:
 
-    HCIDEVRESET                RX worker           Request worker
-    -----------                ---------           --------------
-    hci_dev_do_reset()
-      lock(req_lock)
-                               lost event
-                               state = REMOVING
-                               queue cancel ------->
-                                                   wait for req_lock
-      hci_dev_close_sync()
-        drain RX work
-        msft_do_close()
-          unlink filter
-          kfree(filter)
-      hci_dev_open_sync()
-        set HCI_UP
-      unlock(req_lock) ---------------------------->
-                                                   acquire req_lock
-                                                   cancel callback:
-                                                     HCI_UP is set
-                                                     list_del(...)
-                                                       use-after-free
+  Request work                    HCI event work
+  select b and successor t
+                                  hci_cc_le_clear_accept_list()
+                                    hci_dev_lock(hdev)
+                                    hci_bdaddr_list_clear()
+                                      unlink nodes and kfree(b)
+                                    hci_dev_unlock(hdev)
+  read b->bdaddr_type
 
-The reset path drains receive work, but not the separate request
-workqueue. Thus req_lock serializes the bodies without preserving the
-queued filter, and list_del() reads freed storage.
+The clear completion can therefore free the selected node before its
+field read, or the saved successor before the iterator advances.
+KASAN reported a one-byte read of bdaddr_type from the freed node.
 
-Find the queued pointer in address_filters under filter_lock and
-require AF_STATE_REMOVING before unlinking or reading its fields. An
-allocation reusing that address cannot become ADDED and queue its own
-cancellation until its add work runs, which is ordered after this old
-cancel request. Checking both membership and REMOVING therefore also
-rejects a replacement allocation.
+Copy each entry's address and type under hdev->lock and reconcile the
+private array instead. Release the mutex before issuing synchronous
+commands, since their completion handlers also acquire it. Free the
+copy after iteration and use the existing error path to disable
+accept-list filtering if allocation fails.
 
-Keep REMOVING filters listed when their pattern monitor is removed so
-the cancellation callback can still find and release them. Restore
-ADDED if cancellation cannot be queued, allowing synchronous removal
-to reclaim that filter.
+This change has not been runtime-tested.
 
 KASAN report as below:
 
     ==================================================================
-        BUG: KASAN: slab-use-after-free in
-    __list_del_entry_valid_or_report+0x1c6/0x210
-    Read of size 8 at addr ffff888108985da0 by task kworker/u17:2/494
+    BUG: KASAN: slab-use-after-free in hci_passive_scan_sync+0x1cc4/0x1f80
+    Read of size 1 at addr ffff888105ee6c56 by task kworker/u17:1/499
 
     Workqueue: hci0 hci_cmd_sync_work
     Call Trace:
      <TASK>
      dump_stack_lvl+0x93/0xd0
      print_report+0xce/0x630
-     ? __list_del_entry_valid_or_report+0x1c6/0x210
+     ? hci_passive_scan_sync+0x1cc4/0x1f80
      ? srso_alias_return_thunk+0x5/0xfbef5
      ? __virt_addr_valid+0x20d/0x410
-     ? __list_del_entry_valid_or_report+0x1c6/0x210
+     ? hci_passive_scan_sync+0x1cc4/0x1f80
      kasan_report+0xe0/0x110
-     ? __list_del_entry_valid_or_report+0x1c6/0x210
-     __list_del_entry_valid_or_report+0x1c6/0x210
-     msft_cancel_address_filter_sync+0x14f/0x510
-     ? __pfx_msft_cancel_address_filter_sync+0x10/0x10
-     ? __pfx_msft_cancel_address_filter_sync+0x10/0x10
-     hci_cmd_sync_work+0x1cc/0x4a0
+     ? hci_passive_scan_sync+0x1cc4/0x1f80
+     hci_passive_scan_sync+0x1cc4/0x1f80
+     ? pmbd_gate_site_armed+0x31/0x1c0
+     ? __pfx_hci_passive_scan_sync+0x10/0x10
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? pmbd_probe_hit_cookie+0x10/0x1c0
+     ? __pfx_pmbd_probe_hit_cookie+0x10/0x10
+     ? hci_update_passive_scan_sync+0x43f/0x9e0
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? lock_release+0xc8/0x280
+     hci_update_passive_scan_sync+0x473/0x9e0
+     hci_update_connectable_sync+0x13c/0x250
+     set_connectable_sync+0x39/0xb0
+     hci_cmd_sync_work+0x1b3/0x450
      ? srso_alias_return_thunk+0x5/0xfbef5
      process_one_work+0x908/0x19c0
      ? __pfx_process_one_work+0x10/0x10
@@ -179,9 +172,6 @@ KASAN report as below:
      ? lock_is_held_type+0x8f/0x100
      ? srso_alias_return_thunk+0x5/0xfbef5
      worker_thread+0x65c/0xe40
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __kthread_parkme+0x175/0x220
-     ? srso_alias_return_thunk+0x5/0xfbef5
      ? __pfx_worker_thread+0x10/0x10
      kthread+0x34f/0x460
      ? srso_alias_return_thunk+0x5/0xfbef5
@@ -194,19 +184,21 @@ KASAN report as below:
      ret_from_fork_asm+0x1a/0x30
      </TASK>
 
-    Allocated by task 512:
+    Allocated by task 511:
      kasan_save_stack+0x33/0x60
      kasan_save_track+0x14/0x30
      __kasan_kmalloc+0xaa/0xb0
      __kmalloc_cache_noprof+0x251/0x610
-     msft_add_address_filter+0x84/0x850
-     msft_test_stage_reset_route+0x380/0x540
-     msft_test_stage_write+0x11c/0x170
-     full_proxy_write+0x11f/0x180
-     vfs_write+0x25a/0x1010
-     ksys_write+0x111/0x200
-     do_syscall_64+0x115/0x6a0
-     entry_SYSCALL_64_after_hwframe+0x77/0x7f
+     hci_bdaddr_list_add+0x179/0x390
+     hci_cc_le_add_to_accept_list+0x189/0x2d0
+     hci_cmd_complete_evt+0x373/0xab0
+     hci_event_packet+0x4e8/0xc70
+     hci_rx_work+0x367/0xf00
+     process_one_work+0x908/0x19c0
+     worker_thread+0x65c/0xe40
+     kthread+0x34f/0x460
+     ret_from_fork+0x659/0x940
+     ret_from_fork_asm+0x1a/0x30
 
     Freed by task 511:
      kasan_save_stack+0x33/0x60
@@ -214,131 +206,150 @@ KASAN report as below:
      kasan_save_free_info+0x3b/0x60
      __kasan_slab_free+0x5f/0x80
      kfree+0x307/0x580
-     msft_do_close+0x3b9/0x6a0
-     hci_dev_close_sync+0xfef/0x1220
-     hci_dev_reset+0x187/0x450
-     hci_sock_ioctl+0x3f3/0x710
-     sock_do_ioctl+0x120/0x2b0
-     sock_ioctl+0x41b/0x670
-     __x64_sys_ioctl+0x163/0x1d0
-     do_syscall_64+0x115/0x6a0
-     entry_SYSCALL_64_after_hwframe+0x77/0x7f
+     hci_bdaddr_list_clear+0x134/0x230
+     hci_cc_le_clear_accept_list+0x80/0x1f0
+     hci_cmd_complete_evt+0x373/0xab0
+     hci_event_packet+0x4e8/0xc70
+     hci_rx_work+0x367/0xf00
+     process_one_work+0x908/0x19c0
+     worker_thread+0x65c/0xe40
+     kthread+0x34f/0x460
+     ret_from_fork+0x659/0x940
+     ret_from_fork_asm+0x1a/0x30
 
-    The buggy address belongs to the object at ffff888108985d80
+    The buggy address belongs to the object at ffff888105ee6c40
                                                                 which
-                                belongs to the cache kmalloc-64 of size 64
-    The buggy address is located 32 bytes inside of
+                                belongs to the cache kmalloc-32 of size 32
+    The buggy address is located 22 bytes inside of
                                                                 freed
-                                64-byte region [ffff888108985d80,
-                                ffff888108985dc0)
+                                32-byte region [ffff888105ee6c40,
+                                ffff888105ee6c60)
 
     The buggy address belongs to the physical page:
-        page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0
-    pfn:0x108985
-    flags: 0x200000000000000(node=0|zone=2)
+        page: refcount:0 mapcount:0 mapping:0000000000000000
+    index:0xffff888105ee69c0 pfn:0x105ee6
+    flags: 0x200000000000200(workingset|node=0|zone=2)
     page_type: f5(slab)
-        raw: 0200000000000000 ffff8881000428c0 dead000000000100
-    dead000000000122
-        raw: 0000000000000000 0000000000200020 00000000f5000000
+        raw: 0200000000000200 ffff888100042780 ffffea0004187150
+    ffffea00042534d0
+        raw: ffff888105ee69c0 000000000040003f 00000000f5000000
     0000000000000000
     page dumped because: kasan: bad access detected
 
     Memory state around the buggy address:
-     ffff888108985c80: fa fb fb fb fb fb fb fb fc fc fc fc fc fc fc fc
-     ffff888108985d00: fa fb fb fb fb fb fb fb fc fc fc fc fc fc fc fc
-    >ffff888108985d80: fa fb fb fb fb fb fb fb fc fc fc fc fc fc fc fc
-                                   ^
-     ffff888108985e00: fa fb fb fb fb fb fb fb fc fc fc fc fc fc fc fc
-     ffff888108985e80: fa fb fb fb fb fb fb fb fc fc fc fc fc fc fc fc
+     ffff888105ee6b00: fa fb fb fb fc fc fc fc fa fb fb fb fc fc fc fc
+     ffff888105ee6b80: fa fb fb fb fc fc fc fc fa fb fb fb fc fc fc fc
+    >ffff888105ee6c00: fa fb fb fb fc fc fc fc fa fb fb fb fc fc fc fc
+                                                     ^
+     ffff888105ee6c80: fa fb fb fb fc fc fc fc fa fb fb fb fc fc fc fc
+     ffff888105ee6d00: fa fb fb fb fc fc fc fc fa fb fb fb fc fc fc fc
     ==================================================================
 
-Fixes: 9e14606d8f38 ("Bluetooth: msft: Extended monitor tracking by address filter")
+Fixes: e8907f76544f ("Bluetooth: hci_sync: Make use of hci_cmd_sync_queue set 3")
 Assisted-by: LLM
 Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
 ---
-Sashiko review follow-up: MSFT handle-map patch
-  - Address the stale address-filter cancel issue raised by Sashiko:
-    https://sashiko.dev/#/patchset/86251
-  - Revalidate the address filter after reset.
+Sashiko review follow-up: earlier accept-list patch
+  - Address the outer-iterator lifetime issue raised by Sashiko:
+    https://sashiko.dev/#/patchset/88963
+  - Copy accept-list addresses before issuing synchronous commands.
 
-Related handle-map fix already merged in bluetooth-next:
-56e20c3d8ad340bbfc90221c4aae1c870485fb57
+Related accept-list membership fix:
+https://lore.kernel.org/r/pm-bluetooth-objects-candidate-0118-v7-e6b713327ef914d6d02a@gmail.com
 
-diff --git a/net/bluetooth/msft.c b/net/bluetooth/msft.c
---- a/net/bluetooth/msft.c
-+++ b/net/bluetooth/msft.c
-@@ -323,6 +323,10 @@
- 		if (address_filter->pattern_handle != handle)
- 			continue;
+diff --git a/net/bluetooth/hci_sync.c b/net/bluetooth/hci_sync.c
+--- a/net/bluetooth/hci_sync.c
++++ b/net/bluetooth/hci_sync.c
+@@ -2872,6 +2872,31 @@
  
-+		/* A queued cancel still owns this linked filter. */
-+		if (address_filter->state == AF_STATE_REMOVING)
-+			continue;
+ 	*n = i;
+ 	return p;
++}
 +
- 		list_del(&address_filter->list);
- 
- 		/* Keep the address filter and let
-@@ -333,13 +337,6 @@
- 			address_filter->state = AF_STATE_REMOVING;
- 			continue;
- 		}
--
--		/* Keep the address filter and let
--		 * msft_cancel_address_filter_sync() remove and free the address
--		 * filter
--		 */
--		if (address_filter->state == AF_STATE_REMOVING)
--			continue;
- 
- 		list_add_tail(&address_filter->list, &head);
- 	}
-@@ -716,7 +713,8 @@
- 
- static int msft_cancel_address_filter_sync(struct hci_dev *hdev, void *data)
- {
--	struct msft_monitor_addr_filter_data *address_filter = data;
-+	struct msft_monitor_addr_filter_data *address_filter = NULL;
-+	struct msft_monitor_addr_filter_data *entry;
- 	struct msft_cp_le_cancel_monitor_advertisement cp;
- 	struct msft_data *msft = hdev->msft_data;
- 	struct sk_buff *skb;
-@@ -731,9 +729,23 @@
- 	if (!test_bit(HCI_UP, &hdev->flags))
- 		return 0;
- 
-+	/* Reset may free data and restore HCI_UP. Find the pointer
-+	 * without dereferencing it. A replacement cannot finish its queued
-+	 * add before this cancel on req_workqueue.
-+	 */
- 	mutex_lock(&msft->filter_lock);
--	list_del(&address_filter->list);
-+	list_for_each_entry(entry, &msft->address_filters, list) {
-+		if (entry != data || entry->state != AF_STATE_REMOVING)
-+			continue;
++static struct conn_params *le_accept_list_copy(struct hci_dev *hdev,
++					       size_t *n)
++{
++	struct bdaddr_list *entry;
++	struct conn_params *params;
++	size_t i = 0;
 +
-+		address_filter = entry;
-+		list_del(&address_filter->list);
-+		break;
++	hci_dev_lock(hdev);
++
++	*n = list_count_nodes(&hdev->le_accept_list);
++	params = kvzalloc_objs(struct conn_params, *n);
++	if (!params)
++		goto unlock;
++
++	list_for_each_entry(entry, &hdev->le_accept_list, list) {
++		bacpy(&params[i].addr, &entry->bdaddr);
++		params[i].addr_type = entry->bdaddr_type;
++		i++;
 +	}
- 	mutex_unlock(&msft->filter_lock);
 +
-+	if (!address_filter)
-+		return 0;
++unlock:
++	hci_dev_unlock(hdev);
++	return params;
+ }
  
- 	cp.sub_opcode = MSFT_OP_LE_CANCEL_MONITOR_ADVERTISEMENT;
- 	cp.handle = address_filter->msft_handle;
-@@ -1063,10 +1075,10 @@
- 	} else {
- 		if (address_filter && address_filter->state == AF_STATE_ADDED) {
- 			address_filter->state = AF_STATE_REMOVING;
--			hci_cmd_sync_queue(hdev,
--					   msft_cancel_address_filter_sync,
--					   address_filter,
--					   NULL);
-+			if (hci_cmd_sync_queue(
-+				    hdev, msft_cancel_address_filter_sync,
-+				    address_filter, NULL) < 0)
-+				address_filter->state = AF_STATE_ADDED;
+ /* Clear LE Accept List */
+@@ -2904,7 +2929,6 @@
+ static u8 hci_update_accept_list_sync(struct hci_dev *hdev)
+ {
+ 	struct conn_params *params;
+-	struct bdaddr_list *b, *t;
+ 	u8 num_entries = 0;
+ 	bool pend_conn, pend_report;
+ 	u8 filter_policy;
+@@ -2969,20 +2993,27 @@
+ 	 * report. If not present in either list, then remove it from
+ 	 * the controller.
+ 	 */
+-	list_for_each_entry_safe(b, t, &hdev->le_accept_list, list) {
++	params = le_accept_list_copy(hdev, &n);
++	if (!params) {
++		err = -ENOMEM;
++		goto done;
++	}
++
++	for (i = 0; i < n; i++) {
+ 		rcu_read_lock();
+ 
+-		if (hci_conn_hash_lookup_le(hdev, &b->bdaddr, b->bdaddr_type)) {
++		if (hci_conn_hash_lookup_le(hdev, &params[i].addr,
++					    params[i].addr_type)) {
+ 			rcu_read_unlock();
+ 			continue;
  		}
- 		msft_device_lost(hdev, &ev->bdaddr, addr_type, mgmt_handle);
+ 
+ 		pend_conn = hci_pend_le_action_lookup(&hdev->pend_le_conns,
+-						      &b->bdaddr,
+-						      b->bdaddr_type);
+-		pend_report = hci_pend_le_action_lookup(&hdev->pend_le_reports,
+-							&b->bdaddr,
+-							b->bdaddr_type);
++						      &params[i].addr,
++						      params[i].addr_type);
++		pend_report = hci_pend_le_action_lookup(
++			&hdev->pend_le_reports, &params[i].addr,
++			params[i].addr_type);
+ 
+ 		rcu_read_unlock();
+ 
+@@ -2990,13 +3021,15 @@
+ 		 * remove it from the acceptlist.
+ 		 */
+ 		if (!pend_conn && !pend_report) {
+-			hci_le_del_accept_list_sync(hdev, &b->bdaddr,
+-						    b->bdaddr_type);
++			hci_le_del_accept_list_sync(hdev, &params[i].addr,
++						    params[i].addr_type);
+ 			continue;
+ 		}
+ 
+ 		num_entries++;
  	}
++
++	kvfree(params);
+ 
+ 	/* Since all no longer valid accept list entries have been
+ 	 * removed, walk through the list of pending connections
