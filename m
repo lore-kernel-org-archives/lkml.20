@@ -1,100 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.171
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.48
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792682814;
-	b=PsCO7mqSHEaz/HQqe/KQZuEbgpITxm4VmU7D4zznDE/ZyoUq8U6tTFAXvrZthsyf8QG4
-	 tB3W+mgRJ7H10fCdGN2rfqu479VE54rVrLnrSJyAeGj8BYJNHp/upmdqXaRpd63noN/cc
-	 nePg+ZLZYLCitxV/N44uYziYWMfm3n2loIvj6HlcE0fnIAu04i/810BWUNS5v6DFf/2JB
-	 qRm8wHcJyh6+Z5ydaa6EElvavcTN77S1fMqKn3JoU/+x84NDaB2fpvpMDdYSNaRXWdbF+
-	 myV/s48wa5eVfNQpgxkrLX1FWKGNLDw9tZHMdbyl9r0DHmSGAcQyz7xegtGUXWFPerg==
+	t=1792682869;
+	b=sDv9JeLJQCdY6XodCpRQdqxrpj2LPxIeL8rrav6w98QrjZxkRNoh8at4MwzPMn1j93pC
+	 1osVQsxIg6Q2ELxbr81mukcSDIK7xh7s7Bb3mPdx8wl2/aNYg0fKZPYBhN+FvRxVCliDd
+	 YbH99OzTs1ENkKfW4doePh2EnuDc6CEbeXlHPn6wrbbSFjlICTYekqzIpf9HAlcFMB0Of
+	 FLodFEI9AES4iW0xL3sNXMMAs+R9Iq9UPscma4jf7MUZn7yuICSFpbvNQYEB3/0Hen48Z
+	 NEa/9LInJDBBFdVNSWI4yGejlIjWunYHOe1H3ux7xUrUQ0EB+FElcEJHJGlpI5ZYvzQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792682814;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792682869;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
 	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
 	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=kKY9lXCqmIHp0E1eSfDqDHg5eGZHzHb0/xVe+f4AVFI=;
-	b=kLmIRZPXlycKi+OoDOjcf088kUfJD0A67KkR1TSmT0j3OJHwBe/0H31lo2iFvuCYFOjE
-	 JZxLC1JsD/93n/8pHl38n7tZJvg1JwVuvvEJZf+FBNDx65Bs3Xu33rCrlWtT8Ul55Pcwd
-	 VFvNnxCz16sGr48VoCMJ9z6NNbBTeNjeL/8QX8VzlFVvQVEjg2loZeqcoHTD23syFCwXx
-	 XwQmsPTnJfufP9RQwDhhCgzpJL+XByNrwblcT7Jplmg1fAEP1+YWGHcMIMTT+i/10tWo3
-	 B9VaIU2H6XPZkfY3GH1bs6wTDHZ8yJPUBey8cuUl7BshlwqKB3GRCy3rFtRJg0yq4bA==
+	bh=6Hxj+A00cR7R2uHGcUSbmEOS3DLzDMNRKc/7icWTlNI=;
+	b=DFJ4hJk0WNv3J/PuL1+4fo7Z0oTsRqXXlF0GKZni/rI9Ba2e2yi5mfgtShCiYp6orL0Y
+	 7xIUvdhmReR+fQkS/ZrUgBx6HKdSyNqKEP2Bct4I2nAIjOEZw5ZPoQ6Sq9Hu34aaBtULU
+	 dZCpq7Pwwg8IMQd/0krafiSdSfnh7KKOU5LxrI84Kxx/XnnbzXv5VD+JSGc+1xdROlxfk
+	 HlCqL71OUSYHC/Cf3ZVBagy+nnGJqBFZbVUPymT8tKPb/TYBd06Z7lmOYNA6iBU1wdDEo
+	 ppeGKdvnWpU+l33At8Hws18x36I3vkoBmtQyoNWhM4IItQQjDwFGjynbNDJF3Hni2yQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b="SRWjhO/6";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.171
-Received: from mail-qt1-f171.google.com (mail-qt1-f171.google.com [209.85.160.171])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=sAdHnZEF;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.48
+Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com [209.85.218.48])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0D7E606A31E
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 15:26:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B0D7E606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B3A7606A319
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 15:27:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9B3A7606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=SRWjhO/6
-Received: by mail-qt1-f171.google.com with SMTP id d75a77b69052e-5337c7b9937so380381cf.0
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 08:26:53 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792682813; cv=none;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=sAdHnZEF
+Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c3f04e0e65fso283508666b.2
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 08:27:48 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792682867; cv=none;
         d=google.com; s=arc-20260327;
-        b=odtEa78JUtOzp3UU+nEV7f5+i35VGN1a/gm2qcvc2svpSJ3b8ibHywho3h+wU/j0E0
-         EycPreQ0RwBPBtH/2BqIZdBycBjKJcRHbgI8z2ZM5uWUBZKQAbF9SD4QYAdweqv1v5y8
-         KdHKjssVNMPCz63h4PgXKVJsvIpQihJr5sGYpVb53lhSHdG2ze+vjY/wZnyfGzx4udlN
-         k/H4jefm7F3s+qvqoFhZMBlzZGGYMXag5RKuPOR92tP2jx9Ku6ZGYclgrDWod0UvUTMI
-         boQDDH7eSBQYqVSHapSpbJAlvVofxie4uru3qirYoi8svT5RcoCCfzBl4Ycolu2FXz7a
-         7Aww==
+        b=adZ6UD4mjB360+oOxPQG2eM+g6VSF4CKff0XkNzSq/2S2mGzLZ6m3I+BlTTFxHyiu4
+         KPFm4S5LoyLO2PmABaimxhoUI3zYakvhbwPp8uMWnQ8fEsUetcpt7PCPc3gyvz+uCLMA
+         gnoFlBz5iCVbVGGgLUDguFSPUjlbjIw6qteSm3YKJehdviN1Eqd7Z63HeqkPFh6ar6F+
+         QAczGwE1vqFpfGSbJra/13lqkeb8CmUoGlBLJGMmjDrHpZqGzGYy9SVYLOz3QV3K+BgI
+         Tmcxp5A+LMrFpC+27Eo6zjSC2FdszuC+spu/y+5RnGNIFHUEAapxLIZRmjVFivUEYiMj
+         b7Xg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=kKY9lXCqmIHp0E1eSfDqDHg5eGZHzHb0/xVe+f4AVFI=;
-        fh=TaDFqkT8Urtvzg9HipZOVRPvbBV0QeMEIQytMit0C30=;
-        b=UyN9eKXHKMCW08DJwHgkAtDhEsY0jHqneClI4GZ9Xp8NIzbyw0uLeXWOqneTt8HDAe
-         BCSMKESMdPcNAlYp18wK/IfoVnXROgeiiWqZbWqLeb/FfPQqar25LRMlqxuCWex4KUrZ
-         XoFbQLcpzUbgno+aaF+X5wleOsXytCQ6pMm0SMWvILJqNirf86XSvvDSSL8WIXH4tenu
-         fDgnPnP46Xlt/BXxU4cF6Gv07f+LLdwYyr9S4p2NlSSxRDjLpWWKOBeMM8g0+VmSPpVn
-         VJT78d3QyCz98h8wB4/2LAN8lpDwUWcQRxEOJf85BnTiba42mgHRQEtMfD7kiW86GbFz
-         LFfw==;
+        bh=6Hxj+A00cR7R2uHGcUSbmEOS3DLzDMNRKc/7icWTlNI=;
+        fh=gTPfr5ye3KXS6GVnRq9gtTxeAex1GwBAnQZ8/kB6lsY=;
+        b=LWJHbruiSq1a3GYnifV5t02jD6PgnJINrtNAcHsFbgMd7eUqMy5p7aKQWGbM4ZAWLb
+         XeFruiofdUCyuqd8eUtiFDasOOtPQwsEeVLOn8k3QE2XKEM3vBubIcKQArKwI/uCXuQl
+         oEiS/nvgW6ms4JGl1AM9DGnC7YT59KO2LWBfsTacNP+N02ygt8oF+FqhiBJrFVJbCg2O
+         guTckibzIo0rcNi0q2zyFe5tVgdY6fR4MwmzyGm5iqGsBQT/ofbFkYuwwVRr1p/E8y3C
+         L01sywTlBovCRho6fbT/9+eIHo1g9OyCUkIjJwu+QFHkbWDPUAsNUP9PcFWRRx78d52/
+         yDzQ==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792682813; x=1793287613; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792682867; x=1793287667; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=kKY9lXCqmIHp0E1eSfDqDHg5eGZHzHb0/xVe+f4AVFI=;
-        b=SRWjhO/67mlCwYkFf09O9G2vA27TgXTmnwgcLgRSqbJH1Lg6dJUaG8+Rzn0W0pG2z6
-         2W8Qo1E5FjW7K5WD8e1/a6KDnxsyGKWAVrEDDV5nlnlgmY7kGrQEMjqa8A73hbSUD85L
-         2kvgJzr64r3pLFa64VOG0yUUZSfG4VOixinpLhQISu2sjyi/vbIH5MzEkYjQBbchxUkS
-         PC+G+GejWba2OH5sNeMaYy2F9akpC5BT4k0oUla2IfFSX97ycZMrSP0CkHeZQ5x/UGNH
-         rf1ukyhOowrLj01YXdBnmbXZxKOCd/RGd3SyXdfB6ulZw+iQxfAbXZFhjDo/yf0ugTeW
-         3uMQ==
+        bh=6Hxj+A00cR7R2uHGcUSbmEOS3DLzDMNRKc/7icWTlNI=;
+        b=sAdHnZEFcLSnbvOXqRxSdGy8GBuUppoR8hbdUqS804HFINcd/NKxUWsquAwE7S+khF
+         VayivuNMsH6R8Ubv8fzPB3CLT5Zzzq3V/Yq5sZKty5AtOQJ37PPbkwD43X162radeM8l
+         CqbxTYvqC7tBG7KWc5LKQiIw3ebhURGtyqK3MtaAklp8dy07pwvR1e0h7hxgykudhLj0
+         u0r4a1Zv8+Mqwl3R7ayDlbVBg/6ji5MZPuAzT50kJPEMi6P56VVcJ/SnHH8zJjOEZtOU
+         Cst1ntRipu02d/U2jiETXjJOYr0z/Tvc106U4KgrwYx0wk33FI00OXjObZiDlvucVzxg
+         qqvw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792682813; x=1793287613;
+        d=1e100.net; s=20260707; t=1792682867; x=1793287667;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=kKY9lXCqmIHp0E1eSfDqDHg5eGZHzHb0/xVe+f4AVFI=;
-        b=Z6NAb/Umh2ZkH7hU4GJgV+HIbPFZ/ZNzbsR+C/36lTv3A8Cclinjvde9fQnp62mQLc
-         KammenyKOSMkGtJ5xC1EPPKkW21TmjG4UrBNiTuaV3uB3gerrFYA2TFMLzO1EScHpHBh
-         lxR7DpJ8HdRMT0/k9nAIljvEHybjvDRTuKO9EkZOGHYYlcXlmyq6DWk1HzbwEi9VlJfw
-         W5TP+/8shUysRYW6RbovmZORqjk1MS4iVyucw2tSQFoM1txvdGde0jGbZt23kmFP6SaN
-         +uTghYrxg2t8FgA4OsgRz61FqkFW8oisN/XlbmChvzqrtvCNAOLuuUi97/B9iJ8zw6rL
-         8osA==
-X-Forwarded-Encrypted: i=1; AKwUvBxYvdTBQxoBkN3zslU7PqX+PLILUhorh49t/PxeObWyUkyw6F8VQ2eb/+HpTnZM+7KqQbMi/+2dGL/TKNw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLL8xaJnoZHqA7zVXQLlLZo71oZhRF0iSrA+iFbx+dYQhyCh33m
-	K11phKt9iyQbtYFADhmlUB3qU+VYXnqjYl7qC0LSA+7HtnpUEJG+3NmbDh0Q5xAB9e1Q55NMvpW
-	40NeLn1SEHFL/0wHzK8chk6LChFuhUxgn/VXbHERm
-X-Gm-Gg: AYBFou0va1tZMKgWASqhNV+SOb0gpqgqGqVXmjUMVxkpgCwhmSSE4OT/D+7dneUuHNp
-	mO3biYQxH/1EaqhhsWHqiIdEQXhnEFiqZ3WIigDElOHgNvRrhEmdx6bKQCS16lqu9SM5MTanggj
-	TaAr2rK9ItW2i1/37Bu2/RHGUr9qWzsh9BNuAS9b6rJzbkmXJfscZmMP+mFvwspYxTgLRzsIwkq
-	wOChbVcf+qwAQW+GkmoXZ1GaRNSQzHHCNb3j/9LNy3h46C35FC3WbQo+Ym841KHj7rf+ldcsoWe
-	JOBKmmbqC4C4jvnOYdKOsSE6fUX/rs7BN/Uy5wAlJ8WYroiopb9HswLRSgnNzzTVrSRpOyRYMza
-	M1WbyIl7gPl+axp73NrWN1EfJvs5vBaFURkYSmS1ieDJGiP1jV/y0xrANN++Pdx5L
-X-Received: by 2002:a05:622a:e314:10b0:532:a17b:9581 with SMTP id
- d75a77b69052e-536aeaf3b92mr12054111cf.3.1792682812079; Thu, 22 Oct 2026
- 08:26:52 -0700 (PDT)
+        bh=6Hxj+A00cR7R2uHGcUSbmEOS3DLzDMNRKc/7icWTlNI=;
+        b=wkQizDbSx7RPCITZ9RT55fukHPyQgKTqgQCY2Y+cBoIco9DLDtMmDMfNg8miGs9O8e
+         QMVHYmICkImGM1M+qCxxyyu6bw50eqo2LbjuklpcGNY+5Obfxx8+vQQTHN2H3oow3L2C
+         ypYVH0HSSZXPVKSm7QAtOhulBUaO+gPnsw38HLE58SAL5oczKUR599U/DjxySbkAO4UA
+         oHVX57/Sb7PeaLKGRgYZnxf8CTAv8P4iJRt5o9rNrtxTgFk4MhdNeFID6r0us/lZr8AE
+         SdFNoomqmIqkvyNXBJKCobRcjrHy2ty680DeEn639VRmD+lPKseYzFgGQnfWeve4bjtN
+         W3sA==
+X-Forwarded-Encrypted: i=1; AKwUvByMGnE007yUKvbjPimJQSQG4xPo3HKNTlSCwew7b5t30PGdb421sC8iBjclunmHhfUD1KaiytiRrN7pVDs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKi3Lnwcqj1ZVxzXxpl4yhDrzm3yF1uo3C3bjxC5CYPmv+ZAnhX
+	Zc9VnRD8iNnsnhgc2g/7TdtcRcRNqjIqdmNgQPJpW7rVGToLqVZ4i3KdfE0rPzVqrMfNB3HC5eL
+	9oYqXo12Xlk+7cGWD5uY27Z/FiYXwRWw=
+X-Gm-Gg: AYBFou16zvhzSpkVqbxqpVuyWzZvRN6VKwlVVkVTwaDRvZ47vhHsPtabMQ1rjjYEVnk
+	c2YX0SxLJiT/zzc2ILwLbMwxVeTnDIMB+jzK8jUoSKSkjuVAkd84Xp6RQDNndnlCaMciQnaFgsQ
+	fxASh9gk8nmrKzJipd/fE8LKwA5NdVFDJ8eUDe4RtWIj+ZXp3Cd+85YTNYhVdwblL171mvk26Qq
+	ClNsq8Ki0CyPLqTeE65b0Zj/CTd/Ki6MmfrTBvpp/NA1niiwZF+NHBzHCWRCjE70ImCzUck5nui
+	BwDdgAsgb77wXrbwx6NrFpkJlnstK2Q1zv//AHXM13ivDy7VCszSKIMWBNptwuiVSI1DHxKFPLw
+	EfOWrzhfKjJBR5HGm5N4e/4cXO+vxv0iWw2znjnj0OP8GbZhtbFVgAeQx82vRRcXntPtJtw==
+X-Received: by 2002:a17:907:96a0:b0:c2a:fcb7:62f2 with SMTP id
+ a640c23a62f3a-c46795d8b8amr616802066b.19.1792682866675; Thu, 22 Oct 2026
+ 08:27:46 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,123 +104,82 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <cover.1792439751.git.abhishekbapat@google.com>
- <9e49a8f68e4e7d25c5a9a73c1926f68e468ef320.1792439751.git.abhishekbapat@google.com>
- <98855929-df9c-4615-84ea-b90acba8c2ae@linux.dev>
-In-Reply-To: <98855929-df9c-4615-84ea-b90acba8c2ae@linux.dev>
-From: Suren Baghdasaryan <surenb@google.com>
-Date: Thu, 22 Oct 2026 15:26:40 +0000
-X-Gm-Features: AclHuK98Q_RR2pQhVQuaYAm5_PHt843ZOWGZFsQ6emeYuT-eX4QwHRsne4e1aO0
-Message-ID: <CAJuCfpFDT7ZiUaSwcxr5sLNOm7gNr0kibJHzcuMev2fLkJFOMA@mail.gmail.com>
-Subject: Re: [PATCH v3 3/4] alloc_tag: Extend allocinfo_filter to support
- tracing queries
-To: Hao Ge <hao.ge@linux.dev>
-Cc: Abhishek Bapat <abhishekbapat@google.com>, Andrew Morton <akpm@linux-foundation.org>, 
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
-	linux-trace-kernel@vger.kernel.org
+References: <20261022145615.2184343-1-alex@ghiti.fr>
+In-Reply-To: <20261022145615.2184343-1-alex@ghiti.fr>
+From: Kairui Song <ryncsn@gmail.com>
+Date: Thu, 22 Oct 2026 23:27:10 +0800
+X-Gm-Features: AclHuK-fIBBaSiERuV8G5LHCXzXK7ovXYByOu5sY2WraRLkDWuK_sndSlfwYbXI
+Message-ID: <CAMgjq7AB4wUzmugV3n4mhWcYqMKmhoZJCDV2uUagFjZXjUUi3A@mail.gmail.com>
+Subject: Re: [RFC PATCH 0/1] mm/swap: keep reclaim batches contiguous on swap
+To: Alexandre Ghiti <alex@ghiti.fr>
+Cc: Andrew Morton <akpm@linux-foundation.org>, Barry Song <baohua@kernel.org>, 
+	Chris Li <chrisl@kernel.org>, Kemeng Shi <shikemeng@huaweicloud.com>, 
+	Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
+	Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>, 
+	Hugh Dickins <hughd@google.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
+	David Hildenbrand <david@kernel.org>, Michal Hocko <mhocko@kernel.org>, Qi Zheng <qi.zheng@linux.dev>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, Lorenzo Stoakes <ljs@kernel.org>, 
+	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
+	Wei Xu <weixugc@google.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Wed, Oct 21, 2026 at 7:43=E2=80=AFAM Hao Ge <hao.ge@linux.dev> wrote:
+On Thu, Oct 22, 2026 at 11:00=E2=80=AFPM Alexandre Ghiti <alex@ghiti.fr> wr=
+ote:
 >
+> 7.3 regressed swap I/O: for the same swap volume, a workload that
+> rewrites swapped out memory sends many more requests to the device.
+> mysql/sysbench in a 256M memcg swapping to an NVMe partition, 7.3
+> compared to the previous version:
 >
+>   device read requests per transaction        +59%
+>   device write requests per transaction       +27%
+>   throughput, iocost off                      no change
+>   throughput, iocost on                       -19%
 >
-> On 2026/10/20 04:00, Abhishek Bapat wrote:
-> > Extend the allocinfo filtering mechanism to allow users to filter tags
-> > based on their trace state.
-> >
-> > Signed-off-by: Abhishek Bapat <abhishekbapat@google.com>
-> > Acked-by: Suren Baghdasaryan <surenb@google.com>
+> Two commits interact:
 >
-> Acked-by: Hao Ge <hao.ge@linux.dev>
+> - Commit 9a42aed48421 ("mm, swap: prefer nonfull over free clusters"),
+>   in 6.18, makes order-0 allocations fill nonfull clusters before
+>   taking a free one.
 >
-> > ---
-> >  include/uapi/linux/alloc_tag.h | 8 ++++++--
-> >  mm/alloc_tag.c                 | 8 ++++++++
-> >  2 files changed, 14 insertions(+), 2 deletions(-)
-> >
-> > diff --git a/include/uapi/linux/alloc_tag.h b/include/uapi/linux/alloc_=
-tag.h
-> > index dafcba2f7e2c..a96054ac2237 100644
-> > --- a/include/uapi/linux/alloc_tag.h
-> > +++ b/include/uapi/linux/alloc_tag.h
-> > @@ -38,7 +38,8 @@ struct allocinfo_counter {
-> >       __u64 bytes;
-> >       __u64 calls;
-> >       __u8 accurate;
-> > -     __u8 pad[7];
-> > +     __u8 trace_on;
-> > +     __u8 pad[6];
-> >  } __attribute__((aligned(8)));
-> >
-> >  struct allocinfo_tag_data {
-> > @@ -54,7 +55,8 @@ enum {
-> >       ALLOCINFO_FILTER_INACCURATE,
-> >       ALLOCINFO_FILTER_MIN_SIZE,
-> >       ALLOCINFO_FILTER_MAX_SIZE,
-> > -     __ALLOCINFO_FILTER_LAST =3D ALLOCINFO_FILTER_MAX_SIZE
-> > +     ALLOCINFO_FILTER_TRACE_ON,
-> > +     __ALLOCINFO_FILTER_LAST =3D ALLOCINFO_FILTER_TRACE_ON
-> >  };
-> >
-> >  #define ALLOCINFO_FILTER_MASK_MODNAME                (1 << ALLOCINFO_F=
-ILTER_MODNAME)
-> > @@ -64,6 +66,7 @@ enum {
-> >  #define ALLOCINFO_FILTER_MASK_INACCURATE     (1 << ALLOCINFO_FILTER_IN=
-ACCURATE)
-> >  #define ALLOCINFO_FILTER_MASK_MIN_SIZE               (1 << ALLOCINFO_F=
-ILTER_MIN_SIZE)
-> >  #define ALLOCINFO_FILTER_MASK_MAX_SIZE               (1 << ALLOCINFO_F=
-ILTER_MAX_SIZE)
-> > +#define ALLOCINFO_FILTER_MASK_TRACE_ON               (1 << ALLOCINFO_F=
-ILTER_TRACE_ON)
-> >
-> >  #define ALLOCINFO_FILTER_MASKS \
-> >       ((1 << (__ALLOCINFO_FILTER_LAST + 1)) - 1)
-> > @@ -75,6 +78,7 @@ struct allocinfo_filter {
-> >       __u64 max_size;
-> >       /* filter criteria only; see allocinfo_counter.accurate for actua=
-l accuracy */
-> >       __u64 inaccurate;
-> > +     __u64 tracing;
-> >  };
-> >
-> >  struct allocinfo_get_at {
-> > diff --git a/mm/alloc_tag.c b/mm/alloc_tag.c
-> > index 9ff9dd04d692..0d4d267c065f 100644
-> > --- a/mm/alloc_tag.c
-> > +++ b/mm/alloc_tag.c
-> > @@ -250,6 +250,7 @@ static void allocinfo_to_params(struct codetag *ct,
-> >       data->counter.bytes =3D counters->bytes;
-> >       data->counter.calls =3D counters->calls;
-> >       data->counter.accurate =3D !alloc_tag_is_inaccurate(ct_to_alloc_t=
-ag(ct));
-> > +     data->counter.trace_on =3D alloc_tag_is_traced(ct_to_alloc_tag(ct=
-));
-> >  }
-> >
-> >  /*
-> > @@ -323,6 +324,13 @@ static bool matches_filter(struct codetag *ct, str=
-uct allocinfo_filter *filter,
-> >                       return false;
-> >       }
-> >
-> > +     if (filter->mask & ALLOCINFO_FILTER_MASK_TRACE_ON) {
-> > +             bool tracing =3D alloc_tag_is_traced(ct_to_alloc_tag(ct))=
-;
-> > +
-> > +             if (tracing !=3D !!(filter->tracing))
+> - Commit 3cedb745d354 ("mm: clarify the folio_free_swap() for
+>   do_swap_page()"), in 7.3, frees the swap slot on an exclusive write
+>   fault. 7.0 to 7.2 kept the slot, but only as a side effect of commit
+>   4b34f1d82c65 ("mm, swap: free the swap cache after folio is
+>   mapped").
 >
-> I recall Suren had a small nit on this hunk in the previous version.
-> I don't see this change here, did I miss something?
+> The freed slots leave holes in full clusters, which then go back on
+> the nonfull list. Reclaim allocates slots one folio at a time and
+> merges the writes afterwards, so a batch of LRU-adjacent folios gets
+> scattered over those holes and is written with many small requests.
+> Readahead later finds those pages scattered as well, and needs more
+> read requests to bring them back.
+>
+> I tried three fixes, which perform similarly:
+>
+> A. Revert 3cedb745d354. This keeps the slot on write fault, but undoes
+>    the intent of that commit and keeps swap space pinned under dirty
+>    pages.
+>
+> B. Below 50% swap usage, make order-0 allocations take a free cluster
+>    before a nonfull one. This is what the allocator already does, at
+>    any usage, on swap devices with discard enabled (swapon
+>    --discard=3Dpages). It is about five lines, but the threshold is
+>    arbitrary, it stops working as swap fills up, and it applies to
+>    every order-0 allocation, using up the free clusters that
+>    nonfull-first keeps for mTHP.
 
-Yeah but Abhishek replied to my comment citing similar usage of !! in
-other places in this file, so let's keep this consistent.
+Hi Alexandre,
 
->
-> > +                     return false;
-> > +     }
-> > +
-> >       return true;
-> >  }
-> >
+That's a interesting problem. I think the real problem is with commit
+9a42aed48421 ("mm, swap: prefer nonfull over free clusters"), right?
+
+It's more like a balance between fragmentation and contiguity of small
+order allocation issue.
+
+Perhaps we should instead always scan the full clusters and revert
+that one commit? That commit was only following the idea of keeping
+the allocation more compacted for that series, it looked good at that
+time. Since fragmentation issues can be solved in other ways,
+contiguity seems to matter more for large physical swap devices.
