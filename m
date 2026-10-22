@@ -1,50 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.236.72.118
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.200
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792689836;
-	b=xcIx0OlFz40tAAflj6pEPs7GR3bXt69+pIO0gvLsx7n8f+IfqyiQSoHW9mmXIy4RXoSY
-	 66qRkQ4cFSnOtlyaiHl2YG+1FHflls0m+k3oRQg59zVF7YRP7cp67f0UDoDXp8jQr0hQ9
-	 7UjJTm8/lYEC8IdLMUNgHqO9h2PBh1VdIotvUyVHIJsHVtDlwr6LHxcKH/LPeKRkfHUsb
-	 M9qrwaice8p4nGN19PYnNx9wAb67FfrnW6pBUPtLZq4DHURqCOq1P+x8QqDzCpP/91q1U
-	 hrODp6YieswxWMa7VQj1DL1OwUjfqBJxYQi2XAba/85eTtjnxsCrvWui6lp4GUknYUg==
+	t=1792689860;
+	b=qcrTX9nS/0nEFk1yUY6Y1aOj3klxpAQCbsdftk3URCvO5HPU0iP0XH/kb/ZGL1/UMJJr
+	 oeJ9L0Byq99dhQy5CiEOxzqXguuHsLRpsGkJZeQDDqpVnULuQjO2PV5If0NmnbVLAHvgH
+	 OnJS8OvMLZgdfYjNbYrsN40yJX+eEQtEnaRY3HytKFcDQVnRFVo6B1xVoJwuy/pxQzlvH
+	 KhB9fWthdkkJlGwe9SpVqGdcIf0L7b/7fvPaCe0eNngI4MM3xpw6Z2O+MNFZORyytgDK8
+	 new7h8YF3V83p5Midv3mQqwPkjYOrgjyVUfaBSAMZC3MWbTTHNCrjpdvQ1/svdmb2jg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792689836;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=pwrLkLSsVrh1H3W7ILEp/p+Y3LJm4BbREMqVGNd3cic=;
-	b=1BI6YBhjbGOeHd6U4K9YCCXmYFPkzdVbjvReFAPXWlQNW+z9gavN3Bd2uT0UmP3k7uuV
-	 4evq3p1hdSxn6Z5Ev6zhsLmyMsB+2MOrK7Gz/zbdf//OouRL45lb1JgqZpJUqLNV7uyt3
-	 H3nw45FOB6LbsX+QfJfyUN2nlBWrTkqJjLW+Zlif3NXEMQ/OmaNsRdlTUfKkgHIjsUHJ1
-	 +7KLfv1avAyYapXq38atZbJ2MguPa21nR0lFwX1XL8FjB+uAFu6ouxKkF76Qnuk3b4tye
-	 C4xiIV8Se/LoOanTXtwBueBLQ3sNG6eNlcfCAP/mVNBYAYH1OEGqRFl3HyvAvls2DuA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792689860;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Gm-Message-State:
+	 MIME-Version:X-Received:Date:In-Reply-To:X-Google-Appengine-App-Id:
+	 X-Google-Appengine-App-Id-Alias:Message-ID:Subject:From:To:
+	 Content-Type;
+	bh=00gfMEwpbvoALO5tjO4l12QhAe6j/a6+cHjt01SCtDM=;
+	b=4eLSt2L7VfMBracqrPqpSxnWQBnxSi3GlfcfewNptSswPxhiC81H3dj076YSjuua0QEl
+	 2IucJl4PvgV6/9DJSr5j3OyUC4UubvcHKqKdnAiD5a3/r82nWXPnn407StM3o5BQY/OKK
+	 3mz+CUKhh2QNmeF00BsIs+4sltoq0VkUiUaXHyhlgSwFDxlC2craCobu4/rZNXVtb0JUO
+	 tHP1cmefoeD0O0sjb91lkx55p+tdPd+PWsFtXPCWL+yVG3JmCkppBbZkaTushbboXC1+c
+	 IdFfuzLGUOv7i/eDioH65X66sxHtPSxj35TjhvPWuUdsfPoSDC/MViVKYHdErXGDTWw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=tpz.ru;
-	spf=pass smtp.mailfrom=tpz.ru;
-	arc=none smtp.remote-ip=109.236.72.118
-Received: from mx1.tpz.ru (mx1.tpz.ru [109.236.72.118])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.167.200
+Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B9AC606A319;
-	Thu, 22 Oct 2026 17:23:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4B9AC606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tpz.ru
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tpz.ru
-Received: from lvc.d-systems.local (unknown [109.236.68.122])
-	by mx1.tpz.ru (Postfix) with ESMTPSA id 4j9Y0S19NTz10QYQ;
-	Thu, 22 Oct 2026 20:23:52 +0300 (MSK)
-From: Ilya Krutskih <devsec@tpz.ru>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Ilya Krutskih <devsec@tpz.ru>,
-	lvc-project@linuxtesting.org,
-	Liao Yuanhong <liaoyuanhong@vivo.com>,
-	Kees Cook <kees@kernel.org>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] media: drx39xyj: use u64 for VSB BER values
-Date: Thu, 22 Oct 2026 17:23:48 +0000
-Message-ID: <20261022172349.224694-1-devsec@tpz.ru>
-X-Mailer: git-send-email 2.43.0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E27AE606A323
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 17:24:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E27AE606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4c467e19391so153189b6e.3
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 10:24:19 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792689859; x=1793294659;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=00gfMEwpbvoALO5tjO4l12QhAe6j/a6+cHjt01SCtDM=;
+        b=JXlZSUq6NHZcXCvu3L65TjBXBNWYabtXx7Pf2j11578ESPyhvFEtr7X1nhZmysUnuX
+         I4WvkK+/ZvhIh9EDDVCHIJfIgD0/5Ydz50+Zrvs5eVA8+oAKqZ+HfpPuf7LWXGQoHKJX
+         4uxKNwPkZMBkRkOclKely9otqM0pTWftWTO5ikvaeg/7NFSAfsRX0RrIxoDqBIiMQCwc
+         mwBb5PCR5hL6dEPVlI8peZLbjg7KbbTi20tlqabRlzVJD1ODrjLGAhxHG5geN6mQY3zo
+         2Nu8sLdWCVahqdJaczEXZygBZt7T/jZoGnGofp4pZztFkZfggPy0I7CFjJBfP83tiYR/
+         NSug==
+X-Gm-Message-State: AFq9FYLX5e953n6WyIrAjJzpjnwt5oBYPDhe0RvysUo7uI9QHqclhb1d
+	LbirBq/bf5hFnFwfnCn6AdbEsNXvaMho3R2GLoHHKexPsNI8iaeDl/fhZ7nHXCqxRgAxbZiCT6U
+	gI3a5iPrRtXALX2BgHjpzWAAAqNcai6K0xZN56vp9NkjThQnf7OR6RE9eECE=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -54,75 +57,25 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Received: by 2002:a05:6808:ec2:b0:4cb:26a3:a0db with SMTP id
+ 5614622812f47-5535d9b1e2emr3535266b6e.39.1792689858997; Thu, 22 Oct 2026
+ 10:24:18 -0700 (PDT)
+Date: Thu, 22 Oct 2026 10:24:18 -0700
+In-Reply-To: <6aa9c7f8.a211d2ce.1a5198.02b5.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ada46c2.d1c214cc.659fa.00de.GAE@google.com>
+Subject: Forwarded: Re: [syzbot] [netfilter?] WARNING in nf_flow_table_extend_ct_timeout
+From: syzbot <syzbot+521f7e7e2b974abde99a@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-The VSB post-Viterbi BER calculation can overflow its u32 result.
+For archival purposes, forwarding an incoming command email to
+linux-kernel@vger.kernel.org.
 
-The FEC_RS_NR_BIT_ERRORS register contains a 12-bit mantissa and a
-4-bit exponent, with ranges of 0..4095 and 0..15, respectively.
-A mantissa of 4095 and an exponent of 15 satisfy the high-BER
-condition: (4095 << 15) >> 3 = 16773120 > 68700
+***
 
-For every exponent greater than two, the driver calculates cnt as
-FEC_RS_MEASUREMENT_PERIOD * FEC_RS_MEASUREMENT_PRESCALE * 207. The
-constant period and prescale values are 12894 and 1, so cnt
-is 2669058.
+Subject: Re: [syzbot] [netfilter?] WARNING in nf_flow_table_extend_ct_timeout
+Author: mike.michalo@gmail.com
 
-The high-BER path then calculates 924255 * 26570 = 24557455350,
-which exceeds U32_MAX and wraps before reaching the DVB statistics
-counter.
-
-Store VSB BER values in u64 and promote cnt before multiplying it.
-The statistics uvalue field is already u64, so it preserves the
-complete result.
-
-Fixes: 38b2df95c53b ("[media] drx-j: add a driver for Trident drx-j frontend")
-Signed-off-by: Ilya Krutskih <devsec@tpz.ru>
----
- drivers/media/dvb-frontends/drx39xyj/drxj.c | 9 +++++----
- 1 file changed, 5 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/media/dvb-frontends/drx39xyj/drxj.c b/drivers/media/dvb-frontends/drx39xyj/drxj.c
-index 367acb59b4a3..a257ecc4f2e0 100644
---- a/drivers/media/dvb-frontends/drx39xyj/drxj.c
-+++ b/drivers/media/dvb-frontends/drx39xyj/drxj.c
-@@ -6245,7 +6245,7 @@ static int get_vsb_post_rs_pck_err(struct i2c_device_addr *dev_addr,
- * \return Error code
- */
- static int get_vs_bpost_viterbi_ber(struct i2c_device_addr *dev_addr,
--				    u32 *ber, u32 *cnt)
-+				    u64 *ber, u32 *cnt)
- {
- 	int rc;
- 	u16 data = 0;
-@@ -6269,7 +6269,7 @@ static int get_vs_bpost_viterbi_ber(struct i2c_device_addr *dev_addr,
- 	*cnt = period * prescale * 207 * ((bit_errors_exp > 2) ? 1 : 8);
- 
- 	if (((bit_errors_mant << bit_errors_exp) >> 3) > 68700)
--		*ber = (*cnt) * 26570;
-+		*ber = (u64)*cnt * 26570;
- 	else {
- 		if (period * prescale == 0) {
- 			pr_err("error: period and/or prescale is zero!\n");
-@@ -6290,7 +6290,7 @@ static int get_vs_bpost_viterbi_ber(struct i2c_device_addr *dev_addr,
- * \return Error code
- */
- static int get_vs_bpre_viterbi_ber(struct i2c_device_addr *dev_addr,
--				   u32 *ber, u32 *cnt)
-+				   u64 *ber, u32 *cnt)
- {
- 	u16 data = 0;
- 	int rc;
-@@ -10674,7 +10674,8 @@ ctrl_sig_quality(struct drx_demod_instance *demod,
- 	struct dtv_frontend_properties *p = &state->frontend.dtv_property_cache;
- 	enum drx_standard standard = ext_attr->standard;
- 	int rc;
--	u32 ber, cnt, err, pkt;
-+	u64 ber;
-+	u32 cnt, err, pkt;
- 	u16 mer, strength = 0;
- 
- 	rc = get_sig_strength(demod, &strength);
--- 
-2.43.0
-
+#syz test: https://git.kernel.org/pub/scm/linux/kernel/git/netdev/net.git main
