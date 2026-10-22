@@ -1,79 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.221
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792677945;
-	b=dzjkpZylnApc0y0V+CFl6RYlXbyKuVh8ACWI8+xRKOVRVpsZD4HphkGftLLYzF/PyH2V
-	 EfVXE65wxOqG9XtJbbBP9doIRj8FbcJqsR4ebuOPgZMjY6wchMdIkMvn8toCIad2Xu8x+
-	 OFJePYDJGdvM2QvXeyKrglf5/L2jQ3sknxUy0OYRT7stIG1Ys0M/aXLHOfGMbcVIPqOqO
-	 O/h7SBxITv+Lpdzjkw8kiANpFuv+CXoRlYTcKASD1gZLDV5s3Jqw4BQxcGc5EXdE67m8P
-	 hzmLf8MphThVCq+k87M/HIFtNZ5/LiMkodo8wZX3al0WvRKd4kt6tCJXga97sW+t6fg==
+	t=1792677959;
+	b=lbRuskQYLGdLEiLfOYOUX47URxlElGG3fPp0oX2w/vkzr+2h1KaFw3uHvYGrV8gS7iD5
+	 nqWpNCMTM5aI6Od0yDoKN7QV6ZmdsjkZWdSyvGsbqLpfikAe8wixthNyvJfFQ9mBprnkr
+	 M5G90AFM0rNBRW55jVrZ9Bfqj1GVxjk78sdw98Z6h//vykRwXu/iHaKam1Kk/kHAyeKT9
+	 WoELzAfxo/ANPdCIxhHYK/6+iaoFyNK2BsXEgH4MtEXhQR/j+CkfrZc2zS5GwwkFnTKG6
+	 ENgnV5YMsCL874M+QaZnTIJTAqbn3aCXxzftEr5nk80UnD0FLMb7tLnQHzu6xpRUiBA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792677945;
-	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=a5D5hMs4CadcbFRHDeYx0Gtn1SAcU/iXoF87KytFFvk=;
-	b=Bd07Ra4FEf66kbTU5tIvAhSvyujhpC5X8GNQQmQQX/I9E7b1uwG5Ky6KqWivfUBqKToA
-	 lfyXlVf8QdeYLAPh/EnKPe7GXzhoLRfo4KvzKiRfwuKjhq/oDaVK1yzSkl5yIxdEisC9Y
-	 J+sSCSna4yNlKqBhCpUI2S1qwmRwmSsGcDO+AmV5J8zxLSWk6H74ihGuxHTcEidCEs00S
-	 5Wojs4pAHQHq+9nRRWpwSjzKsfzl+bjG6PLVEUaD53OmUUJRoHDJ9w/FirJmixYsPYUbR
-	 rr+lE0Au58LKW7wPG1wF6xho521KFLvQDxThtQh+7zKlWUhRWCrJgHBPyDvOa0/CMIA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792677959;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:Received:Received:From:In-Reply-To:
+	 MIME-Version:References:Date:X-Gmail-Original-Message-ID:
+	 X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type;
+	bh=8P7Tu0XAT+J8wnnHHa0JJQWbLO74zxbECpHOR7WiaRg=;
+	b=j+CYPQKjhDJ7dNaGkat1LbVInsrey6lK7MMiCbHRVqR9DdCHi6L25YirJnCwJAYrtiB5
+	 N7xOXGnuzslz5iI+KX1QZyk+kgDatAdob1nYvEHrD/JHFxoD4o3oR0oBFui2xgPG4l2JG
+	 i/wJobWGoPhTNPvHmmgr9arUH4d/QgsGGdElTLZsE/w+7tpu/tdQlRzPDwFK98SO2nSxC
+	 YP62l0QZHvDJ5/ULA21TWgV0FKSZKDIHkggZ2m7rec6GCXszMVwJmkRThSS0XGRjaMcv/
+	 eh3MyIBXP+kxDTlGQLjGrbRWchUEJEt2iEwn/Khh3su8d/rJRZur3nsl3DXjnIETPvQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=qq.com;
-	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=f98SPToi;
-	arc=none smtp.remote-ip=203.205.221.221
-Received: from out203-205-221-221.mail.qq.com (out203-205-221-221.mail.qq.com [203.205.221.221])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D5ofscP5;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04D65606A31D;
-	Thu, 22 Oct 2026 14:05:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 04D65606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C967606A319
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 14:05:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=f98SPToi
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1792677939; bh=a5D5hMs4CadcbFRHDeYx0Gtn1SAcU/iXoF87KytFFvk=;
-	h=From:To:Cc:Subject:Date;
-	b=f98SPToiuLh2NWQ8JAUHUpcKhwCTKzIZ+qmyUqnVorNqDiGexHEhp+ZBazDDGvdxS
-	 RK5yhb60QplTEzbgC/RrfaWYCCQMzmHSAvo0B6LBhRXz/9sNushjKouUqGzkWxAWgC
-	 bycbCywY3QRIWyNcNwZvuIeqQbFj6H5b8xFGG6Jw=
-Received: from kernel-lab.tail5e91bb.ts.net ([2408:8352:460:ee50:a639:b3ff:fe5f:1b0f])
-	by newxmesmtplogicsvrszc43-0.qq.com (NewEsmtp) with SMTP
-	id 165BE656; Thu, 22 Oct 2026 22:05:37 +0800
-X-QQ-mid: xmsmtpt1792677937t2jg0qgk8
-Message-ID: <tencent_287A56749EA8448A970F2715FFF29F334108@qq.com>
-X-QQ-XMAILINFO: MGiPAdtq5twnAdiQdq/iW5VIflC6PxBOMxyoW8ydpzKhN4/FZKDysUhpIqiMSn
-	 HNnI3/XO7mzkzlwLE5KnderNdrB9YL+nef3wq40N7mvBcwsdsheLJ7E+UCCZv9u7QJqbplVQVN8T
-	 Pt1oTSATtLQnlKOORVDqgn9XVLYCqaR5GxJDp0e1zlqH9j3z9ZqXK7ZxeZlwSHBe/1UcxPP1WXvQ
-	 4kYh0t0ZntRx6XsOy+Iv6KTixx7bzZX1+AcwkX4MW3alrqzVVUZW9XsPgwswG9b9qkMUDtFd5csd
-	 En3qtXlQYTcwpk8rCGB6Uqdq1J6DI+cdZIJkfb/oH6V8VWjwsYdMT5f+5h8ZIk3ueDEBsEQsciEg
-	 voLJNxNklpFesWlsUYCWaxjER36gMLoZZ8iSU/engHGY3bg1xdMRQYFDOYfADVKcL0TuiI3KXfLK
-	 9hWgXzKI3fpdLBHU3+glka4vMu0x70waEu4aNkFxIDt+zL9wBlEd0yCAXjcRvx7T8x8yF/jSoDAl
-	 RAdK0OeE3K5cNRRrq7TWDTw+0RwHkmFEwMImrxC3zMPdmIpWz92Uic0OSA8iVzkPdA6CpqFBkQrS
-	 vDYq8g5KeLTW8eRtRRntbCV+bG7ffDGqyhfIWx6Rn9rU9Fogm0bChfabk/Ik4Q5HQwWPFIY/2nuR
-	 ngy4jYyDmwCbD3vU6f8qSjMbo6Z3wkruGtHEJqOJ6/0iUWtvlk7ePluqZlB499ccfTklO8e59452
-	 WX2RNEDiO3BwKTwzJlLDzgC4GgyDx5dCwZaJJRyei0e7fslY4m+GwFHg2JtwP2hAeDbn93voHkYL
-	 SnJQnQYhTPXBpMZzdGmEyW1Gcq8UWGWH442ykeGOW0lE6LsbhJlP/VI7TB/IRmf+gsJserA4fBxW
-	 EScsqgACK04bjU9DM6Vutu20Fp7CG18HTxaLDcSaeQK6a4pW5lNmcnPyl2NJLEP/6kj8GC2ysKDU
-	 Fpiy3aVz6GMlLngSI/rSaptTKeySvTB4BEKVWicWtK5x/Kx3bS7S8ip3hP1HBKZABIoxfRI1uQkl
-	 kfmLH/ux3Ss3ja8pFFX0lapuNTtf8BiSt2LCJ63DSYb0zrFdTWuBVzQpMgXWhc7G5HGQxsLKFRsE
-	 UtaQ43
-X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
-From: Yingjie Wang <1075151112@qq.com>
-To: kuniyu@google.com
-Cc: davem@davemloft.net,
-	edumazet@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH net] af_unix: order MSG_PEEK references against garbage collection
-Date: Thu, 22 Oct 2026 22:05:36 +0800
-X-OQ-MSGID: <20261022140536.715328-1-1075151112@qq.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D5ofscP5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD9421F000C4
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 14:05:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792677957;
+	bh=8P7Tu0XAT+J8wnnHHa0JJQWbLO74zxbECpHOR7WiaRg=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=D5ofscP5XXx+2SDB9cBz9+0+d7YaxZRpSd/BAfwU/zcz1DfANMut7zYvBjbVrEWNj
+	 LBSTiRxcaISYlK471Fqksrz7E5tBbg8KARV57ne4U0LtRTH8rItFYiIRG6y386uBXe
+	 SnuoMzZmbL41FyGBg7UDRmVrtJ9ASEXnaTHDCqMVGjk9nmIIrgtmtnDvmGWm9rKsED
+	 SdNgLzDJ1VCPLWE0Qv7UICOs1XmK3oF1SEeeXwOFbNJYxMrKuWfD5cOzd6PaLpXEP4
+	 Z9lH0+borKwIV2nK2piYlK5tQirUfhosZw7kDzRLSRgao+FoxgnfkdFfXQXtWQEUoW
+	 twwsUBiyy9UGw==
+Received: by mail-lj1-f176.google.com with SMTP id 38308e7fff4ca-3a1f628b1d1so18557781fa.0
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 07:05:57 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBynkiDvhXWROw4JYQBPAnUaurrse1/tRZhCqdl0TYDK5jXnBC5l6jYckWaJqnN7kcX0od6FUT6rw3eBRmY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJjN3ySMp9S9zIbUX8dsmVR4sf5jCUSDcVCfWZrW4GCsyAQhIZk
+	+/4Xa4xP88WD312j4FUjqYicE7YTTQ5RlfyyZWKjmnEIcyrM+Ls3DkrrY/bKqD22F29pbd5ylPE
+	6ngal4OHd+mF+/ci4Lj0R3vkE3EDV8RSoYSptEfGKqg==
+X-Received: by 2002:a2e:bc07:0:b0:3ab:3bf3:1606 with SMTP id
+ 38308e7fff4ca-3ac441ccc48mr16311271fa.24.1792677956442; Thu, 22 Oct 2026
+ 07:05:56 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 22 Oct 2026 07:05:55 -0700
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 22 Oct 2026 07:05:55 -0700
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <atoQfGQZeJDU3eMF@ashevche-desk.local>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,75 +65,41 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261021204654.1001101-1-andriy.shevchenko@linux.intel.com>
+ <CAMRc=MdHEzHBXx=P1-0Ut80P5=sQnPDwZRD-zdpoE75iHcJjBA@mail.gmail.com> <atoQfGQZeJDU3eMF@ashevche-desk.local>
+Date: Thu, 22 Oct 2026 07:05:55 -0700
+X-Gmail-Original-Message-ID: <CAMRc=MfALArmtGmv6h_sPrwxQrqyjOECN9m-GVb9DKQ4kyBE1A@mail.gmail.com>
+X-Gm-Features: AclHuK91436dEv-tuysiXiREQ2obPxuGn-weCmtQmrWU-2JJ7wbnUogLc2aR58E
+Message-ID: <CAMRc=MfALArmtGmv6h_sPrwxQrqyjOECN9m-GVb9DKQ4kyBE1A@mail.gmail.com>
+Subject: Re: [PATCH v1 0/3] gpio: Introduce helper to dispose IRQ mappings
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Bamvor Jian Zhang <bamv2005@gmail.com>, Linus Walleij <linusw@kernel.org>, 
+	Samuel Moelius <sam.moelius@trailofbits.com>, 
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, linux-gpio@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Bartosz Golaszewski <brgl@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-Commit e5b31d988a41 ("af_unix: Give up GC if MSG_PEEK intervened.")
-made unix_peek_fpl() invalidate unix_peek_seq when gc_in_progress is
-set.
+On Thu, 22 Oct 2026 15:32:44 +0200, Andy Shevchenko
+<andriy.shevchenko@linux.intel.com> said:
+> On Thu, Oct 22, 2026 at 02:11:38AM -0700, Bartosz Golaszewski wrote:
+>> On Wed, 21 Oct 2026 22:44:42 +0200, Andy Shevchenko
+>> <andriy.shevchenko@linux.intel.com> said:
+>> > I have noticed that a few drivers use almost the same code to dispose IRQ
+>> > mappings. This series to deduplicate the efforts. I only converted a couple
+>> > of the users (there are potentially more) in order to stay in the same
+>> > subsystem.
+>> The "few" being 2 testing drivers of which one (mockup) should ideally go away.
+>> Do we really want to add more code to GPIO core that will only be used in
+>> testing module(s)? I don't think this is useful, sorry.
+>
+> I meant a few. As I pointed these were chosen explicitly for the sake of not
+> crossing the subsystem boundaries. I looked at Broadcom one, it is so big mess
+> but I think I can get an advantage on it. Also there are other drivers that
+> just need more work to check (and many of them are outside of drivers/gpio),
+> but I'm pretty sure the new API has a good potential.
+>
 
-scm_fp_dup() increments the received files' reference counts before
-unix_peek_fpl() checks that flag, while unix_gc() sets the flag before
-reading the same reference counts. The reference-count operations and
-flag accesses are relaxed. spin_lock() provides acquire ordering, but
-does not order the earlier flag store against the later file_count()
-loads.
+Would it be possible to provide at least one more user other than the testing
+drivers?
 
-On weakly ordered machines, GC can therefore miss the reference acquired
-by MSG_PEEK while MSG_PEEK misses gc_in_progress. unix_peek_seq then
-remains unchanged, allowing GC to classify an SCC as dead and purge a
-live receive queue.
-
-Add smp_mb__after_atomic() after scm_fp_dup()'s reference increments and
-smp_mb__after_spinlock() before GC samples the reference counts. This
-ensures that either GC observes the new reference or MSG_PEEK observes
-the active GC and invalidates the seqcount.
-
-LKMM admits the stale/stale outcome without these barriers and forbids it
-with them. An explicit AArch64 model gives the same result. The original
-workqueue layout in that commit also lacked the PEEK-side ordering, so the
-incomplete handshake dates to e5b31d988a41.
-
-Fixes: e5b31d988a41 ("af_unix: Give up GC if MSG_PEEK intervened.")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yingjie Wang <1075151112@qq.com>
----
- net/unix/garbage.c | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
-
-diff --git a/net/unix/garbage.c b/net/unix/garbage.c
-index da774f56ca648..c3ed00f52b04e 100644
---- a/net/unix/garbage.c
-+++ b/net/unix/garbage.c
-@@ -329,6 +329,14 @@ void unix_peek_fpl(struct scm_fp_list *fpl)
- 	if (!fpl || !fpl->count_unix)
- 		return;
- 
-+	/*
-+	 * Pair with smp_mb__after_spinlock() in unix_gc(). get_file() in
-+	 * scm_fp_dup() increments an atomic reference count, so this ensures
-+	 * that either GC sees the new references or this thread sees
-+	 * gc_in_progress and invalidates unix_peek_seq.
-+	 */
-+	smp_mb__after_atomic();
-+
- 	if (!READ_ONCE(gc_in_progress))
- 		return;
- 
-@@ -614,6 +622,12 @@ static void unix_gc(struct work_struct *work)
- 	WRITE_ONCE(gc_in_progress, true);
- 
- 	spin_lock(&unix_gc_lock);
-+	/*
-+	 * Pair with smp_mb__after_atomic() in unix_peek_fpl() to ensure that
-+	 * either the file-count reads below see MSG_PEEK's increments or
-+	 * MSG_PEEK sees gc_in_progress.
-+	 */
-+	smp_mb__after_spinlock();
- 
- 	if (unix_graph_state == UNIX_GRAPH_NOT_CYCLIC) {
- 		spin_unlock(&unix_gc_lock);
-
-base-commit: f4377bf85887f57b59abb5479f7660a81ffe4449
--- 
-2.43.0
-
+Bart
