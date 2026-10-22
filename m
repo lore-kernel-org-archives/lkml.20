@@ -1,74 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.199
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792675532;
-	b=OGm2Uj4jEc+PHQ1wT24b9KkIm+/gax5991JAcPOl6uQT93TZI9FUeHbrLWaU0GBhZZK1
-	 vi6wG3KHbSqllG5joAHe0Cbx34T5e4MmZ46PWiFFbak1G9pizvP/oGKPiLeQPZJjD6pOT
-	 N2hZaWqkPdrhaImGGK0Bqehl4FONtvrFgXIHovaF/IF2odC5a0Uph8Bbs+Su5r1mgLEYb
-	 59WODoWB3vb8QRoFuYqpDcQ4lq56jujj+5t2GbjhlgsO6fpuvVCULhLCJIgBw71Q53Zfr
-	 5DpEyx/oXbt8kHZkf8LpykMa8hO4gn1++Y4mq9ZDwSb6tUwDewgF+gsbZ9uzqBRtJBw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792675532;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=hZOHOOIePIsNvH6UKplfplXR1KT1tHkILWL/yR0j53w=;
-	b=dW9vIXhARJB6/EY/GnwVplccu6UOPjVNnmFaLWA4s7mFkkkLNz1tJKAQx1ATejOyJytG
-	 vaux57ykrUXWEIvEcqGO1rr602OWqaE6Pf6WtPV+Ta5C7kgMyXaUfHx4lSLCeKr1FmyAI
-	 4tUxW2BJ1NcdozXnhoLXXYTZb0MA53NshiQymG8Kt69GqCS7gbNgLxng+16WVyOyDUyi8
-	 pC8ItEJ+Zvyq8N5vLcr36KHj0FASBcjIZlfODtUiLJK6oWC6vuUKv9T0iWKophBKf97O9
-	 L4Kv8MOkyDGCRrUc65bQvsYZWsLTA29CARIEx90it+sIaU7nipMge6IEHpW7fTeulbQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=Gk1GhX5Z;
-	arc=none smtp.remote-ip=209.85.214.199
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.61.40
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792675560;
+	b=Gz/aW1h+YeNg8fNpQODLtK7oCNi12w92EPsMTthJDf+ug15dqz8Wo4sgzZ65nP/PTtwN
+	 wPW+TIAHn+5uslbOxOcHos0W+xS0cGF7Uau73G3QqElggpi2DMmJ34xT5YjGEP620xh1I
+	 vaQS0F9Rjxagu5KSq5v4zifLsnYznqAo23dIXMQz9163jg80QmGPEizxpGZ1G3LDWvI8/
+	 81Atl7STOm48ImpXbCsN1WEUnNyI5qGHqED+jVsWHLHtW5BPCuObg0BP23jPF/JDNhw5N
+	 3tie1vuXB5q3u0XvKtmbq/daXN+8xIeTKmzmJyPLSY3mATwub5vYqJdxfhoKcESlXFA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792675560;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 From:To:CC:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy:X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=+qXuw6Z8nHO5B60O0yQwDNFC6apMOb4yT18O7Vykhdo=;
+	b=RKF/nt8WMY7R9E0XYuEw5rUUZw45Zgglj5qS76mLYdJ627x8ElzhCMWW8Du2JHq6KP8V
+	 knnBIvNvTkQcByc631+f3pjB+igdvRFCHHpRNci1JQztgAc1NEG7hoZVUPfzMpfxbMlmI
+	 lWSfFfKz1q/zCjMtVnH1yGWtBb4Swipn06TDl873UJAFnMi+0xwfPu+4vn787emcPy6QM
+	 AYRcfd8EOLM5HYrdJoAL3nekI2qK3WGvGAC352maA06pHMbNi9WMO+itSIQfsSRMkkis+
+	 wvHfMnI6fecLB5buv5BqnqMyNUcseMyNaTiuRIx3yD9FCkAIjsOtRMTJzHzl2BH3TNw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=3qX8Nvo3;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.61.40
+Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazon11010040.outbound.protection.outlook.com [52.101.61.40])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41518606A31D
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 13:25:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 41518606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C93D5606A31F;
+	Thu, 22 Oct 2026 13:25:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C93D5606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=Gk1GhX5Z
-Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2e8dd9b9743so21341755ad.1
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 06:25:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792675530; x=1793280330; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=hZOHOOIePIsNvH6UKplfplXR1KT1tHkILWL/yR0j53w=;
-        b=Gk1GhX5ZSDd0+yBhurUR6Pv6dvQdiMe4V9FVZNL+dbtFCJQS8rKjBfrPlkQpMgoO3E
-         4JSbSguBiaIh4FgX5NvqHFXNkd2EMvc7xuf6koeLcacJvAvxbgS48piPT94z8mhABd7N
-         eZODzelYY1pAp9KLpCi11SpDdV4LCVas31IQsysy27iP/5romV5o1JweEcdhB3Ml4hs3
-         3Kgv/5Jlbzal7/YAxzE5UOMjh0pI0y6N5g3tVSCj9xuW1T7IbeG3xC+qad18sx99Erw6
-         8pWWQko7r+8wYsPBSB36JMeng2a3pv/Mgz08GZ/NKtOqW5rr7Y9DgzUlO6xO4tkgIzd1
-         OZ1w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792675530; x=1793280330;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=hZOHOOIePIsNvH6UKplfplXR1KT1tHkILWL/yR0j53w=;
-        b=tYBERb3eyDvLPftBRJ0aIZr1e6CRvSKdImg4pHgtg8maJUpHU1DyqFw1Jq6SmDBKOz
-         r+D0ZSCOE1ScVG1+hMLG1Dq7JaGAFFS/j3HALInuF9MHnEnGN1jW0gXfwlTIUHukPcYv
-         gQonCqoubkALJc2u3WmMs/HzAjrAX9jG0pmRegegR0vvNk55aG6pfLDOyfXKWndV2pwo
-         NPAJUjHpot8Dzju5IHFu2+sqfJecb3/i4LUKuhh9iF4rqkzoOwTSlTShRco/e6iYUQcG
-         ZCoqOTUn6shYZRtYxlQxppYGk6mVu+8shGcjijJAUFyE9LVmhcg3AK80/JeNMGC6Cn12
-         znpg==
-X-Forwarded-Encrypted: i=1; AKwUvBy3YqyTu0TK5rfIAUDTmbMc0B/phciFjVDL2rGMV+KRvwi3g7koIdrK90k3i/+2FMZCX0tKqy0ivFTZ23g=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIpxMpL7n/Pe+I/pm4dK7CbKdxBHvdyGaXGcWuXjuU3ELf2wJUr
-	mkg3iE/f64k+ITGKOD/k6wG9jQPnFsFbNhfvSHOD3Ve4JH5l19wlGk68DfMj1yaUqRgK8O7gZEY
-	onZqsEQ==
-X-Received: from plbmp3.prod.google.com ([2002:a17:902:fd03:b0:2df:8ce6:d461])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:cecb:b0:2e6:1715:e48d
- with SMTP id d9443c01a7336-2ea43e179eemr44515925ad.35.1792675530321; Thu, 22
- Oct 2026 06:25:30 -0700 (PDT)
-Date: Thu, 22 Oct 2026 06:25:29 -0700
-In-Reply-To: <kuptsmerymy.fsf@vkuznets-thinkpadx1carbongen12.rmtcz.csb>
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=3qX8Nvo3
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=DY+cFSQMCFLAFoURFL1RARG0zcpAgbqBg0xPr/PHNg/IhNclnK7xy0uwHtEinBhr5sA6gG3dTmR/8IOjcA6GCENtCo27eIl0hZKxqfIshnwl5e1zgX6Ai+DgGWayZu7xaa/iJboR3q09rWG+S31qyQOvKyUEXWGuTqsdx7xf3nlnl44V4IkxApO3yvRQqkc3i8mSb0GmOybtArZ5eFCn9vm+jpYAxmf1sB3gBWcJwVR188ICKrL2fAZ6pVTlv7ONkZc3P5tFg8t9yL/A2QMxM4B8CQ6lpS75d3wDQz0fU0BfjJBduDZ4wqw55OuCht189CBPCwacfo3FRaGVoh3+hQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=+qXuw6Z8nHO5B60O0yQwDNFC6apMOb4yT18O7Vykhdo=;
+ b=uvuOJ9ddnVqkDfdlOxeTA8qRE4I45l/qnbDm3N+EW0QB/WeU++k/nq87qfNHrWzIIFi8ny+2CrXe3PR/UVaWy1S+y6wsrklqdgmHBanM/Q9AptHk+284mQASaZnraZH6FyYDfYeHTEW8n+DVQXsIc3QhJMLUchSRafJzZhIoe1DTzjDQNwXapIwh7t1Y9iwjcf4okGDhLgNGpHbx7FvaPi51JEdTGlcJGzXrKNTNGZ8V7BUrr+imdI1tJpjRKvou+OzjuVMlO0lF3h/aIhSoic6DRbn93nk6mZEbDtaUT8/SHKzS+LVfwn5mieemRxxGNz68wtgWdWs27fbB7Rpkvw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=intel.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=+qXuw6Z8nHO5B60O0yQwDNFC6apMOb4yT18O7Vykhdo=;
+ b=3qX8Nvo3tJJlta3THnj4ZL7tvJ+a3CqDlHDLtKK+Rc0F+PsXpobOGWQd6Yuh1lsCqnAn5A2uAu/R3/Us2iZRzK1CYCs8wS6K/Q6oPPRUyFJeT+C7ybW8YMZfzFB6fNtP/18+enSrccnWjOZuFq0DbkxZSmvOGB+C7tRl+kPoLQE=
+Received: from CH0PR03CA0057.namprd03.prod.outlook.com (2603:10b6:610:b3::32)
+ by CY5PR12MB6622.namprd12.prod.outlook.com (2603:10b6:930:42::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Thu, 22 Oct
+ 2026 13:25:44 +0000
+Received: from DM3PEPF000265BD.namprd04.prod.outlook.com
+ (2603:10b6:610:b3:cafe::5f) by CH0PR03CA0057.outlook.office365.com
+ (2603:10b6:610:b3::32) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.20 via Frontend Transport; Thu,
+ 22 Oct 2026 13:25:44 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ DM3PEPF000265BD.mail.protection.outlook.com (10.167.23.250) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.546.15 via Frontend Transport; Thu, 22 Oct 2026 13:25:43 +0000
+Received: from tapi.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Thu, 22 Oct
+ 2026 08:25:40 -0500
+From: Swapnil Sapkal <swapnil.sapkal@amd.com>
+To: <tony.luck@intel.com>, <reinette.chatre@intel.com>, <babu.moger@amd.com>,
+	<fenghua.yu@intel.com>, <shuah@kernel.org>
+CC: <Dave.Martin@arm.com>, <james.morse@arm.com>, <peternewman@google.com>,
+	<eranian@google.com>, <tan.shaopeng@fujitsu.com>,
+	<linux-kernel@vger.kernel.org>, <linux-kselftest@vger.kernel.org>,
+	<x86@kernel.org>, Swapnil Sapkal <swapnil.sapkal@amd.com>
+Subject: [PATCH v5 0/5] selftests/resctrl: Add MBM and MBA test support for AMD
+Date: Thu, 22 Oct 2026 13:25:11 +0000
+Message-ID: <20261022132517.46805-1-swapnil.sapkal@amd.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,71 +106,105 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261022021227.295495-1-seanjc@google.com> <kuptsmerymy.fsf@vkuznets-thinkpadx1carbongen12.rmtcz.csb>
-Message-ID: <atoOyY2g68N7R9s8@google.com>
-Subject: Re: [PATCH] KVM: x86/hyperv: Explicitly reject VP Assist Page reads
- if cache was clobbered
-From: Sean Christopherson <seanjc@google.com>
-To: Vitaly Kuznetsov <vkuznets@redhat.com>
-Cc: Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Amirmohammad Eftekhar <amirmohammad.eftekhar@cispa.de>
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM3PEPF000265BD:EE_|CY5PR12MB6622:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7b96f617-fb39-4a60-e0ff-08df303ff9a1
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|82310400026|36860700016|1800799024|7416014|376014|6133799003|18002099003|3023799007|11063799006|261009223027099003|261021123027099003|261021121427099003|10067099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	FQ/n/lVNicTD9LBAfLQM3k08U/dvlu+pqYSDKpEuTl8eDebTQm+vB2Ehx/oJba+un5HVW2jnt3BhLJiFTvCcGuZ562x67pNbaKBHn/l6CQ9Le3DtK0tFIKxfovdlWGjAfEIez4j9HGBWn0oH/MnY1djrxpVFiLPVs1UEL5SxpoETKeRCIZ+Lle4/4yZ2RPvyasXzgUrNTharW6NNzuj0ESLcg+cAV2+IWxzRXnY1lmdqFA5SAMmimB+kDl5M2m8xCk+46LmkJr6vvCF/ib+MDgCV4lE+8Z0ZYRNJj3tr1IcJEF17Q92VlbQMOHkDr0CkRIe1yqYPzpbCIDwg0lDWsNhQ8jjBd3rvjM2kTT4QtQWev5KQ2KRYQeOCxAVryiAaGBWO17n6Offve0Q32sY3t376c7Q0nJNAO/XeyEamRVPGRvJ2B8qh5jguna6IZp1pBk08vyaP0ASMTpnbxlYoxwFzpdIjZb72Vbyl8CqyIr2n0ud39BEyHPJhd1lHoT88uWOEaZTeHYoGAABWhuHhtuCP1TD2X0EKMBNae9BR8ul+P32KS9/zaL6LREVCdvQx+3qz34axiS8pUyYp6/g8Igws+tLGWHq2axQ06PYEClM2XLabYDxkhecuoWhdwE+/XbvvuK95rK6rF6ihTX0wTd6q6MUPPsCsiEQLfEpww8U=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(82310400026)(36860700016)(1800799024)(7416014)(376014)(6133799003)(18002099003)(3023799007)(11063799006)(261009223027099003)(261021123027099003)(261021121427099003)(10067099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	iqkpd/9g6UcEDuN6AH8bRAjnrNgEiPwxU1tRxP0juEacuL+4fB/YZNMyEF02KL2gVPopPgQeDLy5kF0dBUgdP+XPZX8ik1tp8JYNmjW0G8ZfItWtdy3FmrHEwnpmDfd5gsJCdQLKsfY8Im/W55xW9MFzGmFObhvX+nW8GmfRZcOuFiQp6EjnfQddwLrtW/4cBhiUclXncMUWX4iT7LMLrjYw+lvHF1T3sStIRIb1KmTcRhVlvSPmC1Ah4Au+Vr6XdcEoQXJl0UU0tiJPjJ3DeeBDh1+FwsdXKM23W2saz1RqK2oEPMccUMeBWRFGy96I8NGqnnf1un6MnDifZXRGtlNxUXzY19HSWMRMV0MuuikUvyd5PLneYwxUZUHWF5RGk9L8aHhRGmskuQHEJvungjQNQlM24P99LP+HkXitwFnMRkBTiHBuPUjPa1W0fbhz
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Oct 2026 13:25:43.8503
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7b96f617-fb39-4a60-e0ff-08df303ff9a1
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DM3PEPF000265BD.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6622
 
-On Thu, Oct 22, 2026, Vitaly Kuznetsov wrote:
-> Sean Christopherson <seanjc@google.com> writes:
-> 
-> > Don't try to read the VP Assist Page if the shared PV EOI cache has been
-> > reconfigured via KVM's actual PV EOI MSR, as trying to read 624 bytes of
-> > info when the cache is setup for only 1 byte will trip the sanity check
-> > WARN in kvm_read_guest_offset_cached().  Ideally, KVM wouldn't use shared
-> > state to track the VP Assist Page, but in practice no sane guest enables
-> > both KVM's PV EOI and Hyper-V's Assist Page at different addresses, i.e.
-> > not allowing both to co-exist independently is "fine".
-> >
-> > Fixes: b63cf42fd1d8 ("kvm/x86: implement hv EOI assist")
-> > Cc: stable@vger.kernel.org
-> > Reported-by: Amirmohammad Eftekhar <amirmohammad.eftekhar@cispa.de>
-> > Closes: https://lore.kernel.org/all/20261017093016.32348-7-amirmohammad.eftekhar@cispa.de
-> > Signed-off-by: Sean Christopherson <seanjc@google.com>
-> 
-> Reviewed-by: Vitaly Kuznetsov <vkuznets@redhat.com>
-> 
-> (I am, however, thinking it would be better in the long term to either
-> separate KVM PV / Hyper-V PV state here or even consider a 'big
-> hammer' and make these two (+Xen?) mutually exclusive for all PV
-> features.)
+The MBM (Memory Bandwidth Monitoring) and MBA (Memory Bandwidth
+Allocation) resctrl selftests validate the bandwidth numbers reported by
+resctrl against the memory controller performance counters. Today this
+only works on Intel, where the counters are the iMC (Integrated Memory
+Controller) PMUs and the tests are gated behind an ARCH_INTEL vendor
+check.
 
-I generally agree, the problem is that any changes could break guests.  For
-whatever reason, kvm_lapic_set_pv_eoi() very deliberately allows the two features
-to overlay.  I.e. while it seems absurd, in theory a guest could rely on being to
-use the two features simultaneously.
+This series teaches the tests about the AMD UMC (Unified Memory
+Controller) PMUs and enables MBM and MBA on AMD.
 
-OMG, it's your fault!  LOL.  (Obviously not actually your fault since you were
-just trying to clean up the mess created by the initial implementation).
+The work is done in a few steps:
 
-  Author:     Vitaly Kuznetsov <vkuznets@redhat.com>
-  AuthorDate: Tue Oct 16 18:50:06 2018 +0200
-  Commit:     Paolo Bonzini <pbonzini@redhat.com>
-  CommitDate: Wed Oct 17 00:30:17 2018 +0200
+  1. Rename the Intel specific imc/IMC identifiers to the generic
+     mc/MC so the code can serve both vendors.
 
-    x86/kvm/lapic: preserve gfn_to_hva_cache len on cache reinit
-    
-    vcpu->arch.pv_eoi is accessible through both HV_X64_MSR_VP_ASSIST_PAGE and
-    MSR_KVM_PV_EOI_EN so on migration userspace may try to restore them in any
-    order. Values match, however, kvm_lapic_enable_pv_eoi() uses different
-    length: for Hyper-V case it's the whole struct hv_vp_assist_page, for KVM
-    native case it is 8. In case we restore KVM-native MSR last cache will
-    be reinitialized with len=8 so trying to access VP assist page beyond
-    8 bytes with kvm_read_guest_cached() will fail.
-    
-    Check if we re-initializing cache for the same address and preserve length
-    in case it was greater.
-    
-    Signed-off-by: Vitaly Kuznetsov <vkuznets@redhat.com>
-    Cc: stable@vger.kernel.org
-    Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+  2. Detect the vendor and select the memory controller PMU sysfs name
+     accordingly, keeping the rest of the code generic.
 
-So yeah, it definitely seems like we can separate the two since odds are very good
-the only reason they "co-exist" is pbecause KVM tricked userspace into effectively
-saving/restoring garbage via MSR_KVM_PV_EOI_EN.
+  3. Add the AMD UMC support. Unlike Intel, the UMC PMU does not expose
+     the CAS command events via sysfs, so the read event is programmed
+     directly (EventCode 0x0a, umask 0x1). All vendor detection is
+     contained in enumerate_mcs() and dispatched to per-vendor routines.
+     On AMD each UMC is a per-NUMA-node PMU, so only the UMCs local to
+     the benchmark CPU are opened; remote-node UMCs would otherwise fail
+     perf_event_open() with -ENODEV.
+
+  4. Sweep the AMD MBA schemata using absolute bandwidth values (4 GB/s
+     to 40 GB/s) instead of the Intel style percentages (10% to 100%).
+
+  5. Extend the vendor_specific gate of the tests to Intel and AMD so
+     they run on AMD as well. The gate is kept (rather than removed)
+     so vendors that enumerate_mcs() does not know about are skipped
+     instead of reported as a failure.
+
+Testing
+-------
+Tested on AMD Zen5 (single-numa and multi-NUMA); MBM and MBA tests
+pass on both.
+
+This series applies on top of the kselftest tree's "next" branch.
+
+v4: https://lore.kernel.org/all/20260810184806.1089507-1-swapnil.sapkal@amd.com/
+
+Changes since v4:
+- Rebased onto the kselftest "next" branch. The memory bandwidth
+  counters there are now kept in a dynamically managed linked list
+  (instead of a fixed array), so the whole series was reworked on top of
+  that infrastructure. The enumeration routine is now enumerate_mcs()
+  and the AMD path allocates and links each UMC counter.
+- No other functional changes relative to v4.
+
+Babu Moger (4):
+  selftests/resctrl: Rename variables and functions to generic names
+  selftests/resctrl: Detect vendor to select memory controller sysfs
+    name
+  selftests/resctrl: Add support for MBM and MBA tests on AMD
+  selftests/resctrl: Enable MBM and MBA tests on AMD
+
+Swapnil Sapkal (1):
+  selftests/resctrl: Use bandwidth values for AMD MBA schemata
+
+ tools/testing/selftests/resctrl/mba_test.c    | 107 +++--
+ tools/testing/selftests/resctrl/mbm_test.c    |  26 +-
+ tools/testing/selftests/resctrl/resctrl.h     |   6 +-
+ tools/testing/selftests/resctrl/resctrl_val.c | 384 +++++++++++-------
+ 4 files changed, 334 insertions(+), 189 deletions(-)
+
+-- 
+2.43.0
+
