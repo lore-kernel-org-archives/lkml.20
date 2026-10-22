@@ -1,57 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.74.67.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.115
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792676715;
-	b=R1JT0d92pBBnOprwbUMqBIvk0rsoLO2gEDcizH3hGjn0o24OgmTfOL0doN7AoiJVp1oz
-	 8fbsHGvWpySpg8M4S1VWNVkHEFZVoHzro8Uw3/daobLhfBtgL+7PQhY4PINFn2m33hUYW
-	 v5Jec3L/h3DPnzICFNorLVHyFjrnekwDCqWmIQCaBJYc7UBUgKefpzM3Fkd40+HmV+/YY
-	 lp7uTuFbeq0zw+pL1SuU06lPB2m7LYoULQIceB7bGROo6OxR0lu+KkSVRjvRXiyP936ZP
-	 M0Wj9/IT0bYCkQ/UtPWqYzHFguoutKSID4IYIyRAQx398aTH7QuX+FYnVh4AEE12b+A==
+	t=1792676753;
+	b=M6whUzv8kHAyyKvvRgRosc2M78tOLI9PTI00Xk+vvivOFaZL333Yk2Gpl3ks+h3a6jZE
+	 iQvkv1o1t0izo5Xu2bjLZgAT1hx2Td/hy9e+2+Vcu6HRUfV+xyWXxeGyDwhu6bBaScm4U
+	 UEh8lfRM6EEKO5pR/hN4JQav2hbyr8kRnIprbcUFjox/L8Wxu/2JRr7e/PkcA9Cmt6SQW
+	 yXY/iWwDGUiYAuhVXldK2ktjZpmgc99xB/DCHyM/TDaaWoCbi+jQJASs9Uw/19/LtXXzv
+	 Eto3LpcbPaaUJ9nmSzDJlfYhVz4mVVF0RtdaY0lxxTp6OOP6G5SJ4q3eXZMLhge/Q0A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792676715;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
-	 DKIM-Signature;
-	bh=dQII75vn1LaGbr8YWromgMAKQRt5pbZH3aHUZ0ksAjU=;
-	b=DhACQpLJMYed8pnD8toO4WGxSeB71PtvGFpJPUip9FlG0nL5J7n7AH34Shg4VsoAn8X7
-	 EsIB2M99lhdeOraHT/xG06FPYMStdmGEKDJwJod/zfhTThBjZQ7ugwbNfcDoGXqpDKBBS
-	 nM4j4czbPzJ40QD23Ve7tTMNTx1oWOIwlnzECe536rpLySTLzgS4aEo/GjkTkuweOSGbY
-	 VKA4oxNn9Ae/Tl/YGgrezPTS2BmW4tCtZ84oHw4Y+NQwUNxnY36AgiIpWOd/p5JQ4Rh0V
-	 ra+YdyUaESjf00UmktzkZ5i3WgvKPLu1wqK1d63kvX6n9etQuBskkeDPsNuI9eHl5bw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792676753;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=LicF3euAGsgn/y9upA2MV2kVHqGzu+8Hct81aaTE13E=;
+	b=reVaTGlEcjISRJ4UiiSiz4R6NRfepsAsd1OfH3YW796lZP8jBIPyHUWIPsu1UPwyim57
+	 tMEZKJXeA5L8VvUCYml7SkQCp2Q6vI/JGkM5G5ZD03xZgnkwD6KQz6postyIRFUY1E+aA
+	 SgNCQsf0oaonHh5XnQC5OK0PkkkASJcBM4JAKyjxXD7WIcemWHNK/CA/Vqdra4l7Wbwcd
+	 OQmcsn8j4b2M7VNoCXA856o6OBVrQfeOTKhkMhGVZNPxL1b/7huh+qGd4ragpBF7zAnEN
+	 IyDGSRQrLXWTvbpPaDN96DIM0t55UErmN/vKlXRR3IT0W1A5OHj/bbwYty0H4saXFig==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=poczta.fm;
-	spf=pass smtp.mailfrom=poczta.fm;
-	dkim=pass header.d=poczta.fm header.i=@poczta.fm header.a=rsa-sha256 header.s=dk header.b=Q18MlgLH;
-	arc=none smtp.remote-ip=217.74.67.49
-Received: from smtpo49.interia.pl (smtpo49.interia.pl [217.74.67.49])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=PZC8UgFy;
+	arc=none smtp.remote-ip=95.215.58.115
+Received: from mta1.migadu.com (out-115.mta1.migadu.com [95.215.58.115])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A5AD60A5BFE
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 13:45:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9A5AD60A5BFE
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=poczta.fm
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=poczta.fm
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5530860A5BE3
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 13:45:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5530860A5BE3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=poczta.fm header.i=@poczta.fm header.a=rsa-sha256 header.s=dk header.b=Q18MlgLH
-Received: from localhost (unknown [80.68.231.31])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by poczta.interia.pl (INTERIA.PL) with ESMTPSA;
-	Thu, 22 Oct 2026 15:45:04 +0200 (CEST)
-From: Slawomir Stepien <sst@poczta.fm>
-To: leitao@debian.org,
-	a.hindborg@kernel.org,
-	k.opasiak@samsung.com,
-	nab@linux-iscsi.org
-Cc: linux-kernel@vger.kernel.org,
-	Slawomir Stepien <sst@poczta.fm>,
-	syzbot+b3410eb576b568216ae5@syzkaller.appspotmail.com
-Subject: [PATCH 2/2] configfs: give the root inode its own lockdep class
-Date: Thu, 22 Oct 2026 15:44:43 +0200
-Message-ID: <20261022134443.1122318-2-sst@poczta.fm>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261022134443.1122318-1-sst@poczta.fm>
-References: <20261022134443.1122318-1-sst@poczta.fm>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=PZC8UgFy
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=ZIT7Fqc5IrH7ow8aVqftwoQ7RTkPnyB9D7PkliUjm24=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792676745; v=1; x=1793281545;
+ b=PZC8UgFyfrl73FfvNIkRiY1GoW2l5BlBFnnA5qkjqmLl3QdCYRUnvkyqGG4TSSMm1uSvQd7W
+ bVHn91XMI4u14q2bEdkkdZ2nwf23WhXl9uQEizFzgYZlSdFpPreNSEHMpDQvtf+QDTAhCkBLt0s
+ 87vZTQV+qfrMlHFdJp7ojfLU=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id bfeba91be5b9f80b;
+	Thu, 22 Oct 2026 13:45:45 +0000
+X-Mizu-Trace-ID: bfeba91be5b9f80b
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <c65208d9-aba6-4e9a-affa-4f7cd8794a0c@linux.dev>
+Date: Thu, 22 Oct 2026 21:45:37 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,101 +58,227 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH-next 2/6] cgroup/cpuset: Properly compute effective xcpus
+ in update_parent_effective_cpumask()
+To: Waiman Long <longman@redhat.com>, Ridong Chen <ridong.chen@linux.dev>,
+ Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
+ =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>,
+ Shuah Khan <shuah@kernel.org>
+Cc: cgroups@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-kselftest@vger.kernel.org
+References: <20261022031643.1351877-1-longman@redhat.com>
+ <20261022031643.1351877-3-longman@redhat.com>
+Content-Language: en-US
+From: Guopeng Zhang <guopeng.zhang@linux.dev>
+In-Reply-To: <20261022031643.1351877-3-longman@redhat.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=poczta.fm; s=dk;
-	t=1792676705; bh=dQII75vn1LaGbr8YWromgMAKQRt5pbZH3aHUZ0ksAjU=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version;
-	b=Q18MlgLHe0uoxhuKopLgqAm28TUfhOI+LRBQV7Kirm1adYEZ/nHmG0a8yQ2mcvpvl
-	 qiydavXgb9qQeiaDRsSGXuvaW6kyehtSYf/KoMzYWqAclwUSG50qXCVY4sXqEBWmBu
-	 uIvkRZMMr1gpF5Lu2SMupKxfZ160w96HUjcA6iso=
 
-configfs_depend_item_unlocked() is meant to be called from configfs
-callbacks, where VFS already holds directory inode locks and configfs
-holds the subsystem's su_mutex. When the target item lives in another
-subsystem, it additionally locks the configfs root inode so that the
-target subsystem cannot be unregistered underneath it.
+Hi Longman,
 
-The root inode shares the &sb->s_type->i_mutex_key lockdep class with
-every user-created configfs directory, so lockdep cannot tell it apart
-from the directory inode locks taken by mkdir, rmdir and symlink. Any
-lock held by the depend caller therefore looks like it nests both
-inside and outside "the" configfs inode lock. f_tcm's usbg_make_tpg(),
-which depends on a gadget function item from the target subsystem's
-mkdir callback, triggers this in two ways:
+在 2026/10/22 11:16, Waiman Long 写道:
+> Since the introduction of cpuset.cpus.exclusive in commit
+> e2ffe502ba45 ("cgroup/cpuset: Add cpuset.cpus.exclusive for v2"), a
+> compute_effective_exclusive_cpumask() helper which is later renamed to
+> compute_excpus() is added to compute the effective xcpus of a partition
+> root. However update_parent_effective_cpumask() is not updated in all
+> proper places to use the new helper to check if a given cpuset should
+> remain a valid partition root. This can cause a cpuset to incorrectly
+> remain a valid partition root even if no effective xcpus is left.
+> 
+> Fix that problem by using compute_excpus() to compute the effective xcpus
+> into delmask in all cases except partcmd_disable and partcmd_invalidate
+> and use it for tasks_nocpu_error() check as well as checking its
+> emptiness. This enables us to catch invalid partition root more
+> accurately in update_parent_effective_cpumask().
+> 
 
-  target su_mutex -> root inode (depend), while
-  rmdir under target/: directory inode -> target su_mutex
+I re-tested the repro from the link below on top of this series
+(applied on cgroup/for-7.4-fixes), and it still fails:
 
-  tpg_instances_lock -> root inode (depend), while
-  mkdir functions/tcm.N: directory inode -> gadget su_mutex ->
-    func_lock -> tpg_instances_lock (tcm_alloc_inst())
+  https://lore.kernel.org/all/20261010075947.333549-3-guopeng.zhang@linux.dev/
 
-Neither is a real deadlock, because no holder of the root inode lock
-waits for su_mutex, tpg_instances_lock or a directory inode lock held
-by a depend caller:
+  cd /sys/fs/cgroup
+  echo +cpuset > cgroup.subtree_control
+  mkdir A
+  echo 0-7 > A/cpuset.cpus
+  echo 0-7 > A/cpuset.cpus.exclusive
+  echo root > A/cpuset.cpus.partition
+  cat A/cpuset.cpus.partition
+  echo 1 > A/cpuset.cpus.exclusive
+  cat A/cpuset.cpus.partition
 
- - configfs_depend_item() and configfs_depend_item_unlocked() only look
-   up the subsystem and scan the tree under configfs_dirent_lock, a
-   spinlock.
- - Lookup and readdir in the configfs root only take
-   configfs_dirent_lock. mkdir and symlink in the root fail with
-   -EPERM before any other lock is taken, and configfs_rmdir() of a
-   subsystem directory never gets as far as taking su_mutex.
- - configfs_register_subsystem() only locks the inodes of the new
-   subsystem directory it is creating, which nobody else can hold yet.
- - configfs_unregister_subsystem() does wait for the subsystem
-   directory's inode lock, but it only runs from the subsystem module's
-   exit path. Every mkdir and rmdir in that subsystem holds a reference
-   on the module, so none of them can be in progress at that point.
+The last command still shows "root invalid (Parent unable to distribute
+cpu downstream)".
 
-Put the root inode's i_rwsem into its own lock class so that lockdep
-stops aliasing it with ordinary directory inodes. Splitting a class
-cannot create new lockdep cycles, and real dependencies on the root
-inode are still tracked under the new class. This is an annotation
-only: without CONFIG_LOCKDEP the key is empty and lockdep_set_class()
-compiles away.
+In this case compute_excpus() returns the stale user mask unchanged.
+user_xcpus() is gone from update_parent_effective_cpumask(), but the
+dependency just moved one level down: the new code calls
+compute_excpus(cs, tmp->delmask), and its first line is
 
-Fixes: d79d75b5c518 ("fs: configfs: Add unlocked version of configfs_depend_item()")
-Reported-by: syzbot+b3410eb576b568216ae5@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=b3410eb576b568216ae5
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Slawomir Stepien <sst@poczta.fm>
----
- fs/configfs/mount.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+  cpumask_and(excpus, user_xcpus(cs), parent->effective_xcpus)
 
-diff --git a/fs/configfs/mount.c b/fs/configfs/mount.c
-index d8cac1cbf3bd..f5e9b98c1315 100644
---- a/fs/configfs/mount.c
-+++ b/fs/configfs/mount.c
-@@ -15,11 +15,19 @@
- #include <linux/fs_context.h>
- #include <linux/pagemap.h>
- #include <linux/init.h>
-+#include <linux/lockdep.h>
- #include <linux/slab.h>
- 
- #include <linux/configfs.h>
- #include "configfs_internal.h"
- 
-+/*
-+ * configfs_depend_item_unlocked() locks the root inode while the caller holds
-+ * su_mutex and other locks from a configfs callback; nothing taken under the
-+ * root inode lock depends on those, so keep it out of the directory class.
-+ */
-+static struct lock_class_key configfs_root_inode_class;
-+
- static struct vfsmount *configfs_mount = NULL;
- struct kmem_cache *configfs_dir_cachep;
- static int configfs_mnt_count = 0;
-@@ -74,6 +82,7 @@ static int configfs_fill_super(struct super_block *sb, struct fs_context *fc)
- 	if (inode) {
- 		inode->i_op = &configfs_root_inode_operations;
- 		inode->i_fop = &configfs_dir_operations;
-+		lockdep_set_class(&inode->i_rwsem, &configfs_root_inode_class);
- 		/* directory inodes start off with i_nlink == 2 (for "." entry) */
- 		inc_nlink(inode);
- 	} else {
--- 
-2.56.0
+Here user_xcpus(cs) is cs->exclusive_cpus, which still holds the old
+0-7 when compute_excpus() runs: update_exclusive_cpumask() publishes
+cs->exclusive_cpus only after partition_cpus_change(). Nothing corrects
+it either - the sibling trim is skipped as exclusive_cpus is non-empty,
+and for a direct child of the root cpuset the intersection with
+parent->effective_xcpus is a no-op. So the stale 0-7 mask still reaches
+tasks_nocpu_error() and PERR_NOCPUS is set again. Please point it out
+if I got the analysis wrong.
+
+I have rebased my fix on top of this series and the partition recovers
+correctly with it applied. Should the fix be folded into this patch,
+or is there a better way to fix it? Happy to hear your thoughts.
+
+Also, is the test case below worth adding here as well? Note that it
+fails until the fix is in:
+
+    # An invalid local partition that took all the CPUs from its
+    # populated parent should recover after its cpuset.cpus.exclusive
+    # list is changed to a valid one.
+    "C0-7:X0-7:P1  .      .      .     X1      .      .      .     0 A1:1|XA1:1 A1:P1 ."
+
+Thanks,
+Guopeng
+
+> Some test case are added to test_cpuset_prs.sh for invalidating a
+> partition root due to its effective xcpus becoming empty as well as
+> making sure that an invalid partition can only be revived when exclusive
+> CPUs are available agin.
+> 
+> Fixes: e2ffe502ba45 ("cgroup/cpuset: Add cpuset.cpus.exclusive for v2")
+> Signed-off-by: Waiman Long <longman@redhat.com>
+> ---
+>  kernel/cgroup/cpuset.c                        | 36 +++++++++----------
+>  .../selftests/cgroup/test_cpuset_prs.sh       |  6 ++++
+>  2 files changed, 22 insertions(+), 20 deletions(-)
+> 
+> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
+> index 7ead8c3b7974..db6e4663f4be 100644
+> --- a/kernel/cgroup/cpuset.c
+> +++ b/kernel/cgroup/cpuset.c
+> @@ -1798,7 +1798,6 @@ static int update_parent_effective_cpumask(struct cpuset *cs, int cmd,
+>  	int deleting;	/* Deleting cpus from parent's effective_cpus	*/
+>  	int old_prs, new_prs;
+>  	int part_error = PERR_NONE;	/* Partition error? */
+> -	struct cpumask *xcpus = user_xcpus(cs);
+>  	int parent_prs = parent->partition_root_state;
+>  	bool nocpu;
+>  
+> @@ -1841,30 +1840,29 @@ static int update_parent_effective_cpumask(struct cpuset *cs, int cmd,
+>  	if (!newmask && xcpus_empty(cs))
+>  		return PERR_CPUSEMPTY;
+>  
+> -	nocpu = tasks_nocpu_error(parent, cs, xcpus);
+> +	/*
+> +	 * Except for partcmd_disable, use delmask to compute the current
+> +	 * effective xcpus value and use it for tasks_nocpu_error check.
+> +	 */
+> +	if (cmd != partcmd_disable) {
+> +		compute_excpus(cs, tmp->delmask);
+> +		nocpu = tasks_nocpu_error(parent, cs, tmp->delmask);
+> +	}
+>  
+>  	if ((cmd == partcmd_enable) || (cmd == partcmd_enablei)) {
+> -		/*
+> -		 * Need to call compute_excpus() in case
+> -		 * exclusive_cpus not set. Sibling conflict should only happen
+> -		 * if exclusive_cpus isn't set.
+> -		 */
+> -		xcpus = tmp->delmask;
+> -		if (compute_excpus(cs, xcpus))
+> -			WARN_ON_ONCE(!cpumask_empty(cs->exclusive_cpus));
+>  		new_prs = (cmd == partcmd_enable) ? PRS_ROOT : PRS_ISOLATED;
+>  
+>  		/*
+>  		 * Enabling partition root is not allowed if its
+>  		 * effective_xcpus is empty.
+>  		 */
+> -		if (cpumask_empty(xcpus))
+> +		if (cpumask_empty(tmp->delmask))
+>  			return PERR_INVCPUS;
+>  
+> -		if (prstate_housekeeping_conflict(new_prs, parent_prs, xcpus, NULL))
+> +		if (prstate_housekeeping_conflict(new_prs, parent_prs, tmp->delmask, NULL))
+>  			return PERR_HKEEPING;
+>  
+> -		if (tasks_nocpu_error(parent, cs, xcpus))
+> +		if (nocpu)
+>  			return PERR_NOCPUS;
+>  
+>  		/*
+> @@ -1876,9 +1874,8 @@ static int update_parent_effective_cpumask(struct cpuset *cs, int cmd,
+>  		 *
+>  		 * Warn if it is not the case.
+>  		 */
+> -		cpumask_and(tmp->new_cpus, xcpus, cpu_active_mask);
+> +		cpumask_and(tmp->new_cpus, tmp->delmask, cpu_active_mask);
+>  		WARN_ON_ONCE(!cpumask_subset(tmp->new_cpus, parent->effective_cpus));
+> -
+>  		deleting = true;
+>  	} else if (cmd == partcmd_disable) {
+>  		/*
+> @@ -1973,7 +1970,7 @@ static int update_parent_effective_cpumask(struct cpuset *cs, int cmd,
+>  		 * A partition error happens when parent has tasks and all
+>  		 * its effective CPUs will have to be distributed out.
+>  		 */
+> -		if (nocpu) {
+> +		if (nocpu || cpumask_empty(tmp->delmask)) {
+>  			part_error = PERR_NOCPUS;
+>  			if (is_partition_valid(cs))
+>  				adding = cpumask_and(tmp->addmask,
+> @@ -1986,8 +1983,7 @@ static int update_parent_effective_cpumask(struct cpuset *cs, int cmd,
+>  				cpumask_copy(tmp->addmask, cs->effective_xcpus);
+>  				adding = true;
+>  			}
+> -		} else if (is_partition_invalid(cs) && !cpumask_empty(xcpus) &&
+> -			   cpumask_subset(xcpus, parent->effective_xcpus)) {
+> +		} else if (is_partition_invalid(cs)) {
+>  			struct cgroup_subsys_state *css;
+>  			struct cpuset *child;
+>  			bool exclusive = true;
+> @@ -1998,7 +1994,7 @@ static int update_parent_effective_cpumask(struct cpuset *cs, int cmd,
+>  			 * check.
+>  			 */
+>  			if (prstate_housekeeping_conflict(cs->partition_root_state,
+> -							  parent_prs, xcpus, NULL)) {
+> +							  parent_prs, tmp->delmask, NULL)) {
+>  				part_error = PERR_HKEEPING;
+>  				goto write_error;
+>  			}
+> @@ -2014,7 +2010,7 @@ static int update_parent_effective_cpumask(struct cpuset *cs, int cmd,
+>  			rcu_read_unlock();
+>  			if (exclusive)
+>  				deleting = cpumask_and(tmp->delmask,
+> -						xcpus, parent->effective_cpus);
+> +						tmp->delmask, parent->effective_cpus);
+>  			else
+>  				part_error = PERR_NOTEXCL;
+>  		}
+> diff --git a/tools/testing/selftests/cgroup/test_cpuset_prs.sh b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
+> index d04aad697b96..47791591002f 100755
+> --- a/tools/testing/selftests/cgroup/test_cpuset_prs.sh
+> +++ b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
+> @@ -359,6 +359,8 @@ TEST_MATRIX=(
+>  								       A1:P0|A2:P1|A3:P2|B1:P1 2-4|3"
+>  	"  C1-6:P1 C3-6:P1 C5-6:P1 .      .      P2      .      .    0 A1:1-2|A2:3-6|A3:5-6 \
+>  								       A1:P1|A2:P2|A3:P-1 3-6"
+> +	"  C1-6:P2 C3-6:P2 C3-4:P2 .      .     C5-6     .      .    0 A1:1-4|A2:5-6|A3:5-6 \
+> +								       A1:P2|A2:P2|A3:P-2 1-6"
+>  	" C1-4:X2-4 C2-4:X3-4:P1 C3-4:X4:P2 \
+>  				   .      .      X5      .      .    0 A1:1-4|A2:2-4|A3:3-4 \
+>  								       A1:P0|A2:P-1|A3:P-2 ."
+> @@ -427,6 +429,10 @@ TEST_MATRIX=(
+>  	# cpuset.cpus is allowed, but those extra CPUs are ignored.
+>  	"  C2-3:P1   C3:P1  .      .      .     C2-4    .      .     0 A1:|A2:2-3 A1:P1|A2:P1"
+>  
+> +	# A child cannot recover until its exclusive CPUs are available again.
+> +	" CX1-4:P1 CX3-4:P1 .     .     X1-2     .      .      .     0 A1:1-2|A2:1-2|XA2: A1:P1|A2:P-1"
+> +	" CX1-4:P1 CX3-4:P1 .     .  X1-2:X1-4   .      .      .     0 A1:1-2|A2:3-4|XA2:3-4 A1:P1|A2:P1"
+> +
+>  	# Taking away all CPUs from parent or itself if there are tasks
+>  	# will make the partition invalid.
+>  	"  C2-3:P1   C3:P1  .      .      T     C2-3    .      .     0 A1:2-3|A2:2-3 A1:P1|A2:P-1"
 
