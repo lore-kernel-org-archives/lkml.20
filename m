@@ -1,79 +1,116 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.85.45
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792682351;
-	b=FsO85DMZXueoLc/TA5gRiIrQE5is6SJ4iI7/sXs+p1bWvG6Q8TIjkPGOQ2E7h6qv+r5x
-	 ubquT/PKpV6AaYlTACT3fe/B2b2r4t48Lvi3eBsQ8Ff3WtwAmS5LNcnNdYSmpn7VTN/eD
-	 tKUaNwv7bSL4OOwCW6dPldHgTvjZpInRW268zjE8r2Yj5sRV6GYuDeSv5UlNijrLm79QB
-	 Bf1gOXuRIZkoZ65RZOanhB4yhBK+4DfyvP0w2DCdjXrHeKLFiAh2vJpQis6YWY4zD0wv2
-	 k82gJ9YaNpym+qoIf1/0bjfYieEBfEUeoTHU9JychEQR4TCwLSZvubqH0aB9rxDwDbA==
+	t=1792682354;
+	b=OfqDeXiJwgQ9llTqQl6fMYD43sLYu8bQS/9kbBNlxY1OksoszgdKG4Qjd/o20owxU7P8
+	 Bsg55x+qcgRB6h037HmzKJGjwyGa0hWss86M7UQgjAITyeeh7TOJJbXZ8kHYmdItQ/Jtw
+	 w8Xh1thGK6KbsoBpMMamX+qTXgY61WKknWdh26HvZIvIulJETePeDk9YyAPHBVO8Qub8q
+	 IPTBM+4r1e0OQ8yWP0VYQigGswOT9gAztgpv1aPSbjC0H+NozSj03XCf0IGP3whmNQryL
+	 VVQKXHjS/9XYDz/tobhCtlGRYD/zG/tz0OsrXSroRmjrR1pttd2zV9uqKBA6xVG/PBg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792682351;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=XeYeuHW2ROs8z63PamAF7/Z5t0LYjZHf+QlIp4GkasQ=;
-	b=HOMEqCF3PnCqGixRg0RmWRactXrc+NyedfDWKRKkkfrvgxqJsZ464VVsRFolJsDy1sNa
-	 rG29hp82KGb6dU1yEvCxFSbUWEhXt4IFT7CaivR8Co/wK+GGYolGzCbv1QH6yHf2tEUtU
-	 lsPYro1UR7jP1dUrbonoMFJpmwbasGQ5uZgaf63BLbIx0cgdvG+ivp0VssjNJftj5MT7c
-	 AZn78bQC6fmchUoPqMgjdQBOHEtZXlSBcLzqB2DKOEGUaLXtcYOw5FydX3feBk+4uc2g7
-	 6Wmosdw/jyM5QWP6x6LcamntzQcWhB6jLKtyClXgI0f68s/uZKyzft8WsoWFRURPOfw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792682354;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:Received:Date:From:To:CC:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-NV-OnPremToCloud:X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=wGNuj1U77chEdN69w8f4IqxaXzHHXuiIrzEEhMB3yxk=;
+	b=zyMftI6EN5V8mtz/JPsqFj6LEBeZ194meQgJadtrOvRhYxGX4Cbf4nNAiALYhzD6sGQG
+	 W1gxd7XmL428kE0zdbB8qfoM9Rw8d0EAngeC9kGToJIj5YehX9zXjUaXDSaOU95dgxl6B
+	 n8LXGgsPIQRm/NMjrJuaSkc0n/Jx0SXkKcEL5bS6hQyD7aGcxT71QF/5XNbGCsgOdxBOH
+	 uk1Z5/x7OqCGM+OF6iepaduiGrawQOOGCXNPyW0H0FNP0HEYwEaWjARNt5up0At07U8VP
+	 maNzR6D32JK3wDNrxhQHC5Rl4vHHJ/TRXp/CTkRhdOlbnd1dE/X9HFQT7T6IR+kAkPw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NYBAX83e;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=LtU3xVkF;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.85.45
+Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010045.outbound.protection.outlook.com [52.101.85.45])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 748D9606CC73;
-	Thu, 22 Oct 2026 15:19:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10112606D4FF
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 15:19:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 10112606D4FF
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NYBAX83e
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1792682351;
-	b=c9IZJdnWhDKN95QBNZlzMW99BJ9EUWNlxFiAE6y5vLhzoDzvUwHvmKkYVDX9f6/h3dbw
-	 2WpDHEfkmd0+o/A/rTkJ+m6YNlLVN2qxRxQlpq4gThKvI/pR8J/Jdisnh07O/ygl0OGwO
-	 b4GeC+SgYqlCywzpk334qQNfCwYlpP1tSyfUoiG2Wg+BVyQgrRrwRK9mSrfQ6czWhgp4i
-	 al1JvvVlfW5sf4jvPqnw+C1toTyULf7lUEEpswU3j9gMbgxKEZkljQCJ1rQzdy5zobBA5
-	 Xj/fPM7fF0hMVIMqJEFLymKHhVCUa2xjOrrcaiiDuQJilVeSYcgAonZKp9LeL2qCxPA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1792682351;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=XeYeuHW2ROs8z63PamAF7/Z5t0LYjZHf+QlIp4GkasQ=;
-	b=TUaC9JydlWI4Jl84IgKCZqvpAY/n8eekV6lz0IxMEOuYKv+tUuuLBmYotr4bSrHLZps7
-	 OaOwoGyhkjC+alC+cOZL//jQgfZf70DjL6I52xgNDWYOnXSKSGMNt1LwiFqPOK8VEKjj7
-	 999jm4adV3rB5neDf5goQDGqZ5YlKCPNe2T1qIS6QefGRlVxyJXMFm5NM8+xWWhWskv2V
-	 ynsuch+aKqzA3adnEyYIVIGX3TjMceDwpYXJ6KQPHfEKEkIioV60xN/52YNOEGD10AFgR
-	 K43RaO0wyF36RMkUHBn4l0zqqAb7VRK0XnCK3GsFEZiEDAyRBh4UcK6Fn2ins8qyNXw==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id C237F1F031E4;
-	Thu, 22 Oct 2026 15:19:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792682351;
-	bh=XeYeuHW2ROs8z63PamAF7/Z5t0LYjZHf+QlIp4GkasQ=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=NYBAX83evJEstw7ApFOpVq2XvQqSyNdpZsWezR1phO3Z+tNHHDgkUO3tlAgwoYnG4
-	 giPa4nVCImQcvb2c0pCJ7cqJyGNo8/MRa1Njc8oXmA9UfxMN+8xxzJ38pu8nTIs6B/
-	 VF+GGcrM27y/aNrpxIJF6L96Tnw951t0qeCVWPJDwzDbDrqAWz7j3hRSRX2jjOrTLW
-	 5hDO4w2r3JzhsRc0GybrRGdxSOGycGXQKodBv0FC3SIxXgljtjp4BWNyfNLMSnd+tw
-	 yU3Dy78yQ8Bpbl1LsuazSissQynuYF3BkAf4EqzmOmqvjcCPwdpN7sv8c3Utfauof9
-	 jGWqlH2IBnthw==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 8DA2641E5A;
-	Thu, 22 Oct 2026 15:19:08 +0000 (UTC)
-From: Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org>
-Date: Thu, 22 Oct 2026 12:19:03 -0300
-Subject: [PATCH v2 05/10] iio: frequency: ad9910: move channel indexes into
- a shared header
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=LtU3xVkF
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=twFq7MOErEa4mmIW+ng2D2UB5614P5erhK2J0yUP0wOjXzv0XRroIQUFlSIQ+7tQmFRSbVLbGRAl7x3aHNpgNnkYrRj/XJ3btfv8Fu5zWduGTTSR8IE9sVOnl34fXVP+PEqDUTQ6xMArPs4ImqlAlaigOim6lhKziJhAxYGFMILf1lLCXLQ7YDbF2QmgjrKTKMc5QYlY9rCPppFZvAr+31QrA8PyfP3rIzclUe6WLsd6sGYHz3RL13S90SrdQpWFbM24uQYzASgT9N4QP7IQaU4VTiMh1CP5wVcctOsREZvo2vaAUu6t0jkPn45Ty69+a8wmXDGaTDZK0H06BxvQHw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=wGNuj1U77chEdN69w8f4IqxaXzHHXuiIrzEEhMB3yxk=;
+ b=aylcQ8JR6j/73OsU+je094iG401kdTQbugcjVoBnrGRlouPGzkMUlkCtXcriZgrje1KsoaIzprvVUO1xz79uEVjgJreJzJ5ZivVVlnlq+TAJP0joU4QWNKiO4b6Wf3QyiI7+QcInMShfALVtDr1Nw/L7UH6JvapIsd+2GNhrSaZU4TMeX2+hSE6yXsQsbaR1+isUaVyin9/Bbxjt80YlEs8yP0flMwD9TdToD6d4927g7Pg9PoBh2Fe9BHyMCCKGu6raAUFJrp+j2MLkkhMI4HVlBW8ES1jGLy2GpnkcRUhC2jW4I10io1Xi4sEe7o7TymUm3z7W9LLvoMy5Ufa/BA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.161) smtp.rcpttodomain=arm.com smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=wGNuj1U77chEdN69w8f4IqxaXzHHXuiIrzEEhMB3yxk=;
+ b=LtU3xVkFuT01IC+YeQGQf/vHMY1vDXX7p1i7Z+LvgKbuvyxA+SQbK9TluaUcbmGN3Vt8MyKj7U2J0hnDjxLOv9Vo8stAPxhdPe/J+SqJ+mg7wRp5aqNQ4dfCZ1SUPj1y/iJjpF+xQJ4dzi5RwsYj+F8uZi8s7GgCLXd0oUQYuYvJasZbtEDmMExbgi8SIjaBjxOIHTd+oapCNDiDkIfQyooffq8KAUTwLFABsrOnc2ITRBOVmK2jKXdM6udQp+MiJPxlO8yZO+BE9w6Ku/OGlW6q4gjpw/HbvZ8u7FuJ0WAxSEuAAkluLC5iWV8lk7fx9CkBNUiBDkAIxWlL/ZBuDQ==
+Received: from DS7P221CA0015.NAMP221.PROD.OUTLOOK.COM (2603:10b6:8:25c::6) by
+ SA5PPFF3CB57EDE.namprd12.prod.outlook.com (2603:10b6:80f:fc04::8eb) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Thu, 22 Oct
+ 2026 15:18:49 +0000
+Received: from DM2PEPF00003FC5.namprd04.prod.outlook.com
+ (2603:10b6:8:25c:cafe::41) by DS7P221CA0015.outlook.office365.com
+ (2603:10b6:8:25c::6) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.546.17 via Frontend Transport; Thu,
+ 22 Oct 2026 15:18:49 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 216.228.117.161) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.161) by
+ DM2PEPF00003FC5.mail.protection.outlook.com (10.167.23.23) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.546.15 via Frontend Transport; Thu, 22 Oct 2026 15:18:49 +0000
+Received: from rnnvmail205.nvidia.com (10.129.68.10) by mail.nvidia.com
+ (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Thu, 22 Oct
+ 2026 08:18:26 -0700
+Received: from rnnvmail203.nvidia.com (10.129.68.9) by rnnvmail205.nvidia.com
+ (10.129.68.10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Thu, 22 Oct
+ 2026 08:18:26 -0700
+Received: from nvidia.com (10.127.8.13) by mail.nvidia.com (10.129.68.9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56 via Frontend
+ Transport; Thu, 22 Oct 2026 08:18:25 -0700
+Date: Thu, 22 Oct 2026 08:18:22 -0700
+From: Nicolin Chen <nicolinc@nvidia.com>
+To: John Garry <john.garry@arm.com>
+CC: <will@kernel.org>, <robin.murphy@arm.com>, <joro@8bytes.org>,
+	<jgg@nvidia.com>, <praan@google.com>, <kevin.tian@intel.com>,
+	<smostafa@google.com>, <linux-arm-kernel@lists.infradead.org>,
+	<iommu@lists.linux.dev>, <linux-kernel@vger.kernel.org>, <jamien@nvidia.com>,
+	<kas@kernel.org>, Cristian Prundeanu <cpru@amazon.com>, Breno Leitao
+	<leitao@kernel.org>
+Subject: Re: [PATCH v11 08/11] iommu/arm-smmu-v3-kexec: Implement
+ is_attach_deferred()
+Message-ID: <atopPqqaCA9tT3cq@nvidia.com>
+References: <cover.1791226953.git.nicolinc@nvidia.com>
+ <a80c74a629ee31af4dead1e9c263cde81abd5c1f.1791226953.git.nicolinc@nvidia.com>
+ <a65c757a-04b0-43e2-bd2a-5c07ab4f61f8@arm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,180 +120,62 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261022-ad9910-backend-support-v2-5-0ff7f0bff326@analog.com>
-References: <20261022-ad9910-backend-support-v2-0-0ff7f0bff326@analog.com>
-In-Reply-To: <20261022-ad9910-backend-support-v2-0-0ff7f0bff326@analog.com>
-To: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux@analog.com, devicetree@vger.kernel.org, linux-pwm@vger.kernel.org, 
- linux-doc@vger.kernel.org, 
- Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-Cc: Olivier Moysan <olivier.moysan@foss.st.com>, 
- Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
- Andy Shevchenko <andy@kernel.org>, 
- Michael Hennerich <Michael.Hennerich@analog.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, 
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
- Randy Dunlap <rdunlap@infradead.org>, 
- Rodrigo Alencar <rodrigo.alencar@analog.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792682347; l=4373;
- i=rodrigo.alencar@analog.com; s=default; h=from:subject:message-id;
- bh=x6NMO+HwBMwaNr1Y6ukLdwzGO76H8amSFklxVgJRt5o=;
- b=RY7ZuoYgghx0fHm+9xcyD5cZQ7KOqVeFqS1v/fNRORDaW9GdAukFEEkBq5CXOA4U4RNz5nk4h
- Ck7OCTLSUhCDJFZsyNlCXKjsMWm9UCKsjZjNGhNVSPQp4qJowTmP56F
-X-Developer-Key: i=rodrigo.alencar@analog.com; a=ed25519;
- pk=ULeHbgU/OYh/PG/4anHDfLgldFItQHAhOktYRVLMFRo=
-X-Endpoint-Received: by B4 Relay for rodrigo.alencar@analog.com/default
- with auth_id=561
-X-Original-From: Rodrigo Alencar <rodrigo.alencar@analog.com>
-Reply-To: rodrigo.alencar@analog.com
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <a65c757a-04b0-43e2-bd2a-5c07ab4f61f8@arm.com>
+X-NV-OnPremToCloud: ExternallySecured
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM2PEPF00003FC5:EE_|SA5PPFF3CB57EDE:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7163e7a0-1c76-4ac2-079d-08df304fc607
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|23010399003|376014|7416014|36860700016|82310400026|56012099006|11063799006|4143699003|261021121427099003|261021135927099003|261009223027099003|261009221227099003|10067099003|18002099003|22082099003|6133799003|13003099007;
+X-Microsoft-Antispam-Message-Info:
+	ufZDh/uZWd+rvF62uYVODHW//I387EEKuGre5F9yPLoQdSA2WQQ4IAYgGigZh4qeSA+jd5JJ957/t8X50jrvYbFmfN5TrEpKBkXeVhkIZFN2qj1SGl5FFJ6rVQbPpaVJfoeSs9fpj7qVyAXHLJZxpTm8H3SlzEVkE7tU1DjFfRXmDSCoUvmOBf0nPHE55JFS56MBU5ODC+JICDMPG7mUVEObL9nL76ogNFXqmS4uyNCEx9zWEeDgKwvnyzeU5SBJquXCZM5zeWRTW98Komt6PwIW3LZ2j/yaFg1Z4u78Xn74UFyyxVzbNQfSsdz9HLpNAgWlLJG7Mct+XhbXwA80S38otkVmGjsATJD0zlExvO11voYW2U2zPldh7nQ1qrtxcd7EEQwF2rLF4dSSfp8dWzmrsO3ZwEPvbPclCo6fjp/3PjYEo0A0Al40jY6EUD6qFEB7ASNtwuT59UwwwDQYYfPxQ6joc0pUbfhQNkayO79mWlp58Ju9WEWI22fUE4/K0sTW0DlgcZEurlTRVDDJnlWcSBxKfjm4MBNkW+iYpyOcjhfanwJ0SUj+lOWP+6qDdSNfmrQGbcxDTIYlU++NKXUjZqTP+7p70m02v/X7IBsAJYNJYjGrnk+isAC2mhCJt0I9eWAfsyGU0IyvuiR1702DWsULb0c/5aR0K9PaAd8l1o3hskXAosFg4FpdWKQ8qTu9OAthKWOtJyKhkalSRg==
+X-Forefront-Antispam-Report:
+	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(376014)(7416014)(36860700016)(82310400026)(56012099006)(11063799006)(4143699003)(261021121427099003)(261021135927099003)(261009223027099003)(261009221227099003)(10067099003)(18002099003)(22082099003)(6133799003)(13003099007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	rHfQlvbjtveFVoRrFb0PXXebhAYEqdafxzB8fTlK5pJ1JUD+/9YTKZP+6VfpBMMtRLhPy8sGdn2H/sW0ycDD7kYTDBHDidZQEtlnpqLxMIQJjE+XNjyA5n5FMb71lVGBNCtD8Vzc1kjevxC+pmhUeEJFih3P9kvRHn61XU1aZ3drCEUnJp4Ulk7f7nWk5yxVwPjeKc6c8tsH6tFpo/ChbErysn6eWWkLkzyi8sMCZOl/oAz9MbmQofKJ19jj0JU1ElsjLO135DosLhd8hS7rACa7RM40jkWtcJMrvmMtbiTWB0e55yQe15cSXK++4RV1rEemeoWJyj4cp6UuXGPlbdDeNJaLH4DCAPNlrxP7oPhSmMH/RtX7WKJiwn2/7ERHtZP4cRHiOIpFkD1+1NLtcGVhoa9dt/3r8XtQMSExU98h9+DgDXfXxAZYIyebWZxt
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Oct 2026 15:18:49.1330
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7163e7a0-1c76-4ac2-079d-08df304fc607
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DM2PEPF00003FC5.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA5PPFF3CB57EDE
 
-From: Rodrigo Alencar <rodrigo.alencar@analog.com>
+On Thu, Oct 22, 2026 at 12:02:12PM +0100, John Garry wrote:
+> On 10/5/26 20:30, Nicolin Chen wrote:
+> >   					    struct arm_smmu_strtab_l2 **l2table);
+> > +bool arm_smmu_kdump_is_attach_deferred(struct arm_smmu_master *master);
+> >   #else /* CONFIG_CRASH_DUMP */
+> >   static inline int arm_smmu_kdump_adopt_strtab(struct arm_smmu_device *smmu)
+> >   {
+> > @@ -1331,6 +1348,12 @@ arm_smmu_kdump_adopt_deferred_l2_strtab(struct arm_smmu_device *smmu, u32 sid,
+> >   {
+> >   	return -EOPNOTSUPP;
+> >   }
+> > +
+> > +static inline bool
+> > +arm_smmu_kdump_is_attach_deferred(struct arm_smmu_master *master)
+> > +{
+> > +	return false;
+> > +}
+> >   #endif /* CONFIG_CRASH_DUMP */
+> 
+> This is really a comment for 06/11, but I have already commented there...
+> anyway, I am curious - why use CONFIG_CRASH_DUMP and not
+> CONFIG_ARM_SMMU_V3_KEXEC? If your kconfig for ARM_SMMU_V3_KEXEC changes,
+> then this would need to change, right?
 
-The channel indexes are used as channel identifiers in IIO backend
-operations, such as enabling a parallel data port destination or
-selecting a profile. Move them, along with the data destination
-definitions, into a shared header, so that the frontend and backend
-drivers agree on those identifiers.
+Because arm-smmu-v3-kexec will be shared with liveupdate:
+https://lore.kernel.org/linux-iommu/20260929071950.2710070-5-praan@google.com/
 
-No functional change.
-
-Reviewed-by: Nuno Sá <nuno.sa@analog.com>
-Signed-off-by: Rodrigo Alencar <rodrigo.alencar@analog.com>
----
- MAINTAINERS                    |  1 +
- drivers/iio/frequency/ad9910.c | 35 ++-------------------------------
- drivers/iio/frequency/ad9910.h | 44 ++++++++++++++++++++++++++++++++++++++++++
- 3 files changed, 47 insertions(+), 33 deletions(-)
-
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 351ec0bca477..64aa7b539ca3 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -1735,6 +1735,7 @@ F:	Documentation/devicetree/bindings/iio/frequency/adi,ad9910-axi-backend.yaml
- F:	Documentation/devicetree/bindings/iio/frequency/adi,ad9910.yaml
- F:	Documentation/iio/ad9910.rst
- F:	drivers/iio/frequency/ad9910.c
-+F:	drivers/iio/frequency/ad9910.h
- 
- ANALOG DEVICES INC MAX22007 DRIVER
- M:	Janani Sunil <janani.sunil@analog.com>
-diff --git a/drivers/iio/frequency/ad9910.c b/drivers/iio/frequency/ad9910.c
-index 8bc24d0b7442..dc13986dff3d 100644
---- a/drivers/iio/frequency/ad9910.c
-+++ b/drivers/iio/frequency/ad9910.c
-@@ -33,6 +33,8 @@
- #include <linux/iio/iio.h>
- #include <linux/iio/sysfs.h>
- 
-+#include "ad9910.h"
-+
- /* Register addresses */
- #define AD9910_REG_CFR1			0x00
- #define AD9910_REG_CFR2			0x01
-@@ -194,11 +196,6 @@
- #define AD9910_RAM_ENABLED(st)		\
- 	FIELD_GET(AD9910_CFR1_RAM_ENABLE_MSK, (st)->reg[AD9910_REG_CFR1].val32)
- 
--#define AD9910_DEST_FREQUENCY		0
--#define AD9910_DEST_PHASE		1
--#define AD9910_DEST_AMPLITUDE		2
--#define AD9910_DEST_POLAR		3
--
- /* PLL constants */
- #define AD9910_PLL_MIN_N		12
- #define AD9910_PLL_MAX_N		127
-@@ -302,34 +299,6 @@ struct ad9910_ram_fw {
- 	__be32 words[] __counted_by_be(wcount);
- } __packed;
- 
--enum {
--	AD9910_CHAN_IDX_PHY,
--	AD9910_CHAN_IDX_PROFILE_0,
--	AD9910_CHAN_IDX_PROFILE_1,
--	AD9910_CHAN_IDX_PROFILE_2,
--	AD9910_CHAN_IDX_PROFILE_3,
--	AD9910_CHAN_IDX_PROFILE_4,
--	AD9910_CHAN_IDX_PROFILE_5,
--	AD9910_CHAN_IDX_PROFILE_6,
--	AD9910_CHAN_IDX_PROFILE_7,
--	AD9910_CHAN_IDX_PARALLEL_AMP,
--	AD9910_CHAN_IDX_PARALLEL_PHASE,
--	AD9910_CHAN_IDX_PARALLEL_FREQ,
--	AD9910_CHAN_IDX_PARALLEL_POLAR_AMP,
--	AD9910_CHAN_IDX_PARALLEL_POLAR_PHASE,
--	AD9910_CHAN_IDX_DRG_FREQ,
--	AD9910_CHAN_IDX_DRG_PHASE,
--	AD9910_CHAN_IDX_DRG_AMP,
--	AD9910_CHAN_IDX_DRG_FREQ_RAMP_UP,
--	AD9910_CHAN_IDX_DRG_FREQ_RAMP_DOWN,
--	AD9910_CHAN_IDX_DRG_PHASE_RAMP_UP,
--	AD9910_CHAN_IDX_DRG_PHASE_RAMP_DOWN,
--	AD9910_CHAN_IDX_DRG_AMP_RAMP_UP,
--	AD9910_CHAN_IDX_DRG_AMP_RAMP_DOWN,
--	AD9910_CHAN_IDX_RAM,
--	AD9910_CHAN_IDX_OSK,
--};
--
- enum {
- 	AD9910_POWERDOWN,
- 	AD9910_DWELL_EN,
-diff --git a/drivers/iio/frequency/ad9910.h b/drivers/iio/frequency/ad9910.h
-new file mode 100644
-index 000000000000..6452a8678ed9
---- /dev/null
-+++ b/drivers/iio/frequency/ad9910.h
-@@ -0,0 +1,44 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+/*
-+ * AD9910 SPI DDS (Direct Digital Synthesizer) driver
-+ *
-+ * Copyright 2026 Analog Devices Inc.
-+ */
-+
-+#ifndef IIO_FREQUENCY_AD9910_H_
-+#define IIO_FREQUENCY_AD9910_H_
-+
-+#define AD9910_DEST_FREQUENCY		0
-+#define AD9910_DEST_PHASE		1
-+#define AD9910_DEST_AMPLITUDE		2
-+#define AD9910_DEST_POLAR		3
-+
-+enum ad9910_channel_idx {
-+	AD9910_CHAN_IDX_PHY,
-+	AD9910_CHAN_IDX_PROFILE_0,
-+	AD9910_CHAN_IDX_PROFILE_1,
-+	AD9910_CHAN_IDX_PROFILE_2,
-+	AD9910_CHAN_IDX_PROFILE_3,
-+	AD9910_CHAN_IDX_PROFILE_4,
-+	AD9910_CHAN_IDX_PROFILE_5,
-+	AD9910_CHAN_IDX_PROFILE_6,
-+	AD9910_CHAN_IDX_PROFILE_7,
-+	AD9910_CHAN_IDX_PARALLEL_AMP,
-+	AD9910_CHAN_IDX_PARALLEL_PHASE,
-+	AD9910_CHAN_IDX_PARALLEL_FREQ,
-+	AD9910_CHAN_IDX_PARALLEL_POLAR_AMP,
-+	AD9910_CHAN_IDX_PARALLEL_POLAR_PHASE,
-+	AD9910_CHAN_IDX_DRG_FREQ,
-+	AD9910_CHAN_IDX_DRG_PHASE,
-+	AD9910_CHAN_IDX_DRG_AMP,
-+	AD9910_CHAN_IDX_DRG_FREQ_RAMP_UP,
-+	AD9910_CHAN_IDX_DRG_FREQ_RAMP_DOWN,
-+	AD9910_CHAN_IDX_DRG_PHASE_RAMP_UP,
-+	AD9910_CHAN_IDX_DRG_PHASE_RAMP_DOWN,
-+	AD9910_CHAN_IDX_DRG_AMP_RAMP_UP,
-+	AD9910_CHAN_IDX_DRG_AMP_RAMP_DOWN,
-+	AD9910_CHAN_IDX_RAM,
-+	AD9910_CHAN_IDX_OSK,
-+};
-+
-+#endif /* IIO_FREQUENCY_AD9910_H_ */
-
--- 
-2.43.0
-
-
+Nicolin
