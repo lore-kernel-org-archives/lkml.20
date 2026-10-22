@@ -1,86 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792695442;
-	b=HXr4PehhyaPv28auLp4exA4rbXyV4bMPoEJpzQ71T0YKi5hiBhFXre80Z1Hz+jjalbpN
-	 48eH/xEbwfbGEtzMHXprbstlgu3nrzP5KEa3EHOY3pOR04jk8u8mL60hr8aK5P+bCshZN
-	 LybXeEEe7WAV1wZ+F79tcVxmAMXpFa5T8F7qG38GAVDj3Q55542ISFulBVZYOSvUeN41V
-	 8fx51RhwGl1lR2UpxUcfjF5+udvW+A7NscPdZrjkJvIG0vQlZQRxR1cf43of0i5jvB/zy
-	 JfD9GvIuCW4bjhm8i3Yhljg8HsuOKVLhO3lesSj9eAPi6yoyT1ErOomMbbtB1Pl8tZw==
+	t=1792695443;
+	b=LY5H7xIbmxAV9e0aAlFVyBe7U34l3j81pUUooUGnvHkCe1IWKWnJQzVmj6Xu1maAfzSH
+	 cRot7U+5artYH1P6saDBscPRVIDYxe/p5UDLIzxRSe30PbVO6OQ/a6pENqWlcCUvnqCES
+	 RC+/iyn5VIOkR8y66KkF+sqU+eREBKtauS6HZ65H5DeO3sRdGNzwpoi1QzHWdvHzd3iQq
+	 hXaRi7kGX/l4Xo2zLgrjiN1HW0dcTxUxEfnttPrl9IZuxRRLZ5+jFEIVYKTBLVHyLo5Nk
+	 8mNBENpab6BUvoGI6ZwqcRScJb70u2S2ukaHO+/PvLwrQB9zSgvXz64mca6yvOhZmig==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792695442;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792695443;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=k6t6hNWD/TCa3KhqajK3ikKYHbg8LQCXp5YTHqmRyGM=;
-	b=ZfI/+K6o5WwKzh+H3Bpek6DpWbbNSlwal5yAn0nr7imFd1Y1C01oVNsKJ0dSC0UlYfAp
-	 MMaKhGwJJS3aFeS8QIOqIVgtNT2M9/fWWVInGCA3gYecDDhiWJG6AQkX/t0ohjxw2Oe7g
-	 OEnG612ChJFHJtmARvsoVg8H4T9SX5BHHEPvTAl5aOCp39fpdLUbc3SpLppOMsireDKis
-	 NGRAH0+hfV2eYXRO80gG2HfS+55Af3GFOqHacVP2sKTACLH4GVQh1WkeF1RJHXvis9pTA
-	 5WLm5a3FovNY8uliqJtMQVF6d4gbBpWeo7IPiV1eUza0Q2pYmE99hAyWaRStutzkybA==
+	bh=rEz2DJU5xtg+qo92FpdybUYGy6jNujiV1g+Xw84W7WQ=;
+	b=q8Fe2D9vr7mxLmP1nr6q2N05XViwuNzCj5Sv+VEr55XCvvyi8Smdijn7YiSqhJCZgu9k
+	 Fv9dP8MdiNWr4GKuHCas49L/MCLIHIx5bP0pIGXMYmdcxVTUbb4qZwh2DFJd9HTTXMVOc
+	 C4Z61mQxlt87DseR9KmmD26pXshg1lRJV3CZ9m+zNX9HLQhZR5ROUEDlnwSSDV5C2M3et
+	 SSNWetw/y+GpUFqzQkjuuh6UptfaRq4zUNXRHw+p2MerFaE99XQ47Raf4aPuNn4vLdp53
+	 hq/jkSYtvWvauZkxWKWNXUpY4+796KI7BBcyrMTx9FhETOsp9s1kG/Sge+iDzY2zEiw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=MLzRKjna;
-	arc=none smtp.remote-ip=209.85.128.43
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=AVpASINv;
+	arc=none smtp.remote-ip=209.85.221.44
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FD31606A325
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 18:57:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9FD31606A325
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6931606A330
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 18:57:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B6931606A330
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=MLzRKjna
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a208d93758so1333145e9.3
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 11:57:21 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=AVpASINv
+Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-48c4d870d54so76575f8f.2
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 11:57:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792695440; x=1793300240; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792695441; x=1793300241; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=k6t6hNWD/TCa3KhqajK3ikKYHbg8LQCXp5YTHqmRyGM=;
-        b=MLzRKjna5tBlkK/Gjzbdvr9H5iYwVtu4YaemWrVLYuqP0k0eQXsYf4jp+ayNbNLacE
-         Ry9e1xaNZwDTFONAUWYZe0feqk3Mb0ndNDRTyIBoLpxbM7y9QTmHn1RAtNGC5PMjNiZk
-         6wZ8uMoEwwimYxC7pT1mFoVccRZQHgTAiNBWTwq7xhGTiY2pW5lJ1JJzUpI/iLIM/I9N
-         O+aXcqYNwj8ZW7q6deN8xrp6RqmCilmWhWi8OaPHau8yY87dowJ3LoQ42dpMFMZm3k45
-         2gGSWqsTnbeTYNgRMl9kKi9WhTWauHso7D6F4kfyGRw52msBzGzL3W9HHY43DA1dfwlM
-         XmDw==
+        bh=rEz2DJU5xtg+qo92FpdybUYGy6jNujiV1g+Xw84W7WQ=;
+        b=AVpASINv3/+gIk07o3cZ4mqOKifekdjWq63VFK+94SiZrLUp21Qg4skNwLfIxkCldS
+         +t7KV9LnqYlD3Ea4PZe326XriH7qkvIc2h5YkoLixpo/jBmWCb7ALDCmc5/oT/SEcq5U
+         QTCnvFoueYXinrrjjE8okFCIBSsGoF4W0E/UMKTgfaSkLv3mDNXQ411sUzUL+56C6De7
+         CLv9EVxSMne8fCDmqVmd8EfXEjO/AsNIMoc23oKUBZxxpkKk6KMClwnVj43zEVTOz3x6
+         eHVYz6mfuo4k4u6C4HMJABXfL7cNmTDlbPjfBoLTAn83tQFJGvv46cIavJDJpx4viy3Q
+         1Yjw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792695440; x=1793300240;
+        d=1e100.net; s=20260707; t=1792695441; x=1793300241;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=k6t6hNWD/TCa3KhqajK3ikKYHbg8LQCXp5YTHqmRyGM=;
-        b=R84HJDJFQRni1bP6TeVnbDu9TD/VeUtfW1psjoGsnZdHAx2YbYlkS5Sb0kbgGXbbo2
-         nYTe0w4nfVnc86Xne/t1Q8qa2b7AM1KnH5Vajcx2FptgyfLOTAo2YD74eGKUbbBKLgoS
-         A2jjUjewXWlQdLoJj5S+OyiUevGF5950UC39B3MbtacMyWN2ZzC7MWy4kT6PvaFFqkzF
-         y9/BNsRgdzxcbKCoZIldLNv9GV9a84uzeY9C9ZrxKxjwHvQg5/DGiGgSGv/lchPnWrpm
-         R8WcLWJnv2XuXwYSrKYfHn6SHfGn4ZOvZ9dcOME+KsFbc5QEAo4qPkOHlQN0mTush5qq
-         5sUw==
-X-Forwarded-Encrypted: i=1; AKwUvBwd/5yEHlwxsI3rKcckulNre7Ss83KVcJ+nCGwfsNmnlXkvILR4RRSHIc+UZkRWxkDAkfuGugY3wIARqKM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYILIamkZroAmBJh/kkEckTnoAgx/DHS1t7Z2cD19lRjrT9lUOt3
-	DciXeIjgEq29bMCZBVbj9jtkJiNtS15VGttTeqyF9+qg7OZ4TIfXWutxJbDsfTUNxI8=
-X-Gm-Gg: AYBFou08zVoLL0WhUN7Lui+RMk8d60nMk/vb3B8NNiVMgPdnFmvFcN09AoO1dNjODgU
-	6aD/2r51Xvn6ag/pcDQpZe6MOiRDSdKp3C3+siTAS+4b7zTHm5/Cao6yNhi6Cxd1dnQXx7l6Uo4
-	eJV3HZlSiDie1MWySzGDhSgy/60rYO2KxdlStnfBEJe3jKiT6uPmSmX5w0rbFFz0a6dzwbKusz1
-	OqyZ7OK7mnxnkUbAa2mgIQ1sS3h/Ldq5ht6D7nvMe6BQoGA5T09/BxTb+p1H3aP/e2Nzfe/ZIJ2
-	A44TXezaOJ6ksoHjyCxY4qUvhuSXmR7VLZRFxtP8ZWIR3qlkiwXzSHBwZ8z1HN9jC6TtcCEhglN
-	F0XMv+ivJHNsmh/tybSKNS179NN8yvGcZXnCjnDEz0nh5mqf2uzm/WZ73K+Gp3ae50m4Hq0faQV
-	lKgtbgpD90S8Fur04lP7yk/ymcwO5terxzX/kIQT7OWTdqA87ofN6rSuf1/3PFoH9g4EoGi1TR4
-	/l+kOz99RsmlLJBIuvHePia1QmwqrVVSFtc4A2uDjF1EdkkAW1sbZjL0TJh98pfRxCZqQXO39A=
-X-Received: by 2002:a05:600c:a0b:b0:4a1:7bae:d80a with SMTP id 5b1f17b1804b1-4a1fdd245bcmr119483665e9.9.1792695439903;
-        Thu, 22 Oct 2026 11:57:19 -0700 (PDT)
+        bh=rEz2DJU5xtg+qo92FpdybUYGy6jNujiV1g+Xw84W7WQ=;
+        b=kZVDvJoCALbU1aD50VPPSNRMAiGQjoMryJvIH2jIV+S2D+2gj5jVlcXXEshN0hYsnW
+         tpG/lfkuB3jEL/qlNVeVGZlyfD6uspUBFScf7QdYEbFM5UvV8tLL6SGb5imLdUgdcMc5
+         7l+PsaQCEbOAz0qpP4mhBNCpCuWLiekfKZC6BGa2cEwkUGpTSkQbX09MGO5EDoFPZ9Ve
+         JCozUix/8Kd3S5aDqHdga+uJgYRZkpVA2Cd6Mgn+sG02NOEoz3sseDz2ahaucWs+/IL7
+         aFo4/Feh/fvl2dfxpCECAJzYornqfAIGx1TVLbHVSVbzSCCRzcCUI0gluKyay6AB51BJ
+         2L2Q==
+X-Forwarded-Encrypted: i=1; AKwUvBw9ytgZKT+9K4cUj5mSxf2QoPV519xmQHyEIGAUeNyacQPe7Vt3lbn0xm5KV3ck0m63bj3fZbCTfJ/UQfA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIwAoRUDaVIuDoorbP5hQMKCKWtTudlXZccJ97GzDv2MrbxsYIu
+	U/g66JLiFMCLFcqLSQ9waKr1XEbCJ2AZ3kvlBplmcksbVTGd+8YWhv66ts1wUn+sAww=
+X-Gm-Gg: AYBFou349gOFz2caUOzgpT4BERJ/kvDJFZQYqL+7fvLUP+13KFQ7iTPXFpV/IO6kLss
+	T3nHa4Yz8z85C5UK0Gj63hpjyltNx15u8KdIASDHn63cgv7COJLyBk66+NGBi9aIlm7ERSUFh0s
+	B3yLN9cFHT8UnoIpvvSFvyiuEphIVfmBdt687wOIl/jjVwGF3odkkcO9og4iUJ3RZbKAj8jXyqb
+	NUiAJjgzA4RquCa/Q/3gtureFIeU5JmEHuKZ18YKst0fE15U9GWt/VhYc7C2EQi6yW/8Wi5bVO2
+	FXgWMoE8J9KWGZ5W3R+y3lETIaWOM9zvY3pkvs33qnx6XQ6nRYH6pG6Vjlwq/fSnUhcG7+5Ci08
+	dBaTnC0Z/pvT/ohFeJb2Y3cggJAfIKR8mDN4M6iZrkRJq0Tzkf8z7kJ6XAjlYxNSa2zrd5DKzXC
+	GcD+Tk4UpNDT3Mgyb1gMisf3EaFDyC2boTR2ZiYlasVYDLUTo8c5LoAEk5oTE1oFW+KGXe0upM0
+	cO3IY6NKdQT/Y2B1DDzPR7vWS8bsjq/hAZ50KzApw1k+BSUu+fzqw==
+X-Received: by 2002:a05:6000:136a:b0:48d:fd5b:504d with SMTP id ffacd0b85a97d-48e264b1ff5mr8730839f8f.31.1792695440986;
+        Thu, 22 Oct 2026 11:57:20 -0700 (PDT)
 Received: from localhost ([2a02:8308:b092:fd00:d900:ff27:14a1:f032])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e379f0695sm162442f8f.37.2026.10.22.11.57.19
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e379e6daasm144016f8f.30.2026.10.22.11.57.20
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 11:57:19 -0700 (PDT)
+        Thu, 22 Oct 2026 11:57:20 -0700 (PDT)
 From: Jan Remes <ciakval@gmail.com>
-Date: Thu, 22 Oct 2026 20:56:40 +0200
-Subject: [PATCH v4 1/4] iio: light: tsl2591: don't divide by zero
+Date: Thu, 22 Oct 2026 20:56:41 +0200
+Subject: [PATCH v4 2/4] iio: light: tsl2591: add I2C device ID table
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,7 +92,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261022-first-patch-v4-1-90b2fc6e8e28@mycroftmind.com>
+Message-Id: <20261022-first-patch-v4-2-90b2fc6e8e28@mycroftmind.com>
 References: <20261022-first-patch-v4-0-90b2fc6e8e28@mycroftmind.com>
 In-Reply-To: <20261022-first-patch-v4-0-90b2fc6e8e28@mycroftmind.com>
 To: Jonathan Cameron <jic23@kernel.org>, 
@@ -100,112 +100,38 @@ To: Jonathan Cameron <jic23@kernel.org>,
  =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
  Andy Shevchenko <andy@kernel.org>, Joe Sandom <joe.g.sandom@gmail.com>
 Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Jan Remes <jan.remes@mycroftmind.com>, Jonathan Cameron <jic23@kernel.org>, 
- stable@vger.kernel.org, Martin Triska <martin.triska@mycroftmind.com>, 
- Andy Shevchenko <andriy.shevchenko@intel.com>
+ Jan Remes <jan.remes@mycroftmind.com>, Jonathan Cameron <jic23@kernel.org>
 X-Mailer: b4 0.16.0
 
 From: Jan Remes <jan.remes@mycroftmind.com>
 
-The TSL2591 has two raw light channels - CH0 and CH1. The algorithm for
-calculating illumination from the raw channels requires division by CH0
-(which can be zero) and by "counts per lux" (CPL) value which is also zero
-for (gain = LOW, integration time <= 400 ms).
+Add an I2C ID table so that driver can match devices assigned via sysfs
+or through board info.
 
-Furthermore, the algorithm assumes CH0 > CH1, which can be violated in
-almost complete darkness.
-
-As a result, reading from 'in_illuminance_input' results in
-division-by-zero whenever CH0 is 0 (complete darkness) or whenever the
-parameters result in CPL being zero. This results in kernel oops on
-x86_64 and in reading the value as 0 on arm64.
-
-Fix that by:
-- reporting CH0 <= CH1 as zero (catches also CH0 = 0)
-- updating the lux algorithm to only do the division at the end
-
-Fixes: 2335f0d7c790 ("iio: light: Added AMS tsl2591 driver implementation")
-Cc: stable@vger.kernel.org
-Reported-by: Martin Triska <martin.triska@mycroftmind.com>
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
 Signed-off-by: Jan Remes <jan.remes@mycroftmind.com>
 ---
- drivers/iio/light/tsl2591.c | 32 ++++++++++++++++++++++----------
- 1 file changed, 22 insertions(+), 10 deletions(-)
+ drivers/iio/light/tsl2591.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
 diff --git a/drivers/iio/light/tsl2591.c b/drivers/iio/light/tsl2591.c
-index ef3ed9635a1e..f56d31404c25 100644
+index f56d31404c25..8cfce720efb9 100644
 --- a/drivers/iio/light/tsl2591.c
 +++ b/drivers/iio/light/tsl2591.c
-@@ -16,6 +16,7 @@
- #include <linux/interrupt.h>
- #include <linux/iopoll.h>
- #include <linux/kernel.h>
-+#include <linux/math64.h>
- #include <linux/module.h>
- #include <linux/mutex.h>
- #include <linux/pm_runtime.h>
-@@ -362,6 +363,10 @@ static int tsl2591_wait_adc_complete(struct tsl2591_chip *chip)
-  * Scale values to get more representative value of lux i.e.
-  * lux = ((C0DATA - C1DATA) * (1000 - ((C1DATA * 1000) / C0DATA))) / CPL
-  *
-+ * CPL is not computed on its own: at 1x gain it is below 1 for integration
-+ * times under 500 ms, so the division by LUX DF is folded into the final
-+ * division instead.
-+ *
-  * Channel 0 = IR + Visible
-  * Channel 1 = IR only
-  */
-@@ -373,8 +378,10 @@ static int tsl2591_read_channel_data(struct iio_dev *indio_dev,
- 	struct tsl2591_als_settings *settings = &chip->als_settings;
- 	struct i2c_client *client = chip->client;
- 	u8 als_data[TSL2591_NUM_DATA_REGISTERS];
--	int counts_per_lux, int_time_fval, gain_multi, lux;
-+	int int_time_fval, gain_multi;
- 	u16 als_ch0, als_ch1;
-+	u64 lux;
-+	u32 rem;
- 	int ret;
+@@ -1149,7 +1149,14 @@ static const struct of_device_id tsl2591_of_match[] = {
+ };
+ MODULE_DEVICE_TABLE(of, tsl2591_of_match);
  
- 	ret = tsl2591_wait_adc_complete(chip);
-@@ -410,23 +417,28 @@ static int tsl2591_read_channel_data(struct iio_dev *indio_dev,
- 			return gain_multi;
- 		}
- 
--		int_time_fval = TSL2591_FVAL_TO_MSEC(settings->als_int_time);
--		/* Calculate counts per lux value */
--		counts_per_lux = (int_time_fval * gain_multi) / TSL2591_LUX_COEFFICIENT;
-+		/* No visible light, this also catches C0DATA == 0 */
-+		if (als_ch0 <= als_ch1) {
-+			*val = 0;
-+			*val2 = 0;
-+			break;
-+		}
- 
--		dev_dbg(&client->dev, "Counts Per Lux: %d\n", counts_per_lux);
-+		int_time_fval = TSL2591_FVAL_TO_MSEC(settings->als_int_time);
- 
- 		/* Calculate lux value */
--		lux = ((als_ch0 - als_ch1) *
--		       (1000 - ((als_ch1 * 1000) / als_ch0))) / counts_per_lux;
-+		lux = (u64)(als_ch0 - als_ch1) *
-+		      (1000 - ((als_ch1 * 1000) / als_ch0)) *
-+		      TSL2591_LUX_COEFFICIENT;
-+		lux = div_u64(lux, int_time_fval * gain_multi);
- 
--		dev_dbg(&client->dev, "Raw lux calculation: %d\n", lux);
-+		dev_dbg(&client->dev, "Raw lux calculation: %llu\n", lux);
- 
- 		/* Divide by 1000 to get real lux value before scaling */
--		*val = lux / 1000;
-+		*val = div_u64_rem(lux, 1000, &rem);
- 
- 		/* Get the decimal part of lux reading */
--		*val2 = (lux - (*val * 1000)) * 1000;
-+		*val2 = rem * 1000;
- 
- 		break;
- 	default:
++static const struct i2c_device_id tsl2591_id[] = {
++	{ .name = "tsl2591" },
++	{ }
++};
++MODULE_DEVICE_TABLE(i2c, tsl2591_id);
++
+ static struct i2c_driver tsl2591_driver = {
++	.id_table = tsl2591_id,
+ 	.driver = {
+ 		.name = "tsl2591",
+ 		.pm = pm_ptr(&tsl2591_pm_ops),
 
 -- 
 2.53.0
