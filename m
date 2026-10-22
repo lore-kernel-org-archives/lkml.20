@@ -1,58 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.14
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792687261;
-	b=YELSzm+w3Cz11l9wdKN7aC9RnoyJB7fNzx5EutnKbCjFAtXjoxRazQPJzunQTI+9FrSw
-	 S32d4ZzUO/u8d34VkMtP+EwL3fuKeuUUPZ8eTPCi+68d/taljZHv7HPGB1tB6wY2ZGIBO
-	 h3mQW4+tg0EIUtevf+1Fe8Tz2wmgnNta914OKEMUimlBxv+4Qt8dD9kl3l7IAXDNLcnHO
-	 JyYL8E3d3kn5IinzfWuj0ydS+08YGqwmcwUQjiNTpmVMx6GXrV1VdNMrn85PAQwikj/NR
-	 Ya5HjFzSete0lrRNlL0UFXeEjuWSHnDzQ5ouq+iGNcvvHVAxSDh9EXU9/fNx+gRNJUw==
+	t=1792687323;
+	b=LFYw2RU/z/kI82cWG9dpgN1neZAClEJ5N6faqNZUeuJ3YkgjXrjpUc2yTc6Fu1iFDDgA
+	 MA5DYI77MVXrUvH7snpU1Q086DIPjYLFisiG6xvtvGLp02B2X9GAtJerFvVdgi9M+FUMu
+	 q3ErrDrxD94n3k24I9TnBvaQ6/gFOzDOq8LrRCCXIP4J6vTPjZjPnRSch4KMKRAe8wh8Z
+	 HHRrsXntT76Nwb29s+w9M3FFV5Uw4j9nGWxLIlmekWbKqWqE7QO49VCPrpYMLBVG+MB/1
+	 5Mr1NdZS0eU+u5K4wNp3gRWNJBjv4yHrn4dcb6omR9YvjRQz2N9C+2QW2/yYwY31fuA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792687261;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:X-Developer-Signature:X-Developer-Key:
-	 Content-Transfer-Encoding;
-	bh=4ukBa9EJ7USEtoaEi8e1+b7Z6heRCBugWO7Lj117fXc=;
-	b=2aPe9x4xWoZrSpRieYkSg2J9gqes+Dvo1COEGMzFu1fu2mftP8bQzxx/+ff2Z3JIYY6d
-	 g27n+WLYxATcZi+cdTxZ1biFw5xDIn5SufzpESmJDQzcRUfKhjNPja+02POjFPlZEFzyj
-	 YhkugM+sgDAcd1x2ISYdsUNJBZXAMLh2LeOzUtmjbbzz6sI8y3A+KhqDbZzNt6N7haFUD
-	 TVUXrR4SKMGfnQsDtoOre7kehkMlIFr9Sk7PozGks7ur/mcdfFPDhYCbZdkSzfORPDdfS
-	 kyrWTRPzi9Dd5zwaKfRqgzAEMP8fjwirOItYWHx6M7HMxzPsgN6w8DcMfKV2bB3EAdA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792687323;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=E2wdDEekVy0P+07Vs6ycsqQnxnT7EjSZRxjLJlJ2A6A=;
+	b=jJ4zdYi3oIHoNuUlhZmBueOw9aeyecaNrNbp6DiCNh8sM4n72tV83G5XkhfLl/jV0jMA
+	 iClTspjgJyCfar2cDLtJXm7JMsWTeWOGQZaIuv5bK0o84nfeymCH4GjzWEIjVAQUevNbH
+	 Unxlminsufb0zPuFemn88cGkRGT05jshyI6odZ2HnmqN+aQZwQM90hnONSprJXf/PheGe
+	 M4w10xZynvkPsBRQ6eQwWY4xuZlqtlIX6vmI5P7nmxIALBMOrD6vCaZmNUK1On4smfid2
+	 J5Za0kcp05eaHfv4MLRppghDuCvY3bcpkH4MbDfYcGK4u7hQ6JsyCllebD765Q74MXA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=a+ogSzb+;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=lxqKsZ4A;
+	arc=none smtp.remote-ip=198.175.65.14
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B624606A31A;
-	Thu, 22 Oct 2026 16:41:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21295606A319;
+	Thu, 22 Oct 2026 16:42:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 21295606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=a+ogSzb+
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D2791F01825;
-	Thu, 22 Oct 2026 16:40:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792687261;
-	bh=4ukBa9EJ7USEtoaEi8e1+b7Z6heRCBugWO7Lj117fXc=;
-	h=From:To:Cc:Subject:Date;
-	b=a+ogSzb+XHWaDhzjVgwNiMDxYQh0piVfMTZV65FuTVIJza/1WFrQiMhYmJA0rOf8r
-	 Ak0nJu97MWTk9mQpLih6Y4QoQHuDbx/HspbDJKfoGfuRmq5aF2IEmSLQcgxciT4POG
-	 0tH/JJHrNxv18E4CU0Nbk8xtOXlCM0sNUlBvhNh6zrULlcwUyuVaM6tID9iNuvjq/Z
-	 2waJyj4XHVfN2BOWc/h/Jv7EB6ke1zuKSxey/d+0b78ui4kflzG8/EOFTrT/XVGjk5
-	 nWOdPvHraIfW4pjuOU5n163qzklatB6wekBeUIXgQNFrwhrEpxQY0czuHgz2FkTmRM
-	 bsEzkisxW8ZaA==
-From: Thorsten Blum <blum@kernel.org>
-To: Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig=20=28The=20Capable=20Hub=29?= <u.kleine-koenig@baylibre.com>,
-	Zhao Dongdong <zhaodongdong@kylinos.cn>
-Cc: Thorsten Blum <blum@kernel.org>,
-	Takashi Iwai <tiwai@suse.de>,
-	linux-sound@vger.kernel.org,
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=lxqKsZ4A
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792687323; x=1824223323;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=JdD/KTg8XZ2fzdF8q8aX0Q/Ay4pr03yaweqTC9tcWbE=;
+  b=lxqKsZ4AMFnlgyNLtpzC7Sf9QijhO9/jCBxnbwTelqJqukPVSylHTjJL
+   4/m8kui4qAJ0rtdJPRW2uPR1Ga1jQdMbutca4f3jl0i97It3K6TfYLDKo
+   at7H+SO92In48Qeuo214iK05s4jUI07Vy2iXnGm5Y45QecB1HX7YmAT8R
+   GIQ6rO7K1EHuxJAd4MmrcKI1i8aLIjWWdXq4F7ww28G4xTxJgXFI/AB5n
+   d2KebResR8ngFDJ+LePq5jAVV8afnRXp2JCXeHmWdijYYx+vsQseFtQ19
+   SUqLF6GstvsgaQVwbt5WZvfaovFob9flrL//v4s56IohThVOZfQb7VnHh
+   Q==;
+X-CSE-ConnectionGUID: ZR4KyjPARMSsz6pgp7AwXQ==
+X-CSE-MsgGUID: hkS/f78iQ/q1Adq2fx4xmQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11942"; a="1316639"
+X-IronPort-AV: E=Sophos;i="6.27,172,1787036400"; 
+   d="scan'208";a="1316639"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Oct 2026 09:42:02 -0700
+X-CSE-ConnectionGUID: i8QMZGsTRGW2Ilg89RdqkA==
+X-CSE-MsgGUID: v7XsLAGoT/qoSGz/PSwyug==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,172,1787036400"; 
+   d="scan'208";a="3392790"
+Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.245.189])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Oct 2026 09:42:00 -0700
+Date: Thu, 22 Oct 2026 19:41:58 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Arnav Kapoor <kapoorarnav43@gmail.com>
+Cc: Marius Cristea <marius.cristea@microchip.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH] ALSA: cmipci: Use strscpy() in snd_cmipci_create()
-Date: Thu, 22 Oct 2026 18:40:11 +0200
-Message-ID: <20261022164013.95811-2-blum@kernel.org>
-X-Mailer: git-send-email 2.56.0
+Subject: Re: [PATCH] iio: adc: mcp3564: reject devices without match data
+Message-ID: <ato81kWiI4gnI5xK@ashevche-desk.local>
+References: <20261021225431.627718-1-kapoorarnav43@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,42 +82,36 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1331; i=blum@kernel.org; h=from:subject; bh=HgltFDZWqkou11AuRCrLgqLX6WZWPGoGqfLHpuG8SZI=; b=owGbwMvMwCUWt7pQ4caZUj3G02pJDFm3bHJnF86wDjQ+tp655uSPZYcF5pseELGMD85sqihYZ MxendvRUcrCIMbFICumyPJg1o8ZvqU1lZtMInbCzGFlAhnCwMUpABO5ocfwz6zl/o8lgf/nekvd f7ltwoJsOf2+DfMaKvbtZt/aoybkrs3IcIGN8XxH7PrAkASG7ENZ6Ud2XDV1mNT0NEno9p5N9Zd uMgAA
-X-Developer-Key: i=blum@kernel.org; a=openpgp; fpr=1D60735E8AEF3BE473B69D84733678FD8DFEEAD4
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261021225431.627718-1-kapoorarnav43@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-To prepare for removing strlcat() from the kernel [1], use strscpy()
-instead with the current driver name length as the append offset. Also
-use size_t in the multi-channel branch to match strlen()'s return type.
+On Thu, Oct 22, 2026 at 04:24:28AM +0530, Arnav Kapoor wrote:
+> The driver identifies the chip by reading its ID registers. If that
+> fails, e.g. for a newer part number, it falls back to the match data
+> provided by the device tree.
+> 
+> spi_get_device_match_data() returns NULL when the device is bound with
+> the "spi: override" property, as in that case no match data is set and
+> the device name doesn't match any of the entries of the driver's id
+> table.
+> 
+> The driver dereferences the returned pointer without checking it, which
+> leads to a NULL pointer dereference and a kernel oops.
+> 
+> Return -ENODATA if no match data is available, like the other IIO SPI
+> drivers do.
 
-No functional change.
+Fine, but I hope we will have something to land to actually do it differently
+for the drivers that don't want to use driver_override mechanism.
 
-Link: https://github.com/KSPP/linux/issues/370 [1]
-Signed-off-by: Thorsten Blum <blum@kernel.org>
----
- sound/pci/cmipci.c | 10 +++++++---
- 1 file changed, 7 insertions(+), 3 deletions(-)
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+Please, shrink the commit message to the point.
 
-diff --git a/sound/pci/cmipci.c b/sound/pci/cmipci.c
-index 9d9f784e3a8c..5722b722da95 100644
---- a/sound/pci/cmipci.c
-+++ b/sound/pci/cmipci.c
-@@ -2980,11 +2980,15 @@ static int snd_cmipci_create(struct snd_card *card, struct pci_dev *pci,
- 		query_chip(cm);
- 	/* added -MCx suffix for chip supporting multi-channels */
- 	if (cm->can_multi_ch) {
--		int l = strlen(cm->card->driver);
-+		size_t l = strlen(cm->card->driver);
-+
- 		scnprintf(cm->card->driver + l, sizeof(cm->card->driver) - l,
- 			  "-MC%d", cm->max_channels);
--	} else if (cm->can_ac3_sw)
--		strlcat(cm->card->driver, "-SWIEC", sizeof(cm->card->driver));
-+	} else if (cm->can_ac3_sw) {
-+		size_t l = strlen(cm->card->driver);
-+
-+		strscpy(cm->card->driver + l, "-SWIEC", sizeof(cm->card->driver) - l);
-+	}
- 
- 	cm->dig_status = SNDRV_PCM_DEFAULT_CON_SPDIF;
- 	cm->dig_pcm_status = SNDRV_PCM_DEFAULT_CON_SPDIF;
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
