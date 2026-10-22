@@ -1,94 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792671405;
-	b=aezY1K6CGtkht6tNTR8OpNRR7KL8BX/pgfYv/ypwVNzaKrNt6cnWUisd5Q/CZO1zzVQV
-	 CdLgZaiwOiA7dacQsPcu1DWiVZuVEbEJxMJ4mTbI8ss6DkDl90TiqrDfZ3Qs/pwr6Bi8C
-	 FmLbVxswcsrVAQ43rIjfRgnV8FMafDp3WHmyQVuccm32czIMf4ettfUwzd9eTg6VuC6zi
-	 4UBfaxdubLz0sa+hqstQz+ZQS/xk8bCtd8/79DO1q/8tF/1h68mVkixwOk+ppPf+TscL/
-	 K6bJtDGx2ce4tO2bzMtr3pezJo3kwnpz3Po4XboieTVZp3HhBp6HPVEsyrWSk1sXekw==
+	t=1792671421;
+	b=THsUMRVE8cHVLGQakJgtnZtVtOv6Jbxuy7I9GwoNTuocjD8H7ZYHUrk9bT4ZniytJZh+
+	 j2cpOMG0pJFxTe2TDERdKIaw3ZDxvO8Nmt23dASBGXmYL4hct9cAX0SO0qD9l8Pgikwdf
+	 geczLZOf6uRUREP9x+Gho01QSSfDRB7FM3SgPPwz34IeKd9vI5kFVjIuIqL/QUsSnerTH
+	 4OaxHeGrNSggTIuhELkd3axIlxNzj3Yrx/fZbKSjHHQQYUdCROuMPEtKO6rzo3/MxynaU
+	 V0r5P/GQfbc0c7UfQ87KsJ5TdhYzuVgPTl6v0CcamMcj8Gqf8HPgnfYXZZ9Eup1FYJw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792671405;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=bBrHNmc7PbGGn5lyfOcxeR3zOs/o7WqUiB6nA5M0+7g=;
-	b=JUWeLBgtWkvY+TynjksGJQz0HIPcSzojnqAhSAuHCa2b6IiNGkhaw0y4/0mEuv3UwgJM
-	 2BOAR1LOzIxw4PKv5xX6hz7nWJU/cTs5lnXuqROMBzl+4J6lz/JDwRT/tqw3mfXT0OBl3
-	 V+QbEmBoVs/tYdLFddheB81ftKJFAZ7ziRzMLKhhPm8pZWIBHfctxR1TNK5pKyPMN2BKi
-	 0OZI8Tjxq4RWH0nN+Qdvs8Jr1r7Gy7y15g8A3orIIHqbbTZGy9WkGTGYQTkBbM557CQXE
-	 Xv3CsLdeBZzN3leTV28v5RFHl5dpb2R0YJBYGUfkl+x7HTTlAWqDdFqieYFiUh1QKMQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792671421;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
+	bh=Dl0+4y9rpaLG0QiCFT2P0BjBCbwRmBqbxLvb8wuIB28=;
+	b=nAslh6UiYj6jGK3gQqEW9J9SBAV9Kl8IS46qTijyRB8CCk03A0oOEkswN4B7zjyN7/FH
+	 Z9sYTkygotEj4X9HvL4+mUETLDswgYxHT5aYB4H+WLxIQuaT9QwSZbyN440bR5dA0fMqO
+	 HEEMKVPIHWmFak7OcVyD63OrqEBi1ZWVIVAgpHt5sSAqr6reXQJ9CZziJFDdmsGg1VvXv
+	 3K27g3KZjgDzQJYNxTVb9ji+5qACtKU/UC6yWScvJSnrUr/gONEps1jPyGnjC2d/xHdCA
+	 nStHrqW+aTDkzOQBeD2EwlM5K0IfIyX86YJWkvZ5G0gCNgKYhGTUg+Xyoc+nn6Qtijw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=PqFqk2Bn;
-	arc=none smtp.remote-ip=209.85.216.48
-Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFE34606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 12:16:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CFE34606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=lWVmotgu;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 77274606A319
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 12:17:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 77274606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=PqFqk2Bn
-Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-3adac5b29ebso332504a91.2
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 05:16:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792671404; x=1793276204; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=bBrHNmc7PbGGn5lyfOcxeR3zOs/o7WqUiB6nA5M0+7g=;
-        b=PqFqk2Bn6B1j7bDpEQYx9WIZ0ehLDS5VViOBQ8t+zlYJzoRZEv+iTgtCsTLU/BUG2Q
-         7qnn4IOJ5mYCNRnJga7zmNIig5dOr1m0gYHzfMLcYs7vFKTisD30F2sz7Kk4xebtvlAP
-         PA0R3Y3AANWiQyyRMl2mmz5U2smFwyW2ReDX3GHoQXni5CUJl9X6fOUyp1Cur9XNH8Xn
-         wvu1e8AC652+Qv6igOd2ywYn3vd3BP2L06qP549xidwOatJXX8jXw3gmE7CXWFGK58h8
-         5eL5wI6jy4XZPWI70x8sjbUSzOVZ9V5Ec2vdnfzCs7RXk0RSbFSPl9vroM2kvcs20inA
-         o91A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792671404; x=1793276204;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=bBrHNmc7PbGGn5lyfOcxeR3zOs/o7WqUiB6nA5M0+7g=;
-        b=uhw1YdPty/UhE3cLkBQK8fvFC+kYp8l8PG+8NLE9HhAgYkBCtk5FPPVu4uuTuwY30H
-         Avp2+Q8Nn1LpRwmndrAWJA1kx478rDJg4rSGHNQX/CjUHxrTMfYrQvujK99c+cNJCWmg
-         v47Mz8rvUlxolC7G+VkAfUTh9ZcDvmgrj3SE4+aahfdZc4SJw5A869ZztEgzWSyn+HEU
-         52HJsjocrbVNLHd1vikyiZ6PF2LptN9Y5Q+KwzdmUYqdWAcQbZ5jTnsf+DH6wmQl+DF3
-         hiW5ollk/v/xALBYeP3+W3dVOqpiq6JoqsUaYT6bQ7GGNQd4+fZc1o98ke1Bik+G/F1M
-         rP0w==
-X-Forwarded-Encrypted: i=1; AKwUvBwiTr4pbpI9QiSnE7oFoMYbEGlr0txSTTXjlr5e8ZVfI7Q8ts+Z0WRABdq5PrB/piRhGLh8HeNB7LwaldI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI5moxS6FGBrVpgEhwzQrzIGiAGOiSUDg6igx1tkDKpHS9hHZ07
-	8L9gqkP0SvpluZ1W+LDPbx3PSuGIz5fq/fBJF2oHu5dyYTqdnhL1zId1
-X-Gm-Gg: AYBFou05g6JRS7XDUKYsyekNV+LF2Y3dYq2uTpy5KY5xE+5ieYW4usJDOGf7hha97B9
-	LBQ1Bl0SImJTFaRGhNGWPdqojiPibAveengzd13hQaQLaHUdAjVTSqbQlajdfdbte8wcz6Aq25K
-	Z/rgiYIb6wtfgnP2Cf7F/CcHQFaYUeZM+ddfFbfBWG+cWwQpCsIJXe38C9ycXIbXam3CVXhjil6
-	HySHn6hzCzaOJtbgkCLE1deGlCf4eMKACfKvlRXJr+jKCRAoMewlnl2M4n0mzzP58t3rvXcngYz
-	NToMAJgMaz5wojvHkKzPaVAfQiHCw0k8vV03+y5PxRZVUZlKeNOAx3hYSV3mEmuCDrvzwrFhtq0
-	R0O+UXQqmQ9vnyB0k6YpHm2CDSDe2cbSI4hRQ21W36hQXduTK3GqTFmSLaAih+LV0VAwwoAqTj+
-	1shE3IbvkcyiWIUKicTLWcSiBXgvwsTyYysrt1veS3NymId3jQ+WmWm6CVfYYXH7zMdUdYVJy6k
-	7gKOEei1vVn6A0MyxZU1+NcWnOORTdwgjoEwpz6gjuNmnAMDG8=
-X-Received: by 2002:a17:90b:3d86:b0:3ac:e6a:1b2b with SMTP id 98e67ed59e1d1-3ad86cb08f3mr4143140a91.0.1792671404071;
-        Thu, 22 Oct 2026 05:16:44 -0700 (PDT)
-Received: from localhost ([111.228.63.84])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ada490d4bfsm4782330a91.10.2026.10.22.05.16.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 05:16:43 -0700 (PDT)
-From: Cen Zhang <zzzccc427@gmail.com>
-To: marcel@holtmann.org,
-	luiz.dentz@gmail.com
-Cc: linux-bluetooth@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	baijiaju1990@gmail.com,
-	jjzuming@gmail.com,
-	zzzccc427@gmail.com
-Subject: [PATCH] Bluetooth: hci_sync: Copy the LE accept list under hdev->lock
-Date: Thu, 22 Oct 2026 20:16:36 +0800
-Message-Id: <pm-bluetooth-objects-candidate-0158-v12-0137c5e23ffb6986d911@gmail.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=lWVmotgu
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 9A11B2F27
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 05:16:57 -0700 (PDT)
+Received: from [192.168.0.1] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 9BC9A3F7B4
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 05:17:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1792671420; bh=iNNPWrLLhrInRpAMKQhmWTnUnRz/l8TgFGAx7zKoFqk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=lWVmotgu3tdLYa+c/YdYPET8O86i8z5cWUHUhRbSuZJB4P5BYovFVg4kfRr374V4J
+	 IghywJsiE4wO/I9k5tC+ha9qCJvhXW1rUF9j37q6/nJtww99BuZOhQ4fN2SQr/Tcyq
+	 mqG83ijl6cyVTqeO2vuh/QZfhpMJ5UgKV4I9QeVE=
+Date: Thu, 22 Oct 2026 13:16:48 +0100
+From: Liviu Dudau <liviu.dudau@arm.com>
+To: Lukas Zapolskas <lukas.zapolskas@arm.com>
+Cc: Daniel Almeida <daniel.almeida@collabora.com>,
+	Alice Ryhl <aliceryhl@google.com>,
+	Boris Brezillon <boris.brezillon@collabora.com>,
+	Steven Price <steven.price@arm.com>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+	nd@arm.com
+Subject: Re: [PATCH v7 2/8] drm/panthor: Add register definitions for perf
+Message-ID: <atn-sGozr05TmZKu@e142607>
+References: <20261011-panthor-performance-counters-v7-0-12c32495062f@arm.com>
+ <20261011-panthor-performance-counters-v7-2-12c32495062f@arm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,258 +68,108 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261011-panthor-performance-counters-v7-2-12c32495062f@arm.com>
 
-The LE accept-list mirror consists of bdaddr_list entries that are
-added, removed and freed under hdev->lock. The ordinary branch of
-hci_update_accept_list_sync() traverses this list without that lock.
-The request worker's req_lock does not serialize raw HCI completions,
-and the RCU sections protect connection and pending-action lookups,
-not the accept-list nodes.
+On Sun, Oct 11, 2026 at 06:36:49PM +0100, Lukas Zapolskas wrote:
+> The perfcnt_size register, needed to size the FW-side ring buffer, is
+> comprised out of two fields, FIRMWARE_SIZE and HARDWARE_SIZE, indicating
+> the size of the corresponding components of a single sample. The total
+> size of a single sample in that ring buffer is the sum of the two.
+> 
+> The perfcnt_config register configures the size of the ring buffer, the
+> counter set requested by the user, and whether the optional metadata block
+> is required.
+> 
+> For newer FW revisions, the perfcnt_features register reports the
+> presence of an optional metadata block.
+> 
+> GPUs with arch major 11 or greater also report the number of performance
+> counters in a single counter block via the GPU_PRFCNT_FEATURES.
+> 
+> Signed-off-by: Lukas Zapolskas <lukas.zapolskas@arm.com>
 
-Changing connectability can reach this iterator through
-set_connectable_sync(), hci_update_connectable_sync(),
-hci_update_passive_scan_sync() and hci_passive_scan_sync(). With a
-populated mirror, a privileged raw HCI sender can issue
-HCI_OP_LE_CLEAR_ACCEPT_LIST while request work is reconciling it:
+Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
 
-  Request work                    HCI event work
-  select b and successor t
-                                  hci_cc_le_clear_accept_list()
-                                    hci_dev_lock(hdev)
-                                    hci_bdaddr_list_clear()
-                                      unlink nodes and kfree(b)
-                                    hci_dev_unlock(hdev)
-  read b->bdaddr_type
+Best regards,
+Liviu
 
-The clear completion can therefore free the selected node before its
-field read, or the saved successor before the iterator advances.
-KASAN reported a one-byte read of bdaddr_type from the freed node.
+> ---
+>  drivers/gpu/drm/panthor/panthor_fw.h       | 9 ++++++++-
+>  drivers/gpu/drm/panthor/panthor_gpu_regs.h | 4 ++++
+>  2 files changed, 12 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/panthor/panthor_fw.h b/drivers/gpu/drm/panthor/panthor_fw.h
+> index a99a9b6f4825..124e2b40b15f 100644
+> --- a/drivers/gpu/drm/panthor/panthor_fw.h
+> +++ b/drivers/gpu/drm/panthor/panthor_fw.h
+> @@ -198,8 +198,12 @@ struct panthor_fw_global_control_iface {
+>  	u32 output_va;
+>  	u32 group_num;
+>  	u32 group_stride;
+> +#define GLB_PERFCNT_FW_SIZE(x) ((((x) >> 16) << 8))
+> +#define GLB_PERFCNT_HW_SIZE(x) (((x) & GENMASK(15, 0)) << 8)
+>  	u32 perfcnt_size;
+>  	u32 instr_features;
+> +#define PERFCNT_FEATURES_MD_SIZE(x) (((x) & GENMASK(3, 0)) << 8)
+> +	u32 perfcnt_features;
+>  };
+>  
+>  struct panthor_fw_global_input_iface {
+> @@ -208,7 +212,7 @@ struct panthor_fw_global_input_iface {
+>  #define GLB_CFG_ALLOC_EN			BIT(2)
+>  #define GLB_CFG_POWEROFF_TIMER			BIT(3)
+>  #define GLB_PROTM_ENTER				BIT(4)
+> -#define GLB_PERFCNT_EN				BIT(5)
+> +#define GLB_PERFCNT_ENABLE			BIT(5)
+>  #define GLB_PERFCNT_SAMPLE			BIT(6)
+>  #define GLB_COUNTER_EN				BIT(7)
+>  #define GLB_PING				BIT(8)
+> @@ -248,6 +252,9 @@ struct panthor_fw_global_input_iface {
+>  	u64 perfcnt_base;
+>  	u32 perfcnt_extract;
+>  	u32 reserved3[3];
+> +#define GLB_PERFCNT_CONFIG_SIZE(x) ((x) & GENMASK(7, 0))
+> +#define GLB_PERFCNT_CONFIG_SET(x) (((x) & GENMASK(1, 0)) << 8)
+> +#define GLB_PERFCNT_METADATA_ENABLE BIT(10)
+>  	u32 perfcnt_config;
+>  	u32 perfcnt_csg_select;
+>  	u32 perfcnt_fw_enable;
+> diff --git a/drivers/gpu/drm/panthor/panthor_gpu_regs.h b/drivers/gpu/drm/panthor/panthor_gpu_regs.h
+> index 4c5b953796e4..2f0877068e44 100644
+> --- a/drivers/gpu/drm/panthor/panthor_gpu_regs.h
+> +++ b/drivers/gpu/drm/panthor/panthor_gpu_regs.h
+> @@ -23,6 +23,7 @@
+>  #define GPU_TILER_FEATURES				0xC
+>  #define GPU_MEM_FEATURES				0x10
+>  #define   GROUPS_L2_COHERENT				BIT(0)
+> +#define   GPU_MEM_FEATURES_L2_SLICES(x)			((((x) & GENMASK(11, 8)) >> 8) + 1)
+>  
+>  #define GPU_MMU_FEATURES				0x14
+>  #define  GPU_MMU_FEATURES_VA_BITS(x)			((x) & GENMASK(7, 0))
+> @@ -69,6 +70,9 @@
+>  #define   GPU_FEATURES_RAY_INTERSECTION			BIT(2)
+>  #define   GPU_FEATURES_RAY_TRAVERSAL			BIT(5)
+>  
+> +#define GPU_PRFCNT_FEATURES				0x68
+> +#define   PRFCNT_FEATURES_COUNTER_BLOCK_SIZE(x)		(((x) & GENMASK(7, 0)) << 8)
+> +
+>  #define GPU_TIMESTAMP_OFFSET				0x88
+>  #define GPU_CYCLE_COUNT					0x90
+>  #define GPU_TIMESTAMP					0x98
+> 
+> -- 
+> 2.43.0
+> 
 
-Copy each entry's address and type under hdev->lock and reconcile the
-private array instead. Release the mutex before issuing synchronous
-commands, since their completion handlers also acquire it. Free the
-copy after iteration and use the existing error path to disable
-accept-list filtering if allocation fails.
-
-This change has not been runtime-tested.
-
-KASAN report as below:
-
-    ==================================================================
-    BUG: KASAN: slab-use-after-free in hci_passive_scan_sync+0x1cc4/0x1f80
-    Read of size 1 at addr ffff888105ee6c56 by task kworker/u17:1/499
-
-    Workqueue: hci0 hci_cmd_sync_work
-    Call Trace:
-     <TASK>
-     dump_stack_lvl+0x93/0xd0
-     print_report+0xce/0x630
-     ? hci_passive_scan_sync+0x1cc4/0x1f80
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __virt_addr_valid+0x20d/0x410
-     ? hci_passive_scan_sync+0x1cc4/0x1f80
-     kasan_report+0xe0/0x110
-     ? hci_passive_scan_sync+0x1cc4/0x1f80
-     hci_passive_scan_sync+0x1cc4/0x1f80
-     ? pmbd_gate_site_armed+0x31/0x1c0
-     ? __pfx_hci_passive_scan_sync+0x10/0x10
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? pmbd_probe_hit_cookie+0x10/0x1c0
-     ? __pfx_pmbd_probe_hit_cookie+0x10/0x10
-     ? hci_update_passive_scan_sync+0x43f/0x9e0
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? lock_release+0xc8/0x280
-     hci_update_passive_scan_sync+0x473/0x9e0
-     hci_update_connectable_sync+0x13c/0x250
-     set_connectable_sync+0x39/0xb0
-     hci_cmd_sync_work+0x1b3/0x450
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     process_one_work+0x908/0x19c0
-     ? __pfx_process_one_work+0x10/0x10
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? lock_is_held_type+0x8f/0x100
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     worker_thread+0x65c/0xe40
-     ? __pfx_worker_thread+0x10/0x10
-     kthread+0x34f/0x460
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __pfx_kthread+0x10/0x10
-     ret_from_fork+0x659/0x940
-     ? __pfx_ret_from_fork+0x10/0x10
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __switch_to+0x74f/0xf80
-     ? __pfx_kthread+0x10/0x10
-     ret_from_fork_asm+0x1a/0x30
-     </TASK>
-
-    Allocated by task 511:
-     kasan_save_stack+0x33/0x60
-     kasan_save_track+0x14/0x30
-     __kasan_kmalloc+0xaa/0xb0
-     __kmalloc_cache_noprof+0x251/0x610
-     hci_bdaddr_list_add+0x179/0x390
-     hci_cc_le_add_to_accept_list+0x189/0x2d0
-     hci_cmd_complete_evt+0x373/0xab0
-     hci_event_packet+0x4e8/0xc70
-     hci_rx_work+0x367/0xf00
-     process_one_work+0x908/0x19c0
-     worker_thread+0x65c/0xe40
-     kthread+0x34f/0x460
-     ret_from_fork+0x659/0x940
-     ret_from_fork_asm+0x1a/0x30
-
-    Freed by task 511:
-     kasan_save_stack+0x33/0x60
-     kasan_save_track+0x14/0x30
-     kasan_save_free_info+0x3b/0x60
-     __kasan_slab_free+0x5f/0x80
-     kfree+0x307/0x580
-     hci_bdaddr_list_clear+0x134/0x230
-     hci_cc_le_clear_accept_list+0x80/0x1f0
-     hci_cmd_complete_evt+0x373/0xab0
-     hci_event_packet+0x4e8/0xc70
-     hci_rx_work+0x367/0xf00
-     process_one_work+0x908/0x19c0
-     worker_thread+0x65c/0xe40
-     kthread+0x34f/0x460
-     ret_from_fork+0x659/0x940
-     ret_from_fork_asm+0x1a/0x30
-
-    The buggy address belongs to the object at ffff888105ee6c40
-                                                                which
-                                belongs to the cache kmalloc-32 of size 32
-    The buggy address is located 22 bytes inside of
-                                                                freed
-                                32-byte region [ffff888105ee6c40,
-                                ffff888105ee6c60)
-
-    The buggy address belongs to the physical page:
-        page: refcount:0 mapcount:0 mapping:0000000000000000
-    index:0xffff888105ee69c0 pfn:0x105ee6
-    flags: 0x200000000000200(workingset|node=0|zone=2)
-    page_type: f5(slab)
-        raw: 0200000000000200 ffff888100042780 ffffea0004187150
-    ffffea00042534d0
-        raw: ffff888105ee69c0 000000000040003f 00000000f5000000
-    0000000000000000
-    page dumped because: kasan: bad access detected
-
-    Memory state around the buggy address:
-     ffff888105ee6b00: fa fb fb fb fc fc fc fc fa fb fb fb fc fc fc fc
-     ffff888105ee6b80: fa fb fb fb fc fc fc fc fa fb fb fb fc fc fc fc
-    >ffff888105ee6c00: fa fb fb fb fc fc fc fc fa fb fb fb fc fc fc fc
-                                                     ^
-     ffff888105ee6c80: fa fb fb fb fc fc fc fc fa fb fb fb fc fc fc fc
-     ffff888105ee6d00: fa fb fb fb fc fc fc fc fa fb fb fb fc fc fc fc
-    ==================================================================
-
-Fixes: e8907f76544f ("Bluetooth: hci_sync: Make use of hci_cmd_sync_queue set 3")
-Assisted-by: LLM
-Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
----
-Sashiko review follow-up: earlier accept-list patch
-  - Address the outer-iterator lifetime issue raised by Sashiko:
-    https://sashiko.dev/#/patchset/88963
-  - Copy accept-list addresses before issuing synchronous commands.
-
-Related accept-list membership fix:
-https://lore.kernel.org/r/pm-bluetooth-objects-candidate-0118-v7-e6b713327ef914d6d02a@gmail.com
-
-diff --git a/net/bluetooth/hci_sync.c b/net/bluetooth/hci_sync.c
---- a/net/bluetooth/hci_sync.c
-+++ b/net/bluetooth/hci_sync.c
-@@ -2872,6 +2872,31 @@
- 
- 	*n = i;
- 	return p;
-+}
-+
-+static struct conn_params *le_accept_list_copy(struct hci_dev *hdev,
-+					       size_t *n)
-+{
-+	struct bdaddr_list *entry;
-+	struct conn_params *params;
-+	size_t i = 0;
-+
-+	hci_dev_lock(hdev);
-+
-+	*n = list_count_nodes(&hdev->le_accept_list);
-+	params = kvzalloc_objs(struct conn_params, *n);
-+	if (!params)
-+		goto unlock;
-+
-+	list_for_each_entry(entry, &hdev->le_accept_list, list) {
-+		bacpy(&params[i].addr, &entry->bdaddr);
-+		params[i].addr_type = entry->bdaddr_type;
-+		i++;
-+	}
-+
-+unlock:
-+	hci_dev_unlock(hdev);
-+	return params;
- }
- 
- /* Clear LE Accept List */
-@@ -2904,7 +2929,6 @@
- static u8 hci_update_accept_list_sync(struct hci_dev *hdev)
- {
- 	struct conn_params *params;
--	struct bdaddr_list *b, *t;
- 	u8 num_entries = 0;
- 	bool pend_conn, pend_report;
- 	u8 filter_policy;
-@@ -2969,20 +2993,27 @@
- 	 * report. If not present in either list, then remove it from
- 	 * the controller.
- 	 */
--	list_for_each_entry_safe(b, t, &hdev->le_accept_list, list) {
-+	params = le_accept_list_copy(hdev, &n);
-+	if (!params) {
-+		err = -ENOMEM;
-+		goto done;
-+	}
-+
-+	for (i = 0; i < n; i++) {
- 		rcu_read_lock();
- 
--		if (hci_conn_hash_lookup_le(hdev, &b->bdaddr, b->bdaddr_type)) {
-+		if (hci_conn_hash_lookup_le(hdev, &params[i].addr,
-+					    params[i].addr_type)) {
- 			rcu_read_unlock();
- 			continue;
- 		}
- 
- 		pend_conn = hci_pend_le_action_lookup(&hdev->pend_le_conns,
--						      &b->bdaddr,
--						      b->bdaddr_type);
--		pend_report = hci_pend_le_action_lookup(&hdev->pend_le_reports,
--							&b->bdaddr,
--							b->bdaddr_type);
-+						      &params[i].addr,
-+						      params[i].addr_type);
-+		pend_report = hci_pend_le_action_lookup(
-+			&hdev->pend_le_reports, &params[i].addr,
-+			params[i].addr_type);
- 
- 		rcu_read_unlock();
- 
-@@ -2990,13 +3021,15 @@
- 		 * remove it from the acceptlist.
- 		 */
- 		if (!pend_conn && !pend_report) {
--			hci_le_del_accept_list_sync(hdev, &b->bdaddr,
--						    b->bdaddr_type);
-+			hci_le_del_accept_list_sync(hdev, &params[i].addr,
-+						    params[i].addr_type);
- 			continue;
- 		}
- 
- 		num_entries++;
- 	}
-+
-+	kvfree(params);
- 
- 	/* Since all no longer valid accept list entries have been
- 	 * removed, walk through the list of pending connections
+-- 
+====================
+| I would like to |
+| fix the world,  |
+| but they're not |
+| giving me the   |
+ \ source code!  /
+  ---------------
+    ¯\_(ツ)_/¯
