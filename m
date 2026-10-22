@@ -1,56 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.221.207.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.19
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792675260;
-	b=f9keUyfWdSe0HmtymA7reDeVk4gqAYKCLdqDGWvc3q8hh0BfBqEA0mVjCAgd5+aQ5M9j
-	 +TVHAZJK4mIt9lsJpCNjI/nh2wt1MwveUuVQmI8XYiuTitJjhihkA0CMf6uKDDdOPmW7q
-	 MGf1rPdBCP9d98qUkf8T/1QpLauSmWIE+Gj8K1RIOI94LvW26u2IwGBrAFdcSSUe3Facv
-	 sUsmY2fjoGz8oPuhAX2wVsVygx6yxIe7U5QCo1ZO3MIWd8aMTH5dVQ0RQ5PWjaUweV6Dm
-	 qlS1TbNVTOLu7f4+iuOyVE+a8iHu2osU0h6Uy2PW6F0UqKkVZr8lUmVn+oKvDNl0Iag==
+	t=1792675263;
+	b=g9x7Kxi5P76nneFFhL71eD7l2iRxczZyWnja58awi3iDT2RYvDd5sL+zW77az/QE2ufw
+	 9DYcIhtHtj6IHeat5KEVx7fbjuo6peZJQCCDNqZCEhNYvWfYp9/rIotMdQXfrnRNKUWGb
+	 o2onKzb3P2z3yRt63E9DRujFuPuNq91v4SCCgnsSnif5fJubIUEsO7P7Nbjl825uudfDt
+	 faydzD35LNtSSMWonBKEpvi+t+ZEKEgQofZMQo9kMaf0Pakt39eM4kkSFPWrO51DPspm1
+	 xa5Mu8GjsJgrreYMlzljUk4m+hEOui7bIHM3jKTfYsTBW1obqBVw4br/QIbe+ONMlUw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792675260;
-	h=DMARC-Filter:Received:Date:From:To:Cc:Subject:Message-ID:References:
-	 Mime-Version:Content-Type:Content-Transfer-Encoding:
-	 Content-Disposition:In-Reply-To;
-	bh=8sSUVj3k8bHSogQkYAgnak+1LXzp/s9rsz6uPbE7IJ8=;
-	b=YGgAaGNs9FQmg/IYm72MIeM5+yt/E0/tq8vJUF6DOa3LA5luUyGW8m6tFd4RWYzZ4Vyh
-	 sMbc34XF728VRE33vqs9acHBzHYcp74CS3WzH24Qa7UD/M2oy8g+2hnDUQqoXt4v0kYaL
-	 AnxO46N7ZUVkiFADoSnI1KazeMXuJrWJpz6TLO6qdoug1tqHgYU+H2nGmp51UnpLa8Lch
-	 aXqqyh67MzEU66MO2IBrPpnmW5rsG/EYZvY13Ae3i/kDJYR38nxJH4wDNf4A4FyNE32Xn
-	 +S37HzgSc4ZPEpTYODwMdCpQOtP3l7BEeBqtuLa6ZnRSlxR5uWPDf3Hmtv8KITmZvMw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792675263;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=J1cJunRtziCQSI57V0U3l58lyDmUupWkdJUEjrp/6ac=;
+	b=rpR7kpNpbKIYpQ1KxFWRzL3NbULT0yhdpyoRIXDSsppEvTavjew27YJFVxWDq2mZPCdo
+	 8j93t46W2/Zc5SnaX0l3g6diztMGS59KI/ZS2mpGoBBaaY/qBGVDwsUlPuGufQPqCQ+HH
+	 AEJdNfVdo2j2Za3D8uilo3pmb6cYRI4Xpk6ycXSlqGFe/gHi2g43HYYc9eCy7+mPNZkCZ
+	 tzo/+9fbJLj1C0wmg7OQIqI2ZrrkPnmQdFF17Fdr/WQDkfRyWPoBCF809f9Dupqe/qIM4
+	 nKodkJDq2jo/FMcWiYiRrZpanFCI9wJIGkdu/6Rt7W6ohHITYDyXUmIz1AiuqrWrkUw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=hozed.org;
-	spf=pass smtp.mailfrom=7el.us;
-	arc=none smtp.remote-ip=162.221.207.43
-Received: from bc (unknown [162.221.207.43])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ee8Yj8lF;
+	arc=none smtp.remote-ip=198.175.65.19
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B00CC606A319;
-	Thu, 22 Oct 2026 13:20:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B00CC606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=hozed.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=7el.us
-Received: from localhost (localhost [127.0.0.1])
-  (uid 1002)
-  by bc with local
-  id 0000000000040066.000000006ADA0DBA.002ED3FD; Thu, 22 Oct 2026 13:20:58 +0000
-Date: Thu, 22 Oct 2026 13:20:58 +0000
-From: Troy Benjegerdes <hozer@hozed.org>
-To: lyude@redhat.com
-Cc: Jori Koolstra <jkoolstra@xs4all.nl>, Kees Cook <kees@kernel.org>,
-  Randy Dunlap <rdunlap@infradead.org>,
-  Sasha Levin <sashal@kernel.org>, corbet@lwn.net,
-  skhan@linuxfoundation.org, federico.vaga@vaga.pv.it,
-  apw@canonical.com, joe@perches.com, workflows@vger.kernel.org,
-  linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] docs: remove Assisted-by reference
-Message-ID: <atoNuurgxrKV4aid@false>
-References: <20261009083137.3-1-sashal@kernel.org>
- <202610122124.08E058768D@keescook>
- <ea3ff257-70e2-43e4-aba7-140e84994872@infradead.org>
- <202610130120.E43D236E@keescook>
- <as4gLo_6acb_zZu0@daedalus>
- <4a55a48948a1f01686b0471307b6fc2d52be7896.camel@redhat.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99F9F606A31F;
+	Thu, 22 Oct 2026 13:21:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 99F9F606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ee8Yj8lF
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792675261; x=1824211261;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=RPtVW+zJYuGYEvqqnTvxnUJoTo1amg8ZRAWoVfiCZ18=;
+  b=ee8Yj8lFP3xZ4G0Kk9wK363HLDaSZ95iOWqRtW2aTWS81hHDvDVnOVjc
+   y8lFbglR03fmeEqpgnCzF8jw+1Vq5XOBg+Z/RhwjodOeH6BmOyrQV+MZu
+   YlOAgjupMBxrOKFlAIEUFpur+B5UnZxCqdzZURxDWxIzWCwJ/jdd98w9F
+   yH1rGv9IEa2Mqym+r/5NkaEeZ/g7nJ1nBnkSHLCFdH74ymJiihXqPYs3q
+   v1TLWvdyqdMliXEhGFTPch+KPQPGHrxfQCRYceQ17rOjeT+745xSDQm1L
+   UAmRGxzjKSlRFE3SpxNhJ1lWQwNijXjRxpKcywNA02ZoJ1xQOhmuqjFPq
+   w==;
+X-CSE-ConnectionGUID: hwwiFS/sRiObncYI47L/9g==
+X-CSE-MsgGUID: KcC4JQZ7Tim7S3WcSkkkeA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11942"; a="1456206"
+X-IronPort-AV: E=Sophos;i="6.27,172,1787036400"; 
+   d="scan'208";a="1456206"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Oct 2026 06:21:00 -0700
+X-CSE-ConnectionGUID: 81646FC0QK+lTVLsXp90pg==
+X-CSE-MsgGUID: Ef+DEytISBOPzyqcvoN+FQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,172,1787036400"; 
+   d="scan'208";a="3293950"
+Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.245.189])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Oct 2026 06:20:57 -0700
+Date: Thu, 22 Oct 2026 16:20:54 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Arnav Kapoor <kapoorarnav43@gmail.com>
+Cc: Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>,
+	Conall O'Griofa <conall.ogriofa@amd.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Michal Simek <michal.simek@amd.com>,
+	Anand Ashok Dumbre <anand.ashok.dumbre@xilinx.com>,
+	Manish Narani <manish.narani@xilinx.com>, stable@vger.kernel.org,
+	Jonathan Cameron <Jonathan.Cameron@huawei.com>,
+	linux-iio@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] iio: adc: xilinx-ams: fix out-of-bounds accesses when
+Message-ID: <atoNtka8rCO3Cil3@ashevche-desk.local>
+References: <20261021225356.625288-1-kapoorarnav43@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,127 +87,86 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
+MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
 Content-Disposition: inline
-In-Reply-To: <4a55a48948a1f01686b0471307b6fc2d52be7896.camel@redhat.com>
+In-Reply-To: <20261021225356.625288-1-kapoorarnav43@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Mon, Oct 19, 2026 at 12:15:38PM -0400, lyude@redhat.com wrote:
-> On Tue, 2026-10-13 at 14:28 +0200, Jori Koolstra wrote:
-> > On Tue, Oct 13, 2026 at 01:25:59AM -0700, Kees Cook wrote:
-> > > On Mon, Oct 12, 2026 at 10:56:59PM -0700, Randy Dunlap wrote:
-> > > > On 10/12/26 9:24 PM, Kees Cook wrote:
-> > > > > On Fri, Oct 09, 2026 at 04:31:37AM -0400, Sasha Levin wrote:
-> > > > > > The Maintainers Summit reached consensus to deprecate the Assisted-by
-> > > > > > tag. Remove the documentation requiring it.
-> > > > > > 
-> > > > > > Signed-off-by: Sasha Levin <sashal@kernel.org>
-> > > > > 
-> > > > > Yup, it has become as redundant as specifying what editor I use. ;)
-> > > > > 
-> > > > > Reviewed-by: Kees Cook <kees@kernel.org>
-> > > > 
-> > > > and for those of us who don't know details about the discussion,
-> > > > how is it redundant?
-> > > 
-> > > No, I mean I use an LLM constantly for almost all aspects of my
-> > > development work, in multiple dimensions, so if the old tag requirement
-> > > held, my email body template would just put "Assisted-by: LLM" in there
-> > > because at the very least, it drove the build and test stage. It was
-> > > redundant in the sense of "yeah, of course I used an LLM at some point
-> > > for this patch". ("This tag means nothing *from* me")
-> > > 
-> > > > Do you assume that everyone now uses it (LLM), just as everyone
-> > > > uses an editor?
-> > > 
-> > > I don't make that assumption, but I always held the position that the
-> > > tag was meaningless because it's the human wielding it that matters:
-> > > they either sent a good patch or a bad patch, and if it was mangled by
-> > > gmail or an LLM, it doesn't really matter. ("This tag means nothing *to*
-> > > me")
-> > 
-> > I think the tag did have a genuine purpose for a while. Now we have just
-> > decided to implicitly attach it to every new submitter (because
-> > basically that is the case.) The point was that a patch that was
-> 
-> I know plenty of people who would love to contribute to the kernel who
-> haven't before, who do not want to be involved or use LLM tools in
-> their own development. Considering how much LLMs lower the bar for
-> people to be able to submit fixes, I think it's also worth pointing out
-> that just because you've sent a patch doesn't mean you're a contributor
-> who is going to actually come back or is actually interested in trying
-> to get a patch to the finish line. I've even ran into 'contributors'
-> who wouldn't even avoid using an LLM to respond to review feedback
-> which makes it nearly impossible for them to actually retain any of the
-> critique they've received on their work.
+On Thu, Oct 22, 2026 at 04:23:34AM +0530, Arnav Kapoor wrote:
 
-This is why I'd like to know *which* LLM I'm dealing with, so at least
-if the human is not paying attention, maybe the LLM developers will care
-enough to provision a large enough context window to actually retain the
-critique.
+ Subject: [PATCH] iio: adc: xilinx-ams: fix out-of-bounds accesses when
 
-> > obviously LLM generated could be rejected for not carrying the tag, and
-> > a patch that carried the tag could be asked to explain further (if they
-> > had not done so.) Or at least, that is how I felt and have understood
-> > Greg, for instance :)
-> > 
-> > Essentially, the way I read it, is that Linus said we don't need this
-> > roundabout way because we can just reject effortless LLM generated
-> > patches outright. This is good and an improvement.
-> > 
-> > What do you think about requiring people to explain how they used an LLM
-> > for code generation? I don't care if someone uses it for review, or
-> > brainstorming, or whatever, and I have never understood the tag to be
-> > required for that. But if the code is LLM generated, it would be nice to
-> > know for instance what prompts you used. We should have some way to not
-> > devolve into the maze that Jonathan Corbet has sketched, where no one
-> > really knows what's going on.
-> 
-> Prompts aren't deterministic, and this also expects that everyone is
-> using LLMs (most of the contributors I work with do not actually use
-> LLMs, and most of the ones who do stop short of actually generating
-> code outside of large tree-wide changes with it). There are also
-> already drivers in the kernel which have adopted their own no-LLM
-> policies.
-> 
-> I have wanted better tagging for a while, because I do agree Assisted-
-> by: isn't great, but just going "well you can reject slop :)" makes it
-> dramatically more difficult for me to tell the difference between a new
-> contributor who just doesn't know how to structure their patches
-> correctly, and one that just let their LLM take the wheel and barely
-> understands what they sent to me.
-> 
-> Something that would be dramatically better, and I really hope would be
-> considered over the nuclear option of just dropping this patch:
-> 
-> Co-authored-by: LLM
-> Reported-by: LLM
-> 
+when what?..
 
-Automated-by: LLM ( env: LPttYC3GoXNrBqGfLT7tTbNHm8SiUpBwYz )
+Please, read what you about to send. Most likely you used AI for all this and
+hence people tend to stop checking all the crap it produces...
 
-If we're really going to be open to new tools, maybe it's time to start
-having one or more linux-llm forks that are entirely maintained by tools
-and the only thing the humans are doing is deciding which one to run and
-posting prompts like this to the mailing list.
-
-The one I want to be using for farm robots is going to be the version
-that has a credible path to including the hash tree of signatures of the
-LLM model weights, the Nvidia GPU driver version that ran the tool, and
-a cryptocurrency address to fund the tokens needed to run the automation.
-
-In the example above, which is the FSF's Litecoin donation address, all
-of this information could be included as transaction metadata associated
-with the address.
-
-> > 
-> > Best,
-> > Jori.
-> > 
-> > > 
-> > > -Kees
-> > > 
-> > > -- Kees Cook
+> ams_parse_firmware() allocates room for ARRAY_SIZE(ams_ps_channels) +
+> ARRAY_SIZE(ams_pl_channels) + ARRAY_SIZE(ams_ctrl_channels) = 51
+> channel specs and lets ams_init_module() fill them for the AMS node and
+> each of its children, without telling it how much room is left.
 > 
+> For the PL-SYSMON node, ams_get_ext_chan() appends one channel per
+> "channel@N" child after the 10 fixed PL channels. The binding allows
+> reg values 20..50, so a PL node can have up to 31 such children, i.e.
+> up to 41 PL channels, while only 31 are budgeted for it. Together with
+> the 13 PS and 7 AMS control channels, this writes past the end of the
+> buffer. Since the modules are filled in device tree order, the fixed
+> channel blocks copied after the PL node can overflow as well.
 > 
+> ams_get_ext_chan() also only checks the upper bound of reg. ext_chan is
+> unsigned, so a reg below 20 makes it wrap and ams_pl_channels[] is read
+> far out of bounds.
+> 
+> Pass the remaining capacity down to ams_init_module() and
+> ams_get_ext_chan() and fail with -ENOSPC when a module does not fit,
+> instead of writing past the buffer. Also reject reg values below 20, as
+> the binding requires.
+
+> This was previously reported by Weigang He, but the thread stalled
+> before the changes were picked up.
+
+Convert this paragraph to Reported-by, Closes, and respective Link tags.
+
+...
+
+> +		ret = ams_get_ext_chan(fwnode, channels, num_channels,
+> +					max_channels);
+
+Perhaps a single line?
+
+...
+
+>  	if (fwnode_device_is_available(fwnode)) {
+> -		ret = ams_init_module(indio_dev, fwnode, ams_channels);
+> +		ret = ams_init_module(indio_dev, fwnode, ams_channels,
+> +				      (int)(ams_size - num_channels));
+
+Why do we need casting? is ams_init_module() is aware of negative numbers?
+If so, it can also be aware of some "big" number.
+
+>  		if (ret < 0)
+>  			return ret;
+
+...
+
+> static int ams_parse_firmware(struct iio_dev *indio_dev)
+
+>  	device_for_each_child_node_scoped(dev, child) {
+> -		ret = ams_init_module(indio_dev, child, ams_channels + num_channels);
+> +		ret = ams_init_module(indio_dev, child,
+> +				      ams_channels + num_channels,
+> +				      (int)(ams_size - num_channels));
+
+Ditto.
+
+>  		if (ret < 0)
+>  			return ret;
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
