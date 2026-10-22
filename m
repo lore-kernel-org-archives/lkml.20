@@ -1,68 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.7
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.131.191.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792635636;
-	b=kcAqqH/vBWtI37mxs+/F+YKM7eD3Be8mMaNkCm+VEpqOWZrsAAYBmLAkWiS6qpdP9QIb
-	 MWjHFzECwoCq9UpqKoVExaDRXpmBV18lDX31IIr/W08X7Q89lZYTANGtWZMeTKTHTQ1wL
-	 R8s21LfWQ9nYSOa38l+1KDoWksGaiphYHeGcx5xHKAjr6GkurhCTdZROU1sY62mhhIWhV
-	 dGM0q6F+v9iTdLacqSvLqRWg7/koXYlhaw+jIEmxm+lHcPxDL/VfSqMj/h2No0rdfXG+D
-	 u9s4dn2KJM18ZUP64Q9Nl/4Bg+SONBVXKc5gBLc6ouasqHPmj3mdR6BraoZ3JxD2QKQ==
+	t=1792635697;
+	b=nK5eGhnKDACVxWtQAMXFUJMr55xcj/tQ1Vtp1WVVfsFETKgQz2VedpVG8x9afKtaUCIi
+	 mdo41Se+cW5xE/UUI0VgZlSd7JnaXyofMC90Z6FVBbxSmcNfiQFYJBOnCU+84/RWhbMy6
+	 yydQYk8CNTm6OttNp+BX6RR8t+X9tWmVTVxfW7LQ4ILXMrSjPeXYz2kVqyAbCpN/Qtyzv
+	 9LKbjVkmKy2M/+r8qwJz6Ubc5A7CH5qq+yvbrv/hUv/NQcIPOyYbcL/wrsXFV0agEUhmV
+	 V92SLvzZnuEuBfqWiZYFgBA2A/Ce8zA44LxUEA4PGw4CaWbP9kTirdOd7Bl3SZt5d4Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792635636;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=gRgsvRbmzx9WhUVzRKlapA61VEA/n0x8CCdbVbELBuE=;
-	b=ciBAAcpJULL6PTBVI5QHt5xmrE8a+NLLhmWM4YL87bSiGcSiCPg1Llx5ve9EanpwZmHB
-	 g6SyeGIJSHI+V0U7D16C/0H89eT6dNga2NSNM7pMCd87KLE4NIgJf+zkpYv9njkVeMiKo
-	 p1WuMnfRnTTcpbQV+ClqnrvK6qsluQKKni0kd/waBsAatCtc7wAqEBLGYD0jz636mpbzv
-	 NHodGKVERWfmUxPeJazbjgdpgbGyKJn0XFcnUuDrlt3mwM8mJ/LIfLH/Lu6wLhs3Y6RtD
-	 e4cdUqpuRXOQBDjvX1lVYoIdJTeV6dcMj5HiTdorgZFRL8JPkHar278Otfj8lDeb48g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792635697;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding:X-HM-Tid:X-HM-MType:
+	 X-HM-Spam-Status:DKIM-Signature;
+	bh=rTtOEHpuUdG1ZN7wpfmh79f1UZoM9LFVHJpiq1FULQo=;
+	b=cCDn95bKz81VzlMDEPa6Vspiuc9TOkD4Ps8aB39FbTi+Oc0dYBEW/v//vRqQKlA878E8
+	 qRMsBzaaxayN2gFGbdm6stZXNPkwx9ccABLOISuqu2VB4rMDj90RZdghFeb/KunZy4BHb
+	 jx/dplpk98rKSESWEfrD5i29mgK2fxFZ1ApJI347/RrdOV4tvL2JL8lilNz7I59oGLLGT
+	 NfLHu8w/2+eHh00FHcPVSsAy8dDZKEGfjuAbuKdXLKTGrN6rfdbGerOAw4NWz///XdcEa
+	 vt7YPwNm4cbb2X2vqpdwwfk2qeYwOxH7TPyuyD55l/iI231btSU5/AVltPc3kjThZ2A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=GdMmP9qA;
-	arc=none smtp.remote-ip=192.198.163.7
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=rock-chips.com;
+	spf=pass smtp.mailfrom=rock-chips.com;
+	dkim=pass header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b="SQsWjO/B";
+	arc=none smtp.remote-ip=103.131.191.46
+Received: from mail-m10313119146.xmail.ntesmail.com (mail-m10313119146.xmail.ntesmail.com [103.131.191.46])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB71E606A31B;
-	Thu, 22 Oct 2026 02:20:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AB71E606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27485606A319;
+	Thu, 22 Oct 2026 02:21:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 27485606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=GdMmP9qA
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792635636; x=1824171636;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=xYMCFXnTAz0M+rlOpJnTWLxwklR/oq1vvWcReqauUHo=;
-  b=GdMmP9qAa9g4Dv5WdHbg/wmNDa5YnzUVPsI/ZS6PRLxewMrTCXqU74+K
-   Z6iJxRG4w/brl/Y+aEZsKBwecqyWAlb3o4T1x8qEvGeA9y2B7qEO4V0W+
-   8Uabkagy/arwg9ji5cvtkZa+KH/WTs2bmB57NYZ+p02rN1S+pvsqYaS73
-   zA4XxZOThZFFq/28iH6Mq9HTNdZbW0pRlpsEX6VBgQW5uSgUJsqROUbHT
-   D4kv3ve1EpS7x/rJ5oLlCfJAkzEfPqbIlx0yXUsxfEt3cgizishbY8hi7
-   EG+Dto61r2WFWvzGesjkys7ITCIbrQJhfjkei9uezim9JyP61+a0qsRN1
-   w==;
-X-CSE-ConnectionGUID: vAlc43eCT/2UslbgtqW8kw==
-X-CSE-MsgGUID: go3ZqPZvQD29PtnsO3gmNw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11942"; a="1274621"
-X-IronPort-AV: E=Sophos;i="6.27,171,1787036400"; 
-   d="scan'208";a="1274621"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
-  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 19:20:35 -0700
-X-CSE-ConnectionGUID: TXHai4yBQ/6Qr8RZ1DQMhw==
-X-CSE-MsgGUID: NsM/tIH7QM6C/EK52GLUqA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,171,1787036400"; 
-   d="scan'208";a="3723991"
-Received: from unknown (HELO [10.238.0.148]) ([10.238.0.148])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 19:20:31 -0700
-Message-ID: <cdfefb02-acb0-4890-80a6-19036f03ea3e@linux.intel.com>
-Date: Thu, 22 Oct 2026 10:20:29 +0800
+	dkim=pass (1024-bit key, unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=SQsWjO/B
+Received: from xf.. (unknown [61.154.14.86])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 51ed1a686;
+	Thu, 22 Oct 2026 10:21:21 +0800 (GMT+08:00)
+From: Finley Xiao <finley.xiao@rock-chips.com>
+To: finley.xiao@rock-chips.com,
+	heiko@sntech.de,
+	linux-pm@vger.kernel.org
+Cc: cw00.choi@samsung.com,
+	myungjoo.ham@samsung.com,
+	kant@allwinnertech.com,
+	kyungmin.park@samsung.com,
+	linux-rockchip@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	tony.xie@rock-chips.com,
+	huangtao@rock-chips.com,
+	stable@vger.kernel.org
+Subject: [PATCH v2] PM / devfreq: governor_userspace: Guard against NULL governor_data during switch
+Date: Thu, 22 Oct 2026 10:21:09 +0800
+Message-ID: <20261022022109.642339-1-finley.xiao@rock-chips.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,81 +62,86 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 4/5] KVM: TDX: Report only KVM-allowed CPUIDs in
- KVM_TDX_CAPABILITIES
-To: "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>,
- "kvm@vger.kernel.org" <kvm@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Cc: "Gao, Chao" <chao.gao@intel.com>, "seanjc@google.com"
- <seanjc@google.com>,
- "dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>,
- "kas@kernel.org" <kas@kernel.org>, "Li, Xiaoyao" <xiaoyao.li@intel.com>,
- "dedekind1@gmail.com" <dedekind1@gmail.com>,
- "Maloor, Kishen" <kishen.maloor@intel.com>,
- "tony.lindgren@linux.intel.com" <tony.lindgren@linux.intel.com>,
- "pbonzini@redhat.com" <pbonzini@redhat.com>,
- "andrew.cooper3@citrix.com" <andrew.cooper3@citrix.com>,
- "nik.borisov@suse.com" <nik.borisov@suse.com>,
- "Hunter, Adrian" <adrian.hunter@intel.com>
-References: <20261016091422.3182216-1-binbin.wu@linux.intel.com>
- <20261016091422.3182216-5-binbin.wu@linux.intel.com>
- <b69f075f475bb8c09c74cff621ae23f76da50795.camel@intel.com>
- <2bc913d2-4286-4484-a872-3266326db0a5@linux.intel.com>
- <b196cf9f65fe1e52aba7b867b7c2687c40caa337.camel@intel.com>
-From: Binbin Wu <binbin.wu@linux.intel.com>
-Content-Language: en-US
-In-Reply-To: <b196cf9f65fe1e52aba7b867b7c2687c40caa337.camel@intel.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa16169bbfa03a8kunm107f5dafdcf40
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCGkNMVktIGh4aSR5PGUhKTVYVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
+	pKQk1VSktLVUpCWQY+
+DKIM-Signature: a=rsa-sha256;
+	b=SQsWjO/BBQxHRkBsgnOgPcYakFTvOHyIRj2GImr8AO68bBY89hVXHoLa6TNZu3KXBhhUd81Q+Ribz86i2eUFntrPEMtZHVgnMh5vImDK3OYzXDhNouRqu3OqVlHl2Zspg1EK0I+0QzZRqyi52cDbqSf7FKScBLfaDFvv0wkp4KU=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
+	bh=rTtOEHpuUdG1ZN7wpfmh79f1UZoM9LFVHJpiq1FULQo=;
+	h=date:mime-version:subject:message-id:from;
 
-On 10/22/2026 1:19 AM, Edgecombe, Rick P wrote:
-> On Wed, 2026-10-21 at 10:15 +0800, Binbin Wu wrote:
->> On 10/21/2026 8:39 AM, Edgecombe, Rick P wrote:
->>> On Fri, 2026-10-16 at 17:14 +0800, Binbin Wu wrote:
->>>> Note, the change is user-visible, as some bits that were previously
->>>> reported as configurable no longer are.  The ABI itself is unchanged: KVM
->>>> already filtered unsupported CPUID bits out of KVM_TDX_CAPABILITIES, albeit
->>>> via a denylist, and the set of configurable bits already varies with the
->>>> TDX module and KVM versions.
->>>
->>> I'm not sure what this is saying, the change is user visible but there is no ABI
->>> change? Can't be both... so I think there is an ABI change.
->>
->> My understanding is KVM_TDX_CAPABILITIES reports the capabilities supported by
->> the TDX module *and* KVM, this is not changed before and after this patch series.
->> ABI-wise, I think userspace doesn't care how KVM do the filter, denylist-based or
->> allowlist-based. The ABI requires userspace to consult KVM_TDX_CAPABILITIES, and
->> what KVM_TDX_CAPABILITIES report can be changed. That's why I described the ABI
->> itself didn't change.
-> 
-> My model is that ABI is the user visible behavior of the kernel. So if you are
-> running a kernel on a machine, and upgrade the kernel, then the behavior changes
-> for your (potentially misguided) userspace. That is still an ABI change.
-> 
-> I think you are thinking about it like a spec - that if the new behavior
-> conforms to the spec, it is not an ABI change. I think it's not right.
-> 
->>
->> How about simply noting that this is a user-visible change and dropping the ABI
->> part to avoid any ambiguity about the scope of the ABI?
-> 
-> Eh, if you want. I'm ok as long as we don't declare there is no ABI change. And
-> then the patch ends up breaking userspace with a log saying no ABI change
-> because of the docs. It could come off wrong.
-> 
-> We are making a potentially breaking change here that we think won't impact any
-> users. It's a sensitive thing.
+The userspace governor is the only one that uses devfreq->governor_data,
+allocated in its DEVFREQ_GOV_START handler (userspace_init()) and freed
+in its DEVFREQ_GOV_STOP handler (userspace_exit()).
 
-Rick sent me a link about the discussions on "what ABI is".
-https://lore.kernel.org/lkml/alpine.LFD.2.00.0812011210030.3256@nehalem.linux-foundation.org/
+When switching governors via sysfs (governor_store in devfreq.c), the
+sequence is:
 
-I will rephrase it in the next version as following:
+STOP(old) -> df->governor = userspace -> START(userspace) -> userspace_init
 
-Note, this is an ABI change, as some bits that were previously reported as
-configurable no longer are.  However, the semantics of
-KVM_TDX_CAPABILITIES are unchanged: KVM already filtered unsupported bits
-out of KVM_TDX_CAPABILITIES, albeit via a denylist, and the set of
-reported bits already varies with the TDX module and KVM versions, i.e.
-userspace can't assume a fixed set.
+Between the df->governor assignment and userspace_init() completing,
+governor_data is still NULL (the previous governor never touched it,
+and the core does not clear or pre-allocate it). During that window,
+asynchronous paths that call update_devfreq() outside of the driver's
+control -- the OPP notifier (devfreq.c:686) and the pm_qos notifier
+(devfreq.c:707) -- run devfreq_update_target() under df->lock and reach
+devfreq_userspace_func(), which dereferences governor_data without a
+NULL check, causing:
+
+  Unable to handle kernel access to user memory outside uaccess routines
+  pc : devfreq_userspace_func+0xc/0x28
+  lr : devfreq_update_target+0x58/0x158
+
+Add a NULL check in devfreq_userspace_func() and fall back to
+previous_freq, which is the same behaviour as the existing "no user
+frequency specified yet" branch. This closes the race for all callers
+since every path ultimately goes through get_target_freq.
+
+Additionally, take devfreq->lock around the kfree()/NULL assignment in
+userspace_exit(). Without it, a concurrent OPP/pm_qos notifier running
+under devfreq->lock could read governor_data after it is freed but
+before it is set to NULL, constituting a use-after-free.
+
+Fixes: 5fdded844892 ("PM/devfreq: governor: Add a private governor_data for governor")
+Cc: stable@vger.kernel.org
+Signed-off-by: Finley Xiao <finley.xiao@rock-chips.com>
+
+Link: https://lore.kernel.org/linux-pm/20260723080806.1451-1-finley.xiao@rock-chips.com/
+---
+Changes in v2:
+- Add Fixes: tag and Cc: stable@vger.kernel.org
+
+ drivers/devfreq/governor_userspace.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/devfreq/governor_userspace.c b/drivers/devfreq/governor_userspace.c
+index 3906ebedbae8..f7a485c43fd7 100644
+--- a/drivers/devfreq/governor_userspace.c
++++ b/drivers/devfreq/governor_userspace.c
+@@ -24,7 +24,7 @@ static int devfreq_userspace_func(struct devfreq *df, unsigned long *freq)
+ {
+ 	struct userspace_data *data = df->governor_data;
+ 
+-	if (data->valid)
++	if (data && data->valid)
+ 		*freq = data->user_frequency;
+ 	else
+ 		*freq = df->previous_freq; /* No user freq specified yet */
+@@ -110,8 +110,10 @@ static void userspace_exit(struct devfreq *devfreq)
+ 	if (devfreq->dev.kobj.sd)
+ 		sysfs_remove_group(&devfreq->dev.kobj, &dev_attr_group);
+ 
++	mutex_lock(&devfreq->lock);
+ 	kfree(devfreq->governor_data);
+ 	devfreq->governor_data = NULL;
++	mutex_unlock(&devfreq->lock);
+ }
+ 
+ static int devfreq_userspace_handler(struct devfreq *devfreq,
+-- 
+2.43.0
 
