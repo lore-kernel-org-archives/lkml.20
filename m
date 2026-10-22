@@ -1,52 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.228
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792683803;
-	b=HL/ZZl3W/KUzaCLm7rudEz7jSHN4hkUQNjUZj6yjC2qyRSx5hN8Hkk0hHsjg/zu2dymJ
-	 wD44Ng4YqvHs/xHQKjVC4lCck0mTg94QeTCtsD+RIKcdEHvoBh7S0M/gsJuI8c5i7ozZ9
-	 0HZTgq339bsMoSpz5Huum71Cc1x+KKYDPBIQpG7Brf1Anrgq8hyCu4pvpVJD+RY9LX//c
-	 w/hCkqGofvy/qtudQWJEx5/YudPftD14GsJ9ovHa2JQS1vj6aRPAnVztqYjaiwndS9iFl
-	 +JQeKjQgx5KJptt7J9SoB9QDj+OeHvTBC6ou6yf3zYOjAAWrSMnalhXSpYEUHV2j5zw==
+	t=1792683811;
+	b=VTlKyjbr598Z2MoPkkWgj4YmBicoLAw7qla2P/SjrxtOR+OxuAbmji0fhihFwc3IS39z
+	 7RUI7mzn364/D5Y8g6M8GlnSlZ+RG6PHiWzB+veuddVjiqUke+mzp2iHctALZfipBT8M/
+	 pG0FwfHVJU7qmY5CkVeSuU7JiKCDLZwVMrI1HDC0p4GaIkDVgFLfdL8rRN+9NJefFaJfJ
+	 8LKuf5gParJZyTmIHNlWOvvP/Koi/Y7tvYNmjErFQbPm30bEAkT/tFiwpWzbWk78EWMqY
+	 38JyfOZQebPAHd+4ai433lfZ5uYk53KANN9AM3csrmFWwew+GFgHrozoxWiXPlw1/dw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792683803;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:MIME-Version:Date:Content-Type:
-	 Content-Transfer-Encoding:From:Message-ID:TLS-Required:Subject:To:Cc:
-	 In-Reply-To:References;
-	bh=f0S4xWNDYAoCZk2p2wttJP+pOLEqD6Zen+2h5DTu9/4=;
-	b=NMlftcYDHS1oj6i4w3RXkjyvGP1SJQI22HAv6DoUAg6CgJ/87osSyIZ30CAuwbUAHxdA
-	 xSgWqxh6Gh9FkVJj2MGSbkb6cGfQjxEjNw5yXag0CwWewZEhuUiyYLq8Zzln6w3LEx8Kx
-	 +Ol1Df2QKIv/FGAsA6gbePJx1IcKESjFwVqZQx169gktBDoVdjqz44QrtbX7jzmVZSbRK
-	 9GG8RnDoqxOpPnUKf1qzgZlrxdHvgUWs6jlgpfKtdqY9dH4SL/JZc4yTZY7eJoZdnvsKs
-	 p5xB+jyGTC7u434fjSaR0HP0rRM7W1siEyQE1XMwkaOXR4Hwb3hs7oLu3bBRwax917A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792683811;
+	h=Received:DKIM-Signature:Received:Date:Message-ID:From:To:Cc:Subject:
+	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
+	 X-SA-Exim-Connect-IP:X-SA-Exim-Rcpt-To:X-SA-Exim-Mail-From:
+	 X-SA-Exim-Scanned;
+	bh=H/ZQDZbJUUwaDWq/U/yZ4cIarmdBAnG5+fgMRyphtSo=;
+	b=HwIKfp6hhWKxqRjizQRKXRY+LfmJy5OxZJoidpYkRWcWLC1lPfxPZTeQxH+kdb9sOnVA
+	 +8/zztcVYwih6Zhod3yxYbhXlfqIqz6DAfAteI2LCMIl4HsC7fXH8kRZ5moixhrSr/jUb
+	 wJ6RUrFzfYsEicukauAHfglpqOnTkU6OXOsJRiyNkPqRXSVkFKi1Bv+9ePOuvfF7Q9Jgz
+	 e5OKE+QjK/U+yJHxWYjDEpTKiwOUFkfKpyKWyIZhv6uLR5tpmKWHiGB/W5l+iVtbStlji
+	 wTVzy3APKKgeSg85dFzGNr5eH9V9v17p8fM8yAxHxcfcsaAdycHo/9A8try6BbD5gdQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="n5Y/ADNC";
-	arc=none smtp.remote-ip=95.215.58.228
-Received: from mta1.migadu.com (out-228.mta1.migadu.com [95.215.58.228])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HkIm1xBS;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB38F606A31B
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 15:43:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AB38F606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B67CE606A319;
+	Thu, 22 Oct 2026 15:43:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=n5Y/ADNC
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=jf+Q3XThyUyaPYG1v6zMuwaR86BUo0Kf/foH0DTvbtM=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792683793; v=1; x=1793288593;
- b=n5Y/ADNCqZ9hmKpieqaDUhgd+VMpCjEir7thxrdfgGbkux502RQAa525H9m0hMY8FcqDZt8U
- CLt8aoVXMqdgU/XwLZJeuBZELI9NalDz184+46ti2AqaQA4aSwrKCYlQ1tb7QGmbxWffKBr53op
- quweI2ZmDeMisciAJ8gnv534=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id c526b7e1436fc1d6;
-	Thu, 22 Oct 2026 15:43:13 +0000
-X-Mizu-Trace-ID: c526b7e1436fc1d6
-X-Migadu-Flow: FLOW_OUT
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HkIm1xBS
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5BFAC1F01825;
+	Thu, 22 Oct 2026 15:43:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792683810;
+	bh=H/ZQDZbJUUwaDWq/U/yZ4cIarmdBAnG5+fgMRyphtSo=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=HkIm1xBS2oaBequM1IPluWU8b+N//ZtGRp17ZRz9uHD5bKy2xYcEdA4HU0rNyrgDg
+	 YBJuHEJRMeL+tUCGYtbZjpENSBmdmPC0uQqPh2SUb6uSsREXyD0lUSYkOkV1P70koK
+	 OpBxQh+BqzrF3MFP5RXmvSeTtHZO3/bxhr4B2iDcNcLx6Gpmah9lHKIk8JbDsl0h+w
+	 16pnLvPlrRDp3BcIAmQGfyE+57bIfZzWGhQES485JDv6J/MtvdsOxkexEJGoFqAI9n
+	 lbeEZcJoLlj4jO4oACEpTZEstHuP263QEUjvW+OTTqmS/WKngm8TZDxFNEC0gQ78/P
+	 +b4+D2p5AvpGA==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1xJuwx-000000067Lk-3k9q;
+	Thu, 22 Oct 2026 15:43:27 +0000
+Date: Thu, 22 Oct 2026 16:43:27 +0100
+Message-ID: <86h5idzqow.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Ryan Roberts <ryan.roberts@arm.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Oliver Upton <oupton@kernel.org>,
+	Alex Williamson <alex@shazbot.org>,
+	Jason Gunthorpe <jgg@nvidia.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jean-Philippe Brucker <jpb@kernel.org>,
+	Oded Gabbay <ogabbay@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	kvmarm@lists.linux.dev,
+	kvm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	linux-doc@vger.kernel.org
+Subject: Re: [RFC PATCH v2 11/15] KVM: arm64: Export stage-2 MMU config
+In-Reply-To: <20261015142552.4128028-12-ryan.roberts@arm.com>
+References: <20261015142552.4128028-1-ryan.roberts@arm.com>
+	<20261015142552.4128028-12-ryan.roberts@arm.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -55,104 +87,205 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Date: Thu, 22 Oct 2026 15:43:11 +0000
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-From: "Luka Gejak" <luka.gejak@linux.dev>
-Message-ID: <ccfe24ed9b239c05e334389bcc8547d91d06d020@linux.dev>
-TLS-Required: No
-Subject: Re: [PATCH rtw-next v8 0/7] wifi: rtw88: add RTL8723B/RTL8723BS
- support
-To: "Peter Robinson" <pbrobinson@gmail.com>
-Cc: "Ping-Ke Shih" <pkshih@realtek.com>, linux-wireless@vger.kernel.org,
- linux-kernel@vger.kernel.org, "Michael Straube"
- <straube.linux@gmail.com>, "Bitterblue Smith" <rtl8821cerfe2@gmail.com>
-In-Reply-To: <CALeDE9NKkv8TxiCNUt-fUYUkh_zk7Ne7hRKF51QDOSvvrp1YRQ@mail.gmail.com>
-References: <20261006130701.120460-1-luka.gejak@linux.dev>
- <CALeDE9NKkv8TxiCNUt-fUYUkh_zk7Ne7hRKF51QDOSvvrp1YRQ@mail.gmail.com>
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: ryan.roberts@arm.com, gregkh@linuxfoundation.org, arnd@arndb.de, catalin.marinas@arm.com, will@kernel.org, mark.rutland@arm.com, oupton@kernel.org, alex@shazbot.org, jgg@nvidia.com, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, jpb@kernel.org, ogabbay@kernel.org, corbet@lwn.net, linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, kvm@vger.kernel.org, devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-Hi Peter,
+On Thu, 15 Oct 2026 15:25:45 +0100,
+Ryan Roberts <ryan.roberts@arm.com> wrote:
+> 
+> From: Jean-Philippe Brucker <jpb@kernel.org>
+> 
+> Provide an API to drivers that want to share the stage 2 configuration
+> of a VM with their device. At the moment it is rather limited:
+> 
+> * No invalidation notifiers. The TLBs on the device side, if any,
+>   receive CPU TLB invalidations.
+> 
+> * No remote page fault support. All paging still takes the normal data
+>   abort route on the CPU. Options are pinning all guest memory or
+>   device-specific mechanism for reporting pending faults to the guest.
+> 
+> * No nested VMs. Although we could perhaps support assigning devices to
+>   the hyp context of a nested VM, it seems performative.
+> 
+> So for the moment this API works for devices that share the CPU MMU, but
+> the SMMU driver could use it with DVM.
+> 
+> Signed-off-by: Jean-Philippe Brucker <jpb@kernel.org>
+> ---
+>  arch/arm64/include/asm/kvm_host.h |  11 ++++
+>  arch/arm64/include/asm/kvm_mmu.h  |   1 +
+>  arch/arm64/kvm/mmu.c              | 102 ++++++++++++++++++++++++++++++
+>  arch/arm64/kvm/sys_regs.c         |  14 +---
+>  4 files changed, 117 insertions(+), 11 deletions(-)
+> 
+> diff --git a/arch/arm64/include/asm/kvm_host.h b/arch/arm64/include/asm/kvm_host.h
+> index 30d0082b15ec..c0932b43f959 100644
+> --- a/arch/arm64/include/asm/kvm_host.h
+> +++ b/arch/arm64/include/asm/kvm_host.h
+> @@ -235,6 +235,14 @@ struct kvm_s2_mmu {
+>  	atomic_t refcnt;
+>  };
+>  
+> +/* stage 2 MMU configuration, for drivers that speak VMSA */
+> +struct kvm_arch_guest_mmu {
+> +	u64 hcr;
+> +	u64 hcrx;
+> +	u64 vtcr;
+> +	u64 vttbr;
+> +};
+> +
+>  struct kvm_arch_memory_slot {
+>  };
+>  
+> @@ -1720,4 +1728,7 @@ static __always_inline enum fgt_group_id __fgt_reg_to_group_id(enum vcpu_sysreg
+>  
+>  long kvm_get_cap_for_kvm_ioctl(unsigned int ioctl, long *ext);
+>  
+> +struct kvm_arch_guest_mmu *kvm_arch_get_guest_mmu(struct kvm *kvm);
+> +void kvm_arch_put_guest_mmu(struct kvm *kvm, struct kvm_arch_guest_mmu *mmu);
+> +
+>  #endif /* __ARM64_KVM_HOST_H__ */
+> diff --git a/arch/arm64/include/asm/kvm_mmu.h b/arch/arm64/include/asm/kvm_mmu.h
+> index 6eae7e7e2a68..8a9d385fe14d 100644
+> --- a/arch/arm64/include/asm/kvm_mmu.h
+> +++ b/arch/arm64/include/asm/kvm_mmu.h
+> @@ -185,6 +185,7 @@ int kvm_handle_guest_sea(struct kvm_vcpu *vcpu);
+>  int kvm_handle_guest_abort(struct kvm_vcpu *vcpu);
+>  
+>  phys_addr_t kvm_mmu_get_httbr(void);
+> +u64 kvm_mmu_get_hcr(struct kvm *kvm, u64 hcr);
+>  phys_addr_t kvm_get_idmap_vector(void);
+>  int __init kvm_mmu_init(u32 hyp_va_bits);
+>  
+> diff --git a/arch/arm64/kvm/mmu.c b/arch/arm64/kvm/mmu.c
+> index 2d44cd6a5aed..0bf1dff2a41f 100644
+> --- a/arch/arm64/kvm/mmu.c
+> +++ b/arch/arm64/kvm/mmu.c
+> @@ -2805,3 +2805,105 @@ void kvm_toggle_cache(struct kvm_vcpu *vcpu, bool was_enabled)
+>  
+>  	trace_kvm_toggle_cache(*vcpu_pc(vcpu), was_enabled, now_enabled);
+>  }
+> +
+> +#define HCR_MMU_BITS (HCR_VM | HCR_PTW | HCR_DC | HCR_TGE | HCR_RW |	\
+> +		      HCR_CD | HCR_ID | HCR_E2H | HCR_NV | HCR_NV1 |	\
+> +		      HCR_FWB | HCR_ATA | HCR_DCT)
+> +
+> +/* Update MMU-specific host bits of HCR_EL2 */
+> +u64 kvm_mmu_get_hcr(struct kvm *kvm, u64 hcr)
+> +{
+> +	lockdep_assert_held(&kvm->arch.config_lock);
+> +
+> +	WARN_ON(!test_bit(KVM_ARCH_FLAG_VCPU_FEATURES_CONFIGURED,
+> +			  &kvm->arch.flags));
+> +
+> +	hcr &= ~HCR_MMU_BITS;
+> +	hcr |= HCR_VM | HCR_PTW;
+> +
+> +	if (has_vhe() || has_hvhe())
+> +		hcr |= HCR_E2H;
+> +
+> +	if (cpus_have_final_cap(ARM64_HAS_STAGE2_FWB))
+> +		hcr |= HCR_FWB;
+> +
+> +	if (kvm_has_mte(kvm))
+> +		hcr |= HCR_ATA;
+> +
+> +	if (!test_bit(KVM_ARM_VCPU_EL1_32BIT, kvm->arch.vcpu_features))
+> +		hcr |= HCR_RW;
+> +
+> +	return hcr;
+> +}
+> +
+> +/**
+> + * kvm_arch_get_guest_mmu - Get a reference to the guest MMU config
+> + * @kvm: KVM instance. Caller must hold a reference.
+> + *
+> + * Get the stage 2 MMU config of an EL1 VM. The returned object contains
+> + * settings that do not change until the object is released with
+> + * kvm_arch_put_guest_mmu(). This function does not support nested VMs.
+> + *
+> + * HCR has lots of settings, some of which differ between vCPUs, but most of
+> + * them control traps. For EL1 VMs, the bits relevant to MMU translation are
+> + * common to all vCPUs:
+> + * - VM, PTW, DC, TGE, CD, ID, NV, NV1, DCT have fixed values.
+> + * - E2H, FWB, ATA depend on host CPU features (respectively VHE, FWB and MTE2).
+> + * - RW depends on vCPU features. This function does not support 32-bit VMs.
+> + *
+> + * HCRX: EnSDERR, EnSNERR set to 0. TODO: is GCSEn relevant?
+> + *
+> + * VTCR is set once for the VM, depends on the VM's IPA size.
+> + *
+> + * VTTBR:
+> + * - VMID is pinned, until kvm_arch_put_guest_mmu() is called.
+> + * - PGD is allocated and freed with the vm (the caller must hold their
+> + *   reference to @kvm). KVM may create and remove page table mappings at any
+> + *   moment, and uses normal TLB maintenance operations to synchronize with
+> + *   page table walkers. KVM does not notify the caller about mapping changes.
+> + * - CNP is a property of the host system.
+> + *
+> + * Return: a new kvm_arch_guest_mmu instance, or an error pointer on failure.
+> + */
+> +struct kvm_arch_guest_mmu *kvm_arch_get_guest_mmu(struct kvm *kvm)
+> +{
+> +	int ret;
+> +	struct kvm_arch_guest_mmu *mmu;
+> +
+> +	guard(mutex)(&kvm->arch.config_lock);
+> +
+> +	if (is_protected_kvm_enabled())
+> +		return ERR_PTR(-EOPNOTSUPP);
 
-October 22, 2026 at 5:38 PM, "Peter Robinson" <pbrobinson@gmail.com> wrot=
-e:
+How does this compose with CCA? Can it be restricted to exclusively
+running VHE rather than also dealing with the lesser configurations?
 
+> +
+> +	if (!test_bit(KVM_ARCH_FLAG_VCPU_FEATURES_CONFIGURED, &kvm->arch.flags) ||
+> +	    test_bit(KVM_ARM_VCPU_EL1_32BIT, kvm->arch.vcpu_features) ||
+> +	    test_bit(KVM_ARM_VCPU_HAS_EL2, kvm->arch.vcpu_features))
+> +		return ERR_PTR(-EINVAL);
+> +
+> +	ret = kvm_arm_pinned_vmid_get(kvm);
+> +	if (ret < 0)
+> +		return ERR_PTR(ret);
+> +
+> +	ret = -ENOMEM;
+> +	mmu = kzalloc_obj(*mmu, GFP_KERNEL_ACCOUNT);
+> +	if (!mmu)
+> +		goto err_unpin_vmid;
+> +
+> +	mmu->vtcr = kvm->arch.mmu.vtcr;
+> +	mmu->vttbr = kvm_get_vttbr(&kvm->arch.mmu);
+> +	mmu->hcr = kvm_mmu_get_hcr(kvm, 0);
 
->=20
->=20Hey Luka,
->=20
->=20On Tue, 6 Oct 2026 at 14:07, Luka Gejak <luka.gejak@linux.dev> wrote:
->=20
->=20>=20
->=20> This is the second of two series adding support for the Realtek RTL=
-8723B
-> >  802.11n chipset and its RTL8723BS SDIO variant to rtw88. The prepara=
-tion
-> >  series has landed in rtw-next, so this series carries the chip regis=
-ter
-> >  definitions, the BB/RF/AGC tables, the chip driver, the SDIO bind an=
-d the
-> >  build glue.
-> >=20
->=20>  The first and fourth patches are the shared-core changes. The firs=
-t moves
-> >  the CCK power detect setter out of rtw88xxa.c into phy.c as
-> >  rtw_phy_cck_pd_set(), so this chip can use it without pulling in
-> >  rtw88_88xxa. The fourth moves the definitions RTL8723B shares with R=
-TL8703B
-> >  into rtw8723x.h. The five chip patches apply on top and can be read =
-on
-> >  their own.
-> >=20
->=20>  The driver supports:
-> >=20
->=20>  - RTL8723B / RTL8723BS, SDIO only
-> >  - 2.4 GHz 802.11n, HT20 and HT40
-> >  - one spatial stream
-> >  - station mode
-> >=20
->=20>  Only station mode has been validated. The common rtw88 core advert=
-ises AP
-> >  and IBSS for all chips, so those modes are advertised for RTL8723BS =
-as
-> >  well, but neither has been tested. An out-of-tree tester has reporte=
-d AP
-> >  mode associating without DHCP completing. The five additional SDIO I=
-Ds are
-> >  included for parity with the existing staging driver, and only the 0=
-xb723
-> >  device has been exercised.
-> >=20
->=20>  The chip driver requests:
-> >=20
->=20>  rtw88/rtw8723b_fw.bin
-> >=20
->=20>  This is the version 41 firmware extracted from the Realtek rtl8723=
-bs
-> >  vendor driver. It was submitted separately to linux-firmware with it=
-s
-> >  extraction provenance and carries Ping-Ke Shih's Reviewed-by. There =
-is no
-> >  known native rtw88 RTL8723B firmware.
-> >=20
->=20Did we get the firmware PR done against linux-firmware?
+How about the hcrx field in the structure?
 
-Yes the firmware was merged even before the prep series.
+> +
+> +	return mmu;
+> +
+> +err_unpin_vmid:
+> +	kvm_arm_pinned_vmid_put(kvm);
+> +	return ERR_PTR(ret);
+> +}
+> +EXPORT_SYMBOL_GPL(kvm_arch_get_guest_mmu);
 
->=20
->=20One thing to note here is that the old revision of the firmware will
-> need to remain in linux-firmware as the LTS kernels will need them,
-> not sure that's a problem as the drivers use different paths.
->=20
+It really feels like this is a bit upside down. Since you are actively
+pinning the S2 MMU context, it should only be a matter of taking a
+reference on the kvm struct (just like KVM devices do), and handing
+off the kvm_s2_mmu structure, rather than copying things. When you're
+done with it, drop the reference.
 
-It=20is its own entry, not a replacement for existing one, so LTS kernels
-are not affected.
+If there is a need to deal with a different value for HCR_EL2 (or
+anything else), it can be done in the code that makes use of it,
+rather than being in the KVM code.
 
-> It would be useful to get that done so users don't see a regression as
-> the old driver is removed.
->=20
+Thanks,
 
-Already=20done as said above.
+	M.
 
-Best regards,
-Luka Gejak
+-- 
+Without deviation from the norm, progress is not possible.
