@@ -1,142 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.50
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792700570;
-	b=TQoVyBrVWUw/vJkWdTC2vLb2ximQjJG5RRNrqlIWosBC3BDRQ6mGHz2lwWLS4graxODQ
-	 jd3o2KxQweGBomV7sto9vWPyok5ush3JA45+sMnQRQa8NPVBkiajc3SwvXENXZA+90/7E
-	 pu+BNeduluL1mEXrCOAPJzCYsT/44lB4OeWtwFH2rSn81auENLq7B2GhHSW8rsHbq5SSf
-	 D6pjVpdVVrwnSlDIsAZes1YYqIZG5lQJ2DaZ6wFWXp8rH+j7TPiqFF6+SdbCHXOrd+WSr
-	 bY98Ap8tK/NXbY6zf2QA1G7AJP9F7KwKI0NLrdFrsUgCRlxj9Hw3/uayHIYgvyZpJUg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792700570;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.50
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792700603;
+	b=dTl9vFO+XyRV7i4FIkpD07Ejfx5mAPkJZB2cCPifvlQN9/hg2XBE9F3n/n3CVzxumm3x
+	 tXhfzy2rwZimWVAJ2feG5Jcc2U2liPy0NyjilXbhf9pxjv6HMDjT5Kw/XfRSFK+Hkkmfn
+	 B8GRTVSqAcd1ITkyGbAmCNHGdbGomOHeDdQ2iNbpGYKQuVt+C5DsUG6qxLR+7dpUTo2lx
+	 1i3RpI4wlphqG/4EPGu3R/lABymVFuvsjnhbCqg/OHDmQ5xyze/nFr2iEfbbIjZOKJ79F
+	 9iHtc0NfpHOsi1TeWu0XMqCRD/J00aOaurPqkyyRldsfcDuCRC0y5gnTmHzu8zwOINA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792700603;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:Autocrypt:
-	 Content-Type:Content-Transfer-Encoding:User-Agent:MIME-Version;
-	bh=6+OZ7UAj4wpyLIvTVHWqEA215IR1A8qQvTEaOHFShS4=;
-	b=rxNHj1pQM30Um/tMkxRisf3OutuztmVcAm4QixSAyN5rP232ZRrEMfvmxFTuP540+2Ku
-	 pjekhy4FgDBkEsTcI4ptAZbtgCxGts4yb0iSShuKLzOWPGgOricWwXomY+3yfBCH0mwfX
-	 hnxd8Uqz325KwbCijDFVd0UG1xFAEBykHKNvfW6pcretS3PjXUl8jK49j4GI0KHv3Yc2/
-	 NqY0vOlBWQaMD5PgON3wxuthaMVuom5b1ihK8WVFQlOO93agKQLUSpw2Eu4nlesdZApVI
-	 02y9ZcmQlKkBvJO9pvMUYODInDx0DlKrZh1wi5ZHDxHe+sba6WXALTPcGgLAZSn0eOQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=dubeyko.com;
-	spf=pass smtp.mailfrom=dubeyko.com;
-	dkim=pass header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b="LX/PbAP3";
-	arc=none smtp.remote-ip=74.125.224.50
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=5uxHMH5lWNkFqrLK/1u2IVRs5r7Pb9pQoHHJh+WWXLs=;
+	b=kHA6EubjB7PCHGpekSOI1Ln2EyY0pqL+uMSK72fC39qb62xNkc9r+2M6Vvo16Ssb6qjg
+	 l/woavqi8qIQlXwOSbfW34Zji/1QS9AjF/cfSIoRfk4a9PayWt0nq17EJacQ+BMb8IMpU
+	 exudK8xIn2MtDZDmcetMsSlHb/jX1l4FGd6pzfakYBgm4rx9HMxZprljJ2E1iC0SEHkEW
+	 ZVB8ogmCF//zjw44ItCoUpnJu2aaIEFfzuxdjutFQOdqIyIivHPSN4/sLmncExII6Y8Ir
+	 o95JE3RpGDJwXXU+KzENxAJ5e8ZlN51kl2XO4cdK+ZiYK+UyY2ZwQBAErXQGEJ73efQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=jzFpZtNi;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.50
 Received: from mail-yx1-f50.google.com (mail-yx1-f50.google.com [74.125.224.50])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5626606A319
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 20:22:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D5626606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dubeyko.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C335C606A319
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 20:23:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C335C606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=LX/PbAP3
-Received: by mail-yx1-f50.google.com with SMTP id 956f58d0204a3-679aeeddc6bso322551d50.2
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 13:22:49 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=jzFpZtNi
+Received: by mail-yx1-f50.google.com with SMTP id 956f58d0204a3-677d35fd1d2so319567d50.1
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 13:23:22 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792700602; cv=none;
+        d=google.com; s=arc-20260327;
+        b=RDOBp9kFOmrxLR8no4iReFcLYoI3kT65gOyAA922ZV/wK3j7pLZYDBDOPN0HfubpO2
+         V6pjUFVq/AzBqRcvP38jcHnKvW6QJalGIUoBRcUWdln8dweG+dRRoqIPSHa6fBuRVGly
+         GwGTpCF30ET2U1mhMEB53PMikFM6gGeEiOUJ99Bd4oogFardzXaGzsQlEoMweDmFqi/D
+         bPLgcnP50JIpnjhB73cnbjmrVnNJX5AMeVGiAm757fTlZaRmbLi0Cibe0E6ohPOZsejn
+         nF7BFa9tOKCZBK8VATIWB4QeUBgt2qkT03c8wEL8NE0/qH3/eXuuMZrmBwdOdMQm4Lut
+         x7jA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=5uxHMH5lWNkFqrLK/1u2IVRs5r7Pb9pQoHHJh+WWXLs=;
+        fh=3oSrk9wUji3O3nb+5mcMS8zMkvPBubPtiC5jFshAeCg=;
+        b=WL0XO2V9HiAM7Tz3z2bK6wJTE6Os6PyCifeayWHsT62gIIPcX0LXSaNlCgzZPnAi/R
+         fXVzWFginaqYjsi0UHR5bvZB9OSSQgz/SbKXc2+1AV1aLKKlvpFxst+NJBtqbZwI5TW8
+         I4WcOzRFNY7wdBXF/3nVWKb8uF5mFQsalyxFOCTXDRToAf+UhYG1SxezysMOJ5rIYmqj
+         L/9e445E1Mjq+ZEmpjohC0lOqtzUSnjhXrey9ZL10RQeQEf4rrXe+BM/l7m8gFutCbB/
+         8CUsmSL2Z+5p9eiFQ1yLDVg++OC/AeSGVFdjmNgmA/BM9BVSSmINas++9Imd1utKKc2w
+         x7jw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=dubeyko-com.20251104.gappssmtp.com; s=20251104; t=1792700569; x=1793305369; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6+OZ7UAj4wpyLIvTVHWqEA215IR1A8qQvTEaOHFShS4=;
-        b=LX/PbAP3SVuSBH9kbpXY0xPdGlqMqb9hUY2i/eVrUHvo3AcBCIjUXvpkN7qNFuEUkr
-         IMaSW6GIzwyYRoM26Eot6lV+mYkFX2IuQYXc5XA7qVqnyKO/PRNtI2qD4+8h3vUl7mgy
-         P+snby1i4L73rC75zcNABoO4L/fcZDb0n8LmliR9IH1LUnjYxyZ/d2AwP0fmlMHS52hF
-         /vrIwBii/xYYYsz9D4A03iWhrSJMERu4FLL5tDehyr9tza6Hlykp4tDWhgZOJspflkMY
-         kB1G8Mm/JSqUSN2hj6p/w6SCHo//aJzhqBb7k9G7u7Mtyz9BP3iAVGUxsu5OPo0ydvt4
-         F35w==
+        d=google.com; s=20251104; t=1792700602; x=1793305402; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=5uxHMH5lWNkFqrLK/1u2IVRs5r7Pb9pQoHHJh+WWXLs=;
+        b=jzFpZtNieITeERa6yPOUltFqxvFmZsA7jUVHqYQwqrsrPnTdUMFooxFz7O3ajLG16b
+         9dFD9b+Fu67ap1GB7SVDIn0Csum4BSc5EY6FnVoH4LlHHU/tEVwe8aXMWqgBj/9dBC7e
+         Jmei0M5tWkAmA2leok0D/QBy7+qXMU210KkqFZvoxJogOgbhX8pb/hrh1sJiqLaMjhKH
+         n2ub3kgL7kPy1jhnhuZLsZPoPL0GsQ5XN0X1of+xD6fbAhCY3Z5od44uXxFRTaR6nNEK
+         4aP0DxbIGicM6MevE4yq/LoNNzPOBZ5AJ44SFmMglAEDVuTM4ODvCUJTtI64S+xXXlDk
+         yxyA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792700569; x=1793305369;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=6+OZ7UAj4wpyLIvTVHWqEA215IR1A8qQvTEaOHFShS4=;
-        b=I4maa1LklwdGp1iSnOGCdN05tISHQnVff0FQENZZZHW8hI+r9g/p2xL9zVAQR2aPOa
-         XlCWLOKaA3IECaRZkKtNalkzdT9RCAfYu8c5tb74S/iyJVmiDu/be2wvmhjviiKNADq5
-         KdD0TBZhojxmdf117sTT16Xp6NKGbIiGaGUPr+zkvHADCfmM+pBmfgFJjPnORLM3pWOy
-         AAK7l1n6KV0UBfAgdZeqbHzv9WourQGkmrNtyjvLLKjcxJ0wRUiuXEQk25VPPYMQW6hE
-         dQXzaux7rVdJGFvacEfQSYjiRLgBPwdJD1xhgyikcnmTGw7pfn2nr6HTjbBYcHO80I1L
-         cz2A==
-X-Forwarded-Encrypted: i=1; AKwUvBxSE3AOmHJ/VBa0BEQ6L6hTKuGHLfefZOlWNlrcUjdv6A3pLAStpc1GphRM1dDdpIr3DGADY2POALp4/N4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIF8y98SAgkBjj7RPh1SEtkfOVHxSHdqSwr61wQQV8O22cGLHcR
-	uKRUdQZIRRAgIHe3kfpbhsvI1Gt4m6F+C3N0H4NvP4cwuCu4bAHmxk7ZkMfzvmP/QCM=
-X-Gm-Gg: AYBFou266GeIuBRJi1L6SDR+weqSgb0pyr4LTiNITVPqDHeoznGwuU4d3BhMccnuDD0
-	J1xL22dXHpdsdFfhb7iMnX/NBWGi1QCZd3VnEJv22klg1yxjFlisPOWo1A6zdAdXlb6Y9De66e8
-	qtjld1iyuF/GQKXr6LCO5eaUn9I+/3DojAqqV4i3jO5hBzACirCe81148imq7FalGspey1kFm4U
-	sjgoymJisXBaDs8WsDbTV/eGr8Ih8Q5e2ux1MAKrZWmZK329RQrOMY9LDdeSYtDHSaKfLSuB6Nk
-	U2B+j26NOOiNtqMVVAUBic4vmwgT6l37oGQfzfWZ2Byh7Vcy6sGkDjzOBhy0mLIHQArMt75b2C8
-	C7OkbLPqVQalKdzOzp1Joi/5gVESt9LwWaWXR6419PXTqN3wJbgW95FNvrgiEyjZXxIyGpWEOBc
-	dJ759kQlhsU2caqPRZfrOowbpAWR5DHDh6ntK22yyRaFzSF4Agw8V55volN4fIA1vvhzNybUuF9
-	LvAzx98jQ6cHEIZdseeyKb59haTuRKgJLAStaEqmRuTs5fIbECXBGrY2L37ARydZvIMgoAn9Iqx
-	qtmLGs9PPx2I/L3pip6YDxBAv19DcvAt1ybP/HWBFA2GZhc+UZt7dawcr5iDQISZQNLY5MkZwTN
-	O5eoKlZw8WIk7dzQOA1/w4ZD9fSjYhAr71TKzchf9RghDpA==
-X-Received: by 2002:a05:690c:60c7:b0:8af:e4ee:a91c with SMTP id 00721157ae682-8b157dd761cmr909137b3.41.1792700568859;
-        Thu, 22 Oct 2026 13:22:48 -0700 (PDT)
-Received: from ?IPv6:2600:1700:6476:1430:d350:a0e4:db9b:3217? ([2600:1700:6476:1430:d350:a0e4:db9b:3217])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b1561e365fsm3568247b3.45.2026.10.22.13.22.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 13:22:48 -0700 (PDT)
-Message-ID: <4d28ca686fee764bb0eb3710f390a6f5fc9c0d4a.camel@dubeyko.com>
-Subject: Re: [PATCH v2] hfsplus: fix truncated xattr names in listxattr()
-From: Viacheslav Dubeyko <slava@dubeyko.com>
-To: Hengyu Liang <hengyul@cs.unc.edu>
-Cc: glaubitz@physik.fu-berlin.de, frank.li@vivo.com, kees@kernel.org, 
-	justinstitt@google.com, maurycy@maurycy.com, linux-fsdevel@vger.kernel.org,
- 	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Thu, 22 Oct 2026 13:22:46 -0700
-In-Reply-To: <20261022111700.1288273-1-hengyul@cs.unc.edu>
-References: <20261022111700.1288273-1-hengyul@cs.unc.edu>
-Autocrypt: addr=slava@dubeyko.com; prefer-encrypt=mutual;
- keydata=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
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.1 (by Flathub.org) 
+        d=1e100.net; s=20260707; t=1792700602; x=1793305402;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=5uxHMH5lWNkFqrLK/1u2IVRs5r7Pb9pQoHHJh+WWXLs=;
+        b=0QiWQDJlFYi+p9DrUt5OouovEZrg3VxvStaNky7pdgI2Bjv7kHT6DcSo2Lq9nCoijv
+         gHYm/0wWqui0wh8lvJrS70EjzpXZkw9Uq0lBiFli6qPSLWbUgez9+2yAhKewZUUjzw6z
+         /Kj3sndCCaiLdZ7etmNTNoiowPqBBB3rdbhRwPgy3Sr4a8Pn5Gu7A1bmVGF4LOzfR9Ui
+         eU+Y4T8Icvp19JE4/dBXVTiKpWPKVQCqXCcm7DxO+EWgv3dNKE7Fbofw9qNgvJ10vOel
+         Zr5/aer5FABnaSHO9qJEoajSI1SGxA+oljxay4pedzlX8hAHsG/B57rist4jVOfqg+du
+         eT+g==
+X-Forwarded-Encrypted: i=1; AKwUvBz1HGQSQbamd6ybtgWgIGQONhciWDT9elZA2K4nzFwoM1Ty40pZuR6SeHaDXG6j1kKdOH+AyQcaAfHFtBs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJflf8sD9AHCKxusmR3Gt6RvIo+HFST5yOkYG8ZQbnTfhCsL+qn
+	VO3LDoBBP3vtwTKNX2PhE3mfY34ho13TKJAU5Q58iiviKeBCxSHeu/2PG+FITMoR6j1avVwoMpl
+	PA7e6wvJHKEHIjk2in9540GzWObfqdjaEgcqMoTQa
+X-Gm-Gg: AYBFou01+f0oaVXycY4bAwKJuD7whuASZHWJ7GYgx/sx/j9sLuLs5/KLfyxEBcMqlgM
+	JNPw/aRMLPpa/4EnF3ZYa2bfUYRRr1ybu+/sfZ1WXM+icQarkFKm9MmYWYLN+qPukJnG3vlHBxu
+	3s5HLvcUxANnXjguVPGZixQnEbGmmuybuEYx+QXb/CLMpWq8ZZnXjYsBS6Pz+kq0TG7Iqsilani
+	3ObT/DBe16OvXK6Qle2nakKypchccuPpvx4sxt8VRbuDMXMSOuQ0xION8gK8NcwewNrIVLP3GhI
+	X0bnjFr+0D0TJJjzAMPmlJNOFAPFkxWQvufh7amcyP8JYWnKP//9nNkERzObPnLhvkxMio1Yk3q
+	1xkGXP+HK/RCzTxr8A8jWzuE+FmuLl4hzBhqtFnO5rH+RRSh+9eMe0YxIGG6FbIbnxYM=
+X-Received: by 2002:a05:690e:4886:20b0:679:b810:6e02 with SMTP id
+ 956f58d0204a3-67a35be55damr41297d50.26.1792700601354; Thu, 22 Oct 2026
+ 13:23:21 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -146,133 +103,86 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+References: <20260921230603.2518652-1-samagazaryan@google.com>
+ <arY6DfVf_9tZ_TCu@black.igk.intel.com> <arZTphXbVF5wagy2@shikoro>
+ <CAHreonFzhYk6fDswn7OVZfL3ybUHU15G3_q9+1sDhe8h670r3A@mail.gmail.com>
+ <as487H8-0Gc77mXI@ashevche-desk.local> <CAHreonHiesGbR4VB+3sRxoLDmNHXFFEB=6_o6TNedm-N6VksEQ@mail.gmail.com>
+ <atXmovzepBLP8Mqo@ashevche-desk.local> <atXnS1ZKGVfHDNEK@ashevche-desk.local>
+ <CAHreonFnUSKJMUpR0rmsnSMHEhcJ_W332_NTcGfTKiRkkPse_w@mail.gmail.com>
+ <202610210957562f3f6511@mail.local> <ati4B33tnKsCD4c_@ashevche-desk.local>
+In-Reply-To: <ati4B33tnKsCD4c_@ashevche-desk.local>
+From: Sam Agazaryan <samagazaryan@google.com>
+Date: Thu, 22 Oct 2026 13:23:10 -0700
+X-Gm-Features: AclHuK-UXeYd7f4xuTeUAZF1JwhmIdSpH-ZAZho2bvnDVSV1qLbRZ06-APU7LkY
+Message-ID: <CAHreonEbHrPCCro+2u5LC2reVk2fzprC4sTLi00nyh8U1=VdXA@mail.gmail.com>
+Subject: Re: [PATCH v5 0/5] i3c: add i3cdev module to expose i3c dev in /dev
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>, 
+	Wolfram Sang <wsa+renesas@sang-engineering.com>, linux-i3c@lists.infradead.org, 
+	Frank Li <Frank.Li@nxp.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Arnd Bergmann <arnd@arndb.de>, Adrian Hunter <adrian.hunter@intel.com>, 
+	Meagan Lloyd <meaganlloyd@linux.microsoft.com>, Vitor Soares <vitor.soares@toradex.com>, 
+	Oleksandr Shulzhenko <oleksandr.shulzhenko.viktorovych@intel.com>, 
+	Boris Brezillon <boris.brezillon@collabora.com>, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Thu, 2026-10-22 at 07:17 -0400, Hengyu Liang wrote:
-> From: Maurycy Pawlowski-Wieronski <maurycy@maurycy.com>
->=20
-> Commit 7dcbf17e3f91 ("hfsplus: refactor copy_name to not use
-> strncpy")
-> made copy_name() build names in the osx. namespace with scnprintf().
->=20
-> However, the size passed to scnprintf() leaves no room for the
-> terminating NUL, so the last character of the name is dropped. As of
-> now, listxattr() returns every osx. name without its last character,
-> and these names cannot be passed back to getxattr().
+> > 1. Tooling & production users:
+> >
+> > - i3ctransfer (Patch 5/5 of this series, and carried out-of-tree in
+> > AspeedTech-BMC/i3c-tools and vendor OpenBMC BSPs for several
+> > years).
+>
+> So, nothing in production, meaning we can design that in kernel differently.
 
-Yeah, I see the point now. Thanks for clear explanation. The main=20
-point that scnprintf() expects buffer size that includes terminating
-NUL too.
+In hindsight I should have ordered that list differently, the second bullet
+right below that is the production use case: production BMC firmware update
+and recovery daemons running in OpenBMC server fleets (managing Caliptra
+Root-of-Trust and SoC recovery targets over I3C), as well as production
+server accelerator management daemons.
 
->=20
-> The issue can be reproduced with:
->=20
-> =C2=A0=C2=A0=C2=A0 truncate -s 64M hfs.img
-> =C2=A0=C2=A0=C2=A0 mkfs.hfsplus hfs.img
-> =C2=A0=C2=A0=C2=A0 mount -o loop hfs.img /mnt
-> =C2=A0=C2=A0=C2=A0 touch /mnt/file
-> =C2=A0=C2=A0=C2=A0 setfattr -n osx.test -v 1 /mnt/file
-> =C2=A0=C2=A0=C2=A0 getfattr -m - /mnt/file
->=20
-> Without this patch, getfattr lists "osx.com.apple.FinderInf" and
-> "osx.tes". With this patch, it lists "osx.com.apple.FinderInfo" and
-> "osx.test".
->=20
-> This patch adds room for the NUL to the size passed to scnprintf().
+> But why recovery mechanism can't be kernel-driven? With some sysfs
+> (just as an example) knobs to say "I want to run now a recovery flow
+> on this bus", et cetera.
 
-Usually, "This patch" is not good idea to use. :) It will be better
-another way: "Add room for the NUL to the size passed to scnprintf()".
+To make sure we're talking about the same thing: "OCP Secure Firmware
+Recovery" is not electrical bus recovery (like recovering an i2c or
+i3c bus itself by bit-banging to unstick a hung bus). It is device
+firmware recovery and provisioning (similar in concept to USB DFU) to
+recover and boot a target device that sits on the bus.
 
->=20
-> Fixes: 7dcbf17e3f91 ("hfsplus: refactor copy_name to not use
-> strncpy")
-> Cc: stable@vger.kernel.org=C2=A0# v6.10+
-> Signed-off-by: Maurycy Pawlowski-Wieronski <maurycy@maurycy.com>
-> Signed-off-by: Hengyu Liang <hengyul@cs.unc.edu>
-> ---
-> Changes in v2:
-> - Rewrite the commit message. No code change.
-> - v1:
-> https://lore.kernel.org/r/20260828-hfsplus-copy_name-fix-v1-1-75ed9f0f378=
-c@maurycy.com
->=20
-> Maurycy, v1 got no follow-up, so I am resending it as Viacheslav
-> asked
-> in the thread below, with you kept as the author. Let me know if you
-> would rather send it yourself.
-> https://lore.kernel.org/r/dc187921249a3f6716b829624853e64c10321cd1.camel@=
-dubeyko.com
->=20
-> Answers to the questions on v1:
-> - generic/377 passes with and without this patch. It only uses user.
-> =C2=A0 names, which go through the strscpy() branch. That branch already
-> =C2=A0 passes name_len + 1. No xfstests test uses osx. names.
-> - Why + 1 helps: the prefix and the name are name_len +
-> =C2=A0 XATTR_MAC_OSX_PREFIX_LEN characters long, and scnprintf() writes a=
-t
-> =C2=A0 most size - 1 characters before the NUL. Zeroing the buffer first
-> =C2=A0 does not help, as the last character is never written.
-> - Why the write stays in bounds: both callers check that the buffer
-> =C2=A0 has room for name_len() bytes, which covers the prefix, the name
-> and
-> =C2=A0 the NUL, before calling copy_name(). This is also the number of
-> bytes
-> =C2=A0 copy_name() wrote before commit 7dcbf17e3f91.
-> - All xfstests: see the full run below.
->=20
-> Tested in KVM with KASAN on a804c5742bff, without and with this
-> patch:
-> - The commands above, and a C test that compares listxattr() with the
-> =C2=A0 names set on files and a directory: short, long (up to 127
-> =C2=A0 characters) and non-ASCII osx. names, FinderInfo, and user. and
-> =C2=A0 trusted. names. Without the patch, every osx. name loses its last
-> =C2=A0 character, fewer bytes are copied than the size query returns, a
-> =C2=A0 buffer one byte short does not get -ERANGE, and getxattr() fails o=
-n
-> =C2=A0 the listed osx. names. With it, the names match, the copied length
-> =C2=A0 equals the size query, and a buffer one byte short gets -ERANGE.
-> =C2=A0 KASAN reported nothing with exact-size buffers.
-> - generic/377 and generic/062: 5/5 passed on both kernels.
-> - Full fstests (805 generic tests, 608 not run on both kernels): 188
-> =C2=A0 passed and 9 failed without the patch, 187 and 10 with it. The onl=
-y
-> =C2=A0 difference is generic/617, which fails on both kernels most of the
-> =C2=A0 time (19 of 20 reruns without the patch, 18 of 20 with it).
-> =C2=A0 fsck.hfsplus -fn reported no errors.
+This lives in userspace because it is part of the BMC's Redfish/RoT
+firmware management stack (handling network image streaming, signing/key
+management, and chassis-level recovery policies), rather than a single
+"recover this bus" hardware toggle. And it uses I3C_IOC_XFER because
+each protocol register read/write requires combined Write + Repeated
+START + Read transfers (or HDR transfers) to that specific target node.
 
-The xfstests cannot help with testing osx. names. This is how I missed
-the issue. It will be great to have a KUnit test(s) dedicated to
-testing HFS+ xattr functionality.
+> Oh, that's quite a dangerous "feature"! Can we avoid doing that? Otherwise it
+> means any missed guard against unbind for the system controller related chips
+> may lead to real HW damage. I'm totally against this feature to be in any way
+> of an ABI. If you want that, do it exclusively via debugfs with a big fat
+> warning that this may lead to HW damages.
 
->=20
-> =C2=A0fs/hfsplus/xattr.c | 4 ++--
-> =C2=A01 file changed, 2 insertions(+), 2 deletions(-)
->=20
-> diff --git a/fs/hfsplus/xattr.c b/fs/hfsplus/xattr.c
-> index 71364e093fa7..470f090b2699 100644
-> --- a/fs/hfsplus/xattr.c
-> +++ b/fs/hfsplus/xattr.c
-> @@ -515,8 +515,8 @@ static ssize_t copy_name(char *buffer, const char
-> *xattr_name, size_t name_len)
-> =C2=A0	memset(buffer, 0, name_len);
-> =C2=A0
-> =C2=A0	if (!is_known_namespace(xattr_name)) {
-> -		len =3D scnprintf(buffer, name_len +
-> XATTR_MAC_OSX_PREFIX_LEN,
-> -				 "%s%s", XATTR_MAC_OSX_PREFIX,
-> xattr_name);
-> +		len =3D scnprintf(buffer, name_len +
-> XATTR_MAC_OSX_PREFIX_LEN + 1,
-> +				"%s%s", XATTR_MAC_OSX_PREFIX,
-> xattr_name);
-> =C2=A0	} else {
-> =C2=A0		len =3D strscpy(buffer, xattr_name, name_len + 1);
-> =C2=A0		if (len < 0) {
->=20
-> base-commit: a804c5742bff224d4cb4d25dd383554d598be32b
+Agreed -- as Alexandre also suggested in his reply, it sounds like
+automatic binding isn't favored here due to risk of hardware damage.
 
-Looks good.
+> Can i2c device require an i2c recovery flow on the bus? If so, how would
+> it be combined together with the i3c recovery flow(s)?
 
-Reviewed-by: Viacheslav Dubeyko <slava@dubeyko.com>
+If you mean electrical bus recovery, i3cdev doesn't perform
+bus-level electrical recovery. It only submits normal target-addressed
+transfers via i3c_device_do_xfers().
+
+If you mean OCP device firmware recovery on a mixed bus:
+
+An I2C recovery target on a mixed bus uses standard SMBus Block
+Read/Write transactions through the controller's i2c_adapter (not
+i3cdev) while an I3C recovery target uses I3C Private Write/Read
+transfers via i3cdev. On a mixed bus, the Linux I3C core already
+configures the bus mode/SCL rate according to the I2C targets' LVR
+spike-filter capabilities and serializes both paths via
+i3c_bus_normaluse_lock(&master->bus).
+
 
 Thanks,
-Slava.
+Sam
