@@ -1,99 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.180
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=51.159.59.229
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792684811;
-	b=st5P4ZdJfr/JukzGE7xkuqGlp2+SFQznx2mQZgN8cW8kL6KOLYXWTXFc2IxsU60xNX88
-	 h5TwEwfmE9od33hKaNUXdz2SpaWH4oi+GjGzp0AxaRrUhoN6wyrWGy3NUM+ttlG+nrng3
-	 sSeC+8Ja6FzKWm3YqiVFz72OwoUqNrqdBE7sVfCXBq46UbRs7/jwD0Ri7+9CcyTnWaAeV
-	 NTYZg9d33kDrYJ3ASDG+LrsoLQCP+7tY4TG1woBYDRG5kuZokfOWCIpazJKCYPyOFo8JT
-	 fsNbCXIerMx6ZEQoNfL2jXEszinXZTyusqvRLrUZib3ezsrYlcrGBCCyIhVkAVv6aFw==
+	t=1792684839;
+	b=4Ohfwmml11EQFZE7o/ATFg2qFxxjIqN2DDL0kF8NNIPgG6ooiWHVjEfaJqyF/tONWr2+
+	 yAMYZ7povtCUjOXfVKn6WFCyoPzo2qCUrfYe85XK08SX3wl9kV7axRd8yElvd4/pYQvKx
+	 hP0k8HhPJQ4dYs9RqFxhCbdzXplFjJnD2lkNC5DSEV0dQRrevFTp2FtMQS8yeHPctNixb
+	 SyziE4o1Y7CGRpZsQEpPjPfNAUjTbwiKR4q0YVYKAneUn295v/KZbw8/ipL15XuJ2O0h0
+	 4KOKXSAnp2dfGof8Y9tErs4u7uZt/RHO+r4WVYwwdwNqPh7BfHY3mtTTBXDUK+hc0XQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792684811;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=lo4FCreUTiir8SKV7eM8msqoq5RBMwL2rKg855Qwhvg=;
-	b=y45z79g1WNrqF2166wIvOD/WTamGjr85yV9iJFsvR5s4aW8Tdnkkx/RlnUNLmtqVnDIK
-	 VkMvTx8qArUhsUDgUZ/KIKknMgh/WXBA/GQ6y/kAmNLUZUsvsRnRR+5yg0QJVoyfmc+hc
-	 Z0QBKHKCa8IwhV7+h3jh4W6W6h9BnVLjScN8MWU+yBiG057cMx+Etfkx8lnONEYXMdZkx
-	 vHBKjlhklLpuhgCnrH/2sYJL2M4o3/IFWaUdeseRRVCTeoKj+ODUopZ3XQmJjk3tjHgJK
-	 4+cNbi+9lPwjJ0a3+mE5UzUuEl2tUI81fpweubmImFc+7O4fPDe+p5KeJpjaH7wrsAQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792684839;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=66qA4T0+Y7abbrUKSKY74ogksnhTGqqEnTpzsWYmGqk=;
+	b=Uccr90dzGFkCoqLdBP7rjcwYh312zrk3wllEp8ASG4+Sk6/ebiT4K14QV6UPzfG1wB3u
+	 tl4wSy3OMNMt+C+O/PXuTKstLyrHjVIR+MvVE9tnOjfYJHY81pF0o8az0z/Ndx4Sr4g3+
+	 O6sdJy1UKdLWFZ1oLDABSJ4uCwJ49PMFYkxyvPGH5icd1zPZF3+ooC+61WwZbSCdD0kaU
+	 ZzTjU3RxuoN9nI3Mdq5cxPHSwSObsYx32ZY0KpqcGv2LgKZ4I16zdZ15JYTrzGsujhh1g
+	 bgA46C5esz6Q+IFroTtraivszhxfTC/0JMeD4tpwH/JJVv7adTfmT9efjiLvY7NQNig==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=nDIvaLrV;
-	arc=none smtp.remote-ip=209.85.215.180
-Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com [209.85.215.180])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=1wt.eu;
+	spf=pass smtp.mailfrom=1wt.eu;
+	dkim=pass header.d=1wt.eu header.i=@1wt.eu header.a=rsa-sha256 header.s=mail header.b=lOJai6zd;
+	arc=none smtp.remote-ip=51.159.59.229
+Received: from mta1.formilux.org (mta1.formilux.org [51.159.59.229])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08A45606A31D
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 16:00:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 08A45606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60EFC606A319;
+	Thu, 22 Oct 2026 16:00:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 60EFC606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=1wt.eu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=1wt.eu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=nDIvaLrV
-Received: by mail-pg1-f180.google.com with SMTP id 41be03b00d2f7-cd61a2dfd7aso508003a12.1
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 09:00:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792684810; x=1793289610; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=lo4FCreUTiir8SKV7eM8msqoq5RBMwL2rKg855Qwhvg=;
-        b=nDIvaLrV53bR4F/MUemVE+cfZad5WD81rvNvPGjnY5+oSyyou6RnuoFJaqHKl3jGeC
-         2lc8XE0lsXENk6qTpZClnwWIUHKxrzc+NzkILamfd1kQKU9UpECQwmQS48RFQSO5U2eh
-         C4IirFlmwzcEhAh0X1xcSBrkue8zn571e07gzKJQ75JJTCvB5oytCwfRhW5GGCjyYGAM
-         b5rel3jVamtoH4YMKA5ZpEBaZMazoZ9OUWbYNYxn0ec4j7shlqZvibM2gVnSO1rIN8hJ
-         4CIpRrAq54d7Gch0M0VRT50Z9l1ZP8KZrpuhapzCvP7RcWhWh8HDmTQl2FIFjRfmA4Tx
-         igmg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792684810; x=1793289610;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=lo4FCreUTiir8SKV7eM8msqoq5RBMwL2rKg855Qwhvg=;
-        b=PODBI9ZrCgonLLDo68xmlGc4lj3KD9wRmBOIoaUcwD6r1dP4L81uOk9HwRDLgQiL0F
-         Wxl5jinnh900RIZAbi9inFbjx2fU3BfQPfP8ZAGQcn+6i2gBqAhPAfl1iwznCngubg0n
-         n3wLyMeYD38GB2hquFPqr5ymCOahnEBzvu0xANzhMtBsX1vaZ0QTCK9c8LCzMdQswllP
-         Az3KR23x6JNynKAgfVAAlRKL0gmzbIirEbPUIOJ3KNIM5ZaH1ygEu8uHtenFKvQF0mWV
-         m2GfqqszAEMf0Cfg3I9zf/cyTYLoV+KvTbxPI1SmytJ2xWKpFX7KtOXgU00UkAN7Glci
-         OYRw==
-X-Forwarded-Encrypted: i=1; AKwUvByV536I4q9BAxwmQBkzotQ7GPQ/rOozmYcjq55XvJL/ylACLj9aPD4SCgfFzyP8LdxQa6NIbU4rvHPN2/g=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ4LCjIfcnhdIEpFzJG0E9csRZY43V2Tq0GssQQC9ziNm+oM8T/
-	kfwysXy0fWdeIRsW3bvx2Lk+Qm/1S3ihPOg6p1QTnwcw/PETihYdr28=
-X-Gm-Gg: AYBFou0V19ISaLofgDIrmsmmi8ljihaNyCS/vVb4nfdakxr5XpHqhqo3isBcH9edVPZ
-	RF+oVYH2LJkFkU2SS8JEVbrJ2BCUFfeL3obuF6t1QToFkjB8GiktamtbJXEWlPTwBERLPumM/5M
-	5Db+VKXHgnDageBu58gUIkMg7StTTx4BsghxpUmYlHUT3iBLTVF8xCkDiC5Q/VPwzIyeJCOIQDj
-	9fy8vv977yMSfEPSvVv1Yi19/r2vLmeGALTzg4YVpv7DrvEEmyaIIFYylzluis1WTmawbLaAufz
-	Z7Jd9D09VU7UQEpSPNjsTVGzRuUVWQuYyqCkpCYQ3iZYoVzaahNA1/g8ln1rdGrpkbFCDM4+jT0
-	CSFxW7sKfiIosGTP5Z6+HyoimC1DGhaAdK1Q5WwYS5eAfFNwuZEX0QxiJON20H3Mwi0Bix3QSYK
-	nv6z+WmLTZDAGVnElXop/ESnzO6y0pxxJZAFExUFKZtpDBuXWAm824SCEVRjDXt7iqQtsSMadJ8
-	oZ71UDU2hLbG+86DNA2D8GWZG1recjdF4g+WGFGpgbkjtPLDBSWhwGd+oXEFTF3PGqJOXyXk/ya
-	wG78Uq8WjYhUpNlF
-X-Received: by 2002:a05:6a21:7e84:b0:3e2:8f28:461c with SMTP id adf61e73a8af0-3e28f2850d7mr3429241637.60.1792684810211;
-        Thu, 22 Oct 2026 09:00:10 -0700 (PDT)
-Received: from localhost.localdomain ([2406:3003:2002:639c:c9:b354:e289:b472])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd6b85d56c4sm1369348a12.16.2026.10.22.09.00.06
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 22 Oct 2026 09:00:09 -0700 (PDT)
-From: Yige Jiang <yigejiang86@gmail.com>
-To: netdev@vger.kernel.org
-Cc: Yige Jiang <yigejiang86@gmail.com>,
-	Vladimir Zapolskiy <vz@mleia.com>,
-	Piotr Wojtaszczyk <piotr.wojtaszczyk@timesys.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Ma Ke <make24@iscas.ac.cn>
-Subject: [PATCH net] net: lpc_eth: release the PHY device node reference
-Date: Thu, 22 Oct 2026 23:59:55 +0800
-Message-ID: <rc-review-20261022-ai13-13-8a866c920a94@gmail.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (1024-bit key, unprotected) header.d=1wt.eu header.i=@1wt.eu header.a=rsa-sha256 header.s=mail header.b=lOJai6zd
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=1wt.eu; s=mail;
+	t=1792684829; bh=66qA4T0+Y7abbrUKSKY74ogksnhTGqqEnTpzsWYmGqk=;
+	h=From:Message-ID:From;
+	b=lOJai6zdCpF8jm0wSYDC4NtmfF4Xk2H0nBOjqY4THZxeKr7g3soaxznwfCQoCbJq6
+	 KBxYJZg7HVSHPdTwsB8pSzSrixc/aXjncMNi9LzfDA9uq6k5igFajBM2g1NjYT5nSg
+	 PCtut/zS4O1zaSEsOgtmKSZPD2BegirG2qVRcV/Q=
+Received: from 1wt.eu (ded1.1wt.eu [163.172.96.212])
+	by mta1.formilux.org (Postfix) with ESMTP id CCC2AC0944;
+	Thu, 22 Oct 2026 18:00:29 +0200 (CEST)
+Date: Thu, 22 Oct 2026 18:00:29 +0200
+From: Willy Tarreau <w@1wt.eu>
+To: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
+Cc: Eric Dumazet <edumazet@kernel.org>,
+        "zdi-disclosures@trendmicro.com" <zdi-disclosures@trendmicro.com>,
+        "security@kernel.org" <security@kernel.org>,
+        "maintainer:NETWORKING [GENERAL" <davem@davemloft.net>,
+        Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+        Simon Horman <horms@kernel.org>,
+        "open list:NETWORKING [GENERAL" <netdev@vger.kernel.org>,
+        open list <linux-kernel@vger.kernel.org>
+Subject: Re: ZDI-CAN-33367: New Vulnerability Report
+Message-ID: <atozHXYYSBvz9L_s@1wt.eu>
+References: <BYAPR01MB3830CECF5D0871064C59BA0280662@BYAPR01MB3830.prod.exchangelabs.com>
+ <CAL4WiipTihtytPEPj5cSY+=t9NwRwRTfUQ_efCSWPT7nQ=0K0Q@mail.gmail.com>
+ <willemdebruijn.kernel.178cac71d218b@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,68 +67,51 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <willemdebruijn.kernel.178cac71d218b@gmail.com>
 
-lpc_eth_drv_probe() obtains a reference to phy-handle and stores it in
-pldat->phy_node for lpc_mii_probe(). Neither PHY lookup nor connecting
-the PHY consumes that node reference. The probe error paths and driver
-removal discard the stored pointer without releasing the reference.
+On Thu, Oct 22, 2026 at 11:28:49AM -0400, Willem de Bruijn wrote:
+> Eric Dumazet wrote:
+> > Le mer. 21 oct. 2026 à 23:47, zdi-disclosures@trendmicro.com
+> > <zdi-disclosures@trendmicro.com> a écrit :
+> > >
+> > > ZDI-CAN-33367: Linux Kernel skbuff skb_zerocopy Improper Ownership Management Local Privilege Escalation Vulnerability
+> > >
+> > > -- CVSS -----------------------------------------
+> > >
+> > > 7.8: AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H
+> > >
+> > > -- ABSTRACT -------------------------------------
+> > >
+> > > Trend Micro's Zero Day Initiative has identified a vulnerability affecting the following products:
+> > > Linux - Kernel
+> > >
+> > > -- VULNERABILITY DETAILS ------------------------
+> > > * Version Tested:7.3-rc1
+> > > * Platform Tested:debian trixie
+> > >
+> > 
+> > I had to cut this report. Way too long, I could not see a patch in it.
+> 
+> Right. For future reports: please review the documentation on how to
+> share such findings:
+> 
+> https://docs.kernel.org/process/security-bugs.html
 
-Put the node at err_out_dma_unmap, which is reached by both failure
-paths after the phandle lookup, and on remove after unregistering the
-network device and MII bus. Both puts run before free_netdev(), since
-pldat is stored in the netdev private area. Earlier probe failures do
-not pass the new error-path put.
+Rest assured that we've been asking for this many times. The situation
+has improved a bit, now we no longer receive the report in a password
+protected Zip file and maintainers are finally in Cc. But it looks like
+having a direct communication channel with the initial reporter to be
+able to discuss and test a patch remains way too far stretched for now.
 
-The PHY device reference discussed in the linked review is a different
-reference. This patch only fixes the node reference, which was also
-mentioned in that discussion; it does not repeat the proposed PHY
-device cleanup.
+Despite their sincere efforts, I personally think that the ZDI reports
+remain by far the worst we're seeing in terms of efficiency, and among
+those which generate the most round trips.
 
-LLM assistance was used for static ownership analysis and drafting of
-this change and its changelog. The review traced get/put pairs, error
-paths and teardown ordering. No runtime reproducer or hardware test
-is available.
+Fortunately most reports these days likely come from AI tools so they
+also come in parallel from other channels where communication is
+direct. Maybe one day this will further improve, I don't know.
 
-Fixes: 3503bf024b3e ("net: lpc_eth: parse phy nodes from device tree")
-Link: https://patchwork.kernel.org/patch/14502432/
-Assisted-by: LLM
-Signed-off-by: Yige Jiang <yigejiang86@gmail.com>
----
-Based on net/main (305deb54c6c2).
-Compile-tested: arm64, GCC 14.2.0, W=1, CONFIG_OF_DYNAMIC=y.
-Both allyesconfig and allmodconfig completed kernel and module builds
-on the unmodified baseline and with this patch. Unchanged objects were
-reused for the patched builds. No new warnings were found compared
-with the baseline, and the changed driver produced no warnings.
-Both configurations used CONFIG_WERROR=n and DEBUG_INFO_NONE=y;
-W=1 diagnostics remained enabled. CONFIG_LPC_ENET was y and m,
-respectively. The unmodified WERROR=y baseline reproduces the earlier
-arm64 syscall-table override-init failure.
-No LPC32xx hardware, runtime or fault-injection test was performed.
-
- drivers/net/ethernet/nxp/lpc_eth.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/drivers/net/ethernet/nxp/lpc_eth.c b/drivers/net/ethernet/nxp/lpc_eth.c
-index 8b9a3e3bba30fd95258a9f58699af4a8f82ea04c..69098845baac0e4d1fbbb062c2a767acef7d266a 100644
---- a/drivers/net/ethernet/nxp/lpc_eth.c
-+++ b/drivers/net/ethernet/nxp/lpc_eth.c
-@@ -1397,6 +1397,7 @@ static int lpc_eth_drv_probe(struct platform_device *pdev)
- err_out_unregister_netdev:
- 	unregister_netdev(ndev);
- err_out_dma_unmap:
-+	of_node_put(pldat->phy_node);
- 	if (!use_iram_for_net(dev) ||
- 	    pldat->dma_buff_size > lpc32xx_return_iram(NULL, NULL))
- 		dma_free_coherent(dev, pldat->dma_buff_size,
-@@ -1435,6 +1436,7 @@ static void lpc_eth_drv_remove(struct platform_device *pdev)
- 	mdiobus_free(pldat->mii_bus);
- 	clk_disable_unprepare(pldat->clk);
- 	clk_put(pldat->clk);
-+	of_node_put(pldat->phy_node);
- 	free_netdev(ndev);
- }
- 
-
-base-commit: 305deb54c6c287e586bed92da2375ae1220e8dde
+Willy
