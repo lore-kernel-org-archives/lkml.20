@@ -1,100 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792660974;
-	b=HdPg3lAJoP0XUllhzQ5g50wNhYKL0flJHkWpJOx4gIyaLEKX+Sve21NosRouZOJRZG/P
-	 vogAtfYVRo8CjWsrJEYA1TOhSzQr4LaeRSnA3iyWbxEG9wuvSHwlU7RPasqlBG9yebyhS
-	 TXa+8Lqr8nMqYhUaExAcYFieEjfGm3jNR+D1dYQIYX0tF2CieyIuz3U6q0kvoWvDd/fOm
-	 fhUmcWsd2uiqXqrMFQokM5XQNeknJtFzRK576DEYB9y4iRq0s/IrU/8d5ONljWm2XRwP/
-	 x6/80+y3tZjcUpvC9negdA6egE15LOMPzYxBiaCjhJWo/3Rt+CQfgJKuHpohggOmHWg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792660974;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
-	 User-Agent:MIME-Version;
-	bh=4wmcDPWEKLBzrIxX+Ibo0uWDTHVsLEg1YsLnub8SYKk=;
-	b=oGWbxtqFwxCAQ1UuRW/KDskq+01LTgwRvzxdFY93om8N7NEpnKt5JEAIHeFALsYi8EQJ
-	 oHWLmlHhJcx75YLF7TzAnW4OE9A7PvMLFKLzfPTurH9oQgdtdPSm61Ygtu1FExkyPS13i
-	 JHNDu0VHHK7ptwOV25Sua3pza43sHdFmGdUn/qT6GMsbJ5J0s3BfNDjNjfPLZUfg6bqox
-	 OKi1bI+wJgNVVK/9ojUsV7xPCZDIqfEa05767WEFvhvrptFGgN6KSrTP+gPD6HUcpPjvD
-	 GiSWCmDBXiW9/VXHbm0E6p7UPC2/oBKjfqTEOifJghaCXijkxJq3DpuKxqDeDpBcGNg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=pengutronix.de;
-	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=DoGzN0Vd;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.181
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792661033;
+	b=EBVIY1tY0DSOpHHTjj5+tW/2rhQWlchz8L3UsbYexzA87FVadAPFa7/yo2WpXY+8cXMM
+	 l3dhqNqCPxj9Pa/09gMlCt8RaITDlm5qBUhh2CYSzE9YS1l1ZWtAU5r7SsD2tvaRdURCg
+	 5DjxvypJuaQO4m01vUPfPH+KBwwr+HtXLze6x9+cYvw9W6Aa4NC25XiAsRKlaZuk0TgHH
+	 puXeeHDg/W8V53cuMC+qwJcvfnLw6IO9+sN3pRjvcQGmGAX/OtXitFE5MLNzaXdtFBQOq
+	 Fpplr8ty7wngfErATnFqh393jJn1HCC/NqvECuWBXW2SsReO8AyHzEyUi4oDJrhdFVw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792661033;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
+	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type;
+	bh=gkhBBRoKjdMjfG0Ulhfds5pPtjNKOakoMGJLQPu1F7U=;
+	b=VGNiIToDbYPglBSxhNLIlhCNohUYt6TEmxD/+VzbhF8l6UAw34+b8HtPOYEcrqL0ypCg
+	 4eRrhcGH9dWIhcU/18TvTTYLjoUkF+ZKdket//Ox072CTvxuHHG84T/6ss//MJqKxO5ks
+	 1ZyX8QwjFCCyzfvXuf9+wqbEHQPZF+ojmyAWYnAj02vEE34TcQRP/S2H4Hg0K2o1q5FcD
+	 H1qRnDBJTeQ1Hb30mrAA1BMPLUCL87+nynbGwoV+pl8WYBKlxMzGa+ZdUaoF/hPq7jXFe
+	 KiIoI3/u8qcBSzoxf2GNcMtMnp4wtrZdpexCMSMyYkpBhtIoESViqUGgLhqkNR3clww==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=linux-m68k.org;
+	spf=pass smtp.mailfrom=gmail.com;
+	arc=none smtp.remote-ip=209.85.221.181
+Received: from mail-vk1-f181.google.com (mail-vk1-f181.google.com [209.85.221.181])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 768DB606A323;
-	Thu, 22 Oct 2026 09:22:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 768DB606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=DoGzN0Vd
-Received: from [IPv6:2a0a:edc0:0:900:1d::4e] (lupine.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::4e])
-	(Authenticated sender: pza@pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 702952004FF;
-	Thu, 22 Oct 2026 11:22:51 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1792660971;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=4wmcDPWEKLBzrIxX+Ibo0uWDTHVsLEg1YsLnub8SYKk=;
-	b=DoGzN0VdYhpldqdi1+jz3OLnJPSPBDW6+JRbBvThzUgPuMdkhOQp6tpedhuDd7SUVh3elc
-	fMMabeWe1g8WjTDHf56FZ38Q9uHEwHCu9U65sQhrAD3JyWOmCjBkuBbxEs8OSdrdVjfgst
-	56vAZ9rXpJ+82xyjbPmGGKZfPzB5jwYj7Y0wBYewZwAAZ3hrjpod5FF+av1SMZySTYHD1R
-	USMPWCS9XVQiGGhETKvlKgPydypyG/Kz0/wPvkv7hYCw4atPBGJvVJ6R5BfFAOn9V56Ikx
-	N237xCVoQd5yJEb2B0nVdc+VDpAb8/aLc4RDd4aXU+//uK1aMjuTVprMDbUh1Q==
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1792660971; a=rsa-sha256;
-	cv=none;
-	b=GoYrNGzPnyZ80vQRqYm1ZdPrusvwI0iwA/D/e+tLVzpBo67HEqm4NULHNbRP6mIHdU6I13
-	Zw+VjX2D3c7GcQWQ2HfphXbiqiWXSfJ8t0yZlRVIYAtp5S1qe4dxWafEAZo60rj7FO2BA7
-	lIctvFrRGTtmxAvafcURsF64W1qu+qyLy0u9QDKuzmiQnyCOKwhT1KJCFwWC5g2RkDV+jc
-	xBqveLsQXYXXUfmjrT0QjyKl+udzM8tMuZqXLfudWGYoJjpir8XW68Da7rwQBG0Ue1eObE
-	GeZ/pkS+G0+D4chqyV6Eyjwo9ctjbr7ELgNhZ4sXLNOGsOVuerhsQiPRZ38VLQ==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=pza@pengutronix.de smtp.mailfrom=p.zabel@pengutronix.de
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1792660971;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=4wmcDPWEKLBzrIxX+Ibo0uWDTHVsLEg1YsLnub8SYKk=;
-	b=DFxMgagx3VDAvleH0DdLcAiesq/JJe8gxfeFnhPYLtAHu7tEyyyvFSiYgWmnzlr/hoWOym
-	dG6BxplaEByLQzBLjoANNbWbT2NxTt1QkviLMgt644ty+rWXKVSoloqUTihCw9GQgko1Sf
-	uHUFmuatBvcFLc6Kbhx+mnvQAjQIXip+24zGQeW2L7N7O+W30ttoHwAyeINbLyxfDYkVOm
-	F0e40HVUpWom7ZM9i3oh1ukfmACay2y7dbL9xrtJauc50kTjv0/vuOC26ObD773IwApaCt
-	NcCb75Db5ojo4VD2A0e8T1wKXazqQAQTNw3HyBw/uHpPIZxeSeO1tciYK9HcLQ==
-Message-ID: <ef0957a4ceaf754989f8a7132cb6276686244d24.camel@pengutronix.de>
-Subject: Re: [PATCH 14/18] riscv: dts: zhihe: add A210 UARTs
-From: Philipp Zabel <p.zabel@pengutronix.de>
-To: gaohan@iscas.ac.cn, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski	
- <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Paul Walmsley	
- <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou	
- <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Zhiguo Zhu	
- <zhiguo.zhu@linux.alibaba.com>, Stephen Boyd <sboyd@kernel.org>, Brian
- Masney	 <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>,
- Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
- Thomas Gleixner	 <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, Samuel
- Holland	 <samuel.holland@sifive.com>, Daniel Lezcano
- <daniel.lezcano@kernel.org>,  Anup Patel <anup@brainfault.org>, Icenowy
- Zheng <uwu@icenowy.me>, Drew Fustini <fustini@kernel.org>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-riscv@lists.infradead.org, linux-clk@vger.kernel.org, 
-	linux-gpio@vger.kernel.org, Paul Walmsley <paul.walmsley@sifive.com>
-Date: Thu, 22 Oct 2026 11:22:51 +0200
-In-Reply-To: <20261022-a210-init-v1-14-5e438f972d24@iscas.ac.cn>
-References: <20261022-a210-init-v1-0-5e438f972d24@iscas.ac.cn>
-	 <20261022-a210-init-v1-14-5e438f972d24@iscas.ac.cn>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 858D8606A31D
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 09:23:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 858D8606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-vk1-f181.google.com with SMTP id 71dfb90a1353d-5eaf34452a9so630667e0c.0
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 02:23:52 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792661031; x=1793265831;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=gkhBBRoKjdMjfG0Ulhfds5pPtjNKOakoMGJLQPu1F7U=;
+        b=CGBTEfziQmZxaRYSyxG2r32ZFa8LgTYiRgW4y3Cq9pr+BN2TexO0DSpRDvnfl8+Hyq
+         jsoRCaGLpkFNk9wQxpG2WAddKZ/zSHDtX/EvpBULlMTiwyjR3BWMwUdy2ehzvr6k7/kK
+         OgMI74i7aBBK61krqXuRx8wSWs6ZQ9/gq+qVxjNKTtuyt9Otqa2aTA9gQT4O7fSK+kid
+         Cy5aaZhA7jesA9+PhksL8CfhbazxvoI+qV5B3ayKvoNH7DZJE7S/TM6NyQLMAgUNs+SU
+         tZNN4UfyfBMrB2D2vcYPw9Kfnv6STvalmkJA7tM+MMnFhxPYMDLCbFnKl4cRCkin+mBj
+         hFiw==
+X-Forwarded-Encrypted: i=1; AKwUvBzZ9+pQulCejgm2olBinkCuLQewuobU6G5drs7dgjuKqEgQDhsMcWcjAVZV/Jyd3AX0HfT46HAjKDqsUr4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKF5ZsWIAfRgxlhiFNmFmd3SmNrfnIMG6IGKQHgMQlKgMxr10lw
+	cpdW2Ikvxzg2nJHlJ/CfcZt4z+ofZgkzVxrHgXZ5CFqvBG8WUJ7+VcgAenoZpmcK
+X-Gm-Gg: AYBFou27BCXy2EaN3IMdBnqjnSrr60lQbkE96SXHEAxo86NnNn2wIQtfzEBru8VlrWk
+	epL7BnWPxfFbKct8cIkh6FUn5x0DKlV2latGxCencM5V00tBtIw5wikRbYE19wf+yrlmROhy5UV
+	C58u4XV6+Ortq72U31xZFLMjEYHVdH3aAqcWM8H9lU9LX7cwfe6MBX0mt4xWO7Nj7UvCvLGHNk4
+	noduvLF0Aihf4/3hA3XToALdeBfpUqUXfpOd5aUUhC3giPuUM8UgWI/BCDC8mfDXCSsVe3W+ANj
+	6eEXFXyp0KPh3OVjMN1aofr9gH9Colat4QFjXttP+o65mP5uoN/wtNFxbcRcx8ZrJPYleOJE023
+	Rf8ZouNIfDamZi/UXA6wJDmmSC7kjbtYxja4xvzutE87dXPQcme7q2xRRXwCJQyLjAI67dgvc+Y
+	G6kFzeCYYKBO9WLhZbjwxtHJcFJqRl2BwDBsj1fw+/h+91c1UDOdTW0EQZhDHuTv5bSDv5X2/tA
+	7lZ77Pi6a0QV1ryIjgSBUUY+7SZqV1XK3r1kgN6+3oSZra2R53O6ghZW6XDy9JXzNB38M3eLQ0z
+	cjI/EnWmL43ShWWBDg==
+X-Received: by 2002:a05:6122:180e:b0:5ea:c984:5ad4 with SMTP id 71dfb90a1353d-5eafa330f88mr589989e0c.2.1792661031573;
+        Thu, 22 Oct 2026 02:23:51 -0700 (PDT)
+Received: from mail-vs1-f50.google.com (mail-vs1-f50.google.com. [209.85.217.50])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5eae97be404sm6208704e0c.7.2026.10.22.02.23.50
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 22 Oct 2026 02:23:50 -0700 (PDT)
+Received: by mail-vs1-f50.google.com with SMTP id ada2fe7eead31-78fb1fb9508so566201137.1
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 02:23:50 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBy2XVvB5Cu/TprrbB7dcKEpwDf11DKVVTsqRjSg/EIPj7geA6wdPLF8yMXV1EvgO+dlDYaP7edCQRS6bUg=@vger.kernel.org
+X-Received: by 2002:a05:6102:5093:b0:7b1:3ecd:3d8d with SMTP id
+ ada2fe7eead31-7cca9a1a007mr483763137.7.1792661030261; Thu, 22 Oct 2026
+ 02:23:50 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,52 +80,53 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+References: <20261021235818.3059519-1-briannorris@chromium.org> <20261021165858.v2.6.Ia4649c7263a5733426a8778ac4b2dc459f3ffef6@changeid>
+In-Reply-To: <20261021165858.v2.6.Ia4649c7263a5733426a8778ac4b2dc459f3ffef6@changeid>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Thu, 22 Oct 2026 11:23:38 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdWNuVOnn9KwYuRm5TYsMEf362V_4fSwQGp3fOfR_i7jkg@mail.gmail.com>
+X-Gm-Features: AclHuK9DeixcMDu5pJYEJIO6mwWZklXvy1cHSqlxPpUgEBM8a99XYlxTEG_tKGQ
+Message-ID: <CAMuHMdWNuVOnn9KwYuRm5TYsMEf362V_4fSwQGp3fOfR_i7jkg@mail.gmail.com>
+Subject: Re: [PATCH v2 06/17] iio: adc: rcar-gyroadc: Discard
+ pm_runtime_put_autosuspend() return values
+To: Brian Norris <briannorris@chromium.org>
+Cc: Jonathan Cameron <jic23@kernel.org>, =?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
+	"Rafael J. Wysocki" <rafael@kernel.org>, Ulf Hansson <ulfh@kernel.org>, linux-pm@vger.kernel.org, 
+	Andy Shevchenko <andy@kernel.org>, David Lechner <dlechner@baylibre.com>, linux-iio@vger.kernel.org, 
+	Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, 
+	Marek Vasut <marek.vasut+renesas@mailbox.org>, linux-kernel@vger.kernel.org, 
+	linux-renesas-soc@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Do, 2026-10-22 at 03:53 +0800, Han Gao via B4 Relay wrote:
-> From: Zhiguo Zhu <zhiguo.zhu@linux.alibaba.com>
->=20
-> Add the ten A210 UARTs with their clocks, resets and interrupts, using
-> the snps,dw-apb-uart compatible.
->=20
-> Signed-off-by: Zhiguo Zhu <zhiguo.zhu@linux.alibaba.com>
-> Co-developed-by: Han Gao <gaohan@iscas.ac.cn>
-> Signed-off-by: Han Gao <gaohan@iscas.ac.cn>
-> ---
->  arch/riscv/boot/dts/zhihe/a210.dtsi | 150 ++++++++++++++++++++++++++++++=
-++++++
->  1 file changed, 150 insertions(+)
->=20
-> diff --git a/arch/riscv/boot/dts/zhihe/a210.dtsi b/arch/riscv/boot/dts/zh=
-ihe/a210.dtsi
-> index bbad51a3edb0..a07b67d10633 100644
-> --- a/arch/riscv/boot/dts/zhihe/a210.dtsi
-> +++ b/arch/riscv/boot/dts/zhihe/a210.dtsi
-> @@ -405,6 +405,66 @@ rst_peri1: reset-controller@2010400 {
->  			#reset-cells =3D <1>;
->  		};
-> =20
-> +		uart0: serial@2014000 {
-> +			compatible =3D "snps,dw-apb-uart";
+On Thu, 22 Oct 2026 at 02:01, Brian Norris <briannorris@chromium.org> wrote:
+> This driver propagates the return value of pm_runtime_put_autosuspend(),
+> which is not particularly useful.
+>
+> Returning an error code from pm_runtime_put_autosuspend() merely means
+> that it has not queued up a timer or work item to check whether or not
+> the device can be suspended and there are many perfectly valid
+> situations in which that can happen, like after writing "on" to the
+> device's runtime PM "control" attribute in sysfs for one example.
+>
+> For this reason, modify this driver to simply discard the
+> pm_runtime_put_autosuspend() return value.
+>
+> This will facilitate a planned change of the
+> pm_runtime_put_autosuspend() return type to void in the future, similar
+> to commit 3afd8df02433 ("PM: runtime: Change pm_runtime_put() return
+> type to void").
+>
+> Signed-off-by: Brian Norris <briannorris@chromium.org>
 
-Prepend a vendor compatible if you need two resets, similar to
-"starfive,jh7100-uart"?
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
 
-> +			reg =3D <0x0 0x02014000 0x0 0x400>;
-> +			clocks =3D <&clk_peri PERI1_UART0_SCLK_EN>,
-> +				 <&clk_peri PERI1_UART0_PCLK_EN>;
-> +			clock-names =3D "baudclk", "apb_pclk";
-> +			interrupt-parent =3D <&intc>;
-> +			interrupts =3D <321 IRQ_TYPE_LEVEL_HIGH>;
-> +			reg-io-width =3D <4>;
-> +			reg-shift =3D <2>;
-> +			resets =3D <&rst_peri1 PERI1_UART0_PRST>;
+Gr{oetje,eeting}s,
 
-This looks to me like it should be
+                        Geert
 
-			resets =3D <&rst_peri1 PERI1_UART0_PRST>,
-				 <&rst_peri1 PERI1_UART0_S_RST>;
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
-instead.
-
-regards
-Philipp
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
