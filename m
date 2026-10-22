@@ -1,97 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.197
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792706131;
-	b=d2xw04KC46CODpXmwrssOlVjjdcOcGSrJMH0g41WeaREhXVwIXQSSImyMrF/mTX9rqYf
-	 ptWG1TXP+OE2Cfszrge25dRWoRMaW7izkhEs3ELvSZz16uosc76RLUgVg0VBOdvOu1w9/
-	 cU6BItO1r6iKdRYqRjri0EAU/GuIlBhjvGTaiNwTz8zxgQNqn2PQqTWn2YZujDsd6aUIH
-	 ZMQEgoL/1CP/QngjbJzGajogY07u231Vg+sxA6e0b1jZtC6MY1JlVPfIyQxMtiXHJoNnU
-	 q0u7TuvDQtGJc3wLxjicUlx/EeqzxUAsZT3a0dzdEKPR7Nr5xQv6H9GNEV7c+gU47gw==
+	t=1792706146;
+	b=tLKByBsZlF2vGnlaQAxEZvNu6QgJGq9OGCsDf62GT30AsUbnUKcczl7rg97XJLCH7U8T
+	 19vA4XQFIX2x9hpjmHS4vsadHzPEN3reaES/zc51z3stBY7DsiLxmf3HxnAVq+KjYj3fl
+	 ydF9Y/g98nln9PWG1goZv6OZfZd2ta3P27pARuifl4FMIn/BUXkVTYlX8owGjIXlpz4hQ
+	 O2IiZUXoKNVcOLuQS962GYT2mX2LkbT53V4Z1Rdl5ujiREjC03+pvc3kvRGSd+FT/OZ5a
+	 V1rNDK5Jwq0ljqR9U5P15IXNAzRVLzjf6ltB7N544VGehwdW7b1+erNIg0eYYSBWowg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792706131;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792706146;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=SzoGWciH1854vjZQ3Vt63hGrJ+4BEttHwlTqTi2zQY0=;
-	b=vFmmrufSu93RRkpaHR6b3hRbidZhQcIaehUUvOINRr1HxqFVabKE2ccy28FirC7ct7An
-	 GvGAXV89rJLTrTcIMW+qTTxwTOaJpZLb49t7GDNMYBQmNMDzxjcM0FevhxlYfLXH4SIdp
-	 x/Sv/NZ+mHAnqxZdneOSy2ct13wH5Yd0iHdzX0KjcU9Z+oYa7LXaixK86JUDLWaiamGZH
-	 r4d7J8+POjv/es+AeSaIINBc1q7LsTIpTEbUgv6LlesV6gzFnpibNeAXcmfhtsJLupmnT
-	 IWWVbqS3VLZA1+q1osLfE9BYOz+yVBHnShDBc02sFd5ICQuLZCJpwfDgYd31Ro3/g7A==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Reply-To:Date:
+	 In-Reply-To:Mime-Version:References:X-Mailer:Message-ID:Subject:From:
+	 To:Cc:Content-Type;
+	bh=YtPsnvHSyY1TuYVGlgeraaoakaBo0crOxh4+Yj6nwk8=;
+	b=0Ssj8MeKF8b+WXu7ES2P0L2tb77h6I+vuaJlpU25Hn4o4ZhURir4tPawZ/AOaCxWKw+4
+	 biclUM4rlWe59oVk7Q6l3DSIqNWiYmp5iSDsAlHyRzJAMMxOvSVfjT5SWY7hxlQOPoiKJ
+	 QyWY8YAnFDWxcp6zYR5oaaPeU5ohWOYQFktDpxfnhvlzudS90QZHWOPa1JKD/sbpm8g2/
+	 gOiR6E4qO+/SLb5wS3jzIt92mXUTHwC9swlMvt89ChUvbL+A4bi2FlcFbNS32gqrVtFAN
+	 mBFKbMBrCH+f9i9GxsXhiCTbG3cYulJsHcraYM16YO+o2+sEE5xEaS/s93fAxWj+B7Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=OsIexivg;
-	arc=none smtp.remote-ip=74.125.82.171
-Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=IxMysp8i;
+	arc=none smtp.remote-ip=209.85.215.197
+Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80B98606A319
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 21:55:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 80B98606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32A7E606A322
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 21:55:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 32A7E606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=OsIexivg
-Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-36661f953e4so444876eec.1
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 14:55:31 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=IxMysp8i
+Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-cd8b299b05fso240443a12.0
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 14:55:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792706131; x=1793310931; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=SzoGWciH1854vjZQ3Vt63hGrJ+4BEttHwlTqTi2zQY0=;
-        b=OsIexivgMP4q+ddjNJRpFpgOTZjKclTzttgQkfLhxe0+EOqTF/BhpMr94cPqJPMICe
-         CA3Ng9hd8gyGSWKRVcD7nPRVwoqcva6zkfdom3B+aPZz2WDWzXhY5/4nVeYI7/T3V1V6
-         wilPOXYjPq/pw43IHcjZwya8LyIAqdTf53AKzCV7YSIxh/t7uKIvky05tYX/fl3ouIQC
-         OkGU0m/mRpTCYlIWzpRw7m7QSjls8NiOQHVDA0V3I6GS0oYxe9KVg41TcydhqFluYWiY
-         HBrbamfK3FZ8/KxU//DlcpfRfq8apv8KTfN0GlsRI5NqUL7X6TTR8Wx6IQxhR14pchnT
-         rqOA==
+        d=google.com; s=20251104; t=1792706145; x=1793310945; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:reply-to:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=YtPsnvHSyY1TuYVGlgeraaoakaBo0crOxh4+Yj6nwk8=;
+        b=IxMysp8iF/1iYsA7Z3HsRKS2ozc3GFuXBX/MKLHH4CVoG0fqdFngk6YfN6j6toWl2M
+         0CSlAQyNDLk/yD+GB62ugl6Vjv+72/KZYMRPloshZK6otLPRKa36CPjJ4JyzzFXmhTgA
+         60Ovbe6jrXwJOzh+ZZNjyCYAsM40WIxW4TUdHN7kxLFvuVx7RvG8A6PUIuO7VQGGyE1Q
+         JouQ1oMMwrPrAngiFbQ2xH1arAxiYCz1TGvfTjxpxr/Tz1Fm6g7HCaaX1EWIXnDHmrZ1
+         TiqNKp/son5DmZZ+9Av/kmArNR7yw8PepB8foxwXaZYLo2nyG/0/A1x2g5kvTUV86UR9
+         Zxow==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792706131; x=1793310931;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=SzoGWciH1854vjZQ3Vt63hGrJ+4BEttHwlTqTi2zQY0=;
-        b=vIFHNYfdUsDosEHuge3YcSzHpBac7g+iTwAFERznTqWiBvDo6v788ZcC9xKlEgUsVe
-         T8rZZL0LS5a+gr+EOkCHhRW+0QJxAKHuV3c7inYGti75a3PZPASmiKbhVGsOpKSrZ5op
-         VH5+twzYQ8m0TCRfdkewC5fv3KYj1ydCxbqeVqwjH2tfEYegzOhNjyjWX6uanrANIWwz
-         JLwlImh60+gws1vvKsODZH62Kq2gqxymgiLSnlmcVrd35xLkXOwLqhxMY9+rR9fBko1C
-         NL/T5ItpDubwgAs7FmQ02l/3jY9OOlKlQ6D/WQGsqc0VtfBa9d/KD3VFoW/J4Tm7qmFl
-         81pg==
-X-Forwarded-Encrypted: i=1; AKwUvBwJ7uJ/oB0b8fJQ/utdScrZOjhYCuidV9MX7ioPQv+Flv+K4Yc3NONVmdexQzYx2BVQx0hrW0mzQzTNKLM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKdSNQS8v/DmaYPPCTyriDizi9Mys+776go2q2rjpBk+FMsrEE6
-	VS6xZybjmIKZRwzDaRPQW618xDszDYb/cQJjFlkd+cLoOqs75XVzmFVn
-X-Gm-Gg: AYBFou0+TVE1FUT/yPQjCX8kA4cY+Ov5MyB96TIocnaTHUw4v5QU7IsJ0hlhHy2YM1T
-	l92CKPrZRz4r72017uotA9Bd/xWDbztw1IOCnGhBo2zQIgbXwNz9LJ3ney3Opl74TxZAXbQA3St
-	ecFzPS22tk4oh/UuwhVpcvALdWsLNlNBQNmQLANd2yklk6jg1E4TUKRqfvBkQgeh17QCzYJKlBU
-	uuiUfUl/A60bZnRohWuqzyEdIe0LCdZPGzXodIml5XKpukDHQ0QqMjb4bX4IaimrFI3a6Fy7Yq4
-	eEkqMgC24JVqKx+/uk1rNQQTrvR4VbZY4f/OamduoYvUz//xyH7tkBBTNsuV2fy0ZOR1MnVbLdx
-	AvOa+IdbyJc7wKY3mnMyQ3FFxKSqlCOftr1D7ci2hqJnHG4HDjOlBbTHk4uA34Ai7/nYOimq8l2
-	2iBtSoVTWzksvdzwpjhNb9FCnbXFXKsGYV4KPXXmbUD3yCWWsMkr+eHmIBhMbaY5xE8xCMJ0xKB
-	LR87RbZTrFlxbO0XHr7KQvrSaZdQ5RKs12r5esfH2Elmoa4xBwkWdYbZJHwPj1MvXtSXH54skAO
-	vJwHyR8SKOJjfKmR9VxTeCdgFhGl6qI4DXHojPui5w==
-X-Received: by 2002:a05:7022:3a08:b0:160:a80f:3ed2 with SMTP id a92af1059eb24-195c44b9d5amr665757c88.10.1792706130183;
-        Thu, 22 Oct 2026 14:55:30 -0700 (PDT)
-Received: from fred-server.tail1cd3ef.ts.net ([166.198.37.113])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-195e9e9c4c7sm1006434c88.4.2026.10.22.14.55.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 14:55:29 -0700 (PDT)
-From: Fredric Cover <fredric.cover.lkernel@gmail.com>
-To: Paulo Alcantara <pc@manguebit.org>,
-	Namjae Jeon <linkinjeon@kernel.org>
-Cc: ChenXiaoSong <chenxiaosong@chenxiaosong.com>,
-	Tom Talpey <tom@talpey.com>,
-	Ronnie Sahlberg <ronniesahlberg@gmail.com>,
-	Shyam Prasad N <sprasad@microsoft.com>,
-	Bharath SM <bharathsm@microsoft.com>,
-	linux-cifs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Fredric Cover <fredric.cover.lkernel@gmail.com>
-Subject: [PATCH] smb: client: fix early procfs exposure race
-Date: Thu, 22 Oct 2026 21:55:06 +0000
-Message-ID: <20261022215506.31619-1-fredric.cover.lkernel@gmail.com>
-X-Mailer: git-send-email 2.53.0
+        d=1e100.net; s=20260707; t=1792706145; x=1793310945;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:reply-to:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=YtPsnvHSyY1TuYVGlgeraaoakaBo0crOxh4+Yj6nwk8=;
+        b=boc2YitdaXs30CJ9E8nSya4al+xO7GlVPH2WOZQwEF7UHQnf8zCW4D+2x/hoQNE84j
+         a6M21Pv4TK31Di+SSC28arxj3mXYGEgtReqKT0m51df8QDmRV2AYwdVvOdzkt+2Yi+DV
+         Mv32Aye5zsrtA5zEJh7P+Ht4a0gkU5d8bfYHq1NmKm0g4zMMvvY8NB3zGyb6kWhRm4rX
+         X/4LMcbkevXbzYWHLFcb85LfIcL0GQreOVYjG/dx6NptmnbKpD+MaMwijiKL2i7899G/
+         fLUhatkHYXmts0CITzC+ExW3a/6wK2MgJrFGp2M/xIVy084/FteBsACCOzkSat6pTnTU
+         LtpQ==
+X-Forwarded-Encrypted: i=1; AKwUvBz5i0KrAnrT3Xegx66HbUtcrjJIQg1EQU964yi0QrASg3mrkOzT5X3hg0G44Wfgc0axEw+/iE5UUCFv394=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIguTewJhigYl7GOhy+LH/gV2ZwLbYkrqqb7OZczBB+Zx33rVI4
+	fcmlrrcwIJNs2fTsjfObAlNIpaVyZGLKf+MzHqTZmxsWNWTzQNBrPznSdj3IDSG4H76gAcrNKk7
+	wyGSZIA==
+X-Received: from pgig17.prod.google.com ([2002:a63:f411:0:b0:cd6:24a5:115])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a21:8906:b0:3cc:8f53:26c0
+ with SMTP id adf61e73a8af0-3e369df33d9mr165226637.17.1792706145230; Thu, 22
+ Oct 2026 14:55:45 -0700 (PDT)
+Reply-To: Sean Christopherson <seanjc@google.com>
+Date: Thu, 22 Oct 2026 14:55:41 -0700
+In-Reply-To: <20261022215541.631694-1-seanjc@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,133 +79,495 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+References: <20261022215541.631694-1-seanjc@google.com>
+X-Mailer: git-send-email 2.56.0.257.gf7497c7d27-goog
+Message-ID: <20261022215541.631694-3-seanjc@google.com>
+Subject: [PATCH 2/2] KVM: x86: Convert all runtime WARNs to ONCE variants
+From: Sean Christopherson <seanjc@google.com>
+To: Vitaly Kuznetsov <vkuznets@redhat.com>, Sean Christopherson <seanjc@google.com>, 
+	Paolo Bonzini <pbonzini@redhat.com>
+Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Stefan Teodorescu <fane@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-Currently, init_cifs() calls cifs_proc_init() near the beginning of
-the function, before INIT_LIST_HEAD, leading to a momentarily
-uninitialized, but exposed, procfs. If a userspace process reads this
-empty procfs, iterating over a zeroed list_head leads to a NULL
-pointer dereference and a kernel oops/panic.
+Bulk convert all non-ONCE WARN_ON() and WARN() calls that are reachable at
+runtime to have ONCE protection, as WARNing multiple times on the same
+issue rarely adds value, and if KVM is flawed/buggy, unprotected WARNs can
+be leveraged by a misbehaving guest to effectively DoS the host.  In the
+Age of AI, such flaws/bugs are depressingly easy to find.
 
-For example, if a delay is added between cifs_proc_init() and
-INIT_LIST_HEAD, and a userspace process is polling
-/proc/fs/cifs/DebugData, the following oops occurs:
-
-BUG: kernel NULL pointer dereference, address: 0000000000000608
-PGD 0 P4D 0
-Oops: Oops: 0000 [#1] SMP PTI
-CPU: 0 UID: 0 PID: 3477 Comm: cat Not tainted 7.3.0-02212-g4df4d2a577db-dirty #6 PREEMPT(lazy)
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 2025.11-3ubuntu7.3 09/23/2026
-RIP: 0010:cifs_debug_data_proc_show+0x103/0xd80 [cifs]
-Code: 00 31 d2 eb 25 48 89 df 48 c7 c6 4b d4 67 c0 e8 a3 12 f5 cb 48 8b 54 24 28 48 8b 6d 00 48 81 fd 28 3b 60 c0 0f 84 34 0c 00 00 <48> 83 bd 08 06 00 00 00 75 e5 ff c2 48 8b
-4d 38 48 89 df 48 c7 c6
-RSP: 0018:ffffb603c03c7c38 EFLAGS: 00010246
-RAX: 0000000000000000 RBX: ffff950240d3f2a0 RCX: 0000000000000001
-RDX: 0000000000000000 RSI: ffffffffc0672ab7 RDI: ffffffffc0603ad8
-RBP: 0000000000000000 R08: 737265767265530a R09: 203a737265767265
-R10: 6552205346562065 R11: 203a737473657571 R12: 0000000000000000
-R13: ffffb603c03c7d68 R14: ffff950240d3f2a0 R15: 0000000000000001
-FS:  00007fdae19d9b00(0000) GS:ffff95032d4bb000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 0000000000000608 CR3: 000000010638e001 CR4: 0000000000370ef0
-Call Trace:
-<TASK>
- ? seq_read_iter+0x86/0x400
- ? seq_read_iter+0x86/0x400
- seq_read_iter+0x183/0x400
- proc_reg_read_iter+0x62/0x90
- copy_splice_read+0x215/0x310
- splice_file_to_pipe+0xec/0x1c0
- do_splice+0x4b8/0x780
- __se_sys_splice+0x18f/0x250
- do_syscall_64+0x109/0x330
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-</TASK>
-
-Fix this by moving cifs_proc_init() down in init_cifs(), ensuring it runs
-only after all internal lists, locks, counters, and workqueues are fully
-ready, but before registering the filesystem. Update the error cleanup
-ladder and exit_cifs() to maintain proper LIFO order.
-
-Signed-off-by: Fredric Cover <fredric.cover.lkernel@gmail.com>
+Reported-by: Stefan Teodorescu <fane@google.com>
+Signed-off-by: Sean Christopherson <seanjc@google.com>
 ---
- fs/smb/client/cifsfs.c | 17 ++++++++---------
- 1 file changed, 8 insertions(+), 9 deletions(-)
+ arch/x86/kvm/hyperv.c          |  2 +-
+ arch/x86/kvm/i8254.c           |  2 +-
+ arch/x86/kvm/irq.c             |  4 ++--
+ arch/x86/kvm/lapic.c           |  8 ++++----
+ arch/x86/kvm/mmu/tdp_mmu.c     |  2 +-
+ arch/x86/kvm/msrs.c            |  2 +-
+ arch/x86/kvm/svm/avic.c        |  2 +-
+ arch/x86/kvm/svm/nested.c      | 12 ++++++------
+ arch/x86/kvm/svm/sev.c         |  2 +-
+ arch/x86/kvm/svm/svm.c         | 12 ++++++------
+ arch/x86/kvm/vmx/nested.c      | 12 ++++++------
+ arch/x86/kvm/vmx/posted_intr.c |  2 +-
+ arch/x86/kvm/vmx/vmx.c         |  8 ++++----
+ arch/x86/kvm/x86.c             | 18 +++++++++---------
+ arch/x86/kvm/x86.h             |  2 +-
+ 15 files changed, 45 insertions(+), 45 deletions(-)
 
-diff --git a/fs/smb/client/cifsfs.c b/fs/smb/client/cifsfs.c
-index 576155caf888..1880d5134b1e 100644
---- a/fs/smb/client/cifsfs.c
-+++ b/fs/smb/client/cifsfs.c
-@@ -2019,7 +2019,6 @@ init_cifs(void)
- 	if (rc)
- 		return rc;
- 
--	cifs_proc_init();
- 	INIT_LIST_HEAD(&cifs_tcp_ses_list);
- /*
-  *  Initialize Global counters
-@@ -2069,8 +2068,7 @@ init_cifs(void)
- 				     WQ_FREEZABLE | WQ_MEM_RECLAIM | WQ_PERCPU,
- 				     0);
- 	if (!cifsiod_wq) {
--		rc = -ENOMEM;
--		goto out_clean_proc;
-+		return -ENOMEM;
+diff --git a/arch/x86/kvm/hyperv.c b/arch/x86/kvm/hyperv.c
+index 5d2e3617c952..d9e3d49a6cc5 100644
+--- a/arch/x86/kvm/hyperv.c
++++ b/arch/x86/kvm/hyperv.c
+@@ -1977,7 +1977,7 @@ static void hv_tlb_flush_enqueue(struct kvm_vcpu *vcpu, u64 *entries, int count,
+ 	 * space, just put 'flush all' entry there.
+ 	 */
+ 	if (count && entries && count < kfifo_avail(&tlb_flush_fifo->entries)) {
+-		WARN_ON(kfifo_in(&tlb_flush_fifo->entries, entries, count) != count);
++		WARN_ON_ONCE(kfifo_in(&tlb_flush_fifo->entries, entries, count) != count);
+ 		goto out_unlock;
  	}
+ 
+diff --git a/arch/x86/kvm/i8254.c b/arch/x86/kvm/i8254.c
+index 1982b0077ddd..7ad8c11a1809 100644
+--- a/arch/x86/kvm/i8254.c
++++ b/arch/x86/kvm/i8254.c
+@@ -409,7 +409,7 @@ static void kvm_pit_load_count(struct kvm_pit *pit, int channel, u32 val,
+ 
+ 	if (hpet_legacy_start) {
+ 		/* save existing mode for later reenablement */
+-		WARN_ON(channel != 0);
++		WARN_ON_ONCE(channel != 0);
+ 		saved_mode = pit->pit_state.channels[0].mode;
+ 		pit->pit_state.channels[0].mode = 0xff; /* disable timer */
+ 		pit_load_count(pit, channel, val);
+diff --git a/arch/x86/kvm/irq.c b/arch/x86/kvm/irq.c
+index 871977288272..7f8b092b4479 100644
+--- a/arch/x86/kvm/irq.c
++++ b/arch/x86/kvm/irq.c
+@@ -128,7 +128,7 @@ EXPORT_SYMBOL_FOR_KVM_INTERNAL(kvm_cpu_has_interrupt);
+ int kvm_cpu_get_extint(struct kvm_vcpu *v)
+ {
+ 	if (!kvm_cpu_has_extint(v)) {
+-		WARN_ON(!lapic_in_kernel(v));
++		WARN_ON_ONCE(!lapic_in_kernel(v));
+ 		return -1;
+ 	}
+ 
+@@ -513,7 +513,7 @@ void kvm_arch_irq_bypass_del_producer(struct irq_bypass_consumer *cons,
+ 	struct kvm *kvm = irqfd->kvm;
+ 	int ret;
+ 
+-	WARN_ON(irqfd->producer != prod);
++	WARN_ON_ONCE(irqfd->producer != prod);
  
  	/*
-@@ -2162,19 +2160,22 @@ init_cifs(void)
- 	if (rc)
- 		goto out_cifs_swn_init;
+ 	 * If the producer of an IRQ that is currently being posted to a vCPU
+diff --git a/arch/x86/kvm/lapic.c b/arch/x86/kvm/lapic.c
+index 61bf09badb5a..08b96b124b07 100644
+--- a/arch/x86/kvm/lapic.c
++++ b/arch/x86/kvm/lapic.c
+@@ -2062,7 +2062,7 @@ static void apic_timer_expired(struct kvm_lapic *apic, bool from_timer_fn)
+ 		ktimer->expired_tscdeadline = ktimer->tscdeadline;
  
-+	cifs_proc_init();
-+
- 	rc = register_filesystem(&cifs_fs_type);
- 	if (rc)
--		goto out_init_cifs_idmap;
-+		goto out_clean_proc;
+ 	if (!from_timer_fn && apic->apicv_active && vcpu->wants_to_run) {
+-		WARN_ON(kvm_get_running_vcpu() != vcpu);
++		WARN_ON_ONCE(kvm_get_running_vcpu() != vcpu);
+ 		kvm_apic_inject_pending_timer_irqs(apic);
+ 		return;
+ 	}
+@@ -2272,7 +2272,7 @@ static void cancel_hv_timer(struct kvm_lapic *apic)
+ {
+ 	lockdep_assert_preemption_disabled();
  
- 	rc = register_filesystem(&smb3_fs_type);
- 	if (rc) {
- 		unregister_filesystem(&cifs_fs_type);
--		goto out_init_cifs_idmap;
-+		goto out_clean_proc;
+-	WARN_ON(!apic->lapic_timer.hv_timer_in_use);
++	WARN_ON_ONCE(!apic->lapic_timer.hv_timer_in_use);
+ 	kvm_x86_call(cancel_hv_timer)(apic->vcpu);
+ 	apic->lapic_timer.hv_timer_in_use = false;
+ }
+@@ -2359,7 +2359,7 @@ void kvm_lapic_expired_hv_timer(struct kvm_vcpu *vcpu)
+ 	/* If the preempt notifier has already run, it also called apic_timer_expired */
+ 	if (!apic->lapic_timer.hv_timer_in_use)
+ 		goto out;
+-	WARN_ON(kvm_vcpu_is_blocking(vcpu));
++	WARN_ON_ONCE(kvm_vcpu_is_blocking(vcpu));
+ 	apic_timer_expired(apic, false);
+ 	cancel_hv_timer(apic);
+ 
+@@ -2392,7 +2392,7 @@ void kvm_lapic_restart_hv_timer(struct kvm_vcpu *vcpu)
+ {
+ 	struct kvm_lapic *apic = vcpu->arch.apic;
+ 
+-	WARN_ON(!apic->lapic_timer.hv_timer_in_use);
++	WARN_ON_ONCE(!apic->lapic_timer.hv_timer_in_use);
+ 	restart_apic_timer(apic);
+ }
+ 
+diff --git a/arch/x86/kvm/mmu/tdp_mmu.c b/arch/x86/kvm/mmu/tdp_mmu.c
+index 44dad106fad1..945efc1cfaea 100644
+--- a/arch/x86/kvm/mmu/tdp_mmu.c
++++ b/arch/x86/kvm/mmu/tdp_mmu.c
+@@ -1368,7 +1368,7 @@ static bool __kvm_tdp_mmu_age_gfn_range(struct kvm *kvm,
+ 	 * this helper must NOT be used to unmap GFNs, as it processes only
+ 	 * valid roots!
+ 	 */
+-	WARN_ON(types & ~KVM_VALID_ROOTS);
++	WARN_ON_ONCE(types & ~KVM_VALID_ROOTS);
+ 
+ 	guard(rcu)();
+ 	for_each_tdp_mmu_root_rcu(kvm, root, range->slot->as_id, types) {
+diff --git a/arch/x86/kvm/msrs.c b/arch/x86/kvm/msrs.c
+index e91650af44c2..b8ab784704fa 100644
+--- a/arch/x86/kvm/msrs.c
++++ b/arch/x86/kvm/msrs.c
+@@ -643,7 +643,7 @@ static int set_efer(struct kvm_vcpu *vcpu, struct msr_data *msr_info)
+ 
+ 	r = kvm_x86_call(set_efer)(vcpu, efer);
+ 	if (r) {
+-		WARN_ON(r > 0);
++		WARN_ON_ONCE(r > 0);
+ 		return r;
  	}
  
- 	return 0;
+diff --git a/arch/x86/kvm/svm/avic.c b/arch/x86/kvm/svm/avic.c
+index 3b037e385523..0042039e15e3 100644
+--- a/arch/x86/kvm/svm/avic.c
++++ b/arch/x86/kvm/svm/avic.c
+@@ -1042,7 +1042,7 @@ static void __avic_vcpu_load(struct kvm_vcpu *vcpu, int cpu,
  
--out_init_cifs_idmap:
-+out_clean_proc:
-+	cifs_proc_clean();
- 	exit_cifs_idmap();
- out_cifs_swn_init:
- #ifdef CONFIG_CIFS_SWN_UPCALL
-@@ -2210,8 +2211,6 @@ init_cifs(void)
- 	destroy_workqueue(decrypt_wq);
- out_destroy_cifsiod_wq:
- 	destroy_workqueue(cifsiod_wq);
--out_clean_proc:
--	cifs_proc_clean();
- 	return rc;
+ 	lockdep_assert_preemption_disabled();
+ 
+-	if (WARN_ON(h_physical_id & ~AVIC_PHYSICAL_ID_ENTRY_HOST_PHYSICAL_ID_MASK))
++	if (WARN_ON_ONCE(h_physical_id & ~AVIC_PHYSICAL_ID_ENTRY_HOST_PHYSICAL_ID_MASK))
+ 		return;
+ 
+ 	if (WARN_ON_ONCE(vcpu->vcpu_id * sizeof(entry) >=
+diff --git a/arch/x86/kvm/svm/nested.c b/arch/x86/kvm/svm/nested.c
+index af0ef678433d..ab66f07337b5 100644
+--- a/arch/x86/kvm/svm/nested.c
++++ b/arch/x86/kvm/svm/nested.c
+@@ -100,7 +100,7 @@ static void nested_svm_init_mmu_context(struct kvm_vcpu *vcpu)
+ {
+ 	struct vcpu_svm *svm = to_svm(vcpu);
+ 
+-	WARN_ON(mmu_is_nested(vcpu));
++	WARN_ON_ONCE(mmu_is_nested(vcpu));
+ 
+ 	vcpu->arch.mmu = &vcpu->arch.guest_mmu;
+ 
+@@ -260,7 +260,7 @@ int __init nested_svm_init_msrpm_merge_offsets(void)
+ 		int bit_nr = svm_msrpm_bit_nr(merge_msrs[i]);
+ 		u32 offset;
+ 
+-		if (WARN_ON(bit_nr < 0))
++		if (WARN_ON_ONCE(bit_nr < 0))
+ 			return -EIO;
+ 
+ 		/*
+@@ -277,7 +277,7 @@ int __init nested_svm_init_msrpm_merge_offsets(void)
+ 		if (j < nested_svm_nr_msrpm_merge_offsets)
+ 			continue;
+ 
+-		if (WARN_ON(j >= ARRAY_SIZE(nested_svm_msrpm_merge_offsets)))
++		if (WARN_ON_ONCE(j >= ARRAY_SIZE(nested_svm_msrpm_merge_offsets)))
+ 			return -EIO;
+ 
+ 		nested_svm_msrpm_merge_offsets[j] = offset;
+@@ -1065,7 +1065,7 @@ int enter_svm_guest_mode(struct kvm_vcpu *vcpu, u64 vmcb12_gpa, bool from_vmrun)
+ 
+ 	svm->nested.vmcb12_gpa = vmcb12_gpa;
+ 
+-	WARN_ON(svm->vmcb == svm->nested.vmcb02.ptr);
++	WARN_ON_ONCE(svm->vmcb == svm->nested.vmcb02.ptr);
+ 
+ 	nested_svm_copy_common_state(svm->vmcb01.ptr, svm->nested.vmcb02.ptr);
+ 
+@@ -1716,7 +1716,7 @@ static void nested_svm_inject_exception_vmexit(struct kvm_vcpu *vcpu)
+ 			kvm_update_dr7(vcpu);
+ 		}
+ 	} else {
+-		WARN_ON(ex->has_payload);
++		WARN_ON_ONCE(ex->has_payload);
+ 	}
+ 
+ 	nested_svm_vmexit(svm);
+@@ -2123,7 +2123,7 @@ static int svm_set_nested_state(struct kvm_vcpu *vcpu,
+ 
+ static bool svm_get_nested_state_pages(struct kvm_vcpu *vcpu)
+ {
+-	if (WARN_ON(!is_guest_mode(vcpu)))
++	if (WARN_ON_ONCE(!is_guest_mode(vcpu)))
+ 		return true;
+ 
+ 	if (is_pae_paging(vcpu)) {
+diff --git a/arch/x86/kvm/svm/sev.c b/arch/x86/kvm/svm/sev.c
+index 6427db390b1c..8cd0f1539829 100644
+--- a/arch/x86/kvm/svm/sev.c
++++ b/arch/x86/kvm/svm/sev.c
+@@ -3007,7 +3007,7 @@ void sev_vm_destroy(struct kvm *kvm)
+ 	if (!sev_guest(kvm))
+ 		return;
+ 
+-	WARN_ON(!list_empty(&sev->mirror_vms));
++	WARN_ON_ONCE(!list_empty(&sev->mirror_vms));
+ 
+ 	/*
+ 	 * If this is a mirror VM, remove it from the owner's list of a mirrors
+diff --git a/arch/x86/kvm/svm/svm.c b/arch/x86/kvm/svm/svm.c
+index 487897ef11dd..c8e82debb7f4 100644
+--- a/arch/x86/kvm/svm/svm.c
++++ b/arch/x86/kvm/svm/svm.c
+@@ -1598,7 +1598,7 @@ static void svm_set_vintr(struct vcpu_svm *svm)
+ 	/*
+ 	 * The following fields are ignored when AVIC is enabled
+ 	 */
+-	WARN_ON(kvm_vcpu_apicv_activated(&svm->vcpu));
++	WARN_ON_ONCE(kvm_vcpu_apicv_activated(&svm->vcpu));
+ 
+ 	svm_set_intercept(svm, INTERCEPT_VINTR);
+ 
+@@ -1633,8 +1633,8 @@ static void svm_clear_vintr(struct vcpu_svm *svm)
+ 	if (is_guest_mode(&svm->vcpu)) {
+ 		svm->vmcb01.ptr->control.int_ctl &= ~V_IRQ_INJECTION_BITS_MASK;
+ 
+-		WARN_ON((svm->vmcb->control.int_ctl & V_TPR_MASK) !=
+-			(svm->nested.ctl.int_ctl & V_TPR_MASK));
++		WARN_ON_ONCE((svm->vmcb->control.int_ctl & V_TPR_MASK) !=
++			     (svm->nested.ctl.int_ctl & V_TPR_MASK));
+ 
+ 		svm->vmcb->control.int_ctl |= svm->nested.ctl.int_ctl &
+ 			V_IRQ_INJECTION_BITS_MASK;
+@@ -2666,7 +2666,7 @@ static int cr_interception(struct kvm_vcpu *vcpu)
+ 			err = kvm_set_cr8(vcpu, val);
+ 			break;
+ 		default:
+-			WARN(1, "unhandled write to CR%d", cr);
++			WARN_ONCE(1, "unhandled write to CR%d", cr);
+ 			kvm_queue_exception(vcpu, UD_VECTOR);
+ 			return 1;
+ 		}
+@@ -2688,7 +2688,7 @@ static int cr_interception(struct kvm_vcpu *vcpu)
+ 			val = kvm_get_cr8(vcpu);
+ 			break;
+ 		default:
+-			WARN(1, "unhandled read from CR%d", cr);
++			WARN_ONCE(1, "unhandled read from CR%d", cr);
+ 			kvm_queue_exception(vcpu, UD_VECTOR);
+ 			return 1;
+ 		}
+@@ -2725,7 +2725,7 @@ static int cr_trap(struct kvm_vcpu *vcpu)
+ 		ret = kvm_set_cr8(vcpu, new_value);
+ 		break;
+ 	default:
+-		WARN(1, "unhandled CR%d write trap", cr);
++		WARN_ONCE(1, "unhandled CR%d write trap", cr);
+ 		kvm_queue_exception(vcpu, UD_VECTOR);
+ 		return 1;
+ 	}
+diff --git a/arch/x86/kvm/vmx/nested.c b/arch/x86/kvm/vmx/nested.c
+index 9b0bfa2f854c..ec3bc441a0e6 100644
+--- a/arch/x86/kvm/vmx/nested.c
++++ b/arch/x86/kvm/vmx/nested.c
+@@ -515,7 +515,7 @@ static void nested_ept_new_eptp(struct kvm_vcpu *vcpu)
+ 
+ static void nested_ept_init_mmu_context(struct kvm_vcpu *vcpu)
+ {
+-	WARN_ON(mmu_is_nested(vcpu));
++	WARN_ON_ONCE(mmu_is_nested(vcpu));
+ 
+ 	vcpu->arch.mmu = &vcpu->arch.guest_mmu;
+ 	nested_ept_new_eptp(vcpu);
+@@ -1315,7 +1315,7 @@ static void nested_vmx_transition_tlb_flush(struct kvm_vcpu *vcpu,
+ 	}
+ 
+ 	/* L2 should never have a VPID if VPID is disabled. */
+-	WARN_ON(!enable_vpid);
++	WARN_ON_ONCE(!enable_vpid);
+ 
+ 	/*
+ 	 * VPID is enabled and in use by vmcs12.  If vpid12 is changing, then
+@@ -1698,7 +1698,7 @@ static void copy_shadow_to_vmcs12(struct vcpu_vmx *vmx)
+ 	unsigned long val;
+ 	int i;
+ 
+-	if (WARN_ON(!shadow_vmcs))
++	if (WARN_ON_ONCE(!shadow_vmcs))
+ 		return;
+ 
+ 	preempt_disable();
+@@ -1733,7 +1733,7 @@ static void copy_vmcs12_to_shadow(struct vcpu_vmx *vmx)
+ 	unsigned long val;
+ 	int i, q;
+ 
+-	if (WARN_ON(!shadow_vmcs))
++	if (WARN_ON_ONCE(!shadow_vmcs))
+ 		return;
+ 
+ 	vmcs_load(shadow_vmcs);
+@@ -4978,7 +4978,7 @@ static void nested_vmx_restore_host_state(struct kvm_vcpu *vcpu)
+ 		if (vcpu->guest_debug & KVM_GUESTDBG_USE_HW_BP)
+ 			kvm_set_dr(vcpu, 7, DR7_FIXED_1);
+ 		else
+-			WARN_ON(kvm_set_dr(vcpu, 7, vmcs_readl(GUEST_DR7)));
++			WARN_ON_ONCE(kvm_set_dr(vcpu, 7, vmcs_readl(GUEST_DR7)));
+ 	}
+ 
+ 	/* Reload DEBUGCTL to ensure vmcs01 has a fresh FREEZE_IN_SMM value. */
+@@ -5408,7 +5408,7 @@ static struct vmcs *alloc_shadow_vmcs(struct kvm_vcpu *vcpu)
+ 	 * doesn't support virtualization of VMCS shadowing, so vmcs01 should
+ 	 * always be the loaded VMCS.
+ 	 */
+-	if (WARN_ON(loaded_vmcs != &vmx->vmcs01 || loaded_vmcs->shadow_vmcs))
++	if (WARN_ON_ONCE(loaded_vmcs != &vmx->vmcs01 || loaded_vmcs->shadow_vmcs))
+ 		return loaded_vmcs->shadow_vmcs;
+ 
+ 	loaded_vmcs->shadow_vmcs = alloc_vmcs(true);
+diff --git a/arch/x86/kvm/vmx/posted_intr.c b/arch/x86/kvm/vmx/posted_intr.c
+index 2644add54b76..0f508015692b 100644
+--- a/arch/x86/kvm/vmx/posted_intr.c
++++ b/arch/x86/kvm/vmx/posted_intr.c
+@@ -187,7 +187,7 @@ static void pi_enable_wakeup_handler(struct kvm_vcpu *vcpu)
+ 		      &per_cpu(wakeup_vcpus_on_cpu, vcpu->cpu));
+ 	raw_spin_unlock(&per_cpu(wakeup_vcpus_on_cpu_lock, vcpu->cpu));
+ 
+-	WARN(pi_test_sn(pi_desc), "PI descriptor SN field set before blocking");
++	WARN_ONCE(pi_test_sn(pi_desc), "PI descriptor SN field set before blocking");
+ 
+ 	old.control = READ_ONCE(pi_desc->control);
+ 	do {
+diff --git a/arch/x86/kvm/vmx/vmx.c b/arch/x86/kvm/vmx/vmx.c
+index b341af4c6057..0038626f5486 100644
+--- a/arch/x86/kvm/vmx/vmx.c
++++ b/arch/x86/kvm/vmx/vmx.c
+@@ -3089,7 +3089,7 @@ void free_loaded_vmcs(struct loaded_vmcs *loaded_vmcs)
+ 	loaded_vmcs->vmcs = NULL;
+ 	if (loaded_vmcs->msr_bitmap)
+ 		free_page((unsigned long)loaded_vmcs->msr_bitmap);
+-	WARN_ON(loaded_vmcs->shadow_vmcs != NULL);
++	WARN_ON_ONCE(loaded_vmcs->shadow_vmcs != NULL);
  }
  
-@@ -2221,6 +2220,7 @@ exit_cifs(void)
- 	cifs_dbg(NOISY, "exit_smb3\n");
- 	unregister_filesystem(&cifs_fs_type);
- 	unregister_filesystem(&smb3_fs_type);
-+	cifs_proc_clean();
- 	cifs_release_automount_timer();
- 	exit_cifs_idmap();
- #ifdef CONFIG_CIFS_SWN_UPCALL
-@@ -2243,7 +2243,6 @@ exit_cifs(void)
- 	destroy_workqueue(serverclose_wq);
- 	destroy_workqueue(cfid_put_wq);
- 	destroy_workqueue(cifsiod_wq);
--	cifs_proc_clean();
- }
+ int alloc_loaded_vmcs(struct loaded_vmcs *loaded_vmcs)
+@@ -4468,7 +4468,7 @@ void vmx_set_constant_host_state(struct vcpu_vmx *vmx)
+ 	unsigned long cr0, cr3, cr4;
  
- MODULE_AUTHOR("Steve French");
+ 	cr0 = read_cr0();
+-	WARN_ON(cr0 & X86_CR0_TS);
++	WARN_ON_ONCE(cr0 & X86_CR0_TS);
+ 	vmcs_writel(HOST_CR0, cr0);  /* 22.2.3 */
+ 
+ 	/*
+@@ -5537,7 +5537,7 @@ static int handle_exception_nmi(struct kvm_vcpu *vcpu)
+ 			 * STI and MOVSS blocking.
+ 			 */
+ 			if (is_icebp(intr_info))
+-				WARN_ON(!skip_emulated_instruction(vcpu));
++				WARN_ON_ONCE(!skip_emulated_instruction(vcpu));
+ 
+ 			kvm_queue_exception_p(vcpu, DB_VECTOR, dr6);
+ 			return 1;
+@@ -5962,7 +5962,7 @@ static int handle_task_switch(struct kvm_vcpu *vcpu)
+ 	if (!idt_v || (type != INTR_TYPE_HARD_EXCEPTION &&
+ 		       type != INTR_TYPE_EXT_INTR &&
+ 		       type != INTR_TYPE_NMI_INTR))
+-		WARN_ON(!skip_emulated_instruction(vcpu));
++		WARN_ON_ONCE(!skip_emulated_instruction(vcpu));
+ 
+ 	/*
+ 	 * TODO: What about debug traps on tss switch?
+diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
+index 32563a91fba9..a9be847d3cc2 100644
+--- a/arch/x86/kvm/x86.c
++++ b/arch/x86/kvm/x86.c
+@@ -370,7 +370,7 @@ static int exception_type(int vector)
+ {
+ 	unsigned int mask;
+ 
+-	if (WARN_ON(vector > 31 || vector == NMI_VECTOR))
++	if (WARN_ON_ONCE(vector > 31 || vector == NMI_VECTOR))
+ 		return EXCPT_INTERRUPT;
+ 
+ 	mask = 1 << vector;
+@@ -4907,7 +4907,7 @@ static int kvm_fetch_guest_virt(struct x86_emulate_ctxt *ctxt,
+ 		return X86EMUL_PROPAGATE_FAULT;
+ 
+ 	offset = addr & (PAGE_SIZE-1);
+-	if (WARN_ON(offset + bytes > PAGE_SIZE))
++	if (WARN_ON_ONCE(offset + bytes > PAGE_SIZE))
+ 		bytes = (unsigned)PAGE_SIZE - offset;
+ 	ret = kvm_vcpu_read_guest_page(vcpu, gpa >> PAGE_SHIFT, val,
+ 				       offset, bytes);
+@@ -5167,7 +5167,7 @@ static int emulator_read_write_onepage(unsigned long addr, void *val,
+ 	bytes -= handled;
+ 	val += handled;
+ 
+-	WARN_ON(vcpu->mmio_nr_fragments >= KVM_MAX_MMIO_FRAGMENTS);
++	WARN_ON_ONCE(vcpu->mmio_nr_fragments >= KVM_MAX_MMIO_FRAGMENTS);
+ 	frag = &vcpu->mmio_fragments[vcpu->mmio_nr_fragments++];
+ 	frag->gpa = gpa;
+ 	if (write && bytes <= 8u) {
+@@ -7042,7 +7042,7 @@ static int kvm_x86_check_processor_compatibility(void)
+ 	 * compatible, i.e. KVM should never perform a compatibility check on
+ 	 * an offline CPU.
+ 	 */
+-	WARN_ON(!cpu_online(cpu));
++	WARN_ON_ONCE(!cpu_online(cpu));
+ 
+ 	if (__cr4_reserved_bits(cpu_has, c) !=
+ 	    __cr4_reserved_bits(cpu_has, &boot_cpu_data))
+@@ -7783,7 +7783,7 @@ static int kvm_check_and_inject_events(struct kvm_vcpu *vcpu,
+ 			vcpu->arch.nmi_injected = true;
+ 			kvm_x86_call(inject_nmi)(vcpu);
+ 			can_inject = false;
+-			WARN_ON(kvm_x86_call(nmi_allowed)(vcpu, true) < 0);
++			WARN_ON_ONCE(kvm_x86_call(nmi_allowed)(vcpu, true) < 0);
+ 		}
+ 		if (vcpu->arch.nmi_pending)
+ 			kvm_x86_call(enable_nmi_window)(vcpu);
+@@ -7800,7 +7800,7 @@ static int kvm_check_and_inject_events(struct kvm_vcpu *vcpu,
+ 			if (likely(irq != -1)) {
+ 				kvm_queue_interrupt(vcpu, irq, false);
+ 				kvm_x86_call(inject_irq)(vcpu, false);
+-				WARN_ON(kvm_x86_call(interrupt_allowed)(vcpu, true) < 0);
++				WARN_ON_ONCE(kvm_x86_call(interrupt_allowed)(vcpu, true) < 0);
+ 			} else {
+ 				kvm_warn_on_lost_irq(vcpu);
+ 			}
+@@ -8470,8 +8470,8 @@ static int vcpu_enter_guest(struct kvm_vcpu *vcpu)
+ 	 * KVM_DEBUGREG_WONT_EXIT again.
+ 	 */
+ 	if (unlikely(vcpu->arch.switch_db_regs & KVM_DEBUGREG_WONT_EXIT)) {
+-		WARN_ON(vcpu->guest_debug & KVM_GUESTDBG_USE_HW_BP);
+-		WARN_ON(vcpu->arch.switch_db_regs & KVM_DEBUGREG_AUTO_SWITCH);
++		WARN_ON_ONCE(vcpu->guest_debug & KVM_GUESTDBG_USE_HW_BP);
++		WARN_ON_ONCE(vcpu->arch.switch_db_regs & KVM_DEBUGREG_AUTO_SWITCH);
+ 		kvm_x86_call(sync_dirty_debug_regs)(vcpu);
+ 		kvm_update_dr0123(vcpu);
+ 		vcpu->arch.dr6 |= kvm_get_dr6_fixed_1(vcpu);
+@@ -10038,7 +10038,7 @@ void __user * __x86_set_memory_region(struct kvm *kvm, int id, gpa_t gpa,
+ 
+ 	lockdep_assert_held(&kvm->slots_lock);
+ 
+-	if (WARN_ON(id >= KVM_MEM_SLOTS_NUM))
++	if (WARN_ON_ONCE(id >= KVM_MEM_SLOTS_NUM))
+ 		return ERR_PTR_USR(-EINVAL);
+ 
+ 	slot = id_to_memslot(slots, id);
+diff --git a/arch/x86/kvm/x86.h b/arch/x86/kvm/x86.h
+index cfe96962a4e4..99ba31aa5ef5 100644
+--- a/arch/x86/kvm/x86.h
++++ b/arch/x86/kvm/x86.h
+@@ -348,7 +348,7 @@ static inline void adjust_tsc_offset_guest(struct kvm_vcpu *vcpu,
+ static inline void adjust_tsc_offset_host(struct kvm_vcpu *vcpu, s64 adjustment)
+ {
+ 	if (vcpu->arch.l1_tsc_scaling_ratio != kvm_caps.default_tsc_scaling_ratio)
+-		WARN_ON(adjustment < 0);
++		WARN_ON_ONCE(adjustment < 0);
+ 	adjustment = kvm_scale_tsc((u64) adjustment,
+ 				   vcpu->arch.l1_tsc_scaling_ratio);
+ 	adjust_tsc_offset_guest(vcpu, adjustment);
 -- 
-2.53.0
+2.56.0.257.gf7497c7d27-goog
 
