@@ -1,81 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.179
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.170
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792709075;
-	b=euIW+YOa47HNilPi9vIQTeKrGk7oAvrZEYMlZU/kX377c8+pkBt6eWSXNC74qkZGEAr+
-	 jg5xfuKf+ygaZ6hdvvnacyJsUPslBSEMqtH3RWfiYWxk93ZxAfN8KU4ckZAM4UCUd+xPt
-	 pw8U+ylUEpaPWa//WTQcgPNdaSslTxOFOVXD7HIQrlAiShE0LwuGq1lDLlSICl/2Bo+1D
-	 y25YNVddHgE1HF4F06pYnEi27PHiBp1B2nUiRG20FtCp3EXXNY31GGYjcj/R2e9Gv6VcR
-	 5xaXNUESpvzYxf3qAocAEHE2i82B0LXEEdNi9xPQPEdjO2dWNkk2U/g33TOqAMN1p0A==
+	t=1792709078;
+	b=hK3cTnl4Rakh8JWB8OBvPgJ7PNFQ7gY5UaFPhR6fV2ojD7y29roZ2yVKIGKnpCr758vw
+	 JDI9ZoBm2a1yGVi0Ua9Kn9JPy5YataQdGZziRSkY0C03F0eoxd5YcVRwRSv6Cw1f3/eV5
+	 XeTzksetg8LMw/YHNUf3sXCVoVdA5y3NYdnNCsvq86hXJDmMmOelvw7c+UFoxBeq4FCq4
+	 MnYaYiDQrXUaNzy8r0YVyNke1VUo0ozhnSVjbEvJ0/acEZ4lo+cpkzXnBL5ZzQJuw+q8T
+	 o66Q8IW2SPuNMqBWVaK4paIy4M6jtfkNNkfO9cJR0iWcHq55T3hd5DT/FG6B2iCBkzQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792709075;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792709078;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=B3OEB06UVVzOvWWD1IBOYqe74IAlLNlNvzCjs2X2cFE=;
-	b=AUREiRqvJZUq3dkWSSqjjor+ee8Joqeq53T5pxCPy6vIMKeMa9BmQa3e4jqA1nz42iqE
-	 zsEuPhY7lnTfFDXog1gw73L/Qpipdf36FDV0jZB9hm3YYs2m0rKBG4Me7xlTdKx4OnRjo
-	 AHb9InyU4u0HhQN/Oy8NmSWYPYXvoCjGB6WEY/n5XSCa2vKduoj9hS182ALob/JAYopYk
-	 /2v75SJDQDFFftVgs5R85d+nIrM7Lmw/YWqw4kea2yaA+5/uOm7oBXmQHFxQxPX5yEN4A
-	 Ny1Ho6D97VJAv/3wG6Ni8dkMo9OFlasylDKBqSsl0/zN8kYDhRdNyRzfBSypHWfNv7A==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=6f4Lw6pT2eB2WE1JBrkoqk+sJgKhhwcrC3DrxEbCPPg=;
+	b=TaOjNJ3V5Q0h6iyA1ONbHu9t5QdOA96Lph8AqdsTYucaDKY3ii5eTK0nNdmgsiygVAFf
+	 J1xPBMmP0zlsurEmYd54Fk348G7iEtbwnmVkuQmpz4NWu9bIqFOSj4goCTEycaPcQE+Ks
+	 oj3POFDrb0NBukH2Lqpj9mXQtYxq6LVeYNPQ98m3QiJgziV0NyZ6yaERJyWGaxWiiZVFI
+	 fQMdT+4d9APBwAInAAkR8AmSelnOy8/J4id3RecIMlY0rPC/ve4DP7sUcqBxt0MOAXtTv
+	 Qe90GhcObKdgbY+fIDmL7NfvkGfdbwNToJ/2YHcRRjKRnDIRQmF+/n33IKbTYi9ls0w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=qY5q0eZS;
-	arc=none smtp.remote-ip=209.85.214.179
-Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com [209.85.214.179])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=jx0uIuZx;
+	arc=none smtp.remote-ip=209.85.215.170
+Received: from mail-pg1-f170.google.com (mail-pg1-f170.google.com [209.85.215.170])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50542606A31D
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 22:44:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 50542606A31D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BD83606A33A
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 22:44:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2BD83606A33A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=qY5q0eZS
-Received: by mail-pl1-f179.google.com with SMTP id d9443c01a7336-2e5378b281aso1276635ad.2
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 15:44:35 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=jx0uIuZx
+Received: by mail-pg1-f170.google.com with SMTP id 41be03b00d2f7-ccca948203aso124440a12.3
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 15:44:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792709075; x=1793313875; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=B3OEB06UVVzOvWWD1IBOYqe74IAlLNlNvzCjs2X2cFE=;
-        b=qY5q0eZSZmkZ1MHYRk6v4pq+fQFT+QrkFP/iAVsubrsTz74hiIfQZsLmiDG/Xi5maE
-         p+gKWitq1OM9aybevrEPPTpNRm+2Ttce45+vVMksQsAAkHm3UdZC7uf8/+53PpmRYU8j
-         mHpV2+RbgHzHTMIcmt5D7XcN9aKJwmU8oxq/R2cfxl6Ujsv6PwZG3OHfd6wan4qDhFA9
-         UP9KPsmuqfQ+jL1EmgF/Fp7u1P6QYqDy13eTB6cByNr1PKvtrQIwK/xKDxWe8qZOVovh
-         PtOXgeVaLpQpmlg7vlV8YKSF8flw1I9RDEUiDE7UeLNmbxaS3f2k7iLhp00X2Jwdx0yJ
-         Qipg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792709075; x=1793313875;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1792709077; x=1793313877; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=B3OEB06UVVzOvWWD1IBOYqe74IAlLNlNvzCjs2X2cFE=;
-        b=X/xwErXstXmvkgo3XWPWDVTAsslF8L0iutpXD1JorxYBRHdKkdtQTdABHdkB9kAo+9
-         ukSkfmGZsUyZxhJBlXOnIoXdRs3D015gsLkp25LtziSPhkzD3lEiUUrjTT0SlUujrSCW
-         XMts2hRaYAX2sHrXODhMrEVsUbuvVpUVEYLMwDNt1tsgamJm/7Q2jIgKzCq0pE5S8FeG
-         i1Rzvn6crbKjbI3pmDi/BSVbIM98EbTFx3ec5tTxuUNY50bxKG3SJ/u1QxsnrhjAZL6Q
-         fHurX87zel3cixdzu7rFYhz2dOybLN3jJb+iQjL0ySMgSXNVYnn08DsZWxRGJAWwpJQB
-         QyZw==
-X-Forwarded-Encrypted: i=1; AKwUvBwaCNIPuKGlJX+0Ew1p/eWGxh8PErtTqvPy5UdcoDcoTV8TPjyxs3uZ2B60s6PENDPJNwhgpawojLGsILE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIE/AW0ofScqbUnA8XKVQPFCzFT/ULXaR8ahIKCYvBO96ZRBmuB
-	vu8E60vKpChqysrZyLQXNXVbLE24PTrS1oDc2d2ctLOOgiHUz3NRdcNZ
-X-Gm-Gg: AYBFou1RrQ0oIycUHm6qbHuifurlriRIPq5eVeACHRcohJELsBrXh3JH0iQF99gw0rF
-	FERBY/Ji/TSi96YNWmAHbZnOe20iaQZYYT7pmbQJLDNcUyu8rKUX69Z2y1EW1Q3EMain5PdDpwO
-	06t1Zs1gHjegz9qSb2DX1HlkCztC34Ue3VGN3drIMw5PxYooiN8cAydb+g0NYCngzs27DqpQOwF
-	/M51qc11S/7t2hKa+vIiudh++1OTE1QIX2j/cth0+VltCZ7JUdm64pTtxkssXAwOOaCmRKnrye0
-	PjXMZU/t9/G93sWQ7H8cvJ/U5UEMmnhoqPoHJHZx2LFElw/KA22Sal93/e7l2K8Ty4cFfJQWkJS
-	9o1EBmzQWWXkCiROFTjQHzWap9LOHINmmgkJpIGasMg2XcDW4/Td+fI22fFxA3O4j7dKCxuL6d4
-	lw3C1MUuWS6wshsN7H08ZJByaMOAJ5AWvQYyjM7qr/VcRIrFJtNpZUFJlvKgixKzK3ljkFZlpxF
-	rrsb0t07pgdOfJ44sGoHPDlDKBmAe/ZPB0DK+eu7hY/3lX5iOcmnAX9KcGQo4ncNlbcFgFKGBo=
-X-Received: by 2002:a17:90b:264e:b0:3a7:8350:3f7e with SMTP id 98e67ed59e1d1-3adce090fe6mr281032a91.44.1792709074523;
-        Thu, 22 Oct 2026 15:44:34 -0700 (PDT)
+        bh=6f4Lw6pT2eB2WE1JBrkoqk+sJgKhhwcrC3DrxEbCPPg=;
+        b=jx0uIuZxNOwV/bOWoVfKGvfO+WNn4cb+9WDKL/C7FsrGegDJx6oLvjfLAQvzp7nRz0
+         0lW18Tp+EIIbnKZfqEcLelNPZKmbqwIcdGo2m2QnlAFQcg3ggUBOHOX9l5XQENDy8/TE
+         ZWRgbvo+g5Tr/ONAtqDHX3eam4LBb2NAXp4hvnTi1m2imzUoZL6CwFdQpgi18vPQBzoJ
+         CwDM90vXHrcaV2zcMoPjZdHtPnE1EvmqH7YwqNArvmqp75TEIg6OJdIuZdR9MJH/eWN+
+         YoQrJmxvbNWO3Dqs2hdooUdQYWuQaDoZjd6b3pkWZvlMee7I4lJxtE+xvenMb82S24fX
+         tjaQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792709077; x=1793313877;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=6f4Lw6pT2eB2WE1JBrkoqk+sJgKhhwcrC3DrxEbCPPg=;
+        b=chVFq8Qm0TebSXRdy5Bhzayj8WUE0Vg4jPCehxu6JLyI9Yuwn/IOuXzBb9+AVgTn7u
+         UQve5ih2mbqO3ds0d98u5uX7txMb0YFonqrNvHnK+cFQf/xGEqiDBQ44lt9zS2ojaD+J
+         DzuCOIw22MIyAj8akBnM2H+XXmC/hl+wVrXzGnZEyZ9/cQ7uPjEcpM/GgS3V+3wdJfrB
+         JhgRLpyBWpm3SdPn0XPBmi1woYhX/W97CWTNYii1eSpZ01V6RhsKAg78ZXo+MuEPAHg7
+         cK6vvNh9fdZhhgjIJtscEl8ASr5byvTzrqA2klY19nAbcSPriMDOkoHxk+G9fGhoYIUf
+         qu7Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxBwJipcLdFf2yhysbSHKdZRf/rFIEnfiZMASOp7u1q21YevTF+WKXJD0rI/zyGNWEN/WyoTmIO84FvrR4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKWwe21esw89gz90nakWh2S0L/Y5LPUTqp/VvD7q9HKDzg2dyRm
+	0geld64T0jmzBK2/PoszE4SxLn/37WNp5BpQXW7xZtUHDu6i2hNdct36
+X-Gm-Gg: AYBFou3E7X2aVkCRX7SYbR1fGSbueH9QMrAIPJBhdO9AZLNcgIit/rAvRmnC1qxNOAH
+	73slLiubn5DXQRa/Jhm7yxsBz+ByWlhnGMvbe467srXAQBL/lIazo9oMScMaf0A7WhGzX/3fYKZ
+	NOBXuzDjNtWYy4AU+WAz4/Y7puyams8W71FwBliFHurbQntWDe4XyJwadYadBO26e+chRao4TbM
+	Wqft6vlrXZgfxAz49foAMDrB0Xqyn5Gi5UzzFt2wGNXtWfY1OymUWCWhx6NwlU0Ff3T9rexETpm
+	uAaWL9z4WVC3Zcw43r7cNziZzx/bj/jzEbGapIz7oa5YyM6AeJf9Tki0AyIolFLs1RdCQl4NXhO
+	76NztRpFLQ4lZM9/jKOribbvZWX/z6kvbXkKpwihWAlggnIz7BQplMYQGPMf05NItk0gDWqwrNq
+	gbmyEs6ZeECrpNBeuOkF8eWubmPdFX2zVgbn4rCGIhIRSbuQlYTdg89rVK30h4GEjPyNnB1wB9k
+	7q96ccslygw/uIz3kS4tst9uSPDEHeaXm2YP3mwuav///iwpbPluA==
+X-Received: by 2002:a05:6300:86:b0:3e2:8b7b:ba77 with SMTP id adf61e73a8af0-3e36934ff54mr282797637.21.1792709077597;
+        Thu, 22 Oct 2026 15:44:37 -0700 (PDT)
 Received: from kir-tp1.lan ([67.185.120.12])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd8ba8e6678sm192717a12.30.2026.10.22.15.44.33
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd8ba8e6678sm192717a12.30.2026.10.22.15.44.37
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 15:44:34 -0700 (PDT)
+        Thu, 22 Oct 2026 15:44:37 -0700 (PDT)
 From: Kir Kolyshkin <kolyshkin@gmail.com>
 To: Joe Perches <joe@perches.com>,
 	Andy Whitcroft <apw@canonical.com>,
@@ -86,10 +87,12 @@ Cc: Kir Kolyshkin <kolyshkin@gmail.com>,
 	Shuah Khan <shuah@kernel.org>,
 	linux-kselftest@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 0/4] checkpatch: skip more kernel-only checks for userspace code
-Date: Thu, 22 Oct 2026 15:44:19 -0700
-Message-ID: <20261022224426.2756960-1-kolyshkin@gmail.com>
+Subject: [PATCH 1/4] checkpatch: is_userspace: exclude kernel code under tools/
+Date: Thu, 22 Oct 2026 15:44:20 -0700
+Message-ID: <20261022224426.2756960-2-kolyshkin@gmail.com>
 X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261022224426.2756960-1-kolyshkin@gmail.com>
+References: <20261022224426.2756960-1-kolyshkin@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,39 +104,37 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Commit 99b70ece33d8 ("checkpatch: suppress strscpy warnings for
-userspace tools") added is_userspace() to skip checks which only make
-sense for the kernel. This series extends that to a few more checks
-which produce false positives for userspace code under tools/:
+is_userspace() treats everything under tools/ as userspace code, and is
+used to skip checks that only make sense for the kernel. However, tools/
+also contains some kernel code: test modules, Kbuild-built mocks, and
+templates and golden outputs of the runtime verification monitor
+generator. Such code should be subject to the same checks as the rest
+of the kernel.
 
- - ENOSYS: the "ENOSYS means invalid syscall nr" rule is about the
-   kernel ABI; in userspace, errno == ENOSYS is the standard way to
-   detect a missing syscall (e.g. to skip a selftest on older kernels);
- - AVOID_BUG: "Do not crash the kernel" does not apply to userspace,
-   where BUG()/BUG_ON() are assert-like shims;
- - SSCANF_TO_KSTRTO: kstrto<type> is not available in userspace.
+Explicitly exclude the known locations of kernel code under tools/.
 
-Running "checkpatch.pl -f" (with --strict for AVOID_BUG, which is
-a CHECK in file mode) on the files under tools/ that use ENOSYS, BUG()
-or sscanf() gives 699 such warnings before this series (ENOSYS: 188,
-AVOID_BUG: 491, SSCANF_TO_KSTRTO: 20), and none after.
+Signed-off-by: Kir Kolyshkin <kolyshkin@gmail.com>
+---
+ scripts/checkpatch.pl | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-Since tools/ also contains some kernel code (test modules, Kbuild-built
-mocks, rvgen templates), patch 1 makes is_userspace() return false for
-those locations, so they are still subject to all the kernel checks
-(this also applies to the existing strcpy/strlcpy/strncpy checks).
-
-Kir Kolyshkin (4):
-  checkpatch: is_userspace: exclude kernel code under tools/
-  checkpatch: don't warn about ENOSYS in userspace code
-  checkpatch: don't warn about BUG() in userspace code
-  checkpatch: don't suggest kstrto<type> in userspace code
-
- scripts/checkpatch.pl | 17 ++++++++++++-----
- 1 file changed, 12 insertions(+), 5 deletions(-)
-
-
-base-commit: f47d223627f80cb7a1eb14c585fe6cb35de5e984
+diff --git a/scripts/checkpatch.pl b/scripts/checkpatch.pl
+index 8a7787d228a6..8f9a46d809ae 100755
+--- a/scripts/checkpatch.pl
++++ b/scripts/checkpatch.pl
+@@ -2665,6 +2665,12 @@ sub exclude_global_initialisers {
+ 
+ sub is_userspace {
+     my ($realfile) = @_;
++
++    # Kernel code under tools/: test modules, mocks, code generator templates.
++    return 0 if ($realfile =~ m@^tools/testing/(?:cxl|nvdimm|crypto)/@ ||
++             $realfile =~ m@^tools/testing/selftests/(?:bpf/test_kmods|livepatch/test_modules|mm/page_frag|net/bench/page_pool)/@ ||
++             $realfile =~ m@^tools/(?:power/cpupower/debug/kernel|virtio/vhost_test|verification/rvgen)/@);
++
+     return ($realfile =~ m@^tools/@ || $realfile =~ m@^scripts/@);
+ }
+ 
 -- 
 2.56.0
 
