@@ -1,102 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.181
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.162.39
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792667629;
-	b=N3R/194jt1wPSsPCIbQjscZa+sZpg2DNlKYMCYm6l9kvj306cd1u8zAYfpkrKQUR5sw+
-	 TgVusKWtasJOn+TbOiXDX9cvyyygDo2rrSQK02l4Uv0YbjeiVxxexUQ+67iwItnBqLAxL
-	 7F/bcA7WmVJpxPwPOXFFb+vScZrEsD40Hvw2LP2zPpAtV5yRBpOW0pYfvqCf2XhOpQ7Ko
-	 283kDFn7QZIWPrIpo90IXasb3hrBo8fDXPVBezA08PpWEy8LlgPbX3lPSLOR0n1EaNi5B
-	 W9vHkQRw/8bZvuXiNy7y9iK8xXwoBGb0ID97yGgxMuzD3yW/Nqidf7s4/Ujd4EKrBPA==
+	t=1792667821;
+	b=3gkeJISE9yvAYGfTgFwd4UMMcGk3+AhMheUhWjN3x0qPn95vqJxFG5LwWbt55lmg6i39
+	 5ie2M0rm6U82hI3+AWjEfJB/uOCjCFPjpe3oVCTaI1YIKXMfdQw63XhFENW57T5EHEEaJ
+	 qNzS3k3pSGh6KdyaI123Q7CpdS8UEPL1BYZMhd4m2ok8fhaSeRjIeDlKfRwbCjOTiZQI/
+	 orKJFw3CJ632P+79FY5RGD5ILF+BBo9bLmkv/4VI7bJyAEusvbAW3HiNDjXyLySw0Ibux
+	 ndZnhAB+9BQoa9+dEqNYpopyvt66lfpUAgvdFwB1ht9i4fH+Awnd4PMWYm8MKYiyq+Q==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792667629;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=R8rZRziw5q/fRuMqRbAHHvpJXFcm/wFSyNjqHk2EOSU=;
-	b=ZuhWs8JeizGkfDbo4tuFsO0duOlO6IHmwvCDAKODurXU03FMzMpUV0JFT2I+eUmLpe4w
-	 BSWkfMg+524lcIHZI/hBPgOxawOD+ioonKpciQb7ZqyqKw9Lx6yrOlhRWG5kg/w3bMKWw
-	 iMOydmWdDqLcMPR6szHMCWS8pV51Ea7MASTORZKfrwRJ8YXgpP5NvLHmCxhU5J8hbV08F
-	 065bQOazONj+OFS+UyAuT/+zvO9KIkQFCoaKxK/8mqkH+jAX4MhdBvAsXwZ7yA6mddSFy
-	 SE7NnOB7r4rwzXRgBbaOAM190gJ4TAqqmsOeKQd9Uq+GA3zkjuax66cRxKc4MEcpWOw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792667821;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=zrSdJXI0fyDD6hWUVp89xFxcypiOfz1nsHq36opR//E=;
+	b=jgM1xq8xOf+85O+rqXheZwQQmXoHZAEmwDzmutz7cr8RMdmRNCa5mhtbSkh5dyntcRHR
+	 G46t/Ns1cxYJo7wgPEcdDh06WUd/7gtVpFNpYHBJHx8K/pNQYdZ7RsuNcx2cRiYlTaUcB
+	 mMMq9qx/YPgXl9WHD9G49WiQ96Qgjak3a9v+URqDP3mX5jhcByFQq/5jqhOpVWD2zJAQ3
+	 LESzU4ofvpq/oWRkfq4b9hkiqupw4mN58i4pGaIxd0GnV13sPE+CpWtCNQol6wcm6XhyR
+	 ZldsjPrJbpzWNU5gZ26WKd0RNIurjERxpH5S2BIX+Tbcbn4PDR3pmuQhl+XqfRsqMbw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=XzcsCzOK;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.181
-Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=axis.com;
+	spf=pass smtp.mailfrom=axis.com;
+	dkim=pass header.d=axis.com header.i=@axis.com header.a=rsa-sha256 header.s=selector1 header.b=E0AwbR91;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.162.39
+Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013039.outbound.protection.outlook.com [40.107.162.39])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B30F606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 11:13:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8B30F606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C634E606A319;
+	Thu, 22 Oct 2026 11:17:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C634E606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=axis.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=axis.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=XzcsCzOK
-Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-34c522572bfso188116eec.3
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 04:13:44 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792667624; cv=none;
-        d=google.com; s=arc-20260327;
-        b=cfMwDWxDbIxD03jimeQ25rFWRGf+wormTO2c8lzMldcaC6oyvkrRiiJdO07oueN91W
-         BileSwC3gmw6lchvZ3IyUUNWMHbMjmd7he/lGLc9Ui3Zf5JiUMDiH1cOOEmLHhqDh+R5
-         gBT/fpr5C+rGzBIGXwAIxu4MXvip5MpViTsb16oyKjwrYv3KMLL5hqLZjhQ2ZTpv3PHV
-         NBiPQ8t88pQJlLwuGTbZ8ToceQsCVtErjhgEUS1jLNlO6NYJIemDiNyEI4kqR0ENpD+m
-         PHbfweGlNw2UUdyaLVHtc3IFkqKBhta+OY++SjYO/tBd93dT/0JFdZZKffqNGO9J1Emn
-         jI9A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=R8rZRziw5q/fRuMqRbAHHvpJXFcm/wFSyNjqHk2EOSU=;
-        fh=Z6UbKo6HAcqcrf+FW4TCUCDN8EXNVOovbu+XqTYw8qU=;
-        b=Exh5Z8LL7POc+2sjIM/ku4oQpvh2eQQhAR7ziwat299eyMuyPJpR8XLsZvA4xEQPwV
-         oaf0tPUK4zIMiRJuXKqK2Tv4A8uRwkyslvs5ubQRKCtI51+kQLWqammELNDMfXrE3VhQ
-         1BUqZyvCzLYGJRftjR3/Zc4zCarCTKp8yZrn0+oe6nw1WFGPAUbrUjYw8ps0VBG5M3o2
-         NsAEwc5d5m2vToTJnp2eB9asR4+axMOocgQXb5mnXW+bqRsifhpmk4vp893aWJUrSmb4
-         HoCwr4i9YUsva+hqHm30NmmM0XwLeaJj42WMNmcKolBfVtLCdau5OYYqpakAnDtVZZhY
-         g1VA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792667624; x=1793272424; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=R8rZRziw5q/fRuMqRbAHHvpJXFcm/wFSyNjqHk2EOSU=;
-        b=XzcsCzOKIM1dH7X3ne5kpMLOkyW/kS/lF37y0oepZqm1lgSq0khIYNbARTOd93oqMU
-         TfXjKrpV5RZBx81RtZXBePBatu/+IAWU3v4339o0MHOYOStsXtZ1gZg+ftfhrJJ97o9X
-         jqknYd4gvq1/exI/EqLx798hDLeSye599FMXrfnHhM0GvQ2yXwCcnFwSF9N9+LTzHkyh
-         vFCD63AmEY3JMAQwK+XD8g1FJcFNszVqG2czhj24/nSh5TVzQtFFLGhnadtrjVjEoHGV
-         b5OBD27hWUq70n97TAknRmxcqTPS8aubwZjUdzwNgjSOnK0TLvQ6uQ6EHWUf7qS8H1w3
-         NK9Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792667624; x=1793272424;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=R8rZRziw5q/fRuMqRbAHHvpJXFcm/wFSyNjqHk2EOSU=;
-        b=mfBO/KxPLULwjU3/GmmnTpz/Pltu/w00It866hM1EppAAw3NGGdQxw5tnO3CQNRrPt
-         0r4N4yU+VFLPUqXANhIqX8fE6cXGLObd8BEmx/tJ86aTdfoY26qbEzEWNga2yFG2EynV
-         /tz5J3QexuI9xoqbrKLN2FKSjxV6+I9sIZdNOLBCmaMQKCAUdame1W0dHOcRSQgD1XEM
-         +gelte0rrgQx9fPQrg8HpHFjDtU38my3qW2BN4qtdPRR6qru0PRSragprvZgR0QI23dz
-         0IzFY0T5X/L3YBaiXm9iSGs3ISEaiR86gKL/F5OOTxu+70doVQB2ox+BWqXQ+COAdeQp
-         wpaA==
-X-Forwarded-Encrypted: i=1; AKwUvBxkNiUZegQEvIdQjMcaHMM8CZA0yq8WQdvtt4qqE5DvUp/c0bUPma49JJIsarEVD+yV/BoiWsjThaGeMsA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYICzuncBEJvaD3KMaIeuMnIGezHb5xrXGrp5EDpiABbO7x/KTNN
-	TD/qJw1ZOO3O9XUy9RREEGy65vaBTe7eNG7TdRZe43t5ELhbiMnQTi6v4JvI70CEtJf9Ehr8UAh
-	FCMbABENNEsD8tTacWaMbQMPj5CouLMU=
-X-Gm-Gg: AYBFou03ErSBJRZR/BQSvrd9WaO30pkGqJ8quXLM0pjPBmbFHwQc8+37Jm/IiP4+Otq
-	SOxOAQkfN/nBjjgHnV4+6SOVmF5zpz3fHQZ/E+ZKIiCopNcq8wNbfsOCbWYlUV9Uf+aSv/WzjTa
-	jt7M7thIweFxk7ZQn1803+GJSRaZtXCDUID0LruBsX1TZgGKzL7vrfz97NkrNahdmt3SrW4Yh8c
-	42p3/dXgF/ZoO5BXktBSCnAUNdKV8/hRzcDQrNP48ljsCeaH6sU95QH1XX9DbQxa8ovI2BGI3J4
-	rDYq1yJzymcsxA1bnvUirZ8SatnEDGQrBGxqRnGJbziUogoSQ7hcqbhOT+gIxtmJVniKLNsqm7F
-	RPr734YGxc9xZo4MZpB3hGtFcORk3ZX+nKLvx+w9vdV6n/EVk84obTQ+85QkNbqcUqa73srQpKS
-	xb9Ebskro6qpgBVsKORBgXW0DUQjHyMIdmdY1yQ1ApdgLf7NkDqvsCWvLbFDFAvq/7mKMYvpodI
-	15GtupXAO6EZUr/jYeP5YhzZECO8lvHIp2L
-X-Received: by 2002:a05:693c:42d6:b0:368:5521:612f with SMTP id
- 5a478bee46e88-3685522022emr5207256eec.0.1792667623553; Thu, 22 Oct 2026
- 04:13:43 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=axis.com header.i=@axis.com header.a=rsa-sha256 header.s=selector1 header.b=E0AwbR91
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=EIaJ0Uf41wGhR8naNEsAQ+MXN6VntZ7Mr1JO6au7kkNUudrf2LJMOtaV/sOgQ6hI+3k1a9DacQz8gU9TNct7dJJ2E+uB12y4FT2JcH4AJl6UpXZtXaSfarlZ/hmT0XciPvY2iq5ON6MCKXopBqo3F5IAinEtLV7inYlc0OFf42i0K3HMIl1XrKgTxN25TtpSq9VhmjLMXhIvoUjv9pROqwBWHoP/wK5D6RL2KjhXQFYdJr+aNuAiUtX3VjSBOfCCfsiZ2i3Uc5WZoVQopa//693B1lgaSoJ2wUMcSDBT7Dl9w9gTFfOApSWCV+DQZLxCmsZA2gL/pAMQ5yD0FI5Ydw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=zrSdJXI0fyDD6hWUVp89xFxcypiOfz1nsHq36opR//E=;
+ b=fm5/vnOLJWWbSZyD6v8gHuEiU5Dpu6RXC9kr86duDrJ4hDUbdn6qhJ18bHcz5Vrga5xZQTXhXII1CN32lpyZRKXRaF/AaUhm5QByGK931b64WzPKmLXchi2uQljUxd4atcWor/+kauAdz9FQK20Q+yN93oGePQIJsqyj+JQCn2iQus+eDOm3GqZbS19XBgh0JSf43xM0wM47ka3PdHclVALUWASHc61Tq3z0lo0T3S3R4exrOIHggY5d7d36PbK1Z+rLZf8ksSZx5CnEavBfdbKPzicf4XBVigfM+tcBVBvADoMKkmR4HP+my2Lw4a2ITyBD0zQL82KezNYd/9kkuw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=axis.com; dmarc=pass action=none header.from=axis.com;
+ dkim=pass header.d=axis.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=axis.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=zrSdJXI0fyDD6hWUVp89xFxcypiOfz1nsHq36opR//E=;
+ b=E0AwbR91uszpPg0ZhXWvFfLd7h5xcFMZKzeihmGFug9o72EgA7tzMKiiuHnNLzo6MHVvMUbQG1DesgjFWhQYZUheSsnFkQMWrIJnp0fmFMVJeNdJYf/Mb9/XDURLxrraD0jGc9Z7IlJJ3lDGkpEwO5NgPoD5kUPVmpRimyq5lIY=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=axis.com;
+Received: from PAXPR02MB7344.eurprd02.prod.outlook.com (2603:10a6:102:1c7::8)
+ by AS8PR02MB6952.eurprd02.prod.outlook.com (2603:10a6:20b:2b7::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Thu, 22 Oct
+ 2026 11:16:55 +0000
+Received: from PAXPR02MB7344.eurprd02.prod.outlook.com
+ ([fe80::f0f2:8c3c:c869:c51d]) by PAXPR02MB7344.eurprd02.prod.outlook.com
+ ([fe80::f0f2:8c3c:c869:c51d%6]) with mapi id 15.21.0546.012; Thu, 22 Oct 2026
+ 11:16:55 +0000
+Message-ID: <6a54d7f7-ae22-4ce7-b417-ac9efc7464cb@axis.com>
+Date: Thu, 22 Oct 2026 13:16:54 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] rtc: ds1307: Add driver for Epson RX8901CE
+To: Alexandre Belloni <alexandre.belloni@bootlin.com>
+Cc: Fredrik M Olsson <fredrik.m.olsson@axis.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Nobuhiro Iwamatsu <nobuhiro.iwamatsu.x90@mail.toshiba>,
+ linux-rtc@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, kernel@axis.com
+References: <20260629-ds1307-rx8901-add-v3-1-302dc3cbb71e@axis.com>
+ <f3fd611b-920f-4539-8edb-ecb173f715b0@axis.com>
+ <202610192034497aeb0da5@mail.local>
+Content-Language: en-US
+From: Fredrik M Olsson <fredriol@axis.com>
+In-Reply-To: <202610192034497aeb0da5@mail.local>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MM0P280CA0079.SWEP280.PROD.OUTLOOK.COM
+ (2603:10a6:190:8::12) To PAXPR02MB7344.eurprd02.prod.outlook.com
+ (2603:10a6:102:1c7::8)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,40 +102,128 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20260928011123.450800-1-alistair.francis@wdc.com>
- <as_r8n7p_wdbChuQ@google.com> <CAKmqyKOkmwompJqaP2k-oJicmXmqHY4E0wuLcrvkHLx+oauQ2Q@mail.gmail.com>
- <DM596TT7E841.1U05OKY9N6I6C@nvidia.com> <CAKmqyKMbs_N6C8MAKGUU11DW1y5nJRWPqnUcrVZoyi0SDjsv3g@mail.gmail.com>
-In-Reply-To: <CAKmqyKMbs_N6C8MAKGUU11DW1y5nJRWPqnUcrVZoyi0SDjsv3g@mail.gmail.com>
-From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Thu, 22 Oct 2026 13:13:30 +0200
-X-Gm-Features: AclHuK8IRxRyOadDqQczFV7IA6tccuepCRvhA3-QGnHUz-1woYEjtN6EKSEPPVw
-Message-ID: <CANiq72kWv2HHniM3HXM=DkTbaNWSHsqfA_dKQNihfAdmA_sgnQ@mail.gmail.com>
-Subject: Re: [PATCH v4 00/22] lib: Rust implementation of SPDM
-To: Alistair Francis <alistair23@gmail.com>
-Cc: Alexandre Courbot <acourbot@nvidia.com>, Alice Ryhl <aliceryhl@google.com>, lukas@wunner.de, 
-	linux-cxl@vger.kernel.org, akpm@linux-foundation.org, 
-	Jonathan.Cameron@huawei.com, rust-for-linux@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, jic23@kernel.org, bhelgaas@google.com, 
-	alistair@alistair23.me, djbw@kernel.org, linux-pci@vger.kernel.org, 
-	wilfred.mallawa@wdc.com, a.hindborg@kernel.org, gregkh@linuxfoundation.org, 
-	alex.gaynor@gmail.com, benno.lossin@proton.me, boqun.feng@gmail.com, 
-	bjorn3_gh@protonmail.com, tmgross@umich.edu, gary@garyguo.net, 
-	ojeda@kernel.org, Alistair Francis <alistair.francis@wdc.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PAXPR02MB7344:EE_|AS8PR02MB6952:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7adccf70-8c70-4dae-9e20-08df302dfb23
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|23010399003|376014|1800799024|22082099003|18002099003|10067099003|261021121427099003|3023799007|4143699003|261009223027099003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	toxKbmEa8zbRe5Aj0PlSuXKpI+df2U4S3W0T38OyQRi4jy/MfWfwrX2GBYztaKDm/JZGQfcuMBVyL0PqT0ERnQ0LFt5vNp3N88AdXmy7DMI9j0hl2FcqgJ4lOkF2xIS6nhXvTfwyMPdWFexk7DTsWI8tpMQxF4abWifHnmjLrnlIJqLKvjLq9tFloOdMbHqh9ejwOLvDjQ4tpSCnBLLgNpy3JWf0XsYKLdWCY/p5+XnHoLxaq5xpv8g782Sb2xOQLKLtek5Sk2OpguKQhObeeune2yNtjkCSpjbymj60WU2ir4p/NyicztPguBrXMq4VN4WvdC+dZAFGzlVTiBc0lAfQ311xjDBeK3G/E4eiQUX12MuKoouwX8P24J32ardT4rr3c4X9Bk0gc+cPNIHk1mbVtRbJjy0vwooVrKHK74vmQrgskppPtcLygkF+/xrFsYmk1rt9YKk9facQReNvFiXpQF+6WPLxcFUj25aseO6b714zMqYOMof/Sge6reM8PQkpGOudmOgRZG5Cqrt90kxxuh/Fn2QT+CagbuqzDmt6ZOqKXRdGtXfXXbUjmBHgVXR3Dk4RAyZNxnV2NjoitIC8CEW0UcRS6rixPa8JyimjDTPamIFEwGTmXH4qkI7g
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAXPR02MB7344.eurprd02.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(376014)(1800799024)(22082099003)(18002099003)(10067099003)(261021121427099003)(3023799007)(4143699003)(261009223027099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?TVhNcDVMemxaT2tKVGVqa3dtMUxWK1FvU0RhVFRBN0p0SHhTNGhya1k2TFJQ?=
+ =?utf-8?B?YitOTllGOGRqbU00L2pGYkVEeFJMMGdsdy9VMUlzSGN5WlVLOVlBTkVhbVp6?=
+ =?utf-8?B?WkJxS0N0U0xURFh4bkZPVkZCNDQ3cW1qeHcvUGhtaGFmUUpIandhRzBTL2Rm?=
+ =?utf-8?B?Ym0zYVg1VmthTVo3Z3M4L3c2djd2SnNQUGNna2doOWo3ZTVicDdMeUxLWkNG?=
+ =?utf-8?B?NEsrVmdxVDRhMWVFcmswbjVOWGdsSjV6ODUrdWZyY1hjV1VOUDJlRFhXeklK?=
+ =?utf-8?B?NkZCU2t3U3JEZmJRL0tDWnhRZ2pmYldSWkZYTjY4SGcyM2owdnBzMTk2MVJu?=
+ =?utf-8?B?cnlSL1IvV213YTFncFpBNGI1bExnWTN5QTd4aUhGK2greEw0NWJpZkpFaFBk?=
+ =?utf-8?B?L3o4cWwrTCt6a2RYUkJHNTkxTXdhUGFrb241d25pVG9RcjJGd25DRWNLT2dm?=
+ =?utf-8?B?cUw4VVZLQS8zN2c4Snh1ekpkQmNnbHkwZXlwWEhsdnNUbloxZWtYVVN2Q21I?=
+ =?utf-8?B?dUZyRnNWa2VNVzZhcWRydXlDTDZEM3dlOWFsdFZocjk4dlFtVFYzZmlIS2Z4?=
+ =?utf-8?B?dVZKUkJlamxDcjhJS2tQWHRSancxcE11U2lJVmJiL2x3c0pqZ3ZJYldtbWha?=
+ =?utf-8?B?UmRzTWRMT3ZzOUlTYitWb3QxZklFRW9vSTRIeGpGNktDMHVpWlp3U1AvTWNN?=
+ =?utf-8?B?VWV0MmVxQThCU1VheWFEeTBBNFBTRklsYXRaSTZGNzFPS0pnMlNEMy8zYnRN?=
+ =?utf-8?B?dkpLd3NwcVFWVElMSGJuQ3ZleGIzeDYyaVFEcDNnK0h3OTljcmcwb2psbUMv?=
+ =?utf-8?B?b2hHakhwVlNyeUFoSHprUnErTnNBMU83dTF2S0FOWW1JWGtwZTlKbTBSbnFI?=
+ =?utf-8?B?ZjQxWEpLR25hQ2E1Qy96VWpiZXcvUHh3WFpqNm1WTU5kNHdabXFqdWtmeERG?=
+ =?utf-8?B?N2lwUHM3U203L1dieU91ZkJweE1YUmpGMG1JQnZjRU9FNWRnSU5SS3N2Mi9V?=
+ =?utf-8?B?VXFQQlRXN01kZ096cTViNFJzL2FoTGVKYjhaVlZuazFpQjFKVmRkRlFnSFZx?=
+ =?utf-8?B?ZytmaksrdUdpbm1iOU9sRGtYQTlVVWUyZXl5MjNMb3B6bUhudkJ6SjMrWkRu?=
+ =?utf-8?B?cWVPanN5NGgyUklBdU1nNk9FN3B4czNMUVNJNGlibFFwa1FBeE56bm85dVRa?=
+ =?utf-8?B?VEhCaTlhTDltZ0dCcTJWdzF5Y1ViQXhORUs5d1V2ZnBjOG9JYU5jelFLQ2JX?=
+ =?utf-8?B?N3MrclpmOS9NbmkzMWNzZjc2YnNpdURCS0d6azZVRHpiZkJUNk15SjRGVVg5?=
+ =?utf-8?B?VEYzS0ZVR0tJQXlhbUF6YnZzYUNwVGtGY3dQck1CWFFtaGFBNzYzSWxSU0t1?=
+ =?utf-8?B?K2o2NzB4azhFMlVqRjhvMkV0L1l5RUFWNXArdGtBZjJCYU80YVcreHBCa3dG?=
+ =?utf-8?B?d1VrRkUxRzJWOTZLVm1rTDNZZlZNNlpkWTltd3pIVFJLR0RvQ05pSjY1eE05?=
+ =?utf-8?B?L0F0eVE2NzJDSTRWd05IT0xyVCtoS2o4MzVVdStWSjIvQTdKajhneEF0L1dv?=
+ =?utf-8?B?R1BGL05aWGNoQ2c0NkU1LzNWN2E4cXgzNTRERHRaM2tvbzBxcjdFb2xCakkx?=
+ =?utf-8?B?Vkc2VktHQ0p5V2ZET3F4YlZvaGpKVTdJWE13aXkrMklKQ21IeFdpNXFOZUZP?=
+ =?utf-8?B?V3ZJMytaUzYvODJDWUhaREhXZlArVkx0SWU2ZzVVSDM4RHFyNDFOWmJEa3FF?=
+ =?utf-8?B?SGFBQkVoUnowQW91TmJiQmRSLzRjc0VmREI5S2dJd3FHbDFJeXVIRk03Nnda?=
+ =?utf-8?B?K3hkcGFWZkRublQrS0NmOFdMa2JOeHJwVnh2Y0JYQmZ0N2d0M3FUcmYrdlVN?=
+ =?utf-8?B?MmhveWFnTDdmUm1RbzYrRHdJQ2Y1czNyTUFzSWhaS3l6RWtjOGNLekN2cVo2?=
+ =?utf-8?B?TlRmN1A3Zkw3SDI0Q1VYMG1FT1hKNk9IRHZVRnVvU3Zya3NkTkdCMUZ4ckF0?=
+ =?utf-8?B?T1h3Q1M4ZGtXODZGUmZnOXVuUTRpdGZ0Z21vZ3FHcWRrRlBHVDZMUGtqdC9K?=
+ =?utf-8?B?cVh2NTBoU3BDVDc3RkN2bkhzeGM2aVNGTXU0R2hOd2NmM1pZNjl6NzIxRjVZ?=
+ =?utf-8?B?dVNZbklRMkY0WG1tbzY5RmJhKzd3YUpIVDBrdWtNaHhJTml4L2ZkNlEvN0NU?=
+ =?utf-8?B?SkNPenlBV1d2cEw5bVJINVdSWWlTSnhTVXpVT3dnYmpXbXp4YjdzSUZHMXpj?=
+ =?utf-8?B?UEloS0lCakUwZkcyZ0lIa012WjlRcVNWdjZOWU1RcURzdGJERVI2RnR3d1gr?=
+ =?utf-8?Q?SjNmvZhLoeKnxyIRdy?=
+X-OriginatorOrg: axis.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7adccf70-8c70-4dae-9e20-08df302dfb23
+X-MS-Exchange-CrossTenant-AuthSource: PAXPR02MB7344.eurprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Oct 2026 11:16:55.8389
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 78703d3c-b907-432f-b066-88f7af9ca3af
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: quUnzeSE6xAMCWR6j6T3HGHlK7RS06IUqPA6xJiPJhMezpvMCqrjuFREZnvXHIVltBOsk0+8G0KAZgmBuw3PTw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR02MB6952
 
-On Thu, Oct 22, 2026 at 6:34=E2=80=AFAM Alistair Francis <alistair23@gmail.=
-com> wrote:
->
-> Oh! That is a great idea. I have added that locally and it's pretty
-> nice. I'll tidy it up a bit more and then send a v5
+On 10/19/26 22:34, Alexandre Belloni wrote:
+> Hello,
+> 
+> On 16/10/2026 09:41:14+0200, Fredrik M Olsson wrote:
+>> On 6/29/26 17:13, Fredrik M Olsson wrote:
+>>> Adds support for:
+>>> - Reading and writing time to/from the RTC.
+>>> - Changing Backup Switch Mode (BSM) to DISABLED/DIRECT/LEVEL using the
+>>>     RTC_PARAM_SET ioctl.
+>>> - Optionally enabling battery charging.
+>>> - Reading the battery voltage low status using the RTC_VL_READ ioctl
+>>>     (only supported in LEVEL BSM), which also reports invalid time
+>>>     information if the VLF flag is set.
+>>>
+>>> Signed-off-by: Fredrik M Olsson<fredrik.m.olsson@axis.com>
+>>> ---
+>>> Add basic support for the Epson RX8901CE RTC.
+>>> Datasheet:https://download.epsondevice.com/td/pdf/app/RX8901CE_en.pdf
+>>>
+>>> Also includes a bug fix for an issue with reading the weekday from the
+>>> RTC which affects both the existing rx8130 and this rx8901 driver.
+>>> ---
+>>> Changes in v3:
+>>> - Clear CHGEN when trickle battery charging is disabled.
+>>> - Link to v2:https://lore.kernel.org/r/20260520-ds1307-rx8901-add-v2-0-
+>>> e069ea32e1db@axis.com
+>>>
+>>> Changes in v2:
+>>> - Squashed the Voltage Low status patch into the driver patch
+>>> - Switch from dev_err to dev_dbg
+>>> - Implement Backup Switch Mode (BSM) ioctl instead of hard coding
+>>>     switching mode.
+>>> - Change the prototype for the do_trickle_setup function pointer in
+>>>     order to make it possible to propagate error codes from the added
+>>>     PWSW_CFG register read operation. This read operation is added so not
+>>>     to override previously set register fields.
+>>> - Link to v1:https://lore.kernel.org/r/20251219-ds1307-rx8901-add-v1-0-
+>>> b13f346ebe93@axis.com
+>>
+>> [...]
+>>
+>> Friendly ping.
+> 
+> This was dropped from the queue because kbuild reported warnings and
+> smatch issues on the patch.
+> 
+> Also, I feel like this should actually be a separate driver instead of
+> growing ds1307 larger than it already is.
+> 
+> 
+Thanks for the feedback.
 
-Yeah, to clarify, abstractions do not need to be complete. In fact,
-they should only cover whatever you as a user need, since the kernel
-does not want dead code anyway.
+I will look into the kbuild warnings and smatch issues.
 
-In general, though, we also avoid adding them locally and we involve
-the subsystem maintainers etc.
+Could you clarify what you have in mind for a separate RX8901 driver, 
+and what the main concern you have with adding RX8901 support to ds1307? 
+Is the concern mainly with the changes made to support BSM handling?
 
-Cheers,
-Miguel
+
+-- 
+/Fredrik
