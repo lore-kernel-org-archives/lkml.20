@@ -1,81 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.12
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792686966;
-	b=Z5dn+wKKFTBbUCB4ePXQ34xfVOJjJ0kVoDgAICI6Y0OdYY/Fiae4Q6YyM5W7STf+Xkos
-	 HckExLWo4N4XorBv0FAEAufy+jW7QR6HS8TJz9HMeJx5o+UYjkxtBUUMOlrqhAqBzhARW
-	 2Th6+jqDBKR7HAH8MkFyGCRT7nVJqUfsdg2okr5tKu8tWj5MxCsjfQ+Snzuj7YvUSzI4q
-	 ZHAc+TOav64UgientrISwxUOBQTqGOHzgFvDlrq8pWJt5BjGy9oSe1QStNhtgm/IO1Y7P
-	 muBjByT9laVQXgEazgXbyBkuZBjYwxXN2dwqmRHIcFVb9yY9R2R8gCyqFk342OfnV5g==
+	t=1792687003;
+	b=TFh+IoLbvDi3N/WBZ3A4k6HLMSPtJZqayxnHcr+Ti2YQMae3dT0V3mPUcebFLJgW/o8U
+	 GFbI/f9VrgC22uUWClgebzPBTvZ5R/Ch7hBx+NLe2AxEUN2hlRGck6rO4TZDq9SkeJxTe
+	 jQ/vPf+Pyo7dpSvEzoEn9rPXQBkNM4164xDTg2kYPLhjDouruuPXr+iaifQ0YaxXp3h4x
+	 JQpsd9bgRqyRnS7NDjIGSQIuC9ezIg0Qz+DHwzisDB/uHpq3+bFjnekx+iY0iPjQvDSkl
+	 mcsr/DquNDePl4KlD+1TuUwo07YhwB4uDx3BoUp4g6FPLIfkyVbIHY1Vn16tQUwzlGA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792686966;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=w878p9VACeLLpl7740pkLWeHcq6k++Uy5zzDlCAnlQs=;
-	b=mDS3FvWT5eyTpo0D1zJL2m29zfs30eFCeXvreTExhsCdytg9FHObDAzCVY+yc+9EA88B
-	 vAvrxBq25CMRGU1odRw7QmAkmd8k8OLOtSGGJ3wwt5KU0ysXerfwpJl6r4txHmDjuE76K
-	 hw+tlV3JY/5G7tRDlD5xksPtHfRcuQXQnb/sgD1Uknx8esNcJERzQEwNEl2h6Vk42ZAKv
-	 HEZ861uKf4QNA5FtleE46FPsr0dYY36vhCHyrzt9VLLomspdUaNWSGCcQOOM4/QL3JvEI
-	 7JMWAxTQ+ADuI9Rzox09lnGNyQ1Kyif7vD5kdDkl3Z35zRSVGO9DXCuMNVaWsgb0yUQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792687003;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=R7l9GBldBqggvq/zvWK0w7jaQ7qb61TWRK+g3QMrrtM=;
+	b=X3PXBryY9GXM/44nDkA0SZOmfn5s+8UpBWE7UhgNODHTGwEyEyt0qfUKT0CSyCBflZ9t
+	 fejwqE650nG3BRu0hJnRAFlOtgRA6YOUKcYLEjt8xrzihmkW1bgTyQBM5iHpFW6es7lml
+	 Tx56VRhHRGmS4PB1Yj/IkCBGvEKCg1Q1EFgRrdTWeRYqrirr3VeH0pwwUmgPtHJeZRGnh
+	 hzZxdA24oZVpNc7Ke7deluSavdaIp+wPsOxBkDTjVZIlQByxwtbw4Hsabym8qnank21GK
+	 wFLTuddbF1/rfSR+GESG3J2CmWXldwfsYBsHCE/2vXr2PW9quh0H1Jvxq4wv8t0lmRA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=fFCyMLfp;
-	arc=none smtp.remote-ip=198.175.65.12
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="Vokx/Tg8";
+	arc=none smtp.remote-ip=209.85.128.42
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D7C2606A319;
-	Thu, 22 Oct 2026 16:36:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6D7C2606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B8E7606A31D
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 16:36:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7B8E7606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=fFCyMLfp
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792686965; x=1824222965;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=LEUYGSZsLTD/SVvD/2c4iL2H5I6h5X2TitS2F7JiFls=;
-  b=fFCyMLfpFO/7uO2kYsseMJFBNSxh9IGSehfgTR6WmUiC3nnByd839Rhv
-   kFHg7RYwHXk8oOoo56Lg4nTwJ8LtflmWiZOmO6bBHgGbK/pLrDTeox1YQ
-   Ku29kO3w0U/Kp9uiuw6yCNVJlcgl/78S2E38wGyErX8tZZt8ZoyGdtTbq
-   HkI09rxhxe6xelKQvxSocI7NvG8wxEn1B/EOqDX7UO+XLO2pYKkqo+otf
-   juh3P/K/5hdDg/w7AwHF9D4dVlD4kScIWOuo9MGzRbxHSw8Ca7yfKkxEv
-   Dn7DGvy8/GTQLvQkfHLf5pZipvTD89wMwY1t/5TroFA2cv0pG7g5XH5GV
-   g==;
-X-CSE-ConnectionGUID: nCegt4iDSROe10TCKgBmmA==
-X-CSE-MsgGUID: I5qaOOL1RSaLp7WG3+HBww==
-X-IronPort-AV: E=McAfee;i="6800,10657,11942"; a="1322238"
-X-IronPort-AV: E=Sophos;i="6.27,172,1787036400"; 
-   d="scan'208";a="1322238"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Oct 2026 09:36:04 -0700
-X-CSE-ConnectionGUID: 4Fy5l208SZq9IlKmHFfDBg==
-X-CSE-MsgGUID: 8NNYp9l+TBSxuX5D/cFFhg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,172,1787036400"; 
-   d="scan'208";a="3478948"
-Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.245.189])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Oct 2026 09:36:01 -0700
-Date: Thu, 22 Oct 2026 19:35:59 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Arnav Kapoor <kapoorarnav43@gmail.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, linux-iio@vger.kernel.org,
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] iio: adc: fsl-imx25-gcq: check the return value of the
-Message-ID: <ato7b3ydggC9X0_-@ashevche-desk.local>
-References: <20261021225450.628499-1-kapoorarnav43@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Vokx/Tg8
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a2074a66beso168165e9.0
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 09:36:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792687002; x=1793291802; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=R7l9GBldBqggvq/zvWK0w7jaQ7qb61TWRK+g3QMrrtM=;
+        b=Vokx/Tg8TYjm7F/SKH8DDaZUu92EOwWBEPcfCIIyGelydx+ks+r3kdT/Q7Pf8xeFu5
+         Q93181FjebSTzRVLLMCnCIgs1ZtiJPV3dJTwJgt3PsEDXNq8O0NssbWA7dhYpG5cdMa6
+         rv2M7wIv4eaS+CHYapfxkr5yKhlLjjGMdu1R/j2MjAIXxwdQabrnCVh6EnCXGziI0K9U
+         XlO4jocMxrcN1M2TjO2Qp8EUHcTGoxAeWykVXoJ3K2NFKCv8ujmiHjJGh/puVnGVBQIs
+         LVhhycFDpcGDnbNeR7uxY23W6NEAzsNdg0eK4riZzHlw4Jgm45N8SCjxNdT2OQjGo3b8
+         aq/A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792687002; x=1793291802;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=R7l9GBldBqggvq/zvWK0w7jaQ7qb61TWRK+g3QMrrtM=;
+        b=Urlyxw18MOCzitoXoNrIRoeXVffyC0fhwO/U/d/5WTDhZHJyxskHhQUt+D+Zdc/ONo
+         FnvVwa2NK7G9Q4n+9+8zIkLlW46i9/6UFPgr4j/5RynUBGFFyhaRZD19dylPc++7dDJf
+         e4Nmn82Evjq0RVZhCh6Md1DGWhPuvLv7zGevGNVPCDsslgTx3kvvh/xEwuyHUaKDiLji
+         KJu6nQ+r4vzwqHkmoClimddUiBui8tPaYgsgu6wLA0TXnigkkm18o0Y0JsAiTP8w2enw
+         h39jBrCGhoRmeiPkm+nTsOKwcaubUfG3lUQM+CAX3bHjz/+yZvC5Gi9XoSa8fsXpeMjj
+         DnNQ==
+X-Forwarded-Encrypted: i=1; AKwUvBy5rBnulms/xNd534cmgURUsEDqlzg0xiSyu+OUSv4qMOuL622qall/RthNtzmV7n1wJPF6BDBCabO15kA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKudmeP41a9gRYQXc0YlRQUot1KlIKGAjSAn4RRC0aCNeU7ClAG
+	SFZpwgMqJpKUmTHiNEBWExSsp7yst5gH6nQasCpuwtdGuH7X+Qzv8wXy
+X-Gm-Gg: AYBFou3SWdM1eGZ81qHGhhmfpIG2y81+5PDykqxLlGFk+lJKZXQLoQ53QCS/6GWpGIw
+	T4Foimp2kF4JeoI8tyE/fHe1cT1yo9kKMV5tZmxy3T5dB6u1d3IGeCnn44XEpWb2DHwn4QyugN7
+	xdjEN+jGoHj6yIqQCqFm2VdpXK7VbHbfp5JI8pQVhGZwkydBI4HyPKaX4ZwH1YF7YfXsT3tYYoi
+	Kh9xUpQ8N+TqAXZFusv/eatXP4ClyGyStnx7j52i3uGLm/Hm/Q0qpM/xZhpKX2ELmMDvOZHvjYe
+	EySHwy8tgbiDgUSZK5GWX/cpqNMfSxD/qx2Ss3X9dYFYCBV9rMQqEjjPSn8WzFr01yVpyCyDNjy
+	+Qib5O2AZXIUCz3ScsTDqhec0jNrOVjZTjoUuiEbb1m6oLg0zU494KMM6hx5yR78pJzyu1O1M9W
+	ucnm1ADigmhs1aeclBl7wjMoqAx+j1Zs4w0+tf9bz7tChpl+5ChCHfiTmxT77j7woXgBhbygIxd
+	6z7ZJflc5TT8prIwCHILXsnI4B3eugXIf0QsqtJZbPeOlSZ2V4=
+X-Received: by 2002:a05:600c:620a:b0:4a1:706f:b40d with SMTP id 5b1f17b1804b1-4a1fdb1a609mr102596995e9.7.1792687001668;
+        Thu, 22 Oct 2026 09:36:41 -0700 (PDT)
+Received: from dev1.kernelcare.com ([2a01:4f8:172:1c85::2])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a210299910sm8263415e9.1.2026.10.22.09.36.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 22 Oct 2026 09:36:41 -0700 (PDT)
+From: Andrey Misiurov <andrey.misyrov@gmail.com>
+To: Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>,
+	Xin Long <lucien.xin@gmail.com>
+Cc: Jun Yang <junvyyang@tencent.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	linux-sctp@vger.kernel.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Andrey Misiurov <andrey.misyrov@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH net] sctp: fix ASCONF address change on single-homed hosts
+Date: Thu, 22 Oct 2026 18:36:39 +0200
+Message-ID: <20261022163639.2566945-1-andrey.misyrov@gmail.com>
+X-Mailer: git-send-email 2.43.7
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,39 +103,60 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261021225450.628499-1-kapoorarnav43@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
 
-On Thu, Oct 22, 2026 at 04:24:45AM +0530, Arnav Kapoor wrote:
-> The driver ignores the return value of all the regmap accesses. If one
-> of them fails, e.g. because the memory mapped registers can't be
-> accessed, the driver just continues with an undefined state.
+Commit 9b2854f86f0b ("sctp: don't free the ASCONF's own transport in
+DEL-IP processing") refuses a DEL-IP of the transport the ASCONF was
+located by, so that a later wildcard DEL-IP cannot use it after free.
 
-Can MMIO actually fail? It can give invalid values (due to HW being off or
-wrong MMIO window). It can give a page fault, or some other error in HW,
-but the read itself most likely never fails.
+This also breaks the single-homed address change (RFC 5061 5.3.2). The
+host sends [Address Parameter L] [ADD-IP S] [DEL-IP L], the association
+is located by L, and DEL-IP L is now refused. The sender never gets an
+all-success ASCONF-ACK, keeps src_out_of_asoc_ok set and stops sending
+data, so the association stalls.
 
-> The most severe case is the read of the FIFO in
-> mx25_gcq_get_raw_value(): the destination variable is not initialized,
-> so a failed read leaks uninitialized stack memory to userspace.
-> 
-> Check the return value of all the register accesses and propagate the
-> errors to the caller. In the interrupt handler, where there is not much
-> that can be done about a failed access, just don't use the content of
-> the status register if it can't be read.
+Fix the wildcard DEL-IP instead: look up the transport of the packet
+source rather than reusing asconf->transport, and clear
+asconf->transport when a plain DEL-IP removes it.
 
-I consider this change an unneeded churn until you come up with real life
-example of how MMIO fails (at least on this platform, not exactly with this
-driver).
+Fixes: 9b2854f86f0b ("sctp: don't free the ASCONF's own transport in DEL-IP processing")
+Cc: stable@vger.kernel.org
+Signed-off-by: Andrey Misiurov <andrey.misyrov@gmail.com>
+---
+ net/sctp/sm_make_chunk.c | 15 ++++++++-------
+ 1 file changed, 7 insertions(+), 8 deletions(-)
 
-Yes, I aware that checking for error codes of regmap is a good manners and
-style in general, but would we do jsut that in a standalone change?
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+diff --git a/net/sctp/sm_make_chunk.c b/net/sctp/sm_make_chunk.c
+--- a/net/sctp/sm_make_chunk.c
++++ b/net/sctp/sm_make_chunk.c
+@@ -3150,9 +3150,11 @@
+ 		 * packet MUST be deleted.
+ 		 */
+ 		if (af->is_any(&addr)) {
+-			sctp_assoc_set_primary(asoc, asconf->transport);
+-			sctp_assoc_del_nonprimary_peers(asoc,
+-							asconf->transport);
++			peer = sctp_assoc_lookup_paddr(asoc, &asconf->source);
++			if (!peer)
++				return SCTP_ERROR_REQ_REFUSED;
++			sctp_assoc_set_primary(asoc, peer);
++			sctp_assoc_del_nonprimary_peers(asoc, peer);
+ 			return SCTP_ERROR_NO_ERROR;
+ 		}
+ 
+@@ -3165,13 +3167,9 @@
+ 		if (!peer)
+ 			return SCTP_ERROR_DNS_FAILED;
+ 
+-		/* Don't free asconf->transport; a later wildcard DEL-IP
+-		 * parameter reuses it.
+-		 */
+-		if (peer == asconf->transport)
+-			return SCTP_ERROR_REQ_REFUSED;
+-
+ 		sctp_assoc_rm_peer(asoc, peer);
++		if (asconf->transport == peer)
++			asconf->transport = NULL;
+ 		break;
+ 	case SCTP_PARAM_SET_PRIMARY:
+ 		/* ADDIP Section 4.2.4
