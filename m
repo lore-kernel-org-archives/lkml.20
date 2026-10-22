@@ -1,105 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.193.42
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792672266;
-	b=3Z5SKE4+tKQaW7V72o3Xcf9DE73cvRY5U9lxsk1yNWJT1qMypQx83gayKBQm8D+Q3WTU
-	 bJ/oCX5C20QoCFfrSMleMLzXC4bLynVbDs4HeGFFudyiedfanaCxfxE+cYIqdUxOf5qa+
-	 sD/TnIqbaauoZG7SGYcMzvMTw2rfwlYFt+GQcPp8JUfLBHO+x7rbjPBvjaPs9ey5EkNSZ
-	 2NqehX3UUDlqk6DxNnAPgo76ij7R/jE9uGL0gBHPCdvnzuc5sOC2XLKSZq0Q0ar5jO4GA
-	 8GeGVoGXqcbzPlY9jozxNYnfXvubj6FbqXULhEkP/RKZ8F6d6ZV+TpXUL1C5LV5aLMA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792672266;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=RTyGLxnbCTqT6HIRI5lkLKq/oYEB5sAsVvEJDzosXo0=;
-	b=X12JZ5Siaz6Pa3Nu9Ezbzm8JD80GVSpD+fuEK1fVekXnVo5AFnGvBNnaBOQFlGncN3He
-	 xI/Ub36so/4q3tGQepZjNAUnqTuFnb4nnS/knv8IwtC8uWgEzzzoK6uraYMF7SxtTM6qL
-	 8dtJ5O9iJjnRItMBTppecwDvk+fjBSiE3g62xK0QkfQvv1pPEaZgc/veZsPmbbh5UEKHi
-	 ljlswJUTtUg6DT5VC2n2ZwL2VeCNrZhkso9ZoOA1x+gub3o+ezhoRJCCb0Gm7veme3aSm
-	 zTsnu/2VIiQOWHJikrLQbD34PQPX0fSaDCPLVTRD7BwbtuiNmpdkLD/NbE1VoYs0BsQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=UYUbPTyZ;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.193.42
-Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010042.outbound.protection.outlook.com [52.101.193.42])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=93.77.172.89
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792672308;
+	b=SFfKfCIzERJqvI8KjHYo0UEhYBc80yHchAsvRE7TcZpp60cy5dHoAQB972R45F8/nCXY
+	 mA8IbIFIVeY1OkQtzJV6DDL6gcUpZa/p1CkuhnMd0vZNpAEY8CtTZGse9zagOx/DexxBw
+	 oNk4kiwe3ITo0pyfsrVim1BX4JS+WKqIReKNWBpTuOtWaYeEKVHnfYhwuQoiO99K6WBdF
+	 +7kKrZ9/sTEQkhBxrJ9XjnqznBzlYn4Cyt72pmyU2EZJOiAGt3PacnfiLR9/Kx51hZC6o
+	 zawLBCwYE+hrVVNtw5E++2Mp8Oh8s989CBBadLCGORBeZ9B6gfOSnxXgsq2C1Z40DSg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792672308;
+	h=DMARC-Filter:Received:Received:X-Yandex-Fwd:DKIM-Signature:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=q3ZydI37OZ1HttKtAROplMoe1pmYAu4UxWQIezUQ4ds=;
+	b=vTtxIf6PY8VoKsWglXg1DhYscO4jMruPM5Ws5wx5pmZ/Oegik9YfltoCyAzowp/NSN6u
+	 6aNFQdScyPqF7cUhBDwW2Cdq8K0DNMIzUmnLK7hya4ufK4eTR5jOHUSqY69QugZ1Y8hZC
+	 bKxqAlyX2r9nn8wYLKFTiCke8BPcWV4uruF9GzZvrXqHzropQX4nOmOL+ul8JP9x0fvu9
+	 7Q9IheCWAmoHvr9QjdFkrDD2o73Fep+TgjVfDEf4UbYhmqH0lYZLXnkgi8r7RGXOsw/ZG
+	 +lrs+4g/bw78JMDNAgsUQkSoAB20fLEKDUvuCuJsW+KBkIH5WSxL3vVfYlv0b5smZuA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=sezginduran.net;
+	spf=pass smtp.mailfrom=sezginduran.net;
+	arc=none smtp.remote-ip=93.77.172.89
+Received: from forward504e.mail.yandex.net (forward504e.mail.yandex.net [93.77.172.89])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81C01606A31A;
-	Thu, 22 Oct 2026 12:31:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 81C01606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=UYUbPTyZ
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=NGjdyKehaSnV+KJztIbsIAprjJDmiuGnzysoIh+ATnu5ZtOY6qx959jVocHVqs6GPZ7QyBqSomQOZ+hCRuEuklkQH9IhpgvQHFtQzBaioDP9x9Z/NLuq/lR63t+amVaqbmyZrnPQmRppt3bP6Pw/f2QCGba7p/LeacKdg52ezzp22KASEz2zwzYrY2N7mGquNqWL4Nh7tMVLYLaNqsHwVLYrXHxUUC4DeRzxJwMq9XSOH/twjmdbd9K3+5EseMNE7P0QQg+c9nySQJBRbzt9lpxoc1JrfNxRe1Ar302fP5mITMrwK60FJ8+PXANguVy4YJpM8iyNWiP5WfqRyZgrgQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=RTyGLxnbCTqT6HIRI5lkLKq/oYEB5sAsVvEJDzosXo0=;
- b=cD8Taa1+lMkIi3fi9AhHCj8xmYfodSGe/PcNlje8b9wagaCqN/Swf3D6M3fEoinaCGjr1aM2UaR3ezPDXP9QAra2UY4HFUkXZfkRJBnktwpeFyTZLVi6f3c2dU4Gnz61Nh/2TSlPadQydQK/8kJggT7EIjrrReWZrKh5t5XpsHPyFm099FYKluUXLXskpRzh0RAQ46OYAEAVZOhUauNBO7C1jrNaukclPAvQiw/H9MAqgZtfBF443bqTnUsOWmjmKtu7/LcwVfB+ZkbuhSykvUDvuspifhabFk7ahmxY1cmywq8cUpBMJXct8oKE9j8jxVdBAIHjz0g90+NvdBPdEg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=RTyGLxnbCTqT6HIRI5lkLKq/oYEB5sAsVvEJDzosXo0=;
- b=UYUbPTyZiIy+DCPqBhd4ffzcrbzunVgiqL3mewdpp9aJ8fvR0bMQ7s82dU4wKsU1dYwpuZvSKcjb9hlHyOXh9VM2TJQCBe4El1gG+sIJ0JwVNqY1LmY49Q5Hzj05DMyAhsPmX0zC02ZoCJ0bwmZHMRu5Zj46GA3D/jEztPT/0Y2IKa5jBpPSMvWH4LscZqfgGyKSCrXYJCZcTS0StjPAk30BEEX0M7ZwrmuwYBWp3I2Kh+E9fubLMWdRMFr29a5nSRYFILI6m8LyndFWfpVmXvo6AJ9U92w9kQgRuR3GyT5SkTX0dK0ZcVTkUa0tByBMHiHKLpFrNVEaCiIiXNw0TQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from CHBPR12MB731189.namprd12.prod.outlook.com
- (2603:10b6:610:33d::12) by LV3PR12MB9095.namprd12.prod.outlook.com
- (2603:10b6:408:1a6::22) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Thu, 22 Oct
- 2026 12:31:00 +0000
-Received: from CHBPR12MB731189.namprd12.prod.outlook.com
- ([fe80::b0e5:123d:fe06:e10d]) by CHBPR12MB731189.namprd12.prod.outlook.com
- ([fe80::b0e5:123d:fe06:e10d%6]) with mapi id 15.21.0546.016; Thu, 22 Oct 2026
- 12:31:00 +0000
-Date: Thu, 22 Oct 2026 09:30:58 -0300
-From: Jason Gunthorpe <jgg@nvidia.com>
-To: Alexey Kardashevskiy <aik@amd.com>
-Cc: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>,
-	linux-coco@lists.linux.dev, iommu@lists.linux.dev,
-	linux-kernel@vger.kernel.org, kvm@vger.kernel.org,
-	Bjorn Helgaas <helgaas@kernel.org>, Joerg Roedel <joro@8bytes.org>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Kevin Tian <kevin.tian@intel.com>,
-	Nicolin Chen <nicolinc@nvidia.com>,
-	Samuel Ortiz <sameo@rivosinc.com>,
-	Steven Price <steven.price@arm.com>,
-	Suzuki K Poulose <Suzuki.Poulose@arm.com>,
-	Will Deacon <will@kernel.org>, Xu Yilun <yilun.xu@linux.intel.com>,
-	Shameer Kolothum <shameerali.kolothum.thodi@huawei.com>,
-	Paolo Bonzini <pbonzini@redhat.com>
-Subject: Re: [RFC PATCH v6 09/11] iommufd: Add the vdevice TSM request ioctl
-Message-ID: <20261022123058.GC3008132@nvidia.com>
-References: <20260917140159.1163281-1-aneesh.kumar@kernel.org>
- <20260917140159.1163281-10-aneesh.kumar@kernel.org>
- <179027891417.104879.282447770434616733.b4-review@b4>
- <d9304f91-2371-460b-8616-15a4f96c5674@amd.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <d9304f91-2371-460b-8616-15a4f96c5674@amd.com>
-X-ClientProxiedBy: BL1PR13CA0395.namprd13.prod.outlook.com
- (2603:10b6:208:2c2::10) To CHBPR12MB731189.namprd12.prod.outlook.com
- (2603:10b6:610:33d::12)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEF64606A329
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 12:31:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BEF64606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sezginduran.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sezginduran.net
+Received: from mail-nwsmtp-smtp-production-main-64.yp-c.yandex.net (mail-nwsmtp-smtp-production-main-64.yp-c.yandex.net)
+	by forward504e.mail.yandex.net (postfix) with ESMTPS id 4280BC0297;
+	Thu, 22 Oct 2026 15:31:37 +0300 (MSK)
+Received: by mail-nwsmtp-smtp-production-main-64 with ESMTPSA id XVbdv29gRKo0-p52WTBnr;
+	Thu, 22 Oct 2026 15:31:36 +0300
+X-Yandex-Fwd: 1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sezginduran.net;
+	s=mail; t=1792672296;
+	bh=q3ZydI37OZ1HttKtAROplMoe1pmYAu4UxWQIezUQ4ds=;
+	h=From:In-Reply-To:Cc:Date:References:To:Subject:Message-ID;
+	b=oC1uG78peWml1zjKElT5ZbosVOTtZavm/eI0u1yAOxdsxXxX26SVdkFnqpW5eB9l0
+	 rwq5X4kG6y/Lwd17sfJ9CvjswmgZHLTadjI/yLFS7ozUdFhBSXZlN+lS+sLe4Y17xM
+	 HL+IA+bKyCnqsW9Ej1HzcGl9UHbMIhlCZPoM0I9s=
+Authentication-Results: mail-nwsmtp-smtp-production-main-64; dkim=pass header.i=@sezginduran.net
+Message-ID: <2fd90a2c-a2ab-41ab-bcd1-02831b4e01ca@sezginduran.net>
+Date: Thu, 22 Oct 2026 15:31:32 +0300
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,83 +56,70 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CHBPR12MB731189:EE_|LV3PR12MB9095:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1655390f-5aee-4481-3551-08df30385473
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|23010399003|366016|376014|7416014|4143699003|11063799006|56012099006|18002099003|261009223027099003|10067099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	hMe+yJxuYWLQnN9gnqW4b+N2AfDfDtrctjsHzL/BOXLpQZv/jNtQj/1PcQCCOUMfCOHFPdQ3jcCn9GQzY8S2LFJCY+khielmnB3VTZqBm0CXVJ7tRAE2vuA7v+pKT2/WY1n02e/1HMGHITyPdtHl3RulinCyqs/DI4VPQfr5/eqZ3T21WtYrHpDTxMPX1+7bReFkxAPUYsoLykPjzy6ytMUtI6TyCcDoGGKnyD8T311XcUBAsjmuEIKA1JdR1oUJwpQ+0Gj3P6r17mF/axB0vZTz0gXRzif5GefHiAvKu5NLVL+FxSAgm+QDpJvVWcu0KSseGCLW3oIoWEeSpOq7MaLpl1gzlztHViAvTzB1cJTguCvzOjH6MJcGW1pvaQTj3uNE8H38ZWxLPjeSEAT3mfoUWC39sA2V3BC9HVnhqbCxtjCG1q8XQkgjzEdb9sTn3ZJAtv678LMq4adamyzh80Z8ICKmouUMEq8u0aVB60T9nwFTXgM/2LQvATDJsQKWBhmuH6l8k5LYz0Ng/hzpo6gb0SHkVdfrrK/YsL8cRJrZ1VeBSFrdeJWK1TobXnodQ26I2TlRC6KDChvrUyeU+TER/J5cVL5f+fNs+XGja1TGcJy3pXXc5rwVaHPh4DLBknUy1YT8NQnUDtZTzc5TzfPtjm8m33UXXoGxuGK1g7U=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CHBPR12MB731189.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(366016)(376014)(7416014)(4143699003)(11063799006)(56012099006)(18002099003)(261009223027099003)(10067099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?ZfOD2kZymtuLDeSKd72v8EI38xZHZ2C9xEKK6bYwQcZza0SeKnuWeo62kiD+?=
- =?us-ascii?Q?qNYKn8NxR0ntuLzVgh8bTC6jLAlPxWjc7NAOE8kY9sV93rbULoRVyClgNceO?=
- =?us-ascii?Q?UUnFOZXSFPlrtBb6qzdNmMdM75EWPWVZkgwEGD3XjTrPj5msLKev9e2xVg8f?=
- =?us-ascii?Q?V5dGpRUDFIPw3o08kIws0r9gxsAUNRhIiC1qcC9eob1FacFx/Zp489W3AG81?=
- =?us-ascii?Q?H+FGVecYZlMnHUyRZN5KtnN525XktkRhQvaNtB1VUXZrlRxqbZdK8JD1oStU?=
- =?us-ascii?Q?jzbElDhwQcftEn2nlWHr9DEmH5y6Q2hC7aaugDnYgXAnjKUPvkSRd27LXFUC?=
- =?us-ascii?Q?wyOfskx6D/uK1mabrq+5+rYsd+7ir3hK5qbDoDKPFYm9B12kAu7HrfqC/OYc?=
- =?us-ascii?Q?AMgQfE9mFzCzrZ/u8341ZQ8GvwGqZyftBrOSrjXyZxarBgn2plPG9zJqZOc3?=
- =?us-ascii?Q?nL67l2qZ9xyMjaCw8Xo3WT8NiCzEa1zjeiMR+AMK3Obqsw1Vr9dhGRMbb8lf?=
- =?us-ascii?Q?1J7f8EP49VY+38OFgHCvZsLCqq5VlIfnHUXXrR+ecIjlUPuZzzG9lIIi9Hmf?=
- =?us-ascii?Q?CiyWju2CPRDWgtzCWKIK8DJHW8H1ZvG9Z8KBAYmS7I0x+vvkUVbXc/dNJ4zc?=
- =?us-ascii?Q?l/sOe/w7lQ9BY12ncDhXZ7ri11WXR4D+6o3S0FhgSwXkQ6fqXfIBQUTl3DmK?=
- =?us-ascii?Q?RNsl/iV31vUi2iSxdjRj22+btMEgdUVCWaoQMP+o/3Gtr+QKXhZR8LRz4C5u?=
- =?us-ascii?Q?mgaa6Uqrw3WZbIj+Dya6xACIGm2M+OWt1Mw619Nv5cV1j4ifUCDFHFZilujb?=
- =?us-ascii?Q?cDYF/DgTm5nAUYk8kjqB2WTxv1LUxFJOSVHk/ZoJ+KTHRXBaaHUhkbapct/0?=
- =?us-ascii?Q?QFjQ6d6C+jSnI5V8Vm05sDQtkNo9OV7cZz5TNF4Su3xCOreYrtOC3QMFFgda?=
- =?us-ascii?Q?3iRA7487BxHU990egAcxiUBhAtzmbMXweCb/yNI+x7a/XuJON7iq4NXuecHj?=
- =?us-ascii?Q?OhaqJEOm46At48qo8UqO3iCFVVhekUdlsmGNLMiXcK9mFkf2rKJZSyfnR24M?=
- =?us-ascii?Q?5xJgx8GiMIUyLn/XA734vRm/IqxWzlDMyuEFnE8gF/2gxy55K6qJVA9qzQvI?=
- =?us-ascii?Q?nhDXZhjS9EmGEaiVYpydnTliL9CnoKRfjiyee+sLXtbbnVqRxiljsq8Uim7M?=
- =?us-ascii?Q?Dgr4Chtsnw81YPDM5OHB11P6iq6gOA3kTVhFbE3U6z9mgLm3vpTdC/1ldReN?=
- =?us-ascii?Q?zBs2L3Y7m1y1Hm2Z5eJgkfyxTo1mG5JJP90VjurhZ3Cm3AEAvTPCsiYXGRXO?=
- =?us-ascii?Q?hyl5irxXcIccecGt77svAu3+BiG6+zMOxQgj5aBn9+M5ZnQn+MSLK2n0KqCC?=
- =?us-ascii?Q?CzseDcqFfdQjQkKYUIc/Sq22SzbLDKLaCBLmYhRdtve25/ign79rnLSzOCc8?=
- =?us-ascii?Q?XsJWifqv7Web+8PGhACgghGGdmbUMPSbnVLqBo/mbWcy9UqPZxoPxp732Pm6?=
- =?us-ascii?Q?4Ljk/oZV3yVm3YrvG0pbyDLkqz3lZHy7dIBmytyIghkSAM3XEJnFD6Cziz3/?=
- =?us-ascii?Q?fqfI1Eenh7h4YpsgSQSjdEVzYDwMYcf4pCm/AeozwKXexqF30xSkHv+8V53l?=
- =?us-ascii?Q?GhuSuUNUL2zcZbSRurTQyJ7sm01IAdVZixodg6iZ9rHJBehLYNQRAM8BLdc8?=
- =?us-ascii?Q?RyKmjEeg5F63PfigAeHgyCIEXa1v15ULg6D2eotbLnRZ6p/K?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1655390f-5aee-4481-3551-08df30385473
-X-MS-Exchange-CrossTenant-AuthSource: CHBPR12MB731189.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Oct 2026 12:31:00.3900
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: s/bsln4X0arI7in621dUeFXFdbCjm8LjRrJUMqD3Yv6NeJqNID5OYVzgJzbCcD2h
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR12MB9095
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] staging: rtl8723bs: rename
+ rtw_setstaKey_cmdrsp_callback()
+To: Linus Probert <linus.probert@gmail.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
+References: <20261022122234.443631-1-linus.probert@gmail.com>
+Content-Language: tr
+From: Ahmet Sezgin Duran <ahmet@sezginduran.net>
+In-Reply-To: <20261022122234.443631-1-linus.probert@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Thu, Oct 22, 2026 at 06:16:04PM +1100, Alexey Kardashevskiy wrote:
-> > > [ ... 34 lines skipped ... ]
-> > > +/**
-> > > + * enum iommu_vdevice_tsm_guest_req_op - operation for guest TSM requests
-> > > + * @TSM_REQ_VALIDATE_MMIO: Validate MMIO for the TDI
-> > > + * @TSM_REQ_SET_TDI_STATE: Set TDI state
-> > > + * @TSM_REQ_SEV_ENABLE_DMA: Enable SEV DMA
-> > 
-> > That seems wrong.. The hypervisor should not have control over T=1
-> > DMA.
+On 10/22/26 3:22 PM, Linus Probert wrote:
+> Renames rtw_setstaKey_cmdrsp_callback to rtw_setstakey_cmdrsp_callback
+> in order to conform to kernel code style.
 > 
-> This is a guest request to the PSP which does control T=1, the HV is
-> forwarding it and does some extra stuff while there. Probably could
-> be decoupled and go to a separate ioctl().
+> Found using checkpatch.pl
+> 
+> Signed-off-by: Linus Probert <linus.probert@gmail.com>
+> ---
+>   drivers/staging/rtl8723bs/core/rtw_cmd.c    | 4 ++--
+>   drivers/staging/rtl8723bs/include/rtw_cmd.h | 2 +-
+>   2 files changed, 3 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/staging/rtl8723bs/core/rtw_cmd.c b/drivers/staging/rtl8723bs/core/rtw_cmd.c
+> index 9fc62cb1ae01..81aef5ffe685 100644
+> --- a/drivers/staging/rtl8723bs/core/rtw_cmd.c
+> +++ b/drivers/staging/rtl8723bs/core/rtw_cmd.c
+> @@ -34,7 +34,7 @@ static struct _cmd_callback rtw_cmd_callback[] = {
+>   	{SET_AUTH_CMD, NULL},
+>   
+>   	{SET_KEY_CMD, NULL},	/*20*/
+> -	{SET_STA_KEY_CMD, &rtw_setstaKey_cmdrsp_callback},
+> +	{SET_STA_KEY_CMD, &rtw_setstakey_cmdrsp_callback},
+>   	{SET_ASSOC_STA_CMD, &rtw_setassocsta_cmdrsp_callback},
+>   	{DEL_ASSOC_STA_CMD, NULL},
+>   	{SET_STA_PWR_STATE_CMD, NULL},
+> @@ -1876,7 +1876,7 @@ void rtw_createbss_cmd_callback(struct adapter *padapter, struct cmd_obj *pcmd)
+>   	rtw_free_cmd_obj(pcmd);
+>   }
+>   
+> -void rtw_setstaKey_cmdrsp_callback(struct adapter *padapter,  struct cmd_obj *pcmd)
+> +void rtw_setstakey_cmdrsp_callback(struct adapter *padapter,  struct cmd_obj *pcmd)
+>   {
+>   	struct sta_priv *pstapriv = &padapter->stapriv;
+>   	struct set_stakey_rsp *psetstakey_rsp = (struct set_stakey_rsp *)(pcmd->rsp);
+> diff --git a/drivers/staging/rtl8723bs/include/rtw_cmd.h b/drivers/staging/rtl8723bs/include/rtw_cmd.h
+> index 75a774f8c4f3..9b801a61b69b 100644
+> --- a/drivers/staging/rtl8723bs/include/rtw_cmd.h
+> +++ b/drivers/staging/rtl8723bs/include/rtw_cmd.h
+> @@ -593,7 +593,7 @@ void rtw_joinbss_cmd_callback(struct adapter  *padapter, struct cmd_obj *pcmd);
+>   void rtw_createbss_cmd_callback(struct adapter  *padapter, struct cmd_obj *pcmd);
+>   void rtw_getbbrfreg_cmdrsp_callback(struct adapter  *padapter, struct cmd_obj *pcmd);
+>   
+> -void rtw_setstaKey_cmdrsp_callback(struct adapter  *padapter,  struct cmd_obj *pcmd);
+> +void rtw_setstakey_cmdrsp_callback(struct adapter  *padapter,  struct cmd_obj *pcmd);
+>   void rtw_setassocsta_cmdrsp_callback(struct adapter  *padapter,  struct cmd_obj *pcmd);
+>   void rtw_getrttbl_cmdrsp_callback(struct adapter  *padapter,  struct cmd_obj *pcmd);
+>   
 
-Presumably the guest request is encrypted/authenticated somehow?
-Otherwise it is security broken if the host can forge a T=1 control.
+This driver is going to be deleted in the next release, have a look:
 
-If that's so this should just be some AMD_PSP_AUTHENTICATED_COMMAND it
-doesn't need more detail?
+https://lore.kernel.org/linux-staging/7e53bd59b7b146caabebeca4347674c7@realtek.com/
 
-Also, reminder, since none of this is actually multi-vendor before
-anything goes into the uapi header it needs a concrete public spec
-reference to what exactly it is carrying through the uAPI.
-
-Jason
+Regards,
+Ahmet Sezgin Duran
