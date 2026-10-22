@@ -1,94 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792671324;
-	b=FgiwfL+G12JOw5Z7uJsjfaAHx6w7IX7qqJepHz/MROAin58Wj02yuheSDjpnN2AMsuNx
-	 e7pW/gvDUVonpRv0M3MjpyGB6WY/yvLv13mPjytkRnsWRyx0HwJ678zMqZaEzjgD6/fKq
-	 13THaoWEJSe8JdsOwc4qdPxoxzxo3lCZA5RBr0wt1hp7QTz8z7sL1xdlXrVGTswCG7Clq
-	 aWypfvW3ZDNvEkukXHBhF/KFLKe7VjeB6CktG7HVnM4VNAPjroquU2/WD7PSRDPtqVXSY
-	 eTAGOySZ3vCOPhV8ZGYdYEgxYNzPMSRxnZXEwNv3AELj64vE17zlricdwIGC5HTzQ8Q==
+	t=1792671328;
+	b=nduYTvSQmd71j2UXNcKQuHw8ez758eRqPQtdtBKL7L8KIJZIw5tIVpgUFXpnp7ekPfc7
+	 Jl58+nzalV+HO+4oOIEfyJqsMOcMTPUjB14HKqMv2j1fJuZzV3NbZGX0bB5Oj2xPGA4Vy
+	 yQbmkFsIBAYriCwyHcoBgtzHmph0NYT4PMKngi2OsZuynO6nLUseYCzV4k4lR+vPxQAui
+	 yK6WpmCvA9ZsDxrSiw2CG1jRKgqAA6DJrpEDd6UjLPJAIJ2h/Z/f8tfOX/NyhH9weFlTI
+	 SRAh5j0knfCMIOkw28wvPp0v4MXGd54PGUyXZ6hglTLrvpvgST8/gE02nKJnz0jHj8Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792671324;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=liXoAECJvGKDAVp+mXVo2aameKZCDOraoLb79YpUHfc=;
-	b=W5XhiK6iR5EWVV3eqKd3RS8ESeub3eLCl3xJP+0tQkZ+wj+32WWfo+SgO5G+q//DhZvu
-	 Gasl8zl8yiLGPGkAVVzidDIIVV9rTZcT848AUJprPyOtB07b2J1u0olacw+W5iDZeHedh
-	 l2tI4qvf62w4j+E/++AtYe+khXi+DeLT+TR12kREoVR4OJujrekOmoitycBLmY9i+9gIu
-	 IbFQTM6755pxVt9YzuZFFWaEVKo111d/knWNzPMVoeg16PiIoUlvhM74iuVdt7nKPxjDl
-	 CM5/crfTeKBnQ0w8DH3iSHVPC3Y4IOwAQbsCoiMoS9iOUm4lcRs0v7GeIIWeNFOfUwg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792671328;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
+	bh=fli1I/DAv/s44h+ktF75MEwAY1cq8YcunEH3YGZ4JVA=;
+	b=zQ1nQURRTDjlyGZzZ2VqMmUfdp/601culPk+YSvRqC7B/8fRXUx56bffK9plCcz1AiY2
+	 C60/USh7YUA79ooz0rANRyXC0++ntDBSNAELFpsNQM3BNfUQXLkEqmmHpmABr6qQL4HD5
+	 WOYXLdaOnqguYlpPyYsMvLPzIRW71IFf4jTMvtJY/o4rc/z0j+BIhdDtkNhSMWCYqaFoA
+	 wroDY/1JDW1LVcpsy4OAkE6B03wqNOAa8tp8Ai3NEsbN28pmgl6DfLIkB1yzgwvlx5SFx
+	 DPNksFHfzBnZvqqldM4iDiq3EaZKtszYyIAaiDLKI2dnwPqh3wDSapmMBaVZuqJE3/w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Cd+z8of7;
-	arc=none smtp.remote-ip=209.85.216.42
-Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F451606A319
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 12:15:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1F451606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=BOetNGe8;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 49389606A319
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 12:15:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 49389606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Cd+z8of7
-Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-3ad787b79ffso1055567a91.1
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 05:15:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792671322; x=1793276122; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=liXoAECJvGKDAVp+mXVo2aameKZCDOraoLb79YpUHfc=;
-        b=Cd+z8of7rwPCwWQ2vQXVXeTp50yv76LgMCApDqmuLv0/0WmmK2MUDPB8rYf8IHF7jo
-         Vys6rXj2O7SD6s2CIrHj1feFtlRFQEuKrPd+TvtOHCuGDWMyKCDjw0Op04sXQkamxw5b
-         fsy8fS7qvL+8tZA73nB+OeklB0D4HSlIXQbOBkL0cCzpctQFAyVB4COpomsc/SaUfslA
-         smUjlAQtJfXJN8nar+9tqfB/wVboZ99s6uOeFqiClOd6DDcjTORZKKD2KkS9dS+wNjbe
-         3bEq1DztRvBaFBpkUWilcEcAIYD6PZ0+WEhwm9XbvMn1tpL/1FZrND2ojma5ZmxbdBId
-         zcxw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792671322; x=1793276122;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=liXoAECJvGKDAVp+mXVo2aameKZCDOraoLb79YpUHfc=;
-        b=Kj/XxEDVL8iO5b1BvbfGR5gzIY63LlUqe+I/81OxNQjxOQ/nh8HQ75IQv/amTFzoe5
-         EuAenKww0I0iOmshshHyKyb74YNWhC9l0zhu+4qmEVDa6zUQ+nnINLMu97jpGW2O8vkG
-         u2L87B/5ybpGEK8CFu9nTIls9H89TkpsPuaQkTXrgv5t/m23c+2DS3uOhRSjRDFqD9IU
-         RXqyLaybr/cog1EeXDfdMQ2bAG9goQCgzYEtA0kh9G1zqDCQcDVdzkK8jH+Fcv4l/CcF
-         UymlDNYQlxGxyW/pa1xN/Ny1xW/Z9lpBJkSTSUcGcOyGjWRv8uLTTSaIOYAz4Vc0LcsW
-         LrRw==
-X-Forwarded-Encrypted: i=1; AKwUvBzbo8W8FxMWNjLhLMyZVS++4o1otjkdaLy4CwQCUQiUoI/4Lf7+bp6WHny0mWbLb6ZSm1KtmckBD9JhKNQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJamBfjmfzrznfs1VbfOnl6Kt0OlBGX9UcQIYxM8fWWyYATRHwc
-	gmzHMJwiqxPB15w+eGYKeEESuTF7LgZdJevL38Ti/VGacEc2uCGYNJ88
-X-Gm-Gg: AYBFou1EabppR9UJjWIJ0gaJ1QpBFwbQeLKb+ZZT36LuSsDAQX8GoTU1WOXwH8eKbdS
-	8O+CumI0W0dBFd18hvWqtkB8DYjh/F3VvQmU//hnz+9iMsVWtXpj25hp1YrDWugcNYE6X7v5g6t
-	7IPfg3i4NGUh6m++ibscgwAjOGb3fpciffvbPVssCXJw9QTpKREm15MokevCHTWkkxWSMyvGXsO
-	bJ5FH/O1LPEZdZbOOCzRJvAeVeJYJ4QSEDjtwbj7yyDVPD1obQ7cIVWTzshCxtKp8xgZPyfinGN
-	ZQYQ+6h5SQePI/A/yPENxToLzBOOSqxSi8tkKFySwmDaEgUo5OFoIj8O3TE3bPNqMEZ5nfmakXt
-	KzG1hEEuO95UAYOfz3r8O0xTXZjGZODqivEb1NGHQ6Q1FoZQfxKZrUqu7mIc/6GwJFXyAWspMah
-	kI8k9AfvGTBPuDcfdtjUcOc1HbNlJo1TB1rPobiYDCosJkyqmAP8z5dZTIyZyHmSgNQ1FgmE570
-	L3U+sCaLXZ7zrpR19PTUdsiXXHrVdVTxmfV+ofi+zhN0GLpCgs=
-X-Received: by 2002:a17:90b:1646:b0:3ac:9669:8464 with SMTP id 98e67ed59e1d1-3ad86cf2be4mr3988163a91.24.1792671322156;
-        Thu, 22 Oct 2026 05:15:22 -0700 (PDT)
-Received: from localhost ([111.228.63.84])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ada490d4bfsm4777062a91.10.2026.10.22.05.15.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 05:15:21 -0700 (PDT)
-From: Cen Zhang <zzzccc427@gmail.com>
-To: marcel@holtmann.org,
-	luiz.dentz@gmail.com
-Cc: linux-bluetooth@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	baijiaju1990@gmail.com,
-	jjzuming@gmail.com,
-	zzzccc427@gmail.com
-Subject: [PATCH v3] Bluetooth: MGMT: Serialize power-on with power-off completion
-Date: Thu, 22 Oct 2026 20:15:15 +0800
-Message-Id: <pm-bluetooth-objects-candidate-0063-v15-e728a3f8014489975c69@gmail.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=BOetNGe8
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 39E1C2F27
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 05:15:23 -0700 (PDT)
+Received: from [192.168.0.1] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 109E83F7B4
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 05:15:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1792671326; bh=BwJWT+22mrQR1yWB5Xgl/7uwWq/Yh+H3GpcLyKV/Wsg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=BOetNGe8z9bnnT/5BlnlXKSRdmGpgLWAkmD8vBDxxaw+mYTkp7FYMsB+v9mulqBOx
+	 F8ijaMdgG5qRwpwD3Ye9HBlfLtf0rb6B+pjU2A3yiknV+xSoFfmJIPQyGvFzgSHqc/
+	 mX8qGlPxa5+k+nuHZhTkaa6PfABiRBRnRjBgR7rI=
+Date: Thu, 22 Oct 2026 13:15:13 +0100
+From: Liviu Dudau <liviu.dudau@arm.com>
+To: Lukas Zapolskas <lukas.zapolskas@arm.com>
+Cc: Daniel Almeida <daniel.almeida@collabora.com>,
+	Alice Ryhl <aliceryhl@google.com>,
+	Boris Brezillon <boris.brezillon@collabora.com>,
+	Steven Price <steven.price@arm.com>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+	nd@arm.com, Mihail Atanassov <mihail.atanassov@arm.com>
+Subject: Re: [PATCH v7 1/8] drm/panthor: Add performance counter uAPI
+Message-ID: <atn-Ue5pr6PrbMQW@e142607>
+References: <20261011-panthor-performance-counters-v7-0-12c32495062f@arm.com>
+ <20261011-panthor-performance-counters-v7-1-12c32495062f@arm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,250 +68,467 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261011-panthor-performance-counters-v7-1-12c32495062f@arm.com>
 
-mgmt_set_powered_complete() must consume only its own SET_POWERED
-command. __mgmt_power_off() frees that command before its destroy callback
-runs, and mgmt_pending_valid() recognizes pending commands only by address.
+On Sun, Oct 11, 2026 at 06:36:48PM +0100, Lukas Zapolskas wrote:
+> This patch extends the DEV_QUERY ioctl to return information about the
+> performance counter setup for userspace, and introduces the new
+> DRM_PANTHOR_PERF_SESSION ioctls in order to allow for the sampling of
+> performance counters.
+> 
+> The new design is inspired by the perf aux ringbuffer [0], with the
+> insert and extract indices being mapped to userspace, allowing
+> multiple samples to be exposed at any given time. The buffer is
+> annotated to include sample metadata and block metadata inline with
+> the elements they describe.
+> 
+> Userspace is responsible for passing in resources for samples to be
+> exposed, including the event file descriptor for notification of new
+> sample availability, the ringbuffer BO to store samples, and the
+> control BO.
+> 
+> [0]: https://docs.kernel.org/userspace-api/perf_ring_buffer.html
+> 
+> Co-developed-by: Mihail Atanassov <mihail.atanassov@arm.com>
+> Signed-off-by: Mihail Atanassov <mihail.atanassov@arm.com>
+> Signed-off-by: Lukas Zapolskas <lukas.zapolskas@arm.com>
+> ---
+>  include/uapi/drm/panthor_drm.h | 370 +++++++++++++++++++++++++++++++++++++++++
+>  1 file changed, 370 insertions(+)
+> 
+> diff --git a/include/uapi/drm/panthor_drm.h b/include/uapi/drm/panthor_drm.h
+> index a2ff0f4ec691..e45f75b76245 100644
+> --- a/include/uapi/drm/panthor_drm.h
+> +++ b/include/uapi/drm/panthor_drm.h
+> @@ -154,6 +154,23 @@ enum drm_panthor_ioctl_id {
+>  	 * This is useful for imported BOs.
+>  	 */
+>  	DRM_PANTHOR_BO_QUERY_INFO,
+> +
+> +	/** @DRM_PANTHOR_PERF_SESSION_CREATE: Create a performance counter session. */
+> +	DRM_PANTHOR_PERF_SESSION_CREATE,
+> +
+> +	/** @DRM_PANTHOR_PERF_SESSION_START: Start a performance counter session. */
+> +	DRM_PANTHOR_PERF_SESSION_START,
+> +
+> +	/** @DRM_PANTHOR_PERF_SESSION_SAMPLE: Request a manual sample on a performance counter
+> +	 * session.
+> +	 */
+> +	DRM_PANTHOR_PERF_SESSION_SAMPLE,
+> +
+> +	/** @DRM_PANTHOR_PERF_SESSION_STOP: Stop a performance counter session. */
+> +	DRM_PANTHOR_PERF_SESSION_STOP,
+> +
+> +	/** @DRM_PANTHOR_PERF_SESSION_DESTROY: Destroy a performance counter session. */
+> +	DRM_PANTHOR_PERF_SESSION_DESTROY,
+>  };
+>  
+>  /**
+> @@ -256,6 +273,9 @@ enum drm_panthor_dev_query_type {
+>  
+>  	/** @DRM_PANTHOR_DEV_QUERY_MMU_INFO: Query MMU information. */
+>  	DRM_PANTHOR_DEV_QUERY_MMU_INFO,
+> +
+> +	/** @DRM_PANTHOR_DEV_QUERY_PERF_INFO: Query performance counter interface information. */
+> +	DRM_PANTHOR_DEV_QUERY_PERF_INFO,
+>  };
+>  
+>  /**
+> @@ -517,6 +537,93 @@ struct drm_panthor_group_priorities_info {
+>  	__u8 pad[3];
+>  };
+>  
+> +/**
+> + * enum drm_panthor_perf_block_type - Performance counter supported block types.
+> + */
+> +enum drm_panthor_perf_block_type {
+> +	/** @DRM_PANTHOR_PERF_BLOCK_METADATA: Internal use only. */
+> +	DRM_PANTHOR_PERF_BLOCK_METADATA = 0,
+> +
+> +	/** @DRM_PANTHOR_PERF_BLOCK_FW: The FW counter block. */
+> +	DRM_PANTHOR_PERF_BLOCK_FW,
+> +
+> +	/** @DRM_PANTHOR_PERF_BLOCK_CSHW: The CSHW counter block. */
+> +	DRM_PANTHOR_PERF_BLOCK_CSHW,
+> +
+> +	/** @DRM_PANTHOR_PERF_BLOCK_TILER: The tiler counter block. */
+> +	DRM_PANTHOR_PERF_BLOCK_TILER,
+> +
+> +	/** @DRM_PANTHOR_PERF_BLOCK_MEMSYS: A memsys counter block. */
+> +	DRM_PANTHOR_PERF_BLOCK_MEMSYS,
+> +
+> +	/** @DRM_PANTHOR_PERF_BLOCK_SHADER: A shader core counter block. */
+> +	DRM_PANTHOR_PERF_BLOCK_SHADER,
+> +
+> +	/** @DRM_PANTHOR_PERF_BLOCK_FIRST: Internal use only. */
+> +	DRM_PANTHOR_PERF_BLOCK_FIRST = DRM_PANTHOR_PERF_BLOCK_FW,
+> +
+> +	/** @DRM_PANTHOR_PERF_BLOCK_LAST: Internal use only. */
+> +	DRM_PANTHOR_PERF_BLOCK_LAST = DRM_PANTHOR_PERF_BLOCK_SHADER,
+> +
+> +	/** @DRM_PANTHOR_PERF_BLOCK_MAX: Internal use only. */
+> +	DRM_PANTHOR_PERF_BLOCK_MAX = DRM_PANTHOR_PERF_BLOCK_LAST + 1,
+> +};
+> +
+> +/**
+> + * struct drm_panthor_perf_info - Performance counter interface information
+> + *
+> + * Structure grouping all queryable information relating to the performance counter
+> + * interfaces.
+> + */
+> +struct drm_panthor_perf_info {
+> +	/**
+> +	 * @counters_per_block: The number of 8-byte counters available in a block.
+> +	 */
+> +	__u32 counters_per_block;
+> +
+> +	/**
+> +	 * @sample_header_size: The size of the header struct available at the beginning
+> +	 * of every sample.
+> +	 */
+> +	__u32 sample_header_size;
+> +
+> +	/**
+> +	 * @block_header_size: The size of the header struct inline with the counters for a
+> +	 * single block.
+> +	 */
+> +	__u32 block_header_size;
+> +
+> +	/**
+> +	 * @sample_size: The size of a fully annotated sample, starting with a sample header
+> +	 *               of size @sample_header_size bytes, and all available blocks for the current
+> +	 *               configuration, each comprised of @counters_per_block 64-bit counters and
+> +	 *               a block header of @block_header_size bytes.
+> +	 *
+> +	 *               The user must use this field to allocate size for the ring buffer. In
+> +	 *               the case of new blocks being added, an old userspace can always use
+> +	 *               this field and ignore any blocks it does not know about.
+> +	 */
+> +	__u32 sample_size;
+> +
+> +	/** @fw_blocks: Number of FW blocks available. */
+> +	__u32 fw_blocks;
+> +
+> +	/** @cshw_blocks: Number of CSHW blocks available. */
+> +	__u32 cshw_blocks;
+> +
+> +	/** @tiler_blocks: Number of tiler blocks available. */
+> +	__u32 tiler_blocks;
+> +
+> +	/** @memsys_blocks: Number of memsys blocks available. */
+> +	__u32 memsys_blocks;
+> +
+> +	/** @shader_blocks: Number of shader core blocks available. */
+> +	__u32 shader_blocks;
+> +
+> +	/** @pad1: MBZ. */
+> +	__u32 pad1;
+> +};
+> +
+>  /**
+>   * struct drm_panthor_dev_query - Arguments passed to DRM_PANTHOR_IOCTL_DEV_QUERY
+>   */
+> @@ -1270,6 +1377,259 @@ struct drm_panthor_bo_query_info {
+>  	__u32 pad;
+>  };
+>  
+> +/**
+> + * DOC: Performance counter decoding in userspace.
+> + *
+> + * Each sample will be exposed to userspace in the following manner:
+> + *
+> + * +--------+--------+------------------------+--------+-------------------------+-----+
+> + * | Sample | Block  |        Block           | Block  |         Block           | ... |
+> + * | header | header |        counters        | header |         counters        |     |
+> + * +--------+--------+------------------------+--------+-------------------------+-----+
+> + *
+> + * Each sample starts with a &struct drm_panthor_perf_sample_header containing
+> + * timestamps, sample flags and the command's user data.
+> + *
+> + * Each block starts with a &struct drm_panthor_perf_block_header identifying its
+> + * type and index, followed by counters_per_block 64-bit counters, as reported by
+> + * &struct drm_panthor_perf_info.
+> + */
+> +
+> +/**
+> + * struct drm_panthor_perf_block_header - Header present before every block in the
+> + * sample ringbuffer.
+> + */
+> +struct drm_panthor_perf_block_header {
+> +	/** @block_type: Type of the block. */
+> +	__u8 block_type;
+> +
+> +	/** @block_idx: Block index. */
+> +	__u8 block_idx;
+> +
+> +	/** @pad0: MBZ. */
+> +	__u8 pad0[6];
+> +};
+> +
+> +/**
+> + * enum drm_panthor_perf_sample_flags - Sample-wide events that occurred over the sampling
+> + * period.
+> + */
+> +enum drm_panthor_perf_sample_flags {
+> +	/**
+> +	 * @DRM_PANTHOR_PERF_SAMPLE_OVERFLOW: This sample contains overflows due to the duration
+> +	 * of the sampling period.
+> +	 */
+> +	DRM_PANTHOR_PERF_SAMPLE_OVERFLOW = 1 << 0,
+> +};
+> +
+> +/**
+> + * struct drm_panthor_perf_sample_header - Header present before every sample.
+> + */
+> +struct drm_panthor_perf_sample_header {
+> +	/**
+> +	 * @timestamp_start_ns: Earliest timestamp that values in this sample represent, in
+> +	 * nanoseconds. Derived from CLOCK_MONOTONIC_RAW.
+> +	 */
+> +	__u64 timestamp_start_ns;
+> +
+> +	/**
+> +	 * @timestamp_end_ns: Latest timestamp that values in this sample represent, in
+> +	 * nanoseconds. Derived from CLOCK_MONOTONIC_RAW.
+> +	 */
+> +	__u64 timestamp_end_ns;
+> +
+> +	/** @flags: Current sample flags, combination of drm_panthor_perf_sample_flags. */
+> +	__u32 flags;
+> +
+> +	/** @pad: MBZ. */
+> +	__u32 pad;
+> +
+> +	/**
+> +	 * @user_data: User data provided as part of the command that triggered this sample.
+> +	 */
+> +	__u64 user_data;
+> +};
+> +
+> +/**
+> + * enum drm_panthor_perf_counter_set - The counter set to be requested from the hardware.
+> + *
+> + * The hardware supports a single performance counter set at a time, so requesting any set other
+> + * than the primary may fail if another process is sampling at the same time.
+> + *
+> + * If in doubt, the primary counter set has the most commonly used counters and requires no
+> + * additional permissions to open.
+> + */
+> +enum drm_panthor_perf_counter_set {
+> +	/**
+> +	 * @DRM_PANTHOR_PERF_SET_PRIMARY: The default set configured on the hardware.
+> +	 *
+> +	 * This is the only set for which all counters in all blocks are defined.
+> +	 */
+> +	DRM_PANTHOR_PERF_SET_PRIMARY,
+> +
+> +	/** @DRM_PANTHOR_PERF_SET_SECONDARY: The secondary performance counter set. */
+> +	DRM_PANTHOR_PERF_SET_SECONDARY,
+> +
+> +	/** @DRM_PANTHOR_PERF_SET_TERTIARY: The tertiary performance counter set.*/
+> +	DRM_PANTHOR_PERF_SET_TERTIARY,
+> +};
+> +
+> +/**
+> + * struct drm_panthor_perf_ringbuf_control - Struct used to map in the ring buffer control indices
+> + *                                           into memory shared between user and kernel.
+> + *
+> + */
+> +struct drm_panthor_perf_ringbuf_control {
+> +	/**
+> +	 * @extract_idx: Number of samples consumed or discarded by userspace. Only
+> +	 *               modifiable by userspace.
+> +	 */
+> +	__u64 extract_idx;
 
-The power-on handler can reuse the address, but it is not the only
-allocator. A concurrent set_mesh() can also publish another pending command
-at that address after close drops hdev->lock:
+Then it should be made const?
 
-  Close request worker              Management socket
-  --------------------              -----------------
-  __mgmt_power_off(): free cmd
-  hci_dev_close_sync(): unlock
-                                    set_mesh(): allocate replacement
-  completion: claim old address
-                                    submission fails: remove/free cmd
-  completion: access replacement
+> +
+> +	/**
+> +	 * @insert_idx: Number of samples emitted by the kernel. Only modifiable by
+> +	 *              the kernel.
+> +	 */
+> +	__u64 insert_idx;
+> +};
+> +
+> +/**
+> + * struct drm_panthor_perf_session_create - Arguments passed to DRM_PANTHOR_PERF_SESSION_CREATE.
+> + */
+> +struct drm_panthor_perf_session_create {
+> +	/**
+> +	 * @block_set: Set of performance counter blocks, member of
+> +	 *             enum drm_panthor_perf_counter_set.
+> +	 *
+> +	 * This is a global configuration and only one set can be active at a time. If
+> +	 * another client has already requested a counter set, any further requests
+> +	 * for a different counter set will fail and return an -EBUSY.
+> +	 *
+> +	 * If the requested set does not exist, the request will fail and return an -EINVAL.
+> +	 *
+> +	 * Some sets have additional requirements to be enabled, and the setup request will
+> +	 * fail with an -EACCES if these requirements are not satisfied.
+> +	 */
+> +	__u8 block_set;
+> +
+> +	/** @pad: MBZ. */
+> +	__u8 pad[7];
 
-Serialize power-on publication with req_lock, which the request worker
-holds through its destroy callback. Keep power-off cancellation outside
-that mutex and keep the req_lock -> hdev->lock ordering.
+What's the reason for this large pad at the beginning of the struct?
 
-Also hold hdev->lock while finding the pending SET_POWERED command,
-checking its identity, and consuming it. An unrelated command at the old
-address then fails the opcode-specific lookup without being unlinked.
-Power-on cannot reuse a SET_POWERED address until the old callback drops
-req_lock, and power-off allocates no command once the device is down.
+> +
+> +	/** @fd: eventfd for signalling the availability of a new sample. */
+> +	__u32 fd;
+> +
+> +	/** @ringbuf_handle: Handle to the BO to write perf counter sample to. */
+> +	__u32 ringbuf_handle;
+> +
+> +	/**
+> +	 * @control_handle: Handle to the BO containing a contiguous 16 byte range, used for the
+> +	 * insert and extract indices for the ringbuffer.
+> +	 */
+> +	__u32 control_handle;
+> +
+> +	/**
+> +	 * @sample_slots: The number of slots available in the userspace-provided BO. Must be
+> +	 * a power of 2.
+> +	 *
+> +	 * If sample_slots * sample_size does not match the BO size, the setup request will fail.
+> +	 */
+> +	__u32 sample_slots;
+> +
+> +	/**
+> +	 * @fw_enable_mask: Bitmask of counters to request from the FW counter block. Any bits
+> +	 * past the first drm_panthor_perf_info.counters_per_block bits will be ignored. Bit 0
+> +	 * corresponds to counter 0.
+> +	 */
+> +	__u64 fw_enable_mask[2];
+> +
+> +	/**
+> +	 * @cshw_enable_mask: Bitmask of counters to request from the CSHW counter block. Any bits
+> +	 * past the first drm_panthor_perf_info.counters_per_block bits will be ignored. Bit 0
+> +	 * corresponds to counter 0.
+> +	 */
+> +	__u64 cshw_enable_mask[2];
+> +
+> +	/**
+> +	 * @tiler_enable_mask: Bitmask of counters to request from the tiler counter block. Any
+> +	 * bits past the first drm_panthor_perf_info.counters_per_block bits will be ignored. Bit
+> +	 * 0 corresponds to counter 0.
+> +	 */
+> +	__u64 tiler_enable_mask[2];
+> +
+> +	/**
+> +	 * @memsys_enable_mask: Bitmask of counters to request from the memsys counter blocks. Any
+> +	 * bits past the first drm_panthor_perf_info.counters_per_block bits will be ignored. Bit 0
+> +	 * corresponds to counter 0.
+> +	 */
+> +	__u64 memsys_enable_mask[2];
+> +
+> +	/**
+> +	 * @shader_enable_mask: Bitmask of counters to request from the shader core counter blocks.
+> +	 * Any bits past the first drm_panthor_perf_info.counters_per_block bits will be ignored.
+> +	 * Bit 0 corresponds to counter 0.
+> +	 */
+> +	__u64 shader_enable_mask[2];
+> +};
+> +
+> +/**
+> + * struct drm_panthor_perf_session_start - Arguments passed to DRM_PANTHOR_PERF_SESSION_START.
+> + */
+> +struct drm_panthor_perf_session_start {
+> +	/** @handle: Performance counter session handle. */
+> +	__u32 handle;
+> +
+> +	/** @pad0: MBZ. */
+> +	__u32 pad0;
+> +
+> +	/**
+> +	 * @user_data: User provided data that will be attached to automatic samples collected
+> +	 * until the next DRM_PANTHOR_PERF_SESSION_SAMPLE.
+> +	 */
+> +	__u64 user_data;
+> +};
+> +
+> +/**
+> + * struct drm_panthor_perf_session_sample - Arguments passed to DRM_PANTHOR_PERF_SESSION_SAMPLE.
+> + */
+> +struct drm_panthor_perf_session_sample {
+> +	/** @handle: Performance counter session handle. */
+> +	__u32 handle;
+> +
+> +	/** @pad0: MBZ. */
+> +	__u32 pad0;
+> +
+> +	/** @user_data: User provided data that will be attached to the sample.*/
+> +	__u64 user_data;
+> +};
+> +
+> +/**
+> + * struct drm_panthor_perf_session_stop - Arguments passed to DRM_PANTHOR_PERF_SESSION_STOP.
+> + */
+> +struct drm_panthor_perf_session_stop {
+> +	/** @handle: Performance counter session handle. */
+> +	__u32 handle;
+> +
+> +	/** @pad0: MBZ. */
+> +	__u32 pad0;
+> +
+> +	/**
+> +	 * @user_data: User provided data that will be attached to the automatic sample collected
+> +	 * at the end of this sampling session.
+> +	 */
+> +	__u64 user_data;
+> +};
+> +
+> +/**
+> + * struct drm_panthor_perf_session_destroy - Arguments passed to DRM_PANTHOR_PERF_SESSION_DESTROY.
+> + */
+> +struct drm_panthor_perf_session_destroy {
+> +	/** @handle: Performance counter session handle. */
+> +	__u32 handle;
+> +
+> +	/** @pad0: MBZ. */
+> +	__u32 pad0;
+> +};
+> +
+>  /**
+>   * DRM_IOCTL_PANTHOR() - Build a Panthor IOCTL number
+>   * @__access: Access type. Must be R, W or RW.
+> @@ -1320,6 +1680,16 @@ enum {
+>  		DRM_IOCTL_PANTHOR(WR, BO_SYNC, bo_sync),
+>  	DRM_IOCTL_PANTHOR_BO_QUERY_INFO =
+>  		DRM_IOCTL_PANTHOR(WR, BO_QUERY_INFO, bo_query_info),
+> +	DRM_IOCTL_PANTHOR_PERF_SESSION_CREATE =
+> +		DRM_IOCTL_PANTHOR(WR, PERF_SESSION_CREATE, perf_session_create),
+> +	DRM_IOCTL_PANTHOR_PERF_SESSION_START =
+> +		DRM_IOCTL_PANTHOR(WR, PERF_SESSION_START, perf_session_start),
+> +	DRM_IOCTL_PANTHOR_PERF_SESSION_SAMPLE =
+> +		DRM_IOCTL_PANTHOR(WR, PERF_SESSION_SAMPLE, perf_session_sample),
+> +	DRM_IOCTL_PANTHOR_PERF_SESSION_STOP =
+> +		DRM_IOCTL_PANTHOR(WR, PERF_SESSION_STOP, perf_session_stop),
+> +	DRM_IOCTL_PANTHOR_PERF_SESSION_DESTROY =
+> +		DRM_IOCTL_PANTHOR(WR, PERF_SESSION_DESTROY, perf_session_destroy),
+>  };
+>  
+>  #if defined(__cplusplus)
+> 
+> -- 
+> 2.43.0
+> 
 
-Dequeue pending power requests before settings_rsp() frees their command
-data. Their cancellation callback already returns without touching cmd.
-An already-dequeued request can still be waiting for req_lock. Check its
-opcode under mgmt_pending_lock before copying parameters as well, so it
-cannot interpret an unrelated replacement command as power settings.
+Best regards,
+Liviu
 
-KASAN report as below:
 
-        BUG: KASAN: slab-use-after-free in
-    mgmt_set_powered_complete+0x450/0x4d0
-    Read of size 2 at addr ffff88810921ab10 by task kworker/u17:0/500
-
-    Workqueue: hci0 hci_cmd_sync_work
-    Call Trace:
-     <TASK>
-     dump_stack_lvl+0x93/0xd0
-     print_report+0xce/0x630
-     ? mgmt_set_powered_complete+0x450/0x4d0
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __virt_addr_valid+0x20d/0x410
-     ? mgmt_set_powered_complete+0x450/0x4d0
-     kasan_report+0xe0/0x110
-     ? mgmt_set_powered_complete+0x450/0x4d0
-     mgmt_set_powered_complete+0x450/0x4d0
-     ? __pfx_mgmt_set_powered_complete+0x10/0x10
-     hci_cmd_sync_work+0x207/0x450
-     ? __pfx_mgmt_set_powered_complete+0x10/0x10
-     process_one_work+0x908/0x19c0
-     ? __pfx_process_one_work+0x10/0x10
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? lock_is_held_type+0x8f/0x100
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     worker_thread+0x65c/0xe40
-     ? __pfx_worker_thread+0x10/0x10
-     kthread+0x34f/0x460
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __pfx_kthread+0x10/0x10
-     ret_from_fork+0x659/0x940
-     ? __pfx_ret_from_fork+0x10/0x10
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __switch_to+0x74f/0xf80
-     ? __pfx_kthread+0x10/0x10
-     ret_from_fork_asm+0x1a/0x30
-     </TASK>
-
-    Allocated by task 531:
-     kasan_save_stack+0x33/0x60
-     kasan_save_track+0x14/0x30
-     __kasan_kmalloc+0xaa/0xb0
-     __kmalloc_cache_noprof+0x251/0x610
-     mgmt_pending_new+0x60/0x230
-     mgmt_pending_add+0x3b/0x180
-     set_powered+0x2a8/0x7e0
-     hci_sock_sendmsg+0x128b/0x22e0
-     __sys_sendto+0x425/0x470
-     __x64_sys_sendto+0xe5/0x1c0
-     do_syscall_64+0x115/0x6a0
-     entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-    Freed by task 531:
-     kasan_save_stack+0x33/0x60
-     kasan_save_track+0x14/0x30
-     kasan_save_free_info+0x3b/0x60
-     __kasan_slab_free+0x5f/0x80
-     kfree+0x307/0x580
-     set_powered+0x336/0x7e0
-     hci_sock_sendmsg+0x128b/0x22e0
-     __sys_sendto+0x425/0x470
-     __x64_sys_sendto+0xe5/0x1c0
-     do_syscall_64+0x115/0x6a0
-     entry_SYSCALL_64_after_hwframe+0x77/0x7f
-    ==================================================================
-
-Fixes: eec8d2bcc841 ("Bluetooth: Add support for set_powered management command")
-Assisted-by: LLM
-Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
----
-Changes in v3:
-- Address cross-opcode pending-command reuse reported by Sashiko:
-  https://sashiko.dev/#/patchset/88964
-- Validate SET_POWERED identity before claiming it.
-- Cancel queued power requests before freeing their command data.
-- Check the opcode of an already-dequeued request before reading its
-  parameters.
-- Retain the balanced power-on request locking introduced in v2.
-
-Changes in v2:
-- Move the common set_powered command path into a helper and acquire
-  req_lock in the explicit power-on branch, fixing Clang context-analysis
-  errors.
-- Preserve req_lock -> hdev->lock ordering and keep power-off cancellation
-  outside req_lock.
-- Rebase onto current bluetooth-next.
-
-Link to v1: https://lore.kernel.org/r/pm-bluetooth-objects-candidate-0063-v7-35a6680c94a332fea155@gmail.com
-Link to v2: https://lore.kernel.org/r/pm-bluetooth-objects-candidate-0063-v11-a70581b6877e5fe118a3@gmail.com
-
-diff --git a/net/bluetooth/mgmt.c b/net/bluetooth/mgmt.c
---- a/net/bluetooth/mgmt.c
-+++ b/net/bluetooth/mgmt.c
-@@ -1342,9 +1342,15 @@
- 	struct mgmt_pending_cmd *cmd = data;
- 	struct mgmt_mode *cp;
- 
--	/* Make sure cmd still outstanding. */
--	if (err == -ECANCELED || !mgmt_pending_valid(hdev, cmd))
-+	if (err == -ECANCELED)
- 		return;
-+
-+	hci_dev_lock(hdev);
-+
-+	/* Other management commands may reuse the old command address. */
-+	if (pending_find(MGMT_OP_SET_POWERED, hdev) != cmd ||
-+	    !mgmt_pending_valid(hdev, cmd))
-+		goto unlock;
- 
- 	cp = cmd->param;
- 
-@@ -1352,10 +1358,8 @@
- 
- 	if (!err) {
- 		if (cp->val) {
--			hci_dev_lock(hdev);
- 			restart_le_actions(hdev);
- 			hci_update_passive_scan(hdev);
--			hci_dev_unlock(hdev);
- 		}
- 
- 		send_settings_rsp(cmd->sk, cmd->opcode, hdev);
-@@ -1371,6 +1375,9 @@
- 	}
- 
- 	mgmt_pending_free(cmd);
-+
-+unlock:
-+	hci_dev_unlock(hdev);
- }
- 
- static int set_powered_sync(struct hci_dev *hdev, void *data)
-@@ -1380,8 +1387,9 @@
- 
- 	mutex_lock(&hdev->mgmt_pending_lock);
- 
--	/* Make sure cmd still outstanding. */
--	if (!__mgmt_pending_listed(hdev, cmd)) {
-+	/* A dequeued request may have waited across a controller reset. */
-+	if (!__mgmt_pending_listed(hdev, cmd) ||
-+	    cmd->opcode != MGMT_OP_SET_POWERED) {
- 		mutex_unlock(&hdev->mgmt_pending_lock);
- 		return -ECANCELED;
- 	}
-@@ -1395,18 +1403,12 @@
- 	return hci_set_powered_sync(hdev, cp.val);
- }
- 
--static int set_powered(struct sock *sk, struct hci_dev *hdev, void *data,
--		       u16 len)
-+static int __set_powered(struct sock *sk, struct hci_dev *hdev,
-+			 void *data, u16 len)
- {
- 	struct mgmt_mode *cp = data;
- 	struct mgmt_pending_cmd *cmd;
- 	int err;
--
--	bt_dev_dbg(hdev, "sock %p", sk);
--
--	if (cp->val != 0x00 && cp->val != 0x01)
--		return mgmt_cmd_status(sk, hdev->id, MGMT_OP_SET_POWERED,
--				       MGMT_STATUS_INVALID_PARAMS);
- 
- 	hci_dev_lock(hdev);
- 
-@@ -1454,6 +1456,32 @@
- 	return err;
- }
- 
-+static int set_powered(struct sock *sk, struct hci_dev *hdev, void *data,
-+		       u16 len)
-+{
-+	struct mgmt_mode *cp = data;
-+	int err;
-+
-+	bt_dev_dbg(hdev, "sock %p", sk);
-+
-+	if (cp->val != 0x00 && cp->val != 0x01)
-+		return mgmt_cmd_status(sk, hdev->id, MGMT_OP_SET_POWERED,
-+				       MGMT_STATUS_INVALID_PARAMS);
-+
-+	if (!cp->val)
-+		return __set_powered(sk, hdev, data, len);
-+
-+	/*
-+	 * Wait for the previous power-off completion before publishing a
-+	 * new command that could reuse its freed pending-command address.
-+	 */
-+	hci_req_sync_lock(hdev);
-+	err = __set_powered(sk, hdev, data, len);
-+	hci_req_sync_unlock(hdev);
-+
-+	return err;
-+}
-+
- int mgmt_new_settings(struct hci_dev *hdev)
- {
- 	return new_settings(hdev, NULL);
-@@ -1468,6 +1496,11 @@
- static void settings_rsp(struct mgmt_pending_cmd *cmd, void *data)
- {
- 	struct cmd_lookup *match = data;
-+
-+	/* A queued power request must not retain the freed command. */
-+	if (cmd->opcode == MGMT_OP_SET_POWERED)
-+		hci_cmd_sync_dequeue(match->hdev, set_powered_sync, cmd,
-+				     mgmt_set_powered_complete);
- 
- 	send_settings_rsp(cmd->sk, cmd->opcode, match->hdev);
- 
+-- 
+====================
+| I would like to |
+| fix the world,  |
+| but they're not |
+| giving me the   |
+ \ source code!  /
+  ---------------
+    ¯\_(ツ)_/¯
