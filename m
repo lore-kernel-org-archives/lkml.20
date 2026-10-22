@@ -1,100 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.175
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792697730;
-	b=CGnz6gqOgStqCaSO11ZqYE+vB3jhwNiGNsKZ810LjIyZtrugD9HrXE6n7CgxcohBc5hy
-	 RQwThR7yVBV7pXYP32ZH1Q2D5QLiFNeAZQkKuyuCnOinUPYSnmJcfc4dmj0P3uWDlhuRs
-	 gYSPyMowRX9TpEHP1NgFINVD5Qh2XfRd4GiHttZQ0UZhJXR18ACBBgExvdXdOI2O0VHEi
-	 vg1gsCYM3nwVqD09rWAF4CxOjA0T6gaBoeP+RBcxyd0a/YekH/N62LU+N9O4+bdwQSHdi
-	 vqxLqSrhkRghkatGrycVHV308f1fKsQqKgfdcWDqJXXOuaEyTZWGBs59O16LAMDka5A==
+	t=1792697745;
+	b=hHrL0hvdvjCd7P7K9feXGMfKdos/aQ/P0NAPvY/OUkxr8iXEbas0RAdRf4Q37fq96EYh
+	 URGs+Qi4LxuYHgR1ViOZhSTfOnIrh4XHaBRtQCbEbIREBik6B8SOhkyxwZNtCwyg+dkPk
+	 8TXJWUDF5jvjDrsUtGNQH3sKocs4c8ZHOckCQaTH+zjIG8kllfKsx2xTirg2p6n6Y+S//
+	 8SnfEANy6wPiWrV/uQdtjgbJ6ORdLYALSEbeDaiCP+95H/e71YyGgExswt8DLZQ/jLgeZ
+	 ge39JFweGtXWwRCn/w7z3fkyK7w6zXQy41P82B9nVTh1+CiQIY98yuTfIxfkMsm7gsg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792697730;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792697745;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=56b7HTZvlpKC4tZk577CJ8+w/mtcoo97dNOMSZZwtIA=;
-	b=Q39DFyrcqR9E1ASpYC44RO5yP3jw77T/vG1EmECUM7pW+V19pfNAeQk+61yePzeyWzlR
-	 nBSKEUKzJat5wMn4Yd15cG05dvf6tRoW4QVtv8d8upRsJSBE1JGiyQCBm5mJz7MlxlqMw
-	 NdlwDzgYfrEj67vpvVLYf7SYhzTtg9VtwV6YTUI5+zIgIfdi9WaM9/7OWhXOzzel6weNy
-	 g9dwsQBYfWTS3PahAmL5KZvEYK+oumJEkZ1bSc/tlZpUt6WkaKOJmTdnHd72YWhomWeRQ
-	 tAp6MLAf4l2CY+IqaWF92L0E+pWqeeq5OnA6TDywwT1YI7QM4RXRYtiLB5h+lDGH5ow==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=tGnlBktFh5eVn0yoSJXVJDZQZm2aLj1/BTVa+INKrzo=;
+	b=RhIbQARFcA0cS/PzU2z8oBbeiZWcJdD9lv0qd6Y97EDvrX7Ix23UZwJYfN1oVFUN0vPm
+	 Jt7TGcEJSDopD2Y/ZTg9vw4Na661Z/fAgjr3BcpCjtATDJlr+c8eUmG3tuhcS0FBZ4f3x
+	 D0wFRsV8Km4DYIwW5eBycuSq7USVXmYLD1GN6ZUT41xNVrD/rlPY7271z5XThmhFUUOde
+	 PCkDxKVjr8CY6gl1pe0MqpbflHumurHYvTTU8sVPS6WISP4tPnCmrnGJI6HeGSv3ogbG3
+	 MPQUpOaSI+dxRYyjVnyCW7Sd7W8XE2Z44WrNKhv1jVYKvEOMDaFyGW5voRnhQknl5Zw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=ziepe.ca;
-	spf=pass smtp.mailfrom=ziepe.ca;
-	dkim=pass header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b="PMdp/ssP";
-	arc=none smtp.remote-ip=209.85.222.175
-Received: from mail-qk1-f175.google.com (mail-qk1-f175.google.com [209.85.222.175])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="Gc8BxcR/";
+	arc=none smtp.remote-ip=209.85.216.47
+Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9BEF606A31E
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 19:35:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A9BEF606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B850A606A31E
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 19:35:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B850A606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=PMdp/ssP
-Received: by mail-qk1-f175.google.com with SMTP id af79cd13be357-93cc1ab5f6cso14440385a.0
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 12:35:29 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Gc8BxcR/
+Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-3a4cdc9025bso126001a91.0
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 12:35:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ziepe.ca; s=google; t=1792697728; x=1793302528; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=56b7HTZvlpKC4tZk577CJ8+w/mtcoo97dNOMSZZwtIA=;
-        b=PMdp/ssPxgZMUrGwNR3Bi1/qfM8gMx+PxIvSc1WnlPJyDTsjgIIkEzrC6lRq6jruVG
-         LF8YN3PvUoRYi+pwrW0xef1REaOMVCXkVv52uKDGmTuMWiXRGcOlkvkxhydApZh1H3iJ
-         30+lFkiaiUACZsDIJXmowV9Btzkwb/7tEafCfP9QRb/YTWXqP7XEQlJ/glhbRu30OZAZ
-         Ibo1AqpENbfBnwrk0BmlzhkDHWGVyvB7pVn4WjtFsWPGXAAOTb/CCmselXNXTJGj6rLv
-         HR7zepmdgC9fDWadX4wGSaqHNzCLsFjS8xcgtalMfGJQRg+taGWoC+N1brAzEuWLRdsQ
-         HGLQ==
+        d=gmail.com; s=20251104; t=1792697744; x=1793302544; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=tGnlBktFh5eVn0yoSJXVJDZQZm2aLj1/BTVa+INKrzo=;
+        b=Gc8BxcR/0O5k85KrrxERVtErIyEf3cZabHxvh7EqbjetE3siOF05Hl+LxAc2DJ3yxE
+         0FkJOVPjiXzAnEVio4bEer8cUlMDPRFhK8GKLE6C3juZ0ZkygzEzi3KGdZZeAwSZVlYK
+         44k80htg3yNeRB9DERPcTRimtlHzaKvrtaPJeRyM+MD1MhLDblZZFLLsgyszlsLbnkKI
+         cyDgNkEmeZ+6tk5N/xdZlCSZZyq2Hst+nwO01LhHmqqTn73H6DJ/dXLEc7+lj0gIwKhf
+         Q6Ch+Tba3tBLf1z5sfm085QXQXj7izRovs7TvZ+zInqt3X7LbdUE1kkaf/5PBxK9fSei
+         8e3g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792697728; x=1793302528;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=56b7HTZvlpKC4tZk577CJ8+w/mtcoo97dNOMSZZwtIA=;
-        b=ZB98ujMh6pmCS09wOAjqrQgJbLTb7jGzUjGDmK6g4CtcdBf7u6RNgpuQtBfctqVq/F
-         fbBYSwUaO2YqsQVP2N8au5Ib8H62nKZI3PGlUdIUbfLVPXytqrGiuOFXLxx2vthvIml9
-         YDi/HES72WZC6BQ5DXT/f3BDiq4TCge3lj0WoEGa7E0wSQzCbVKxGEf5KsAoNIIh+vkj
-         mH0ZEHdcPyxTW7et5ydZ5/5DNWkEeqIULIcnZ2ClWaArhc0aHJMrHkbB5lNcNZ0lmkd6
-         OkpJ1U1bSXn3x5jpQH7XRXZrJUoedYgs6tz9jpFeemAKpTvEiKjHwRHAMzrCnONQgVFg
-         SrDQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxOvM1HeukRLUCMyXDE1e3hVjG1f8To3h1j1+OhJhkSBbmwAkSG/soOgnjfPzpD002qTjr+uxer9QovsLs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKwOEwtLBHfwCY7ho+efjUiP3dgwjWxveaEHiP/1BRo+yV2Vsn7
-	m4wzKLGoNv7+ZDhqRd0nxDTcszphE88VapsVt1fd33SD9kxlbuydQQgd0dJvjkzL0KukfQiPc7/
-	gXJOs
-X-Gm-Gg: AYBFou3y/JvXq4Dt4blYy02aSQavxSnR+jqY5L0+Yk3/PLHkIkEya3YjOwgdkaWaRDU
-	wkutM1A5MO/5H98b513je5BIf5dUqS8+VcPVIEyqJ+GyL9WjkMgrSD0D+S+HW+CtK5kkhRPMX7w
-	c0lgW4FGe8T185+QzfT2ivYVBLDjHCNIU63raxN0ZOeGxGYqjWLeHxkfIuOHQeVWjxCy/5+A65A
-	TRoV4VvOPlhFeDws+VTa+7AudXXWCaIcsLx8lt75S23h/ytfsyXqCzuzBoJ3nSuPHzT8aRUyJ1k
-	iCIfdB4cR7HGkvT6mMwCFzInfwmi+Za3oERpmjP3QjmphNO3nAGhJH1L447rqVAm+i+iQe9yXkQ
-	YJReG/jHy225lIRyX6q0LYR7y+rDlTR2rpZsvR+VquugYNS+mtoOlw8vwaXP9qhuN3/Tej4fUTV
-	sluGcGFl5D0zAwrHP5JcrJ/57PvM48VbO6W6n27YCyWusX6A1HL0ofina92R2CgR85oyMwvBk4J
-	1iJxuQxCDnX9/zJJob2qo656Aimy/MHKNxizlHCXwZxfsKe6cYdjfQQLtm6I/5gJf0m4SLHfZmh
-	igHLEo5ca7RDBd/07VAWME1CtOhcW2MllEhQIw==
-X-Received: by 2002:a05:620a:2794:b0:93e:c6fc:7f50 with SMTP id af79cd13be357-93f6f79dc27mr75461785a.5.1792697728579;
-        Thu, 22 Oct 2026 12:35:28 -0700 (PDT)
-Received: from ziepe.ca (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net. [159.2.239.150])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91c39766a93sm366276d6.43.2026.10.22.12.35.28
+        d=1e100.net; s=20260707; t=1792697744; x=1793302544;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=tGnlBktFh5eVn0yoSJXVJDZQZm2aLj1/BTVa+INKrzo=;
+        b=b5nqjMtNpI9QfVeixhV9vN0nDy7sE/5vZNB0zNLzmYr8bzdyRQXS3dRkDkIYWCcqod
+         HFlpygVlm4xPXpN44+lLqx7v7WWTvRbaPCE5gzvl6D8lCY3ub5uMTZ1Ia44j2fPSs4L8
+         ck/SQSCtdvecfRMxrPkb1slO3mZ2suly33BzIPnVsMAvcImlgb7gqomBYIH6yQeLcsc1
+         BNuKHqMGzr1EOsd3MP39Ke+YFp6hLTz4YfJHd0b2rCbagi8nSLJe3kN1mEXaDZE0coFz
+         ZSO6KEj/J5mowrVOrD2VKoObGwM0lvcP6CHKIxn9yateB5g0eQj3h9nJhyt7IG9/7LEL
+         VNUg==
+X-Forwarded-Encrypted: i=1; AKwUvBwclD0siu9m4Kp2A6oW4zvfyvkzcGX1ErrsU9fvAPRhFOKj6+kkt19No/RQX4E6yh0h9T2Pd4fBUnEdHC8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJJGZM1ib0dxNsf03KiVOIYR0MosxcMjc8Ep76b4EolvDb4tXaR
+	GNnqUP04UI/JVm9t2Hwi1YFttDQcoPK71pwUVqOufg35RXzUNW27aLcu
+X-Gm-Gg: AYBFou2LC5b3RdzFNeot0axDktkTy6Br9XpyV+PnnCgLnQaHFjWIBPXd50kCeHYeids
+	l0GR3q/HZoDXf0AxYBclBB073w5Io8lgqKef3WJc7T9LFZ1aQfFsQ0fN9Y6/hANJm/H39kO3h30
+	YfPJlS0QSROrjh91KykhroUnMqY9CaV/cSZ0XXW6y/7Ex1hDNwz+fltSg5+9NPSLxXdJ1jwfJpL
+	0wSCby2VkrajbVUu2NmbJ6xHLr9qjvf5f+QobDFmCMC0YPowbNf2ymmiPFrO0v0di2gg3frOBCC
+	aF0q+xTyqKiMR4FQno60uNGJLfOr166yU6LSfRdK6ithCzHVOiaAZMxwoB0i9m/LfhngpB9Ya+t
+	n5DkU36CL3egHHLdHQfphnpJnUJcNTycHmxSPwuCRl2ewmjTkSpn3ZAnFu9kcQo2V1JeSqzhhHH
+	M3keyGwkwRyjRyMfOKPELDao7+bdWiySDNNuhYBOnp31lIZ9EpalzVRmo0k28HB8DaTEP5a4G7J
+	A7HKhB/IXx/hIzZ1z9qoc+qLChJLb/aEgK2HRXNGfgK+J/y88QBgbBIOo9NoqUnTDi5YbjPvefC
+	8AubsR6c82HKQnnTZUs8pbw9tLjDv47r
+X-Received: by 2002:a17:90a:d610:b0:3ab:7031:d962 with SMTP id 98e67ed59e1d1-3ad86ef29c0mr4945649a91.41.1792697743922;
+        Thu, 22 Oct 2026 12:35:43 -0700 (PDT)
+Received: from casta ([42.116.198.195])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3adca62e46csm272182a91.1.2026.10.22.12.35.41
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 12:35:28 -0700 (PDT)
-Received: from jgg by wakko with local (Exim 4.97)
-	(envelope-from <jgg@ziepe.ca>)
-	id 1xJyZT-0000000FmQW-2RHj;
-	Thu, 22 Oct 2026 16:35:27 -0300
-Date: Thu, 22 Oct 2026 16:35:27 -0300
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: Guanghui Feng <guanghuifeng@linux.alibaba.com>
-Cc: alex@shazbot.org, iommu@lists.linux.dev, joro@8bytes.org,
-	kevin.tian@intel.com, kvm@vger.kernel.org,
-	linux-kernel@vger.kernel.org, robin.murphy@arm.com, will@kernel.org
-Subject: Re: [PATCH v3 1/2] iommu: Add iommu_get_pci_resv_windows() helper
-Message-ID: <20261022193527.GG3381610@ziepe.ca>
-References: <20260921115513.GK11599@ziepe.ca>
- <20261004162213.3787623-1-guanghuifeng@linux.alibaba.com>
- <20261004162213.3787623-2-guanghuifeng@linux.alibaba.com>
+        Thu, 22 Oct 2026 12:35:43 -0700 (PDT)
+From: Nguyen Duy Nhat Anh <neganhat@gmail.com>
+To: mchehab@kernel.org
+Cc: llinux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Nguyen Duy Nhat Anh <neganhat@gmail.com>,
+	syzbot+809dfc586f33fc44b6ac@syzkaller.appspotmail.com
+Subject: [PATCH 3/3] media: em28xx: fix refcount underflow in em28xx_free_v4l2()
+Date: Fri, 23 Oct 2026 02:35:22 +0700
+Message-ID: <20261022193522.12996-1-neganhat@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261022193159.12713-1-neganhat@gmail.com>
+References: <20261022193159.12713-1-neganhat@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,33 +99,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261004162213.3787623-2-guanghuifeng@linux.alibaba.com>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Oct 05, 2026 at 12:22:12AM +0800, Guanghui Feng wrote:
+em28xx_free_v4l2() is registered as the v4l2_dev release callback, invoked
+when v4l2_dev's reference count drops to zero.
 
-> +int iommu_get_pci_resv_windows(struct pci_dev *dev, struct list_head *head)
-> +{
-> +	struct pci_host_bridge *bridge = pci_find_host_bridge(dev->bus);
-> +	struct iommu_resv_region *region, *next;
-> +	struct resource_entry *window;
-> +	LIST_HEAD(resv_windows);
-> +	int ret;
-> +
-> +	if (!bridge)
-> +		return -ENODEV;
-> +
-> +	resource_list_for_each_entry(window, &bridge->windows) {
-> +		struct iommu_resv_region tmp = {
-> +			.type = IOMMU_RESV_RESERVED,
-> +		};
+Calling v4l2_device_unregister() from inside this callback causes an extra
+call to v4l2_device_put() on a zero reference count, triggering a refcount_t
+underflow (0 -> -1) and a kernel BUG in lib/refcount.c.
 
-I didn't try to look, but if you are going to add a function to the
-iommu core then dma-iommu.c should also use it so we are sharing the
-same algorithm.
+Fix this by removing v4l2_device_unregister() from em28xx_free_v4l2() and
+calling it in em28xx_v4l2_fini() during teardown instead.
 
-Maybe a callback function would work better to that end than returning
-a linked list?
+Reported-by: syzbot+809dfc586f33fc44b6ac@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=809dfc586f33fc44b6ac
+Signed-off-by: Nguyen Duy Nhat Anh <neganhat@gmail.com>
+---
+ drivers/media/usb/em28xx/em28xx-video.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-Jason
+diff --git a/drivers/media/usb/em28xx/em28xx-video.c b/drivers/media/usb/em28xx/em28xx-video.c
+index d653341ffd16..45b62655ca3b 100644
+--- a/drivers/media/usb/em28xx/em28xx-video.c
++++ b/drivers/media/usb/em28xx/em28xx-video.c
+@@ -2332,7 +2332,6 @@ static void em28xx_free_v4l2(struct v4l2_device *v4l2_dev)
+ 	struct em28xx *dev = v4l2->dev;
+ 
+ 	v4l2_ctrl_handler_free(&v4l2->ctrl_handler);
+-	v4l2_device_unregister(v4l2_dev);
+ 	dev->v4l2 = NULL;
+ 	kfree(v4l2);
+ 	kref_put(&dev->ref, em28xx_free_device);
+@@ -2462,7 +2461,7 @@ static int em28xx_v4l2_fini(struct em28xx *dev)
+ 	 * The em28xx_free_v4l2() release callback will be invoked once all
+ 	 * userspace file handles to the video device nodes are closed.
+ 	 */
+-	v4l2_device_put(&v4l2->v4l2_dev);
++	v4l2_device_unregister(&v4l2->v4l2_dev);
+ 
+ 	return 0;
+ }
+-- 
+2.55.0
+
