@@ -1,79 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792705989;
-	b=0PtTLoAMtF39Uh7s0S2hXdRAYeQdlnef3KUFB5nAGdAyX9Tq1ahFrn/wCRhRngsW2XDm
-	 tfPyZV6I+qGGkKQvzTVkGzC22qssKzo2j8kmgIuV32Em5nkxFPePs+R1/QWQOyhF7dWcj
-	 o3PQyEnopEzCfQO1mdw18IJVG93SuX4ZbOOi47Iy+pFroNn3ADguiYW90+sR161Jo6/Bj
-	 bMk0A5Yh06OwSxiEGT29TTVphKIWp2ZLEZtlpAUzty5b4MHk7chMjTeNPqXT7LFx3qe2o
-	 Jf6UpqQuMPTBYQbxpRdfIMU49cJa+3sSfn2SN/NWEhCYDtc0nNYaUVx6gkgR3JJbJOg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792705989;
-	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=DTvpZdrzMHo58dnlhxU+/GyKaasgGpS/FpMT1oMFqiI=;
-	b=4m5GLSaGtY7hFFCQV18dyALkhiMSnRp27yn6qZUqCfR04ybDi92sqk6TmwVvBrHV9Wnx
-	 Ujg4qRNI5T40Xn8xjpUVtnL2MyvlhBHL/S5D3e253CGqsr1Vx0TfwWc1iARtLHKTI/PBS
-	 6LRSdiSiY3xGXdwdYGWq8kN/jnM/N6Sat4A/3UiKll3fKRbuY5oNBXH1OZfy2mUIwOeyA
-	 fYexA7cZJy0tBceV6L4uyQlJ1I7y0e88PND7K66Yp2LWz6IP1iYqEPw8BpWIFKSfZt7RL
-	 8NSk+iStEUR7b+DOi3VxbZPO5j1yE0dmwFyYYdAGEh0bi+RyZyu+T8jsqTkvEzat1yw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="f4/yXbzr";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7259A606A321;
-	Thu, 22 Oct 2026 21:53:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f4/yXbzr
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1792705988;
-	b=z7Z//7QdWHsDdqUdKc5/u31Mz4r25lP7ioz+YKfG96HIxOBqXJ3gelyX5s8RnuSqIOYj
-	 iUc0esk5cqmAV3kvnbFHlQnlyl5+oq5C9OGvdm/2FpOBZkTIqKDgQnUGbNtF+a0yl0Ajb
-	 34RvbfrEa25VUkoREllVHiTyx+jzWo7S1APDm/1scth/y5Y2Jmb2YxKl3JNxIIrjBhzmO
-	 iAIbhLS6WmUqIGCH/ffirD5I4/z2+mOexqBgWGYgaXH0o9nTxyIXVI09pdKBHz1AvsO9w
-	 Lyauvgp2S7ZGkYKd07/T6IMdPtZmwn1jytXPyF60EpnTwEdev+7yov7//7kBkIR2l5w==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1792705988;
-	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=DTvpZdrzMHo58dnlhxU+/GyKaasgGpS/FpMT1oMFqiI=;
-	b=sLKRrcySykTV//pYdOYcbDHjQ+diZ5LeD51uo2F/d0gwN3mBkitaBbxyiwHba8l+oN3A
-	 c37e0eKNK9P7B4cS3Y5rlmyBVP6CzW8prvu8Z+fEApeG+no7D13HdhKE44bHyvFys59Nb
-	 oEkScPcORCvseHa73XDIffhYVbBzgmIpreuXkzHsieGsV4uaaWZnLV8Mb8bkC1ZAYYIun
-	 ycX7ltYd3+uW1aZqVoirOzt9vQZYD1jT0TobCIu9520I/8PoutlrQ1vrEW+ZU3Z0U9o1H
-	 3jkfiKGMLrJI6B9b0fVrWcqri6vFheiMY38TnfvmKA+SmzrGyULzccqkTDPxXlA/9nw==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.54
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792705997;
+	b=r7u9DPzJAYNG9Q5rlFSMaqv30NXC7nQjwSyOL6ujdczeDklxnQ1b2P0Gl5qX0y5TOxTF
+	 rwe6gZzQC4bkrgsio5TZXaSKx1EyIOrQ63gWF+k15KWlY14RlDiclACCuCAMtfwe0dae0
+	 mNnRZLCpwWXmaq9psB12xJjf1y+WCMbfYyalztPIKB0jwfmzijK1nZ9Tn6fgCEVD2W2zK
+	 SdIZ/YdM4neLai4hPP+1SpL1mqnM8XkZd2RUk6FIPikVJ/jNorQ79ZIjgrtTFjNOWLbzk
+	 BVIIw6zEKtSSzxtRFxFTGnjf9hmDNKt4c5t/KMnYOHQx5NaWjLfkWZDveDf89lDrMQA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792705997;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
+	bh=+7xYBNBMdS31buKtvrCVWN4DltJtCF5Df1RCKstunLI=;
+	b=yWnvYB+poHGjgxDH1ziJUDNbszHjpjaL9rm5cwJuLwQIeCv+4D/S9sF2IKxwWZUPLUu9
+	 HOctDZ0VsMzeuT1NgoEiy0vhUgfD4jsZsQo/OFhoykd9l/5VSXf/OhH6KD2I8OJ2AzHe+
+	 CvNn1kbYJBEjjplqWj/rj6W28yD6pMZWxCRhX95gF7r5leWIt7AD+KvoXbinnEcrBGSmS
+	 S1J2Y7XO7iebslOPe0UyBkmUduIWuPLgE/tBbty25hd8RBlG65lJBSXIRjIHPcMGHAvq8
+	 KtixRy9ZNybvvwkJUrbHyqPXmk1MKtewPDQndyTHmxfbkgm29BFIZBpmqNqXbXbIO2Q==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=g0wNJP9+;
+	arc=none smtp.remote-ip=74.125.82.54
+Received: from mail-dl1-f54.google.com (mail-dl1-f54.google.com [74.125.82.54])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 5697B1F031E2;
-	Thu, 22 Oct 2026 21:53:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792705988;
-	bh=DTvpZdrzMHo58dnlhxU+/GyKaasgGpS/FpMT1oMFqiI=;
-	h=From:Subject:Date:To:Cc:Reply-To;
-	b=f4/yXbzr1ZMRrJh5UUs7hh5nnH8UtpBaEdES9VlIghAJJ7vwKrwQRlsF6wlh86WCb
-	 1h6G/Nk7Oy97FYle2xwvPM1ufWIJXpXnTEjF/oyH2XJX5BJTYiqSKv7KWVsLsnKejm
-	 sL0TVrskW8OHEW6K/URmPqkMwI+lucpu2yhPVESAV04MWekNfE3+bcr5CdDvPvY/b+
-	 vSHTap7tjRlVG0ioMepQU7Howyn5Hy4CJcEWkUQBb7zsbAgrWZ2zHP4XX4F0S/UP0V
-	 8C2JoYnZGft3IAQ0FFpp41Nznas+3+AGW2mznmOE5qyB0hW1CGjsJnujUYTjY1SLUg
-	 AiRiOkJe/jbbA==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id A623541F91;
-	Thu, 22 Oct 2026 21:53:05 +0000 (UTC)
-From: Ronald Claveau via B4 Relay <devnull+linux-kernel-dev.aliel.fr@kernel.org>
-Subject: [PATCH 0/4] clk: meson: g12a: fix a few clock definition errors
-Date: Thu, 22 Oct 2026 23:52:38 +0200
-Message-Id: <20261022-fix-g12a-clk-v1-0-e2bd8f3f1afa@aliel.fr>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED03E60A3808
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 21:53:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ED03E60A3808
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=g0wNJP9+
+Received: by mail-dl1-f54.google.com with SMTP id a92af1059eb24-156cbe59622so239005c88.0
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 14:53:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792705991; x=1793310791; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=+7xYBNBMdS31buKtvrCVWN4DltJtCF5Df1RCKstunLI=;
+        b=g0wNJP9+qMUoq4l7CC7ElHp6paJAwU3peNqvFYsSyx9iyJ0feSsN/a6/yoYX4rTFyt
+         1p1RFtm79H9YGeZekYcpSnDgrioq87inFeQrcEng280PMg40zNuwfKO9Oi/CZzYOy3kc
+         w+Wx7vKEIkCUwjdlWVWV9lySrd6tdmfIa0qGtnFyDM6e2/QH7Gkotni+SBK4gau/tQFN
+         iZobf3y2WyAgUPyEoZA2nWcbiRPgLOGYGJXs4pa7IbBL9plXo9FunqukcMQJdCrX74Ko
+         lKjMZTUQpV+C76zEM8b++2WtPSOO6O7y3/Q1Y6+CZE677S2UzOkzbsWsEaJMxhjKsixp
+         Oy2w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792705991; x=1793310791;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=+7xYBNBMdS31buKtvrCVWN4DltJtCF5Df1RCKstunLI=;
+        b=GYD/GZFysWhC+xwJsMPMMD3i4533Gycp4mG6uw+uhC0qzE1qH4+J7X4IYgTv4G2xpE
+         DWk1hGGv4WxiWE/k4VJVIn2Y5k7odyCPDab7jT2G2Oq7ajJ6hHnbqpunWemaRdBswAge
+         zhr/Ve8wckdJ0Zw3rdXGIqRSR0cIGX1Xo8uAYcqLk6cAICUq9eYMnJKSWakEjSrYCAZ8
+         vPEwniqqFea7xYpmtKiOnIydCALrEzeoG6Ty+esdxBhGgekAgkKF1ZET/b6SrjU2m1hx
+         ynu0deSsGYbRrFT1u4RgKDkaoyyvpi59OiIx3+eWKCyZkgeNxDMsKVJwQsKSzvBufCm/
+         k9jA==
+X-Forwarded-Encrypted: i=1; AKwUvBzt5ioKVyLvwBnrAq3QVwSalYO5kjHDF5uJt00XYeUEwwoDdzG9unQ/7TjSOmuzxAaM5WrUVNBla36zshY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKGPEW43m3rpqxAJEXDU33RhPNjKGNc3ELkuNgoBjr+764usrCp
+	j64Z16ddTXKPCbOXx94+AUJPW8GD/IfQQ/alsvGbwZnZpYQsjMS8HqwMTccgPA==
+X-Gm-Gg: AYBFou3O4ZxKyYaNIQMEC8KHjbAuzgqg8CMxaLAkHix0IdXnUM2JZLxU+42K5wdLucw
+	BpzQM/RhvXEuYmhKAyNLTwKIIuD9JoWiXN3KbKjpaa2E/Ky9JjPVsyxmSIcUEwWaW4NiGaAwsHu
+	drzb4k07z1nrKuZXYJjEnPfcL5Z6AFNJDLuiJF8Ga7Phwqf3FraSlwcd7YLS9byTfVQQ12tzfFr
+	5PKsuM/oLsSK9p/57s0MXqEl0pXOUFWwq7ShVlNzGLH6V3oMbN9+zOC/DrZaS35kFcsxkxJyWaU
+	DX27avP3Q21RWqZoLexDQ+E4531vIA91pCzVUPpLVN3dyfEBR6sF1G/zp/0U0R/gpg5Z8UflidU
+	RX9aF6goh44P/eSQf1q29FalRN2KZ/ux71ELBuXyOOOFgL3faoxo7l+rpzZZFyG/+2aRhHc5+2m
+	dxQgCC3ko5dZvLqk/usemlLWYPnG/UhC9WRDMGW0sfc5jivHbqswJvmkmOByBmu8ptOnwy3/KCl
+	8Sef1NWKlP5Yrlf1ZQwzcM6yQF1DinwjC5mwOMfkipGSnYfI967mmwnZ0i9BaEaBq0x5XixvFgT
+	0CJf4Nu9k5kCZpA65hxhlLdqFOYHipkRpQhkdY8dehfztOs0yHGdaSaNqdjtL+RFiw==
+X-Received: by 2002:a05:701b:4244:10b0:144:fa58:95d8 with SMTP id a92af1059eb24-19599611181mr785699c88.27.1792705990921;
+        Thu, 22 Oct 2026 14:53:10 -0700 (PDT)
+Received: from dtor-ws.sjc.corp.google.com ([2a00:79e0:2ebe:8:f2d1:b7cb:a745:829f])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-195ec82eabfsm1110403c88.19.2026.10.22.14.53.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 22 Oct 2026 14:53:10 -0700 (PDT)
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Date: Thu, 22 Oct 2026 14:52:47 -0700
+Subject: [PATCH v3 3/5] gpiolib: of: add a quirk for legacy name for
+ TWL4030 external mute GPIO
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,64 +94,81 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAKaF2moC/x2MQQqAIBAAvxJ7bqFd0ENfiQ5qqy2FhUIE0d+Tj
- sMw80CVolJh7B4ocmnVIzegvoOwupwEdWkMPLClgRmj3piIHYZ9Q4resCcTorPQkrNI8/9umt/
- 3A4rwOaZeAAAA
-X-Change-ID: 20261022-fix-g12a-clk-1fb52b15cfa6
-To: Neil Armstrong <neil.armstrong@linaro.org>, 
- Jerome Brunet <jbrunet@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
- Brian Masney <bmasney+clk@redhat.com>, Kevin Hilman <khilman@baylibre.com>, 
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
- Jian Hu <jian.hu@amlogic.com>
-Cc: linux-amlogic@lists.infradead.org, linux-clk@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Ronald Claveau <linux-kernel-dev@aliel.fr>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1230;
- i=linux-kernel-dev@aliel.fr; h=from:subject:message-id;
- bh=kv186d9Cog+H5dWdzKf8ASTTBRJiUw79UW7YCNc2//0=;
- b=owGbwMvMwCWm1SvKXP3cUInxtFoSQ9at1g0fNi+Rc9qleitm8/LAgJbJb64ef8cW2GcvknOKZ
- /fEWwmzO0pZGMS4GGTFFFn651qeeHf56Jmve9RTYOawMoEMYeDiFICJhAszMsz1K2F8yr0t446h
- x9GHfwyWR+xf4H37+sWODWyJ9z9KnyplZOgUU0n/x2kvfKPZ+nnanfNNDBYVebaTKoJCPe6GX4h
- ZzQUA
-X-Developer-Key: i=linux-kernel-dev@aliel.fr; a=openpgp;
- fpr=DFD863F61375BF917F0012173953305EF1D0EC3E
-X-Endpoint-Received: by B4 Relay for linux-kernel-dev@aliel.fr/default with
- auth_id=744
-X-Original-From: Ronald Claveau <linux-kernel-dev@aliel.fr>
-Reply-To: linux-kernel-dev@aliel.fr
+Message-Id: <20261022-gpiolib-of-v3-3-42c3b6439fba@gmail.com>
+References: <20261022-gpiolib-of-v3-0-42c3b6439fba@gmail.com>
+In-Reply-To: <20261022-gpiolib-of-v3-0-42c3b6439fba@gmail.com>
+To: Bartosz Golaszewski <brgl@kernel.org>, 
+ Linus Walleij <linusw@kernel.org>
+Cc: linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org
+X-Mailer: b4 0.17-dev-e56a4
 
-While reviewing the G12A clock controller, I noticed two unrelated
-mistakes in the clock definitions:
+The legacy property name specifying the external mute GPIO of the
+TWL4030 audio codec is "ti,hs_extmute_gpio". Commit 178c169a30b0 ("ASoC:
+codec: twl4030: Convert to GPIO descriptors") converted the driver to
+the gpiod API, which expects property names ending with a "-gpios" or
+"-gpio" suffix. Add a quirk to gpiolib so existing device trees using
+"ti,hs_extmute_gpio" continue to work.
 
- - fclk_div2p5 uses mult = 1 instead of 2, so it runs at fclk / 5
-   instead of fclk / 2.5.
- - CLKID_VID_PLL and CLKID_VID_PLL_DIV are swapped in the hw_onecell_data
-   tables.
+Note that a custom lookup helper is used because the compatible string
+check is needed on the parent node ("ti,twl4030-audio") while the node
+name itself ("codec") is also validated.
 
-The first one is a single fix. The second one is split per SoC (g12a,
-g12b, sm1) since each table was introduced by a different commit so
-I provide different Fixes: tag.
-
-I do not see any consumer today, so nobody should be affected.
-I don't think there is any values in backporting them btw.
-
-Signed-off-by: Ronald Claveau <linux-kernel-dev@aliel.fr>
+Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
 ---
-Ronald Claveau (4):
-      clk: meson: g12a: fix fclk_div2p5 multiplier
-      clk: meson: g12a: fix swapped VID_PLL and VID_PLL_DIV clock ids
-      clk: meson: g12a: fix swapped VID_PLL and VID_PLL_DIV clock ids for g12b
-      clk: meson: g12a: fix swapped VID_PLL and VID_PLL_DIV clock ids for sm1
+ drivers/gpio/gpiolib-of.c | 32 ++++++++++++++++++++++++++++++++
+ 1 file changed, 32 insertions(+)
 
- drivers/clk/meson/g12a.c | 14 +++++++-------
- 1 file changed, 7 insertions(+), 7 deletions(-)
----
-base-commit: d419d682257d813f6cb7a28e42b35d0edf4ad038
-change-id: 20261022-fix-g12a-clk-1fb52b15cfa6
+diff --git a/drivers/gpio/gpiolib-of.c b/drivers/gpio/gpiolib-of.c
+index 44799a4e9d97..424c02f81c20 100644
+--- a/drivers/gpio/gpiolib-of.c
++++ b/drivers/gpio/gpiolib-of.c
+@@ -676,6 +676,35 @@ static struct gpio_desc *of_find_trigger_gpio(struct device_node *np,
+ }
+ #endif
+ 
++#if IS_ENABLED(CONFIG_SND_SOC_TWL4030)
++static struct gpio_desc *of_find_twl4030_gpio(struct device_node *np,
++					      const char *con_id,
++					      unsigned int idx,
++					      enum of_gpio_flags *of_flags)
++{
++	const char *legacy_id = "ti,hs_extmute_gpio";
++	struct gpio_desc *desc;
++
++	if (!con_id || strcmp(con_id, "ti,hs_extmute"))
++		return ERR_PTR(-ENOENT);
++
++	if (!of_node_name_eq(np, "codec"))
++		return ERR_PTR(-ENOENT);
++
++	struct device_node *parent __free(device_node) = of_get_parent(np);
++	if (!parent)
++		return ERR_PTR(-ENOENT);
++
++	if (!of_device_is_compatible(parent, "ti,twl4030-audio"))
++		return ERR_PTR(-ENOENT);
++
++	desc = of_get_named_gpiod_flags(np, legacy_id, idx, of_flags);
++	if (!gpiod_not_found(desc))
++		pr_info("%s is using legacy gpio name '%s' instead of '%s-gpios'\n",
++			of_node_full_name(np), legacy_id, con_id);
++	return desc;
++}
++#endif
+ 
+ typedef struct gpio_desc *(*of_find_gpio_quirk)(struct device_node *np,
+ 						const char *con_id,
+@@ -688,6 +717,9 @@ static const of_find_gpio_quirk of_find_gpio_quirks[] = {
+ #endif
+ #if IS_ENABLED(CONFIG_LEDS_TRIGGER_GPIO)
+ 	of_find_trigger_gpio,
++#endif
++#if IS_ENABLED(CONFIG_SND_SOC_TWL4030)
++	of_find_twl4030_gpio,
+ #endif
+ 	NULL
+ };
 
-Best regards,
---  
-Ronald Claveau <linux-kernel-dev@aliel.fr>
-
+-- 
+2.56.0.257.gf7497c7d27-goog
 
