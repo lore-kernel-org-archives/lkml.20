@@ -1,83 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792646236;
-	b=vKhwuITCKTUfuGtd5z/uj8/07GAzRDfCWbX51F/wOjF68v3Wr8GY8lrgNQlQ7u/Lfhpl
-	 wSLeYpSkqh2Zg10BGVNC7v7Oz7bwQtok29/TEOqMYCNZZ/wtgvu3wPWIplCtEaNMsoDqJ
-	 FKixNUxovI14+vRX34yE6QgNRbFAYMXgdiT/3SMsuDf8/K8WCkL0xoJ4v5LKsYXLRtY8Z
-	 oaX292JNL4KV7/l8Kdz3ZamiWHKq+BZtOcZbvux5PdfHZRrxJxGQsa7sb7DX4hvxnFJeE
-	 kjwAeOoBcNLpMUILAzCSP5tVFyr5jRPF9mNck4LMJihz026rsbdbkVN6HpXkTrURToA==
+	t=1792646238;
+	b=FSUe/WZDqKUa6YfOrupYjNZCXEScSYjnW0PydKtDA/B2QsS3ZzZio6jLqemw/yQtjPEj
+	 N/sdwsLzzY9YTlF+g9HKZGPthdKVFotlyWRxy/vHVGAJQAo0Fl1DLAyOSocciYIvRkI+I
+	 Q8cAJKqMs5a62E/GQPnLnbSFjF1MlrFY5b8nkiZdaAZUkebFDlPNHW9WeJx06zkN3wMRz
+	 cMX4zgOeRezKP1nSBGCcdNp6XpcRgs5EeNl5U1dwxpquEfdZYnTGwt8gA3J1r781z3aMa
+	 gMhlpYa63dRxiWHiBMGK+nzU0oLU+gDunGILnjbJmihuYJSZipoy98NzfPSFrROF+QA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792646236;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792646238;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=H/SXDgdhEaQ9Leps7ngp4tdnFYLEJykx5g1h92ea+nY=;
-	b=rBv5E7vkuV4tn5mkSl7Pr9pce5jtSgDRsBxjfMECn68NwxkDWLPRVoySG2vdSvgjH1SV
-	 qXwe52P9YDhhli6ssFc4C8DlOf3SofXJqww63Fv4rYZx49NcnZ2bjf35h5F+toDZX9fQp
-	 6oKcWeEll1Hx+h/rOYORerue0z6xEpnKyUIm5yjvJcUlc9Ho+t8sV/rzSP5EGAkS75QN7
-	 RXmhC7yWYJFnynJdugu9ROwf6Ma664jDdb5jc9Mv2OJcC0OhmyGRGgFwcmOWStDuaCKlV
-	 ApQdlwf8B9Vpl9QdTDQxfAloVTshbR9Ngki36DeLZ+u1B5ET+wW6RWqmDWHYBzaT6Og==
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=TTPx+dOGfrZ2gbZc2iR4OE7g80jE9NdI9RPBQdZQId4=;
+	b=Ij/UIddPcZGPHOsUL8Y2PVt02JH0V5Yy/Q+r2K1otDCY/cpMUMysGqHwr20uNn/i1EYv
+	 28az07JfrNQaiXrtUAhHs9ZDB1c0TiuebeFPU5z6UdmhOohdZ5uyzPq/deHCw3xWHbpbc
+	 s2QwY6gHPL0+UZwLmbbfi5PJW9/zCVcHk304aBb9fTT4Ay8uunWfv10So6Xs4Qe/d5Ufr
+	 1SYLolOcAAhWgwlDpZ2Ze/UEt94o2m1j6Li5AuFCZTXNHVZ8HeGOhlxgwDIPb3hmzbB3g
+	 6OZMYZbumFw94a7Ygid08/HAiEUUfVDxIuThHpqpzZ5MoO4CuEqn6aHzr0hCNLczHbQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=PwoDzxWk;
-	arc=none smtp.remote-ip=209.85.128.45
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=AdN4huIO;
+	arc=none smtp.remote-ip=209.85.128.52
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB772606A31B
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 05:17:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CB772606A31B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83755606A333
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 05:17:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 83755606A333
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=PwoDzxWk
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a1fe9efc0eso15951805e9.2
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 22:17:15 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=AdN4huIO
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a1ec92f655so5310885e9.0
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 22:17:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792646234; x=1793251034; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=H/SXDgdhEaQ9Leps7ngp4tdnFYLEJykx5g1h92ea+nY=;
-        b=PwoDzxWkA70Wmef14Vvpr9c4fHpU4ChmSg7Dc5eGutsiHbtTrYWNl05zc02Gtlv72r
-         4Zq5Cp5q/leY/52RfvlkHWYrZVWtP80pZpjpJU07hEV0rT/E53N3KO4IWShg7/l5ZzfB
-         poj2nHlLy8FnxKAmRNLKQsThjETb6zYQCRZnWh+D2hQsraNpceIfbDQoN1EdtuazyWtG
-         Xz239Xqggu0HrKDQNYqGFznDgrbku+UIu/jVnKeOMCTNYn8ak5Bg9ETNi333RYgws0vD
-         8vT7cU2/CuH54hAwzM/b+N0RwJToGTeuGLcM3zg4fHgXkQRw2e7ZuoNShYA6nVFSLNH8
-         xmQA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792646234; x=1793251034;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1792646237; x=1793251037; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=H/SXDgdhEaQ9Leps7ngp4tdnFYLEJykx5g1h92ea+nY=;
-        b=aDGdpOjPcvr85O64UGstrFwchO57rGu1rAtD4DSa57AZNdjH6gXq0peUF+TxSojX7U
-         3u3aQ7Nk2vcqaPUho/g1kLTH7FVAHOLi/kMr65Q5rjlFRdCITQTKa3FfeowZkmYiB0vW
-         SlsDApkXUJrtPaAcaaxtobuvnwcrKreJNcg3IforqmhQA0P4X3Q7URXZgYNkXhzU769i
-         2js/EQvu1cwyAOCOJJyLMylNE+bbz/4SLH39hXAV9b7BTzsDon/l9CSNCVlV20u856jA
-         K8Iwz3lyZtyfCLSoBY+lVtKeh7jPPmJWg4KjlsI9ZDUxOLFYEEaip2tAzkA5bIaZ943E
-         1UXQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwkqGuR8C2qhurwVBUxbmmBGJxfTYvK4V/flN+qQNAKsN4b01fkPGymrOblNKvcWEvlxm4S2cn5oqwJnek=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIu0Df8ZrXa6ysygLo0YuIwMqNR+yPiv74Hr6LJsb8NIuCTzMki
-	37oECB0xfGrLLKic2Yysk5H4Zx1U+Ag3I4h3I0gRXrmtTjGYktzroAn5
-X-Gm-Gg: AYBFou1KriJJqBGt+MNO+NDG+hf1nD9AMKqEx7RzU653kZ+rscTL70/4vhtRZfWK/lq
-	FZb5wRHkmXQKI2rGOtC7PKlB/J3PDXuMOW0jA9N/Ooo6xiQM6WvRbuIjXaQMQ2BPGqGnrpSH+3L
-	lt05XDYL5mnle6WrG8+ZuAcHMpzR27hzzS2A2PzscHcnwqYug/8/+SdDOQJsKp48j3jmUgpEGn5
-	Vm+dx8AVU88FNjsJLYRQsxbBUw+UqH+hSv/4rTnIUvGi/nTEeWnb8MN7Fmb9V+P7dCD3864hS92
-	n2OO/xJzVtiOfCNXx6vjG5ZMNLlJTfoRcoJGrwKJkX+N83HYRi0DZsH3zsrNIRw6ItA+rU/acYN
-	WzEEkDYZy3BO9+rEl/EDwzuTmpAfWTSzVbxvRXe7SW5pEXjljly6J6bzCnpby7QG6ULUlAh3lSw
-	dtDxRnOssFeBRjlzLoX4frYtSdvUU/j8UjB4UPADou0BVzmDNZAjm6wxwYa2zcxYcoOkr4eKj/1
-	1PoS+FOgbIWJ+JGsK7IavNZRdRxizGoAWlYAaYMgzm4Oq7jTPZPua8ZjwcrvogThaLhKO+m1QKV
-	I2HRg1TuewGWRATxBeVPSrHeAh+CPOHuA5tshTNTtvq3NRhFFUrtqAL41fuHZP7dpUAzbwlxvcW
-	mjr7ntEAxX4TqUuymAcIMlV+4njwkisuWGnqqKO6/S5nZXvhETRH+e6dmaIU=
-X-Received: by 2002:a05:600c:3513:b0:4a1:cedc:ab49 with SMTP id 5b1f17b1804b1-4a1fdd1e97emr87433205e9.31.1792646233938;
-        Wed, 21 Oct 2026 22:17:13 -0700 (PDT)
+        bh=TTPx+dOGfrZ2gbZc2iR4OE7g80jE9NdI9RPBQdZQId4=;
+        b=AdN4huIOEb9xbX5xMLra7nydL2zGIS5k7IK7y+jEzEhFwRCKZE5TIjVOxzMJQrIE+F
+         65t36xUBpUfa/FQhopULXQlO8Wo+s+g/Mxi8OIxSpH5dy14JtFT0xJA4VtZDmUdz/in1
+         dnwuXbJ1kf8cJ07iQ6NsUMJ5I4Be16T4MhIbxSSD/NQpZ5xyNY0V8A3eAJEmdKYCsWQo
+         hwcRgHeBNstZOVPGhBliKDgyPzaspDCwAd+xZcTsJjNwaQ5AbKZoXXJ1Fd6KtrTegGKR
+         ds5NKGTKCUNm/LyNwkdt0xwVEnV10sHkjYMdFMv/7CJzFOVv+AGYPxyrtuNTUx2wPd08
+         RtmQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792646237; x=1793251037;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=TTPx+dOGfrZ2gbZc2iR4OE7g80jE9NdI9RPBQdZQId4=;
+        b=TuOtTD3xddqIMjuQ1aXwD6aIeMC1eb0B5XFoQO6TbveOrhsXKZqv+U01cggr4Ra1FN
+         eLr0v7NPwhnGdvFg92b4kjnqdOzLB3kqAHq1o4T+wNjFOF/Iqe6b2tWIoMMSP4Rq6oSa
+         fJWZEDIs/aTIWPZUWiVIcoGiTRTopOPbpqllW9XYegtvOkwgpijOIQF9dpw4t3s6uEEK
+         MQBfyGVWJnAC1BR44Ce1X8klnerQZLq4z2shYdQfAx56hqWDf190LqKJQwwmOi4E+8r3
+         yACh5aVA/DrcPIhI+Udn1/R4hxu/hvSx0rjy0l0s8HlMHItUBEuNDQw+1+qPbSaUZpw4
+         NRpQ==
+X-Forwarded-Encrypted: i=1; AKwUvByhkWtwHXxxgcXLG0SJuTOYxNDgSTsY3MiQR4pP+64Wp+pTy8GpjetYooDJNgp6QyVEjOY8fHXrGYYI/A0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKoVmgtDu1wKJm2uREplfggXZtZsoAbSY1ojg03it5qxOAbj0PH
+	iRdtYjCrZJRZ2pkhOFgk8bYLOHpCfNPEuTxRAH6gtCUNCvu1ht+JRvLY
+X-Gm-Gg: AYBFou2ecuZJUCw1ie2IKb8O9vj76tUU3Sh5dz4PyYJy8wyGDOeq8ea1vhTbcdXVzsK
+	7Zm14O6z2H+JbEdyJ4EOyiZH0p9qwL4402/0arR/UJXYEfQtTpGxhAMiCTWSv40vXXPQg9oeL2t
+	uy6AIRI+8ZcnihiI8SDHmFlm8dvj/9IX0s9l0N8ctO9RFHBFUzDLR2mnX1SWfCmLbFNvB1N1+eh
+	cCrOoIqcJh0XMHOQ2BqWuRCiK0fN9Xa625UEgqe25Z9Cy+Lmjpm3zaTPtWgcSbtZA7MmM4zPqBM
+	fl8v4fUz51XJ9ZeTODUu5703xnn8QxBrTmWqno3QHnHWjCAT6oLD2RbMDvPVwqRH/AHmdGPnGno
+	SoDchaUpLZEGVm440Zp8yVwM+WVXOjFkZdtWRydQL/vu5CCXRqZ0XOsk7hMuU9DnPqpG3K9lAmH
+	jNUA5tUZlcfzJW03crqw5zt/ya/YoGPUxyZkg51/vTn8fotk7zqfw5MnY1+Zv6tpBd9WLQEFoQI
+	BfPLv0wrhAmG+u9j7pLGJ0qdmYIbETCulwGxZUEqvf1DAoWjluQFVU+KwiCZ+u6tBCt0AZXPFjk
+	SmSsegoJiUAUdFTx76En7Wa/ydHjy6r0qel94/37C1Pc0JjCJHQBMvwKPs/NrVRgtJ5NMfvKx5U
+	Mtr34Y9pEibK89arGilQXyRAVAoRNHKQtUgjjve7akIHl1tiHseJlJ8iKdrY=
+X-Received: by 2002:a05:600c:c83:b0:49e:65f2:db64 with SMTP id 5b1f17b1804b1-4a204aace0amr25847565e9.5.1792646236628;
+        Wed, 21 Oct 2026 22:17:16 -0700 (PDT)
 Received: from localhost.localdomain (dynamic-2a02-3100-ad43-d501-2c28-bb72-120d-420e.310.pool.telefonica.de. [2a02:3100:ad43:d501:2c28:bb72:120d:420e])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1fd0f4427sm90362275e9.3.2026.10.21.22.17.11
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1fd0f4427sm90362275e9.3.2026.10.21.22.17.14
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 21 Oct 2026 22:17:12 -0700 (PDT)
+        Wed, 21 Oct 2026 22:17:16 -0700 (PDT)
 From: Karl Mehltretter <kmehltretter@gmail.com>
 To: Steven Rostedt <rostedt@goodmis.org>,
 	Peter Zijlstra <peterz@infradead.org>,
@@ -115,10 +116,12 @@ Cc: Karl Mehltretter <kmehltretter@gmail.com>,
 	linux-doc@vger.kernel.org,
 	llvm@lists.linux.dev,
 	linux-kernel@vger.kernel.org
-Subject: [RFC PATCH 00/12] entry, tracing: Classify early hardirq entry and return tails
-Date: Thu, 22 Oct 2026 07:16:42 +0200
-Message-Id: <20261022051654.79224-1-kmehltretter@gmail.com>
+Subject: [RFC PATCH 01/12] sched: Split preempt-count bookkeeping from raw updates
+Date: Thu, 22 Oct 2026 07:16:43 +0200
+Message-Id: <20261022051654.79224-2-kmehltretter@gmail.com>
 X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+In-Reply-To: <20261022051654.79224-1-kmehltretter@gmail.com>
+References: <20261022051654.79224-1-kmehltretter@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -130,96 +133,165 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Tracing's transition recursion slot exists because a callback can run after
-architectural hardirq entry but before generic entry increments
-preempt_count(). Steve asked whether the count could be updated soon enough
-to remove that slot. This RFC establishes that entry contract on arm64 and
-closes a separate recursion window exposed by the same tests.
+Very early entry code may need to update the preempt count before
+instrumentable debug and tracing code can run. Conversely, return code may
+need to finish instrumentable validation and latency tracing before raw
+teardown.
 
-This is a design RFC, not a merge-ready proposal. I am looking for
-feedback on the entry contract before extending it to other architectures
-or removing TRACE_CTX_TRANSITION.
+Add preempt_count_add_finish() for bookkeeping after a raw addition. Add
+preempt_count_sub_prepare() for validation and tracing before a raw
+subtraction. Keep preempt_count_add() and preempt_count_sub() behavior and
+ordering unchanged.
 
-Clang can outline raw preempt-count updates and
-__kern_my_cpu_offset() from noinstr entry code. This series applies to a
-tree with the following two patches added:
+Keep latency tracing in each calling path so CALLER_ADDR0 identifies the
+caller. Force the start and stop helpers inline because trace provenance
+depends on their stack frames.
 
-  - Hongyan Xia, "arm64: Always inline raw preempt count updates"
-    https://lore.kernel.org/all/c3a90368dd6c096af9d918e036a27728696fb8a4.1786603168.git.hongyan.xia@transsion.com/
-  - Will Deacon, "arm64: percpu: Annotate __kern_my_cpu_offset() as
-    '__always_inline'"
-    https://lore.kernel.org/r/20260918161407.2300-12-will@kernel.org
+Assisted-by: LLM
+---
+ include/linux/preempt.h |  9 ++++++
+ kernel/sched/core.c     | 68 +++++++++++++++++++++++++++++++++--------
+ 2 files changed, 65 insertions(+), 12 deletions(-)
 
-Those patches are external prerequisites and are not included in this
-RFC.
-
-Patches 1 through 11 split raw preempt-count updates from generic IRQ
-bookkeeping. On arm64, ordinary interrupts add HARDIRQ_OFFSET after the
-pseudo-NMI decision but before instrumentable generic entry work. The
-remaining accounting still happens in irq_enter_rcu().
-
-The exit side has a similar gap. Function-graph and MTE callbacks can run
-after the real hardirq state has been removed, and kernel return may
-schedule before them. The series records ordinary-hardirq provenance and
-restores a synthetic hardirq classification after the preemption decision.
-That tail changes only preempt-count and lockdep state. It does not repeat
-interrupt accounting, RCU, or tick entry.
-
-Patch 12 keeps tracing's recursion state inside one preemption-disabled
-interval. It closes the transition collision reproduced at the IRQ-exit
-reschedule boundary. TRACE_CTX_TRANSITION remains unchanged because
-unconverted architecture entry intervals can still run before
-preempt_count() reflects hardirq context. An x86-64 no-transition control
-still recorded recursion at system-vector entry and exit and in the
-deferred hrtimer return tail.
-
-The base includes "entry: Account the deferred hrtimer rearm as hardirq
-context for lockdep" and "softirq: Preserve interrupt context on return
-from interrupt".
-
-The main questions are:
-
-  - Should generic entry expose separate raw-update and bookkeeping phases?
-  - Are preempt count and lockdep state sufficient for the return tail?
-  - Is arm64 a suitable first user of this contract?
-  - Should the recursion-lifetime fix travel with the entry conversion?
-
-Karl Mehltretter (12):
-  sched: Split preempt-count bookkeeping from raw updates
-  lockdep: Use raw access for pinned hardirq state
-  entry: Add the pre-counted ordinary-hardirq entry/exit contract
-  entry: Skip inactive IRQ-return reschedule calls
-  context_tracking: Split IRQ-exit preparation from the EQS transition
-  lockdep: Prepare IRQ-on state from a hardirq return tail
-  entry: Carry ordinary-hardirq provenance through kernel return
-  entry: Classify ordinary hardirq return-tail work as hardirq context
-  arm64: Use the pre-counted hardirq lifecycle
-  docs: entry: Describe the pre-counted hardirq lifecycle
-  locking/selftest: Exercise hardirq return-tail preparation
-  tracing: Pin recursion state for its complete lifetime
-
- Documentation/core-api/entry.rst     |  75 ++++++++++--
- arch/arm64/include/asm/preempt.h     |   2 +-
- arch/arm64/kernel/entry-common.c     |  25 ++--
- include/linux/context_tracking_irq.h |  32 +++++-
- include/linux/hardirq.h              |  29 +++++
- include/linux/interrupt.h            |   2 +-
- include/linux/irq-entry-common.h     |  96 ++++++++++++++--
- include/linux/irqflags.h             |  14 ++-
- include/linux/preempt.h              |   9 ++
- include/linux/trace_recursion.h      |  14 ++-
- kernel/context_tracking.c            |  78 ++++++++++---
- kernel/entry/common.c                |  38 +++++-
- kernel/locking/lockdep.c             |  48 +++++---
- kernel/sched/core.c                  |  68 +++++++++--
- kernel/softirq.c                     | 166 +++++++++++++++++++++++----
- lib/locking-selftest.c               |  53 +++++++++
- 16 files changed, 648 insertions(+), 101 deletions(-)
-
-
-base-commit: 779ab5d73a22c798d1273b4aaf50cf5b8d750be9
-prerequisite-patch-id: 9c009809614854fbff979d65aad6732757d006d5
-prerequisite-patch-id: 764fd197db36a3889548bbc41890dd5b3d902f99
+diff --git a/include/linux/preempt.h b/include/linux/preempt.h
+index 2e689de7b29ab..ad2c35b6813fb 100644
+--- a/include/linux/preempt.h
++++ b/include/linux/preempt.h
+@@ -228,6 +228,15 @@ extern void preempt_count_sub(int val);
+ #define preempt_count_dec_and_test() __preempt_count_dec_and_test()
+ #endif
+ 
++#if defined(CONFIG_PREEMPTION) && (defined(CONFIG_DEBUG_PREEMPT) || \
++					defined(CONFIG_TRACE_PREEMPT_TOGGLE))
++void preempt_count_add_finish(int val);
++bool preempt_count_sub_prepare(int val);
++#else
++static __always_inline void preempt_count_add_finish(int val) { }
++static __always_inline bool preempt_count_sub_prepare(int val) { return true; }
++#endif
++
+ #define __preempt_count_inc() __preempt_count_add(1)
+ #define __preempt_count_dec() __preempt_count_sub(1)
+ 
+diff --git a/kernel/sched/core.c b/kernel/sched/core.c
+index 1754d9f95f2cf..562d54b978960 100644
+--- a/kernel/sched/core.c
++++ b/kernel/sched/core.c
+@@ -5978,7 +5978,7 @@ static inline void sched_tick_stop(int cpu) { }
+  * If the value passed in is equal to the current preempt count
+  * then we just disabled preemption. Start timing the latency.
+  */
+-static inline void preempt_latency_start(int val)
++static __always_inline void preempt_latency_start(int val)
+ {
+ 	if (preempt_count() == val) {
+ 		unsigned long ip = get_lock_parent_ip();
+@@ -5989,6 +5989,28 @@ static inline void preempt_latency_start(int val)
+ 	}
+ }
+ 
++static __always_inline void preempt_count_add_debug_checks(void)
++{
++#ifdef CONFIG_DEBUG_PREEMPT
++	DEBUG_LOCKS_WARN_ON((preempt_count() & PREEMPT_MASK) >=
++				PREEMPT_MASK - 10);
++#endif
++}
++
++/**
++ * preempt_count_add_finish - Finish a raw preempt count addition
++ * @val: The value which was added to the preempt count
++ *
++ * Complete the debug checks and latency tracing after an entry path had to
++ * update the raw preempt count before instrumentable code could run.
++ */
++void preempt_count_add_finish(int val)
++{
++	preempt_count_add_debug_checks();
++	preempt_latency_start(val);
++}
++NOKPROBE_SYMBOL(preempt_count_add_finish);
++
+ void preempt_count_add(int val)
+ {
+ #ifdef CONFIG_DEBUG_PREEMPT
+@@ -6004,13 +6026,8 @@ void preempt_count_add(int val)
+ 		return;
+ #endif
+ 	__preempt_count_add(val);
+-#ifdef CONFIG_DEBUG_PREEMPT
+-	/*
+-	 * Spinlock count overflowing soon?
+-	 */
+-	DEBUG_LOCKS_WARN_ON((preempt_count() & PREEMPT_MASK) >=
+-				PREEMPT_MASK - 10);
+-#endif
++	preempt_count_add_debug_checks();
++	/* Keep latency attribution in the preempt_count_add() stack frame. */
+ 	preempt_latency_start(val);
+ }
+ EXPORT_SYMBOL(preempt_count_add);
+@@ -6020,13 +6037,13 @@ NOKPROBE_SYMBOL(preempt_count_add);
+  * If the value passed in equals to the current preempt count
+  * then we just enabled preemption. Stop timing the latency.
+  */
+-static inline void preempt_latency_stop(int val)
++static __always_inline void preempt_latency_stop(int val)
+ {
+ 	if (preempt_count() == val)
+ 		trace_preempt_on(CALLER_ADDR0, get_lock_parent_ip());
+ }
+ 
+-void preempt_count_sub(int val)
++static __always_inline bool preempt_count_sub_debug_checks(int val)
+ {
+ #ifdef CONFIG_DEBUG_PREEMPT
+ 	/*
+@@ -6036,15 +6053,42 @@ void preempt_count_sub(int val)
+ 	unsigned int pc = preempt_count();
+ 
+ 	if (DEBUG_LOCKS_WARN_ON(pc - uval > pc))
+-		return;
++		return false;
+ 	/*
+ 	 * Is the spinlock portion underflowing?
+ 	 */
+ 	if (DEBUG_LOCKS_WARN_ON((val < PREEMPT_MASK) &&
+ 			!(preempt_count() & PREEMPT_MASK)))
+-		return;
++		return false;
+ #endif
++	return true;
++}
++
++/**
++ * preempt_count_sub_prepare - Prepare a raw preempt count subtraction
++ * @val: The value which will be subtracted from the preempt count
++ *
++ * Run debug checks and latency tracing before an entry path performs a raw
++ * preempt count subtraction after all instrumentable code has returned.
++ *
++ * Return: true when the caller should perform the subtraction.
++ */
++bool preempt_count_sub_prepare(int val)
++{
++	if (!preempt_count_sub_debug_checks(val))
++		return false;
++
++	preempt_latency_stop(val);
++	return true;
++}
++NOKPROBE_SYMBOL(preempt_count_sub_prepare);
++
++void preempt_count_sub(int val)
++{
++	if (!preempt_count_sub_debug_checks(val))
++		return;
+ 
++	/* Keep latency attribution in the preempt_count_sub() stack frame. */
+ 	preempt_latency_stop(val);
+ 	__preempt_count_sub(val);
+ }
 -- 
 2.39.5 (Apple Git-154)
 
