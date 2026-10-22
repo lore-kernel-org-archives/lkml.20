@@ -1,85 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.61.82.184
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792660250;
-	b=u+lNDoDhgqRsCxC2hxLTTtxRC2DaGnD7QvaqQW46Z8g2QFvtV2+1um6WZZ+3vCV/H5gG
-	 3YYAJYKgoOLr7qw9ROd+CyVFcF6dknVO9237ek6BJHF+PKrCki9mZJmoClvuU44x57s36
-	 yb1s3l0tFPzlvA72OIwTpuSuuijX1iHasM0y1t22wzjEnwEfD0YtEoUFlBSdvm3z7+DJf
-	 qZw/hmGwSxm5u3jn8o24Be9YqzVebAtqf1kvPTJWl7Iw6nUnuPatfYL9n7mXNOTNXQqoh
-	 XHgBJibmRR6pyXkh7gZcf/V3ofKFdAWaVoM/10biTQiOFwRRVqKWoWCd1XArN918VaQ==
+	t=1792660301;
+	b=wfyTw/9Y+pnKKo3+/ZU7UOeEXs4kv5fhJZkx2PtZFDeB4uR5v70rTTRAt05KHeO9VwoN
+	 3XKF9o1gCIJ7i5XP6Ml3lu/CQ/BnqCx/nEeAOkHzqY3Yuj16hl3xrQPKXuyHncgHopheQ
+	 JorgLvcf2wuF/NcRyzzQv4epIfki+uyI9AE+28s81h5EsbnhJe+IfHZTWL3eeoSCUMyc3
+	 /rWaa7j4/B6enu/1iXW1p9xJwZqmZvX48r7mPKxJdpbA+ASe4vVL7aAFLCmWKT6SGXW8y
+	 bn/0Gcu18GOjQb3LVR69KYmxWU69rg6+ydWFKLS4OeSXDV6luKasocWSV3xBftiDWrQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792660250;
-	h=DMARC-Filter:X-UUID:DKIM-Signature:X-CID-P-RULE:X-CID-O-INFO:
-	 X-CID-META:X-CID-BVR:X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:Received:
-	 Received:Received:Message-ID:Subject:From:To:CC:Date:In-Reply-To:
-	 References:Content-Type:Content-Transfer-Encoding:User-Agent:
-	 MIME-Version:X-MTK;
-	bh=sC5+6Bwpg8Flndcyoy/sLjGpBG22wsqv9rEoNRXgEiQ=;
-	b=2fpaClnz2c1MsgEEBV2c6aghnkVFdzNLp+xO4PSsbegqGr/KQdzrxjVxzPPsrVRRSbbf
-	 HyuEyKcWgfXz8s1GN0CDK8vSKaG4x7Z42yVq2MxErSTkPQslINkoItzZobTY+rjG1v59U
-	 W0AnjrCn5PtL4Pkq2FMNoS3HmtgDw86YypiJThy2mdha/TmZ7rsaPIT/reEXzz3SUiPCO
-	 6M0hJBqjfuc12XVb1N0v0nj8Ko6aE2V3sTUIPOoWJ0Tbfzp6MSzQMe9zQuHeZPQTN4pDm
-	 lzowMyRXdpASDICCsY8bxwlbMpzZwqKKO1uY4sFL84fsKe4FQUPvywn8ssQdYUD28fQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792660301;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:Received:Received:From:In-Reply-To:
+	 MIME-Version:References:Date:X-Gmail-Original-Message-ID:
+	 X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type;
+	bh=p/rWYroWakeh+XKdFXLD4/hTsWddof8wuTHxvaKPBIs=;
+	b=WUw+MWb7wfk1vyfqa17OBn3uYv2qMn9+6+dN4Zsteuy6Se78mzhVQQr5ue4kzo89DTbI
+	 iyOggNGxsn+bc5tk+Smf9Quqx0qW7M9S7rjbg4VyYMtcUYuC0zE4izK4OTJC7mp3JtXg3
+	 GfGS4jBmDOxBY5EsusNXv/JBQcfNqfLgykp/ZJA/JROmXVdMjLaFhdSti1z0zuybf4vOF
+	 vpK89dSofPhrUsPHI36RnH6bLhtMx41q/gPJ4AdxcD3KAFtVoNYJ59kz0a/Wsp8hzCKSc
+	 tEX85+boJn/DCtKdZLQNjjST2yhF4Nj+/Q2UQsPQnZzLSryeu9AL0lJgDRY9xEqyj4Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mediatek.com;
-	spf=pass smtp.mailfrom=mediatek.com;
-	dkim=pass header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256 header.s=dk header.b=M9UMmh6k;
-	arc=none smtp.remote-ip=210.61.82.184
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JgXn7b0F;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0230D606A31A;
-	Thu, 22 Oct 2026 09:10:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0230D606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D927606A31A
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 09:11:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256 header.s=dk header.b=M9UMmh6k
-X-UUID: 749b63a0cdf811f18dc8c9802ae25ab1-20261022
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
-	h=MIME-Version:Content-Transfer-Encoding:Content-Type:References:In-Reply-To:Date:CC:To:From:Subject:Message-ID; bh=sC5+6Bwpg8Flndcyoy/sLjGpBG22wsqv9rEoNRXgEiQ=;
-	b=M9UMmh6kYZUVSqkAc70pbJ9WDXEXOjArU/Ls2vyPhJmc+V8jgqda151ru90fexJp4cP4x55z4ZfEpPtMygcmoe6sM5JEfo9tmslVnpq1+Sng1u5pNey3xC9039+7eNsbXuyMFBkvuEclPV1xK2uWOuL1nW3imjSVNp9wRnOFrIk=;
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.20,REQID:7882e0e4-61df-44a6-ba40-4909908ebe8d,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:291e20b,CLOUDID:bf16eaba-4006-44bb-949c-6e25a7b8dad4,B
-	ulkID:nil,BulkQuantity:0,SF:80|81|82|83|102|136|836|865|888|898,TC:-5,Cont
-	ent:0|15|50|99,EDM:-3|-100,IP:nil,URL:99|1,File:130,RT:0,Bulk:nil,QS:nil,B
-	EC:-1,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_ULS
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 749b63a0cdf811f18dc8c9802ae25ab1-20261022
-Received: from mtkmbs10n1.mediatek.inc [(172.21.101.34)] by mailgw02.mediatek.com
-	(envelope-from <peter.wang@mediatek.com>)
-	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
-	with ESMTP id 292985790; Thu, 22 Oct 2026 17:10:41 +0800
-Received: from mtkmbs13n1.mediatek.inc (172.21.101.193) by
- MTKMBS14N2.mediatek.inc (172.21.101.76) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.29; Thu, 22 Oct 2026 17:10:40 +0800
-Received: from [10.233.130.16] (10.233.130.16) by mtkmbs13n1.mediatek.inc
- (172.21.101.73) with Microsoft SMTP Server id 15.2.2562.29 via Frontend
- Transport; Thu, 22 Oct 2026 17:10:40 +0800
-Message-ID: <dc069f4e97eeb589dc3a222017f2daad067ed0ff.camel@mediatek.com>
-Subject: Re: [PATCH v5 5/6] scsi: ufs: core: Remove
- completed-without-interrupt path in ufshcd_abort()
-From: Peter Wang <peter.wang@mediatek.com>
-To: Stanley Jhu <stanleyjhu@google.com>, "Martin K . Petersen"
-	<mkp@kernel.org>, <linux-scsi@vger.kernel.org>
-CC: "James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>, "Bart
- Van Assche" <bvanassche@acm.org>, Alim Akhtar <alim.akhtar@samsung.com>, Bean
- Huo <beanhuo@micron.com>, Can Guo <can.guo@oss.qualcomm.com>,
-	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
-Date: Thu, 22 Oct 2026 17:10:40 +0800
-In-Reply-To: <20261022034443.3034432-6-stanleyjhu@google.com>
-References: <20261022034443.3034432-1-stanleyjhu@google.com>
-	 <20261022034443.3034432-6-stanleyjhu@google.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.52.3-0ubuntu1.1 
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JgXn7b0F
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3F021F000C7
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 09:11:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792660300;
+	bh=p/rWYroWakeh+XKdFXLD4/hTsWddof8wuTHxvaKPBIs=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=JgXn7b0FPQxh81xw+phuxyPgQ9fuRV/9DmFkK0eOdg8ypWV4kydREYNqip5Nm2b14
+	 p4ve/6KD56vOpkpFi3Yp90WjnlYiMR71N4Kr1/nwbH1PWsfBtzhN2Wq5tUym79Hrc7
+	 1fds9Tn6ugtgU7PlIwDFioK/oxKiJXXk/IKuvoSpaemVzVMjQGqO6JpDHof8OsDbz3
+	 NvArg4bpbV/VJxnT0S7+nU2Xl88zgTEGjg6NP7+hRPX3AyMX4brriLK2xVeTrfJ52z
+	 iGhrkI+U0FhRoeUNwiv1BcFnJWygwCDJGbgrIj18u8YrQ3W5RCXqWoTipeBEs32Q56
+	 sAPgrSgr0lZfQ==
+Received: by mail-lj1-f178.google.com with SMTP id 38308e7fff4ca-3ab39af88aeso13853171fa.2
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 02:11:40 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwsv5hqkjvYDeOUy8ktPw6deClC+O//Cdv6RgUGIOb6NBX82m3Sj/DUZhhiHtIK1KxFr1GA5cWB2CG82/8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI7zygx9cFpKw//UdeF+2UXDr8KLWKe8ey6SiQIL6k75dhl+RLs
+	FsnT/Zvd8PaywF8YzsNc8+ZX0Y47nnfo/Nx4VsJPwY3Q6W4DLRukXqmnL/WTXLyeElr4o3Wlgt2
+	j7rBfqt5Z4FTGGdzqwY/Fv1dtIl5H+mWAkNvMs1qbQQ==
+X-Received: by 2002:a2e:be9e:0:b0:3a9:d937:7540 with SMTP id
+ 38308e7fff4ca-3ac4416243dmr12975201fa.9.1792660299462; Thu, 22 Oct 2026
+ 02:11:39 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 22 Oct 2026 02:11:38 -0700
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 22 Oct 2026 02:11:38 -0700
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <20261021204654.1001101-1-andriy.shevchenko@linux.intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,45 +65,29 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MTK: N
+References: <20261021204654.1001101-1-andriy.shevchenko@linux.intel.com>
+Date: Thu, 22 Oct 2026 02:11:38 -0700
+X-Gmail-Original-Message-ID: <CAMRc=MdHEzHBXx=P1-0Ut80P5=sQnPDwZRD-zdpoE75iHcJjBA@mail.gmail.com>
+X-Gm-Features: AclHuK_hz-v2b1ECvbFN520xl5CJy3PF0_qpuWYzZq4NEyeOn4Gq02HoHw6YzK4
+Message-ID: <CAMRc=MdHEzHBXx=P1-0Ut80P5=sQnPDwZRD-zdpoE75iHcJjBA@mail.gmail.com>
+Subject: Re: [PATCH v1 0/3] gpio: Introduce helper to dispose IRQ mappings
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Bamvor Jian Zhang <bamv2005@gmail.com>, Linus Walleij <linusw@kernel.org>, 
+	Bartosz Golaszewski <brgl@kernel.org>, Samuel Moelius <sam.moelius@trailofbits.com>, 
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, linux-gpio@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Thu, 2026-10-22 at 11:44 +0800, Stanley Jhu wrote:
-> In SDB mode, a command that times out right as the controller
-> finishes
-> it can be completed twice:
->=20
-> 1. The command times out and scsi_timeout() schedules ufshcd_abort().
-> 2. The controller finishes the command and clears its doorbell bit in
-> =C2=A0=C2=A0 REG_UTP_TRANSFER_REQ_DOOR_BELL, while the completion handler=
- has
-> not
-> =C2=A0=C2=A0 yet cleared BIT(tag) in hba->outstanding_reqs.
-> 3. ufshcd_abort() sees the doorbell bit clear and calls
-> =C2=A0=C2=A0 __ufshcd_transfer_req_compl() without clearing BIT(tag) in
-> =C2=A0=C2=A0 hba->outstanding_reqs.
-> 4. The normal completion handler or the logical unit reset that
-> follows
-> =C2=A0=C2=A0 sees BIT(tag) still set in hba->outstanding_reqs and complet=
-es the
-> =C2=A0=C2=A0 same command a second time.
->=20
-> This branch only exists for a rare corner case, a completion
-> interrupt
-> that is lost or arrives late. Remove it to simplify the abort path
-> and
-> leave such a command to the SCSI error handler, like any other
-> command
-> that cannot be aborted. The cost is a slower recovery in this corner
-> case, which is acceptable since it only happens after a timeout.
->=20
-> Fixes: 169f5eb28869 ("scsi: ufs: Optimize SCSI command processing")
-> Cc: stable@vger.kernel.org
-> Link:
-> https://lore.kernel.org/r/fdb5c391-01ef-4a23-94c2-4f3853909348@acm.org
-> =C2=A0
-> Signed-off-by: Stanley Jhu <stanleyjhu@google.com>
-> ---
->=20
+On Wed, 21 Oct 2026 22:44:42 +0200, Andy Shevchenko
+<andriy.shevchenko@linux.intel.com> said:
+> I have noticed that a few drivers use almost the same code to dispose IRQ
+> mappings. This series to deduplicate the efforts. I only converted a couple
+> of the users (there are potentially more) in order to stay in the same
+> subsystem.
+>
 
-Reviewed-by: Peter Wang <peter.wang@mediatek.com>
+The "few" being 2 testing drivers of which one (mockup) should ideally go away.
+Do we really want to add more code to GPIO core that will only be used in
+testing module(s)? I don't think this is useful, sorry.
 
+Bartosz
