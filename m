@@ -1,88 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792703910;
-	b=ipiv1B/fuUBgqmyZtyKnmLKhAGgiUjrOZen8hMqivKsrWqCcSMBLUcwfQr8IQtYgP3y8
-	 HlyXaHaiyMGFsDbZiTya784xNWgKd9qSOcqa5umOzoZ69WbdneQJhTNrQqNYLrX1PsgMT
-	 tvE+YTwtxo+k6HsvAXjVP7lmUQe/n3OZ4QFDlIAMb1CGN8km+PKYOtLdbxfIPje+eyIOs
-	 kt2fgKXKf/oVIynw6TSgjC8Yz5CrDjMTsH5baBUU7dhiQOPvmegFCjPxuIE1BHysreRiR
-	 g5vKjEM/R5Yey2VhnD68nC1OgMOgiLM8LAchaGJ0xXE1o4dWZHY+g7k8IzVwhZGicWw==
+	t=1792703958;
+	b=waeq0XVyTo04asvCYEP33KJr77eix7vNSpSGaeitUO4aaiG0rkJT3kUanKv2PUmYAy05
+	 xcm6cGGUMppHkvpPNWXHi46fY7KKwi5I4s87PGkhtMbnmwLuH+K5US53HexX3+PU9FYXC
+	 Fxcy6hhXOj/tylHHeqmFOhmyWTdxxtBygEtxpOfFd/rL+Tq5Qp1c22IvxaG/v1FRgn2uY
+	 CVE5IGW7mN99dJtpqS6QvEaNi4fgeXK0xoFE9sYU0nPEX0jEpQjltyAb4doTVcZWjEBbd
+	 xSMfV9xAovBoDyKVCSl1ig9BcPr44FIXfVz8Q11cT8uEzab5+G1wNkxHwTs2en6tBxg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792703910;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
-	bh=WsTLwSG0j0rvcPTxUloruhaWzU98+XdsMcTu8lqR+tY=;
-	b=cMvtg6JOqrj1zQR1DqYafmCd+a4mi/7/vEUyY/+O4qB71jg/D85rY4jXlNvjCBjjBIXD
-	 5rpDTymSbKm46ozeZRN2fPeGe/HRnAJfPS2oh3r/hCyv3S0haGUtQ4oTgszdzp6dr9i34
-	 M5dxDdQb39RlPuLmbAFhL/wB+0h4XcEXMnlMjvKVkQ/XH0ymxzYVYt6LDjZvmsS5Q57cx
-	 VLzYMCyuIhuTyv26/o9M3HxTTaNX739mjEfH/qXAmd1NnSQqHCsZCxToXDya5T3uZol1d
-	 xKgn9VktL+sVVXXOVyfr+1oEDWgk+DRe/aCnGUaUhmKyn6/fxUeu9iHhj+gtnhcJHRg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792703958;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=T3k78ZLZiyk9GODqNKVNMBZwgmj6EtW4p2/GpEyhS5k=;
+	b=FaYPssEvORd8VoRC6wJDgiYXvcTtZwkcGFyHeABZogk1Wcf5pjjluke0khaBrhHXkvkM
+	 XY4JZ/eXHf3woPgHHCvHoPV6xTB23RFcWEaYcyei4dUbeQs2gbdS/x11rBqPPUsY2RfzB
+	 issZ+xQFGbccmL9w2MfxCHKkeDACIhnmXTsIk7s3unFoBVt2aarWX+YPRQ5KgzrOeDHpx
+	 /nmr/Pl+NALxp48vCTIKEKOtHnhBZSnS90hA8ZdMIGOCcN1TQ27IbZaqIP/eQM7OXOHsv
+	 9zoh/s6lYrTXT+k8GvXqhdU4Yf5euXrplVsUwX54HlmrAdrTuO3TSmSAt/2+TwNEK3Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=feedwtV4;
-	arc=none smtp.remote-ip=209.85.161.45
-Received: from mail-oo1-f45.google.com (mail-oo1-f45.google.com [209.85.161.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kMy3VULZ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58B54606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 21:18:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 58B54606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4464606A31A
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 21:19:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=feedwtV4
-Received: by mail-oo1-f45.google.com with SMTP id 006d021491bc7-6df7f544919so157228eaf.1
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 14:18:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792703908; x=1793308708; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=WsTLwSG0j0rvcPTxUloruhaWzU98+XdsMcTu8lqR+tY=;
-        b=feedwtV4TJjqKCyepFs1ntK4KQAHY19WFwsBXYfd9S5IR65Z9uCdA8YDMvirAtZhfg
-         4WpAq7mYG6z9xz92B2KFaBF5ZdhoCXWC0Sr0NP2i774o1Ghfi/J9iTZYX5pTEKzEra/C
-         up2vtzJfR0gL+fy1QFpY/qlEjXWJJHKlxZZpd7jTeVaczLgbSopKUGjUSMPCTE6uqHf1
-         00sV1w9VX3dyd5f2iIHkHVViyfBMIigBcv5aX/JkSv5AUZoXjX7GpxLpP3t1RxL76Shf
-         2jBi+9s7Ftq4rAqK1klP0P2t7+gqh5J26ra9gdvlusLyArE8iIpp9NNnCMRBiEmgqLb8
-         Iaew==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792703908; x=1793308708;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=WsTLwSG0j0rvcPTxUloruhaWzU98+XdsMcTu8lqR+tY=;
-        b=lp2ZszCEhX5LZRILuM+AGjJe3I3qWSeloG98ty4ERO2xCIxsCK/umalmiktvMEY97e
-         R7FKzbnrmmuKk+QsR5JYA4APkVqxvDQsF8wxaZE32RKJ1ZJ6+4547gu2TQpxZ5OIczWy
-         QTbVrxKr+37G8u2CeUsnVR2rsSpUpEgm2jKDJbcqEouoWaP+sDSOYSV6VIg0JWeme9y7
-         BL1JjrjRg4SYt4ale4BXJ4LM4bMY2c77g/jO6UeJpBYoKt/ZyWHDiW5Hjf03tWMlYoLP
-         TGTm8gTissMEwPeNImoWORp4Cgxdq7syh1ie1D0wCT5lZuYOamFqlNGDPBZ5PhD8d8c/
-         INeg==
-X-Forwarded-Encrypted: i=1; AKwUvBwIqsTIxN0Kgh7LPXFnGL9OQXi+ASJz/UObfa+sVJuScwwMDhJz5euCm7QyKT/RL+2cBdZ5opJpYfzIrzM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI3cIWTiiShOsZogAuVVKDedHbKe/s5azUSPB6Xdc2/m29RENFc
-	xrTHUA/iZnIHadkY5niJF7wrBm3dsN8i/UzfGIm5UkdyZuF7lG8XAGbZ
-X-Gm-Gg: AYBFou0cWFhXnCyBhDVOJund+g4f48svziVHRY9ElT72+oP+V4Yi/1V0oOj61DCOPy4
-	qpc6ZaCHcSgyTc/7UstCi5T43WtAfDNpXTIQ7daKIxzjw3dVFluKWvlvJRp1X/Vl4CmtvWH+nLj
-	32s3j8NfiineMA0tSGpmaQT1YKFC312mKcEwPabqBeE1/QcoSIzDh6Nuli3Z6oiWUA1k/AW5zAQ
-	KqFu+44g6SwAvfmHry2joyB6niThlC5rMjmpfnuYjFhpZJOOQ21B4qegSEv2jSnuaqWcXw82npW
-	fybScA/FQeZlO4xO0DU4Jdpu/TYFSvBifmpilwq8fpqlalkvRZNYpWl3FhCgctC+L6fUaZkyMWh
-	zN5YdAtmwitsqGh1xmDW1H4BHtWmU1Gs2rpu4+XHZsdEcmLqc9yf9nDTtL3ob/SJsCJkISsFp4a
-	5FclY4SQm9n7XUAXjT05hG1r3oYZMkc7jlDta94V4+OEcKyjTqhV7Ul9ZkIOkoYvQlZYXtIorSr
-	L/AQiG10LvK+iXOEhJ71RBWZ8ccu5BWXZE/FLhkrxkjaPHHbr+HTpsZSQ0WNRUteKqw+jjPOGr8
-	7rgvU+tV8BYLY5pxbKhia+JoS6cRI2GLhd4bxbL6xO2tx9eEFZINAdtqs0MvfLMOAZDY0lomrIs
-	3a85RTTVqboCgYzAjM8NIdWhf0D0xWorChcf3Zl1FUA2bTVucTKbwyQCuLtMn2VifV8DRAfsqhF
-	P3rnw=
-X-Received: by 2002:a05:6820:3287:b0:709:529a:477c with SMTP id 006d021491bc7-70b88ac1066mr386352eaf.87.1792703908193;
-        Thu, 22 Oct 2026 14:18:28 -0700 (PDT)
-Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-84fbd362c1fsm250873a34.4.2026.10.22.14.18.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 14:18:27 -0700 (PDT)
-From: James Hilliard <james.hilliard1@gmail.com>
-Date: Thu, 22 Oct 2026 15:18:26 -0600
-Subject: [PATCH] dmaengine: mediatek: uart: make channel termination atomic
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kMy3VULZ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B9631F031E6
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 21:19:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792703957;
+	bh=T3k78ZLZiyk9GODqNKVNMBZwgmj6EtW4p2/GpEyhS5k=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=kMy3VULZbphqL7iPhLqeTx9EzvhqrBamiLgDgRxnDyd6zjcCmSD9pbrfkXI30xug3
+	 aCGhfOcfgFaDoQ6WVYtWXX0rdejPMfarVCwB2wITskPzS9ThqjLh/3CI8NykivzDCP
+	 A7orY7/cfqZ8kTH+mso+HLDF5MZsbeVumfXf7meGF+HszLtws0513mMHeKJTEmqPWX
+	 mhfE0Tw0OsoHfnbqIrefqYGyvgrq6oPbxjw+IVXJigzhN/IR55sFskm9YEQsKI7djl
+	 gc4DGyskOK9x4ZS0zOP2Ez5tQb0TiA53xVl21dGFGUpvn2YsIjmau+9xxwz750TaV2
+	 bl0ezCUwbd8qA==
+Received: by mail-qk1-f172.google.com with SMTP id af79cd13be357-93e503815adso22167885a.1
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 14:19:17 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwm+hUBPhZ1L4pyBsESkAaSYanMSgwIlu1AiTGlpUDMOZ0uGBf/mPpNRGG0klcABL4JrwtKH5jaE42zxWE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKlsBI6/L2vudIoUGuDtaNnTIvnIrLXJMK66+L9kCTdLhyy1PTx
+	daEUmJkTV0EumsNaF0rea2Q4P0TeGFYo7G95vdecoXGBXC2zv4XI3Uj7Yf2l9yyeQcaxYq9BYyQ
+	9V2NipuUJznYStWHSRXWmhfrnO4hVE18=
+X-Received: by 2002:a05:620a:261e:b0:93f:2658:7e54 with SMTP id
+ af79cd13be357-93f6f54d44emr122297585a.3.1792703956938; Thu, 22 Oct 2026
+ 14:19:16 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,111 +59,130 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261022-submit-mtk-uart-dma-terminate-atomic-v1-v1-1-aa498ba5da25@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWNwQqDMBBEf0Vy7lITS8D+SulhE7e6LYklWUUQ/
- 71JPb5h5s2uMiWmrO7NrhKtnHmOBfSlUX7COBLwUFiZ1ljdGgN5cYEFgnxgwSQwBAShFDiiEKD
- MgT2sGnRv+66zFunmVbF9E714+z89nicX1Zu8VH1tOMwELmH0U42KmOLIka7n7jh+D1/b660AA
- AA=
-X-Change-ID: 20261022-submit-mtk-uart-dma-terminate-atomic-v1-19693366ae4c
-To: Sean Wang <sean.wang@mediatek.com>, Vinod Koul <vkoul@kernel.org>, 
- Frank Li <Frank.Li@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: dmaengine@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, James Hilliard <james.hilliard1@gmail.com>
-X-Mailer: b4 0.15.2
+References: <0cbd219d-f69d-4f72-aec5-43e1f2d978de@linux.alibaba.com>
+ <20261022102726.56682-1-baohua@kernel.org> <fc302ca3-6bf6-4bde-b3e8-8d2e93a4e4ac@linux.alibaba.com>
+In-Reply-To: <fc302ca3-6bf6-4bde-b3e8-8d2e93a4e4ac@linux.alibaba.com>
+From: Barry Song <baohua@kernel.org>
+Date: Fri, 23 Oct 2026 05:19:05 +0800
+X-Gmail-Original-Message-ID: <CAGsJ_4z9GZkpV+mpoGogma4oSX4cHy+2UDzyUQSjjOLOfekEPg@mail.gmail.com>
+X-Gm-Features: AclHuK9j6Sq7bDCxc6TVPv0MaH-O7v3jJE353lVb3gr4xcVRJVBmmqL18xwlDFw
+Message-ID: <CAGsJ_4z9GZkpV+mpoGogma4oSX4cHy+2UDzyUQSjjOLOfekEPg@mail.gmail.com>
+Subject: Re: [RFC PATCH v2] mm: vmscan: avoid anon scanning for GFP_NOIO with
+ low swapcache in MGLRU
+To: Baolin Wang <baolin.wang@linux.alibaba.com>
+Cc: akpm@linux-foundation.org, axelrasmussen@google.com, baoquan.he@linux.dev, 
+	david@kernel.org, hannes@cmpxchg.org, kasong@tencent.com, 
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org, liuxiang.277@bytedance.com, 
+	ljs@kernel.org, mhocko@kernel.org, qi.zheng@linux.dev, shakeel.butt@linux.dev, 
+	weixugc@google.com, yuanchu@google.com, zhangbo56@xiaomi.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The 8250 transmit flush path calls dmaengine_terminate_async() with the
-UART port spinlock held and interrupts disabled. UART APDMA termination
-uses sleeping register polls and synchronize_irq(), which can also wait for
-a threaded handler or for an interrupt pending on the calling CPU.
+On Thu, Oct 22, 2026 at 7:26=E2=80=AFPM Baolin Wang
+<baolin.wang@linux.alibaba.com> wrote:
+[...]
 
-Serialize the stop sequence with the interrupt handler using the virtual
-channel lock and use atomic register polling. A handler that was waiting
-for that lock must check interrupt status before accessing a descriptor:
-termination may already have masked and acknowledged its interrupt. This
-allows termination to retire descriptors without waiting for the handler.
+> >>                   }
+> >>
+> >>                   if (should_run_aging(lruvec, max_seq, sc, swappiness=
+)) {
+> >> -                       if (try_to_inc_max_seq(lruvec, max_seq,
+> >> swappiness, false))
+> >
+> > This is quite tricky. If we pass swappiness=3D0, anon aging will be
+> > skipped. Do we want that for GFP_NOIO cases? I mean, these are not
+> > real cases where anon aging should be disabled.
+>
+> No, we have real use cases where 'vm_swappiness' is set to 0, which
+> means the workload never reclaims anon folios. So in this case we don't
+> need to age anon folios.
 
-If the channel does not stop, return the timeout and retain its descriptors
-instead of freeing state still owned by the transfer. Continue attempting
-STOP after a flush timeout, since stopping the channel is sufficient for
-termination even when the flush could not finish.
+My concern is that setting swappiness to 0 for GFP_NOIO also skips
+anon aging, making it behave the same as a real swappiness=3D0.
+However, GFP_NOIO is only a temporary state, and subsequent
+allocations may not use GFP_NOIO.
 
-Fixes: 9135408c3ace ("dmaengine: mediatek: Add MediaTek UART APDMA support")
-Cc: stable@vger.kernel.org
-Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
----
- drivers/dma/mediatek/mtk-uart-apdma.c | 24 ++++++++++++++++--------
- 1 file changed, 16 insertions(+), 8 deletions(-)
+> > static int should_skip_vma(unsigned long start, unsigned long end, stru=
+ct mm_walk *args)
+> > {
+> >          ...
+> >          if (vma =3D=3D get_gate_vma(vma->vm_mm))
+> >                  return true;
+> >          ...
+> > }
+> >
+> >> +                       bool force_anon_aging =3D is_force_anon_aging(=
+sc,
+> >> lruvec, swappiness);
+> >
+> > Adding a force_anon_aging argument to inc_max_seq() seems like
+> > quite a burden. Maybe a cleaner approach is to pass sc all the
+> > way to inc_max_seq() and let it detect GFP_NOIO cases itself?
+>
+> OK, still look good to me.
+>
+> > BTW, I guess we don't need to worry about swappiness at all. We can
+> > simply bypass anon reclaim?
+> >
+> > diff --git a/mm/vmscan.c b/mm/vmscan.c
+> > index fc823fe3bd1f..fa6d9860156d 100644
+> > --- a/mm/vmscan.c
+> > +++ b/mm/vmscan.c
+> > @@ -4903,6 +4903,8 @@ static int scan_folios(unsigned long nr_to_scan, =
+struct lruvec *lruvec,
+> >       int skipped =3D 0;
+> >       unsigned long remaining =3D nr_to_scan;
+> >       struct lru_gen_folio *lrugen =3D &lruvec->lrugen;
+> > +     struct pglist_data *pgdat =3D lruvec_pgdat(lruvec);
+> > +     struct mem_cgroup *memcg =3D lruvec_memcg(lruvec);
+> >
+> >       VM_WARN_ON_ONCE(nr_to_scan > MAX_LRU_BATCH);
+> >       VM_WARN_ON_ONCE(!list_empty(list));
+> > @@ -4910,6 +4912,9 @@ static int scan_folios(unsigned long nr_to_scan, =
+struct lruvec *lruvec,
+> >       if (get_nr_gens(lruvec, type) =3D=3D MIN_NR_GENS)
+> >               return 0;
+> >
+> > +     if (!type && reclaimable_anon_is_low(memcg, pgdat->node_id, sc))
+> > +             return 0;
+> > +
+> >       gen =3D lru_gen_from_seq(lrugen->min_seq[type]);
+> >
+> >       for (i =3D MAX_NR_ZONES; i > 0; i--) {
+> > @@ -5164,12 +5169,19 @@ static int evict_folios(unsigned long nr_to_sca=
+n, struct lruvec *lruvec,
+> >   static bool should_run_aging(struct lruvec *lruvec, unsigned long max=
+_seq,
+> >                            struct scan_control *sc, int swappiness)
+> >   {
+> > +     struct pglist_data *pgdat =3D lruvec_pgdat(lruvec);
+> > +     struct mem_cgroup *memcg =3D lruvec_memcg(lruvec);
+> >       DEFINE_MIN_SEQ(lruvec);
+> >
+> >       /* have to run aging, since eviction is not possible anymore */
+> >       if (evictable_min_seq(min_seq, swappiness) + MIN_NR_GENS > max_se=
+q)
+> >               return true;
+> >
+> > +     /* run aging when GFP_NOIO limits anon reclaim with few swapcache=
+ folios */
+> > +     if (swappiness && min_seq[LRU_GEN_FILE] + MIN_NR_GENS > max_seq &=
+&
+> > +         reclaimable_anon_is_low(memcg, pgdat->node_id, sc))
+> > +             return true;
+>
+> I've considered this, but we'd still need to add some code in
+> get_nr_to_scan()/lruvec_is_sizable() to filter out the anon folios for
+> GFP_NOIO case. Rather than spreading the logic across multiple places,
+> I'd prefer adding a helper with proper comments to handle the aging
+> issue, like the sample code I showed.
+>
 
-diff --git a/drivers/dma/mediatek/mtk-uart-apdma.c b/drivers/dma/mediatek/mtk-uart-apdma.c
-index f74e9a328588..73d4b701ac85 100644
---- a/drivers/dma/mediatek/mtk-uart-apdma.c
-+++ b/drivers/dma/mediatek/mtk-uart-apdma.c
-@@ -256,6 +256,12 @@ static irqreturn_t mtk_uart_apdma_irq_handler(int irq, void *dev_id)
- 	unsigned long flags;
- 
- 	spin_lock_irqsave(&c->vc.lock, flags);
-+	/* Termination may have acknowledged an interrupt before we got the lock. */
-+	if (!mtk_uart_apdma_read(c, VFF_INT_FLAG)) {
-+		spin_unlock_irqrestore(&c->vc.lock, flags);
-+		return IRQ_NONE;
-+	}
-+
- 	if (c->dir == DMA_DEV_TO_MEM)
- 		mtk_uart_apdma_rx_handler(c);
- 	else if (c->dir == DMA_MEM_TO_DEV)
-@@ -400,10 +406,12 @@ static int mtk_uart_apdma_terminate_all(struct dma_chan *chan)
- 	LIST_HEAD(head);
- 	int ret;
- 
-+	spin_lock_irqsave(&c->vc.lock, flags);
-+
- 	mtk_uart_apdma_write(c, VFF_FLUSH, VFF_FLUSH_B);
- 
--	ret = readx_poll_timeout(readl, c->base + VFF_FLUSH,
--			  status, status != VFF_FLUSH_B, 10, 100);
-+	ret = readx_poll_timeout_atomic(readl, c->base + VFF_FLUSH,
-+					status, status != VFF_FLUSH_B, 10, 100);
- 	if (ret)
- 		dev_err(c->vc.chan.device->dev, "flush: fail, status=0x%x\n",
- 			mtk_uart_apdma_read(c, VFF_DEBUG_STATUS));
-@@ -415,11 +423,14 @@ static int mtk_uart_apdma_terminate_all(struct dma_chan *chan)
- 	 * 3. set stop as 0
- 	 */
- 	mtk_uart_apdma_write(c, VFF_STOP, VFF_STOP_B);
--	ret = readx_poll_timeout(readl, c->base + VFF_EN,
--			  status, !status, 10, 100);
--	if (ret)
-+	ret = readx_poll_timeout_atomic(readl, c->base + VFF_EN,
-+					status, !status, 10, 100);
-+	if (ret) {
- 		dev_err(c->vc.chan.device->dev, "stop: fail, status=0x%x\n",
- 			mtk_uart_apdma_read(c, VFF_DEBUG_STATUS));
-+		spin_unlock_irqrestore(&c->vc.lock, flags);
-+		return ret;
-+	}
- 
- 	mtk_uart_apdma_write(c, VFF_STOP, VFF_STOP_CLR_B);
- 	mtk_uart_apdma_write(c, VFF_INT_EN, VFF_INT_EN_CLR_B);
-@@ -429,9 +440,6 @@ static int mtk_uart_apdma_terminate_all(struct dma_chan *chan)
- 	else if (c->dir == DMA_MEM_TO_DEV)
- 		mtk_uart_apdma_write(c, VFF_INT_FLAG, VFF_TX_INT_CLR_B);
- 
--	synchronize_irq(c->irq);
--
--	spin_lock_irqsave(&c->vc.lock, flags);
- 	vchan_get_all_descriptors(&c->vc, &head);
- 	spin_unlock_irqrestore(&c->vc.lock, flags);
- 
+I'd rather we avoid hacking get_swappiness() any further, TBH.
+MGLRU's get_swappiness() is quite weird, and CLRU doesn't have it.
+I hope we can remove it someday and use the real swappiness
+everywhere, while handling special cases based on system state,
+just like CLRU does.
 
----
-base-commit: 93f51579e7df248780214094418f205253383cc5
-change-id: 20261022-submit-mtk-uart-dma-terminate-atomic-v1-19693366ae4c
-
-Best regards,
---  
-James Hilliard <james.hilliard1@gmail.com>
-
+Best Regards
+Barry
