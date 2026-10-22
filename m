@@ -1,57 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.3
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792636891;
-	b=EJkQM9QmFICxfv7jeGxYdb4HWWnsJ4yLTUJT70ZTm+WI4FyWkLHMiGyKD59JSelBl8cC
-	 cibtAkGIRcDdVizIx0U1JffYNivAWpuYVHzw6JD9b3q5T0sB1NHWWiu5jdEsDqKPId/i7
-	 xtQpWRDG/k575nhPvD85cklP2T2vabJ840OCA2yFxjFBvt2vi40wezMxhcPYap3qKiX6j
-	 E26Io5SvOr9h0JA89ozNRIqHo3PzAYDV8GC9zyZakquJNS+OdUX+IswH9Nd4O9/uIc2IU
-	 YmP8co49crTnRXKe8T4knRrnYgI5Fl3raMf8ir+Yk0t/BLatN8S/r9pCJTfxNr+1L0w==
+	t=1792636950;
+	b=wwe3IZT7bJqPImfUM/UHB9dZQhMaeBT3hSqU1Qhk/gxtoL5kXoB+uBgQstz7B1hl2cRk
+	 5bS9bvEf6DT9HJ2J63b6fI7/4F+wbKu4FmWIfIYa7rrtAx4SrMu64KbrGtuqRfxe2CF4t
+	 WiUcgoEqnNOLnFJeqE7D3hz4HH4sOoXmypnMx7Qr3AP+9X+ysj71cXat7lKGo4SpnllHN
+	 SlS+XwCztyRaDHkny7LmXQxpK4XxuyIuUTK1sPMfEttSS294XS2jAnS5J5ynRincqAy2j
+	 AWj7JlFeZamlKNZWcb2ipGPHJ9oupj6VEBxLz28Z7Gzifx3Zkv/eO68o6J4IBxD+Ryw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792636891;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=hwz8KwnzYesAWw+pJbG6JjCf7JDB6j+uq8/Noh3mphw=;
-	b=mrkB4VHNS3JpKiaQPG2kLCOE2nc60TFpt4GOj3Alx7nh8RZd+2aBtwqTuG+AhXwdqxlX
-	 PAoqC6tONprooLxtdkc1Gy34hu4zew/eww2y6iDQ4pxFOqpTaLaBb1nuniwd5UgGbb3ap
-	 +fwVu+3g8JWBFi4tZwsQc+PZ3c1IQ22glexJv4Q9mxWgPdHsXb0X8RcGHdbgQPTNEyjjP
-	 VkvXY8YTFn0EIJWAdfp9THSLSEbtaVkV/YHUZJpsJOmZoiDKM50O5lzRRFkZmHnSNg6Ke
-	 vHDQvmqZ2CBkFh8web3Kb+IzQSEBj+AleRkaDeBtpgtnSi8gz5qI8xGFi2ji9d53EYA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792636950;
+	h=DMARC-Filter:DKIM-Signature:Date:From:To:Cc:Subject:X-Priority:
+	 X-Mailer:In-Reply-To:References:X-NTES-SC:Content-Transfer-Encoding:
+	 Content-Type:MIME-Version:Message-ID:X-Coremail-Locale:X-CM-TRANSID:
+	 X-CM-SenderInfo:X-Coremail-Antispam;
+	bh=laBQvw5GW3RbeF4QBvSEmgW8J/10y342VbeJsKDBX5Q=;
+	b=WXe9UzRcZ9JvZagoi0CcRxr9p9d1RKxtMkB4XXilODFWUDXAxfSkxTw9YK8xyY/nRyk1
+	 WPFteK9F8e1raArYIVSnKPw7/iRZgyUCJCm6K1mN75aqU9cgX1axe2UXOzDFIrWxV03IH
+	 MAcEgVlC94Km6jrgGyG4CwUu/kqtuVSN0fW7rLT6U/LocrbB+3xsVlOhGoKmiDEqCV+bp
+	 5yB8ZdspXRyAqOy5Be69bcPS9BqA44McPc3EsVjMlPWfmY2yqgHT4Yo24ybe3KMql/QaF
+	 HEDUNb5nGkHLUoLXOKiCjjOMCDVnaBqiqQ8F2IMSbWOrkWk4t6n4AVvNcceGeGUe5vg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hBVWmPbo;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=HD9PlHzG;
+	arc=none smtp.remote-ip=220.197.31.3
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FCE9606A31A;
-	Thu, 22 Oct 2026 02:41:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B842E606A31A;
+	Thu, 22 Oct 2026 02:42:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B842E606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hBVWmPbo
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2ECDB1F000C1;
-	Thu, 22 Oct 2026 02:41:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792636890;
-	bh=hwz8KwnzYesAWw+pJbG6JjCf7JDB6j+uq8/Noh3mphw=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=hBVWmPboF2Fa4QC//+1hcRTzeNrYA5258Nkn+gxRl3xbPw4Cg7beSeEDjLiiZk3+B
-	 9eDa5NSjOTNYh54X8eCIo49ulHqDZuYbt7tyEpeYEBxczCUIqQ3j2ir/3D+2yBdB0I
-	 Uy+QWYiBvqdoWPoTKVMX0arncdTvR01vnq0Kn0Efn+yY/zmKE6S/OshAjiG9pKCB8j
-	 R6j0ItS51xJPQjpjUNTc1R2iPep9qSb+3QhACU5Z2FI6qca5Ccs/LE3AmKS4CPqkGD
-	 o9qszAKymSzz5YY2E53u8psyrOyX27SD+Zcd6oChCCbuXTGj5BhuTD/5vvWF50DlvW
-	 U0sr0RWGW00UQ==
-Message-ID: <sashiko-outbox-180880@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 5/8] mm/page_alloc: retry allocations that raced with
- a zonelist rebuild
-Reply-To: sashiko-reviews@lists.linux.dev
-To: =?utf-8?b?R3JlZ29yeSBQcmljZSAoTWV0YSk=?= <gourry@gourry.net>, linux-mm@kvack.org
-Cc: linux-trace-kernel@vger.kernel.org, linux-rt-devel@lists.linux.dev, kernel-team@meta.com, akpm@linux-foundation.org, mhocko@suse.com, rientjes@google.com, shakeel.butt@linux.dev, rostedt@goodmis.org, mhiramat@kernel.org, mathieu.desnoyers@efficios.com, muchun.song@linux.dev, osalvador@suse.de, david@kernel.org, ljs@kernel.org, liam@infradead.org, vbabka@kernel.org, rppt@kernel.org, surenb@google.com, brendan.jackman@linux.dev, hannes@cmpxchg.org, ziy@nvidia.com, bigeasy@linutronix.de, clrkwllms@kernel.org, mgorman@techsingularity.net, anshuman.khandual@arm.com, Bessel.Wang@huawei.com, jiang.liu@huawei.com, linux-kernel@vger.kernel.org
-In-Reply-To: <20261021023940.1940971-6-gourry@gourry.net>
-References: <20261021023940.1940971-1-gourry@gourry.net>
- <20261021023940.1940971-6-gourry@gourry.net>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 22 Oct 2026 02:41:28 +0000
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=HD9PlHzG
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
+	Message-ID; bh=laBQvw5GW3RbeF4QBvSEmgW8J/10y342VbeJsKDBX5Q=; b=H
+	D9PlHzGOqDvu7RRLxy1KwyWXQZt2X1Yu1ZXvSOL9zqAbX5LcSyqIDUb0AfvE9NQ7
+	AgcnMtAtY2GUdfCiimByE9GRmCVA+9kDcgtC/MX7FnKtbgKACo/7ieTNbGe11Dzh
+	9l7IPm7NYE5l0835JDMB0CALv5R/eKH8/FGWxNQ27U=
+Date: Thu, 22 Oct 2026 10:42:19 +0800 (CST)
+From: "jiale yao" <19888972804@163.com>
+To: "Jassi Brar" <jassisinghbrar@gmail.com>
+Cc: "Sudeep Holla" <sudeep.holla@kernel.org>, linux-acpi@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re:Re: [PATCH] mailbox: pcc: validate PCCT subspaces before parsing
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
+ 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
+In-Reply-To: <CABb+yY0s=eHDyW-=5++9zetFid_oVGCQkhqSWBQs+ty4Bnb-EA@mail.gmail.com>
+References: <20261016141530.2795073-1-yaojiale02@163.com>
+ <CABb+yY0s=eHDyW-=5++9zetFid_oVGCQkhqSWBQs+ty4Bnb-EA@mail.gmail.com>
+X-NTES-SC: AL_Qu2SAPqYuUEo7yCYZekcn08ShO49XMOyvfoi2YFTc/kEvQnB6jE7QmNRBl7k/dywKwG9qSeNezlj1NZbcaRaFWD3Sqbu67zydhJyp1U/wg==
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=UTF-8
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,154 +63,69 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Message-ID: <35886acd.272d.1a1617ceb00.Coremail.19888972804@163.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID:bygvCgDnjwoLeNlqTT5eAA--.17W
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzgsxa2rZeAv0pAAA3P
+X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Medium] mm/page_alloc: __alloc_pages_slowpath() restart loses reserve re=
-try
-- [Medium] mm/page_alloc: post-rmqueue() zonelist retry leaves ZONE_MOVABLE=
- blocks unmovable
---
-
-commit 3b023f87050323ef9781701d5864437d2b2b4b5e
-Author: Gregory Price (Meta) <gourry@gourry.net>
-
-mm/page_alloc: retry allocations that raced with a zonelist rebuild
-
-This commit checks zonelist_update_seq after page allocation succeeds in the
-fast path, slowpath, and bulk allocator, freeing the allocated page and
-retrying if a concurrent zonelist rebuild occurred during the zonelist walk.
-
-> diff --git a/mm/page_alloc.c b/mm/page_alloc.c
-> index 1bb308296fcdc..dd8c9046f9a06 100644
-> --- a/mm/page_alloc.c
-> +++ b/mm/page_alloc.c
-[ ... ]
-> @@ -5114,6 +5127,12 @@ __alloc_pages_slowpath(gfp_t gfp_mask, unsigned in=
-t order,
->  	warn_alloc(gfp_mask, ac->nodemask,
->  			"page allocation failure: order:%u", order);
->  got_pg:
-> +	/* A rebuild during the walk may have handed out an ineligible zone. */
-> +	if (page && check_retry_zonelist(zonelist_iter_cookie)) {
-> +		__free_frozen_pages(page, order, FPI_NONE);
-> +		page =3D NULL;
-> +		goto restart;
-> +	}
->  	return page;
->  }
-
-[Severity: Medium]
-In __alloc_pages_slowpath() in mm/page_alloc.c, can_retry_reserves is
-initialized to true only once before the restart: label:
-
-	bool compact_first =3D false;
-	bool can_retry_reserves =3D true;
-	unsigned long alloc_start_time =3D jiffies;
-
-When a reserve-eligible allocation (such as PF_MEMALLOC, __GFP_MEMALLOC, or
-an OOM victim) fails its initial get_page_from_freelist() attempt at retry:,
-it sets reserve_flags in alloc_flags, clears ac->nodemask, sets
-can_retry_reserves =3D false, and jumps to retry:
-
-	reserve_flags =3D __gfp_pfmemalloc_flags(gfp_mask);
-	if (reserve_flags)
-		alloc_flags =3D alloc_flags_cma(gfp_mask) | reserve_flags |
-				ac->alloc_flags | (alloc_flags & ALLOC_KSWAPD);
-
-	if (!(alloc_flags & ALLOC_CPUSET) || reserve_flags) {
-		ac->nodemask =3D NULL;
-		ac->preferred_zoneref =3D first_zones_zonelist(ac->zonelist,
-					ac->highest_zoneidx, ac->nodemask);
-
-		if (can_retry_reserves) {
-			can_retry_reserves =3D false;
-			goto retry;
-		}
-	}
-
-If that reserve pass allocates a page and reaches got_pg: while
-check_retry_zonelist(zonelist_iter_cookie) is true, the new check frees the
-page and jumps to restart:.
-
-At restart:, alloc_flags is reinitialized without reserve_flags:
-
-	alloc_flags =3D ac->alloc_flags | alloc_flags_slowpath(gfp_mask, order);
-
-Because can_retry_reserves is still false (and ac->nodemask remains NULL), =
-if
-the first get_page_from_freelist() after restart: fails without
-reserve_flags, the can_retry_reserves retry is skipped. Callers with
-!can_direct_reclaim (for example GFP_NOWAIT | __GFP_MEMALLOC or
-GFP_ATOMIC | __GFP_MEMALLOC) or current->flags & PF_MEMALLOC then jump
-directly to nopage: and fail without ever retrying get_page_from_freelist()
-with reserve_flags on the rebuilt zonelist.
-
-Could jumping to restart: from got_pg: without resetting can_retry_reserves
-(and restoring ac->nodemask) cause reserve-eligible allocations to lose the=
-ir
-reserve retry and fail spuriously?
-
-[ ... ]
-> @@ -5472,6 +5499,11 @@ struct page *__alloc_frozen_pages_noprof(gfp_t gfp=
-, unsigned int order,
-> =20
->  	/* First allocation attempt (or, for nolock, only attempt) */
->  	page =3D get_page_from_freelist(alloc_gfp, order, fastpath_alloc_flags,=
- &ac);
-> +	if (likely(page) && unlikely(check_retry_zonelist(zonelist_iter_cookie)=
-)) {
-> +		__free_frozen_pages(page, order,
-> +				    alloc_flags & ALLOC_NOLOCK ? FPI_NOLOCK : 0);
-> +		page =3D NULL;
-> +	}
->  	if (likely(page) || (alloc_flags & ALLOC_NOLOCK))
->  		goto out;
-> =20
-
-[Severity: Medium]
-When a non-movable request (such as GFP_KERNEL with MIGRATE_UNMOVABLE or
-MIGRATE_RECLAIMABLE) races with online_pages() -> build_all_zonelists() and
-get_page_from_freelist() selects ZONE_MOVABLE, rmqueue() runs on ZONE_MOVAB=
-LE
-before check_retry_zonelist() is checked in __alloc_frozen_pages_noprof() or
-at got_pg: in __alloc_pages_slowpath().
-
-Because ZONE_MOVABLE has no free pages in MIGRATE_UNMOVABLE,
-rmqueue() -> rmqueue_pcplist() -> __rmqueue_pcplist() -> rmqueue_bulk() ->
-__rmqueue() -> __rmqueue_claim() -> try_to_claim_block() claims a
-MIGRATE_MOVABLE block in ZONE_MOVABLE, converts its pageblock migratetype to
-start_type, and expands the remaining pages into ZONE_MOVABLE's non-movable
-freelists and PCP list:
-
-	/* Take ownership for orders >=3D pageblock_order */
-	if (current_order >=3D pageblock_order) {
-		unsigned int nr_added;
-
-		del_page_from_free_list(page, zone, current_order, block_type);
-		change_pageblock_range(page, current_order, start_type);
-		nr_added =3D expand(zone, page, order, current_order, start_type);
-		account_freepages(zone, nr_added, start_type);
-		return page;
-	}
-
-When check_retry_zonelist() then detects the race and calls
-__free_frozen_pages(), __free_frozen_pages() reads the mutated pageblock
-migratetype:
-
-	zone =3D page_zone(page);
-	migratetype =3D get_pfnblock_migratetype(page, pfn);
-
-and frees only that single page back to ZONE_MOVABLE's MIGRATE_UNMOVABLE PCP
-list or buddy freelist.
-
-Can checking check_retry_zonelist() only after rmqueue() has already mutated
-the zone leave converted MIGRATE_UNMOVABLE, MIGRATE_RECLAIMABLE, or
-MIGRATE_HIGHATOMIC pageblocks and populated non-movable PCP/free lists insi=
-de
-ZONE_MOVABLE, where normal movable allocations will not consume the PCP list
-and compaction will skip the non-movable pageblocks?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261021023940.1940=
-971-1-gourry@gourry.net?part=3D5
+SGkgSmFzc2ksCkF0IDIwMjYtMTAtMjIgMTA6MjY6MjcsICJKYXNzaSBCcmFyIiA8amFzc2lzaW5n
+aGJyYXJAZ21haWwuY29tPiB3cm90ZToKPk9uIEZyaSwgT2N0IDE2LCAyMDI2IGF0IDk6MTXigK9B
+TSBKaWFsZSBZYW8gPHlhb2ppYWxlMDJAMTYzLmNvbT4gd3JvdGU6Cj4+Cj4+IFRoZSBQQ0MgbWFp
+bGJveCBwcm9iZSB3YWxrcyBQQ0NUIGVudHJpZXMgYnkgdGhlaXIgZGVjbGFyZWQgbGVuZ3Rocwo+
+PiB3aXRob3V0IGNoZWNraW5nIHRoYXQgZWFjaCBlbnRyeSBpcyBjb250YWluZWQgaW4gdGhlIHRh
+YmxlLiBJdCBhbHNvCj4+IHBhc3NlcyBnZW5lcmljIGhlYWRlcnMgdG8gdHlwZS1zcGVjaWZpYyBw
+YXJzZXJzIHdpdGhvdXQgZXN0YWJsaXNoaW5nIHRoZQo+PiByZXF1aXJlZCByZWNvcmQgc2l6ZS4g
+TWFsZm9ybWVkIGZpcm13YXJlIGNhbiB0aGVyZWZvcmUgbW92ZSB0aGUgY3Vyc29yCj4+IG91dHNp
+ZGUgdGhlIFBDQ1Qgb3IgY2F1c2Ugb3V0LW9mLWJvdW5kcyBmaWVsZCByZWFkcy4KPj4KPj4gVmFs
+aWRhdGUgdGhlIHRhYmxlIGhlYWRlciwgZWFjaCBzdWJzcGFjZSByYW5nZSwgYW5kIHRoZSBtaW5p
+bXVtIHNpemUgZm9yCj4+IHN1cHBvcnRlZCBzdWJzcGFjZSB0eXBlcyBkdXJpbmcgYm90aCB0aGUg
+Y291bnRpbmcgYW5kIHByb2JlIHBhc3Nlcy4KPj4KPj4gU2lnbmVkLW9mZi1ieTogSmlhbGUgWWFv
+IDx5YW9qaWFsZTAyQDE2My5jb20+Cj4+IC0tLQo+PiAgZHJpdmVycy9tYWlsYm94L3BjYy5jIHwg
+NTMgKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrLQo+PiAgMSBmaWxl
+IGNoYW5nZWQsIDUyIGluc2VydGlvbnMoKyksIDEgZGVsZXRpb24oLSkKPj4KPj4gZGlmZiAtLWdp
+dCBhL2RyaXZlcnMvbWFpbGJveC9wY2MuYyBiL2RyaXZlcnMvbWFpbGJveC9wY2MuYwo+PiBpbmRl
+eCA5ODg4ZGFiNjQ2MzkuLjM3YjJkZGI0NGJkYSAxMDA2NDQKPj4gLS0tIGEvZHJpdmVycy9tYWls
+Ym94L3BjYy5jCj4+ICsrKyBiL2RyaXZlcnMvbWFpbGJveC9wY2MuYwo+PiBAQCAtNTUzLDYgKzU1
+Myw0MiBAQCBzdGF0aWMgY29uc3Qgc3RydWN0IG1ib3hfY2hhbl9vcHMgcGNjX2NoYW5fb3BzID0g
+ewo+PiAgICAgICAgIC5sYXN0X3R4X2RvbmUgPSBwY2NfbGFzdF90eF9kb25lLAo+PiAgfTsKPj4K
+Pj4gK3N0YXRpYyBib29sIHBjY19zdWJzcGFjZV9pc192YWxpZChzdHJ1Y3QgYWNwaV9zdWJ0YWJs
+ZV9oZWFkZXIgKmVudHJ5LAo+PiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgdW5z
+aWduZWQgbG9uZyBlbmQpCj4+ICt7Cj4+ICsgICAgICAgdW5zaWduZWQgbG9uZyBzdGFydCA9ICh1
+bnNpZ25lZCBsb25nKWVudHJ5Owo+PiArICAgICAgIHNpemVfdCBsZW5ndGgsIG1pbl9sZW5ndGg7
+Cj4+ICsKPj4gKyAgICAgICBpZiAoc3RhcnQgPj0gZW5kIHx8IGVuZCAtIHN0YXJ0IDwgc2l6ZW9m
+KCplbnRyeSkpCj4+ICsgICAgICAgICAgICAgICByZXR1cm4gZmFsc2U7Cj4KPihlbmQgLSBzdGFy
+dCA8IHNpemVvZigqZW50cnkpKSBpcyBpbXBsaWVkIGJ5IHRoZSB0d28gbGVuZ3RoICBjaGVja3MK
+PmJlbG93LCBzbyBvbmx5ICJzdGFydCA+PSBlbmQiIGlzIG5lZWRlZCBoZXJlLgo+Cj4+ICsgICAg
+ICAgbGVuZ3RoID0gZW50cnktPmxlbmd0aDsKPj4gKyAgICAgICBpZiAobGVuZ3RoIDwgc2l6ZW9m
+KCplbnRyeSkgfHwgbGVuZ3RoID4gZW5kIC0gc3RhcnQpCj4+ICsgICAgICAgICAgICAgICByZXR1
+cm4gZmFsc2U7Cj4+ICsKPj4gKyAgICAgICBzd2l0Y2ggKGVudHJ5LT50eXBlKSB7Cj4+ICsgICAg
+ICAgY2FzZSBBQ1BJX1BDQ1RfVFlQRV9HRU5FUklDX1NVQlNQQUNFOgo+PiArICAgICAgICAgICAg
+ICAgbWluX2xlbmd0aCA9IHNpemVvZihzdHJ1Y3QgYWNwaV9wY2N0X3N1YnNwYWNlKTsKPj4gKyAg
+ICAgICAgICAgICAgIGJyZWFrOwo+PiArICAgICAgIGNhc2UgQUNQSV9QQ0NUX1RZUEVfSFdfUkVE
+VUNFRF9TVUJTUEFDRToKPj4gKyAgICAgICAgICAgICAgIG1pbl9sZW5ndGggPSBzaXplb2Yoc3Ry
+dWN0IGFjcGlfcGNjdF9od19yZWR1Y2VkKTsKPj4gKyAgICAgICAgICAgICAgIGJyZWFrOwo+PiAr
+ICAgICAgIGNhc2UgQUNQSV9QQ0NUX1RZUEVfSFdfUkVEVUNFRF9TVUJTUEFDRV9UWVBFMjoKPj4g
+KyAgICAgICAgICAgICAgIG1pbl9sZW5ndGggPSBzaXplb2Yoc3RydWN0IGFjcGlfcGNjdF9od19y
+ZWR1Y2VkX3R5cGUyKTsKPj4gKyAgICAgICAgICAgICAgIGJyZWFrOwo+PiArICAgICAgIGNhc2Ug
+QUNQSV9QQ0NUX1RZUEVfRVhUX1BDQ19NQVNURVJfU1VCU1BBQ0U6Cj4+ICsgICAgICAgICAgICAg
+ICBtaW5fbGVuZ3RoID0gc2l6ZW9mKHN0cnVjdCBhY3BpX3BjY3RfZXh0X3BjY19tYXN0ZXIpOwo+
+PiArICAgICAgICAgICAgICAgYnJlYWs7Cj4+ICsgICAgICAgY2FzZSBBQ1BJX1BDQ1RfVFlQRV9F
+WFRfUENDX1NMQVZFX1NVQlNQQUNFOgo+PiArICAgICAgICAgICAgICAgbWluX2xlbmd0aCA9IHNp
+emVvZihzdHJ1Y3QgYWNwaV9wY2N0X2V4dF9wY2Nfc2xhdmUpOwo+PiArICAgICAgICAgICAgICAg
+YnJlYWs7Cj4+ICsgICAgICAgZGVmYXVsdDoKPj4gKyAgICAgICAgICAgICAgIHJldHVybiBmYWxz
+ZTsKPj4gKyAgICAgICB9Cj4+ICsKPj4gKyAgICAgICByZXR1cm4gbGVuZ3RoID49IG1pbl9sZW5n
+dGg7Cj4KPkhvdyBhYm91dCBzb21ldGhpbmcgbGlrZQo+Cj5zdGF0aWMgY29uc3QgdTE2IHBjY19z
+dWJzcGFjZV9taW5fbGVuW0FDUElfUENDVF9UWVBFX1JFU0VSVkVEXSA9IHsKPiAgICBbQUNQSV9Q
+Q0NUX1RZUEVfR0VORVJJQ19TVUJTUEFDRV0gPQo+ICAgIHNpemVvZihzdHJ1Y3QgYWNwaV9wY2N0
+X3N1YnNwYWNlKSwKPiAgICBbQUNQSV9QQ0NUX1RZUEVfSFdfUkVEVUNFRF9TVUJTUEFDRV0gPQo+
+ICAgIHNpemVvZihzdHJ1Y3QgYWNwaV9wY2N0X2h3X3JlZHVjZWQpLAo+ICAgIFtBQ1BJX1BDQ1Rf
+VFlQRV9IV19SRURVQ0VEX1NVQlNQQUNFX1RZUEUyXSA9Cj4gICAgc2l6ZW9mKHN0cnVjdCBhY3Bp
+X3BjY3RfaHdfcmVkdWNlZF90eXBlMiksCj4gICAgW0FDUElfUENDVF9UWVBFX0VYVF9QQ0NfTUFT
+VEVSX1NVQlNQQUNFXSA9Cj4gICAgc2l6ZW9mKHN0cnVjdCBhY3BpX3BjY3RfZXh0X3BjY19tYXN0
+ZXIpLAo+ICAgIFtBQ1BJX1BDQ1RfVFlQRV9FWFRfUENDX1NMQVZFX1NVQlNQQUNFXSA9Cj4gICAg
+c2l6ZW9mKHN0cnVjdCBhY3BpX3BjY3RfZXh0X3BjY19zbGF2ZSksCj59OwoKU291bmRzIGdyZWF0
+LCBJIHdpbGwgc3VibWl0IHYyLgoKVGhhbmtzIGZvciB5b3VyIHJldmlldy4KCj4KPnJldHVybiBl
+bnRyeS0+bGVuZ3RoID49IHBjY19zdWJzcGFjZV9taW5fbGVuW2VudHJ5LT50eXBlXTsKPgo+Q2hl
+ZXJzCj5KYXNzaQo=
