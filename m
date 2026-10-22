@@ -1,114 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.49
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792697241;
-	b=ZiEnzdH+vx/ymxLvZNolyP82hpoHHMyBkn1RvO3NYggc1KzLRDt8yRqDWHy2vumfFkFv
-	 oniipGb2EfprOYy6MuMSpEukEKtD3xCiT7K+sAAQz4AXAtUkQJxW6A7KSmSu2Q1H4WNKK
-	 3qrdVT0Yikt4jsT5uDQsOD/q4Peytgh4Zt7k6sVNwPu8wCczsLJFxcAaBO31Q6jQnx2Tr
-	 umC+m+sWTVqczBcYyi0yDrl8TjXWjTo2kmR6RIOerTQmTvV5K76xsC8ZKzSofkT6cLoB2
-	 APZXuDw2t9wTVGn8LP+BHnfkabq0CXsccovy3/R/Poygyn4/sBfBF8qX+m/s/xec5xw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792697241;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=UvQHobgH8Zb4rHJc4CXfEofhf12rBgJ9G+UkmAWeH18=;
-	b=kyeyt+6U/8adilTRTuWGNmtg+MqMxxQU+7ONxhO00odB6Y2iBlEqYPecMMnvh9XyBmKA
-	 fkbyvIqw3X+JkhAPF6nHeaoXK67rikGVnfer5M6Nqi+VIKO4o4WYJmQeDDnBfbu5bdhYv
-	 IN7UoZH4A9cQAZA4EoPHT9a9NDMfDfuatJgkzTHWGPhibVDsJe5w4BuzKG17z751waXoF
-	 lup6LdpyvlmEA+j7AWaXkIz+i/BbC0am2RL/fBZQb0dJLjswi/5J3LKxkb7Ve/dY/RF+Y
-	 RDG4wGpvW7yTUevXkR3qsQJ3WZToPE+Ino73EL0EcI2/la80Q2O5EpAehC4kkj+Avrw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=thinkoid.org;
-	spf=none smtp.mailfrom=thinkoid.org;
-	dkim=pass header.d=thinkoid-org.20251104.gappssmtp.com header.i=@thinkoid-org.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=zhfZQOTK;
-	arc=none smtp.remote-ip=209.85.219.49
-Received: from mail-qv1-f49.google.com (mail-qv1-f49.google.com [209.85.219.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.196.49
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792697256;
+	b=DnBzAwB4N4pHa29tVuuoxrnxXsyZJSc7Xn0MjHaltGvpRN1tYtcVLyRw0jVkPbCePKuk
+	 WtTwlVNrbjB42THA3W/cdW7U2Tz8C9WYXt1XtdhANdKkHIWk6VwxK64kLij3jkn4qpXal
+	 IAUXxJWnZowQsKOUIZb0V+X0DlKCUbPDMsAqDHv9INQ1ZzNRfqNEiFb6odkps4arV6m8+
+	 JOPX9kb/RWIJVyTyvIpB39+r7OU8mKe1dhnw8mFxocmUwkegwNSuBACzLw41orGVyqYYF
+	 oGNEm2avTkN6AKVev/ZjOgVg4QYUwR4fBTKCsI6eCztAe6aZ+MAioSMec/PyyJNCaXA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792697256;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:Content-Type:Content-Disposition:X-ClientProxiedBy:
+	 MIME-Version:X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=Up5uQ3ILeExQnU2UyI8DUcBUfkx4KaoUUAZ+tqiYalo=;
+	b=3Iq17B1Tp3rcOgSvD82ZexIuPK/0AxjRvg+3+1Nx0nlioYTPQ28b95EyIvmmK9SOZNh7
+	 GKKtnd66OPelGnS5IZbiVDqaoahQ8o9PD4qmb4TE7BS9hsR9EvuyCc0A+21ali3yB23Cs
+	 DQnYGDitDE/xsXFMbm9IKqPtpXG5+rjzBdt+VIK2dRKFQYXSDKcwlcMYiHg5Lz6KsaWws
+	 VOC7p49VywBmqup9aYar1kFwlGZ7++Wtqe4oKivw50sdaLDf22+7lkz4PSf0WrdFpW5J4
+	 bdYQDVJbTVLklErbukQSPvhGQVLyDOBgApdLB0KkicXiU4KuWNoOUHXEluXtRST8IMQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=tH5qFCIS;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.196.49
+Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013049.outbound.protection.outlook.com [40.93.196.49])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F424606A319
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 19:27:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4F424606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=thinkoid.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=thinkoid.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F437606A319;
+	Thu, 22 Oct 2026 19:27:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9F437606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=thinkoid-org.20251104.gappssmtp.com header.i=@thinkoid-org.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=zhfZQOTK
-Received: by mail-qv1-f49.google.com with SMTP id 6a1803df08f44-917bab38b14so2481416d6.3
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 12:27:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=thinkoid-org.20251104.gappssmtp.com; s=20251104; t=1792697239; x=1793302039; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=UvQHobgH8Zb4rHJc4CXfEofhf12rBgJ9G+UkmAWeH18=;
-        b=zhfZQOTKLhfJXm5LG7URakF+NxBk8bk9htV9atsIWMIUWrU23y7Sfypddxdak+rC3i
-         PMYT/8uaey1X82aqk34aRLpVr2lJfr0AV634/gAmPx50zofgvvaTW+QNmNoCja4ZjVaL
-         02Nx8Bpbt+v1DsTKhFrexDMQGgpCYQjPIHqvvbCxam1OokDmFvqL2Zf8/2AY3S3aLOUW
-         jTRqtHAprU7w3Ia1FulRoOXZLlwn71GzVkf+/kB8LtXmBY1Y6fhfUSWgxlpTFRVIU4xE
-         s2NVxm4x4w5wU+lSdKeE4oHSfpC5VkQdC1Lh7ikpJgQbh1u39glIH6sgf/+glyqalNrw
-         6qNQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792697239; x=1793302039;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=UvQHobgH8Zb4rHJc4CXfEofhf12rBgJ9G+UkmAWeH18=;
-        b=ull2i47GUHQtRtstZ1foHvZNzkSFDoRJIUUg3aPe7lqksjxjcJyewA+xfjmoyX+jU9
-         oYAVVuPOyROwURStLzlxJbXPJ3f1Mik+YzB7nIU74cVAE+koZ6VWD041H59ZLN7tsJ18
-         A4+mztjx5wpBV4K4kuaT6iVKoO0MVurzJL1XnZXn35ZaKqRsAUaceYkWeb79HHpgvAKC
-         L3xtu8cbCCEX9XqXnFTXNDhDhDqtKDu66bxI1MPCuFazBVe9SBREYx9/lNf/0/fL88M6
-         xOi7cHqMDOfd601a6Ds97veSvQr9cZ5XY5XjpiE8XmdbpUxOnCS6GVP9nAD7IrOMlJdl
-         N5mA==
-X-Forwarded-Encrypted: i=1; AKwUvBzoMiEmV5Fk/LDQO92IESF112gm3H5iT3YU0ABY3I7lpwHGh6AuzDS1qCxxwvvO8VH/Ii1Srg09IiB5GEk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL6e4xA0ND77B9X8cvbPfHrA60cWsuWFgSjmbUu1CxNjBWM4NR1
-	R8PPyQyYwkfOYS8lH3Vf6OlIOavb+CqnBQZ5wfUtWarGCm7d5AgUqny79jbADwKV4T0=
-X-Gm-Gg: AYBFou3KguGVvbj3Js8Pwgny2anY67DyypneN6YWqoyDD9Z8WdbgA2HBdXyY45+Eou2
-	BWD0BU6OYqO7wt55XVYFSv6x5u3U/uudVb+1c1yu1cyfwfvU54zlWPVVBBpHQgpkchJLEmrGj+0
-	YWKCoMCT1bH0dXDzPekOyWWJmBesZqthV4Kj77+ks1fRw6a+CseVelPKV+tTgfd2No9V9aYcgBQ
-	MAdiyBmmnCzDbDDkDiEQrCD+RI+BTqYqnw6McB3Q9R2W5HqGWmCzxn0qytxeIHLntm0JKa76+4F
-	P3iJRJowOd5pcbEbx/gu9EYaRsux4jMyfJk18M6vsyBBzKijadaAO4orzNBglN3a7bB5kSUeDcp
-	zHUVebF4Q7e8PixqzQzeZR0pNbJ3hhrYVDEEggI2wypj9NRxwTCeKHx9bYDjXebQnvkpMd472PU
-	y0tfMTNoIT7cuTQqVq/8q7uc7W3wu4I/KddRaCf0i/mjTFHW7AJ2mhxZeOIKPd44rBYc79N42Cd
-	frsoN3k2kVpvgdoMupVXwkLx0An9BGAmgIi
-X-Received: by 2002:a05:620a:44d3:b0:93e:fa30:f1dc with SMTP id af79cd13be357-93f6f8c01cemr79549185a.72.1792697238908;
-        Thu, 22 Oct 2026 12:27:18 -0700 (PDT)
-Received: from behemoth ([2605:a601:9b7d:cc00::c])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93f6fb82b87sm30290185a.13.2026.10.22.12.27.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 12:27:18 -0700 (PDT)
-From: Liviu Nicoara <lnicoara@thinkoid.org>
-To: Aleksandrs Vinarskis <alex@vinarskis.com>
-Cc: Michael Burch <me@michaelburch.net>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Hans de Goede <hansg@kernel.org>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-	Kees Cook <kees@kernel.org>,
-	"Gustavo A . R . Silva" <gustavoars@kernel.org>,
-	Abel Vesa <abelvesa@kernel.org>,
-	linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	platform-driver-x86@vger.kernel.org,
-	Abel Vesa <abel.vesa@oss.qualcomm.com>,
-	Tobias Heider <tobias.heider@canonical.com>,
-	Val Packett <val@packett.cool>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Stephan Gerhold <stephan.gerhold@linaro.org>,
-	linux-hardening@vger.kernel.org,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Subject: Re: [PATCH v6 3/3] arm64: dts: qcom: x1e80100-dell-xps13-9345: introduce EC
-Date: Thu, 22 Oct 2026 15:27:09 -0400
-Message-ID: <20261022192709.12149-1-lnicoara@thinkoid.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <NCQ5O8k2_GpmJZBjDzgZL67uwdiYmmuSudO9VmdRaFTDq0u7aec6at00VYbzdwwSVvgJnLnGxewwp_TVO9oTjM2pAjP_LoiURf9JCIKXB-w=@vinarskis.com>
-References: <NCQ5O8k2_GpmJZBjDzgZL67uwdiYmmuSudO9VmdRaFTDq0u7aec6at00VYbzdwwSVvgJnLnGxewwp_TVO9oTjM2pAjP_LoiURf9JCIKXB-w=@vinarskis.com>
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=tH5qFCIS
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ObBn8464wEOy4tdIpnbG90hXPRyL1QA+01iqR3HaBfSBVY+zy+dpnfJYNI5MRdmfRdNweTdPX/CFa8qfAQEB3DDW+trOOkc1vhFbyaBq/UDlM/uDOj5IymnoJIyvGBO7npW4fBtJV3Fhrn/W9mvkkmYwS4ucCn7CEbbus2mHUTvcnmjoQSinhVT2uwJwkhU2lTHoDAONXcD1bzRm/ej13HXJqJhqC8HbY8Qb25OEodwMKieTnQTZj1I80ZO8HRDlfE+5lHn6wN3GwF5vg1BSMq8gszdNeX45Vpi5ls2jF2J0XFifHysJvEkRb13ZDsULe7Enw0M3sh/MECAWS/F2qQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Up5uQ3ILeExQnU2UyI8DUcBUfkx4KaoUUAZ+tqiYalo=;
+ b=MOZkZxuMJz02ottmZqMaYLkr4FpNQWH1gAHVE700t+PzFLwrNcQLUTfTJZbg+PS/g1pPnWi1MvEz5l/fb7sdTRTq1bYPpDSEr984vKUVPK48RWo/GpmjGFarmWwFaEw0j8tsuCjMENfA3d/KRAVt4Qt47gOezc8iZ7RiXwANHEGhfv/+SEoiEacPs2TAejG+1n5Pk58UGYvqgl0W/hf+5c0rv+8XxVYB2yD8R3vrnc+PJJ6ZHG8g2YoFWBHIZY89joD6Z0P38at+3OG408V9FhCSi0vqMlX20LWGkwxxMVZ6XA35psR20y5Sa8IUKNK1P4LWHiv5qqwOvkLE5JYxgg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Up5uQ3ILeExQnU2UyI8DUcBUfkx4KaoUUAZ+tqiYalo=;
+ b=tH5qFCIS1ZPqYsX5y4udXE7z013nMi4RSuLwfJxqWOd6RLKpn1EFNtdCaaLXkCTlbQblQoy8CiSGLZuXdU5wUIO0kPF53tO+C7IRLlmNSnujGL4w/yRoj3WeS8EO7i/Y/5QbvZLbQE7sA4n5fcaprjz081KZ7ok6HcB/RSnnk7kzOiilpeN3md+1SzZc8tZfuaL1OTQn7ZZ0vXvasDZWE9Sl6/IKhhoVP+hRlxc878f1zb6cMi65xbGLWPxiWr0PgR3MZbMEIG6Rr2159FbArnsKhtoLXKW2TVpTcv6zRofiX1+QDjLH0+TmMk4kFToJzLv14MVbcxsBhuSIPKyybw==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CHBPR12MB731189.namprd12.prod.outlook.com
+ (2603:10b6:610:33d::12) by CH3PR12MB8509.namprd12.prod.outlook.com
+ (2603:10b6:610:157::5) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.18; Thu, 22 Oct
+ 2026 19:27:28 +0000
+Received: from CHBPR12MB731189.namprd12.prod.outlook.com
+ ([fe80::b0e5:123d:fe06:e10d]) by CHBPR12MB731189.namprd12.prod.outlook.com
+ ([fe80::b0e5:123d:fe06:e10d%6]) with mapi id 15.21.0546.016; Thu, 22 Oct 2026
+ 19:27:27 +0000
+Date: Thu, 22 Oct 2026 16:27:26 -0300
+From: Jason Gunthorpe <jgg@nvidia.com>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: linux-rdma@vger.kernel.org, linux-cxl@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Dave Jiang <dave.jiang@intel.com>,
+	Saeed Mahameed <saeedm@nvidia.com>
+Subject: [GIT PULL] Please pull FWCTL subsystem changes
+Message-ID: <20261022192726.GA3758618@nvidia.com>
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="6A/oRGRXX8K9i5yy"
+Content-Disposition: inline
+X-ClientProxiedBy: BL1PR13CA0203.namprd13.prod.outlook.com
+ (2603:10b6:208:2be::28) To CHBPR12MB731189.namprd12.prod.outlook.com
+ (2603:10b6:610:33d::12)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -118,100 +94,111 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CHBPR12MB731189:EE_|CH3PR12MB8509:EE_
+X-MS-Office365-Filtering-Correlation-Id: e45b01bd-4772-43e9-9f65-08df307281de
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|23010399003|376014|366016|18002099003|3023799007|11063799006|261021123027099003|261009223027099003|261021121427099003|10067099003|261022105027099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	4uScPcEGMdL6fHh+2Hso2foO0wB2T5LbLwtFGwKqn3lvJv+z73NNX3MUdA+HtpJid4T7yqJ5Ej5Z7F80GIg4Jp+5Y3HTCquDfHcEa4FPcMLNZ3d91tUGeM69RioY3qzpXDnXC0o+V4D7P8d/PkIae54nWvyjgUD5tWI7Rdit2rOepxnK22x5iMMcAHfzQfcJFY9+zWWqwmbcNny5XP/j7JvnoxV5IhB9AAzk9mVJPf3r/s/oZt5hg5fk94yHRvkkaPGrPBB658BjcbSFXUQWXI6r7sThJEFQkd8ZWV5rnIJlQcSldGJaxFWvU+a8/Vw5QIhKL+6uCTfuECHVvMGZMTh4K4FNzPiAELmh7ILg5x7lgUeUjnh4lgh4Re3sQnxagzzZpaPHWTXpg6xXgkbdDhACLzgm1G96i0d0SiP39IAdD7s0jqTl3jxb08OwcO83lH3ykTQc4oRSQ4VQtTvr27uKd9XSaEONJD4Br0ToWHGW/4UgNeIIajrHb6GQ6zE48p/UAfx5Oh1LNQWoC/QSAzRXxY98IKKe+YaUWf7cKb0AiarQERs12Tp5zd3n1PgTD5dpHHfS+cH5cGX9I5DHpyQMD/R6UbwzeCc45oAgYds1WsJm27q9xqC+bJgQ7+VzDTRQQaXmi8o4K2D4GHiZuNh797qX8xIfBaOQoeG7qSE=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CHBPR12MB731189.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(376014)(366016)(18002099003)(3023799007)(11063799006)(261021123027099003)(261009223027099003)(261021121427099003)(10067099003)(261022105027099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?eXhrqJQXhpjDLa0JmMTiu+0pY7r9xwhnJqLMY8zv+aCYlWm3ZblCIjEwVV6o?=
+ =?us-ascii?Q?UQb8HIdAqylmOSCrD+mO88lV2gYf6oHbz8ebUD49ubLTYhzZcl0Ve7MUUSD8?=
+ =?us-ascii?Q?GU/CpJRYJ1WgnlaTP8QxL2qSww3BYnwJT1Fd2ZJaj2YScYv8ZrrkGC8rsYKl?=
+ =?us-ascii?Q?jv+mkYwBzsAhqh6feXUWH9CuMte0eyjHdF2fTv4REHq4mll4+yL7BLzUd2dg?=
+ =?us-ascii?Q?eF0wTPtLExftbCYBivn5APupoDyvxyeUC2Z8EB+NBKM+QQZsMHRD5YAYW3pS?=
+ =?us-ascii?Q?OENcyXuJ5UuGTO+huRxv8NaGTB8tLq/xlAb+UlnfJ38Q490K+MevGArsChgt?=
+ =?us-ascii?Q?Xrmil7Zmy1ns2X4Zy7ebyJfMHACr+IH3hugRsVA2QVUtjSxRXxOxqdOqedYJ?=
+ =?us-ascii?Q?s18519l3Y36Hs5euFNaQeOOpfHHLoDEfbf2hIU1J9o0vUHHsjxfnuWKIfT1N?=
+ =?us-ascii?Q?o0RZfSELmHTHXX5UoVdA3r4Dpx1kyTONAUoGSyOs5V0ODZ0khxNfTqIXDTNP?=
+ =?us-ascii?Q?EHSVM7OJIqUiXRSeGYnBlZC4wFXjVsfO8W9LkUrUg4fD6N9oBUHcTgHWmW3v?=
+ =?us-ascii?Q?Vykc+iZqv2Za+lzYt4XgbKL49ScJ9Yf4jzHXMN0kjAD+ak8M6LZWqMACKzgj?=
+ =?us-ascii?Q?vFXS25bGuxXY5W60XM34QaCFEID+uYmPiMRM693v1O31/3aI5PAiupK4FWW1?=
+ =?us-ascii?Q?Jebwq/OdRKZ7qmpstsCYJytLxfAxkZkBiobDtiJkOJP0uHjMuw1yitBqIs6M?=
+ =?us-ascii?Q?kWhD/TTy3uuvQeH09nwyPUFmBPno9sNnpN5DLwn8cxIIS+4nuKfn3pnAcpfG?=
+ =?us-ascii?Q?STH82+TadFPQdW331AhfrJT2AZd8Bs0MElYCU6WXjC07iaV/FTTAcAFRlxM1?=
+ =?us-ascii?Q?z9YBBOLgDFa7WcD+QgemJNHzBbcC/lJiNBQCRPRTb3ZjtRbLp5Lq6Qpb33Rx?=
+ =?us-ascii?Q?qm8br5Q1zJNS530/lwdbWV70F6kqR78d9h6TafOdFtuCf0l9q7dgwuB39IGs?=
+ =?us-ascii?Q?pWpvjbzPfmZUNEpqv6HYfkdgkHNOtok5/xy9dRHAYqS/lf9cy1jBzNrdV8IW?=
+ =?us-ascii?Q?Y05rus/C+DypmdhkUQ8ygZhW9lB65qiPQF90FVt8XvW/yE4MN85pWiMh4vsO?=
+ =?us-ascii?Q?Z1hgBN/80GWcbYDM28wAdz6QI8MDn6F2TtCvmjLI7JWg19eBmrwJTAjaM/Lt?=
+ =?us-ascii?Q?NIFnv/HcdC54GlQm8aNuDfPp5ZHxNFHZES6shLnev7JjpUsM59Cq3tBtGKSe?=
+ =?us-ascii?Q?6zjn9wR4Wgv7XM9pq+p/Hg/YhoAoIWkOVrmYzqFAb7VPvul9ej6LYjzXlBH/?=
+ =?us-ascii?Q?77qwZwxiNU4bl2zEiRMpQpxhtr0qA6iQ60eU8DuHiaynfYdsjxqBm/Rb1YyS?=
+ =?us-ascii?Q?WZLwurIDfDPKXq4Vq7Hs2c6sKrd6Y37twPiVnI1irqNQS300a+I3ICrw552Y?=
+ =?us-ascii?Q?vD5/vA/AF8joLVklUA0Mfh02FSj1LlTrtEazTMOQ9VSUssFv7HQsCmXPdvYa?=
+ =?us-ascii?Q?Kh2QqIPz58a9H8lSgb9vrsROp850KIuVpZ/2WbbRaEHDoW5wH4ilAZHL1IRg?=
+ =?us-ascii?Q?2zSV43Og6DDQ6VBQ0/V8atxVoVOQrSOwpSszbqSIntM4JPvqaxLvUreZyo2E?=
+ =?us-ascii?Q?NerAYRo9KryADB2xK6pyUt5Ly0MIFlnndRnoAt2GDKOiDrbi5TNa4RcCXggx?=
+ =?us-ascii?Q?Ldnr88BmmATojM8tBJ8fsM29693Ag+V7hhCVo9wkrHRaMUN1?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e45b01bd-4772-43e9-9f65-08df307281de
+X-MS-Exchange-CrossTenant-AuthSource: CHBPR12MB731189.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Oct 2026 19:27:27.3937
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: +LGk248HtMIyU+IN2fxQ++16r0V1K5J2VLGiSsCOy5zEtBg7S8LoobRu8vaWUkRy
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8509
 
-On Thu, 22 Oct 2026 17:07:25 +0000, Aleksandrs Vinarskis wrote:
-> I do not think the left charger you identified is correct - how did
-> you arrive to that conclusion? Curious to compare to my method.
+--6A/oRGRXX8K9i5yy
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-I am afraid my method was simpler and coarser than yours: one run per
-port, nineteen samples ten seconds apart, the charger feeding the
-system only (battery at 96 % and not charging), on a 7.2.6 kernel
-with all four GPIO channels in one DTB. The deltas over three minutes:
+Hi Linus,
 
-Channel                Left charger   Right charger
-0x14b  AMUX2_GPIO          +1.6           -0.9
-0x145  AMUX2_THM           +0.1           +3.4
-0x146  AMUX3_THM           +0.8           -0.1
-0x14a  AMUX1_GPIO          -0.2           +1.3
-0x144  AMUX1_THM           -0.1           +0.2
-0x148  AMUX5_THM           -0.2           +1.2
-0x147  AMUX4_THM           +0.1           +1.8
-0x14d  AMUX4_GPIO          +0.0           -0.0
+Single patch for a Rust CFI issue.
 
-The other channels fell or held while 0x14b rose, so it was not the
-board warming as a whole. But 1.6 C in three minutes, against your
-2.3 C in ten seconds on the right, might mean that 0x14b is a sensor
-somewhere on the left side of the board, not necessarily on the left
-port's power path. Under SSD load it moved with 0x146 and fell with
-it in cool-down, which puts it close to the SSD. "Left charger" was
-my reading of the sign pattern. Your ten-second test is probably the
-better discriminator for a sensor on a power path. If nothing answers
-the left charger in ten seconds, the simpler reading is that the left
-port has no thermistor of its own among these seven.
+Thanks,
+Jason
 
-> pm8550_gpio_02 does NOT clearly follow. In your test you have
-> waited multiple minutes, which is enough to heat up a larger
-> area on the motherboard.
+The following changes since commit c03c1a14507dfaf8b856c2608f9ac216021fc222:
 
-Agreed. In your left run it was the only channel with a positive
-delta while the board drifted down, which is the same weak signal I
-had, and no more than that.
+  Linux 7.3 (2026-10-18 13:14:58 -1000)
 
-On the two AMUX3/AMUX4 GPIO channels: neither carries a thermistor
-on this unit, and your tables say the same for yours. 0x14c reads
-130.048 C on every sample, the last row of the conversion table,
-where the driver clamps a voltage at or below the lowest it knows.
-Its input sits near 0 V. Windows' ADC configuration sets up only
-PM8550 GPIO3 and GPIO4 as analog inputs, for AMUX1 and AMUX2, so the
-pin behind AMUX3 is in its digital default, and PM8550's low GPIOs
-read back here as inputs with a 10 uA pull-down. 0x14d held 34.7 C
-within 0.1 C through both chargers and two load runs on this unit,
-and 35.8 to 36.0 C through every one of your tests, the hairdryer
-included. That is a biased pin, not a sensor. Both nodes can go.
+are available in the Git repository at:
 
-> ADC5_GEN3_AMUX1_GPIO_100K_PU - Likely "lpddr5_therm"
+  git://git.kernel.org/pub/scm/linux/kernel/git/fwctl/fwctl.git tags/for-li=
+nus-fwctl
 
-I cannot separate 0x14a from 0x144 and 0x148 by heating. Under a
-one-core load reading a file from /dev/shm they rose 14.0, 14.4 and
-14.2 C in lockstep, while the SoC's mem TSENS zone rose 20 C. Your
-RAM stress warmed every PMIC die by 1 to 4 C as well, so it does not
-single out 0x14a either. The three sit with the SoC; which one is the
-memory I cannot tell.
+for you to fetch changes up to bc6f2a284c63313e789d8cd294531e1cc2dc8c99:
 
-> Looks more like "sys_therm5" is the actual keyboard thermistor.
+  rust: fwctl: declare cfi_encoding for fwctl_rpc_scope (2026-10-21 13:59:4=
+7 -0300)
 
-Consistent with what I see. 0x147 is the coolest of the seven, 29 C
-at idle, and nearly indifferent to board loads: it gained 2.0 C where
-0x144 gained 9.2 under SSD I/O, and 2.5 C where 0x144 gained 14.4
-under the CPU load. A sensor away from the board, on the skin side,
-fits.
+----------------------------------------------------------------
+fwctl 7.4 pull request
 
-On 0x146: under four minutes of direct-I/O reads it rose 8.2 C
-against 10.0 C on the NVMe's own sensor, the largest share of any
-channel, and it fell at once when the load stopped while the
-SoC-side channels kept rising. Under the CPU-only control its share
-halved. I would keep "ssd_conn_therm" on it with partial confidence,
-but I will not argue if it goes with the others.
+- One bug fix for a CFI issue in the Rust bindings
 
-> Alternatively, I am leaning to drop the labels for anything we are
-> not sure about...
+----------------------------------------------------------------
+Alice Ryhl (1):
+      rust: fwctl: declare cfi_encoding for fwctl_rpc_scope
 
-Or just give them pirate names. Jk.
+ rust/bindgen_parameters |  2 ++
+ rust/kernel/fwctl.rs    | 12 ++++++------
+ 2 files changed, 8 insertions(+), 6 deletions(-)
 
-Agreed. 0x145 as the right charger is what both of us measured.
-Everything else is a guess until the teardown. Numbering sys_therm
-from 1 matches Windows' SYS_THERM1 to 7, so that helps too.
+--=20
+Jason
 
-One consequence on my side: the 9345 thermal-zones patch
-(20261006185557.23016-1-lnicoara@thinkoid.org) names its zones
-chg-left on 0x14b and ssd on 0x146. I will respin it with neutral
-names for the zones that are not settled, so the two patches agree.
+--6A/oRGRXX8K9i5yy
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Happy to test a v7, including a lid close on the EC interrupt line,
-which my v6 run did not cover.
+-----BEGIN PGP SIGNATURE-----
 
-I love this laptop, but I will not open it up just to pinpoint the
-right thermistors' locations.
+iHUEABYKAB0WIQRRRCHOFoQz/8F5bUaFwuHvBreFYQUCatpjnQAKCRCFwuHvBreF
+Yd1BAP9lrVD8LGI55ILFK7l85G1PRhX4TgpRxTIBFlHONBu4DwEAq3/Ee5u4qIPK
+nSWt24NDNzzYm0zCybrkNCedq7OtWAo=
+=Z6sX
+-----END PGP SIGNATURE-----
 
-Liviu
+--6A/oRGRXX8K9i5yy--
