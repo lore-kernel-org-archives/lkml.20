@@ -1,75 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792684442;
-	b=k1npyDJZ0jMrG+wdlnk/3ySllMwCscsoObH9oiUjhmHw+9JbBbXp46PVci/XfX1OBqJj
-	 K6vDE+ta8g4695egc+j3nXIETkFkypcLWK+5oQyZBxdttpmSRmkYOjvAqeSZ/wjSW76ap
-	 +UiIKLm4Pjd6/OafyWQ7d2qoHJ28NWGpfMs9SO35/ivDCvgWi0DdEPHm3kUl3wNPHzXGy
-	 aKW3cKqY2AwpZ7KokRq2e/Wu4L6yShRI27VO26SI9Svs3pPsfm1yfPUO8v1wvUTgtaJPt
-	 PZjFeGAuAP4ju9Lhl1nfPsUMfQ+vwXXm6Rwlr+uZMowzhPqYrz2g3nL3A4SmZLa5lfw==
+	t=1792684551;
+	b=uDisTjwJzEPseRvD8/9gNQOAv35Lx55PbdlkNQUUVLs4Otfk5Lz32vIdt/sEgv8iXcqM
+	 dOIZyIFhqtg01SLQos1KEKsXy4Lv2N7l49Msbzl8hK1J95YYIbEpXb000v6mGiR9FL4bo
+	 82TKvYjokM4FFrbT4w4wpTfXeB1gjG8VaMuGaN/HmvSMRHtjFyVVbwbhdpnmNnM4iFm+G
+	 rb7MEzOK2fhDVyi5bCyFvENn5K3NN9xcPMScMZg+JzANZ+Y86NfdlyBiC1ffD4UnMjTwh
+	 d6FI6FFvrwtc6fscqwDNfakrMMHljA/RwDz7txlAgzQLnI4xOJcrw1Web9H9gTGmalA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792684442;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792684551;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
-	 Content-Type;
-	bh=NOVFqRoJVl+99BXQP29VcDH+8XuP2HNelyqlJcXESXA=;
-	b=awqOOiq1Nz9qUNJ1m6yPYHwNltzr/LEpjzmyJyvprGfMCdhxcPXyqRFOJ3X3gL57IZ/E
-	 B34NLUMcv1hJ+jmV7706s18TR9/oqHxzx/sTtJeZ2PWW94q45K1irtFNqJqKnBIBM5X4H
-	 YUvwbkv5rQ8BhWW/I+W5Q+bLWYNCbAw9oDugnSb9OIVSeCL+qhm3ygDd5YNXIY8lUKO6J
-	 pOXuA4/VPX3nXKzsMVOy5Gc6Syat6USkqVVEF5wHmpUcLFC2Y3KU75wkfyq5nXoz+tjrt
-	 cO6orGHGVn76YdkGJJp2akPSxl2NZisLsvr9Nej03L+3HdvP/uGTVBKgWGUuTM13t/w==
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=ciug3N5x7fEBixrt4fajqgnJmaStQZXNWPKtQxH/3yg=;
+	b=XZVzuaMm+wKXWnvMw9Y6ZJLb1KV6Eu6zDY/a4H9PdKsj766MRkHT05bmYymHWnRBLHUw
+	 gltLOhpRP0suMar/z2bfXMMrzSRameh0Xjsz2ibNZOis0vi05iWBwb16Y55pDR6WOOCvq
+	 nKHKj6nYT5MpGHAmTwArFF8BKZtcnCLKUqEXoJDSSMIzxpErQ+ZadoyIRNrJXUITUT/CK
+	 OjkBUEFy7TVFuwW4GYoC+m3uNZ2hFjp5CquWFWN1cP5b18Qfx11HeEBMXFav5GA7vynAQ
+	 6lajlQ8S5rY1SWhKFVHgUhwx9Y29F/Qsz6NTy3ysiRnYbSef9b3uMIxmP89MsYBkVTw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--wfelipe.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=Yj14Lzka;
-	arc=none smtp.remote-ip=209.85.215.199
-Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
+	dmarc=pass header.from=linuxfoundation.org;
+	spf=pass smtp.mailfrom=linuxfoundation.org;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=google header.b=HFWH0hx5;
+	arc=none smtp.remote-ip=209.85.210.41
+Received: from mail-ot1-f41.google.com (mail-ot1-f41.google.com [209.85.210.41])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA3BD606A320
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 15:54:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AA3BD606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--wfelipe.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E034660A2610
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 15:55:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E034660A2610
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=Yj14Lzka
-Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cd66551e02cso2131522a12.2
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 08:54:01 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=google header.b=HFWH0hx5
+Received: by mail-ot1-f41.google.com with SMTP id 46e09a7af769-843a4ca671eso1089011a34.2
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 08:55:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792684441; x=1793289241; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+        d=linuxfoundation.org; s=google; t=1792684549; x=1793289349; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=NOVFqRoJVl+99BXQP29VcDH+8XuP2HNelyqlJcXESXA=;
-        b=Yj14LzkaZvL1Tx8Vnnqx3s5rek4uEk7lAv5Yy8I0B/ebgxg/VluUBqyWRZQ0GWL8hF
-         oyZD4tETC17GAecwk2aBUOOEZRhBLI1bWPpY9LZOTWn5VtNtxjBTdw51qOB2zQe+YQP7
-         wSv6+qlkU+7baju97Rnfqkh7VY1801EvYFpX2xNzxFJTobHKy0VpkTAfoajK1GGGq8RB
-         bqx+8BjAKWe3f8bbGVZO7DpPXyZ5tEAgCEDohPKiyxvLAQLd9H6Qfh9xXYNePV3HC5Hg
-         bSR+Pe5mGnKkw9XeFfEcRGLBhEQ4f4Kpo1TD1+660JEClzRmnUFp0lD6cSgoSNNj5Zlz
-         Vrkw==
+        bh=ciug3N5x7fEBixrt4fajqgnJmaStQZXNWPKtQxH/3yg=;
+        b=HFWH0hx5y+wdTJQlnogKEctFr4zCv4HmD5icgMk+CmZFvs5XHMCcYOkL5/c6C9cu/4
+         tAsiT11qmocMmcN7N86vmb8mYy8SMkbj3g3RQ7G8o4n89/tn2yY9nj6gPf7Bt1usSz+J
+         MEdyceMEcnvHeLMDEvCuVYGSABR64YW6+PuEc=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792684441; x=1793289241;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1792684549; x=1793289349;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=NOVFqRoJVl+99BXQP29VcDH+8XuP2HNelyqlJcXESXA=;
-        b=dJ8uiecNsgtJWIF8z8g1ARvawpgDgy/Zg5y8nILpI8Wtuba4l0l3Bso2Hhl0I9eZd+
-         DB3MQkaHfjE8aSTLJVlUMPAvAjzsmObHb0akZ8UcIjZ9GoJ9eXkhWrm75ITCYC/JFMMO
-         oq+4x2qCBzxa8UYAiDxaQcaivJK+ImGFh1IJ3VKrg2iLeiGAWYKj2L9sIMhMmgVQz7q0
-         LBiJrQ5mNe4+uXR7sg8xSEzjkJd2PwbmalM0amAf+JAsqUuU1Ukz255qcqy/nqFyeDvL
-         XzYrgbQCicaZFIOue35B59cJS+15+WoQCjN1nGIy/r1+zf6aPw9B+cJ5eefhDZ5I1WKZ
-         Jzcg==
-X-Forwarded-Encrypted: i=1; AKwUvBxnd2kj6XMtI9b0X70nzrDlIW4w5mlbZhVD0nN4DzGWUv6yHAUHPLKzdWoKUMS9KWXYazmqIWxVqgJe4tY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIb5sikI4V7zNRDpqmY6u0O5JTYCmePIY2KZwtgCUWY+/CSWr5a
-	F7cY+URV6U+QzBlNiWNWBgDWlMpUpYwalp5Ox0fG4S669EjukZe+8WkgPG1hN2eBWrTtilo++pc
-	DXJPrHKlZ0A==
-X-Received: from pglk24-n2.prod.google.com ([2002:a05:6a02:6b98:20b0:cca:d82:9104])
- (user=wfelipe job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a20:9e4a:b0:3dd:a196:69e4
- with SMTP id adf61e73a8af0-3e287f3a472mr5611553637.63.1792684440865; Thu, 22
- Oct 2026 08:54:00 -0700 (PDT)
-Date: Thu, 22 Oct 2026 15:53:35 +0000
-In-Reply-To: <20261022155352.1293020-1-wfelipe@google.com>
+        bh=ciug3N5x7fEBixrt4fajqgnJmaStQZXNWPKtQxH/3yg=;
+        b=H+wqVFcW6LBkIr2TwFdBFtztpMrhVjjJtXUzEpKQKnfslaaR4gwPfumnA4Tdm+f8CP
+         kqsx4ITWaRnYVQLehilPHv6/qQXWxeYimCuII+j1hqdtwJUQzLZAZz9lPc/fNY7tzpjy
+         cnRSIhAZkW0gs6C6iA0n8S+gEZ0jCjQpxNnMvLQlBQNI0B4/9/E8LS9aEACXYeiAaRso
+         XzqVfaht1RTn7WJSLCGCbskVRJemGFOIrQkiVgBF3V5EaHE/LP3hVChXgbx0W0t6/ruu
+         WXZ5iyOmZTX9961H75XUEW7pN2McZWA/AT1rkBnnVziW7w/u39KHVrJo85QG7JCfMlNX
+         F9Xw==
+X-Gm-Message-State: AFq9FYJrCX+2RRu+J/iCuYVYFPrbqeWK19j06zYgJ5ZhDSxGREvw5QYC
+	G3ZlyaVnNg83pESPfIuxdLLimvI7ASXCgjH8ldeUUtWtOANikKcdeKZcr9zQT1ahqyo=
+X-Gm-Gg: AYBFou3yIUV/b5JArCKGqYwwz2BlpkVrUwtJ+VUY6qGyzN8XVEh9MC7/8OgBCCNw8t5
+	w0gdbAl4e5TP90UjXa5fT9BfJoCvYZ4ePP1+0UKBnZgdPTz0w17Zk+gx95VpFBEsd77/6sbZEfH
+	wrbXHdf1bstXkiGVxj08Sa4TDVm7JvnxBcECU9BCDGEpasJ28trNhQDAu4GpUkyNSYsR69l24ai
+	rCJQShT8bj4RVTb0uixXCuEBCG5sFzEjPKOopJZCMhXeMqBkHtt980XGvxFgAgoOrmsBc1zrdDY
+	Wr1fjkyfl82ISTAI/JI/jzTQGbD3Mbv2/1HsdlM/qGlhTXc73Jiub3KYh4T/fa+MDFTQYwRHXsI
+	AfBRFiZ6S7ckHpG/UbrbLdVPrVUwFzF652ao6i6zA4wZeY0jAIE7DgLC8nF95TKc8Vmd+g0H3xQ
+	8ZZ2P3UFP7p4kX9YqqC1VwqRxiI9qXFO5K/FxnUTLP7/wIFzOgzm/uVxqgFd50z7EjDcSlqV4s6
+	LjYfy/x32fOCxMjr20CQa5Stiy/0STysxVyOgU2tZDbCjQpALw7fplbaupWbfWD
+X-Received: by 2002:a05:6808:250d:b0:4b9:a88b:888b with SMTP id 5614622812f47-5535ae2721fmr3901944b6e.33.1792684548890;
+        Thu, 22 Oct 2026 08:55:48 -0700 (PDT)
+Received: from [192.168.1.128] ([38.15.57.99])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-552b400ba34sm4819851b6e.4.2026.10.22.08.55.43
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 22 Oct 2026 08:55:46 -0700 (PDT)
+Message-ID: <271a7031-aa67-467a-be40-9b08efe3fae6@linuxfoundation.org>
+Date: Thu, 22 Oct 2026 09:55:43 -0600
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,153 +85,85 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261022155352.1293020-1-wfelipe@google.com>
-X-Mailer: git-send-email 2.56.0.218.g1ec904b173-goog
-Message-ID: <20261022155352.1293020-3-wfelipe@google.com>
-Subject: [PATCH 2/3] workqueue: expose per-workqueue stats in debugfs
-From: Wilson Felipe Pereira <wfelipe@google.com>
-To: Tejun Heo <tj@kernel.org>, Lai Jiangshan <jiangshanlai@gmail.com>
-Cc: Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
-	Randy Dunlap <rdunlap@infradead.org>, linux-doc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Wilson Felipe Pereira <wfelipe@google.com>, 
-	Shuhao Tan <tanshuhao@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 0/2] Start removing X86_X32_ABI
+To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Cc: linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ "H. Peter Anvin" <hpa@zytor.com>, "Maciej W. Rozycki" <macro@orcam.me.uk>,
+ Bill Wendling <morbo@google.com>, Borislav Petkov <bp@alien8.de>,
+ Dave Hansen <dave.hansen@linux.intel.com>, Ingo Molnar <mingo@redhat.com>,
+ John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
+ Jonathan Corbet <corbet@lwn.net>, Justin Stitt <justinstitt@google.com>,
+ Nathan Chancellor <nathan@kernel.org>, Neal Gompa <neal@gompa.dev>,
+ Nick Desaulniers <ndesaulniers@google.com>,
+ Richard Purdie <richard.purdie@linuxfoundation.org>,
+ Sam James <sam@gentoo.org>, Shuah Khan <shuah@kernel.org>,
+ Thomas Gleixner <tglx@kernel.org>, =?UTF-8?Q?Thomas_Wei=C3=9Fschuh?=
+ <linux@weissschuh.net>, Tomas Glozar <tglozar@kernel.org>,
+ Willy Tarreau <w@1wt.eu>, x86@kernel.org, Arnd Bergmann <arnd@arndb.de>,
+ Shuah Khan <skhan@linuxfoundation.org>
+References: <20261015-x32_removal-v5-0-2bfef9151fad@linutronix.de>
+ <2fcf2983-0972-427b-ad05-b403e325ce40@linuxfoundation.org>
+ <20261019103532.E7ra8pya@linutronix.de>
+ <96d29c1f-d797-4f83-a65a-d1763f0cf760@linuxfoundation.org>
+ <20261022150624.THzKWu9_@linutronix.de>
+Content-Language: en-US
+From: Shuah Khan <skhan@linuxfoundation.org>
+In-Reply-To: <20261022150624.THzKWu9_@linutronix.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-struct pool_workqueue tracks runtime counters in pwq->stats[],
-pwq->total_in_flight, and pwq->nr_active, but reading them currently
-requires tools/workqueue/wq_monitor.py with drgn and kernel DWARF
-debuginfo. This makes it impractical to inspect workqueue stats on
-systems without drgn or debug symbols.
+On 10/22/26 09:06, Sebastian Andrzej Siewior wrote:
+> On 2026-10-21 12:31:46 [-0600], Shuah Khan wrote:
+>> On 10/19/26 04:35, Sebastian Andrzej Siewior wrote:
+>>> On 2026-10-15 13:47:37 [-0600], Shuah Khan wrote:
+>>>> For selftests:
+>>>>
+>>>> Acked-by: Shuah Khan <skhan@linuxfoundation.org>
+>>>
+>>> Thank you.
+>>>
+>>>> Do you plan to cleanup x32 checks from selftests/x86 Makefiles?
+>>>
+>>> Could you please give me an example? I've been looking through
+>>> 	tools/testing/selftests/x86
+>>>
+>>> and didn't find anything Makefile + x32 related. Just
+>>> syscall_numbering.c which has x32 bits.
+>>>
+>>
+>> Take a look at x86 selftest directory. You will find sigreturn.c
+>> and syscall_numbering.c that have references to x32 syscalls.
+>>
+>> Makefile has handling for TARGETS_C_32BIT_ONLY.
+> 
+> Okay. If x32 marked as broken it does not hurt to the selftests as-is,
+> right?
+> I think sigreturn.c can stay as-is except for the comment referring to
+> x32.
 
-Add /sys/kernel/debug/workqueue/stats to expose per-workqueue stats
-directly from the kernel. Iterate over the workqueues list under RCU and
-sum wq->retired_stats[] with each pwq's stats[], total_in_flight, and
-nr_active to report queued, active, and running work items alongside the
-cumulative pwq->stats[] counters.
+Right the comment needs cleaning up.
 
-Signed-off-by: Wilson Felipe Pereira <wfelipe@google.com>
----
- kernel/workqueue.c | 99 ++++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 99 insertions(+)
+> syscall_numbering.c has plenty of x32 bits and I would go and remove
+> them once start removing the x32 bits. The reason for 1/2 in this series
+> is that the nolibc selftests expect x32 to be working on x86-64.
 
-diff --git a/kernel/workqueue.c b/kernel/workqueue.c
-index 88c8cc2b38d8..ed0f0be6494a 100644
---- a/kernel/workqueue.c
-+++ b/kernel/workqueue.c
-@@ -57,6 +57,8 @@
- #include <linux/delay.h>
- #include <linux/irq_work.h>
- #include <linux/math64.h>
-+#include <linux/debugfs.h>
-+#include <linux/seq_file.h>
- 
- #include "workqueue_internal.h"
- 
-@@ -7990,6 +7992,103 @@ static void workqueue_sysfs_unregister(struct workqueue_struct *wq)
- static void workqueue_sysfs_unregister(struct workqueue_struct *wq)	{ }
- #endif	/* CONFIG_SYSFS */
- 
-+#ifdef CONFIG_DEBUG_FS
-+
-+static const char *wq_type_str(struct workqueue_struct *wq)
-+{
-+	if (wq->flags & WQ_BH)
-+		return "bh";
-+	if (wq->flags & WQ_UNBOUND) {
-+		if (wq->flags & __WQ_ORDERED)
-+			return "ordered";
-+		return "unbound";
-+	}
-+	return "percpu";
-+}
-+
-+static void *wq_stats_start(struct seq_file *m, loff_t *pos)
-+	__acquires(rcu)
-+{
-+	rcu_read_lock();
-+	return seq_list_start_head_rcu(&workqueues, *pos);
-+}
-+
-+static void *wq_stats_next(struct seq_file *m, void *v, loff_t *pos)
-+{
-+	return seq_list_next_rcu(v, &workqueues, pos);
-+}
-+
-+static void wq_stats_stop(struct seq_file *m, void *v)
-+	__releases(rcu)
-+{
-+	rcu_read_unlock();
-+}
-+
-+static int wq_stats_show(struct seq_file *m, void *v)
-+{
-+	struct workqueue_struct *wq;
-+	struct pool_workqueue *pwq;
-+	u64 stats[PWQ_NR_STATS];
-+	long in_flight = 0, active = 0;
-+	long running, queued;
-+	int i;
-+
-+	if (v == &workqueues) {
-+		seq_printf(m, "%-24s %-8s %6s %6s %7s %10s %10s %12s %8s %8s %8s %8s %8s\n",
-+			   "workqueue", "type", "queued", "active", "running",
-+			   "started", "completed", "cpu_time_us",
-+			   "cpu_itsv", "cm_wkup", "repat", "mayday", "rescued");
-+		return 0;
-+	}
-+
-+	wq = list_entry(v, struct workqueue_struct, list);
-+
-+	/* Advisory stats read without wq->mutex or pool->lock. */
-+	for (i = 0; i < PWQ_NR_STATS; i++)
-+		stats[i] = data_race(wq->retired_stats[i]);
-+
-+	for_each_pwq(pwq, wq) {
-+		for (i = 0; i < PWQ_NR_STATS; i++)
-+			stats[i] += data_race(pwq->stats[i]);
-+		in_flight += data_race(pwq->total_in_flight);
-+		active += data_race(pwq->nr_active);
-+	}
-+
-+	running = max_t(long, stats[PWQ_STAT_STARTED] -
-+			      stats[PWQ_STAT_COMPLETED], 0);
-+	queued = max_t(long, in_flight - running, 0);
-+	active = max_t(long, active, 0);
-+
-+	seq_printf(m, "%-24s %-8s %6ld %6ld %7ld %10llu %10llu %12llu %8llu %8llu %8llu %8llu %8llu\n",
-+		   wq->name, wq_type_str(wq), queued, active, running,
-+		   stats[PWQ_STAT_STARTED], stats[PWQ_STAT_COMPLETED],
-+		   stats[PWQ_STAT_CPU_TIME], stats[PWQ_STAT_CPU_INTENSIVE],
-+		   stats[PWQ_STAT_CM_WAKEUP], stats[PWQ_STAT_REPATRIATED],
-+		   stats[PWQ_STAT_MAYDAY], stats[PWQ_STAT_RESCUED]);
-+
-+	return 0;
-+}
-+
-+static const struct seq_operations wq_stats_sops = {
-+	.start	= wq_stats_start,
-+	.next	= wq_stats_next,
-+	.stop	= wq_stats_stop,
-+	.show	= wq_stats_show,
-+};
-+DEFINE_SEQ_ATTRIBUTE(wq_stats);
-+
-+static int __init wq_debugfs_init(void)
-+{
-+	struct dentry *dir;
-+
-+	dir = debugfs_create_dir("workqueue", NULL);
-+	debugfs_create_file("stats", 0444, dir, NULL, &wq_stats_fops);
-+	return 0;
-+}
-+late_initcall(wq_debugfs_init);
-+
-+#endif	/* CONFIG_DEBUG_FS */
-+
- /*
-  * Workqueue watchdog.
-  *
--- 
-2.56.0.218.g1ec904b173-goog
+Perfect.
 
+> 
+> But this isn't the case here afaik. Now that I test it run into
+>     https://lore.kernel.org/all/20261022142425.3Wx-RrU5@linutronix.de/
+> 
+> so the test is currently broken.
+
+Probably. I haven't investigated.
+
+> 
+> Did I understand you properly?
+
+Yes. My objective is to get these items on your list to take a
+look and address whichever you see fit and we accomplished it. :)
+
+thanks,
+-- Shuah
