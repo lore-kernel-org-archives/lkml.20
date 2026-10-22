@@ -1,101 +1,44 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=209.85.210.43
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1792671540;
-	b=L7iUz9+Mb/UeuQBkdnMjSqnbpJpq2SLHSoNixHgDVwcRdJTkMcVMxmMsvXKhEp0YG8sA
-	 sC/K7r/RExfAXtoSihNmSUE+t67ddZC0x3QOpY4lTOI69K3P1EqSlKLHutlO/EwFZfiXJ
-	 LbZbYy9Ax8pK6BE14cySc+Oh2WVxWbZRhfgdVEt7vU5u34nAVgL5lpebNKccU6JQgXKUr
-	 XDCxO0OxG5xSzrVrnUicRo2EAQPcZC4fpqW0Bl4UStSZNtnG84lkpPYPG+iMZEiKEHsdb
-	 /KSVWSjtW8cGEznvkqR9blRRG1duCnuKz3AZuNEew+d71QS/pJhmVS2FRgtwL+ZnViQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792671540;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=O7MzFnbIsObJkz1l1H1RrtjwBzWrndW2u4bvc7jCYf8=;
-	b=e/NKSW4t1SP/W+EeFr99Jxt99MF55Uv9V+Up97aJqIc01qgczPO1y07XwV/yM6LLMt3q
-	 qj1M95eIoG7/bLlz5PRIAYdv+ocihFUzFIqYxVMzVQTLVZ1/DstTMEoXiJUeF66F86lET
-	 tiuwQ28F7L36mHgJvmef7sqqLDhrw3Bpq48eLThKBv8kl0BpIlGe9P8Dgm6Ui1tKJDrso
-	 OCaLyJ+CnM8X7cZD2XHEIBD8vM9JRzh2I67ZYRLjjQK7MFvPBniMBgfr+9Oc6vVLaQDeI
-	 e4PJZTJVgrNKlFaeYj5mkIdym+ihyyWPTolSNTExvzNXwxxwf9MjUEUin7WzfqWYCEg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=armoriq.io;
-	spf=pass smtp.mailfrom=armoriq.io;
-	dkim=pass header.d=armoriq-io.20251104.gappssmtp.com header.i=@armoriq-io.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=YLUPMQVJ;
-	arc=fail smtp.remote-ip=209.85.210.43
-Received: from mail-ot1-f43.google.com (mail-ot1-f43.google.com [209.85.210.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792671572;
+	b=AK7n5G1GdZY2vT1q7FLhKgbII1nxyFuIa3u90svfAe/ZkntmypJVlRkt3Iz9S0f19dv2
+	 wX4S5rzEg/pMizSUqQyv+YCQ/m79mokbzsvX9/Sf3+y7Z3Nn8CjsmLkKHpTWJXGEzPRvr
+	 FM6ihpaFJ1/c+DODvKzhnrL1DQ+oCkRAXTfUc/AJO+tMlfJGHPs70KGe7tQq82CbN+FjW
+	 Ff9MPNmtim+E3Nbjm81JYdDltf2GPSCWdVWgN+oEanYSvq0vm0Bva8VRH7ZTvECvIyDl/
+	 JTV66bjQn/g8UjCFk3ox9vCs4pEQbcTHDay3X4mIkPa9KcwsSRRUgMaKX4oPgq7jh2A==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792671572;
+	h=Received:DKIM-Signature:Mime-Version:Content-Type:Date:Message-Id:
+	 Subject:Cc:From:To:X-Mailer:References:In-Reply-To;
+	bh=OklgHJFN1eZ/51mpY2UmRhLUFr3RqxZaXQXuRRPUEdE=;
+	b=c1fj6Hjzw7VR5/xVDyCYoQwq0187ySBu2aY7eHxY7n2QWuslUCNNnyr81xzuFyIN3aiQ
+	 hxU54KbpT5/CFe6ReWD9wy292d4mQiF3QSL98nreLvPe551I9QjSBaFOhOOTcm1SH9nMH
+	 xCQ7qIbk7HfbAsrpQ6Fx+P4yXmJHf56Ly9HRpik6oAOuiqAN8JdEjVLTd6awqy6Y6Nmx6
+	 hR3TAtPlCVrJtWl6Lxau2NajlrXBaUyvlHkv0Sju3WI2RzAf1K1OcKCoyxjtY4yu86g++
+	 urpKwgYk4gzPVlQjUIPMJx3HgwayyAM4vgErfRxdjUYuot5d2GqIjaHni1ttf7UUhXg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ldMZPbdg;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C70E606A31D
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 12:18:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0C70E606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=armoriq.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=armoriq.io
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 3A72A606A319;
+	Thu, 22 Oct 2026 12:19:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=armoriq-io.20251104.gappssmtp.com header.i=@armoriq-io.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=YLUPMQVJ
-Received: by mail-ot1-f43.google.com with SMTP id 46e09a7af769-843a4ca671eso948980a34.2
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 05:18:59 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792671539; cv=none;
-        d=google.com; s=arc-20260327;
-        b=IkrxuNynidf3BVNfPAnRW2SM0P72MtvkpKI+bCHZ6Z/qRxWA607XyS9uL3Y6AKPsY2
-         1rEPa9KUdKX+KGS6lPjVhmbeN/PliXbi2LWP1Qo2eKj35E7lkB3w1I9mj2ry4zTYkoOw
-         IeQihsVGJti7hDC0lGRoTUC0OAZKiwwGszrfEWYIWIJszIdvGC/VUEaub9DuCN1Ng5Co
-         Hn6GGJ9BaO75ZvnEfTvZP8L6a5SPyraL1SEr1A+io/SoOqqC5VWdOdKhWJkv0bXSwbjO
-         4SwOWyJ6eGDLbeZC0NnZzhIuRC38vD5v9Q0M/K9Dh/fisJsqs3BDcJzbK1Qo8oYdZqhr
-         iG7w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=O7MzFnbIsObJkz1l1H1RrtjwBzWrndW2u4bvc7jCYf8=;
-        fh=rdOeX9NU1txPbQCyKMTQo8cXPGhFFUC2N9CfA/sG9o8=;
-        b=WoZE1gM7Z9SE/y8HTGj6cNTO4o6yQKTTrDfb3s69lRG8i6viA+ZsgEtEQLwg8VeofV
-         pFxrBkrarVZMUbwB9geVqm9HquqtBhA9TJ/HFqLI0gyMmseYt+y9VM2ehQUegPJrssA6
-         Gbh7YRQC/GFD95UeYLlXfpSXyu/ubJMvA1adA7cXb9nVN93pDOYuOpXAl3RD2gPDof/V
-         OcuRiLrQaffx17x88uVs3pMWh0uQ+C8V9i50rc0n2ELEq3ko+2ZDMp3kqVK46ICydwOF
-         KUxcJn93e/69WrHqOUIg28LlMzoYBIOwbHDzf5ULzTmAMjJkVz2LH2/4PdKPrPI3hrdo
-         uZfg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=armoriq-io.20251104.gappssmtp.com; s=20251104; t=1792671539; x=1793276339; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=O7MzFnbIsObJkz1l1H1RrtjwBzWrndW2u4bvc7jCYf8=;
-        b=YLUPMQVJF8HRVC8z0/+XrEs6ev066K/XYVa52+Bkail+lf49nY6jJTtmqI88eqqqsS
-         JyqLtxXkZBgpqap7OKLLgfKTDdkw7sXaj2F0wki4fj815GI8j0FU3WPvBZrpoPt010jG
-         a2eKGzf31l4WZyISy7N2Q9j+tM9WRaZCyHibHUXQ7x2AV10lfY5j4oXlH6Lm0KDXNPTg
-         u4ey+rSbQxYeOt+0Z8HBA+BXKpNpfApwmejs/QWWkARyoKd/k0ifAy3jIR5OPv85JDDu
-         3sVPwOid7UjGYaFQBECFXSA4rQLg1L8OKtRadkaLUwkT+FuuEXmEPh3CQJ3uW1kN25Et
-         daYw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792671539; x=1793276339;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=O7MzFnbIsObJkz1l1H1RrtjwBzWrndW2u4bvc7jCYf8=;
-        b=Qpmah8e5qabtuNMIYc8pjCua7VLx33pXoKP86S5Jr/F+XoDRt4GOpjy4KBpzftWi4U
-         dinBNh1+4sd4lw3Vpn41pkuVr2T9ELuL6KdTk9RXTpfq5YxTqhyrM9tpIGTcN8U0/iyw
-         tC1TCsTQyDTbns0y2111tVCig21fjgl8NpH7V/bmkcp+7/85pmr9thTfBw7j9IstTDCF
-         tYcNRfk7DvTQy/d3Tuh8VzinrQ7+5y5i8nnlCckvSs69Ch0kdgevYR5HeVoxxc+6kYch
-         /Vw0LeuE1vZvu8FLTFvfVMwm05mOXi9Mg0ah8/5gsjJJczeMEZWRpgbVHsuIxwDwbURE
-         YBMw==
-X-Forwarded-Encrypted: i=1; AKwUvByrazfOdiHFDTqebA/7EA8JUL2DSFrueJzpiOjeXUkjMzXcP6xSjnwQK2HXRZ7p09FEsRU8AL2GRVSl95w=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKBrNuTp+94WmMQ2Cev/8TRY2YUTShUuyUqYyPaXFHgzpq+BCyK
-	tKe6/jnl6ZeV229txHCZ7njwY37wi1ckdFUnmLWWKlhdKbEGC1HKd+oj+90JPcTsdNUNc52hjbv
-	p3RzykaBcwsrfYK6qMJhwO+PyHWvb2qpc/ugujpnwVUs=
-X-Gm-Gg: AYBFou34ctwh7VUL4MPcdZ72oL/BXyUWcFh2XWasiRP5FWFV+m9F+RsjQGJ3Wa9cHns
-	+/7ukInMgq5xRkOcAg+GzoSeHt3G73/C/FG0ZbpLsQJQZgcw1LUd3WVzNPNbYsLZVXQlEPIJY5n
-	7rgyeFpl51GPEAVsszq6RO2yw3sUiFnR+Pfr3B3M4+8AFZn2Mhvfy9TNVFLCzcmCeL+EKYYIDEi
-	/O3i85V1bvrlbatmqW5LKBY18WDYQXoOwA/+9xSS4pxcobh/fPHuyS/aeqzs2RO8ZQJX2eQnQue
-	eZGLvz3Q2Nejox6vsXP6IgowTHHWZ1Vr3h1jwL24up7e52A7RnMa+NtVnB4lw45/fsoSpmVMQn2
-	LAyIOm0YuXTm8ofHJ5Rzf3ds6AgYMH87bAv/onitRA3cbIqRP7U5/DOz7GzMZep9GnEpqN52M9b
-	FrjlxYAIfqn9vwlznEXyu/9ZP/B11toZQHJHr7eN7EwaOg9s+0uXW+7Pc=
-X-Received: by 2002:a05:6830:6f85:b0:81c:ebf4:9ff8 with SMTP id
- 46e09a7af769-84d09218548mr4176798a34.30.1792671538755; Thu, 22 Oct 2026
- 05:18:58 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ldMZPbdg
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 48AFD1F000C1;
+	Thu, 22 Oct 2026 12:19:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792671571;
+	bh=OklgHJFN1eZ/51mpY2UmRhLUFr3RqxZaXQXuRRPUEdE=;
+	h=Date:Subject:Cc:From:To:References:In-Reply-To;
+	b=ldMZPbdgvKK5TQGrow84FHcVSYxlGmDyeiIQuBFLg5bI1wAPBMyMt5GrmwLVAd/92
+	 OoR2kIydDv87gReRoqk7W4bThCR70RlAFnssNmYrtP4fWRFwkTI6ZyQBcsEv9fMxbu
+	 W+fHQdzMznqJjW+h7JPJmD/+LLqLR/9ClTJG2tgHkakd7qfO01GvKfKa1q1pC0hU7F
+	 efAGnEEdBGYmpjQaTTmmPbk/JObpx0HWlGFsYWoZVw3WS3baSVcNnfi+E9B2fg5Wod
+	 uqTrMJrCUcTqpk635IxObpTjqzCSDUbshuPlo1sw9F2fy+KKlU4zb4zJi6nf9hU0dA
+	 ddFNluFgcPDug==
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,34 +47,159 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-References: <20261021165748.19304-1-ketan@armoriq.io> <db4e46a6-1788-44a3-a3ab-4fded03591d7@infradead.org>
-In-Reply-To: <db4e46a6-1788-44a3-a3ab-4fded03591d7@infradead.org>
-From: Harihara Sudhan <harisudhan@armoriq.io>
-Date: Thu, 22 Oct 2026 17:48:48 +0530
-X-Gm-Features: AclHuK9VMJQ9vVvn-lB4Iuv5LF_25cVG0XxJiOkPXcZoQJDfSKiJzf7VWJduKT4
-Message-ID: <CAGhg=-NJjXPqeAFMnYVRnbZWQwoGiPqhyhxH_c7zhL-=Jc+qzw@mail.gmail.com>
-Subject: Re: [RFC PATCH] docs: security: Describe the Kernel Assurance Plane design
-To: Randy Dunlap <rdunlap@infradead.org>
-Cc: Ketan Bhardwaj <ketan@armoriq.io>, Paul Moore <paul@paul-moore.com>, 
-	James Morris <jmorris@namei.org>, "Serge E . Hallyn" <serge@hallyn.com>, 
-	linux-security-module@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>, linux-doc@vger.kernel.org, 
-	linux-api@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
+Content-Type: multipart/signed;
+ boundary=1af248fcc003f2e9190f10866a1810a2857490b1df2b79d3d9fd96a2faf7;
+ micalg=pgp-sha384; protocol="application/pgp-signature"
+Date: Thu, 22 Oct 2026 14:19:27 +0200
+Message-Id: <DMBD190498R4.3PX7VO4SXKU3C@kernel.org>
+Subject: Re: [PATCH v1 2/4] mtd: spi-nor: Support mixed 1S-xD-xD DTR
+ protocols in spi_nor_spimem_setup_op()
+Cc: "Pratyush Yadav" <pratyush@kernel.org>, "Takahiro Kuwano"
+ <takahiro.kuwano@infineon.com>, "Mark Brown" <broonie@kernel.org>, "Richard
+ Weinberger" <richard@nod.at>, "Vignesh Raghavendra" <vigneshr@ti.com>,
+ <linux-spi@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <linux-mtd@lists.infradead.org>
+From: "Michael Walle" <mwalle@kernel.org>
+To: "Miquel Raynal" <miquel.raynal@bootlin.com>, "Changhuang Liang"
+ <changhuang.liang@starfivetech.com>
+X-Mailer: aerc 0.20.0
+References: <20261022102614.75696-1-changhuang.liang@starfivetech.com>
+ <20261022102614.75696-3-changhuang.liang@starfivetech.com>
+ <875wyuqaj4.fsf@bootlin.com>
+In-Reply-To: <875wyuqaj4.fsf@bootlin.com>
+
+--1af248fcc003f2e9190f10866a1810a2857490b1df2b79d3d9fd96a2faf7
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
 
-On Thu, Oct 22, 2026 at 5:11=E2=80=AFAM Randy Dunlap <rdunlap@infradead.org=
-> wrote:
-> I wondered what this index entry was for and then running
-> 'make htmldocs' complained:
+On Thu Oct 22, 2026 at 12:45 PM CEST, Miquel Raynal wrote:
+> On 22/10/2026 at 03:26:12 -07, Changhuang Liang <changhuang.liang@starfiv=
+etech.com> wrote:
 >
-> Documentation/admin-guide/LSM/index.rst:48: WARNING: toctree contains ref=
-erence to nonexisting document 'admin-guide/LSM/kap' [toc.not_readable]
+>> Currently spi_nor_spimem_setup_op() sets all four phases (cmd, addr,
+>> dummy, data) to DTR whenever spi_nor_protocol_is_dtr(proto) is true.
+>> This is too coarse: the 1S-xD-xD DTR protocols (1_1_1_DTR, 1_2_2_DTR,
+>> 1_4_4_DTR, 1_8_8_DTR) send the command phase in STR on a single line,
+>> and only the address, dummy and data phases in DTR. SPIMEM supports
+>> such mixed DTR modes.
+>>
+>> Split the handling:
+>>
+>>   - For SNOR_PROTO_8_8_8_DTR, keep the existing behavior: set all
+>>     phases to DTR and use a 2-byte opcode (opcode + extension).
+>>
+>>   - For the other DTR protocols, set the command phase to STR and only
+>>     the address, dummy and data phases to DTR. Double op->dummy.nbytes
+>>     since DTR transfers 2 bytes per clock cycle, matching how the dummy
+>>     cycle count is specified for these protocols.
+>>
+>> No in-tree flash currently declares SNOR_HWCAPS_READ_1_x_x_DTR, so
+>> this is not a bug fix but preparation for enabling these protocols.
+>> A follow-up patch will enable 1S-4D-4D for the MX66L1G45G. The
+>> 8D-8D-8D path is unchanged.
+>>
+>> Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
+>> ---
+>>  drivers/mtd/spi-nor/core.c | 21 ++++++++++++++-------
+>>  1 file changed, 14 insertions(+), 7 deletions(-)
+>>
+>> diff --git a/drivers/mtd/spi-nor/core.c b/drivers/mtd/spi-nor/core.c
+>> index 90524c58602e..43e506e728ab 100644
+>> --- a/drivers/mtd/spi-nor/core.c
+>> +++ b/drivers/mtd/spi-nor/core.c
+>> @@ -97,13 +97,7 @@ void spi_nor_spimem_setup_op(const struct spi_nor *no=
+r,
+>>  	if (op->data.nbytes)
+>>  		op->data.buswidth =3D spi_nor_get_protocol_data_nbits(proto);
+>> =20
+>> -	if (spi_nor_protocol_is_dtr(proto)) {
+>> -		/*
+>> -		 * SPIMEM supports mixed DTR modes, but right now we can only
+>> -		 * have all phases either DTR or STR. IOW, SPIMEM can have
+>> -		 * something like 4S-4D-4D, but SPI NOR can't. So, set all 4
+>> -		 * phases to either DTR or STR.
+>> -		 */
+>> +	if (proto =3D=3D SNOR_PROTO_8_8_8_DTR) {
+>>  		op->cmd.dtr =3D true;
+>>  		op->addr.dtr =3D true;
+>>  		op->dummy.dtr =3D true;
+>> @@ -115,6 +109,19 @@ void spi_nor_spimem_setup_op(const struct spi_nor *=
+nor,
+>>  		ext =3D spi_nor_get_cmd_ext(nor, op);
+>>  		op->cmd.opcode =3D (op->cmd.opcode << 8) | ext;
+>>  		op->cmd.nbytes =3D 2;
+>> +	} else if (spi_nor_protocol_is_dtr(proto)) {
+>> +		/*
+>> +		 * 1S-xD-xD protocols: the opcode is sent in STR on a single
+>> +		 * line, only the address, dummy and data phases are DTR. The
+>> +		 * opcode stays 1 byte (no command extension).
+>> +		 */
+>> +		op->cmd.dtr =3D false;
+>> +		op->addr.dtr =3D true;
+>> +		op->dummy.dtr =3D true;
+>> +		op->data.dtr =3D true;
+>
+> Still to coarse IMHO.
+>
+> What about xS-xS-xD?
 
-Thanks Randy. That entry should not be there: the document lives only
-under Documentation/security and there is no admin-guide page for KAP.
-We'll drop the admin-guide/LSM/index.rst hunk in v2.
+Is this a thing? Are there any NOR flashes which support the address
+being SDR? That doesn't make much sense, does it? The command being
+SDR makes sense because you don't have to switch modes and thus
+you're stateless.
 
-Thanks,
-Hari
+Also spi-nor.h only defines 1S-nD-nD (for n=3D2,4,8) for DTR. IIRC the
+original DTR code was just for 8D-8D-8D because that is actually
+backed by the xSPI standard.
+
+Anyway, can we just have something like:
+
+
+if (spi_nor_protocol_is_dtr(proto)) {
+		/* we only support 1SnDnD or 8D8D8D */
+		op->addr.dtr =3D true;
+		op->dummy.dtr =3D true;
+		op->data.dtr =3D true;
+
+		/* 2 bytes per clock cycle in DTR mode. */
+		op->dummy.nbytes *=3D 2;
+
+		if (SNOR_PROTO_8_8_8_DTR) {
+			op->cmd.dtr =3D true;
+			ext =3D spi_nor_get_cmd_ext(nor, op);
+			op->cmd.opcode =3D (op->cmd.opcode << 8) | ext;
+			op->cmd.nbytes =3D 2;
+		}
+}
+
+Also you missed the support for SNOR_F_SWAP16.
+
+-michael
+
+> As mentioned in the spi controller patch you must make sure these are
+> refused if they are not supported by your controller because SPI NAND at
+> least allow them (and I believe SPI NOR might as well)?.
+>
+>> +
+>> +		/* 2 bytes per clock cycle in DTR mode. */
+>> +		op->dummy.nbytes *=3D 2;
+>>  	}
+>> =20
+>>  	if (proto =3D=3D SNOR_PROTO_8_8_8_DTR && params->flags & SNOR_F_SWAP16=
+)
+
+
+--1af248fcc003f2e9190f10866a1810a2857490b1df2b79d3d9fd96a2faf7
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iKgEABMJADAWIQTIVZIcOo5wfU/AngkSJzzuPgIf+AUCatn/TxIcbXdhbGxlQGtl
+cm5lbC5vcmcACgkQEic87j4CH/gJUQF/eZexncx5GXCJ+FOCrW+m7fpS3XzSqDKU
+AcWfX3qMUm2aBpDKs6ws8cyGLgs4SdOjAX4tS2EbAC7wDX8WqrUP/vrGB51OL+WB
+vO4L1XOHK1vIOgc8v/f4uVVCz7f93KsxKSA=
+=1d5h
+-----END PGP SIGNATURE-----
+
+--1af248fcc003f2e9190f10866a1810a2857490b1df2b79d3d9fd96a2faf7--
