@@ -1,78 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=13.77.154.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792681375;
-	b=HJKC0fhgN1bAa3nvjsjPfoAw3wMZi3ryLQqbv/3i7/XIOtRrfie/KWVVRq8VnyrhqfrW
-	 6BuRyxYUYyAqcTj53gASxayGUAyXlDm2Q7SEqHFUAJlQGE17hsAtJIn+5g3daHD5KlMX3
-	 5Wg+KH/jXOBHBJX8OJE4Mp5EwQizXCHYBQU0yPaVFzopaxaCGPSIFxn0tTRXmYda86yTD
-	 ORnWYlmSR9Ib9EQE0hZDKAmBxBpPUWOtClbp6XFXhBhuxhajI92aSejQPSHfOTEOQQtQa
-	 JJDXKSNMTi6QT50ZpUTQyWlTUnQTJMOkUWAddqhma7nK+YIXqQMnesJFQZBtRyMQMug==
+	t=1792681395;
+	b=xREEL1afrIihp8hWs2Db95Mv6votw7oDT1t76gin4V0qCgTHP8NbL60nRQb0Mo43ptY5
+	 70KOCNxrObnQQrzrYFtElE3wL4ABC+ZoQ8LRVrfE8JNknrI7jmlArTjJVczP0Hn/LEoi9
+	 sV7ALbHpS0APFuKFqZLdoAhO37LXsa7Tz2EdMgY1wZdnW4rI8lilUFJE+qYmTxDO2TJqF
+	 16F08pTqZlJFhCVrPDKsi8lp3/40yOpSm24twDymE2xldkPOSkoVbkh0BjLZ6bCK2/1Ar
+	 wN0AtJ3Z6gk8OiVnX7CsuhYblMlvrDyZyZJwZuqSTEaM6USlS3RNsEYhVa+P5LdNCdA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792681375;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-Proofpoint-Reinject:X-QCInternal:
-	 X-QCInternal:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Info:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=JTjoGO24pW2rGChMVPDLJyZmsSGTEsDRxsZhB1wrbkc=;
-	b=vQMpZJUsdJpmDBvqvMAf0Fb5dVNF+hsfCELK/e6vf8PsahF7eOSP7unqlNSkcppAYk46
-	 oE7Ycwp0aozzhaUB8Q3N3hIbcRJqW/bQY9QjdNszfbh9NM7mIH2QC7lCpsWIq89gEVJQK
-	 bLqVfYmA8Vv8JIWs0vcDE4bxOmIGHsrxtSeP1jNG3JDQNw3OWZ7rYcJOajroSc/IJWAru
-	 Ob6xm/sQY2btZdI4Yj6tJ6U8mVY5ghS2SsxQ0iu1n2iMI9BBSd6EHANLkW/PoumTKv102
-	 m8fGKl4UUy02G6prcK06y1aUl+RZuEUmxsGe9UXnofxZYH2SbJu4R+YkfVUCJACX2vw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792681395;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-Spam-Status:X-Spam-Checker-Version;
+	bh=h/mpCH1+FPINm3+rB8cMpXeQUIUsTApHYV7Wrq3EmC4=;
+	b=wOOPuhSNIAGtKIt90/F9sOaRQT0BylhuFEyhb7E2AmBDl4Zr/A5MwzSGy0o+7S+X+xgH
+	 1FsfCTvgcKnvfxHu+BFvDDN/v+8RJzooabdIYV7zXfVPEh7rabvr9doQbrYR0IA6nxDGb
+	 f8PF6VSmuL8Gq1TAhr5n+cGPgsB4EFcuqidCPxNXClHTBXnj7hNix+OWbKZjrSFAVVeMV
+	 SRuW5ZVSUo3RzeEUsC7/mMavwuCOKDhemnSRvedAeHJAcBnr19PiN8g2m4zHoOUsBeZv0
+	 jzU5ElkMp+BGh0bElxhMGyPd3pKj6J2zV3lgTDDrlZk+PUBvKiUy5ed8BF7qaKU4gEQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=ic+zs8tl;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF2A8606A31D;
-	Thu, 22 Oct 2026 15:02:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DF2A8606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
+	dmarc=pass header.from=linux.microsoft.com;
+	spf=pass smtp.mailfrom=linux.microsoft.com;
+	dkim=pass header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=aY7dgiFq;
+	arc=none smtp.remote-ip=13.77.154.182
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id AC6E4606A33F;
+	Thu, 22 Oct 2026 15:03:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AC6E4606A33F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=ic+zs8tl
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69MEFVBf4098326;
-	Thu, 22 Oct 2026 15:02:53 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=qcppdkim1; bh=JTjoGO24pW2rGChMVPDLJyZmsSGTEsDRxsZ
-	hB1wrbkc=; b=ic+zs8tlss1Il1wHWRnw3O5ohNiGjmIe4DSv4v1ftRoSqOU9M0u
-	hVORR4mmWXfT7sKkIAYAP6VJfHKfxcUAbBGlEOiDbMe4xbcw8Fsxv461IsfpwA3O
-	jiqxN0rauP9TnvDQe+WV2T2ORqN1XdYkIRKsfPfoD5Ry2p5VV/0Is7s2RmdF2hlV
-	e7whoesbgJ7CBC+gxyKinnuNhKc6PDQBpnLi9EXm2fjF/8ggbpOWXQymAZqHpKYW
-	Ah/xPNsMNwvEFD4CK8jzaihBVFAUIWtEC/zBqyQlxm/JMHqKKSaSc0L6TBwpu6lN
-	havJKK3i5IWFw/2soBRc/fDOHBlO/uQLi2g==
-Received: from apblrppmta01.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hfewq363f-6
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Thu, 22 Oct 2026 15:02:52 +0000 (GMT)
-Received: from pps.filterd (apblrppmta01.qualcomm.com [127.0.0.1])
-	by APBLRPPMTA01.qualcomm.com (8.18.1.11/8.18.1.11) with ESMTP id 69MCt9qo2331078;
-	Thu, 22 Oct 2026 12:55:09 GMT
-Received: from hu-devc-hyd-u22-c.qualcomm.com (hu-ks5-hyd.qualcomm.com [10.147.255.18])
-	by APBLRPPMTA01.qualcomm.com (PPS) with ESMTPS id 69MCt9Pf2331070
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Thu, 22 Oct 2026 12:55:09 +0000 (GMT)
-Received: by hu-devc-hyd-u22-c.qualcomm.com (Postfix, from userid 4763723)
-	id 1533F675; Thu, 22 Oct 2026 18:25:08 +0530 (+0530)
-From: Karthik S <karthik.s@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, Karthik S <karthik.s@oss.qualcomm.com>
-Subject: [PATCH v3] arm64: dts: qcom: qcs6490-rb3gen2: Add WCD headset playback and record for qcs6490-rb3gen2 industrial mezzanine
-Date: Thu, 22 Oct 2026 18:25:03 +0530
-Message-Id: <20261022125503.1231758-1-karthik.s@oss.qualcomm.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (1024-bit key, unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=aY7dgiFq
+Received: from weh-cvm-dev-vm.y50bckvjo0hefgfnzfztsfttff.phxx.internal.cloudapp.net (unknown [20.169.55.37])
+	by linux.microsoft.com (Postfix) with ESMTPSA id D7D6320B716A;
+	Thu, 22 Oct 2026 08:03:04 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com D7D6320B716A
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1792681385;
+	bh=h/mpCH1+FPINm3+rB8cMpXeQUIUsTApHYV7Wrq3EmC4=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=aY7dgiFqiYhlBvk+axgWY3Amclc3vQA7tv4AKOr2ekQznqyvk8H4uxM3lIAmICw9Y
+	 iFSH3lB6HOZOxtAeEYuze0H/WoUuuImgcsLtFCMxSpXjUmxn4JyofShGCUwpnIsF8s
+	 ojiUcW8wemeuXquJQ0s4DW/cjxzklyAaBp7UYN2Y=
+From: Wei Hu <weh@linux.microsoft.com>
+To: longli@kernel.org,
+	kotaranov@microsoft.com,
+	kuba@kernel.org,
+	davem@davemloft.net,
+	pabeni@redhat.com,
+	edumazet@google.com,
+	andrew+netdev@lunn.ch,
+	jgg@ziepe.ca,
+	leon@kernel.org,
+	haiyangz@microsoft.com,
+	wei.liu@kernel.org,
+	decui@microsoft.com,
+	shradhagupta@linux.microsoft.com,
+	horms@kernel.org,
+	ernis@linux.microsoft.com,
+	stephen@networkplumber.org
+Cc: netdev@vger.kernel.org,
+	linux-rdma@vger.kernel.org,
+	linux-hyperv@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	gargaditya@linux.microsoft.com,
+	kees+treewide@kernel.org,
+	kees@kernel.org,
+	mawasthi@linux.microsoft.com,
+	weh@microsoft.com,
+	edumazet@kernel.org
+Subject: [PATCH net-next v9 2/4] net: mana: give each HWC message slot its own completion state
+Date: Thu, 22 Oct 2026 15:03:00 +0000
+Message-ID: <e3b82aeab9323eb1c70203e90942df5f6a4a01f8.1792679388.git.weh@linux.microsoft.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <cover.1792679388.git.weh@linux.microsoft.com>
+References: <cover.1792679388.git.weh@linux.microsoft.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,227 +84,280 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-QCInternal: smtphost
-X-QCInternal: smtphost
-X-Proofpoint-GUID: a0zTaGxDWet6G_wF0GVxkk_haokAokVd
-X-Proofpoint-ORIG-GUID: a0zTaGxDWet6G_wF0GVxkk_haokAokVd
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIyMDA1OSBTYWx0ZWRfX1aGe1+/IF+in
- uajkG4x9AWNM8MWM7CWIF3vBi8VozVSeCYZv0tkW5ce3+DGGc1sm7FVMkIlGuGtMcYjSqvD+PEV
- +3bSbb8N8lbm8jPMBMHe/+KxNedtVC4=
-X-Authority-Analysis: v=2.4 cv=G4OJgNk5 c=1 sm=1 tr=0 ts=6ada259c cx=c_pps
- a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=rJkE3RaqiGZ5pbrm-msn:22 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8
- a=R-2MCYZGcSsRN6MK2dAA:9
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIyMDA1OSBTYWx0ZWRfX6M1bwYpRZX7y
- kodrPxEM4JJU2VjDsegCmmpHhYKBYjPx78MsVmZ2WlGKcxHI5cYultZGs5iZ0LbG+A4eGdlU92a
- K8uLugJNo4bKldAjMq2DlGHFxqEJ0md+DR0BvRzkX3fIoC37dVQ5SsbAGUmyEboKpeTAHbtytgh
- vOrqIxnHWv91NgUpbn7rfp2tD7MHUOCqlW1MshZCfO+aIzYuvFlmAyyDTrdat/8Vca1i9RNbsCO
- bVtEO64htu219kDNGAwA5Ioe1Z+SKH4zmEEOtwbJOPHPs5C66Xa66Dlnx5XvbZ19IElwDRSgfqE
- MqiE5rzZb0RsPz0q5vWJaefSnldA6KCRj3TlRtHdkxSksoM+1syhiSI3RHVL9U9PGSM7K0TGcWv
- sRCAZx4o0mSd+dO9rxoDH1WBPuroJWFLe/KP6ytCmQICq+wOawZ2yIJaaPbqHkf4JjRuga7DzOk
- 5hnk2TAO3NqGp8LcLLg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-22_05,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 clxscore=1015 phishscore=0 lowpriorityscore=0 bulkscore=0
- impostorscore=0 adultscore=0 malwarescore=0 spamscore=0 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610220059
 
-Add WCD playback and capture DAI link to sound node. Add WCD
-codec node and corresponding soundwire nodes to perform
-headset playback and record.
+From: Long Li <longli@microsoft.com>
 
+Concurrent requests require the response handler and the waiting sender to
+agree on the lifetime and result state of each message slot.
+
+Protect the caller's output buffer, Linux error and device status with a
+per-slot lock. Publish the output buffer only while the sender is waiting
+and withdraw it before every return. A late response cannot copy through a
+pointer to caller storage whose lifetime has ended.
+
+Reinitialize completion and result state under both the allocation and
+per-slot locks when acquiring the slot. A response handler can still hold
+the per-slot lock after the previous sender has returned its admission
+permit, so an unpublished bitmap bit alone is not sufficient protection.
+If the response records its result while the timed wait expires, return
+that result instead of reporting a false timeout.
+
+Keep the baseline's post-timeout admission behavior at this step rather
+than introducing a temporary channel-wide latch that suppresses subsequent
+teardown commands. This does not solve late-response correlation after ID
+reuse. The next patch adds response ownership, per-slot quarantine and the
+associated admission and teardown rules together.
+
+Split response-status handling and request cleanup into helpers so the send
+path has structured returns rather than phase-jumping gotos.
+
+Link: https://lore.kernel.org/r/20260908035201.402424-3-longli@microsoft.com
+Link: https://lore.kernel.org/r/20260908035201.402424-4-longli@microsoft.com
+Link: https://lore.kernel.org/r/179196575434.434549.4428132041097324407@kernel.org
+Link: https://lore.kernel.org/r/179196575640.434549.9102950927041409151@kernel.org
+Signed-off-by: Long Li <longli@microsoft.com>
+Signed-off-by: Wei Hu <weh@microsoft.com>
+Copilot-Session: 8c2361e6-c0f4-4b0c-bf01-b5e4cdacec50
 ---
-Changes since v2:
-    - Updated sound card model name to "QCS6490-RB3Gen2-Industrial-Mezz".
-    - Fixed changelog placement (moved to below ---).
+ .../net/ethernet/microsoft/mana/hw_channel.c  | 125 +++++++++++++-----
+ include/net/mana/hw_channel.h                 |   4 +-
+ 2 files changed, 95 insertions(+), 34 deletions(-)
 
-Changes since v1:
-    - "audio-codec" node moved before "regulator".
-    - renaming node from "audio-codec-0" to "audio-codec".
-    - dt-nodes sorted alphabetically.
-    - patchwise run on the patch and indentation errors fixed.
-
-Link: https://lore.kernel.org/all/eab2d0b8-a949-47d8-b953-fe34bd2fd869@kernel.org/ [v2]
-Signed-off-by: Karthik S <karthik.s@oss.qualcomm.com>
----
- .../qcs6490-rb3gen2-industrial-mezzanine.dtso | 133 ++++++++++++++++++
- 1 file changed, 133 insertions(+)
-
-diff --git a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2-industrial-mezzanine.dtso b/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2-industrial-mezzanine.dtso
-index 46bb52c667a4..e9713ec71dbf 100644
---- a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2-industrial-mezzanine.dtso
-+++ b/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2-industrial-mezzanine.dtso
-@@ -6,11 +6,35 @@
- /dts-v1/;
- /plugin/;
- #include <dt-bindings/gpio/gpio.h>
-+#include <dt-bindings/sound/qcom,q6afe.h>
- #include <dt-bindings/clock/qcom,gcc-sc7280.h>
- #include <dt-bindings/pinctrl/qcom,pmic-gpio.h>
+diff --git a/drivers/net/ethernet/microsoft/mana/hw_channel.c b/drivers/net/ethernet/microsoft/mana/hw_channel.c
+index 85d2b7506793..ec1cc9aa0ddd 100644
+--- a/drivers/net/ethernet/microsoft/mana/hw_channel.c
++++ b/drivers/net/ethernet/microsoft/mana/hw_channel.c
+@@ -9,6 +9,7 @@
+ static int mana_hwc_get_msg_index(struct hw_channel_context *hwc, u16 *msg_id)
+ {
+ 	struct gdma_resource *r = &hwc->inflight_msg_res;
++	struct hwc_caller_ctx *ctx;
+ 	unsigned long flags;
+ 	u32 index;
  
- &{/} {
+@@ -19,8 +20,17 @@ static int mana_hwc_get_msg_index(struct hw_channel_context *hwc, u16 *msg_id)
+ 	index = find_first_zero_bit(hwc->inflight_msg_res.map,
+ 				    hwc->inflight_msg_res.size);
  
-+	wcd9370: audio-codec {
-+		compatible = "qcom,wcd9370-codec";
++	ctx = &hwc->caller_ctx[index];
++	spin_lock(&ctx->lock);
++	reinit_completion(&ctx->comp_event);
++	ctx->output_buf = NULL;
++	ctx->output_buflen = 0;
++	ctx->error = -EINPROGRESS;
++	ctx->status_code = 0;
 +
-+		pinctrl-0 = <&wcd_default>;
-+		pinctrl-names = "default";
+ 	bitmap_set(hwc->inflight_msg_res.map, index, 1);
+ 
++	spin_unlock(&ctx->lock);
+ 	spin_unlock_irqrestore(&r->lock, flags);
+ 
+ 	*msg_id = index;
+@@ -90,14 +100,21 @@ static void mana_hwc_handle_resp(struct hw_channel_context *hwc, u32 resp_len,
+ 	}
+ 
+ 	ctx = hwc->caller_ctx + msg_id;
+-	err = mana_hwc_verify_resp_msg(ctx, resp_msg, resp_len);
+-	if (err)
+-		goto out;
+ 
+-	ctx->status_code = resp_msg->status;
++	spin_lock(&ctx->lock);
++	if (!ctx->output_buf) {
++		spin_unlock(&ctx->lock);
++		mana_hwc_post_rx_wqe(hwc->rxq, rx_req);
++		return;
++	}
+ 
+-	memcpy(ctx->output_buf, resp_msg, resp_len);
+-out:
++	err = mana_hwc_verify_resp_msg(ctx, resp_msg, resp_len);
++	if (!err) {
++		ctx->status_code = resp_msg->status;
++		memcpy(ctx->output_buf, resp_msg, resp_len);
++	}
 +
-+		reset-gpios = <&tlmm 83 GPIO_ACTIVE_LOW>;
-+		vdd-buck-supply = <&vph_pwr>;
-+		vdd-rxtx-supply = <&vph_pwr>;
-+		vdd-px-supply = <&vph_pwr>;
-+		vdd-mic-bias-supply = <&vph_pwr>;
-+		qcom,micbias1-microvolt = <1800000>;
-+		qcom,micbias2-microvolt = <1800000>;
-+		qcom,micbias3-microvolt = <1800000>;
-+		qcom,micbias4-microvolt = <1800000>;
-+		qcom,hphl-jack-type-normally-closed = <1>;
-+		qcom,ground-jack-type-normally-closed = <1>;
-+		qcom,rx-device = <&wcd937x_rx>;
-+		qcom,tx-device = <&wcd937x_tx>;
++	ctx->output_buf = NULL;
+ 	ctx->error = err;
+ 
+ 	/* Must post rx wqe before complete(), otherwise the next rx may
+@@ -106,6 +123,7 @@ static void mana_hwc_handle_resp(struct hw_channel_context *hwc, u32 resp_len,
+ 	mana_hwc_post_rx_wqe(hwc->rxq, rx_req);
+ 
+ 	complete(&ctx->comp_event);
++	spin_unlock(&ctx->lock);
+ }
+ 
+ static void mana_hwc_init_event_handler(void *ctx, struct gdma_queue *q_self,
+@@ -694,8 +712,10 @@ static int mana_hwc_test_channel(struct hw_channel_context *hwc, u16 q_depth,
+ 	if (!ctx)
+ 		return -ENOMEM;
+ 
+-	for (i = 0; i < q_depth; ++i)
++	for (i = 0; i < q_depth; ++i) {
+ 		init_completion(&ctx[i].comp_event);
++		spin_lock_init(&ctx[i].lock);
++	}
+ 
+ 	hwc->caller_ctx = ctx;
+ 
+@@ -998,6 +1018,37 @@ void mana_hwc_free_retained_channel(struct gdma_context *gc)
+ 	gc->hwc.gdma_context = NULL;
+ }
+ 
++static int mana_hwc_response_status(struct hw_channel_context *hwc,
++				    u32 command, int error, u32 status)
++{
++	if (error)
++		return error;
 +
-+		#sound-dai-cells = <1>;
-+	};
++	if (!status || status == GDMA_STATUS_MORE_ENTRIES)
++		return 0;
 +
- 	vreg_0p9: regulator-0v9 {
- 		compatible = "regulator-fixed";
- 		regulator-name = "VREG_0P9";
-@@ -48,6 +72,14 @@ st33htpm0: tpm@0 {
- 	};
++	if (status == GDMA_STATUS_CMD_UNSUPPORTED)
++		return -EOPNOTSUPP;
++
++	if (command != MANA_QUERY_PHY_STAT)
++		dev_err(hwc->dev, "Command 0x%x failed with status: 0x%x\n",
++			command, status);
++
++	return -EPROTO;
++}
++
++static void mana_hwc_finish_request(struct hw_channel_context *hwc,
++				    struct hwc_caller_ctx *ctx, u16 msg_id)
++{
++	unsigned long flags;
++
++	spin_lock_irqsave(&ctx->lock, flags);
++	ctx->output_buf = NULL;
++	spin_unlock_irqrestore(&ctx->lock, flags);
++
++	mana_hwc_put_msg_index(hwc, msg_id);
++}
++
+ int mana_hwc_send_request(struct hw_channel_context *hwc, u32 req_len,
+ 			  const void *req, u32 resp_len, void *resp)
+ {
+@@ -1005,26 +1056,32 @@ int mana_hwc_send_request(struct hw_channel_context *hwc, u32 req_len,
+ 	struct hwc_wq *txq = hwc->txq;
+ 	struct gdma_req_hdr *req_msg;
+ 	struct hwc_caller_ctx *ctx;
++	unsigned long flags;
+ 	u32 dest_vrcq;
+ 	u32 dest_vrq;
+ 	u32 command;
++	u32 status;
+ 	u16 msg_id;
+ 	int err;
+ 
+-	mana_hwc_get_msg_index(hwc, &msg_id);
++	err = mana_hwc_get_msg_index(hwc, &msg_id);
++	if (err)
++		return err;
+ 
+ 	tx_wr = &txq->msg_buf->reqs[msg_id];
++	ctx = hwc->caller_ctx + msg_id;
+ 
+ 	if (req_len > tx_wr->buf_len) {
+ 		dev_err(hwc->dev, "HWC: req msg size: %d > %d\n", req_len,
+ 			tx_wr->buf_len);
+-		err = -EINVAL;
+-		goto out;
++		mana_hwc_finish_request(hwc, ctx, msg_id);
++		return -EINVAL;
+ 	}
+ 
+-	ctx = hwc->caller_ctx + msg_id;
++	spin_lock_irqsave(&ctx->lock, flags);
+ 	ctx->output_buf = resp;
+ 	ctx->output_buflen = resp_len;
++	spin_unlock_irqrestore(&ctx->lock, flags);
+ 
+ 	req_msg = (struct gdma_req_hdr *)tx_wr->buf_va;
+ 	if (req)
+@@ -1046,11 +1103,24 @@ int mana_hwc_send_request(struct hw_channel_context *hwc, u32 req_len,
+ 	err = mana_hwc_post_tx_wqe(txq, tx_wr, dest_vrq, dest_vrcq, false);
+ 	if (err) {
+ 		dev_err(hwc->dev, "HWC: Failed to post send WQE: %d\n", err);
+-		goto out;
++		mana_hwc_finish_request(hwc, ctx, msg_id);
++		return err;
+ 	}
+ 
+ 	if (!wait_for_completion_timeout(&ctx->comp_event,
+-					 (msecs_to_jiffies(hwc->hwc_timeout)))) {
++					 msecs_to_jiffies(hwc->hwc_timeout))) {
++		spin_lock_irqsave(&ctx->lock, flags);
++		ctx->output_buf = NULL;
++		err = ctx->error;
++		status = ctx->status_code;
++		spin_unlock_irqrestore(&ctx->lock, flags);
++
++		if (err != -EINPROGRESS) {
++			mana_hwc_finish_request(hwc, ctx, msg_id);
++			return mana_hwc_response_status(hwc, command, err,
++							status);
++		}
++
+ 		if (hwc->hwc_timeout != 0)
+ 			dev_err(hwc->dev, "Command 0x%x timed out: %u ms\n",
+ 				command, hwc->hwc_timeout);
+@@ -1059,27 +1129,16 @@ int mana_hwc_send_request(struct hw_channel_context *hwc, u32 req_len,
+ 		if (hwc->hwc_timeout > 1)
+ 			hwc->hwc_timeout = 1;
+ 
+-		err = -ETIMEDOUT;
+-		goto out;
++		mana_hwc_finish_request(hwc, ctx, msg_id);
++		return -ETIMEDOUT;
+ 	}
+ 
+-	if (ctx->error) {
+-		err = ctx->error;
+-		goto out;
+-	}
++	spin_lock_irqsave(&ctx->lock, flags);
++	ctx->output_buf = NULL;
++	err = ctx->error;
++	status = ctx->status_code;
++	spin_unlock_irqrestore(&ctx->lock, flags);
+ 
+-	if (ctx->status_code && ctx->status_code != GDMA_STATUS_MORE_ENTRIES) {
+-		if (ctx->status_code == GDMA_STATUS_CMD_UNSUPPORTED) {
+-			err = -EOPNOTSUPP;
+-			goto out;
+-		}
+-		if (command != MANA_QUERY_PHY_STAT)
+-			dev_err(hwc->dev, "Command 0x%x failed with status: 0x%x\n",
+-				command, ctx->status_code);
+-		err = -EPROTO;
+-		goto out;
+-	}
+-out:
+-	mana_hwc_put_msg_index(hwc, msg_id);
+-	return err;
++	mana_hwc_finish_request(hwc, ctx, msg_id);
++	return mana_hwc_response_status(hwc, command, err, status);
+ }
+diff --git a/include/net/mana/hw_channel.h b/include/net/mana/hw_channel.h
+index 1320bdfa9d2a..c7570a5f7376 100644
+--- a/include/net/mana/hw_channel.h
++++ b/include/net/mana/hw_channel.h
+@@ -168,10 +168,12 @@ struct hwc_wq {
+ 
+ struct hwc_caller_ctx {
+ 	struct completion comp_event;
++	/* Protects initialization, output storage and response state. */
++	spinlock_t lock;
+ 	void *output_buf;
+ 	u32 output_buflen;
+ 
+-	u32 error; /* Linux error code */
++	int error; /* Linux error code */
+ 	u32 status_code;
  };
  
-+&lpass_rx_macro {
-+	status = "okay";
-+};
-+
-+&lpass_tx_macro {
-+	status = "okay";
-+};
-+
- &pcie0 {
- 	perst-gpios = <&tlmm 87 GPIO_ACTIVE_LOW>;
- 
-@@ -244,6 +276,101 @@ pcie@0,1 {
- 	};
- };
- 
-+&sound {
-+	model = "QCS6490-RB3Gen2-Industrial-Mezz";
-+	audio-routing = "SpkrLeft IN", "WSA_SPK1 OUT",
-+		"SpkrRight IN", "WSA_SPK2 OUT",
-+		"IN1_HPHL", "HPHL_OUT",
-+		"IN2_HPHR", "HPHR_OUT",
-+		"AMIC2", "MIC BIAS2",
-+		"TX SWR_ADC1", "ADC2_OUTPUT",
-+		"VA DMIC0", "vdd-micb",
-+		"VA DMIC1", "vdd-micb",
-+		"VA DMIC2", "vdd-micb",
-+		"VA DMIC3", "vdd-micb";
-+
-+	wcd-capture-dai-link {
-+		link-name = "WCD Capture";
-+
-+		codec {
-+			sound-dai = <&wcd9370 1>, <&swr1 0>, <&lpass_tx_macro 0>;
-+		};
-+
-+		cpu {
-+			sound-dai = <&q6apmbedai TX_CODEC_DMA_TX_3>;
-+		};
-+
-+		platform {
-+			sound-dai = <&q6apm>;
-+		};
-+	};
-+
-+	wcd-playback-dai-link {
-+		link-name = "WCD Playback";
-+
-+		codec {
-+			sound-dai = <&wcd9370 0>, <&swr0 0>, <&lpass_rx_macro 0>;
-+		};
-+
-+		cpu {
-+			sound-dai = <&q6apmbedai RX_CODEC_DMA_RX_0>;
-+		};
-+
-+		platform {
-+			sound-dai = <&q6apm>;
-+		};
-+	};
-+};
-+
-+&swr0 {
-+	status = "okay";
-+
-+	wcd937x_rx: codec@0,4 {
-+		compatible = "sdw20217010a00";
-+		reg = <0 4>;
-+
-+		/*
-+		 * WCD9370 RX Port 1 (HPH_L/R)       <==>    SWR1 Port 1 (HPH_L/R)
-+		 * WCD9370 RX Port 2 (CLSH)          <==>    SWR1 Port 2 (CLSH)
-+		 * WCD9370 RX Port 3 (COMP_L/R)      <==>    SWR1 Port 3 (COMP_L/R)
-+		 * WCD9370 RX Port 4 (LO)            <==>    SWR1 Port 4 (LO)
-+		 * WCD9370 RX Port 5 (DSD_L/R)       <==>    SWR1 Port 5 (DSD)
-+		 */
-+		qcom,rx-port-mapping = <1 2 3 4 5>;
-+
-+		/*
-+		 * Static channels mapping between slave and master rx port channels.
-+		 * In the order of slave port channels, which is
-+		 * hph_l, hph_r, clsh, comp_l, comp_r, lo, dsd_r, dsd_l.
-+		 */
-+		qcom,rx-channel-mapping = /bits/ 8 <1 2 1 1 2 1 1 2>;
-+	};
-+};
-+
-+&swr1 {
-+	status = "okay";
-+
-+	wcd937x_tx: codec@0,3 {
-+		compatible = "sdw20217010a00";
-+		reg = <0 3>;
-+
-+		/*
-+		 * WCD9370 TX Port 1 (ADC1)               <=> SWR2 Port 2
-+		 * WCD9370 TX Port 2 (ADC2, 3)            <=> SWR2 Port 2
-+		 * WCD9370 TX Port 3 (DMIC0,1,2,3 & MBHC) <=> SWR2 Port 3
-+		 * WCD9370 TX Port 4 (DMIC4,5,6,7)        <=> SWR2 Port 4
-+		 */
-+		qcom,tx-port-mapping = <1 1 2 3>;
-+
-+		/*
-+		 * Static channel mapping between slave and master tx port channels.
-+		 * In the order of slave port channels which is adc1, adc2, adc3,
-+		 * mic0, dmic1, mbhc, dmic2, dmic3, dmci4, dmic5, dmic6, dmic7.
-+		 */
-+		qcom,tx-channel-mapping = /bits/ 8 <1 2 1 1 2 3 3 4 1 2 3 4>;
-+	};
-+};
-+
- &tlmm {
- 	pcie0_tc9563_resx_n: pcie0-tc9563-resx-state {
- 		pins = "gpio78";
-@@ -283,6 +410,12 @@ pcie1_tc9563_resx_n: pcie1-tc9563-resx-state {
- 		output-enable;
- 	};
- 
-+	wcd_default: wcd-reset-n-active-state {
-+		pins = "gpio83";
-+		function = "gpio";
-+		drive-strength = <16>;
-+		bias-disable;
-+	};
- };
- 
- &wifi {
 -- 
-2.34.1
+2.43.0
 
