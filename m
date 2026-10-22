@@ -1,71 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.219
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.179
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792658940;
-	b=DwSPkFmxZbiOyJUYq9G50hKBCxbdA9m0StFhlbpkidIO+s8pqKFaoPmAKx7/OCIg2faD
-	 v0C4udkfOy61NblNsxSW5jPvtfZCeSGfwuNrhaPuBgBEFNcRok8t/n3UG3VqpEQSYz3Ga
-	 gLRS036WU0k5sw2PmjnbKTxO1I/qgSKPX5LJhiQ6kCSgj2cxkqMytdZypvBgkUpFE++Id
-	 BP7taVkoTRFOwpo9PSzxQ7jJz0hoNgq7hosMUx0k5yTecqS0otjvm2l3zR9FfFTNVXkOa
-	 Uc5XON2KRLllEg12x8NjGUtt3ilJS9GPGSgoW37RBuCzsB10L96ziNTcktvkHty7nvQ==
+	t=1792658936;
+	b=I/BrzYkBUYtT6/EOLIi/ysdUiMxJyXF0hNpC4ClvxTw+HFTJMIntZecfLg4ncYZ2LoXA
+	 0tRcGbmvaBVXIKuFIWF03MZK74TbRKOJwL7vepQZFqHnoPpNcjh0weBZsAKt+gGt5JNvw
+	 etsUtJlDvTTmyDQ9Ehtgq2TAMHcZ/xlFUOtwtwF65r6X5iwTvW8+wLhusXgHzCO+Pu99G
+	 YuC/JtY3q1D5WH+7nK3TyPtm0tACnRQIuwVIlFfNyXP3NO2afrslytNEr0yyDvDQqs29j
+	 +EdjMzhtPmXp9jc3v4cnv0gqlyENcsrmPnhF5KzizemT5GA8VpRByR6GC8kAaoI1tpA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792658940;
-	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:CC:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=MSj8Z2rdiJcCmb6g+ksU9pujYJJSBwXRRnHKZsAXkzM=;
-	b=LZyLdFtCaePWDHfVs0rwVPirrPKdU/pFSl4IQrEGVnTI432S57QUxKk/6lEwPisL7izp
-	 32pu/rGbCB0oVEvCieQStrXLMuCAkzAR5xrOfuexx5Cdd4MABVx3ysbSqhwpvD8rnuYUP
-	 yQvM3d+I5fv8SdppGfhH4UAAyo5LWqltJWsJoz+lQDHeG7AvKqergWXZn5SSvRjK7qPSm
-	 NlBBqVvNXdVm01K5s6W/0j5O1fE/gLatYoFquDcYVLC7qmJrfzOTIQ8BrLCfKYUr26ApX
-	 8KgoZNbE3xT7WuiqhkhahbvFnLFj8PiIWupq6dfgQDs24jfkw/GXLtXAmZrEfTqe03w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792658936;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
+	bh=uLcQwB9RQyvK/WfjSKPSsVJ5A2Co4WxMpfFxo4/WCSY=;
+	b=syuLuPu0ky9i5iv4y//Z/XAO6n507zalLYwizNu3hfwUz01so/se6apIG73/eddY8sR4
+	 dmQODWLweHVHfSsDCGCmKxFVAPal0+yrH8DSJue1WGNEyUywdmlMS5hOEzz+Dn4s5g7Dp
+	 rpymp2F9ZkM2elaWcb33M9CP/DAfNmJzZa7+HyfjUHGdESX78iCJAC76LmWVFCSY9qWzi
+	 eyItW2+ej1CMY1QJQ/DjtfPVyUBz3gOW/Ds/N7qN/fYK4hXc1brB3bKG2g/Gup/wnKOGs
+	 shNBbRmO0EZXGhoAlpfrumos35nuB+Clb4+ZRzI+VzBGVA/+MGUslwCJDGyvEdpdy0g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=huawei.com;
-	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=DXm9RIM8;
-	arc=none smtp.remote-ip=113.46.200.219
-Received: from canpmsgout04.his.huawei.com (canpmsgout04.his.huawei.com [113.46.200.219])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=d35drGQJ;
+	arc=none smtp.remote-ip=74.125.82.179
+Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B994606A335;
-	Thu, 22 Oct 2026 08:48:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3B994606A335
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09C8B606A31F
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 08:48:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 09C8B606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=DXm9RIM8
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=MSj8Z2rdiJcCmb6g+ksU9pujYJJSBwXRRnHKZsAXkzM=;
-	b=DXm9RIM8qiuobe+ZROE2pradlOxRflOwNz1pekBkK/ugRTTImsDmjyLBuSYanaDzTdScKVnzZ
-	Mm/Z/CP6wBvEAzYS61ivVUsNObQgNzu5hnkegwsYdqdf6Bd5TYL6ouP4afAQfm/yu6S2DYYwJ3n
-	6QaZpevzI6K3nG1rdIGf3jc=
-Received: from mail.maildlp.com (unknown [172.19.162.144])
-	by canpmsgout04.his.huawei.com (SkyGuard) with ESMTPS id 4j9KZ74gzpz1prjX;
-	Thu, 22 Oct 2026 16:48:47 +0800 (CST)
-Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
-	by mail.maildlp.com (Postfix) with ESMTPS id 29EDD40538;
-	Thu, 22 Oct 2026 16:48:52 +0800 (CST)
-Received: from huawei.com (10.90.53.73) by kwepemk200008.china.huawei.com
- (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 22 Oct
- 2026 16:48:51 +0800
-From: Jinjie Ruan <ruanjinjie@huawei.com>
-To: <catalin.marinas@arm.com>, <will@kernel.org>, <mark.rutland@arm.com>,
-	<corbet@lwn.net>, <skhan@linuxfoundation.org>, <rdunlap@infradead.org>,
-	<james.morse@arm.com>, <ben.horgan@arm.com>, <reinette.chatre@intel.com>,
-	<fenghuay@nvidia.com>, <tony.luck@intel.com>, <Dave.Martin@arm.com>,
-	<babu.moger@amd.com>, <x86@kernel.org>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-doc@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>
-CC: <ruanjinjie@huawei.com>
-Subject: [RFC PATCH 6/7] arm_mpam: resctrl: Pick L2 classes for the L2 monitor events
-Date: Thu, 22 Oct 2026 16:48:20 +0800
-Message-ID: <20261022084821.4014873-7-ruanjinjie@huawei.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261022084821.4014873-1-ruanjinjie@huawei.com>
-References: <20261022084821.4014873-1-ruanjinjie@huawei.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=d35drGQJ
+Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-35cd4e8bdbdso2826954eec.1
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 01:48:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792658935; x=1793263735; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=uLcQwB9RQyvK/WfjSKPSsVJ5A2Co4WxMpfFxo4/WCSY=;
+        b=d35drGQJZHpnW2CHtY26G8Ohal4aPyCB4DL4hSQ6eEmfitMWL4UJSvHUcB9Socarjz
+         4P5g1BZiBKfnfNGmXNRL32FrY0v5f8Au5HoeZtmRwnQU7xnbbMF4KoFbP2ZWG8M9lnxu
+         /O9gJgG10MlR5qOM+4JF5om4JNktL+moQMGqGeNG6SQlRfIjm14ve19uH6WAJPRvsEws
+         y8vYy0uCXw38Otc9xoH/3N6pPJMzpCqPNFIuD1Lv4jEdsPlC6c/JtH32bKQI4VuzKhkC
+         OKrmYHruxnNCb6jzZucbx2uwwVNCEt0Ai7ErbaRz7W1lIdiwSWdb/3VsEHB7GiDrBbB8
+         2Sxw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792658935; x=1793263735;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=uLcQwB9RQyvK/WfjSKPSsVJ5A2Co4WxMpfFxo4/WCSY=;
+        b=IU4fVHfGPgrWTiIyxSg6oGP5oKXTgSTnMTpYx+S/FfA+y9JkSq6UPdMGOsJpFsGB28
+         APh1QpQyizvq60hz+fsZ++kf3RekTBc/U70/QOBbtFhKRZ7gRIQhZAmW/4ZdZ8sQ5tnx
+         RTXRqe7PVgMzj1COCdFdI+3EfWjENcPB4mWNAjJGZSAqMVabjsY45gZjTAB9V0TdCNDi
+         NrZ++Fx1Hl/fVoFgjJ9kxqcSxZ53Sq0ZS+tmA3Jn77zVWlpMW1k8LvF7Z1k3n0Lo0Uni
+         0bpJKh/fJQm4H8QoXjgMblIRsP8O9kzvY2nmW0nEI5CWbSOJi0M5ak2gxluykBnm4IPi
+         usRA==
+X-Forwarded-Encrypted: i=1; AKwUvBx+KsxX4s7WWi2QEFmyjh1efVGwnsI3rgm05mkpka4XSrpqgOpdxQt/CH2vCVZI/wgvHFZzXwz2CFsmpJg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIXd7vs/CeDyRf44+EV/UInMtH75TD/6QZ7PpLcikJvIuc0GBpk
+	i9vfzineyFrk4r1tX8PW7Qzd/IFQv2JgK1kjBnptTQPdhb/WA24dxvpAdzJtydta
+X-Gm-Gg: AYBFou1VAf2HpG3u866qrNi5DicGXBOZInVUxN9524SMWIuT6m/hPP3ii/WT/trVZXk
+	g9EzuMVPUtWrln7rC3mE/T/gctUFI5WQdnFL64K0m+jGW423zYGW/IyO0xLLEiHo5+oVrXcqh0T
+	lqxvGq+3p8K9XGwv7pBhtDn3D2x7fvxeHkycFW89OZcaPSJ8XWP7ihzc3cb6pOJHWLk5vRf7SCY
+	aBnDryn2bRnwxoiq4nsraK/FzfX2UHA+YrSmQyaNgL69Rlg3FEoWT+nW8tulqjA2Hg6ooGOqWGV
+	ufhcbLsq6iYxEDpo6zJukHRsoEUl4AKTHS5BiFRnoBTYCdAn/WMKIT0n118b361YKi6ZO0uodON
+	wy+g434vsTtInHJWCD9ojdiC/aIynl/ClZ3b/BOtxVvzXaZ+uWNdtvAj9sx9Zt9H0Ujz1TOUrml
+	6jsBdaNZPEYgD7M8XBuJg/Y1NZe5qJs0E7ec3qOlO+GK4uAG6/iunPoU7+5j6t9jdaiYwEr8Lx2
+	RcQS15jLENIBslENuPO/RESA86/OxfnDaQXYX192HN/uguSoa/OdWM2iUeaXPzdo9rcUZG+Rg==
+X-Received: by 2002:a05:7300:fe4a:b0:351:4a80:d94c with SMTP id 5a478bee46e88-3674df578abmr6225113eec.21.1792658935117;
+        Thu, 22 Oct 2026 01:48:55 -0700 (PDT)
+Received: from [127.0.1.1] ([23.254.208.9])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-367417a2fadsm13962472eec.21.2026.10.22.01.48.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 22 Oct 2026 01:48:54 -0700 (PDT)
+From: Qiliang Yuan <odys.yuan@gmail.com>
+Date: Thu, 22 Oct 2026 16:48:38 +0800
+Subject: [PATCH bpf-next v6 3/4] selftests/bpf: Test freeing a struct_ops
+ map under a running prog
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,115 +91,170 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: kwepems500001.china.huawei.com (7.221.188.70) To
- kwepemk200008.china.huawei.com (7.202.194.74)
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261022-selftests-bpf-struct-ops-assoc-timer-v6-3-2c0f18e82582@gmail.com>
+References: <20261022-selftests-bpf-struct-ops-assoc-timer-v6-0-2c0f18e82582@gmail.com>
+In-Reply-To: <20261022-selftests-bpf-struct-ops-assoc-timer-v6-0-2c0f18e82582@gmail.com>
+To: Andrii Nakryiko <andrii@kernel.org>, 
+ Eduard Zingerman <eddyz87@gmail.com>, 
+ Ihor Solodrai <ihor.solodrai@linux.dev>, 
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
+ Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
+ Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
+ Emil Tsalapatis <emil@etsalapatis.com>, Shuah Khan <shuah@kernel.org>, 
+ Amery Hung <ameryhung@gmail.com>
+Cc: bpf@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Qiliang Yuan <odys.yuan@gmail.com>
+X-Mailer: b4 0.13.0
 
-mpam_resctrl_pick_counters() previously skipped every cache class that
-was not the L3. Allow L2 classes through, route the CSU pick to the
-l2c_occupancy event by cache level, and pick a class for the L2
-bandwidth event from any L2 class with usable MBWU counters.
+st_ops_assoc_in_timer_no_uref drops every reference to the struct_ops
+map while a timer callback of its prog calls .test_1 through the
+association, and checks that the callback ends up with no struct_ops.
 
-Grow MPAM_MAX_EVENT so the counters array, the monitor-init loop and
-the per-domain mon_comp array cover the L2 events. Once a platform has
-an L2 class the L2 events are described and enabled; the read paths
-come next.
+The timer first fires 500ms later and .test_1 returns right away, so the
+callback hardly ever runs .test_1 while the map is freed, and the test
+can't catch a map that is freed under a running .test_1.
 
-Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
+Add st_ops_assoc_in_timer_free, which starts the timer right away,
+restarts it with no delay until the association is gone, and makes
+.test_1 spin in bpf_loop() when the timer callback calls it. Share the
+steps of st_ops_assoc_in_timer_no_uref with it through a helper, which
+stops when associating or running syscall_prog fails instead of waiting
+for a timer that never starts.
+
+st_ops_assoc_in_timer_free run in a loop on kernels of the same bpf-next
+commit with KASAN enabled, x86_64 VM with 32 vCPUs, without and with
+the previous fix:
+
+              without the fix           with the fix
+  outcome     Oops (int3) on run 1      100 of 100 passed, median 0.28 s
+
+Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
 ---
- drivers/resctrl/mpam_resctrl.c | 48 +++++++++++++++++++++++++---------
- 1 file changed, 36 insertions(+), 12 deletions(-)
+ .../bpf/prog_tests/test_struct_ops_assoc.c         | 37 ++++++++++++++++++----
+ .../bpf/progs/struct_ops_assoc_in_timer.c          | 16 ++++++++++
+ 2 files changed, 47 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/resctrl/mpam_resctrl.c b/drivers/resctrl/mpam_resctrl.c
-index 50e5035dcc9d..293122c0d0d9 100644
---- a/drivers/resctrl/mpam_resctrl.c
-+++ b/drivers/resctrl/mpam_resctrl.c
-@@ -37,15 +37,16 @@ static struct mpam_resctrl_res mpam_resctrl_controls[RDT_NUM_RESOURCES];
- 	     rid++, res = &mpam_resctrl_controls[rid])
- 
- /*
-- * The classes we've picked to map to resctrl events.
-- * Resctrl believes all the worlds a Xeon, and these are all on the L3. This
-- * array lets us find the actual class backing the event counters. e.g.
-- * the only memory bandwidth counters may be on the memory controller, but to
-- * make use of them, we pretend they are on L3. Restrict the events considered
-- * to those supported by MPAM.
-+ * The classes we've picked to map to resctrl events, indexed by event id.
-+ * This array lets us find the actual class backing the event counters: the
-+ * L2 events use the L2 class, while the L3 bandwidth counters may sit on the
-+ * memory controller or another class close to the L3.
-+ *
-+ * The range also covers QOS_L3_MBM_LOCAL_EVENT_ID, which is left classless:
-+ * MPAM cannot distinguish local from remote traffic.
-  * Class pointer may be NULL.
-  */
--#define MPAM_MAX_EVENT QOS_L3_MBM_TOTAL_EVENT_ID
-+#define MPAM_MAX_EVENT QOS_L2_MBM_CORE_EVENT_ID
- static struct mpam_resctrl_mon mpam_resctrl_counters[MPAM_MAX_EVENT + 1];
- 
- #define for_each_mpam_resctrl_mon(mon, eventid)					\
-@@ -93,7 +94,10 @@ bool resctrl_arch_mon_capable(void)
- 	struct mpam_resctrl_res *res = &mpam_resctrl_controls[RDT_RESOURCE_L3];
- 	struct rdt_resource *l3 = &res->resctrl_res;
- 
--	/* All monitors are presented as being on the L3 cache */
-+	/*
-+	 * resctrl monitoring is anchored on the L3 group; L2 monitors are
-+	 * additional resources, and monitor-only platforms fake the L3 group.
-+	 */
- 	return l3->mon_capable;
+diff --git a/tools/testing/selftests/bpf/prog_tests/test_struct_ops_assoc.c b/tools/testing/selftests/bpf/prog_tests/test_struct_ops_assoc.c
+index 461ded7223515..6c85d368bf167 100644
+--- a/tools/testing/selftests/bpf/prog_tests/test_struct_ops_assoc.c
++++ b/tools/testing/selftests/bpf/prog_tests/test_struct_ops_assoc.c
+@@ -136,7 +136,8 @@ static void test_st_ops_assoc_in_timer(void)
+ 	struct_ops_assoc_in_timer__destroy(skel);
  }
  
-@@ -1128,9 +1132,13 @@ static void mpam_resctrl_pick_counters(void)
- 	guard(srcu)(&mpam_srcu);
- 	list_for_each_entry_srcu(class, &mpam_classes, classes_list,
- 				 srcu_read_lock_held(&mpam_srcu)) {
--		/* The name of the resource is L3... */
--		if (class->type == MPAM_CLASS_CACHE && class->level != 3) {
--			pr_debug("class %u is a cache but not the L3", class->level);
-+		/*
-+		 * Cache counters are presented as the L2 or L3 resource,
-+		 * matching the cache the MSCs were built with.
-+		 */
-+		if (class->type == MPAM_CLASS_CACHE && class->level != 2 &&
-+		    class->level != 3) {
-+			pr_debug("class %u is a cache but not L2 or L3", class->level);
- 			continue;
- 		}
+-static void test_st_ops_assoc_in_timer_no_uref(void)
++static void run_st_ops_assoc_in_timer_no_uref(int timer_ns, int wait_map_free,
++					      int spin_loops)
+ {
+ 	struct struct_ops_assoc_in_timer *skel = NULL;
+ 	struct bpf_link *link;
+@@ -148,7 +149,8 @@ static void test_st_ops_assoc_in_timer_no_uref(void)
  
-@@ -1150,7 +1158,10 @@ static void mpam_resctrl_pick_counters(void)
- 				if (update_rmid_limits(class))
- 					break;
+ 	err = bpf_program__assoc_struct_ops(skel->progs.syscall_prog,
+ 					    skel->maps.st_ops_map, NULL);
+-	ASSERT_OK(err, "bpf_program__assoc_struct_ops");
++	if (!ASSERT_OK(err, "bpf_program__assoc_struct_ops"))
++		goto out;
  
--				counter_update_class(QOS_L3_OCCUP_EVENT_ID, class);
-+				counter_update_class(class->level == 2 ?
-+						     QOS_L2_OCCUP_EVENT_ID :
-+						     QOS_L3_OCCUP_EVENT_ID,
-+						     class);
- 				break;
- 			default:
- 				break;
-@@ -1174,6 +1185,19 @@ static void mpam_resctrl_pick_counters(void)
- 			 */
- 			counter_update_class(QOS_L3_MBM_TOTAL_EVENT_ID, class);
- 		}
+ 	link = bpf_map__attach_struct_ops(skel->maps.st_ops_map);
+ 	if (!ASSERT_OK_PTR(link, "bpf_map__attach_struct_ops"))
+@@ -157,12 +159,18 @@ static void test_st_ops_assoc_in_timer_no_uref(void)
+ 	/*
+ 	 * Run .test_1 by calling kfunc bpf_kfunc_multi_st_ops_test_1_prog_arg() and checks
+ 	 * the return value. .test_1 will also schedule timer_cb that runs .test_1 again.
+-	 * timer_cb will run 500ms after syscall_prog runs, when the user space no longer
+-	 * holds a reference to st_ops_map.
++	 * timer_cb will run timer_ns after syscall_prog runs and, with wait_map_free, every
++	 * timer_ns after that until the map is freed. With 500ms, it first runs when the
++	 * user space no longer holds a reference to st_ops_map.
+ 	 */
+-	skel->bss->timer_ns = 500000000;
++	skel->bss->timer_ns = timer_ns;
++	skel->bss->wait_map_free = wait_map_free;
++	skel->bss->spin_loops = spin_loops;
+ 	err = bpf_prog_test_run_opts(bpf_program__fd(skel->progs.syscall_prog), NULL);
+-	ASSERT_OK(err, "bpf_prog_test_run_opts");
++	if (!ASSERT_OK(err, "bpf_prog_test_run_opts")) {
++		bpf_link__destroy(link);
++		goto out;
++	}
+ 
+ 	/* Detach and close struct_ops map to cause it to be freed */
+ 	bpf_link__destroy(link);
+@@ -178,6 +186,21 @@ static void test_st_ops_assoc_in_timer_no_uref(void)
+ 	struct_ops_assoc_in_timer__destroy(skel);
+ }
+ 
++static void test_st_ops_assoc_in_timer_no_uref(void)
++{
++	run_st_ops_assoc_in_timer_no_uref(500000000, 0, 0);
++}
 +
-+		/*
-+		 * An L2 MSC measures the bandwidth of the traffic its cache
-+		 * sees from the CPUs that share it, which is what resctrl
-+		 * presents as the per-L2 mbm_core_bytes event.
-+		 */
-+		if (class->type == MPAM_CLASS_CACHE && class->level == 2 &&
-+		    class_has_usable_mbwu(class)) {
-+			pr_debug("class %u has usable MBWU for the L2 resource\n",
-+				 class->level);
++/*
++ * Keep calling .test_1 through the association from the timer callback, and
++ * stay in it for a while each time, while the map is being freed. The map
++ * must not be freed under a running .test_1.
++ */
++static void test_st_ops_assoc_in_timer_free(void)
++{
++	run_st_ops_assoc_in_timer_no_uref(0, 1, 1 << 20);
++}
 +
-+			counter_update_class(QOS_L2_MBM_CORE_EVENT_ID, class);
-+		}
+ void test_struct_ops_assoc(void)
+ {
+ 	if (test__start_subtest("st_ops_assoc"))
+@@ -188,4 +211,6 @@ void test_struct_ops_assoc(void)
+ 		test_st_ops_assoc_in_timer();
+ 	if (test__start_subtest("st_ops_assoc_in_timer_no_uref"))
+ 		test_st_ops_assoc_in_timer_no_uref();
++	if (test__start_subtest("st_ops_assoc_in_timer_free"))
++		test_st_ops_assoc_in_timer_free();
+ }
+diff --git a/tools/testing/selftests/bpf/progs/struct_ops_assoc_in_timer.c b/tools/testing/selftests/bpf/progs/struct_ops_assoc_in_timer.c
+index 0bed49e9f2170..47a44c8e8b114 100644
+--- a/tools/testing/selftests/bpf/progs/struct_ops_assoc_in_timer.c
++++ b/tools/testing/selftests/bpf/progs/struct_ops_assoc_in_timer.c
+@@ -25,6 +25,13 @@ int test_err;
+ int timer_ns;
+ int timer_test_1_ret;
+ int timer_cb_run;
++int wait_map_free;
++int spin_loops;
++
++static int spin(u32 i, void *ctx)
++{
++	return 0;
++}
+ 
+ __noinline static int timer_cb(void *map, int *key, struct bpf_timer *timer)
+ {
+@@ -34,6 +41,12 @@ __noinline static int timer_cb(void *map, int *key, struct bpf_timer *timer)
+ 	timer_test_1_ret = bpf_kfunc_multi_st_ops_test_1_assoc(&args);
+ 	recur--;
+ 
++	/* Try again later until the map is freed */
++	if (wait_map_free && timer_test_1_ret != -1) {
++		bpf_timer_start(timer, timer_ns, 0);
++		return 0;
++	}
++
+ 	timer_cb_run++;
+ 
+ 	return 0;
+@@ -53,6 +66,9 @@ int BPF_PROG(test_1, struct st_ops_args *args)
+ 		bpf_timer_init(timer, &array_map, 1);
+ 		bpf_timer_set_callback(timer, timer_cb);
+ 		bpf_timer_start(timer, timer_ns, 0);
++	} else if (spin_loops) {
++		/* Stay in the trampoline while the map may be freed */
++		bpf_loop(spin_loops, spin, NULL, 0);
  	}
- }
  
+ 	return MAP_MAGIC;
+
 -- 
 2.43.0
 
