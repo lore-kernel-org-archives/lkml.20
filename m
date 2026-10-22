@@ -1,98 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792630398;
-	b=mPuWV5Dz1l3VXq2wA0uD9ghFd495wHBXI6uuYaaqVHeVInWzv7ZHqBFHgMaogEr/Tawt
-	 uOM5bqKaZigIkqBKI9aDJp+VKxXvz278Am0hW39Lfivsy/h3nWRPCQX0NKu71CVMK9Sjd
-	 89cabcqBT3ntBGO/9Qo2krO1CToTxuaYZz6qm6WUjGjkMzNq8tbOfwrXtatWvHMUb4U3O
-	 CCZJg2hU7fzw2iu1sDKA3HtbUmDR/Zz0GFWkO3hePvCodKLJYQwQnmoJ+b/MhqjJ/TwS8
-	 jmJRSNRcsUSig+xJ5OGWRNfmbDKGWSpf2k50oz8EHgJ5GfMdAlSOd3LNBIslRZqimtQ==
+	t=1792630401;
+	b=ZVX8iwviUPn6+GaiLUUcxDD0CLNJwR1z0QbziwaQLk6CP832crkzZsJKwKaDC9KyvYos
+	 VzdGtrk096bpuSwpyhK8i/908iTd5pA3QzvmpVtzsObxCJOX5VRLioR//c7BZotOCGwuM
+	 zdb/blviZhwYN6BeJuWxLu58rpifcY1esdw4qcIi3yS58RSAL8W6RfkaxcoLUsd/V+PGv
+	 FuEMx+czZXIArirJIMwKRSw7h7Qfb0w67ghkCa8BnLj9//3wO1V5lZDYVeIm7vKTZZbu9
+	 Rgmns8NLsPlECPGaCAf/PC735339V7HfPyPU6HlFJrFbj/m1UcwlWzrAzVywX+d2O7w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792630398;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=nAnyIUkmbq6HJDHmZZfXywINd719pbGy8aLPkmBqx+Q=;
-	b=N6FZx24yO2TFhsA3BMHVqAJ6HbLX+1ABgW2pNCMobvKHYmfv8Y/q73g0ncDfJr4FXTl7
-	 hKTODIHZD3zXP9FToJZ0Lcc+thtAoIiH/KgP+6+0K0VWYWd2YBRjmqvJ4N74kTlpNslRN
-	 LrSxYaYT8sCYavPEmTmFfZDpfEwlDZYwRzi7w1w+9ayFOU51Iwkw14xpcmnHlschSjvJE
-	 A90ghgyyatGXdmAyev/0kx0X61sU3iJMsGLaa9s10eq6NY3UCmj6SdMrBJTUANeyW9rpv
-	 3SsYZyKc7G9GLT1DPRw3jUWZOmL5yomSYWWNG4eJ06Z7ICdpuLK6Kb9vHknfDzoZqTg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792630401;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=8b5nCz8QSeUyyC9CYP5Soi2IAEV97jGZySiEE6BlXEc=;
+	b=LBw5taLyygSYSWaifTfYIbHwFihZWUa61NUxrQPObNJSXWdXehqGdoXxWcF/319s8uge
+	 IW4bXx7RGUgpT+augyCP95rjkZhqD6SKVnydghpaJBwJ8XQL6YVfmq4v9aNmVir0fZ0Kw
+	 2BLvhPjGsjzKjFLPBCQoBmgUlc2aRcGwrNk6PpHvbClx71Qc77/mQ6h9uFaMna/+oFEfh
+	 7UsinS+hm+vxew9YKfBf/iqAdcSs2KzKLbxld0B8ssLCM15v+NnRXz4nMFBKWK8mINp0E
+	 l590r7+vGf7NRcpO1NbbPNWF12e6E5yN7zDtcGFDYJTLfopwfeSwOeDns/v0JUZU6wA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=K5U7ntPK;
-	arc=none smtp.remote-ip=209.85.216.45
-Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U0eKPT7E;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A20B9606A319
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 00:53:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A20B9606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0FF0606A322;
+	Thu, 22 Oct 2026 00:53:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=K5U7ntPK
-Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-3856d6fbcb3so837019a91.2
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 17:53:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792630397; x=1793235197; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=nAnyIUkmbq6HJDHmZZfXywINd719pbGy8aLPkmBqx+Q=;
-        b=K5U7ntPKD8UyQ/CrPTx7fpoOAKCFS/Qgji/9LLJ9yHCnBaqiWli+i4J/42KezggYAT
-         LOkDj/aUFPyOm+5N95EYlkBeFq0fLt7oNgW4G93XOK+CEuJDBN4Po+EosKDsvDtvDluR
-         u26RLijFTXnQXOO5pPR8Hvs6iUCw+1u0TShP3vcWMkZOPq5APMikRKAoki7chvIB6sG5
-         v8HhjPyRrxs50JUZdPaBbDY7q9P+plWkuj30frEjevW2IiG7QQ975ixNRtEGDem3NhiF
-         7Jon3d9fenBmoP21EhtCHKu3x6eG1zpQWJqngILShIFpqoxpXXsaBXA98ElO6V75jEzk
-         yBtg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792630397; x=1793235197;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=nAnyIUkmbq6HJDHmZZfXywINd719pbGy8aLPkmBqx+Q=;
-        b=bl83vXqkazkdSYkrUZAnGRiIq3CDRyK/tPUj0b9dJPHKVP9VvYfMPgDOzb1wz0dwbD
-         2ZlRyJor6mU8pR7LZpRQp5IUzRVJcJLHl20ZG6L1uaoDJYD9fzYUacte+tQjflBUfq46
-         dP5qGBuQrYZ6ffWZMC2koLTebN07qP6Smb5Q7Xg/1Fa7aGp9kFKJ8CTVNBPesDMg9RxG
-         Wu+citJFhaedJLSuQLx8rQgGzo0giTFWUdxzGzIRJkvZQBSTvnLp6JuAe8iOWCIiwc+P
-         0AB/MAUM+qJN5UfkBsxZF9bj/XoCUDZBfmXkqpvLoleVZ5OMlgkLmdTwF77k1m+rZ80s
-         ouHA==
-X-Forwarded-Encrypted: i=1; AKwUvBzcrZCwWIV/ucMbXK6Tf+6aPAMiX06YCw1nCnYhAQFAdeqYxi0/GvwVAaXZ8poXskpyhuq3hwWuxrshCok=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKc6+MpFBdsRWcd7fjrUdFwhqrNB0tvHnoZObSOatmWIJruUifv
-	/5I/MW0cFvGfqqFJaaeYBbwZsiEmJ9J65i4+Xq91WX8p95uUV64H9V9U50ESbw==
-X-Gm-Gg: AYBFou3weXEm/uE/+lCQk2W51cqyazf2Y6nLKEEOSJx8KpnbBlt8ML4EQFLKKH/hcqr
-	r2zi9Zv1s0luJdhUMH4ulBH40oetD8BeijGFaB4s3IR5ZIdVUEbV+x/qKhpf0J9dYRYPRSAQobh
-	dcnizRrKOJqsIq8JNv0nWvHggRXp1oiYZcGVU5HryJhgeEtLo6QfJfcU6VDz4901bScoGHEZUi7
-	+VumanUMDvvkqxEQvdAlfPYEAJjomWf3JuxusRpON5onIkTijijPdYUIeQx3AcPS1H8QRt2mZTK
-	vp9FpltaLcR4x6jJrgpYWOhlpYBydM5LDXNqZeZQ+UKIqpxejRjo/1fri7VYyqEotjea7hPC8zV
-	un138zwT3opnREqv7nwrR5t6Y1m8GyCEKc9QC1027ogmQxclbUKqn5bZO54UiwF4GIYzu+GvDnQ
-	ineogQWYv4k55WpL8o5D2GRKewt767njx9LrJ7iuptPL1oUi3TgYdIrwrn3zzAdI/BO9sGc80vQ
-	aw4CGlPSZxHCc+ECjkk8BviGxAogG1AYMI2cvep8Sf6kXhK6MIPRKCw3r/Brfq2+x5/Upe3H9xf
-	B7f78MjAPbBPSYS1iM63yAT6jvMTB5fMMoBn9jdacsqP
-X-Received: by 2002:a17:90b:548e:b0:3a8:59d3:530f with SMTP id 98e67ed59e1d1-3ad86f23619mr2983726a91.57.1792630396853;
-        Wed, 21 Oct 2026 17:53:16 -0700 (PDT)
-Received: from hanzj-mi.. (ec2-99-79-140-187.ca-central-1.compute.amazonaws.com. [99.79.140.187])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ada4896c4dsm1605274a91.7.2026.10.21.17.53.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Oct 2026 17:53:16 -0700 (PDT)
-From: Zhijian Han <hanzhijian1991@gmail.com>
-To: Kiryl Shutsemau <kas@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>,
-	Nico Pache <nico.pache@linux.dev>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U0eKPT7E
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E5CDE1F000C2;
+	Thu, 22 Oct 2026 00:53:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792630400;
+	bh=8b5nCz8QSeUyyC9CYP5Soi2IAEV97jGZySiEE6BlXEc=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=U0eKPT7EPpYXONbxlYhXtXDGL7X5L2m43GmogPVtOg17umKScJgZ8YdquJHumGuFK
+	 ggLyc/z8oMM1C9+OLEUqYZhWw+pfaSpKzfuOjs7y4WQE4DHsjQOaYWQSM2rCJllppf
+	 gydKVr1xuEC9Fp8AkI4OMyg6GghywwulDc9pPxIsXxQy3GrQ3pbHtoiaIA82sUoodc
+	 +rNyQS/q1YZt0kivdQPNMjdYzlu3KYMJz/qPQcTfiAWyme2FlZiv/Z4HgPuFZpGUUE
+	 ijeBDQKPnPIiGegcdDlGDlMDXdXexLTp95egJGPMnL5dS+I8DKv6CWlYb6l7OfMS3U
+	 BdDG85kk6t5BQ==
+From: SJ Park <sj@kernel.org>
+To: Shakeel Butt <shakeel.butt@linux.dev>
+Cc: SJ Park <sj@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Michal Hocko <mhocko@kernel.org>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Muchun Song <muchun.song@linux.dev>,
+	Chris Down <chris@chrisdown.name>,
+	Meta kernel team <kernel-team@meta.com>,
 	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: khugepaged selftest: intermittent collapse_full(madvise:anon) failure and low-memory false failures on arm64 64K
-Date: Thu, 22 Oct 2026 08:53:03 +0800
-Message-ID: <20261022005303.750032-1-hanzhijian1991@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261020024116.2949892-1-hanzhijian1991@gmail.com>
-References: <20261020024116.2949892-1-hanzhijian1991@gmail.com>
+	cgroups@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Sashiko <sashiko-bot@kernel.org>
+Subject: Re: [PATCH] mm/page_counter: use WRITE_ONCE() for emin/elow when parent is the root
+Date: Wed, 21 Oct 2026 17:53:07 -0700
+Message-ID: <20261022005307.87910-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261021204818.3431099-1-shakeel.butt@linux.dev>
+References: 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,39 +68,60 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Hi Kiryl,
+On Wed, 21 Oct 2026 13:48:18 -0700 Shakeel Butt <shakeel.butt@linux.dev> wrote:
 
-Thanks — instrumented as suggested: errno + thp_collapse_alloc_failed
-printed on failure, then 30 full runs on the same setup (QEMU arm64 64K,
-6G, linux-next 20261019). The failure reproduced 11/30 times and the
-data does not point at allocation:
+> page_counter_calculate_protection() runs without locks. Several
+> reclaimers can update the same counter's emin and elow at the same
+> time, and readers such as mem_cgroup_below_min(), mem_cgroup_protection()
+> and the dmem eviction code load them with READ_ONCE().
+> 
+> Commit b3a7822e5e75 ("mm, memcg: prevent mem_cgroup_protected store
+> tearing") made the main path store emin and elow with WRITE_ONCE(), but
+> it missed the early return for a counter whose parent is the reclaim
+> root. Those two stores are the only plain accesses to emin and elow
+> left.
+> 
+> With CONFIG_KCSAN_STRICT=y, a few tasks writing to the same cgroup's
+> memory.reclaim trigger reports like this within seconds:
+> 
+>   BUG: KCSAN: data-race in page_counter_calculate_protection / shrink_node
+> 
+>   read (marked) to 0xff1f91b146d40e40 of 8 bytes by task 163 on cpu 4:
+>    shrink_node+0x57a/0x1210
+>    do_try_to_free_pages+0x194/0x930
+>    try_to_free_mem_cgroup_pages+0x204/0x3f0
+>    user_proactive_reclaim+0x28a/0x4d0
+>    memory_reclaim+0x35/0x50
+>    ...
+> 
+>   write to 0xff1f91b146d40e40 of 8 bytes by task 167 on cpu 6:
+>    page_counter_calculate_protection+0x1fa/0x360
+>    mem_cgroup_calculate_protection+0x4e/0x70
+>    shrink_node+0x53e/0x1210
+>    ...
+> 
+> The default KCSAN config does not report it, because it treats aligned
+> word-sized plain writes as atomic.
+> 
+> Use WRITE_ONCE() for these two stores as well.
+> 
+> There is no functional change. Readers already accept stale values, and
+> compilers emit a single word-sized store either way: with GCC 14 the
+> x86-64 object code is the same before and after this change.
 
-  6x EAGAIN, 5x EINVAL, 0x ENOMEM
-  thp_collapse_alloc_failed=0 in every failing run
+Makes sense to me.
 
-Per madvise_collapse_errno(), EAGAIN maps to transient page states
-(SCAN_PAGE_LOCK/PAGE_LRU/PAGE_DIRTY_OR_WRITEBACK/...) and EINVAL to
-"intrinsic" scan results — neither is the allocation-failure path,
-which would have shown ENOMEM and a bump in the counter.
+> 
+> Fixes: b3a7822e5e75 ("mm, memcg: prevent mem_cgroup_protected store tearing")
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Signed-off-by: Shakeel Butt <shakeel.butt@linux.dev>
 
-One thing that stands out: madvise_collapse_retry() retries EAGAIN only
-once, so two consecutive EAGAINs fail the case even though the errno
-table documents EAGAIN as "trying again might succeed". Could the test
-retry harder on EAGAIN (loop with a short sleep), or is the single retry
-deliberate to expose genuine kernel-side transients?
+Reviewed-by: SJ Park <sj@kernel.org>
 
-For the EINVAL cases I would need kernel-side detail on which scan
-result is being hit; happy to run instrumented (tracefs or a debug
-counter) if you point me at the right knob.
 
-Full 30-run logs and the instrumentation diff available on request.
+Thanks,
+SJ
 
-Understood and agreed on the low-memory guard — dropped.
-
-Assisted-by: LLM (QEMU test harness and instrumentation)
-
--- 
-Zhijian Han
+[...]
