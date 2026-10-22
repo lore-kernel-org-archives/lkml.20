@@ -1,75 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.198
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.72
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792702901;
-	b=M0HL/eK1nCbqv8lG7Y/jNL+XhUSclVHUOmRiRh3FOZ9fvbl2asXjF7+XW+gB4htkj9Og
-	 RKRpjDOlLjcgElt74CBRgrAsZz7PuxQBxqdzeOrf/TUDkL9fbM0jjR0v79plevKC7nz2I
-	 KBLFzq49qbKV2VU9KOEgInfLjK/IrGbyteJFdF/v+fm6z5a7iRxGoLNmElUtvee4whgYA
-	 U3u7sUKFhngR0d+LF8M5+UbEE8oHOUFZN+1fIub/8hV+4syg+4v7MpdR//FzBG5q2s045
-	 I2Ofl3WdVRdHy0eBCZtIIjSmU9MyXbQxtFghTi6pjn/rg+DoUgaic/28m/O+NU/UGRw==
+	t=1792702908;
+	b=bijl6apfPfsJWHHLM3iTeEeWvqZ0X3vmwXhAj6mY8WxcUZ/kWxnfzBlEHp7DLFP3DaiS
+	 ifsd7PXTL08sHTxedCTjuwvwkbQCaN32VDqV6kDMJsnkDFWJ5luiGwgshP3V9zF7vv8h8
+	 oRt3kKADJ6N1HDd+nh32oNJbXgPz68kwraHc7S68hX38ILAnm2dI0b+iUV1xLPIL4Qhdx
+	 UpYEW899LV559jUF5oHnSZ9sfci6dk9r+FVBrw7+7H8o0WjPc5YdJQEq6Nq20MnvQe0XR
+	 4WCQLZc3+W6zP3c2vDpQOIK2avqWejMulv1NCHzt+ZWU1LTXaA2Kuc/J9zLgAlcNmkQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792702901;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792702908;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Reply-To:Date:
 	 In-Reply-To:Mime-Version:References:X-Mailer:Message-ID:Subject:From:
 	 To:Cc:Content-Type;
-	bh=7uJDCwCkysKuVFqnR+oL0K2mJJYjE4p2eqvTotGVZOQ=;
-	b=KrGPPeJ19ms9fjVyPBZgZfWuRjp46IPKJz+R67gkKyA1kbEeE9gAtq8Gg6lHEICrCxqo
-	 8Y+9rvQR7nRcCzkmjqmC3UE1Tb5kgRfUC1570PhV/TUajreHMgLG3vMusHVQwlmLCsjV+
-	 8Bzc9EjaMN28KsE5oPiuR4QU3jqFk1eVCTOsZPzJpPj+dTY9dcvlfeINBenueJQdHdpE0
-	 FGJTxlEtR0XaJYyO4EStjsoyGNblOnA1Q/kYLAe993nQwrj9EV6pj8Ea4+BlMST5hwzg6
-	 CS80bYjUMt1Fpa99miVnowou5Br2K3aWoj/UMlv+NmUlfS+J3r9utubmWLvNPF754lg==
+	bh=Oq8LnbfxGj58+AMKrtsZJUVrBg8Ev8BIHd1Au12gnbE=;
+	b=yfgpkR9khFrJj3zXTk6l0vUDV7xABa8auOW8YPyLeHG1piawik5j5/xG2fnhwkZyWx0k
+	 Fj2HnBsSL+JRb+iO+036XMKqq2NXIcOLKiz0/rI7NtVbIEAXxyRjbdoDu53FhzCsdL2Pt
+	 CgGC4AiBr7fT7h14FaOCUixWp0ZqlC16EtaES87TLVh6+2LGazY9iIzzyuU1m07ZlZoLN
+	 plBomlHI/B4BD36rU4TXHkUYPu5ewfCCVygC/KCMnSnyQ4QSoul0riSgsAN9fQz8fSwcn
+	 HigKkAUuBMo6qv6HOKp8wR27KNeYxBn9miMLdPMIkSg2T8ozz4y/dHV+4CQc3GdERqg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b="XV/ysb8p";
-	arc=none smtp.remote-ip=209.85.210.198
-Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com [209.85.210.198])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=BIEcK2ED;
+	arc=none smtp.remote-ip=209.85.216.72
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63804606A320
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 21:01:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 63804606A320
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76570606A31F
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 21:01:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 76570606A31F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=XV/ysb8p
-Received: by mail-pf1-f198.google.com with SMTP id d2e1a72fcca58-89e96c03cd0so193898b3a.1
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 14:01:41 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=BIEcK2ED
+Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-3ad7030e886so277463a91.0
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 14:01:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792702901; x=1793307701; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1792702903; x=1793307703; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:reply-to:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=7uJDCwCkysKuVFqnR+oL0K2mJJYjE4p2eqvTotGVZOQ=;
-        b=XV/ysb8pfPHharbiARoQQlq8ZqXMfi8kP/4QuAbepg/9ffXoj8Nv74DkHuu28x0HQR
-         AlyvMWihII72yockngArcqqY75VOv0e6PubevFPp16wjdiIjBH2Q1focyeq74Bn8XHBj
-         O8JpN7jzjxq78WqkGQNYcG8Lbq0Zmm3+7www3jNdEBE4axAsvYuAKw6SP1H35DyWkj4F
-         941PwVZsPCcRBtrsS0t/BJuEkXXC6lXB5NMtqv3dewx66pYrtriopkn8r3UzEnXVjOdW
-         bSii2VK5dJEqFVaZmI4rFPLGePLkj913eMzvIZ9PF0NS6Bqru/xzbyg3kZUG6PhIUrNU
-         ft1g==
+        bh=Oq8LnbfxGj58+AMKrtsZJUVrBg8Ev8BIHd1Au12gnbE=;
+        b=BIEcK2ED6hblV0C/s/+ok0EL/hnreWtMuQk7iF2jyhyu2HBGTE6whWsWahqEZDeBFY
+         T7ysN55y1iheD4x0bPF3RNSzTaC+52+NFUiT+Eudg3HVQG38QF9hcDxRE9Ytx+4E2Lrk
+         0oter0Qzhcb/7r1wIAuuI4BSUz1D+GBpJ9U1lPMFVguu2PyBwL5TFlDUCyBBH00EF8J3
+         4CMz8RHQUxvYYQ4CkZ5r8vNyCfCuAIyUlT2nFj8E73RmSspiznDhQ1UkC8eC5D1oOKSJ
+         n0CyySyIlOCPkdBzVEUcZYDpLJ4jQRkxWOO2uDctWy6k/am82H1IaHo8yaROXvWOlQXj
+         ZlKg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792702901; x=1793307701;
+        d=1e100.net; s=20260707; t=1792702903; x=1793307703;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:reply-to:x-gm-message-state:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=7uJDCwCkysKuVFqnR+oL0K2mJJYjE4p2eqvTotGVZOQ=;
-        b=UvkhtKn/3muqBGYhSQ8m1u/d3ENdItugfxp3AbcfOUXOmXSOoeRhqS/ZXZzatPkdzO
-         ZJ5+uQXznuwp0f0Scy0LNWhJc31N4SlNsfmdVSruDOX+S8BvvYBmWxvaFJrF/deGGgIP
-         s8au7uJvybLJowBLkkMCpdfTqgHCjO7ZTW5CooyX7hDCdNx74hda2OSha8moxHPPrusX
-         4k7+O5SdbmWW/o72GXFELfyseajt+fxw/pr5elcwRH3VFaBq61B9FDwPFKz8ApPQz+AW
-         BDYXYiY+/5hmmhpFIL7sYTH56BrLswoxI1TABXnFyDOyWjmd8N1b/NJxTTSlMKCw6gGz
-         45YA==
-X-Forwarded-Encrypted: i=1; AKwUvBzcEiHeWsf65WFlIW9xpAgRLHUwNzv1bJU3cgmpYg98D3qVduM+DdBJMEwaW86P4O1cg3taFUIWCYqHF+0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLQp1mIYFvLvWbgHkVU+0SacCp/LLpz4kw+/VBfzY3NByk17cPd
-	tcI2xOeH3CoF/AkFW5QD6GVYtWvGKCb+oaBtJg6ybcG1ssj5SvSSxzRGZNNfcFxPdbmz/TQ3tWN
-	7ZEAJVA==
-X-Received: from pfbii5.prod.google.com ([2002:a05:6a00:8c85:b0:8a0:4085:d831])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:174c:b0:878:34d7:699a
- with SMTP id d2e1a72fcca58-8a2c76598d3mr228889b3a.42.1792702900543; Thu, 22
- Oct 2026 14:01:40 -0700 (PDT)
+        bh=Oq8LnbfxGj58+AMKrtsZJUVrBg8Ev8BIHd1Au12gnbE=;
+        b=M5GqESLUxzK/3DgYZQh4R8cqvbe4ljEX7fvveyy4hims60JJSYWpXLysFEPgtbLonV
+         rl6QDPhDQyxNfcI1T6trRH6JJmSTniSmlP/6LXpjtSIINoUFK5dVQxcrlQ+B4CkmbzD9
+         DrZrDzUPX/foh3P3PpEX9fxtBQAp7Ay2jZRW7QRc7IgIRO8DTzpg35allfnNorI1DEi0
+         2wHibxPBbEK+0bglb2evuHBUFxDC5hKnkvhkjGG9WzwvVs6vx73RsnE6QGUwn7NUZNhp
+         WudnDEzHLX/jLFmBHkmsqVgwtQPO6T0m9BlRt3VjvLCobLJtAaH9Dl87g6IVQ4DyOdTr
+         yHBw==
+X-Forwarded-Encrypted: i=1; AKwUvBxCcMiv1vVewJuiBcidZlp4qNr8hPq5vtMKrS9CaoksSlkDTgpPjPcbaWDL6oOUcESpw1l9ptlUm1ZRMY8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIf7FTc7ZvDQ6ebDwuYydX9Tikjn5s2ihENuxa5HV+PLfS5YE54
+	qsFl4A1kRbX1ahwywnxynq0AQTrcEdb4HF6ajuviR9GLFYIjF3VoLuv/l/5yPfMO18FH/L2EWZr
+	NzLa/qw==
+X-Received: from pgca6-n1.prod.google.com ([2002:a05:6a02:6386:10b0:cd6:9a71:5dac])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90a:d40c:b0:3ac:c024:b275
+ with SMTP id 98e67ed59e1d1-3adcddb7bb6mr137328a91.9.1792702902649; Thu, 22
+ Oct 2026 14:01:42 -0700 (PDT)
 Reply-To: Sean Christopherson <seanjc@google.com>
-Date: Thu, 22 Oct 2026 14:01:32 -0700
+Date: Thu, 22 Oct 2026 14:01:33 -0700
 In-Reply-To: <20261022210134.612848-1-seanjc@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -82,8 +82,9 @@ Precedence: list
 Mime-Version: 1.0
 References: <20261022210134.612848-1-seanjc@google.com>
 X-Mailer: git-send-email 2.56.0.257.gf7497c7d27-goog
-Message-ID: <20261022210134.612848-2-seanjc@google.com>
-Subject: [PATCH v2 1/3] x86/cpuid: Mark CPUID function 0x23 as being indexed
+Message-ID: <20261022210134.612848-3-seanjc@google.com>
+Subject: [PATCH v2 2/3] KVM: TDX: Set SIGNIFCANT_INDEX flag as appropriate
+ when filling CPUID entries
 From: Sean Christopherson <seanjc@google.com>
 To: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>, 
 	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
@@ -94,29 +95,70 @@ Cc: "H. Peter Anvin" <hpa@zytor.com>, kvm@vger.kernel.org, linux-kernel@vger.ker
 	Changyuan Lyu <changyuanl@google.com>, Sashiko <sashiko-bot@kernel.org>
 Content-Type: text/plain; charset="UTF-8"
 
-Add function 0x23 to the set of CPUID functions that are indexed, as per
-the SDM and the many sub-leafs defined in leaf_types.h.
+From: Changyuan Lyu <changyuanl@google.com>
 
-Reported-by: Rick Edgecombe <rick.p.edgecombe@intel.com>
-Closes: https://lore.kernel.org/all/213d614fe73e183a230c8f4e0c8fa1cc3d45df39.camel@intel.com
+Set the KVM_CPUID_FLAG_SIGNIFCANT_INDEX flag in the kvm_cpuid_entry2
+structures returned by KVM_TDX_CAPABILITIES if the CPUID is indexed,
+otherwise KVM could confuse userspace and induce a configuration error.
+This also ensures consistency with the CPUID entries returned by
+KVM_GET_SUPPORTED_CPUID.
+
+WARN if KVM and the TDX Module don't align on which functions have
+significant indices, e.g. to help ensure the kernel is updated when the
+TDX Module learns about new CPUID leaves, and vice versa.
+
+Opportunistically add a comment to call out that zeroing the index when it
+isn't significant is ABI that userspace relies on, e.g. QEMU looks for '0'
+instead of checking KVM_CPUID_FLAG_SIGNIFCANT_INDEX.
+
+Fixes: 61bb28279623 ("KVM: TDX: Get system-wide info about TDX module on initialization")
 Cc: stable@vger.kernel.org
+Cc: Binbin Wu <binbin.wu@linux.intel.com>
+Suggested-by: Sean Christopherson <seanjc@google.com>
+Signed-off-by: Changyuan Lyu <changyuanl@google.com>
+[sean: keep the WARN, don't key off KVM_TDX_CPUID_NO_SUBLEAF, add comment]
 Signed-off-by: Sean Christopherson <seanjc@google.com>
 ---
- arch/x86/include/asm/cpuid/api.h | 1 +
- 1 file changed, 1 insertion(+)
+ arch/x86/kvm/vmx/tdx.c | 14 +++++++++++++-
+ 1 file changed, 13 insertions(+), 1 deletion(-)
 
-diff --git a/arch/x86/include/asm/cpuid/api.h b/arch/x86/include/asm/cpuid/api.h
-index 82eddfa2347b..25b22b173f2a 100644
---- a/arch/x86/include/asm/cpuid/api.h
-+++ b/arch/x86/include/asm/cpuid/api.h
-@@ -181,6 +181,7 @@ static __always_inline bool cpuid_function_is_indexed(u32 function)
- 	case 0x1d:
- 	case 0x1e:
- 	case 0x1f:
-+	case 0x23:
- 	case 0x24:
- 	case 0x8000001d:
- 		return true;
+diff --git a/arch/x86/kvm/vmx/tdx.c b/arch/x86/kvm/vmx/tdx.c
+index 271c2f94b8dd..37d088f6f7a8 100644
+--- a/arch/x86/kvm/vmx/tdx.c
++++ b/arch/x86/kvm/vmx/tdx.c
+@@ -2,6 +2,7 @@
+ #include <linux/cleanup.h>
+ #include <linux/cpu.h>
+ #include <asm/cpufeature.h>
++#include <asm/cpuid/api.h>
+ #include <asm/fpu/xcr.h>
+ #include <linux/misc_cgroup.h>
+ #include <linux/mmu_context.h>
+@@ -163,12 +164,23 @@ static void td_init_cpuid_entry2(struct kvm_cpuid_entry2 *entry, unsigned char i
+ 
+ 	entry->function = (u32)td_conf->cpuid_config_leaves[idx];
+ 	entry->index = td_conf->cpuid_config_leaves[idx] >> 32;
++	entry->flags = 0;
+ 	entry->eax = (u32)td_conf->cpuid_config_values[idx][0];
+ 	entry->ebx = td_conf->cpuid_config_values[idx][0] >> 32;
+ 	entry->ecx = (u32)td_conf->cpuid_config_values[idx][1];
+ 	entry->edx = td_conf->cpuid_config_values[idx][1] >> 32;
+ 
+-	if (entry->index == KVM_TDX_CPUID_NO_SUBLEAF)
++	WARN_ON_ONCE(cpuid_function_is_indexed(entry->function) !=
++		     (entry->index != KVM_TDX_CPUID_NO_SUBLEAF));
++
++	/*
++	 * Explicitly zero the index when it's not significant, even though it
++	 * _should_ be meaningless.  Userspace relies on the index being zero
++	 * (the ABI was inherited from KVM_GET_SUPPORTED_CPUID).
++	 */
++	if (cpuid_function_is_indexed(entry->function))
++		entry->flags |= KVM_CPUID_FLAG_SIGNIFCANT_INDEX;
++	else
+ 		entry->index = 0;
+ 
+ 	/*
 -- 
 2.56.0.257.gf7497c7d27-goog
 
