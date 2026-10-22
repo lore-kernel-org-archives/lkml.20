@@ -1,47 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.9
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792652282;
-	b=VEfXIEfz/oU4hV3kqlAFvJwAbH+C4nHYX36Jcokky1kkMs6tExrYs0Ukj2ZwtSMwOAZf
-	 B10PJJwKwm0LcHEiZoVHft/E1uUufomwwJ/muDrK0NjzhWvMZimengtlxeJw60l7r4FwR
-	 3A3TGC/IYo9IFfbVagKMtxdSFdedBC679BgcFkPS/canYrcuu8Eq7X01hs/0k4z/tn1DW
-	 ATZxBswn9kUu4j/L4rLutseG75BneLflc7ae7qUYKu2FIK0YwyQQyxddyN7xgREGxzIhv
-	 zIVFfVzkXXkUiQU6DJnk2K26An5oTR3idrBdxhDB4LC0KpAQYdaMJAg721xeCsAhNFg==
+	t=1792652290;
+	b=G2jS8xpHbpbx/1juNfaSlHGAnKvu/jGaNEJza4bJFbTRNyaeEk6PpoYHIMoRAgNCiMAa
+	 4Cy/NFPW9nMgVucuuq8aaS9aVkSGAPDYyi9+jbuoiACe1rWs+C4FZYKBtMOAeFQHkiEmK
+	 0Ga+/HxJNbSokrxP1ZhFkS+bp2qIHz97j5NjwHILaqr0GhzLGFKmy2n9fFznYhN34VAka
+	 YgImufQh7KI/8VAqp1jbBCuJKz+vqc7TKQOw4276sP9zX7vey5ob/bdkSHewQxPPknPJx
+	 LwHfHkM4aawB5iAMW4QPW4wIgAhAcibhSNcKfOuDkLeYbQ+ZfMvhC3DB8QHfll4toJw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792652282;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=vWz9kcn2hWQPiK8Y+BhTHSteUtclFoRKS4X7cWyTqWQ=;
-	b=bFBnTdyWJxNdtDIU03OFXTGe23DBVZPwJFLP6qeOGfC6LRxnkiR2kupBahkPHP1uL0re
-	 8w1GUEObOkq+6xS7MXqiK+XWKdz5emw+cXbaUIhrUXF2gcI3Nvvl5vFDd1BZvrY15aC/O
-	 JVKrXPRfwjDDJd37rDwzD7Xgj+Z/GSRtiJrY6t2bg1/Tc1cz90/7CTR7TT3mmig5J7VvI
-	 YoD9ZrXZI7c0+kwBDZqprUkOppJNmCUfjbRF0xHjPGYfB4shTdPY9OzbtQUzznAK+2Mbl
-	 /pGC3PLB74Gvbkm0nZ/SGfH5aDHBu12s8pjuA4goM1AdH9+J5Wgm8PKV9j1E79XJz2A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792652290;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=RKs0dWzihLAXYEvFhNTTpxNYLKS33Mg7XOKIJRa07ZM=;
+	b=IYIk6NLnqae3mOF2rD/ILjIfDoXM4WGbcXsG3J8mMHAx8NoR8ND7BzsZrLvhjFfUJzzQ
+	 5EdAwLkjzdokyB6z7s+vsrdi+H+gzwRXx4J0Qhs7BOiNCuXVUHJDww+hlnoMi7JN96P3U
+	 p8Z4zQXIHtmhrouZnORBiuQ8H0jOcj2fMTkcxyphWWRRpeE4Grw+nAUHRvK+u8NjyT8CR
+	 EaA7Rm0mZkWyFh3AXWsGvSVfzVm+VxI9QC7Zh9T4EuMPi7V6FxLQ2M2/iEKKXMH58xl2Y
+	 0hSUn9pSVRH4Cc/nxgyLHNAXmlBHTwCBNf65as6Rav4QezEjTPsCDrcNupktAcrbOFg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I82ZPsVi;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=FPQg3nW4;
+	arc=none smtp.remote-ip=192.198.163.9
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F42A606A319;
-	Thu, 22 Oct 2026 06:58:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E019606A31B;
+	Thu, 22 Oct 2026 06:58:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7E019606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I82ZPsVi
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD94A1F000C1;
-	Thu, 22 Oct 2026 06:57:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792652281;
-	bh=vWz9kcn2hWQPiK8Y+BhTHSteUtclFoRKS4X7cWyTqWQ=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=I82ZPsViALFS6BvKGpe3hyRvvjQ4Et4lOSSJwPBwlJP24zg9FaneQBDezFRhZA24b
-	 csdx7m4XNUiGA75N/AKXq24P+9ryCefNDO2WYun+QA0yqfuNXp4Vt2R5AABLABrR5e
-	 GF6qyHUB3EbFppNRFJCcRvaJgGm2UOROdzHxryzptjdTkOsgJO5MlQt/90mOC5x+BN
-	 2ZLfdEzzi/INfdugrAkf66RT371Gqjq0+eX/62ga4XzmORO364EewL2JwWWGNQ+kvl
-	 0H3ZQsxVZYOjk9deg7LETzN5guX+r+1KMsy2y5Y0FTd5437VULn2wjfNxlhejByqsO
-	 nn/usj10FslSg==
-Message-ID: <73d01869-b536-4fcd-a139-6f9d0a043347@kernel.org>
-Date: Thu, 22 Oct 2026 08:57:55 +0200
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=FPQg3nW4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792652289; x=1824188289;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=ZdsYx0Ym/cDqcGGx3hBqpWXmCSCDouANqaIanoOkWMI=;
+  b=FPQg3nW4etLxTndIIYiT3LYGNN9+xdllJTfhxDGgP/fbhsPDvRuBoUXp
+   4qkQdpmPSmRlhRU7JK/RFXr5sB0fJUZwUdbrpFKo+RhE1tGEriMJqezKw
+   IfkUnGRK1TxEekPyG5pDnyzRTNQAgPZhZzP/EnOM7+o+ASgC/S+oYqVDf
+   K2oGMuEcGERutjpaREfSex352KIsGHitRwVap7B4Hcou1tGj5X0FEq7g7
+   7sMtCgUUBqIrYaoQJtBBWi6pz3npTtE2oLnCj4s0CY/N1n4lahTiEh5mL
+   9o4Pts/sIyvjzfiHO/hAWwYvvFgWbY6So+hvxgrd1DLOO0VkpazECheg7
+   Q==;
+X-CSE-ConnectionGUID: z8cQSnRrSsqt8ts6BpRZFQ==
+X-CSE-MsgGUID: 2/alkE0YTy+3ibm4ZZ3dXA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11942"; a="1278808"
+X-IronPort-AV: E=Sophos;i="6.27,171,1787036400"; 
+   d="scan'208";a="1278808"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 23:58:08 -0700
+X-CSE-ConnectionGUID: 98dLheWERcivGOR33UCG+Q==
+X-CSE-MsgGUID: V/bZWcSPRGGsDAuKncMXig==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,171,1787036400"; 
+   d="scan'208";a="3236159"
+Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.245.189])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 23:58:06 -0700
+Date: Thu, 22 Oct 2026 09:58:02 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Brian Norris <briannorris@chromium.org>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Ulf Hansson <ulfh@kernel.org>, linux-pm@vger.kernel.org,
+	Andy Shevchenko <andy@kernel.org>,
+	David Lechner <dlechner@baylibre.com>, linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 02/17] iio: accel: kxcjk-1013: Discard
+ pm_runtime_put_autosuspend() return values
+Message-ID: <atmz-hnX1-skp7Km@ashevche-desk.local>
+References: <20261021235818.3059519-1-briannorris@chromium.org>
+ <20261021165858.v2.2.I7751f8c9dde6f4a576a17dcfa13a4c729fa748b4@changeid>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,109 +85,103 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] docs: submitting-patches: Require base tree information
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: Eric Biggers <ebiggers@kernel.org>, linux-doc@vger.kernel.org,
- workflows@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
- <rdunlap@infradead.org>, linux-kernel@vger.kernel.org,
- Konstantin Ryabitsev <konstantin@linuxfoundation.org>
-References: <20261020212235.1143086-1-ebiggers@kernel.org>
- <363b228a-7e96-481a-b70f-195ba55d025e@kernel.org>
- <20261021063927.GA31908@sol>
- <d5d0801e-371c-4836-8b4a-26bff33df46f@kernel.org>
- <20261021064940.GC31908@sol>
- <aea2328d-4ea8-45bc-922e-9c1fed94083f@kernel.org>
- <20261021163242.GB325924@killaraus.ideasonboard.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20261021163242.GB325924@killaraus.ideasonboard.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261021165858.v2.2.I7751f8c9dde6f4a576a17dcfa13a4c729fa748b4@changeid>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On 21/10/2026 18:32, Laurent Pinchart wrote:
-> On Wed, Oct 21, 2026 at 01:55:37PM +0200, Krzysztof Kozlowski wrote:
->>
->>> there's no base-commit?  Including any historical patch (from
->>> months/years ago), patches with dependencies, etc.
->>
->> Dependency is something else, but for every other patch:
->> 1. For testing/CI: you apply on top of next
->> 2. Every other case the maintainer knows where to apply it, because it
->> is his HEAD of next-branch.
->>
->> I am repeating myself, but I really had no single problem of lack of
->> knowledge where to apply a patch as a maintainer or reviewer of some
->> subsystem, thus maybe I do not understand the actual problem you are
->> experiencing.
+On Wed, Oct 21, 2026 at 04:57:03PM -0700, Brian Norris wrote:
+> This driver propagates the return value of pm_runtime_put_autosuspend(),
+> which is not particularly useful.
 > 
-> When I review patches, I often need to apply them to a tree, mainly to
-> see the context, but sometimes also to test them. I have encountered
-> many cases where the patch wouldn't apply on the current for-next branch
-> of the relevant subsystem. That's often because the patch had
-> dependencies. When I'm lucky they are listed manually in the cover
-> letter with a link to a branch, but that's far from being the common
-> case. I then have to ask the submitter to provide a branch, or enough
-> information to recreate a branch. Having base information (base-commit,
-> prerequisite-patch-id, and possibly base-tree) would save me quite some
-> time.
+> Returning an error code from pm_runtime_put_autosuspend() merely means
+> that it has not queued up a timer or work item to check whether or not
+> the device can be suspended and there are many perfectly valid
+> situations in which that can happen, like after writing "on" to the
+> device's runtime PM "control" attribute in sysfs for one example.
 > 
-> I understand your concern about maintainers cherry-picking and sometimes
-> introducing issues as a result. In that case I also prefer asking the
-> submitter to rebase, retest, and resubmit. That's not what I want to use
-> base information for, in my case it helps with the review process.
+> For this reason, modify this driver to discard the
+> pm_runtime_put_autosuspend() return value, and inline these pm_runtime
+> calls for simplicity.
+> 
+> While doing this, it becomes obvious that kxcjk1013_write_event_config()
+> and kxcjk1013_data_rdy_trigger_set_state() are intentionally mismanaging
+> runtime PM reference counts and instead are relying on (racy)
+> autosuspend delay for correct ordering. Undo this choice, and instead
+> properly drop the reference count only after we're done touching the
+> hardware.
+> 
+> Use guard() for managing the mutex in kxcjk1013_write_event_config(),
+> because it helps simplify the above refactoring, making it less
+> error-prone.
+> 
+> This will facilitate a planned change of the
+> pm_runtime_put_autosuspend() return type to void in the future, similar
+> to commit 3afd8df02433 ("PM: runtime: Change pm_runtime_put() return
+> type to void").
 
-That's valid and for 95% (guessing the number...) of cases will be
-solved by having linux-next as a base, thus requiring the base
-information is redundant. It's just linux-next.
+...
 
-When patchset does NOT apply on linux-next or maintainer tree is
-non-obvious, the base should be provided, but that is only "if ->
-should". I think the proposal here is a bit different.
+> static int kxcjk1013_read_raw(struct iio_dev *indio_dev,
 
-Best regards,
-Krzysztof
+>  		else {
+> -			ret = kxcjk1013_set_power_state(data, true);
+> +			ret = pm_runtime_resume_and_get(&data->client->dev);
+>  			if (ret < 0) {
+> +				dev_err(&data->client->dev,
+> +					"failed to resume: %d\n", ret);
+>  				mutex_unlock(&data->mutex);
+>  				return ret;
+>  			}
+>  			ret = kxcjk1013_get_acc_reg(data, chan->scan_index);
+>  			if (ret < 0) {
+> -				kxcjk1013_set_power_state(data, false);
+> +				pm_runtime_put_autosuspend(&data->client->dev);
+>  				mutex_unlock(&data->mutex);
+>  				return ret;
+>  			}
+>  			*val = sign_extend32(ret >> chan->scan_type.shift,
+>  					     chan->scan_type.realbits - 1);
+> -			ret = kxcjk1013_set_power_state(data, false);
+> +			pm_runtime_put_autosuspend(&data->client->dev);
+
+So, now you can use on of PM_RUNTIME_ACQUIRE*() and drop unneeded calls?
+And why not using guard()() or scoped_guard() here for mutex lock?
+
+>  		}
+
+...
+
+> +	if (state) {
+> +		ret = pm_runtime_resume_and_get(&data->client->dev);
+> +		if (ret < 0) {
+> +			dev_err(&data->client->dev, "failed to resume: %d\n",
+> +				ret);
+> +			return ret;
+> +		}
+> +
+> +		ret = kxcjk1013_setup_interrupt(data, true,
+> +						data->motion_trig != trig);
+> +		if (ret < 0) {
+> +			pm_runtime_put_autosuspend(&data->client->dev);
+> +			return ret;
+> +		}
+> +	} else {
+> +		ret = kxcjk1013_setup_interrupt(data, false,
+> +						data->motion_trig != trig);
+> +		if (ret < 0)
+> +			return ret;
+> +
+> +		pm_runtime_put_autosuspend(&data->client->dev);
+>  	}
+
+Sounds like a dup code, can't we have PM runtime calls along with
+kxcjk1013_setup_interrupt() be provided as two helpers and be called
+as necessary?
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
