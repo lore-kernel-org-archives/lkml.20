@@ -1,75 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=134.76.10.21
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792704850;
-	b=S70zfaJsI6gnJldpFTb2YQOsRmVxbBeDCgUMmfWtJpgiHd390hTvdqdsFSAuA57pvEuZ
-	 +sswwNhHubeQ5yASsUqk7AJ9yHlHBtBCPZKR5VPtlhh3p/RgWVqG6ODhLjIkkoojofWlz
-	 56sIiRGWIDn8pLXx4ivcWYno2ieVaZ+odmM2osK71pVG4RFzjnfS5x+RBbNp/aZsKQbAh
-	 IA7rN5hr9ju/RMX/HPHuVJQdAU6UyB+F9lLlu9QzBzVJPrsqCS5/yOsK+VCybV/HqDeku
-	 lffOALfEf6A2mRlKW8sahZhejR1HgofI/CVraYUXwBJrYdU+MY8fGzwXNyOeIrnZaFQ==
+	t=1792704882;
+	b=cxM/5JZsX6z83QX2c5OpyeChXhmB+2a624Z1esMbieMavBArElWpS0JnuqWjh3kYf8xo
+	 Yw2YI/PvZGKwf1UwGE5h96OCVSHjTZyrXSBY6pqlwrLq+Pq1WuLwvZJTuW3ReNaQUrKmk
+	 vEnXnxv7Nn/0T1s/3diCMPqtWDYNHh/VlG4Uia9lbAmSgGaOFPQFITa9hwlWsUkHP0FJu
+	 HJ5NFsEKTRiFulDx06wFIJrbhSNR0ueqBMJsofgNZxC/7YWoJJz981OeBK+pifv/iZTi/
+	 JCg+ZZTNiKGL4DhhU9zmmxc7cYFRq2AXm+2g+wIXxpQOChGqaoXKuygiVBeb9Q2UisA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792704850;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Received:From:To:CC:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy:X-Virus-Scanned:X-Spam-Level;
-	bh=3pJH03OqZ65+mg9epLm93kfGNWSyn7kvxbOtV12f8bs=;
-	b=F0gW3chai0gqLbaOuhKrgnbDszqgejFvUw7cyoy6R9pa93rjw5sEFE2qjPshDtpX2tA5
-	 K7j/l0/MlwQvnvmIoaNGdEp1PWf1CPazeLWG4ESPC6orC6R/03/wOCX7Msc28irVFFbHf
-	 MJYx3mePMgDs9Whm1ezqekWWTQO3qr18KvFHZp0v0LDzyguZC5UGpLRf3iyThIBgyrDo7
-	 fxOLmoFRFOfvGqHidMPk2lMU4B211JVPBEZSMWkP5gqGa+GOFsJpzlEEPBMzT94UmGxV9
-	 wqSm9Mn/p/oM6OX20u7XVtUCqPDMnlT0MAF4LM2n1lYzuclRM3uprU7RXeIZ74lfaTQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792704882;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=GjBPTcmaKEEJEyfOSXTyPmKK18HcbgboEZUzZg44Hg4=;
+	b=q4JiRiqqUdirS6v7hvo34X7/GGkYdCfv4MvRjPLOIa/+o7M84n+J1ULQt4Rjoixd9SZP
+	 xZmOd8Wj8SUVJcfdel1ktoBi3/YeIF4AsOKhX7YFSRW/PgBnjpHMJCsNnR7Ba5os7o1x6
+	 iVxloKeCYizf7XCbKg7spK6FxdLhU7YQar8Z7gn97TJyhE/ncEoJjq8n4J/FBSewEz04o
+	 M1t4PaQsLH0wXA7mAmUr8ufPgrPUIRdHK9I5+H3xL+MaJySGlOvQRnXQ9siep6ySyLd3k
+	 EoZ+5mZJqaMA19/rU74Qd/owgAENb1sMWtvhBg/SuS/coVcp0vy464r2PNO6Ks9DHLw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cispa.de;
-	spf=pass smtp.mailfrom=cispa.de;
-	dkim=pass header.d=cispa.de header.i=@cispa.de header.a=rsa-sha256 header.s=2023-rsa header.b=MSBFCQXJ;
-	arc=none smtp.remote-ip=134.76.10.21
-Received: from mx-2023-1.gwdg.de (mx-2023-1.gwdg.de [134.76.10.21])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HVn28AAa;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A530606A319;
-	Thu, 22 Oct 2026 21:34:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1A530606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cispa.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cispa.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59404606A31D;
+	Thu, 22 Oct 2026 21:34:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=cispa.de header.i=@cispa.de header.a=rsa-sha256 header.s=2023-rsa header.b=MSBFCQXJ
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=cispa.de;
-	s=2023-rsa; h=Content-Type:Content-Transfer-Encoding:MIME-Version:Message-ID:
-	Date:Subject:CC:To:From:Sender:Reply-To:Content-ID:Content-Description:
-	Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
-	In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
-	List-Post:List-Owner:List-Archive;
-	bh=3pJH03OqZ65+mg9epLm93kfGNWSyn7kvxbOtV12f8bs=; b=MSBFCQXJ/BnKZS2tgHxEjCnv42
-	MOeylAQzurfY81FRISFTAJYaJh2cA4ch+JYxEGaYxGT1PDTw963nu1RsmEKn92uFl9OMiDuOPXLTZ
-	dCqWw5C2mHKbxaYOpv22b/l8TOnGuoXo8gZLYHaPYqoUyxvlN1JuN2WKHr8Lef6OYo6fkxSsz/S05
-	DmaAiuNpHlrOb/0nsbaw5FjAqmwambKWg24GgROINRJa5eTwJn34EflkBzV7+68U1ktF+NSguXqfi
-	sxChkgp6P7iiIiOWEOFi6iQYDFzUNkMQUK9fo9/jp2x2yI+zhxKqTZugLSyCp7j/dJl0VGA+y/7pQ
-	syLw50nA==;
-Received: from mailer.gwdg.de ([134.76.10.26]:35764)
-	by mailer.gwdg.de with esmtp (GWDG Mailer)
-	(envelope-from <amirmohammad.eftekhar@cispa.de>)
-	id 1xK0QJ-00EBgz-1K;
-	Thu, 22 Oct 2026 23:34:07 +0200
-Received: from mbx19-gwd-01.um.gwdg.de ([10.108.142.50] helo=email.gwdg.de)
-	by mailer.gwdg.de with esmtps (TLS1.2:ECDHE-RSA-AES256-GCM-SHA384:256)
-	(GWDG Mailer)
-	(envelope-from <amirmohammad.eftekhar@cispa.de>)
-	id 1xK0QJ-000X1f-00;
-	Thu, 22 Oct 2026 23:34:07 +0200
-Received: from localhost (10.250.9.199) by mbx19-gwd-01.um.gwdg.de
- (10.108.142.50) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.56; Thu, 22 Oct
- 2026 23:34:01 +0200
-From: <amirmohammad.eftekhar@cispa.de>
-To: <seanjc@google.com>, <pbonzini@redhat.com>
-CC: <kvm@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<amirmohammadeftekhar@gmail.com>, Amirmohammad Eftekhar
-	<amirmohammad.eftekhar@cispa.de>
-Subject: [PATCH v2] KVM: nVMX: Reject nested VM-entry in wait-for-SIPI with a pending event injection
-Date: Thu, 22 Oct 2026 23:33:48 +0200
-Message-ID: <20261022213348.221488-1-amirmohammad.eftekhar@cispa.de>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HVn28AAa
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 204EA1F01825;
+	Thu, 22 Oct 2026 21:34:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792704881;
+	bh=GjBPTcmaKEEJEyfOSXTyPmKK18HcbgboEZUzZg44Hg4=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=HVn28AAatOgqsu3YKKUkLti1PNCx8pyVlgmWUTbL6NGdUayDCSK/vvVc6yLay/EcO
+	 TFP4oEmpcIWlMXx/Nt1ejfmRLu7avn7nTfbz0EUj/EIq/E8zFoKTafgAxuQQudya5E
+	 TXX8TKt/t5O6f6Au6Af/xmyaRckAH1+SyZdu0NYEiPgBxF7LVvESxe9IObgJPkVH6S
+	 KlMAuGC31OeFZdGqgXgSfoeBkScy31SZEw4ygC0GMrBLxfkCP1UI6Da8HM314rlaTT
+	 XjJAPXnuSQaNwNnJd9ZoTj/wM7RJ0RLXzAP1zrT6NnRrMy2T9V557bJEzkNXyEf3RO
+	 nPYBiVbmv1U/Q==
+Date: Thu, 22 Oct 2026 14:34:40 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: "Maciej W. Rozycki" <macro@orcam.me.uk>
+Cc: Imre Kaloz <kaloz@kernel.org>, Thomas Bogendoerfer
+ <tsbogend@alpha.franken.de>, linux-mips@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Lee Jones <lee@kernel.org>, Greg
+ Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby
+ <jirislaby@kernel.org>, mfd@lists.linux.dev, linux-serial@vger.kernel.org,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ linux-rtc@vger.kernel.org, Andrew Lunn <andrew+netdev@lunn.ch>, "David S.
+ Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, Paolo
+ Abeni <pabeni@redhat.com>, netdev@vger.kernel.org, Damien Le Moal
+ <dlemoal@kernel.org>, Niklas Cassel <cassel@kernel.org>,
+ linux-ide@vger.kernel.org, Pavel Machek <pavel@kernel.org>,
+ linux-leds@vger.kernel.org, Bjorn Helgaas <bhelgaas@google.com>,
+ linux-pci@vger.kernel.org, Christoph Hellwig <hch@lst.de>
+Subject: Re: [PATCH v2 00/53] MIPS: SGI-IP27: add support for the IP35
+ (Bedrock hub) machines
+Message-ID: <20261022143440.4ddae87e@kernel.org>
+In-Reply-To: <alpine.DEB.2.21.2610222009000.22065@angie.orcam.me.uk>
+References: <cover.1791890466.git.kaloz@kernel.org>
+	<20261020110619.12774a1c@kernel.org>
+	<20261020204214.28625-1-kaloz@kernel.org>
+	<20261020145611.4e277615@kernel.org>
+	<20261021090556.21168-1-kaloz@kernel.org>
+	<20261021073921.07632a37@kernel.org>
+	<alpine.DEB.2.21.2610222009000.22065@angie.orcam.me.uk>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,85 +76,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: MBX19-FMZ-07.um.gwdg.de (10.108.142.66) To
- mbx19-gwd-01.um.gwdg.de (10.108.142.50)
-X-Virus-Scanned: (clean) by clamav
-X-Spam-Level: -
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-From: Amirmohammad Eftekhar <amirmohammad.eftekhar@cispa.de>
+On Thu, 22 Oct 2026 20:28:25 +0100 (BST) Maciej W. Rozycki wrote:
+> On Wed, 21 Oct 2026, Jakub Kicinski wrote:
+> > > The users are the people running these machines, the same population
+> > > as for IP27 and IP30, and the ioc3-eth driver in net/ exists for them
+> > > today. The series was developed and tested on a Fuel and a Tezro in
+> > > regular use, so "nobody is using it with Linux" is true only in the
+> > > sense that the support isn't merged yet; that was equally true of IP30
+> > > when it went in for 5.5, and of every port before it.  
+> > 
+> > Not sure if you followed the discussions at the recent maintainer
+> > summit but we are now allowed to be more opinionated about code
+> > we merge. Merging code just to test that code seems like entertainment
+> > for the authors, not useful development.  
+> 
+>  I thought the event was by invitation only.
 
-nested_check_guest_non_reg_state() only verifies that
-guest_activity_state is one of ACTIVE, HLT or WAIT_SIPI; it performs
-none of the activity-state cross-checks that VM entry requires.  Per
-Intel's SDM, "Checks on Guest Non-Register State", when the valid bit of
-the VM-entry interruption-information field is set the interruption to
-be delivered "must not be one that would normally be blocked while a
-logical processor is in the activity state", and for the wait-for-SIPI
-state "No interruptions are allowed".  The same section also requires
-that the activity state indicate the active state when the
-interruptibility-state field blocks by STI or MOV SS.
+LWN posts a great summary.
 
-KVM accepts a vmcs12 that violates both rules, and hardware does not
-catch the miss: prepare_vmcs02() never writes GUEST_ACTIVITY_STATE, so
-vmcs02 always carries active, and wait-for-SIPI is emulated in software
-only after a successful entry (the mp_state = INIT_RECEIVED arm).  The
-injection, in contrast, is copied into vmcs02.  The physical VMLAUNCH
-therefore sees {active, valid injection} -- a legal pair -- and
-succeeds.  Because the offending field is stripped before hardware sees
-vmcs02, the missed-exit WARN in __nested_vmx_vmexit() can never fire for
-this class either.
+>  Anyway, this seems to me like discouraging enthusiasts who do their work 
+> outside their day job from making contributions.  Their natural target are 
+> commercially worthless systems, since working for free on commercially 
+> valuable systems would be taking away someone's bread and I think grossly 
+> undeserved support for corporations.  Taking this stance effectively would 
+> be cutting Linux off from its origins and making it a commercial project.
 
-From L1's point of view a VMLAUNCH that bare metal rejects with a
-VM-entry failure (invalid guest state) instead succeeds, with L2 left
-parked in wait-for-SIPI holding a stale VM_ENTRY_INTR_INFO in vmcs02.
+Or. Perhaps. By pushing this useless retro-hobbist hogwash you're
+contributing to the burn out of genuine maintainers, pushing the
+project into the hands of people who do have anterior motives.
+Who is to say..
 
-Add the two activity-state cross-checks that KVM strips before hardware
-can enforce them.  The HLT state additionally restricts which
-interruption types may be injected (external interrupt / NMI / #DB / #MC
-/ pending-MTF only); that matrix is left for a follow-up as it needs the
-per-type table, whereas the two checks added here are unconditional and
-cover the fields KVM elides.
+>  Please let's not go down this route and only base the acceptance, or not, 
+> of submissions on quality merits.  Many of us took this route to Linux, by 
+> showing competence in public with work done for free, and some of us still 
+> enjoy such side project even if we do have a day job now that involves 
+> Linux development.  Let's not close this option to people.
 
-Signed-off-by: Amirmohammad Eftekhar <amirmohammad.eftekhar@cispa.de>
----
-v2: No code changes. v1 (sent 2026-10-22, Message-ID
-    <cfe12756-208a-4a3c-bd46-cfdfeae6cdb1@gmail.com>) was whitespace-damaged in
-    transit by format=flowed in my mail client; resending cleanly via git
-    send-email.
- arch/x86/kvm/vmx/nested.c | 18 ++++++++++++++++++
- 1 file changed, 18 insertions(+)
-
-diff --git a/arch/x86/kvm/vmx/nested.c b/arch/x86/kvm/vmx/nested.c
-index 9b0bfa2f8..66c9d1ffe 100644
---- a/arch/x86/kvm/vmx/nested.c
-+++ b/arch/x86/kvm/vmx/nested.c
-@@ -3311,6 +3311,24 @@ static int nested_check_guest_non_reg_state(struct vmcs12 *vmcs12)
- 	       vmcs12->guest_activity_state != GUEST_ACTIVITY_WAIT_SIPI))
- 		return -EINVAL;
- 
-+	/*
-+	 * The activity state must be active if the interruptibility state
-+	 * blocks by STI or MOV SS.
-+	 */
-+	if (CC(vmcs12->guest_activity_state != GUEST_ACTIVITY_ACTIVE &&
-+	       (vmcs12->guest_interruptibility_info &
-+		(GUEST_INTR_STATE_STI | GUEST_INTR_STATE_MOV_SS))))
-+		return -EINVAL;
-+
-+	/*
-+	 * An injected event must not be one that would be blocked in the
-+	 * guest's activity state; no interruptions are allowed in the
-+	 * wait-for-SIPI state.
-+	 */
-+	if (vmcs12->guest_activity_state == GUEST_ACTIVITY_WAIT_SIPI &&
-+	    CC(vmcs12->vm_entry_intr_info_field & INTR_INFO_VALID_MASK))
-+		return -EINVAL;
-+
- 	return 0;
- }
- 
--- 
-2.54.0 (Apple Git-157)
-
+Who cares about quality of code nobody will run?
