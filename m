@@ -1,109 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792663104;
-	b=O671Iuh1/0U1R+T9fx1MFmBcpoDi3I/Nr2blaFxOFM7Amuxm8DjlpsMAx5aF9ursamuI
-	 oHfUHBNgbiWsWyKd404F9bxQD6DpWjyn7JQpBDJ0haKrDsvc2eCBaVoyy+S4T3c/Kvurm
-	 uj17xh9IDLDip80O1bxO7+y4F1ECTijzVsXunC5DQWw3PCAZtkz/X8XyMmZwE3SCt42aR
-	 i6XywEByLXy4C4L3ugwA5lZTJKci7Ibv/Ft85C9/fwWYYZ7G5tWNELVtJEBSaQBn+Kn+N
-	 lKnZUzbeSWMgS8v+7IoNlfwECVpFSPHgVuCeEAakXtid9vFRxExhuYW0o/sF6yM90yA==
+	t=1792663103;
+	b=Ks5Y6rAgk57wGMe26xyrtAIwCPHmrcPnp0sgBRg0LMLuLAJ5AUcmE+ES+LmY34ngk/Sr
+	 5nRzwiiU9EJ3thJxLplaynKQNnASEBADi8VSFJWNemkk11gEVALVR0vJcMwC6LQgA5rTq
+	 hy3vxCOBWxQjtGQi5lYudRmJAZr+BJ+80TmMxSShLoGvDFmvCmRjilJR8CgCBesANi5Y6
+	 KCC33lWn/ge1AW9yVwzbJ7Mbn8Z0JLjMG3rt2WevO/WMnqy0J4DepE52n4mj2IotnM2Ci
+	 176j4N1pfU37H+m386CNiuyPa3+QNO5MhC3+bgBUVid0t+Z5evmuPMVVUdJXyKcyi8w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792663104;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-Spam-Flag:X-Spam-Level:X-Spamd-Result:X-Spam-Score;
-	bh=mkeR2xN5aVTEbqa1hAMyTZXFJ5arxpgOVE21xANikHk=;
-	b=343vLD+XdAPjgWSi940gBFqqeNfAQsdBAJVv2CTYQpmPs9Ph12AGbIdPrm3L/SmfKm0p
-	 WzmFRDR7HXB1wsKcfEke9OczpQbrGqP1Dlh/om5+9lB8Aa3yNqn+VG58+HhYLSu/EHEJK
-	 Qo7p6+J6KmfnF2MsgUBDexduES4tqaxGNKk/nDG9UhYaPixkQBEUMROt4ko0Q1Z1QrAav
-	 wWysIdE5eOfJGd0zj2CLzxkw6beCM9mN7IWGI9EDm8V9iwNAA2c35wUtI5AejVmTmJoMD
-	 uV+LwydhPmPQKcRqVtzoFIqOEiPa1Pk3gP4FibuIlgW8+DGUIPO6EN1mGkuYezdx6WQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792663103;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:
+	 References:MIME-Version:Content-Transfer-Encoding:
+	 X-Proofpoint-Reinject:X-QCInternal:X-QCInternal:X-Proofpoint-GUID:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=SkZddS+miUPG28nvMCm9Vl6i3WtxcHtjfJbOTS7q09g=;
+	b=KX8FMJZry6FSF2tVnwbZOzJGU+qIEkntr9j0ljqjhOpeayA42oDKJcySDiGU9hGGa9MI
+	 kf7JAloGE/mF07W/ldI1JDShr0hR/8p6UAtQjQqTvG88FTP9UUpG+3o46OuTn5hOAEJRf
+	 t1+AEyY6E5Ixb/IZxtSL09qZzMjIKoVymkcXpiKg2HbH9y7CQ/OOPTjw7jQTUKF5BASiJ
+	 T2o/NfxTZ2DVrWnOg47ouKkuUMIXgFmHmse9N34wmunnK1m9bCjaicPrhH33E1oEbE0GE
+	 I74TnbVnpMiHbG/3xZwlKNuhKNc/Vy/w50UnCilDxhQi4HE6fb7ZDfPOEv9EsTKfj5Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=wbSI6Tl0;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=v9AH22Wk;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b="HiClQ7/t";
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=mzH+91u8;
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=ZqVlzXEO;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FE8B606A339
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 09:58:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8FE8B606A339
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37990606A337;
+	Thu, 22 Oct 2026 09:58:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 37990606A337
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=wbSI6Tl0;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=v9AH22Wk;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=HiClQ7/t;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=mzH+91u8
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id E2B8322147;
-	Thu, 22 Oct 2026 09:58:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1792663101; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=mkeR2xN5aVTEbqa1hAMyTZXFJ5arxpgOVE21xANikHk=;
-	b=wbSI6Tl0AyurldiYwrJmxhw/KQ+BB2YZ4Zt/QfcpU6aSnCtwVs+J3qwt7plCl0zeNbuIe0
-	D+IwOcthmkVubsDm/Q0Xfb62h+4NMlApFqXZ0wQfpe8wauFxFPPnUu5YiNZfkAkpJ0Gnyn
-	hTdodRnOsJHo1NxCK6+yY70p53ZfLuM=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1792663101;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=mkeR2xN5aVTEbqa1hAMyTZXFJ5arxpgOVE21xANikHk=;
-	b=v9AH22WkVZqe2ykX+rkXnkr9JnXZjmG6XYJbfYzdnzwnGIbrOnS0z4l+bV6HlHdiC8tDSG
-	RcgitqdNhI6fHUBg==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1792663100; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=mkeR2xN5aVTEbqa1hAMyTZXFJ5arxpgOVE21xANikHk=;
-	b=HiClQ7/tkj+ZJ+Qsx10KHvkjAoPh3hM8x6gk6/+k4qj8YCckcLj55oUrg9GHs02aN/ooLS
-	UhPKfd1fPwEr2JhLsVEwKjIYNdGs3rhjsoF1OjEPmeQhNauiCbYfSedYWtWkFY7UjLbmFF
-	w1Pcy4hVhup88Uou/nOQ3YDnBk5fckI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1792663100;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=mkeR2xN5aVTEbqa1hAMyTZXFJ5arxpgOVE21xANikHk=;
-	b=mzH+91u8khRcUsfzzJYOkCc0iol88VLfRkvBzx9cqOQs3jnvc5F+hWAobqOphk3oEQhhcS
-	TfqaGDqz4o7tfOBw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 9F011134E6;
-	Thu, 22 Oct 2026 09:58:19 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id raenGjve2WrlCQAAD6G6ig
-	(envelope-from <pfalcato@suse.de>); Thu, 22 Oct 2026 09:58:19 +0000
-Date: Thu, 22 Oct 2026 10:58:17 +0100
-From: Pedro Falcato <pfalcato@suse.de>
-To: Shivank Garg <shivankg@amd.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
-	Michal Hocko <mhocko@suse.com>, Ankur Arora <ankur.a.arora@oracle.com>, 
-	Peter Zijlstra <peterz@infradead.org>, Borislav Petkov <bp@alien8.de>, Bharata B Rao <bharata@amd.com>, 
-	Hrushikesh Salunke <hsalunke@amd.com>, K Prateek Nayak <kprateek.nayak@amd.com>, x86@kernel.org, 
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH RFC] mm/memory: drop PROCESS_PAGES_NON_PREEMPT_BATCH
-Message-ID: <atndhWpGDvs4vHoN@pedro-suse.tail5790ac.ts.net>
-References: <20261022-clear-pages-batch-v1-1-13d3bd0b876e@amd.com>
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=ZqVlzXEO
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69M8LntB3194741;
+	Thu, 22 Oct 2026 09:58:14 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=qcppdkim1; bh=SkZddS+miUP
+	G28nvMCm9Vl6i3WtxcHtjfJbOTS7q09g=; b=ZqVlzXEOCHBOGo+vfU7JJGmJWTP
+	pJ1lqNSdKyjicx5XpzLN01+Cn7UYvC9wrOihu7MLiuYsKRdsbtCc07VIcJ+H1MCn
+	H7525dTwZTffS5ZY1Bk7cDkM+JiLIEz2AhY/+Wu2hbOfGbihCr+HCTAy8LbSditb
+	YNVrfpBi02RRRCh5MGyC+Z1jW3KF0y2475XnU6XKkFqmiaLdpgj32ulcx6rMvLPo
+	y5vjYaY16IGL10qS62lkL9EdME7HMIEub1bx6I0DByiIr4n2gA/kUEqQ0Ew0nLOF
+	uzEmbwnnGr6zXjIpkNEkcRdq8ar1kLh9jsPM6sGGkqxh7RnV9CmGKZyK64A==
+Received: from apblrppmta01.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hfewq0edk-23
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Thu, 22 Oct 2026 09:58:13 +0000 (GMT)
+Received: from pps.filterd (apblrppmta01.qualcomm.com [127.0.0.1])
+	by APBLRPPMTA01.qualcomm.com (8.18.1.11/8.18.1.11) with ESMTP id 69M9hnlv2064408;
+	Thu, 22 Oct 2026 09:43:49 GMT
+Received: from hu-devc-hyd-u22-c.qualcomm.com (hu-ks5-hyd.qualcomm.com [10.147.255.18])
+	by APBLRPPMTA01.qualcomm.com (PPS) with ESMTPS id 69M9hmNu2064400
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Thu, 22 Oct 2026 09:43:49 +0000 (GMT)
+Received: by hu-devc-hyd-u22-c.qualcomm.com (Postfix, from userid 4763723)
+	id E65F2655; Thu, 22 Oct 2026 15:13:47 +0530 (+0530)
+From: Karthik S <karthik.s@oss.qualcomm.com>
+To: Srinivas Kandagatla <srini@kernel.org>,
+        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+Cc: linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Karthik S <karthik.s@oss.qualcomm.com>
+Subject: [PATCH v1 5/5] ASoC: qcom: sc8280xp: Add shikra-iqs-lt9611uxd-evk compatible support
+Date: Thu, 22 Oct 2026 15:13:13 +0530
+Message-Id: <20261022094313.1074873-6-karthik.s@oss.qualcomm.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261022094313.1074873-1-karthik.s@oss.qualcomm.com>
+References: <20261022094313.1074873-1-karthik.s@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -113,89 +89,75 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261022-clear-pages-batch-v1-1-13d3bd0b876e@amd.com>
-X-Spam-Flag: NO
-X-Spam-Level: 
-X-Spamd-Result: default: False [-13.30 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	MISSING_XM_UA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[18];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[amd.com:email,imap1.dmz-prg2.suse.org:helo]
-X-Spam-Score: -13.30
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-QCInternal: smtphost
+X-QCInternal: smtphost
+X-Proofpoint-GUID: L60Yji6sNZ8ODfi8ZMv0FRiKDOx5n9_z
+X-Proofpoint-ORIG-GUID: L60Yji6sNZ8ODfi8ZMv0FRiKDOx5n9_z
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIyMDAzOSBTYWx0ZWRfX1CLXZhiVKI7N
+ 7JP/G/Aluon3Spl5AmQLbtXzIhjM73Qtufdt7PceilgyBiYojNTyC+jXuTePpAwLY9BCTUrWRL2
+ SvZpXL7WdhtpoOq6G04PNYYcS0gF7AI=
+X-Authority-Analysis: v=2.4 cv=G4OJgNk5 c=1 sm=1 tr=0 ts=6ad9de35 cx=c_pps
+ a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=rJkE3RaqiGZ5pbrm-msn:22 a=EUspDBNiAAAA:8 a=J8V9vG3e9rXIWQFow8gA:9
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIyMDAzOSBTYWx0ZWRfX7EIho9izNVnt
+ lbPL6WyBuo1d3QOW9Ye+aRHKOeS9uaUUOJV4UzimIahrlJOqxWBA+8ZzKQdDt2jH5AQevAcBd/i
+ Z8JmAZmSD6afwLaX4zcHCsrjxYDDrWIkYDNqEt7qxu3II0K0f/NbrD8wD3A76Lt0vWsUiuW+fUT
+ kxSZ6kTSDL+HUHHmWuFO5exCf5vJ+YVDWL1iMGPC7G40dRLw+KkAVg64vSSZwjs1Qz10bXRv0M6
+ xFlXbGWkaUJytSy5lxsj0UUGvdsaLjkBjstovYowKdXHoNe0FigJpzkk4YNInTehHyx4vnb/ASR
+ yPBdsoJBvuRWzj+9AHsIbMXVrUaRf8syGFrZXTtw192rIb3xIcBHFnMrwcolslBDNHBPstSxY2z
+ 6bxJfldHmVoGBu0osgQrKFF3fOQt6lkl8LoSxJvq5p7ofIL1RXSpbJS10cMT70nEebRSeXToig7
+ tpFXuWk3tNR8Z1Z2TqQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-22_03,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 clxscore=1015 phishscore=0 lowpriorityscore=0 bulkscore=0
+ impostorscore=0 adultscore=0 malwarescore=0 spamscore=0 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610220039
 
-On Thu, Oct 22, 2026 at 08:14:30AM +0000, Shivank Garg wrote:
-> clear_contig_highpages() clears the whole range at once under
-> preemptible models. Otherwise it clears PROCESS_PAGES_NON_PREEMPT_BATCH
-> pages at a time, with a cond_resched() in between. The batch is 32MB if
-> the architecture defines clear_pages(), and one page otherwise.
-> 
-> Since commit 7dadeaa6e851 ("sched: Further restrict the preemption
-> modes"), architectures that support lazy preemption only offer the
-> full, lazy and RT preemption models, also with PREEMPT_DYNAMIC. x86 is
-> one of them, and it is the only architecture that defines
-> clear_pages(). So the 32MB batch is never used: whenever
-> clear_contig_highpages() runs under a cooperative model, the batch is
-> one page.
-> 
-> Make that explicit. Clear the whole range when CONFIG_PREEMPTION is
-> set, and one page at a time with cond_resched() in between otherwise.
-> Drop PROCESS_PAGES_NON_PREEMPT_BATCH, which has no other users.
-> 
-> PREEMPT_DYNAMIC kernels also have CONFIG_PREEMPTION set, and
-> cond_resched() does nothing on any of these kernels. So a build-time
-> CONFIG_PREEMPTION check is enough, and preempt_model_preemptible() is
-> not needed.
-> 
-> No functional change intended.
-> 
-> Suggested-by: David Hildenbrand <david@kernel.org>
-> Signed-off-by: Shivank Garg <shivankg@amd.com>
-> ---
-> This came up in review of the copy_mc_highpages() series [1]. Pedro
-> pointed out that most architecture are full or lazy preempt, so mm does
-> not need to check the preemption model at runtime or batch the copy for
-> cond_resched(), and simple per-page fallback is enough for non-preemptible
-> models. David suggested doing the same for the zeroing path, and
-> this patch does that.
-> 
-> [1] https://lore.kernel.org/all/20261019-batpagecopy-v2-1-d75e7d0dfaae@amd.com 
-> ---
->  include/linux/mm.h | 28 +---------------------------
->  mm/memory.c        | 29 ++++++++++++++++-------------
->  2 files changed, 17 insertions(+), 40 deletions(-)
+Add machine driver support for the Shikra IQS EVK variant that uses the
+LT9611UXD HDMI bridge as an I2S audio codec instead of the MAX98091.
+The new compatible reuses the generic sc8280xp DAPM widgets and configures
+the codec DAI format for I2S with bit/frame clock driven by the codec.
 
-Awesome!
+Signed-off-by: Karthik S <karthik.s@oss.qualcomm.com>
+---
+ sound/soc/qcom/sc8280xp.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
 
-> 
-> diff --git a/include/linux/mm.h b/include/linux/mm.h
-> index 35f5fc43861a..1083d0645d63 100644
-> --- a/include/linux/mm.h
-> +++ b/include/linux/mm.h
-> @@ -5269,7 +5269,7 @@ static inline void clear_page_guard(struct zone *zone, struct page *page,
->   *
->   * When running under preemptible models this is not a problem. Under
->   * cooperatively scheduled models, however, the caller is expected to
-> - * limit @npages to no more than PROCESS_PAGES_NON_PREEMPT_BATCH.
-> + * clear one page at a time and call cond_resched() in between.
-
-Why can't clear_pages() itself do cond_resched()? Same question for
-clear_user_pages() and/or clear_user_highpages().
-
+diff --git a/sound/soc/qcom/sc8280xp.c b/sound/soc/qcom/sc8280xp.c
+index 9860a68e2add..66064c31136b 100644
+--- a/sound/soc/qcom/sc8280xp.c
++++ b/sound/soc/qcom/sc8280xp.c
+@@ -541,6 +541,15 @@ static const struct qcom_snd_soc_common shikra_iqs_priv_data = {
+ 	.mi2s_bclk_enable = true,
+ };
+ 
++static const struct qcom_snd_soc_common shikra_iqs_lt9611uxd_priv_data = {
++	.driver_name = "shikra",
++	.dapm_widgets = sc8280xp_dapm_widgets,
++	.num_dapm_widgets = ARRAY_SIZE(sc8280xp_dapm_widgets),
++	.codec_dai_fmt = SND_SOC_DAIFMT_BC_FC |
++			 SND_SOC_DAIFMT_NB_NF |
++			 SND_SOC_DAIFMT_I2S,
++};
++
+ static const struct qcom_snd_soc_common sm8450_priv_data = {
+ 	.driver_name = "sm8450",
+ 	.dapm_widgets = sc8280xp_dapm_widgets,
+@@ -608,6 +617,8 @@ static const struct of_device_id snd_sc8280xp_dt_match[] = {
+ 	{ .compatible = "qcom,qcs9100-sndcard", .data = &qcs9100_priv_data },
+ 	{ .compatible = "qcom,sc8280xp-sndcard", .data = &sc8280xp_priv_data },
+ 	{ .compatible = "qcom,shikra-iqs-sndcard", .data = &shikra_iqs_priv_data },
++	{ .compatible = "qcom,shikra-iqs-lt9611uxd-sndcard",
++	  .data = &shikra_iqs_lt9611uxd_priv_data },
+ 	{ .compatible = "qcom,sm8450-sndcard", .data = &sm8450_priv_data },
+ 	{ .compatible = "qcom,sm8475-sndcard", .data = &sm8475_priv_data },
+ 	{ .compatible = "qcom,sm8550-sndcard", .data = &sm8550_priv_data },
 -- 
-Pedro
+2.34.1
+
