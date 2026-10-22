@@ -1,96 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792660157;
-	b=X7mNGwvGyyUJkrGkGimEW+s+I/ClImKvqMQrs/Vj2rob8en4RnvGjshScqwBxFcXtyKz
-	 rOdlKfukXl1mFKNciSP8XpfMiRX8Zzw2VPIEIgkcJPAT1WrqcvA5XRboSbcrwRdlicYKe
-	 cfl9Iey/iOVYDOZjE4emafO9C143gGPu0dB/YwaTsS1IXov/KgXEoroP+P/oQGKrNqTzG
-	 EdD1NXgQG2BXid4eAQa2l+kRtpsnW/O/pbcKb6x+t7jaqQ95tIyyJsVBH2MwiLVFVHaPG
-	 YQp0y223vvr16aebWHNnXX+bUkx6YzJUertCBhZKz9v2NlWqt8WFElthmdJN163ThXQ==
+	t=1792660171;
+	b=hbtkiqCwOZTzr7wv9APcKZlWCQbt6tdkbjNCbw0n+Hv7sUm+jWnHr/dqh48OBQy/UhOA
+	 Sc7P5S7JUQukuGnV+EgvsuA4dClTTWhMNSdxbWYt6ZIEOr4Bx63+jJtxIwdVusrSENsC5
+	 CgY9tIshaL7gKRRwAvbXDWGBVvc9M3VHkcTW2aNwfxyWjnV9YOcLGAoE2VHK+Rrez1dQB
+	 oZqWLjQ4X/oaKEDvq6yVDO4avI+b6+gUdVIr78pfxO/hvWVrFKnEIZRX1/HXK3k9p2BxS
+	 0ENKaEIna8iqB+iM3+47Fnuk+08zIqa6mW/dJhsDi056BjTwhRThV6hDxktEfBf3Y+A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792660157;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=lFKRiSem7YLaN/MRPmgMwVevdlnMfUBDEjFcSaNLdvc=;
-	b=kRocDpc59v6Xm9UWmoPKjgJ8ew3WHQuBlYSapweTuQsf8G7giZ77BDqEpPLwtOe8Ou7k
-	 fCN93bV32g9epjtShvmUqlfhN7JOuTjbwYQBz+9nhcz79iyCC1x55zZj+9ZuXv8Jx7l5V
-	 ilWvMiqFxnQmncV23Ty4QyV8j7OcEnxL1T1lrxBRwG8L4LnlVA6TBB8PYx5v2yeb0hECF
-	 dh1VcWi9pg5lYSOKUYoaj/9yuopAzZEZw4RnkfCZpbPzdoHHS3VvXqLnqCRFkEmk1NN/7
-	 a+8B+OnN/7GxPkO46iB5youX3VNqyJMLmAMBuAiE55lF0Qmhugh+PsynrEzRmGfCNCw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792660171;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:
+	 Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=j3WJZdu5775elj6uuKLwnG5OWtcyQAMV793EswPClxw=;
+	b=xrTFHNtvZSVSMIeRf0zmMekOjrl7tHXutX550ncnzhy5IEfIQO0QNnNBVSnT5Hv7GfSs
+	 NlOAowhFH2/pZhB3kXoKWg2prrjQ1gT+ighq9/+fTR8lEKKOg0fZRzw3PwST4eugu3Nz+
+	 n2KfIYgJHVOF6gCButg+uKDmCn6L97rwkz5pb5U4KOwW/DQKch0IXyy/kx95zFpIyo5fn
+	 N669/Uv2XrnJthKbeOJmceYXF1FM9MNB6sITD3Y5RHemAuKxc6BTXJKme370xgy9WL8XY
+	 nHt6yZ9xmfSSk2fqYprEyglIhY+5QeCrv3Cs7ZSrnvTSflrfaE0qE56SsFOjoQy5o1Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=HHWowCId;
-	arc=none smtp.remote-ip=209.85.215.182
-Received: from mail-pg1-f182.google.com (mail-pg1-f182.google.com [209.85.215.182])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Sok4x+qO;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=U3TGMiHe;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 856F9606A31F
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 09:09:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 856F9606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE38F606A319
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 09:09:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AE38F606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=HHWowCId
-Received: by mail-pg1-f182.google.com with SMTP id 41be03b00d2f7-cc751eddf25so794878a12.3
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 02:09:17 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Sok4x+qO;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=U3TGMiHe
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69M6xsMe2172035
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 09:09:29 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=j3WJZdu5775elj6uuKLwnG
+	5OWtcyQAMV793EswPClxw=; b=Sok4x+qOHyVxuPipE7GtNfO1/rPu2zg79DNu8N
+	hnplTNRMR+l5OdyGhr1eeeGo5Q3ZjY8oZtB3xF17wF99fhHKnihjZqA93HKg1IXn
+	XuFboaCcdZKCTRGO617gnO8qFLmOgDMt9fr3A4rPtt45Ra+0e4jy/JtjaPTr6IZL
+	avn71avb6o5huyFX2wJozZeuctvcpKUllYJgMw1uoZzVG76uILTeu50jul9GISA3
+	OWSJTiXw7SmlZUy7nl4W43bsp63nYHqw0SEIpKE2ToYsWfmLHZqxIgzIdjy4TNNP
+	xT80qtksputk4foZPzsZkJaV/C8HW0wQ3HqkhoJArnKbjWnQ==
+Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hf93ahkyq-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 09:09:29 +0000 (GMT)
+Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-3510d0baf63so3813481eec.1
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 02:09:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792660157; x=1793264957; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=lFKRiSem7YLaN/MRPmgMwVevdlnMfUBDEjFcSaNLdvc=;
-        b=HHWowCIdQ/KaURB5tsdDq7pFAsBgsLRT1B7zfzgXtatXqIkh8OK5/Yte5Pn5g1YUF4
-         HwUqPc+eQOpICFOe7hdxe3oVR0KIIgOAHVZYFv+qRTzpz9DdjBHLPcIHu3UnnEKe7pXN
-         NIWVjfDZx2hNVH7+Z2UEr+vtoheeQG2IYWrpDKKR2j44Ll6BwfIqlKOmtDKY8xKR5Vb0
-         lFU0juowmzC+N2PLl6FtgDg0KJnaxughBdraa3V3eiuRdKpF8mC9J7Qor4aKmot/ooOL
-         NVIslYVMSJZJdwK9QMpLyNqzd9Z6ESANo89kuGQDBFDlLh+CnKS/mGSA3EEgyHJIXzrx
-         0h4A==
+        d=oss.qualcomm.com; s=google; t=1792660169; x=1793264969; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=j3WJZdu5775elj6uuKLwnG5OWtcyQAMV793EswPClxw=;
+        b=U3TGMiHeLmNtePntlLn0jtbc8ydMq1mGgx+56FWS+bz9AORyns/4Tdvq8i/y1Wym8o
+         dSDXNlk7lQW648OTvgMlP3uVSUaubrUXZQzo7pvdPYTbXdp3ytVBSoPJdyyeLVZ3AyIT
+         8wRUik1YJxYBmjTE+Cu0FoeaLIEnYqYy4DzAoPdH6c6mx/+kynC9/Xbzp6T+QqUy/qWo
+         HVCIhfl/kkthXDSnneZrn/HIGkL+hi5AHMTpHiWpOJf6IPc7oibE60KvwWElexiHxyUl
+         yIEF2SOylP3xyJUXBpmtslcVWsovXzDwZTg46JGZ5omJd8CEOj/y+q317Hp1GMqHviKK
+         T8Hg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792660157; x=1793264957;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=lFKRiSem7YLaN/MRPmgMwVevdlnMfUBDEjFcSaNLdvc=;
-        b=NUUe+fXjqr9hEyKmDJHuL2vaoauwOLm0iVIRvu7at1dx2DIXeHYeyYCKfK9NlKLoTi
-         DSqMr/bzrM/A0AvtqGzrhq4OzWC/ZWml+OvtE41CnIdIqvhZjOJNDPxFo9eyQz9yYx8b
-         VfvkJ0OS5VXeH5Hy8mD6WDou5MEl6M0xd0Snt0xB7Va7V/sxyDWpa4v5AusFku8vlbgz
-         svHKW7yHvSxaxsImy2wvIzMz9VYMjXrTUNTLWwuaTC2DslXijtsuIL7lPH8qMldpiziY
-         KXBs87vc3w+G3yLoRNj2JfDnrUNQpB1zXPCHdHvYe5GVm0RmW1zrVX+NBi/MSy3aYdww
-         yR/Q==
-X-Forwarded-Encrypted: i=1; AKwUvBy+Ljaj4VqHqGhZNOR+9yRGBL3jsc7JhgAdp7TxtF4YpVLgTaQdY4l+1AvMy/XKw9qVmQtOACkmWStc7Rk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIgs5VQ72/Iiy7BuP7KGKDdI7Jt37KMQ9briSEoTID2BLOK1Iz7
-	NJCnlXY9lsdu3egPzXAR9NEJCQoTG/JdEfMu8EruH54jiTH7NlYwnWi2
-X-Gm-Gg: AYBFou2OcMYDZzRVzYAcwINpDDyA39Jq1hTPJJSQj+wrKQg/tXgPwnJ5GOTgE5OQUNr
-	0W4dKuPBgGPu1YKngog5R8tlKMdAa1u9EfVUPSyLvLvWM75738SJiHqlRn1++z4ftNqQSfDXzff
-	FgHhC08m7NmWrDVzxuEoK+azChSQACqRkoyLFbe1aJKB9vXGuwU+2rGgHikC7my5aQg2qWmjJLR
-	gUo7aKwTVIhv8oMc8GsHfQkuAP136Yilkl4s53Ga7mClPg9/OpAS8SqcXwPEbF5vAvgvlhDyWiU
-	Lo3KXyh2jMPy0CcYhecF7/xAiCH+A2JQI+T9sh/kIyAji56ZyJSdhYRDLFckH7MywY5uImc2pgE
-	jLMqhSyjzpT+yfetC8mb5c17kXvSJ4Iv5lAGIS8gFRh16Stk8f2RjSsR0b9fdddFlwNjgDquaow
-	ZNPsCt6rnZ05pTLqz351rZ7JaDhUtzC7PSw9bDOEvomIMj93bD2WeSSqNwnsbfmTWfPve25Khqn
-	bq1T8f+ZjwBAMbu8OFabxxlzIKMPZLWjehpfca44iVcVGuEFH4=
-X-Received: by 2002:a17:90b:5788:b0:3ac:74b3:a8f3 with SMTP id 98e67ed59e1d1-3ad86f43374mr3719443a91.44.1792660156804;
-        Thu, 22 Oct 2026 02:09:16 -0700 (PDT)
-Received: from localhost ([111.228.63.84])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ada48a573fsm3460469a91.10.2026.10.22.02.09.13
+        d=1e100.net; s=20260707; t=1792660169; x=1793264969;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=j3WJZdu5775elj6uuKLwnG5OWtcyQAMV793EswPClxw=;
+        b=kwLVmpz84CXyf5+Mlq8wVafsOEfzOqgeCvMrRCMLaVMuyAGxyZayxKHrQVKWmozFEs
+         5cVyJ44XCl90OuU/4Y8D2lpaTWhPc09bdiO5mv7j7AubNM6WUFX5ws6l/X1lbejFSzP6
+         GLIqb0pX4quwgCn2LSy+mrV3pr2U6glcEAKAxGkIxbpBzLGxq0TBQW+PiD3BNGtQAKv8
+         42KdghuiI/IkBpz9/OBOweZjwuMEVfiUmSzpCGZ4kUIgOjkq9ybn+pXeLYwXddoL4h0C
+         WgJ3AeZcl8/qHhjrA7BlXWMMfaXdOdY6X9u/QJfNOq3x34C5w3YKnqRHt9W9tVx7D9Ij
+         r7iA==
+X-Forwarded-Encrypted: i=1; AKwUvBwfFUvJ6RAB1wUx0W8aPlSExrYKLauSqOP8BZ8p/ED2LxKIjor/5yPF0lOIvSYPcwloCQovteQRaStxgoU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLpc81+wQVpugBlZQ9CXrzSf8N5DZanjmwQglCZLNf9mnQyeoLM
+	kTSkramSVaYzw20e22waObgPcnUP+6/f1s4FURlgls1KBCNTHMz1TDj1AhLN6HkjlIsGDCidh1M
+	iPf/0kTiG64WkR/4WdRp02qos7H+aWjEfS3EcpOqy/4GGtppUk7AnleXbtYqnbDHc2Uw=
+X-Gm-Gg: AYBFou3tM4g8Ns2C5s5Lfds2gF35wPPlvrR4mC5NkAd/UGPRRzZUWYoQBPT1/+7PJBK
+	Gq0CkmPTUBw12P80YHTh4FwhBV0E6a9TjGxaFXDjUmTp51Wrv3ZTdp9/oMshx7i8BCf8EJ6mcht
+	5oJmcMnwDK9ViIO8jCOIHiVbxu3yKLqKAP9PUNS3XhwQGroIe5OyRuOvFTNc2GylynZSrIpBd2N
+	yoweFCC513uJW58aXDyhs/BzDgnF8VOLSPkbv5Qj1iD4ivPsdQ6N9NtUt14WN4+jLgrStsKfi7T
+	u5gTbq+HYFf3rm0R3Ah2ASen4BJW8e2JJZo20MKC1oIkRaHJ9y0/wkX3yMiUcAEFTdgkpG5uCIc
+	kbYh1W66ShOtBii8RxYRdFR2Td5l7r/NC
+X-Received: by 2002:a05:701b:428c:20b0:143:54c6:6a5 with SMTP id a92af1059eb24-190a7e0c231mr5790185c88.37.1792660168780;
+        Thu, 22 Oct 2026 02:09:28 -0700 (PDT)
+X-Received: by 2002:a05:701b:428c:20b0:143:54c6:6a5 with SMTP id a92af1059eb24-190a7e0c231mr5790148c88.37.1792660168220;
+        Thu, 22 Oct 2026 02:09:28 -0700 (PDT)
+Received: from hu-vkatoch-hyd.qualcomm.com ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1903a180b9esm20475694c88.4.2026.10.22.02.09.23
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 02:09:16 -0700 (PDT)
-From: Cen Zhang <zzzccc427@gmail.com>
-To: mark@fasheh.com,
-	jlbec@evilplan.org,
-	joseph.qi@linux.alibaba.com
-Cc: heming.zhao@suse.com,
-	ocfs2-devel@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	baijiaju1990@gmail.com,
-	jjzuming@gmail.com,
-	zzzccc427@gmail.com
-Subject: [PATCH v2] ocfs2/dlm: drain join handlers before releasing module text
-Date: Thu, 22 Oct 2026 17:09:10 +0800
-Message-Id: <pm-ocfs2-objects-candidate-0076-v6-12de5f4628f57fba3be3@gmail.com>
-X-Mailer: git-send-email 2.34.1
+        Thu, 22 Oct 2026 02:09:27 -0700 (PDT)
+From: Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>
+Subject: [PATCH v2 0/2] fastrpc: fix probe-time races between rpmsg and
+ userspace
+Date: Thu, 22 Oct 2026 14:38:46 +0530
+Message-Id: <20261022-fastrpc-probe-fixes-v2-0-a6b3f6f62571@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,121 +115,101 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAJ7S2WoC/22PPW7DMAyFr2JoLgPKimXLU+9RZNAP1QhoIke0j
+ RaB717ZGbp0IfhI8HuPT8FUErEYm6cotCZO+V5F+9YIf7X3T4IUqhYtthpNqyBansvkYSrZEcT
+ 0TQwKvTQDug5Ji3o5FToW9fDj8tKFHkuFz6/hH7ta7eTKhrBMwMR7AgayrfXWVq45j+tBdZYJf
+ L7d0jw2Q+xDROxs3+mzC32MtQvWeIVDFzpnjI6SpBa7/zXxnMvP8eQqjwC7q0SU//6zSkCQqtf
+ BKDc4Re+Z+fRY7Nduf6pFXLZt+wVfI7UNPQEAAA==
+X-Change-ID: 20260923-fastrpc-probe-fixes-30c1980b50e6
+To: Srinivas Kandagatla <srini@kernel.org>,
+        Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
+        Arnd Bergmann <arnd@arndb.de>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Thierry Escande <thierry.escande@linaro.org>
+Cc: Bharath Kumar <bkumar@qti.qualcomm.com>,
+        Chenna Kesava Raju <chennak@qti.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+        linux-kernel@vger.kernel.org,
+        Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>,
+        stable@vger.kernel.org
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792660163; l=1910;
+ i=vinayak.katoch@oss.qualcomm.com; s=20260609; h=from:subject:message-id;
+ bh=GFQalxNhnzpwWjm7qg2xNhpXW9tdjjxqTNEL/AZf5UM=;
+ b=QbQSyyVdl4WlLYx8U2VU5VSCc6okBD3GFA81JkdZS7FkrpJp5C7ukMRM06GCf1gxI48cZynGC
+ 1mR5saLcRfgAHEHis2LoIX8F7z/NPrUQYV2Ly1h+RU6Svnjk7MlaVCO
+X-Developer-Key: i=vinayak.katoch@oss.qualcomm.com; a=ed25519;
+ pk=UrGeKKxjIjpHZIjsbQKS/8rrVaP9KVGki69pFclCH08=
+X-Proofpoint-GUID: _ih0assdNDdYgZlcWfq-cE5244Sa-VbG
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIyMDAzNiBTYWx0ZWRfX+Qygi0bGzVlN
+ 6RjesJ3B0ZElK/PubcSKs44quPfoS97W1BCa2TplvcHVJvbxxx87QcfWV9/E711c9Z+TQVL502Q
+ w3Ug/l59mKPWFrLLiERFIrXTr55gkI4=
+X-Proofpoint-ORIG-GUID: _ih0assdNDdYgZlcWfq-cE5244Sa-VbG
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIyMDAzNiBTYWx0ZWRfX8I6P4a1Eoa6i
+ PwCNHX4+glNjAiJHhHS5myBol1lrZnqSN1WdIAyjj/9jFkYdSSrMN3+nSAvnHanxwIMPtCjVJ/K
+ J5Q73fEVvZ5mFaKPaz1BAt51OgtEzTMfKUs9sQYtFN/TMsxBL9jNayIA2N8/R3ylTnZEQ3guI/m
+ yUCJp5SOyQPsgQqRdUZFwmHTkET04eMdgn+D5nR9LZlG7L8CmiOhtfRVl61OpRAlJwItDvjdexf
+ rPB/I4msbkjF/Bgs3X5PuMUKA0Uzp6l+iDj3zlG2sOJE+dsR4WvJiVNQsp+txnABMEGJqoxAoo6
+ jJrMFhz8Te17gOKSfUyMZtBWhpFmAZabLut/+sM20ZtXV29WaS/DO3+x0ZYdDy3POYcYs5zmQ0P
+ QQH/NhmgYMaa1GN0yhAqfFQgtC3UqFlgJnkJLAtK2oMuCVMxzhFWL4EX8PL+risAJJTjjsrQeuW
+ gCKK4oTzjHib0j3yZmw==
+X-Authority-Analysis: v=2.4 cv=dOszC+Zb c=1 sm=1 tr=0 ts=6ad9d2c9 cx=c_pps
+ a=Uww141gWH0fZj/3QKPojxA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=Z9hRlnAjW1SqKzzyvooA:9 a=QEXdDO2ut3YA:10
+ a=PxkB5W3o20Ba91AHUih5:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-22_03,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 impostorscore=0 malwarescore=0 priorityscore=1501
+ suspectscore=0 spamscore=0 adultscore=0 phishscore=0 bulkscore=0
+ clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
+ definitions=main-2610220036
 
-The code for a registered DLM handler must remain resident until its
-last invocation finishes. dlm_unregister_net_handlers() only removes
-dlm_join_handlers from the o2net registry. o2net_handler_get() takes a
-kref on the wrapper, but that reference does not pin ocfs2_dlm text.
-o2net_process_message() calls nh_func after dropping o2net_handler_lock.
+This series fixes two races in fastrpc_rpmsg_probe() that can be
+triggered when userspace opens a fastrpc device node concurrently with
+the rpmsg probe sequence.
 
-With CONFIG_OCFS2_FS_O2CB=m, ocfs2_dlm can be loaded independently of
-ocfs2_stack_o2cb while nodemanager continues handling messages from a
-configured, heartbeating peer. If no dependent module or module reference
-prevents normal unload, the following ordering is possible:
+fastrpc_device_register() calls misc_register() before the channel
+context is fully initialised. A concurrent open() in that window hits
+kref_get() on a zero refcount, and because fastrpc_cb_devices_create()
+has not yet run sesscount is 0, the error path calls kref_put() on the
+saturated refcount, triggering kfree() of the channel context. A
+subsequent IRQ-path fastrpc_rpmsg_callback() then dereferences the
+freed spinlock, causing a kernel panic. A NULL dereference in the
+fastrpc_device_open() error path when cctx->rpdev is concurrently
+cleared by fastrpc_rpmsg_remove() is also addressed.
 
-  Receive worker                       Module unload
-  --------------                       -------------
-  o2net_handler_get()
-    take wrapper kref
-    drop handler lock
-  <preempted>
-                                       dlm_exit()
-                                         unregister handlers
-                                       release DLM module text
-  call saved nh_func
-    in released module text
-
-Use o2net_unregister_and_flush_handler_list() in the shared DLM
-unregister helper. It first prevents new lookups, then waits for the
-ordered o2net workqueue to drain, including a concurrent destruction of
-that queue. The acquired invocation therefore finishes before dlm_exit()
-returns and the loader releases the callback code. The same helper
-covers partial registration and dlm_init() error unwind before module
-memory is released.
-
-Skip the drain when the private join-handler list is empty. Early
-dlm_init() failures can reach this helper before any handler has been
-published. Partial-registration failure also reaches it a second time
-after the first call has already unregistered and drained the list.
-Neither case needs to take o2net_wq_mutex or drain unrelated work.
-The list is changed only by serialized module init/exit paths; a
-nonempty list still uses the full unregister-and-flush helper.
-
-Oops report as below:
-
-    Oops: int3: 0000 [#1] SMP KASAN NOPTI
-    CPU: 2 UID: 0 PID: 54 Comm: kworker/u16:3 Not tainted 7.3.0-rc4-next-20260921-pmb-ocfs2-functional-v1+ #1 PREEMPT(lazy)
-
-Hardware identification omitted.
-
-    Workqueue: o2net o2net_rx_until_empty [ocfs2_nodemanager]
-    RIP: 0010:0xffffffffc0423871
-    [Instruction byte dump omitted.]
-
-Register dump omitted.
-
-    Call Trace:
-     <TASK>
-     ? o2net_rx_until_empty+0x19b1/0x3300 [ocfs2_nodemanager]
-     ? __pfx_o2net_rx_until_empty+0x10/0x10 [ocfs2_nodemanager]
-     ? lock_acquire+0x190/0x300
-     ? process_one_work+0x935/0x1b40
-     ? process_one_work+0x834/0x1b40
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? lock_release+0xc8/0x290
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? process_one_work+0x9a8/0x1b40
-     ? __pfx_process_one_work+0x10/0x10
-     ? lock_acquire+0x190/0x300
-     ? lock_is_held_type+0x8f/0x100
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? worker_thread+0x65c/0xe40
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __kthread_parkme+0x177/0x220
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __pfx_worker_thread+0x10/0x10
-     ? kthread+0x351/0x460
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __pfx_kthread+0x10/0x10
-     ? ret_from_fork+0x659/0x940
-     ? __pfx_ret_from_fork+0x10/0x10
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __switch_to+0x74f/0xf70
-     ? __pfx_kthread+0x10/0x10
-     ? ret_from_fork_asm+0x1a/0x30
-     </TASK>
-    Modules linked in: ocfs2_nodemanager [last unloaded: ocfs2_dlm]
-    ---[ end trace 0000000000000000 ]---
-
-Fixes: 6714d8e86bf4 ("[PATCH] OCFS2: The Second Oracle Cluster Filesystem")
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
-Assisted-by: LLM
+Signed-off-by: Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>
 ---
 Changes in v2:
-- Skip unregister-and-flush when the private join-handler list is empty,
-  covering early dlm_init failures and the second cleanup after
-  partial-registration unwind.
-- Retain the full unregister-and-flush helper for every nonempty list; do
-  not change the generic o2net helper.
+- Add Cc: stable to both fixes
+- Free cctx via fastrpc_channel_ctx_put() in the probe error path
+- Clear rpdev and wake pending users there, as remove() does
+- Move fastrpc_notify_users() above probe
+- Link to v1: https://lore.kernel.org/r/20261001-fastrpc-probe-fixes-v1-0-1376d93b8b3e@oss.qualcomm.com
 
-Link to v1: https://lore.kernel.org/r/pm-ocfs2-objects-candidate-0076-v5-dd198d8a9358ad81f70e@gmail.com
+---
+Vinayak Katoch (2):
+      misc: fastrpc: fix NULL rpdev dereference when session alloc fails
+      misc: fastrpc: fix init ordering race in rpmsg probe
 
- fs/ocfs2/dlm/dlmdomain.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/misc/fastrpc.c | 95 +++++++++++++++++++++++++++++---------------------
+ 1 file changed, 56 insertions(+), 39 deletions(-)
+---
+base-commit: 8f7df005a7564bd7ffa75da9c3085d5b996f1e16
+change-id: 20260923-fastrpc-probe-fixes-30c1980b50e6
+prerequisite-change-id: 20260609-dup-sessions-ea2acaac1994:v6
+prerequisite-patch-id: c8b4a3873f9cf0d69beff0f608933ae83faa4c47
+prerequisite-patch-id: 05d9299adf4184e0e56d97dc063ab5bf227cc5a5
+prerequisite-patch-id: da0a3d55397a522ea4b77769e387df9faea8e024
 
-diff --git a/fs/ocfs2/dlm/dlmdomain.c b/fs/ocfs2/dlm/dlmdomain.c
-index 97bb9400e24b..a7dc3da6dfc7 100644
---- a/fs/ocfs2/dlm/dlmdomain.c
-+++ b/fs/ocfs2/dlm/dlmdomain.c
-@@ -2215,7 +2215,8 @@ static LIST_HEAD(dlm_join_handlers);
- 
- static void dlm_unregister_net_handlers(void)
- {
--	o2net_unregister_handler_list(&dlm_join_handlers);
-+	if (!list_empty(&dlm_join_handlers))
-+		o2net_unregister_and_flush_handler_list(&dlm_join_handlers);
- }
- 
- static int dlm_register_net_handlers(void)
+Best regards,
+-- 
+Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>
+
