@@ -1,47 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.2
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792680502;
-	b=WshhdZMW+uR7X/nM89UkX2UtBBBKbOGmcJx3pQGGIKc/tDcH5MXDo3jt4n8dtmCwHVg7
-	 maP/E8PTw6+N6oQCdkXTvVhN3ZSO9a+gcHgb0uJrg1GQK0oxbqyOtlZwr8wcMZqGjMsA0
-	 9Sq7q4s5xO55sBxaJ6gMnAd3kmeBiYV7shGvnA31FG6k6NVBNG6uDInTb42HXFm9xIP/K
-	 7+Pas+IW6z4mIZWJfb4Y4rWXbsVB+Bva0RtNRuJzMmbjytnJuTBm3DO1ztAZfVQQrTWSW
-	 sDWjKvhct1CnSkn75FUcOKO1FTNWctin/G7QA19tCXyjABFxjIakef6jn4E8mh0d6xw==
+	t=1792680503;
+	b=Q+4XswPdbsoWOChTpNUpEge9g3x6ki3J1QB0B/nVc0VJK3091uUgv3Khl4Jam7CpVz0a
+	 yQHOsGVJ1WLmepvWDk7gnUcvfeDMDZjwzxMjYlYVmrLAqduF5x0uNMV7yp/zH3L13YnqN
+	 royY7b2SiWXtK0KFFHFDv0nzA3HDwvEXhHV2BEZpjPz77z5tv67647YBzHemjz9jlC/+K
+	 8nBFR1fo7p7Mpji1OjtQ4W5vwZ81w/SnZH2n/MpvcQbipuU9YM7cQv0f5a2LCZGNgeQJK
+	 PFzRdA++GeVRJJ8/zHnoL8+MKk7VC/2ktN+iNj2eH2cvA3PWpKFn7RnWRivZIJvXnQg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792680502;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792680503;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
 	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
 	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=JIZAZ3c9LS1qnten8xy0SvIuFnFh5L4naIL9e+hozVQ=;
-	b=a1ApZsiLFKfRv+eI3nPIsZHiExRPpk7r3U3OWVT07CkDzbaN+1WEC4f8wENpfp6usASf
-	 LRiMRrYPG5m6ES8SAi809NT6xG/4IrS4339CM3tluEqiFe8Fr3S3hC17J4n7rxbd6iWcX
-	 7j4A+CQ5MtZRNbtHNE4PWuNpQFjRk4s/pDK3hpoAD0/edjLGUz2ZlR0oic4Zqu6a3qqIi
-	 /Wsa3BtGg9aNiNoDLnJRFWBzcRZjJJNRb6iuItfgEs0bDBzrDPPltnMQtTizoU0h57amp
-	 Z/5K4Lb7jK0vU0kQXWSnyisccG3EEVeZ05fWussHRw3ShoiQNF0UZTTiJSAiJ5oAhrQ==
+	bh=XruWLBcFftxHPWtjB/T+7YAss7gRXk1fNFoX14yTFGA=;
+	b=dDogTdb6UFdh65E+H2wcIe4M9MIZxoC8V7NttYPLLK7JNU8HU4dn2YcDDGMwLn6gWByJ
+	 3i0YT4E5kc4rX3CAAA4kmiGnuIL4+y7HdrwlRaEov5MCl/5AcZwH7tcR9jjmnU+yYVpOr
+	 8gd+unXK7k3NVO2cKLM7vlr+j/AxNcPNJxA7HeYDyHsSJUYnf0GvCJnxEj00jkBc+o2wk
+	 3qH1eKjk0U/7RklVLtMC7YY3D9Qk7NqmfhStITIPMJ6quU+/jFodzHobclMDtKOF+YzLE
+	 MsZVHOT+aXbRmySwh6EJbooczF1O4+5nAtb7xWgvujFQQvbFc9Qv3ru4S6e4bsWiS0w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=163.com;
 	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=lU5rHfNN;
-	arc=none smtp.remote-ip=220.197.31.2
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=SwWYOYyN;
+	arc=none smtp.remote-ip=220.197.31.4
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 650FD606A320;
-	Thu, 22 Oct 2026 14:48:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 650FD606A320
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FA7F606A329;
+	Thu, 22 Oct 2026 14:48:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5FA7F606A329
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=lU5rHfNN
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=SwWYOYyN
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=JI
-	ZAZ3c9LS1qnten8xy0SvIuFnFh5L4naIL9e+hozVQ=; b=lU5rHfNNguWBgrWZSy
-	RzyZB3atWdAlF2oRwBZEd3jSEJjNVnrKFMd6GCDHIg576GD0gTo9kdTz1FlyMIJY
-	GOWdu9TwdArApZ8E0Bo+ph8c9k8D6qEO57jUOIk6JlMljTKJ43FfR640p+ldhqkq
-	iHK15P9CZjvq8/A57R3YUvQa4=
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=Xr
+	uWLBcFftxHPWtjB/T+7YAss7gRXk1fNFoX14yTFGA=; b=SwWYOYyNuaZvFHHBhH
+	IWuCOEmAVThR4GtXuwM6RGoTIKv7xI9IbNUJFR9p5RBmP0FrgeoxUdYjsKiGSHwd
+	AxRyUPyFB+uDnCGrPsoM1onDtnJ97zukH3WRSvQbTJrYVMMSXvwqhywDir6It/fU
+	ZqwPI4eJTvHhS5xqNQ764XVic=
 Received: from shaos.localdomain (unknown [])
-	by gzga-smtp-mtada-g1-3 (Coremail) with SMTP id _____wDXP14FItpqmG_qBg--.11453S2;
-	Thu, 22 Oct 2026 22:47:33 +0800 (CST)
+	by gzga-smtp-mtada-g1-3 (Coremail) with SMTP id _____wD3X2ARItpqA3jqBg--.13325S2;
+	Thu, 22 Oct 2026 22:47:46 +0800 (CST)
 From: shaos <shawnq1@163.com>
 To: jhs@mojatatu.com
 Cc: Jiri Pirko <jiri@resnulli.us>,
@@ -52,9 +52,9 @@ Cc: Jiri Pirko <jiri@resnulli.us>,
 	Simon Horman <horms@kernel.org>,
 	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [BUG] net/sched: act_gate cycle time can wrap hrtimer expiry to zero
-Date: Thu, 22 Oct 2026 14:47:32 +0000
-Message-Id: <20261022144732.61188-1-shawnq1@163.com>
+Subject: [BUG] net/sched: cls_bpf queue_mapping can index past dev->_tx
+Date: Thu, 22 Oct 2026 14:47:45 +0000
+Message-Id: <20261022144745.64154-1-shawnq1@163.com>
 X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -66,16 +66,16 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wDXP14FItpqmG_qBg--.11453S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7KryxXrWkuF17XF48GFWkCrg_yoW8AF18pF
-	WvvFWYy3Wqkw1DWFn3KFWxX3WIgwn7Jr45JFn8Jay8Zan0kwn2kF4Sy34YvFn3Zr95CFWF
-	vanYga97XFWUuF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07j5rcfUUUUU=
-X-CM-SenderInfo: pvkd40jtr6il2tof0z/xtbCzwXa6GraIgXJlQAA3z
+X-CM-TRANSID:_____wD3X2ARItpqA3jqBg--.13325S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7CF1DZw4DGF4fCryxXrWUJwb_yoW8Cr47p3
+	yvvayrA3WUKa12qrWvyFWxX3WrX3Z5Kr15Jw4DW3yDu39xuw4jyrWSyay5tFykXrykGFWS
+	y3yYva4xGa1rXaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jrkucUUUUU=
+X-CM-SenderInfo: pvkd40jtr6il2tof0z/xtbC0BLd62raIhLcdQAA3d
 
 Hello,
 
-An RTM_NEWACTION request installs act_gate with base_time=1, cycle_time=UINT64_MAX and one valid entry. The unchecked cycle arithmetic wraps the absolute timer deadline to zero; the hrtimer callback keeps restarting immediately and the add request never returns.
+A BPF_PROG_TYPE_SCHED_CLS filter attached to a transmit prio qdisc writes queue_mapping=4 on a four-queue device. qdisc_restart() later trusts the rewritten value and indexes dev->_tx[4].
 
 HEAD commit:    c03c1a14507dfaf8b856c2608f9ac216021fc222
 git tree:       30fd2ef82912c26cf3a58ad0ba6afc375fa851ac
@@ -83,18 +83,18 @@ source version: Linux 7.3.0, local master
 compiler:       gcc 11.4.0, GNU ld 2.38
 
 console output:
-https://gist.githubusercontent.com/shaos26/5393c0a25cccdd0b182a72de6d245c78/raw/3498a27c8537da1604402fd68c433e47de80f0dd/console-output.txt
+https://gist.githubusercontent.com/shaos26/78f9a35aefa28e146789cafa359f4503/raw/7e7d944d129639cd162492ae1881a47e29fbd68b/console-output.txt
 kernel config:
-https://gist.githubusercontent.com/shaos26/5393c0a25cccdd0b182a72de6d245c78/raw/e1458ab0ee43d1aa31991c1e3435cf9fee7635f4/kernel-config.txt
+https://gist.githubusercontent.com/shaos26/78f9a35aefa28e146789cafa359f4503/raw/92563268a50ce92ae4eef3789c52dec7666d0fc8/kernel-config.txt
 reproducer:
-https://gist.githubusercontent.com/shaos26/5393c0a25cccdd0b182a72de6d245c78/raw/9cf01ec7c86d32377ec34a6fb0e6b4b214a5e931/poc.c
+https://gist.githubusercontent.com/shaos26/78f9a35aefa28e146789cafa359f4503/raw/828b0ecf003bf52edc7b49af429dbeca013b044d/poc.c
 
-Build the tested kernel with the attached configuration and boot it in a disposable QEMU VM with softlockup reporting enabled. Compile poc.c statically and run as a process with initial-namespace CAP_NET_ADMIN. Do not run on a production system because the positive intentionally stalls a CPU.
+Build the tested kernel with the attached configuration, including CONFIG_DEBUG_NET and KASAN for the recorded oracles. Compile poc.c statically and run it in a disposable VM with the capabilities noted above. The positive mode uses an out-of-range mapping; the control uses mapping 1.
 
 Impact and prerequisites:
-The watchdog reports a soft lockup and can panic the machine when softlockup_panic is enabled. This reproduction requires CAP_NET_ADMIN in the initial user namespace; it is a privileged denial of service, not an unprivileged escalation.
+The four-queue test reaches an out-of-bounds netdev_queue access. CONFIG_DEBUG_NET reports the invalid index and KASAN reports an 8-byte read past the 1280-byte queue allocation. The PoC needs CAP_BPF or CAP_SYS_ADMIN in the initial user namespace, plus CAP_NET_ADMIN and CAP_NET_RAW. This is a privileged memory-safety bug; no privilege escalation is demonstrated.
 
-Validation: Two fresh positive boots reproduced the lockup. Near-maximum-cycle and patched-validation controls completed normally.
+Validation: Two independent fresh-boot positives and a packaged recheck reproduced the warning; an in-range mapping control was clean. KASAN corroboration is included.
 
 Thanks,
 
