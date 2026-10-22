@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792646836;
-	b=uXFgbhoTvc8OSP2Insa90i4Lx9pNezK+wZ8Gtd0KbNkDMR3bgiVo0SEn9YsuYb49qMTK
-	 5mJgaLHgvonVlV8DhMQWULDJwS+W+XpD6sZi/7wjPqV160vrd2Zbqw/cwUc2goxPEV2eq
-	 3nsdqBFlmokAz2siPaSwHM/DfZ9MKaRgnWImL1cd6IyjK/5zUmtI5uJDZdqPzQ9y6Zc1l
-	 fMTQ3pgVPMOXVs8I3t1cLk1Gct3kWvA97R40cLo46mxy5yJFAya1fRK5XzcgDzJezpl91
-	 BizOgK9x4Aj92zZlD63pPPkn+U/8hHCRhwwGLDeqqejYqNaAI80gHdWNgN8z7+NaUrg==
+	t=1792646835;
+	b=e8FfZg8Hbv3CJqjgqg/9hCs1x5I98gxTIVP/s+nRjsKG++2FNGjLyu93s9ipQ4ZVhD9/
+	 EeJIfjtmneLymvRDxIMKOLzO+r9VCH4Xce8RMnUgqV6U4s9JDlbHnGVTB7LT+12IhTPgA
+	 +OSkiMhW3ZKeCPY0GsQ1IvHh3/FG6yeAVHYQwPH41Opshw5JpoHlOtbliEgzU13FJ/9ZR
+	 H5psYAIjuiWrLdMN00YQTlt3uGB4fMSs/pc0IAU+fR5tQ4VODe3Ppci8/TXOT4+1V/Dis
+	 /rTewyBj1dVQpawn7lAIhBch83JF8OrVbhvHWJnvp4DEaNsz/HYdSeMQlcsIUqfxY+Q==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792646836;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792646835;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=r4tVxof6PG/Au9JKGDTI5f180KhJU5YjoA9yVCsIL0k=;
-	b=1fSr7Qhj6Jic8YtdaK+1b2Sw4vovo0ILRIR5eoxkfeeSAetMAEE0kp0CGWtL3AKn1PWg
-	 B1ifR1m0CS4LlKoqeDIs/8iFJaA6QNd+PVkFZh2OoQYoMdtI/VCPzJxGIV+mIF/xAigVF
-	 z/g5sKj0ouKXqir3oEl6n5y4WXxqg0fBJf45DjioFTHH/BFYSqK+lPs9VkiFMZ6JBtar2
-	 jOZkdl2QV6TbctlAfImgAP99ys8Lfj/Jhp1ZDFgDecAAdZyIck/qFgpR4FKRXe7EZJLGd
-	 lTo+AXzjqHW/oWq8oMkHUTZayF+dtSHAPgo0y7kjzr1h6Gu82lzmIJWNXhEvncsIOGQ==
+	bh=aJhSp5FQgDQDLiRKd4qpwkqXiFacPMHlJzlZVfDeqvg=;
+	b=nQDuvsKkLzrg0grwKoPW/alRThvldL85uvvY2h3B5LO33ZRBjPhMHlZoFE2YpoggMoIX
+	 /M3wnSslnXa+hTX/J0Oj5+KnGyD0yffBxEbO6zQoYxn+VyJ1sXmYvta9jJYCD/IRVIzDV
+	 M6T9e6JQHs3s4Tp/r0owlpBVWSbp7yTzxL3qNoXiTUZqg9XWPK8X0Gv5+4NSpkiiJOYlW
+	 aJmXJ/Htg7IkvKn2K3wVB50H2sAJqF1520T5M3dqmRQGslydBaxh3v2r05bUx/JMtHFHX
+	 sYMkvtaMMD7dcvBXlRMT6pYBfqZQhLc5dms7Db+2qNUEuurqAzap1MTyRD9kNx/G/JQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fE30Vozm;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=erOZXdar;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D55FB606A325;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38756606A31A;
 	Thu, 22 Oct 2026 05:27:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fE30Vozm
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=erOZXdar
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1792646835;
-	b=tHgVe8Gfacnh6xYMJy9HbC4mulZL2/LQ060OvbdQXUH/Hx+xlN/CK7RHACWVnhGiZ5OO
-	 i3k/raAkaWZ61RSV++KiAy5oowLd93Qn2tX9mFrkx24H2gB8COZx0IG4iAwYN0BLoGAN4
-	 M8/EI7H8VAOyWd2BAfxjB5skpUabkRtuunmih2+L+y3iJ2ukVFGlX+aHe7HO27DhI1Nro
-	 TIaYZydtsmr8tdOmPjyTynuh/NRXPewGwUCTX5+MnNmnpZ26tP+vReMTXP3cttVAqBVdu
-	 /gBsh4PN8Fpxwcjdyla6UHbXfJiqJlbYsWn1WullX4TnLnCR8oLKryWXrAzf/gYCGQQ==
+	t=1792646834;
+	b=14SjCSBg2m+a6emjQ5IiA/PfRQvTEAcwPIVDQUhQp5DbEjdAKW/MR2loxysd3nMPhera
+	 +Zae5x0VE4NGWiZOJxH5B/QTWfLZAcRmf8kKcZa/QrHAQNE4f5G3aT50b+i+0eRAUhVfM
+	 2xZDzk4DXtcY9WecjfcCbNrYtrb7C/vm5RsQgFPdGY4TpORHVivptvxHsXSv7evjII7Xy
+	 2fFoMa3zH+odUYRoxMocJqylm+i8FATZEPPTbIfHTtY8rEDDL0P85uaruR6KCl5/drWuo
+	 dXtKDtTYZZ4w40e0YlEvfSo+AUqJhAWAK0cMAzpxuOZc48sDzVS+wvT0tsmeGj+/VgQ==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1792646835;
+	c=relaxed/relaxed; t=1792646834;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=r4tVxof6PG/Au9JKGDTI5f180KhJU5YjoA9yVCsIL0k=;
-	b=lFrBdhlqWmeugxw5PwMhcmLeduv/Em105Jze+v5gxJXaqzcqL8AslB2s7bPCk+7NTgFH
-	 3hPNhWclyctx7fdoJ24AENMbkUgFvnVrsu5GQVKV3CgttmpyabV0G7tYupZwu+tmcY5G4
-	 wMclE8UD4tXexJ3asmjTKzfbplgn6v/IApCnxs2eLI/kbDuqrJdC5DkIxwvYkKouMRIYU
-	 XRUvls6jNuxt13n4RhTNA8ewdBFSyrfh8LWdgmg/0kzOW5A5rLn62zeQ8XgfgJipBAPwx
-	 KFAiGZ8KC1j9zMHxoePVULHx7//1aAfKmJ/akFDyxdc4tBBXF8I7Vfs/r5yfVS7SJCA==
+	bh=aJhSp5FQgDQDLiRKd4qpwkqXiFacPMHlJzlZVfDeqvg=;
+	b=pj1Mdue1krE6TPI6PXIKtiz91+sEubM5lu6sbP+zLSovP+FQX0bUp8qISb6lRjGsI6Vq
+	 R4LCkSqSl6re4boMk9HZexsbvBabQH4/f07gP7XKRmVpQkZQb/BX54Hr/SaajFYdz7Nww
+	 FyLkJJSpdX+iUXkptgkNgwX2se8ieQylwW7V+OL63Dlk642zx5vzMZNzQTGmvVRCMZnzH
+	 ja0c2FFqgV/Ihm2Zs3GzhUT9XAKAafoEfTKDWHISj22mOA29g6hCla5Bg4AHYuY31zZMV
+	 I76QJbHy14mhEb8fyEBqyx11niKBAlo9FdYwNeiFH4wLd7CIGUcoHgpOFEuqGfjRzEw==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 0B5E81F000C6;
-	Thu, 22 Oct 2026 05:27:15 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id DB18C1F000C2;
+	Thu, 22 Oct 2026 05:27:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792646835;
-	bh=r4tVxof6PG/Au9JKGDTI5f180KhJU5YjoA9yVCsIL0k=;
+	s=k20260515; t=1792646834;
+	bh=aJhSp5FQgDQDLiRKd4qpwkqXiFacPMHlJzlZVfDeqvg=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=fE30Vozm4R9LagRYglKu6F2w+DDOh4WEY+/746Ow2KmxnYIK+4qlNmP+RhPrxa72Y
-	 GpiEDQvyeNsNDarVI6EGNMJX0y4XqyGFBafzLPgfXmKTcYGpF8Mjqgy5n/WX0/8y8c
-	 h95r07mzHrn/S3itrd2y1cMClsEt7hsJDihBlhs4tIEB9KwN5sJQHQ/deF7qEyZWoL
-	 lsyvym79YNNGwxOa59qHTFHkGM3gN0g9AkUcdW68pSsnGG/4lKsSrfGXl8t1LAkhZd
-	 QL1Og2Xd7mjeFMfUs0EBQ+UenUby1wW+HvjTtD6fyjXngYbPlrGgyr0d9ojW8tGhkl
-	 mGKGIj/15txPA==
+	b=erOZXdarjU7UXewRLGyVa4HXBWWvFOTUgo7HPqkDVfD6XYKvCV1X8KBypfUbda/lF
+	 sQtRildmZqpudgHYF3oLRV/xIE0lFNMQ6FRHeHu9qzcxQ66lyaZCypXz6sg+aoi7nd
+	 j5cLtJ05Vfb9NLNxK1JGaZJjbJXqTao94R0Cf3TGzIlR6uRS/M6S1NchQ4mQUzY+H6
+	 XxQ20RmgcHZNhaVUmzJWvkIopV9PfOg69WBlaNQYS3zHDC+UMSVlXk/WucZSYrmhgq
+	 Bws78IcFuOiofiOXwZA9xksDU6pgQFYpfP58Fwtky0JB+Z5XfqUDvknqIDXDhxU11L
+	 xB6MsAFsnC0/A==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 60FD4434F1;
+	by lkml.kernel.org (Postfix) with ESMTP id 48493434E5;
 	Thu, 22 Oct 2026 05:27:13 +0000 (UTC)
 From: Zhentao Guo via B4 Relay <devnull+zhentao.guo.amlogic.com@kernel.org>
-Date: Thu, 22 Oct 2026 13:27:03 +0800
-Subject: [PATCH v12 5/6] arm64: dts: amlogic: Add video decoder driver
- support for S4 SOCs
+Date: Thu, 22 Oct 2026 13:27:00 +0800
+Subject: [PATCH v12 2/6] firmware: meson: sm: Add video firmware loading
+ SMC call
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,7 +84,7 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261022-b4-s4-vdec-upstream-v12-5-616240978792@amlogic.com>
+Message-Id: <20261022-b4-s4-vdec-upstream-v12-2-616240978792@amlogic.com>
 References: <20261022-b4-s4-vdec-upstream-v12-0-616240978792@amlogic.com>
 In-Reply-To: <20261022-b4-s4-vdec-upstream-v12-0-616240978792@amlogic.com>
 To: Nicolas Dufresne <nicolas.dufresne@collabora.com>, 
@@ -98,11 +98,11 @@ Cc: linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
  linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
  devicetree@vger.kernel.org, Zhentao Guo <zhentao.guo@amlogic.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792646831; l=1805;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792646831; l=711;
  i=zhentao.guo@amlogic.com; s=20251024; h=from:subject:message-id;
- bh=6mvln4gF/Xr6GIzNj9H9+pGxV5CsOeJcJGZ1vZicQxY=;
- b=pbloZj7Iqhpy4+9EKHoTYPp+0CaOtmY/BW43JXVUSzB36aOXC7pKJM4XNyYKPadBC35jMltcG
- oUYQua/KnZnCHUynY5vwMacNyWptUEvUmL7sTlNnWLTBixacoeSQvmB
+ bh=wZ/Fw+jH+tOBVIXbBc8zSjH7Kx36sATJ09qPRAeyKKk=;
+ b=W+y4VY/oZ+d/v2st9z7kzOz8+zDimrATVD4uEFbPvPFcmKfAdJL+iPdXjmOr4VKVIwdS/Lf5+
+ ORYnYIWBfJKAmpkXJSHaI4FBTDE62ksaJrcEDB2XOXbVvCWStqunkfH
 X-Developer-Key: i=zhentao.guo@amlogic.com; a=ed25519;
  pk=5yfDKrjreXwcAoEUsdtWafy6YN500upXp/CgtnXjLVU=
 X-Endpoint-Received: by B4 Relay for zhentao.guo@amlogic.com/20251024 with
@@ -113,64 +113,25 @@ Content-Transfer-Encoding: 7bit
 
 From: Zhentao Guo <zhentao.guo@amlogic.com>
 
-Add vdec node to enable Amlogic V4L2 stateless video decoder
-support. Since the video fw needs to be loaded via TEE helpers,
-enable the optee node in this patch.
+Add SM_LOAD_VIDEO_FW at SMC ID 0xb200000f in the command
+table to load video firmware.
 
 Signed-off-by: Zhentao Guo <zhentao.guo@amlogic.com>
 ---
- arch/arm64/boot/dts/amlogic/meson-s4.dtsi | 33 +++++++++++++++++++++++++++++++
- 1 file changed, 33 insertions(+)
+ drivers/firmware/meson/meson_sm.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/arch/arm64/boot/dts/amlogic/meson-s4.dtsi b/arch/arm64/boot/dts/amlogic/meson-s4.dtsi
-index 2a6fbd530836..7a1dcb3951c8 100644
---- a/arch/arm64/boot/dts/amlogic/meson-s4.dtsi
-+++ b/arch/arm64/boot/dts/amlogic/meson-s4.dtsi
-@@ -80,6 +80,11 @@ pwrc: power-controller {
- 				#power-domain-cells = <1>;
- 			};
- 		};
-+
-+		optee {
-+			compatible = "linaro,optee-tz";
-+			method = "smc";
-+		};
- 	};
- 
- 	saradc: adc@fe026000 {
-@@ -907,5 +912,33 @@ emmc: mmc@fe08c000 {
- 			assigned-clocks = <&clkc_periphs CLKID_SD_EMMC_C>;
- 			assigned-clock-rates = <24000000>;
- 		};
-+
-+		canvas: video-lut@fe036048 {
-+			compatible = "amlogic,canvas";
-+			reg = <0x0 0xfe036048 0x0 0x14>;
-+		};
-+
-+		video-codec@fe320000 {
-+			compatible = "amlogic,s4-vdec";
-+			reg = <0x0 0xfe320000 0x0 0x10000>,
-+			      <0x0 0xfe036000 0x0 0x20>;
-+			reg-names = "dos",
-+				    "dmc";
-+			interrupts = <GIC_SPI 91 IRQ_TYPE_EDGE_RISING>,
-+				     <GIC_SPI 92 IRQ_TYPE_EDGE_RISING>;
-+			clocks = <&clkc_periphs CLKID_DOS>,
-+				 <&clkc_periphs CLKID_VDEC_SEL>,
-+				 <&clkc_periphs CLKID_HEVCF_SEL>;
-+			clock-names = "dos",
-+				      "vdec",
-+				      "hvdec";
-+			power-domains = <&pwrc PWRC_S4_DOS_VDEC_ID>,
-+					<&pwrc PWRC_S4_DOS_HEVC_ID>;
-+			power-domain-names = "vdec",
-+					     "hvdec";
-+			resets = <&reset RESET_DOS>;
-+			amlogic,canvas = <&canvas>;
-+			amlogic,secure-monitor = <&sm>;
-+		};
- 	};
+diff --git a/drivers/firmware/meson/meson_sm.c b/drivers/firmware/meson/meson_sm.c
+index ab9751a59b55..887caa5c625d 100644
+--- a/drivers/firmware/meson/meson_sm.c
++++ b/drivers/firmware/meson/meson_sm.c
+@@ -48,6 +48,7 @@ static const struct meson_sm_chip gxbb_chip = {
+ 		CMD(SM_THERMAL_CALIB_READ,	0x82000047),
+ 		CMD(SM_A1_PWRC_SET,		0x82000093),
+ 		CMD(SM_A1_PWRC_GET,		0x82000095),
++		CMD(SM_LOAD_VIDEO_FW,		0xb200000f),
+ 		{ /* sentinel */ },
+ 	},
  };
 
 -- 
