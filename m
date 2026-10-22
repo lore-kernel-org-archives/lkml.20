@@ -1,87 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.175
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.217
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792658942;
-	b=WyMYkQlfXgz7+QiiJknz9R7CYDQu8+hdE7mA+XFDLAcSKudYX2hWFZuP3pWKDgE37Xtz
-	 LGnPJvKKGr0x1d5xgnUnpQMtFQGOS9O4fBNYLyd7OXWQWV3dxy6/npMgFSJXsdAqtb7Hb
-	 jm+4x4BP5YidtPWNvmQkYNqvyiHB9IdmestWG7y6OxuidRYVgDlaXbncFr6lUL5wUA55K
-	 xtqyRHLHJkRY2GNr9dhn7ScCNWDqgAavttKwMzF0iyZiIA5IrOYw1TIrNVa3DiIygRn1h
-	 4xAoF6fInsZCCQTwLzRwc5VktubMw8Vi/MXLcFlYBJ/r7LQ5d7vjy9fQgbjVXLy6P0Q==
+	t=1792658940;
+	b=ePwE9oEX1dJo78ScRt2nMIYP3bsXIUFSXJs1GTx04Omc0y0JjRwIKRi0TVf9CG42glvy
+	 Ogtm9OQtOnJdGIGncvkpSgmVW4gFS4QpZp16HESJeusxZpKwPDXyCiZExHp/OV1IucBFs
+	 S/2GFfdviLFo7JCVK90Gnq2Z3tzeH3lMUeQL3as9CxPy2d5JrcbL60xgwtSkolU0QwKFo
+	 nxYY70TFLYLY5irxzT9HxFwhYWATNgoNSmYtkJiOQ8y3Ue4IkfiGxxg7Z4wBDIZZnjn8r
+	 OP5iB6zXx2OpZNMUX6/bXHFwiJdu1hrSFZ5RJvPnAMPZWdCIJ2pAl4lv2AUMJ/p4KHQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792658942;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=56F8g7Mv7DiOapm18g1wrka7Wgg9xFTAcIlGCMlZEmo=;
-	b=GJRMb1wu3B+l8t1U8+c6W0NHMGsfVMcGaB1jAWrcI3WFOgAh/wWWxie4VYwYXkMphM3p
-	 /vQ2XjnDVQY43gFN/ZEisZHYVMcVuDP5nYkmkmzHg/7bM0aH48ozAP/bs7UPUe0ptTl9W
-	 n7fr3DFMr6jDS0q4Wx383YfHcOeh/BDA5UxCkSumWfAib8zDltnuWNAyiazgViAvT8gGD
-	 or4aN/cwi712dDtawW6DAGpJx95ySbSThH7T+d4gMjmZUZxY65Z7iw4SQyFsdUHdcroAd
-	 fyq1xl9g2JNvaT9rnnSwxdnuUUpYSymj+755VWkDxRSoPy4DnPIxOzNgSxPlD0POQ7w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792658940;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:CC:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=Npg9y1GXnueQN65R8UeXXt5YG0F2yx26M10/k3Llflw=;
+	b=WDQDeZ1PJWkqEN89AeuRWWmdvZc6HTXff1vb/4o8QflSE1vTUNmwxJ9lmejolD2RD0V6
+	 MXnFeAYGdfXDDQm45Y6FJSPwZYauMs16mjr9kf1PNvphj9JhNQrdwrkO2Aca/FK0LHK2I
+	 rREZ79Zknic/8DP7t14PQsYjZDyO8bIE2S57aNgeIYXdJYopCzk3UtLGrKYronw+Ho0aA
+	 TeNIIqI6tU3yn0ZkZRc6BGj18G3eMU4QHaEyp5f2zm2NA/E4L71I66Eks+SjGCPVYXd9u
+	 58vp2N0vowtQRuEoMu7vfdRNjQINurl0/+eTP17Mtm+SSXJQraM04OwdxUT+CCtFpew==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=KqvEMzoT;
-	arc=none smtp.remote-ip=74.125.82.175
-Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=57o66HfQ;
+	arc=none smtp.remote-ip=113.46.200.217
+Received: from canpmsgout02.his.huawei.com (canpmsgout02.his.huawei.com [113.46.200.217])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A04460A261D
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 08:49:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3A04460A261D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD376606A337;
+	Thu, 22 Oct 2026 08:48:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BD376606A337
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=KqvEMzoT
-Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-354ba08cfd1so2764516eec.1
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 01:49:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792658940; x=1793263740; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=56F8g7Mv7DiOapm18g1wrka7Wgg9xFTAcIlGCMlZEmo=;
-        b=KqvEMzoTtb28KuqtFbbWU+sfxJbpAPus7et3gw69bOMr4KMcDrvt8gV2nK08PFGy2M
-         TeLBhAtTesCjBdXBxDzmjkeEZ+CZ+NSk5V1vXI6OqwrtlPHCJvKonKG+7uZNj8bCSS1M
-         Q+zVGrihb1JB9pr9AuZM/t6MvkIvciTngBHxIYu71m3FE1N0Y5wQVik3scOnBAt3yEIi
-         Q4wfuL9oiRDqSe82LqmrIwUPhao3GZm+2lb3uoZIQD2dltyBH5GbWGSC95+1rFo8SNIO
-         vAzxIq+yrTFoLZ8O1ZjPYubaYKrxSvBpWlvb4fnr/busXJag567rwut85t0anfsTr0O1
-         hBBw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792658940; x=1793263740;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=56F8g7Mv7DiOapm18g1wrka7Wgg9xFTAcIlGCMlZEmo=;
-        b=oe66bxCpo8cqde0HSSuDfeoCo32SosZRojdmsRLQ+gPJqMiI0n9pcpQH3mDQNZxh5d
-         9lLFEexdZkNWZ7A2kpB8yhDS96NZ7VL9H9ztRo8/+hLnj96asIcHBABTVFMeAYSl4KJd
-         3VWCPZ7JEOfz9alKQv+65dLEfoR4hZLSqrl5kKAi3vu/qJrULrsUGxGneeVtg9nkqe5M
-         LuhEs90IagCYmAYgmyLecuYliVLYCblyQxRv/vAVUiHo0u8i2oAYJMb+99tUQYuobuV4
-         85tUH3KgOF6GM/iJKxqsdC7mspLYu5UYvie6W4bWX1ljGcyjK10QmiTfAsld15l4dbCy
-         rnGA==
-X-Forwarded-Encrypted: i=1; AKwUvBw5MTjpZBJl2ImlENLG2ND1/XBFw2iDKCo8GpFKcdV+Q1z4Y8TFuF35CVf5R5MZ4c/bgX5N6jAw99H9HVg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLXyc9VixfpCiqjL9LfM2acQud8dN8sEodqRfwJ6PX1ZF+b+DDn
-	q1cBHMCRB892/8l38ptnUKfccfamDUk1B/Tv4vtnfKWaeq784ysgf+qI
-X-Gm-Gg: AYBFou0hPIyxNRg8Z/HxrfK65bqRBIs3hxuurBxqGzlqvUl19Nnj3K6IM+aFUJFyfzf
-	e6Ew7yoLBix7IA/JTaWOOeRBIvx9e04ChlA/tvt7931oRoJ6dzrhNJP5GnqAmHzd9CcfwxNtjie
-	CKH01cfIZdwpYnsGHT+RciEQW91GPotKCWzWQEEDk9tZSInc/2c9Xfc1mWQonrMw95yamgV7tg4
-	GRQmx2z7FVFjj9JlfMFiXSQYH1SGyKvqM1CGts4lYo9qQsRciK117G8P+PczUpJQHhUW5ZUJ53E
-	GSfL/C6b+uzHnXWjj6dQCZTcEaMJWHJSU7kYxffoLnG7Eo0Jr6E58QSS1v8/wRgr3DLmwHP0l11
-	98r4JUBA82Rc63BMUCtsiU29WIrLEG1Q1/grSVOcl6r6geABWdSPK+i8AyBe1vnb2oY6kpDKi66
-	+EPt3N9ecDxFqcjEeUCBKHiNe+vAPUm1esjyQaLeVyvFLFPkAfDWLuYZabNZj0JC1aKgCksx9Sw
-	uKcsy+n0uJrH4mCHEIuFI2VOkUCRjvP9ncwT59cnZQxBTohStQKMq8WgqHjJ5OWG/8NeHn5
-X-Received: by 2002:a05:7301:2706:b0:353:5b04:8d19 with SMTP id 5a478bee46e88-3674c92e2d1mr6183474eec.9.1792658940316;
-        Thu, 22 Oct 2026 01:49:00 -0700 (PDT)
-Received: from [127.0.1.1] ([23.254.208.9])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-367417a2fadsm13962472eec.21.2026.10.22.01.48.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 01:48:59 -0700 (PDT)
-From: Qiliang Yuan <odys.yuan@gmail.com>
-Date: Thu, 22 Oct 2026 16:48:39 +0800
-Subject: [PATCH bpf-next v6 4/4] selftests/bpf: Wait for the struct_ops map
- to be freed in assoc_in_timer
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=57o66HfQ
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=Npg9y1GXnueQN65R8UeXXt5YG0F2yx26M10/k3Llflw=;
+	b=57o66HfQ6jIfNh+NnSejPIp9KSbUD4EEkFVzbPIkdG3x9oj20VTiwpV88IB+O+Y/efdR0i18g
+	SJzaOXHsrHVtnQ4nz1AlsCF+KGrlAnvzabBtQhvM0iIGQYQXFV3lwi5u5cQo8Vo/p0hQvSggkcg
+	8+OzzYzq2hd0ezKFdo5fN9U=
+Received: from mail.maildlp.com (unknown [172.19.162.197])
+	by canpmsgout02.his.huawei.com (SkyGuard) with ESMTPS id 4j9KZ902ZRzcb3K;
+	Thu, 22 Oct 2026 16:48:49 +0800 (CST)
+Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
+	by mail.maildlp.com (Postfix) with ESMTPS id AB3C14057D;
+	Thu, 22 Oct 2026 16:48:51 +0800 (CST)
+Received: from huawei.com (10.90.53.73) by kwepemk200008.china.huawei.com
+ (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 22 Oct
+ 2026 16:48:50 +0800
+From: Jinjie Ruan <ruanjinjie@huawei.com>
+To: <catalin.marinas@arm.com>, <will@kernel.org>, <mark.rutland@arm.com>,
+	<corbet@lwn.net>, <skhan@linuxfoundation.org>, <rdunlap@infradead.org>,
+	<james.morse@arm.com>, <ben.horgan@arm.com>, <reinette.chatre@intel.com>,
+	<fenghuay@nvidia.com>, <tony.luck@intel.com>, <Dave.Martin@arm.com>,
+	<babu.moger@amd.com>, <x86@kernel.org>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-doc@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>
+CC: <ruanjinjie@huawei.com>
+Subject: [RFC PATCH 5/7] arm_mpam: resctrl: Describe the L2 monitor events with the L2 resource
+Date: Thu, 22 Oct 2026 16:48:19 +0800
+Message-ID: <20261022084821.4014873-6-ruanjinjie@huawei.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261022084821.4014873-1-ruanjinjie@huawei.com>
+References: <20261022084821.4014873-1-ruanjinjie@huawei.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,68 +75,125 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261022-selftests-bpf-struct-ops-assoc-timer-v6-4-2c0f18e82582@gmail.com>
-References: <20261022-selftests-bpf-struct-ops-assoc-timer-v6-0-2c0f18e82582@gmail.com>
-In-Reply-To: <20261022-selftests-bpf-struct-ops-assoc-timer-v6-0-2c0f18e82582@gmail.com>
-To: Andrii Nakryiko <andrii@kernel.org>, 
- Eduard Zingerman <eddyz87@gmail.com>, 
- Ihor Solodrai <ihor.solodrai@linux.dev>, 
- Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
- Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
- Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
- Emil Tsalapatis <emil@etsalapatis.com>, Shuah Khan <shuah@kernel.org>, 
- Amery Hung <ameryhung@gmail.com>
-Cc: bpf@vger.kernel.org, linux-kselftest@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Qiliang Yuan <odys.yuan@gmail.com>
-X-Mailer: b4 0.13.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: kwepems500001.china.huawei.com (7.221.188.70) To
+ kwepemk200008.china.huawei.com (7.202.194.74)
 
-st_ops_assoc_in_timer_no_uref runs .test_1, which starts a timer to
-call it again 500ms later, drops every reference to the struct_ops map,
-and expects the timer callback to find no struct_ops associated with
-its program anymore.
+mpam_resctrl_monitor_init() forced every event onto the L3 resource.
+Describe the L2 events with the L2 resource instead: the occupancy and
+bandwidth events of an L2 cache belong to the L2 resource, which keeps
+info/L2_MON in step with the hardware it measures.
 
-The association goes away only when the last reference to the map is
-dropped. syscall_prog holds one through its own association and drops
-it only when it is freed, in a work item after an RCU tasks trace grace
-period. With other tests running in parallel, that can take longer than
-500ms, and the callback still reaches the struct_ops and gets MAP_MAGIC
-instead of -1.
+No behaviour change yet: the events are only initialised once the caller
+starts iterating over them.
 
-Have the timer callback restart the timer until the map is gone, as it
-does for st_ops_assoc_in_timer_free. Calling the struct_ops through the
-association until then is safe, as the map is freed only after a grace
-period that follows clearing the association.
-
-st_ops_assoc_in_timer_no_uref run 100 times with test_progs -j32 running
-in the background, on a KASAN kernel with the fix, x86_64 VM with 32
-vCPUs, before and after this patch:
-
-              before                       after
-  outcome     2 of 100 failed (MAP_MAGIC)  0 of 100 failed (MAP_MAGIC)
-
-Fixes: 0e841d19263a ("selftests/bpf: Test getting associated struct_ops in timer callback")
-Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
+Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
 ---
- tools/testing/selftests/bpf/prog_tests/test_struct_ops_assoc.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/resctrl/mpam_resctrl.c | 52 +++++++++++++++++++++++++---------
+ 1 file changed, 39 insertions(+), 13 deletions(-)
 
-diff --git a/tools/testing/selftests/bpf/prog_tests/test_struct_ops_assoc.c b/tools/testing/selftests/bpf/prog_tests/test_struct_ops_assoc.c
-index 6c85d368bf167..9b646d134a45e 100644
---- a/tools/testing/selftests/bpf/prog_tests/test_struct_ops_assoc.c
-+++ b/tools/testing/selftests/bpf/prog_tests/test_struct_ops_assoc.c
-@@ -188,7 +188,7 @@ static void run_st_ops_assoc_in_timer_no_uref(int timer_ns, int wait_map_free,
- 
- static void test_st_ops_assoc_in_timer_no_uref(void)
+diff --git a/drivers/resctrl/mpam_resctrl.c b/drivers/resctrl/mpam_resctrl.c
+index efb9ce76acb4..50e5035dcc9d 100644
+--- a/drivers/resctrl/mpam_resctrl.c
++++ b/drivers/resctrl/mpam_resctrl.c
+@@ -1336,26 +1336,47 @@ static int mpam_resctrl_monitor_init_abmc(struct mpam_resctrl_mon *mon)
+ static int mpam_resctrl_monitor_init(struct mpam_resctrl_mon *mon,
+ 				     enum resctrl_event_id type)
  {
--	run_st_ops_assoc_in_timer_no_uref(500000000, 0, 0);
-+	run_st_ops_assoc_in_timer_no_uref(500000000, 1, 0);
- }
+-	struct mpam_resctrl_res *res = &mpam_resctrl_controls[RDT_RESOURCE_L3];
+-	struct rdt_resource *l3 = &res->resctrl_res;
++	enum resctrl_res_level res_level;
++	struct mpam_resctrl_res *res;
++	struct rdt_resource *r;
++	int cache_level;
  
- /*
-
+ 	lockdep_assert_cpus_held();
+ 
++	switch (type) {
++	case QOS_L2_OCCUP_EVENT_ID:
++	case QOS_L2_MBM_CORE_EVENT_ID:
++		cache_level = 2;
++		res_level = RDT_RESOURCE_L2;
++		break;
++	case QOS_L3_OCCUP_EVENT_ID:
++	case QOS_L3_MBM_LOCAL_EVENT_ID:
++	case QOS_L3_MBM_TOTAL_EVENT_ID:
++		cache_level = 3;
++		res_level = RDT_RESOURCE_L3;
++		break;
++	default:
++		return -EINVAL;
++	}
++
++	res = &mpam_resctrl_controls[res_level];
++	r = &res->resctrl_res;
++
+ 	/*
+-	 * There also needs to be an L3 cache present.
++	 * There also needs to be a cache at the level we're describing.
+ 	 * The check just requires any online CPU and it can't go offline as we
+ 	 * hold the cpu lock.
+ 	 */
+-	if (get_cpu_cacheinfo_id(raw_smp_processor_id(), 3) == -1)
++	if (get_cpu_cacheinfo_id(raw_smp_processor_id(), cache_level) == -1)
+ 		return 0;
+ 
+ 	/*
+-	 * If there are no MPAM resources on L3, force it into existence.
+-	 * topology_matches_l3() already ensures this looks like the L3.
+-	 * The domain-ids will be fixed up by mpam_resctrl_domain_hdr_init().
++	 * If there are no MPAM resources at this level, force it into
++	 * existence so the counters have somewhere to live. The domain-ids
++	 * will be fixed up by mpam_resctrl_domain_hdr_init().
+ 	 */
+ 	if (!res->class) {
+-		pr_warn_once("Faking L3 MSC to enable counters.\n");
++		pr_warn_once("Faking L%d MSC to enable counters.\n", cache_level);
+ 		res->class = mpam_resctrl_counters[type].class;
+ 	}
+ 
+@@ -1364,8 +1385,13 @@ static int mpam_resctrl_monitor_init(struct mpam_resctrl_mon *mon,
+ 	 * monitoring class.
+ 	 * Setting name is necessary on monitor only platforms.
+ 	 */
+-	l3->name = "L3";
+-	l3->mon_scope = RESCTRL_L3_CACHE;
++	if (cache_level == 3) {
++		r->name = "L3";
++		r->mon_scope = RESCTRL_L3_CACHE;
++	} else {
++		r->name = "L2";
++		r->mon_scope = RESCTRL_L2_CACHE;
++	}
+ 
+ 	/*
+ 	 * num-rmid is the upper bound for the number of monitoring groups that
+@@ -1375,7 +1401,7 @@ static int mpam_resctrl_monitor_init(struct mpam_resctrl_mon *mon,
+ 	 * this does mean userspace needs to know the architecture to correctly
+ 	 * interpret this value.
+ 	 */
+-	l3->mon.num_rmid = resctrl_arch_system_num_rmid_idx();
++	r->mon.num_rmid = resctrl_arch_system_num_rmid_idx();
+ 
+ 	if (type == QOS_L3_MBM_TOTAL_EVENT_ID) {
+ 		int err;
+@@ -1385,13 +1411,13 @@ static int mpam_resctrl_monitor_init(struct mpam_resctrl_mon *mon,
+ 			return err;
+ 
+ 		static_assert(MAX_EVT_CONFIG_BITS == 0x7f);
+-		l3->mon.mbm_cfg_mask = MAX_EVT_CONFIG_BITS;
++		r->mon.mbm_cfg_mask = MAX_EVT_CONFIG_BITS;
+ 	}
+ 
+ 	if (!resctrl_enable_mon_event(type, false, 0, NULL))
+ 		return -EINVAL;
+ 
+-	l3->mon_capable = true;
++	r->mon_capable = true;
+ 
+ 	return 0;
+ }
 -- 
 2.43.0
 
