@@ -1,55 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=45.79.88.28
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792709168;
-	b=MOutU5X1uEKxcCljxuevhMRTMzWXZaMqoSIrISQ7LSgw+1Sfzhp8ZPpvlDxedNG7z451
-	 7kwvZZf9FABb3FcFLeauaxrieFsBd3Okj6nZtxZReQXKPIMCMD3bsxR1e70zj9SCmbjkF
-	 WBYwyCCxMUOU7dBBigEk7jjk+4RFIK2RX1T3f9E7rmdJUS18Yplw9VxugXZFqwxYvSG3s
-	 66HeaVpjV/e5hW0KRVKJRlEziFGrLwKJWXWR+4B0AZEfzHLhKwAiRE7BeMONyxdU1tdo8
-	 8e9GETlg/PiKXGlnax/9UlSlTnMZ/v2xOC792cOJXJiaZI4WLu/Y0LVVkX4ZuGzoBVA==
+	t=1792709177;
+	b=Gyi6giRyxxY3XPYWfp0NascUpdjgQ9xarYPbAylPpLS2RD3y9CirLVGMwHh6OcKvkwLz
+	 BZJ12Vfg0aKnkuGWKCLi2buURkN38TZO56sNd6V4FTqg+L3zJ59GdWAvgM8mZKjBtYKEh
+	 MITcXR5rQ00+9I4vPnRw8X8XTL8wldVM0suWxmLW3jmmcbsys33BonsH2dT4O/PD8e+0f
+	 2/deDpuqZo6lPKTnk+BvaR9u5QGSd6g/KNDumetzAgENCtqZsLUAnbwqfsBGqa33yY1fA
+	 /oC1XyWZQ+aveiBV8YHaG/UTpgBzlfOWoXbt1gJZR5ndDjtjcgMEK+PobtxVRRgK/pw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792709168;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=bMkxoizRKty45Gu4zy23N2djLQKVUF82/geDTDbA6o4=;
-	b=FBJa5Zg8/2oQu/f/5nucZcFjC3UxLygAnsbx7/vsnB6QP0H/Agz+JdJ8al75QGqkpMDz
-	 M3xr/o3XrMSWFg2R55LUAJrIPgKWzIZcZ9M6atU9duIjfiXq1wgc1XbiSJRhrkXp2eUyj
-	 vkp+5wFfGXVXTWz/aDe7uCGXfKB090kBqZTwQlQEesDLS/wKAbNTEBRL81IoBmJaWg8ma
-	 Vk25byBNpFwUdmZvyWAyql2yk/hke9oQnbdJ/60QijRxBg2qu33n/DxLglyJ+yTTOiQlk
-	 m3Kc432F9Hs82vJE/IH2q1QM6tTiaguHfakykZx4deeiVPJdJNNTPTHG5z6W6BPunRw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792709177;
+	h=DMARC-Filter:DKIM-Filter:DKIM-Signature:Received:From:To:Cc:Subject:
+	 In-Reply-To:References:Date:Message-ID:MIME-Version:Content-Type;
+	bh=pygFZ9vqYBILhtMeY66ELPOJ+MRQd/5b0EPAclzFcAQ=;
+	b=rQ/wvFpl8qDY8Z5Qhc1m+r7ET3/Q5W1JRFfIFtBWE0ZBokL2fzD8Lu/yasHg6nGfPcF/
+	 QqKuLBBg2Slu0Tglk0BB38IotIwQKzPSSwAKEC52s3gnsHaBn+aRHEDaLW3zubEls86fc
+	 7Q8T71epFOgRDcMaPj3ga4zotUMWneJIyl/RNzy0Vcr248KdaY7vWpdyZjM87VtK6GVBm
+	 fBopbETIamoyir9M9erq08adpfH5ufbNGUMFgrTT1ctSWWbegzX2bAOifyrFOBjLv0slZ
+	 Pp9TPnEG0/yyam9B7CEaSTymAOv/jkzGDgvwZzwfpKu2OLN2MSMGWT/TIrSIripOdbw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I9dgdvWg;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=lwn.net;
+	spf=pass smtp.mailfrom=lwn.net;
+	dkim=pass header.d=lwn.net header.i=@lwn.net header.a=rsa-sha256 header.s=20201203 header.b=plLRNEg3;
+	arc=none smtp.remote-ip=45.79.88.28
+Received: from ms.lwn.net (ms.lwn.net [45.79.88.28])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE4B9606A321
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 22:46:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10101606A31A;
+	Thu, 22 Oct 2026 22:46:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 10101606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lwn.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lwn.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I9dgdvWg
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C9581F031E1
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 22:46:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792709167;
-	bh=bMkxoizRKty45Gu4zy23N2djLQKVUF82/geDTDbA6o4=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=I9dgdvWgJMLk71IrF6/czy516XNbjnQEbPJgoTkKubOLCI/ENm1WGaY9+unD/y6gY
-	 JbLWfFMmQr/0qEb0yhtT/CgdHRar98GBKEyy9NARqKgAIt97U/cGEg0MCxYa/yseik
-	 bp13YOHm8CAxFiOsM+R55SBfaHg3w/J0RKRgHczBSkfn0K+khG43fJRXdjBmBmPys9
-	 /PpjyuU+G/n0hF/jakpQCllN6lCMaYrUXPo2T0x7oZAKwFPIgbuWQRzLd1U6B8R7Sl
-	 eFNu2FW9Hv+LWpwYtKLCUNmDCYjd0cPzA1aONls8kqMquK3DmZpV8ACPziHLnYz6D7
-	 npFhOD+judP/Q==
-Received: by mail-ej1-f51.google.com with SMTP id a640c23a62f3a-c38ac26cc5dso42088766b.2
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 15:46:07 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBy8gdudNpP29hMCzlBx1BoZaxKa+vHEeWEhZBXeCWI5RcocS9asRHirFNmEiKGr4F3OS1oeoOzYW1hdMD4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKBDMElNdYWnYXnF32jFGVCcXqPCHPCu0nWDvcKTalac7ErPjqk
-	3ElE/2wiATaGKfHuk/PvXwXqO23Y4e/HwHwX2b68dO9U3NfC44vpM6M1Zstb3q+NQck956FEFpE
-	+jyh72exdyWkNGh1I/v2Ej81du9X7Qf0=
-X-Received: by 2002:a17:907:da8:b0:c34:e9fe:82ed with SMTP id
- a640c23a62f3a-c46a92d5b5dmr77309966b.28.1792709166529; Thu, 22 Oct 2026
- 15:46:06 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=lwn.net header.i=@lwn.net header.a=rsa-sha256 header.s=20201203 header.b=plLRNEg3
+DKIM-Filter: OpenDKIM Filter v2.11.0 ms.lwn.net DD0BC40430
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lwn.net; s=20201203;
+	t=1792709176; bh=pygFZ9vqYBILhtMeY66ELPOJ+MRQd/5b0EPAclzFcAQ=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:From;
+	b=plLRNEg3aJjupC8b2HPHX07IUAuKggNyhASz34cMN0inqcrig8adFsrs8N/dfsjIs
+	 MFDyCm4sURsK/JHkkA7d9fZkGmY/kI6GClTtLv98Ydckveh5TIRZvvBwebS8OcRFa5
+	 /YaPbQjXNjF/cVWJF+BMvUmTI7KSsrs8RJTbS8Q3q89WZNGwdkb4XPXgVN1cqis9pV
+	 psoisvUuwdgJqFLyzzdcvgt5Ho+xrlKILQh4KA68LMmUdr0coPmJzMlqUj4bbNa65y
+	 Kbr8imsXyi4/RCIvtWA4J8MuSULVUPlDlHNQe59/7NmmOo4yn2U/POVPDiABl97q62
+	 zhVbF6mMzmBRA==
+Received: from localhost (unknown [IPv6:2601:280:4600:814::1fe])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by ms.lwn.net (Postfix) with ESMTPSA id DD0BC40430;
+	Thu, 22 Oct 2026 22:46:15 +0000 (UTC)
+From: Jonathan Corbet <corbet@lwn.net>
+To: Breno Rodrigues Alves <breno3011alves@gmail.com>
+Cc: linux@armlinux.org.uk, Bart Van Assche <bvanassche@acm.org>,
+ James.Bottomley@HansenPartnership.com, mkp@kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-scsi@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Breno Rodrigues Alves
+ <breno3011alves@gmail.com>
+Subject: Re: [PATCH v4] scsi: arm: Convert acornscsi-io.S to C
+In-Reply-To: <20261022222819.92507-1-breno3011alves@gmail.com>
+References: <20261022183658.58090-1-breno3011alves@gmail.com>
+ <20261022185224.60700-1-breno3011alves@gmail.com>
+ <20261022185224.60700-2-breno3011alves@gmail.com>
+ <871p9h1kc7.fsf@trenco.lwn.net> <87wlr9z8iq.fsf@trenco.lwn.net>
+ <20261022222819.92507-1-breno3011alves@gmail.com>
+Date: Thu, 22 Oct 2026 16:46:14 -0600
+Message-ID: <87o6clz749.fsf@trenco.lwn.net>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,53 +73,28 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261012233638.2546339-1-yosry@kernel.org> <20261012233638.2546339-27-yosry@kernel.org>
- <CALMp9eS8KDozNGT9J_uN69W32QEvTbg2JrtRqN0ESi00b_uq=A@mail.gmail.com> <atqRyeqSXViiNIk6@google.com>
-In-Reply-To: <atqRyeqSXViiNIk6@google.com>
-From: Yosry Ahmed <yosry@kernel.org>
-Date: Thu, 22 Oct 2026 15:45:55 -0700
-X-Gmail-Original-Message-ID: <CAO9r8zMqiW=3t7zRo_WAhKJfpYsDwuG3e=nK14GXhrq+foYnOw@mail.gmail.com>
-X-Gm-Features: AclHuK_GBnQB00bajIT5OcgXNAjZtj7uyBg5FlfE90XA-YZvkKGNfsHzyVdTGQc
-Message-ID: <CAO9r8zMqiW=3t7zRo_WAhKJfpYsDwuG3e=nK14GXhrq+foYnOw@mail.gmail.com>
-Subject: Re: [PATCH v3 26/27] KVM: nSVM: Use different ASIDs for L1 and L2
-To: Sean Christopherson <seanjc@google.com>
-Cc: Jim Mattson <jmattson@google.com>, Paolo Bonzini <pbonzini@redhat.com>, 
-	Maxim Levitsky <mlevitsk@redhat.com>, Vitaly Kuznetsov <vkuznets@redhat.com>, 
-	Tom Lendacky <thomas.lendacky@amd.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain
 
-On Thu, Oct 22, 2026 at 3:44=E2=80=AFPM Sean Christopherson <seanjc@google.=
-com> wrote:
->
-> On Fri, Oct 16, 2026, Jim Mattson wrote:
-> > On Mon, Oct 12, 2026 at 4:37=E2=80=AFPM Yosry Ahmed <yosry@kernel.org> =
-wrote:
-> > Moreover, does this change the semantics of PV TLB flush? In
-> > record_steal_time(), we have:
-> >
-> > if (st_preempted & KVM_VCPU_FLUSH_TLB)
-> >         kvm_vcpu_flush_tlb_guest(vcpu);
-> >
-> > IIUC, an idle vCPU that wakes into L2 will flush only L2's ASID. In
-> > the past, with a shared ASID, L1's ASID was always flushed on emulated
-> > VM-exit anyway. Now, L1's ASID will be unaffected. Though I can't find
-> > any real documentation on PV TLB flush, it *seems* like the remote
-> > vCPU would want L1's ASID to be flushed. OTOH, this change makes nSVM
-> > behave just like nVMX.
->
-> That's a bug that absolutely needs to be fixed, probably relatively urgen=
-tly.  We
-> should also document that passing through the steal_time shared informati=
-on to L2
-> to utilize PV TLB flushes for L2 is explicitly not supported.
->
-> I hate to re-introduce deferred actions for L2 =3D> L1 things, but that s=
-eems like
-> the only sane way to handle this, because handling the !tdp_enabled case,=
- where
-> KVM needs to sync the current root, requires knowing what MMU is going to=
- be in
-> use when L1 regains control.  Yuck.
+Breno Rodrigues Alves <breno3011alves@gmail.com> writes:
 
-Are you implying that *you* will be re-introducing deferred actions? :P
+> You are also right about the broader point: "assembly to C" on its own
+> is not a justification.  The kernel's assembly is there for reasons, and
+> translating it for its own sake is churn that reviewers have to pay for.
+> I have been approaching this as a translation exercise, and that is not
+> the right frame.  I will not propose further conversions of that kind
+> without a concrete functional benefit - something that fixes a bug that
+> can actually be hit, or enables a change that cannot be done in assembly.
+
+Note that conversion to C can be justified if it eases the maintenance
+of the file in question.  In this case, there's not really been any need
+for maintenance, so (in my mind) little need for translation.
+
+> Bart's Reviewed-by: stands on the technical merits of the change as a
+> change (the C code is equivalent to the assembly for even lengths and
+> correct for odd ones).  Your concern is a different question - whether
+> the change should exist at all.  Both are valid, and the decision
+> belongs to the SCSI maintainers, not to me.
+
+Bart's word outweighs mine here, just to be clear.
+
+jon
