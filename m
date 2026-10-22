@@ -1,93 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.179
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792686670;
-	b=2A+uDY4PFtukoQXwYDZIKmWKDHG5s6ZEItA9Vo7uTqgrTXMVx2F6zUI2OKRSQPuFIT0S
-	 EGuDCnZ1mR08QvuTpTb7v2L56MdVA15zpSkRENq/kbU4blYE1clpTVgVRvIsCVM9IgzV5
-	 vs1i9Yh6Lbou/YvkDbW/XXS/toFeAwZUZSBTdHxZ0VXrlmwRVuZ/b56iie62+sDzCnnG2
-	 NlszwzoFlAvHSPqEP6RV8eDdhoiu7qdSTIDi4Rvf+pnRERfZUCZVxCxml1aPEEj2kFNx9
-	 FJ2dOPhSfFxH8vVLPlCXj1MnWPJpnYGeEBI2CG5QSSqb4h8rS6KLxj5EvDBS9GBsV2g==
+	t=1792686683;
+	b=AhBn8pIbg9Zmr7kZb+OOdDF70E4a0uba8Yvdq1uKiPds1EJMfH0aAF2FncvcFOlBQPj/
+	 mmi61iK/BfH9oK8MXmlX1iWxDIiAev7lHLIc4wL4lehJGxYmaM9KTNJtLYG/itJ94JIzr
+	 dyoJ5G1ke7jKrghVMpY8Qm7CYaUtseIEl+gXC9CgtsR69iztUs1N2BQArNlTVetL6+z0K
+	 jtxFBe1z4i9fcnmUilkSMCh6S7KtirBuWXzNe5ppM0oOiD4dw0oudMXeg+lAoZoJuMojA
+	 hRGdSZ8JHEMrRqRBeV5yZEROPTgIYS3uAzz3ZE/dCS/Jcg494kh09LE2xccw5frlKhA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792686670;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792686683;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=C3JsDYA+dHKiHzDhkGjt5ijrcUWz60I62RAqv7JIoHo=;
-	b=fgqKsiUjKEzSexoE6E9KWgws3qpCk8SiGjDSLHbqIn4ZBeCy/rND73kV1MikIWjZ85uc
-	 xJlpZq5i2HidDPQiFRaWWyWtPiDGBXilLuARfQR5Nk/7tqfzykzuHtcUYJRTBrTUnezxt
-	 8XE3HQ0eAniA2KIdccUQbVST1EqFFYoVPR8JCffcZrLKkIRv9I/ke23rW2rXd1GofDDw5
-	 kZHc9f4iX78i/FzrN98zOdAm5PVc1Ha6bBss0NwSGP198JQYYlf2RuQWtKV8xtdtdOQKW
-	 1xm75W5DLU4wUR+Cai3ZLPbtUc2EvtMRLScKWkn/4DmJyYZts11Va1WQVonDrU2fpnA==
+	bh=aleyTKbyUPwkKdibUq3IwvSz2dQSx+D+0Ibacr1mokc=;
+	b=EnGrDyu5/sSoUhLSNIdbmRkEkYVM0Qm7DssY04HYIuty4xtB3Zl8mJ26l/MITgHaEibR
+	 GEp3OO21aQUCt3p4O2aBdm/nKLGRu0MoRYs+a+iFZHiRefvyfmEcDIypWGSSvONWO59u9
+	 A4wwBY6JZisuSA/TjaVYS0rQ+PtT8krQsTHb8ZsCUhGTxeb+EK6IaaZ3Hdn86FBBUTtYK
+	 Bl1IqBGpaeDI8VVpbyxqdgJTiBt8+FQh+EreIKPESwXS2Z0CBok/vGqrFwPHOJXuAZ8Fe
+	 WdStG9fT2jFhueqBL69v4egsjczHsWU1HdFJOV1F5ovQsgzosTwA4LrkpbnayQbIzjw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=G9axl0ZW;
-	arc=none smtp.remote-ip=74.125.82.170
-Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=qxpOClJj;
+	arc=none smtp.remote-ip=74.125.82.179
+Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 714CA606A31B
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 16:31:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 714CA606A31B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95508606A320
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 16:31:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 95508606A320
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=G9axl0ZW
-Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-3535bf8b3e0so5753eec.0
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 09:31:10 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=qxpOClJj
+Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-3535bf8b3e0so6146eec.0
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 09:31:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792686669; x=1793291469; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792686682; x=1793291482; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=C3JsDYA+dHKiHzDhkGjt5ijrcUWz60I62RAqv7JIoHo=;
-        b=G9axl0ZWjA7BHFiUel4w/TY/I18yCQTA+YWuou9plV+jjnH0qQt+lyaRuZr7rlcr0N
-         5pleDG2nV7+fKtdKO9f0HQU0hzjtb6Yjv3rt6AGf78oa/RktR1NVu75dr8pddYnvQEWP
-         KmVX18kDv0UDtEt+0FeP1nFXpafHXToc7NL7LRUo74UMpQ3T6Trz+4Y2gMPVpAsdq9vo
-         oVw3Noz4zjJHEm3wMUgf0mPly7S7tzXHyyzVvi0d3ztqyDsD0W0Oecqb9cv7lnlJhrAL
-         nlt5/ytKDMeYjye5IS/tVacDMFenh8Wp+zMeONVfitTJzXO7QsU0vtcV5DioZapbUOIM
-         4VMQ==
+        bh=aleyTKbyUPwkKdibUq3IwvSz2dQSx+D+0Ibacr1mokc=;
+        b=qxpOClJjtfeOQfM044rAVrZ8LpRzlycX9HpUGrUusQc3d6Jrn+XIsSWVsOGux2SBaH
+         b8LZaKGD3dnhMoeCA3rch0Q91EpYMlq8uUtE7pCBcZ2pp1gllF4irMGlmR8Xh9ZuSY3y
+         71BdHuYB4qT/a8JcMytVm80z2vSTcEXxnxerXiE6MV+MmR+Gc385HsLfmC/6n+iKE3mg
+         y0jIq2I6DH6QjXvrzbprSEVsFQJ6Jz5EYl3LZ6FjnGb3cUjCxiP2DrsYtF/mi9+MeAQm
+         L0M2NuH+dQox3obSqNWDZ6pcckmCC1QAXqVis53tmJ1NzVNUC+shLbSu0QX7d0xk19VU
+         jTjw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792686669; x=1793291469;
+        d=1e100.net; s=20260707; t=1792686682; x=1793291482;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=C3JsDYA+dHKiHzDhkGjt5ijrcUWz60I62RAqv7JIoHo=;
-        b=s26VdU3rqPC7aT7993grxmHNIBT/FwVQYCnQB8AifUrMHP7i8YIgLFqz/nJJpga9Uw
-         tYPsQ9S7G4mDUVdCHjIhZDrS++6BrtbTQYw7VMWcXYVV45aFiq0UR7fXCgnWz3KMEH6c
-         yGJVehAMLWgVdgm9FxtFJwderR8UcegfucWnJtEjYdUzAyY7oFGv+hWPpIq7VNsBokvj
-         DZTRCgNEEyQVa9WUM7bqJmTQWzOW7kCIXJovCeSoX0DPDVZyDuXvQJ0AIw9pbZ2pqaRO
-         vatmie32IhbM5vHuk7MecPmFl8WHhcTdjKVW/Z6Tw7wHJuErTpkJM48w4zHwNNP8qCLU
-         T/og==
-X-Forwarded-Encrypted: i=1; AKwUvBz0geNd3CwvmAVvtJuZFlcFIcTQjuPkFxvq1csg8B4uMmJn5GulD39ejQzPnxqCdG+zodYy8xDd2G9xR3Y=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIPaJKHRQp13dLnfYmjXmcIOQT858VIJVJCt/Cb45qxNA32hOum
-	ZhVs+WDQ0OrTBmh7D4gqMZkDgLWmVpkMtHI8HP2MbKOFThlXCGkEiKyk
-X-Gm-Gg: AYBFou10tIYZa8bfXNCwLi27ltxayjbKIIKAimLVL0pvWQ8kvEr157zbyHCor2T6dWc
-	zyDwKriYcMtJhPlucmBKiufvg7SUwK5KZg72dO1smQ8RWNdliUkGCIXJ7S1TVhBAXHJI8f8R9eD
-	oIdLGpInUQw4IUmALRVzK6JcSkHZSTDQ9pkvva12dVnOTQZniqudYSi2VzeTSZRKN/MZyCfRba8
-	4n/TbqdHeOiybfD2X3MqPWRdqBzwFpPpmsrp13DuNccqQw9YqQn5jQL1w7Vqfi4LSV/0uI32kz2
-	G0N0IpsjQAOXZw0z6xb0ox719LBplo8YVTEnO3H2mDNqM+WFATnk8+N/fY2Uxt7z0Z3va8ia9dL
-	sGatHiSd3+PiBzfYykIiojWaeUP1c0JtXBAstSa66zA1OdXv3St1pE2D69vf2KuX8lvLxF44/64
-	jeTUsHunMuExBw1/N3sF3pE3F0mTlLa7Pr1I8xvS1nLgECEYV46Yd7dAOeAW1bT+QTj78snUpzi
-	M2abAOwUrKO+FSElfb1GuQkrlE8K26/98E=
-X-Received: by 2002:a05:7301:618e:20b0:35e:2c6:d46c with SMTP id 5a478bee46e88-3674c63d579mr7766127eec.10.1792686669328;
-        Thu, 22 Oct 2026 09:31:09 -0700 (PDT)
-Received: from eldorado ([2600:8802:b00:1f88::287])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3674198e2d6sm15771540eec.22.2026.10.22.09.31.08
+        bh=aleyTKbyUPwkKdibUq3IwvSz2dQSx+D+0Ibacr1mokc=;
+        b=HLDKv2OtDs7/tPZjtgMqAlDUFxvPWhw+HZv9uh8RTdcTn5GshsOfIyIKWb1kGbyWE4
+         XKfJfxRYdrb908DDZv2Pgr3cnHFyuMkPafmAGZvWPwS0vRd0pfPeiMVPCnpT7rUHqYKn
+         4AwU1czSmP7kr4qsYUGcALQH92r+VHirsaEgMegWcmm17nc+QlmGlvWgd3lyYzuVn2xI
+         H4d6m58VlxuqXtjh1mxIq5od5IMKehGSZHz4zKralSwAftpOvUqrZsOwr/eK1YCID69+
+         qtdlhe6/RiONRTRvxcCCLbx3mVY8WG6ZdLRajvsDs1k+bMhb6Z/q0tIL//6km3Zt8/+d
+         4zRg==
+X-Forwarded-Encrypted: i=1; AKwUvBwx4GO8jO8SFyhGuVHKvMEEif+ijt9lDuxdY6END50/vVPRJz+qu8r7Mk2YFRCqThGXW3pHLzuSuEoT+bQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJz3PCZoKLoyvXHLxXGt+/C6GoaNNspL4tkKARB28OzMghgc1QH
+	VyYsnj/1gPGCEABxvxludhjNdp+hTGtGc0VxWjgvDy3CiFfmjGjWH1vH
+X-Gm-Gg: AYBFou1RZ9D6+rI8cEUn4B1sGOYhZFW5ptcu9HVB6GUE1D8giD3Oka8iXibM4iHLJI8
+	XNdAr3+KB19s1fYTYu0yx3uDMaAoBFK0ZcUUKJXwEn8jrR9fHGQNjmCe21w4Zzqd/0Sq2ecdRzU
+	Ijnlu2D6y/hlJZQb2KpuWaOTwAykdyCxJx9upkHIueq7AIdYBBXgYQGg5tVVR4k42EhwsvJMANb
+	gKKB+FlJSBlAqms6eae/wAeK90WRdaHMIHRuXuiw0G1eWGoNq/1VCIqbcGSFTgGcoSnl0agRbgf
+	WDkNndnFIsM8nm2ybSkFen9SQJiBfV0Tckm+ffMXN03z9jjlBI3QeiWMsT9Ech9jLbIY3Ru8BaD
+	5A2EjKKfvA+U4Wz7ANYfrMaEzO05fmu0RoAJWazPk+enYir4gAwN/DVkK5bG1gMgAo1CKWXnFij
+	CHhl3L0tW6t0bSIzTCelGOkwki0D2KivUabeff0MCmjG5gTIxddbwBkLuBsxXTxmKYgwPdhHc2A
+	i2i4974sMXFLWRND7XVYJ70x/rjkhjovKviULU9Mria+5qFIQmBUGc/pEsji7uxobHIN8A=
+X-Received: by 2002:a05:701b:260d:b0:14a:8df8:56c5 with SMTP id a92af1059eb24-190a599a5admr5852299c88.26.1792686680599;
+        Thu, 22 Oct 2026 09:31:20 -0700 (PDT)
+Received: from DESKTOP-NM9EKIA ([125.134.240.130])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1903d87ab1bsm17079981c88.21.2026.10.22.09.31.17
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 09:31:08 -0700 (PDT)
-From: Florian Fainelli <f.fainelli@gmail.com>
-To: linux-mips@vger.kernel.org
-Cc: macro@orcam.me.uk,
-	Florian Fainelli <f.fainelli@gmail.com>,
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH v2] MIPS: Cobalt: Include legacy IDE ports in the PCI I/O window
-Date: Thu, 22 Oct 2026 09:31:00 -0700
-Message-ID: <20261022163106.1410595-1-f.fainelli@gmail.com>
-X-Mailer: git-send-email 2.53.0
+        Thu, 22 Oct 2026 09:31:20 -0700 (PDT)
+From: Joonhoe Kim <26rote@gmail.com>
+To: mani@kernel.org,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com
+Cc: horms@kernel.org,
+	christopher.lew@oss.qualcomm.com,
+	deepak.singh@oss.qualcomm.com,
+	pranav.phansalkar@oss.qualcomm.com,
+	andersson@kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	regressions@lists.linux.dev,
+	stable@vger.kernel.org
+Subject: [PATCH net v2] net: qrtr: announce local services again once our HELLO is sent
+Date: Fri, 23 Oct 2026 01:31:16 +0900
+Message-ID: <20261022163116.1042-1-26rote@gmail.com>
+X-Mailer: git-send-email 2.55.0.windows.5
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,105 +107,107 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The Cobalt PCI I/O window starts at 0x1000, excluding the VIA IDE
-controller's fixed compatibility-mode ports at 0x170, 0x1f0, 0x376 and
-0x3f6. Since pcibios_enable_device() was converted to
-pci_enable_resources(), these unclaimed resources cause pata_via to
-fail to probe with -EINVAL.
+Since commit 544d85de4dc2 ("net: qrtr: Send HELLO message on endpoint
+register"), qrtr_node_enqueue() drops every packet but HELLO with
+-EAGAIN until our HELLO has gone out to the node. When the remote's
+HELLO arrives first, the NEW_SERVER replies from the name service are
+dropped, and so are the broadcasts for services registered before our
+HELLO goes out. Nothing announces these services again, so the remote
+never learns about them.
 
-Start the PCI I/O window at zero to cover the southbridge legacy ports,
-retaining 0x1000 as the allocation minimum via PCIBIOS_MIN_IO. Register
-the PCI controller from plat_mem_setup(), before the VIA reservations
-and i8259 initialization, so the legacy resources do not conflict with
-the host bridge window and prevent PCI bus scanning.
+On Kaanapali the modem sends its HELLO before it accepts ours. With
+rmtfs started first, the modem never learns about rmtfs and its
+watchdog resets the SoC about 40 s later.
 
-Keep the VIA resource reservations in plat_mem_setup() after the PCI
-controller registration and use insert_resource() to nest them beneath
-the PCI window. The i8259 and RTC resources are also claimed beneath it.
+Remember that the remote has sent a HELLO. Once our HELLO has been
+sent to such a node, pass a HELLO from it to the local name service
+again, so that it announces the services it has at that point.
 
-Boot-tested on a Qube2 with a MIPS64 kernel. All seven PCI functions
-enumerate, both tulip devices bind, and pata_via initializes both ATA
-hosts and detects the ST380012A 80 GB disk. All 18 boot checks pass,
-including a read-only disk test and Ethernet ping.
+The flag is not cleared when qrtr_endpoint_hello() restarts the
+handshake on resume, so a HELLO that the remote sent before then is
+not lost. The cost is that the remote gets the same NEW_SERVER
+announcements twice when its HELLO arrives before ours goes out but
+the name service handles it after, and on every resume.
 
-Fixes: ae81aad5c2e1 ("MIPS: PCI: Use pci_enable_resources()")
-Signed-off-by: Florian Fainelli <f.fainelli@gmail.com>
+Fixes: 544d85de4dc2 ("net: qrtr: Send HELLO message on endpoint register")
+Cc: stable@vger.kernel.org
+Signed-off-by: Joonhoe Kim <26rote@gmail.com>
 ---
 Changes in v2:
+- Replay the remote's HELLO to the name service from the core once our
+  HELLO is out, instead of retrying in announce_servers(). Replaying
+  the announcements once hello_sent is set was suggested in the Sashiko
+  review of v1. This is also not the delayed work in the name service
+  that I mentioned to Mani: that would still miss the broadcasts
+  dropped before our HELLO. Nothing sleeps in the name service worker
+  and there is no time limit.
+- v1: https://lore.kernel.org/all/20261016124600.31-1-26rote@gmail.com/
 
-- implement Maciej's suggestion to reserve PCI resources first
-  and then the rest of the peripherals
+Tested on a Lenovo Legion Tab Y700 Gen 5 (out-of-tree board support)
+with rmtfs started before the modem: the modem's HELLO is still handled
+before ours is out ("failed to announce new service"), the replayed
+HELLO follows right after, rmtfs gets the modem_fs1/2 opens, and the
+modem stays up.
 
- arch/mips/cobalt/pci.c                     | 11 +++++------
- arch/mips/cobalt/setup.c                   |  4 +++-
- arch/mips/include/asm/mach-cobalt/cobalt.h |  1 +
- 3 files changed, 9 insertions(+), 7 deletions(-)
+ net/qrtr/af_qrtr.c | 22 +++++++++++++++++++++-
+ 1 file changed, 21 insertions(+), 1 deletion(-)
 
-diff --git a/arch/mips/cobalt/pci.c b/arch/mips/cobalt/pci.c
-index 85ec9cc31d66..29fd052766b2 100644
---- a/arch/mips/cobalt/pci.c
-+++ b/arch/mips/cobalt/pci.c
-@@ -14,6 +14,8 @@
+diff --git a/net/qrtr/af_qrtr.c b/net/qrtr/af_qrtr.c
+index e7b364742..508a2dd2d 100644
+--- a/net/qrtr/af_qrtr.c
++++ b/net/qrtr/af_qrtr.c
+@@ -122,6 +122,7 @@ static DEFINE_XARRAY_ALLOC(qrtr_ports);
+  * @qrtr_tx_flow: xarray of qrtr_tx_flow, keyed by node << 32 | port
+  * @qrtr_tx_lock: lock for qrtr_tx_flow inserts
+  * @hello_sent: hello packet send successful
++ * @hello_rcvd: remote has sent a hello packet
+  * @rx_queue: receive queue
+  * @item: list item for broadcast list
+  * @say_hello: delayed work for sending hello packet
+@@ -136,6 +137,7 @@ struct qrtr_node {
+ 	struct mutex qrtr_tx_lock; /* for qrtr_tx_flow */
  
- #include <asm/gt64120.h>
+ 	bool hello_sent;
++	bool hello_rcvd;
  
-+#include <cobalt.h>
+ 	struct sk_buff_head rx_queue;
+ 	struct list_head item;
+@@ -541,6 +543,11 @@ int qrtr_endpoint_post(struct qrtr_endpoint *ep, const void *data, size_t len)
+ 		qrtr_node_assign(node, le32_to_cpu(pkt->server.node));
+ 	}
+ 
++	if (cb->type == QRTR_TYPE_HELLO) {
++		/* Pairs with smp_load_acquire() in qrtr_hello_work() */
++		smp_store_release(&node->hello_rcvd, true);
++	}
 +
- extern struct pci_ops gt64xxx_pci0_ops;
- 
- static struct resource cobalt_mem_resource = {
-@@ -24,7 +26,7 @@ static struct resource cobalt_mem_resource = {
- };
- 
- static struct resource cobalt_io_resource = {
--	.start	= 0x1000,
-+	.start	= 0,
- 	.end	= 0xffffffUL,
- 	.name	= "PCI I/O",
- 	.flags	= IORESOURCE_IO,
-@@ -38,11 +40,8 @@ static struct pci_controller cobalt_pci_controller = {
- 	.io_map_base	= CKSEG1ADDR(GT_DEF_PCI0_IO_BASE),
- };
- 
--static int __init cobalt_pci_init(void)
-+void __init cobalt_pci_init(void)
- {
-+	PCIBIOS_MIN_IO = 0x1000;
- 	register_pci_controller(&cobalt_pci_controller);
--
--	return 0;
- }
--
--arch_initcall(cobalt_pci_init);
-diff --git a/arch/mips/cobalt/setup.c b/arch/mips/cobalt/setup.c
-index 9a266bf78339..502acc92969b 100644
---- a/arch/mips/cobalt/setup.c
-+++ b/arch/mips/cobalt/setup.c
-@@ -83,9 +83,11 @@ void __init plat_mem_setup(void)
- 	/* I/O port resource */
- 	ioport_resource.end = 0x01ffffff;
- 
-+	cobalt_pci_init();
+ 	if (cb->type == QRTR_TYPE_RESUME_TX) {
+ 		qrtr_tx_resume(node, skb);
+ 	} else {
+@@ -619,7 +626,20 @@ static void qrtr_hello_work(struct work_struct *work)
+ 	pkt->cmd = cpu_to_le32(QRTR_TYPE_HELLO);
+ 	from.sq_node = qrtr_local_nid;
+ 	to.sq_node = node->nid;
+-	qrtr_node_enqueue(node, skb, QRTR_TYPE_HELLO, &from, &to);
++	if (qrtr_node_enqueue(node, skb, QRTR_TYPE_HELLO, &from, &to))
++		goto out;
 +
- 	/* These resources have been reserved by VIA SuperI/O chip. */
- 	for (i = 0; i < ARRAY_SIZE(cobalt_reserved_resources); i++)
--		request_resource(&ioport_resource, cobalt_reserved_resources + i);
-+		insert_resource(&ioport_resource, cobalt_reserved_resources + i);
++	/* Pairs with smp_store_release() in qrtr_endpoint_post() */
++	if (!smp_load_acquire(&node->hello_rcvd))
++		goto out;
++
++	skb = qrtr_alloc_ctrl_packet(&pkt, GFP_KERNEL);
++	if (skb) {
++		pkt->cmd = cpu_to_le32(QRTR_TYPE_HELLO);
++		to.sq_node = READ_ONCE(node->nid);
++		qrtr_local_enqueue(NULL, skb, QRTR_TYPE_HELLO, &to, &from);
++	}
++out:
+ 	qrtr_port_put(ctrl);
  }
  
- /*
-diff --git a/arch/mips/include/asm/mach-cobalt/cobalt.h b/arch/mips/include/asm/mach-cobalt/cobalt.h
-index 97f9d5e9446d..c7a8607cd651 100644
---- a/arch/mips/include/asm/mach-cobalt/cobalt.h
-+++ b/arch/mips/include/asm/mach-cobalt/cobalt.h
-@@ -19,6 +19,7 @@ extern int cobalt_board_id;
- #define COBALT_BRD_ID_QUBE2    0x5
- #define COBALT_BRD_ID_RAQ2     0x6
- 
-+void cobalt_pci_init(void);
- void cobalt_machine_halt(void);
- void cobalt_machine_restart(char *command);
- 
+
+base-commit: abeacca61eea4f6803df4a595b656ea45c2d3249
 -- 
-2.53.0
+2.43.0
 
