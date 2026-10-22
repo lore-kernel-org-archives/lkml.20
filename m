@@ -1,89 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.9
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792685397;
-	b=TclUcCqCkEAu/iiibCxOcNtnP/eKMGGKnUo1jBHMPE659YQa1VyA8EaT91JOrNJ3dBHi
-	 bUlY8uDoc7AyMlQsyf+ThNGPdj4U5Bf8bF2LYLUgiJ66l9DXjPIJQZpSXH+Q0aks9pIJF
-	 5e0KHaWgQMV6t603baC9gCsg6D/VGyBfMQKz5C5pfoJWBhVrkwzCUygHzivkkknWnIbpc
-	 6YNTB+IWSrzcqEjRBQPI2+IH7kRMRtoJ+TW9kX497xq/MOFuA2aEvUZH6ct8Ms7pybvHd
-	 EFayANpE7eraWKkcLIEIUto8/3VdIRNRu7pjFhYXHWoekgaR9qQW89nuPCJuonEzXWw==
+	t=1792685406;
+	b=tTGfTezD9HAq5zwvli42+Co+Lu8RNG43TqXUMNA4PONYAzz5SmES5JIF6HTxXQRerfJZ
+	 H0ftGh7PI92XuY3fIPtIcIvaIqdFvGT3bxcXX/qwrn21mjilhWGqmIMUenkIL7rdAXcMw
+	 sPCOKeT0YYEs8U+T0s1SXrCSReuWTYFCwwQgIL5LFY9Mq0fN8RCcIPYbesKfzhIqnw+9l
+	 TE2va50WmtT93inDARulJ2w0W3utEmbxPl0U5hnLbCTe0A6GZt/Dt//6PXBvOo98itWj4
+	 FmEUQtXAMSgdOSwWhToQyr+Zb750vqtckN8G57NJEub3KSVBEude/8emxmeIk2q/S/Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792685397;
-	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=v1Prpp1754oDiTS20NqGEFL5tiELyqU5TBJPE4Di/34=;
-	b=ucy4A5GEDUGfFTMdhDN8GM3Pwg1aINGairUNeXQiJaUktYeIHVNYvp9AwWTPjvPSGcqg
-	 akfsp9rpgIFGUfDlmsYrdFhg15MEs8sm4PZMjbVePPIyMliVPXzMQ7x+74YZPicHUHyDn
-	 7MEdYf7jxzJM6jHhHHpTdy6hqFMhjwb1gYEs5ntl6OSnj+gqgIUCVKfeg4h/FPoBD12KB
-	 9JogwVFi9ePG94nYwYvohf9Ed12/qRSIP1e3TU/Y151EBeCm4Yfbb4+dKWX1xZR0kub0v
-	 Mnl4REGn9B5KRveqJ6nrs3sMB2vzGrpYhcxeo29hLlbGEmAu874aQZCaZqFkX4AaWpg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792685406;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Subject:Date:Message-ID:X-Mailer:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=TKiZFeJUlLaF2cjWlbWxlK679IXDg+jtMCj4786GFco=;
+	b=BFinVe8oBFyw/NmTvuiYhZ/7CAol/1iTxhnYfiNcOS2g7aPWN6RHzTTnGb1FAhHSJ5BS
+	 b5GDhWLUyKLVr0Ktz+XR1aR+CCtN8DHHGPfdgf0twWWLxP7LSNsOCn8OS75tPoq87vRDK
+	 q+pl4oYpWq0BjKaDxzSWObYQaaz+FrwXH/yGs3oUebbifxEmvo7NUO7rzyJ29EDDFoTfg
+	 IGv7WC2U4rjQ35aSYjpJeR5/k0WefsqsNErboGXaCylFxOJS0AKDgLYafTpGWRgWxhgXx
+	 2tLcnRXMmmqaWOfvdoYGPI02T4JtrlhizXX78iDzDDBsUPfhdg3j8C7YR05zoTYz+Pw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linutronix.de;
-	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=c8grHt1M;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b="HRy/pchk";
-	arc=none smtp.remote-ip=193.142.43.55
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=XmzsW+R5;
+	arc=none smtp.remote-ip=74.125.229.9
+Received: from mail-dy2-f9.google.com (mail-dy2-f9.google.com [74.125.229.9])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3921F606A321;
-	Thu, 22 Oct 2026 16:09:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3921F606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E33E360A2612
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 16:10:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E33E360A2612
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=c8grHt1M;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=HRy/pchk
-Date: Thu, 22 Oct 2026 18:09:47 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1792685390;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=v1Prpp1754oDiTS20NqGEFL5tiELyqU5TBJPE4Di/34=;
-	b=c8grHt1M357EJP9+SRiIzZOJDe1Nkx8zzKjUju/KETCvRrHFe7yKwCAbP7pb1CSMqox95C
-	5Ak/tS+X+6FJ+2ebv9X8KmQrt8w5Z3GRHSMo1dN9OhEchMAkVdgRI7T4DG4EMeVQGTtQCF
-	Wp+oDOzr7t6x1t3Y9q2V68nb8YejlpMDhHaEqNE90wNzfAydtxyLW0RtxYGXQyUabREwFI
-	Sw59RhIaZZGbxiSoqTHz1vPBKc2zgK5mnHm0J1OadTkvavFO6g6sPnYhXecQsKvhQFErd8
-	N/88/fvPjvBJGdG7zyawNbCTU3DDN/3WqDANKFFWqmDY+F47eRKYDDSUUZDKmQ==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1792685390;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=v1Prpp1754oDiTS20NqGEFL5tiELyqU5TBJPE4Di/34=;
-	b=HRy/pchkaWHeZE2tmmY1W4XimyRO4ykVMott7BQvUGqLVh+82KJUA+J6bVJmcEYGhvFm6x
-	B4ETxuPIKfeJaYCQ==
-From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-To: Shuah Khan <skhan@linuxfoundation.org>
-Cc: linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	"Maciej W. Rozycki" <macro@orcam.me.uk>,
-	Bill Wendling <morbo@google.com>, Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	Ingo Molnar <mingo@redhat.com>,
-	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Justin Stitt <justinstitt@google.com>,
-	Nathan Chancellor <nathan@kernel.org>, Neal Gompa <neal@gompa.dev>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	Richard Purdie <richard.purdie@linuxfoundation.org>,
-	Sam James <sam@gentoo.org>, Shuah Khan <shuah@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Thomas =?utf-8?Q?Wei=C3=9Fschuh?= <linux@weissschuh.net>,
-	Tomas Glozar <tglozar@kernel.org>, Willy Tarreau <w@1wt.eu>,
-	x86@kernel.org, Arnd Bergmann <arnd@arndb.de>
-Subject: Re: [PATCH v5 0/2] Start removing X86_X32_ABI
-Message-ID: <20261022160947.K-lG2zzN@linutronix.de>
-References: <20261015-x32_removal-v5-0-2bfef9151fad@linutronix.de>
- <2fcf2983-0972-427b-ad05-b403e325ce40@linuxfoundation.org>
- <20261019103532.E7ra8pya@linutronix.de>
- <96d29c1f-d797-4f83-a65a-d1763f0cf760@linuxfoundation.org>
- <20261022150624.THzKWu9_@linutronix.de>
- <271a7031-aa67-467a-be40-9b08efe3fae6@linuxfoundation.org>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=XmzsW+R5
+Received: by mail-dy2-f9.google.com with SMTP id 5a478bee46e88-34cbc588a31so980653eec.1
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 09:10:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792685405; x=1793290205; darn=vger.kernel.org;
+        h=mime-version:content-transfer-encoding:content-type:message-id:date
+         :subject:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=TKiZFeJUlLaF2cjWlbWxlK679IXDg+jtMCj4786GFco=;
+        b=XmzsW+R5MOEIC3FBhEhT8nnIUXXiB3mcI0ENYvxy7O1Q8LQ1Pj+WxcuCTDqNcCHQ83
+         IaUMrck7a5HM8rXIqEPHb7kN5to9RsNcA8FovdJ9abNnL6eHcWaocb22UYtEYvlClLVE
+         1EqL2XYZDUUqyKR9zRJzcl6fKA0y7QUwcT617ZDsxb81VZ8rtuFCAKgVXDu3yUPeeLjc
+         5ioPVsWm4GlolS4MrwxSssRt5mYp4AKIXyesOnOhYz4RKxd3ZDgKfhlFbjuNeLNY6XAv
+         FmxXPR89luxqUrZ34f3LxHNV9Fn5ycypdfmUh6KMpiqJdYSk0DPLm4/fBQEQEMfsxyKj
+         Kznw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792685405; x=1793290205;
+        h=mime-version:content-transfer-encoding:content-type:message-id:date
+         :subject:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=TKiZFeJUlLaF2cjWlbWxlK679IXDg+jtMCj4786GFco=;
+        b=ylQbC9K0bhIoTzh+vabek9P5hBfWqCOS22LNQrZ4/hGBf8hGySzO1UKexeaGHbtoqr
+         cRuiuaqaLuLChWLvNteTo67azCr8iWD45rIt98TS5stXdrNs57IXYildnTi7/dscS6QQ
+         c8R0bxiAJf32S6TZVmkxVqVrAEeZ3jy4AFJCtr4n3vtTIUfSXapl0SXIkwrC3lqub5jC
+         FwbWUC6HsjBHVIfNlJI+vOkfaaiSG7RqdfxaSrRI+rQKKIJvlcXazRegKrO8ZL1AACNo
+         cVpXZmcnh/YpAS3dwBWxYJVE/jSUJGPzUABw77RnPi1BA0GBRJ3ujSisyl02SpsgFLp1
+         voPw==
+X-Forwarded-Encrypted: i=1; AKwUvBxYWXX3Awyu0loy1rLHoRUV1qLlhQ3UELZJ5Rk1clUsVU8IYVwj06bUD9WLIvO0xWFvWRdgC90u6hrw5go=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLhJiEmD7jgTyGPKzmTNFP8cxulSxzsu7p6cFtfd8XvSctEayKw
+	wsChPzVrbyOyInJhd16bcVjGsGw32q6DdqTDxdKbSOqTwXotvOo5egE9
+X-Gm-Gg: AYBFou1WngtcQ7t2b5Kk0OIQhbjSX6yD023p4CEA5AQ+9H5grAIh2o2ntX0TDnVLqDM
+	a2G7NZpFMKdkHQvY+0uwBj/Kbkq2N6vHhtjFrQdRnvBAq/Cmmt+Zy/6Ar9qZ1bYqoRA3MH106te
+	xaNF40vd4GMJnAJsEmw6U1nNvGNYOYtoOnDvTImDLOgHhYfHnkr7Egk8cyRDxoUybdkUbAPzV97
+	XoQoW0And8i41eR0HEXW946Rjw9OasTfhWvYvhBpMvHqsnZBXtVzpWmi2qDAgs4KD3qyQ7K/h8k
+	96Lus6JcfwSiUKX6zYYYYYoGJpadH2xqDzJPYV/Uy8WSMggtz8RUucvS/FmzeQaS35DYMokRg88
+	JiZst3B10Jfly6jupr2Kq8whaf74/cDTXRtWyEGfOj7riZmUEb/OyodOJe1InthdSpVvI0FzYLx
+	D4e3jx+4M33465e8ifM3RplVzDx3PCzSgXLVF41/37CjoosRRDd5cpAz6zU2l6JUCsALG8716C+
+	8ASItZSEL1ljeTzLFysDAEbEVmodqGz9o89xgLUClIiyozduV5hEJh4giXceMIdOD4w6nAV6aNd
+	rZfM
+X-Received: by 2002:a05:7022:b045:20b0:183:3c2a:ae8 with SMTP id a92af1059eb24-190a84c288fmr7338019c88.41.1792685404837;
+        Thu, 22 Oct 2026 09:10:04 -0700 (PDT)
+Received: from [127.0.1.1] (67.216.200.102.16clouds.com. [67.216.200.102])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1903e4f2eacsm14594124c88.23.2026.10.22.09.10.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 22 Oct 2026 09:10:04 -0700 (PDT)
+From: Cheng Yongkang <teel4res@gmail.com>
+To: Nikolay Aleksandrov <razor@blackwall.org>,
+ Ido Schimmel <idosch@nvidia.com>, "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
+ bridge@lists.linux.dev, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Tobias Waldekranz <tobias@waldekranz.com>
+Subject: [PATCH net] net: bridge: do not bypass port state for MST without
+ VLAN filtering
+Date: Thu, 22 Oct 2026 08:26:49 -0700
+Message-ID: <179268538303.70821.3493915601694605045@gmail.com>
+X-Mailer: git-send-email 2.34.1
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,30 +101,53 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <271a7031-aa67-467a-be40-9b08efe3fae6@linuxfoundation.org>
 
-On 2026-10-22 09:55:43 [-0600], Shuah Khan wrote:
-> > But this isn't the case here afaik. Now that I test it run into
-> >     https://lore.kernel.org/all/20261022142425.3Wx-RrU5@linutronix.de/
-> >=20
-> > so the test is currently broken.
->=20
-> Probably. I haven't investigated.
+br_mst_is_enabled() is true when the bridge MST option is set and the
+port has a VLAN group, and nbp_vlan_init() installs a VLAN group on
+every port even when VLAN filtering is disabled.  While it is true,
+ingress treats the port as forwarding and egress skips the
+BR_STATE_FORWARDING check, so that the per-VLAN MST state is enforced
+instead.  That state is only checked when VLAN filtering is enabled,
+though: br_allowed_ingress() returns early otherwise, and
+br_allowed_egress() only checks frames that were VLAN-filtered on
+ingress.
 
-I poked the one that made the change and lets see what happens=E2=80=A6
+With MST enabled and VLAN filtering disabled, no port state is enforced
+at all, and a port in BR_STATE_BLOCKING or BR_STATE_DISABLED still
+forwards traffic, defeating STP and MRP loop protection.  MST can be
+enabled in this configuration, since br_mst_set_enabled() only requires
+that no port has a VLAN, for example with default_pvid 0.  In that setup
+a BLOCKING port kept forwarding broadcast frames while MST was enabled,
+and stopped when MST was disabled.
 
-> >=20
-> > Did I understand you properly?
->=20
-> Yes. My objective is to get these items on your list to take a
-> look and address whichever you see fit and we accomplished it. :)
+Commit 8dca36978aa8 ("net: bridge: fix use-after-free due to MST port
+state bypass") stopped this bypass during port deletion by also
+requiring the port VLAN group; the bypass itself remained.
 
-Okay, perfect.
+Also require VLAN filtering in br_mst_is_enabled(), so the normal port
+state checks apply until VLAN filtering is enabled.
 
-> thanks,
-> -- Shuah
+Fixes: ec7328b59176 ("net: bridge: mst: Multiple Spanning Tree (MST) mode")
+Assisted-by: LLM
+Signed-off-by: Cheng Yongkang <teel4res@gmail.com>
+---
+ net/bridge/br_private.h | 1 +
+ 1 file changed, 1 insertion(+)
 
-Sebastian
+diff --git a/net/bridge/br_private.h b/net/bridge/br_private.h
+index ff746f036f54..85065304597e 100644
+--- a/net/bridge/br_private.h
++++ b/net/bridge/br_private.h
+@@ -1953,6 +1953,7 @@ static inline bool br_mst_is_enabled(const struct net_bridge_port *p)
+ 	/* check the port's vlan group to avoid racing with port deletion */
+ 	return static_branch_unlikely(&br_mst_used) &&
+ 	       br_opt_get(p->br, BROPT_MST_ENABLED) &&
++	       br_opt_get(p->br, BROPT_VLAN_ENABLED) &&
+ 	       rcu_access_pointer(p->vlgrp);
+ }
+ 
+
+base-commit: f4377bf85887f57b59abb5479f7660a81ffe4449
+-- 
+2.34.1
+
