@@ -1,87 +1,109 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792684656;
-	b=r6EsYaIKLE4DSfCGCdmaVFCEKA8IGIBQBCSB3rPHdEnLU1P667aBo8nh7/zDSCqwomtc
-	 eSzRPw07ZwxrjRbkGclLh11782+952UtTTvEAu6YGeFWZiLGDjRxr2deYlzjg5+aZGXeI
-	 uDz2RSPAlHLs26GRN4v0PC4kACNYboV5mc/idzDoWC7fOx1XGNNdg/bb8qWgX5daNK0HP
-	 Mnp07ZY12HA1UO4+YmTjd4QpQHYNv+q5eH4vHa3Dbe3qiVhXL0e/J64vfAVqjSVMOtICH
-	 1RLB63gvfwEBsyrmsDNQsfd39pOoVUFnUFdKLWltDdGnhN5USFj2fgsQVUlMQcbsKGA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792684656;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
-	bh=bCyNFGNC5QAv5YoFhc+XguwmFWmtXQoZNr4gvZ9GhCA=;
-	b=m1tvB+wY5h8EyRO/I6Clc6kEwe8CNdv2AhHpoo6XF1yBX16WOU4j/nvMJe7I8NFEBnCd
-	 AfmzytR7VIetO07IQUOHIU++1ma51KXvxqrL2a51qlLCTdZc/dveyOZHwL8ggYLMkQLLF
-	 UG5DmtYlfKyDN2aWgmyoRsXE4IKL7bzh8Q53wElGI8SpuafGz2JYyzb1YtvG2zsXO+lyj
-	 4MsoXa2Jv5zlsX0Ay4ZGU2umlIuKbJaHRELf836Lp5G4tFn21qxGq1KcYAvX1yEAYtC09
-	 YNeTxekClFj9rCzVbm811EifjNplJ0GdC+inpz0OX68DkM/PxYQLd3oacV8weQlDDUw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=baylibre.com;
-	spf=pass smtp.mailfrom=baylibre.com;
-	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=mopEgmah;
-	arc=none smtp.remote-ip=209.85.128.45
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.62.1
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792684711;
+	b=riJjg4VRQXroW9cIT6+deEo1QuHCmSVf/g4UurkHU0ZQ0ZoYIfts+ZUOSxkwRL1DRH+h
+	 9yjLvydqR1xa0p0iAi+xsufGACa0bHdyoS5K1deXjQEab8+iLtQ2KZCsmJ048kSi3fRQO
+	 6UwPLM3e8nC91KZ45KHqJiqaD8wuNQlCxYP32PR++psjbGEes4zeti91bdz1BtVHuThae
+	 oXxZCdq8OXwfc3EDAvKybH8RctXxRL0/CuldDdSQZVYkrW6UmLuTEhsY3uCJA2ssfgdTy
+	 reXSy6oC1mzJLr76KorU4ysppk14PcdhQfHKRWvaNZ3f7vEwdpf9y5IXfwvlf1fRJwA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792684711;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding:Content-Type:
+	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=Q+iRucOpyzVZYqLOhtf2lLfuMQTWP6HMT9jJ94Hp2dQ=;
+	b=JQIpQPJXkCfxlbTuQdqBnqKWbZnqMTqXdFtElqqkjl4HywZxkHCbPlV9s7sJswtvfA0W
+	 FLIt8fqCE7MOFHiReK3ZfihPAX2yazGL876i6uhRaeSp7soKqrNnHODaLPas5somIHIh1
+	 1FcEUFwK/njgFgH7/IYN0AUBtyaTfkT88kQRy5/+J2hUjG3Mvduq+PvJhrdpsnE/5tF5K
+	 HJjERaADpbVfimb2NAXivUOEnYyKz1JW0QUXmW/ErNu4LZeJSY0aEG1fOlg2TYFt2DbH8
+	 tPnJYn3c2dobfgAD0afl+o/GGl+tyRrjP6c6yKYZHXE5e1YIQCz8WTndvE3DjzlQDpg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=YSsMAZsL;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.62.1
+Received: from DM5PR21CU001.outbound.protection.outlook.com (mail-centralusazon11011001.outbound.protection.outlook.com [52.101.62.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF594606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 15:57:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AF594606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D37D606A319
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 15:58:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1D37D606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=mopEgmah
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a1fbd52ab6so13692265e9.0
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 08:57:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1792684653; x=1793289453; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=bCyNFGNC5QAv5YoFhc+XguwmFWmtXQoZNr4gvZ9GhCA=;
-        b=mopEgmahGi2LZ/MpaHEcX854qnec/UxPeuBg/hGh/Z9nqojzxFpELxS5fnOV7Ltg+9
-         Gu+BuVPMR0i/9krCj8jdSbsiDRrbzaKK9/0x3Oh6BYf7feHfZLq9C/pypGvH48fJZQNS
-         OoENBd9sWkdVdvP/6JYfb+eE8DWXUUVdJMnUm5YLcqYZ093zo6wW5TD8XhCyDUKicZAD
-         wdO2+v0YRLJ3j4PWEOrXP8MJnwWGsaqquCM89EB0hjYjSodI1yeqMauHYpgy9nEeDDWv
-         uPCsmw/luwwKeW3N7URKQ/DABaSPe9OHD4HGV0R7QRryY5gehPYFx5qxdbr8ZAoE7vx+
-         QIaQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792684653; x=1793289453;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=bCyNFGNC5QAv5YoFhc+XguwmFWmtXQoZNr4gvZ9GhCA=;
-        b=kwlk4HrpY2o+GH1DPUxb30MOR7PdNDxKPUqH16iKWOntNqMukEkf0eIGGt6Vv8qgIX
-         VLyQp+JB8HDVuAgrlxAIBoAhmYdk36f0YHYfmjUCAQdDw6LN57jNObHzCG/I0Awoaahe
-         1WmPFjA/Rac3whYq4BhYeLMpyZaKe0TILvVzTOoADI8vLZtUrbvzQ+6Gm/XJeQaohzF+
-         rpr5GpJMJ8DPnuBnp2wbtysDe+bqhckUIjI4DKZE4YZIRhqRLLrbzVLDqjc8uMCBtDsK
-         ON4NBxn1v8fYyCH9SLrfUQZ2YMjyhrrogCsXHv213/wbbDFRUKDyt85G/TuPTu1OkJCe
-         Rb4g==
-X-Forwarded-Encrypted: i=1; AKwUvByJygDxdWs4bx97Q4l6BkgmyiFyODPoAizIL5BlJmos/yjwSDPXrFoNLj8wmJ0iDvz/VO/P6kI69IEf9Wo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKgmLmzJjJkzRNo+Q/10Pkz/rvWha7FZOPpZ9F6/mh8t5R338yQ
-	z9sYTuzMA0Arsor2AKoCTt0mO9Rwvj4LIe8B0/YWgKuCcXvE93bUXsKYdiGehDxph0I=
-X-Gm-Gg: AYBFou1rcCW0lnhci3BG4uJchU9szXoNM3pJK7TWlWIOSw7cQnpYiSnOixHHybAOFkZ
-	lA7SkWhV0mkuiBZ81OwSQx3HIVAv14wRMGW5/Ovqzjf1e0gwU50J3feK/c7+4mirilTrzrbPCPq
-	DsO6tCb2g1KqZp+mtNaBz+e1bvyikLCNw/04Js5vKEZCgcOdPrR5dXIOPvF2qTXsFkN8rzzbjU7
-	/2C1q5vR4oN8D/F5oGmyporV/gQqjgcnHNOBXhqbeTFmVi0WYfQFUl3DTNs94joJFwT/0RxnZCZ
-	vEIPvTB/d+Em6deO8Upi7rjJQpEfO7KECbjCDBH34b/26y8xu0tvTcPEUcpK0yE/RdE9EySotH1
-	1cCBPhmgIsfd5YeOQRP7p3FxhSLst1szjB723snV/S+Q5sLSkcUrzewnEWLd3FIcAPjJOo3eUXc
-	fXDqi4kh+1FxhAAxh4Dq4GifXEY3JvuAVTRzi1gAO3KsmGP2dEog1kVm8p9IyQHwP+nv8/VVvSU
-	rZvFEPYIJMV5x8DCfPvfoiHJ6TcWqM3qUQkdGuM2YDNU+4StXpRjXgRBB8uGF57E9/E0B9rxH4E
-	eD0NVyncZboWesCUkOduERAMHB/v
-X-Received: by 2002:a05:600c:3548:b0:4a1:e774:370c with SMTP id 5b1f17b1804b1-4a1fdd145edmr114281495e9.30.1792684652964;
-        Thu, 22 Oct 2026 08:57:32 -0700 (PDT)
-Received: from [127.0.0.1] (mob-83-225-32-96.net.vodafone.it. [83.225.32.96])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1fcd360e4sm96519725e9.4.2026.10.22.08.57.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 08:57:32 -0700 (PDT)
-From: Carlo Caione <ccaione@baylibre.com>
-Date: Thu, 22 Oct 2026 17:57:26 +0200
-Subject: [PATCH] MAINTAINERS: cover all the headers in ARM/Amlogic Meson
- SoC CLOCK FRAMEWORK
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=YSsMAZsL
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=NSXAP4TM1NASw3DjBQPbfhBT85ox/tH0jHk8RbSh3m0JoorrHkhIOuq5Fe73ZxuDoLetveYk1Ku0NWnvkvxRKPP86byp4ObNo6/+IAefxxEeJsvDhL0l8598TNL7FCsa4FtkvAxnpokahfYgWMaB/zcHxfWeWJ1G0SofNsKwXeKo5eoRcT9P6AwsYKqqMzR/sJtkDbWQeb5XNkvjc5Uxwnt6pGvajrJQkRu10NkNaicpnHHlGJBfVHLwRRquGUruchCgqgANI9fmfV6+DDpimYLRo+Ab4aFcdr4NuvrMn7Rc/jFJH0ATWMfDkiHiS/TrNVC3gBQvRnaLIv3x5xRfVQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Q+iRucOpyzVZYqLOhtf2lLfuMQTWP6HMT9jJ94Hp2dQ=;
+ b=upye9aE45WkTgw5iNfMPoqdXIzZNrfsS8xPquI9X0TFHGg0iiyWdqdNDlK18utMdXvbJDFU2q1h7wiCgTvTOZLFtUY7if4JyNeI3xx89DtxM3vHe/FLfoF+V75/KdoFRzpKiDqDkTgzN1N5YtYpCGdGO+BYTw56s7xAdf/KDC3mSnqmU2BRJjJkkWjSp5LifsEePDdzO1/pIbl7dRrhj5g8Cp17hHj8bizgOnMlE0JHWmUiJb5SJ+3j9L2X1agbXzoTiOoX7UHS4NxDaUdeS2dk3JvTgBzzEmm0lzhccyyp2+ZObfbPoG8jbRTDpopQj7qcroQJmToNDKQKKUo/3sw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Q+iRucOpyzVZYqLOhtf2lLfuMQTWP6HMT9jJ94Hp2dQ=;
+ b=YSsMAZsL9O1Yp5CsBAj8zD1cGe6YLSM8JVmip7o1j1uCl8tY5/Pi2kCCN+16ddl5e66auyWlFhmZnZhnD+yUFm+60jVxS4eh2fOiq6JNQIVGWECNOPKZkD6TwTeePiOFnTLzwaU/QhY/WvciZ4bAjISs+VX0gyCixBq67XnxA0U=
+Received: from PH7P223CA0002.NAMP223.PROD.OUTLOOK.COM (2603:10b6:510:338::28)
+ by DS5PR12MB575708.namprd12.prod.outlook.com (2603:10b6:8:47c::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.16; Thu, 22 Oct
+ 2026 15:58:14 +0000
+Received: from CY8PEPF00000059.namprd21.prod.outlook.com
+ (2603:10b6:510:338:cafe::51) by PH7P223CA0002.outlook.office365.com
+ (2603:10b6:510:338::28) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.546.16 via Frontend Transport; Thu,
+ 22 Oct 2026 15:58:14 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ CY8PEPF00000059.mail.protection.outlook.com (10.167.247.22) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.569.0 via Frontend Transport; Thu, 22 Oct 2026 15:58:14 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Thu, 22 Oct
+ 2026 10:58:13 -0500
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Thu, 22 Oct
+ 2026 10:58:13 -0500
+Received: from xsjlizhih51.xilinx.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
+ Transport; Thu, 22 Oct 2026 10:58:12 -0500
+From: Max Zhen <max.zhen@amd.com>
+To: <ogabbay@kernel.org>, <quic_jhugo@quicinc.com>, <lizhi.hou@amd.com>,
+	<dri-devel@lists.freedesktop.org>, <mario.limonciello@amd.com>,
+	<karol.wachowski@linux.intel.com>
+CC: Max Zhen <max.zhen@amd.com>, <linux-kernel@vger.kernel.org>,
+	<sonal.santan@amd.com>, Umio Yasuno <coelacanth_dream@protonmail.com>
+Subject: [PATCH V1 1/5] accel/amdxdna: Use compatible fdinfo engine key
+Date: Thu, 22 Oct 2026 08:57:53 -0700
+Message-ID: <20261022155753.232976-1-max.zhen@amd.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,53 +113,79 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261022-upstream-maintainers-clk-headers-v1-1-d09dd4db01d6@baylibre.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWNQQrCMBBFr1Jm7UAz2CBeRVzEdGJHbSwzqQild
- 2+qiw/vbd5fwFiFDc7NAsofMXnnKu7QQBxCvjNKXx2oJe9aIpwnK8phxDFILnWshvH1xIFDv3O
- K5P0pHV3qAtTMpJzk+7u4XP9u8+3BsexdWNcN9iE8poQAAAA=
-X-Change-ID: 20261022-upstream-maintainers-clk-headers-fc2668f41f5a
-To: Neil Armstrong <neil.armstrong@linaro.org>, 
- Jerome Brunet <jbrunet@baylibre.com>, linux-amlogic@lists.infradead.org
-Cc: linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Carlo Caione <ccaione@baylibre.com>
-X-Mailer: b4 0.16.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY8PEPF00000059:EE_|DS5PR12MB575708:EE_
+X-MS-Office365-Filtering-Correlation-Id: 200b4cd7-f255-4913-e158-08df305547a1
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|23010399003|376014|1800799024|82310400026|261009223027099003|261021123027099003|261021121427099003|10067099003|56012099006|3023799007|6133799003|18002099003|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	83KqkgozhXnvMKxUVefjZPdq8lfikgjNg5KEcFO1PryiPapH3Kz66btd8JQ+kIXOEFCgHoq1M9aS6Qm5z1zHdMqUuOSDoVCEzoTj7rKYLhzkC1gOofsgM7RXOPI8fbzrcf3sCQjWswPOzPbbL3KFVFvH6pghYmTTotXnldvMY39ECh01vATqmESJwCJcbmgCMJ1hUz5BjZS1DPv4FbXSHvRZu/i7DERAdM/GKNFSHsYUomeC8c5uLYkALKm4QBnsuzUpmxLu2YktR1YZnjvijkj9qIOHUTWUhRdPjoe95+kNdpoFSJEh78TaXKc9MStUXOi79Pu59xhkmPxa92JlhZKAOtFLPj4bj8dLUI4fYEORNF+HOMv05yde44pSxGHWebkH4kacfF3u/NQG01cXFXTQXJivaqkeD2TMUXF0kioOn0cbDrggBjOJz/UOnuVsyhq5DNKSgFJQooKr0y0OJJJPGlsnRaDGRE1hhZhOMVn1GAIcU41XjvHJPFHzDpSNCy0+fwIAikLQogTRT6IrNhAEtxxqh9d4FhhKgzPh3PD+gsVi+Snwt8HsQNt2BTR+ZLrkNhj0bUWGW9zlIVit22TKJlns6g3eNNrxV+8gPWU0L6PaZz4bH7GqqS47k2DdhF9ub18wI/e5Z553Uj+3SuBDatXoinCIu6MX2mLicIzUdtH+4br9XMfBWW+m5yYFNLltwiw6lwegitUvT++HzA==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(23010399003)(376014)(1800799024)(82310400026)(261009223027099003)(261021123027099003)(261021121427099003)(10067099003)(56012099006)(3023799007)(6133799003)(18002099003)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	fM/o4jP9Nm7WvDWP2BXutQ5c3IZT8INpSRt37+Qt95ztS3qogemUSyyQwzhry1yQSWH3LoC0joEiAXXidlnI5DgV6KptN9PgDvEcNCwlCzJju1h59inx/awPosVgNUEEteyiP/5QApU+y3g8DScMl3a5yWo7Ad9iekIaccmpREeoPkdPautsoYIQQ6uldOHNb/7+NFZXRjyNfTpx3cEd1rnlvMvBShIUZE7gyA3RwwDxtpHyvgPk//yKN1tgb9Xg2/7iRuf6KG4CR9Z5lvaHZlkzcbr+Q+lgf2yv3t1lwrbEhalM+kIpMSCPEDNj0UQ3giX8g3G2ynQ0Mgu20ChHdKtY6e7a7uixKExDjm+rMrWuhnjC5+5SJZRiA9E5BvdgrrebGstpEk2y0z3+z0Wse7Ydw+Ghgr4XDDLdCQWALpgnOJwF5+IjIFPcKbUPXScD
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Oct 2026 15:58:14.1219
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 200b4cd7-f255-4913-e158-08df305547a1
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CY8PEPF00000059.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS5PR12MB575708
 
-The ARM/Amlogic Meson SoC CLOCK FRAMEWORK section was written when the
-GXBB and Meson8 headers were the only clock headers, and only the A1
-ones were added to it since. The headers of the AXG, G12A, A9, C3, S4
-and T7 clock controllers in include/dt-bindings/clock/ are not covered,
-so ./scripts/get_maintainer.pl does not return this section for them.
+The released out-of-tree amdxdna driver uses amdxdna_accel_driver as the
+drm-engine key string, which is consumed by several applications.
 
-Match every amlogic,* clock header, and the axg* and g12a* ones.
+Use the same key string in the upstream driver to maintain compatibility
+with the out-of-tree driver.
 
-Signed-off-by: Carlo Caione <ccaione@baylibre.com>
+Reported-by: Umio Yasuno <coelacanth_dream@protonmail.com>
+Closes: https://github.com/amd/xdna-driver/issues/1754
+Fixes: 489a8539ca6f ("accel/amdxdna: Expose NPU device busy time via DRM fdinfo")
+Signed-off-by: Max Zhen <max.zhen@amd.com>
 ---
- MAINTAINERS | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ Documentation/accel/amdxdna/amdnpu.rst  | 2 +-
+ drivers/accel/amdxdna/amdxdna_pci_drv.c | 4 ++--
+ 2 files changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 3a19da74d00c..e5bda99b3015 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -2555,7 +2555,9 @@ L:	linux-amlogic@lists.infradead.org
- S:	Maintained
- F:	Documentation/devicetree/bindings/clock/amlogic*
- F:	drivers/clk/meson/
--F:	include/dt-bindings/clock/amlogic,a1*
-+F:	include/dt-bindings/clock/amlogic,*
-+F:	include/dt-bindings/clock/axg*
-+F:	include/dt-bindings/clock/g12a*
- F:	include/dt-bindings/clock/gxbb*
- F:	include/dt-bindings/clock/meson*
+diff --git a/Documentation/accel/amdxdna/amdnpu.rst b/Documentation/accel/amdxdna/amdnpu.rst
+index d72af1b51ccf..b0cc481c73ae 100644
+--- a/Documentation/accel/amdxdna/amdnpu.rst
++++ b/Documentation/accel/amdxdna/amdnpu.rst
+@@ -289,7 +289,7 @@ Example of the output showing the implemented key value pairs:
+         drm-driver:	amdxdna_accel_driver
+         drm-client-id:	3219
+         drm-pdev:	0000:c5:00.1
+-        drm-engine-npu: 14003870 ns
++        drm-engine-amdxdna_accel_driver:        14003870 ns
+         amdxdna_accel_driver-heap-alloc:	60 KiB
+         amdxdna_accel_driver-internal-alloc:	67588 KiB
+         amdxdna_accel_driver-external-alloc:	0
+diff --git a/drivers/accel/amdxdna/amdxdna_pci_drv.c b/drivers/accel/amdxdna/amdxdna_pci_drv.c
+index edf807c93144..f233eb70a295 100644
+--- a/drivers/accel/amdxdna/amdxdna_pci_drv.c
++++ b/drivers/accel/amdxdna/amdxdna_pci_drv.c
+@@ -284,9 +284,9 @@ static void amdxdna_show_fdinfo(struct drm_printer *p, struct drm_file *filp)
+ {
+ 	struct amdxdna_client *client = filp->driver_priv;
+ 	size_t heap_usage, external_usage, internal_usage;
+-	char *drv_name = filp->minor->dev->driver->name;
++	char *drv_name = "amdxdna_accel_driver";
  
-
----
-base-commit: 363f97a1ce635b86be7fd263d56a040fbd87bdbb
-change-id: 20261022-upstream-maintainers-clk-headers-fc2668f41f5a
-
-Best regards,
---  
-Carlo Caione <ccaione@baylibre.com>
+-	drm_printf(p, "drm-engine-npu:\t%llu ns\n",
++	drm_printf(p, "drm-engine-%s:\t%llu ns\n", drv_name,
+ 		   amdxdna_io_stats_busy_time_ns(client));
+ 
+ 	mutex_lock(&client->mm_lock);
+-- 
+2.34.1
 
