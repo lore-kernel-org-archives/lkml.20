@@ -1,54 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.198
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.218
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792633785;
-	b=sQIY1B1Y8f2omInvcDVfvqqQ/AoUoUGL8F6cYLdc34qLphkiRXNvcwLNC+01KGPK4Etw
-	 YjBz2s88TX9RSl2DY5weWopymtLlxhRFgqpNMh2wWEhojiDJtmpUMbcvzJydL/qnmeTj6
-	 3agj9ETlZ+E3q1fWy0Zdbmb2UTcLmUf6C4ftjf5hN2reLx1Z+wLFVWCQrNID6sSpl2kog
-	 i9PogoOvk6G349dicWlaBRA2snllp2I60CXrAI4rymP2AQVct2kS6Wn7AOQ81HpOPWoOs
-	 PferZlBdiUvbzaUCLkDVrUfZ+clSDNTJwxy8NEA2mslDRIUw0d72EPBK2LSqwVketGg==
+	t=1792633882;
+	b=GWgW03PUWcaWywDb372B6lTO/C5lBauG23vn3/9gc1tyGgnXwRGfyxZk9ct+MUtZRp5V
+	 Pl5dXhroL1FtzN2kkUPXoiqE94C0pG6s9K8krtFxV2g4beukj464zdbDUvGnFgBhiEs+S
+	 X+pciRqbH2F6bOWAwIsIPoqq66L0LUxuPCUv3ahwmgzpWskbCm0ADJLd67RtnGWiEJ0lL
+	 x64Xnw07U4DEs7DV4+ZLorCu8RRfjaROxBtXKhWxCDQ0AfAxo7Rod9QQ78Tabhcbj9sBJ
+	 zuaxPufs4FUN5O8gVHXW2/XJPra3P7wi7iICbA/Z0zcC7P93FFnGw17v1ndCKsi17DQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792633785;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:MIME-Version:X-Received:Date:
-	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
-	 Subject:From:To:Content-Type;
-	bh=JssOmerse6tIPNiF9hOfYFsHOXG2slRdb88lB5aCnO4=;
-	b=DDD99pjNiuYjurwLNJAg0kFEEG7jWprU43da01SAtV5Pqr3JSXHmx9TaUW8Ry1sxtsxM
-	 yfIRUndWLtuIfoXJ3QxASjkXSr35sThcaKDaxxMGmilZ0/UDeduAGEzzhMMSZ6qb64jD8
-	 hjUwo07zJ88QssiZSa+IEdrqfttqvmx3hT/xNjRlD+jp6XiSVjjMz8NdYftT3oMbkZ015
-	 hvyULEuHVGVki1UkkSK2EjBgj87wHQwOUvWEi6uhLY4e6Z8YBQLq+H94SDcAMBvubzTgE
-	 GB5RW5DU//C0YXY42FrELzq3e2N7d6uSkA4EqUNg22gV68cSIMqPRoxVKtuU13G1ToQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792633882;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:References:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=3iMfMhxfw5kayLgQ+ratnvMf0GrA3hzl9KQf2w39uas=;
+	b=nUeHnOQWsCuATvWifilBBy4PvPk+xPZXc7LVtJp/1dX6mPhKnnwMElEXT08Kz3GtGfxH
+	 v7S1PwQ3JywYzKW7IJYryHHd/CgiZ+IxsI5uUFvthHT1CvScT9QDpcXrqzaLfw9kjHFsw
+	 09jsDex9WTT01775fErMdQ+7js+vq43ibB5kuJRcjhtuV1xDv94VjYhq3VAdD1lcEpPE1
+	 JKUs9s/KGXxcWu6Xmad1wIxPmKKl9Kq6X21iIp+qFVOd1KZr3x+qgQVqgfVKS5s4XtcZ8
+	 MrAnbm5vDhDTmgSfkgFbHIBcvP+LpcsYFCtK/vLvmx7EQ1953YSAI4i3DTpEkPckrUg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.167.198
-Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=y0ys0K+m;
+	arc=none smtp.remote-ip=113.46.200.218
+Received: from canpmsgout03.his.huawei.com (canpmsgout03.his.huawei.com [113.46.200.218])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD599606A319
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 01:49:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BD599606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4b2d1eb484aso1772415b6e.2
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 18:49:44 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792633784; x=1793238584;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=JssOmerse6tIPNiF9hOfYFsHOXG2slRdb88lB5aCnO4=;
-        b=KMyKKHiQhTrQG6MR517iN3LGd15yyIGvV5q+YdU9zgcGXcZnGhBFdhp2lxD+ahUmFL
-         nT0+YCHw5rzkhXIyGzCFcBztRwN5vM19qxCUBp/kOgh3YYRYmqDGo4/BIQnPlCaNUAOf
-         kXih350ewGhvWyxU/9Mc5Gvl2qWqE5hdUfcZ4Az33vgKsgOZt1jMGZOtXAFe2oMOspEC
-         Qqa56wWkr7njKxqy0zxJtVdSpWJw4b9g+aCxC2g6o2dMudjk8McPc2FsHhOWxbFvvokk
-         MphlDRslalU+OC3KPKj4WxsPxqGpdW1NzZQiGxSbnzik2Y+Na3dZppeJe50B0OhOoA4t
-         hWNg==
-X-Forwarded-Encrypted: i=1; AKwUvBx9aonwN2jCZ4pdlXFNtYECIa5BxWP5yV0CN9Y8nCEngVeXJBF4F40mvHUaSJEECKcdlpJVTUttIcLQem0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI9nqn+bK2XyyYIIXGZU20/2izkkVGNxpuf10VrEv22uPzPbfYY
-	p5ZlU4tKrBBYdJ9nxs+izSkjZx2f0Hqeoy1KgPSLXCQW0Uit6pVa879siysSx7RB1HQQ2GUj93V
-	IEGrS1+H+7mrUEl2uyheTG36BRThRJkjMZGV99j2+db1SmemhOGIlcGuuTho=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D124606A319
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 01:51:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7D124606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=y0ys0K+m
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=3iMfMhxfw5kayLgQ+ratnvMf0GrA3hzl9KQf2w39uas=;
+	b=y0ys0K+mctFUoeHzG5PnyE5apLMd4qBkgebjEPnfmSAUlU47j2uKESiIun3w6CqhibvEiaf7d
+	Pvxc0AOxTbzq+oDKCTSeBMk3qoJLECiYxfNw/v7pCwhZ1ZeUmOfZ5j5C7i7zPoU3aqDcSGda8PI
+	Sr9+0gSOUBWtsSdlOTHQ8ko=
+Received: from mail.maildlp.com (unknown [172.19.162.197])
+	by canpmsgout03.his.huawei.com (SkyGuard) with ESMTPS id 4j98J92Vg5zpSvF;
+	Thu, 22 Oct 2026 09:51:05 +0800 (CST)
+Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
+	by mail.maildlp.com (Postfix) with ESMTPS id A439B4057D;
+	Thu, 22 Oct 2026 09:51:06 +0800 (CST)
+Received: from [10.67.110.68] (10.67.110.68) by kwepemk200008.china.huawei.com
+ (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 22 Oct
+ 2026 09:51:05 +0800
+Message-ID: <f3cf7673-0720-4fb3-8f36-a451b3cb6dde@huawei.com>
+Date: Thu, 22 Oct 2026 09:51:05 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,110 +62,180 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:1687:b0:4eb:b0b9:2dbe with SMTP id
- 5614622812f47-5535700ff21mr2591872b6e.27.1792633783759; Wed, 21 Oct 2026
- 18:49:43 -0700 (PDT)
-Date: Wed, 21 Oct 2026 18:49:43 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ad96bb7.d1c214cc.659fa.0082.GAE@google.com>
-Subject: [syzbot] [mm?] KCSAN: data-race in _copy_to_iter / _copy_to_iter (3)
-From: syzbot <syzbot+68c0534b26fbda7ed84f@syzkaller.appspotmail.com>
-To: akpm@linux-foundation.org, baolin.wang@linux.alibaba.com, hughd@google.com, 
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
-	syzkaller-bugs@googlegroups.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v9 0/9] arm_mpam: Introduce Narrow-PARTID feature
+To: "Shaopeng Tan (Fujitsu)" <tan.shaopeng@fujitsu.com>, "tony.luck@intel.com"
+	<tony.luck@intel.com>, "reinette.chatre@intel.com"
+	<reinette.chatre@intel.com>, "Dave.Martin@arm.com" <Dave.Martin@arm.com>,
+	"james.morse@arm.com" <james.morse@arm.com>, "babu.moger@amd.com"
+	<babu.moger@amd.com>, "tglx@kernel.org" <tglx@kernel.org>, "mingo@redhat.com"
+	<mingo@redhat.com>, "bp@alien8.de" <bp@alien8.de>,
+	"dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>, "hpa@zytor.com"
+	<hpa@zytor.com>, "ben.horgan@arm.com" <ben.horgan@arm.com>,
+	"fenghuay@nvidia.com" <fenghuay@nvidia.com>, "x86@kernel.org"
+	<x86@kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>
+References: <20261012082337.822258-1-ruanjinjie@huawei.com>
+ <TY4PR01MB16930CE9AD3B1D0AF7BEE6C208B662@TY4PR01MB16930.jpnprd01.prod.outlook.com>
+From: Jinjie Ruan <ruanjinjie@huawei.com>
+In-Reply-To: <TY4PR01MB16930CE9AD3B1D0AF7BEE6C208B662@TY4PR01MB16930.jpnprd01.prod.outlook.com>
 Content-Type: text/plain; charset="UTF-8"
-
-Hello,
-
-syzbot found the following issue on:
-
-HEAD commit:    a804c5742bff Merge tag 'lsm-pr-20261016' of git://git.kern..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=170e93cd580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=e0a09745349d136e
-dashboard link: https://syzkaller.appspot.com/bug?extid=68c0534b26fbda7ed84f
-compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
-
-Unfortunately, I don't have any reproducer for this issue yet.
-
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/171f09113e28/disk-a804c574.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/0f8812b149fb/vmlinux-a804c574.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/6349a85938ab/bzImage-a804c574.xz
-
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+68c0534b26fbda7ed84f@syzkaller.appspotmail.com
-
-==================================================================
-BUG: KCSAN: data-race in _copy_to_iter / _copy_to_iter
-
-write to 0xffff88810d40b000 of 1024 bytes by task 12 on cpu 1:
- memcpy_to_iter lib/iov_iter.c:77 [inline]
- iterate_bvec include/linux/iov_iter.h:123 [inline]
- iterate_and_advance2 include/linux/iov_iter.h:306 [inline]
- iterate_and_advance include/linux/iov_iter.h:330 [inline]
- _copy_to_iter+0x605/0xea0 lib/iov_iter.c:197
- copy_page_to_iter+0x174/0x210 lib/iov_iter.c:374
- copy_folio_to_iter include/linux/uio.h:204 [inline]
- shmem_file_read_iter+0x29c/0x4a0 mm/shmem.c:3391
- lo_rw_aio+0x6a6/0x760 drivers/block/loop.c:-1
- do_req_filebacked drivers/block/loop.c:-1 [inline]
- loop_handle_cmd drivers/block/loop.c:1949 [inline]
- loop_process_work+0x569/0xac0 drivers/block/loop.c:1984
- loop_workfn+0x31/0x40 drivers/block/loop.c:2008
- process_one_work kernel/workqueue.c:3396 [inline]
- process_scheduled_works+0x53f/0xa10 kernel/workqueue.c:3479
- worker_thread+0x569/0x750 kernel/workqueue.c:3560
- kthread+0x223/0x270 kernel/kthread.c:436
- ret_from_fork+0x146/0x330 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
-
-read to 0xffff88810d40b000 of 512 bytes by task 13858 on cpu 0:
- instrument_copy_to_user include/linux/instrumented.h:130 [inline]
- copy_to_user_iter lib/iov_iter.c:24 [inline]
- iterate_ubuf include/linux/iov_iter.h:30 [inline]
- iterate_and_advance2 include/linux/iov_iter.h:302 [inline]
- iterate_and_advance include/linux/iov_iter.h:330 [inline]
- _copy_to_iter+0x130/0xea0 lib/iov_iter.c:197
- copy_page_to_iter+0x174/0x210 lib/iov_iter.c:374
- copy_folio_to_iter include/linux/uio.h:204 [inline]
- filemap_read+0x3f8/0xad0 mm/filemap.c:2875
- blkdev_read_iter+0x21e/0x2d0 block/fops.c:838
- new_sync_read fs/read_write.c:493 [inline]
- vfs_read+0x699/0x7c0 fs/read_write.c:574
- ksys_read+0xdc/0x1a0 fs/read_write.c:716
- __do_sys_read fs/read_write.c:725 [inline]
- __se_sys_read fs/read_write.c:723 [inline]
- __x64_sys_read+0x40/0x50 fs/read_write.c:723
- x64_sys_call+0x2135/0x2550 arch/x86/include/generated/asm/syscalls_64.h:1
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x112/0x360 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-Reported by Kernel Concurrency Sanitizer on:
-CPU: 0 UID: 0 PID: 13858 Comm: udevd Not tainted syzkaller #0 PREEMPT(lazy) 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 10/07/2026
-==================================================================
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
+ kwepemk200008.china.huawei.com (7.202.194.74)
 
 
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+在 2026/10/22 8:02, Shaopeng Tan (Fujitsu) 写道:
+> Hello Jinjie,
+> 
+> I would like to confirm the following points.
+> 
+>  - Is the number of reqPARTIDs per intPARTID dependent on the total number of intPARTIDs and reqPARTIDs?
 
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
+Hi Shaopeng,
 
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
+You are right,
 
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
+reqPARTID % mpam_num_closid(the total number of intPARTIDs) -> intPARTID
 
-If you want to undo deduplication, reply with:
-#syz undup
+so reqPARTIDs per intPARTID = Total number of reqPARTIDs / Total number
+of intPARTIDs
+
+>  - Given that requirements for the number of control and monitoring groups vary by user, 
+>    would dynamic configuration of the mapping ratio between intPARTID and reqPARTID be a more suitable approach?
+
+No, in v8 James has suggested "static first" and avoid exposing user ABI
+in multiple places below:
+
+"I think we should leave anything dynamic here for the further future,
+ lets get static partitioning working first"
+
+"I'd prefer we get the static grouping working first, before we work out
+what needs changing in resctrl to do it dynamically"
+
+"I'd like to avoid exposing user ABI to control this until we get it
+working, then we can talk about whether to try making the grouping
+dynamically managed by resctrl."
+
+Link:
+https://lore.kernel.org/all/2944b506-a462-42f8-95cf-404241fb27f0@arm.com/
+Link:
+https://lore.kernel.org/all/ec8bc617-9e74-4749-ab33-39d1079415cc@arm.com/
+
+
+>  - Regarding the mapping logic, some reqPARTIDs may remain unused. Is this the expected behavior?
+
+As mentioned above, we are implementing the static solution first, so it
+is expected behavior that some of the reqpartids are not used.
+
+>  - Considering that Arm has previously implemented this,
+>    are there any gaps between their implementation and Huawei’s requirements?
+>    https://lore.kernel.org/linux-arm-kernel/20241212154000.330467-1-Dave.Martin@arm.com/
+
+I haven't looked at the ARM implementation yet (I'll refer to it later),
+but currently the code is being gradually aligned with the maintainer's
+review comments.
+
+> 
+> Best regards,
+> Shaopeng TAN
+> 
+> 
+>> Background
+>> ==========
+>>
+>> In ARM MPAM, a monitoring group is defined by a (PARTID, PMG) pair.
+>> However, many production platforms implement only a single PMG bit,
+>> limiting the total number of monitoring groups long before the request
+>> PARTID space is exhausted.
+>>
+>> Hardware Mechanism
+>> ===================
+>>
+>> Platforms with "PARTID narrowing" mitigate this by mapping multiple
+>> request PARTIDs onto a single internal PARTID. The internal PARTID
+>> dictates the control group configuration, while each individual request
+>> PARTID functions as an independent monitoring group. This decouples
+>> control and monitoring allocation, allowing more monitoring groups
+>> than the PMG constraint normally permits.
+>>
+>> Software Strategy
+>> ==================
+>>
+>> Using request PARTIDs beyond the internal range is only safe when no MPAM
+>> class loses a non-aliasing control. While aliasing controls (e.g., cache
+>> portion bitmaps) can be safely replicated across request PARTIDs,
+>> non-aliasing controls (e.g., cache capacity) are additive and cannot.
+>>
+>> To ensure safety, this series implements a completely static grouping
+>> policy evaluated once before resctrl_init(). If any class contains
+>> non-aliasing controls without narrowing capabilities, the expansion
+>> is bypassed. This infrastructure remains completely transparent
+>> to user-space.
+>>
+>> Patch Architecture
+>> ====================
+>>
+>> - Patches 1-4: Bugfix and preparatory rework.
+>>
+>> - Patch 5: Track both internal and request PARTID limits per class.
+>>
+>> - Patches 6-7: Implement driver-side modulo interleaving for request
+>>   PARTIDs and flat global RMID indexing.
+>>
+>> - Patches 8-9: Identify non-aliasing controls, and enable the narrowing
+>>   expansion by lifting driver-side partid_max clamping and freeing
+>>   the extra request PARTIDs for resctrl.
+>>
+>> Changes since v8
+>> - Replaced dynamic allocation with pure static grouping as requested by James.
+>> - Removed the 'mpam.intpartid_max' boot parameter; expansion is now automatic.
+>> - Extended safety verification to all classes, preserving
+>>   forward-compatibility for unknown classes that might gain resctrl
+>>   schemas later.
+>> - Decoupled the driver infrastructure patch from the resctrl glue patch.
+>> - Introduced resctrl_arch_rmid_idx_match() to clean up the RMID allocator.
+>> - Link to v8: https://lore.kernel.org/all/20260413085405.1166412-1-zengheng4@huawei.com/
+>>
+>> Previous Versions
+>> =================
+>>
+>>     v7: https://lore.kernel.org/all/20260317132141.1272506-1-zengheng4@huawei.com/
+>>     v6: https://lore.kernel.org/all/20250222112448.2438586-1-zengheng4@huawei.com/
+>>     v5: https://lore.kernel.org/all/20250217031852.2014939-1-zengheng4@huawei.com/
+>> RFC-v4: https://lore.kernel.org/all/20250104101224.873926-1-zengheng4@huawei.com/
+>> RFC-v3: https://lore.kernel.org/all/20241207092136.2488426-1-zengheng4@huawei.com/
+>> RFC-v2: https://lore.kernel.org/all/20241119135104.595630-1-zengheng4@huawei.com/
+>> RFC-v1: https://lore.kernel.org/all/20241114135037.918470-1-zengheng4@huawei.com/
+>>
+>> Jinjie Ruan (6):
+>>   fs/resctrl: Add resctrl_arch_rmid_idx_match() helper
+>>   arm_mpam: resctrl: Add resctrl_closid_rmid_to_partid_pmg() helper
+>>   arm_mpam: Add a helper to check a PARTID is in a CLOSID
+>>   arm_mpam: Track the PARTID and internal PARTID limits per class
+>>   arm_mpam: Identify the non-aliasing controls
+>>   arm_mpam: Use the request PARTIDs beyond the internal range
+>>
+>> Zeng Heng (3):
+>>   fs/resctrl: Unmount resctrl with the CDP state it was mounted with
+>>   arm_mpam: Divide the PARTIDs between the control groups
+>>   arm_mpam: Map resctrl RMIDs onto the request PARTIDs
+>>
+>>  arch/x86/include/asm/resctrl.h  |   6 +
+>>  drivers/resctrl/mpam_devices.c  | 105 +++++++++++++---
+>>  drivers/resctrl/mpam_internal.h |  24 ++++
+>>  drivers/resctrl/mpam_resctrl.c  | 213 +++++++++++++++++++++++++++-----
+>>  fs/resctrl/monitor.c            |  13 +-
+>>  fs/resctrl/rdtgroup.c           |  38 +++++-
+>>  include/linux/arm_mpam.h        |   1 +
+>>  7 files changed, 341 insertions(+), 59 deletions(-)
+>>
+>> -- 
+>> 2.34.1
+>>
+
+-- 
+Best regards,
+Jinjie
+
