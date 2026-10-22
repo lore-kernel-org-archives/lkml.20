@@ -1,101 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.219.42
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792683498;
-	b=1wIJ17pqJrDYcKL/KEB8j4VHdHi5pLsAcGqAprB0/Rr9MUeyGauTZJ8fy99CE2/+PAgn
-	 SOXTWtT9DAzUe6k14d6zFeebbspkZ4DRZ1sPlq6glbye/pxRGsam0pQ8mB4uDqs4/oc+X
-	 Fdy+zKUUufIeepBEXK1pF5yNfpQaAwqidz6xDOQO0P7Ym0pXW8jkDZoEsTEF4+Tq/ZxVj
-	 8g7fWM07guQnRufcaVsaWKFSlfIuD5rex7cju6szJDUBX8D2UM9KKACJldOvlaCzbmdY2
-	 w75yWBFbgLkH2hI4K7KZYM5m1E3zokqSRKTl2dKDdduJtKxysumiB4IWmIjoPtYYKTg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792683498;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792683512;
+	b=0KGniBM1fBg5dsqSWJEPeEL5hgf4MhGM+4iVOQ+hiZOZ8oUVHsfqFaCXKEJLfEl7EIuV
+	 y0n8Q9qgG/e2esJc/s2D6NS8X60Yscba8w7uFqX/jBaR1Va1qT+98fCEcGodFkOPgp4y0
+	 06M9mkbc84uysUZHY+cbPPGu2oNbQ+1jrBzGbRV3yyEGJYnlRaRG0mauMgiB+6geL5KdL
+	 69v3zr+damscaBrpUlQ7lGKxECcBESfQZ34tdByxKhn2qfAhN/GCn5XlyKrX0l5G+B9JP
+	 l8bUZIyIc+58olLl6P3rdMSG0nnK7f2PE2gDH3hEuIUDMICZk7cVazP1hiRkq6qgxFQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792683512;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=o7ZhmIgapO7sB4tEy9JjIYiQH9wnF4DTp0ZY1/4zEaE=;
-	b=wWhrfuWsnQ1mN10ppRagU7O2Ux73AkLVdlUWvd8ZR2h4W8Yn/X3hRMIRMOy4bl7tz2Tv
-	 rbS4af5TdXTWf4PlqXQ2plxQyaOMqC6PD2sQzUCPYMBx0zdbyNrIk1lH+yk25CeFgFiJj
-	 S+n+2jXpJAjl4xL3Br5/tIra6RC+fBI3tnqyAUjlRLL87OcSPqYjo8Cn2nncH36uLZQ9p
-	 S5AvGM9nSl3E1GRNaE7BpaAxQFMCC+iNlA4WrXj6UOYT7spGeSGDnbzp7dY8igb0ppJPQ
-	 mU+YWUWNQIlwPthaEC8fafbkggL28NiEaJROVGOTXkgJk7WjmlvEl6/GXXFLPrfb8xQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ofiTsxrs;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.219.42
-Received: from mail-qv1-f42.google.com (mail-qv1-f42.google.com [209.85.219.42])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=THWbJhv2Q5jbET1QHUfSXWDLSqDqi0mWlN0MWSjDZMo=;
+	b=ab0+emMpVtjZVYjYtQdwUaqdzH4/+5KMLXaDbZDa0UhvEtN0H/MjVJGV6ixpFDmfGF8P
+	 zj7Wt8bNLfJrDp65N20ZHiAv9gP2h0m1r03C/JSS58vcq57/SNDvtON7C1r3gAm2WAZtB
+	 FISqJgy5NP9YHfT6xTyDOCh3IVXDjgptMVEvvpRe6Aww9hODjavfl+a5sKwhYY2Iz5PCh
+	 3NMU6oFEahi57wRHtLaVdzL+DYhb/IY7SDEvoaIcUDo4YOZr+e8KxNdP2xgzIcnHcvWIV
+	 LrXjs5tw22EWUOpUwQaEQp12g2Bd2Qyig9g3LmM2d8Oc6aOfb0LbvZKbqWI3+shmPNg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=resnulli.us;
+	spf=pass smtp.mailfrom=resnulli.us;
+	dkim=pass header.d=resnulli.us header.i=@resnulli.us header.a=rsa-sha256 header.s=google header.b="QYUAaei/";
+	arc=none smtp.remote-ip=209.85.128.52
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5801B606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 15:38:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5801B606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4605606A323
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 15:38:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B4605606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=resnulli.us
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=resnulli.us
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ofiTsxrs
-Received: by mail-qv1-f42.google.com with SMTP id 6a1803df08f44-9178aabd30dso78136d6.1
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 08:38:18 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792683497; cv=none;
-        d=google.com; s=arc-20260327;
-        b=RFyjOSs/a/tKf7BrgYg3cprwdrD0D8cSZBu6oHwMowaRve+IHFFjjfqfLdxweoyVEK
-         XGa0TflYKr6VlyHyFOIeFxohUy9+kMux5B2mF2e8J15PR9RyGLWlzGZ2rTgYB1cmsuGS
-         ijYqkve+Ix+17cE06ot5A2F8OVdoOAyJ2Zjo0e3VwFmupt/h+KUK+kjalci6YpOVLDWn
-         fhEuyVc241SZyKIGHAep6tTVF9O/s9q5OVcPxyYz0FuPEZ6nq8bX2gB72TxPyVokEVwJ
-         EK2vmgBgc4iqTyBKGbOblRBnKlWyXeLqlvwzYDFcAb5nJX7MlL5JqCH0u9lXqyxmDd8h
-         NwJA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=o7ZhmIgapO7sB4tEy9JjIYiQH9wnF4DTp0ZY1/4zEaE=;
-        fh=HYqrYWgqSLFoKct2fBZOS0bDdkAQc+dExThnQXQ2Tuo=;
-        b=FUuvijkRKsidE2rE8S8SWRlkrSjEiAbhFEBAqMS2+Xjy5VGw7x/GjSBBSeFmDil+/n
-         9nHBOTJqwh2P8QO7ejOIjVLH6Xv7E3wHt8wUwKKzdt2ocmh6GBgKYG+7dsfYa996dJwn
-         OnITiJClN1kLXC/rraMn8c9Qz9HX0u9kjyc/wEF4QNPhbYpgInVY/KXsyjxqs0MUAxI1
-         +1ibbkho08qMS9n85qfoagXU03VPOTHYjdggUa3WVo740Mgoh75gWk6aa62LXo0Owhxj
-         R6NLzLpxnEbXtePasGfrgvKLWdoMfpPF14VBRA/PLCa8KM9AtNLnwH4hcGtDoabeiEeI
-         0LXQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=resnulli.us header.i=@resnulli.us header.a=rsa-sha256 header.s=google header.b=QYUAaei/
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a20bde60a0so5710605e9.3
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 08:38:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792683497; x=1793288297; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=o7ZhmIgapO7sB4tEy9JjIYiQH9wnF4DTp0ZY1/4zEaE=;
-        b=ofiTsxrsZbMusf4Xlcz/c1ye5oZ4NvwBZjKGm8C9ARSTR+axAZ16zEUWeEszZbojv6
-         zC1mDYCF5CL/SLjZpYa0nKf48qTVpzZGu5xeVKlEx3zgmvORcVY0MkgMpwO6gVJXNkHP
-         U/5HyRUMUB+ZP9afP1JJ8Zvc1BvezO0RgZiKGxrj5aOCvfF6YT+M9l5SJIJIdZTty83v
-         oxMsJ7ZMWZ/tePek5ugY9TyvbvzjA1zEsUHoTzAH0dPn57BSIhmhrcv9bJjg8iP+H1f+
-         nPSK/6dDIubxvm0Jm/98aoZ1kNPcJ1YcgFHmK+BjePzBluviZCOcCu7C/gydgnGUHL0l
-         KYLg==
+        d=resnulli.us; s=google; t=1792683509; x=1793288309; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=THWbJhv2Q5jbET1QHUfSXWDLSqDqi0mWlN0MWSjDZMo=;
+        b=QYUAaei/oEpBdPK29lyAgt3WaIjE8xnUfNnM6i9wRuCO6sNUu1WXGnEJY4UwSlTCyG
+         3wGrdSOearuuXh6VPWSUboEE1uFUMxxOKzOBQHx8wLpldv1shYxYaj3sE9X+GEVaRzF+
+         jRoGtmImwa5JSCcWfnjdvNELJLF8AmhaQBVWuhrHNv4ClYORSdzrf44cUE6H2p01v+oC
+         d6DYETd+DkavhEfMqdHDYRzskkO3pFkojAdw6O5EEAsVD0gOewBzmc8l38ZgYG6sjWAU
+         NVVPLN7Hz/cRT65qPQ+PhPgY19WGfyVt2rswNlUx/YeV/SbECc8THF3Ud5XLfhnx4Rxg
+         4ANg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792683497; x=1793288297;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=o7ZhmIgapO7sB4tEy9JjIYiQH9wnF4DTp0ZY1/4zEaE=;
-        b=VS3J9ecQKL1DTue0cSzx1xOl21i0uD4J4h8ykgxGsQz1ZRm3LqmKQLbGq8+iB1+q2j
-         O6NhG73F/AFrhxfnZ41/2FlAErdcrgq5zW2Xue9keiGXWOCzldbLEzaOwpu0vGfdmmp+
-         Nl6o5hlnWdrUB7jX2PWwJuvFBdDM/tAdQNK5USbQyjORqKwlNHAXjzvvrskHmnezrkZa
-         p6asYLm7HM8ySr8DGX0/5BikfnATLvNpC/PzSpIhaOs1KpCJxPjJtXJiU1T635w7PS5W
-         3XhI0eFEqsh5FWz08MzmILSMT12E1ClyeZ8+a99+OX7FjOkp5bohRlyH1wbTzBfRYjFh
-         +x7w==
-X-Forwarded-Encrypted: i=1; AKwUvBwSSo4IeXYLxLgL+FRAiVT2+hhxr8LN/mcTGlCuuA6kwPSVOrJT9L67qB0kO/DmsmQZdyUtcKCz0Uwm714=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJM00hF0yCFKYWbiKLMYqHI8ibk939ukbh6jZ2+G3/etVBXAiDP
-	tLY+K1jYgFptTbfQYIG8lagcw2mQICsa5679GrQszKSA4CGqx3njse6El+8w2vWq+lZUOexpTrz
-	BapqRr5rHDYvAfG4Nam4AWyqDxc+FO3U=
-X-Gm-Gg: AYBFou3tPE1fUN7w9IcW28aYJxGtsB4AH4QjW9ESrU8V/Fr+xihnO3JcqkpxdJa1bQR
-	GbJQp1gAvg8fdmZCL55vPvUahMNkm8a0olsY6z8wPr9G6LECkxwUg+QpEsAl/8aFAKd1Ghtdv+F
-	JkldmDBf/XkGpgeMcgfeyDHy4lzFZBxkP4qQ30KJTaiUmLzXNIyo50RJcyJQx2L94Z1Bj4CPa9K
-	ohk0eyNVsZAkJi3wh6nJ5je0NPk4grMo8Ug2DPcgm9srdeZFAWDWtFXkQylvM5lmlYsqn0c6uZ+
-	jPVuGmluoyW9ub2Kiw1jqHrJNaX4R8QJRGSQjaPSUQJbAn+LRL9z2kTwRphsIcqR9sfVKRkaCXA
-	6EUhIUEbEoiiHqH3fpyu8F4xXN0odV7xBH//Qrv0dE5YE6Un6joYNEYTyNO4PXHBm0iB7Ap/fzk
-	1Ob1Q3kPQ2zduPBOvwZwLTMP8XU9ajpgzFFheTQDBrPqbAL0EqSA13UIgHFhOBOZlqeKxGEkisI
-	hGJazqnEcvzuPlZwUKC+gctAnJ42vpZ9vA=
-X-Received: by 2002:ad4:5d46:0:b0:91b:84d1:5c73 with SMTP id
- 6a1803df08f44-91c12eed190mr92514456d6.12.1792683497164; Thu, 22 Oct 2026
- 08:38:17 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1792683509; x=1793288309;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=THWbJhv2Q5jbET1QHUfSXWDLSqDqi0mWlN0MWSjDZMo=;
+        b=1EuNgYUHXw4LSKrinSYtqMI09H6lNfInNgEYP60FdsQmhIGD4gwlwz3jQseA/pemVW
+         2OMvOeiggEHmB3yCqNZ/iOs6KuQZTs78QbpLODihyUQT/uG7DQrkFoX1HaRfj20o6Xu5
+         tHZazjpNiCuNOd10++DYygsP+tqCi54jhS/2p9wXxyxD7aOeIlc3uT2LNLayBesU9wmp
+         8x864Qs5d3EngX6UxiQchHpB3Aej5jYeoOy7OVCRG5SJkhazjNaxBNA1PVyqKPCQ/BjC
+         EtKaQtqhr59WBETKcDbtDZKF8dkx55/UrFi6M7GBIKGx6ld+y9cs4hh4vfZjw/GneOvb
+         wVFg==
+X-Forwarded-Encrypted: i=1; AKwUvBz1PsrNcRrZwkrQAUGEGTZTEaMjMxl1HncfABIh1MW6G6lmyjUntFdrBOAqRIPqteBS4Rf8QzjRxJNHA2U=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIWNCyvaDzjq3v/zyBfkq418IuofZv/dTd13g9pMEQc9j+69jsX
+	pr3V4kWyT1EbGMiG2tYia5YfhVA0bUQa/kO4yWsB6NtjPVOp9A+xl5VNSjoUUIKe6wE=
+X-Gm-Gg: AYBFou1iG6jzp39+H2HQcqRSYvkdhS7wMrTXYS4fJfrhnBNIcVV0CSgKC5muV1oYSMG
+	/eSDAJCLpDyGyd+h1Afu0c3by5EpRcuorEQRYSAu4tbz8aNLBxR4/TXNPHQJRgOYRDDvqbyby8E
+	K8WORxRe1lTVU5yjXurbBteGzb1xCiePTsibG0jGz3pYQ+vx+lGTU3YlRBVLAgPD5XTMhaCIoms
+	hhsRTCJEfOm9l6JJ+8SoVCScl8tegMmiJWbK99qk1wzbl3FnyILewX4uHq64DOWD0U+UbpEXLbH
+	wa5SdXBlaSCoaTt6VRo3PBLBpidqAaprNEmmQg9X3vOTLTmG4nAefKK0MugkPp3tek0BrThShJN
+	tNLNXNljcWsasVZD5qb6NGbLXTVmBrP7KwPf8e+DLA0C4YS9mI+NJnwIZZCUzRylH6ILZmbUWo6
+	oHQ2gGbKrZLdXkCVKzN8M59uRBkxiuW8vwqijzrzZQe6Q8fQXmW0fCPMMDckwtxmS1cipjvQQRi
+	DbeFUb0gSIu8XJAidTvZIh6PgUSnTDWiiKNNXkgX17U5ncEHwcTmgORLN8rYW7qPEI=
+X-Received: by 2002:a05:600d:6413:20b0:4a1:80d8:aed5 with SMTP id 5b1f17b1804b1-4a1fdd20c95mr82878645e9.6.1792683507910;
+        Thu, 22 Oct 2026 08:38:27 -0700 (PDT)
+Received: from localhost ([140.209.217.211])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e2a034fc2sm8929342f8f.5.2026.10.22.08.38.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 22 Oct 2026 08:38:27 -0700 (PDT)
+Date: Thu, 22 Oct 2026 17:38:22 +0200
+From: Jiri Pirko <jiri@resnulli.us>
+To: "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>
+Cc: linux-coco@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	linux-api@vger.kernel.org, x86@kernel.org, kvm@vger.kernel.org, linux-doc@vger.kernel.org, 
+	jgg@ziepe.ca, david.quigley@intel.com, lukas@wunner.de, ksinyuk@kernel.org, 
+	rodrigo.vivi@intel.com, cedric.xing@intel.com, sameo@meta.com, drdeeglaze@gmail.com, 
+	James.Bottomley@hansenpartnership.com, aik@amd.com, jpiotrowski@nvidia.com, qinkun@google.com, 
+	pgonda@google.com, jic23@kernel.org, alistair.francis@wdc.com, ankita@nvidia.com, 
+	suzuki.poulose@arm.com, kas@kernel.org, rick.p.edgecombe@intel.com, 
+	elena.reshetova@intel.com, dave.hansen@linux.intel.com, 
+	sathyanarayanan.kuppuswamy@linux.intel.com, peter.fang@intel.com
+Subject: Re: [PATCH RFC 00/20] attestation: Add a common subsystem and TDX
+ support
+Message-ID: <atooh7uO2RauUTfY@FV6GYCPJ69>
+References: <20261015145053.3664509-1-jiri@resnulli.us>
+ <yq5a7bjajaco.fsf@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,158 +104,193 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261006130701.120460-1-luka.gejak@linux.dev>
-In-Reply-To: <20261006130701.120460-1-luka.gejak@linux.dev>
-From: Peter Robinson <pbrobinson@gmail.com>
-Date: Thu, 22 Oct 2026 16:38:05 +0100
-X-Gm-Features: AclHuK9XC8r_3uVfTWtK8cLfOLYuPfjNqTOzeWnstj8Yb7R7BoPLwf8SDqgM9Tw
-Message-ID: <CALeDE9NKkv8TxiCNUt-fUYUkh_zk7Ne7hRKF51QDOSvvrp1YRQ@mail.gmail.com>
-Subject: Re: [PATCH rtw-next v8 0/7] wifi: rtw88: add RTL8723B/RTL8723BS support
-To: Luka Gejak <luka.gejak@linux.dev>
-Cc: Ping-Ke Shih <pkshih@realtek.com>, linux-wireless@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Michael Straube <straube.linux@gmail.com>, 
-	Bitterblue Smith <rtl8821cerfe2@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <yq5a7bjajaco.fsf@kernel.org>
 
-Hey Luka,
+Thu, Oct 22, 2026 at 12:30:47PM +0200, aneesh.kumar@kernel.org wrote:
+>Jiri Pirko <jiri@resnulli.us> writes:
+>
+>> From: Jiri Pirko <jiri@nvidia.com>
+>>
+>> Linux has several attestation interfaces tied to individual technologies.
+>> That makes evidence retrieval, measurement registers, device state and
+>> kernel consumers provider-specific.
+>>
+>> This series introduces a common attestation subsystem. Its goal is to
+>> support platform, TEE and device providers through one model, including
+>> TPM2, TDX, SEV-SNP, Arm CCA, FIRME, Caliptra and PCI/TSM-backed devices.
+>> This first series implements the common subsystem and a TDX provider.
+>> Existing native TDX tsm_mr and tsm_report interfaces remain independent.
+>>
+>> Attestation devices use CTLV, a schema-driven character-device TLV UAPI.
+>> Compared with sysfs or configfs, CTLV executes one validated request
+>> atomically instead of assembling a transaction through several files.
+>> Compared with netlink, an opened device fd directly identifies authority
+>> and lifetime, can be delegated normally, and owns its event queue. CTLV
+>> also provides:
+>>
+>>   - generated kernel metadata, UAPI constants and documentation;
+>>   - strict type, bounds, nesting and required-field validation;
+>>   - runtime operation and schema introspection;
+>>   - family inheritance and extension points;
+>>   - fragmented queries with generation checks;
+>>   - per-fd event subscription, overflow reporting and removal notification;
+>>   - large input and output blobs.
+>>
+>> The attestation family exposes capabilities, evidence, measurement-register
+>> topology and operations, an append-only MR journal and journal
+>> notifications. This first ABI contains the paths exercised by TDX. Extended
+>> evidence classes, dynamic registers, record payloads, verdict recording and
+>> device-security transitions follow with providers that need them and are out
+>> of scope of this initial patchset. The broader direction is illustrated here:
+>>
+>> https://github.com/jpirko/linux_mlxsw/commits/wip_attestation_all_1
+>>
+>> That branch also contains additional providers (test and sim),
+>> attestation core extensions, libctlv and ctlvctl. With the tools
+>> and kernel specifications, an attestation device can be used as follows:
+>>
+>>   # Discover CTLV devices and their family chains.
+>>   ctlvctl --spec-dir Documentation/ctlv/specs list
+>>
+>>   # Inspect the root-family lineage and attestation capabilities.
+>>   ctlvctl --spec-dir Documentation/ctlv/specs query ctlv0 families-dump
+>>   ctlvctl --spec-dir Documentation/ctlv/specs query ctlv0 device-get
+>>
+>>   # List the measurement registers of the attestation device.
+>>   ctlvctl --spec-dir Documentation/ctlv/specs query ctlv0 mr-dump
+>>
+>>   # Read RTMR0 (MR 1).
+>>   ctlvctl --spec-dir Documentation/ctlv/specs \
+>>           query ctlv0 mr-read mr.id=1
+>>
+>>   # Extend RTMR0 with 48 zero bytes (SHA-384).
+>>   digest=$(printf '%096d' 0)
+>>   ctlvctl --spec-dir Documentation/ctlv/specs \
+>>           exec ctlv0 mr-extend --json \
+>>           '{"id":1,"value":[{"hash-algo":5,"data":"hex:'"$digest"'"}]}'
+>>
+>>   # Retrieve the RTMR0 journal.
+>>   ctlvctl --spec-dir Documentation/ctlv/specs \
+>>           query ctlv0 mr-log-get --json '{"selection":[{"id":1}]}'
+>>
+>> The 20 patches are organized as follows:
+>>
+>>   1-13    add CTLV, its generator and documentation
+>>   14-17   add the base attestation family and implementation
+>>   18-20   expose the native TDX service and add the TDX family
+>>
+>
+>I am using this to understand what the IDE setup flow would look like,
+>but it is unclear whether the connect flow belongs in an attestation
+>framework. I understand the desire to pass the certificate slot number
+>as part of connect, and sysfs is probably not a suitable interface for
+>that. However, is CTLV the interface we want to use for connect?
 
-On Tue, 6 Oct 2026 at 14:07, Luka Gejak <luka.gejak@linux.dev> wrote:
->
-> This is the second of two series adding support for the Realtek RTL8723B
-> 802.11n chipset and its RTL8723BS SDIO variant to rtw88. The preparation
-> series has landed in rtw-next, so this series carries the chip register
-> definitions, the BB/RF/AGC tables, the chip driver, the SDIO bind and the
-> build glue.
->
-> The first and fourth patches are the shared-core changes. The first moves
-> the CCK power detect setter out of rtw88xxa.c into phy.c as
-> rtw_phy_cck_pd_set(), so this chip can use it without pulling in
-> rtw88_88xxa. The fourth moves the definitions RTL8723B shares with RTL8703B
-> into rtw8723x.h. The five chip patches apply on top and can be read on
-> their own.
->
-> The driver supports:
->
->   - RTL8723B / RTL8723BS, SDIO only
->   - 2.4 GHz 802.11n, HT20 and HT40
->   - one spatial stream
->   - station mode
->
-> Only station mode has been validated. The common rtw88 core advertises AP
-> and IBSS for all chips, so those modes are advertised for RTL8723BS as
-> well, but neither has been tested. An out-of-tree tester has reported AP
-> mode associating without DHCP completing. The five additional SDIO IDs are
-> included for parity with the existing staging driver, and only the 0xb723
-> device has been exercised.
->
-> The chip driver requests:
->
->   rtw88/rtw8723b_fw.bin
->
-> This is the version 41 firmware extracted from the Realtek rtl8723bs
-> vendor driver. It was submitted separately to linux-firmware with its
-> extraction provenance and carries Ping-Ke Shih's Reviewed-by. There is no
-> known native rtw88 RTL8723B firmware.
+I was thinking about this and "connect" really does not belong in the
+attestation CTLV (same applies to "lock"). I was thinking about some
+parallel PCITSM CTLV instance, but that does not really click as well.
 
-Did we get the firmware PR done against linux-firmware?
+Currently I'm thinking we can maintain existing "connect" in sysfs and
+extend it with "lock" sysfs knob for Realm side. Both would create
+ctlv-attestation-spdm instance. The same spdm instance may be created
+for other non-PCI-backed device.
 
-One thing to note here is that the old revision of the firmware will
-need to remain in linux-firmware as the LTS kernels will need them,
-not sure that's a problem as the drivers use different paths.
+The proposed host flow is:
 
-It would be useful to get that done so users don't see a regression as
-the old driver is removed.
+    sysfs connect: select tsmN and prepare the connection
+        -> negotiate SPDM and discover certificates
+        -> register ctlv-attestation-spdm instance in DISCOVERED state
 
-Peter
+    SPDM_GET
+        -> populated certificate slots and digests
 
-> The implementation is based on the initial RTL8723B work by Michael
-> Straube:
+    EVIDENCE_GET(CERT_CHAIN, blob-instance=slot) /*optional*/
+        -> retrieve candidate certificate chain for appraisal
+
+    SPDM_AUTHENTICATE(device-generation, spdm-slot=selected_slot)
+        -> authenticate the selected chain
+        -> complete backend-required session and IDE setup
+
+    sysfs disconnect
+        -> remove the attestation instance
+        -> destroy the native connection
+
+The slot is therefore selected after discovery, rather than supplied to
+connect. The attestation instance represents the prepared connection; it
+does not exist beforehand as a controller for a disconnected PCI function.
+
+This requires a staged native backend. It is not how existing automatic
+sysfs connect behaves today, and those backends would retain their
+existing behavior.
+
+For Realm assignment, as written above lock is sysfs interface.
+Lock creates a separate assigned-TDI attestation instance for evidence
+retrieval, EVIDENCE_ACCEPT, and DEVSEC_RUN
+
+Protocol authentication is distinct from the userspace attestation
+verdict: SPDM_AUTHENTICATE does not imply acceptance or TDISP RUN.
+
+So the main difference from your implementation is the lifecycle boundary:
+sysfs creates/removes the native contexts, while attestation handles
+discovery, explicit authentication, evidence, and the evidence-gated
+transition to RUN.
+
+Makes sense?
+
 >
->   https://github.com/mistraube/rtw88/tree/rtl8723bs
+>My patches end up doing the following. I am also unsure whether this is
+>the intended workflow for the attestation framework.
 >
-> Michael's Co-developed-by and Signed-off-by tags are present on the three
-> chip-code patches containing code derived from that work.
+># ./ctlvctl/ctlvctl --spec-dir=./specs/ ops ctlv0
+># ctlv/ctlv-attestation/ctlv-attestation-pci, generation 1
+>families-dump           query   read    fixed   request 16      reply 112..65536
+>ops-dump                query   read    fixed   request 16      reply 56..65536
+>op-schema-get           query   read    fixed   request 40      reply 552..65536
+>subscriptions-add       action  read    fixed   request 6160
+>subscriptions-remove    action  read    fixed   request 6160
+>event-queue-get         query   read    fixed   request 16      reply 40..65536
+>event-queue-set         action  read    fixed   request 40
+>op-changed              event   record 112
+>event-overflow          event   record 112
+>device-removed          event   record 40
+>device-get              action  read    fixed   request 16      reply 12984
+>evidence-get            action  read-write      dynamic disabled        request 26800   reply 472
+>device-state-changed    event   record 64
+>mr-log-entry-appended   event   record 73416
+>evidence-accept         action  read-write      dynamic disabled        request 64
+>evidence-accept-clear   action  read-write      dynamic disabled        request 16
+>devsec-state-get        query   read    dynamic disabled        request 16      reply 40..1024
+>devsec-run              action  read-write      dynamic disabled        request 64      reply 40
+>evidence-state-changed  event   record 112
+>state-get               action  read    fixed   request 16      reply 184
+>connect                 action  read-write      dynamic enabled request 88      reply 40
+>disconnect              action  read-write      dynamic disabled        request 40      reply 40
+>lock                    action  read-write      dynamic disabled        request 64      reply 40
+>unlock                  action  read-write      dynamic disabled        request 40      reply 40
+>evidence-refresh        action  read-write      dynamic disabled        request 88      reply 40
 >
-> The known limitations are unchanged. Bluetooth coexistence depends on the
-> BT firmware's status reports. During A2DP streaming those reports identify
-> a connected link but do not expose the active profile, so the WiFi
-> coexistence logic cannot make a correct traffic-aware decision. WiFi
-> throughput can fall sharply while audio remains smooth. This is documented
-> rather than guessed around in the WiFi driver. The intermittent RTL8723BS
-> firmware failure to leave LPS also remains, and instrumentation shows a
-> firmware stall rather than a polling timeout that a longer budget would
-> fix.
+># ./ctlvctl/ctlvctl --spec-dir=./specs/ exec ctlv0 state-get
+># state-get, 1 fragment, generation 0
+>  pci.generation 0
+>  pci.connected 0
+>  pci.locked 0
+>  pci.accepted 0
+># 
 >
-> Testing
-> =======
+># ./ctlvctl/ctlvctl --spec-dir=./specs/ schema ctlv0 connect                
+>connect (action)
+>request:
+>  root nest
+>    pci.generation required uint [0, 4294967295]
+>    pci.tsm-id required uint [0, 2147483647]
+>    pci.cert-slot optional uint [0, 7]
+>reply:
+>  root nest
+>    pci.generation required uint [0, 4294967295]
+># 
 >
-> The exact seven-commit branch builds with W=1, with no new warnings, and
-> links all rtw88 modules with real modpost. Sparse and smatch were run over
-> the rtw88 directory. Sparse is clean. Smatch reports nothing in the 8723B
-> files, and its only output is an existing container_of static assertion
-> from include/net/neighbour.h while checking usb.c. checkpatch --strict is
-> clean apart from the complex-macro report on TRANS_SEQ_END, which is an
-> initializer macro that rtw8703b.c already defines in the same way, and the
-> "does MAINTAINERS need updating" reminder on the file-adding patches, which
-> the existing REALTEK WIRELESS DRIVER (rtw88) entry already answers with its
-> F: line. git diff --check is clean and all seven commits are GPG-signed.
+># ./ctlvctl/ctlvctl --spec-dir=./specs/ exec ctlv0 connect pci.generation=0 pci.tsm-id=0
 >
-> Hardware validation covered module identity, boot, scan,
-> authentication, association, WPA2 key negotiation and DHCP, TCP and UDP
-> traffic in both directions, ten scans while connected, and twenty module
-> reload and reassociate cycles. dmesg is clean, with no warnings, no errors
-> and no TX-report, H2C or leave-LPS messages. The extended soak added six 30
-> second TCP runs, UDP saturation in both access categories with no loss, a
-> 2000 packet ping run with no loss, and three idle power save periods with a
-> clean wake. The test machine provides only s2idle, so suspend and resume
-> are not covered.
->
-> Changes in v8:
->   - a new patch moves the receive PHY status layout, the SDIO aggregation
->     burst fields and four baseband registers out of rtw8703b.h into
->     rtw8723x.h, and renames struct phy_status_8703b to struct
->     phy_status_8723x. The chip driver no longer includes the header of a
->     sibling chip. It is a pure move, rtw8703b.c only follows the new struct
->     name;
->   - the vendor driver's name for that layout, phy_status_rpt_8192cd, is in
->     the commit message rather than in the source;
->   - dropped the long comment above the CCK swing table;
->   - the two receive PHY status helpers take void *phy_raw and read the CCK
->     LNA and VGA fields with u8_get_bits().
->
-> Luka Gejak (7):
->   wifi: rtw88: move the 88xxa CCK power detect setter to phy.c
->   wifi: rtw88: 8723b: add the RTL8723B register definitions
->   wifi: rtw88: 8723b: add the RTL8723B BB, RF and AGC tables
->   wifi: rtw88: move the shared 8723x definitions to rtw8723x.h
->   wifi: rtw88: 8723b: add the RTL8723B chip driver
->   wifi: rtw88: 8723bs: add the RTL8723BS SDIO bind
->   wifi: rtw88: 8723bs: enable building the RTL8723BS driver
->
->  drivers/net/wireless/realtek/rtw88/Kconfig    |   18 +
->  drivers/net/wireless/realtek/rtw88/Makefile   |    6 +
->  drivers/net/wireless/realtek/rtw88/phy.c      |   39 +
->  drivers/net/wireless/realtek/rtw88/phy.h      |    1 +
->  drivers/net/wireless/realtek/rtw88/reg.h      |   34 +
->  drivers/net/wireless/realtek/rtw88/rtw8703b.c |    4 +-
->  drivers/net/wireless/realtek/rtw88/rtw8703b.h |   63 -
->  drivers/net/wireless/realtek/rtw88/rtw8723b.c | 2534 +++++++++++++++++
->  drivers/net/wireless/realtek/rtw88/rtw8723b.h |   14 +
->  .../wireless/realtek/rtw88/rtw8723b_table.c   |  861 ++++++
->  .../wireless/realtek/rtw88/rtw8723b_table.h   |   17 +
->  .../net/wireless/realtek/rtw88/rtw8723bs.c    |   59 +
->  drivers/net/wireless/realtek/rtw88/rtw8723x.h |   60 +
->  drivers/net/wireless/realtek/rtw88/rtw8812a.c |    2 +-
->  drivers/net/wireless/realtek/rtw88/rtw8821a.c |    2 +-
->  drivers/net/wireless/realtek/rtw88/rtw88xxa.c |   38 -
->  drivers/net/wireless/realtek/rtw88/rtw88xxa.h |    1 -
->  17 files changed, 3647 insertions(+), 106 deletions(-)
->  create mode 100644 drivers/net/wireless/realtek/rtw88/rtw8723b.c
->  create mode 100644 drivers/net/wireless/realtek/rtw88/rtw8723b.h
->  create mode 100644 drivers/net/wireless/realtek/rtw88/rtw8723b_table.c
->  create mode 100644 drivers/net/wireless/realtek/rtw88/rtw8723b_table.h
->  create mode 100644 drivers/net/wireless/realtek/rtw88/rtw8723bs.c
->
-> --
-> 2.55.0
->
+>-aneesh
