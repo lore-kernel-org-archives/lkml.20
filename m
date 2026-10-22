@@ -1,100 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=209.85.208.45
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1792661176;
-	b=mTJmx21ye8DrxXHMmzIgF8aPvV+GMwDZlLy6gt74OARxeANt7PnTGNTopUo9tToeO2Qw
-	 0BwFVZHQhM6rsmc8rfa8/0717rUZfZzfglIKg8nL2a4EBi7VMNCMRPKkjQt++/0Jr/DGN
-	 D7ptNpvGPX5LMRW+Sp9vB0JYWKYO0O75nQ/MYyakUov1FF7C9fggUnzjXcRmmTI9rzNbu
-	 uXT/A4UX/Xryw2kNgNgcTcJLaNOm3cDezYF3RdzoqarAyFBviqE16kpsAz1Nf2Vfah8tP
-	 +zIkPDnG7lADqazvbn8WHj/wRU6p56HA3j48PljYAUVUH4aVnKUY64Ulf8V5638T7lg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792661176;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=RDTGl8Ih6VJ8k0LP5O6/K+Q2atwePVb08UAdf/lWbCQ=;
-	b=B0fxGy54SD7JtjgbWo4uVje/ZGrpaJXg+Euni/GPNqt9J9BLeJy5/uuFql8WY2r2Tjzx
-	 pKtTPK9bqTYctyMgx1rV0HCs3KsZS3CriWhK/8ut5ydrFB/U+7LO/vnVP0tEJhiIq+jC7
-	 ntVyfCWQBbxSWt2kYM84u2s5ucepsm3iHUAwNJTT5JupBW/jh8L3fVh9UW6PHlxMiJuP/
-	 2/vM9tlUw7ay05EKAHgCbpoiDHAWHcIUnPxJK7tIeb+Dxoz050q3IBzOqsonysa1U1Ymg
-	 +yq/Xo9uUg8/PqoT9pIW3iIwz+p7G7zHOOtxHExjL0sWtKGxnwZFAoAyTiT0k9eAGPQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=flipper.net;
-	spf=pass smtp.mailfrom=flipper.net;
-	dkim=pass header.d=flipper.net header.i=@flipper.net header.a=rsa-sha256 header.s=google header.b=n8gJ18bF;
-	arc=fail smtp.remote-ip=209.85.208.45
-Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com [209.85.208.45])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.225
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792661184;
+	b=Rs2oX2cOmaZM1sFbfyjy+faGxXL8RFu38LYb+wUh6Ai4hlJbJiQNlc7JzM/+wlsdMOua
+	 1QUF+AMaWFnhPMPJCfmm2ozzCNLNJ/IX9kRfA0ovu7+sKRPzruMBxh1QbHiFqOGKw1acD
+	 ICaUJDD9LgDaBe4pfwSqDj3oVp0DuXE+kLOSJbb9RTl1Hq3rxLKGyum/gqpH0+I/HFRAb
+	 AvxPYcRtkPjSc08cxM8fKtkMFTjyg8lrEVIjm6VUv8aaeErW/6g6SgejccbFgs2I0Pss9
+	 g2FE7ovRImvwjYb5b7pWKKp8RQZKseBZ1aHdwEPsHzlsC7G34y9HtdQrmP+ewj4VS8Q==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792661184;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=k21UMMNw0tvkklAYSvGNs34RUQwl8FHj4AqmfTuArTc=;
+	b=rX0IuiBIoXT+To9BrsjsbT3G+xYm1Lo7gDb9k+NV7Mc7RypUGmqsShzurDPFK9es/crW
+	 yn4cTjmglCNZSzVMKlYHYZGZ/aQ7LFNlUUSANhTQz5F32hfTGTYyAaIOr30gQXW00IKa+
+	 Pa8/ieXC+Q32agT4kMCY6nyiihUG12wp3Ti+9FdJiNoOyPTnQleb9BXvrzeYXnUmuJHr/
+	 9j4O2bxKX2fBIPIUO7H4DcH0eUJXDh6z6jeIffYTlIFKBvuAgAP8yDjVylCeZypXEtQ3w
+	 8N7wZZiYeUD2Ko0mm5tSqz6D0gjspGaF4jub1X/hxIOGdXi4FJuRv18b03Zx/I0FkIQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=HwjPBD94;
+	arc=none smtp.remote-ip=95.215.58.225
+Received: from mta1.migadu.com (out-225.mta1.migadu.com [95.215.58.225])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F4A7606A32C
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 09:26:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0F4A7606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flipper.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD65A60A3812
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 09:26:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AD65A60A3812
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=flipper.net header.i=@flipper.net header.a=rsa-sha256 header.s=google header.b=n8gJ18bF
-Received: by mail-ed1-f45.google.com with SMTP id 4fb4d7f45d1cf-6b1a86c0316so2131072a12.0
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 02:26:15 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792661174; cv=none;
-        d=google.com; s=arc-20260327;
-        b=dxGjwRV6iga2SsPepLYyG0EE5G2MwwMkO3OS2UiLsbSp6xhmuhOFML+LmIQn8HN3GZ
-         mgz6U4hGfooehHqMTLovgL3xbk6mbrkML+zbidv6ZkwfNyTKrcjnGIAckyujTnQYiWhr
-         s6MQKo3iU0lGUHn+BE5XSteL7sfZndhZPypptbDO6YCqRH4esAE1DJZGBeuEWU+II1zG
-         QLV4I3bri7vFsbWYq4HSFhVNhDCj/yYAULr+dTefk7UpA2l3nQMrkxKXtjLns/8fFqCB
-         Pufg8CUSN5cJU+iMMtTbP6LbidioxX8DLOQV2HS8jzPDxNo8b12wA6mKJoLdX3vt43Sb
-         T5hg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=RDTGl8Ih6VJ8k0LP5O6/K+Q2atwePVb08UAdf/lWbCQ=;
-        fh=vaAHUlOWdEEvOjXQC0lmbusdxRRkmysFqfcWlponcWg=;
-        b=FCIcOXj1XJU/rV3IqgkSM4NzHiLKx16fI5CZzNNlHuR0XgIdZdB/5zeJE3KulKU6Yk
-         f/LvZZ3EzE67+7i7hmKBJTBrGU8i8qhH7UwAq5J9U3sRIHL7Qt14uCsHkyQPUWSQVFdi
-         XOKdC+opLWwf09vbN1S28xzPEdjiXNTSKsEytOjjiRLRsEonQMOQmUwGL3aYlSrZhKK6
-         zaRoCfvhysvXTi4fPahgRV6pCGELuRes4oFZ6y/4hdfd8ild//v35aYsHVPFQXf8BbAZ
-         zaeSVfJyaUuxCIP1RXBKWyaMP1WIxqVoWM8bnS98joZyVYgcHWitc3BTCEXq8YqL0EBZ
-         UXyA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=flipper.net; s=google; t=1792661174; x=1793265974; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=RDTGl8Ih6VJ8k0LP5O6/K+Q2atwePVb08UAdf/lWbCQ=;
-        b=n8gJ18bFiLYWdXXIOvqJAlZPhdC/aA9JkjbTt/rfWjZFzSDyhbgHwb7oMTXS2+S1BK
-         0VVHLKKQrdHNhf5ir0tYgkGOrgxqohQOyEbW1XgZldG15m5fbirWtobFMbHt8RNHtQD2
-         clOjvIYDQtlIv01fjC6yT5+nwyYg/Jo2uaM2JRqnUin6d8D8KHaY8s0k+iyr+VXOBlOn
-         kQHVOGAr6/S0hMvXda40+l4YfG5lXqYz6gJvF70JCkFQ06Hw04eeohc1IViVjwk0h4Mm
-         iwY1TdEKUgqU3EFP0uIHTbDzLHZ5gssyFEzVykxqSWjjBjq3eXyxHW/a/2n6kMdJ4NHS
-         /wDQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792661174; x=1793265974;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=RDTGl8Ih6VJ8k0LP5O6/K+Q2atwePVb08UAdf/lWbCQ=;
-        b=13xu8Vpv5HtYbf+kQrh5YsYQl/9NmTS/GUeoWWP2W//VITC3FV0xkq51uie2k4daCI
-         4/hwxDq2NtrA8Ii4uu3WuUFd71wutFAGcCvokSxcsqq4HLKVCUoK9jqgbk2iD0LwhPWL
-         s7NgIpvmpbUXUsupl9uSQqFccDIHe3yTv7nJ0OHiiV2TZgJsBANX/vQGnk9wDIHKYr+b
-         ToTVMhHunegaIzN7Ywmhiz3qXbdKiOs58mOghpjF+0EEg3dsSA4MNaZvAzZL8ri0wS51
-         V6AmqWE1JShxhzHTJO75b+PVaPPdU5KfrOl0laFf/Z7ZN5zk5is8NT9qZHzKZaGRHjox
-         1dgw==
-X-Forwarded-Encrypted: i=1; AKwUvBzF6gsbSQfkPba1JfriKWYpwaHR9u8uW8OaLWq3i9vLqOC3WTl5OawCfGw62y8CQATvh+FwL+Wzs+SxMQo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLg1B9AOnPATs+Jl99IEV5hp8Y13LdNNwkOcz7u3F6M0tEoL7Bz
-	vnCp7qg9L48vldzrJp6n7CJ+Mor69Uv/XxWkWEgFIXnOQNvmVqM1nPZtspCVNPATk1opDsc4wae
-	28fqrc7SJ0NwEihychtVaRMuvEt4DuPm2pg0/1tgZvw==
-X-Gm-Gg: AYBFou33pEOkcJ92qW04qZqswA8vXCwKaOX7wVIgVrlWb9UUB9JJriExYc9wkzd9P1e
-	Y1YMGUs/nPJ18ynlNvPnM1D/lJ153uP9A4cQNUZqoO+T+sUD66ryVjEC0ymEIftOtAJ7iSFqq7w
-	5gou+iFjhWRic5GZFlPV2cQ2+CSKO+I/ODKfq3YLC++XXDryfJctZ2atBiHUGV0/nALptuvLM4F
-	U4vM0E0VwXRavFDXbu7Qx0D8bSyLQbhdPf2BC529L+SjleoB3QMNr78CPj7G7UO77gfNhTB0cg6
-	GpcewmKhoStF7I6gd+aFCF7QhnvGedUGR6yF7cITv5I7qzMgZ873snYTreyCkb8a1BvxbbM9ih+
-	Y5q/MFtRhUV8fj44EQVlr60As5AxbYK4YgyuqGsMwh/AtoUUxOd6ziS2In2zaJUJBP+Tw/4g=
-X-Received: by 2002:a17:907:9445:b0:c3e:34fa:611d with SMTP id
- a640c23a62f3a-c46797a1c00mr390905066b.35.1792661174343; Thu, 22 Oct 2026
- 02:26:14 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=HwjPBD94
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=r1/frCn5Y4nxyzWtLUbaul+E6be27/GCcEY/adAYhdk=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792661181; v=1; x=1793265981;
+ b=HwjPBD94TYEjjGfMPmBYXe6eVPFoxI0j1egZoRKRsUPMF6VyBXjMfWCXIIvxIjpajlsclMpQ
+ Gtsn0K+bgioXdD7iAmypz0sv9LAPzsKctynG4eArG89dzbs74OcKN7tuAkjU2m41qHgT9nuAmH7
+ RCQAsLT1fiEf0WKbMiCJVWmI=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id ab41a45b7b4c1891;
+	Thu, 22 Oct 2026 09:26:21 +0000
+X-Mizu-Trace-ID: ab41a45b7b4c1891
+X-Migadu-Flow: FLOW_OUT
+From: Huiwen He <huiwen.he@linux.dev>
+To: linkinjeon@kernel.org
+Cc: linux-cifs@vger.kernel.org,
+	senozhatsky@chromium.org,
+	tom@talpey.com,
+	chenxiaosong@chenxiaosong.com,
+	tj@kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [RFC PATCH 4/4] ksmbd: send READ payloads with MSG_SPLICE_PAGES
+Date: Thu, 22 Oct 2026 17:25:14 +0800
+Message-ID: <20261022092514.2590010-5-huiwen.he@linux.dev>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261022092514.2590010-1-huiwen.he@linux.dev>
+References: <20261022092514.2590010-1-huiwen.he@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,311 +70,646 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261021-pcie6_fix-v1-0-ad37134c35a3@oss.qualcomm.com>
- <20261021-pcie6_fix-v1-1-ad37134c35a3@oss.qualcomm.com> <CAKTNdwG5XA_chr2ZM9qTnr2RaDMzOjdb85bRdCr4aJCr1EGy7Q@mail.gmail.com>
- <398a1d12-c28b-418c-bbcc-170d781223d6@oss.qualcomm.com>
-In-Reply-To: <398a1d12-c28b-418c-bbcc-170d781223d6@oss.qualcomm.com>
-From: Alexey Charkov <alchark@flipper.net>
-Date: Thu, 22 Oct 2026 13:26:05 +0400
-X-Gm-Features: AclHuK8L-ayPUMBsUkPn_iJw1PmLwnZFEAovuHv3zJHxF-r9SZo38fQrGt0Y_f8
-Message-ID: <CAKTNdwEzbYAqM5ABxU+tfh4juU=wgYp=QXyjvdA1haanU0e8tQ@mail.gmail.com>
-Subject: Re: [PATCH 1/3] dt-bindings: connector: Add PCIe M.2 Mechanical Key B connector
-To: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
-Cc: Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Bartosz Golaszewski <brgl@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, linux-pci@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-pm@vger.kernel.org, linux-arm-msm@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Thu, Oct 22, 2026 at 8:27=E2=80=AFAM Krishna Chaitanya Chundru
-<krishna.chundru@oss.qualcomm.com> wrote:
->
->
->
-> On 10/21/2026 9:14 PM, Alexey Charkov wrote:
-> > Hi Krishna,
-> Hi Alexey,
->
-> Thanks for the thorough review, this is helpful.
-> >
-> > On Wed, Oct 21, 2026 at 5:51=E2=80=AFPM Krishna Chaitanya Chundru
-> > <krishna.chundru@oss.qualcomm.com> wrote:
-> >> Add the devicetree binding for PCIe M.2 Mechanical Key B connector
-> >> defined in the PCI Express M.2 Specification, r4.2, sec 3.2.19.1. This
-> >> connector is used to attach WWAN Adapters to the host machine over
-> >> interfaces such as PCIe, USB3.1 Gen1, SSIC, or USB 2.0, selected by th=
-e
-> >> Adapter's configuration pins.
-> >>
-> >> The connector provides a primary power supply of 3.3V/VBAT, along with
-> >> optional GPIO signals for WWAN-specific power/radio control:
-> >> FULL_CARD_POWER_OFF#, RESET#, W_DISABLE1#/2#, WAKE_OQN_WWAN#, and DPR.
-> >>
-> >> Signed-off-by: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm=
-.com>
-> >> ---
-> >>  .../bindings/connector/pcie-m2-b-connector.yaml    | 146 ++++++++++++=
-+++++++++
-> >>  MAINTAINERS                                        |   1 +
-> >>  2 files changed, 147 insertions(+)
-> >>
-> >> diff --git a/Documentation/devicetree/bindings/connector/pcie-m2-b-con=
-nector.yaml b/Documentation/devicetree/bindings/connector/pcie-m2-b-connect=
-or.yaml
-> >> new file mode 100644
-> >> index 000000000000..a7f4bcbc5119
-> >> --- /dev/null
-> >> +++ b/Documentation/devicetree/bindings/connector/pcie-m2-b-connector.=
-yaml
-> >> @@ -0,0 +1,146 @@
-> >> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> >> +%YAML 1.2
-> >> +---
-> >> +$id: http://devicetree.org/schemas/connector/pcie-m2-b-connector.yaml=
-#
-> >> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> >> +
-> >> +title: PCIe M.2 Mechanical Key B Connector
-> >> +
-> >> +maintainers:
-> >> +  - Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
-> >> +
-> >> +description:
-> >> +  A PCIe M.2 B connector node represents a physical PCIe M.2 Mechanic=
-al Key B
-> >> +  connector. Mechanical Key B connectors are used to connect WWAN dev=
-ices to
-> >> +  the host machine over interfaces like PCIe, USB3.1 Gen1, SSIC, or U=
-SB 2.0,
-> >> +  selected by the Adapter's configuration pins.
-> >> +
-> >> +properties:
-> >> +  compatible:
-> >> +    const: pcie-m2-b-connector
-> >> +
-> >> +  vpcie3v3-supply:
-> >> +    description: A phandle to the regulator for the 3.3v/VBAT supply.
-> >> +
-> >> +  full-card-power-off-gpios:
-> >> +    description: GPIO output to FULL_CARD_POWER_OFF# signal. This sig=
-nal is
-> >> +      used by the host system to turn off the entire Adapter. Refer, =
-PCI
-> >> +      Express M.2 Specification r4.0, sec 3.2.13.1 for more details.
-> >> +    maxItems: 1
-> >> +
-> >> +  reset-gpios:
-> >> +    description: GPIO output to RESET# signal. This signal is used by=
- the
-> >> +      host system to place the WWAN Adapter into a power-on reset con=
-dition.
-> >> +      Refer, PCI Express M.2 Specification r4.0, sec 3.2.13.2 for mor=
-e
-> >> +      details.
-> >> +    maxItems: 1
-> >> +
-> >> +  w-disable1-gpios:
-> >> +    description: GPIO output to W_DISABLE1# signal. This signal is us=
-ed by
-> >> +      the host system to disable the WWAN radio on the Adapter. Refer=
-, PCI
-> >> +      Express M.2 Specification r4.0, sec 3.1.12.3 for more details.
-> >> +    maxItems: 1
-> >> +
-> >> +  w-disable2-gpios:
-> >> +    description: GPIO output to W_DISABLE2# signal (default function =
-of
-> >> +      GPIO_10). This signal is used by the host system to disable a s=
-econd
-> >> +      radio on the Adapter. Refer, PCI Express M.2 Specification r4.0=
-,
-> >> +      sec 3.1.12.3 for more details.
-> >> +    maxItems: 1
-> >> +
-> >> +  wowwan-gpios:
-> >> +    description: GPIO input to WAKE_ON_WWAN# (WoWWAN#) signal. The Ad=
-apter
-> >> +      asserts this signal to wake up the host system. Refer, PCI Expr=
-ess M.2
-> >> +      Specification r4.0, sec 3.2.13.3.6 for more details.
-> >> +    maxItems: 1
-> >> +
-> >> +  dpr-gpios:
-> >> +    description: GPIO output to the Dynamic Power Reduction (DPR) sig=
-nal.
-> >> +      This signal is provided by a host system proximity sensor to th=
-e
-> >> +      Adapter to trigger a reduction in the radio transmit output pow=
-er to
-> >> +      meet regulatory SAR requirements. Refer, PCI Express M.2 Specif=
-ication
-> >> +      r4.0, sec 3.2.13.4 for more details.
-> >> +    maxItems: 1
-> > This seems to be missing the four CONFIG_* pins, which are quite
-> > crucial in these connectors, as they define which interfaces the
-> > module asks the host to provide on the respective pins. Without those
-> > module type detection is impossible.
-> Agreed, thanks for catching this. I will add a config-gpios property  (4 =
-GPIO
-> inputs, one per CONFIG_0..3 pin) to v2. It's optional, not required - a b=
-oard
-> that always has a known, fixed card type in a given socket (e.g. QCOM
-> glymur-crd's WWAN-only slot) can just describe that fixed wiring via the =
-ports
-> property and skip CONFIG decode entirely; config-gpios is only needed whe=
-n the
-> host wants to detect the card type/host-interface at runtime. Kept it as =
-plain
-> sensed GPIOs with no decode semantics imposed by the schema - the propert=
-y
-> description documents the full Table 3-18 state table inline (all 16 stat=
-es)
-> so the binding is self-contained, but turning the sensed 4-bit pattern in=
-to
-> "this is a WWAN-PCIe Adapter in port config 0" is left to driver code,
-> consistent with how the rest of the connector's sensed straps (e.g.
-> viocfg-gpios on the E-connector) are already handled.
+From: Huiwen He <hehuiwen@kylinos.cn>
 
-Agreed that the logic of turning the 4-bit pattern into
-enabling/disabling interfaces sounds like a driver realm, although we
-probably need to consider if the connector should accept pinctrl-0
-through pinctrl-15 to hint the host about which pin muxes should
-follow from each of the 16 4-bit CONFIG_* pin states. This mapping is
-hard to recover outside the connector's context.
+The TCP send path copies READ payloads that ksmbd has already read into
+its response buffer, adding CPU and memory bandwidth overhead.
 
-> >> +  clocks:
-> >> +    description: 32.768 KHz Suspend Clock (SUSCLK) input from the hos=
-t system to
-> >> +      the M.2 card. Refer, PCI Express M.2 Specification r4.0, sec 3.=
-1.12.1 for
-> >> +      more details.
-> >> +    maxItems: 1
-> >> +
-> >> +  ports:
-> >> +    $ref: /schemas/graph.yaml#/properties/ports
-> >> +    description: OF graph bindings modeling the interfaces exposed on=
- the
-> >> +      connector. Since a single connector can have multiple interface=
-s, every
-> >> +      interface has an assigned OF graph port number as described bel=
-ow.
-> >> +
-> >> +    properties:
-> >> +      port@0:
-> >> +        $ref: /schemas/graph.yaml#/properties/port
-> >> +        description: PCIe interface for WWAN
-> >> +
-> >> +      port@1:
-> >> +        $ref: /schemas/graph.yaml#/properties/port
-> >> +        description: SSIC interface for WWAN
-> >> +
-> >> +      port@2:
-> >> +        $ref: /schemas/graph.yaml#/properties/port
-> >> +        description: USB 2.0 interface for WWAN
-> >> +
-> >> +      port@3:
-> >> +        $ref: /schemas/graph.yaml#/properties/port
-> >> +        description: USB3.1 Gen1 interface for WWAN
-> >> +
-> >> +    anyOf:
-> >> +      - required:
-> >> +          - port@0
-> >> +      - required:
-> >> +          - port@1
-> >> +      - required:
-> >> +          - port@3
-> > This misses SATA which shares pins with PCIe. PCIe second lane also
-> > conflicts with USB 3.1/SSIC, which isn't captured here. Should it be?
-> Before adding a SATA/SSD port here, I want to double check the scope: per
-> Table 2-1, every SSD-capable board using those CONFIG states is a B+M dua=
-l-key
-> card (Type 2230/2242/2260/2280/22110, "B+M" key column), not a pure Key-B=
--only
-> card. Pure Key-B-only form factors (2242, 3042, 3052, 3060) are WWAN-only=
- per
-> that table, with no SSD row.
+Use page-backed READ buffers and MSG_SPLICE_PAGES to avoid this copy.
+Keep the existing copy path as a fallback when page-backed sending is
+not applicable.
 
-Your binding is about the host-side M.2 key B slot, which by design
-accepts both M.2 key B cards and M.2 key B+M cards, and the slot
-interfaces are explicitly designed to support both. So the binding
-should reflect the slot's hardware, not the card's hardware.
+Tested with fio on a 128-CPU server with a local 4-vCPU client VM
+(tmpfs, 16 jobs, QD32 per job, libaio, direct=0, cache=none;
+mixed=50/50 R/W). Throughput (MiB/s) and paired changes are medians
+of four runs.
 
-> If that holds, is modeling SATA/PCIe-SSD states in pcie-m2-b-connector ev=
-en in
-> scope, versus always describing a B+M socket via pcie-m2-m-connector (whi=
-ch
-> already covers PCIe/SATA SSDs) and reserving pcie-m2-b-connector strictly=
- for
-> the WWAN-only Key-B form factors? Or do you know of a real case where a p=
-ure
-> Key-B socket legitimately decodes to an SSD CONFIG state that I'm missing=
-?
-> Happy to add the SATA port either way, just want to scope it correctly be=
-fore v2.
+A: read_splice=0; B: read_splice=1.
 
-I don't think B+M _sockets_ even exist. The socket is keyed either B,
-or M, not both, and a B+M keyed card is compatible with either. It
-also reflects real-world use: people can and do use SATA SSDs in key-B
-slots. Same with NVMe SSDs, although those are rarer in B+M form
-factor (but I own one, and it works fine in a full-function
-spec-compliant key-B slot).
+  Block  Ch  Workload      A MiB/s    B MiB/s  B/A change
+  -----  --  ---------  ---------  ---------  ----------
+  4KiB    1  READ          290.73     282.21      -2.94%
+  4KiB    1  WRITE         193.01     192.84      +1.17%
+  4KiB    1  mixed         238.67     240.15      +0.55%
+  4KiB    2  READ          404.46     404.66      +1.17%
+  4KiB    2  WRITE         334.67     342.19      +0.34%
+  4KiB    2  mixed         338.24     336.34      -0.38%
+  4KiB    4  READ          453.28     456.10      -0.87%
+  4KiB    4  WRITE         415.69     417.24      +0.37%
+  4KiB    4  mixed         396.75     386.93      -1.41%
+  64KiB   1  READ         2162.74    2558.10     +19.56%
+  64KiB   1  WRITE        1976.37    2031.92      +1.26%
+  64KiB   1  mixed        1974.08    2176.16     +10.13%
+  64KiB   2  READ         3246.35    3591.95     +10.58%
+  64KiB   2  WRITE        3222.85    3205.70      -0.66%
+  64KiB   2  mixed        3283.75    3317.22      +0.86%
+  64KiB   4  READ         4227.13    4427.29      +5.01%
+  64KiB   4  WRITE        3089.17    3047.30      -1.36%
+  64KiB   4  mixed        3877.03    3962.34      +2.09%
+  1MiB    1  READ         2126.23    3353.03     +59.40%
+  1MiB    1  WRITE        3452.84    3460.33      +0.25%
+  1MiB    1  mixed        2961.50    3096.88      +4.64%
+  1MiB    2  READ         3887.33    5546.88     +42.10%
+  1MiB    2  WRITE        4158.22    4174.43      +0.18%
+  1MiB    2  mixed        4335.01    4954.98     +18.71%
+  1MiB    4  READ         6707.91    8311.51     +23.28%
+  1MiB    4  WRITE        3557.26    3612.88      +0.38%
+  1MiB    4  mixed        5444.00    5604.89      +3.12%
 
-> > Should the graph also envisage connections for the I2C bus (GNSS),
-> > audio (2 or 4 wire), re-muxing of W_DISABLE2# and WAKE_ON_WWAN# into
-> > HSIC functions in Port Config_3, GNSS interrupt line and the such?
-> > Should the connector node also define pinctrl configurations for each
-> > of the 15 interface configurations?
-> These are all real signals in the spec (GPIO_0-11's BTO-defined functions=
- per
-> Table 3-15, plus the HSIC remux under Port Config_3), but I'd left them o=
-ut
-> deliberately for now: every one of GPIO_0 through GPIO_9 is explicitly "V=
-ENDOR
-> DEFINED or GPIO_x" in the spec text, i.e. there's no fixed function to bi=
-nd to
-> without a BTO agreement between card vendor and platform. The sibling
-> pcie-m2-e-connector binding takes the same approach and doesn't model its=
- own
-> analogous BTO pins either.
+Signed-off-by: Huiwen He <hehuiwen@kylinos.cn>
+---
+ fs/smb/server/connection.c    |   1 +
+ fs/smb/server/connection.h    |   2 +
+ fs/smb/server/ksmbd_work.c    |  88 ++++++++++++++++++-------
+ fs/smb/server/ksmbd_work.h    |   9 +++
+ fs/smb/server/server.c        |   1 +
+ fs/smb/server/smb2pdu.c       | 120 ++++++++++++++++++++++++++++------
+ fs/smb/server/smb2pdu.h       |   1 +
+ fs/smb/server/transport_tcp.c |  61 +++++++++++++++--
+ 8 files changed, 235 insertions(+), 48 deletions(-)
 
-I thought only configuration b1011 explicitly says that the other
-interfaces besides PCIe and USB 3.1 Gen 1 are vendor defined. The rest
-have an explicitly assigned function for GPIO_0..GPIO_11, as set out
-in the Port Config_0 through Port Config_3 mapping table. Port
-Config_3 is the weird one, with its vendor-defined IPC on most of the
-pins, but the others are more clear-cut.
+diff --git a/fs/smb/server/connection.c b/fs/smb/server/connection.c
+index 4cb92d6599ee..4eb59d81f966 100644
+--- a/fs/smb/server/connection.c
++++ b/fs/smb/server/connection.c
+@@ -518,6 +518,7 @@ static int __ksmbd_conn_write(struct ksmbd_work *work,
+ 	tx->iov = work->iov;
+ 	tx->iov_cnt = work->iov_cnt;
+ 	tx->size = get_rfc1002_len(work->iov[0].iov_base) + 4;
++	tx->splice_header_len = work->splice_header_len;
+ 	tx->need_invalidate_rkey = work->need_invalidate_rkey;
+ 	tx->remote_key = work->remote_key;
+ 
+diff --git a/fs/smb/server/connection.h b/fs/smb/server/connection.h
+index a92e0fea0f06..27a8b17bcbb7 100644
+--- a/fs/smb/server/connection.h
++++ b/fs/smb/server/connection.h
+@@ -166,6 +166,8 @@ struct ksmbd_transport_write {
+ 	struct kvec	*iov;
+ 	int		iov_cnt;
+ 	int		size;
++	/* Prefix to copy into a page fragment before the page-backed last iov. */
++	unsigned int	splice_header_len;
+ 	bool		need_invalidate_rkey;
+ 	unsigned int	remote_key;
+ 	int		msg_flags;
+diff --git a/fs/smb/server/ksmbd_work.c b/fs/smb/server/ksmbd_work.c
+index e1b87bc0c949..9bdd9af1b955 100644
+--- a/fs/smb/server/ksmbd_work.c
++++ b/fs/smb/server/ksmbd_work.c
+@@ -35,6 +35,47 @@ bool ksmbd_queue_request(struct ksmbd_work *work, bool use_write_wq)
+ 	return queue_work(wq, &work->work);
+ }
+ 
++struct aux_read *ksmbd_alloc_read_buf(size_t length, bool allow_splice)
++{
++	struct aux_read *ar;
++	size_t alloc_size = ALIGN(length, 8);
++
++	ar = kzalloc_obj(*ar, KSMBD_DEFAULT_GFP);
++	if (!ar)
++		return NULL;
++
++	if (allow_splice && length) {
++		unsigned int order = get_order(alloc_size);
++
++		/* TCP references to tails must keep the whole allocation alive. */
++		if (order <= MAX_PAGE_ORDER)
++			ar->page = alloc_pages(GFP_KERNEL | __GFP_COMP |
++					       __GFP_NORETRY | __GFP_NOWARN, order);
++	}
++	if (ar->page)
++		ar->buf = page_address(ar->page);
++	else
++		ar->buf = kvmalloc(alloc_size, KSMBD_DEFAULT_GFP);
++	if (!ar->buf) {
++		kfree(ar);
++		return NULL;
++	}
++	return ar;
++}
++
++void ksmbd_free_read_buf(struct aux_read *ar)
++{
++	if (!ar)
++		return;
++	if (ar->page) {
++		/* TCP may still own references; never reuse or modify these pages. */
++		put_page(ar->page);
++	} else {
++		kvfree(ar->buf);
++	}
++	kfree(ar);
++}
++
+ static int ksmbd_reserve_iov(struct ksmbd_work *work, int need_iov_cnt)
+ {
+ 	struct kvec *new;
+@@ -92,9 +133,8 @@ void ksmbd_free_work_struct(struct ksmbd_work *work)
+ 	kvfree(work->response_buf);
+ 
+ 	list_for_each_entry_safe(ar, tmp, &work->aux_read_list, entry) {
+-		kvfree(ar->buf);
+ 		list_del(&ar->entry);
+-		kfree(ar);
++		ksmbd_free_read_buf(ar);
+ 	}
+ 
+ 	kfree(work->tr_buf);
+@@ -188,23 +228,14 @@ static inline void __ksmbd_iov_pin(struct ksmbd_work *work, void *ib,
+ 	work->iov_cnt++;
+ }
+ 
+-static int __ksmbd_iov_pin_rsp(struct ksmbd_work *work, void *ib, int len,
+-			       void *aux_buf, unsigned int aux_size)
++/* On success, work owns ar, including a buffer with no response payload. */
++int ksmbd_iov_pin_rsp_read(struct ksmbd_work *work, void *ib, int len,
++			   struct aux_read *ar, unsigned int aux_size)
+ {
+-	struct aux_read *ar = NULL;
+-	int need_iov_cnt = 1;
+-
+-	if (aux_size) {
+-		need_iov_cnt++;
+-		ar = kmalloc_obj(struct aux_read, KSMBD_DEFAULT_GFP);
+-		if (!ar)
+-			return -ENOMEM;
+-	}
++	int need_iov_cnt = aux_size ? 2 : 1;
+ 
+-	if (ksmbd_reserve_iov(work, need_iov_cnt)) {
+-		kfree(ar);
++	if (ksmbd_reserve_iov(work, need_iov_cnt))
+ 		return -ENOMEM;
+-	}
+ 
+ 	/* Plus rfc_length size on first iov */
+ 	if (!work->iov_idx) {
+@@ -218,25 +249,36 @@ static int __ksmbd_iov_pin_rsp(struct ksmbd_work *work, void *ib, int len,
+ 	inc_rfc1001_len(work->iov[0].iov_base, len);
+ 
+ 	if (aux_size) {
+-		__ksmbd_iov_pin(work, aux_buf, aux_size);
++		__ksmbd_iov_pin(work, ar->buf, aux_size);
+ 		inc_rfc1001_len(work->iov[0].iov_base, aux_size);
+-
+-		ar->buf = aux_buf;
+-		list_add(&ar->entry, &work->aux_read_list);
+ 	}
++	if (ar)
++		list_add(&ar->entry, &work->aux_read_list);
+ 
+ 	return 0;
+ }
+ 
+ int ksmbd_iov_pin_rsp(struct ksmbd_work *work, void *ib, int len)
+ {
+-	return __ksmbd_iov_pin_rsp(work, ib, len, NULL, 0);
++	return ksmbd_iov_pin_rsp_read(work, ib, len, NULL, 0);
+ }
+ 
+-int ksmbd_iov_pin_rsp_read(struct ksmbd_work *work, void *ib, int len,
++int ksmbd_iov_pin_rsp_data(struct ksmbd_work *work, void *ib, int len,
+ 			   void *aux_buf, unsigned int aux_size)
+ {
+-	return __ksmbd_iov_pin_rsp(work, ib, len, aux_buf, aux_size);
++	struct aux_read *ar;
++	int ret;
++
++	if (!aux_size)
++		return ksmbd_iov_pin_rsp(work, ib, len);
++	ar = kzalloc_obj(*ar, KSMBD_DEFAULT_GFP);
++	if (!ar)
++		return -ENOMEM;
++	ar->buf = aux_buf;
++	ret = ksmbd_iov_pin_rsp_read(work, ib, len, ar, aux_size);
++	if (ret)
++		kfree(ar); /* The caller still owns aux_buf. */
++	return ret;
+ }
+ 
+ int allocate_interim_rsp_buf(struct ksmbd_work *work)
+diff --git a/fs/smb/server/ksmbd_work.h b/fs/smb/server/ksmbd_work.h
+index 9f87b6c4393a..26b3d57a8429 100644
+--- a/fs/smb/server/ksmbd_work.h
++++ b/fs/smb/server/ksmbd_work.h
+@@ -13,6 +13,7 @@ struct ksmbd_conn;
+ struct ksmbd_session;
+ struct ksmbd_tree_connect;
+ struct ksmbd_file;
++struct page;
+ 
+ #define KSMBD_WORK_INLINE_IOVS	4
+ 
+@@ -24,6 +25,8 @@ enum {
+ 
+ struct aux_read {
+ 	void *buf;
++	/* Non-NULL for a buffer owned through a compound-page reference. */
++	struct page *page;
+ 	struct list_head entry;
+ };
+ 
+@@ -45,6 +48,8 @@ struct ksmbd_work {
+ 	int				iov_alloc_cnt;
+ 	int				iov_cnt;
+ 	int				iov_idx;
++	/* Final response prefix before a page-backed last iov; zero disables splice. */
++	unsigned int		splice_header_len;
+ 	struct kvec			iov_inline[KSMBD_WORK_INLINE_IOVS];
+ 
+ 	/* Next cmd hdr in compound req buf*/
+@@ -149,6 +154,8 @@ static inline void *ksmbd_req_buf_next(struct ksmbd_work *work)
+ 
+ struct ksmbd_work *ksmbd_alloc_work_struct(void);
+ void ksmbd_free_work_struct(struct ksmbd_work *work);
++struct aux_read *ksmbd_alloc_read_buf(size_t length, bool allow_splice);
++void ksmbd_free_read_buf(struct aux_read *ar);
+ 
+ void ksmbd_work_pool_destroy(void);
+ int ksmbd_work_pool_init(void);
+@@ -159,6 +166,8 @@ bool ksmbd_queue_work(struct ksmbd_work *work);
+ extern bool ksmbd_write_wq_enabled;
+ bool ksmbd_queue_request(struct ksmbd_work *work, bool use_write_wq);
+ int ksmbd_iov_pin_rsp_read(struct ksmbd_work *work, void *ib, int len,
++			   struct aux_read *ar, unsigned int aux_size);
++int ksmbd_iov_pin_rsp_data(struct ksmbd_work *work, void *ib, int len,
+ 			   void *aux_buf, unsigned int aux_size);
+ int ksmbd_iov_pin_rsp(struct ksmbd_work *work, void *ib, int len);
+ int allocate_interim_rsp_buf(struct ksmbd_work *work);
+diff --git a/fs/smb/server/server.c b/fs/smb/server/server.c
+index 5347eba916ed..70cad4e0e8e2 100644
+--- a/fs/smb/server/server.c
++++ b/fs/smb/server/server.c
+@@ -351,6 +351,7 @@ static void __handle_ksmbd_work(struct ksmbd_work *work,
+ 	if (work->sess)
+ 		ksmbd_user_session_put(work->sess);
+ 
++	smb2_set_read_splice(work);
+ 	ksmbd_conn_write(work);
+ }
+ 
+diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
+index 54ecdd096bd2..3d139c686393 100644
+--- a/fs/smb/server/smb2pdu.c
++++ b/fs/smb/server/smb2pdu.c
+@@ -14,6 +14,8 @@
+ #include <linux/ethtool.h>
+ #include <linux/falloc.h>
+ #include <linux/mount.h>
++#include <linux/mm.h>
++#include <linux/module.h>
+ #include <linux/filelock.h>
+ #include <linux/fileattr.h>
+ #include <linux/timekeeping.h>
+@@ -47,6 +49,29 @@
+ #include "transport_tcp.h"
+ #include "compress.h"
+ 
++/* Switching affects allocation, not ownership of existing READ buffers. */
++static bool read_splice;
++
++static int read_splice_set(const char *val, const struct kernel_param *kp)
++{
++	bool enabled;
++	int ret;
++
++	ret = kstrtobool(val ?: "1", &enabled);
++	if (!ret)
++		WRITE_ONCE(*(bool *)kp->arg, enabled);
++	return ret;
++}
++
++static const struct kernel_param_ops read_splice_ops = {
++	.flags = KERNEL_PARAM_OPS_FL_NOARG,
++	.set = read_splice_set,
++	.get = param_get_bool,
++};
++module_param_cb(read_splice, &read_splice_ops, &read_splice, 0644);
++__MODULE_PARM_TYPE(read_splice, "bool");
++MODULE_PARM_DESC(read_splice, "Page-backed ordinary TCP READ sends");
++
+ static void __wbuf(struct ksmbd_work *work, void **req, void **rsp)
+ {
+ 	if (work->next_smb2_rcv_hdr_off) {
+@@ -7700,9 +7725,9 @@ static int smb2_get_info_sec(struct ksmbd_work *work,
+ 	if (rc)
+ 		goto err_out;
+ 
+-	rc = ksmbd_iov_pin_rsp_read(work, (void *)rsp,
+-			offsetof(struct smb2_query_info_rsp, Buffer),
+-			pntsd, secdesclen);
++	rc = ksmbd_iov_pin_rsp_data(work, (void *)rsp,
++				    offsetof(struct smb2_query_info_rsp, Buffer),
++				    pntsd, secdesclen);
+ err_out:
+ 	if (rc) {
+ 		rsp->OutputBufferLength = 0;
+@@ -8684,7 +8709,7 @@ static noinline int smb2_read_pipe(struct ksmbd_work *work)
+ 			       rpc_resp->payload_sz);
+ 
+ 		nbytes = rpc_resp->payload_sz;
+-		err = ksmbd_iov_pin_rsp_read(work, (void *)rsp,
++		err = ksmbd_iov_pin_rsp_data(work, (void *)rsp,
+ 					     offsetof(struct smb2_read_rsp, Buffer),
+ 					     aux_payload_buf, nbytes);
+ 		if (err) {
+@@ -9004,6 +9029,63 @@ static ssize_t smb2_read_rdma(struct ksmbd_work *work,
+ 	return length;
+ }
+ 
++void smb2_set_read_splice(struct ksmbd_work *work)
++{
++	const unsigned int prefix_len = sizeof(__be32);
++	const unsigned int rsp_len = offsetof(struct smb2_read_rsp, Buffer);
++	const unsigned int header_len = prefix_len + rsp_len;
++	const struct smb2_read_rsp *rsp;
++	const struct kvec *payload;
++	const struct aux_read *ar;
++
++	work->splice_header_len = 0;
++	if (!list_is_singular(&work->aux_read_list))
++		return;
++	ar = list_first_entry(&work->aux_read_list, struct aux_read, entry);
++	/* Only eligible TCP READs allocate a page-backed auxiliary buffer. */
++	if (!ar->page)
++		return;
++
++	/* The final response must still be RFC1002 length + READ header + data. */
++	if (work->iov_cnt != 3 || work->iov[0].iov_len != prefix_len ||
++	    work->iov[1].iov_len != rsp_len)
++		return;
++	rsp = work->iov[1].iov_base;
++	payload = &work->iov[2];
++
++	/* Signing follows the READ handler; session/tcon refs may be gone. */
++	if (rsp->hdr.Flags & SMB2_FLAGS_SIGNED)
++		return;
++
++	/* Retain the original payload and send only the initialized bytes. */
++	if (payload->iov_base != ar->buf ||
++	    !payload->iov_len ||
++	    payload->iov_len > page_size(ar->page) ||
++	    get_rfc1002_len(work->iov[0].iov_base) + prefix_len !=
++					payload->iov_len + header_len)
++		return;
++
++	/* Do not pin an oversized compound allocation for a short READ. */
++	if (get_order(payload->iov_len) < compound_order(ar->page))
++		return;
++
++	work->splice_header_len = header_len;
++}
++
++static bool smb2_read_splice_eligible(struct ksmbd_work *work,
++				    const struct smb2_read_req *req)
++{
++	/* Negotiated signing/encryption capabilities alone do not exclude READs. */
++	return READ_ONCE(read_splice) &&
++		!work->next_smb2_rcv_hdr_off && !req->hdr.NextCommand &&
++		!work->encrypted &&
++		!work->sess->sign && !work->conn->sign &&
++		!(req->hdr.Flags & SMB2_FLAGS_SIGNED) &&
++		!(req->Flags & SMB2_READFLAG_REQUEST_COMPRESSED) &&
++		req->Channel == SMB2_CHANNEL_NONE &&
++		ksmbd_transport_is_tcp(work->conn->transport);
++}
++
+ /**
+  * smb2_read() - handler for smb2 read from file
+  * @work:	smb work containing read command buffer
+@@ -9013,6 +9095,7 @@ static ssize_t smb2_read_rdma(struct ksmbd_work *work,
+ int smb2_read(struct ksmbd_work *work)
+ {
+ 	struct ksmbd_conn *conn = work->conn;
++	struct aux_read *ar = NULL;
+ 	struct smb2_read_req *req;
+ 	struct smb2_read_rsp *rsp;
+ 	struct ksmbd_file *fp = NULL;
+@@ -9024,7 +9107,6 @@ int smb2_read(struct ksmbd_work *work)
+ 	bool is_rdma_channel = false, async_interim = false;
+ 	unsigned int max_read_size = conn->vals->max_read_size;
+ 	unsigned int id = KSMBD_NO_FID, pid = KSMBD_NO_FID;
+-	void *aux_payload_buf;
+ 
+ 	ksmbd_debug(SMB, "Received smb2 read request\n");
+ 
+@@ -9137,15 +9219,14 @@ int smb2_read(struct ksmbd_work *work)
+ 	ksmbd_debug(SMB, "filename %pD, offset %lld, len %zu\n",
+ 		    fp->filp, offset, length);
+ 
+-	aux_payload_buf = kvmalloc(ALIGN(length, 8), KSMBD_DEFAULT_GFP);
+-	if (!aux_payload_buf) {
++	ar = ksmbd_alloc_read_buf(length, smb2_read_splice_eligible(work, req));
++	if (!ar) {
+ 		err = -ENOMEM;
+ 		goto out;
+ 	}
+ 
+-	nbytes = ksmbd_vfs_read(work, fp, length, &offset, aux_payload_buf);
++	nbytes = ksmbd_vfs_read(work, fp, length, &offset, ar->buf);
+ 	if (nbytes < 0) {
+-		kvfree(aux_payload_buf);
+ 		err = nbytes;
+ 		goto out;
+ 	}
+@@ -9157,10 +9238,10 @@ int smb2_read(struct ksmbd_work *work)
+ 	 * client.  Zero just that tail.
+ 	 */
+ 	if (nbytes & 7)
+-		memset(aux_payload_buf + nbytes, 0, ALIGN(nbytes, 8) - nbytes);
++		memset(ar->buf + nbytes, 0, ALIGN(nbytes, 8) - nbytes);
+ 
+ 	if ((nbytes == 0 && length != 0) || nbytes < mincount) {
+-		kvfree(aux_payload_buf);
++		ksmbd_free_read_buf(ar);
+ 		rsp->hdr.Status = STATUS_END_OF_FILE;
+ 		smb2_set_err_rsp(work);
+ 		if (async_interim)
+@@ -9175,16 +9256,15 @@ int smb2_read(struct ksmbd_work *work)
+ 	if (is_rdma_channel == true) {
+ 		rdma_transform_len = smb2_prep_rdma_read(work, req,
+ 							 rsp,
+-							 aux_payload_buf,
++							 ar->buf,
+ 							 nbytes);
+ 		if (rdma_transform_len < 0) {
+-			kvfree(aux_payload_buf);
+ 			err = rdma_transform_len;
+ 			goto out;
+ 		}
+ 		/* write data to the client using rdma channel */
+ 		remain_bytes = smb2_read_rdma(work, req,
+-					      aux_payload_buf,
++					      ar->buf,
+ 					      nbytes);
+ 		if (remain_bytes < 0)
+ 			pr_err("RDMA READ transfer failed: session=%llu payload=%zu transform=%d rc=%zd\n",
+@@ -9195,8 +9275,8 @@ int smb2_read(struct ksmbd_work *work)
+ 				    "RDMA READ transfer completed: session=%llu payload=%zu transform=%d\n",
+ 				    work->sess ? work->sess->id : 0, nbytes,
+ 				    rdma_transform_len);
+-		kvfree(aux_payload_buf);
+-		aux_payload_buf = NULL;
++		ksmbd_free_read_buf(ar);
++		ar = NULL;
+ 		nbytes = 0;
+ 		if (remain_bytes < 0) {
+ 			err = (int)remain_bytes;
+@@ -9214,11 +9294,10 @@ int smb2_read(struct ksmbd_work *work)
+ 	err = ksmbd_iov_pin_rsp_read(work, (void *)rsp,
+ 				     offsetof(struct smb2_read_rsp, Buffer) +
+ 				     rdma_transform_len,
+-				     aux_payload_buf, nbytes);
+-	if (err) {
+-		kvfree(aux_payload_buf);
++				     ar, nbytes);
++	if (err)
+ 		goto out;
+-	}
++	ar = NULL; /* The response now owns the buffer. */
+ 	if (async_interim)
+ 		release_async_work(work);
+ 	/*
+@@ -9234,6 +9313,7 @@ int smb2_read(struct ksmbd_work *work)
+ 	return 0;
+ 
+ out:
++	ksmbd_free_read_buf(ar);
+ 	if (async_interim)
+ 		release_async_work(work);
+ 	if (err) {
+diff --git a/fs/smb/server/smb2pdu.h b/fs/smb/server/smb2pdu.h
+index 3f08d1ca5a38..27e60f9ff4db 100644
+--- a/fs/smb/server/smb2pdu.h
++++ b/fs/smb/server/smb2pdu.h
+@@ -429,6 +429,7 @@ bool smb3_encryption_negotiated(struct ksmbd_conn *conn);
+ /* smb2 misc functions */
+ int ksmbd_smb2_check_message(struct ksmbd_work *work);
+ void smb2_complete_request_open(struct ksmbd_work *work);
++void smb2_set_read_splice(struct ksmbd_work *work);
+ 
+ /* smb2 command handlers */
+ int smb2_handle_negotiate(struct ksmbd_work *work);
+diff --git a/fs/smb/server/transport_tcp.c b/fs/smb/server/transport_tcp.c
+index 1183bb75aa24..5acf183dab64 100644
+--- a/fs/smb/server/transport_tcp.c
++++ b/fs/smb/server/transport_tcp.c
+@@ -5,6 +5,7 @@
+  */
+ 
+ #include <linux/freezer.h>
++#include <linux/page_frag_cache.h>
+ 
+ #include "smb_common.h"
+ #include "server.h"
+@@ -32,6 +33,8 @@ static int bind_additional_ifaces;
+ struct tcp_transport {
+ 	struct ksmbd_transport		transport;
+ 	struct socket			*sock;
++	/* Serialized by conn->srv_mutex. */
++	struct page_frag_cache		tx_frag_cache;
+ 	struct kvec			*iov;
+ 	unsigned int			nr_iov;
+ };
+@@ -66,6 +69,7 @@ static struct tcp_transport *alloc_transport(struct socket *client_sk)
+ 	if (!t)
+ 		return NULL;
+ 	t->sock = client_sk;
++	page_frag_cache_init(&t->tx_frag_cache);
+ 
+ 	conn = ksmbd_conn_alloc();
+ 	if (!conn) {
+@@ -100,6 +104,7 @@ static void ksmbd_tcp_free_transport(struct ksmbd_transport *kt)
+ 	struct tcp_transport *t = TCP_TRANS(kt);
+ 
+ 	sock_release(t->sock);
++	page_frag_cache_drain(&t->tx_frag_cache);
+ 	kfree(t->iov);
+ 	kfree(t);
+ }
+@@ -431,6 +436,38 @@ static int ksmbd_tcp_read(struct ksmbd_transport *t, char *buf,
+ 	return ksmbd_tcp_readv(TCP_TRANS(t), &iov, 1, to_read, max_retries);
+ }
+ 
++/* The last iov is page-backed; consolidate the prefix into a page fragment. */
++static void *ksmbd_tcp_build_splice_iov(struct tcp_transport *t,
++				       const struct ksmbd_transport_write *tx,
++				       struct kvec *splice_iov)
++{
++	unsigned int header_len = tx->splice_header_len;
++	const struct kvec *payload;
++	struct iov_iter iter;
++	void *header_frag;
++
++	if (!header_len || header_len > PAGE_SIZE || header_len >= tx->size ||
++	    tx->iov_cnt < 2)
++		return NULL;
++	payload = &tx->iov[tx->iov_cnt - 1];
++	if (payload->iov_len != tx->size - header_len)
++		return NULL;
++
++	header_frag = page_frag_alloc(&t->tx_frag_cache, header_len,
++				 GFP_KERNEL | __GFP_NORETRY | __GFP_NOWARN);
++	if (!header_frag)
++		return NULL;
++	iov_iter_kvec(&iter, ITER_SOURCE, tx->iov, tx->iov_cnt, header_len);
++	if (!copy_from_iter_full(header_frag, header_len, &iter)) {
++		page_frag_free(header_frag);
++		return NULL;
++	}
++	splice_iov[0].iov_base = header_frag;
++	splice_iov[0].iov_len = header_len;
++	splice_iov[1] = *payload;
++	return header_frag;
++}
++
+ static int ksmbd_tcp_writev(struct ksmbd_transport *t,
+ 			    const struct ksmbd_transport_write *tx)
+ {
+@@ -438,21 +475,35 @@ static int ksmbd_tcp_writev(struct ksmbd_transport *t,
+ 		.msg_flags = MSG_NOSIGNAL | tx->msg_flags,
+ 	};
+ 	struct socket *sock = TCP_TRANS(t)->sock;
++	struct kvec splice_iov[2];
++	void *header_frag;
+ 	int ret;
+ 
+-	iov_iter_kvec(&smb_msg.msg_iter, ITER_SOURCE, tx->iov,
+-		      tx->iov_cnt, tx->size);
+-	/* The caller holds srv_mutex across the entire frame. */
++	/* The caller holds srv_mutex across preparation and the entire frame. */
++	header_frag = ksmbd_tcp_build_splice_iov(TCP_TRANS(t), tx, splice_iov);
++	if (header_frag) {
++		iov_iter_kvec(&smb_msg.msg_iter, ITER_SOURCE, splice_iov,
++			      ARRAY_SIZE(splice_iov), tx->size);
++		smb_msg.msg_flags |= MSG_SPLICE_PAGES;
++	} else {
++		iov_iter_kvec(&smb_msg.msg_iter, ITER_SOURCE, tx->iov,
++			      tx->iov_cnt, tx->size);
++	}
+ 	while (iov_iter_count(&smb_msg.msg_iter)) {
+ 		ret = sock_sendmsg(sock, &smb_msg);
+ 		if (ret <= 0) {
+ 			/* Never append another SMB frame to an incomplete one. */
+ 			kernel_sock_shutdown(sock, SHUT_RDWR);
+-			return ret ?: -EIO;
++			ret = ret ?: -EIO;
++			goto out;
+ 		}
+ 	}
+ 
+-	return tx->size;
++	ret = tx->size;
++out:
++	if (header_frag)
++		page_frag_free(header_frag);
++	return ret;
+ }
+ 
+ static void ksmbd_tcp_disconnect(struct ksmbd_transport *t)
+-- 
+2.43.0
 
-> I'd rather land CONFIG_0-3 decode plus the SATA/PCIe-SSD scoping question=
- in
-> v2, and handle I2C/GNSS/audio/HSIC-remux/per-config pinctrl as follow-up
-> patches once there's a concrete board that needs one of them with a real
-> driver consumer - adding properties nothing reads yet felt like the wrong
-> order of operations. But let me know if you think v1 shouldn't go in at a=
-ll
-> until that full state machine is captured in the binding.
-
-The general guidance is that bindings should be complete, even if the
-software does not fully implement them yet. I'm not sure how strict
-that guidance is.
-
-In this particular case I'm wary of the risk in merging a version of
-the binding which will make sane modeling of those extra interfaces
-impossible later on. Assigning port nodes to all possible interfaces
-envisaged by the spec is probably easy enough, although subtleties
-remain, such as: do pinctrl groups for each interface configuration
-belong to the respective interface providers or to the connector? Does
-the binding allow additional vendor-specific interfaces on the
-GPIO_0..GPIO_11 pins at all (e.g. various IPC configurations which the
-spec leaves to the host and module vendor to decide), and if yes -
-how?
-
-These decisions (and probably others I haven't thought of yet) will
-likely shape the correct binding structure. It would be great to
-discuss and prototype them before committing to the binding, which
-must remain backward-compatible once merged.
-
-Best regards,
-Alexey
