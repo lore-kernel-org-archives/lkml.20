@@ -1,52 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792677197;
-	b=cdXBQ2pRLanX39anSQMvv1B2krZJzS7TV1WD0WA1z7p2T1iUBKZmUgfBJ0drlpd0911c
-	 /h/JA66a019Oi58PIjmvFEnmV5ViDMQ+AWvaxdcbhm0oiBJjA3vVyernfpASOOimCqzW3
-	 6sNfSde3y3QxxblNQ5M3oGaxYkr9yeIw55QzPI5fFSIDDnrWbNSiTam+AInxNODOXvXYG
-	 1Tpr7eN0ScsKGrn9lTj+PKY1CD4izIQBKS3kWsbOg/qJvuD65gBYzDTcbMNoZ+vBoHgjx
-	 pnWjD7/Hp18hs3Oti4KoJfvux2HJ9dwa2vR9Dxb6Kdrx4ISRcC6/4KBDrkLB50G6OZg==
+	t=1792677205;
+	b=Osl5MRX8ZNC/AaUlT/QvwyU0AuCPBXVNZqT/C/on5yUtyMYGFREBajARNRFGFnwATM9q
+	 iQMPVoMvMryZIJzc7fIy75lSHLczUa3FkFsiD7rgb0jCtXANpcJ0nI0M1py4Ro00//0Jv
+	 euUhT4JtQy1ar5WcGsbHfpunncGM//hM7zjCHXk1b3sD6PtJgB6mkIZueq0x823yykxvX
+	 oFgTHwto9zyMUrAjrY6FacnRy34iJ62hX0DxvLLQrT7OkQMABWNwQZ+Nq69L4mt9TQH9u
+	 tIwchmJq6xnrSZV/MtkbGdycSMuc+7giTmA9bG/BmIAJKVgQWQliN8JeQwu36DsFVyQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792677197;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=DzhR2L4XhC7bpp8sqzRhFdyulkY1Uuqge/MHzZq/OJ4=;
-	b=rPNivdCGX/O3LZEY5J3XpwS5ioveWP+yp+dEvrwkTu6I86ce0zKNdugQpXxxBY0QmXqU
-	 K4b2zOC0Hbqdy/9bt33Wn4c4T0ewFHTzz0CXraE7CFIdeGC7pP4MWjSk31d5qqM716l+G
-	 1EOOI4PW2kfZD2SBdvOAtY4yQBPvo3xaMBRJ9Bu97rpSzr5OPtzS3f36C258dUFd3uyuM
-	 3PbIB9vyijfvZizP1BZtS9eLmY05teIdNkgd5iY5TiFO+IBmPB56M+Xw9v3fuh8Mx+sF6
-	 N4sxHJGMlYOcKU8Olk1s7nB/MZpHTwL6k7M5xn0W8NttGyIZmmQEs7oG90p2mNAbwBQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792677205;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=bp8Sv56uWGNu5dzO8hoWLI+wBl8bSINfQ15wCZlMHhg=;
+	b=dXGKJzjB5HBBvlWLdZqUf0CF5bY2Iq6u0g2qUHlTt+lgqQYUJo2Jj9SbmapD5ax+FDXK
+	 pwG6Y/DC9hmn29RDvocejahdMMn/guhvSVA2zIpKmFoDCRSktREC3sLzYVMRB7d6fpGtm
+	 ZhQYawxRwNLOJDSpI8pTxv/YRAjAvG/RYDOfZ9LiJ3dtq6aU2ypgV+obUoPwQ70WZKDEk
+	 3SD2pMIj4GYFe6a7icavn2PrKHjldnT8v1XXUayRz0XKE++/MwtBhAxronMsOkP0UuBwH
+	 tR66PUryCXW779+UzFQHeD2onEvodwLQnpxvMymhEESnzFReqrPZWyky4N6tRLB2n6A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=tFntqpmI;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VdNbL7ii;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FE7760A2600
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 13:53:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F114C606A32A
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 13:53:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=tFntqpmI
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D0F21F000CB;
-	Thu, 22 Oct 2026 13:53:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1792677197;
-	bh=DzhR2L4XhC7bpp8sqzRhFdyulkY1Uuqge/MHzZq/OJ4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=tFntqpmIwOEH1lNPEzcQDlCmNy20wMHXjhKhlhqemjVR2Rh9Y9rfbYeSpA+sYfJOJ
-	 vQdPEi3wVHXGRl9JGddJeTaPJzPrJDrp1LOS4foXVqt0qUGztsTuCp4U5I+8Zkz2LX
-	 6GYZ0Jd9S+YDvsS7bLmgUwEPxIx9B/vObBxk9Jdk=
-Date: Thu, 22 Oct 2026 15:52:57 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Eduard Zateev <hackerowskiy@gmail.com>
-Cc: johan@kernel.org, elder@kernel.org, greybus-dev@lists.linaro.org,
-	linux-kernel@vger.kernel.org,
-	syzbot+61464b62b688791cc24c@syzkaller.appspotmail.com,
-	syzbot+a2e50fb40695811c2dab@syzkaller.appspotmail.com
-Subject: Re: [PATCH] greybus: operation: keep operation alive while arming
- timer
-Message-ID: <2026102259-cucumber-clasp-a64a@gregkh>
-References: <20261022134817.1703927-1-hackerowskiy@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VdNbL7ii
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 23BAA1F000C2;
+	Thu, 22 Oct 2026 13:53:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792677204;
+	bh=bp8Sv56uWGNu5dzO8hoWLI+wBl8bSINfQ15wCZlMHhg=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=VdNbL7iiFiqZk2DsxL87UDc7lFoy6Jq2+vVHB6I3vfKqQiWtc/K2wgVyCUJLPepZ3
+	 LRpMGtl0mfHIw/lRJx0IixQTr/W5BQxcbe7nlAZjL39eKjHzdFPix3nrhivqNsQsfE
+	 6egR9gqfjR5oPCUrREv6w4LR9Gj1FXI7cnnO2vi5xDMoHGoYq0mkv4H01pkR6T7xgx
+	 kDamF9uZeJcb39UeWdmVF013g4c/cD5sGNh/Y2kQm8OF36Q5wNCpp9O0kd8nSB9i/R
+	 1CnIfhlwXdAFnLlzPXeb+WQZHuU+w2xVxdiWz1i8l+2XQx0lo7qwdk47vtFrGcJkLs
+	 E6dM2CdDSn+8w==
+From: Maxime Ripard <mripard@kernel.org>
+Date: Thu, 22 Oct 2026 15:53:03 +0200
+Subject: [PATCH v6 02/15] drm/atomic: Switch to krealloc_array() in
+ drm_atomic_get_private_obj_state()
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -56,64 +53,70 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261022134817.1703927-1-hackerowskiy@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261022-drm-reset-state-flag-v6-2-f36d640b7e76@kernel.org>
+References: <20261022-drm-reset-state-flag-v6-0-f36d640b7e76@kernel.org>
+In-Reply-To: <20261022-drm-reset-state-flag-v6-0-f36d640b7e76@kernel.org>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Louis Chauvet <louis.chauvet@bootlin.com>, 
+ Haneen Mohammed <hamohammed.sa@gmail.com>, 
+ Melissa Wen <melissa.srw@gmail.com>
+Cc: Daniel Stone <daniels@collabora.com>, 
+ Harry Wentland <harry.wentland@amd.com>, 
+ Jocelyn Falempe <jfalempe@redhat.com>, 
+ =?utf-8?q?Jonas_=C3=85dahl?= <jadahl@redhat.com>, 
+ =?utf-8?q?Michel_D=C3=A4nzer?= <mdaenzer@redhat.com>, 
+ Pekka Paalanen <pekka.paalanen@collabora.com>, 
+ Sebastian Wick <sebastian.wick@redhat.com>, Simon Ser <contact@emersion.fr>, 
+ Victoria Brekenfeld <victoria@system76.com>, 
+ Xaver Hugl <xaver.hugl@kde.org>, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Maxime Ripard <mripard@kernel.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1391; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=BzbEMPPA4chwGhrAev6Iwlnw4dYruoi/b+S/QBBvOnk=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFm3RF2yNn6sawlbdMQm02LNmf3LL0/fL1F9eYnSfbmV7
+ 705tJO2dkxlYRDmZJAVU2R5IhN2enn74ioH+5U/YOawMoEMYeDiFICJaN5irC+f2GJoqx6+13Qr
+ W2/KkSbf5D1cmrf3Cv7N3d2rcow3W+m278L6JQ8bdnsflkxXlZiuxtiwJ/rT/Yii4rtblDiz2ju
+ utEyL4//osCTYverWAhOpDR/+nFjwY82/LamCVWxLHvH3BfEBAA==
+X-Developer-Key: i=mripard@kernel.org; a=openpgp;
+ fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 
-On Thu, Oct 22, 2026 at 03:48:17PM +0200, Eduard Zateev wrote:
-> An operation can complete after gb_message_send() returns but before
-> gb_operation_request_send() arms its timeout timer. The completion
-> worker then sees no active timer, finishes the callback, and drops its
-> operation reference. The request path may still arm the timer, so a later
-> final put frees an operation with an active timer.
-> 
-> Take a temporary reference before sending and keep it through timer
-> setup. After arming the timer, inspect the result under
-> gb_operations_lock. If the operation has already completed,
-> synchronously delete the timer before dropping the temporary reference.
-> 
-> OpenAI Codex assisted with the syzbot investigation, race analysis, patch,
-> and changelog. The syzbot C reproducer drove Greybus ES2 under ARM64 QEMU
-> but did not naturally trigger ODEBUG. In a test-only build, forcing
-> completion work to finish before timer setup left the timer pending when
-> the operation was destroyed before this change and inactive with this
-> change.
-> 
-> Fixes: dbec27298b0d ("staging: greybus: operation: add generic timeout support")
-> Reported-by: syzbot+61464b62b688791cc24c@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=61464b62b688791cc24c
-> Reported-by: syzbot+a2e50fb40695811c2dab@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=a2e50fb40695811c2dab
-> Signed-off-by: Eduard Zateev <hackerowskiy@gmail.com>
-> ---
->  drivers/greybus/operation.c | 28 ++++++++++++++++++++++++++--
->  1 file changed, 26 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/greybus/operation.c b/drivers/greybus/operation.c
-> index 7e12ffb2dd6..5bfee8638c9 100644
-> --- a/drivers/greybus/operation.c
-> +++ b/drivers/greybus/operation.c
-> @@ -188,6 +188,18 @@ int gb_operation_result(struct gb_operation *operation)
->  }
->  EXPORT_SYMBOL_GPL(gb_operation_result);
->  
-> +static bool gb_operation_is_in_progress(struct gb_operation *operation)
-> +{
-> +	unsigned long flags;
-> +	bool in_progress;
-> +
-> +	spin_lock_irqsave(&gb_operations_lock, flags);
-> +	in_progress = operation->errno == -EINPROGRESS;
-> +	spin_unlock_irqrestore(&gb_operations_lock, flags);
-> +
-> +	return in_progress;
+The drm_atomic_get_private_obj_state() function manually computes the
+allocation size by multiplying the element count by the element size
+before passing it to krealloc().
 
-What prevents this value from changing right after you unlock and
-return?  This isn't how to handle locking at all, right?
+krealloc_array() handles this multiplication internally and includes
+overflow checking. Switch to it and drop the now-unused size variable.
 
-And how is syzbot testing greybus code?  What userspace / device is it
-attempting to emulate here?
+Suggested-by: Thomas Zimmermann <tzimmermann@suse.de>
+Reviewed-by: Daniel Stone <daniels@collabora.com>
+Signed-off-by: Maxime Ripard <mripard@kernel.org>
+---
+ drivers/gpu/drm/drm_atomic.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
 
-thanks,
+diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
+index 9bb761eda59f..aa47c647df31 100644
+--- a/drivers/gpu/drm/drm_atomic.c
++++ b/drivers/gpu/drm/drm_atomic.c
+@@ -1080,5 +1080,4 @@ drm_atomic_get_private_obj_state(struct drm_atomic_commit *state,
+ {
+ 	int index, num_objs, ret;
+-	size_t size;
+ 	struct __drm_private_objs_state *arr;
+ 	struct drm_private_state *obj_state;
+@@ -1096,6 +1095,6 @@ drm_atomic_get_private_obj_state(struct drm_atomic_commit *state,
+ 
+ 	num_objs = state->num_private_objs + 1;
+-	size = sizeof(*state->private_objs) * num_objs;
+-	arr = krealloc(state->private_objs, size, GFP_KERNEL);
++	arr = krealloc_array(state->private_objs, num_objs,
++			     sizeof(*state->private_objs), GFP_KERNEL);
+ 	if (!arr)
+ 		return ERR_PTR(-ENOMEM);
 
-greg k-h
+-- 
+2.55.0
+
