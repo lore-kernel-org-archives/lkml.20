@@ -1,99 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.130.46
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.171
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792681823;
-	b=QRCiq4GHmU5zc8r66ALIEuA28oc6NBfyHztpysAbygylj8eIZ8AHEiGdX2JXta5liN6i
-	 SL0oDNWgiCkzz7Ad+cdZMQKHSyIRdynMPmq9FvvTjEXm76zyCOpCvZBKOv33OsXCpFE/5
-	 eM+cUbnxXl3KPKK18+B87wCFIrn9T//A2gT0VG48J6WNaKBBIXgKyMO7pgV4pImXa0ObO
-	 tZ61Xer3ocIh5QAbE5l5HV9py1+h/gPeUc+9G9NtSTjLYVe5qs7jTMF3X5dkevN4ZXt0I
-	 6e91G1bRoRbzbFO6+eWTJQgdLnnApl6oEvb+bEeTishX7nMbbk0M8p/VufT/vy/FwPQ==
+	t=1792681856;
+	b=UbpEDbpH4mppR92w8R8l4205Jxba6Ximz+k9UyYdOqkC56pb76qeuEVIT/oOdK2mpPAy
+	 VsIQvgiqfzsbJP64GmMcjsxqFvT4QOp4HzJYq5p0GRL0/O/tWXSOgQg89XYCOrdX9m62h
+	 Q+LWdzXhbeLXSuoT1fDUntp7IEvH6kC5RepSawBWz9OxvPRWXLYWzLU0TWq5beW+UjmEx
+	 L8NdjsXOGMIgpz2xVZ+JJ3niLO7xFxDesvFoQydNyEeBMZytDhBTVa9z8YlyDoDDm61Ub
+	 T4BBb2xx3SZlNVJqLWLUu08d3xGnK+KDU3LoVL2XPv+VpD8Tymod7oUOHliaMlHySdw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792681823;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=jI2AC+CdF9MgCL1fJFQjIkDxJsvnyd/hxIIiFs3seag=;
-	b=4N4X14e3hR8SXWo3Zj79v1nQSxzsKCGmd4g+Uhjvq3am+JMBqV0177PP+cH3uM2KxCpg
-	 29MfbDnGNy2qISw8Ejn/EKcpcf36OwXHciL3xeg9bQkkZUbUGUThBoxhHZI2iWW+pVV7v
-	 zw7pwVm752UVSb1HizZZhi2ots21AT7Y9sOUdg4u+kDR6u7X6dxzWidZzMAuKe1SIsN8r
-	 HT9N+tOlmC3yLLZujte3SQIMuGqONu5kk6b6pTIdEGOJpDJ7Jqto93iQA4hH9ngJyXPP9
-	 KWB8zaLBab69gMKCW42n6vSAaLYabsA3/IQky7nAfP+r3pCyi//6IyhYoLuP+wDzu5w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792681856;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=2B5vza+jbwkGAZonP3DChsQgZkW/jPoj7zNLZG98cpg=;
+	b=ywdHz4NCQdbtsHnCIzOnYJgpRVoimFovQtSkN6uGlir6oXu5YyQnfMMlh4dK6jSu+kep
+	 RJ7ldNs4PKTVNZ3kgavQyvuCZC0DuOOQ7TJKgJwl8hfWA8ll8RS0WNkKf42mxBzzoyyO/
+	 kVFa81/voLLgsTx5idcVPqXOIvZ1zeihH8Yub+mcR5KGyQetRPt4eHJ3d3PAGb4tRpHuo
+	 A6PlVThAgeN3hmFcucKRzKYxlk7Myi9Xa/hyA4IRAHtRry5jO/a60Se/1Q1GL7e4dGfRB
+	 2XkfAz/zoqLO5XlM4MwP9BT/fFJ+h6wDGxsaYSKK8FDyT7KFXCyNm3SVr2plB8Hn8mA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=aw11csvE;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.130.46
-Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011046.outbound.protection.outlook.com [40.107.130.46])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=d8I5YV+G;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.171
+Received: from mail-qt1-f171.google.com (mail-qt1-f171.google.com [209.85.160.171])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 110DD60A3819;
-	Thu, 22 Oct 2026 15:10:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 110DD60A3819
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8331E60A3819
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 15:10:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8331E60A3819
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=aw11csvE
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=xtOULvzNR0YfEcPG0YmnOIyk4sekIC7IHQWa+tunhrk6CvJP6Bn9ayuO2ZXuwvfa50oZKgHEdfXBcHcJFI6o240AGDQIGyAUWPDOPoKRgkM/NawgeL3fPz11Gf2AOecgKwpys1gP1uEg7eKWipLBzP1Nm/naIp8rTq8iM4qWuRavqs/9OruA9ODDEtng/gBwe4fvRmsxz1TiAO/cmGUnmzfcWVZMOT6fMhOa9DJw/PgSoz9JzfLruQgNsLIHATkQFS6gx15X1NOYghIymWHCXYx080VRuf7vN3no8LRavUAZgibzRjjnHzYAU8rrTjD+b6CYN0rWr7HRxIQZwmz9cQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=jI2AC+CdF9MgCL1fJFQjIkDxJsvnyd/hxIIiFs3seag=;
- b=IutWhB+0HjSqq1aWBihWg1epdwe89K9hf+D994WXud32KZOwXLzXz1eDnuy0UCtASoaZRNKFa0y2UoMQ9E8OTtBtV445tWc7hr5kFgaVL/m968ViU2ew/+kiAaF9BDgI2roRSqbG6ED3JCfUss1AbgtU0AQs6SrRkXJVHy4agGoDYu6XI56PV4OsmOtHGBz4U1QMC5QHgpP925gOw8PzA0Aa5Sc65qXMVVmVN1OwOA//gohDYfsbvaJM6K9IWc/bcTpEvuJaEFlpW8HTr+Li7JWwzhFt0ZvVCfTGDPFgEKNhJ7spLMYSqQ/LYvbDWAtaEMNbhVsxeq2aGPHm05AHJw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jI2AC+CdF9MgCL1fJFQjIkDxJsvnyd/hxIIiFs3seag=;
- b=aw11csvE54GpQupkC4Z9Pk3aJCnnENMabwpJ/qbPUm6SpAEauZJGC7MKcQNKxasb55shA5Ou3QMgGon+8tPR7F6iGsOX7H+Uk5o+QeJbMX54P5WoJYWHGZvjPszJGG3DGA65+jhttMo+sjRkV6XQbtNjRHUtHN37nmgXBfMfvoY+1FvO7YpuNI3WQHArcXZ4vXuM1wtXGNvvB6Uj4FuUz3uN38FaTqhaC94pzADmqJrQmj5B4XKzZxZ3f6Kv1RQarOFWIPa0Voqmm8CXd3FGNEdezUtg0dXK0aV2T2Cv3MTkRExlQxrAzEsTcMvzzMR9pujdTdOdbgKB01eXTuU5YQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
- by DB9PR04MB8185.eurprd04.prod.outlook.com (2603:10a6:10:240::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Thu, 22 Oct
- 2026 15:10:20 +0000
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b%6]) with mapi id 15.21.0546.012; Thu, 22 Oct 2026
- 15:10:19 +0000
-Date: Thu, 22 Oct 2026 10:10:10 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Ernest Van Hoecke <ernestvanhoecke@gmail.com>
-Cc: Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
-Subject: Re: [PATCH v2 1/5] arm64: dts: freescale: imx8mm-verdin: Share the
- UART_4 MCU overlay
-Message-ID: <atonUhtKvsH3CjKD@SMW015318>
-References: <20261022-v1-imx95-overlays-v2-0-c769d6eb54fd@toradex.com>
- <20261022-v1-imx95-overlays-v2-1-c769d6eb54fd@toradex.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261022-v1-imx95-overlays-v2-1-c769d6eb54fd@toradex.com>
-X-ClientProxiedBy: DS7P220CA0018.NAMP220.PROD.OUTLOOK.COM
- (2603:10b6:8:223::16) To MI3PR04MB12438.eurprd04.prod.outlook.com
- (2603:10a6:290:76::14)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=d8I5YV+G
+Received: by mail-qt1-f171.google.com with SMTP id d75a77b69052e-5337fa12431so320361cf.1
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 08:10:55 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792681854; cv=none;
+        d=google.com; s=arc-20260327;
+        b=SZJMQ1Rj4GeKfbMJgBs2/yiMoh2aatDNLswxwH/Ky7bLKjyuefAKWbIXjzRMZ1b0mP
+         p6O7q56sFHik8tbFSSZqT6ZnspIXdiINJuzScCumIxmEcMNfH996uyPz/R70h0Glqn44
+         /SRjYqxC7P6h/GXwJSRXCPUJ/109o8TGu+st52yFhN7GwxpL8h7HJ0rHHt4+HJ0B1CSw
+         QSnBQpCpBkW2zkthAfsWEq6pBNG2idUMIz3OnISaK6WCBLThJpNd0+2frrGS2cbDEGs2
+         KaAp0ZSQ9uFrNEJiTd1YvN9vUmenOp/vozHcJL8gDdUGbL1LzQqqjir5+SvDVCjvlurP
+         wENA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=2B5vza+jbwkGAZonP3DChsQgZkW/jPoj7zNLZG98cpg=;
+        fh=fDcRetwOlAvnVPwVYL2N6aEDzw76NTfVNuyqZoRMycc=;
+        b=H/vF/r5kK16HJgLL81RhrLIUN/Mn7T7g1Nvm0X8SbVXAdxXOdF1NUGW5T8Q/PNCKeF
+         WDAh8ByVw2WTPpFwcVu+Jd0jHyFgvM2WX66QKjiQACb09IRiX/sF9ZQDZ301Z9N/22Wc
+         prb6Btm3Ec9zpFrKeGurwYG5PRwllndh6Mq5p6V6YFcUMWIc3EXOg+KVf0erWS0xkCMu
+         1bxesLOQxreiTBNvZh01dEPsy9kfGyiQFCVJUlBY//qiPlw+9uH1Lrpf/OikyZvoLTOE
+         CT0QE1HagCpXWlAJ7qR3+Y/t1XytZTnbzvd8EVaWEXKibzk3NiWI1VHJ5YAPsVjnsFh2
+         sLJA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1792681854; x=1793286654; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=2B5vza+jbwkGAZonP3DChsQgZkW/jPoj7zNLZG98cpg=;
+        b=d8I5YV+GF3VHqV31uyhkM7PerHoqs79+/NmR7bLc0/ixdlrwv6eEne4fctrnrrhJo0
+         LTCkP+4Cexz0eJwe0r0dq7yEd30ISSavFLvZUpEzg4vJmbNDWcX+mgmUWUPd8QxMk/bY
+         Wmz7tpGNET6nIZXqx457zbAothdcc7xrSpLO87rh02RmFS+x5biECr/2pOmr3vaqXEsS
+         kE3u24CrL452ekPD5p4CPDA8+vDPhuUBXLHoYhaoGtW8gGAMjuZBLiI2ySxyBFXnd6Eu
+         XRChr1sL72lxZ06uHxaZtAUc1P/3AFgVjAkjjFzTGclqBcBDNxQafHmNpK0MVU4rW229
+         AeEg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792681854; x=1793286654;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=2B5vza+jbwkGAZonP3DChsQgZkW/jPoj7zNLZG98cpg=;
+        b=WE7x3HJkMHHa9f1V/qMKsN/KKMgwrrtohD5USNanEr7Qx1qNVPvKHJVxOyqwNbu1Gp
+         JHNjy68Egs+ane2eNpBzgejZKlkMrq4sGbjcLVt1yFPvpa/Q2PvEoUVntJRqoknr9XVU
+         82LwiUmKhTYFEzZ1g0G2N75NZzwOTUV2sX8Wy/JcW99ZKlPClwNv6Mny7/3n65Bvkony
+         emCoEUDlv4AoF5wQqYuXfBP9yeoJcReCIk2LsSbYUyjbeR9dP9Azi1Be7uHtsRZIYn6b
+         NsHz6luXMlTXI/gtT5SqAqaF0yM48T2/Cayj68/ZOY4W4Nkym3VPMh5Q/U15mnncxTD9
+         HGjw==
+X-Forwarded-Encrypted: i=1; AKwUvBxuiLsaf1E6aceI4LIqAEBtf5kfT4/tf5VEeyhkBGnM3avWKAZ+jTFjO88wD4vj+ooYDvfwRFIWNkE2A6g=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJEDIuDo0s7Nf2hL9xISU60/APc2rOt/8X7YZN3TstD4VJvT254
+	ZaQAqeh1LrEZZ3HFJP8YJTDYfLBo4mkdN8Z7OsrRKXDGVrquJBJTnbwtnXf9Z43sJFMIpIBxU/2
+	tnylKeVjkhJytiJ/uCWGKqKON02rig2jr8+ADnk+VNk5LLkWAa1Q9D/hPlwU=
+X-Gm-Gg: AYBFou26kbgHQf6wy+TEv9gMK811T7dsNkjFzP8b+ROhjjEs6iAeXZbcytqzGxy+2tk
+	jBlWVPWySw0xWhnMK8kzgyM+mYo5c0knX0Hzhl3ybz+9y3CKG4stH+1NZtwv91Z40FgximYCKAj
+	CQnRFzXLMcbPGbjn35XMri9unUKZY5X3TKYfJrRjB4BE3yPY9jTOpOimzBiO/fg2zcwF8gxxM96
+	qC/AwZjZ34iymQuw4xXuly3Fp/mzq3Joe6cQPB8GpVNb5iVUHb6m6KubI1K9XuEYOBsw0riK3Ms
+	ghXO15BcoskOOiaSLnU0QgCyGn3k0WePBcfEm4IM3B+PulK8uxba4fTcEsrYlTlTdR0/SIMvloi
+	5SYaW44kKrqMD53cKeV7B+O6ixx6I4w8nYTJ4Ks9g84dfWu0eSnkjFb5L/EkSTLxT
+X-Received: by 2002:ac8:5d8e:0:b0:532:8423:1e78 with SMTP id
+ d75a77b69052e-536b062b3damr17529581cf.10.1792681852565; Thu, 22 Oct 2026
+ 08:10:52 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,76 +104,627 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|DB9PR04MB8185:EE_
-X-MS-Office365-Filtering-Correlation-Id: 706fd67d-540e-47e4-e1e0-08df304e9606
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|19092799006|366016|1800799024|23010399003|7416014|376014|10067099003|22082099003|18002099003|11063799006|4143699003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	oBWGdJI7P+y2/5k3i+CzIew3L/07oSv09NZ7vE355so7THxbro761xQ86DQuzDLBkDk7jMl99sS2eZzY7JcRBGEygkYbmTHBusTd+jwmSHMBVI+khonIMjDVZvZz5v73oEITXKvfm/o9QWoowU3/LH6eRwAVfIR8U85lviCM3G1dl0XhHzDXW6MqYCqbW+XsJxTQyGLu8sx9wS4sJMR1hDj7dqz/waAlRe5affuJ8AZgI7KvD/eOL3CncJVboKFTe8UnTx5vnnmoRLKZLlx+O+d8XMjFGAsMXvsuQK6pAKEpy1Fx9cjbbEZhHsJBeOfwopXm+qfn9tOTcBQ/qT2Tdfs8WKBjQMKjKuT0h5NyD0QCnzo5BjykOWmzRsOjNOxIZ4HBPhzWwFbOuFHGVZCMLIf1zlRVIXMuZ+0U++t0Fq6DLbuPs7FdqtVymp156Z9R/s1JvTYJv8B3wLEuBzBp5TAY9LDoKsHrAumH8DjH9DpaZDPscjpAsiWFy5aSULOJ1EWY05BdZKN9deIyAUVYL/dG8ajkrlUkd1E7M0pkyLNPwrskif8vrtm1VSW2OILf8jIS1SzZbn3GnS304oWghl6up21Czza0SOImXk1RsS0IzJkCR+sY1ELRFXkIw774u83yszJQgOonsQDoqds4rQ==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(366016)(1800799024)(23010399003)(7416014)(376014)(10067099003)(22082099003)(18002099003)(11063799006)(4143699003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?Yav7R676PljzdCj4k4mjBfgbyMRBWsBoqM0hrVxH7uPgQgUJnj9PETrShZPh?=
- =?us-ascii?Q?TUS2mdWA4dh4JIBwc8V+v9HPwWvd+/DktFOD9gOs4O+Do8ZkbwqbOGZFgERJ?=
- =?us-ascii?Q?gHqS4wg4ixCbI5Vn+eJD7Qi2+4XaTGNbGmhBmSV9lwOwYXwoZqUSktcVfVki?=
- =?us-ascii?Q?UCvD4kkLxKhUaal0NWcjKkTIZrVe1VZng2T4ssxG7Lb66O6MecuQsn0pjzfN?=
- =?us-ascii?Q?VloyZPGqnpAoQpRyhFlO0ASGgOjlPIcMeNyxk8QzEdCCZDAFcRZvc0nZHMKu?=
- =?us-ascii?Q?rqTqvHNBRmffxOEXgnogu7RW5EikWw2l3kQQYmtRR7qRpUdR7Qta06yKQYPv?=
- =?us-ascii?Q?wgRn2U/JLN0mw26qO7ITTu54ANSSXCy2bYUTf3YchXmaPXHzDsQ6UsTptUs1?=
- =?us-ascii?Q?Skh18gSGnEr77QlfK99R/tSa5a3Lt7gvl1mT4LLXRrJ1ZFSr/gde7t0uOo9K?=
- =?us-ascii?Q?n5PLAjcvqvK5IRJpFj3T4cFZun8uXdqRsX2QU7pj3z16bgoiwWXsfiyiglRq?=
- =?us-ascii?Q?92K8+1Y2l4huHA51EHOx1c0My9jali0Sg/3/tqZ+1NvO5WJ5EJQvLHq2EsV1?=
- =?us-ascii?Q?wL//+crxv+otgZaCZ6Axe+sgXIuURhJMZN1znqZ1YMUfv2jNfbmAsDLX1j8L?=
- =?us-ascii?Q?r6wI6e0K+X0sGPUSZfP4TZglY26/c5/H788G4XRCscQXE9gxngCgB/+gGFTV?=
- =?us-ascii?Q?pW4sI1NLfnrkwdG179wA1d2Cb0Vi5Ms/UUytrEJyklFjLpzfizkGCJuB6Gh0?=
- =?us-ascii?Q?qHcDzSjpB8+UuKBoMBSTdpebq5aaqvedy7O8F9KvClGmhT1cBUKQZodU493n?=
- =?us-ascii?Q?RhJqOQR+B4u7R4hK1/D2FeGbK5t9cO8HPjl8Jh0FdFaGJ43+n2jO5luDNwY+?=
- =?us-ascii?Q?WmurIDMJQ6KuOIUYyKoavvqDJZYWm5TZQRT0RdB0uO7+p7b3nWyoimA0JgLV?=
- =?us-ascii?Q?ZwNcOOGV7WmTT6K+TmTNMT2sVghL6DwmgXewtnmhAtc66n2gWNAp5wmn4BMV?=
- =?us-ascii?Q?dYIPnYog5orZofA+f5SuyqmtHheYVL5bZiAjcKQq0bpxM0G4RVHnLAJ9SFqh?=
- =?us-ascii?Q?tkm1DyEAKz0qYlM0R13VoTPo5z8MB3Dq0lj2SAs17sJL53v7LHwTzbydFyQr?=
- =?us-ascii?Q?woR0nGTm2DS4PTOKS/3zgaur2vlCe7RyyJwFS4d6wQq2i6D7Nlh2kHrnyaca?=
- =?us-ascii?Q?xA0btbTIC+TJsVPTO2+UkxtjhEsw5PGVrYvzM1Zvk602IoMRoxRl5vg33//C?=
- =?us-ascii?Q?Ws6IhR9HlnLRrx2VCi6xWcXa3el6KoC/ECGl1yUh+Y8HqjwprPpi283xMREH?=
- =?us-ascii?Q?LXEfIKSH/MOypAImnRVeUXf/Qt4ssSkrp8RnHWA2pHRdNaiIp4BaIsHV5gFt?=
- =?us-ascii?Q?6N0MNszvXBRVfP/eFzkovAfKm8CQFy3YPk5iKQBK+Bdnwhqz3lvHGLaYFtvd?=
- =?us-ascii?Q?sxYwcgtcKUPmv4nRXa+Fz96rCIFIhcCCRYCAzukINWPCIBtaSd/8NDIHT1DO?=
- =?us-ascii?Q?YWZFG+8026YtcPGZVw+NKk6nJePyppvS/rH7fY+4INEBqcxR1s0rkCMmTRka?=
- =?us-ascii?Q?SplwpIDChewzuxONFhaXHvecySddt57blHd3L/1GM/LB0nrAwe42Uv4dMrvC?=
- =?us-ascii?Q?QbPnilf1xpV99Yg4UGQpiFPLKIhVtQ2AO/rwWcOwY+Tw1ayscYqylw6RBgPe?=
- =?us-ascii?Q?ITWcf4bduPYpFnn3jzrQD0p8PjAq9tC0QGmwEj3LlX928XxnIZETNpUOM7tM?=
- =?us-ascii?Q?vww8ilHLmhs7N5Q2pITSsZlxouvnHEDuUCuFMfj44PGn0MrcTmSy?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 706fd67d-540e-47e4-e1e0-08df304e9606
-X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Oct 2026 15:10:19.4356
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: eSeptOFAQlZbH2O25ybxT0Z4RwMVXXlcYVd6ugRorRygg4OPhDSdyUtEftovq6SXeKrRap0kEml9vAoLrNUv0Y3Foh/OwpbdtFCNzSRj4dZNHxEczbjKxzTWhOPazZfq
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR04MB8185
+References: <cover.1792439751.git.abhishekbapat@google.com>
+ <323077f96bca23b512a86a6781ebc9dfe6ae9ec1.1792439751.git.abhishekbapat@google.com>
+ <79568d55-705d-466c-8a3a-c2ec3143e5c2@linux.dev>
+In-Reply-To: <79568d55-705d-466c-8a3a-c2ec3143e5c2@linux.dev>
+From: Suren Baghdasaryan <surenb@google.com>
+Date: Thu, 22 Oct 2026 15:10:39 +0000
+X-Gm-Features: AclHuK_Rmc-NbWkeOVT6nTn4JWdc32YtkiptWfkY5rv6RBPXlNIz1Wu8Ig0EHk0
+Message-ID: <CAJuCfpFtqM+kvt+N7Ou4BJ+hR6qb3R8GC3_FxdJKHboQyBFWgg@mail.gmail.com>
+Subject: Re: [PATCH v3 1/4] alloc_tag: Add trace events for tracing allocations
+To: Hao Ge <hao.ge@linux.dev>
+Cc: Abhishek Bapat <abhishekbapat@google.com>, Andrew Morton <akpm@linux-foundation.org>, 
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
+	linux-trace-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Oct 22, 2026 at 04:09:33PM +0200, Ernest Van Hoecke wrote:
-> From: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+On Wed, Oct 21, 2026 at 7:35=E2=80=AFAM Hao Ge <hao.ge@linux.dev> wrote:
 >
-> Verdin UART_4 is the UART the module assigns to the Cortex-M4F core.
-> Other Toradex modules also assign one UART to their Cortex-M core, such
-> as Verdin and Aquila UART_4 and SMARC SER0 on i.MX95, but on a different
-> UART instance, so an overlay naming the instance cannot be shared.
 >
-> Label the UART uart_mcu in the module device tree and turn the Verdin
-> iMX8M Mini overlay into imx-tdx-uart-mcu.dtso, which reserves the
-> labelled UART. The combined Verdin iMX8M Mini DTB keeps its name.
 >
-> Signed-off-by: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
-> ---
+> On 2026/10/20 04:00, Abhishek Bapat wrote:
+> > The memory allocation profiling framework intercepts allocations across
+> > the core subsystems, but currently lacks runtime tracing hooks for
+> > standard observability tools to dynamically track the context (stack
+> > traces and lifecycles of the individual memory chunks) of the
+> > allocations made.
+> >
+> > Introduce three standard trace events to allow this tracking:
+> >
+> > 1. `alloc_tag_hit`: Fired at the exact call site. This allows userspace
+> >    tools to trigger and capture a call stack.
+> > 2. `alloc_tag_mem_alloced`: Fired in alloc_tag_add upon successful
+> >    allocation. It records the allocated size, the tag, and the uniquely
+> >    generated `ptr` value which is `codetag_ref` for slab and percpu
+> >    allocators and the pointer to the head `struct page` for the page
+> >    allocator.
+> > 3. `alloc_tag_mem_freed`: Fired in alloc_tag_sub right before memory is
+> >    freed, yielding the same `ptr` value to allow tracing tools to find
+> >    the corresponding allocation.
+> >
+> > Because the introduced trace events occur at different stages in the
+> > call stack, userspace tracing tools must stitch them together to form a
+> > complete picture of a buffer's lifetime. Here's an example of how
+> > userspace correlates these three events:
+> >
+> > 1. On `alloc_tag_hit`: The tool captures the stack trace and caches it,
+> >    keyed by the combination of the current thread's PID and the `tag`.
+> > 2. On `alloc_tag_mem_alloced`: The tool extracts the PID and `tag` from
+> >    the event and looks up the stack trace cached in step 1. It creates =
+a
+> >    new active allocation record, mapping the new provided `ptr` value
+> >    to this cached stack trace and the newly returned allocation size.
+> > 3. On `alloc_tag_mem_freed`: When the memory is freed, the event yields
+> >    the same `ptr` value. The tool uses this reference to look up the
+> >    original allocation record, correlates the free, and safely retires
+> >    the tracking entry.
+> >
+> > Modify `alloc_tag_add()` and `alloc_tag_sub()` with a `ptr` argument to
+> > map frees to allocations in the trace events. Slab and percpu pass the
+> > address of the object's `codetag_ref`. The page allocator passes the
+> > head `struct page` because its `codetag_ref` is a temporary copy on the
+> > stack.
+> >
+> > Also, introduce `alloc_tag_trace_key` static key to minimize the
+> > overhead when no tags are being traced (the usual case). Once tracing
+> > for any tag is requested, the key is set, opening the path to check
+> > whether tracing is enabled for the current tag.
+> > Note that the mechanism to enable tag tracing is implemented in the nex=
+t
+> > patch, therefore for now, `alloc_tag_trace_key` stays always unset.
+> >
+> > Signed-off-by: Abhishek Bapat <abhishekbapat@google.com>
+> > Acked-by: Hao Ge <hao.ge@linux.dev>
+> > Acked-by: Suren Baghdasaryan <surenb@google.com>
+> > ---
+> >  Documentation/mm/allocation-profiling.rst |  53 ++++++++++
+> >  MAINTAINERS                               |   1 +
+> >  include/linux/alloc_tag.h                 |  67 +++++++++---
+> >  include/trace/events/alloc_tag.h          | 122 ++++++++++++++++++++++
+> >  mm/alloc_tag.c                            |  28 +++++
+> >  mm/page_alloc.c                           |   4 +-
+> >  mm/percpu.c                               |  13 ++-
+> >  mm/slub.c                                 |   6 +-
+> >  8 files changed, 269 insertions(+), 25 deletions(-)
+> >  create mode 100644 include/trace/events/alloc_tag.h
+> >
+> > diff --git a/Documentation/mm/allocation-profiling.rst b/Documentation/=
+mm/allocation-profiling.rst
+> > index b11ea77c0673..b241450394df 100644
+> > --- a/Documentation/mm/allocation-profiling.rst
+> > +++ b/Documentation/mm/allocation-profiling.rst
+> > @@ -129,6 +129,59 @@ To do so:
+> >  - Then, use the following form for your allocations:
+> >    alloc_hooks_tag(ht->your_saved_tag, kmalloc_noprof(...))
+> >
+> > +Tracing
+> > +=3D=3D=3D=3D=3D=3D=3D
+> > +
+> > +Three trace events are available under `/sys/kernel/tracing/events/all=
+oc_tag` to
+> > +expose the full call stack and the lifetime of individual allocations:
+> > +
+> > +- `alloc_tag_hit`: Fired at the exact call site, before the allocation=
+ happens.
+> > +  Can be used to capture the call stack of the caller.
+> > +
+> > +- `alloc_tag_mem_alloced`: Fired once the allocation succeeds. Carries=
+ the `ptr`,
+> > +  `tag` and `bytes` for each allocation.
+> > +
+> > +- `alloc_tag_mem_freed`: Fired before memory is freed. Carries the sam=
+e
+> > +  `ptr`, `tag` and `bytes` as the matching alloc event.
+> > +
+> > +`ptr` identifies the allocation, and its meaning depends on the alloca=
+tor:
+> > +
+> > +- slab and percpu: the address of the object's `codetag_ref`
+> > +- page allocator: the `struct page` pointer of the head page
+> > +
+> > +Correlating the events
+> > +----------------------
+> > +
+> > +`alloc_tag_hit` and `alloc_tag_mem_alloced` come from different points=
+ in the
+> > +call stack, so they have to be stitched together by the user consuming=
+ the
+> > +events. Here's a typical flow:
+> > +
+> > +1. On `alloc_tag_hit`: Capture the stack trace and cache it keyed by `=
+(pid, tag)`.
+> > +
+> > +2. On `alloc_tag_mem_alloced`: Look up the cached stack trace by `(pid=
+, tag)`,
+> > +   then create an active allocation record keyed by `ptr` that holds t=
+he stack
+> > +   trace and `bytes`.
+> > +
+> > +3. On `alloc_tag_mem_freed`: Look up the record by `ptr` and retire it=
+.
+> > +
+> > +Limitations
+> > +-----------
+> > +
+> > +- For the page allocator, events are generated for the original alloca=
+tion and
+> > +  the free only. If the tag reference is split or moved to another fol=
+io in
+> > +  between, no event is generated for that. As a result:
+> > +
+> > +  - a free event may carry a `ptr` that never appeared in an alloc eve=
+nt;
+> > +  - `bytes` in a free event may be smaller than in the matching alloc =
+event.
+> > +
+> > +  Tools should correlate on `ptr` but must not assume that freed bytes=
+ equal
+> > +  allocated bytes, or that every free has a matching alloc.
+> > +
+> > +- Freeing a non-compound high-order page with `__free_pages()` while a=
+nother CPU
+> > +  holds a reference frees the tail pages immediately and the head page=
+ later when
+> > +  the reference is dropped. The free event is emitted at the second po=
+int and
+> > +  reports `PAGE_SIZE` rather than the full size.
+> > +
+> >  Notes
+> >  =3D=3D=3D=3D=3D
+> >
+> > diff --git a/MAINTAINERS b/MAINTAINERS
+> > index 6f1f35a017a6..fb2df7b8e9ee 100644
+> > --- a/MAINTAINERS
+> > +++ b/MAINTAINERS
+> > @@ -17100,6 +17100,7 @@ S:    Maintained
+> >  F:   Documentation/mm/allocation-profiling.rst
+> >  F:   include/linux/alloc_tag.h
+> >  F:   include/linux/pgalloc_tag.h
+> > +F:   include/trace/events/alloc_tag.h
+> >  F:   include/uapi/linux/alloc_tag.h
+> >  F:   mm/alloc_tag.c
+> >  F:   tools/testing/selftests/alloc_tag/
+> > diff --git a/include/linux/alloc_tag.h b/include/linux/alloc_tag.h
+> > index 7f2d80a59792..0319c2f1e4e2 100644
+> > --- a/include/linux/alloc_tag.h
+> > +++ b/include/linux/alloc_tag.h
+> > @@ -128,12 +128,33 @@ DECLARE_PER_CPU(struct alloc_tag_counters, _share=
+d_alloc_tag);
+> >  DECLARE_STATIC_KEY_MAYBE(CONFIG_MEM_ALLOC_PROFILING_ENABLED_BY_DEFAULT=
+,
+> >                       mem_alloc_profiling_key);
+> >
+> > +DECLARE_STATIC_KEY_FALSE(alloc_tag_trace_key);
+> > +
+> >  static inline bool mem_alloc_profiling_enabled(void)
+> >  {
+> >       return static_branch_maybe(CONFIG_MEM_ALLOC_PROFILING_ENABLED_BY_=
+DEFAULT,
+> >                                  &mem_alloc_profiling_key);
+> >  }
+> >
+> > +static inline bool alloc_tag_trace_enabled(void)
+> > +{
+> > +     return static_branch_unlikely(&alloc_tag_trace_key);
+> > +}
+> > +
+> > +void alloc_tag_trace_mem_alloc(const void *ptr, struct alloc_tag *tag,
+> > +                            size_t bytes);
+> > +
+> > +void alloc_tag_trace_mem_free(const void *ptr, struct alloc_tag *tag,
+> > +                           size_t bytes);
+> > +
+> > +void __alloc_tag_trace_hit(struct alloc_tag *tag);
+> > +
+> > +static __always_inline void alloc_tag_trace_hit(struct alloc_tag *tag)
+> > +{
+> > +     if (alloc_tag_trace_enabled())
+> > +             __alloc_tag_trace_hit(tag);
+> > +}
+> > +
+> >  bool mem_alloc_profiling_permanently_disabled(void);
+> >
+> >  static inline struct alloc_tag_counters alloc_tag_read(struct alloc_ta=
+g *tag)
+> > @@ -198,13 +219,19 @@ static inline bool alloc_tag_ref_set(union codeta=
+g_ref *ref, struct alloc_tag *t
+> >       return true;
+> >  }
+> >
+> > -static inline void alloc_tag_add(union codetag_ref *ref, struct alloc_=
+tag *tag, size_t bytes)
+> > +static inline void alloc_tag_add(union codetag_ref *ref, struct alloc_=
+tag *tag, size_t bytes,
+> > +                              const void *ptr)
+> >  {
+> > -     if (likely(alloc_tag_ref_set(ref, tag)))
+> > +     if (likely(alloc_tag_ref_set(ref, tag))) {
+> >               this_cpu_add(tag->counters->bytes, bytes);
+> > +
+> > +             if (alloc_tag_trace_enabled())
+> > +                     /* Trace successful allocs with their unique ptr =
+*/
+> > +                     alloc_tag_trace_mem_alloc(ptr, tag, bytes);
+> > +     }
+> >  }
+> >
+> > -static inline void alloc_tag_sub(union codetag_ref *ref, size_t bytes)
+> > +static inline void alloc_tag_sub(union codetag_ref *ref, size_t bytes,=
+ const void *ptr)
+> >  {
+> >       struct alloc_tag *tag;
+> >
+> > @@ -222,6 +249,10 @@ static inline void alloc_tag_sub(union codetag_ref=
+ *ref, size_t bytes)
+> >       this_cpu_sub(tag->counters->bytes, bytes);
+> >       this_cpu_dec(tag->counters->calls);
+> >
+> > +     if (alloc_tag_trace_enabled())
+> > +             /* Trace frees with their unique ptr */
+> > +             alloc_tag_trace_mem_free(ptr, tag, bytes);
+> > +
+> >       ref->ct =3D NULL;
+> >  }
+> >
+> > @@ -243,25 +274,29 @@ static inline bool alloc_tag_is_inaccurate(struct=
+ alloc_tag *tag)
+> >  static inline bool mem_alloc_profiling_enabled(void) { return false; }
+> >  static inline bool mem_alloc_profiling_permanently_disabled(void) { re=
+turn true; }
+> >  static inline void alloc_tag_add(union codetag_ref *ref, struct alloc_=
+tag *tag,
+> > -                              size_t bytes) {}
+> > -static inline void alloc_tag_sub(union codetag_ref *ref, size_t bytes)=
+ {}
+> > +                              size_t bytes, const void *ptr) {}
+> > +static inline void alloc_tag_sub(union codetag_ref *ref, size_t bytes,
+> > +                              const void *ptr) {}
+> >  static inline void alloc_tag_set_inaccurate(struct alloc_tag *tag) {}
+> >  static inline bool alloc_tag_is_inaccurate(struct alloc_tag *tag) { re=
+turn false; }
+> > +#define alloc_tag_trace_hit(_tag)    /* NOOP */
+>
+> I'd rather this follow the code style below.
 
-Thank you to make shared dtso happen.
+Yes please. Both alloc_tag_record() and alloc_tag_restore() use "do {}
+while (0)" construct. Let's keep this one consistent.
 
-Frank
+>
+> >  #define alloc_tag_record(p)  do {} while (0)
+> >
+> >  #endif /* CONFIG_MEM_ALLOC_PROFILING */
+> >
+> > -#define alloc_hooks_tag(_tag, _do_alloc)                             \
+> > -({                                                                   \
+> > -     typeof(_do_alloc) _res;                                         \
+> > -     if (mem_alloc_profiling_enabled()) {                            \
+> > -             struct alloc_tag * __maybe_unused _old;                 \
+> > -             _old =3D alloc_tag_save(_tag);                           =
+ \
+> > -             _res =3D _do_alloc;                                      =
+ \
+> > -             alloc_tag_restore(_tag, _old);                          \
+> > -     } else                                                          \
+> > -             _res =3D _do_alloc;                                      =
+ \
+> > -     _res;                                                           \
+> > +#define alloc_hooks_tag(_tag, _do_alloc)                              =
+       \
+> > +({                                                                    =
+       \
+> > +     typeof(_do_alloc) _res;                                          =
+       \
+> > +     if (mem_alloc_profiling_enabled()) {                             =
+       \
+> > +             struct alloc_tag * __maybe_unused _old;                  =
+       \
+> > +             /* Fired here to capture the caller's stack trace */    \
+> > +             alloc_tag_trace_hit(_tag);                               =
+       \
+> > +             _old =3D alloc_tag_save(_tag);                           =
+         \
+> > +             _res =3D _do_alloc;                                      =
+         \
+> > +             alloc_tag_restore(_tag, _old);                           =
+       \
+> > +     } else                                                           =
+       \
+> > +             _res =3D _do_alloc;                                      =
+         \
+> > +     _res;                                                            =
+       \
+> >  })
+> >
+> >  #define alloc_hooks(_do_alloc)                                        =
+       \
+> > diff --git a/include/trace/events/alloc_tag.h b/include/trace/events/al=
+loc_tag.h
+> > new file mode 100644
+> > index 000000000000..58d420e64516
+> > --- /dev/null
+> > +++ b/include/trace/events/alloc_tag.h
+> > @@ -0,0 +1,122 @@
+> > +/* SPDX-License-Identifier: GPL-2.0 */
+> > +#undef TRACE_SYSTEM
+> > +#define TRACE_SYSTEM alloc_tag
+> > +
+> > +#if !defined(_TRACE_ALLOC_TAG_H) || defined(TRACE_HEADER_MULTI_READ)
+> > +#define _TRACE_ALLOC_TAG_H
+> > +
+> > +#include <linux/tracepoint.h>
+> > +
+> > +/*
+> > + * alloc_tag_hit is generated at the exact allocation call site and ca=
+n be
+> > + * used to capture a stack trace.
+> > + *
+> > + * To link this stack trace to the actual allocated memory chunk, tool=
+s must
+> > + * correlate this event with the resulting alloc_tag_mem_alloced event=
+. Since
+> > + * multiple threads can hit the same tag simultaneously, tools must ma=
+tch BOTH
+> > + * the `tag` field and the implicitly recorded PID provided by the cor=
+e
+> > + * tracing subsystem.
+> > + */
+> > +TRACE_EVENT(alloc_tag_hit,
+> > +     TP_PROTO(struct alloc_tag *tag),
+> > +
+> > +     TP_ARGS(tag),
+> > +
+> > +     TP_STRUCT__entry(__field(struct alloc_tag *, tag)
+> > +                      __string(modname, tag->ct.modname ? tag->ct.modn=
+ame : "NONE")
+> > +                      __string(filename, tag->ct.filename)
+> > +                      __string(function, tag->ct.function)
+> > +                      __field(unsigned int, lineno)
+> > +     ),
+> > +
+> > +     TP_fast_assign(__entry->tag =3D tag;
+> > +                    __assign_str(modname);
+> > +                    __assign_str(filename);
+> > +                    __assign_str(function);
+> > +                    __entry->lineno =3D tag->ct.lineno;
+> > +     ),
+> > +
+> > +     TP_printk("tag %p, module: %s, filename: %s, function %s, lineno =
+%u",
+> > +               __entry->tag,
+> > +               __get_str(modname),
+> > +               __get_str(filename),
+> > +               __get_str(function),
+> > +               __entry->lineno
+> > +     )
+> > +);
+> > +
+> > +/*
+> > + * alloc_tag_mem_alloced is generated after memory is successfully all=
+ocated.
+> > + * It captures the exact byte size.
+> > + *
+> > + * The `ptr` value identifies the memory chunk for tracking its lifecy=
+cle
+> > + * (e.g., matching it with alloc_tag_mem_freed).
+> > + * - slab and percpu allocators: address of the object's codetag_ref
+> > + * - page allocator: the head struct page of the allocation
+> > + *
+> > + * Because the kernel isolates active allocations within the task stru=
+ct
+> > + * (current->alloc_tag), this event will always share the same implici=
+t PID as
+> > + * its corresponding alloc_tag_hit event. Tools should use the combina=
+tion
+> > + * PID + `tag` to correlate them.
+> > + */
+> > +TRACE_EVENT(alloc_tag_mem_alloced,
+> > +     TP_PROTO(const void *ptr, struct alloc_tag *tag, size_t bytes),
+> > +
+> > +     TP_ARGS(ptr, tag, bytes),
+> > +
+> > +     TP_STRUCT__entry(__field(const void *, ptr)
+> > +                      __field(struct alloc_tag *, tag)
+> > +                      __field(size_t, bytes)
+> > +     ),
+> > +
+> > +     TP_fast_assign(__entry->ptr =3D ptr;
+> > +                    __entry->tag =3D tag;
+> > +                    __entry->bytes =3D bytes;
+> > +     ),
+> > +
+> > +     TP_printk("ptr %p, tag %p, bytes %zu",
+> > +               __entry->ptr,
+> > +               __entry->tag,
+> > +               __entry->bytes
+> > +     )
+> > +);
+> > +
+> > +/*
+> > + * alloc_tag_mem_freed event is generated immediately before memory is
+> > + * freed. The `ptr` value matches the one emitted during allocation,
+> > + * allowing tools to match it to its corresponding allocation and
+> > + * call stack.
+> > + *
+> > + * Page allocator caveat: Pages can be split or moved to another folio
+> > + * after the alloc event with no new events generated for that. As a
+> > + * result, a free event may carry a `ptr` that never appeared in an
+> > + * alloc event, and the `bytes` may be smaller than in the matching
+> > + * alloc event. Tools must not assume alloc bytes =3D=3D free bytes, n=
+or
+> > + * that every free has a matching alloc.
+> > + */
+> > +TRACE_EVENT(alloc_tag_mem_freed,
+> > +     TP_PROTO(const void *ptr, struct alloc_tag *tag, size_t bytes),
+> > +
+> > +     TP_ARGS(ptr, tag, bytes),
+> > +
+> > +     TP_STRUCT__entry(__field(const void *, ptr)
+> > +                      __field(struct alloc_tag *, tag)
+> > +                      __field(size_t, bytes)
+> > +     ),
+> > +
+> > +     TP_fast_assign(__entry->ptr =3D ptr;
+> > +                    __entry->tag =3D tag;
+> > +                    __entry->bytes =3D bytes;
+> > +     ),
+> > +
+> > +     TP_printk("ptr %p, tag %p, bytes %zu",
+> > +               __entry->ptr,
+> > +               __entry->tag,
+> > +               __entry->bytes
+> > +     )
+> > +);
+> > +
+> > +#endif /* _TRACE_ALLOC_TAG_H */
+> > +
+> > +/* This part must be outside protection */
+> > +#include <trace/define_trace.h>
+> > diff --git a/mm/alloc_tag.c b/mm/alloc_tag.c
+> > index 82e2c3448dcf..ca2412a67312 100644
+> > --- a/mm/alloc_tag.c
+> > +++ b/mm/alloc_tag.c
+> > @@ -18,6 +18,9 @@
+> >  #include <linux/kmemleak.h>
+> >  #include <uapi/linux/alloc_tag.h>
+> >
+> > +#define CREATE_TRACE_POINTS
+> > +#include <trace/events/alloc_tag.h>
+> > +
+> >  #include "internal.h"
+> >  #include "page_alloc.h"
+> >
+> > @@ -54,6 +57,9 @@ EXPORT_SYMBOL(mem_alloc_profiling_key);
+> >
+> >  DEFINE_STATIC_KEY_FALSE(mem_profiling_compressed);
+> >
+> > +DEFINE_STATIC_KEY_FALSE(alloc_tag_trace_key);
+> > +EXPORT_SYMBOL(alloc_tag_trace_key);
+> > +
+> >  struct alloc_tag_kernel_section kernel_tags =3D { NULL, 0 };
+> >  unsigned long alloc_tag_ref_mask;
+> >  int alloc_tag_ref_offs;
+> > @@ -484,6 +490,28 @@ static const struct proc_ops allocinfo_proc_ops =
+=3D {
+> >  #endif
+> >  };
+> >
+> > +void __alloc_tag_trace_hit(struct alloc_tag *tag)
+> > +{
+> > +     if (unlikely(!tag))
+> > +             return;
+> > +     trace_alloc_tag_hit(tag);
+> > +}
+> > +EXPORT_SYMBOL(__alloc_tag_trace_hit);
+> > +
+> > +void alloc_tag_trace_mem_alloc(const void *ptr, struct alloc_tag *tag,
+> > +                            size_t bytes)
+> > +{
+> > +     trace_alloc_tag_mem_alloced(ptr, tag, bytes);
+> > +}
+> > +EXPORT_SYMBOL(alloc_tag_trace_mem_alloc);
+> > +
+> > +void alloc_tag_trace_mem_free(const void *ptr, struct alloc_tag *tag,
+> > +                           size_t bytes)
+> > +{
+> > +     trace_alloc_tag_mem_freed(ptr, tag, bytes);
+> > +}
+> > +EXPORT_SYMBOL(alloc_tag_trace_mem_free);
+> > +
+> >  size_t alloc_tag_top_users(struct codetag_bytes *tags, size_t count, b=
+ool can_sleep)
+> >  {
+> >       struct codetag_iterator iter;
+> > diff --git a/mm/page_alloc.c b/mm/page_alloc.c
+> > index 2daf358269ae..e8bb12a6a721 100644
+> > --- a/mm/page_alloc.c
+> > +++ b/mm/page_alloc.c
+> > @@ -1241,7 +1241,7 @@ void __pgalloc_tag_add(struct page *page, struct =
+task_struct *task,
+> >       union codetag_ref ref;
+> >
+> >       if (likely(get_page_tag_ref(page, &ref, &handle))) {
+> > -             alloc_tag_add(&ref, task->alloc_tag, PAGE_SIZE * nr);
+> > +             alloc_tag_add(&ref, task->alloc_tag, PAGE_SIZE * nr, page=
+);
+> >               update_page_tag_ref(handle, &ref);
+> >               put_page_tag_ref(handle);
+> >       } else {
+> > @@ -1270,7 +1270,7 @@ void __pgalloc_tag_sub(struct page *page, unsigne=
+d int nr)
+> >       union codetag_ref ref;
+> >
+> >       if (get_page_tag_ref(page, &ref, &handle)) {
+> > -             alloc_tag_sub(&ref, PAGE_SIZE * nr);
+> > +             alloc_tag_sub(&ref, PAGE_SIZE * nr, page);
+> >               update_page_tag_ref(handle, &ref);
+> >               put_page_tag_ref(handle);
+> >       }
+> > diff --git a/mm/percpu.c b/mm/percpu.c
+> > index d7883507dc15..16f29020bcad 100644
+> > --- a/mm/percpu.c
+> > +++ b/mm/percpu.c
+> > @@ -1695,16 +1695,19 @@ static void pcpu_alloc_tag_alloc_hook(struct pc=
+pu_chunk *chunk, int off,
+> >                                     size_t size)
+> >  {
+> >       if (mem_alloc_profiling_enabled() && likely(chunk->obj_exts)) {
+> > -             alloc_tag_add(&chunk->obj_exts[off >> PCPU_MIN_ALLOC_SHIF=
+T].tag,
+> > -                           current->alloc_tag, pcpu_obj_full_size(size=
+));
+> > +             union codetag_ref *ref =3D &chunk->obj_exts[off >> PCPU_M=
+IN_ALLOC_SHIFT].tag;
+> > +
+> > +             alloc_tag_add(ref, current->alloc_tag, pcpu_obj_full_size=
+(size), ref);
+> >       }
+> >  }
+> >
+> >  static void pcpu_alloc_tag_free_hook(struct pcpu_chunk *chunk, int off=
+, size_t size)
+> >  {
+> > -     if (mem_alloc_profiling_enabled() && likely(chunk->obj_exts))
+> > -             alloc_tag_sub(&chunk->obj_exts[off >> PCPU_MIN_ALLOC_SHIF=
+T].tag,
+> > -                           pcpu_obj_full_size(size));
+> > +     if (mem_alloc_profiling_enabled() && likely(chunk->obj_exts)) {
+> > +             union codetag_ref *ref =3D &chunk->obj_exts[off >> PCPU_M=
+IN_ALLOC_SHIFT].tag;
+> > +
+> > +             alloc_tag_sub(ref, pcpu_obj_full_size(size), ref);
+> > +     }
+> >  }
+> >  #else
+> >  static void pcpu_alloc_tag_alloc_hook(struct pcpu_chunk *chunk, int of=
+f,
+> > diff --git a/mm/slub.c b/mm/slub.c
+> > index 544cff39762c..a866576ccb98 100644
+> > --- a/mm/slub.c
+> > +++ b/mm/slub.c
+> > @@ -2404,7 +2404,7 @@ __alloc_tagging_slab_alloc_hook(struct kmem_cache=
+ *s, void *object, gfp_t flags,
+> >               obj_ext =3D slab_obj_ext(s, slab, obj_exts, object);
+> >               ref =3D slab_obj_ext_codetag_ref(slab, obj_ext);
+> >
+> > -             alloc_tag_add(ref, current->alloc_tag, s->size);
+> > +             alloc_tag_add(ref, current->alloc_tag, s->size, ref);
+> >
+> >               put_slab_obj_exts(obj_exts);
+> >       } else {
+> > @@ -2444,9 +2444,11 @@ __alloc_tagging_slab_free_hook(struct kmem_cache=
+ *s, struct slab *slab, void **p
+> >       get_slab_obj_exts(obj_exts);
+> >       for (int i =3D 0; i < objects; i++) {
+> >               struct slabobj_ext *ext;
+> > +             union codetag_ref *ref;
+> >
+> >               ext =3D slab_obj_ext(s, slab, obj_exts, p[i]);
+> > -             alloc_tag_sub(slab_obj_ext_codetag_ref(slab, ext), s->siz=
+e);
+> > +             ref =3D slab_obj_ext_codetag_ref(slab, ext);
+> > +             alloc_tag_sub(ref, s->size, ref);
+> >       }
+> >       put_slab_obj_exts(obj_exts);
+> >  }
