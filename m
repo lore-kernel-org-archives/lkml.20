@@ -1,74 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.71
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.200
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792701014;
-	b=LCLzwEqbnL8614CKJTSvDSLGk457qrAh4EPeBKrsFZkTt/gCfvOMSZFn5LHHOVh8S8k6
-	 8Zl3YpkART5v4yNJUFIx7wNzqvXqMtLSwwjfTAYFc1unP126v1od6lxNLIsPksy6DEPIY
-	 9dgAy4oDVzrNp/Tm5SE3yCxRZ9gp7pjkpuNBTHEP80+t3/inX/2zXkqkb51PJAtWt9DaK
-	 GS46CCIXj5RFu8WjH6hn7LV/XrDWZ/2bV2t58Jzll1eFZT6p5jFZRMR7NytOiUMmnKruw
-	 VlQIe2t7P59SCQXTh6tp6hfmrGnKJfWFhT3LqSWb9bPoGMJ/rGvZpt7GGrV2KTJ+9xA==
+	t=1792701025;
+	b=u7ncqvhGi/Aj5kh/xaZU5i4VEvvipKfBERXPF91DpeZsnWItgeFHCWqcPGER1dGzLxCD
+	 QgtL8N+lwUrdTeUpTWMPtf1DKBxEsSBFh9xhQMlCyrbVNEY6dH+sMeIz+cnKECGbEjTHo
+	 T4R0vKJWDYBmDfuK6ZbQBWIUUYGPMcFJ+SX25es2S/8IMifoYEP/Xux3DIgmqhKMR+/B7
+	 84y26c5xuThFhsih7knvCfO9YzwrnnnVmY/ZRf/PBmmcnsOL/clyDbeNIlkyIZ7ypCaPs
+	 wftslYJGFFSJjIgdjX+cGu8oapytJM8XvCmC6twlS/5zbRTadob6bzgPc4VSdneA5Dg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792701014;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792701025;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
 	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
 	 Content-Type;
-	bh=O3MLcVpvSLEppgS59oKT4vTeHqiCTAcmRuUuPH2KdWw=;
-	b=unkPj3LT6I6jp0y2CjtyhCvQAIrYRoxX6+zSSljPJazn7hOayGMFaBEszhhd+FS7rxKI
-	 JWN4uWrdSTHWuY8adtKR4A8imQyq3EHJdu7SeLWEiBcMN+ytRHnZ1VycXS4Hb7Pmf7zx3
-	 BPOvR9hgevS8LS+BF0iEyV7X7P/m1dxa/r2YJpleCEsDURnmfzEsh78PpfbLYqlOdsaan
-	 48RTMigqp8GSHxRERZUgb+VaFGsyhRSvMtzAmGqTX1ysiiZhnbqgEASmS0flunJvKt67g
-	 TVFISynvkSvH600YGpYyfQokzNhLMok/Z4WfNcnDssq9BWThTbHfzDWF4stxUx/yy+A==
+	bh=gWcoO8bQOymzyiEGC8xl+Nc6R8h+VtsgOrnGYzzDEVU=;
+	b=qLl3/X4H9mJXplmc+CBx51KIMZ2j1nT+mQ5e03WzuA5PtZuRnVf0Q3QCD7gCp/8PTGmB
+	 v7AsR2SOSHW8uJY02RCE22wE8nrMuLw6TP24gQjmu/VgOdSCYyU/aMSPlMNvM6X9nYtcT
+	 9LJ+I6Gh8zoxIUov8LCJJVvqDvdL2GDcjdWN6OlCohkXkTsxG1D8c+joylGudEYFSuCDa
+	 DqJsbvxXYQ+A9xfkEHxX8L/vlKqsJHYZU6R4+oONmrIPUE2zWDF2EyPOJL3e9q3f+859K
+	 0XjGxr62uBTmgmJAFS1gWS7XCn8aSrMEfFncFgE/0uMCSMzkGBrp37iNCyCIKGGxVew==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--irogers.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=g0neAIb4;
-	arc=none smtp.remote-ip=74.125.82.71
-Received: from mail-dl1-f71.google.com (mail-dl1-f71.google.com [74.125.82.71])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=mFQlaWws;
+	arc=none smtp.remote-ip=74.125.82.200
+Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9569C606A333
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 20:30:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9569C606A333
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AE17606A322
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 20:30:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1AE17606A322
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=g0neAIb4
-Received: by mail-dl1-f71.google.com with SMTP id a92af1059eb24-1665200f4c2so189520c88.0
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 13:30:13 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=mFQlaWws
+Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-3552883bd19so636758eec.1
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 13:30:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792701013; x=1793305813; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1792701024; x=1793305824; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=O3MLcVpvSLEppgS59oKT4vTeHqiCTAcmRuUuPH2KdWw=;
-        b=g0neAIb4q9E+PcQsVJerL9EHCv0AoxNPcvQ0F2TlpvOm3sJAIMJ6QNeavS8IL4bi7M
-         hEaRic1F7MbGkDptxJKmZ6sc31wG03+9vdXXzVNQff9xquOcQTD4IPXD76zl/zKBUIOX
-         qWyS8ClLs0uqqSU+BFgWxhv/ydZ9eCM6vE47hlCm5fq3GemTZC5OX7QgNhKoU5a7frny
-         HmBgV5xMzjAGTajifC5yE+KgIYXo8986ufWyH9UZgaj4jBR3B64Xfcowwm2G3JAw4Z4E
-         u+MI0Fa7I+4onJ0bKjQYohaP9bNABkxMRSDgMxGrzbLq72wn5XAKYT118Y7BMSy6O6dM
-         1QEw==
+        bh=gWcoO8bQOymzyiEGC8xl+Nc6R8h+VtsgOrnGYzzDEVU=;
+        b=mFQlaWws0TGP3YUslKKtdYH51ksHF9a+SbVmge4jlfju+NuJ1Pwme49He8qJ6nHdcG
+         uZAvBUXC75G34lMrX/WjGnGYh/9Y7xVh5jESQrqOffmz3r4rVCbI5znjanJm7cUG9U0h
+         aqOCueLVIz5RAcZPBciISvVUAk6sLqGORoBJaPQTmoHApGNGulQgKNJ2dnZCt9LFBrrb
+         RP6FdAnLzm28Y2uEi4+2rzjABB10mFslXddoKyhauszQg6KQQkQ1TYpMRhMrvF8vSeI+
+         TfpPj2bl223yN6uxcbOo3IqM6gLwxLQmupWm0A1c8UAMjoxtkpgv8hwGqyNadf7XbPdA
+         dkHA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792701013; x=1793305813;
+        d=1e100.net; s=20260707; t=1792701024; x=1793305824;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=O3MLcVpvSLEppgS59oKT4vTeHqiCTAcmRuUuPH2KdWw=;
-        b=butHNoRm7KcXp0fsW2mzdppTJfn9s36exK0zuDDzCe6X3LcF58xjSxtExwY/PNQl0W
-         Mss9bTtMGoxgoVr3SMqr6/osu4fr3X72W7H9RZEHz9347skX/fkhKyXeGKfJBUoP1TAG
-         Ps0lWAKzS0PsLdciCGUhfYvsCeZdo/jm3NYmvXfxcR61IeheHc7y59TmlftciTXozwKg
-         7t0f7JwA5+16eXzTe0TlU46aW5FBExGEKxXwDFAQXczdQbvPyFFMvG8r++NsyzZut8Gh
-         bJBoGElYsXlXaDOo8X4ubaJtlbMbBaSguNzWMKl41w+b39jCVxj3GauDYGhQ64ImVp/W
-         BSKg==
-X-Forwarded-Encrypted: i=1; AKwUvByJguCAufW2bWScfJlNYKbAiE2PJZd7M3jy3BVrcI3Dp9JSN2WB1TcWKSK0iyb4mswmVEQAJcuuLOgVT2c=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJqGhUvABcrz8MX2ZDzeSAVmuK8pXdS8DbhmVg7eGH1d+Rw702M
-	xr8tO9ogvP9qVIIdAlKEhY8AU160ZwPbtKS3BTAzw+6x8CpRaY1BfcN2aEP6V69jrqOgUT5QALK
-	d6gPCp1WK1Q==
-X-Received: from dlea10-n2.prod.google.com ([2002:a05:701b:420a:20b0:191:8034:8348])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7022:e09:b0:151:2e62:fe4b
- with SMTP id a92af1059eb24-195c5bc781dmr615801c88.23.1792701012400; Thu, 22
- Oct 2026 13:30:12 -0700 (PDT)
-Date: Thu, 22 Oct 2026 13:29:53 -0700
+        bh=gWcoO8bQOymzyiEGC8xl+Nc6R8h+VtsgOrnGYzzDEVU=;
+        b=e0Ihdrh6dR/dQuATULf0O062Xwz5xtvMUqIDDumiJ+Sc3hLBkZhjZfGr7uD9ggUhP9
+         VizDgcdFAlzHbZ7J5PxGFi7S3KvWYIzqHS3bLaBjNa20LVrTiTfOIHHtX1FILSzmiivZ
+         zwhX6/fVyUlDFmecM7Cae1YY+Ez0/t29S4bBduWLbdeb9uxy7SkNwB+Tpf7nT9FvSvc9
+         GNIYuvEyAvC+9n8bUIi8OHEbuQxNld+ycyZS5S49X9WxNSxZ5s+gZroXHAyqYaLsf5W8
+         nUklrac7gvfNTxrYGoe5xrgKh1+C+DCQ52UYUkBmHC0PreZFt/lMHIlHiIH/uYstPq/X
+         9M5A==
+X-Forwarded-Encrypted: i=1; AKwUvBxDgKTR9NwrOtv6Acx6Pgk28VxSudafXAWJTykbXmaWUCMG0IFkajjZRNpVEEmqwE39fPnbQ5IC1TEqqq4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLf6ep+7bZtj1Qxxrcpi+7DXLJpi9E1DijMlDEdV1mSTiWG06Lr
+	Fv1JUBPmXBkiIoGBJJv4RE+vNusJuJKwkrPzq2hJlT1tDXHSZyJMro1vZ7jRPmyPE3H3M9rFef0
+	lcKZrZuz9wA==
+X-Received: from dyaf25-n1.prod.google.com ([2002:a05:693c:8399:10b0:366:badf:c468])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7300:d215:b0:369:d793:328d
+ with SMTP id 5a478bee46e88-369d981dff5mr275577eec.31.1792701023629; Thu, 22
+ Oct 2026 13:30:23 -0700 (PDT)
+Date: Thu, 22 Oct 2026 13:29:57 -0700
 In-Reply-To: <20261022203003.1779152-1-irogers@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,8 +81,9 @@ Precedence: list
 Mime-Version: 1.0
 References: <20261020205859.1080743-1-irogers@google.com> <20261022203003.1779152-1-irogers@google.com>
 X-Mailer: git-send-email 2.56.0.307.g5fe7bd680c-goog
-Message-ID: <20261022203003.1779152-2-irogers@google.com>
-Subject: [PATCH v6 01/11] perf bpf-filter: Fix bpf_link leak by using PERF_EVENT_IOC_SET_BPF
+Message-ID: <20261022203003.1779152-6-irogers@google.com>
+Subject: [PATCH v6 05/11] perf bpf-filter: Add lock_held() sample filter for
+ global mutexes
 From: Ian Rogers <irogers@google.com>
 To: irogers@google.com, acme@kernel.org, namhyung@kernel.org
 Cc: adrian.hunter@intel.com, ddhariwal@google.com, eranian@google.com, 
@@ -91,113 +92,859 @@ Cc: adrian.hunter@intel.com, ddhariwal@google.com, eranian@google.com,
 	rcu@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
-In perf_bpf_filter__prepare(), the unpinned filter path attaches
-skel->progs.perf_sample_filter to each FD(evsel, x, y) using
-bpf_program__attach_perf_event_opts() and ignores the returned
-struct bpf_link *, leaking the allocated struct bpf_link_perf and its
-BPF_PERF_EVENT link fd.
+Add BPF sample filter predicates lock_held(<lock>),
+lock_held_read(<lock>) / lock_held_shared(<lock>), and
+lock_held_write(<lock>) / lock_held_exclusive(<lock>) (as well as ':R'
+and ':W' suffixes on <lock>) to allow recording perf event samples only
+when a specified kernel lock is held (or not held with '!').
 
-Furthermore, bpf_program__attach_perf_event_opts() is designed for
-callers that transfer ownership of the perf_event fd to the returned
-bpf_link: when bpf_link__destroy() is called, bpf_link_perf_detach()
-unconditionally disables and closes perf_link->perf_event_fd. Because
-evsel->core.fd owns FD(evsel, x, y) and closes them in evlist__close(),
-destroying the returned bpf_link would double-close the perf_event file
-descriptors.
+In this initial step, support global/static kernel mutex symbols (e.g.
+lock_held(cgroup_mutex)) resolved via /proc/kallsyms. On sample
+overflow, perf_sample_filter and perf_tp_sample_filter inspect the
+mutex's owner field directly in kernel memory via get_lock_owner()
+without attaching any BPF fentry/fexit hooks.
 
-Fix this by attaching the program directly with
-ioctl(FD(evsel, x, y), PERF_EVENT_IOC_SET_BPF, fd), matching the pinned
-filter path right above it in perf_bpf_filter__prepare(). In the
-kernel, PERF_EVENT_IOC_SET_BPF takes a reference on the BPF program and
-_free_event() -> perf_event_free_bpf_prog() automatically detaches and
-releases it when the perf_event fd is closed. This also avoids enabling
-the event prematurely, allowing pe_opts (.dont_enable = true) and the
-LIBBPF_CURRENT_VERSION_GEQ(1, 7) guard to be dropped.
+Subsequent commits extend lock_held() to other kernel lock types,
+per-process and semi-global locks, slab cache locks, and RCU/SRCU.
 
-Before (built with EXTRA_CFLAGS="-fsanitize=address"):
-  # perf record -e cycles --filter 'period > 1000' -- true
-  [ perf record: Woken up 1 times to write data ]
-  [ perf record: Captured and wrote 0.024 MB perf.data ]
-
-  =================================================================
-  ==51328==ERROR: LeakSanitizer: detected memory leaks
-
-  Direct leak of 1568 byte(s) in 28 object(s) allocated from:
-      #0 0x7ffbe76ef24f in calloc (/lib64/libasan.so.8+0xef24f)
-      #1 0x625df7 in bpf_program__attach_perf_event_opts (tools/perf/perf+0x625df7)
-      #2 0xbeddc0 in perf_bpf_filter__prepare util/bpf-filter.c:507
-      #3 0x8f3def in evlist__apply_filters util/evlist.c:1421
-      #4 0x44bbcf in record__open tools/perf/builtin-record.c:1469
-      #5 0x453f9e in __cmd_record tools/perf/builtin-record.c:2594
-      #6 0x45dadb in cmd_record tools/perf/builtin-record.c:4427
-      #7 0x5df56b in run_builtin tools/perf/perf.c:383
-      #8 0x5dfa0e in handle_internal_command tools/perf/perf.c:436
-      #9 0x5dfddc in run_argv tools/perf/perf.c:480
-      #10 0x5e0333 in main tools/perf/perf.c:581
-
-  SUMMARY: AddressSanitizer: 1568 byte(s) leaked in 28 allocation(s).
-
-After (built with EXTRA_CFLAGS="-fsanitize=address"):
-  # perf record -e cycles --filter 'period > 1000' -- true
-  [ perf record: Woken up 1 times to write data ]
-  [ perf record: Captured and wrote 0.024 MB perf.data ]
-
-Reported-by: Namhyung Kim <namhyung@kernel.org>
-Closes: https://lore.kernel.org/linux-perf-users/20261020053226.55936-1-namhyung@kernel.org/
-Fixes: 56ec9457a4a2 ("perf bpf filter: Implement event sample filtering")
 Signed-off-by: Ian Rogers <irogers@google.com>
 ---
- tools/perf/util/bpf-filter.c | 18 +++++-------------
- 1 file changed, 5 insertions(+), 13 deletions(-)
+ tools/perf/Documentation/perf-record.txt     |  16 +-
+ tools/perf/util/bpf-filter.c                 | 350 ++++++++++++++++++-
+ tools/perf/util/bpf-filter.h                 |  13 +
+ tools/perf/util/bpf-filter.l                 |  31 +-
+ tools/perf/util/bpf-filter.y                 |  47 ++-
+ tools/perf/util/bpf_skel/sample-filter.h     |  36 ++
+ tools/perf/util/bpf_skel/sample_filter.bpf.c |  54 +++
+ tools/perf/util/parse-events.c               |   2 +
+ 8 files changed, 530 insertions(+), 19 deletions(-)
 
+diff --git a/tools/perf/Documentation/perf-record.txt b/tools/perf/Documentation/perf-record.txt
+index fcf1ea62bf1c..445cc98a6c33 100644
+--- a/tools/perf/Documentation/perf-record.txt
++++ b/tools/perf/Documentation/perf-record.txt
+@@ -210,7 +210,21 @@ OPTIONS
+ 	  ip, id, tid, pid, cpu, time, addr, period, txn, weight, phys_addr,
+ 	  code_pgsz, data_pgsz, weight1, weight2, weight3, ins_lat, retire_lat,
+ 	  p_stage_cyc, mem_op, mem_lvl, mem_snoop, mem_remote, mem_lock,
+-	  mem_dtlb, mem_blk, mem_hops, uid, gid
++	  mem_dtlb, mem_blk, mem_hops, uid, gid, cgroup, lock_held(<lock>),
++	  lock_held_read(<lock>), lock_held_shared(<lock>),
++	  lock_held_write(<lock>), lock_held_exclusive(<lock>)
++
++	The 'lock_held(<lock>)' predicate (or '!lock_held(<lock>)') filters
++	samples based on whether the specified kernel lock is currently held
++	by the kernel thread.  To differentiate between shared/read holding
++	and exclusive/write holding, use 'lock_held_read(<lock>)' (alias
++	'lock_held_shared(<lock>)') or 'lock_held_write(<lock>)' (alias
++	'lock_held_exclusive(<lock>)'), or append ':R' or ':W' to <lock>.
++	<lock> can be a kernel mutex symbol name (e.g.
++	'lock_held(cgroup_mutex)').  When filtering on a mutex symbol
++	('*_mutex'), 'perf_sample_filter' inspects the lock's 'owner' field
++	directly in kernel memory on each sample without attaching any BPF
++	fentry/fexit hooks.
+ 
+ 	The <operator> can be one of:
+ 	  ==, !=, >, >=, <, <=, &
 diff --git a/tools/perf/util/bpf-filter.c b/tools/perf/util/bpf-filter.c
-index 72e83ac1d6a4..506414e5c407 100644
+index 0d3c700d3dcd..639db6c03137 100644
 --- a/tools/perf/util/bpf-filter.c
 +++ b/tools/perf/util/bpf-filter.c
-@@ -40,6 +40,7 @@
-  * The 'dropped' map is to keep how many samples it dropped by the filter and
-  * it will be reported as lost samples.
-  */
-+#include <errno.h>
+@@ -43,6 +43,9 @@
+ #include <errno.h>
+ #include <stdio.h>
  #include <stdlib.h>
++#include <stdbool.h>
++#include <stddef.h>
++#include <string.h>
  #include <fcntl.h>
+ #include <unistd.h>
  #include <sys/ioctl.h>
-@@ -423,16 +424,8 @@ int perf_bpf_filter__prepare(struct evsel *evsel, struct target *target)
+@@ -50,14 +53,19 @@
+ 
+ #include <bpf/bpf.h>
+ #include <linux/err.h>
++#include <linux/kernel.h>
+ #include <linux/list.h>
++#include <linux/string.h>
++#include <linux/zalloc.h>
+ #include <api/fs/fs.h>
+ #include <internal/xyarray.h>
+ #include <perf/threadmap.h>
++#include <symbol/kallsyms.h>
+ 
+ #include "util/cap.h"
+ #include "util/debug.h"
+ #include "util/evsel.h"
++#include "util/symbol_conf.h"
+ #include "util/target.h"
+ #include "util/thread_map.h"
+ #include "util/bpf-utils.h"
+@@ -126,7 +134,8 @@ static int check_sample_flags(struct evsel *evsel, struct perf_bpf_filter_expr *
  {
- 	int i, x, y, fd, ret;
- 	struct sample_filter_bpf *skel = NULL;
--	struct bpf_program *prog;
--	struct bpf_link *link;
+ 	const struct perf_sample_info *info;
+ 
+-	if (expr->term == PBF_TERM_UID || expr->term == PBF_TERM_GID) {
++	if (expr->term == PBF_TERM_UID || expr->term == PBF_TERM_GID ||
++	    expr->term == PBF_TERM_LOCK_HELD) {
+ 		/* Not dependent on the sample_type as computed from a BPF helper. */
+ 		return 0;
+ 	}
+@@ -169,9 +178,263 @@ static int check_sample_flags(struct evsel *evsel, struct perf_bpf_filter_expr *
+ 	return -1;
+ }
+ 
++static int split_lock_name_mode(const char *name, int expr_part,
++				char *base_buf, size_t buf_sz,
++				bool *has_amp, unsigned int *mode_out)
++{
++	const char *bare;
++	size_t len;
++	unsigned int expr_mode = expr_part & PBF_LOCK_MODE_MASK;
++	unsigned int suffix_mode = 0;
++
++	if (!name || !*name)
++		return -EINVAL;
++
++	*has_amp = (name[0] == '&');
++	bare = *has_amp ? name + 1 : name;
++	len = strlen(bare);
++	if (len == 0)
++		return -EINVAL;
++
++	if (len > 2 && !strcmp(bare + len - 2, ":R")) {
++		suffix_mode = PBF_LOCK_MODE_READ;
++		len -= 2;
++	} else if (len > 2 && !strcmp(bare + len - 2, ":W")) {
++		suffix_mode = PBF_LOCK_MODE_WRITE;
++		len -= 2;
++	}
++
++	if (len == 0 || len >= buf_sz)
++		return -EINVAL;
++
++	if (expr_mode && expr_mode != PBF_LOCK_MODE_ANY &&
++	    suffix_mode && expr_mode != suffix_mode)
++		return -EINVAL;
++
++	memcpy(base_buf, bare, len);
++	base_buf[len] = '\0';
++
++	if (suffix_mode)
++		*mode_out = suffix_mode;
++	else if (expr_mode)
++		*mode_out = expr_mode;
++	else
++		*mode_out = PBF_LOCK_MODE_ANY;
++
++	return 0;
++}
++
++struct lock_sym_cb_args {
++	const char *name;
++	u64 addr;
++	bool in_text;
++	bool in_data;
++	bool found;
++};
++
++static int find_lock_sym_cb(void *arg, const char *name, char type, u64 start)
++{
++	struct lock_sym_cb_args *args = arg;
++
++	if (!strcmp(name, "_text") || !strcmp(name, "_stext") ||
++	    !strcmp(name, "_sinittext")) {
++		args->in_text = true;
++		return 0;
++	}
++	if (!strcmp(name, "_etext") || !strcmp(name, "_einittext")) {
++		args->in_text = false;
++		return 0;
++	}
++	if (!strcmp(name, "_sdata") || !strcmp(name, "__bss_start")) {
++		args->in_text = false;
++		args->in_data = true;
++		return 0;
++	}
++	if (!strcmp(name, "__bss_stop")) {
++		args->in_data = false;
++		return 0;
++	}
++
++	/*
++	 * Ignore kernel text functions, module text functions, and
++	 * absolute/undefined symbols. On CONFIG_LTO_CLANG kernels, vmlinux
++	 * .data symbols between _sdata and _edata may have kallsyms type
++	 * 'T'/'t', so allow 'T'/'t' within vmlinux data/bss (args->in_data).
++	 */
++	if (args->in_text || type == 'A' || type == 'a' ||
++	    type == 'U' || type == 'u' ||
++	    (!args->in_data && kallsyms__is_function(type)))
++		return 0;
++
++	if (!strcmp(name, args->name)) {
++		args->found = true;
++		args->addr = start;
++		if (start != 0)
++			return 1;
++	}
++	return 0;
++}
++
++static int find_kernel_lock_sym(const char *name, u64 *addr)
++{
++	struct lock_sym_cb_args args = {
++		.name = name,
++	};
++	const char *kallsyms_filename = "/proc/kallsyms";
++
++	if (symbol_conf.kallsyms_name != NULL)
++		kallsyms_filename = symbol_conf.kallsyms_name;
++
++	if (kallsyms__parse(kallsyms_filename, &args, find_lock_sym_cb) < 0)
++		return -ENOENT;
++
++	if (!args.found)
++		return -ENOENT;
++
++	if (args.addr == 0) {
++		pr_err("Error: Kernel symbol '%s' address is 0 (check permissions / kptr_restrict)\n",
++		       name);
++		return -EACCES;
++	}
++
++	*addr = args.addr;
++	return 0;
++}
++
++static void prescan_one_lock_expr(struct perf_bpf_filter_expr *expr,
++				  bool *has_lock_filter)
++{
++	if (expr->term != PBF_TERM_LOCK_HELD || !expr->lock_name)
++		return;
++
++	*has_lock_filter = true;
++}
++
++static void prescan_lock_filters(struct evsel *evsel, bool *has_lock_filter)
++{
++	struct perf_bpf_filter_expr *expr, *group;
++
++	*has_lock_filter = false;
++
++	list_for_each_entry(expr, &evsel->bpf_filters, list) {
++		prescan_one_lock_expr(expr, has_lock_filter);
++		if (expr->op == PBF_OP_GROUP_BEGIN) {
++			list_for_each_entry(group, &expr->groups, list)
++				prescan_one_lock_expr(group, has_lock_filter);
++		}
++	}
++}
++
++static int normalize_lock_expr_op(const struct perf_bpf_filter_expr *expr,
++				  enum perf_bpf_filter_op *op_out)
++{
++	switch (expr->op) {
++	case PBF_OP_EQ:
++		if (expr->val == 1) {
++			*op_out = PBF_OP_EQ;
++			return 0;
++		}
++		if (expr->val == 0) {
++			*op_out = PBF_OP_NEQ;
++			return 0;
++		}
++		break;
++	case PBF_OP_NEQ:
++		if (expr->val == 0) {
++			*op_out = PBF_OP_EQ;
++			return 0;
++		}
++		if (expr->val == 1) {
++			*op_out = PBF_OP_NEQ;
++			return 0;
++		}
++		break;
++	case PBF_OP_GT:
++		if (expr->val == 0) {
++			*op_out = PBF_OP_EQ;
++			return 0;
++		}
++		break;
++	case PBF_OP_GE:
++		if (expr->val == 1) {
++			*op_out = PBF_OP_EQ;
++			return 0;
++		}
++		break;
++	case PBF_OP_LT:
++		if (expr->val == 1) {
++			*op_out = PBF_OP_NEQ;
++			return 0;
++		}
++		break;
++	case PBF_OP_LE:
++		if (expr->val == 0) {
++			*op_out = PBF_OP_NEQ;
++			return 0;
++		}
++		break;
++	case PBF_OP_AND:
++		if (expr->val & 1) {
++			*op_out = PBF_OP_EQ;
++			return 0;
++		}
++		break;
++	case PBF_OP_GROUP_BEGIN:
++	case PBF_OP_GROUP_END:
++	case PBF_OP_DONE:
++	default:
++		break;
++	}
++	pr_err("Error: Invalid comparison for boolean lock_held(%s) predicate\n",
++	       expr->lock_name ?: "");
++	return -EINVAL;
++}
++
++static int resolve_lock_expr(struct perf_bpf_filter_expr *expr,
++			     struct perf_bpf_filter_entry *entry)
++{
++	const char *name = expr->lock_name;
++	char base[128];
++	bool has_amp;
++	unsigned int mode;
++	u64 addr = 0;
++	int ret;
++
++	ret = normalize_lock_expr_op(expr, &entry->op);
++	if (ret < 0)
++		return ret;
++
++	if (split_lock_name_mode(name, expr->part, base, sizeof(base),
++				 &has_amp, &mode) < 0 || has_amp) {
++		pr_err("Error: Invalid kernel lock filter '%s'\n", name ?: "");
++		return -EINVAL;
++	}
++
++	if (str_ends_with(base, "mutex") &&
++	    !str_ends_with(base, "rt_mutex") &&
++	    !str_ends_with(base, "rtmutex")) {
++		ret = find_kernel_lock_sym(base, &addr);
++		if (ret == 0) {
++			if (!(mode & PBF_LOCK_MODE_WRITE)) {
++				pr_err("Error: Lock '%s' is exclusive and does not support read/shared mode\n",
++				       name);
++				return -EINVAL;
++			}
++			entry->part = PBF_LOCK_ADDR | mode | PBF_LOCK_DIRECT_MUTEX;
++			entry->value = addr;
++			return 0;
++		}
++		if (ret == -EACCES)
++			return ret;
++	}
++
++	pr_err("Error: Cannot resolve kernel lock '%s'\n", name);
++	return -EINVAL;
++}
++
+ static int get_filter_entries(struct evsel *evsel, struct perf_bpf_filter_entry *entry)
+ {
+-	int i = 0;
++	int i = 0, ret;
+ 	struct perf_bpf_filter_expr *expr;
+ 
+ 	list_for_each_entry(expr, &evsel->bpf_filters, list) {
+@@ -185,6 +448,11 @@ static int get_filter_entries(struct evsel *evsel, struct perf_bpf_filter_entry
+ 		entry[i].part = expr->part;
+ 		entry[i].term = expr->term;
+ 		entry[i].value = expr->val;
++		if (expr->term == PBF_TERM_LOCK_HELD) {
++			ret = resolve_lock_expr(expr, &entry[i]);
++			if (ret < 0)
++				return ret;
++		}
+ 		i++;
+ 
+ 		if (expr->op == PBF_OP_GROUP_BEGIN) {
+@@ -198,6 +466,11 @@ static int get_filter_entries(struct evsel *evsel, struct perf_bpf_filter_entry
+ 				entry[i].part = group->part;
+ 				entry[i].term = group->term;
+ 				entry[i].value = group->val;
++				if (group->term == PBF_TERM_LOCK_HELD) {
++					ret = resolve_lock_expr(group, &entry[i]);
++					if (ret < 0)
++						return ret;
++				}
+ 				i++;
+ 			}
+ 
+@@ -440,20 +713,24 @@ int perf_bpf_filter__prepare(struct evsel *evsel, struct target *target)
  	struct perf_bpf_filter_entry *entry;
  	bool needs_idx_hash = !target__has_cpu(target);
--#if LIBBPF_CURRENT_VERSION_GEQ(1, 7)
--	DECLARE_LIBBPF_OPTS(bpf_perf_event_opts, pe_opts,
--			    .dont_enable = true);
--#else
--	DECLARE_LIBBPF_OPTS(bpf_perf_event_opts, pe_opts);
--#endif
+ 	bool is_tracepoint = (evsel->core.attr.type == PERF_TYPE_TRACEPOINT);
++	bool has_lock_filter = false;
  
  	entry = calloc(MAX_FILTERS, sizeof(*entry));
  	if (entry == NULL)
-@@ -501,14 +494,13 @@ int perf_bpf_filter__prepare(struct evsel *evsel, struct target *target)
+ 		return -1;
+ 
+-	ret = get_filter_entries(evsel, entry);
+-	if (ret < 0) {
+-		pr_err("Failed to process filter entries\n");
++	prescan_lock_filters(evsel, &has_lock_filter);
++
++	if ((has_lock_filter || is_tracepoint) && geteuid() != 0 &&
++	    !perf_cap__capable(CAP_BPF)) {
++		pr_err("Error: BPF filter requires CAP_BPF capability\n");
++		ret = -EPERM;
  		goto err;
  	}
  
--	prog = skel->progs.perf_sample_filter;
-+	fd = bpf_program__fd(skel->progs.perf_sample_filter);
- 	for (x = 0; x < xyarray__max_x(evsel->core.fd); x++) {
- 		for (y = 0; y < xyarray__max_y(evsel->core.fd); y++) {
--			link = bpf_program__attach_perf_event_opts(prog, FD(evsel, x, y),
--								   &pe_opts);
--			if (IS_ERR(link)) {
-+			ret = ioctl(FD(evsel, x, y), PERF_EVENT_IOC_SET_BPF, fd);
-+			if (ret < 0) {
-+				ret = -errno;
- 				pr_err("Failed to attach perf sample-filter program\n");
--				ret = PTR_ERR(link);
- 				goto err;
- 			}
- 		}
+-	if (is_tracepoint && geteuid() != 0 && !perf_cap__capable(CAP_BPF)) {
+-		pr_err("Error: Tracepoint BPF filter requires CAP_BPF capability\n");
+-		ret = -EPERM;
++	ret = get_filter_entries(evsel, entry);
++	if (ret < 0) {
++		pr_err("Failed to process filter entries\n");
+ 		goto err;
+ 	}
+ 
+@@ -513,6 +790,9 @@ int perf_bpf_filter__prepare(struct evsel *evsel, struct target *target)
+ 		goto err;
+ 	}
+ 
++	if (has_lock_filter)
++		skel->bss->lock_enabled = 1;
++
+ 	i = 0;
+ 	fd = bpf_map__fd(skel->maps.filters);
+ 
+@@ -571,6 +851,21 @@ int perf_bpf_filter__prepare(struct evsel *evsel, struct target *target)
+ 	return ret;
+ }
+ 
++void perf_bpf_filter_expr__delete(struct perf_bpf_filter_expr *expr)
++{
++	struct perf_bpf_filter_expr *group, *tmp;
++
++	if (!expr)
++		return;
++
++	list_for_each_entry_safe(group, tmp, &expr->groups, list) {
++		list_del(&group->list);
++		perf_bpf_filter_expr__delete(group);
++	}
++	zfree(&expr->lock_name);
++	free(expr);
++}
++
+ int perf_bpf_filter__destroy(struct evsel *evsel)
+ {
+ 	struct perf_bpf_filter_expr *expr, *tmp;
+@@ -578,7 +873,7 @@ int perf_bpf_filter__destroy(struct evsel *evsel)
+ 
+ 	list_for_each_entry_safe(expr, tmp, &evsel->bpf_filters, list) {
+ 		list_del(&expr->list);
+-		free(expr);
++		perf_bpf_filter_expr__delete(expr);
+ 	}
+ 	sample_filter_bpf__destroy(evsel->bpf_skel);
+ 
+@@ -630,7 +925,7 @@ struct perf_bpf_filter_expr *perf_bpf_filter_expr__new(enum perf_bpf_filter_term
+ {
+ 	struct perf_bpf_filter_expr *expr;
+ 
+-	expr = malloc(sizeof(*expr));
++	expr = zalloc(sizeof(*expr));
+ 	if (expr != NULL) {
+ 		expr->term = term;
+ 		expr->part = part;
+@@ -641,6 +936,28 @@ struct perf_bpf_filter_expr *perf_bpf_filter_expr__new(enum perf_bpf_filter_term
+ 	return expr;
+ }
+ 
++struct perf_bpf_filter_expr *perf_bpf_filter_expr__new_lock(const char *lock_name,
++							    int mode,
++							    enum perf_bpf_filter_op op,
++							    unsigned long val)
++{
++	struct perf_bpf_filter_expr *expr;
++
++	if (!lock_name || !*lock_name)
++		return NULL;
++
++	expr = perf_bpf_filter_expr__new(PBF_TERM_LOCK_HELD, mode, op, val);
++	if (!expr)
++		return NULL;
++
++	expr->lock_name = strdup(lock_name);
++	if (!expr->lock_name) {
++		free(expr);
++		return NULL;
++	}
++	return expr;
++}
++
+ static bool check_bpf_filter_capable(void)
+ {
+ 	int fd;
+@@ -661,14 +978,11 @@ static bool check_bpf_filter_capable(void)
+ 	return false;
+ }
+ 
+-int perf_bpf_filter__parse(struct list_head *expr_head, const char *str)
++int __perf_bpf_filter__parse(struct list_head *expr_head, const char *str)
+ {
+ 	YY_BUFFER_STATE buffer;
+ 	int ret;
+ 
+-	if (!check_bpf_filter_capable())
+-		return -EPERM;
+-
+ 	buffer = perf_bpf_filter__scan_string(str);
+ 
+ 	ret = perf_bpf_filter_parse(expr_head);
+@@ -680,6 +994,14 @@ int perf_bpf_filter__parse(struct list_head *expr_head, const char *str)
+ 	return ret;
+ }
+ 
++int perf_bpf_filter__parse(struct list_head *expr_head, const char *str)
++{
++	if (!check_bpf_filter_capable())
++		return -EPERM;
++
++	return __perf_bpf_filter__parse(expr_head, str);
++}
++
+ /*
+  * perf_bpf_filter__pin() and perf_bpf_filter__unpin() only load
+  * perf_sample_filter and disable autoload on other programs in the skeleton
+diff --git a/tools/perf/util/bpf-filter.h b/tools/perf/util/bpf-filter.h
+index 818c554b91b2..fda95ff226b3 100644
+--- a/tools/perf/util/bpf-filter.h
++++ b/tools/perf/util/bpf-filter.h
+@@ -14,6 +14,13 @@ struct perf_bpf_filter_expr {
+ 	int part;
+ 	enum perf_bpf_filter_term term;
+ 	unsigned long val;
++	/*
++	 * Raw lock descriptor string for PBF_TERM_LOCK_HELD expressions
++	 * (e.g. "&cgroup_mutex", "mmap_lock", "&dentry", "rwsem:R").
++	 * Resolved into `entry.part` and `entry.target` during
++	 * perf_bpf_filter__prepare().
++	 */
++	char *lock_name;
+ };
+ 
+ struct evsel;
+@@ -27,6 +34,12 @@ struct perf_bpf_filter_expr *perf_bpf_filter_expr__new(enum perf_bpf_filter_term
+ 						       int part,
+ 						       enum perf_bpf_filter_op op,
+ 						       unsigned long val);
++struct perf_bpf_filter_expr *perf_bpf_filter_expr__new_lock(const char *lock_name,
++							    int mode,
++							    enum perf_bpf_filter_op op,
++							    unsigned long val);
++void perf_bpf_filter_expr__delete(struct perf_bpf_filter_expr *expr);
++int __perf_bpf_filter__parse(struct list_head *expr_head, const char *str);
+ int perf_bpf_filter__parse(struct list_head *expr_head, const char *str);
+ int perf_bpf_filter__prepare(struct evsel *evsel, struct target *target);
+ int perf_bpf_filter__destroy(struct evsel *evsel);
+diff --git a/tools/perf/util/bpf-filter.l b/tools/perf/util/bpf-filter.l
+index 1be9df6550fc..b4022110f1e5 100644
+--- a/tools/perf/util/bpf-filter.l
++++ b/tools/perf/util/bpf-filter.l
+@@ -1,9 +1,12 @@
+ %option prefix="perf_bpf_filter_"
+ %option noyywrap
+ 
++%x LOCK_ARG
++
+ %{
+ #include <stdio.h>
+ #include <stdlib.h>
++#include <string.h>
+ #include <linux/perf_event.h>
+ 
+ #include "bpf-filter.h"
+@@ -76,7 +79,7 @@ static int path_or_error(void)
+ num_dec		[0-9]+
+ num_hex		0[Xx][0-9a-fA-F]+
+ space		[ \t]+
+-path		[^ \t\n,]+
++path		[^ \t\n,()!=>&|<]+
+ ident		[_a-zA-Z][_a-zA-Z0-9]+
+ 
+ %%
+@@ -116,7 +119,31 @@ mem_hops	{ return sample_part(PBF_TERM_DATA_SRC, 8); }
+ uid		{ return sample(PBF_TERM_UID); }
+ gid		{ return sample(PBF_TERM_GID); }
+ cgroup		{ return sample_path(PBF_TERM_CGROUP); }
+-
++lock_held[ \t]*"("	{
++				BEGIN(LOCK_ARG);
++				perf_bpf_filter_lval.num = PBF_LOCK_MODE_ANY;
++				return BFT_LOCK_HELD;
++			}
++(lock_held_read|lock_held_shared)[ \t]*"("	{
++				BEGIN(LOCK_ARG);
++				perf_bpf_filter_lval.num = PBF_LOCK_MODE_READ;
++				return BFT_LOCK_HELD;
++			}
++(lock_held_write|lock_held_exclusive)[ \t]*"("	{
++				BEGIN(LOCK_ARG);
++				perf_bpf_filter_lval.num = PBF_LOCK_MODE_WRITE;
++				return BFT_LOCK_HELD;
++			}
++
++<LOCK_ARG>{space}	{ }
++<LOCK_ARG>[^ \t\n()]+	{
++				perf_bpf_filter_lval.lock_name = strdup(perf_bpf_filter_text);
++				return BFT_LOCK_NAME;
++			}
++<LOCK_ARG>")"		{ BEGIN(INITIAL); return ')'; }
++<LOCK_ARG>.|\n		{ BEGIN(INITIAL); return BFT_ERROR; }
++
++"!"		{ return '!'; }
+ "=="		{ return operator(PBF_OP_EQ); }
+ "!="		{ return operator(PBF_OP_NEQ); }
+ ">"		{ return operator(PBF_OP_GT); }
+diff --git a/tools/perf/util/bpf-filter.y b/tools/perf/util/bpf-filter.y
+index 5a79a8e7a45b..5ae05d4608c6 100644
+--- a/tools/perf/util/bpf-filter.y
++++ b/tools/perf/util/bpf-filter.y
+@@ -8,9 +8,11 @@
+ #endif
+ 
+ #include <stdio.h>
++#include <stdlib.h>
+ #include <string.h>
+ #include <linux/compiler.h>
+ #include <linux/list.h>
++#include <linux/zalloc.h>
+ #include "bpf-filter.h"
+ #include "cgroup.h"
+ 
+@@ -31,6 +33,11 @@ static void perf_bpf_filter_error(struct list_head *expr __maybe_unused,
+ {
+ 	unsigned long num;
+ 	char *path;
++	char *lock_name;
++	struct {
++		char *name;
++		int mode;
++	} lock;
+ 	struct {
+ 		enum perf_bpf_filter_term term;
+ 		int part;
+@@ -40,12 +47,17 @@ static void perf_bpf_filter_error(struct list_head *expr __maybe_unused,
+ }
+ 
+ %token BFT_SAMPLE BFT_SAMPLE_PATH BFT_OP BFT_ERROR BFT_NUM BFT_LOGICAL_OR BFT_PATH
++%token BFT_LOCK_HELD BFT_LOCK_NAME
+ %type <expr> filter_term filter_expr
+-%destructor { free ($$); } <expr>
++%destructor { perf_bpf_filter_expr__delete($$); } <expr>
++%destructor { free($$); } <lock_name>
++%destructor { free($$.name); } <lock>
+ %type <sample> BFT_SAMPLE BFT_SAMPLE_PATH
+ %type <op> BFT_OP
+-%type <num> BFT_NUM
++%type <num> BFT_NUM BFT_LOCK_HELD
+ %type <path> BFT_PATH
++%type <lock_name> BFT_LOCK_NAME
++%type <lock> lock_term
+ 
+ %%
+ 
+@@ -105,5 +117,36 @@ BFT_SAMPLE_PATH BFT_OP BFT_PATH
+ 	$$ = perf_bpf_filter_expr__new($1.term, $1.part, $2, cgroup_id);
+ 	cgroup__put(cgrp);
+ }
++|
++lock_term
++{
++	$$ = perf_bpf_filter_expr__new_lock($1.name, $1.mode, PBF_OP_EQ, 1);
++	zfree(&$1.name);
++	if (!$$)
++		YYERROR;
++}
++|
++'!' lock_term
++{
++	$$ = perf_bpf_filter_expr__new_lock($2.name, $2.mode, PBF_OP_EQ, 0);
++	zfree(&$2.name);
++	if (!$$)
++		YYERROR;
++}
++|
++lock_term BFT_OP BFT_NUM
++{
++	$$ = perf_bpf_filter_expr__new_lock($1.name, $1.mode, $2, $3);
++	zfree(&$1.name);
++	if (!$$)
++		YYERROR;
++}
++
++lock_term:
++BFT_LOCK_HELD BFT_LOCK_NAME ')'
++{
++	$$.name = $2;
++	$$.mode = $1;
++}
+ 
+ %%
+diff --git a/tools/perf/util/bpf_skel/sample-filter.h b/tools/perf/util/bpf_skel/sample-filter.h
+index 683fec85e71e..ca1cf586ed6e 100644
+--- a/tools/perf/util/bpf_skel/sample-filter.h
++++ b/tools/perf/util/bpf_skel/sample-filter.h
+@@ -53,8 +53,44 @@ enum perf_bpf_filter_term {
+ 	/* Terms computed from BPF helpers. */
+ 	PBF_TERM_UID,
+ 	PBF_TERM_GID,
++	/*
++	 * Kernel lock held predicate (`lock_held(...)`). Evaluates whether the
++	 * specified kernel lock is currently held by the running task/CPU.
++	 * The lock specification kind is stored in `entry.part`
++	 * (`enum perf_bpf_lock_target_kind`), `entry.op` is normalized to
++	 * `PBF_OP_EQ` (match when held) or `PBF_OP_NEQ` (match when not held),
++	 * and the resolved target address is stored in `entry.value`.
++	 */
++	PBF_TERM_LOCK_HELD,
+ };
+ 
++/*
++ * Lock target categories for PBF_TERM_LOCK_HELD filters.
++ * Stored in `perf_bpf_filter_entry.part`.
++ */
++enum perf_bpf_lock_target_kind {
++	PBF_LOCK_NONE = 0,
++	/*
++	 * Specific global or static lock address resolved from kallsyms.
++	 * `entry.value` holds the kernel address.
++	 */
++	PBF_LOCK_ADDR,
++};
++
++/*
++ * `perf_bpf_filter_entry.part` layout for PBF_TERM_LOCK_HELD:
++ *   Bits 0..3: `enum perf_bpf_lock_target_kind`
++ *   Bit  4:    PBF_LOCK_MODE_READ      (match read/shared lock holding)
++ *   Bit  5:    PBF_LOCK_MODE_WRITE     (match write/exclusive lock holding)
++ *   Bit  6:    PBF_LOCK_DIRECT_MUTEX   (inspect struct mutex owner)
++ */
++#define PBF_LOCK_KIND_MASK	0x0fU
++#define PBF_LOCK_MODE_READ	(1U << 4)
++#define PBF_LOCK_MODE_WRITE	(1U << 5)
++#define PBF_LOCK_MODE_ANY	(PBF_LOCK_MODE_READ | PBF_LOCK_MODE_WRITE)
++#define PBF_LOCK_MODE_MASK	PBF_LOCK_MODE_ANY
++#define PBF_LOCK_DIRECT_MUTEX	(1U << 6)
++
+ /* BPF map entry for filtering */
+ struct perf_bpf_filter_entry {
+ 	enum perf_bpf_filter_op op;
+diff --git a/tools/perf/util/bpf_skel/sample_filter.bpf.c b/tools/perf/util/bpf_skel/sample_filter.bpf.c
+index a190374ed87a..42556ab0e2d5 100644
+--- a/tools/perf/util/bpf_skel/sample_filter.bpf.c
++++ b/tools/perf/util/bpf_skel/sample_filter.bpf.c
+@@ -5,6 +5,7 @@
+ #include <bpf/bpf_tracing.h>
+ #include <bpf/bpf_core_read.h>
+ 
++#include "lock_data.h"
+ #include "sample-filter.h"
+ 
+ /* BPF map that will be filled by user space */
+@@ -45,8 +46,57 @@ struct lost_count {
+ 
+ volatile const int use_idx_hash;
+ 
++/* Control flag set by userspace when lock_held(...) filters are active. */
++int lock_enabled;
++
+ void *bpf_cast_to_kern_ctx(void *) __ksym;
+ 
++static __always_inline bool is_direct_lock_owner(__u64 lock_addr, __u64 curr, __u32 part)
++{
++	if (!curr)
++		return false;
++
++	if ((part & PBF_LOCK_DIRECT_MUTEX) &&
++	    (__u64)get_lock_owner(lock_addr, LCB_F_MUTEX) == curr)
++		return true;
++	return false;
++}
++
++static __always_inline bool is_lock_held(struct perf_bpf_filter_entry *entry)
++{
++	__u64 curr = bpf_get_current_task();
++	__u32 kind = entry->part & PBF_LOCK_KIND_MASK;
++	__u32 mode = entry->part & PBF_LOCK_MODE_MASK;
++
++	if (!mode)
++		mode = PBF_LOCK_MODE_ANY;
++
++	switch (kind) {
++	case PBF_LOCK_ADDR:
++		if ((mode & PBF_LOCK_MODE_WRITE) &&
++		    is_direct_lock_owner(entry->value, curr, entry->part))
++			return true;
++		return false;
++
++	default:
++		return false;
++	}
++}
++
++static __always_inline __u64 check_lock_held(struct perf_bpf_filter_entry *entry)
++{
++	/*
++	 * Pinned filters (use_idx_hash != 0) share a world-writable filters
++	 * map and do not support lock_held(). Reject evaluation when pinned
++	 * or when lock_enabled is not set so unprivileged users cannot probe
++	 * arbitrary kernel addresses via entry->value.
++	 */
++	if (use_idx_hash || !lock_enabled)
++		return entry->op == PBF_OP_EQ ? ~entry->value : entry->value;
++
++	return is_lock_held(entry) ? entry->value : ~entry->value;
++}
++
+ /* new kernel perf_sample_data definition */
+ struct perf_sample_data___new {
+ 	__u64 sample_flags;
+@@ -175,6 +225,8 @@ static inline __u64 perf_get_sample(struct bpf_perf_event_data_kern *kctx,
+ 		return bpf_get_current_uid_gid() & 0xFFFFFFFF;
+ 	case PBF_TERM_GID:
+ 		return bpf_get_current_uid_gid() >> 32;
++	case PBF_TERM_LOCK_HELD:
++		return check_lock_held(entry);
+ 	case PBF_TERM_NONE:
+ 	case __PBF_UNUSED_TERM4:
+ 	case __PBF_UNUSED_TERM5:
+@@ -209,6 +261,8 @@ static __always_inline __u64 perf_get_common_sample(struct perf_bpf_filter_entry
+ 		return bpf_get_current_uid_gid() & 0xFFFFFFFF;
+ 	case PBF_TERM_GID:
+ 		return bpf_get_current_uid_gid() >> 32;
++	case PBF_TERM_LOCK_HELD:
++		return check_lock_held(entry);
+ 	default:
+ 		return 0;
+ 	}
+diff --git a/tools/perf/util/parse-events.c b/tools/perf/util/parse-events.c
+index d6bab89ade5d..da687e9d1a67 100644
+--- a/tools/perf/util/parse-events.c
++++ b/tools/perf/util/parse-events.c
+@@ -2621,6 +2621,8 @@ static bool is_possible_tp_filter(struct evsel *evsel, const char *str)
+ {
+ 	static const char *const bpf_tp_terms[] = {
+ 		"uid", "gid", "tid", "pid", "cpu", "time", "cgroup",
++		"lock_held", "lock_held_read", "lock_held_shared",
++		"lock_held_write", "lock_held_exclusive",
+ 	};
+ 
+ 	for (size_t i = 0; i < ARRAY_SIZE(bpf_tp_terms); i++) {
 -- 
 2.56.0.307.g5fe7bd680c-goog
 
