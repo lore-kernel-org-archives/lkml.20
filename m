@@ -1,67 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.89
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792680059;
-	b=HiLN8ceWYURmp0RAYBGbTKSWPUwtMr8U6nqSmZCvjv/IoSV3639aUqUYQ3xq1ctsbogP
-	 ESxHpsWg9PcoEPagK+6HMfz6XfKQKLNIxIO0xBusFYUqQS0H7ry0WVzZqypKfGEoOcifn
-	 T/3rY+PM3Z2CB0YQbfzst0g1PZCOqUssWYRHRUlHx0ne0ODfV/Sbw6nYE7xr5OVnTwr+F
-	 BzmmX8BasfHw02FVenwkLE5D+AW0fXaHxs31ilNhAFODLj/TKESonyQ6KtIl3N2KOF5WS
-	 ri4n5i5ewe7WQ4jKoJEYUTMqVGiPMG5krPyf82WvGjKT1FatcmzkbOcAzbrOTsnkvXA==
+	t=1792680065;
+	b=JjBK+cbI+MQL7L1yMFskB+3oCpbQru2LZp5Aw2pymFYH+I6JGnYtMz6XuNoetfrzXpbS
+	 VtjcK6QWOusUvsUslmz7sfpuw1eFFRLrLaQmLgK/mZtplSaBs8Ef/OG/qhpcmtYY3QkU0
+	 H5NYW1TOCubBPZkLFO6YmopJJwVXGj6XnLlmwUbd6S4IwPc16T1rBT9RVjW10cmoyK/9A
+	 6icAHf/eHvJIykNT1tjoo7/rdBGtRmsA33W/ik2Sb/wxijDgfB4rPvVENMLidQi59E/F8
+	 bXflV97FN3E0y4sqCpQunMCCMGEIqg46D4dMcxy1cPR7MARtvRdGtwPjeyOWv2Z4bEA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792680059;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
+	a=rsa-sha256; c=relaxed/relaxed; t=1792680065;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=f3brnrr9GTVM/u1/q9tBPE+4oO6hwpwhbCfP57HoEM4=;
-	b=HpR7A7yVs76hFXIpaHnYh0El1BlAK9DDyBAA7Ud//PvFlcLRIyh3dX/J/AnvIIR1VVf4
-	 nJA+kzLUG7SN4qPi388VIQtPDnzIHpc/IQU/ORqnSuumC/PR7C/z0poBnH4c/o+Yv4jV6
-	 A3++nz9kJFmNaOAeoYqln0MBY5v9AhKEqtLQsDlSLtS5Sbczr6rN/KPxW7oToJnEcA2xc
-	 BpeJ70R9Qfyi2i8hGIrwmVVOVyeHBsiQWu4jre1isw7Dc1WB2a0dWLqzXYSDJ7XXOXmMe
-	 7G3dhjSgzCEFzmXsR06kcn98XFnnwyHw4C02bry1UpfnoDg8cmggUL+W4+ucAfEQhxw==
+	bh=mIO7tYuaCdYufaoOHXbc+H6PeDLvreZv9tIQ08xrdsw=;
+	b=x4eDiV5Swvwounk++JLLTecd2TYa9Vv76wxdcCmXXd7n27AMbUb+wiO40BiNgrd8gyW9
+	 AUak94Yn+avkvZyNxTubUG/y8KmHsSsozQmE6pczxJTFh9/Yhciy9FYAcGYMKVvMUTpzo
+	 rk+UjiIQUk5KxZs1TKeo/oIhT1wK7e1i29wMPcIFfVceXwGVTQ7VqHDkd51AyQHIPBvAf
+	 eTfOKpsOGtH/lQejnA+DcExfqCHUH59NsFjCru6Q+zlVg6Q5fqoyDR8RcJiCDY5g18AkN
+	 lb7w89RBGDFyufSg9XDMCsHk0sPH0crvsI2DUGG1QR8PQvuugtzWNxBQFFpkFtgGmYw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=RSQJfjke;
-	arc=none smtp.remote-ip=95.215.58.89
-Received: from mta1.migadu.com (out-89.mta1.migadu.com [95.215.58.89])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j7BmjELR;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28D70606A31B
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 14:40:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 28D70606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 179C8606A324;
+	Thu, 22 Oct 2026 14:41:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=RSQJfjke
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=Q8GxvwGChN6/R7iREbia4Y5Fe+czvz/W6UuO4Z5BeAg=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792680051; v=1; x=1793284851;
- b=RSQJfjkeTeMv7d3HI9fYpewS/LEJnmAp+2VJu8Z/R+YVjzDjK3Rdiunj6L57DokGUwa26lhm
- z88Elv9JuEMAnpnsatW6mJNBmQ+/ElBOllDLlVh41xTV0Wk0mqDf4bRJo601405k2RRBLrGrM7w
- iItyavz0u0AnoTJFw1T6eZNg=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id eec811b34d849da2;
-	Thu, 22 Oct 2026 14:40:51 +0000
-X-Mizu-Trace-ID: eec811b34d849da2
-X-Migadu-Flow: FLOW_OUT
-Date: Thu, 22 Oct 2026 16:40:41 +0200
-From: Andrew Jones <andrew.jones@linux.dev>
-To: Nicolin Chen <nicolinc@nvidia.com>
-Cc: Jason Gunthorpe <jgg@nvidia.com>, 
-	Andrew Jones <andrew.jones@oss.qualcomm.com>, linux-riscv@lists.infradead.org, iommu@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, tomasz.jeznach@linux.dev, tjeznach@rivosinc.com, jgg@ziepe.ca, 
-	joro@8bytes.org, will@kernel.org, robin.murphy@arm.com, pjw@kernel.org, 
-	palmer@dabbelt.com, anup@brainfault.org, tglx@kernel.org, kevin.tian@intel.com, 
-	fangyu.yu@linux.alibaba.com
-Subject: Re: [PATCH v6 09/16] iommu/riscv: Reserve an MSI IOVA window for
- iommufd
-Message-ID: <atoeGhJkcgy2G1tO@orel>
-References: <20260925151659.419512-1-andrew.jones@oss.qualcomm.com>
- <20260925151659.419512-10-andrew.jones@oss.qualcomm.com>
- <179209292716.4133959.2758345963634439485.b4-review@b4>
- <atEuxafCLCdZrdR7@nvidia.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j7BmjELR
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 62EAD1F000C6;
+	Thu, 22 Oct 2026 14:41:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792680064;
+	bh=mIO7tYuaCdYufaoOHXbc+H6PeDLvreZv9tIQ08xrdsw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=j7BmjELRtXIj9wvsVVBnmZQwLyqhr7wmG4EW8jRE0cU4gmH1kakSAOnolTlrHmeRB
+	 aCfBopDexV/R54rx6Y4l4Zy5kewqj07x7yY1snIqsBkhP/W8kjBkgON8SppPymw8R7
+	 7vFgN6kU2tXwUZrykJ1RiKL3AJ3vAECA7OaLWgu6il58ZDArR2jne+OYvfX1H8uou7
+	 DBD3lG74miZbNxdauSa11GmnSKCWf2VIAljninxQn6JcULSbZg579surYNo4QS8jCl
+	 W+FWuxlycx40tLyJ2ZRNp5/UF+xN2NGdBeUOODMc/1khKBYnBYpd/T04IFNB/XTFCL
+	 060jArYO+a9QA==
+Date: Thu, 22 Oct 2026 09:41:03 -0500
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: linux-kernel@vger.kernel.org, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	linux-sound@vger.kernel.org, Jonathan Hunter <jonathanh@nvidia.com>,
+	devicetree@vger.kernel.org, Mark Brown <broonie@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux-tegra@vger.kernel.org,
+	Thierry Reding <thierry.reding@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>
+Subject: Re: [PATCH v1 1/1] ASoC: dt-bindings: nvidia,tegra-audio:
+ Consolidate all codec support into a single schema
+Message-ID: <179268003494.1337328.14450033060774201915.robh@kernel.org>
+References: <20261015130628.184279-1-clamor95@gmail.com>
+ <20261015130628.184279-2-clamor95@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,41 +64,61 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <atEuxafCLCdZrdR7@nvidia.com>
+In-Reply-To: <20261015130628.184279-2-clamor95@gmail.com>
 
-On Thu, Oct 15, 2026 at 12:51:33PM -0700, Nicolin Chen wrote:
-> On Thu, Oct 15, 2026 at 04:35:27PM -0300, Jason Gunthorpe wrote:
-> > > Reserve one page per possible CPU, sufficient for each supervisor IMSIC
-> > > page. Use a 16 MiB base instead of the 128 MiB convention used by ARM
-> > > SMMU. kvmtool places its guest IMSIC at 128 MiB, so with IRQ bypass the
-> > > domain-wide guest MSI address match can also capture host-delivered
-> > > MSI writes to the SW MSI window and misdeliver them to the guest.
-> > > 
-> > > 16 MiB falls in a hole in the current kvmtool and QEMU virt memory maps,
-> > > away from their guest IMSIC windows and RAM. Keep the window below
-> > > 4 GiB so devices with 32-bit MSI address registers can use it.
-> > 
-> > And this is a good reason you should not follow ARM down this mad
-> > road. Nicolin had some patches to allow userspace to select the SW_MSI
-> > range instead of using a kernel hard coded value, which becomes a
-> > sneaky ABI. It would be much better if riscv starts off on the right
-> > foot instead of continuing this mistake.
+
+On Thu, 15 Oct 2026 16:06:28 +0300, Svyatoslav Ryhel wrote:
+> The number of codecs supported by the NVIDIA Tegra audio complex is
+> increasing, which leads to an increasing number of bindings with minimal
+> changes. The main differences between codecs are the compatible strings
+> and possible pin configurations. With the introduction of auxiliary
+> devices, a definitive description of possible pin configurations becomes
+> nearly impossible.
 > 
-> It was paused due to lack of an immediate interest:
-> https://lore.kernel.org/linux-iommu/cover.1760487869.git.nicolinc@nvidia.com/
+> Remove all existing per-codec schemas and consolidate everything into a
+> single schema. Compatibles are grouped into common codecs followed by
+> unique codecs, all sorted alphabetically. Added examples for each of the
+> common codecs and for each Tegra generation except Tegra114.
 > 
-> If riscv wants it, maybe we can give a push.
->
+> Schema check passes for all in-kernel Tegra device trees.
+> 
+> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> ---
+>  .../sound/nvidia,tegra-audio-alc5632.yaml     |  74 ------
+>  .../sound/nvidia,tegra-audio-common.yaml      |  92 -------
+>  .../sound/nvidia,tegra-audio-complex.yaml     | 235 ++++++++++++++++++
+>  .../sound/nvidia,tegra-audio-cpcap.yaml       |  90 -------
+>  .../sound/nvidia,tegra-audio-max9808x.yaml    |  95 -------
+>  .../sound/nvidia,tegra-audio-max98090.yaml    |  97 --------
+>  .../sound/nvidia,tegra-audio-rt5631.yaml      |  85 -------
+>  .../sound/nvidia,tegra-audio-rt5640.yaml      |  84 -------
+>  .../sound/nvidia,tegra-audio-rt5677.yaml      | 100 --------
+>  .../sound/nvidia,tegra-audio-sgtl5000.yaml    |  67 -----
+>  .../sound/nvidia,tegra-audio-trimslice.yaml   |  33 ---
+>  .../sound/nvidia,tegra-audio-wm8753.yaml      |  79 ------
+>  .../sound/nvidia,tegra-audio-wm8903.yaml      |  93 -------
+>  .../sound/nvidia,tegra-audio-wm8962.yaml      |  88 -------
+>  .../sound/nvidia,tegra-audio-wm8994.yaml      | 110 --------
+>  .../sound/nvidia,tegra-audio-wm9712.yaml      |  76 ------
+>  16 files changed, 235 insertions(+), 1263 deletions(-)
+>  delete mode 100644 Documentation/devicetree/bindings/sound/nvidia,tegra-audio-alc5632.yaml
+>  delete mode 100644 Documentation/devicetree/bindings/sound/nvidia,tegra-audio-common.yaml
+>  create mode 100644 Documentation/devicetree/bindings/sound/nvidia,tegra-audio-complex.yaml
+>  delete mode 100644 Documentation/devicetree/bindings/sound/nvidia,tegra-audio-cpcap.yaml
+>  delete mode 100644 Documentation/devicetree/bindings/sound/nvidia,tegra-audio-max9808x.yaml
+>  delete mode 100644 Documentation/devicetree/bindings/sound/nvidia,tegra-audio-max98090.yaml
+>  delete mode 100644 Documentation/devicetree/bindings/sound/nvidia,tegra-audio-rt5631.yaml
+>  delete mode 100644 Documentation/devicetree/bindings/sound/nvidia,tegra-audio-rt5640.yaml
+>  delete mode 100644 Documentation/devicetree/bindings/sound/nvidia,tegra-audio-rt5677.yaml
+>  delete mode 100644 Documentation/devicetree/bindings/sound/nvidia,tegra-audio-sgtl5000.yaml
+>  delete mode 100644 Documentation/devicetree/bindings/sound/nvidia,tegra-audio-trimslice.yaml
+>  delete mode 100644 Documentation/devicetree/bindings/sound/nvidia,tegra-audio-wm8753.yaml
+>  delete mode 100644 Documentation/devicetree/bindings/sound/nvidia,tegra-audio-wm8903.yaml
+>  delete mode 100644 Documentation/devicetree/bindings/sound/nvidia,tegra-audio-wm8962.yaml
+>  delete mode 100644 Documentation/devicetree/bindings/sound/nvidia,tegra-audio-wm8994.yaml
+>  delete mode 100644 Documentation/devicetree/bindings/sound/nvidia,tegra-audio-wm9712.yaml
+> 
 
-I'll look into Nicolin's patches in a follow-on series and defer enabling
-VFIO_IOMMU_TYPE1 for now. I'll see if I can avoid introducing
-IOMMU_RESV_SW_MSI at all, which would rule out using the legacy Type1
-backend as it stands. Instead, I'll try to support existing Type1
-userspace through iommufd's compatibility interface, which will need to
-manage MSI IOVA allocation without SW_MSI, since existing Type1 userspace
-won't issue Nicolin's ioctls.
+Nice cleanup!
 
-I'm posting a much simplified DMA-IOMMU-only v7 now.
-
-Thanks,
-drew
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
