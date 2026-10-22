@@ -1,102 +1,114 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.47
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792646446;
-	b=UfZh8QjnShB8qQ6xFHAvqXDKJfZNE/Xgz6nPN7PxKw737K7t4nZJrjPxnR0TEIZUwP/I
-	 X6AaAjDZScvbZtdfOnY/9EQGCAU37gu2bENuh/8g1LNnQ6iaWlxN/E2iQeGhLnK4r6Kk5
-	 9+JNUQ3GQ+oJUBHFmpCcaklHf3XQ5STwTLf70ffu2pwSUxfcY/dd3sjqsrw2iU90CeO9C
-	 iX4wHosYJQDcLBc1YwIB53i84G6SrUzdi5QPBQspCjr5jknV7Pm4QX1hcHiQClEWRu+1A
-	 vXJw1c9hxGHiZgnEyR/IRo2fHkk2gKH2kmeLEYhstneOrXg8ZKk18Nig+E1FJdISlzA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792646446;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=5dV8J2o+756ExcNaGq9topEd2CgNZBpheBIgCfX69Gs=;
-	b=TZXUxuoK8jj5k4X1i7g5W8/wM/8RmhyDFcm/D1JryFF9fR8jkHbiYlrXEWkspDrBCQuR
-	 nkIWdcai46YpNygCLDAc/8HNGjc3INGu3EZ8XTyFer53yArYJkGZK6ZTMDJ9LWss6+4kz
-	 CSnX61+VT2V1BxAd+BG32uUFyOpspXqEgVDla+vtqPKqOH3EvKPBDX5/AdOdjJpaWx3DK
-	 CK6zlFGOH4A13nTLshspBxIAbJ9VGUf7tQr8/6gUHdQZ7SsNh4obWKdZ0PYBzJFgcpjZK
-	 8VgEb99kYZ8PtIe1RFKHvLH+6IvKOmnfQkdSn+KNVdQO3Amgsvw3O49b3lYpOhnd+TA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=brainfault.org;
-	spf=none smtp.mailfrom=brainfault.org;
-	dkim=pass header.d=brainfault.org header.i=@brainfault.org header.a=rsa-sha256 header.s=google header.b=aMLRwuAa;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.47
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.157
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792646451;
+	b=xc5xqn9GuneqaKtCzq0iEirRDQdfyeA/+B6++namcIr0JQ3KREDnYIbtyDWaMNt9yqXS
+	 ELhFcB9vtlsJ1Ok5EO00aQLxnXD6m/cQDdCmqFXvC6mRJiBHGKCKApOC4CesJK2jzg3vJ
+	 yuDVfi75QkdRrf7wl7ant71jPyS7W96Ck6Vifiy10VUfmSAjtk1uQNRJkst9u0MNJlbV7
+	 jwCxaztldAxJcEBH2+SU8I0ZLOJ4qBqAHhy7oYmJsognu/ppVkBWN046yoRthwWfDuPYi
+	 S0ik6RNgZmXgjid0Zln7NB5KO4eLGaxLgTJFzIRRqTsDTmRt8R9cp0wutO6xhTgvIcg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792646451;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:Content-Type:Content-Transfer-Encoding:MIME-Version:From:To:
+	 Cc:Subject:In-reply-to:References:Date:Message-id:Reply-To;
+	bh=C6YChKu6whRjoZC1U69Tr/daamYf8mLwnwnAYD8eieI=;
+	b=zwjRgsNiavHLp/1m/NWc7rB0AxgGobfDF6BbCkt+8EH2PeunM+X03Mhi19xmJ4krF78n
+	 0n/NmC9KoQ+kHPd/BXRe9e/3REy9fcyyHLcgIkhzapxwKMVcidQUFvANx0WhwQCnyYi6X
+	 z4VQRfh9pIxXLHw//KtcYoTvW1ixS2JDQh6BSoeCCVP2STcDkxGSUCS2bcTr+qwFOi5Nh
+	 pDVLdNRUEErbblGeKZSLr9MO5jDi0GdwdY5E5I7DVcs2sY2NLkpmiviOIxxK4IH165IYe
+	 fPY2xifpLtcwWt6rZeADfNOdzgPLbHK471nbY90T73wcK6QuYXT603w2EDn4zF8fXEA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=ownmail.net;
+	spf=pass smtp.mailfrom=ownmail.net;
+	dkim=pass header.d=ownmail.net header.i=@ownmail.net header.a=rsa-sha256 header.s=fm2 header.b=RSCGlCJF;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b="sYbaE/gK";
+	arc=none smtp.remote-ip=103.168.172.157
+Received: from fhigh-a6-smtp.messagingengine.com (fhigh-a6-smtp.messagingengine.com [103.168.172.157])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 007C5606A31D
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 05:20:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 007C5606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=brainfault.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=brainfault.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8A3B606A31B
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 05:20:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A8A3B606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ownmail.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ownmail.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=brainfault.org header.i=@brainfault.org header.a=rsa-sha256 header.s=google header.b=aMLRwuAa
-Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-48c4be28b82so1252134f8f.2
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 22:20:45 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792646444; cv=none;
-        d=google.com; s=arc-20260327;
-        b=NQWjAevhb1MzoOYFh2i2N3IEQ6lK3RP2b/ep7liRfsaL+hkd5dEfKBMdSRmw3clkiJ
-         99tmz+LUnORVwYQ7dx3mDzJ8nTzKPo1JfhYXFxIScGHAEKMXI+eE0pajje1WJaXMMxW9
-         mXqFiqQoDOGvbsah2/PddAIp4uZYkFLbI1K4obI8CE6/ro+FAx1detq3fI+VRAm4HOm3
-         YERTp4r69QcG9RDv/1I5UnmROqWYRQ/vxM9lrFIyE0DoivmIynK1/2tpV2oLy/dNsByF
-         xKFAT8VgoXdpQltUhTH306Ni7yhDqAFzTKoOwxcgr/P2ftYphhqTwx/Gh4rSKfcCUG2k
-         E9lg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=5dV8J2o+756ExcNaGq9topEd2CgNZBpheBIgCfX69Gs=;
-        fh=ty+VXL99bQhwmaXNLciwHcCUX2DwOKo8ZXwT2Az1nUM=;
-        b=U9Y8K/wPoBoxKQ22KxozSRm7Gngxfq9xUDf9pWm8C2rAll2etQZ0u0ytc0S5TuOUap
-         Iqx5ToibrO/3nxMXbvnnRMxXf1jrkHiLoDz2fdXt0zVlBKq5CrbznsXzM9Jx0P8kYxtU
-         TDkJqKlKDM95vrXa7Am997QRvVwJALKztKwJYJQ+pNn6iC98E/IIJqjq9HMcOiows+jh
-         DmixYO6Pz7Knv84MfQm6Exn2Bul41cMp2XAXCMbyoUNTb0onpXPvLPn4c2/Vpq+9lFZx
-         NPGLSGhvHRUaBUzO8EGToxClGhkqJQBHaFwdnVe5MxhXLXjIfc1/IrjWvhEusoUNkOoE
-         j4gw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=brainfault.org; s=google; t=1792646444; x=1793251244; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=5dV8J2o+756ExcNaGq9topEd2CgNZBpheBIgCfX69Gs=;
-        b=aMLRwuAa3ERHVGJY70WDS+qGWqIhOrxtO8b8v9SoygeljlCPgsS9qiX1mL8rvP1xCx
-         FpFHdwvboaJmbBGr42Q56PIl7PA7RvBcbqtwAEVi2tN7JoP0GFhzw6TJ/jsx/obytj8s
-         x1yRMv9UObcXmBCnRgJhjYyreJWvs8m5mDy+84AR8tReeWe6fUhEZxtf22vfWX76lYhG
-         SScV+wRoxe5BHsDMacZOCPSaBy2WtXc1rBxDM1OM8T1szLChNzv0BtbhLnsjUO7xsx/B
-         jDQ98oAqxDtsehGTKaEZWTDbitUDthYS2qhR00W6DFto33fME86vzd3XSXRoSAHYw+AW
-         eqNA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792646444; x=1793251244;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=5dV8J2o+756ExcNaGq9topEd2CgNZBpheBIgCfX69Gs=;
-        b=FqTA6FgOwUb/PdHoQqDNvkduDtX/dfruvCwR41T6GBalN4g0QqdIS4ELRFUf42tB9j
-         MIrUIudOb7T6oivOuY932+8z6Kb05+qPNeoJqsnCTmxcoS7/PUknkFroHpyRwIpxvQCX
-         Tc/stpM+1QcDQYJWnm4wFUN32q7NscTo2MeP41PNTtr85H2gOq4gDzFmqUJPE5iv131M
-         bqMTUB6UmdY/hgG+lLi/85gQYOV0KbOBhhEDsYjeVFELR8OJlXPlq6muH+5rEH+/nK92
-         AFvH4odmepumZGWRAPuia8pQR1uH5XPHMuEZql01BnoyUtxoPN8heofq+CV/27Y4UQxo
-         oBHg==
-X-Forwarded-Encrypted: i=1; AKwUvBzmNJddSCaIEOoQXgoE6/vaNu7N4BbDgrW0SpNU+O6cKhk5qENJSNpnxfWSaTdPbvt2CQ4UM81nvCj4e7c=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIuPXlr0aOlhGBnUXYuSkhTE1tMglvFO82N8Xo2WdVNTJMq6RIL
-	11LkA2rrjjN+YW3SJx7A5VQRxI0seGEN0oJALzgkkHKRRBZwjEG7txbBENdQO0igphSM5B5KVGD
-	QBUdqYJ2Hz18vJG1vf5+bVJrO9mY7N3dCKOYcColmPQ==
-X-Gm-Gg: AYBFou24JtXJbQzl/9S4pOYJdRq4LCEM1SPaEQeN13lSxua8DJDhkBYgF8D3rCA+UFl
-	7GOc4njwlw7T0zUijF6xuxKhEoLw1Rz92estYkCT5sQdMrxScyCMVSWwxoP3SJI4cE9BZt90+1J
-	z2MDpy/zUFeUp4I1IxJgARF400bcSVmx7TKMrDE0dh3Ckf0B/G4v8p/MopiiVnOFLrcPhqVg+Lr
-	vvTavsPQuwPcg3vgzcTw47si2aN8VQ3B7TcoAUaRQyX4ESdP6bWJ6UYhzUq6p+qgbIGmsC1aMss
-	IPqRDaxyC+C2kiShUgrkIa6vDdRvo/wHLjl8FU8C+R00kt+2+hi8wdXsX4t+Jr4+Flzr2JP27vZ
-	jmscsGBG9pZlhcMwtPDEZreVEOldyTaIgHVNLcNv8sUYgPpq98n0dIKsAsgmZ5WV/PxgRGlefvd
-	A/ZYaEY46dBL8hIbYQfA8MMVsBP3lYuCEANpr4Qu2hrTLmoZOyPbQ0D3NluktupgyOSqFWP6/bt
-	j/xoQ==
-X-Received: by 2002:a05:6000:4025:b0:48d:c29e:40c3 with SMTP id
- ffacd0b85a97d-48e264bdcd8mr8669565f8f.33.1792646444331; Wed, 21 Oct 2026
- 22:20:44 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=ownmail.net header.i=@ownmail.net header.a=rsa-sha256 header.s=fm2 header.b=RSCGlCJF;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=sYbaE/gK
+Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id E6A8614001C7
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 01:20:49 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-05.internal (MEProxy); Thu, 22 Oct 2026 01:20:49 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ownmail.net; h=
+	cc:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:reply-to:subject:subject:to:to; s=fm2; t=
+	1792646449; x=1792732849; bh=C6YChKu6whRjoZC1U69Tr/daamYf8mLwnwn
+	AYD8eieI=; b=RSCGlCJFuzKPJ6S+8v8KeEHvwEewLc9Wf1Bb8C452R133WgppFK
+	W1Pu710BOYB+P5X9Fpdwbt+udq1ZBdJisc/lKy2T97oBwjU/0jJKSiRNA9u8zYuq
+	q92F/GPMl9LyPCbNWNlCtWVA9nOPCgryIRElKpfmeRc6eNlrRsxGt0yOwq+lYNje
+	5DzGcwbe3ueKDNyaY330St6PCVFsRid384Ygq/NcYkm5zA3obTTC9gkyZvX9cVzU
+	Z201Qz+RNqQ9o4WaRlH9fMGRlJMt2wdvLtoO6HefX+m0dvqTCr9ZKtwSMyWPBrML
+	4V0N5toQmnKnokJdNKt/sU235UXltnTTbgw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1792646449; x=
+	1792732849; bh=C6YChKu6whRjoZC1U69Tr/daamYf8mLwnwnAYD8eieI=; b=s
+	YbaE/gK3l4FixwhHalRHkNtjDN0wfzVlFmIGq1d2TSd3QyUV8Cx1+F9M4UL2kVJk
+	qm9eJr/vJRrAtlB28vlgRRxt5bHZiGPXFdzA647lhjRQnCY7NSSAF2s+N7ZZgwG2
+	G3XBk/NMx186upyTOUn14Td6BXYuBVzM6B2M0JJd7/+l1YlWXksKPEeAOQMbWTH7
+	bB/axWJ/rHO253E1Zj6VHzOOerqUKrfEk6PUdzeuOh43LBiGo36SgiNNixn5SHSm
+	9HivR16tlrRZvKVB3HgC0zwUMTQmzjfPg2jidjs4IlRc0BxORlxVaQMXoiTTfse1
+	awH93WzFOrgrn3fsCVNhQ==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
+	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
+	action=sign d=ownmail.net a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1792646449; d=ownmail.net;
+	mf=PG5laWxiQG93bm1haWwubmV0Pg==;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm2:rsa-sha256:ZMl8WQuUaDe7/X0NKOK1CWiVdoCooSS7Kj0x7NOyrcKtVx3
+	Kdx0T2532BDBKYUhifs9UePFPKue9/Ac8pNEsvGj/Zjw8WtPmmJbhbxeoj8Pe8ne
+	UCGGLDtzAxBelxrCTxwtB/P0mE3okRpyVrj3MemncHVEeIkFdiyLxeLWICwrNK20
+	Z12txQTJzEEUHPlQUFb+FUy02ukhI0Ad3/wW9OrXtbiIAzqpGCvWZVhH7lToNx2u
+	CkPZWw5ENNBsrfWOiXAH6IcD0s6Nx2m8nWY04z5e6dQB4L5RaHnObgDcCraVS1X0
+	17uEgFfVOVVind2F0TuH8+x7UY6ts+s3rMKzznQ==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
+	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
+	action=mi-m=1; hc=13;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,reply-to,
+	subject,to;
+Message-Instance: m=1; h=sha256:zCeJv1oSa/FXffmdS3DaYAv46VkeiwFxZsbn3o9NEnA=:Ni8lHN7obetJJcbnzWLnxjIbJtuffAppjJm7oFJiaX4=;
+X-ME-Sender: <xms:MZ3ZavdKotuPGMxGS4i38JCx37KAxiF5vA8fjclNu5WrUj6xRuxYLA>
+    <xme:MZ3Zany129PAMB12uzzz_MwY3Q2tYQ8JYGJ0pu6dweIOBjktdjljdSeXPPw1vgJh2
+    VpmaGky5DqnyJ-tUFr1LwRSVFOk57bK8OSyyyKQqtOBK2CM>
+X-ME-Received: <xmr:MZ3ZasKCB_dU5uTfN1_dxb3Jrbqos1_ZDYPnSaTjZd9pqDwMvlYVbLHfNYiSJnFmGmBAsTqrnFx7cOUz54l0UIh6M_IrwvY>
+X-ME-Proxy-Cause: dmFkZTFWFAlgsGMpytjkPGmeM6d3e27AzhhHijeP8GQWhjVC5jRjKlEFBVZg1fQV5SEt0h
+    d5ZG5Zlco5makfByakQwEn2HkcVEBuJ/Cqz4ue3AzlnavwJU+rWDxLsf8nFZpJI7BOtYnc
+    b/mmpixdb7wSKQmOhPxZmmsPn6h75Mnh3OQSgy982S4vkwweC+34Y78mwZPIoRE/F4X3qF
+    NCE40k8UPXjTXuNHkxKyg+TX5ciqNotkFXDKDSQr52kXdmxHQSPKeE+17+MYQCSc7f0BBh
+    GKuOLHbDcRneOPlHgxqxTwO/5M2Xm4mRsjy4Dwhrie7Ed4S3RcP67t6Ti9+N40X3ELLqYk
+    /U/KMCq2GisM6zxKMsVBFd6+PoG8ccfi6cjmYoy4hZt0UgVEmXUCk64mjZEg109CHbLEh9
+    Y/aG84PTCcyOQssnQm10Pj1d48pR/OUMpjx1ZsoQl0DyyhNFARVW9xftalE93omSpf1mNG
+    I+cRBZcqRcR7aLbR4J1F74i86yK4AG5oYVVdLu13x2gWsj2KbXGwixJr1cOc7EIDWPCHtz
+    f38OxQKktrTkwjQV8bxiKBbNIIzyfXZ+Fy8l8mjheNHCQXH6UkMa0PgsoE1LEninEFnT5w
+    zlxvS7oE0ndso0tqWVijat4MYzKdtffLlWyRuEPo8WRrggbiCXUyolwZlfLw
+X-ME-Proxy: <xmx:MZ3ZahGuEcKCdyQpOqVcl3zI4Eit2Gk8YlZ6ee9t_FrCSiXYXdda5Q>
+    <xmx:MZ3Zag-TFjutNoGgzzPpZK0JDDG6Lt4QjkTsatXuy-6UUqV4He7w1Q>
+    <xmx:MZ3ZapLNMRZHH44e4_YyGQ64qe0I-Nm09sFbblIRwCWaDQ9opQgtXg>
+    <xmx:MZ3ZamuvhBmogwhtJlRJFovHa3Q4QL7T1otfhJpbSwpJ0vGKus3Jkw>
+    <xmx:MZ3ZatPkc84RqRW46l1jDAVGYlju3lsy_x7y3iEexAQ5hludri1bMnEE>
+Feedback-ID: i9d664b8f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 22 Oct 2026 01:20:47 -0400 (EDT)
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,55 +118,153 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261019134709.2610129-1-andrew.jones@linux.dev> <atZPqGKEip_sW3fr@orel>
-In-Reply-To: <atZPqGKEip_sW3fr@orel>
-From: Anup Patel <anup@brainfault.org>
-Date: Thu, 22 Oct 2026 10:50:32 +0530
-X-Gm-Features: AclHuK8Srkuid1EQZ7HZGvxQuXz3bcbCHVgrlN5FrFRdxoTbUp0B6JefKaok7ws
-Message-ID: <CAAhSdy0KvbHT6iShPfMkhePP0V2cVohv6WcHWieWLwZYqkFnjg@mail.gmail.com>
-Subject: Re: [PATCH v2] RISC-V: KVM: Convert IMSIC vsfile_lock to a raw spinlock
-To: Andrew Jones <andrew.jones@linux.dev>
-Cc: kvm-riscv@lists.infradead.org, atish.patra@linux.dev, pjw@kernel.org, 
-	palmer@dabbelt.com, kvm@vger.kernel.org, linux-riscv@lists.infradead.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+From: NeilBrown <neilb@ownmail.net>
+To: "Ian Kent" <raven@themaw.net>
+Cc: "Alexander Viro" <viro@zeniv.linux.org.uk>,
+ "Christian Brauner" <brauner@kernel.org>, "Jan Kara" <jack@suse.cz>,
+ "Amir Goldstein" <amir73il@gmail.com>, linux-fsdevel@vger.kernel.org,
+ linux-kernel@vger.kernel.org, "Jake Edge" <jake@lwn.net>
+Subject: Re: [PATCH v4 1/5] VFS: don't count references through ->d_parent
+In-reply-to: <9fa5947c0e40f629044f22cf5ebbaa9bf3d6d6fd.camel@themaw.net>
+References: <20261019000810.1837917-1-neilb@ownmail.net>
+  <20261019000810.1837917-2-neilb@ownmail.net>
+  <179257644849.1724252.12278532043596915181@noble.neil.brown.name>
+  <fc2c9191a50a782fa6560349060ddfd763ec2ab0.camel@themaw.net>
+  <9fa5947c0e40f629044f22cf5ebbaa9bf3d6d6fd.camel@themaw.net>
+Date: Thu, 22 Oct 2026 16:20:43 +1100
+Message-id: <179264644322.1724252.1549706826156439157@noble.neil.brown.name>
+Reply-To: NeilBrown <neil@brown.name>
 
-On Mon, Oct 19, 2026 at 10:46=E2=80=AFPM Andrew Jones <andrew.jones@linux.d=
-ev> wrote:
->
-> On Mon, Oct 19, 2026 at 03:47:09PM +0200, Andrew Jones wrote:
-> > kvm_riscv_vcpu_aia_imsic_put() runs from the scheduler preemption
-> > notifier with the raw runqueue lock held, so it must not take
-> > vsfile_lock, an rwlock_t, which sleeps on PREEMPT_RT. All vsfile_lock
-> > critical sections are short, so a raw spinlock is fine.
-> >
-> > Fixes: 4cec89db80ba ("RISC-V: KVM: Move HGEI[E|P] CSR access to IMSIC v=
-irtualization")
-> > Signed-off-by: Andrew Jones <andrew.jones@linux.dev>
-> > ---
-> > v2:
-> >  - Convert vsfile_lock to raw_spinlock_t instead of adding a separate
-> >    hgei_lock [Anup]
->
-> Hi Anup,
->
-> Sashiko found an ABBA deadlock with this v2[1]. Making vsfile_lock
-> exclusive serializes kvm_riscv_vcpu_aia_imsic_put(), which runs under
-> rq->__lock, against the SW-file inject paths, which kick the vCPU
-> (pi_lock/rq->__lock) while holding vsfile_lock. Lockdep confirms it with
-> an EMUL mode guest, and the host then hangs (I should have tested with
-> EMUL before...). v1 doesn't have the problem, since its hgei_lock never
-> has anything that wakes tasks nested under it. I tested v1 in both EMUL
-> mode and hwaccel mode [again] with lockdep and it's good.
->
-> Should we take v1 instead?
->
-> [1] https://sashiko.dev/#/patchset/20261019134709.2610129-1-andrew.jones@=
-linux.dev?part=3D1
->
+On Thu, 22 Oct 2026, Ian Kent wrote:
+> On Wed, 2026-10-21 at 19:47 +0800, Ian Kent wrote:
+> > On Wed, 2026-10-21 at 20:54 +1100, NeilBrown wrote:
+> > > On Mon, 19 Oct 2026, NeilBrown wrote:
+> > > > From: NeilBrown <neil@brown.name>
+> > > >=20
+> > > > The number of negative child dentries that a given dentry can
+> > > > have
+> > > > is
+> > > > effectively unbounded, so counting the references through -
+> > > > > d_parent can
+> > > > overflow ->d_lockref.count.
+> > > >=20
+> > > > We only use this count so that we can know when there are no
+> > > > remaining
+> > > > references including from children.=C2=A0 However most children appear
+> > > > on the
+> > > > ->d_children list and the few remaining children (inactive
+> > > > DCACHE_DENTRY_CURSORs) only exist in a context were a separate
+> > > > reference
+> > > > is held on the parent.
+> > > >=20
+> > > > So if we count whether d_children is nonempty (i.e.=C2=A0 dget() when
+> > > > it
+> > > > becomes non-empty, dput() when it comes empty) and require
+> > > > children
+> > > > not
+> > > > on ->d_children to have a reference on the parent some other way
+> > > > (which
+> > > > they already do), then ->d_lockref.count will not overflow and we
+> > > > can
+> > > > still know exactly when all references, including through -
+> > > > > d_parent,
+> > > > are gone.
+> > >=20
+> > > sashiko discovered a real bug here as autofs depends on d_count()
+> > > including the number of child dentries.=C2=A0 This is easily fixed.
+> > Umm ... oops!
+> >=20
+> > Yes it does but that's purely to establish if there's any additional
+> > references held indicating an open file or working directory within
+> > the directory although I'm not sure I actually use it for individual
+> > directories. The mount reference count changes that Al did some time
+> > ago should mean that ino_count can be eliminated and the mount count
+> > alone used instead.
+>=20
+> Ok, so I "do" use this to check if an individual directory is in use
+> but your right about it being a straight forward change. All that
+> should be needed is special casing empty directories and removing the
+> increment/decrement of ->ino_count in ->mkdir() and ->rmdir(). You
+> shouldn't need to worry about directories that aren't empty since they
+> shouldn't be covered by a mount so autofs won't be looking to expire
+> them.
 
-Okay, we will go ahead with your v1.
+I'd rather make an "obviously correct" transformation, where instead of
+assuming d_count(dentry) includes "ino_count", we assume it includes
+"ino_count > 1".
+i.e.  1 if not-empty, zero if empty.  That is exactly how d_count()
+handles children after that patch.
 
-Regards,
-Anup
+That turned into a longer patch that I hoped because the local variable
+"ino_count" which was already misleadingly named, became if more
+disconnected from the the actual ino_count.
+
+Below this is what I have.
+Thanks,
+NeilBrown
+
+
+--- a/fs/autofs/expire.c
++++ b/fs/autofs/expire.c
+@@ -208,15 +208,18 @@ static int autofs_tree_busy(struct vfsmount *mnt,
+ 			}
+ 		} else {
+ 			struct autofs_info *ino =3D autofs_dentry_ino(p);
+-			unsigned int ino_count =3D READ_ONCE(ino->count);
++			unsigned int use_count;
++
++			/* allow for 1 if there are any children */
++			use_count =3D READ_ONCE(ino->count) > 0;
+=20
+ 			/* allow for dget above and top is already dgot */
+ 			if (p =3D=3D top)
+-				ino_count +=3D 2;
++				use_count +=3D 2;
+ 			else
+-				ino_count++;
++				use_count++;
+=20
+-			if (d_count(p) > ino_count) {
++			if (d_count(p) > use_count) {
+ 				top_ino->last_used =3D jiffies;
+ 				dput(p);
+ 				return 1;
+@@ -321,7 +324,7 @@ static struct dentry *should_expire(struct dentry *dentry,
+ 				    unsigned int how)
+ {
+ 	struct autofs_info *ino =3D autofs_dentry_ino(dentry);
+-	unsigned int ino_count;
++	unsigned int use_count;
+=20
+ 	/* No point expiring a pending mount */
+ 	if (ino->flags & AUTOFS_INF_PENDING)
+@@ -375,9 +378,11 @@ static struct dentry *should_expire(struct dentry *dentr=
+y,
+ 	if (!(how & AUTOFS_EXP_LEAVES)) {
+ 		/* Not a forced expire? */
+ 		if (!(how & AUTOFS_EXP_FORCED)) {
++			/* dentry has any children? */
++			use_count =3D READ_ONCE(ino->count) > 0;
+ 			/* ref-walk currently on this dentry? */
+-			ino_count =3D READ_ONCE(ino->count) + 1;
+-			if (d_count(dentry) > ino_count)
++			use_count +=3D 1;
++			if (d_count(dentry) > use_count)
+ 				return NULL;
+ 		}
+=20
+@@ -392,9 +397,11 @@ static struct dentry *should_expire(struct dentry *dentr=
+y,
+=20
+ 		/* Not a forced expire? */
+ 		if (!(how & AUTOFS_EXP_FORCED)) {
++			/* dentry has any children? */
++			use_count =3D READ_ONCE(ino->count) > 0;
+ 			/* ref-walk currently on this dentry? */
+-			ino_count =3D READ_ONCE(ino->count) + 1;
+-			if (d_count(dentry) > ino_count)
++			use_count +=3D 1;
++			if (d_count(dentry) > use_count)
+ 				return NULL;
+ 		}
+=20
