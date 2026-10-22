@@ -1,57 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=34.202.193.197
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792668493;
-	b=m7NGu94wA6KK4mlTQLL/jZ5LEMyke/Pd17IBhp6RMo7pQ9xrq4ERC/JKRA1GD/MnF0o6
-	 eqNYdpSXC74q4PF9VK0fzcgIdTVcUm2TmJfWG4sPL25x40h7Q4TZlw9YAH+edpJRA91XC
-	 1RyNOvJiIKqB4B0N+XOQYnqeJsBKlMVupeE1kE9yVFw+qVGUmn2L8Lrcuxk8WN3J8Mll2
-	 8VLKfO73cm+1tTigAEK9R3BBG8qmEFiv3/KunUWi1NKyk6pFgrD/TKlD8+OLWqYjTc1iX
-	 seRP5fBXp6CdLg0qMoXHyYaqMbwpANTqZP9t614Ht+fDcnvwm2F8cFGMm1ZNf/QrlbQ==
+	t=1792668478;
+	b=I18LqPlt/I3dGB5lKfnOtxMd98yDuEkQ9YwSbcHHG6+XDrSIx44QHH7lwj4waxlthjJ6
+	 /ujnVLt6+E0oh53+YuKQnVykysr83BGLyH10KdqCjtkK93pUpJnDjLU1nXaT6szG1bXij
+	 SNYMcNYJdtYm/YnwI4i0vy00v4tcpGZK6ZalL6BXFVQAiwf3QG/mIL8IZiXJKBZA+2l02
+	 gjpT8QusyO3TFqytUE2R1phLlfNHui1NYjRvelsq39gqbY6vU9ZZX0TBEze5uGE6jssZN
+	 UBkOf8Umz2fixaDM9717v9oFgmUSSWBtQR8+rgppvWj1ouUK/2Kz9UEHM/IXVPsC1bw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792668493;
-	h=DMARC-Filter:DKIM-Signature:Feedback-ID:X-Pm-Original-To:Received:
-	 Received:X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:
-	 X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:Subject:To:Cc:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=J6YI7+gHBY7EK1SmqLnbwCa4P9bf8M/zCyX1MY9akck=;
-	b=ENWynX7JTUr49PIzBRdwtEQ45k0T3dySPcPOaybSeOQTsVjiwKMYL1lHYvz/ZKK50UiQ
-	 A2LhMbe4nrDpQiXAysZnLGcambnA9nIXnY4lKQSVHFzczaGDy0cyz4ikgd4FKgiVuV1xs
-	 ZUsayoOUJKUHz6VfgyTy9H5DoDfcTy0686hpFyIaHBnf8xM/3akNqAnsncjW23Bakv4oe
-	 pZq8PlKHcaNLHEhYPK8k+dv5cBFHiYo6GkiyA7Y9dk7IHkuFyazbJHR2emCYaaiDTjaqg
-	 sVrFrrEq9GWjGzE808BDl8mTtDEADLS3QqyJhrTNtRujz0+0/C/axCNfFTI/lij96Iw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792668478;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:
+	 References:MIME-Version:Content-Transfer-Encoding:
+	 X-Proofpoint-Reinject:X-QCInternal:X-QCInternal:X-Proofpoint-GUID:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=QMYP8ijA1WpgdLtyfabSG4b/YDwMHHYnoLHhmHn5e5c=;
+	b=fxC+EfzRamnH586vaO0Z/mLOipuuBCVQlzqszuZxQG+KdcZom33e382g//B6Pd5eMjmh
+	 PaCACGNjfF9FgjqwHJwYd9IcLKh9rB7Wo/jyeo61bUPPg4EU+R7YcFG6jEQqCTcdpjTkZ
+	 YLwmlo/sgjYVO6eiT1Nr7gI4Z9wxndpTAz8V7giwy0TQmAuMCbo2Y6ybLhP9835u9vkxp
+	 jcbmITs7NsXJeMVwnrHjW1CRQkQDoN0QbaJz/tLMzQtQ60pjiTKo16kB4DENRMcFpB0Ft
+	 OFrKKXZkBwaByhQ+6+1sAp5US7ICyRrfTBvS6V3W6LH9MAo/ftKRorZ5bgmcmWND/fA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=maurycy.com;
-	spf=pass smtp.mailfrom=maurycy.com;
-	dkim=pass header.d=purelymail.com header.i=@purelymail.com header.a=rsa-sha256 header.s=purelymail1 header.b=PoOa8oqT;
-	arc=none smtp.remote-ip=34.202.193.197
-Received: from sendmail.purelymail.com (sendmail.purelymail.com [34.202.193.197])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=PB0p4wec;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3509E606A328
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 11:28:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3509E606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=maurycy.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=maurycy.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5416B606A319;
+	Thu, 22 Oct 2026 11:27:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5416B606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=purelymail.com header.i=@purelymail.com header.a=rsa-sha256 header.s=purelymail1 header.b=PoOa8oqT
-DKIM-Signature: a=rsa-sha256; b=PoOa8oqTHHzq2eWlaVeWRZWPttRylgZeGc77gm1dVoZP1Qg0ezHLZ7ZDXz8gCBpEHG8WUVKxARldkn/rKFzE1b5k3zKLA2XeXLZjGZ35lgnSoa66wOBhvm548ug225aug9T4PZAYkjpan5XbntlEMb4fgmmtPeepj4iGedZ+NK4DKXW0pq9GenJsYol4kOvxZJ9tcx3jr8he20rq11UgbKev/NkPSnuhSHgzyFSiwx9U/gh0qXOEn0kDIvSb/Linm9330akJEcUfwSpf7vHNJ4G/f6Ir/g73pKJsJ4k4JsF0yYkmiCqbnTSfbfcDLPH+6VL0AT6jFbxWNmdwMmEq2A==; s=purelymail1; d=purelymail.com; v=1; bh=mimxsNqhVnd0lCdCb8owKuPr5DmEBgQ0iSGfQxmJLIA=; h=Feedback-ID:Received:Received:From:Date:Subject:To;
-Feedback-ID: 1351280:50731:null:purelymail
-X-Pm-Original-To: linux-kernel@vger.kernel.org
-Authentication-Results: purelymail.com; auth=pass
-Received: by smtp.purelymail.com (Purelymail SMTP) with ESMTPSA id -193871350
-          for <linux-kernel@vger.kernel.org>
-          (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
-          Thu, 22 Oct 2026 11:28:09 +0000 (UTC)
-Received: by mail-pf1-f171.google.com with SMTP id d2e1a72fcca58-8a070b3f44aso649428b3a.2
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 04:28:09 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBx0K62mqCAfSS+5S2d1H0O/ryFe/TIRX2xaO9p1aIpXnECSQPADWOmJWrP3rrfIcAOwtGIjJeBBybbHEEM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ4cpCr3P3CRLYW12agt4A5h8nvkGcwTRVs48l1d5vi9vraLQJr
-	EmsU9UPIqKqDpASsi1l/agTXIdb3W6SvX7Oklgqs0zwH8QFGtmGjOH0uTKuO8C/tNGHVKy1TjHc
-	sTA0iVEvxCLDLvABrYEnuP+mLGPsHioE=
-X-Received: by 2002:a05:6a21:6b18:b0:3e2:200b:dc1f with SMTP id
- adf61e73a8af0-3e287f3fd67mr3785808637.74.1792668488506; Thu, 22 Oct 2026
- 04:28:08 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=PB0p4wec
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69MA07If3427109;
+	Thu, 22 Oct 2026 11:27:50 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=qcppdkim1; bh=QMYP8ijA1Wp
+	gdLtyfabSG4b/YDwMHHYnoLHhmHn5e5c=; b=PB0p4wec7sLzxQMVZKfCXz/YLRJ
+	4dc0KviMAqEmzcfDcGjjaSrtxAzwMQEW8YJkJYhfTiCSF4vnK/sQ87bnM26/toBm
+	2Btrk1rynFQh0xDyim/MAWMe+X27bFUcIeLAK0+1k4Dkkpssery8Ql0RBvR9WBt7
+	2rb0QsxWLuxt7QK1L+1nABVwzJhr3hz+J9NTWk92UkMV9FecehsPal8GACsMMsmx
+	Q/zYNRND1WH1KbYtcDRPYah1VF6mIJ2mmK0A/Ev7N1FOajcHSgWA7S9peKbF3dll
+	uHl3PbVFHk3DM/5cWqWbMlUObcdGrUaQdI2UtyGjeCjbHdJojyhxWiVcmGw==
+Received: from apblrppmta01.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hfewq1a4q-5
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Thu, 22 Oct 2026 11:27:49 +0000 (GMT)
+Received: from pps.filterd (apblrppmta01.qualcomm.com [127.0.0.1])
+	by APBLRPPMTA01.qualcomm.com (8.18.1.11/8.18.1.11) with ESMTP id 69M9hdKl2064296;
+	Thu, 22 Oct 2026 09:43:39 GMT
+Received: from hu-devc-hyd-u22-c.qualcomm.com (hu-ks5-hyd.qualcomm.com [10.147.255.18])
+	by APBLRPPMTA01.qualcomm.com (PPS) with ESMTPS id 69M9hdAO2064286
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Thu, 22 Oct 2026 09:43:39 +0000 (GMT)
+Received: by hu-devc-hyd-u22-c.qualcomm.com (Postfix, from userid 4763723)
+	id 5C22E655; Thu, 22 Oct 2026 15:13:38 +0530 (+0530)
+From: Karthik S <karthik.s@oss.qualcomm.com>
+To: Srinivas Kandagatla <srini@kernel.org>,
+        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+Cc: linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Karthik S <karthik.s@oss.qualcomm.com>
+Subject: [PATCH v1 3/5] ASoC: qcom: q6apm-dai: Add 32-bit sample format support
+Date: Thu, 22 Oct 2026 15:13:11 +0530
+Message-Id: <20261022094313.1074873-4-karthik.s@oss.qualcomm.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261022094313.1074873-1-karthik.s@oss.qualcomm.com>
+References: <20261022094313.1074873-1-karthik.s@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,126 +89,79 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261022111700.1288273-1-hengyul@cs.unc.edu>
-In-Reply-To: <20261022111700.1288273-1-hengyul@cs.unc.edu>
-From: Maurycy Pawlowski-Wieronski <maurycy@maurycy.com>
-Date: Thu, 22 Oct 2026 13:27:32 +0200
-X-Gmail-Original-Message-ID: <CANFf4eCN7rRRfts1pQozdAq2Nn_eKJCSBTAGNjx1BOEKTtLN-Q@mail.gmail.com>
-X-Gm-Features: AclHuK9kQpiKgR2aJ0KID_d9uvfCjDr7iW2kpKGkhhqYBC0Tuy32_mm2vN23hJs
-Message-ID: <CANFf4eCN7rRRfts1pQozdAq2Nn_eKJCSBTAGNjx1BOEKTtLN-Q@mail.gmail.com>
-Subject: Re: [PATCH v2] hfsplus: fix truncated xattr names in listxattr()
-To: Hengyu Liang <hengyul@cs.unc.edu>
-Cc: slava@dubeyko.com, glaubitz@physik.fu-berlin.de, frank.li@vivo.com, 
-	kees@kernel.org, justinstitt@google.com, linux-fsdevel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-QCInternal: smtphost
+X-QCInternal: smtphost
+X-Proofpoint-GUID: XspQ2f66aXUmJ56UIIzG4lRogEd0702N
+X-Proofpoint-ORIG-GUID: XspQ2f66aXUmJ56UIIzG4lRogEd0702N
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIyMDA0NSBTYWx0ZWRfX4tGcQQ2JwHTA
+ kwJOoGjHgjRF8M30d5H3bByMybMxUJhadf+I7uAzohRCYm/+Qe9CF73PGU2LwTiIBJ54r7D1tGj
+ 06tzGJX+8bpZlhTV4MtdbIhLuX1f1ww=
+X-Authority-Analysis: v=2.4 cv=G4OJgNk5 c=1 sm=1 tr=0 ts=6ad9f335 cx=c_pps
+ a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=rJkE3RaqiGZ5pbrm-msn:22 a=EUspDBNiAAAA:8 a=0GeEMZVGUYcv1euD6hYA:9
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIyMDA0NSBTYWx0ZWRfX9zp6NQvQmptL
+ LFcCe9L9iOpxJkQhneKftQbxHm0szISJOKH61JNxVAnoUOdHJjjfWEv7vK9YWFfTQZWXUnQIrxx
+ Gm/64+WIAjlO2wXDcw6VYY6B+sqtOlT8Y87eJitdc5czar5VmJnatwTtbQ38yuMjqrWDc2dwUIF
+ 4QIRv/pNvt+ZyoeobeuQl36QQM/cWpJaLS+2wprbjRWFGeraS35H+PAoC7nYakjpw9iPXOVtAz7
+ lIPfxrNOpFfE96DoL20X3rFY5ax1CQkikvJ8MNJ5at1q8exvfm01Ycew47zdmplyiTmkq37IANV
+ dAxcVscCGxOuON6T+fwpKaUE3zgjpfg0aGU0KP9/KCnWOBJ9aijvelrakzhB8IUZ+J7h0LsuaAR
+ 0aC3ZfR4vP7esh9s3sVuiQQiz9iwdb2v8rDapbtF4nXtCpmHDxaQ+W6lUJRRTYkp7niDZtSVf+1
+ UXo+dja4b80OdmmNmWw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-22_04,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 clxscore=1015 phishscore=0 lowpriorityscore=0 bulkscore=0
+ impostorscore=0 adultscore=0 malwarescore=0 spamscore=0 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610220045
 
-I'm sorry for the late response. Fine with me! Everything looks good
-to me. Thank you for keeping me as the author.
+Add SNDRV_PCM_FMTBIT_S32_LE to the supported formats for both capture
+and playback hardware descriptors, and handle SNDRV_PCM_FORMAT_S32_LE
+in q6apm_dai_hw_params() to set bits_per_sample to 32.
 
+Signed-off-by: Karthik S <karthik.s@oss.qualcomm.com>
+---
+ sound/soc/qcom/qdsp6/q6apm-dai.c | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
 
-On Thu, Oct 22, 2026 at 1:17=E2=80=AFPM Hengyu Liang <hengyul@cs.unc.edu> w=
-rote:
->
-> From: Maurycy Pawlowski-Wieronski <maurycy@maurycy.com>
->
-> Commit 7dcbf17e3f91 ("hfsplus: refactor copy_name to not use strncpy")
-> made copy_name() build names in the osx. namespace with scnprintf().
->
-> However, the size passed to scnprintf() leaves no room for the
-> terminating NUL, so the last character of the name is dropped. As of
-> now, listxattr() returns every osx. name without its last character,
-> and these names cannot be passed back to getxattr().
->
-> The issue can be reproduced with:
->
->     truncate -s 64M hfs.img
->     mkfs.hfsplus hfs.img
->     mount -o loop hfs.img /mnt
->     touch /mnt/file
->     setfattr -n osx.test -v 1 /mnt/file
->     getfattr -m - /mnt/file
->
-> Without this patch, getfattr lists "osx.com.apple.FinderInf" and
-> "osx.tes". With this patch, it lists "osx.com.apple.FinderInfo" and
-> "osx.test".
->
-> This patch adds room for the NUL to the size passed to scnprintf().
->
-> Fixes: 7dcbf17e3f91 ("hfsplus: refactor copy_name to not use strncpy")
-> Cc: stable@vger.kernel.org # v6.10+
-> Signed-off-by: Maurycy Pawlowski-Wieronski <maurycy@maurycy.com>
-> Signed-off-by: Hengyu Liang <hengyul@cs.unc.edu>
-> ---
-> Changes in v2:
-> - Rewrite the commit message. No code change.
-> - v1: https://lore.kernel.org/r/20260828-hfsplus-copy_name-fix-v1-1-75ed9=
-f0f378c@maurycy.com
->
-> Maurycy, v1 got no follow-up, so I am resending it as Viacheslav asked
-> in the thread below, with you kept as the author. Let me know if you
-> would rather send it yourself.
-> https://lore.kernel.org/r/dc187921249a3f6716b829624853e64c10321cd1.camel@=
-dubeyko.com
->
-> Answers to the questions on v1:
-> - generic/377 passes with and without this patch. It only uses user.
->   names, which go through the strscpy() branch. That branch already
->   passes name_len + 1. No xfstests test uses osx. names.
-> - Why + 1 helps: the prefix and the name are name_len +
->   XATTR_MAC_OSX_PREFIX_LEN characters long, and scnprintf() writes at
->   most size - 1 characters before the NUL. Zeroing the buffer first
->   does not help, as the last character is never written.
-> - Why the write stays in bounds: both callers check that the buffer
->   has room for name_len() bytes, which covers the prefix, the name and
->   the NUL, before calling copy_name(). This is also the number of bytes
->   copy_name() wrote before commit 7dcbf17e3f91.
-> - All xfstests: see the full run below.
->
-> Tested in KVM with KASAN on a804c5742bff, without and with this patch:
-> - The commands above, and a C test that compares listxattr() with the
->   names set on files and a directory: short, long (up to 127
->   characters) and non-ASCII osx. names, FinderInfo, and user. and
->   trusted. names. Without the patch, every osx. name loses its last
->   character, fewer bytes are copied than the size query returns, a
->   buffer one byte short does not get -ERANGE, and getxattr() fails on
->   the listed osx. names. With it, the names match, the copied length
->   equals the size query, and a buffer one byte short gets -ERANGE.
->   KASAN reported nothing with exact-size buffers.
-> - generic/377 and generic/062: 5/5 passed on both kernels.
-> - Full fstests (805 generic tests, 608 not run on both kernels): 188
->   passed and 9 failed without the patch, 187 and 10 with it. The only
->   difference is generic/617, which fails on both kernels most of the
->   time (19 of 20 reruns without the patch, 18 of 20 with it).
->   fsck.hfsplus -fn reported no errors.
->
->  fs/hfsplus/xattr.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
->
-> diff --git a/fs/hfsplus/xattr.c b/fs/hfsplus/xattr.c
-> index 71364e093fa7..470f090b2699 100644
-> --- a/fs/hfsplus/xattr.c
-> +++ b/fs/hfsplus/xattr.c
-> @@ -515,8 +515,8 @@ static ssize_t copy_name(char *buffer, const char *xa=
-ttr_name, size_t name_len)
->         memset(buffer, 0, name_len);
->
->         if (!is_known_namespace(xattr_name)) {
-> -               len =3D scnprintf(buffer, name_len + XATTR_MAC_OSX_PREFIX=
-_LEN,
-> -                                "%s%s", XATTR_MAC_OSX_PREFIX, xattr_name=
-);
-> +               len =3D scnprintf(buffer, name_len + XATTR_MAC_OSX_PREFIX=
-_LEN + 1,
-> +                               "%s%s", XATTR_MAC_OSX_PREFIX, xattr_name)=
-;
->         } else {
->                 len =3D strscpy(buffer, xattr_name, name_len + 1);
->                 if (len < 0) {
->
-> base-commit: a804c5742bff224d4cb4d25dd383554d598be32b
-> --
-> 2.53.0
->
->
+diff --git a/sound/soc/qcom/qdsp6/q6apm-dai.c b/sound/soc/qcom/qdsp6/q6apm-dai.c
+index 033197bdd870..ec9ae2276361 100644
+--- a/sound/soc/qcom/qdsp6/q6apm-dai.c
++++ b/sound/soc/qcom/qdsp6/q6apm-dai.c
+@@ -93,7 +93,8 @@ static const struct snd_pcm_hardware q6apm_dai_hardware_capture = {
+ 				 SNDRV_PCM_INFO_PAUSE | SNDRV_PCM_INFO_RESUME |
+ 				 SNDRV_PCM_INFO_NO_REWINDS | SNDRV_PCM_INFO_SYNC_APPLPTR |
+ 				 SNDRV_PCM_INFO_BATCH),
+-	.formats =              (SNDRV_PCM_FMTBIT_S16_LE | SNDRV_PCM_FMTBIT_S24_LE),
++	.formats =              (SNDRV_PCM_FMTBIT_S16_LE | SNDRV_PCM_FMTBIT_S24_LE |
++				 SNDRV_PCM_FMTBIT_S32_LE),
+ 	.rates =                SNDRV_PCM_RATE_8000_48000,
+ 	.rate_min =             8000,
+ 	.rate_max =             48000,
+@@ -113,7 +114,8 @@ static const struct snd_pcm_hardware q6apm_dai_hardware_playback = {
+ 				 SNDRV_PCM_INFO_PAUSE | SNDRV_PCM_INFO_RESUME |
+ 				 SNDRV_PCM_INFO_NO_REWINDS | SNDRV_PCM_INFO_SYNC_APPLPTR |
+ 				 SNDRV_PCM_INFO_BATCH),
+-	.formats =              (SNDRV_PCM_FMTBIT_S16_LE | SNDRV_PCM_FMTBIT_S24_LE),
++	.formats =              (SNDRV_PCM_FMTBIT_S16_LE | SNDRV_PCM_FMTBIT_S24_LE |
++				 SNDRV_PCM_FMTBIT_S32_LE),
+ 	.rates =                SNDRV_PCM_RATE_8000_192000,
+ 	.rate_min =             8000,
+ 	.rate_max =             192000,
+@@ -522,6 +524,9 @@ static int q6apm_dai_hw_params(struct snd_soc_component *component,
+ 	case SNDRV_PCM_FORMAT_S24_LE:
+ 		prtd->bits_per_sample = 24;
+ 		break;
++	case SNDRV_PCM_FORMAT_S32_LE:
++		prtd->bits_per_sample = 32;
++		break;
+ 	default:
+ 		return -EINVAL;
+ 	}
+-- 
+2.34.1
+
