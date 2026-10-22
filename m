@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792705119;
-	b=S1gUAZLb7Ne8lD7yW3YR8oT9syPZwo94a3eA3/VKT4pTLTtRctQ+hMyXyGTHwfubH937
-	 /OwtUzGijYpT6RaCGCgeWYV4kyUwQK6A7Wbq/4v1+37A39ZTv7iL4fazm6jy5TPBBfUFo
-	 cLBQSwrkjE58th9nkTOSY7/KS/g8iq8DJ5E9IxbLMFqmTFQPSuIKFqNKziZKnwR6jJtEl
-	 AT7k6ZrBb5WegF6LPcOXyv+JM6X+M752PL23vUy/ySCJvp9HI41sbujk/gfrJhwyJgG/u
-	 IKrK6v+C1Pw/ZCTnV2Mtjg0Ki46dg0+xdaZbqtsn0IHMS953BIh7XeZlA6IrqC/VgPQ==
+	t=1792705124;
+	b=ymepUOqGC13QLUR0k+5MhFwS00qoHxFxsgmWe91kPKyVA0Mt+CG9XX6sk+YwzycZGAsY
+	 19AhI+flnP4C+vSIr/nfcGAp/HK3JVaU5LQ3NjQrQgD+REDFw4WPkYNGXAITYmEsoS+Ia
+	 Vl7mIGUAvXTz+9u5RfTbUQnxenj1Dpgsv7BxYaMjQ7EByS3o9LmxkT6CSQSTKJ79MsAs4
+	 /T0mhoWPXDztaVlgmmcrADaZ41If8UHQQ+Pw6Bh9g0eZD+ruofUI1tRkE3oUGdLJFkJCL
+	 zTSPRraHjk1aULVCj6d4dI5wEL+d2QCz68XtnF2yejjaK5EZ/q8XOGKg7YzjfPunWJg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792705119;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792705124;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=OuFRntLsKWVkhln7NLPq021dG4sakpiOgmRybSJ2J70=;
-	b=QKHWirsxi9e3VQjgrrFX3GpV6d4Azq6bNnZ+CnNhs/pa521xbyLWug2W86yj4lVHKLsR
-	 XzZA9XmvwpDjADeefWRjgGtoWtpbxyVkzO82vK+skhJa04OCTXsL+FSx5WiHk1QpNs28y
-	 z8+yEiAOiol1pMPTMkZI+3LxZHuRic15wXS4JQBuaU8u/PMgDlgY4IwrsbJuOh/i9NVXQ
-	 WzdjRlopcd0A9Mlx/XjVdrRFqTv16rDAu6Aiyb9v3kUJ9uSfHUTqEqvjseVbpTaR5FIHG
-	 4Du0RZ7gfIjHRwnMOVBiTZvj/Vp0VpwSQB85S/N0a0XjR74TqE5WIQvWI2QbT79UFkA==
+	bh=CFMWau3x523G/OXdmBCHDdMrJAHVni272EgKPmjBESc=;
+	b=LjVsOPSDOrD/eTICFNjbzl21oXBKAM3h9EuUkG01gW09s1IJC8FEy/mvyCX+3dzAMPNK
+	 IqVJJslhrWkaiskNGU7bH3zFzqr8076nDcxSzv+0KYj6TNQFjnXpJivrn4RWWrHZ96if0
+	 K2DUvIvP7CG85F9H/82YXpYXRx/dIzbUdXLsAgR6S9DCTs3YUWEzec0PsKwrCPoPRd271
+	 7jGt8pasyBwJxIwU+Ufj4WGrCBWEgyDjxojzXKxgA2xN5OtrKXGhMWyO3+xsMP+FIsW6y
+	 KL9/eiJdedtOLPQyk0nTh3MPqZHeyFQpAfv1nNLj0Hk903U3J6O8tnYj1roEhcSom1A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kSD39q6u;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cjXyxJhF;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6E4C606A321;
-	Thu, 22 Oct 2026 21:38:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B426A606A337;
+	Thu, 22 Oct 2026 21:38:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kSD39q6u
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D5131F01825;
-	Thu, 22 Oct 2026 21:38:38 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cjXyxJhF
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 68BF51F031E2;
+	Thu, 22 Oct 2026 21:38:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792705118;
-	bh=OuFRntLsKWVkhln7NLPq021dG4sakpiOgmRybSJ2J70=;
+	s=k20260515; t=1792705123;
+	bh=CFMWau3x523G/OXdmBCHDdMrJAHVni272EgKPmjBESc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=kSD39q6uEYfGJjrFFV9LOsddZmhafa0ynYmA70IHa3zJeHfjW/VhTDwWwuLa1b34M
-	 WRYkoqqoHq+hIEN09nwjSNiLoJHAQ9BNj9smlKq/o4Gvb6IJkgjctMJjKng0nmCU3R
-	 etOecexHOer0S7ujdhpjhqQahZtL746OgxnBOXxjmnWlvr0hSD8IoysVTTH+3rxRoG
-	 cKLlCUD9yfpzQrFaoGlgn8koFz/fF4tb05AmBH5fNyhbs0/dAIYOSCJg1GqNdIJbBk
-	 t4lTCdDfBxhxRO121OaPnYDXF+MpmFpI/nsUZkUMo/0B1O5W3dYVYLWaBFu5XlaZL3
-	 uOKUY/nD9fuxg==
+	b=cjXyxJhFd13A+jFtlxiXk8qz86vTaYRpBZRTOuI2czU3R+h5Gr8Il1U1vJENFZHLZ
+	 uNu5EmZVCC4zxjNM+7r/sIF73R+Vun8hXXkWru5z0a5hADZY8QIg40TEqg3Igdjr91
+	 jzFZvQ30F804oYx0i+HC3h04aMDhcqt4ePBJuScR+R43cXWS5/tFz693XYQdQJ++wJ
+	 MxI2q7kOHSfxGlhrjqNLjxavs9pJYwZQh8/8BsBSdeiUUU2G7Hn7bw5DUigB9Oc7hu
+	 EefgVFcyZznD8YWl2SHIszAtS6Z6OOdnXkM/P5gxpc+55PndmlTkR07CEq9dEJf8/V
+	 N32oN6YZX1vzA==
 From: Tejun Heo <tj@kernel.org>
 To: sched-ext@lists.linux.dev
 Cc: David Vernet <void@manifault.com>,
@@ -48,9 +48,9 @@ Cc: David Vernet <void@manifault.com>,
 	David Dai <david.dai@linux.dev>,
 	linux-kernel@vger.kernel.org,
 	Tejun Heo <tj@kernel.org>
-Subject: [PATCH 01/14] sched_ext: Pack scx_ent_flags' multi-bit fields at the top
-Date: Thu, 22 Oct 2026 11:38:23 -1000
-Message-ID: <20261022213836.2259069-2-tj@kernel.org>
+Subject: [PATCH 06/14] sched_ext: Fix a cpu idling with a runnable rescuee
+Date: Thu, 22 Oct 2026 11:38:28 -1000
+Message-ID: <20261022213836.2259069-7-tj@kernel.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261022213836.2259069-1-tj@kernel.org>
 References: <20261022213836.2259069-1-tj@kernel.org>
@@ -65,116 +65,121 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The following patches add a flag for a kernel-owned slice to scx_ent_flags.
-The two 3-bit fields, the task state at bits 8 to 10 and the reenqueue
-reason at bits 12 to 14, sit right above the single-bit flags, so the new
-flag would have to take bit 11 or 15, out of sequence with the rest.
+A scheduler preempts a running rescuee like any other task by zeroing its
+slice. The rescue grant survives the preemption. put_prev_task_scx()
+restores the unserved remainder through scx_rescue_keep() and queues the
+rescuee at the tail of the local DSQ, behind whatever the scheduler wanted
+to run first.
 
-Pack the fields at the top of the word, below SCX_TASK_CURSOR, the state at
-bits 25 to 27 and the reason at bits 28 to 30, so that the single-bit flags
-continue from bit 8.
+That breaks down when the scheduler zeroes the slice but dispatches nothing.
+dispatch_one() keeps the previous task running only with slice left or, when
+nothing else is runnable, with its scheduler holding SCX_CAP_BASE on the cpu
+and not taking the last task through SCX_OPS_ENQ_LAST. A rescuee fails both
+once its slice is zeroed if its scheduler lacks BASE there or takes the last
+task:
 
-The renumbering changes the values a BPF scheduler reads from p->scx.flags.
-Nothing in the kernel or the in-tree schedulers hardcodes the numbers. The
-enum ABI table in tools/sched_ext/include/scx/enums_abi.autogen.h, kept for
-repairing enum values that a kernel's BTF truncates, is regenerated for the
-two fields. In the scx repository, scx_eevdf tests SCX_TASK_REENQ_IMMED and
-SCX_TASK_REENQ_PREEMPTED against SCX_TASK_REENQ_REASON_MASK. Those three
-names belong in its load-time enum table, so that they follow the running
-kernel. No behavior change.
+ 1. ops.tick() or scx_bpf_task_set_slice() zeroes the rescuee's slice
+ 2. the pick finds nothing else to run and settles on idle
+ 3. put_prev_task_scx() restores the remainder and queues the rescuee on the
+    local DSQ
+ 4. nothing reschedules the cpu, as the pick has settled and __schedule()
+    clears need_resched right after it
 
+The cpu idles with the rescuee queued until an unrelated wakeup or the
+rescue timer's escalation.
+
+Restore the remainder from dispatch_one() too. When nothing else is
+runnable, its last keep now keeps the rescuee running on the remainder, so
+the pick never settles on idle with a rescuee runnable. put_prev_task_scx()
+keeps handling a displaced rescuee, where another task won the pick.
+
+The new keep also covers bypassed tasks run under rescue in the following
+patches.
+
+Fixes: 5fd501744b10 ("sched_ext: Add bandwidth-limited rescue execution for stranded tasks")
 Signed-off-by: Tejun Heo <tj@kernel.org>
 ---
- include/linux/sched/ext.h                     | 11 +++++---
- .../sched_ext/include/scx/enums_abi.autogen.h | 28 +++++++++----------
- 2 files changed, 21 insertions(+), 18 deletions(-)
+ kernel/sched/ext/ext.c | 30 +++++++++++++++++++++++++++---
+ kernel/sched/ext/sub.c | 15 ++++++++-------
+ 2 files changed, 35 insertions(+), 10 deletions(-)
 
-diff --git a/include/linux/sched/ext.h b/include/linux/sched/ext.h
-index efd635a99309..b341c328948e 100644
---- a/include/linux/sched/ext.h
-+++ b/include/linux/sched/ext.h
-@@ -107,7 +107,10 @@ enum scx_ent_flags {
- 	SCX_TASK_RUN_TRACKED	= 1 << 7, /* task is in an ops.running()/stopping() session */
+diff --git a/kernel/sched/ext/ext.c b/kernel/sched/ext/ext.c
+index 4b976beb2f6d..b68674d7f762 100644
+--- a/kernel/sched/ext/ext.c
++++ b/kernel/sched/ext/ext.c
+@@ -3354,6 +3354,26 @@ static enum scx_dsp_verdict dispatch_one(struct rq *rq, struct task_struct *prev
+ 			verdict = SCX_DSP_PREV;
+ 			goto has_tasks;
+ 		}
++
++		/*
++		 * The scheduler preempts a rescuee like any other task by
++		 * zeroing its slice. The grant survives the preemption. The
++		 * rescuee gets the unserved remainder back and runs again
++		 * behind whatever the scheduler wanted to run first.
++		 *
++		 * Two sites restore the remainder. When another task won the
++		 * pick, put_prev_task_scx() restores it and queues the rescuee
++		 * at the tail of the local DSQ.
++		 *
++		 * When nothing else is runnable, the cpu must not go idle with
++		 * the rescuee queued. The keep above declined @prev, and a
++		 * reinsert from put_prev_task_scx() would come after the pick
++		 * settled on idle. Keep @prev running on the remainder here.
++		 */
++		if (unlikely(prev == scx_rescuee(rq)) && scx_rescue_keep(rq, prev)) {
++			verdict = SCX_DSP_PREV;
++			goto has_tasks;
++		}
+ 	}
+ 	rq->scx.flags &= ~SCX_RQ_IN_DISPATCH;
+ 	return SCX_DSP_NONE;
+@@ -3571,9 +3591,13 @@ static void put_prev_task_scx(struct rq *rq, struct task_struct *p,
+ 	}
  
  	/*
--	 * Bits 8 to 10 are used to carry task state:
-+	 * The multi-bit fields are packed at the top, below SCX_TASK_CURSOR, so
-+	 * that the single-bit flags stay contiguous from bit 0.
+-	 * If the slice is consumed, protection ends with it. A rescuee keeps
+-	 * going when a preemption or ops.stopping() zeroed its slice, see
+-	 * scx_rescue_keep().
++	 * If the slice is consumed, protection ends with it.
 +	 *
-+	 * Bits 25 to 27 are used to carry task state:
- 	 *
- 	 * NONE		ops.init_task() not called yet
- 	 * INIT_BEGIN	ops.init_task() in flight; see sched_ext_dead()
-@@ -116,7 +119,7 @@ enum scx_ent_flags {
- 	 * ENABLED	fully initialized and in sched_ext
- 	 * DEAD		terminal state set by sched_ext_dead()
++	 * A rescuee keeps going when a preemption or ops.stopping() zeroed its
++	 * slice. Here another task won the pick. scx_rescue_keep() restores the
++	 * unserved remainder and the reinsert below queues the rescuee at the
++	 * tail of the local DSQ. When nothing else is runnable, dispatch_one()
++	 * keeps the rescuee running on the remainder instead.
  	 */
--	SCX_TASK_STATE_SHIFT	= 8,
-+	SCX_TASK_STATE_SHIFT	= 25,
- 	SCX_TASK_STATE_BITS	= 3,
- 	SCX_TASK_STATE_MASK	= ((1 << SCX_TASK_STATE_BITS) - 1) << SCX_TASK_STATE_SHIFT,
+ 	if (!p->scx.slice) {
+ 		if (unlikely(p == scx_rescuee(rq)))
+diff --git a/kernel/sched/ext/sub.c b/kernel/sched/ext/sub.c
+index d3db1277118e..63d7876fe577 100644
+--- a/kernel/sched/ext/sub.c
++++ b/kernel/sched/ext/sub.c
+@@ -474,16 +474,17 @@ void scx_rescue_end(struct rq *rq)
+ }
  
-@@ -128,7 +131,7 @@ enum scx_ent_flags {
- 	SCX_TASK_DEAD		= 5 << SCX_TASK_STATE_SHIFT,
- 
- 	/*
--	 * Bits 12 to 14 are used to carry reenqueue reason. In addition to
-+	 * Bits 28 to 30 are used to carry reenqueue reason. In addition to
- 	 * %SCX_ENQ_REENQ flag, ops.enqueue() can also test for
- 	 * %SCX_TASK_REENQ_REASON_NONE to distinguish reenqueues.
- 	 *
-@@ -139,7 +142,7 @@ enum scx_ent_flags {
- 	 * CAP		sub-sched cap miss, see p->scx.reenq_reason_*
- 	 * PROXY	proxy state prevented a remote DSQ transfer
- 	 */
--	SCX_TASK_REENQ_REASON_SHIFT = 12,
-+	SCX_TASK_REENQ_REASON_SHIFT = 28,
- 	SCX_TASK_REENQ_REASON_BITS = 3,
- 	SCX_TASK_REENQ_REASON_MASK = ((1 << SCX_TASK_REENQ_REASON_BITS) - 1) << SCX_TASK_REENQ_REASON_SHIFT,
- 
-diff --git a/tools/sched_ext/include/scx/enums_abi.autogen.h b/tools/sched_ext/include/scx/enums_abi.autogen.h
-index 1186daa9cb14..05a460611c4d 100644
---- a/tools/sched_ext/include/scx/enums_abi.autogen.h
-+++ b/tools/sched_ext/include/scx/enums_abi.autogen.h
-@@ -120,24 +120,24 @@ static const struct __scx_enum_abi_val __scx_enum_abi_vals[]
- 	{ "scx_ent_flags", "SCX_TASK_IMMED", 0x20LLU },
- 	{ "scx_ent_flags", "SCX_TASK_PROTECTED", 0x40LLU },
- 	{ "scx_ent_flags", "SCX_TASK_RUN_TRACKED", 0x80LLU },
--	{ "scx_ent_flags", "SCX_TASK_STATE_SHIFT", 0x8LLU },
-+	{ "scx_ent_flags", "SCX_TASK_STATE_SHIFT", 0x19LLU },
- 	{ "scx_ent_flags", "SCX_TASK_STATE_BITS", 0x3LLU },
--	{ "scx_ent_flags", "SCX_TASK_STATE_MASK", 0x700LLU },
-+	{ "scx_ent_flags", "SCX_TASK_STATE_MASK", 0xe000000LLU },
- 	{ "scx_ent_flags", "SCX_TASK_NONE", 0x0LLU },
--	{ "scx_ent_flags", "SCX_TASK_INIT_BEGIN", 0x100LLU },
--	{ "scx_ent_flags", "SCX_TASK_INIT", 0x200LLU },
--	{ "scx_ent_flags", "SCX_TASK_READY", 0x300LLU },
--	{ "scx_ent_flags", "SCX_TASK_ENABLED", 0x400LLU },
--	{ "scx_ent_flags", "SCX_TASK_DEAD", 0x500LLU },
--	{ "scx_ent_flags", "SCX_TASK_REENQ_REASON_SHIFT", 0xcLLU },
-+	{ "scx_ent_flags", "SCX_TASK_INIT_BEGIN", 0x2000000LLU },
-+	{ "scx_ent_flags", "SCX_TASK_INIT", 0x4000000LLU },
-+	{ "scx_ent_flags", "SCX_TASK_READY", 0x6000000LLU },
-+	{ "scx_ent_flags", "SCX_TASK_ENABLED", 0x8000000LLU },
-+	{ "scx_ent_flags", "SCX_TASK_DEAD", 0xa000000LLU },
-+	{ "scx_ent_flags", "SCX_TASK_REENQ_REASON_SHIFT", 0x1cLLU },
- 	{ "scx_ent_flags", "SCX_TASK_REENQ_REASON_BITS", 0x3LLU },
--	{ "scx_ent_flags", "SCX_TASK_REENQ_REASON_MASK", 0x7000LLU },
-+	{ "scx_ent_flags", "SCX_TASK_REENQ_REASON_MASK", 0x70000000LLU },
- 	{ "scx_ent_flags", "SCX_TASK_REENQ_NONE", 0x0LLU },
--	{ "scx_ent_flags", "SCX_TASK_REENQ_KFUNC", 0x1000LLU },
--	{ "scx_ent_flags", "SCX_TASK_REENQ_IMMED", 0x2000LLU },
--	{ "scx_ent_flags", "SCX_TASK_REENQ_PREEMPTED", 0x3000LLU },
--	{ "scx_ent_flags", "SCX_TASK_REENQ_CAP", 0x4000LLU },
--	{ "scx_ent_flags", "SCX_TASK_REENQ_PROXY", 0x5000LLU },
-+	{ "scx_ent_flags", "SCX_TASK_REENQ_KFUNC", 0x10000000LLU },
-+	{ "scx_ent_flags", "SCX_TASK_REENQ_IMMED", 0x20000000LLU },
-+	{ "scx_ent_flags", "SCX_TASK_REENQ_PREEMPTED", 0x30000000LLU },
-+	{ "scx_ent_flags", "SCX_TASK_REENQ_CAP", 0x40000000LLU },
-+	{ "scx_ent_flags", "SCX_TASK_REENQ_PROXY", 0x50000000LLU },
- 	{ "scx_ent_flags", "SCX_TASK_CURSOR", 0xffffffff80000000LLU },
- 	{ "scx_exit_code", "SCX_ECODE_RSN_HOTPLUG", 0x100000000LLU },
- 	{ "scx_exit_code", "SCX_ECODE_RSN_CGROUP_OFFLINE", 0x200000000LLU },
+ /**
+- * scx_rescue_keep - Keep the rescue going for a preempted-out rescuee
++ * scx_rescue_keep - Keep the rescue going past a zeroed slice
+  * @rq: rq @p is running on
+- * @p: task under rescue whose slice is exhausted
++ * @p: task under rescue
+  *
+- * Called from put_prev_task_scx() to decide what an exhausted slice means for
+- * the rescuee. scx_rescue_charge() ends the rescue the moment the admitted
++ * Decide what an exhausted slice means for the rescuee. dispatch_one() calls
++ * this when nothing else is runnable and put_prev_task_scx() when another task
++ * won the pick. scx_rescue_charge() ends the rescue the moment the admitted
+  * slice is fully served, so arriving here with the rescue still open means @p
+- * was preempted. Restore the unserved remainder and return %true - @p stays the
+- * rescuee and the caller reinserts it at the tail of the local DSQ, behind
+- * whatever preempted the rescuee.
++ * was preempted. Restore the unserved remainder and return %true. @p stays the
++ * rescuee. dispatch_one() keeps it running and put_prev_task_scx() reinserts it
++ * at the tail of the local DSQ, behind whatever preempted the rescuee.
+  *
+  * Return %false to end the rescue instead - the slice is already fully served,
+  * @p is leaving the rq or bypass is dismantling rescues.
 -- 
 2.56.0
 
