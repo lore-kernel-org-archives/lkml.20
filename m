@@ -1,49 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792677247;
-	b=X+NpMFc2QHRATyaNHs69DLfc1/QkQK3ReFfiZctj9ngKdhbpYpKychSwSWaHZ6qv15F2
-	 Bm0KQtfPU0vH+GgPetJZ7ORioyCxUKsN0G3ulakc+xMUmiNI0gpgjXwwcetQ03IHueOC/
-	 iOFrKxycs9e4+aWgA8H3Lp8UsHQ/Yfh7VibxgjnuJq93hM919xShyqn5ynM2+8r0puLl/
-	 Buw4eucMuCmF/nnpULoxpyQIBtzm8OfbHbtXUxk2/ZjRjhtWQtEI5PcQXbfTDV76qV5QG
-	 OJkflXYJ+TOsD9+aqRA3MakUfMN+UF139WqxrUhRuR7c+xgzAB2HOkPLCY1p310BWaQ==
+	t=1792677251;
+	b=DXNZ0/2XkPdXPzBiAkxdfXDmT1mLM9tDH1yK2XQ2P5WnFlEk81wceVW7MQ4grLVp4+59
+	 AsVW2FVHfELvObXFaCPelG6CBKViAMXDm1gOzBMp2fW2lUOjxA5Cimhg0QgXYeYUAfgJJ
+	 MOhV+bySEdSnzjBCVfnQ428tQQctz0uFyVpt9alCIUMhlnAx62oMIYf9vdYzyrhH71BC3
+	 PRUVxKB7xht4Dki2oQCjTgRQvXU9dBeK5KG00uDo2AI24yBhi9UHirZhikDd+KgJmbpN8
+	 fO2URhsSa33yaKWMeGEnh7KXRozNfB3ji/Mcc2ieFcIHOY2oj4GgJDF/vL9wELCXXWQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792677247;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792677251;
 	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=luG8PmeuahdulGWPX7qVjLy6cKvtxIl5j6p+GIrFYDQ=;
-	b=2BbDazjAwglcAGJ7Cp2Xi+wdaRMWR4lNJ5mhReKvfdM1qhhoDYbOb8LyAbO8Hc8CUndi
-	 Jqzq3UXZ0UDuVnFRMJb6Fmu7cL2Tf/ETvKpvrXDm+jUpMCSyLoykaZIbvC0RsvQsUVAnW
-	 LnRTh6P10YFsSNFfr34NGVMtFMm4az6Ekl8mg5geAdr2O9IssWspnklo/vsizyWU+d1Gt
-	 rHk1FpRLrD143Qn2VFT6DpYyZOzi5Nw0Ug+ZGysO51thES3keHBE8RsmK3v9HRh/Hio9F
-	 aJKNlWwv3hMtvA9z+XdAbwMFhkkQAxQCgAmCd7k6Tm0a4Bjbd7Yc2AyESG/VIO9O3DQ==
+	bh=6ZzQsZGcg18quMqMh69zzhWreZ6eF7KFu7H5SdblfDY=;
+	b=Wy+drAVglsoDT2lYIQtfqqJwlMg2OyDSVEV4U/11zFpvXBB9v0+SHFZNfVV/urDu7pEO
+	 a4r9v03+vmz2eLrm9Mgs/OCyZbFg77mh/tPnH6ggVzU3a3MBoMyML+ZuxgX5OCVwLrD+h
+	 g7F4CzUTyO8hCMiQ+czKWgDIN9HukV8eGeb13fFI8eCwoWDRvPzA+qF/fV8H+NI2PgF9C
+	 JF6OV8QPVlbCZ9utHCqZOP7/b65MKDUqPnxVbF1nEa4MISXHBia6pCj3Rv0jroh0vbgdo
+	 fDHCh84Gs83OnKr12A8CFXHEaL3BU1CEXLy+wewBHx9SbJ+KAljgzx96i0d2CBXGQtQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oGO0R98I;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Vh9QJ85I;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E187606A33E
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 13:54:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6812606A33E
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 13:54:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oGO0R98I
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D7321F000C4;
-	Thu, 22 Oct 2026 13:54:06 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Vh9QJ85I
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2DE8A1F000C7;
+	Thu, 22 Oct 2026 13:54:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792677247;
-	bh=luG8PmeuahdulGWPX7qVjLy6cKvtxIl5j6p+GIrFYDQ=;
+	s=k20260515; t=1792677250;
+	bh=6ZzQsZGcg18quMqMh69zzhWreZ6eF7KFu7H5SdblfDY=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=oGO0R98ICV5dNLo5EknVb1VTxSuqn/EdWO5hO6OoUxxhHysNPrmWcUJRQqJLHe5Be
-	 p7ohlZdV5ppI3tu0DXpllJuxYu/bIy0bj3O/gHeEkEjdvpii/RsxXq903HRdv07VZH
-	 241udgfoTeJdOmxnD3gxLWZKKlaU4gDx9HuadxPXQuV5T9IaC5mTQtYGoAi4+l8wkf
-	 1P35UO1ujfNa7EoYdNB+WshPsRXi9T9vdFYGeZUiYgvUJu0t8+LZI6EpW5dpir5KJF
-	 oySm6KR6PmdtxK4IAj56hLgVzS5n1/krzsWuLxd7YY62IVUKQvHXwUJmFZQv8AbTh4
-	 y7ptIUuW4WdnA==
+	b=Vh9QJ85IQf+V43gTRnlITAdDRXRVKjbBOK7I4ikMXAGVQzEwqiqkchYL1nYlC57Gl
+	 f3U53Tub2gQK9gUUkwLMhyPRfCF1q8Er9E8lR66Nu6gsbEZnrefDkedLcLjZPpZ0oB
+	 qBKpvr54fX8d/DdGPEMtBaleOwvESG0Ggka3a+X8W9eyfQuv4oqSBsyknsVCn05121
+	 1oJbDTxMpUxUGAiQjT8lGnDYZPrPXv9BbcgP0IuiJ/QUEdCO+CVmyVtsRo8fI6St6U
+	 2VH2JlTpTcsAB3nCeRuR24CZKuxnxCSpSGWpMkxkQmZS/uyJGPTRdID+xp+9HUsmcx
+	 7H/nHv9N5Hu8Q==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Thu, 22 Oct 2026 15:53:15 +0200
-Subject: [PATCH v6 14/15] drm/vkms: Switch container_of helpers to
- container_of_const
+Date: Thu, 22 Oct 2026 15:53:16 +0200
+Subject: [PATCH v6 15/15] drm/vkms: Add driver-specific plane property for
+ testing
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -55,7 +55,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261022-drm-reset-state-flag-v6-14-f36d640b7e76@kernel.org>
+Message-Id: <20261022-drm-reset-state-flag-v6-15-f36d640b7e76@kernel.org>
 References: <20261022-drm-reset-state-flag-v6-0-f36d640b7e76@kernel.org>
 In-Reply-To: <20261022-drm-reset-state-flag-v6-0-f36d640b7e76@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -74,52 +74,164 @@ Cc: Daniel Stone <daniels@collabora.com>,
  Xaver Hugl <xaver.hugl@kde.org>, dri-devel@lists.freedesktop.org, 
  linux-kernel@vger.kernel.org, Maxime Ripard <mripard@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1495; i=mripard@kernel.org;
- h=from:subject:message-id; bh=9KymKSyh2DSpKBjfqlW7NyoJFWIhRkdHFylYcuG4zks=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFm3RD13Gmpvm8UnMZNrjcLT7SVxX6+0P71zLud0cUekS
- coK7S8POqayMAhzMsiKKbI8kQk7vbx9cZWD/cofMHNYmUCGMHBxCsBE3h1mbJjYduJezVvPD7d2
- PLhcpRzRyWYTbuUvFyPl/mL93cv7HvkfVtC13VTDe7P+zcULq1doljI2nO6btPVV7vE//04maD4
- p0zLrXFbocLtIu1XQ5G6Tyu3MyfV2rTLR85yY1vPcN2Kw8bsPAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5644; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=PvyuuyhdjASC30AtEcfGja2PmrzUAnlbW0yqbZ3QSmQ=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFm3RD0Zs/YtkFX6nZM+4aTmjQnBFzr51uh+zoho91I2n
+ DypyXdTx1QWBmFOBlkxRZYnMmGnl7cvrnKwX/kDZg4rE8gQBi5OAZhIzgXGhssHPadoCOkI+2kc
+ qtQK3BNz9JPUlpNl/Fl7VdlNd3+v87AVbX+Z/PLD/e7aWy0P1WvqGBv+vmZ00bXhkdSM+12TczI
+ +5W1b9zTfIPkvi+SuVvB+SLgTw9nI8MC0fJ0zU5lVgfe6RwA=
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 
-The vkms container_of helpers use container_of() which discards the
-const qualifier from the input pointer. This prevents passing a const
-state pointer to to_vkms_plane_state() without a cast, for instance
-in atomic_get_property which receives a const drm_plane_state.
+The DRM_MODE_ATOMIC_RESET flag allows userspace to reset all object
+states to their defaults before applying new property values. Testing
+that this mechanism works correctly requires a property that the test
+can set to a non-default value and then verify is properly reset.
 
-Switch all four helpers to container_of_const() so the const qualifier
-is properly propagated to the result type.
+Using a standard property for this is problematic: compositors like
+Mutter enumerate and track all known properties, making it difficult
+to isolate the reset behavior from the compositor's own property
+management.
+
+Add a "vkms-test-do-not-use-in-prod" range property to vkms planes.
+The property is stored in vkms_plane_state, duplicated across state
+copies, and initialized from its registered default in
+atomic_create_state via drm_object_property_get_default_value().
 
 Reviewed-by: Daniel Stone <daniels@collabora.com>
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
- drivers/gpu/drm/vkms/vkms_drv.h | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/vkms/vkms_drv.h   |  3 ++
+ drivers/gpu/drm/vkms/vkms_plane.c | 61 +++++++++++++++++++++++++++++++++++++--
+ 2 files changed, 62 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/gpu/drm/vkms/vkms_drv.h b/drivers/gpu/drm/vkms/vkms_drv.h
-index 381483aa4fb0..dea6cad3f1b9 100644
+index dea6cad3f1b9..384616095b45 100644
 --- a/drivers/gpu/drm/vkms/vkms_drv.h
 +++ b/drivers/gpu/drm/vkms/vkms_drv.h
-@@ -251,14 +251,14 @@ struct vkms_device {
+@@ -147,4 +147,5 @@ struct conversion_matrix {
+  *		     struct vkms_plane_state must ensure that this pointer is valid
+  * @conversion_matrix: matrix used for yuv formats to convert to rgb
++ * @vkms_test_do_not_use_value: driver-specific property for testing only
+  */
+ struct vkms_plane_state {
+@@ -153,8 +154,10 @@ struct vkms_plane_state {
+ 	pixel_read_line_t pixel_read_line;
+ 	struct conversion_matrix conversion_matrix;
++	unsigned int vkms_test_do_not_use_value;
+ };
  
- #define drm_crtc_to_vkms_output(target) \
--	container_of(target, struct vkms_output, crtc)
-+	container_of_const(target, struct vkms_output, crtc)
+ struct vkms_plane {
+ 	struct drm_plane base;
++	struct drm_property *vkms_test_do_not_use_property;
+ };
  
- #define drm_device_to_vkms_device(target) \
--	container_of(target, struct vkms_device, drm)
-+	container_of_const(target, struct vkms_device, drm)
+diff --git a/drivers/gpu/drm/vkms/vkms_plane.c b/drivers/gpu/drm/vkms/vkms_plane.c
+index fd3d34dcf0fe..0ebc131c2788 100644
+--- a/drivers/gpu/drm/vkms/vkms_plane.c
++++ b/drivers/gpu/drm/vkms/vkms_plane.c
+@@ -12,8 +12,12 @@
+ #include <drm/drm_gem_framebuffer_helper.h>
+ #include <drm/drm_print.h>
++#include <drm/drm_property.h>
  
- #define to_vkms_crtc_state(target)\
--	container_of(target, struct vkms_crtc_state, base)
-+	container_of_const(target, struct vkms_crtc_state, base)
+ #include "vkms_drv.h"
+ #include "vkms_formats.h"
  
- #define to_vkms_plane_state(target)\
--	container_of(target, struct vkms_plane_state, base.base)
-+	container_of_const(target, struct vkms_plane_state, base.base)
++#define to_vkms_plane(target) \
++	container_of_const(target, struct vkms_plane, base)
++
+ static const u32 vkms_formats[] = {
+ 	DRM_FORMAT_ARGB8888,
+@@ -55,4 +59,5 @@ static struct drm_plane_state *
+ vkms_plane_duplicate_state(struct drm_plane *plane)
+ {
++	struct vkms_plane_state *old_state = to_vkms_plane_state(plane->state);
+ 	struct vkms_plane_state *vkms_state;
  
- /**
+@@ -61,4 +66,6 @@ vkms_plane_duplicate_state(struct drm_plane *plane)
+ 		return NULL;
+ 
++	vkms_state->vkms_test_do_not_use_value = old_state->vkms_test_do_not_use_value;
++
+ 	__drm_gem_duplicate_shadow_plane_state(plane, &vkms_state->base);
+ 
+@@ -86,5 +93,7 @@ static void vkms_plane_destroy_state(struct drm_plane *plane,
+ static struct drm_plane_state *vkms_plane_create_state(struct drm_plane *plane)
+ {
++	struct vkms_plane *vkms_plane = to_vkms_plane(plane);
+ 	struct vkms_plane_state *vkms_state;
++	u64 val;
+ 
+ 	vkms_state = kzalloc_obj(*vkms_state);
+@@ -96,12 +105,51 @@ static struct drm_plane_state *vkms_plane_create_state(struct drm_plane *plane)
+ 	__drm_gem_shadow_plane_state_init(plane, &vkms_state->base);
+ 
++	if (!drm_object_property_get_default_value(&plane->base,
++						   vkms_plane->vkms_test_do_not_use_property,
++						   &val))
++		vkms_state->vkms_test_do_not_use_value = val;
++
+ 	return &(&vkms_state->base)->base;
+ }
+ 
++static int vkms_plane_atomic_set_property(struct drm_plane *plane,
++					  struct drm_plane_state *state,
++					  struct drm_property *property,
++					  uint64_t val)
++{
++	struct vkms_plane *vkms_plane = to_vkms_plane(plane);
++	struct vkms_plane_state *vkms_state = to_vkms_plane_state(state);
++
++	if (property == vkms_plane->vkms_test_do_not_use_property) {
++		vkms_state->vkms_test_do_not_use_value = val;
++		return 0;
++	}
++
++	return -EINVAL;
++}
++
++static int vkms_plane_atomic_get_property(struct drm_plane *plane,
++					  const struct drm_plane_state *state,
++					  struct drm_property *property,
++					  uint64_t *val)
++{
++	const struct vkms_plane_state *vkms_state = to_vkms_plane_state(state);
++	const struct vkms_plane *vkms_plane = to_vkms_plane(plane);
++
++	if (property == vkms_plane->vkms_test_do_not_use_property) {
++		*val = vkms_state->vkms_test_do_not_use_value;
++		return 0;
++	}
++
++	return -EINVAL;
++}
++
+ static const struct drm_plane_funcs vkms_plane_funcs = {
+ 	.update_plane		= drm_atomic_helper_update_plane,
+ 	.disable_plane		= drm_atomic_helper_disable_plane,
+-	.atomic_create_state = vkms_plane_create_state,
+-	.atomic_duplicate_state = vkms_plane_duplicate_state,
++	.atomic_set_property	= vkms_plane_atomic_set_property,
++	.atomic_get_property	= vkms_plane_atomic_get_property,
++	.atomic_create_state	= vkms_plane_create_state,
++	.atomic_duplicate_state	= vkms_plane_duplicate_state,
+ 	.atomic_destroy_state	= vkms_plane_destroy_state,
+ };
+@@ -284,4 +332,13 @@ struct vkms_plane *vkms_plane_init(struct vkms_device *vkmsdev,
+ 					  DRM_COLOR_YCBCR_FULL_RANGE);
+ 
++	plane->vkms_test_do_not_use_property =
++		drm_property_create_range(dev, 0,
++					  "vkms-test-do-not-use-in-prod",
++					  0, U32_MAX);
++	if (plane->vkms_test_do_not_use_property)
++		drm_object_attach_property(&plane->base.base,
++					   plane->vkms_test_do_not_use_property,
++					   0);
++
+ 	if (vkms_config_plane_get_default_pipeline(plane_cfg))
+ 		vkms_initialize_colorops(&plane->base);
 
 -- 
 2.55.0
