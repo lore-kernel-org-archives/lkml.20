@@ -1,96 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.173
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792666585;
-	b=ZHnXrhAetoMJlOuzP5/S/wQuVFvdIYOas2vJYvJD6XdkSoZMzKYA0f0yZlmcwxc77Mas
-	 RbdbIPw1JT3uzvspYMUIBlnmy80tjLA4Vb52UfMDtJrpqumpETGkjFe3KcugiDfLsuuaR
-	 4kkeCX/00eAJ7yfHAthoudUDBrDoFrt0KyL5QPiLLn9LkEgS1N9xT12SNRcKh/VmnZRJ2
-	 I+We6fKXPWCSKCg7CZH46dGMbyMcj8F7xTt5x3qDEZpAsM/U4sd3+n+E31AoI2RqCbsTW
-	 HX2iXMhG3yWdbYnTQb1Usb0Fumlxi4GthcsJBtSfwlrFPoCOa8HMXjRbbNQvj2NZ7rg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792666585;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.174
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792666609;
+	b=LIEc17aOIkcs0eh2UErcv3OgfNB/QyXe7eUML9pGIaoeRMr9rMX26lD6I6gQzp9fzX1R
+	 VHHgy/Jq9LQa8LyQe3UYChc9SiYTuI1DZqsho2RYQnmSZ8wR7Yp9Q0GaZJ5I5fAqJjZ0x
+	 xMIX9ytuMy8RTc2+wV/jLaiUShw9AYY27UbLuOpJbl8/8hgF/OK2uAbryzOYM/YR4DJ0q
+	 90B8zWSKCwqpzOMza1kBoaSCt35K6TO+hYLFkMKeON0Z7QC5tIPecL9vjmaNVn3XqH39I
+	 HbmU+sqOZz2Js3Dr7KauyfkLygLcTyKPQnx9yaumXUBjFHgXLmliQjYVO722UuleDsw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792666609;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=u8RNd7fpeXuZxeKtJJRHx6GNHj7VukndK2FrBt2Rid4=;
-	b=08/bsA8MKmOQlg8UVhrpIYXTt8wZQcRSmC5zpeRRoQIy3IrG09aiEKe0rzfjrp7nnN6r
-	 Dw1obFzYIhroD9LgNj2r+EHyUWzsl2jc8UxfdNAm7TYeP6zINBKXIrDL580Yqizqk7yyr
-	 FDWBBFUB1XB54dgGd4ofYnG0dMbtQC5RwTBfuugVWuRXDYKrzVxEujjE2PFa8TsCfKqW3
-	 dtAOltOyd9qrELGhzyerMz9O+BedOVwDTuCIKrwiK6z8uvlzNiGyOsueYUHrWf5TrDHK8
-	 sIuh3TSLs00ifuf9Qi1gfjkIHUF1fuH+LxSURkOvEWmAMi3o7drkJz6f8PgS+0NSICQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=Z7CjQzBDnl04aWONNGlhTdVtRpqeXhaqo6cL0x3Dgio=;
+	b=cCMOJatHCZ7IhuSobuf80a+K95vgXT6rNdMZ2Qy1mONp4CLMmidb5Wbuc8IVGXcbZoj2
+	 kMZy4Ui1iXJUuk57+Yd8oYESwB20BmVjt1t4Rqm298wMK/o2ff5o605WbcSkBX74L7kF0
+	 g7ysTgq7J8R1Oj34+VwPLz7MxFHhwBSx0tkuYO7OIT7xM2gGDlnhKqucG+QfnKYwddzTM
+	 rLUPGozOQC6tET5SyvOqWANxtaT/bftQP2YhmWb7UMdMbSgv3XvYlooJNuM14f3b2nMWJ
+	 3CeQnqbRSRHUP6RVTwap37FKIv9CeSNE6gmaeEP4RiQIi9t8fH4+zvaZmEIsxtUS6JA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=N8nZaNJH;
-	arc=none smtp.remote-ip=209.85.215.173
-Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com [209.85.215.173])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ADK6qMqY;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.174
+Received: from mail-yw1-f174.google.com (mail-yw1-f174.google.com [209.85.128.174])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5735606A31E
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 10:56:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A5735606A31E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 689EF606A31A
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 10:56:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 689EF606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=N8nZaNJH
-Received: by mail-pg1-f173.google.com with SMTP id 41be03b00d2f7-cd69954c755so1089497a12.3
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 03:56:24 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ADK6qMqY
+Received: by mail-yw1-f174.google.com with SMTP id 00721157ae682-8b056d58f2aso15677107b3.2
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 03:56:49 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792666608; cv=none;
+        d=google.com; s=arc-20260327;
+        b=rmUuvqMBFoDxqVfJZZ2u+EvbSKoVuiwbwbs4GFHtEpmnxKuidqS28e60oIRkRj8Nbh
+         aAW05C0DMPwiUP5/jc6C3hKDpa2/jYrfXGPxVYCODWYso6RIOmYUwrhyriE1DGyXLWcb
+         q8u/THvVvMPEGJ4sUUJomuyhCnjyAJagAJwalQKf5R+VWtE4treMoN3FLpHNvEBLUWMM
+         ZckEpgIfAsw+3yJn9BSTwXZoQRXyBSsO1BCfiDAa1HvnVX5Wq1TZI/ga3q2BXEUe4eZ7
+         ECtgzGONiLw7E9u76jw9XZgB5vehJ9ZXidWJl6YNXlI/qPj0GVqEKeIm8MMWaRZoo3ZJ
+         pQVw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Z7CjQzBDnl04aWONNGlhTdVtRpqeXhaqo6cL0x3Dgio=;
+        fh=uldYEhvJLGKsuOzjZq+fqY+NteTsChOYWISfHYRuyWE=;
+        b=i4KOONEDSgE/9rJlOr2o+6sjsH6p/8gOeoxwQNb1mhX6LgI3ExIArpx0hVj3UWu73t
+         DH+qwGWnQ7HW0+Zd8+JJn/O9zX0cX0QfUJ/3YL0xB8SzpC76VfqXbHvbeJiLIGXRz3pk
+         XMICknD3Ga7rnJBX8ZQdyeQ7Qg1KQUsgkaR4GM2t84fQVVE0srs1Bra1yDYMoQavmyIU
+         6YeYatGx6Ncxnn/EgQS+l3fDQVYFVmy/9mf7FiQ+aiEb1m/jI8zh4e7DhTms7ssi7NP7
+         /IvPucf4FWkHPcuQsXiF4oTea4RBBxwdb/1dHRWR3+oS2E7T+eyXdR/0qOjIGS9ukbtw
+         N5EA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792666584; x=1793271384; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=u8RNd7fpeXuZxeKtJJRHx6GNHj7VukndK2FrBt2Rid4=;
-        b=N8nZaNJHi7j4i7dMqidmlqjY6HpIXhSvZJ0TzjSsYG2mmzVbB7SAawH8UaiOPFso8X
-         4z/p2xsX4fsNP8KKuBiP7UXQHte3Q7mOpkYEG4jISXta7+Y+LYvZMOW+/r3Oa+LdX/AZ
-         qct5AqJRy+yifKChHeCsoBv0DtPqm9PrkqBjhTwQ4KA05A1vTegzMucNN5NP8AUzIg2d
-         ZXJzS+RYiqcFpPiQqWUSdLI1vVHIT71MG3i/PrKC/+B3t/5ca0Oobx9Ak0PICwld8Bta
-         spk2LzQpk8IMVtGZmmzvxPzwrzlrb+of7qHeX6pyYr2haZGIaB7hlso7gV7GfJ0Zg/F4
-         pKdQ==
+        d=gmail.com; s=20251104; t=1792666608; x=1793271408; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Z7CjQzBDnl04aWONNGlhTdVtRpqeXhaqo6cL0x3Dgio=;
+        b=ADK6qMqYfj++BYLCYDjZA0g4iUJRd635oOl+MQs616Hil5i2EvY0xspGPy+xBELhWL
+         c1IE2JqSa+Y0ujrhJsSskK7WukOvBCZZ0jDGv82wfGzKEydabW9NgmH9mjRF17VdY4es
+         +Jwdg9b3HhnWhxY5BVx65BvQ+9EKPlp27Q0rzmBCCTpe+L8a7eVBIrsHCZ8vLRtmvFmb
+         uTdHwV94NpWpDO0tCJLJTiOSjm+Gc2vzj0EmVQKGpQ3gFAbfF8BHymlMYT/b1F+VRA5L
+         nY7fJ6569zvJYVd7bEpvfaViRrOFFw/rxzk9VhGiy+I/mZOtPDNCFmWqyU/tmnxoi6yT
+         FWLg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792666584; x=1793271384;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=u8RNd7fpeXuZxeKtJJRHx6GNHj7VukndK2FrBt2Rid4=;
-        b=WmxIc+8/qQ2MfSX05cZCpZFGmURSNAE+xk4nQ9ezKIvosdAWotuUcoiV2Ltaxjwetl
-         Pl8NfdENHidSxz+xFgcYgk6BE/S4KIE+nqSPalDDvXubi9ubXBijwYYGlfTNBgXUZS7K
-         AsXwrCU18XQJf5+Ahtvd4KQJc7i+ZU8RUTYj0BtRblV5ztroQkSOS0bKQSDPfjvGZyBo
-         5tspXlBQIxXW9gmDCt0OTAPO5N3P9Bmq2H3lme6usOKZMnOpKe7kbLcJ1z++c9A6JAF9
-         T7hjVfxs6QjL/UBI8leWtK7ZmeUH2+ZrRe/7OQOedu0Nd9uoLFnWMhhn2KiOGS27S9P9
-         mHcw==
-X-Forwarded-Encrypted: i=1; AKwUvBwtHuD/qNym6R62LxYTY1GHNDtjgGelYaYj1LfukHCYKDfhPgKb3pp8uL6JWRMJExTh1wAXpV/I7VGG/ok=@vger.kernel.org
-X-Gm-Message-State: AFq9FYISSbqm7QPIcBXV+j+qxp6tIgN7vTtDp9tgKfDzO/DwXjKXFdxr
-	M1DCLhRRUrLkPf7ByarxRtugHm9YTK1AdoIBY/hiLzis4moLR+abT/1B
-X-Gm-Gg: AYBFou3qUGoVPxBcUNZokC0vokb2OfdBhqp7gKn4ZYNjkm6GRgHXnhahVBvLCqd+f92
-	L4tKnE+Cskhdh+cXybVO6a/WYOaRrsegPNJPRDvrz72VZh0LZV4KvN3A3gG9X5gpPYtGAnFLkDm
-	/83Ypdv8oAfhr91KvwM1z3Lh+IUYV0K+f76qr+g71aFWzSgNAAszebe5+LyWIY13uogJBC0w+Uw
-	mKRcligZUWloGDm4GWH7dShBDarn9Tzz7y8e+OVYZ5/iyNdeAW/U4jvHT+aDIcR+u+rrJyUzjXB
-	MHrav298saT8XTFI5sfIHdECILXqxKZ668SSRTznSQgKKhnKNrPW8h7XO3suUU5/lWv+iBSyJd2
-	zysvPQeQ+SRu2RkRFuVN8ukYfrLNbLH4Rmnp8PMSC5kg2HOTelbhOb9pw9PijwyXNRqar8crKoJ
-	Wdm4hNb3Yp5N1qDlKDReDr31s/57nPPkgDpkKgTeS7Ix/sPBanfdvCnhQ3vFFljr41a34jDh59V
-	AsCL2OeSs7YfQFqLY2uqBG8OX/1BCAI0MBzuJ/G8fGW5rXVJ5g=
-X-Received: by 2002:a17:90b:2f85:b0:3ac:53e0:4ed5 with SMTP id 98e67ed59e1d1-3ad86f6e8camr3937225a91.39.1792666583884;
-        Thu, 22 Oct 2026 03:56:23 -0700 (PDT)
-Received: from localhost ([111.228.63.84])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ada493261asm3822703a91.12.2026.10.22.03.56.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 03:56:23 -0700 (PDT)
-From: Cen Zhang <zzzccc427@gmail.com>
-To: mark@fasheh.com,
-	jlbec@evilplan.org,
-	joseph.qi@linux.alibaba.com
-Cc: heming.zhao@suse.com,
-	ocfs2-devel@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	baijiaju1990@gmail.com,
-	jjzuming@gmail.com,
-	zzzccc427@gmail.com
-Subject: [PATCH] ocfs2: wait for filecheck kobject release after a failed add
-Date: Thu, 22 Oct 2026 18:56:17 +0800
-Message-Id: <pm-ocfs2-objects-candidate-0087-v5-4888399e71ae6d93613f@gmail.com>
-X-Mailer: git-send-email 2.34.1
+        d=1e100.net; s=20260707; t=1792666608; x=1793271408;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Z7CjQzBDnl04aWONNGlhTdVtRpqeXhaqo6cL0x3Dgio=;
+        b=c9QkUys48fpKSs4yR93dxpAKjzLqS2S9ugzRkRYpxVBTLDlUANjytufGkIhGP9VSyE
+         vZy2IyqwrZYAQvAGQW3hkoR03hPmk+fjd3iesPLhWvGP628/obOFVRbCmcIp4ZBbKEhr
+         aMOS0F65xMSxpzoZzYHqgq3B6YV/VjDIEbbUtJVAC3jJ5FUyQOjMxII2PGVrmeWt+WxX
+         kP9Z01P7+xTQ4DipJUvf7svUME74VPDOTrLxGlSl6OM+1yDcPYj87UROLWhGXR8fY3/X
+         ANY+4Qq/Y4YOct90eRe8dBJTL3yGkg3u2T0qQXKmCWPdeCxAUoxQTQ1nzHfT8eS3E8/2
+         mc8Q==
+X-Forwarded-Encrypted: i=1; AKwUvBzk1Whhgyd2I0mg42s7JHlD/wwfflTm4ioHjJ6xrEQ7+IUEKZ5Gj2fCJmQYKtJZYFOG/XG/l4RoCNaDamE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJUsqE4bGqa/7vQVyhXB8RcVCnY7PV66sei7FJsvAl63myRlF6T
+	qYCp60t6gIr2vKnWVBvCD4FOQsA8KldRwmw4BI8pyHOdjG8fWoQSR4wjTSL+8Q0bskUnu3rKGal
+	VQzpJrJIZYUz2tfuRFHYyR9ZkhdwH4lQ=
+X-Gm-Gg: AYBFou08P+D7TsEOMautwzuv5wl9v1XcYHGem4C1qQvvEdhIq3bf7jM2KC7X4RZcYgs
+	hhT2FM9+E9bCIGqgPTA4K0SdQY84PdyKYr2BNBPjnwjlCR2rcY8XPHPEBjg6hst6SATm4G4MzfH
+	IXwB8zwPadTzHmANJ1LIGpFJMnVa6R4l7wr+qD67sjEm4A0GhDWK27/GJwZF44o87/2RG54Iif1
+	mPFAMAtMv4x9K5kOjtc/40sTMFLSB0M/AWtWQn5RXUqLav6uVCEEbUJ+NZZjDi55Sr1B25hNv23
+	4fLPwyYZ3NivCYdJETlZ9vk9AH5Ez1YG+UkVAQQ20FUoTNhmS9SfshZ6GWJvUSGpFY6J95weZ+S
+	6d1TkFGAJ0X3IAgaKNUWNNvXh3CkWePa4zZ7PYvM=
+X-Received: by 2002:a05:690c:e252:20b0:8b0:ac9e:14f7 with SMTP id
+ 00721157ae682-8b133fb3f9bmr19361017b3.28.1792666608356; Thu, 22 Oct 2026
+ 03:56:48 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,211 +104,182 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <pm-pmb-2439c851f82c443c3600-v4-9e7df0ea42c36afe6171@gmail.com>
+ <87h5igix41.wl-tiwai@suse.de> <CAFRLqsVe0JjW9VTbjBG9w00LFuQBxyK3CCjTnqaCXzcUPDCE4w@mail.gmail.com>
+ <87v76uccta.wl-tiwai@suse.de>
+In-Reply-To: <87v76uccta.wl-tiwai@suse.de>
+From: Cen Zhang <zzzccc427@gmail.com>
+Date: Thu, 22 Oct 2026 18:56:37 +0800
+X-Gm-Features: AclHuK8C3qRffRiZ2Dmc9zttsL0U6qgzV__R004le6XLTPii7twzMle1FS1Gtf0
+Message-ID: <CAFRLqsUjzhcMwCZb+LNCGFFbHv=GF+2+StrbHH0md4REgyADJw@mail.gmail.com>
+Subject: Re: [PATCH] ALSA: pcm: Drain proc writers before freeing preallocated buffers
+To: Takashi Iwai <tiwai@suse.de>
+Cc: perex@perex.cz, tiwai@suse.com, linux-sound@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, baijiaju1990@gmail.com, jjzuming@gmail.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The filecheck kobject and its release completion are embedded in
-ocfs2_super, so the osb must outlive the kobject. On a failed
-kobject_init_and_add(), creation clears fs_fcheck and calls
-kobject_put(), but returns without waiting for the release callback.
+Takashi Iwai <tiwai@suse.de> =E4=BA=8E2026=E5=B9=B410=E6=9C=8822=E6=97=A5=
+=E5=91=A8=E5=9B=9B 17:19=E5=86=99=E9=81=93=EF=BC=9A
+>
+> On Thu, 22 Oct 2026 10:58:02 +0200,
+> Cen Zhang wrote:
+> >
+> > Hi Takashi,
+> >
+> > Takashi Iwai <tiwai@suse.de> =E4=BA=8E2026=E5=B9=B410=E6=9C=8820=E6=97=
+=A5=E5=91=A8=E4=BA=8C 16:40=E5=86=99=E9=81=93=EF=BC=9A
+> > >
+> > > I believe a better fix is to handle the disconnection of procfs more
+> > > properly.  The hda codec driver calls snd_device_disconnect() for eac=
+h
+> > > pcm, but in the PCM side, the procfs removal relies on the card level
+> > > disconnection (snd_info_card_disconnect()).
+> > >
+> > > That is, something like below works instead?
+> > >
+> > >
+> > > thanks,
+> > >
+> > > Takashi
+> > >
+> > > --- a/sound/core/pcm.c
+> > > +++ b/sound/core/pcm.c
+> > > @@ -1119,6 +1119,7 @@ static int snd_pcm_dev_disconnect(struct snd_de=
+vice *device)
+> > >         for (cidx =3D 0; cidx < 2; cidx++) {
+> > >                 if (pcm->streams[cidx].dev)
+> > >                         snd_unregister_device(pcm->streams[cidx].dev)=
+;
+> > > +               snd_pcm_stream_proc_done(&pcm->streams[cidx]);
+> > >                 free_chmap(&pcm->streams[cidx]);
+> > >         }
+> > >         return 0;
+> > >
+> >
+> > Sorry for the delayed reply =E2=80=95 something came up to me over the =
+past
+> > few days.
+> >
+> > Thanks for the review. Handling the proc entries at PCM disconnect
+> > looks like a better approach.But I noticed two possible issues with
+> > adding the call here: proc removal can invoke a prealloc release
+> > callback that takes open_mutex, which is already held; freeing the
+> > subtree also leaves pstr->oss.proc_entry pointing to freed storage
+> > until final unregister.
+>
+> Hm, basically we don't have to release the resources but just
+> disconnect procfs (that guarantees that the pending callbacks are
+> finished).  So how about something like below instead?
+>
+> > I'll follow your approach, but perform proc rundown outside open_mutex
+> > and retain the entry objects until final cleanup. I'll also prevent sub=
+sequent
+> > card registration from republishing the disconnected entries.
+>
+> But those are assumptions: the proc rundown must be after all pending
+> stuff is gone and it shouldn't be called until the next registration.
+> And, running re-registering before the complete release is already
+> fundamentally broken, and that should be addressed instead.
+>
+>
+> thanks,
+>
+> Takashi
+>
+> -- 8< --
+> diff --git a/include/sound/info.h b/include/sound/info.h
+> index adbc506860d6..4b08a32ff4fe 100644
+> --- a/include/sound/info.h
+> +++ b/include/sound/info.h
+> @@ -117,6 +117,7 @@ struct snd_info_entry *snd_info_create_module_entry(s=
+truct module *module,
+>  struct snd_info_entry *snd_info_create_card_entry(struct snd_card *card,
+>                                              const char *name,
+>                                              struct snd_info_entry *paren=
+t);
+> +void snd_info_disconnect_entry(struct snd_info_entry *entry);
+>  void snd_info_free_entry(struct snd_info_entry *entry);
+>
+>  int snd_info_card_create(struct snd_card *card);
+> diff --git a/sound/core/info.c b/sound/core/info.c
+> index c4d57d0809ad..bb9f564001ea 100644
+> --- a/sound/core/info.c
+> +++ b/sound/core/info.c
+> @@ -737,6 +737,15 @@ static void snd_info_clear_entries(struct snd_info_e=
+ntry *entry)
+>         entry->p =3D NULL;
+>  }
+>
+> +void snd_info_disconnect_entry(struct snd_info_entry *entry)
+> +{
+> +       if (entry && entry->p) {
+> +               proc_remove(entry->p);
+> +               guard(mutex)(&info_mutex);
+> +               snd_info_clear_entries(entry);
+> +       }
+> +}
+> +
+>  /**
+>   * snd_info_free_entry - release the info entry
+>   * @entry: the info entry
+> @@ -749,11 +758,7 @@ void snd_info_free_entry(struct snd_info_entry * ent=
+ry)
+>
+>         if (!entry)
+>                 return;
+> -       if (entry->p) {
+> -               proc_remove(entry->p);
+> -               guard(mutex)(&info_mutex);
+> -               snd_info_clear_entries(entry);
+> -       }
+> +       snd_info_disconnect_entry(entry);
+>
+>         /* free all children at first */
+>         list_for_each_entry_safe(p, n, &entry->children, list)
+> diff --git a/sound/core/pcm.c b/sound/core/pcm.c
+> index 1e4e0ecb3dbd..58098ee894a1 100644
+> --- a/sound/core/pcm.c
+> +++ b/sound/core/pcm.c
+> @@ -520,6 +520,11 @@ static int snd_pcm_stream_proc_init(struct snd_pcm_s=
+tr *pstr)
+>         return 0;
+>  }
+>
+> +static void snd_pcm_stream_proc_disconnect(struct snd_pcm_str *pstr)
+> +{
+> +       snd_info_disconnect_entry(pstr->proc_root);
+> +}
+> +
+>  static int snd_pcm_stream_proc_done(struct snd_pcm_str *pstr)
+>  {
+>         snd_info_free_entry(pstr->proc_root);
+> @@ -580,6 +585,7 @@ static int snd_pcm_substream_proc_init(struct snd_pcm=
+_substream *substream)
+>
+>  #else /* !CONFIG_SND_VERBOSE_PROCFS */
+>  static inline int snd_pcm_stream_proc_init(struct snd_pcm_str *pstr) { r=
+eturn 0; }
+> +static inline void snd_pcm_stream_proc_disconnect(struct snd_pcm_str *ps=
+tr) { return 0; }
+>  static inline int snd_pcm_stream_proc_done(struct snd_pcm_str *pstr) { r=
+eturn 0; }
+>  static inline int snd_pcm_substream_proc_init(struct snd_pcm_substream *=
+substream) { return 0; }
+>  #endif /* CONFIG_SND_VERBOSE_PROCFS */
+> @@ -1119,6 +1125,7 @@ static int snd_pcm_dev_disconnect(struct snd_device=
+ *device)
+>         for (cidx =3D 0; cidx < 2; cidx++) {
+>                 if (pcm->streams[cidx].dev)
+>                         snd_unregister_device(pcm->streams[cidx].dev);
+> +               snd_pcm_stream_proc_disconnect(&pcm->streams[cidx]);
+>                 free_chmap(&pcm->streams[cidx]);
+>         }
+>         return 0;
 
-With CONFIG_DEBUG_KOBJECT_RELEASE, the last put queues delayed cleanup.
-Mount failure can then free the containing osb before the embedded
-release timer expires:
+Agree that. But I moved proc rundown outside open_mutex because
+proc_remove() can invoke the
+prealloc release callback, which takes that mutex.
 
-  Mount failure                     Delayed cleanup
-  -------------                     ---------------
-  ocfs2_filecheck_create_sysfs()
-    kobject_init_and_add() fails
-    fs_fcheck = NULL
-    kobject_put()
-      queue delayed release
-  return to mount error cleanup
-  ocfs2_dismount_volume()
-    remove_sysfs() skips the wait
-    kfree(osb)
-                                    expire embedded release timer
-                                      access freed osb
-
-The normal removal path waits for fs_kobj_unregister, but it returns
-early when fs_fcheck is NULL. The failed-add path therefore leaves the
-delayed work and its completion in freed storage.
-
-Wait for the existing release completion after the failed-add
-kobject_put(), before returning to mount error cleanup. This keeps the
-enclosing osb alive until the kobject has finished releasing, matching
-the normal teardown path.
-
-KASAN report as below:
-
-    BUG: KASAN: slab-use-after-free in __run_timers+0xa6d/0xa90
-    Write of size 8 at addr ffff8881178a5658 by task swapper/0/0
-    
-    CPU: 0 UID: 0 PID: 0 Comm: swapper/0 Not tainted 7.3.0-rc4-next-20260921-pmb-ocfs2-functional-v1+ #1 PREEMPT(lazy) 
-    Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-    Call Trace:
-     <IRQ>
-     dump_stack_lvl+0x93/0xd0
-     print_report+0xce/0x630
-     ? __run_timers+0xa6d/0xa90
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __virt_addr_valid+0x20e/0x420
-     ? __run_timers+0xa6d/0xa90
-     kasan_report+0xe0/0x110
-     ? __run_timers+0xa6d/0xa90
-     __run_timers+0xa6d/0xa90
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __pfx___run_timers+0x10/0x10
-     ? __lock_acquire+0x5a3/0x2140
-     ? __pfx_do_raw_spin_lock+0x10/0x10
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     timer_expire_remote+0xfa/0x160
-     ? __pfx_timer_expire_remote+0x10/0x10
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? trace_hardirqs_on+0x18/0x160
-     tmigr_handle_remote_up+0x4ba/0x9d0
-     ? __pfx_tmigr_handle_remote_up+0x10/0x10
-     ? tmigr_handle_remote+0x21a/0x340
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? lock_release+0xc8/0x290
-     ? __pfx_tmigr_handle_remote_up+0x10/0x10
-     __walk_groups_from+0x5a/0x160
-     tmigr_handle_remote+0x24f/0x340
-     ? __pfx_tmigr_handle_remote+0x10/0x10
-     ? lock_acquire+0x190/0x300
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? lock_release+0xc8/0x290
-     run_timer_softirq+0x222/0x270
-     ? __pfx_run_timer_softirq+0x10/0x10
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? lockdep_hardirqs_on_prepare+0xb8/0x1a0
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     handle_softirqs+0x1fa/0x8d0
-     ? __pfx_handle_softirqs+0x10/0x10
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? _raw_spin_unlock+0x23/0x40
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __hrtimer_rearm_deferred+0x1fb/0x5d0
-     __irq_exit_rcu+0x113/0x1e0
-     irq_exit_rcu+0xe/0x20
-     sysvec_apic_timer_interrupt+0x6c/0x80
-     </IRQ>
-     <TASK>
-     asm_sysvec_apic_timer_interrupt+0x1a/0x20
-    RIP: 0010:pv_native_safe_halt+0xf/0x20
-    Code: fa 18 01 e9 ee 37 ff fa 0f 1f 00 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 f3 0f 1e fa eb 07 0f 00 2d 23 c7 14 00 fb f4 <e9> c7 37 ff fa 66 2e 0f 1f 84 00 00 00 00 00 66 90 90 90 90 90 90
-    RSP: 0018:ffffffff87c07cf8 EFLAGS: 00000206
-    RAX: 0000000000045d0f RBX: ffffffff87c2d4c0 RCX: ffffffff86111e95
-    RDX: 0000000000000000 RSI: 0000000000000000 RDI: ffffffff815b508e
-    RBP: fffffbfff0f85a98 R08: 0000000000000001 R09: ffffed10310c68ba
-    R10: ffff8881886345d3 R11: 0000000000000000 R12: 0000000000000001
-    R13: 0000000000000000 R14: 1ffffffff0f80fa4 R15: dffffc0000000000
-     ? ct_kernel_exit.constprop.0+0xc5/0xf0
-     ? do_idle+0x3ae/0x650
-     default_idle+0x9/0x10
-     default_idle_call+0x6c/0xb0
-     do_idle+0x3ae/0x650
-     ? __pfx___schedule+0x10/0x10
-     ? __pfx_do_idle+0x10/0x10
-     ? rest_init+0x1cd/0x330
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     cpu_startup_entry+0x54/0x60
-     rest_init+0x1e1/0x330
-     ? __pfx_acpi_read_bit_register+0x10/0x10
-     ? __pfx_rest_init+0x10/0x10
-     ? acpi_os_write_port+0x23/0xb0
-     ? __pfx_kernel_init+0x10/0x10
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? acpi_ut_status_exit+0xd6/0x180
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? acpi_ut_status_exit+0xd6/0x180
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? acpi_enable_subsystem+0x2b0/0x4e0
-     ? __pfx_x86_late_time_init+0x10/0x10
-     start_kernel+0x417/0x4b0
-     x86_64_start_reservations+0x18/0x30
-     x86_64_start_kernel+0x111/0x120
-     common_startup_64+0x13e/0x158
-     </TASK>
-    
-    Allocated by task 494:
-     kasan_save_stack+0x33/0x60
-     kasan_save_track+0x14/0x30
-     __kasan_kmalloc+0xaa/0xb0
-     __kmalloc_cache_noprof+0x28d/0x610
-     ocfs2_initialize_super.isra.0+0xab/0x3070
-     ocfs2_fill_super+0x801/0x3920
-     get_tree_bdev_flags+0x35d/0x5f0
-     vfs_get_tree+0x93/0x320
-     fc_mount+0x1d/0x200
-     path_mount+0x592/0x1e00
-     __x64_sys_mount+0x24b/0x2d0
-     do_syscall_64+0x114/0x620
-     entry_SYSCALL_64_after_hwframe+0x77/0x7f
-    
-    Freed by task 494:
-     kasan_save_stack+0x33/0x60
-     kasan_save_track+0x14/0x30
-     kasan_save_free_info+0x3b/0x60
-     __kasan_slab_free+0x5f/0x80
-     kfree+0x308/0x580
-     ocfs2_dismount_volume+0x43c/0x9b0
-     ocfs2_fill_super+0x258f/0x3920
-     get_tree_bdev_flags+0x35d/0x5f0
-     vfs_get_tree+0x93/0x320
-     fc_mount+0x1d/0x200
-     path_mount+0x592/0x1e00
-     __x64_sys_mount+0x24b/0x2d0
-     do_syscall_64+0x114/0x620
-     entry_SYSCALL_64_after_hwframe+0x77/0x7f
-    
-    The buggy address belongs to the object at ffff8881178a4000
-     which belongs to the cache kmalloc-8k of size 8192
-    The buggy address is located 5720 bytes inside of
-     freed 8192-byte region [ffff8881178a4000, ffff8881178a6000)
-    
-    The buggy address belongs to the physical page:
-    page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x1178a0
-    head: order:3 mapcount:0 entire_mapcount:0 nr_pages_mapped:0 pincount:0
-    flags: 0x200000000000040(head|node=0|zone=2)
-    page_type: f5(slab)
-    raw: 0200000000000040 ffff888100043880 dead000000000122 0000000000000000
-    raw: 0000000000000000 0000000000020002 00000000f5000000 0000000000000000
-    head: 0200000000000040 ffff888100043880 dead000000000122 0000000000000000
-    head: 0000000000000000 0000000000020002 00000000f5000000 0000000000000000
-    head: 0200000000000003 fffffffffffffe01 00000000ffffffff 00000000ffffffff
-    head: 0000000000000000 0000000000000000 00000000ffffffff 0000000000000000
-    page dumped because: kasan: bad access detected
-    
-    Memory state around the buggy address:
-     ffff8881178a5500: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-     ffff8881178a5580: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-    >ffff8881178a5600: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-                                                        ^
-     ffff8881178a5680: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-     ffff8881178a5700: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-    ==================================================================
-
-Fixes: b9fba67b3806 ("ocfs2: fix error path kobject memory leak")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
-
----
- fs/ocfs2/filecheck.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/fs/ocfs2/filecheck.c b/fs/ocfs2/filecheck.c
-index 75334e4bd082..7e547769beb2 100644
---- a/fs/ocfs2/filecheck.c
-+++ b/fs/ocfs2/filecheck.c
-@@ -189,6 +189,8 @@ int ocfs2_filecheck_create_sysfs(struct ocfs2_super *osb)
- 		/* Mount failure still calls ocfs2_filecheck_remove_sysfs(). */
- 		entry->fs_fcheck = NULL;
- 		kobject_put(&entry->fs_kobj);
-+		/* Drain delayed release before freeing the embedded kobject owner. */
-+		wait_for_completion(&entry->fs_kobj_unregister);
- 		kfree(fcheck);
- 		return ret;
- 	}
+Best regards,
+Cen Zhang
