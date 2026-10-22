@@ -1,55 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792669709;
-	b=TKkXVmlZFXMSWdUnfysz3HRBR0rdX1Fe3DjoSMEYT9gms9nNcsw79Oc5nP4Vvm/uNLg9
-	 OUS7GNjvYppbaLD0mJ5HCKae8BT6ZTTCaK+iDTAO8WnTfn2eGGkO0Y7UuQCaHL5Ur88rQ
-	 38Fh0uygqHyvU9jIQjnvFd8hYvkC/pTq/gwhJnjRuSTNm4g3hQY6X+Wsf4lkQugQvuKZb
-	 OJDAWEw+deDHXxLOy3/Y2h64gDjSDkLmj0q8BSi48Fl2Cq9+xPPmhrQ+XCMBD/nzVfGzv
-	 hFCDWSW24yj2Ws+m/hPMAG9NYCv2wW53l+/mR1HvhV24AokSglo2XjeY0ugYqwnhg5w==
+	t=1792669749;
+	b=cjKOgZJh61/1KqKhDRD03CryBXnArT07IXj4DgHV+uuWXq8+5VBMuyh+ihYbqjlsrbdV
+	 YnJqDA/85u9F5bTt5nPOTlRT/ZITilerlPg34V90yEa7La4hVBKwr7OtT5vMHSxRM4MYN
+	 EEMKfZjEdZnDaqkcHNVGPy/IA+XIPaksC65pY/+tHEEBlp6/Is5rv2WzosKgsyJgRINaW
+	 YHnaQ5oLwB5jsrsfiXizVlBZCUr60YhnSginDv+pOgjcoGQUXjYNb9k8YsZbuG57GGwyB
+	 Tr1Q/aa6ajS3EwkBhkt8zX9oHyIa5VZ2kRAqXaFKtYqRFDPHaklgQrTTQYBpVp12nUw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792669709;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792669749;
 	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
 	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
 	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
 	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=Oh7rrgGUJ4JtljrvDgVPIYGbh4nki2Q2qiaFyL6YTYc=;
-	b=SzCL6IDrg5ZzjsvhgFesTUJFluXbP0bITxRzs/1byF9TN72O7/0P3B2uFd929tIKKsvk
-	 YRaUgrs7oO6pZo5pl4gZeJpWc0d+9SvgJ9ya3tweuzSUDVmELtKPK4NBvtt7Mvp26BKlx
-	 gIhcpOLqWcXfuHM8nP04Wp2OKZByEty7vN6akAg8G9taeZ8G3HT8/z7dnwCdWO3VhrZQu
-	 kSn9R7pVZTvmv0/MkTRGbw9/vobQoMq+Kb16bHTGrSP7NMfNBA7ExpB21FxLv0eKnf5tG
-	 kmmnLjWTqAXEkkDMK6R2hUMaYrTIfyAGJfk0q5xmfYfgZ+q7UDsbXD7Y3UY/vVZbtJA==
+	bh=D3pqen6XtofwE5K6hZVB/4ljEI0gtaGv/M0XzvrbPe4=;
+	b=sMQ5n1755bTJj6fIhAqiC79/x+pWYgysRxll4po14io6i28/0OmZ6SKiQQGRdtPEPga/
+	 rma+P+SnIcch8sMo034WZ6pVBaDKYYE1sbM5rJzC4NnNxtZz/ZKJc/PyxaDakGxDcYD5m
+	 cCIHRbZTz3xpzT0yTF6bO1DYbaznwRNk/hmDq1qxm/djizzv8Uzu3DmTt/9HSVPAwb9Aj
+	 iuiU4Mqb0KeBAN9fAs4K/HoLYNZsB7OLAjRX/TP/q3n7ebu2E6Ii/Y0Y+nlz6Z/mSKOkF
+	 G/Xnm0fnfBi+wZX4Iy+1hkFSPFXkC9HUOM19N7oA80lAOX2ogzABNZag03ZYA02L0GA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A7jW3z7G;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QRSMXNLL;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CFF2606A31B
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 11:48:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FF3A606A31A
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 11:49:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A7jW3z7G
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F05111F000C4
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 11:48:27 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QRSMXNLL
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2E6D61F000C6
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 11:49:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792669708;
-	bh=Oh7rrgGUJ4JtljrvDgVPIYGbh4nki2Q2qiaFyL6YTYc=;
+	s=k20260515; t=1792669748;
+	bh=D3pqen6XtofwE5K6hZVB/4ljEI0gtaGv/M0XzvrbPe4=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=A7jW3z7GJlsaRW5WpTm2sDkx3AsgrMcmbFo9DSA8T/7Z27lSmp2o9LE0GvmTiAUSw
-	 dUdqD6LkpORGJvNREWB7+i0ruhksdfvclfc7vhMBkcc5H6tLbz6WH12uuKwHVwe4z8
-	 yicOcN1ugL61374GReyN8YCR6TaaeYCytVrkwcKem7ckoT0uzGRJg0oeodpCoPBuPS
-	 o+K1WX4BrvyRi9UFPltUhGFq6mAg+vNCVoq1B7Uc7gmFunBOnrClS8okF0hgnrFMNh
-	 sH0aKZfD0WYxh2YRxezAeFcY/tnstVV03X70XYbB1KAnhJ0M7QXDYq1Vp5W37ayjl6
-	 VHBhGQ9ZauPbw==
-Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-c2acc1e170cso251515266b.1
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 04:48:27 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByDHkjckU/YnsayTys8k8Mh6Iq2yvTDwiJmqkEWB+5sf4s7qdinn+b44yUkWEFZTKOUsU5wtT+SpdjoBYQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKrItkOIIU+LbjU5rHkP+sRtItpHtBzUMPWcNNmE4dMK9yht8oA
-	+QuGLiXPgfLB0/n7hQKsEqM0SN3SNStsYe9SrOFWhkyITzfRI/cYpAtG3FPKFNLH2YtwiOMDDVB
-	t0h5i9xyyTNWFf/5Sab+A+6xUn76KS2w=
-X-Received: by 2002:a17:907:3cc5:b0:c40:231:6eab with SMTP id
- a640c23a62f3a-c467961c72bmr533703966b.16.1792669706666; Thu, 22 Oct 2026
- 04:48:26 -0700 (PDT)
+	b=QRSMXNLLnqYfwvBj9SRe2RkGdQJc0AEECJGc/6lDCWM37e76OouJ6wmRbHY5XctRS
+	 sh7DORNxi7DmMdlrIpcSg8Sn6mdUngCAN3/xwFgIuNC6CvLxgSH/7AkIBPzPUHc5u3
+	 ihDE+W69NfqLGL1vOA3a1bHtP2GnHQInQM9KvLINPbau+FdFmIIS2pgIZvL4CZvuTs
+	 wERe1WYxSiICjDX6JtXFOWsMLXKSl5GzHF4DMAhl0Pjh74S1wLYprUyhEpph0CVsQN
+	 zA/sCIWa98tXlPBUJ9rfdd75yBodUhE0d+7P3/WGJLDrepdSkWjDPHiwZlOLgqN0Jn
+	 BWrXiL7XTBK0Q==
+Received: by mail-ed1-f41.google.com with SMTP id 4fb4d7f45d1cf-6a0794669a6so2667516a12.2
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 04:49:08 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxsVh6kiB+38dGd/mDJNLGQtQGzHFez/ULh96lHehI7kyJ0RFt5BOiniKZKR6YvkqFtLVevSWvxXqq45iE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLDgFuVyAUcGrJ5TuWADENurw8YJN2A5TPSOMr52kJBfxvOrOSb
+	NCl0ryWW50onpB3GVga5KL4MNNzKD/DJfmvx2vpY4FCNp9sB62YVaEApzMm8C2zqqOrXuphJu+P
+	oirDp1rdqorP1exKqTXEpow+ftp6Z/fk=
+X-Received: by 2002:a17:907:6d12:b0:c31:8984:7fad with SMTP id
+ a640c23a62f3a-c4679611ee4mr506777366b.15.1792669746875; Thu, 22 Oct 2026
+ 04:49:06 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,15 +59,15 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261021115400.30885-1-mike.michalo@gmail.com>
-In-Reply-To: <20261021115400.30885-1-mike.michalo@gmail.com>
+References: <20261021115400.30885-1-mike.michalo@gmail.com> <CAO+rqLj5rF8MGMTRSav1n43NqLbazwyuPsPKgiQT2qtP+EDxeQ@mail.gmail.com>
+In-Reply-To: <CAO+rqLj5rF8MGMTRSav1n43NqLbazwyuPsPKgiQT2qtP+EDxeQ@mail.gmail.com>
 From: Namjae Jeon <linkinjeon@kernel.org>
-Date: Thu, 22 Oct 2026 20:48:14 +0900
-X-Gmail-Original-Message-ID: <CAKYAXd9_B=QvrmzV-40HGwt=tuw8nZC2ZhgjrrAgOJFhGBKo2w@mail.gmail.com>
-X-Gm-Features: AclHuK9_GGVxl8eUb066-OANBotXn2OW_iZaRg71kLZYQ9bJ0MjX7XK_lH9Uwks
-Message-ID: <CAKYAXd9_B=QvrmzV-40HGwt=tuw8nZC2ZhgjrrAgOJFhGBKo2w@mail.gmail.com>
+Date: Thu, 22 Oct 2026 20:48:51 +0900
+X-Gmail-Original-Message-ID: <CAKYAXd-D=8fK8rT0aCrpPEe7ezQ7Q6qdOiAy_tSp6Yy0z4T8cQ@mail.gmail.com>
+X-Gm-Features: AclHuK94t22vzU3h4aqXcwOpvZpOlnnNQW9zL_24PA0tOKWccvisgbBgdOZ6eMg
+Message-ID: <CAKYAXd-D=8fK8rT0aCrpPEe7ezQ7Q6qdOiAy_tSp6Yy0z4T8cQ@mail.gmail.com>
 Subject: Re: [PATCH] ksmbd: restore Kerberos logins with released ksmbd-tools
-To: Michail Andreas Michalopoulos <mike.michalo@gmail.com>
+To: mixalhs <mike.michalo@gmail.com>
 Cc: Sergey Senozhatsky <senozhatsky@chromium.org>, Tom Talpey <tom@talpey.com>, 
 	ChenXiaoSong <chenxiaosong@chenxiaosong.com>, linux-cifs@vger.kernel.org, 
 	linux-kernel@vger.kernel.org, regressions@lists.linux.dev, 
@@ -75,33 +75,12 @@ Cc: Sergey Senozhatsky <senozhatsky@chromium.org>, Tom Talpey <tom@talpey.com>,
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Wed, Oct 21, 2026 at 8:54=E2=80=AFPM Michail Andreas Michalopoulos
-<mike.michalo@gmail.com> wrote:
+On Wed, Oct 21, 2026 at 11:14=E2=80=AFPM mixalhs <mike.michalo@gmail.com> w=
+rote:
 >
-> Commit a47634cd729b ("ksmbd: expire SMB sessions when Kerberos tickets
-> expire") added a __u64 session_expiry field to struct
-> ksmbd_spnego_authen_response, growing it from 156 to 168 bytes.
-> ipc_validate_msg() requires the response to have exactly that size, so
-> the 156-byte response of every released ksmbd-tools, up to 3.5.7, is
-> dropped and Kerberos session setup fails with STATUS_LOGON_FAILURE.
-> The other way round, kernels without that commit, including the stable
-> trees, drop the 168-byte response of current ksmbd-tools master, and
-> ksmbd-tools has no way to tell which layout a kernel expects.
->
-> Pass the expiry in the reserved area of the embedded struct
-> ksmbd_login_response instead. ksmbd-tools releases with that area
-> (3.4.4 and later) allocate the response zeroed and never write to it,
-> so they send an expiry of 0, which ksmbd already treats as no expiry.
-> The response is 156 bytes again, so it works with those releases, and
-> every kernel also accepts a response that sets the expiry. Use two
-> __u32 halves, as the reserved area is only 4-byte aligned.
->
-> Fixes: a47634cd729b ("ksmbd: expire SMB sessions when Kerberos tickets ex=
-pire")
-> Cc: stable@vger.kernel.org
-> Closes: https://lore.kernel.org/all/CAO+rqLhpPvY0NLrAnZjFXz0gOXnA6zsXxK8x=
-CgtA42XUkSsAeg@mail.gmail.com/
-> Assisted-by: LLM
-> Signed-off-by: Michail Andreas Michalopoulos <mike.michalo@gmail.com>
-Applied it to #ksmbd-for-next.
+> The ksmbd-tools side is up as
+> https://github.com/cifsd-team/ksmbd-tools/pull/347
+Okay, I will apply this.
 Thanks!
+>
+> Michalis
