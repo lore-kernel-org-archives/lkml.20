@@ -1,103 +1,143 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.162.70
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792694995;
-	b=TMUVIuC2EsHOQ2O8z4zv7TZX4DlSHDpSV9exVaj9TWgt7d1ULR05yZDQY9I2FLsCdT1r
-	 Oy1Me0jUbOjCdUUiItwYcquDKtZ5e5WPfwnUh+EWqYLDkjO5LE5LECtj7sCtHJ8yFv5rh
-	 /paOIAgSQ2Hm1anWriMQCQKHJzRl4ulflRBngOwTmz+5SQoMAAnZcendllovAVKDye2ku
-	 xAipUdp6qNp9ZrTvqri92f9B/5OhMlzVzP3K96dGiwkXVZc78Lr+hmv2neCC1TbfWz1Lo
-	 cJjYPc5c+i9IzzC7xox/SRT0KOZxmIuGt3GTPL0oMo0rNok7l2qXR7RJu+vVRaCZ4qw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792694995;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=v/Nta+70iQp5sygj5KWBvoIjhYBcWYgkBvnjqHCgqTw=;
-	b=pvt5xf12gci8nRPCCsAZFqEHNvG2wh9cJcI6t6vT4XPTkUon9S7FBaDcQTPRGEffDqI2
-	 ESgemVbA58uxFfi/yKI+7KjrhF3icqq6UnxDX/IbBCI1q49/vV4VVUEPROqAF98sQfGRD
-	 j5Ct0BoFShR3009FPfxWK4cgcPyaHpGY5zp7Wy9y2erIuw4UsNOqQpbkDgcriTr2kAM7u
-	 Ph0q+h189hbSs3bNuOnh8ry+e+yIbxOYxaeN09tn5Zh1bHdvKhn5SxRtR1bVS+XwAwq6U
-	 yde1Eifo4xcTYBoPQRnPqZzIJamjZ+kGfV8z7BJ1bBV6voG0W+7udwS/cIxEo/f3nxw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=L2igpDNm;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.162.70
-Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013070.outbound.protection.outlook.com [40.107.162.70])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.49
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792695002;
+	b=jtT21w04piRr7q6oaiAyLHt50vxKuo0AVeAEPZdDpmgHWx7DfjVqC+0f/WLzgMouoAUy
+	 H6MJKbYdtWf2Ct7Hkc9fUW9ov+GxIOzmcIhUvnQQnLvkLkffswIxgTq/KjzVfoiBhH0wU
+	 aAFhHo99+vEGHaczbIh33BYYPITrpczJWRpwnkFh/C9bQvH3n11qc5W6XnxKZjveKPMv6
+	 z3LxDmcMNRBRZEecKtrpppImYSoUQmt6twltFNqOLYsJ84ArCb6pY0hkODDBeeQkGwUzG
+	 L0R9oDWVhDiubqKnYCGhEP9jTf+jSqnfLQ94SW+PLAg8stndTmFQUW2g1QudMP9ITpg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792695002;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:Autocrypt:
+	 Content-Type:Content-Transfer-Encoding:User-Agent:MIME-Version;
+	bh=4qvmDiHEwTv6lkZ2XdFtXA3yyxYvfoE67suroCO1YPE=;
+	b=Er286PKzkK0QsghbXLuvPP3lzYYacuvDp7QJZxu/EOFGds02Y1+rM5bWdFN80qxJaHlZ
+	 pqslSEtz0DZTdEpjZ4WTyEEX4Jra4nDp99kAaVZCKqUXa7blmLE744cd6YpIl2L6/nHjg
+	 RsU0CrIXCt+c54R8Duv1gsFusPNrKaxBkLMdVkgqutSaXYsVDEw+hXP7x1mCKLAj0QupV
+	 i03veb8IQRUrAy87MSLjGU/43Vqv/jLETKe4ikLDSZf+VkEsgCumnUptPCGNOYnxhm9sM
+	 AI/TQKavEOTDX1P+z3Xrzut8xtpKdVsrZ9ESP0ulUnHk5qDqE1astpTbVu4QpOpmaUA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=dubeyko.com;
+	spf=pass smtp.mailfrom=dubeyko.com;
+	dkim=pass header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b="Y80/5xT6";
+	arc=none smtp.remote-ip=74.125.224.49
+Received: from mail-yx1-f49.google.com (mail-yx1-f49.google.com [74.125.224.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4991606A319;
-	Thu, 22 Oct 2026 18:49:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D4991606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 533F3606A328
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 18:50:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 533F3606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dubeyko.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=L2igpDNm
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=A2QjtpfwqdC/AIktVVOM8iEyo70wTvRwsEixrIADkYRkmIZmw5JJdujQl49ZRihJdHue2hn5rxXHNeDzI6MvE2RACDIOF+EiVi1Op3wgHIfafGIUzqGCFX/tq+3gOS5N8LAnK3FbfdZTKu8yuCBbXRD6SX6LfnDHrpnmJwH+aLO0pyCG0PGm+uaFdm++c+m/fKxkcQJzGtUIVL7Jo66V49c6XvOsAoeGbAuy6QOnaG6c+kVbwghOJdpAP4Xrpu9OjyHQFU2ywqj8dUzhWu/q9ODuJgmSRQbiYlwW+bFGkInozX9H7D3BBJVKujIFTBiaCk5oqffs3PtoauMJdPHAig==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=v/Nta+70iQp5sygj5KWBvoIjhYBcWYgkBvnjqHCgqTw=;
- b=BGrVuRJ0hbRdoko8c3UaHiefUrMbx6Sfyl2VauzH4a74Rm2dv2g0RzJ5sS3i4onb/mCUMsqaCULx+UKKO79kGigdzxbRZ2OwVaRpONMppN+5b6oAcC//NWwvsvS7M1F4H78ZMLs2bwZw4P2OLDMseHzq8d+metbZb53n0Ha122Hg60xZl36a0DttoeBl2Bw69gslOWMAg0+aaeIjTLaDxT8iFUli1XHDzG1DfkCGN39FLtg80R9a5F7B7Qbx0WCEWlUkrEVB/mDAjiB9Op3t98NPdKPeCfFbyv2qVHK83jGwOI8TrNZaYUe5YwdBvcldDpZlLaF07Tdk9KJnqqSUxQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=v/Nta+70iQp5sygj5KWBvoIjhYBcWYgkBvnjqHCgqTw=;
- b=L2igpDNmwUcNq2B5Ofz+7sXiIl3pRozeMASdL5qCq8EtIqeZVvB6gHE/S246L3evn9fCU9ANgOkoMnJYPpTtdyIIGpXYq85n2WUrBK9FNYWT/WKTmj/Xx2UzmZlnR5tvjYI7l05imxdkcssjEDPzYye4ZM3yXIF0nKf5V9f7PL6iDOe/sBSRNNQSXkxPhSP+Ko4uoxRJVqfPo9s08LQpEINmGfIGWz4jMukyMiGB2bQzBQX3DU5Ny9rlyPAiG52Pz3SH5ZK2sv1LacSA06pJumx5hG1gOM5iIXq7nhCdDtV6EdGiV0bxwYkpYAMbjZp/+BnjCmxYfAqYZFtkfyiwwQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
- by CPH1PF95694F931.eurprd04.prod.outlook.com (2603:10a6:388::3ce) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Thu, 22 Oct
- 2026 18:49:51 +0000
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b%6]) with mapi id 15.21.0546.012; Thu, 22 Oct 2026
- 18:49:51 +0000
-Date: Thu, 22 Oct 2026 13:49:40 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Mathieu Poirier <mathieu.poirier@linaro.org>
-Cc: Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, Peng Fan <peng.fan@nxp.com>,
-	linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org,
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Laurentiu Mihalcea <laurentiu.mihalcea@nxp.com>,
-	Frank Li <Frank.Li@nxp.com>, Daniel Baluta <daniel.baluta@nxp.com>
-Subject: Re: [PATCH v7 3/3] arm64: dts: freescale: add DT overlay for
- MX95-15x15-FRDM RPMSG usage
-Message-ID: <atpaxMsMePsh69JJ@SMW015318>
-References: <20261020-memory-region-name-v7-0-1413d5928340@nxp.com>
- <20261020-memory-region-name-v7-3-1413d5928340@nxp.com>
- <atpGv_FiRlgPh4-4@p14s>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <atpGv_FiRlgPh4-4@p14s>
-X-ClientProxiedBy: DS1P222CA0027.NAMP222.PROD.OUTLOOK.COM
- (2603:10b6:8:44b::17) To MI3PR04MB12438.eurprd04.prod.outlook.com
- (2603:10a6:290:76::14)
+	dkim=pass (2048-bit key, unprotected) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=Y80/5xT6
+Received: by mail-yx1-f49.google.com with SMTP id 956f58d0204a3-67989a2f9bfso187809d50.3
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 11:50:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=dubeyko-com.20251104.gappssmtp.com; s=20251104; t=1792695001; x=1793299801; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=4qvmDiHEwTv6lkZ2XdFtXA3yyxYvfoE67suroCO1YPE=;
+        b=Y80/5xT6RQdtVxnlxfHG+AVNqCuBLe7snoBueXb5p/Qjs2La7QNzsGb2V52286vOR+
+         nyvK+l9XYof7HSB24Pned7AUCVhFIb0hrJiJ8YhUOjoJuPXScNMosQl4k40aOovI5zA4
+         gNlJ342f2Oj4yLu95cv+Q3P0rHjOia3Qfq8rcVmCDy1AKPQEHyLm8QIUDQZrTjODYd+R
+         zxYr7LWm6EvwmNKHIrUOZBYcWFL1IcplejCiDZYU7OsKfG75J5K6T3sip44zRsLfkTHN
+         vzlnM3yHDfQ23rSbXZSNcFQOdNRLU1WG9feNbkA/rSkqjV7rzOcS/qRJgUrtVHfL7RsX
+         kMQA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792695001; x=1793299801;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=4qvmDiHEwTv6lkZ2XdFtXA3yyxYvfoE67suroCO1YPE=;
+        b=x0yCwArjU/lpjTO8EZzgNYm+KuQ59X/GiQghJhsNjTx5fvmAhCJqS1zE9RDSkygXwL
+         T48vyMYEUqQXIuiRdy8Yeyen2eImQMe5VJ3zTnLJqXA8wvGqwwKQKXkf3IiTclgrUmV3
+         zkOtOVHlHqaVi8rHYcb7PpwiV9t0h1U5cSsUZG5v8PvG0v44QxAJuc7PVg+0TmNjNBxe
+         HS6if+5Gat6D3NcR2VySRa6tONHmC4XCTAFekytX5osSibN//QbNV0bxRDWzMjpUfDph
+         ufFZjFoFeL0DAirL7ELqVIHKQGQqmCrOsQrBIWxDuf2/wrkF4SDfOZIwL3sOLWzGSocg
+         ymdQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxn9vg5wVE67eM2QXSv7oLAior0YqMmMdcuZDLc84elyF8D0uW2yYLLyWF0ATe/enkAVVtkWA5PvezuhWw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKYoWsQ01mARme2/Hcgr7kz82vZyAmbXLai01tIBbKW61KeVyk3
+	p49Z8rgl0vWVWpUteXb3uHUezrnnAknCFNJzzpdCnvxpTfdDC+PhA7VD8KvUvF4aKMw=
+X-Gm-Gg: AYBFou34D6TlQB6jqXScAQkjJ9WRjscZ2rlJ0zfApEvrChm5w97nT/zJ391CW4UHzPK
+	J12V+EHo6a98Yh5ZxWAhGzZVJ8H+Gvgr9TNNwMmQtc4ViNtHYfOuSB+wFPB2SyPTMHfkWxf9ZJa
+	5WTwj1RgXIQrYK52w2Y7CUkgrEmTVMBTWmaPnUbf+uKvdhUhy8p8iKBZgFB7WfTSNlV/Vp7DuoZ
+	s+gb56xAkJJX58grX6I29IlaU1mqVdINeWc/m7HAt9vYUwZPE0waxb419u1c1Op0JZ0Hp/s2MYj
+	d0m5ZnUVgPc8kSaqE8uX52TG6o1yZySy10oUajCBVs3xqN1BvwcVs6HyBtbP9CYqDeMGuAcCMXA
+	eB8QNP9KJXEmEMmWlE0qJzFTZBe54PwHJIiDE4III+DVuDh1nRhM01bN8m39nD0lTixttuPn4Nx
+	xiyxwgpdCum9t7qZbEhq/foe+C228WdHywO1/MRlV6dQKjGiGbetg6OEb0qs+s3zGVhMBgInCcw
+	bnieHH/R4ETnYY4/dZOYjs/cjDWj8yF6hAXdV88Ocsn9vyBfNqZcFOkw4oMmI43QX4IYg9U2wAl
+	SK/s+rDKXrZdWDLypKmXMbzjGC8KkD/GsTs/pJX4nGrtpg+lhoVMXe7k6VIL51tSv0KRR+rdGTL
+	Kw2XuX+a9qKmQ59NsKh2/Fdug00Okie5DTXSN++F/wtMotA==
+X-Received: by 2002:a05:690e:400e:b0:677:d89c:5f52 with SMTP id 956f58d0204a3-67a0e5795ecmr2838241d50.73.1792695001172;
+        Thu, 22 Oct 2026 11:50:01 -0700 (PDT)
+Received: from ?IPv6:2600:1700:6476:1430:d350:a0e4:db9b:3217? ([2600:1700:6476:1430:d350:a0e4:db9b:3217])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67a33eea199sm175680d50.3.2026.10.22.11.49.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 22 Oct 2026 11:49:59 -0700 (PDT)
+Message-ID: <a5830eb2ef9f0dfd43a9cd1255caa3f9f77541f1.camel@dubeyko.com>
+Subject: Re: [PATCH v2] hfsplus: preserve FinderInfo when listing extended
+ attributes
+From: Viacheslav Dubeyko <slava@dubeyko.com>
+To: Hengyu Liang <hengyul@cs.unc.edu>
+Cc: glaubitz@physik.fu-berlin.de, frank.li@vivo.com, 
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Date: Thu, 22 Oct 2026 11:49:56 -0700
+In-Reply-To: <20261022094058.1169039-1-hengyul@cs.unc.edu>
+References: <20261022094058.1169039-1-hengyul@cs.unc.edu>
+Autocrypt: addr=slava@dubeyko.com; prefer-encrypt=mutual;
+ keydata=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
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.1 (by Flathub.org) 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,246 +147,107 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|CPH1PF95694F931:EE_
-X-MS-Office365-Filtering-Correlation-Id: 48760b60-1375-407d-d8cb-08df306d40e2
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|366016|19092799006|1800799024|23010399003|261022075727099003|56012099006|4143699003|11063799006|261021123027099003|261021121427099003|261009223027099003|10067099003|18002099003|22082099003|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	bBvoLjMADtzU0qkzXzWCIqaYn4jUHWD5CErD+VX/5SzPIRD1jMH9se4PcPgC3t3DrkS0s6yvj1e7oAil21tlr07ZBRToj+oqF2gN5zkNJJaLR3gScyOtcgzWWL8j/z6X2UfJI8/jHYBb3wnrB7T/LsYqJPpSzrLsFmPxlRrCp+wEi4z21fClx5wlJga/hXbRmPLXg9UHjNDSugtf/sT5s63XT1Am9WZRyauNnYazFalNTGvyj/mwIA4r1azjzMxq6D379Lviy4FfNUBGMOLiV2b13x6iQEGbElWZBLF/hmrmr/7hiVY9VPRFiG5L63BOjyo7R/do1+xy0rysCb8sH3svxPxmLBOl8sML+rmIhz+5lHmOsjZfGPbJMsv0kINjfu0LL6am9RGzkxuoTMEptHfKPQNkW8R1y3P5gnVpGSYM4h8REudzBr53Eynk7hkS5g/CJIhE1yU8AXsS7zO3xCByuYAO7+g17v0mI8w6EaHrYc6DGpB9s+Y63RMS5n+mUJLGxGAl0iwhYL+waHp6Xi6wbDT5o/loRQg0rSdHJJEqA2+uIeU5NNYIyf/RLYBLDwHcRBpkz62MbDoU5424Jh9ZKv17lidu9pfe/4ylMJ1QRrRYSu9sJQ7vKvwTTSTBdOauxvDrVRQCNx1/yQThJZi98zHEt8rmoWFzNVH9uBQ=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(366016)(19092799006)(1800799024)(23010399003)(261022075727099003)(56012099006)(4143699003)(11063799006)(261021123027099003)(261021121427099003)(261009223027099003)(10067099003)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?MGSJFsa/uaugL+I1p9GFTzZtA4tgi/COUcfrkdzgxZ/p+1YlGjNhis9H/6qS?=
- =?us-ascii?Q?sc+5JZBrga93Jp61lcEoy1nqk/hN1j6yitb27VyluZpyG2UyEuKZkc2R4LqF?=
- =?us-ascii?Q?BUv7/rfiwxyBSnP49gsIJU5h9clmix7OOo45tgnlgIGUmufu2dNdEcKuBu1e?=
- =?us-ascii?Q?iGaLI8rWkv2Jv6ypFsdz3EU2faJdRZd4pERkI0XjOiDyXstbfigsmzr/lLGH?=
- =?us-ascii?Q?4G/1U+x0ZP3qv0MGe2p+mQJkNM2+OTY7UcYF5V5HuhAxj38LZ4cqAAnGA2gL?=
- =?us-ascii?Q?RjpnDXZQiyU8gAM3ziDTLAcOJ58YX8mmoVNhIQg5LBe8n5JoyWUfrQJCGnzs?=
- =?us-ascii?Q?kSRtbiRDF6mps2jI1jsDRCY/ls2vw8PrLFhg6FTGonu/GeAUEE9Ay6dJzSK4?=
- =?us-ascii?Q?oEI3JumXhflcgZ4ZLZ/LC/zUybAsXxoT7K0lchwNyAnDWevPNYCMnUGmtJtf?=
- =?us-ascii?Q?9BC0aGD27w32Uub/ly3ClZiYJFqxP7uA1ZrMGJrkFIEcRj7M7brvPDYvwUFi?=
- =?us-ascii?Q?fvz8hwgcIiSO1y0WokExBOwnkH4ZaOD6+aXUVRpTKpJxcRnFx+l2mSAmPo5L?=
- =?us-ascii?Q?i21JpJY4xKgTy+WDXwbS63EnP8R3qTs7X6w5sFesDl/O7eL0NGM+GHHX2NLw?=
- =?us-ascii?Q?eHp8wqToYZtXJad2YFC6gSv6w+HdFjDe96CmgjQ6Owj4ktbGARTO2STWOVNp?=
- =?us-ascii?Q?ncXNsiYfLmZ49NYR5paiTiDT/kvqZltAqke4gSYGCWUP0NBX6v0wQI73rbsB?=
- =?us-ascii?Q?Gu/T3UlIj8Tj2lgYGKygWJW5ExUp2twNEOPti/vakrPWs7Nb4p0kxDGqsznz?=
- =?us-ascii?Q?FtzNvFfHBxlCOWocTHZCHHA6rjqDo/Rr8JAzjYRyNiRQiMod0SRArtvfpIum?=
- =?us-ascii?Q?8o1BHm8VHVcMEc//zzkKKrYGxIcMUeNweswhWc+FBbnrSQkdjbYHPJx7pltu?=
- =?us-ascii?Q?y368f8M9PX6mf3tB4BDCUP2xnY4MCHGU1yrfc8UU4Fho7T6UZiG6Y8HYFLu1?=
- =?us-ascii?Q?2t/e09blf4tdLsC7JnPscAGjE1oDd0Mpex/A0zrXKqywv4gXqtqQf+ewb9kO?=
- =?us-ascii?Q?MUwLYe2Obk2GJO9/No5ulDQmDyUrNDi0LnmpdBXOiAwErtdjpxUvWsjACidn?=
- =?us-ascii?Q?74iC0Fcort9vQ1vBqoyzBd7t5CNU2Ppwy/9bci8RZKxRgb9jEHJbwyLLNhdz?=
- =?us-ascii?Q?xS+Sphj/60WFYekESwWGghBF7sDelOEeYzKc60MGRSOLJaAWja07h1Zfr1Tn?=
- =?us-ascii?Q?jEa+gclGu7ebff9f6DppJjNuSuMRL2Ev1rn9+od+ma2gXb9/Sl2UXYudox2X?=
- =?us-ascii?Q?R7/Bvg7gkosyG/A4S8JrmlObmFq9QqmaVL0j46OEt/eIGafW6yAEBhw8wt5k?=
- =?us-ascii?Q?21UJEhtyrrED8zU1pLRN1P0TqobLdJnOKVJ4wOsNtd6vme72XWGbStvUGs3e?=
- =?us-ascii?Q?tDEiGcb2z2gFgeLxOORUzIP5+ySss3r1KZo4eaeOhOh4NltroG40PJoLugRP?=
- =?us-ascii?Q?0Edr8d5V4RbVtqbMbnoZPzSz0/mHg6xdm937Ml0pg9CGX0pUpqpxmxTL5z1J?=
- =?us-ascii?Q?MIHREC9FpLZDNDHUHbrh+rE3gNc1exbv4Cy3K7lWdpu9gBZd4e8uDzJ7Q2Bs?=
- =?us-ascii?Q?6Lo3Md3NM5+0rtOuZ1ESG8EPDT8947BhZ/VMyjMDYe3ixY4av6oJZaRiB7Ph?=
- =?us-ascii?Q?zc6hFRHHq6JuUjZV+RMOMM6NWbLZ3eIt8MozzV4zgQkCiX/YVPXdzE9Rjf21?=
- =?us-ascii?Q?jcxd2auGueNJq9HIKK22cIpPVGH6K9iejIH6N4TPf5rRq54BAike?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 48760b60-1375-407d-d8cb-08df306d40e2
-X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Oct 2026 18:49:50.9918
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: TAkADq4zL7a+1WYfVZ8vpTxb2EoD0uTyte6UnQmcbkILYw1W5qdLBa8vLmIPYSIadcU8LSM/M52YTgGGYNuStE//OHOMEupo4ICT7FOExmULhibpG1VpW00TZUCk7qJf
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CPH1PF95694F931
 
-On Thu, Oct 22, 2026 at 11:24:15AM -0600, Mathieu Poirier wrote:
-> On Tue, Oct 20, 2026 at 12:50:23PM -0400, Frank.Li@oss.nxp.com wrote:
-> > From: Laurentiu Mihalcea <laurentiu.mihalcea@nxp.com>
-> >
-> > Move related memory region to overlay files.
-> >
-> > Add RPMSG DT overlay for the MX95-15x15-FRDM board. This overlay is meant
-> > to be used with the mx95evkrpmsg system manager configuration for
-> > remoteproc and audio over rpmsg-usecases.
-> >
-> > Reviewed-by: Daniel Baluta <daniel.baluta@nxp.com>
-> > Signed-off-by: Laurentiu Mihalcea <laurentiu.mihalcea@nxp.com>
-> > Reviewed-by: Peng Fan <peng.fan@nxp.com>
-> > Signed-off-by: Frank Li <Frank.Li@nxp.com>
-> > ---
-> >  arch/arm64/boot/dts/freescale/Makefile             |  3 +
-> >  .../boot/dts/freescale/imx95-15x15-frdm-rpmsg.dtso | 81 ++++++++++++++++++++++
-> >  arch/arm64/boot/dts/freescale/imx95-15x15-frdm.dts | 31 ---------
->
-> I will need an R-b from Sascha to merge the above files, otherwise they will
-> have to be resent separately.
+On Thu, 2026-10-22 at 05:40 -0400, Hengyu Liang wrote:
+> Commit aef507847129 ("hfsplus: fix generic/062 xfstests failure")
+> made
+> hfsplus_listxattr() return zero when the inode has no records in the
+> attributes B-tree.
+>=20
+> However, osx.com.apple.FinderInfo is stored in the catalog record,
+> and
+> hfsplus_listxattr() has already added it to the result at that point.
+> Setting the result to zero drops it. As of now, a file whose only
+> extended attribute is FinderInfo gets an empty list on a volume with
+> an attributes B-tree, which mkfs.hfsplus creates by default.
+> getxattr()
+> still returns the value.
+>=20
+> The issue can be reproduced with:
+>=20
+> =C2=A0=C2=A0=C2=A0 truncate -s 64M hfs.img
+> =C2=A0=C2=A0=C2=A0 mkfs.hfsplus hfs.img
+> =C2=A0=C2=A0=C2=A0 mount -o loop hfs.img /mnt
+> =C2=A0=C2=A0=C2=A0 touch /mnt/file
+> =C2=A0=C2=A0=C2=A0 v=3D0x54455854$(printf %056d 0)
+> =C2=A0=C2=A0=C2=A0 setfattr -n osx.com.apple.FinderInfo -v $v /mnt/file
+> =C2=A0=C2=A0=C2=A0 getfattr -m - /mnt/file
+>=20
+> Without this patch, getfattr prints nothing. With this patch, it
+> lists
+> the FinderInfo entry.
+>=20
+> This patch keeps the result of hfsplus_listxattr_finder_info() when
+> no
+> attributes B-tree records are found, as is already done when the
+> volume has no attributes B-tree. A file without extended attributes
+> still gets an empty list.
+>=20
+> Fixes: aef507847129 ("hfsplus: fix generic/062 xfstests failure")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Hengyu Liang <hengyul@cs.unc.edu>
+> ---
+> Changes in v2:
+> - Restructure the error check as suggested by Viacheslav Dubeyko. No
+> =C2=A0 functional change.
+> - v1:
+> https://lore.kernel.org/r/20261021174534.482192-1-hengyul@cs.unc.edu
+>=20
+> Tested in KVM with KASAN on a804c5742bff, without and with this
+> patch:
+> - The commands above, and a C test of listxattr() sizes and buffer
+> =C2=A0 lengths: a file with only FinderInfo gives 0 without the patch and
+> =C2=A0 25 with it; a file without extended attributes gives 0 on both.
+> - generic/062: 10/10 passed on both kernels.
+> - Full fstests (805 generic tests, 608 not run on both kernels): 186
+> =C2=A0 passed and 11 failed without the patch, 187 and 10 with it. The
+> only
+> =C2=A0 difference is generic/795, which fails at random on both kernels
+> =C2=A0 with fsck "Invalid volume file count" (1 of 11 runs without the
+> =C2=A0 patch, 2 of 11 with it). generic/089 and a small test that only
+> =C2=A0 creates files and unlinks them while open hit the same error on
+> both
+> =C2=A0 kernels. This looks like a separate race: hfsplus_file_release()
+> =C2=A0 updates file_count without vh_mutex.
+>=20
+> With this patch, getfattr above prints "osx.com.apple.FinderInf". The
+> last character is lost by a separate bug in copy_name(), which
+> Maurycy
+> Pawlowski-Wieronski's patch fixes:
+> https://lore.kernel.org/all/20260828-hfsplus-copy_name-fix-v1-1-75ed9f0f3=
+78c@maurycy.com/
+>=20
+> =C2=A0fs/hfsplus/xattr.c | 8 ++------
+> =C2=A01 file changed, 2 insertions(+), 6 deletions(-)
+>=20
+> diff --git a/fs/hfsplus/xattr.c b/fs/hfsplus/xattr.c
+> index 71364e093fa7..45571d6f3abd 100644
+> --- a/fs/hfsplus/xattr.c
+> +++ b/fs/hfsplus/xattr.c
+> @@ -837,13 +837,9 @@ ssize_t hfsplus_listxattr(struct dentry *dentry,
+> char *buffer, size_t size)
+> =C2=A0
+> =C2=A0	err =3D hfsplus_find_attr(inode->i_sb, inode->i_ino, NULL,
+> &fd);
+> =C2=A0	if (err) {
+> -		if (err =3D=3D -ENOENT || err =3D=3D -ENODATA) {
+> -			res =3D 0;
+> -			goto end_listxattr;
+> -		} else {
+> +		if (err !=3D -ENOENT && err !=3D -ENODATA)
+> =C2=A0			res =3D err;
+> -			goto end_listxattr;
+> -		}
+> +		goto end_listxattr;
+> =C2=A0	}
+> =C2=A0
+> =C2=A0	for (;;) {
+>=20
+> base-commit: a804c5742bff224d4cb4d25dd383554d598be32b
 
-I will pick this file by myself. b4 -P can pick subset of patches.
+Looks good.
 
-Anyways, I will skip it when respin patches.
+Reviewed-by: Viacheslav Dubeyko <slava@dubeyko.com>
 
-Frank
-
->
-> Thanks,
-> Mathieu
->
-> >  3 files changed, 84 insertions(+), 31 deletions(-)
-> >
-> > diff --git a/arch/arm64/boot/dts/freescale/Makefile b/arch/arm64/boot/dts/freescale/Makefile
-> > index a80cccf34eb56..f3b19f3b1488e 100644
-> > --- a/arch/arm64/boot/dts/freescale/Makefile
-> > +++ b/arch/arm64/boot/dts/freescale/Makefile
-> > @@ -960,6 +960,7 @@ dtb-$(CONFIG_ARCH_MXC) += imx943-evk-mqs.dtb
-> >  dtb-$(CONFIG_ARCH_MXC) += imx95-15x15-ab2.dtb
-> >  dtb-$(CONFIG_ARCH_MXC) += imx95-15x15-evk.dtb
-> >  dtb-$(CONFIG_ARCH_MXC) += imx95-15x15-frdm.dtb
-> > +dtb-$(CONFIG_ARCH_MXC) += imx95-15x15-frdm-rpmsg.dtb
-> >  dtb-$(CONFIG_ARCH_MXC) += imx95-19x19-evk.dtb
-> >  dtb-$(CONFIG_ARCH_MXC) += imx95-19x19-evk-sof.dtb
-> >  dtb-$(CONFIG_ARCH_MXC) += imx95-19x19-frdm-pro.dtb
-> > @@ -984,6 +985,8 @@ dtb-$(CONFIG_ARCH_MXC) += imx95-verdin-wifi-mallow.dtb
-> >  dtb-$(CONFIG_ARCH_MXC) += imx95-verdin-wifi-yavia.dtb
-> >  dtb-$(CONFIG_ARCH_MXC) += imx95-verdin-wifi-zinnia.dtb
-> >
-> > +imx95-15x15-frdm-rpmsg-dtbs = imx95-15x15-frdm.dtb imx95-15x15-frdm-rpmsg.dtbo
-> > +
-> >  imx95-15x15-evk-pcie-dtbs += imx95-15x15-evk.dtb imx-m2-pcie.dtbo
-> >  dtb-$(CONFIG_ARCH_MXC) += imx95-15x15-evk-pcie.dtb
-> >
-> > diff --git a/arch/arm64/boot/dts/freescale/imx95-15x15-frdm-rpmsg.dtso b/arch/arm64/boot/dts/freescale/imx95-15x15-frdm-rpmsg.dtso
-> > new file mode 100644
-> > index 0000000000000..c3deb277edabf
-> > --- /dev/null
-> > +++ b/arch/arm64/boot/dts/freescale/imx95-15x15-frdm-rpmsg.dtso
-> > @@ -0,0 +1,81 @@
-> > +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-> > +/*
-> > + * Copyright 2026 NXP
-> > + *
-> > + * This DT overlay is meant to be used alongside the mx95evkrpmsg SM
-> > + * configuration for remoteproc and audio over rpmsg.
-> > + */
-> > +
-> > +/dts-v1/;
-> > +/plugin/;
-> > +
-> > +&{/} {
-> > +	remoteproc-cm7 {
-> > +		compatible = "fsl,imx95-cm7";
-> > +		mboxes = <&mu7 0 1>, <&mu7 1 1>, <&mu7 3 1>;
-> > +		mbox-names = "tx", "rx", "rxdb";
-> > +		memory-region = <&vdev0buffer>,
-> > +				<&vdev0vring0>, <&vdev0vring1>,
-> > +				<&vdev1vring0>, <&vdev1vring1>,
-> > +				<&rsc_table>;
-> > +		memory-region-names = "vdev0buffer",
-> > +				      "vdev0vring0", "vdev0vring1",
-> > +				      "vdev1vring0", "vdev1vring1",
-> > +				      "rsc-table";
-> > +	};
-> > +
-> > +	reserved-memory {
-> > +		#address-cells = <2>;
-> > +		#size-cells = <2>;
-> > +
-> > +		vdev0vring0: memory@88000000 {
-> > +			reg = <0 0x88000000 0 0x8000>;
-> > +			no-map;
-> > +		};
-> > +
-> > +		vdev0vring1: memory@88008000 {
-> > +			reg = <0 0x88008000 0 0x8000>;
-> > +			no-map;
-> > +		};
-> > +
-> > +		vdev1vring0: memory@88010000 {
-> > +			reg = <0 0x88010000 0 0x8000>;
-> > +			no-map;
-> > +		};
-> > +
-> > +		vdev1vring1: memory@88018000 {
-> > +			reg = <0 0x88018000 0 0x8000>;
-> > +			no-map;
-> > +		};
-> > +
-> > +		vdev0buffer: memory@88020000 {
-> > +			compatible = "shared-dma-pool";
-> > +			reg = <0 0x88020000 0 0x100000>;
-> > +			no-map;
-> > +		};
-> > +
-> > +		rsc_table: memory@88220000 {
-> > +			reg = <0 0x88220000 0 0x1000>;
-> > +			no-map;
-> > +		};
-> > +	};
-> > +
-> > +	sound-micfil {
-> > +		status = "disabled";
-> > +	};
-> > +};
-> > +
-> > +&edma1 {
-> > +	/* reserved for M7 */
-> > +	dma-channel-mask = <0x40>;
-> > +};
-> > +
-> > +&edma2 {
-> > +	/* reserved for M7 and V2X */
-> > +	dma-channel-mask = <0xf>;
-> > +};
-> > +
-> > +&micfil {
-> > +	/* reserved for M7 */
-> > +	status = "reserved";
-> > +};
-> > diff --git a/arch/arm64/boot/dts/freescale/imx95-15x15-frdm.dts b/arch/arm64/boot/dts/freescale/imx95-15x15-frdm.dts
-> > index f82e149323d34..3ab679e5a4740 100644
-> > --- a/arch/arm64/boot/dts/freescale/imx95-15x15-frdm.dts
-> > +++ b/arch/arm64/boot/dts/freescale/imx95-15x15-frdm.dts
-> > @@ -189,37 +189,6 @@ linux_cma: linux,cma {
-> >  			linux,cma-default;
-> >  		};
-> >
-> > -		vdev0vring0: vdev0vring0@88000000 {
-> > -			reg = <0 0x88000000 0 0x8000>;
-> > -			no-map;
-> > -		};
-> > -
-> > -		vdev0vring1: vdev0vring1@88008000 {
-> > -			reg = <0 0x88008000 0 0x8000>;
-> > -			no-map;
-> > -		};
-> > -
-> > -		vdev1vring0: vdev1vring0@88010000 {
-> > -			reg = <0 0x88010000 0 0x8000>;
-> > -			no-map;
-> > -		};
-> > -
-> > -		vdev1vring1: vdev1vring1@88018000 {
-> > -			reg = <0 0x88018000 0 0x8000>;
-> > -			no-map;
-> > -		};
-> > -
-> > -		vdev0buffer: vdev0buffer@88020000 {
-> > -			compatible = "shared-dma-pool";
-> > -			reg = <0 0x88020000 0 0x100000>;
-> > -			no-map;
-> > -		};
-> > -
-> > -		rsc_table: rsc-table@88220000 {
-> > -			reg = <0 0x88220000 0 0x1000>;
-> > -			no-map;
-> > -		};
-> > -
-> >  		vpu_boot: memory@a0000000 {
-> >  			reg = <0 0xa0000000 0 0x100000>;
-> >  			no-map;
-> >
-> > --
-> > 2.43.0
-> >
+Thanks,
+Slava.
