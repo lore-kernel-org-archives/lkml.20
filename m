@@ -1,107 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=13.77.154.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792681359;
-	b=LgPAK46ksoLcrtSzMud0aAQ/VGz60D1sZviyMMYPKe1A/dfjNQqlQAD6/8Qj9m0N3ovg
-	 DK+jc1JsWeOx5DVdF5vxDWn5G1yZ24SPVTS9Pw3KAEZY37HL8bphx4TU/6OaE5cQqZVif
-	 lB7wGs0pKThxcBjFNZbYZ94GBBreXWJw1DKnLQT2g/ih+hu8dfHJHiwTocyD4hAXYDv8v
-	 fKuUPIhu4lVMp6kbtDagazlrI38heJGwgI3kq5TywNC0TD5LpVRDkjnfHhCcSusXnWk9V
-	 sAo0KJ9sMa6vnxjNbwV/jvaoOYuJKgWedaj53sy8FDa2kYcYmxaCFRhR3t1NRTT1kmg==
+	t=1792681391;
+	b=txLZxpxXMUI6O+IqFnntjtuFuKuQB8nQB37Jxc4zShXVgT9V0EQ+1DYZdiH1ypVzQRUR
+	 syRgab6Q3qkNsAh+KilxEt7hJWqs0ckZv9mXTSoUk/gmbm1Jmf6fyVFx9X0xNtVEVSmVS
+	 S+eUDWgO+d9p+wARGVJlPWgUKhadi5Vr4aj9uUuXOHcbhnsPzRv7/3Z0ctvDxAs+oS5dQ
+	 UmfP2WcGeBelWFMLRtweGfudR14l10UNgKluyN8kmUFmpwApGaLXEqnpOnjio6Hg2zfoi
+	 Nl/phvH040EDdplzsPJ5CFVrUbTlVJ01utWC96GRnjs65pvfDts5AB9q2ME549XONow==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792681359;
-	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=UzBCi/OSOXBVd/hf35Hctx/8s00KKyC8gNB54GWWKuw=;
-	b=VyUPMGFTYh39LSJuSVWp+7miqc8lGfv5iMRYGGQrgjutUX+7o6RULdx8JBUybVxsQFrE
-	 nQ/wxMDdTfGBbuevrRov87KIvXMDTvNuwEfsxTJNCzSSmftW7tvXsblexCoaXM6ZC1sFR
-	 PGodVhcXgAlUOV36R9FBO7PdbEMiGhBGoowV/rLM7h5kDJIGN5pKqYG+UviRGNL3SX3FH
-	 jSzDQ7spqUoGeYIdbNPTyAr+dFl43cPXlUJ27jp1TN+YiwSsDlWjh9rTkAmG4xjYbFYgO
-	 dlHd3bGXQ31C9CP3kHvNClMiun3eQ68JIGIi9D0s2p9sx3wwgvYOabnV8e1bBAey3lA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792681391;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-Spam-Status:X-Spam-Checker-Version;
+	bh=fGLjRwMYowHqgQeaj0mToA9QAIYNGDXlao2noz3GoI0=;
+	b=GkEKreA+AculOLsivZUTsgVDspDmwlk7HwJ3Xv+uSwfPANwZxPKxrPmXZjIaUZF7kfeR
+	 IO2H7N1T12oOptko9qnpNoiOtkomndRPWimOyI94v97DriPLdSbyNiJ7NaOySysHwIFR8
+	 SCnXH3slr1vbn5mQ94ESvvq9vZ2eaBWzDnyOxEajaoIf1WiMwzv6ifIj8AudIs6EWg/Up
+	 PWR/83FrzOzMwJMGL4GJqyrhwvnEabRM1Q74+yvs6zTbZY7PGUVPVuZTEliB3TXcmVkDG
+	 lOeaWH9dMiqV0desP/U0iz8TBHOWsKIhWT0or9ZEUpECg6WIZP6aqYZ9mT3bGnwNxig==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linutronix.de;
-	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=2kUGpeTG;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=rACQg86H;
-	arc=none smtp.remote-ip=193.142.43.55
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2728606A31A;
-	Thu, 22 Oct 2026 15:02:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E2728606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	dmarc=pass header.from=linux.microsoft.com;
+	spf=pass smtp.mailfrom=linux.microsoft.com;
+	dkim=pass header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=pXoD4ixC;
+	arc=none smtp.remote-ip=13.77.154.182
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0A1F8606A328;
+	Thu, 22 Oct 2026 15:03:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0A1F8606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=2kUGpeTG;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=rACQg86H
-Date: Thu, 22 Oct 2026 17:02:35 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1792681357;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=UzBCi/OSOXBVd/hf35Hctx/8s00KKyC8gNB54GWWKuw=;
-	b=2kUGpeTGDVBuYHmtDUk+ioLvFvif4ltj8rhWzocDuPm3HaFe4R4vTlOrnH+/NsK85KtmTp
-	BQjRWdChCYWAdK0+eKUDRrdj71IFDIxlOzl/dpE7YHJOp63rkeZsrL+lIMWPOayKDZmWQS
-	jZAmsd4OLiERAIm81xpmW1yxnaZhra+XaRdURt8feLSfDQkUZypkuicnE2Chx4WDXJq1W7
-	gDW8/bA/PN+qgiQxlc+hLTJKpE5MORxYd7/+QpWeOeTOBVrrUrdM+PZPV0PqyhtRPzLVvf
-	zZtCZj7gdLMshXYHbUIElhTwDBoSLh7+UVN4FV0jNASdMsB3S53YU8lnjUcMbw==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1792681357;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=UzBCi/OSOXBVd/hf35Hctx/8s00KKyC8gNB54GWWKuw=;
-	b=rACQg86HepNQ8r26wtL/lrV9xxe+QpJ6z/mp4SnHXzsO+wI4ld+mzpC3AGpr+fKJ/pFfac
-	AwRn+5gmUDC3CcCw==
-From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-To: Thomas Gleixner <tglx@kernel.org>
-Cc: LKML <linux-kernel@vger.kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Shrikanth Hegde <sshegde@linux.ibm.com>,
-	linuxppc-dev@lists.ozlabs.org, Kees Cook <kees@kernel.org>,
-	Huacai Chen <chenhuacai@kernel.org>, loongarch@lists.linux.dev,
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-	linux-riscv@lists.infradead.org,
-	Sven Schnelle <svens@linux.ibm.com>, linux-s390@vger.kernel.org,
-	x86@kernel.org, Mark Rutland <mark.rutland@arm.com>,
-	Jinjie Ruan <ruanjinjie@huawei.com>,
-	Andy Lutomirski <luto@kernel.org>, Oleg Nesterov <oleg@redhat.com>,
-	Richard Henderson <richard.henderson@linaro.org>,
-	Russell King <linux@armlinux.org.uk>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Guo Ren <guoren@kernel.org>,
-	Geert Uytterhoeven <geert@linux-m68k.org>,
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
-	Helge Deller <deller@gmx.de>,
-	Yoshinori Sato <ysato@users.sourceforge.jp>,
-	Richard Weinberger <richard@nod.at>,
-	Chris Zankel <chris@zankel.net>,
-	linux-arm-kernel@lists.infradead.org, linux-alpha@vger.kernel.org,
-	linux-csky@vger.kernel.org, linux-m68k@lists.linux-m68k.org,
-	linux-mips@vger.kernel.org, linux-parisc@vger.kernel.org,
-	linux-sh@vger.kernel.org, linux-um@lists.infradead.org,
-	Arnd Bergmann <arnd@arndb.de>, Vineet Gupta <vgupta@kernel.org>,
-	Will Deacon <will@kernel.org>, Brian Cain <bcain@kernel.org>,
-	Michal Simek <monstr@monstr.eu>, Dinh Nguyen <dinguyen@kernel.org>,
-	"David S. Miller" <davem@davemloft.net>,
-	Andreas Larsson <andreas@gaisler.com>,
-	linux-snps-arc@lists.infradead.org, linux-hexagon@vger.kernel.org,
-	linux-openrisc@vger.kernel.org, sparclinux@vger.kernel.org,
-	linux-arch@vger.kernel.org,
-	Michal =?utf-8?B?U3VjaMOhbmVr?= <msuchanek@suse.de>,
-	Jonathan Corbet <corbet@lwn.net>, linux-doc@vger.kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>
-Subject: Re: [patch 16/18] x86/entry: Get rid of the sys_ni_syscall()
- indirection
-Message-ID: <20261022150235.V2CSdtmu@linutronix.de>
-References: <20260707181957.433213175@kernel.org>
- <20260707190254.493733289@kernel.org>
- <20261022142425.3Wx-RrU5@linutronix.de>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=pXoD4ixC
+Received: from weh-cvm-dev-vm.y50bckvjo0hefgfnzfztsfttff.phxx.internal.cloudapp.net (unknown [20.169.55.37])
+	by linux.microsoft.com (Postfix) with ESMTPSA id 2507B20B7167;
+	Thu, 22 Oct 2026 08:03:01 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 2507B20B7167
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1792681382;
+	bh=fGLjRwMYowHqgQeaj0mToA9QAIYNGDXlao2noz3GoI0=;
+	h=From:To:Cc:Subject:Date:From;
+	b=pXoD4ixCF5m0oBKb10WtUuJxi4FS/nffmPBdmiqtjcrVPYYR0jkEv7h7oqrHikdzy
+	 BEvlsdleIB7Xg2DTY8aFlCTnLviT6hfjqj+lCChgJcaGm7Uh3jQTE12B9CleHMOlQE
+	 Th2Y2N2ttYTWigRRLf66ssRpiCZx+uuuBrHRlL+M=
+From: Wei Hu <weh@linux.microsoft.com>
+To: longli@kernel.org,
+	kotaranov@microsoft.com,
+	kuba@kernel.org,
+	davem@davemloft.net,
+	pabeni@redhat.com,
+	edumazet@google.com,
+	andrew+netdev@lunn.ch,
+	jgg@ziepe.ca,
+	leon@kernel.org,
+	haiyangz@microsoft.com,
+	wei.liu@kernel.org,
+	decui@microsoft.com,
+	shradhagupta@linux.microsoft.com,
+	horms@kernel.org,
+	ernis@linux.microsoft.com,
+	stephen@networkplumber.org
+Cc: netdev@vger.kernel.org,
+	linux-rdma@vger.kernel.org,
+	linux-hyperv@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	gargaditya@linux.microsoft.com,
+	kees+treewide@kernel.org,
+	kees@kernel.org,
+	mawasthi@linux.microsoft.com,
+	weh@microsoft.com,
+	edumazet@kernel.org
+Subject: [PATCH net-next v9 0/4] net: mana: concurrent HWC requests and dynamic queue depth
+Date: Thu, 22 Oct 2026 15:02:58 +0000
+Message-ID: <cover.1792679388.git.weh@linux.microsoft.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -111,25 +81,94 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <20261022142425.3Wx-RrU5@linutronix.de>
+Content-Transfer-Encoding: 8bit
 
-On 2026-10-22 16:24:30 [+0200], To Thomas Gleixner wrote:
-> The test could be updated via the hunk below in case the new behaviour
-> is what is expected. hpa made the extension to the test in commit
-> 795e2a023b808 ("selftests/x86/syscall: Add tests under ptrace to
-> syscall_numbering_64").
->=20
-> diff --git a/tools/testing/selftests/x86/syscall_numbering.c b/tools/test=
-ing/selftests/x86/syscall_numbering.c
-> index ca0eca7b9dced..1435394fba022 100644
-> --- a/tools/testing/selftests/x86/syscall_numbering.c
-> +++ b/tools/testing/selftests/x86/syscall_numbering.c
+This four-patch series adds concurrent HWC request ownership and
+PF-directed HWC queue depth to MANA. It starts with depth-one bootstrap
+queues and keeps setup private until the final channel is tested.
 
-Now I notice the fix depends on CONFIG_X86_X32_ABI=3Dy (fails for =3Dn).
-But we want to get rid of it anyway so=E2=80=A6
-CONFIG_IA32_EMULATION is not affected (with the fix).
+I am continuing Long Li's series. Original per-patch author identities,
+dates and sign-offs are retained.
 
-Sebastian
+Changes in v9 (v8 -> v9):
+ - Rebase onto net-next 207dd12bc195153fe6ca614d8add9ecb0b636270.
+   This base already includes MANA BQL support (799cdeaa5c39).
+ - In patch 3, replace the independent admission deadline with
+   bitmap/waitqueue admission. Healthy contention waits for a free slot
+   instead of returning EBUSY before a destructive command is posted.
+ - Wake admission on slot release, recorded response abandonment,
+   cancellation and channel stop. With no available slot, abandonment
+   or cancellation returns ETIMEDOUT; a stopped channel returns ENODEV.
+ - Preserve available-slot best-effort posting after cancellation and
+   keep the response timeout for a posted command.
+ - Suppress expected ETIMEDOUT/ENODEV logging after cancellation or HWC
+   unpublication, while retaining live-channel and other diagnostics.
+ - Correct the eight reported source-line length warnings across all
+   four patches under netdev's explicit 80-column check.
+
+Healthy admission no longer has a separate elapsed-time deadline,
+matching the upstream waiting policy rather than treating healthy
+contention as a channel failure. Response ownership, timed-out slot
+quarantine and sender draining remain in place.
+
+The PF specifies the HWC queue depth and corresponding ring sizes. It
+reports the required depth through HWC_INIT_DATA_QUEUE_DEPTH, and the
+VF rebuilds the rings to implement that PF requirement. Ring-sizing and
+establishment behavior is unchanged from v8.
+
+The pre-existing individual Ethernet/RDMA CQ publication and lifetime
+issues, malformed-response RX reposting, and wider control-command DMA
+failure policy remain separate work. This series does not claim to fix
+them. Existing protections introduced later in the series are preserved
+in their owning patches.
+
+Validation on this revision:
+ - Clean application of all four patches to the net-next base above,
+   with no conflict resolution or three-way fallback.
+ - GCC and Clang W=1 builds of the MANA Ethernet/RDMA target objects at
+   the baseline and each of the four intermediate commits.
+ - Full-patch netdev-style checkpatch with --strict --codespell and
+   --max-line-length=80: no errors, warnings or CHECK diagnostics.
+ - Bounded actual-source C models cover admission and response
+   ownership, cancellation/logging, destructive callers, retained state,
+   initialization, rebuild and producer limits, with negative controls.
+ - Exact application and author/date/message checks on the outgoing
+   patch emails.
+
+These checks are static/offline. The models use typed userspace
+substitutes and modeled hardware acknowledgments; no new full-kernel,
+hardware, performance or runtime qualification is claimed for v9.
+
+This HWC series remains independent of queue-set replacement. The
+separately prepared queue-set series is not included here; its dependency
+and shared CQ-table changes must be reconciled separately.
+
+v8:
+https://lore.kernel.org/all/cover.1791998462.git.weh@linux.microsoft.com/
+v7:
+https://lore.kernel.org/all/cover.1791561995.git.weh@linux.microsoft.com/
+v6:
+https://lore.kernel.org/all/cover.1790665894.git.weh@linux.microsoft.com/
+
+Long Li (4):
+  net: mana: prepare HWC ownership for safe reinitialization
+  net: mana: give each HWC message slot its own completion state
+  net: mana: support concurrent HWC requests
+  net: mana: add dynamic HWC queue depth with reinit path
+
+ drivers/infiniband/hw/mana/main.c             |   19 +-
+ .../net/ethernet/microsoft/mana/gdma_cdx.c    |    5 +-
+ .../net/ethernet/microsoft/mana/gdma_main.c   |  158 ++-
+ .../net/ethernet/microsoft/mana/gdma_pci.c    |   15 +-
+ .../net/ethernet/microsoft/mana/hw_channel.c  | 1025 ++++++++++++++---
+ .../net/ethernet/microsoft/mana/shm_channel.c |   58 +-
+ include/net/mana/gdma.h                       |   17 +
+ include/net/mana/hw_channel.h                 |   70 +-
+ include/net/mana/shm_channel.h                |   10 +-
+ 9 files changed, 1155 insertions(+), 222 deletions(-)
+
+
+base-commit: 207dd12bc195153fe6ca614d8add9ecb0b636270
+-- 
+2.43.0
+
