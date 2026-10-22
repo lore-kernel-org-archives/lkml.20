@@ -1,108 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.54
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792650342;
-	b=viT1aApJKZ6HP3GRCi5SVeni0J+vH+B52Q6U2QFO5AAsIP1aAcAGqIuG8Z80tAmiohcv
-	 VptJ/o7lOtv3+gA7V4t2qtM8rShjs65NiHT8xNu//Tql2Oan2ssc0SbmuOoKPJZrHc9WJ
-	 2x7YqJBsWmvTeBA31dPxu5iCGQWuijM6UrRTymju5uQMSa76dBcUA08PD10TIybab9DnJ
-	 Ofrng4QWGU8Loec/WOHGNHbnPh2VDTL8tH1aHMoAwtLy5vA4LpeVG5RV9Q8/JLd0GHDXM
-	 FlnmMbuqq5LzhUKGVGODbKKva+ohFqPMCvjOHevk5dm3e+kAOlxk3HD1rTG1G4M39cw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792650342;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.182
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792650471;
+	b=YXythxsf4WfpaKnpcoWM9rCJrAbv5tna50x/wbq18xb6oqDgYZwD7TsJEit5tCy+UxfR
+	 9p8jHzXgLgdE1+iJ+HsoeO14OExtGJ0Mo9Au91cHPgjaZlfaZo1ms3etq1klX2vmBb/lT
+	 Z1FxliTUC6mM7S/4FlaFhKLTekhKkQEWfT+3+pw97nQ5jw/32QQpBgTTaAFwOZ9VKcYLI
+	 C7JkJfeDCw8R0KLwq9bOcZY16RQb6WsqwFRPHMSwT4nWxWlkYg+YjZGeZDBbxCTsrXVhm
+	 31TRaEHYZd2Ywrk8CJxVjqqCgO9vBmHGEZ09cMcmbodZ1ya/UmpApCO4Zy/zyA5VfZw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792650471;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=sR/bd0HSOYC2pLXMNReGoBvqOpk6rZoUDvcX0fCnmN0=;
-	b=uJvgAYc40KgGSYIybGxdtUVjtHZpBdnE83Na70d5g9/Q6Y+PlCzkVCZBdNE1F64aX89Q
-	 N8MXrTBeMiozFu5I6GmFp2wpQBA+MUtueISMhNTUoqDvoFU8H2X0L7S7H4OsB5u6+KHZa
-	 X0L7eFORZzKtDncCfZfPbgULqkuS6M8iNNN0yz7gl2brdY7zymmILZ+/S9TSZ0BoBOv84
-	 JRLpC30zuJjVEFl6oip/0Qm8IPlHffr18bRVk8VbjoPI7jhEX9nGlpu7k/Dgl1+b5Zf+4
-	 IMPtbSz+6fDT6Vs1Rz6W1p28Y6jhRHYEEqgM/6Jv1Z1V65t0xUphQ58Tv1KKoANC3Ww==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=PlRHh6FU;
-	arc=none smtp.remote-ip=209.85.128.54
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=c8KWIoZNW6/QAD3FZ28O4CFbS3YPAHolywa/ZQAktrE=;
+	b=mX7nDgq3/wC7oe2VRqogVBlAPM5V3XU3DB8kA5BKjp/VW1DKPSKB8iqEiVmdb8/C1w8W
+	 YYcHzfRKZkPCqSaS6QlNY1fkdXOFrW/uSpP9aL87SCpDIMMTfZmbFcEmh6VkTy/yI1geb
+	 uChEjGhGZMTP4ypkqb++n4VmZWhmhPIP9nDKHm++kRWy79/QZhauo0OODdiOHwBNnO7my
+	 0C/2W23z7oEjEKMcGeEg7eYGjsiL2vjXTvqK91zAc0PkQK1a/FvC0UdBtMIbtZgO5Icz8
+	 U0yTJs3S8kqJtUFjXx8KyO4uf6GV6FWLCQzRaSK3pYQS+4YnVjXwI2JFBVqddkTIteA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=brainfault.org;
+	spf=none smtp.mailfrom=brainfault.org;
+	dkim=pass header.d=brainfault.org header.i=@brainfault.org header.a=rsa-sha256 header.s=google header.b=I6BJalyR;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.182
+Received: from mail-lj1-f182.google.com (mail-lj1-f182.google.com [209.85.208.182])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36C37606A31B
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 06:25:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 36C37606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A4A2606A31B
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 06:27:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5A4A2606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=brainfault.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=brainfault.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=PlRHh6FU
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a1b07c3c5fso13107675e9.1
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 23:25:40 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=brainfault.org header.i=@brainfault.org header.a=rsa-sha256 header.s=google header.b=I6BJalyR
+Received: by mail-lj1-f182.google.com with SMTP id 38308e7fff4ca-3ab27b4924aso11104381fa.2
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 23:27:50 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792650468; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Mdy0BTYSkfR+Dj8NajQbq5VH77S7ENq/5Gf1uFR1I+P9ZntfwpTRJQQywGf/xXgZy0
+         vUnkaQLe9XmVDrF27QeB5dDE/1HMPnwobbLSttFrI7syBRaFaDwvrcO8EJoOiph85wX7
+         pPUUNIdyhQLrd3k/LVIOXmzmCkw+4WWX60QWREAf1OJl+TZN3rZlX7ZK5tXrCqbRlGgX
+         8+5Hy5/pG2RSaqfgHS1FKNNYMHq3Ea5husPvV7sVyQ5tGOkWeIdoX9QTh8+wdktxU0fj
+         vrIOUuo2a+74FX1uByI6a7ghi4EOJqcalAO78dS4nnr/zajFKlKVj2aCF+46izls85bx
+         FkHw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=c8KWIoZNW6/QAD3FZ28O4CFbS3YPAHolywa/ZQAktrE=;
+        fh=ZEIGkHvHQewUjCmu4hIyHkXIxHxNMXJ+PZ0rdjcsOPM=;
+        b=ZI4FJb4iT2U/RqnGb7EpI6BAmIDzleIzfIDzCg08SON3/ul2nsmNhlZ+OLmy0qRr/s
+         FuW1MoWloSi3kb2dLbbt71qfQMl9OAqQIBDr013DkJL9oJBgcSv6RNpMK0CcmcnbYaNp
+         x4sfbnXLp/hzYq9pZmLE2TZ6RTxPhY1TVTXTuIMKhc1pBCMdciyrFA1I1hA+oGYGkTZO
+         K0ytY7S9eUopVG08yRR5qHbjEogFZF95WVai6tMR8G0VvEXXs/ktFHKSEMrtXlmaq+R/
+         UrKcjDTz1k94Q1XBbTVjK6x4QUMTWQSI20mndpnoi+y9KK6X23irFPDFi7AMjCNQN1IB
+         0K9w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792650339; x=1793255139; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=sR/bd0HSOYC2pLXMNReGoBvqOpk6rZoUDvcX0fCnmN0=;
-        b=PlRHh6FUA/8dGcmD3MPn1yA6R9W9Fw9E+8rGO/9WOXXpJRId9LgJ2xqAMSm+aEETxX
-         9KsoQMUgFHy+4N5yKBwrSAPffDE91P7UWGS9o9D6Hdtn30XkR5dDc0brdlBqfSE5BeRB
-         skfWke4bs6Vv+UGCz9QoI4VhruNMgZ0wOl4ACBW7XwB1L+R/qdaCBetrDdOs0DTCGX8E
-         jEIKYZCRjon6OwsJl2a6wyoxOiG2URE5t7WZFVlM9OiVdKUQb1J0rh/XzwDOk1RbiR+g
-         tYqqQ5kstr2HLP+L0CpgsucrTKIMtGWdBuyQVrOkVNXubQumv9Ldk/SL5QtmfSkn7a5I
-         vkVw==
+        d=brainfault.org; s=google; t=1792650468; x=1793255268; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=c8KWIoZNW6/QAD3FZ28O4CFbS3YPAHolywa/ZQAktrE=;
+        b=I6BJalyRUjlXbBnTqLj/Hw9e0stD1hDGncpWi81zlLKHhhX9z55e2piXfBA2ShEicd
+         js+eeYjcAscnQ1MR2guAhdfiIgd97VwaWxDn+3saZwZwoqyxwsmPxQwCBReVsef3fi4p
+         HEicD/7M6zZU/EAZiEqlwV94O9rbzRJkdL83ScTGERS/129XNqV2yh/Hh2s/GU/rg9ge
+         DoqCjcnoMxuiGu6E6gcAmJyT4Y2sR4GGSTnfKptQqRlRKYVm+KrnjwXvBBM+fKAI1zlB
+         K5EAwtzHBKSotwtsXA1CbDDeNN0sAqJ8tryxfVR/RMqCO3lBl3delvIcRWlgb+9Kj9+j
+         eUHQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792650339; x=1793255139;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=sR/bd0HSOYC2pLXMNReGoBvqOpk6rZoUDvcX0fCnmN0=;
-        b=GVZemOyH365zhXpQLcZzEYYTghMcbiVD8mdHwkih9mIfaV4CgRUfffb99MmXz85PbW
-         s1WG8fGn/vwg6EvmMsru0DwlUNxVxrADwiSw6h6CXixy6SY8wiTF+sfipgfiIuNqMSH8
-         r2f5ft1eHQCOaPUfzG0TTgOiRbsy91uT05AJNayF84v7NpS5OvE8CeYOzhOsTQp3/efM
-         K/lOMssodJi01X4MrXL9F1T8Hpa0JqxMjNat9D1+ijqaDknnJgoLwOJGEhQ7CHdK+Qps
-         yie2yq9trDlicwuGFpRlrJ732gslnMsT7Y+FG8bLXP9m/1+IwynOBNCAPbrkklwkp5Mu
-         WnSg==
-X-Forwarded-Encrypted: i=1; AKwUvBxGdxGc4znxW466bpEySq2z1dphZXAZJY89WESl49ZVmW4AwPUEoIMyNfw1tj/ZrjU53+scVvyOsRW2xUY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ5t2EA9bHLkyQ0L6JeyFUr5IXVHXk5TSY85RekXEM8M9B7XgPp
-	a6S5IHxkkfAgUtc+ORrw6nmDDO9uILAnm/iyEOiRIkYSWRXX5CPCj8dx
-X-Gm-Gg: AYBFou2QRYVYPvpYEDR9aIN3gC7Kl+qjA//5hr0aYcS2gDDEzFvnLUOviVPqxbKtggK
-	ZnbQ+X8uX1+Kv/UBgRIGXYA6Sq5BvXDI+6OCn+G9+hCPoHm743GFqbHVU3Oi0U2SSgk1cnzFtE0
-	bOZEo2PwxkFO8/PVn8JiD4T1DjH87fByM8EA3D6RdQv6ZZWvrMzvFQFLtF41mOOqHGhUTSiC0Zz
-	/EwSPqcgUh1jrDljFP1KgddGoo8gh7TLMv4/3LWOf7NDX1FLkuWSP53LqVkTDBzbB7G5ClMjneB
-	9GXv4UO4PkTNYHvZ1Rz9aGP1Mn1Mctdy8NnrjkXZMQXBBozBNxA+Yx0CXnywaH/RRUtLz0PQ1ds
-	6y1gpnpvup3lhYPhxvdjyqadBpE7Dp2bybBSCCOACk+W1MSynKLhRHOqJL7AIO42WCGk0X/5kLr
-	LcyAB4QOryuScQi2KFh8BQ5eTsr1EMRs100n5JSgkA/HzQRuvl8JnUZSfYwqrovSzZDWrVJP9tm
-	15RBiE/O06Ejb+0BhAV1i4X27gIyuTSNDKmhST5QLV5FTyJg/jVj5CkY5G3hVXJHtYDZCUytL7H
-	wV9Yy/9vnUO4lS71nGYuw03qTtFPCQ+FzzQM2UCZ3vh39lwER37/2ZCJLBCOZnQ9WTX71yxilr2
-	em4X35ouErUXJfKYaOJ6XkxQ9Vb74hE4P+xo5xw6UOJmXmHvPqJvi+BBhHIhY3ux3
-X-Received: by 2002:a05:600c:4685:b0:4a2:a1b:dc6f with SMTP id 5b1f17b1804b1-4a20a1bdcc7mr6610985e9.4.1792650339278;
-        Wed, 21 Oct 2026 23:25:39 -0700 (PDT)
-Received: from localhost.localdomain (dynamic-2a02-3100-ad43-d501-2c28-bb72-120d-420e.310.pool.telefonica.de. [2a02:3100:ad43:d501:2c28:bb72:120d:420e])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a203a447c8sm45301155e9.12.2026.10.21.23.25.36
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 21 Oct 2026 23:25:37 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	Vlastimil Babka <vbabka@kernel.org>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Alexander Duyck <alexanderduyck@fb.com>,
-	David Hildenbrand <david@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Brendan Jackman <brendan.jackman@linux.dev>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Zi Yan <ziy@nvidia.com>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Clark Williams <clrkwllms@kernel.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	linux-mm@kvack.org,
-	linux-rt-devel@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v2] mm/page_alloc: fix shuffling and reporting for no-lock frees
-Date: Thu, 22 Oct 2026 08:25:23 +0200
-Message-Id: <20261022062523.97082-1-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+        d=1e100.net; s=20260707; t=1792650468; x=1793255268;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=c8KWIoZNW6/QAD3FZ28O4CFbS3YPAHolywa/ZQAktrE=;
+        b=ZLZG3vGbi1Hjt4VJ+qdYANurT6bd1eR8mGhDxQ5HeRAUf6mcXRaZC+CAVTO1Fz9fUD
+         SPw/poLHGfA+yIlk2bVbFmg3jDkBdjNi1ZT8hRcS71dpbDOxAm6U3zXk23ObyKC4N0/U
+         HQnfUYQ3ndeYC/NT74j71P7e+qfOsPdfxL0n+avoAyj4SWRneJ9NCz66lz58cbPu71XQ
+         TAJYKoJNpQbMXpPdOoRZz81eZBgeAb7RKWFXH1OGuJdf/7rSDHSmbBpbNVsEMekWYNsN
+         7h8xmEmkow2WwLXzN8yK6cuch/14R4YPGuXs+DCap7FjnALYt1nxzbV9BJ63webeOF2V
+         c1eA==
+X-Forwarded-Encrypted: i=1; AKwUvBxe+2aWkGbbZe54pTodxkzpYHgJYvDW6m9bkrBJRAPl+dbrhu71Av4H2ww4A/fIHuQLSvCf1Gf3dqxPHSM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK5wilWd8czBBPQAdH7MJXxckeiqldjsB5lE80HKcynIWlgBV0t
+	/VTnp/c/cIYgczWGE4V06sXp18934AbTh5AX6w0Kr40gJbpMjNzz+RN+zOFRGgrjhowvIMLjHEr
+	ZqK7FdoIQtertwYuRGc7pWgX9dG8SWYzpLLFf2TVlOlF5peaH/ZD+
+X-Gm-Gg: AYBFou2scrnwDUwY9Wqmden9MTYePKVCiaQkY59p/Eqv20mJGluKsBe0al2655h2VJE
+	XS+PR1/7/gME14YTymAGcoZ6XxQ91ylCJjd3xsd5LpussF6vX3FuSSkrwJVCtNOoYlJ8qLb6cba
+	Ah6bE/uuHZhXJQ1Pilbd1Dh9+mfzJILCNX/3Pi18VE/QP2tOQIByWaqBSs0it8UARuNm1jDpqWn
+	JM2KTsyzrEk5BkFPn+AJFcD5AazCZZMPVgge008tST0nrvG055ZpNouvSTvz2XsZytX0DkDmOTc
+	FyYHJa4ncfTtEND0uwpb9t+toY/obeGIlsuOd5n/zhJQwRm00kcHWAhpzlgaQel7D2Gh5z1E7K9
+	VeItOcKkFkS17TzEhZ50mtLT5pg7kPHdvJ6SRjJAw6JuDOWoPuhPtaEk583OkFRC8IgoHSRgnZK
+	jiNggDQaB5WUxV7Qc6S9mQhq9XYDWDnrZ9AIyL7cAPJnS8eUa7lk9H4ajoy1usAZDArGScjmVXb
+	TcTyg==
+X-Received: by 2002:a05:651c:3134:b0:3a9:9a3b:6036 with SMTP id
+ 38308e7fff4ca-3ac440b53c8mr12628651fa.2.1792650468375; Wed, 21 Oct 2026
+ 23:27:48 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -112,198 +106,55 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261014224239.963635-1-heinrich.schuchardt@canonical.com>
+In-Reply-To: <20261014224239.963635-1-heinrich.schuchardt@canonical.com>
+From: Anup Patel <anup@brainfault.org>
+Date: Thu, 22 Oct 2026 11:57:36 +0530
+X-Gm-Features: AclHuK-9TFsRegjYZcIPEHWDYDOWlB5NKzsnn-yH7Qq40hb2qm3j1NzJo9FfRwI
+Message-ID: <CAAhSdy39UtV0sUqL0=FX+HWa7oAH0fkei1cFKiF6OBSSFT=gdQ@mail.gmail.com>
+Subject: Re: [PATCH 0/2] RISC-V: KVM: Allow Zicclsm, Ziccamoa, Ziccif, Za64rs
+ in guest
+To: Heinrich Schuchardt <heinrich.schuchardt@canonical.com>
+Cc: Atish Patra <atish.patra@linux.dev>, Paul Walmsley <pjw@kernel.org>, 
+	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+	Alexandre Ghiti <alex@ghiti.fr>, Paolo Bonzini <pbonzini@redhat.com>, 
+	Sean Christopherson <seanjc@google.com>, Shuah Khan <shuah@kernel.org>, 
+	Sarah Emery <sarah.emery@canonical.com>, kvm@vger.kernel.org, 
+	kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-free_pages_nolock() may run from NMI context. The BPF arena also calls
-it while holding arena->spinlock through raw_res_spin_lock_irqsave().
-When the zone trylock succeeds, __free_one_page() still reaches page
-shuffling and page reporting.
+On Thu, Oct 15, 2026 at 4:12=E2=80=AFAM Heinrich Schuchardt
+<heinrich.schuchardt@canonical.com> wrote:
+>
+> Extend the KVM ISA extension array to allow KVM userspace to
+> detect Zicclsm, Ziccamoa, Ziccif, Za64rs.
+>
+> This is just notifying of hardware provided capabilities.
+> No KVM specific support is needed.
+>
+> Add the extensions to the get-reg-list test.
+>
+> Heinrich Schuchardt (2):
+>   RISC-V: KVM: Allow Zicclsm, Ziccamoa, Ziccif, Za64rs in guest
+>   KVM: riscv: selftest: add Zicclsm, Ziccamoa, Ziccif, Za64rs
 
-When shuffle_pick_tail() exhausts its random-bit cache, it calls
-get_random_u64(). Once the CRNG is ready, this takes an rtmutex-backed
-local lock on PREEMPT_RT, which cannot be acquired while a raw spinlock
-is held. A test-only forced refill under a raw spinlock reported an
-invalid wait context at batched_entropy_u64.lock.
+LGTM.
 
-page_reporting_notify_free() may call queue_delayed_work(), which is not
-NMI-safe.
+Reviewed-by: Anup Patel <anup@brainfault.org>
 
-Pass the no-lock constraint to shuffle_pick_tail(). For no-lock frees,
-use a pre-seeded per-CPU prandom state, following the slab allocator.
-Keep the cached get_random_u64() path for ordinary frees. Seed all
-possible CPUs before memblock memory is released to the buddy allocator.
+Queued this series for Linux-7.4
 
-Skip page reporting for no-lock frees. The page remains on the buddy
-list for a later reporting pass.
+Thanks,
+Anup
 
-For stable backports, FPI_NOLOCK was named FPI_TRYLOCK through v7.2.
-
-Fixes: 8c57b687e833 ("mm, bpf: Introduce free_pages_nolock()")
-Cc: stable@vger.kernel.org # needs FPI_TRYLOCK through v7.2
-Suggested-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
-Assisted-by: LLM
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
----
-Changes in v2:
-- Preserve shuffling for no-lock frees with a pre-seeded per-CPU prandom
-  state, following the slab allocator.
-- Keep the cached get_random_u64() path for ordinary frees.
-- Keep the page-reporting guard and explain its NMI constraint.
-- Check is_shuffle_order() before the no-lock flag.
-
-v1: https://lore.kernel.org/r/20261005063515.6312-1-kmehltretter@gmail.com/
-
-Testing:
-
-A temporary caller freed 65 maximum-order pages under a raw spinlock,
-then repeated the workload through __free_pages(). SMP=1 and SMP=4 QEMU
-TCG guests produced the same path counts:
-
-                                  no-lock  ordinary
-  shuffle decisions                    65        65
-  prandom_u32_state() decisions        65         0
-  cached random-bit decisions           0        65
-  get_random_u64() calls                0         2
-  reporting notifications               0        65
-
-Both guests ran PREEMPT_RT with lockdep, raw-lock nesting checks, page
-reporting, and page shuffling enabled. Both lanes selected the list head
-and tail. Neither guest reported an invalid wait context, lockdep splat,
-atomic-sleep warning, BUG, oops, or panic.
-
-The test does not inject an NMI. The in-tree BPF arena caller establishes
-the raw-lock path, while the forced refill checks the previously failing
-transition.
-
-
- mm/mm_init.c    |  1 +
- mm/page_alloc.c |  6 +++---
- mm/shuffle.c    | 24 +++++++++++++++++++++++-
- mm/shuffle.h    |  9 +++++++--
- 4 files changed, 34 insertions(+), 6 deletions(-)
-
-diff --git a/mm/mm_init.c b/mm/mm_init.c
-index 1533aebafb688..01bccb23a89c2 100644
---- a/mm/mm_init.c
-+++ b/mm/mm_init.c
-@@ -2643,6 +2643,7 @@ void __init mm_core_init_early(void)
- void __init mm_core_init(void)
- {
- 	arch_mm_preinit();
-+	shuffle_init();
- 	init_zero_page_pfn();
- 
- 	/* Initializations relying on SMP setup */
-diff --git a/mm/page_alloc.c b/mm/page_alloc.c
-index 12fac9084c483..f13993bda67e1 100644
---- a/mm/page_alloc.c
-+++ b/mm/page_alloc.c
-@@ -1014,14 +1014,14 @@ static inline void __free_one_page(struct page *page,
- 	if (fpi_flags & FPI_TO_TAIL)
- 		to_tail = true;
- 	else if (is_shuffle_order(order))
--		to_tail = shuffle_pick_tail();
-+		to_tail = shuffle_pick_tail(!(fpi_flags & FPI_NOLOCK));
- 	else
- 		to_tail = buddy_merge_likely(pfn, buddy_pfn, page, order);
- 
- 	__add_to_free_list(page, zone, order, migratetype, to_tail);
- 
--	/* Notify page reporting subsystem of freed page */
--	if (!(fpi_flags & FPI_SKIP_REPORT_NOTIFY))
-+	/* No-lock frees may run from NMI, where delayed work cannot be queued. */
-+	if (!(fpi_flags & (FPI_SKIP_REPORT_NOTIFY | FPI_NOLOCK)))
- 		page_reporting_notify_free(order);
- }
- 
-diff --git a/mm/shuffle.c b/mm/shuffle.c
-index 82a2c7725a08a..2e1f76d6bf92b 100644
---- a/mm/shuffle.c
-+++ b/mm/shuffle.c
-@@ -5,6 +5,7 @@
- #include <linux/init.h>
- #include <linux/mmzone.h>
- #include <linux/random.h>
-+#include <linux/prandom.h>
- #include <linux/moduleparam.h>
- #include "internal.h"
- #include "page_alloc.h"
-@@ -13,6 +14,7 @@
- DEFINE_STATIC_KEY_FALSE(page_alloc_shuffle_key);
- 
- static bool shuffle_param;
-+static DEFINE_PER_CPU(struct rnd_state, shuffle_rnd_state);
- 
- static __meminit int shuffle_param_set(const char *val,
- 		const struct kernel_param *kp)
-@@ -30,6 +32,12 @@ static const struct kernel_param_ops shuffle_param_ops = {
- };
- module_param_cb(shuffle, &shuffle_param_ops, &shuffle_param, 0400);
- 
-+void __init shuffle_init(void)
-+{
-+	if (static_branch_unlikely(&page_alloc_shuffle_key))
-+		prandom_seed_full_state(&shuffle_rnd_state);
-+}
-+
- /*
-  * For two pages to be swapped in the shuffle, they must be free (on a
-  * 'free_area' lru), have the same order, and have the same migratetype.
-@@ -159,12 +167,26 @@ void __meminit __shuffle_free_memory(pg_data_t *pgdat)
- 		shuffle_zone(z);
- }
- 
--bool shuffle_pick_tail(void)
-+bool shuffle_pick_tail(bool allow_spin)
- {
- 	static u64 rand;
- 	static u8 rand_bits;
- 	bool ret;
- 
-+	if (!allow_spin) {
-+		struct rnd_state *state;
-+
-+		/*
-+		 * An interrupt or NMI handler might interrupt and change
-+		 * the state in the middle, but that's safe.
-+		 */
-+		state = &get_cpu_var(shuffle_rnd_state);
-+		ret = prandom_u32_state(state) & 1;
-+		put_cpu_var(shuffle_rnd_state);
-+
-+		return ret;
-+	}
-+
- 	/*
- 	 * The lack of locking is deliberate. If 2 threads race to
- 	 * update the rand state it just adds to the entropy.
-diff --git a/mm/shuffle.h b/mm/shuffle.h
-index 11bec7521ab89..92f5e758388d9 100644
---- a/mm/shuffle.h
-+++ b/mm/shuffle.h
-@@ -11,7 +11,8 @@
- #ifdef CONFIG_SHUFFLE_PAGE_ALLOCATOR
- DECLARE_STATIC_KEY_FALSE(page_alloc_shuffle_key);
- extern void __shuffle_free_memory(pg_data_t *pgdat);
--extern bool shuffle_pick_tail(void);
-+void __init shuffle_init(void);
-+bool shuffle_pick_tail(bool allow_spin);
- static inline void __meminit shuffle_free_memory(pg_data_t *pgdat)
- {
- 	if (!static_branch_unlikely(&page_alloc_shuffle_key))
-@@ -34,7 +35,11 @@ static inline bool is_shuffle_order(int order)
- 	return order >= SHUFFLE_ORDER;
- }
- #else
--static inline bool shuffle_pick_tail(void)
-+static inline void __init shuffle_init(void)
-+{
-+}
-+
-+static inline bool shuffle_pick_tail(bool allow_spin)
- {
- 	return false;
- }
--- 
-2.39.5 (Apple Git-154)
-
+>
+>  arch/riscv/include/uapi/asm/kvm.h                |  4 ++++
+>  arch/riscv/kvm/isa.c                             |  8 ++++++++
+>  tools/testing/selftests/kvm/riscv/get-reg-list.c | 16 ++++++++++++++++
+>  3 files changed, 28 insertions(+)
+>
+> --
+> 2.55.0
+>
