@@ -1,100 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792676646;
-	b=Aqkogsazl5yLf2Lfa+n/uhZ900fUsxFZWGjUa98CNRrgsTlid4SRFQQW4GG8mtMOl8rz
-	 eBA8n5VS02vDVqVCyMJgYyrFTkXFD1RP0u/cyveSijjT+vYtooA70i9lGZOnfRrPlHPYb
-	 eTB9AjH9iOUmyf2ctgtbnGAR/3UEMq3fK7PRh3/ONR4bG4eEu03XL0KPwVXqF/eB0qVcb
-	 evULUNbhZVWB8D2PRusSUARtJmNVIZoVLtqLCKHIA0gWhs1Uc4EXssVDilDlvZzIx3g3k
-	 MLoTzgDmxPy2f9yw25MSoiOAi7HywGOvKWgJgsBieozPpRxcSxmy+XazJTeYgLktX+A==
+	t=1792676691;
+	b=yDTNIWyUlLU6Ib7r+q4m1UYUu5iohoC4AC9DR9gNDuELxEfq/MdRGKCKBahGES5CHnNP
+	 RzzSEQOhyqNzdcAUdzOiv2WnT5aeVrnsbKqZn5JM2FkCWTbI4kZf2lDvFmFC3DTYwVUhu
+	 zzWrgkG0mJ6XY8d223ZMT5ydRgs5rAzD/zYrIa1y/V0UrD7w00j4JBZEHjAxwzw021ml9
+	 qpgIjuODrtnNKihf8Sm9+U2jY/1+F+7G2yXxukO8Lka+3vHz53rF/Xw/tj1mGpe/rtQF2
+	 iuLhc4UGic0xmXb7J5uYlxieEy3Ia8OfVph9qBh+TTZhCiiY/5GCjFbZDrXu+Bg56kg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792676646;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792676691;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=IGum0Dhauevbw3Uwf/HnryttWD3FBap3x0GWqK5kUvw=;
-	b=J9x+oY40xiOzj5lEJYZjclXRK6uExsHwnOorbqRzkPRBQkm+LDObFJeir+EHJE30kjl2
-	 sKwiIDUo6ECApuIUyIxV4kL8CaReB96DMGySkuIOMSkFBljD8UClPyLs24F8sYulyuC1T
-	 cfYHxpxXC9ybBvX49F5ux6UKuis6AM+qnEap8X2ocuixM+/o4KioT9o/1grJ8lVogVucv
-	 cL7jU0mIX6D4ZS/ml6Qv2kERkgMoQtqvzogcKl/gmpBixRGPbFHPbT+EXU6Xx4mEfQFSB
-	 ntKxcpallW+zVqFFtZ0iTS0JOX48CGFNYG9WkytH2MUorEbmySjslQe/Uz1hGrfA+8Q==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=XYjNLtFTrAyQevnzj/0Kzgc6dPd+FZvsW6YZu/EQWok=;
+	b=lLCOSo2o6+TPaOfe2Nr7pGW61N+boCM62WlOoTSxWA4MMjCKne+H3EcIIHgBkehJt9oI
+	 2JTf+ZdD8hQFVYRBSSk0XjHGM4pJy27+Uv3cIG9JSLTYGF+hDxzIh6AIJXt/DEbrzZDG5
+	 FwutqYdngvp1Q2h6zYdxYED8xiz4M+T7sb/MgA1calr7koBSZQpa5Fp+A42HK0nUrZB4o
+	 BD2GToQgZ6JoUdXHsUwy5KgHBYVzEfXaYiZA/McoqYi9rGclwmBuOCU17+MoFF3E1XvmB
+	 TKxjuvw7KzyHzoaAcbw1JlFbPJtd2R55uTCJ/ahd3iOmy8OtIIRPxtI8BP+X3zSaM3A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=RDuE7dhM;
-	arc=none smtp.remote-ip=209.85.221.54
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=swE7g4pb;
+	arc=none smtp.remote-ip=209.85.128.51
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF14160A4AC5
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 13:44:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BF14160A4AC5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A167E60A4AE0
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 13:44:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A167E60A4AE0
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=RDuE7dhM
-Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-48e0d1da913so813944f8f.1
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 06:44:05 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=swE7g4pb
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a1698ea378so13995165e9.2
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 06:44:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792676644; x=1793281444; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=IGum0Dhauevbw3Uwf/HnryttWD3FBap3x0GWqK5kUvw=;
-        b=RDuE7dhMDt1vV9VLy12Ek2t7MzQ+oYNV07RvBAd8r1kjlXbCDVxyLhJNy5Q6rPNH+M
-         w87bO61Ixv3pZoLJuOR6TLEBQNdCOdDVR1h3h3pOM/OkBhz8Grs2doXeUmuO2vZCYs0O
-         c5utiXuvyfxxOSOsItpycomUxvIOnNDEshoXG8F+S87tooFO+4bDyiZZC8PgLWuI9CDd
-         cqHPFLb25X1GqhWVYkkUazlb3GkOOXT2PxOlrvyOP+LgXeSTwOEMvT5j5B7MWosfqP7R
-         5GN5M8+Ox0aiHXkw0nz82TKxL4bi9iqJANtd3AlqaSn82uJFBYAcwl/7WTZavtSkJE9q
-         5FbQ==
+        d=gmail.com; s=20251104; t=1792676689; x=1793281489; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=XYjNLtFTrAyQevnzj/0Kzgc6dPd+FZvsW6YZu/EQWok=;
+        b=swE7g4pbulvykPpi16BvFi7jTgN6mR6aMzfmhtCUqv6gQpyPo0/pXjoj1meGfh0dJK
+         7e5TlY+Qi3S6ulMPOH31NiTHUzH2cAHnISCj0jPtJsklJCHEF7J2iAEx2bWS7Jh36TFC
+         SYa7oHpV/dagy2vfkWPd2/BrmVNmHlK18yuNGsJz6WiUVaPY7S9q+LzaGeP4fVHm6Ot3
+         ivLJXTh0KdaCniv43sQFcifb708SDMxLtTr+FjKG2fe6U20j9J9ScEemIJh1/FgH7lrD
+         Tcz1/RWZAamruSa6N5MtRGsRn0s4nAdxuspkIQDOHqzgfFbbDPYTwwDnUf8oQZPNXR3M
+         lBRA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792676644; x=1793281444;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=IGum0Dhauevbw3Uwf/HnryttWD3FBap3x0GWqK5kUvw=;
-        b=iLwk3heJa7OHa/mn720BySBc+r9u9YmhwkLmH+sqZ6qnLwteHjWFY7WzaTLsTHrV7m
-         6lNpXSrXWqpzr3gzhrrSATJX6ysy4yjSoaZjItQp7bozSESrKRHM8HSJKB2Mes1CW98l
-         YCT5AtZboHVZ3rgDNL+DO/a4SxHcdN5x+oxsv1/gsJVakoMJbqBtB8Icr+/rmUYWtrG4
-         3H8CKLDfpyqY3Bi+jpFzk0DF6lCT5h3hT2UAU4pTUF2H/EIQ+OWryeDE9pFePcsWu9bA
-         jS49FxxK0g3sFSZXl0VNyHOIqW0jKBzpryQzopZT+oWuE4R4aQTAD3WJkIIK0L4z9UuE
-         t+DA==
-X-Forwarded-Encrypted: i=1; AKwUvBzFOphSnTSg1xGi1yQAvGlvfvKXaETmB7tDp92MA40sd+/IQBC6U/EhElykJCAWX5AdndkCEOswA5s5cck=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJblGUQDs2ora8TaBBcq5Aci5twynyQv+1WBL2pmPG5Vo4VlteQ
-	VKGd/i1hxBtXedFwUwwSKJcID26H29as9czQR7zDfuN45ccoh1R9gTAgksvopg==
-X-Gm-Gg: AYBFou2yzSL081Y7MgD3gHh3MFmt/Istsf9ulriFIqYKsoYDU+/znIIwgD4n3CcuE8w
-	49QklaWxIDO5CinUmIRsqhKYH+uQkTzIWixDUvziZcohktKWxrPBUYxT9Wg8aKl2SygK/KpIMKg
-	F1+4opymrh2i84BxUQV29TLu3JU1gsk8uIuX6VdcFRKwgLlS2kYCPfOsflpgbOalQ3qOosyeitP
-	STUzG9v4SKvHlzbMk/0j5QqiINe0m6GYRYapKxgL2VR876srUxEIAkvu22WDiNbJK26lOM6/XUq
-	xeZQzkVdKrYItWkGy5e2j5cRSdObnMSckPkexcFMRcxV3kqA4Y/3T5riy9ypUWGpx0J0MxW1C2P
-	0tN/QLTHeUg0QNfCxuGsFBCcVUV2KT8or7sRLfzA1kzjhEdumTtcvDoubNmr2fEBt6ZsJnucD8r
-	Gfuz0YHgwlGivf9Zvk8CU8uDSPoMGY/Z66BC+KX+SVr5WHw7dKGmVzAEVgjOA+T2NeU89AldeVF
-	NuRBezUXAiScyfEyFgHB3yAD3XA+dj5bz1qELPO1McbxqcL5WjIOPwWxQ==
-X-Received: by 2002:a05:6000:22c7:b0:48d:f852:c66b with SMTP id ffacd0b85a97d-48e2d26b3dfmr5786135f8f.22.1792676644028;
-        Thu, 22 Oct 2026 06:44:04 -0700 (PDT)
-Received: from NB-6746.. ([188.243.183.76])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e25835b1dsm13621390f8f.40.2026.10.22.06.44.03
+        d=1e100.net; s=20260707; t=1792676689; x=1793281489;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=XYjNLtFTrAyQevnzj/0Kzgc6dPd+FZvsW6YZu/EQWok=;
+        b=gFRxl/njALRJtHHnwixQmWmpUdZecF7TU2pwcB0Wyk1l6qLAHZTjI6Yg18lHDAdFyN
+         mW9SEyjBLwbYcPfvXwqiCGBy6AgxKV1ZHVccAQG/fiZcdovqSBkomQB4j/MnvSkYXYxj
+         Ny8sDqUf9XJAH7GmWvcPri1tpfj6KsvolbAhad39gDBaWR7kMH4HVDs0/SQdxBc4qGWF
+         ++QuCC6iB3Yo70DEQyL+QLJZ+0hNbmYn0wPU2Vxlp/LmyeyGmBtU+cRz4Dfp7Tm4oco4
+         TE1ZOUlVr3RaxUvGazwyvm/rHUvm7SLMQEG2Eaw1lBtlxdkZkQjjcJ+Xdglb7YWRvGRJ
+         gajA==
+X-Forwarded-Encrypted: i=1; AKwUvBwkQnjn3y9bLcoMJtZnfdcEYk3Mz70dwVSVHoakS0f8f/JWYx2zW2Cbk1ZhQK2jRLfqa7z5Dvz92JJvA+g=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK0nxl0AlYhFjWkCrwlepCN9mzhgwfT6rljYcFMBPhqlP003pA7
+	E4uyUdyIOwoBaRu/4W0jSHc92KTfgnsiY38is9JJpiJKlZHnswiz1NHt
+X-Gm-Gg: AYBFou2lYUHQhIEGj9GqyaC7XQFtJ5DYGSuiP/hZcD1rcd6r7wdnxU/usZJ+SzPVbSf
+	QPMUHEK/YI+UjoJ5HhqRz9yLVpYJy50Xxs8+35fJ5A9CM+PfRZSTu76VU2CyKlhS3m8VIp/tCoE
+	HLnKYce/778A1GDnZ1pSFbpBNWp2FiTDX3FSnwIokGaSrMKyv/m3bZ751MkVHylRo0Ar2fTpxbh
+	XdGAR0c2tOKz7JxzUAdqA7KymT937K3mP2Ziuv3WQUjOmLEhYMmSPHEV4bR+NNJWUDGnXWTZb1z
+	WbSGmZpktOFEzDQ4XzmDJcgGIdp5Z9QJL8C0XB4OE9zvRxpmYQzygMeAj1EXq8FbBqsX+BgyQIM
+	qzCp3yVuGX2f4xftxdwxCGCe1fnkQllr/3kdSjD1r6X98MKFG93hfN1UW1Tdraco/d0vLXQs7KG
+	xETnFBQ3tdXhzyVOMM9bhC20yLqTfSH2MyA7RSLuhCD5dXWIfHQSNbeMFw7hkApiEtCSIg6APT/
+	6Egn1pzxTPgkR+sKUR8LIgNa/UXyM1dHWGpec3Lrau5CmwzTpLkkaGOcuWiqTuqiUzgpmjQQEva
+	+HmcI2pZFtUnsyyfnIq+Lndi
+X-Received: by 2002:a05:600c:1d1e:b0:4a2:677:ad8e with SMTP id 5b1f17b1804b1-4a20677bb15mr45085445e9.34.1792676688722;
+        Thu, 22 Oct 2026 06:44:48 -0700 (PDT)
+Received: from andreayoga.wind3.hub ([151.76.51.95])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a205c945e9sm62885515e9.1.2026.10.22.06.44.47
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 06:44:03 -0700 (PDT)
-From: Artem Shimko <a.shimko.dev@gmail.com>
-To: wim@linux-watchdog.org,
-	linux@roeck-us.net,
-	p.zabel@pengutronix.de,
-	Sergey.Semin@baikalelectronics.ru,
-	mika.westerberg@linux.intel.com,
-	andi.shyti@kernel.org,
-	iav@iav.lv
-Cc: Artem Shimko <a.shimko.dev@gmail.com>,
-	linux-watchdog@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 3/3] watchdog: dw_wdt: clean up error paths in resume function
-Date: Thu, 22 Oct 2026 16:43:51 +0300
-Message-ID: <20261022134354.534642-4-a.shimko.dev@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261022134354.534642-1-a.shimko.dev@gmail.com>
-References: <y>
- <20261022134354.534642-1-a.shimko.dev@gmail.com>
+        Thu, 22 Oct 2026 06:44:48 -0700 (PDT)
+From: Andrea Parri <parri.andrea@gmail.com>
+To: Josh Poimboeuf <jpoimboe@kernel.org>,
+	Jiri Kosina <jikos@kernel.org>,
+	Miroslav Benes <mbenes@suse.cz>,
+	Petr Mladek <pmladek@suse.com>
+Cc: Andrea Parri <parri.andrea@gmail.com>,
+	Petr Pavlu <petr.pavlu@suse.com>,
+	Joe Lawrence <joe.lawrence@redhat.com>,
+	Song Liu <song@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	live-patching@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH v2] livepatch: Fix races between stack check and module load/unload
+Date: Thu, 22 Oct 2026 15:44:31 +0200
+Message-ID: <20261022134433.3595212-1-parri.andrea@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,50 +105,271 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Clean up of dw_wdt_resume() function.
+Unloading a patched module while a livepatch transition is in progress
+can crash the kernel in klp_find_ops(), called from the scheduler.
 
-Rework the error handling to use properly named labels that match the
-cleanup order. Use unprepare_clk for clock disable and unprepare_pclk
-for pclk disable path.
+The scheduler checks the stack of a task that still has to switch
+without klp_mutex: __klp_sched_try_switch() -> klp_try_switch_task() ->
+klp_check_stack().  The check walks the global klp_ops list and each
+func_stack, and reads obj->patched.
 
-Signed-off-by: Artem Shimko <a.shimko.dev@gmail.com>
+Loading or unloading a patched module changes these lists in
+klp_patch_func() and klp_unpatch_func() under klp_mutex only, and
+unloading frees the ops, so the walk can follow a freed entry.
+
+Protect the lists and obj->patched with a raw spinlock, klp_ops_lock.
+Writers take it only around the list updates, as the ftrace calls in
+klp_patch_func() and klp_unpatch_func() can sleep, and free the ops
+after dropping it.  klp_check_stack() only trylocks it, and checks the
+task again later if that fails.
+
+__klp_unpatch_object() now clears obj->patched before it unpatches the
+functions, so that the stack check skips an object whose functions are
+being removed.
+
+The race was found with the help of an LLM.
+
+Fixes: e3ff7c609f39 ("livepatch,sched: Add livepatch task switching to cond_resched()")
+Cc: stable@vger.kernel.org
+Suggested-by: Petr Mladek <pmladek@suse.com>
+Signed-off-by: Andrea Parri <parri.andrea@gmail.com>
 ---
- drivers/watchdog/dw_wdt.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+Changes in v2:
+- Protect the klp_ops list, the func_stacks and obj->patched with a raw
+  spinlock that klp_check_stack() only trylocks, instead of RCU and
+  memory barriers (Petr)
+- Check the locking with lockdep instead of describing it in comments
+  (Peter)
+- Rewrite the changelog without the traces (Miroslav)
+- Drop the obj->patched barriers for module reload instead of splitting
+  them out (Miroslav): obj->patched is now set under klp_ops_lock
+- Note the LLM in the changelog instead of an Assisted-by tag, which
+  was dropped upstream
 
-diff --git a/drivers/watchdog/dw_wdt.c b/drivers/watchdog/dw_wdt.c
-index ec6a09673da4..11caf40d6771 100644
---- a/drivers/watchdog/dw_wdt.c
-+++ b/drivers/watchdog/dw_wdt.c
-@@ -393,16 +393,15 @@ static int dw_wdt_suspend(struct device *dev)
- static int dw_wdt_resume(struct device *dev)
+v1: https://lore.kernel.org/r/20261012140546.154730-1-parri.andrea@gmail.com
+Reproducer: https://lore.kernel.org/r/20261014133553.102324-1-parri.andrea@gmail.com
+
+Tested on x86_64 in 4-CPU vng guests with five configs: KCSAN_STRICT;
+KCSAN_STRICT with PROVE_LOCKING, PROVE_RAW_LOCK_NESTING,
+DEBUG_ATOMIC_SLEEP and PROVE_RCU_LIST; KASAN with the same lock
+debugging plus DEBUG_LIST, SLUB_DEBUG_ON and DEBUG_OBJECTS; and the
+last two with PREEMPT_RT.
+
+On each, the livepatch selftests were run, then the reproducer kept a
+transition in progress while a patched module was unloaded and reloaded
+for 30 minutes (229 to 358 reloads).  Without this patch, the
+reproducer faults in klp_find_ops().
+
+No KCSAN report involves livepatch code, and lockdep, RCU, KASAN and
+the list and object debugging stay silent.
+
+Two selftests fail, unrelated to this patch: test-syscall.sh catches a
+KCSAN_STRICT report in osq_lock() from the test module's mutex, and on
+PREEMPT_RT test-callbacks.sh catches a WARNING in klp_check_stack(),
+from lockdep_assert_preemption_disabled(), also seen on v7.3-rc7.
+---
+ kernel/livepatch/patch.c      | 37 ++++++++++++++++++++++++++++++-----
+ kernel/livepatch/patch.h      |  2 ++
+ kernel/livepatch/transition.c | 31 ++++++++++++++++++++---------
+ 3 files changed, 56 insertions(+), 14 deletions(-)
+
+diff --git a/kernel/livepatch/patch.c b/kernel/livepatch/patch.c
+index 3f54a017bbf69..d75fc9a14488b 100644
+--- a/kernel/livepatch/patch.c
++++ b/kernel/livepatch/patch.c
+@@ -22,11 +22,21 @@
+ 
+ static LIST_HEAD(klp_ops);
+ 
++/*
++ * klp_check_stack() walks klp_ops and the func_stacks from the scheduler,
++ * without klp_mutex, while a patched module can be loaded or unloaded.
++ * Changes to these lists and to obj->patched are made under this lock too.
++ */
++DEFINE_RAW_SPINLOCK(klp_ops_lock);
++
+ struct klp_ops *klp_find_ops(void *old_func)
  {
- 	struct dw_wdt *dw_wdt = dev_get_drvdata(dev);
--	int err = clk_prepare_enable(dw_wdt->clk);
-+	int err;
+ 	struct klp_ops *ops;
+ 	struct klp_func *func;
  
-+	err = clk_prepare_enable(dw_wdt->clk);
- 	if (err)
- 		return err;
++	lockdep_assert(lockdep_is_held(&klp_mutex) ||
++		       lockdep_is_held(&klp_ops_lock));
++
+ 	list_for_each_entry(ops, &klp_ops, node) {
+ 		func = list_first_entry(&ops->func_stack, struct klp_func,
+ 					stack_node);
+@@ -147,11 +157,15 @@ static void klp_unpatch_func(struct klp_func *func)
+ 		WARN_ON(unregister_ftrace_function(&ops->fops));
+ 		WARN_ON(ftrace_set_filter_ip(&ops->fops, ftrace_loc, 1, 0));
  
- 	err = clk_prepare_enable(dw_wdt->pclk);
--	if (err) {
--		clk_disable_unprepare(dw_wdt->clk);
--		return err;
--	}
-+	if (err)
-+		goto unprepare_clk;
++		raw_spin_lock(&klp_ops_lock);
+ 		list_del_rcu(&func->stack_node);
+ 		list_del(&ops->node);
++		raw_spin_unlock(&klp_ops_lock);
+ 		kfree(ops);
+ 	} else {
++		raw_spin_lock(&klp_ops_lock);
+ 		list_del_rcu(&func->stack_node);
++		raw_spin_unlock(&klp_ops_lock);
+ 	}
  
- 	err = reset_control_deassert(dw_wdt->rst);
- 	if (err)
-@@ -417,6 +416,7 @@ static int dw_wdt_resume(struct device *dev)
+ 	func->patched = false;
+@@ -191,11 +205,13 @@ static int klp_patch_func(struct klp_func *func)
+ 				  FTRACE_OPS_FL_IPMODIFY |
+ 				  FTRACE_OPS_FL_PERMANENT;
  
- unprepare_pclk:
- 	clk_disable_unprepare(dw_wdt->pclk);
-+unprepare_clk:
- 	clk_disable_unprepare(dw_wdt->clk);
+-		list_add(&ops->node, &klp_ops);
+-
+ 		INIT_LIST_HEAD(&ops->func_stack);
+ 		list_add_rcu(&func->stack_node, &ops->func_stack);
  
- 	return err;
++		raw_spin_lock(&klp_ops_lock);
++		list_add(&ops->node, &klp_ops);
++		raw_spin_unlock(&klp_ops_lock);
++
+ 		ret = ftrace_set_filter_ip(&ops->fops, ftrace_loc, 0, 0);
+ 		if (ret) {
+ 			pr_err("failed to set ftrace filter for function '%s' (%d)\n",
+@@ -213,7 +229,9 @@ static int klp_patch_func(struct klp_func *func)
+ 
+ 
+ 	} else {
++		raw_spin_lock(&klp_ops_lock);
+ 		list_add_rcu(&func->stack_node, &ops->func_stack);
++		raw_spin_unlock(&klp_ops_lock);
+ 	}
+ 
+ 	func->patched = true;
+@@ -221,8 +239,10 @@ static int klp_patch_func(struct klp_func *func)
+ 	return 0;
+ 
+ err:
++	raw_spin_lock(&klp_ops_lock);
+ 	list_del_rcu(&func->stack_node);
+ 	list_del(&ops->node);
++	raw_spin_unlock(&klp_ops_lock);
+ 	kfree(ops);
+ 	return ret;
+ }
+@@ -231,6 +251,13 @@ static void __klp_unpatch_object(struct klp_object *obj, bool nops_only)
+ {
+ 	struct klp_func *func;
+ 
++	/* Make klp_check_stack() skip the object before its funcs go away. */
++	if (obj->dynamic || !nops_only) {
++		raw_spin_lock(&klp_ops_lock);
++		obj->patched = false;
++		raw_spin_unlock(&klp_ops_lock);
++	}
++
+ 	klp_for_each_func(obj, func) {
+ 		if (nops_only && !func->nop)
+ 			continue;
+@@ -238,9 +265,6 @@ static void __klp_unpatch_object(struct klp_object *obj, bool nops_only)
+ 		if (func->patched)
+ 			klp_unpatch_func(func);
+ 	}
+-
+-	if (obj->dynamic || !nops_only)
+-		obj->patched = false;
+ }
+ 
+ 
+@@ -264,7 +288,10 @@ int klp_patch_object(struct klp_object *obj)
+ 			return ret;
+ 		}
+ 	}
++
++	raw_spin_lock(&klp_ops_lock);
+ 	obj->patched = true;
++	raw_spin_unlock(&klp_ops_lock);
+ 
+ 	return 0;
+ }
+diff --git a/kernel/livepatch/patch.h b/kernel/livepatch/patch.h
+index d5f2fbe373e05..6441373f1c2f2 100644
+--- a/kernel/livepatch/patch.h
++++ b/kernel/livepatch/patch.h
+@@ -25,6 +25,8 @@ struct klp_ops {
+ 	struct ftrace_ops fops;
+ };
+ 
++extern raw_spinlock_t klp_ops_lock;
++
+ struct klp_ops *klp_find_ops(void *old_func);
+ 
+ int klp_patch_object(struct klp_object *obj);
+diff --git a/kernel/livepatch/transition.c b/kernel/livepatch/transition.c
+index 2351a19ac2a9e..7b5cc14037e59 100644
+--- a/kernel/livepatch/transition.c
++++ b/kernel/livepatch/transition.c
+@@ -204,11 +204,14 @@ void klp_update_patch_state(struct task_struct *task)
+  */
+ static int klp_check_stack_func(struct klp_func *func, unsigned long *entries,
+ 				unsigned int nr_entries)
++	__must_hold(&klp_ops_lock)
+ {
+ 	unsigned long func_addr, func_size, address;
+ 	struct klp_ops *ops;
+ 	int i;
+ 
++	lockdep_assert_held(&klp_ops_lock);
++
+ 	if (klp_target_state == KLP_TRANSITION_UNPATCHED) {
+ 		 /*
+ 		  * Check for the to-be-unpatched function
+@@ -266,14 +269,20 @@ static int klp_check_stack(struct task_struct *task, const char **oldname)
+ 		return -EINVAL;
+ 	nr_entries = ret;
+ 
+-	klp_for_each_object(klp_transition_patch, obj) {
+-		if (!obj->patched)
+-			continue;
+-		klp_for_each_func(obj, func) {
+-			ret = klp_check_stack_func(func, entries, nr_entries);
+-			if (ret) {
+-				*oldname = func->old_name;
+-				return -EADDRINUSE;
++	/*
++	 * The lock is taken by module load/unload and by stack checks on other
++	 * CPUs.  Do not spin on it from the scheduler, retry the task later.
++	 */
++	scoped_cond_guard(raw_spinlock_try, return -EAGAIN, &klp_ops_lock) {
++		klp_for_each_object(klp_transition_patch, obj) {
++			if (!obj->patched)
++				continue;
++			klp_for_each_func(obj, func) {
++				ret = klp_check_stack_func(func, entries, nr_entries);
++				if (ret) {
++					*oldname = func->old_name;
++					return -EADDRINUSE;
++				}
+ 			}
+ 		}
+ 	}
+@@ -300,7 +309,7 @@ static int klp_check_and_switch_task(struct task_struct *task, void *arg)
+ /*
+  * Try to safely switch a task to the target patch state.  If it's currently
+  * running, or it's sleeping on a to-be-patched or to-be-unpatched function, or
+- * if the stack is unreliable, return false.
++ * if the stack is unreliable, or if klp_ops_lock is busy, return false.
+  */
+ static bool klp_try_switch_task(struct task_struct *task)
+ {
+@@ -344,6 +353,10 @@ static bool klp_try_switch_task(struct task_struct *task)
+ 		pr_debug("%s: %s:%d is sleeping on function %s\n",
+ 			 __func__, task->comm, task->pid, old_name);
+ 		break;
++	case -EAGAIN:	/* klp_check_and_switch_task() */
++		pr_debug("%s: %s:%d could not be checked, klp_ops_lock is busy\n",
++			 __func__, task->comm, task->pid);
++		break;
+ 
+ 	default:
+ 		pr_debug("%s: Unknown error code (%d) when trying to switch %s:%d\n",
+
+base-commit: a804c5742bff224d4cb4d25dd383554d598be32b
 -- 
-2.43.0
+2.53.0
 
