@@ -1,117 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.97
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792709848;
-	b=19fuBDXSXflAIqNcf+anZXrf1Kjhrj00Qn+A6XsbgUO3SfHkJOnnvOFB1MA098K9DVnn
-	 gQPamOVv/Xej8wMN2GSWigpPMnOVO6zulLH7EGChe1BLQ9jo2VPPg8iZ3fLUE/hHccS6m
-	 uM7pxUrB7D1mxRprh/cFfu1pIFPn+J6BF7Y8jZ9QjiwemNnqp1k/dmJZkqw0XK201zPgu
-	 6vlzZnVtfVqOBcdgeAFV20q4LcutVTfE+KT6W/zM17JrPp3wknGzStlUtrl0gxFIc2tJB
-	 gzuBnIxEPHsTNxRf6t6855dZyZctD6OInq82OT8r1UYxdXHzbkEPPDTIGYgfqhh10iw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792709848;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
-	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Received:X-Received:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-DetectorID-Processed;
-	bh=0hgSB5REeOoOU4+uL52FWMra36mU3bq54+5dt+GWlSg=;
-	b=tjfOzSj8QC0u6r8MPKdB9w8KyRWcqT/6BGQLCF+1jriEs0r9ah9fjIxbhiK0FtCO/ZPj
-	 HahUAY9bEBdp9fSMtLduiImEWrTUP3mVTVt0OgbdmDXUSDJAesL7Tyu250CIK+eXNZLk6
-	 9qsBgpggNMObwwmtOCxjeIITjnOzYE5YlfeQYIeJ0G0dWdIXbZ9LNYSapOfw6TKfRLj6p
-	 fzv51cASjPVE7tb5QFxjUkqVzBEi0N3weNWU9mMHIvnjBWOB9rpSRmsqoCNSghb/YE7Tw
-	 BKglxaMCNYUesDaphCdyFtLo1eNE1ViM5W/YWV+8ZYpGdrkWu1cYehoQTfdbF1eTiZg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=broadcom.com;
-	spf=fail smtp.mailfrom=broadcom.com;
-	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=Kx9o1f+1;
-	arc=none smtp.remote-ip=209.85.219.97
-Received: from mail-qv1-f97.google.com (mail-qv1-f97.google.com [209.85.219.97])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.42
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792709898;
+	b=wTWbt6Xgkqoh48PuYxav4otmv2gH+IERPPOkiXaG0YlYm59oDyODyQkijhQYo3eR30Ng
+	 wL+FZmEMv9f0DmAH4r5QfolNLStGuSogqNbHfpAcNQnDIAyAjMSQmm2P1LJb8D/16H4wb
+	 4dANC5Gp1xwxWhdruRjs1mZ+KdbG+NWu19yE8KYaBKrimkDvp3n6WmWejRm8nR1+b/MGH
+	 NUGPkbPFyPOev7dOmQjETTsaRSZ+VExICFMm0E6OF9Pt6wMKxHslBnkkxCz2hv9XINAQh
+	 Y8N8Yo4DDcjVqa3mwYbC5j6+6KHACZgpVUyJ92kFFQ8bg79hFZJa24E5X6jb9JAr0og==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792709898;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=4h8EJtUuQDNTtWsFUTYQGXARXr8rvvu+aTdvO93crQM=;
+	b=l2nfP//+DyoFW4y0sl7j+ajP9fO56pk44vaw+I6sA4S3vKeM4ltJn5Wn3AdkzA6RnAts
+	 AV6sw0cH7PuwVRSsLBKc2xGmAMuECzWnGkOoWht3fAMRlN8U1EcRDr4FCSIFx64s4yaqk
+	 moBpfm/5SCqu2eIwDSebu6AzXg9wxqQ2uG7A8ZdGWW0CIN9O4ut173W8HKKUfkuGt4TOr
+	 EwmoFeAhczdxjCN38xbYgl4J1uxFbc0IuIJtZF20iPWd83o7AELGL38UeiUSSbefhcbO4
+	 pXOyrGpxNgjS9IsbQVDcXDL1/p3EGwWIS67A1I8KywjAwKko3mq+Wt0yQLfT9U6b6XA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=kAWpkhn1;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.42
+Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com [209.85.208.42])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A025F60A380A
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 22:57:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A025F60A380A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D48F606A31F
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 22:58:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2D48F606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=Kx9o1f+1
-Received: by mail-qv1-f97.google.com with SMTP id 6a1803df08f44-91befbcad6dso5137206d6.3
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 15:57:27 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=kAWpkhn1
+Received: by mail-ed1-f42.google.com with SMTP id 4fb4d7f45d1cf-6b1aa36fc0eso4849a12.0
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 15:58:17 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792709896; cv=none;
+        d=google.com; s=arc-20260327;
+        b=eW4Bj3kxfkny5r86gdg02F3ZIRlZas5XXD4n+uS0ik2tBqCHGeG8KSKHcNlsoOQ+Ji
+         YyV0VtXMH/EZjEOhIBlFHtmgLOYQyvGOrRT2uo+kPf3Ok5BjNSrdTo3FIFKB0Ep/9zR/
+         xhnbhLAN5pib+CtpXK7Buvtdtc1gzV+R2qiT0Yvy5Xo1EEmOv0fnpZF9lznGNjPsiC8J
+         51lpHt1rUu8J8CuNA0vVYpcyFbJwvhO+G+PYmhIDHJmngCSNiVRGEPz0kcFwKH+Bao9P
+         LRAG1F/OseKG910XBPLg50p6KkV8oiJPgP61BkzCX0YsAcH5QI8YIoxkwDJJM6HQ6UHA
+         EIdA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=4h8EJtUuQDNTtWsFUTYQGXARXr8rvvu+aTdvO93crQM=;
+        fh=1issEgX8SHKhoqBYi+YrkyaH02oOeqhHFzaZuF8aNUk=;
+        b=i2ARsp6NHpAtNmaO4voZ+lB+5Vu1Nni2b3YdJRKFQhXryKrLPhd5IpR2gy9hT0ivcL
+         I8DAm/40USCV1jRpRjeSWXwn0JhtZKC84L3VBqT2IG/JMWO3o0c7J+Npm5NELswCtB98
+         ow9MJg/U471WmeyJ8tqrRuWf4mqC3z4wLrhTgio/hNeXvrQqpUPetcqAdGT1UVUVgk3W
+         rrCGAbUc4BVGAUx8pcW5euPgLzbyZi3Ggkehm0vcIC6zcKpwHSh5P9kydcntsICWhshj
+         kT3ufe4uzWURph5yEO3TJ+ZNRWL7tZXQbHC8ebSUo1WYrT+B5TDTsTFm0d82kolPHDn6
+         Trww==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1792709896; x=1793314696; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=4h8EJtUuQDNTtWsFUTYQGXARXr8rvvu+aTdvO93crQM=;
+        b=kAWpkhn1xJIsRNb3kWf753Jo/W1Z9mqUGTtDto8RAWIddAkJgZn+T1ZScI238Xw36Q
+         qWKFhPYd264ScQPYkDRL13eNkyduAvBpqsczVv+z8utITIo9zymG135SeAU5POJKGS8M
+         MWSba+2TyycipFlrHFl1R0vsellMcEGh+TldPzF3vnmlAFVZJ2N/YpqjKn8WhPDv96F7
+         l3w6V7quxAIbR+/O3fb4BSTp69DGSEnKM8xhqiEko9P+wxOFHIeh5XOSxUob0m95Pk9F
+         NWbF9E1eyxYhOl6MSHmpr/655ZHRbGYikxJsxmxfnGr8SLx7G2GKAcaZY/9jOOVVgdpV
+         53jw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792709847; x=1793314647;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:dkim-signature:x-gm-gg
+        d=1e100.net; s=20260707; t=1792709896; x=1793314696;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=0hgSB5REeOoOU4+uL52FWMra36mU3bq54+5dt+GWlSg=;
-        b=dOp7hiYh7Wj/kGsgz6NZnCbVvxVZhjhE9pbjDssDpg81Gd+Zj1fAcyqWgvWwslZETg
-         dwfdeA9N+BHjTIddSjJ+0CeEsUD3I3J+FcuXR1qILKRE+5aeq2AWOUb/qEtyawJsNn/X
-         teTP6GLmBMbNPyuj2SK9LXiKBAHOQNAm8vEP6tA2HtEEae3MBm6yt4x/6IvQNa4Fhd2A
-         8tzmT/5UsLBVEEiZFqTJkLAhiO4pGsOl+0bx1OkQzB0lwTpzGC8RjdRHYInTXdWkY9Yp
-         tAJlBstKSQtR6hjG+8FXOww1nuBLI+0ctj3FSDJ17ivZHX1/CmwYY8MXNg4rXhwiEe0x
-         kC7w==
-X-Forwarded-Encrypted: i=1; AKwUvBxmIrafulpmMph0CdQxi9XKKT8vWcnJ0jKgyCyo4GOTUCdociDdYffmG+SBAZbPzxDUDDdA+JKPHZ+aX4s=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI2Q9T68R0r4IYIdnlXnmmrBmcQMRfBfChF4OdaHGmbke/F88CX
-	OkkOH8TmZUynUB3DnMj1HsiFGOrAnXZvvmJivyz+Y7qopMO1wdHClPl/Rhsc1E/LUEytdPS5lK3
-	E2uOlqHXRH9vEHcKHWXl3i4jJDqrJ96H8+qMaqLpHcl9muD4bl6p/uQZk6MIdCxkCHr+aL8AttF
-	gDmhhvAhiPMFrG/qSGRtea01CrC5qHlms1MsPSesq6085sYWXJAqW31DpARbtRFZgTdo5Tfp2AB
-	siZ05V96cEP7ZlQiAq1tPd+
-X-Gm-Gg: AYBFou1e6TtQ/I14iMDc3QZT9afk85jci/aaahSWvSenjVdRsEyzAX6fg7MNYrrhVhd
-	wBGdev63oTrtAmk6nii2cJfqee6CfuXQ/A9O85FwT7qQJ1js660ZPRnRDnNQA1mhz1NChi4zUND
-	M5nDcX2mnLyis4wt5qmb0BRiuQx83L3a8G8vTSNVdRQwFHpZtzmahRd0n87fFPML0CaWobgdco/
-	bhJoiILXXopqlWVPGt9ak4sIf6boQ03Y9aFGvDI4z55TsIKiUt9V5hCjbX4BdIV29qK0Q8OQenY
-	EkyFX2+yuDWVJaQ9mcj7dqhxarnQKGwNzzGgRjxtw2+zszR0aUNEY3/nzT2y7sMSuXbXKDsP8wT
-	pMzc6vgKkrhtOikTLgLimDgHjMbb9z/qb3iv48z3jWQltlB/LGqFAxoJtPg9rdauifX64bmhDF6
-	wOXnvSHMmgi29XgBjCPOt6bJuh804scrFHUpwYwT9Qq0c=
-X-Received: by 2002:a05:620a:3721:b0:93e:910c:5fbd with SMTP id af79cd13be357-93f6f82b792mr163732785a.63.1792709846658;
-        Thu, 22 Oct 2026 15:57:26 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-120.dlp.protect.broadcom.com. [144.49.247.120])
-        by smtp-relay.gmail.com with ESMTPS id af79cd13be357-93f70ece19csm6492785a.8.2026.10.22.15.57.26
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Thu, 22 Oct 2026 15:57:26 -0700 (PDT)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-91b8306ba68so7812496d6.2
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 15:57:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1792709846; x=1793314646; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=0hgSB5REeOoOU4+uL52FWMra36mU3bq54+5dt+GWlSg=;
-        b=Kx9o1f+1Er2yF9nGynciYriCgi+cGH2pLyBSUR/amEKN+/7Dl9XiWSe/gNkkjm5IL0
-         OVhBBRnBhBNSUD7KCxqHsY9b/i/XtXDjWUOkEJl0VaCsZetdegoOJvjPLAO8eGc/MJsS
-         HoktTTY3ewoQY5JMfycIV1sf/fJay74oFEZxA=
-X-Forwarded-Encrypted: i=1; AKwUvBwOn6qKoCfho/9i6/UCcTEfmCXny6BYB4bx1neqVorx/2QaUhys3fTYYcHrPJ2yvh49c0/OpGz0ZxDqUM4=@vger.kernel.org
-X-Received: by 2002:a05:6214:d42:b0:91b:5d3b:7abd with SMTP id 6a1803df08f44-91c3ab25d34mr4344346d6.57.1792709846005;
-        Thu, 22 Oct 2026 15:57:26 -0700 (PDT)
-X-Received: by 2002:a05:6214:d42:b0:91b:5d3b:7abd with SMTP id 6a1803df08f44-91c3ab25d34mr4344166d6.57.1792709845589;
-        Thu, 22 Oct 2026 15:57:25 -0700 (PDT)
-Received: from fainelli-desktop.igp.broadcom.net ([192.19.223.252])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91c395025d0sm4501656d6.5.2026.10.22.15.57.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 15:57:24 -0700 (PDT)
-From: Florian Fainelli <florian.fainelli@broadcom.com>
-To: netdev@vger.kernel.org
-Cc: Florian Fainelli <florian.fainelli@broadcom.com>,
-	Jonas Gorski <jonas.gorski@gmail.com>,
-	Andrew Lunn <andrew@lunn.ch>,
-	Vladimir Oltean <olteanv@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Russell King <linux@armlinux.org.uk>,
-	"Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>,
-	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH net 6/6 RESEND] net: dsa: b53: apply resolved link settings to serial port MACs
-Date: Thu, 22 Oct 2026 15:56:56 -0700
-Message-ID: <20261022225656.1387306-7-florian.fainelli@broadcom.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261022225656.1387306-1-florian.fainelli@broadcom.com>
-References: <20261022225656.1387306-1-florian.fainelli@broadcom.com>
+        bh=4h8EJtUuQDNTtWsFUTYQGXARXr8rvvu+aTdvO93crQM=;
+        b=HM9GMboPLfn1PcHwYe6WU1q7wb+cVHRRu4RjJIifkU1T9AdaNUzmXIdZpxktZo+mtI
+         Pskdx4AtYLpaHwn734bzau8fV3MhAhNbr1M7Ykcbd7yzQj52CKqhw2OrRzYkiYJ63riY
+         pVxOkdjI7UKcpZuWr9t/XZR4Chn5WygzjI4hVg+fJR4JVILpkB96NX9O7kPIIYDsR06Q
+         q4lM2iY52GY9gxtBfy1KX2hZ3Ixiot4xR/jDhUM4vv15LYEjmuPFWeqx7YCPel/NUNjr
+         +PYxzqyWt2bumO6nJIzZXuC6UftP3YGLv0xGtjpV7zL2NdEcdVuJdBGZjNurLKfTQaCX
+         w9Ew==
+X-Forwarded-Encrypted: i=1; AKwUvByILpcDYDVwjOjXGVaAUTe6Xt8fMlJDYqptycl+lTWl62XbzgbE85mG9GPvu5BAbevlJgvSQeSbLSYlvwo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLvyfh6X6EbsOHhkU8Gq2yRR966bWZGZyj6t7s84X0DERTOxRNs
+	5yxYM+SbvPSxjImWQ2ai3Iv05Fr/NE1oaYFm3JruoC1LkpyxS2b3LOScTUdAR32Jk3k0zAnmhxm
+	4eKaHjvjJqHz/buzhkihC/ij3n2898oQuLAJ59Z3d
+X-Gm-Gg: AYBFou1FIOim7qJvZY9sBc50QN3SHuM+n4JwZuAdIKfgB4FkGCPEgo6eJyEjU9qbl86
+	iKO8qpt9W4kkQ6/ZgB9/Xv717uimat/7oAQ8576gLkHEtoNY8CZrT2VhJJGwGVAnIGhsXnj3RWL
+	c/xn/nUT02MRqEqyprbYiurHwN1stDoEAK2pHAEAhU5WhS2mHSPnxxlNLmsqW2XegTntW8QQ+7b
+	fLdbASHH8XPsc37EvC7xAhgx0DNzv6weObEqgB3jE4Ajx+x8nlMvFoY1gXY2O5FEjDaS7DFItzT
+	Z2ALGuJMV8Fwp5mpFZY51gr78s6/vsW7DtI2454PZe5st6wMDMZhDQfM4r6T0u6hmZTmzFYyRdV
+	tWqPt7p9QD1lGkBW8xkEaKDOhuenlxseEMlVk1YcgBg6gjsIuU8uGv9f6/t4ZIE+N
+X-Received: by 2002:a05:6402:20cc:20b0:6b1:a517:5bce with SMTP id
+ 4fb4d7f45d1cf-6b43505cab5mr9309a12.16.1792709896086; Thu, 22 Oct 2026
+ 15:58:16 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -121,108 +104,73 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+References: <20261014-update-autofdo-split-machine-function-option-v1-1-5c71b3005e89@kernel.org>
+In-Reply-To: <20261014-update-autofdo-split-machine-function-option-v1-1-5c71b3005e89@kernel.org>
+From: Rong Xu <xur@google.com>
+Date: Thu, 22 Oct 2026 15:58:04 -0700
+X-Gm-Features: AclHuK8dO3MsAmO6cAa68r7ozQ6JK-D1flEqoU6M1Xnqf0FQ7RSBHTS-OpOYYkM
+Message-ID: <CAF1bQ=SN8wZ1hKDTtGspBiZ8VQBoUtQP6uNioO-ZOOvS2tLZAg@mail.gmail.com>
+Subject: Re: [PATCH] kbuild: AutoFDO: Update split machine function argument
+ for upstream rename
+To: Nathan Chancellor <nathan@kernel.org>
+Cc: Nicolas Schier <nsc@kernel.org>, Han Shen <shenhan@google.com>, linux-kbuild@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, llvm@lists.linux.dev, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The serial port MAC callbacks leave speed, duplex and pause under the
-hardware's autonomous control. In particular, changing phylink's pause
-policy cannot affect the MAC when Clause 37 negotiation is in use.
+This looks good to me. Thanks for fixing this.
 
-Use the existing MAC override registers for SGMII and 1000BASE-X links,
-including PHY and fixed-link negotiation modes. Apply the settings passed
-by phylink at link-up and force the MAC link down at link-down. PCS power
-and link observation remain independent of the MAC override.
+Reviewed-by: Rong Xu <xur@google.com>
 
-Preserve the existing parallel-port handling, EEE initialization and
-BCM5301x CPU-port pause quirk.
+-Rong
 
-Fixes: 0e01491de646 ("net: dsa: b53: Add SerDes support")
-Signed-off-by: Florian Fainelli <florian.fainelli@broadcom.com>
----
- drivers/net/dsa/b53/b53_common.c | 50 +++++++++++++++-----------------
- 1 file changed, 23 insertions(+), 27 deletions(-)
-
-diff --git a/drivers/net/dsa/b53/b53_common.c b/drivers/net/dsa/b53/b53_common.c
-index b04f9d5f0525..172ada124cbf 100644
---- a/drivers/net/dsa/b53/b53_common.c
-+++ b/drivers/net/dsa/b53/b53_common.c
-@@ -1600,6 +1600,17 @@ static void b53_phylink_mac_config(struct phylink_config *config,
- 	}
- }
- 
-+static bool b53_phylink_mac_needs_override(struct b53_device *dev, int port,
-+					   unsigned int mode,
-+					   phy_interface_t interface)
-+{
-+	return mode == MLO_AN_FIXED ||
-+	       interface == PHY_INTERFACE_MODE_SGMII ||
-+	       interface == PHY_INTERFACE_MODE_1000BASEX ||
-+	       (mode == MLO_AN_PHY && is63xx(dev) &&
-+		in_range(port, B53_63XX_RGMII0, 4));
-+}
-+
- static void b53_phylink_mac_link_down(struct phylink_config *config,
- 				      unsigned int mode,
- 				      phy_interface_t interface)
-@@ -1608,16 +1619,8 @@ static void b53_phylink_mac_link_down(struct phylink_config *config,
- 	struct b53_device *dev = dp->ds->priv;
- 	int port = dp->index;
- 
--	if (mode == MLO_AN_PHY) {
--		if (is63xx(dev) && in_range(port, B53_63XX_RGMII0, 4))
--			b53_force_link(dev, port, false);
--		return;
--	}
--
--	if (mode == MLO_AN_FIXED) {
-+	if (b53_phylink_mac_needs_override(dev, port, mode, interface))
- 		b53_force_link(dev, port, false);
--		return;
--	}
- }
- 
- static void b53_phylink_mac_link_up(struct phylink_config *config,
-@@ -1633,29 +1636,22 @@ static void b53_phylink_mac_link_up(struct phylink_config *config,
- 	struct ethtool_keee *p = &dev->ports[dp->index].eee;
- 	int port = dp->index;
- 
--	if (mode == MLO_AN_PHY) {
--		/* Re-negotiate EEE if it was enabled already */
-+	/* Re-negotiate EEE if it was enabled already */
-+	if (mode == MLO_AN_PHY)
- 		p->eee_enabled = b53_eee_init(ds, port, phydev);
- 
--		if (is63xx(dev) && in_range(port, B53_63XX_RGMII0, 4)) {
--			b53_force_port_config(dev, port, speed, duplex,
--					      tx_pause, rx_pause);
--			b53_force_link(dev, port, true);
--		}
--
-+	if (!b53_phylink_mac_needs_override(dev, port, mode, interface))
- 		return;
--	}
- 
--	if (mode == MLO_AN_FIXED) {
--		/* Force flow control on BCM5301x's CPU port */
--		if (is5301x(dev) && dsa_is_cpu_port(ds, port))
--			tx_pause = rx_pause = true;
--
--		b53_force_port_config(dev, port, speed, duplex,
--				      tx_pause, rx_pause);
--		b53_force_link(dev, port, true);
--		return;
-+	/* Force flow control on BCM5301x's CPU port */
-+	if (mode == MLO_AN_FIXED && is5301x(dev) && dsa_is_cpu_port(ds, port)) {
-+		tx_pause = true;
-+		rx_pause = true;
- 	}
-+
-+	/* PCS negotiation supplies state; the MAC applies phylink's policy. */
-+	b53_force_port_config(dev, port, speed, duplex, tx_pause, rx_pause);
-+	b53_force_link(dev, port, true);
- }
- 
- int b53_vlan_filtering(struct dsa_switch *ds, int port, bool vlan_filtering,
--- 
-2.53.0
-
+On Wed, Oct 14, 2026 at 4:40=E2=80=AFPM Nathan Chancellor <nathan@kernel.or=
+g> wrote:
+>
+> A recent LLVM commit [1] renamed the internal LLVM plugin option
+> '-split-machine-functions' to '-function-splitting=3Dall', breaking the
+> AutoFDO + ThinLTO build with:
+>
+>   ld.lld: error: -plugin-opt=3D-: ld.lld: Unknown command line argument '=
+-split-machine-functions'.  Try: 'ld.lld --help'
+>
+> The plugin option is needed for in-process ThinLTO, so handle the rename
+> accordingly using ld-option.
+>
+> Cc: stable@vger.kernel.org
+> Closes: https://github.com/ClangBuiltLinux/linux/issues/2186
+> Fixes: 2fd65f7afd5a ("AutoFDO: Enable machine function split optimization=
+ for AutoFDO")
+> Link: https://github.com/llvm/llvm-project/commit/3e6acc87c58843e551d6e8e=
+4bf06c26712b04622 [1]
+> Signed-off-by: Nathan Chancellor <nathan@kernel.org>
+> ---
+>  scripts/Makefile.autofdo | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/scripts/Makefile.autofdo b/scripts/Makefile.autofdo
+> index 1442043da139..57a3aba6ffc2 100644
+> --- a/scripts/Makefile.autofdo
+> +++ b/scripts/Makefile.autofdo
+> @@ -22,7 +22,7 @@ ifdef CONFIG_LTO_CLANG_THIN
+>      KBUILD_LDFLAGS +=3D --lto-sample-profile=3D$(CLANG_AUTOFDO_PROFILE)
+>    endif
+>    KBUILD_LDFLAGS +=3D --mllvm=3D-enable-fs-discriminator=3Dtrue --mllvm=
+=3D-improved-fs-discriminator=3Dtrue -plugin-opt=3Dthinlto
+> -  KBUILD_LDFLAGS +=3D -plugin-opt=3D-split-machine-functions
+> +  KBUILD_LDFLAGS +=3D $(call ld-option,-plugin-opt=3D-function-splitting=
+=3Dall,-plugin-opt=3D-split-machine-functions)
+>  endif
+>
+>  export CFLAGS_AUTOFDO_CLANG RUSTFLAGS_AUTOFDO_CLANG
+>
+> ---
+> base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
+> change-id: 20261014-update-autofdo-split-machine-function-option-d4edb03d=
+370c
+>
+> Best regards,
+> --
+> Cheers,
+> Nathan
+>
