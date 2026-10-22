@@ -1,39 +1,39 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.148
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.147
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792654966;
-	b=4kYZ9eNxSuPMiPPdnFbhg94y5qzpBJCig8CGBvp6HcCvGL8kciV6PpAcYdwuy7kzbHWz
-	 JMeYyb7TIjSqa6aaGAhFDXjgFkSnaGi6CU8zNPfx5Mk73yiqJKGpA8OgWUoHEAjzpYyDM
-	 dF2K1HY+V7sTedSSXfzIaZWS1gQ9wpXcujKmdUf14xQPWe1wxKWLcVGfcdiDGi+8UbRda
-	 x/rlKn5yap6KF9Xr66NybhHL05479bW6g0+KX/ECY0VWiAcKgMC5HtnesLfwU48xUE1Tp
-	 iG052J3Skg7O8pAefc11nRbg/jXZbC60mxi0xrFlvtqnrrR4FRAbkbBG0q/b20EgzAQ==
+	t=1792654959;
+	b=MZqo8wIcIcs+Y947csNd0fQ/NVnQkvhBfKzV1hxAT0Ib03P8YE8MyZPerwlv/Hp37TId
+	 cF88+Zp75EhJv8EaYgU2Lc492qaS7SO5NKZROguZS8yhPvjhhEx82S9qVukFytvWSIr0o
+	 nx3olJ2Qi6S1ZiTcZEiossWhppduhlOcbLeC2ONlpXDNZm/zF1DWoADA/Z6J99hmi5+Gt
+	 hszzl2hEPgmqEOaWPF4b45jpwTLURRNP8wTjYPKL9h8mulHsvbqKjj9B0MqLwfxlt36+m
+	 YW8OhsbMzi6CSs+4L8JkGNLNBNmuCxn850OwHoo6ChpoNSqWkrMFI68ESo8zYRMztSg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792654966;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792654959;
 	h=DMARC-Filter:X-Alimail-AntiSpam:Received:From:To:Cc:Subject:Date:
 	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=a33329czHCD1ho9c6zx5Py0m9JNhHlWkNi5JGt21dnM=;
-	b=0dTAXUdfqIs975GKhcczzwgAzuJKalTnYM3vV1wgXVBY1qvGXWEV3dRnjaY7muS/yDos
-	 JZlgq/9IK0/TDPEsndNZsUB4c32tegRSAVxqLgy0+duJ7KRTLsbbG3XO8efhYOoL1rvqf
-	 9axyvagnMkCI+7I9Xm1USkDn4ej/tRd0MR0t4Pmsy3ukbQwxKW1Mlf1r2MxXqlw+ZiQNO
-	 adwPQlXfSvUcFCYdPEPo7KyK1QGOJBOlIFuUpeFkQFpzj3SIpf9KTVaXW5pjsx8x4TJt/
-	 FaXxjXDRSgWtd6VLAIsMQhVcYHZoHsLJHPgmtVZ8nxcl4vz/sqwg3FJXfZxX1s6WcRA==
+	bh=obScU5I5RUu3uwnFxTTtkM5jVp7zoFKkL/1RNZMqQ/U=;
+	b=pH/Wq1kwmPGSECN55drBbUAvr8HQoOAeq36dQKHB3RZE4rCzPiDCrH9ZrjIlUhyDcLea
+	 +Se4uK4cP6c9HTJnsxkgD9BvRoOaaCgHFSXvSD26d3cUXHf4bg8w/1dWbMTbTQlb+bNkw
+	 MxzUFh+kADeGXFCvu3yBNK4NR/HYfmmkdtk8r/QLf7+gAsCZYhYuB1OcdpP7x8GUUN5Tx
+	 2Bm30TA0y4rihbgAdZeyDaYvXQ496k6nj0A01Ajglkt+mj7CePChyMYPtyumOghAoXGV4
+	 Mm7/Ievurn1DIxb+1r0UrhgTpfBi5dN1JITk8tO7SoupdbX45G1mCNuWN8B0rrP2pWw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=open-hieco.net;
 	spf=pass smtp.mailfrom=open-hieco.net;
-	arc=none smtp.remote-ip=115.124.28.148
-Received: from out28-148.mail.aliyun.com (out28-148.mail.aliyun.com [115.124.28.148])
+	arc=none smtp.remote-ip=115.124.28.147
+Received: from out28-147.mail.aliyun.com (out28-147.mail.aliyun.com [115.124.28.147])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B2E5606A334;
-	Thu, 22 Oct 2026 07:42:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3B2E5606A334
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D512C606A323;
+	Thu, 22 Oct 2026 07:42:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D512C606A323
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=open-hieco.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=open-hieco.net
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07436259|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_alarm|0.00588346-5.86965e-05-0.994058;FP=16289918284477580522|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037034184;MF=wanglin@open-hieco.net;NM=1;PH=DS;RN=14;RT=14;SR=0;TI=SMTPD_---.jn83zdL_1792654952;
-Received: from localhost.localdomain(mailfrom:wanglin@open-hieco.net fp:SMTPD_---.jn83zdL_1792654952 cluster:ay29)
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07436259|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_alarm|0.0158118-0.000374529-0.983814;FP=14063471130722452730|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033071099199;MF=wanglin@open-hieco.net;NM=1;PH=DS;RN=14;RT=14;SR=0;TI=SMTPD_---.jn83zWs_1792654946;
+Received: from localhost.localdomain(mailfrom:wanglin@open-hieco.net fp:SMTPD_---.jn83zWs_1792654946 cluster:ay29)
           by smtp.aliyun-inc.com;
-          Thu, 22 Oct 2026 15:42:33 +0800
+          Thu, 22 Oct 2026 15:42:27 +0800
 From: Lin Wang <wanglin@open-hieco.net>
 To: Borislav Petkov <bp@alien8.de>,
 	Yazen Ghannam <yazen.ghannam@amd.com>,
@@ -49,9 +49,9 @@ Cc: Pu Wen <puwen@hygon.cn>,
 	linux-edac@vger.kernel.org,
 	linux-hwmon@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v8 7/7] x86/hygon: Add Family 0x18 SMN access
-Date: Thu, 22 Oct 2026 15:42:17 +0800
-Message-ID: <20261022074218.667049-8-wanglin@open-hieco.net>
+Subject: [PATCH v8 1/7] x86/hygon: Add Family 0x18 DF node enumeration
+Date: Thu, 22 Oct 2026 15:42:11 +0800
+Message-ID: <20261022074218.667049-2-wanglin@open-hieco.net>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261022074218.667049-1-wanglin@open-hieco.net>
 References: <20261022074218.667049-1-wanglin@open-hieco.net>
@@ -66,290 +66,728 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-All DF nodes in a Hygon socket share one SMN ingress, so SMN accesses
-for a node have to go through a root of the node's socket rather than a
-root per node.
+The AMD node code locates function 3 for node N at PCI slot 0x18 + N.
+Hygon has no equivalent node-index-to-slot mapping: DF F3 devices are
+discovered by PCI ID and the PCI BDF is only an access point.
 
-After DF enumeration, map each DF node to the first root of its socket.
-The roots do not expose their socket IDs, so group them by socket
-in PCI enumeration order. Hold a reference to every root, reserve its
-config space, and serialize each index/data transaction. Enable SMN
-access only after setup succeeds; on failure the DF node cache remains
-usable without it.
+Enumerate Hygon DF devices by PCI ID and read their identities from DF
+registers. Build a dense node cache with Core and DDR Dies (CDDs) before
+I/O Dies (IODs), providing node counts, identity and PCI function lookups.
 
-Hygon drivers such as EDAC need SMN access. Keep the SMN read and write
-helpers local to hygon_node.c until such drivers are added.
+Guests may expose a supported CPU model without DF devices. Suppress
+the cache-build warning for -ENODEV in guests; keep other initialization
+errors visible.
+
+The node lookup helpers remain local until Hygon consumers are added.
 
 Signed-off-by: Lin Wang <wanglin@open-hieco.net>
-Reviewed-by: Yazen Ghannam <yazen.ghannam@amd.com>
 ---
- arch/x86/kernel/hygon_node.c | 231 ++++++++++++++++++++++++++++++++++-
- 1 file changed, 230 insertions(+), 1 deletion(-)
+ MAINTAINERS                       |   7 +
+ arch/x86/Kconfig                  |   4 +
+ arch/x86/include/asm/hygon/node.h |  41 ++
+ arch/x86/kernel/Makefile          |   1 +
+ arch/x86/kernel/hygon_node.c      | 599 ++++++++++++++++++++++++++++++
+ 5 files changed, 652 insertions(+)
+ create mode 100644 arch/x86/include/asm/hygon/node.h
+ create mode 100644 arch/x86/kernel/hygon_node.c
 
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 0e9fe9c2a39b..76df7669972e 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -12182,6 +12182,13 @@ S:	Maintained
+ F:	Documentation/devicetree/bindings/input/touchscreen/hycon,hy46xx.yaml
+ F:	drivers/input/touchscreen/hycon-hy46xx.c
+ 
++HYGON NODE DRIVER
++M:	Lin Wang <wanglin@open-hieco.net>
++L:	linux-kernel@vger.kernel.org
++S:	Maintained
++F:	arch/x86/include/asm/hygon/node.h
++F:	arch/x86/kernel/hygon_node.c
++
+ HYGON PROCESSOR SUPPORT
+ M:	Pu Wen <puwen@hygon.cn>
+ L:	linux-kernel@vger.kernel.org
+diff --git a/arch/x86/Kconfig b/arch/x86/Kconfig
+index 644ad02f7c9c..c08a9f052d9e 100644
+--- a/arch/x86/Kconfig
++++ b/arch/x86/Kconfig
+@@ -3085,6 +3085,10 @@ config AMD_NODE
+ 	def_bool y
+ 	depends on CPU_SUP_AMD && PCI
+ 
++config HYGON_NODE
++	def_bool y
++	depends on CPU_SUP_HYGON && PCI
++
+ endmenu
+ 
+ menu "Binary Emulations"
+diff --git a/arch/x86/include/asm/hygon/node.h b/arch/x86/include/asm/hygon/node.h
+new file mode 100644
+index 000000000000..8cabbbdcf96a
+--- /dev/null
++++ b/arch/x86/include/asm/hygon/node.h
+@@ -0,0 +1,41 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++/* Hygon Family 0x18 Data Fabric (DF) node interfaces */
++#ifndef _ASM_X86_HYGON_NODE_H
++#define _ASM_X86_HYGON_NODE_H
++
++#include <linux/types.h>
++
++/* DF function indices supported by hygon_node_get_func(). */
++#define HYGON_DF_F3	3
++#define HYGON_DF_F4	4
++
++/*
++ * Hygon Core and DDR Dies (CDDs) start at DFID 4. Each CDD contains
++ * CPU cores and UMCs. I/O Dies (IODs) occupy DFIDs 0-3.
++ */
++#define HYGON_CDD_DFID_BASE	4
++
++/**
++ * enum hygon_node_type - DF node type, derived from DFID
++ * @HYGON_NODE_IOD: I/O die (DFID < HYGON_CDD_DFID_BASE); no UMC.
++ * @HYGON_NODE_CDD: Core and DDR Die (DFID >= HYGON_CDD_DFID_BASE);
++ *                  contains CPU cores and UMC controllers.
++ */
++enum hygon_node_type {
++	HYGON_NODE_IOD = 0,
++	HYGON_NODE_CDD = 1,
++};
++
++/**
++ * struct hygon_node_info - DF node information
++ * @socket_id: Physical socket ID, F1x200[30:28]
++ * @dfid:      Data Fabric ID, model-dependent source
++ * @type:      HYGON_NODE_CDD or HYGON_NODE_IOD
++ */
++struct hygon_node_info {
++	u8			socket_id;
++	u8			dfid;
++	enum hygon_node_type	type;
++};
++
++#endif /* _ASM_X86_HYGON_NODE_H */
+diff --git a/arch/x86/kernel/Makefile b/arch/x86/kernel/Makefile
+index 31f46fd00527..b8430e5e53fb 100644
+--- a/arch/x86/kernel/Makefile
++++ b/arch/x86/kernel/Makefile
+@@ -136,6 +136,7 @@ obj-$(CONFIG_HPET_TIMER) 	+= hpet.o
+ 
+ obj-$(CONFIG_AMD_NB)		+= amd_nb.o
+ obj-$(CONFIG_AMD_NODE)		+= amd_node.o
++obj-$(CONFIG_HYGON_NODE)	+= hygon_node.o
+ obj-$(CONFIG_DEBUG_NMI_SELFTEST) += nmi_selftest.o
+ 
+ obj-$(CONFIG_KVM_GUEST)		+= kvm.o kvmclock.o
 diff --git a/arch/x86/kernel/hygon_node.c b/arch/x86/kernel/hygon_node.c
-index 03c723aab97e..7b0a18cd7027 100644
---- a/arch/x86/kernel/hygon_node.c
+new file mode 100644
+index 000000000000..6a5278f8e5ca
+--- /dev/null
 +++ b/arch/x86/kernel/hygon_node.c
-@@ -1,6 +1,6 @@
- // SPDX-License-Identifier: GPL-2.0-only
- /*
-- * Hygon Family 0x18 Data Fabric node enumeration
-+ * Hygon Family 0x18 Data Fabric node enumeration and SMN access
-  *
-  * A DF instance exposes sibling PCI functions in one slot. Function 3
-  * is the misc device used for enumeration, function 4 is the link
-@@ -17,8 +17,10 @@
- 
- #include <linux/bitfield.h>
- #include <linux/bitops.h>
-+#include <linux/cleanup.h>
- #include <linux/cpufeature.h>
- #include <linux/init.h>
-+#include <linux/mutex.h>
- #include <linux/pci.h>
- #include <linux/pci_ids.h>
- #include <linux/processor.h>
-@@ -629,6 +631,229 @@ static int __maybe_unused hygon_pci_dev_to_df_node(struct pci_dev *pdev)
- 	return -ENODEV;
- }
- 
+@@ -0,0 +1,599 @@
++// SPDX-License-Identifier: GPL-2.0-only
 +/*
-+ * SMN index/data register pair offsets in the host-bridge PCI config
-+ * space. Reads and writes to a (node, address) pair are issued as a
-+ * two-step transaction: write the SMN address to the index register,
-+ * then read or write the value at the data register.
-+ */
-+#define SMN_INDEX_OFFSET	0x60
-+#define SMN_DATA_OFFSET		0x64
-+
-+/*
-+ * Runtime SMN state.
++ * Hygon Family 0x18 Data Fabric node enumeration
 + *
-+ * The smn_reserved_roots array owns the independent PCI references and
-+ * config-space reservations for the lifetime of the built-in node layer. The
-+ * smn_roots array contains per-node aliases and is published only after
-+ * setup succeeds.
++ * A DF instance exposes sibling PCI functions in one slot. Function 3
++ * is the misc device used for enumeration, function 4 is the link
++ * device, and functions 1 and 5 provide the socket and DF identity.
++ *
++ * Enumerate F3 devices by PCI ID, validate their F4 siblings, read each
++ * node's socket ID and DFID, and validate the enumerated socket set
++ * against SocketPresent. Sort the nodes into a dense cache with Core
++ * and DDR Dies (CDDs) before I/O Dies (IODs), then by socket ID and
++ * DFID.
 + */
-+static struct pci_dev	**smn_roots;
-+static struct pci_dev	**smn_reserved_roots;
-+static u16		smn_num_nodes;
-+static DEFINE_MUTEX(smn_mutex);
++
++#define pr_fmt(fmt) "hygon_node: " fmt
++
++#include <linux/bitfield.h>
++#include <linux/bitops.h>
++#include <linux/cpufeature.h>
++#include <linux/init.h>
++#include <linux/pci.h>
++#include <linux/pci_ids.h>
++#include <linux/processor.h>
++#include <linux/slab.h>
++#include <linux/sort.h>
++
++#include <asm/cpu_device_id.h>
++#include <asm/hygon/node.h>
 +
 +/*
-+ * Walk PCI host-bridge devices matching the Hygon vendor. The SMN
-+ * index/data registers live in function 0 of each root complex. This
-+ * follows pci_get_class() iterator semantics: @root is consumed and the
-+ * returned device has an iterator reference. A retained device needs an
-+ * independent reference before the iterator advances.
++ * DF register offsets used for node identity discovery.
++ *
++ * F1x200 (SystemCfg) -- present on all supported models:
++ *   [30:28]  MySocketId    - hardware socket ID
++ *   [23:20]  MyDieId       - die ID (equals DFID on some models, see below)
++ *
++ * F5x180 (FabricBlockInstanceInformation3_CS) -- used on Model 06h-08h:
++ *   [19:16]  DFID          - Data Fabric ID for UMC/SMN addressing
++ *
++ * DFID source by model:
++ *   Model 04h/05h:  F1x200[23:20] (MyDieId == DFID)
++ *   Model 06h-08h:  F5x180[19:16] (MyDieId != DFID, different numbering)
 + */
-+static struct pci_dev * __init get_next_root(struct pci_dev *root)
++#define DF_F1_SYSTEM_CFG	0x200
++#define DF_F5_FABRIC_ID		0x180
++
++#define DF_F1_SOCKET_ID		GENMASK(30, 28)
++#define DF_F1_DIE_ID		GENMASK(23, 20)
++#define DF_F1_SOCKET_PRESENT	GENMASK(7, 0)
++#define DF_F5_DFID		GENMASK(19, 16)
++
++/* DF function numbers for sibling device access (internal use). */
++#define DF_F1	1
++#define DF_F5	5
++
++/* PCI device IDs used only by Hygon DF node discovery. */
++#define PCI_DEVICE_ID_HYGON_18H_DF_F3		0x1463
++#define PCI_DEVICE_ID_HYGON_18H_DF_F4		0x1464
++#define PCI_DEVICE_ID_HYGON_18H_M04H_DF_F1	0x1491
++#define PCI_DEVICE_ID_HYGON_18H_M04H_DF_F3	0x1493
++#define PCI_DEVICE_ID_HYGON_18H_M04H_DF_F4	0x1494
++#define PCI_DEVICE_ID_HYGON_18H_M05H_DF_F1	0x14b1
++#define PCI_DEVICE_ID_HYGON_18H_M05H_DF_F3	0x14b3
++#define PCI_DEVICE_ID_HYGON_18H_M05H_DF_F4	0x14b4
++#define PCI_DEVICE_ID_HYGON_18H_M06H_DF_F5	0x14b5
++
++/*
++ * Cached identity for one DF instance. After sorting, CDDs occupy
++ * nodes[0..num_cdd-1].
++ *
++ * The PCI BDF is the access point for a DF node, not its identity.
++ * The socket ID and DFID, read from DF registers, together identify
++ * the node in hardware.
++ */
++struct df_node {
++	struct pci_dev	*misc;
++	struct pci_dev	*link;
++	u8		socket_id;
++	u8		dfid;
++	bool		is_cdd;
++};
++
++struct df_node_cache {
++	struct df_node	*nodes;
++	u16		num_nodes;
++	u16		num_cdd;
++	u16		num_sockets;
++};
++
++struct df_id {
++	u8	socket_id;
++	u8	dfid;
++};
++
++/* DF sibling device IDs used to read node identity. */
++struct df_cfg {
++	u16	f1_id;
++	u16	f5_id;
++};
++
++/* DF misc (F3) device IDs for all supported Hygon Family 0x18 models. */
++static const struct pci_device_id df_misc_ids[] = {
++	{ PCI_DEVICE(PCI_VENDOR_ID_HYGON, PCI_DEVICE_ID_HYGON_18H_DF_F3) },
++	{ PCI_DEVICE(PCI_VENDOR_ID_HYGON, PCI_DEVICE_ID_HYGON_18H_M04H_DF_F3) },
++	{ PCI_DEVICE(PCI_VENDOR_ID_HYGON, PCI_DEVICE_ID_HYGON_18H_M05H_DF_F3) },
++	{}
++};
++
++/* DF link (F4) device IDs for supported models. */
++static const struct pci_device_id df_link_ids[] = {
++	{ PCI_DEVICE(PCI_VENDOR_ID_HYGON, PCI_DEVICE_ID_HYGON_18H_DF_F4) },
++	{ PCI_DEVICE(PCI_VENDOR_ID_HYGON, PCI_DEVICE_ID_HYGON_18H_M04H_DF_F4) },
++	{ PCI_DEVICE(PCI_VENDOR_ID_HYGON, PCI_DEVICE_ID_HYGON_18H_M05H_DF_F4) },
++	{}
++};
++
++static const struct df_cfg m04_df_cfg __initconst = {
++	.f1_id	= PCI_DEVICE_ID_HYGON_18H_M04H_DF_F1,
++};
++
++static const struct df_cfg m05_df_cfg __initconst = {
++	.f1_id	= PCI_DEVICE_ID_HYGON_18H_M05H_DF_F1,
++};
++
++static const struct df_cfg m06_m08_df_cfg __initconst = {
++	.f1_id	= PCI_DEVICE_ID_HYGON_18H_M05H_DF_F1,
++	.f5_id	= PCI_DEVICE_ID_HYGON_18H_M06H_DF_F5,
++};
++
++static const struct x86_cpu_id df_cpuids[] __initconst = {
++	X86_MATCH_VENDOR_FAM_MODEL(HYGON, 0x18, 0x04, &m04_df_cfg),
++	X86_MATCH_VENDOR_FAM_MODEL(HYGON, 0x18, 0x05, &m05_df_cfg),
++	X86_MATCH_VENDOR_FAM_MODEL(HYGON, 0x18, 0x06, &m06_m08_df_cfg),
++	X86_MATCH_VENDOR_FAM_MODEL(HYGON, 0x18, 0x07, &m06_m08_df_cfg),
++	X86_MATCH_VENDOR_FAM_MODEL(HYGON, 0x18, 0x08, &m06_m08_df_cfg),
++	{}
++};
++
++static struct df_node_cache df_cache;
++
++/*
++ * Iterate Hygon PCI devices, returning the next one that matches @ids.
++ * Follows the pci_get_device() convention: @from is consumed (its
++ * reference is dropped) and the returned device has an elevated
++ * reference count.
++ */
++static struct pci_dev * __init next_df_dev(struct pci_dev *from, const struct pci_device_id *ids)
 +{
-+	while ((root = pci_get_class(PCI_CLASS_BRIDGE_HOST << 8, root))) {
-+		if (root->devfn)
-+			continue;
-+		if (root->vendor != PCI_VENDOR_ID_HYGON)
-+			continue;
-+		break;
++	while ((from = pci_get_device(PCI_VENDOR_ID_HYGON, PCI_ANY_ID, from))) {
++		if (pci_match_id(ids, from))
++			return from;
 +	}
-+	return root;
++
++	return NULL;
 +}
 +
-+/* Release each config region before dropping its owning device reference. */
-+static void __init release_reserved_roots(struct pci_dev **roots, u16 count)
++/*
++ * Find the DF link (function 4) sibling of a DF misc (function 3)
++ * device. Both functions share the same PCI bus and slot.
++ */
++static struct pci_dev * __init get_link(struct pci_dev *misc)
++{
++	struct pci_dev *link;
++
++	link = pci_get_domain_bus_and_slot(pci_domain_nr(misc->bus),
++					   misc->bus->number,
++					   PCI_DEVFN(PCI_SLOT(misc->devfn),
++						     HYGON_DF_F4));
++	if (!link)
++		return NULL;
++
++	if (!pci_match_id(df_link_ids, link)) {
++		pci_dev_put(link);
++		return NULL;
++	}
++
++	return link;
++}
++
++static const struct df_cfg * __init get_df_cfg(void)
++{
++	const struct x86_cpu_id *id = x86_match_cpu(df_cpuids);
++
++	return id ? (const void *)id->driver_data : NULL;
++}
++
++/*
++ * Read a config register from a DF sibling function on the same PCI
++ * slot as @misc. Only functions 1 (F1, SystemCfg) and 5 (F5,
++ * FabricId) are supported.
++ */
++static int __init read_df_reg(struct pci_dev *misc, u8 func, int offset, u32 *value)
++{
++	const struct df_cfg *cfg;
++	struct pci_dev *sibling;
++	u16 expected_device;
++	int err;
++
++	cfg = get_df_cfg();
++	if (!cfg)
++		return -ENODEV;
++
++	if (func == DF_F1) {
++		expected_device = cfg->f1_id;
++
++		/*
++		 * Model 05h uses the M04H F1 device ID when F3 does not use
++		 * the M05H device ID.
++		 */
++		if (boot_cpu_data.x86_model == 0x5 &&
++		    misc->device != PCI_DEVICE_ID_HYGON_18H_M05H_DF_F3)
++			expected_device = PCI_DEVICE_ID_HYGON_18H_M04H_DF_F1;
++	} else if (func == DF_F5) {
++		expected_device = cfg->f5_id;
++	} else {
++		return -EINVAL;
++	}
++
++	if (!expected_device)
++		return -ENODEV;
++
++	sibling = pci_get_domain_bus_and_slot(pci_domain_nr(misc->bus),
++					      misc->bus->number,
++					      PCI_DEVFN(PCI_SLOT(misc->devfn),
++							func));
++	if (!sibling)
++		return -ENODEV;
++
++	if (sibling->vendor != PCI_VENDOR_ID_HYGON ||
++	    sibling->device != expected_device) {
++		pci_dev_put(sibling);
++		return -ENODEV;
++	}
++
++	err = pci_read_config_dword(sibling, offset, value);
++	pci_dev_put(sibling);
++
++	if (err) {
++		pr_warn("error reading %04x:%02x:%02x.%u offset 0x%x\n",
++			pci_domain_nr(misc->bus), misc->bus->number,
++			PCI_SLOT(misc->devfn), func, offset);
++		return pcibios_err_to_errno(err);
++	}
++
++	/* Do not parse a PCI error response as DF identity. */
++	if (PCI_POSSIBLE_ERROR(*value)) {
++		pr_warn("error response reading %04x:%02x:%02x.%u offset 0x%x\n",
++			pci_domain_nr(misc->bus), misc->bus->number,
++			PCI_SLOT(misc->devfn), func, offset);
++		return -ENODEV;
++	}
++
++	return 0;
++}
++
++/*
++ * Read the hardware identity for one DF misc device from its sibling
++ * functions.
++ *
++ * Supported models expose F1x200 (SystemCfg): socket_id from [30:28] and a
++ * die identifier (MyDieId) from [23:20].
++ * On Model 06h-08h MyDieId differs from the DFID used by UMC and SMN
++ * addressing, so an additional F5x180 (FabricId) read obtains the DFID
++ * from [19:16].
++ *
++ * The boot CPU model selects the DF register layout for all instances.
++ */
++static int __init read_df_id(struct pci_dev *misc, struct df_id *id)
++{
++	const struct df_cfg *cfg = get_df_cfg();
++	u32 reg;
++	int ret;
++
++	if (!cfg)
++		return -ENODEV;
++
++	ret = read_df_reg(misc, DF_F1, DF_F1_SYSTEM_CFG, &reg);
++	if (ret)
++		return ret;
++
++	id->socket_id = FIELD_GET(DF_F1_SOCKET_ID, reg);
++	id->dfid = FIELD_GET(DF_F1_DIE_ID, reg);
++
++	/* Read DFID from F5x180 on models that provide an F5 sibling. */
++	if (cfg->f5_id) {
++		ret = read_df_reg(misc, DF_F5, DF_F5_FABRIC_ID, &reg);
++		if (ret)
++			return ret;
++		id->dfid = FIELD_GET(DF_F5_DFID, reg);
++	}
++
++	return 0;
++}
++
++/*
++ * Read the system-wide SocketPresent mask from F1x200[7:0].
++ *
++ * SocketPresent is system-wide rather than per-node. Read it once from
++ * the first DF misc device. A zero mask is invalid on supported models.
++ */
++static int __init read_socket_present(struct pci_dev *misc, u8 *socket_present)
++{
++	u32 reg;
++	int ret;
++
++	ret = read_df_reg(misc, DF_F1, DF_F1_SYSTEM_CFG, &reg);
++	if (ret)
++		return ret;
++
++	*socket_present = FIELD_GET(DF_F1_SOCKET_PRESENT, reg);
++	if (!*socket_present) {
++		pr_warn("SocketPresent is zero\n");
++		return -EINVAL;
++	}
++
++	return 0;
++}
++
++static void __init release_nodes(struct df_node *nodes, u16 count)
 +{
 +	u16 i;
 +
 +	for (i = 0; i < count; i++) {
-+		pci_release_config_region(roots[i], 0, PCI_CFG_SPACE_SIZE);
-+		pci_dev_put(roots[i]);
++		pci_dev_put(nodes[i].misc);
++		pci_dev_put(nodes[i].link);
 +	}
++
++	kfree(nodes);
 +}
 +
 +/*
-+ * Select one root from each contiguous per-socket enumeration group,
-+ * then map every DF node to the root for its socket. The roots do not
-+ * expose their socket IDs, so the grouping follows PCI enumeration order.
-+ *
-+ * The smn_reserved_roots array owns the PCI references and config
-+ * regions. The smn_roots array contains per-node aliases. Enable SMN
-+ * access only after both arrays are complete.
++ * Walk all DF misc (F3) devices and read per-node identity (socket_id,
++ * dfid) from each, collecting them into a flat array. The system-wide
++ * SocketPresent mask is sampled once, and the enumerated socket set is
++ * validated against it; socket IDs must also be dense (0..N-1).
 + */
-+static int __init smn_setup(void)
++static int __init collect_nodes(struct df_node_cache *cache)
 +{
-+	u16 num_roots, roots_per_socket, node, num_nodes, num_sockets, reserved;
-+	struct pci_dev **reserved_roots, **roots;
-+	struct pci_dev *root = NULL;
-+	u8 socket_id;
++	u8 observed_socket_mask = 0, socket_present_mask = 0;
++	struct pci_dev *misc = NULL, *link = NULL;
++	u16 capacity = 0, count = 0;
++	struct df_node *nodes;
 +	int ret;
 +
-+	num_roots = 0;
-+	while ((root = get_next_root(root)))
-+		num_roots++;
++	while ((misc = next_df_dev(misc, df_misc_ids)))
++		capacity++;
 +
-+	pr_debug("Found %u Hygon SMN root devices\n", num_roots);
-+
-+	if (!num_roots)
++	if (!capacity)
 +		return -ENODEV;
 +
-+	num_nodes = df_cache.num_nodes;
-+	if (!num_nodes)
-+		return -ENODEV;
-+
-+	num_sockets = df_cache.num_sockets;
-+	if (!num_sockets)
-+		return -ENODEV;
-+
-+	if (num_roots % num_sockets) {
-+		pr_err("Root count %u not divisible by socket count %u\n",
-+		       num_roots, num_sockets);
-+		return -ENODEV;
-+	}
-+
-+	roots = kzalloc_objs(*roots, num_nodes);
-+	if (!roots)
++	nodes = kzalloc_objs(*nodes, capacity);
++	if (!nodes)
 +		return -ENOMEM;
 +
-+	reserved_roots = kzalloc_objs(*reserved_roots, num_roots);
-+	if (!reserved_roots) {
-+		kfree(roots);
-+		return -ENOMEM;
-+	}
++	while ((misc = next_df_dev(misc, df_misc_ids))) {
++		struct df_id id;
 +
-+	/* Reserve every root before publishing the node-to-root mapping. */
-+	roots_per_socket = num_roots / num_sockets;
-+	reserved = 0;
-+	while ((root = get_next_root(root))) {
-+		if (reserved >= num_roots) {
++		link = get_link(misc);
++		if (!link) {
 +			ret = -ENODEV;
-+			goto err_release;
++			goto fail_put_devs;
 +		}
 +
-+		pci_dbg(root, "Reserving PCI config space\n");
++		ret = read_df_id(misc, &id);
++		if (ret)
++			goto fail_put_devs;
 +
-+		/*
-+		 * Mark the entire PCI config space kernel-exclusive because it
-+		 * contains the SMN index/data registers.
-+		 */
-+		if (!pci_request_config_region_exclusive(root, 0,
-+							 PCI_CFG_SPACE_SIZE,
-+							 NULL)) {
-+			pci_err(root, "Failed to reserve config space\n");
-+			ret = -EEXIST;
-+			goto err_release;
++		/* SocketPresent is system-wide, so sample it once. */
++		if (!count) {
++			ret = read_socket_present(misc, &socket_present_mask);
++			if (ret)
++				goto fail_put_devs;
 +		}
 +
-+		reserved_roots[reserved++] = pci_dev_get(root);
++		if (count >= capacity) {
++			ret = -ENODEV;
++			goto fail_put_devs;
++		}
++
++		nodes[count].misc = pci_dev_get(misc);
++		nodes[count].link = link;
++		link = NULL;
++		nodes[count].socket_id = id.socket_id;
++		nodes[count].dfid = id.dfid;
++		nodes[count].is_cdd = (id.dfid >= HYGON_CDD_DFID_BASE);
++		count++;
++
++		observed_socket_mask |= BIT(id.socket_id);
 +	}
 +
-+	if (reserved != num_roots) {
-+		pr_err("Root enumeration changed: expected %u roots, got %u\n",
-+		       num_roots, reserved);
++	if (count != capacity) {
++		pr_warn("DF enumeration changed: expected %u nodes, got %u\n",
++			capacity, count);
 +		ret = -ENODEV;
-+		goto err_release;
++		goto fail;
 +	}
 +
-+	for (node = 0; node < num_nodes; node++) {
-+		socket_id = df_cache.nodes[node].socket_id;
-+
-+		if (socket_id >= num_sockets) {
-+			ret = -ENODEV;
-+			goto err_release;
-+		}
-+
-+		roots[node] = reserved_roots[socket_id * roots_per_socket];
-+
-+		pci_dbg(roots[node],
-+			"is root for Hygon node %u (socket %u)\n",
-+			node, socket_id);
++	/*
++	 * Every populated socket must contribute at least one enumerated DF
++	 * misc device. SocketPresent is guaranteed to be non-zero.
++	 */
++	if (observed_socket_mask != socket_present_mask) {
++		pr_warn("SocketPresent mismatch: observed=0x%x present=0x%x\n",
++			observed_socket_mask, socket_present_mask);
++		ret = -EINVAL;
++		goto fail;
 +	}
 +
-+	smn_reserved_roots = reserved_roots;
-+	smn_num_nodes = num_nodes;
-+	smn_roots = roots;
++	cache->nodes = nodes;
++	cache->num_nodes = count;
++	cache->num_sockets = hweight8(socket_present_mask);
++
++	if (socket_present_mask != GENMASK(cache->num_sockets - 1, 0)) {
++		pr_warn("sparse socket IDs not supported (SocketPresent=0x%x)\n",
++			socket_present_mask);
++		ret = -EINVAL;
++		goto fail;
++	}
++
 +	return 0;
 +
-+err_release:
-+	pci_dev_put(root);
-+	release_reserved_roots(reserved_roots, reserved);
-+	kfree(reserved_roots);
-+	kfree(roots);
++fail_put_devs:
++	pci_dev_put(link);
++	pci_dev_put(misc);
++fail:
++	release_nodes(nodes, count);
++	cache->nodes = NULL;
++	cache->num_nodes = 0;
++	cache->num_sockets = 0;
 +	return ret;
 +}
 +
 +/*
-+ * Serialize the PCI index/data pair between in-kernel SMN users.
-+ * The access sequence follows amd_smn_read() and amd_smn_write().
-+ * The Hygon node-to-root mapping comes from smn_setup().
++ * Sort CDD nodes before IOD nodes, then order by hardware
++ * (socket_id, dfid).
 + */
-+static int smn_rw(u16 node, u32 address, u32 *value, bool write)
++static int __init node_cmp(const void *a, const void *b)
 +{
-+	struct pci_dev *root;
-+	int err;
++	const struct df_node *left = a, *right = b;
 +
-+	if (!smn_roots || node >= smn_num_nodes)
-+		return -ENODEV;
++	if (left->is_cdd != right->is_cdd)
++		return right->is_cdd - left->is_cdd;
 +
-+	root = smn_roots[node];
-+	if (!root)
-+		return -ENODEV;
++	if (left->socket_id != right->socket_id)
++		return (int)left->socket_id - right->socket_id;
 +
-+	guard(mutex)(&smn_mutex);
-+
-+	err = pci_write_config_dword(root, SMN_INDEX_OFFSET, address);
-+	if (err) {
-+		pr_warn("SMN index write failed (addr 0x%x)\n", address);
-+		return pcibios_err_to_errno(err);
-+	}
-+
-+	err = write ? pci_write_config_dword(root, SMN_DATA_OFFSET, *value)
-+		    : pci_read_config_dword(root, SMN_DATA_OFFSET, value);
-+
-+	return pcibios_err_to_errno(err);
++	return (int)left->dfid - (int)right->dfid;
 +}
 +
-+static int __must_check __maybe_unused hygon_smn_read(u16 node, u32 address, u32 *value)
++static int __init sort_and_classify(struct df_node_cache *cache)
 +{
-+	int err;
++	u16 i;
 +
-+	if (!value)
-+		return -EINVAL;
++	sort(cache->nodes, cache->num_nodes, sizeof(*cache->nodes),
++	     node_cmp, NULL);
 +
-+	err = smn_rw(node, address, value, false);
++	cache->num_cdd = 0;
 +
-+	/* Clear the output so callers do not consume a stale value. */
-+	if (err) {
-+		*value = 0;
-+		return err;
++	for (i = 0; i < cache->num_nodes; i++) {
++		const struct df_node *node = &cache->nodes[i];
++
++		if (i) {
++			const struct df_node *prev = &cache->nodes[i - 1];
++
++			if (node->socket_id == prev->socket_id &&
++			    node->dfid == prev->dfid) {
++				pr_warn("duplicate DF node: socket=%u dfid=%u\n",
++					node->socket_id, node->dfid);
++				return -EINVAL;
++			}
++		}
++
++		if (node->is_cdd)
++			cache->num_cdd++;
 +	}
 +
-+	/* Treat the PCI all-ones value as a missing device. */
-+	if (PCI_POSSIBLE_ERROR(*value)) {
-+		*value = 0;
++	if (!cache->num_cdd)
 +		return -ENODEV;
-+	}
 +
 +	return 0;
 +}
 +
-+static int __must_check __maybe_unused hygon_smn_write(u16 node, u32 address, u32 value)
++static int __init build_cache(void)
 +{
-+	return smn_rw(node, address, &value, true);
++	struct df_node_cache cache = { };
++	int err;
++
++	err = collect_nodes(&cache);
++	if (err)
++		return err;
++
++	err = sort_and_classify(&cache);
++	if (err)
++		goto fail;
++
++	df_cache = cache;
++
++	return 0;
++
++fail:
++	release_nodes(cache.nodes, cache.num_nodes);
++	return err;
 +}
 +
- static int __init df_node_init(void)
- {
- 	int ret;
-@@ -648,6 +873,10 @@ static int __init df_node_init(void)
- 		df_cache.num_nodes - df_cache.num_cdd,
- 		df_cache.num_sockets);
- 
-+	ret = smn_setup();
-+	if (ret)
-+		pr_warn("SMN setup failed: %d\n", ret);
++static u16 __maybe_unused hygon_node_num(void)
++{
++	return df_cache.num_nodes;
++}
 +
- 	return 0;
- }
- fs_initcall(df_node_init);
++static u16 __maybe_unused hygon_cdd_num(void)
++{
++	return df_cache.num_cdd;
++}
++
++static int __maybe_unused hygon_node_get_info(u16 node, struct hygon_node_info *info)
++{
++	const struct df_node *n;
++
++	if (!info)
++		return -EINVAL;
++
++	if (!df_cache.nodes)
++		return -ENODEV;
++
++	if (node >= df_cache.num_nodes)
++		return -EINVAL;
++
++	n = &df_cache.nodes[node];
++	info->socket_id = n->socket_id;
++	info->dfid = n->dfid;
++	info->type = n->is_cdd ? HYGON_NODE_CDD : HYGON_NODE_IOD;
++	return 0;
++}
++
++/* Return a referenced DF device; the caller must call pci_dev_put(). */
++static __maybe_unused struct pci_dev *hygon_node_get_func(u16 node, u8 func)
++{
++	if (!df_cache.nodes)
++		return NULL;
++
++	if (node >= df_cache.num_nodes)
++		return NULL;
++
++	switch (func) {
++	case HYGON_DF_F3:
++		return pci_dev_get(df_cache.nodes[node].misc);
++	case HYGON_DF_F4:
++		return pci_dev_get(df_cache.nodes[node].link);
++	default:
++		return NULL;
++	}
++}
++
++/* Map any sibling PCI function to its dense DF node index. */
++static int __maybe_unused hygon_pci_dev_to_df_node(struct pci_dev *pdev)
++{
++	u16 i;
++
++	if (!pdev)
++		return -EINVAL;
++
++	if (!df_cache.nodes)
++		return -ENODEV;
++
++	for (i = 0; i < df_cache.num_nodes; i++) {
++		struct pci_dev *misc = df_cache.nodes[i].misc;
++
++		if (pci_domain_nr(misc->bus) == pci_domain_nr(pdev->bus) &&
++		    misc->bus->number == pdev->bus->number &&
++		    PCI_SLOT(misc->devfn) == PCI_SLOT(pdev->devfn))
++			return i;
++	}
++
++	return -ENODEV;
++}
++
++static int __init df_node_init(void)
++{
++	int ret;
++
++	if (!get_df_cfg())
++		return 0;
++
++	ret = build_cache();
++	if (ret) {
++		if (ret != -ENODEV || !cpu_feature_enabled(X86_FEATURE_HYPERVISOR))
++			pr_warn("DF node cache build failed: %d\n", ret);
++		return ret;
++	}
++
++	pr_info("%u DF nodes (%u CDDs, %u IODs) across %u sockets\n",
++		df_cache.num_nodes, df_cache.num_cdd,
++		df_cache.num_nodes - df_cache.num_cdd,
++		df_cache.num_sockets);
++
++	return 0;
++}
++fs_initcall(df_node_init);
 -- 
 2.43.0
 
