@@ -1,73 +1,185 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=65.109.113.108
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792641666;
-	b=dA1Q1BzzI7BpoEK8VgVVy3fcKFFWJqgX1afl/i4QqtCmTNn+H6kBULpb6Rxgi4T3YKJ5
-	 KEiWVjnt2nGU+Wl85B4/dr8D/nEytllSmmo3urBEoq+IrQL5hrrLHG9eOafQe6yZqI+sd
-	 1inlqIgp6230njqZ3wsrYRRLj9UkkF7Fe+gKP2tuo31+pj0HFj6hSW0NVL/54BpROZvKT
-	 YkqJ3zoG+YRZwDMkXxyZMakHq3rT8HWnfwL0eiUdgpdUuqDVfAElmJm40pBo4TkUbeFvH
-	 QTs4kuxeaVfUHk4YgFdGrED8x1H5ieWPh1H4BpXUjfyQgB8oTxasysbWwaq9Sf0qKvw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792641666;
-	h=DMARC-Filter:Received:X-Virus-Scanned:Received:DKIM-Signature:
-	 Received:Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition;
-	bh=f+2B8XcGwW4aiiJVapgagOKoGAXeHs6Szs9MYTUj93k=;
-	b=2gOVdYhEEWaGsWyQBE0mPM9L4nqUKEC0gAgL2IS5wCvwV8rlPBq0KDk6abxue28ujB+9
-	 yMZ+hkb/70Z6SvTWVbwFwSQZ5AOWtX2onwTODLOK8q0Z5kpWTctlxd9HTd+gc6tAKIJNn
-	 5XmgC/A5pQZXPsUDukqJP0fYJy1vtKtRBC2MCdJ18eCJaj4GpJgB0OzN947IVDk5S3c2y
-	 dKzUjDKRicIGj6C7eIJgPYrKQc3zYN99c2b/9Sr1pJhSKLBLSX6MR3hqD/ci1OiaB+6Kp
-	 60r4DhKfdlaAORHk8c1yoHpN+fnf5+Uu0Ow3yD2dkkdC4KarAUnihMcfH3iJ9nFLR2w==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=alien8.de;
-	spf=pass smtp.mailfrom=alien8.de;
-	dkim=pass header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=gKNtOxHI;
-	arc=none smtp.remote-ip=65.109.113.108
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=198.175.65.14
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792641808;
+	b=JpuYXXf1ZODOxC9kq5EBsQOEvVS2JrjqINshhAZ/n+3V4awxVDgwG3THa2OXNfcv7Ihc
+	 ZIzRCbH98MY3tNEtgg4El2A3ojjtCQs8LGXwyhkp5+j5rg6QnB4wBi3f4OdAHCCCD4Kie
+	 hkB6QYnivwV1m9W8lvrmR6lMN1Xsdj+jAlFsc+2w/DMmIoDe2vMXfNQwGE0HR9WPg9/I6
+	 /7/IjaAFYpoJiWucfA3Nm3f+qD96mVbqXE9E/c9P6qbAzqksoWMVe0El40BISOuZ79Opt
+	 VyK4rbH41nfYo9dH1flfb2mnzUaxHR+O0R/pqDN+p9gscetmKCP9pDcsiTlQTvDZCJw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792641808;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
+	 Received:Received:Received:From:To:CC:Subject:Thread-Topic:
+	 Thread-Index:Date:Message-ID:References:In-Reply-To:Accept-Language:
+	 Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
+	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
+	 x-ms-office365-filtering-correlation-id:x-ms-exchange-senderadcheck:
+	 x-ms-exchange-antispam-relay:x-microsoft-antispam:
+	 x-microsoft-antispam-message-info:x-forefront-antispam-report:
+	 x-ms-exchange-antispam-messagedata-chunkcount:
+	 x-ms-exchange-antispam-messagedata-0:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version:
+	 X-Exchange-RoutingPolicyChecked:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-AuthSource:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-originalarrivaltime:
+	 X-MS-Exchange-CrossTenant-fromentityheader:
+	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
+	 X-MS-Exchange-CrossTenant-userprincipalname:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
+	bh=aVlEl2IBPg3BfIeRlF5SLcWfC0vRyS4WcB5X8HPM0uM=;
+	b=3IJJJeWXux9qtGZLwvKXM2lIqukH41TxIYYjInODmAgihqrIPGBCCuMoxBzvAD0Boefw
+	 OlR3jo/QbqvIe3cqoxvn+fwovhuEYWezqFcipM3UYAD8jCZfsMap38NW4+J3S2T4QCq0T
+	 Ise/NQ4id9oGj0oSrf/9TOMpYWHLJ4SPY7CRDQ1BZoYNDUKVFHDzPSxsNk/3Q3Lvumy/G
+	 a/YP3CP2SIUahIYAVf3jm+6rYZEc7UaYBH1CkBZHyMXOZf4ur7YCKBC/EHz9h9qc1q75V
+	 dOK0uYmn3F1OJsOePqFdRO0Danodc53dlzElcWTNvIXlE8ypBrIuXUtF7HtJpRoselw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=hjF1BWEO;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=198.175.65.14
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6E5D606A319
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 04:01:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E6E5D606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40B6B606A319;
+	Thu, 22 Oct 2026 04:03:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 40B6B606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key, unprotected) header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=gKNtOxHI
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 4973040E047F;
-	Thu, 22 Oct 2026 04:00:57 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
-	header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id KrjKjto0bd1I; Thu, 22 Oct 2026 04:00:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1792641653; bh=f+2B8XcGwW4aiiJVapgagOKoGAXeHs6Szs9MYTUj93k=;
-	h=Date:From:To:Cc:Subject:From;
-	b=gKNtOxHIaMkCoh3LQPn/VCnijDZyLuRXGi11jiOq4X0M6sRxOR4rbfhAvmF6YnkX6
-	 Svb+UHl4u5RUL3hozLRapxIdyLKVRZKaz614SU08a7gcIekA2NpWH/w0SAsYMo94aJ
-	 jn3HX25xfH72vLGIQCbio9XJiWvT7lErke1irnuHImVPXR9NmU/fPIWBhdelEOYTUx
-	 jP1zRw039JjFMSIq18y1a3GfSPE/WowNHkUMZAPt6qF2dvkTfaktGkMDoKGpK/hk8l
-	 koPgERNjnbH+mPZr0NWrHG3Z0KyH3luE93HR9WwHBQTXs3lpJn/kjABsOsHobSNoBm
-	 UCwOWXmPRp9J6reDBljVZOGblpNKfH/8f/xzToIwbPPWTmym+y9qeA0uQYfShuR+fw
-	 ASfpMR0GtLsJozzfIEOr18qMNxrigHUCC6RrOXNOs37/FOZ9Ai4wrkkXMM614swvs0
-	 cKcyPL5SGvG88ws0LOepCmsRRLNOg9zYi9bRAjwFy9fKWjl31pzJSoz50xKlnAkNUl
-	 PJYrQdsgpIjM3UeWvbeKJ8qiuUFbUT6QRz7YHF9xb+d6wB2LF5PQLccNk9Tsj4+Bqj
-	 rK3xfYrQXdCcO8EgfXKZEnCFn1Actlm6WSRI2d4KOwIBdLrVLMGGp5gsbmQRxxYfD9
-	 6o0DP7QHf/xz2YzM7zcf1Xq0=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::e])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id B512740E01D2;
-	Thu, 22 Oct 2026 04:00:50 +0000 (UTC)
-Date: Wed, 21 Oct 2026 21:00:47 -0700
-From: Borislav Petkov <bp@alien8.de>
-To: x86-ML <x86@kernel.org>
-Cc: LKML <linux-kernel@vger.kernel.org>
-Subject: [RFC PATCH] x86/cpu: Change AMD uarch detection
-Message-ID: <20261022040047.GDatmKb9L_fwqBGQ0_@fat_crate.local>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=hjF1BWEO
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792641808; x=1824177808;
+  h=from:to:cc:subject:date:message-id:references:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=y7y785a7abLi8F6fatbjKezHsoQmI2GosRA+kPW7eBY=;
+  b=hjF1BWEOo913dJQMphk7rb4X3ZBowdeZei0eaoUuv1Y1zlpfroM4NPS/
+   a9Wo+Z9yqaCWlrvZc/qqng+TQBulLd0hZZWoYA4NY3dKbAeklOsd2iSW2
+   dHMIPTXDCMfQm6Fb725XZg/UHGWrUAYhFD9rbfqLl6xJcTfDSHUCHqD7H
+   mM2eZnmLytXBwXouFyTr5xxMdtARxFghPQvqYP57Nx315faBA/5wKt1zI
+   bQOMUqcrbfOD1ohjhxz6gYfYPnwR7tzzCiApR9ulDZa4VxI7exrGZiiuC
+   UocjtxSV1ZLAOUIQWhKr9jK0+cKDVcGGVBlcTNKxG7pFF9vjUqBRP/KEZ
+   w==;
+X-CSE-ConnectionGUID: FAx7hdaSSmmsmCA2qFZaDQ==
+X-CSE-MsgGUID: plsR9hsYTdibR/HWwMhsBg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11942"; a="1250679"
+X-IronPort-AV: E=Sophos;i="6.27,171,1787036400"; 
+   d="scan'208";a="1250679"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 21:03:26 -0700
+X-CSE-ConnectionGUID: khe+fo7LR9SbTflWvicaLA==
+X-CSE-MsgGUID: kazQtptQSYGEWcLUuIVzxw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,171,1787036400"; 
+   d="scan'208";a="3140151"
+Received: from fmsmsx901.amr.corp.intel.com ([10.18.126.90])
+  by orviesa008.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 21:03:24 -0700
+Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
+ fmsmsx901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Wed, 21 Oct 2026 21:03:08 -0700
+Received: from fmsedg902.ED.cps.intel.com (10.1.192.144) by
+ FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49 via Frontend Transport; Wed, 21 Oct 2026 21:03:08 -0700
+Received: from BYAPR05CU005.outbound.protection.outlook.com (52.101.85.39) by
+ edgegateway.intel.com (192.55.55.82) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Wed, 21 Oct 2026 21:03:07 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ipliQl23LtuZARSkJHQ0FSfwJSJ4rxqWQ8GALA8TyrXkYiU3CcKqQHg712NaD7UjCEzi4D7ljzh5ECsDkRAOBMtx2AXUlJB8W7jmm8NTs0SwTRoDgt9K+J7a6zPAPmM6C1YxF+IScX/2k8JwnRdCLlvBHIAkWxxDp4xHN3eYmG6auYi0g/tYkU12+srOC8z+pOYKc9qhS4ONnxVR6cmW2CYPtxgzYKfVh7s1oRuFBt+yR0Myn2KxFS5bvLF4Roy7Bc3R6jw1+kO8Kc5L6OeIiC5iZolPxbOUyLrQGha4k704c/FdM1MlmWUkvfHHXWuS31EJvtD3jJD682K9PSO4dA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=aVlEl2IBPg3BfIeRlF5SLcWfC0vRyS4WcB5X8HPM0uM=;
+ b=yO5HBmFOE6EZgX9bH2Ugv8GP2bK5YXnEerxYcy/Cw3LibQuymI9jCTRuE/CERYLHb1UioRAN7cx2IqogOJ5WzbTjV/MXDrJGiHqJlegxvXGScCYbUi1ILJnCHx+y8z9KyJ+riktSnneAhVCSHGPA3B9Nby4Q8ByUCMSZVhXMgZss794naRFYu4jiqHZ2PRY+nvsug3GinVcGaHNTDpNiziQYItYADL/IPNi+Tl5K3Uvzw5+izNs3iqNihSznYpQtl8EosBQsYFNhMWFiS8dTrpLy4KoZEnU5/qa6Oqw5lGxCiKastlrT528RWseJ2DmigKr9NpdLoc2CN6irB4Voxw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Received: from CO1PR11MB4835.namprd11.prod.outlook.com (2603:10b6:303:9e::22)
+ by DS4PR11MB263615.namprd11.prod.outlook.com (2603:10b6:8:509::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Thu, 22 Oct
+ 2026 04:02:59 +0000
+Received: from CO1PR11MB4835.namprd11.prod.outlook.com
+ ([fe80::d051:d948:c209:9225]) by CO1PR11MB4835.namprd11.prod.outlook.com
+ ([fe80::d051:d948:c209:9225%6]) with mapi id 15.21.0522.017; Thu, 22 Oct 2026
+ 04:02:59 +0000
+From: "Tian, Kevin" <kevin.tian@intel.com>
+To: Jason Gunthorpe <jgg@ziepe.ca>
+CC: Baolu Lu <baolu.lu@linux.intel.com>, Xu Yilun <yilun.xu@linux.intel.com>,
+	"Aneesh Kumar K . V" <aneesh.kumar@kernel.org>, "iommu@lists.linux.dev"
+	<iommu@lists.linux.dev>, "x86@kernel.org" <x86@kernel.org>,
+	"linux-coco@lists.linux.dev" <linux-coco@lists.linux.dev>,
+	"kvm@vger.kernel.org" <kvm@vger.kernel.org>, Kiryl Shutsemau
+	<kas@kernel.org>, "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>, "Li,
+ Xiaoyao" <xiaoyao.li@intel.com>, "Gao, Chao" <chao.gao@intel.com>, Binbin Wu
+	<binbin.wu@linux.intel.com>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>
+Subject: RE: [PATCH v2 4/4] coco/tdx-host: Initialize trusted DMA on all
+ capable IOMMUs
+Thread-Topic: [PATCH v2 4/4] coco/tdx-host: Initialize trusted DMA on all
+ capable IOMMUs
+Thread-Index: AQHdXENN2nUblT22Z0KkGwSJ4t8pVbb+RqKAgACYcICAAOFFgIAAASOggACDnACACLVOoA==
+Date: Thu, 22 Oct 2026 04:02:59 +0000
+Message-ID: <CO1PR11MB4835CE6A72BCC8336E210D618C652@CO1PR11MB4835.namprd11.prod.outlook.com>
+References: <20261015010705.1973284-1-baolu.lu@linux.intel.com>
+ <20261015010705.1973284-5-baolu.lu@linux.intel.com>
+ <atCPY6LzHd4y0Ywh@yilunxu-OptiPlex-7050> <20261015173707.GV14213@ziepe.ca>
+ <5ca5f1c4-4c3c-47f1-b79c-c1fe06b20ee4@linux.intel.com>
+ <CO1PR11MB4836E2CB05E1448BB42047458C9B2@CO1PR11MB4836.namprd11.prod.outlook.com>
+ <20261016145830.GA448730@ziepe.ca>
+In-Reply-To: <20261016145830.GA448730@ziepe.ca>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: CO1PR11MB4835:EE_|DS4PR11MB263615:EE_
+x-ms-office365-filtering-correlation-id: 2cbb0f63-503e-4f0a-31ae-08df2ff15ca4
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;ARA:13230040|1800799024|23010399003|7416014|376014|366016|6133799003|22082099003|18002099003|261021121427099003|261009223027099003|4143699003|11063799006|10067099003|38070700021|56012099006;
+x-microsoft-antispam-message-info: DSU70/xT6QcLvfmcgt91xJ8BF7rx16ov7uB08Y62/Pp1NNizlJ2DVcpXT3H1TGEHZxQKVaZDKFHeTSNPquuNq9VHdYb9VE1ZoBKtBzvg7EOpMNuwIJSYIXDaT6RW8Drohi+YoCyiHBkuCx6cMQ42WCMGMaDA8KcgjGcAzAZJAIY0i680JJe1AfYbatnSJycwjm8ron5mlBQ+zfnD19qWB/fpZmgBNM7Fp1+W07hIScz1UWnCnJy15D8jKljO2RTfcfSkl6uopvH8rGVMHZG56xrKWixJRm0ZTJtv6DZI0QogY9JzH4ai17jtgt4goOM7uexwolwkKhJq9TWAHJJ24tFc1k3Hb+bD5TPvyi/xavO5laxnH1Gb2aYFXidhloqKCbX7o+fdWuIXhlwRmQYV7/DzKybrEJJxs7VEVGfNE7hFTb0FRVUvLl37p1Qu5A/y6g+bRhhg/s9nlxJehcZNJlhXZHymEUj5TuKCcbtdCXEMvZZESmtAM51qKxF2ZkmrBjSRYBStpWGitKVA2C5KCelb+RySfPhnB/9lcNjKifN+mkxMXXo27LqmpZBw+Pf93lvaggA4YZZTTub4/4R9xeQAq6BbleX2SAMNqiYr4yQUiG11D5vRkBqNa17A+ZYbohgl6R+NHlk8PHavuaK9vlCzasQWANiHqpePJ6PDeV2DWMrDJ6Gqgqb7AtIsNlVTOJEotbIIigdJyC1kCLoy7M0nXY8rKbjbzp/2LRejLv4=
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CO1PR11MB4835.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(7416014)(376014)(366016)(6133799003)(22082099003)(18002099003)(261021121427099003)(261009223027099003)(4143699003)(11063799006)(10067099003)(38070700021)(56012099006);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?iEKHvLm3xnKxU6UCfnC/trRcTNBRYoQNsCFJVmoJJ4AOqAbW8gX6CNwrkGuI?=
+ =?us-ascii?Q?pkyHBdeDcqIXgjG934doORBKFJ6BrWtadSstgl7V5qHE6QOAijP2hpYo7HET?=
+ =?us-ascii?Q?w6HI1r0mNZy9dVkSaxqN7I6TAdPE7I8+i5jswXcn2ui2njh4VAUslTev9vJV?=
+ =?us-ascii?Q?bh6PC/9wsj+4QH09z+kKHJf6DCgYcG8FhypjRNUlCaB6KCKuZ1kUQgR57A6/?=
+ =?us-ascii?Q?23cdc4Q2E7M09Yc6dmxaM5p8oWubaUpqvYzHz6vFgAeeyIl9w3bLDLprLLNQ?=
+ =?us-ascii?Q?3cvKU1BbPjc5M6yJl4Qrz0Xlt4RfEhhqiHyq986Y0adiDiTZmNN+VLSJCf13?=
+ =?us-ascii?Q?/afhrSW2m6H0NjKmivfCQQhsRosp5CPqOOVowbkXb5VKm31DY/DSUVQsgRR7?=
+ =?us-ascii?Q?2OAa4Cyk0sBZ3BapoHiMhFc2CIWeH9PI8OJzZ6W5lL/CbnsLUtwBZiHjAXTf?=
+ =?us-ascii?Q?ClX675Y9Ia+B+nFB3vmNs0jYyEVSneecBz73sJuRLQ2+WuBtgPPWFIJQFD5S?=
+ =?us-ascii?Q?7Sh98YfumIMMUKrDpCftJFGmromXqDyXOge48kgkq7+Xfw/Q805uP6x5vqzr?=
+ =?us-ascii?Q?OgvQjwdtr0+6mTzMXdMUg2IkoX2AWJeoPKuGL92Ilz98vwGQK8Jl0YvoNthw?=
+ =?us-ascii?Q?icmW2RqHEUrO2XFSt6AOE96cHtxNlEvfRix7hRtqA7Gms0iYL18HMRj9bJ0k?=
+ =?us-ascii?Q?o/QgOC12U/naYMcujFwAzzdGqb+sIcZ8wVLIIlwMltpd2NpeKI5fKyHhsv8Y?=
+ =?us-ascii?Q?4z5N/CSwU0dpojberCtMoFeaa26Z7ZzIJwmXMTO6Wxro4p9bRLTAsRbPAKQO?=
+ =?us-ascii?Q?7sj9ch+4a5W4UvsE5mhKxAidVMmtwrWAXaskzqhCrmylpNI5jG+dMp5uaxn5?=
+ =?us-ascii?Q?jtC/Te6J68P+hHp2ZNetaXM6bWwwkHdnEN9gdVZ/W5Eq+Q+TWDjMny8olJkq?=
+ =?us-ascii?Q?R0Dr02WZH8b82J9xesX+gZAlgKIqyQ9hU6z3TLgF3EYs9B8fFCIVvjR6JhmH?=
+ =?us-ascii?Q?BtdmDo+MYpfpt/xi41GanTGbE4Wv15/tdQDK2GCWcZZjHty/YDHq7xyIY0W5?=
+ =?us-ascii?Q?uCh4oxZRiE8njSFHNJV485jdQdnOVtj0j3rACs8G6WFG8cx+MlVAqVVBYZgK?=
+ =?us-ascii?Q?QjZHON7DQty/qvLMeT7okfC0Q8Y8VrV1lLEsZ4BQIspRMj3xDrJFe34lfsrB?=
+ =?us-ascii?Q?FmnzbU32u1ktW4Vnp1l5qdCnstuAGAEMxyLUm9TQ7oLI8gZxfQX/B7Qh/kh9?=
+ =?us-ascii?Q?mNZJwttq6LYjFs38f8LC2hwgY1mOjc/1rOeLjJEukpNZgHg3eNERPKZk48Bv?=
+ =?us-ascii?Q?UkzK52ctG0Pbbh6bLZbfy1SD6WqRNCSD46gzYMwHcKNxQA9kOZv12KUW4Q5T?=
+ =?us-ascii?Q?sEbM6bzZnR03zBXKVmrSQKAKHJKR9oCDYswUxaXyxSI2bg1KZi63N+EeJQb3?=
+ =?us-ascii?Q?JWaL7ea/qlQUySdqJKmi15myneveJUGvy3u0AcwqzQF+hC1AD0eYMNfWNuuf?=
+ =?us-ascii?Q?FLjd3a+z69KSEl7RFO1JZAccl8jUJtDlvCwxemigWgCD/nf98RI/A+8X03OZ?=
+ =?us-ascii?Q?Kw32kdnTQUa76D/6JlXfxskghZE9KRIggdnDeHgyoWpqUVcu6Rp7xVV6DtS2?=
+ =?us-ascii?Q?q5KSxBwH6YvV4kUiqU/kFhjS8xDoR+xBHyahcjdmD/ePrBDFrEOk7Yj1KTz+?=
+ =?us-ascii?Q?uWe1PD/ukDvXAHZpzSU6HbtugV3DEicDu+0rPJlp5Uy88FCBaCS3t94QSFJA?=
+ =?us-ascii?Q?TgFgk5rLhw=3D=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,428 +189,106 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+X-Exchange-RoutingPolicyChecked: kCCYU/uoEktTrZ7Cx870+l+fb+QXx5PUo+uyWwJtH7gAvOtSw0KLu49fRnd1Vlj0oYEceG3/Wc8zuMDD5dyNJg58wQmil0pPQMsoeFyQBKSZon/874IHr+lh+c2MXWVHebdYDDJh9yoMCrc3c+hwy8kLuUyCMk9lqLeME9lubcsws0FJfOW+7yLVcPyd+W3j0gmARXvBNvYT+MurfDdMwPuNfUUeKc6oRH6wezKgb3z+Kr76BD6D7goed1CoWlTMbQsMAP/5KoG0FFVnG7b81l7xUYUXL1XIwmJ1GmSXkyUJ8XF1bcVAzkDzwHWfTlgKCQBcSxfGiWIzb5jEgFpH6g==
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: CO1PR11MB4835.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2cbb0f63-503e-4f0a-31ae-08df2ff15ca4
+X-MS-Exchange-CrossTenant-originalarrivaltime: 22 Oct 2026 04:02:59.7459
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 804blSb2gFHexL2TPBtTcLfu5qgg+nE92SfTL0TlMzPHmtX+ZfqcYmXFwFauULThVVdjS54p7ccD/YawEG1W9Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS4PR11MB263615
+X-OriginatorOrg: intel.com
 
-Hi,
+> From: Jason Gunthorpe <jgg@ziepe.ca>
+> Sent: Friday, October 16, 2026 10:59 PM
+>=20
+> On Fri, Oct 16, 2026 at 07:17:31AM +0000, Tian, Kevin wrote:
+> > +Aneesh.
+> >
+> > > From: Baolu Lu <baolu.lu@linux.intel.com>
+> > > Sent: Friday, October 16, 2026 3:03 PM
+> > >
+> > > On 10/16/2026 1:37 AM, Jason Gunthorpe wrote:
+> > > > On Thu, Oct 15, 2026 at 04:31:31PM +0800, Xu Yilun wrote:
+> > > >
+> > > >> An alternative could be, bringing up one IOMMU when an associated
+> > > >> device requests link encryption. Then a no-tdx-support iommu fails=
+ the
+> > > >> encryption request naturally.
+> > > > That is what ARM is planning to do. I think it is reasonable to
+> > > > trigger creation of the secure iommu when the TSM is connected to T=
+DX.
+> > > >
+> > > > Fail connect if the iommu could not be created.
+> > >
+> > > Yes, agreed. The Intel iommu driver could use per-device interfaces,
+> > > just as ARM is planning. There are some differences, though.
+> > >
+> > > ARM's interaction with the iommu driver in viommu_init() appears to
+> > > consist of two steps:
+> > >
+> > >   - arm_smmu_get_realm_params(dev, &params): get and validate the
+> > >     physical iommu information from the arm-smmu-v3 driver;
+> > >   - cca_psmmu_get(&params): activate the physical smmu for Realm use.
+> > >
+> > > Intel differs in two ways:
+> > >
+> > >   - ARM queries the physical iommu information from the iommu driver
+> > >     in the viommu_init() path. On Intel, the secure iommu must be set
+> > >     up during TSM connect, because it is part of establishing PCIe
+> > >     link encryption.
+> >
+> > My understanding is that the psmmu is required for link encryption, so
+> > it's similar ordering here i.e. activated before tsm connect?
+>=20
+> No, AFAIK? The psmmu has to be linked before creating the vdev, and in
+> the current spec the only way to get the measurements is through the
+> vdev, but I am expecting that to change.
 
-I have been wondering how to improve that Zen uarch detection and handling and
-be able to do range checks of uarches, i.e., "this code needs to run on Zen
-microarchitectures 3 to 5". And I asked AI.
+Okay seems I misread psmmu as pdev. It's the latter created for setting
+up IDE link. As you said psmmu is only for creating the vdev.
 
-It gave me a lot of blurb but the basic idea is good so I went and did it. See
-below.
+>=20
+> I have no idea what brilliant idea caused the VT-d iommu HW to become
+> involved in DOE and link IDE configuration in the root port. That
+> makes very little sense from an architecture perspective.
 
-It boots in a VM, I'm not even trying to cause the cat to catch fire by
-booting on a real machine but that will happen soon too.
+Agree.=20
 
-The thing can easily be extended to pre-Zen but that is not really needed, I'd
-say.
+>=20
+> > >   - The TDX Connect architecture places requirements on the host
+> > >     iommu driver while the secure IOMMU is being set up. For example,
+> > >     the host iommu driver must block the enhanced command (ECMD)
+> > >     interface while the TDH.IOMMU.SETUP SEAMCALL runs, and it must
+> > >     reserve the upper half of the domain ID space. These steps have
+> > >     to happen atomically under the iommu driver's own locks. As a
+> > >     result, the Intel iommu driver needs to merge the two steps above
+> > >     into one.
+> >
+> > Didn't get this. Both ECMD and DID reservation are TDX specific things.
+> > How are they related to the two steps in the ARM sides and why calls
+> > for merging?
+> >
+> > and why are they must be done atomically? they are conditions to
+> > execute TDH.IOMMU.SETUP, but it is perfectly fine to reserve DID
+> > at an early point then block ECMD later...
+>=20
+> That's going to be a bit of a PITA, since the DIDs can be in use when
+> the tdx module is start potentially.
+>=20
+> I suppose you can start out by just failing if this has happened.
 
-X86_FEATURE_ZEN to mark all Zens remains, that will be a future patch. Perhaps
-something as simple as:
+This is the plan
 
-	if (boot_cpu_data.x86_uarch)
+>=20
+> But as soon as reasonably possible once the system opts into a TDX
+> operation the VT-d drivers should stop using the upper did space.
+>=20
+> Otherwise you will have to implement live DID renaming, which is a
+> PITA in an iommu driver.
+>=20
 
-but I have to move Hygon off of that usage. We'll see. Small steps.
-
-Thx.
-
----
-
-Author: Borislav Petkov (AMD) <bp@alien8.de>
-Date:   Mon Oct 12 22:42:51 2026 -0700
-
-Not-Signed-off-by: Borislav Petkov (AMD) <bp@alien8.de>
-
-diff --git a/arch/x86/events/amd/core.c b/arch/x86/events/amd/core.c
-index 49b6b8fce566..e61857c74c16 100644
---- a/arch/x86/events/amd/core.c
-+++ b/arch/x86/events/amd/core.c
-@@ -291,13 +291,13 @@ static const u64 amd_zen4_perfmon_event_map[PERF_COUNT_HW_MAX] =
- 
- static u64 amd_pmu_event_map(int hw_event)
- {
--	if (cpu_feature_enabled(X86_FEATURE_ZEN4) || boot_cpu_data.x86 >= 0x1a)
-+	if (boot_cpu_data.x86_uarch >= AMD_UARCH_ZEN4)
- 		return amd_zen4_perfmon_event_map[hw_event];
- 
--	if (cpu_feature_enabled(X86_FEATURE_ZEN2) || boot_cpu_data.x86 >= 0x19)
-+	if (boot_cpu_data.x86_uarch >= AMD_UARCH_ZEN2)
- 		return amd_zen2_perfmon_event_map[hw_event];
- 
--	if (cpu_feature_enabled(X86_FEATURE_ZEN1))
-+	if (boot_cpu_data.x86_uarch >= AMD_UARCH_ZEN1)
- 		return amd_zen1_perfmon_event_map[hw_event];
- 
- 	return amd_perfmon_event_map[hw_event];
-diff --git a/arch/x86/events/amd/ibs.c b/arch/x86/events/amd/ibs.c
-index 3531f9c23b8c..bc699050131a 100644
---- a/arch/x86/events/amd/ibs.c
-+++ b/arch/x86/events/amd/ibs.c
-@@ -415,7 +415,8 @@ static int perf_ibs_init(struct perf_event *event)
- 		config |= (ldlat - 1) << IBS_OP_LDLAT_THRSH_SHIFT;
- 
- 		config |= IBS_OP_LDLAT_EN;
--		if (cpu_feature_enabled(X86_FEATURE_ZEN5))
-+
-+		if (boot_cpu_data.x86_uarch == AMD_UARCH_ZEN5)
- 			config |= IBS_OP_L3MISSONLY;
- 	}
- 
-diff --git a/arch/x86/include/asm/cpu_device_id.h b/arch/x86/include/asm/cpu_device_id.h
-index c62d8fae52c3..50ea0eefcd06 100644
---- a/arch/x86/include/asm/cpu_device_id.h
-+++ b/arch/x86/include/asm/cpu_device_id.h
-@@ -5,13 +5,13 @@
- /*
-  * Can't use <linux/bitfield.h> because it generates expressions that
-  * cannot be used in structure initializers. Bitfield construction
-- * here must match the union in struct cpuinfo_86:
-+ * here must match the union in struct cpuinfo_x86:
-  *	union {
-  *		struct {
-  *			__u8	x86_model;
-  *			__u8	x86;
-  *			__u8	x86_vendor;
-- *			__u8	x86_reserved;
-+ *			__u8	x86_uarch;
-  *		};
-  *		__u32		x86_vfm;
-  *	};
-@@ -19,11 +19,11 @@
- #define VFM_MODEL_BIT	0
- #define VFM_FAMILY_BIT	8
- #define VFM_VENDOR_BIT	16
--#define VFM_RSVD_BIT	24
-+#define VFM_UARCH_BIT	24
- 
- #define	VFM_MODEL_MASK	GENMASK(VFM_FAMILY_BIT - 1, VFM_MODEL_BIT)
- #define	VFM_FAMILY_MASK	GENMASK(VFM_VENDOR_BIT - 1, VFM_FAMILY_BIT)
--#define	VFM_VENDOR_MASK	GENMASK(VFM_RSVD_BIT - 1, VFM_VENDOR_BIT)
-+#define	VFM_VENDOR_MASK	GENMASK(VFM_UARCH_BIT - 1, VFM_VENDOR_BIT)
- 
- #define VFM_MODEL(vfm)	(((vfm) & VFM_MODEL_MASK) >> VFM_MODEL_BIT)
- #define VFM_FAMILY(vfm)	(((vfm) & VFM_FAMILY_MASK) >> VFM_FAMILY_BIT)
-diff --git a/arch/x86/include/asm/cpufeatures.h b/arch/x86/include/asm/cpufeatures.h
-index f62944700975..1302cd3edfb8 100644
---- a/arch/x86/include/asm/cpufeatures.h
-+++ b/arch/x86/include/asm/cpufeatures.h
-@@ -74,8 +74,8 @@
- #define X86_FEATURE_CYRIX_ARR		( 3*32+ 2) /* "cyrix_arr" Cyrix ARRs (= MTRRs) */
- #define X86_FEATURE_CENTAUR_MCR		( 3*32+ 3) /* "centaur_mcr" Centaur MCRs (= MTRRs) */
- #define X86_FEATURE_K8			( 3*32+ 4) /* Opteron, Athlon64 */
--#define X86_FEATURE_ZEN5		( 3*32+ 5) /* CPU based on Zen5 microarchitecture */
--#define X86_FEATURE_ZEN6		( 3*32+ 6) /* CPU based on Zen6 microarchitecture */
-+/* unused, was: #define X86_FEATURE_ZEN5		( 3*32+ 5) * CPU based on Zen5 microarchitecture */
-+/* unused, was: #define X86_FEATURE_ZEN6		( 3*32+ 6) * CPU based on Zen6 microarchitecture */
- #define X86_FEATURE_RMPOPT		( 3*32+ 7) /* Support for AMD RMPOPT instruction */
- #define X86_FEATURE_CONSTANT_TSC	( 3*32+ 8) /* "constant_tsc" TSC ticks at a constant rate */
- /* free: was #define X86_FEATURE_UP	( 3*32+ 9) * "up" SMP kernel running on UP */
-@@ -313,10 +313,10 @@
- #define X86_FEATURE_SRSO_ALIAS		(11*32+25) /* AMD BTB untrain RETs through aliasing */
- #define X86_FEATURE_IBPB_ON_VMEXIT	(11*32+26) /* Issue an IBPB only on VMEXIT */
- #define X86_FEATURE_APIC_MSRS_FENCE	(11*32+27) /* IA32_TSC_DEADLINE and X2APIC MSRs need fencing */
--#define X86_FEATURE_ZEN2		(11*32+28) /* CPU based on Zen2 microarchitecture */
--#define X86_FEATURE_ZEN3		(11*32+29) /* CPU based on Zen3 microarchitecture */
--#define X86_FEATURE_ZEN4		(11*32+30) /* CPU based on Zen4 microarchitecture */
--#define X86_FEATURE_ZEN1		(11*32+31) /* CPU based on Zen1 microarchitecture */
-+/* unused, was #define X86_FEATURE_ZEN2		(11*32+28) * CPU based on Zen2 microarchitecture */
-+/* unused, was: #define X86_FEATURE_ZEN3	(11*32+29) * CPU based on Zen3 microarchitecture */
-+/* unused, was: #define X86_FEATURE_ZEN4	(11*32+30) * CPU based on Zen4 microarchitecture */
-+/* unused, was: #define X86_FEATURE_ZEN1	(11*32+31) * CPU based on Zen1 microarchitecture */
- 
- /* Intel-defined CPU features, CPUID level 0x00000007:1 (EAX), word 12 */
- #define X86_FEATURE_SHA512		(12*32+ 0) /* SHA512 instructions */
-diff --git a/arch/x86/include/asm/processor.h b/arch/x86/include/asm/processor.h
-index 77488ff5eb8c..03e75b6ad9d3 100644
---- a/arch/x86/include/asm/processor.h
-+++ b/arch/x86/include/asm/processor.h
-@@ -77,6 +77,19 @@ enum x86_topology_cpu_type {
- 	TOPO_CPU_TYPE_UNKNOWN,
- };
- 
-+/*
-+ * Ordered list of uarches so that range etc checks can work.
-+ */
-+enum amd_uarch {
-+	AMD_UARCH_UNKNOWN = 0,
-+	AMD_UARCH_ZEN1,
-+	AMD_UARCH_ZEN2,
-+	AMD_UARCH_ZEN3,
-+	AMD_UARCH_ZEN4,
-+	AMD_UARCH_ZEN5,
-+	AMD_UARCH_ZEN6
-+};
-+
- struct cpuinfo_topology {
- 	// Real APIC ID read from the local APIC
- 	u32			apicid;
-@@ -145,7 +158,8 @@ struct cpuinfo_x86 {
- 			__u8	x86;
- 			/* CPU vendor */
- 			__u8	x86_vendor;
--			__u8	x86_reserved;
-+			/* AMD: CPU uarch number */
-+			__u8	x86_uarch;
- 		};
- 		/* combined vendor, family, model */
- 		__u32		x86_vfm;
-diff --git a/arch/x86/kernel/acpi/cppc.c b/arch/x86/kernel/acpi/cppc.c
-index bbade0da5130..fc06a78b3cfc 100644
---- a/arch/x86/kernel/acpi/cppc.c
-+++ b/arch/x86/kernel/acpi/cppc.c
-@@ -260,7 +260,7 @@ int amd_get_boost_ratio_numerator(unsigned int cpu, u64 *numerator)
- 	 * the highest performance level is set to 196.
- 	 * https://bugzilla.kernel.org/show_bug.cgi?id=218759
- 	 */
--	if (cpu_feature_enabled(X86_FEATURE_ZEN4)) {
-+	if (boot_cpu_data.x86_uarch == AMD_UARCH_ZEN4) {
- 		switch (boot_cpu_data.x86_model) {
- 		case 0x70 ... 0x7f:
- 			*numerator = CPPC_HIGHEST_PERF_PERFORMANCE;
-diff --git a/arch/x86/kernel/cpu/amd.c b/arch/x86/kernel/cpu/amd.c
-index 3972966cb023..2df33d59c185 100644
---- a/arch/x86/kernel/cpu/amd.c
-+++ b/arch/x86/kernel/cpu/amd.c
-@@ -367,8 +367,7 @@ static void bsp_determine_snp(struct cpuinfo_x86 *c)
- 		 * instruction.
- 		 */
- 		if (!cpu_has(c, X86_FEATURE_HYPERVISOR) &&
--		    (cpu_feature_enabled(X86_FEATURE_ZEN3) ||
--		     cpu_feature_enabled(X86_FEATURE_ZEN4) ||
-+		    (c->x86_uarch >= AMD_UARCH_ZEN3 ||
- 		     cpu_feature_enabled(X86_FEATURE_RMPREAD)) &&
- 		    snp_probe_rmptable_info()) {
- 			cc_platform_set(CC_ATTR_HOST_SEV_SNP);
-@@ -409,8 +408,8 @@ static void tsa_init(struct cpuinfo_x86 *c)
- 	if (cpu_has(c, X86_FEATURE_HYPERVISOR))
- 		return;
- 
--	if (cpu_has(c, X86_FEATURE_ZEN3) ||
--	    cpu_has(c, X86_FEATURE_ZEN4)) {
-+	if (c->x86_uarch >= AMD_UARCH_ZEN3 &&
-+	    c->x86_uarch <= AMD_UARCH_ZEN4) {
- 		if (x86_match_min_microcode_rev(amd_tsa_microcode))
- 			setup_force_cpu_cap(X86_FEATURE_VERW_CLEAR);
- 		else
-@@ -483,13 +482,13 @@ static void bsp_init_amd(struct cpuinfo_x86 *c)
- 		switch (c->x86_model) {
- 		case 0x00 ... 0x2f:
- 		case 0x50 ... 0x5f:
--			setup_force_cpu_cap(X86_FEATURE_ZEN1);
-+			c->x86_uarch = AMD_UARCH_ZEN1;
- 			break;
- 		case 0x30 ... 0x4f:
- 		case 0x60 ... 0x7f:
- 		case 0x90 ... 0x91:
- 		case 0xa0 ... 0xaf:
--			setup_force_cpu_cap(X86_FEATURE_ZEN2);
-+			c->x86_uarch = AMD_UARCH_ZEN2;
- 			break;
- 		default:
- 			goto warn;
-@@ -500,11 +499,11 @@ static void bsp_init_amd(struct cpuinfo_x86 *c)
- 		switch (c->x86_model) {
- 		case 0x00 ... 0x0f:
- 		case 0x20 ... 0x5f:
--			setup_force_cpu_cap(X86_FEATURE_ZEN3);
-+			c->x86_uarch = AMD_UARCH_ZEN3;
- 			break;
- 		case 0x10 ... 0x1f:
- 		case 0x60 ... 0xaf:
--			setup_force_cpu_cap(X86_FEATURE_ZEN4);
-+			c->x86_uarch = AMD_UARCH_ZEN4;
- 			break;
- 		default:
- 			goto warn;
-@@ -517,13 +516,13 @@ static void bsp_init_amd(struct cpuinfo_x86 *c)
- 		case 0x40 ... 0x4f:
- 		case 0x60 ... 0x7f:
- 		case 0xd0 ... 0xd7:
--			setup_force_cpu_cap(X86_FEATURE_ZEN5);
-+			c->x86_uarch = AMD_UARCH_ZEN5;
- 			break;
- 		case 0x50 ... 0x5f:
- 		case 0x80 ... 0xaf:
- 		case 0xc0 ... 0xcf:
- 		case 0xd8 ... 0xef:
--			setup_force_cpu_cap(X86_FEATURE_ZEN6);
-+			c->x86_uarch = AMD_UARCH_ZEN6;
- 			break;
- 		default:
- 			goto warn;
-@@ -1090,16 +1089,15 @@ static void init_amd(struct cpuinfo_x86 *c)
- 	if (c->x86 >= 0x17)
- 		init_amd_zen_common();
- 
--	if (boot_cpu_has(X86_FEATURE_ZEN1))
--		init_amd_zen1(c);
--	else if (boot_cpu_has(X86_FEATURE_ZEN2))
--		init_amd_zen2(c);
--	else if (boot_cpu_has(X86_FEATURE_ZEN3))
--		init_amd_zen3(c);
--	else if (boot_cpu_has(X86_FEATURE_ZEN4))
--		init_amd_zen4(c);
--	else if (boot_cpu_has(X86_FEATURE_ZEN5))
--		init_amd_zen5(c);
-+	switch (c->x86_uarch) {
-+	case AMD_UARCH_ZEN1:	init_amd_zen1(c);	break;
-+	case AMD_UARCH_ZEN2:	init_amd_zen2(c);	break;
-+	case AMD_UARCH_ZEN3:	init_amd_zen3(c);	break;
-+	case AMD_UARCH_ZEN4:	init_amd_zen4(c);	break;
-+	case AMD_UARCH_ZEN5:	init_amd_zen5(c);	break;
-+	default: break;
-+	}
-+
- 
- 	/*
- 	 * Enable workaround for FXSAVE leak on CPUs
-@@ -1329,7 +1327,7 @@ void amd_check_microcode(void)
- 	if (boot_cpu_data.x86_vendor != X86_VENDOR_AMD)
- 		return;
- 
--	if (cpu_feature_enabled(X86_FEATURE_ZEN2))
-+	if (boot_cpu_data.x86_uarch == AMD_UARCH_ZEN2)
- 		on_each_cpu(zenbleed_check_cpu, NULL, 1);
- }
- 
-diff --git a/arch/x86/kvm/svm/avic.c b/arch/x86/kvm/svm/avic.c
-index 3b037e385523..5b5177d44f8d 100644
---- a/arch/x86/kvm/svm/avic.c
-+++ b/arch/x86/kvm/svm/avic.c
-@@ -1258,15 +1258,11 @@ static bool __init avic_want_avic_enabled(void)
- {
- 	/*
- 	 * In "auto" mode, enable AVIC by default for Zen4+ if x2AVIC is
--	 * supported (to avoid enabling partial support by default, and because
--	 * x2AVIC should be supported by all Zen4+ CPUs).  Explicitly check for
--	 * family 0x1A and later (Zen5+), as the kernel's synthetic ZenX flags
--	 * aren't inclusive of previous generations, i.e. the kernel will set
--	 * at most one ZenX feature flag.
-+	 * supported (to avoid enabling partial support by default, and
-+	 * because x2AVIC should be supported by all Zen4+ CPUs).
- 	 */
- 	if (avic == AVIC_AUTO_MODE)
--		avic = boot_cpu_has(X86_FEATURE_X2AVIC) &&
--		       (cpu_feature_enabled(X86_FEATURE_ZEN4) || boot_cpu_data.x86 >= 0x1A);
-+		avic = boot_cpu_has(X86_FEATURE_X2AVIC) && boot_cpu_data.x86_uarch >= AMD_UARCH_ZEN4;
- 
- 	if (!avic || !npt_enabled)
- 		return false;
-diff --git a/drivers/cpufreq/amd-pstate.c b/drivers/cpufreq/amd-pstate.c
-index 8bfd46d60843..258d95e5ff6d 100644
---- a/drivers/cpufreq/amd-pstate.c
-+++ b/drivers/cpufreq/amd-pstate.c
-@@ -165,7 +165,7 @@ static int __init dmi_matched_7k62_bios_bug(const struct dmi_system_id *dmi)
- 	 * broken BIOS lack of nominal_freq and lowest_freq capabilities
- 	 * definition in ACPI tables
- 	 */
--	if (cpu_feature_enabled(X86_FEATURE_ZEN2)) {
-+	if (boot_cpu_data.x86_uarch == AMD_UARCH_ZEN2) {
- 		quirks = dmi->driver_data;
- 		pr_info("Overriding nominal and lowest frequencies for %s\n", dmi->ident);
- 		return 1;
-@@ -2218,27 +2218,35 @@ static bool amd_cppc_supported(void)
- 	 * debugging purposes. Besides, it may still be possible for
- 	 * the driver to work using the shared-memory mechanism.
- 	 */
--	if (!cpu_feature_enabled(X86_FEATURE_CPPC)) {
--		if (cpu_feature_enabled(X86_FEATURE_ZEN2)) {
--			switch (c->x86_model) {
--			case 0x60 ... 0x6F:
--			case 0x80 ... 0xAF:
--				warn = true;
--				break;
--			}
--		} else if (cpu_feature_enabled(X86_FEATURE_ZEN3) ||
--			   cpu_feature_enabled(X86_FEATURE_ZEN4)) {
--			switch (c->x86_model) {
--			case 0x10 ... 0x1F:
--			case 0x40 ... 0xAF:
--				warn = true;
--				break;
--			}
--		} else if (cpu_feature_enabled(X86_FEATURE_ZEN5)) {
-+	if (cpu_feature_enabled(X86_FEATURE_CPPC))
-+		goto skip;
-+
-+	switch (boot_cpu_data.x86_uarch) {
-+	case AMD_UARCH_ZEN2:
-+		switch (c->x86_model) {
-+		case 0x60 ... 0x6F:
-+		case 0x80 ... 0xAF:
-+			warn = true;
-+			break;
-+		}
-+		break;
-+	case AMD_UARCH_ZEN3:
-+	case AMD_UARCH_ZEN4:
-+		switch (c->x86_model) {
-+		case 0x10 ... 0x1F:
-+		case 0x40 ... 0xAF:
- 			warn = true;
-+			break;
- 		}
-+		break;
-+	case AMD_UARCH_ZEN5:
-+		warn = true;
-+		break;
-+	default:
-+		break;
- 	}
- 
-+skip:
- 	if (warn)
- 		pr_warn_once("The CPPC feature is supported but currently disabled by the BIOS.\n"
- 					"Please enable it if your BIOS has the CPPC option.\n");
-diff --git a/drivers/crypto/ccp/sev-dev.c b/drivers/crypto/ccp/sev-dev.c
-index 5c996ab63895..0070421c6687 100644
---- a/drivers/crypto/ccp/sev-dev.c
-+++ b/drivers/crypto/ccp/sev-dev.c
-@@ -3136,12 +3136,15 @@ static int get_v2_svn(struct sev_device *sev)
- static bool sev_firmware_allows_es(struct sev_device *sev)
- {
- 	/* Documented in AMD-SB-3023 */
--	if (boot_cpu_has(X86_FEATURE_ZEN4) || boot_cpu_has(X86_FEATURE_ZEN3))
-+	switch (boot_cpu_data.x86_uarch) {
-+	case AMD_UARCH_ZEN3:
-+	case AMD_UARCH_ZEN4:
- 		return get_v1_svn(sev) < 0x1b;
--	else if (boot_cpu_has(X86_FEATURE_ZEN5))
-+	case AMD_UARCH_ZEN5:
- 		return get_v2_svn(sev) < 0x4;
--	else
-+	default:
- 		return true;
-+	}
- }
- 
- int sev_firmware_supported_vm_types(void)
-diff --git a/drivers/platform/x86/amd/pmc/mp1_stb.c b/drivers/platform/x86/amd/pmc/mp1_stb.c
-index 8a33e75b71c3..67a5c468171f 100644
---- a/drivers/platform/x86/amd/pmc/mp1_stb.c
-+++ b/drivers/platform/x86/amd/pmc/mp1_stb.c
-@@ -245,7 +245,7 @@ static const struct file_operations amd_stb_debugfs_fops_v2 = {
- 
- static void amd_stb_update_args(struct amd_pmc_dev *dev)
- {
--	if (cpu_feature_enabled(X86_FEATURE_ZEN5))
-+	if (boot_cpu_data.x86_uarch == AMD_UARCH_ZEN5) {
- 		switch (boot_cpu_data.x86_model) {
- 		case 0x44:
- 			dev->stb_arg.msg = AMD_GNR_REGISTER_MESSAGE;
-@@ -254,6 +254,7 @@ static void amd_stb_update_args(struct amd_pmc_dev *dev)
- 			return;
- 		default:
- 			break;
-+		}
- 	}
- 
- 	dev->stb_arg.msg = AMD_S2D_REGISTER_MESSAGE;
-
--- 
-Regards/Gruss,
-    Boris.
-
-https://people.kernel.org/tglx/notes-about-netiquette
+yeah nobody wants to do that way.
