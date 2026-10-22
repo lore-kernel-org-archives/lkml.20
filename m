@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792705131;
-	b=odw8BOcCYSAee88i+tJgQEeodldUEsJMJfz6ek/SYEk+3QtYXgK4Mp22EePpSMKXHmLz
-	 s+TWXRQXLuQwbgPyV9x72KA5dcYkMGdffxlfbZs7oKkDxcG3s7FZrekehfrwEvvh3VtaY
-	 eXzOKOsl011T2nDLmbQxXOXHBuiAXJriQFpULd/NJdf8yMF6CW6y4JeRVHoaF1+4k6mYZ
-	 eeGraXkUEVxkif3CM9W+8VUWcOEvsk5ZrOep3EEVywP8XP6Nr+uP9t0PgsGDRjEDkpVuf
-	 WvKo08R2jjumcq/K/XKfPONnQ79pnYqP1rPRi9o//K7tLQ1Cji/Y3eO2jtXBTuxdXgw==
+	t=1792705121;
+	b=FCbxTV5Xv5UNxU3JG4kUijXwYr5KwgO/kHbqOL1ICWQTVSTSh/xJSKDMNkh3w80e/aUm
+	 zfcQjxpfBFYLFjIV3Zm9JCim5kA02Eux2mt6QmpjrlW61CO+gE4U6ye9kSc+xBt7xFckt
+	 3e6f6FbJmlMIXSm6vESpiSCBeQbjDG6B1byi/OZhaFtOEhqLU4wMeAGWxa+aGwJhTCpND
+	 aBET+LFQXATuzYr41dML2syjjeN0NWAZ8bZv/CJAmHs9Pxt2MeWBq2pk/AnhyhQMdPM6X
+	 kcdNnPu9lYPcCutmba61TNIcUE/nJBDU4uRkBZi+tBpELCJfQKvepLxqlHUi/b0EHpw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792705131;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792705121;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=gJ/yzizc0tT9pJCB5B7rGcC6JWsMWyvpDXEsJbkFAyw=;
-	b=Uv/cXwSAZk3Ji4xMSqNbayf8CwQQZQzpFFC7t5Ra2YlboF7xqdKS2lAguPz9tLavS++b
-	 SxdbpA/doZnigPzepwEju3yBZcKa0/Cf3+A4CeW759bd9B/bvM0Ot9X2KbFsOXYNymXc5
-	 DMKLup4EQruEjwHLZ0saXJ7QT8+VvN0red6doZB6464/bSAmv6dYeT1fWikoyvWUL1bOf
-	 VM9Wfs/J+XjtbgQEgyl56itdzu4DeUhEUaY1TDo/IHMUW/IaRycBN8LE/fQBSf6ZWnNWw
-	 WFWQsmercr4ecU0Tot9VKRko3adycu0aK13+7hhZ2bs6euvSvzWjUkT6LgdD+APgcKg==
+	bh=1yAwA9pUm466ezJDd8Y8Vs1FFHhG8k49ArFYwVO8RkY=;
+	b=UHZ2lFhOrLLcvb9HeaETbU5k6os2g0cRDGlgwOPZUf+JrOv7CQh1sJh9dUPeB8plcnI7
+	 6KIUQoKDFOmRPW8SBmSYW2HZ53NgbAydYnnC0hYFvkWNz+2boblN+/TuE9hJqAchFbH3O
+	 ZkPs4Zw4teB66l1vX87LSnJHnAMYtToasLrxSPyBAJSjEMy0GlJHugErLkAvFI0ZyoHJj
+	 0u236/vXgfVqzmXqYYLa8C400cBL32q00cqZsldz0SnMUKT+/17O4Hogeq4SjgJjIP7/r
+	 am2p6FlyuUAicT5DvEg5PMUnQu78gdv9x6KPke83LPaLoCz2OT5aCNb3tvCt2wefH9Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mYdpWmFt;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LTEV4sbZ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFE3C60A2602;
-	Thu, 22 Oct 2026 21:38:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2A3B606A330;
+	Thu, 22 Oct 2026 21:38:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mYdpWmFt
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A86101F01828;
-	Thu, 22 Oct 2026 21:38:50 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LTEV4sbZ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 429E41F01828;
+	Thu, 22 Oct 2026 21:38:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792705130;
-	bh=gJ/yzizc0tT9pJCB5B7rGcC6JWsMWyvpDXEsJbkFAyw=;
+	s=k20260515; t=1792705120;
+	bh=1yAwA9pUm466ezJDd8Y8Vs1FFHhG8k49ArFYwVO8RkY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=mYdpWmFtdpl+zwc8FfDM536qwUuRC1IBuM9c32+cGeQSbu11EA+PFYDq+iJAC4s2j
-	 y9fz73blEb8tsDZqaWzI2eZ3PcapUQEYXRBdLH0pyakr8qt3240f1/9qv64JXGoer6
-	 I7PaPlQ5xuh/Si3PF+ZGwNgoVXP5LW7dN1zt5eMG0q5TddfRK+1GKj62FyrV3YzT2g
-	 aZ4TzcJLc7lmLLQLGcpnPPtQY+e2ax6t//Fh2JrFLvqJfc5D3e/DEhK9CSVda2Ntvl
-	 3i2IWVQXPKThilFRroIJkn0p+G2/gjqwnRVrQkDTRlS74vlyDZFykCwDjT3J0qFOfz
-	 gCp+xV0SiE/8w==
+	b=LTEV4sbZPAxezN9WoUGz5Bb62xK2Ip6p94lKogBHf1UIcvFrOqSBh6JRjt7EFZuuS
+	 8IgQWHG9GXQUsJEAOlsNL1ae9pZyX7t/NhkCO7Yj6wKlUFepDnqYMFcsv/Q6y33S/t
+	 LLJHZb9Aq4TX99Ew+mqv1JKvXDJ8/W+pJRwsrFWUAHcVYAb5cnVII/vNPOZqvYTubZ
+	 nKNJVl5x6g43N8yXAaEJe1aHtWnQOQIremB0Uj3R8ILIlNTjP6VWpWDAFKEtycIKPu
+	 imnsaMCPMtP82N86cST+l5j9rdaLqTIjT4E4YM5O3/6qZ50jeXePKcNdXXxihbLXbC
+	 hClCP3JY1/Spw==
 From: Tejun Heo <tj@kernel.org>
 To: sched-ext@lists.linux.dev
 Cc: David Vernet <void@manifault.com>,
@@ -48,9 +48,9 @@ Cc: David Vernet <void@manifault.com>,
 	David Dai <david.dai@linux.dev>,
 	linux-kernel@vger.kernel.org,
 	Tejun Heo <tj@kernel.org>
-Subject: [PATCH 13/14] sched_ext: Let the bypass load balancer move tasks homed on other cpus
-Date: Thu, 22 Oct 2026 11:38:35 -1000
-Message-ID: <20261022213836.2259069-14-tj@kernel.org>
+Subject: [PATCH 03/14] sched_ext: Fix bypassed tasks looping on a host without SCX_CAP_ENQ
+Date: Thu, 22 Oct 2026 11:38:25 -1000
+Message-ID: <20261022213836.2259069-4-tj@kernel.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261022213836.2259069-1-tj@kernel.org>
 References: <20261022213836.2259069-1-tj@kernel.org>
@@ -65,158 +65,99 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The following patches use the bypass load balancer to drain a cpu's bypass
-DSQ when the host loses SCX_CAP_BASE there. The host no longer consumes that
-DSQ, so the drain has to move every task on it. The balancer skips the ones
-homed on another cpu.
+Bypass exists so that runnable tasks make progress without trusting the BPF
+scheduler. A host with SCX_CAP_ENQ_IMMED (BASE) but not SCX_CAP_ENQ on a cpu
+cannot run a single bypassed task there. The task loops instead:
 
-An earlier pass moved such a task in from its home cpu's DSQ, and the donor
-cpu has not consumed it yet. A task's DSQ membership may only change under
-the task's rq lock, which the balancer does not hold.
+ 1. a bypassed task lands on the host's bypass DSQ for the cpu
+ 2. the cpu's dispatch descends into the host, which holds BASE there
+ 3. the host consumes the task into the local DSQ as a plain insert
+ 4. the insert needs ENQ and the host lacks it, so the task is rejected
+ 5. the reject drain reenqueues the task and it is back at step 1
 
-Take such a task off the donor DSQ with unlink_dsq_and_switch_rq_lock(), the
-handshake a remote consumer uses. It drops the DSQ lock and switches to the
-task's rq lock. A dequeue that gets in between takes the task, and the
-balancer moves on. The insert then runs under the task's home rq lock, as it
-already does for a donor-homed task.
+A bypass consume puts a task on the cpu being dispatched for, to run right
+away. That is the IMMED contract, and BASE is the cap it needs. Consume with
+SCX_ENQ_IMMED. BASE is then the one cap a bypassed task ever needs. Dispatch
+descends into a host only on a cpu where the host holds BASE, so a consume
+never lacks it.
 
-A task whose donee is its own cpu can always run there.
-task_can_run_on_remote_rq() warns when asked about a task's own cpu, so the
-balancer skips the test for such a task.
+A consumed task is first on the local DSQ when dispatch enters the host with
+the DSQ empty. That is always the case for the root and normally for a
+parent dispatching into a child.
 
-The walk holds the donor rq lock, which keeps the donor cpu's dispatch and
-its enqueuers away from the donor DSQ. A move of a task homed elsewhere
-switches to the task's rq lock, and both can reach the DSQ meanwhile. The
-parked cursor keeps the walk's place through a consume, and the sequence
-bound keeps a task enqueued meanwhile out of the pass.
+A consumed task that cannot run right away is reenqueued like any IMMED task
+and goes back to the bypass DSQ. Waiting on the local DSQ would need ENQ.
+The task cannot run right away when a higher class or a HEAD insert took the
+cpu meanwhile, or when the parent queued its own task before dispatching
+into the host. Each such reenqueue counts toward the reenqueue limit.
 
+Fixes: 701b7bcad868 ("sched_ext: Add the SCX_CAP_ENQ cap")
 Signed-off-by: Tejun Heo <tj@kernel.org>
 ---
- kernel/sched/ext/ext.c | 64 +++++++++++++++++++++++++-----------------
- 1 file changed, 39 insertions(+), 25 deletions(-)
+ kernel/sched/ext/inlines.h | 15 ++++++++++++---
+ kernel/sched/ext/sub.c     |  6 ++++++
+ 2 files changed, 18 insertions(+), 3 deletions(-)
 
-diff --git a/kernel/sched/ext/ext.c b/kernel/sched/ext/ext.c
-index 70d8ee36148b..0e1a773deff6 100644
---- a/kernel/sched/ext/ext.c
-+++ b/kernel/sched/ext/ext.c
-@@ -6497,7 +6497,7 @@ bool scx_hardlockup(int cpu)
-  * @sch: host sched whose bypass DSQs are balanced
-  * @donor_rq: rq of the cpu whose bypass DSQ gives up @p, locked
-  * @donor_dsq: @sch's bypass DSQ on @donor_rq's cpu, locked
-- * @p: task on @donor_dsq, homed on @donor_rq
-+ * @p: task on @donor_dsq, homed anywhere
-  * @donee: cpu whose bypass DSQ receives @p
-  *
-  * Take @p off @donor_dsq and insert it into the bypass DSQ of @donee. The
-@@ -6505,28 +6505,45 @@ bool scx_hardlockup(int cpu)
-  * can still refuse the move under @p's rq lock. @p then goes back to the head
-  * of @donor_dsq.
-  *
-+ * The insert runs under @p's rq lock. A task homed on @donor_rq is dequeued in
-+ * place. unlink_dsq_and_switch_rq_lock() takes one homed elsewhere off and
-+ * switches the rq lock from @donor_rq to its own. The switch can lose to a
-+ * dequeue, and @p then belongs to the dequeuer.
-+ *
-  * @donor_rq and @donor_dsq are locked on entry and on return. @donor_dsq is
-- * unlocked across the insert, so the caller's walk must find its place in it
-- * again after the call.
-+ * unlocked in between, and @donor_rq too while the lock is switched, so the
-+ * caller's walk must find its place in @donor_dsq again after the call.
-  *
-- * Return the cpu that received @p, or -1 if @p went back onto @donor_dsq.
-+ * Return the cpu that received @p, or -1 if @p went back onto @donor_dsq or was
-+ * lost to a dequeue.
-  */
- static s32 bypass_lb_move(struct scx_sched *sch, struct rq *donor_rq,
- 			  struct scx_dispatch_q *donor_dsq, struct task_struct *p, s32 donee)
- {
- 	struct scx_dispatch_q *dst_dsq;
- 	u64 enq_flags;
-+	struct rq *rq = task_rq(p);
- 	s32 ret;
+diff --git a/kernel/sched/ext/inlines.h b/kernel/sched/ext/inlines.h
+index 8de9d8fb4b25..1e39d12678c4 100644
+--- a/kernel/sched/ext/inlines.h
++++ b/kernel/sched/ext/inlines.h
+@@ -39,10 +39,18 @@ scx_dispatch_sched(struct scx_sched *sch, struct rq *rq,
+ 	if (scx_consume_global_dsq(sch, rq))
+ 		return SCX_DSP_LOCAL;
  
- 	lockdep_assert_rq_held(donor_rq);
- 	lockdep_assert_held(&donor_dsq->lock);
- 
--	scx_wait_dispatching(p);
--	dispatch_dequeue_locked(p, donor_dsq);
--	raw_spin_unlock(&donor_dsq->lock);
-+	if (rq == donor_rq) {
-+		scx_wait_dispatching(p);
-+		dispatch_dequeue_locked(p, donor_dsq);
-+		raw_spin_unlock(&donor_dsq->lock);
-+	} else if (!unlink_dsq_and_switch_rq_lock(p, donor_dsq, donor_rq, rq)) {
-+		/* lost to a dequeue, @p is the dequeuer's now */
-+		ret = -1;
-+		goto out;
-+	}
- 
--	/* @p's affinity is stable under its rq lock */
--	if (task_can_run_on_remote_rq(sch, p, cpu_rq(donee), false)) {
 +	/*
-+	 * @p's affinity is stable under its rq lock. A task whose donee is its
-+	 * own cpu can always run there, and task_can_run_on_remote_rq() warns
-+	 * when asked about a task's own cpu.
++	 * A bypass consume puts a task on the cpu being dispatched for, to run
++	 * right away. That is an IMMED insert and needs only
++	 * %SCX_CAP_ENQ_IMMED, the base cap. Dispatch descends into @sch only on
++	 * a cpu where @sch holds the base cap, so @sch holds it here. The same
++	 * holds for the consume at the end of this function.
 +	 */
-+	if (donee == task_cpu(p) || task_can_run_on_remote_rq(sch, p, cpu_rq(donee), false)) {
- 		dst_dsq = scx_bypass_dsq(sch, donee);
- 		enq_flags = 0;
- 		ret = donee;
-@@ -6537,8 +6554,10 @@ static s32 bypass_lb_move(struct scx_sched *sch, struct rq *donor_rq,
- 		ret = -1;
+ 	if (scx_bypass_dsp_enabled(sch)) {
+ 		/* if @sch is bypassing, only the bypass DSQs are active */
+ 		if (scx_bypassing(sch, cpu)) {
+-			if (scx_consume_dispatch_q(sch, rq, scx_bypass_dsq(sch, cpu), 0))
++			if (scx_consume_dispatch_q(sch, rq, scx_bypass_dsq(sch, cpu),
++						   SCX_ENQ_IMMED))
+ 				return SCX_DSP_LOCAL;
+ 			return SCX_DSP_NONE;
+ 		}
+@@ -63,7 +71,8 @@ scx_dispatch_sched(struct scx_sched *sch, struct rq *rq,
+ 		struct scx_sched_pcpu *pcpu = per_cpu_ptr(sch->pcpu, cpu);
+ 
+ 		if (!(pcpu->bypass_host_seq++ % SCX_BYPASS_HOST_NTH) &&
+-		    scx_consume_dispatch_q(sch, rq, scx_bypass_dsq(sch, cpu), 0)) {
++		    scx_consume_dispatch_q(sch, rq, scx_bypass_dsq(sch, cpu),
++					   SCX_ENQ_IMMED)) {
+ 			__scx_add_event(sch, SCX_EV_SUB_BYPASS_DISPATCH, 1);
+ 			return SCX_DSP_LOCAL;
+ 		}
+@@ -135,7 +144,7 @@ scx_dispatch_sched(struct scx_sched *sch, struct rq *rq,
+ 	 * scheduler's ops.dispatch() doesn't yield any tasks.
+ 	 */
+ 	if (scx_bypass_dsp_enabled(sch) &&
+-	    scx_consume_dispatch_q(sch, rq, scx_bypass_dsq(sch, cpu), 0)) {
++	    scx_consume_dispatch_q(sch, rq, scx_bypass_dsq(sch, cpu), SCX_ENQ_IMMED)) {
+ 		__scx_add_event(sch, SCX_EV_SUB_BYPASS_DISPATCH, 1);
+ 		return SCX_DSP_LOCAL;
  	}
- 
--	scx_dispatch_enqueue(sch, donor_rq, dst_dsq, p, 0, 0, enq_flags);
--
-+	scx_dispatch_enqueue(sch, rq, dst_dsq, p, 0, 0, enq_flags);
-+out:
-+	if (rq != donor_rq)
-+		switch_rq_lock(rq, donor_rq);
- 	raw_spin_lock(&donor_dsq->lock);
- 	return ret;
- }
-@@ -6591,22 +6610,16 @@ static u32 bypass_lb_cpu(struct scx_sched *sch, s32 donor,
- 		if (u32_before(cursor.priv, p->scx.dsq_seq))
- 			continue;
- 
--		/*
--		 * If an earlier pass placed @p on @donor_dsq from a different
--		 * CPU and the donee hasn't consumed it yet, @p is still on the
--		 * previous CPU and task_rq(@p) != @donor_rq. @p can't be moved
--		 * without its rq locked. Skip.
--		 */
--		if (task_rq(p) != donor_rq)
--			continue;
--
- 		donee = cpumask_any_and_distribute(donee_mask, p->cpus_ptr);
- 		if (donee >= nr_cpu_ids)
- 			continue;
- 
- 		/*
--		 * The move drops @donor_dsq's lock. Park the cursor behind @p
--		 * and resume from it afterwards.
-+		 * The move drops @donor_dsq's lock, and the rq lock too when
-+		 * @p is homed elsewhere. The donor cpu's dispatch and its
-+		 * enqueuers can reach @donor_dsq then. Park the cursor behind
-+		 * @p and resume from it afterwards. The seq test above keeps a
-+		 * task enqueued meanwhile out of the pass.
- 		 */
- 		list_move(&cursor.node, &p->scx.dsq_list.node);
- 		cpu = bypass_lb_move(sch, donor_rq, donor_dsq, p, donee);
-@@ -6625,9 +6638,10 @@ static u32 bypass_lb_cpu(struct scx_sched *sch, s32 donor,
- 			 * The rq lock is held across the walk, not cycled per
- 			 * move. @donor_dsq can be very long and contended, and
- 			 * the rq lock is what keeps its consumer and enqueuers
--			 * away while the walk cycles the DSQ lock. The walk can
--			 * still take a while, so let the cpu breathe every so
--			 * often.
-+			 * away while the walk cycles the DSQ lock. The rare
-+			 * move of a task homed elsewhere does switch it away,
-+			 * see the cursor comment above. The walk can still take
-+			 * a while, so let the cpu breathe every so often.
- 			 */
- 			if (!(++nr_balanced % SCX_BYPASS_LB_BATCH)) {
- 				raw_spin_unlock(&donor_dsq->lock);
+diff --git a/kernel/sched/ext/sub.c b/kernel/sched/ext/sub.c
+index 1345e4174775..d3db1277118e 100644
+--- a/kernel/sched/ext/sub.c
++++ b/kernel/sched/ext/sub.c
+@@ -2403,6 +2403,12 @@ __bpf_kfunc_start_defs();
+  * child schedulers. The child scheduler runs its dispatch operation to
+  * move tasks from dispatch queues to the local runqueue.
+  *
++ * Dispatch into a child while the local DSQ is empty, when the cpu needs a
++ * task. A child holding only %SCX_CAP_ENQ_IMMED can insert only IMMED tasks,
++ * and the consume of its bypassing descendants' bypass DSQs is one such insert.
++ * With a task already queued on the local DSQ, such an insert fails and the
++ * task is reenqueued.
++ *
+  * Returns: true on success, false if cgroup_id is invalid, not a direct
+  * child, or caller lacks dispatch permission.
+  */
 -- 
 2.56.0
 
