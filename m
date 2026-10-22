@@ -1,94 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.228
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.176
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792666680;
-	b=kBJX9cMWIzPBSm96ao83NHbD3lNBf6koWXY8teAoz+PFgGPshVoRxp8AjUxKlim1GYCo
-	 KLWpDXFFfw9X9WZq5DtC1HGiOInuSBgg+wSJfax2rnyI8YFxco9Pt4Qd7ykO5s+cjDeaw
-	 nhwoIK6eDt5WS2rsM4Ci8qGDtVp0GDHOaO0xfUbUNzsIiWV/+J1NX95/R79yk73G+kaoE
-	 c0z4aHeCNjTH9qe0idkxOaSeg0MPaMiaAo9LXa/UyVwbSl2U4sUm+XN1egboy3dHyi5UD
-	 eiqbUvP+D5s5e8RW06iydOPy6CwcaPeIQbLv6HZKB0sM3srapq5jhA8IkD1fmZ7a1ew==
+	t=1792666707;
+	b=B1nOgPp0w4FIrlixMQbxPSQtql+yUYQh/ZOBCyqn+s3isaa6o37WYttPE5qwJO6LncuO
+	 92LAjYLNY2LWx+FtFl7EkI4iXo3u0PhmKTr2btaPgr4vt29Djag99GkioPplcy3jp1QlD
+	 iC46qMwyOTA3n8VGs3SDA8AvBKyDk5o8RA/V39iR/4MUwh9v1myagKOT97nl9Tvr7NHFS
+	 YXvTFjK4wrmRA/7Nf6Y9xzfO/t52Fxgfio/4gc7913QdUFVFEZK8ArjG4hu/yDN+A7A6Z
+	 EHdSrAkWm3nkThSqGpXy8rZrNUcAELg8wtaUBq0LabsHEbXhQqQR4JWAkkxNTxDrEoA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792666680;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
-	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Received:X-Received:MIME-Version:References:In-Reply-To:From:Date:
-	 X-Gm-Features:Message-ID:Subject:To:Cc:X-DetectorID-Processed:
-	 Content-Type;
-	bh=cZcCYOH7VoLC59gec1OLzj5cglCRJ0zulxxEIzuuknA=;
-	b=0cCStUnaACczTox30P89P+cwT7Pnh2cjzycbxYER2ghMA97Yf2YT6jlU7pz5bQJukq/B
-	 OXA+WGv9DFahEt0QhxAci+4aruWw3NjsdOmsjrDffgp+rPpKG52ZIEac9xrDZk7w2Pqot
-	 285qfWFixoZs2rojZ3KnXkkWhcPYt3aluYutK4BRSWgjN9HdY5DPpZ/XUVJWvec7af/iR
-	 mapOOEcdjFlR+PO8/558uV3vQ6qYBURU3v8OBHPz3A5SHTpf4PAL4oIrX3zcVYFFNUNvc
-	 JTdq76Da4k5UI6ewyr7Z9Ih0sB+AAx3rRH8NvNYtWv9Hp2O9F5fHvxhHax0SjfcvW0w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792666707;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=z3MwgKm/+4UvO+ITYM5MpQc83LJLwq1ofv4xjl5XGGs=;
+	b=C7WdVsqJE32IP9MAXDykpTdUr8WISG9U2L6eNsUal1v8C5R0p/U8MDfzBH4RntdAAlTu
+	 QvM+OlaHGGaSz8n3kcu2mC0rYJzTD997WG8ZNvwrSzBSJO9NRVEgH9t8dKXi26BEdaR+q
+	 I1kTN2coZEn1m2y46JBzYzn6hYWKlP4IbiFkwKeztHd34SpcXww1sAcmwknSl0fCujVly
+	 typJeCmBkQzsRy5AG9IWn1+9iM2YFAMCOEnoDmzFG260tUu1cm8HpIKS/JqzqPp6N+Acm
+	 v89mx6LznVRlxU6fkUu69zBXT8TL8J5yGVxytSskhTzcgsF+BWt1Do4LYDV9QMhfqGQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=broadcom.com;
-	spf=fail smtp.mailfrom=broadcom.com;
-	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=Lxqgfva2;
-	arc=none smtp.remote-ip=209.85.215.228
-Received: from mail-pg1-f228.google.com (mail-pg1-f228.google.com [209.85.215.228])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=LZzNlTjb;
+	arc=none smtp.remote-ip=209.85.214.176
+Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 807D3606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 10:58:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 807D3606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7320B606A31B
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 10:58:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7320B606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=Lxqgfva2
-Received: by mail-pg1-f228.google.com with SMTP id 41be03b00d2f7-cc4b1f7e8f4so687826a12.1
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 03:58:00 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792666680; x=1793271480;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:dkim-signature:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=cZcCYOH7VoLC59gec1OLzj5cglCRJ0zulxxEIzuuknA=;
-        b=vqzvNbH2GUEiseinaJ4FUpIocsJKCX2lT0z96+S1luAEqBKkV5SIphblV6lrCsgUdd
-         W+A85FJVoZPQ/mqLwx+Vaw43bOrciKogRavdD7OaFvDXef/TKD4uaakQ0Aj1WHuliVXG
-         ZLdNb6rOriveCpUjVAPwPsTM+QqqMM5P/F8/N1aU9w1nHUbiIpw4JIWPLlPiF52wXA7n
-         ktcrtrsgP7GfMX0i58gHLOXRD5hRPk5tCYdmxtUf6cjPCSBqc0IeDzqw55SEjaWmIS24
-         eKMO7csDX2tK/9ecCv/VecT+Anz2R9dKC7h3DSfIZysCKW/pWayhx449ADHomeAvKRkJ
-         B+/g==
-X-Forwarded-Encrypted: i=1; AKwUvBx3RbMCCh66kIwHNbnBBDunf1UZ+fHVLVh0Gwe45YutgUS0HzaUza/QcCRAtkX+KQsGV+X4IARgHBSNWB4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJTea9S47DJ31+CaNivW3/xf2gAUAyVQBAPWFDlLOBxD2zB/qIL
-	kI4/XaXGGKwHLnzf07Ha/uwVe1LWjZRA40vL/n4MsD3aT2qA3/ml3KTP8jrZPPNreNEpGT1XVJr
-	tpd8bc4N1Av1vaLGm+sNyxMu/aoYPiOjyFaRy/BxhzZfGy0YN+mIp1Y0EDkvvG/65mr6RglIncL
-	aqXBMGSCS+niz50WFJHk5hDxUd/ZLRr80BniZiv8vxs+7K2muSXgVfbuexFKYwNUIK0UNISET5A
-	qR9jGTqEgOy5UzlvhfdpQl88J4h
-X-Gm-Gg: AYBFou1rdx0IN6qpWEGdivzIqpp6KTtIT62Ykejuua+58y8UtGZ1F2SIVbxBoTf5J5D
-	8FgjvKKcXCKrh7/7OC6Nm1X9vCxkwXfdo+C2lPpzgKpriLjrSiBEJgIUKPAQ2Wn5ukgw7Prb8FP
-	xzR3wrE6L5+ZlpOBEQdmr4JJCLAcan+jdlDA6RoldbvF5ClmxFT+WVll6Wcbk/y/ZI78Ts0COGg
-	kkzNDLkEV51I2TM9QRFP1RnCBGuEym3s6xjb5WIi5R0ucX0wbL+2KnijMQkV6kkpS9wIPqjPFdF
-	IZ9blqRQWroSdFe9FICouduyOPQSySXfzB0x4t8MWBmXjtLvuaU1gdEd8e+QliQ58uxSPkZOrTa
-	jzndtI8bNKwwJJv+LpUoulkudtn1C80IjFxuyRar5CvdfYgSe6uP9D9shiRmh529kJLDC0/zdBF
-	8Kl0iUWLEUJRu21zHm5LzFUwG8ooofYJX28MUhESxFAQ==
-X-Received: by 2002:a17:90b:55cd:b0:3ab:b39f:41da with SMTP id 98e67ed59e1d1-3ad86e9770fmr3631095a91.11.1792666679536;
-        Thu, 22 Oct 2026 03:57:59 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-17.dlp.protect.broadcom.com. [144.49.247.17])
-        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3ada4897870sm1891575a91.3.2026.10.22.03.57.59
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Thu, 22 Oct 2026 03:57:59 -0700 (PDT)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-qv1-f70.google.com with SMTP id 6a1803df08f44-9179a556c43so37950176d6.3
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 03:57:58 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=LZzNlTjb
+Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2ea4f255ba1so5114075ad.2
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 03:58:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1792666678; x=1793271478; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=cZcCYOH7VoLC59gec1OLzj5cglCRJ0zulxxEIzuuknA=;
-        b=Lxqgfva23BrHv6VobUhXez49m+l8/oDWKA5CGX08BKP8Gf050626BVRvxdBKW4FgQ0
-         eR4RdKO1qSg6jgwvqOZxzgQU79E/FCCOJ8nu2s+8a0r1gzUKww5Yc2OzPaFdmhc+s+95
-         rg//820camIzxrTl4y2m20Xs7abS8mrEVSFMU=
-X-Forwarded-Encrypted: i=1; AKwUvBycV1TiPgaCtENLwkbbWgqahTq2LhoMit3oumzVKiVhBpslyzWWEOmVZKOIfowFqrc/+S28GLIhw7rOl0o=@vger.kernel.org
-X-Received: by 2002:a05:6214:240d:b0:91b:88fe:a426 with SMTP id 6a1803df08f44-91c12d0ee58mr85783536d6.0.1792666678251;
-        Thu, 22 Oct 2026 03:57:58 -0700 (PDT)
-X-Received: by 2002:a05:6214:240d:b0:91b:88fe:a426 with SMTP id
- 6a1803df08f44-91c12d0ee58mr85783346d6.0.1792666677848; Thu, 22 Oct 2026
- 03:57:57 -0700 (PDT)
+        d=gmail.com; s=20251104; t=1792666706; x=1793271506; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=z3MwgKm/+4UvO+ITYM5MpQc83LJLwq1ofv4xjl5XGGs=;
+        b=LZzNlTjbmqTV2zdBPi1O7mD6wTqP96RrJVULQ5mxD25wz7XeqwmcXQJNSOWTc/9NPe
+         l7pVW3ZvIu2wJJD9h9JOuwiO/OhEnVQLPBc2rL+IMy/uOQEW00IZkUb5G48XSkEuyqC/
+         sN8LPP9atenCGRfpdCDupon2HM404waKM1c+0mkzrNcBMSOJWZ8XyVSFraS27fkp6GL2
+         /GaUlZChZBuhKr/KVeOS80ZIwNKaaJ0XU8jdHwvnS4eOkesc7yeFaOCVu1bv1mwepcWN
+         mwZGQOP3BjH9dVQqeqyaYnIMFg+HCZYzWZJjO6cwlfnKEIhiDY4OsdnQoUHI4ZkRUoTu
+         Sn6A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792666706; x=1793271506;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=z3MwgKm/+4UvO+ITYM5MpQc83LJLwq1ofv4xjl5XGGs=;
+        b=XSyZi4uGJc2Fj0iv3GqLLJ1Ls8y9mNik6Sf6wf7SM1QIk1uBnDIvwv2vsFfabGxiv9
+         2CYNKBoKEKznpWelS2IgOCxMjQ6s26fXtu3P4kwZwDwhpLZEnKBbnx4Mw+tftQA75yRD
+         JHWvIfN+8OTS3ludrmVNt2CucLrvumg0GA+wHEk3ltmk7H14PndMXWLXkwyrQ+H6rJa8
+         bbRNuSbxfeCIe4ZhmxxfNvVwq+/dVgvUeBgm031cAekR37rA9XWiYtL3BGkE6gHqM3uS
+         cnIPrS1eD2VRNRf1niT65aVOk7dbcfUTczmiT46jNPWkrnpAbE9MKsPQL7Yye/sgjvUw
+         TDkw==
+X-Forwarded-Encrypted: i=1; AKwUvBySSZvuJPMRl7/wUN6ELgOzSqWlQhGuQ1LYUetlJ22ahN2sGrzvgzZD4acrGB5qNmYTLCaayUWbFoOjgZc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKcHi+5/bvjn756wKk/ik1UqkPtBSM5XPHrtTP5SZ0mAw9WMOh+
+	2pZPTeIdqIRuU9TmB+MMP6PqOvlQSiz4Uqwy9ZjZkii19iGLeSEid6KT
+X-Gm-Gg: AYBFou3msqOj3iB7YaZQ/3YBsk4PWaJNVKP9XfHZoCNCrvngBaMOJeB1sTNF8IAbnM/
+	DzvBnVVySQRTZXuPDoUlCu4mnBNUnKWf27luQbmTfvnwcp9iivYToKAlwwxpMduUVffGUZrIrhu
+	QqUUAtyo2heXBsdhrEeIBkNZ4WkRkz1YJ/U3ZqImfmeB4DFaYbRWu8qkwbTCB0QIdNUbv5xTWL6
+	X5FTRXomkZWhGLRhxKTHtsJ95hx/uZ+4xCHDKy49vzv0mgNGaS0lOwTYiE7FTVQdvJMwKy0XTqT
+	+SjbyGoOwXUnUwul1yZ89lElnM5RWYl+3eIjfI+I0hnaHtoJzUpz4Q5jHMUZyBHHLhJhl25GUFF
+	dMvsC5DjyB65fV06of8kuDe0SnaAQqL/f0Qqq8tTwkdnvyqwY1Ut5Bt3BjFxqvlDbGGeJFB37h3
+	+HwvqdfCSKGYKDSRjBQ/KMRIuTKU7WICPRyt3vjnTqwobsBB2PDOj5/ll2MswRTT45waowThCZ5
+	8BDFqcHR4+HOGN0EM7SfvS4K0qOVA+zZqU2OTN4VDpKDWsgksc=
+X-Received: by 2002:a17:903:35c6:b0:2e9:3f5a:de9b with SMTP id d9443c01a7336-2ea43d3a74amr38315375ad.9.1792666706494;
+        Thu, 22 Oct 2026 03:58:26 -0700 (PDT)
+Received: from localhost ([111.228.63.84])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ea3b412756sm22727845ad.24.2026.10.22.03.58.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 22 Oct 2026 03:58:26 -0700 (PDT)
+From: Cen Zhang <zzzccc427@gmail.com>
+To: perex@perex.cz,
+	tiwai@suse.com
+Cc: linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	tiwai@suse.de,
+	baijiaju1990@gmail.com,
+	jjzuming@gmail.com,
+	zzzccc427@gmail.com
+Subject: [PATCH v3] ALSA: pcm: Drain proc callbacks at device disconnect
+Date: Thu, 22 Oct 2026 18:58:20 +0800
+Message-Id: <pm-pmb-2439c851f82c443c3600-v7-2774a482b7f03e1fef60@gmail.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,181 +98,225 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261013200645.1346299-1-bhargava.marreddy@broadcom.com>
- <20261013200645.1346299-6-bhargava.marreddy@broadcom.com> <20261020133444.3395670e@kernel.org>
-In-Reply-To: <20261020133444.3395670e@kernel.org>
-From: Bhargava Chenna Marreddy <bhargava.marreddy@broadcom.com>
-Date: Thu, 22 Oct 2026 16:27:42 +0530
-X-Gm-Features: AclHuK_1ADCzYaY-bBjBi7InV9ZMeLTyQoUUQ1qHXyKyg0wNZw8xN8kzIoelU3c
-Message-ID: <CANXQDtYjxskxm11cGVV4QbnTjwStwJ5ot-5Kg+P+z5L0pOL5Cw@mail.gmail.com>
-Subject: Re: [PATCH net-next v3 5/5] bnge: make NQ0 persistent across
- open/stop cycles
-To: Jakub Kicinski <kuba@kernel.org>
-Cc: davem@davemloft.net, edumazet@google.com, pabeni@redhat.com, 
-	andrew+netdev@lunn.ch, horms@kernel.org, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, michael.chan@broadcom.com, 
-	pavan.chebbi@broadcom.com, vsrama-krishna.nemani@broadcom.com, 
-	vikas.gupta@broadcom.com, Dharmender Garg <dharmender.garg@broadcom.com>, 
-	Rajashekar Hudumula <rajashekar.hudumula@broadcom.com>, 
-	Ramakrishna Koduri <ramakrishna.koduri@broadcom.com>
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
-Content-Type: multipart/signed; protocol="application/pkcs7-signature"; micalg=sha-256;
-	boundary="000000000000944831065e6bbc82"
+Content-Transfer-Encoding: 8bit
 
---000000000000944831065e6bbc82
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Disconnecting an individual PCM leaves its proc files accessible until
+snd_pcm_free_stream(). HDA codec-only sysfs unbind can take this path
+while the controller and card remain registered. An open proc file pins
+the card module, but does not hold a codec PCM reference.
 
-Hi Jakub,
+With CONFIG_SND_VERBOSE_PROCFS, a prealloc write is buffered until file
+release. Without an attached PCM runtime, its release can replace the
+DMA buffer after final PCM cleanup has already freed the preallocation:
 
-Thanks for the feedback.
+  HDA codec unbind                  prealloc file release
+  ----------------                  ---------------------
+  hda_codec_driver_remove()
+    snd_hda_codec_disconnect_pcms()
+      snd_device_disconnect()
+        snd_pcm_dev_disconnect()
+        /* proc nodes remain */
+    snd_hda_codec_cleanup_for_unbind()
+      codec_release_pcms()
+        snd_device_free()
+          snd_pcm_free()
+            free preallocated buffer
+                                    snd_info_text_entry_release()
+                                      snd_pcm_lib_preallocate_proc_write()
+                                        replace DMA buffer
+            remove stream proc nodes
+            free substream
 
-On Wed, Oct 21, 2026 at 2:04=E2=80=AFAM Jakub Kicinski <kuba@kernel.org> wr=
-ote:
->
-> On Wed, 14 Oct 2026 01:36:45 +0530 Bhargava Marreddy wrote:
-> > NQ0's NAPI keeps running while the interface is down
->
-> Sounds like abuse of netdev infra. Creative reuse of this sort makes it
-> extremely painful to add stack-level features.
+The later proc rundown can itself invoke this buffered write and leave
+the replacement allocation without a final free. A concurrent release
+can also overlap the earlier buffer cleanup.
 
-Understood. I agree NAPI shouldn't outlive the open state.
+Extract snd_info_disconnect_entry() from snd_info_free_entry() to remove
+proc nodes and drain callbacks without freeing the info entry objects.
+Use it for both stream directions at PCM disconnect. Finish the existing
+PCM state and device disconnection under open_mutex, then drop that lock
+before proc rundown: even an otherwise idle proc file can run its
+buffered release callback, which takes open_mutex, during proc_remove().
 
-For context: NQ0 differs from the other NQs. Besides Rx/Tx, it also
-handles firmware async events and HWRM completions (and MPC/PSP soon).
-I kept NAPI running while down so these non-datapath events are still
-serviced, independent of the netdev state.
+Keep entry ownership and final cleanup unchanged, including the saved
+OSS child entries. As with existing info entry teardown, callers must
+serialize registration with disconnection and release.
 
-A dedicated async-only vector would cost one MSI-X per PF/VF, taking
-it away from Rx/Tx queues, which I'd like to avoid.
+Suggested-by: Takashi Iwai <tiwai@suse.de>
+Assisted-by: LLM
+Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
+---
+Changes in v3:
+- Use the simpler snd_info_disconnect_entry helper suggested by Takashi and
+  reuse it from snd_info_free_entry.
+- Drop the persistent disconnected flag and ancestor registration checks;
+  leave registration/teardown serialization to the caller.
+- Complete the existing PCM state and device disconnection before dropping
+  open_mutex and draining proc callbacks; export the helper and provide
+  valid disabled-config stubs.
 
-What I propose for v4:
+Changes in v2:
+- Follow Takashi's suggestion to remove and drain stream proc nodes at PCM
+  disconnect rather than only moving final buffer cleanup.
+- Run proc teardown before taking open_mutex and retain info entries for
+  final cleanup, including the saved OSS child entries.
+- Prevent later recursive or direct descendant registration from
+  republishing a disconnected subtree.
 
-1. NAPI for NQ0 is added in ndo_open and deleted in ndo_stop, like
-   every other NQ.
-2. NQ0's IRQ stays requested across open/stop:
-   - When netdev is UP: The IRQ handler schedules NAPI, which handles
-     Rx/Tx, async (including link), and HWRM events.
-   - When netdev is DOWN: There is no NAPI instance. The IRQ handler
-     queues a work item that handles async and HWRM events.
-3. Mode switches happen only in open/stop, so only one context
-   consumes NQ0 at a time:
-   - open: quiesce the IRQ, flush the work item, then enable NAPI.
-   - stop: disable NAPI, then allow the work item again.
+Link to v1: https://lore.kernel.org/r/pm-pmb-2439c851f82c443c3600-v4-9e7df0ea42c36afe6171@gmail.com
+Link to v2: https://lore.kernel.org/r/pm-pmb-2439c851f82c443c3600-v6-cf4d8c3d01d51ad32b94@gmail.com
 
-That way no NAPI context exists outside open/stop, and the vector is
-still shared between async events and the datapath.
+ include/sound/info.h |  2 ++
+ sound/core/info.c    | 23 ++++++++++++++----
+ sound/core/pcm.c     | 56 ++++++++++++++++++++++++++------------------
+ 3 files changed, 53 insertions(+), 28 deletions(-)
 
-Would this be acceptable, or do you see a problem with it? If you'd
-prefer something different (e.g. a dedicated vector despite the cost),
-I'm happy to go that way.
+diff --git a/include/sound/info.h b/include/sound/info.h
+index adbc506860d6..f216291e5c41 100644
+--- a/include/sound/info.h
++++ b/include/sound/info.h
+@@ -117,6 +117,7 @@ struct snd_info_entry *snd_info_create_module_entry(struct module *module,
+ struct snd_info_entry *snd_info_create_card_entry(struct snd_card *card,
+ 					     const char *name,
+ 					     struct snd_info_entry *parent);
++void snd_info_disconnect_entry(struct snd_info_entry *entry);
+ void snd_info_free_entry(struct snd_info_entry *entry);
+ 
+ int snd_info_card_create(struct snd_card *card);
+@@ -164,6 +165,7 @@ static inline int snd_info_get_line(struct snd_info_buffer *buffer, char *line,
+ static inline char *snd_info_get_str(char *dest, char *src, int len) { return NULL; }
+ static inline struct snd_info_entry *snd_info_create_module_entry(struct module *module, const char *name, struct snd_info_entry *parent) { return NULL; }
+ static inline struct snd_info_entry *snd_info_create_card_entry(struct snd_card *card, const char *name, struct snd_info_entry *parent) { return NULL; }
++static inline void snd_info_disconnect_entry(struct snd_info_entry *entry) { }
+ static inline void snd_info_free_entry(struct snd_info_entry *entry) { ; }
+ 
+ static inline int snd_info_card_create(struct snd_card *card) { return 0; }
+diff --git a/sound/core/info.c b/sound/core/info.c
+index c4d57d0809ad..023b4736aa6d 100644
+--- a/sound/core/info.c
++++ b/sound/core/info.c
+@@ -737,6 +737,23 @@ static void snd_info_clear_entries(struct snd_info_entry *entry)
+ 	entry->p = NULL;
+ }
+ 
++/**
++ * snd_info_disconnect_entry - remove proc nodes and drain their callbacks
++ * @entry: root of the info entry subtree
++ *
++ * Retains the info entries for snd_info_free_entry().  Callers must serialize
++ * registration and destruction, and must not hold locks needed by callbacks.
++ */
++void snd_info_disconnect_entry(struct snd_info_entry *entry)
++{
++	if (entry && entry->p) {
++		proc_remove(entry->p);
++		guard(mutex)(&info_mutex);
++		snd_info_clear_entries(entry);
++	}
++}
++EXPORT_SYMBOL(snd_info_disconnect_entry);
++
+ /**
+  * snd_info_free_entry - release the info entry
+  * @entry: the info entry
+@@ -749,11 +766,7 @@ void snd_info_free_entry(struct snd_info_entry * entry)
+ 
+ 	if (!entry)
+ 		return;
+-	if (entry->p) {
+-		proc_remove(entry->p);
+-		guard(mutex)(&info_mutex);
+-		snd_info_clear_entries(entry);
+-	}
++	snd_info_disconnect_entry(entry);
+ 
+ 	/* free all children at first */
+ 	list_for_each_entry_safe(p, n, &entry->children, list)
+diff --git a/sound/core/pcm.c b/sound/core/pcm.c
+index 1e4e0ecb3dbd..064df4cd3b50 100644
+--- a/sound/core/pcm.c
++++ b/sound/core/pcm.c
+@@ -520,6 +520,11 @@ static int snd_pcm_stream_proc_init(struct snd_pcm_str *pstr)
+ 	return 0;
+ }
+ 
++static void snd_pcm_stream_proc_disconnect(struct snd_pcm_str *pstr)
++{
++	snd_info_disconnect_entry(pstr->proc_root);
++}
++
+ static int snd_pcm_stream_proc_done(struct snd_pcm_str *pstr)
+ {
+ 	snd_info_free_entry(pstr->proc_root);
+@@ -580,6 +585,7 @@ static int snd_pcm_substream_proc_init(struct snd_pcm_substream *substream)
+ 
+ #else /* !CONFIG_SND_VERBOSE_PROCFS */
+ static inline int snd_pcm_stream_proc_init(struct snd_pcm_str *pstr) { return 0; }
++static inline void snd_pcm_stream_proc_disconnect(struct snd_pcm_str *pstr) { }
+ static inline int snd_pcm_stream_proc_done(struct snd_pcm_str *pstr) { return 0; }
+ static inline int snd_pcm_substream_proc_init(struct snd_pcm_substream *substream) { return 0; }
+ #endif /* CONFIG_SND_VERBOSE_PROCFS */
+@@ -1094,33 +1100,37 @@ static int snd_pcm_dev_disconnect(struct snd_device *device)
+ 	int cidx;
+ 
+ 	guard(mutex)(&register_mutex);
+-	guard(mutex)(&pcm->open_mutex);
+-	wake_up(&pcm->open_wait);
+-	list_del_init(&pcm->list);
+-
+-	for_each_pcm_substream(pcm, cidx, substream) {
+-		snd_pcm_stream_lock_irq(substream);
+-		if (substream->runtime) {
+-			if (snd_pcm_running(substream))
+-				snd_pcm_stop(substream, SNDRV_PCM_STATE_DISCONNECTED);
+-			/* to be sure, set the state unconditionally */
+-			__snd_pcm_set_state(substream->runtime,
+-					    SNDRV_PCM_STATE_DISCONNECTED);
+-			wake_up(&substream->runtime->sleep);
+-			wake_up(&substream->runtime->tsleep);
++	scoped_guard(mutex, &pcm->open_mutex) {
++		wake_up(&pcm->open_wait);
++		list_del_init(&pcm->list);
++
++		for_each_pcm_substream(pcm, cidx, substream) {
++			snd_pcm_stream_lock_irq(substream);
++			if (substream->runtime) {
++				if (snd_pcm_running(substream))
++					snd_pcm_stop(substream, SNDRV_PCM_STATE_DISCONNECTED);
++				/* to be sure, set the state unconditionally */
++				__snd_pcm_set_state(substream->runtime,
++						    SNDRV_PCM_STATE_DISCONNECTED);
++				wake_up(&substream->runtime->sleep);
++				wake_up(&substream->runtime->tsleep);
++			}
++			snd_pcm_stream_unlock_irq(substream);
+ 		}
+-		snd_pcm_stream_unlock_irq(substream);
+-	}
+ 
+-	for_each_pcm_substream(pcm, cidx, substream)
+-		snd_pcm_sync_stop(substream, false);
++		for_each_pcm_substream(pcm, cidx, substream)
++			snd_pcm_sync_stop(substream, false);
+ 
+-	pcm_call_notify(pcm, n_disconnect);
+-	for (cidx = 0; cidx < 2; cidx++) {
+-		if (pcm->streams[cidx].dev)
+-			snd_unregister_device(pcm->streams[cidx].dev);
+-		free_chmap(&pcm->streams[cidx]);
++		pcm_call_notify(pcm, n_disconnect);
++		for (cidx = 0; cidx < 2; cidx++) {
++			if (pcm->streams[cidx].dev)
++				snd_unregister_device(pcm->streams[cidx].dev);
++			free_chmap(&pcm->streams[cidx]);
++		}
+ 	}
++	/* Proc rundown can run release callbacks which take open_mutex. */
++	for (cidx = 0; cidx < 2; cidx++)
++		snd_pcm_stream_proc_disconnect(&pcm->streams[cidx]);
+ 	return 0;
+ }
+ 
+-- 
+2.43.0
 
-I'll hold off on v4 until we agree on the direction.
-
-Thanks,
-Bhargava, Marreddy
-
---000000000000944831065e6bbc82
-Content-Type: application/pkcs7-signature; name="smime.p7s"
-Content-Transfer-Encoding: base64
-Content-Disposition: attachment; filename="smime.p7s"
-Content-Description: S/MIME Cryptographic Signature
-
-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
-tJVewHuOmXgWQxNWV7Oiszu1d9xAcqyj65s1PrEIIaHnxEM3eTK+teecLEy8QymZjjDTrCHg4x36
-2AczdlQAIiq5TSAucGja5VP8g1zTnfL/RAxEZvLS471GABptArolXY2hMVHdVEYcTduZlu8aHARc
-phXveOB5/l3bPqpMVf2aFalv4ab733Aw6cPuQkbtwpMFifp9Y3s/0HGBfADomK4OeDTDJfuvCp8g
-a907E48SjOJBGkh6c6B3ace2XH+CyB7+WBsoK6hsrV5twAXSe7frgP4lN/4Cm2isQl3D7vXM3PBQ
-ddI2aZzmewTfbgZptt4KCUhZh+t7FGB6ZKppQ++Rx0zsGN1s71MtjJnhXvJyPs9UyL1n7KQPTEX/
-07kwIwdMjxC/hpbZmVq0mVccpMy7FYlTuiwFD+TEnhmxGDTVTJ267fcfrySVBHioA7vugeXaX3yL
-SqGQdCWnsz5LyCxWvcfI7zjiXJLwefechLp0LWEBIH5+0fJPB1lfiy1DUutGDJTh9WZHeXfVVFsf
-rSQ3y0VaTqBESMjYsJnFFYQJ9tZJScBluOYacW6gqPGC6EU+bNYC1wpngwVayaQQMIIGqjCCBJKg
-AwIBAgIMFJTEEB7G+bRSFHogMA0GCSqGSIb3DQEBCwUAMFIxCzAJBgNVBAYTAkJFMRkwFwYDVQQK
-ExBHbG9iYWxTaWduIG52LXNhMSgwJgYDVQQDEx9HbG9iYWxTaWduIEdDQyBSNiBTTUlNRSBDQSAy
-MDIzMB4XDTI1MDYyMDEzNTI1NVoXDTI3MDYyMTEzNTI1NVowge0xCzAJBgNVBAYTAlVTMRMwEQYD
-VQQIEwpDYWxpZm9ybmlhMREwDwYDVQQHEwhTYW4gSm9zZTEZMBcGA1UEYRMQTlRSVVMrREUtNjYx
-MDExNzERMA8GA1UEBBMITWFycmVkZHkxGDAWBgNVBCoTD0JoYXJnYXZhIENoZW5uYTEWMBQGA1UE
-ChMNQlJPQURDT00gSU5DLjEnMCUGA1UEAwweYmhhcmdhdmEubWFycmVkZHlAYnJvYWRjb20uY29t
-MS0wKwYJKoZIhvcNAQkBFh5iaGFyZ2F2YS5tYXJyZWRkeUBicm9hZGNvbS5jb20wggEiMA0GCSqG
-SIb3DQEBAQUAA4IBDwAwggEKAoIBAQCq1sbXItt9Z31lzjb1WqEEegmLi72l7kDsxOJCWBCSkART
-C/LTHOEoELrltkLJnRJiEujzwxS1/cV0LQse38GKog0UmiG5Jsq4YbNxmC7s3BhuuZYSoyCQ7Jg+
-BzqQDU+k9ESjiD/R/11eODWJOxHipYabn/b+qYM+7CTSlVAy7vlJ+z1E/LnygVYHkWFN+IJSuY26
-OWgSyvM8/+TPOrECYbo+kLcjqZfLS9/8EDThXQgg9oCeQOD8pwExycHc9w6ohJLoK7mVWrDol6cl
-vW0XPONZARkdcZ69nJIHt/aMhihlyTUEqD0R8yRHfBp9nQwoSs8z+8xZ+cczX/XvtCVJAgMBAAGj
-ggHiMIIB3jAOBgNVHQ8BAf8EBAMCBaAwDAYDVR0TAQH/BAIwADCBkwYIKwYBBQUHAQEEgYYwgYMw
-RgYIKwYBBQUHMAKGOmh0dHA6Ly9zZWN1cmUuZ2xvYmFsc2lnbi5jb20vY2FjZXJ0L2dzZ2NjcjZz
-bWltZWNhMjAyMy5jcnQwOQYIKwYBBQUHMAGGLWh0dHA6Ly9vY3NwLmdsb2JhbHNpZ24uY29tL2dz
-Z2NjcjZzbWltZWNhMjAyMzBlBgNVHSAEXjBcMAkGB2eBDAEFAwMwCwYJKwYBBAGgMgEoMEIGCisG
-AQQBoDIKAwIwNDAyBggrBgEFBQcCARYmaHR0cHM6Ly93d3cuZ2xvYmFsc2lnbi5jb20vcmVwb3Np
-dG9yeS8wQQYDVR0fBDowODA2oDSgMoYwaHR0cDovL2NybC5nbG9iYWxzaWduLmNvbS9nc2djY3I2
-c21pbWVjYTIwMjMuY3JsMCkGA1UdEQQiMCCBHmJoYXJnYXZhLm1hcnJlZGR5QGJyb2FkY29tLmNv
-bTATBgNVHSUEDDAKBggrBgEFBQcDBDAfBgNVHSMEGDAWgBQAKTaeXHq6D68tUC3boCOFGLCgkjAd
-BgNVHQ4EFgQUkiPQZ5IKnCUHj3xJyO85n4OdVl4wDQYJKoZIhvcNAQELBQADggIBALtu8uco00Hh
-dGp+c7lMOYHnFquYd6CXMYL1sBTi51PmiOKDO2xgfVvR7XI/kkqK5Iut0PYzv7kvUJUpG7zmL+XW
-ABC2V9jvp5rUPlGSfP9Ugwx7yoGYEO+x42LeSKypUNV0UbBO8p32C1C/OkqikHlrQGuy8oUMNvOl
-rrSoYMXdlZEravXgTAGO1PLgwVHEpXKy+D523j8B7GfDKHG7M7FjuqqyuxiDvFSoo3iEjYVzKZO9
-NkcawmbO73W8o/5QE6GiIIvXyc+YUfVSNmX5/XpZFqbJ/uFhmiMmBhsT7xJA+L0NHTR7m09xCfZd
-+XauyU42jyqUrgRWA36o20SMf1IURZYWgH4V7gWF2f95BiJs0uV1ddjo5ND4pejlKGkCGBfXSAWP
-Ye5wAfgaC3LLKUnpYc3o6q5rUrhp9JlPey7HcnY9yJzQsw++DgKprh9TM/9jwlek8Kw1SIIiaFry
-iriecfkPEiR9HVip63lbWsOrBFyroVEsNmmWQYKaDM4DLIDItDZNDw0FgM1b6R/E2M0ME1Dibn8P
-alTJmpepLqlS2uwywOFZMLeiiVfTYSHwV/Gikq70KjVLNF59BWZMtRvyD5EoPHQavcOQTr7I/5Gc
-GboBOYvJvkYzugiHmztSchEvGtPA10eDOxR1voXJlPH95MB73ZQwqQNpRPq04ElwMYICVzCCAlMC
-AQEwYjBSMQswCQYDVQQGEwJCRTEZMBcGA1UEChMQR2xvYmFsU2lnbiBudi1zYTEoMCYGA1UEAxMf
-R2xvYmFsU2lnbiBHQ0MgUjYgU01JTUUgQ0EgMjAyMwIMFJTEEB7G+bRSFHogMA0GCWCGSAFlAwQC
-AQUAoIHHMC8GCSqGSIb3DQEJBDEiBCAK33MGnEVmxKdX3ZUlRUBsoxjAIx9c39tLBrkorxvVHTAY
-BgkqhkiG9w0BCQMxCwYJKoZIhvcNAQcBMBwGCSqGSIb3DQEJBTEPFw0yNjEwMjIxMDU3NThaMFwG
-CSqGSIb3DQEJDzFPME0wCwYJYIZIAWUDBAEqMAsGCWCGSAFlAwQBFjALBglghkgBZQMEAQIwCgYI
-KoZIhvcNAwcwCwYJKoZIhvcNAQEHMAsGCWCGSAFlAwQCATANBgkqhkiG9w0BAQEFAASCAQBrCBIB
-9orSKHMsdqahq+Sf4vhLDWdvuVB/2AAt6fR5P2eKOEfNjHlDIFL8XOt4SpkYVMHQJVglC/2VNHRL
-wC577MNOZqXGGRNXDqLVyIYXXQLrUhb626c8BQfcgj9cqbnE7KW6zF3d7upvdXtHHQFtkOUW+y6C
-IjpELSrHRbC9Ep+VlsxDUOEZMfLhtpS198+may2GJXWj5X0ToDH2MeDr8TH8QnkgNrlFbZemlrAR
-jp+MIdE3s0V1JfbgzVuwXpn8GAyGe8hJRNNq6rnHamrI9ti3lkOmkedH1xWLncXyRnXLi52BJbNK
-WWHzAB3GwYWnbTqs3PV4VGdgiM9EI0aN
---000000000000944831065e6bbc82--
