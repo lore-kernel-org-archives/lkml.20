@@ -1,72 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792675679;
-	b=YjvPPlzj1ONaBN1fetoI31e/npSOiPop86fT0wwsg/yKiSqToaEyMH3dqJf7XvsYYII9
-	 dtFsR8+4i5lfhbuohmZtiYf+JQXwP+loQAouC4NNswKaiEZA2G3e7YvunscVqyPjIPCoe
-	 04oH085G+Oiy/3VgoehSDNnR5TWN7TPWO4G3/Ef1Gh4RA/beF1UM9LynHmrAtl5nrG7U9
-	 /jMr9ow7r9+IdBE0BoQ0ceIhW0urDCVUhMZZOjsNxdvoDUiC4dCgYA9Y7Q2EkeReGSZnW
-	 JhQUwAN9mwkq4JQy1o1diljiltgXnK6cU9vl7iK5wODO0+k/oGX/SCE5iRxfvjaPQ9w==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792675679;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
-	 Subject:In-Reply-To:References:User-Agent:Date:Message-ID:
-	 MIME-Version:Content-Type:X-Last-TLS-Session-Version;
-	bh=/RgtJAwfFxMYwKRHR6ym49yRh7I5Fuz2Xy5zLf91xb0=;
-	b=YM2Rd69vPLa/nWBNpxjEt/Mpcf6xvvSMdCFjA3756i/s/AGuDVNgCkv2sMVjT9NLrONq
-	 1iWLgSlD43OMHTRzmrRWs71EfDtHFXQtPd6kfCR3owZTnjjy4iYb7tGQuxDB2rXbVajFU
-	 nAk4NIylt8VZWcRnGz59hBI0aXP9K/kxIjtjLtJFoi9ZxTJDYfyrmFU21mNKdW53uqqXT
-	 2GnzfQIwOEBDKRqmNr5qUQSkijWTd+guNQMH8LUfUw+NpVujRKVbD/izRnXXewBTYm+4J
-	 N6Rv1DYKEJOOVpvhz+F0Cpk24QK3oK1yQRlxSWy95lLgu7/ibm+C1a1jSbZ4YHLDqNA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=Ru3JWSa4;
-	arc=none smtp.remote-ip=185.246.85.4
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.43
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792675683;
+	b=lIdB2O5f/WsVEZ/o7bSb8kYZuvf5e3agmMw9D2xmj4fdwygAxnDMIVnFGyIEx2KOlZ2Y
+	 8hZn6+yJ3oNlsmtCdZEJkj8j5lYEaIK6XAsxd8a/d7Rc2SmmgzoHma5Yv450YxR4nk4kX
+	 dKrKUMhaU6XNckeMVePi1xDiG9WHrqvOx+o2p/HGlmxp0WfrpyQUq4pOy9mqFXSbEVYbk
+	 RlXAzg9lcGyM2PtBCqRCYZh8aK4TXSHgTLtafjb5rcDXnK9BkRSbYd/21oIiQbHQK4pKX
+	 il60xiexxgJUvvuWbw5Ns1yfi/7xzsRRt4AI8X/o8DqpIQQSgTawDDhW8yDdZcLXLiw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792675683;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=Nvs/O17pBoFT0kP/7U9Lwrf/xlPxuaSLW8PaLqTw0yk=;
+	b=WOl38gOXqdhY59IOj/9BSl4ltYdojZDq33R+IRZwgYkn7juQHLt89SqW0+wcD2L/eAXJ
+	 lSh5+YHI5Ni0dnW1A3299E7VOis7zkxfb+3RxUntQrNje9LmJ8ah+FhiCGRVNEp8+RFvJ
+	 PaKOJfiLiDO3wLtZW+sRXS0sZ+IN7/9dIynNdfxGTqUwqBm4sQQ+0GWF3PD0fF7GVA5F4
+	 6vtK3+ZG4l46GvkzNdD3SAlxcSMzkroD2wt6AjmVhlxoH29feY/wP1v4tZZToj5HZIn3U
+	 Br5fikzmehVn2tkfrLmEGDvwA7STkbdUWR+p5RU3u6NHVpSYWNGJNfFtqmk2tcb3I9A==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=b4f5jMKC;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.43
+Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com [209.85.218.43])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 961F1606A319
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 13:27:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 961F1606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E830606A319
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 13:28:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6E830606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=Ru3JWSa4
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 2696F4E412B4;
-	Thu, 22 Oct 2026 13:27:55 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id E186660360;
-	Thu, 22 Oct 2026 13:27:54 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 09DEF10328E5A;
-	Thu, 22 Oct 2026 15:27:42 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1792675674; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 in-reply-to:references; bh=/RgtJAwfFxMYwKRHR6ym49yRh7I5Fuz2Xy5zLf91xb0=;
-	b=Ru3JWSa450e+Pfh7Wr17MJeuBSndDLoX6yuq1Glk2pUuKCdE1g4SjrOYTy2wcqGbi8Im44
-	6FBKurVqPmB8fnoWsPyKf6mZnMyI86GP8R4S12gtVfD54xLKf0sHmb9+uxtHlFGRtUzQ5/
-	qYaXjWHsbgHVJvd5OdKM6JPqrqFw+griRskl1Hn0N478/R7oIdsLavPNBmZLY/cnQon8qg
-	2WrJpEFPRLkpUVnXPP3SHARlEXMdHbuiDioYFO0apGaJPyp6EIKek8VimAaDejD8vyT2jo
-	KdJIrleI4voqKPvz0C47SBNgZLW646ZZnceeyj4p9E2dhJHkW5aMMbhORDQUYg==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: "Michael Walle" <mwalle@kernel.org>
-Cc: "Changhuang Liang" <changhuang.liang@starfivetech.com>,  "Pratyush
- Yadav" <pratyush@kernel.org>,  "Takahiro Kuwano"
- <takahiro.kuwano@infineon.com>,  "Mark Brown" <broonie@kernel.org>,
-  "Richard Weinberger" <richard@nod.at>,  "Vignesh Raghavendra"
- <vigneshr@ti.com>,  <linux-spi@vger.kernel.org>,
-  <linux-kernel@vger.kernel.org>,  <linux-mtd@lists.infradead.org>
-Subject: Re: [PATCH v1 2/4] mtd: spi-nor: Support mixed 1S-xD-xD DTR
- protocols in spi_nor_spimem_setup_op()
-In-Reply-To: <DMBD190498R4.3PX7VO4SXKU3C@kernel.org> (Michael Walle's message
-	of "Thu, 22 Oct 2026 14:19:27 +0200")
-References: <20261022102614.75696-1-changhuang.liang@starfivetech.com>
-	<20261022102614.75696-3-changhuang.liang@starfivetech.com>
-	<875wyuqaj4.fsf@bootlin.com> <DMBD190498R4.3PX7VO4SXKU3C@kernel.org>
-User-Agent: mu4e 1.12.12; emacs 30.2
-Date: Thu, 22 Oct 2026 15:27:42 +0200
-Message-ID: <87ik2tq301.fsf@bootlin.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=b4f5jMKC
+Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-c3f8d72d7ceso291537466b.3
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 06:28:03 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792675682; cv=none;
+        d=google.com; s=arc-20260327;
+        b=sSWEIaCbbAXYNHpL1K+zMgqqE+hZSlAiYvGZW7etwUPwqNmyNbEL1d2uGs0tDCKrG3
+         bwUAq1ZhLbIrqomo/DaVZEF4VK8bRc9xXzaoBb4yO1dU17HcnkIDMxhjfD0V3RK5rpJq
+         JQBE4OXV7uPan3ZAGfFtZ8HyuCrxbsM8qai/v6droTcBqnU+jCEZEr+rVkeWl8k1hd8g
+         Aho412ewzqvk1H86paq+3CqB8/4ifWx3bea9NO9ijs6IJr3TWWapCQ/9h9n5uTkju2W6
+         1/0AHT+abuRsLo3v5w3y5sXey/TdeS03qZAQblSRB9QzfUvFURwaopivvjGQyrcNru7o
+         AAWg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Nvs/O17pBoFT0kP/7U9Lwrf/xlPxuaSLW8PaLqTw0yk=;
+        fh=yBuOuVTjmXwGUn9fcgTOXl1mulxmmRR2It4SoMZJyO8=;
+        b=TJMC1mJ1U0XoU++r5+eYkrTKuS5RtpENIAlj5b9sLzUXpQGvAqBMnbc8c9j4Ti8ngA
+         Ib2EjijXa0R16FPWpl66df0+N85RoTq0fIGpl2RRlzBBCGRLtsyWZYY+QXv+iSeoLwGF
+         6BvcLmNDGVJN/Lv/ENkyBp5zCWjFEYRTDG+4BFLiem9MpATIyJfCIufJUi5x8S3YGPaW
+         MEbX8qKLLMNfiHkFXYiyhTsRy9ug+03a6+/tDE4RLQyR5WlPP+sMaOsBhIw7XrFkySCm
+         ckODaEaXhXPoHcm3WJImN8/rGn6Sl6SfGJz5AioeJmSUeMy8F28LssLa+PEjXKVvd7tK
+         6yDQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792675682; x=1793280482; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Nvs/O17pBoFT0kP/7U9Lwrf/xlPxuaSLW8PaLqTw0yk=;
+        b=b4f5jMKCBzdLUNXGV1dGoga57/0B1KjZPufHx7dGbqvdssp85Cj0L9xrt5+a48x/F7
+         lwfZE/96c7n5Xg7CjD/NmuJ3JPaMjwJ87oSnORhZ4hCwkpejgprkinY7j+T0w8kZQoZk
+         Ps0WZHjNU22axsu1eWU+qrdvU+ukkseoZdFUEvMyh7ITA3J33xlpylUrfoS5xqon8g50
+         lCnL8YceTG5RILEvZ4C95u5MltqLdo2Cnz35sdgKh8Ylr9Vu/Z7qTPi5SfnvPgiou8so
+         OHXBUlg9e/p4eYFsUDDBw6OEjxD7KWAmGQoCwL8b8G0iNen8AZK4i2+ghXQC1wfHcqip
+         rb4w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792675682; x=1793280482;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Nvs/O17pBoFT0kP/7U9Lwrf/xlPxuaSLW8PaLqTw0yk=;
+        b=CnM/xRyTKdwaolie/CwRRAXZxlp4aex9gVgq+3cDUb2XgPXILF9a1LrLMimukQ9raG
+         N11GnXndJKPuKFqSJvmShYvMjYRA1wYWt/u6MgINC/gtN7jegn13GRyGFGHAzWu1/H3J
+         9BgRCkf4TIyjo1RxVh5epduENc4C03nL0oi5oB6ZRd8ON17msx+qaThMLQRd0ne/yW2p
+         j6Rw7Oa6441vx9zMDSVbFov60YkKH49Uo6Eo5yQ9wvYp8xfEaTiwzMvZuQSAd4MU08hs
+         5YyGfrLjPAvQBkZGekVKVoWcmIhoAhOLoBWGNsSbfEkrX+krUcJiw7cSG9vLDKAEg2M1
+         X3wg==
+X-Forwarded-Encrypted: i=1; AKwUvByZyU8Qy/RauOD/2BOHKQKpxGSCB3xDG+LWbvhsWz9r3DrRNFUxOiOL6QgqAq1XpKNVkTUIjQ1/wVhGC4w=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIzJIDca4N2t2TfVs4qApB2RPaeMRmMnA0d24pO1NSutaKePw7D
+	JW0uRglJZQO/TsuN688ujmsa5ryAKh0eoyNnKsZ6NTvUMYRdO1oJMGqBS73Kwrtce7DbCVKoDFV
+	ZiqLPipeESs5cOleH9MyPnWzn5stSN3M=
+X-Gm-Gg: AYBFou17NlRzt9l2iiiVNzFFANtULSMdSBqfX08vVsW31Ol35GtVN0VLiiOSoUYAePk
+	0MKsKOos/8qP2ZzmA9S4DjjJLpRW82xzvBNU5Jcgvi6t/PBuJY/fE7ACA1z7aXiOdgrORfrg1Mf
+	CLuE4cqdpxe5ZL4vkEEKUamJW6txaRtRF170262qRxMm+HN9wFPUp934ecbhgPo/nmBABjqr4ha
+	EuYRhNhyENF1fZPMFj9Ilb2+/9bceO9rBsy1OUMJFvWcAsLByfU3vCKKOta+A7S4PAbTdbIZs1H
+	vhXzW1MEjjtQGvcR4Bqi/xvX/qiarJU6sjUatI7tQlH6qGlfUwWEONmdAraSknW6EGjlfeCQSf8
+	IjZPAQjRQNaFGJoLCgUK+iIUQkxPy9NYTGASfqQ==
+X-Received: by 2002:a17:907:7f91:b0:c43:a881:3f4b with SMTP id
+ a640c23a62f3a-c4679a3c145mr527773566b.47.1792675681566; Thu, 22 Oct 2026
+ 06:28:01 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,86 +104,36 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Last-TLS-Session-Version: TLSv1.3
+References: <20261016141208.2641974-1-e.velu@criteo.com> <atJXYHJa4jkUWJmP@kbusch-mbp>
+ <CAL2Jzuz1qFwLSA=iivp5qLCTL6-4rvKmvFzJbOQzjPu6j_7Y2A@mail.gmail.com>
+ <atJeazM_rJ0uj3vt@kbusch-mbp> <CAL2Jzux8v6zCxfcdd=MY5n0zQMVSa-_8Lki9z-fz7bFShNf7vw@mail.gmail.com>
+ <atJk_2FmzjUZYO_Z@kbusch-mbp> <f665dc3e-fc5c-4352-8e41-a46b7ae97946@criteo.com>
+In-Reply-To: <f665dc3e-fc5c-4352-8e41-a46b7ae97946@criteo.com>
+From: Erwan Velu <erwanaliasr1@gmail.com>
+Date: Thu, 22 Oct 2026 15:27:50 +0200
+X-Gm-Features: AclHuK87xiVvc2aaK_iFmR5Fg-1RYRhdWb9X02-8msYtLG7XVWJO_DadPavgGY0
+Message-ID: <CAL2JzuwuZp0gg1D7wSn7cdgpnhotnuLP6YpPd-SrdVyqhkeiJw@mail.gmail.com>
+Subject: Re: [PATCH] nvme: honor the volatile write cache enable state
+To: Erwan Velu <e.velu@criteo.com>
+Cc: Keith Busch <kbusch@kernel.org>, linux-nvme@lists.infradead.org, axboe@kernel.dk, 
+	hch@lst.de, sagi@grimberg.me, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 22/10/2026 at 14:19:27 +02, "Michael Walle" <mwalle@kernel.org> wrote:
-
-> On Thu Oct 22, 2026 at 12:45 PM CEST, Miquel Raynal wrote:
->> On 22/10/2026 at 03:26:12 -07, Changhuang Liang <changhuang.liang@starfivetech.com> wrote:
->>
->>> Currently spi_nor_spimem_setup_op() sets all four phases (cmd, addr,
->>> dummy, data) to DTR whenever spi_nor_protocol_is_dtr(proto) is true.
->>> This is too coarse: the 1S-xD-xD DTR protocols (1_1_1_DTR, 1_2_2_DTR,
->>> 1_4_4_DTR, 1_8_8_DTR) send the command phase in STR on a single line,
->>> and only the address, dummy and data phases in DTR. SPIMEM supports
->>> such mixed DTR modes.
->>>
->>> Split the handling:
->>>
->>>   - For SNOR_PROTO_8_8_8_DTR, keep the existing behavior: set all
->>>     phases to DTR and use a 2-byte opcode (opcode + extension).
->>>
->>>   - For the other DTR protocols, set the command phase to STR and only
->>>     the address, dummy and data phases to DTR. Double op->dummy.nbytes
->>>     since DTR transfers 2 bytes per clock cycle, matching how the dummy
->>>     cycle count is specified for these protocols.
->>>
->>> No in-tree flash currently declares SNOR_HWCAPS_READ_1_x_x_DTR, so
->>> this is not a bug fix but preparation for enabling these protocols.
->>> A follow-up patch will enable 1S-4D-4D for the MX66L1G45G. The
->>> 8D-8D-8D path is unchanged.
->>>
->>> Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
->>> ---
->>>  drivers/mtd/spi-nor/core.c | 21 ++++++++++++++-------
->>>  1 file changed, 14 insertions(+), 7 deletions(-)
->>>
->>> diff --git a/drivers/mtd/spi-nor/core.c b/drivers/mtd/spi-nor/core.c
->>> index 90524c58602e..43e506e728ab 100644
->>> --- a/drivers/mtd/spi-nor/core.c
->>> +++ b/drivers/mtd/spi-nor/core.c
->>> @@ -97,13 +97,7 @@ void spi_nor_spimem_setup_op(const struct spi_nor *nor,
->>>  	if (op->data.nbytes)
->>>  		op->data.buswidth = spi_nor_get_protocol_data_nbits(proto);
->>>  
->>> -	if (spi_nor_protocol_is_dtr(proto)) {
->>> -		/*
->>> -		 * SPIMEM supports mixed DTR modes, but right now we can only
->>> -		 * have all phases either DTR or STR. IOW, SPIMEM can have
->>> -		 * something like 4S-4D-4D, but SPI NOR can't. So, set all 4
->>> -		 * phases to either DTR or STR.
->>> -		 */
->>> +	if (proto == SNOR_PROTO_8_8_8_DTR) {
->>>  		op->cmd.dtr = true;
->>>  		op->addr.dtr = true;
->>>  		op->dummy.dtr = true;
->>> @@ -115,6 +109,19 @@ void spi_nor_spimem_setup_op(const struct spi_nor *nor,
->>>  		ext = spi_nor_get_cmd_ext(nor, op);
->>>  		op->cmd.opcode = (op->cmd.opcode << 8) | ext;
->>>  		op->cmd.nbytes = 2;
->>> +	} else if (spi_nor_protocol_is_dtr(proto)) {
->>> +		/*
->>> +		 * 1S-xD-xD protocols: the opcode is sent in STR on a single
->>> +		 * line, only the address, dummy and data phases are DTR. The
->>> +		 * opcode stays 1 byte (no command extension).
->>> +		 */
->>> +		op->cmd.dtr = false;
->>> +		op->addr.dtr = true;
->>> +		op->dummy.dtr = true;
->>> +		op->data.dtr = true;
->>
->> Still to coarse IMHO.
-
-too*
-
->> What about xS-xS-xD?
+Le sam. 17 oct. 2026 =C3=A0 06:25, Erwan Velu <e.velu@criteo.com> a =C3=A9c=
+rit :
 >
-> Is this a thing? Are there any NOR flashes which support the address
-> being SDR? That doesn't make much sense, does it? The command being
-> SDR makes sense because you don't have to switch modes and thus
-> you're stateless.
+> [...]
+> > Unfortunately, no: there are contradicting statements here.
+[...]
+> If you think it makes the commit message clearer, I can send a v2 with
+> these numbers, the kernel anitly, and the driver level Flush latency abov=
+e.
 
-I honnestly don't know if it's actually a thing today in SPI NOR, but it
-is in SPI NAND. Just rising the flag.
-
+Hey Keith,
+WDYT of these explanations and additional details?
+Hope that's better and could be considered for inclusion in the next
+releases, maybe as a backport to the stable ones as incorrect
+detection of the volatile's cache status can lead to severe
+performance impact on this type of drive.
+Erwan,
