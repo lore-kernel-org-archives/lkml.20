@@ -1,91 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.207.212.86
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792657518;
-	b=DexybkusxP+PFkb38gZE63aTjMYWIiaR+dNcvrYrEvXx6c/kvkso+es8B7Z+2ZwBDGGb
-	 73KwYqRXleDT58Me7KpKX5aqVhuHvx/XRRA6503juhEpuAcmaZM8wlcUvvkqGwLLN4kCP
-	 8QIxrUKCubd6joeUbd+dow3GD7T4wKOL3ECxj29flEwSFS6XDDzopWI2OIwmPDABe9ILu
-	 +NtC51XDUxxfLbJQth7/pLcMfVAmSAXDINkVIBQ6qXHk24p5GlsTp0V8DtmfTAbQsUtXc
-	 dYLWv03+UFVDGySGvf0dlcXM/5cRueqVhU2xKU7dAv9VoA356+G7ouaV8bE3Y6fgQTQ==
+	t=1792657558;
+	b=T2aOXHUvpmefc9s0G3Z2JjoQr7qMf1om/jfTKUkfadC2j61Z95CBPdiA7mIk46tIVoNn
+	 1Z4x05UV81JgCYBfMnyvxq9DJADnkjsRqUmv7nlOGs0HYIXi8Se+Ga9f0R8tDP0s5O9G9
+	 +hmHvtabKW39YEVI3vs4k9Fig9A73esZhvfo4w++OAYRA9VOaYSkGbrJkR/8Jq0uxNIb7
+	 sJcJfXV2KnKvnprh+UK9eSbmqBQOinvKpQWJe9jJycqLrCK9HFfKjlin1qbz5LBFTaeWU
+	 sE3F9vR0kMxswIXXeRGTMbxRfCHlW6EtmfCSzwqse53pJ9T5kxsOM5f4nPBkHjzlixQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792657518;
-	h=DMARC-Filter:From:DKIM-Signature:DKIM-Signature:To:Cc:Subject:
-	 In-Reply-To:References:Date:Message-ID:MIME-Version:Content-Type;
-	bh=IdtW1rAGsIKxN6Wm0qAXHuMt9ue8GvhTyEgWLvkduZ0=;
-	b=MYGxvI1x8cepj1elnJJPEGSbOqc3fYNs4T2ttio+0H+ZHjLKvxYO3etV5hno5a3SJKv4
-	 1W1Anyw7rzC0XdS/6INVBVQQfvk1LVzX4CE/fbIBQ/KiUM0+KZe0YC9E2O102q1OgG0/6
-	 VcPzxzQ7eMKYDXHm2x7DioOpl+wvsKZUCrlOil10G5/it5ACpfJKvqUVcJEJeo4Egn1oO
-	 3tUgr6NpV5s65fTJVmig3ZohGzJUUxQMKAqhNQh5XjVpwbOE6VlGFuWxvbuzTkSt2vUd6
-	 ute+M94drtQniSGrVkMp5gGViUgbcRuWamUmmAgkl9NEa8egOSOfg8Dk4ff2bYklHIw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792657558;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:From:Subject:
+	 Date:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-B4-Tracking:X-Change-ID:To:CC:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key:X-Originating-IP:X-Proofpoint-GUID:
+	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Spam-Details-Enc;
+	bh=uk6belgLZ4ULVN1tSc57Dgo4UnK/rwjpJGEZlGz8kQE=;
+	b=Y1o/sAkeaWYu16EmGnrndMZ06oa+kYpV+IDicQpLuzG5kvMVT05sPTcI1N2QjXFKYGWt
+	 /ez1XZUSvfZqOs6bzUAiSY4d3mqC/TTAgcpOsyxFPmVG7vQu2k6SXDtsKAzN431t2H3VW
+	 zDp2TFs3RxYcP359u2WL0arcbF8TIkOkgWTmWIDiawzP5EV4dYQH3YzCHDwb4AjO9qBn2
+	 qwFZpDNlweGNGXY4sdLFEJRlEWYzVFCs/cFcbCpMnur9U2906ZpBHf/dqFRrz8TcDDZcm
+	 Bi+9KjcJNphUyHzudD98AFL0ScC9WBcITs9lv9qh5VwXx7YKRt2Y0pWGpYTCZor/iBA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linutronix.de;
-	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=KZKBtfkL;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=HHOqeu7g;
-	arc=none smtp.remote-ip=193.142.43.55
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	dmarc=pass header.from=imgtec.com;
+	spf=pass smtp.mailfrom=imgtec.com;
+	dkim=pass header.d=imgtec.com header.i=@imgtec.com header.a=rsa-sha256 header.s=dk201812 header.b=SRuUeCW3;
+	arc=none smtp.remote-ip=91.207.212.86
+Received: from mx08-00376f01.pphosted.com (mx08-00376f01.pphosted.com [91.207.212.86])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3D80606A319;
-	Thu, 22 Oct 2026 08:25:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B3D80606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80A13606A319
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 08:25:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 80A13606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imgtec.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=imgtec.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=KZKBtfkL;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=HHOqeu7g
-From: Nam Cao <namcao@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1792657515;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=IdtW1rAGsIKxN6Wm0qAXHuMt9ue8GvhTyEgWLvkduZ0=;
-	b=KZKBtfkLOohZWzF4oIYIRhvdb09VOKMPhLw2V8fDhpRHj3h9GnYQMpv0t293qqJqKRwesI
-	poOjDC6dfJ/O5p34g8bc4PnV3htPx95LK0LWkXwXie/8G+gvy4siPKGJfubiFgaq9J6U9w
-	gcpebuoexjQuyTcFnXnb19cVnUFpKQ6ay4CX4kILN1I97fjvvC1Xh0ZeMv+O/MIbELpwdn
-	3enNKb+SEJwwTdgctZJc8VjSa4/UBOANhfkm1mmAPmdN9W6xnZf+LYfqAYLg4PKe1o8RDe
-	nI7G8YmDmgyhVjsfrFFGy75F73uQcEPfcBSpTI/YqJgghv4Yj1IEmqOh2FTsng==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1792657515;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=IdtW1rAGsIKxN6Wm0qAXHuMt9ue8GvhTyEgWLvkduZ0=;
-	b=HHOqeu7gLFukHBH/txj8Tw027E18BDEDbfJ71r0uSGIt2a11SNlupFhE0o+/vx1+iw1evk
-	eac6JX00Eb8FlUAg==
-To: Gabriele Monaco <gmonaco@redhat.com>, John Ogness
- <john.ogness@linutronix.de>, Steven Rostedt <rostedt@goodmis.org>
-Cc: Tomas Glozar <tglozar@redhat.com>, Alexei Starovoitov
- <alexei.starovoitov@gmail.com>, linux-kernel@vger.kernel.org,
- linux-trace-kernel@vger.kernel.org, bpf@vger.kernel.org, Wen Yang
- <wen.yang@linux.dev>, Tobias Schaffner <tobias.schaffner@siemens.com>,
- Viktor Malik <vmalik@redhat.com>
-Subject: Re: [PATCH v2 10/15] tools/rv: Add BPF monitors
-In-Reply-To: <f147fa9dfc553767ce92802b66723a85cf804e46.camel@redhat.com>
-References: <20261001152042.124445-1-gmonaco@redhat.com>
- <DM6H7SK4YZ7A.F0MM6C0I77OR@gmail.com>
- <878q3xtptq.fsf@jogness.linutronix.de>
- <8B3FF026-6159-48CF-8FEA-AF2FACD2E4EB@redhat.com>
- <87bj8s8ih9.fsf@jogness.linutronix.de>
- <DM78SVMBI2XW.2XHVC67VON48A@gmail.com>
- <87v770uuyr.fsf@jogness.linutronix.de>
- <DM7I2PYHNKXE.3AYY3N1HATXLW@gmail.com>
- <87ik2zryzo.fsf@jogness.linutronix.de>
- <0055967d4571e7c8549dfa476fa6b15b93013701.camel@redhat.com>
- <CAP4=nvR2i092924zszA8Qh0UUYnwXfAsa+7KjPe-NpwC+bbLXw@mail.gmail.com>
- <8580176d216258e9008c344e0529509117dcc18b.camel@redhat.com>
- <CAP4=nvTc297yQHz8aumZFAQ3+JK=5Z_=416WdosT0S6nHEeNfQ@mail.gmail.com>
- <87pkx5q1w4.fsf@jogness.linutronix.de>
- <0d4f11b1999588ddba9d855db43fc492eda32de1.camel@redhat.com>
- <87h5ifqy6w.fsf@yellow.woof>
- <a8d8b080f403eed617242a3276717706b4081ed1.camel@redhat.com>
- <20261021094853.29b9f7be@gandalf.local.home>
- <fb5c20f226f723cbb4df5092462dfcf5f2686367.camel@redhat.com>
- <87h5ifvw3p.fsf@jogness.linutronix.de>
- <f147fa9dfc553767ce92802b66723a85cf804e46.camel@redhat.com>
-Date: Thu, 22 Oct 2026 10:25:13 +0200
-Message-ID: <871p9ita52.fsf@yellow.woof>
+	dkim=pass (2048-bit key, unprotected) header.d=imgtec.com header.i=@imgtec.com header.a=rsa-sha256 header.s=dk201812 header.b=SRuUeCW3
+Received: from pps.filterd (m0168888.ppops.net [127.0.0.1])
+	by mx08-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69M751701909612;
+	Thu, 22 Oct 2026 09:25:07 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
+	:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=dk201812; bh=uk6belgLZ4ULVN1tSc57Dgo
+	4UnK/rwjpJGEZlGz8kQE=; b=SRuUeCW3kuI01pNa7Hu3Tg3Eo8W7lO0C8cNBXYQ
+	sFKV1J7Catn3ZXLEUoGIJetqPavasm604IJf+Ru6Ni67OcavsWTI003JIX5xsKjo
+	ge8dbSDg5defGViBje6T4yc5Lcy+4VD0CQGVVpf8XwB+peJVr1NTBGisuc8oNZet
+	pJtrhl5GIlkQv4yui4l0/L8f8Z71zNHy5JjSDa9/wqzeg+QpNQAKIHjFpS7amW2g
+	DdSGVzKLoWnVpNLSJMKdeHWEYTansKzC7Pi911FxxguZV1x2UriW+w8YMe8AD+vh
+	EgpRjyLrndi3bxmIufFS7ldXRrSUB+Hclz31jg9PgWLgE2g==
+Received: from hhmail01.hh.imgtec.org (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
+	by mx08-00376f01.pphosted.com (PPS) with ESMTPS id 4hf88f87ng-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 22 Oct 2026 09:25:06 +0100 (BST)
+Received: from [127.0.1.1] (172.25.5.18) by HHMAIL01.hh.imgtec.org
+ (10.100.10.19) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Thu, 22 Oct
+ 2026 09:25:04 +0100
+From: Alexandru Dadu <alexandru.dadu@imgtec.com>
+Subject: [PATCH v2 0/4] drm/imagination: Clean up MIPS firmware interfaces
+Date: Thu, 22 Oct 2026 11:24:50 +0300
+Message-ID: <20261022-b4-simplify-mips-pte-defs-v2-0-ee2402c03a4b@imgtec.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,48 +69,114 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAFLI2WoC/42NTQ6CMBBGr0K6dgytBI0r70FY0HYKYyw0nUokh
+ Ltb8AIuX76ftwrGSMjiXqwi4kxM05hBnQphhm7sEchmFqpUtSxlBboCJh9e5BbwFBhCQrDoGFB
+ plK6WFysrkfchoqPP8d20P+a3fqJJ++HeGIjTFJdDPsu9949nllDmuLNXresbKvUg3yc0ZzN50
+ W7b9gUTZew91QAAAA==
+X-Change-ID: 20261014-b4-simplify-mips-pte-defs-e2be1f613d14
+To: Alessio Belle <alessio.belle@imgtec.com>,
+        Luigi Santivetti
+	<luigi.santivetti@imgtec.com>,
+        Maarten Lankhorst
+	<maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Paul Walmsley <pjw@kernel.org>, "Palmer
+ Dabbelt" <palmer@dabbelt.com>,
+        Albert Ou <aou@eecs.berkeley.edu>, "Alexandre
+ Ghiti" <alex@ghiti.fr>
+CC: <linux-kernel@vger.kernel.org>, <imagination@lists.freedesktop.org>,
+        <dri-devel@lists.freedesktop.org>, <linux-riscv@lists.infradead.org>,
+        Alexandru Dadu <alexandru.dadu@imgtec.com>,
+        Matt Coster
+	<opensource@mtcoster.net>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792657504; l=2415;
+ i=alexandru.dadu@imgtec.com; s=20260304; h=from:subject:message-id;
+ bh=wZ0b+coGu1+6iWrHM0UzC97RlL/KcSm5gcAcmMeyjUY=;
+ b=DFY1PnLXF+U6Ja5SN2q/7rwQp5cEXUxD1gQCiSN+pkJ7fDG3aElxOge97X6pd33Lp+wN328cn
+ EgBMykjHiJqBIb7YtRDHSU4MAkbxCC/kgdGkXxclGAjueTsmOEJNtN5
+X-Developer-Key: i=alexandru.dadu@imgtec.com; a=ed25519;
+ pk=FU07SyNrYGwhahqSxbWEuzyXlUh47xBXvLvOR7UA6+U=
+X-Proofpoint-GUID: YPN1EWICYuiWmanDokKBzPViA-kRTWs6
+X-Proofpoint-ORIG-GUID: YPN1EWICYuiWmanDokKBzPViA-kRTWs6
+X-Authority-Analysis: v=2.4 cv=e7+T2qp/ c=1 sm=1 tr=0 ts=6ad9c863 cx=c_pps
+ a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
+ a=sVS2Dey4ZWMA:10 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=qZQ2PDNLMSdLoqI-hfl9:22
+ a=bC-a23v3AAAA:8 a=r_1tXGB3AAAA:8 a=QyXUC8HyAAAA:8 a=VwQbUJbxAAAA:8
+ a=pGLkceISAAAA:8 a=_O3DOGVWAAAA:8 a=e5mUnYsNAAAA:8 a=gXtLJ4WPg2CJrXxS_-4A:9
+ a=QEXdDO2ut3YA:10 a=FO4_E8m0qiDe52t0p3_H:22 a=t8nPyN_e6usw4ciXM-Pk:22
+ a=2TKV-7w1aU1AVAwN0oqT:22 a=Vxmtnl_E_bksehYqCbjh:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIyMDAzMyBTYWx0ZWRfX6CvUPNxsCfOa
+ I9wpcAGrpXdVjEHa1uzX+5G5ximAUHcAbIJwuVbm89rAdzXovZM9e8pFVo4jASr6tOHLHA1r+NL
+ +foBGTET8TT4+PMDt9nlfiK1TVx24us=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIyMDAzMyBTYWx0ZWRfX9eWW4mvV7VFR
+ FzHmEEIwJGr/46+ghpcwn2MXft3qkZAx+h1vqFq3lALwD9ociLrA33idQxCzWN2+kzEsx2cECXD
+ aTWWkEGDiGtTbuGz0v0M9KLbEcbGyYiyXoy9TFijY0ioSnUHRqMf4jYfioWXaA0P/Zzer+0LIcj
+ D472IUvzb8dKuwLM85cauKf57DE9PKitwdvjHx1CbV/BBzf8UsAumN40Wk7u24RL9Ta/MPltQcX
+ FEI6Es9eKWMFq8zrNm0T7qUxu8YBH9lFkDQ+uv+A7hZcAtnSOx8MCWzK51PHSbmFin8fMBnQrTk
+ WE0asWG/ZnNDN45Rc0Soa2C+u/XY8nELpRfwWfVzPR32LJeRaJp2/fND8HAESVDD/Be5PFQpM7X
+ v+M4HwnIKzMLAj9Ilr4ctPsYyRBVxQowPGI6B7r7h/Q3hX8CGnOJQba3QvBkZqkOhG1oRM8S9Hw
+ B2Xh0BkAWgkSFg22LgA==
 
-Gabriele Monaco <gmonaco@redhat.com> writes:
-> Well, this would be yet another hybrid requiring BPF monitors registration in
-> the kernel like I proposed in the RFC [1], which was the main point of
-> contention (that fully shared reactors and sysfs interface, by the way).
->
-> For this I would argue, though, that such monitors would be BPF just on paper,
-> we wouldn't be able to use many advantages BPF provides (e.g. BPF maps).
->
-> The current implementation already shares the header with in-kernel monitors, so
-> the actual logic is shared. What isn't shared is the storage type and some glue
-> around it.
-> I used BPF maps because they offer some nice flexibility especially around per-
-> task and per-obj monitors. On top of using more battle tested code.
-> I would like to keep that.
->
-> Besides, we'd need to be extra careful on controlling the callers. Right now
-> handlers are static, so it's easier to make sure no rogue caller messes up with
-> monitoring.
->
-> What else definitely isn't shared, which is the main point of this whole
-> conversation, is trace events.
-> Those could be kfuncs. And no matter what you do, BPF monitors will need to
-> share the trace events (unlike in-kernel that have separate events per monitor).
->
-> In short, I don't think this would be easy to achieve and wouldn't earn us that
-> much. (Plus I'd lose the hardly earned Alexei's blessing ;) )
->
-> What do you think?
+1. Limits access to the MIPS firmware interface, keeping its state
+   within the relevant implementation.
+2. Align MIPS firmware headers with the other processor headers.
+3. Improved logging in error paths.
+4. Simplify MIPS PTE definitions.
 
-What about we refactor the in-kernel monitors' trace events into a
-single one. I am picturing two functions for ALL classes and ALL
-monitors:
+Signed-off-by: Alexandru Dadu <alexandru.dadu@imgtec.com>
+---
+Changes in v2:
+- propagate the commit update to PVR_MIPSFW_TLB_GET_PA().
+- removed the RISC-V group from the target group of this update.
+- Link to v1: https://patch.msgid.link/20261014-b4-simplify-mips-pte-defs-v1-0-b4ad7bb68e22@imgtec.com
 
-    void rv_error(const char *monitor_name, const char *message);
-    void rv_event(const char *monitor_name, const char *message);
+To: Alessio Belle <alessio.belle@imgtec.com>
+To: Luigi Santivetti <luigi.santivetti@imgtec.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+To: Maxime Ripard <mripard@kernel.org>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+To: David Airlie <airlied@gmail.com>
+To: Simona Vetter <simona@ffwll.ch>
+To: Paul Walmsley <pjw@kernel.org>
+To: Palmer Dabbelt <palmer@dabbelt.com>
+To: Albert Ou <aou@eecs.berkeley.edu>
+To: Alexandre Ghiti <alex@ghiti.fr>
+Cc: linux-kernel@vger.kernel.org
+Cc: imagination@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org
 
-which trigger the tracepoints. And we make those kfuncs. This allows
-sharing trace events between in-kernel monitors and BPF monitors.
+---
+Alessio Belle (2):
+      drm/imagination: Limit access to the MIPS firmware interface
+      drm/imagination: Make the MIPS firmware headers arch-independent
 
-Then everything else (kernel reactors, users, perhaps even eBPF reactors
-in the future) hook into those tracepoints.
+Matt Coster (2):
+      drm/imagination: Improve some logging in error paths
+      drm/imagination: Simplify MIPS PTE definitions
 
-Nam
+ drivers/gpu/drm/imagination/pvr_fw.c               |   6 +-
+ drivers/gpu/drm/imagination/pvr_fw.h               |  11 +-
+ drivers/gpu/drm/imagination/pvr_fw_mips.c          |  79 +++--
+ drivers/gpu/drm/imagination/pvr_fw_mips.h          |  49 ---
+ drivers/gpu/drm/imagination/pvr_fw_riscv.c         |   1 -
+ drivers/gpu/drm/imagination/pvr_mips_internal.h    | 309 +++++++++++++++++++
+ .../gpu/drm/imagination/pvr_mips_internal_check.h  |  35 +++
+ drivers/gpu/drm/imagination/pvr_rogue_mips.h       | 335 ---------------------
+ drivers/gpu/drm/imagination/pvr_rogue_mips_check.h |  35 ---
+ drivers/gpu/drm/imagination/pvr_vm_mips.c          | 162 +++++++---
+ drivers/gpu/drm/imagination/pvr_vm_mips.h          |   2 +
+ 11 files changed, 519 insertions(+), 505 deletions(-)
+---
+base-commit: 6e375de99d0c420169481fcd36064177ab55b09d
+change-id: 20261014-b4-simplify-mips-pte-defs-e2be1f613d14
+
+Best regards,
+--  
+Alexandru Dadu <alexandru.dadu@imgtec.com>
+
