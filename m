@@ -1,61 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792711068;
-	b=UB2tY+rhCqthPg2K/P4qCuuzbHdw2Q2cesSaILYp6/I9cq0aPYjz1WJ9wWlYLbK3XdR2
-	 ehtHLYNvr4lO1UOUPxAek3GfKVhOVEN+eSHGzdMps7G5BtRdFXFwIPGvJ1YGiasOjuAOS
-	 tvl4F8qP3iiqaUOE3N68jXo+1rXFniLky/2s89YnEMtBnRjiIUEWROlNnJLcDhjkMdMn9
-	 sqxtqJPPGco4gkYCr1SBl5wEPROz78gANxXqQ5fa3DPNF9UwHCWD8CLsALCtzy9w2DPFo
-	 EcHb/kUuIVgq69PjXcJ247KX7jrtvLajwuvX22efSXiCsFHr0kUXfV0PozAGElexkYg==
+	t=1792711413;
+	b=sm+thPRenEvE35ptUjSqnHT5FUTlTgC+0jj53pRBBJ1CWTj9Rc5jckH2iEXRZ6iLrDqk
+	 xmKH/jJQN+B94cjZt9i+cOMLMFypFrBnVTfO9ZaTlWdw+zpg5Xv85Vj3nXcpF/gdipFIz
+	 kuk25IfZAo3dtgvj/yZKBO8pPLzgGzwzO6VeulJcteEMsqYUU7tmJfJeqXFz9HKGKlyJx
+	 xpNIRWGH+GmL0JJvPCZztNDf1VKaCdXG0j6RamHUfuM8ouzexKu76FW82OnMErJNCRvmf
+	 oXuo9gjlovOS+kJ1tUbNwqAKAGwskV1ZDRL2g1q7uSKJ8cVwCRpJohvgLZs0f5QgbWQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792711068;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792711413;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=kfBz61fRoC7Z3igoEcq37wqZzMC4s5u9se9kNfpr59s=;
-	b=hsjyaMwCrPUtc4f2gicxBhqCDgxYqP1O+7WyLsefmL1lkX8BX77eJZ1SqpF8IGfytFG2
-	 9aFhfHiLTas3sEpV1oKANAyX8zR1/5gqNACtdxutD9MkKlI93Za7SVFErbsH83tHoRmJB
-	 fQa8J8GFaVnvXThmpENrdjzeVLJKUcdTvrppFjc23jI6UQbmNb6V9oCWhEuAbjjuwYjNd
-	 98rCXgGiKR8Cb8enfdASOblC1AJyRTjPaAYc0XXuMo9ZRlMyQG17bKqpxS/yyzzNapkal
-	 oNuPMbPTtDr5QUDKqeX28CAv3kAQr1XxPIbQouHKQE2khVuaD9XcXR3EpfCGhrbaDQA==
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=iB1qRE5TjHcp1JAI8RwwmxnKVJod/0Zmh1zD5MFJOZs=;
+	b=mEt9iz2KomsqaUBqVQDnyb7oh1gKhHTUCHFQ2j8Xo5vfCqv0RXAH1YSMyRhJOdYIMVNc
+	 iE5mY+Ct9mn8TlFVJJkEjCNL1wWNaOgVEKG68MIlHDrNDsDKuX3NdDHsAN5G32HXOQKts
+	 JzxgEjgCrwH1+vVx1qjAfMmNsekZ5FrwIsrgJn9/XBWmZEY89tY3y+Dsg43DkhuHqu9u9
+	 rJg+DoIYndk52LmFLUsamHDb157g2h+LEm2hVuqYAb4kNJLaTjr50J+1IitmN+JxoQsFD
+	 jZk1/8g/0bBNyaagXH7QUBUR5CfYMetQuJ9TRkRwbzvhAakwVqD99530NRJ7uzdsQdA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jF43IVuv;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IEPfsY1+;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACD0A606A319
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 23:17:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 5FA65606A319;
+	Thu, 22 Oct 2026 23:23:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jF43IVuv
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 049CB1F01825;
-	Thu, 22 Oct 2026 23:17:46 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IEPfsY1+
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 659721F01825;
+	Thu, 22 Oct 2026 23:23:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792711067;
-	bh=kfBz61fRoC7Z3igoEcq37wqZzMC4s5u9se9kNfpr59s=;
+	s=k20260515; t=1792711412;
+	bh=iB1qRE5TjHcp1JAI8RwwmxnKVJod/0Zmh1zD5MFJOZs=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=jF43IVuv3l2UaN3yECjR5/T1XZRVtCqftTMnOpa+ZAbEThBgi1h0boIRWF8iz+4gC
-	 2BLgIy6rmgUgpsu2nN+7Ctja4dG88mb6mVEVRiaKNEutxChrByYB8FMb5ac9WmUgS1
-	 JmhbfSwKTBoZJ8iZIWfh2QMsRluYA55yD5htKA2p5qHQF3VJ4UyezzgIQXZ58GNHYe
-	 FSurGAzW03U5QcIdZiYOm9K3YhwgVwVUF4HQS86S9dTDlStpP/FQnof5fWRz8BmAbs
-	 jEuqfzyT9k5m/FUBYfxdYEqHLM6xLOKnmiYXTAJ2sk5fHGuwqvItRbPl+WjsMzwDzO
-	 1h8I3vU0EwQ0A==
-Date: Thu, 22 Oct 2026 17:17:45 -0600
-From: Keith Busch <kbusch@kernel.org>
-To: Erwan Velu <erwanaliasr1@gmail.com>
-Cc: Erwan Velu <e.velu@criteo.com>, linux-nvme@lists.infradead.org,
-	axboe@kernel.dk, hch@lst.de, sagi@grimberg.me,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] nvme: honor the volatile write cache enable state
-Message-ID: <atqZmctbU0siYmVX@kbusch-mbp>
-References: <20261016141208.2641974-1-e.velu@criteo.com>
- <atJXYHJa4jkUWJmP@kbusch-mbp>
- <CAL2Jzuz1qFwLSA=iivp5qLCTL6-4rvKmvFzJbOQzjPu6j_7Y2A@mail.gmail.com>
- <atJeazM_rJ0uj3vt@kbusch-mbp>
- <CAL2Jzux8v6zCxfcdd=MY5n0zQMVSa-_8Lki9z-fz7bFShNf7vw@mail.gmail.com>
- <atJk_2FmzjUZYO_Z@kbusch-mbp>
- <f665dc3e-fc5c-4352-8e41-a46b7ae97946@criteo.com>
- <CAL2JzuwuZp0gg1D7wSn7cdgpnhotnuLP6YpPd-SrdVyqhkeiJw@mail.gmail.com>
+	b=IEPfsY1+/HOMvZrxgq1jThp2aLJs3QoYJusuyLv+s6xrU63qIE40rJj45+nUq7yQ3
+	 +2rQaIfUjUaiz3uKc1PQVZEnLuML7Q5pamzanFikNVeq3vhK3eAKcMHpSy4BXJlvH9
+	 sTTf47U16f/+6NuOBgdyzBg3bFlMISjXvqIK15LR0aiaMVzMgGcBbN1HrknId2exaf
+	 IHbjTg2mzgBY+W4ADqHbdk6EY3MtmKL3WGOnt0M25ZROgHNjsXDBsjUoa+noc+zDNX
+	 nRJ5GKVjaxOY+h2kEG3zffPJz4Qn03ZI+Peu5didwWl3GTNUgTLWZoKtYuV4zzJJbO
+	 ZHXqsBcERNS2A==
+Date: Fri, 23 Oct 2026 02:23:29 +0300
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: David Howells <dhowells@redhat.com>
+Cc: keyrings@vger.kernel.org,
+	Linus Torvalds <torvalds@linux-foundation.org>,
+	Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
+	"Serge E. Hallyn" <serge@hallyn.com>,
+	open list <linux-kernel@vger.kernel.org>,
+	"open list:SECURITY SUBSYSTEM" <linux-security-module@vger.kernel.org>
+Subject: Re: [RFC PATCH 5/6] KEYS: Replace assoc_array with struct
+ keyring_index
+Message-ID: <atqa8Y0cROHISnbD@kernel.org>
+References: <20261016215326.4110064-1-jarkko@kernel.org>
+ <20261016215326.4110064-6-jarkko@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,39 +62,45 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAL2JzuwuZp0gg1D7wSn7cdgpnhotnuLP6YpPd-SrdVyqhkeiJw@mail.gmail.com>
+In-Reply-To: <20261016215326.4110064-6-jarkko@kernel.org>
 
-On Thu, Oct 22, 2026 at 03:27:50PM +0200, Erwan Velu wrote:
-> Le sam. 17 oct. 2026 à 06:25, Erwan Velu <e.velu@criteo.com> a écrit :
-> >
-> > [...]
-> > > Unfortunately, no: there are contradicting statements here.
-> [...]
-> > If you think it makes the commit message clearer, I can send a v2 with
-> > these numbers, the kernel anitly, and the driver level Flush latency above.
+On Sat, Oct 17, 2026 at 12:53:03AM +0300, Jarkko Sakkinen wrote:
+> Linux keyring would be better off without struct assoc_array given the
+> overhead caused by sole ownership of it. Linux has multiple popular choices
+> for key-value store and there is nothing special in lib/assoc_array.c that
+> would make it stand out enough to be ratiaonalize the time spent on
+> maintaining it.
 > 
-> Hey Keith,
-> WDYT of these explanations and additional details?
-> Hope that's better and could be considered for inclusion in the next
-> releases, maybe as a backport to the stable ones as incorrect
-> detection of the volatile's cache status can lead to severe
-> performance impact on this type of drive.
+> A keyring has a sparse data population, making rhashtable a plausible
+> choice. Multiple subsystems rely on it, and best of all, rhashtable has
+> dedicated maintainers.
+> 
+> Replace assoc_array with struct keyring_index, allocated for a keyring on
+> its first link attempt. Initialize its ht member with rhashtable_init()
+> to store links indexed by key type, domain tag and description.
+> 
+> Maintain two linked lists in the index:
+> 
+> - all: enumerate committed links without retrying hash table walks when
+>   the table resizes.
+> - keyrings: visit nested keyrings during recursive search without scanning
+>   links to other key types.
+> 
+> A key can belong to several keyrings. Represent each link with struct
+> keyring_link so it has separate hash table and list nodes and holds its
+> own key reference. Traverse the lists under RCU and defer freeing removed
+> links and dropping their key references until after a grace period.
+> 
+> Assisted-by: LLM
+> Co-developed-by: Linus Torvalds <torvalds@linux-foundation.org>
+> Signed-off-by: Linus Torvalds <torvalds@linux-foundation.org>
+> Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
 
-I just wanted to see if there was any difference in the controller's
-Flush behavior when the volatile cache was enabled vs disabled, and this
-looks like it's the same either way. The Flush should have been a no-op
-to the device with WCE cleared, so something seems off here.
+For the functions introduced, I'll also use cleanup.h primitives to
+cover all fallible initializations. This is something that I don't
+recall seeing in the review comments, and it is a nice extra safety
+measure when landing a refactor like this.
 
-I'm wondering if the device is actually really respecting WCE set to 0
-now. That might be tricky to prove, but it wouldn't be the first time a
-device lied  about durability. Not saying that's happening here, but the
-behavior you're reporting is suspicious: 15usec writes are not
-physically possible with TLC NAND (your model says BiCS TLC) without a
-cache, and your controller says your cache is volatile.
-
-Anyway, the principle of what you're proposing looks fine to me from a
-spec standpoint. I'll get this queued up if I don't see any other review
-feedback or concerns that it's going to corrupt something...
+Br, Jarkko
