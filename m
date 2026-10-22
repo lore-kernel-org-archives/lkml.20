@@ -1,96 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.208.13
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792666905;
-	b=hpne5/xfqe8deayUdWqPqZ7qI/90rWlYcPcsoBktpK2WkH13dSs2sg01sKfcgomWyWIl
-	 bGeGtVmvfv5aK1GKakH+JSgYLSD00liqXjbkjZgNjl1Q6EDi1iqP4N+HxcIe2R42KDwWO
-	 QIMQAvC7Y/PVhETj5LMZDQfC6mDMcZplIyuh9soExGOV8CBvBFWOptUJ8GX1tEiqm6QEE
-	 j0CyfGsK9oF+1Zc3C3ERcutfBXJMaX7hFF+t8G7P6w2B1loIDnhZql9Tqm6jNX1T+EjYa
-	 0eSz99E8T88Ka4ju5xzmMQceymSUGGVQwxqiqXaGhOqAV1Z/Ow81tgyWtlcYy2DMtYw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792666905;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=gGudv0Kn8uAVn56qI1vgjAEGFl8k72IX/GDknR8bi/8=;
-	b=Vb3asNyz9UhIhntm25/xi3Ks0AY0wjyCy21WhCMZWvKnIBFviJ61V8fhbQZyvZYDHWOD
-	 yyAtm52jnuxraulg/kWH3s/IXkVaCpxcCkYUZFrAV0MxBUHQ2v0Yqohlv/sJF23qW5rfu
-	 ZpZvmJOk/w4kWisdaw9yJhONKfCe+/QQ1R4sntn/y7zGLLqE1FgXxASJEPGq5/Dclhbou
-	 n1H+T+TePaCq0xBB2/jWe8MRSZG28WL9aZ8MDKodDAYKeZxY2PEWq5TI26UAVH7+jSa+h
-	 TxO5L/LTpT6UZCNYokTmKpA+Bwo0E37DUFDGrFE69+HOB4BgcrXW65Wxi3rB81bMF0w==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=F9WQ6ZKs;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.208.13
-Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11011013.outbound.protection.outlook.com [40.107.208.13])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.181
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792666971;
+	b=5R9Ewzai+NqH96j/r3a48lfY9+bVZltWei4GlsWvhHtfm1gmBbWdzzjWfVfmGAs3fNrx
+	 N4TPWHbAVRD1R+AI9MO5BMRjVFxSyYoPnA6/f1ka2PtOmOZFUeNnos/CB5uBjmFxl7NNy
+	 zT8Bf+N8EUNmDkl4werPfpXLZr+tyfZCwtRWQKUX8zW+oVnN7/uPLhr/6WDd5aGtyqCEB
+	 o1grFbqcOvajSpHrK6Ld5oZcg7ajuSHiIgUOADw1SkaxaKUwzuPgBb7B2Ue+KttI7PIB4
+	 BQSVsEDe9xtBpZJaQYi4W8yGWpoX9QA1ssN05+Xa0N1C+ujokZjvgBfdK5EynnmQkZw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792666971;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=VjsNzQid7B5tPfkBZr2VjXdGxhrE7sZgV8VwRF7Xii0=;
+	b=ac40+WqF89jvwGcjggV6FJxwbb5ChapY8kYxyW58i5aLXRFWob1L/cl48MiFvKzGN3z7
+	 hjUwEHuTK9nXHKcvM0jWOZdUeRmAz3Vs3HR7n8S/zgIKxp4YOtKD0nx03e818QCCP1kPa
+	 6kkpHh+vZkXCZ/rAou/lxXYDd8d2gEcx2tbRpChJF4wFd+6lDwKdB1V0/7+1c156ZkC/U
+	 v3aGI0c5O3bGmYKyDKybhj0UIWIOfq9eKI4Wkrwq2+e7qOTr1KfKCtytHNCKPlB2I04ad
+	 3eOwVsLKR2/gKWrOLxeYmzXnhKvpSZ/kiwAuikI18zYIGJwDHUHLiYQuFekWwQu2nWw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=FpoejA+z;
+	arc=none smtp.remote-ip=74.125.82.181
+Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A69BC606A320
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 11:01:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A69BC606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8D42606A31A
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 11:02:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D8D42606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=F9WQ6ZKs
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=GPcCgCoGisi9fl+2/flgd71g7/ISwgal7zBCuIoPoYipIiEGaRKfDQvW/SKO7Hggkp3TdkNV7V0anAWlzv/AFJlvP1Qp4QsbTUWbQ4E/zhW9jB8MQ6tB7hqyv/z9IkRYzwpQcp+oYvvthh9w7GV0VYFVYazshCnyxhiwGxpdo5zdyTdNWIg2vw/V9hXOE2umXGd2j50i0IytoV6vp/pGtgBThHTBb+yh9f5NShJjU5tQe8xYMqQrxTp7JCH+yYp9eprM5KEYukhKJ+y//v8R1bZHVhfMt7pCdHWP3cNj6kZDoSx44GTE3yjaBcsLQyPfaq7+eDGhRSmo/I474lPh1w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=gGudv0Kn8uAVn56qI1vgjAEGFl8k72IX/GDknR8bi/8=;
- b=xWCPQ/SusxdmtOEzj2yiG4RvZrlOJn5G/zIOFQWnQp1odLTrvcGpZLLSEnu6cNzVT2cQD5bG4GuOXiPK90sI74ikOJUju9MpQj5aR6bieOUv4F8/uc8dXkbhZytKGf5s9H/P5UhXjEcozs2KOhU6bCJS2P7HTzIE2x0StswD9oW+AFBQV8vIgCGU4C6BKnPbOTWIS2LCcmPBSMw4g4GL/9VcJ9CCdv06k9finmtyCht/QqRkt/9tlQritJV02WbQI9IR2Nlx/aIm144TDBuHF2pr1068Cp/lFu21S59VWvcs6gBIIA/x8Qq7tfT+KKwj+xxdJ99dKTfe1Ndc3kMXHQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gGudv0Kn8uAVn56qI1vgjAEGFl8k72IX/GDknR8bi/8=;
- b=F9WQ6ZKs1ZDAkzvFMQoU/QLl3WYew4q4lYTXHqAIOueSMXG6bkBDu3B9fZizBF1byX/YmLdiTjS0Eo7uWDt1tje38uXb6b/SrETq8rTmd9ClR/e4VsJVw4XB9kVbEM9OZFBnViB413TwU7frfiwz/BKY3BQJoP4WXEJRiTi21do=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BL4PR12MB9505.namprd12.prod.outlook.com (2603:10b6:208:591::16)
- by DS4PR12MB999101.namprd12.prod.outlook.com (2603:10b6:8:2fb::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.16; Thu, 22 Oct
- 2026 11:01:42 +0000
-Received: from BL4PR12MB9505.namprd12.prod.outlook.com
- ([fe80::73aa:eb8c:a86b:5a83]) by BL4PR12MB9505.namprd12.prod.outlook.com
- ([fe80::73aa:eb8c:a86b:5a83%5]) with mapi id 15.21.0522.017; Thu, 22 Oct 2026
- 11:01:40 +0000
-Message-ID: <db52eac7-d3c2-45fe-ad95-ec7e0dda6a1a@amd.com>
-Date: Thu, 22 Oct 2026 16:31:33 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4] iommu/amd: Make PerfOpt compulsory
-To: "Mario Limonciello (AMD)" <superm1@kernel.org>,
- Jason Gunthorpe <jgg@ziepe.ca>
-Cc: Alex Deucher <alexander.deucher@amd.com>, Joerg Roedel <joro@8bytes.org>,
- Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
- "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>,
- open list <linux-kernel@vger.kernel.org>,
- "open list:AMD IOMMU (AMD-VI)" <iommu@lists.linux.dev>
-References: <20261001182410.1525285-1-superm1@kernel.org>
-Content-Language: en-US
-From: Vasant Hegde <vasant.hegde@amd.com>
-In-Reply-To: <20261001182410.1525285-1-superm1@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MA5P287CA0356.INDP287.PROD.OUTLOOK.COM
- (2603:1096:a01:219::12) To BL4PR12MB9505.namprd12.prod.outlook.com
- (2603:10b6:208:591::16)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=FpoejA+z
+Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-35f036b17easo1301892eec.1
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 04:02:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792666970; x=1793271770; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=VjsNzQid7B5tPfkBZr2VjXdGxhrE7sZgV8VwRF7Xii0=;
+        b=FpoejA+zFi6zucS1lD971B/Tz1ArcaM5Ue3GZZh86ePTD+zHFcZpqrE6GdGa02ELyk
+         qiwhRj7Rgppi00kkMx3L66tzH+6pKmMK28g/m15loaN0I7BDWPcRcArPHBZIc4qndwMb
+         kqHJUudogy3694j04kpu6HTHgp/Ge/7HyoJOananjZZrszbr2GjRr81DJwoZ8Z7dsItM
+         A3SoEPQYzUM7p0F2cxpCelUPh/YujzWJ8hOuaKqlUB79kqxwv34XOktd3uZXw92ep6Q4
+         TAwZifncqo0VRuCP4PJPGI8lZ6o2KMOJn/M7sbnxNs6aHHS/POc5ze28KolADyxFe1q6
+         UMSw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792666970; x=1793271770;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=VjsNzQid7B5tPfkBZr2VjXdGxhrE7sZgV8VwRF7Xii0=;
+        b=bC4vItau7s4zoa7qLLqevaY0keK6eNtxN661A2/upD5xxiwxW1XXBcyH0QufDhKnhY
+         edNh5d77vgAnu48azzbOAELK4MM5xmVZtA6wY5CkHOVzvY2zL2ejF1wYCRQBdoPsczAk
+         /di1iCkCdXAXTHz4Tn1Sh2AVY0XYdfu1XFEy4cGNocmzfxeoWuWy6I1y7j7KnRyomLN5
+         PCFZ+O0iVFDMpqvta/v2pqbeaqysmXtU+jwT/o8Lni6uRVfEdaHqC7Vgzx/V8j9c32vM
+         tsJsnXOjhXmkxtrUl+lE3KtuSTgHm1rQbmbZlKsq2vfohdCPb5FixuEgUxeRYz7Tziyc
+         fyJQ==
+X-Forwarded-Encrypted: i=1; AKwUvByjljmRkwICDq80gerJd8Ermfj9r5faw21QJ/rmXOs1U3zhX1d6px6WVDeUCc7+G/EluD2bFrDoBYulm9Y=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIfv9sVXTar6jpDNhRq7TiJN7FicWiFiUUFcXW/fBG70T2lBix4
+	akfEBoko3DeCwKRnpszKuGYUxsUkK3Y1KtarCUQiCCwnoCIavbgCNSb8
+X-Gm-Gg: AYBFou3FnbJ26JZ1QYrgYApgYdulqpGlYs4qph+hfdlbaipSSDu/T4kwRNTF/31fQ5E
+	SkV8Vns9M3PEMKd9+L/ycX88hA7swc1qH3C5ItXxUjMGCV5jchxn28eXuUl9oxYBujOW9wVeauV
+	itEPEx6qvUGk28xBvmXrf6tGMq6WouANq6rZCZNa8nL+Ym6Y+XafBq7Bq99novkx/FJ59+fnP9y
+	kTxCqKOvYJ11dIqoTFZsVP3ZURyHyleUAd5jcm0Q5vB/M9kJpFETAFsGmLTecnU6aC8TlXK7uvD
+	C04RYWORrRThBckTBQlvOuJ78Lod/kwAqsTJ9kKJRpWvUggN5etbGIcrb0JE7a0kPgnrvGKG10T
+	GDAiEKh8TUCWCeZWupQQUrM7PcAt95h6smuBGCWi+0nyyPNfiz0WPP40XyUFTbSXp9jRm0N6/Ey
+	RUSQf042MEJRoXTjDqdpS7cAFgggx4DhuEWJjLTFcxSIoAZUrsQcHju/U8HiM4u5BV9x399TIYr
+	sSiRuXWylTCWqJUDC3apXr2LjckA2UzE2XMCTjzw4u7F2n40BotF+254xkhjmlJ
+X-Received: by 2002:a05:7301:d183:b0:369:860e:47c9 with SMTP id 5a478bee46e88-369861d8ad1mr627733eec.17.1792666969949;
+        Thu, 22 Oct 2026 04:02:49 -0700 (PDT)
+Received: from user.. ([2405:201:c052:b00b:1eb2:a1a0:7ebc:597e])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-367411b4145sm17907353eec.15.2026.10.22.04.02.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 22 Oct 2026 04:02:48 -0700 (PDT)
+From: pavankumaryalagada@gmail.com
+To: greybus-dev@lists.linaro.org,
+	outreachy@lists.linux.dev
+Cc: pure.logic@nexus-software.ie,
+	johan@kernel.org,
+	elder@kernel.org,
+	gregkh@linuxfoundation.org,
+	linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Yalagada Pavan Kumar <pavankumaryalagada@gmail.com>,
+	Alex Elder <elder@riscstar.com>
+Subject: [PATCH] staging: greybus: Use fsleep() for delay
+Date: Thu, 22 Oct 2026 16:32:38 +0530
+Message-ID: <20261022110238.38824-1-pavankumaryalagada@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,107 +100,44 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL4PR12MB9505:EE_|DS4PR12MB999101:EE_
-X-MS-Office365-Filtering-Correlation-Id: 93f94f96-bb88-4c8d-602e-08df302bd965
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|23010399003|376014|366016|18002099003|22082099003|10067099003|11063799006|261009223027099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	c9j5YOQnS5lVIxFB8wjNG4dXpS5vQksqTSAw8/8DSzJyQkzUxoAdcTvqqCvEDJgg4kigp3og4OBam6eS/mfvzTcVtaqU1y3GDKcJtHeIc5Hz9Z57wMp7Ju61toYNE5tQhX+6ey9rMEo0SrZkEGjEl7zIwJD6L24TpDRVQsLJEdEwe7oGthr36EVGuz8IHUPPrGpbxb7eFhNHfdSxsCSK1PlFV2RnTk/yBCFdOJNMo6yCevEToCTlhnkA+Iv0EkSjmWQuCyXJCHmrvKGgVs8HmsCRVBNDl7v85z9qrK10BVCtl2Tz/Hc+Pvn9Orh5v5AVDsbyUOQxDsHwLxsqHxo48QfwncJGI8d+UTX0JhXqdZEIEwl1zpj0QDdjY1t1I9+ihHUc4L8MJVRbWWXO0BJ2CnlNFj4Te8Cm3Ja9PRyyZ4El1+s/E2br6py+vlMERn85AqCUaEja2e0NUdxuePf7AN2JyHgvq4QZC8oHHmUbhnRKFEhBUb9+C5bFBDgWXY2wKU3lgm5qzKge0UXoGdSaI6zXaXZb21nKG7yNHLGcZVgniY5pb/NjE3Oj3CzCDzJoJP2ES15q5pP88Jr2un1nZorYuq0yD9JgIbvf1l6n0qa3kfLaUM5dqAg7leLUQQGw9xk5jo6kfwLHJVvw/4/sTNaCCQC8e7koXEZrr8mZIqU=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL4PR12MB9505.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(376014)(366016)(18002099003)(22082099003)(10067099003)(11063799006)(261009223027099003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?WGplVm9ML0VhU0hWRXM0YjBpTUdxT2dHWE0rZlBqb0lLZXQySnVxNGVoRml0?=
- =?utf-8?B?ZE40N1dsSmcwK0NGOGVTY3NZSWZ5UHByNk5XVUIwTWxCcWFGRTY1Ujd2Q2Nz?=
- =?utf-8?B?Z2wyZG5HTmJlb2lIWlBVQ0k1Nkd4aXNiZGhtSFhBTSs3NDlNZklsbFByazZN?=
- =?utf-8?B?YnN1b245dnJ2OUxHNzZ3cHo1SVBBNUVhcEs5OXZoM3Z4dlUrWnBITjIzdmJC?=
- =?utf-8?B?cXJzUkdBVUVMbG1jZlVaZ3E2YVNhaktnbjI5MmRXczAwVXRleDJQWHJZcC9M?=
- =?utf-8?B?dUlCbTNPK1NFUmZPM3gxdWUwRCs2Z2MrYkphRW5qbnVtVThZQ0VmbjN3dFNw?=
- =?utf-8?B?RHpmNVVTMUQxa0hZNktvbFBCaWwzN0NLU3dRU21aYjczM0p5ZXZuMkhhNU5r?=
- =?utf-8?B?V0FMaHNCTmY4MXNuTlBVTStFMkRvRmVNbFdURTJlSlVwK2tFWFBrQll6ei9W?=
- =?utf-8?B?SDN5VnVjSVNBd3poQUFreDRrTWpjNHhPWEpOL3Y0dGpWd2N2OGdSWkhwRnhO?=
- =?utf-8?B?NWQxSGlxZEJLU2lZOWY5NE96TGZzWFFyQi8wN3A5cWdCd3JGMnExYklPc0di?=
- =?utf-8?B?R2lsL1p4TzNEZ3Rja3A3am9LYi96aGFuOVdIVndrTjRzdjNjWnNEVCtYSzFL?=
- =?utf-8?B?aFQxVlZVSDJmQUlmdFBXZEhXUWFCemo1Mnp0SWtDVmpnYTF0by8xcTlqdzc4?=
- =?utf-8?B?K0FRTnI1ZjVheTI0aU5VcE9LOUNkcWlHbm1XRXZXNVlXSEFZTE5sQVVHM3VC?=
- =?utf-8?B?d3gwcGNIQkowaHJjZEwzZlpFemVURldldmlvaVpEUVU3MERDMkRuVk9SSGtj?=
- =?utf-8?B?a2dCRDhrN2ZRNVo2RDZxSHhRM2xSUnpzN09HMUxpZldPVGJRRU5MZWlDTkRL?=
- =?utf-8?B?Yy93TGdWUVo2V3ZtNWFobHpVNEtkNjhFeXZZaDE5QmY0b3BneFZpNFVwazRy?=
- =?utf-8?B?M0Z4R3l5S2tIMXQ4YXhxdCtqL2paTHpPQS9NRHB1WDlNQWhLa2dKaVVNRGIx?=
- =?utf-8?B?ZHhaNkhzM1Rvekc2WEFOWFFTQm9Pa2k0NUYrc2NZM2EvMnlYbFZsU0RXSnBJ?=
- =?utf-8?B?eDRUbFFOVTM2TFFJY2xYMHlYcVdqa2tLUE01aS9iM2FiejA1azU4U3RwVmhO?=
- =?utf-8?B?Y1g3SjZJaDYzcFQzU0lERkRXc2owMjJEb0NKOVJaNmt3ZmIxQ3NVZkVYRExy?=
- =?utf-8?B?R2VrNHF6SDBrTjFjdVdDL3JUY1ZiaEZIQmcyZ3hlaExtcWdwdmFJMktRelZY?=
- =?utf-8?B?aGJMZTc3M0FzNk0vOFNIdEZGSmJMUStkK1EyWjE2eXNlRmo3dUN0bzZNTU5S?=
- =?utf-8?B?eVcwWjQyOUJpdDJCaFFsT3NIVFZjRkFrV09IdmQraFFKSWQyUmlSQWZCTExk?=
- =?utf-8?B?VDNUL0VyaXRrc3FPYWxzOE5vZWFWT0QyZHdGczJ1b3JGQkJTRkFTNzVSQ1pE?=
- =?utf-8?B?bU43bk5tTzVTc1A1cGdWb2ZRanNmb3BEbEJFMndIY3J2TmVscVRncmNaNmV3?=
- =?utf-8?B?RTR4ZlBjOW9tK1hmUXdQQXVINVNUc3N0cFFJb0Myb1czNlpodTdwNnhIZjh5?=
- =?utf-8?B?VUlIUzBKUmU2b2h1Tit6bmpRbmVlcG8xbmJrckdTOER5dVJMWXVpSjhraldG?=
- =?utf-8?B?bnJrNDFZNUxwM1NjTm9UbGlFVjl4U2J5TG5UWUZjUnZZejQza1U2eUJxT09B?=
- =?utf-8?B?Ri9nQ25iMUx4d0IrTzF3Z3QrNmdFUW9yWkRsMU9tYWxWVzJqdHRBNFhrYlZI?=
- =?utf-8?B?RnIzY243REtWZStYdkpqcndTVE9TUXlzQVYxSXU1eEQ1dWJBQWNLUVpDUk9y?=
- =?utf-8?B?RmhrNm1rOHZnZFJUM0F2bEtqY3E2d01sYTY3VGFSenowSDRsdVdJbmdSZ0xT?=
- =?utf-8?B?OU50d2o2Zm85clE5a3ZQUVM1Q1BuZUNDUlFlY1c4Qm1VUWtVLzhHY2drckND?=
- =?utf-8?B?SHpVWXZLZVlxb3I5d25pdTYzYXhVV0lLM25tYVBkaVI1TldLSjgrWTh2WHQw?=
- =?utf-8?B?TFY1Y0R6TTRpSkFaMnl4bDRMaWtwUlRiU2NxbitaZXE5RDYyYjZhVEJ1dWZq?=
- =?utf-8?B?VTRmY1Z5RDZSTGdETTFpeUpFcHdISjg4ZU1QVS9jZ2RQS0JZUmVmYnJHQXlQ?=
- =?utf-8?B?TS8rL0NiWGdwaVBKb3grVlJlMWZaYUFBTjVkNVhQckw4cUhwcVQ4ZCtpOFJF?=
- =?utf-8?B?emg5T1JCb0dLS1JOeEtUZitDa3ZFdXhLWmhrSW8rampSY0ZpWThVTTZ5Q3lC?=
- =?utf-8?B?MjBod0RYL0t2b09DR0JXMGx5VTRyeVdTMjA0T0hmRWFCRG92SmtMSVAzRTF1?=
- =?utf-8?Q?Tya1rJeAhC7GoCZjiM?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 93f94f96-bb88-4c8d-602e-08df302bd965
-X-MS-Exchange-CrossTenant-AuthSource: BL4PR12MB9505.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Oct 2026 11:01:40.2467
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: d0YFpcxoO8BNo3Pjjfjl947/mGK/taNiBkKIKG99kgWX3pgpvn3cxrUB9ay2TWKJza59I8RnIchj+s6HwzjEnQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS4PR12MB999101
+Content-Transfer-Encoding: 8bit
 
-Mario,
+From: Yalagada Pavan Kumar <pavankumaryalagada@gmail.com>
 
+In the loopback function, usleep_range() is used for short delays
+and msleep() for longer delays. This requires choosing the delay
+function based on the requested time and converting microseconds
+to milliseconds when using msleep().
 
-On 10/1/2026 11:54 PM, Mario Limonciello (AMD) wrote:
-> PerfOpt is only a feature usable by integrated GPUs and only in identity
-> mode.  Instead of leaving a policy knob in amdgpu, just turn it on when
-> an integrated GPU is in identity.
-> 
-> PerfOpt locks the GPU into identity mode where the DTE is ignored, so mark
-> it require_direct (blocks VFIO/iommufd claims) and disable PASID (no GCR3
-> table in the fast path).
-> 
-> This drops quite a bit of compatibility glue.  There was a refcounting
-> system, exported symbols, and device attach/detach logic.  By just setting
-> it immediately it's a lot more straightforward.
+Replace both functions with fsleep(), which selects a suitable
+delay method based on the requested time. This avoids the need
+to choose the delay function and convert the time manually.
 
-I believe its good to get this merged in this cycle itself so that we can get
-rid of the command line options introduced earlier.
+Suggested-by: Alex Elder <elder@riscstar.com>
+Signed-off-by: Yalagada Pavan Kumar <pavankumaryalagada@gmail.com>
+---
+ drivers/staging/greybus/loopback.c | 8 ++------
+ 1 file changed, 2 insertions(+), 6 deletions(-)
 
-I have looked into this patch again. How about somthing like below:
-
-  - Do not call amd_iommu_perfopt_set() in early_enable_iommu() path
-    Because it enables feature on all IOMMUs even though it may not have iGPUs
-
-  - amd_iommu_def_domain_type:
-    mark device PerfOpt-eligible
-    select identity
-
-  - identity attach:
-    Enable IOMMU perfOpt feature
-
-  - DMA / Blocked domain
-    Disable IOMMU perfOpt feature
-
-  - resume:
-    restore hardware bit
-
-
--Vasant
+diff --git a/drivers/staging/greybus/loopback.c b/drivers/staging/greybus/loopback.c
+index efc69c10cffe..2fe845eaef29 100644
+--- a/drivers/staging/greybus/loopback.c
++++ b/drivers/staging/greybus/loopback.c
+@@ -898,12 +898,8 @@ static int gb_loopback_fn(void *data)
+ 		gb->send_count++;
+ 		mutex_unlock(&gb->mutex);
+ 
+-		if (us_wait) {
+-			if (us_wait < 20000)
+-				usleep_range(us_wait, us_wait + 100);
+-			else
+-				msleep(us_wait / 1000);
+-		}
++		if (us_wait)
++			fsleep(us_wait);
+ 	}
+ 
+ 	gb_pm_runtime_put_autosuspend(bundle);
+-- 
+2.43.0
 
