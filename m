@@ -1,74 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.200
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.72
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792701033;
-	b=ffL3yNYIbdiC+8nE0h8Xiebo5/eptaaaAcozi/ZRdZH5D/DOSL3nv39x8ltxtD4kgYbS
-	 WQ8ONi0ax5nvRVW11oVARohddmzaI+UDEuCTv1bfq8SnZEZh2NxBTNgWFGwzm8jgYfED9
-	 Ja9gGilq2s1q/7rqsWWzLnKRlOHy2FHRHljp5Y1iE43tLft8nJawhiGdxgeYCcS9bTNLx
-	 ECVLUNyDYd/S5Z8W9WDyINEyFfPKKsr5a2j9u4FS2xQ0gaMw1ygy1k9X6YgAyXPzTv5NS
-	 FUKn/otbPQ+A9hBWS91Bbv08LQ4nwHfzKJ0XNZd9aBpJAG6RWJOwiegmMF5bnAffl1w==
+	t=1792701023;
+	b=L8nzIeL087E0T7V6MSTcVWkdNXZrYs0Mdjfx7ZlSKhNTJfcQIW5e9m0Fn8lMdOi2tXVt
+	 dx+EjhB6mD2pOxZcvxghYlbV7qJ73rxiTpymqf0TQCsSircjEYRr1ZfoB1YStUhonbza6
+	 a7fT0PiYDVq8j4lxNDEqIcXWlwEsfOUfSoFiAnzB4aps+bGlId7erPRt9pslzZ08Loto7
+	 XqQSlmZWHHL35aRQknvB1ACZMTtCA1YXTAfxogkYVv4JDzYdm5u7kQAj1Lk2l2MtFYxdb
+	 rkh7+LYKi/KiVzYNZh+/zXdY3SJqxr8LXoAslgSrSl7+Yg0Lc+W/X08fmXTmqUIcGpw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792701033;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792701023;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
 	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
 	 Content-Type;
-	bh=UY6vYCjzl6RWP12t6xo6wccEftbOC1VbjOrMfkoQ/Og=;
-	b=slJYqoo8uLBsS24ZSptZ+YuTTugEmdWZzjslxyJT7Nkkr2Z07J07SvSZ3IklrEuFfqT3
-	 uedLyl8pWWr6iCrv3kaS86x4YHah9IRl3kovdFk9bWY+OaudO+bTc8h+kadKTQrQybHyC
-	 FBL+99nqKBNvgh05V60XIFd/d2BnfMg8EAZRwgPafiNXXMOINSXfv7PVYIea0TtAAra17
-	 0kWN3EyJ1VVSSWcL1mmR3Xuv7Lrz46y0K1Y0LNGLe54S2f7vCoKc1kgPvKF1FUzWsnCFF
-	 SA5AzYYN/GLmeU4650+oe2jl4TecSwak94iBXbrdscsLLNVGnaYDaMj2bjM9BYKflGw==
+	bh=jncnN8hNB149YV/7QR6pbWspMiNEL/g00PLfD5StrJE=;
+	b=1hkVBZxE9lO3X48BXrc+ICgK06HXQR0uHVC8ZCV6xXMVlrkAvEEQPLLYjz92G6sugI1C
+	 xzLhCqjVtNgK+wjId3ygO5ZI4CsQdL983W/2bIaSjeB+1MeArOHcSwYZJkrcYHerCkobP
+	 J1gSGuDokU1TWVoGbgdtHg8thZDTo3WhS7qlAfnbxPxlnqNnYnrV4FAL8j9XVJ0mHHVbf
+	 /wQ8+s6yqt/tnzPEoFHG/j0LIDCbt131qYW3S6ilsQVogzDj6evQZIM5nJUruZcOwsE6M
+	 nqmTRssL9nkd/bNJvbJ3eqLtnfCV6Bz7DImBlwayZ4e90VeXGgCY1zUnLHqM6RBVZ6w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--irogers.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=bFKxRHn0;
-	arc=none smtp.remote-ip=74.125.82.200
-Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=al2a4dDN;
+	arc=none smtp.remote-ip=74.125.82.72
+Received: from mail-dl1-f72.google.com (mail-dl1-f72.google.com [74.125.82.72])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02C8660A260F
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 20:30:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 02C8660A260F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA246606A321
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 20:30:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AA246606A321
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=bFKxRHn0
-Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-3425098ae4bso1666618eec.0
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 13:30:32 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=al2a4dDN
+Received: by mail-dl1-f72.google.com with SMTP id a92af1059eb24-155a75f91e1so1210233c88.1
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 13:30:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792701032; x=1793305832; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1792701022; x=1793305822; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=UY6vYCjzl6RWP12t6xo6wccEftbOC1VbjOrMfkoQ/Og=;
-        b=bFKxRHn0LxtGQpoRzjHvJGgSSoxoOn2otcRtH2ZVn7JFz76Jc8Zy9oAodzi97JmLBx
-         ybQVvLnePilBQw0u+o5wpsivBYqcxTX3reBDMlzz582W7uwLm6N3fjtWpCq3Fw351UYg
-         FVDv1GdbsMBiRd5pstzWV2O2kn2XFxmhpFxw0S1Aez699z8QmMbb6xCscM5CKXFdZ7UL
-         +rElISNfRoRqpuRybZM2SKLh6UBSQne6QCMtA/xzVvbsd+qQ1z/EqlJh19/z6bgTzguU
-         25tiIUFTpu+DDYgP8KqZvuPctmmhPjO0zPLGMxtISE4VM4WaEirtC732iQYv7KmE7QtO
-         cQBA==
+        bh=jncnN8hNB149YV/7QR6pbWspMiNEL/g00PLfD5StrJE=;
+        b=al2a4dDNtnNQKDJTNaWoOW/tX5Wu00kFM/0d+1ZnH73GlJT+0lOGpoW6Y5NJP76/B3
+         FJQ3w+agnI1YkkgU8a13Nc63DImxppMQLZvbFy/rcGLeUK9PSRDdn1X5WhhCjVu8Za1P
+         mu4cdknjbAiqmnwrGEx0uBflO3BxeqE2A28g3EkVToNWYOjhWmUUKJ1vtp+8SPtisA6h
+         2qZP8F3rLVhZ8iyN3H7OMRgLtWbMayLzrevPhLAheL6MO0Zf+Ta+bV2ly8MTRUkv+t9l
+         aLcPxtN3IZ9l2XZKqiTKhQGM7GNXwJbo9qNt/251YGAKzr9YOXCrTMoeItEA71GYVZAp
+         Q5Ew==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792701032; x=1793305832;
+        d=1e100.net; s=20260707; t=1792701022; x=1793305822;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=UY6vYCjzl6RWP12t6xo6wccEftbOC1VbjOrMfkoQ/Og=;
-        b=niyLMv01mRA8fLUtDQ9/coTPBrV23MVX9YzWK0DDDwpxXhUoRX9c76wvWOH6lfdBLk
-         34N8CitiPhDwYP9CJwDRXH/aoyypb2Ycw6rYKTJ1L2Acf47u0zzIG7CaPnRGP6UvaJmn
-         XlVo83+gCRa4FM3huXlNracEHTodXy7YHMPTn8pwpTp34cT6liFNe7qsWNgXiqX2jQ39
-         FShaxirtz9C2j11VPyhabRAYgqI3kufcEBwsvYJQAPyipsA/CY9/F9CYq0np5ZjgLHN2
-         BOJKS9It35eQDQ8eeM8kGFG3d8jOGUsIBrUiJjfKebu0BBC4kZN5lGHfYdUPCFTcrcKz
-         dt2w==
-X-Forwarded-Encrypted: i=1; AKwUvByn3t7ex07byf9mixzlr6rmAhogm79UwRKkLqV7vh9g3BWRt9EDRXxOZZtibnhYxmEQje4+O46FI9jDLxg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIAIQs0G2RvvJgkBwnPuPnuvzK34/3cdiUfcn0hmtCMAczdcvp9
-	8sNbVxX4VBHWR/P/OWON7r3wtID0C20GaXEQ4+50d4eiqPqfXJVZ2OoL+CnWRn+1iErKLLLSLEo
-	vdfC2aPdAKA==
-X-Received: from dlbdm42.prod.google.com ([2002:a05:7022:6baa:b0:190:dcfa:8eb6])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:701b:251b:b0:183:e184:86b
- with SMTP id a92af1059eb24-192f2d21e23mr3564940c88.5.1792701031383; Thu, 22
- Oct 2026 13:30:31 -0700 (PDT)
-Date: Thu, 22 Oct 2026 13:30:00 -0700
+        bh=jncnN8hNB149YV/7QR6pbWspMiNEL/g00PLfD5StrJE=;
+        b=AlF0E61OWAeflIeeZ/4zVEf6MGUZUejTjHrpKAP0Gpt4q6hfQVhEWOUyLa0GVS3vlv
+         YJ5h9/m0YpoT90InwpQ6oV7pQUKYmyj0wR9Cqnj1ak24kQ6K3epkAJd+h8GjSL6uWj15
+         t5+2zSOhjDygHVv3Pdnhj4Z/uNrSoD0cZVQbDQVLYhK6sYlKS9poZRxhOMDXZxFK7cAC
+         p4XR9qpusPeIpQyJHkfq7YWBI6R82U7QR/J3lsyawR41W//L4wj5f2ZH6g11UC6oYtS/
+         Hf0rVm/WtPjZVrvxVO+jtQa0J5AIbZN9TUrN1JoXOMtYn5bKj/+DkSbZpZjYvF5bYAxq
+         lzoA==
+X-Forwarded-Encrypted: i=1; AKwUvBzXY01N4ECoeQYe7OdnHlBr2HviRHWGhgvbbnyNtTHOEzcJxxzu0rOK2kDkfZT/1J9faELTKA3++Bo0Daw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIjODqqu1Sjez862z7a/2jIL97M36F8RAjFpMYvgThufAXN7G0o
+	F5fcOT6G74no230SgEdpZVD4E6xRWIgxqTW0IxSjeN50na4DW6LQSGnAdHcV1OhbNB7CTgTETFH
+	LTQ68FNGQhQ==
+X-Received: from dlea4-n2.prod.google.com ([2002:a05:701b:4204:20b0:189:5eec:837b])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7022:4081:b0:195:8fa1:b447
+ with SMTP id a92af1059eb24-1958fa1b4c4mr519494c88.12.1792701021167; Thu, 22
+ Oct 2026 13:30:21 -0700 (PDT)
+Date: Thu, 22 Oct 2026 13:29:56 -0700
 In-Reply-To: <20261022203003.1779152-1-irogers@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,9 +81,9 @@ Precedence: list
 Mime-Version: 1.0
 References: <20261020205859.1080743-1-irogers@google.com> <20261022203003.1779152-1-irogers@google.com>
 X-Mailer: git-send-email 2.56.0.307.g5fe7bd680c-goog
-Message-ID: <20261022203003.1779152-9-irogers@google.com>
-Subject: [PATCH v6 08/11] perf bpf-filter: Support slab cache locks (&<name>)
- in lock_held()
+Message-ID: <20261022203003.1779152-5-irogers@google.com>
+Subject: [PATCH v6 04/11] perf lock contention: Extend get_lock_owner() for
+ rt_mutex and mutex handoff
 From: Ian Rogers <irogers@google.com>
 To: irogers@google.com, acme@kernel.org, namhyung@kernel.org
 Cc: adrian.hunter@intel.com, ddhariwal@google.com, eranian@google.com, 
@@ -92,463 +92,146 @@ Cc: adrian.hunter@intel.com, ddhariwal@google.com, eranian@google.com,
 	rcu@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
-Extend the lock_held() BPF sample filter to support dynamically
-allocated kernel locks inside slab caches prefixed with '&' (e.g.
-lock_held(&dentry), lock_held_read(&dentry), lock_held_write(&dentry)).
+Extend get_lock_owner() in tools/perf/util/bpf_skel/lock_data.h to:
+- Support rt_mutex locks (LCB_F_RT) and CONFIG_PREEMPT_RT mutexes via
+  struct rt_mutex_base and struct rt_mutex___old, masking out the low
+  waiter bit (0x1UL).
+- Return NULL when a mutex has MUTEX_FLAG_HANDOFF (0x4UL) set on
+  owner.counter and is in the middle of being handed off rather than
+  actively held.
 
-Reuse do_slab_cache_iter() from lock_data.h via a SEC("iter/kmem_cache")
-program to resolve the requested slab cache name to its kernel
-struct kmem_cache * address, and use the bpf_get_kmem_cache() kfunc in
-record_lock_acquired_owner() and record_lock_released_addr() to match
-held locks allocated from that slab cache.
+Also add rw_semaphore.count and struct rt_mutex_base to the fallback
+tools/perf/util/bpf_skel/vmlinux/vmlinux.h.
 
 Signed-off-by: Ian Rogers <irogers@google.com>
 ---
- tools/perf/Documentation/perf-record.txt     |  25 ++--
- tools/perf/util/bpf-filter.c                 | 125 ++++++++++++++++---
- tools/perf/util/bpf_skel/sample-filter.h     |   5 +
- tools/perf/util/bpf_skel/sample_filter.bpf.c |  48 +++++++
- 4 files changed, 175 insertions(+), 28 deletions(-)
+ tools/perf/util/bpf_skel/lock_data.h       | 62 ++++++++++++++++++----
+ tools/perf/util/bpf_skel/vmlinux/vmlinux.h |  5 ++
+ 2 files changed, 58 insertions(+), 9 deletions(-)
 
-diff --git a/tools/perf/Documentation/perf-record.txt b/tools/perf/Documentation/perf-record.txt
-index 2b2aaaead76b..8fc3196ed93d 100644
---- a/tools/perf/Documentation/perf-record.txt
-+++ b/tools/perf/Documentation/perf-record.txt
-@@ -222,13 +222,15 @@ OPTIONS
- 	(alias 'lock_held_exclusive(<lock>)'), or append ':R' or ':W' to
- 	<lock> (e.g. 'lock_held(mmap_lock:R)' or 'lock_held(mmap_lock:W)').
- 	<lock> can be a kernel lock symbol name (e.g.
--	'lock_held(cgroup_mutex)'), a hexadecimal lock address, a well-known
--	lock name ('mmap_lock', 'siglock', 'rq_lock', 'zone_lock'), or a lock
--	type ('mutex', 'spinlock', 'rwsem', 'rwsem:R', 'rwsem:W', 'rwlock',
--	'rwlock:R', 'rwlock:W', 'rt-mutex', 'percpu-rwsem', 'pcpu-sem:W',
--	'semaphore').  Both read/shared and write/exclusive tracking are
--	supported for 'rwsem' (including 'mmap_lock') and 'rwlock'; 'mutex',
--	'spinlock' (including 'siglock', 'rq_lock', 'zone_lock'), 'rt-mutex',
-+	'lock_held(cgroup_mutex)'), a hexadecimal lock address, a slab cache
-+	name prefixed with '&' (e.g. 'lock_held(&dentry)',
-+	'lock_held_read(&dentry)'), a well-known lock name ('mmap_lock',
-+	'siglock', 'rq_lock', 'zone_lock'), or a lock type ('mutex',
-+	'spinlock', 'rwsem', 'rwsem:R', 'rwsem:W', 'rwlock', 'rwlock:R',
-+	'rwlock:W', 'rt-mutex', 'percpu-rwsem', 'pcpu-sem:W', 'semaphore').
-+	Both read/shared and write/exclusive tracking are supported for
-+	'rwsem' (including 'mmap_lock') and 'rwlock'; 'mutex', 'spinlock'
-+	(including 'siglock', 'rq_lock', 'zone_lock'), 'rt-mutex',
- 	'semaphore', and 'percpu-rwsem' ('percpu_down_write()') support
- 	write/exclusive tracking only.  Note that 'semaphore' tracking
- 	('down*()' / 'up()') assumes binary mutex-like usage where the
-@@ -254,16 +256,17 @@ OPTIONS
- 	'owner' field directly in kernel memory on each sample without attaching
- 	any BPF fentry/fexit hooks.  For locks that do not maintain an
- 	authoritative per-task owner pointer (such as spinlocks, rwlocks,
--	semaphores, reader-locked rwsems, and lock type filters), it attaches
-+	semaphores, reader-locked rwsems, and slab/type filters), it attaches
- 	BPF fentry/fexit programs to kernel lock acquire and release functions
- 	to track held locks in a BPF map.  These BPF hooks run on every kernel
- 	lock acquisition and release for the attached lock family, even when no
- 	perf sample is being taken.  To minimize this overhead, only the hooks
- 	for the relevant lock family and mode are attached when known (for
- 	example, 'lock_held_read(mmap_lock)' only hooks rwsem read functions
--	and 'rq_lock' only hooks spinlock functions), whereas raw hex addresses
--	or symbols without a recognizable lock-type suffix attach hooks across
--	all lock families (including high-frequency spinlocks).
-+	and 'rq_lock' only hooks spinlock functions), whereas slab filters
-+	('&<slab>'), raw hex addresses, or symbols without a recognizable
-+	lock-type suffix attach hooks across all lock families (including
-+	high-frequency spinlocks).
+diff --git a/tools/perf/util/bpf_skel/lock_data.h b/tools/perf/util/bpf_skel/lock_data.h
+index 91d464ac18bd..43d8f5030bc1 100644
+--- a/tools/perf/util/bpf_skel/lock_data.h
++++ b/tools/perf/util/bpf_skel/lock_data.h
+@@ -104,11 +104,24 @@ extern struct rq runqueues __ksym __weak;
+ # define __has_builtin(x) 0
+ #endif
  
- 	The <operator> can be one of:
- 	  ==, !=, >, >=, <, <=, &
-diff --git a/tools/perf/util/bpf-filter.c b/tools/perf/util/bpf-filter.c
-index f542920f914f..1a75d779e891 100644
---- a/tools/perf/util/bpf-filter.c
-+++ b/tools/perf/util/bpf-filter.c
-@@ -655,10 +655,14 @@ static unsigned int supported_lock_prog_groups(struct btf *btf)
- static int configure_lock_progs(struct sample_filter_bpf *skel, struct btf *btf,
- 				unsigned int needed_groups,
- 				unsigned int required_groups,
--				bool needs_lock_syms, bool is_tracepoint)
-+				bool needs_lock_syms, bool needs_slab_iter,
-+				bool is_tracepoint)
- {
- 	unsigned int supported_groups = supported_lock_prog_groups(btf);
- 	unsigned int enabled_progs = 0;
-+	bool has_slab_iter = needs_slab_iter && btf &&
-+			     btf__find_by_name_kind(btf, "bpf_iter__kmem_cache",
-+						    BTF_KIND_STRUCT) > 0;
++struct mutex___non_rt {
++	atomic_long_t owner;
++} __attribute__((preserve_access_index));
++
++struct rt_mutex_base___new {
++	struct task_struct *owner;
++} __attribute__((preserve_access_index));
++
++struct rt_mutex___old {
++	struct task_struct *owner;
++} __attribute__((preserve_access_index));
++
+ struct rw_semaphore___old {
+ 	struct task_struct *owner;
+ } __attribute__((preserve_access_index));
  
- 	bpf_program__set_autoload(skel->progs.perf_sample_filter, !is_tracepoint);
- 	bpf_program__set_autoload(skel->progs.perf_tp_sample_filter, is_tracepoint);
-@@ -691,6 +695,7 @@ static int configure_lock_progs(struct sample_filter_bpf *skel, struct btf *btf,
- 	}
+ struct rw_semaphore___new {
++	atomic_long_t count;
+ 	atomic_long_t owner;
+ } __attribute__((preserve_access_index));
  
- 	bpf_program__set_autoload(skel->progs.collect_lock_syms, needs_lock_syms);
-+	bpf_program__set_autoload(skel->progs.slab_cache_iter, has_slab_iter);
+@@ -146,9 +159,25 @@ static __always_inline struct task_struct *get_lock_owner(__u64 lock, __u32 flag
+ 	__u64 owner = 0;
  
- 	if (needed_groups && !enabled_progs) {
- 		pr_err("Error: Kernel BTF lacks required lock tracing entry points\n");
-@@ -708,7 +713,8 @@ static void prescan_one_lock_expr(struct perf_bpf_filter_expr *expr,
- 				  bool *has_lock_filter,
- 				  unsigned int *prog_groups,
- 				  unsigned int *required_groups,
--				  bool *needs_lock_syms)
-+				  bool *needs_lock_syms,
-+				  bool *needs_slab_iter)
- {
- 	char base[128];
- 	bool has_amp;
-@@ -720,9 +726,16 @@ static void prescan_one_lock_expr(struct perf_bpf_filter_expr *expr,
- 
- 	*has_lock_filter = true;
- 	if (split_lock_name_mode(expr->lock_name, expr->part, base,
--				 sizeof(base), &has_amp, &mode) < 0 || has_amp)
-+				 sizeof(base), &has_amp, &mode) < 0)
- 		return;
- 
-+	/* Leading '&' is reserved for slab cache locks (e.g. '&dentry'). */
-+	if (has_amp) {
-+		*needs_slab_iter = true;
-+		*prog_groups |= LOCK_PROG_ALL;
-+		return;
-+	}
+ 	if (flags & LCB_F_MUTEX) {
+-		struct mutex *mutex = (void *)lock;
+-
+-		owner = BPF_CORE_READ(mutex, owner.counter);
++		struct mutex___non_rt *mutex = (void *)lock;
 +
- 	if (!strcmp(base, "mmap_lock") || !strcmp(base, "mmap_sem")) {
- 		/*
- 		 * Write ownership of mm->mmap_lock is inspected directly via
-@@ -795,7 +808,8 @@ static void prescan_one_lock_expr(struct perf_bpf_filter_expr *expr,
- static void prescan_lock_filters(struct evsel *evsel, bool *has_lock_filter,
- 				 unsigned int *prog_groups,
- 				 unsigned int *required_groups,
--				 bool *needs_lock_syms)
-+				 bool *needs_lock_syms,
-+				 bool *needs_slab_iter)
- {
- 	struct perf_bpf_filter_expr *expr, *group;
- 
-@@ -803,20 +817,72 @@ static void prescan_lock_filters(struct evsel *evsel, bool *has_lock_filter,
- 	*prog_groups = 0;
- 	*required_groups = 0;
- 	*needs_lock_syms = false;
-+	*needs_slab_iter = false;
- 
- 	list_for_each_entry(expr, &evsel->bpf_filters, list) {
- 		prescan_one_lock_expr(expr, has_lock_filter, prog_groups,
--				      required_groups, needs_lock_syms);
-+				      required_groups, needs_lock_syms,
-+				      needs_slab_iter);
- 		if (expr->op == PBF_OP_GROUP_BEGIN) {
- 			list_for_each_entry(group, &expr->groups, list) {
- 				prescan_one_lock_expr(group, has_lock_filter,
- 						      prog_groups, required_groups,
--						      needs_lock_syms);
-+						      needs_lock_syms, needs_slab_iter);
- 			}
- 		}
- 	}
- }
- 
-+static void run_slab_cache_iter(struct sample_filter_bpf *skel)
-+{
-+	struct bpf_link *link;
-+	int fd;
-+	char buf[256];
++		if (bpf_core_field_exists(mutex->owner.counter)) {
++			owner = BPF_CORE_READ(mutex, owner.counter);
++			if (owner & 0x4UL)
++				return NULL;
++		} else if (bpf_core_type_exists(struct rt_mutex_base___new)) {
++			struct rt_mutex_base___new *rtm = (void *)lock;
 +
-+	if (!bpf_program__autoload(skel->progs.slab_cache_iter))
-+		return;
++			owner = (__u64)BPF_CORE_READ(rtm, owner);
++			return (void *)(owner & ~1UL);
++		} else {
++			struct rt_mutex___old *rtm = (void *)lock;
 +
-+	link = bpf_program__attach_iter(skel->progs.slab_cache_iter, NULL);
-+	if (!link || IS_ERR(link)) {
-+		pr_debug("cannot attach slab cache iter\n");
-+		return;
-+	}
-+
-+	fd = bpf_iter_create(bpf_link__fd(link));
-+	if (fd >= 0) {
-+		while (read(fd, buf, sizeof(buf)) > 0)
-+			continue;
-+		close(fd);
-+	}
-+
-+	bpf_link__destroy(link);
-+}
-+
-+static bool find_slab_cache(struct sample_filter_bpf *skel, const char *name,
-+			    u64 *kmem_cache_addr)
-+{
-+	int cache_fd;
-+	u64 key, *prev_key = NULL;
-+
-+	if (!skel || !bpf_program__autoload(skel->progs.slab_cache_iter))
-+		return false;
-+
-+	cache_fd = bpf_map__fd(skel->maps.slab_caches);
-+	while (!bpf_map_get_next_key(cache_fd, prev_key, &key)) {
-+		struct slab_cache_data data;
-+
-+		if (bpf_map_lookup_elem(cache_fd, &key, &data) < 0)
-+			break;
-+
-+		if (!strcmp(data.name, name)) {
-+			*kmem_cache_addr = key;
-+			return true;
++			if (bpf_core_field_exists(rtm->owner)) {
++				owner = (__u64)BPF_CORE_READ(rtm, owner);
++				return (void *)(owner & ~1UL);
++			}
 +		}
-+		prev_key = &key;
-+	}
-+	return false;
-+}
-+
- static int normalize_lock_expr_op(const struct perf_bpf_filter_expr *expr,
- 				  enum perf_bpf_filter_op *op_out)
- {
-@@ -903,12 +969,13 @@ static bool is_percpu_rwsem_sym(struct btf *btf, const char *name)
-  * and populate the corresponding BPF filter maps and BSS control flags.
-  *
-  * Resolution order:
-- * 1. Well-known per-process / semi-global locks: `mmap_lock`, `siglock`,
-+ * 1. Slab cache name (when prefixed with '&', e.g. `&dentry`).
-+ * 2. Well-known per-process / semi-global locks: `mmap_lock`, `siglock`,
-  *    `rq_lock`, `zone_lock`.
-- * 2. Lock types / flags: `mutex`, `spinlock`, `rwsem`, `rwsem:R`, `rwsem:W`,
-+ * 3. Lock types / flags: `mutex`, `spinlock`, `rwsem`, `rwsem:R`, `rwsem:W`,
-  *    `rwlock`, `percpu-rwsem`, `semaphore`, etc.
-- * 3. Hexadecimal lock address.
-- * 4. Global/static kernel lock symbol in kallsyms (e.g. `cgroup_mutex`).
-+ * 4. Hexadecimal lock address.
-+ * 5. Global/static kernel lock symbol in kallsyms (e.g. `cgroup_mutex`).
-  */
- static int resolve_lock_expr(struct sample_filter_bpf *skel, struct btf *btf,
- 			     struct perf_bpf_filter_expr *expr,
-@@ -927,11 +994,25 @@ static int resolve_lock_expr(struct sample_filter_bpf *skel, struct btf *btf,
- 		return ret;
- 
- 	if (split_lock_name_mode(name, expr->part, base, sizeof(base),
--				 &has_amp, &mode) < 0 || has_amp) {
-+				 &has_amp, &mode) < 0) {
- 		pr_err("Error: Invalid kernel lock filter '%s'\n", name ?: "");
- 		return -EINVAL;
- 	}
- 
-+	if (has_amp) {
-+		if (find_slab_cache(skel, base, &addr)) {
-+			int fd = bpf_map__fd(skel->maps.slab_filter);
-+
-+			entry->part = PBF_LOCK_SLAB | mode;
-+			entry->value = addr;
-+			bpf_map_update_elem(fd, &addr, &one, BPF_ANY);
-+			skel->bss->has_lock_slab = 1;
-+			return 0;
-+		}
-+		pr_err("Error: Cannot resolve slab cache '%s'\n", name);
-+		return -EINVAL;
-+	}
-+
- 	if (!strcmp(base, "mmap_lock") || !strcmp(base, "mmap_sem")) {
- 		entry->part = PBF_LOCK_MMAP | mode;
- 		entry->value = 0;
-@@ -1333,7 +1414,7 @@ int perf_bpf_filter__prepare(struct evsel *evsel, struct target *target)
- 	struct perf_bpf_filter_entry *entry;
- 	bool needs_idx_hash = !target__has_cpu(target);
- 	bool is_tracepoint = (evsel->core.attr.type == PERF_TYPE_TRACEPOINT);
--	bool has_lock_filter = false, needs_lock_syms = false;
-+	bool has_lock_filter = false, needs_lock_syms = false, needs_slab_iter = false;
- 	unsigned int prog_groups = 0, required_groups = 0;
- 
- 	entry = calloc(MAX_FILTERS, sizeof(*entry));
-@@ -1341,7 +1422,8 @@ int perf_bpf_filter__prepare(struct evsel *evsel, struct target *target)
- 		return -1;
- 
- 	prescan_lock_filters(evsel, &has_lock_filter, &prog_groups,
--			     &required_groups, &needs_lock_syms);
-+			     &required_groups, &needs_lock_syms,
-+			     &needs_slab_iter);
- 
- 	if ((has_lock_filter || is_tracepoint) && geteuid() != 0 &&
- 	    !perf_cap__capable(CAP_BPF)) {
-@@ -1406,16 +1488,21 @@ int perf_bpf_filter__prepare(struct evsel *evsel, struct target *target)
- 		btf = btf__load_vmlinux_btf();
- 		bpf_map__set_max_entries(skel->maps.held_locks, MAX_ENTRIES);
- 		bpf_map__set_max_entries(skel->maps.lock_addr_filter, MAX_FILTERS);
-+		if (needs_slab_iter) {
-+			bpf_map__set_max_entries(skel->maps.slab_filter, MAX_FILTERS);
-+			bpf_map__set_max_entries(skel->maps.slab_caches, MAX_ENTRIES);
-+		}
- 		if (needs_lock_syms) {
- 			bpf_map__set_max_entries(skel->maps.lock_syms, MAX_ENTRIES);
- 			init_numa_data(skel, btf);
- 		}
- 		ret = configure_lock_progs(skel, btf, prog_groups, required_groups,
--					   needs_lock_syms, is_tracepoint);
-+					   needs_lock_syms, needs_slab_iter,
-+					   is_tracepoint);
- 		if (ret < 0)
- 			goto err;
- 	} else {
--		configure_lock_progs(skel, NULL, 0, 0, false, is_tracepoint);
-+		configure_lock_progs(skel, NULL, 0, 0, false, false, is_tracepoint);
- 	}
- 
- 	if (sample_filter_bpf__load(skel) < 0) {
-@@ -1424,6 +1511,9 @@ int perf_bpf_filter__prepare(struct evsel *evsel, struct target *target)
- 		goto err;
- 	}
- 
-+	if (has_lock_filter && needs_slab_iter)
-+		run_slab_cache_iter(skel);
-+
- 	ret = get_filter_entries(evsel, skel, btf, entry);
- 	if (ret < 0) {
- 		pr_err("Failed to process filter entries\n");
-@@ -1444,6 +1534,7 @@ int perf_bpf_filter__prepare(struct evsel *evsel, struct target *target)
- 		bpf_program__set_autoattach(skel->progs.perf_sample_filter, false);
- 		bpf_program__set_autoattach(skel->progs.perf_tp_sample_filter, false);
- 		bpf_program__set_autoattach(skel->progs.collect_lock_syms, false);
-+		bpf_program__set_autoattach(skel->progs.slab_cache_iter, false);
- 
- 		ret = sample_filter_bpf__attach(skel);
- 		if (ret < 0) {
-@@ -1726,7 +1817,7 @@ int perf_bpf_filter__pin(void)
- 		goto err;
- 	}
- 
--	configure_lock_progs(skel, NULL, 0, 0, false, false);
-+	configure_lock_progs(skel, NULL, 0, 0, false, false, false);
- 
- 	/* pinned program will use pid-hash */
- 	bpf_map__set_max_entries(skel->maps.filters, MAX_FILTERS);
-@@ -1823,7 +1914,7 @@ int perf_bpf_filter__unpin(void)
- 		goto err;
- 	}
- 
--	configure_lock_progs(skel, NULL, 0, 0, false, false);
-+	configure_lock_progs(skel, NULL, 0, 0, false, false, false);
- 	if (sample_filter_bpf__load(skel) < 0) {
- 		ret = -errno;
- 		pr_err("Failed to load perf sample-filter BPF skeleton\n");
-diff --git a/tools/perf/util/bpf_skel/sample-filter.h b/tools/perf/util/bpf_skel/sample-filter.h
-index 836b398dc62b..a65ee780d64d 100644
---- a/tools/perf/util/bpf_skel/sample-filter.h
-+++ b/tools/perf/util/bpf_skel/sample-filter.h
-@@ -76,6 +76,11 @@ enum perf_bpf_lock_target_kind {
- 	 * given as a hex address). `entry.value` holds the kernel address.
- 	 */
- 	PBF_LOCK_ADDR,
-+	/*
-+	 * Dynamic lock allocated inside a slab cache (`&slab_name`).
-+	 * `entry.value` holds the kernel `struct kmem_cache *` address.
-+	 */
-+	PBF_LOCK_SLAB,
+ 	} else if (flags == LCB_F_READ || flags == LCB_F_WRITE) {
  	/*
- 	 * Per-process `current->mm->mmap_lock` (or `mmap_sem`).
+ 	 * Support for the BPF_TYPE_MATCHES argument to the
+@@ -158,20 +187,35 @@ static __always_inline struct task_struct *get_lock_owner(__u64 lock, __u32 flag
  	 */
-diff --git a/tools/perf/util/bpf_skel/sample_filter.bpf.c b/tools/perf/util/bpf_skel/sample_filter.bpf.c
-index 2087fb05e4c7..d1192a93179e 100644
---- a/tools/perf/util/bpf_skel/sample_filter.bpf.c
-+++ b/tools/perf/util/bpf_skel/sample_filter.bpf.c
-@@ -111,6 +111,20 @@ struct {
- 	__uint(max_entries, 1);
- } lock_syms SEC(".maps");
+ #if __has_builtin(__builtin_preserve_type_info) && __clang_major__ >= 15
+ 		if (bpf_core_type_matches(struct rw_semaphore___old)) {
+-			struct rw_semaphore___old *rwsem = (void *)lock;
++			struct rw_semaphore___old *old = (void *)lock;
  
-+struct {
-+	__uint(type, BPF_MAP_TYPE_HASH);
-+	__uint(key_size, sizeof(__u64));
-+	__uint(value_size, sizeof(__u8));
-+	__uint(max_entries, 1);
-+} slab_filter SEC(".maps");
-+
-+struct {
-+	__uint(type, BPF_MAP_TYPE_HASH);
-+	__uint(key_size, sizeof(__u64));
-+	__uint(value_size, sizeof(struct slab_cache_data));
-+	__uint(max_entries, 1);
-+} slab_caches SEC(".maps");
-+
- volatile const int use_idx_hash;
+-			owner = (unsigned long)BPF_CORE_READ(rwsem, owner);
++			owner = (unsigned long)BPF_CORE_READ(old, owner);
+ 		} else if (bpf_core_type_matches(struct rw_semaphore___new)) {
+-			struct rw_semaphore___new *rwsem = (void *)lock;
++			struct rw_semaphore___new *new = (void *)lock;
  
- const volatile __u64 contig_page_data_addr;
-@@ -118,9 +132,12 @@ const volatile __u64 node_data_addr;
- const volatile int nr_nodes;
- const volatile int sizeof_zone;
- 
-+__u32 slab_cache_id;
-+
- /* Control flags set by userspace when lock_held(...) filters are active. */
- int lock_enabled;
- int has_lock_addr;
-+int has_lock_slab;
- int has_lock_class;
- int has_lock_type;
- int has_mmap_lock;
-@@ -259,6 +276,9 @@ static __always_inline bool is_lock_held(struct perf_bpf_filter_entry *entry)
- 	case PBF_LOCK_CLASS:
- 		return is_lock_in_map(entry->value, PBF_LOCK_CLASS, mode, pid, cpu_id) != 0;
- 
-+	case PBF_LOCK_SLAB:
-+		return is_lock_in_map(entry->value, PBF_LOCK_SLAB, mode, pid, cpu_id) != 0;
-+
- 	case PBF_LOCK_TYPE:
- 		return is_lock_type_in_map(entry->value, mode, pid, cpu_id) != 0;
- 
-@@ -697,6 +717,7 @@ static __always_inline int record_lock_acquired_owner(__u64 lock_addr, __u32 fla
- 	bool matched = false;
- 	bool is_read = (flags & LCB_F_READ) != 0;
- 	__u32 class_id = 0;
-+	__u64 kmem_cache_addr = 0;
- 	__u32 type_flag = flags & LCB_F_TYPE_MASK;
- 	bool match_type = false;
- 
-@@ -723,6 +744,14 @@ static __always_inline int record_lock_acquired_owner(__u64 lock_addr, __u32 fla
+-			owner = BPF_CORE_READ(rwsem, owner.counter);
++			owner = BPF_CORE_READ(new, owner.counter);
  		}
- 	}
+ #else
+ 		/* assume new struct */
+-		struct rw_semaphore *rwsem = (void *)lock;
++		struct rw_semaphore___new *new = (void *)lock;
  
-+	if (has_lock_slab && bpf_get_kmem_cache) {
-+		kmem_cache_addr = (__u64)bpf_get_kmem_cache(lock_addr);
-+		if (kmem_cache_addr && bpf_map_lookup_elem(&slab_filter, &kmem_cache_addr))
-+			matched = true;
-+		else
-+			kmem_cache_addr = 0;
-+	}
+-		owner = BPF_CORE_READ(rwsem, owner.counter);
++		if (bpf_core_field_exists(new->owner.counter))
++			owner = BPF_CORE_READ(new, owner.counter);
+ #endif
++	} else if (flags == LCB_F_RT) {
++		if (bpf_core_type_exists(struct rt_mutex_base___new)) {
++			struct rt_mutex_base___new *rtm = (void *)lock;
 +
- 	if (has_lock_type && type_flag < LCB_F_TYPE_MAX && lock_type_filter[type_flag]) {
- 		match_type = true;
- 		matched = true;
-@@ -769,6 +798,10 @@ static __always_inline int record_lock_acquired_owner(__u64 lock_addr, __u32 fla
- 
- 	if (class_id)
- 		update_held_lock_count(class_id, owner_id, PBF_LOCK_CLASS, type_flag, true);
-+	if (kmem_cache_addr) {
-+		update_held_lock_count((__u64)kmem_cache_addr, owner_id,
-+				       PBF_LOCK_SLAB, type_flag, true);
-+	}
- 	if (match_type)
- 		update_held_lock_count(type_flag, owner_id, PBF_LOCK_TYPE, type_flag, true);
- 
-@@ -824,6 +857,15 @@ static __always_inline int record_lock_released_addr(__u64 lock_addr, __u32 flag
- 			update_held_lock_count(*cid, owner_id, PBF_LOCK_CLASS, flags, false);
- 	}
- 
-+	if (has_lock_slab && bpf_get_kmem_cache) {
-+		__u64 kmem_cache_addr = (__u64)bpf_get_kmem_cache(lock_addr);
++			owner = (__u64)BPF_CORE_READ(rtm, owner);
++			return (void *)(owner & ~1UL);
++		} else {
++			struct rt_mutex___old *rtm = (void *)lock;
 +
-+		if (kmem_cache_addr && bpf_map_lookup_elem(&slab_filter, &kmem_cache_addr)) {
-+			update_held_lock_count(kmem_cache_addr, owner_id,
-+					       PBF_LOCK_SLAB, flags, false);
++			if (bpf_core_field_exists(rtm->owner)) {
++				owner = (__u64)BPF_CORE_READ(rtm, owner);
++				return (void *)(owner & ~1UL);
++			}
 +		}
-+	}
-+
- 	if (has_lock_type && type_flag < LCB_F_TYPE_MAX && lock_type_filter[type_flag])
- 		update_held_lock_count(type_flag, owner_id, PBF_LOCK_TYPE, flags, false);
+ 	}
  
-@@ -1356,4 +1398,10 @@ int BPF_PROG(collect_lock_syms)
- 				    node_data_addr, nr_nodes, sizeof_zone);
- }
+ 	if (!owner)
+diff --git a/tools/perf/util/bpf_skel/vmlinux/vmlinux.h b/tools/perf/util/bpf_skel/vmlinux/vmlinux.h
+index 94e42b022ab1..b75ddc6846bb 100644
+--- a/tools/perf/util/bpf_skel/vmlinux/vmlinux.h
++++ b/tools/perf/util/bpf_skel/vmlinux/vmlinux.h
+@@ -76,6 +76,7 @@ struct signal_struct {
+ } __attribute__((preserve_access_index));
  
-+SEC("iter/kmem_cache")
-+int slab_cache_iter(void *ctx)
-+{
-+	return do_slab_cache_iter(ctx, &slab_caches, &slab_cache_id);
-+}
+ struct rw_semaphore {
++	atomic_long_t count;
+ 	atomic_long_t owner;
+ } __attribute__((preserve_access_index));
+ 
+@@ -83,6 +84,10 @@ struct mutex {
+ 	atomic_long_t owner;
+ } __attribute__((preserve_access_index));
+ 
++struct rt_mutex_base {
++	struct task_struct *owner;
++} __attribute__((preserve_access_index));
 +
- char LICENSE[] SEC("license") = "Dual BSD/GPL";
+ struct kernfs_node {
+ 	u64 id;
+ } __attribute__((preserve_access_index));
 -- 
 2.56.0.307.g5fe7bd680c-goog
 
