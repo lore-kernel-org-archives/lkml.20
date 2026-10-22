@@ -1,44 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=85.214.250.239
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1792655890;
-	b=B2F9sKAnGWEPF/864nzIbpC8f+Xx0AEKfNEZpNdVlTnzbnFFf1iiICmfYorfIrrVreNI
-	 Elan+XOvN8yMuuxBQh3YTwOC7fSKdK0D1HDbn8pMopmQyOscVU8OBHr4RtD+JLvvTJzjd
-	 O40HISDXylS+j+RRb3nFT1WTf0HTJ5NrtuLV2fxix2KnIV8VP4gMphWT8yT2adYVZzDdO
-	 izy4al3umhJCCdm8FJtW6vms+oQzNLD2m+NfbG2MXY6/NcJE+L17B5sCW+5LtiQze/cBF
-	 FjYHoCU5cVXdRu5ymBXxBUqwoPp90UhGl6LZvQCNedum3yqYLhhEmidwtcyzS4guPnQ==
+	b=GqRVXF8Z5yHAmOVgCvvzIZMY1/8avU6dRUvnzCpSKo1DD1CNP6fK4AyTKGYdvTLMHfkl
+	 mfd0uHI8/6VcYqOYxDCj9auSxQvqvLt13zT4OyGoWG5h5hyAuRyCy84VnTDKS7899qq9Z
+	 76wF1jAoECV3Ub+TvHpsCnzSnVgOXkoD7M8BBqhOwUbTKVFW0KYXrygojL+Ov9NlS4HKu
+	 1tSSFkE06u8ymOQXWEjSgkg6p3O7Ca7ild+UEV08T7gFGkiivDZkCSiVyIuzrp2lhFsSl
+	 sbEWj2jZ7PAT0Fjv4U2xqUmhjMrP30PPPA2LVRMgv5kZCIkC73BQUnM07BmQj5Y0gVw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1792655890;
-	h=DMARC-Filter:Received:Date:From:To:Cc:Subject:Message-ID:
-	 MIME-Version:Content-Type:Content-Disposition;
-	bh=yiyHDy8Y250tnW9FZf9O9LEqU4J4sES5GaiRIAh9GNE=;
-	b=GBW7PkhvvJBu1oxmGpGDpbTtcaGMfON1f2U/h2aolf3MnimMFYKrJpVf7xa2Med9RhE2
-	 kHfNEzqj9g0g2lrPnpu4qH15cahgrMnZfTGjCtdHykyrUO44MyHfJwyNK+9spkzv3M9QQ
-	 N1XWq7PWfsbVRltIdR927iM69GqJg8Xkx5AaQ/ywQdcekUlJQtJspxIlL40wDS/K9n8Es
-	 xK3avfobr1+VpPrXRoyeBcmzZMy0D+EO1jBrrGEpT5kqZf+ND299FSPfncretozgtQFib
-	 4tsRUry0weSvI+3kERfbwFFu/nIldE+mnjyJFlh08R6NNgtAvZgRwBPCnvi9htauKng==
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
+	bh=UmN2s6tgOm0A9GoZQElNdrU9oC4VAYnyPyJsot4d7LQ=;
+	b=Qcug8nHjkU9XpimRPVkAza9HxDXKQItuGFEF7TRMX/PkkFItQ+1V9KA2cVYiLyECNRjh
+	 mk8uqHOuxxtt31tsWsTyDXt3ehNZ7gCKWN2BavxPIl93qqUTkfix4ObDRIEd/QT38c0q5
+	 WwDzME2VWawIjOgih5fxMcFariMCFH47SThOAhVRItT46OTHAdjjNHonCQx1Dy0ymEw0f
+	 tmufHPLQF4zdqYbSyK1YFNXIq870UNEIpzG+ibjyc7QvFgqPr6xQhrdcPZdQcCiMk9FWf
+	 mRJzKU/bJgwrtT3hNmlRv7BEz0pjbzmudGWk+wc3u6dYREYcYOeyckSPIE2AeQ9OsuA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=8bytes.org;
-	spf=pass smtp.mailfrom=8bytes.org;
-	arc=none smtp.remote-ip=85.214.250.239
-Received: from mail.8bytes.org (mail.8bytes.org [85.214.250.239])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7E03D606A31E
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 07:58:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7E03D606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=8bytes.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=8bytes.org
-Received: from 8bytes.org (p200300f6af404a004d3fc2495c623980.dip0.t-ipconnect.de [IPv6:2003:f6:af40:4a00:4d3f:c249:5c62:3980])
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=xugHXf76;
+	arc=none smtp.remote-ip=185.171.202.116
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by mail.8bytes.org (Postfix) with ESMTPSA id B498D1C1958;
-	Thu, 22 Oct 2026 09:58:01 +0200 (CEST)
-Date: Thu, 22 Oct 2026 09:58:00 +0200
-From: Joerg Roedel <joro@8bytes.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: Will Deacon <will@kernel.org>, linux-kernel@vger.kernel.org, 
-	iommu@lists.linux.dev
-Subject: [git pull] IOMMU Updates for Linux v7.4
-Message-ID: <atnAm_7wyGt6wsK7@8bytes.org>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE0F4606A319;
+	Thu, 22 Oct 2026 07:58:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DE0F4606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=xugHXf76
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 26666C5846E;
+	Thu, 22 Oct 2026 07:59:04 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id D4D2C60360;
+	Thu, 22 Oct 2026 07:58:04 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C370A10328C52;
+	Thu, 22 Oct 2026 09:57:59 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1792655883; h=from:subject:date:message-id:to:cc:mime-version:
+	 content-transfer-encoding; bh=UmN2s6tgOm0A9GoZQElNdrU9oC4VAYnyPyJsot4d7LQ=;
+	b=xugHXf76jZoypisO7ZkjxkEsPO4sC0PscGRj5Bv65MeP2LRwiSTTmsksoyKe2mUtnP2mmD
+	QEa0e0wrjgZLAxCIk5hQ5MKwF6EIDUxeMmCnywPQkmUXXeXVKwxPPGAQwPVYRpordz/DOu
+	m7PEx/tG+z0tTcDzH8XBzvdS6xIB8Nm/VtN7VJ/1wbNgPCFe9tGOANVvSsxuKFrfdkuxpf
+	qsoUeyOjdvjB/Y4BT3Hle6fW+w95/sHQ9gGzGo7b0bmv1zQaBKAB27MQ593W2dJY3LwJhK
+	qTKxNj7rg0e7c4AtZDDT1zYEiW6YeH+g12X0PsDMZXZg1YKh9gCPORlfANTxqA==
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+To: Andrew Lunn <andrew+netdev@lunn.ch>,
+	Jakub Kicinski <kuba@kernel.org>,
+	davem@davemloft.net,
+	Eric Dumazet <edumazet@google.com>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Russell King <linux@armlinux.org.uk>,
+	Kuniyuki Iwashima <kuniyu@google.com>,
+	Stanislav Fomichev <sdf.kernel@gmail.com>
+Cc: Maxime Chevallier <maxime.chevallier@bootlin.com>,
+	thomas.petazzoni@bootlin.com,
+	=?UTF-8?q?Alexis=20Lothor=C3=A9?= <alexis.lothore@bootlin.com>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net v3] net: Use a dedicated flag to track disabled napi instances
+Date: Thu, 22 Oct 2026 09:57:57 +0200
+Message-ID: <20261022075757.1164283-1-maxime.chevallier@bootlin.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -48,294 +77,135 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-Hi Linus,
+Trying to disable the napi threaded state while the napi instance is
+disabled will hang forever in napi_stop_kthread(), as it waits for
+NAPIF_STATE_SCHED_THREADED to clear.
 
-This PR slightly violates the everything-must-be-ready-before-the-merge-window
-rule, as I rebuilt the next branch on-top of the final v7.3 tag in order to not
-include the fixes merged in v7.3-rc7. There is also a MAINTAINERS update patch
-which I applied this week.
+This won't happen until the next ____napi_schedule() call, which won't
+happen as it's disabled.
 
-Everything else in this PR was ready before the merge window and the final
-merge went through my usual testing as well. With that in mind, please
-consider:
+This happens in 2 instances :
 
-The following changes since commit c03c1a14507dfaf8b856c2608f9ac216021fc222:
+ - Drivers that create but don't use napi instances (stmmac's rxtx napi
+   for AF_XDP for example), here it's a driver bug
 
-  Linux 7.3 (2026-10-18 13:14:58 -1000)
+ - Drivers that create their napi instances in .probe(). Here, setting
+   threaded off while the interface is down will hang :
 
-are available in the Git repository at:
+   ip link set eth0 down
+   echo 1 > /sys/class/net/eth0/threaded
+   echo 0 > /sys/class/net/eth0/threaded
+   -> hang
 
-  git://git.kernel.org/pub/scm/linux/kernel/git/iommu/linux.git tags/iommu-updates-v7.4
+Checking on netif_running() isn't enough, as napi instances may be
+transiently disabled when changing the MTU for example, let's use a
+dedicated flag to track if the instance is disabled.
 
-for you to fetch changes up to 20bfd25757659ff8229eeed6f048c76f9a11a4a3:
+This allows immediately disabling the kthread when the instance is
+disabled.
 
-  Merge branches 'apple/dart', 'arm/smmu/updates', 'arm/smmu/bindings', 'hyper-v', 'samsung/exynos', 'riscv', 'broadcom', 'intel/vt-d', 'amd/amd-vi' and 'core' into next (2026-10-20 09:43:47 +0200)
+This was tested on mvpp2 (probe-time napi_add) and stmmac.
 
-----------------------------------------------------------------
-IOMMU updates for v7.4:
+Fixes: 689883de94dd ("net: stop napi kthreads when THREADED napi is disabled")
+Signed-off-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
+---
+V3:
+ - Use a new flag to keep track of the napi instance state, if it's
+   disabled or not. It was tested on the same set of boards as before.
 
-  - Core:
-    - Detect scatterlist length overflows and finalize deferred domain
-      attachments before mapping MSI pages.
-    - Consolidate x86 MSI reserved-region handling and clean up internal DMA
-      and SVA helpers.
+   I guess if this approach doesn't work either, we'll have to start
+   fixing all the drivers :)
 
-  - AMD IOMMU:
-    - Add IOMMU PerfOpt support, enabled by amdgpu for supported integrated
-      GPUs in identity domains.
-    - Restrict forced identity mapping to GPUs that require it.
-    - Fix kdump device-table allocation and reuse, ATS configuration error
-      handling, and an interrupt-remapping allocation leak.
-    - Clean up device probing and initialization.
-    - Add Vasant Hegde as an AMD IOMMU maintainer.
+V2:
+https://lore.kernel.org/r/20261006141119.85562-1-maxime.chevallier@bootlin.com
+ - Different approach as per Jakub's review, just don't allow setting
+   the napi threaded mode while interface is down. Uses the NAPI_STATE_NPSVC
+   flag to check the napi state, but it wasn't enough.
 
-  - ARM SMMUv2:
-    - Device-tree binding updates for Qualcomm Maili and Nord SoCs.
+V1:
+https://lore.kernel.org/r/20260926194714.648819-1-maxime.chevallier@bootlin.com
 
-  - ARM SMMUv3:
-    - Work around hardware integration issue on Google Tensor G5 SoCs where all
-      DMA transactions appear as instruction fetches.
-    - Allow command queue size to be configured on the kernel command-line.
-    - Reduce queue sizes when running as a kdump kernel.
-    - Fix some pre-existing issues in the driver and kunit tests reported by
-      Sashiko.
-    - Fix handling of Arm hardware errata relating to the contiguous hint
-      when using SVA.
-    - Rework the TLB invalidation logic in preparation for enabling iommu-pt in
-      future.
-    - Minor cleanups in preparation for improving support for kdump.
+ include/linux/netdevice.h |  2 ++
+ net/core/dev.c            | 15 +++++++++++++--
+ 2 files changed, 15 insertions(+), 2 deletions(-)
 
-  - Apple DART:
-    - Support device-tree DMA aperture specifications.
+diff --git a/include/linux/netdevice.h b/include/linux/netdevice.h
+index ac257221c7c5..d410c7303d1a 100644
+--- a/include/linux/netdevice.h
++++ b/include/linux/netdevice.h
+@@ -433,6 +433,7 @@ enum {
+ 	NAPI_STATE_SCHED_THREADED,	/* Napi is currently scheduled in threaded mode */
+ 	NAPI_STATE_HAS_NOTIFIER,	/* Napi has an IRQ notifier */
+ 	NAPI_STATE_THREADED_BUSY_POLL,	/* The threaded NAPI poller will busy poll */
++	NAPI_STATE_DISABLED,		/* NAPI is disabled */
+ };
+ 
+ enum {
+@@ -448,6 +449,7 @@ enum {
+ 	NAPIF_STATE_SCHED_THREADED	= BIT(NAPI_STATE_SCHED_THREADED),
+ 	NAPIF_STATE_HAS_NOTIFIER	= BIT(NAPI_STATE_HAS_NOTIFIER),
+ 	NAPIF_STATE_THREADED_BUSY_POLL	= BIT(NAPI_STATE_THREADED_BUSY_POLL),
++	NAPIF_STATE_DISABLED		= BIT(NAPI_STATE_DISABLED),
+ };
+ 
+ enum gro_result {
+diff --git a/net/core/dev.c b/net/core/dev.c
+index e76762e29360..a6d66af8947a 100644
+--- a/net/core/dev.c
++++ b/net/core/dev.c
+@@ -7253,6 +7253,13 @@ static void napi_stop_kthread(struct napi_struct *napi)
+ {
+ 	unsigned long val, new;
+ 
++	/* Instance is disabled, we can immediately stop the kthread */
++	if (test_bit(NAPI_STATE_DISABLED, &napi->state)) {
++		clear_bit(NAPI_STATE_THREADED, &napi->state);
++		clear_bit(NAPI_STATE_THREADED_BUSY_POLL, &napi->state);
++		goto stop;
++	}
++
+ 	/* Wait until the napi STATE_THREADED is unset. */
+ 	while (true) {
+ 		val = READ_ONCE(napi->state);
+@@ -7283,6 +7290,7 @@ static void napi_stop_kthread(struct napi_struct *napi)
+ 		msleep(20);
+ 	}
+ 
++stop:
+ 	kthread_stop(napi->thread);
+ 	napi->thread = NULL;
+ }
+@@ -7678,6 +7686,7 @@ void netif_napi_add_weight_locked(struct net_device *dev,
+ 	napi->list_owner = -1;
+ 	set_bit(NAPI_STATE_SCHED, &napi->state);
+ 	set_bit(NAPI_STATE_NPSVC, &napi->state);
++	set_bit(NAPI_STATE_DISABLED, &napi->state);
+ 	netif_napi_dev_list_add(dev, napi);
+ 
+ 	/* default settings from sysfs are applied to all NAPIs. any per-NAPI
+@@ -7714,7 +7723,8 @@ void napi_disable_locked(struct napi_struct *n)
+ 			val = READ_ONCE(n->state);
+ 		}
+ 
+-		new = val | NAPIF_STATE_SCHED | NAPIF_STATE_NPSVC;
++		new = val | NAPIF_STATE_SCHED | NAPIF_STATE_NPSVC |
++		      NAPIF_STATE_DISABLED;
+ 		new &= ~(NAPIF_STATE_THREADED |
+ 			 NAPIF_STATE_THREADED_BUSY_POLL |
+ 			 NAPIF_STATE_PREFER_BUSY_POLL);
+@@ -7759,7 +7769,8 @@ void napi_enable_locked(struct napi_struct *n)
+ 	do {
+ 		BUG_ON(!test_bit(NAPI_STATE_SCHED, &val));
+ 
+-		new = val & ~(NAPIF_STATE_SCHED | NAPIF_STATE_NPSVC);
++		new = val & ~(NAPIF_STATE_SCHED | NAPIF_STATE_NPSVC |
++			      NAPIF_STATE_DISABLED);
+ 		if (n->dev->threaded && n->thread)
+ 			new |= NAPIF_STATE_THREADED;
+ 	} while (!try_cmpxchg(&n->state, &val, new));
+-- 
+2.56.0
 
-  - Broadcom:
-    - Add BCM2712 IOMMU support for Raspberry Pi 5 display and multimedia
-      devices, including the generic page-table format and shared TLB cache
-      management.
-
-  - Hyper-V:
-    - Add a para-virtualized guest IOMMU driver with guest-managed stage-1 page
-      tables and page-selective IOTLB invalidation.
-
-  - Intel VT-d:
-    - Enhanced IQE fault handling for batched multiple descriptors,
-    - Optimization of page-table level calculation in compute_vasz_lg2_ss(),
-    - Fixes for several pre-existing issues reported by Sashiko,
-    - General cleanup and refinement.
-
-  - RISC-V:
-    - Report cache-coherency capability for coherent devices, enabling
-      VFIO/iommufd use.
-
-  - Samsung Exynos:
-    - Support SysMMUs without BLOCK mode, fixing their enable sequence and TLB
-      invalidation.
-    - Improve v7 fault diagnostics with transaction information.
-
-----------------------------------------------------------------
-Andrew Jones (1):
-      iommu/riscv: Report cache coherency capability
-
-Daniel Drake (5):
-      iommu_pt: Fix test_pgsize_boundary() failure on narrow-OA formats
-      dt-bindings: iommu: Add Broadcom BCM2712 IOMMU
-      dt-bindings: display: brcm,bcm2835-hvs: Document iommus property
-      iommu/generic_pt: Add Broadcom BCM2712 page table format
-      iommu: Add Broadcom BCM2712 IOMMU driver
-
-Federico Parola (1):
-      iommu: Finalize deferred attachments when mapping MSI pages
-
-Guanghui Feng (1):
-      iommu/vt-d: Fix IQE handling to cover all descriptors in submission range
-
-Janne Grunau (2):
-      dt-bindings: iommu: dart: Support specifying the DMA aperture
-      iommu: apple-dart: Support specifying the DMA aperture in the DT
-
-Jason Gunthorpe (7):
-      iommu/arm-smmu-v3: Handle ARM erratum for CONT under invalidation with SVA
-      iommu/arm-smmu-v3: Pass the parameters for the invalidation in a struct
-      iommu/arm-smmu-v3: Move pgsize out of arm_smmu_inv
-      iommu/arm-smmu-v3: Optimize range invalidation for latency
-      iommu/arm-smmu-v3: Keep track in arm_smmu_invs if range invalidation is used
-      iommu/arm-smmu-v3: Precompute the invalidation commands
-      iommu/arm-smmu-v3: Populate the tlbi at the top of the call chain
-
-Jingyi Wang (1):
-      dt-bindings: arm-smmu: Document GPU SMMU on Qualcomm Maili SoC
-
-Joerg Roedel (2):
-      MAINTAINERS: Make Vasant Hegde AMD IOMMU maintainer
-      Merge branches 'apple/dart', 'arm/smmu/updates', 'arm/smmu/bindings', 'hyper-v', 'samsung/exynos', 'riscv', 'broadcom', 'intel/vt-d', 'amd/amd-vi' and 'core' into next
-
-Kiryl Shutsemau (Meta) (2):
-      iommu/arm-smmu-v3: Add a cmdq_max_n_shift module parameter
-      iommu/arm-smmu-v3: Default queue depths to one page in a kdump kernel
-
-Krzysztof Karas (1):
-      iommu/dma: Catch scatterlist length overflows
-
-Li RongQing (1):
-      iommu/amd: Fix leak of data->entry in irq_remapping_alloc() error path
-
-Lu Baolu (7):
-      iommu/vt-d: Avoid out-of-range shift in qi_desc_dev_iotlb_pasid()
-      iommu/vt-d: Do not ignore context table copy failures
-      iommu/vt-d: Handle DID reservation errors when copying context tables
-      iommu/vt-d: Reserve scalable-mode DIDs from PASID entries during copy
-      iommu/vt-d: Use old domain parameter when attaching the blocking domain
-      iommu/vt-d: Fix iopf refcount leak in nested attach
-      iommu/vt-d: Drop old iopf ref only after attach succeeds
-
-Mario Limonciello (2):
-      iommu/amd: Add PerfOpt IOMMU performance optimization support
-      drm/amdgpu: Enable PerfOpt IOMMU perf optimization when GPU in identity domain
-
-Markuss Broks (4):
-      iommu/exynos: detect SysMMUs without BLOCK mode
-      iommu/exynos: fix the enable sequence for no-block SysMMUs
-      iommu/exynos: fix TLB invalidation for no-block SysMMUs
-      iommu/exynos: decode the v7 fault transaction info
-
-Matt Fleming (2):
-      iommu/amd: Program device table when kdump reuse fails
-      iommu/amd: Don't allocate kdump device table from DMA32
-
-Mostafa Saleh (5):
-      iommu/arm-smmu-v3: Ensure L2 tables are visible before L1 ptrs
-      iommu/arm-smmu-v3-test: Fix arm_smmu_v3_test_debug_print_used_bits()
-      iommu/arm-smmu-v3-test: Add missing error checks for inv array
-      iommu/arm-smmu-v3-test: Fix OOB in arm_smmu_v3_invs_test_verify()
-      iommu/arm-smmu-v3-test: Fix UBSAN error
-
-Nicolin Chen (4):
-      iommu/arm-smmu-v3: Disable the impl before disabling the SMMU on shutdown
-      iommu/arm-smmu-v3: Add arm_smmu_attach_release()
-      iommu/arm-smmu-v3: Add Q_POS() macro
-      iommu/arm-smmu-v3: Don't rb_erase() a never-inserted stream node
-
-Peter Griffin (2):
-      dt-bindings: iommu: arm,smmu-v3: Add arm,instdata-override property
-      iommu/arm-smmu-v3: Add support for arm,instdata-override DT property
-
-Pranjal Shrivastava (3):
-      iommu/amd: Refactor device probe and capability initialization
-      iommu/amd: Remove iommu_ignore_device()
-      iommu/amd: Fail probe on ATS configuration failure
-
-Robin Murphy (2):
-      iommu: Make iommu-dma helpers private
-      iommu/dma: Clean up redundant MSI cookie check
-
-Rong Zhang (3):
-      iommu/amd: Do not request ACS when IOMMU is not going to be initialized
-      iommu/amd: Disallow implicit START_STATE => IVRS_DETECTED transition
-      iommu/amd: Remove ad-hoc checks that are never true
-
-Shawn Guo (1):
-      dt-bindings: arm-smmu: Document Adreno SMMU for Nord SoC
-
-Vasant Hegde (2):
-      iommu/amd: Force identity mode for selected GPUs only
-      iommu/amd: Move GA log allocation to init
-
-Wei Liu (1):
-      hyperv: Introduce new hypercall interfaces used by Hyper-V guest IOMMU
-
-Yu Zhang (6):
-      Drivers: hv: Add logical device ID registry for vPCI devices
-      iommu/x86: Add architectural MSI reserved region helper
-      iommu/hyperv: Add para-virtualized IOMMU support for Hyper-V guest
-      iommu/hyperv: Add page-selective IOTLB flush support
-      iommu/hyperv: Add missing PCI dependency for the guest IOMMU driver
-      iommu/hyperv: Make hv_iommu_device static
-
-Zhaoyu Liu (1):
-      iommu/sva: remove iommu_sva_present flag
-
-Zhenzhong Duan (1):
-      iommu/vt-d: Fix page table level calculation in compute_vasz_lg2_ss()
-
- Documentation/arch/arm64/silicon-errata.rst        |   3 +-
- .../bindings/display/brcm,bcm2835-hvs.yaml         |   3 +
- .../devicetree/bindings/iommu/apple,dart.yaml      |  12 +-
- .../devicetree/bindings/iommu/arm,smmu-v3.yaml     |  10 +
- .../devicetree/bindings/iommu/arm,smmu.yaml        |   4 +
- .../bindings/iommu/brcm,bcm2712-iommu.yaml         |  54 ++
- .../bindings/iommu/brcm,bcm2712-iommuc.yaml        |  40 ++
- MAINTAINERS                                        |  14 +-
- arch/x86/hyperv/hv_init.c                          |   4 +
- arch/x86/include/asm/iommu.h                       |  20 +
- arch/x86/include/asm/mshyperv.h                    |   4 +
- drivers/gpu/drm/amd/amdgpu/amdgpu.h                |   1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c         |  50 ++
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c            |  12 +
- drivers/hv/hv_common.c                             | 115 ++++
- drivers/iommu/Kconfig                              |  18 +-
- drivers/iommu/Makefile                             |   1 +
- drivers/iommu/amd/amd_iommu.h                      |   3 +
- drivers/iommu/amd/amd_iommu_types.h                |   7 +
- drivers/iommu/amd/init.c                           | 192 ++++--
- drivers/iommu/amd/iommu.c                          | 438 ++++++++++---
- drivers/iommu/apple-dart.c                         |  74 ++-
- .../iommu/arm/arm-smmu-v3/arm-smmu-v3-iommufd.c    |   1 +
- drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3-sva.c    |  29 +-
- drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3-test.c   |  57 +-
- drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c        | 604 +++++++++++++-----
- drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h        |  77 ++-
- drivers/iommu/arm/arm-smmu-v3/tegra241-cmdqv.c     |   2 +-
- drivers/iommu/bcm2712-iommu-cache.c                |  84 +++
- drivers/iommu/bcm2712-iommu-cache.h                |   9 +
- drivers/iommu/bcm2712-iommu.c                      | 550 +++++++++++++++++
- drivers/iommu/dma-iommu.c                          |  32 +-
- drivers/iommu/exynos-iommu.c                       |  37 +-
- drivers/iommu/generic_pt/.kunitconfig              |   1 +
- drivers/iommu/generic_pt/Kconfig                   |  10 +
- drivers/iommu/generic_pt/fmt/Makefile              |   2 +
- drivers/iommu/generic_pt/fmt/bcm2712.h             | 288 +++++++++
- drivers/iommu/generic_pt/fmt/defs_bcm2712.h        |  18 +
- drivers/iommu/generic_pt/fmt/iommu_bcm2712.c       |   6 +
- drivers/iommu/generic_pt/kunit_iommu_pt.h          |   2 +-
- drivers/iommu/hyperv/Kconfig                       |  15 +
- drivers/iommu/hyperv/Makefile                      |   1 +
- drivers/iommu/hyperv/hv-iommu-guest.c              | 682 +++++++++++++++++++++
- drivers/iommu/hyperv/iommu.h                       |  44 ++
- drivers/iommu/intel/dmar.c                         |  72 ++-
- drivers/iommu/intel/iommu.c                        | 167 ++++-
- drivers/iommu/intel/iommu.h                        |  17 +-
- drivers/iommu/intel/nested.c                       |   2 +
- drivers/iommu/iommu-priv.h                         |   4 +
- drivers/iommu/iommu-sva.c                          |  14 +-
- drivers/iommu/iommu.c                              |   4 +
- drivers/iommu/riscv/iommu.c                        |  12 +
- drivers/pci/controller/pci-hyperv.c                |  21 +-
- include/asm-generic/mshyperv.h                     |   4 +
- include/hyperv/hvgdk_mini.h                        |  10 +
- include/hyperv/hvhdk_mini.h                        | 155 +++++
- include/linux/amd-iommu.h                          |  13 +-
- include/linux/generic_pt/common.h                  |   6 +
- include/linux/generic_pt/iommu.h                   |  12 +
- include/linux/hyperv.h                             |   8 +
- include/linux/iommu.h                              |   2 -
- 61 files changed, 3690 insertions(+), 463 deletions(-)
- create mode 100644 Documentation/devicetree/bindings/iommu/brcm,bcm2712-iommu.yaml
- create mode 100644 Documentation/devicetree/bindings/iommu/brcm,bcm2712-iommuc.yaml
- create mode 100644 drivers/iommu/bcm2712-iommu-cache.c
- create mode 100644 drivers/iommu/bcm2712-iommu-cache.h
- create mode 100644 drivers/iommu/bcm2712-iommu.c
- create mode 100644 drivers/iommu/generic_pt/fmt/bcm2712.h
- create mode 100644 drivers/iommu/generic_pt/fmt/defs_bcm2712.h
- create mode 100644 drivers/iommu/generic_pt/fmt/iommu_bcm2712.c
- create mode 100644 drivers/iommu/hyperv/Kconfig
- create mode 100644 drivers/iommu/hyperv/hv-iommu-guest.c
- create mode 100644 drivers/iommu/hyperv/iommu.h
-
-Please pull.
-
-Thanks,
-
-	Joerg
