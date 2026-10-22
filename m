@@ -1,65 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.251.229.89
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792672909;
-	b=5ME0kH5YNv0QnYOnkGp7FsqcshGm0DaSAIp1WiVXX+0YH/Zwcsn6zHwxI8wL6LoiPse+
-	 g/06vBd1aWkiZSfSmlpjJMnj6BW1B1i1mf6rFAR/cyWH5zvmi2xsMtIX2Ki2cWIhh+5+y
-	 FVDvdP8ozZLppwaqNlWmZQ+lQFFqmK7k4rWUaynJYIT5dDoYiDpcQby3cd4xmbS+RM/Az
-	 dYQO2BKB/ns6Qqkgy5mw5H26eGDUf+UEmlr4AeesAnk/B0L++k7mduNvQvztmKH4mceit
-	 EXRncl++LUbkGf3weMPaI6S9iGwPRL6Z/dI84V6n0E5pYepK1XnUyWryh1eAfPhFNFg==
+	t=1792673038;
+	b=Azl3LoYZFLbup7HYN9CGceOXPTKZyKPqNPXMleObaBWCQCEdrBgdMHNmyaf/dwLymH42
+	 iikz2NHFo/HdPOjgwT1yuRwOIrldhtrwrhIv9q0CVXUy9uRMNjdOTN5ycZQAE9ffynjVt
+	 kNGo1EH7j36dslM0O2UHmOk0xmBmVP435sHPUMXTrdXO/9jDPN1QesqrOCNnleJ1N6EsT
+	 kQ7vyom76FF1SgXxBXI9L58if/XPs5J0yA9uEGAOSHiM0TGxB9l9R4mY41TiWNgm5WjJL
+	 ClSsKRyi8ECO2jEgsaEMBMEw6eJhkXyaW4JlGJaw2LQQ5q+lcmfGyVGVF3vx3sxS8Gg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792672909;
-	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-Last-TLS-Session-Version;
-	bh=SJbq/0wOnbvPIMJtKcmtse3uM3IzsSK29zH+AGSwz+s=;
-	b=bZy2sRJozOS3fKx17ongCNge3F5w2NgzD6w9eI3GZxEGTNJN+ipxSPXUzhOcju7sbH2K
-	 Ac8a4UoFJSCa7keWhyIWmi5q1dKjgqalxqgCNhKkxBtdwDASB5lNIMRlWzreEUy8vcTgU
-	 Ib6tTT2FBOFK23NdZiRmbIuwyzNjkz30PlNeSc6izOgh2kx0V6yq7F+lpEzfz+72pOoo8
-	 Y3T9S4gn34Jluip2kmDaf/N3Atir2Sr3YoV5GCOdtpSiTsQ4JMG5S9evqO6xdCRJVEWzL
-	 bKIU+PiSEmlAvaz2GHWGuXgxzVyZ0iw2sYoiEuUgobHyJI1s8LORl+v+tH+OHRioYvg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792673038;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=UkGp6BXx3IuoHMShnEhbwsGFOzhfzFScR0VSZnp16i4=;
+	b=WH1Arx7F+LPKWRCG94IInjehUtdqwRnAHksyK9/QN7hAEzXtMiKkGHOuBo2rMDbuN0ir
+	 zSR1b5QOle2kvkiKQNJtLKEHhwIyZZdGPkxlHxMtizweOCFXa8tUppmLJpiGzzutHnC65
+	 nh/3WIh7Ao2xeoQNkqsMS6yv0OYTHAuLap6FytYombpUObxvfC7iK+R3ZRw8KYEmqdX1r
+	 k2zjl8uxU2qoGWgkgAQufpiV/7YJceL7DKGsgq5ciTqkRYU/HMa4BqDWYbbsUlMrk0FdK
+	 z+qRzAl7i+urH+XmEUC0ep5NdJNYBrowfJVW4xH3JmCtBU4/VHzNyfeu0ivK1NFgULQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nabladev.com;
-	spf=pass smtp.mailfrom=nabladev.com;
-	dkim=pass header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=C9F9sNuC;
-	arc=none smtp.remote-ip=178.251.229.89
-Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=uxw2kJqi;
+	arc=none smtp.remote-ip=91.218.175.34
+Received: from mta0.migadu.com (out-34.mta0.migadu.com [91.218.175.34])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38B02606A319;
-	Thu, 22 Oct 2026 12:41:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 38B02606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62455606A31A
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 12:43:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 62455606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=C9F9sNuC
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id BFF671063F2;
-	Thu, 22 Oct 2026 14:41:40 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
-	s=dkim; t=1792672903; h=from:subject:date:message-id:to:cc:mime-version:
-	 content-transfer-encoding; bh=SJbq/0wOnbvPIMJtKcmtse3uM3IzsSK29zH+AGSwz+s=;
-	b=C9F9sNuCPPI19GLbN7IIa7VhIXPfYcTzqKUpOCajwBULhDJoKjQCTPfkzFOfPH/bEaTzis
-	+Pz6PCWAIjCUpSzQa/JabukUESupasHMhFkW6hEJmNeWF/DGSvfiga86ck7dL1J1mn+0hA
-	Q+JqUurkH820nmS9fbwtCXf6bbSwT/nGAn4dC9FaM5j3EkAiDf9St6gNtfXwDP8hsA0nR2
-	Rv1T5INdwMkJr5VynUdit9lAC/OmWKWuPuKZgTTwZ0jKUqROMbiVZDNj53QzgSu/PrRQxe
-	lOT+N/BImuxfceka91T+wV1YS63gpW0jlPtwQtwO4IhFry/mboi45MyA9/WLDQ==
-From: Marek Vasut <marex@nabladev.com>
-To: linux-arm-kernel@lists.infradead.org
-Cc: Marek Vasut <marex@nabladev.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Christoph Niedermaier <cniedermaier@dh-electronics.com>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Rob Herring <robh@kernel.org>,
-	devicetree@vger.kernel.org,
-	kernel@dh-electronics.com,
-	linux-kernel@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com
-Subject: [PATCH] ARM: dts: stm32: Convert GPIO hog to USB connector Vbus supply on STM32MP15xx DHCOM PicoITX
-Date: Thu, 22 Oct 2026 14:40:55 +0200
-Message-ID: <20261022124138.185850-1-marex@nabladev.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=uxw2kJqi
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=w2pJzoKE8UHSFd+7kOrW3IFF8LKzi7qBZip0c8TTrbg=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792673035; v=1; x=1793277835;
+ b=uxw2kJqiiGGHUBaLnBFDFZyIi/7wwupJu8dX2QV9ndJ0t+zO+9wwx9WcXPmZM3OQ2N4r9X6A
+ FUzbHWDTLBQsPZosc7IpvZvBTCxkVF4MVaPqtvv2+dBVAMLmmwCzQiO3qPmjHoZU/dqzNtTmi34
+ BFHGSMUG8b4EUoTpOfEWaCgQ=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 5534752695d82903;
+	Thu, 22 Oct 2026 12:43:55 +0000
+X-Mizu-Trace-ID: 5534752695d82903
+X-Migadu-Flow: FLOW_OUT
+Date: Thu, 22 Oct 2026 14:43:50 +0200
+From: "Pankaj Raghav (Samsung)" <pankaj.raghav@linux.dev>
+To: Daejun Park <daejun7.park@samsung.com>
+Cc: Carlos Maiolino <cem@kernel.org>, linux-xfs@vger.kernel.org, 
+	Christoph Hellwig <hch@lst.de>, "Darrick J. Wong" <djwong@kernel.org>, 
+	Dave Chinner <dgc@kernel.org>, Chuck Lever <cel@kernel.org>, Jeff Layton <jlayton@kernel.org>, 
+	Dai Ngo <Dai.Ngo@oracle.com>, Sergey Bashirov <sergeybashirov@gmail.com>, 
+	Andrey Albershteyn <aalbersh@kernel.org>, linux-nfs@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH v4 2/9] xfs: add a flag to convert unwritten extents
+ without allocating blocks
+Message-ID: <atoEubjhGZgA2WQk@quentin>
+References: <20261020-xfs-pnfs-batch-v4-0-9230fa2ca4a4@samsung.com>
+ <20261020-xfs-pnfs-batch-v4-2-9230fa2ca4a4@samsung.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,82 +69,95 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261020-xfs-pnfs-batch-v4-2-9230fa2ca4a4@samsung.com>
 
-Replace current GPIO hog with USB-A connector vbus-supply.
-This moves the Vbus GPIO into port control, where it can
-be enabled and disabled by the controller as needed.
+On Tue, Oct 20, 2026 at 12:08:45PM +0900, Daejun Park wrote:
+> xfs_bmapi_write() with XFS_BMAPI_CONVERT converts unwritten extents to
+> written ones, and allocates blocks for any hole or delalloc extent it
+> finds in the range. A caller that may only convert blocks that are
+> already allocated has to look at the mapping first, and the mapping can
+> change once the ILOCK is dropped.
+> 
+> Add XFS_BMAPI_CONVERT_ONLY. With it, xfs_bmapi_write() stops at a hole
+> or a delalloc extent instead of allocating blocks and returns the
+> mappings that it converted before it. If the range starts with a hole or
+> a delalloc extent, it returns -ENOSR, as it does when a delalloc
+> conversion maps nothing in the range. Nothing has been changed then, and
+> the caller decides what to do with its transaction.
+> 
+> A flag of this name was removed by commit 26b91c728b2d ("xfs: make COW
+> fork unwritten extent conversions more robust"). That one skipped the
+> allocation and still mapped the hole; this one stops before it.
+> 
+> "xfs: refuse a pNFS LAYOUTCOMMIT of a range without blocks" uses it,
+> which is why this is marked for stable.
+> 
+> Suggested-by: Christoph Hellwig <hch@lst.de>
+> Link: https://lore.kernel.org/r/20261013120359.GB2944@lst.de
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Daejun Park <daejun7.park@samsung.com>
+> Reviewed-by: Christoph Hellwig <hch@lst.de>
+> ---
+>  fs/xfs/libxfs/xfs_bmap.c | 14 ++++++++++++--
+>  fs/xfs/libxfs/xfs_bmap.h | 10 +++++++++-
+>  2 files changed, 21 insertions(+), 3 deletions(-)
+> 
+> diff --git a/fs/xfs/libxfs/xfs_bmap.c b/fs/xfs/libxfs/xfs_bmap.c
+> index ca49bf4a50..95c0178b44 100644
+> --- a/fs/xfs/libxfs/xfs_bmap.c
+> +++ b/fs/xfs/libxfs/xfs_bmap.c
+> @@ -4130,6 +4130,8 @@ xfs_bmapi_finish(
+>   * Returns a negative error code on failure, including -ENOSPC when it could not
+>   * allocate any blocks and -ENOSR when it did allocate blocks to convert a
+>   * delalloc range, but those blocks were before the passed in range.
+> + * With XFS_BMAPI_CONVERT_ONLY, it stops at a hole or a delalloc extent instead
+> + * of allocating blocks, and returns -ENOSR if it stops before mapping anything.
+>   */
+>  int
+>  xfs_bmapi_write(
+> @@ -4189,6 +4191,8 @@ xfs_bmapi_write(
+>  	 */
+>  	ASSERT((flags & (XFS_BMAPI_PREALLOC | XFS_BMAPI_ZERO)) !=
+>  			(XFS_BMAPI_PREALLOC | XFS_BMAPI_ZERO));
+> +	ASSERT(!(flags & XFS_BMAPI_CONVERT_ONLY) ||
+> +	       (flags & XFS_BMAPI_CONVERT));
+>  
+>  	if (XFS_IS_CORRUPT(mp, !xfs_ifork_has_extents(ifp)) ||
+>  	    XFS_TEST_ERROR(mp, XFS_ERRTAG_BMAPIFORMAT)) {
+> @@ -4237,6 +4241,9 @@ xfs_bmapi_write(
+>  		 * that we found, if any.
+>  		 */
+>  		if (need_alloc || wasdelay) {
+> +			if (flags & XFS_BMAPI_CONVERT_ONLY)
+> +				break;
+> +
+>  			bma.eof = eof;
+>  			bma.conv = !!(flags & XFS_BMAPI_CONVERT);
+>  			bma.wasdel = wasdelay;
+> @@ -4332,10 +4339,13 @@ xfs_bmapi_write(
+>  	 *
+>  	 * To avoid a successful return with *nmap set to 0, return the magic
+>  	 * -ENOSR error code for this particular case so that the caller can
+> -	 * handle it.
+> +	 * handle it. The same goes for XFS_BMAPI_CONVERT_ONLY stopping at a
+> +	 * hole or a delalloc extent at the start of the range, in which case
+> +	 * nothing has been changed.
+>  	 */
+>  	if (!n) {
+> -		ASSERT(bma.nallocs >= *nmap);
+> +		ASSERT(bma.nallocs >= *nmap ||
+> +		       (flags & XFS_BMAPI_CONVERT_ONLY));
+Minor nit:
 
-Signed-off-by: Marek Vasut <marex@nabladev.com>
----
-Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
-Cc: Christoph Niedermaier <cniedermaier@dh-electronics.com>
-Cc: Conor Dooley <conor+dt@kernel.org>
-Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Cc: Rob Herring <robh@kernel.org>
-Cc: devicetree@vger.kernel.org
-Cc: kernel@dh-electronics.com
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: linux-kernel@vger.kernel.org
-Cc: linux-stm32@st-md-mailman.stormreply.com
----
- .../dts/st/stm32mp15xx-dhcom-picoitx.dtsi     | 27 +++++++++----------
- 1 file changed, 12 insertions(+), 15 deletions(-)
+The following might be more explicit here:
 
-diff --git a/arch/arm/boot/dts/st/stm32mp15xx-dhcom-picoitx.dtsi b/arch/arm/boot/dts/st/stm32mp15xx-dhcom-picoitx.dtsi
-index 01c693cc03446..7f444bd4c58d3 100644
---- a/arch/arm/boot/dts/st/stm32mp15xx-dhcom-picoitx.dtsi
-+++ b/arch/arm/boot/dts/st/stm32mp15xx-dhcom-picoitx.dtsi
-@@ -16,6 +16,14 @@ led-0 {
- 			default-state = "off";
- 		};
- 	};
-+
-+	usb_vbus: vbus-regulator {
-+		compatible = "regulator-fixed";
-+		gpio = <&gpioa 13 GPIO_ACTIVE_LOW>;
-+		regulator-name = "Vbus";
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+	};
- };
- 
- &adc {
-@@ -30,21 +38,6 @@ &fmc {
- 	status = "disabled";
- };
- 
--&gpioa {
--	/*
--	 * NOTE: The USB Port on the PicoITX needs a PWR_EN signal to enable
--	 * port power. This signal should be handled by USB power sequencing
--	 * in order to turn on port power when USB bus is powered up, but so
--	 * far there is no such functionality.
--	 */
--	usb-port-power-hog {
--		gpio-hog;
--		gpios = <13 0>;
--		output-low;
--		line-name = "usb-port-power";
--	};
--};
--
- &gpioc {
- 	gpio-line-names = "", "", "", "",
- 			  "", "", "PicoITX-In1", "",
-@@ -132,6 +125,10 @@ &usbphyc {
- 
- &usbphyc_port0 {
- 	phy-supply = <&vdd_usb>;
-+	connector {
-+		compatible = "usb-a-connector";
-+		vbus-supply = <&usb_vbus>;
-+	};
- };
- 
- &usbphyc_port1 {
+ASSERT((flags & XFS_BMAPI_CONVERT_ONLY) ? bma.nallocs == 0 :
+                                         bma.nallocs >= *nmap);
+
+Otherwise, the patch looks good.
+Reviewed-by: Pankaj Raghav <p.raghav@samsung.com>
+
 -- 
-2.53.0
-
+Pankaj
