@@ -1,84 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792641384;
-	b=n5+feLjuLRHXlCCgvdBHre7mS6hOnLqYeYeJgYX8tWoMxPN+t95lrK6RBeN9zSXnb2Nw
-	 QJBCgLZZep1tvDzmaT4v7dpJjdN/NsoobknKD4uz1jcikijY0My+lHL0babosTaAaHzRx
-	 XOncbOGA4MIR5GUPgUHBF0+9xwxHZ6TubtTRmKeqKPkK3LgAgrK1nv+AvhRnhUEoIfl+h
-	 W2Y+ABY5DE4FgdMI6pOp+YI0EnoSxx/7JAtH0hzb4lfeC57Kt0IBe68g2cXUi7GneDeSD
-	 G4XYRkJIDeR7E8B4OCeZkPyyF26HV7d7c6Dr42IaZ5iGqPnw2sIWt/dSYcMJieW72GQ==
+	t=1792641406;
+	b=V/M5s9Cdv+MPLFLFe3mqrTa/wk3GuWI6o/plH6JIwidXiVnM6zaVQV0/pyZtfLpzOoYE
+	 qf7/7gFmqKDNchq96j/KeOenvoQBqvhArTbff7bhdD6g5LM7WarVm5cejpbys+Qr5ca9/
+	 IV7vlKO1SVQbIx6RX37pGkiDmTYlkdBBfCGkpK5NCkwZ1x5ut6x+l0pT81mOw00tzzg2m
+	 b92K51HAWeCr7rMQuQMjtjhM2+TLMdVr8AL+1Mc6KltaybFqldYpadYX5f04NTXtpJJiz
+	 PBGn/PgoR0Fvb0UwGu1jbOgJTzDFpw8EV8FSxUOJk01782ueF2kCuIiBBXiVHuzXg3A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792641384;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792641406;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
-	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer;
-	bh=nBJVMizSkP5mIMubRGP9eWHn8SLS+RX8waQiqIH32K4=;
-	b=Dzt6qhb8b7jkqxRVx7NrUCy8U27Z4lYcltncVENxwprFrPaLHANN2kbxKqXBPHzW/KaL
-	 1x6RDgEotJWyKmLS7EVO2+64PiEwEIADNDaGcCgkny88naJswZ9oKIbtYMRiatJICGOGP
-	 QkkvwfiMnqM4SREAc3QVdP7zfJyX8/SPmgNpxdQ3B5YPaEaM7J5/i68/JSxKQTeXiW3lS
-	 OYOiKLGraMqwW9gOmhkBHsZsLfPFhKD2ANoAzpNWpklPQdgKvQhkJw0jJ6Olta7mud8rZ
-	 3mbWag9l0+cVGrXzF+ynZlnlKTZ1w0eERggbLvt1AjU+pdL5LToYw/sD71vH4sPWpSg==
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
+	 In-Reply-To;
+	bh=4zpbVCWKZmceTwhBAX7y3KNuUyer4M902oUozSRjXxE=;
+	b=FvfJteOkLyExlJlRpk7XTjzyssevsSpt++0XLSeCD5hnyX1PvHvHMc5Jy3YYR4/kqoZh
+	 Asa9/SE7DNwflrjDYww1Ft0+MdbXImg+gNAAfJ9a9NbTYkEbMfwswIqM+WSP9QjCNYuDA
+	 mVUDSBpFgyL78j1zBHVBmniShWNEuSfj4t7NVQ4REFsyS9rW3Nt2PUVeAtx/i6jSMbH4N
+	 XFpUN9rAZrNRr+q6FoDkp2O16WuWmMa4dhWYj/B4SA+xhwJ5kciyHOWsQenO51nf/cBUn
+	 cqz/Dt322O3Rh9W/FDZAo8b2zb0HhyZRm0GDoh6xKeEkJuPrSpuObuakZWhZRrun+FA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=gourry.net;
-	spf=pass smtp.mailfrom=gourry.net;
-	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=onuWEefU;
-	arc=none smtp.remote-ip=209.85.222.182
-Received: from mail-qk1-f182.google.com (mail-qk1-f182.google.com [209.85.222.182])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	arc=none smtp.remote-ip=209.85.128.48
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD493606A319
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 03:56:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BD493606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=onuWEefU
-Received: by mail-qk1-f182.google.com with SMTP id af79cd13be357-93f20b304c0so164922285a.3
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 20:56:23 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4AE9606A31B
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 03:56:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E4AE9606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a20568c8c0so2167485e9.1
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 20:56:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1792641383; x=1793246183; darn=vger.kernel.org;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=nBJVMizSkP5mIMubRGP9eWHn8SLS+RX8waQiqIH32K4=;
-        b=onuWEefU2jjcs+hCjUkLSfdNl69v6fK0TFmwOd7kcR12a6A+gkQYVGBnE9SCneJp34
-         OD+o0tgqfx5K/2B1MsiIpnBswsXjL4yIHRvlekKvfiFnHRLApQH4xtEDYw8LDmJNew2T
-         MftfIYBedbPSORbGkJ/2pJPSY8a3Af/n0E1eGUYdHjRdxQmVGOdVm0vrum0O64RQoLoD
-         6BlwrjGgv2AcZSJTbuS5sjccrjvqZKoxiiL+GlPoe8HGjldsmgPnfYfZTjU3s7zYycXG
-         bXsyPwQlkIvXfryr1Qr2xs28H2bZf1hRDGT0Py1cdiMvHU7Q7MrZpNA2eRb5bPFibZE2
-         05wA==
+        d=gmail.com; s=20251104; t=1792641399; x=1793246199; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=4zpbVCWKZmceTwhBAX7y3KNuUyer4M902oUozSRjXxE=;
+        b=PjDfxDYaeeH1mCabakxNUf/Je0GJPuMfok6BtPBW1A8VCVt8YKjYOh2NFo2XPeWCLS
+         fd2r07Tb+0P6MQQNs3BNA+u/U6aQTn+VdQYjs/h52reNJQsHmuoaDE851CCi93meSCl8
+         dO4goZTu+N1qj5mBFdKz1FlYgx8n6cML5oCcgjBwOH8wxxFcAfJmY9MlKSa46l1nhu9I
+         eLgTr4Kax+08eA1obSMUTEelGyuNabD0NP1si49LdDmk/20QrxYuM6eAWcLGfrQ8SIHD
+         C/0NbSkAV03lr5XghNHhjtutCF3rSjot8jum6HU0j/y6zP3zh6tOgdUBTGnvK+YOarBk
+         Rdig==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792641383; x=1793246183;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=nBJVMizSkP5mIMubRGP9eWHn8SLS+RX8waQiqIH32K4=;
-        b=jqUXNsuZqVCH1yleBUgmTEbT1oEc3ktOnRtqua5DqUvRLmJE6srL1Vh8meq9uB6NHm
-         kVDO+iT/+WMFCLd9qbTjFZxYisYlnGd+kVaxrNnjVKXdJe1rFK9oTFq/WLBgD68dKpbK
-         Sd/CyyMcIDDOMyGz0O351PGvZBBumJOjmaoDQPZH4VbqMmG8BdeochgX346mYqRNTrLR
-         KO4q5T959ter6H7gD2AYBUASDa1chPLjlEOxJ9pK0s9Z/7OPMITdVHb9EmAzeaXB7HZj
-         DE+qpnVbh/0O9B0l68xu36MZKh55TKJGJtgCwYn63wfhwqjjBRhaOr10T2+D5naqDp5F
-         56dg==
-X-Forwarded-Encrypted: i=1; AKwUvBzy5sbvrDcETDzy9rj4srz5vWT7yBNuI3cUrgS3qZa64P5lbkGRdDtUdumuD8CDmYsUsr2oVM72c1mbeF0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLwiQfW0xlw6mvHEV0+QFbFB/g7Gv5H0HVajELzCCfUlgq+/qe5
-	GWn4ENYjxhjRczbZUScLxptZ6x/VP5J6RqVohEP+FlsoGcqMHJv/OrsAGWmNcStTaHU=
-X-Gm-Gg: AYBFou1AinMgdImD7jq9IEnOvuHG16Lj1Ng/+1jKdO/4YrQkzwJsWVi9t/mzGlsBuJs
-	CkziqroQPINohGa8lBMyad5L7PQsluV3tDIj4H1LYviEXfz0UbjX21wYCSGH5VqQrMntiaHXZCI
-	yzgfenuGZeI30peKC7hGzUSzrRbg6Etg0zsmDsKUfLgbFiyltM/zjErAJx6Nawg5ySTT5hSvidq
-	dvfvvqy3kP9dFHfc7guR/nrRrEwNMunlPnwoxGeTIB0SJ1erc5rxp8Bhml0PcAtIaLIbMnst6OI
-	W/3SMpYPwSpi3HbwbFkmcW9RMuJjo/UvbBURo4BY9V1jhpIs9/Gen8rtXXZ2xPus951FbJtnR12
-	i0C6Rga10UIq1TvY3xdW/VARMBIF613/S60IdXIsGh7qiElTQ2DkaHcA2+YHMZlCltAVIXsdZyp
-	v83c92L0HCD9hVHBiIOTVbeaCZo6n6EfXNTRb7wpJYcKt3KILE+M7NioII9kYEbFy53477OXPhD
-	X8r/twk0D9Br7hTCxkZGv8Wxo8FvVuQI9lG2VJv7EuyI+wD4DsIsOxfQEVg3j9GOZ2yydXtDhOs
-	rH9qOw3tG/NdYUDlTH/LthDHt3s=
-X-Received: by 2002:a05:620a:6f9a:20b0:93f:6182:53d with SMTP id af79cd13be357-93f618206b2mr208635085a.3.1792641382767;
-        Wed, 21 Oct 2026 20:56:22 -0700 (PDT)
-Received: from [192.168.86.58] (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93f56d9a495sm423380985a.13.2026.10.21.20.56.20
+        d=1e100.net; s=20260707; t=1792641399; x=1793246199;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=4zpbVCWKZmceTwhBAX7y3KNuUyer4M902oUozSRjXxE=;
+        b=IQHJOgVaiwolnipv9xUmGCbbIBaUJnFjMY5oFHvBl0VjU1VMfhK95/I77Vfb8UST8a
+         MK+xH10KCy2g03zrc5d2OO5RDTZ0omq27T4LUW2p3yzWH5fIKeOb07vxOaZ1SH8WAB+k
+         /6bZPrUvXbM+l71k6IpTsxIevxPtpQkX8m2Lf4ld36mbrK8CejI3xLGvF9hN5znF8NqW
+         bELNlpOHnhWcwQDr4Cg8ywhf4uQBc+E+5UQFhPm5EPQppgPcJjK4cbjU5qUWXw30TVUC
+         4FdFqQmtT2sheTHv0TtRav2iqqWcuDb0IjQ/3WVB09nNn65PB+v5++jGT5sZZTwivtRb
+         O8dA==
+X-Forwarded-Encrypted: i=1; AKwUvByHGMF3VpMOKxxoBe1nAcWa2JkEw9zg320sCR3RqD5eLSwT/efQcGMg90CRBkPdzBVO7SuVwNDyQyBEWmo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIZ37+idL6l/92Oz/3etCTYLkMP43Op7KaXOGYxlwxmyrC0q/mv
+	uiPczivTmMZI4snaZEoPrtoXCWHy+Qa7seiKGdvaNov+f5wMYyZG4VY6
+X-Gm-Gg: AYBFou3b+wGMY5qyR5bmo6d7FZkafkUfgZ3REPDc019TdbY8eCtOOdaDWasNwH+kOAY
+	8Sg1y2aHxrSSp8bEzi3u+B/nKsC7yj+IWxce/zs8KAzGYujekA6eNeQHswbkz1AzFcSHb3tv3h6
+	qQqruCa/c8SaENcRbrulD0SG8iJro5WXD2fRpgMd7wx5yl/FXZdRLxn8HqCZYWEwuzCDba/duh/
+	YW93s8SvbwJHiRY0jGRJUda/klz935YWWa/VBakIeO2NlkJLFdXiMSkjyiCOaa4+v4nn9E1C1l1
+	aMtdTZonpjqtoAisx+/XamjYjEzfo4jk1WEq5OxS5VNwJbZHK0tR31GI2QQCnkKrRkya7SNEK8a
+	zNebKD8HLEkz3zGNNoD7W0PdtQnM8YUPuDdYYUxAq3Ln3mGfbSQzHQUiZvdBeh4zKMVHS0tiTUd
+	t3+uTArTspdPnmagWHtPYkPtY7U1sGIlzqX4B48m5ASnHXxfdYwU9SXBLjXY/zob+jDVE3vsuth
+	f4b9GU+86Y9Ib/eE3EKxnhcbIEy2Z6Zr9h6uxMRhfWcp7ifwdcNmht7Yz+jp1YU8AQxIY2b3Hu4
+	foSVaGMVAVvrYJP2DapZtcjAD2LgPWca5G+Bxa7EHHpKXAWyDpbPdE+PyKPhu02IM2lP4TAyW/H
+	PsZrOWTrifQebcHQlMLpCcIGYREfCk33M3GNyBwVTohlmyDjyU1GurFUCrzLtUw==
+X-Received: by 2002:a05:600c:609a:b0:4a1:7bd4:d07d with SMTP id 5b1f17b1804b1-4a1fdd64e88mr75312025e9.34.1792641399195;
+        Wed, 21 Oct 2026 20:56:39 -0700 (PDT)
+Received: from unknown748F3CBA5068 (dynamic-2a02-3100-ad43-d501-2c28-bb72-120d-420e.310.pool.telefonica.de. [2a02:3100:ad43:d501:2c28:bb72:120d:420e])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1fd0f4427sm86914085e9.3.2026.10.21.20.56.37
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Oct 2026 20:56:22 -0700 (PDT)
+        Wed, 21 Oct 2026 20:56:38 -0700 (PDT)
+Date: Thu, 22 Oct 2026 05:56:36 +0200
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Tomasz Figa <tfiga@chromium.org>
+Cc: linux-media@vger.kernel.org, 
+	Marek Szyprowski <m.szyprowski@samsung.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Hans de Goede <hansg@kernel.org>, 
+	Hans Verkuil <hverkuil@kernel.org>, Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
+	Tomasz Stanislawski <t.stanislaws@samsung.com>, Sumit Semwal <sumit.semwal@linaro.org>, 
+	Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/4] media: videobuf2: add opt-in DMA-BUF CPU access
+Message-ID: <atmEfHtoW0Ato4P6@gmail.com>
+References: <cover.1792392288.git.kmehltretter@gmail.com>
+ <673c04ad9dcc4f12685c076193ebad9e48e5f08d.1792392288.git.kmehltretter@gmail.com>
+ <CAAFQd5Djx0kjeFpzPWEgRV5_MhiJAW8tg-2C+cYxqMf45u_-RA@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,88 +102,67 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [RFC 0/2] mm: add source selectors to memory.reclaim
-From: "Gregory Price (Meta)" <gourry@gourry.net>
-To: Li Zhe <lizhe.67@bytedance.com>
-Cc: Gregory Price <gourry@gourry.net>, akpm@linux-foundation.org, 
- david@kernel.org, ziy@nvidia.com, joshua.hahnjy@gmail.com, rakie.kim@sk.com, 
- ying.huang@linux.alibaba.com, ljs@kernel.org, mhocko@suse.com, 
- muchun.song@linux.dev, roman.gushchin@linux.dev, shakeel.butt@linux.dev, 
- weixugc@google.com, cgroups@vger.kernel.org, linux-doc@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-mm@kvack.org
-In-Reply-To: <30457046-a662-4ff7-a6a8-100398d7a806@bytedance.com>
-References: <20261019141401.11927-1-lizhe.67@bytedance.com>
- <atY-LD2AzCYATRii@gourry-fedora-PF4VCD3F>
- <30457046-a662-4ff7-a6a8-100398d7a806@bytedance.com>
-Date: Wed, 21 Oct 2026 23:56:20 -0400
-Message-Id: <179264138036.2549665.17429111144570830454.b4-reply@b4>
-X-Mailer: b4 0.17-dev
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAAFQd5Djx0kjeFpzPWEgRV5_MhiJAW8tg-2C+cYxqMf45u_-RA@mail.gmail.com>
 
-On 2026-10-20 21:01 +0800, Li Zhe wrote:
-> On 10/20/26 12:10 AM, Gregory Price wrote:
+On Thu, Oct 22, 2026 at 01:20:45AM +0100, Tomasz Figa wrote:
+> On Mon, Oct 19, 2026 at 4:14 PM Karl Mehltretter <kmehltretter@gmail.com> wrote:
+> > Add a queue flag to do so from buf_prepare() through buf_finish(). Use
+> > read access for output and write access for capture. Map imports
+> > bidirectionally because CPU and device access directions are opposite.
+> > Pass the mapping direction to attach_dmabuf() so USERPTR and MMAP keep
+> > the queue's normal direction.
 > 
-> I agree that the kernel reclaim and demotion behavior still has room for
-> improvement, and the watermark changes and the bottom-up proactive/async
-> reclaim idea you mentioned may be useful to explore for some tiering
-> scenarios. But I think there is also an unavoidable userspace policy
-> component here. The kernel can improve whole-cgroup reclaim, but it
-> cannot know every controller's placement goal.
+> This isn't right. For the regular vb2 mem ops (dma-sg, dma-contig), a
+> buffer in the prepared state is expected to be ready for hardware
+> usage, meaning only the hardware can access it until the buffer is
+> finished. The vmalloc ops are special in a way that CPU is the
+> "hardware".
+
+Agreed. vivid can select vb2_dma_contig_memops while patch 4 enables
+uses_cpu_access unconditionally.
+
+Automatic handling belongs in vb2_vmalloc_memops. Regular DMA memops
+need separate handling.
+
+> > Keep this opt-in because some vb2-vmalloc drivers pass buffers to
+> > hardware. End access in process context because DMA-BUF callbacks may
+> > sleep.
 > 
-> For example, one controller may want to keep a specific per-tier
-> resident ratio for a cgroup. Another use case, as Joshua pointed out in
-> another reply, is reclaiming from a lower tier first so that later
-> top-tier reclaim has room for demotion. A single default memory.reclaim
-> algorithm cannot express these per-cgroup policy choices.
+> That is at least unexpected, but also probably wrong (I haven't
+> checked all the drivers) - the vmalloc mem ops are expected to be used
+> by drivers that only access the buffer contents from the CPU.
+
+One current exception is AMD ISP4. It combines VB2_DMABUF with
+vb2_vmalloc_memops, imports and pins the DMA-BUF through amdgpu, and
+passes the resulting GPU address to ISP firmware.
+
+> Putting all the above together, what I think we need is:
+>  1) prepare/finish ops in vb2_vmalloc_memops to invoke the
+> dma_buf_begin/end_cpu_access() API if the buffer is backed by a
+> DMA-buf,
+>  2) some vb2 API for drivers using the regular (dma-) memops to invoke
+> the dma_buf_begin/end_cpu_access() API for them when they need to
+> perform some CPU accesses to the buffers - typically they would do
+> that in their vb2_ops::buf_prepare/finish callbacks, but definitelly
+> must not after the buffer is already prepared.
 > 
+> It sounds like this series focuses on uvcvideo and vivid, which likely
+> means that 1) alone would be enough to fix the original problem. WDYT?
 
-The latter of these should probably be some level of the system default,
-that's why I brought it up as well.  (proactive reclaim should prefer to
-make progress from the coldest tier first, then work its way up).
+1) alone would cover the original vmalloc problem.
 
-I'm not convinced a reclaim interface is the right way to affect a
-per-tier resident ratio policy.  That feels like a hack to get around
-solving the harder problem of something like tiered memcg counters
-(which would otherwise drive reclaim to work exactly the way you
-describe for resident ratios).
+But today it would also mark the ISP4 hardware interval as CPU access.
 
-> I am not sure whether changing the default whole-cgroup reclaim behavior
-> in this direction could affect existing userspace dependencies. In the
-> old nodes= discussion, Mina mentioned that Meta's reclaim stack relied on
-> memory.reclaim triggering demotion [1].
->
+The memops finish() callback may also run from vb2_buffer_done() in
+atomic context, while dma_buf_end_cpu_access() may sleep.
 
-Yes and on its surface this is something I could see Meta using, however
-I question whether we're simply trying to find a convenient way around
-fixing reclaim to do the right thing (not invert the LRU, apply per-tier
-memcg limits, etc).
+The callbacks are void, so errors cannot be returned.
 
-> I also do not intend source= to lock in current reclaim implementation
-> details. It should stay consistent with the current design: source= only
-> selects the resident source to which reclaim pressure is applied, while
-> the kernel remains free to change the reclaim policy.
->
+Should ISP4 move to different memops, or should CPU access remain
+opt-in for vb2-vmalloc queues?
 
-Well, sort of, you get exposed to the implementation details by having
-to negotiate what is considered progress under different scenarios.
-
-Lets take one example - what should happen when:
- - 2 node system, node0=DRAM, node1=CXL
- - zswap is configured
- - echo 1G source=nodelist:1 > memory.reclaim
- - node 1 is pressured, zsmalloc falls back to node0 to allocate
-
-Should that be considered progress? We reclaimed from node1, but
-increased pressure on node0 - which might have kicked kswapd or memcg
-accounting to demote memory from node0 to node1.
-
-Should zswap also take that nodelist as a constraint?
-
-At the very least i think you need to add details in your cover that
-demonstrates the process of doing something like per-node resident
-ratios, and show that it works as you intend.
-
--- 
-~Gregory
-
+Thanks,
+Karl
