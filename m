@@ -1,66 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=18.9.28.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792677312;
-	b=LEg/dKoDVAnHi+ENao+kCx5C5dKpNlyJZJ4sQMVJcQHrJbA0w8/ZsWl5os9SrhCmoYM6
-	 cu53BBDegk2PY4z+zvMLA22Ets5YpFZwZIMWetqNcEK+DMIksfTkrf4Oar1c2bdhgcTrh
-	 qpXgMERvrjwEMhPXfZUN1V4qQ+vFCLwAkNbK5Ay2cFzzr2I5+C3bB1XDBjbypka/j42U+
-	 ihej2AgOpUbrZTN0upYGoCPQV+cUt70/36yLb2dKP6BeYhOfrpW1fqdSZS9igcWBSxxUN
-	 VLu/1z9Xz8HXa6vreM4fbM+46HsGpbvaYoXjHwfgbJ4kem6QziR7FRO0UegronNLnXg==
+	t=1792677438;
+	b=ehM2bvtw3xj8F705Vn9u6DgBbUEm3SL0QJSTtJA9r3jIQawqbU8ic2lJdWX88E3qXQFR
+	 cbPeOKsGYMtTWAWKD1NDluiINPhofTB1VhOIPMwFuqXvrEZbGmNoKaLuGCS1NgQE3rqCS
+	 O9/Y4xunp6DOFU7wgSFywtxk/tZMPJfhGMDqIwVLkVpf600iYC0aqfYPfNyFZji3QbuYC
+	 KxcPpHcHyzzQe5+ebrgL7v2lj2LyXRs3INxHJ8Yvesj8/VkKSyl7aMAtKZIMpXOkl8E3p
+	 KA2ztUO9CvIgPaiXjSenSak+KetQar/ci7z8jmXyrP9WUtfL5p8iqTaLvcj+f0b60qg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792677312;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=2ojm36jDUBb6pXJrubCoB6gVau8R+P1ZTa/JMKRiThE=;
-	b=OVF6Ft10Q6UdckBhAXKEtq55gXRvhr2XltOzFIRX+NRf7T6Fjw9yk2qEfj9HNUnwZAj1
-	 MsDqFWz6xffqQNZJFpqvkBWmJgQkU2GDUURlzDzno4vzOjOPst/yuDzSSII5gyZ63HMFR
-	 /XvvpDykm2g3xrwg/1V2YTuCMRV9dprWt6UML3YwVBBAAm39taCvpKieVK81qS5LyZJ7+
-	 ifA+HJyK7m3GR5P569RD/83yXHYk2e8UUhpqAZbdfXTY8yXAZGNKa+O/Wa5HyumNlq1S9
-	 Kt7ZfKfsIG//bNko+y3HwT9MIOLHxO3LhMvRFFRgwvcfuRZ61kS5yxEUAICD3dQWrSg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792677438;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Date:From:To:Cc:
+	 Subject:Message-ID:MIME-Version:Content-Type:Content-Disposition;
+	bh=4g4nl85uQ+oqe5lEbYHv075zDMEI+YwtCB8bjQcYNuc=;
+	b=UzNsAV1Q2xwXtrNanuP4ha4AwTGzFouScfteEXFchrvedLdis0+WIDsMkGWKCZGzMIjN
+	 +pBP6Z80imhFDLDfdhPejQzKeBBlB28isMI7aF6vVAuNTifPxo3wrG/WD31J91h21Qqgn
+	 VoSGPaM0/c4fexY7hJol2rFAYtTl64jAB/dQJF3OjBUbaObigSzJjgEpmxDudwRZNK2lf
+	 HQFvTKFKXKOdJnWqSEytwTQK4vyNenuaQa6JdM5BIude3p9/FV4/2Q37bFPAUk1lAusTo
+	 kmYgkjstnn8ZLQl3jezwJGwyhVp7DSqSH9tI4/EEQt1yuZMIuBGHXmIvaiKrszGI4ng==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=lunn.ch;
-	spf=pass smtp.mailfrom=lunn.ch;
-	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=CxrBhuig;
-	arc=none smtp.remote-ip=156.67.10.101
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=mit.edu;
+	spf=pass smtp.mailfrom=mit.edu;
+	dkim=pass header.d=mit.edu header.i=@mit.edu header.a=rsa-sha256 header.s=outgoing header.b="HgO/1FxQ";
+	arc=none smtp.remote-ip=18.9.28.11
+Received: from outgoing.mit.edu (outgoing-auth-1.mit.edu [18.9.28.11])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96BB0606A31B;
-	Thu, 22 Oct 2026 13:55:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 96BB0606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5333606A330
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 13:57:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D5333606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mit.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mit.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=CxrBhuig
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=2ojm36jDUBb6pXJrubCoB6gVau8R+P1ZTa/JMKRiThE=; b=CxrBhuigoakpWN5Is0+/mnuMlH
-	7kvWlQaUZz3J10DLYIY62uAy0UDsgHoBxPmyVdeiQfOB69wozYtoATCzfGr+fXCjXhDDZdMBcXeBK
-	TnRlktYSQY0q6QnulyWq8f1vtaS9fInAIMV2u5lngm9VwdpTSQlsXSt13abfxEFN8ios=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xJtFu-00CGU8-KE; Thu, 22 Oct 2026 15:54:54 +0200
-Date: Thu, 22 Oct 2026 15:54:54 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Jisheng Zhang <jszhang@kernel.org>
-Cc: Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	netdev@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] net: stmmac: Disable checksum insertion for XDP frame TX
-Message-ID: <741319db-17fb-4768-8606-9105df6bf905@lunn.ch>
-References: <20260929121025.20821-1-jszhang@kernel.org>
- <f0d8c25f-96e1-4da8-af6c-3286610338ba@lunn.ch>
- <atn0mF-dukVTK6Lh@xhacker>
+	dkim=pass (2048-bit key, unprotected) header.d=mit.edu header.i=@mit.edu header.a=rsa-sha256 header.s=outgoing header.b=HgO/1FxQ
+Received: from trampoline.thunk.org (pool-108-26-156-23.bstnma.fios.verizon.net [108.26.156.23])
+	(authenticated bits=0)
+        (User authenticated as tytso@ATHENA.MIT.EDU)
+	by outgoing.mit.edu (8.14.7/8.12.4) with ESMTP id 69MDux9g003881
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 22 Oct 2026 09:57:04 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mit.edu; s=outgoing;
+	t=1792677425; bh=4g4nl85uQ+oqe5lEbYHv075zDMEI+YwtCB8bjQcYNuc=;
+	h=Date:From:Subject:Message-ID:MIME-Version:Content-Type;
+	b=HgO/1FxQ0sLg+xMOb1xqaUZ7HsAOJnl9pqX6CqfrQ5vxFx9p5AOwA/GXgoIOgzW0/
+	 Rvhz39/yB/pPhh3AxoHnWCKrodM6C7aaXIfYfTufK1WElOXXANiz6l6tDAwh++bECy
+	 /7Voc/jOjAikb9zwk3YnSudNtN6pHs3UHDe0bVvhKKvidVCxfzw8/cld4gdqGizS0a
+	 6LsmPdW4b91ZKaz0Fek5QUKd6cwfZwKkcidYWtANhE29BR4NnPQbxVQvsWmScbp4F8
+	 piPbwkRXpzR5M0fVnSQxS5Drs+gbFU/gqzpT/nNCrWP2lE6jFhyz+xbwsC4yXMWCQ9
+	 fPjA53YfaGp3Q==
+Received: by trampoline.thunk.org (Postfix, from userid 15806)
+	id 5BDB42E00B9; Thu, 22 Oct 2026 09:56:59 -0400 (EDT)
+Date: Thu, 22 Oct 2026 09:56:59 -0400
+From: "Theodore Ts'o" <tytso@mit.edu>
+To: Linus Torvalds <torvalds@linux-foundation.org>,
+        Ext4 Developers List <linux-ext4@vger.kernel.org>
+Cc: Linux Kernel Developers List <linux-kernel@vger.kernel.org>
+Subject: [GIT PULL] ext4 updates for 7.4-rc1
+Message-ID: <atoWDJDx6sFovvjp@mit.edu>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,52 +66,108 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <atn0mF-dukVTK6Lh@xhacker>
 
-On Thu, Oct 22, 2026 at 07:33:44PM +0800, Jisheng Zhang wrote:
-> On Tue, Sep 29, 2026 at 10:29:14PM +0200, Andrew Lunn wrote:
-> > On Tue, Sep 29, 2026 at 08:10:25PM +0800, Jisheng Zhang wrote:
-> > > stmmac enables TX checksum insertion for XDP frames whenever the queue
-> > > supports it. XDP frames carry no TX checksum offload request, so this
-> > > can overwrite a checksum already present in the packet.
-> > > 
-> > > Pass false to stmmac_prepare_tx_desc() when transmitting an XDP frame
-> > > so that the packet is sent with its checksum fields unchanged.
-> > 
-> > This seems odd to me.
-> > 
-> > If the frame contains a checksum, it is either correct, and the
-> > hardware calculated one will come out the same, not an issue.  Or the
-> > checksum in the frame is actually wrong, because the frame has got
-> > mangled by eBPF before sending it out, and you want the hardware to
-> > calculate the correct value.
-> > 
-> > What an i missing?
-> > 
-> Hi Andrew and all,
-> 
-> some discussions happened in below thread
-> https://lore.kernel.org/netdev/athAoWfW-xesPhFP@xhacker/
-> 
-> Since it has been merged. Let's move the discussion back to my patch.
-> 
-> AIUI, dwmac can only do HW checksum for normal particular packets
-> layouts, such as TCP, UDP etc. The stmmac_has_ip_ethertype() has
-> well demostrated this limitation.
-> Different with normal tx where the common stack supplies the skb->ip_summed
-> metadata, XDP path doesn't have the necessary metadata. So to make
-> the XDP always work properly when transmiting tranmist arbitrary Eth
-> frames, dwmac HW csum needs to be disabled by default currently.
+The following changes since commit 93f51579e7df248780214094418f205253383cc5:
 
-I don't know the XDP code. But...
+  Linux 7.3-rc4 (2026-09-20 13:48:15 -0700)
 
-Zoom out, look at the big picture:
+are available in the Git repository at:
 
-What do other MAC drivers does? Do they also disable hardware checksum
-when XDP is enabled on a queue?
+  https://git.kernel.org/pub/scm/linux/kernel/git/tytso/ext4.git tags/ext4_for_linus-7.4-rc1
 
-Should XDP actually have the needed meta data? Can it be added in a
-low overhead way? Does the overhead of having it cost less than
-forcing software check sums?
+for you to fetch changes up to 8c4f6e3376348fc3162eed86a05b933921c8f9ed:
 
-	Andrew
+  ext4: introduce a mount option for iomap buffered I/O path (2026-10-15 10:53:14 -0400)
+
+----------------------------------------------------------------
+Add support for buffered iomap support in ext4.  This is not enabled
+by default, but requires the buffered_iomap mount option, as this mode
+does not support online defragmentation, inline data, fsverify,
+fscrypt, non-extent inodes, and data=journal mode.  If buffered_iomap
+is enabled, ext4 will fall back to the original I/O code path
+automatically if necessary.  Large writes show significant performance
+improvements when buffered iomap is enabled.
+
+There are also miscellaneous bug fixes and improvements, including for
+fast commit and avoiding deadlocks and out-of-bound reads when
+handling corner cases involving corrupted file systems.
+
+----------------------------------------------------------------
+Daejun Park (2):
+      jbd2: don't advance j_fc_off before the buffer is recorded
+      ext4: don't report delalloc data as a hole on indirect-mapped inodes
+
+Hemanth Selam (1):
+      ext4: skip extra isize expansion while unmounting
+
+Hsiu-Hsien Lee (1):
+      ext4: fix fast commit replay failing on a read-only mount
+
+Jinjie Ruan (2):
+      ext4: fix out-of-bounds read in ext4_get_group_info()
+      ext4: convert group-count barrier protocol to acquire/release
+
+JonasZhou-oc (1):
+      jbd2: avoid false sharing with j_state_lock
+
+Sergey Senozhatsky (1):
+      ext4: fix ABBA deadlock in ext4_rmdir()
+
+Zhang Yi (31):
+      ext4: simplify size updating in ext4_setattr()
+      ext4: factor out ext4_truncate_[up|down]()
+      ext4: set EXT4_MAP_NEW flag for delayed allocated blocks
+      ext4: recheck extent status tree before block allocation
+      ext4: fix orig_mlen initialization in ext4_map_blocks()
+      ext4: allow ext4_map_blocks() to start its own transaction handle
+      ext4: avoid unnecessary transaction in ext4_map_blocks() for unwritten extents
+      ext4: skip block allocation for holes in the data submission path
+      ext4: add iomap address space operations for buffered I/O
+      ext4: implement buffered read path using iomap
+      ext4: pass out extent seq counter when mapping da blocks
+      ext4: do not use data=ordered mode for inodes using buffered iomap path
+      ext4: implement buffered write path using iomap
+      ext4: rework handle credit accounting for unwritten extent conversion
+      ext4: implement writeback path using iomap
+      ext4: implement mmap path using iomap
+      ext4: implement partial block zero range path using iomap
+      ext4: drain writeback before removing extents on the iomap path
+      ext4: add block mapping tracepoints for iomap buffered I/O path
+      ext4: disable online defrag when inode using iomap buffered I/O path
+      ext4: add EXT4_STATE_DISKSIZE_GROW_PENDING state bit and helpers
+      ext4: submit and wait for pending disksize-grow I/O on writeback
+      ext4: advance i_disksize to i_size upon disksize-grow I/O completion
+      ext4: defer i_disksize update while DISKSIZE_GROW_PENDING is set
+      ext4: submit and wait for disksize-grow I/O in fallocate paths
+      ext4: clear DISKSIZE_GROW_PENDING on truncate or error
+      ext4: set DISKSIZE_GROW_PENDING after zeroing unaligned EOF block
+      ext4: add tracepoints for DISKSIZE_GROW_PENDING set, clear, and wait
+      ext4: add tracepoints for EOF block zeroing and disksize-grow I/O
+      ext4: partially enable iomap for the buffered I/O path of regular files
+      ext4: introduce a mount option for iomap buffered I/O path
+
+guzebing (2):
+      ext4: only update tune mount options when requested
+      ext4: reject delalloc to nodelalloc before applying remount options
+
+ fs/ext4/balloc.c            |    2 +-
+ fs/ext4/ext4.h              |   96 ++-
+ fs/ext4/ext4_jbd2.c         |    8 +-
+ fs/ext4/ext4_jbd2.h         |    7 +-
+ fs/ext4/extents.c           |  131 ++--
+ fs/ext4/file.c              |   20 +-
+ fs/ext4/ialloc.c            |    1 +
+ fs/ext4/indirect.c          |   17 +
+ fs/ext4/inode.c             | 1448 +++++++++++++++++++++++++++++++++++++--------
+ fs/ext4/ioctl.c             |    3 +-
+ fs/ext4/mballoc.c           |    6 +-
+ fs/ext4/migrate.c           |    2 +
+ fs/ext4/move_extent.c       |   11 +
+ fs/ext4/namei.c             |   11 +-
+ fs/ext4/page-io.c           |  201 +++++++
+ fs/ext4/resize.c            |   19 +-
+ fs/ext4/super.c             |   67 ++-
+ fs/jbd2/journal.c           |    2 +-
+ include/linux/jbd2.h        |    2 +-
+ include/trace/events/ext4.h |  209 +++++++
+ 20 files changed, 1927 insertions(+), 336 deletions(-)
