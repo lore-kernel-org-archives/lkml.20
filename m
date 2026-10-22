@@ -1,82 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792674887;
-	b=CDC3itrb+8gfRdB7B0OLAUYMlZ+kOX4jmbmPibf63PuLSPbiL4dEOX9nQRwyrnUB5DBd
-	 97LIvuUUjQpwUqQI5BwP5CB01MtSOIPl/3Ih5Ttt95uqfP+EO6C1aiUPRoFlfJRLjnuU/
-	 +3FWYGUfYaCc+TuIlnY35sMhfZ6GpfXv3/A4WEg4l7fAzx0w7oh36jMgvccmNAlsa9Gtb
-	 MWRBT1TTzOsk/O/p/9KMEWPrhm1mQHspiQidegtq95M5a1McjdQM1jDXUdw/CwrpHYAN7
-	 3JbnByUlifxgA8F9aoF4gQ8uV+lLATi+sKIzS0/UmDFTDnASrgAcsuuruVRQLxfdR+g==
+	t=1792674910;
+	b=39+hkPeL3F6ZJ9Fewh6WKJiTiZ04edbzYObIGNX6S0wazcAhORU2OdvcvLoZ8/qfEMUC
+	 WfMqrzdH5Eg4WcZD4MCRBizmj5/4qvVg8YPo6RqTF2uz/2H9liItaqT6Wb+EcgJOa+nS4
+	 pvkXDvWZsgd11x3oEe6kiNFQA75gwO5Ug39nNxBumN0ceHTzsycG0zXSUu1OHuDDWUrMO
+	 dM3QjANaVX32DzeFiWbTsBIvMSUumziCiVPavxg/m1jG+wkeXISuJAMLwOncvUR6KA6SF
+	 S187MJrZZWxkLpj+mMbG0cgZWUX8tUVOsUZHyW2XiHfp+LCYTwXUmXeISjNu4uu3VYA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792674887;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:Received:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-TM-AS-GCONF:
-	 X-Proofpoint-Reinject:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc:
-	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=OsUk0flsYcD+qNd05ZYTAkmrzmHYWzvjASs2678dOU0=;
-	b=kK6TY0H8RzbvAUSszpm09jMVcSbN7GwdnTwEis+EjMqt1nGpepW6idZek0IowlfblWfz
-	 ggj9re2yHJYQU5idrRqQmYaQAiyk06Pw0ltPnVsEmT3Hxkdpd5tSZ8F7jDs3+dTqEPHQm
-	 /AQOWNZAZ+QlbErT1gDaYLDuusb0oCLkVhKIRmlwFGxXP1UN1dn9xNa8yYmSGSYEQLlEy
-	 SwZiPx3EL+q8PaXjc3/ZsuGiBlcHvVG5ABmEPChUdYkFVgP2PAR4+qE4gtl0e+rjg2/bI
-	 xTaeqo4ewsOQaXLCu9UpNDThvnGQ5SeFzRntiPJVY8K0dCDuFRCywb4qiDzdNBPAd4A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792674910;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Date:From:To:
+	 Cc:Subject:Message-ID:In-Reply-To:References:Organization:X-Mailer:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Last-TLS-Session-Version;
+	bh=FzjJTR6ItIvpJHzm5fXeNiQ9kyieyPecQuvRjoZryAE=;
+	b=cmyFEI0yVkaYkBc+ZNRnjR64d9M1+ddxzGcTPltKmoBzEmsz40FJdGcAjSXAA9ZIQ0QL
+	 xoA0Rbb192o24J9JTr82Cfd3hbCDFPEwyLtoIjPxzR9zcQn+aoa+up3yD+65QnLTh3S7e
+	 U8oovEewhxnpbswUzu1Fzd+SCbzcLij4GlVNb+ff1dknv87TtPgMEvzDikAndqmFt+dTy
+	 NbKz+0owolH5dg2axAdd0dSDLF5PFGjbHlV1karoimclAnSIBzWl/EH4wu/Xkvkpw837N
+	 8/+tXuHtQqhBs7kjNWrO21CZ6y6bTjnelqdlzGSV6kpg+I63K48wrfI923tvZSvBtxg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.ibm.com;
-	spf=pass smtp.mailfrom=linux.ibm.com;
-	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=c7gYDkSV;
-	arc=none smtp.remote-ip=148.163.156.1
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=qyP+JMxy;
+	arc=none smtp.remote-ip=185.246.85.4
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BC81606A319;
-	Thu, 22 Oct 2026 13:14:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1BC81606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F384E606A319;
+	Thu, 22 Oct 2026 13:15:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F384E606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=c7gYDkSV
-Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69MAE4kT2131556;
-	Thu, 22 Oct 2026 13:13:51 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=OsUk0f
-	lsYcD+qNd05ZYTAkmrzmHYWzvjASs2678dOU0=; b=c7gYDkSVyXsEQgbbVcueyi
-	AZpPvq/QtT7mfxvE51Opc2UDILlWORNKSYkmSvyFQzOckVGyJXQyefAJrCiIDlll
-	Zl1iig3xhKo8yeUGAIw1wO8aTpXikOp893oWDt+eVrf1cLfx1M1TaURfV/NvC8bC
-	r5lXonruh+SCVuqYkFW1duRvcQdFBpz62dcGLUfNm/WprfQBgJqtyhUzTMaB5wgM
-	bV4evacAdY8ZWX4/iAikrm4xqbg5A7L4KbW0te+LwSGMN0hEGEadJpFGl3aRAnuu
-	EFOcYC3l//CeWb/4EDQswKusxaIF0jpfjxFDfQT89WH1hkodY5kkSIihdiCyLFFg
-	==
-Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hdw5bq84f-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Thu, 22 Oct 2026 13:13:50 +0000 (GMT)
-Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma21.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69MA4r7M285462;
-	Thu, 22 Oct 2026 13:13:49 GMT
-Received: from smtprelay04.dal12v.mail.ibm.com ([172.16.1.6])
-	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4he7bsa3gd-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 22 Oct 2026 13:13:49 +0000 (GMT)
-Received: from smtpav05.wdc07v.mail.ibm.com (smtpav05.wdc07v.mail.ibm.com [10.39.53.232])
-	by smtprelay04.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69MDDl8r33424044
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Thu, 22 Oct 2026 13:13:48 GMT
-Received: from smtpav05.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id DA1765805F;
-	Thu, 22 Oct 2026 13:13:47 +0000 (GMT)
-Received: from smtpav05.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id B312A58043;
-	Thu, 22 Oct 2026 13:13:37 +0000 (GMT)
-Received: from [9.67.119.174] (unknown [9.67.119.174])
-	by smtpav05.wdc07v.mail.ibm.com (Postfix) with ESMTP;
-	Thu, 22 Oct 2026 13:13:37 +0000 (GMT)
-Message-ID: <95deeda1-9ccd-4423-9041-18731a8209de@linux.ibm.com>
-Date: Thu, 22 Oct 2026 18:43:36 +0530
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=qyP+JMxy
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 780FB4E412B4;
+	Thu, 22 Oct 2026 13:15:07 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 265D760360;
+	Thu, 22 Oct 2026 13:15:07 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 4696410328E5A;
+	Thu, 22 Oct 2026 15:14:55 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1792674901; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=FzjJTR6ItIvpJHzm5fXeNiQ9kyieyPecQuvRjoZryAE=;
+	b=qyP+JMxybh0eYDjXPURfaXe7AEWSMwoLQfBvk5Jxma1DlALQOVoc9hol3BnTSGyaHeMhtL
+	C3jHS/ijE1PVJeO0zKXjDy/3hjINwNW/nibuneqLWJQKba2r3f687/s6i8y3KRl/1hlQ6a
+	xShjr6DOLlBQHr+FWJXSzHK+O6g8OC3MhhHu8Ot5tVqtGKbjhuxO2p3NvTlGE4aLbvaH8o
+	hUO+e3q6gzEQZI8/mfeCgdOwApGs9hou8ehWvyPOH5OqaTIuKMlx/MhN+tTUVdBMkyQ9mw
+	beZCSxbYtc90xq+1d0Nbn8AS+MfwRpGPyNwOQM3T1TeDA5yZlmoIqUsQrAJsDg==
+Date: Thu, 22 Oct 2026 15:14:54 +0200
+From: Herve Codina <herve.codina@bootlin.com>
+To: David Gibson <david@gibson.dropbear.id.au>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Laurent Pinchart
+ <laurent.pinchart@ideasonboard.com>, David Lechner <dlechner@baylibre.com>,
+ Ayush Singh <ayush@beagleboard.org>, Geert Uytterhoeven
+ <geert@linux-m68k.org>, devicetree-compiler@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ devicetree-spec@vger.kernel.org, Hui Pu <hui.pu@gehealthcare.com>, Ian Ray
+ <ian.ray@gehealthcare.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, Frank Li
+ <Frank.Li@nxp.com>
+Subject: Re: [PATCH v3 15/15] Introduce v18 dtb version
+Message-ID: <20261022151454.67125e41@bootlin.com>
+In-Reply-To: <atmASGg1OZt9jfXI@gractus.seuss>
+References: <20260826083146.304291-1-herve.codina@bootlin.com>
+	<20260826083146.304291-16-herve.codina@bootlin.com>
+	<arDMhoNNXcPi81sR@gractus.seuss>
+	<20260925152157.511dc65c@bootlin.com>
+	<as3ZWBr3wRonkxXF@gractus.seuss>
+	<20261013190347.4f1d9b9d@bootlin.com>
+	<atGzdxETQZ9ovJFh@gractus.seuss>
+	<20261019151121.26d99f30@bootlin.com>
+	<atgi4rMsw5W6kKkS@gractus.seuss>
+	<20261021172043.4bbd2bc5@bootlin.com>
+	<atmASGg1OZt9jfXI@gractus.seuss>
+Organization: Bootlin
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,201 +89,240 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] kexec: Select ima_get/free_kexec_buffer() with
- CONFIG_HAVE_IMA_KEXEC(_OF)
-To: Roberto Sassu <roberto.sassu@huaweicloud.com>, catalin.marinas@arm.com,
-        will@kernel.org, mark.rutland@arm.com, chenhuacai@kernel.org,
-        kernel@xen0n.name, maddy@linux.ibm.com, mpe@ellerman.id.au,
-        npiggin@gmail.com, chleroy@kernel.org, pjw@kernel.org,
-        palmer@dabbelt.com, aou@eecs.berkeley.edu, alex@ghiti.fr,
-        tglx@kernel.org, mingo@redhat.com, bp@alien8.de,
-        dave.hansen@linux.intel.com, hpa@zytor.com, robh@kernel.org,
-        saravanak@kernel.org
-Cc: x86@kernel.org, linux-kernel@vger.kernel.org, loongarch@lists.linux.dev,
-        linuxppc-dev@lists.ozlabs.org, linux-riscv@lists.infradead.org,
-        devicetree@vger.kernel.org, zohar@linux.ibm.com, noodles@fb.com,
-        linux-integrity@vger.kernel.org, linux-security-module@vger.kernel.org,
-        Roberto Sassu <roberto.sassu@huawei.com>
-References: <20261020083727.1906495-1-roberto.sassu@huaweicloud.com>
-Content-Language: en-US
-From: Srish Srinivasan <ssrish@linux.ibm.com>
-In-Reply-To: <20261020083727.1906495-1-roberto.sassu@huaweicloud.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-GUID: _3Ib_GBruwcesQrtvIa8ZW5ntGhzMhy5
-X-Proofpoint-ORIG-GUID: oxvRYIABcnG-nxVQjlWue4M7DI2aYYDj
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIyMDA1MCBTYWx0ZWRfXzcOM8UL9gueO
- CY+UcxINUHYr0hjxrJs/KBXesiY3Sz7o0jwVkVShLTxJJ5ixuvqpKWLsOxZC6ezU5meyRXABaxs
- 58Dqwt83Q6uEuKIim2SS8kG/oY2bK90=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIyMDA1MCBTYWx0ZWRfX+ms0pcRX9GQP
- tyaKnyTEc0ZDwcxQzvXzVdV5LQiyFMW5tMimQlSw2Is6088V7QEMcM93QtZHn5luNMX82YxSpKs
- Edik2brqJ//NwRdtVHjgL4F67JQBY4HtGsaDSotd/aGE5zsZ1HwC10JqC7ReR11ZscBVzdOIYyZ
- 8oKnGc6XYN+PR8kO8tjLnVMThufi2rlqivW/jh2X9tksdla+NwyzM8Nmud1YeRtPFng52PIfgWg
- D3Cu3GaHICsND3g8ToduGq7KEfFZlM6LloAFVfZel1VLYC80oadSRWegxg0iFusTRBxT6stDc0i
- FU2eTYyldeZR1D/oMTe30/ZWAK9dOMgpuzc1DLvBUNO6NkaEzduD+suOp4iycusUc4VZxIGfOqb
- U53ApYpaMZGkYi06Li3kpK771jp1pe/pVW1DiUQ28cvrkni8uiHgyWjf8pEZ8CghOMTaMneJAzU
- cKqCrWmr8kMmOmK72yA==
-X-Authority-Analysis: v=2.4 cv=Gb2CDgXL c=1 sm=1 tr=0 ts=6ada0c0f cx=c_pps
- a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=uAbxVGIbfxUO_5tXvNgY:22 a=i0EeH86SAAAA:8
- a=VnNF1IyMAAAA:8 a=xUTifld_T7Igq-SLGagA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-22_04,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 adultscore=0 malwarescore=0 spamscore=0 phishscore=0
- clxscore=1011 bulkscore=0 impostorscore=0 lowpriorityscore=0
- priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
- definitions=main-2610220050
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
+
+Hi David,
+
+On Thu, 22 Oct 2026 14:17:38 +1100
+David Gibson <david@gibson.dropbear.id.au> wrote:
+
+> On Wed, Oct 21, 2026 at 05:20:43PM +0200, Herve Codina wrote:
+> > Hi David,
+> > 
+> > On Wed, 21 Oct 2026 13:26:49 +1100
+> > David Gibson <david@gibson.dropbear.id.au> wrote:
+> >   
+> > > > 
+> > > > Ok, my proposal seems to be a no-go and so I will follow your proposal given
+> > > > above.    
+> > > 
+> > > To be clear, I'm rejecting the original proposal because I think it's
+> > > internally inconsistent (if you follow the consequences of decisions
+> > > far enough).  I'm not necessarily opposed to something other than the
+> > > above, as long as the rules for when unknown tags must be invalidated
+> > > (and what that does to the version) are made very clear in the
+> > > structured tag spec.  e.g. see an alternative proposal below.  
+> > 
+> > No problem, I understand your point.
+> > 
+> > ...
+> >   
+> > > 
+> > > Essentially the theory of the proposal above is to be maximally
+> > > conservative: any write (adding, removing, changing, in-place,
+> > > whatever) will invalidate all unknown tags and downgrade the version.
+> > > 
+> > > 
+> > > But, here's an alternative proposal for invalidation/version semantics
+> > > that I think is consistent, while being a bit closer to your original
+> > > proposal.
+> > > 
+> > > 1. version and last_comp_version retain their meanings.  No new header
+> > >    version.  
+> > 
+> > Ok
+> >   
+> > > 2. If version >= 18 the tree may include any structured tags, even if
+> > >    they weren't defined as of v18.  
+> > 
+> > Ok
+> >   
+> > > 3. Some future version might _require_ certain structured tags to be
+> > >    present.  But a client must only rely on those tags if the version
+> > >    indicates it can.
+> > >      - e.g. suppose FDT_FOO tag is introduced in v20.  A client
+> > >        reading a v19 tree _might_ see some FDT_FOO tags (because of
+> > >        (2)), but cannot rely on them being present in all the places
+> > >        they should be.  
+> > 
+> > Ok, kind of degraded mode. Whether or not a v20 compatible client can continue
+> > or not will depend of each tags known by this v20 client. For some tags, having
+> > them removed will not be a problem whereas it will be a problem for some other.  
+> 
+> Exactly.
+> 
+> > Makes sense.
+> >   
+> > > 4. Any write to a property (including in place) invalidates all
+> > >    unknown tags on that property (they must be stripped)  
+> > 
+> > Ok
+> >   
+> > > 5. Any write to a property invalidates all unknown tags on that
+> > >    property's node  
+> > 
+> > Will see in the implementation. The offset of the written property will be
+> > incorrect after the write. Indeed, some tags (tags related to the node)
+> > available before the property can be removed. With splices instead of
+> > FDT_NOP, offsets change.  
+> 
+> Oh, good point, this rule doesn't work.  I think we still have a
+> consistent set of rules if property writes don't invalidate parent
+> node tags (subnode add/delete still would).  Of coutse, that does
+> further restrict what sorts of information you could safely put in
+> node tags under this scheme.
+> 
+> > This also brings a question. Are API functions such as fdt_get_property_by_offset_w()
+> > need to be deprecated?  
+> 
+> I think we can keep it - kind of like fdt_next_tag() this is a
+> low-level function.  If you use it, you're opting in to having to deal
+> with tag invalidation.
+> 
+> > Those kind of functions return a pointer to the data of a property for modification
+> > by the caller. We don't know if the caller will modify or not the property.
+> > 
+> > Without deprecated it we can change the function to
+> > ---- 8< ----
+> > struct fdt_property *fdt_get_property_by_offset_w(void *fdt,
+> > 						  int offset,
+> > 						  int *lenp)
+> > {
+> > 	int new_offset;
+> > 
+> >         /*
+> >          * The modification is goind to be done out of libfdt.
+> >          * Unknown tags are removed (rules for modification when unknown tags
+> >          * are involved) but also known tags. Indeed, we cannot know if the
+> >          * modification will have impacts on known tags
+> >          */
+> > 	new_offset = fdt_remove_all_tags_due_to_property_modification(fdt, offset);
+> > 
+> > 	return (struct fdt_property *)(uintptr_t)
+> > 		fdt_get_property_by_offset(fdt, new_offset, lenp);
+> > }
+> > ---- 8< ----
+> > 
+> > The idea is to be conservative here also and consider that property data retrieved
+> > for writing will be modified by the caller.
+> > 
+> > Also, the offset used as parameter of fdt_get_property_by_offset_w() is no more
+> > valid after the call.
+> > 
+> > Last point to have in mind, getting the node offset from the property offset will
+> > need to walk the tree from the beginning. It can be costly.  
+> 
+> Right, that's what I was thinking of when I said this might not be
+> practical to implement.  It's doable in the common case where we alter
+> properties by node offset + property name, but not when we use a
+> property offset.  But the fact that this would change the offset of
+> the property in queestion is a much bigger showstopper.
+> 
+> > > 6. Adding or deleting a property on a node invalidates all unknown tags
+> > >    on the node  
+> > 
+> > Ok.
+> >   
+> > > 7. Adding or deleting a subnode invalidates all unknown tags on the
+> > >    node  
+> > 
+> > Ok.
+> >   
+> > > 8. Whenever a tag is invalidated and stripped, the overall version
+> > >    must be downgraded (to let clients know they can't count on tags
+> > >    being present)  
+> > 
+> > Ok.
+> >   
+> > > 
+> > > Points (4)-(7) are all somewhat negotiable.  In particular, I'm not
+> > > sure how feasible (6) is to implement.  
+> > 
+> > Well, this new proposal is more complex to implement than your first
+> > proposal but it has a finer grain to handle unknown tags on modification.  
+> 
+> Certainly - that's why I proposed the other one first :).
+> 
+> > I can try to implement something based on this new proposal.  
+> 
+> To be clear, I kind of prefer my first proposal still.  The question
+> is whether what the updated scheme buys (preserving more tags when a
+> bootloader makes minor writes) worth the added complexity of
+> implementation.  You're better placed to answer that question than I
+> am.
+
+I would like to avoid bootloaders being blocking points and so:
+ a) They should not failed if they encounter an unknown skippable tag.
+    We are in sync on this point.
+
+ b) They should preserve tags as much as possible.
+    The goal is to allow following software components (probably the Kernel)
+    to handle new tags.
+    This is the point where the right balance has be found.
+
+Your first proposal is maybe too much aggressive on b). That's why, even it
+is more complex to implement I would prefer your last proposal (taking into
+account the property offset issue) which can be summarize with the following
+table:
+
+                      | existing prop | existing node (1)   | Downgrade
+                      | unknown tag   | unknown tag         | version (2)
+----------------------+---------------+---------------------+-----------
+Modify a property (5) |    Remove     | Keep (3) 	    | Yes
+Add a property        |    NA         | Remove              | Yes
+Delete a property     |    Remove     | Remove              | Yes (4)
+Add a sub-node        |    NA         | Remove              | Yes
+Delete a sub-node     |    NA         | Remove              | Yes
+----------------------+---------------+---------------------+-----------
+
+(1) The existing node is the node were the property or sub-node involved
+    are present. Not all nodes, not the parent node but the node directly
+    impacted by the modification.
+
+(2) We downgrade the version only if tag are removed. If no unknown tags are
+    involved (and so not removed), the version will not be be downgraded.
+
+(3) Removing unknown tags in the node when a property is modified will lead
+    to the property offset change. Prefer avoid the property offset change
+    and so keep node related unknown tags in that case.
+
+(4) The version is downgrade only if we remove some tags related to the
+    node. If we remove only tags related to the property we delete, there
+    is no reason to downgrade the version.
+
+(5) All property modifications done outside libfdt using directly the
+    property data pointer will not lead to any unknown tag removal.
+    
+    This point is for the usage of fdt_get_property_by_offset_w(),
+    fdt_get_property_namelen_w(), fdt_get_property_w(),
+    fdt_getprop_by_offset_w(), fdt_getprop_namelen_w(), fdt_getprop_w() and
+    maybe other similar functions where the property is returned writable
+    for possible modification. 'modify a property' mentioned in the table
+    is related to modification done using fdt_setprop_*() and fdt_appendprop_*()
+    function families.
+
+On your side, is all of that conservative enough to be used when modification
+involved unknown tags?
+
+> 
+> > > Note that because writes don't invalidate tags on ancestor nodes
+> > > beyond one level, this proposal doesn't permit tags to contain summary
+> > > information about an entire subtree that could be invalidated by
+> > > writes further down in that tree.
+> > >   
+> > 
+> > Well this doesn't look like an issue on my side. At some point if such tags
+> > are added, we can avoid any modification using the last_comp_version
+> > field.  
+> 
+> Yes.
+> 
 
 
-On 10/20/26 2:07 PM, Roberto Sassu wrote:
-> From: Roberto Sassu <roberto.sassu@huawei.com>
->
-> On x86, if CONFIG_OF_FLATTREE is enabled, the kernel uses the device tree
-> implementation of ima_get/free_kexec_buffer(). However, x86 passes the IMA
-> buffer location through setup_data, not through the device tree, so the
-> buffer is never found and the IMA measurement list is not carried over
-> across kexec.
->
-> Introduce CONFIG_HAVE_IMA_KEXEC_OF (which selects CONFIG_HAVE_IMA_KEXEC)
-> and select it for the architectures that pass the IMA buffer location
-> through the device tree, via of_kexec_alloc_and_setup_fdt() (arm64,
-> powerpc and riscv). Build the device tree implementation of
-> ima_get/free_kexec_buffer() only if the new option is enabled.
->
-> Select the new option also on LoongArch, to preserve the current behavior
-> and avoid a link failure. LoongArch does not pass the buffer location to
-> the next kernel yet; this will be addressed separately.
->
-> Finally, don't select it for x86, and use x86's own setup_data-based
-> implementation regardless of CONFIG_OF_FLATTREE.
->
-> Fixes: b69a2afd5afc ("x86/kexec: Carry forward IMA measurement log on kexec")
-> Signed-off-by: Roberto Sassu <roberto.sassu@huawei.com>
 
-
-Tested-by: Srish Srinivasan <ssrish@linux.ibm.com> # PowerVM
-
-
-> ---
->
-> v2:
-> - Reworded the commit message (no code changes), suggested by Mimi
->
->   arch/arm64/Kconfig      | 2 +-
->   arch/loongarch/Kconfig  | 2 +-
->   arch/powerpc/Kconfig    | 2 +-
->   arch/riscv/Kconfig      | 2 +-
->   arch/x86/kernel/setup.c | 2 +-
->   drivers/of/kexec.c      | 4 ++--
->   kernel/Kconfig.kexec    | 4 ++++
->   7 files changed, 11 insertions(+), 7 deletions(-)
->
-> diff --git a/arch/arm64/Kconfig b/arch/arm64/Kconfig
-> index b5a51b0ef944..4b7e248b6c91 100644
-> --- a/arch/arm64/Kconfig
-> +++ b/arch/arm64/Kconfig
-> @@ -1697,7 +1697,7 @@ config ARCH_SUPPORTS_KEXEC_FILE
->   config ARCH_SELECTS_KEXEC_FILE
->   	def_bool y
->   	depends on KEXEC_FILE
-> -	select HAVE_IMA_KEXEC if IMA
-> +	select HAVE_IMA_KEXEC_OF if IMA
->   
->   config ARCH_SUPPORTS_KEXEC_SIG
->   	def_bool y
-> diff --git a/arch/loongarch/Kconfig b/arch/loongarch/Kconfig
-> index 2067d1f2ad7a..b5420d482da4 100644
-> --- a/arch/loongarch/Kconfig
-> +++ b/arch/loongarch/Kconfig
-> @@ -690,7 +690,7 @@ config ARCH_SELECTS_KEXEC_FILE
->   	depends on KEXEC_FILE
->   	select KEXEC_ELF
->   	select RELOCATABLE
-> -	select HAVE_IMA_KEXEC if IMA
-> +	select HAVE_IMA_KEXEC_OF if IMA
->   
->   config ARCH_SUPPORTS_CRASH_DUMP
->   	def_bool 64BIT
-> diff --git a/arch/powerpc/Kconfig b/arch/powerpc/Kconfig
-> index 2580e27e4328..096c6061893b 100644
-> --- a/arch/powerpc/Kconfig
-> +++ b/arch/powerpc/Kconfig
-> @@ -643,7 +643,7 @@ config ARCH_SELECTS_KEXEC_FILE
->   	def_bool y
->   	depends on KEXEC_FILE
->   	select KEXEC_ELF
-> -	select HAVE_IMA_KEXEC if IMA
-> +	select HAVE_IMA_KEXEC_OF if IMA
->   
->   config PPC64_BIG_ENDIAN_ELF_ABI_V2
->   	# Option is available to BFD, but LLD does not support ELFv1 so this is
-> diff --git a/arch/riscv/Kconfig b/arch/riscv/Kconfig
-> index f8e26c4bed2b..161bf8a65beb 100644
-> --- a/arch/riscv/Kconfig
-> +++ b/arch/riscv/Kconfig
-> @@ -1118,7 +1118,7 @@ config ARCH_SUPPORTS_KEXEC_FILE
->   config ARCH_SELECTS_KEXEC_FILE
->   	def_bool y
->   	depends on KEXEC_FILE
-> -	select HAVE_IMA_KEXEC if IMA
-> +	select HAVE_IMA_KEXEC_OF if IMA
->   	select KEXEC_ELF
->   
->   config ARCH_SUPPORTS_KEXEC_PURGATORY
-> diff --git a/arch/x86/kernel/setup.c b/arch/x86/kernel/setup.c
-> index cda6adb9f69c..bc17e353c099 100644
-> --- a/arch/x86/kernel/setup.c
-> +++ b/arch/x86/kernel/setup.c
-> @@ -421,7 +421,7 @@ static void __init add_early_ima_buffer(u64 phys_addr)
->   #endif
->   }
->   
-> -#if defined(CONFIG_HAVE_IMA_KEXEC) && !defined(CONFIG_OF_FLATTREE)
-> +#ifdef CONFIG_HAVE_IMA_KEXEC
->   int __init ima_free_kexec_buffer(void)
->   {
->   	if (!ima_kexec_buffer_size)
-> diff --git a/drivers/of/kexec.c b/drivers/of/kexec.c
-> index 029903b986cb..724f29fef0c0 100644
-> --- a/drivers/of/kexec.c
-> +++ b/drivers/of/kexec.c
-> @@ -116,7 +116,7 @@ static int do_get_kexec_buffer(const void *prop, int len, unsigned long *addr,
->   	return 0;
->   }
->   
-> -#ifdef CONFIG_HAVE_IMA_KEXEC
-> +#ifdef CONFIG_HAVE_IMA_KEXEC_OF
->   /**
->    * ima_get_kexec_buffer - get IMA buffer from the previous kernel
->    * @addr:	On successful return, set to point to the buffer contents.
-> @@ -196,7 +196,7 @@ static void remove_ima_buffer(void *fdt, int chosen_node)
->   	size_t size;
->   	const void *prop;
->   
-> -	if (!IS_ENABLED(CONFIG_HAVE_IMA_KEXEC))
-> +	if (!IS_ENABLED(CONFIG_HAVE_IMA_KEXEC_OF))
->   		return;
->   
->   	prop = fdt_getprop(fdt, chosen_node, "linux,ima-kexec-buffer", &len);
-> diff --git a/kernel/Kconfig.kexec b/kernel/Kconfig.kexec
-> index 15632358bcf7..c6ed60f04ea4 100644
-> --- a/kernel/Kconfig.kexec
-> +++ b/kernel/Kconfig.kexec
-> @@ -17,6 +17,10 @@ config KEXEC_ELF
->   config HAVE_IMA_KEXEC
->   	bool
->   
-> +config HAVE_IMA_KEXEC_OF
-> +	bool
-> +	select HAVE_IMA_KEXEC
-> +
->   config KEXEC
->   	bool "Enable kexec system call"
->   	depends on ARCH_SUPPORTS_KEXEC
+-- 
+Hervé Codina, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
