@@ -1,88 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792678182;
-	b=PiNcV6jvWzsATWQzKDgKH5CPX27tuASFRDqULKLIfR0SXT9jTglwnWOsk9EiGyC12kN6
-	 319zy+IgJR9vl9X97biTYU+V0uju5HVGntDV6f+HML4KJ8iSaUyH8bVXJ0tuLppwMoG/P
-	 4CXkYMwdP5mUqkqAzc+/mcY520RqZnxiMcJyfzlxEsd0EIdNBeYWRMG0a7fsuixJyxE0F
-	 WGjWNGz3dsld43mjV54TsSYPXJK80WWrGWbXdm/Vqh10pOXb5sYHgeAt+rysjbTpQ0sYS
-	 bfMWDLLIOdmZGDtiQyyqmgbnamN61nmb5x+g2bnx8ww5bfg9343JqrRc1ztt40DaAGw==
+	t=1792678181;
+	b=k/DFG2/B6xHgjNz9rtp2nNmYE18RJ/XtKKs3D3wb+3VX4DkhOnzaaq1Dw/ln52fpc2jv
+	 8tv1FVpwh4IIYEUEyUNrBD44NAjRPvE1qloojFg1klt3hT81VNN7lHY0nYTYYTJ4AKirU
+	 lrwu96rVyyDqRzhFgRmMPxFiFn9Brgsn8YUS+Sp6bc9Sm9+m3GwgJBH5bXlD0zwa7ou8n
+	 MT8elQBqEYNN7PmcqYuInWMCBdzMYAWOgie7Ula1HxcmnFyTiT3M0sRl2Ob73XibhPXDd
+	 D8vookcQwOscMcm6kBXLRRbrq2LrcscH/sv5h8wLURcnDyBL8n/JiQZtJC34duERcmg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792678182;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792678181;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=UxR1vV0a0gQBYDHK6NtA7PO5bZkmmtV5vXJv9zlPOvU=;
-	b=QD72TAmfn0tzl/GkPuSl80/Mv/QBsO+7QM47RVS941Yb3n/jLos61FTanDlMTAGxad83
-	 +vHlGCTXdniJ9NEi8lsHjvWA+awTvzeBrMND/hB6/Xt2nCtuQPaxrVH6QkQSad1V4tiTE
-	 z6fMth/Bwl1lcxek2jXr4AfXCzEowMAQZUEnnE90WVa0bG69ZY3GkRcumFOXojuXqNKsz
-	 BpFJegZQ7JnA9YmuJbOSj8dsAWMu5IUVIGExMW3NDjR0vAWfrdYj2xgWRbMeZfUso2Irl
-	 Sx6vB402SkXJ5LwuBF8oT0XFTShN8zzQ1og5jsI5lJ0jx7f3VXJ6lgeX7SiZBFl60rA==
+	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:To:Cc:X-Mailer;
+	bh=YXago1OoE7za0flCz23UuKhtMvUqXuNpFfpj2dGF/2k=;
+	b=i3yQ/Swb5e0bsXkLn2FUSKJEuG9IqBMDQSwftXDs/Xj3A9hUTtJEx7ph7C4Bu+angCzL
+	 KbKtDorfXXRRkaVW18EMCnbc9OpIJGmfl5K5Q/TCIWwfchmSs86AmW4q8I5qIlwwmDFCn
+	 uFyaM5wXV87cI0dQ0zrHjGfdjbim6tZ49hSqsIm/HjMPLVS5Lot59o35AXVBghqxz+mgU
+	 +oN/IHPaq4XiEU6zetvWFP24BS8ARzfLJpnzCDfm8FZd/I0Xw3/AtHSA7aqoQAV0778Aj
+	 xSUo02NmYektenMhhkSMwSIa2uamFPPd/zZw7J+80unWi+jvFvCP0sEyYR7RA6sSQzQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=CIsMOfPh;
-	arc=none smtp.remote-ip=209.85.221.41
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ELtSfocY;
+	arc=none smtp.remote-ip=209.85.128.47
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAF84606A339
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 14:09:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CAF84606A339
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 238F9606A324
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 14:09:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 238F9606A324
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=CIsMOfPh
-Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-48c4d99c32bso1433889f8f.1
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 07:09:41 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ELtSfocY
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a1fbd52ab6so12973165e9.0
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 07:09:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792678180; x=1793282980; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=UxR1vV0a0gQBYDHK6NtA7PO5bZkmmtV5vXJv9zlPOvU=;
-        b=CIsMOfPhDCLPWTQWzUAPvJQb+twWZIQ9eqIFofDc7OfXzdZ45hhIv34kAIReYNnzGK
-         NzYokkYokmtMW7ka+m15K3ucPtuWqRJXGQKc+f8pe3A6WIT77i3n27DT/sWQJFu3QFyd
-         lmdl2Su6QGbT8eH4kYcOPbOAtcIHyJT7rzRWNcr3BcqT70jx1bSrDDEWukV+cdDZNGKX
-         hG2Dc+86FGmWMJU0JMUMf5ZhbUEV2Qp67OB4vVPmmImBtbe/7i42jc43Zj0ONCJWemaV
-         4TmWDeQXg7SKAzUivQGovGAg88fbjKG6n7GE8tWSZH89h5K71z8AzKd1KQGfl3sRYNYS
-         GtAA==
+        d=gmail.com; s=20251104; t=1792678179; x=1793282979; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=YXago1OoE7za0flCz23UuKhtMvUqXuNpFfpj2dGF/2k=;
+        b=ELtSfocY0aSODrp9esPeQgfMoz+v7HKwjSI7sxm8uS43Yq+tTC6w/9itWvg+q4ZcnH
+         piXssBMpqrcC37U8hGqIcJamdkS7f/U9nFMis8k8Npb8YSDJxEpimRGzpyIuHeauFbRl
+         9KaxhD/YA0ASU68hxIjpcszXrStVERR4r/vwFghL1hzVYVIdPlV26LubQahrh045AnVZ
+         P93A/ZJ8RrorLnEloI7FnkwQqWIJB+LroHl3VcsW33iDpuEKNtQrsdbtcGVeiIgrxTP8
+         I5e1lA58OvL3cz2UAHeG25x1qWmuX4VGxGz3uaZSwqxrJqjPGHa+k4YriJ56Q7KkOdYg
+         tnqA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792678180; x=1793282980;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=UxR1vV0a0gQBYDHK6NtA7PO5bZkmmtV5vXJv9zlPOvU=;
-        b=RvYQ7aOtRvytcft+nfwhPANvj3C1Zn6A/2BBJLBB7q41HgCQCUgIRK57jS18lnvdPy
-         +0FkiX9q0+dSl+fHciij+nKbKO+4hrNkZNvVxJJ8GUROqE+nm3wpjjO1RSs/ENzcQpo0
-         pRv3BmmIAZG3li90S+B0XS0dBZhxvrxnPC1Zc9D4Fdnce8aO8x55CxxI8A8fiwkpIfrS
-         EwLcwNsfcR48zor9+bPico8mme/FIx0M1cRY5Ldz/5cBByaZwE0aAX9FfdgLOAgRMNQb
-         8NvZZ/mM3IEpA648kfc+zMQashANDWgMjqNq/+55Jed4LAmoNeF/8BylJKPovo0MMTMs
-         gEhg==
-X-Forwarded-Encrypted: i=1; AKwUvByZMOXjcxUuv9B8VT7RpxEXNuPxpNczsEzWIIbuaGPJl93A0Vn6A4mDnLzUm7LfP+ej0aGcQ4Yw258Y9rc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKeuWkVQwj1vcNp/QfE3bX62g3yY/OlmV8VmczLBEEQP7CpC5CI
-	VGAdrd35qEOONe61CKz46yEdly5XpnZqSqL/46lvYJX2CTgGbFGXTkq1
-X-Gm-Gg: AYBFou0C8OXrXnss52KAoqYhZ18e/QuA4Rnp6MukFF95rbGQuVRV5QWUK1UB/ADonFf
-	hrdcHlTmSM4RUSvsjNKiwJX25G7W2kE9e7Ho96khF2jYl3uQMBFcL157aq+AAiXwp29+TfQV3VP
-	DgCkESaJqwgxeRqGoOMu3oqePIIu40vt3mzfuN0/aN3QWldVrGvBLp6CH1EZmNNV5nA+fpr1G9/
-	IXbQhHp9PeDgYfpcGnG3/fJbUbzJavexaMVsWRDGyhvuTl0N64gjVivWiLejx28nGgHsEfA1tHi
-	YeHsr5kEmWB8zp4zuW4YU7GJprXmWy3U4WqAPDEQGvdYJVQVM6BU6ZTr6smyqToZwtjGrsrP3IR
-	My3Ba/idBHD16SOV9Kmzi2218kALWBNu4GF6pidZ6Pz3xi8wR248CKDNyHBiLR44nor2npPVEIm
-	MlCvhaJ3EjRnOG9FIuoJCug7CskhJlldYuIB3cE5Z0/b2e1884nu/3mCcv+FwzdamIoCYMaSlRm
-	nvTBiSNAty8JnDOORi5f+C5kXZnp3l6mtNWpfsUYsp4ycwUui3b4qtjJFDX+ZN/uf5dY3r/vO3X
-	6L2VPcMg00Ayi92mOCtIMNFaUcZd8DXQqnOOSezV74gZRlh2zL5nCv0=
-X-Received: by 2002:a05:6000:26c9:b0:48e:1299:663f with SMTP id ffacd0b85a97d-48e264f1802mr11901050f8f.56.1792678180098;
-        Thu, 22 Oct 2026 07:09:40 -0700 (PDT)
-Received: from ernest.hoecke-nb (248.201.173.83.static.wline.lns.sme.cust.swisscom.ch. [83.173.201.248])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e2584e760sm12368150f8f.59.2026.10.22.07.09.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        d=1e100.net; s=20260707; t=1792678179; x=1793282979;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=YXago1OoE7za0flCz23UuKhtMvUqXuNpFfpj2dGF/2k=;
+        b=h6tv5nZWpiUUE8OVan4qg/pkvveDWEXsyfBalloevN9XXP0HHJ2KHZrdJ2hvrIXB9m
+         2nN4XzGT9O6IO11zK1zj1Fu6mQiuj/N74dEzoKE7lDOezGn4c2FsSfFWMOORs2ztmLMv
+         w0Z8M83/pbac9aKG+sE/9yEC4nCQgM04SovTKoEyH/3m9G5rcnpDt+85Wl/nqrXb3Qvs
+         gnqmh0DHilJebp1PbJJFXdM4SwM3MGrMqwpcSuLUK2NBaS+sVv8uzQSC37RyonYOTBBT
+         4g5nVpnhbRcVPoXPYNnsM0UIXl2YXCj2qu48lV3XZEMxn1KXAF3mbOwac7eNRz+fcPVM
+         hQNA==
+X-Forwarded-Encrypted: i=1; AKwUvBw+HNb1LA107cVDKKih/c4uP/JkIVS/IydTuwA6BGDnx4TUmuFdDuslkc7QPlw/XFk1UE0DlvMi2ZsgblE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJbAiZHsZ4Yz5H01Lb/PsrM+5LZg66U3jQQGSAuUkTYl4oeJCis
+	xux7NffCmiOJvcPgzrWHbIbW1My5rrTRFMTkYjj5YSZmykj9hhhU9o3W
+X-Gm-Gg: AYBFou2cAxS/hnZFqZQqlE+UryAino7+zdjIitu90RnCcozqLnvI4CsfjuRYnKYH463
+	PyJZYp9QHHPhd5LVf+TvzbC7XghC6tDRanwxJ8JEljieFsz/iKpLA0zz7jN7mtSCZDlDyRUkQvQ
+	XnkDtx8NQDBRqGRXvW/IOuvtigK7J6+IbYF9M1mqoRtlUbWELC+OXwGtVjmLaU47H46jTM4an82
+	KOSBAbl5hZS+MjDAbcvBgPM32a1dRnvxLDvXIXuaQilGBnTRDIvI0NBakrITftnrsVrJFrgohoF
+	GnzSu8Ay3Fewh8FW7OkE9i5ti73fOMacsXI76LCV6JMj8x3SUgqG0pdifzjrjPFW06W9Ckcs1kg
+	bXw3jLnhbF1hj2nDY3bvsQqE9MI1jIkgVOzAXritvmFucW4iARmZWTkNvzwzbuVGK4IwLPg1/5v
+	ODCWjcUx88DcMipxNjWDJd9ibjk3vtM6AxhLLGzTYYMCODnN3IcSnApMpU4lTY+qDjzHoOHS22b
+	cXQLmbi3Fpo+/GQOCiNQ/FKdC74dLEAGjbMghHSpQzogqM1px3hKyGXOAjDUXTt78kgGmPSMWoc
+	Msaecy62G2Chj/jWJvLO+WhOe0YW2hmMMo4N+DTpwSTXMjG8CcjQZ6w=
+X-Received: by 2002:adf:e00e:0:20b0:48e:1e03:687f with SMTP id ffacd0b85a97d-48e264c3ffamr7880482f8f.31.1792678179143;
         Thu, 22 Oct 2026 07:09:39 -0700 (PDT)
+Received: from ernest.hoecke-nb (248.201.173.83.static.wline.lns.sme.cust.swisscom.ch. [83.173.201.248])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e2584e760sm12368150f8f.59.2026.10.22.07.09.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 22 Oct 2026 07:09:38 -0700 (PDT)
 From: Ernest Van Hoecke <ernestvanhoecke@gmail.com>
-Date: Thu, 22 Oct 2026 16:09:33 +0200
-Subject: [PATCH v2 1/5] arm64: dts: freescale: imx8mm-verdin: Share the
- UART_4 MCU overlay
+Subject: [PATCH v2 0/5] arm64: dts: freescale: Share the Toradex Cortex-M
+ UART overlay
+Date: Thu, 22 Oct 2026 16:09:32 +0200
+Message-Id: <20261022-v1-imx95-overlays-v2-0-c769d6eb54fd@toradex.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,9 +94,10 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261022-v1-imx95-overlays-v2-1-c769d6eb54fd@toradex.com>
-References: <20261022-v1-imx95-overlays-v2-0-c769d6eb54fd@toradex.com>
-In-Reply-To: <20261022-v1-imx95-overlays-v2-0-c769d6eb54fd@toradex.com>
+X-B4-Tracking: v=1; b=H4sIABwZ2moC/32NTQ6DIBBGr2JmXRrAnzhd9R6NC8CxTlKlgYZoD
+ Hcv9QBdvpd87zsgUmCKcKsOCJQ4sl8L6EsFbjbrkwSPhUFL3UnUWiQleNmwFT5ReJk9ih5tbVD
+ 1rcUayu4daOLtbD6GwjPHjw/7eZHUz/6rFSNFh42S0ky2se5exmak7er8AkPO+QsnW9p3tAAAA
+ A==
 To: Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
  Pengutronix Kernel Team <kernel@pengutronix.de>, 
  Fabio Estevam <festevam@gmail.com>, Rob Herring <robh@kernel.org>, 
@@ -107,109 +108,58 @@ Cc: imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
  Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
 X-Mailer: b4 0.13.0
 
-From: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+Several Toradex modules assign one UART to firmware running on their
+Cortex-M core: Verdin UART_4 on Verdin iMX8M Mini, Verdin iMX8M Plus
+and Verdin iMX95, Aquila UART_4 on Aquila iMX95 and SER0 on Toradex
+SMARC iMX95. The overlays reserving it only differ in the UART
+instance.
 
-Verdin UART_4 is the UART the module assigns to the Cortex-M4F core.
-Other Toradex modules also assign one UART to their Cortex-M core, such
-as Verdin and Aquila UART_4 and SMARC SER0 on i.MX95, but on a different
-UART instance, so an overlay naming the instance cannot be shared.
+Label that UART uart_mcu in each module device tree and share one
+overlay, imx-tdx-uart-mcu.dtso, which reserves the labelled UART. The
+merged Verdin iMX8M Mini overlay becomes the shared one, and the
+combined Verdin iMX8M Mini DTB keeps its name. NXP's imx9-mqs.dtso
+uses the same pattern with its mqs1_conflict_dev board label.
 
-Label the UART uart_mcu in the module device tree and turn the Verdin
-iMX8M Mini overlay into imx-tdx-uart-mcu.dtso, which reserves the
-labelled UART. The combined Verdin iMX8M Mini DTB keeps its name.
+The overlays mark the port as reserved so Linux does not claim it.
+Firmware remains responsible for configuring the UART and its pads.
 
 Signed-off-by: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
 ---
- arch/arm64/boot/dts/freescale/Makefile                     |  5 +++--
- arch/arm64/boot/dts/freescale/imx-tdx-uart-mcu.dtso        | 14 ++++++++++++++
- arch/arm64/boot/dts/freescale/imx8mm-verdin-uart4-mcu.dtso | 14 --------------
- arch/arm64/boot/dts/freescale/imx8mm-verdin.dtsi           |  2 +-
- 4 files changed, 18 insertions(+), 17 deletions(-)
+Changes in v2:
+- Share one overlay through a uart_mcu label instead of adding
+  identical per-module overlays (Frank), and include the merged Verdin
+  iMX8M Mini overlay
+- Add Verdin iMX8M Plus, previously posted with the Verdin iMX8M OV5640
+  series:
+  https://lore.kernel.org/r/20261001-verdin-imx8mp-hmp-camera-ready-v2-2-7d1343ecd3ec@toradex.com
+- Drop the Verdin iMX95 NAU8822 BTL patch, now covered by the shared
+  NAU8822 BTL series:
+  https://lore.kernel.org/all/20261022-imx-nau8822-btl-v2-0-b4221ed43650@toradex.com/
+- Rebase onto imx/dt64
+- Link to v1: https://lore.kernel.org/r/20260922-v1-imx95-overlays-v1-0-694100afb4bc@toradex.com
 
-diff --git a/arch/arm64/boot/dts/freescale/Makefile b/arch/arm64/boot/dts/freescale/Makefile
-index a80cccf34eb5..a40bcbe4876d 100644
---- a/arch/arm64/boot/dts/freescale/Makefile
-+++ b/arch/arm64/boot/dts/freescale/Makefile
-@@ -107,6 +107,8 @@ dtb-$(CONFIG_ARCH_LAYERSCAPE) += fsl-lx2160a-tqmlx2160a-mblx2160a-14-11-x.dtb
- dtb-$(CONFIG_ARCH_LAYERSCAPE) += fsl-lx2160a-tqmlx2160a-mblx2160a-14-8-x.dtb
- dtb-$(CONFIG_ARCH_LAYERSCAPE) += fsl-lx2160a-tqmlx2160a-mblx2160a-14-7-x.dtb
- 
-+dtb-$(CONFIG_ARCH_MXC) += imx-tdx-uart-mcu.dtbo
-+
- dtb-$(CONFIG_ARCH_MXC) += imx8dx-colibri-aster.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8dx-colibri-eval-v3.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8dx-colibri-iris-v2.dtb
-@@ -268,7 +270,6 @@ dtb-$(CONFIG_ARCH_MXC) += imx8mm-verdin-nonwifi-yavia.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mm-verdin-nonwifi-zinnia.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mm-verdin-panel-cap-touch-10inch-dsi.dtbo
- dtb-$(CONFIG_ARCH_MXC) += imx8mm-verdin-panel-cap-touch-7inch-dsi.dtbo
--dtb-$(CONFIG_ARCH_MXC) += imx8mm-verdin-uart4-mcu.dtbo
- dtb-$(CONFIG_ARCH_MXC) += imx8mm-verdin-wifi-dahlia-dsi-to-hdmi.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mm-verdin-wifi-dahlia-panel-cap-touch-10inch-dsi.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mm-verdin-wifi-dahlia.dtb
-@@ -298,7 +299,7 @@ imx8mm-verdin-wifi-dev-dsi-to-lvds-panel-cap-touch-10inch-dtbs := imx8mm-verdin-
- imx8mm-verdin-wifi-dev-nau8822-btl-dtbs := imx8mm-verdin-wifi-dev.dtb imx8mm-verdin-dev-nau8822-btl.dtbo
- imx8mm-verdin-wifi-dev-panel-cap-touch-7inch-dsi-dtbs := imx8mm-verdin-wifi-dev.dtb \
- 	imx8mm-verdin-panel-cap-touch-7inch-dsi.dtbo
--imx8mm-verdin-wifi-dev-uart4-mcu-dtbs := imx8mm-verdin-wifi-dev.dtb imx8mm-verdin-uart4-mcu.dtbo
-+imx8mm-verdin-wifi-dev-uart4-mcu-dtbs := imx8mm-verdin-wifi-dev.dtb imx-tdx-uart-mcu.dtbo
- imx8mm-verdin-wifi-yavia-dsi-to-hdmi-dtbs := imx8mm-verdin-wifi-yavia.dtb imx8mm-verdin-dsi-to-hdmi.dtbo
- 
- imx8mm-tqma8mqml-mba8mx-lvds-g133han01-dtbs += imx8mm-tqma8mqml-mba8mx.dtb imx8mm-tqma8mqml-mba8mx-lvds-g133han01.dtbo
-diff --git a/arch/arm64/boot/dts/freescale/imx-tdx-uart-mcu.dtso b/arch/arm64/boot/dts/freescale/imx-tdx-uart-mcu.dtso
-new file mode 100644
-index 000000000000..001bc3286e8e
---- /dev/null
-+++ b/arch/arm64/boot/dts/freescale/imx-tdx-uart-mcu.dtso
-@@ -0,0 +1,14 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later OR MIT
-+/*
-+ * Copyright (c) Toradex
-+ *
-+ * Reserve the UART that the module assigns to its Cortex-M core, labelled
-+ * uart_mcu in the module device tree, so that Linux does not claim it.
-+ */
-+
-+/dts-v1/;
-+/plugin/;
-+
-+&uart_mcu {
-+	status = "reserved";
-+};
-diff --git a/arch/arm64/boot/dts/freescale/imx8mm-verdin-uart4-mcu.dtso b/arch/arm64/boot/dts/freescale/imx8mm-verdin-uart4-mcu.dtso
-deleted file mode 100644
-index 8dbecffe9e7b..000000000000
---- a/arch/arm64/boot/dts/freescale/imx8mm-verdin-uart4-mcu.dtso
-+++ /dev/null
-@@ -1,14 +0,0 @@
--// SPDX-License-Identifier: GPL-2.0-or-later OR MIT
--/*
-- * Copyright (c) Toradex
-- *
-- * Verdin iMX8M Mini UART_4 for Cortex-M4F
-- */
--
--/dts-v1/;
--/plugin/;
--
--/* Verdin UART_4 */
--&uart4 {
--	status = "reserved";
--};
-diff --git a/arch/arm64/boot/dts/freescale/imx8mm-verdin.dtsi b/arch/arm64/boot/dts/freescale/imx8mm-verdin.dtsi
-index 4f64c5da8d15..1ac9d000d415 100644
---- a/arch/arm64/boot/dts/freescale/imx8mm-verdin.dtsi
-+++ b/arch/arm64/boot/dts/freescale/imx8mm-verdin.dtsi
-@@ -776,7 +776,7 @@ &uart3 {
-  * Verdin UART_4
-  * Resource allocated to M4 by default, must not be accessed from Cortex-A35 or you get an OOPS
-  */
--&uart4 {
-+uart_mcu: &uart4 {
- 	pinctrl-names = "default";
- 	pinctrl-0 = <&pinctrl_uart4>;
- };
+---
+Ernest Van Hoecke (5):
+      arm64: dts: freescale: imx8mm-verdin: Share the UART_4 MCU overlay
+      arm64: dts: freescale: imx8mp-verdin: Add Cortex-M7 UART_4 overlay
+      arm64: dts: freescale: imx95-verdin: Add Cortex-M7 UART_4 overlay
+      arm64: dts: freescale: imx95-aquila: Add Cortex-M7 UART_4 overlay
+      arm64: dts: freescale: imx95-toradex-smarc: Add Cortex-M7 SER0 overlay
 
+ arch/arm64/boot/dts/freescale/Makefile                    | 15 +++++++++++++--
+ arch/arm64/boot/dts/freescale/imx-tdx-uart-mcu.dtso       | 14 ++++++++++++++
+ .../arm64/boot/dts/freescale/imx8mm-verdin-uart4-mcu.dtso | 14 --------------
+ arch/arm64/boot/dts/freescale/imx8mm-verdin.dtsi          |  2 +-
+ arch/arm64/boot/dts/freescale/imx8mp-verdin.dtsi          |  2 +-
+ arch/arm64/boot/dts/freescale/imx95-aquila.dtsi           |  2 +-
+ arch/arm64/boot/dts/freescale/imx95-toradex-smarc.dtsi    |  2 +-
+ arch/arm64/boot/dts/freescale/imx95-verdin.dtsi           |  2 +-
+ 8 files changed, 32 insertions(+), 21 deletions(-)
+---
+base-commit: 7f47e8eafbf55a2ad0697e5d28f5e6cff2fa42f9
+change-id: 20260922-v1-imx95-overlays-89b3a9185b93
+
+Best regards,
 -- 
-2.43.0
+Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
 
