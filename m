@@ -1,70 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=121.127.44.66
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=211.75.126.72
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792632906;
-	b=g2N9a9dthUUU1uxb5WUlZNRi4dl0RFuuxN13axabDfJGgPq1BFCpu8k/zcwjsbJZ8JYP
-	 w/wYaE2hBPm8G7QjaOVKU3VxBdveGLafHOv1r5zYwDyH4hbmDYd6LpMv6Nh9hp7DOK3hw
-	 2ELrPv04UnpHk3GHTRxym2o3+OfOwI8G78AmjgrzkbUuvpnipr3a5p5dXxj8V/kfnkxkN
-	 KL6rAMtaOhaiDMt5yQwAcDkCUT6TAg91NZPgLVnR1v1JMA0aTY6CAf7PJ37vIg8LA7epv
-	 aiA4qxm0cVmdbWX4kKD3Dbya9FEJ/an20e5r/Y74jRMLycH0Lz6dOATBC19y3qEULBw==
+	t=1792632993;
+	b=y1WtzvTL6wJvLerO4PDeeIas3h162vylheezOFeaLFYpqexH+Vs6rakua1fiz9bQb+4k
+	 Yb63GMQa5/YDJzCPf9dhlNwyIqbAwwyMoOAghePMK1vY2q3UNuFhl+5IdMKQQDbF8EzXZ
+	 Oww3OKmSPketz2Qey0v9V1AIuiZTjtbWvnv07IhcPN7j9p5YPHKttEiXiy7VkXqMZ3AwP
+	 mszFVVRWXmv5wCM3GIXomck8AbQxzkgvYkT8qudDzoQNdxunB+ONMMcAWOl68ow8R+yL8
+	 7kEP8SnmJzClanMhfLbJjs6lf2q3G1Ed6Psyahe1lBSPS4Y+2LpHQI5rMHtLsj66mlg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792632906;
-	h=DMARC-Filter:DKIM-Signature:X-Forward-Email-ID:
-	 X-Forward-Email-Sender:X-Forward-Email-Version:
-	 X-Forward-Email-Website:X-Complaints-To:X-Report-Abuse:
-	 X-Report-Abuse-To:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=l6gT621i0UWoUJpKXQafhWyEypuwooQXgCBqVfVlgR8=;
-	b=sMbkM0GPeXGjy5wrx0g4ErZRZg+h4qUl3faNVI/4Zve2fiU99FMdKXk6bX2HtNZY6knY
-	 QqyhwkhocQw8zTlNRidvewSOJq0vjVb79vrriLCqPItgfjCHTi0AwH7OCmbcLt9XJvZTl
-	 zO1FQxaEb53bejQVegL2qwbaGmcyD+QQm7OTUa91Xvm2VqNQOL2tqHjMqRkvXvwtr7zPC
-	 R0UM6vJAaG+duIImOK5PA0v+eYPSXIgr2om87xtYd4T7MSUIXyS5fRY8qTbuZwA4aJS+n
-	 GXdWgBPa2Nr1L3m7KbRoCOvsBZnP0wXJ6OnY42PW2yeOe1u0AthKKgz9obo4Aox/l0A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792632993;
+	h=DMARC-Filter:X-SpamFilter-By:DKIM-Signature:Received:Received:
+	 Received:Received:From:To:CC:Subject:Thread-Topic:Thread-Index:Date:
+	 Message-ID:References:In-Reply-To:Accept-Language:Content-Language:
+	 x-originating-ip:Content-Type:Content-Transfer-Encoding:MIME-Version;
+	bh=BGZjxVG3+ZQKW4GT5a9vzXXQ4iSYpkTQGbrMvaFDw/M=;
+	b=3ECmD4KsqAOSXsy3GRroidHIe7Q26WhdcdBG63tULYGdulV3PixW6Ct900gs3IRFffwU
+	 xy1nCblQFcvSntMarI3VwCQSE8VohomMWrvdIOxYIu5thBFJzn2eItStzFgThBwb5GLLl
+	 6tMU+IaMcPNOnHacbvLmrhNMFBThN696EHeAeZ2epfuhVM4hJMRCCJx0TMfzcoQuSzrsb
+	 PPg7GMizxhvn7hASyXAQEqbj7yT/i9ZyaleHBUjYDI8bS6K5AlwLekitKrzTTbH4FYHG/
+	 eWoCa/qKgBNTK9i55Ahi4HaIxI1MTPBUqf+FQSnczvfe94ygHyUyU80jtBO1Z2LAmcg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=skyn3tlab.com;
-	spf=pass smtp.mailfrom=fe-bounces.skyn3tlab.com;
-	dkim=pass header.d=skyn3tlab.com header.i=@skyn3tlab.com header.a=rsa-sha256 header.s=fe-ef0e585ad0 header.b=33VvVVXH;
-	arc=none smtp.remote-ip=121.127.44.66
-Received: from smtp.forwardemail.net (smtp.forwardemail.net [121.127.44.66])
+	dmarc=pass header.from=realtek.com;
+	spf=pass smtp.mailfrom=realtek.com;
+	dkim=pass header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=Uy43FliI;
+	arc=none smtp.remote-ip=211.75.126.72
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05DA9606A319
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 01:35:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 05DA9606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=skyn3tlab.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fe-bounces.skyn3tlab.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEF08606A319;
+	Thu, 22 Oct 2026 01:36:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AEF08606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=skyn3tlab.com header.i=@skyn3tlab.com header.a=rsa-sha256 header.s=fe-ef0e585ad0 header.b=33VvVVXH
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=skyn3tlab.com;
- h=Content-Transfer-Encoding: MIME-Version: Message-ID: Date: Subject: Cc:
- To: From; q=dns/txt; s=fe-ef0e585ad0; t=1792632898;
- bh=l6gT621i0UWoUJpKXQafhWyEypuwooQXgCBqVfVlgR8=;
- b=33VvVVXHhEMcos1Q598XioV/W5r0t0hlfRgVdrtgq/HS6ecsWxS+kf8RZU/EUKOJqsUaVVP+7
- 54Rm9NbRk2qC0zlG23qbtSUY2iadtI2gd0CNGOKAsnMnjm8dYL8R7aCyswvePUKUTNb1oU2lSTk
- TtXWXewP0R08Qz9252ME1Fs=
-X-Forward-Email-ID: 6ad9682a68c864fa427ee3d8
-X-Forward-Email-Sender: rfc822; gr3yf0x87@skyn3tlab.com,
- smtp.forwardemail.net, 121.127.44.66
-X-Forward-Email-Version: 2.18.9
-X-Forward-Email-Website: https://forwardemail.net
-X-Complaints-To: abuse@forwardemail.net
-X-Report-Abuse: abuse@forwardemail.net
-X-Report-Abuse-To: abuse@forwardemail.net
-From: Mark Severson <gr3yf0x87@skyn3tlab.com>
-To: Jonathan Corbet <corbet@lwn.net>,
-	Federico Vaga <federico.vaga@vaga.pv.it>
-Cc: Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	workflows@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	bpf@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] docs: changes.rst: set the pahole minimum back to 1.22
-Date: Wed, 21 Oct 2026 21:34:32 -0400
-Message-ID: <20261022013432.2638010-1-gr3yf0x87@skyn3tlab.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key, unprotected) header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=Uy43FliI
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 69M1aRkA5423792, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
+	t=1792632987; bh=BGZjxVG3+ZQKW4GT5a9vzXXQ4iSYpkTQGbrMvaFDw/M=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	b=Uy43FliIJo8XF8c1lv7RQIJ3dcmZ7PP/ccCRSUImRwDgJ0tzMZ/JQsX3jMZXYmaax
+	 P9zXYUZqBoswbnsLBI1c5zKWHZiL+w4nGpr271S4++cHZ8hGA60Llf8ynDuR7EDiF/
+	 NgaaZtA7aCRruX5rHHsuTzSSmVY35wpe2a49BABrTcDuf3frKBt37nFlEcgOZGTOzu
+	 L3AGaAgHI+7vQk82XbxwleoQYsuzNThiQt3Do/eEH49YmclwY1Y+/Vk6jnj513ul+q
+	 FpvtmX/BkA01zR5iwSrX8P5TWw6s1ZQ/gznz+LHFiuFWWkiEFJKZ5A0sVZe1CwWDcY
+	 ZeZw3rl313ksA==
+Received: from mail.realtek.com (rtkexhmbs02.realtek.com.tw[172.21.6.41])
+	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 69M1aRkA5423792
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Thu, 22 Oct 2026 09:36:27 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS02.realtek.com.tw (172.21.6.41) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Thu, 22 Oct 2026 09:36:27 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS06.realtek.com.tw (10.21.1.56) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Thu, 22 Oct 2026 09:36:27 +0800
+Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
+ RTKEXHMBS06.realtek.com.tw ([fe80::b3cc:c263:b82d:e87c%10]) with mapi id
+ 15.02.2562.049; Thu, 22 Oct 2026 09:36:27 +0800
+From: Ping-Ke Shih <pkshih@realtek.com>
+To: Abdurrahman Karadag <abdurrahmankaradag19@gmail.com>,
+	"linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>
+CC: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"rtl8821cerfe2@gmail.com" <rtl8821cerfe2@gmail.com>
+Subject: RE: [PATCH rtw-next v4] wifi: rtw88: pci: wake the TX queues after
+ restart_hw and interface up
+Thread-Topic: [PATCH rtw-next v4] wifi: rtw88: pci: wake the TX queues after
+ restart_hw and interface up
+Thread-Index: AQHdYUTZHqBHBr/kKE6mkTCqhcbTnLcIxw1A
+Date: Thu, 22 Oct 2026 01:36:27 +0000
+Message-ID: <e9cab7ed7daf45b9b4c2294174f8c1a0@realtek.com>
+References: <20261021101315.1974894-1-abdurrahmankaradag19@gmail.com>
+In-Reply-To: <20261021101315.1974894-1-abdurrahmankaradag19@gmail.com>
+Accept-Language: en-US, zh-TW
+Content-Language: zh-TW
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,66 +87,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Commit fd5425b67355 ("docs, resolve_btfids: Document kfunc BTF
-annotation emission") removed the paragraph saying that kfuncs annotated
-with KF_IMPLICIT_ARGS need pahole v1.26, because resolve_btfids now
-emits the kfunc BTF annotations that pahole used to produce. That
-paragraph was the reason the requirements table lists pahole 1.26, and
-the table was left unchanged. The text below the table and
-lib/Kconfig.debug (DEBUG_INFO_BTF depends on PAHOLE_VERSION >= 122)
-both still say 1.22.
+Abdurrahman Karadag <abdurrahmankaradag19@gmail.com> wrote:
+> diff --git a/drivers/net/wireless/realtek/rtw88/pci.c b/drivers/net/wirel=
+ess/realtek/rtw88/pci.c
+> index 66d2e5f..fd84ace 100644
+> --- a/drivers/net/wireless/realtek/rtw88/pci.c
+> +++ b/drivers/net/wireless/realtek/rtw88/pci.c
+> @@ -571,12 +571,20 @@ static void rtw_pci_napi_stop(struct rtw_dev *rtwde=
+v)
+>  static int rtw_pci_start(struct rtw_dev *rtwdev)
+>  {
+>         struct rtw_pci *rtwpci =3D (struct rtw_pci *)rtwdev->priv;
+> +       enum rtw_tx_queue_type queue;
+> +       bool wake =3D false;
+>=20
+>         rtw_pci_napi_start(rtwdev);
+>=20
+>         spin_lock_bh(&rtwpci->irq_lock);
 
-Set the table back to 1.22, in the English document and in the Italian
-translation, which carries the same table.
+It would look natural to clear queue_stopped before enabling interrupt,=20
+since it is intended to reset. More, add a function to be clear that we=20
+are resetting queue_stopped, like rtw_pci_reset_tx_{ring or queue}_state().
 
-Checked by building linux-next 20261021 with pahole v1.25 and
-CONFIG_DEBUG_INFO_BTF=y: in the vmlinux BTF,
-bpf_task_work_schedule_signal has four arguments and the bpf_kfunc decl
-tag, and bpf_task_work_schedule_signal_impl keeps the
-struct bpf_prog_aux * argument, as Documentation/bpf/kfuncs.rst
-describes for KF_IMPLICIT_ARGS.
+For scanning from idle case, we have an assistant=20
+'test_bit(RTW_FLAG_SCANNING, rtwdev->flags)' if you want.
 
-Fixes: fd5425b67355 ("docs, resolve_btfids: Document kfunc BTF annotation emission")
-Assisted-by: Claude
-Signed-off-by: Mark Severson <gr3yf0x87@skyn3tlab.com>
----
-checkpatch reports the Assisted-by tag as non-standard; it follows the
-Attribution section of Documentation/process/coding-assistants.rst as
-published on docs.kernel.org. Not run: make htmldocs; the change keeps
-the table's column widths.
+Add an empty line before 'running =3D true'.
 
- Documentation/process/changes.rst                    | 2 +-
- Documentation/translations/it_IT/process/changes.rst | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/Documentation/process/changes.rst b/Documentation/process/changes.rst
-index 28f2ca633..13093c5c2 100644
---- a/Documentation/process/changes.rst
-+++ b/Documentation/process/changes.rst
-@@ -53,7 +53,7 @@ mcelog                 0.6              mcelog --version
- mkimage (optional)     2017.01          mkimage --version
- nfs-utils              1.0.5            showmount --version
- openssl & libcrypto    1.0.0            openssl version
--pahole                 1.26             pahole --version
-+pahole                 1.22             pahole --version
- pcmciautils            004              pccardctl -V
- pigz (optional)        2.4              pigz --version
- PPP                    2.4.0            pppd --version
-diff --git a/Documentation/translations/it_IT/process/changes.rst b/Documentation/translations/it_IT/process/changes.rst
-index 0be1292a8..5adeee24c 100644
---- a/Documentation/translations/it_IT/process/changes.rst
-+++ b/Documentation/translations/it_IT/process/changes.rst
-@@ -57,7 +57,7 @@ mcelog                 0.6              mcelog --version
- mkimage (opzionale)    2017.01          mkimage --version
- nfs-utils              1.0.5            showmount --version
- openssl & libcrypto    1.0.0            openssl version
--pahole                 1.26             pahole --version
-+pahole                 1.22             pahole --version
- pcmciautils            004              pccardctl -V
- PPP                    2.4.0            pppd --version
- procps                 3.2.0            ps --version
--- 
-2.43.0
+>         rtwpci->running =3D true;
+>         rtw_pci_enable_interrupt(rtwdev, rtwpci, false);
+> +       for (queue =3D 0; queue < RTK_MAX_TX_QUEUE_NUM; queue++) {
+> +               wake |=3D rtwpci->tx_rings[queue].queue_stopped;
+> +               rtwpci->tx_rings[queue].queue_stopped =3D false;
+> +       }
+> +       if (wake)
+> +               ieee80211_wake_queues(rtwdev->hw);
+>         spin_unlock_bh(&rtwpci->irq_lock);
+>=20
+>         return 0;
+> base-commit: 9b0be45d4d52fd223994e151f169743a97abd290
+> --
+> 2.56.0
 
