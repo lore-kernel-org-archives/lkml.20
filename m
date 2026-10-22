@@ -1,64 +1,64 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792694302;
-	b=yRtnqJjWbgXHE3id2GRMDJOHo1IgQxc1Vi8bO+yfxIF5F9Zcb/jbLNr8PUwCgh99IFND
-	 aK80b27w1K7JAs8zwmsWpbspLvbFmYXIKp0czuTVCLlrFUesjiMwbm7TXgiW9yKmlndlG
-	 Nz1xtM45aYAyxfH0Ah06sq4ZnvxkaE8DkgE9vOXfn40m4oX/03UV5l2MMwMKwVVuvRe4X
-	 UyM+D5eMOjA4SnxC/su3uI/c+ngVckMeBcWB4+BYFGiKy2NkR4hsjSNk6WkjndHWg4Zv2
-	 AeM29zGvt3OhW4SKCR1DwSWZHXarycQSq9vbDfU9YRBDkgtQZMAlG9/4cDBfXJWu/dg==
+	t=1792694335;
+	b=m2fTbkue18CTUtDi/RmE6NoB3xHdYrnKLIDQSKPnJkllCnrPqELtfJG/CgAjRwQynfbY
+	 r41bmBgJROgKfK1RvNu5G0xFKFJgIX0UOyySKBlX/h7TvaoUdGWF8dIrCc2oaPqNNOeTJ
+	 fYFGsE2J5cJL3AgRlW6Z3BMfIf+H6wKfbsIw/TAZCp1iBP31pgKiqf/gYDPe8uCIxHZnQ
+	 sC+A+H4MfqoDM5nD6Wagx2oisX/YOfnmkjv7sIFImWsb7PEQe+i2gPR8d0+PSj73VA8wV
+	 UwxnDs+RHDG8muyOLw4lfZbGY1lLXvYdWsUr/2dwNhyx4M234eH9VPEnu5C8B6MxweQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792694302;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792694335;
 	h=Received:DKIM-Signature:Received:Subject:From:In-Reply-To:References:
 	 X-PR-Tracked-List-Id:X-PR-Tracked-Message-Id:X-PR-Tracked-Remote:
 	 X-PR-Tracked-Commit-Id:X-PR-Merge-Tree:X-PR-Merge-Refname:
 	 X-PR-Merge-Commit-Id:Message-Id:Date:To:Cc;
-	bh=R+7MqJMzjWC5cK+H0lgtyfTHX6VyG2zlsS1tToRM3FM=;
-	b=gtcb4JIew/MuO5r2UHewwKPwOILEsDuA/43fMeajDmgaLFIMVU/B/r0iVbPFEehIRnfN
-	 3bfdTNpFXAR+68eHAtYD/DF+sePRbgtOV9QS+HNOsp0ccs7r5qjquU0kNol+iM0vyKgdW
-	 tNqJ52P/yEEuVDmNe4XhhO9kerWe4J37zNH7JzUtiVU3V37eoA6NLefwvDHrokS3ey0Ex
-	 u1cPWdrqWM2J1IdD09cn+QMRc8c+bMz59B76K0uW0rGWalH8Dpde9GB+WXn9U0W3hSVtB
-	 +O/0cqbRN59+HfPjZpA7/4/6BCERD1dLZvMpDPLUeEZdLWH+TTVUXkBBNpyyBWqD5zg==
+	bh=WQkgINckB0fJmUZDzqNLDWr3Ngk7UmXxI0iHqdXJBJ0=;
+	b=2iBJhYqJzf7VA6kdqpGo4oMGoJpPKJExzfuD+sAUCgb+psoUIBUl2MUbC3TyrTx3s+iP
+	 JbFWpHHVAdAxjNni6u5DopqsYsh6/cIsgY+YXYlBMNuNMoGM+1gMYF+nA2KoL8X/KO99+
+	 JEgTKr+XxklNIQWP59Wcw48wi1M39t1LncQkjS1UBqlv9DVXNZDV/mzKsyEIYoyoWhkau
+	 0S3dRqkc7arfzoXHZtymdiyxXsHPYZFEM9x4Ghs6AonkjnaVSmbhIabu/vVXBaOrhR/Fk
+	 RlmT6NPZuIjnJDFgnda1huBP7BTp+PfPBdLCWRwZ6WZQW91ZY3PW+uxfMhR5ENZ0xYg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Zt/4g+IC";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lv2ykQJR;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0ED8606A787;
-	Thu, 22 Oct 2026 18:38:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36676606A327;
+	Thu, 22 Oct 2026 18:38:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Zt/4g+IC
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC9251F01825;
-	Thu, 22 Oct 2026 18:38:21 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lv2ykQJR
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 12B451F01828;
+	Thu, 22 Oct 2026 18:38:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792694301;
-	bh=R+7MqJMzjWC5cK+H0lgtyfTHX6VyG2zlsS1tToRM3FM=;
+	s=k20260515; t=1792694335;
+	bh=WQkgINckB0fJmUZDzqNLDWr3Ngk7UmXxI0iHqdXJBJ0=;
 	h=Subject:From:In-Reply-To:References:Date:To:Cc;
-	b=Zt/4g+ICQpd5N5WHt7bjE83/SyKm8HYWraRs4cktmcn1uBuNBAUGot640MYZszNif
-	 v2EtHlB+XeL7JU3VwtMozE8/tUPsUw3r09/Q2JKFVp8JGX3hR4VjtiWLUCLE/f4EaD
-	 N0rjgWJcgieXj/ehSuZtSvDSL5gr/nwZauOU+k39g24Lr3oy50siNjLb3Y61ANylBs
-	 7cDPUF7964BJ7g9YlTl5J62Kg6XBp6PLdVkDKvltq/YviNXp96EnP3Q9B56MlGMuSH
-	 hy8fNhLsmtCKrcFRlh7l8SlBo6rj2p30rDP8DbnC8AnHTll5xTyXB9HoeX9L2sAvbJ
-	 BFlNTNMGk+c8Q==
+	b=lv2ykQJRsZoLr5RA21HGxRidd9t+6UnzCfr2EMXy/D6o2naXY4tU+1Zku1TvyQWsD
+	 hUClgY5lPf7yaFTm4OmJpZLuytXxYCyi4biQmTL+lmfcrXbcG+C4ROyv/HXaaIP84o
+	 VlpcE9Mc6M/D4HvB0g/fPjNXI8lub1PWTk7Dpp/51Zgkl8k7fJUBf4u2lDoY0ifXbw
+	 IclOnsGs3CngWk43Un98jiZxoKpE+cNakVyC6cc0NZ53Dyf4O7iN13F+O2g16GIU9H
+	 EvUP0RTBrFvZ1E7HP+DCC7tEZ/AD4tE9z7q5d66hL4PAhKBOmeRZH+WSab/zdFUdkD
+	 AULkbRjqmd+QA==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id BE52B3808222;
-	Thu, 22 Oct 2026 18:38:21 +0000 (UTC)
-Subject: Re: [GIT PULL] kunit next update for Linux 7.4-rc1
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 075593808222;
+	Thu, 22 Oct 2026 18:38:55 +0000 (UTC)
+Subject: Re: [GIT PULL] MMC/MEMSTICK updates for v7.4
 From: pr-tracker-bot@kernel.org
-In-Reply-To: <aacd551a-f512-499a-960e-585bce02dd12@linuxfoundation.org>
-References: <aacd551a-f512-499a-960e-585bce02dd12@linuxfoundation.org>
-X-PR-Tracked-List-Id: <linux-kselftest.vger.kernel.org>
-X-PR-Tracked-Message-Id: <aacd551a-f512-499a-960e-585bce02dd12@linuxfoundation.org>
-X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/shuah/linux-kselftest tags/linux_kselftest-kunit-7.4-rc1
-X-PR-Tracked-Commit-Id: e38f53f0482468efd04397f66bda4648b70ac9fa
+In-Reply-To: <20261019113417.27994-1-ulf.hansson@oss.qualcomm.com>
+References: <20261019113417.27994-1-ulf.hansson@oss.qualcomm.com>
+X-PR-Tracked-List-Id: <linux-kernel.vger.kernel.org>
+X-PR-Tracked-Message-Id: <20261019113417.27994-1-ulf.hansson@oss.qualcomm.com>
+X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/ulfh/mmc.git tags/mmc-v7.4
+X-PR-Tracked-Commit-Id: fd9af27f6c2319713bb23832066585f8a59a1771
 X-PR-Merge-Tree: torvalds/linux.git
 X-PR-Merge-Refname: refs/heads/master
-X-PR-Merge-Commit-Id: 2a08195e4db5aba84600db6518089a1dbe2d04c7
-Message-Id: <179269430040.110555.14271463148302839853.pr-tracker-bot@kernel.org>
-Date: Thu, 22 Oct 2026 18:38:20 +0000
-To: Shuah Khan <skhan@linuxfoundation.org>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>, shuah <shuah@kernel.org>, Shuah Khan <skhan@linuxfoundation.org>, David Gow <david@davidgow.net>, Brendan Higgins <brendan.higgins@linux.dev>, Rae Moar <raemoar63@gmail.com>, linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org
+X-PR-Merge-Commit-Id: 03480653ddfd1b004dc622acb4fa913b05c3edaa
+Message-Id: <179269433356.110555.1773604341913042998.pr-tracker-bot@kernel.org>
+Date: Thu, 22 Oct 2026 18:38:53 +0000
+To: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
+Cc: Linus <torvalds@linux-foundation.org>, linux-mmc@vger.kernel.org, linux-kernel@vger.kernel.org, Ulf Hansson <ulf.hansson@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,12 +68,12 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 
-The pull request you sent on Wed, 21 Oct 2026 14:12:53 -0600:
+The pull request you sent on Mon, 19 Oct 2026 13:34:17 +0200:
 
-> git://git.kernel.org/pub/scm/linux/kernel/git/shuah/linux-kselftest tags/linux_kselftest-kunit-7.4-rc1
+> git://git.kernel.org/pub/scm/linux/kernel/git/ulfh/mmc.git tags/mmc-v7.4
 
 has been merged into torvalds/linux.git:
-https://git.kernel.org/torvalds/c/2a08195e4db5aba84600db6518089a1dbe2d04c7
+https://git.kernel.org/torvalds/c/03480653ddfd1b004dc622acb4fa913b05c3edaa
 
 Thank you!
 
