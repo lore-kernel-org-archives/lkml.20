@@ -1,104 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.70
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792689561;
-	b=t3xe/UO52ADuW2bZ4VuXsscgDEOcS2O1ROOKGTp6h78ycZXx60IKHYkA8MFbhPYyfoWb
-	 u55RpOVRRXlOFBIQ7LmdLT+PiEgkpEY0HuGRQqSvUD7CWXoKXhnxhjIdyP/NyI39rJ13S
-	 K7Hx4uWpDR2g13ZtKI1QhZRkY6mgj+edmrTV1Nb5T+Lcq3OBb+gH/3kQDxSzT8S0tUPWj
-	 229feQIvotQ3dAtAKA+S5U8bIi0cRGMfFcSIArAchddGfK4wWqpzb6n8NVrQppilgJYCN
-	 49kSEn5htg1OPpaccCmYghyT+Bln9v9TiF6FM/4f+g9hBsmaRV9or5QGzJDSaoSWvIQ==
+	t=1792689606;
+	b=DnbXMjqRQ7w0Hjpj/Vem652v/JUn6T2UgSVGFobdGPdZVAKKzNWB7SAtaBjDL4CXxtNs
+	 AxhQHHWzPj3G41uTwYsH0z2Vy18XfYDL0Elfi3bkI1cQ5LO2PIR1Vk7h/NnjzsfynCS95
+	 Bb0EhEezIu8jaV3haCgZqayL8iJloJAEg2wLcAmduotlHaSrQiXvPFA+Uuj7WzG1f5Ii+
+	 cU0jDJF5CpsirimRQB8WRybbz3FhQElwsCLUq78DnHMz5AOCFDjUtPH6eSMMn+PzJzwsr
+	 D/tIZ6a04Deueo2l453E+G9/jZ4jlblivFgbwNgzoGP/nBczMLGDV8T8JpfTFmhOUwQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792689561;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=3bKtw6qQows0gC9AWiLOpi7gTzdWw1rlVgJYihuA+WI=;
-	b=LgWzt053XjbcsZBINk7wt1zqBZ7vCbXhpfNRL/B+uZlHM1MIknQQ7LcfbIXOKjSFo4C4
-	 UEzgTX6M+/zxSZQPbDtsUOrJvpaxDNMWN/okWMEoH0b0jvBT9yfdQftMXfb15f5s0psqX
-	 5Mou5LsSvJUKRAsSVsiUmuss+wFRyGr3lBvAV8a+MBTI89furvgQ3ZQ4mAaUgVe27OS7m
-	 Fv7JctaqVjrAIgHsesvGEYS0OmP/N0DIDcSgic3JNOeT/2+yuKe4yUSyVUSPVXoCtzgez
-	 vAQy/47Egv7MZyxBNRNT9bzM5Q6km9eGI1UsyHKyWMbv5pHeUjWEFQ+sWzU20DwKgsg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792689606;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:MIME-Version:X-Received:Date:In-Reply-To:
+	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
+	 Subject:From:To:Content-Type;
+	bh=4UT4wBei7lo5P9ke+g//ajLXiPvxYYsQ7T5yHwgF27o=;
+	b=TX+88WOmOvqlplxmKY9m5Ng4bjuWQYBUkNIlLyjYCPlEXTBnmobNCzOw1hDwiYXYaXCs
+	 a4ZgXToaOGRuja7KoTDNBQT/qFxubJNfrNSQXrsvwgR3DByvrRJIamu+61CBDf4VzVbah
+	 ufolebm0GoYJ5xyLpXhAf3ak3l/gtMsS+la/jYoOUJ3pi3W6/7z5yx9lAOU7m+vu4uRWv
+	 ju5+7LN9hlH8OtrY/7lXU15n4mJtWSs+b+O2Loz1JznMZ9hmh1rOAA+AVZXEDjWSFOpxd
+	 g8mklyp0QZinpuyYa2aDRP9NkdbY5pD+cFsvBhUdLNvYAILVkLPpgSKMjD9xPlqfvqw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=n7aCFcVH;
-	arc=none smtp.remote-ip=209.85.128.44
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.210.70
+Received: from mail-ot1-f70.google.com (mail-ot1-f70.google.com [209.85.210.70])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 398CB606A324
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 17:19:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 398CB606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=n7aCFcVH
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a20bdaf39cso753145e9.1
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 10:19:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792689559; x=1793294359; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=3bKtw6qQows0gC9AWiLOpi7gTzdWw1rlVgJYihuA+WI=;
-        b=n7aCFcVHIf23YD2ATN1+PCpQCnZBs2/F56exZPhnkZiPsC5VMKba+7OTyZpvruXwqI
-         WVKjZ2znsZwvAbcXkSWTastisZkY8WhRgvf1Ev2LWX0R4KPLVDr2bK3nZdzx1DlUdciS
-         6+kfF4W1odMzMGdWut7hpELHRSDCouivKghnpk1Lj2fJWLYTUAHcXgqVZ80fTYuwB37a
-         s/eEimdQld2nvKHScW/NbxfGYCXKLStY/Q8tB38SZFGh/V4xhGh8GaL5CQL8OZQfJzK3
-         2ZglVMVNbmh1JhFIhEf7cVqhDP31ySbUoVPn7UhYhAgCNsigYvVienBgptWGhYwwIcX+
-         CCJg==
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43143606A31D
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 17:20:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 43143606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-ot1-f70.google.com with SMTP id 46e09a7af769-81b50ab16edso2710046a34.3
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 10:20:06 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792689559; x=1793294359;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=3bKtw6qQows0gC9AWiLOpi7gTzdWw1rlVgJYihuA+WI=;
-        b=XRZZcfC6sv4lQkbjZ/LZFosUfqqe+kLcKEggrWZQlM+TCqq4bYNgitOe635XeOQcbp
-         eVJcsm+YocT1L0B7E9FqcMW9uBdhgWII2LdwqiFSYHz0+9HK39gLJqdRsKJTNXjXEVQf
-         6EQxApE4kbGZGFBQE/dP56gayIG9x6WNIBCiQejnsD7vefYYgv8HxHWAW9Zp7vw7lD+2
-         ftHddNNZlcC7E/QpLz8wbh7Ep6O3TASJYLEkjd0iiOzQZKmwKRwTpf5bSa62e7NekwTU
-         9kRuEzKZoKVslKHGfl32gGX2FuOTdIw+pN29vZSyhiwgDIr081CqM+7DLoTJ9UswiAOt
-         AF9w==
-X-Forwarded-Encrypted: i=1; AKwUvBxUCioLjzISOGJ/6DG/jNzVbAsE5E1Zavjq05+JWa3C4kevuo1rT5kpcWdT+R+BNrUGj4tZ0udO97/kJSw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIx187Ia0cRJQDuh/M1XeNp8SQ3IH2pJQTRBmvupxjCN6DvBYL4
-	TfQ3LE1d+LNSUShzKfx5aXFi4f8utHhXbPtJSqS4y72Ywy5sQQOnVxEL
-X-Gm-Gg: AYBFou3WoeDSJ8nBp0sjqH16OvxcPCfXCHqFXP5Q5xgy2kBuU+Dk08171DAbUEn/kDG
-	lb5/Ur2rYL+grKS15BeOhqVrEmiRORwH1Ym+b5LnTliOpudo41vC2i0ihRYGbUqex4IVPYN6Ycm
-	WArm8pZ33Vs2Ej/CLEWuh38DVdhDCT/oPnrkoNeYqSIhSss/qcjOohIclTdg4yY+Bk1kbxLk8ql
-	xivj5GXM9bvuZclGkG3fadigU8QXxMQBcaiCyBksOobueF3bOT5QqNv9j6ccgCUFTYxy2VCkNai
-	zmh3bOy4jQcsocwgjzaSXBqSFfJpypPthd/vC2iM9WFsmAF3WJdQ5B/EJWB1k4mY4fnayOAFS1I
-	XDAievrFd15kPnH1LZg3u+HpkwdRo3k23thLAAH2DqGBuy3Ao30vhvzSivyqLQg6AKzmwOqGR1q
-	6jeOREq4f7mKryCAvUzy8rJBzrkJAj7xjRUKr5lCiEYnAii4wTPHBxdV9wqi6e/RD2vlFuzPL0B
-	yNqlLfkDkM+SwRC7uo9EdUQDoJhpO1hv+qM7oXJu4loQY3GBYWpiSSlHodG3Ho9/FMKm9XbGvJN
-	J0NBmg==
-X-Received: by 2002:a05:600c:8b4c:b0:4a2:729:f7ce with SMTP id 5b1f17b1804b1-4a20729f92bmr51922995e9.8.1792689559453;
-        Thu, 22 Oct 2026 10:19:19 -0700 (PDT)
-Received: from localhost.localdomain ([188.190.249.216])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a21034d740sm11288215e9.4.2026.10.22.10.19.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 10:19:19 -0700 (PDT)
-From: Vladyslav Tymoshchuk <tvlad744@gmail.com>
-To: Joonhoe Kim <26rote@gmail.com>,
-	Abel Vesa <abel.vesa@oss.qualcomm.com>
-Cc: Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Dmitry Baryshkov <lumag@kernel.org>,
-	Johan Hovold <johan@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Casey Connolly <casey.connolly@linaro.org>,
-	linux-arm-msm@vger.kernel.org,
-	linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Vladyslav Tymoshchuk <tvlad744@gmail.com>
-Subject: Re: [PATCH RFC] usb: typec: ucsi: Schedule connector worker on freezable workqueue
-Date: Thu, 22 Oct 2026 20:19:07 +0300
-Message-ID: <20261022171907.2021-1-tvlad744@gmail.com>
-X-Mailer: git-send-email 2.45.1.windows.1
-In-Reply-To: <20261020132432.998-1-26rote@gmail.com>
-References: <20250205-ucsi-schedule-conn-worker-on-freezable-wq-v1-1-107d1356b77b@linaro.org> <dp5ohy5piss7osycibuke7kwnfl5elnmc6gfvqgfh6mzzrldla@sru3ylzrtuea> <20261016125044.1085-1-26rote@gmail.com> <20261018150136.5896-1-tvlad744@gmail.com> <20261020132432.998-1-26rote@gmail.com>
+        d=1e100.net; s=20260707; t=1792689605; x=1793294405;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=4UT4wBei7lo5P9ke+g//ajLXiPvxYYsQ7T5yHwgF27o=;
+        b=XJVJAGfTrAJSEpTtNSZQYV+DeYLt5L8dooD6sEw4aBGskZnkQWRD2p/1t7+DEiXIv1
+         OldUPjGxyFjIueR22kmkG4j5KH8lqyI4NQzFJdCb0HnZVFkA7M9f7IAw4rlMyq35xA+U
+         KeER3++a+IuAJ5CY4byA5YmX0ouIa6fdexfHXk9VkoeEQGJdOFfdYm2DZXqUqqhoyvL8
+         KNdmubX5CNDI0TkafER/cnWfuxw9g7W/tTfrt0h5da2hOpcOrG8dQU5rtNico+NLvqm3
+         0fdvcopvop3gM5HJJF6VDL6O18h+nsnjmbV6bZdP7fLliELtIjbcyYWjaaKiYI5Hvj7n
+         t1fA==
+X-Forwarded-Encrypted: i=1; AKwUvBwJ3Gco1AkfOscHefXMlM0Iu6wczVVE3/R9S5xakL4hcTK+llj+Gnc1MlULHgIe6ElLgxC9kqKLluB2IRI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK+DyCL/7RwIve+B4FnnMyH+QrhGp2YsbBOBm8xvw4woFj4d7Ei
+	XWybMRxY+LG0BpWVRs9foQJoQyQCVemFFi/BrwonbtjZHwQpkR/6qtyY5nz3JIZaV3mmrXKgD0t
+	UCt2CgmJCFkeLId8E3HgotNQcCN1Qs4CxDnOHtrPjwCy4spLkIExqZs8MXO4=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,38 +58,36 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Received: by 2002:a05:6808:4fe1:b0:4f2:f229:1895 with SMTP id
+ 5614622812f47-5535c2846ddmr5380130b6e.43.1792689605345; Thu, 22 Oct 2026
+ 10:20:05 -0700 (PDT)
+Date: Thu, 22 Oct 2026 10:20:05 -0700
+In-Reply-To: <CAO+rqLgLRszT2U_x49hYVULuJ6Lm-80EdokzQUyNO_mECKEvKA@mail.gmail.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ada45c5.d1c214cc.659fa.00dd.GAE@google.com>
+Subject: Re: [syzbot] [netfilter?] WARNING in nf_flow_table_extend_ct_timeout
+From: syzbot <syzbot+521f7e7e2b974abde99a@syzkaller.appspotmail.com>
+To: coreteam@netfilter.org, davem@davemloft.net, edumazet@google.com, 
+	edumazet@kernel.org, fw@strlen.de, horms@kernel.org, kuba@kernel.org, 
+	linux-kernel@vger.kernel.org, mike.michalo@gmail.com, netdev@vger.kernel.org, 
+	netfilter-devel@vger.kernel.org, pabeni@redhat.com, pablo@netfilter.org, 
+	phil@nwl.cc, stable@vger.kernel.org, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-Hi Joonhoe, Abel,
+Hello,
 
-On Tue, 20 Oct 2026 22:24:30 +0900, Joonhoe Kim wrote:
-> Abel, the RFC has not moved since February 2025 and two more boards
-> now need it. Do you still plan to respin it? On Dmitry's question,
-> 7d0767c5cd87 took the same approach for the altmode worker as a
-> stop-gap until the PMIC GLINK rework, which may help here too.
+syzbot tried to test the proposed patch but the build/boot failed:
 
-I have sent an RFC for that rework:
+failed to checkout kernel repo git://git.kernel.org/pub/scm/linux/kernel/git/netdev/net.git/main: failed to run ["git" "-c" "core.hooksPath=/dev/null" "fetch" "--force" "675adff2843877c2da27b36b2517f827bc9915ea" "main"]: exit status 128
 
-  https://lore.kernel.org/all/20261022164151.592-1-tvlad744@gmail.com/
 
-pmic_glink holds the notifications back from ->prepare() on, and
-passes them on from system_freezable_wq after resume, for all its
-clients. For a notification that arrives during system sleep, the
-UCSI connector work then runs only after the devices it calls into
-have resumed, so this patch would not be needed. A notification can
-still wake up the system, if the client's device may wake up the
-system.
+Tested on:
 
-On SM8750 the series avoids the reset on an unplug during
-suspend-to-idle, also with wakeup disabled for both clients, on a
-kernel without the dwc3-qcom fix.
+commit:         [unknown 
+git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/netdev/net.git main
+kernel config:  https://syzkaller.appspot.com/x/.config?x=c4b098695335c89f
+dashboard link: https://syzkaller.appspot.com/bug?extid=521f7e7e2b974abde99a
+compiler:       
+patch:          https://syzkaller.appspot.com/x/patch.diff?x=115f4d0d580000
 
-Joonhoe, if you can test it on your board, that would show whether it
-also covers the FSA4480 case. It is on top of next-20261021; if it
-does not apply to your tree, I can send it rebased on v7.3-rc5.
-
-Thanks,
-Vladyslav
-
-(I used an AI assistant, Claude, for the analysis and to draft this
-mail; the tests ran on my device.)
