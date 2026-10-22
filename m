@@ -1,102 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.180
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792689860;
-	b=p5iQ4EYqn5MbRGiGRWOADAB2dxJ44UOq/7wHHOe+Cr2mo3PmZ1foXnzrjrNulp4jIIWy
-	 11VNoj8UrAscrpjwjCali4gHVXD2IiKH4M1w21CbQ6s6nwWMMyegssnAYRxnwJtnRsPwB
-	 K2j508PDmM3DEAEcnPnvQw8ngZDvWlwujmu+EDFMqSN1WKxBMhXrIKtyoCTpj1WKuDT6t
-	 vaZlZgvETfvt0k8NzMMD1P6GZYqQKRgAP53e+nBITMj+DN0NTC6P3x92yOPJTspu2OgNW
-	 r5c3V2gzk/m1Zxf0zdNf0Wnc2cBbLHrFrJglVez16fhpkHAKk6VfZKn+eEIHhWhUEXw==
+	t=1792689949;
+	b=Agvb91QaDquqjPh4WcknMg63VEaf1Ed5sKg7UR1M+XbF8iMPb6u3qcCQK4nL5VWtN9C9
+	 GIZsOIrjnIyM5IHOKDPRRCjnZ+SBzwWEo1aosmjUjBnUDpj8EBv9vxj59tNhjqwFbwV90
+	 my5ZeokZiGwkXyQ0rstEFlybOAmvshfgI4+8ZPpOBCY/SNh96Xa3P//jXIvFdvk/Yfuh6
+	 EmExLnIuL0NlEvkT84O/S6RZgpghL7zvmTtEHLQDSpwxPMO2P3/q38DQ/KxNKH1RiXsTr
+	 k++seKTwTl/yw22O/X2AlggxKA7oiTqFiv0BW/+OnJMbNyKRC9d9+uz1MHtUd44J2CQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792689860;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792689949;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=hBV+nz9NxiWTPP78jPpMIYI0V58VBFwRxWz2e7M7Hh8=;
-	b=r/dmW7ake4LxcuilFivMMexpYQmc29HJhWouY+obf7/FirbP9L5gbVJjKh7Nj6uTRW92
-	 t8a0TPk2Qz1jsTOiSNZB97Ej7oPlLALkyRHwCA/Ir8+kGBP9dkU6Snr1/3Ac7fVmKv9an
-	 0ivCCaf3s1vXsWFTx6KovjZZLx5ix2KnSNw1hVTjVL35hlZSew5kaZogDIDCbAAzsvimE
-	 s1Vcivu8+AJAQeIGs/phaoGG9W2OFiE0asduFMGh/4mGWY1uPewi6+ptX5Sqv15E4gT80
-	 vTwZ/PySMhxA5nDsylCKXBeWHKUGhUIwTgwH5CdkOokqCjuzRqSQlSwBTZUIDofEJAA==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=Kg0a1MLSOgMLwF809X6bOKhuG0mJlcOcCErhKY4WjvY=;
+	b=Q4+WKjs1Q1OkRBb6o1vToHAn0qceDIpRoR2uGCI9TAm6yfc+cLYYgXfo77MpMpN14I2/
+	 Oh/lwkjP+2USOekaEZo4jUBtOljdeM4Kt7DM5TAvU0AxJgmldrgPiOBpg5eH3+lMOT0gh
+	 7hhUukU655+wizrVC/ZDD6OgHIGi+SY7yCTCs+xaEnOgmHarS9T+cDk0yfFPyXnccpqbZ
+	 pJUQjCP8rfo199gO28F7gPwhT/p6VcwYO45dBtXY8CwVOUbErYzeuO4t/XKFFCHy/jJur
+	 Xq+EC1tKgzeoA3YLTJ6F+HTaRzujmUHFcs3EWt6GabFySNqBYbx3swnUrqdgBKxFLzg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=H8EnXrbw;
-	arc=none smtp.remote-ip=209.85.216.45
-Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ZftBS+UR;
+	arc=none smtp.remote-ip=209.85.128.180
+Received: from mail-yw1-f180.google.com (mail-yw1-f180.google.com [209.85.128.180])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5488A606A31B
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 17:24:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5488A606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06C57606A319
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 17:25:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 06C57606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=H8EnXrbw
-Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-3ac677668a9so79332a91.2
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 10:24:19 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ZftBS+UR
+Received: by mail-yw1-f180.google.com with SMTP id 00721157ae682-8b0dba37a7fso956797b3.0
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 10:25:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1792689859; x=1793294659; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=hBV+nz9NxiWTPP78jPpMIYI0V58VBFwRxWz2e7M7Hh8=;
-        b=H8EnXrbwBE0R+WLhuZaLYmZtswNj1VpN7z4pYlk3xGtbG9FHyZBvi3b8cB746oX/w2
-         Y2B7pLrMNMxXX+eUXvAMolqKmkCSCLsfhAztscTt517XdeyRtqrozxoWsvN5jYvPcwkW
-         9kJv3DEyQ2g8EJhoL6KkY9+kKiMoABC2p/6xebrEMKs6uPcUkwqWIv2KTCEB/4FpP5ry
-         jaTUs7jtOVdf/uYQuy3GMnXEc0GcO1J0FetTD64ar7xkcGIy3t8ruxBJhBJEI4GlK2tb
-         hZHlGS/YySbJH3kvRaQPUxUsFzUDXmXEUl8d4JmoCSjoTUtgJ7Y11XU63tdiBNmNf6vB
-         fHNQ==
+        d=gmail.com; s=20251104; t=1792689948; x=1793294748; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Kg0a1MLSOgMLwF809X6bOKhuG0mJlcOcCErhKY4WjvY=;
+        b=ZftBS+UR319TZmKpo6rzDkF+aTGK5VuTr5o7mOXc0fuHAQc0gh0FnRtu6Yo99RrQmz
+         juFC8lKmt3s/QTJIIV/xMpiOk7p/K1lpQicA8BbfNcUuvC7viyRi09WkvChraU73WMdE
+         nh2ORvHL9qqoFj6ZvqSJHVJ3xFfH2+zFgtjMEuQsxcbfLWnfAvYfQ+lRxWKxSC/wnF1S
+         5CjWrwUdPTfZpfdooFza/BM1unPwI200Hn5kc0/AcAtzJS+7guz3rlbzLHnqxqcbxy9p
+         KqHh4DtP7BMLNLALpIpcACIQXYPgzja/8gn0WwZH7jJ7IykSKyTdX2pkIam8YAcMBZdJ
+         XdAw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792689859; x=1793294659;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=hBV+nz9NxiWTPP78jPpMIYI0V58VBFwRxWz2e7M7Hh8=;
-        b=kucHm8o03HP2E/0BhVBaGrDFAfy7zZwqgnJ+df6ES/Yb9mYY/sHSwp5CuogS86yJVe
-         iMUeyiMgnMT0uJysPb6dC/+ZSjMWkJYrAaIgrAB2SEw364E8T5BOkU+z0x9AYrEA0LhI
-         4GkBHAwlIfy+VzSOzGnLh2JSE0d/s8wTr3uR7kjEfhDBEL/169SOtlR77W21ARvlNCX6
-         yh4Q6aGITlT6RKGpFPFuCbPQPk3xoG+bAubivSB1viBm+0I9e+5WFKWPxDH8e3nh5PpC
-         /9IBlqgyoZUa7U7elwdLp2d5VrcXpw5TyxxpNHANy/iVVgZXNQFsfhHEHhAYBV9/NNdr
-         9I5Q==
-X-Forwarded-Encrypted: i=1; AKwUvByqqXncSD8DsZU0Uh7fKnfGg+VS6TVv23rxfu15GHzSY83wtWCJHxZKK9TfIXECPSsiK6Zf3oL1eqfXaeM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ4tJLYGfivfNzNQ+wmM13nay1sp1CRyWjWgOV7gugktwnK4ntF
-	gpmdpQzxu8IBC8UkwNlIDgDwTy1nleCfZXhDd2W1sXVYJpoC3wUHoMZ/bMgWmuqw8lA=
-X-Gm-Gg: AYBFou0ZVRwLP8jXNI1vucXseE2zt7C3hNwq5/gVygPc+zQQ71XuTVoXo392XkbirJL
-	At+L2/XoYJ6H/ZkJYQ0+Ze+QYmm6POagjDebyFZwskjnQh3JssI69doST6gQPOAP7t4Bu7BcQ/E
-	ebDcLzZzb3J6rnKMIWyXqeGkUoTCevecL6Batjp6iAuLAAB9XQ/VoxcCReTGuD1Pi48zC5UA+Cf
-	N+h9+JmgSMQ5YPHEKDOHETIYfaI6WTDPt1DNgkSJKFSgZ2sofCNGK/gn6Zqh+idfsOMHiPG8fBx
-	4q1XXg97lniEycdu66ub3c5V2S+OBhISzxO6WUyY/OYgduMIgyEJrH7pgSFoSl3gfKM5ckS4TNT
-	uduwN/AaNgq8M+EDC+I/QAe7wkoL+u+1XvqlngATm1yfR7lig6QLjDgUgfpdOF1mNtjWKo7o07y
-	d/SSMibxXRo/KnbxWbDPPU3C5J4yCWFUg0QW7zN0zXuhAM/egpBnKToZnjbEVexzlcKGrfRbiVy
-	Ht5bjGPH1xSkDWl79WnIhdbMWI6Y/afdnUx6PlvTxFrXWhdFdm4Z6IySTY=
-X-Received: by 2002:a17:90b:580c:b0:3ac:8ee5:e00f with SMTP id 98e67ed59e1d1-3ad86cc1a23mr4599427a91.57.1792689858509;
-        Thu, 22 Oct 2026 10:24:18 -0700 (PDT)
-Received: from p14s ([2604:3d09:148c:c800:9e85:9169:41c7:bc2d])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ada490e5f8sm5060365a91.9.2026.10.22.10.24.16
+        d=1e100.net; s=20260707; t=1792689948; x=1793294748;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Kg0a1MLSOgMLwF809X6bOKhuG0mJlcOcCErhKY4WjvY=;
+        b=Aj3WQXHX25RJWqgAidQCiiRVW8fx/YR7XAaUd15wE9QCHzItpRKIquEkFJ06O8Wb5Z
+         wf3dLQeP6YJFARnNlZseZu4E+VEJU/YvE6Pc5i9n0ou+4zwGaPsw5lMpb6aAnd3Hc/vh
+         mn7WA6+0VDOXWn3wU34Qb2etqPy0YBkePo/lm9NbCpRZiyH+qr8t/ha1SoaaARF39/ym
+         +OS13Pve0NvFETTga+Eh7XtrwpulsyLWJg2Kd47M3wlaoKx61X57XMy/dLNiLdxxLjo4
+         FB1L1LLnCzpeV5e8A5voMTyGuGobbq+9q5d8jWEZKVFEgabd55TqlsWmTmHLwjVwy9Mo
+         1qxg==
+X-Forwarded-Encrypted: i=1; AKwUvBxXzjCHop3BvqhU8j0RDrFYcZ83c7TwdXqkvECP3sOA6o/zR5uNHAWk988t6paT6Izy8twQt42QZbpNITI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL8CsF5euTV2RS6sQ/HZmaAtflyJVBs7A4xn+rE8uGgBEprUG4f
+	gudsktYrsOss/24tF7ZwRv7pAwscAASAQ/IYUDSwI3mEmv92FOPzr5s7
+X-Gm-Gg: AYBFou33MTUpa6KrVMwYWBoSNe3jz4mKxmIQ15hl3VOJUKcDDdgYo8n8BsLTehOafdl
+	bNXuId/+LFlsFla9g2lFImbB1iI1Kzkstjg4/ECVysMIlCdYlzN6zOQeXHgDk+6ZBTomxr5Ce5e
+	Qg6OqpIxQcOjX4bdQgpWLFTJhy5vtlE8tbGthBWWxr43rFK2wWNbRZiQ7SOHqo7bGVi0c4zaZ/R
+	XYVNsTU0FDsIWukdpE+8xbibZkRpo7EqadmybwUZ91Je0/VVOaB1pHvIy4fIzFWaToGAm1tjEHr
+	P8bXiQVLPHG36fYbXluT/rwuMCmQGbyUxZGLAdK0CQL/eBXs8al0yHemcazEnmHt/bv2+S6Ew+o
+	MLJmeTL3Z+C1DH7A84u47m+5VmXraXOxvd54xMRRVLifA+zk9Akk5wg4RJ7QvYalnF/fL15d5cD
+	Xo4p05xxpFhQ61hOBbWFS+IwJNNgMrsR6bMoZODayLB4EA68wpz5CuvToMVtlq2tgJ1ZyDKlyYo
+	VWP0X6mdO1+cnp4Ub17dI6le8eNcfgQiSFnzJT5hq5Ggxc2YpDLUs5ihipyIotyStJgKflKdpxH
+	BSegU32eYT0=
+X-Received: by 2002:a05:690c:c673:10b0:8a8:8dd2:f5b3 with SMTP id 00721157ae682-8b13403fd8fmr31788207b3.43.1792689948009;
+        Thu, 22 Oct 2026 10:25:48 -0700 (PDT)
+Received: from localhost ([2a03:2880:10ff:19::])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b1560cba07sm1495917b3.13.2026.10.22.10.25.47
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 10:24:18 -0700 (PDT)
-Date: Thu, 22 Oct 2026 11:24:15 -0600
-From: Mathieu Poirier <mathieu.poirier@linaro.org>
-To: Frank.Li@oss.nxp.com
-Cc: Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, Peng Fan <peng.fan@nxp.com>,
-	linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org,
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+        Thu, 22 Oct 2026 10:25:47 -0700 (PDT)
+From: Joshua Hahn <joshua.hahnjy@gmail.com>
+To: Gregory Price <gourry@gourry.net>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>,
+	Zi Yan <ziy@nvidia.com>,
+	Matthew Brost <matthew.brost@intel.com>,
+	Byungchul Park <byungchul@sk.com>,
+	Ying Huang <ying.huang@linux.alibaba.com>,
+	Alistair Popple <apopple@nvidia.com>,
+	linux-mm@kvack.org,
 	linux-kernel@vger.kernel.org,
-	Laurentiu Mihalcea <laurentiu.mihalcea@nxp.com>,
-	Frank Li <Frank.Li@nxp.com>, Daniel Baluta <daniel.baluta@nxp.com>
-Subject: Re: [PATCH v7 3/3] arm64: dts: freescale: add DT overlay for
- MX95-15x15-FRDM RPMSG usage
-Message-ID: <atpGv_FiRlgPh4-4@p14s>
-References: <20261020-memory-region-name-v7-0-1413d5928340@nxp.com>
- <20261020-memory-region-name-v7-3-1413d5928340@nxp.com>
+	kernel-team@meta.com
+Subject: [PATCH] mm/migrate: wake kcompactd when huge folio migration fails in numa balancing
+Date: Thu, 22 Oct 2026 10:25:46 -0700
+Message-ID: <20261022172547.1181530-1-joshua.hahnjy@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,187 +102,64 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261020-memory-region-name-v7-3-1413d5928340@nxp.com>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Oct 20, 2026 at 12:50:23PM -0400, Frank.Li@oss.nxp.com wrote:
-> From: Laurentiu Mihalcea <laurentiu.mihalcea@nxp.com>
-> 
-> Move related memory region to overlay files.
-> 
-> Add RPMSG DT overlay for the MX95-15x15-FRDM board. This overlay is meant
-> to be used with the mx95evkrpmsg system manager configuration for
-> remoteproc and audio over rpmsg-usecases.
-> 
-> Reviewed-by: Daniel Baluta <daniel.baluta@nxp.com>
-> Signed-off-by: Laurentiu Mihalcea <laurentiu.mihalcea@nxp.com>
-> Reviewed-by: Peng Fan <peng.fan@nxp.com>
-> Signed-off-by: Frank Li <Frank.Li@nxp.com>
-> ---
->  arch/arm64/boot/dts/freescale/Makefile             |  3 +
->  .../boot/dts/freescale/imx95-15x15-frdm-rpmsg.dtso | 81 ++++++++++++++++++++++
->  arch/arm64/boot/dts/freescale/imx95-15x15-frdm.dts | 31 ---------
+NUMA balancing migrates a misplaced folio if migrate_balanced_pgdat()
+finds enough headroom on the destination node. For large folios, it then
+allocates a folio from the destination with GFP_TRANSHUGE_LIGHT, which
+wakes up neither kswapd nor kcompactd. This means a hot large folio
+trying to promote to a fragmented destination may never succeed in
+promotion even after repeated retries.
 
-I will need an R-b from Sascha to merge the above files, otherwise they will
-have to be resent separately.
+Wake kcompactd on the target node when the destination allocation fails
+for a large folio. Don't wake kswapd, since this path can only be
+reached if there is enough free memory to service the allocation, but it
+is too fragmented to serve the large folio allocation.
 
-Thanks,
-Mathieu
+This patch has been A/B tested on tiered Meta systems (DRAM + CXL)
+running identical cacheing workloads. Without this patch, we accumulate
+around 4.5k failed THP migrations over the span of a day, while the host
+with this patch accumulates only about 80.
 
->  3 files changed, 84 insertions(+), 31 deletions(-)
-> 
-> diff --git a/arch/arm64/boot/dts/freescale/Makefile b/arch/arm64/boot/dts/freescale/Makefile
-> index a80cccf34eb56..f3b19f3b1488e 100644
-> --- a/arch/arm64/boot/dts/freescale/Makefile
-> +++ b/arch/arm64/boot/dts/freescale/Makefile
-> @@ -960,6 +960,7 @@ dtb-$(CONFIG_ARCH_MXC) += imx943-evk-mqs.dtb
->  dtb-$(CONFIG_ARCH_MXC) += imx95-15x15-ab2.dtb
->  dtb-$(CONFIG_ARCH_MXC) += imx95-15x15-evk.dtb
->  dtb-$(CONFIG_ARCH_MXC) += imx95-15x15-frdm.dtb
-> +dtb-$(CONFIG_ARCH_MXC) += imx95-15x15-frdm-rpmsg.dtb
->  dtb-$(CONFIG_ARCH_MXC) += imx95-19x19-evk.dtb
->  dtb-$(CONFIG_ARCH_MXC) += imx95-19x19-evk-sof.dtb
->  dtb-$(CONFIG_ARCH_MXC) += imx95-19x19-frdm-pro.dtb
-> @@ -984,6 +985,8 @@ dtb-$(CONFIG_ARCH_MXC) += imx95-verdin-wifi-mallow.dtb
->  dtb-$(CONFIG_ARCH_MXC) += imx95-verdin-wifi-yavia.dtb
->  dtb-$(CONFIG_ARCH_MXC) += imx95-verdin-wifi-zinnia.dtb
->  
-> +imx95-15x15-frdm-rpmsg-dtbs = imx95-15x15-frdm.dtb imx95-15x15-frdm-rpmsg.dtbo
-> +
->  imx95-15x15-evk-pcie-dtbs += imx95-15x15-evk.dtb imx-m2-pcie.dtbo
->  dtb-$(CONFIG_ARCH_MXC) += imx95-15x15-evk-pcie.dtb
->  
-> diff --git a/arch/arm64/boot/dts/freescale/imx95-15x15-frdm-rpmsg.dtso b/arch/arm64/boot/dts/freescale/imx95-15x15-frdm-rpmsg.dtso
-> new file mode 100644
-> index 0000000000000..c3deb277edabf
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/freescale/imx95-15x15-frdm-rpmsg.dtso
-> @@ -0,0 +1,81 @@
-> +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-> +/*
-> + * Copyright 2026 NXP
-> + *
-> + * This DT overlay is meant to be used alongside the mx95evkrpmsg SM
-> + * configuration for remoteproc and audio over rpmsg.
-> + */
-> +
-> +/dts-v1/;
-> +/plugin/;
-> +
-> +&{/} {
-> +	remoteproc-cm7 {
-> +		compatible = "fsl,imx95-cm7";
-> +		mboxes = <&mu7 0 1>, <&mu7 1 1>, <&mu7 3 1>;
-> +		mbox-names = "tx", "rx", "rxdb";
-> +		memory-region = <&vdev0buffer>,
-> +				<&vdev0vring0>, <&vdev0vring1>,
-> +				<&vdev1vring0>, <&vdev1vring1>,
-> +				<&rsc_table>;
-> +		memory-region-names = "vdev0buffer",
-> +				      "vdev0vring0", "vdev0vring1",
-> +				      "vdev1vring0", "vdev1vring1",
-> +				      "rsc-table";
-> +	};
-> +
-> +	reserved-memory {
-> +		#address-cells = <2>;
-> +		#size-cells = <2>;
-> +
-> +		vdev0vring0: memory@88000000 {
-> +			reg = <0 0x88000000 0 0x8000>;
-> +			no-map;
-> +		};
-> +
-> +		vdev0vring1: memory@88008000 {
-> +			reg = <0 0x88008000 0 0x8000>;
-> +			no-map;
-> +		};
-> +
-> +		vdev1vring0: memory@88010000 {
-> +			reg = <0 0x88010000 0 0x8000>;
-> +			no-map;
-> +		};
-> +
-> +		vdev1vring1: memory@88018000 {
-> +			reg = <0 0x88018000 0 0x8000>;
-> +			no-map;
-> +		};
-> +
-> +		vdev0buffer: memory@88020000 {
-> +			compatible = "shared-dma-pool";
-> +			reg = <0 0x88020000 0 0x100000>;
-> +			no-map;
-> +		};
-> +
-> +		rsc_table: memory@88220000 {
-> +			reg = <0 0x88220000 0 0x1000>;
-> +			no-map;
-> +		};
-> +	};
-> +
-> +	sound-micfil {
-> +		status = "disabled";
-> +	};
-> +};
-> +
-> +&edma1 {
-> +	/* reserved for M7 */
-> +	dma-channel-mask = <0x40>;
-> +};
-> +
-> +&edma2 {
-> +	/* reserved for M7 and V2X */
-> +	dma-channel-mask = <0xf>;
-> +};
-> +
-> +&micfil {
-> +	/* reserved for M7 */
-> +	status = "reserved";
-> +};
-> diff --git a/arch/arm64/boot/dts/freescale/imx95-15x15-frdm.dts b/arch/arm64/boot/dts/freescale/imx95-15x15-frdm.dts
-> index f82e149323d34..3ab679e5a4740 100644
-> --- a/arch/arm64/boot/dts/freescale/imx95-15x15-frdm.dts
-> +++ b/arch/arm64/boot/dts/freescale/imx95-15x15-frdm.dts
-> @@ -189,37 +189,6 @@ linux_cma: linux,cma {
->  			linux,cma-default;
->  		};
->  
-> -		vdev0vring0: vdev0vring0@88000000 {
-> -			reg = <0 0x88000000 0 0x8000>;
-> -			no-map;
-> -		};
-> -
-> -		vdev0vring1: vdev0vring1@88008000 {
-> -			reg = <0 0x88008000 0 0x8000>;
-> -			no-map;
-> -		};
-> -
-> -		vdev1vring0: vdev1vring0@88010000 {
-> -			reg = <0 0x88010000 0 0x8000>;
-> -			no-map;
-> -		};
-> -
-> -		vdev1vring1: vdev1vring1@88018000 {
-> -			reg = <0 0x88018000 0 0x8000>;
-> -			no-map;
-> -		};
-> -
-> -		vdev0buffer: vdev0buffer@88020000 {
-> -			compatible = "shared-dma-pool";
-> -			reg = <0 0x88020000 0 0x100000>;
-> -			no-map;
-> -		};
-> -
-> -		rsc_table: rsc-table@88220000 {
-> -			reg = <0 0x88220000 0 0x1000>;
-> -			no-map;
-> -		};
-> -
->  		vpu_boot: memory@a0000000 {
->  			reg = <0 0xa0000000 0 0x100000>;
->  			no-map;
-> 
-> -- 
-> 2.43.0
-> 
+Those migration differences leads to about 25% reduced CXL bandwidth
+usage after applying this patch.
+
+Signed-off-by: Joshua Hahn <joshua.hahnjy@gmail.com>
+---
+ mm/migrate.c | 13 ++++++++++++-
+ 1 file changed, 12 insertions(+), 1 deletion(-)
+
+diff --git a/mm/migrate.c b/mm/migrate.c
+index 7bdcdb57652f8..67364fe0851c0 100644
+--- a/mm/migrate.c
++++ b/mm/migrate.c
+@@ -2671,6 +2671,7 @@ static struct folio *alloc_misplaced_dst_folio(struct folio *src,
+ 	int nid = (int) data;
+ 	int order = folio_order(src);
+ 	gfp_t gfp = __GFP_THISNODE;
++	struct folio *dst;
+ 
+ 	if (order > 0)
+ 		gfp |= GFP_TRANSHUGE_LIGHT;
+@@ -2679,7 +2680,17 @@ static struct folio *alloc_misplaced_dst_folio(struct folio *src,
+ 			__GFP_NOWARN;
+ 		gfp &= ~__GFP_RECLAIM;
+ 	}
+-	return __folio_alloc_node(gfp, order, nid);
++
++	dst = __folio_alloc_node(gfp, order, nid);
++
++	/*
++	 * A node with enough free memory might still be too fragmented to serve
++	 * a large folio. Wake kcompactd to help the next huge folio migration.
++	 */
++	if (!dst && order > 0)
++		wakeup_kcompactd(NODE_DATA(nid), order, gfp_zone(gfp));
++
++	return dst;
+ }
+ 
+ /*
+-- 
+2.53.0-Meta
+
