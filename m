@@ -1,90 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792644660;
-	b=WCG4FgJI2PmKD5rcDnQq7rOyOfOIvrt4Y4l9s5UkGcGxTEqztjngiNT9vE11MldaY8yQ
-	 v9hh2jp32HGYH3W+2y83qdqqAU6kvEOYdwZIQqCiUNtCUxI/9D4CLMzUTpEd6IR8jdDvz
-	 oknKjNQUChQdQVOtGmKF7aNKgsxLL1DgzLgrYYe7hIzKch7WID/fD4MibDhW2F0DiJN00
-	 R0TBlcPFlrvJoG9klS41Xzl887dLHVEBzS4Ij6gr20/HyQdX1L2aaHllB6GoqKaHIf7ii
-	 l4BQCvOPnuYNTDtaGBAlxeW49+rlaXLlVJI3S+Q2UR7kJMretSpEJ3SdRqvLUIVZieg==
+	t=1792644737;
+	b=TUrG7Asks46hrrJRMaBfVBo3tmXI8doeWHTbdWboW6eYkRu/G5z2Z1DYgYYSdy58v2Pr
+	 z7MR4EHGBO/3p/B0DfqajlRp2VvklkNQWjgnGxdh0aHXUhSb1n6pkUK1iBTXgTUJ+bRYt
+	 OQg5r66tWJnMP6ldZNxW5CaKu2BCMRVd+6FhMO/cgFXpohpxXN1kRU1jBY3+lDXRRYfz7
+	 5BN0OEecYRONtFjKfYNI3k0FgGHyWAAT/7RBt60ov3+WeWAIredWFeCGwxlq7eoqQcOAJ
+	 9aIUsz/ZS7yrmBMnH05anYXWr8FBTS8eJlYuPO9VDvtfVatLD77kVGPY+nab8ffre/Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792644660;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:Message-ID:From:To:Cc:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Content-Disposition;
-	bh=vOO2/UqSFvP0eLpj9/3uPUE4+nv1U6cbi6EZXtRMkW8=;
-	b=jPqO/2I+uPQTkhKMh0uqfPskVjX+/PXU1yqWoWZPb9hdY45fLe3N+gd9u7yGoR97vl/x
-	 5zYs1RbmCk4bh9gCxC6Mal6BC5cpEWJnucB+p2XaPG2bpFx6HtnqHfkckKbSQh5BoDREj
-	 N5c7up2dYqRkgg6ChMM6JmsTMnaTvI/8KhvFzX3henf7ANruSTKC1lU15f/xMH13DKav4
-	 6y5vqc10uAgRCKw40s09c8SRqQ6q2llAu5OmFy8bP5sdRGcZf6qSv5zqTHX+bjrvnf40O
-	 5Up4vxJLxM6qZ/RtsJyOjkfYPJ/fM472/DRsxDwApstEP5dlDej+C3igfyD2uuz4IBg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792644737;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=aKmRIxZbD0nMDMPI/mEiihjsp8gY8MgQFkQF67TPGtQ=;
+	b=JNOtWmsupwJl4ZjgseWkG2rlN1T8QVlFzRC8leH8gsNW3YLPFXDMsHPKTadccC8Iaroe
+	 XLczfLhAdVSj3BiisJ/YhuRzxVTA7NlrEEwdFOsTF0m5KPgrzWZds7Xp3gPn/vkCeCZ+L
+	 5YzsQt+gKzyeqBajrOXILbObC/ZRrAS5acOxdzhkUP2SEORzYyc+GFzah5YwasPpsp17j
+	 vg23gjXXnZPjjKywSxRB4cNiTLW2MogEI/B1c52JYyrKkGZAbDoYjfjcDzcf2D6orslCX
+	 1QdslUX5JZvefSvmhuJIYfNr7nSaD+mCMYWfHYtYMMZpiE65VZt4WXTZKQAOym/Ihdg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=f0lYSkuO;
-	arc=none smtp.remote-ip=74.125.82.53
-Received: from mail-dl1-f53.google.com (mail-dl1-f53.google.com [74.125.82.53])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 96EA2606A31B
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 04:50:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 96EA2606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=PhKWZl+l;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4FFC5606A319;
+	Thu, 22 Oct 2026 04:52:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4FFC5606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=f0lYSkuO
-Received: by mail-dl1-f53.google.com with SMTP id a92af1059eb24-16079d54c17so2700853c88.0
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 21:50:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792644659; x=1793249459; darn=vger.kernel.org;
-        h=content-disposition:content-transfer-encoding:content-type
-         :mime-version:subject:cc:to:from:message-id:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=vOO2/UqSFvP0eLpj9/3uPUE4+nv1U6cbi6EZXtRMkW8=;
-        b=f0lYSkuOnh4B/HImkJPwznbL7jCvRNq9v/HNp92nPLW3P0fXdn5F4xBPSZqPJKMa07
-         9qMBTZxsG6fqFT8kgwEuyylCQXtBVmLF1iFn7gcFMhF2h0FiWH5udIHSR65c97GAvpJ3
-         X8dDx8fQXTZsH4P3R1MsTVX98i5kz8OT9lkHAKjqNqtFZ/mH//FO9Nbbugp9/uycQErF
-         SM4Ti1duMW6dRhtcfMtAGDzflNGv0ySItD4RhpRpiKAk4LpAUNZIsVm5AUG4PUv5uaHq
-         fQw6Y/PQiTddv7UsslX2Gzc4PO3rEIej4U9YTQeIfhS99/w5uiFohPmRNJIzm/KnGF5K
-         30iw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792644659; x=1793249459;
-        h=content-disposition:content-transfer-encoding:content-type
-         :mime-version:subject:cc:to:from:message-id:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=vOO2/UqSFvP0eLpj9/3uPUE4+nv1U6cbi6EZXtRMkW8=;
-        b=QIU9pE38RbhMyRd2DPDzhnfF35Qmg5hiOOLhR/8o2e5v9B+8BZYdSqMgTt5IJD1cz+
-         Ufl0l/7YRyf4l8lywul4bQILNUY3n8peMFt3fd+W0ln28Dydv+cER0YXWQ+ku9y2F6H/
-         Kj5B4iQwureQHX/4MdhdDgx3Ss5lH4NmmwjZvthkKYivfyAP4dwZuiufzFJpMIArFPlr
-         fzk1c18ra67kLs9n3Ch22UjINfJFfPjQjiOwZJIjKK9Dih+OvrgbdQi0IJGDRoY8kIhb
-         PAFo0VbQDaciltdxPZuYqtlaya50mYxaxRTb9WqhcIkhEzR28K2BDGcte8t0pKWF1Jcu
-         ccSw==
-X-Forwarded-Encrypted: i=1; AKwUvByknVi11bLdM2kSoc2xoyfCIA5xegZl6GUFC6LIIA2qkSxrZYyiS8kB//PrdJA5e1dlnSYPJ+SqdT7IAHM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJJdsWKWG2pyGaGqzl7lNA9abFhwSW4Cm8UlxaAKD4vycF1IyCK
-	uGa0qdf5v9tloJ4zyr+SiQ6kqnOXStQ7SZJ3+uNKvZV/Y7dn3XdqbDM9
-X-Gm-Gg: AYBFou1u9LNTT1Rz/yw8T4/ULoh+vM9Ns9vPL8EPellGb8Ru46tB6mdfhOzMXsbNyzO
-	5qgsFAXKx2geRrguyHBoPmgNKMaE5Nq4UaqPv832ZD/w5C1FMy1iDbDG0N/AqB6gkAnDp44oLFe
-	1bytB/bbpEYY0XuZ6ZcMPVtdZhKdRnVmlD2w4w7C5OK4U/Jx4Mzdd6VpasIkityycCrsJe3ba/I
-	DibTCyxpgUkcjhYtOilXVfCt85YY42/wVekLZdQbeg011RWpfeBAElwC4W8V1OzCbzN86HXh6ls
-	6aB3T6XQoVATLjA9NK055tXWgK+dgMUAtahKOzc33T8rNYADfC7O+QbbBsg8Q1LcTKAlHIFJIk0
-	0YjlkXvzXM2zyK0OFIzASl3TJMMLTDip3jBMcgd3rx7MzrBCxQEPuKhqSJfXfNrDyBuuiCOvB3P
-	XUPryz+mYsDvzbeOPumg7uRJOUNxJp3mzpJeFQLUVobQ/fq6pLlwPaKLqwQOFfjjAO5eH1/zPyj
-	irA4dXDw9HqYMABrqiYE/qLwGctEoDymJQ99NK3axfbPCofvabid+f4EjizOPtqm25s+J5IQXNx
-	IzcOys4yJPBPzsUeG9tE
-X-Received: by 2002:a05:7022:7e89:b0:14c:be8e:69f2 with SMTP id a92af1059eb24-190a599a074mr6125893c88.21.1792644658431;
-        Wed, 21 Oct 2026 21:50:58 -0700 (PDT)
-Received: from localhost ([2a00:79e0:2ebe:8:1761:399a:3c8c:31ba])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1903bb7f098sm16855697c88.12.2026.10.21.21.50.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Oct 2026 21:50:57 -0700 (PDT)
-Date: Wed, 21 Oct 2026 21:50:56 -0700
-Message-ID: <4b2f60a7ceac543bd8b889b9c0772b2c@gmail.com>
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-To: Mark Pearson <mpearson-lenovo@squebb.ca>, "Derek J. Clark" <derekjohn.clark@gmail.com>, Ike Panhc <ikepanhc@gmail.com>, Hans de Goede <hansg@kernel.org>, "Ilpo Järvinen" <ilpo.jarvinen@linux.intel.com>, Maxim Mikityanskiy <maxtram95@gmail.com>
-Cc: platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v3] platform/x86: ideapad-laptop: do not poke keyboard controller
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=PhKWZl+l
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 3669215A1;
+	Wed, 21 Oct 2026 21:52:11 -0700 (PDT)
+Received: from localhost (a085714.arm.com [10.164.19.28])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id A8A763F673;
+	Wed, 21 Oct 2026 21:52:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1792644734; bh=44sAahlGBWki3CLzttdyPd9BArWJwv9oFthryRDKXxI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=PhKWZl+lITNgn2s18xxBwN4IQraWSJ3Cly36ez4WrldNA0izm/ZvQ/eT/q/NtTu2O
+	 4PgjE7ydajX26F5KF1L4HW9UCok/SYdFTfGDRxwnyEZHfcRCJdbgY0fzXDcLsdWysU
+	 B8KvEu2vSg01HkJZwbIe1Sxh4H0+haQQcOBzWu9A=
+Date: Thu, 22 Oct 2026 10:22:10 +0530
+From: Anshuman Khandual <anshuman.khandual@arm.com>
+To: Shakeel Butt <shakeel.butt@linux.dev>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
+	Roman Gushchin <roman.gushchin@linux.dev>, Muchun Song <muchun.song@linux.dev>, 
+	Chris Down <chris@chrisdown.name>, Meta kernel team <kernel-team@meta.com>, linux-mm@kvack.org, 
+	cgroups@vger.kernel.org, linux-kernel@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>
+Subject: Re: [PATCH] mm/page_counter: use WRITE_ONCE() for emin/elow when
+ parent is the root
+Message-ID: <ckukoxkv5cgvk5yywqe7fzxyo43cu7jh7ys5d6qs4rbasxutev@ixfqdcpsppmm>
+References: <20261021204818.3431099-1-shakeel.butt@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,320 +64,74 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
 Content-Disposition: inline
+In-Reply-To: <20261021204818.3431099-1-shakeel.butt@linux.dev>
 
-On Ideapad Z570 the driver tries to disable and re-enable data coming
-from the touchpad by poking directly into 8042 keyboard controller.
-This may coincide with the controller resuming and leads to spews in
-dmesg and potentially other instabilities.
+On Wed, Oct 21, 2026 at 01:48:18PM -0700, Shakeel Butt wrote:
+> page_counter_calculate_protection() runs without locks. Several
+> reclaimers can update the same counter's emin and elow at the same
+> time, and readers such as mem_cgroup_below_min(), mem_cgroup_protection()
+> and the dmem eviction code load them with READ_ONCE().
+> 
+> Commit b3a7822e5e75 ("mm, memcg: prevent mem_cgroup_protected store
+> tearing") made the main path store emin and elow with WRITE_ONCE(), but
+> it missed the early return for a counter whose parent is the reclaim
+> root. Those two stores are the only plain accesses to emin and elow
+> left.
+> 
+> With CONFIG_KCSAN_STRICT=y, a few tasks writing to the same cgroup's
+> memory.reclaim trigger reports like this within seconds:
+> 
+>   BUG: KCSAN: data-race in page_counter_calculate_protection / shrink_node
+> 
+>   read (marked) to 0xff1f91b146d40e40 of 8 bytes by task 163 on cpu 4:
+>    shrink_node+0x57a/0x1210
+>    do_try_to_free_pages+0x194/0x930
+>    try_to_free_mem_cgroup_pages+0x204/0x3f0
+>    user_proactive_reclaim+0x28a/0x4d0
+>    memory_reclaim+0x35/0x50
+>    ...
+> 
+>   write to 0xff1f91b146d40e40 of 8 bytes by task 167 on cpu 6:
+>    page_counter_calculate_protection+0x1fa/0x360
+>    mem_cgroup_calculate_protection+0x4e/0x70
+>    shrink_node+0x53e/0x1210
+>    ...
+> 
+> The default KCSAN config does not report it, because it treats aligned
+> word-sized plain writes as atomic.
+> 
+> Use WRITE_ONCE() for these two stores as well.
+> 
+> There is no functional change. Readers already accept stale values, and
+> compilers emit a single word-sized store either way: with GCC 14 the
+> x86-64 object code is the same before and after this change.
+> 
+> Fixes: b3a7822e5e75 ("mm, memcg: prevent mem_cgroup_protected store tearing")
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Signed-off-by: Shakeel Butt <shakeel.butt@linux.dev>
 
-Instead of using i8042_command() to control the touchpad state create
-an input handler that serves as a filter and drop events coming from
-the touchpad when it is supposed to be off.
+Reviewed-by: Anshuman Khandual <anshuman.khandual@arm.com>
 
-Reviewed-by: Mark Pearson <mpearson-lenovo@squebb.ca>
-Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
----
-
-v3:
-- add missing header includes (compiler.h, container_of.h, errno.h,
-  mod_devicetable.h, slab.h, spinlock.h)
-- drop stray blank line in ideapad_tpswitch_filter()
-- collect Reviewed-by from Mark Pearson
-
-v2:
-- fix inverted condition in ideapad_tpswitch_filter()
-- mark the handler as passive_observer so that touchpad is not activated
-  until there are real users
-- use READ_ONCE()/WRITE_ONCE() to access shared state flag
-- drop stray semicolon in to_tpswitch_handle()
-- update comments
-
- drivers/platform/x86/lenovo/ideapad-laptop.c | 189 ++++++++++++++++++-
- 1 file changed, 180 insertions(+), 9 deletions(-)
-
-diff --git a/drivers/platform/x86/lenovo/ideapad-laptop.c b/drivers/platform/x86/lenovo/ideapad-laptop.c
-index 8213524504ee..be890e82b9ef 100644
---- a/drivers/platform/x86/lenovo/ideapad-laptop.c
-+++ b/drivers/platform/x86/lenovo/ideapad-laptop.c
-@@ -14,23 +14,28 @@
- #include <linux/bitops.h>
- #include <linux/bug.h>
- #include <linux/cleanup.h>
-+#include <linux/compiler.h>
-+#include <linux/container_of.h>
- #include <linux/debugfs.h>
- #include <linux/delay.h>
- #include <linux/device.h>
- #include <linux/dmi.h>
--#include <linux/i8042.h>
-+#include <linux/errno.h>
- #include <linux/init.h>
- #include <linux/input.h>
- #include <linux/input/sparse-keymap.h>
- #include <linux/jiffies.h>
- #include <linux/kernel.h>
- #include <linux/leds.h>
-+#include <linux/mod_devicetable.h>
- #include <linux/module.h>
- #include <linux/platform_device.h>
- #include <linux/platform_profile.h>
- #include <linux/power_supply.h>
- #include <linux/rfkill.h>
- #include <linux/seq_file.h>
-+#include <linux/slab.h>
-+#include <linux/spinlock.h>
- #include <linux/string_choices.h>
- #include <linux/sysfs.h>
- #include <linux/types.h>
-@@ -210,6 +215,13 @@ struct ideapad_private {
- 		struct led_classdev led;
- 		unsigned int last_brightness;
- 	} fn_lock;
-+	struct {
-+		bool initialized;
-+		bool active; /* true means touchpad is enabled */
-+		struct input_handler handler;
-+		struct input_dev *tp_dev;
-+		spinlock_t lock;
-+	} tp_switch;
- };
- 
- static bool no_bt_rfkill;
-@@ -234,7 +246,7 @@ MODULE_PARM_DESC(set_fn_lock_led,
- static bool ctrl_ps2_aux_port;
- module_param(ctrl_ps2_aux_port, bool, 0444);
- MODULE_PARM_DESC(ctrl_ps2_aux_port,
--		 "Enable driver based PS/2 aux port en-/dis-abling on touchpad on/off toggle. If you need this please report this to: platform-driver-x86@vger.kernel.org");
-+		 "Enable driver based suppression of touchpad events on touchpad on/off toggle. If you need this please report this to: platform-driver-x86@vger.kernel.org");
- 
- static bool touchpad_ctrl_via_ec;
- module_param(touchpad_ctrl_via_ec, bool, 0444);
-@@ -1462,6 +1474,159 @@ static void ideapad_check_special_buttons(struct ideapad_private *priv)
- 	}
- }
- 
-+struct ideapad_tpswitch_handle {
-+	struct input_handle handle;
-+	struct ideapad_private *priv;
-+};
-+
-+#define to_tpswitch_handle(h) \
-+	container_of(h, struct ideapad_tpswitch_handle, handle)
-+
-+static int ideapad_tpswitch_connect(struct input_handler *handler,
-+				    struct input_dev *dev,
-+				    const struct input_device_id *id)
-+{
-+	struct ideapad_private *priv =
-+		container_of(handler, struct ideapad_private, tp_switch.handler);
-+	struct ideapad_tpswitch_handle *h;
-+	int error;
-+
-+	h = kzalloc_obj(*h);
-+	if (!h)
-+		return -ENOMEM;
-+
-+	h->priv = priv;
-+	h->handle.dev = dev;
-+	h->handle.handler = handler;
-+	h->handle.name = "ideapad-tpswitch";
-+
-+	error = input_register_handle(&h->handle);
-+	if (error)
-+		goto err_free_handle;
-+
-+	/*
-+	 * We need to open the input handle so the input core invokes our
-+	 * filter, but since we mark our handler as passive observer, this
-+	 * will not cause the underlying touchpad hardware to be started
-+	 * if there are no other users.
-+	 */
-+	error = input_open_device(&h->handle);
-+	if (error)
-+		goto err_unregister_handle;
-+
-+	scoped_guard(spinlock_irq, &priv->tp_switch.lock)
-+		priv->tp_switch.tp_dev = dev;
-+
-+	return 0;
-+
-+err_unregister_handle:
-+	input_unregister_handle(&h->handle);
-+err_free_handle:
-+	kfree(h);
-+	return error;
-+}
-+
-+static void ideapad_tpswitch_disconnect(struct input_handle *handle)
-+{
-+	struct ideapad_tpswitch_handle *h = to_tpswitch_handle(handle);
-+	struct ideapad_private *priv = h->priv;
-+
-+	scoped_guard(spinlock_irq, &priv->tp_switch.lock)
-+		priv->tp_switch.tp_dev = NULL;
-+
-+	input_close_device(handle);
-+	input_unregister_handle(handle);
-+	kfree(h);
-+}
-+
-+static bool ideapad_tpswitch_filter(struct input_handle *handle,
-+				    unsigned int type, unsigned int code,
-+				    int value)
-+{
-+	struct ideapad_tpswitch_handle *h = to_tpswitch_handle(handle);
-+	struct ideapad_private *priv = h->priv;
-+
-+	if (READ_ONCE(priv->tp_switch.active))
-+		return false;
-+
-+	/* Allow passing button release events, drop everything else */
-+	return !(type == EV_KEY && value == 0) &&
-+	       !(type == EV_SYN && code == SYN_REPORT);
-+}
-+
-+static const struct input_device_id ideapad_tpswitch_ids[] = {
-+	{
-+		.flags = INPUT_DEVICE_ID_MATCH_EVBIT |
-+				INPUT_DEVICE_ID_MATCH_KEYBIT |
-+				INPUT_DEVICE_ID_MATCH_ABSBIT,
-+		.bustype = BUS_I8042,
-+		.vendor = 0x0002,
-+		.evbit = { BIT_MASK(EV_KEY) | BIT_MASK(EV_ABS) },
-+		.keybit = { [BIT_WORD(BTN_TOOL_FINGER)] =
-+				BIT_MASK(BTN_TOOL_FINGER) },
-+		.absbit = { BIT_MASK(ABS_X) | BIT_MASK(ABS_Y) |
-+				BIT_MASK(ABS_PRESSURE) |
-+				BIT_MASK(ABS_TOOL_WIDTH) },
-+	},
-+	{ }
-+};
-+
-+static int ideapad_tpswitch_init(struct ideapad_private *priv)
-+{
-+	int error;
-+
-+	if (!priv->features.ctrl_ps2_aux_port)
-+		return 0;
-+
-+	spin_lock_init(&priv->tp_switch.lock);
-+
-+	priv->tp_switch.handler.name = "ideapad-tpswitch";
-+	priv->tp_switch.handler.id_table = ideapad_tpswitch_ids;
-+	priv->tp_switch.handler.filter = ideapad_tpswitch_filter;
-+	priv->tp_switch.handler.connect = ideapad_tpswitch_connect;
-+	priv->tp_switch.handler.disconnect = ideapad_tpswitch_disconnect;
-+	priv->tp_switch.handler.passive_observer = true;
-+
-+	error = input_register_handler(&priv->tp_switch.handler);
-+	if (error) {
-+		dev_err(&priv->platform_device->dev,
-+			"failed to register touchpad switch handler: %d",
-+			error);
-+		return error;
-+	}
-+
-+	priv->tp_switch.initialized = true;
-+	return 0;
-+}
-+
-+static void ideapad_tpswitch_exit(struct ideapad_private *priv)
-+{
-+	if (priv->tp_switch.initialized) {
-+		input_unregister_handler(&priv->tp_switch.handler);
-+		priv->tp_switch.initialized = false;
-+	}
-+}
-+
-+static void ideapad_tpswitch_toggle(struct ideapad_private *priv, bool on)
-+{
-+	guard(spinlock_irq)(&priv->tp_switch.lock);
-+
-+	WRITE_ONCE(priv->tp_switch.active, on);
-+	if (!on) {
-+		struct input_dev *tp_dev = priv->tp_switch.tp_dev;
-+		if (tp_dev) {
-+			input_report_key(tp_dev, BTN_TOUCH, 0);
-+			input_report_key(tp_dev, BTN_TOOL_FINGER, 0);
-+			input_report_key(tp_dev, BTN_TOOL_DOUBLETAP, 0);
-+			input_report_key(tp_dev, BTN_TOOL_TRIPLETAP, 0);
-+			input_report_key(tp_dev, BTN_LEFT, 0);
-+			input_report_key(tp_dev, BTN_RIGHT, 0);
-+			input_report_key(tp_dev, BTN_MIDDLE, 0);
-+			input_sync(tp_dev);
-+		}
-+	}
-+}
-+
- /*
-  * backlight
-  */
-@@ -1799,7 +1964,6 @@ static void ideapad_fn_lock_led_exit(struct ideapad_private *priv)
- static void ideapad_sync_touchpad_state(struct ideapad_private *priv, bool send_events)
- {
- 	unsigned long value;
--	unsigned char param;
- 	int ret;
- 
- 	/* Without reading from EC touchpad LED doesn't switch state */
-@@ -1810,12 +1974,11 @@ static void ideapad_sync_touchpad_state(struct ideapad_private *priv, bool send_
- 
- 	/*
- 	 * Some IdeaPads don't really turn off touchpad - they only
--	 * switch the LED state. We (de)activate KBC AUX port to turn
--	 * touchpad off and on. We send KEY_TOUCHPAD_OFF and
--	 * KEY_TOUCHPAD_ON to not to get out of sync with LED
-+	 * switch the LED state. On such devices we use an input filter to
-+	 * suppress events from the touchpad.
- 	 */
- 	if (priv->features.ctrl_ps2_aux_port)
--		i8042_command(&param, value ? I8042_CMD_AUX_ENABLE : I8042_CMD_AUX_DISABLE);
-+		ideapad_tpswitch_toggle(priv, value);
- 
- 	/*
- 	 * On older models the EC controls the touchpad and toggles it on/off
-@@ -2018,8 +2181,8 @@ static const struct dmi_system_id hw_rfkill_list[] = {
- /*
-  * On some models the EC toggles the touchpad muted LED on touchpad toggle
-  * hotkey presses, but the EC does not actually disable the touchpad itself.
-- * On these models the driver needs to explicitly enable/disable the i8042
-- * (PS/2) aux port.
-+ * On these models the driver needs to explicitly suppress data coming from
-+ * the touchpad.
-  */
- static const struct dmi_system_id ctrl_ps2_aux_port_list[] = {
- 	{
-@@ -2402,6 +2565,10 @@ static int ideapad_acpi_add(struct platform_device *pdev)
- 	if (err)
- 		goto input_failed;
- 
-+	err = ideapad_tpswitch_init(priv);
-+	if (err)
-+		goto tpswitch_failed;
-+
- 	err = ideapad_kbd_bl_init(priv);
- 	if (err) {
- 		if (err != -ENODEV)
-@@ -2478,6 +2645,9 @@ static int ideapad_acpi_add(struct platform_device *pdev)
- 
- 	ideapad_fn_lock_led_exit(priv);
- 	ideapad_kbd_bl_exit(priv);
-+	ideapad_tpswitch_exit(priv);
-+
-+tpswitch_failed:
- 	ideapad_input_exit(priv);
- 
- input_failed:
-@@ -2507,6 +2677,7 @@ static void ideapad_acpi_remove(struct platform_device *pdev)
- 
- 	ideapad_fn_lock_led_exit(priv);
- 	ideapad_kbd_bl_exit(priv);
-+	ideapad_tpswitch_exit(priv);
- 	ideapad_input_exit(priv);
- 	ideapad_debugfs_exit(priv);
- }
-
--- 
-Dmitry
+> ---
+>  mm/page_counter.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/mm/page_counter.c b/mm/page_counter.c
+> index 9167ffd1380c..5293460831f8 100644
+> --- a/mm/page_counter.c
+> +++ b/mm/page_counter.c
+> @@ -472,8 +472,8 @@ void page_counter_calculate_protection(struct page_counter *root,
+>  		return;
+>  
+>  	if (parent == root) {
+> -		counter->emin = READ_ONCE(counter->min);
+> -		counter->elow = READ_ONCE(counter->low);
+> +		WRITE_ONCE(counter->emin, READ_ONCE(counter->min));
+> +		WRITE_ONCE(counter->elow, READ_ONCE(counter->low));
+>  		return;
+>  	}
+>  
+> -- 
+> 2.53.0-Meta
+> 
