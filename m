@@ -1,83 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792696563;
-	b=HfAyZa+alXaQN+LNDIUfFeD++cMlKDv0VoR7Y6nc7yOtsQRUB0Zt92AZ2JPUrLxebeQ4
-	 tfQxwZO8TdK3C7R3tVuyTEmdkghq/MweXyOK1kq9kwpwdTcomaOlskGMylmFpKC3Vck3h
-	 z7VtBm4AzcI3ETrdeVk45lCqc78yAgJwsKB12vpyB4oipuOetEw7UPUveuJVnp0nYwvqY
-	 pn6iflOxu9mOkNlbT8npwKzGhI7lsQ3FL6LuaYicgIC8uZdFZ2krzZ1i522d5hDkalPfs
-	 ezoxAUE7hOVhKWgLkh7SFFZt+ZRDWvpnp4YHvmoNbg7cihyg3H6JSSzgNMoCPLnmggQ==
+	t=1792696564;
+	b=Shze/SuVrfkCZ0rl7PZiTyvnckA/HE6VB6+X9kXvdIlhWRUPcLBsf9oXKVFZsrsvYsE0
+	 1MqRr0A1TB0112QPh8qBZZWbICTppy3tnamSSQqSanOBCdT8iQUfENnDeX+3yMytuhUwP
+	 6yU5JqIp4jjVGWTCc+N8u8hnYxb0lS927vjswxUmC4ISQhzyN6b/2HWN9yqUvRy8ICgdo
+	 JwR9d4WrSaAPCE9DxXclMH5eyeqK5+VittgD2adEOSrh+UP8Taf7qDAoW/BlcadxphMuX
+	 IVzIboz14nc87sARYC9Zc4UaaPdVIx7GrN2Iyt+8meN9DkPeQjVveOghTFgE1O3Q+WA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792696563;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:In-Reply-To:References:
-	 Date:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=zfF/h5yN+JN0JXoERjM1UOmD6YL51qlegqbjQ5IjJaw=;
-	b=yisF+d1m+E7vIaljbDjCjb0bCmnmDMdBaP77FAtYOJI5F4AW59kGTAfzdgUZyttgnngP
-	 UWsXOnMn1hev1UdKAVdfYsp2V81KRKVqzJA363Aaa0jZggJynSp8bEijV3RulrzC6Gcr5
-	 MtObWINWwc2qwa83rAWXzqmjoa/BGUDrRQkqrAzaGdAjz5bfefKxm80EUOixHrWqHVakj
-	 9fwoj+5ad03k1egP2xLmuS5Hab+GF6cXb85K4fi4QBGYltjTTmkDEZboU1b7YZnMAaWjY
-	 H38MR8iPMSHWjiptHGGp3k2YRVghrQBzRPbNVqTh/rMpoB+DwBTJ4zaJjAdZ6KNMSKQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792696564;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=aXEotVyVHJYDPptgK6vNC0rI1V41OJrJxrbuxV/+QY4=;
+	b=rrssrOMbc4raIbviSYNjdOsuAJs/EjZ4u5DQzg8MMh02PijtLohp2qJsKIVC/VcXD3QF
+	 x6RKTZflr55P15tc3L4/GcISuCoEdyEo2VNdgOKDx6FKJcejbULL8lMvdr7bnHvexvtxt
+	 UseBacWpWAHOLX4KcS5Mhau6NxSMvDy04d8uh38p6t4b9N1xl05p0pFv6gg9U5RfvmVZ4
+	 B0f2+WMsiSTjVms4WBfnSDtYe0/7PO+eacmxBo6/i/u8qq4KJbFIQRHlPrw4pVuOTAcFP
+	 aEK3bzEO3tTPQLt8rPI4TKnDZbMd2XWBE5XdZMc6Ie+026s6E/Qm+CaSf2dbNZ9qZ7A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N5BvSZtD;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ggZEktIu;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45C86606A31A;
-	Thu, 22 Oct 2026 19:16:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFAF8606A332
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 19:16:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N5BvSZtD
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2CE1F1F01825;
-	Thu, 22 Oct 2026 19:16:02 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ggZEktIu
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 938F61F031E3
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 19:16:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1792696563;
-	bh=zfF/h5yN+JN0JXoERjM1UOmD6YL51qlegqbjQ5IjJaw=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=N5BvSZtDsOnevI6N7z+hpnuDFwgb+Za20bBfcyPl1zdZ/RUM/vhVGgooCl8EukmyB
-	 v951DfxEQIGKmPlqDa47vEV9oOJpjd3jTdFHzFJ8cGbv5Ec+77S428dvBazQLk752d
-	 8oijRTx04uvdE5t0WJ3hFRzAydPhPUU1uC5jEb9/jBb3UCG/5+2vXEPMQ0qv3aaJy/
-	 fDrmEd5ydsQk2Juig/QI4K6qM7Xm060UN2bTZPYYJFIjTdDkBvnz/aEeUGpDN6dDMG
-	 QYnQUY/lk7t3H2ZOK5q9Ex67PolYwOb50JpOTpWf5Zn6NIH8OuYBLaiHmJRlGX+jMg
-	 L4eC2BtuFHQ4g==
-From: Thomas Gleixner <tglx@kernel.org>
-To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Cc: LKML <linux-kernel@vger.kernel.org>, Peter Zijlstra
- <peterz@infradead.org>, Michael Ellerman <mpe@ellerman.id.au>, Shrikanth
- Hegde <sshegde@linux.ibm.com>, linuxppc-dev@lists.ozlabs.org, Kees Cook
- <kees@kernel.org>, Huacai Chen <chenhuacai@kernel.org>,
- loongarch@lists.linux.dev, Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt
- <palmer@dabbelt.com>, linux-riscv@lists.infradead.org, Sven Schnelle
- <svens@linux.ibm.com>, linux-s390@vger.kernel.org, x86@kernel.org, Mark
- Rutland <mark.rutland@arm.com>, Jinjie Ruan <ruanjinjie@huawei.com>, Andy
- Lutomirski <luto@kernel.org>, Oleg Nesterov <oleg@redhat.com>, Richard
- Henderson <richard.henderson@linaro.org>, Russell King
- <linux@armlinux.org.uk>, Catalin Marinas <catalin.marinas@arm.com>, Guo
- Ren <guoren@kernel.org>, Geert Uytterhoeven <geert@linux-m68k.org>, Thomas
- Bogendoerfer <tsbogend@alpha.franken.de>, Helge Deller <deller@gmx.de>,
- Yoshinori Sato <ysato@users.sourceforge.jp>, Richard Weinberger
- <richard@nod.at>, Chris Zankel <chris@zankel.net>,
- linux-arm-kernel@lists.infradead.org, linux-alpha@vger.kernel.org,
- linux-csky@vger.kernel.org, linux-m68k@lists.linux-m68k.org,
- linux-mips@vger.kernel.org, linux-parisc@vger.kernel.org,
- linux-sh@vger.kernel.org, linux-um@lists.infradead.org, Arnd Bergmann
- <arnd@arndb.de>, Vineet Gupta <vgupta@kernel.org>, Will Deacon
- <will@kernel.org>, Brian Cain <bcain@kernel.org>, Michal Simek
- <monstr@monstr.eu>, Dinh Nguyen <dinguyen@kernel.org>, "David S. Miller"
- <davem@davemloft.net>, Andreas Larsson <andreas@gaisler.com>,
- linux-snps-arc@lists.infradead.org, linux-hexagon@vger.kernel.org,
- linux-openrisc@vger.kernel.org, sparclinux@vger.kernel.org,
- linux-arch@vger.kernel.org, Michal =?utf-8?Q?Such=C3=A1nek?=
- <msuchanek@suse.de>, Jonathan
- Corbet <corbet@lwn.net>, linux-doc@vger.kernel.org, "H. Peter Anvin"
- <hpa@zytor.com>
-Subject: Re: [patch 16/18] x86/entry: Get rid of the sys_ni_syscall()
- indirection
-In-Reply-To: <20261022142425.3Wx-RrU5@linutronix.de>
-References: <20260707181957.433213175@kernel.org>
- <20260707190254.493733289@kernel.org>
- <20261022142425.3Wx-RrU5@linutronix.de>
-Date: Thu, 22 Oct 2026 21:15:59 +0200
-Message-ID: <87fqxx1r80.ffs@fw13>
+	bh=aXEotVyVHJYDPptgK6vNC0rI1V41OJrJxrbuxV/+QY4=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=ggZEktIu+eC0ocrsZZXiVHxUntX/tF/RiCECaz1exsAYChneQQq5R9Zw1zHCAZ+Ny
+	 46dYopslFW4D4BIJ86ovTrPhIEApOeoKUDyI44l7UbPdKSYK6V6zQyS4VaIlbL3W5m
+	 KufrO3ZTfHynnu+DYQqKa6UE3P4tfmww1BG43u+EJ8Uwnx3ox8YxyuKhJErLEXA5gl
+	 8RoevceTnFtiiTYiPn3gEVGVrjIvdWVXpERr23iLocMiOU0P0+UqSTRrW08U+Immcg
+	 ygmko5cwJXvek8zOVUHeeZTPLXrzeKV7yr4gLgyiqmszdV5OX4yWp1A4A5k+SjSn1n
+	 ZHxmsFIw0hxLw==
+Received: by mail-ed1-f42.google.com with SMTP id 4fb4d7f45d1cf-6b1a86c0316so122287a12.0
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 12:16:03 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwqBhdBW+BaB9w2SnIQxU91D5WEFUbjmfEV7ko3WWdU00sqfT8Lo9seYZ5pwxTB7Y43q+rbNjkIbXJWe0c=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI53pnJHICgvqAAxoQ2q4vS1YfTj7MQzVn/vpSSNPrj0SgfTuzn
+	PuJLHRgEhJwbceiCMT80AKUwOKdqnjH2faf5JKPK6OgxT4bphWNUC7nBe4VPcuNeTUQofYaW80F
+	1nioPQYHenp9NQ/iCHjKqEZVSPqXm1fw=
+X-Received: by 2002:a17:907:9c06:b0:c3e:34fa:611d with SMTP id
+ a640c23a62f3a-c46a93f0638mr14493466b.35.1792696562242; Thu, 22 Oct 2026
+ 12:16:02 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -87,68 +59,134 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+References: <20261021205626.3286270-1-suseendranb@google.com>
+ <20261021205626.3286270-3-suseendranb@google.com> <CAO9r8zNtuN=_BTV53oHqaTqE0Bo2qiDSrgTBzEZo5oyOnWyeYA@mail.gmail.com>
+ <20261022155144.4177200-1-suseendranb@google.com> <CAO9r8zP+GUE-hcGWSGzhLNLcchFoZ38EMVCAtX5yZ78tZ0bbgA@mail.gmail.com>
+ <20261022183319.163484-1-suseendranb@google.com>
+In-Reply-To: <20261022183319.163484-1-suseendranb@google.com>
+From: Yosry Ahmed <yosry@kernel.org>
+Date: Thu, 22 Oct 2026 12:15:51 -0700
+X-Gmail-Original-Message-ID: <CAO9r8zN6hN4h5m9pg4xQpirJj3o2nhGx5dxAuSddZ8+UenYnMg@mail.gmail.com>
+X-Gm-Features: AclHuK_hJDFj0vZeNwHlzwbNEbCyCqR7zIQWw8UnwCHO6c8KrbK1Hg29ZhvDHe4
+Message-ID: <CAO9r8zN6hN4h5m9pg4xQpirJj3o2nhGx5dxAuSddZ8+UenYnMg@mail.gmail.com>
+Subject: Re: [PATCH 2/2] mm/zswap: classify compression dst overflow as poor compression
+To: Suseendran Bhaskaran <suseendranb@google.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, Herbert Xu <herbert@gondor.apana.org.au>, 
+	"David S . Miller" <davem@davemloft.net>, Johannes Weiner <hannes@cmpxchg.org>, Nhat Pham <nphamcs@gmail.com>, 
+	Chengming Zhou <chengming.zhou@linux.dev>, Nick Terrell <terrelln@fb.com>, 
+	David Sterba <dsterba@suse.com>, SJ Park <sj@kernel.org>, Chris Li <chrisl@kernel.org>, 
+	Giovanni Cabiddu <giovanni.cabiddu@intel.com>, 
+	Suman Kumar Chakraborty <suman.kumar.chakraborty@intel.com>, linux-crypto@vger.kernel.org, 
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, Oct 22 2026 at 16:24, Sebastian Andrzej Siewior wrote:
-> On 2026-07-07 21:07:01 [+0200], Thomas Gleixner wrote:
->> Invoking sys_ni_syscall() from a code path, which already knows that the
->> syscall number is invalid just to assign -ENOSYS to regs->ax is a pointl=
-ess
->> exercise. It's even redundant as the low level entry code already has set
->> regs->ax to -ENOSYS on entry.
->>=20
->> Remove the extra conditionals and the function calls.
+On Thu, Oct 22, 2026 at 11:33=E2=80=AFAM Suseendran Bhaskaran
+<suseendranb@google.com> wrote:
 >
-> Since this patch, tools/testing/selftests/x86/syscall_numbering_64
-> throws in this:
-> |[RUN]   Running tests under ptrace: modifying the default return
-> |[RUN]       Checking system calls with msb =3D 0 (0x0)
-> |[RUN]           Checking some common syscalls as 64 bit
-> |[OK]                x64 syscall 0:0 returned 0 as expected
-> |[OK]                x64 syscall 0:1 returned 0 as expected
-> |[RUN]           Checking some 64-bit only syscalls as 64 bit
-> |[OK]                x64 syscall 0:19 returned 0 as expected
-> |[OK]                x64 syscall 0:20 returned 0 as expected
-> |[RUN]           Checking out of range system calls
-> |[FAIL]                  x32 syscall 0:-64 returned -9999, but it should =
-have returned -ENOSYS
-> =E2=80=A6
-> |[FAIL]                  x32 syscall 0:-2 returned -9999, but it should h=
-ave returned -ENOSYS
-> |[FAIL]              x32 syscalls 0:-64..-2 had 63 failure
-> |[OK]                x32 syscall 0:-1 returned MODIFIED_BY_PTRACE as expe=
-cted
-> |[FAIL]                  x64 syscall 0:1073741760 returned -9999, but it =
-should have returned -ENOSYS
-> =E2=80=A6
-> |[FAIL]                  x64 syscall 0:1073741823 returned -9999, but it =
-should have returned -ENOSYS
-> |[FAIL]              x64 syscalls 0:1073741760..1073741823 had 64 failure
-> |[FAIL]                  x64 syscall 0:-64 returned -9999, but it should =
-have returned -ENOSYS
-> =E2=80=A6
-> |[FAIL]                  x64 syscall 0:547 returned -9999, but it should =
-have returned -ENOSYS
-> |[FAIL]              x64 syscalls 0:512..547 had 36 failure
-> |[RUN]           Checking some common syscalls as x32
-> |[OK]                x32 syscall 0:0 returned 0 as expected
-> =E2=80=A6
-> |[RUN]           Checking out of range system calls
-> |[FAIL]                  x32 syscall 1:-64 returned -9999, but it should =
-have returned -ENOSYS
-> |[FAIL]              x32 syscalls 1:-64..-2 had 63 failure
-> |[OK]                x32 syscall 1:-1 returned MODIFIED_BY_PTRACE as expe=
-cted
-> |[FAIL]                  x64 syscall 1:1073741760 returned -9999, but it =
-should have returned -ENOSYS
-> =E2=80=A6
+> On Thu, Oct 22, 2026 at 09:01:02AM -0700, Yosry Ahmed wrote:
+> > On Thu, Oct 22, 2026 at 8:51 AM Suseendran Bhaskaran
+> > <suseendranb@google.com> wrote:
+> [...]
+> > > With that unchanged, existing zswap_compress() already accounts -ENOS=
+PC
+> > > vs other error codes when writeback is disabled, except for the
+> > > !comp_ret && dlen >=3D PAGE_SIZE case mentioned above:
+> >
+> > Is this actually possible? When we changed the buffer size to
+> > PAGE_SIZE, I thought we made sure all compressors wouldn't write
+> > beyond the buffer size. dlen > PAGE_SIZE means buffer overflow, which
+> > is a bigger problem than debugfs stats. Or maybe compressors can set
+> > dlen > PAGE_SIZE but won't actually write to the buffer? I didn't
+> > check.
 >
-> and so on=E2=80=A6 The test has
+> dlen > PAGE_SIZE isn't possible, since all compressors bound their
+> output by the input req->dlen (PAGE_SIZE) as you mentioned, and only
+> set req->dlen <=3D PAGE_SIZE. The 'dlen >=3D PAGE_SIZE' check in commit
+> dca4437a5861 ("mm/zswap: store <PAGE_SIZE compression failed page
+> as-is") was written when the buffer was still 2 * PAGE_SIZE prior to
+> commit 0b1bf60c324a ("mm/zswap: reduce the size of the compression
+> buffer to a single page").
 >
-> | #define MODIFIED_BY_PTRACE      -9999
+> > As for the (!comp_ret && dlen =3D=3D PAGE_SIZE) case specifically, yeah=
+ we
+> > should probably use -ENOSPC to count it as poor compression.
 >
-> and the ptracer modifies the return code. However not always. Not sure
-> if this was indeed a pointless exercise or not.
+> Ack.
+>
+> > The compt_ret and dlen checks are not super intuitive tbh, I wonder
+> > how they should relate. What is the expected value of dlen if comp_ret
+> > is an error? Is it always 0, or can the compressor set it as a
+> > non-zero value if compression fails?
+>
+> On error (comp_ret !=3D 0), dlen is not guaranteed to be 0. The value
+> left in dlen depends on the compressor used. For example:
+> - zstd, 842, and qat set dlen =3D 0 on error.
+> - lz4, lz4hc, lzo, lzo-rle (via scomp_acomp_comp_decomp()), deflate,
+>   and iaa return the error code without modifying dlen, so dlen
+>   remains at its input value (PAGE_SIZE).
+> - hisi_zip sets dlen to the hardware-reported produced bytes even
+>   on error.
+>
+> So dlen is only meaningful when !comp_ret. The !dlen check was
+> added in commit dca4437a5861 ("mm/zswap: store <PAGE_SIZE
+> compression failed page as-is") as a defensive check for the case when
+> comp_ret is 0 with 0 dlen which shouldn't happen unless the compressor
+> is faulty.
+>
+> > >
+> > > -                       comp_ret =3D comp_ret ? comp_ret : -EINVAL;
+> > > +                       comp_ret =3D comp_ret ? comp_ret :
+> > > +                                  (dlen >=3D PAGE_SIZE ? -ENOSPC : -=
+EINVAL);
+> > >
+> > > Would you prefer that I narrow Patch 2 to just that change in v2, or =
+drop
+> > > Patch 2 and only send Patch 1?
+> >
+> > Let's figure out what needs to be done for patch 2 first, if anything.
+>
+> Since dlen is only valid when !comp_ret, we could normalize comp_ret
+> first when !comp_ret and then just check 'if (comp_ret)':
+>
+> diff --git a/mm/zswap.c b/mm/zswap.c
+> --- a/mm/zswap.c
+> +++ b/mm/zswap.c
+> @@ -874,19 +874,24 @@ static bool zswap_compress(struct page *page, struc=
+t zswap_entry *entry,
+>          */
+>         comp_ret =3D crypto_wait_req(crypto_acomp_compress(acomp_ctx->req=
+), &acomp_ctx->wait);
+>         dlen =3D acomp_ctx->req->dlen;
+> +       if (!comp_ret) {
+> +               if (dlen =3D=3D PAGE_SIZE)
+> +                       comp_ret =3D -ENOSPC;
+> +               else if (WARN_ON_ONCE(!dlen || dlen > PAGE_SIZE))
+> +                       comp_ret =3D -EINVAL;
+> +       }
+>
+>         /*
+>          * If a page cannot be compressed into a size smaller than PAGE_S=
+IZE,
+>          * save the content as is without a compression, to keep the LRU =
+order
+>          * of writebacks.  If writeback is disabled, reject the page sinc=
+e it
+>          * only adds metadata overhead.  swap_writeout() will put the pag=
+e back
+>          * to the active LRU list in the case.
+>          */
+> -       if (comp_ret || !dlen || dlen >=3D PAGE_SIZE) {
+> +       if (comp_ret) {
+>                 rcu_read_lock();
+>                 if (!mem_cgroup_zswap_writeback_enabled(
+>                                         folio_memcg(page_folio(page)))) {
+>                         rcu_read_unlock();
+> -                       comp_ret =3D comp_ret ? comp_ret : -EINVAL;
+>                         goto unlock;
+>                 }
+>
+> Does this look good to you?
 
-Hrmm. That's weird. Let me have a look.
+Yes. I assume this is completely independent from patch 1, so we can
+tell Herbert to pick up patch 1 and send this separately?
