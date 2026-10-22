@@ -1,108 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792660456;
-	b=EUn0w8v1JzUodHkVVdzUbzUmUJgqrWbQSps00sv/4S+EBqRGNWpupv/D74FZLKSVEDNg
-	 yFtfqhPK5uCpKCeONuPfEoX+Ii8E9lKY07y2E+KkSei4Eq2KVyo/y0ShcVE8Xz4kFh1Zy
-	 spzEUTbbIQFgaPOLREdbe3k8Xa9SmE9TBoUfEz5u7xIYxi/c/hHXx9+LLfZYUdcq2JyEI
-	 vw9Fa5SKztqR4fPdwkSyVCYyK9Kd8jx2eEb2dh2IkwMnGFJ3x4Azk7on7Y6fyTKoJgerC
-	 8TZO5gsrmQCSvAZJRXmxHptyF9wsFZKaNZH+npl3Q84ShEOggpYorG9y5n2yEorBWmw==
+	t=1792660447;
+	b=h3tJEotQ6akIaqETv8oHqjTnlewz8BdTGsXtRCR3s7TerskGV1maycLvoVIdgdPYugLY
+	 21kK8jg7YwgvbuunR1GEMi8WFtGSZIT8IDKLl9WYGaCCp/vHzTtbGe8IBX9iFjtClsKzM
+	 fYTPCoY/sKw/ipnOO2td1iNLr6B7OY+9kqNPwiSIkW8Jpgi09ANgjHsv8ePqGbZ/oJt0L
+	 iNRhRcVUgYmMGdZMG95/XVD2wUQbVlJyBEObWEsPWcZKxNK2jjya3/wKeKNZSvLpAaq5G
+	 e2valpDzJjdBnEDaQ6ONinm/vRCXdRohq+mpUbLbfWYHkVqQQEI0gaez58tJiD6IhuQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792660456;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792660447;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=TT/G+LaV+N0GyZAIi03X4FvjbCyGL46ou/Kls81a/U4=;
-	b=tmWCFxiW1xurSmG3ep0iqwrhioTqtxWu4YT5gP20hUrJKHPH0v8gp+AFaf2f75tZUBkJ
-	 0AwZsZYGFs2JODFovENLi+MuTY/weDoLxls+lQrqM9e1+SQuou9931JjZjZ1+qRVV/eb0
-	 3rbluaTfqqjZqKc6Ov5C8ZEWFrRklK4AkheVr/LV6LG9qoFQu6nlJmpXAVVv/fnWVTuD4
-	 rD8OjB9Ask/hiQk0KiOJ/q9R1lhjweoqgeZ3BM6bgtsx46LVW6l2RUVzJpBsvynVZOTSr
-	 Pi/ibeFDPhj3iVGUQBj4iKmqi78ev88zj5W/jMMu/rK2G7B3VgKFTADe/MIc/obD7oA==
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=+9oT4imqO89h7CVLXvxpremnNC03kOCP6LBQBAbm8aQ=;
+	b=NXGHzOnJcH7hrHLkx+CcY1+NHdGx+IfJYwZzw3NVcv4yamjUVsmytFcBh7PNXl8NVksf
+	 4proJWBVqLbeiBaGf01w/MhUTVLlDVYT7/QzLXe8ZoGdCFlO7JwCKKW5q6QQveW9oGCKM
+	 z7FPHuuhi31MZsL7LdmVrYO5vGvoJ6Uf5rmiH3BwvRba94hbXdHSmZtIGPXo6EFYqaMSI
+	 Je+CVlIITGqIijsEoQOq9h1ScN4onjCTFFtflAmfFHZDZlrnoeMDR/e9yY6QQNWqksL0q
+	 A4oP24hkVj7J19esjd9ngel+AOwA0q1PY/s05YAGRkBQqfnPUSVxcwKA7DSsjVRjldQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=pbWchEPk;
-	arc=none smtp.remote-ip=209.85.128.54
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=CbS8nk9f;
+	arc=none smtp.remote-ip=74.125.82.182
+Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com [74.125.82.182])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4ED13606A320
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 09:14:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4ED13606A320
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37682606A31A
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 09:14:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 37682606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=pbWchEPk
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a1dede3c2cso20601815e9.2
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 02:14:16 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=CbS8nk9f
+Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-3645f0f3fcdso2797510eec.0
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 02:14:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792660455; x=1793265255; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=TT/G+LaV+N0GyZAIi03X4FvjbCyGL46ou/Kls81a/U4=;
-        b=pbWchEPkVThRmShZ/pXvMs4GdDzGN61VsrGBRl1BPO1c60b4MoulaASSIdTHURWhv7
-         wWSXZbFPb1urP77j75IkPM2K6Xx45ekzJWxbO8vMncsoiJeZFf8xbGrPxFZwUMJhfgt9
-         W2Z2bwbCz4H9HJSMb5UT4dtcwoY60jB19sEukjhQOfIO4rFP9CrqoyoPp3UWvrNCAyAh
-         N9DKlX6QgbMRjxErdYs/tn0JoQWyHssgh3Itx6NdQB4lq2zyEdmHdkCZtztm+byXhZmD
-         YVrOnYTmlX6SDbfilgFeu9LAEi5PkqHaThIoUxcQoXLQGisrRDnq8bFi4phtAiyT80lW
-         JeAQ==
+        d=gmail.com; s=20251104; t=1792660446; x=1793265246; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=+9oT4imqO89h7CVLXvxpremnNC03kOCP6LBQBAbm8aQ=;
+        b=CbS8nk9fkQttCIGca4DgbM3jNHnogueW7r8s22CgeBshvtIgS8J3/0zXYw2a2XRJem
+         g2aDx72b/vDDre35lOA1+TwKVoJRtP531DHwhNl/UqNLZKoZJp7L2oR8QMbZZ8RAmecc
+         9J0z+0Mk5bgDyK7hm6+Fye2lnOBIYTa20yfUe3yV/vc6yGm6yZvCyFcvh3y1+PBgHFEN
+         UmThTWLK96bgkLScd/z2yAJm0EEHv6XyrKZnqFvvOjrE7K0ziDahnV6ijp+cXwl3aJMS
+         gYGZwZVHLM5EUQ2YLpI3P6XciI9ktWelTHeUyLYZ2Ty4Xkm28X2mwQKI3YX2QjJ16A8h
+         hLSA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792660455; x=1793265255;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=TT/G+LaV+N0GyZAIi03X4FvjbCyGL46ou/Kls81a/U4=;
-        b=XHHTxcvneavSgnaR9QeQxyJ5Kyvji/jszj3Uls3txSS7gHHtw6XP6HAbjmz2xYSwK2
-         7NEpCL2/EPUZ05NnrgVvQimFxrVC75XFB6l9caF+yZeRRvBWG2hxjlhs37jZytzjkoQS
-         8jeVMmjlUUv6D7JGHnxDfcMdp8IYUaBHvBR/N6WiJcWS9Nyb2mWnaaUHJBK5BIoIPYwW
-         LGE/+4KLaglU9n+crTVVFdsH1vOMdh4j54G+Dw8VF0SnZIy2Oeswu4JQkP8BmU9w8WGR
-         4nBcQxll2wiXUD1zxsJ56uLVkEofZIcGr0Ng+l37i+TeMcEzuVJJiJBRFmaAkVPOOx0n
-         wAow==
-X-Forwarded-Encrypted: i=1; AKwUvBzo2/m80EkJ+hLeFnCu3i7GCIM+rhtXAl92uoBx8k3RKRmqV8UrHpXp+GKlpvaDZmH4Ta9tfi1vjamZqiA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKs6yDaSgFECjz59nuICD//Kwty/p5R0U/HxVpRl6ohlym3u+oH
-	2t4aN0iwRBOyGnOByPJYpMOCg2ckWOTIt7Wn4MFWnTVS6NoxOXa+KqZ4
-X-Gm-Gg: AYBFou28omWzxdtkScnVn40w5UsLnVfHqs+blqKcS882pgpTKndY21xQzxRatzqcVD9
-	C2lyRMzqn33kf6pztWGCvz1fFT6Jz2t9QM9ghDBFU8ndkWxV5fWPZ2ur4HacW+8J8+iWdBXaQQF
-	rwqMbVQNVwvwVNP0l9EAPWbXJTj8HFOZSpxOhFK4aHJE7I6uCC83Pf+Z8ukibQrw0ju75sgXfM7
-	iLd1ASlzCh8wCusotbFqnBkjzE7k56nkbLi19zoBcnPSanfZfjcnIiMd13vMA8SxVjgNgv/JUyq
-	usno7jnUmU3Tt95L7ykEsz3zBP8WhZMlDz6BYxYV0T7tSpsHlbZ4pNX5iuJ4bC2n41+KKICOgdS
-	TmWwxS6j25wFMhf0BkCC5ggicKC85W1tv1cXV7tXMJ6vRgmR/Jf0pkMng4j8BH1hfwbpa9AugJU
-	HmG0mhV1JKTKeE/G1lvmuJgxZdyF7+nSELSfqIoItyUpW+/GDv7aZ9eatMqInqbkyIoInNjJpn8
-	H9WhIfk3iolWQ0TjIa0J/8EirnnFeGVPaNxxMtp4ctiS+J9nyTAixGpRDSelzsS2NnVkZ6uzGxd
-	sTinQLjrPjLIhFUHHI6xvvPfarsoO6CtkYqHH3v2dtoQSOMSId6taPplaMRbrfUahonaOvgrI3i
-	mGTvUssbeaiQWKPglmGE46hxHBkI2fSzWBjJty5BbLZMHR9OP9xdW03hcfFh5ewkpIkUj8+nQG2
-	LoZ5ey4pC+Ca77dWnlhyenQZ9RiGa5HpS/BNI6Veg+wa/5kw==
-X-Received: by 2002:a05:600c:8b10:b0:4a1:fe55:88ef with SMTP id 5b1f17b1804b1-4a1fe558af6mr99646425e9.20.1792660454440;
-        Thu, 22 Oct 2026 02:14:14 -0700 (PDT)
-Received: from Ubuntu.tail0f733b.ts.net (87-205-15-91.static.ip.netia.com.pl. [87.205.15.91])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a203b3a4eesm52114055e9.7.2026.10.22.02.14.13
+        d=1e100.net; s=20260707; t=1792660446; x=1793265246;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=+9oT4imqO89h7CVLXvxpremnNC03kOCP6LBQBAbm8aQ=;
+        b=D9AGw1Z6ww0+nZoTQkFxazN/yHTJsoM26ZFiSGbE5MntMpSOuqsBJmQOaVh2n9HMdc
+         4+96YTcTH+81iFPUDd9Qcp33wTT7xeqnamYWgYgddRNkq75b9eUJRLM3Vn+0GesWz7Kw
+         82oXzT4W9uybJfeDxd7mu05wqD3ixPHSnxJvF8X1MPMtvP1hms4CluPwxcabo4TkC15n
+         9N+tbUK87m6xfaRV7RCay87Z7/pQsuNhOnlwJ03zdQjE30OurIgbAQ4yck2Mrfqdt8vR
+         F9wmTALl8yLb4vJRhBFhU9uf3immAZhMEbD0KaMvNvAYypMjXdFVvHlv9PD6oyUROojM
+         4Umw==
+X-Forwarded-Encrypted: i=1; AKwUvBxY/iuuQ+gERJE4WCSuwryYxT24TK63r6XtRiXQ02ZM2MiFoQGUFxL5NB38hOwNyKYd0VZJuM4dGwpWyXA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIp4i7XTfHBa3JTRU/J/kr4N5SnzLyYIkuvEd+bXv7E9mxvrKHd
+	izhEv7J2zrIqcj57dQWBM+dsxg43PbF61HMj4neudeKLFoKLpTWgUTcr
+X-Gm-Gg: AYBFou3TfHrNiLwJAqlK8cGLBO+9pFvUargl93sX+6kGuNilvxE8+3Jyjph5EC3b0JV
+	bG6gD2todz+Tk6kci8AaFvwZGzAl0NqOhyfGBy1DX8TbVIZjqEzcyFyljSYxkwwoAoRiw8TqjwM
+	RaF22PiGeKwxGQf1fXygZUslU3J7KS9Fp9qX3sZiMW/WkSGg7rcPPA0iYJGnkojvKLvXy9k+TZg
+	PyHReO5d9IpGD7dOdyAHmhS/c3rOLF92HtgRv12UujskAeIHNoy2O7NIWJXDlUlyWyD8gOXhtvm
+	rlqutW4CD6q/8zME2JuqX9tSupLM/GExIdW8YIwmRTzYuxWH8iL4tcNuvoykVtdbdVZf5OwGH67
+	jV4sFvwUZplT9bPa9HOczVLWgji8nr3tnNOZ8Zmljl1fO3djTV4uKNn4dt7yZQgEGlY8nWgdpd/
+	GN2H/FqUts15F5Jlka0Z82qXIph8Auq5TV8Q+3yKe/Q+SGg7jB2m6mBaiU9y70fSYTo71Da893N
+	uL4/vN16WoX0tDDHNc4nRc57P4Usz4dU5U+Qa8CYmsiVn/8Xryw8vBxiqYM2RDKwz3ygXpJxFPk
+	O2rFZSruXh/PdNICGVA=
+X-Received: by 2002:a05:7300:6c85:b0:35f:5591:e40c with SMTP id 5a478bee46e88-3674de4ca70mr9773380eec.22.1792660446301;
+        Thu, 22 Oct 2026 02:14:06 -0700 (PDT)
+Received: from youngkk-vm.localdomain (67.216.200.102.16clouds.com. [67.216.200.102])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-368ca914bb8sm5375478eec.5.2026.10.22.02.14.02
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 02:14:14 -0700 (PDT)
-From: Krystian Kaniewski <krystianmkaniewski@gmail.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Neill Kapron <nkapron@google.com>,
-	linux-usb@vger.kernel.org,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Cc: Mehmet Fide <mehmet.fide@gmail.com>,
-	Brian Ellis <brianellis@gotenna.com>,
-	Johan Hovold <johan@kernel.org>,
-	Jiri Slaby <jirislaby@kernel.org>,
-	linux-serial@vger.kernel.org,
-	syzkaller-bugs@googlegroups.com,
-	Ai Chao <aichao@kylinos.cn>,
-	Kees Cook <kees@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	syzbot@lists.linux.dev,
-	syzbot+fe63e4d633540f230624@syzkaller.appspotmail.com,
-	stable@kernel.org
-Subject: [PATCH v2] usb: gadget: u_serial: pin ports while TTYs are installed
-Date: Thu, 22 Oct 2026 11:13:59 +0200
-Message-ID: <20261022091359.1187468-1-krystianmkaniewski@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <6941beb7-8cae-4cc5-ba07-e1c8a8753fe1@mail.kernel.org>
-References: <6941beb7-8cae-4cc5-ba07-e1c8a8753fe1@mail.kernel.org>
+        Thu, 22 Oct 2026 02:14:05 -0700 (PDT)
+From: Cheng Yongkang <teel4res@gmail.com>
+To: Willem de Bruijn <willemdebruijn.kernel@gmail.com>,
+	Jason Wang <jasowangio@gmail.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [BUG] net: tun: flow update can repopulate a purged detached queue
+Date: Thu, 22 Oct 2026 02:13:58 -0700
+Message-Id: <20261022091358.3649925-1-teel4res@gmail.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -112,389 +101,50 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-A slab-use-after-free can occur when gserial_free_line() frees struct
-gs_port while it is still reachable through an installed TTY. The
-port->port.count value tracks successful opens, but it is zero before
-gs_open() and again after gs_close(), before TTY cleanup has finished.
-Teardown can therefore free gs_port while tty_init_dev() or release_tty()
-still accesses its tty_port.
+Hi all,
 
-Manage gs_port lifetime with tty_port references. Take a reference in
-gs_install(), drop it in gs_cleanup(), and move the final free to
-gs_port_destruct(). Unregister the TTY device before dropping the owner
-reference.
+tun_get_user() checks !tfile->detached before entering its receive RCU
+section, but calls tun_flow_update() after leaving that section.  Queue
+detach can complete between those points.  Detach's synchronize_net()
+does not cover the hash computation made before the RCU section or the
+flow insertion made after RCU unlock.
 
-Keep each minor reserved until the old port is destroyed so an installed
-TTY for one generation cannot overlap a replacement at the same minor.
-Publish the new port before device registration so the cdev and add uevent
-never expose a TTY before gs_install() can pin it. Since commit
-8df07fe93573 ("tty: fix saved termios reset race"), u_serial registration
-no longer frees saved termios. On registration failure, unpublish the port
-before dropping its owner reference.
+The late write therefore installs a flow entry with the detached
+queue's queue_index after detach has already purged flow entries for
+that queue.  A matching TX can then steer to a detached or out-of-range
+queue.
 
-Check in gs_open() that the installed port is still the published
-generation. Track failures after a successful install so close callbacks
-issued by the TTY core do not decrement port->port.count for opens that
-never incremented it.
+Observed on Linux v7.3, commit
+08ab31164c55f20c7a2653de3186ae333470e2c1.  A two-stage GDB condition
+observed both:
 
-Fixes: 19b10a8828a6 ("usb: gadget: allocate & giveback serial ports instead hard code them")
-Assisted-by: Gemini:gemini-3.8-flash syzbot
-Reported-by: syzbot+fe63e4d633540f230624@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=fe63e4d633540f230624
-Link: https://syzkaller.appspot.com/ai_job?id=ec789387-2e7b-4a8f-a7a1-a47bf7fa57f5
-Cc: stable@kernel.org
-Signed-off-by: Krystian Kaniewski <krystianmkaniewski@gmail.com>
----
-v2:
-- Publish the port before TTY device registration so an open triggered by
-  the add uevent cannot observe an unpublished slot.
-- Drop the saved-termios rationale made obsolete by 8df07fe93573
-  ("tty: fix saved termios reset race").
-- Drop unreachable NULL checks in gs_open() and gs_close().
-- Rebase to usb-next and mark the fix for stable backporting.
-- Do not carry Mehmet's Tested-by tag because the registration ordering
-  changed after his test.
-v1: https://lore.kernel.org/r/6941beb7-8cae-4cc5-ba07-e1c8a8753fe1@mail.kernel.org/
+  detach completed its flow purge
+  tfile->detached == tun
+  tun_flow_update() still ran
+  queue_index=2, numqueues=2
 
-Tested on usb-next in QEMU with KASAN, using the syzbot reproducer and
-configuration: without the patch the use-after-free is reported, with it
-there are no reports. A test that opens /dev/ttyGS0 while an ACM
-function is created gets -ENODEV with v1 and not with v2.
+The later TX produced:
 
-Brian Ellis's "[PATCH v4] usb: gadget: u_serial: fix NULL deref in
-gs_close() after failed open" fixes a crash that this patch also removes,
-because gs_close() no longer sees a NULL driver_data after a failed open.
-The two patches do not apply on top of each other:
-https://lore.kernel.org/r/20261013-u_serial-gs-close-null-v4-1-9ea038501994@gotenna.com/
+  tun0 selects TX queue 2, but real number of TX queues is 2
 
- drivers/usb/gadget/function/u_serial.c | 167 ++++++++++++++++++++-----
- 1 file changed, 134 insertions(+), 33 deletions(-)
+The condition was hit in two independent runs and is distinct from the
+purge off-by-one in candidate BR-018/027: even a complete purge can be
+followed by this stale insertion.
 
-diff --git a/drivers/usb/gadget/function/u_serial.c b/drivers/usb/gadget/function/u_serial.c
-index cdd1dfc666c4f..41dee2afef5c6 100644
---- a/drivers/usb/gadget/function/u_serial.c
-+++ b/drivers/usb/gadget/function/u_serial.c
-@@ -70,10 +70,28 @@
-  *	gserial->ioport == usb_ep->driver_data ... gs_port
-  *	gs_port->port_usb ... gserial
-  *
-- * gs_port <---> tty_struct ... links will be null when the TTY file
-- * isn't opened; managed by gs_open()/gs_close()
-- *	gserial->port_tty ... tty_struct
-- *	tty_struct->driver_data ... gserial
-+ * gs_port <---> tty_struct:
-+ *	tty->driver_data refers to gs_port from install through cleanup,
-+ *	pinning the port via tty_port reference counting.
-+ *	gs_port->port.tty exists only while the port is open.
-+ *
-+ * Each entry in ports[] is guarded by ports[i].lock and models three states:
-+ *   - Free:      !port && !reserved
-+ *   - Published:  port &&  reserved
-+ *   - Retiring:   !port &&  reserved
-+ *
-+ * A minor remains reserved until gs_port_destruct() runs upon final tty_port
-+ * release, preventing minor reuse while cleanup of the installed TTY is still
-+ * underway. The owner reference is retained through device unregister so the
-+ * destructor releases the reservation only after device teardown is complete.
-+ *
-+ * open_close_failures tracks failed gs_open() calls where port->port.count
-+ * was not incremented. The TTY core calls gs_close() on open failure to tear
-+ * down the tty; tracking failures as aggregate credits allows gs_close() to
-+ * consume a credit and exit without decrementing port->port.count. Credits
-+ * are aggregate rather than paired with individual files (another gs_close()
-+ * can consume a failed open's credit before that file's own close runs).
-+ * It is protected by tty_lock.
-  */
- 
- /* RX and TX queues can buffer QUEUE_SIZE packets before they hit the
-@@ -128,6 +146,7 @@ struct gs_port {
- 	wait_queue_head_t	close_wait;
- 	bool			suspended;	/* port suspended */
- 	bool			start_delayed;	/* delay start when suspended */
-+	unsigned int		open_close_failures; /* protected by tty_lock */
- 	struct async_icount	icount;
- 
- 	/* REVISIT this state ... */
-@@ -135,8 +154,9 @@ struct gs_port {
- };
- 
- static struct portmaster {
--	struct mutex	lock;			/* protect open/close */
-+	struct mutex	lock;			/* protect open/close and port slot */
- 	struct gs_port	*port;
-+	bool		reserved;
- } ports[MAX_U_SERIAL_PORTS];
- 
- #define GS_CLOSE_TIMEOUT		15		/* seconds */
-@@ -603,22 +623,60 @@ static int gserial_wakeup_host(struct gserial *gser)
- 
- /* TTY Driver */
- 
-+static int gs_install(struct tty_driver *driver, struct tty_struct *tty)
-+{
-+	struct gs_port *port;
-+	struct tty_port *tport;
-+	int ret;
-+
-+	mutex_lock(&ports[tty->index].lock);
-+	port = ports[tty->index].port;
-+	if (!port) {
-+		mutex_unlock(&ports[tty->index].lock);
-+		return -ENODEV;
-+	}
-+
-+	tport = tty_port_get(&port->port);
-+	if (!tport) {
-+		mutex_unlock(&ports[tty->index].lock);
-+		return -ENODEV;
-+	}
-+
-+	ret = tty_port_install(tport, driver, tty);
-+	if (ret) {
-+		mutex_unlock(&ports[tty->index].lock);
-+		tty_port_put(tport);
-+		return ret;
-+	}
-+
-+	tty->driver_data = port;
-+	mutex_unlock(&ports[tty->index].lock);
-+
-+	return 0;
-+}
-+
-+static void gs_cleanup(struct tty_struct *tty)
-+{
-+	tty_port_put(tty->port);
-+}
-+
- /*
-- * gs_open sets up the link between a gs_port and its associated TTY.
-- * That link is broken *only* by TTY close(), and all driver methods
-- * know that.
-+ * gs_open associates an open TTY with its gs_port.
-+ *
-+ * There are two TTY-to-port relationships: port->port.tty exists from the
-+ * first successful open until final close, while tty->driver_data is assigned
-+ * during gs_install() and remains valid through gs_cleanup().
-  */
- static int gs_open(struct tty_struct *tty, struct file *file)
- {
- 	int		port_num = tty->index;
--	struct gs_port	*port;
-+	struct gs_port	*port = tty->driver_data;
- 	int		status = 0;
- 
- 	mutex_lock(&ports[port_num].lock);
--	port = ports[port_num].port;
--	if (!port) {
-+	if (ports[port_num].port != port) {
- 		status = -ENODEV;
--		goto out;
-+		goto fail_unlock;
- 	}
- 
- 	spin_lock_irq(&port->port_lock);
-@@ -638,7 +696,7 @@ static int gs_open(struct tty_struct *tty, struct file *file)
- 		if (status) {
- 			pr_debug("gs_open: ttyGS%d (%p,%p) no buffer\n",
- 				 port_num, tty, file);
--			goto out;
-+			goto fail_unlock;
- 		}
- 
- 		spin_lock_irq(&port->port_lock);
-@@ -648,7 +706,6 @@ static int gs_open(struct tty_struct *tty, struct file *file)
- 	if (port->port.count++)
- 		goto exit_unlock_port;
- 
--	tty->driver_data = port;
- 	port->port.tty = tty;
- 
- 	/* if connected, start the I/O stream */
-@@ -672,7 +729,11 @@ static int gs_open(struct tty_struct *tty, struct file *file)
- 
- exit_unlock_port:
- 	spin_unlock_irq(&port->port_lock);
--out:
-+	mutex_unlock(&ports[port_num].lock);
-+	return status;
-+
-+fail_unlock:
-+	port->open_close_failures++;
- 	mutex_unlock(&ports[port_num].lock);
- 	return status;
- }
-@@ -695,6 +756,11 @@ static void gs_close(struct tty_struct *tty, struct file *file)
- 	struct gs_port *port = tty->driver_data;
- 	struct gserial	*gser;
- 
-+	if (port->open_close_failures > 0) {
-+		port->open_close_failures--;
-+		return;
-+	}
-+
- 	spin_lock_irq(&port->port_lock);
- 
- 	if (port->port.count != 1) {
-@@ -909,8 +975,10 @@ static int gs_get_icount(struct tty_struct *tty,
- }
- 
- static const struct tty_operations gs_tty_ops = {
-+	.install =		gs_install,
- 	.open =			gs_open,
- 	.close =		gs_close,
-+	.cleanup =		gs_cleanup,
- 	.write =		gs_write,
- 	.put_char =		gs_put_char,
- 	.flush_chars =		gs_flush_chars,
-@@ -1203,14 +1271,41 @@ static void gs_console_exit(struct gs_port *port)
- 
- #endif
- 
--static int
-+static void gs_port_destruct(struct tty_port *tport)
-+{
-+	struct gs_port *port = container_of(tport, struct gs_port, port);
-+	unsigned int port_num = port->port_num;
-+
-+	mutex_lock(&ports[port_num].lock);
-+	if (WARN_ON(ports[port_num].port))
-+		ports[port_num].port = NULL;
-+	WARN_ON(!ports[port_num].reserved);
-+	if (gs_tty_driver)
-+		gs_tty_driver->ports[port_num] = NULL;
-+	ports[port_num].reserved = false;
-+	mutex_unlock(&ports[port_num].lock);
-+
-+	kfifo_free(&port->port_write_buf);
-+	kfree(port);
-+}
-+
-+static const struct tty_port_operations gs_port_ops = {
-+	.destruct = gs_port_destruct,
-+};
-+
-+static struct gs_port *
- gs_port_alloc(unsigned port_num, struct usb_cdc_line_coding *coding)
- {
- 	struct gs_port	*port;
- 	int		ret = 0;
- 
- 	mutex_lock(&ports[port_num].lock);
--	if (ports[port_num].port) {
-+	if (WARN_ON_ONCE(ports[port_num].port && !ports[port_num].reserved)) {
-+		ret = -EBUSY;
-+		goto out;
-+	}
-+
-+	if (ports[port_num].reserved) {
- 		ret = -EBUSY;
- 		goto out;
- 	}
-@@ -1222,6 +1317,7 @@ gs_port_alloc(unsigned port_num, struct usb_cdc_line_coding *coding)
- 	}
- 
- 	tty_port_init(&port->port);
-+	port->port.ops = &gs_port_ops;
- 	spin_lock_init(&port->port_lock);
- 	init_waitqueue_head(&port->drain_wait);
- 	init_waitqueue_head(&port->close_wait);
-@@ -1235,10 +1331,14 @@ gs_port_alloc(unsigned port_num, struct usb_cdc_line_coding *coding)
- 	port->port_num = port_num;
- 	port->port_line_coding = *coding;
- 
-+	ports[port_num].reserved = true;
- 	ports[port_num].port = port;
-+	mutex_unlock(&ports[port_num].lock);
-+	return port;
-+
- out:
- 	mutex_unlock(&ports[port_num].lock);
--	return ret;
-+	return ERR_PTR(ret);
- }
- 
- static int gs_closed(struct gs_port *port)
-@@ -1258,8 +1358,7 @@ static void gserial_free_port(struct gs_port *port)
- 	/* wait for old opens to finish */
- 	wait_event(port->close_wait, gs_closed(port));
- 	WARN_ON(port->port_usb != NULL);
--	tty_port_destroy(&port->port);
--	kfree(port);
-+	tty_port_put(&port->port);
- }
- 
- void gserial_free_line(unsigned char port_num)
-@@ -1276,15 +1375,15 @@ void gserial_free_line(unsigned char port_num)
- 	ports[port_num].port = NULL;
- 	mutex_unlock(&ports[port_num].lock);
- 
--	gserial_free_port(port);
- 	tty_unregister_device(gs_tty_driver, port_num);
-+	gserial_free_port(port);
- }
- EXPORT_SYMBOL_GPL(gserial_free_line);
- 
- int gserial_alloc_line_no_console(unsigned char *line_num)
- {
- 	struct usb_cdc_line_coding	coding;
--	struct gs_port			*port;
-+	struct gs_port			*port = ERR_PTR(-EBUSY);
- 	struct device			*tty_dev;
- 	int				ret;
- 	int				port_num;
-@@ -1295,19 +1394,20 @@ int gserial_alloc_line_no_console(unsigned char *line_num)
- 	coding.bDataBits = USB_CDC_1_STOP_BITS;
- 
- 	for (port_num = 0; port_num < MAX_U_SERIAL_PORTS; port_num++) {
--		ret = gs_port_alloc(port_num, &coding);
--		if (ret == -EBUSY)
--			continue;
--		if (ret)
-+		port = gs_port_alloc(port_num, &coding);
-+		if (IS_ERR(port)) {
-+			ret = PTR_ERR(port);
-+			if (ret == -EBUSY)
-+				continue;
- 			return ret;
-+		}
- 		break;
- 	}
--	if (ret)
--		return ret;
-+	if (IS_ERR(port))
-+		return PTR_ERR(port);
- 
- 	/* ... and sysfs class devices, so mdev/udev make /dev/ttyGS* */
- 
--	port = ports[port_num].port;
- 	tty_dev = tty_port_register_device(&port->port,
- 			gs_tty_driver, port_num, NULL);
- 	if (IS_ERR(tty_dev)) {
-@@ -1316,14 +1416,15 @@ int gserial_alloc_line_no_console(unsigned char *line_num)
- 
- 		ret = PTR_ERR(tty_dev);
- 		mutex_lock(&ports[port_num].lock);
-+		WARN_ON(ports[port_num].port != port);
- 		ports[port_num].port = NULL;
- 		mutex_unlock(&ports[port_num].lock);
--		gserial_free_port(port);
--		goto err;
-+		tty_port_put(&port->port);
-+		return ret;
- 	}
-+
- 	*line_num = port_num;
--err:
--	return ret;
-+	return 0;
- }
- EXPORT_SYMBOL_GPL(gserial_alloc_line_no_console);
- 
+The detached state and the flow update need to be covered by the same
+ordering rule.  One option is to perform the flow lookup/update while
+the receive RCU protection still guarantees that detach cannot pass its
+synchronize_net(), then avoid using a detached tfile after unlock.
 
-base-commit: bdf12cde30830d46a8ef1ba93986356f1164b4f1
--- 
-2.53.0
+I found no matching upstream fix.
 
+The reproducer, GDB script, and full logs are available on request.
+
+This was found with a multi-agent workflow; the TOCTOU
+was observed under QEMU/KVM.
+
+Thanks,
+Cheng Yongkang
