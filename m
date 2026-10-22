@@ -1,99 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792661690;
-	b=Q/Lf4fdFh86NWAMY44v224qh3IKi7AcEyUQo+3ma/SXtyP8LcuDqTqG6FpbnpZTD+Qt+
-	 I73wyO33+q3FQd6OuJXOTdMx4N+43cylv9zDOOxyjjDNKgqwOUFTsFiMKOv4rIM++ltW9
-	 9C46JakE+f6s1Mqo+Plu3yyGIOjDstvzGjJXwfzkwbDehW3bISnu+8f6QnQeUgWMMgqMq
-	 RKwBglGwsTYYcGhEvHz7l1LDbHWkxcOuRDep+RdafDBqEJElDjUWAz+EvcIhbjBH99vBp
-	 NL/zwmCPsUOBqNQMf4cHdNnA7ZzS9S7RWMTK96f6G+kpiMkkaNKgDrB6hGNvqYs94ag==
+	t=1792661787;
+	b=xezmk30gx6XUmzYs+I8P7Ea1g4eOvyNXQYEm32TSnrJXItBPdE8ZlMafAMkfkzBeaBbr
+	 0O7IIrbsJZj6J2UqoBGpf3W7FLrx4mGoTq8Y22Spou/8jEofQArO5S4MqMKBvb7dda2bS
+	 haax0UsbKz5sZUXwwatvR2IehOVHHTvln04L/IyEjuQF4FLiVho87vDvUGxWb1x7nD6k/
+	 jvrAsb1gosU5uU2VG8R1GbY2ey1+RALl8goaX1lKm6xoFNB74j1Ac7oTjewV1MmIP2QmB
+	 m8wzedTiu6vyDmq1vUZ7PafMOUVyEGh3z/iiSTbfeOye072ZqGOsLoX3Iggqnc4w+ug==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792661690;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792661787;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:X-Mailer:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=pVN1mqrOhYalxYFr7VReSIpfsAYguArpSUX3xTADh9w=;
-	b=DR+QQZ9R5MgTKnQX7bvpZCaAvyS3xVYgbPK1kPHKYwgQUqJqgWNJfzHpwnMwxbIO+PIl
-	 6bN25HzC7SUbQIHeSqEZMWUn30vvKmDvfihMg8yhZeFkPy0DcrnCPt/U7uRZFqpxIfjcf
-	 CZIHIXDRKG3jdrNonvndLxwhbMiQ8hUbOLG2rqXVEVj0Cl+zNNOT3k6GxA5cTYCFC+JSm
-	 vUFb0QYgnIXjeiIK9q+4Pxq5lKkJtS1l/AhTJMAcmyQtp3ACXSRf2Xs860hCpz7MU96W6
-	 S0RCeZ9jySOxDYMSZ1HJfqrkb2LU+3Zr+05yopGYZLHKMCPFbMAsxA1et4GBqOQQkuw==
+	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=7q9b5W9djXzZL0EMGmOjkz9fTUnN8mWGHmYaMiFb5A0=;
+	b=IzyLkN1loWQ5zn8aDniu9akstXuvH08GfqtuW65PLGa8qks+j3ElfH2tGvEsUzX1Ugu5
+	 cJX/uc79MzgKMDtLaRFWKd4klJfqwaAL5RfwQrfIrffAKd4mZE9FE0tWY6H8AqNswbQsu
+	 1fp1dWmbcUVvPyNZiPh3orUdl+tS8oUJrWokpRLGyPfRxIcPh34Q4IRsw+6/mGy5dwiOl
+	 ZvYZgo73cQHA7r7SpVGtczPqlV19pVeyT9jRptlSHPdskVBKmqK/Aw3AOYZ0JpBhI+ZX3
+	 hrKlUTC2ShmRNSdEoUnso4NiMO54CAPxO3vwiLyrjZ2VyzqAvWPomnwGTy1HI1vloIQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=QOuNwM+u;
-	arc=none smtp.remote-ip=209.85.221.49
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=rziXJ9qi;
+	arc=none smtp.remote-ip=209.85.128.45
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7128E606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 09:34:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7128E606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 494CA606A325
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 09:36:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 494CA606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=QOuNwM+u
-Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-48e0d1c095dso1046616f8f.1
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 02:34:49 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=rziXJ9qi
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a1e3098ee2so19050715e9.3
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 02:36:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792661688; x=1793266488; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=pVN1mqrOhYalxYFr7VReSIpfsAYguArpSUX3xTADh9w=;
-        b=QOuNwM+ut/XXfjXB039CTGSCzy8xsloaZdU5WvFi47yBZN9UVjzOndqXFgzO7mDjp5
-         mkutKz5IeyUOk3yIX3FqigGFlDAW6BuAque+RcAG0Fyrqhu2KjuybfY0iLX2peTAqiPZ
-         4rPEkh0A78fmZ1DkUT9wSb6gklNxpI6WiCIByQVRI7Gp9UG443Inw24cO7jHgVlQbFe7
-         NRjqhAXVpHoIjq0U+UpLmUlk0LLBDAdzkrfo1m96BT0jXmhH1fj7+hwmlKcgFVQunGnE
-         woL0qJRQibe9q87rMmdOiUojPzGBKF1qZy8PZl5WDQoZNzsbOk4/QZEQO7b1a+Aoxgb0
-         hxXA==
+        d=linaro.org; s=google; t=1792661785; x=1793266585; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=7q9b5W9djXzZL0EMGmOjkz9fTUnN8mWGHmYaMiFb5A0=;
+        b=rziXJ9qij4OFJAmAFJ1BxqIN6YtdjyDlhmFtcq/QtfnV73Ld97qwC3N25XJD0qIktJ
+         CkWUPBm3hxSp0GWMHm7REXa3Cl/0RafAkOE4nZtt1cLIr1AaTf0Tw16aVNbquLwqtGHE
+         Y/J6pmsfvbIznOgNAE3zPax9iwZ26dsABvE4BvIGxht/tkD60KqK3CLakPK2605WnIYs
+         pUaAMIyyvDwMG0reQWBDIqSv3s6P0XFMAn0q16a/UNhexiQzt7oHOdZXC4mZIjZ81d2K
+         hon5apkGQ/4spv1+YofFLt8MrmjYV8XQT3jYR86SopPUIsX072M9WKF0xofnfzrWBA3w
+         Ki2Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792661688; x=1793266488;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=pVN1mqrOhYalxYFr7VReSIpfsAYguArpSUX3xTADh9w=;
-        b=vAm8r1ekNODxdVGWHc6nrW21vRjjCtbVEiI3O4SpGBPNktheygNYgbeX+96FWL5GZh
-         X0D9Kybq7OJ9S9qO0KyvcEJa34c9aYMUEhTdSWye7MoXvXaRhik48oIAcY8m+M1XLWIA
-         Ht+oWmCKwv/+uj5pvm7O15QN3VaVpcAeterMfqDU7xGDIRSFVynYESZYZ43hefRwBgbm
-         MSRo92g7/BA3EMOv37bDMaP6ZiFxq96dileujA0TTuVp8QZ9LQ8pHnhOv4D7exzyfPys
-         2jleorHi2MLUHtZU6/8RpHU+hhXlJMIDslYO4tAPxcP0TX/7dmmKtji3SujQbNwXxoj5
-         e+OA==
-X-Forwarded-Encrypted: i=1; AKwUvBw+sKZ+WKbS93DjynYT53BVt8pSsNODyLE7itOeN15CfjKQvXznFvYIONMePpSX8lekYQwiabqdAEeyd50=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKlcmgA0ryn00VDkHrhgodlHCh1r49uan+p5KW+MbjInaZmp9I0
-	akR1pwwWRZfjC3yOVCYtA63iBJHBzRiYREVIfQduyPFPIQRK84pqIyfa
-X-Gm-Gg: AYBFou1hVRElzBdvcKR3Hr4kqyhANaQ+EUyFJd+Okg1fd7pTqNBK+qk03ZQgFU7uXvc
-	TURa6d6DoUB+g6VNp7Qk+TE1FxaFFTn2C0YThsGIE0PjwhAo4VvZZWfZnjevbMH4bQuqTVSD5PO
-	fFR9G79b8c4qgKO8tfj4OIWhbfD8b6JbNRbkhtQCWQmehmqXJjRtJHgdDJj1PwX4uWRe3aF0hLS
-	WMkJS01GbMGhAx18E9Q9tO774d1maehy/eK77u25PuXub7xzdZPag/7lmBWqdtdnTJTd9sdlEwH
-	6zZVqp2sNyuhTPjeHAfaWLeR0WB4Ya3MJj7Ri3Y+eM9e6XwuN2B+GNxjxOCsqAIP2XE3fIVo+7f
-	TFL4VGQb/D4qDyRTlgMUTELnSPAICXktScCE7jb29Tqjm1j4YsiE1V2jF+HujhEo2Jn25nQ5Lp6
-	KH4koVpGhbw4ySOncv5ymAj/y3uW+aMeBfpHRxCyTRQd47sONgrhNFAG6b8FtJ7k+D3IosWphBD
-	Ol7j+0oDQbfz5Sc1+bPrsqgy+gj4Ba1bivL4Njx7RTtf0dWlTenq/I1fHYlVVPDikLODJhjvIgC
-	46AUT/ei+r/KdoH0
-X-Received: by 2002:a05:6000:4806:b0:48b:451:4f19 with SMTP id ffacd0b85a97d-48e264e2f10mr9528690f8f.51.1792661687521;
-        Thu, 22 Oct 2026 02:34:47 -0700 (PDT)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e25828e72sm10420288f8f.26.2026.10.22.02.34.46
+        d=1e100.net; s=20260707; t=1792661785; x=1793266585;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=7q9b5W9djXzZL0EMGmOjkz9fTUnN8mWGHmYaMiFb5A0=;
+        b=i00/lEjCE/V6zmEEO41XcGu5erSFQInQeNyPlH6zikrXqhqi+YhOBgvzEffSvFtQv9
+         xzIE57330B/cPiF1j1BfqqSqdH0cCQSHNHOGhGbTc+v37D+QHUbEDkukKPXruIdxKufY
+         ypyFTTDs0ayVq7h47RGHFcHbumWqpo134MBVgk/frc/8AEFUWNxaxLF9brG7n+8vJJrJ
+         2Q++5XfIYAyj4u7tkzfuK3WZY+VU6DE1wQtrYcmnq4bZFLuTTy0/wliJEGMznTSQbqPI
+         0l1IgFOAxxbS2atA85YRyqZnCrnYcHdQraUenxDppBxd/YzklTUFHjqf7TYQsB6AcL9M
+         HsVw==
+X-Forwarded-Encrypted: i=1; AKwUvBwbRKzFszhnjE5gIF10z1kxXrntLQPk/h7eqRSZFylf5DMG9LrIeM5BFigg8En7/oJlSS63011NXY4NR4A=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL9m0RTxwQc1rt01qilQ5MHQB1dt/AeOU8MnzFujmeZiY5hPYP/
+	UxiEY7eGMp5PYuU7tKPWrTdMnpRTmRM+KKDKllhU4jzxMiXIfDjxlY95dgWAzWoQ5UimzmKbA1Z
+	U8+Mm
+X-Gm-Gg: AYBFou3MnqAjYAVI4dNJmmXCblhBUfHkMISPgo/VL8lLWBu+PNaWQVkIPBw2wIxazJd
+	S4PsxnQW5bRuJDfQC/e1I4MpJreFE5kU4iDtr+NZBdj0I5PqEZmNqFsK1D0idruHQ2uneQZf0F4
+	o4W7wYAx5B7EItKoUJQGKVIXSu2BxeNIvBlRYU51pFoz5l5Rn18WqzConJtW1OLBs1Wt/mobd1d
+	rvDvIijYDvTk0qVRzgHLuqjDdlJuMz7RjqBycPkz/U/F/qsDFuM1LwHYvC2+JOTQc0CKr6WPHuW
+	qNI5dApo7+DNxMX2QjPwvjK470J53lKsoiS6K0LNsCGQNCm/NfNUg0ufsoy/sx6/brfTJDBVl3O
+	yBcGHulLBNofVrehTpzYCHKYV/2dCC/9kiv+4KEz2QRWjDnQbrrt/5paKJoSC5/W2bePoyJIKsA
+	zur3Z3spvxtkb6ZuCAWrwxLt/cF2iRCg6jZU9BOV3Hiu07tmRQ4g21zYtm2RQVqkNrfMy5lORgS
+	kIfGACmw6tTJOWZdHBe9PYOgLql9sNwkwynTVLvC1hu0WocTnig8CS1woFG0WreSKd+0lY=
+X-Received: by 2002:a05:600c:1394:b0:4a1:f714:3f3 with SMTP id 5b1f17b1804b1-4a1fdd41954mr97614395e9.30.1792661785212;
+        Thu, 22 Oct 2026 02:36:25 -0700 (PDT)
+Received: from arrakeen-2.home ([2a01:e0a:106d:1080:8261:5fff:fe11:bdda])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a2038ddb20sm53299485e9.0.2026.10.22.02.36.24
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 02:34:46 -0700 (PDT)
-Date: Thu, 22 Oct 2026 10:34:45 +0100
-From: David Laight <david.laight.linux@gmail.com>
-To: Fil Dunsky <filipp.dunsky@gmail.com>
-Cc: nbd@nbd.name, lorenzo@kernel.org, ryder.lee@mediatek.com,
- shayne.chen@mediatek.com, sean.wang@mediatek.com, matthias.bgg@gmail.com,
- angelogioacchino.delregno@collabora.com, linux-wireless@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-mediatek@lists.infradead.org, netdev@vger.kernel.org
-Subject: Re: [PATCH] wifi: mt76: dma: run threaded NAPI kthreads with
- SCHED_FIFO low priority
-Message-ID: <20261022103445.34cede9d@pumpkin>
-In-Reply-To: <179259275334.35963.15413466304986880275@gmail.com>
-References: <20261020-b4-mt76-napi-fifo-v1-1-ac8a24e2062a@gmail.com>
-	<179259275334.35963.15413466304986880275@gmail.com>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+        Thu, 22 Oct 2026 02:36:24 -0700 (PDT)
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: [PATCH 0/5] arm64: dts: qcom: allow SM[456]50 HDK/QRD boards to
+ play audio via DisplayPort
+Date: Thu, 22 Oct 2026 11:36:20 +0200
+Message-Id: <20261022-topic-sm8x50-upstream-dp-altmode-playback-v1-0-8a189c71938c@linaro.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,52 +93,59 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIABTZ2WoC/yXNTQ7CIBBA4as0s3YSIBWrVzEu+Bl1tBQC1NQ0v
+ buoy2/z3gqFMlOBU7dCphcXjlOD3HXg7ma6EbJvBiWUlkIprDGxwxKGZS9wTqVmMgF9QjPWED1
+ hGs3bGvdE2ctBHw+9t9pC66VMV15+r/Pl7zLbB7n6HcC2fQBi7tCNjQAAAA==
+X-Change-ID: 20261022-topic-sm8x50-upstream-dp-altmode-playback-14186974db6b
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Neil Armstrong <neil.armstrong@linaro.org>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1164;
+ i=neil.armstrong@linaro.org; h=from:subject:message-id;
+ bh=qKv53hUCdB5HADSZusj8p39GNxevUv3qIqlUKSPJa3I=;
+ b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBq2dkVhsuZdM4BaihAYctDIMply7ywt8lea57J3qVq
+ tY3Hvz2JAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCatnZFQAKCRB33NvayMhJ0dywEA
+ CbVpybwZzi2MlMF4IgUep6Wjr0GOM20uL5jax/ZKCXVifV+OwYJz0ad+kxhitWOp0hNn/zUG6Vu/jP
+ sm813xJ2moEo1gGo94FCfJY9r6dPd0ml5XsPuby2V4LyrmM7UgmAcVTb1n0uM4Qo6/g9D+YonjEfJQ
+ hA3xZxgEBmIfNgyfJIH3f84Rz2y1JJ3YztW19BMJpPkG8OZ9KZUQFctozxAbVqxM7FHRPHClvvd9Ho
+ E2hrRt6FghBvOQ5SRY7PcgPAmRSo9spaFjobMcyYDCjyxE9C8V6hgWAxXqwAYNwYCYBnhbjqpltG6n
+ QgKCBBxY+3AfX3hAb46i4G7czZd3rhzpgb+TSaRiziR2ow5lcP/f1og4gZ/A0OumVemsKKLbB5j9aR
+ gH8siSt3SA1KSARP51Li6JBqM47/RcU7sb7pjDMM4D0/l0feyy7+gpWM+ZaA4l1uPx2NqFSGGKWM5Q
+ cNTGukeVp26q8lEGZmyCyb02tBb9tc5y7fHKpHnp7yLYsRQckWz3d5FnCoG97kso0Lsws/e3F6nukv
+ YRo/9bqvKdaCW/K45hrGRJy+VgZM5EvaDgPXGNC305rVNIQ7ZfbGB7D2yRMlI/m8+QXfZHIQilf01A
+ 2YoNeqbDZk/kkY280LoLKEcm2P2/eHPXI5JBewhvL1eawd3QVJfSB/nhuJuA==
+X-Developer-Key: i=neil.armstrong@linaro.org; a=openpgp;
+ fpr=89EC3D058446217450F22848169AB7B1A4CFF8AE
 
-On Wed, 21 Oct 2026 17:25:53 +0300
-Fil Dunsky <filipp.dunsky@gmail.com> wrote:
+Add the DAI link needed to enable audio playback over the DisplayPort altmode
+outputs for the SM8450/SM8550/SM8650 HDK & QRD boards. 
 
-> Adding netdev to Cc, as suggested on the GitHub mirror of this patch [1],
-> since it touches the scheduling policy of threaded NAPI kthreads.
+Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
+---
+Neil Armstrong (5):
+      arm64: dts: qcom: sm8450-hdk: add DisplayPort audio playback support
+      arm64: dts: qcom: sm8550-hdk: add DisplayPort audio playback support
+      arm64: dts: qcom: sm8550-qrd: add DisplayPort audio playback support
+      arm64: dts: qcom: sm8650-hdk: add DisplayPort audio playback support
+      arm64: dts: qcom: sm8650-qrd: add DisplayPort audio playback support
 
-I had to fix the same thing for other NAPI threads when doing some
-tests that were receiving 'silly numbers' of RTP (aka very short UDP)
-packets.
+ arch/arm64/boot/dts/qcom/sm8450-hdk.dts | 16 ++++++++++++++++
+ arch/arm64/boot/dts/qcom/sm8550-hdk.dts | 16 ++++++++++++++++
+ arch/arm64/boot/dts/qcom/sm8550-qrd.dts | 16 ++++++++++++++++
+ arch/arm64/boot/dts/qcom/sm8650-hdk.dts | 16 ++++++++++++++++
+ arch/arm64/boot/dts/qcom/sm8650-qrd.dts | 16 ++++++++++++++++
+ 5 files changed, 80 insertions(+)
+---
+base-commit: 5c2379ff1e0d26520b3edbb58fe2338fb17706a1
+change-id: 20261022-topic-sm8x50-upstream-dp-altmode-playback-14186974db6b
 
-There is a similar problem with the softint threads.
-Softint callbacks drop form being the very highest priority items
-to things that really won't be run in a timely manner.
-
-David
-
-> 
-> For context on why this is done in the driver rather than left to the
-> admin (chrt / sysfs): mt76 already does exactly this for its other
-> rx/status and tx workers (sched_set_fifo_low() for the usb and sdio
-> workers and for the tx worker), so the dma napi kthreads were the only
-> mt76 rx path left at SCHED_OTHER. A userspace chrt also has to race
-> the creation of the napi threads at boot and module reload.
-> 
-> Numbers from the setup in the commit message (MT7621 + MT7612E as 5 GHz
-> client, 3 runs x 5 min each, ~200-280 Mbit/s rx with userspace load):
-> 
->   stock:                  ~500 full-ring events / 5 min, watchdog
->                           resets and MCU timeouts, occasional hard hang
->   this patch:             0 resets in 3 runs, rx 276-288 Mbit/s
->   stock + chrt -f 1:      0 resets in 3 runs, rx 249-273 Mbit/s
->   napi_threaded=0:        0 resets
->   rx ring 1024 (stock):   800-1300 full-ring events / run, more resets
-> 
-> A similar restart pattern is reported on single-core MT7620 at much
-> lower rates [2], which fits CPU contention rather than throughput as the
-> trigger.
-> 
-> [1] https://github.com/openwrt/mt76/pull/1164
-> [2] https://github.com/openwrt/mt76/issues/457
-> 
-> Thanks,
-> Fil
-> 
-> 
+Best regards,
+--  
+Neil Armstrong <neil.armstrong@linaro.org>
 
