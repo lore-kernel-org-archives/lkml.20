@@ -1,75 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.71
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792703287;
-	b=vYQOrg+tK+HRlVSn34lWdUn7jkoFi/k/LhCeHPd6sJxXtaTEKxIAfBJsEpYNH8mzZ0pL
-	 mQOrkM1I+vfsnIKKpcG5jA7BW8Ph8DDR+y3c2+ktXPHIkxG7uAAGhIDknfvvsr7Vkybqu
-	 cTMyESOVZurZwJnhP62Vwthq3wZtFe+0WWam5Z6GDp6NXymXbRo2+a0/qiUFzFe5xSQ9E
-	 2E5QSRCFX871DHTl0u4siIqlP85n8lw0LorJBueRwO2aUQmAbXnw/UgPm4Xr2ZNosgU58
-	 HnUFKXF90p0cmrfP4kavx0aNVfw+RvSAqkFR0uOmsLxXIjFrdqCs7fYKBo5qbfSX6Aw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792703287;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
-	 Content-Type;
-	bh=97l3F0qa9psKlTIuzdbrVRWx6AWuAsCgx2ZlN91wNSs=;
-	b=sdlWNmc5+O5YgV//bE29Y6dtuvoBI8NdAH84ljDpNiyC7xypS4vHj4Yh05Xfaa/+4y2H
-	 zmLEKYAX9fveNid7fLD0ykEbZwX4jeff6K0chRiGN7yoghRPB5GYlx1PkE/BCloyAHI3g
-	 qhqngiDeU5yJ5gDcCohLJrBVb9TyWc8GedteeyVbSdOxowWtYFg1uB6u7GrVn0Rib0XLE
-	 3hj5RwB+NviWboHZzofxbm7+jyV+DSrnqeupctv+/i+rJHwPd67cUdRRrLpfZAnyP7+0H
-	 ETjJqCYc+7rqQiNrS6HlPtOUhxcQIMNKHkCfzQUSetQKeArOvaBCvIlyeoA2iVUbHrA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--irogers.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=brXWvW4E;
-	arc=none smtp.remote-ip=74.125.82.71
-Received: from mail-dl1-f71.google.com (mail-dl1-f71.google.com [74.125.82.71])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.84.17
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792703279;
+	b=PTluGrKa7MZUVFwkJcty80hD1coAJ67QHnv9GrPLPxYXsD/wnbpZtzCe1ksSiKbEdflS
+	 scNWlf3a9d2DNw4GDdEBxjrV0JvEID+11aJ6UZtHttpHE2jtGefGMeW3dto/j2+3uafXd
+	 2pLcB/EiAHNNemLARp6tmnRjUNGrbgryoq8a8F5vrhmf2KvoetcSMC5rlLkgwKukMWaKT
+	 R3Y7vTCa0PhDoSwWELAlDrsCcu43r9D8yhZlG7xa6FR1N+2uzO7hrfJg1JcsJ4rxxqOwZ
+	 9epdw8gjkP7sI4+ATf3E1XizIWtutxBDgPu9y9lW4VX3KIKeK+HFiujVZ/VZMIvHHHg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792703279;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-LD-Processed:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=Bp+PBs2AzHsGRlA2lmDpHARHdx1gLzO71vFueLDdw/Q=;
+	b=QnTjWZx3lHyXT11P4SypH8zEVfVZBcK47W+ottGi2u0He31ZkuJ88SaAFbCPqIQ1S20J
+	 NhJBSPHKcAMiwteiSfQv3coYJXP1IQ+40ej/mt2KVH9abrkRMu1HafjJ1JE0XsUsALsWa
+	 wtOo3ttUQxrTs/yHCYvyzorlzSwsk15BCmBr08AGlbQSPRVRpDlaV/O+okbTxMkZk5WFJ
+	 feczgNUrdTuVwro7sWsfqf62lk+Madysc5Md2yqFMKEHMvpLE8GK7m5vpQW9lMOJiaBWi
+	 Pk7Mp5a/8CJQfEwijOo36LvoKVpoT0eeoHlrAWO4Q5clfefjyisnUhOxWlWyTgoaCSQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=ut41Mpl7;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.84.17
+Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010017.outbound.protection.outlook.com [52.101.84.17])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39320606A326
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 21:08:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 39320606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74419606A319;
+	Thu, 22 Oct 2026 21:07:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 74419606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=brXWvW4E
-Received: by mail-dl1-f71.google.com with SMTP id a92af1059eb24-1383723dfddso321960c88.0
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 14:08:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792703285; x=1793308085; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=97l3F0qa9psKlTIuzdbrVRWx6AWuAsCgx2ZlN91wNSs=;
-        b=brXWvW4EV878jT2FGNiDmCOD1mNu0kDa9W9AfmgWU2HST08wU5lt1c3MqE34+QSRSW
-         tPxDtqe7T/vmUZxWqCjOmlj7m7pLHGjDjGTdLHUaLjOXX5EWxcH7THGrDTPqLKQRzgZf
-         TxNlsx8s+7HGRBUV28hSnsbvlc9B8Q8F5cQ5dCT2/U66qosfTQBwm64Nmo6jv4s8oQ5k
-         7y/Z94+Fch+IAtgIbAytaEDdYal/ecrN6m0iD32nhNn+1sWnlJSzFzoLtRXQuk2Bf1eQ
-         ByisoqM2Cbj6TPPcRUXgVRT4TLP64cNHejgoGxh/32cbTf/82u6Yj1LkRR4HAdXYmaeb
-         CJvg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792703285; x=1793308085;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=97l3F0qa9psKlTIuzdbrVRWx6AWuAsCgx2ZlN91wNSs=;
-        b=dU6LqhxrNi6HyFvQAooYaIhllViNUR7bm/bTNQ5nJbkscovH2UjJbvaQpVhxn7QFGd
-         yApMiMwfTPXEvV4KUKXVLS5dSuIlD12S9Vot+fw6qTFKmk+xP15NTRrawtUVwzixRHLs
-         /8ZQzelD4LPiHNDsWAp3+vsaWH8PFnh8Li4lmpfTuXYpPePU0juJ8S7ZaYIn/26K8M2W
-         SqURY2K89tqW6S+Gno53yn7rcLyLXEsTmS4riQ2tNg7sXqD+KZZbXtZr3pQkZRLVDeQp
-         9o3tFs2ytV3ViCM9S8d4xjlqjU0m7zTpFcB1cyWB1DepFowwjOSeBDdhX2c1xVTMLsFD
-         ezlw==
-X-Forwarded-Encrypted: i=1; AKwUvByEOXY84NCZYhENR5O7KBAgshGustyCukYq6r2TvcP2RWI4Sesk7AQXZ/BECGauStm2Py6Y715mEkLQPBI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ+usY8ByRVHVR3UpZiF2RruuiwW7HhAyWCd5mvxQWNbEGIRP4u
-	/QmB0oDmcuc82PECiraiWCVVynCc/Z0yjpdhIq6rhVjfTmt5NWJRsFN/HEf7iEbw62ulfkb+dFN
-	7QsrTKXP9tw==
-X-Received: from dlex15.prod.google.com ([2002:a05:701b:47af:b0:18c:3061:3bca])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:701b:4212:10b0:14a:d8fe:33b3
- with SMTP id a92af1059eb24-195c72d8c23mr483052c88.40.1792703285065; Thu, 22
- Oct 2026 14:08:05 -0700 (PDT)
-Date: Thu, 22 Oct 2026 14:07:53 -0700
-In-Reply-To: <20261022210753.1851597-1-irogers@google.com>
+	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=ut41Mpl7
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=u1WqpMCfmJMyDgRHEEzhiRTVJeQIrG5LvPj7mLMOeTiUoW3ZK2n2mHB/cDpGiSBWl33EVx/rLTZ9oqDiiFWwEdP57jb/0lOvr3Qhtm8KdtbJ+xl5xHnPIGKQzhgs4Tj7MNJp1XuLLv4DvuU3kf6BKa5xcCoFGl4vw0QnOoWFl/vT+ZIo3Z8jnaJukrt+Pa1bW6q3ldXBJtjNXqMe8waf+ELgYbZnKR4pN2mE1qdhtuTkZIciANz9zwKrKC1iuOx+lq/3KeZvAynIGmXWBvU9ppncINKNXQMST6GjPIG/5tFLaC2TAoXdwOJ2Lf+di9FGh78Lr9IwY5AVzGkSc0laFA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Bp+PBs2AzHsGRlA2lmDpHARHdx1gLzO71vFueLDdw/Q=;
+ b=O+4UXsW107xkpfp+hlB0reeidLncko+Nb+LL3Lxv/aO6issCpqftuRO2PEAlybFjbVnVbz3DwPyw1mJcNdfxsEqWNgiR+ukdbLR+S0j046t/pkk/V+qr/uLSX5teIApCGKvF9WB1CTkDq4Lh6bTlTgCTmd0VxLZs/q6aVXwm052f1EXwKIi5QD0rtYVHtGeqqVO9beBVEBkoYAr+WXdgxoyIZKe0I2Jv8a2XmdMg4G4KnTcegedlXXNDU5z+7HHcfR3+qlzGwXHTyeORYo3+g7jfRu+6wPoeFsWeIoX58NSTa03q6awtYMajZSEmMnyKAe0gC8ZaWI9dLQkKIodU/w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Bp+PBs2AzHsGRlA2lmDpHARHdx1gLzO71vFueLDdw/Q=;
+ b=ut41Mpl7OTONmtnkpBjrfSK93W7+gfeZL9zn5kWzWrNso2hnrke9prCOBx+GjfPYMPnAvwSoS4DyroJT98d3b2UGZybXNtagO5Jgo6ZbKkGHSVOW/BVhn2X+vqfMQzLjND8aHbdcKU0eVTR1cwX/6ATGfLvE79lcyvrywxrIAPb0Q/Ncw0mUXZ+JUZvBrMbRAxaEmEhz7aFIacuoQ4QqnvFmxAt4EQijMjcg9+c5BBK1UKPKlgRrqgDESgTNJMRhLbTBviTLlmTU4x/cvw2qLU0hRZz4mA3yoLRSxXr4IrIfnP1ty0Pm0rOObudqlNuEcHl8bPvD/dYYbRLM8vuckA==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
+ by MI9PR04MB043780.eurprd04.prod.outlook.com (2603:10a6:290:84::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Thu, 22 Oct
+ 2026 21:07:56 +0000
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b%6]) with mapi id 15.21.0546.012; Thu, 22 Oct 2026
+ 21:07:55 +0000
+Date: Thu, 22 Oct 2026 17:07:47 -0400
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Ernest Van Hoecke <ernestvanhoecke@gmail.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Kieran Bingham <kieran.bingham@ideasonboard.com>,
+	Francesco Dolcini <francesco.dolcini@toradex.com>,
+	Dave Stevenson <dave.stevenson@raspberrypi.com>,
+	devicetree@vger.kernel.org, imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+Subject: Re: [PATCH v3 2/4] arm64: dts: freescale: imx8m{m,p}-verdin: Add
+ camera connector nexus
+Message-ID: <atp7I9fBUXhK7b4F@lizhi-Precision-Tower-5810>
+References: <20261022-verdin-imx8mp-hmp-camera-ready-v3-0-90a30b0b0d55@toradex.com>
+ <20261022-verdin-imx8mp-hmp-camera-ready-v3-2-90a30b0b0d55@toradex.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261022-verdin-imx8mp-hmp-camera-ready-v3-2-90a30b0b0d55@toradex.com>
+X-ClientProxiedBy: PH0PR07CA0075.namprd07.prod.outlook.com
+ (2603:10b6:510:f::20) To MI3PR04MB12438.eurprd04.prod.outlook.com
+ (2603:10a6:290:76::14)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,245 +105,120 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261012234724.721224-1-irogers@google.com> <20261022210753.1851597-1-irogers@google.com>
-X-Mailer: git-send-email 2.56.0.307.g5fe7bd680c-goog
-Message-ID: <20261022210753.1851597-4-irogers@google.com>
-Subject: [PATCH v5 3/3] perf test: Don't count mlock budget wait time towards
- test timeout
-From: Ian Rogers <irogers@google.com>
-To: irogers@google.com, acme@kernel.org, namhyung@kernel.org
-Cc: 9erthalion6@gmail.com, adrian.hunter@intel.com, james.clark@linaro.org, 
-	jolsa@kernel.org, leo.yan@arm.com, linux-kernel@vger.kernel.org, 
-	linux-perf-users@vger.kernel.org, mingo@redhat.com, peterz@infradead.org
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|MI9PR04MB043780:EE_
+X-MS-Office365-Filtering-Correlation-Id: a538d32b-5194-434f-89cd-08df30808b0c
+X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|19092799006|366016|376014|23010399003|7416014|1800799024|6133799003|18002099003|10067099003|261021121427099003|22082099003|4143699003|11063799006|56012099006|261022075727099003;
+X-Microsoft-Antispam-Message-Info:
+	AW7OIhqoOTFGuEw3zBQLL99cMKQ5ZQ02sb3tISCnf0pOGk1xVx2A4ELKrvTB7IgNKwliAVvsI+MwPzL3Pxdxn5MKL0/p3okBooFf/bGtluQRqUmIfX0UfWzLRRQZ4XnoggUzI4cgFJYaVSBfIBPejonjNHI5c6UC3/47Dmx8cz7Y3dUS8qSraBdOEGrIZdcSyYavQ/TaKZ8QrhfO+oabXfrivqwSsCIIEnwmLGylrjtS3KJYVjciuVLn0PGMwDlPghqAHgGf9reGJ07EQbNC5dGXglJg4swFWAwhcCh+k+4NT0OF0xARXKgddSFpTIjdVboSsBBAPMmHPzAbc6rlgjDDMG8E48PauEO1ScnosTGNIhEsxjlAS3L2MDg/8v61fAuaMykaVyGzD4HHTcW4AT1nzTGbR9OiYSpjkc7ZjmMTN/2F1Vb6El/eTWYCNx/q357hLdXtkWXmaaUpBVzXANl8N7yGyIG6uRAM0ovhJB2ZZV5NtqmCW4h8ifIpZoO8qmZ4fv8uDlZrWcxarvTEd3/QCN99OAZChV+1BWYJ7v/0xlMzvV9tQ0FLFlMM0FSYAY3v6gllaM6OKsp4BCTJyNs3sxql/5uj4dScyrMiiksmVgPUL7yCGQgSVPfLpSfKkRnA6oY3oV2xZAIo9hl837J9SXFxk6Owl6hAb4YAdec=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(366016)(376014)(23010399003)(7416014)(1800799024)(6133799003)(18002099003)(10067099003)(261021121427099003)(22082099003)(4143699003)(11063799006)(56012099006)(261022075727099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?xqVzbf7o0i3kEXeM3/uC15ZzuUKOAs3mL0qtZijvCckpZ9pi1y/3ITjqrvK5?=
+ =?us-ascii?Q?KHSuG5BsT3Xalk7QWkLfV3kU6/VOwQoWQcTodpg+InbwIIb7rQtK9IjViqCs?=
+ =?us-ascii?Q?uAssGifUFRVHxeB0eamqTCjKsiLAmk1VxhXhdvSfGISSTCMvoEbQBqwLxecZ?=
+ =?us-ascii?Q?x91rnHIq9/R/wDg3AZ9ZSHU+K9bimPlt5ArpMiEZlFyTnPcOL/c1P0XOt/rB?=
+ =?us-ascii?Q?f6g582aAhyY55USg2hUCc043oxDaE34yXWgjSg+RYV1JZsXb8OSsg4TcUZSa?=
+ =?us-ascii?Q?FnLlCXzAq0zOfqwcXRde3P7qnL6YGVKkSOB5ckoJ/0xnQctQdg4j5qMkt0Ep?=
+ =?us-ascii?Q?YIPJn81AUV8ai9ErrKhBYFGSMUTL7K0nKc84kqvUug13puz0Cod50QKrSEbu?=
+ =?us-ascii?Q?IJwtK2WtJtK1MOG+r5nMfPwHJA8C5gH4ogvmSty3mH4YVXtyO9jeYbe+h53h?=
+ =?us-ascii?Q?4gNymyEgSoNM7R9Fg7QRFiUmLfp+cIlZNdVxsh0roxNjFTkza38AXAlZopUA?=
+ =?us-ascii?Q?m+TBvIbLXsj/la3mQSZNEA7KoAsTmJg1ODMl4yhEfTHU0w5A/ypYyoQRDZZt?=
+ =?us-ascii?Q?TlPkM1wPhvPaIefqPKmhmNp7sqi96t24tnz5OU0m7r6bP5MeqSJ+XNxd8UEl?=
+ =?us-ascii?Q?UzIESQGyPrzfjjRAB2F5DH2OzgqEJ5//UQuFAR+Psh7FPgpPpTkTCLz9wLBY?=
+ =?us-ascii?Q?iQ1s6Rd0ztJd+DWSei1smDpfijNej/n1gRhogPw588Ry/FA2ujP/Pe1TZjSO?=
+ =?us-ascii?Q?amhsnXz0csFw2hKClGDkNk8x+JGWRb/14W6+IVU7NJxlKKXFfVTg943KNlBD?=
+ =?us-ascii?Q?9neq6rjRIHTVNv1OY3H6Fh/a6ktBB7cwNe0+bIsdsdNnKY/4k3AQt38PuZuy?=
+ =?us-ascii?Q?AT3juD68Qyw2x7iWbp1fUR82IE5urHPrTReOl0SFgzV+igzlGmZLgodfk8JL?=
+ =?us-ascii?Q?YUqKzyk4f0pBYBd+friqQ4rR7QH0UwtNhYwgOZXu8Ayzduak91jCDtqFJ/UO?=
+ =?us-ascii?Q?ITMFf7w91xWKTiASvU+G+ZOfL/Un/MCqKZlnORckU9VjQlU9sDK0A6zTkJJG?=
+ =?us-ascii?Q?Cq/8gubs3QyXZmtkM32i5YXGeh3W/n6LIM5j0Z95usb7WmVPmCdig7+1GTkp?=
+ =?us-ascii?Q?n2CjMbDzTqK9ub2ErouxDZM0AE7iZmDCzco6ugQ2Nm2w7LJ9E98hZVs+Eahn?=
+ =?us-ascii?Q?TtQbhx69xi3I4QRZCSjlmgBm2p9l3wJDWSWV04McspQQOq14U4QPWqD9pLy/?=
+ =?us-ascii?Q?4JKhrOl3s2uKi+or33WcCIGt6bQz1naOvnQzG1p6inhW46jr3YQ3fzdpg5Cw?=
+ =?us-ascii?Q?ZEDyolDYcihROPQeH8AZHvTmYdEAWqZrtRmWNKD+KjTWDZnRsbRIdcIevJ3y?=
+ =?us-ascii?Q?+j81K17t7WwwoUyoc+BdD0M27uyAxlc/hYajX9p86+t8DcePHAcpGm+PDjiM?=
+ =?us-ascii?Q?cG+eNXyVxnuKQi5xpa3abwtWPkt8+4AfPG7+aFRw7aGrfGzy1ketWJI/22by?=
+ =?us-ascii?Q?Q5vT9MTz2VntPSQPOumRjMS/bKvxb6MZ+Vlt2eG/2PplhPhVfhp+UdaSXNbw?=
+ =?us-ascii?Q?cMKAGw8c3KEyTH6aRc5s1Bm1T4jMLC8ZT+hDeLcOYKinuyX59I8uNX4pAfhy?=
+ =?us-ascii?Q?EIBRK6B+CZIKL8CIAcDEPv0tyzG1iB5dgaI8LpU+dLEgMZ867wDtYdVFdpjN?=
+ =?us-ascii?Q?2ikZXKZ0oiwTSuQM80V7BvL50+cFSNAW0Qz6QnhSFQz2neULt42EAjkfZkJB?=
+ =?us-ascii?Q?LO/4ZJXKbuMnSIoxuZ5hwDv1EEjyBton0/xWLwNSm3VSK7U340Zt?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a538d32b-5194-434f-89cd-08df30808b0c
+X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Oct 2026 21:07:55.8877
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: s8IDCE30FCnlQR7A6LG+wY6o2HX3oEQk5r5PRPY3FTxVbox215vgzdFKR5rNlx2zZGzJPR1cWz/NDIxiRP0JI1wtLQWViVPeQkCDcVcP4NSF6xw44pPOBPM62pVV0zPi
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MI9PR04MB043780
 
-When multiple parallel tests need room in kernel.perf_event_mlock_kb,
-they take turns acquiring the shared mlock_budget->lock mutex in
-run_test_case_mlocked() after being forked in start_test().
+On Thu, Oct 22, 2026 at 04:31:26PM +0200, Ernest Van Hoecke wrote:
+> From: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+>
+> The Verdin Development Board, Dahlia and Mallow expose the same 24-pin CSI
+> camera connector, while Verdin iMX8M Mini and Verdin iMX8M Plus route its
+> sideband signals and media pipeline through different SoC resources.
+>
+> Add a GPIO nexus to each carrier description and stable Verdin-level labels
+> for each module's CSI_1 I2C bus, receiver and capture engine. Keeping the
+> nexus in the carrier files avoids describing the physical connector on
+> carriers which do not provide it.
+>
+> This gives accessory overlays a stable connector and media interface
+> without embedding either module's wiring in the accessory description.
+>
+> Signed-off-by: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+> ---
+...
+Thank you for good progress.
 
-Because child->start_time is recorded in start_test() when the child
-process is forked, any time a test spends waiting in the
-mlock_budget->lock queue would otherwise be counted against both its
-per-test timeout (causing tests later in the queue to time out before
-they even start) and its JUnit XML testcase elapsed time.
+>
+> +/* Verdin CSI_1 */
+> +verdin_csi_capture: &csi {};
+> +
+>  &ddrc {
+>  	operating-points-v2 = <&ddrc_opp_table>;
+>
+> @@ -596,7 +599,7 @@ &i2c2 {
+>  /* Verdin I2C_3_HDMI N/A */
+>
+>  /* Verdin I2C_4_CSI */
+> -&i2c3 {
+> +verdin_csi_i2c: &i2c3 {
+>  	clock-frequency = <400000>;
+>  	pinctrl-names = "default", "gpio";
+>  	pinctrl-0 = <&pinctrl_i2c3>;
+> @@ -695,6 +698,9 @@ eeprom_carrier_board: eeprom@57 {
+>  	};
+>  };
+>
+> +/* Verdin CSI_1 */
+> +verdin_csi_rx: &mipi_csi {};
+> +
 
-Extend struct mlock_budget with a per-slot shared start_time and started
-flag populated in run_test_case_mlocked() once the child acquires
-mlock_budget->lock. In check_child_timeout(), skip tests that are still
-waiting for mlock_budget->lock and measure the timeout from the lock
-acquisition timestamp once started. Also use the post-lock start_time
-when computing the test's elapsed duration.
+Can you refer to port?
 
-Signed-off-by: Ian Rogers <irogers@google.com>
----
- tools/perf/tests/builtin-test.c | 81 +++++++++++++++++++++++++--------
- 1 file changed, 63 insertions(+), 18 deletions(-)
+&mipi_csi {
+	ports {
+		verdin_csi_rx_port: port@0 {
+		^^^^
+		}
+	}
+}
 
-diff --git a/tools/perf/tests/builtin-test.c b/tools/perf/tests/builtin-test.c
-index 58dc75ba82cf..e1bfde78d34d 100644
---- a/tools/perf/tests/builtin-test.c
-+++ b/tools/perf/tests/builtin-test.c
-@@ -79,8 +79,17 @@ static unsigned int test_timeout = 120;
-  * processes and robust so that a test killed while holding it doesn't leave
-  * the budget locked, see mutex_init_pshared_robust().
-  */
-+struct mlock_child_time {
-+	struct timespec start_time;
-+	bool started;
-+};
-+
- struct mlock_budget {
- 	struct mutex lock;
-+	size_t size;
-+	size_t nr_slots;
-+	size_t next_slot;
-+	struct mlock_child_time slots[];
- };
- 
- static struct mlock_budget *mlock_budget;
-@@ -384,6 +393,7 @@ struct child_test {
- 	struct timespec start_time;
- 	struct timespec end_time;
- 	struct timespec timeout_time;
-+	struct mlock_child_time *mlock_time;
- };
- 
- static jmp_buf run_test_jmp_buf;
-@@ -414,6 +424,8 @@ static int run_test_case_mlocked(struct child_test *child)
- 	int err;
- 
- 	mutex_lock(&mlock_budget->lock);
-+	clock_gettime(CLOCK_MONOTONIC, &child->mlock_time->start_time);
-+	__atomic_store_n(&child->mlock_time->started, true, __ATOMIC_RELEASE);
- 	err = run_test_case(child);
- 	mutex_unlock(&mlock_budget->lock);
- 
-@@ -459,7 +471,6 @@ static int run_test_child(struct child_process *process)
- 		SIGABRT, SIGBUS, SIGFPE, SIGILL, SIGINT, SIGPIPE, SIGQUIT, SIGSEGV, SIGTERM,
- 	};
- 	struct child_test *child = container_of(process, struct child_test, process);
--	bool needs_mlock = mlock_budget && child->test->needs_mlock;
- 	int err, sig;
- 
- 	/*
-@@ -486,7 +497,7 @@ static int run_test_child(struct child_process *process)
- 	pr_debug("---- start ----\n");
- 	pr_debug("test child forked, pid %d\n", getpid());
- 
--	if (needs_mlock)
-+	if (child->mlock_time)
- 		err = run_test_case_mlocked(child);
- 	else
- 		err = run_test_case(child);
-@@ -1027,6 +1038,28 @@ static void kill_child_process(pid_t pid, int sig)
- 		kill(pid, sig);
- }
- 
-+static bool child_test__started(const struct child_test *child, struct timespec *start_time)
-+{
-+	if (child->mlock_time) {
-+		if (!__atomic_load_n(&child->mlock_time->started, __ATOMIC_ACQUIRE))
-+			return false;
-+		*start_time = child->mlock_time->start_time;
-+		return true;
-+	}
-+	*start_time = child->start_time;
-+	return true;
-+}
-+
-+static double child_test__elapsed_secs(const struct child_test *child,
-+				       const struct timespec *end_time)
-+{
-+	struct timespec start_time;
-+
-+	if (!child_test__started(child, &start_time))
-+		start_time = child->start_time;
-+	return timespec_diff_secs(end_time, &start_time);
-+}
-+
- static void check_child_timeout(struct child_test *child, const struct timespec *now)
- {
- 	pid_t pid;
-@@ -1043,7 +1076,12 @@ static void check_child_timeout(struct child_test *child, const struct timespec
- 		return;
- 
- 	if (!child->timed_out) {
--		if (timespec_diff_secs(now, &child->start_time) >= test_timeout) {
-+		struct timespec start_time;
-+
-+		if (!child_test__started(child, &start_time))
-+			return;
-+
-+		if (timespec_diff_secs(now, &start_time) >= test_timeout) {
- 			child->timed_out = true;
- 			child->timeout_time = *now;
- 			pr_debug3("Timeout (%us) for test %d.%d (pid %d), sending SIGTERM\n",
-@@ -1258,8 +1296,7 @@ static void finish_test(struct child_test **child_tests, int running_test, int c
- 		print_test_failure_snippet(stderr, err_output.buf);
- 
- 	clock_gettime(CLOCK_MONOTONIC, &end_time);
--	elapsed = (end_time.tv_sec - child_test->start_time.tv_sec) +
--		  (end_time.tv_nsec - child_test->start_time.tv_nsec) / 1000000000.0;
-+	elapsed = child_test__elapsed_secs(child_test, &end_time);
- 
- 	print_test_result(t, curr_suite, curr_test_case, ret, width, /*running=*/0,
- 			  err_output.buf, elapsed);
-@@ -1532,9 +1569,7 @@ static int finish_tests_parallel(struct child_test **child_tests, size_t num_tes
- 				 (child->result == TEST_FAIL || child->result == TEST_TIMEOUT))
- 				print_test_failure_snippet(stderr, child->err_output.buf);
- 
--			elapsed = (child->end_time.tv_sec - child->start_time.tv_sec) +
--				  (child->end_time.tv_nsec -
--				   child->start_time.tv_nsec) / 1000000000.0;
-+			elapsed = child_test__elapsed_secs(child, &child->end_time);
- 
- 			print_test_result(child->test, child->suite_num, child->test_case_num,
- 					  child->result, width, 0, child->err_output.buf, elapsed);
-@@ -1606,6 +1641,9 @@ static int start_test(struct test_suite *test, int curr_suite, int curr_test_cas
- 		(*child)->process.stdout_to_stderr = 1;
- 	}
- 	(*child)->process.no_exec_cmd = run_test_child;
-+	if (mlock_budget && test->needs_mlock && !sequential && pass == 1 &&
-+	    mlock_budget->next_slot < mlock_budget->nr_slots)
-+		(*child)->mlock_time = &mlock_budget->slots[mlock_budget->next_slot++];
- 	clock_gettime(CLOCK_MONOTONIC, &(*child)->start_time);
- 	err = start_command(&(*child)->process);
- 	if (err)
-@@ -2199,10 +2237,10 @@ static struct test_suite **build_suites(void)
- #undef for_each_suite
- }
- 
--static bool perf_test__shares_mlock_budget(struct test_suite **suites, int argc,
--					   const char *argv[], struct intlist *skiplist)
-+static size_t perf_test__count_mlock_budget(struct test_suite **suites, int argc,
-+					    const char *argv[], struct intlist *skiplist)
- {
--	int sharing = 0;
-+	size_t sharing = 0;
- 
- 	/* The selection rules mirrored here are __cmd_test()'s: when they change, change both. */
- 	for (int curr_suite = 0; suites[curr_suite]; curr_suite++) {
-@@ -2224,10 +2262,8 @@ static bool perf_test__shares_mlock_budget(struct test_suite **suites, int argc,
- 					       curr_suite, argc, argv))
- 				sharing += runs_per_test;
- 		}
--		if (sharing > 1)
--			return true;
- 	}
--	return false;
-+	return sharing;
- }
- 
- /*
-@@ -2250,6 +2286,8 @@ static bool perf_test__mlock_budget_exhaustible(void)
- static void perf_test__setup_mlock_budget(struct test_suite **suites, int argc,
- 					  const char *argv[], struct intlist *skiplist)
- {
-+	size_t sharing, size;
-+
- 	/* Nothing can be denied the budget, nothing to take turns for. */
- 	if (!perf_test__mlock_budget_exhaustible()) {
- 		pr_debug("Not taking turns using the perf mlock budget: nothing can exhaust it\n");
-@@ -2257,19 +2295,26 @@ static void perf_test__setup_mlock_budget(struct test_suite **suites, int argc,
- 	}
- 
- 	/* Nothing runs at the same time, nothing to share the budget with. */
--	if (sequential || !perf_test__shares_mlock_budget(suites, argc, argv, skiplist))
-+	if (sequential)
-+		return;
-+
-+	sharing = perf_test__count_mlock_budget(suites, argc, argv, skiplist);
-+	if (sharing <= 1)
- 		return;
- 
--	mlock_budget = mmap(NULL, sizeof(*mlock_budget), PROT_READ | PROT_WRITE,
-+	size = sizeof(*mlock_budget) + sharing * sizeof(mlock_budget->slots[0]);
-+	mlock_budget = mmap(NULL, size, PROT_READ | PROT_WRITE,
- 			    MAP_SHARED | MAP_ANONYMOUS, /*fd=*/-1, /*offset=*/0);
- 	if (mlock_budget == MAP_FAILED) {
- 		mlock_budget = NULL;
- 		pr_err("Failed to map the shared area used to take turns using the perf mlock budget\n");
- 		return;
- 	}
-+	mlock_budget->size = size;
-+	mlock_budget->nr_slots = sharing;
- 
- 	if (!mutex_init_pshared_robust(&mlock_budget->lock)) {
--		munmap(mlock_budget, sizeof(*mlock_budget));
-+		munmap(mlock_budget, size);
- 		mlock_budget = NULL;
- 		pr_debug("Not taking turns using the perf mlock budget\n");
- 	}
-@@ -2281,7 +2326,7 @@ static void perf_test__teardown_mlock_budget(void)
- 		return;
- 
- 	mutex_destroy(&mlock_budget->lock);
--	munmap(mlock_budget, sizeof(*mlock_budget));
-+	munmap(mlock_budget, mlock_budget->size);
- 	mlock_budget = NULL;
- }
- 
--- 
-2.56.0.307.g5fe7bd680c-goog
+because difference mipi controller may use difference port index. If
+define point to port,
 
+ov5460 can reuse if port@0 change to port@1.
+
+Frank
