@@ -1,57 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792658188;
-	b=y0L3vHKInAyPwSaHpwF1FhlMz5Sg74H4a5oUr/HftL6tQIrlqEMjEk8oVqNYh6QpRMwo
-	 ybzHZD9oFDfipK73/yNpyXEWv944zfE9OBD4Yew9Bnyw9A82SUPaY/vpwbLmwoKAK4zet
-	 59AVa0ubphK/8JOmq/wZCfGu7prFFI7KtxP93w7n+g7BYxfoJ4Uwf/teLLp5og/O/tPQ0
-	 9yUjVaSGk7VkeewfA8CIX6P4CWIRJSQBqGRSBSrFyKJFXSJ6Oz8oajUz8QXybTlGvRfx5
-	 fhHjYTeeCOpdcdjrs8Z/DqQ609+qTjPedcP0/UuZQK4XpTSpyqqsns4XBvytInZWJ4w==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792658188;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=DBrs/gcG5VXg30p8wzsJYiDFPk2IoeJtx8fNzQxlKo4=;
-	b=0+Gw3xxhjiQYDxkzyO114wIXJ1T1t8sQ6kmRzRCvyzSOK9O0SDxtzlGupMdNWp6PtiB5
-	 mRxXgAI9xK1XaUnX//nipiIwE4M+IOfAjaLVZ8jYCxur7FJb+j98G7US4bxY8/FjbT4B6
-	 UuCEIX/hpTb9Ozbd72BXCHMqtZ8NkyxnYP/nH1iTys44n9PywmuhLTOEvbh7q4gYN3F9m
-	 4IeFd4e/6QjVmdQVQOm6RPvPh6/pEUyGGhBtqF/3aDAGE/UrrLLndlPEhQGFJbb2Tl6hN
-	 hK2i8CsFfB3GBSHi4MAtN+uaiVE7jlMcJQC9dA06VlLoAIOfWx5WqR6S3h7KNzW1hlQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ISANbqOA;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.52
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792658244;
+	b=BtSO4zLfZvr5mHh85x5w3T8VtpfL2+ucYKZWtI8B1kExbGdzpkU6ir+C/QxRHCKZYh46
+	 ma1Yt2v2paCOVQIWgpnSVwFyYzApympqSDdj8HTGeh9iwWyXpcpb4P3XiGaXZCd6TIg6w
+	 KDhere6qM0xdHc7OmOnbibZEh/BgrxUarrNXndmu0r9tA0mZFwJQPyO8XW5mh0IbXs0cU
+	 BoIlvxzBIYCRYgl6iNgXiVZQlr4XyvZtkIVQPz457gWO5ZQCXqp8O37IWUpZuZKAnN8h2
+	 Q52PfCHqazqREutqtJggOaSs1Lf3hdhViQmlRSOLhg9hjxtYLXTq7H46IstHOQxv8uQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792658244;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=LhQbAcxNkz86xsBgkVUi0/UOY0moEtgIwLHM48+f3Gg=;
+	b=ffRrwB1iy+oRNuN8D7dK8Ll6U2enR6QObIP2qFFt+WI77XGCYs8ikRTa5Ah2+Wgvz8Ms
+	 q6T3IYwKpCdiNGrO7TcU+5rHLyx2PFTVhkT/Pzx3Llcqp4Ak+eFrd/oprqhLbHeZLoJDK
+	 xQD3x14xXx2MvjHL+1f5brlBwm6P58Oo5wYEGTNpvKJ9SznHcYfHm/sRFAQMJJpEJoKs3
+	 sKvbNYTTda1PvrrDKVwfnq1hP0WZeq2CLUTrQIXxOzXzEpnSMY7P4rlqm/9Wfr5SvFkGF
+	 e2k2Q8Oo/8k/JVZm69oJZ7OpFPUk1PBl9k+r5TulUSKUhLr5pZBArh5J0ri3+8pDjdQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=PAfpzSHD;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.52
+Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com [209.85.208.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8FAE606A319;
-	Thu, 22 Oct 2026 08:36:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 832E3606A319
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 08:37:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 832E3606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ISANbqOA
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA93F1F000C1;
-	Thu, 22 Oct 2026 08:36:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792658187;
-	bh=DBrs/gcG5VXg30p8wzsJYiDFPk2IoeJtx8fNzQxlKo4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ISANbqOA8PQc5AHcRbyz1isXLschbrOEXIDHX65NzzgUziwGy+EgfojqKlx+lNbC0
-	 G6W95SQPvOEiXOd34eBezFgY+K7ioD438cuqoCsA2OhHWcsK7cEtBfRB5l9iJ0sWFo
-	 loaNGY4v/NexCFj5ef+O5W6MTq1JZoI9L7RxJN5qOcKVnjO8rORcKOklOs6c5xkzgS
-	 /CGhlR7jeKes+M+6OZf6eZmXyVA1HgaYdUXL4FGtSGvgiNM0AzhOOapPrDUe7+0uOd
-	 PkyaM7rqpivL2aZtluh/+EYGRdo1vOLwKafA+1Ups+Vo5UHvjQSrk61PKy5M9adBfX
-	 1FlcsbbLlyQHQ==
-Date: Thu, 22 Oct 2026 09:36:22 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Danish Khateeb <danishkhateeb03@gmail.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	Gregory Price <gourry@gourry.net>, "Liam R . Howlett" <liam@infradead.org>, 
-	Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
-	David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Shuah Khan <shuah@kernel.org>, 
-	linux-mm@kvack.org, linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] selftests/mm: merge: keep the far mremap() targets in
- the carveout
-Message-ID: <atnKsrZ752uBR6QT@gremlin>
-References: <20261021164810.45846-1-danishkhateeb03@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=PAfpzSHD
+Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-6b1f4d8e09aso2411733a12.1
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 01:37:23 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792658242; cv=none;
+        d=google.com; s=arc-20260327;
+        b=IjRReWT3gT9z1mPB2NIq2uCbGheUJvV6lxo+IDOzrCuJApr8+kCE4cLVL8nrixv3Oh
+         eOjHK9cbIu/BGna8rJu5iZZquyakQPlu4UwS169BmTgxFaB1OgKUS+vEaTcTeWY+uEca
+         kFhl9QmVMcwsqmuKVbr46Ljzdmx+mj3qX6FbDYsqrMZRntSL8rSCJ11S8eGtNr/EsE28
+         yo/Qqa6EquYOZwlDZFK91wXuGRARntMJX/kenpZ0eCZNzrC7S9+57kYYX2BnLZaKXLNy
+         ib7AOoXtMEDW16uegdBtMAMzSz32zdqYAZTfg621nYfS8YIceQGwM8x2JI1HWPD0GeJK
+         Km+Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=LhQbAcxNkz86xsBgkVUi0/UOY0moEtgIwLHM48+f3Gg=;
+        fh=TAG+sUC1YZuWrJbCgiUkEGLhMvnLRopsIkMXtkzu3Tk=;
+        b=g5RV8xhmBF38jYkE1I4bdFaLx4+12iK7dYSHcr/jmIJ5EvjBwmal30i2VvQjduO1TG
+         BiLhS4InWRhoYzo4Z4Ty9PE9BZq/+svpfE2sCi5BY4Eaao8jvMXUC0iBtErcDyjfB15X
+         jt389zKUHnF8lqlxC7isMH8edR+aMJqIp6Sfgbsu5ZqZn21E8M+tUs8zQBGjL0Rrf0z9
+         k6KRPJVaPM9AFhIRFoPG69zxyGM4jL3rRSwAtYC6tX2OQTtca1ndLyNnqkMocihaG4Y2
+         exL6WoIenKJnImJiItRXqaBG89T2cI67TdcFYcSZ9+uy4UEQtWlXCt4P126+Yb17JivT
+         XDhg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1792658242; x=1793263042; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=LhQbAcxNkz86xsBgkVUi0/UOY0moEtgIwLHM48+f3Gg=;
+        b=PAfpzSHDOYHTfSSbb6PDHcdTMqnnYkFH2KqdLvZ+Lm+HzAqT3+/J2dG8v/YYHWgauG
+         ZPt/vJO6xYkYYk4ZrIDe21mloQrySrxu0kJvfNiPwYDV+RiIhqGr40NdbG/7SesiazZ5
+         BsAJd+nO+zGSicGhDW9DQ/1fNXYCZpoKC1Xg7C4jiWu9EUZmM04hJpGg7iwn1cbub5Lw
+         NvUHrur1pWVQhYQ/DFj1n+zM0mhoSBEi2kN3BJOTMVoZYt1R2v7N0+y2wwCFDLDztlAN
+         sStajyOpqunDJX1vkSWQUN556w5RvUbGkMCA+nTaJ8Re8lxiwByY0xGnwtabnsFwhzH+
+         lDaA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792658242; x=1793263042;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=LhQbAcxNkz86xsBgkVUi0/UOY0moEtgIwLHM48+f3Gg=;
+        b=Vbs6NmY0KFkdzrb1O19HogHsmZNy5+LZ/iWh6h0s+VMskbXR1DzZjAci49nuUMCgnS
+         L7H+WFRZ4YOmu+rVqjpL/gYtnduufjprNY3MkfcuzAY4iwK95RujWiEnpqJfhIHaiMxz
+         qFMhpW99meFiODmYJqs05Z497EHqBq8t9QddsJlhdLXNY3JFqnqD2C6kUrKGKo/KGWIM
+         jPLy+3S4iDZsuLBTd6kD0xifLXufsBHmItcVepwDitxNLKQLE6mR2SFjlUJS+4KM+rur
+         zsR8AjHDe9efKFeClQKCfEPqdP8886KyiwJccaliZf7G4ilqnTe/I7Ij/XWRK//YnFsl
+         kQwA==
+X-Forwarded-Encrypted: i=1; AKwUvBxRuiUITP399rFjr/Wo1s58qrVHWH4E1BVARPeX91UD2AAwMrXyucZQttxI46PbVMIzCjj2pPWCwLi3S88=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIfwDcH/9kKe24gqzTenY5MQkDw+1ao+a/F7CpOEuc7KMFrJpTy
+	3wM37b61+5TuKtAQgC8oFsK36QkASbKDGqkY1S6YjbCIOPtEPoApawVOsm5pTNrLEonsMvq1sKJ
+	fbRN6H8W//ZiZp1a/wWgblZz4Px9Np/0Vosw2yNqKIA==
+X-Gm-Gg: AYBFou12m0F5b2Qk2R114cy+0H8hANUtMR4UvyJaVbk0BMUOGJI/1bfCm5XjEydSaht
+	NFVVwLpx5N6lMdtDwGLHI/FUEwedVvY9EiRRgd4KlYW/0jqRdw02hRXTeSOSTqjEuIxl0sjr7ql
+	mZujRSmy//jq2XAXwQ6mEYpJ5kHqSP6Mk/ZrjhvJkXa4J/it7zva78jHrH2jAXgp5Uc+OsN61SU
+	iDWjTfU3qOl7f8n8JS8qg77LN+07PsKpoe4xqZnpCT2YACkHSXF7MhV68ajqGf8weHqQnnRWIm9
+	/HgZevii2G9HHbaldLCqBD8rFvXju9CWxP+1QFa7GmSu9d47GmI84ojdE0wd0Hi0NTCAGs7HGrL
+	WVhiMccfRn+xiHmqKM2ArrgJCPBEiLIXGiO08xAWfk0voh7vMUEFWLAhEb/JqxlSQsQtqxkk=
+X-Received: by 2002:a05:6402:449b:b0:6b2:2331:3ea9 with SMTP id
+ 4fb4d7f45d1cf-6b408eb5808mr3928513a12.17.1792658241764; Thu, 22 Oct 2026
+ 01:37:21 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,214 +103,64 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261021164810.45846-1-danishkhateeb03@gmail.com>
+References: <20261022034930.225042-1-sh_def@163.com>
+In-Reply-To: <20261022034930.225042-1-sh_def@163.com>
+From: Vincent Guittot <vincent.guittot@linaro.org>
+Date: Thu, 22 Oct 2026 10:37:10 +0200
+X-Gm-Features: AclHuK9CXM67_w3oDn7g4a4UkceOaJ-tmnbEdkYHOmv3hLfDc4qnAsB0F6f_7Z4
+Message-ID: <CAKfTPtDQbNgC=gEe87v5kMnz_pB2AEU+ihp2PM5izno6pkNeZA@mail.gmail.com>
+Subject: Re: [PATCH] sched/pelt: Fix truncation of the PELT period count
+To: Hui Su <sh_def@163.com>
+Cc: Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
+	Juri Lelli <juri.lelli@redhat.com>, Dietmar Eggemann <dietmar.eggemann@arm.com>, 
+	Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>, 
+	Valentin Schneider <vschneid@redhat.com>, K Prateek Nayak <kprateek.nayak@amd.com>, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Wed, Oct 21, 2026 at 11:48:10AM -0500, Danish Khateeb wrote:
-> The merge tests map their areas at fixed addresses within a 30-page
-> PROT_NONE carveout. Several mremap() tests move an area 1000 or 2000
-> pages away to separate it from the others, but those targets are outside
-> the carveout, and MREMAP_FIXED unmaps whatever is mapped there.
+On Thu, 22 Oct 2026 at 05:50, Hui Su <sh_def@163.com> wrote:
 >
-> Under virtme-ng, the shared libraries are packed right above the
-> carveout and the dynamic linker starts about 4 MiB above it. The moves
-> then replace part of its text with an anonymous mapping, and the test
-> crashes in its next lazily bound call:
->
->   merge[6980]: segfault at 7f7ebb3c1e60 ip 00007f7ebb3c1e60 sp 00007ffd35fbaec8 error 14
->
-> Two to four of the mremap() tests then fail with "Test terminated
-> unexpectedly by signal 11", depending on the exact layout. On a host
-> where libc is mapped at a 2 MiB aligned address, the targets happen to
-> land above the dynamic linker and the tests pass.
->
-> Since the areas are all within the first 30 pages, moving one by 30
-> pages is enough to keep it apart from the others. Add FAR_PAGES for
-> that distance, move areas by FAR_PAGES or 2 * FAR_PAGES pages, and make
-> the carveout 3 * FAR_PAGES pages so that it covers every target.
->
-> Fixes: 4e25f85b9f85 ("tools/testing/selftests: add mremap() unfaulted/faulted test cases")
-> Signed-off-by: Danish Khateeb <danishkhateeb03@gmail.com>
+> accumulate_sum() computes the number of elapsed PELT periods in a
+> u64 but returns u32. When the count is a multiple of 2^32, it is
+> truncated to zero even though the PELT sums have been updated.
 
-Hmm I don't know why I did it this way :))
+Did you face this problem, or did you find it only during a code review?
 
-With the comment dropped as mentioned below, LGTM and:
+This would happen every multiple of exactly 2^32 ms (~50days) without
+updating pelt whereas the latter is supposed to be updated far more
+often (within second) until it reaches 0. Then such a large period
+would keep it at 0 anyway
 
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+>
+> The caller interprets zero as no period boundary crossed and skips
+> recomputing the averages, leaving *_avg stale relative to *_sum.
+>
+> Return only whether any period elapsed, which is all the caller
+> needs.
+>
+> Signed-off-by: Hui Su <sh_def@163.com>
+
+Even if I doubt it can happen, it's better to fix it anyway
+
+Reviewed-by: Vincent Guittot <vincent.guittot@linaro.org>
 
 > ---
+>  kernel/sched/pelt.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 >
-> Notes:
->     v2:
->     - Replace the 1000 and 2000 page offsets in the tests with FAR_PAGES
->       and 2 * FAR_PAGES, and derive the carveout size from FAR_PAGES,
->       instead of only enlarging the carveout (Gregory Price).
->     v1: https://lore.kernel.org/all/20261021011929.89150-1-danishkhateeb03@gmail.com/
+> diff --git a/kernel/sched/pelt.c b/kernel/sched/pelt.c
+> index 779eb58a4261..519bc9c40043 100644
+> --- a/kernel/sched/pelt.c
+> +++ b/kernel/sched/pelt.c
+> @@ -146,7 +146,7 @@ accumulate_sum(u64 delta, struct sched_avg *sa,
+>         if (running)
+>                 sa->util_sum += contrib << SCHED_CAPACITY_SHIFT;
 >
->     Tested under virtme-ng (9p root, glibc 2.44) on next-20261020 with a
->     KASAN/lockdep kernel, three runs of each binary:
->
->       merge before:  pass:22 fail:4 skip:1 (SIGSEGV in ld-linux-x86-64.so.2)
->       merge after:   pass:26 fail:0 skip:1
->
->     On the host (glibc 2.44, libc mapped 2 MiB aligned) the results are the
->     same with and without the patch.
->
->     An LLM was used to help with this patch.
->
->  tools/testing/selftests/mm/merge.c | 39 ++++++++++++++++++------------
->  1 file changed, 24 insertions(+), 15 deletions(-)
->
-> diff --git a/tools/testing/selftests/mm/merge.c b/tools/testing/selftests/mm/merge.c
-> index 7dd2933417c1..208ad7e340fa 100644
-> --- a/tools/testing/selftests/mm/merge.c
-> +++ b/tools/testing/selftests/mm/merge.c
-> @@ -22,9 +22,18 @@ FIXTURE(merge)
->  	struct procmap_fd procmap;
->  };
->
-> +/*
-> + * The tests map their areas within the first FAR_PAGES pages of the carveout,
-> + * and some move an area FAR_PAGES or 2 * FAR_PAGES pages up to separate it
-> + * from the others. MREMAP_FIXED unmaps whatever is mapped at the target, so
-> + * the carveout must cover those targets too.
-> + */
-
-Please drop this comment, it's pretty self-explanatory what you're doing here.
-
-> +#define FAR_PAGES	30
-> +#define CARVEOUT_PAGES	(3 * FAR_PAGES)
-> +
->  static char *map_carveout(unsigned int page_size)
->  {
-> -	return mmap(NULL, 30 * page_size, PROT_NONE,
-> +	return mmap(NULL, CARVEOUT_PAGES * page_size, PROT_NONE,
->  		    MAP_ANON | MAP_PRIVATE, -1, 0);
+> -       return periods;
+> +       return !!periods;
 >  }
 >
-> @@ -73,7 +82,7 @@ FIXTURE_SETUP(merge)
->
->  FIXTURE_TEARDOWN(merge)
->  {
-> -	ASSERT_EQ(munmap(self->carveout, 30 * self->page_size), 0);
-> +	ASSERT_EQ(munmap(self->carveout, CARVEOUT_PAGES * self->page_size), 0);
->  	/* May fail for parent of forked process. */
->  	close_procmap(&self->procmap);
->  	/*
-> @@ -115,7 +124,7 @@ FIXTURE_SETUP(merge_with_fork)
->
->  FIXTURE_TEARDOWN(merge_with_fork)
->  {
-> -	ASSERT_EQ(munmap(self->carveout, 30 * self->page_size), 0);
-> +	ASSERT_EQ(munmap(self->carveout, CARVEOUT_PAGES * self->page_size), 0);
->  	ASSERT_EQ(close_procmap(&self->procmap), 0);
->  	/* See above. */
->  	prctl(PR_SET_MEMORY_MERGE, 0, 0, 0, 0);
-> @@ -660,7 +669,7 @@ TEST_F(merge, mremap_unfaulted_to_faulted)
->
->  	/* Offset ptr2 further away. */
->  	ptr2 = sys_mremap(ptr2, 5 * page_size, 5 * page_size,
-> -			  MREMAP_MAYMOVE | MREMAP_FIXED, ptr2 + page_size * 1000);
-> +			  MREMAP_MAYMOVE | MREMAP_FIXED, ptr2 + FAR_PAGES * page_size);
->  	ASSERT_NE(ptr2, MAP_FAILED);
->
->  	/*
-> @@ -721,7 +730,7 @@ TEST_F(merge, mremap_unfaulted_behind_faulted)
->
->  	/* Offset ptr2 further away. */
->  	ptr2 = sys_mremap(ptr2, 5 * page_size, 5 * page_size,
-> -			  MREMAP_MAYMOVE | MREMAP_FIXED, ptr2 + page_size * 1000);
-> +			  MREMAP_MAYMOVE | MREMAP_FIXED, ptr2 + FAR_PAGES * page_size);
->  	ASSERT_NE(ptr2, MAP_FAILED);
->
->  	/*
-> @@ -785,12 +794,12 @@ TEST_F(merge, mremap_unfaulted_between_faulted)
->
->  	/* Offset ptr3 further away. */
->  	ptr3 = sys_mremap(ptr3, 5 * page_size, 5 * page_size,
-> -			  MREMAP_MAYMOVE | MREMAP_FIXED, ptr3 + page_size * 2000);
-> +			  MREMAP_MAYMOVE | MREMAP_FIXED, ptr3 + 2 * FAR_PAGES * page_size);
->  	ASSERT_NE(ptr3, MAP_FAILED);
->
->  	/* Offset ptr2 further away. */
->  	ptr2 = sys_mremap(ptr2, 5 * page_size, 5 * page_size,
-> -			  MREMAP_MAYMOVE | MREMAP_FIXED, ptr2 + page_size * 1000);
-> +			  MREMAP_MAYMOVE | MREMAP_FIXED, ptr2 + FAR_PAGES * page_size);
->  	ASSERT_NE(ptr2, MAP_FAILED);
->
->  	/*
-> @@ -870,13 +879,13 @@ TEST_F(merge, mremap_unfaulted_between_faulted_unfaulted)
->
->  	/* Offset ptr3 further away. */
->  	ptr3 = sys_mremap(ptr3, 5 * page_size, 5 * page_size,
-> -			  MREMAP_MAYMOVE | MREMAP_FIXED, ptr3 + page_size * 2000);
-> +			  MREMAP_MAYMOVE | MREMAP_FIXED, ptr3 + 2 * FAR_PAGES * page_size);
->  	ASSERT_NE(ptr3, MAP_FAILED);
->
->
->  	/* Offset ptr2 further away. */
->  	ptr2 = sys_mremap(ptr2, 5 * page_size, 5 * page_size,
-> -			  MREMAP_MAYMOVE | MREMAP_FIXED, ptr2 + page_size * 1000);
-> +			  MREMAP_MAYMOVE | MREMAP_FIXED, ptr2 + FAR_PAGES * page_size);
->  	ASSERT_NE(ptr2, MAP_FAILED);
->
->  	/*
-> @@ -1035,11 +1044,11 @@ TEST_F(merge, mremap_correct_placed_faulted)
->  	 */
->  	ptr3 = &ptr[10 * page_size];
->  	ptr3 = sys_mremap(ptr3, 5 * page_size, 5 * page_size,
-> -			  MREMAP_MAYMOVE | MREMAP_FIXED, ptr3 + page_size * 2000);
-> +			  MREMAP_MAYMOVE | MREMAP_FIXED, ptr3 + 2 * FAR_PAGES * page_size);
->  	ASSERT_NE(ptr3, MAP_FAILED);
->  	ptr2 = &ptr[5 * page_size];
->  	ptr2 = sys_mremap(ptr2, 5 * page_size, 5 * page_size,
-> -			  MREMAP_MAYMOVE | MREMAP_FIXED, ptr2 + page_size * 1000);
-> +			  MREMAP_MAYMOVE | MREMAP_FIXED, ptr2 + FAR_PAGES * page_size);
->  	ASSERT_NE(ptr2, MAP_FAILED);
->
->  	/*
-> @@ -1075,7 +1084,7 @@ TEST_F(merge, mremap_correct_placed_faulted)
->  	 *                  ptr2      \       ptr       \       ptr3
->  	 */
->  	ptr = sys_mremap(ptr, 5 * page_size, 5 * page_size,
-> -			 MREMAP_MAYMOVE | MREMAP_FIXED, ptr + page_size * 1000);
-> +			 MREMAP_MAYMOVE | MREMAP_FIXED, ptr + FAR_PAGES * page_size);
->  	ASSERT_NE(ptr, MAP_FAILED);
->
->  	/*
-> @@ -1110,7 +1119,7 @@ TEST_F(merge, mremap_correct_placed_faulted)
->  	 *                  ptr2      \       ptr       \       ptr3
->  	 */
->  	ptr = sys_mremap(ptr, 5 * page_size, 5 * page_size,
-> -			 MREMAP_MAYMOVE | MREMAP_FIXED, ptr + page_size * 1000);
-> +			 MREMAP_MAYMOVE | MREMAP_FIXED, ptr + FAR_PAGES * page_size);
->  	ASSERT_NE(ptr, MAP_FAILED);
->
->  	/*
-> @@ -1168,7 +1177,7 @@ TEST_F(merge, mremap_correct_placed_faulted)
->  	 *      ptr                     ptr3      \       ptr2
->  	 */
->  	ptr2 = sys_mremap(ptr2, 5 * page_size, 5 * page_size,
-> -			  MREMAP_MAYMOVE | MREMAP_FIXED, ptr2 + page_size * 1000);
-> +			  MREMAP_MAYMOVE | MREMAP_FIXED, ptr2 + FAR_PAGES * page_size);
->  	ASSERT_NE(ptr2, MAP_FAILED);
->
->  	/*
-> @@ -1203,7 +1212,7 @@ TEST_F(merge, mremap_correct_placed_faulted)
->  	 *            ptr                         \       ptr3
->  	 */
->  	ptr3 = sys_mremap(ptr3, 5 * page_size, 5 * page_size,
-> -			  MREMAP_MAYMOVE | MREMAP_FIXED, ptr3 + page_size * 1000);
-> +			  MREMAP_MAYMOVE | MREMAP_FIXED, ptr3 + FAR_PAGES * page_size);
->  	ASSERT_NE(ptr3, MAP_FAILED);
->
->  	/*
->
-> base-commit: fcec4f4bcc1101dbd7e3aff267856b3bbfe128c6
+>  /*
 > --
-> 2.56.0
+> 2.55.0
 >
-
---
-Cheers, Lorenzo
