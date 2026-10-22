@@ -1,82 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792654122;
-	b=GSMYcPEryxiRqbG2vHYVKGIgsHjsa5tKqmAt2XMmPnKFzq7fYXlj87z6/nH5Wmjgiwtt
-	 UCVulvVhuX24Un1SdzTzIZZXaJISbSQvJzVPOni0/jKzmT/r0UyaQNJ5Sk8GYKND4lx9f
-	 M9Wq0un+2nrfi5BXhZ+B4XbuTqa/1Kf6YbP5Tz0kqzWcPJEfvy992G00bOV9zPfv3hz//
-	 H983opmhFQbfNZ9m1GhIVlSiISP3A6Fxpo+PpYxwT25nQLu2bAWhAWCVQiN7oXhnO885m
-	 j95pj/dEr6GZYG9PwZPc73RK6zw7AODT9AEmDppXCAcZFWW5PT/uFj95dZhCHE5JYOQ==
+	t=1792654325;
+	b=hLxBk+XF5K6lrJQRmC/StPXD9sdWr4MxvBDy0m7HdnmT5A0gsysETlrLepCIH58NJOuu
+	 t0y6lxXO+NPa1BpZ72fhv8cmE8sB8zfCsUW7/Q8nr8yRsoYhJ5hqzNDo3NtKTgDl8z1+v
+	 pY3SBHvkmFzv7rFMr/2OseQHqBKtLBJj06RHA1EkPitlZ7wgnrqYEM//1o9XZPUJr8Qm4
+	 2fuCBtWuBezXunuIplZoKvMIeQny5SNSevGsOS17cI6ZiT1bqauwCpfpHjBnxSxeXtx1M
+	 hgIqT1nt9W6aHXBNT5Q+xmSJdFWAPVxQtuvhHTA+ddLvJU0B/Q3MoNcn4Vbv/nx/Zaw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792654122;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:X-Mailer:
-	 References:In-Reply-To;
-	bh=u87gTMnKrw+5wwB7Owh+xGxsBZeu7l24WbHaLHBaNMc=;
-	b=j/odv5tZgzFwCnL4XZ0zvaY1f+cBETYEKDiJJMmTK4RcrYfbyW4Qfrinabn/GabJdNMC
-	 zHbE8tLomNL/naUI/2Th8iOfDTLmjXrqkXNY4vmGH4kzQNC+YCPFAF/z5Utc2G+8wNIaB
-	 fzpl6lhfmlLBcJCFm0PK7Ylix8aDIw40CQlKbPV5DFGDmck2onDGjaQ+5h3k+uIWkRA9B
-	 XVn5pPYv0sTc98fmMQ3n36VEaoJNoRizsTQunbfToIc1NjWTxsEc/HPLCbfG5a8c0kwch
-	 aGC64N7MQCXdD9sD2gysMzyMFLtM/5QEUyaWOhYRUC3W7h1NnCPTSUxVJJ1X9iZUmGQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792654325;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=sZMaNUkUgOAGCf7vIUHWRsuT7fViPMeanwtTwml4kjU=;
+	b=TyX9ESC+ZRUhnK6BVIeKCG6Xx70r6w4qwp9TYO95R94BpgZryo4eQheHoQ6B7ZJv4iV7
+	 8NQ9WLGU3XukP9fl+GCDklX6+6TYjgqI4ka+pBXZyrMn8drRkZm3C8cBrKKa+cft89qAR
+	 dMZ6tzgG4ZSHYFVKyE0djlGjCuGc5jQ79LT4LSCI9ZCEHpN/nDKiBlpW8eltvo7YOJsBP
+	 ryxySAYwKALH5EzEpz58jrQVayHkHVernUiNezJOsVrgdvTPYy6zkNGSPSS7+4YwOYL1m
+	 8TWDQfE9sulhnx0tsY3idbdDvvvpYpKbFjEVymUUYgzVYEUkU84yQeDifSNeflYFCVA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=baylibre.com;
-	spf=pass smtp.mailfrom=baylibre.com;
-	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=aT2dPJNY;
-	arc=none smtp.remote-ip=209.85.128.42
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=ZevAmix7;
+	arc=none smtp.remote-ip=91.218.175.171
+Received: from mta0.migadu.com (out-171.mta0.migadu.com [91.218.175.171])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B761606A31D
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 07:28:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5B761606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11334606A319
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 07:32:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 11334606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=aT2dPJNY
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a1e477fe16so8801625e9.1
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 00:28:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1792654119; x=1793258919; darn=vger.kernel.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:mime-version:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=u87gTMnKrw+5wwB7Owh+xGxsBZeu7l24WbHaLHBaNMc=;
-        b=aT2dPJNYvwXMj55NQLktkv6OrKNvDilyU4rFPqPQbTLHDfRmY8Y5gOZNRKw+9aRe+4
-         xWv4BZGxBeGEHdJbqOykH3roKU1u5AWUGPA0egG6M5fc2kSisAGaHJuDafRjoXrzwmMZ
-         9l605oe6K5IlFtbNUnp/YzN0FhLbdd4gP7Cx6k481U4LVJwWr2+H9AvRvDJ4x14+LwGD
-         Z3pEYgB722ZdAzxGyiiWFYk24YN6JuLptwcP8n2D8CBTy40dTs2bNO1CAnDJfWWrJXJQ
-         KVW/4PKfiAuTtzKNLVGGKQLhMVdm79RVCk/Ac7aSWe93f+0ympTNq9UhUkfLYTflngiI
-         vT+g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792654119; x=1793258919;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=u87gTMnKrw+5wwB7Owh+xGxsBZeu7l24WbHaLHBaNMc=;
-        b=vjb0SB0Pkz/R+q+Ah7dsgwV8tjBsVTSAhRtHEqRBQi4R9oIk5jc/2W4mbbg26+mFpn
-         GLJdz9vlWY9R9L+2eSon48/QzBL+Fun2HeoA/c6FzZA7aHuASytsWfT2SAOmx+pf2RBp
-         CC0FL9VIQ4q346K80xCg/z2hw5589zTq62mz52nzDnS/wU1DwRg/MlwyX/bzEcWFv6VH
-         lKs/E9+Et4ZvXrOZN6Sfci5uJ5UdrYDbm1pKPk1fhBt1uIS48d7BxyD+187GW+kwNM/x
-         TFwvPuokaVv4uELIbdf8svwVCisa7jnea0d0+1ddTmrYYQjpS9BqRJmGbrfmbShWy8k4
-         erlg==
-X-Forwarded-Encrypted: i=1; AKwUvBy9ynDj668qdM+Kg9k6BGP2rQyvkMjpsMvwqnqvWIyGj9URR36ThbWUpGkobCbiKHU1w7Npt9rv9a3zHYk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLG6Hj7RU9v8vjGJfDh7cr9TzybssJxRVe4O5eJ9DdHEzPh06NL
-	cUMfEOr30sI4f94PqvFmJF9ydKBASYwLRwTED6YaprJMBj7V/PP4zWWgEWSPfBxKToE=
-X-Gm-Gg: AYBFou32iMl0dnpX9emnFnntRs/XFoa1rRy1cexOFxReQMVtVDasIOCKpFyun7cMsu1
-	VdcKFLdEKe+32DNtAuEirqr1oIyDYP/A7PT0WYvP664ars+RPxuWK5TKiJ8vKTUs88NsYcsGbkX
-	spUuIufHfDjQEG85yIfDK5U/bmB5ZAXY95CUun+uhXOXW26VDIxldcJPEbvXWwzLh5naqj5NQ5v
-	WwQtjnc3MojIF5pf2dXMm6Y8dwqWXUDomvwDw5gympPRaoQrbmE7e5TnM1zQoDh5qm6gjJDQtE3
-	uEJEEb7zY6dJPMG/5X9iChuMzPiUEv+r1oPMxiLQs8cdDFszIDyC+hgmSVSI5DjqW9knzKckuhm
-	fZqNZ30q3Ko151yeKaypUoK/HeKLxTdeCGFNCMTqQkNLMHuozwgo5dNa2s7ExbcN83aGKmvHywX
-	LVXrCRRJ7A+4jPTHc3zHzvkoDoMO6npCkEmYShSzCYWL3Yeb+YVW8ARclf5M47Q2mQzT9cUIssh
-	AzIbCgtSJOa79G6Putj3uB6Auwaq0HdF8zF8crze5dPLhEkne0=
-X-Received: by 2002:a05:600c:3e8e:b0:49f:dd9f:6038 with SMTP id 5b1f17b1804b1-4a1fdd2c16amr86892955e9.25.1792654119089;
-        Thu, 22 Oct 2026 00:28:39 -0700 (PDT)
-Received: from localhost ([2001:4090:a244:81d0:bc85:7836:468a:a1a8])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a203b37df4sm49911655e9.6.2026.10.22.00.28.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 00:28:37 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=ZevAmix7
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=pydGOxS/qlsFc5FYzisLlwLazgT7vx7cmXT+dA4dW9s=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792654322; v=1; x=1793259122;
+ b=ZevAmix70kRA6dGAO0+YnwcPa2Kdnji5mfDSGP8MXGTeCoko2+iFgNkSiwaDkeFNNjxYyOx9
+ i0Ts51ebWQrhtaX26/5cFin9Uq3/qJpCdTsaX9/Vf/djQmmv7olhEtMgUJgIUAdLzgV1VfMXYkP
+ 4f80aT323M0F1lYa/dlRPSFE=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id cf7a53a0e25b2323;
+	Thu, 22 Oct 2026 07:32:02 +0000
+X-Mizu-Trace-ID: cf7a53a0e25b2323
+X-Migadu-Flow: FLOW_OUT
+From: Qi Zheng <qi.zheng@linux.dev>
+To: muchun.song@linux.dev,
+	david@kernel.org,
+	osalvador@suse.de,
+	akpm@linux-foundation.org,
+	azpijr@gmail.com
+Cc: linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	Qi Zheng <zhengqi.arch@bytedance.com>
+Subject: [PATCH v2 0/5] mm: hugetlb: add CMA support for PMD-sized pages
+Date: Thu, 22 Oct 2026 15:31:44 +0800
+Message-ID: <cover.1792651104.git.zhengqi.arch@bytedance.com>
+X-Mailer: git-send-email 2.48.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,56 +67,85 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: multipart/signed;
- boundary=1df50d76efba72e33c25952a6ad8edefb7920dae8cc1c3f139c1ceb795f9;
- micalg=pgp-sha512; protocol="application/pgp-signature"
-Date: Thu, 22 Oct 2026 09:28:30 +0200
-Message-Id: <DMB6UH6R51LW.1TRHK4HV4GGE9@baylibre.com>
-Cc: <msp@baylibre.com>, <s-kochidanadu@ti.com>, <a-kaur@ti.com>,
- <s-tripathi1@ti.com>, <vishalm@ti.com>, <linux-input@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <devicetree@vger.kernel.org>
-Subject: Re: [PATCH v4 2/2] Input: gpio-keys - support wakeup pinctrl state
- on suspend
-From: "Markus Schneider-Pargmann" <msp@baylibre.com>
-To: "Kendall Willis" <k-willis@ti.com>, "Dmitry Torokhov"
- <dmitry.torokhov@gmail.com>, "Rob Herring" <robh@kernel.org>, "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>
-X-Mailer: aerc 0.21.0-146-gb5c16ebe1835
-References: <20261005-upstream-gpio-wakeup-v4-0-96f092de4690@ti.com>
- <20261005-upstream-gpio-wakeup-v4-2-96f092de4690@ti.com>
-In-Reply-To: <20261005-upstream-gpio-wakeup-v4-2-96f092de4690@ti.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
---1df50d76efba72e33c25952a6ad8edefb7920dae8cc1c3f139c1ceb795f9
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
+From: Qi Zheng <zhengqi.arch@bytedance.com>
 
-On Mon Oct 5, 2026 at 10:47 PM CEST, Kendall Willis wrote:
-> GPIO can be used as a wakeup source for TI K3 AM62 devices during
-> suspend to RAM states. The GPIO controller is powered off in these
-> states, so a wakeup enable flag must be set on the GPIO pin in the
-> pinctrl in order to allow wakeup.
->
-> If the device is wakeup enabled, select the wakeup pinctrl state on
-> suspend and restore the default pinctrl state on resume.
->
-> Signed-off-by: Kendall Willis <k-willis@ti.com>
+Hi all,
 
-Reviewed-by: Markus Schneider-Pargmann (TI) <msp@baylibre.com>
+Allocating PMD-sized HugeTLB pages at runtime can become slow or fail
+as physical memory becomes fragmented. Reserving HugeTLB pages at boot
+avoids this problem, but keeps unused pages unavailable to ordinary
+allocations.
 
-Best
-Markus
+Live upgrades are one example: they need additional HugeTLB pages only
+during the upgrade. HugeTLB already supports CMA for gigantic pages,
+but allocating a 1 GiB page from CMA may require migrating movable pages
+out of a large contiguous range. Pages that cannot be migrated can prevent
+the allocation from succeeding.
 
---1df50d76efba72e33c25952a6ad8edefb7920dae8cc1c3f139c1ceb795f9
-Content-Type: application/pgp-signature; name="signature.asc"
+Extend CMA support to PMD-sized pages so their backing memory can be
+reserved at boot while remaining usable for movable allocations until
+needed. This relaxes the reservation alignment requirement and reduces
+the contiguous range required per allocation.
 
------BEGIN PGP SIGNATURE-----
+The series adds an optional @<page-size> suffix to hugetlb_cma and a
+separate PMD-sized pool. For example, on x86-64:
 
-iKMEABYKAEsWIQSJYVVm/x+5xmOiprOFwVZpkBVKUwUCatm7HhsUgAAAAAAEAA5t
-YW51MiwyLjUrMS4xMiwyLDIRHG1zcEBiYXlsaWJyZS5jb20ACgkQhcFWaZAVSlOW
-6gD9HrdUBVOx10eNENGmC87DdSVjcxmdzYuAxOfxX58o+lYBAM1LWM+m+3hSU4Ah
-LmcKRriuYGDt5w/aDK/CIdWJS4AJ
-=PCfQ
------END PGP SIGNATURE-----
+        hugetlb_cma=4G hugetlb_cma=1G@2M
 
---1df50d76efba72e33c25952a6ad8edefb7920dae8cc1c3f139c1ceb795f9--
+This reserves 4G for the default pool and 1G for the PMD-sized pool.
+Unsuffixed parameters continue to configure the default pool. Other
+gigantic sizes still share that pool, as do gigantic PMD sizes when
+no separate PMD pool is reserved. The new size follows the architecture's
+PMD size rather than being fixed at 2M.
+
+Non-gigantic PMD allocations try buddy first and fall back to CMA.
+Gigantic allocations retain CMA-first behavior at runtime. With
+hugetlb_cma_only=1, sizes with a reserved CMA pool remain restricted to CMA.
+
+The preparatory patches introduce two fixed pool slots and pass an
+allow_cma flag through the common allocation helpers to prevent recursive
+CMA allocation during migration and free HugeTLB folio replacement.
+
+Changes in v2:
+ - Replace the order-keyed CMA pool array with two fixed pools for the
+   default and PMD sizes. (suggested by Jose A. Perez de Azpillaga)
+ - Pass allow_cma through the common fresh HugeTLB allocation helpers,
+   removing the separate helper that bypassed CMA.
+   (suggested by Jose A. Perez de Azpillaga)
+ - Try buddy allocation before CMA for non-gigantic PMD pages, while
+   preserving CMA-only policy and CMA-first allocation for gigantic pages.
+   (suggested by Jose A. Perez de Azpillaga)
+ - Preserve default-pool access for gigantic PMD sizes when no separate
+   PMD pool is reserved.
+ - Collect Reviewed-by tags
+ - Rebase onto next-20261020
+
+v1: https://lore.kernel.org/all/cover.1792136742.git.zhengqi.arch@bytedance.com/
+
+Thanks,
+Qi
+
+Qi Zheng (5):
+  mm: hugetlb: add explicit page size to hugetlb_cma
+  mm: hugetlb: group CMA pool and reservation state
+  mm: hugetlb: track CMA reservations by pool
+  mm: hugetlb: avoid recursive CMA allocation during migration
+  mm: hugetlb: enable CMA allocation for PMD-sized pages
+
+ .../admin-guide/kernel-parameters.txt         |  40 ++-
+ include/linux/hugetlb.h                       |   4 +-
+ mm/hugetlb.c                                  |  67 ++--
+ mm/hugetlb_cma.c                              | 328 ++++++++++++------
+ mm/hugetlb_cma.h                              |  11 +-
+ mm/mempolicy.c                                |   2 +-
+ mm/migrate.c                                  |   3 +-
+ 7 files changed, 288 insertions(+), 167 deletions(-)
+
+
+base-commit: 8f7df005a7564bd7ffa75da9c3085d5b996f1e16
+-- 
+2.54.0
+
