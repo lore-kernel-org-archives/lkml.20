@@ -1,84 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792634283;
-	b=MzyjVBgdKmANqT1HNC9I/zj+fNvA8Ww1bMXPVkHXS3SNB+kqloaFv6fvroqXy3/MoaPa
-	 f1etrCTo+9Y/8c/lVORjPDgf5NfQHT4p78wwa0k8aFHlAky6mSRg0iVzzm5PlHuJNUQdD
-	 03WZnN2+5QZccshyOORZu4iYGhZysvoikrobVk8zWdmJYx6+ZlTjEtB0nMYx+axqcxPCd
-	 ryWdTXCB7w8wYtIEvsex+h60EU6sFyMUyLwbcryHji1Wuvd5bKlfg8GRdDoojtasrMork
-	 oh0iTI7Q+oGYOdr7hmq01pZLtLu7gx5MVptgeaPVpzP27ddUUpOWUlep78Vsm/MVc3w==
+	t=1792634289;
+	b=GZg5mb2JiPEe3s8YBxMNMYbIFrNS5HonfpwdTZm78Iz8dtNDbzPpOznbA5M+IXi/x0ZT
+	 IWkg0Yb/0AqqWPxmVbZCNJ4wvFdWjIHWyrXFeIAGhAknbrlqtMjgatLnPm7fMU9kgJuqd
+	 ia/9WUoorM1s7nMb998xdYqCEyMCpavlXLLnns142uUuQ8B7FrhkjOPAibivQ9CgDEFGZ
+	 sJnDpaG3PifNDxZo7nfaveWyuOd9zasvlsUNEHbWj9ZxzGdn1Awcfiw3ozLYfDYKaguZV
+	 nyWVzjcIumfyAr5WQ+YHoV43i/7jLk2DiDazYw8s1UPL/bsXECbDv3mcLIenbtp9dUw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792634283;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792634289;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=erBvMxyeCCyC8K/1NyLhHI0mkOqFJyJCPxOLNLg56iI=;
-	b=gpjIt6ecFqCIZsscpg1FZ/Y9q+ywfqVBITOxcu81n0Q2Z2YaCSulzCNMKowA6+/rdpwp
-	 DAQOvpSLx7XTw32AMex2cB9s4zG+WLPaJcrbmTrirD907uUybkqZYAmJxdTfp77bKTAEp
-	 1pQTNzEjGeW29iJ+5yYFXSBhhLwawmRKpwYcJs4VBHiBXtxRVY3TfvfY5Lfa08szm5Mb+
-	 9sILgNQQdGyK9/dtYOba/IoTCJUf9E9YAscDfV96roRDiCEkfiJaQ503Zhq8303ukFEJa
-	 y3pXpbSHMyAlXpA6nX89BOT+/+8ciMCrNCTLLdfql1bpRBbX8p9YuhKLioz/QVINZsw==
+	bh=mq98Rc54j/apXLpD8jeCAQO2NMmsGpxAwTZHZJ6mXaI=;
+	b=q1wmkjSpo0le0FNRLpr9J9/ywGV32l54ziGS6l7jgDDWCWePeUuV1eklho2Ainej7P7c
+	 EiVkWKbCS0bgOMUBkVPh8YHLhn6Gok5ajXrBGLsXuJpfraiy/cerWmKlf5+udHl0VwQ62
+	 IGSKh4EApDG8g1GRZMZh/H27nGslvrb5EOWQCw2tpLXBqgJwMdWAM50qMl372ggbRMSVh
+	 bthSe6D9QJM5hyOxfchd4A6LQOY6FGq2KYtJ+GwOwUT3tCso21WAnLQmZzOCBFDfyYCCn
+	 5Ba0H1h1dk4TpCB/ZO+LPIj/7d0KjB+pG4VqGZ678bH5UEs8/2VvbB6FRPTBCyH4cQg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=IFKEKRsq;
-	arc=none smtp.remote-ip=209.85.214.170
-Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=LnJbrZXq;
+	arc=none smtp.remote-ip=209.85.216.54
+Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B240A606A31D
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 01:58:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B240A606A31D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 663F7606A31B
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 01:58:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 663F7606A31B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=IFKEKRsq
-Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2e940d5d2beso5285795ad.0
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 18:58:02 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=LnJbrZXq
+Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-3ac5b090d16so231711a91.0
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 18:58:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792634282; x=1793239082; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792634289; x=1793239089; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=erBvMxyeCCyC8K/1NyLhHI0mkOqFJyJCPxOLNLg56iI=;
-        b=IFKEKRsqFaZjucw+rqR4ryTGBSp6IDf1i5gaP/nvE9Wndr/QCOZn/7yv9UpaKZHjDW
-         8/qyEA5iS19EeITAWkeyWrMT+JTRum1RMsLopl0wBBbhATjbhMHOkwMspb7/m6mO/BmT
-         pfVK8W7BlQpeEkx7qfVaNeDcMUgnW4ewjeTmIoIFaKAue3DgHNDQZS/6PVOffg3EDz9t
-         k9mZgSSMef4WmBGQmCR6sCoBnqW9r1Hm6mhecwOw4RqmvPO1etWZqFuPJzYWB7QaFvPK
-         PNESNeRhCzNr+XEjblAL7LZO5n9/FCFC9VKwF+DgX0t7XnCL861klOfl4Nys4q4D2M7y
-         OkIg==
+        bh=mq98Rc54j/apXLpD8jeCAQO2NMmsGpxAwTZHZJ6mXaI=;
+        b=LnJbrZXqH4ZJDIqX5PgmFmAXXvnib6E6ODKFXOuc6OWS5lYlPsOtnxl1Lub4pjY2Fj
+         40dsu2efY4QIKh+o6oeROA1K4bH7NmxWw1VGktPXKZTAN8FW4GtpZIXcWV/ResOIO2gX
+         VzH5HlJklSOKn4zugThz3DP5Fy5qdPv/1WJyLFVLdCKKXLOSq/L07vaHzLR09SrMU6iz
+         ICz6Av6VGXJzhvSsjIgF7LzLDWaJ3JIV5r2NggzsoFfiHNKhw6qEx+bSC1yA8A4FhcZL
+         FS6Ack3OyrFXi3u4Lpqm3UrDs5RwsHfjbqyJaaN05Lkq0zxKtVn5zBTgFT8Noi7q0HWF
+         T+kQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792634282; x=1793239082;
+        d=1e100.net; s=20260707; t=1792634289; x=1793239089;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=erBvMxyeCCyC8K/1NyLhHI0mkOqFJyJCPxOLNLg56iI=;
-        b=b29Tl2E1MShISlxP0sCRypAYbJHJ++CnzJV2ZKlaaYvpHq2yqPIwpDyRWMR24jXtdQ
-         8pxyF3qreUNMoRlQMlnA1H1gjZFWy9ppnWkgZGccVnDNwJhvI/GPnevGpkbl6fXv76vC
-         NAz1NXxTB6JxjPVIZ/x9TEgtgy8r76NypMbdQo5eGchHVIolgoODGelyWXmZWZyh0LMy
-         ictWogDw+p8r7KZZARxdhgBBS89hBVBup350f0DL8FX+wB2/KOWUE8FYnAjFgSx3KdT+
-         1zdpEAwknqjMgiSJTXXbzwhe44+rjLXsO0gjt+0vyF8QJH1ytd4BxNYtBFsnHDawMTWD
-         WPxg==
-X-Forwarded-Encrypted: i=1; AKwUvBzBOOXiwUyGZZNVNPyTIZzyu0wiRz/st+JO4RQY4INiA+aSEl2i/0k7sNKjwFrQj83K0MlBr3M5tMI20ik=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ4Q3zMQ/4Kmbu6yy5uojq2r1jHmMZQ6vCIvuIVCgBZ2LzQbgZA
-	gMJf4fnapsUim0NsMC4uns+8Z14CNcKz+y++gLRo7x/ewT10HHFXPqAv
-X-Gm-Gg: AYBFou2uSmY+sBgS/Zj8NLItckxrDcTafYjiQ9oxXUgRgjgCYihYXNVLjBez0JETwIs
-	OHSqexszuq/Ol7kNsS/pgNqmqnzBOaNOZ6xhmNi77BNVTLUU8q/GgGnpRUeAd81JA+MG2M2dZLK
-	kN3k68aA3a3pPMpg9ambk0hQCecM5VivQVpZUMD0Mu+QhN4qkpvUBPhSzumTt7q4SlROjtjzjoh
-	Anq6JOaIV3Lwm35k55VEHdEP1QVQCv5UJJ7dgk4sTRt7VPHAWEA9SnTZFhepyFBmKmxfZeIPQtX
-	p4VTEGB9osAIiYbA8PGEU2FVKUMv9B1BF0gEdW0/E3omeIGEfHrAsgvktHQi062coyLPo2iOMXZ
-	XSSxTfxOPseMMwRQOZvk+aoxkjKDpWc+i3VwVF5wtN8epSl0Jwala5VtgCZ/2mB0020RDrB0xT2
-	vuDKH35aAlD2G06y5nC2QzuVJDXH0+POI3cXA7213AHdrzhLRLDrzSnx8NQRV4C1bHp60CgXYjD
-	lhhrGjU6Y7u5Q4FIC4u4RvsH36/YjHy7CxMDMCcCwSixaIAm87guQIS7Jw30Pu/4+ArPFKYj2f5
-	GIRBrnMWXbV/RY3jp6kCYUolrvt9gNODpIAjSRJf73ejoWHPyp0zTDAkvx8Xm8vgLIqJOYMJXs7
-	wXIc7+zfbGD/IJn2DCCnIQv8D
-X-Received: by 2002:a17:90a:e7c8:b0:3ab:d45c:59e2 with SMTP id 98e67ed59e1d1-3ad86f1b28fmr2821607a91.55.1792634281882;
-        Wed, 21 Oct 2026 18:58:01 -0700 (PDT)
+        bh=mq98Rc54j/apXLpD8jeCAQO2NMmsGpxAwTZHZJ6mXaI=;
+        b=cWaB1qyg1Ofw3dOPgFk68BfTOy7Sa6UBz5tbS9enzhjaYMj/bT5VVeFi39fZleEkjD
+         aZtfOyxIdJUKvDFfh0IWKfcxS4syzMZYM8fcG/TkiS2QoUfw9Wp1WCGqNBvRYE1ybmVi
+         qYnjjnlZB/hxZvNdA9aSNpB1KCx8qTEOtUyTwEle/AfFXku2t3/xVNGnCCsmMbZl9tUs
+         SwpvD9YxzoRZ5Gd9qxFQ8uJJtD3zNMc9xMIDsm8QrufpvPUpGQpFh7nJOcneflQM5r/v
+         /kAH+i99/DDLKenyxtRe3jzEuPMudGJDLJFAgH9sY5TGK4KUZZdvQNIX0iiKnq7ijYkg
+         EdIg==
+X-Forwarded-Encrypted: i=1; AKwUvByiHzEkZh2E9BfYPXuSW7kYlATMPbsn58HGkRFJu9BwFETdk1/p7X5P858n8pUmfsCsNz5wWRLzkwDccwQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJCU43WoeZsbmaXk2ZcmbnNC3GBR9FNrrkq/oQNUH+oXnBKtQkn
+	KghHlOfEbObSpMHRQ0vmnCkta6WZv41q8jX+ar8ad9V9jeIjt+ZZMFD0
+X-Gm-Gg: AYBFou27J+R93X7a3ibzzbfwbEPiwvRE4qpLvS7QkJ7nCpTP9Xwwfjdt3KTxedeuNqF
+	chQQ8K9BKAt6OJAg1E2OkigL21A8vTmY+60oI7EjAtgKCApoJbdVdSlhT04aDNzIhPZA4PhQpHT
+	K24nSsf+DKZZDWhoCNM+SSwi/tiUpEfOc1fFnFmDP4m/x1z6lqirT2799nsLlOj75RTrQJfPWyg
+	ryvkpAKHdUtzj75TavgGzLJc2sjh3rlD1osqlzr5HBDg7iQP6+uv7+Z2xzlQv4VagOk964NGDrc
+	62NHxawCeEmQVvdZY4wUVgOxiyqK3xZhDdgtbzYAMiqeBi96YNQJY8SotngBc2611dGcDi6l56x
+	rj4zs89UfyErVpgxm4C41M5GiC5YR8dCs7gkD956zHqwHEU6LNHL58W7ZK7sfKpCe/yxXqmAZCK
+	yaAVMUgJNL6lkQOIWQui4mL9HjoHBhG7G18OaaIup7CKb7qyfucp7p18Z26Uu6ugOc+R1d4c1q6
+	+pVGIylbI8hwqtyqoP4HVWB3+3m9Eb2EyioX/dLCoGWDQk/hXfYESIlrQ4CFU8TbXfjPybgmIxZ
+	DeZ9qo5IADqZKaJKu1UniquOLcVpiARTuhyop679VerdcZZj2L5bjQJymZdsxZ2KAbnZs/UIuM9
+	JY/VoX3On8JziV1qw9xXihIBt
+X-Received: by 2002:a17:90b:2791:b0:3a0:c31d:80c with SMTP id 98e67ed59e1d1-3ada6c545c8mr517003a91.9.1792634288589;
+        Wed, 21 Oct 2026 18:58:08 -0700 (PDT)
 Received: from coder-ast-ast-dev-ml-0.tail2dda0.ts.net ([153.61.198.249])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ada490e5edsm1751706a91.8.2026.10.21.18.58.00
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ada4887669sm1796939a91.2.2026.10.21.18.58.07
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Oct 2026 18:58:01 -0700 (PDT)
+        Wed, 21 Oct 2026 18:58:07 -0700 (PDT)
 From: Alexei Starovoitov <alexei.starovoitov@gmail.com>
 To: bpf@vger.kernel.org
 Cc: daniel@iogearbox.net,
@@ -105,9 +105,9 @@ Cc: daniel@iogearbox.net,
 	linux-mm@kvack.org,
 	linux-perf-users@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH bpf-next 7/9] fork: Let the new task point to its mm before uprobes can find it
-Date: Thu, 22 Oct 2026 01:57:10 +0000
-Message-ID: <20261022015712.1297331-8-alexei.starovoitov@gmail.com>
+Subject: [PATCH bpf-next 8/9] uprobes: Don't leak the breakpoints if the unregistering task is killed
+Date: Thu, 22 Oct 2026 01:57:11 +0000
+Message-ID: <20261022015712.1297331-9-alexei.starovoitov@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261022015712.1297331-1-alexei.starovoitov@gmail.com>
 References: <20261022015712.1297331-1-alexei.starovoitov@gmail.com>
@@ -124,139 +124,159 @@ Content-Transfer-Encoding: 8bit
 
 From: Alexei Starovoitov <ast@kernel.org>
 
-uprobe_perf_filter() compares event->hw.target->mm with mm. The target of
-an inherited event is the new task. copy_mm() sets tsk->mm after dup_mm()
-returned, but register_for_each_vma() can find the new mm as soon as
-dup_mmap() releases dup_mmap_sem. No task points to this mm yet, so
-the filter says that nobody wants it.
+__get_user_pages() returns -EINTR when current has a fatal signal pending,
+and uprobe_write() begins with get_user_pages_remote(). When the task is
+killed in uprobe_unregister_nosync() remove_breakpoint() fails in every mm
+that register_for_each_vma() hasn't visited yet:
 
-The walk that removes the breakpoint, because another consumer of the same
-uprobe goes away, sees !filter_chain() and removes it from the child.
-Nobody installs it again, and the inherited event doesn't see this child.
+  uprobe: <comm>:<pid> failed to unregister, leaking uprobe
 
-It's an old bug with a short window. The previous patch releases
-dup_mmap_sem before dup_userfaultfd_complete(), so with UFFD_EVENT_FORK
-the window is as long as the monitor likes.
+uprobe stays in uprobes_tree. The breakpoints stay in these processes and
+in their children, and every hit traps into the kernel for nothing.
 
-Set tsk->mm at the end of dup_mmap() before it releases dup_mmap_sem.
-Not earlier. The new task can be reached via its perf events and from bpf
-progs. They shouldn't find mm that is half copied. Clear tsk->mm when
-dup_mm() fails after dup_mmap(). Do both under task_lock() like exec_mmap()
-and exit_mm().
+The same happens when the task is killed in uprobe_register(). It cannot
+remove the breakpoints that it installed. Since "uprobes: Don't sleep on
+mmap_lock under dup_mmap_sem" busy mms come last, so the task that is
+killed while it waits for one of them leaves the breakpoint in all other
+mms.
 
-The tasks with such event fork, while another consumer of the same uprobe
-comes and goes. 5 cpu VM, 90 sec and 7000 children per run. The number of
-children that the inherited event didn't see:
+Trying again after the failure isn't enough. The signal can interrupt
+the removal after ref_ctr was decremented, and the second removal
+decrements it again.
 
-  without this series          11 to 24, 8 runs
-  patches 1, 2, 5, 6 only      23, 12, 21
-  this series                  0, 0, 0
+kworker has no signals. Remove the breakpoints from a work item and wait
+for it. A kernel thread does the walk directly, and so does everybody when
+nobody maps the file.
 
-With UFFD_EVENT_FORK monitor that reads the event after 5 sec the child
-lost the breakpoint in 5 of 5 runs without this patch, and in 0 of 5 with.
+The price:
+- A round trip through the workqueue for every removal, 9 usec.
+- The removal runs with the priority and cpu mask of unbound kworker.
+- The caller sleeps in flush_work() for the whole walk. When the walk is
+  longer than hung_task_timeout_secs the caller is reported as hung.
+
+The tracer is killed while uprobe_multi attach waits for mmap_lock of
+a busy process. 100 idle processes map the file. The number of them that
+keep the breakpoint, 10 rounds:
+
+  without this series   0 or 1
+  without this patch    100
+  with this patch       0
+
+uprobe_multi attach and detach in a loop, nobody is killed, 32 cpu VM,
+median of 21-27 runs, msec:
+
+                                  detach          attach
+                               before  after   before  after
+  4096 uprobes, 1 process        33.5   69.4     7.35   7.44
+  1024 uprobes, 100 processes    95.0    102     38.1   43.4
+  256 uprobes, 1000 processes     182    192      107    117
 
 Signed-off-by: Alexei Starovoitov <ast@kernel.org>
 ---
- kernel/fork.c |  9 ++++++++-
- mm/internal.h |  3 ++-
- mm/mmap.c     | 14 +++++++++++++-
- mm/nommu.c    |  3 ++-
- 4 files changed, 25 insertions(+), 4 deletions(-)
+ kernel/events/uprobes.c | 74 +++++++++++++++++++++++++++++++++++++++--
+ 1 file changed, 71 insertions(+), 3 deletions(-)
 
-diff --git a/kernel/fork.c b/kernel/fork.c
-index 8fd6be932afe..5a2f571b64b7 100644
---- a/kernel/fork.c
-+++ b/kernel/fork.c
-@@ -1539,7 +1539,7 @@ static struct mm_struct *dup_mm(struct task_struct *tsk,
- 	if (!mm_init(mm, tsk))
- 		goto fail_nomem;
+diff --git a/kernel/events/uprobes.c b/kernel/events/uprobes.c
+index 92ccb730278f..361b52c9c3bc 100644
+--- a/kernel/events/uprobes.c
++++ b/kernel/events/uprobes.c
+@@ -1426,6 +1426,68 @@ register_for_each_vma(struct uprobe *uprobe, struct uprobe_consumer *new)
+ 	return walk.err;
+ }
  
--	err = dup_mmap(mm, oldmm);
-+	err = dup_mmap(tsk, mm, oldmm);
- 	if (err)
- 		goto free_pt;
- 
-@@ -1552,6 +1552,13 @@ static struct mm_struct *dup_mm(struct task_struct *tsk,
- 	return mm;
- 
- free_pt:
++struct unregister_work {
++	struct work_struct work;
++	struct uprobe *uprobe;
++	int err;
++};
++
++static void unregister_work_fn(struct work_struct *work)
++{
++	struct unregister_work *uw = container_of(work, struct unregister_work, work);
++
++	uw->err = register_for_each_vma(uw->uprobe, NULL);
++}
++
++/*
++ * Remove the breakpoints. If current is killed, get_user_pages_remote() fails
++ * with -EINTR from then on: the breakpoints which are left stay for good, and
++ * the removal which was interrupted can be left half-way, with the reference
++ * counter decremented but the breakpoint still there. So let a kworker do the
++ * job, it has no signals. It takes the locks we would take ourselves.
++ * (A fork() of an mm with busy mmap_lock can still do one removal in a task
++ * which is being killed, see register_one_mm().)
++ *
++ * A kernel thread can do it itself. So can anybody if nobody maps the file:
++ * then there is no breakpoint, and uprobe_mmap() installs none which we would
++ * have to remove.
++ */
++static int unregister_all_vmas(struct uprobe *uprobe)
++{
++	struct address_space *mapping = uprobe->inode->i_mapping;
++	struct unregister_work uw = { .uprobe = uprobe };
++	bool mapped;
++	int err;
++
 +	/*
-+	 * dup_mmap() has set it if it succeeded. get_task_mm() must not find
-+	 * it after the mmput() below.
++	 * vma_prepare() takes a vma out of the tree and vma_complete() puts it
++	 * back, under i_mmap_lock_write(). Don't mistake that for an empty tree.
 +	 */
-+	task_lock(tsk);
-+	tsk->mm = NULL;
-+	task_unlock(tsk);
- 	/* don't put binfmt in mmput, we haven't got module yet */
- 	mm->binfmt = NULL;
- 	mm_init_owner(mm, NULL);
-diff --git a/mm/internal.h b/mm/internal.h
-index 9e3be236f18c..70e40306d881 100644
---- a/mm/internal.h
-+++ b/mm/internal.h
-@@ -1520,7 +1520,8 @@ int walk_page_range_debug(struct mm_struct *mm, unsigned long start,
- 			  pgd_t *pgd, void *private);
- 
- void dup_mm_exe_file(struct mm_struct *mm, struct mm_struct *oldmm);
--int dup_mmap(struct mm_struct *mm, struct mm_struct *oldmm);
-+int dup_mmap(struct task_struct *tsk, struct mm_struct *mm,
-+	     struct mm_struct *oldmm);
- 
- int remap_pfn_range_prepare(struct vm_area_desc *desc);
- int remap_pfn_range_complete(struct vm_area_struct *vma,
-diff --git a/mm/mmap.c b/mm/mmap.c
-index 6ce654e33e3b..3167272a77ad 100644
---- a/mm/mmap.c
-+++ b/mm/mmap.c
-@@ -46,6 +46,7 @@
- #include <linux/pkeys.h>
- #include <linux/oom.h>
- #include <linux/sched/mm.h>
-+#include <linux/sched/task.h>
- #include <linux/ksm.h>
- #include <linux/memfd.h>
- 
-@@ -1705,7 +1706,8 @@ bool mmap_read_lock_maybe_expand(struct mm_struct *mm,
- 	return true;
- }
- 
--__latent_entropy int dup_mmap(struct mm_struct *mm, struct mm_struct *oldmm)
-+__latent_entropy int dup_mmap(struct task_struct *tsk, struct mm_struct *mm,
-+			      struct mm_struct *oldmm)
- {
- 	struct vm_area_struct *mpnt, *tmp;
- 	int retval;
-@@ -1897,6 +1899,16 @@ __latent_entropy int dup_mmap(struct mm_struct *mm, struct mm_struct *oldmm)
- 	mmap_write_unlock(mm);
- 	flush_tlb_mm(oldmm);
- 	mmap_write_unlock(oldmm);
-+	if (!retval) {
++	i_mmap_lock_read(mapping);
++	mapped = mapping_mapped(mapping);
++	i_mmap_unlock_read(mapping);
++
++	if (!mapped || (current->flags & PF_KTHREAD)) {
++		err = register_for_each_vma(uprobe, NULL);
 +		/*
-+		 * As soon as dup_mmap_sem is released uprobes can find mm via
-+		 * the rmap tree and ask the consumers if they want it. The
-+		 * filter of an inherited perf event looks for mm in tsk->mm.
++		 * An error with a fatal signal pending: the file was mapped
++		 * meanwhile, and get_user_pages_remote() returned -EINTR before
++		 * it could see that there is nothing to remove. Nothing was
++		 * written, so it is safe to let the kworker repeat the walk.
++		 * (Kernel threads which unregister uprobes don't allow SIGKILL.)
 +		 */
-+		task_lock(tsk);
-+		tsk->mm = mm;
-+		task_unlock(tsk);
++		if (likely(!err) || !fatal_signal_pending(current))
++			return err;
 +	}
- 	uprobe_end_dup_mmap();
- 	if (!retval)
- 		dup_userfaultfd_complete(&uf);
-diff --git a/mm/nommu.c b/mm/nommu.c
-index 68b05565e15a..7529e03d3f2c 100644
---- a/mm/nommu.c
-+++ b/mm/nommu.c
-@@ -1885,7 +1885,8 @@ static int __meminit init_admin_reserve(void)
- }
- subsys_initcall(init_admin_reserve);
++
++	INIT_WORK_ONSTACK(&uw.work, unregister_work_fn);
++	queue_work(system_dfl_long_wq, &uw.work);
++	flush_work(&uw.work);
++	destroy_work_on_stack(&uw.work);
++
++	return uw.err;
++}
++
+ /**
+  * uprobe_unregister_nosync - unregister an already registered probe.
+  * @uprobe: uprobe to remove
+@@ -1437,10 +1499,13 @@ void uprobe_unregister_nosync(struct uprobe *uprobe, struct uprobe_consumer *uc)
  
--int dup_mmap(struct mm_struct *mm, struct mm_struct *oldmm)
-+int dup_mmap(struct task_struct *tsk, struct mm_struct *mm,
-+	     struct mm_struct *oldmm)
- {
- 	mmap_write_lock(oldmm);
- 	dup_mm_exe_file(mm, oldmm);
+ 	down_write(&uprobe->register_rwsem);
+ 	consumer_del(uprobe, uc);
+-	err = register_for_each_vma(uprobe, NULL);
++	err = unregister_all_vmas(uprobe);
+ 	up_write(&uprobe->register_rwsem);
+ 
+-	/* TODO : cant unregister? schedule a worker thread */
++	/*
++	 * Can still fail, e.g. with -ENOMEM. Then the uprobe and the breakpoints
++	 * which are left are leaked.
++	 */
+ 	if (unlikely(err)) {
+ 		uprobe_warn(current, "unregister, leaking uprobe");
+ 		return;
+@@ -1553,7 +1618,10 @@ int uprobe_apply(struct uprobe *uprobe, struct uprobe_consumer *uc, bool add)
+ 	rcu_read_lock_trace();
+ 	list_for_each_entry_rcu(con, &uprobe->consumers, cons_node, rcu_read_lock_trace_held()) {
+ 		if (con == uc) {
+-			ret = register_for_each_vma(uprobe, add ? uc : NULL);
++			if (add)
++				ret = register_for_each_vma(uprobe, uc);
++			else
++				ret = unregister_all_vmas(uprobe);
+ 			break;
+ 		}
+ 	}
 -- 
 2.55.0
 
