@@ -1,71 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792691430;
-	b=kEtbS1zXyYLQHM6dDzQKAY9p4pI0oMyibG5xdPsjrTeAlk39nx63cV5hLBl54+uUsIYm
-	 QcJug7quTudmrgQUNd/ZNoKENqCBK3Tv9SPusbri1Q9FG+ntH5R+UT4xvBvX8Zr1A+sRU
-	 vgE7d+2A35E5Nku4sNF9G5LiTKS+oMVUeBoK29TgDBYbkrdmDnlZu9PyBtLb1DWZr7CK6
-	 /kDuQEGpf9zDpXQyhjpXcACt4Q+CG2SareWf7ow3D8b5ua/QMnKQzQ2n6LGKktyaKvpsu
-	 6wI3vUJP6470aWd7rHuI76Ac2kcqJzniQwWb1kmbaK3SwfsELiYumdkvL2qgoC/dcxQ==
+	t=1792691473;
+	b=QxS1m+3Bs06Glg3LqJGWrN07/Xn0ksNMVGztvJEUDeU7g01vtzLNLKDKqtWXmyV2Rkuj
+	 yrradBxxcZnzfktzLjVtyyegJS7s10PVqe8eHO8ojzgDcIPU3uxhvEsR/QZSmkjJ4+wHx
+	 c/0nLWuRfasgWZvPd71KvyZ0vMu8+YDvadZTsncRv5NAeXDlEi1Z6saCrcJgEO3URL1y2
+	 hbViyzbW/86NRt8/bvmT7i8Edsj0uPxOx/qSygbVjOMqYTFhD3/WWpcXGSYJmfOO55s6X
+	 VdK4He0jRYJlWrSTNWzF4cQTkZxF8odSbCvapyUaJkuVXEQS5wjuK14J2KqOdph2NkA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792691430;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=Wd3oLS+dcFTXkdvGEDZ+0YYIQNbTTyKN39PEruh5N40=;
-	b=byLPy3r4HmGs03pIVBaJZhkXL7z9Ct6xoZU87MppGxOMWsF66RWdx+SIvzj1t7OG861G
-	 bptJPbEOf8/8NoiLB3HOacAzNm4gk3C6x5A4knJA39QpuFd78tuG0WWTqu9Uh/hoZBR/B
-	 TRyWxxiosCEL1JQMDAPpaTt4vDK6mFcr/TJyf0HbS8TqmYeMizIQPIT0F1PnCtAcPrGIx
-	 89JEWqSmIC26TGFu8+kux1RvJiUtZqnpSS51vdeaLDSud9Mviw2Yvbb3tS5l3NTRRdUaK
-	 wjZ4oI6kZQqgCrNVD330NSkERAHtRU+lfMcjpxBwjXawjKYRKbuJS0pypkk7dVWQf9A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792691473;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=R9bdZDRYMZKsVAULKpGjrw6cvUzg31C4HzoC6qyPpxg=;
+	b=ZD8qUsouz88LlolsM/vtIys6TZDbCHXLgCiQcpX77ovKGqKKtNC727N8y2slVrL9nPG+
+	 Uyy+Y+C9eAu/B6xOA0T0/R9v63sHLEcq3dOZfpkYwucD9hzyj6z65crIGIwoRl9NTYxyM
+	 dbR3Hw7aD+joRQbjLNPxh05l4cdwIe7/JDRj9dVvn42lWX/4R4HYcjuX/Rypu2nyHXoeL
+	 5t1YWrfuDDL7ZSv+Wu6qDxqGAfRRkGJSEGAAkF3IWjspOKNe9A5oay/3WPumb6W22EcOm
+	 bz0zxHrFQ4NrL7gRHJmUyrP9H0xWuM1l9j+j4Q+FhQiZjD7RXD60KUuG7xxR1X0R6YA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=linux.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.221.46
-Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ANdt5ILk;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CAAB606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 17:50:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2CAAB606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-48b042c0728so25054f8f.1
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 10:50:29 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792691428; x=1793296228;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Wd3oLS+dcFTXkdvGEDZ+0YYIQNbTTyKN39PEruh5N40=;
-        b=0mcyMjYinuY8WtisxMZV5IKfqPliTgPMEs5CVQwQ0OYoneAUz0b8O5mjiaYzfY4nXJ
-         GumR87kqpoo/wCyttaY0NfYSeTE3PMguNtslD5d1nlg5dVYZATct//ubqIBzFuj1JnYp
-         ao2bxY4O5LTF+a8lmeg45Cp5gdqhgzf4rQCW+4LCEg9GExXmvdTu8iKs5OJBJE9xZPSw
-         q3ZI46PT30nCVdn0DLvHH8e5FHPJN3FsceqpEE/bpwdPU2jJ5mXWUDUDQ6DDmfp2/xWi
-         txaB1cO5PsVwisfgdwjudwiNQViCV2gbnwj7bZlLwSlmTAGJW8+UghKNDV/gTazZOar+
-         PYkA==
-X-Forwarded-Encrypted: i=1; AKwUvBz4IpDcxGrYgW/IjSjUpjOe/7/u9v6CTNqeSXj6joQ/zhmhA8hKE1vK5gT8k/5IqmQ03CtidMeIX0qyEPg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIwfto4SUOUXMtJ663GRjPHKgShJohEzZA7A5xTvel5qeNJ+gzn
-	1NO62HWeGe5zfb7yZm+e9Lqua2h58TvCFR8rERK6ptlLNaigtER2r0lX
-X-Gm-Gg: AYBFou1WSK5mWufClOHkPf6yGsZjjdy74NePlfiJCAWZKp2lZQIh0jEu5ZUYo4bpljU
-	kHUSz2fur6kCuK7NxbT0u3IjjRMhXPfyRQB0lqvxXkrGbfs0FHBUBd4rhKkMNLrrUNReskSwg+c
-	uj+MmiE3KxSc1gvBwgo0M5IgvC5IyE1Mx6VrPOg1PcEnprHG7k9ezbGMNmbp7S2pfwV2l3t6G6U
-	Sem2b7ZDQwloI2mNy+eUM/NWlrlZTu4uo1hsfJaIx6Zvqwy6KMrvqGFwc3ki3f/sjzJobTqhzHr
-	HB7OW+gd4Xt9F2IAFB4rSG7Lvgl5XGUcXnPjPGfZ2WFV4N41NW4MLc32b5RoT5pW4dAk8ej12sF
-	R1F3jT1Y2v13SVSqOegCjAoea06krUe5yD0sFIP0gWvArD1vwdDaDfuPDFXxskEx33hgJcbiTEF
-	y9e9fLMBWWKKsyUtS7Zw8bGMiSHBEeH68WJQM4tyC3kUYDH7XKKV5jTGjO5Rh+H7bzIBUHNE9Gn
-	/EtyVEEvSACF7p7v8WLZ+HwfDnhmkwvq9VBJw+u7m9iZAUzPOlPqSgLF+/MmF0P3b7S9P18K3lT
-	sHFz4UVipQ==
-X-Received: by 2002:a05:6000:1866:b0:48e:412:37f4 with SMTP id ffacd0b85a97d-48e2641de1amr14015136f8f.1.1792691428424;
-        Thu, 22 Oct 2026 10:50:28 -0700 (PDT)
-Received: from [192.168.1.135] ([81.79.62.202])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e25835247sm13834966f8f.41.2026.10.22.10.50.26
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 22 Oct 2026 10:50:27 -0700 (PDT)
-Message-ID: <c9d2b1dd-c733-454a-9281-80787f5c432e@linux.com>
-Date: Thu, 22 Oct 2026 18:50:26 +0100
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 622F1606A321
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 17:51:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ANdt5ILk
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E6AB61F01825
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 17:51:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792691472;
+	bh=R9bdZDRYMZKsVAULKpGjrw6cvUzg31C4HzoC6qyPpxg=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=ANdt5ILkD8VnnU3i44IPS57FjGN9fB4EBCGGxjxv4mYiDZhhM79+8bdNEr2t5Lo8M
+	 3c/R8AOwA655vNuqnP+8JnOQ09sH70Y/btOPsjjjCfIGixJiIK2XAIRqzmirewrZ/j
+	 IbxkTqZJ/k7JPbJMpApQhArNsYdQmgm9C6l27IyRIyTkidOvAlseiJSn1/ejXGLi/F
+	 DlgM66IjDwTQSi4piyjjhyDx3QIIQ46FT5R8nL7mFLoWjcBLiekCLcIWBXFyRVTSAM
+	 rCBaBS7HiOq9ptscyL9WSUBakZnctQqKfGoEQIMTiOB4BJZqsXIxPjfp73YvzlA8YQ
+	 /o/MiFlYfsnsA==
+Received: by mail-lf1-f49.google.com with SMTP id 2adb3069b0e04-5ba328513b9so1925070e87.1
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 10:51:12 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByKk279vCojRvholya4IvZyiirY+Vo9zzdg42kYdHN6Ed4fa2m3RtIvkvhr2FdRMNVdfX1sAD75I/PZKZ4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIDYrQptynDYdur9L6dk35BhVdBSDps7PdHQ9pHnG2EURNgiwDT
+	GDBcTdveKFKu3OkaZljGaOsxpnpKhnw8Dc+3l/VaAki62RhQzMeaQnXKFlKKNO3OndWQ911mnmn
+	VKfUvoMGMZb9j+AeG86P3FAUTPd6OMw0=
+X-Received: by 2002:a05:6512:124e:b0:5bf:a036:3e4b with SMTP id
+ 2adb3069b0e04-5bfa1bb87d5mr2514627e87.7.1792691471347; Thu, 22 Oct 2026
+ 10:51:11 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,97 +59,95 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 8/8] dt-bindings: net: ethernet-controller: tabulate
- who adds the RGMII delays
-To: Jerome Brunet <jbrunet@baylibre.com>, xianwei.zhao@amlogic.com,
- Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Kevin Hilman <khilman@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Maxime Chevallier <maxime.chevallier@bootlin.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>
-Cc: netdev@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
- linux-kernel@vger.kernel.org
-References: <20261010105900.247342-1-tanure@linux.com>
- <20261010105900.247342-9-tanure@linux.com>
- <1jqzhu9in5.fsf@starbuckisacylon.baylibre.com>
-Content-Language: en-US
-From: Lucas Tanure <tanure@linux.com>
-In-Reply-To: <1jqzhu9in5.fsf@starbuckisacylon.baylibre.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20260929181056.4746-1-mhklinux@outlook.com> <CAJZ5v0jNJBCK1Zj0cVuTK3mtyJFF3MbEH8HKvTNKCa84eMUdmQ@mail.gmail.com>
+ <MN2PR02MB6863A57660077B2466B77FB8D4652@MN2PR02MB6863.namprd02.prod.outlook.com>
+In-Reply-To: <MN2PR02MB6863A57660077B2466B77FB8D4652@MN2PR02MB6863.namprd02.prod.outlook.com>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Thu, 22 Oct 2026 19:48:51 +0200
+X-Gmail-Original-Message-ID: <CAJZ5v0iSn8_sxdaXcSv8zvzwUpUPVTHpZw0Tg-OEPmq+xAFOmw@mail.gmail.com>
+X-Gm-Features: AclHuK9OQn02mgBMGrBtFonnYHv87q3DVWCFzjepFTk63xsOK8_QFIiC_dLyc3Y
+Message-ID: <CAJZ5v0iSn8_sxdaXcSv8zvzwUpUPVTHpZw0Tg-OEPmq+xAFOmw@mail.gmail.com>
+Subject: Re: [PATCH 1/1] PCI/ACPI: Remove Hyper-V special case in pcibios_root_bridge_prepare()
+To: Michael Kelley <mhklinux@outlook.com>, "bhelgaas@google.com" <bhelgaas@google.com>
+Cc: "linux-acpi@vger.kernel.org" <linux-acpi@vger.kernel.org>, 
+	"linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>, 
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
+	"linux-hyperv@vger.kernel.org" <linux-hyperv@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 13/10/2026 08:14, Jerome Brunet wrote:
-> On sam. 10 oct. 2026 at 11:59, Lucas Tanure <tanure@linux.com> wrote:
-> 
->> The informative section explains in prose how phy-mode, the delay
->> properties in the MAC node and the mode handed to the PHY fit together,
->> and says itself that developers often get this wrong. A reader has to
->> work through several paragraphs before answering the one question they
->> usually have: for this phy-mode and these properties, which part adds
->> which delay.
->>
->> Add a table that answers it at a glance, with one row for every
->> combination the properties allow.
->>
->> Assisted-by: LLM
->> Signed-off-by: Lucas Tanure <tanure@linux.com>
->> ---
->>   .../bindings/net/ethernet-controller.yaml      | 18 ++++++++++++++++++
->>   1 file changed, 18 insertions(+)
->>
->> diff --git a/Documentation/devicetree/bindings/net/ethernet-controller.yaml b/Documentation/devicetree/bindings/net/ethernet-controller.yaml
->> index 1bafd687dcb1..bba27a9feb61 100644
->> --- a/Documentation/devicetree/bindings/net/ethernet-controller.yaml
->> +++ b/Documentation/devicetree/bindings/net/ethernet-controller.yaml
->> @@ -339,6 +339,24 @@ additionalProperties: true
->>   # has added. Failure to remove the delay will result in a
->>   # non-functioning link.
->>   #
->> +# Put together, with the two properties in the MAC node, this is who
->> +# adds each delay:
->> +#
->> +#   phy-mode    tx-internal-delay-ps  rx-internal-delay-ps  TX delay    RX delay
->> +#   rgmii       -                     -                     PCB trace   PCB trace
->> +#   rgmii-id    -                     -                     PHY         PHY
->> +#   rgmii-id    present               -                     MAC         PHY
->> +#   rgmii-id    -                     present               PHY         MAC
->> +#   rgmii-id    present               present               MAC         MAC
->> +#   rgmii-txid  -                     -                     PHY         PCB trace
->> +#   rgmii-txid  present               -                     MAC         PCB trace
->> +#   rgmii-rxid  -                     -                     PCB trace   PHY
->> +#   rgmii-rxid  -                     present               PCB trace   MAC
->> +#
-> 
-> That would match how the HW is working on the A733 Allwinner too but I'm
-> not entirely sure this is what Andrew had in mind from our previous
-> discussion [1]. Adding him to the thread
-> 
-> [1]: https://lore.kernel.org/linux-sunxi/491f043e-6dc6-4936-a490-31a3362c5b6e@lunn.ch/
-> 
->> +# A property for a clock the PCB already delays is not in this table.
->> +# It is either the fine tuning described next, or a mistake the MAC
->> +# should report as a fatal error.
->> +#
->>   # Sometimes there is a need to fine tune the delays. Often the MAC or
->>   # PHY can perform this fine tuning. In the MAC node, the Device Tree
->>   # properties 'rx-internal-delay-ps' and 'tx-internal-delay-ps' should
-> 
-> Acked-by: Jerome Brunet <jbrunet@baylibre.com>
-> 
+On Thu, Oct 22, 2026 at 7:14=E2=80=AFPM Michael Kelley <mhklinux@outlook.co=
+m> wrote:
+>
+> From: Rafael J. Wysocki (Intel) <rafael@kernel.org> Sent: Tuesday, Septem=
+ber 29, 2026 11:23 AM
+> >
+> > On Tue, Sep 29, 2026 at 8:11=E2=80=AFPM Michael Kelley <mhkelley58@gmai=
+l.com> wrote:
+> > >
+> > > pcibios_root_bridge_prepare() currently has code to handle Hyper-V
+> > > guest root bridges with the sysdata parent field set to NULL. While
+> > > this special case existed when commit 7d40c0f70d92 ("arm64: PCI:
+> > > Support root bridge preparation for Hyper-V") was accepted, more
+> > > recent commit 8d21732475c6 ("PCI: hv: Propagate coherence from VMbus
+> > > device to PCI device") always sets the sysdata parent field to a
+> > > non-NULL value.
+> > >
+> > > No harm is caused by leaving the special case in place, even
+> > > though it is no longer needed. But in the interest of overall
+> > > code cleanliness, remove it.
+> > >
+> > > Signed-off-by: Michael Kelley <mhklinux@outlook.com>
+> >
+> > Acked-by: Rafael J. Wysocki (Intel) <rafael@kernel.org>
+>
+> Is anything else needed for this patch?  I presume it should
+> be picked up in the PCI tree.
 
-Thanks, But I will drop this as it is wrong.
-Lucas
+Right.
 
->> -- 
->> 2.56.0
->>
-> 
+I can pick it up, but then I'd rather have an ACK from Bjorn.  Or we
+can try asking directly:
 
+Bjorn, if you have any objections or concerns regarding this, please
+let me know.
+
+> >
+> > > ---
+> > > This patch does not just do a revert of 7d40c0f70d92 because
+> > > an intervening commit moved the code to a new source code
+> > > file.
+> > >
+> > >  drivers/pci/pci-acpi.c | 12 +-----------
+> > >  1 file changed, 1 insertion(+), 11 deletions(-)
+> > >
+> > > diff --git a/drivers/pci/pci-acpi.c b/drivers/pci/pci-acpi.c
+> > > index 42d545edd7fa..452a90317c58 100644
+> > > --- a/drivers/pci/pci-acpi.c
+> > > +++ b/drivers/pci/pci-acpi.c
+> > > @@ -1572,17 +1572,7 @@ int pcibios_root_bridge_prepare(struct pci_hos=
+t_bridge *bridge)
+> > >                 return 0;
+> > >
+> > >         cfg =3D bridge->bus->sysdata;
+> > > -
+> > > -       /*
+> > > -        * On Hyper-V there is no corresponding ACPI device for a roo=
+t bridge,
+> > > -        * therefore ->parent is set as NULL by the driver. And set '=
+adev' as
+> > > -        * NULL in this case because there is no proper ACPI device.
+> > > -        */
+> > > -       if (!cfg->parent)
+> > > -               adev =3D NULL;
+> > > -       else
+> > > -               adev =3D to_acpi_device(cfg->parent);
+> > > -
+> > > +       adev =3D to_acpi_device(cfg->parent);
+> > >         bus_dev =3D &bridge->bus->dev;
+> > >
+> > >         ACPI_COMPANION_SET(&bridge->dev, adev);
+> > > --
+> > > 2.25.1
+> > >
+>
