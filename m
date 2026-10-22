@@ -1,84 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.52
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792676494;
-	b=KNa5biZNdSeCqWKFViI3aLXPiAbVWuLts0zoer2eXJ5s7GEns6v7R5/PB35fSle9yyBQ
-	 w3l3kMnMwDgsSdf5JNBvYpAN2dkTsoml7dNsCOtJba4ITtKwMXFzR3Go/vq3a1Y2lwPF9
-	 iMgJC7ta6enIv1o+rlAAOQ9m5Oyn3DMsuwkqgM4GpSxNhqjJTP1Aayw//sflLNHzUWm4V
-	 fd2j17GwOBok43mEEGfvZFz5K8tDtnMfWilQd1qC9NRqXF+KsISX7Q8UborVmlgRzAhjY
-	 cIqoOOgOXJWFLKMDqPnaAq2jpY0oxabCY6UhBut/T6EW9JEfRnfZbVSVJt2QGIO/aKQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792676494;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=gehmgppZeEU7bmBwwBNEsm7rSVlUxWbD/W3/fn7p9JQ=;
-	b=VRMy3f3pBLW1l9rl7xiBVEsf+4HD1LiefIcIUdadRj+BrQDZckFQbXTS+xIuAyCnsDbH
-	 UnsOzTptt9dMkLEAK7xlWEaw+Gzv2N/lLMssJPN68JAGjUsBPSzsjL6/9aUgfL6gzdzob
-	 feEp7yVvcwZOfiKPDMEXZimz/AMCZA8VTMab693THLfHKdNB9BrTxsVfnoyU63ZFi5ikJ
-	 zKBjXIzT90xWSFHph/tst+m591TdMQnovd7bXK120JVmH5ij2QoeJH+XFUd/zMCpKnRKR
-	 eaZalDI33APL+bcXtWgGhsPGiPTBnPFomXcCLL7aVwYqL3hyOLEnfI2t3uyv/kbU2Ug==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ieee.org;
-	spf=pass smtp.mailfrom=ieee.org;
-	dkim=pass header.d=ieee.org header.i=@ieee.org header.a=rsa-sha256 header.s=google header.b=fWbMUGya;
-	arc=none smtp.remote-ip=209.85.160.52
-Received: from mail-oa1-f52.google.com (mail-oa1-f52.google.com [209.85.160.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.193.34
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792676532;
+	b=R/YaIQM15mxAs1ELSCDfVZlXlCjRyTupU7O/QJ8u+XFQJLc901lYvQsXG+CXL2FmRlFK
+	 m15VIXZqOI9U1xPIjMa8I4PpTPlWse8/3ezf7I8uzbWMZ4TU8CCywzNPRDd+kjY2ea0Vb
+	 t9XvZTuzAypTuhRDIqaFkaz37H30RugFMGUHEL6tplEOqMf9QHIerRJQ6U0lIPhf6pVYG
+	 2CT9AyxGmVTJBjkd2Md6WO5Pm4os/5seNwrd321YUBm9iUrU6LkKoWYfiAonuFJ9igHyU
+	 OhOnK6zeIqWjPITONTeaNme4AvyuNLklHwIvBm1Pby1HKHiaqjRrM3yg8VHI8GxzYKw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792676532;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:CC:
+	 References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-EOPAttributedMessage:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=k0lEg9AtN7A6GwPkZqxbTkNorffmZLvBBJVSZcN1WGY=;
+	b=B0lVzDbQZenuLLPNna+qMFsV9qD8HtbVFHLYrq5J/gR/yLijKP+eoUcpeiJakN7XWjVR
+	 u8KiRiRcVeYfAgfpm+bsFHfLqvcUNkSB9Ba/wuozKZfx+cvPbO0+JkcycUy8M8kRaR5/a
+	 ZPUMTUc5+BVLajI1KBHhQ8G2L4Jx+jNdXMYyCdY6NtXad4hw69YjWbgwTQjW3itBfwap3
+	 NXxNH78g5Yr6ynL4PjHmWoO8SjwDiF6tvmCfdZlZKBo+P2CnXxwKMLx8y0LPv2pjd1qJ8
+	 NsDbfj0pO0WiUcA6Fq4Y/PPXhWVqTlZkBslKfDhhLt70AdHf6L/23CPjyUHvseyL3pA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=lTirRIu1;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.193.34
+Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010034.outbound.protection.outlook.com [52.101.193.34])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 286BA606A323
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 13:41:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 286BA606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ieee.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ieee.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0B7E606A323;
+	Thu, 22 Oct 2026 13:42:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C0B7E606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=ieee.org header.i=@ieee.org header.a=rsa-sha256 header.s=google header.b=fWbMUGya
-Received: by mail-oa1-f52.google.com with SMTP id 586e51a60fabf-49ddddefadbso821579fac.1
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 06:41:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ieee.org; s=google; t=1792676492; x=1793281292; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=gehmgppZeEU7bmBwwBNEsm7rSVlUxWbD/W3/fn7p9JQ=;
-        b=fWbMUGya2K7+Nmil9sN21MmZs2uisIuv3XoBjKxp76Oqek/RxwflASm7PxfbbtGlMq
-         gpFH+AU+gInLjAdN4VcMTeV9lUJ8dX2opQ+H1x9vbOF8WYsb3vw/t9LgCRYlivJd/d59
-         b9o79sYAXiGZEeNl5SFAMwlTsIC0Dlp4/3WiQ=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792676492; x=1793281292;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=gehmgppZeEU7bmBwwBNEsm7rSVlUxWbD/W3/fn7p9JQ=;
-        b=h445D+wWAyb95EUjJnOhRtJ0JGp+ua42jPV1TGGu/1To/CxlHJhUIWRxqSEUcdWXcG
-         WMpgK1yCgIrujjSJSCoapcl6IpaczmZRlu5xoQxL7or6mtcpX735bkq8lvi7HMNHNXly
-         /c5qE2GuWdS4FOEpKwQ5fmXIhYMXeVQTMrPMW02FD2fDLFS2y59D4lQGwUbzFAq7+qCK
-         IPXQTX/s3SsfQ6RWcC4V7ytcP9vHXT0beJI19elCPyjFCZR6y2Jyh0ejvpKLL4pRIG0d
-         f+qBod5zopd80n+0TgoLdhzDqjXxxP6PupGKKeG6uZ6MU9Zwzo90tzUsSGjf+zqB+w1c
-         iBAA==
-X-Forwarded-Encrypted: i=1; AKwUvBxP9V0ve3GytXhBxBZ3cth+igevEN06/qXQ/i/qcIW3qQejxVOzfCapQWKFPNVoyfvZmEKVCiqrWOfbCzI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKi4hNjDzkPhHEa+xGAYTT23NvzpUAXJ1HGavVJWBxx8byU0awW
-	Z1icWbs2Bww2GQBLU0H3jEf4tt8IaOGX7lsDmMvRRrFxA6HAeoa2hCybtjS5HMWOWA==
-X-Gm-Gg: AYBFou3wChS1XPTRbNziWR9E7djoSHfIQFA3fj237JRBrHbXwSdEhelhQavaNGkQqhk
-	qusblSy5hTviA3rgHPqi5iYEtXeAef3FW4Bie1vHEAOCCmmttV1ODNVI9zZnLnYE+j/xUTLT6KA
-	D76LxMopcO/gXHQTa61th2+K7h9m+IRSFyoTd2tIObjJ7O2zdYeFIidcg9CoNubyhUF4m7cyUnZ
-	/H3IoIM2yBwoFteYcEPncZrDhafYMge/PP7s+dWFAmzVWkx/as+526YzU6ItUNUC0aqZIekVTpi
-	8s/JW3f4ihUJu5pmF8nGqwlFAy5EukEo9GV+r7fTpTe0FHS9Oi5pTKgCCb7bGzgwdMfkxOvg9FZ
-	VsrxXQGRCuQJM5JS5lC83ZCRuAYXnbIkzZn7gBZcs4QHAJd3q+gGy9VXsgHOQUOKMeyyK/xNfK5
-	LFMezPYD2cOeSJ4EGJylG3C+dncZKymxrGqRL9AsEYZFOham/GTJcktRz4zajldnPDXMycTu4cy
-	9pCQU8kjWqi0HzuPZP+qwYQLtwHwDalLt/mmA6A6kE3Ld3XqwE=
-X-Received: by 2002:a05:6870:9a8f:b0:4a2:4dcb:fa75 with SMTP id 586e51a60fabf-4a7dbf5c94cmr3318921fac.2.1792676491930;
-        Thu, 22 Oct 2026 06:41:31 -0700 (PDT)
-Received: from [172.22.22.28] ([73.62.185.64])
-        by smtp.googlemail.com with ESMTPSA id 586e51a60fabf-4a7d5eb8fc0sm4501140fac.1.2026.10.22.06.41.30
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 22 Oct 2026 06:41:31 -0700 (PDT)
-Message-ID: <4c393ce3-41ae-4f4e-9af0-4eb7cf1c425a@ieee.org>
-Date: Thu, 22 Oct 2026 08:41:29 -0500
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=lTirRIu1
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=tRi6i11tU4NNDdkZks5OGnEhF0kRF1TP9SU8TVbIu9nsD5d8x50sar9DzK7Ia5+dBJ1OC87x5CjM5KwfDdflXG13S8o1GD3JcvV0n7CI63epKgYxSOkJeRGMjtNgf+ZzG/C8KPPzFkvmT4F5B+oQWTl5hRR5M0JVQOTIKlL7LGSVc7JRvjxVlfGwDGCflRgG2LNejN9LMeGpy8BkLd62nKStugIG06Bs9SocmTJQYWmjQr6DHtHp+jE8fVyncAS9kBy9UR2FJdAHH5gEFbu3SuGL8kwWtR5pUuRImvxViyiyi0dhIUQZCu24u1m5OcnCmr58Cw3/b/w3iJN5bTKwFA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=k0lEg9AtN7A6GwPkZqxbTkNorffmZLvBBJVSZcN1WGY=;
+ b=zPxrbc2X6CSIVPyZetD2ICHNoDVjeuDeqiGZ2ZZuZJLJzIDHWVXuJKERhBgC+NuZt7tP67Capp9BRZI2Nr9FjoIT9gDOmpvLzXgzL/XhNFdse98F092ISVpYGwSN23HYYLE5gNGRWVAsHUW4yP4O5XS/tqg+OkVm8PIaP6lUX9oUXTRIm+2qMYjFfPkmBNJm+Y1BTkVtAa/5EJitG/UhHlhdoNziYmWaMxYP/++VfaKnGvjoK7sOMz+6y0YxrIuShSXTB6B8AnRlLT/nPQu85kbjz0ceNeR/vRibSLYLcBfoJJsdVlZxVgKON5OYhHvpYPMo6cYcUeTqSoa1VEqGsA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=intel.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=k0lEg9AtN7A6GwPkZqxbTkNorffmZLvBBJVSZcN1WGY=;
+ b=lTirRIu1zoB9+u9yvaeiQTJTLeVbEUEoz6/VKY8NiRTS8LL8lFvn8mmoxNR28rXppPXk+GqwlV4j2vYzVcvclLO0KayvpLSS7SklbnqVKWMwSMEH+yoXodBT22fNLVKFyLhm2V4MKbn0HXu8T73//dgIs/p+WFWBse+VGqTj2OY=
+Received: from PH7P220CA0098.NAMP220.PROD.OUTLOOK.COM (2603:10b6:510:32d::9)
+ by DS0PR12MB9422.namprd12.prod.outlook.com (2603:10b6:8:1bb::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Thu, 22 Oct
+ 2026 13:42:04 +0000
+Received: from CY4PEPF000392D7.namprd03.prod.outlook.com
+ (2603:10b6:510:32d:cafe::12) by PH7P220CA0098.outlook.office365.com
+ (2603:10b6:510:32d::9) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.546.16 via Frontend Transport; Thu,
+ 22 Oct 2026 13:42:03 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ CY4PEPF000392D7.mail.protection.outlook.com (10.167.247.117) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.546.15 via Frontend Transport; Thu, 22 Oct 2026 13:42:03 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Thu, 22 Oct
+ 2026 08:42:02 -0500
+Received: from [192.168.0.103] (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
+ Transport; Thu, 22 Oct 2026 08:41:58 -0500
+Message-ID: <73b6b045-c305-4d8f-a37b-00fc4a810b59@amd.com>
+Date: Thu, 22 Oct 2026 19:11:52 +0530
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,140 +102,77 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] staging: greybus: Replace format specifiers
-To: Julia Lawall <julia.lawall@inria.fr>
-Cc: pavankumaryalagada@gmail.com, greybus-dev@lists.linaro.org,
- linux-staging@lists.linux.dev, outreachy@lists.linux.dev, johan@kernel.org,
- elder@kernel.org, gregkh@linuxfoundation.org, vaibhav.sr@gmail.com,
- mgreer@animalcreek.com, vireshk@kernel.org, rmfrfs@gmail.com,
- dtwlin@gmail.com, linux-kernel@vger.kernel.org
-References: <20261021163437.280930-1-pavankumaryalagada@gmail.com>
- <3433f922-bffb-4f1c-8e06-a7a87f5dbcaf@ieee.org>
- <d0a4a257-1ec9-7096-11db-5ff4b3244bac@inria.fr>
-Content-Language: en-US
-From: Alex Elder <elder@ieee.org>
-In-Reply-To: <d0a4a257-1ec9-7096-11db-5ff4b3244bac@inria.fr>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Subject: Re: [PATCH v4 0/5] selftests/resctrl: Add MBM and MBA test support
+ for AMD
+To: Reinette Chatre <reinette.chatre@intel.com>, <tony.luck@intel.com>,
+	<babu.moger@amd.com>, <fenghua.yu@intel.com>, <shuah@kernel.org>
+CC: <Dave.Martin@arm.com>, <james.morse@arm.com>, <peternewman@google.com>,
+	<eranian@google.com>, <tan.shaopeng@fujitsu.com>,
+	<linux-kernel@vger.kernel.org>, <linux-kselftest@vger.kernel.org>,
+	<x86@kernel.org>
+References: <20260810184806.1089507-1-swapnil.sapkal@amd.com>
+ <3bd1195d-35fb-44b4-bc96-4ec32c70e3d1@amd.com>
+ <5193ca97-0ad4-4a3a-ac01-5b5efcbc249d@intel.com>
+Content-Language: en-GB
+From: Swapnil Sapkal <swapnil.sapkal@amd.com>
+In-Reply-To: <5193ca97-0ad4-4a3a-ac01-5b5efcbc249d@intel.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY4PEPF000392D7:EE_|DS0PR12MB9422:EE_
+X-MS-Office365-Filtering-Correlation-Id: 39873698-0d48-4def-1fa3-08df3042418b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|376014|82310400026|36860700016|1800799024|7416014|22082099003|18002099003|13003099007|11063799006|4143699003|261009223027099003|10067099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	DfTgPww3zPwQUFYxaJj5yuuSKGnjeDossbYLHXSUicSSriGkCbVj+HOIkHYnAVSeGEbxIvKMrkwstLNnUUMrkgWXS3z+4JTk2//PrjXu+xzioqwNr2pzwIdtdRvnggDkHLLbShiZIDoddJzBoIYk8xEGXeQeQuvGrbnhjU6ZuFNu0p68NzILEj6V3hPS8vPyt3SDpsRniUb7g3Q+VzAxe+UMVCcj5Z99qeaUSJ6xU8xG+1P1LTdHCB5daMrgvjTaNRQBc4YURYrzMjiSRG2tG8kT7TXhB9d4q/lXhvE8Kxh+jwoQhTwPKQD/1fpePOwCw8lyZ62w/hfRfDfQFweBkTaBgwVf7tFC7pJW+s7b4ES182EZb3nVjSpktfpXmNZCforIkszHq8+ypDoEpcmLWIygHFAER+XjqTBMF86efmLAhdRH7+1q4vdM7zixJd9Gye+mtoygMUt28oYyjw5TygLC1Lax5OPSYjARKhRd4ubYMu7d0/k7p5lWDQWiAvmyLj/07jkA/xaQf+1Dil/UC2gy4hc3z3lOcX0R0VX8cqkl8+Kkio7d5qpC9SMjSb3cQTcAfu5D0vEZFzUpoGSXyDyKGEM4JRXTXS4HG/q1e5o8tw0ifjeMXNdl1Rm3kY4PYmBBH1e/XU+rpHHTz9uWXNI5T5yFn2CInpucD6zyy5w=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(376014)(82310400026)(36860700016)(1800799024)(7416014)(22082099003)(18002099003)(13003099007)(11063799006)(4143699003)(261009223027099003)(10067099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	crdTUI6V+ZE8ba80fiRKIFAbAtQ4tRMX4bx/SfprQpHOGYa+iMnCwWcsGWv7L9N7/KOg0L5otn9/Y/MmgcAQl6ml7/2Egx3SdRCzCU+HTbYHMDe7eA+TpcTkl3O93dnvDkPtN9IU6yVp2QKRNIO3Ji/xpx6dG/v6WWllR+1/myO95sFHR6aMjAiJj5CyKClDAtfudJznZ5bjqRxny4O4JejzcP21DXkZr4b04OiVpew5hRYBA3aD+v/pxB42cFra4rcPePne+Tvq499aKSJWTl3Ln1HdG/rV26wdH+orthqLwcUeBYRdWXJ6wRABJIJoWLTE18Gcab1OZ0I4BlmXqoA94cwfaIfbkGRONb+4SI9e0Px+gNEp/xLlABawoKO6ySpkoXWPYEoMPpUDopahIcYjo9LCIL74PdnnisYIZsjdKqs1fuC4r7j3G9jp+Tp/
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Oct 2026 13:42:03.4848
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 39873698-0d48-4def-1fa3-08df3042418b
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CY4PEPF000392D7.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB9422
 
-On 10/22/26 8:35 AM, Julia Lawall wrote:
-> Does anyone on the greybus list know anything about this person:
-> 
-> Bryan O'Donoghue <pure.logic@nexus-software.ie>
-> 
-> The email address is not valid, which is somewhat tiresome...
+Hi Reinette,
 
-Bryan was on the Greybus kernel team.  Remove that address from
-the list.  I'll let him know that e-mail is bouncing so he can
-add himself back.
+Thank you for the response.
 
-					-Alex
+On 30-09-2026 00:10, Reinette Chatre wrote:
+> Hi Swapnil,
+> 
+> On 9/28/26 9:23 AM, Swapnil Sapkal wrote:
+>> Gentle Ping
+> It is in my review queue. Unfortunately during this same time resctrl received
+> many contributions (including a couple from AMD) on the kernel side and I prioritized
+> that at the expense of this work. Others are always welcome to take a look.
+> 
 
-> 
-> julia
-> 
-> 
-> 
-> On Thu, 22 Oct 2026, Alex Elder wrote:
-> 
->> On 10/21/26 11:34 AM, pavankumaryalagada@gmail.com wrote:
->>> From: Yalagada Pavan Kumar <pavankumaryalagada@gmail.com>
->>>
->>> Unsigned variables are printed using %d.
->>> Replace them with %u to match their types.
->>>
->>> Signed-off-by: Yalagada Pavan Kumar <pavankumaryalagada@gmail.com>
->>
->> I have reviewed every one of these and they look good.  Quite a few
->> of them--because the size of the value being formatted is less than
->> 32 bits--would print correctly no matter what their value.  But I
->> think it at least does no harm to convert the format specifier to
->> unsigned in all of these cases.
->>
->> I have highlighted below an existing bug that should be fixed.  It
->> gives an example of something to look for when you do this sort of
->> activity.  Please arrange to get that bug fixed.
->>
->> I also pointed out one other observation for you to think about.
->>
->> Thanks for sending this.  I didn't check to find any other instances
->> you might have missed, but you seem to have found quite a few.
->>
->> Reviewed-by: Alex Elder <elder@riscstar.com>
->>
->>> ---
->>>    drivers/staging/greybus/audio_codec.c    | 20 ++++++++--------
->>>    drivers/staging/greybus/audio_topology.c | 30 ++++++++++++------------
->>>    drivers/staging/greybus/bootrom.c        |  2 +-
->>>    drivers/staging/greybus/fw-download.c    |  2 +-
->>>    drivers/staging/greybus/fw-management.c  |  2 +-
->>>    drivers/staging/greybus/gpio.c           |  2 +-
->>>    drivers/staging/greybus/light.c          |  2 +-
->>>    drivers/staging/greybus/log.c            |  4 ++--
->>>    drivers/staging/greybus/loopback.c       |  4 ++--
->>>    drivers/staging/greybus/power_supply.c   |  2 +-
->>>    drivers/staging/greybus/raw.c            |  2 +-
->>>    drivers/staging/greybus/sdio.c           |  4 ++--
->>>    drivers/staging/greybus/spilib.c         |  2 +-
->>>    drivers/staging/greybus/uart.c           |  4 ++--
->>>    14 files changed, 41 insertions(+), 41 deletions(-)
->>>
->>
->> . . .
->>
->>> diff --git a/drivers/staging/greybus/bootrom.c
->>> b/drivers/staging/greybus/bootrom.c
->>> index 83921d90c322..fb1fbd3f7b99 100644
->>> --- a/drivers/staging/greybus/bootrom.c
->>> +++ b/drivers/staging/greybus/bootrom.c
->>> @@ -222,7 +222,7 @@ static int gb_bootrom_firmware_size_request(struct
->>> gb_operation *op)
->>>    	size_response = op->response->payload;
->>>    	size_response->size = cpu_to_le32(bootrom->fw->size);
->>>    -	dev_dbg(dev, "%s: firmware size %d bytes\n",
->>> +	dev_dbg(dev, "%s: firmware size %u bytes\n",
->>>    		__func__, size_response->size);
->>
->> This line actually contains an error (and it was there before).
->>
->> The type of gb_bootrom_firmware_size_response->size is __le32.
->> So the value being formatted needs to be converted into CPU
->> byte order before being used.  That could be done this way:
->> 	le32_to_cpu(size_response->size)
->> or just use this, which is known from a few lines above to
->> have the proper value and byte order:
->> 	bootrom->fw->size
->>
->> Please add this to your list of things to fix, and submit it
->> as a separate patch.  This would be a bug fix, which would
->> also give you a little bit of a new experience.
->>
->>>      unlock:
->>
->> . . .
->>
->>> diff --git a/drivers/staging/greybus/raw.c b/drivers/staging/greybus/raw.c
->>> index 4f1b3f4db404..2314496a858a 100644
->>> --- a/drivers/staging/greybus/raw.c
->>> +++ b/drivers/staging/greybus/raw.c
->>> @@ -112,7 +112,7 @@ static int gb_raw_request_handler(struct gb_operation
->>> *op)
->>>    	receive = op->request->payload;
->>>    	len = le32_to_cpu(receive->len);
->>>    	if (len != (int)(op->request->payload_size - sizeof(__le32))) {
->>> -		dev_err(dev, "raw receive request wrong size %d vs %d\n", len,
->>> +		dev_err(dev, "raw receive request wrong size %u vs %d\n", len,
->>>    			(int)(op->request->payload_size - sizeof(__le32)));
->>
->> The above size calculation was done somewhere else without the
->> (int) cast, and the format specifier was %zu in that case.
->> I don't think this needs to be changed necessarily, but it's
->> something inconsistent across the Greybus code.  Consistency
->> helps readability and maintainability.
->>   >   		return -EINVAL;
->>>    	}
->>
->> . . .
->>
->>
+Ack.
 
+> To help with the review, could you please take the queued resctrl selftest
+> changes into account by rebasing this series on top of the "next" branch of
+> git://git.kernel.org/pub/scm/linux/kernel/git/shuah/linux-kselftest.git
+> 
+
+I have rebased and sent v5 patches on top of kselftest/next.
+V5: 
+https://lore.kernel.org/all/20261022132517.46805-1-swapnil.sapkal@amd.com/
+
+> Thank you
+> 
+> Reinette
+--
+Thanks and Regards,
+Swapnil
