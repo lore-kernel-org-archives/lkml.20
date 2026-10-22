@@ -1,111 +1,150 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792651608;
-	b=5XFyVmVtEYDv52GiUY1wtKeKFmlNSm3e+3wirBi54aJT6lqbGFPXVdJxVKSTolre3G/j
-	 YAC8F8e5UZvL3iNKyK3r8VibaSFH/7S4HqhgV7xvFG1DqKE8qJ7gs6ePagAgDDZmwfV3T
-	 jRdvlcgib3V1g4f/QMfRI0mV3zfalLasOt5iD6cVDE9I2MhUxsE/Gn9PH1HuJfH9w9RJT
-	 HPj6Px7VjXgSx9kC4VEFgHtsaVzzcX8g1qe5M+vKFqGDK2xjMwlg9OPXgXm6V5tems+3r
-	 CffNAUW6rzxpUBoQ76uOX6ciJRHyiX3xa55PTH7ZfynORzgqMXyQ/VRs9LE7N3NXqag==
+	t=1792651607;
+	b=P9JrokGOseDpUESYtNBuWEztfe5aHN/qiuOwCCrEWY1l+dQBk9UX8rhXRZymsyQj6zpa
+	 GUg8kul82OuplgYQxBGt+TXQxS5wmtdHizfJBDnYZOsOqSucKY9SMldJ7vj0P3N8hbto4
+	 LsRssDBzWdzdP6DnIyhU4Iuc90Nb0dehAx3Ya/6fRUaxfTuhhMrDURoyGUK62spykPTK6
+	 upTAizEefz6vsT3EpFLqKephGp4Z8Ict3tYG2hqpIFrrsXdgS7lFFkvT7rXpvPXRLzWpe
+	 0avicEOZlet0tzx3ca18USkCEEUhD5N6G0JZascPBEe2DcvLsVAMNYNmUktn57yw7zw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792651608;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=U2m1NOxjt9F2BRgX+AxlY6ccXZ7NGdaeYHeYEfzi92w=;
-	b=ZQ2ooncmiUAiOIHiRU4xcQ8R/WKDW5hyEivUN9AVRltRbXJcUSPgUxw22QpilaWIb1wB
-	 4PH/NNA1df8S1OuYVJYEyTCTd7NuQ2Eo1Bc6fJseiyxl5nMy9rG7NiWAhtkhv9nDvhKrl
-	 Hf+hBSdBA4ZbDXsi4imfjgV1vqY55wy8xd1XezE+P75wu3DmFBn/7sxe3/gLg1nL3JXV0
-	 cQTSt0xzvqTBORhCtYEFT+T/b+pQKcPL2RVCJwPds828UPN74f6JpWuuDbbNQeGEsXx2Y
-	 5dIyRflexUtYKW7ZdBldN3FXJvGY0XBD0toNqNmX24L0qfAFTU7xCosdZO6SjVq3cng==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792651607;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:Received:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:
+	 References:Autocrypt:Content-Type:Content-Transfer-Encoding:
+	 User-Agent:MIME-Version;
+	bh=TKtpG0ZG3GV7aCNX13qQJC+OLUZxo8z1O02EgwHPjyE=;
+	b=xSzDaYA9Mm4oQfZ6iFuaUyp8lQzZ8VNz76plh1poSHOoYY9NV/eJe/TdceQIlPFAFka8
+	 5pfg93KRreNobu+1ogxplKSoh1scmECMvYQu3y8bk9vNmepgMZx1wf88SM5UWkYiEDrwl
+	 SwEn6dsJCoUTtALdTLz1UbJ4gb88DlBCQS2OKhqi4Xs5YgUdcsgbb0PPG3Oen7xiP+ud8
+	 6vNxI9e9Xr2zFVb49LmMUwi5/fUVvTh3LXik6WFyVDWYD5XGVg3YOTWgIMwJbn3UPbyJd
+	 KsZaSWBfGe1DG+aESxb2/wHZ85d+G5eP5VsROq8x5oKzomZYUlGv6Eit1HiZ+kgaRNQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=GF7ZGPL6;
-	arc=none smtp.remote-ip=209.85.221.45
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=fMI5v+Bn;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=Y3BfEey6;
+	arc=none smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D61E2606A336
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 06:46:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D61E2606A336
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEC86606A32E
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 06:46:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DEC86606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=GF7ZGPL6
-Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-48b060ec084so1115662f8f.0
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 23:46:47 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=fMI5v+Bn;
+	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=Y3BfEey6
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1792651606;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=TKtpG0ZG3GV7aCNX13qQJC+OLUZxo8z1O02EgwHPjyE=;
+	b=fMI5v+Bn9trqXkvWKIV78QHC9NDmRLqsK+4DvqyZM58VfIskk3jHLoGtCu2fejjfDb5z/g
+	8ZwBeMvpSgM2obqHNUiGPrK8/vPRJZSx+WXtY40Q7nTzeSNsTGNUgUIvVCbNJVSlg5brhN
+	eLYHeB9Qy8j7AHaP4YtPX4GDyeJre94=
+Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
+ [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-495-R0HAphsvOCOtMlnkEC92sw-1; Thu, 22 Oct 2026 06:46:44 +0000
+X-MC-Unique: R0HAphsvOCOtMlnkEC92sw-1
+X-Mimecast-MFC-AGG-ID: R0HAphsvOCOtMlnkEC92sw_1792651603
+Received: by mail-wr1-f69.google.com with SMTP id ffacd0b85a97d-48e00f3929bso365737f8f.0
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 23:46:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792651606; x=1793256406; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=U2m1NOxjt9F2BRgX+AxlY6ccXZ7NGdaeYHeYEfzi92w=;
-        b=GF7ZGPL647B+FNnG04dpET3G8O5xXb61EKo7cJWaxZ39oPa+V/POXl/DjBPqCyvukr
-         uxvVa726bZh5CWEE9C7t29Ca44cLmFKZB8DJAH7gHp2zbYn6eGy3iw/+MTdY/Y+c1dLd
-         bsFmozeSaCQlewtrAFN3OOFEDHko98J7y/YjiPzAcRPMrS20L8WbdKJ9qmumOOE4DVoc
-         l2PknbSPoWVGrlc5N7LF0nwMjR892vdBSDTGyLSerl6iFlzmnvYoF/OysRdU1WZs4YeE
-         K33nwxsxDqHVwCzDED4gqyWjfL/dhrrbehq2DtdmXAZPe0x51KBUtwPLlLd3WNi+aPr9
-         1/TQ==
+        d=redhat.com; s=google; t=1792651603; x=1793256403; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=TKtpG0ZG3GV7aCNX13qQJC+OLUZxo8z1O02EgwHPjyE=;
+        b=Y3BfEey6N8msn+41QVUavFWYnbJoP4nREg7/9BXIXfXA+yFBO7Kc8oWI8t0tOiAUSc
+         DUKHMPiA0TK1mm3k6Z5rWF3HWbMoszgyVz3zJL8f8fMdnxG/yvi6nIdiEBpJx+oxbyYa
+         e5/qoazr8OrWoiXBh4kcsrAH4123p2AHgWGd7hGDymRp/b9gsnCYRJ187wCqAlja6PRJ
+         SAl53I6dLPNgkPqj4ezSRVwj3UZBjPMFAdl6GXR20iPa/elcrj+F1cAZgnO9HlSBVJaT
+         gn1a8HEnCwZPnCq9dDhwhUhap9xs15HdKipE4O5GmUdTKhPpEDeyYX2kcMSCsYtqj7c1
+         REDg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792651606; x=1793256406;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=U2m1NOxjt9F2BRgX+AxlY6ccXZ7NGdaeYHeYEfzi92w=;
-        b=w2A21NaurjNXvZpKBRwxPljh4OlIUxzUIT7RVYxs0xQXSeQUbf+s8LrJiinJtxT+hB
-         Y+Zbrb01CPQkRW7hRCPm/pVev3EzPJt+kTNjsLsTQHUERw+Pv2T+XIV6xdpwBqyVgX2J
-         wOJVFqSUWjE/kRfBv76YWXgRL7HQ3s3sGTHt/wELK/uu7bpb11isCbpB8C2FRLsM9idN
-         KocDNeiOvUTaArJkSdI4uLb33Zy2NjuZhQBNiSr30bX2eugAyy6RGoyNWC9fTgOZusDR
-         yAPwiYxP6j8WkgL8/7cn0Prt0WOSe75EY+OKJT2iVy3Jj5KPkzdA43Bi8BaKHBjiymNX
-         wcHA==
-X-Forwarded-Encrypted: i=1; AKwUvBwuWZ+F6R+5FZldqFTFk03u+vCCXwHeADfktYGs1JGIBxS4HUvneVpIhcUQez/oZyIQFipPyGS/3TZ9MTY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL+cGIO3e2Nn8PlzbYGU1QYoWXT9OZtSdtWMNnxOuHpcDB5pAPS
-	s45XsTqXtkGjUUvdysX5zCKfg4DpWpbVkblcmLGjp4ZtETXOJ5B+/zP/
-X-Gm-Gg: AYBFou11MdFU61qT8TTiE7IL1mw6nCN2X7vBbhtzV/2mbvXoOBKdY//mT2THQegr3Ki
-	0mNK+8dCSdIjyOG/4cDfgNsyDEmBSp2UUeGnOO383yfAs614cxapF0spvubmAzo3dp/4EOOL/Tm
-	7UbJKB6MviKdHI/3G8R0DDmsARL6NA1IsB3svx89vufLp8elpATW3brEU5VxG0JBElSIsNS7g1u
-	Pn7JXSz6JSDaKyyX8adr1e3E/rJTUAVFmrUQTzZgs29AjJ/rTYnSEjy2FSpfdjVYFRRQC/ZA0Sw
-	lITKyFxobZt1OX9IuWJSeI1IrxMoUkWZmQJo0zkz0gDzPyBpf8EN968ZbmM+6WGvKKBuF9ZCAoJ
-	fwWkwdnGHfQIAP5vei5kO3Zu97xx4eCQlPOYzsj5YAaN2jkjiUBtsg3OkGgIkyQacFgexn9D0S1
-	JNiDQ9G5x5xJRb0n9vv7Z2RnuFXKAgKDpOU3Y8O0a2nRxgk9Y8aQ9dt5w+jfEc9qyxxofLZHajO
-	NJrSFl7xQDAY355EWtmkho/1Fc9Rns+ZcysFGSMgIGHH9pi9+60TJlv70h1Hp+XkwBD+3JbS3zt
-	caxTFvXPy1qA+dycB1VexS40FbPVDMv2VLMBzFshT1MqPU0K2G8uruZVFcpu6957/4bsYT14uPv
-	uazt51+UXQTfUGt9Gapt6j871VV9IuQm5mS2PnJLL2Sjocofp4zbjvKj8xypchDTgYg==
-X-Received: by 2002:a05:6000:310c:b0:48d:faf4:54a8 with SMTP id ffacd0b85a97d-48e26493bedmr9081092f8f.11.1792651606193;
-        Wed, 21 Oct 2026 23:46:46 -0700 (PDT)
-Received: from localhost.localdomain (dynamic-2a02-3100-ad43-d501-2c28-bb72-120d-420e.310.pool.telefonica.de. [2a02:3100:ad43:d501:2c28:bb72:120d:420e])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e25828cd1sm10215624f8f.22.2026.10.21.23.46.44
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 21 Oct 2026 23:46:45 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Marc Zyngier <maz@kernel.org>,
-	Oliver Upton <oupton@kernel.org>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	Fuad Tabba <fuad.tabba@linux.dev>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Eric Auger <eric.auger@redhat.com>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Sean Christopherson <seanjc@google.com>,
-	Shuah Khan <shuah@kernel.org>,
-	linux-arm-kernel@lists.infradead.org,
-	kvmarm@lists.linux.dev,
-	kvm@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [RFC PATCH 3/3] KVM: selftests: arm64: Test pending writes to active level IRQs
-Date: Thu, 22 Oct 2026 08:46:28 +0200
-Message-Id: <20261022064628.4206-4-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
-In-Reply-To: <20261022064628.4206-1-kmehltretter@gmail.com>
-References: <20261022064628.4206-1-kmehltretter@gmail.com>
+        d=1e100.net; s=20260707; t=1792651603; x=1793256403;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=TKtpG0ZG3GV7aCNX13qQJC+OLUZxo8z1O02EgwHPjyE=;
+        b=lX8ei/PNSJtjOAaBcDJtNDEZ9cVcb0GgdFUY2kI3QQAljhip4I5Qvq87YJCWU2w9tO
+         kirsJBfYBYsoUmzWQpbSv2M3EtC94UXSo+nE7tZp3tAMVznBBpg7FvqtIy9t5vVVE+Cm
+         jDYlngWBq8UGqkuHPiR55WsZqPe+7uz9Rj7fzccHNt5Lma1nXWMh8Al9EgJOhefAwuff
+         XPedeWk3qtjuXR0CRr2cPd/gr4y3loeShasHNGWJKB9rmwxIEc8ZB1IYJFXf/s4H4q9N
+         Dpc8QFYp5vpU66zU+fOZY2Fwsc0vnP8F785fRVDmstvOXZ1gydyEcCF91HqMPMk7mIp8
+         2FUw==
+X-Forwarded-Encrypted: i=1; AKwUvBxGQks6NauTmVmUz402IrScz9AzDOK6PRYrvJmL/nmZf/BryWopqbUBX7UcfBvS7V7e+TlDSWdnxKDd5b8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL3++eWmQxnrTRFSCrq18ooJn2A6zcPu3e1DWUeX8YN8rp2zSgC
+	MQnv1RzoXKBmTG1vNW58H+ZdROZSp4emjFhTvgIqhBoviqK1po6nnbCSEiwLw/1HCOVK4528B0T
+	f4DU9DPnVjM0lKr954KsNrzAEusbjtLfL9r4P6alAPSC2+uat+VFq0Z5MqrCY2zRrTw==
+X-Gm-Gg: AYBFou2l5sOZLbq5HIAe3sOUaSIOmKUE62zMWhvNT94kjB6SrxjwicGcO9wLd9h6T7I
+	RHoSLxjnPHOeUaRhZi75v2lNXfs7rdmCVy2NPd2tCaRoPJUjpKKxQu/AaxKD4VLVWKSHkrGNvVY
+	yGAFnbHXs55FtNmKwO6gzDfwKOKxCr8t+Llck43+aE85UhHWWJM93TEN3AeFQ/qaMvcFrm0q9lo
+	2vinZdm2N2LvLVVxkNIoccOgs7t+kE87hKtkIqoTu+7T1dvFZR41L3L0qC6Cmo+IOrsm5CvqG3r
+	77flxVX5DqPYGpeabd1zmjp5GXcdcfHePL8kjY3FI4F+EzejTiUg9gXRcR+OJq/TyEOsPPrhgTG
+	gSx9c3qWV+gDCuoUpT9AnVRA43z02
+X-Received: by 2002:a05:6000:4b11:b0:48c:54ec:ea3 with SMTP id ffacd0b85a97d-48e2d24e4acmr3010779f8f.13.1792651603109;
+        Wed, 21 Oct 2026 23:46:43 -0700 (PDT)
+X-Received: by 2002:a05:6000:4b11:b0:48c:54ec:ea3 with SMTP id ffacd0b85a97d-48e2d24e4acmr3010732f8f.13.1792651602647;
+        Wed, 21 Oct 2026 23:46:42 -0700 (PDT)
+Received: from gmonaco-thinkpadt14gen3.rmtit.csb ([195.174.133.173])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e25840115sm10061810f8f.48.2026.10.21.23.46.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 21 Oct 2026 23:46:42 -0700 (PDT)
+Message-ID: <f147fa9dfc553767ce92802b66723a85cf804e46.camel@redhat.com>
+Subject: Re: [PATCH v2 10/15] tools/rv: Add BPF monitors
+From: Gabriele Monaco <gmonaco@redhat.com>
+To: John Ogness <john.ogness@linutronix.de>, Steven Rostedt
+	 <rostedt@goodmis.org>
+Cc: Nam Cao <namcao@linutronix.de>, Tomas Glozar <tglozar@redhat.com>, 
+ Alexei Starovoitov <alexei.starovoitov@gmail.com>,
+ linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org, 
+	bpf@vger.kernel.org, Wen Yang <wen.yang@linux.dev>, Tobias Schaffner	
+ <tobias.schaffner@siemens.com>, Viktor Malik <vmalik@redhat.com>
+Date: Thu, 22 Oct 2026 08:46:40 +0200
+In-Reply-To: <87h5ifvw3p.fsf@jogness.linutronix.de>
+References: <20261001152042.124445-1-gmonaco@redhat.com>
+	 <DLXSI4BSRE5F.1TLKCBUAGNDFQ@gmail.com>
+	 <b1fb01e1c58893795dd4be346f233d39fe653aaa.camel@redhat.com>
+	 <DM6H7SK4YZ7A.F0MM6C0I77OR@gmail.com>
+	 <878q3xtptq.fsf@jogness.linutronix.de>
+	 <8B3FF026-6159-48CF-8FEA-AF2FACD2E4EB@redhat.com>
+	 <87bj8s8ih9.fsf@jogness.linutronix.de>
+	 <DM78SVMBI2XW.2XHVC67VON48A@gmail.com>
+	 <87v770uuyr.fsf@jogness.linutronix.de>
+	 <DM7I2PYHNKXE.3AYY3N1HATXLW@gmail.com>
+	 <87ik2zryzo.fsf@jogness.linutronix.de>
+	 <0055967d4571e7c8549dfa476fa6b15b93013701.camel@redhat.com>
+	 <CAP4=nvR2i092924zszA8Qh0UUYnwXfAsa+7KjPe-NpwC+bbLXw@mail.gmail.com>
+	 <8580176d216258e9008c344e0529509117dcc18b.camel@redhat.com>
+	 <CAP4=nvTc297yQHz8aumZFAQ3+JK=5Z_=416WdosT0S6nHEeNfQ@mail.gmail.com>
+	 <87pkx5q1w4.fsf@jogness.linutronix.de>
+	 <0d4f11b1999588ddba9d855db43fc492eda32de1.camel@redhat.com>
+	 <87h5ifqy6w.fsf@yellow.woof>
+	 <a8d8b080f403eed617242a3276717706b4081ed1.camel@redhat.com>
+	 <20261021094853.29b9f7be@gandalf.local.home>
+	 <fb5c20f226f723cbb4df5092462dfcf5f2686367.camel@redhat.com>
+	 <87h5ifvw3p.fsf@jogness.linutronix.de>
+Autocrypt: addr=gmonaco@redhat.com; prefer-encrypt=mutual;
+ keydata=mDMEZuK5YxYJKwYBBAHaRw8BAQdAmJ3dM9Sz6/Hodu33Qrf8QH2bNeNbOikqYtxWFLVm0
+ 1a0JEdhYnJpZWxlIE1vbmFjbyA8Z21vbmFjb0BrZXJuZWwub3JnPoiZBBMWCgBBFiEEysoR+AuB3R
+ Zwp6j270psSVh4TfIFAmjKX2MCGwMFCQWjmoAFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgk
+ Q70psSVh4TfIQuAD+JulczTN6l7oJjyroySU55Fbjdvo52xiYYlMjPG7dCTsBAMFI7dSL5zg98I+8
+ cXY1J7kyNsY6/dcipqBM4RMaxXsOtCRHYWJyaWVsZSBNb25hY28gPGdtb25hY29AcmVkaGF0LmNvb
+ T6InAQTFgoARAIbAwUJBaOagAULCQgHAgIiAgYVCgkICwIEFgIDAQIeBwIXgBYhBMrKEfgLgd0WcK
+ eo9u9KbElYeE3yBQJoymCyAhkBAAoJEO9KbElYeE3yjX4BAJ/ETNnlHn8OjZPT77xGmal9kbT1bC1
+ 7DfrYVISWV2Y1AP9HdAMhWNAvtCtN2S1beYjNybuK6IzWYcFfeOV+OBWRDQ==
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,143 +154,66 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Add a two-vCPU GICv3 test for a level SPI set pending through
-GICD_ISPENDR. Re-pend the interrupt while it is active, first from the
-handling vCPU and then from the other vCPU. Require a second delivery
-after deactivation in both cases.
+On Wed, 2026-10-21 at 18:53 +0206, John Ogness wrote:
+> On 2026-10-21, Gabriele Monaco <gmonaco@redhat.com> wrote:
+> > > BTW, I'm curious if it isn't possible to keep both in-kernel and BPF
+> > > monitors? That is, for those cases that do not change often and has a
+> > > well known model, to simply keep those as modules and hard coded.
+> >=20
+> > In my opinion it is possible and I'm designing every change with that
+> > coexistence in mind.
+> >=20
+> > I would say we could only drop in-kernel if BPF does such a great job
+> > to cover every single technical and non-technical requirement or
+> > use-case, AND if it makes maintaining the whole thing easier.
+>=20
+> I am wondering if coexistence should be the goal. For example, the
+> monitor classes (DA, LTL, HTA) are only implemented in the kernel and
+> provide kfuncs for the state transition functions to be available to BPF
+> monitors. I would expect that this would allow BPF monitors to have the
+> full functionality as in-kernel monitors, since the events, errors, and
+> reactors would all trigger from the monitor class code.
 
-Also check that the other vCPU observes the initial pending state
-before the interrupt is acknowledged.
+Well, this would be yet another hybrid requiring BPF monitors registration =
+in
+the kernel like I proposed in the RFC [1], which was the main point of
+contention (that fully shared reactors and sysfs interface, by the way).
 
-Without the VGIC fix, the pending state is cleared on deactivation and
-the test fails before the second delivery.
+For this I would argue, though, that such monitors would be BPF just on pap=
+er,
+we wouldn't be able to use many advantages BPF provides (e.g. BPF maps).
 
-Assisted-by: LLM
----
- tools/testing/selftests/kvm/arm64/vgic_irq.c | 101 +++++++++++++++++++
- 1 file changed, 101 insertions(+)
+The current implementation already shares the header with in-kernel monitor=
+s, so
+the actual logic is shared. What isn't shared is the storage type and some =
+glue
+around it.
+I used BPF maps because they offer some nice flexibility especially around =
+per-
+task and per-obj monitors. On top of using more battle tested code.
+I would like to keep that.
 
-diff --git a/tools/testing/selftests/kvm/arm64/vgic_irq.c b/tools/testing/selftests/kvm/arm64/vgic_irq.c
-index 3cb85932ee85c..81f38e523d3c0 100644
---- a/tools/testing/selftests/kvm/arm64/vgic_irq.c
-+++ b/tools/testing/selftests/kvm/arm64/vgic_irq.c
-@@ -959,6 +959,106 @@ static void guest_code_timer_spi(struct test_args *args, int cpuid)
- 	GUEST_DONE();
- }
- 
-+#define REPEND_READ	1
-+#define REPEND_READ_DONE	2
-+#define REPEND_WRITE	3
-+
-+/*
-+ * A level-sensitive SPI that is set pending through GICD_ISPENDR stays
-+ * pending for every vCPU until it is acked. If it is set pending again while
-+ * it is active, it becomes active and pending and must be taken a second time
-+ * once it has been deactivated. The second pending state comes from the vCPU
-+ * that handles the interrupt in the first round, and from the other vCPU in
-+ * the second.
-+ */
-+static void guest_code_level_repend(struct test_args *args, int cpuid)
-+{
-+	int i;
-+
-+	gic_init(GIC_V3, 2);
-+
-+	gic_set_eoi_split(1);
-+	gic_set_priority_mask(CPU_PRIO_MASK);
-+
-+	if (cpuid == 0) {
-+		u32 intid;
-+
-+		local_irq_disable();
-+
-+		gic_irq_set_config(MIN_SPI, false);
-+		gic_set_priority(MIN_SPI, IRQ_DEFAULT_PRIO);
-+		gic_irq_enable(MIN_SPI);
-+
-+		for (i = 0; i < 2; i++) {
-+			gic_irq_set_pending(MIN_SPI);
-+
-+			if (i == 1) {
-+				/* Not acked yet: the other vCPU sees it pending */
-+				WRITE_ONCE(args->shared_data, REPEND_READ);
-+				dsb(ishst);
-+
-+				do {
-+					dsb(ishld);
-+				} while (READ_ONCE(args->shared_data) != REPEND_READ_DONE);
-+			}
-+
-+			GUEST_ASSERT(gic_irq_get_pending(MIN_SPI));
-+			intid = wait_for_and_activate_irq();
-+			GUEST_ASSERT_EQ(intid, MIN_SPI);
-+
-+			if (i == 0) {
-+				gic_irq_set_pending(MIN_SPI);
-+			} else {
-+				WRITE_ONCE(args->shared_data, REPEND_WRITE);
-+				dsb(ishst);
-+
-+				do {
-+					dsb(ishld);
-+				} while (READ_ONCE(args->shared_data) == REPEND_WRITE);
-+			}
-+
-+			GUEST_ASSERT(gic_irq_get_active(MIN_SPI));
-+			gic_set_eoi(intid);
-+			gic_set_dir(intid);
-+			isb();
-+
-+			/* The second pending state must not have been lost */
-+			GUEST_ASSERT(gic_irq_get_pending(MIN_SPI));
-+			intid = wait_for_and_activate_irq();
-+			GUEST_ASSERT_EQ(intid, MIN_SPI);
-+
-+			gic_set_eoi(intid);
-+			gic_set_dir(intid);
-+			isb();
-+
-+			GUEST_ASSERT(!gic_irq_get_active(MIN_SPI));
-+			GUEST_ASSERT(!gic_irq_get_pending(MIN_SPI));
-+			GUEST_ASSERT_EQ(gic_get_and_ack_irq(), IAR_SPURIOUS);
-+		}
-+	} else {
-+		do {
-+			dsb(ishld);
-+		} while (READ_ONCE(args->shared_data) != REPEND_READ);
-+
-+		for (i = 0; i < 64; i++)
-+			GUEST_ASSERT(gic_irq_get_pending(MIN_SPI));
-+
-+		WRITE_ONCE(args->shared_data, REPEND_READ_DONE);
-+		dsb(ishst);
-+
-+		do {
-+			dsb(ishld);
-+		} while (READ_ONCE(args->shared_data) != REPEND_WRITE);
-+
-+		gic_irq_set_pending(MIN_SPI);
-+
-+		WRITE_ONCE(args->shared_data, 0);
-+		dsb(ishst);
-+	}
-+
-+	GUEST_DONE();
-+}
-+
- static void *test_vcpu_run(void *arg)
- {
- 	struct kvm_vcpu *vcpu = arg;
-@@ -1073,6 +1173,7 @@ int main(int argc, char **argv)
- 		test_vgic_two_cpus(guest_code_asym_dir);
- 		test_vgic_two_cpus(guest_code_group_en);
- 		test_vgic_two_cpus(guest_code_timer_spi);
-+		test_vgic_two_cpus(guest_code_level_repend);
- 	} else {
- 		test_vgic(nr_irqs, level_sensitive, eoi_split);
- 	}
--- 
-2.39.5 (Apple Git-154)
+Besides, we'd need to be extra careful on controlling the callers. Right no=
+w
+handlers are static, so it's easier to make sure no rogue caller messes up =
+with
+monitoring.
+
+What else definitely isn't shared, which is the main point of this whole
+conversation, is trace events.
+Those could be kfuncs. And no matter what you do, BPF monitors will need to
+share the trace events (unlike in-kernel that have separate events per moni=
+tor).
+
+In short, I don't think this would be easy to achieve and wouldn't earn us =
+that
+much. (Plus I'd lose the hardly earned Alexei's blessing ;) )
+
+What do you think?
+
+Gabriele
+
+[1] - https://lore.kernel.org/lkml/20260831090524.106845-1-gmonaco@redhat.c=
+om
 
