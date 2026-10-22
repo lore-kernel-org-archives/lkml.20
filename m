@@ -1,98 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.180
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792705959;
-	b=ZJ9Jk/yDkWWyhkhdzx9jB7ZaiSamR1HweYCMPhtRIPInx4buLErFWIAwEq8MyzSRmeFM
-	 5lQnJ3WQ1pAchUXH2TeUNTn136cfSEKXnsYcMzGyVWsw0UQs/eavfshECrtqG/GPqfsYa
-	 hAduX5ixflb4To1TwrzU3rVxryFqtz/7yJQz6w4BYtbwMOWZH7qRqliOL7dzqfdGMGKfm
-	 K9Pw9tRCYJQZh1ksCLtUyRx+Gn6Dn4mgipjPzIzsonkTrW5dT+X/ec4z9hSpTwDWFnmuw
-	 C/Pq6q7zFn83wuH5Qo5Ypm+3kMtOu0dQ+aqK4OGOvOSOphoL9dhTIPkvsOn638wbcng==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792705959;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=kAZzQudwd0odx3okt+/7lzQEQ+9EG04goXUtaLpNBlg=;
-	b=MG54y5MNoTLdCqOtPJQEdmhBIYP5xlRfUC3aBEk+o1qfgevTiuewhRBrKmAJYShtuSI6
-	 VdXBT38nmT/hoM3TmxBd6Zs2GQ9Dk0je+hYFSfwBv8gOzTPdxRoEYaVhUyZg5p9rqaL67
-	 lVElwkCEkn+FrBYcO83WnRSEeh/XiSzBabwzTztr4Ubo14QzgUodPB2gHKy6O0klEePvr
-	 kwXzi63kMVvAsMyMi5Sj2kCd4U1uG0UBi5opQyXj1Y0XbQGShcHhudQp0Vos0dZNhEjAS
-	 Qk4kvdZZzkaGTVXeNOq9FsnHNmO0zv8B+IkF3lIIeHkKjy7d23VECP3pgcr5yCEBljQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ot48Ldaw;
-	arc=none smtp.remote-ip=209.85.214.180
-Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792705988;
+	b=sx5TVJEt4mF1MHF+F+LBjH1cTBImQMEtUirZvbBvSD0vuDZFAVbRCm32tLYZboFiZEza
+	 P/w8Pc9xsd3KdDyNfWgZOS8IIrG9YFn5/ntWvXtijmea57Tvs22ULHji/7Zzp+of8ZhRM
+	 7SWWeDgbPjiAMvFFgJUCCA8+BjPvluE69iHNrXykl7PmTkqHxab8JvHgdGT+q8oSYnNu4
+	 X1qFwyl36QEf0CIZzIK7OzacptBpcaGHMEWQpjeRaMrGMbztEKjJ2ZC2ubpM5YyouBpAb
+	 g1tzak2RJ2fEGKjxq6vWPjGXxBFiBuPOfLb4Htv5tyT1Dce00PhTezxfllOsvTnHpYA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792705988;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=fujUEWrEN2rYxJUdidBu4N8nU2Vgv91LVkUCIG4oopQ=;
+	b=PHjONBenpB4IJmF39K5jbBT6X+jd4CBFlXSZRa/rwfsqXBZlwiJoX13RCPGW9I4vbfg9
+	 M+qHOILWQGJ8ew3JXQhmIU46Sui1lKQUqeSQZtqqL26y7Fol6lvWXKHfABzOcVuslQD50
+	 gghYKpNUeqFOY5PIdCGgffsbZ97UwHSVqPfI1y8aQe8PNz47bM/uiCY3qUqMhnYgaGM2j
+	 beevLI7zC2wUoQbWM8ITCqCXN77iqVv07PLomeln6urXVR6oeaQ353wNqBveQSXj72K3o
+	 HDsAFmquSS/6jzhMD+MhV35kkEjTe+AiGoFXReo3yTG6xj8TXaX4dZjecwaESWnVcvA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=B51lJztj;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2485606A319;
+	Thu, 22 Oct 2026 21:53:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=B51lJztj
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1792705987;
+	b=DjEX39ywdL4PiKLk65g69xfklLnhx7YpgZNnx9MoP9n7kg/O405E3xbyfN9xgN3IMp7c
+	 NirJ5JjRnBXbBU2H8V9itAW7N75WqS5JS1BCupe7x2v6HsvnExHm/8rysac+sTMFT8I7y
+	 TtX/giwjvVmUpGDGpnNyJRQMbsPD+PolyTkO/K+quKHaIoZnWbvgo1/iOzU2vMk9iULpB
+	 J0hwQ/6iGjQ25KF2JvVAXws3HvR2t9SqPlD80oSg1jqQSn0uy7RNoGBtvMQZS62lWwGCD
+	 dY6gquTijEwNTcSiARXAoiWiMNkA79elq/gOtL4t7mU6XmJPUr76oeIY5MMHAyKlk6g==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1792705987;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=fujUEWrEN2rYxJUdidBu4N8nU2Vgv91LVkUCIG4oopQ=;
+	b=WyRNSmEEUr+STQ/xlSkiOBelknKrO3GygxyjRbE+8b73Cy//ZitYX9u0XlT1ZqXIx4RV
+	 CCMNktz2679wIuh9HhStfJyNR2wktoMwHtEyyCtgMFOeWbdriLDfp66wRcNmrtyEMP/dR
+	 qIQwKMPsMR8uREqr4IpjlnJyjgSLUUe5JMLxfyxv8vyUOTN7wwQqaVs0dIwWTgASIrzoW
+	 5+eQKNlgmVBOh/lAzI3HHjZBRnltzAZTNFtSAIi59dgcRFTn8iNLUa33y0RhmuxP2JsHI
+	 xu2yITx6XJ3J5v8NQ0yzTtDC+XuGriUBvaR25au7g61jgdaG28cWRjYXz8VxRoCTArw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 647FC606A320
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 21:52:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 647FC606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ot48Ldaw
-Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-2e99b1e5b4cso1163615ad.0
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 14:52:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792705958; x=1793310758; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=kAZzQudwd0odx3okt+/7lzQEQ+9EG04goXUtaLpNBlg=;
-        b=ot48Ldaw8MX/m9Dl6m7ceKmUgfdjnnPh0EEIj7F2gdw8sbBzQemOH47vdVXumJOyH2
-         s0bf38upKJe8SXGuyxycYLSdE3BfvLXifG6ORSJMNObjh4o5OHXznmQ+jRuvW8KA5soL
-         iqTo2LVOZl1TAgAUmvDmog2mmzlRKUn59ZKOR2vaeJigRs9M2FW85yhQgGRXXQzKqtBF
-         2vkAtICRpxhXXDBvduy7uJVE/6KhmnZ4s4cgaVHzpPXH+oSz5ciFE7HYUi237LkasF1N
-         Le8pHc/qQFUeFwRHJSu6xTBaVQ379P6jyqlY1SVwTt0VW/LQet5CtqNSVl/7UHtl6ckh
-         BtbQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792705958; x=1793310758;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=kAZzQudwd0odx3okt+/7lzQEQ+9EG04goXUtaLpNBlg=;
-        b=V1K7qZNJd0Ihe1PfOVyMwvEycBogT3AwVmTY7dCvguFJFxPVE2VeRP0Fj2BjvmvQLs
-         Q4RFVNI2tc/TUypkr/L6N0rmzktfbXjxcN6w2FERsViiS3iBoSvzhjV6gpo+mHGmKWUs
-         0GAtnK8JLnEtCCYojKtK2fH0G/EEMHAnXkPHW0wVbrr7QKQC7yXeg2P6CKpBAOtVtAnT
-         ptCTs8lh36n2YcN86nkEBWMCsuBHWGNCukoa3C4pyc7m+N+Mk0UdNUpuc7ED67JzKtNz
-         hxye3zOccJGo2z9JM+CcaMvA3qRKBU0ldUozqDUXmFBe5paxtDXWqzWz/3pFTY1RrGXX
-         llZQ==
-X-Forwarded-Encrypted: i=1; AKwUvBymYhzwdiVhDLbiYkxsXULmbLZp02UO1YoX29RD4OiAC7jOFuJDOjatxiaxAM3Dh7G9Kd2MSD6uBPlOunc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKW6nXa6myjYRvJO7UHMoU0nAPNvixlIemAwk1nt2a9DyG6foA/
-	c415jSMjHdqGxk6hSmv6/QzLkn3IXrQlLR34uftblb+oGJ5+sPspgjLQ
-X-Gm-Gg: AYBFou3KGE4Jo2rRtb8tRtPwETDIzDcZWW4erm4KdmxaiaO3tdLfiSNQWExabgNCAOd
-	iNuFO98nMuMcw83jInaO3xdlyzS8gvMX2LsYj+0TbXVVe1JHU4UqA401rfy6dOa9Pp+PzFa8oNR
-	8csDX6Km8a/lbcoRkVXmQYAg53HB5WjyRE0ve4CNCgH063V9k2pfo5vABF67ksn5qel21Oh37Z+
-	PsBCosMsrZrTw+vvVAHXnXMTouTW3DxLzWzRDta5lChT14koBHf6U1J9ZCpOIpQywkKhFttHJgh
-	4i5YoHMalwqqGmJrteGwzEOJFLOZxmc97GnELacdz7ba1DKqnf39nbpFITgoiZuL9/S6alt4zbc
-	GL/SXNQVavEFavxQoHJel3LTTkz+8c8QqFrzJRG1jjzn8KHvdqPmL5Jr7I9Ow8UsMbEVAphEosG
-	hfduANQ5+xRwC+QPcMOU2VMLU7JZwt/pW7f6U6SR01t2XUBXHeVe5xggCE7pig1G7oXlaUB5Oam
-	f6KJ3BlEkijhIVkrL5Gh8Mq0UgM3zxDxpFk0evRmidV/rda71klBJL7pVXGDWzchUVyzMr/MX9/
-	MXqnvsSWD5ByphotzCaJgEj9/H9RKq+He3rcHH5BUzImokvtNI2QjJ58AO2wGBHeMiI6ZQ/TOmJ
-	BmljgTSuLUvRSWC+h4szLnjA=
-X-Received: by 2002:a17:903:384d:b0:2df:8f19:5db8 with SMTP id d9443c01a7336-2ea7d1669c2mr4002555ad.59.1792705957657;
-        Thu, 22 Oct 2026 14:52:37 -0700 (PDT)
-Received: from ryzen ([2601:644:8000:37f::e34])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ea7b3b01a6sm3090325ad.44.2026.10.22.14.52.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 14:52:37 -0700 (PDT)
-From: Rosen Penev <rosenp@gmail.com>
-To: netdev@vger.kernel.org
-Cc: =?UTF-8?q?Rafa=C5=82=20Mi=C5=82ecki?= <rafal@milecki.pl>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Felix Fietkau <nbd@openwrt.org>,
-	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH net v3] net: bgmac: fix TX DMA unmapping and slot cleanup
-Date: Thu, 22 Oct 2026 14:52:35 -0700
-Message-ID: <20261022215235.3692083-1-rosenp@gmail.com>
-X-Mailer: git-send-email 2.56.0
+	by smtp.kernel.org (Postfix) with ESMTPS id 561C01F031E1;
+	Thu, 22 Oct 2026 21:53:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792705987;
+	bh=fujUEWrEN2rYxJUdidBu4N8nU2Vgv91LVkUCIG4oopQ=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=B51lJztjY+zo9t62hKlsE4gQksKfN5loV1e0/Q6o8zpzOF3O0aZbuTlWBmHPAXMnH
+	 VPy20t9CRJXJ07sG7CJnWB1raObW8cOXjs0GSKdQ+/ZE7trq1OcTWMwY1LdEyFMeo+
+	 7hTOytAGS7e0WGqn850MQs9Dsnhh2XgI6If71tyqa6hiO8ZyCU97TVcGv0bcJ0UMmu
+	 EnPpu5NIW62Frh1E7IsH/qlXATAL3Gz02P5ZDKVbuOI/QE/XmSgQ+Ur4/UOxpHT8en
+	 n8DMLVBKgvOpRYv9NsmCW2xwXICCi5cC22QarqBzrm0DuyrccCO8oBrjJEOHvuNja7
+	 tnJP0QR3rz8aw==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id C744741F95;
+	Thu, 22 Oct 2026 21:53:05 +0000 (UTC)
+From: Ronald Claveau via B4 Relay <devnull+linux-kernel-dev.aliel.fr@kernel.org>
+Date: Thu, 22 Oct 2026 23:52:40 +0200
+Subject: [PATCH 2/4] clk: meson: g12a: fix swapped VID_PLL and VID_PLL_DIV
+ clock ids
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,113 +83,65 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261022-fix-g12a-clk-v1-2-e2bd8f3f1afa@aliel.fr>
+References: <20261022-fix-g12a-clk-v1-0-e2bd8f3f1afa@aliel.fr>
+In-Reply-To: <20261022-fix-g12a-clk-v1-0-e2bd8f3f1afa@aliel.fr>
+To: Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jerome Brunet <jbrunet@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
+ Brian Masney <bmasney+clk@redhat.com>, Kevin Hilman <khilman@baylibre.com>, 
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
+ Jian Hu <jian.hu@amlogic.com>
+Cc: linux-amlogic@lists.infradead.org, linux-clk@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Ronald Claveau <linux-kernel-dev@aliel.fr>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1162;
+ i=linux-kernel-dev@aliel.fr; h=from:subject:message-id;
+ bh=YR8frSm+6sxxqFo9ANrOruNDwaVVFJ61khzljz/qP2U=;
+ b=owGbwMvMwCWm1SvKXP3cUInxtFoSQ9at1r126fz2QibRosEiwl19TzbEnL0cZaFv9YPZIpPtQ
+ rjnp2cdpSwMYlwMsmKKLP1zLU+8u3z0zNc96ikwc1iZQIYwcHEKwET4uBn+Z0duUVv/Tn3z8+uX
+ 5AXCJN88WR9lpW5jOMtwcufHhayS8xn+u984/vPqXeXVJXz22w8bP9rb+6stTvxEyWrXFbdteNJ
+ fsAAA
+X-Developer-Key: i=linux-kernel-dev@aliel.fr; a=openpgp;
+ fpr=DFD863F61375BF917F0012173953305EF1D0EC3E
+X-Endpoint-Received: by B4 Relay for linux-kernel-dev@aliel.fr/default with
+ auth_id=744
+X-Original-From: Ronald Claveau <linux-kernel-dev@aliel.fr>
+Reply-To: linux-kernel-dev@aliel.fr
+Content-Transfer-Encoding: 7bit
 
-When mapping a fragment fails, bgmac_dma_tx_add() unwinds with the
-wrong slots. It passes the failed fragment's slot->dma_addr, which
-holds the mapping error, to dma_unmap_single() for the head. The
-fragment loop indexes from ring->end instead of ring->end + 1, so it
-unmaps the head a second time as a page and leaves the last mapped
-fragment mapped. None of the affected slots get their dma_addr cleared
-either, which includes the head slot when mapping the head fails.
+From: Ronald Claveau <linux-kernel-dev@aliel.fr>
 
-bgmac_dma_tx_ring_free() unmaps every slot with a non-zero dma_addr,
-so tearing down the ring unmaps these addresses again. It also frees
-the skbs of pending TX slots but leaves slot->skb and slot->dma_addr
-set. The slots survive a down/up cycle, and bgmac_dma_tx_add() only
-sets slot->skb on the last slot of a packet. If a slot with a stale
-pointer is later used for the head or a fragment of a scatter/gather
-packet, bgmac_dma_tx_free() frees the old skb a second time when that
-slot completes.
+In g12a onecell data table CLKID_VID_PLL points to g12a_vid_pll_div
+and CLKID_VID_PLL_DIV points to g12a_vid_pll. So the ids are swapped.
 
-bgmac_dma_tx_ring_free() also picks dma_unmap_single() or
-dma_unmap_page() by looking at slot->skb, which is set on the last slot
-of a packet, while the head was mapped with dma_map_single() and the
-fragments with skb_frag_dma_map().
+Swap the ids back to their right entries.
 
-In the error path, unmap the head and each mapped fragment from their
-own slots, and clear dma_addr on every slot the failed packet touched.
-In bgmac_dma_tx_ring_free(), choose the unmap function by the SOF flag
-of the descriptor like bgmac_dma_tx_free() does, unmap before freeing,
-and clear both fields.
-
-This was found through code inspection by an LLM while hitting other
-bugs on an Asus RT-N16. It did not hit these ones specifically.
-
-Fixes: 9cde94506eac ("bgmac: implement scatter/gather support")
-Signed-off-by: Rosen Penev <rosenp@gmail.com>
+Fixes: 085a4ea93d54 ("clk: meson: g12a: add peripheral clock controller")
+Signed-off-by: Ronald Claveau <linux-kernel-dev@aliel.fr>
 ---
- v3: clarify how this was found
- v2: merge two patches into one
- drivers/net/ethernet/broadcom/bgmac.c | 41 ++++++++++++++++-----------
- 1 file changed, 24 insertions(+), 17 deletions(-)
+ drivers/clk/meson/g12a.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/net/ethernet/broadcom/bgmac.c b/drivers/net/ethernet/broadcom/bgmac.c
-index e66856337d33..55d126c7d35c 100644
---- a/drivers/net/ethernet/broadcom/bgmac.c
-+++ b/drivers/net/ethernet/broadcom/bgmac.c
-@@ -205,19 +205,24 @@ static netdev_tx_t bgmac_dma_tx_add(struct bgmac *bgmac,
- 	return NETDEV_TX_OK;
- 
- err_dma:
--	dma_unmap_single(dma_dev, slot->dma_addr, skb_headlen(skb),
--			 DMA_TO_DEVICE);
-+	slot->dma_addr = 0;
- 
- 	while (i-- > 0) {
--		int index = (ring->end + i) % BGMAC_TX_RING_SLOTS;
--		struct bgmac_slot_info *slot = &ring->slots[index];
--		u32 ctl1 = le32_to_cpu(ring->cpu_base[index].ctl1);
--		int len = ctl1 & BGMAC_DESC_CTL1_LEN;
--
--		dma_unmap_page(dma_dev, slot->dma_addr, len, DMA_TO_DEVICE);
-+		index = (ring->end + 1 + i) % BGMAC_TX_RING_SLOTS;
-+		slot = &ring->slots[index];
-+		dma_unmap_page(dma_dev, slot->dma_addr,
-+			       skb_frag_size(&skb_shinfo(skb)->frags[i]),
-+			       DMA_TO_DEVICE);
-+		slot->dma_addr = 0;
- 	}
- 
-+	slot = &ring->slots[ring->end % BGMAC_TX_RING_SLOTS];
-+	dma_unmap_single(dma_dev, slot->dma_addr, skb_headlen(skb),
-+			 DMA_TO_DEVICE);
-+
- err_dma_head:
-+	slot->dma_addr = 0;
-+
- 	netdev_err(bgmac->net_dev, "Mapping error of skb on ring 0x%X\n",
- 		   ring->mmio_base);
- 
-@@ -535,17 +540,19 @@ static void bgmac_dma_tx_ring_free(struct bgmac *bgmac,
- 		unsigned int len = ctl1 & BGMAC_DESC_CTL1_LEN;
- 
- 		slot = &ring->slots[i];
--		dev_kfree_skb(slot->skb);
- 
--		if (!slot->dma_addr)
--			continue;
-+		if (slot->dma_addr) {
-+			if (le32_to_cpu(dma_desc[i].ctl0) & BGMAC_DESC_CTL0_SOF)
-+				dma_unmap_single(dma_dev, slot->dma_addr,
-+						 len, DMA_TO_DEVICE);
-+			else
-+				dma_unmap_page(dma_dev, slot->dma_addr,
-+					       len, DMA_TO_DEVICE);
-+			slot->dma_addr = 0;
-+		}
- 
--		if (slot->skb)
--			dma_unmap_single(dma_dev, slot->dma_addr,
--					 len, DMA_TO_DEVICE);
--		else
--			dma_unmap_page(dma_dev, slot->dma_addr,
--				       len, DMA_TO_DEVICE);
-+		dev_kfree_skb(slot->skb);
-+		slot->skb = NULL;
- 	}
- }
- 
+diff --git a/drivers/clk/meson/g12a.c b/drivers/clk/meson/g12a.c
+index 4ec5f15daf98..07105b2089c3 100644
+--- a/drivers/clk/meson/g12a.c
++++ b/drivers/clk/meson/g12a.c
+@@ -4622,9 +4622,9 @@ static struct clk_hw *g12a_hw_clks[] = {
+ 	[CLKID_HDMI_PLL_OD]		= &g12a_hdmi_pll_od.hw,
+ 	[CLKID_HDMI_PLL_OD2]		= &g12a_hdmi_pll_od2.hw,
+ 	[CLKID_HDMI_PLL]		= &g12a_hdmi_pll.hw,
+-	[CLKID_VID_PLL]			= &g12a_vid_pll_div.hw,
++	[CLKID_VID_PLL]			= &g12a_vid_pll.hw,
+ 	[CLKID_VID_PLL_SEL]		= &g12a_vid_pll_sel.hw,
+-	[CLKID_VID_PLL_DIV]		= &g12a_vid_pll.hw,
++	[CLKID_VID_PLL_DIV]		= &g12a_vid_pll_div.hw,
+ 	[CLKID_VCLK_SEL]		= &g12a_vclk_sel.hw,
+ 	[CLKID_VCLK2_SEL]		= &g12a_vclk2_sel.hw,
+ 	[CLKID_VCLK_INPUT]		= &g12a_vclk_input.hw,
+
 -- 
-2.56.0
+2.43.0
+
 
