@@ -1,159 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.74.69
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.54
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792627382;
-	b=rZeAOXG4Xv/nZqhg9MK8gSSqRGNUoV8bOtDuT7mSAKgbf7Yw1aOwHEb+FR2Kwjknd8R1
-	 igfjbYkFWGLAtTi+uwzrqwiJJcw56sbo/rWdMHpheaUdLbZMijUGM+sfB70GNBeDEJcD2
-	 sPekCanDVo6+sfrffnlk/aPZl7j/r6WfyBvFy/6CzFnCKduCwTH/oydFA2zJapW9RNjIY
-	 AA9t119scoHxSbprJPQhjMMTPwS8CWIUOTlPK7AUSm7RcO+HnCsjeK+Gqg7sAvHtQTyvA
-	 e3L5wyhT9UxuU03D7+JzprI/mEQ10GNy1/mwzhWRQanG1xFf9Z4BKi9nM3MoGoUHx4w==
+	t=1792627493;
+	b=zNzZJkqLdRCCEFH1Z7vMfLgv+BUrCT3s5BdKKKLg1TVevj7kbS6XVTphogJtF5/VjXV7
+	 hl0zKgKOuKNPNfYmQQfby1GIIzeSW9BlbS9BcpPLi3z2nSTKIQaz1ABeosQZSRmOhpHxr
+	 meQQgKQULlijxXCEDwoCtsg7+pVF62UvOTCPP3HmpHyS3xUZem9iSyZjnccCe6YUD14l8
+	 VEv1inOva6FHSljKdZgXjXNk3wXwl8cBIx8UdAusKm477u6iV4ZP5ds1z46Zv541rmY0f
+	 OajJ2N19hVGX7X+AFtvoyDrecj1LqkDh7OxPpc8g58BspVHb2o53Iy8hMDTnShqs6wg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792627382;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Subject:
-	 Thread-Topic:Thread-Index:Date:Message-ID:References:In-Reply-To:
-	 Accept-Language:Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
-	 msip_labels:x-ms-publictraffictype:x-ms-traffictypediagnostic:
-	 x-ms-office365-filtering-correlation-id:x-ms-exchange-senderadcheck:
-	 x-ms-exchange-antispam-relay:x-microsoft-antispam:
-	 x-microsoft-antispam-message-info:x-forefront-antispam-report:
-	 x-ms-exchange-antispam-messagedata-chunkcount:
-	 x-ms-exchange-antispam-messagedata-0:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version:
-	 X-Exchange-RoutingPolicyChecked:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-originalarrivaltime:
-	 X-MS-Exchange-CrossTenant-fromentityheader:
-	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
-	 X-MS-Exchange-CrossTenant-userprincipalname:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=9g6rAe9GK0V2QiCXnpc6S1VQQTjxunJpgH7CdIdx/PM=;
-	b=JKugOVY+f9eJAbOjsVyBgmahh9+5Df+HLqj+dTfJo1fJ/v6P2nr1wfeYQUlsa3Vt9jEL
-	 lkw02UDAMtaEG1uCUEaOQmtQm1rBISib4g2ePpRflaU4yHvApKyziCerX/di5WinXXsGS
-	 efUAJeUvpUegtzPKtdH0KHPdQEyKS8aTAQuFuMqgcn7RsAvjNV5maKNOOygLbnOQv5TVL
-	 2S26VzCd0V8cSPDY/zc1srJlYO7XVSaDZDJMfxKlbhF1XA4LpeTgLjrl3PoSeldqvXZDT
-	 BBqDLph7WU0/rZlEPAtteTZaSUjMlUvu6Wb6y2PrEILUXhQJWh7t9XssB6Ui7QlQgbw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792627493;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=voL3QXhcF0nQ+Bl+k+0kNlvS+kVkqIaUYWi4xHN4x/I=;
+	b=ONnNO7uMWNlM5epZW5R+mI8+xl9sw04Gjf54nsZrPMxDfz4VyAVk1qehcRcNPJ4gofJJ
+	 rIqG+Taqk7L3gKxzTNYhNvoHardzK1inhkPHEDHQjRS35piAilaR5HjPlghRJ5oMgcHJG
+	 vkNH76JB1OmzBDiLtaIiuEI2vvU8brGvaG6IznF/6SExFJtQsKUK/qlRStZg3obda4WLE
+	 fCOW0iTOtDJ54ig5dlFWJuhlNMUJ98znMFvgt8iWMNR5YeVeUG26tYNCYJer7ATPaTH1V
+	 rOlM7kwkZrI/TyWdpy6yilN+l7ufqL+RzYw3xbfcqZTWgY9VVz/HGhHVJDd4mu9o59Q==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=fujitsu.com;
-	spf=pass smtp.mailfrom=fujitsu.com;
-	dkim=pass header.d=fujitsu.com header.i=@fujitsu.com header.a=rsa-sha256 header.s=selector1 header.b=CX13nnCG;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.74.69
-Received: from OS0P286CU010.outbound.protection.outlook.com (mail-japanwestazon11011069.outbound.protection.outlook.com [40.107.74.69])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b="r5/dMExZ";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.54
+Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com [209.85.218.54])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57117606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 00:03:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 57117606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fujitsu.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fujitsu.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A142A606A319
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 00:04:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A142A606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=fujitsu.com header.i=@fujitsu.com header.a=rsa-sha256 header.s=selector1 header.b=CX13nnCG
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=FL88RY/Q6JIoZNtnYjBwJN3qV56+0NCKf9U6uSjR9tyXUYR7HasX0bnkBq5fLyx12j6YPEbGcTBKC8CwLHkJI5BE1Kl3GAu0UaGLyuYoO3xdgHcN9iul5ivmS106Ak1MDUW/9WKuX7XjsjR1v2rQVEeK85ET1tceCCjAE5buxMN3Zb0pFHwGd2Yowzia6eU0Btl6Hc7CY9ESK971Lgh1EJEUrjFOtVEryWwrcttKw7VN23N2mXSukvCc3sKM6gitvFSYCYtaC6h2y1YH7tZW/5gCb4QDDPJpqctDxP3YBsbCBTuZLmEHS6WdhQ7xH0qCxYC+OpKVyhQpfdptwwivhg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9g6rAe9GK0V2QiCXnpc6S1VQQTjxunJpgH7CdIdx/PM=;
- b=cqjr5sdQOEdbEArVgXFVKlx8g18C/aZth0ysbiNcidhkxcOZAaDdhzyxwSvW4tXamGayY+6X/H22qW251dggEKoBcUIOEkXTOq1YXv4uU4C+BqYI8LllRY7r+ft5uLf4BQC+e3k53bIFzT1+t3QjWo3Wkly0o2IFszDftsaxC+llBM5xYlBF/OugpnPPQGZEVdF3Prbojk/XGz2tfyAteRdnOgSN/cQV2oW8TpqLB34jJDE+njmZP8FuQNHedhJBwXJeODmVJ96hQCyI4rPuBr67zj7V89wQ7E0KG7gIQvg9VHOPSlybTqZ4aK0xXcWWI+0uL9eC6hW/7MIgJwoMqw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=fujitsu.com; dmarc=pass action=none header.from=fujitsu.com;
- dkim=pass header.d=fujitsu.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fujitsu.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9g6rAe9GK0V2QiCXnpc6S1VQQTjxunJpgH7CdIdx/PM=;
- b=CX13nnCGq7J7l6n/DuRTrPNdu8zkBTqD7LIYCa2AzEb5F/zQc0qs0wGHojOmAAvlhI7U2yunIg7JgaQ62Be9+JtgN6R0RWPVrbnp1CXvttatkeHnLoeg19WA4x2ftHeaynF033SINRjaIP39hfdpFjYcKszDo2SaHqGKZriFZw2eACdHkRrSlADIQOXsw6s1q+qhWuzBlBoDWpO109pr3OYiC0HMur+1GUUs6gfrO6BVrj/qBft4w3/zzpjAI20GW4viNdnkz2wFI+Dr86FF0rsTChKvLII0bF1KUhBkyBLW5HgGjIHPn5uAxx+/0qDnSPCMpj3TGItlqhHnYZ976w==
-Received: from TY4PR01MB16930.jpnprd01.prod.outlook.com
- (2603:1096:405:338::19) by OS3PR01MB9446.jpnprd01.prod.outlook.com
- (2603:1096:604:1cf::7) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Thu, 22 Oct
- 2026 00:02:58 +0000
-Received: from TY4PR01MB16930.jpnprd01.prod.outlook.com
- ([fe80::38bc:7870:6f23:a957]) by TY4PR01MB16930.jpnprd01.prod.outlook.com
- ([fe80::38bc:7870:6f23:a957%4]) with mapi id 15.21.0546.012; Thu, 22 Oct 2026
- 00:02:58 +0000
-From: "Shaopeng Tan (Fujitsu)" <tan.shaopeng@fujitsu.com>
-To: "Jinjie Ruan <ruanjinjie@huawei.com>" <ruanjinjie@huawei.com>,
-	"tony.luck@intel.com" <tony.luck@intel.com>, "reinette.chatre@intel.com"
-	<reinette.chatre@intel.com>, "Dave.Martin@arm.com" <Dave.Martin@arm.com>,
-	"james.morse@arm.com" <james.morse@arm.com>, "babu.moger@amd.com"
-	<babu.moger@amd.com>, "tglx@kernel.org" <tglx@kernel.org>, "mingo@redhat.com"
-	<mingo@redhat.com>, "bp@alien8.de" <bp@alien8.de>,
-	"dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>, "hpa@zytor.com"
-	<hpa@zytor.com>, "ben.horgan@arm.com" <ben.horgan@arm.com>,
-	"fenghuay@nvidia.com" <fenghuay@nvidia.com>, "x86@kernel.org"
-	<x86@kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v9 0/9] arm_mpam: Introduce Narrow-PARTID feature
-Thread-Topic: [PATCH v9 0/9] arm_mpam: Introduce Narrow-PARTID feature
-Thread-Index: AQHdYaoTFl99kBy38EazIQLq1qR3Q7cIq2QC
-Date: Thu, 22 Oct 2026 00:02:58 +0000
-Message-ID:
- <TY4PR01MB16930CE9AD3B1D0AF7BEE6C208B662@TY4PR01MB16930.jpnprd01.prod.outlook.com>
-References: <20261012082337.822258-1-ruanjinjie@huawei.com>
-In-Reply-To: <20261012082337.822258-1-ruanjinjie@huawei.com>
-Accept-Language: ja-JP, en-US
-Content-Language: ja-JP
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-msip_labels:
- MSIP_Label_a7295cc1-d279-42ac-ab4d-3b0f4fece050_Enabled=True;MSIP_Label_a7295cc1-d279-42ac-ab4d-3b0f4fece050_SiteId=a19f121d-81e1-4858-a9d8-736e267fd4c7;MSIP_Label_a7295cc1-d279-42ac-ab4d-3b0f4fece050_SetDate=2026-10-22T00:02:31.126Z;MSIP_Label_a7295cc1-d279-42ac-ab4d-3b0f4fece050_Name=FUJITSU-RESTRICTED;MSIP_Label_a7295cc1-d279-42ac-ab4d-3b0f4fece050_ContentBits=1;MSIP_Label_a7295cc1-d279-42ac-ab4d-3b0f4fece050_Method=Standard;
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=fujitsu.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: TY4PR01MB16930:EE_|OS3PR01MB9446:EE_
-x-ms-office365-filtering-correlation-id: 2be1f11b-8e3c-4385-2314-08df2fcfd4c1
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|7416014|23010399003|376014|1800799024|366016|261009223027099003|10067099003|56012099006|3023799007|261021121427099003|6133799003|1580799027|22082099003|18002099003|261021123027099003|38070700021|11063799006|921020;
-x-microsoft-antispam-message-info:
- /GYTvUvtMcOxSW+zkhgjx4lJxKKn/VRrrLOf2lcWQJgYAJG1jGpGiqSXamuwgv1d4gSNf5FbQNpu+q64bDm3l2nATFW4x7y8TjGcIMKRxnzhWAEehWY9edC8HxOLGoDuSYHL7wMhliNINyoj3BVmmDDKMyuMeYmkzcxKgUi6Q0rbKr1G80sPtGBQvEXU2qtX4cYi1lX45m03paO41z6X6wHDeTctRS7K97JvICmrilvJKRgr/fAu6Ut0JCfprWR0sFacksSq9rFJEA74LXKunbbheIVJTrbG4V1iwwhv+3ZL9k7LCuJHNnPD+7zeOg8wSwAz8Ql9xa6WRGkE3mNmN2TJ4DAcyEcXtPVc7+Dp3hXPB27jOS3ci5LiQMFZR88E3MWq14bmeqdWMg9Ex/9pvXWXPLrRJiVpxvpR21dY7AZZC8Fkb7SA2iCaksH7Ce5OHTTIfZ63PA/xfnJEudn+ibSNJPu9LoVI4tBiGch8z0O6ydZUDspaBZJJ+/pt4AZgYI9o0gB3HcKPTRrXS2lZttwEEZwS9M86Vpfq4ZRuYeEAR34KkHrqgzSL04WcB+UvjWsdjScJapgNWHsfR9s/W5sBbd9Q5i0PTTivlpOCS5Rod7HS21Sx7Bk76KwMwCUscWRQiGplwMC1G0JagEAX0kLahu1TnMZ6UhDqt6itizyd3PSLhQ7yIOwY5+8AmGUQpi2VgjsZtw8qh2fTFEocyQ==
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:ja;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY4PR01MB16930.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(23010399003)(376014)(1800799024)(366016)(261009223027099003)(10067099003)(56012099006)(3023799007)(261021121427099003)(6133799003)(1580799027)(22082099003)(18002099003)(261021123027099003)(38070700021)(11063799006)(921020);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?d1QvVHVSdEFRSXJFMFFLTEFKd3JvR3NSSFpHOEIzNWxaL3VHMmVSUnBqeEVp?=
- =?utf-8?B?S3dUZVhsbFlMZVZrR2ZXSlFoWjZocHBMTnNvVHJxK1VSYm15YjdocnVQcEJN?=
- =?utf-8?B?b3hTWGdOK2p0Z1BhM0UxMHNQRm5IL2NuYnJJQXlJVGNZS29FWWhyQW1vNnhn?=
- =?utf-8?B?UG5Ec0tjU25zaEpURFRobFoxTUx0SitzcXJlZWJrSUFIeDB5VXFPeE9FNmox?=
- =?utf-8?B?NVg4SzBONTM4TGVESUVZVkFlQmlwU0pXTTVWVDlabkQrNGp6Ni83YjZQcnIz?=
- =?utf-8?B?dzNwSmZtK1UvSnBTZGhQaXU1MUd0VnpOQVBGV3NvRWZmdGY5RFc2dkN5b0pX?=
- =?utf-8?B?cVp4UE1BaTYzQTJ2RWVuL1hWRVhuWXE2SjFESFpsU2JycjZzYk8zd3d0RTFI?=
- =?utf-8?B?RjVsOW1WdlNUY1RWN3IwS2o2U2JZL3hGUUJEUWdlczNGOUxuL0VMbkhMSTVw?=
- =?utf-8?B?Q1FGems3WElFaHk0Uzk0RnlBWm1MR1FwS0lMUUVLUnpGQ1lLNkMzdGNEUUkv?=
- =?utf-8?B?RnM1YmtHNi9GTUdDdVl1bGJuVUU5dHk1KzBJZkJpNTFFLzczbjhlZkVyNXd1?=
- =?utf-8?B?Zlh5VjdYL3lpRDlYMGFLNXRCOTZ6ZE5tNWlseDA1cXBoRE1vK1hWZ2doaFRV?=
- =?utf-8?B?WjVxbU1GTERpUFhZR2ZtVlZjUjFqNW5lcHFpQXJPeWNhYzFTWjgvSVZTSTEr?=
- =?utf-8?B?RENyckNnVnVjcTJoSnN0TlZrajJ2SmNTMXhTdzhXTFhKL2hFcE1jTzkyVkJH?=
- =?utf-8?B?dnh4LzhMSE9yU3U5NjhoNDdCeEZoUkZpS1hPbWFtYUhuUC9hMC8wUEJ4M0lK?=
- =?utf-8?B?TVJqb1lzRDlOVk5UOGxpTDRFbktJMENQa2kyc21pcml5UWZETTB5aWp2OGNy?=
- =?utf-8?B?Q0ZKZExFUFZYa3pFaXVqYTZSQkM2SXpTYy9QaFZPNGFZaitkR09xZWwyTDFR?=
- =?utf-8?B?S3QxOEpZd1ZxUEZhOWY4NXB6dGtoSUZOWkJNUk1KVldkZ3JGN09ySmx2VFhC?=
- =?utf-8?B?M1pxQzEyL2ZEemx4Um9FSUovdVl1dElHL0R2Y1R4Wnh1M0JXa3hQcU4xSzFs?=
- =?utf-8?B?djVENkxSYzIzd0wrS20wRXVwcEwvVGxEMmhJMDZRVUVMUHNqeVJwL3J2VkZa?=
- =?utf-8?B?cjVDRXFUamlZb2krOWVRMDVLTUduVUt5TjAwQmNhUnIxVkNOL2huWWg5R254?=
- =?utf-8?B?alBRUnlURVY2NU9LVUxaaHhDTXpSQ0d3TVAxR0xaYjJuZnVvNUE5YzBXbTJE?=
- =?utf-8?B?aFo4Nm9SRjE3T05sTzJFZjRzRFcvSWJ6QzRNL2ZEa2ozZ04zYXdIaVdURlNE?=
- =?utf-8?B?MXVZekRsYmRnVERWb3p0T2ZOeHk3OUxXc2pKOCtQZkNJSThkRnNRU1RwcEJO?=
- =?utf-8?B?YXlISXR6T0J0UStSSlBkYkdXdnk2Z1ZqN3ZTU2RiZ243RERSMFRhTWJjSFF5?=
- =?utf-8?B?L1krN095MGYxMXo5RTBQZTBCV1pxOWoxSmo4RER5RHUzZldIRERrNU5SOU5j?=
- =?utf-8?B?Uk01WWZxN002QlZUaGZPaHZzOTltZ2RUYzQyK1NXWTlPK0x4azRvZU5EZVg5?=
- =?utf-8?B?RGh3dUxLbDJxTkxmRENCeURpbnRlMFpab2h5VVowTzVCNWNNLzFhbEtrTSts?=
- =?utf-8?B?STVJWDNLUXBLUTVzeUMvazQ3WnBVd2tCZyt3VktlR240Ri9SdGJLWVZVRE1j?=
- =?utf-8?B?bFZaTVYxdzFKNEU3TDdRa2kxdEovMEE5UTNoUDUvb1FUczdoSkliaWlTbk9i?=
- =?utf-8?B?MjJjTFFhcS84QldVWmFiY0c0NFpXaEdvam52MVhQMlkvVnV5eENmby9YWlQr?=
- =?utf-8?B?YzFMWW9OWlFWVzNZR290RkpUUCtneEU1by9jSmFrc3MzWkJ3U3BIc29BYStE?=
- =?utf-8?B?RVE5RmlGNFZjN3QyOHVhK1RGc05iVXQxSWR0MDFvYU05OFdFK1pwRldjZmhS?=
- =?utf-8?B?d1d5NzdSOWF0S0RKVTlBY1BYbWJ5S2NXK0drdEFjV2k5dVdlRXEvSVlYU2Zr?=
- =?utf-8?B?QS93OEQvZFpncFR6TnB3R1hZalBuUWdqN3d5NmRuU0V4VGFkNlRDMTNKZHZ3?=
- =?utf-8?B?T2IxNjludjFvNHI1dTRYTFM4c252V0FQS0NXb2xyNUExM3k4Q2gvSFlkYkZP?=
- =?utf-8?B?cEFmUXNseUhLcDRRWGM0T1lLQVZUNjB4c2cxNHk1Z2ozMjhDVWN5cVUxendt?=
- =?utf-8?B?cHlWZUVPZzJncjVjQjM1RHlpbmE5Mkh3SFRtbVBIZzlUT0E0Z2xMVFNENVFU?=
- =?utf-8?B?TkxwejBuc1hoYnV5SlU0aWZIR0hXd1JST20yaXZzV2k4Tjh5ZkwrNlpwOFZT?=
- =?utf-8?B?NDJDSEdSbXZ1VnVlOXdNblhJOENVc1ZURjVEWGZkYkprd1RLd2pRUT09?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=r5/dMExZ
+Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-c4203bbb1e9so182001266b.3
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 17:04:52 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792627491; cv=none;
+        d=google.com; s=arc-20260327;
+        b=EfZWkNXap89uvyM4w600fke30lJBdcoQEp3TaeXzkmE9U5DCE79WIr2+3GLNgIp3hp
+         JG9XK1DCCcOsUrX/yxuZuAmTIv3IClEVwMmZ025+VqO0rKVxzzAqelEPJd8sg9f6LRMq
+         GX0SNjRehxEzsXYL+HuLF+yjatgPLECId/+aNtrBu8FHgCrs5Y056HDYRhjmdPPZ8RjJ
+         mSgxXJh5pdqyTONYrEX59cJDmVSjTR/wfZ+QGPfgs32s/G6MD6EozDjZyZgHIzWCE0+S
+         vO7FAjJmYfXpodZdnBA3utw7xGpDKpuXJMLD3bbw+JBEvWngz7rkk0oA5ZcDVTZMjMoP
+         3ieg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=voL3QXhcF0nQ+Bl+k+0kNlvS+kVkqIaUYWi4xHN4x/I=;
+        fh=9hhA0BDqcjjIMp94bcOVmvx2qxbF8cWx0bgGHFrEJzI=;
+        b=Blt6kJuqD+liZLA+Dn3mxgTEcEQzWKcqqzH9z5f/xrjQ7f9lzTdWEa7NTlKJx4xiKz
+         tMkEMVYWJX+dBBzzGiLxiQz4ASkjaOFhfllx4uaLnW2FJJEA+dwJZ6q7fEV61QpOxbN/
+         Uix65ywkD3EiceWi39ZINfyzehfY89zNfthfmihkB2urOZJf07qWWJ/gpBN3KVDSMpVE
+         i3wgOwvHGZjhRDfYrbh+ksy37LEy6+DOMt3J4oXGT2VIMZuBCRsIGZrICRz+rWBqKt5b
+         g/TStLMg0VrGF2GAveu6yP/Zf2T9+7JDY3wHoyrOgUP2eIgWwWFNpVn96hL1rH0K8Cr+
+         8MnQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1792627491; x=1793232291; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=voL3QXhcF0nQ+Bl+k+0kNlvS+kVkqIaUYWi4xHN4x/I=;
+        b=r5/dMExZdsegqnBx5TcXIXcJN16gpTNCq61leyTUEjj2L+N/FE7G4H1kjXO80VsYSd
+         3/XLoco5RmxHIp/OuhsTeNGUs8ckcsfub1kOql6DRJZk5t8OgA1OGSncr6uS8XWyhhFD
+         ArA/0cZ8yOZ/3Q866oKH9xs4yBxacU/ZQw5p2zKvzQkoz81IFRKjrCwzeOdJPZ3CtvPp
+         b6VcXyX+cq/Sv4RXtSo4qANAEQddQqsMd3+RbK1G0nLzOfPBFB5Yrw4pDtWo3ihigWVO
+         uLuoQzyj6ePqhVDcTYB7N5o2M6EqFSof7pibTqpgQUZ2Ocb8e66lLa7Vp2u9Hd/ajh/s
+         AL6Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792627491; x=1793232291;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=voL3QXhcF0nQ+Bl+k+0kNlvS+kVkqIaUYWi4xHN4x/I=;
+        b=qWenw6UNsEMo6WzHkAVtJ5R91DqrZUe1Ve3oWRYADXrnZDXJ+w2hd/ka/zhiu+HHT9
+         82v4Llrt+TQWG8IJnCMzaDQIbr40WekTrAVC4nRJMZ63OAA3+osXZ5gtTZj/tNe8RkLj
+         R1xucq1BX7InCyKsr2+cpEJ6Y//31RiychueXgO77uYw6fLy1mzA4WOlHDONEGAfyv7g
+         aYFuIZI8ZZst0qO9yyI3rRr5cuoPJwVRfhy26ECexRBYzee1ivNSP8rgGHoXYyNSyd4C
+         I6NGagFcVOQd3lFuk3YPElasrzqGL/xtPMJ9hTw1+bgTpi2O51UuMeOO77iJ6FzmSnmF
+         7BDQ==
+X-Forwarded-Encrypted: i=1; AKwUvBx+aMc99LE8I/2qhwCxBuIrVNs3lC/7bpQ6H2sacrgHFCMhrTKDeVadtEIKwyVYNbsiuSTmAur8nS8lITc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJNnleJ1HA6MHNwU58wOM8c4uHfI6NnoSBDBJB86js79B3TTpXy
+	zrQEVRATx5L+UBHgHLDWiFR1ClepkLkhkTp/gbNoR35knaWGxlA9oa/XgY8UMiplmN+a+cgzbJK
+	X1MwA6i9RlR8JWmY1gSkJwm+tIBo6X+kQSeoY+Jn4
+X-Gm-Gg: AYBFou3JlZUVITcAGUyGyE6pFLQZiBoSkqW/aOcMMCZF7OeATwwqxmPtOE6JHwf0Jsr
+	wk3bDpO9vlXGQpXdUTYfr30rcd4jrmEa2z5IwRAGvuX76DRX4gQsCGwFWhijAcYq5JO9snuI9Gf
+	Bfb2IRZ6zmuG12MjzrA12VbkeUEwMP2Ewl/bEMW9oo+JRF2Oatfj8ID3ZcMYgqqBrJiKPSEpDJh
+	Gp/xYYFihpG6V/szUD9SXBoAbCj7giSqBCnLePax3imDYKPuUnzWp+uRhp6ZaiYTxow04daKAv+
+	2GHEpyZYfZ31hhs+2JdgY943SDWY8jLX9tgk6w3gewJrCpKNeM5qdPYgGoX+6Gc2usmujduqNTF
+	4lv+dGSbEL5L06ae/G67hmIhc8vzU3kXyYo6sQA==
+X-Received: by 2002:a17:907:86a7:b0:c34:cf13:a930 with SMTP id
+ a640c23a62f3a-c4679689896mr324348966b.34.1792627490183; Wed, 21 Oct 2026
+ 17:04:50 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -163,103 +104,122 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked:
-	w/Q7c+UwpgpRyZBLBNixUDw+Mv2lDZUmrpHo9xYDc89Xi5UHrQYcSfQV1vdWGIvHiXUppJhgqAce8pRBD+tMg3YytxVzHVtA5JrYnxs1a7rjIywmEfzKRJPjlT+MZtNvnRMsks8SkvNU8Rt9/KoITLZoBlySZwaWRe8+gA1+BdpFL7OLcgx7KQngmPP+6w3x68q3fvhmrQQjBM3R07WGZEJ0Wm8bIOaeLWIJNxCpSlqynUg1n5r5D52WISNTsGwabX60PAheK/PxvQ8X9JSsYoaOoUmiK6PEOTNFmBDl8W6gy+kSYqF4+csbmg4s6OldwAvpr7pZAiOEtCwNnf1i2g==
-X-OriginatorOrg: fujitsu.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TY4PR01MB16930.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2be1f11b-8e3c-4385-2314-08df2fcfd4c1
-X-MS-Exchange-CrossTenant-originalarrivaltime: 22 Oct 2026 00:02:58.3879
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: a19f121d-81e1-4858-a9d8-736e267fd4c7
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: sa3AEqH0Ldcb89t75y7gkL7zu5wwck3Av6GUMO7nQPAiytSXLOeY6RXKHiETLpdP0binKG0zbOS8Z+RpYsgLm5wJGm+bn8r4GInh/S3eN6w=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: OS3PR01MB9446
+References: <20261021152527.375070-1-tarunsahu@google.com> <20261021152527.375070-4-tarunsahu@google.com>
+ <atlQ_Er0Ig7CCSxv@google.com>
+In-Reply-To: <atlQ_Er0Ig7CCSxv@google.com>
+From: David Matlack <dmatlack@google.com>
+Date: Wed, 21 Oct 2026 17:04:22 -0700
+X-Gm-Features: AclHuK9LuxkFhyY58-PllQ_xn35qEFAv5-F2hDjCZHaof6GARbd972qVOi8lSVA
+Message-ID: <CALzav=f00C4yOAseNunW8GgQTDUGWT927Qy=TLm-3-J0TEDH8Q@mail.gmail.com>
+Subject: Re: [RFC PATCH v2 3/4] liveupdate: Replace compatibility string with
+ a 2-bit pair feature header
+To: Tarun Sahu <tarunsahu@google.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, joro@8bytes.org, 
+	Mike Rapoport <rppt@kernel.org>, Pratyush Yadav <pratyush@kernel.org>, maz@kernel.org, arnd@arndb.de, 
+	jgg@nvidia.com, robin.murphy@arm.com, loganodell@google.com, 
+	oupton@kernel.org, kevin.tian@intel.com, alex@shazbot.org, 
+	dwmw2@infradead.org, pbonzini@redhat.com, seanjc@google.com, will@kernel.org, 
+	Pasha Tatashin <pasha.tatashin@soleen.com>, Alexander Graf <graf@amazon.com>, 
+	Bjorn Helgaas <bhelgaas@google.com>, baolu.lu@linux.intel.com, 
+	linux-arm-kernel@lists.infradead.org, linux-arch@vger.kernel.org, 
+	sagis@google.com, linux-mm@kvack.org, kvmarm@lists.linux.dev, 
+	iommu@lists.linux.dev, linux-pci@vger.kernel.org, kexec@lists.infradead.org, 
+	skhawaja@google.com, kvm@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-SGVsbG8gSmluamllLAoKSSB3b3VsZCBsaWtlIHRvIGNvbmZpcm0gdGhlIGZvbGxvd2luZyBwb2lu
-dHMuCgogLSBJcyB0aGUgbnVtYmVyIG9mIHJlcVBBUlRJRHMgcGVyIGludFBBUlRJRCBkZXBlbmRl
-bnQgb24gdGhlIHRvdGFsIG51bWJlciBvZiBpbnRQQVJUSURzIGFuZCByZXFQQVJUSURzPwogLSBH
-aXZlbiB0aGF0IHJlcXVpcmVtZW50cyBmb3IgdGhlIG51bWJlciBvZiBjb250cm9sIGFuZCBtb25p
-dG9yaW5nIGdyb3VwcyB2YXJ5IGJ5IHVzZXIsIAogICB3b3VsZCBkeW5hbWljIGNvbmZpZ3VyYXRp
-b24gb2YgdGhlIG1hcHBpbmcgcmF0aW8gYmV0d2VlbiBpbnRQQVJUSUQgYW5kIHJlcVBBUlRJRCBi
-ZSBhIG1vcmUgc3VpdGFibGUgYXBwcm9hY2g/CiAtIFJlZ2FyZGluZyB0aGUgbWFwcGluZyBsb2dp
-Yywgc29tZSByZXFQQVJUSURzIG1heSByZW1haW4gdW51c2VkLiBJcyB0aGlzIHRoZSBleHBlY3Rl
-ZCBiZWhhdmlvcj8KIC0gQ29uc2lkZXJpbmcgdGhhdCBBcm0gaGFzIHByZXZpb3VzbHkgaW1wbGVt
-ZW50ZWQgdGhpcywKICAgYXJlIHRoZXJlIGFueSBnYXBzIGJldHdlZW4gdGhlaXIgaW1wbGVtZW50
-YXRpb24gYW5kIEh1YXdlaeKAmXMgcmVxdWlyZW1lbnRzPwogICBodHRwczovL2xvcmUua2VybmVs
-Lm9yZy9saW51eC1hcm0ta2VybmVsLzIwMjQxMjEyMTU0MDAwLjMzMDQ2Ny0xLURhdmUuTWFydGlu
-QGFybS5jb20vCgpCZXN0IHJlZ2FyZHMsClNoYW9wZW5nIFRBTgoKCj4gQmFja2dyb3VuZAo+ID09
-PT09PT09PT0KPiAKPiBJbiBBUk0gTVBBTSwgYSBtb25pdG9yaW5nIGdyb3VwIGlzIGRlZmluZWQg
-YnkgYSAoUEFSVElELCBQTUcpIHBhaXIuCj4gSG93ZXZlciwgbWFueSBwcm9kdWN0aW9uIHBsYXRm
-b3JtcyBpbXBsZW1lbnQgb25seSBhIHNpbmdsZSBQTUcgYml0LAo+IGxpbWl0aW5nIHRoZSB0b3Rh
-bCBudW1iZXIgb2YgbW9uaXRvcmluZyBncm91cHMgbG9uZyBiZWZvcmUgdGhlIHJlcXVlc3QKPiBQ
-QVJUSUQgc3BhY2UgaXMgZXhoYXVzdGVkLgo+IAo+IEhhcmR3YXJlIE1lY2hhbmlzbQo+ID09PT09
-PT09PT09PT09PT09PT0KPiAKPiBQbGF0Zm9ybXMgd2l0aCAiUEFSVElEIG5hcnJvd2luZyIgbWl0
-aWdhdGUgdGhpcyBieSBtYXBwaW5nIG11bHRpcGxlCj4gcmVxdWVzdCBQQVJUSURzIG9udG8gYSBz
-aW5nbGUgaW50ZXJuYWwgUEFSVElELiBUaGUgaW50ZXJuYWwgUEFSVElECj4gZGljdGF0ZXMgdGhl
-IGNvbnRyb2wgZ3JvdXAgY29uZmlndXJhdGlvbiwgd2hpbGUgZWFjaCBpbmRpdmlkdWFsIHJlcXVl
-c3QKPiBQQVJUSUQgZnVuY3Rpb25zIGFzIGFuIGluZGVwZW5kZW50IG1vbml0b3JpbmcgZ3JvdXAu
-IFRoaXMgZGVjb3VwbGVzCj4gY29udHJvbCBhbmQgbW9uaXRvcmluZyBhbGxvY2F0aW9uLCBhbGxv
-d2luZyBtb3JlIG1vbml0b3JpbmcgZ3JvdXBzCj4gdGhhbiB0aGUgUE1HIGNvbnN0cmFpbnQgbm9y
-bWFsbHkgcGVybWl0cy4KPiAKPiBTb2Z0d2FyZSBTdHJhdGVneQo+ID09PT09PT09PT09PT09PT09
-PQo+IAo+IFVzaW5nIHJlcXVlc3QgUEFSVElEcyBiZXlvbmQgdGhlIGludGVybmFsIHJhbmdlIGlz
-IG9ubHkgc2FmZSB3aGVuIG5vIE1QQU0KPiBjbGFzcyBsb3NlcyBhIG5vbi1hbGlhc2luZyBjb250
-cm9sLiBXaGlsZSBhbGlhc2luZyBjb250cm9scyAoZS5nLiwgY2FjaGUKPiBwb3J0aW9uIGJpdG1h
-cHMpIGNhbiBiZSBzYWZlbHkgcmVwbGljYXRlZCBhY3Jvc3MgcmVxdWVzdCBQQVJUSURzLAo+IG5v
-bi1hbGlhc2luZyBjb250cm9scyAoZS5nLiwgY2FjaGUgY2FwYWNpdHkpIGFyZSBhZGRpdGl2ZSBh
-bmQgY2Fubm90Lgo+IAo+IFRvIGVuc3VyZSBzYWZldHksIHRoaXMgc2VyaWVzIGltcGxlbWVudHMg
-YSBjb21wbGV0ZWx5IHN0YXRpYyBncm91cGluZwo+IHBvbGljeSBldmFsdWF0ZWQgb25jZSBiZWZv
-cmUgcmVzY3RybF9pbml0KCkuIElmIGFueSBjbGFzcyBjb250YWlucwo+IG5vbi1hbGlhc2luZyBj
-b250cm9scyB3aXRob3V0IG5hcnJvd2luZyBjYXBhYmlsaXRpZXMsIHRoZSBleHBhbnNpb24KPiBp
-cyBieXBhc3NlZC4gVGhpcyBpbmZyYXN0cnVjdHVyZSByZW1haW5zIGNvbXBsZXRlbHkgdHJhbnNw
-YXJlbnQKPiB0byB1c2VyLXNwYWNlLgo+IAo+IFBhdGNoIEFyY2hpdGVjdHVyZQo+ID09PT09PT09
-PT09PT09PT09PT09Cj4gCj4gLSBQYXRjaGVzIDEtNDogQnVnZml4IGFuZCBwcmVwYXJhdG9yeSBy
-ZXdvcmsuCj4gCj4gLSBQYXRjaCA1OiBUcmFjayBib3RoIGludGVybmFsIGFuZCByZXF1ZXN0IFBB
-UlRJRCBsaW1pdHMgcGVyIGNsYXNzLgo+IAo+IC0gUGF0Y2hlcyA2LTc6IEltcGxlbWVudCBkcml2
-ZXItc2lkZSBtb2R1bG8gaW50ZXJsZWF2aW5nIGZvciByZXF1ZXN0Cj4gwqAgUEFSVElEcyBhbmQg
-ZmxhdCBnbG9iYWwgUk1JRCBpbmRleGluZy4KPiAKPiAtIFBhdGNoZXMgOC05OiBJZGVudGlmeSBu
-b24tYWxpYXNpbmcgY29udHJvbHMsIGFuZCBlbmFibGUgdGhlIG5hcnJvd2luZwo+IMKgIGV4cGFu
-c2lvbiBieSBsaWZ0aW5nIGRyaXZlci1zaWRlIHBhcnRpZF9tYXggY2xhbXBpbmcgYW5kIGZyZWVp
-bmcKPiDCoCB0aGUgZXh0cmEgcmVxdWVzdCBQQVJUSURzIGZvciByZXNjdHJsLgo+IAo+IENoYW5n
-ZXMgc2luY2UgdjgKPiAtIFJlcGxhY2VkIGR5bmFtaWMgYWxsb2NhdGlvbiB3aXRoIHB1cmUgc3Rh
-dGljIGdyb3VwaW5nIGFzIHJlcXVlc3RlZCBieSBKYW1lcy4KPiAtIFJlbW92ZWQgdGhlICdtcGFt
-LmludHBhcnRpZF9tYXgnIGJvb3QgcGFyYW1ldGVyOyBleHBhbnNpb24gaXMgbm93IGF1dG9tYXRp
-Yy4KPiAtIEV4dGVuZGVkIHNhZmV0eSB2ZXJpZmljYXRpb24gdG8gYWxsIGNsYXNzZXMsIHByZXNl
-cnZpbmcKPiDCoCBmb3J3YXJkLWNvbXBhdGliaWxpdHkgZm9yIHVua25vd24gY2xhc3NlcyB0aGF0
-IG1pZ2h0IGdhaW4gcmVzY3RybAo+IMKgIHNjaGVtYXMgbGF0ZXIuCj4gLSBEZWNvdXBsZWQgdGhl
-IGRyaXZlciBpbmZyYXN0cnVjdHVyZSBwYXRjaCBmcm9tIHRoZSByZXNjdHJsIGdsdWUgcGF0Y2gu
-Cj4gLSBJbnRyb2R1Y2VkIHJlc2N0cmxfYXJjaF9ybWlkX2lkeF9tYXRjaCgpIHRvIGNsZWFuIHVw
-IHRoZSBSTUlEIGFsbG9jYXRvci4KPiAtIExpbmsgdG8gdjg6IGh0dHBzOi8vbG9yZS5rZXJuZWwu
-b3JnL2FsbC8yMDI2MDQxMzA4NTQwNS4xMTY2NDEyLTEtemVuZ2hlbmc0QGh1YXdlaS5jb20vCj4g
-Cj4gUHJldmlvdXMgVmVyc2lvbnMKPiA9PT09PT09PT09PT09PT09PQo+IAo+IMKgwqDCoCB2Nzog
-aHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcvYWxsLzIwMjYwMzE3MTMyMTQxLjEyNzI1MDYtMS16ZW5n
-aGVuZzRAaHVhd2VpLmNvbS8KPiDCoMKgwqAgdjY6IGh0dHBzOi8vbG9yZS5rZXJuZWwub3JnL2Fs
-bC8yMDI1MDIyMjExMjQ0OC4yNDM4NTg2LTEtemVuZ2hlbmc0QGh1YXdlaS5jb20vCj4gwqDCoMKg
-IHY1OiBodHRwczovL2xvcmUua2VybmVsLm9yZy9hbGwvMjAyNTAyMTcwMzE4NTIuMjAxNDkzOS0x
-LXplbmdoZW5nNEBodWF3ZWkuY29tLwo+IFJGQy12NDogaHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcv
-YWxsLzIwMjUwMTA0MTAxMjI0Ljg3MzkyNi0xLXplbmdoZW5nNEBodWF3ZWkuY29tLwo+IFJGQy12
-MzogaHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcvYWxsLzIwMjQxMjA3MDkyMTM2LjI0ODg0MjYtMS16
-ZW5naGVuZzRAaHVhd2VpLmNvbS8KPiBSRkMtdjI6IGh0dHBzOi8vbG9yZS5rZXJuZWwub3JnL2Fs
-bC8yMDI0MTExOTEzNTEwNC41OTU2MzAtMS16ZW5naGVuZzRAaHVhd2VpLmNvbS8KPiBSRkMtdjE6
-IGh0dHBzOi8vbG9yZS5rZXJuZWwub3JnL2FsbC8yMDI0MTExNDEzNTAzNy45MTg0NzAtMS16ZW5n
-aGVuZzRAaHVhd2VpLmNvbS8KPiAKPiBKaW5qaWUgUnVhbiAoNik6Cj4gwqAgZnMvcmVzY3RybDog
-QWRkIHJlc2N0cmxfYXJjaF9ybWlkX2lkeF9tYXRjaCgpIGhlbHBlcgo+IMKgIGFybV9tcGFtOiBy
-ZXNjdHJsOiBBZGQgcmVzY3RybF9jbG9zaWRfcm1pZF90b19wYXJ0aWRfcG1nKCkgaGVscGVyCj4g
-wqAgYXJtX21wYW06IEFkZCBhIGhlbHBlciB0byBjaGVjayBhIFBBUlRJRCBpcyBpbiBhIENMT1NJ
-RAo+IMKgIGFybV9tcGFtOiBUcmFjayB0aGUgUEFSVElEIGFuZCBpbnRlcm5hbCBQQVJUSUQgbGlt
-aXRzIHBlciBjbGFzcwo+IMKgIGFybV9tcGFtOiBJZGVudGlmeSB0aGUgbm9uLWFsaWFzaW5nIGNv
-bnRyb2xzCj4gwqAgYXJtX21wYW06IFVzZSB0aGUgcmVxdWVzdCBQQVJUSURzIGJleW9uZCB0aGUg
-aW50ZXJuYWwgcmFuZ2UKPiAKPiBaZW5nIEhlbmcgKDMpOgo+IMKgIGZzL3Jlc2N0cmw6IFVubW91
-bnQgcmVzY3RybCB3aXRoIHRoZSBDRFAgc3RhdGUgaXQgd2FzIG1vdW50ZWQgd2l0aAo+IMKgIGFy
-bV9tcGFtOiBEaXZpZGUgdGhlIFBBUlRJRHMgYmV0d2VlbiB0aGUgY29udHJvbCBncm91cHMKPiDC
-oCBhcm1fbXBhbTogTWFwIHJlc2N0cmwgUk1JRHMgb250byB0aGUgcmVxdWVzdCBQQVJUSURzCj4g
-Cj4gwqBhcmNoL3g4Ni9pbmNsdWRlL2FzbS9yZXNjdHJsLmjCoCB8wqDCoCA2ICsKPiDCoGRyaXZl
-cnMvcmVzY3RybC9tcGFtX2RldmljZXMuY8KgIHwgMTA1ICsrKysrKysrKysrKystLS0KPiDCoGRy
-aXZlcnMvcmVzY3RybC9tcGFtX2ludGVybmFsLmggfMKgIDI0ICsrKysKPiDCoGRyaXZlcnMvcmVz
-Y3RybC9tcGFtX3Jlc2N0cmwuY8KgIHwgMjEzICsrKysrKysrKysrKysrKysrKysrKysrKysrKy0t
-LS0tCj4gwqBmcy9yZXNjdHJsL21vbml0b3IuY8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAgfMKgIDEz
-ICstCj4gwqBmcy9yZXNjdHJsL3JkdGdyb3VwLmPCoMKgwqDCoMKgwqDCoMKgwqDCoCB8wqAgMzgg
-KysrKystCj4gwqBpbmNsdWRlL2xpbnV4L2FybV9tcGFtLmjCoMKgwqDCoMKgwqDCoCB8wqDCoCAx
-ICsKPiDCoDcgZmlsZXMgY2hhbmdlZCwgMzQxIGluc2VydGlvbnMoKyksIDU5IGRlbGV0aW9ucygt
-KQo+IAo+IC0tIAo+IDIuMzQuMQo+IAo=
+On Wed, Oct 21, 2026 at 4:55=E2=80=AFPM David Matlack <dmatlack@google.com>=
+ wrote:
+>
+> On 2026-10-21 03:25 PM, Tarun Sahu wrote:
+> > LUO and its file handlers validate handed-over state with monolithic
+> > compatibility strings ("luo-v5", "memfd-v2"). Any change to a serialize=
+d
+> > structure, even an optional additive one, must bump the string, which
+> > breaks live update between adjacent kernels. Replace the string in
+> > struct luo_ser with a feature header, so that the target kernel can
+> > accept or reject the source kernel state per feature.
+> >
+> > struct luo_feature_hdr is a fixed 128-byte header: the serialized
+> > structure size from the source kernel followed by 15 chained u64 featur=
+e
+> > flags entries. The fixed size keeps payload field offsets identical in
+> > every kernel, regardless of how many flags entries a source kernel uses=
+.
+> >
+> > Each feature has a 2-bit pair (req, active) state (enum luo_feat_state:
+> > LUO_FEAT_DISABLED, LUO_FEAT_OPTIONAL, LUO_FEAT_REQUIRED). A flags entry
+> > holds 31 features, and bits [63:62] =3D 0b11 chain to the next entry (4=
+65
+> > features in total). Each subsystem defines its feature states as a
+> > static const u8 array indexed by its feature enum, which
+> > luo_feature_hdr_init() packs into 64-bit flags entries with
+> > LUO_FEAT_EXT_MASK chain bits. The target kernel validates the header fr=
+om
+> > the source kernel against its own feature array via
+> > luo_feature_hdr_validate() according to the per-feature (req, active)
+> > truth table:
+> >
+> >   Source Target Action
+> >   (1,0)  (x,x)  Reject -EINVAL: invalid source kernel (req without acti=
+ve)
+> >   (x,x)  (1,0)  Reject -EINVAL + WARN_ON_ONCE: invalid target kernel
+> >   (0,0)  (0,0)  Accept: feature absent
+> >   (0,0)  (0,1)  Accept: feature absent
+> >   (0,0)  (1,1)  Reject -EOPNOTSUPP: target kernel requires the feature
+> >   (0,1)  (0,0)  Accept: ignore payload data
+> >   (1,1)  (0,0)  Reject -EOPNOTSUPP: source kernel requires the feature
+> >   (x,1)  (x,1)  Accept: use payload data
+>
+> I think we have different definitions of "required".
+>
+> In the PCI series [1], required and optional flags describe the _data_
+> the previous kernel handed over, not the kernel itself. A required bit
+> means "this preserved state depends on feature X; a kernel that does
+> not understand X must not take it over". An optional bit means "the
+> data for X is here, but you can safely ignore it". The source kernel
+> only sets a bit when the preserved state actually uses the feature.
+>
+> It's up to the FLB/FH retrieve how to handle the scenario where a
+> required bit is set that the target kernel does not understand. For the
+> PCI FLB we panic since failing to adopt the PCI state could lead to
+> memory corruption as preserved devices can be doing DMA.
+>
+> The target kernel never requires anything from the source. If a
+> feature is absent, the target kernel must handle that, e.g. by
+> falling back to default behavior. If it can't, that is a compatibility
+> break and should be handled by the compatible string.
+>
+> In this patch each kernel has a single static feature array that is used
+> both to generate the header and to validate the incoming header.  So if
+> kernel N marks a new feature X as required (so that older kernels reject
+> data they cannot understand), then kernel N will also reject every
+> kernel that does not have X, because of the (0,0) -> (1,1) row in the
+> truth table. That breaks forward updates from N-1 to N, and rollbacks
+> from N to N-1 even when **nothing being preserved uses X**. Therefore,
+> every new required feature becomes a compatible string bump.
+>
+> I would drop the target-side required state entirely and let the source
+> kernel decide which flags to set for each Live Update based on what is
+> _actually_ preserved. Accessing a field added after the original struct
+> then always requires checking its flag.
+>
+> At the end of the day it is up to userspace to never start using a
+> required feature while they can still rollback to a kernel that does not
+> support it. Cloud Providers know how to do this since Live Migration has
+> the same problem. This also means we must be very careful when adding
+> new required features, as they need some way for userspace to explicitly
+> opt-into them. I do _not_ think we should try to have some generic LUO
+> opt-in for required features. That is up to the File Handlers and FLBs,
+> as they have their own uAPI.
+>
+> [1] https://lore.kernel.org/linux-pci/20261013162529.1928093-1-dmatlack@g=
+oogle.com/
+
+Oh and please see the follow-up PCI series to preserve BARs and bridge
+windows for some examples of using optional_flags to extend struct
+pci_ser with additional data without breaking backwards compatibility.
+e.g. https://lore.kernel.org/linux-pci/20261019213054.3157159-5-dmatlack@go=
+ogle.com/
+
+I don't yet have a use-case for a required_flag.
