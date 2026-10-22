@@ -1,111 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.249
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792653568;
-	b=5dD1FVVY5HyppgfL53a7OsPbp/UQtaOsd6G9Tsr3FkomJ2SyVrR5wr3Yw1GmvkcDfY0U
-	 gbCEh4v0tWOVv/WrC45Fx6mQOzdAsaIulxcWjCEX8aF90QWWdZLX34mvZ7fiFN66SNFtz
-	 e7itrlIdyDJpxEOXQQyFV6SldbXJrBCqAClYpNAZMuVemZYci7HwnfOgeLNJAKCp60w2m
-	 RMpKvJYus8krUjrDJoZUPlY3JVk24/JyKdWNWjQxDz6MIQXEgnCjZjsHqHLhpV1QB6sMn
-	 0QPmqSHiiW+Gi7Gie5yQprA0osKK+xTzxU8yNVChTpILXaMLHfxgjPutEZSnWaqQH2A==
+	t=1792653739;
+	b=GLbSVW240C9L77zzEQGys8iMGjG5Y322LTO+aTCh1/jXL4ZoUiaY2VTRNBs1GXnGrKON
+	 DUTgDSLTmUvTH0CCr2TGdcY/tTtD1K8MfDcoYljWgl0ua3pTlYHTNfB7wsROLbPfQQykX
+	 GtwuVqxQt9nGeBTkQMOyO7JOGKTmvF8/5avIo+xb15un1ByHcRlUfGTo6eh+8kcbWGQmN
+	 KaNcj9ZVT7YOypYc7e2sZ2Sa+2qRju/W9sxsJfq1FDdp8vCXPYTDbm1wogBUHCGkrRQ6c
+	 QaUn4zA0sdR5MtxqCnalw6utyyb6kIo0Jj0uPTrPQd6j+2SwajfksXPOfrFIV2qSiOQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792653568;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=Nf3jSk7w1j+okvpezp41LPgG6BghIMDC87ldAfN1ggo=;
-	b=WEmg7DC1/6f3D7VQEtWACvXUcxtk4AQUErSCjOg4GN1HbMzQ0CmQ1ttAynJOxZnIY/P0
-	 Ic3bIDDHC9tAYR8ck6P6k2JAMKVFNLCRXuJ5XlR/0+VBTKGCcWUVniUaRtxyomfxR3OCk
-	 5W+FauMKQT6VQzoskgHdOW63MIOPx0Yf/lOhwoM3eHbi2fm3ZbHofNXU96aH1YmcJCEv8
-	 NsGrIyko08np+KkYIAcjrA5XEJ1raSBn2YlNbM9HsgCapEmpIBh1hqkKKPHFMOGO+HNkC
-	 ghYnkEC2jr9B+SccRSG6jkWy8NRXvlm01eXI893NPK/OE6J94d9kY1UcRucDwxPbf+w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792653739;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Content-Type:Mime-Version:Subject:From:
+	 In-Reply-To:Date:Cc:Content-Transfer-Encoding:Message-Id:References:
+	 To:X-Mailer;
+	bh=jf8P4XWcRz7X5zcfgDmz4Vg0q6xkZPNYQ/rfn5t3fNA=;
+	b=LUfvRDf4muWwK+QJkg9kfdIDtJttidcmwyF87gdiIsDZMH2C/yCK8cXkWxEZPDx0JJyi
+	 apJ9rwj3w3wjwEvqFgNDO7E3O+2OTSY5BeTmcaKUlN8Zvx3BBPk66XvOO25hbi8lfuHSj
+	 9WuT/rTe06zCMI160XmDrseomOol9Pb0j4aONBSBKODoWKhV9ebxZCgDgpkSL0Amohmyz
+	 mNaRuacLXhyf8JRTfdBC9UVFZeAdkjO6HcK4/+FNPsDWLIouPsyM7Nxxp2TlPHUldM0XQ
+	 /ojhlG6I0OLPiGXnrcbZJePVacYldzsTJPMubZDvt/eV54xeZgXELSzLsrlpIV61PiQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=m32+gmS1;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=HFmts7vs;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=ps9IzAoM;
+	arc=none smtp.remote-ip=95.215.58.249
+Received: from mta1.migadu.com (out-249.mta1.migadu.com [95.215.58.249])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A043F606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 07:19:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A043F606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56D09606A31B
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 07:22:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 56D09606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=m32+gmS1;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=HFmts7vs
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69M701EV2714176
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 07:19:26 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	Nf3jSk7w1j+okvpezp41LPgG6BghIMDC87ldAfN1ggo=; b=m32+gmS1Ymgq9JAz
-	909NtzQRlLitABxi+BEbDuyTVdl0Tfme/4QwK7FCvNftCP5Ro+9ZqYZoH5KdhcXe
-	2l0fewiOP9qDBRoBHxPQD9+yeoahvjMqNb0gZghc3DC/t7RxBSwEYemaMi0KmsxP
-	JKuZiMMl2L8o1VlUE9MaQ7nw/HEpUf9FKwnyKPx7lJc8ObyytvsYG/uWQAaYckhY
-	HVVi2rYzJ7hbE3C0ZnliDhzGigHl+qsz7YtfrIw3gJb4skPLHpv1n1dLakzb90e4
-	oIOqlnzo11KIZrSj1XGscGwf0RtpkIUiUJvIeQgVY4a4lWwpi+ggExICml39zqpI
-	bLKhZQ==
-Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com [209.85.160.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hf93bs69u-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 07:19:26 +0000 (GMT)
-Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-53568f05f8bso4192101cf.3
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 00:19:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792653566; x=1793258366; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Nf3jSk7w1j+okvpezp41LPgG6BghIMDC87ldAfN1ggo=;
-        b=HFmts7vsImyCOEdAlE39KgvF+SV7PEbRoMJ+yTcnycpUz2J1Pv7sePCw3AyCZCrERy
-         nbab86v8bW5n56GzG7QjCJ4W/0cKk2fEFvz2sC1PV+SYAnzToXGXwaMq7yUGIuSnhI+T
-         dUXomsHIlGKFJYWnibqmOJEZcTDT70VcJUkRM4kWgxSAG3M9XG47+2X1538BufOCPnaF
-         Iyc1FcVe07Atq0w8FYwzUn/K6h7888fKohoNewKkLWcmni8gmSihl1Ig3yNWvd355dYV
-         VGvmfU/BrZnZY+E2AbKiU6cOnLNomnrfTNDmFJ8nOo/ue5oI+RtZA0YTf8RisZrKqpBS
-         Td1Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792653566; x=1793258366;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Nf3jSk7w1j+okvpezp41LPgG6BghIMDC87ldAfN1ggo=;
-        b=SUBz1BBXfA8VKIHMuB/48FX3J4vc132tojRlBClPL5EtpG6t9VJ0NMDN5CXR3EzXkn
-         q5mLs7qEhISE0id0GJ2B3d9bSk2N75gchj5eh8GaL6s0oni0wfYWKD2CRqZhscoU49xT
-         R0989372NRYWCO6PDNr630Bgbv7Zm6RbnRipfOIPdCRRs0smCXZonBbl4mu07PLqpvSz
-         5Muqqb7yC879Xdebv9E+jfEHYOHCL+XgXvDQxK0z6IngBYp19v++7cgez49K4NBYw5ap
-         19GEzmK3gXRTqA2nENC+qq//jC7+N4znfjBUwEnWzAqqjOtfx0mrB2PT4/LE5istOyNk
-         H39g==
-X-Forwarded-Encrypted: i=1; AKwUvBxMMes9i/9V1f/L/cwG4rZRGh4YBWbYcpid1GJ92Xd1fdEy+cnKOktph0b3vzuHQRZqy5dXPsA8PZ+muIo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJVn3E3RzTgGD9OThqstTMVjh6dYzJH7Sm/SXVB9HPlRLBCJOtg
-	++RapGJjcTpoobHfjIHRximQ5gJGX1P0hW4igiZ5pXE3jI7JAtmUlJlKbBn7x65TbA7rIOlqOtr
-	jCEeHT14zuEZi3nWBhkdGsVuE1Qb8ZLAjEhsbUphEXOKaYHE3rNCQn0JUec6hGtEt8uY=
-X-Gm-Gg: AYBFou1o7DEE5s4POydpG0kFORX98OKDWgGcdvxTiK1/KsU6g2VyB0/C837IKXyC3JM
-	Yapv51w9L++dXh8ztUuacNk3BErdHmCETlQtI5s1NjEutP6sYtWgiB5OEdpuJNTY0RKU/qVrbIf
-	eSCgujseTe8lCwGF0+doRefd7B/ZVuOiM7lOGrQlXhYpsB2z8xHmuyIXsKMqLvdDC+ganjzzV+7
-	0HkstGlHREPpMx5kh7M1wv+347zDmG6QwOW9iKgulqGVsaRfT9mm6xF5hRlD95Uc4sVAerf744x
-	GmiFFc2CFF23E7xW/BuxVkOrTvQYyAwI9YPxBbejU4nrslTnYENrbpGwb+kS+wpTpajwJVq5ZNj
-	EVBk7oyK8ywMm7l97ZXZJcw==
-X-Received: by 2002:ac8:5d15:0:b0:535:496:56ab with SMTP id d75a77b69052e-5369b1c0348mr85871741cf.0.1792653565633;
-        Thu, 22 Oct 2026 00:19:25 -0700 (PDT)
-X-Received: by 2002:ac8:5d15:0:b0:535:496:56ab with SMTP id d75a77b69052e-5369b1c0348mr85871531cf.0.1792653565233;
-        Thu, 22 Oct 2026 00:19:25 -0700 (PDT)
-Received: from [192.168.226.26] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c468a59b91asm76726866b.52.2026.10.22.00.19.22
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 22 Oct 2026 00:19:24 -0700 (PDT)
-Message-ID: <aa6dda5b-419f-425f-a9b5-198a9bf7eac2@oss.qualcomm.com>
-Date: Thu, 22 Oct 2026 09:19:21 +0200
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=ps9IzAoM
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=lzEFVhQM3QVgAV/3EhVwgnWBENJztj7KAzIQybNKK7Y=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792653735; v=1; x=1793258535;
+ b=ps9IzAoMAsRzz2hnOqfn8thFNvBflcznXyMscL7j+LjHDiyXgBNsJcaxr/3bBYMvieOIKJyr
+ UeR8cNGIZlASr5hHSMEs9JEYjOIbGe3f8Qm+q+5n7Skow2+kBtH/wJZB0brIeYzxqdoETe/yQwp
+ Ln7oY7WuLcULUPtwE3O9zOxI=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta10.migadu.com with ESMTPS id f70173cbeb29589e;
+	Thu, 22 Oct 2026 07:22:15 +0000
+X-Mizu-Trace-ID: f70173cbeb29589e
+X-Migadu-Flow: FLOW_OUT
+Content-Type: text/plain;
+	charset=us-ascii
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -114,88 +57,219 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 05/14] drm/msm/a8xx: Add missing a850 ifpc reglist
- entries
-To: Rob Clark <robin.clark@oss.qualcomm.com>, dri-devel@lists.freedesktop.org
-Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
-        Alexander Koskovich <akoskovich@pm.me>,
-        Jie Zhang <jie.zhang@oss.qualcomm.com>,
-        Akhil P Oommen <akhilpo@oss.qualcomm.com>,
-        Bhaskar Reddy Valluru <bvalluru@qti.qualcomm.com>,
-        Sean Paul <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>,
-        Dmitry Baryshkov <lumag@kernel.org>,
-        Abhinav Kumar
- <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        open list <linux-kernel@vger.kernel.org>
-References: <20261021204244.67160-1-robin.clark@oss.qualcomm.com>
- <20261021204244.67160-6-robin.clark@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20261021204244.67160-6-robin.clark@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: CcuPfrD-UAl2DAhIsoGxIa6NTufov-wE
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIyMDAyOCBTYWx0ZWRfX5mlACfCu/Edx
- u4e3XxuePkm6OenQCeWyFsg8qE8nnN6JJ8uFEbK6phHOij1wWHQs7Sf7UwInySgXOI8quZDoB6P
- KrpY0UFI6mOXkYeEcy0/fykxHJ6XpySRHHJQ/Gc8Wg35hLdue3e0eV6kYb7pMkL1pejRkwKnlaM
- Bnjv0FwBQzFzGc3dXOxCZfOUuAubbDrgpnGmcRHnYfetpVcMqh+xxK/Z6GuMRjPwYb+/cGxl6pU
- wH6VsmPPD26mdqlNnEJp75H/ZRu1wYP/ygsDR3D3ReR93SwhZOsdxQDMS2dZ77oEaaedQymbCYt
- 502or4ksCVudp7xw6ZnMDgRWOUqWsso6jCjEmhHJyMLMYiKu3EoD0x5bnn78QP8hZPY8n3//czu
- YOZYskXHNTn8FRNhPcQz0tfeJDWbo9ILrQIQakXAss6NY2aaF6WpVPg8PXY1LJ4e7R4ARyRjPhA
- dDShzbDmBWOOZNwGhjQ==
-X-Authority-Analysis: v=2.4 cv=HJxWhYtv c=1 sm=1 tr=0 ts=6ad9b8fe cx=c_pps
- a=WeENfcodrlLV9YRTxbY/uA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=EUspDBNiAAAA:8 a=ZG9rikoeVC3lgFHVExcA:9 a=QEXdDO2ut3YA:10
- a=kacYvNCVWA4VmyqE58fU:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIyMDAyOCBTYWx0ZWRfX05AWdOPydCkQ
- GrconPKpN7IrZqU2xQYpVliMePZ7qXnfqUJH8Wc2b+D89J4WT5V0L/TON8B/sAWWMRDSVcNUd/3
- TWDvfGbFe9LDNdPOLPMNRrLtNIrLVo0=
-X-Proofpoint-ORIG-GUID: CcuPfrD-UAl2DAhIsoGxIa6NTufov-wE
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-22_03,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 malwarescore=0 phishscore=0 lowpriorityscore=0 suspectscore=0
- clxscore=1015 priorityscore=1501 adultscore=0 impostorscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610220028
-
-On 10/21/26 10:41 PM, Rob Clark wrote:
-> We want to save/restore all of the CP_PROTECT regs across IFPC.
-> 
-> Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
-> ---
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.12\))
+Subject: Re: [PATCH] dax/pmem: fix unaligned compound devmap initialization
+From: Muchun Song <muchun.song@linux.dev>
+In-Reply-To: <jyna5rta.ritesh.list@gmail.com>
+Date: Thu, 22 Oct 2026 15:21:55 +0800
+Cc: Muchun Song <songmuchun@bytedance.com>,
+ Dan Williams <djbw@kernel.org>,
+ Vishal Verma <vishal.l.verma@intel.com>,
+ Dave Jiang <dave.jiang@intel.com>,
+ Alison Schofield <alison.schofield@intel.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Joao Martins <joao.m.martins@oracle.com>,
+ stable@vger.kernel.org,
+ nvdimm@lists.linux.dev,
+ linux-cxl@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <60551F0C-D330-417A-AC8E-30E9BB00EA94@linux.dev>
+References: <20261016054914.2601510-1-songmuchun@bytedance.com>
+ <jyna5rta.ritesh.list@gmail.com>
+To: "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>
+X-Mailer: Apple Mail (2.3901.100.1.1.12)
 
 
->  drivers/gpu/drm/msm/adreno/a8xx_catalog.c | 7 +++++++
->  1 file changed, 7 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/msm/adreno/a8xx_catalog.c b/drivers/gpu/drm/msm/adreno/a8xx_catalog.c
-> index 55a805ab438c..45cd986ad4b5 100644
-> --- a/drivers/gpu/drm/msm/adreno/a8xx_catalog.c
-> +++ b/drivers/gpu/drm/msm/adreno/a8xx_catalog.c
-> @@ -1477,6 +1477,13 @@ static const u32 a850_ifpc_reglist_regs[] = {
->  	REG_A8XX_CP_PROTECT_GLOBAL(53),
->  	REG_A8XX_CP_PROTECT_GLOBAL(54),
->  	REG_A8XX_CP_PROTECT_GLOBAL(55),
-> +	REG_A8XX_CP_PROTECT_GLOBAL(56),
-> +	REG_A8XX_CP_PROTECT_GLOBAL(57),
-> +	REG_A8XX_CP_PROTECT_GLOBAL(58),
-> +	REG_A8XX_CP_PROTECT_GLOBAL(59),
-> +	REG_A8XX_CP_PROTECT_GLOBAL(60),
-> +	REG_A8XX_CP_PROTECT_GLOBAL(61),
-> +	REG_A8XX_CP_PROTECT_GLOBAL(62),
->  	REG_A8XX_CP_PROTECT_GLOBAL(63),
 
-Sounds like we should autogen this part of the list?
+> On Oct 22, 2026, at 11:37, Ritesh Harjani (IBM) =
+<ritesh.list@gmail.com> wrote:
+>=20
+>=20
+> + linuxppc-dev (for awareness, since I also faced the same issue on
+> Power too, although this one is not related to PPC alone)
+>=20
+> Muchun Song <songmuchun@bytedance.com> writes:
+>=20
+>> Static pmem Device DAX namespaces reserve space for namespace =
+metadata
+>> before the user-visible data range, and may also include padding =
+needed
+>> to satisfy the Device DAX alignment. __dax_pmem_probe() adjusts the
+>> dax_region range to start at the data range, but the dev_pagemap =
+range
+>> still starts at the beginning of the namespace.
+>>=20
+>> That is not valid for compound devmap mappings whose memmap is stored =
+in
+>> system RAM. Compound page initialization requires the start PFN to be
+>> naturally aligned to the compound page size, because the head and =
+tail
+>> struct pages are initialized according to that geometry. If the pgmap
+>> starts before the aligned data range, memmap_init_zone_device() can =
+build
+>> compound page metadata from an unaligned PFN.
+>>=20
+>> The resulting struct page layout is inconsistent with the Device DAX
+>> mapping. A later mmap fault can then resolve the user-visible PFN =
+through
+>> invalid compound page metadata and hit a kernel panic while inserting =
+the
+>> DAX folio.
+>>=20
+>> Fix this by advancing the pgmap start to the aligned Device DAX data
+>> range for non-altmap compound mappings. Leave base-page namespaces
+>> unchanged, and leave the altmap path unchanged because
+>> memmap_init_zone_device() already skips the altmap reservation =
+itself.
+>>=20
+>> Fixes: 14606001efb4 ("device-dax: compound devmap support")
+>> Cc: <stable@vger.kernel.org>
+>> Reported-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
+>=20
+> Thanks Muchun for fixing this. With this patch I am no more seeing the
+> following crash (tested on both Power and x86 kvm)
+>=20
+> Feel free to add for this patch.=20
+> Tested-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Thanks for your testing.
 
-Konrad
+>=20
+>=20
+> [    4.675578] page dumped because: =
+VM_BUG_ON_PAGE(!zone_spans_pfn(page_zone(page), pfn))
+> [    4.675613] ------------[ cut here ]------------
+> [    4.675615] kernel BUG at mm/page_alloc.c:373!
+> [    4.675626] Oops: invalid opcode: 0000 [#1] SMP DEBUG_PAGEALLOC PTI
+> [    4.678213] CPU: 1 UID: 0 PID: 1 Comm: swapper/0 Not tainted =
+7.3.0-rc5-xfstests-01065-g45f4c1453cbe #33 PREEMPT(full)
+> [    4.678213] Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), =
+BIOS rel-1.16.3-0-ga6ed6b701f0a-prebuilt.qemu.org 04/01/2014
+> [    4.678213] RIP: =
+0010:__set_pfnblock_flags_mask.constprop.0+0xef/0x110
+> <...>
+> [    4.678213] Call Trace:
+> [    4.678213]  <TASK>
+> [    4.678213]  pageblock_migratetype_init_range.constprop.0+0x50/0x90
+> [    4.678213]  memmap_init_zone_device+0x2fb/0x380
+> [    4.678213]  pagemap_range+0x272/0x590
+> [    4.678213]  memremap_pages+0x125/0x210
+> [    4.678213]  ? lockdep_hardirqs_on+0x7d/0x100
+> [    4.678213]  devm_memremap_pages+0x21/0x70
+> [    4.678213]  dev_dax_probe+0x1db/0x300
+> [    4.678213]  dax_bus_probe+0x6f/0xa0
+> [    4.678213]  call_driver_probe+0x24/0xf0
+> [    4.678213]  really_probe+0xb6/0x310
+> [    4.678213]  ? __pfx___device_attach_driver+0x10/0x10
+> [    4.678213]  __driver_probe_device+0x87/0x190
+> [    4.678213]  ? __pfx___device_attach_driver+0x10/0x10
+> [    4.678213]  driver_probe_device+0x1f/0x90
+> [    4.678213]  __device_attach_driver+0x89/0x130
+> [    4.678213]  bus_for_each_drv+0x86/0xe0
+> [    4.678213]  __device_attach+0xb6/0x1d0
+> [    4.678213]  device_initial_probe+0x40/0x60
+> [    4.678213]  bus_probe_device+0x3d/0xa0
+> [    4.678213]  device_add+0x4f0/0x6c0
+> [    4.678213]  __devm_create_dev_dax+0x18b/0x3f0
+> [    4.678213]  devm_create_dev_dax+0x21/0x40
+> [    4.678213]  __dax_pmem_probe+0x1c3/0x200
+> [    4.678213]  dax_pmem_probe+0xe/0x20
+> [    4.678213]  nvdimm_bus_probe+0x89/0x250
+> [    4.678213]  call_driver_probe+0x24/0xf0
+> [    4.678213]  really_probe+0xb6/0x310
+> [    4.678213]  ? __pfx___driver_attach+0x10/0x10
+> [    4.678213]  __driver_probe_device+0x87/0x190
+> [    4.678213]  ? __pfx___driver_attach+0x10/0x10
+> [    4.678213]  driver_probe_device+0x1f/0x90
+> [    4.678213]  __driver_attach+0xd7/0x200
+> [    4.678213]  bus_for_each_dev+0x79/0xc0
+> [    4.678213]  bus_add_driver+0x127/0x250
+> [    4.678213]  driver_register+0x59/0x100
+> [    4.678213]  ? __pfx_dax_pmem_init+0x10/0x10
+> [    4.678213]  do_one_initcall+0x59/0x3a0
+> [    4.678213]  do_initcalls+0xdd/0x1b0
+> [    4.678213]  kernel_init_freeable+0x16f/0x2b0
+> [    4.678213]  ? __pfx_kernel_init+0x10/0x10
+> [    4.678213]  kernel_init+0x1f/0x1d0
+> [    4.678213]  ret_from_fork+0x244/0x280
+> [    4.678213]  ? __pfx_kernel_init+0x10/0x10
+> [    4.678213]  ret_from_fork_asm+0x1a/0x30
+> [    4.678213]  </TASK>
+>=20
+>=20
+>> Closes: https://lore.kernel.org/r/wlrkqqvg.ritesh.list@gmail.com
+>> Assisted-by: LLM
+>> Signed-off-by: Muchun Song <songmuchun@bytedance.com>
+>> ---
+>> drivers/dax/pmem.c | 7 +++++++
+>> 1 file changed, 7 insertions(+)
+>>=20
+>> diff --git a/drivers/dax/pmem.c b/drivers/dax/pmem.c
+>> index bee93066a849..d3a9b85107b0 100644
+>> --- a/drivers/dax/pmem.c
+>> +++ b/drivers/dax/pmem.c
+>> @@ -51,6 +51,13 @@ static struct dev_dax *__dax_pmem_probe(struct =
+device *dev)
+>> /* adjust the dax_region range to the start of data */
+>> 	range =3D pgmap.range;
+>> 	range.start +=3D offset;
+>> + 	/*
+>> + 	 * When the memmap is stored in RAM, exclude metadata and =
+alignment
+>> + 	 * padding from compound page initialization.  Otherwise, the =
+pgmap
+>> + 	 * may start before the naturally aligned Device DAX data range.
+>> + 	 */
+>> + 	if (!pgmap_altmap(&pgmap) && le32_to_cpu(pfn_sb->align) > =
+PAGE_SIZE)
+>=20
+> BTW, this check "le32_to_cpu(pfn_sb->align) > PAGE_SIZE" - Is that =
+needed here?
+
+Making pgmap.range.start consistently match the Device DAX
+data range initially looked reasonable, but I think the
+align > PAGE_SIZE condition is still needed for backward
+compatibility.
+
+Before commit a3619190d62e ("libnvdimm/pfn: stop padding
+pmem namespaces to section alignment"), a RAM-backed
+namespace calculated dataoff from the 8 KiB info block using
+the namespace's requested alignment. On a system with 4 KiB
+pages and align =3D=3D PAGE_SIZE, this could produce an 8 KiB
+dataoff, which is not subsection-aligned.
+
+Newly created namespaces now use at least subsection
+alignment, but existing superblocks with the older layout
+remain supported. nd_pfn_validate() requires the original
+pgmap boundaries to satisfy memremap_compat_align(), while
+dataoff itself only needs to be page-aligned.
+
+Therefore, unconditionally advancing pgmap.range.start by
+dataoff can make the pgmap start and length subsection-
+unaligned. check_pfn_span() will then reject the range during
+memremap_pages(), causing the Device DAX device to fail
+probing with -EINVAL.
+
+Thanks,
+Muchun
+
+>=20
+> I am trying to understand this better - so that I can add more such
+> testcases internally. For the test I mentioned earlier [1] - even w/o
+> that align check, the test passes.
+>=20
+> [1]: https://lore.kernel.org/r/wlrkqqvg.ritesh.list@gmail.com
+>=20
+> -ritesh
+>=20
+>> + pgmap.range.start =3D range.start;
+>> dax_region =3D alloc_dax_region(dev, region_id, &range,
+>> nd_region->target_node, le32_to_cpu(pfn_sb->align),
+>> IORESOURCE_DAX_STATIC);
+>>=20
+>> base-commit: 0fcb05b72344f40806cbe810de8872f1698bf053
+>> --=20
+>> 2.54.0
+
+
