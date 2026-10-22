@@ -1,98 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.40.44.15
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792700290;
-	b=UdbSO1dyVSxufX3blylXWDwGMXxQML/TWQnD4tsSw8piuMeZQcbGrU1hwN80Lt9kBWHM
-	 Tfc6SLGTm6LTvYIrcy6866Cz0bs5L5mFIUX0bD8l7N+t/G5sXnXvtiLASHJLALvZfSqvm
-	 Ea6ggccbC9Azd/6Q3qy3ySsIla7VJeJ8wO08EHQOYA3SxPG4VmkssbV6YpNEU5y3A9jwn
-	 7l9mZvDpfCcvu0hUGXb5HAGTQgU197hoQx9Ht0w0ouvTd4+plzyJAt7/jkzcaziSJYUwn
-	 XiDpuCqbT2HhSHPtvykUbVh4MX61ACtWYoV8Gx+kIOf2KeMtRUzDOFE7EnxBnz8Wo6g==
+	t=1792700406;
+	b=D3WHoC1Jn7iCvkZzGvRYkWyVSsJr1JErwet/oatfQX3SA9zUAnf74xRM4/gGpOA3fLrI
+	 dWAc+J76wGPakatNcxX6ze2BpmARCu3RHzm2H62qbqq0tUsDJIZQiBj3qG1YG1zEpm6B2
+	 b6vmPaYLnsP0pmS98VXngHZ2eoGtBxEGbFR+gxO/onArXlaaXd8o3l5eDVuH6PDeOiCxI
+	 PKVWjZ4HzmwmotTB5IeUQgSobxLfviz1PfVjhCUVAu3OX7YS/ByhCWjQX/ehvkxS9KqLZ
+	 QY4f4ya87HP8F21FO4YcO6vgwADsxHfzcohARRbewoOxMwTl+W8E7UU8ed57mXURVWQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792700290;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=JiA4JitzQw/4MC5Swl9tbuEHHH6EIhc5VkOsXaDCmnU=;
-	b=3Frhm4tEJW5x8agST6MADHPdwororfNtVUT6Q1aApiYyPtS6ifrQQr+Pa7LPKgbK/5L8
-	 +z68C1GnXtHPZTN4+RoeA0M/9KtTpZ6nC9lzyAzfAuJH1Ejdju8Rp0t+rUqpdYSKjAzBQ
-	 Dk4KPC/qkKH6MaSyIRZwOJp1XHw6E5xPoTrYkc1v1QXuP3pa3FAz16Hlu5bGBp1wkUcMM
-	 DU57eqZKb1K3+ZpWhgtt0ZUH+INp8hWdluYkaR/Z7MoAPrqaCzxGmnqYY+d05xxcbA6Uo
-	 fuOxzM7uWhCWOJzHeeEwarN6tdNCzbOOccklKjO1+X2eryq9SvarEtXwkiVugp0gxsw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792700406;
+	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-Stat-Signature:X-Rspamd-Server:
+	 X-Rspamd-Queue-Id:X-Spam-Status:X-Session-Marker:X-Session-ID:
+	 DKIM-Signature:X-HE-Tag:X-HE-Meta;
+	bh=hDGNj6FkCanQQ2IhMw7Ss/rx89Zl/6+sIi5NgumxwwM=;
+	b=RVN3vXDUp2tDQLvuLDBQLWTkBBTSkDhM8uAq1xZORIYCbd68jxU0Ss6xID13N/58j6n6
+	 RHrwXxJTImUFdDyPRxaHn1jEEbxtfaZpXxLXX9d6QVTAeReIQf9Ys1bZmRifRp28kS/DP
+	 OyqAQ+gPJlm+Qo8uQUZ5XxLq6WlyDBuYFzOOY5fcqcvcKQ3TalegufQo8WQSD2vRsSLfn
+	 +RLoSOIJFvT7t1XwZg9Ufl9312OeFazcl+kuQ47aCd+baops5pdC4255/4XzRDjd0D+Pr
+	 hByFqAErkn5wXi0Jj2SgrpeOWQPsLIaOzA5U99HAGq0kmx2XqK1RePjI0x6Xi/7sN5w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=thinkoid.org;
-	spf=none smtp.mailfrom=thinkoid.org;
-	dkim=pass header.d=thinkoid-org.20251104.gappssmtp.com header.i=@thinkoid-org.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=pO7LUnRQ;
-	arc=none smtp.remote-ip=209.85.219.52
-Received: from mail-qv1-f52.google.com (mail-qv1-f52.google.com [209.85.219.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=goodmis.org;
+	spf=pass smtp.mailfrom=goodmis.org;
+	dkim=pass header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=bnFT8bTU;
+	arc=none smtp.remote-ip=216.40.44.15
+Received: from relay.hostedemail.com (smtprelay0015.hostedemail.com [216.40.44.15])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1430606A31F
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 20:18:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D1430606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=thinkoid.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=thinkoid.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA391606A319;
+	Thu, 22 Oct 2026 20:20:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EA391606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=thinkoid-org.20251104.gappssmtp.com header.i=@thinkoid-org.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=pO7LUnRQ
-Received: by mail-qv1-f52.google.com with SMTP id 6a1803df08f44-91b813ac020so3683516d6.3
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 13:18:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=thinkoid-org.20251104.gappssmtp.com; s=20251104; t=1792700288; x=1793305088; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=JiA4JitzQw/4MC5Swl9tbuEHHH6EIhc5VkOsXaDCmnU=;
-        b=pO7LUnRQ4y0gsifPlHbVeHgo0B2aVNrLqimoypSRAc02oswTWnhI/rV4zy2VmiDoth
-         SqTk3b4Yk4rLKWk3abA/o+rNOFwulUIUZDNgWx17LwKGillB2OXUXsmRqbE6hsDZs7cU
-         r5eg6rijI+acq80iSsBj82bHRToLvuPr/KI1llQyUZNV03MTjxgxnm6gVzLm4fwoTNXw
-         OVSf39/B4FpbstOtrSDH1BemBYs49B0y7TlXXp+oOWNTwUmgcLNStgNBDGh3ehp9yb9I
-         nwWZcimMAT7QdKn5e4P9uiSa/+rGX31to8dCgIOor+DbVIdzMZb4MK4KWMn1sUkvwpfM
-         70+g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792700288; x=1793305088;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=JiA4JitzQw/4MC5Swl9tbuEHHH6EIhc5VkOsXaDCmnU=;
-        b=BUyfXNRN6rX3SwWsCxEuglNFe8DbVhn7SKTe0Ns4A8oU++Lu/qDJKXgjJmddibTGUB
-         RY6++EUr9FPMjm2GkgvrADiw8JUnxutZbFrwnYzbYW98EX3JeKKzYqC3xlZ8x9oqHh7o
-         NYcYYUSDqP6/gaYnYGZ/p1BPYPoDucVRk/bxJZ9cJGgvZNdUVpOY6WLyNbzJAaPNUi+B
-         Snbq+cPYnReNsPKTRknnMvjA/Xx8b86ffQ1w+l+D1oN6lMiRioYJ22Au7igEtRwVLuTW
-         bTNSheDQXfUhatDhtwNI7BgAY8ZbG+79ceSP7qrhnqUi9+fxHhOUClQrgc920UyVKe/o
-         JP1w==
-X-Forwarded-Encrypted: i=1; AKwUvBwYjQO+jEkL42ZbXWSkshCOMZ3xlnG2YbYD5jW16X3OCQ4OuHp7XH4g+79s1AEIO4Gsqy/nekDIZLDPkM8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL3Z06slySeZ0LBWTsg0tSou9pxKju+oa+RUCvbXnbQRBW0Nqol
-	eW4NGF5gDWrpDe01yz9ygjSLg1rfyQSWFLFduDklTXpDBPWl/cA8/xZz4ASpezgdQs4=
-X-Gm-Gg: AYBFou1cZmcO8+J1JEUq86C8dXOoFVEvEsp1NNW0H68yRI66/UCPnbgL6I+940sVzwx
-	EUpQyvO5OMEGSmC8uluXMh9lzSNntgIpACJUxWa7/3Dhs2ueSZAI4mu9Jajkyy45oThWN1wG1P3
-	tjsSttRcK/Pko3De0l7/B8TFW9rmiSA1nZJTSBhKsaiIfwFMnWK2Q3r0sZvxha2n7jmnoagQHvY
-	nqdvnEevRrNW+5iQ5ElflK8S2y0jwX/xqzutfAqChsaql7S3P0XuiWAT20Ft3WhaNbgYLX4uQJ7
-	UV9ocIBCUZmWUBHRNtDnd3HZLxZPRriKks6pNCMYHy1Mj2MkwZV+/nMEW89nP8y7RDQyUafhIaa
-	wUIRmPTaNM+p6Vye4HPQU42tuATRApf/W+unRppdAiFs1ZDshdCKkGsFy3fl8r+ujx4UntteB4k
-	wvORhYthsGSY+IppCpd3ZDnmrXhtHXNxDN+54gyk47/x1Wo/tG9o3sunB+QENKoK2GVYFyo237V
-	bRJF0VoNVlzEV+VecCFRR0guITkpy44a/5o8gbR2lZYWY5nBc7ASg==
-X-Received: by 2002:a05:6214:468b:b0:91b:5d39:e127 with SMTP id 6a1803df08f44-91c12f1f445mr103449156d6.48.1792700287610;
-        Thu, 22 Oct 2026 13:18:07 -0700 (PDT)
-Received: from armok ([2605:a601:9b7d:cc00::8])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91c39507ff0sm1638386d6.4.2026.10.22.13.18.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 13:18:07 -0700 (PDT)
-From: Liviu Nicoara <lnicoara@thinkoid.org>
-To: Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>
-Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	Abel Vesa <abelvesa@kernel.org>,
-	Abel Vesa <abel.vesa@oss.qualcomm.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Aleksandrs Vinarskis <alex@vinarskis.com>,
-	linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2] arm64: dts: qcom: x1e80100-dell-xps13-9345: Add thermal zones
-Date: Thu, 22 Oct 2026 16:18:03 -0400
-Message-ID: <20261022201803.22530-1-lnicoara@thinkoid.org>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (1024-bit key, unprotected) header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=bnFT8bTU
+Received: from omf19.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay04.hostedemail.com (Postfix) with ESMTP id E88ED1A022C;
+	Thu, 22 Oct 2026 20:20:03 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf19.hostedemail.com (Postfix) with ESMTPA id 8C9F520026;
+	Thu, 22 Oct 2026 20:20:01 +0000 (UTC)
+Date: Thu, 22 Oct 2026 16:20:00 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Alejandro Colomar <alx+linux-hardening@kernel.org>
+Cc: Kees Cook <kees@kernel.org>, Bill Wendling <morbo@google.com>, "Matthew
+ Wilcox (Oracle)" <willy@infradead.org>, Andrew Morton
+ <akpm@linux-foundation.org>, Andy Shevchenko
+ <andriy.shevchenko@linux.intel.com>, David Gow <david@davidgow.net>, Petr
+ Mladek <pmladek@suse.com>, Shuvam Pandey <shuvampandey1@gmail.com>,
+ linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org
+Subject: Re: [PATCH v5 06/12] seq_buf: Add seq_buf_strlen()
+Message-ID: <20261022162000.18aa4162@gandalf.local.home>
+In-Reply-To: <atptYsHyS6YGtzPV@debian>
+References: <20261005155653.late.426-kees@kernel.org>
+	<20261005155708.1471260-6-kees@kernel.org>
+	<20261016145928.16eddc9a@gandalf.local.home>
+	<202610221058.C5626C5172@keescook>
+	<atpmAQ932J3_8IvJ@debian>
+	<20261022155726.7f20c4cb@gandalf.local.home>
+	<atptYsHyS6YGtzPV@debian>
+X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,248 +69,34 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Stat-Signature: 55kgt4ahuw3oexctuuywkqa8ouaskjms
+X-Rspamd-Server: rspamout01
+X-Rspamd-Queue-Id: 8C9F520026
+X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
+X-Session-ID: U2FsdGVkX19GOhrAbK0zI6qqraTTrKkUil+PVjA63Fo=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=hDGNj6FkCanQQ2IhMw7Ss/rx89Zl/6+sIi5NgumxwwM=; b=bnFT8bTUxJGzFLINvIbSkb3kfuenXBN7DT3+EARR/UQnruwvhxBsSQ5tTMNHJr8SQyYuTKN1150+E8+IYtx77agdAf8sKjIWdyWw8fZWf0f94iidUDXw12/KllYUF4juDTXguyu7tPO7927fZb/Q9NxlvQwmnHobV8bGvtz1xJ4=
+X-HE-Tag: 1792700401-645610
+X-HE-Meta: U2FsdGVkX1+qUfP3xwYqc/F0G+4fL3WqQ+nGJyPoJDunTH82aA2AQhhfx9qlxkswq+km2n2pUMbZyMU8nWU57EXMBA+LqH71DXs6BAjrsHasmmysykqCpi+D9g7hCJ9F1U/3xX9JeTyqR53VYvAuhSR8NNddqIgyhPuFAvZH1a3InlHqJ/lJlf9LMu7u0OWf/mLJhn2Ko5HfcrROXPM0t9d2AcZnyrCij7vPghIbuLxMta3Qkfo15eu9AnV2Rnk8Fu53O9I5CYznv57cOIN2mNzDEF/ATjp4duPRTVLuLT3uXs7FqUQi5vqkQzVrgdrL19KuUSb7i/KGt4PYQ2r6Ycx6i8sskGNc3G9NGkuhmmWjcZwbXLOx+w==
 
-The XPS 13 9345 has seven board thermistors on the PMK8550 VADC: AMUX1
-to AMUX5 THM and AMUX1 and AMUX2 GPIO, each with a 100k pull-up. The
-ADC configuration in Dell's Windows driver package lists the same seven
-channels as SYS_THERM1 to SYS_THERM7, the two GPIO channels first and
-the five THM channels after them. Name the zones after that list: where
-each thermistor sits on the board is not established, and a name that
-guesses a location misleads whoever reads it next.
+On Thu, 22 Oct 2026 22:11:27 +0200
+Alejandro Colomar <alx+linux-hardening@kernel.org> wrote:
 
-The ACPI tables define seven ADC thermal zones, TZ31 to TZ37. Three of
-them, TZ32 to TZ34, carry passive trips that throttle all CPUs and the
-GPU; the other four sit at 100 C. The tables do not name a zone's
-channel. Taken in SYS_THERM order, TZ32 to TZ34 are SYS_THERM2 to
-SYS_THERM4. Heating the board supports that order at one point: a
-charger on the right USB-C port warms SYS_THERM4 well ahead of every
-other channel.
+> Agree.
+> 
+> But still, a better design would do:
+> 
+> 	static inline void
+> 	seq_buf_set_overflow(struct seq_buf *s)
+> 	{
+> 		s->p = NULL;
+> 	}
+> 
+> This is way more robust, and also easier to understand.  My head is
+> boiling when trying to review this patch set for correctness.  That's
+> not a good sign.
 
-The passive trips follow the thermal mode chosen in the BIOS setup
-(Thermal Management: Optimized, Cool, Quiet or Ultra Performance),
-which the EC reports and which cannot be read without an EC driver.
-Use the values of Optimized, the default: 53.8 C on SYS_THERM2, 62.8 C
-on SYS_THERM3, 61.8 C on SYS_THERM4. The critical trips are the tables'
-114.8 C. The other four channels get report-only zones, as on the CRD,
-and all seven are put in thermal-monitor mode.
+But that loses all data. We still want access to what was written.
 
-Assisted-by: LLM
-Signed-off-by: Liviu Nicoara <lnicoara@thinkoid.org>
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Tested-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
-Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
----
-
-Notes:
-    v2: name the zones SYS_THERM1 to SYS_THERM7 after the ADC configuration
-    instead of guessed board locations, and order them the same way. The
-    "left charger" placement of AMUX2 GPIO did not hold up against a second
-    owner's ten-second measurements, and the SSD one is uncertain:
-    https://lore.kernel.org/all/NCQ5O8k2_GpmJZBjDzgZL67uwdiYmmuSudO9VmdRaFTDq0u7aec6at00VYbzdwwSVvgJnLnGxewwp_TVO9oTjM2pAjP_LoiURf9JCIKXB-w=@vinarskis.com/
-    Channels, trips and cooling maps are unchanged; the v1 tags are kept
-    for what is a rename.
-    
-    Tested on v7.2.6 with the ADC_TM driver (7.3-rc1) and aac6b2ca472e
-    backported: the seven zones read within 0.01 C of their IIO channels.
-    With SYS_THERM2's passive trip moved just above the zone and a
-    single-core load, the crossing throttled all three CPU clusters and the
-    GPU through the ADC_TM threshold interrupt, and the throttle released
-    at the trip less its hysteresis. The v2 rename was built and checked
-    with W=1 dtbs_check on qcom arm64-for-7.4; no warnings.
-
- .../dts/qcom/x1e80100-dell-xps13-9345.dts     | 169 ++++++++++++++++++
- 1 file changed, 169 insertions(+)
-
-diff --git a/arch/arm64/boot/dts/qcom/x1e80100-dell-xps13-9345.dts b/arch/arm64/boot/dts/qcom/x1e80100-dell-xps13-9345.dts
-index f48e6bc35006..bb7d91ed08ba 100644
---- a/arch/arm64/boot/dts/qcom/x1e80100-dell-xps13-9345.dts
-+++ b/arch/arm64/boot/dts/qcom/x1e80100-dell-xps13-9345.dts
-@@ -326,6 +326,145 @@ vreg_wcn_3p3: regulator-wcn-3p3 {
- 		regulator-boot-on;
- 	};
- 
-+	thermal-zones {
-+		sys-therm1-thermal {
-+			thermal-sensors = <&pmk8550_vadc ADC5_GEN3_AMUX1_GPIO_100K_PU(1)>;
-+		};
-+
-+		sys-therm2-thermal {
-+			critical-action = "shutdown";
-+			polling-delay-passive = <1000>;
-+
-+			thermal-sensors = <&pmk8550_vadc ADC5_GEN3_AMUX2_GPIO_100K_PU(1)>;
-+
-+			trips {
-+				sys_therm2_alert0: trip-point0 {
-+					temperature = <53800>;
-+					hysteresis = <1000>;
-+					type = "passive";
-+				};
-+
-+				sys-therm2-critical {
-+					temperature = <114800>;
-+					hysteresis = <1000>;
-+					type = "critical";
-+				};
-+			};
-+
-+			cooling-maps {
-+				map0 {
-+					trip = <&sys_therm2_alert0>;
-+					cooling-device = <&cpu0 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&cpu1 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&cpu2 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&cpu3 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&cpu4 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&cpu5 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&cpu6 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&cpu7 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&cpu8 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&cpu9 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&cpu10 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&cpu11 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&gpu THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
-+				};
-+			};
-+		};
-+
-+		sys-therm3-thermal {
-+			critical-action = "shutdown";
-+			polling-delay-passive = <1000>;
-+
-+			thermal-sensors = <&pmk8550_vadc ADC5_GEN3_AMUX1_THM_100K_PU(1)>;
-+
-+			trips {
-+				sys_therm3_alert0: trip-point0 {
-+					temperature = <62800>;
-+					hysteresis = <1000>;
-+					type = "passive";
-+				};
-+
-+				sys-therm3-critical {
-+					temperature = <114800>;
-+					hysteresis = <1000>;
-+					type = "critical";
-+				};
-+			};
-+
-+			cooling-maps {
-+				map0 {
-+					trip = <&sys_therm3_alert0>;
-+					cooling-device = <&cpu0 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&cpu1 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&cpu2 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&cpu3 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&cpu4 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&cpu5 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&cpu6 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&cpu7 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&cpu8 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&cpu9 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&cpu10 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&cpu11 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&gpu THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
-+				};
-+			};
-+		};
-+
-+		/* Warms with a charger on the right USB-C port */
-+		sys-therm4-thermal {
-+			critical-action = "shutdown";
-+			polling-delay-passive = <1000>;
-+
-+			thermal-sensors = <&pmk8550_vadc ADC5_GEN3_AMUX2_THM_100K_PU(1)>;
-+
-+			trips {
-+				sys_therm4_alert0: trip-point0 {
-+					temperature = <61800>;
-+					hysteresis = <1000>;
-+					type = "passive";
-+				};
-+
-+				sys-therm4-critical {
-+					temperature = <114800>;
-+					hysteresis = <1000>;
-+					type = "critical";
-+				};
-+			};
-+
-+			cooling-maps {
-+				map0 {
-+					trip = <&sys_therm4_alert0>;
-+					cooling-device = <&cpu0 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&cpu1 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&cpu2 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&cpu3 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&cpu4 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&cpu5 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&cpu6 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&cpu7 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&cpu8 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&cpu9 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&cpu10 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&cpu11 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&gpu THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
-+				};
-+			};
-+		};
-+
-+		sys-therm5-thermal {
-+			thermal-sensors = <&pmk8550_vadc ADC5_GEN3_AMUX3_THM_100K_PU(1)>;
-+		};
-+
-+		sys-therm6-thermal {
-+			thermal-sensors = <&pmk8550_vadc ADC5_GEN3_AMUX4_THM_100K_PU(1)>;
-+		};
-+
-+		sys-therm7-thermal {
-+			thermal-sensors = <&pmk8550_vadc ADC5_GEN3_AMUX5_THM_100K_PU(1)>;
-+		};
-+	};
-+
- 	wcn7850-pmu {
- 		compatible = "qcom,wcn7850-pmu";
- 
-@@ -1025,6 +1164,36 @@ rtmr0_1p8_reg_en: rtmr0-1p8-reg-en-state {
- 	};
- };
- 
-+&pmk8550_vadc {
-+	channel@144 {
-+		qcom,adc-tm;
-+	};
-+
-+	channel@145 {
-+		qcom,adc-tm;
-+	};
-+
-+	channel@146 {
-+		qcom,adc-tm;
-+	};
-+
-+	channel@147 {
-+		qcom,adc-tm;
-+	};
-+
-+	channel@148 {
-+		qcom,adc-tm;
-+	};
-+
-+	channel@14a {
-+		qcom,adc-tm;
-+	};
-+
-+	channel@14b {
-+		qcom,adc-tm;
-+	};
-+};
-+
- &qupv3_0 {
- 	status = "okay";
- };
-
-base-commit: d053e38e614fb2e383b298ce8fc308a780d7f209
--- 
-2.56.0
-
+-- Steve
