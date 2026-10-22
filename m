@@ -1,81 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=57.103.74.93
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792706596;
-	b=RRcOaNEBDmsDV4lfR7GkfCaQ92CmKg8Okbp+fDQtNVjDuIvvW1OpuVHUN38OzlZKlfhi
-	 OZzfpj5/4XAB9EOddFSbbPFpd+ATYDukW3gCnfTm+smye0E9NAGPi/5gjIW8fjbMwxnaj
-	 lGTu/ZdUCZR9dWD9+4/4oM83D/uCz+8+MaZmUQqidJBg4j2UvnnO6oEv6AjvM07jF34nb
-	 8sMQk0CWCWQd/ySlVZhe2isdmNJAQ17CxEbDnqmxvoPSnGxxue26o9ppD0PbfVlhwmAGu
-	 8vda3a5jMqcbcHl1sBObTsz5lgKuPn5ispW7VHz6HMzGqwV9zWMUGS2gzbkkIsHM5JQ==
+	t=1792706600;
+	b=ZAT9OnD7ORx2yWD0OQfD1Vd8RBc5x03O54ID/jvmj+p7UbqdyFPKv9Jk+dpehO6Q4GV+
+	 p04nhwmvdZIV5WmcKpQsz5ySuflkFnnRna7dU3AQUhyBj6RDn/1oomPS984B9181s3s/V
+	 Y14JcuswBakQ9GpuOGTRfe4XNKHEYxKOJkIYAn4+joqe5bdwlQWUyqn0h5IqugwxQ34yF
+	 lUh7C6S6yT381voSFj6ZZAZLi86zpyuqyV/6qt20gF0AykIyxGUwCbB60JCJkbBJoPQzj
+	 9vdfEjsPzcP2B9KvjTwkuV2YCmaup3gRrH8deqFg4n5jy64Q0NHUnKtXdNuu6c2iX/w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792706596;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=mwy1/E7qFCLKO+qrr+CV7aqdVMAe+BNUVLDdmHlEewA=;
-	b=qsCOmt2TOsqBf3n6QYnutsbvHfzVBx5jY4xGL/vXnbsWvdknx07B1QNxp4uG3dH/Ai47
-	 Lgb2DTjRg02ux9w3KZWoX+BvedWD9BA6iw7So/Xsrh2q4dD6m8sGTRamxYbXFo6NVWpoU
-	 PNCHvlyb6y7ESJf5FZ1jxAIvVnI1fdQUsGMbbc7ABYbgr4HQN7A0pkdWWhVoE8U18S9Gj
-	 8xsgbo5ZjfTiOuSFTaUdLD6Gck/Myf3iJklS9FonVhV3J4fc6HXjBwwobl1Hpc3IPmsJ3
-	 VHVtcsb9qx7o7B0iqKKfuf4JSJeZ878B3mozMqCjWwPxNERhcV0IY0gXIylUhRxEXGw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792706600;
+	h=DMARC-Filter:Received:X-ICL-RepId:X-ICL-Out-Info:Dkim-Signature:
+	 mail-alias-created-date:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:X-Authority-Info-Out:X-JNJ;
+	bh=bEJNobkf5Bk1Y1QijMpLcalz1sa0H8ECn2Kx1OBOkHs=;
+	b=X7FIlte2KLHMVb33CLlk989BfnUipM3K4wbnlZXP65JPo+dKmiwqc0cmQGsodoOdUGgh
+	 db/cYLFM4LFl2A21aUrb4AXPdSloEeMT8l8SrCk5TOIB0vrV3kwYH9pB79Sd2kLWFHwwz
+	 bVVDZmMhX0aUnFsBgQGtsnNs/Cr12D31lvD4hx+m9T47hT361E29L9hXiTjAmGA/9Cq25
+	 gEul1FCzA39sCozyWVbmBWoTjrfU8bbUtFVqaw70FWURBq7Wzw1Bwt0n3TBLgypS48Xpn
+	 8KLkgSSjGwdZOQvNIGSecRtzO3l2ls9v1AOr8QuAtsFMhDLBS0ffPrc0FKPFbGahWlg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WYdStfuA;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=dxdmail.cc;
+	spf=pass smtp.mailfrom=dxdmail.cc;
+	dkim=pass header.d=dxdmail.cc header.i=@dxdmail.cc header.a=rsa-sha256 header.s=sig1 header.b=kKjRMICN;
+	arc=none smtp.remote-ip=57.103.74.93
+Received: from outbound.ms.icloud.com (ms-2002k-snip4-11.eps.apple.com [57.103.74.93])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43CA9606A319
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 22:03:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3CE6606A319
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 22:03:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D3CE6606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dxdmail.cc
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dxdmail.cc
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WYdStfuA
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED2D71F01828;
-	Thu, 22 Oct 2026 22:03:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792706595;
-	bh=mwy1/E7qFCLKO+qrr+CV7aqdVMAe+BNUVLDdmHlEewA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=WYdStfuAzdas6WBe5uBBKWpJR4w4OwoOyIHE03T6K2D+0UL3VE/1qyXYWTq4oTkJx
-	 tHGHpk91MWgG7keIE2/b73rNOYpnd8Uf6paFe4Bt3qlPm6WKiaxl2HFrTiJ8m5dlu+
-	 EY/AZcR7Jvt4Vj9JtNmyZBRwHD5qF3YsCVWQ1BC+G7WWQYIJBI5o8XaSqLercQuRI7
-	 wL3A8N7H9yqL0rbcRkAa2V8hKRJqgIGk9cTBCw2JvHt2xb/BDHAJDejAFPi4moObXt
-	 wSg/e/kiLgC7joTy4KRUAKz3cF0kN2UKDHSWGJah4gjRaeClYJNyxmHjJu397yXJOJ
-	 +BHErol9aUr2Q==
-From: "Barry Song (Xiaomi)" <baohua@kernel.org>
-To: akpm@linux-foundation.org,
-	linux-mm@kvack.org
-Cc: hui.zhu@linux.dev,
-	axelrasmussen@google.com,
-	baohua@kernel.org,
-	baolin.wang@linux.alibaba.com,
-	david@kernel.org,
-	hannes@cmpxchg.org,
-	linux-kernel@vger.kernel.org,
-	ljs@kernel.org,
-	mhocko@kernel.org,
-	qi.zheng@linux.dev,
-	ryncsn@gmail.com,
-	shakeel.butt@linux.dev,
-	weixugc@google.com,
-	yuanchu@google.com,
-	zhuhui@kylinos.cn,
-	baoquan.he@linux.dev,
-	liuxiang.277@bytedance.com,
-	wangzicheng@honor.com,
-	lianux.mm@gmail.com,
-	kasong@tencent.com,
-	liam@infradead.org,
-	surenb@google.com,
-	mhocko@suse.com,
-	rppt@kernel.org,
-	zhangbo56@xiaomi.com,
-	lyugaofei@xiaomi.com,
-	ridong.chen@linux.dev,
-	kunwu.chan@gmail.com
-Subject: [RFC PATCH v5 12/14] mm/mglru: Avoid prolonged anon reclaim with swappiness=200
-Date: Fri, 23 Oct 2026 06:02:01 +0800
-Message-Id: <20261022220203.91911-13-baohua@kernel.org>
-X-Mailer: git-send-email 2.39.3 (Apple Git-146)
-In-Reply-To: <20261022220203.91911-1-baohua@kernel.org>
-References: <20261022220203.91911-1-baohua@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=dxdmail.cc header.i=@dxdmail.cc header.a=rsa-sha256 header.s=sig1 header.b=kKjRMICN
+Received: from outbound.ms.icloud.com (unknown [127.0.0.2])
+	by p00-icloudmta-asmtp-us-west-3a-60-percent-4 (Postfix) with ESMTPS id 2A28618001B8;
+	Thu, 22 Oct 2026 22:03:16 +0000 (UTC)
+X-ICL-RepId: 01a165a3-d0c6-7cb0-8e38-8e699bfd075f
+X-ICL-Out-Info: HUtFAUMEWwJACUgBTUQeDx5WFlZNRAJCTQFBHV8DXhxCDFYCXwNLVxQEFlIOXx9yFEEcXgxeBxwTWlhVCQoPShRUGVoBGQhRUEsbDlwHS1oVVRcOAkIfUB9MFldDWhgcGVoUXBhTRVEfVFhDGUVWaUELTx1dGVscQmRYVwkKD0oUVBlaARkIUVBUEVdQC1xUEQFPV1QORlBJAUseWQUIAV1bHFBUGl5QQF9JAQgFDwRJCDhXFVMGUxlVVlAOCUtGCUkdDg5CGEYfVCdXAloKWx4=
+Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dxdmail.cc; s=sig1; t=1792706599; x=1824242599; bh=bEJNobkf5Bk1Y1QijMpLcalz1sa0H8ECn2Kx1OBOkHs=; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type:x-icloud-hme; b=kKjRMICN4G2BkS76OjWUaJsn6tWU8WJfG7lUt/ssz5v/nP+t3P+Gx62hQLwVAKlxYnkBUldEldvfsZujEqxOE3cqG/I9rOBznmPcFIaZSiGu7JnB15JqeeadFvyOsNyTxN4ZrP9HfqVxnsexUh1ntlJ6TvTlcZdFV+fp7GHwUQRhgVK7yRqkZ+RHPDKK83E2BDxM0e3C/oEZOSPY39poH+OvjCtST9nxxsmgRvL0tKvDBuuxANOOHSf7ChOp35TfyJ3r6KJdsB9o/TX1U/Vq89b/AM0t8hJLy75bewYlg2F5FqqJStln5IOfEC9D7MjvnxkfOtp58C/RbGddqU19xg==
+mail-alias-created-date: 1790174225171
+Received: from [192.168.178.181] (unknown [17.156.208.39])
+	by p00-icloudmta-asmtp-us-west-3a-60-percent-4 (Postfix) with ESMTPSA id A4F8B18000BC;
+	Thu, 22 Oct 2026 22:03:14 +0000 (UTC)
+Message-ID: <7fa87d99-b983-42c3-bdc9-5b0f12e2d691@dxdmail.cc>
+Date: Fri, 23 Oct 2026 00:03:12 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,72 +56,50 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/2] arm64: dts: qcom: sm8550: Add support for Samsung
+ Galaxy Tab S9 Wi-Fi
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: Abel Vesa <abelvesa@kernel.org>, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261020-gts9wifi-dts-v3-0-afd06fb2d9f9@dxdmail.cc>
+ <20261020-gts9wifi-dts-v3-2-afd06fb2d9f9@dxdmail.cc>
+ <0b829c36-ea7a-472f-85b2-c32ca8121047@oss.qualcomm.com>
+Content-Language: en-US
+From: Nizat Mikayilli <nacht@dxdmail.cc>
+In-Reply-To: <0b829c36-ea7a-472f-85b2-c32ca8121047@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIyMDA4NyBTYWx0ZWRfXze1FQmJVf5g8
+ ee/F8J7J9u4RaJHHN7tbEjERSeNG3GKdJCm0WIuElHMUENOxauNh5YCHRqgnrnRrETMnN/p6AlN
+ i447amj0LWVNw7vV7Ejwkoe/ZuQOeGwBBy9UsxyWjDS5Jzs719xM7IigVhfmWc3njCZUNswiR0C
+ NsB1rqoJUcr5cSEj5YYRd+PScJIBC8yrkcjJ+4PS96QJRRdUlqRxkFL3H0YgOVpTRHcG/dGCBDl
+ h5fOk1K+9rslDuAj5gUYdA9s27SU04WhbyvQWY3NHyQi9SRCBoKqwD14H37D+TkH8wxEwCWI8sp
+ oSH1lDe8HFhCXhJ7DVctGjRLBlz/rSwjbUct1Pp0XJZiVUNmkVKlBSgEMJCaWc=
+X-Proofpoint-GUID: zpZeXfd9GchTtDONKEF566G8d0ltyVzR
+X-Proofpoint-ORIG-GUID: zpZeXfd9GchTtDONKEF566G8d0ltyVzR
+X-Authority-Info-Out: v=2.4 cv=c6SmgB9l c=1 sm=1 tr=0 ts=6ada8826
+ cx=c_apl:c_pps:t_out a=kRaGL2Q7qLiahLf3O6OaIA==:117
+ a=kRaGL2Q7qLiahLf3O6OaIA==:17 a=AqZmfHzJsoaMp3Ki:21 a=IkcTkHD0fZMA:10
+ a=MKtGQD3n3ToA:10 a=1oJP67jkp3AA:10 a=660iZSQnnn4A:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=Yll68VBpUeuroiOh840A:9 a=QEXdDO2ut3YA:10
+X-JNJ: AAAAAAABSM3wAAT10zkvsNXerVJATqfulcBuXVSiysHoDF+IozHXwKMeGvJhxGAREfOznDNjNIIwJ9f3Tt9GWmAbsypgCo/P3XzzMoUtmPIwHU1QoNC9tijIx37ZyUowDCv49e15+0CK/xYvCKJ4czNLKsAqV+KP53JAnCBwiMy84hnDbm6bXqPYo6UG6qcRvZMWCClujvxdqBfIypea4TqF7onNGqQa8hiSrn3alg6sQyWFOu+mdzWJot1LlwHpNv0l0wavIgdphV1GICrdR7qTE2xxKvl1w4tnFGV6AM3OAw91/8eT1jiSVCCVnr4wo0KYkG2YcSXu7S4ktFYxTukDiO+LacuBvw7MdzQxXIZ2QOxJqJ1QjbSvsKhtHULmT+ZQ/XPl1Ai1eKUs1N3m4/jYf8Em65HcaMPjUo8aanMXgES6RfPjDeNlbW1m7Z1iuumLVGwvm+2MVudb4z9OlHpHk6ORuiJdoRabP91t0mITY3/8Cu4gBhgWOaDIH1u/McSxstJV7eB4kJCWZdmPju8T5c7cZ+pX3ggg/B3ZxFgt6URTS9Z8gWd2nrkOXYhHX2HNbbBUNcoVIRwGr2KskFaGrdXpuMdBTvYa1dUtooZ/3lqAFxBD1FwvfCmgu/9XxmRgrH582phZIrguSWelByG76LF/3Mx3sUfZIhSi++v5GtoO+d7jWsV6dIvDjbxBxQHRTtL9bUg4xegmCvja9cMvNl/157fBO0akJarmbxacAnN2GjrNn5QmoZttnNfYsqoN3Fj4J9Onz2XpMzfHdq6RGps10jKH8dX2MFYDKcEStWHlepTx7+BdCEYRWYVK/9opNvm/e3fy+ZlZ3yn/5Y3XOGxR69nR0BCwagdzRYaUo7i/zHAel5XDOyOZimw2WMzEFm69a8yLp0EroYu3DAYQXDw8VPJ3Zc20DZ1osQPTs45kcT5EjaBrshtI58HDjs9NcCBnw3AQ54KlME+0oZ4yZostNuJ
+ m5luxLi+smtYNA+a91xvy/RgSNRTYCuErC9ZpJ/HAIdxMJXHCyKgUbe/bvN2EvHFFkpH0ALTmIRlIaIXVpV2Iqu82nklXhqrPai5JS2zPLWTXB4r0ORnpVx3DfQQP9wmuIRUa0Ql6/Z1X9RWD8hbkvEZvbuDzFEN6xkPmvJoAq+ACXplB/Z2IAob6xoAQAGDiDNnhMxn1zxHXQiRwfr6mAjUSQsUrvTT0IqilVAtGcRUpIhHKWM/14ZE+evLSeMRduNQ8RisYwyQdPTL/rZsuTtQIO48RcbIbUZ3bo1y2D8VHku2nWMQ3AwDm3HJV51VTmkV/JOM+nXs/M9mO78bM1ARfv6kbnebfP2WW3WLVC4/oo0xj31C0W+OeMec=
 
-From: lyugaofei <lyugaofei@xiaomi.com>
+On 10/22/26 11:24 AM, Konrad Dybcio wrote:
+> On 10/20/26 12:42 AM, Nizat Mikayilli via B4 Relay wrote:
+>> +/* This is the Wi-Fi SKU: no modem firmware is shipped. */
+>
+> FWIW at least on older chips, the modem would still be booted to
+> provide e.g. GPS, check if that's not the case for you. You should
+> also boot with memtest=1 and CONFIG_MEMTEST=y
 
-It has been observed that swappiness=200 can significantly slow down
-reclaim on some machines, with some workloads running 3x slower
-under MGLRU than under CLRU.
+You're right, the tablet ships the modem firmware, including a GPS
+service. I kept the modem carveouts in v4. I also booted with
+memtest=1 and it found no errors.
 
-This is because swappiness=200 currently results in file_factor=0.
-Give file reclaim a small factor at lower priorities, for example,
-when sc->priority < DEF_PRIORITY / 2.
-
-Signed-off-by: lyugaofei <lyugaofei@xiaomi.com>
-Co-developed-by: Barry Song (Xiaomi) <baohua@kernel.org>
-Signed-off-by: Barry Song (Xiaomi) <baohua@kernel.org>
----
- mm/vmscan.c | 15 ++++++++++-----
- 1 file changed, 10 insertions(+), 5 deletions(-)
-
-diff --git a/mm/vmscan.c b/mm/vmscan.c
-index 555359cc0368..81e81d69e67e 100644
---- a/mm/vmscan.c
-+++ b/mm/vmscan.c
-@@ -5056,8 +5056,8 @@ static int get_tier_idx(struct lruvec *lruvec, int type)
-  * We don't calculate the scan cost, MGLRU uses lazy promotion, which will
-  * cancel the scan budget natually.
-  */
--static void lru_gen_balance_scan(struct lruvec *lruvec, int swappiness,
--		unsigned long total_scan, unsigned long nr[])
-+static void lru_gen_balance_scan(struct lruvec *lruvec, struct scan_control *sc,
-+		int swappiness, unsigned long total_scan, unsigned long nr[])
- {
- 	struct lru_gen_folio *lrugen = &lruvec->lrugen;
- 	u64 refault_rate[ANON_AND_FILE], anon_factor, file_factor;
-@@ -5114,7 +5114,12 @@ static void lru_gen_balance_scan(struct lruvec *lruvec, int swappiness,
- 	file_weight = nr[LRU_GEN_FILE] + nr[LRU_GEN_ANON] / size_bias;
- 
- 	anon_factor = (u64)swappiness * refault_rate[LRU_GEN_FILE] * anon_weight;
--	file_factor = (u64)(MAX_SWAPPINESS - swappiness) * refault_rate[LRU_GEN_ANON] * file_weight;
-+	if (swappiness == MAX_SWAPPINESS)
-+		file_factor = sc->priority < DEF_PRIORITY / 2 ?
-+			      refault_rate[LRU_GEN_ANON] * file_weight : 0;
-+	else
-+		file_factor = (u64)(MAX_SWAPPINESS - swappiness) *
-+			      refault_rate[LRU_GEN_ANON] * file_weight;
- 
- 	/* Cross-multiply the ratio above. */
- 	anon_scan = mul_u64_u64_div_u64(total_scan, anon_factor, anon_factor + file_factor);
-@@ -5305,7 +5310,7 @@ static void lru_gen_prepare_scan(struct lruvec *lruvec, struct scan_control *sc,
- 
- 	total = apply_proportional_protection(memcg, sc, total);
- 	total >>= sc->priority;
--	lru_gen_balance_scan(lruvec, swappiness, total, nr_to_scan);
-+	lru_gen_balance_scan(lruvec, sc, swappiness, total, nr_to_scan);
- }
- 
- static bool should_abort_scan(struct lruvec *lruvec, struct scan_control *sc)
-@@ -6050,7 +6055,7 @@ static int run_eviction(struct lruvec *lruvec, unsigned long seq, struct scan_co
- 			return 0;
- 
- 		lruvec_evictable_size(lruvec, swappiness, nr_to_scan);
--		lru_gen_balance_scan(lruvec, swappiness,
-+		lru_gen_balance_scan(lruvec, sc, swappiness,
- 				     nr_to_reclaim - sc->nr_reclaimed, nr_to_scan);
- 
- 		if (!evict_folio_lists(nr_to_scan, lruvec, sc, swappiness, MAX_LRU_BATCH))
--- 
-2.34.1
-
+Thanks,
+Nizat
