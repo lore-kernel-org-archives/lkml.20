@@ -1,75 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.3
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792652816;
-	b=ZwrqDb548sWYoPS6mZ5VnD1To+uDQyAfznmX2VhGaAtdvj0fF8N2BOAJ/L5AHPbOWQKM
-	 +HDnqtSEPuWsZqaszQd0bYrKyacAhLQlMy2Eg3BLKjonKLRZ1umsHlGKkqUNu2gJbFnl/
-	 fBIiuaLJhkq8NzTM6D/FfkCidlx6hbn2+zMWtdUBBYhWf5bEvnrE324KSJKRzgVW9HbT7
-	 8fPdx+ijyVqxTiYsP9WPR+8XA/aXdL7zSqjBg6hYuDstYYwiVCB50WF1JtnQhCibqjHgx
-	 UNRzDB6a55hNdPZ8HUQ0AeuKotW3zgbi4u2s/yoll/P4Qykq5MUB3jFrJtyqoXzIKJg==
+	t=1792652855;
+	b=BAvmKqcU8rtqS7g+R2ksKnjhO91TJYJehWHmyE26MggErrxW3d0iKm6ApRQCGlTxhrAf
+	 xHI54pzA+/IoAmZ/20tDOhWhg/bshkLFlCufNPIVTrs4z4KHbHRCjyoa0dzyPoCVtHbpP
+	 r/8s9nqbp2HkYO/30pa0f/bbGL2TjEhT76zUzojRvRt51wF2if8mbBST/2yxMmGXLNm9v
+	 O+LsagnPb6WwqHmGa5BG65bAFFQ8dHGTK2GW6i3sBSoS+P3H4xf8w4xrgvg4Rn2vdoHc0
+	 EVnSfj9bbM5+VhyiwEjJ4CDtWXp/bU5+EnWFzXDoMHZluyZ3ODCxJBBHDbWs2D3Ye4g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792652816;
-	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=IWdxLZaYsDNgDj0jH9McHZgLp8BzW4HZfhXZHG8IFMk=;
-	b=Nus2H1AeTE1V1hgItm4oO5zs8V+Tko7F4AA+p/rWcc0St7TwZzv0zWF3DcyeTponNkIF
-	 J7CmFZekfanLJscOFYVnRJu6XLImWPyENWDYGRZhDWd8Rdj3V82EdOZqUIMlhEGZJbZ1l
-	 9x91aadHiu5SrZSJFIdb1VcNCCrjq1FNejwc1MMx4aCythXxoPPT+qpUGxOcZvoF1GyZR
-	 83cG7h4czipEAnBwoJkBAEH3lrQWoQFBlVpXQEnQopjJFTLeQt65tJsImECfhF4mc2cPM
-	 I+ij3ac6ikhDQUdSEFrlvlxISUJFn+UPCnhWswmz7o2MYNdnTj8T8M7UVvO1qby4FSw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792652855;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=/hgPbR7JXNLGasTI9O0hP9hHRbEsF7yh4gXR1RTna4Q=;
+	b=jE6WZQJgxotoYF7Q/5YqBsWAJtdVNfkcJcR/j7osYfoXTSFIPllIj9gqQK5EtW98yw0y
+	 dBHkeaIOEdZPwZL9SxB3TTDLPJ0Pt9zj0NTnp4aMMxq0u7Gu3Q3DO6a6Y0M8Eno5nadjx
+	 Z4EDiUbrYwctfLY6Ijco6ctAvckTC3hnv4DNFSxVGByMdq7wV4XizI6yHvuOLAfmRz6D1
+	 BGa7yoUkoOV2R0eRdSgk/v+pJ/UIhbEdr/KuTvGK30vQoRq2xB1jcUtPmbImVGRTHDrid
+	 hxPfF3Grn5afFWYqcHHelNwKIPdJ+Okrgl4gH1G8Dxa2aa/Rcxi73bhH8LQODigscfA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linutronix.de;
-	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b="r5Qd/NO7";
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=JWUlppBh;
-	arc=none smtp.remote-ip=193.142.43.55
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=NDQiF0l7;
+	arc=none smtp.remote-ip=117.135.210.3
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E10ED606A319;
-	Thu, 22 Oct 2026 07:06:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E10ED606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E54F4606A319
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 07:07:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E54F4606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=r5Qd/NO7;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=JWUlppBh
-Date: Thu, 22 Oct 2026 09:06:51 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1792652814;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=IWdxLZaYsDNgDj0jH9McHZgLp8BzW4HZfhXZHG8IFMk=;
-	b=r5Qd/NO7hGLpF6A02pgTOem2+YDLGpSj+v/Jnlw9A0C/932bSpXyNUN7e7ZK18lNYOkEoX
-	VMbQhWEh/ZbAETgb4/TXwslE897XqUIHGfhynsf3QGrYltIkQWBhPWWj2o7YJ7t3uftqLj
-	Epz+yRG8IWBmbX1uHkvXj8t5GslIUySrkLI0CK0Fnr+IRTlaucQOkHwnKzzn2gsZFnFDBq
-	A46hq5cxXU5P9EsaWOoQjE8xCPZENb5jM1XdFChrPSOdBBYZmuEek8wRB7IQKe3r+4eOFi
-	2lI85ogcBcdNDjGcX1yKlwcuAM+Ry8D1oxvFjQTUHjHNiwqziQJ0+96RxpaOGQ==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1792652814;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=IWdxLZaYsDNgDj0jH9McHZgLp8BzW4HZfhXZHG8IFMk=;
-	b=JWUlppBhQzdw7tw5wraLqKDZ1rB/HAuHKph9XNc0UPAJHpvwnzI+c7OU6lD97KLvS1Jtwk
-	4ganGunH1Bv9J1Bw==
-From: Thomas =?utf-8?Q?Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>
-To: "Mi, Dapeng" <dapeng1.mi@linux.intel.com>
-Cc: Peter Zijlstra <peterz@infradead.org>, 
-	Magnus Lindholm <linmag7@gmail.com>, Richard Henderson <richard.henderson@linaro.org>, 
-	Matt Turner <mattst88@gmail.com>, Linus Torvalds <torvalds@linux-foundation.org>, 
-	linux-alpha@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] alpha: add simd_enabled argument to perf_reg_validate()
-Message-ID: <20261022090320-7d0ee286-23bf-42c9-9a61-bf9e50c52a6d@linutronix.de>
-References: <20261021-alpha-perf_reg_validate-v1-1-a8e8cc23ea7a@linutronix.de>
- <CA+=Fv5QWoVZqOR1uHTaE20XWBkXoVqbjTE6bF2iDvvJn6j5hfA@mail.gmail.com>
- <20261021134714-fbc85127-2188-4c7b-b472-ed719c520541@linutronix.de>
- <20261021153856.GR2823843@noisy.programming.kicks-ass.net>
- <215dc157-8cbc-4c84-857f-d372c1ce922b@linux.intel.com>
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=NDQiF0l7
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=/h
+	gPbR7JXNLGasTI9O0hP9hHRbEsF7yh4gXR1RTna4Q=; b=NDQiF0l7HdIKQpi8BB
+	d/MlUDt9rULP/rOPWQTjO24WNVkElP1EsLnAOOt4YOHBtSFGp3awwTaY0VFNjemf
+	gBw4wqKD49DWd8XGJcDsgCwE0EB+2LTVrRXJNwS/mZmDOi/qH+ccfwwhaKd1Yszo
+	fion3pe78/6nDfWM4Fg0vVL/Y=
+Received: from localhost (unknown [])
+	by gzsmtp1 (Coremail) with SMTP id PCgvCgBXuHG2tdlqeinZBA--.27934S2;
+	Thu, 22 Oct 2026 15:05:27 +0800 (CST)
+From: Hui Su <sh_def@163.com>
+To: Ingo Molnar <mingo@redhat.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>
+Cc: Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>,
+	Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	Barry Song <baohua@kernel.org>,
+	Chen Yu <yu.c.chen@intel.com>,
+	Yicong Yang <yangyicong@hisilicon.com>,
+	linux-kernel@vger.kernel.org,
+	Hui Su <sh_def@163.com>,
+	Kayra Cizmeci <kayracizmeci@gmail.com>
+Subject: [PATCH v3] sched/topology: Balance cluster static-key updates
+Date: Thu, 22 Oct 2026 16:05:26 +0900
+Message-ID: <20261022070526.728824-1-sh_def@163.com>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,49 +72,85 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <215dc157-8cbc-4c84-857f-d372c1ce922b@linux.intel.com>
+X-CM-TRANSID:PCgvCgBXuHG2tdlqeinZBA--.27934S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxJF4UCrW5uw1xZr4fZr1fZwb_yoW5Ar13pF
+	4vgrW5Xr47tr1DG3y8Cw18ury5Ga97Jw17Gw15Gw1fGF1DZwnYgr1IvF9I9F1jkrWDAr1a
+	vrnFgw1I9a1DAaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0JUYkshUUUUU=
+X-CM-SenderInfo: xvkbvvri6rljoofrz/xtbC6RmsDGrZtbkm9QAA38
 
-On Thu, Oct 22, 2026 at 07:53:22AM +0800, Mi, Dapeng wrote:
-> On 10/21/2026 11:38 PM, Peter Zijlstra wrote:
-> > On Wed, Oct 21, 2026 at 01:49:35PM +0200, Thomas Weißschuh wrote:
-> >> On Wed, Oct 21, 2026 at 12:23:55PM +0200, Magnus Lindholm wrote:
-> >>> On Wed, Oct 21, 2026 at 10:18 AM Thomas Weißschuh
-> >>> <thomas.weissschuh@linutronix.de> wrote:
-> >> (...)
-> >>
-> >>> Thanks for catching this. I reproduced the build failure on current
-> >>> mainline and confirmed your fix with GENERIC SMP and DP264 UP builds.
-> >>> Both also passed perf register validation and sampling tests in QEMU.
-> >>>
-> >>> Reviewed-by: Magnus Lindholm <linmag7@gmail.com>
-> >>> Tested-by: Magnus Lindholm <linmag7@gmail.com>
-> >> Thanks.
-> >>
-> >>> If you have a route for this patch upstream, please go ahead and take it,
-> >>> unless Linus would prefer to pick it up directly.
-> >> I have no route upstream. I hope for Linus to pick it up.
-> >> But if that does not happen, maybe you could send a PR.
-> > I can stick it in tip/perf/urgent if that helps :-) I'm the one merging
-> > the broken patch in the first place I suppose :/
-> >
-> >> How this issue made it past -next would also be interesting to know.
-> > Yeah this; normally I get robots screaming at me for things like this.
-> 
-> It looks the issue is caused by the merging order. When the patch series
-> "Support SIMD/eGPRs/SSP registers sampling for perf" gets queued, the alpha
-> patches which adds alpha specific perf_reg_validate() variant is still not
-> merged, so the robot didn't find this issue. Thanks.
+build_sched_domains() increments sched_cluster_active once per newly
+built partition that contains an SD_CLUSTER domain.
+detach_destroy_domains() instead tested the global static key before
+decrementing it, so destroying a cluster-less partition could drop a
+reference owned by another partition and disable cluster-aware
+scheduling while SD_CLUSTER domains remained installed.
 
-The robot should have tested the post-merge state in -next.
-It turns out that the alpha tree was not part of -next this cycle [0].
-It is being rectified for the next cycle, so everything is fine.
+Check the installed domains before detaching them, only while the key is
+enabled, and decrement only when the removed partition contains an
+SD_CLUSTER domain.
 
-Also thanks to Peter for queuing the fix.
+With two cluster-bearing partitions installed, removing a singleton
+partition left the baseline count at 1 where 2 partitions still
+carried SD_CLUSTER; the fixed kernel correctly reports 2.  On an
+asymmetric cluster topology where the parent partition gains no
+cluster domain, the baseline count drops to 0 while a cluster
+partition remains installed; the fixed kernel keeps it at 1.
 
-[0] https://lore.kernel.org/lkml/20261021185857.GB2608581@ax162/
+Fixes: 8881e1639f1f ("sched/fair: Scan cluster before scanning LLC in wake-up path")
+Cc: stable@vger.kernel.org
+Reviewed-by: K Prateek Nayak <kprateek.nayak@amd.com>
+Reviewed-by: Kayra Cizmeci <kayracizmeci@gmail.com>
+Signed-off-by: Hui Su <sh_def@163.com>
+---
 
+Changes in v3:
+- Combine SD_CLUSTER detection with the existing domain detach loop,
+  avoiding a second CPU mask walk and RCU read-side section.
+  (Tim Chen)
+- Decrement sched_cluster_active after detaching the domains.
+- Add Cc: stable@vger.kernel.org for stable backport consideration.
 
-Thomas
+v2: https://lore.kernel.org/r/20261021043834.1140951-1-sh_def@163.com
+v1: https://lore.kernel.org/r/20261021034314.864713-1-sh_def@163.com
+---
+ kernel/sched/topology.c | 14 ++++++++++----
+ 1 file changed, 10 insertions(+), 4 deletions(-)
+
+diff --git a/kernel/sched/topology.c b/kernel/sched/topology.c
+index 3dab0253976f..3bf28aefac1c 100644
+--- a/kernel/sched/topology.c
++++ b/kernel/sched/topology.c
+@@ -3314,18 +3314,24 @@ int __init sched_init_domains(const struct cpumask *cpu_map)
+ static void detach_destroy_domains(const struct cpumask *cpu_map)
+ {
+ 	unsigned int cpu = cpumask_any(cpu_map);
++	bool has_cluster = false;
+ 	int i;
+ 
+ 	if (rcu_access_pointer(per_cpu(sd_asym_cpucapacity, cpu)))
+ 		static_branch_dec_cpuslocked(&sched_asym_cpucapacity);
+ 
+-	if (static_branch_unlikely(&sched_cluster_active))
+-		static_branch_dec_cpuslocked(&sched_cluster_active);
+-
+ 	rcu_read_lock();
+-	for_each_cpu(i, cpu_map)
++	for_each_cpu(i, cpu_map) {
++		if (!has_cluster && static_branch_unlikely(&sched_cluster_active) &&
++		    lowest_flag_domain(i, SD_CLUSTER))
++			has_cluster = true;
++
+ 		cpu_attach_domain(NULL, &def_root_domain, i);
++	}
+ 	rcu_read_unlock();
++
++	if (has_cluster)
++		static_branch_dec_cpuslocked(&sched_cluster_active);
+ }
+ 
+ /* handle null as "default" */
+-- 
+2.55.0
+
