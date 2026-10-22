@@ -1,47 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792665957;
-	b=ekPEZ+vp8tZCJzG8Z3t3orSvJvMxZ5OusIbm9P3o03AsjknAhZX1kCcij/w6qUGpkg0X
-	 WrNAFrJFqa64jFxYVoRcsvuNuLk918NVFKt9yp+RK7jf+QvuhrqmRLU631cBcpiQLpPIj
-	 1PreRLSbVA5zqg+ifnuOw/QDauGJl6JWPh7aWlptpN7RQrojOEnTE2oVeS/W+1tiL6EZx
-	 oKpKNZdXwHCLAPFulvh1Z5rWkbTcXPvW60Ba7yi13pdVZuLKySQyErWTxq1FwWB85V6KJ
-	 ubiNJRa3WpNlgkWcaFdvrwTTHKm5UOY+2iA8c1Fd1Yx/nOrEWLDTWIVc9GxbQMVlFfw==
+	t=1792666076;
+	b=jaUL5gV36IgYakI5pQGCltoxYaTC6Co9+z+oq+LkXmfyQc6b1OoT5Bk0FINZIL7urzb/
+	 cpnAqKWetxj5wkA/dkDNKI/iIwh52lQVIOPINqSdURW0yLJMbs4Yoq+zotaXndELH3D37
+	 954DlidAeg4TyhUQONQPXZP2ueM2cY1yl4vT0eKjzGQfAsEKbkUmwMrYM+SsBHe3+bKpR
+	 12SpmGIakcvaBYEwe2L+OJTK8VBTwYgYpRsdxlxIyg4CnA3zLDCSQTSTN+lEyipVIFL+G
+	 2AEbVlYoar9ozjkEwRdQhp4IQjJ8Krb3zWMrelCHaY3KalaR2xxrsnIOfux68SGQmgw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792665957;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=mLI4vlEwT6S7YaCRg4HD02ImP+QgcIYMVxuK/6xOYeE=;
-	b=PE6A4loVi2W9QlZAJkZg+wkakiN5Rtza9tS5qH7OCScfaNOw152iqbWraItAvDxjh68g
-	 MoyIxg7RwO7qM0I/qhEsp8dmn5TslJyyiZlaOYvEticna0SYSAeNMbri4IW3JlW87s8yE
-	 obClvMhH7uufnmZKv2jIp1FuLeksckZTAUa3YBPxD+4gn3Np2Fb5svUETQl6KQDqdLqqR
-	 o+5HhRiU1etaG/AWX8aEZmkeMJO+V8vmSwNc8wVYgpg4kSFGvQkiPu72QUawmWDcFR05r
-	 oyyxuI766pJ4t4pYjnglQs+Dd3wTzqWLKjUZUVFuJhMYac3EtlHv0qs5/e8VT0OW14g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792666076;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
+	 Subject:In-Reply-To:References:User-Agent:Date:Message-ID:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Last-TLS-Session-Version;
+	bh=gvdAk8PUxpYgSiS/h7dzJZtjfb09gWIuT4zPW30I1Fc=;
+	b=PYnlnG3Hk132jGRcKHqStjIKLKFgeeiEtnOO+ODKhjoaMiTsbKamJlDBfHvPmgrmJZgX
+	 SJUooPmer0VBT+uwnqnwOCqSHO0y1+VVM88/MFxsEx1frNs2yGPSkoaMCeOu21TJOwElp
+	 5ApeXY/JzExLJI2KsH6Xhm0cEIYarJD7q+TG/C/7E1u7ar8PHavB39jsKdt9ulbvDF9z6
+	 3DqGQoWjkxjjR/0Ea5WDl/i5xP5CVaQ93SkBAHD6lmW9nIRbrsR5FAP1NKaKEbdOFqO80
+	 y6+OcNaVWxTCK3GezCY12Eamv/Bmv8Aqe+UvN5nNOovwqzbytsD00tMNn3EBklwXghA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SHQZhDse;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=QArawM2v;
+	arc=none smtp.remote-ip=185.246.84.56
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34EE7606A319;
-	Thu, 22 Oct 2026 10:45:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4BED606A31A
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 10:47:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E4BED606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SHQZhDse
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 60C7A1F000C1;
-	Thu, 22 Oct 2026 10:45:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792665956;
-	bh=mLI4vlEwT6S7YaCRg4HD02ImP+QgcIYMVxuK/6xOYeE=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=SHQZhDsetPxBZBByiYjZBJ+4gLVGaaWNL9UQtERiAE96Lz/7MAaIGxbylA6E47Mwe
-	 2wIj8sIBBCmjUwmXCfD8JHH5kAkngQH/YLdMpshMWIuOLl2d1aL3ft3vnpC1Xnnjsw
-	 I3xfXOBO+Z7AVBS/MciLaSXjElTa8hirHxAwMQwHH7lWklt8KRQ5tCHP5CgqNpPGQT
-	 HYiFo7TToFCxC7twfnjmRbQW183+qxZykaiy3/PsRuB489FRgUuXUa3F7UQx2ZYf8S
-	 X2beLjCSHBiYbUWFeQR3ruM0YzJ1TG597V0qded7RiXsehzECXW5AaoP4Rk+FOuz+5
-	 MsT7cVVwlQfAQ==
-Message-ID: <4b05475b-443e-49d0-9bfd-d78388246706@kernel.org>
-Date: Thu, 22 Oct 2026 12:45:50 +0200
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=QArawM2v
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 93F141A12C0;
+	Thu, 22 Oct 2026 10:47:53 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 62E1060360;
+	Thu, 22 Oct 2026 10:47:53 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 760F110328D6E;
+	Thu, 22 Oct 2026 12:47:46 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1792666072; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=gvdAk8PUxpYgSiS/h7dzJZtjfb09gWIuT4zPW30I1Fc=;
+	b=QArawM2vEriQuM5fvOOjuZ0qXrN0OQ/7B1ExbBQX5m97I75QAOaVU7998qvsxTolWnLV2+
+	o8UqVfqhjWNLVr18Qglx2xQ9wAVNxW5HZfW1tl7j0ZGb/LZYWAqUAuCs10NvZpSazi2/nu
+	WqAepilraqT8lEyh4IT3vIPoMMlXxJFpKE00yrfn/X7RIj5iyoN4bBFY/tuh0EakFJkEf+
+	N60uf7CWzw97Rm2tn77AYei+UXZCFCMN5ZRy/e3lmt3EhwLujISZ8ltTHzi4nsHe58O7uI
+	vcpnxupji6uCkfMToVU7eIV2EpzB5tWWfXo6Ec1ePLH5giPphlgbSqWHNOi08A==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: Changhuang Liang <changhuang.liang@starfivetech.com>
+Cc: Pratyush Yadav <pratyush@kernel.org>,  Michael Walle
+ <mwalle@kernel.org>,  Takahiro Kuwano <takahiro.kuwano@infineon.com>,
+  Mark Brown <broonie@kernel.org>,  Richard Weinberger <richard@nod.at>,
+  Vignesh Raghavendra <vigneshr@ti.com>,  linux-spi@vger.kernel.org,
+  linux-kernel@vger.kernel.org,  linux-mtd@lists.infradead.org
+Subject: Re: [PATCH v1 4/4] mtd: spi-nor: macronix: Add 1-4-4 DTR read
+ support for MX66L1G45G
+In-Reply-To: <20261022102614.75696-5-changhuang.liang@starfivetech.com>
+	(Changhuang Liang's message of "Thu, 22 Oct 2026 03:26:14 -0700")
+References: <20261022102614.75696-1-changhuang.liang@starfivetech.com>
+	<20261022102614.75696-5-changhuang.liang@starfivetech.com>
+User-Agent: mu4e 1.12.12; emacs 30.2
+Date: Thu, 22 Oct 2026 12:47:45 +0200
+Message-ID: <87tsmeovu6.fsf@bootlin.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,81 +76,41 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/7] arm64: defconfig: Enable RPi touchscreen V2 regulator
- and ILI9881C panel
-To: Vishnu Saini <vishnu.saini@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Florian Fainelli <florian.fainelli@broadcom.com>,
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-rpi-kernel@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, venkata.valluru@oss.qualcomm.com,
- Jessica Zhang <jesszhan0024@gmail.com>
-References: <20261021-shikra_display_overlays-v1-0-adaea735999f@oss.qualcomm.com>
- <20261021-shikra_display_overlays-v1-4-adaea735999f@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20261021-shikra_display_overlays-v1-4-adaea735999f@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Last-TLS-Session-Version: TLSv1.3
 
-On 21/10/2026 16:21, Vishnu Saini wrote:
-> Enable the regulator driver for the Raspberry Pi touchscreen V2 power
-> and backlight controller, and the Ilitek ILI9881C DSI panel driver, as
-> modules, for the Raspberry Pi 7 inch DSI panel on the 22-pin JDISP1 DSI0
-> connector on Qualcomm Shikra EVK, Talos Lyra EVK boards.
+On 22/10/2026 at 03:26:14 -07, Changhuang Liang <changhuang.liang@starfivet=
+ech.com> wrote:
 
-I don't understand - next commit is saying that it is enabling this for
-"Qualcomm Shikra EVK, Talos Lyra EVK boards."
+> The MX66L1G45G supports the 1-4-4 DTR read mode. This flash uses 6
+> dummy cycles by default in 1-4-4 DTR mode, but the kernel's SFDP
+> parser does not derive any SNOR_HWCAPS_READ_1_4_4_DTR capability from
+> the BFPT table, and 4BAIT only filters already-known capabilities.
+> The exact number of dummy cycles is also not directly given in the
+> SFDP tables.
+>
+> Therefore, implement late_init to initialize support for this opcode,
+> configuring the read settings with the default 6 dummy cycles. When a
+> 4BAIT table is present, SFDP parsing has already converted all read
+> opcodes to their 4-byte variants and spi_nor_set_4byte_opcodes() is
+> skipped later on, so select the 4-byte opcode in that case.
+>
+> The part also supports the 4-byte opcode set but its SFDP does not
+> expose a 4BAIT table, so set SPI_NOR_4B_OPCODES like MX66L51235F
+> (0xc2 0x20 0x1a) to let spi_nor_set_4byte_opcodes() pick the 4-byte
+> variants, including 0xEE for 1-4-4 DTR.
+>
+> Add a dedicated fixup for the part (SNOR_ID 0xc2, 0x20, 0x1b) that
+> keeps the existing QPP 4-byte post-SFDP fixup and additionally
+> advertises the 1-4-4 DTR read capability in late_init.
+>
+> Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
 
-so why same work is visible twice?
+Reviewed-by: Miquel Raynal <miquel.raynal@bootlin.com>
 
-Best regards,
-Krzysztof
+Maybe in your v2 you can add (as hinted in the documentation) traces of
+a test run with the SFDP tables, proof that it works in this mode, etc.
+
+Thanks,
+Miqu=C3=A8l
