@@ -1,86 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=84.42.129.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792696128;
-	b=gAzRer2o9KVM4g1EJva8LYbF8nb3swrS8jCISQZgh528O7yT6IeCSz+70krq+pPTM7uB
-	 zuCzaJ8o2e7n1+qrAzDWtY2FDsW7Cudecg7iG4FlXXonNoLuUNurtGJqM0Qd0cHfjOY0u
-	 H38XL0IGNgN9JYc/952KWngEi6NAVeT+tiONXtGN6zRGJ7bxQgstEDzCxCzecMZjV5pvx
-	 DCm2ZZ5gXKaTpSjI92HHcfe0ljVUFic/PWEQyS16fT2VnT/SvSMh7r/bEFevxGOPSbxDY
-	 jqardBHUffGwlJlgOt56iYyqplkZpjR2XsoYKnl5232zoG+IcWi+hifglf+KH7oKmAw==
+	t=1792696159;
+	b=bCxpqc3b6HKdKnsoyowphmMmLod2K114iMc9V1ahIB/GA4AMHOgVnM3gUD2Fqa9kaGaG
+	 1+qP7ZYDVdH/c1Pv1QE1Hmmav1IoxTv1l6bAoc5Cy19r+VxcsnXgvI7KSZTVl71sDyxqm
+	 rR/NAjnx4B0/oD9xciO98XUfiRVB9zpyFRgyxkWYlRyBrcxniaKkUA7K9OUdxPkQllPiz
+	 RhhTjsoRyLF9J6RgsE924XIHz5spZCJxdRNcfs5e0HGFejhqTNGyfGeEXkV8BjtxwgaF6
+	 L93fhwsVIeXGrz1BqYqH+Nz9O8LW1vIFtJwy6cr3WMWYXipIeYbZjkRNJvlElVtA1iw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792696128;
-	h=DMARC-Filter:Received:X-Virus-Scanned:Received:DKIM-Signature:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=d+IRbs3FeqA37fXeROEiKyHno8d9zy8yIxQWW2C+tuY=;
-	b=JmIKmJR8KnyC42JPEbfmLU7Snkmx4rtboSa3rbx4JcWk5Y7iRKO6h2hb/yZMkwNAceCv
-	 /98+11dRCBLrf6jXRDtmG2ZYpsJFtjnF0tmYwyGUZc7TNKi2hQ78wD0pos3C+o1n9ChsI
-	 TnoqFHsbPhXeDCeuhfHjbkIl0iizPsid76uZQEIH9RRNXAK+WAQg3hwQ83d/Oj8T93Z91
-	 vUeFx1u9EHnoR299j7Vh/JP5oplz+js4emsd9KdJRFzv0hG7JQFhn0T+bRQc+LAUJyOnh
-	 3CdcyeYgyLZZTAMqBJ1IrM6qsWShh7yznkjeCg+Bs4BQXLjqo9sfQ+RiPrRaNvzRzQQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792696159;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=pPtOarc+/Pj81jSX9HNNfT9z9z/i6TL+1wTNdbkyejY=;
+	b=FGX5/QoNhk9QqJM93iz/Rrlfa1iIyEZSikpQ+7XHIzGudIFpk1n3p/MmQb2LSKlw9gV0
+	 C0hsEC09xzJjsSOnpIbbZwy9dvtDsdt9bEU0oKmroBiQxouJtp+/iTGIHsRjz7EWfhnsP
+	 CADBaKGA88eD0CiSMDaFudpHbEsThypjnRDzD7MkgRw+YJSEO3bsiwMDMUE3VHQAdWckg
+	 hF3qZIR5L5wBqZNXXtKa01rI816Up7UPJzR9Nb3TPiYEFGBxZKrjZDsQZ7xnb13qKcO0Y
+	 mhPlQHjA6E8t+ZUtparDPvKDpT33/7RVaByoQAA15pegj96tvfKGJc6C7MtpZbxjyNA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=alien8.de;
-	spf=pass smtp.mailfrom=alien8.de;
-	dkim=pass header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=hMx3kx2u;
-	arc=none smtp.remote-ip=65.109.113.108
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+	dmarc=pass header.from=ixit.cz;
+	spf=pass smtp.mailfrom=ixit.cz;
+	dkim=pass header.d=ixit.cz header.i=@ixit.cz header.a=rsa-sha256 header.s=dkim header.b=gIPnZ1g5;
+	arc=none smtp.remote-ip=84.42.129.46
+Received: from ixit.cz (ixit.cz [84.42.129.46])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 163DB606A31A;
-	Thu, 22 Oct 2026 19:08:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 163DB606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7783606A319;
+	Thu, 22 Oct 2026 19:09:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B7783606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key, unprotected) header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=hMx3kx2u
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 2540740E016C;
-	Thu, 22 Oct 2026 19:08:43 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
-	header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id QVTxtbd_px1P; Thu, 22 Oct 2026 19:08:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1792696120; bh=d+IRbs3FeqA37fXeROEiKyHno8d9zy8yIxQWW2C+tuY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=hMx3kx2u5Yv12yYwRnZIj8ko41SrEY0/Bo24yD1IkaXB3w0Cduv/+/mZALYiTB1c7
-	 ljjfmrxGeDxztfA7wvUouPo7jX29EoogFB3E4lCS4jQ8D52zyU62aHlDAlJAs1GO5X
-	 Gqyg+Csp7RMyGnOeVI1L0OJodlzLQ52GA0ajToo8k+DBUjpRRzVsi3eMUWjfAQxNwp
-	 3LmFfL6H1eDU1EDO9Ixj6jX0p1x/ThQfPKXHEpNgFUAS7Qn20cMOD715Lbw3XO79FH
-	 adaQ3dlCrkNZu+IcSTHZW849r7wmXSICNIF2yl9TYCzQTodWgcYqKuJBX9Da/xeyt9
-	 DzDAvwtI6/PwCNVaCM4TMMWNNt5jvXQ0yt4AUTbQ+NEeWMwAO8+k9Vx8kguPHk58m0
-	 FFlWKMwpgsJQ6J97aAdrFKQcAN0N9Fe5Dbpf1LWhd1gGcpBbP0SreR2Nqj9i/SDHcO
-	 vsl9S1wNoXpSLNG8/60rkaFfEQRl6oPrWD2YwB/c4H0lX77G2c6dNVEqTMmS1sirxw
-	 y0QmbcRQjNu3D+20Vx9kkvi43ZRkuM08HJvV4Hs5BqhipIVG6y+Z2+nuBkCWqZUxzl
-	 Ukr+sL/72S9yWdkXaQBA3XEatB4/zUgEqiORrYh0k+vVOYPPG6qhkuxpYgRIrtxFts
-	 3ZcV3/WTjJYy2zQ0cM0Xzm+Q=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::e])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	dkim=pass (1024-bit key, unprotected) header.d=ixit.cz header.i=@ixit.cz header.a=rsa-sha256 header.s=dkim header.b=gIPnZ1g5
+Received: from [IPV6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e] (unknown [IPv6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 5237B40E029E;
-	Thu, 22 Oct 2026 19:08:24 +0000 (UTC)
-Date: Thu, 22 Oct 2026 12:08:21 -0700
-From: Borislav Petkov <bp@alien8.de>
-To: Ryan Chen <ryan_chen@aspeedtech.com>
-Cc: Stefan Schaeckeler <sschaeck@cisco.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>,
-	Andrew Jeffery <andrew@codeconstruct.com.au>,
-	Tony Luck <tony.luck@intel.com>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
-	"linux-aspeed@lists.ozlabs.org" <linux-aspeed@lists.ozlabs.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"linux-edac@vger.kernel.org" <linux-edac@vger.kernel.org>,
-	Borislav Petkov <bp@suse.de>,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: Re: [PATCH v5 0/9] Add Aspeed AST2700 SDRAM EDAC support
-Message-ID: <20261022190821.GAatpfJYsT2fqKhk3T@fat_crate.local>
-References: <20261007-edac-v5-0-5c31fc5df4cf@aspeedtech.com>
- <TY2PPF5CB9A1BE6C09C55652B1A6AA68725F2652@TY2PPF5CB9A1BE6.apcprd06.prod.outlook.com>
+	by ixit.cz (Postfix) with ESMTPSA id 38F8153400AE;
+	Thu, 22 Oct 2026 21:09:16 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
+	t=1792696156;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=pPtOarc+/Pj81jSX9HNNfT9z9z/i6TL+1wTNdbkyejY=;
+	b=gIPnZ1g5wYFqPKHjd3+wKw7Y3RIXcpxXV9CNE4OVDt6Ettkg4+fGlaSJqN6RnmiGMvgBBj
+	sGYFz9vCfAWs73C+uBKYUQAl/u4aj7Kuc2nZmAPUVrTLyFjUJwsdVYQZltoF3+wJ7Bl74W
+	u6od9W9dHI794LTp8RBtUYHaEP1x8+o=
+Message-ID: <9833cca3-710e-41ca-baad-1e8d15ccc0bc@ixit.cz>
+Date: Thu, 22 Oct 2026 21:09:15 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -90,52 +60,88 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <TY2PPF5CB9A1BE6C09C55652B1A6AA68725F2652@TY2PPF5CB9A1BE6.apcprd06.prod.outlook.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 1/3] dt-bindings: arm: qcom: Document OnePlus 8T
+To: Krzysztof Kozlowski <krzk@kernel.org>,
+ Frieder Hannenheim <git@fhannenheim.net>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Robert Oscilowski <drgitx@gmail.com>,
+ =?UTF-8?Q?Jean-Fran=C3=A7ois_Bobier?= <jf.bobier@gmail.com>,
+ phone-devel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261019-kebab_dts-v4-0-bb6db87ff15f@fhannenheim.net>
+ <20261019-kebab_dts-v4-1-bb6db87ff15f@fhannenheim.net>
+ <20261020-musical-merciful-nautilus-aea420@quoll>
+Content-Language: en-US, cs-CZ
+From: David Heidelberg <david@ixit.cz>
+Autocrypt: addr=david@ixit.cz; keydata=
+ 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
+In-Reply-To: <20261020-musical-merciful-nautilus-aea420@quoll>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Thu, Oct 22, 2026 at 09:52:36AM +0000, Ryan Chen wrote:
-> Hello Boris,
-> 	Just a gentle ping on this series.
-> 	Any feedback would be appreciated.
-> 	Please let me know if there is anything I should address or revise.
+On 20/10/2026 09:50, Krzysztof Kozlowski wrote:
+> On Mon, Oct 19, 2026 at 12:18:08PM +0200, Frieder Hannenheim wrote:
+>> Add compatible for OnePlus 8T
+>>
+>> Signed-off-by: Frieder Hannenheim <git@fhannenheim.net>
+>> ---
+>>   Documentation/devicetree/bindings/arm/qcom.yaml | 1 +
+>>   1 file changed, 1 insertion(+)
+> 
+> Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> 
+> Best regards,
+> Krzysztof
+> 
 
-Lemme give you the spiel since you're new :)
+Heya,
 
-From: Documentation/process/maintainer-tip.rst
+on one hand you push for 'xiaomi,dipper' -> 'xiaomi,mi8' which seems reasonable.
 
-Merge window
-^^^^^^^^^^^^
+What we can't have 'oneplus,8t', so we keep consistent real names?
 
-Please do not expect large patch series to be handled during the merge
-window or even during the week before.  Such patches should be submitted in
-mergeable state *at* *least* a week before the merge window opens.
-Exceptions are made for bug fixes and *sometimes* for small standalone
-drivers for new hardware or minimally invasive patches for hardware
-enablement.
-
-During the merge window, the maintainers instead focus on following the
-upstream changes, fixing merge window fallout, collecting bug fixes, and
-allowing themselves a breath. Please respect that.
-
-The release candidate -rc1 is the starting point for new patches to be
-applied which are targeted for the next merge window.
-
----
-
-While you're waiting, you could read
-
-https://docs.kernel.org/process/submitting-patches.html
-https://docs.kernel.org/process/development-process.html
-
-and you could even help out and review some patches yourself. That would be
-the most awesome help you could give to folks, and it would be very much
-appreciated by maintainers who are drowning in patches.
-
-Thanks.
-
--- 
-Regards/Gruss,
-    Boris.
-
-https://people.kernel.org/tglx/notes-about-netiquette
+David
