@@ -1,78 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.10
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.179
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792645079;
-	b=gAXzovvPluSLBGdqnANgccpqQDEchmeNnvQW5Kh1iGO8SwIJ1EQimShf+/wmjz2034wq
-	 t3CnCUD7xBfaoMw7fTAtbnM5AYez+lRIa9DwvDoZcEaZkCSzElbcmngvPhzUc8Gd0pGni
-	 ZlJ43B5N2LofaAK0bhMfwaQ15AN0BYrlOiX5wEUdKRWnwBtP+q12SgJ00GAz/aEOQh6c/
-	 7IkfC20Y9KeXh2KY1Wg+9kAltHTCkE1ICAdK9R3DhLcKCJqCSvqC4rLUTnFAJKI0EWtAw
-	 2kxzGGjfvCkKBD9EqlHm1rU+86euMPwcxibfdGF8VeVSIIG++AWYcd50oNNV3St20yQ==
+	t=1792645117;
+	b=OuNHtITwVoiszp/lTlBI9W07J5V11diSvl6BTR5dO5TSs1Lx5CJEQv9DojhWhQmgaY2N
+	 ebq7haeqNxQul9Lu5ENvMe8WNWipyf/hCSkzibiFCAwNqY/h+x4vqdad6e/d3VM70R4NT
+	 cfNtkZYmAZJnCYT2zSdaf47JjYDfEcBD/LUYt8fbMNPPwHkcB8WQ+1Je8xgd7Mlh27Zwg
+	 XxVAiosRHRkDYKOcQKc05J7Knvv98brzsAY3PkzXBh8DwOyMeEcslCl3zE/rYFsVxprM6
+	 pVddtBEEbCzg0y5009/m6tBhxw2ETP13UKSgIqLwpJu+E+WhTwu3SM9GQp5cbx3MVNA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792645079;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=zPV1TmNihZ9vuu5Uln4KZBCBepQo8N21qCTuq9N/eYw=;
-	b=AaczbdLh0JwhQsbXPx7J8n0D3Eu0p7BSc2FjmmmJQL/+uYfbT5v8dmaxkxFZzMLwIKNb
-	 Kq4bsisq3T/UzPtcmWZ8Z7B3BHodMLi4qrpb8YCe8q8L1B5we8lxzkqOx+TQEYyp+1P0G
-	 vitl8EnnyvEzPeHdYOJ0K2Gis0aFexrEZTl+n4ww76t8qF8aCUaxlEBMoVhnZaOrzSID2
-	 IRMoKYA2Mka2Ert4SjjlPtoMfHJk8iTtXZR7FanmiX8iBSHhSQkiBeYb0DUDXXHNdvaCZ
-	 WJGWhd/LaNrsUM+gZBIibShOOgd7fXXU/LOKqT6cwkrTLyjQs0sc9dChhtYM2F1ZA7Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792645117;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=hGRhRvri5RD8Q3dYNBF9nbwsKBlQUd9Lj9QWckhNeYY=;
+	b=f3wL/iedP6ubfQQ4Xm0O2AfJ7sB0jP6yHksjQVVbn98wTCaW8jL0srXPvV1C4rpif3Tg
+	 oBRDA8KD+EsktqyE9NHrW81adtHmPj+GG5pd/tQeX64kdz6sIVAN916kY9jp4KAiGVxCw
+	 pC64fmzuQ1ClfiTSjLZIgtjo9m71r1pL3OdHAFwhFzUL2TWi5fGDf/OhVsHynMEejvKRx
+	 DdZ+7kbP0vrVlXMBM7PPZFFdsoVP/rajVlNDMcBZMKYjuWqEOAIFQfGq0Y/Wl6gTyOuBf
+	 UktttZMHcwRvyQxdUYlt9xtS4g4NqCWfyVqaT7hCjkRXAGi2ydkopUvssshdabyknvA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=NOGiE3Bv;
-	arc=none smtp.remote-ip=198.175.65.10
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=VhDHru1h;
+	arc=none smtp.remote-ip=209.85.160.179
+Received: from mail-qt1-f179.google.com (mail-qt1-f179.google.com [209.85.160.179])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2234606A319
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 04:57:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B2234606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96089606A319
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 04:58:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 96089606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=NOGiE3Bv
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792645078; x=1824181078;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=isppv1xTXdNP/4TfCeQbqEVFRaEztMtqsCLK9b6PaxY=;
-  b=NOGiE3BvA+n5bfIYpZBEvnkVVG82SOubRZfJuFOAXcgJ74IVW9suISgR
-   K8ZPCfAAnL3MInezU1jJ2/p9qa2CZ8pTtNkTdvSCjlEOKCpcsVXzEZogD
-   qTM3iFEi5e9n1Com0XbYKXd5L/lUBlnx/pANbA0WUPjXjixRk/8zPcPqo
-   Wqoew39zOG2PKEICnSCu3chUybiiueDv8ORAfCbUVQJnVvOUs+Xkblgbl
-   CLy5KALno8yRPz8Mb61tKIcX1sM34I13HASHEjw1Ux73WliUdst/NPs73
-   BruZxBA2fXnmez9XoNe7dQi4/VakHKenNMhAIPkDwZ3IAXMT8IUZYbMbx
-   Q==;
-X-CSE-ConnectionGUID: wXeuj2LPR6C74dVHNENm1g==
-X-CSE-MsgGUID: jbXxmJNZTOSA1amjMEvtTQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11942"; a="1272138"
-X-IronPort-AV: E=Sophos;i="6.27,171,1787036400"; 
-   d="scan'208";a="1272138"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 21:57:57 -0700
-X-CSE-ConnectionGUID: moMuYjncR8ygDz/QZ10czA==
-X-CSE-MsgGUID: NSix6fBMQS+UOYJ+2vEHOg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,171,1787036400"; 
-   d="scan'208";a="3337212"
-Received: from black.igk.intel.com ([10.91.253.5])
-  by fmviesa003.fm.intel.com with ESMTP; 21 Oct 2026 21:57:54 -0700
-Received: by black.igk.intel.com (Postfix, from userid 1001)
-	id BA63999; Thu, 22 Oct 2026 06:57:53 +0200 (CEST)
-Date: Thu, 22 Oct 2026 06:57:53 +0200
-From: Mika Westerberg <mika.westerberg@linux.intel.com>
-To: Navon John Lukose <navonjohnlukose@gmail.com>
-Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Lee Jones <lee@kernel.org>,
-	Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>,
-	mfd@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] mfd: intel-lpss: Set d3hot_delay to 0
-Message-ID: <20261022045753.GB158991@black.igk.intel.com>
-References: <20261022040453.45797-1-navonjohnlukose@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=VhDHru1h
+Received: by mail-qt1-f179.google.com with SMTP id d75a77b69052e-53381e53b80so15950101cf.1
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 21:58:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792645115; x=1793249915; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=hGRhRvri5RD8Q3dYNBF9nbwsKBlQUd9Lj9QWckhNeYY=;
+        b=VhDHru1hT4WrdUrhcaAT5UuOj5mRj+w6P2PcS+azAUXcNXHOaFTiSZxtKrEr+PVtPC
+         /pIuZW9eG9MheIwQgaUjd3VyaIqqAa+jWmDJ0lfBPkxs6vXHoT4eLJvwY0IMOtdJW1XC
+         Ek3EthCpeC2aAAgPYXnBajlKwAQoNi8xwQJ9OMIfRZi/DcHYruE1mg2vRkgLNDlRFbke
+         rSSiKVb72MUQTlVCloTV+tBTGaakUKBIq5AsBFsNUOSnpQx8U9/CN0k72EkCsTx4fhIP
+         fa50D9DuBMvEAv8dmtdGepn3B1GMGoJfx3FKruEr4a9oBcFU1rRsX+lwUJIsNa3eCmZq
+         9Tfw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792645115; x=1793249915;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=hGRhRvri5RD8Q3dYNBF9nbwsKBlQUd9Lj9QWckhNeYY=;
+        b=HY3DnAshnBMyb4klEIvufaKcSjPQziT4IB+/9b8Pr0QDdyvMkzFXPdEiSMjQ6d6Ljk
+         9llkGh1TKTan39/vfOTy2S9yUvYsJNdD0EnFRrpqWPFZARYvtHt1paFKnn0untUZlfxE
+         9AKsZh4hG2rGmiM+X4/xxQTjS3jtj+m2MwsmpCSP2GXN5ke7Dna3YUFgoDS16s71qdt/
+         Cp4mLj2lS07mHIvQWUlDPLNPCYRAKZmhdfclL0+p7ImhzhjxWamDe2KmwpcXMNeXNf1r
+         rfxEZD8sRhySrdQ7vXiz4WOATrOGjbbcywmeyrFSA3iADqcwjp4nz7xOs6hI/D2RSNr2
+         cGPQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxzhVQiHCRJxYBua8XrTM64y8c1HqvBk7unFs9QlTDhnWLtJxdmIb0xEPXrDRjSAsXFBdMDbO79F/LQVgM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI0jmiHi2oZpP1BJKv79HWigeFoONj3dUUGzZSX5Cq4g2hu8HD3
+	OD6rQVWl6/OZP92u7cj4H6Vm+sUuNzag4Wr9verFyogquF5KwfeR5A1x
+X-Gm-Gg: AYBFou2EyWZAD4n5mqDObtaaBc4SHK4GOpew1H06Lk0X7/U4vYsQzi7PQGHU13A4NrZ
+	znHVaKMUHmruJaBDLiAREJkSdfnO6oq1o/Idwjud9u/J+sIEgPBD42oqyyRiVClqPhSJW7c5YXi
+	AG8oTc3uPrVQbDhrrm1hBBx94+cUaI/g4b2wE2RJ2E0p5E22XietW8rMVM4v2iwGAxIRSIu5uPH
+	LFpALXCWqUVQyFb+QqYSBXUsKs3oGfNEgUPi1kocUFRN/+MN4O0Aqa9CL9c4rTGZd+SuXouq2Jo
+	QlKQvtp0adbl2E/JxQ1ZQffg/wqPmFgcjjoUpwluQ7GIbmwMQGceOu/99mJ3aGAiPiclEbSZ9wz
+	Td0uo1fqmm+GHDFRFFEUREzk9qDPust0Ix+g8KakncpgSTUJlg91HKj29oHOAbnwAERcoAxrcZ6
+	vxJiazdAsP4rZufORTGBj6JNXbLumDbniAT4PBbxhhHu9A+TlzE6SGwJPvW/GIuK53aBmspsF7D
+	+/Errhxftz+7oS67x3rk42D7eGAGT3XOSF2TfRON47ISRQOr2OZBY8leYHsrF3r8huAD647L5hd
+	1A8=
+X-Received: by 2002:ac8:5d41:0:b0:536:5783:43ac with SMTP id d75a77b69052e-5369b826136mr64421541cf.35.1792645115375;
+        Wed, 21 Oct 2026 21:58:35 -0700 (PDT)
+Received: from i4-gl-tmk5904.ad.psu.edu ([130.203.156.186])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-536ab729156sm17857071cf.14.2026.10.21.21.58.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 21 Oct 2026 21:58:34 -0700 (PDT)
+From: Yuho Choi <oss.patchbox@gmail.com>
+To: Keith Busch <kbusch@kernel.org>,
+	Jens Axboe <axboe@kernel.dk>,
+	Christoph Hellwig <hch@lst.de>,
+	Sagi Grimberg <sagi@grimberg.me>
+Cc: linux-nvme@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Yuho Choi <oss.patchbox@gmail.com>
+Subject: [PATCH v1] nvme-pci: shut down the controller if disabling the HMB fails on suspend
+Date: Thu, 22 Oct 2026 00:58:18 -0400
+Message-ID: <20261022045828.1392332-2-oss.patchbox@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,29 +98,56 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261022040453.45797-1-navonjohnlukose@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Oct 22, 2026 at 09:34:53AM +0530, Navon John Lukose wrote:
-> intel-lpss-pci already clears d3cold_delay, but every runtime resume of an
-> LPSS controller still sleeps the default 10 ms d3hot_delay in
-> pci_power_up().
-> 
-> The PCI spec asks for those 10 ms on D3hot->D0. Mika pointed out that the
-> LPSS controllers are not really PCI-connected devices, so the delay is
-> likely not needed. quirk_remove_d3hot_delay() drops it on several older
-> Intel chipsets, Cherry Trail among them, and commit 815b4448198f ("i3c:
-> mipi-i3c-hci-pci: Set d3hot_delay to 0 for Intel controllers") does the
-> same for the Intel I3C controllers.
-> 
-> Nothing misbehaves with the delay in place, so this only shortens resume.
-> On Arrow Lake-H (Lenovo Yoga Pro 7 14IAH10) the touchpad's I2C controller
-> autosuspends after 1 s idle, and the first report afterwards waits for the
-> resume. With d3hot_delay set to 0 the i2c-hid interrupt handler for that
-> report takes 1.1-1.9 ms instead of 12.6-14.4 ms, with no I2C errors. Only
-> Arrow Lake-H was tested.
-> 
-> Signed-off-by: Navon John Lukose <navonjohnlukose@gmail.com>
+nvme_suspend() disables the host memory buffer before it moves the
+controller to a non-operational power state, as host memory access may
+not work in a system suspend state. It only treats a negative return
+from nvme_set_host_mem() as a failure, though. If the controller fails
+the Set Features command with an NVMe status, the HMB stays enabled and
+the controller is suspended with it in use.
 
-Acked-by: Mika Westerberg <mika.westerberg@linux.intel.com>
+On resume, nvme_setup_host_mem() then tries to enable the buffer again.
+If the controller rejects that, the buffer is freed while the controller
+can still access it, and the reset that nvme_resume() falls back to is
+not scheduled, as the controller is still LIVE.
+
+Handle a positive status like the power state change below does: shut
+the controller down, so that it no longer accesses the buffer and is
+reset on resume.
+
+Fixes: e5ad96f388b7 ("nvme-pci: disable hmb on idle suspend")
+Assisted-by: LLM
+Signed-off-by: Yuho Choi <oss.patchbox@gmail.com>
+---
+This was found by code inspection as part of ongoing, not yet
+published research. It has not been reproduced on hardware.
+Compile-tested only (x86_64 defconfig with BLK_DEV_NVME=y, W=1).
+
+ drivers/nvme/host/pci.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/drivers/nvme/host/pci.c b/drivers/nvme/host/pci.c
+index 77317e5d00f9..268d8fe0ac90 100644
+--- a/drivers/nvme/host/pci.c
++++ b/drivers/nvme/host/pci.c
+@@ -3997,6 +3997,14 @@ static int nvme_suspend(struct device *dev)
+ 		ret = nvme_set_host_mem(ndev, 0);
+ 		if (ret < 0)
+ 			goto unfreeze;
++		if (ret) {
++			/*
++			 * The controller may still access the HMB. Shut it
++			 * down instead, which forces a reset on resume.
++			 */
++			ret = nvme_disable_prepare_reset(ndev, true);
++			goto unfreeze;
++		}
+ 	}
+ 
+ 	ret = nvme_get_power_state(ctrl, &ndev->last_ps);
+
+base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
+-- 
+2.43.0
+
