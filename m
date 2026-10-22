@@ -1,54 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.100
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.72
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792635478;
-	b=h2aBltrHeZDjOk7VMWrOwDJYixKgjGBfoRDhRkAxwwmMSNNqNiFmxt8btMYL4EOt5KwQ
-	 xs1s7N0f+otyXSrB8yoDIK/S7VqLSCIVFXpe1kcO3pnd7raqmwNNy38YUVJXX95ZLLLG0
-	 pkUDo9xuD4ef90ANnkVy69txn4JDyoDJJzLrTVFLq9HFTiGC0rIER234kvP3ybUdFL5kZ
-	 Ano+scIaZc3o3OwKXtwKWN79uFibmk0zVaruHXH/ZkLcY9kUSkS2MoBdDmB03ymtLaHSi
-	 09kYtb1pkKw3LGNDfUXXgRAmYVatfwWS/qS6ufOV0P2vko8LqQzm0tYWAN/nvS4LJcA==
+	t=1792635503;
+	b=T4jD7J6JqJj+dCGOaqtih735jB/xQdDD4wND0sepvjhHAp6/xR3H3+9uN98Vx4sHav8D
+	 wftGHY9Clpclt9LCdS+NV2pSFaxY/ost406VABlo0DUc1rO1wpIE1jl/0Cp3q72YmJgxx
+	 g+xE51TBW7SgzsHW5o1x5Id2+++/d1rlpNUemeaxNbcRG8BTDROownfpigaAnCiszVm6o
+	 +u/3S+HZoGoEXAZvxHYVEEkN5alioYPSBg6KUDQcx2Di0i3Ujpf20ScnVh71/sJSkpuF5
+	 OE4wWUaVR2A+vrQLTxJe8r3v1aPDSWuBk3AWZwxa2hoERlGMkBZVOsqNMG4Yw15FQOA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792635478;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Content-Type:Mime-Version:Subject:From:
-	 In-Reply-To:Date:Cc:Content-Transfer-Encoding:Message-Id:References:
-	 To:X-Mailer;
-	bh=IeHN50YZ/NG8ZWpDQLHml+D4SpMDuGPRyLBAp8LeAZY=;
-	b=HWiMmdvWoqwasXW4DTvOsCsVTLGhcSCGfq2g6xSFLibHsqtrPb6A225ffUtabvDUL0Av
-	 UQHr57TnQs+dcxKb+5Xkxzer+rTW6sjWoIO5wmoGrf5S4GYFbLQgxLAaAsNJLZYNqC845
-	 YTZb49iD6rj57xzrgtcI/XTvgAJsl/xo+8A1ETBAP5dUAkCJ3ucRqzqvKU9Y+pFtC3Vzz
-	 9lp682PCD8QmynEBOV25Oug6krAMGctlLjMJ1CN5C9CGVXdWZcx5JQiacBpeAxD8WoRA6
-	 IYbfB4Ctb+ISNUgGDhiUudiqqsusaekxQp8ZSu2hhTv2QIzxPO7OpbHiRdDW2eeXvcQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792635503;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Reply-To:Date:
+	 Mime-Version:X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=7c0m7qaS9HqUzHfqjVCvNrAuzThap6chMmtplqP6W0U=;
+	b=LGrd0WweVRa1Q05uh0qGULszTKCA4bFEzmqYP2ncudL5pbLHug7H06Oqz2cRgu2e969q
+	 Hl65r3xWVR/dxe37XFqw4p1DInP7zdSyPaEva5djWw4EeTT3J6TEVrqbpCEeQcoU/Vxfi
+	 6ynqUbu1P6RnKr/1cIfdLOOT1DYq3dPZ++WsZZBP2+t61DHouMxRAnDHSYJld973gD2Ka
+	 sJhX5JJ2DmO2VUPvgJsIyjOrcR2Ewj5YSr/HpTUtx9Apnl9DsYtcZjnUz/oQuh6WrMVkJ
+	 JooQJty+BGFWUhezYXmeHVVBwSSLhYj9N5+O47Tn5v+ezIIuS3Tg5NZuQuzwoC3XCMg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=AhELgdXW;
-	arc=none smtp.remote-ip=91.218.175.100
-Received: from mta0.migadu.com (out-100.mta0.migadu.com [91.218.175.100])
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=n5bSloBD;
+	arc=none smtp.remote-ip=209.85.216.72
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8927A606A319
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 02:17:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8927A606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E0D8606A319
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 02:18:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4E0D8606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=AhELgdXW
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=Qhn2nJhqTpx6IuD7zDJXbEf7KoM/IdTDiwQaIPdkdhQ=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792635471; v=1; x=1793240271;
- b=AhELgdXW2TpRdDnoVNwa80jru5dnYrpMqRckia/ZFKIq7jkTvPqiSVTJlHM8/zMSgYr2ITJ2
- cxvDJcQ1WPfQ+fqJHtU1Si/76j+zqJFHpdFSNh7oDyfgOXmayDypgFmmkWWCtikIYF0wDR2DB7U
- gSV35Tkn6c4UrAMH46WDm+vs=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta10.migadu.com with ESMTPS id 9562aa6cc98d7210;
-	Thu, 22 Oct 2026 02:17:51 +0000
-X-Mizu-Trace-ID: 9562aa6cc98d7210
-X-Migadu-Flow: FLOW_OUT
-Content-Type: text/plain;
-	charset=utf-8
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=n5bSloBD
+Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-3ac8f449d1bso1452348a91.3
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 19:18:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1792635502; x=1793240302; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :reply-to:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=7c0m7qaS9HqUzHfqjVCvNrAuzThap6chMmtplqP6W0U=;
+        b=n5bSloBDYiFamzpE7rWfD1B8XYjfsxrZVUMhnzZOqbBCvWpPXBiyYJLYiL1hHLULAF
+         bRo1PmjRJdB07UX8aIj1AztpMg/tyfFDC2UtqBo82pdiRNlYiI9GX+dofwhp5wdUCLs7
+         WnVBphB/pi5LmtJgqYt9BBlnkWDh3u71bVA6YqHDNlCOlxENdKcj/R2LndzI/4ms6iNO
+         1NGs+nTZixZI73F+kbhHWHSH5RE4A8qztzrQVZdOlo6J580KR1xe4qveirG2E7c2/u6W
+         0oWsmCB4etvAN0pbbOo14VTq7kdMxwYhkDU3UA68F/tvRyIxRyFwi+JHCwKk64+b/vYy
+         vpUw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792635502; x=1793240302;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :reply-to:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=7c0m7qaS9HqUzHfqjVCvNrAuzThap6chMmtplqP6W0U=;
+        b=kx3LwFKtdnNPA61fRMZp/x4VgRSuvfsTTZB5edxp+UjLFlw+XS/bk7tnCDoPyWK9Po
+         6sZ+Oigq5NB45J911iZEY7S/JwCXMY7QgByEP200icXiMn/N79icvb7pj/UnGwSH5HCw
+         nap9rF109o4DdhgClBt6jjT6B8l46d9C9gP7ZW2sMVgTgO9HmVX/QGZ5n5veBjtlsnfN
+         DyvdR4zuyz7BJQGXp/zbXupKrxZHJq4F1trb5B0mVrfF4lssgIZmu8CPu1C1N/vktPj1
+         JhYC24OsSkPHghBAcCGhT4S0FJXIh5Ti6f1UDn65rofXjAVHgmMJFEMAu6hSvh6QlDua
+         7bcA==
+X-Forwarded-Encrypted: i=1; AKwUvBwKyL8vT+WCTtKmEzxUnDfuxeCZvEa5V7aXIPUcE4gYRZbvvNuyxzMjOebXCatoBLt0aqhchw3uqSjtJSo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLdkykPyWL7M3OBynt9fIXT8WRJfr3ZtVKkU8gR+itswuH8IA36
+	/oxGjxfeB6JMtm7Ghe7FXOu6w8mThW7E2JADJyOBWJMdYhqnOtJsEJE1IBlY9s37o0II2hTeL5R
+	xykUWMg==
+X-Received: from pgn27.prod.google.com ([2002:a63:d5b:0:b0:ccf:ac26:a979])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:5243:b0:3ac:a7ee:6760
+ with SMTP id 98e67ed59e1d1-3ad86ccdc8fmr3153086a91.23.1792635502327; Wed, 21
+ Oct 2026 19:18:22 -0700 (PDT)
+Reply-To: Sean Christopherson <seanjc@google.com>
+Date: Wed, 21 Oct 2026 19:18:18 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,168 +76,33 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.12\))
-Subject: Re: [PATCH v2 01/20] hugetlb: Don't restore vmemmap of non-HVOed
- folios on bulk restore error
-From: Muchun Song <muchun.song@linux.dev>
-In-Reply-To: <20261021212738.321547-1-jthoughton@google.com>
-Date: Thu, 22 Oct 2026 10:17:31 +0800
-Cc: akpm@linux-foundation.org,
- catalin.marinas@arm.com,
- david@kernel.org,
- fvdl@google.com,
- linu.cherian@arm.com,
- linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org,
- linux-mm@kvack.org,
- mark.rutland@arm.com,
- nikos.nikoleris@arm.com,
- osalvador@suse.de,
- rientjes@google.com,
- ryan.roberts@arm.com,
- sunnanyong@huawei.com,
- will@kernel.org,
- yuzhao@google.com
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <11457D37-5AF9-46C2-95BC-CAD4B22741A1@linux.dev>
-References: <491B482A-8177-447A-8CDB-AF83C13A5DEE@linux.dev>
- <20261021212738.321547-1-jthoughton@google.com>
-To: James Houghton <jthoughton@google.com>
-X-Mailer: Apple Mail (2.3901.100.1.1.12)
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.218.g1ec904b173-goog
+Message-ID: <20261022021820.298886-1-seanjc@google.com>
+Subject: [PATCH 0/2] KVM: nVMX: Fix a (benign) overwrite to a userspace buffer
+From: Sean Christopherson <seanjc@google.com>
+To: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>
+Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Josef Bacik <josef@toxicpanda.com>, Chris Mason <mason@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+
+Fix a bug where KVM writes more bytes for KVM_GET_NESTED_STATE than it reports
+in the output size if L1 is active and has a valid shadow VMCS pointer.  The
+bug is all but guaranteed to be benign in practice, as all VMMs I could find
+that support nested virtualization just preallocate the max buffer size.
+
+Sean Christopherson (2):
+  KVM: nVMX: Save shadow VMCS when getting nested state iff L2 is active
+  KVM: selftests: Add regression test for KVM writing but not reporting
+    vmcs12
+
+ arch/x86/kvm/vmx/nested.c                     |  2 +-
+ .../testing/selftests/kvm/lib/x86/processor.c |  6 +++++
+ tools/testing/selftests/kvm/x86/state_test.c  | 24 ++++++++++---------
+ 3 files changed, 20 insertions(+), 12 deletions(-)
 
 
-
-> On Oct 22, 2026, at 05:27, James Houghton <jthoughton@google.com> =
-wrote:
->=20
-> On Wed, Oct 21, 2026 at 2:33=E2=80=AFAM Muchun Song =
-<muchun.song@linux.dev> wrote:
->>> On Oct 3, 2026, at 08:21, James Houghton <jthoughton@google.com> =
-wrote:
->>> diff --git a/mm/hugetlb.c b/mm/hugetlb.c
->>> index a1b51251103b..4dac7ed1df57 100644
->>> --- a/mm/hugetlb.c
->>> +++ b/mm/hugetlb.c
->>> @@ -1613,9 +1613,14 @@ static void bulk_vmemmap_restore_error(struct =
-hstate *h,
->>>              * page is made a surplus page and removed from the =
-list.
->>>              * If are able to restore vmemmap and free one hugetlb =
-page, we
->>>              * quit processing the list to retry the bulk operation.
->>> +             *
->>> +             * Folios whose vmemmap was never optimized (e.g. =
-because HVO
->>> +             * failed when they were allocated) can be freed right =
-away;
->>> +             * remove_hugetlb_folio() has already cleared their =
-hugetlb flag.
->>=20
->> Since you mentioned the hugetlb flag is cleared. So it's unnecessary =
-to clear it again.
->>=20
->>>              */
->>>              list_for_each_entry_safe(folio, t_folio, folio_list, =
-lru)
->>> -                     if (hugetlb_vmemmap_restore_folio(h, folio)) {
->>> +                     if =
-(folio_test_hugetlb_vmemmap_optimized(folio) &&
->>> +                         hugetlb_vmemmap_restore_folio(h, folio)) {
->>>                              list_del(&folio->lru);
->>>                              spin_lock_irq(&hugetlb_lock);
->>>                              add_hugetlb_folio(h, folio, true);
->>=20
->> Something like following:
->>=20
->> diff --git a/mm/hugetlb.c b/mm/hugetlb.c
->> index 6a011b627986..1ab3e61f4704 100644
->> --- a/mm/hugetlb.c
->> +++ b/mm/hugetlb.c
->> @@ -1616,21 +1616,31 @@ static void bulk_vmemmap_restore_error(struct =
-hstate *h,
->>                 * If are able to restore vmemmap and free one hugetlb =
-page, we
->>                 * quit processing the list to retry the bulk =
-operation.
->>                 */
->> -               list_for_each_entry_safe(folio, t_folio, folio_list, =
-lru)
->> -                       if (hugetlb_vmemmap_restore_folio(h, folio)) =
-{
->> -                               list_del(&folio->lru);
->> +               list_for_each_entry_safe(folio, t_folio, folio_list, =
-lru) {
->> +                       list_del(&folio->lru);
->> +
->> +                       /*
->> +                        * remove_hugetlb_folio() already cleared the =
-hugetlb flag
->> +                        * for folios whose vmemmap was not =
-optimized, so they can
->> +                        * be freed without restoring vmemmap.
->> +                        */
->> +                       if (folio_test_hugetlb(folio) &&
->> +                           hugetlb_vmemmap_restore_folio(h, folio)) =
-{
->>                                spin_lock_irq(&hugetlb_lock);
->>                                add_hugetlb_folio(h, folio, true);
->>                                spin_unlock_irq(&hugetlb_lock);
->> -                       } else {
->> -                               list_del(&folio->lru);
->> +                               continue;
->> +                       }
->> +
->> +                       if (folio_test_hugetlb(folio)) {
->>                                spin_lock_irq(&hugetlb_lock);
->>                                __folio_clear_hugetlb(folio);
->>                                spin_unlock_irq(&hugetlb_lock);
->> -                               update_and_free_hugetlb_folio(h, =
-folio, false);
->> -                               cond_resched();
->> -                               break;
->>                        }
->> +                       update_and_free_hugetlb_folio(h, folio, =
-false);
->> +                       cond_resched();
->> +                       break;
->> +               }
->>        }
->> }
->=20
-> Thanks, Muchun. :) I think it's slightly easier to read without the =
-second
-> folio_test_hugetlb(), like this:
-
-More clear, LGTM.
-
-Thanks,
-Muchun
-
->=20
-> 	list_for_each_entry_safe(folio, t_folio, folio_list, lru) {
-> 		list_del(&folio->lru);
-> 		/*
-> 		 * remove_hugetlb_folio() already cleared the hugetlb =
-flag
-> 		 * for folios whose vmemmap was not optimized, so they =
-can
-> 		 * be freed without restoring vmemmap.
-> 		 */
-> 		if (folio_test_hugetlb(folio)) {
-> 			if (hugetlb_vmemmap_restore_folio(h, folio)) {
-> 				spin_lock_irq(&hugetlb_lock);
-> 				add_hugetlb_folio(h, folio, true);
-> 				spin_unlock_ire(&hugetlb_lock);
-> 				continue;
-> 			}
-> 			spin_lock_irq(&hugetlb_lock);
-> 			__folio_clear_hugetlb(folio);
-> 			spin_unlock_irq(&hugetlb_lock);
-> 		}
-> 		update_and_free_hugetlb_folio(h, folio, false);
-> 		cond_resched();
-> 		break;
-> 	}
->=20
-> Applied this in the v3.
+base-commit: 164405e8e9a0378c7e1aff2254625a6553a291f1
+-- 
+2.56.0.218.g1ec904b173-goog
 
