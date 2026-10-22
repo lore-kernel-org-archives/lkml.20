@@ -1,47 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.3
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792680520;
-	b=ifKyzC3dGsYRlE+75gdYfHUIqoUWqFNvKU/R4qtzt3tiSc/HuAE2yAZu3EHvZfx61RoC
-	 4EGu7+ulYRe2wndLVcrl97PlLf+SU6zwawqwdMp7xYTrm4D7/6o/uE9/lXMgDzvaH0qWL
-	 MTBrrPdkBRMxU+cYmzesm07pAc71mvu0oxJiraWjO9H8fJslaAYfNrtHPOymNzYMWF4ta
-	 FEJdhKyEcKM8VaersUX7yU8f0/PLhuSMRFk6TZwn0FwjG0Ug6fTZbu03MHFJQIVE1G/9Q
-	 jT/ZUK1D4ANCW36Mz5OID6Ju2Czl1XSKILaN/U7Rk9P4/bJj0rbERgF3b6BeYQGGPMQ==
+	t=1792680525;
+	b=Fu/O4FHPo8PYDCVdUwHAW6CI6UMggWMfGdEM1lCQgQncRUu6Hcek7GTI/3x49XE77ruZ
+	 AmBT6h0RQ3JBSJA7XkUEpzXfoLKTzyY/k2I84uSnillPc0zv0Nhj94pv7MzSgr+A9aR2L
+	 kq3Ol7Ba+qRO0OR9HPILiLVW9RH3TmLRC1CfxvRBGlKN2kt4FLDWw+16a8QQu3ONttBzW
+	 mL4/owGCvyPIitF4bNNkbFOw9P2k8uBtKNdpHG214P35LTXOZCsCYXIxljA60+M1IwDpj
+	 F2rCGuTcsMIAbx8I2X3IG/1eabkuOsnDaqCZe63NjCPJ7N3KrDXXh0V9rkybLR39Cnw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792680520;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792680525;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
 	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
 	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=vm38/MPbNIU1t2ouDzv5D6+sE0FkxX+qIWQN96y4HJo=;
-	b=HgKXUxkf4k2XSdtTJPaGfszTrAX3FG5stsBZrmjB4l+PAyaMaYwm/5iGikmFVAN39Vj2
-	 L+SGY7bSLrJx9S+ckYNvfXCqWVRx6cDRYaQ7hZvNLP+ImP7n3zxrblgJI3iQbxcIPeMPk
-	 d7GtRsfgCC5azDYzgb9ZsjTYFznCfU5CV7F+5NbJa6zu0MOoHJw8F/hIOcUmon/5O/ZmD
-	 Fs9nj7JPhO9AQSiTb4+pXZZhr8RGNsbUEs9IK4xdDA0KR3qLlX0OyFbTmxVpVAXU8o+uA
-	 Ovy9nU81Tg2Er5/FS1qL4AOo/ZZErkfOeV0UVESazH0AU56NzF7QdLPu6xPuzri0acA==
+	bh=q0UUKJNedWOp93M4Fe4rzELLr6YIIS1dOssZ4nDapOA=;
+	b=AjTTVqRorOc7vyUZyVsotRFazCUZfNOdDA8ZrOteBiB6BtbtejmvCs/kXG5am7PdKQRv
+	 FL1lrSWkCtoGPxvTTxRueZzMX7c9y3Wh1ZTYYobtvY0CFVFGl698dLyzB+h9Xm/9fZq6g
+	 kDRr//DJiOvOk4ZIM5KTahrur8ulqF8T848+lSQHfkqSO4in146TqnpLWJTHGivz2PdVT
+	 ATbU6PlAZuOqBzFcpLqlze/4Uaql/+sN2XwkTrdkkfaKsbSvhbCruGLiLWYBmCsmnC5MK
+	 BBmE6T6Yr1KS9CUtdIlFBRxGsnpuuOkw7MgHfE3SW8TiJGqTVuC687tVJghcVBR+DbA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=163.com;
 	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=JW6ckQEb;
-	arc=none smtp.remote-ip=220.197.31.3
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=Ua9fqT6F;
+	arc=none smtp.remote-ip=220.197.31.4
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77E3D60A261A;
-	Thu, 22 Oct 2026 14:48:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 77E3D60A261A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35C7260A4AE1;
+	Thu, 22 Oct 2026 14:48:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 35C7260A4AE1
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=JW6ckQEb
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=Ua9fqT6F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=vm
-	38/MPbNIU1t2ouDzv5D6+sE0FkxX+qIWQN96y4HJo=; b=JW6ckQEbrSqHQDq7L6
-	8i7s+Xg6CopZkroisZtzuoLNTJfnvHJRUfuOOoDnKRXilBHPYtfdr/GyIct0g09y
-	zWVPAANkdIZx0g4emkJyMC+a9xIFWKVK6ph3zZa7pkRR7DEsdYbb1ezoUje0W7jc
-	ktvt/D/Lb1UI/MqRRjedoOCPw=
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=q0
+	UUKJNedWOp93M4Fe4rzELLr6YIIS1dOssZ4nDapOA=; b=Ua9fqT6FAze/40J4ZN
+	l6E0b1m9ziL1AHfdqSteYTmHxDquqw/NrAb2BJaYoLm8/U4e/BL5GoBVrz1adVBQ
+	Ypd/SEU3Xt6D6ATo99Pt0T+DC7eqR/Q1MjNmhSIZmcJYTND/eRmjuT4m4yXn9b4s
+	qqqUAUzShJQlbL/y8Wc7k2nmA=
 Received: from shaos.localdomain (unknown [])
-	by gzsmtp2 (Coremail) with SMTP id PSgvCgB3sQglItpq+dZbBQ--.34036S2;
-	Thu, 22 Oct 2026 22:48:05 +0800 (CST)
+	by gzga-smtp-mtada-g0-4 (Coremail) with SMTP id _____wD3Xy8rItpqJG2SCA--.61716S2;
+	Thu, 22 Oct 2026 22:48:12 +0800 (CST)
 From: shaos <shawnq1@163.com>
 To: jhs@mojatatu.com
 Cc: Jiri Pirko <jiri@resnulli.us>,
@@ -52,9 +52,9 @@ Cc: Jiri Pirko <jiri@resnulli.us>,
 	Simon Horman <horms@kernel.org>,
 	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [BUG] net/sched: failed fq_pie flow change still commits the new limit
-Date: Thu, 22 Oct 2026 14:48:05 +0000
-Message-Id: <20261022144805.65699-1-shawnq1@163.com>
+Subject: [BUG] net/sched: GRED VQ shrink can orphan queued packets and wrap backlog
+Date: Thu, 22 Oct 2026 14:48:11 +0000
+Message-Id: <20261022144811.66149-1-shawnq1@163.com>
 X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -66,16 +66,16 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PSgvCgB3sQglItpq+dZbBQ--.34036S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7Cw13Aw1rGr4xCrWxXr4kXrb_yoW8WFWkpr
-	Z2va4ak3WqyF45W3Z7KF4xu3Z2gwnayrW3JF95XrZ5Ar43Cw17CrWIkryYqFn3ArykG34F
-	va1Iga4vga15uFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jo7KsUUUUU=
-X-CM-SenderInfo: pvkd40jtr6il2tof0z/xtbC0Abi8GraIibdrgAA3D
+X-CM-TRANSID:_____wD3Xy8rItpqJG2SCA--.61716S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7Cr47tr1rWFy7CryxKFykKrg_yoW8uF1Dpr
+	yvy34aqa18KFs8Jryq9rW8Ww1jgws8Cr4UJ3yUJFWfCrs8Wwn0yrWIk3y3AFZ5XF1kGF9Y
+	y34ku3Z7Xws0gaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07josjbUUUUU=
+X-CM-SenderInfo: pvkd40jtr6il2tof0z/xtbC0Azk8mraIizeGAAA3y
 
 Hello,
 
-Create fq_pie with limit=10240 and flows=1024, then request limit=123 together with flows=0. fq_pie_change() publishes the new limit before rejecting the immutable flows request with -EINVAL.
+Queue packets on GRED virtual queue 5, shrink the table from eight VQs to one, re-expand it and recreate VQ 5. The queued skbs retain the DP number but the old per-VQ accounting object has been freed; dequeue subtracts from the new zeroed u32 backlog.
 
 HEAD commit:    c03c1a14507dfaf8b856c2608f9ac216021fc222
 git tree:       30fd2ef82912c26cf3a58ad0ba6afc375fa851ac
@@ -83,18 +83,22 @@ source version: Linux 7.3.0, local master
 compiler:       gcc 11.4.0, GNU ld 2.38
 
 console output:
-https://gist.githubusercontent.com/shaos26/76c412e475cb36c49649b9825e807ff5/raw/ae794ca3a9b896c8e195876de08f79b82f67c5f9/console-output.txt
+https://gist.githubusercontent.com/shaos26/160abad19ad184cfbb6ef6c9be204b80/raw/82b323a9f5e2dce8b71893aeb0bf841eb019e691/console-output.txt
 kernel config:
-https://gist.githubusercontent.com/shaos26/76c412e475cb36c49649b9825e807ff5/raw/6ea0e3da68f1e239d565c64f7906d0f9c73bf784/kernel-config.txt
+https://gist.githubusercontent.com/shaos26/160abad19ad184cfbb6ef6c9be204b80/raw/ac2ef52ac9d01812eef68d5a10de2fb3e5e8be4c/kernel-config.txt
 reproducer:
-https://gist.githubusercontent.com/shaos26/76c412e475cb36c49649b9825e807ff5/raw/3a875172daae5e614f50f4ec313e3dbb85893d1d/poc.c
+https://gist.githubusercontent.com/shaos26/160abad19ad184cfbb6ef6c9be204b80/raw/e3f8a8dbb72be235d802784cb4265435f82de27d/poc-init
+auxiliary reproducer (sender.c):
+https://gist.githubusercontent.com/shaos26/160abad19ad184cfbb6ef6c9be204b80/raw/7028d32b386af449ac9097ae336dfa2d520b3e51/sender.c
+auxiliary reproducer (run-qemu.sh):
+https://gist.githubusercontent.com/shaos26/160abad19ad184cfbb6ef6c9be204b80/raw/abe3ba54cf34d873da1378b66ed0a1e3524e70b0/run-qemu.sh
 
-Build the tested kernel with the attached configuration; compile poc.c statically and run it in a disposable network namespace with CAP_NET_ADMIN. It creates fq_pie, submits both the invalid mixed request and the close controls, and dumps the resulting limit.
+Build the tested kernel with the attached test configuration and boot a disposable QEMU guest with a minimal BusyBox initramfs. poc-init configures TBF/GRED and the VQ resize sequence; sender.c generates the AF_PACKET traffic. The run-qemu.sh wrapper in this bundle records a complete run.
 
 Impact and prerequisites:
-The failed rtnetlink update changes live qdisc state for a caller with CAP_NET_ADMIN in that namespace. The same limit can be applied directly with a valid request, so the impact is control-plane inconsistency rather than privilege escalation.
+The new VQ reports backlog 2^32-3000 and rejects subsequent packets assigned to it. This requires CAP_NET_ADMIN and CAP_NET_RAW in the network namespace and affects the configured qdisc; it is not a privilege escalation.
 
-Validation: Two independent fresh QEMU boots reproduced the limit change after -EINVAL. Invalid-flows-only and valid-limit-only controls behaved as expected.
+Validation: Two fresh-boot positives produced VQ 5 backlog 4294964296b and additional drops; a no-resize control drained to zero and transmitted the probe.
 
 Thanks,
 
