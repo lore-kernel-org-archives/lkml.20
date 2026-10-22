@@ -1,92 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.217.48
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792681886;
-	b=rih3UvlzehNj5OQxWPscrp2mrrVpKFqUnjB94hYp7Fv8DNyOjMQKJnlEmdCCPl3nYq2z
-	 BpWOMuJeRwXghRRlpzG55thYeot1wHYp8csyZ67Jvr7NIwJocStgm5HW8kmW6Vin3hn1O
-	 HdWlxv54pEibTexq0W2S7mec3Gau90khyhqMqbsJj1x67Bn2dGQ6RpaAYfAFCehy0AgKB
-	 7MXNpi2cp0dyJQWnEzXI48bzlWc2zCdvQXhzM9KnBy53Z6ZUWzAinYLh7yh4Qz2cARybJ
-	 NGq6Xj4SCpIkxPerRdR6FPedEcC8nl2isVHUb7q8p3PEEbVOZWAPsfcNjvXrUlzTBUg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792681886;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.217.51
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792681948;
+	b=xGcs8Y9JTgIj8ZkjkAmd+g7OwpgmTgdP6USOc/GbCSfy9FQWl3EYtPtbsq66rWa4HZit
+	 DX7/w7cYOgyZYThGGhV+w9IG/1RHrjvnnpUDQX/NXBOcBD5SqFci/8AmkmNtJ6YF9TVhY
+	 2AHYLEWkw4ZnhDuYT6wPDsS2izqrcUkKcG+YOtP17JJFxCVswm82wCXb7qzTpmPZSwefV
+	 mHd6Fe2985AbU5LNG4YUnaJVsRY4EpG32l5butvMDkR7rfRFjgnYvpzdQFDpPCsDBjA7q
+	 +GEWvL+uZiQqzqMvrK3J787Uy5vgsUrsSr00BHryJYV2MfL1H/HkvFKcclOJhrHymsA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792681948;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=Up9OgzZdXn0OpyLeDZsMae8XfqyIOwfdXw6t+Fzm1OU=;
-	b=F5JNDbYarMt9azsAtMcJv174qjrX0WJCZRFkws3/Re+qln+34RtL17dRS0F8ziV3ySpk
-	 YbdG032uCHd5WD30cOJRNfyXGhHT7QjbmJn7WFyOtlfjbW/8+1JK1ghDp8SB58TQazHbu
-	 X15+OzG391lj5pieuTvnxr0EUkK5TQlcf2Ot2rpVKorE//9D4CXrv/VM0Yuz1aAoYXQVS
-	 CxFeSvIZM4FldtEGW9uQ8Qhfb28DIwKPJEQOzllhfMOgFhkq3keBJqmxJGSheGOAyfG0X
-	 ZOm6PEXuuO0io5WdrheUSBVcBGoxuga/dUHMIQu1T60k1H/mvLOntUTYpamfyHnUI7w==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=Y6tRRI63BHu6BkuvJZ93X8sv4xfpLog4Vlfs+glJY/A=;
+	b=td16oUShKLInq8zBWUeRoL/iAChhNqvmrTcVKOd7HFBIIqbtw8cdVq5DdnMTxE+m0YTZ
+	 6sK3w7tORB2OE/HekR0iUWGdnaUpToJfyeGSiXLpX3xyy7rlO9Z1/HeRBG3/Ot2JvOlVc
+	 Dgg7GhHyirwE0Jt2IjAOfG9gbbYitqawSxkVhhd9Jguhcn11eb0mObGCnO+GYBXmuPAZZ
+	 /Tr9YAS2IMYfmEPdasZvGcLzCfcL7EDCXvsasWXcH3J628qToTeDbuQAl74y3g1nLNYG8
+	 hhNSe3xbzLoMHeqWeWkkMnFv/2Q0834ugigoRljJFs+vDfPheEYsKBmdJIkydu11Z1g==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=m+0MFfXW;
-	arc=none smtp.remote-ip=209.85.217.48
-Received: from mail-vs1-f48.google.com (mail-vs1-f48.google.com [209.85.217.48])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=AxqnO1lD;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.217.51
+Received: from mail-vs1-f51.google.com (mail-vs1-f51.google.com [209.85.217.51])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB36E60A3819
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 15:11:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DB36E60A3819
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D19B460A6F6B
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 15:12:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D19B460A6F6B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=m+0MFfXW
-Received: by mail-vs1-f48.google.com with SMTP id ada2fe7eead31-7cc91ddf447so675713137.2
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 08:11:25 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=AxqnO1lD
+Received: by mail-vs1-f51.google.com with SMTP id ada2fe7eead31-7cc074a653cso98131137.0
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 08:12:27 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792681947; cv=none;
+        d=google.com; s=arc-20260327;
+        b=dyQunqvhPow+rouayeZW5HWLfLxotSVRmVPe7WsmVFrVMLzMKFS9H8EqOnNB/003qY
+         evsLW+cXhAvNVaT0qaWXOmapEL8I1P6oLVZ9EAhWnacuIP6Y4QEFfXfxSELw83waIZYc
+         hNMSXzXTDE2ySasQjMaVvRQ427440X1ixH8YgcscADr8nepeoecIq7kGHj1unTs5ATQl
+         I8+Zqi4dgNopm8CXEMqfzubRXnlaqTsOteRRnsy7I3ifOiz1Kf7MRAX5wyf2EXr9k5XE
+         z2v+wRQj5nix6GHLBHui5hV4kHnsBXWlLYuwOcJeTzCbRKmgLL33PbY9tURe5bBuyVyV
+         JoZw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Y6tRRI63BHu6BkuvJZ93X8sv4xfpLog4Vlfs+glJY/A=;
+        fh=39uu7uyH7sCg7rPXwbMRLvSWXAKcC/3PKixMlOMuxxs=;
+        b=W/LZjll8ixOp/9Ipmhhsgaf7Du2HN1cGtU8k+Djzzlgm+Df3qHtC78dvWwVcUxPW+s
+         uvW9mXORP0B9tTU7JcPsng7JrhuJvJDY/x8p09m0uk4+KEADSnxJdzSkxDOehuRBzkQd
+         0pxyBxrWHcaRtrdkXLx6HXU8JBoLlQJdZ8EkEDGvh1BK9tBfflNnL7XhetDDRgDx66ZK
+         98BjE7+VmS3SBoOtS2n8WmczcpiYU7aKp1wFy1ZXIUPki3UN8nvzkNeX1A7VVv64G/o2
+         ykNfLfEOIXtGPmMqux+fBbf2YcyfBDY8e2dogs/tDg0/BeOJDbY4Gtm2SHpEc48RPdWs
+         m6AQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792681885; x=1793286685; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Up9OgzZdXn0OpyLeDZsMae8XfqyIOwfdXw6t+Fzm1OU=;
-        b=m+0MFfXW5KpX/LpHeGbIe52I8bexCwVEk8YmpbqW84k4EmIznjDg/mRcIinFcpMs81
-         CLRY44eWQ1fi4939MsKalrztMAwfaZnsi0TDoaXvXbfnKh+WfPoK2d3Cc6aQT1fBNbrn
-         Qgrd2+0e/4+d9ia4mEeEJ97xfQbQqlkBZJE/b7wOQTdzxvUXHh8Pv1dkSv7xeTQMQ2pd
-         K4x+P01lGvtQXXEeym2EFsFt3lxdfkOKSGg56Sa/Ul1tR7jZncHGes6mUjrnGly/0i6A
-         k1LisAsd+3cKoE1X+em3r8Qm7Ycco6V093xqwWR6hNh2trOaWF7uagYCxhS8Kh7rZnbP
-         Y5PQ==
+        d=gmail.com; s=20251104; t=1792681947; x=1793286747; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Y6tRRI63BHu6BkuvJZ93X8sv4xfpLog4Vlfs+glJY/A=;
+        b=AxqnO1lDSBN7+Z6L8/bfJ6G7pKFBWvisaSX+FyoT+NnJ3b4w2X0X7chLH5BSM2suwY
+         d5l0Mep/6Z4D6KnBiARSYyEHPaRFP3d7NeCaCljdqFP9o16O6uC6yZIKDfWDqg77m0WT
+         hYNJquFMTkGhPmp4Se94CwyHAAYzMu3hxNp55ygbdGunefzjqfr2cM226jDSmyRJmpKp
+         xTYqRoartLHDajkJxihNK0G0USxZDnt+sNqJeCYAxSlmEQxTcKCoGAQFltvxgu42b5Xz
+         RHN5aQPwIjBMIc6k6VYbs/RiWw/LlPQDpY7GZrO+6RMca42OdlHAAT1gOs81YYaOkjpW
+         OvWQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792681885; x=1793286685;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Up9OgzZdXn0OpyLeDZsMae8XfqyIOwfdXw6t+Fzm1OU=;
-        b=tNjiPqoi/mG3bSb+qohqlp2KSB2+nO1mqnuZ0gYAZGkq5xp0LpKkxv8x9Tabqd+vdy
-         9wcQmmS2t0b55BYgMLKHWFhN2sIFfHcZYVn/XoZSVfjs8yMSfhUJcTxg4DBtNNFHPi/Z
-         3hg7KmYBjSTbmayXOd9n33M+qflRPEyBFUJe9wDSjKbIKtmP6TrQ25X0nXGyIZqIn6Ge
-         DEmu/t5sEWRc7jHMyWiqKV/ZSTkK8L0qa6SwXbRgDLngbZK7jEvcbobkCTad23sz4YVm
-         G6S8luSA42gKaTItfahgvTYIMeND/rSG8qV2NCmy0RHK5L57VZ48bbS7ZB+jhJ83f0Vl
-         i5iw==
-X-Gm-Message-State: AFq9FYK9lC4Ph9qB2qFZ045e2w7Wb+UtU7+vbOkB/Aiv6Gwx4LGQxZC0
-	xYJ46iLc2Tgexa78kLvAx6yYvBb+T98O+vEOoHe9U+B3dQkB33wbsnEjc5hbF4ww
-X-Gm-Gg: AYBFou3okLI1zoLNt8psC61wRFV4qfuPHiBXn/2TY+CYABFVGRcbu5VfawAv6RG2YIw
-	1G5lSD/BCb4hZFsgRS5eWFZkj2y55ABl258UjBTXNPSoLbWC49ke8Is4aZmmzLmAzTxcTjMP0MI
-	j34nmalSFH9XYEB/W1K/aQOh4nM/BYFe2A/fZCeNPmBszLPY1ni96d9UCIQxfyb+10BZneFG9dS
-	pqXDtJq8ZZF1IZ448h5xYSHd2+T1IZjLGkpTd5Uj7tPRosAjJnPJ0lEN3rtBM/1lgiQObdWtYqd
-	AH5U4vSU9QBJDqF0tBXDAyikH2gLCDviV6Ee4HkD48jZVLLRZ1e7AYrrIIl27d75p6KErd1lsY8
-	pWXhtTrw+DhsQSf7g0BDbo1+d6Mgfmsxt1nqTrW5bUeJwgaX1VUSXw9+BsI57LdQ+0Alf91Rrqv
-	q66wPYmuVe1hS+cBDf31DxxKotfNGiiPRiQvhxfEsy3Y7G/7jpdVeSQHdoJJlVEA2CVBE5YG976
-	caDtvw6jBKxHTfjPwLXFfVJ8QiDs1xuGDV52fyN8zsETiz9WEWmrTwj0WYAqfJ7iUU=
-X-Received: by 2002:a05:6102:c49:b0:7cc:8074:9355 with SMTP id ada2fe7eead31-7cc92472c56mr1793152137.1.1792681884722;
-        Thu, 22 Oct 2026 08:11:24 -0700 (PDT)
-Received: from tutebook ([200.68.111.212])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-990d10439absm6479817241.5.2026.10.22.08.11.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 08:11:23 -0700 (PDT)
-From: Matias Civadda <matias.civadda2342001@gmail.com>
-To: platform-driver-x86@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	qby140326@gmail.com,
-	ilya.gladyshev@linux.dev,
-	ilpo.jarvinen@linux.intel.com,
-	hansg@kernel.org,
-	chris@miget.com,
-	Matias Civadda <matias.civadda2342001@gmail.com>
-Subject: [PATCH v4] platform/x86: bitland-mifs-wmi: Fix TM2107 profile handling
-Date: Thu, 22 Oct 2026 12:02:21 -0300
-Message-ID: <20261022150221.26879-1-matias.civadda2342001@gmail.com>
-X-Mailer: git-send-email 2.56.0
+        d=1e100.net; s=20260707; t=1792681947; x=1793286747;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Y6tRRI63BHu6BkuvJZ93X8sv4xfpLog4Vlfs+glJY/A=;
+        b=AlEezwCcW4+4eDfeH9MQG4lWBKQV5qndIy8tAA8gjd/uyjTsoOs9Gr1tMAo/99rjlB
+         3TYaoKsiaZN7riGKzhEHsGO/RNNhIKEQd4lZIym7ZLa4byin2VdOVXx1V0bsDXzywoTK
+         5v3n9+UCVsaLs3WKyzZE9SopVfPhKWb3qIsYlyBD2XN8+v8FKKBDczVehpoZw6KoxodP
+         mNXE+ir1hWaxPl5y6T/iQ5iq8wvHjWhkznyKCkCcFlLfqEDI8gobjjYs7GLuMRuWa2tU
+         whOnwqj99y0t1WPSSHArW8NWIDT5vy4Z+XrtLit4UvF99JgElbiuhZcbw/7MUqx4l3XN
+         2XnA==
+X-Forwarded-Encrypted: i=1; AKwUvBw+Jt2GsXxNQtDhf9HyV25N7FQOPZoJ86n4OfhdpEtVXbyRHGP545eY5yL0gn+msME3jg/D/8yT5hj6nOE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLIi3Ld8yA+7iynWTFTvLA+Xkc0vsdkDpz3WSImDxGiqsGg/hDM
+	tkhjnOsuoWgSNejnC3kiWf1kasQlg893nmGBEl4bafFXHexPtYO0ERgQsxO6N74o8rslXnHK3qp
+	YPHwNpKMjGYbXl41hjnq48yVhxf1PrHA=
+X-Gm-Gg: AYBFou3zY5UdOGH9vRZ1sxdFyjcOr240feZ59mcVGct6UDYMULVsMniTIeVPLgin3g4
+	mMr7F/UTDon5iNCHz7h12g/ZCCirsDhv4ANYbEUElgJfi4cpmGGTXWiG6EzukKHweNuMNEP/Div
+	1R1Lf0l3o0eZXwzAY6Y4ToFAL5EXDfSjPfrg506JfbzMY5MkUTonW6JU1rKEq4BitrLxX3l7h2q
+	1i/7pSNU6SuaET8vfCvXOUoEizQolE/76u6vfCL3Neo8vUy35iyKpeekI0CW0Q8OHiDjktw5B7J
+	oZWs999TJupPelmgIUi5sjghnMwu+I/91McNzDi3eKh2SzqILhmQSU00VNyJ3+pWe3uN5nUe0Xs
+	kUCvFYyFpbSxlHeGuPzOYJccjK7ZduJLddmYZF8VTA8mDw7caj9UnM6lO6TEzqJisaaWN/bzonH
+	DBmCgYrYhx8NXcep29ANkSgnORt2g7Zx2oizZZO+/YK1e1
+X-Received: by 2002:a05:6122:5219:10b0:5ea:cc1d:173e with SMTP id
+ 71dfb90a1353d-5eaebc1422dmr1548043e0c.1.1792681946761; Thu, 22 Oct 2026
+ 08:12:26 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,73 +105,88 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261022114754.865669-1-mptagliari@gmail.com>
+In-Reply-To: <20261022114754.865669-1-mptagliari@gmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 22 Oct 2026 11:12:12 -0400
+X-Gm-Features: AclHuK_pmpA8FYbBRpXzvreBUaKMzQ3M_QgHr4Byziz9NDrFFS95zIqKnggaqPY
+Message-ID: <CADnq5_Mvjyi+a_2zhSg0cmNUm7nKCK3kD8_0+mcFYeZzbQ-d2A@mail.gmail.com>
+Subject: Re: [PATCH v2 0/2] drm/radeon: fix VCE1 encoding on SI by handling
+ the VCE interrupt
+To: Matheus Tagliari <mptagliari@gmail.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, 
+	=?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+	=?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, amd-gfx@lists.freedesktop.org, 
+	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The TIMI Redmi Book Pro 14 2022 (TM2107) stores the MIFS WMI return
-code at the end of the response and uses different profile values:
-0 for performance, 1 for balanced and 2 for low power.
+On Thu, Oct 22, 2026 at 9:21=E2=80=AFAM Matheus Tagliari <mptagliari@gmail.=
+com> wrote:
+>
+> Hardware H.264 encoding with the VCE block on SI GPUs (radeon driver)
+> hangs the GPU after a few dozen frames.  I hit it with the KDE Plasma
+> RDP server, which encodes through VAAPI, and reproduced it with a
+> plain "ffmpeg -vaapi_device ... -c:v h264_vaapi" test on a Radeon HD
+> 8870M (Cape Verde).
+>
+> The VCE1 code never enables the VCE trap interrupt and the SI (and
+> Trinity) interrupt handlers do not process it, unlike the CIK code and
+> amdgpu.  Patch 1 adds the handlers, patch 2 enables the interrupt.
+>
+> Results on Debian 6.12.113 (see patch 2 for numbers): hang before,
+> none after, and 34 fps instead of ~4 fps for the workaround that avoids
+> the hang.  The KDE RDP server (KRDP) itself, driven by a local FreeRDP
+> client, now encodes on the VCE ring for several minutes (about 40
+> fences per second on ring 6 in the radeon_fence_emit tracepoint) with a
+> clean kernel log.
+>
+> Two caveats:
+>
+>  - I have not worked out why the missing interrupt turns into ring
+>    lockups instead of only added latency.  What I know is that the
+>    hang needs the VCE ring to wait on a hardware semaphore (disabling
+>    only the waiting side, or both sides, of radeon_vce_semaphore_emit()
+>    avoids it) and that handling the interrupt makes it go away with
+>    the semaphores left enabled.  If someone knows why, I would be glad
+>    to improve the commit message.
+>  - The Trinity/Richland change has not been tested on that hardware.
+>
+> The series was developed and tested on Debian's 6.12.113 with the
+> radeon module built out of tree.  It applies cleanly on drm-next
+> (fad06cf), where drivers/gpu/drm/radeon builds without warnings (W=3D1,
+> allmodconfig) both after patch 1 and with the whole series.
+>
+> v1: https://lore.kernel.org/r/20261021114122.94008-1-mptagliari@gmail.com
+>
+> Changes in v2:
+>  - Patch 2: only enable VCE_SYS_INT_EN for VCE1 (family < CHIP_BONAIRE).
+>    vce_v1_0_start() is also reached on CIK (vce_v1_0_init() from cik.c,
+>    kv_dpm), where the register is at a different offset and is already
+>    enabled by vce_v2_0_resume(); v1 would have written the VCE1 offset
+>    there.  Thanks to the automated review of v1 for pointing this out.
+>  - Patch 1: unchanged.
+>
+> Matheus Tagliari (2):
+>   drm/radeon: process the VCE interrupt on SI and Trinity
+>   drm/radeon/vce1: enable the VCE trap interrupt
 
-Add a DMI entry using the existing quirks infrastructure to select
-the correct response layout and profile mapping.
+Series is:
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
+and applied.
 
-Skip the adapter-type query on this model to allow performance mode
-with its USB-C charger, while retaining the external-power check.
+Alex
 
-Signed-off-by: Matias Civadda <matias.civadda2342001@gmail.com>
----
-This patch applies on top of all patches of Mingyou Chen's v13
-series:
-https://lore.kernel.org/all/20261021123414.25516-1-qby140326@gmail.com/
-
-Changes in v4:
-- Rebase onto Mingyou Chen's complete v13 series.
-- Drop the separate payload copy fix, which is included in v13.
-
- drivers/platform/x86/bitland-mifs-wmi.c | 21 +++++++++++++++++++++
- 1 file changed, 21 insertions(+)
-
-diff --git a/drivers/platform/x86/bitland-mifs-wmi.c b/drivers/platform/x86/bitland-mifs-wmi.c
-index a4c341ffbb9b..59b930ef8729 100644
---- a/drivers/platform/x86/bitland-mifs-wmi.c
-+++ b/drivers/platform/x86/bitland-mifs-wmi.c
-@@ -116,7 +116,28 @@ static const struct bitland_mifs_quirks default_quirks = {
- 	.num_profile_entries = ARRAY_SIZE(default_profile_entries),
- };
- 
-+static const struct bitland_profile_entry tm2107_profile_entries[] = {
-+	{ PLATFORM_PROFILE_LOW_POWER,   2 },
-+	{ PLATFORM_PROFILE_BALANCED,    1 },
-+	{ PLATFORM_PROFILE_PERFORMANCE, 0 },
-+};
-+
-+static const struct bitland_mifs_quirks tm2107_quirks = {
-+	.profile_entries = tm2107_profile_entries,
-+	.num_profile_entries = ARRAY_SIZE(tm2107_profile_entries),
-+	.return_code_at_end = true,
-+	.skip_ac_type_check = true,
-+};
-+
- static const struct dmi_system_id bitland_mifs_dmi_table[] = {
-+	{
-+		.matches = {
-+			DMI_EXACT_MATCH(DMI_SYS_VENDOR, "TIMI"),
-+			DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "Redmi Book Pro 14 2022"),
-+			DMI_EXACT_MATCH(DMI_BOARD_NAME, "TM2107"),
-+		},
-+		.driver_data = (void *)&tm2107_quirks,
-+	},
- 	{}
- };
- 
-
-base-commit: 893018d51f27ec0449155b0afe371aaf65380630
-prerequisite-patch-id: 99b10cd2b70d630ab65d8a8bb02c1d4bf89b1a63
-prerequisite-patch-id: 27db041f827872b8be142c310a14c79962154bd5
-prerequisite-patch-id: 74fc3298fa3dceb2224dfc3d2ae4cc6d4be61c01
-prerequisite-patch-id: 2bbb1371b506f5a07a1e6e69d34217195cd5ffcb
-prerequisite-patch-id: b88e60d7915ad055b67478359bd9c6c9482d8433
-prerequisite-patch-id: 2fe8c043993034f1a2cde98b1b2e299987d5ac7f
-prerequisite-patch-id: fbf70405992dfa75ed02026d97aa16e1644fbd42
--- 
-2.56.0
-
+>
+>  drivers/gpu/drm/radeon/evergreen.c | 14 ++++++++++++++
+>  drivers/gpu/drm/radeon/si.c        | 14 ++++++++++++++
+>  drivers/gpu/drm/radeon/sid.h       |  2 ++
+>  drivers/gpu/drm/radeon/vce_v1_0.c  |  9 +++++++++
+>  4 files changed, 39 insertions(+)
+>
+>
+> base-commit: fad06cfaf385787b9ffa2f73f049d42dbe1de57f
+> --
+> 2.47.3
+>
