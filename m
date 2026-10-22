@@ -1,74 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=121.127.44.73
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.198
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792633702;
-	b=ZZHTQBTPKYMTvsPjG+y+LbtV/a/44v+GMb0iyQc8JYeDynsxcn859YYfBchua2GySG2U
-	 5ymG3NCa4HioaCmnjKMz6RLHm8kBo9xPxktjYUNFc/IzYun/LinSXo1mUhrQ00VHLiBUs
-	 V9mcvK/8xp1PTD48+hSXlJaM2DhQcM+B3YEzlZqGAUOBQYPrfLydfdy/G7WVMuQHh0o6W
-	 haFW0SUyw1UOwWMdQpZpBqpNAYXkysO91rVWz4+hs30dX9ynO0nHhF9mVQVjMVV/92xQ5
-	 2RiM0I34EwDv6LPYOwW7cAVCjqsZxOhKFFFtGQSwhFSsYHIDpYUXAIMQzkIGBfTrMIA==
+	t=1792633785;
+	b=sQIY1B1Y8f2omInvcDVfvqqQ/AoUoUGL8F6cYLdc34qLphkiRXNvcwLNC+01KGPK4Etw
+	 YjBz2s88TX9RSl2DY5weWopymtLlxhRFgqpNMh2wWEhojiDJtmpUMbcvzJydL/qnmeTj6
+	 3agj9ETlZ+E3q1fWy0Zdbmb2UTcLmUf6C4ftjf5hN2reLx1Z+wLFVWCQrNID6sSpl2kog
+	 i9PogoOvk6G349dicWlaBRA2snllp2I60CXrAI4rymP2AQVct2kS6Wn7AOQ81HpOPWoOs
+	 PferZlBdiUvbzaUCLkDVrUfZ+clSDNTJwxy8NEA2mslDRIUw0d72EPBK2LSqwVketGg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792633702;
-	h=DMARC-Filter:DKIM-Signature:X-Forward-Email-ID:
-	 X-Forward-Email-Sender:X-Forward-Email-Version:
-	 X-Forward-Email-Website:X-Complaints-To:X-Report-Abuse:
-	 X-Report-Abuse-To:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=LW0K1y3Aru8asUab0ZoHmJkJJzy67mmJNwo7if4GdpQ=;
-	b=O/5LF3oQiKkTDONVyfDn+SxjwBO+lb2doDg9KPHPyqBCODwPa2Qyxft4dtsk4yqdygLj
-	 EQpbzvC1EYGzc/nvnbNjoaUbY6g08LfpkzINjuNl6si052PFNjnjZU595830TbyHx6Sio
-	 fAGINAbKN6q36BEQl9JB9NR/hgTm4i79PB/78ZC9EWMPJP/Xh/sFmE75ohyzxqKwypu91
-	 xNt24qE0jcErdO7AZFDw1VzEd1Fa3xAOjHAo/lZo1N2syeZCSPGy8OuzgUWhja2KCfdpe
-	 ktXVjNPKnew1eB1T5kJjJe+urQ6aTh3KlAyfqnQPK7x/hrKlcyMZApmhOWH0vnGz9pg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792633785;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:MIME-Version:X-Received:Date:
+	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
+	 Subject:From:To:Content-Type;
+	bh=JssOmerse6tIPNiF9hOfYFsHOXG2slRdb88lB5aCnO4=;
+	b=DDD99pjNiuYjurwLNJAg0kFEEG7jWprU43da01SAtV5Pqr3JSXHmx9TaUW8Ry1sxtsxM
+	 yfIRUndWLtuIfoXJ3QxASjkXSr35sThcaKDaxxMGmilZ0/UDeduAGEzzhMMSZ6qb64jD8
+	 hjUwo07zJ88QssiZSa+IEdrqfttqvmx3hT/xNjRlD+jp6XiSVjjMz8NdYftT3oMbkZ015
+	 hvyULEuHVGVki1UkkSK2EjBgj87wHQwOUvWEi6uhLY4e6Z8YBQLq+H94SDcAMBvubzTgE
+	 GB5RW5DU//C0YXY42FrELzq3e2N7d6uSkA4EqUNg22gV68cSIMqPRoxVKtuU13G1ToQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=skyn3tlab.com;
-	spf=pass smtp.mailfrom=fe-bounces.skyn3tlab.com;
-	dkim=pass header.d=skyn3tlab.com header.i=@skyn3tlab.com header.a=rsa-sha256 header.s=fe-ef0e585ad0 header.b=7qH8gXmA;
-	arc=none smtp.remote-ip=121.127.44.73
-Received: from smtp.forwardemail.net (smtp.forwardemail.net [121.127.44.73])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.167.198
+Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 111B6606A319
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 01:48:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 111B6606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=skyn3tlab.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fe-bounces.skyn3tlab.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=skyn3tlab.com header.i=@skyn3tlab.com header.a=rsa-sha256 header.s=fe-ef0e585ad0 header.b=7qH8gXmA
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=skyn3tlab.com;
- h=Content-Transfer-Encoding: Content-Type: MIME-Version: References:
- In-Reply-To: Message-ID: Date: Subject: Cc: To: From; q=dns/txt;
- s=fe-ef0e585ad0; t=1792633694;
- bh=LW0K1y3Aru8asUab0ZoHmJkJJzy67mmJNwo7if4GdpQ=;
- b=7qH8gXmAz3OVXnfk/hQIziwQDU+o9HmfBYfTmXqY6L+ef47uOrQq/XEQ9JrRxL91OkS1uPPtd
- QkEyqMbUzcaKkOn3qRZnXdJ/e7OEIPMmAtzuAXSI8paKxmGJvgPMawqWTa68LJg3iWbQTiR4I6y
- PwiA5+ylUBTDRqGSI9zooN4=
-X-Forward-Email-ID: 6ad96b5cf76a2e0ef8b0ba48
-X-Forward-Email-Sender: rfc822; gr3yf0x87@skyn3tlab.com,
- smtp.forwardemail.net, 121.127.44.73
-X-Forward-Email-Version: 2.18.9
-X-Forward-Email-Website: https://forwardemail.net
-X-Complaints-To: abuse@forwardemail.net
-X-Report-Abuse: abuse@forwardemail.net
-X-Report-Abuse-To: abuse@forwardemail.net
-From: Mark Severson <gr3yf0x87@skyn3tlab.com>
-To: Jonathan Corbet <corbet@lwn.net>,
-	Federico Vaga <federico.vaga@vaga.pv.it>
-Cc: Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	workflows@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	bpf@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2] docs: changes.rst: set the pahole minimum back to 1.22
-Date: Wed, 21 Oct 2026 21:48:11 -0400
-Message-ID: <20261022014811.2803450-1-gr3yf0x87@skyn3tlab.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261022013432.2638010-1-gr3yf0x87@skyn3tlab.com>
-References: <20261022013432.2638010-1-gr3yf0x87@skyn3tlab.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD599606A319
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 01:49:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BD599606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4b2d1eb484aso1772415b6e.2
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 18:49:44 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792633784; x=1793238584;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=JssOmerse6tIPNiF9hOfYFsHOXG2slRdb88lB5aCnO4=;
+        b=KMyKKHiQhTrQG6MR517iN3LGd15yyIGvV5q+YdU9zgcGXcZnGhBFdhp2lxD+ahUmFL
+         nT0+YCHw5rzkhXIyGzCFcBztRwN5vM19qxCUBp/kOgh3YYRYmqDGo4/BIQnPlCaNUAOf
+         kXih350ewGhvWyxU/9Mc5Gvl2qWqE5hdUfcZ4Az33vgKsgOZt1jMGZOtXAFe2oMOspEC
+         Qqa56wWkr7njKxqy0zxJtVdSpWJw4b9g+aCxC2g6o2dMudjk8McPc2FsHhOWxbFvvokk
+         MphlDRslalU+OC3KPKj4WxsPxqGpdW1NzZQiGxSbnzik2Y+Na3dZppeJe50B0OhOoA4t
+         hWNg==
+X-Forwarded-Encrypted: i=1; AKwUvBx9aonwN2jCZ4pdlXFNtYECIa5BxWP5yV0CN9Y8nCEngVeXJBF4F40mvHUaSJEECKcdlpJVTUttIcLQem0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI9nqn+bK2XyyYIIXGZU20/2izkkVGNxpuf10VrEv22uPzPbfYY
+	p5ZlU4tKrBBYdJ9nxs+izSkjZx2f0Hqeoy1KgPSLXCQW0Uit6pVa879siysSx7RB1HQQ2GUj93V
+	IEGrS1+H+7mrUEl2uyheTG36BRThRJkjMZGV99j2+db1SmemhOGIlcGuuTho=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,89 +58,110 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-Received: by 2002:a05:6808:1687:b0:4eb:b0b9:2dbe with SMTP id
+ 5614622812f47-5535700ff21mr2591872b6e.27.1792633783759; Wed, 21 Oct 2026
+ 18:49:43 -0700 (PDT)
+Date: Wed, 21 Oct 2026 18:49:43 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ad96bb7.d1c214cc.659fa.0082.GAE@google.com>
+Subject: [syzbot] [mm?] KCSAN: data-race in _copy_to_iter / _copy_to_iter (3)
+From: syzbot <syzbot+68c0534b26fbda7ed84f@syzkaller.appspotmail.com>
+To: akpm@linux-foundation.org, baolin.wang@linux.alibaba.com, hughd@google.com, 
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-Commit fd5425b67355 ("docs, resolve_btfids: Document kfunc BTF
-annotation emission") removed the paragraph saying that kfuncs annotated
-with KF_IMPLICIT_ARGS need pahole v1.26, because resolve_btfids now
-emits the kfunc BTF annotations that pahole used to produce. That
-paragraph was the reason the requirements table lists pahole 1.26, and
-the table was left unchanged. The text below the table and
-lib/Kconfig.debug (DEBUG_INFO_BTF depends on PAHOLE_VERSION >= 122)
-both still say 1.22.
+Hello,
 
-Set the table back to 1.22, in the English document and in the Italian
-translation, which carries the same table, and remove the Italian
-translation's copy of the paragraph that the English document no longer
-has.
+syzbot found the following issue on:
 
-Checked by building linux-next 20261021 with pahole v1.25 and
-CONFIG_DEBUG_INFO_BTF=y: in the vmlinux BTF,
-bpf_task_work_schedule_signal has four arguments and the bpf_kfunc decl
-tag, and bpf_task_work_schedule_signal_impl keeps the
-struct bpf_prog_aux * argument, as Documentation/bpf/kfuncs.rst
-describes for KF_IMPLICIT_ARGS.
+HEAD commit:    a804c5742bff Merge tag 'lsm-pr-20261016' of git://git.kern..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=170e93cd580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=e0a09745349d136e
+dashboard link: https://syzkaller.appspot.com/bug?extid=68c0534b26fbda7ed84f
+compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
 
-Fixes: fd5425b67355 ("docs, resolve_btfids: Document kfunc BTF annotation emission")
-Assisted-by: Claude
-Signed-off-by: Mark Severson <gr3yf0x87@skyn3tlab.com>
+Unfortunately, I don't have any reproducer for this issue yet.
+
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/171f09113e28/disk-a804c574.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/0f8812b149fb/vmlinux-a804c574.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/6349a85938ab/bzImage-a804c574.xz
+
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+68c0534b26fbda7ed84f@syzkaller.appspotmail.com
+
+==================================================================
+BUG: KCSAN: data-race in _copy_to_iter / _copy_to_iter
+
+write to 0xffff88810d40b000 of 1024 bytes by task 12 on cpu 1:
+ memcpy_to_iter lib/iov_iter.c:77 [inline]
+ iterate_bvec include/linux/iov_iter.h:123 [inline]
+ iterate_and_advance2 include/linux/iov_iter.h:306 [inline]
+ iterate_and_advance include/linux/iov_iter.h:330 [inline]
+ _copy_to_iter+0x605/0xea0 lib/iov_iter.c:197
+ copy_page_to_iter+0x174/0x210 lib/iov_iter.c:374
+ copy_folio_to_iter include/linux/uio.h:204 [inline]
+ shmem_file_read_iter+0x29c/0x4a0 mm/shmem.c:3391
+ lo_rw_aio+0x6a6/0x760 drivers/block/loop.c:-1
+ do_req_filebacked drivers/block/loop.c:-1 [inline]
+ loop_handle_cmd drivers/block/loop.c:1949 [inline]
+ loop_process_work+0x569/0xac0 drivers/block/loop.c:1984
+ loop_workfn+0x31/0x40 drivers/block/loop.c:2008
+ process_one_work kernel/workqueue.c:3396 [inline]
+ process_scheduled_works+0x53f/0xa10 kernel/workqueue.c:3479
+ worker_thread+0x569/0x750 kernel/workqueue.c:3560
+ kthread+0x223/0x270 kernel/kthread.c:436
+ ret_from_fork+0x146/0x330 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+
+read to 0xffff88810d40b000 of 512 bytes by task 13858 on cpu 0:
+ instrument_copy_to_user include/linux/instrumented.h:130 [inline]
+ copy_to_user_iter lib/iov_iter.c:24 [inline]
+ iterate_ubuf include/linux/iov_iter.h:30 [inline]
+ iterate_and_advance2 include/linux/iov_iter.h:302 [inline]
+ iterate_and_advance include/linux/iov_iter.h:330 [inline]
+ _copy_to_iter+0x130/0xea0 lib/iov_iter.c:197
+ copy_page_to_iter+0x174/0x210 lib/iov_iter.c:374
+ copy_folio_to_iter include/linux/uio.h:204 [inline]
+ filemap_read+0x3f8/0xad0 mm/filemap.c:2875
+ blkdev_read_iter+0x21e/0x2d0 block/fops.c:838
+ new_sync_read fs/read_write.c:493 [inline]
+ vfs_read+0x699/0x7c0 fs/read_write.c:574
+ ksys_read+0xdc/0x1a0 fs/read_write.c:716
+ __do_sys_read fs/read_write.c:725 [inline]
+ __se_sys_read fs/read_write.c:723 [inline]
+ __x64_sys_read+0x40/0x50 fs/read_write.c:723
+ x64_sys_call+0x2135/0x2550 arch/x86/include/generated/asm/syscalls_64.h:1
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x112/0x360 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+Reported by Kernel Concurrency Sanitizer on:
+CPU: 0 UID: 0 PID: 13858 Comm: udevd Not tainted syzkaller #0 PREEMPT(lazy) 
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 10/07/2026
+==================================================================
+
+
 ---
-v2:
-- Also remove the Italian translation's copy of the KF_IMPLICIT_ARGS /
-  pahole 1.26 paragraph, which fd5425b67355 removed from the English
-  document only; v1 left the Italian text contradicting its own table.
-  Found by the Sashiko review of v1.
-v1: https://lore.kernel.org/all/20261022013432.2638010-1-gr3yf0x87@skyn3tlab.com/
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-checkpatch reports the Assisted-by tag as non-standard; it follows the
-Attribution section of Documentation/process/coding-assistants.rst as
-published on docs.kernel.org. Not run: make htmldocs; the change keeps
-the table's column widths and removes a whole paragraph.
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
 
- Documentation/process/changes.rst                    | 2 +-
- Documentation/translations/it_IT/process/changes.rst | 8 +-------
- 2 files changed, 2 insertions(+), 8 deletions(-)
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
 
-diff --git a/Documentation/process/changes.rst b/Documentation/process/changes.rst
-index 28f2ca633..13093c5c2 100644
---- a/Documentation/process/changes.rst
-+++ b/Documentation/process/changes.rst
-@@ -53,7 +53,7 @@ mcelog                 0.6              mcelog --version
- mkimage (optional)     2017.01          mkimage --version
- nfs-utils              1.0.5            showmount --version
- openssl & libcrypto    1.0.0            openssl version
--pahole                 1.26             pahole --version
-+pahole                 1.22             pahole --version
- pcmciautils            004              pccardctl -V
- pigz (optional)        2.4              pigz --version
- PPP                    2.4.0            pppd --version
-diff --git a/Documentation/translations/it_IT/process/changes.rst b/Documentation/translations/it_IT/process/changes.rst
-index 0be1292a8..b4accd428 100644
---- a/Documentation/translations/it_IT/process/changes.rst
-+++ b/Documentation/translations/it_IT/process/changes.rst
-@@ -57,7 +57,7 @@ mcelog                 0.6              mcelog --version
- mkimage (opzionale)    2017.01          mkimage --version
- nfs-utils              1.0.5            showmount --version
- openssl & libcrypto    1.0.0            openssl version
--pahole                 1.26             pahole --version
-+pahole                 1.22             pahole --version
- pcmciautils            004              pccardctl -V
- PPP                    2.4.0            pppd --version
- procps                 3.2.0            ps --version
-@@ -149,12 +149,6 @@ Dalla versione 5.2, quando viene impostato CONFIG_DEBUG_INFO_BTF, il sistema di
- compilazione genera BTF (BPF Type Format) a partire da DWARF per vmlinux. Più
- tardi anche per i moduli. Questo richiede pahole v1.22 o successivo.
- 
--Dalla versione 7.0, le kfunc annotate con KF_IMPLICIT_ARGS richiedono pahole
--v1.26 o successivo. Senza questa versione, tali kfunc avranno prototipi BTF
--errati in vmlinux, causando il fallimento del caricamento dei programmi BPF con
--l'errore "func_proto incompatible with vmlinux". Molte kfunc in sched_ext sono
--interessate da questo problema.
--
- A seconda della distribuzione, lo si può trovare nei pacchetti 'dwarves' o
- 'pahole'. Oppure lo si può trovare qui: https://fedorapeople.org/~acme/dwarves/.
- 
--- 
-2.43.0
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
 
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
