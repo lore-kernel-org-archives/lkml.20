@@ -1,98 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.217.43
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792701072;
-	b=qa81HIXbygss0Fakl0QFpQYCKYjTsT9D4lEAHPiPdriVgtNS2GJV6L+BarZGHR4JxHMa
-	 sTBjALYR9+NCY8sX5Wd2RzkFzmAorPBCTVxi2J63AV6ZcwJYqOQ/u0c8bc9pzw0xlXemk
-	 ZDv+FCG+kZhfHVtKbpEKfeHA9BtZpMzk+fMlLEnaNZR+MQ4M8U6TnYHYavH9K8qpnJObQ
-	 jAuKBMjEh8sp4uqaVSyEcwSK1+7DPTHsVVhfNaokwSTPDCq4iViNl3vUpI+iMzSSHTo+S
-	 3ufYB41rvtm3IYXmdG10GdvUXqpg8WLiPhwZvKb0WcEQyneD6PbFD2Fp2ipn21ZmyqQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792701072;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=QE1pG/hXLdzQ0g0yisouepU6N/j3HGFcN+xFKa/+MMk=;
-	b=FkWWgUqss7ZfmJJ0h09Xo8BJfBvZUnuqox6sTn5gpkFKGdHqDsdNL4f+X97zfbSl1K17
-	 Kq4LISu5MTEMxHgeqjeVVAfAbWi1w070psuFcDC5rXQUayXo6wVkkyAxq41X37KF1EvFh
-	 Kl0QGRpQmClbz3lIiHztjBhEyr5BmobxjI2wVjtVLVWJHY9pHBc/hj1MGzVAmsc5Lq4N4
-	 XpI/J1kDgoJ8h9ljgmikXev5+iLMH15U/cAcGWgCXUDYPkJECuOf/5UHO2Y506C5VHCef
-	 nxmV751QW9Ftj066eQDw60hc8GtUNb1Ky+BLUE9kV+keAI1RaRt5WMOdPlDMX8O8d5A==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=mVl8x284;
-	arc=none smtp.remote-ip=209.85.217.43
-Received: from mail-vs1-f43.google.com (mail-vs1-f43.google.com [209.85.217.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.69.13
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792701257;
+	b=yRilwAT/w0cDV5zb42+PZ+3wBrAhbqhnk1qJGj1mLprzgBOwVyCuvYDMD+gyRnbVJCsS
+	 6zMyBHHqcxBwajMF7WS0DzP2pnxYnUM+TGIH4A+3VCRWmrxFHmDlJWF4iFMFF9nLTRiOg
+	 hNBh6KpgoM75BFqXKro2V3vtUF9EG9kHDBYT9PnCRAQert0dpT2GfhntCmKwqhv5oriWQ
+	 kt250iVx/NmWlOdT/j489jgUrzPT/myC6ClKkVRtrX2DNP5a6CSAffenoDTeIz8v0fe0Z
+	 necogyvm3iVtxl4oAXpjQ+CA8VTqPbMITifpaEcSBNKdheIFaw2u+kYIu3QyDe31HsQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792701257;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:Content-Type:
+	 Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-LD-Processed:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=/Rvu5F94rRviJHWhqy0ahQMWuTdM8gGw5tKHMCUp0Xs=;
+	b=aOgpe6heFyMN9XYWd2OBLKPMVV7SnFuT7okRtqgrEuWoQSClx8WauXnfaA6zibvvoqz1
+	 qb4c84vZaoIgV7F3jGIkEeOY/XyPGxeQ7Zp8zoP34MI5uWYMeSosgPiJj2dlnRtFAiLmw
+	 z/oZG+o84CFBD90jq+EYY0q+ysZ2EmnI73sRINqBmwGb0thLsoR0yA1zj6UEpblrTzH1a
+	 745iX1wx5o1Ngx+mCJLdQOnByBasFQ1jkbTGcMzxgPAqtr8AACosOytUDoai1BRB7kr42
+	 CxnbEMOA5Nw12K73MnXHGjL2FbO4l66Xk/07mizxCoTcyQAd5j/jOjPwz2XmPuB+aDA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=FKXw25lP;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.69.13
+Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010013.outbound.protection.outlook.com [52.101.69.13])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8356F606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 20:31:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8356F606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A065606A31B;
+	Thu, 22 Oct 2026 20:34:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8A065606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=mVl8x284
-Received: by mail-vs1-f43.google.com with SMTP id ada2fe7eead31-7907f01e487so88309137.2
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 13:31:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792701070; x=1793305870; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=QE1pG/hXLdzQ0g0yisouepU6N/j3HGFcN+xFKa/+MMk=;
-        b=mVl8x284Jw29GXNyqopRUdQ2qzLDtYfzv9Xd20aUCM6QI0x1Are7t1sGIdyI7+Htn5
-         TDIFZsiXaQOznvH+o7jhs0dSuLsJHE/2PbznWmjcCeHzu7h3YpzZlcXCCpDohczlLajo
-         8TG6sgX91PnDXjfxB4O6XSpr4rOLDD4vF+DIP62ocNhsctZFmg+7MuOWiO7KRelzGHqE
-         Nz9hKBu+nS9kY+EPaIpizcO9iZGyyGMhQkL6z+9cq8Slxy5vhaIqP/weCxisdm40R2m+
-         HeyRKO3d+eHAJewRu82Npg+rFFcLID80GNiLJwUQjYQOUwhz0GqDYWHccqQF7JscxzdX
-         IRdg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792701070; x=1793305870;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=QE1pG/hXLdzQ0g0yisouepU6N/j3HGFcN+xFKa/+MMk=;
-        b=b2EFL4J9TQ5amPFmqfgZsdc2Lq4iV+LygDWQrji7hAtOc/7yN51uhUsK4/wkGzAimF
-         dCM9mdJv98/GgnqH5Y21N6UN9QXOPwWP1H6EZb9jlS13XxLtjlrFs5b8QG1FAUDU4W+z
-         QyA82oe26i9Pzm+6ADgVdvUhippqC01ZfSmJW7zUDrALaVNcig4Ve4Gvm0qQPxEG9MNF
-         CV8kRnR71tik1lvCrlxRgMgV1HemBaGHaxNFTsggMSWV7bJStmlUaESH2hBtxXLeutcd
-         65K16zZj8eQzW8Ha2HX425AcTTU8HMpUHCH98g+fRzRQjI3ptM747cjtZ0ja8JXxLZSK
-         2gCw==
-X-Forwarded-Encrypted: i=1; AKwUvBzNgnQx7413B1HMlOYl7rvJYfm0kWT8zmMX0ZOrV3Ti0EusstLcQ0KsoDmpjGchAvQNp66eQcec9/Khb2A=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJJT5Gv3RyTD7RzFG+VwWL+mnVUTdNdKZhvWzJsYGEe+2CjZTbI
-	o2sGJX1YkiqD55F/HuSWyCxo2bGjPKQsCmldA5qxAMJU4lyCBNARve/w
-X-Gm-Gg: AYBFou0S00cuVWoPKVLNPGK5U9sj3zZvVV+p/PrqVlQANrFk2r+zgdhV42XnM0NsSR8
-	uw3l1bkg8nc1N8PLEmSew7c6GT7uZzFAir9Nx18MW6gdRp4sJY0P6Gc3+MQllRRRMA2M3EAMMcv
-	VYkMWJwaULPPfrTw7DImACGL9vmZHHQFTQ+nuAloRoMi/hEmz8DIv4Tbb2thBja8YSN1ZleT01E
-	NElh2SmlQk4Bi+tF1TBCNB73aEodVSxbAuIFzICj28QeAoD8wB0jsA3LgP2LSyEL7m2cVbVmqRY
-	Gv2aKA7oBFcGN1TSOQX3GeFmnIPfHX3QwEQoDqqLYpfWKtdND1xh81kLoxFCTek4m5qa5w+XHch
-	VcTYJ32Q5hbMUKSMArsyC/W+RiUHJVacqcW+zGfT+NThbrMLIARvuwLvsJpYH2H1ywprSWSPw5F
-	CUBN9L26mbfZPACuwHBX8dAq7UnL94BhM6wijjPqxEuO9b9BTLFnhibV9MspmNmmpe3Ioa65Eir
-	ekbI3VRYfkngb2z1QJ9u94n8s8pdCsLhbzWNxh5CRTmY5BMu0aLW98k4m6IKR66cUAdyco2ZOqS
-	hPGyg/5oHm+lVtaOQuXX
-X-Received: by 2002:a05:6102:604b:b0:7b4:bdf5:9307 with SMTP id ada2fe7eead31-7ccc3436318mr203680137.30.1792701070217;
-        Thu, 22 Oct 2026 13:31:10 -0700 (PDT)
-Received: from Biostar-A520MT ([187.94.15.233])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-991017d2e8esm392220241.9.2026.10.22.13.31.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 13:31:09 -0700 (PDT)
-From: Breno Rodrigues Alves <breno3011alves@gmail.com>
-To: linux@armlinux.org.uk
-Cc: Bart Van Assche <bvanassche@acm.org>,
-	James.Bottomley@HansenPartnership.com,
-	mkp@kernel.org,
+	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=FKXw25lP
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=D8mdg1+HZxQCrd1xLG2agiJVrfhKUUtDFhx8GEh+U8DdbvtXh4u/IhglChJl4AfS7xv0qrEZclNScmf8vJOKndlUVN+TB7I/WxzP0e/hjns5zdyqhjDSvI32imLZmYsndsWolHXjT8mb2dmf2ucdf+nWSoEe1O3sm0mj8L8ffjG+Au+ZieVnTPZoZsbXmKVwRw2twu7AvRrzrF2O3Jjj2ON6d0JjUoPK13liZsriverl4SdvbDavONcLEAbINl3cEgUCWNIMHwhlSrHY6fK2JX4TJre8lktaiCi6xe1wnYfxym5zdKZqPJihiTFppWM6y657oQq2p+n2TAIO26gRqg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=/Rvu5F94rRviJHWhqy0ahQMWuTdM8gGw5tKHMCUp0Xs=;
+ b=bk2flw0sf940Z9bx8/JW+Jrf0av3RCFC0fidH8nx+4u3rMEsgiCIad+eMB0TKgrGdEQmD7/tGxU0zC2D8Z6bJ30SEVwuFcY+Ro2dMyRjocZ+xhX7dBVegHVx0+SiIiJWMljYqypZjddZOLjTIBWFHtH5YLnHoN8avc8O2Kvp4TCzVFSLhM1P4RECGlakQ9woBWC9o7D4YBf5st+V7nA57ISDv9+Wq9LyjyW+s4j970z9TvctLvn1nqAFbHcvwL/2cdPz4g/isl0WaM3OHq5akM5ysSiTGwyDlTUgtIeOKENY3vHaXCdPqoErkN2gTmavJXXZM0KdrJk6hRECdn7C0g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=/Rvu5F94rRviJHWhqy0ahQMWuTdM8gGw5tKHMCUp0Xs=;
+ b=FKXw25lPGJlIoT7IwK85Eii/lWAVG2/BrRj5cXs4QXfnRl5T2Ir5NFOV1e04QBcswpjdN+0aJw0PIJRmFXS7cWbGCHImSc9ni3JL2ZMCsD5yASW5WOsbv3vVSz8cXMwSZ9sBnROotQksevmB5imT3yiTtR2jU8wgLCPQTXUkGKiTxIZ+UEi5ifPQ6MqQKfxXmuFxoYSY4P9hvP1j0vlEErhIO2AK0QNXIU3j+CFoYPpAQufURbOj+Vdqwg+qpnR/mAP5GusTWdRuHjmJqq3JzcCBwyH1kS7MbzeJ/TKF3WndnItU//lTD99wvTs3qAgOP+jDv50LGosvk7f/4xBeWQ==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
+ by AS5PR04MB9970.eurprd04.prod.outlook.com (2603:10a6:20b:67e::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Thu, 22 Oct
+ 2026 20:34:13 +0000
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b%6]) with mapi id 15.21.0546.012; Thu, 22 Oct 2026
+ 20:34:13 +0000
+From: Frank.Li@oss.nxp.com
+To: linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	imx@lists.linux.dev,
 	linux-arm-kernel@lists.infradead.org,
-	linux-scsi@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Breno Rodrigues Alves <breno3011alves@gmail.com>
-Subject: [PATCH v3] scsi: arm: Convert acornscsi-io.S to C
-Date: Thu, 22 Oct 2026 17:30:53 -0300
-Message-ID: <20261022203053.75161-1-breno3011alves@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261022183658.58090-1-breno3011alves@gmail.com>
-References: <20261022183658.58090-1-breno3011alves@gmail.com>
+	Stefano Radaelli <stefano.radaelli21@gmail.com>
+Cc: Frank Li <Frank.Li@nxp.com>,
+	pierluigi.p@variscite.com,
+	Stefano Radaelli <stefano.r@variscite.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Luan Rafael Carneiro <luan.r@variscite.com>
+Subject: Re: [PATCH v1 1/1] arm64: dts: imx8mm-var-som: Use the official product names in model strings
+Date: Thu, 22 Oct 2026 16:34:05 -0400
+Message-ID: <179270122848.1316256.2871932896729483164.b4-ty@b4>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261018142310.28242-1-stefano.r@variscite.com>
+References: <20261018142310.28242-1-stefano.r@variscite.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: PH7P220CA0075.NAMP220.PROD.OUTLOOK.COM
+ (2603:10b6:510:32c::11) To MI3PR04MB12438.eurprd04.prod.outlook.com
+ (2603:10a6:290:76::14)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,363 +109,91 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|AS5PR04MB9970:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3aed095b-54ac-4bcb-0bff-08df307bd58b
+X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+ BCL:0;ARA:13230040|19092799006|23010399003|1800799024|7416014|376014|366016|6133799003|10067099003|22082099003|18002099003|261021121427099003|261021123027099003|11063799006|261009223027099003|56012099006|261022075727099003;
+X-Microsoft-Antispam-Message-Info:
+ FDugiYfdqHm7e9UMu6KYUIgSOcRbWHMvZMS/hxsye3w6vcSusunh0JLOt2meAHvszEbeePQi2/OS9OeV2dw02OBmu8gpVianjugTnpxcUpHxGqGtALUFdi0tQ3lNYKadYGlGpyDZYucCgf0bx7QCH3SF9RrofickpsktMs7D7PJjklvrwKwda/kqN1mb91sDEZM4wHVRMVkwd1NJCNISHU77wVZg5jfKHdjCgeCdvFo42SJtv+9Uh8xZJC15Lqv+E3L3V7//f8kRl8xizylSoVUL3V82tDKjnyE9vFUxqA0wN7p56PEFwITa2G3iU1gQDEoOzuyE6yUk+gc2mV+xwA6qnLeDNidYuNlVTCgaMSFp0QRrV+myDj2HW11qcDhmH1uwUoir9/9Tw8DnR4Vk5FZvNehNvjf4Jgoqeh2ynqzeVQ/TflL1dr4d4xaEWSW1CauAhSsO4y1N8U7bwy7uwrBktYba0ExMJ76FEK8fj4fdQVC/BOWV2/rBJmZdBLgNmt0wdGIwhaTE/qcvHU6LQC29m3CxZ0UMAj/MhssrP5IWGy2NT3+nu85Zxj6POo5MmFTJ0NNYnIOOiSVDPonm0e5glbnV9KEvLP3oir+Y95Ho7rSSvcQ84/01OilcMlJwKdJSs/hhuUk8JVaKHIWbPccrxG/n0WWIowUZ5y5ONuE=
+X-Forefront-Antispam-Report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(23010399003)(1800799024)(7416014)(376014)(366016)(6133799003)(10067099003)(22082099003)(18002099003)(261021121427099003)(261021123027099003)(11063799006)(261009223027099003)(56012099006)(261022075727099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+ =?utf-8?B?Z2c5dGYxQkgzSHhnYzhQTk5rZDJHeTFWdC84eEhtVW1UbDNyUnlkdThBM25Z?=
+ =?utf-8?B?dG5yN3lCbTMyZ21QT2ZmNWtzWHNKVHVoclhMeFFqZWN2UzIzQTRtOVgwcXZl?=
+ =?utf-8?B?azVtSlErZUZTNnVyN1IvY0JDSERaYU9LZ3N2VWFFL2NLWGVadGpSRjlwTTh4?=
+ =?utf-8?B?NXo1Wk5obklNdWtudUJuYVhXQm9VclNQamM2dEZMMk5hRW1Td1pPTjJpaVZy?=
+ =?utf-8?B?VjBNdUN2Q3l6YWxORnkxOXFWL0pJUElyTGMrc3NOaDVVckcvam93azZIUXhw?=
+ =?utf-8?B?K1h2a2VqZ0d6enZYcWdxeUh0V00yaEpKeVdKY3poOUo3cVNvdGhqWUJ3OXhB?=
+ =?utf-8?B?QjZYbUxZSE9aUGE2bmk1UlNWOUUxM0lPQ0lHTmx1TzJZU29MZjhmL0FBakZp?=
+ =?utf-8?B?TytMaHlBT3hrTU9yMENnRFBRazh5RmRUVmxzdVVhMW9nMVRhRjhSSitsVG9V?=
+ =?utf-8?B?dElQMWYwajR1cVNGTUtqU2ZwdFJHS01sTWhMMm5ITW9KbUtMMTNnMGJneUZH?=
+ =?utf-8?B?RlZlWjlabGVMeE9aUUl0ekg1emJrZ3dWVjFHbTB4cWVFSUdnMkxUdWg0d0t5?=
+ =?utf-8?B?dVYra1M3TWV5QktReHJJTWN6K0xEZHZBNDRreHRxQVU5TENuTDJNN0hyWkEz?=
+ =?utf-8?B?dTA4UFpWTUlHcDdxcjBPWGZ3Qy9hN0ZLM3dmR1dDd0pCcFNOcTBvNzFGOHNB?=
+ =?utf-8?B?cXZxSU84TFpaSGxEV0trcDNsRGVZd0lXVUVvald1cmxrYlVleGk4cDhqT1FH?=
+ =?utf-8?B?c3EyRThIU21lSThnYkltazM2K0ViK0RVTGRNMFpRZHNFemhzWTAveTZqeHIx?=
+ =?utf-8?B?Z2FmWTJtUzEwZkFrb3QrK0xBc0t0YTJHaVVtUlRCYzVxNWY1aitPbjBsYmZ5?=
+ =?utf-8?B?ZHF5VkZmd0tNRHJqZmRuVVZDWkpzMGdsTVVUc2xQVG5zRmVNcWRnckV5b09K?=
+ =?utf-8?B?K2VETVdkMXIzOGkza1IwbFZQbFArKzlSVHdnWUFiSEJoMklpMUZPZmRzVnlT?=
+ =?utf-8?B?RDNjbUwwWmptQ1ZYbG8xMm9Zbjd1NnFTT0UwRWtjeXUwaUE1UE9ZUmdhR3Zm?=
+ =?utf-8?B?ZDkwTVl5V0pOYXhvMGdyaDd5a1M2MjE3a3BmZGl6Y3ZWdSttV2ljcFRZWjBM?=
+ =?utf-8?B?YzJuZXJTSXd1eXk3YlRPQjh5RU95Ty9FdU5LNmQ5VEd0QW1uQzZmcFd1cFZq?=
+ =?utf-8?B?TVlpZkhnNVhaOFBCQVlGb3BPbEpHTXR4UG9hZVBuSDBMb1VVQ1MwbHhyS285?=
+ =?utf-8?B?dWtsdkpjSm10WDg5VGlCc1YrMnl0ZlBJdWNzQnhqMFVVT01POVo4bFNFZkNr?=
+ =?utf-8?B?QndmbDcvdTRoZ2dFL1Z4QUJZNjcySFNCTlNCVFJucHFwclNxZW80N21CT1oy?=
+ =?utf-8?B?WHpKTlVFaVZPMjVrYXhxWUFpTS8yVUIvZmdkWWVaTVNvdTFJdDdiWk55MWhz?=
+ =?utf-8?B?bkhkZEMzWDR5L3RiUll0SDUzSHdlN3VTaTJuWGwybkNrOWpORnlIQUhqaFI0?=
+ =?utf-8?B?c0VHTnVxTEhQY09WU2lMSVMyUHE3T1VkSXVlRXRES21haUpZM0ZaWjhGNEVC?=
+ =?utf-8?B?THl1U0NPVTk5U1RNU1l1dG5pTDBlVmFVWnVpcWlMZnp5MjhtQVpmWTBpQkpY?=
+ =?utf-8?B?WnBtTTJaQ3lPNVl3MVVNSG5uL1VZY3crd2FrNmcxdlNiejUydDFHeWdQUTFF?=
+ =?utf-8?B?cVZ1dEdBS0k0aWNXYnBMMHZLS2xPeHl0b0VKRFcrdnNkVW90NDZRS2kzS1pn?=
+ =?utf-8?B?ZkRTYTl6UlVWYlBCWThSV3ZHMkFKQ0JrZDNVQldVWE02U2Q3amM2UjJJVFRN?=
+ =?utf-8?B?b0JFZjEwWWtXMFZtVDNjUEwzZERVWFNwaC9jaWF0Z0oyYjJRbVJQOUVHZ3ps?=
+ =?utf-8?B?WW11N3BMUHd4MENydDJNWkNvV1hua3Y4ek1aS0JBVUF1V25UR3RWd2tWQlg2?=
+ =?utf-8?B?OHVMSU5sM0NIMlVQUHlTQlZsUXhCTW1pYm9xdmEwQ3VpOStwejRwbm9Cd1VZ?=
+ =?utf-8?B?RGdYcjZFa1FVSDI1TEZ2aTZ0SkNEYWl2Wk51VGxHS0wxd1FoRVlpcUZkQXY4?=
+ =?utf-8?B?dEZEWHJ4LzZlbU9BUW1lMGtZWWpaTE0xaWJOeUR1VUxlUWx0dUlXdmsvMVhx?=
+ =?utf-8?B?MWJHbjFmR2lxNGtOUXVNZ1l2Tkh3LytlcVZzQ04xR0hma1FHczBBYVV2ZUU3?=
+ =?utf-8?B?b29ZTmtYVXFvYkxkbm9SWDlQRkVCNmVCZTZpS2MzeU1FanRCVS9pZklTUWdo?=
+ =?utf-8?B?UWRwL3BWcEt0cVE0ZDVsbUJ6MTVhTUFtVUNtYlNGVmJNMWdKblplTHlPbGhJ?=
+ =?utf-8?B?TlN5Yy9OeGQrQkEzSG5lbytLVTdwWTFPMWJDMUF1d3UxSG5DTWUzREtjcUdt?=
+ =?utf-8?Q?77fRbgEh/BpKmNe2rToRl5NUiTv8C5UA/NVb1?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3aed095b-54ac-4bcb-0bff-08df307bd58b
+X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Oct 2026 20:34:13.2784
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: gRLcToCt0zVkeJOmymlQ25LFEmFqp8qIkI5P0yBg2t+FYT0pE1ccBVqVa4L0yOeOots8AFwpKtrMVh37ZyyjY3/hc0dc9G4K1/EzNF7qC4krvf6quXPv7bwCc5dG5o4x
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS5PR04MB9970
 
-The Acorn SCSI expansion card presents each 16-bit SCSI data halfword
-on the low half of a 32-bit card access.  The hand-written assembly
-in acornscsi-io.S implements the two directions of the data path:
+From: Frank Li <Frank.Li@nxp.com>
 
-  - __acornscsi_in()  : packs pairs of 16-bit card reads into 32-bit
-                        memory words
-  - __acornscsi_out() : expands 16-bit memory halfwords into 32-bit
-                        card writes (duplicating the halfword in both
-                        halves for the bulk of the transfer)
 
-Both routines are simple pointer walks that a modern compiler handles
-just as well as hand-written assembly, so replace the .S file with an
-equivalent C implementation.
+On Sun, 18 Oct 2026 16:23:10 +0200, Stefano Radaelli wrote:
+> Replace VAR-SOM-MX8MM with the official VAR-SOM-MX8M-MINI product
+> name and identify the carrier as Symphony-Board.
+>
+> This aligns the model strings exposed to userspace with the product
+> names used in Variscite documentation.
+>
+>
+> [...]
 
-The C version takes its arguments as (void __iomem *, char *, int),
-matching the prototype actually used by acornscsi.c.  The assembly
-version had no C prototype, so the original comment declaring the
-first argument as unsigned int was never enforced; using the caller's
-type removes that latent inconsistency and lets the MMIO accessors
-do the right thing on any architecture.
+Applied to imx/dt64-intend (will appear to linux-next after v7.4-rc1),
+thanks!
 
-The 16-, 8- and 4-byte unrolled bodies from the assembly are folded
-into a single 4-byte loop per direction and expressed with
-put_unaligned_le32() / get_unaligned_le32(), which the compiler
-unrolls exactly as before.  The LE variants are used because the
-assembly performed a plain 32-bit store on little-endian ARM, which
-emits bytes in little-endian order and is what the SCSI payload
-expects.
+[1/1] arm64: dts: imx8mm-var-som: Use the official product names in model strings
+      commit: 3fe668c42994675e061b72b6e393a0fc7f89cbd5
 
-Note on odd transfer lengths: the original assembly dropped the final
-odd byte when the tail reached the two-byte handler, leaving the byte
-unwritten (out) or unread (in).  The C version advances the MMIO
-pointer by a full 32-bit card word in the trailing loop, so the
-remaining odd byte is transferred through the low half of the next
-card word, which is where the hardware actually samples it.  Callers
-in acornscsi.c pass even lengths in practice, so this is a latent-bug
-fix, not a behaviour change that affects existing systems.
-
-No Makefile change is required: acornscsi_mod-objs already lists
-acornscsi-io.o, and the build system will pick up the new .c file in
-preference to the removed .S file.
-
-Signed-off-by: Breno Rodrigues Alves <breno3011alves@gmail.com>
----
- drivers/scsi/arm/acornscsi-io.S | 135 --------------------------------
- drivers/scsi/arm/acornscsi-io.c | 106 +++++++++++++++++++++++++
- drivers/scsi/arm/acornscsi-io.h |  14 ++++
- drivers/scsi/arm/acornscsi.c    |   4 +-
- 4 files changed, 122 insertions(+), 137 deletions(-)
- delete mode 100644 drivers/scsi/arm/acornscsi-io.S
- create mode 100644 drivers/scsi/arm/acornscsi-io.c
- create mode 100644 drivers/scsi/arm/acornscsi-io.h
-
-diff --git a/drivers/scsi/arm/acornscsi-io.S b/drivers/scsi/arm/acornscsi-io.S
-deleted file mode 100644
-index fdd7237bb..000000000
---- a/drivers/scsi/arm/acornscsi-io.S
-+++ /dev/null
-@@ -1,135 +0,0 @@
--/* SPDX-License-Identifier: GPL-2.0-only */
--/*
-- *  linux/drivers/acorn/scsi/acornscsi-io.S: Acorn SCSI card IO
-- */
--#include <linux/linkage.h>
--
--#include <asm/assembler.h>
--#include <mach/hardware.h>
--
--#if defined(__APCS_32__)
--#define LOADREGS(t,r,l...)	ldm##t	r, l
--#elif defined(__APCS_26__)
--#define LOADREGS(t,r,l...)	ldm##t	r, l##^
--#endif
--
--@ Purpose: transfer a block of data from the acorn scsi card to memory
--@ Proto  : void acornscsi_in(unsigned int addr_start, char *buffer, int length)
--@ Returns: nothing
--
--		.align
--ENTRY(__acornscsi_in)
--		stmfd	sp!, {r4 - r7, lr}
--		bic	r0, r0, #3
--		mov	lr, #0xff
--		orr	lr, lr, #0xff00
--acornscsi_in16lp:
--		subs	r2, r2, #16
--		bmi	acornscsi_in8
--		ldmia	r0!, {r3, r4, r5, r6}
--		and	r3, r3, lr
--		orr	r3, r3, r4, lsl #16
--		and 	r4, r5, lr
--		orr	r4, r4, r6, lsl #16
--		ldmia	r0!, {r5, r6, r7, ip}
--		and	r5, r5, lr
--		orr	r5, r5, r6, lsl #16
--		and	r6, r7, lr
--		orr	r6, r6, ip, lsl #16
--		stmia	r1!, {r3 - r6}
--		bne	acornscsi_in16lp
--		LOADREGS(fd, sp!, {r4 - r7, pc})
--
--acornscsi_in8:	adds	r2, r2, #8
--		bmi	acornscsi_in4
--		ldmia	r0!, {r3, r4, r5, r6}
--		and	r3, r3, lr
--		orr	r3, r3, r4, lsl #16
--		and	r4, r5, lr
--		orr	r4, r4, r6, lsl #16
--		stmia	r1!, {r3 - r4}
--		LOADREGS(eqfd, sp!, {r4 - r7, pc})
--		sub	r2, r2, #8
--
--acornscsi_in4:	adds	r2, r2, #4
--		bmi	acornscsi_in2
--		ldmia	r0!, {r3, r4}
--		and	r3, r3, lr
--		orr	r3, r3, r4, lsl #16
--		str	r3, [r1], #4
--		LOADREGS(eqfd, sp!, {r4 - r7, pc})
--		sub	r2, r2, #4
--
--acornscsi_in2:	adds	r2, r2, #2
--		ldr	r3, [r0], #4
--		and	r3, r3, lr
--		strb	r3, [r1], #1
--		mov	r3, r3, lsr #8
--		strplb	r3, [r1], #1
--		LOADREGS(fd, sp!, {r4 - r7, pc})
--
--@ Purpose: transfer a block of data from memory to the acorn scsi card
--@ Proto  : void acornscsi_in(unsigned int addr_start, char *buffer, int length)
--@ Returns: nothing
--
--ENTRY(__acornscsi_out)
--		stmfd	sp!, {r4 - r6, lr}
--		bic	r0, r0, #3
--acornscsi_out16lp:
--		subs	r2, r2, #16
--		bmi	acornscsi_out8
--		ldmia	r1!, {r4, r6, ip, lr}
--		mov	r3, r4, lsl #16
--		orr	r3, r3, r3, lsr #16
--		mov	r4, r4, lsr #16
--		orr	r4, r4, r4, lsl #16
--		mov	r5, r6, lsl #16
--		orr	r5, r5, r5, lsr #16
--		mov	r6, r6, lsr #16
--		orr	r6, r6, r6, lsl #16
--		stmia	r0!, {r3, r4, r5, r6}
--		mov	r3, ip, lsl #16
--		orr	r3, r3, r3, lsr #16
--		mov	r4, ip, lsr #16
--		orr	r4, r4, r4, lsl #16
--		mov	ip, lr, lsl #16
--		orr	ip, ip, ip, lsr #16
--		mov	lr, lr, lsr #16
--		orr	lr, lr, lr, lsl #16
--		stmia	r0!, {r3, r4, ip, lr}
--		bne	acornscsi_out16lp
--		LOADREGS(fd, sp!, {r4 - r6, pc})
--
--acornscsi_out8:	adds	r2, r2, #8
--		bmi	acornscsi_out4
--		ldmia	r1!, {r4, r6}
--		mov	r3, r4, lsl #16
--		orr	r3, r3, r3, lsr #16
--		mov	r4, r4, lsr #16
--		orr	r4, r4, r4, lsl #16
--		mov	r5, r6, lsl #16
--		orr	r5, r5, r5, lsr #16
--		mov	r6, r6, lsr #16
--		orr	r6, r6, r6, lsl #16
--		stmia	r0!, {r3, r4, r5, r6}
--		LOADREGS(eqfd, sp!, {r4 - r6, pc})
--
--		sub	r2, r2, #8
--acornscsi_out4:	adds	r2, r2, #4
--		bmi	acornscsi_out2
--		ldr	r4, [r1], #4
--		mov	r3, r4, lsl #16
--		orr	r3, r3, r3, lsr #16
--		mov	r4, r4, lsr #16
--		orr	r4, r4, r4, lsl #16
--		stmia	r0!, {r3, r4}
--		LOADREGS(eqfd, sp!, {r4 - r6, pc})
--
--		sub	r2, r2, #4
--acornscsi_out2:	adds	r2, r2, #2
--		ldr	r3, [r1], #2
--		strb	r3, [r0], #1
--		mov	r3, r3, lsr #8
--		strplb	r3, [r0], #1
--		LOADREGS(fd, sp!, {r4 - r6, pc})
--
-diff --git a/drivers/scsi/arm/acornscsi-io.c b/drivers/scsi/arm/acornscsi-io.c
-new file mode 100644
-index 000000000..c907090bd
---- /dev/null
-+++ b/drivers/scsi/arm/acornscsi-io.c
-@@ -0,0 +1,106 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ *  Acorn SCSI card I/O
-+ *
-+ *  The Acorn SCSI expansion card exposes each 16-bit SCSI data
-+ *  halfword on the low half of a 32-bit card access:
-+ *
-+ *   - on reads, one 16-bit value is returned per 32-bit card load;
-+ *     consecutive card reads are packed into 32-bit memory words
-+ *
-+ *   - on writes, a 16-bit memory halfword is expanded into a 32-bit
-+ *     card word.  The original assembly duplicates the halfword into
-+ *     both halves of the card word for the bulk of the transfer and
-+ *     writes only the low 16 bits of the trailing partial word,
-+ *     since the hardware samples only the low half.
-+ */
-+
-+#include <linux/unaligned.h>
-+#include <linux/align.h>
-+#include <linux/io.h>
-+#include <linux/types.h>
-+
-+#include "acornscsi-io.h"
-+
-+/*
-+ * Transfer a block of data from the Acorn SCSI card into memory.
-+ *
-+ * The card address is rounded down to a 32-bit boundary.  Each
-+ * 32-bit read from the card yields one valid 16-bit halfword in
-+ * the low half; pairs of card reads are packed into single 32-bit
-+ * memory words.
-+ */
-+void __acornscsi_in(void __iomem *addr, char *buffer, int length)
-+{
-+	const u32 __iomem *card = PTR_ALIGN_DOWN((const u32 __iomem *)addr, 4);
-+	u8 *buf = (u8 *)buffer;
-+
-+	while (length >= 4) {
-+		u32 w0 = readl(card + 0);
-+		u32 w1 = readl(card + 1);
-+
-+		put_unaligned_le32((w0 & 0xffff) | (w1 << 16), buf);
-+
-+		card += 2;
-+		buf  += 4;
-+		length -= 4;
-+	}
-+
-+	while (length >= 2) {
-+		u32 w0 = readl(card);
-+
-+		put_unaligned_le16(w0 & 0xffff, buf);
-+
-+		card++;
-+		buf += 2;
-+		length -= 2;
-+	}
-+
-+	if (length >= 1) {
-+		u32 w0 = readl(card);
-+
-+		*buf = w0 & 0xff;
-+	}
-+}
-+
-+/*
-+ * Transfer a block of data from memory to the Acorn SCSI card.
-+ *
-+ * Each 16-bit value read from memory is expanded into a 32-bit card
-+ * word, with the halfword duplicated in both halves (matching the
-+ * original assembly).  For the trailing partial halfword the card
-+ * only samples the low 16 bits, so two byte stores are sufficient.
-+ */
-+void __acornscsi_out(void __iomem *addr, char *buffer, int length)
-+{
-+	u32 __iomem *card = PTR_ALIGN_DOWN((u32 __iomem *)addr, 4);
-+	const u8 *buf = (const u8 *)buffer;
-+
-+	while (length >= 4) {
-+		u32 v  = get_unaligned_le32(buf);
-+		u32 lo = v & 0xffff;
-+		u32 hi = v >> 16;
-+
-+		writel(lo | (lo << 16), card + 0);
-+		writel(hi | (hi << 16), card + 1);
-+
-+		card += 2;
-+		buf  += 4;
-+		length -= 4;
-+	}
-+
-+	while (length >= 2) {
-+		u16 v = get_unaligned_le16(buf);
-+		void __iomem *cp = (void __iomem *)card;
-+
-+		writeb(v & 0xff, cp);
-+		writeb((v >> 8) & 0xff, cp + 1);
-+
-+		card++;
-+		buf += 2;
-+		length -= 2;
-+	}
-+
-+	if (length >= 1)
-+		writeb(*buf, (void __iomem *)card);
-+}
-diff --git a/drivers/scsi/arm/acornscsi-io.h b/drivers/scsi/arm/acornscsi-io.h
-new file mode 100644
-index 000000000..64acfb8bb
---- /dev/null
-+++ b/drivers/scsi/arm/acornscsi-io.h
-@@ -0,0 +1,14 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+/*
-+ *  Acorn SCSI card I/O
-+ */
-+
-+#ifndef _ACORNSCSI_IO_H
-+#define _ACORNSCSI_IO_H
-+
-+#include <linux/io.h>
-+
-+void __acornscsi_in(void __iomem *addr, char *buffer, int length);
-+void __acornscsi_out(void __iomem *addr, char *buffer, int length);
-+
-+#endif /* _ACORNSCSI_IO_H */
-diff --git a/drivers/scsi/arm/acornscsi.c b/drivers/scsi/arm/acornscsi.c
-index 79d7d7336..263a1bf24 100644
---- a/drivers/scsi/arm/acornscsi.c
-+++ b/drivers/scsi/arm/acornscsi.c
-@@ -140,6 +140,8 @@
- 
- #include <scsi/scsicam.h>
- 
-+#include "acornscsi-io.h"
-+
- #define VER_MAJOR 2
- #define VER_MINOR 0
- #define VER_PATCH 6
-@@ -886,7 +888,6 @@ static
- void acornscsi_data_read(AS_Host *host, char *ptr,
- 				 unsigned int start_addr, unsigned int length)
- {
--    extern void __acornscsi_in(void __iomem *, char *buf, int len);
-     unsigned int page, offset, len = length;
- 
-     page = (start_addr >> 12);
-@@ -931,7 +932,6 @@ static
- void acornscsi_data_write(AS_Host *host, char *ptr,
- 				 unsigned int start_addr, unsigned int length)
- {
--    extern void __acornscsi_out(void __iomem *, char *buf, int len);
-     unsigned int page, offset, len = length;
- 
-     page = (start_addr >> 12);
--- 
-2.56.0
-
+Best regards,
+--
+Frank Li <Frank.Li@nxp.com>
