@@ -1,102 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792646451;
-	b=a7KzYs9is+w66XJ1eoBHt4li2oWKejLMob2MSJFwC/njreNqkDEmXBr40ZEB3pSbzvll
-	 w6/zcN4BKX8zd9yFhX/nhxZTHqc8gO6tkRptu7QloKfVGAeSsKA/UBvv8xiDBMdXRswEA
-	 4IjJwaTjFF1+1WIojp57cymdOw+LN0EXv8u98iJ/hoWN2dXEUvpwMcVDVv5FYyPZXp7lk
-	 6z+hw0m1axp5fMECznCjszkNO12ZppOOQBrey4w/DKB1HebxkNa7BnIWWow0glNZl6O1r
-	 Vgz2rBcQoX9blMG86gZ12cJhDXOItPiB9twNxWFpkGJJ75KZpRdugjfizUk0xkJCPrw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792646451;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Sent-From:X-URL:X-Accept-Language:
-	 X-Accept-Content-Type;
-	bh=NQGD0qfscRrFswdmrZ7wBUXG+FDtegg7roj0OrW3evk=;
-	b=0MdEiTsYlpW0pQ0/NzhPZVrMEuWuCIHzahA+83vWwDGvam6+nZwjosv5soXoT0r6GYnm
-	 SRgU8A23NvTaXFEaOH0n2UbTh1yOvm1mGqAuYhlt7GWCd4s5yyU7m3CGo6RaPwXewCwqL
-	 hlDbaWeONNJMy00DZviiwJp3UFg8J00emEHW89w8ysastk4p4b4cKuwCajZ3jkDceS6df
-	 c4NX6pjxfYHjkuu3pqB+brOLl7aQu0vdBjD0+Y/ZQbTRwonQZxr1fIkLZJshqg7h4WWXk
-	 VMCN9rDs3nxpOOgr1Fzb9CYxcdiW9cBtWcE9bYgtpTJ96RF2yDauHRfdiw04jkOsz9w==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=pengutronix.de;
-	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=DrZEJN6d;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.198
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792646570;
+	b=lciDDQUPmQzXVC4JaF6eIndua1Zna2qh5lVKZZEU4I+xZGoOxp33FQdR95zEaqeerS1H
+	 3XXr25xOn7vsDPK2lqsJMYgmvurrXYkliL2SgCwcymPSrlls0Re9RCHGzgG6+02SCaNtw
+	 uxsQcTFmRSw3NsEiQYlvAofP+M/xBzr4836ZH7NtHaZy/aGNBvAHo/K+HUVL6q9gNWd8H
+	 +I+nZZoCPUNrGH52HWKltjI6XoqqbSsz/h+aF5aLwLAHaC25iRzgR4swOSWDHo5aVrfgB
+	 lcKR1flgFuUNQUdS/hVwDMdZCR8dzPRXV8cW3PqlbPYhyKkICBCOsAlqtdIu5lZkcKQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792646570;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
+	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=i0ib49ykkVTIXodpiuOe5mlbictVGMpVlOsQqgxbR10=;
+	b=4DPbK/7dAEPXr0lZJj0DG+1SZDwft6v/taG4mtTGK7X6NRzxVaUS1AKaGRGdw3JM82GL
+	 C7kEzN8ZIzkFS38OyOwXY2NPkFk1qAnc1aH1t/LFAQkd1++YFGbk97kGT2d1RaHHF1aBp
+	 25zCW+HYSk7ybhhVljR8icnYDrWBnndXZ9k0F0UUH3tUiGg8vYBMXNZEBFrnRlbtp4OmY
+	 uQB9HEgRCObwAvld/NLgn2bwYektfL4Uk8BRvDXvs08sEFIT/x6KNXDSBdty2+aQfiZ/9
+	 GNN9LfWgpCpP18YcEzLpEJM8NdzLbDkDmzHDFjHcXJl7aCiGpAuv3+HYyCllJXZk3VQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--chihsheng.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=rM7fLbxE;
+	arc=none smtp.remote-ip=209.85.210.198
+Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com [209.85.210.198])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EA46606A319;
-	Thu, 22 Oct 2026 05:20:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8EA46606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12092606A319
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 05:22:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 12092606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--chihsheng.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=DrZEJN6d
-Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
-	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id E38C32008E4;
-	Thu, 22 Oct 2026 07:20:41 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1792646441;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=NQGD0qfscRrFswdmrZ7wBUXG+FDtegg7roj0OrW3evk=;
-	b=DrZEJN6d6YhT035oVTbH2tOPFnADJL2K7u8txVruSYNuM2QSD/tARbFkfcrZMnyr5Jgtsq
-	8SnHyzNTE9bs92/HSJJRAi60WduyjKyxOVOlyImbM7VU3O5zdNYUiIeZRF6JsDhnUCp93d
-	EiTDqSAF/hk/tIO5035GGG7rlEpLqdXlaNnZ4Q1uMVHo3ZGaP0fDmqCSBWTcpB5ZU8ooKn
-	xlTRmRWmd3ydPjtZhlSAnyB2Yk/7W73R1Mm+/4Up5HLz4OLeeyr9fQtd3Q0ND+wR0/FZs2
-	DXmhqGxXHt13kRwLYT0rlnb/G94YHyzI7jhdYHrUws3037MOTMODzSY+lsyu4A==
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1792646441; a=rsa-sha256;
-	cv=none;
-	b=WeL/1KQVW5Csew3sJgzXJQAhd07r5XXlYBPleuHgR5kB4Dzl0F5zhHq0/2d33Pc7+JfKnL
-	POK7E8s/kgqdnUkgmB89rh4tgN4l+GwiGvgJCtTkdgbALJ60yhYMicQJXIyqqiVcQ0d45c
-	yJc5Fi6kJKVLGybhpMxrQpT8LyYhSeU9TDMpQZ1T/jX4a9OLdJi7qvWPWNGluqOAR9xO5W
-	Bh67L3s5DGUtsKVZ3TW71dSiADFUbxc1Ri7KFsO1Hdb24+SP2BRetJgQUxdyQ3NzjKrCX5
-	Wx9rM71RvxpLuZpGX4mbwbU5RGTrd9lZQxEhdJzU95pHJaCMbfCNlP94JXv4kQ==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=ore@pengutronix.de
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1792646441;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=NQGD0qfscRrFswdmrZ7wBUXG+FDtegg7roj0OrW3evk=;
-	b=hDyjYvm5guN3ZbCujP4BArHQfLLGv0CIOZHYgEZ8NXIWXy2OgN4TU++eUZp6jmR/u2s5nU
-	jLgh8L4nzrn/5Way1p7uhmwbHiA6AuCNQ+KY+LECxazxxUAFDdCcVYjiF611cZ4MqZxO+l
-	q2pGxgf8hfPIcmaFv9zz8yUSQFVj+OyPhO67w04QYNXcrkpSSQQckmqHrnyjfWbf6lCig/
-	nFRP3Vxr6G+UZw15BS0Lo79MDxRuXucssKzChGFrbdgkuvBD0GWmk6V97Kkgljj4Bkqe2z
-	Z/JaLjxDlB8GEARzn/OlQRwvLhOBb3QhW2/CGcHF2p4Xd3KO0MagFTAqt+R9ZA==
-Received: from pty.whiteo.stw.pengutronix.de ([2a0a:edc0:2:b01:1d::c5])
-	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <ore@pengutronix.de>)
-	id 1xJlEH-000ewI-2d;
-	Thu, 22 Oct 2026 07:20:41 +0200
-Received: from ore by pty.whiteo.stw.pengutronix.de with local (Exim 4.98.2)
-	(envelope-from <ore@pengutronix.de>)
-	id 1xJlEH-00000009PqR-2aLY;
-	Thu, 22 Oct 2026 07:20:41 +0200
-Date: Thu, 22 Oct 2026 07:20:41 +0200
-From: Oleksij Rempel <o.rempel@pengutronix.de>
-To: Carlo Szelinsky <github@szelinsky.de>
-Cc: Kory Maincent <kory.maincent@bootlin.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Kyle Swenson <kyle.swenson@est.tech>, Ross Cawston <ross@r-sc.ca>,
-	netdev-bot+sashiko@kernel.org, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net v2 08/14] net: pse-pd: stop async event sources
- before freeing PI data in unregister
-Message-ID: <atmdKXGU3jMOKB91@pengutronix.de>
-References: <20261020171249.853085-1-github@szelinsky.de>
- <20261020171249.853085-9-github@szelinsky.de>
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=rM7fLbxE
+Received: by mail-pf1-f198.google.com with SMTP id d2e1a72fcca58-8a0522cdaf3so1118618b3a.0
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 22:22:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1792646569; x=1793251369; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=i0ib49ykkVTIXodpiuOe5mlbictVGMpVlOsQqgxbR10=;
+        b=rM7fLbxEmxtqe2XJH1ckPcC/HR+nt8Dd4dtFlo7ZfuauTjoo8LBPk7DWoCc0/T6azY
+         LuATYY3nULYR2Pgqc0FtNZuzTZYgUrotN30vkn+Sd3jq4fQ8zzcXziUCYcECp+RxVvjY
+         P2WZyj5iatmlIlFph2BMkt2BfewIw7LrGyPHqWdRMyKXnP1Jhq1MeLbyPiMpRUYUKJZk
+         ftKIPeL1MQ29kyleADBfHaNJyxbntfwffdwd+PbJaANkENTMH3si7SSaLQO6vdRVdWRN
+         2qq0FmwkVFDhXbSext4RGrSBHXVtg1tQhSneW0IUk8rtfNN6Srk2KL0CZzSIkY3mR8XR
+         PrNg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792646569; x=1793251369;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=i0ib49ykkVTIXodpiuOe5mlbictVGMpVlOsQqgxbR10=;
+        b=DV/feluw60DzzPyBXimCb26eKqQGkokHhP5jMNN4Uw5UULk3Trrwh7cTppHzlDh3/O
+         FJd6uIFxaxwkrl27tLAYpFbwRCf5XArVAjfA6YwaQn39ctw2Lmq8fm9HSvjnkjrzzbxJ
+         hKwdqOZcUGu1XWn/RLu1sIm4AdDw3uzgVVz5XvmQ3U9nGkxBtskvc/qwaHg+VpWxY6Y1
+         rjaYTa8XSUCx/I1GVMjSHH0dWVISa2hPsf0yEXt+/ktU79/Rrh7+vl20T0siIXCNCRyM
+         KFUIqanvCyI5Xmn8a9UVRXhmono8HWsCX8d8oz5wQE5BjUY07ve0Off1YEpSlrYApXWT
+         5gJg==
+X-Forwarded-Encrypted: i=1; AKwUvBxaQsNLV1d+wC9bp7z3slMb0IlxSLpr2DfOBkgkyxb92THGZyD2MFwjI6U7izmZKwFBHfyQr1XF3ZeskPc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI5LYcbgAENzTB7lpoO2V01xVqHVsgZSXiuzLAVYNaSUuVyTHge
+	0v5Zpx/7skDAk0Hj+RarOFEvHQKOXN6pYeq+9XBcLvlK5Dvg8jkwLqjAA/n5ThevWIQ09GgOyfi
+	oXW1tbtYGyfyJV05S6w==
+X-Received: from pfwo8.prod.google.com ([2002:a05:6a00:1bc8:b0:8a2:1bc3:8884])
+ (user=chihsheng job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:6a00:349a:b0:881:4b47:f31a with SMTP id d2e1a72fcca58-8a089cdf1a4mr3211775b3a.11.1792646569217;
+ Wed, 21 Oct 2026 22:22:49 -0700 (PDT)
+Date: Thu, 22 Oct 2026 05:22:44 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,37 +75,43 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261020171249.853085-9-github@szelinsky.de>
-X-Sent-From: Pengutronix Hildesheim
-X-URL: http://www.pengutronix.de/
-X-Accept-Language: de,en
-X-Accept-Content-Type: text/plain
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.257.gf7497c7d27-goog
+Message-ID: <20261022052245.1138709-1-chihsheng@google.com>
+Subject: [PATCH 1/2] selftests/cpu-hotplug: Use $(id -u) instead of $UID for
+ root check
+From: Darren Chang <chihsheng@google.com>
+To: shuah@kernel.org, david@kernel.org, osalvador@suse.de
+Cc: linux-kselftest@vger.kernel.org, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, Darren Chang <chihsheng@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On Tue, Oct 20, 2026 at 07:12:43PM +0200, Carlo Szelinsky wrote:
-> pse_controller_unregister() flushes the power domains and frees the PI
-> array before it disables the IRQ, while pse_isr() uses both. No in-tree
-> driver hits this: tps23881, the only user of devm_pse_irq_helper(),
-> requests its IRQ after it registers the controller, so devres frees
-> the IRQ before unregister runs. A driver that keeps its IRQ across
-> unregister would read freed memory.
-> 
-> Disable the IRQ and drain the notification worker first, and only then
-> flush the power domains and release the PI array. The next patches in
-> this series build on this order.
-> 
-> Found by code inspection. Not reproduced.
-> 
-> Reviewed-by: Kory Maincent <kory.maincent@bootlin.com>
-> Signed-off-by: Carlo Szelinsky <github@szelinsky.de>
+$UID is a bash-specific variable and is not defined in other shells such
+as Android's /system/bin/sh (mksh) or POSIX sh. When running this test
+on environments without bash (e.g. Android), $UID is unset and
+'[ $UID != 0 ]' expands to '[ != 0 ]', causing a syntax error.
 
-Acked-by: Oleksij Rempel <o.rempel@pengutronix.de>
+Replace $UID with "$(id -u)" so the root privilege check works across
+different shells.
 
-Thank you!
+Signed-off-by: Darren Chang <chihsheng@google.com>
+---
+ tools/testing/selftests/cpu-hotplug/cpu-on-off-test.sh | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/tools/testing/selftests/cpu-hotplug/cpu-on-off-test.sh b/tools/testing/selftests/cpu-hotplug/cpu-on-off-test.sh
+index 287cfd5809f6..6653507b9348 100755
+--- a/tools/testing/selftests/cpu-hotplug/cpu-on-off-test.sh
++++ b/tools/testing/selftests/cpu-hotplug/cpu-on-off-test.sh
+@@ -10,7 +10,7 @@ prerequisite()
+ {
+ 	msg="skip all tests:"
+ 
+-	if [ $UID != 0 ]; then
++	if [ "$(id -u)" -ne 0 ]; then
+ 		echo $msg must be run as root >&2
+ 		exit $ksft_skip
+ 	fi
 -- 
-Pengutronix e.K.                           |                             |
-Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
-31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
-Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-5555 |
+2.56.0.257.gf7497c7d27-goog
+
