@@ -1,94 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.169
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792696472;
-	b=RwCk4mUjlelsNguM2K+9O8RIeDeEea1y+aOzbyddbHIhUcZ+k2zzHKlXbBBh74BjF2g5
-	 2SpE517L3c5aJSetuotSpzQf7eqK3W389tiY55XzoVejv5T5A3YM9SGyKjoSHKD44Hdvl
-	 tT+Jh0rCPc8SvILu1S0uhirDkyji5ht/qrT0uXTRrlWevTiO+bB6AWd1P6Gjub3/ehXWC
-	 vrgno0CxcOQs4PI73q1oKe/Q1JF9iRSS52qbbcJR/zwpIOrdVKqVBfRDzVgDuaCg/Gm7M
-	 N18iUpIVSs/+ElTYXABeWUJ8GKNsPmksad8gMYwjPFkQz71eH2hrGVbTUhJ7fuGe6ig==
+	t=1792696476;
+	b=aRf8tKO0Ue2zP5KkbL20AfKHDZdrDWy9t4S7rS0j1Xo80ZAXVkSFaEvxE34Nw1iWuoLn
+	 wAKwwsy9q7nskUXhQzQdIda/Rh0U1etQ9s3whSdqBpO/PuPl05yQkWvHcVoa/tNMfCltm
+	 LEQkWEIngwPIV6ur3/mUuPmLpz49ph/zh5uWngZ9D3yraghuLZIBt5rHSDhIapONxWzCw
+	 OzNH2sxc63vqu2AeHBpcqXZZBrcFgwMEktEXc/lVSr4DPXnYMtpINdMmligc/LWwnz6uo
+	 F7b8zV+UOQn5fIwRi8rFhNew0VlajZBsEEH3F9Seyk9fUqn2aZFAzrdBfxGPtJ8CPYA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792696472;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=u6kKdaF5AxgzpiROVhZ0qUCFn2LlsDmJ9V904EQhkRI=;
-	b=UBuECLWG4Ow9lz7Ul7nKqIaWVk0ajUFeXGMcOc6wgZILpjUIEQSgAxgSlJnchCeZAGsj
-	 xz07QUWsH0ISqCG5ZeYixXcgS7HuvacvObLFwP+xg2cD+Ldq6G+wcX+56uaeJCFlJaS+c
-	 5vNZp2xnBucXHeGhKn+kRPJlP1abKG9KQ/MWoPz8m+f7sQYXMEGgC65LhkLF5oNrCgu+d
-	 csX4LF/Eoq8auyo20pvdHyBU4T7Viin1qMQBAdAWsq/MCUaStuwpDDZPWsr7Lop7EX+7C
-	 KSs1Z+0i1+J8MYQmMGL/3Y7eGBo2Yrb6CLD3rShfautMkY8DmlMYzxA/h0GQjdr1tgw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792696476;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=T/yfsex+iXT2y+mnUpnV6G/RlAESLattCq2u7FMOcqo=;
+	b=b3k0qd7kEx3ynmGQmtUBMaqENmw6+2VWbK154yUFxF49uRCuASEi2K69t4UDv1a66sE8
+	 R2uK7qXGq6gVfej6R3pNr3eRg7OZ5QOR6zrkWWCMEHRxrFfLlje6olo2WGO3vbUIR1T5x
+	 A9V/xFhZsHQC9wMYD5r1gs32nOXNdKvi/UDRXdO/svGzHszWQiNA4w3as8iIfA/z+pgWt
+	 4q1ksEnc/5hcna0LWwJGBr0XdXWazMGkOi2HGdpr1aTmIoJ/bp7KXEMRK7GESzyAHVMrV
+	 pIIJ/H+EvrB9LUxDrI1bDgR0/G+Te/rZjJ2Yu2pmarCxxmDj0efnPs31y0PtDXH3+TA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=XMv2nX5S;
-	arc=none smtp.remote-ip=74.125.82.169
-Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com [74.125.82.169])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WbNcKzrs;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5A4E606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 19:14:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B5A4E606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E43F4606A324
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 19:14:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=XMv2nX5S
-Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-353804b591eso307845eec.0
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 12:14:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792696471; x=1793301271; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=u6kKdaF5AxgzpiROVhZ0qUCFn2LlsDmJ9V904EQhkRI=;
-        b=XMv2nX5SXHe0PmfVz0mxqtgWi7eN9XceYtglbrhF4agIwyjjdbvAmG1OPJkYyNLooo
-         p25InBUGvCwNeVLJ2cxVHw3xqBtEN0I76CK3PqPe/EHvZkDdhyB66qs0jqXIkjVDBkFF
-         lnGZoa3s1rncCo6q4UBEGqlxTW6JDuPE64DSgIbIgennnz7JAYsACJPjeU4iQvA28v3C
-         b2/tHfdUDjHar8EJMxBNG22gdKVJ1fqBQ1q9P3KKxYwVA0T5giwXY/fuNLiVecAG67rh
-         SrdjJOUlspeF1qoBoJ1KbOL6BjKWxNaXwXJzls8Z9pOp4woVt9/oyI8Pwp1H50T0MS7c
-         vCKA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792696471; x=1793301271;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=u6kKdaF5AxgzpiROVhZ0qUCFn2LlsDmJ9V904EQhkRI=;
-        b=tNwrrrQHGDAM64YDX0U4IzDuY+9Zjv7yFyw2cRr+2+Qg1/1szdIbU6YeAhEOekQI+I
-         UsQVNxPZWZONbSBVKnCGND8t30nJPxqGEvOP57EdwC1xLJgKvJP4uTnwZC5uI+Uj2uKB
-         DSue9Gc2sAvw+h7Q67XO8z8ViImamkoab3hrgaq5qOY5hD308mIi4oOMGxQUoMCoJ3Lf
-         TjYVQcsrs0ZI+pMgUXMsH3zthGWnudmoZ7X8WEswiqANAD5FdllqxcobbxnYGy0nn5dd
-         VFof5nAbGw3EeY71LOOM7134UYliy6tl3Iwp3bNTT46DHgN46sloOBUrI7yHDJKiqtRU
-         w7fQ==
-X-Forwarded-Encrypted: i=1; AKwUvBym5HIql4bLh2Pqu7sf/8f6m3hPKoKBMMnVvZJF4DuQlw00EDJopnatPHRule6v/M/2E0q71nPOAKVWHl0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLf/ZsGka2BZSB6iuylfTms0pENyBsaMA1CnLHwDLmMVIAqSVQF
-	qUW8pwm/0jVMgdvTMYbdNohoTTEqvsoa69u981RSEPOuC/NNipgtjzICUV70iUh2
-X-Gm-Gg: AYBFou1vBCYRS4nYURS9/EkRI1KIdhP4/mHl6uW2rxaUxktziBEKDFq5CIJT1HiMvwV
-	GweJ6gcer6G+AdfTzksZirEWNrZ/VsY9J/7rIuNZN1SrBUp8k7RsriPrOA/Tx9zrQLRsmIf/TL7
-	JUGl79bSQA7MQ6EkxKaxKc9/iYEtTqbSK+WSWsofgR8OgVerHFHe4yA82hJR9VNcIzlbDL0UkvN
-	EDXQaTu5LI/GtuHrOgN2fQilUGFGF1Mu846oaQJBhUVHqf+4UleRYpDJNp+cWzMxSQ0BTr8vi2l
-	iRGe6udd/Ysr5t52P36HmdH80Hrt49ObWwzP37ikt1xyCVpvciCWzJfEtKM7Ha6ncdA2aBZKZlq
-	GQzkT3nHZLSTtIiEJ2K9sBhyEUR6zLfGcOStae0/E2u3+MxA0/poKaY0uCBlRfoR0rAo7cVOrNg
-	6RUPeuWQGqI7Ytlss5B6L2nBraHwL1Pln3pW+LrWQwdta5u78arkbzmcnIHBZKkM338SIJakBw5
-	NjPGV86dU9dz84L8Oa2w/dxEwxL9Tti+8JzE3NNhACckHeb+LbRLzSHU0Mf
-X-Received: by 2002:a05:701b:42cc:10b0:14a:5284:1bf5 with SMTP id a92af1059eb24-195c4f4ef96mr212310c88.13.1792696470556;
-        Thu, 22 Oct 2026 12:14:30 -0700 (PDT)
-Received: from user ([2405:201:c052:b00b:5e95:3be4:ff57:f0a5])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369d8f8eaf9sm220483eec.16.2026.10.22.12.14.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 12:14:29 -0700 (PDT)
-Date: Fri, 23 Oct 2026 00:44:08 +0530
-From: Yalagada Pavan Kumar <pavankumaryalagada@gmail.com>
-To: Alex Elder <elder@riscstar.com>
-Cc: greybus-dev@lists.linaro.org, outreachy@lists.linux.dev,
-	pure.logic@nexus-software.ie, johan@kernel.org, elder@kernel.org,
-	gregkh@linuxfoundation.org, linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] staging: greybus: Use fsleep() for delay
-Message-ID: <atpggBthwjZIFwXR@user>
-References: <20261022110238.38824-1-pavankumaryalagada@gmail.com>
- <6d683673-39de-4986-a593-68a5a495e764@riscstar.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WbNcKzrs
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C9CA1F031E6
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 19:14:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792696475;
+	bh=T/yfsex+iXT2y+mnUpnV6G/RlAESLattCq2u7FMOcqo=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=WbNcKzrs4jlat3qo19SV3vGqrVC/sjs6k92qlo/tyDrRcRGtDqEOQGCL+//UiNdya
+	 fU23l2YaBkwLby/GaQN8NAuFcyavTO6Mmnjq+nRuuyzcgzInnrzUNjhGusvuvcdgSC
+	 bUKleioMEsiPqL35LVrsRomt4pzoKnST9J7S2LYLVDfAvTnhj1Dadb67ZH+W772GoQ
+	 IVc6pu6+a+4eVj6DhdjQXrtgBqWkSClSAytPRIAaSXfTsEO/K7FhcOzo81+wNZTqVW
+	 JbZju2RUTdQEPn3wnKLitSw4oWbY2wlFZf+BoGqn6VWu5PwTS22alZwI8iKtZsvJ88
+	 QVeZSV53c6n6g==
+Received: by mail-lf1-f51.google.com with SMTP id 2adb3069b0e04-5be3cff0f6cso31594e87.0
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 12:14:35 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxxIQp/MV80m+UOVkMVv07lLlsCoVCdzL665fN6IJLrEwJ7VfEv1sKr9OZuvPUw+eFtJ4xA+QTNhGg9oyU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI2V7LYEV9riEqLg2YAVeW8vQh5ZJ0EkAHOuDCG7so2hBj3PZPV
+	BgKNeyXxgZdtup2qDdv4kaTL2uDN4wIU4LLjkeOmHQ1dLbGq+W64/TBnKG4S7iG+GRq0Bw/oh50
+	LCuR9E9/hu0a2IiE6U4J0e+TO90f2Mdk=
+X-Received: by 2002:a05:6512:1108:b0:5b6:95e:87ee with SMTP id
+ 2adb3069b0e04-5bfa1be5a8cmr2554398e87.13.1792696473945; Thu, 22 Oct 2026
+ 12:14:33 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,103 +59,74 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <6d683673-39de-4986-a593-68a5a495e764@riscstar.com>
+References: <20260910205234.5392-1-kmehltretter@gmail.com> <117bc415-6bbb-4739-81b9-d2bf718056ba@arm.com>
+In-Reply-To: <117bc415-6bbb-4739-81b9-d2bf718056ba@arm.com>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Thu, 22 Oct 2026 21:12:11 +0200
+X-Gmail-Original-Message-ID: <CAJZ5v0gg1uEy4pagxkPFMqvy__KWJU-_k3S6Ovx6BRzCnuD87A@mail.gmail.com>
+X-Gm-Features: AclHuK8EhEVVmKJNgxR3ezPnbggzziCRHv9w2do46n90Ob62xaTp3ojSpOD12RE
+Message-ID: <CAJZ5v0gg1uEy4pagxkPFMqvy__KWJU-_k3S6Ovx6BRzCnuD87A@mail.gmail.com>
+Subject: Re: [PATCH] PM: EM: allocate the cpumask for every perf domain
+To: Lukasz Luba <lukasz.luba@arm.com>, Karl Mehltretter <kmehltretter@gmail.com>
+Cc: Changwoo Min <changwoo@igalia.com>, linux-pm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Oct 22, 2026 at 08:28:23AM -0500, Alex Elder wrote:
-> On 10/22/26 6:02 AM, pavankumaryalagada@gmail.com wrote:
-> > From: Yalagada Pavan Kumar <pavankumaryalagada@gmail.com>
-> > 
-> > In the loopback function, usleep_range() is used for short delays
-> > and msleep() for longer delays. This requires choosing the delay
-> > function based on the requested time and converting microseconds
-> > to milliseconds when using msleep().
-> > 
-> > Replace both functions with fsleep(), which selects a suitable
-> > delay method based on the requested time. This avoids the need
-> > to choose the delay function and convert the time manually.
-> > 
-> > Suggested-by: Alex Elder <elder@riscstar.com>
-> > Signed-off-by: Yalagada Pavan Kumar <pavankumaryalagada@gmail.com>
-> 
-> Your description above is pretty good, but I agree with
-> Johan's comment.  In fact, you should think about and
-> understand exactly how that behavior changes with the
-> switch to using fsleep().
-> - When would the delay be different from before?
-> - When it differs--by how much does it differ?
-
-The current code uses usleep_range() for delays below 20
-milliseconds and msleep() for longer delays. When using
-msleep(), it converts microseconds to milliseconds by
-rounding down, which can make the delay shorter than
-requested.
-
-For example, a requested delay of 20,500 microseconds
-becomes msleep(20), which requests a 20 millisecond
-sleep.
-
-With fsleep(), the kernel selects the delay method
-based on the requested time. For a 1000 microsecond
-delay, the current code allows 100 microseconds of
-extra time, while fsleep() allows up to 250 microseconds.
-
-> - Is this amount significant?
-> And the third question gets at exactly what Johan was
-> saying should be included in the patch description.
-> 
-> We want to know not just the mechanics of the change,
-> but at a higher level, what is its effect?
-
-The change may affect the time between loopback operations
-and the reported performance. The code does not seem to
-need an exact delay, so i think using fsleep() is reasonable.
-However, testing is needed to confirm its actual effect.
-
-I do not have Greybus hardware to test the driver at runtime,
-so my assessment is based on reviewing the code and fsleep()
-implementation.
-
-If possible, could you please check the runtime behavior or
-and let me know if you find any issues with this change?
-
-Thanks,
-Pavan
-
-> 
-> You don't need to provide a super high level of detail
-> in this particular change, but you should demonstrate
-> somehow that you've thought about these things.
-> 
-> Please submit a new version of the patch and reword
-> the description a bit to concisely capture why it
-> makes sense to make the change, and why you believe
-> that the change in behavior is likely harmless.
-> 
-> Thanks.
-> 
-> 					-Alex
-> 
+On Mon, Oct 12, 2026 at 9:57=E2=80=AFAM Lukasz Luba <lukasz.luba@arm.com> w=
+rote:
+>
+> Hi Karl,
+>
+> On 9/10/26 21:52, Karl Mehltretter wrote:
+> > em_create_pd() allocates space for the trailing cpus[] flexible array
+> > only for CPU devices.  A performance domain registered for another
+> > device therefore has no storage for its cpumask.
+> >
+> > All performance domains are added to em_pd_list.  The netlink interface
+> > does not distinguish CPU and non-CPU domains when it calls
+> > cpumask_weight() or iterates over pd->cpus.  A request for a non-CPU
+> > domain reads cpumask_size() bytes beyond the allocation and can report
+> > bits from the following memory as CPU attributes.
+> >
+> > KASAN reports slab-out-of-bounds reads for both dump and by-ID requests
+> > against a synthetic non-CPU performance domain.
+> >
+> > GET_PERF_DOMAINS does not require GENL_ADMIN_PERM, so an unprivileged
+> > request can reach this path when a GPU or another devfreq device has
+> > registered an energy model.
+> >
+> > Allocate the cpumask for non-CPU domains too.  The zeroed mask remains
+> > empty, as required for the documented unused field.
+> >
+> > Fixes: d8eef0453132 ("PM: EM: Implement em_nl_get_pds_doit()")
+> > Cc: stable@vger.kernel.org
+> > Assisted-by: LLM
+> > Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
 > > ---
-> >   drivers/staging/greybus/loopback.c | 8 ++------
-> >   1 file changed, 2 insertions(+), 6 deletions(-)
-> > 
-> > diff --git a/drivers/staging/greybus/loopback.c b/drivers/staging/greybus/loopback.c
-> > index efc69c10cffe..2fe845eaef29 100644
-> > --- a/drivers/staging/greybus/loopback.c
-> > +++ b/drivers/staging/greybus/loopback.c
-> > @@ -898,12 +898,8 @@ static int gb_loopback_fn(void *data)
-> >   		gb->send_count++;
-> >   		mutex_unlock(&gb->mutex);
-> > -		if (us_wait) {
-> > -			if (us_wait < 20000)
-> > -				usleep_range(us_wait, us_wait + 100);
-> > -			else
-> > -				msleep(us_wait / 1000);
-> > -		}
-> > +		if (us_wait)
-> > +			fsleep(us_wait);
-> >   	}
-> >   	gb_pm_runtime_put_autosuspend(bundle);
-> 
+> >   kernel/power/energy_model.c | 4 +++-
+> >   1 file changed, 3 insertions(+), 1 deletion(-)
+> >
+> > diff --git a/kernel/power/energy_model.c b/kernel/power/energy_model.c
+> > index e610cf8e9a06..fd07c564c201 100644
+> > --- a/kernel/power/energy_model.c
+> > +++ b/kernel/power/energy_model.c
+> > @@ -439,7 +439,9 @@ static int em_create_pd(struct device *dev, int nr_=
+states,
+> >
+> >               cpumask_copy(em_span_cpus(pd), cpus);
+> >       } else {
+> > -             pd =3D kzalloc_obj(*pd);
+> > +             /* Readers expect pd->cpus to exist and remain empty. */
+> > +             pd =3D kzalloc_flex(*pd, cpus,
+> > +                               BITS_TO_LONGS(large_cpumask_bits));
+> >               if (!pd)
+> >                       return -ENOMEM;
+> >       }
+>
+> my apologies for the delay.
+> The patch looks good, thanks for catching this!
+>
+> Reviewed-by: Lukasz Luba <lukasz.luba@arm.com>
+
+Applied as 7.4-rc material, thanks!
