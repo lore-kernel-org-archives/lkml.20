@@ -1,58 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.230.114
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792663139;
-	b=qhWABSNnDtHEvEbBc1jS16VFsT6kkQ8RgH1OXgqW/USvobjSgMyXB20QRFJDKO726o1i
-	 o6U1KYSs2sPBh++5qdPaqkGe4DaSFSyrd8o2bjH0PkP5gyKbsNRWzByFdnzJgfp+By5us
-	 TwHBJHtUr+GLm7nLbuVNf1C2zZRTVR282ZsxINiVsgXNfOz6SDWFnxmP2poE1MgnX4cvG
-	 znIUQh/Xwgw4dLC5Qprh6ipWwyVpZQN0xhqQM/SGkcDHvjWkh/loMwWaE2H0WpD1VctW9
-	 u3x0GzO0idAOOzyO2ENgfvWCObpL/IKFvqOOKX88bye8QPP0zW2MrPLRiZ3ChsDoWQA==
+	t=1792663160;
+	b=BLxAxGXWQhvHKt42ovqIu2K3yHEMrMDQukL6Gf9OuYH2sEDFZKejv4TlKTXzz5TkYdEi
+	 kI5URYnj0L0CPU0Dnbp5w970mpxgoshNhTteiIem9uDMzf+SqiGCbhNGzBZiqsRlGqlPt
+	 slCxlFrImGSGWJfsGLHKmUKJh8Wg/IQd4rzu2XLZLQvStT4jJ/0FjzIjSzL5WDxo2ccLO
+	 cK7mjR3Wq/TFIFHJln4a3puM0JW+RS5yuW8n/IZMzJlYyMINc8WGZQgxj9kQJS3TjTwgE
+	 2tJB1HJnmukhy48yi5C407GkM+P6BrdquQQuaKtuXQntF/7/+zc/H4FrvcTusjo8Csw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792663139;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=4SnLNd5w0z2j+M0DUYOzSs1MGDbeGkfvlokW6ZHl9ak=;
-	b=pPMolcbVjFfrTyBP2Oayotxc3RluSgyu1QXns7mIq/TvJVtPQMogX8Mw1NeddVaAWqGt
-	 IfAZ41BZ0sZZhMdcprbvGT1+UaEessq18pYHQfiIr0NWedKVXTwior4svU1V9DRTgOTdT
-	 4CGy/r594MY8ztlSb8BWLX17c0igeT5JDTm/40dcfDr0haGxFkYTLr7ovn7SLoDbpyh2v
-	 72ngPoXPFXvNJV0RcvhzNGFYNLzaTQ990hUyceXPV6ZokkWyQKW/aFFKHIxUP5EHpM+yQ
-	 a6D68K9FdF1K+K9aDredpxBShLmfA9dVpnMR8eDQJ5gKx9p3U7oUgdwgEgcha8EgBEA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792663160;
+	h=DMARC-Filter:DKIM-Signature:Subject:Mime-Version:Cc:From:
+	 Content-Transfer-Encoding:Date:Message-Id:X-Mailer:To:
+	 X-Lms-Return-Path:X-Original-From:Content-Type;
+	bh=oqq2H1oItHLFY10BG9vx49q9B4HFJpYgR3Eqv5tnJWs=;
+	b=lf9wUgILH0BDWarJwFEqpEmhl73doPlxDnmkaViwri2JXt0D3t7T3ul6A5DsSIg7eJZf
+	 mnrPJZgZM3LAvb/oMtr4a398KhZgGRmSA+FaImLPuZql+n2WxMX9MNe9BroumGyq1gUmx
+	 tFMY1o8JSsV+ypywDbs0ltxyQHlW+IRELUnhAZj1SJNQanz0GSbp/P8XNcOB8Yx+/9EaP
+	 p3OBI46jwPwu6lteyLWlg1pEP/Q1tzXtcIjvBrrI4PbGa+Gb632KtSZT2BUcNDdsw8DTJ
+	 pZiDY8HMPkoa35trf9g24XI1afIXyFD7CRT/nPQlT8VrJ++kCnuhnccIqAsJ9NiRe5w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GnpgJrAq;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=bytedance.com;
+	spf=pass smtp.mailfrom=bytedance.com;
+	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=bZC1DzsI;
+	arc=none smtp.remote-ip=209.127.230.114
+Received: from va-1-114.ptr.blmpb.com (va-1-114.ptr.blmpb.com [209.127.230.114])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BE50606A31B;
-	Thu, 22 Oct 2026 09:58:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFE12606A31A
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 09:59:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BFE12606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GnpgJrAq
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5FF321F000C1;
-	Thu, 22 Oct 2026 09:58:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792663139;
-	bh=4SnLNd5w0z2j+M0DUYOzSs1MGDbeGkfvlokW6ZHl9ak=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=GnpgJrAqse237anlo1ylTV1VGXMmeCDfb0l4eXb82966faybLMzbc57npZ24D/U20
-	 cIJp55OZ+7DBHCwexWAlIUQPs+MmIFEYA7b6qpjo7pgAVLtZz7DDHAuAuYSpKeSwsi
-	 9VBKuoH0a7LANeivMjNTnleLVkWm+YLafubsHwt2tgE0hnLYANrrmGSkf7PxQ9ejiU
-	 JEX1L/saOROiz/YPVZn4tX8JCeSxEzkcLeu9M4ScH4uWZuPF0EN1qiobU3EyrLGpj7
-	 H0lZFtICBrF2Ixa3sUfYXHYh8Ay75ZUbpZwtB54F9FY0DDiq5lhSGD9qI1o5+AAagl
-	 5knMtM/qh006w==
-Date: Thu, 22 Oct 2026 11:58:56 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
-Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
-	Jerome Brunet <jbrunet+clk@baylibre.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
-	Alexandre Torgue <alexandre.torgue@foss.st.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-clk@vger.kernel.org, 
-	linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH 2/3] dt-bindings: clock: stm32mp13: add SPI1 to SPI5 bus
- clocks
-Message-ID: <20261022-scrupulous-toucan-of-judgment-00c8cf@quoll>
-References: <20261020-ups_mp13_clk_spi-v1-0-6c00730945c7@foss.st.com>
- <20261020-ups_mp13_clk_spi-v1-2-6c00730945c7@foss.st.com>
+	dkim=pass (2048-bit key, unprotected) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=bZC1DzsI
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=2212171451; d=bytedance.com; t=1792663153; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=oqq2H1oItHLFY10BG9vx49q9B4HFJpYgR3Eqv5tnJWs=;
+ b=bZC1DzsIIxCXCCUKnCEUsloFBq5SC7cHlB7E3ZlGeJThw96ltK8xYocAR/9uhCZzLaVnKB
+ dmOaMKmYLOKCwrnRTvSqXlqGgLiPz6hVqYAGQ3nj2vQabF436eGpGQm+il/jABdxQ9QwWm
+ Dny6wqNkI62E4uAyxCnQsSyQ+9rVF5CiVEPMBG/v6+Uac2w2nXm2zYZeiAYFCpD52at2JX
+ Q1b7xpU8OzmPFkFcAELcRKRrYqi3Mji3FbCKArNlFDh93GKAI784ya75bgiw+KL7UooEwo
+ XEAcI6smCDxrF8OtufExtmKESVZGjegWp/qw6K0zd25WBYp2NVQ6Z2P1LqfTOw==
+Subject: [PATCH] bpf, sockmap: Propagate sk_msg_memcopy_from_iter error code
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,30 +52,65 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261020-ups_mp13_clk_spi-v1-2-6c00730945c7@foss.st.com>
+Mime-Version: 1.0
+Cc: "Rui Qi" <qirui.001@bytedance.com>, 
+	"John Fastabend" <john.fastabend@gmail.com>, 
+	"Jakub Sitnicki" <jakub@cloudflare.com>, 
+	"Jiayuan Chen" <jiayuan.chen@linux.dev>, 
+	"Eric Dumazet" <edumazet@kernel.org>, 
+	"Neal Cardwell" <ncardwell@google.com>, 
+	"Kuniyuki Iwashima" <kuniyu@google.com>, 
+	"David S. Miller" <davem@davemloft.net>, 
+	"Jakub Kicinski" <kuba@kernel.org>, "Paolo Abeni" <pabeni@redhat.com>, 
+	"Simon Horman" <horms@kernel.org>, 
+	"Daniel Borkmann" <daniel@iogearbox.net>, 
+	"Levi Zim" <rsworktech@outlook.com>, 
+	"open list:BPF [L7 FRAMEWORK] (sockmap)" <bpf@vger.kernel.org>, 
+	"open list" <linux-kernel@vger.kernel.org>
+From: "Rui Qi" <qirui.001@bytedance.com>
+Content-Transfer-Encoding: 7bit
+Date: Thu, 22 Oct 2026 17:58:53 +0800
+Message-Id: <20261022095853.1829161-1-qirui.001@bytedance.com>
+X-Mailer: git-send-email 2.20.1
+To: <netdev@vger.kernel.org>
+X-Lms-Return-Path: <lba+26ad9de6f+57aa16+vger.kernel.org+qirui.001@bytedance.com>
+X-Original-From: Rui Qi <qirui.001@bytedance.com>
+Content-Type: text/plain; charset=UTF-8
 
-On Tue, Oct 20, 2026 at 10:31:08AM +0200, Gabriel Fernandez wrote:
-> The STM32MP13 RCC binding only provides the kernel clocks of the SPI
-> and I2S instances (SPIx_K). Their bus interface clocks are missing,
-> whereas the I2S binding requires one as its "pclk" clock.
-> 
-> Add the IDs of the SPI1 to SPI5 bus clocks, as already done for the
-> SPI instances of the STM32MP15.
-> 
-> Drop STM32MP1_LAST_CLK: it is not part of the binding ABI, it would have
-> to change each time an ID is added, and the driver no longer uses it as
-> it defines the number of clocks by itself.
-> 
-> Signed-off-by: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
-> ---
->  include/dt-bindings/clock/stm32mp13-clks.h | 6 +++++-
->  1 file changed, 5 insertions(+), 1 deletion(-)
+tcp_bpf_sendmsg() stores the return value of sk_msg_memcopy_from_iter()
+in a local variable "ret" and jumps to out_err on failure, but never
+copies that value into "err".  The "err" variable therefore keeps
+whatever it held before the copy: 0 on the normal allocation path, or
+the stale -ENOSPC left behind by a partial sk_msg_alloc().
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+On the first loop iteration "copied" is still 0, so the function
+returns "copied > 0 ? copied : err" -- 0 on the normal path and the
+stale -ENOSPC on the partial-allocation path -- instead of the real
+error such as -EFAULT.  A blocking sendmsg() handed data but returning
+0 with no errno can drive userspace into a busy retry loop or be taken
+for a successful short write, and the wrong errno misleads recovery on
+the other path.
 
-Best regards,
-Krzysztof
+Propagate the memcopy failure so the real errno reaches userspace,
+consistent with every other out_err path in the function.
 
+Fixes: 5153a75ef34b ("tcp_bpf: Fix copied value in tcp_bpf_sendmsg")
+Signed-off-by: Rui Qi <qirui.001@bytedance.com>
+---
+ net/ipv4/tcp_bpf.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/net/ipv4/tcp_bpf.c b/net/ipv4/tcp_bpf.c
+index 97541acb3cce..8cf63a9e7fed 100644
+--- a/net/ipv4/tcp_bpf.c
++++ b/net/ipv4/tcp_bpf.c
+@@ -578,6 +578,7 @@ static int tcp_bpf_sendmsg(struct sock *sk, struct msghdr *msg, size_t size)
+ 					       copy);
+ 		if (ret < 0) {
+ 			sk_msg_trim(sk, msg_tx, osize);
++			err = ret;
+ 			goto out_err;
+ 		}
+ 
+-- 
+2.20.1
