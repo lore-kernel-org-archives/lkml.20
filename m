@@ -1,79 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792677781;
-	b=R2wvzNW4rpolh8EiV2J4sDQP5zHET/mDtyZY8hoKylAr3Fg4zi/gfVYgnR2fvXXmNKYg
-	 vMwGzGOO+0JNoI7oYnwxKUQGyU1FSt19Adt+1BrcPcfoUEMhMonnhUAWMQKFuB9PkKAgL
-	 Z4ME/JgNOIDyL4M40V42pP+o7fn+SuT4AqiHKhxSA9Oeq6GhXlyfrf4vd+ClSYjQIB/bl
-	 Oe5IF+fPVlrnOCwfvYw+vwG30D8DgqB2KEXPyTNZ1bCljUpsFUS0xcPOhNJgvzt43J6rJ
-	 SeSnA/zipXjmYTzzz/Q6BePp198DQpxiCdmdiddf+OP3rEVNw4FslHm5qhtMY+6GOmA==
+	t=1792677780;
+	b=PcIV+6gn1PbodZPUPd0HdO/UGrcvD4lR2axj1dQqAw10q2GsS8ZH1xnFhsnfqv0CO9mI
+	 T7OTmFhZZjH0dJ4qm9KDs9ncr4ga4+tU7OIb/kUCIjo4Rg833Kso7tzUrnuHbgeEvcaPO
+	 Q7FwrKDy9kRuA1O0koFQNv2WgFnbwIpPmPbcUlllWrVn1Tk9qG0qucRmD2xiCdPla5ZB9
+	 o0IWvDKRZjWeMKDjaS+7tBWvZ1gwQwVWjNFiHQz9YRHEGLkEMTyPBfVvhAcw6pYmSIkmS
+	 XhKFVlTUFNg9nER7lJCk1nRtG7t9+XdP7ME4IQiD8eNPduOiHI+7sD7BmRpatXgoAZA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792677781;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792677780;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=yV1RxJJscrXOeI7Q/8W59C0ANld22tAuW0rA5vcBUxc=;
-	b=xR0aW8mdeJdPL+DPY1OmCs5ZpSd/o1snbkHP7u5MTtOVZ5nQXbEiDny1tzHD1OUSLaAj
-	 JMohCkiErWqXEmnikA7mXWZFshCpoJfBes4LzxEY6kG7DGglnl3uB0DqD2ADm+V73BVUX
-	 NF1YCvnT2iDf5tEpWAK9phioZ8tQB5cpFn8t2Nq4lVQ/kBWBcyjCAlD92wdqILAFNrugF
-	 6etb3fMXPXiKs9vplPY6WRyLMGdD6Usv3hnwCnSpVBWkrBj7PFKG2WQJ9J8qv2c61g+MG
-	 CfRSMuGihDx3yQzGgIAhu3Tj8kC4nzpUQwbRZqhZ2f3lQ48w2O3MGejN1vOOpu07Oqw==
+	bh=cpTBG70GLztkppBlWDxA4zs5YJB3Ae5lFCFEvrLL98I=;
+	b=f3xK9RmXtNo/iEqBJ4pPEABbs2E3tLtMdSl4kEr9JMKFR0IUCFWz4FAMzFJ/DosZevt+
+	 +MXlyX2rNhKz0hSAT+MVGxciSo293XxNlU5wgqASSnlgEUsPz1L/I/Zb9BXKzzInD6D9z
+	 9A9UwgWfscezDIYZxfyVGvUdXnGKXeyUImFCIzZsJkIpS6ToZqgPqz30e6C5b8/3SIZNZ
+	 V/JjNAVaihLgT6MnKeK1o/jfQ14QttNFsYdPBKHEBIVTsmhXRUr9imsVlvr24jLyJmKBj
+	 Dfqj0FkI1ByuZb6XK54LBSHlfXCNnm1ljDAvTIXZIO6+nb2CRBg1H32XAusgVuXKwcA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=konsulko.com;
 	spf=pass smtp.mailfrom=konsulko.com;
-	dkim=pass header.d=konsulko.com header.i=@konsulko.com header.a=rsa-sha256 header.s=google header.b=PnzvfKvu;
-	arc=none smtp.remote-ip=209.85.128.52
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+	dkim=pass header.d=konsulko.com header.i=@konsulko.com header.a=rsa-sha256 header.s=google header.b=AXQ9HFzh;
+	arc=none smtp.remote-ip=209.85.221.46
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8559C606A33B
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 14:03:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8559C606A33B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B833606A31A
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 14:02:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9B833606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=konsulko.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=konsulko.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=konsulko.com header.i=@konsulko.com header.a=rsa-sha256 header.s=google header.b=PnzvfKvu
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a208d93758so7463405e9.3
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 07:03:01 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=konsulko.com header.i=@konsulko.com header.a=rsa-sha256 header.s=google header.b=AXQ9HFzh
+Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-48df8fe8513so1756262f8f.0
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 07:02:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=konsulko.com; s=google; t=1792677780; x=1793282580; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=yV1RxJJscrXOeI7Q/8W59C0ANld22tAuW0rA5vcBUxc=;
-        b=PnzvfKvuu6sM9p+zgfpfD9T1ikzYj2p+upWuwzta+tLaPJAY2Fq6fG+yEOU6O+1tKa
-         8WvSfIwaGmvohWYl7dQY2C34XfykUMEGIBsddX+L7OImQYQZx9fXqvw9xmoEGujHFjWt
-         rSjS4nZ0DwKCeZUbGMpB5+ttA0sF1FrVYzJvU=
+        d=konsulko.com; s=google; t=1792677778; x=1793282578; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=cpTBG70GLztkppBlWDxA4zs5YJB3Ae5lFCFEvrLL98I=;
+        b=AXQ9HFzhd/Z3Nvc9F5PL8GYl2otL1UEi671CjDSsedcCw87bOZI2GQC5b9Sp5LVaqy
+         Kpe8DzFhZY0WQ4WHeu/Y57Fnv25O/HC1UzsBdIijueZfg0nuD0V01KwpDR9575h0dCIK
+         e5/D2XfyYzfVRck9PfNZ2scW5qPJEROenucls=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792677780; x=1793282580;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=yV1RxJJscrXOeI7Q/8W59C0ANld22tAuW0rA5vcBUxc=;
-        b=2WiJ6J/WeS1o12csKLPTnzCnBYowG9ZIoVtZ/XS6gONgEvXF6NdZnQ5FoszdLDzr5h
-         XdyjElwVUU0CIK29PkyATaNjdohmevN/4fPtiOE5NKWlutMB5WCoOW5Do36ceLRmA+1s
-         exHz8/xPQnwUZVnfJBRDLtQLh20PJcyTCwurbOGtL9NhUaDAVg+14IXHHdeXG6IWa7Fb
-         6IZwfxb3RYtixxcYIL6SDmSR1B8YHR3aLgTpXjXBJc0BGBT0olIojoujw/woit39PKVY
-         6BB6SWK3fFsETOHRX5WTfxnl8JeUuuRv76UFpfXLIXus0RzTLLdIAeovkj/zhox1m8bf
-         +spg==
-X-Gm-Message-State: AFq9FYIRdxVI7fhkX7SeakH9IInbzUQrePNGezY+VrV5yij/Knw3zQkl
-	GRVW9kZF0h6nyEQEvtvl3bS6x292rBzyntXhXPnL9wZotFfgV1APa/tMyw4dB2tHtiNxVD7oE2V
-	cdA0I
-X-Gm-Gg: AYBFou1l7T+i+T/87E9wfVx9CGejI7afP04+FO++LUkFUiS2lKU9CfDzuw+rHlna0nP
-	WkZI84dmBTRiPr+uwLuQUbW55mRZRkoG6Kn0F8LblL0+i3ZF9lalW0qxL/O4Nokg998xnCSXv1p
-	bGuTRIo+bSKzJHlGE7VXDwQm2Do9ET7VWojwjKhAUqtnnXb9a3MM5CLG2Qzn4E4z1+IYX91BOK9
-	VmUQW94D8psIItJJ3GVFNAtd2SHwuqPyzt+RCjCQPRUmBUAz1oZymEq7zHPquK/ZScuDA4Mlv0x
-	OtyIJDqS/vVObWkZBwz1wXUfGnGmovrUP9Ylo963P8UZ+MBzT+V2wJrEGtW1WVWUHqo3PUSiZUX
-	m648gGoNTIHov/rleT2uVyjfl3yhAkhtNYHeNK/Ks6hVV9F9KIiv2GPEdAhtXojo0cigntbZ+I5
-	cqbSWglwokYi83dnWCB7fQuNPPTsPozyuu0fhyPb/Rmx4Kw3/rCuOqH5vYJyxRqZE4hAm94CGlT
-	enRtyQvlBtlLs+5w9SRk4kDqLPcAHSW8rbh8u/x+PW58EhwBko0aojgI3KzWOUqSjlNMFhh
-X-Received: by 2002:a5d:584d:0:b0:48e:28bd:e010 with SMTP id ffacd0b85a97d-48e28bde4b0mr8838292f8f.7.1792677779627;
-        Thu, 22 Oct 2026 07:02:59 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1792677778; x=1793282578;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=cpTBG70GLztkppBlWDxA4zs5YJB3Ae5lFCFEvrLL98I=;
+        b=TPabimWRGLcAO6+c+rqLD9t4vs8QiDFlB+PiVCvRfgW7wrx3aGy0ZTa3NivzV3AO+T
+         3qwo/Rj8e0cvZlo4DCk4WzTx0kP0cFr6g72/FhnX33TMtWoxwZ2lOeCoZVqzTh8EvSHN
+         oLYSw6GDqTKzACEIOPrZsRJeVR916mRkKKHvFug+B2vIzOreg/c3pXYdc3agJTgu9Htf
+         o9281q4BNHoTb6sAccKMvt9C5pntz3RgNmTL/oAvk2D2+euR9aTfNCRVH2nJ3DDpiIj0
+         2O/ZPOTKxm20h11/FeoOUYNItI2BUZkATYOBZVPpPH9UkRVF/FrYKwteney2jk6BEo0l
+         20oA==
+X-Gm-Message-State: AFq9FYK5zkfvhP9hn1kiYsHkSDXqOCjXc9vOZHWUnrn4oUWzO+y7ilUb
+	usr6taMPzhhvlQUQkfte2VzIxsZNtDEfaPzRQbc5dwd2vYPKgl0Zxfdn+sFrClr0+k5nkI3iM+T
+	0gRUB
+X-Gm-Gg: AYBFou1CX5u7fzXsm2JF42MygCTuvyf6m7Wg3iEbMhuv4yjwUrTw0MdMLeFv2rE64BH
+	ldZgOhzAcEauyn5AKzgccKw2PuXhok96y1dFQ5dL3RJNu38R5kxLEtC884kkdBME1lWpgpSFiAm
+	XiT6fMpidRVcY8HhAVXaVWkEoYJpnwf0tzeL+vmcSztMl3QaoryjmkI5di4tzv0cp+dU8VD7Z9r
+	2OEJUo2rQ0sPp0bpGm4TcTkPjkkIp572z5qtvRumu9E8ng71XI/0Lg6x7iXoZQ/qyYrQ6yWUrDy
+	R5iYIThWgR2O345HM35TWR9YhnFH3TcQ65sIJrnOSqPDO8gMMSsqh+SjVz1/+Yl/pjxfqVD7VRR
+	rnEylSuWKXFEO4gRHYOkrc+nOE+C1oVTxSZeruiYEl7ltba5MQd9SdNT4kqXYZNAy/KvmIb4/Mc
+	HWlpqXUerdoHtU7Qb6vRDKWsIlCK0f7gvzNe7lwPVTYmDBsDM9frWEoZFdeXedjUgfAxzNAKC58
+	ApZM5AngDXUNnjyQVFm7KrczxglD2gyU2nfnmZp8w3OJZL+wac3/2EGFiUS3/fENaAA88g/
+X-Received: by 2002:a05:6000:2612:b0:48e:7fb:aed3 with SMTP id ffacd0b85a97d-48e264a5a5bmr11406983f8f.17.1792677776798;
+        Thu, 22 Oct 2026 07:02:56 -0700 (PDT)
 Received: from tone.k.g (lan.nucleusys.com. [92.247.61.126])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e2582a53fsm12538258f8f.32.2026.10.22.07.02.58
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e2582a53fsm12538258f8f.32.2026.10.22.07.02.55
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 07:02:59 -0700 (PDT)
+        Thu, 22 Oct 2026 07:02:56 -0700 (PDT)
 From: Petko Manolov <petko.manolov@konsulko.com>
 To: linux-kernel@vger.kernel.org
 Cc: devicetree@vger.kernel.org,
@@ -89,12 +89,10 @@ Cc: devicetree@vger.kernel.org,
 	arnemaximilian.richter@draeger.com,
 	martynas.grybauskas@draeger.com,
 	Petko Manolov <petko.manolov@konsulko.com>
-Subject: [PATCH v4 2/2] arm: dts: nxp: imx: Add devicetree files for M48
-Date: Thu, 22 Oct 2026 17:02:43 +0300
-Message-ID: <20261022140244.3476844-3-petko.manolov@konsulko.com>
+Subject: [PATCH v4 0/2] arm: dts: nxp: imx: add Draeger M48 CPU board
+Date: Thu, 22 Oct 2026 17:02:41 +0300
+Message-ID: <20261022140244.3476844-1-petko.manolov@konsulko.com>
 X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261022140244.3476844-1-petko.manolov@konsulko.com>
-References: <20261022140244.3476844-1-petko.manolov@konsulko.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,310 +102,44 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-M48 is a heterogeneous board made by Draeger that is based on two
-independent cpus, that are monitoring each other.  One of them is
-imx6, the other is Altera SoCFPGA Cyclone 5.  The latter is booting
-independently off qspi.
+Adds the device trees for “Dräger M48 on NXP i.MX6 (Q|DL) and Intel/Altera
+SoCFPGA Cyclone V” board variant.  It has both (the SoC and FPGA) on the
+same carrier and they are cross-monitoring each other.  The SoCFPGA boots
+independently off qspi flash.
 
-Add the DT for the two variants of M48 that are based on imx6q and
-imx6dl.
+This is the imx6 devicetree part.  There are two bindings as well as device
+trees, since M48 is using two parts: imx6q and imx6dl.
 
-Signed-off-by: Petko Manolov <petko.manolov@konsulko.com>
----
+new in v4:
+  - added the missing GPIO_OPEN_DRAIN definitions on I2C recovery GPIOs;
+  - fixed the halved LVDS pixel clock in split mode;
+
+new in v3:
+  - used LLM to cleanup most of the errors and warnings;
+  - proper use of dt-schema this time around;
+
+new in v2:
+  - add the tag from Conor Dooley <conor.dooley@microchip.com>;
+  - it should be clarified that "draeger" vendor prefix is added in
+    my previous Draeger M48 patch series;
+
+Petko Manolov (2):
+  dt-bindings: arm: fsl: add Draeger M48 dual-cpu board
+  arm: dts: nxp: imx: Add devicetree files for M48
+
+ .../devicetree/bindings/arm/fsl.yaml          |   2 +
  arch/arm/boot/dts/nxp/imx/Makefile            |   2 +
  .../boot/dts/nxp/imx/imx6dl-draeger-m48.dts   |  16 ++
  .../boot/dts/nxp/imx/imx6q-draeger-m48.dts    |  16 ++
  .../boot/dts/nxp/imx/imx6qdl-draeger-m48.dtsi | 213 ++++++++++++++++++
- 4 files changed, 247 insertions(+)
+ 5 files changed, 249 insertions(+)
  create mode 100644 arch/arm/boot/dts/nxp/imx/imx6dl-draeger-m48.dts
  create mode 100644 arch/arm/boot/dts/nxp/imx/imx6q-draeger-m48.dts
  create mode 100644 arch/arm/boot/dts/nxp/imx/imx6qdl-draeger-m48.dtsi
 
-diff --git a/arch/arm/boot/dts/nxp/imx/Makefile b/arch/arm/boot/dts/nxp/imx/Makefile
-index 1a2539fa19b4..cdd252fd5109 100644
---- a/arch/arm/boot/dts/nxp/imx/Makefile
-+++ b/arch/arm/boot/dts/nxp/imx/Makefile
-@@ -104,6 +104,7 @@ dtb-$(CONFIG_SOC_IMX6Q) += \
- 	imx6dl-dfi-fs700-m60.dtb \
- 	imx6dl-dhcom-pdk2.dtb \
- 	imx6dl-dhcom-picoitx.dtb \
-+	imx6dl-draeger-m48.dtb \
- 	imx6dl-eckelmann-ci4x10.dtb \
- 	imx6dl-emcon-avari.dtb \
- 	imx6dl-gw51xx.dtb \
-@@ -219,6 +220,7 @@ dtb-$(CONFIG_SOC_IMX6Q) += \
- 	imx6q-display5-tianma-tm070-1280x768.dtb \
- 	imx6q-dmo-edmqmx6.dtb \
- 	imx6q-dms-ba16.dtb \
-+	imx6q-draeger-m48.dtb \
- 	imx6q-ds.dtb \
- 	imx6q-emcon-avari.dtb \
- 	imx6q-evi.dtb \
-diff --git a/arch/arm/boot/dts/nxp/imx/imx6dl-draeger-m48.dts b/arch/arm/boot/dts/nxp/imx/imx6dl-draeger-m48.dts
-new file mode 100644
-index 000000000000..b0bc9a67f5b3
---- /dev/null
-+++ b/arch/arm/boot/dts/nxp/imx/imx6dl-draeger-m48.dts
-@@ -0,0 +1,16 @@
-+// SPDX-License-Identifier: GPL-2.0+
-+/*
-+ * (C) Copyright 2020 Draeger and Licensors, info@draeger.com
-+ *
-+ * Device Tree file for Draeger M48 Board
-+ */
-+
-+/dts-v1/;
-+
-+#include "imx6dl.dtsi"
-+#include "imx6qdl-draeger-m48.dtsi"
-+
-+/ {
-+	model = "Draeger M48 i.MX6 DualLite";
-+	compatible = "draeger,imx6dl-m48", "fsl,imx6dl";
-+};
-diff --git a/arch/arm/boot/dts/nxp/imx/imx6q-draeger-m48.dts b/arch/arm/boot/dts/nxp/imx/imx6q-draeger-m48.dts
-new file mode 100644
-index 000000000000..ff9c337e93fb
---- /dev/null
-+++ b/arch/arm/boot/dts/nxp/imx/imx6q-draeger-m48.dts
-@@ -0,0 +1,16 @@
-+// SPDX-License-Identifier: GPL-2.0+
-+/*
-+ * (C) Copyright 2020 Draeger and Licensors, info@draeger.com
-+ *
-+ * Device Tree file for Draeger M48 Board
-+ */
-+
-+/dts-v1/;
-+
-+#include "imx6q.dtsi"
-+#include "imx6qdl-draeger-m48.dtsi"
-+
-+/ {
-+	model = "Draeger M48 i.MX6 Quad";
-+	compatible = "draeger,imx6q-m48", "fsl,imx6q";
-+};
-diff --git a/arch/arm/boot/dts/nxp/imx/imx6qdl-draeger-m48.dtsi b/arch/arm/boot/dts/nxp/imx/imx6qdl-draeger-m48.dtsi
-new file mode 100644
-index 000000000000..bb2c149c64bb
---- /dev/null
-+++ b/arch/arm/boot/dts/nxp/imx/imx6qdl-draeger-m48.dtsi
-@@ -0,0 +1,213 @@
-+// SPDX-License-Identifier: GPL-2.0+
-+/*
-+ * (C) Copyright 2020 Draeger and Licensors, info@draeger.com
-+ * Based on work by Russell King
-+ *
-+ * Device Tree file for Draeger M48 Board
-+ */
-+
-+#include <dt-bindings/gpio/gpio.h>
-+
-+/ {
-+	aliases {
-+		mmc0 = &usdhc3;
-+	};
-+
-+	chosen {
-+		stdout-path = &uart1;
-+	};
-+
-+	/* Will be filled by the bootloader */
-+	memory@10000000 {
-+		device_type = "memory";
-+		reg = <0x10000000 0x80000000>;
-+	};
-+};
-+
-+&fec {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_enet>;
-+	phy-mode = "rgmii-id";
-+	phy-handle = <&ethphy>;
-+	status = "okay";
-+
-+	mdio {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		ethphy: ethernet-phy@0 {
-+			reg = <0>;
-+			rxc-skew-ps = <1380>;
-+			rxd0-skew-ps = <0>;
-+			rxd1-skew-ps = <0>;
-+			rxd2-skew-ps = <0>;
-+			rxd3-skew-ps = <0>;
-+			rxdv-skew-ps = <0>;
-+			txc-skew-ps = <1860>;
-+			txd0-skew-ps = <0>;
-+			txd1-skew-ps = <0>;
-+			txd2-skew-ps = <0>;
-+			txd3-skew-ps = <0>;
-+			txen-skew-ps = <0>;
-+		};
-+	};
-+};
-+
-+&hdmi {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_hdmi>;
-+	status = "okay";
-+};
-+
-+&i2c2 {
-+	clock-frequency = <100000>;
-+	pinctrl-names = "default", "gpio";
-+	pinctrl-0 = <&pinctrl_i2c2>;
-+	pinctrl-1 = <&pinctrl_i2c2_gpio>;
-+	scl-gpios = <&gpio4 12 (GPIO_ACTIVE_HIGH | GPIO_OPEN_DRAIN)>;
-+	sda-gpios = <&gpio4 13 (GPIO_ACTIVE_HIGH | GPIO_OPEN_DRAIN)>;
-+	status = "okay";
-+
-+	eeprom_mac: eeprom@50 {
-+		compatible = "atmel,24c08";
-+		reg = <0x50>;
-+		pagesize = <16>;
-+	};
-+};
-+
-+&i2c3 {
-+	pinctrl-names = "default", "gpio";
-+	pinctrl-0 = <&pinctrl_i2c3>;
-+	pinctrl-1 = <&pinctrl_i2c3_gpio>;
-+	scl-gpios = <&gpio3 17 (GPIO_ACTIVE_HIGH | GPIO_OPEN_DRAIN)>;
-+	sda-gpios = <&gpio3 18 (GPIO_ACTIVE_HIGH | GPIO_OPEN_DRAIN)>;
-+	status = "okay";
-+};
-+
-+&ldb {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_lvds>;
-+	fsl,dual-channel;
-+	status = "okay";
-+
-+	lvds-channel@0 {
-+		fsl,data-mapping = "spwg";
-+		fsl,data-width = <24>;
-+		status = "okay";
-+
-+		display-timings {
-+			native-mode = <&timing0>;
-+
-+			/* LVDS split mode */
-+			timing0: timing-1920x1080 {
-+				clock-frequency = <142380000>;
-+				hactive = <1920>;
-+				vactive = <1080>;
-+				hback-porch = <60>;		/* left * 2 */
-+				hfront-porch = <60>;		/* right * 2 */
-+				vback-porch = <30>;
-+				vfront-porch = <3>;
-+				hsync-len = <60>;		/* hsync * 2 */
-+				vsync-len = <17>;
-+			};
-+		};
-+	};
-+};
-+
-+&uart1 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_uart1>;
-+	status = "okay";
-+};
-+
-+&usdhc3 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_usdhc3>;
-+	bus-width = <4>;
-+	non-removable;
-+	status = "okay";
-+};
-+
-+&iomuxc {
-+	pinctrl_enet: enetgrp {
-+		fsl,pins = <
-+			MX6QDL_PAD_KEY_COL1__ENET_MDIO		0x1b0b0
-+			MX6QDL_PAD_ENET_MDC__ENET_MDC		0x1b0b0
-+			MX6QDL_PAD_RGMII_TXC__RGMII_TXC		0x13018
-+			MX6QDL_PAD_RGMII_TD0__RGMII_TD0		0x1b018
-+			MX6QDL_PAD_RGMII_TD1__RGMII_TD1		0x1b018
-+			MX6QDL_PAD_RGMII_TD2__RGMII_TD2		0x1b018
-+			MX6QDL_PAD_RGMII_TD3__RGMII_TD3		0x1b018
-+			MX6QDL_PAD_RGMII_TX_CTL__RGMII_TX_CTL	0x13018
-+			MX6QDL_PAD_ENET_REF_CLK__ENET_TX_CLK	0x1b0b0
-+			MX6QDL_PAD_RGMII_RXC__RGMII_RXC		0x13030
-+			MX6QDL_PAD_RGMII_RD0__RGMII_RD0		0x1b030
-+			MX6QDL_PAD_RGMII_RD1__RGMII_RD1		0x1b030
-+			MX6QDL_PAD_RGMII_RD2__RGMII_RD2		0x1b030
-+			MX6QDL_PAD_RGMII_RD3__RGMII_RD3		0x1b030
-+			MX6QDL_PAD_RGMII_RX_CTL__RGMII_RX_CTL	0x13030
-+		>;
-+	};
-+
-+	pinctrl_hdmi: hdmigrp {
-+		fsl,pins = <
-+			MX6QDL_PAD_EIM_D16__HDMI_TX_DDC_SDA	0x4001b8b1
-+			MX6QDL_PAD_EIM_EB2__HDMI_TX_DDC_SCL	0x4001b8b1
-+		>;
-+	};
-+
-+	pinctrl_i2c2: i2c2grp {
-+		fsl,pins = <
-+			MX6QDL_PAD_KEY_COL3__I2C2_SCL		0x4001b820
-+			MX6QDL_PAD_KEY_ROW3__I2C2_SDA		0x4001b820
-+		>;
-+	};
-+
-+	pinctrl_i2c2_gpio: i2c2gpiogrp {
-+		fsl,pins = <
-+			MX6QDL_PAD_KEY_COL3__GPIO4_IO12		0x4001b820
-+			MX6QDL_PAD_KEY_ROW3__GPIO4_IO13		0x4001b820
-+		>;
-+	};
-+
-+	pinctrl_i2c3: i2c3grp {
-+		fsl,pins = <
-+			MX6QDL_PAD_EIM_D17__I2C3_SCL		0x4001b820
-+			MX6QDL_PAD_EIM_D18__I2C3_SDA		0x4001b820
-+		>;
-+	};
-+
-+	pinctrl_i2c3_gpio: i2c3gpiogrp {
-+		fsl,pins = <
-+			MX6QDL_PAD_EIM_D17__GPIO3_IO17		0x4001b820
-+			MX6QDL_PAD_EIM_D18__GPIO3_IO18		0x4001b820
-+		>;
-+	};
-+
-+	pinctrl_lvds: lvdsgrp {
-+		fsl,pins = <
-+			MX6QDL_PAD_EIM_A22__GPIO2_IO16		0x1b010	/* DISPLAY_EN */
-+			MX6QDL_PAD_EIM_A20__GPIO2_IO18		0x1b010	/* BACKLIGHT_EN */
-+			MX6QDL_PAD_EIM_A18__GPIO2_IO20		0x1b010	/* DISP0_CONTRAST */
-+		>;
-+	};
-+
-+	pinctrl_uart1: uart1grp {
-+		fsl,pins = <
-+			MX6QDL_PAD_SD3_DAT7__UART1_TX_DATA	0x1b010
-+			MX6QDL_PAD_SD3_DAT6__UART1_RX_DATA	0x1b010
-+		>;
-+	};
-+
-+	pinctrl_usdhc3: usdhc3grp {
-+		fsl,pins = <
-+			MX6QDL_PAD_SD3_CMD__SD3_CMD		0x1b060
-+			MX6QDL_PAD_SD3_CLK__SD3_CLK		0x1b060
-+			MX6QDL_PAD_SD3_DAT0__SD3_DATA0		0x1b060
-+			MX6QDL_PAD_SD3_DAT1__SD3_DATA1		0x1b060
-+			MX6QDL_PAD_SD3_DAT2__SD3_DATA2		0x1b060
-+			MX6QDL_PAD_SD3_DAT3__SD3_DATA3		0x1b060
-+			MX6QDL_PAD_NANDF_CS1__SD3_VSELECT	0x1b060
-+		>;
-+	};
-+};
 -- 
 2.47.3
 
