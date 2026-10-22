@@ -1,61 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.241
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792648800;
-	b=IVWvgaBzHTiO9R4TDf/0GXdrBzP2GJP9QM+W/UL4tcTBa9lZaXYIr6iO5iH1KuL0kNGd
-	 6/RIYY6cKyQ0rrzFzRnwo0a/mZ0hVTR5K2eJFrrlWZ4f2PsWMfvFvFcM657uG9IPBBi8O
-	 VwEeprzvqddxOszwstaV7iEBJiAE6Dt/ZbyKeU3Z/n6oXvbeo2eOJaNd/IJ1yKod1DQrw
-	 iCW2GHNoR1h7q//MPOA+H8vBeskVsH36/kYDxO5avr5I4Ft1sssxdCUzQH52pdg5QDPlW
-	 UaIOIOFKSgFhqkDd5YwEq+rwnu3Gz3eChg6AJAlp1ILL6Ka9u1uH2LlYNA+Ach1ZMPQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792648800;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=fIYrm7yyO053Wq4oC47ELZ+0yKxy2k7LASYVZFoQqEo=;
-	b=IZTyiVGfKnjJlJUeS9mnfrxmAL0jLBzNDdfe/ROq+O28gdzjtPD8JpXxuItIL+Z+pm0/
-	 fjdWhH8I9njXhsDJbYw/iw+Wt+y0ZZL3CA26+WSwQ1Ml2x3uZHp19uxVnker0hc8m87bK
-	 RPiPCOXxNostOKYc4jHXAkeKhedytaD9PysjpuuXZREFIIalOofPQnrGv4yA2odgQ2fHl
-	 sLZSclmzN+b+RRpRds8IbIQQicsNhOTYjWzk18dhd99PQds3N2KHgCX7mWByUpmnNLB/Y
-	 Ifr6P398HgAfYeP7rQHLIS1GylAl0e/UsC70J007o5aVPTHs3hzC5fAwQZyGE0y//Lg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Pp2rajOZ;
-	arc=none smtp.remote-ip=95.215.58.241
-Received: from mta1.migadu.com (out-241.mta1.migadu.com [95.215.58.241])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792648802;
+	b=TupreJ1uBHg4tSjokLQEpjeZJqQ6B0RSpECY34x5OACsSTjlCBfpL/IMCODZyjh0Cbxi
+	 Ci9rXrWt75ovNbKQxYLW25PiPSXl/9lfghsL5+vSnGznVrh6qccmuM7oMp4Wx7VG2A3y2
+	 t21lGIat3fMmX3AWbN+czeMZHScBYgI2cRnAhcgl1Rxb/eQvukPd5N3Wt9zfLberla1qz
+	 rwl5CnRxOE8S7ffWp92sC0HkYoz5Y2rPWDLzSNz5f5V/jx6LYKzqa0Vb5tpoInIvdyqNE
+	 pt0KEM/z7syc9kBAtk4iM0mC0nlREX1pNbF0M6rROdP2nmPZnUxO5NQB8crakskEOeQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792648802;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=MeqapdHk4YD2xGr4hOW9N3bcaYW9GCT1w2/RAdnybrA=;
+	b=yiutlZpz4R+0fXEGZ9wS61t97n00Q9c8NJh4UTWgDZGb7+Jt/PvPVgcKTqIzBaE+hm1z
+	 iEiGuT73E+lE7T8OvraRBcmI4isE8A7DB/m4pC4LGnJh+jbDj+ATDNqbSRMvSgYf7URES
+	 j7ESBAe6z0X6j2U0h9sqnrx8hh9t7Im3XNSCjlSse3RMbSlp90ZQVzOfeJt0LcNLatGp2
+	 uu7ONxS0NVyz21QKz7wkj4nTttEXHxVatAoax0nmJ+EifOf7kC4GE5rjg1XwhdsLrnRAW
+	 5YMTVkk52ebLry/YhfWPZpn2Ylq5Ym2QBtF+LIcNM4E9sLIMXXty/viF578smpcmEog==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D7gHWThi;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFF4A606A321;
+	Thu, 22 Oct 2026 06:00:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D7gHWThi
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1792648801;
+	b=t0+HXvW1enGLhrNMI8H3FIVpA7LIW6CbbEAu+52VmnmNP8nVLtwoYmiO24viQANFl5LN
+	 regG4uGIEQLpCKgXy6mQlwoE3Vu5jTeMBjX34JR1JjG3pXscwIPfKCt7mQgZPRTQ/TCx4
+	 KihSiV0VMHu85jve/5veL+uBFNNDyA5mzQ/nejbvg2zyvTl7QgJm8uM7DF19NNbpgPGUT
+	 sFRDdVoXjo36uPsumsjqszlzvsHvJoPtZbU/Qz2AFik070nHYCORGYKpArTzPwvVdH3tv
+	 MHPSyfVmPK6has/a6JEkFWBiHbn7aLtYFzOOob742z/T3EGCI3aKsmrssLuMBh+N2Pw==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1792648801;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=MeqapdHk4YD2xGr4hOW9N3bcaYW9GCT1w2/RAdnybrA=;
+	b=CSj4Msff2qKt+2kByJuif5JD8ZoNzEheY1vPHe9R/y+nRfwSTdBTZXNu6dq0n339h6be
+	 buvv7HLf/8XjbJLhipPUxN6+vbiPc1nWfUn2AGYHyS4WSh+Pn0VigvpjScbfMJjEWyEuJ
+	 TWKgdcb0P3TkuEN0W3KsjQTvJWmgor8bXnjw+iYXPOI+RfBYf2+5ieI4x1FZnLDSDT5Eo
+	 +WYMI4xK3l1g1ScQJqAGfb6lHRsDDzADiIlgh7FVXk+B6UnzVG1wMl5wY8jZOUFpCZ12K
+	 JACz4TXB1urKxSegdzfL/RTrwrLdkrJ9X+pcFtu3XnbYZs5uXBID7Iea998AbMn4HOg==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 430E9606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 05:59:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 430E9606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Pp2rajOZ
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=3/3qEHo3NcT3tbB1SW5QCfRuQZuQpW8oQBAxm/9MJKw=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792648797; v=1; x=1793253597;
- b=Pp2rajOZCLeruQH4lUdhCj8/VrhDvtVawgDKltYN/WfBNIYr2BRyhN7ORtui83q2AGdnYwTY
- JCCKB5ZOGdboP36eOF06L2VtatmcywZN9Hh9R36mccgkjXqlxqvcx/pnmDHIubKy3OIffp5BeY7
- 1GOF90mfM7AJqZv56n8AQFfA=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta10.migadu.com with ESMTPS id 422a1f02f778a91c;
-	Thu, 22 Oct 2026 05:59:57 +0000
-X-Mizu-Trace-ID: 422a1f02f778a91c
-X-Migadu-Flow: FLOW_OUT
-Date: Thu, 22 Oct 2026 13:59:50 +0800
-From: Hangbin Liu <hangbin.liu@linux.dev>
-To: Tianyi Chen <hi@tychen.cc>
-Cc: netdev@vger.kernel.org, dsahern@kernel.org, idosch@nvidia.com,
-	davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
-	pabeni@redhat.com, horms@kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net] ipv4: igmp: report interface group allocation
- failure on join
-Message-ID: <atmmVvSN1SEvsjzf@fedora>
-References: <179260356668.911829.6576504063198285556@tychen.cc>
+	by smtp.kernel.org (Postfix) with ESMTPS id 534741F000C5;
+	Thu, 22 Oct 2026 06:00:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792648801;
+	bh=MeqapdHk4YD2xGr4hOW9N3bcaYW9GCT1w2/RAdnybrA=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=D7gHWThiEHCRJAE//0ZvO03APeE4eSO5khBSioNjs1viOKLDlXNM97D0Y1jmC3J4p
+	 WioHP9neImsHWpo9CAheLRo2SwFxOzxA/fO4oZEuCftV07nyEJIWc6a527LqJzlqTM
+	 5xEPLeiwP7LtMeLHloODGF9EKKVPkmeJlen0UytIHe+8NjGxQoSUV2x/+DpBpon5pn
+	 Tme/+kHV/bWmGSq5KA1cy9bCpnESU5Jn0EkdGJde/1EG2QN2lQ67teAumBPeGiEzNm
+	 IsLfrB3rPAmp4Lm6Se4cygPTykusGusKu3Fz+yEigxAFg4WLstvshs//kiLwE6kbKL
+	 cw57PqaNvk47A==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id D3EED43511;
+	Thu, 22 Oct 2026 05:59:59 +0000 (UTC)
+From: Cristian Filipescu via B4 Relay <devnull+filipescu.cristian.gmail.com@kernel.org>
+Date: Thu, 22 Oct 2026 05:56:05 +0000
+Subject: [PATCH v2 1/2] dt-bindings: arm: sunxi: Add Orange Pi 3 LTS board
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,148 +82,66 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <179260356668.911829.6576504063198285556@tychen.cc>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261022-sunxi-orangepi-3-lts-v2-1-70b899252c6a@gmail.com>
+References: <20261022-sunxi-orangepi-3-lts-v2-0-70b899252c6a@gmail.com>
+In-Reply-To: <20261022-sunxi-orangepi-3-lts-v2-0-70b899252c6a@gmail.com>
+To: linux-sunxi@lists.linux.dev, devicetree@vger.kernel.org, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, 
+ Samuel Holland <samuel@sholland.org>, Maxime Ripard <mripard@kernel.org>
+Cc: linux-arm-kernel@lists.infradead.org, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Andre Przywara <andre.przywara@arm.com>, linux-kernel@vger.kernel.org, 
+ Cristian Filipescu <filipescu.cristian@gmail.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792648566; l=1216;
+ i=filipescu.cristian@gmail.com; s=uboot-20261021;
+ h=from:subject:message-id;
+ bh=t1m1y0S3cSpYjFuC+gfshCNEaxwz0B7aj0D0DiamZcc=;
+ b=NWyMN/fe371QAzlJ1JPV7CAU54/0FpQa+6JvwFD18AVO1jIku23xr3877+2ePpVjxPcLhTRRK
+ oe1NGAEHDtYBG0jb7MHbjrFSrvv3pTpNGaeaVmYgXqdDDDpuY/Hvvea
+X-Developer-Key: i=filipescu.cristian@gmail.com; a=ed25519;
+ pk=o7Ui0tU3x+X/6Pq6PZHmd2KFtOdPWttoPuNFOvdD8t0=
+X-Endpoint-Received: by B4 Relay for
+ filipescu.cristian@gmail.com/uboot-20261021 with auth_id=1255
+X-Original-From: Cristian Filipescu <filipescu.cristian@gmail.com>
+Reply-To: filipescu.cristian@gmail.com
 
-Hi Tianyi,
-On Thu, Oct 22, 2026 at 02:23:59AM +0900, Tianyi Chen wrote:
-> setsockopt(IP_ADD_MEMBERSHIP) can return 0 while the group was never
-> joined on the interface.  __ip_mc_join_group() publishes the socket-side
-> ip_mc_socklist in inet->mc_list before calling ____ip_mc_inc_group().
-> That helper returns void, so when its kzalloc_obj() fails it returns
-> without creating the interface-side ip_mc_list and the syscall still
-> reports success.  The socket then passes IP_MSFILTER but cannot receive
-> the group's traffic: no IGMP report is generated, the group is absent
-> from /proc/net/igmp, and the receive path drops the datagrams.  Closing
-> the socket also decrements the interface group for every published
-> ip_mc_socklist, so it can remove a group that another socket joined.
-> 
-> Make the helper return -ENOBUFS on allocation failure, call it before
-> publishing iml, and free iml on failure.  The object is charged with
-> sock_kmalloc(), so sock_kfree_s() with the same size keeps
-> sk_omem_alloc balanced; it was never published and has no source list
-> yet, so no RCU free is needed.  Successful joins still publish the fully
-> initialized socket-side record after the interface group exists.  RTNL
-> serializes the writers, not the RCU readers; this ordering prevents a
-> published socket membership without a device group.
-> 
-> The legacy void wrapper keeps its best-effort behaviour: interface-up,
-> init, bridge and tunnel callers cannot report an allocation failure.  A
-> query does not recreate a missing group; only a later successful
-> inc_group call can.  The silent failure predates the 2019 helper split
-> (9fb20801dab4); there is no recent regression to tag with Fixes.
+From: Jernej Skrabec <jernej.skrabec@gmail.com>
 
-I think the fix could be Linux-2.6.12-rc2.
+The Orange Pi 3 LTS is similar to the Orange Pi 3, with different
+Ethernet and wireless hardware. It includes 2 GiB RAM and 8 GiB eMMC.
 
-> 
-> Reproduced with fail-nth on v6.19 and v7.3-rc2.  N=2 fails the helper's
+Add its board compatible to the Allwinner platform binding.
 
-Is there any details about the reproducer?
+Link: https://lore.kernel.org/linux-sunxi/20250413134318.66681-2-jernej.skrabec@gmail.com/
+Signed-off-by: Jernej Skrabec <jernej.skrabec@gmail.com>
+Acked-by: Rob Herring (Arm) <robh@kernel.org>
+Signed-off-by: Cristian Filipescu <filipescu.cristian@gmail.com>
+---
+ Documentation/devicetree/bindings/arm/sunxi.yaml | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-> kzalloc_obj(): the original returns 0 with no interface group and 0/4
-> multicast datagrams delivered; this change returns -ENOBUFS, leaves no
-> socket or interface state, and a later join delivers 2/2.  On the
-> original, closing the half-joined socket also removes a second socket's
-> group; the patched kernel keeps it.  Normal joins, the existing-group
-> users++ path and source-specific joins (allowed 2/2, filtered 0/2) are
-> unchanged.
-> 
-> Assisted-by: LLM
-> Signed-off-by: Tianyi Chen <hi@tychen.cc>
-> ---
->  net/ipv4/igmp.c | 37 ++++++++++++++++++++++++++++---------
->  1 file changed, 28 insertions(+), 9 deletions(-)
-> 
-> diff --git a/net/ipv4/igmp.c b/net/ipv4/igmp.c
-> index d56355aca797..81a100330630 100644
-> --- a/net/ipv4/igmp.c
-> +++ b/net/ipv4/igmp.c
-> @@ -1566,9 +1566,15 @@ static void inet_ifmcaddr_notify(struct net_device *dev,
->  
->  /*
->   *	A socket has joined a multicast group on device dev.
-> + *
-> + *	Returns 0 if the interface now has a reference to the group, or
-> + *	-ENOBUFS if the new group could not be allocated.  Callers that can
-> + *	report an error to userspace must check it: a socket that reports a
-> + *	successful join while the interface has no group cannot receive the
-> + *	group's traffic.
->   */
-> -static void ____ip_mc_inc_group(struct in_device *in_dev, __be32 addr,
-> -				unsigned int mode, gfp_t gfp)
-> +static int ____ip_mc_inc_group(struct in_device *in_dev, __be32 addr,
-> +			       unsigned int mode, gfp_t gfp)
->  {
->  	struct ip_mc_list __rcu **mc_hash;
->  	struct ip_mc_list *im;
-> @@ -1595,12 +1601,12 @@ static void ____ip_mc_inc_group(struct in_device *in_dev, __be32 addr,
->  	if  (im) {
->  		WRITE_ONCE(im->users, im->users + 1);
->  		ip_mc_add_src(in_dev, &addr, mode, 0, NULL, 0);
-> -		goto out;
-> +		return 0;
->  	}
->  
->  	im = kzalloc_obj(*im, gfp);
->  	if (!im)
-> -		goto out;
-> +		return -ENOBUFS;
->  
->  	WRITE_ONCE(im->users, 1);
->  	im->interface = in_dev;
-> @@ -1630,13 +1636,18 @@ static void ____ip_mc_inc_group(struct in_device *in_dev, __be32 addr,
->  	inet_ifmcaddr_notify(in_dev->dev, im, RTM_NEWMULTICAST);
->  	if (!in_dev->dead)
->  		ip_rt_multicast_event(in_dev);
-> -out:
-> -	return;
-> +	return 0;
->  }
->  
->  void __ip_mc_inc_group(struct in_device *in_dev, __be32 addr, gfp_t gfp)
->  {
-> -	____ip_mc_inc_group(in_dev, addr, MCAST_EXCLUDE, gfp);
-> +	/*
-> +	 * Legacy void interface: interface-up, init, bridge and tunnel
-> +	 * callers cannot report an allocation failure.  Keep the best-effort
-> +	 * behaviour.  A query does not recreate a missing group; only a later
-> +	 * successful inc_group call can.
-> +	 */
-> +	(void)____ip_mc_inc_group(in_dev, addr, MCAST_EXCLUDE, gfp);
->  }
->  EXPORT_SYMBOL(__ip_mc_inc_group);
->  
-> @@ -2386,11 +2397,19 @@ static int __ip_mc_join_group(struct sock *sk, struct ip_mreqn *imr,
->  		goto done;
->  
->  	memcpy(&iml->multi, imr, sizeof(*imr));
-> -	iml->next_rcu = inet->mc_list;
->  	iml->sflist = NULL;
->  	iml->sfmode = mode;
-> +	/*
-> +	 * Make the interface group exist before publishing the socket's
-> +	 * membership: success must mean the group can actually receive.
-> +	 */
-> +	err = ____ip_mc_inc_group(in_dev, addr, mode, GFP_KERNEL);
-> +	if (err) {
-> +		sock_kfree_s(sk, iml, sizeof(*iml));
-> +		goto done;
-> +	}
-> +	iml->next_rcu = inet->mc_list;
->  	rcu_assign_pointer(inet->mc_list, iml);
-> -	____ip_mc_inc_group(in_dev, addr, mode, GFP_KERNEL);
->  	err = 0;
->  done:
->  	return err;
-> 
-> base-commit: df2908090cda368b01ff43709f51890076c56157
-> -- 
-> 2.56.0
-> 
+diff --git a/Documentation/devicetree/bindings/arm/sunxi.yaml b/Documentation/devicetree/bindings/arm/sunxi.yaml
+index f04db28c6..379dc8591 100644
+--- a/Documentation/devicetree/bindings/arm/sunxi.yaml
++++ b/Documentation/devicetree/bindings/arm/sunxi.yaml
+@@ -1008,6 +1008,11 @@ properties:
+           - const: xunlong,orangepi-3
+           - const: allwinner,sun50i-h6
+ 
++      - description: Xunlong OrangePi 3 LTS
++        items:
++          - const: xunlong,orangepi-3-lts
++          - const: allwinner,sun50i-h6
++
+       - description: Xunlong OrangePi 4A
+         items:
+           - const: xunlong,orangepi-4a
 
-BTW, I feel there are too many comments generated by the LLM.
-I wonder if others share the same feeling.
+-- 
+2.47.3
 
-Thanks
-Hangbin
+
