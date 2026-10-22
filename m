@@ -1,116 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.7
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792634297;
-	b=EhWQRUYh00ClPLsbqLX1B8HMwPHAE5nfqpldaTpc7cNodp1243MBDP/AZZ/+oYsgAj4E
-	 tjACJNCTeL1KYptzEQQFr4IeBmPYe9WxM0exf8wr/+2BBds9EZB91efqUCOdt39HXmK1G
-	 PRYo5Zt1wYS6Vxqmwf0ZVH9cAyQQGSgf2ByDna0o8Co3ZKxJI1JKQtSd49J2JNpu8VL4c
-	 9rLvQMrp832OCTC2MVcjBWcmaCJYRAtOdOJ32qECgISq96EW/WoXXPbODKP4y4HnYdkvJ
-	 OxyLWcl0X+8MqcQup6txC+QYDE7D55FaTrciGQQzoCOZ5h5X5dXoisovgumXdbYUzxQ==
+	t=1792634308;
+	b=x1E5TlImp4GS1uOyhZrQmMdn09rz44BIHO9D/CFe+Ecr8+tyRkENxroQ+rk4gIINJPaQ
+	 cVIMFoWZtOR/djRZBUDqpIz5jqwPL0FiZNYIT1lJvEElOj1bWC4Q5ar/pBaFCHVxOfiwU
+	 NRT5EW5cp5GBQQpz9Z19ziOJFA/Cv33bFy3jGf1/gx02E/19ZS5tQpE/kSQRCx6DW9UQG
+	 cntwT5Oe7yp1S467zW+MtXMDLc9Ey3J7W4j36xXvCTOM9brP7cpQGhdy9M0BxxCDI260C
+	 e5Vn5swhpVoxlwjb9aZzEyvovnJaWrySFevlrtzd4LPG5YJLYOX/o1yWpl8/xieZQ6A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792634297;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=n8r7pDVOusRHhAi6AWaHRjxliQyrc7O0YU7BolzZRrw=;
-	b=VqlDDdTRnquYa0uOm/XgcMTvcUweRME3nRYc3KxqDa2B/EeAPanPI8vIzDp/27PQcduf
-	 HtZZUBt9WKyMEovx2Apwv/fptf3aJYwlG/A/ep8+zFQiEmhSHZ15X1QRwu/jXF4U/EP8p
-	 4IXtDu3WGd9GGR5Em0xIfOPcbaufHGNjOCzC9sSRSkzF+bcCEE5K1zmZtjRUS/eYlwLeF
-	 tY24fgKOorxSRt1vgX0lsIDqPbFj7VpVkchP89ldqImyX6ronam3FLL0lmyHXPKKjr56y
-	 ljUhPC4kaG66vyzn32GJaix6GeqmliPdKqblMrHwxu3QnpgUYma5vV9JGztqnjgXu2w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792634308;
+	h=DMARC-Filter:DKIM-Signature:Date:From:To:Cc:Subject:X-Priority:
+	 X-Mailer:In-Reply-To:References:X-NTES-SC:Content-Transfer-Encoding:
+	 Content-Type:MIME-Version:Message-ID:X-Coremail-Locale:X-CM-TRANSID:
+	 X-CM-SenderInfo:X-Coremail-Antispam;
+	bh=DnopcSwUb/bweHu3ihzSfCyHrSkeN2Q/wJyvQ9VQBXk=;
+	b=IHaeNjbAECnrjtCrVN/G+TsdmWw9OQuE/kKR2Vgq1Q7MYg8/tS2oW3K9z+hcJmERK0gU
+	 OC0Ph5BAarjxdzuS/9CGCfsjJfwRQm5jETExOxwK9MCl1yMb7bqaCZKbihrSJZqke53+E
+	 jSRm/pdR2++6KvkCCUUMDc4TcCRdB49/8E9ZymjPhcDGuRxh6Ay6l59VsEijgJ6N6Swex
+	 hbJHhbX9Pc6CqckRnSwBJzXWUzM6NScmgGT7BrDRx9paRrT1XqVPamTIWkXayqo2usLyC
+	 XFP4/1oW9kryofMypGpUdshF3lhFDjNjKSg0S0A+9XYBpYfiVDt8+HCcrRE5eZ/SuzA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="IN/jLAlZ";
-	arc=none smtp.remote-ip=209.85.210.174
-Received: from mail-pf1-f174.google.com (mail-pf1-f174.google.com [209.85.210.174])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=126.com;
+	spf=pass smtp.mailfrom=126.com;
+	dkim=pass header.d=126.com header.i=@126.com header.a=rsa-sha256 header.s=s110527 header.b=bC8DYfqY;
+	arc=none smtp.remote-ip=220.197.31.7
+Received: from m16.mail.126.com (m16.mail.126.com [220.197.31.7])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 742AD606A319
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 01:58:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 742AD606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B8CF606A31A
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 01:58:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0B8CF606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=126.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=IN/jLAlZ
-Received: by mail-pf1-f174.google.com with SMTP id d2e1a72fcca58-8a06210b29fso529977b3a.1
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 18:58:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792634297; x=1793239097; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=n8r7pDVOusRHhAi6AWaHRjxliQyrc7O0YU7BolzZRrw=;
-        b=IN/jLAlZHfBuiCnWxgmPuH4Ccg24ZdOUqR63CbofhMX4kHiqFoo7Znc27iuyQWz4Ny
-         YSMFBaxal3NTlordsbr7a2cIynCP9uy7phETVyIfnHR7ErQnF6p+vtzBFF3ysDAGhOd1
-         DDOtFsFHdFqD7eMmx6lXHTIE3RzaYXi0JeGt8jbS2Bi3l+RAor3NuY1gQ3EsPojkQKj1
-         1wtFg/3xWitaM9SxBY7i+czcG9z8VJJYeVjwuUE868YvXLVPYnn7BLti7Z825zmnxJ90
-         ExaEHys0Mu/knEGciQhYB2+Kh85asr/PTOBgOYRXRhbpDCUHe+OE2GoD5C91HWtaDHnT
-         eQVA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792634297; x=1793239097;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=n8r7pDVOusRHhAi6AWaHRjxliQyrc7O0YU7BolzZRrw=;
-        b=PdMGdXDWb3PqP17WfcLzKq7NK9ylg7qspecTcN8t74PptaQE1aKWxXcoytbmPoKu2x
-         Eb4MnOVfSZ0/nnL8eBMnb5yHsZU+10h1j00f2bqlqPodpO1tjKMGk/2IA9poAhJKroKw
-         bjLJaOg56y7n0WglEBYHvP5oSICpbRuwTJRlpif40ti4kIi2CdE5Jjc54qLcAX2OnqOe
-         VX56yjGWYZVFAk7tNX7h4rhTy4JPlqKU38SYP162/QvwkaXhr6d+QXrvOEbXYz1F+Odt
-         IM7eYHO59lyPY2x01Vl+9/zlKF1LIJ6/EtMEfoi1xsOxJ1W5m+vxRrwGkg2DG33dm11R
-         Tm1A==
-X-Forwarded-Encrypted: i=1; AKwUvBw0Nvu7UkPBpB3ICa/lWtmULGeF9ksL7e9/lH/ufqlKcgA3XtKf32TydMDzCezSX62ZBNrEkh6nfRCNo7M=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLr9uQHewOGKml1GtIEDwoIj1MVy0O6CmeIrlU3RNoEZeWxiCAr
-	BQM6QwCA8Luhp81c+ObVYIdv7wWgTtElB/yF/UAbsfHKGsudrgzKFxrU
-X-Gm-Gg: AYBFou07hc11emkMvOA49UbnXpP0i+XKKyZ23GNREUg6TlrlpIzWoWYI6B5ZZ0O5b5U
-	XRW+m9St1R0MiSvPqbcWU0Z5x8n+XYoAqPZOcVQo/yh3MA+mfWaarP+OxkVGYkjLpDkK0N84WFR
-	WxwDbyUJD56olMSZYoQCS2ew7bkV1urhsYdvHdW7n2rVOxySNir6lofSgVxWXn53ve4Tlkus1O4
-	VV3vqic5lCQhuVyNqtyPv1hqyLKO56HTpyQvUTaRw7YwdxTLLTJAEUzl9pKp3pu8EWBT5lDI0Zn
-	nsxS3A55XlnKz1yFsvyb2DbSOD/sWnlyTOEyHNnQRTctRjbXuV9pVJsw0yMlpu9XqxfhaCO+qlG
-	8lxWN8E+99FVlfodlqj7sJ4/mv9j4us1+CfiqKhzFld8VW4wlhJ7Xb4Uum7SxgSW9e0PH2N1IOG
-	/KS3wl85YNOzf5WMWM9D0t4fO9hls5eb2DNOMbthC2qhgSfLyZrFAL/cj2KPTCgBsQ/1OsYkAjX
-	YhsIAOZ5ixOt6DOWPfggfRzJvBvuQEulW/yLY+guKcCm5LnWEXjh+gCzHgfLKANPypxfxB21m/E
-	6cviAUVoXq4NrAYSvUOemR/Fx6Gqx/MUqBWk/x5KcTJ3ML0eeXnyT0dEqXwAK7DcLFv5F4woWe2
-	lomFTl8ctiCRqdrgYt1Dq2RVn
-X-Received: by 2002:a05:6a00:27a6:b0:878:3538:8f77 with SMTP id d2e1a72fcca58-8a089e90ad8mr3119416b3a.37.1792634296297;
-        Wed, 21 Oct 2026 18:58:16 -0700 (PDT)
-Received: from coder-ast-ast-dev-ml-0.tail2dda0.ts.net ([153.61.198.250])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8a0894b37c5sm1470060b3a.11.2026.10.21.18.58.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Oct 2026 18:58:14 -0700 (PDT)
-From: Alexei Starovoitov <alexei.starovoitov@gmail.com>
-To: bpf@vger.kernel.org
-Cc: daniel@iogearbox.net,
-	andrii@kernel.org,
-	eddyz87@gmail.com,
-	memxor@gmail.com,
-	oleg@redhat.com,
-	peterz@infradead.org,
-	mhiramat@kernel.org,
-	jolsa@kernel.org,
-	akpm@linux-foundation.org,
-	liam@infradead.org,
-	ljs@kernel.org,
-	surenb@google.com,
-	david@kernel.org,
-	vbabka@kernel.org,
-	jannh@google.com,
-	hughd@google.com,
-	kees@kernel.org,
-	mingo@redhat.com,
-	tglx@kernel.org,
-	x86@kernel.org,
-	linux-trace-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	linux-perf-users@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH bpf-next 9/9] selftests/bpf: Test uprobes and fork() with busy mmap_lock
-Date: Thu, 22 Oct 2026 01:57:12 +0000
-Message-ID: <20261022015712.1297331-10-alexei.starovoitov@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261022015712.1297331-1-alexei.starovoitov@gmail.com>
-References: <20261022015712.1297331-1-alexei.starovoitov@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=126.com header.i=@126.com header.a=rsa-sha256 header.s=s110527 header.b=bC8DYfqY
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
+	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
+	Message-ID; bh=DnopcSwUb/bweHu3ihzSfCyHrSkeN2Q/wJyvQ9VQBXk=; b=b
+	C8DYfqYw04fvBStFa7815FrakYjuFBfj9/vru51Z+g/B3XXMZH09u0/p79oyKltL
+	FQSPY++ZuESVZa2gALz/IPtYE91cM1iSIiKFQxmP3nnfsRmBjkmbeKjI9j9HcZu4
+	juA1XO5WFG19893617hQF9XmxNbaMWuul5iupu5EMk=
+Date: Thu, 22 Oct 2026 09:57:45 +0800 (CST)
+From: "Nanzhe Zhao" <nzzhao@126.com>
+To: "Chao Yu" <chao@kernel.org>
+Cc: "Nanzhe Zhao" <nzzhao.sigma@gmail.com>,
+	linux-f2fs-devel@lists.sourceforge.net,
+	"Jaegeuk Kim" <jaegeuk@kernel.org>, "Barry Song" <baohua@kernel.org>,
+	"Nanzhe Zhao" <zhaonanzhe@xiaomi.com>,
+	"Juan Yescas" <jyescas@google.com>,
+	"Daeho Jeong" <daehojeong@google.com>, "Dev Jain" <Dev.Jain@arm.com>,
+	"David Hildenbrand" <David.Hildenbrand@arm.com>,
+	linux-kernel@vger.kernel.org, "Bo Zhang" <zhangbo56@xiaomi.com>,
+	"Kalesh Singh" <kaleshsingh@google.com>,
+	"Pengfei Li" <lipengfei28@xiaomi.com>,
+	"Ryan Roberts" <Ryan.Roberts@arm.com>
+Subject: Re:Re: [PATCH v5 05/16] f2fs: support large folio writeback
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
+ 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 126com
+In-Reply-To: <36d24c53-25e0-45de-889b-f309ee6a0bdd@kernel.org>
+References: <20261014064445.2835813-1-zhaonanzhe@xiaomi.com>
+ <20261014064445.2835813-6-zhaonanzhe@xiaomi.com>
+ <6be679d1-d8ab-41b3-9975-1f1bcd552579@kernel.org>
+ <36d24c53-25e0-45de-889b-f309ee6a0bdd@kernel.org>
+X-NTES-SC: AL_Qu2SAPqYu0ot4yeQZekdmEoVj+o8Xsaxs/8g2YJSc8gOtgfUwzsQWHZeElbTwO69ABq9sQGSYCZS08NTWLJTKWLh3xKMeYpfjV5kmQOYJQ==
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=UTF-8
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -120,515 +75,37 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Message-ID: <12edc14a.1662.1a1615420ba.Coremail.nzzhao@126.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID:cSkvCgDnj8CZbdlqaQRUAA--.33309W
+X-CM-SenderInfo: xq22xtbr6rjloofrz/xtbBoxmSYmrZbZksiQAA3o
+X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
 
-From: Alexei Starovoitov <ast@kernel.org>
-
-A process keeps its mmap_lock busy with MADV_POPULATE_READ of a large
-read-only anonymous area. It maps zero page, so it costs page tables only.
-
-- fork_multi, fork_perf: the busy process forks while uprobe is attached
-  and detached. When attach is over the child has the breakpoint. When
-  detach is over the child doesn't have it, and can call the function.
-- fork_not_blocked: fork() of another process returns while attach is
-  waiting for mmap_lock of the busy process.
-- attach_not_blocked: attach to the file that the busy process doesn't map
-  returns while fork() of the busy process is waiting for its mmap_lock.
-
-The last two compare the order of events, not the time they take.
-
-The test is serial. The busy process maps test_progs, so it would delay
-uprobe attaches of other workers.
-
-Signed-off-by: Alexei Starovoitov <ast@kernel.org>
----
- .../selftests/bpf/prog_tests/uprobe_busy_mm.c | 447 ++++++++++++++++++
- .../selftests/bpf/progs/uprobe_busy_mm.c      |  22 +
- 2 files changed, 469 insertions(+)
- create mode 100644 tools/testing/selftests/bpf/prog_tests/uprobe_busy_mm.c
- create mode 100644 tools/testing/selftests/bpf/progs/uprobe_busy_mm.c
-
-diff --git a/tools/testing/selftests/bpf/prog_tests/uprobe_busy_mm.c b/tools/testing/selftests/bpf/prog_tests/uprobe_busy_mm.c
-new file mode 100644
-index 000000000000..30614e8b92cd
---- /dev/null
-+++ b/tools/testing/selftests/bpf/prog_tests/uprobe_busy_mm.c
-@@ -0,0 +1,447 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Attach and detach uprobes while a process keeps its mmap_lock busy.
-+ * Other processes should be able to fork, and children of the busy process
-+ * should have the same breakpoints as everybody else.
-+ */
-+#include <pthread.h>
-+#include <sys/mman.h>
-+#include <sys/prctl.h>
-+#include <sys/wait.h>
-+#include <test_progs.h>
-+#include "bpf/libbpf_internal.h"
-+#include "uprobe_busy_mm.skel.h"
-+
-+#ifndef MADV_POPULATE_READ
-+#define MADV_POPULATE_READ 22
-+#endif
-+
-+#define LOAD(x)		__atomic_load_n(&(x), __ATOMIC_SEQ_CST)
-+#define STORE(x, v)	__atomic_store_n(&(x), v, __ATOMIC_SEQ_CST)
-+#define INC(x)		__atomic_add_fetch(&(x), 1, __ATOMIC_SEQ_CST)
-+
-+#define AREA_MAX	(64UL << 30)
-+#define AREA_MIN	(64UL << 20)
-+#define MAX_CHILDREN	8
-+#define MAX_TRIES	10
-+#define TIMEOUT_NS	(30 * 1000000000ULL)
-+
-+struct shared {
-+	/* written by the test */
-+	int stop;
-+	int gen;		/* odd while attach or detach is in progress */
-+	int attached;
-+	int hold_ms;
-+	bool do_fork;
-+	char insn[4];
-+	/* written by the busy process */
-+	int ready;
-+	int hold_seq;		/* number of times mmap_lock was let go */
-+	__u64 hold_ns;		/* for how long it was held the last time */
-+	int in_hold;
-+	int in_fork;
-+	int forks;		/* number of times fork() returned */
-+	int errors;
-+	int checked[2];		/* children that checked their breakpoint, by ->attached */
-+};
-+
-+static struct shared *sh;
-+
-+static noinline void uprobe_busy_mm_func(void)
-+{
-+	asm volatile ("");
-+}
-+
-+static __u64 now_ns(void)
-+{
-+	struct timespec ts;
-+
-+	clock_gettime(CLOCK_MONOTONIC, &ts);
-+	return ts.tv_sec * 1000000000ULL + ts.tv_nsec;
-+}
-+
-+/*
-+ * MADV_POPULATE_READ holds mmap_lock for reading while it maps zero page
-+ * all over the area. It costs page tables only.
-+ */
-+static void *hold_mmap_lock(void *arg)
-+{
-+	size_t size = AREA_MIN;
-+	void *area;
-+	__u64 t;
-+
-+	area = mmap(NULL, AREA_MAX, PROT_READ, MAP_PRIVATE | MAP_ANONYMOUS | MAP_NORESERVE, -1, 0);
-+	if (area == MAP_FAILED)
-+		goto err;
-+	/* EINVAL without CONFIG_TRANSPARENT_HUGEPAGE */
-+	madvise(area, AREA_MAX, MADV_NOHUGEPAGE);
-+
-+	t = now_ns();
-+	if (madvise(area, size, MADV_POPULATE_READ))
-+		goto err;
-+	t = now_ns() - t;
-+	size *= sh->hold_ms * 1000000ULL / t + 1;
-+	if (size > AREA_MAX)
-+		size = AREA_MAX;
-+
-+	while (!LOAD(sh->stop)) {
-+		STORE(sh->in_hold, 1);
-+		t = now_ns();
-+		madvise(area, size, MADV_POPULATE_READ);
-+		/* before anything that can fault and wait for fork() */
-+		INC(sh->hold_seq);
-+		STORE(sh->hold_ns, now_ns() - t);
-+		STORE(sh->in_hold, 0);
-+		madvise(area, size, MADV_DONTNEED);
-+		STORE(sh->ready, 1);
-+	}
-+	return NULL;
-+err:
-+	INC(sh->errors);
-+	STORE(sh->ready, 1);
-+	return NULL;
-+}
-+
-+/*
-+ * fork() began while attach or detach was in progress.
-+ * When it's over the child should be like other processes.
-+ */
-+static int child(int gen)
-+{
-+	bool attached, bp;
-+
-+	prctl(PR_SET_PDEATHSIG, SIGKILL);
-+	if (!(gen & 1))
-+		return 0;
-+	gen++;
-+
-+	while (LOAD(sh->gen) < gen) {
-+		if (LOAD(sh->stop))
-+			return 0;
-+		usleep(100);
-+	}
-+
-+	attached = LOAD(sh->attached);
-+	bp = memcmp((void *)uprobe_busy_mm_func, sh->insn, sizeof(sh->insn));
-+	if (LOAD(sh->gen) != gen)
-+		return 0;
-+	if (bp != attached)
-+		return 1;
-+
-+	/* SIGTRAP when there is a breakpoint without uprobe */
-+	uprobe_busy_mm_func();
-+	if (LOAD(sh->gen) == gen)
-+		INC(sh->checked[attached]);
-+	return 0;
-+}
-+
-+static void busy_process(void)
-+{
-+	int status, gen, nr = 0;
-+	pthread_t thread;
-+	pid_t pid;
-+
-+	prctl(PR_SET_PDEATHSIG, SIGKILL);
-+	if (pthread_create(&thread, NULL, hold_mmap_lock, NULL)) {
-+		INC(sh->errors);
-+		STORE(sh->ready, 1);
-+		_exit(1);
-+	}
-+
-+	while (sh->do_fork && !LOAD(sh->stop)) {
-+		while (nr && waitpid(-1, &status, nr < MAX_CHILDREN ? WNOHANG : 0) > 0) {
-+			if (status)
-+				INC(sh->errors);
-+			nr--;
-+		}
-+
-+		gen = LOAD(sh->gen);
-+		STORE(sh->in_fork, 1);
-+		pid = fork();
-+		if (!pid)
-+			_exit(child(gen));
-+		INC(sh->forks);
-+		STORE(sh->in_fork, 0);
-+		if (pid < 0) {
-+			INC(sh->errors);
-+			break;
-+		}
-+		nr++;
-+	}
-+
-+	while (nr-- && wait(&status) > 0)
-+		if (status)
-+			INC(sh->errors);
-+	pthread_join(thread, NULL);
-+	_exit(0);
-+}
-+
-+/* The busy process gave up or is gone */
-+static bool busy_process_failed(pid_t pid)
-+{
-+	siginfo_t si = {};
-+
-+	return LOAD(sh->errors) ||
-+	       waitid(P_PID, pid, &si, WEXITED | WNOHANG | WNOWAIT) || si.si_pid;
-+}
-+
-+static pid_t start_busy_process(int hold_ms, bool do_fork)
-+{
-+	__u64 t = now_ns();
-+	pid_t pid;
-+
-+	sh = mmap(NULL, sizeof(*sh), PROT_READ | PROT_WRITE, MAP_SHARED | MAP_ANONYMOUS, -1, 0);
-+	if (!ASSERT_NEQ(sh, MAP_FAILED, "mmap"))
-+		return -1;
-+
-+	sh->hold_ms = hold_ms;
-+	sh->do_fork = do_fork;
-+	memcpy(sh->insn, (void *)uprobe_busy_mm_func, sizeof(sh->insn));
-+
-+	pid = fork();
-+	if (!ASSERT_GE(pid, 0, "fork")) {
-+		munmap(sh, sizeof(*sh));
-+		return -1;
-+	}
-+	if (!pid)
-+		busy_process();
-+
-+	while (!LOAD(sh->ready) && !busy_process_failed(pid) && now_ns() - t < TIMEOUT_NS)
-+		usleep(1000);
-+	if (!ASSERT_TRUE(LOAD(sh->ready), "busy_process_ready")) {
-+		kill(pid, SIGKILL);
-+		waitpid(pid, NULL, 0);
-+		munmap(sh, sizeof(*sh));
-+		return -1;
-+	}
-+	return pid;
-+}
-+
-+static void stop_busy_process(pid_t pid)
-+{
-+	int status = -1;
-+
-+	STORE(sh->stop, 1);
-+	waitpid(pid, &status, 0);
-+	ASSERT_EQ(status, 0, "busy_process_status");
-+	ASSERT_EQ(sh->errors, 0, "errors");
-+	munmap(sh, sizeof(*sh));
-+}
-+
-+/* Returns hold_seq of the hold that has just begun, -1 if there won't be one */
-+static int wait_for_hold(pid_t pid, bool in_fork)
-+{
-+	__u64 t = now_ns();
-+	int seq;
-+
-+	while (!busy_process_failed(pid) && now_ns() - t < TIMEOUT_NS) {
-+		if (!LOAD(sh->in_hold) || (in_fork && !LOAD(sh->in_fork))) {
-+			usleep(100);
-+			continue;
-+		}
-+		seq = LOAD(sh->hold_seq);
-+		/* let them get into the kernel */
-+		usleep(10000);
-+		if (LOAD(sh->hold_seq) == seq && (!in_fork || LOAD(sh->in_fork)))
-+			return seq;
-+	}
-+
-+	return -1;
-+}
-+
-+static struct bpf_link *attach(struct uprobe_busy_mm *skel, bool multi,
-+			       const char *path, unsigned long offset)
-+{
-+	LIBBPF_OPTS(bpf_uprobe_multi_opts, opts, .offsets = &offset, .cnt = 1);
-+
-+	if (multi)
-+		return bpf_program__attach_uprobe_multi(skel->progs.probe_multi, -1, path,
-+							NULL, &opts);
-+	return bpf_program__attach_uprobe(skel->progs.probe_perf, false, -1, path, offset);
-+}
-+
-+/*
-+ * Wait for a child to check its breakpoint in this state. fork() that began
-+ * during attach or detach may sleep until the next hold is over.
-+ */
-+static void wait_for_check(int attached, int checked)
-+{
-+	__u64 t = now_ns(), max = 2 * LOAD(sh->hold_ns) + 100 * 1000000ULL;
-+
-+	while (LOAD(sh->checked[attached]) == checked && now_ns() - t < max)
-+		usleep(1000);
-+}
-+
-+static void test_fork(struct uprobe_busy_mm *skel, bool multi)
-+{
-+	struct bpf_link *link;
-+	ssize_t offset;
-+	int i, checked;
-+	pid_t pid;
-+	__u64 t;
-+
-+	offset = get_uprobe_offset(&uprobe_busy_mm_func);
-+	if (!ASSERT_GE(offset, 0, "get_uprobe_offset"))
-+		return;
-+
-+	pid = start_busy_process(20, true);
-+	if (pid < 0)
-+		return;
-+	skel->bss->hits = 0;
-+	t = now_ns();
-+
-+	for (i = 0; !busy_process_failed(pid) && now_ns() - t < TIMEOUT_NS; i++) {
-+		if (i >= 10 && LOAD(sh->checked[0]) && LOAD(sh->checked[1]))
-+			break;
-+
-+		checked = LOAD(sh->checked[1]);
-+		INC(sh->gen);
-+		link = attach(skel, multi, "/proc/self/exe", offset);
-+		if (!ASSERT_OK_PTR(link, "attach"))
-+			break;
-+		STORE(sh->attached, 1);
-+		INC(sh->gen);
-+		wait_for_check(1, checked);
-+
-+		checked = LOAD(sh->checked[0]);
-+		INC(sh->gen);
-+		bpf_link__destroy(link);
-+		STORE(sh->attached, 0);
-+		INC(sh->gen);
-+		wait_for_check(0, checked);
-+	}
-+
-+	ASSERT_GT(LOAD(sh->checked[1]), 0, "checked_attached");
-+	ASSERT_GT(LOAD(sh->checked[0]), 0, "checked_detached");
-+	ASSERT_GE(skel->bss->hits, LOAD(sh->checked[1]), "hits");
-+	stop_busy_process(pid);
-+}
-+
-+struct attach_args {
-+	struct uprobe_busy_mm *skel;
-+	unsigned long offset;
-+	struct bpf_link *link;
-+	int done;
-+};
-+
-+static void *attach_thread(void *arg)
-+{
-+	struct attach_args *args = arg;
-+
-+	args->link = attach(args->skel, true, "/proc/self/exe", args->offset);
-+	STORE(args->done, 1);
-+	return NULL;
-+}
-+
-+/* fork() doesn't wait for attach that waits for mmap_lock of the busy process */
-+static void test_fork_not_blocked(struct uprobe_busy_mm *skel)
-+{
-+	struct attach_args args = { .skel = skel };
-+	pid_t pid, child_pid;
-+	bool ok = false;
-+	pthread_t thread;
-+	ssize_t offset;
-+	int i, seq;
-+
-+	offset = get_uprobe_offset(&uprobe_busy_mm_func);
-+	if (!ASSERT_GE(offset, 0, "get_uprobe_offset"))
-+		return;
-+	args.offset = offset;
-+
-+	pid = start_busy_process(300, false);
-+	if (pid < 0)
-+		return;
-+
-+	for (i = 0; i < MAX_TRIES && !ok && !LOAD(sh->errors); i++) {
-+		seq = wait_for_hold(pid, false);
-+		if (!ASSERT_GE(seq, 0, "wait_for_hold"))
-+			break;
-+
-+		args.done = 0;
-+		if (!ASSERT_OK(pthread_create(&thread, NULL, attach_thread, &args),
-+			       "pthread_create"))
-+			break;
-+		/* attach waits for RCU first, fork() isn't blocked by that */
-+		usleep(LOAD(sh->hold_ns) / 2000);
-+
-+		child_pid = fork();
-+		if (!child_pid)
-+			_exit(0);
-+		ok = child_pid > 0 && !LOAD(args.done) && LOAD(sh->hold_seq) == seq;
-+		if (child_pid > 0)
-+			waitpid(child_pid, NULL, 0);
-+
-+		pthread_join(thread, NULL);
-+		if (!ASSERT_OK_PTR(args.link, "attach"))
-+			break;
-+		bpf_link__destroy(args.link);
-+	}
-+
-+	ASSERT_TRUE(ok, "fork_not_blocked");
-+	stop_busy_process(pid);
-+}
-+
-+/* attach doesn't wait for fork() that waits for mmap_lock of the busy process */
-+static void test_attach_not_blocked(struct uprobe_busy_mm *skel)
-+{
-+	const char *path = "./uprobe_multi", *sym = "uprobe_multi_func_00000";
-+	unsigned long *offsets = NULL;
-+	struct bpf_link *link;
-+	bool ok = false;
-+	int i, seq, forks;
-+	pid_t pid;
-+
-+	if (!ASSERT_OK(elf_resolve_syms_offsets(path, 1, &sym, &offsets, STT_FUNC),
-+		       "elf_resolve_syms_offsets"))
-+		return;
-+
-+	pid = start_busy_process(300, true);
-+	if (pid < 0)
-+		goto out;
-+
-+	for (i = 0; i < MAX_TRIES && !ok && !LOAD(sh->errors); i++) {
-+		seq = wait_for_hold(pid, true);
-+		if (!ASSERT_GE(seq, 0, "wait_for_hold"))
-+			break;
-+
-+		forks = LOAD(sh->forks);
-+
-+		link = attach(skel, true, path, offsets[0]);
-+		/*
-+		 * attach that waited for fork() returns as soon as fork() has
-+		 * copied mm, maybe before the busy process bumps forks and
-+		 * hold_seq. Give it a quarter of the hold to do that.
-+		 */
-+		usleep(LOAD(sh->hold_ns) / 4000);
-+		ok = LOAD(sh->in_fork) && LOAD(sh->forks) == forks &&
-+		     LOAD(sh->hold_seq) == seq;
-+		if (!ASSERT_OK_PTR(link, "attach"))
-+			break;
-+		bpf_link__destroy(link);
-+	}
-+
-+	ASSERT_TRUE(ok, "attach_not_blocked");
-+	stop_busy_process(pid);
-+out:
-+	free(offsets);
-+}
-+
-+void serial_test_uprobe_busy_mm(void)
-+{
-+	struct uprobe_busy_mm *skel;
-+
-+	skel = uprobe_busy_mm__open_and_load();
-+	if (!ASSERT_OK_PTR(skel, "uprobe_busy_mm__open_and_load"))
-+		return;
-+
-+	if (test__start_subtest("fork_multi"))
-+		test_fork(skel, true);
-+	if (test__start_subtest("fork_perf"))
-+		test_fork(skel, false);
-+	if (test__start_subtest("fork_not_blocked"))
-+		test_fork_not_blocked(skel);
-+	if (test__start_subtest("attach_not_blocked"))
-+		test_attach_not_blocked(skel);
-+
-+	uprobe_busy_mm__destroy(skel);
-+}
-diff --git a/tools/testing/selftests/bpf/progs/uprobe_busy_mm.c b/tools/testing/selftests/bpf/progs/uprobe_busy_mm.c
-new file mode 100644
-index 000000000000..c07a9961db13
---- /dev/null
-+++ b/tools/testing/selftests/bpf/progs/uprobe_busy_mm.c
-@@ -0,0 +1,22 @@
-+// SPDX-License-Identifier: GPL-2.0
-+#include <linux/bpf.h>
-+#include <bpf/bpf_helpers.h>
-+#include <bpf/bpf_tracing.h>
-+
-+char _license[] SEC("license") = "GPL";
-+
-+__u64 hits;
-+
-+SEC("uprobe.multi")
-+int probe_multi(struct pt_regs *ctx)
-+{
-+	__sync_fetch_and_add(&hits, 1);
-+	return 0;
-+}
-+
-+SEC("uprobe")
-+int probe_perf(struct pt_regs *ctx)
-+{
-+	__sync_fetch_and_add(&hits, 1);
-+	return 0;
-+}
--- 
-2.55.0
-
+Cj4+PiArb3V0Ogo+Pj4gK8KgwqDCoMKgwqDCoMKgIC8qCj4+PiArwqDCoMKgwqDCoMKgwqDCoCAq
+IENsZWFyIHRoZSBkaXJ0eSBzdGF0ZSBvZiB0aGUgc3VicmFuZ2VzIHRoYXQgd2VyZSB3cml0dGVu
+IGJhY2suCj4+PiArwqDCoMKgwqDCoMKgwqDCoCAqIElmIHNvbWUgc3VicmFuZ2VzIGFyZSBzdGls
+bCBkaXJ0eSAoZS5nLiB0aGUgZm9saW8gd2FzIG9ubHkKPj4+ICvCoMKgwqDCoMKgwqDCoMKgICog
+cGFydGlhbGx5IHdyaXR0ZW4gYmFjayksIHRoZSBmb2xpbyBtdXN0IHN0YXkgZGlydHkgc28gdGhh
+dAo+Pj4gK8KgwqDCoMKgwqDCoMKgwqAgKiB0aGUgcmVtYWluaW5nIHN1YnJhbmdlcyBhcmUgd3Jp
+dHRlbiBiYWNrIGxhdGVyLgo+Pj4gK8KgwqDCoMKgwqDCoMKgwqAgKi8KPj4+ICvCoMKgwqDCoMKg
+wqDCoCBpZiAoZjJmc19mZnNfY2xlYXJfc3VicmFuZ2VfZGlydHlfYW5kX3Rlc3QoZm9saW8sIDAs
+Cj4+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgKGVyciA/IHBvcyA6
+IGVuZF9wb3MpIC0gZm9saW9fcG9zKGZvbGlvKSkpCj4+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oCBmb2xpb19yZWRpcnR5X2Zvcl93cml0ZXBhZ2Uod2JjLCBmb2xpbyk7Cj4KPkZvciBmb2xpbyBv
+cmRlci0wLCBpZiBmMmZzX3dyaXRlX2ZvbGlvX2RpcnR5X3JhbmdlKCkgZmFpbGVkLCB3ZSBuZWVk
+IHRvIHJlZGlydHkKPmZvbGlvIGFueXdheSwgcmlnaHQ/IHNvIGl0J3MgbmVlZCB0byBjaGVjayBl
+cnIgYXMgd2VsbD8KPgo+VGhhbmtzLAo+CgpJbiBmMmZzOiBoYW5kbGUgcGFydGlhbCB0cnVuY2F0
+ZSBvZiBsYXJnZSBmb2xpbyBkaXJ0eSBzdWJwYWdlcyBJIGhhdmUgdGhlIGZvbGxvd2luZyBodW5r
+CkBAIC00NTE0LDkgKzQ1OTAsOSBAQCBzdGF0aWMgaW50IGYyZnNfd3JpdGVfY2FjaGVfZm9saW9z
+KHN0cnVjdCBhZGRyZXNzX3NwYWNlICptYXBwaW5nLAogCQkgKiBSZWRpcnR5IHRoZSBmb2xpbyBp
+ZiBkaXJ0eSBzdWJyYW5nZXMgcmVtYWluIGluIGEgbGFyZ2UKIAkJICogZm9saW8sIG9yIGlmIG9y
+ZGVyLTAgd3JpdGViYWNrIGZhaWxzIGR1ZSB0byBhbiBlcnJvci4KIAkJICovCi0JCWlmIChmMmZz
+X2Zmc19jbGVhcl9zdWJyYW5nZV9kaXJ0eV9hbmRfdGVzdChmb2xpbywgMCwKLQkJCQkJKGVyciA/
+IHBvcyA6IGVuZF9wb3MpIC0gZm9saW9fcG9zKGZvbGlvKSkgfHwKLQkJCQkJZXJyKQorCQlkaXJ0
+eSA9IGYyZnNfZmZzX2NsZWFyX3N1YnJhbmdlX2RpcnR5X2FuZF90ZXN0KGZvbGlvLCAwLAorCQkJ
+CQkoZXJyID8gcG9zIDogZW5kX3BvcykgLSBmb2xpb19wb3MoZm9saW8pKTsKKwkJaWYgKGRpcnR5
+IHx8IGVycikKIAkJCWZvbGlvX3JlZGlydHlfZm9yX3dyaXRlcGFnZSh3YmMsIGZvbGlvKTsKIAkJ
+ZWxzZSBpZiAoIWYyZnNfZm9saW9faGFzX2Zmcyhmb2xpbykpCiAJCQlpbm9kZV9kZWNfZGlydHlf
+YmxvY2soaW5vZGUpOwp0byBzb2x2ZSB0aGlzIHByb2JsZW0uIEJ1dCBpdCBzZWVtcyBJIGhhdmUg
+cHV0IHRoaXMgaHVuayBpbiBhIHdyb25nIHBsYWNlLgpJdCBzaG91bGQgYmUgaW50cm9kdWNlZCBp
+biB0aGlzIHBhdGNoIEkgdGhpbmsuCg==
