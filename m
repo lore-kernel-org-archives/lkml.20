@@ -1,61 +1,121 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.2
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792680551;
-	b=qq9djyG/Zt6kGET7i+LAunXpUvOZfoISFdy2KYaQbzUVlQPt9etnNlFuszWpnqT5VhN5
-	 IApuI0F0xjc7vCnPKaFhO6avXZDZO/qTHNB6M2fw9bKygpcAhKTWj7wyOIJooRiSf1Gtu
-	 +Z6jm6G64PMJBhXzObNvfoWQJxCZ3gZhNBkbeMSs+m4+XdvhE/igti4qU+IXm897tZM2I
-	 r9xx6mKOPhdaSx75B6gRrGnurxc58J57198JEzmpaDaQCpBR5oMB46yELLq/3uMuQDlu7
-	 84F4jL8nKVyssHD1bCKs0hYQ5dlnY9weQlOAeIQYHnqir9Ip5XMsopT+nuJ/dOAbP4Q==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792680551;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=VPRO3PXa2/zji34oyXe+9F8Yh09iar2A/K8GvPXivFM=;
-	b=xTLLhk5DaZDcw85RHXpHP3tlzy8nPkoTUYI2yEPDplKz8IyTGPVA9TZxkYcD9FQCQQ+2
-	 hNl1geYhPWzxYHs3QB+lpibFSo3x8PPvfgVs76CRrPRsxvg4bReETA+ld5Gf3Dft/2PFQ
-	 sQJrUq3QX7f5BLCv7WB5QEd9ltEa3BMNOjk9Z0GfNGYXTebNsHg6YgOSR8SlIHwPxBBUG
-	 8Gvi6pDMpn1tH4GIGfVI1iL2YiZ1xvgqA3XDCfnFjanMtqxZnunfmXtyhyUf6jd9Tu+cQ
-	 Agru7LpyV3yEwAe9fqBBPuAi1WfFl5ag3hT25ulybb9FYO4umqoqgCJWKEb6tIwjAVw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=iVqaUuIK;
-	arc=none smtp.remote-ip=220.197.31.2
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=170.10.133.124
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792680732;
+	b=l0S7KDITAYdj3A2jLKVxl0BADRht92Vj8+K2kZQI/xk7fJ50Fzz/7dknuCKtMfmoAAvr
+	 lTEtGsKTLPbY1Nprbf/Mtrq5ibCRYUiilfLcX/cFEbx+n8CcPgdSPNrKY6RMk6r7BgP4v
+	 Aj4Z6Y6xemxmPMmD4lSVpyzpmNdPoeGG0v39bgwZHAJ/HFcZf6nKf/hlCwKTglFTd0R/K
+	 6k4Ei4bd9mGjQmiXEvB7frzX6cj4xAGC5kK6+FtaBkEMQcgT5x0aLsS4L0XK4Op4VL8C6
+	 dAtayamQP9TX1Z5twDYVsDrxOoAWC24SQsT/tQU7FECdZ/yC7dzy3YZmla5tAW4+IDw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792680732;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:MIME-Version:References:In-Reply-To:From:Date:
+	 X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=wqyTtRBZvnyrEsl379QgY7jQoqueXCh5qRvjx+WApRM=;
+	b=LyqlkxtG7s/BjKlWQZlnObnXG9LPJwRsK/cll60vUtwbmvY39x8z4Fiwcx2+wbcf8zZA
+	 C78WRjPolBnyXtRHPfD/4CuW8/tFX7I3kWppHcWt2bdcJAQLvw2SscckcWR7K8+QL9uXk
+	 E3kaRscKSnxWLXJHFhMbmx+xD73pzUyZw4lFFdbutbOCfIjAmjPvEkQfgjG90czwUMEpn
+	 /iOWve06Z5c0GpEt7xhZBAhMokNkodS6flau13JDmyIBaNz4WqR15Yw4VrEOFck3OQdec
+	 eq1aqmIT2Ktl7UUlK6t9jlO1BxZW9D5dTdif4/pgTtugmwSX6WgYsOsp93yMSGN7UOw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b="eVZ/woLz";
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=FWmexS4o;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10FEB606A328;
-	Thu, 22 Oct 2026 14:49:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 10FEB606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A068606A319
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 14:52:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8A068606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=iVqaUuIK
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=VP
-	RO3PXa2/zji34oyXe+9F8Yh09iar2A/K8GvPXivFM=; b=iVqaUuIKuvHM1uKkKw
-	KWHbolbzNZNxxkqSXDzgtm1dGrEP/6b9Idq0lq3lE0oleqnDDFg7Uv8y7QcBICqR
-	Borezo+qqZLGvnc4s7a01jPLuE9JIfHiPyUEKPLUXqK6oJgiaqWlCR4bVTfl1T+r
-	/0HbosZUNUHIBOepcHEftbi2k=
-Received: from shaos.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-2 (Coremail) with SMTP id _____wD3P+ExItpqnVr8Bw--.21753S2;
-	Thu, 22 Oct 2026 22:48:18 +0800 (CST)
-From: shaos <shawnq1@163.com>
-To: jhs@mojatatu.com
-Cc: Jiri Pirko <jiri@resnulli.us>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [BUG] net/sched: malformed TCA_STAB can leave failed qdisc change committed
-Date: Thu, 22 Oct 2026 14:48:17 +0000
-Message-Id: <20261022144817.66648-1-shawnq1@163.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=eVZ/woLz;
+	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=FWmexS4o
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1792680730;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=wqyTtRBZvnyrEsl379QgY7jQoqueXCh5qRvjx+WApRM=;
+	b=eVZ/woLzCHLIZKsWOGeZzqCSUhHWDr21FRwKPJ6tMqpIB/shlxEc1vVmAPXnH4sgFdOdav
+	WjkEG+7FcFPLErDr/St1iN3ZoiozvqICBjENUuVY61D4NjKhbI4EhV2UqrYZrxsGfa4RAE
+	1Uhrd2as/1RPEfnuK1nzMiGO1RmP4Jw=
+Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
+ [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-148-Vo51D1PdOiyApc1ZaA-M9g-1; Thu, 22 Oct 2026 10:52:09 -0400
+X-MC-Unique: Vo51D1PdOiyApc1ZaA-M9g-1
+X-Mimecast-MFC-AGG-ID: Vo51D1PdOiyApc1ZaA-M9g_1792680728
+Received: by mail-wr1-f71.google.com with SMTP id ffacd0b85a97d-48dea677afcso768904f8f.1
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 07:52:09 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792680728; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Fznkfu7SiusJmkxxGdDwln5aRHrMhIZgQSGQWMZyqG09PaWKZqGbl38nMLb64rL5ZJ
+         3nxlSd+4LyVK9j8m7piIl5cbdiCo3/QOoKLP3UkpzT4Y0MePrb6zX2r1iBgX3pwjExmy
+         posg9p5VdCVw7JuMim8Qo8xL3/o/fak4m7ESP5Ig5FMYYgfXR/WRZhEUcLZmC94RzShF
+         8oKuBEGJ/jMon4mwIH6osSyAoibWXf6EKHq3PYPIugl87aCsI5oewUAc/NoWJJJQe0dB
+         YpBNlnzfYH0SHdgDSiW91wou/CNenxUrlyZ8d5Ba+uzyWxBft/4aWm/4sQKNfu4lQ+E1
+         MAIQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=wqyTtRBZvnyrEsl379QgY7jQoqueXCh5qRvjx+WApRM=;
+        fh=KgB2VxECNWn+vPwskJpZYGjKJnS+cMDqQP+vLTAH2hg=;
+        b=QScReYFX3akTd6XNZYfTr/qL2uw2PjDc59/B9hBGOd2RH0vB9FAsRPCahcTt420OKf
+         743o/IfAHGTGUyyODCwOfezNUlyFEVDArkGNMOwWScF9MCSaRCmVKPTaA19yvISdnfAP
+         FECVtUz+gq3NraDdALxVDyFJEK2+coVWSehjdigmik90WUzL7aruXuMYsK0cyGMOXDdS
+         7OgMxiDkCmCMXx6fcphR98k+1IOHtdw2KutQTX4SDeZ8y2IHZSkomcrmK/wWxOqeKTgq
+         Qp4CM4Jykk8oQLn73voZj8FhAbxpx6aChcLZb9hIK+41ba4amXdbqX3a6+zY6o4bqI06
+         UwUQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1792680728; x=1793285528; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=wqyTtRBZvnyrEsl379QgY7jQoqueXCh5qRvjx+WApRM=;
+        b=FWmexS4oqL5psvnuSNji5MfojzfX6NMGbUcZ+DcJEmYL+GMrlw/XRcJljgzP00HjDj
+         NUzB1fgTEq6kR1ViNKEHZ4pOCMxGMnqV3SWfxZnB6Z8QGunXcRZrOu1yow5Qwgw1p3MB
+         Lyjn2vlmaYJ4bvj+d7heNlg7T8j0RBgVcaZ+Yx16dNj01foxFUJXtl9SwAkVHGs2x3TJ
+         ljG8ryPgZT8v6yJeqar+8cOjFpMY4OhvGG91lPE2yy+QCZgRZMWrvoUxkJmWaemB8NID
+         iMr8Rj261U7wrMNfBYq8U/CzaV8nX1Ds21KeFE4k0B1l06OfBh0bpmObk2UcZrywzUi9
+         mVyg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792680728; x=1793285528;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=wqyTtRBZvnyrEsl379QgY7jQoqueXCh5qRvjx+WApRM=;
+        b=sQefhg+tlfkPcQs9NrPlY2R5RrR8cj8D5ro8d5pZwwSa6NShAwIvfl8WNzOIFrc4i1
+         N9YhNlkNZHTpwo3m0JpdgLGR9LXMdpzLKs5oZhjVHL5MTwfaldI2s/xFZ5chBURu25BP
+         l6d0gfqCMkYDwqLwovzjUzC0KxWfb2q0XPFGBdZFAEAalRLKDXJBBLX8cQfbBdr+rHCB
+         DbGSV83DlMyLffIHLWwvIPD7G4gAv4x25UcViFO4a3REBBLUPWwvrJkHW1/r9f6AU+6m
+         T2B8GGNpbnI57h6jfsulq1VWTx9u3/rWoMB3hQGT7sfzOTMQny0Iop9UBK6iY/SzXdsk
+         paVA==
+X-Forwarded-Encrypted: i=1; AKwUvBy2pM9U7hinZa0FX9XVrDJPEOIwUh+sO6fZ9Ulsbof520Hx8HlyvhN6F1uaMwO+U9ysJVqoaRPqai3gQ+0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLBVmEREOfOcHNyQ0SorxUq9UouoDGdwYKShvmEAiF1qbERn/JF
+	8KC5uS2DjfndLlBwRJC0Nn2B3i7D8HTD8NsPuVMm8xq+RdwlocjkfAOLhAZrxOl6xuErHMS2q5v
+	vLs7OOYm23tf6ytWBx51xJURRV29OwMWcCkCaRCe0YaGTzmaVsmFL1kaPKtKABLV3jmr3oURbEL
+	dkDaNN/Hj17wf3nOlFPeGbe1niq7jSdZS4GJCc8vDo
+X-Gm-Gg: AYBFou0KpcaXv2/O8guRj/zERxWBlqKm56lg88Twb0+rjHKPKcWnI1drXMZjjBfweBN
+	sfBhCuCnNjA94yTxghaCXluOdQ9X7QWY7HP/49ozlerZ7OeB/J3NOgKP6AZeGDYPN0UEgCcy50C
+	U0n4OceS453tYyfJ6VqpjCS6loTlZ+ZmoyiaguoX6JWyDiqI9ZXZCcdalkL6xr1T5x+B4eK8svj
+	iqdYUUByM+C2AWrrkv46QVJaN0UiswT1AGlqB4rR8wH9XpPlgLrWwrCZKMH4A==
+X-Received: by 2002:a5d:584e:0:b0:488:8347:a110 with SMTP id ffacd0b85a97d-48e2d102cb0mr5941234f8f.7.1792680728052;
+        Thu, 22 Oct 2026 07:52:08 -0700 (PDT)
+X-Received: by 2002:a5d:584e:0:b0:488:8347:a110 with SMTP id
+ ffacd0b85a97d-48e2d102cb0mr5941198f8f.7.1792680727670; Thu, 22 Oct 2026
+ 07:52:07 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,38 +125,55 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3P+ExItpqnVr8Bw--.21753S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7Ar13JrWDWw18GFyrKFWrGrg_yoW8Ar18pr
-	Wvya43tF1UKF45JFs7KF48u3W5Wrs7Ca1UKas5Gw48ZF98Cw1jkryrK347ZryUGr97K395
-	Za90gayxKan5WaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07josjbUUUUU=
-X-CM-SenderInfo: pvkd40jtr6il2tof0z/xtbC8RLl82raIjJK7QAA3y
+References: <CABgObfaH4-Ud4VR=GC8giDmWGJWS-tvYSmPOs4TtWg2hm4ocqw@mail.gmail.com>
+ <36adc119db9b30984c0df4d1846c0f29e4e46c07.1792679974.git.sashal@kernel.org>
+In-Reply-To: <36adc119db9b30984c0df4d1846c0f29e4e46c07.1792679974.git.sashal@kernel.org>
+From: Paolo Bonzini <pbonzini@redhat.com>
+Date: Thu, 22 Oct 2026 16:51:55 +0200
+X-Gm-Features: AclHuK_FNMnKU9XQXzMyqQJBnCAE8EKPJnl7xQPFMv72VXmRnTfH3i81qFyOj9g
+Message-ID: <CABgObfYuP+jeOZhZYaUrUX2-z0zWMH2Ch=hdizkzmKHLB6KALw@mail.gmail.com>
+Subject: Re: [PATCH] KVM: riscv: Implement kvm_arch_pre_fault_allowed()
+To: Sasha Levin <sashal@kernel.org>
+Cc: Anup Patel <anup@brainfault.org>, Mark Brown <broonie@kernel.org>, 
+	Lorenzo Stoakes <ljs@kernel.org>, Marc Zyngier <maz@kernel.org>, Jinyu Tang <jinyu.tang@linux.dev>, 
+	Atish Patra <atish.patra@linux.dev>, Palmer Dabbelt <palmer@dabbelt.com>, 
+	Paul Walmsley <pjw@kernel.org>, Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
+	kvm@vger.kernel.org, kvm-riscv@lists.infradead.org, 
+	linux-riscv@lists.infradead.org, linux-next@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hello,
+On Thu, Oct 22, 2026 at 4:42=E2=80=AFPM Sasha Levin <sashal@kernel.org> wro=
+te:
+>
+> Commit caa63620f9e3 ("KVM: Allow architectures to disallow pre-fault")
+> requires every architecture that selects KVM_GENERIC_PRE_FAULT_MEMORY to
+> implement kvm_arch_pre_fault_allowed(), and there is no generic default.
+>
+> Commit e8b32e377951 ("KVM: riscv: Implement KVM_PRE_FAULT_MEMORY") was
+> written before that hook existed, so it selects the option without
+> implementing the hook. With both commits in the same tree, riscv builds
+> with KVM enabled fail to link:
+>
+>   ld.lld: error: undefined symbol: kvm_arch_pre_fault_allowed
+>   >>> referenced by kvm_main.c
+>   >>>               virt/kvm/kvm_main.o:(kvm_vcpu_pre_fault_memory) in ar=
+chive vmlinux.a
+>
+> The riscv implementation does not refuse pre-faulting in any state, so
+> return 0 to keep its current behaviour.
+>
+> Fixes: e8b32e377951 ("KVM: riscv: Implement KVM_PRE_FAULT_MEMORY")
+> Signed-off-by: Sasha Levin <sashal@kernel.org>
+> ---
+> Paolo, this is needed when kvm-riscv-7.4-1 is merged into kvm/next.
+> Feel free to squash it into the merge instead.
 
-Change an existing netem qdisc from 20 ms to 100 ms and include a malformed empty TCA_STAB in the same RTM_NEWQDISC request. qdisc_change() calls the qdisc callback before validating TCA_STAB, returns -EINVAL, but leaves the 100 ms option live.
+Yup, done. It will be in tomorrow's linux-next via kvm/next.
 
-HEAD commit:    c03c1a14507dfaf8b856c2608f9ac216021fc222
-git tree:       30fd2ef82912c26cf3a58ad0ba6afc375fa851ac
-source version: Linux 7.3.0, local master
-compiler:       gcc 11.4.0, GNU ld 2.38
+I'll send the RISC-V PR to Linus next week, so if he complains it will
+be there in kvm/next ready for 7.5. :)
 
-console output:
-https://gist.githubusercontent.com/shaos26/faf3f124983448070e5242af5b3dd68d/raw/498cec333b632cbea7ffa02539d860e44d84c864/console-output.txt
-kernel config:
-https://gist.githubusercontent.com/shaos26/faf3f124983448070e5242af5b3dd68d/raw/5e0a640b23f7635af2334f3e1ff7cf185a620f1e/kernel-config.txt
-reproducer:
-https://gist.githubusercontent.com/shaos26/faf3f124983448070e5242af5b3dd68d/raw/ee84d2095025cc488421c5c2d9470604b456e73a/poc.c
-
-Build the tested kernel with the attached configuration, boot it in disposable QEMU, compile poc.c statically and run in a network namespace with CAP_NET_ADMIN. The program creates netem, submits the mixed request and reads state back with RTM_GETQDISC.
-
-Impact and prerequisites:
-A caller with CAP_NET_ADMIN in the target namespace can receive an error while the device continues with the changed qdisc configuration. This is a control-plane atomicity/correctness defect; it does not cross a privilege boundary.
-
-Validation: Four fresh exact-revision boots reproduced the state change. Invalid-STAB-only and patched-order controls left the old 20 ms setting unchanged.
-
-Thanks,
-
-shaos
+Paolo
 
