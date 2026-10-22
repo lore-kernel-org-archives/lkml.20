@@ -1,83 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=37.230.196.243
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792674170;
-	b=sXnSmb3RM92B8LyIkBjgPmXuzxjjn0t2F/Af6IhNr8FLcuAov4ckGMXpUI5pICU3fsLE
-	 C1Hbsa+Ba5fPIakATR2Wuc7F+vV1nsgOXV7kG3qMnCnwxkXwque0Ia5NN1xEZHcbat7/2
-	 CoIhEEeVXSkaUgq73S3dkfd6dGDRzGPr+4t3ANo2dpfDFlzwkisui2tweGL0tpec8K+8j
-	 APnDCC2iFsHMIVJ2JHmzDP/ELt4pUYfcbwY/WR/wACLXJ236R/bDrlYEx0ahZorkpNNoF
-	 T0+BL5IS1dBEr5/8nF3pP4mM47K9+gOfMsQrGsFoyqAIwAarXS8OtV0l3TGj4BW45pg==
+	t=1792674246;
+	b=D+ktSjqHcpOlQ50vh0qY8KnLUgmlexTFfl78UvrbBk6b6KE6t4EU2qIXTR3VSOr/+QLv
+	 5b0EUxmkfdsGqxymn4DLzwkxlFGYX+YfVFjzn3mT65JNoNwU7+npY3soiGMNxTAcqNF0C
+	 IscLqVsgOWiPxuoLSZABdemI3XLTCgqUBFxYWExeL1WCBmzJFnQ0BEUb198FgwwDsty7o
+	 NSxLskHDymRBQK0PCcUdozoo3AhCsGXFPqzAlXKM8Gh8urJwBVGYr6Y6tLvttsxKy1y3R
+	 xoCUI6TO3ncNdntvF7trCCeSsdCNq7jdQ2WyiiYyGPtvoGQlz1BwvMBFingAs2baubg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792674170;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-KSMG-AntiPhishing:X-KSMG-AntiSpam-Auth:
-	 X-KSMG-AntiSpam-Envelope-From:X-KSMG-AntiSpam-Info:
-	 X-KSMG-AntiSpam-Interceptor-Info:X-KSMG-AntiSpam-Lua-Profiles:
-	 X-KSMG-AntiSpam-Method:X-KSMG-AntiSpam-Rate:X-KSMG-AntiSpam-Status:
-	 X-KSMG-AntiSpam-Version:X-KSMG-AntiVirus:X-KSMG-AntiVirus-Status:
-	 X-KSMG-LinksScanning:X-KSMG-Message-Action:X-KSMG-Rule-ID;
-	bh=/kXGwF+5gGF+xxgZdkgZRClYdZY/AztWdeG/I065pIY=;
-	b=OZwt/r62iRztiMZPQZVRZunruoaTEN3lpfCcgRlKK/vuDNUQbYxkKDSxhaB+iZmbSahZ
-	 KZq6nGEJELEGOM+F7QFvuRt8QCWRjvjbvKqjzhGeHGL3RyNrRzOlP+2oZ8n08EtS83CGJ
-	 t5vVvPO4dIGnKa2Mj0Ajb3Qo5H56+VuM82jrUYm3pUnPaXCfNoombSB8O12I8L9PjL8L1
-	 pXi1fBT05rCreKb2PJeKLj4YEdXQW2JO71Re6gk3rgEVeXBr+lWkmjXxlKFGk6gdD1k9H
-	 eILcLa20ydlp0TyUhDbbXyienooVgMvgAM3N9mBjvZSItLN86t2egVNlllvoIcPDBNA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792674246;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Scanned-By;
+	bh=7y93v34nNjGpeAmit7nOmT/wmjCisg/zzFDLGmDNwQs=;
+	b=QfuMGN+2pLDo5iAay5kveeR2wbsBHrGz9+qHl6LAr2quOJITl4Dgqeg8G15Nq1+qK8ii
+	 NUzOe30dfJA1x4svKRdGkRIk+2+CzCxSi6fFRpGY9AjbZUPqc0bBF+vOr1WjuYTV3e/H2
+	 BU0dT/E1oenm0hN+yvFTVA4NKMHjJ7z1sdgU7XzaWgGa0NaSWo3S/wGLfaWh05wEkh0M/
+	 zd4oF/u4ODppB9339K+FYzZeQ26lOP4IRf5A/f9DzcYseC8T5IA9NhNivwi7P4yFGkLTc
+	 NqI9BZPTlnc0zE31L16vNwqw3liwbSfCElLxlatqBeBQTXTq8ra/9CG+CKzBMzMRmFQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=astralinux.ru;
-	spf=pass smtp.mailfrom=astralinux.ru;
-	dkim=pass header.d=astralinux.ru header.i=@astralinux.ru header.a=rsa-sha256 header.s=mail header.b=AcRU8I4T;
-	arc=none smtp.remote-ip=37.230.196.243
-Received: from mail-gw01.astralinux.ru (mail-gw01.astralinux.ru [37.230.196.243])
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=YOFA+6SW;
+	arc=none smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56989606A33A;
-	Thu, 22 Oct 2026 13:02:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 56989606A33A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=astralinux.ru
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=astralinux.ru
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94165606A319
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 13:04:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 94165606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=astralinux.ru header.i=@astralinux.ru header.a=rsa-sha256 header.s=mail header.b=AcRU8I4T
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=astralinux.ru;
-	s=mail; t=1792674164;
-	bh=huIlFCsZCtW9EvCMUYovDzCuBbGv+HAK18qyT9nyhnQ=;
-	h=From:To:Cc:Subject:Date:From;
-	b=AcRU8I4TJmhY/vg88BXHFdtyNi0ehXLBmGvHCA4BqIG+gtSmUI1rXWTTzgd3aJDoH
-	 6nVdoc3GQ3lyef9biEQGrMJ0uJLDVOh8fojvoixDLcfhNauS/PfIdj6KZxTRDe1bj+
-	 gzYjGf4eiEiOkTC7xyYPl3KbDt3/z7H5q1dGcxfC9kwMX/ycDIyGPNVDvR+vwdpB0o
-	 VLAxUjFIaZeq/BQ7hDy4x6fyH+jz0r+gKe8aDsP61JtZPA0Sr84MiNEDWTbZ3Lniz3
-	 fw658tKVj/AUunBHjjKiAJyPbPWv3IgauYtt+8c1ORgMI7xAphNxTz6JsW9GbPe8fW
-	 PnHTWWd0bmTTA==
-Received: from gca-sc-a-srv-ksmg01.astralinux.ru (localhost [127.0.0.1])
-	by mail-gw01.astralinux.ru (Postfix) with ESMTP id B1BFD269A5;
-	Thu, 22 Oct 2026 16:02:44 +0300 (MSK)
-Received: from new-mail.astralinux.ru (unknown [10.205.207.6])
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=YOFA+6SW
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1792674244;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=7y93v34nNjGpeAmit7nOmT/wmjCisg/zzFDLGmDNwQs=;
+	b=YOFA+6SWpnj+EHXayQxx8d4LyFwLoEhdoHcWJrA4vvMqftV8jMtKCFNzktXESwLHjqOQ5W
+	vq3ikbGqQ+mYumbZQXGRuLPZXPMOE89x591KUs4pBwsBbL5pa+l9lxF5uBU8ViRCgX4ADv
+	DqU4cBUDB7WxUwRtYQJOocAvzb0KKAI=
+Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-607-Qlgwt_lIOQWWZ-US4fULtQ-1; Thu,
+ 22 Oct 2026 13:03:58 +0000
+X-MC-Unique: Qlgwt_lIOQWWZ-US4fULtQ-1
+X-Mimecast-MFC-AGG-ID: Qlgwt_lIOQWWZ-US4fULtQ_1792674233
+Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-256) server-digest SHA256)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mail-gw01.astralinux.ru (Postfix) with ESMTPS;
-	Thu, 22 Oct 2026 16:02:43 +0300 (MSK)
-Received: from DESKTOP-D46TNHI (unknown [10.198.49.111])
-	by new-mail.astralinux.ru (Postfix) with ESMTPA id 4j9RC70RFCzRM8;
-	Thu, 22 Oct 2026 16:02:43 +0300 (MSK)
-From: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
-To: stable@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>,
-	Sasha Levin <sashal@kernel.org>,
-	HyeongJun An <sammiee5311@gmail.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	alsa-devel@alsa-project.org,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	lvc-project@linuxtesting.org
-Subject: [PATCH 5.10] ASoC: codecs: hdac_hdmi: Validate written enum value
-Date: Thu, 22 Oct 2026 16:02:05 +0300
-Message-ID: <20261022130207.475-1-mdmitrichenko@astralinux.ru>
-X-Mailer: git-send-email 2.54.0.windows.1
+	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id DC0C41954235;
+	Thu, 22 Oct 2026 13:03:52 +0000 (UTC)
+Received: from [100.91.18.181] (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id DD74F1956089;
+	Thu, 22 Oct 2026 13:03:50 +0000 (UTC)
+Message-ID: <b1c7acc8-1a6d-4395-9b5f-cd5635f05d7b@redhat.com>
+Date: Thu, 22 Oct 2026 09:03:49 -0400
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -87,66 +71,91 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-KSMG-AntiPhishing: NotDetected, bases: 2026/10/22 11:19:00
-X-KSMG-AntiSpam-Auth: dkim=none
-X-KSMG-AntiSpam-Envelope-From: mdmitrichenko@astralinux.ru
-X-KSMG-AntiSpam-Info: LuaCore: 132 0.3.132 b92628ca234da971a1a6d61b32804bb3075f0fd2, {diag_burst_silent}, {Tracking_one_susp_tld}, {Tracking_uf_ne_domains}, {Tracking_from_domain_doesnt_match_to}, 127.0.0.199:7.1.2;patch.msgid.link:7.1.1;new-mail.astralinux.ru:7.1.1;astralinux.ru:7.1.1;d41d8cd98f00b204e9800998ecf8427e.com:7.1.1, FromAlignment: s
-X-KSMG-AntiSpam-Interceptor-Info: scan successful
-X-KSMG-AntiSpam-Lua-Profiles: 206901 [Oct 22 2026]
-X-KSMG-AntiSpam-Method: none
-X-KSMG-AntiSpam-Rate: 0
-X-KSMG-AntiSpam-Status: not_detected
-X-KSMG-AntiSpam-Version: 6.1.1.27
-X-KSMG-AntiVirus: Kaspersky Secure Mail Gateway, version 2.1.0.7854, bases: 2026/10/22 12:20:00 #28725625
-X-KSMG-AntiVirus-Status: NotDetected, skipped
-X-KSMG-LinksScanning: NotDetected, bases: 2026/10/22 11:19:00
-X-KSMG-Message-Action: skipped
-X-KSMG-Rule-ID: 1
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] cgroup/cpuset: check effective mems for a movable-only
+ configuration
+To: "Gregory Price (Meta)" <gourry@gourry.net>, cgroups@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org, kernel-team@meta.com,
+ ridong.chen@linux.dev, tj@kernel.org, hannes@cmpxchg.org, mkoutny@suse.com,
+ akpm@linux-foundation.org, feng.79.tang@gmail.com, mhocko@suse.com
+References: <20261022043943.3125239-1-gourry@gourry.net>
+Content-Language: en-US
+From: Waiman Long <longman@redhat.com>
+In-Reply-To: <20261022043943.3125239-1-gourry@gourry.net>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
 
-From: HyeongJun An <sammiee5311@gmail.com>
-
-commit 0b08baeccdcf52fad328ad645f5b4fbee04eea34 upstream.
-
-hdac_hdmi_set_pin_port_mux() uses the written enum value to index the
-texts array before calling snd_soc_dapm_put_enum_double(), which validates
-that the value is within the enum item range.
-
-An out-of-range value can therefore make the driver read past the texts
-array before the helper rejects the write. Move the lookup after the helper
-has accepted the value.
-
-Fixes: 4a3478debf36 ("ASoC: hdac_hdmi: Add jack reporting")
-Assisted-by: Claude:claude-opus-4-8
-Signed-off-by: HyeongJun An <sammiee5311@gmail.com>
-Link: https://patch.msgid.link/20260609124317.38046-2-sammiee5311@gmail.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
-Signed-off-by: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
----
-Backport fix for CVE-2026-74295
- sound/soc/codecs/hdac_hdmi.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
-
-diff --git a/sound/soc/codecs/hdac_hdmi.c b/sound/soc/codecs/hdac_hdmi.c
-index 76e06c88f279..32f5b958cb80 100644
---- a/sound/soc/codecs/hdac_hdmi.c
-+++ b/sound/soc/codecs/hdac_hdmi.c
-@@ -906,12 +906,14 @@ static int hdac_hdmi_set_pin_port_mux(struct snd_kcontrol *kcontrol,
- 	struct hdac_device *hdev = dev_to_hdac_dev(dapm->dev);
- 	struct hdac_hdmi_priv *hdmi = hdev_to_hdmi_priv(hdev);
- 	struct hdac_hdmi_pcm *pcm = NULL;
--	const char *cvt_name =  e->texts[ucontrol->value.enumerated.item[0]];
-+	const char *cvt_name;
- 
- 	ret = snd_soc_dapm_put_enum_double(kcontrol, ucontrol);
- 	if (ret < 0)
- 		return ret;
- 
-+	cvt_name = e->texts[ucontrol->value.enumerated.item[0]];
-+
- 	if (port == NULL)
- 		return -EINVAL;
- 
--- 
-2.43.0
+On 10/22/26 12:39 AM, Gregory Price (Meta) wrote:
+> check_insane_mems_config() warns and enables cpusets_insane_config_key
+> when a cpuset's tasks can allocate only from movable memory.
+>
+> In cgroup v2 the request may name a memoryless node, which has no zones
+> and cpusets reports it as a movable-only nodemask.
+>
+> For example, with node 2 a CPU-only node:
+>
+>    # echo +cpuset > /sys/fs/cgroup/cgroup.subtree_control
+>    # mkdir /sys/fs/cgroup/test
+>    # echo 2 > /sys/fs/cgroup/test/cpuset.mems
+>    # cat /sys/fs/cgroup/test/cpuset.mems.effective
+>      0-1
+>    # dmesg
+>      Unsupported (movable nodes only) cpuset configuration detected (nmask=2)!
+>
+> This is a bit confusing, especially consider mems.effective ends up with
+> a valid nodemask by-design (cpuset.mems is treated as-if it were empty).
+>
+> Check each new effective mask in update_nodemasks_hier() instead, as the
+> hotplug path already does. The allocator's bail-out tests the task's
+> mems_allowed, which comes from the effective mask.
+>
+> A request naming a movable-only not present in the parent's nodemask
+> no longer warns (since, again, the cpuset.mems gets overridden and
+> treated as empty). However, it will warn if the parent's mems include
+> the node later.
+>
+> For Example, with node 3 a movable-only node:
+>
+>    # echo 0 > /sys/fs/cgroup/test/cpuset.mems
+>    # echo 3 > /sys/fs/cgroup/test/child/cpuset.mems
+>    # cat /sys/fs/cgroup/test/child/cpuset.mems.effective
+>      0
+>    # dmesg
+>      { empty }
+>    # echo 0,3 > /sys/fs/cgroup/test/cpuset.mems
+>    # cat /sys/fs/cgroup/test/child/cpuset.mems.effective
+>      3
+>    # dmesg
+>      Unsupported (movable nodes only) cpuset configuration detected (nmask=3)!
+>
+> Fixes: 8ca1b5a49885 ("mm/page_alloc: detect allocation forbidden by cpuset and bail out early")
+> Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
+> ---
+>   kernel/cgroup/cpuset.c | 4 ++--
+>   1 file changed, 2 insertions(+), 2 deletions(-)
+>
+> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
+> index 8ee239d5c6b48..70fbece1b9399 100644
+> --- a/kernel/cgroup/cpuset.c
+> +++ b/kernel/cgroup/cpuset.c
+> @@ -2795,6 +2795,8 @@ static void update_nodemasks_hier(struct cpuset *cs, nodemask_t *new_mems)
+>   			continue;
+>   		rcu_read_unlock();
+>   
+> +		check_insane_mems_config(new_mems);
+> +
+>   		spin_lock_irq(&callback_lock);
+>   		cp->effective_mems = *new_mems;
+>   		spin_unlock_irq(&callback_lock);
+> @@ -2848,8 +2850,6 @@ static int update_nodemask(struct cpuset *cs, struct cpuset *trialcs,
+>   	if (retval < 0)
+>   		return retval;
+>   
+> -	check_insane_mems_config(&trialcs->mems_allowed);
+> -
+>   	spin_lock_irq(&callback_lock);
+>   	cs->mems_allowed = trialcs->mems_allowed;
+>   	spin_unlock_irq(&callback_lock);
+Reviewed-by: Waiman Long <longman@redhat.com>
 
