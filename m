@@ -1,21 +1,21 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.236.72.118
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792689804;
-	b=S1/OS+LKXw0SQ+aI5CgSYNLMHTxxfpDBoqWcWdqXeWgcJBAZRCPdC+KXBCX0ZmCTkz8H
-	 tp/fzDjFlGWVQv+XxBtG1hADi0eJGUZEV89uItzVDXSJ7vV7Gw46/Yb6+p8DAxqMDef69
-	 lCQe+hdedHx2Tar5XzwnPNZYHBiOI/F2+rgoOxV8/ZfnXcQALjhjE09ux2pDjV/yW5UgX
-	 VQXxN5YuyhuMYLC5554f3qX+FTqGXXfbv51hp4rvpE61A6DgeuOwVJyVoYmev9ggXq0wF
-	 Pz9GLAcXQZQvcIsWd1z/bnpEn6ozKHjsbtfLeUk36EuyDqkepUw66tdebOJ7y3HGdyw==
+	t=1792689836;
+	b=xcIx0OlFz40tAAflj6pEPs7GR3bXt69+pIO0gvLsx7n8f+IfqyiQSoHW9mmXIy4RXoSY
+	 66qRkQ4cFSnOtlyaiHl2YG+1FHflls0m+k3oRQg59zVF7YRP7cp67f0UDoDXp8jQr0hQ9
+	 7UjJTm8/lYEC8IdLMUNgHqO9h2PBh1VdIotvUyVHIJsHVtDlwr6LHxcKH/LPeKRkfHUsb
+	 M9qrwaice8p4nGN19PYnNx9wAb67FfrnW6pBUPtLZq4DHURqCOq1P+x8QqDzCpP/91q1U
+	 hrODp6YieswxWMa7VQj1DL1OwUjfqBJxYQi2XAba/85eTtjnxsCrvWui6lp4GUknYUg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792689804;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792689836;
 	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=thSJ3bCn/tf8G8rEiYpl8FC1iITEPQN8q2L25+07Du4=;
-	b=f5rZRDhUSH/f1p73E4wKzxbO6k9E4s4RgY2WH6CXfeuW6Vndqe1p8hKvRKED280+IRhe
-	 42hW/NCJUYdVgHxr4OHkcH4bnEtQM40FKuMngKsM9gCkRoyCU2HlY1VSTbiqpp9k6mABa
-	 Vg9qGRzK9T5cP+Q0w3hvCwQMV4CMrOSmIGItj0vnH7xgNzFGY8fHEQeOSaMkv6jD73bzD
-	 0kj57J5YJ3t8XdcG/TMBD2a0mr7BW8g5SpxDIDmQcamy3IOxzd5uDyEZlPN6Q+Mf9Ho2r
-	 ILeaKMCW+BarPuIcdco/LBtME6+xZHGtxuj2csw/MAT+XvJZnwiMBJlzlkOjCfRlmOQ==
+	bh=pwrLkLSsVrh1H3W7ILEp/p+Y3LJm4BbREMqVGNd3cic=;
+	b=1BI6YBhjbGOeHd6U4K9YCCXmYFPkzdVbjvReFAPXWlQNW+z9gavN3Bd2uT0UmP3k7uuV
+	 4evq3p1hdSxn6Z5Ev6zhsLmyMsB+2MOrK7Gz/zbdf//OouRL45lb1JgqZpJUqLNV7uyt3
+	 H3nw45FOB6LbsX+QfJfyUN2nlBWrTkqJjLW+Zlif3NXEMQ/OmaNsRdlTUfKkgHIjsUHJ1
+	 +7KLfv1avAyYapXq38atZbJ2MguPa21nR0lFwX1XL8FjB+uAFu6ouxKkF76Qnuk3b4tye
+	 C4xiIV8Se/LoOanTXtwBueBLQ3sNG6eNlcfCAP/mVNBYAYH1OEGqRFl3HyvAvls2DuA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=tpz.ru;
 	spf=pass smtp.mailfrom=tpz.ru;
@@ -24,29 +24,26 @@ Received: from mx1.tpz.ru (mx1.tpz.ru [109.236.72.118])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1288606A31A;
-	Thu, 22 Oct 2026 17:23:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C1288606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B9AC606A319;
+	Thu, 22 Oct 2026 17:23:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4B9AC606A319
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tpz.ru
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tpz.ru
 Received: from lvc.d-systems.local (unknown [109.236.68.122])
-	by mx1.tpz.ru (Postfix) with ESMTPSA id 4j9Xzf4l6Xz10QYQ;
-	Thu, 22 Oct 2026 20:23:10 +0300 (MSK)
+	by mx1.tpz.ru (Postfix) with ESMTPSA id 4j9Y0S19NTz10QYQ;
+	Thu, 22 Oct 2026 20:23:52 +0300 (MSK)
 From: Ilya Krutskih <devsec@tpz.ru>
 To: Mauro Carvalho Chehab <mchehab@kernel.org>
 Cc: Ilya Krutskih <devsec@tpz.ru>,
 	lvc-project@linuxtesting.org,
-	Sergey Shtylyov <s.shtylyov@auroraos.dev>,
+	Liao Yuanhong <liaoyuanhong@vivo.com>,
 	Kees Cook <kees@kernel.org>,
 	Hans Verkuil <hverkuil+cisco@kernel.org>,
-	Patrick Boettcher <pboettcher@dibcom.fr>,
-	Olivier Grenie <Olivier.Grenie@dibcom.fr>,
 	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] media: dib8000: validate SNR exponent before shifting
-Date: Thu, 22 Oct 2026 17:23:07 +0000
-Message-ID: <20261022172308.224576-1-devsec@tpz.ru>
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] media: drx39xyj: use u64 for VSB BER values
+Date: Thu, 22 Oct 2026 17:23:48 +0000
+Message-ID: <20261022172349.224694-1-devsec@tpz.ru>
 X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -59,56 +56,73 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Decode the SNR exponent as a signed value instead of storing it in a
-u32. Subtracting 0x40 from the unsigned exponent currently causes it
-to wrap around when the encoded value represents a negative number.
+The VSB post-Viterbi BER calculation can overflow its u32 result.
 
-Keep the signal and noise mantissas unsigned, as they are used in
-unsigned fixed-point arithmetic. Check exponent values before
-shifting by check_shl_overflow().
+The FEC_RS_NR_BIT_ERRORS register contains a 12-bit mantissa and a
+4-bit exponent, with ranges of 0..4095 and 0..15, respectively.
+A mantissa of 4095 and an exponent of 15 satisfy the high-BER
+condition: (4095 << 15) >> 3 = 16773120 > 68700
 
-Return the existing invalid SNR value when the exponent cannot be
-represented safely.
+For every exponent greater than two, the driver calculates cnt as
+FEC_RS_MEASUREMENT_PERIOD * FEC_RS_MEASUREMENT_PRESCALE * 207. The
+constant period and prescale values are 12894 and 1, so cnt
+is 2669058.
 
-Fixes: 77e2c0f5d471 ("V4L/DVB (12900): DiB8000: added support for DiBcom ISDB-T/ISDB-Tsb demodulator DiB8000")
-Cc: stable@vger.kernel.org
+The high-BER path then calculates 924255 * 26570 = 24557455350,
+which exceeds U32_MAX and wraps before reaching the DVB statistics
+counter.
+
+Store VSB BER values in u64 and promote cnt before multiplying it.
+The statistics uvalue field is already u64, so it preserves the
+complete result.
+
+Fixes: 38b2df95c53b ("[media] drx-j: add a driver for Trident drx-j frontend")
 Signed-off-by: Ilya Krutskih <devsec@tpz.ru>
 ---
- drivers/media/dvb-frontends/dib8000.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+ drivers/media/dvb-frontends/drx39xyj/drxj.c | 9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/media/dvb-frontends/dib8000.c b/drivers/media/dvb-frontends/dib8000.c
-index d291113291e0..442ec06e34dc 100644
---- a/drivers/media/dvb-frontends/dib8000.c
-+++ b/drivers/media/dvb-frontends/dib8000.c
-@@ -11,6 +11,7 @@
- #include <linux/slab.h>
- #include <linux/i2c.h>
- #include <linux/mutex.h>
-+#include <linux/overflow.h>
- #include <asm/div64.h>
+diff --git a/drivers/media/dvb-frontends/drx39xyj/drxj.c b/drivers/media/dvb-frontends/drx39xyj/drxj.c
+index 367acb59b4a3..a257ecc4f2e0 100644
+--- a/drivers/media/dvb-frontends/drx39xyj/drxj.c
++++ b/drivers/media/dvb-frontends/drx39xyj/drxj.c
+@@ -6245,7 +6245,7 @@ static int get_vsb_post_rs_pck_err(struct i2c_device_addr *dev_addr,
+ * \return Error code
+ */
+ static int get_vs_bpost_viterbi_ber(struct i2c_device_addr *dev_addr,
+-				    u32 *ber, u32 *cnt)
++				    u64 *ber, u32 *cnt)
+ {
+ 	int rc;
+ 	u16 data = 0;
+@@ -6269,7 +6269,7 @@ static int get_vs_bpost_viterbi_ber(struct i2c_device_addr *dev_addr,
+ 	*cnt = period * prescale * 207 * ((bit_errors_exp > 2) ? 1 : 8);
  
- #include <linux/int_log.h>
-@@ -3873,7 +3874,8 @@ static u32 dib8000_get_snr(struct dvb_frontend *fe)
- 	exp = (val & 0x3f);
- 	if ((exp & 0x20) != 0)
- 		exp -= 0x40;
--	n <<= exp+16;
-+	if (check_shl_overflow(n, exp + 16, &n))
-+		return 0xffffffff;
+ 	if (((bit_errors_mant << bit_errors_exp) >> 3) > 68700)
+-		*ber = (*cnt) * 26570;
++		*ber = (u64)*cnt * 26570;
+ 	else {
+ 		if (period * prescale == 0) {
+ 			pr_err("error: period and/or prescale is zero!\n");
+@@ -6290,7 +6290,7 @@ static int get_vs_bpost_viterbi_ber(struct i2c_device_addr *dev_addr,
+ * \return Error code
+ */
+ static int get_vs_bpre_viterbi_ber(struct i2c_device_addr *dev_addr,
+-				   u32 *ber, u32 *cnt)
++				   u64 *ber, u32 *cnt)
+ {
+ 	u16 data = 0;
+ 	int rc;
+@@ -10674,7 +10674,8 @@ ctrl_sig_quality(struct drx_demod_instance *demod,
+ 	struct dtv_frontend_properties *p = &state->frontend.dtv_property_cache;
+ 	enum drx_standard standard = ext_attr->standard;
+ 	int rc;
+-	u32 ber, cnt, err, pkt;
++	u64 ber;
++	u32 cnt, err, pkt;
+ 	u16 mer, strength = 0;
  
- 	if (state->revision != 0x8090)
- 		val = dib8000_read_word(state, 543);
-@@ -3883,7 +3885,8 @@ static u32 dib8000_get_snr(struct dvb_frontend *fe)
- 	exp = (val & 0x3f);
- 	if ((exp & 0x20) != 0)
- 		exp -= 0x40;
--	s <<= exp+16;
-+	if (check_shl_overflow(s, exp + 16, &s))
-+		return 0xffffffff;
- 
- 	if (n > 0) {
- 		u32 t = (s/n) << 16;
+ 	rc = get_sig_strength(demod, &strength);
 -- 
 2.43.0
 
