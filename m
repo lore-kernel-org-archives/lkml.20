@@ -1,55 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792666131;
-	b=uM1t3rrw+I7tLzMWo2KEocolwzOEix1D9NElptzsR+ii+2/TicOoCbaG/vEPktX2M32s
-	 hs6f40HBjiOORV9JzNw8ohnkAiFq+lVEbUHaPvW6X8u4QggOwV6Aop22inmiTDv5mMspA
-	 odv60THb4udJDLLvJULuIB8uZeqyQXfNBemN7BO4ijrYSxQ54r0bMgescFzOUk3nohAOj
-	 cp2wz4EBcp/1u9yFE3QdNXH2yu8h8+Yg7s6ImZbSBLm2Wda6XfcgIqBsIBsBcX3PASbq0
-	 bZAtiWNMAn4lH8Y5EAh08tZ+GThweP0qJQts03qtbQFX7zWMYZhTlH76xvi5tyMBeZg==
+	t=1792666296;
+	b=QxParXzrV2Z7TheWXvrWXpZjP6DzLll7tNbSg05uXSXARR5LfRwZaKo11Mi4mRmLxLhB
+	 2F62ERFSEjksZ6IuZs5OKMvEezxwlWOHGc+OmK6VeIh9P2Po66OpP+Foh9z8qec6f1ww+
+	 km3GU2N0oasJzabiSKLVwkQBxgSFfwMu7fUwPhsrmjmbfz803o+SRbjefVMzGGYYGuXUX
+	 nQ0V/1qz0/7mZuOMlpWWm/7rp21acVt0f84S10Ui3Ich2itRm9Q50PQC97/bDov4C/MdL
+	 zs266Z/8ByDHWy39RFZcHNEi0PI9pviRuaDDY7skml2NHct/A0GosWWp5JUC13qNtuA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792666131;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=6h+090XV4AUbcVggLD95jkyA3B0dznfa0uKt5/mUhAw=;
-	b=aACyPXpIrFdLwE7x6eRBrLG71K9xaa/2eOwdq/m1r31+ytJJODQ96AJHa4OS8VGYFGmC
-	 XUXn7zKC6m9UPL08zbaYM3bncoq3hGPPeMwh8nss8HvCTNndmoS+vzoRYPojdlYqDOp1H
-	 H+EHONDObsdO4qQz68dBkIB+EqP4M52XRCACzOmQDOkCH7bzeoMd882sAFvhJBP7JzLqU
-	 lyJvE+Y1mR9aXlMzYU8c7QErNdqUlz0bc80SRm/Bv6d8E1/j4sAH+oKlCxeBcI9bDdzoZ
-	 LIrtchQ7zi6MFOqx7yV7yG/EooWU+bQ9xcJIh/2UyQjD17qDiNrY9/Gm+l0NmbylFQg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792666296;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
+	 Subject:In-Reply-To:References:User-Agent:Date:Message-ID:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Last-TLS-Session-Version;
+	bh=b7ihbGSWVLPuUe+7XubAjvHWls5cuf5rKU39/PaWcuw=;
+	b=S8iRnMC3IXLuOKh7ZfSIVH95WyiMqj8wOE3rG05CeuHqZaLSaDk4cusZefSY0FBN7niq
+	 bknwvWfIxx/HcYQkvT2tXXwHPV7HCnR1x4lJSjnZk/Zr5pjmBJi+9HwSN0TSlsZjvKinT
+	 /jaWlIqKYmIERGo6YHN/6v61AazGV0AHou/N/ufGN4MIEFcbyI855qMRkc+gId/pnFCa3
+	 UqPSeRHg6h8Xplnb5Rnt3Yst/bqvge2ekclTIrfC0nwIipgqfJI2foFIaNe4wvJw1Yms8
+	 bC9yf41prwS2pL1/Cq3uvf6FpKBVtdVyFy8ZR4vprQ61ZIgMFiylez+cDkk2yTMaTgg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jfVJMHsB;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=AQxVeyyb;
+	arc=none smtp.remote-ip=185.171.202.116
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F999606A319
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 10:48:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C436606A319
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 10:51:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5C436606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jfVJMHsB
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 05A361F000C7
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 10:48:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792666131;
-	bh=6h+090XV4AUbcVggLD95jkyA3B0dznfa0uKt5/mUhAw=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=jfVJMHsByPaXl8YwBxBP1xzbR1WQ8D3eebUQUPlGJiBcQdsfMjObN0K/Rmob4SxyG
-	 ckj1Rx2khXhSTwHfZcvbMXCI/W+ORSKDF8E1Bx2TtbIXrOAhLh5LImiQ+nl/BLdY05
-	 pJuMQg9V1ogBhP+8i0Mks1jd8Z3esYO/UwvDvO6azKfgyjpanm+czZT9nuXs270br2
-	 bTxMKhn4diJbp1LyqPZ/Z3MunW0rHW5vfFzESb6sUbl/2P7mEdpRVvihAeqg4enY3q
-	 9lsde9vhtSqe22RY8SbMAK05RGDFJOZSjXwlVDstusKvhV13rrKwjfL3putNKfcodr
-	 /vGTjtwC9HWcA==
-Received: by mail-oa1-f49.google.com with SMTP id 586e51a60fabf-4a71d0c4233so741293fac.0
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 03:48:50 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwdlIhGqdxSk61HSFYPCPGkDVBoHYlwSgJZPedtqPuD599bNYvcr/o7f10OLaSzaVHJpq9ugzw+BvEb7vk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ5/Hbt7JbBLIZZiyrX6XyRpb5pRD+lO6+AI+m4crucFO0cbMbF
-	HyrwvMg3VgSZDmb8NPIdKCpEwnoLeyFzsoW/HKDDmEzuWDBeFlr95S33QikaF4z6/xZ6+Q0ct+j
-	kNy5KcBrLNUuJiWo7Z9pBbu9wb7K0ip4=
-X-Received: by 2002:a05:6870:214e:b0:494:a6ba:53de with SMTP id
- 586e51a60fabf-4a7dc311d74mr3316797fac.60.1792666130335; Thu, 22 Oct 2026
- 03:48:50 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=AQxVeyyb
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id B9494C58472;
+	Thu, 22 Oct 2026 10:52:32 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 5A92C60360;
+	Thu, 22 Oct 2026 10:51:33 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 4ACD310328D6E;
+	Thu, 22 Oct 2026 12:51:30 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1792666292; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=b7ihbGSWVLPuUe+7XubAjvHWls5cuf5rKU39/PaWcuw=;
+	b=AQxVeyybWvNhpYdzlh8vAq4aInIZo7CBTAdsck0AVY3jEC1K75GkphIP4SVc8imY93RBR2
+	l8+P0nokuVroD4uwhJnKWHztaqo2GE1PzxkRbKMzSrpetwopybBppJOUdsnzfoAE8KedcJ
+	PjjLBUHd/h4hflbypURLAOeAm8Cu8CGbTqEdS0DLDv0wvQDFSEwdSWBUJs1dVt9OYiRsRp
+	ZzNXb1tY9RWuIWPsrMlfh1Us37b5z3SlaKJT4WpOkFIczRuwRTN56eZeylh8VDYKWlzrQR
+	lVPWtf945X2Tw+OhODpl4sW56m+gHkjKxK53C8QSNtcjrR7Kp9dYbS99xo7s4A==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: haibo.chen@oss.nxp.com
+Cc: Pratyush Yadav <pratyush@kernel.org>,  Michael Walle
+ <mwalle@kernel.org>,  Takahiro Kuwano <takahiro.kuwano@infineon.com>,
+  Richard Weinberger <richard@nod.at>,  Vignesh Raghavendra
+ <vigneshr@ti.com>,  linux-mtd@lists.infradead.org,
+  linux-kernel@vger.kernel.org,  imx@lists.linux.dev,  michael@walle.cc,
+  Haibo Chen <haibo.chen@nxp.com>
+Subject: Re: [PATCH v4] mtd: spi-nor: clear the default read_sr2 opcode for
+ Octal DTR flashes
+In-Reply-To: <20261022-spi-nor-fix-v4-1-fba3ec3d2b5e@nxp.com> (haibo chen's
+	message of "Thu, 22 Oct 2026 18:45:16 +0800")
+References: <20261022-spi-nor-fix-v4-1-fba3ec3d2b5e@nxp.com>
+User-Agent: mu4e 1.12.12; emacs 30.2
+Date: Thu, 22 Oct 2026 12:51:29 +0200
+Message-ID: <87o6cmovny.fsf@bootlin.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,61 +76,71 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261022102641.1429128-1-hackerowskiy@gmail.com>
-In-Reply-To: <20261022102641.1429128-1-hackerowskiy@gmail.com>
-From: Eric Dumazet <edumazet@kernel.org>
-Date: Thu, 22 Oct 2026 12:48:39 +0200
-X-Gmail-Original-Message-ID: <CAL4Wiiq3Bg75Gtnid8cGuhmCVZ7yhd+kEF78mXtdq5ce-CJxag@mail.gmail.com>
-X-Gm-Features: AclHuK9Aw1IQ0g_DyyCsu-kE4upblkb_k_cLT1MAGcNgv1aEWAaEyD1MSeJF7PI
-Message-ID: <CAL4Wiiq3Bg75Gtnid8cGuhmCVZ7yhd+kEF78mXtdq5ce-CJxag@mail.gmail.com>
-Subject: Re: [PATCH] xfrm: disable state hash resize work on netns exit
-To: Eduard Zateev <hackerowskiy@gmail.com>
-Cc: steffen.klassert@secunet.com, herbert@gondor.apana.org.au, 
-	davem@davemloft.net, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, 
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	syzbot+f3f4fce0609f8e91b540@syzkaller.appspotmail.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
+X-Last-TLS-Session-Version: TLSv1.3
 
-Le jeu. 22 oct. 2026 =C3=A0 12:27, Eduard Zateev <hackerowskiy@gmail.com> a=
- =C3=A9crit :
+On 22/10/2026 at 18:45:16 +08, haibo.chen@oss.nxp.com wrote:
+
+> From: Haibo Chen <haibo.chen@nxp.com>
 >
-> xfrm_state_fini() flushes state_hash_work before it inspects and frees th=
-e
-> per-net state hash tables. A concurrent state insertion can queue another
-> resize while that flush is in progress. The resize worker may then replac=
-e
-> and free a table while teardown is still walking it.
+> The core defaults opcodes.read_sr2 to the legacy RDCR opcode (0x35), and
+> spi_nor_cache_sr_lock_bits() reads SR2 during spi_nor_init(), i.e. after
+> the flash has been switched to its runtime protocol. On an octal flash
+> running in 8D-8D-8D mode the opcode is extended per cmd_ext_type (e.g.
+> 0x3535), but RDCR is not a valid register read there: these parts access
+> their status/configuration registers through a vendor-specific indirect
+> space, if at all. The flash does not answer, the register read times out
+> and probe (or resume) fails (on i.MX FlexSPI: -ETIMEDOUT and a controller
+> WARN(), seen with a Micron MT35XU01G and a Macronix MX25UW51345G).
+>
+> Clear read_sr2 on every path that enables 8D-8D-8D, so that
+> spi_nor_read_sr1_and_sr2() degrades to an SR1-only read and no
+> unsupported command is issued. A manufacturer driver that genuinely
+> needs an SR2 read in this mode can still install its own opcode in a
+> later fixup.
+>
+> - spi_nor_parse_profile1(): the common case. The xSPI Profile 1.0 table
+>   does not describe any SR2/RDCR read, and it runs before the
+>   manufacturer late_init.
+> - mt35xu512aba_post_sfdp_fixup(): some mt35xu512aba batches lack the
+>   Profile 1.0 table and enable 8D here instead, with the BFPT QER field
+>   left at a reserved value so read_sr2 keeps its RDCR default.
+> - spi_nor_no_sfdp_init_params(): non-SFDP parts that enable 8D via
+>   SPI_NOR_OCTAL_DTR_READ keep the RDCR default too.
+>
+> CMP (the only user of SR2 beyond quad-enable in the locking code) is
+> Winbond-specific and is not placed in SR2 on their 8D-capable parts, so
+> no octal flash loses a usable SR2 read because of this change.
+>
+> Fixes: b7b63475903c ("mtd: spi-nor: Create a local SR cache")
 
-Which concurrent state insertion ? At this point the netns refcount
-is zero, there are no user sockets left, and pernet device exits
-have already run. If such an insertion really existed, disabling the
-work would not help: the state would land in tables we are about to
-free.
+Is this still relevant?
 
-More importantly, the syzbot report does not match this theory:
+> Fixes: 63489002d397 ("mtd: spi-nor: Refactor Read Status/Write Status
+> support")
 
-- The object is 64 bytes, allocated at xfrm_state_init()
-  (net/xfrm/xfrm_state.c:3358), so this is the initial 8-bucket
-  state_byseq table, read at bucket 0 (line 3402).
+Will be merged in the next cycle, so Cc: stable is probably required.
 
-- It was freed from an RCU callback (rcu_do_batch -> rcu_free_sheaf),
-  that is via kfree_rcu().
+> Signed-off-by: Haibo Chen <haibo.chen@nxp.com>
+> ---
 
-xfrm never frees these tables with kfree_rcu(). xfrm_hash_resize()
-swaps the pointers, calls synchronize_rcu() and then kfree() from the
-worker, so its free stack would show xfrm_hash_resize(), and
-xfrm_state_fini() would read the new tables, not the old ones.
+Reviewed-by: Miquel Raynal <miquel.raynal@bootlin.com>
 
-What the report shows instead is a stray kfree_rcu() on a stale
-pointer to a kmalloc-64 object, issued after the slot had been
-recycled for this table. The culprit is somewhere else, and the
-report cannot tell us where: the kfree_rcu() sheaf fast path does not
-call kasan_record_aux_stack(), so we lose the caller.
+> Changes in v4:
+> - Following the Sashiko review and Miquel's preference, keep the
+>   capability-based clear but cover every path that enables 8D-8D-8D, not
+>   only the xSPI Profile 1.0 one:
+>     - spi_nor_parse_profile1() (the common case, already in v3),
+>     - mt35xu512aba_post_sfdp_fixup(): some batches lack the 8D command
+>       info in SFDP so Profile 1.0 parsing may not clear it,
+>     - spi_nor_no_sfdp_init_params(): non-SFDP parts using
+>       SPI_NOR_OCTAL_DTR_READ.
+> - Checked all vendor drivers; Micron is the only one that enables 8D
+>   outside Profile 1.0 parsing. Macronix and Cypress rely on Profile
+> 1.0.
 
-This patch therefore does not fix the bug, and the Closes: tag would
-close it based on an untested theory.
+Winbond as well (see my W25QxxPW series).
 
-Thanks.
-
-pw-bot: rejected
+Thanks,
+Miqu=C3=A8l
