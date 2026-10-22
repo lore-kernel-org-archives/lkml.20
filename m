@@ -1,99 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.170
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792633498;
-	b=j7S3ow4unK5i8Duuhqsbev4B3Va6J5wA/8+MGbC5ciDjXw7fNDE6Uw1SKlkfuw47Q2/x
-	 50ekiFC7iXNk+Q7tdRrphaaZh04vafvXtZmuq3uqMb4oik0zACFnOPSh2TBUU5ahmSc4f
-	 Xcfg3SNmXR7qa1hTmU4tU6zSL48ACNH1YSSklKVlbSYz9LixIITjRLtFiDNrN18TWDe1F
-	 TiPSJcbJb3gNKQZ8MCBOfed1csK5dUvMV9+2DCpOOGON0ANvNXh3D3evp6MIe3N465Xaa
-	 4MAMgEY7Hi5jf031NB3JRtHdBA7EAw5heL7F5SPayytjliKbPsITmT/AEMOJp3NkATw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792633498;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=LS+EicQQq2YSXAcv/CHPjd9x8RnM4wjQksgtpzHAKuY=;
-	b=Zv+14pPxKGxF1yzIQMnQdgboRmYV1LYG4HOifN0/MsTIjVgEjfyTssjF8ri83CduKVgu
-	 4HZT9WJxjupoD4kLuE5DSZqaqQmrFT0apOhpRmSpmTkhluCsGUFSJlCxhK0IbiOh3Ie3u
-	 inRbNYgZfP7MDOwiOuOzU4qqISTeSaSI7ZX0MFO2IVgGQHvGEB17s3bIOUq0oYwCAgM1Y
-	 3RVSLC3zpd/Gw+9SodSAvWwl1KfYGWJRt34Skd0HOk8BLwKH3552L/2RmbKZvO1kK/yoD
-	 xkX1Qe9A50UBuzgS06DoO6YtBoNnCxQyXyC4dKiIvy+V4fJz9j4CtAkhojYf5RKW8pw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=soleen.com;
-	spf=pass smtp.mailfrom=soleen.com;
-	dkim=pass header.d=soleen.com header.i=@soleen.com header.a=rsa-sha256 header.s=google header.b=a29lh53a;
-	arc=none smtp.remote-ip=209.85.221.170
-Received: from mail-vk1-f170.google.com (mail-vk1-f170.google.com [209.85.221.170])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.70.46
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792633526;
+	b=owIDv/Lcw29zyU8lN0u87r0/bWIg9MfVPiyfQabUnS9zybIX9vMUFsx23HbUcQtTsoWk
+	 jVudV7O7zhKCS2y6XGqU2yl5dswGrQKw/zdIMcij6oFXsPnEVkw9wkZcbs5R5h7tl8Kjr
+	 iZYq4NzqW+0jFT+r/2lkAKOJQ+a7GYHCiFhpMaE2ZhhQHG3nFqXTykHRm6YHbFoMZbOi0
+	 R+x8x80/MfXV+W7XvbPTRNfurzRz7YnnW/9LgRBU84HoZ5WdUFDPzBB/E3O39V6Xi1sFd
+	 GvwOHC8glf8srr50mlUN9Mbe3Vkf1AP8jyMCFjIiEOXJRmnsvh+jGY092FiqAyKYYog==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792633526;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Subject:Date:
+	 Message-Id:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=Um7YxCGUX/znCYiTXaHI8iRtNDMOT3p17B5RPSOgwOw=;
+	b=ITIdK+qHr+y7X7cx0HPWmCi1Qt0QaX6VsSsJ3YRJY81L6dyze+y3BUCLyrizixIIUQGv
+	 ipqM+mULAhgldL0ERofOjBCgrB+ifJYl8vc062pY+KThYqFnbPZSvKWKAdrq1hHeZxxRm
+	 CMEvJ8BjCcVRXYCrreFCSgC9gAOrPnmKsrD79NdiXnkMkNZoggXoTAN+PYKmlkVdfcW16
+	 YVEr3TQ2G5gOKbZ4hjQ03HeEmPezsQHTicBtxpr/Q3AnBQ6MDu5Z7iM+opwGbT5kJo/Mn
+	 d6jt11T/Tkxgavo4swHk25Uew3bTSWZ6yZel/xCDLaP9KBm8ICGDtCB+tybA6t5amjQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b="bhIKi/Li";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.70.46
+Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011046.outbound.protection.outlook.com [52.101.70.46])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66B9D606A319
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 01:44:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 66B9D606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=soleen.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=soleen.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2B11606A31D;
+	Thu, 22 Oct 2026 01:45:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D2B11606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=soleen.com header.i=@soleen.com header.a=rsa-sha256 header.s=google header.b=a29lh53a
-Received: by mail-vk1-f170.google.com with SMTP id 71dfb90a1353d-5eaeb7fdda2so1177037e0c.3
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 18:44:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=soleen.com; s=google; t=1792633497; x=1793238297; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=LS+EicQQq2YSXAcv/CHPjd9x8RnM4wjQksgtpzHAKuY=;
-        b=a29lh53aOFaSgInPOugDA6w3Jxk/dM2bSqceVpUB1dbglXI1+ELHAJGS7w2fsRTr4q
-         6TAXei2sXE2XqwdLXz3TcBmgIHXdvBezAlwKzO3CzCoYzGnbiFhJU4u5LP4TQbgoh7Qp
-         gXme3XEx7bUQ5RMQRx3aoKlPOhJjBWgP8u2PYAUVT0bzcIO6Rqp+C9ozSPPQbt+tb0lu
-         WU6COpW6eEAVCYF8P/WwoqE7y3FrRjl8zrnFiUtTH4oQ3OYrwT12iNdbESAhCpmw3PzN
-         FJ8pFxNrOjfSvdi8UTSv1KwIpnpsqVPkliYbSZJYy6/A8m9+III59H5neFGpYyvM+P8K
-         YblA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792633497; x=1793238297;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=LS+EicQQq2YSXAcv/CHPjd9x8RnM4wjQksgtpzHAKuY=;
-        b=mT+IN6gnNJE2Ejuio2VRrWSOo2OHAn66OipaFa88FwaI4JiPMZJBfbklzYcHOzCxQT
-         EHWIOtSIZPW0g5recyb1+QVauUdUsaiHb4h/OsdZ25NEWG95mq6iVS6yW8kSnk2i/VLa
-         7VxPnUrtX3hIEmWQ3fMhPr2Va/dbgoyq6/EJe9zJ7a1t8xB4uF1TsKVsA7idg/WgMSZO
-         E2S14DXquFMUhCTtAOKcjFijzjuro88JaD0d2xaMdO/33bjDHppP7wh0Sy9wRti/yRqp
-         6p7juRxmww/Biik4J5i1A/igK2ZvL83w8QkhUGH9cm6+5b9cKMtv3xfRqaAUF+Hl2WzF
-         /szQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxKHWswnLJpUQRTkMhMOK47wo3ZGahnFkRHcMjGIHwUdc9zDfP3Svucz4knm5oXN87biO6i9iOi/puu0cE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIodmnoEeo8UvFq5cjvFKZ6HRVA0gzdxK/EALPKj1SgcqUEJSyp
-	4JsMlInV4gk7puv9eITzaAuHP2FbKJkkY+ML98AX0AlUtt7ZK+FB2nTEVMarMMtyNzg=
-X-Gm-Gg: AYBFou1f5GzUA6HkGNYxnjwBJvhCuacGoLhVrl8QCerkOoApkegN55toNs3F8Th7k3g
-	zUdl5WHZuKld1LXqH8/LOOzwlhsMMigmiFAlkDpz2Xvh34kgkOrzhKa8MLEfSPF2vBsJe1I048G
-	nn2b/ByyytUeutxqwyDM2xbMAxrttve+kmJZicP41HrywdFkm2G9iK5nyw4iwHSx+IJkQOjhthx
-	FkuYgJJYym4WapapDqROTKVwqUJJdUrOfsCo/ERp86s39bixsWsNQRIgsf6GKXE0iheNRb5A70r
-	N0Pgdzy7EvYF5sN1K6gXOaFUYdn+slE2u+6zZZQ6vltgHxcGQZmRouQjFcMOtcd9jQuXSwesUzl
-	MdbadNN3es4/Hpg3rRQxtWwrPZrwT5luK3xhTmeKe/M+RcfDbVSWmiqsNWiY3zjFB2WVmDvcMwC
-	s0kCmsvGYC/PusRc7HdQt3C3RtNAonJ29phniXhnOQTI3mT2dHR6tfnsyrye19/DU3iMmkiR3y8
-	kAj9KpDqtEKiIswdzGH62J9Ovbomvr49/GO1BVvJ0XBRqPX9Nh5YtcW2A2eLCcFl9w9iSB9mwp9
-	JTeAGb3+JhXBdby/D8/Q8c/ARNpLbyErlC2UlMM3lu6JChcs90CxJDVyGzO2Ma5I0CdJB9pwNHs
-	rTA==
-X-Received: by 2002:a05:6102:418a:b0:7be:25d4:7ff0 with SMTP id ada2fe7eead31-7cc92469ecdmr1660230137.4.1792633497085;
-        Wed, 21 Oct 2026 18:44:57 -0700 (PDT)
-Received: from google.com (16.49.199.35.bc.googleusercontent.com. [35.199.49.16])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-990d104017bsm4933026241.4.2026.10.21.18.44.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Oct 2026 18:44:55 -0700 (PDT)
-Date: Wed, 21 Oct 2026 21:44:55 -0400
-From: Pasha Tatashin <pasha.tatashin@soleen.com>
-To: Pratyush Yadav <pratyush@kernel.org>
-Cc: Pasha Tatashin <pasha.tatashin@soleen.com>,
-	linux-kselftest@vger.kernel.org, rppt@kernel.org, shuah@kernel.org,
-	akpm@linux-foundation.org, linux-mm@kvack.org, vipinsh@google.com,
-	linux-kernel@vger.kernel.org, dmatlack@google.com,
-	kexec@lists.infradead.org, graf@amazon.com
-Subject: Re: [PATCH v2 1/2] liveupdate: Add LIVEUPDATE_SESSION_FREEZE ioctl
- to freeze sessions early
-Message-ID: <atlql8V0YcXGRxS3@google.com>
-References: <20261020144710.4154339-1-pasha.tatashin@soleen.com>
- <20261020144710.4154339-2-pasha.tatashin@soleen.com>
- <2vxz4iefgy36.fsf@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=bhIKi/Li
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=wPgyZc8ihHV8DGbV4PThvibQx1qmWA+nfUzAi/+fVmvWs6AbXFGjh/DqLW+J/+KrCR80m51JB9J1pyqu3ZI9AQp/PNurmNQ7/ycI5ujFyw7Y18YZPQMW+sgqc0/o3sgVeDvA18H4du0EC7YNbeGAaHVnlAOpyuNw2IIiNGZK4M3qCQXxrhxjM/lGIGGhsRL3FSM9KtoLPrQjaKylpByFsjzwGm6lhE/Ti2CSxjOmeaCkYZh3oqYpurU1YWOwfP1kXnrfydIin+oToZqEyscJuEMdG6hFSJOlw/k6D1pYow6xXy4zVSLHg3iFzJhsFPwAmKI6NHS5IBaOvou6IMQdaQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Um7YxCGUX/znCYiTXaHI8iRtNDMOT3p17B5RPSOgwOw=;
+ b=lz9U1H2eb2d7aG4C8Upi5z7vlaZP5I68/1WV1/8LL5Jz9/WEaO/9xpwmmqGe8OoEZglZj0b3eacwu8EjTfhm0BpaEtsjtoSF4lf+5Qug5gfqtGgJHzc2Gb/kM8AdF4NxnmOV8yKDbuRv9gbSDVL2yZA+6fMBvg6HlHWtA/OXSLR6ZTQcmj/3r/HIMeXICwfMrhK8un5/0jA/CQBLmstIT/+iFHneGPUWqTClpxEq0h/8Y5780C2Nheg4gf3axYEWwSmg+X1BBx5GoRm7XamDplsmqf5D5v8ney25rF2DzWfOQlNrq2GBF3QkzAwnZzM7M3QfVBccbFmyG7qqeOiFXg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Um7YxCGUX/znCYiTXaHI8iRtNDMOT3p17B5RPSOgwOw=;
+ b=bhIKi/LiJMa9FB42dybBqHy4lCDl5fzkmUc1fC+tIbljkuuP+hXzOJHR/E4hH5sOaOM/nOsTngPAJ68UuivQK4GKfnIqVJ4qqXO6LoE7jUbLz9/Cz6Tf6brUrSyHoVHt3YhPLjfh0Fw38Jfv5suAHJiMRpthvbyZolZ9HyWLpz8DMCsEIRXQ/yQ3ID0FkiTvTMzHt5rxahUTrfqU6G5D0wbQqiplZMroqggka/ct2ddkq//EDJfAsj+G4NW6/GSwUWFRp09FRLk2AcSDNPLkImZqtBWiQ9sNnhIQovcquYaU5Q+a2qyXYE5iJnAa91MDVF2zKy0LauO5ASyCEd5VWA==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from AM8PR04MB7874.eurprd04.prod.outlook.com (2603:10a6:20b:24d::9)
+ by MI7PR04MB114164.eurprd04.prod.outlook.com (2603:10a6:290:10f::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Thu, 22 Oct
+ 2026 01:45:22 +0000
+Received: from AM8PR04MB7874.eurprd04.prod.outlook.com
+ ([fe80::ac38:1699:6f18:c5d9]) by AM8PR04MB7874.eurprd04.prod.outlook.com
+ ([fe80::ac38:1699:6f18:c5d9%6]) with mapi id 15.21.0546.012; Thu, 22 Oct 2026
+ 01:45:22 +0000
+From: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
+Subject: [PATCH 0/2] arm64: dts: freescale: Re-enable A72 cluster on
+ i.MX8QM boards
+Date: Thu, 22 Oct 2026 09:50:00 +0800
+Message-Id: <20261022-8qm-v1-0-2a597cb3debd@nxp.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAMlr2WoC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzNDAyMjXYvCXF0Lc9MUgySTJONU8xQloMqCotS0zAqwKdGxEH5xaVJWanI
+ JSKtSbS0ATFjAAWcAAAA=
+X-Change-ID: 20261022-8qm-875d0b4b3e7d
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>
+Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ linux@ew.tq-group.com, Peng Fan <peng.fan@nxp.com>
+X-Mailer: b4 0.16-dev-7bc12
+X-ClientProxiedBy: MA5P287CA0133.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:a01:1d2::7) To AM8PR04MB7874.eurprd04.prod.outlook.com
+ (2603:10a6:20b:24d::9)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,148 +104,103 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <2vxz4iefgy36.fsf@kernel.org>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AM8PR04MB7874:EE_|MI7PR04MB114164:EE_
+X-MS-Office365-Filtering-Correlation-Id: 52b5de21-c199-44b7-0a2a-08df2fde22d2
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|19092799006|1800799024|376014|23010399003|7416014|10067099003|18002099003|261021123027099003|11063799006|261009223027099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	a5WTakVlEiU6bZrWTt9Sk5FMBiPRing10lqi0d0r28eB/O7MQd+pg22EScph+IXPBPPCQdb+pc4j5qgMXu+8FFT3a3wxIKoqaLrhVJHlY2NHOpZ7R+WcQofs/EMmY9dR9TnoPQr8XDzRGtO4TvFr8Tlvzjb5TkdYgeg1TaEvHk9A+Ij1jwHdXBPJb9Qqrt/Uj8e8WVpx/dflc7bFlMve7sQCxAPLE8xpRnIbm0W+1oyFJx7drP0xPQDPGDnfW2nsuOLfeUOLH6/d/gM2WFq04/bA2wSGB09NteyfcQdoEfTgHOuT8Kg9ewIhmZpStPS+OJLq3Pk8sWPca2Qd+zqGyfWEQGcbka4bwgkfu8RsyBw5eWCHsV2lqUCDMK0cJEwNqkxsXeOpVREds768NVj2U3gmbpNV0oROPMCVgMn+3X0ElIlFF0JRXuQAIWoNFu+0WePzc9xG37sFmpN5QJYEXM/BX99hTRXBBf+DJ6PGsDShpVJTguuQqrTITbD54T5e4KqA4gLzQI5bceKY6zjpJ3RknFVAXIj0/WTUslBlpMC8rPn63CDbyqhM8mphnIV9kZh8HzJHVG4/zKKCq2G8/WUbGhs3NUjt/Cc8QJFwgrTmoCojLdoef3/Hr3Qrmwxrgtjbhc3JWaTTtKqXZNxFouOtbpkueDnDEN+MbI5DTNg=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM8PR04MB7874.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(19092799006)(1800799024)(376014)(23010399003)(7416014)(10067099003)(18002099003)(261021123027099003)(11063799006)(261009223027099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?NDdZT1hjRkV1MHVweHBUWERFMkp3a3pWTmx2ek5oaEt2NTM3dmZoRExSOXh6?=
+ =?utf-8?B?WkQ1dWRiMW5oMGEyN0tZOHluODlYYkFYQ1BiNGwwSThRblZzYW5hOTJmTEVJ?=
+ =?utf-8?B?U0syY0lwc0NUdzVobDk3OWs3cXVYcTNWMzZCa2tNamxPemZiaUhqYjJFb0N2?=
+ =?utf-8?B?RlFCRnF6WEtIU0JNaHNYNUYzRmhvdEhLSytpTCt5dEtrS1g2azR6QW92N3k0?=
+ =?utf-8?B?OHdOTGhURm9BMHJ6cGY4L0tUQ0llMDZKNG5zK1BQalZleUlzQ3FMNWhuYTJU?=
+ =?utf-8?B?bXNsaW80c2l3RlN1VU9BMmRtUXNtWnhQKzdOWDc4U1A0VG85Nm9oNkVSN2RQ?=
+ =?utf-8?B?bEZxQWdKQ3NUYkpQSnhnclFCb1VacXhDSDR4R0IzQkhTRkd4bEdjcUZDU0k2?=
+ =?utf-8?B?SlhNYUU5dzB3c0pWY1RxbzBML1NJR3lMWDExc29RNDlYSEFzaTVSUlIraHJW?=
+ =?utf-8?B?R3pBeGp6eVhkYlFUNUNEZUpZVFhyTU9USDg4MCsvS3dHazg0NGF0VHl1M2Y4?=
+ =?utf-8?B?YjJCcThWNmlJS1k4MlpNM0FETzEwaWdQVmVxNXBaZ3RPQnIyaTNiaWZiNGVT?=
+ =?utf-8?B?VTllQjh3UUc3bHpZYzNUd0YyUTd2SmJucHQ1T0F0UytvNC9QTWJ0cFhVY3NZ?=
+ =?utf-8?B?aEhNR0RkdGtnRnN1VHNPbnhMNXZYMng5WlZHcitRMGVlVmtaUzhGcjhwODJR?=
+ =?utf-8?B?VzFoRXVjK0dPSFNaTFJBWitXd2U4L2R6K0lPU3U3QWpyb2cvS2ExWkdVbm5z?=
+ =?utf-8?B?Z3d6ZGFwU05rWDNwQnphc09VZjI0OVFKL1dIZ0dKR2JsR0N3TEdVY1hsOFBS?=
+ =?utf-8?B?djNveHpQWTBoN3JvYU0yUDhKbWN4a3k1NmF4RHZmWXhDZGJzVHJYYjIvYklB?=
+ =?utf-8?B?ZlRIcExlS1V4b0pmSmFZVmZaNFQ4M05JK3FlS293SmM5c0RtQ3dlRXVEZTVJ?=
+ =?utf-8?B?bmlvU2lKZGozam82aW13YStwRHlEYWFiMFg4UGNoWXYxc29qbWN1aWNxOHZm?=
+ =?utf-8?B?b0R4cUM4NjRRQmJ2OGFBVTV3TWQ1OHhuSW1rQnBQQmMyQkhwU20xVFozVjdR?=
+ =?utf-8?B?cjJKbFIzTDRhTVI3TnFLUnFaZGtFazFaVThjNkIzTVlLTC9vcmczc1pWNHRY?=
+ =?utf-8?B?TDExVE00MXhaeHllN0syOUduY2lXcEc3VDg5WDVTYUkyY0I2cCtVaWh0VGlS?=
+ =?utf-8?B?L01Xd1c1R1p3TC85c1VyektHVVlMaTdqQjhOVFcvRlRGQkxtU2wrSkFsRUY4?=
+ =?utf-8?B?WHNEZ0V6R0o0Q0VOUmNKOEp0SHZRc05HVmg1UnZGYTlkYm5lb2p5Rk1DY3k5?=
+ =?utf-8?B?akxNbEZLVUE1Qm5qc3pOZEhrQ09lV2VjWmJCQzZUMUtqVWdhSERTWVMwR0gx?=
+ =?utf-8?B?MmtBcVVSS3pWUG5ENXN1dHJSMk5oWHZydXNRQTJaOG5jNWt3aUdIQXY1OVlN?=
+ =?utf-8?B?dlF3b0VtOUZGVDRxUU5TSmEzM2ZMRmx3QXM1ZnhYK3FqMEI5b0pzMlZVcWpO?=
+ =?utf-8?B?anJOTHVsdlpxamUvV1Fra2g2d2tuYWZnT2ZIWHdXenQrNTM3OHFFR1FyL2xQ?=
+ =?utf-8?B?QjRQQ3VDMURwL3R3WGd4cUxPRmFzeHZoL0t4Y0k1MTNvMVY5TEsyRllIc0Ir?=
+ =?utf-8?B?eWZvdkxuTXpLQWhnY0o0eE8yYU1sdW9jcGxLaytjdjVSeXg1MFR2WDJjN2tF?=
+ =?utf-8?B?ZFBzVEltRS9uRXdQbGVvc2owNkpKMWtQVEhPeUxOa3ZGV2xocUxvL0pTUFZK?=
+ =?utf-8?B?TGhDeitaVFpsdmQvdlJiZzNhVUtqTnR4OHBCZWJOSjVwU3hTTWlLVS9POXRu?=
+ =?utf-8?B?VEpkd2ZEUlZJbktQWmRyOFVERit3QktDQkxTWXhVTXpHdUxvN09oMkk5dXE3?=
+ =?utf-8?B?MTNJRDJWc3cvYlh5eFhnQVB2L21qWExjOFhBTVNDVFU3eXAvMzdlR3VYVHpr?=
+ =?utf-8?B?eW1hZkJ0ZmxwSzN5b1cwbUh1RU85VWFVRDhYbVQ4YnhkSGRqbDJJU3h5UXZP?=
+ =?utf-8?B?cDdlZDdUUi9kZHM3VWdTNW5lV09hbEh1bktjdnBnWWFlV1dtMFM1MC9vQ0tv?=
+ =?utf-8?B?RlhLREpnaDlBZFJST1VLUFZWRHVyT2hUMnVNK3BUSUhUeE9UZ1FwazNCRmdl?=
+ =?utf-8?B?L3Z2a0VCK1BqbGhxUWRFQk5JOUloZmVXZTN4aHBGeXIzYVpxLzZKRkIyYjBR?=
+ =?utf-8?B?dGpxamVpUmlCU3NFdzA3KzBidVNFZnZNWHoxSS9YdXBjZU5XUUFaOXFCd3Vr?=
+ =?utf-8?B?NzEwU0RDR0ladnA1R3laUFZ1NitiUlRIb2NiL24wN1hObHZWUXVyY2JwUkdp?=
+ =?utf-8?B?bG1vWVRQWU5YRXdOUWl1Nmsydkk4V3pqSTEzbDNBRnNrMGM4RkpKYW1jNkRZ?=
+ =?utf-8?Q?uzYmxxbO9jZJahhOXpeWc1Qzjs+hnW9Nt5H2g?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 52b5de21-c199-44b7-0a2a-08df2fde22d2
+X-MS-Exchange-CrossTenant-AuthSource: AM8PR04MB7874.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Oct 2026 01:45:22.4533
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: IvWfpiGE9MtJdn7u4/2IAcyKLEGBsRejXy97+Dcnn8xJJjciKqXRcJD5D2a3+lsfKXTTK+BNklpGgo38SB/oPiI/dDkujODqI50dClJxxurKsxgKjQ/s9+HhlrV2sL/f
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MI7PR04MB114164
 
-On 10-21 12:14, Pratyush Yadav wrote:
-> On Tue, Oct 20 2026, Pasha Tatashin wrote:
-> 
-> > Currently, LUO sessions are frozen automatically only inside the
-> > reboot(LINUX_REBOOT_CMD_KEXEC) pathway, where luo_session_serialize()
-> > iterates through all outgoing sessions under global write locks and
-> > freezes them serially during shutdown. Allowing userspace to decide when
-> > to freeze a session once it is done with it (and to freeze multiple
-> > sessions in parallel, since luo_session_freeze() only acquires the
-> > per-session mutex) avoids postponing this work to kexec shutdown and
-> > reduces blackout time.
-> >
-> > Introduce LIVEUPDATE_SESSION_FREEZE on session file descriptors to freeze
-> > a session early. The ioctl runs .freeze() across all preserved files in the
-> > session and serializes their metadata. Once frozen, no additional files can
-> > be added to the session, and subsequent freeze calls return -EBUSY. Freeze
-> > is only valid on outgoing sessions and returns -EINVAL on incoming ones.
-> >
-> > During kexec, sessions that were already frozen early are skipped, while
-> > sessions that did not invoke this ioctl auto-freeze as before. If an
-> > early-frozen session is released before kexec, its files are rolled back
-> > via .unfreeze() before being unpreserved.
-> >
-> > Signed-off-by: Pasha Tatashin <pasha.tatashin@soleen.com>
-> [...]
-> > @@ -218,18 +219,33 @@ static int luo_session_finish_one(struct luo_session *session)
-> >  	return luo_file_finish(&session->file_set);
-> >  }
-> >  
-> > -static void luo_session_unfreeze_one(struct luo_session *session,
-> > -				     struct luo_session_ser *ser)
-> > +static void luo_session_unserialize_one(struct luo_session *session,
-> > +					struct luo_session_ser *ser)
-> >  {
-> >  	guard(mutex)(&session->mutex);
-> > -	luo_file_unfreeze(&session->file_set, &ser->file_set_ser);
-> > +	if (!session->frozen)
-> > +		luo_file_unfreeze(&session->file_set);
-> 
-> "Wait, this looks wrong. If session is not frozen then unfreeze it?
-> Should be the other way round, right?"
-> 
-> This was my first reaction until I realized that you only unfreeze
-> _automatically_ frozen sessions. User-frozen sessions stay frozen. Which
-> makes sense, but is not obvious at all.
-> 
-> Perhaps rename this to session->user_frozen and add a comment here?
-> 
-> With that fixed, feel free to add
-> 
-> Reviewed-by: Pratyush Yadav <pratyush@kernel.org>
+The ERR050104 cache coherency workaround for the NXP i.MX8QuadMax and
+i.MX8QuadPlus SoCs has been merged upstream as commit d44e08dab27d
+("arm64: errata: Add NXP i.MX8QM/8QP workaround for A53 cache coherency
+issue").
 
-Thank you, I am going to send out a new version soon.
+The workaround addresses a hardware defect where the upper address bits
+of the ARADDR and ACADDR buses within the Cortex-A53 subsystem were
+incorrectly connected, causing TLBI and IC maintenance operations
+exchanged between the A53 and A72 clusters to be corrupted.
 
-Pasha
+Before the software workaround was available, affected board DTS files
+worked around this issue at the DT level by removing the Cortex-A72 CPU
+nodes (cpu@100, cpu@101), the cpu-map topology, and associated thermal
+zones, effectively running the SoC as a single A53-only cluster.
 
-> 
-> > +	memset(ser, 0, sizeof(*ser));
-> >  }
-> >  
-> > -static int luo_session_freeze_one(struct luo_session *session,
-> > -				  struct luo_session_ser *ser)
-> > +static int luo_session_serialize_one(struct luo_session *session,
-> > +				     struct luo_session_ser *ser)
-> >  {
-> > +	int err;
-> > +
-> >  	guard(mutex)(&session->mutex);
-> > -	return luo_file_freeze(&session->file_set, &ser->file_set_ser);
-> > +	if (!session->frozen) {
-> > +		err = luo_file_freeze(&session->file_set);
-> > +		if (err)
-> > +			return err;
-> > +	}
-> > +
-> > +	strscpy(ser->name, session->name, sizeof(ser->name));
-> > +	ser->file_set_ser.count = session->file_set.count;
-> > +	ser->file_set_ser.files =
-> > +		kho_block_set_head_pa(&session->file_set.block_set);
-> > +
-> > +	return 0;
-> >  }
-> >  
-> >  static int luo_session_release(struct inode *inodep, struct file *filep)
-> [...]
-> > @@ -267,6 +286,9 @@ static int luo_session_preserve_fd(struct luo_session *session,
-> >  	int err;
-> >  
-> >  	guard(mutex)(&session->mutex);
-> > +	if (session->frozen)
-> > +		return -EBUSY;
-> > +
-> >  	err = luo_preserve_file(&session->file_set, argp->token, argp->fd);
-> >  	if (err)
-> >  		return err;
-> > @@ -340,11 +362,40 @@ static int luo_session_get_name(struct luo_session *session,
-> >  	return luo_ucmd_respond(ucmd, sizeof(*argp));
-> >  }
-> >  
-> > +static int luo_session_freeze(struct luo_session *session,
-> > +			      struct luo_ucmd *ucmd)
-> > +{
-> > +	struct liveupdate_session_freeze *argp = ucmd->cmd;
-> > +	int err;
-> > +
-> > +	if (argp->reserved)
-> > +		return -EINVAL;
-> > +
-> > +	guard(mutex)(&session->mutex);
-> > +	if (session->frozen)
-> > +		return -EBUSY;
-> > +
-> > +	err = luo_file_freeze(&session->file_set);
-> > +	if (err)
-> > +		return err;
-> > +
-> > +	err = luo_ucmd_respond(ucmd, sizeof(*argp));
-> > +	if (err) {
-> > +		luo_file_unfreeze(&session->file_set);
-> > +		return err;
-> > +	}
-> > +
-> > +	session->frozen = true;
-> > +
-> > +	return 0;
-> > +}
-> > +
-> >  union ucmd_buffer {
-> >  	struct liveupdate_session_finish finish;
-> >  	struct liveupdate_session_preserve_fd preserve;
-> >  	struct liveupdate_session_retrieve_fd retrieve;
-> >  	struct liveupdate_session_get_name get_name;
-> > +	struct liveupdate_session_freeze freeze;
-> >  };
-> >  
-> >  /* Type of sessions the ioctl applies to. */
-> [...]
-> 
-> -- 
-> Regards,
-> Pratyush Yadav
+With the kernel-side fix in place, these DT-level workarounds could be
+dropped.
+
+Signed-off-by: Peng Fan <peng.fan@nxp.com>
+---
+Peng Fan (2):
+      arm64: dts: imx8qm-mek: Re-enable A72 cluster after ERR050104 workaround
+      arm64: dts: imx8qm-tqma8qm: Re-enable A72 cluster after ERR050104 workaround
+
+ arch/arm64/boot/dts/freescale/imx8qm-mek.dts      | 10 ----------
+ arch/arm64/boot/dts/freescale/imx8qm-tqma8qm.dtsi |  7 -------
+ 2 files changed, 17 deletions(-)
+---
+base-commit: 4403278e4ea2f654f8130a5c03eb8b4516a0f201
+change-id: 20261022-8qm-875d0b4b3e7d
+
+Best regards,
+--  
+Peng Fan <peng.fan@nxp.com>
+
