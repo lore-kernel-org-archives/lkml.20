@@ -1,119 +1,131 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792636550;
-	b=qY+t11pZtQxYtvgWCGwI41QcWKEULbyH1WcYbKyzr7KZjeQ6gHIhXGBwmYPcHehCfVTA
-	 MD6HzSs+MxNXoqVLTzC2Em+2uUfgIS/2Pkg0cMF8trEyp1GyRnzVBUNNZF13BltExlGsS
-	 K0P04+3W7ukqHu8z3I0HE2Q44FylfGHumxDEiWH3EixqNGOuG2BUTYDwyo5ZJnb/uUqDU
-	 qcVUO+KOETcMkmKavPOv5akOYa1rPh/5FyWMFEtrhxFBMk3nvQqwL8arHQX7OPwOSPKQh
-	 sUv9vC9FyviNxisbH3O80d9f8n5GPReEoDb4JrJmeiLsNH544iNkWWgm7gxidsoT4jg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792636550;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
-	 Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Proofpoint-Spam-Info:X-Authority-Analysis:
-	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=NX7bsqG292StQteEaBo56Z6RlMknr2B+M80QoiufMRA=;
-	b=YhClkGRqJDs5TWaPDKUlWDZohXeJuxRHtSWVrZk143ELIU5TkgvzX5eN2NXUfamjp3c+
-	 BpwkEiH8gummea4Mt8A8Zu+cymem67vnc1vxSkzJuSHbHupsgBeVUogMy94+MMwoG12ti
-	 X1YCS104g7sHdkgq3p3j3AncUYBNUm+yqK4dQ7NWvNyeKh5Iwfcq9kIrRnykNPjasc3nV
-	 o3ReJCv4ZTd8BdIdtyyNeHlXREVhPntxNBHZPHI2iln4jA3A4IjVhu1H5QCq8BPucR8l/
-	 jMNs9nk63mc93u99FhdqFi7M3ZwM1xNA9cWnq6MLLrZR1qEmCHZQbC3+QRTGInEwhdg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=pvsjUTz2;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=eZTqnb63;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=198.175.65.20
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1792636566;
+	b=3JIv6NCZETWmkbx4jcGir9aYmRGBuc3suvim4riXU+LPsTg7DZP6xTIxUIU7cePpcG0p
+	 X4XLDZc9pJ6Yen7SINnC58hwusOYamB/CJFPfrhqa9JYcrctQXFB1D44raqBBb3aNsyQS
+	 kzYEDsoQHYQdaDF0QkAQhQjASM3/yfPw46oQ6fJzYSGlz3f6NgWUJMKc8Um4JTmh5pXWG
+	 GFidmA6F17wExBcusaEPgij+DaKf2SpdC/aZ+ftDN68pVtrfn4V5ZGiSZ+3ZKPzNs7dSn
+	 OFVC69VQjWKTeZfUcQrPZ8csDNVKFGnpSKSbXzoRJ9QEYDYi2hjzgTs45Is7JiAM+1A==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792636566;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
+	 Received:Received:Received:Date:From:To:CC:Subject:Message-ID:
+	 References:Content-Type:Content-Disposition:In-Reply-To:
+	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
+	bh=nkc1d6gVtsY2d3OArXERpe48/W3VGbD8/xT3IIhHhPY=;
+	b=Lwtn2v3tIowujjvcSk8TylxXiVP9Grud4EeEY6UVZCtcJRA+xQ9BZjbL/gS17LyoJ7ty
+	 gb15aAb9RI4jUwcJ+Up8i6QPd9q/fi+sJ8izWR8oGNnkjqLda0tnmiTCNqI805QaOCxbR
+	 VdbiTMr2ZTB798zaSNk2OBt228D2g1RWiYydlH3Is+IGPW53mpZ8KRS4mQqtCDMpQk0NU
+	 +HKH/gHgDgjXddXbPY4pb7h1+fW4eqMUOxGQlCT1yX4HnEKsD6NBV3bKzWjCw08hcKC01
+	 icryzCAlaPIaAC+c5UJ3k5nftgpxKKk5lk6Enw4YfNxtPY3/BDJQqZy6CTBFZTKCb1Q==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=WMeMRbO1;
+	arc=fail smtp.remote-ip=198.175.65.20
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FE5E606A31B
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 02:35:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6FE5E606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7144A606A319;
+	Thu, 22 Oct 2026 02:36:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7144A606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=pvsjUTz2;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=eZTqnb63
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69M1ibsC2899089
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 02:35:49 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=NX7bsqG292S
-	tQteEaBo56Z6RlMknr2B+M80QoiufMRA=; b=pvsjUTz2cj0zDLqbE07MDsCoQc1
-	HDTaFprqfAcxjqajgEAHVmv2DtWJ70C0AaIPyo8F05NAAk4v07Jjg2znmQLlD3xI
-	bmCF+q9m+QwkZvKJVvcUFFOLnesfG7Qe2zooD1crUkmuCU/K09vBYhR+DGp+I/RW
-	ixFNWDhDnhFa8qqdMBp93nxCAg2eO2Fh7eJIt70ENEIXcwynktnUjCzr5zuMlmN3
-	JmSLRrzE1UhPw+tQ1NRRygPSue0nxZtiANx+5ZVoxbmQ4YqKQ6bH4bSMibApKFpu
-	i9uqhnRAVbLQj8ydfkYZwJGT3Z3TsYcrcL5iYj/RPup/jyqZhvSgpg+zR5Q==
-Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hf93c88q2-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 02:35:49 +0000 (GMT)
-Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2df8d1e91c9so20701955ad.0
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 19:35:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792636548; x=1793241348; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=NX7bsqG292StQteEaBo56Z6RlMknr2B+M80QoiufMRA=;
-        b=eZTqnb63xvfDSMqmFioNjkyZP1WLZYC2rb/HmrRnJ/zWaHsW+zU5RDbp685uP2AEge
-         YB+rbDaJEE3SlyuGLGxalCamUyto6iCx22JEVBHHW8L07d//963yaEUucC9B04jEi5bF
-         g3l+BXQ4J1jZjNADxKcbJfSXSRVa4wILn8oNhRPaXgDlAv9e4aWYonYa2S83aYvRU9qs
-         AimU2TnrBDvbx8oHBhPnnR0BQAwoAEmj7e/iAkGxhI2fp1Ww1QQ02WtFqV7pNQrKu5MW
-         tznbS7vSZ+ce7Pgz6GxHGCU6uYzE+s4+ZZGgHprZvloxO9xhQRCcFbF8Ofng7nokBUeZ
-         yymg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792636548; x=1793241348;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=NX7bsqG292StQteEaBo56Z6RlMknr2B+M80QoiufMRA=;
-        b=1bwm+uK51d9nkVvc71S+UkEVrqm66XL4fqAUiB4YAgHhLdHYyt/Of4PETlZoFN/0wK
-         cBFZhiHimHgaqmHfJKJsxo47LTLkbaoXEKhDHISG5wCLIa5ucE6t/LuITXFs/fXo2slk
-         ICYv1Co1M9qYhpeAcT1I2bZE4tgLfsoQNy45/VVeTN+cRMgi1WQNgyKaIEGDsKY56x8S
-         fFIAciblmiubJmO03gv2ywNTpNqjIs9k7pdhbFay6z9OcYS2Bg05GpAfSvM3+Ll8dT1Z
-         KSL951CvjuhYfh0nK7kz2Q8obFtjciLn4nGGAo0EcajYpDwyMw7bnWzqh3sNGhIGkdrD
-         JTlg==
-X-Forwarded-Encrypted: i=1; AKwUvBwZ90Cu1hBb2BIVJZM529NumT4Yoy3Y81prFDBNT6liDg4aFMoO5CAFuT3OrHBcOJg0QnOOV9//BtFZkmk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLQ79rGxaCVnknFlPzWTvleeFaHwpeXeOIrLjzkJv6B0jv7vik3
-	+Vdz5kmQaK09JbCul5JLyUxbYaCRYvBhQff8v3O40W2tSXR0veZ/59O0NSlP7K8knLRch1vCbxP
-	iQJe1s/E+jg5/QWpqsJ8VY1/coASvomzh7Izyww4wkv5GiFAM1Jati5v3uXGfiY2RAJw=
-X-Gm-Gg: AYBFou2V5Ds76Hw31PedtSwwNSEWQSPhHwUKuog2zEGDycXqgy9d4NZVRyXXLyddd22
-	lsyicZuyl9SvAPH4PfWRdFYRW5Wn9z5yGCTNH0P+QEHLZvBSDT3ioLTTOhHjd4JdvQRQMKSLClQ
-	ZDeHaDLYJB8vfG8UNrqFLHQJ05jdweOMrb2KrYaQ90Tu1/soch9ATN0b16xD34+4dhnO8Knb7Fw
-	o4WO4GvHa73evN3Hw2xSiu8RPWrmbx6k7RReDKV4IlLAcXcuiN5/TrHcilZ2avBI9RGk2HqeKio
-	TIhYPG6HpH9KKyBef7X1Nel/pQJjl7xQ6QuqodlXhObmaKthtpxvuh2wT/tUKneV80f92rXMij0
-	MWzTvIua85Mv82PwOW5PIGrSlRVD3NKEhYmvLGf02OlFGoUyHnNtXwB9Jh2mz8ZvVuXpISPP9
-X-Received: by 2002:a17:90b:37cf:b0:3ab:2d46:1dd6 with SMTP id 98e67ed59e1d1-3ad86dddc3bmr3988928a91.4.1792636548116;
-        Wed, 21 Oct 2026 19:35:48 -0700 (PDT)
-X-Received: by 2002:a17:90b:37cf:b0:3ab:2d46:1dd6 with SMTP id 98e67ed59e1d1-3ad86dddc3bmr3988903a91.4.1792636547619;
-        Wed, 21 Oct 2026 19:35:47 -0700 (PDT)
-Received: from QCOM-SocCW5bzXR.qualcomm.com (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ada488550esm1959935a91.3.2026.10.21.19.35.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Oct 2026 19:35:47 -0700 (PDT)
-From: Jianping Li <jianping.li@oss.qualcomm.com>
-To: Srinivas Kandagatla <srini@kernel.org>,
-        Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
-Cc: Jianping Li <jianping.li@oss.qualcomm.com>, Arnd Bergmann <arnd@arndb.de>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Thierry Escande <thierry.escande@linaro.org>,
-        linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
-        linux-kernel@vger.kernel.org, quic_chennak@quicinc.com
-Subject: [PATCH v2 2/2] misc: fastrpc: drain in-flight invokes before tearing down context banks
-Date: Thu, 22 Oct 2026 10:35:31 +0800
-Message-Id: <20261022023531.465-3-jianping.li@oss.qualcomm.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261022023531.465-1-jianping.li@oss.qualcomm.com>
-References: <20261022023531.465-1-jianping.li@oss.qualcomm.com>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=WMeMRbO1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792636566; x=1824172566;
+  h=date:from:to:cc:subject:message-id:references:
+   in-reply-to:mime-version;
+  bh=b4wkM8VetkPjPxLpdEFyxTszk3mU6ikiFOUret7BjJk=;
+  b=WMeMRbO15jGAdGVhyzyXcj0fFQXqcH7Vvf6lZz5EjzS04+XkPWgYs9B1
+   DUA/srjLYdTY+5RjS8LAtB6S/MzHOMUPKUcnempZWo3dYKUTWZVdRI8Me
+   0oCAS8YGVh8jNWuS/Q+bawl6InCuGEJ16dTydbjyoYPqANqCES5VvJI6C
+   yIHoXoS76eAmeWcKy8oRi+fIjDtAAoilHYINcV9lYo8kbNhZfYkhyaWrE
+   JwtUa2Wmq7UXMgBKfI0oReLYQjLBxf1Z6qPFR+8oWJLm0AL0rVNctgSob
+   kEyPz7Bc2/0p0C4xjqXpX+QjW7ibjyfTPMCfUvd4PUvlrvKUl8QPcHX9w
+   Q==;
+X-CSE-ConnectionGUID: unA0bWEFRAqIBjDJr+k6Pw==
+X-CSE-MsgGUID: PhOLWsHXS3CNtlaM7AtKWQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11942"; a="1386470"
+X-IronPort-AV: E=Sophos;i="6.27,171,1787036400"; 
+   d="scan'208";a="1386470"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 19:36:06 -0700
+X-CSE-ConnectionGUID: h8V/FhS4Rx+Bw8km+tee1A==
+X-CSE-MsgGUID: IAY5sgbMTe+kK5iwke75+w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,171,1787036400"; 
+   d="scan'208";a="3309115"
+Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
+  by fmviesa005.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 19:36:05 -0700
+Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
+ ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Wed, 21 Oct 2026 19:36:04 -0700
+Received: from ORSEDG903.ED.cps.intel.com (10.7.248.13) by
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49 via Frontend Transport; Wed, 21 Oct 2026 19:36:04 -0700
+Received: from MW6PR02CU001.outbound.protection.outlook.com (52.101.48.37) by
+ edgegateway.intel.com (134.134.137.113) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Wed, 21 Oct 2026 19:36:04 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=xvdbi/ny+SO82f8WXfpahREPZ7MFO2N8e0H6KDBpB9AF00mVLgxRO05Sa1A4lNjQ9NJVuKR1w14TYEr5705lVweWAkZJHkbTOu4RTcFd5KvUWyVDcFpU5AUq6BPm1jtAvomdq4fHU/624k0FjEd1jJl/W9SAadAweX27QhdmDFPQQCvOCDuLBwA0IG9S/6UmFUUrvR8ODbbs0TCnPy4z1/aUXFluqZ6/41TRxLboX4HQ/T8D/z0cw82njv1vX8X+dSuOVUGhiogO4AmpVy5p4yUU+JZBlnhDasFB3B6As3ZNtkUOuc/RetKUbpaGo2nPEIkmjtjq+mG44oLGPL0iTA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=nkc1d6gVtsY2d3OArXERpe48/W3VGbD8/xT3IIhHhPY=;
+ b=phlGPPmMOGtjdBSZ7xMYorTN5Ux1RFKpg2lzT87xYpfK1atSMKov84prPlHwvEGPBAXaCVQkpkt4D1+lnDQ56KeAxU4RKHIJB0fciABEvX5kIedIiKLdHYGs1PVclzgHlU4sJ+pVWfPIRvr/Z4YZ7uML7aMAtqNAAvY0w7cdRvoHnvmgKLng8RRhi/k4uq+8U0elk4wRp+ZdDcAG5TMSk7usORLvSIYohzpMFNJHNirls6NGCkGnME7bX4hEl/Yeu6gWG7X9Ohc7+5M5GZ/LmbgPhhJ97RlBUY5dHmV78jg1AMD0xWoKcwMPRCEayAZeq282L87zAu4CdEy3UHx3Eg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from CO1PR11MB4787.namprd11.prod.outlook.com (2603:10b6:303:95::23)
+ by SA1PR11MB8445.namprd11.prod.outlook.com (2603:10b6:806:3a9::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Thu, 22 Oct
+ 2026 02:35:57 +0000
+Received: from CO1PR11MB4787.namprd11.prod.outlook.com
+ ([fe80::e7eb:a872:53d1:21fd]) by CO1PR11MB4787.namprd11.prod.outlook.com
+ ([fe80::e7eb:a872:53d1:21fd%4]) with mapi id 15.21.0546.012; Thu, 22 Oct 2026
+ 02:35:57 +0000
+Date: Wed, 21 Oct 2026 19:35:55 -0700
+From: Matthew Brost <matthew.brost@intel.com>
+To: <karim.sabar@utexas.edu>
+CC: <thomas.hellstrom@linux.intel.com>, <rodrigo.vivi@intel.com>,
+	<airlied@gmail.com>, <simona@ffwll.ch>, <intel-xe@lists.freedesktop.org>,
+	<dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+	<stable@vger.kernel.org>
+Subject: Re: [PATCH] drm/xe: Use kvmalloc for the VMA ops page-table update
+ array
+Message-ID: <atl2i1vJoU2QwCbG@gsse-cloud1.jf.intel.com>
+References: <atkLLH47Zd6vMX3B@gsse-cloud1.jf.intel.com>
+ <6ad974ba.a8122b97.39a7e6.f867@mx.google.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <6ad974ba.a8122b97.39a7e6.f867@mx.google.com>
+X-ClientProxiedBy: MW4PR03CA0200.namprd03.prod.outlook.com
+ (2603:10b6:303:b8::25) To CO1PR11MB4787.namprd11.prod.outlook.com
+ (2603:10b6:303:95::23)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -123,209 +135,187 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIyMDAxMCBTYWx0ZWRfX/GVojDIaQRE1
- qpsfTSlcwKEXNRYYn7SL9ayQusypuR/YGkFKsQ+ZXCAfaWouOVOWZW8uOk1wlXOUQuFSA8SkT83
- i9H/tzNdS07Rc9z9ogbctrbZ/PsTg4Y=
-X-Authority-Analysis: v=2.4 cv=ReAFmFtv c=1 sm=1 tr=0 ts=6ad97685 cx=c_pps
- a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=EUspDBNiAAAA:8
- a=XraR69nYKyiK7xGMLcsA:9 a=GvdueXVYPmCkWapjIL-Q:22
-X-Proofpoint-GUID: TD22ZBWOcKkpgSA27lFUq_eFQW01pB68
-X-Proofpoint-ORIG-GUID: TD22ZBWOcKkpgSA27lFUq_eFQW01pB68
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIyMDAxMCBTYWx0ZWRfX3AZKps3blMUl
- Lh1aCCPw6XsY5iSlBdYck9jYkIT1VoLNQCXvzT3SrTHmAlaQUQ4rd6tlfyEIIVruJtFSHUVZ9eH
- HWcFg90wK7Gv9ao9IEL9wnllubqV5McS14lqV01aGqlX1RiWZn8BRMuAreFAN/AtvYZ2ttQiFsb
- xJLgXQiXBBdaPb2rzVAiBRj/jsrgCt+zhJ0A14tKNLXigu7lzyRiDoqdg2vu4K4K5A3Xikd5vNC
- qiDMqiinNfppHI7PUG32cHzWWrCia/mrFz4LlNCwHvkcn0eRrfs6X31tGxlvb4IxYBxe0uRVkDA
- ptWLNXixrnl04H9C3aD2oZVXiAtmmqjO1D8ezQBZxAhKfSkZ0fJkzuYCwS5pA0WSVdmM7ZUHVdN
- cTTBbFX9V4r3gjFvLJG7WrvxPYi4oe+s2zylv9h79K58IRzjSSakjxpHyHBSbZMFlYgUfgU2Q1R
- h7jBQF9kXcJQa1vhDgg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-22_01,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 spamscore=0 suspectscore=0 adultscore=0 lowpriorityscore=0
- malwarescore=0 bulkscore=0 clxscore=1015 phishscore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610220010
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1PR11MB4787:EE_|SA1PR11MB8445:EE_
+X-MS-Office365-Filtering-Correlation-Id: d139dce1-838d-420b-bb41-08df2fe53383
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|376014|23010399003|1800799024|18002099003|10067099003|22082099003|261021123027099003|4143699003|261009223027099003|5023799004|11063799006|261021121427099003|56012099006;
+X-Microsoft-Antispam-Message-Info: gsaQBfxm4K0hAmneO+33OD5z3jMFD0ouwOieHhjJ/zdj+T0D3/rYxRBYKjmDcz2U1BSGsXanoR51z7ofm1rBwFwyeu0TcSM1qiAAPWkh9wy1TdztsCdbzCGZHV/cC+tbt2PPWc5XywooHd141hxoWN8lJIfbSRxKmLMx7vye2X3pwBAUftcNpacuiFQ9fX7dM4x/xBP3D2iW1yGkCBMYol0OAua3EZijOOVQzeQitrQBkoWTe7TNSwW4liAFcIuCSKhRYpD46iYTCmTRSJQiPkYwf/cOZCsTgM8LDtuTdH6ZKJDDIoGOke4s4D7gVQUWhp0tAa05wkW6vOZkpNujvnogAMygp8lEgnAij8+ecqX9pxLrw31bYYlxMbWpnwpWt2J220GF6j2ex4gf3JLS+YwFOVRxltsVLysAg35yYGsCu2qAzO0j+ovlEEywjSnZm+GInMmYPfaFrMX5lh2yhHzJCelP2woT/iwufHGRSpH2v7r1maqN/6n1gavjD2fOR4SaAUwVX8LLisHkBEPdyJcO2lgEU8/03ra416fK+gDFB+Q/bsOz2h0hcKqiaCPSe6Z9NsbiMqiM4oqVTBKCkx01H2edlqhFOHcqQgt2UTiBHQTS3YIrSsHxx8a+TUV7UG5XBbVQixNSKvu380IP6N8EJjuuST+T5u3GEbPhXXM=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CO1PR11MB4787.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(23010399003)(1800799024)(18002099003)(10067099003)(22082099003)(261021123027099003)(4143699003)(261009223027099003)(5023799004)(11063799006)(261021121427099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?zLNG0gI1XTmVC/4Won2ook9YLZRPTXVq6jrWVJOaMoicIWGvfgMNOML8uY+e?=
+ =?us-ascii?Q?ufXSVk9xHqV+SGnIt4A/9Po1aFu8vs8iuTxCI+bhvE+aDaLx12hZZjsvPaSL?=
+ =?us-ascii?Q?WyQi6pfJLGtl3sG4qVbledT9wTM7hD0OvX6ttI3Cin2CfPFisWnHpTxRWv+p?=
+ =?us-ascii?Q?5cpJxRkUXGgvfT6Ao4XkpFaMZ3E4Vo6qaNCK3HMjx4WbOEjreIPmpDZa05WH?=
+ =?us-ascii?Q?a+XFI8nxAnUrtXzFF8ScHuweBQ1afS75e2axrEwuNdaRMbTOfH1Il1216ZDy?=
+ =?us-ascii?Q?fM7pradrSzjFhbyJZvfwcrtlse8m1b0+bOsbPfaOPqYxUwwU1ilNh11ATCvD?=
+ =?us-ascii?Q?GZV3+Dp6hdOCTEsxyNOs4m6WcyyFPZ1w8UdN+W9AykaQsy5g7+ae5zBaQHqF?=
+ =?us-ascii?Q?7T+13VNkeIAhygZGBzHqLLwWYuBK5xvGjmzHFi1WCvq9An8puJESFN4ZPlHP?=
+ =?us-ascii?Q?EhazXlfayjw99/r6OoUnI6Fk3lW3IwQosWpTv3aiwQlfi82xMmeWWqmi+Gug?=
+ =?us-ascii?Q?O8cSYlRS1edzh6cLJPJF+Yei1IU/smTZSB0pqjFJqoPmbcLfE/h1bk50X8Be?=
+ =?us-ascii?Q?AP2h8OP9U6pGv5As7LXb9dPYZmcdDWyE0uGrc6YD6qnKxVKZMGBDxVp8XC3h?=
+ =?us-ascii?Q?BhmrRX3NQkTiLljlpzcJ2W73pTiw0TCo5f8bYaz5/cB5VVAFuNUIPlB0hSQQ?=
+ =?us-ascii?Q?aN2dFtC3loIngtGj1bOWt8rdKLiqNKolcrfs4yA0STJJRIxLN4YQo2bZ4vAx?=
+ =?us-ascii?Q?d2NqA/Zx33Vl1rYNMTp1zl1NzFDExfc+AmSByKBjBeqg5lgrAdE93Xmo7yer?=
+ =?us-ascii?Q?/HIMxO0Z6YsFw7FVFubXPskPwrKFCbIlLfoa+oVI3TB5vPC4l/7Pc2xzjIoo?=
+ =?us-ascii?Q?EQW1u8u5yNzGYkAl1JxsMrkhjIdbQzmF1NIsi9jQE97wN3hrI/BEnYF8CN9g?=
+ =?us-ascii?Q?XBq6eikJKCkMD0k5D8bBUcYxtW8cchgLX26aB1I4CsE1IXIwaBtC/gjAopma?=
+ =?us-ascii?Q?7MySpnZFf7hMdBzn+kV+jc3cFNVAmm9RyT7jf5u0IHcyGzLU9nC4jHkaTshk?=
+ =?us-ascii?Q?hFnoFADEC/SfO67wnToPlCt3qEfzRwYG4Srv3c1ktdqDIcqID4ww/HOwcSky?=
+ =?us-ascii?Q?sqJkSK4z4/Y2THizLHfnZtRcj8TOglzszzLNsPBCVqOu0VP9Ur397Z6WaklH?=
+ =?us-ascii?Q?nyWur6uTOk1IFl7IZyuIdwxFOkNJwW6Azl14Uip+DYsFWhw16izkdCLQRBrl?=
+ =?us-ascii?Q?zIeDjC4ogjgDsWOevGzIxq20eGVrMiBKoTJfsJBav9sPM7plR3p1KUNQBCi5?=
+ =?us-ascii?Q?u+pAl7tnmRQC2w3prXdl3peYxldnW0gva/KVIKEchAlVgkzy0wPSqlO9Xhsm?=
+ =?us-ascii?Q?3f1WvQxvs+Wpxm/91AXvP0ITxYvoiNdnlWalX9Qz/Ig0o27Uf1BEatcGgjKt?=
+ =?us-ascii?Q?dO16uQQ+AqtXWqvDP91HjybE5ciMszwmjwz2m8XViSwU0Wm2nbHBHzI1i3E0?=
+ =?us-ascii?Q?akknG5yBwH2nRt9l/JES5iHH3RFrxjELEcNs5TIsuACa6ThLkJP9zA1fSVVx?=
+ =?us-ascii?Q?HIjU5ZX6EBtAXaIaYhtoZRRYX4zCbJf7z0qSFmvVBpOAO1SjJX92vQqu8YxG?=
+ =?us-ascii?Q?9tzlyRvz3C/ZZnZjkse+BUDyaJ04dttB2kkHZzCSrptcHuPKAC4gi54z9f79?=
+ =?us-ascii?Q?4rxTgRqeZEwOpVAzPPbhuyfCU1lFlbP+AAqoE65UrhMBVtwTzcuiATLprUMH?=
+ =?us-ascii?Q?QvjbBEcHrg=3D=3D?=
+X-Exchange-RoutingPolicyChecked: 1O4KGKPKhDV6ntCJfH+e5pU39oV05tM9mWpjNqxKPeEPlOYicjcM9vFvPPzH8DrptUo4twGdkFE8Bn60dSwZqm7oqlcNp5fiww/yz8iReK9XpROINDnaiheZVYCWAlVbjnMXIQNpt9UavRJhU+PGs5o7kaWYW2nOQNm5tEeKCOAkB5hKFxU8PhT0Fci+f8XbgvwcBLoorwhsPQlKmb1DG2phQNwOXqR802Apa+uX0AJBZKJ2bGUcdCo5n9RsPItI9jxqOJpOVN2nDNhTMLug0+ejGUvJmcQniHQYw3h5G40kVJ38IXZJbbS0RezzlH7C5+tcnYhLq6wqopGqQ2yIhw==
+X-MS-Exchange-CrossTenant-Network-Message-Id: d139dce1-838d-420b-bb41-08df2fe53383
+X-MS-Exchange-CrossTenant-AuthSource: CO1PR11MB4787.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Oct 2026 02:35:56.9793
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: RjltaoxJzL05ytuRSgUtXTJL7QxKZw65gSfPLTVUqUc2gzZJeMxW64KFL1gnLxNl2vSFSuIjsxfZnOrdawolGA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR11MB8445
+X-OriginatorOrg: intel.com
 
-fastrpc_rpmsg_remove() clears cctx->rpdev, wakes every pending invoke
-with -EPIPE through fastrpc_notify_users(), and then goes straight on to
-of_platform_depopulate() the context bank devices, with nothing
-synchronising the two:
+On Wed, Oct 21, 2026 at 09:28:08PM -0500, karim.sabar@utexas.edu wrote:
+> Hey Matthew!
+> 
+> Sounds good to me, the fallback of trying to bind the vma one at a time sounds good to me. And it is actually a bit broader than my patch since it covers the -ENOBUFS case as well. It should also be easy to get through drm-xe-fixes and then backported the normal way.
+> 
+> I can write it as a v2 & test it on my Panther Lake device, I have a small repro that does about 20,000 mappings and fails after suspend (every time without the fix). If you'd prefer to write it, I can test your patch as well.
+> 
 
- - The only thing stopping new work is the unlocked rpdev check at the
-   top of fastrpc_internal_invoke(). A thread can observe a valid rpdev,
-   get preempted, and resume in the middle of the teardown.
+Since you have a repro, I'd say go ahead and code it up. This is on my
+radar, so I can review and pull it quickly. It should be a relatively
+simple function, and something like Claude can help you code it with a
+concise query if needed.
 
- - Invokes that were already admitted are woken and head for the bail:
-   label, where fastrpc_context_put() releases ctx->buf through
-   dma_free_coherent(). If the depopulate wins, the call runs against an
-   unbound context bank and falls through to dma_direct_free(), which
-   treats the IOVA as a physical address.
+One follow-up we'd probably want to add is error injection and an IGT
+test to ensure long-term functionality, but we (Intel) can take care of
+that part as an AR.
 
-Close both windows under cctx->lock:
+Matt 
 
- - Add cctx->teardown, set at the start of fastrpc_rpmsg_remove().
-   fastrpc_internal_invoke() checks it and, in the same critical
-   section, increments cctx->invoke_cnt, so an invoke is either rejected
-   or counted. The count is dropped on every return path.
-
- - fastrpc_rpmsg_remove() waits for invoke_cnt to reach zero before
-   clearing rpdev and before touching any other channel resource.
-
-The gate lives in fastrpc_internal_invoke() rather than in the ioctl
-dispatcher so that it also covers fastrpc_device_release() ->
-fastrpc_release_current_dsp_process(), which sends INIT_RELEASE outside
-of any ioctl.
-
-Teardown is kept separate from rpdev because the two have different
-lifetimes: the gate must close immediately, whereas rpdev has to stay
-valid until the admitted invokes have finished rpmsg_send(). Clearing
-rpdev up front, as the code does today, lets an invoke that was sleeping
-in an allocation dereference a NULL rpdev:
-
-  Unable to handle kernel NULL pointer dereference at virtual address
-0000000000000358
-  CPU: 2 UID: 0 PID: 2003 Comm: adsprpcd
-  pc : fastrpc_internal_invoke+0xb40/0x1398 [fastrpc]
-  Call trace:
-    fastrpc_internal_invoke [fastrpc]
-    fastrpc_device_release [fastrpc]
-    __fput
-    __arm64_sys_close
-
-The faulting address is the offset of ept within struct rpmsg_device,
-i.e. the cctx->rpdev->ept dereference in rpmsg_send().
-
-Signed-off-by: Jianping Li <jianping.li@oss.qualcomm.com>
----
- drivers/misc/fastrpc.c | 60 +++++++++++++++++++++++++++++++++++++++---
- 1 file changed, 56 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
-index d201f26d8e46..cffe96a181a2 100644
---- a/drivers/misc/fastrpc.c
-+++ b/drivers/misc/fastrpc.c
-@@ -328,6 +328,15 @@ struct fastrpc_channel_ctx {
- 	atomic_t ctx_seq;
- 	u64 dma_mask;
- 	const struct fastrpc_soc_data *soc_data;
-+	/*
-+	 * Set once fastrpc_rpmsg_remove() starts tearing the channel down.
-+	 * Checked under @lock so that no new invoke can begin afterwards.
-+	 */
-+	atomic_t teardown;
-+	/* Number of in-flight invokes; guarded by @lock */
-+	int invoke_cnt;
-+	/* Woken whenever @invoke_cnt drops to zero */
-+	wait_queue_head_t ssr_wait_queue;
- };
- 
- struct fastrpc_device {
-@@ -1350,12 +1359,23 @@ static int fastrpc_wait_for_completion(struct fastrpc_invoke_ctx *ctx,
- 	return fastrpc_wait_for_response(ctx, kernel);
- }
- 
-+/* Caller must hold cctx->lock */
-+static void fastrpc_channel_update_invoke_cnt(struct fastrpc_channel_ctx *cctx,
-+					      bool enter)
-+{
-+	if (enter)
-+		cctx->invoke_cnt++;
-+	else if (--cctx->invoke_cnt == 0)
-+		wake_up(&cctx->ssr_wait_queue);
-+}
-+
- static int fastrpc_internal_invoke(struct fastrpc_user *fl,  u32 kernel,
- 				   u32 handle, u32 sc,
- 				   struct fastrpc_invoke_args *args)
- {
- 	struct fastrpc_invoke_ctx *ctx = NULL;
- 	struct fastrpc_buf *buf, *b;
-+	unsigned long flags;
- 
- 	int err = 0;
- 
-@@ -1365,14 +1385,25 @@ static int fastrpc_internal_invoke(struct fastrpc_user *fl,  u32 kernel,
- 	if (!fl->cctx->rpdev)
- 		return -EPIPE;
- 
-+	spin_lock_irqsave(&fl->cctx->lock, flags);
-+	if (atomic_read(&fl->cctx->teardown)) {
-+		spin_unlock_irqrestore(&fl->cctx->lock, flags);
-+		return -EPIPE;
-+	}
-+	fastrpc_channel_update_invoke_cnt(fl->cctx, true);
-+	spin_unlock_irqrestore(&fl->cctx->lock, flags);
-+
- 	if (handle == FASTRPC_INIT_HANDLE && !kernel) {
- 		dev_warn_ratelimited(fl->sctx->dev, "user app trying to send a kernel RPC message (%d)\n",  handle);
--		return -EPERM;
-+		err = -EPERM;
-+		goto out;
- 	}
- 
- 	ctx = fastrpc_context_alloc(fl, kernel, sc, args);
--	if (IS_ERR(ctx))
--		return PTR_ERR(ctx);
-+	if (IS_ERR(ctx)) {
-+		err = PTR_ERR(ctx);
-+		goto out;
-+	}
- 
- 	err = fastrpc_get_args(kernel, ctx);
- 	if (err)
-@@ -1428,6 +1459,10 @@ static int fastrpc_internal_invoke(struct fastrpc_user *fl,  u32 kernel,
- 
- 	if (err)
- 		dev_dbg(fl->sctx->dev, "Error: Invoke Failed %d\n", err);
-+out:
-+	spin_lock_irqsave(&fl->cctx->lock, flags);
-+	fastrpc_channel_update_invoke_cnt(fl->cctx, false);
-+	spin_unlock_irqrestore(&fl->cctx->lock, flags);
- 
- 	return err;
- }
-@@ -2635,6 +2670,9 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device *rpdev)
- 	INIT_LIST_HEAD(&data->invoke_interrupted_mmaps);
- 	spin_lock_init(&data->lock);
- 	idr_init(&data->ctx_idr);
-+	atomic_set(&data->teardown, 0);
-+	data->invoke_cnt = 0;
-+	init_waitqueue_head(&data->ssr_wait_queue);
- 	data->domain_id = domain_id;
- 	data->rpdev = rpdev;
- 	dev_set_drvdata(&rpdev->dev, data);
-@@ -2678,11 +2716,25 @@ static void fastrpc_rpmsg_remove(struct rpmsg_device *rpdev)
- 
- 	/* No invocations past this point */
- 	spin_lock_irqsave(&cctx->lock, flags);
--	cctx->rpdev = NULL;
-+	atomic_set(&cctx->teardown, 1);
- 	list_for_each_entry(user, &cctx->users, user)
- 		fastrpc_notify_users(user);
- 	spin_unlock_irqrestore(&cctx->lock, flags);
- 
-+	/*
-+	 * Wait for every invoke that was already past the gate to finish.
-+	 * They have all just been woken with -EPIPE, and no new one can be
-+	 * counted, so this is guaranteed to make progress.
-+	 */
-+	spin_lock_irqsave(&cctx->lock, flags);
-+	while (cctx->invoke_cnt > 0) {
-+		spin_unlock_irqrestore(&cctx->lock, flags);
-+		wait_event(cctx->ssr_wait_queue, cctx->invoke_cnt == 0);
-+		spin_lock_irqsave(&cctx->lock, flags);
-+	}
-+	cctx->rpdev = NULL;
-+	spin_unlock_irqrestore(&cctx->lock, flags);
-+
- 	if (cctx->fdevice)
- 		misc_deregister(&cctx->fdevice->miscdev);
- 
--- 
-2.43.0
-
+> Thanks,
+> Karim
+> 
+> On Wed, 21 Oct 2026 11:57:48 -0700, Matthew Brost wrote:
+> > On Tue, Oct 20, 2026 at 07:08:27PM -0500, karim.sabar@utexas.edu wrote:
+> >> From: Karim Sabar <karim.sabar@utexas.edu>
+> >> 
+> >
+> > Thanks for the patch. I do see the problem in the old code.
+> > Unfortunately, we will not be able to pull this into drm-xe-next or
+> > drm-xe-fixes, as 7.3 is already out and 0e33330f1238 is included in our
+> > 7.4 PR. As a result, this would need to go directly to stable.
+> >
+> > There is also a risk that predates the series containing 0e33330f1238.
+> > If the bind has to run on the GPU, you can still get -ENOBUFS later in
+> > the bind pipeline if the bind is too large to fit into the
+> > migration-layer BB. If that occurs, the proper fix may actually be in
+> > xe_vm_validate_rebind(). If xe_vm_rebind() fails with -ENOBUFS or
+> > -ENOMEM, we could call a new function, such as xe_vm_rebind_iterative(),
+> > which would run each VMA requiring a rebind in its own job. This is
+> > effectively what Mesa does in userspace when a bind operation returns
+> > -ENOBUFS.
+> >
+> > We could probably still pull that approach into drm-xe-fixes + have
+> > naturally backport to stable, and it may ultimately be the better
+> > solution.
+> >
+> > Let me know what you think. I can give this an RB, but I'd like to hold
+> > off until we've settled on the solution we want to pursue here.
+> >
+> > Matt
+> >
+> >> Big games die after every s2idle resume on flat-CCS iGPUs. The exec
+> >> ioctl keeps returning -ENOMEM even with 11-16 GB of RAM free.
+> >> 
+> >> On suspend xe_bo_evict_all_user() evicts every user BO in XE_PL_TT on
+> >> these parts. On resume the first exec rebinds every VMA in one go and
+> >> xe_vma_ops_alloc() kmallocs one 384-byte op per VMA as a single array.
+> >> Final Fantasy VII Rebirth has about 33,500 VMAs which means a 12.9 MB
+> >> array. It's over the 4 MB KMALLOC_MAX_SIZE and can never succeed.
+> >> __GFP_NOWARN keeps it out of dmesg.
+> >> 
+> >> Data from a Panther Lake handheld (SteamOS kernel 7.2.7), kretprobes
+> >> after resume:
+> >>   xe_vma_ops_alloc  -ENOMEM on 63 of 63 attempts
+> >>   xe_vm_rebind      -ENOMEM on 63 of 63 attempts
+> >>   BO validate, TTM populate, PT prepare  never failed
+> >> 
+> >> The array is only used by the CPU and doesn't need to be contiguous.
+> >> This switches it to kvmalloc and kvfree.
+> >> 
+> >> With the same change applied as a module on that kernel, the game
+> >> survives every sleep I tried with zero ENOMEM. The biggest array was
+> >> 30,753 ops (11.8 MB).
+> >> 
+> >> drm-xe-next already does this through commit 0e33330f1238 ("drm/xe: Add
+> >> struct xe_pt_job_ops"), but that's part of a big series that won't go
+> >> to stable.
+> >> 
+> >> I tracked this down and tested it on my own device. I used an AI
+> >> assistant to help with the debugging, i.e the kprobe tracing and
+> >> reading through the xe code. I ran every test, picked the fix and
+> >> reviewed the change myself.
+> >> 
+> >> What I couldn't do: this is build-tested on drm-xe-fixes but only
+> >> run-tested on the SteamOS 7.2.7 kernel through an equivalent module,
+> >> not on a mainline kernel.
+> >> 
+> >> Fixes: 2e524668c440 ("drm/xe: Add xe_vm_pgtable_update_op to xe_vma_ops")
+> >> Cc: stable@vger.kernel.org # v6.11+
+> >> Assisted-by: Claude:claude-opus-5-5
+> >> Signed-off-by: Karim Sabar <karim.sabar@utexas.edu>
+> >> ---
+> >> Downstream SteamOS report with the same data: https://github.com/ValveSoftware/SteamOS/issues/2962
+> >> ---
+> >>  drivers/gpu/drm/xe/xe_vm.c | 8 ++++----
+> >>  1 file changed, 4 insertions(+), 4 deletions(-)
+> >> 
+> >> diff --git a/drivers/gpu/drm/xe/xe_vm.c b/drivers/gpu/drm/xe/xe_vm.c
+> >> index 99e42bd29..5caef443b 100644
+> >> --- a/drivers/gpu/drm/xe/xe_vm.c
+> >> +++ b/drivers/gpu/drm/xe/xe_vm.c
+> >> @@ -703,9 +703,9 @@ static int xe_vma_ops_alloc(struct xe_vma_ops *vops, bool array_of_binds)
+> >>  			continue;
+> >>  
+> >>  		vops->pt_update_ops[i].ops =
+> >> -			kmalloc_objs(*vops->pt_update_ops[i].ops,
+> >> -				     vops->pt_update_ops[i].num_ops,
+> >> -				     GFP_KERNEL | __GFP_RETRY_MAYFAIL | __GFP_NOWARN);
+> >> +			kvmalloc_objs(*vops->pt_update_ops[i].ops,
+> >> +				      vops->pt_update_ops[i].num_ops,
+> >> +				      GFP_KERNEL | __GFP_RETRY_MAYFAIL | __GFP_NOWARN);
+> >>  		if (!vops->pt_update_ops[i].ops)
+> >>  			return array_of_binds ? -ENOBUFS : -ENOMEM;
+> >>  	}
+> >> @@ -742,7 +742,7 @@ static void xe_vma_ops_fini(struct xe_vma_ops *vops)
+> >>  	xe_vma_svm_prefetch_ops_fini(vops);
+> >>  
+> >>  	for (i = 0; i < XE_MAX_TILES_PER_DEVICE; ++i)
+> >> -		kfree(vops->pt_update_ops[i].ops);
+> >> +		kvfree(vops->pt_update_ops[i].ops);
+> >>  }
+> >>  
+> >>  static void xe_vma_ops_incr_pt_update_ops(struct xe_vma_ops *vops, u8 tile_mask, int inc_val)
+> >> 
+> >> ---
+> >> base-commit: d2ce8fcd778ee6d92748c92d23a56d4416c29d86
+> >> change-id: 20261020-xe-kvmalloc-vma-ops-2637ebf81cfd
+> >> 
+> >> Best regards,
+> >> --  
+> >> Karim Sabar <karim.sabar@utexas.edu>
+> >>
