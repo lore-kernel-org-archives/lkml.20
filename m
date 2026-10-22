@@ -1,67 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.40.44.17
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792702427;
-	b=i8/dYfQGjxzqgGL+pgMf3WU/8OAiC2hGHEazw4w3jH2Q4iH60v5kSJCGGx6KFaz1Yt6z
-	 DkSwmSjJCHax7zUrGnOWTYq79cGw2QgtF6S0BLOslzJFK7F+/rv//tB+IRi5iT8pcACxP
-	 ZnmlJhTtJaahFs3Ar5ztSQCE6EWlB7iKkPWpMoWUhKZIWt7U4TE8Mpw2VXdMPvZuNZg8e
-	 i3kLcPEiXmCBdov+IgEyQqC24QBqwXR3Ep7McDOCEyAUoowoWmTHzMJdHmXrEYi18nBaJ
-	 L6VQVqYycvzNZwSCW7l9Dnsk45BFhAuuNj8W5aX7GHhzu0ROWwvQ48IV0y+TJjh4F1w==
+	t=1792702451;
+	b=w8cqMwjPYVERJ94L05gP+gUDnTUba9AwGXx+4EUsXPfrv8/80F/L1NRDsaTxLqTn2f+w
+	 KGVQtK0PQfKCHw5CQYqY6eCHonPqhFicgvHV8VSI8Y/PM0tp3CQRe9O3ybFqqogTBdQIZ
+	 FSjwthkHuCcAirdYO7EodVYWMlg6929mtXG4nC5ty1bybpB9ZNxgW7rtgnM3L218gmgWT
+	 64XGAhC9YoMBvlLr1BiqWmnxCHnI34ETddnUfRea3N6vtIQA6XhI0WKU88EDgHo48JNku
+	 +y3wDA+RJDOOKyfvKBS3u4dR7DCdAaKiYED9pM75EV6l+m+w4XtC4qta6QaRL8gRhMw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792702427;
-	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-Rspamd-Server:X-Rspamd-Queue-Id:
-	 X-Stat-Signature:X-Spam-Status:X-Session-Marker:X-Session-ID:
-	 DKIM-Signature:X-HE-Tag:X-HE-Meta;
-	bh=mQjVuzb1/ppGtpvK3P8ELxGZQm6eXc6OPqUh5D7uJdg=;
-	b=MWhawvKsXZ+Le7pw0iDi5QlXE28XXStxxu6uHxPm/S4qYDpfQ6IeqMWvpfAsgUJBYNr9
-	 Z7BxhR7Pd/fc3V8AMOQ9UqXwPfrA59xjRmcPoS25XwGYggh1EByH6gmvNYUexHhFkulAC
-	 LXe366HyaL2m/T4ZZUOD+5mCvdHtPZzML6opBD5rGGWns82jL/DANOFnOCe9G1RbZxfQd
-	 MwlTib7ACHb0z2G4qued1iZjStimkmocqN99yDAP5qwBrtSN5Kdu0Z38JGot7DR0cIG73
-	 fcDmH2ml55h/qlBrQZD8VdvRZtDRa6MTQiB2Py1HnUVji9/7DBC0FaJCZ+hk+lQId1w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792702451;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=AE4c8qZkLEuD3bWD68hYum0BC77PeC40PBLBKrUJ+TQ=;
+	b=emZUugIHKp0B7Z2Nv7m9Swz3jtf9u3GdmdKTUtKAD1owKkFMgdcieDKQgc0cnvoecpHO
+	 2n2Vb908i+vQIttfmB/Ak/FqTl0pTCR6Q7RKK398cM6mbV/I8M0M4LBXh4pB+GRwX9Lvl
+	 flfTkD4JCJnqd3EI9LZnmpdSlCUa4cF+Y2TjCrY79X0X52SkJumlmVwdDiB3T9GkFCiSt
+	 +dQIkaA27nT0bGvBT1bCsUF9tibBKdD7AIzTL7HULe1Un6XSZp1iDK3BToZitsr6j93xK
+	 twGjnILIcdzQ5J7RWlcANLA/zjtmJRHHc+V33P8ZcASbuq0xjvEkilTSlqs5Ks5GFrw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=goodmis.org;
-	spf=pass smtp.mailfrom=goodmis.org;
-	dkim=pass header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=DGjxdF7x;
-	arc=none smtp.remote-ip=216.40.44.17
-Received: from relay.hostedemail.com (smtprelay0017.hostedemail.com [216.40.44.17])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=n8WRq1XS;
+	arc=none smtp.remote-ip=209.85.128.41
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5897606A319;
-	Thu, 22 Oct 2026 20:53:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D5897606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53C2A606A31D
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 20:54:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 53C2A606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=DGjxdF7x
-Received: from omf02.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay06.hostedemail.com (Postfix) with ESMTP id D77D8A78FC;
-	Thu, 22 Oct 2026 20:53:39 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf02.hostedemail.com (Postfix) with ESMTPA id 89DD18000E;
-	Thu, 22 Oct 2026 20:53:37 +0000 (UTC)
-Date: Thu, 22 Oct 2026 16:53:36 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Alejandro Colomar <alx+linux-hardening@kernel.org>
-Cc: Kees Cook <kees@kernel.org>, Bill Wendling <morbo@google.com>, "Matthew
- Wilcox (Oracle)" <willy@infradead.org>, Andrew Morton
- <akpm@linux-foundation.org>, Andy Shevchenko
- <andriy.shevchenko@linux.intel.com>, David Gow <david@davidgow.net>, Petr
- Mladek <pmladek@suse.com>, Shuvam Pandey <shuvampandey1@gmail.com>,
- linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org
-Subject: Re: [PATCH v5 06/12] seq_buf: Add seq_buf_strlen()
-Message-ID: <20261022165336.3100a5be@gandalf.local.home>
-In-Reply-To: <atpyCU3fDyU95hbY@debian>
-References: <20261005155653.late.426-kees@kernel.org>
-	<20261005155708.1471260-6-kees@kernel.org>
-	<20261016145928.16eddc9a@gandalf.local.home>
-	<202610221058.C5626C5172@keescook>
-	<atpmAQ932J3_8IvJ@debian>
-	<20261022155726.7f20c4cb@gandalf.local.home>
-	<atptYsHyS6YGtzPV@debian>
-	<20261022162000.18aa4162@gandalf.local.home>
-	<atpyCU3fDyU95hbY@debian>
-X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=n8WRq1XS
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a20bdaf39cso2489645e9.1
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 13:54:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792702449; x=1793307249; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=AE4c8qZkLEuD3bWD68hYum0BC77PeC40PBLBKrUJ+TQ=;
+        b=n8WRq1XSfUOhSWeOAVM9FBBn9wnnCTDxt+vRKL19Wv/i1SBQ2McGoHY4n8yI6MOSJd
+         lklpME1hgegMqCIDW+BZQqoHllUddxCvRRTetV5ZDxU/aGGO4ocMyaG8aZ4nhK8gDAU9
+         mG2TeU+VOnRhjGR+IV3PDyOu5gKa2GYouwWviOefXS+BO9t3lMH/JEsD0YFY3YU+2V40
+         3UwudxtvrOXqWEpquXu+5+DOKqmjD96Ewsm5pHtmJqVRHAqOxuAZ2xRA/BBdkuV+1hb9
+         16H23SqYF/dCcVz1Lmw9LFaeEM7tYjU4wispXe4aLQI96rAzqiracV9LSPKsnwIXPkTd
+         K4gg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792702449; x=1793307249;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=AE4c8qZkLEuD3bWD68hYum0BC77PeC40PBLBKrUJ+TQ=;
+        b=O+1xyCzOQoMn9Xw0nMfVPyx61gwCJAWqzG1wcEvlMefOjZc8/QF2jDJhDPsWugMA5V
+         TgSdnGk4CRWbpVJlG12QSQLF/nhBYD19Jx3+iaoZv+BxGa1rvOpzLqonHSHJkhKVrcYe
+         iFiFyaeMuIB7uyBE48IKLZsnyJ6cCeeBDSzws/GYhQCQHhEdJfk3F61ox8SbKgavH9dl
+         U1LhbueetUgKBCW7AbJ95As/jflQpSSUxj1Z6St0f7erY6NOea71RnbUwTv82QnDAg0C
+         Wm2OSfDrJzdm8q5GLRagxs7Fp2N88ZUNPmGCJ3OU6TITiDh/pRgAp3UHAa7RkzSkUt80
+         QG5Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxHmkoh43Sq4fBU3NapZ4g9XbzOnx+Rh8ioJVOZRdgN0Tu6lj1JlMa+A29u2uH1Ey2wDpIgQ7Ai7GQGsZk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJzSDe39MjshbdVhfLfCvOWxGuz27v8TZna5uVc1GE6p1XlZAKr
+	QDlfbqlJHHJx6c0WTQPkiwuQ4eY92e7r8s4NkAL8WmYlmPrtDyFIIGwsreZdaQ==
+X-Gm-Gg: AYBFou3jkKc+B0e7haR5451/kehD6Pg4/APckZy0jQ/J7BzgWCPtk2qM0eHZmnvCu3W
+	JFGtyVkAYjTW6JDRV0C781HitjuEWNWvvoloWmc+iWDNTLutiUNyeqs/lMvMMJKO6h0lX942bjS
+	OwGYwDvg1qN4uy4+0lmSMxqo/H+Il3YhTiqqab+hRVqyXjqRACFekABwDXVk59JQYYsquapnnFl
+	zu8YH57By3r0g4GliMBJnWOogg+JqMOI2Px+7xjl4HIOgT8nUlxjkzHIAVefa9dRkLlfdmG1mnQ
+	X67Vf9lHZcytm0NuiurS1U/qB6Qgh841M53bgnP0YdqVQ9m/zhWK8UYbt7T7F+0fFGPBOLzpR/k
+	dZRwuDS7OnxgxtfNW7MEsPTSpP7ed0ifNmiB6zoxZzuu5JdOK9iK51eEwJDoK6mU1myCu1DqajV
+	denZRpLlCDhqqsEHizqK1TUHQ01a512qHKMN8mbZa5eqyK6Jcv1vZfnajMDnjMh/ulBkDxc6Yrz
+	oA148e5ngkldh8PsoBS9r6SgdeVfQuXSts8EJyiD+sQu0vvXvCQ//zw8WWPfqpjrVO/KpyYo/bL
+	UfjQBHNJW5RIJjHEcWk9XmG4gPLaji+pFoyaZSrk
+X-Received: by 2002:a05:600c:e558:10b0:4a1:d8fc:8165 with SMTP id 5b1f17b1804b1-4a211ce42fdmr2054815e9.20.1792702448539;
+        Thu, 22 Oct 2026 13:54:08 -0700 (PDT)
+Received: from dohko.chello.ie (188-141-5-72.dynamic.upc.ie. [188.141.5.72])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e38025d82sm431076f8f.16.2026.10.22.13.54.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 22 Oct 2026 13:54:08 -0700 (PDT)
+From: David Carlier <devnexen@gmail.com>
+To: Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>
+Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Lee Jones <lee@kernel.org>,
+	linux-trace-kernel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	David Carlier <devnexen@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] tracing: Drop the synthetic event ref when clearing hist triggers
+Date: Thu, 22 Oct 2026 21:53:16 +0100
+Message-ID: <20261022205405.1228742-1-devnexen@gmail.com>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,77 +99,103 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Rspamd-Server: rspamout03
-X-Rspamd-Queue-Id: 89DD18000E
-X-Stat-Signature: e3zcrciaahepohnd8bwhgbwpqr1xm7z1
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX18ehAJFysVrxrSXVnagrmOUwNFzCDmggN8=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=mQjVuzb1/ppGtpvK3P8ELxGZQm6eXc6OPqUh5D7uJdg=; b=DGjxdF7xZ8us3s/XmpfqyfBKArNugJ0yae+fRnOXGhT+ZJbzOWuSC9C0MiA6HGLLdC5Zl+fvwdJh1ALnsDVtgArQl9QtPXfjRImyk7FESju2kUNXcyqTQCSKKaGCZ8FuG4qdO5MMNKa1ZpQxQ5loeJp8sBJDNefmOdv5obwiKoI=
-X-HE-Tag: 1792702417-726029
-X-HE-Meta: U2FsdGVkX1/7qo9H3VOZWiT76OrpxlDNhstfzpILz+eyXPsnf+BsdappRpV/FYC+L5vZ3fG9uGRth+GEjNbGEddnIyQkVdyqYQ+GBwFzSr8GrcM0GGZNGfh8dLTG7M9TdDmT/YNMOakP0wP/90bhoShrKqElw8DfqxHHDV+BHDMFJe9/sOf8TpKS46mnAirFSenVbOU0ReP8GS9HTn3QICygSrCUXVJefGG5Su6p/9LgPnqMxNHQU7mxE48zyGj76WaCdkNAieIqu/c5rlyGxYkadZ/5hzvUccaeKDAxDTxHMQWOSX/654g7cUaDzRQp78yPPaNUX/LJGDBj5ueu7I/xLycuhuSJ
+Content-Transfer-Encoding: 8bit
 
-On Thu, 22 Oct 2026 22:38:03 +0200
-Alejandro Colomar <alx+linux-hardening@kernel.org> wrote:
+clear_event_triggers() frees a hist trigger on a synthetic event without
+dropping the se->ref taken by event_hist_trigger_parse(). Removing an
+instance with such a trigger leaves the synthetic event busy forever.
 
-> No, it doesn't lose data.  My proposal is to have this:
-> 
-> 	struct my_seq_buf {
-> 		// .buffer points to the start of the buffer
-> 		char  *buffer;
-> 
-> 		/* .p points to the current position.  This is the last
-> 		 * '\0' that has been written to the buffer.  On
-> 		 * truncation, it is a NULL pointer.
-> 		 */
-> 		char  *p;
-> 
-> 		/* .end always holds ARRAY_END(buffer).  It is a pointer
-> 		 * one-past-the-last character in the buffer.
-> 		 */
-> 		char  *end;
-> 	};
-> 
-> This would be initialized as (of course, wrapper in static inline
-> functions as needed) this:
-> 
-> 	char            buf[100];
-> 	struct seq_buf  b;
-> 
-> 	b.buffer = buf;
-> 	b.p = buf;
-> 	b.end = ARRAY_END(buf);
-> 
-> Then, you would write to it as:
-> 
-> 	b.p = stpecpy(b.p, b.end, "foo");
-> 	b.p = stpecpy(b.p, b.end, "bar");
-> 	...
-> 	b.p = stpecpy(b.p, b.end, "baz");
-> 	if (b.p == NULL)
-> 		goto fail;
-> 
-> Then, at some point, you might want to initialize a new buffer out of
-> the remainings of it:
-> 
-> 	struct seq_buf  b2;
-> 
-> 	if (b.p == NULL)
-> 		goto fail;
-> 	b2.start = b.p;
-> 	b2.p = b.p;
-> 	b2.end = b.end;
-> 
-> See how simple this becomes?  (So much that you may doubt the necessity
-> of the set of APIs at all, but they don't hurt much either.)
+Fixes: 4b147936fa50 ("tracing: Add support for 'synthetic' events")
+Cc: stable@vger.kernel.org
+Signed-off-by: David Carlier <devnexen@gmail.com>
+---
+Applies on trace/for-next, depends on 3403d9bb27eb ("tracing/histograms: Verify event_call identity when updating synth_event refcount").
+ kernel/trace/trace.h                |  2 ++
+ kernel/trace/trace_events_hist.c    | 20 +++++++++++++-------
+ kernel/trace/trace_events_trigger.c |  2 ++
+ 3 files changed, 17 insertions(+), 7 deletions(-)
 
-I rather not increase its size. It is embedded in the trace_seq.
-
-Yes the seq_buf code can be complex, but it's in one location where it can
-be highly tested and verified. The point of seq_buf is to do the complexity
-so that other places in the kernel doesn't need to.
-
--- Steve
-
+diff --git a/kernel/trace/trace.h b/kernel/trace/trace.h
+index 0f0786700f99..e108f95fd609 100644
+--- a/kernel/trace/trace.h
++++ b/kernel/trace/trace.h
+@@ -1915,9 +1915,11 @@ extern const struct file_operations event_inject_fops;
+ #ifdef CONFIG_HIST_TRIGGERS
+ extern int register_trigger_hist_cmd(void);
+ extern int register_trigger_hist_enable_disable_cmds(void);
++extern void hist_put_synth_event(struct trace_event_file *file);
+ #else
+ static inline int register_trigger_hist_cmd(void) { return 0; }
+ static inline int register_trigger_hist_enable_disable_cmds(void) { return 0; }
++static inline void hist_put_synth_event(struct trace_event_file *file) { }
+ #endif
+ 
+ extern int register_trigger_cmds(void);
+diff --git a/kernel/trace/trace_events_hist.c b/kernel/trace/trace_events_hist.c
+index f39fa8942673..9419edfd1b67 100644
+--- a/kernel/trace/trace_events_hist.c
++++ b/kernel/trace/trace_events_hist.c
+@@ -6756,6 +6756,17 @@ static bool hist_trigger_check_refs(struct event_trigger_data *data,
+ 	return false;
+ }
+ 
++void hist_put_synth_event(struct trace_event_file *file)
++{
++	struct synth_event *se;
++
++	lockdep_assert_held(&event_mutex);
++
++	se = find_synth_event_call(file->event_call);
++	if (se)
++		se->ref--;
++}
++
+ static void hist_unregister_trigger(char *glob,
+ 				    struct event_trigger_data *data,
+ 				    struct trace_event_file *file)
+@@ -6811,7 +6822,6 @@ static void hist_unreg_all(struct trace_event_file *file)
+ {
+ 	struct event_trigger_data *test, *n;
+ 	struct hist_trigger_data *hist_data;
+-	struct synth_event *se;
+ 
+ 	lockdep_assert_held(&event_mutex);
+ 
+@@ -6824,9 +6834,7 @@ static void hist_unreg_all(struct trace_event_file *file)
+ 			list_del_rcu(&test->list);
+ 			trace_event_trigger_enable_disable(file, 0);
+ 
+-			se = find_synth_event_call(file->event_call);
+-			if (se)
+-				se->ref--;
++			hist_put_synth_event(file);
+ 
+ 			update_cond_flag(file);
+ 			if (hist_data->enable_timestamps)
+@@ -6941,9 +6949,7 @@ static int event_hist_trigger_parse(struct event_command *cmd_ops,
+ 		}
+ 
+ 		event_trigger_unregister(cmd_ops, file, glob+1, trigger_data);
+-		se = find_synth_event_call(file->event_call);
+-		if (se)
+-			se->ref--;
++		hist_put_synth_event(file);
+ 		ret = 0;
+ 		goto out_free;
+ 	}
+diff --git a/kernel/trace/trace_events_trigger.c b/kernel/trace/trace_events_trigger.c
+index 4d2fde996c0f..a2487ad7fef8 100644
+--- a/kernel/trace/trace_events_trigger.c
++++ b/kernel/trace/trace_events_trigger.c
+@@ -643,6 +643,8 @@ clear_event_triggers(struct trace_array *tr)
+ 		list_for_each_entry_safe(data, n, &file->triggers, list) {
+ 			trace_event_trigger_enable_disable(file, 0);
+ 			list_del_rcu(&data->list);
++			if (data->cmd_ops->trigger_type == ETT_EVENT_HIST)
++				hist_put_synth_event(file);
+ 			if (data->cmd_ops->free)
+ 				data->cmd_ops->free(data);
+ 		}
+-- 
+2.55.0
 
