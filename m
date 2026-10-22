@@ -1,103 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.162.59
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.216.48
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792638829;
-	b=scEm/wiZ9RJyuYDBySeUX32w0N1cqXIpcC8NqjFCgm4y+SENECzfp61iXHYOGuVccSOf
-	 MLW/dnl05stnfSVlQb3aaXFTzSfPQa74FMAhx5aiRNUYvhRQV3nnSv0l/W+NfdriheT8Q
-	 9sUoXEjK2wvgwa8SkQBBwZFDKC5E1yhRSlAfMXVBmf3V9iZYqECKTOoelwm4dRFJPI9lN
-	 dQWCS57/cPWrA8JMeBxOujizyOvcFDJdvjLcDUxDcsd3YmkYHanxe91FXQvr29a6JL2MZ
-	 V9lCR2JqYjvV48zrJ7OP43x9eEcLP/hIaNi6aemcMGfwMqgGWVRCLSky+mdOFGQuehg==
+	t=1792638861;
+	b=0zzBMdlDWGQBzlCNVQkvdzYBcb0Lb/vp74ln/lFcETGY/MUyepANaX2ma7OtHj/Tw6qX
+	 hgyXlpEnPA0J8WqJVkYN5/jw9gVSo9MMnZiHc9auXQIslei/xN8hgRV3ehZnqNr1I90uU
+	 FF2FaTrN+m1+vYSS9p1gS2AmHIllnpgENXRD2DHXHybqIQDnW7rvheHeSGnUGCNtYWT/D
+	 CZIxkeUzLzuTybsAXNQfhGRsOK/GKtjmas/eLeOxjbg/hWwL3Nig58b+YGZC5qrRcSDoF
+	 WI73xEF0uhlG4Z0jzRZUs6HzMyHxBN0LbT1upmg1TojHrYrthwUVoiio4xAv5FWqltQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792638829;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Date:Subject:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=PLiI9Qs2TKiiAVMY7ibIYMOqfRGGs7NOjKb9OVDEkuE=;
-	b=xdFYn4tUU7ytzoLQxBzoyxeRefhO9JoMToWeCpzHeD5xs3ZJ8EyP9nDxNX00sQ1Wks4w
-	 APdSPk9TkNM5FIsu085aux2MyxXUyKds1VINsVF5N0rXnbhRGAP/m1apApbx89ZQOleg8
-	 xapmxZfVA3Udwcol1lPoDcxXZ6BQ3SoBJzBISyGDpm7uuQWzp96wu/GOjFoW4OQ7+MG/3
-	 3mS3Jx3v6BPUlId/t3aJksVb4S9uPJzpPvjqjSMSXBg7TlnsZ3vkJfiOQr7yIqU1SNFgG
-	 CJyViKgJnWHx2t09EtC7iKowY1Pakty4FXqx3ryWMIkXhrnrGNtbod/BmdyfoaaEQqQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792638861;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=6kVLnv2hV2zrpGw9FDH2/8id0hh//8Wt7wb7DvFNPdE=;
+	b=CDvv37tqOmVxEHuEyJFcxd90zClEwUFkZA1jQuY7CEiktJtJflVsLVDhj3f3XKljj26z
+	 X1RKyRoNiIqZ/13x3G7a4MtA11fvoZROa7ruufTqdHIYsL7s1SGwUU92gExlGl+sNv2es
+	 cVn+3fyNxiFoPfhUpAcA5tZ5+oLo32ahtHjUXjIUYPUKVknenMEDVBPPuptlNvUD33aQg
+	 tzOQoWLocdfx7CjZWI0aiBrQCoKlEkqiu7PuVRwuy8uI1KEsvWNgOQOHHpd9MAQOMKBb2
+	 Qu3BCQ6oiaYi6OLE7zsGNUMCsE/kIqHFsr9zq1ShjGeExz1mowtcEKLnb630gnvW+IA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=mBId4PGO;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.162.59
-Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013059.outbound.protection.outlook.com [40.107.162.59])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="NFtU/2u2";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.216.48
+Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07FEE606A319;
-	Thu, 22 Oct 2026 03:13:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 07FEE606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4368606A319
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 03:14:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C4368606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=mBId4PGO
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=yL/Cwp1wWsUJH6/hdNcBBH5pOXRYTnC8UnzaDwgUyGJhmyK6SCXRLRYWTpLFPX2f+WhCEkmLTGJfYREjM5viDPOE7bwQpCnWLcrkKchXBGYLMxLPGIj8FOczgKMoC6OZ+HKErjucjDeimx24mVrEpDSw+WZd3pQTx04j9M+Fqa/lFc9Su6zXozK9Ek28XJvpHGWSDq7B9++0ELOjbx3pyILgzEKHEDjrHQ81locX5nztdCiAdSDPL7Zy1frl3NMRKyfpTqWCX1TyBfCDHpuJPK+5N0LlQMM+mZYdpKzjCvp8Q2QRkOTSI+g5/tWA9lnj1Jsbi6+ATo0d8o/Wa9pm8A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PLiI9Qs2TKiiAVMY7ibIYMOqfRGGs7NOjKb9OVDEkuE=;
- b=pxgbkkJyE0x6fvyf/bCQAKPGhsbE+r2Hcep8wCzNKSu12KgSUsUVrKjzPG/nAYy9J0STi6TukgD0XgIdu6H7BmZwnJ0aXRn7xSv/oPgmaetJyzogtAJ81b0dizvSb7ve5zbnkqaQR3Apk0zfbZCwWjgqHPuP+JhATPIExMCbXWdh1raJy9s0vu1pr5BHFHkywa7PjDIi89C0s1d5zx4V3/NMZpn7ngfxNiipOzdrt3qf9ikkK3XGm9cdKmK58EckhgDdMRVaA/6d2b18GycBuZyK0b5XzBO96gRrGc1IKrqnkfqq4lHPX3Z5OZQ6CPl2dgdx0S55yaiSK0K1QQD1/g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PLiI9Qs2TKiiAVMY7ibIYMOqfRGGs7NOjKb9OVDEkuE=;
- b=mBId4PGOBN+Qto2nJGFlN2FkwAUPEzx8WWl7BEG2GqiW10/L5VCXixolj8LagHqbB+s3PQ6xN/V5R4L6VwVB4gXGtelxcWNv6fYtRFkG9r+flbU06rmvJnPQvGADzR6YUgIlR+WAzKzvTI0L7a6ayFZYfgRQy0SwhH/27WcnQFHTMmksO0Zo20IwHLvojZVZS4P9vLPOz/C0sDN+9TKUi0AGFerEr8gmjG9eUDsjOK9N4pgIcPj0Vj+IM4uUb9Onme53OjoqvZuov4st675l2nMsRpqRD39PCiq7HWwaso5O7ljXME6OKP+uvDLRVI9AHRzJA2NZzkRPwKAUDMxZUg==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from VI2PR04MB11276.eurprd04.prod.outlook.com (2603:10a6:800:296::7)
- by GV1PR04MB9198.eurprd04.prod.outlook.com (2603:10a6:150:29::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Thu, 22 Oct
- 2026 03:13:44 +0000
-Received: from VI2PR04MB11276.eurprd04.prod.outlook.com
- ([fe80::60d7:a8e5:eb88:9be]) by VI2PR04MB11276.eurprd04.prod.outlook.com
- ([fe80::60d7:a8e5:eb88:9be%6]) with mapi id 15.21.0522.017; Thu, 22 Oct 2026
- 03:13:43 +0000
-From: "Sherry Sun (OSS)" <sherry.sun@oss.nxp.com>
-Date: Thu, 22 Oct 2026 11:15:55 +0800
-Subject: [PATCH 2/2] tty: serial: lpuart: disable hardware flow control in
- lpuart32_startup()
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261022-b4-lpuart_rts_fix-v1-2-207f91580dee@nxp.com>
-References: <20261022-b4-lpuart_rts_fix-v1-0-207f91580dee@nxp.com>
-In-Reply-To: <20261022-b4-lpuart_rts_fix-v1-0-207f91580dee@nxp.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Jiri Slaby <jirislaby@kernel.org>, 
- Jingchang Lu <jingchang.lu@freescale.com>, Frank Li <Frank.Li@nxp.com>
-Cc: linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org, 
- imx@lists.linux.dev, sherry.sun@nxp.com, stable@vger.kernel.org
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792638983; l=2309;
- i=sherry.sun@nxp.com; s=20260723; h=from:subject:message-id;
- bh=G1NquS1Q3oss5NBklQagpbVKkhFuVXhRkPowe8dMVcc=;
- b=5PYMmdHgA61tnf/1bZTjrOVFrZG5qVi5jLWfycXxgo6wYTOQIaoGB1wVbcWhsrPsumWaDXDym
- ESxs5I7bP9cBmq6dU9bnbgAxwzuVOpbWn74ZRYNDv1/T8lquHFKxLpD
-X-Developer-Key: i=sherry.sun@nxp.com; a=ed25519;
- pk=YnYnIFJ2l+5v951x9shBVfHhminNi+3LTfFa3PxSdnI=
-X-ClientProxiedBy: SI2P153CA0016.APCP153.PROD.OUTLOOK.COM
- (2603:1096:4:140::17) To VI2PR04MB11276.eurprd04.prod.outlook.com
- (2603:10a6:800:296::7)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=NFtU/2u2
+Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-3856d6fbcb3so888153a91.2
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 20:14:20 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792638860; cv=none;
+        d=google.com; s=arc-20260327;
+        b=HCCo4+QmXtyfmieQvkZGVzaga+LZWghSfxf3AYD+uRlQm55/CGSR/PZInlfq8jX+DL
+         l2StMvHQPQiDY8b05DAi6zsjkJ5lJKNxrCj5orCsn062SqPOwf3K1nqnWhOvvuZsUPm7
+         83upQjsgvZ+uZt8kK+qHnY7bui49pd6FLOIHCGm8eIkbOGL0o+M8WHrHOroBQ0OO7Bz1
+         vVfs7xg7NF5SHbahJIMN3dUp3HYaD9soW0KOoXEbW9YLmoSKVfcaWDXUssdJ0hYRq47u
+         PAv1rH1u7HoRh3q3N9EkV54tUc5rkTJ30ekZYOSqmRNf0Y9FCLUSMzLJdiEZbwZKRQnr
+         yKrg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=6kVLnv2hV2zrpGw9FDH2/8id0hh//8Wt7wb7DvFNPdE=;
+        fh=nkugprToAvtnL0ZWviqU6EpvmwHBtW8Sy/dLY5b4CS8=;
+        b=kuAp2DQBoAvvu2MA9aPpCihbOY/MnyqSQgPcoKCrP0l/x2mn8qZrNVkIdwvwc+HXO/
+         NVHnXOBdDVexQaBn8qRGopMSuMtkcpjADn1O9QECX98kTxZi91zPTLVZNzXDmZhiQosw
+         7OjoIyVS1sZzseAeaYQE7TCXZdWCBQz8ebLQp9rrE+v48vAyRQ9GgVBDOutfKCbcqNcA
+         vr9yp8CDpwViP0pGOeqVdTLsrSvbd/UT1qMwPn53yBe2W5cAl6O1rQipDXBUpCk9vYJH
+         QEJT1zdOBBWvUZEx+LjV2pPP7+eDAMjx3Q/Om+Y8i3uF0An/0xqncalop4SMLav4OF5Y
+         wEmg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792638860; x=1793243660; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=6kVLnv2hV2zrpGw9FDH2/8id0hh//8Wt7wb7DvFNPdE=;
+        b=NFtU/2u2whrkYq8TuTSKDhVqo5DrwX+WwoRv1dB6Is8F7p3kv9Pwclhv08UQxzsVCJ
+         iVkYEqKoYmn20NMOXxp17XzPCvCsAOyF8gF9ZWiyrhgm0GV2NlOglol+MRfSoQlJ/493
+         sjpzTSLZRDeXzlifuVfR0BWVmO4xcVRrTA7sPUsUPRBMWAfNth2adbNFMNXXXZwZvKN5
+         Z+hgr2nB33r4ToUnbYMsN135LBAXJLN0vQkpr5SNx3ND0WLGxO3c6kBwUmBGxy3nMMVS
+         D/gLswDqEiOvxM7ZkrwJlivY1Ry8vF1QnFWN8F3MPhuzmegaBwj6Atk2R94MPkv+9His
+         M+1w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792638860; x=1793243660;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=6kVLnv2hV2zrpGw9FDH2/8id0hh//8Wt7wb7DvFNPdE=;
+        b=Wbz5baCA3DRwuuEBmZx8zdg9hV4IntTdTD8ImbJLdniyYYI1fYYBruvfineNwDKfGt
+         VQx43NVcuTnmdHPLMGhXS2j88gN7Dn35Vb8553nffJCMWyqLhrqx3DeW9KsRjg3evd/G
+         MuxSsdLzApEhu67E/CBbXeqApY5P4losz/KxUCCBa5QIl5SRAvkMdl8nE9j6lCsSbKlQ
+         inPs8xe/UmokeWe6iWzhGoEVP3yqFqQUIYqYoeHVMRvKoBvQcDk5N2dNDr9aiTCJ6XCV
+         G0js0t5NlQq5MCWdYTeGG03foQt6AbwlQBP01Pn8rqJM46CUXf58gtxluMW7VsVIYhYm
+         1IiA==
+X-Forwarded-Encrypted: i=1; AKwUvBy+rqusv0/xRcGng4sKbHTZ4nRPIff5BiFAGwLJy8WKjf0lIY1zZjbsE6edHPDBd4YRlYfycN83MfoPkMM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLIteQ/KL6EY2sNNJSvuaWZp3D2d4SzqWI/VZyaec1999wq7d8i
+	lK4nfDhw0Od+2qgR1DPYLi0yuqFCMYNnMOSAPg+iWJgrdqZfDaZt2g815bXhJS8lHQF0S8rTZ6P
+	satLzTftZESic46ZJU8HbhT4D2ytvhro=
+X-Gm-Gg: AYBFou2hSrUodjJ7ccUl7QHgpaSMRNzP+yrbOmxqsrkb0TS1p4AGCbRMPfViC4cEsAp
+	+2FdOW4g2risfARATBRbUX7tLG944Q2dmHyIgeuyubIlKGl7xxqxO95fboPnBsdZyUJMSb0rv4D
+	KNy+iTNoB9pEdQsXouoQfMz8eMnnGMSQ/RGJ+S6K8O7Mmda6tbDj7WAbAPosfzTQm9NXjojUQng
+	iEfUFIBMrRceNw35iyld/zreSO33yurHHU+VOgnL3vgKHeKv6ktE7poiTwjm75v5fWlXsiNuYH1
+	jZDjEEk247vnkUuVbko5i2jDsdM1VFVr4TuAiH8CO8EZFfUzxXwtWNR5C0AxuXPOgnyotlx77/H
+	AZ3QIE/t51rmtLH4qAzbENS5IOFOy2/nc2sJF
+X-Received: by 2002:a17:90b:2249:b0:3a0:8050:2ec9 with SMTP id
+ 98e67ed59e1d1-3ad86e9ece1mr3258080a91.16.1792638860114; Wed, 21 Oct 2026
+ 20:14:20 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,124 +104,232 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VI2PR04MB11276:EE_|GV1PR04MB9198:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7be01c73-e89a-4753-b011-08df2fea7a92
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|19092799006|23010399003|376014|1800799024|10067099003|18002099003|22082099003|261021123027099003|11063799006|261009221227099003|261009223027099003|261021121427099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	DxKiCZl3vt6z03a0HaZTe4Q/WZK7C7FN7eDSXizR2LE7ZpaE1m3H8fp5MXrRcSAnpf9vQvvNmWN7uVtLIfgV3g1WAPOs5Mkhlvb+ubbMDpk0b1uZHTH2IlgpOpFbJ5CZHr3vdqv8ZQyerWoy/w5CZIwu77XXaDLvOBizeCmEsHVA1TMRN/40lKjCUA+EM7x8dcqqfSJ4v45sEGbgAbwbeQkYeXpC9ALRjOVt+VKj/ydcCcZVU4h7QGqLpun/WWoWlbSPqEBcmu8xyURQNIci3MNNUssJyEBpZPavPRRpkVlddzUBlICVI2zTZJs8dUprmjFGmfaPLlDz6Rt+eIv0bdSbO1JYTPvObsF+0H0shNpwHcuT5DOFvInky5NhVAP1b3wtefBAxfoVTKlx2asVTfKX5VJjeY76keV5xzsCQfcAHoVd0Aaa42Umkgpk9sxIU9LMyRyFfkBKMel7v7MNzzweYEL/yZMkBf+7jCT6EP6rqzeIbRKH8I2etvlDrDW1cDfY41Xp9tyJoRVmdicG9tcuY6WC8jCSgi974N4eLHk5K3T0RhT5XF4yUsgkkQ3SiBaS2WoDwhu3kUZQsa8X9zVPc3C0xkZA3Va/bkOFuXhvYA4ZuF6TvFDW4brmkqMMpDL6k5VfD0eHlEGhig9qK7MIc8CqfA2H3lr4wfs/fv0=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI2PR04MB11276.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(19092799006)(23010399003)(376014)(1800799024)(10067099003)(18002099003)(22082099003)(261021123027099003)(11063799006)(261009221227099003)(261009223027099003)(261021121427099003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?cDR3elZMZ3NEUG5nRTRKVTFQRks0Rm9lZVlXekt4TFF4amJUTHlQMllOQ0Jm?=
- =?utf-8?B?QVozYjZEbDFpaCt6OXU4dFowQUlqZVhYWWw3QVFIUmU4VXNyTUx1WnIrZEQv?=
- =?utf-8?B?akF4TVUxeU50dW55TFRMb2RXVEtPUm41WFREV1VUalFHNXVmU0pJbU9DUExE?=
- =?utf-8?B?RUtxYXR1ZkRtcWdLK29YWW4vZWg5WmVaM1Mwdk1meFVMd2hQY2c0bklHcWpO?=
- =?utf-8?B?WHM3SHZkVTZRUGY4cEhxRDA4eVlBay9UbjJUOE1tenNYZE9CKytJdS9KREd3?=
- =?utf-8?B?d3BXSUlvT1h0M2duRnpSMDhrQkZpc1RITlY1OUp0RDUyai9FWWlGVUxQNk1k?=
- =?utf-8?B?V3RXSm1pQTIwZlR6OVkzZUpyUDg0SmFZcm1tSHNFTlQweFdDUDltU3RjUkVj?=
- =?utf-8?B?ZGdnck9IYjN6T1BjTnVkOExpWWRaU1daeG02Qk1WeVhTbDFnWWFmUWRaWW9i?=
- =?utf-8?B?Um5PeUFQeVdiKzhnTFBTcmtsNExzeS83NDBuQUZpR0VvelJKbTdkUjVyczkv?=
- =?utf-8?B?cUZyREhnZk1GeitTWWRHWnhHQlpJWmNZL0p6MVBnMmxqNjdjbzF2ODRrUnlj?=
- =?utf-8?B?TlFSV1RUZUc2bkxadHZ5eG9Cd0NDbnBtaTJDMHVPRGZaOXJlY2lacWtWbllk?=
- =?utf-8?B?NEdTU0UwNkQ1WjVGU1lqTVh3Z0RHbHpzelFDcmlzdEFHd3FHdXkrU1hiSDVC?=
- =?utf-8?B?bmVnU28yczZmbEo0WTdOVmVKdTdjTS85c1Nzc1FRYnVSL1JuYkd5L1h0ZHNp?=
- =?utf-8?B?RUxoM2RzWmdVbUxxWUhILzF5S0l4R0lIemdZeFlkdFFrdjdwSUhieVhLNDNF?=
- =?utf-8?B?c1VTMFVrc0lEaEhMbmQvWVdVTnRtN1BnS2kreUIzb3RqSFE5blhNMnRoTHhB?=
- =?utf-8?B?VHNXR2tjRUM5MEZOcmFQRERDbVoxNFZQSmZoUThGbDJMU0d0WGtDeURITDNC?=
- =?utf-8?B?cCtSMEpPU0dYRVh3eVpXeHJPNEJzd1lwamhWc29GMVFYV2Y3K3JZMWQwRXh1?=
- =?utf-8?B?UVNIUy96d1dZVWovYjB6djY2bjZNc0U5dUY4ZkRCbWQ5WHZoeEdwK1VXa2V2?=
- =?utf-8?B?QXEveFpLSk4xcTJJQ2ZKVUpxVmJ0MW0vVGNnOGE3aGVHOHpGLzY2dm1VTlhm?=
- =?utf-8?B?YjdwN091eGVERVlJd1FnOHFWZWJDa080WDdBQVRPbzVQdnkyMVp0eVM2SWtT?=
- =?utf-8?B?WGpUT1ovK0ltNmhVMlZDWmx5OWNGNnp1N0xLYm1YcmxGTng3YVZSQi9rbzIr?=
- =?utf-8?B?TmF6YnRFL2pnd2F5YUZQb2owa0JDVzdlZVIrNUtUc0tkY3B1VFlrMS9BcmZq?=
- =?utf-8?B?S2F4dVZzTktUNVVWSWpUam9iSWdlY3pQNXcwZExLMnBBa2pSMkJCZy9ld2cy?=
- =?utf-8?B?SzhlYytQaDBlSEFzUGoxY1ArS2hmM05iNW5Ddjc2aTBNSC9ORjJEd0piWjhu?=
- =?utf-8?B?K25TOVM3dFJQZ2ZyUjJlbHgrcE9QcGdyUVJtZFo3VnQ3c0QvdlVRTkpTTVRY?=
- =?utf-8?B?NUR0Z3BQTzNDOGN1OG9BWFVqWDJtSWVoVVcxeHN2L3d0SlpZTXRSL0s5ZVFY?=
- =?utf-8?B?NkdMWTZpWHVRUUZLMEFYRThSOU9JdkxXbmN2ZWVxdThGb0dMdGFDZEZjZmlJ?=
- =?utf-8?B?bDlNMkVzeHNlanVWTnRjTVNZcVBkaW40VG9DbFhoa0c2Q3lMbHkwdjMzQzRa?=
- =?utf-8?B?VFFKa01OM3c0dGRTaFNzbXlEWTJTOFUyUzJLeTFSR1hlR3VWTDV6KzcxZ2xL?=
- =?utf-8?B?ZG5xWlZ4N3kwZXZid2Y4TTRyalhBbEhiZVV0WDRhOUZHREs1RGtUWHFMQWhq?=
- =?utf-8?B?UTBpYVZQTGlIbHAxTEc3ZkpqZjY3OFRQTlVLT2tuZTlzeTZabzNkSkwyU2E2?=
- =?utf-8?B?WGtHbjJhU1pWQyt5a1UyRi9UcDNFZDA2NFFUYkRzcGJRZTBsWkZRQ1o0OHJR?=
- =?utf-8?B?L0Z1ZWpaM1dRZHJCc0h2cnBpbEpVTGF3OXZoU1NUa2xpWDd4SWdOQklZV2Fn?=
- =?utf-8?B?SjhWdHVvcVZoajM4ZjV4WFBpTDZURW9LK0NOSWZLTjBDd2JMWURxeHhsTHcx?=
- =?utf-8?B?N3BZdm13akJLd3p1d2N2SDRZUXZVL0hLdkM1YnVRQUJ0SExORERHREU0bzRn?=
- =?utf-8?B?QnlJaWl2SlplZUNlcW5pUE5qY3psRlpMWDYyVXBkZWZtMy9mK2FWZVpaOG1F?=
- =?utf-8?B?TFdpR05selI1bDg1U25vcHhLYUdpM1FMUFRTVnhsekMwT3o3dDZELzBrdUR6?=
- =?utf-8?B?Q2wzODFCYkZCRkJjaWI5UE0rb2ZqY01CZmgzaXRGV0pvYWF2eXdKWG9LcHQy?=
- =?utf-8?B?T3lCVzgvQzlTMHRHQnc0L0E3RVc2UDNZLzhqYU8rQ1YwUFBOeUlFd3RRd09E?=
- =?utf-8?Q?YqvWqHgCU6UZO6/GDj6Jxn/9QGm798OtVDn5T?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7be01c73-e89a-4753-b011-08df2fea7a92
-X-MS-Exchange-CrossTenant-AuthSource: VI2PR04MB11276.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Oct 2026 03:13:43.8014
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: FdC9oN0JySQEyklS5g/Vl9T3Y4rab7kntXmElOCgq4pkSX+cPxyYMJFcE7sx+MOpy7RrjHoyZzYYQfYPzFhLqO4jLtC7mipI8iOQ1lmoNl4ULXVEKO1mJb5bBntNZZqK
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV1PR04MB9198
+References: <20261021030925.3543841-1-shengjiu.wang@oss.nxp.com> <ef5277d07f977a82030b1e61ef8db2609a5d6aa1.camel@pengutronix.de>
+In-Reply-To: <ef5277d07f977a82030b1e61ef8db2609a5d6aa1.camel@pengutronix.de>
+From: Shengjiu Wang <shengjiu.wang@gmail.com>
+Date: Thu, 22 Oct 2026 11:14:00 +0800
+X-Gm-Features: AclHuK92YzMRqe3nbcAuvsEDtl0iTLHAU4KdEya1SiUN05LrVGuOLEhQ5DJxyHo
+Message-ID: <CAA+D8AMQ+yExGtpRkTpL0g1AQ-tarF_fUsNj5HsghmF+nGNhzQ@mail.gmail.com>
+Subject: Re: [PATCH v3] reset: core: Serialize concurrent deassert/reset of
+ shared resets
+To: Philipp Zabel <p.zabel@pengutronix.de>
+Cc: shengjiu.wang@oss.nxp.com, krzk@kernel.org, hansg@kernel.org, 
+	linux-kernel@vger.kernel.org, broonie@kernel.org, alvin.sipraga@analog.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Sherry Sun <sherry.sun@nxp.com>
+On Wed, Oct 21, 2026 at 9:31=E2=80=AFPM Philipp Zabel <p.zabel@pengutronix.=
+de> wrote:
+>
+> On Mi, 2026-10-21 at 11:09 +0800, shengjiu.wang@oss.nxp.com wrote:
+> > From: Shengjiu Wang <shengjiu.wang@nxp.com>
+> >
+> > reset_control_deassert() and reset_control_reset() are documented to
+> > guarantee that the reset line has been deasserted, respectively that a
+> > reset pulse has been issued, by the time they return.
+> >
+> > For a shared reset only the first caller runs the hardware op; the othe=
+r
+> > callers just bump the refcount and return. When the op can sleep this
+> > breaks the guarantee: a second caller can observe the bumped refcount a=
+nd
+> > return before the first caller's op has finished, and then touch hardwa=
+re
+> > that is still in reset.
+> >
+> > Add a reset_controller_dev::can_sleep flag that a provider sets when it=
+s
+> > reset ops may sleep. When it is set, serialize the shared refcount upda=
+te
+> > and the hardware op in reset_control_reset() and reset_control_deassert=
+()
+> > under a new per-control mutex, taken inside the SRCU read-side critical
+> > section. Providers that leave the flag clear keep the existing lockless
+> > path, so callers in atomic context are unaffected.
+>
+> I think this paragraph should go first.
 
-The RXRTSE/TXCTSE bits in UARTMODIR are configured by set_termios()
-according to CRTSCTS and are left untouched by shutdown(), so they keep
-their value from the previous session when the port is started again.
+Ok, will move this to be first.
+>
+> > Set can_sleep in the reset-gpio driver, which drives the line with
+> > gpiod_set_value_cansleep() and may therefore sleep. Other providers who=
+se
+> > reset ops may sleep still need to opt in.
+>
+> Please split this out into a separate patch.
 
-On open, and on resume when a tty is attached, the serial core calls
-ops->startup() before set_termios(). lpuart32_startup() enables the
-receiver (UARTCTRL_RE), and with RXRTSE still set from the previous
-session RTS is asserted immediately. The remote side may then start
-sending before set_termios() deasserts RTS again, disables TE/RE and
-reprograms the baud rate, so the characters in flight are lost or
-corrupted.
+Ok. will split them.
 
-Clear RXRTSE/TXCTSE at the beginning of lpuart32_startup() instead.
-Together with set_termios() keeping both bits masked until its last
-UARTMODIR write, RTS now stays deasserted from startup() until the port
-is fully configured. The flow control setting itself is still owned by
-set_termios().
+>
+> > Fixes: 0b52297f2288 ("reset: Add support for shared reset controls")
+>
+> This is a partial fix for an issue introduced by 0b52297f2288, but only
+> for reset-gpio, which didn't exist back then.
+>
+> On the other hand, the patch doesn't apply before commit 8c91302a29bc1
+> ("reset: protect struct reset_control with its own mutex"), which only
+> allows this to be trivially backported to v7.1, with adjustments needed
+> for older kernels.
+>
+> The commit this is supposed to fix, 8a0de73cf9dc ("ASoC: ak4458: add
+> optional reset control to instead of gpio"), is in v6.2. I'm not sure
+> if something changed between v6.2 and now that exposed this issue for
+> ak4458?
 
-Fixes: 380c966c093e ("tty: serial: fsl_lpuart: add 32-bit register interface support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Sherry Sun <sherry.sun@nxp.com>
----
- drivers/tty/serial/fsl_lpuart.c | 14 +++++++++++++-
- 1 file changed, 13 insertions(+), 1 deletion(-)
+I could not find a specific change between v6.2 and now that newly exposed
+this for ak4458; the window looks like it has always been there and just
+became observable with async probe / SMP timing on the boards we hit it on.
 
-diff --git a/drivers/tty/serial/fsl_lpuart.c b/drivers/tty/serial/fsl_lpuart.c
-index 70b69870aaba..87737f0e0f21 100644
---- a/drivers/tty/serial/fsl_lpuart.c
-+++ b/drivers/tty/serial/fsl_lpuart.c
-@@ -1889,7 +1889,19 @@ static void lpuart32_hw_setup(struct lpuart_port *sport)
- static int lpuart32_startup(struct uart_port *port)
- {
- 	struct lpuart_port *sport = container_of(port, struct lpuart_port, port);
--	u32 fifo;
-+	u32 fifo, modem;
-+
-+	/*
-+	 * The hardware flow control is configured by set_termios(), which the
-+	 * serial core calls after startup() to apply the termios settings. Keep
-+	 * it disabled until then, otherwise the RXRTSE left over from the
-+	 * previous session asserts RTS as soon as the receiver is enabled
-+	 * below, and the remote side may start sending while set_termios()
-+	 * still reconfigures the receiver.
-+	 */
-+	modem = lpuart32_read(port, UARTMODIR);
-+	modem &= ~(UARTMODIR_RXRTSE | UARTMODIR_TXCTSE);
-+	lpuart32_write(port, modem, UARTMODIR);
- 
- 	/* determine FIFO size */
- 	fifo = lpuart32_read(port, UARTFIFO);
+>
+> In short, do you have an opinion how (far) this should be backported,
+> and does this warrant some Cc:stable tag?
 
--- 
-2.50.1
+You are right that this is only a partial fix for 0b52297f2288, and that
+reset-gpio did not exist back then. Since the race is latent - it is only
+reachable once a shared provider whose ops sleep exists (reset-gpio being
+the first) - and since the patch would not apply before 8c91302a29bc1
+("reset: protect struct reset_control with its own mutex", v7.1) anyway, I
+would like to drop the Fixes: tag and Cc: stable for v4 and present this as
+a correctness improvement to the shared-reset locking. Anyone hitting it on
+an older kernel can backport by hand. But let me know if this is acceptable=
+.
 
+
+>
+> > Suggested-by: Philipp Zabel <p.zabel@pengutronix.de>
+> > Assisted-by: Anthropic:claude-opus-4-8
+>
+> Drop, see 1e035297ffda ("docs: remove Assisted-by references").
+
+Ok.
+
+>
+> > Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
+> > Link: https://lore.kernel.org/all/aszDZlJ0KahNwgZO@analog.com/
+> > ---
+> > Changes in v3:
+> > - Drop the reset_control_reset_atomic()/reset_control_deassert_atomic()
+> >   variants and their reset.h declarations/stubs; gate the mutex on
+> >   rcdev->can_sleep instead, so non-sleeping controllers keep the lockle=
+ss
+> >   path and need no new API.
+> > - Use a dedicated rstc->shared_lock taken inside the SRCU read-side sec=
+tion
+> >   instead of reusing rstc->lock before SRCU.
+> > - Set can_sleep in reset-gpio; no other provider is converted.
+> > - Drop the lockdep_assert_not_held() additions and the reset.rst / kern=
+eldoc
+> >   text about sleeping-vs-atomic variants.
+> >
+> > Changes in v2:
+> > - Serialize only the shared may-sleep path under rstc->lock (taken befo=
+re
+> >   SRCU to match reset_control_acquire()'s order); exclusive path stays
+> >   lockless, and reset_control_assert() is left unchanged.
+> > - Add lockless reset_control_reset_atomic()/reset_control_deassert_atom=
+ic()
+> >   for atomic callers; gate the mutex on can_sleep so no shared consumer=
+ is
+> >   regressed and so it works on all configs.
+> > - Factor the body into __reset_control_*()/__reset_control_*_locked()
+> >   helpers, and lockdep_assert_not_held() at each lock site to catch a
+> >   controller op re-entering the API on the same control.
+> > - Declare the new variants and stubs in reset.h, and document the sleep=
+ing
+> >   vs atomic variants in the kerneldoc and reset.rst.
+> >
+> >  drivers/reset/core.c             | 125 +++++++++++++++++++++----------
+> >  drivers/reset/reset-gpio.c       |   1 +
+> >  include/linux/reset-controller.h |   3 +
+> >  3 files changed, 89 insertions(+), 40 deletions(-)
+> >
+> > diff --git a/drivers/reset/core.c b/drivers/reset/core.c
+> > index 38e189d04d09..dd6e47163f6c 100644
+> > --- a/drivers/reset/core.c
+> > +++ b/drivers/reset/core.c
+> > @@ -52,6 +52,9 @@ static DEFINE_IDA(reset_gpio_ida);
+> >   *                   only used for shared resets, which means that the=
+ value
+> >   *                   will be either 0 or 1.
+> >   * @lock: serializes the internals of reset_control_acquire()
+> > + * @shared_lock: serializes the shared refcount update and the hardwar=
+e op for
+> > + *               controllers whose ops may sleep (rcdev->can_sleep); t=
+aken only
+> > + *               inside the SRCU read-side critical section
+> >   */
+> >  struct reset_control {
+> >       struct reset_controller_dev __rcu *rcdev;
+> > @@ -65,6 +68,8 @@ struct reset_control {
+> >       atomic_t deassert_count;
+> >       atomic_t triggered_count;
+> >       struct mutex lock;
+> > +     /* serializes the shared refcount update with its hardware op */
+> > +     struct mutex shared_lock;
+> >  };
+> >
+> >  /**
+> > @@ -355,6 +360,32 @@ static inline bool reset_control_is_array(struct r=
+eset_control *rstc)
+> >       return rstc->array;
+> >  }
+> >
+> > +static int __reset_control_reset(struct reset_control *rstc,
+> > +                              struct reset_controller_dev *rcdev)
+> > +{
+> > +     int ret;
+> > +
+> > +     if (!rcdev->ops->reset)
+> > +             return -ENOTSUPP;
+> > +
+> > +     if (rstc->shared) {
+> > +             if (WARN_ON(atomic_read(&rstc->deassert_count) !=3D 0))
+> > +                     return -EINVAL;
+> > +
+> > +             if (atomic_inc_return(&rstc->triggered_count) !=3D 1)
+> > +                     return 0;
+> > +     } else {
+> > +             if (!rstc->acquired)
+> > +                     return -EPERM;
+> > +     }
+> > +
+> > +     ret =3D rcdev->ops->reset(rcdev, rstc->id);
+> > +     if (rstc->shared && ret)
+> > +             atomic_dec(&rstc->triggered_count);
+> > +
+> > +     return ret;
+> > +}
+> > +
+> >  /**
+> >   * reset_control_reset - reset the controlled device
+> >   * @rstc: reset controller
+> > @@ -362,6 +393,9 @@ static inline bool reset_control_is_array(struct re=
+set_control *rstc)
+> >   * On a shared reset line the actual reset pulse is only triggered onc=
+e for the
+> >   * lifetime of the reset_control instance: for all but the first calle=
+r this is
+> >   * a no-op.
+> > + *
+> > + * After calling this function, the reset is guaranteed to have seen a=
+ reset
+>
+> s/reset/reset line/
+
+Ok.
+
+>
+> The sashiko bot constructed an unlikely but theoretically possible
+> scenario that requires to lock _assert() after all:
+>
+> https://sashiko.dev/#/patchset/20261021030925.3543841-1-shengjiu.wang%40o=
+ss.nxp.com
+>
+> Disregard the other issue, deassert_count leaking on ops->deassert()
+> errors. It is pre-existing and can't be as easily fixed because
+> consumers adapted to it.
+
+Ok,  will update the _assert().
+
+best regards
+Shengjiu Wang
