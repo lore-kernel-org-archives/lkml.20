@@ -1,55 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.164
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792672773;
-	b=qbptuhvUYsYkQkrsKvS9dEZlGON83OtJ0LUhmrFP5EIEX5G9vur3+9RV6x642V0Q06Br
-	 y7Cu5Uifr6ZNV5+ihrSxwzBDAafymLawi/SUtTrMNoXzWOL/pUSawwS7kief6k12f04+g
-	 Fbd5T0qvR7w+cwit1Jn/gtQErJXogxOGUFzqNRRNQYekmFtDXdSgBd7UyVkvKVIV3x+FQ
-	 dLkYqqjrQ7BetOO2Jbd+WZqv3DObRn3369D389F8rPzy2iFJMyDxjliZZ953zNQnJVvLB
-	 l3KEsmqj4u2bhHHs1T8DAsqDfM9mywBllet8r4O2fS6IFwwHVU4NABaFfgnnL6ZY+pA==
+	t=1792672904;
+	b=ET/l211vFICRudqeDTRflObpf3yPEEgn4FSrFOJW5uTtV9lO+u/Ga/zBhUQnQpc3G24q
+	 2TYL1D9tW42fCgu2pa6T2HGi5soMiXaJeeKp6sXPqmeT3YZxB3FmL9eI5OFVx+bhPRb3g
+	 vGYE1rLmZPFw4CnshJ0c3ty2sNzJvKZvXAZipjoIwGNS9g6CD81qO6+sZNo5gplzlOHze
+	 gCzbV6OxikoDIRvDmzZ2Guc6R59I8vWwL7f7U4ItG1QFJRhi224Cca3hcVQ6iwfASMCF+
+	 Z0eLKnN9RZw2CBWPoUVNGRwYAbq7e4fRDP/feqO/C1jrkW/oQfLBORhxfMlPNrIcZUA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792672773;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Mime-Version:
-	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:Cc:Subject:
-	 From:To:X-Mailer:References:In-Reply-To:X-Last-TLS-Session-Version;
-	bh=vr2qfukLrxjT0h6sozS6wYrlPR0+n8rkfwJQ3XNYr0Y=;
-	b=pF3MjVu2+504w0L6BeE2PJ4tOW+GhjtUoK/uhJHWoxIVWdHOHJgDUGhtuhKbUQiC5naC
-	 bfx2XYxyxy760acYPFs2PxhbJP2LFIQF7hiNK/4RGrdOk7peEcBEF8Y/X9i0IyStrwZ/v
-	 XZ5exDf+ZkPDVcuGQe0E3a6Hrhib8xwUG2FaH51Yc0TYLL/oLFy7UqR7OdrvFRCnTc8G3
-	 Hdj/X7hOgzRGore9+0CPUSuNEJCe7GWdklOGe+1wwGAXxeeiOb6Y4Bk0tvYwBGz5Zvox0
-	 8N/BcXiQZRtmWBZggC3X9ck53q5DHYYs2KFK78Cyff5mW60MzzI12nnnhXCdFSzkHXQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792672904;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=wbJWk78mn0OUQjjb5FrHOIhob0gYSClNRqitvSrG/2I=;
+	b=XVNJebjWRYcRvn4Q5XDupVZ01rXX9lPqnPQF/zR+77mM0nYKERO8x/CUAAluePHTi8ja
+	 KqRgpMSpMU4wLomcM70jaUcDFVP+GI4mjRrK6YAs7tMbQu8mqJzz3DcsVGcQyTticCIAo
+	 o1YIT/T3qAVJwRvyyYzv6dScENezHsHmV6SG6NImzw0Bhup8Fcit0xbUG9Y/vPhAvvqB9
+	 24NXz7d67HMGBXWZAZaHul+d1OWzepi8sfpdcpf8JRnq7zuDuS9O49bahO1sa1YOCRMBb
+	 Zv0Yu4C0toIK12Vk54wNRUX7MeTJOcaodwyYl8qu6TC9iOrkzCTcF6mrI94VUSik99Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=rzJ+QTGM;
-	arc=none smtp.remote-ip=185.246.85.4
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=dW2RC3nC;
+	arc=none smtp.remote-ip=95.215.58.164
+Received: from mta1.migadu.com (out-164.mta1.migadu.com [95.215.58.164])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CB71606A31B
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 12:39:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9CB71606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 403FE606A31D
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 12:41:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 403FE606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=rzJ+QTGM
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id BE7BE4E412B4;
-	Thu, 22 Oct 2026 12:39:29 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 80BC560360;
-	Thu, 22 Oct 2026 12:39:29 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 62B6410328F2E;
-	Thu, 22 Oct 2026 14:39:21 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1792672764; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=vr2qfukLrxjT0h6sozS6wYrlPR0+n8rkfwJQ3XNYr0Y=;
-	b=rzJ+QTGM2KsPnMHhk5iYDr09q/fzMAFMWI04kaL+VbDQ6Cmk5MD82CebDoXwTenJEilayL
-	+J3H+3TDuIwi9jPKjrtOw0MrK6Rr7Z5oNkClrW0gHEXJ2jKeZ+PDH5w28h3EmvEUseFHi6
-	yS9LvGKTyXUbN5BZsRsH7ZOviG1GNWgWWlqGto4if9HPu/7UWA4E69Tqe2kx70Bry4OCgW
-	7JlUChGu8PF04b9pqLdj9ButmrPdsnmDoT/T7QTTrZQRZHPE+pcbqDuIgqE+C0nEW6RLt5
-	f+IMwuJ2F/A5j7aszvEH99Amm+JBpE6yA5zWC+dknaee8MOpLHBi7E/IXJ8nzQ==
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=dW2RC3nC
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=h6l8HPo9Y9nflW29RMe4Ez3evRSBhkhVHZB03PLHvzM=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792672901; v=1; x=1793277701;
+ b=dW2RC3nC7g713Ol6NnP1YzzBuoxQLyYyJnIVzuYrCZIqjUcrGIrTFyB+Cyr+NvEkofrE2LKl
+ E0iTIJi+zW/BRooXlW+Kz6j393U3cuAPCVIZfYrCijPcVLJzCR7nFLWDAndVKGK+BcTzYpTz2qk
+ M0M8Uv4RzEbYBBgeWSI0HcUI=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id a85b208720a85165;
+	Thu, 22 Oct 2026 12:41:41 +0000
+X-Mizu-Trace-ID: a85b208720a85165
+X-Migadu-Flow: FLOW_OUT
+Date: Thu, 22 Oct 2026 14:41:31 +0200
+From: "Pankaj Raghav (Samsung)" <pankaj.raghav@linux.dev>
+To: Daejun Park <daejun7.park@samsung.com>
+Cc: Carlos Maiolino <cem@kernel.org>, linux-xfs@vger.kernel.org, 
+	Christoph Hellwig <hch@lst.de>, "Darrick J. Wong" <djwong@kernel.org>, 
+	Dave Chinner <dgc@kernel.org>, Chuck Lever <cel@kernel.org>, Jeff Layton <jlayton@kernel.org>, 
+	Dai Ngo <Dai.Ngo@oracle.com>, Sergey Bashirov <sergeybashirov@gmail.com>, 
+	Andrey Albershteyn <aalbersh@kernel.org>, linux-nfs@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH v4 1/9] xfs: mark the inode preallocated for pNFS write
+ layouts past EOF
+Message-ID: <atoEW7EUgDXKS7gh@quentin>
+References: <20261020-xfs-pnfs-batch-v4-0-9230fa2ca4a4@samsung.com>
+ <20261020-xfs-pnfs-batch-v4-1-9230fa2ca4a4@samsung.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,87 +68,74 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 22 Oct 2026 14:39:20 +0200
-Message-Id: <DMBDGGZBYN60.37URQHQR2TS4C@bootlin.com>
-Cc: "Conor Dooley" <conor@kernel.org>, "Liam Girdwood"
- <lgirdwood@gmail.com>, "Rob Herring" <robh@kernel.org>, "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>,
- <linux-kernel@vger.kernel.org>, <devicetree@vger.kernel.org>, "Thomas
- Petazzoni" <thomas.petazzoni@bootlin.com>, "Herve Codina"
- <herve.codina@bootlin.com>, "Miquel Raynal" <miquel.raynal@bootlin.com>
-Subject: Re: [PATCH 1/5] regulator: dt-bindings: Add
- regulator-boot-force-off property
-From: "Paul Louvel" <paul.louvel@bootlin.com>
-To: "Mark Brown" <broonie@kernel.org>, "Paul Louvel"
- <paul.louvel@bootlin.com>
-X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
-References: <20261021-paul-lm51772-v1-0-25f0ffbffa8d@bootlin.com>
- <20261021-paul-lm51772-v1-1-25f0ffbffa8d@bootlin.com>
- <20261021-wind-reopen-490475bc470d@spud>
- <DMAOMKRB8DT6.2DUZQCDZW47X2@bootlin.com> <atn_-NKv45AsROu3@sirena.co.uk>
-In-Reply-To: <atn_-NKv45AsROu3@sirena.co.uk>
-X-Last-TLS-Session-Version: TLSv1.3
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261020-xfs-pnfs-batch-v4-1-9230fa2ca4a4@samsung.com>
 
-Hi Mark,
+On Tue, Oct 20, 2026 at 12:08:44PM +0900, Daejun Park wrote:
+> xfs_fs_map_blocks() marks the inode XFS_DIFLAG_PREALLOC after it
+> allocates blocks for a write layout, so that xfs_free_eofblocks() does
+> not free blocks past EOF that a client may write to. But a write layout
+> for a range past EOF where blocks are already allocated, such as the
+> speculative preallocation of buffered writes, gets those blocks without
+> an allocation, and the inode is not marked. blockgc, or the release of
+> the file, then frees them without breaking the layout. The client still
+> writes to them, and they may belong to another file by then.
+> 
+> With pynfs as the client, a file grown to 1 MiB by two buffered writes
+> on the server had 960 KiB preallocated past EOF, and an RW LAYOUTGET for
+> that range got it as one INVALID_DATA extent, without the inode being
+> marked. About 300 seconds later, with the default
+> speculative_prealloc_lifetime, blockgc freed those blocks while the
+> layout was still held. When the client then wrote through the layout and
+> sent LAYOUTCOMMIT, xfs_fs_commit_blocks() found a hole where the
+> unwritten extent had been, and xfs_iomap_write_unwritten() allocated for
+> it with no blocks reserved:
+> 
+>   XFS (nvme0n1): Corruption of in-memory data (0x8) detected at
+>     xfs_trans_mod_sb+0x817/0x960 (fs/xfs/xfs_trans.c:351).
+>     Shutting down filesystem.
+>   ...
+>    xfs_trans_mod_sb+0x817/0x960
+>    xfs_alloc_vextent_finish+0x2e7/0x990
+>    xfs_alloc_vextent_start_ag+0x25d/0x720
+>    xfs_bmap_btalloc+0xdd2/0x1720
+>    xfs_bmapi_allocate+0x197/0xf90
+>    xfs_bmapi_write+0x4d0/0xb60
+>    xfs_iomap_write_unwritten+0x307/0x7e0
+>    xfs_fs_commit_blocks+0x1d9/0x630
+>    nfsd4_block_proc_layoutcommit+0x5c2/0x7d0
+>    nfsd4_layoutcommit+0x4b5/0xa20
+> 
+> The client got NFS4ERR_IO, in six runs out of six. When small files were
+> written on the server after blockgc, with a sync first so that the freed
+> extents were no longer busy, they got those blocks, and the client's
+> write through the layout replaced 978944 bytes of their data before the
+> LAYOUTCOMMIT. A LAYOUTGET and LAYOUTCOMMIT 30 seconds apart, before
+> blockgc runs, leave the client's data in place.
+> 
+> Mark the inode also when a write mapping ends past EOF and nothing was
+> allocated, the same way as for an allocation, before the blocks are
+> handed out. With this, the same test keeps the blocks past blockgc, and
+> the LAYOUTCOMMIT after 360 seconds succeeds with the data in place.
+> 
+> To share the update with the allocation case, set a local update_inode
+> flag in both cases, call xfs_fs_map_update_inode() in one place below
+> them, and move the log force into xfs_fs_map_update_inode().
+> 
+> Fixes: 527851124d10 ("xfs: implement pNFS export operations")
+> Cc: stable@vger.kernel.org
+> Reported-by: Chuck Lever <cel@kernel.org>
+> Link: https://lore.kernel.org/r/4de5356f-bc4d-4f1a-9c81-fce09b1b46fd@slotpi15m67
+> Signed-off-by: Daejun Park <daejun7.park@samsung.com>
+> Reviewed-by: Christoph Hellwig <hch@lst.de>
+> ---
+>  fs/xfs/xfs_pnfs.c | 34 +++++++++++++++++++++++++---------
+>  1 file changed, 25 insertions(+), 9 deletions(-)
 
-On Thu Oct 22, 2026 at 2:22 PM CEST, Mark Brown wrote:
-> On Wed, Oct 21, 2026 at 07:11:51PM +0200, Paul Louvel wrote:
->> On Wed Oct 21, 2026 at 7:01 PM CEST, Conor Dooley wrote:
->> > On Wed, Oct 21, 2026 at 12:27:42PM +0200, Paul Louvel wrote:
->
->> >> +  regulator-boot-force-off:
->> >> +    description: a regulator may be enabled by default when the syst=
-em powers up.
->> >> +      A consumer may query the regulator's state during boot and dis=
-able it if
->> >> +      it is already enabled, potentially resulting in an unbalanced =
-disable
->> >> +      operation. This property ensures that the regulator is disable=
-d at boot,
->> >> +      regardless of its previous state.
->
->> > To be honest, I'm not sure how the commentary about querying the state
->> > or being unbalanced is relevant to the description - that sounds like
->> > something specific to the linux regulator framework?
->
-> I'm fairly sure this is about masking some driver bug, a driver should
-> never be disabling something it didn't enable.
->
->> Yes it is. Maybe I miss something, does this binding is used outside lin=
-ux ?
->
-> Pretty sure u-boot uses it.
->
->> > In fact, I'm not sure why this is needed at all? Can't you just change
->> > the software so that it is okay to disable a regulator that has an
->> > explicit enable count of zero?
->
->> Do you mean by calling regulator_force_disable() instead ? I thinked abo=
-ut that
->> but I don't think this is ideal.
->
-> No, you should only be using that API for recovering from catastrophic
-> hardware errors where you're cutting power to do something like
-> preventing physical damange to the system and serious disruption to
-> other users is an acceptable cost.
+Looks good,
+Reviewed-by: Pankaj Raghav <p.raghav@samsung.com>
 
-Then I think a straightforward solution without any core change would be to=
- call
-regulator_enable() and immediately follow it with regulator_disable() in th=
-e
-consumer driver's probe function to ensure that the regulator is in a known
-disabled state.
-
-I have considered this solution, but it doesn't feel quite right either, bu=
-t
-neither does this patch.
-
-Thanks,
---=20
-Paul Louvel, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
-
+-- 
+Pankaj
