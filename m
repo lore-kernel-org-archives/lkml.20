@@ -1,83 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792651602;
-	b=z85ZNP9xduXt//7YSPO8jPKUp6Fl9V0WE5g6kRWV3nYJvtoYDu6h/ihaN+km3tTLJgg4
-	 cNTvyZBUu7BxE4jLlYfzknbQInTRsCH1ROSdYYlgqgv6WzuojOWn/91yOBQg/6UodXtir
-	 COUCeApmZIjJOojZNmTCMiCKa47NlMeoGPBPhpGr/0j3915rL5BZ1HRSt/mtUmKBu0sue
-	 ywJtm1rVjPs+mvqeReSzoA8GxBa77x5cegyssAhmEkgar1k4t7MUGb1gLIwHGeFYZFWXn
-	 YkV5aC4MW+4t3C+vCKP3sQnCXnzY5cCki2Ba8m4WMq6af5dpwg8OZGlWywqdjZcMSww==
+	t=1792651608;
+	b=5XFyVmVtEYDv52GiUY1wtKeKFmlNSm3e+3wirBi54aJT6lqbGFPXVdJxVKSTolre3G/j
+	 YAC8F8e5UZvL3iNKyK3r8VibaSFH/7S4HqhgV7xvFG1DqKE8qJ7gs6ePagAgDDZmwfV3T
+	 jRdvlcgib3V1g4f/QMfRI0mV3zfalLasOt5iD6cVDE9I2MhUxsE/Gn9PH1HuJfH9w9RJT
+	 HPj6Px7VjXgSx9kC4VEFgHtsaVzzcX8g1qe5M+vKFqGDK2xjMwlg9OPXgXm6V5tems+3r
+	 CffNAUW6rzxpUBoQ76uOX6ciJRHyiX3xa55PTH7ZfynORzgqMXyQ/VRs9LE7N3NXqag==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792651602;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792651608;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=6hyPiRO1YLgh5z7vpK+8rbMGtfzuaM8kNLxgiQL1q1o=;
-	b=2MDhkZSlpLF+NhAhlENoEkbUIm/9dCk1swZAQsCv6j5nwAPg6kwMGA89xE9QNvPpzuk9
-	 E4FtPHNJQXqTXOzUP6nWZ3RC+C+AVB8Jp5a39Kky9xZ6nJoRpf4NTf+FwIJZ7VUpHNcnL
-	 38G765srUQaLfsv0xpil+u/nuobMfgqBAilkdmSei9VVcCRnxdYLfwvZ45IMB/L4KOxdk
-	 HjEF+EJP6BM7xkan7B81Y+PJqU9L8SfODERzy9+WtI2XPiNxkScc7gIvWBSPCM1bAOsZJ
-	 Df6K42wBhAFwmtvoQYOIzjvzlwDo25RfMYnNDtTfHTxVPXC+pGgdilHqFgwoSpTOIDA==
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=U2m1NOxjt9F2BRgX+AxlY6ccXZ7NGdaeYHeYEfzi92w=;
+	b=ZQ2ooncmiUAiOIHiRU4xcQ8R/WKDW5hyEivUN9AVRltRbXJcUSPgUxw22QpilaWIb1wB
+	 4PH/NNA1df8S1OuYVJYEyTCTd7NuQ2Eo1Bc6fJseiyxl5nMy9rG7NiWAhtkhv9nDvhKrl
+	 Hf+hBSdBA4ZbDXsi4imfjgV1vqY55wy8xd1XezE+P75wu3DmFBn/7sxe3/gLg1nL3JXV0
+	 cQTSt0xzvqTBORhCtYEFT+T/b+pQKcPL2RVCJwPds828UPN74f6JpWuuDbbNQeGEsXx2Y
+	 5dIyRflexUtYKW7ZdBldN3FXJvGY0XBD0toNqNmX24L0qfAFTU7xCosdZO6SjVq3cng==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=mMySRvdX;
-	arc=none smtp.remote-ip=209.85.221.52
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=GF7ZGPL6;
+	arc=none smtp.remote-ip=209.85.221.45
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71DC3606A31D
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 06:46:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 71DC3606A31D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D61E2606A336
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 06:46:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D61E2606A336
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=mMySRvdX
-Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-48b001cd92bso824517f8f.2
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 23:46:42 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=GF7ZGPL6
+Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-48b060ec084so1115662f8f.0
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 23:46:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792651601; x=1793256401; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6hyPiRO1YLgh5z7vpK+8rbMGtfzuaM8kNLxgiQL1q1o=;
-        b=mMySRvdXD81ZSX+EmqQQax9e08NSFdSVvtDJrnGftqpYE6a93r82F63dH+Tkd82jBa
-         GgT4Zfv95T4LDj5VnmnNA3YjHSyHe1Dis7FTnnCqLkIFJzWQ+ssLIr/8glFXUkVq8GiC
-         R31Axf1dUG3ksK5Wx3Hjsi9avVUsruDwwp7gES60syWHlxFTaW3R5tP2HEVnx1VerfaH
-         t67nu3Emp5dluNDA94fEcxvq40FUhc7PGWdk81mljEP9ws44z9qurveXPhSJ4hFxh4Tp
-         +ISKJsbRnJ9DK9K30cf2orP0ykx7QykPP0+pb89/nF4M+fNz6ZsX80CC9opqF8AZ4McP
-         trzQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792651601; x=1793256401;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1792651606; x=1793256406; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=6hyPiRO1YLgh5z7vpK+8rbMGtfzuaM8kNLxgiQL1q1o=;
-        b=pnqBgGvnmGqdqr5zvpkNmiP3HFlBXNqmy4f7jL5+rld60zFlA97Ith42q+Wt07ulPr
-         0xb6z/6ZfUAqCiWMduuRawShSTsPyYayALjVQwJTn+AbTiazzfPnTE1NAT7yXZzAhy+k
-         T5vsiAx/XcT1bQAVbkDa4mXoFmoqhTIiAtvokaluDjPiA/fiK89wqkTHK7qTDQfflEsm
-         EMfsx6pFKu/GhIde2egT1+8IMhhg00UHa9V5sZdPuKlMxA6bXHGYOa8QRznSzxAuZp4L
-         3aI3pyS3RQH2/hB6Fk3MOqeyQu8+mygIZpLI6n1ltHcKd/FtNN7/t3gg6YhCSB6TS1E+
-         PJiA==
-X-Forwarded-Encrypted: i=1; AKwUvBwblhEvZJO9rrAUtHZ5/A49umzW8AvsIu/miXxomSCG50/zgrEkcs3cA90zInRPnYYHLmbofbWVM2ueXiU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL+r72tq7u2u2kKp4ymI/5coG751CyPTVHSPZCrFfUzq3GnNv2v
-	Wuc40eLTcP6W/zz7m1UvGGmYHQP3sWdXPF9e5i39xSsH2YRsw27KBm2e
-X-Gm-Gg: AYBFou1LOYBTxhXGtUmiJWa3B5zNOgUgeF2RNvsBtqt03KCfWbuZR+b3It0BhijZHMQ
-	WWElklOBllrsjIGdrt4yKwIyODcBvYQIFCei6VfeCCMSLMFptyYrLvIvwL+mLM07iAL0isWGpOG
-	Q3tqPFZx9uc0Zf9T/jC8cEw43lE9zqUF+yv0MInGfWWXnrKTe+lZTNAG+eg/gimo1CDwGnNMbTw
-	UXlDIh1d5z+d7PhDz+UVGCfZbFJluPSzD7A1csxeAvDhzYK4MrfBlCoguG3rR/yaXGOee+G+uRW
-	58i6Vkrho5GS3z3rHaQjvUMEe6W05q7oTCuG9NXR/WO4uk/Nwata9CMWgTGTh6RYXJ8OuAn/x7i
-	sqOe1458szOdTSIEfrNqBUA3jxFWuYYUHr/P49Yt0ilkg6s6FHwridlQUKMEv7wPkcvhQrfkJLK
-	Zh/oY5W/DM+lGcRwOu5/A7Tvmm5uQ28cMGRCMvMv8cunMFZZLA12cKydJ4PcrmQH1LBhMTakt1j
-	6tB+gAWhYkrN72Z5AEcBeKWf7WhCAUCGWRTDIUC/6Q/vR39Mq39ecwRPeJRQ9r3ZwN2aiHcowRg
-	nWAvtDNT3dKD3kCnPmsjsrfF8vMl9WNTiE52h5IAo3usqJVzotFyAlOyh529rFw/YTDNqoGayrK
-	tNNUG9uf2Fjwnv3xrR2ra8HWKYOseYQ2vMCyA3m4sSn4dcI4UPomARbd4f7W2u/hd
-X-Received: by 2002:a5d:64e4:0:b0:48b:118e:7454 with SMTP id ffacd0b85a97d-48e264bd971mr9315929f8f.31.1792651600585;
-        Wed, 21 Oct 2026 23:46:40 -0700 (PDT)
+        bh=U2m1NOxjt9F2BRgX+AxlY6ccXZ7NGdaeYHeYEfzi92w=;
+        b=GF7ZGPL647B+FNnG04dpET3G8O5xXb61EKo7cJWaxZ39oPa+V/POXl/DjBPqCyvukr
+         uxvVa726bZh5CWEE9C7t29Ca44cLmFKZB8DJAH7gHp2zbYn6eGy3iw/+MTdY/Y+c1dLd
+         bsFmozeSaCQlewtrAFN3OOFEDHko98J7y/YjiPzAcRPMrS20L8WbdKJ9qmumOOE4DVoc
+         l2PknbSPoWVGrlc5N7LF0nwMjR892vdBSDTGyLSerl6iFlzmnvYoF/OysRdU1WZs4YeE
+         K33nwxsxDqHVwCzDED4gqyWjfL/dhrrbehq2DtdmXAZPe0x51KBUtwPLlLd3WNi+aPr9
+         1/TQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792651606; x=1793256406;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=U2m1NOxjt9F2BRgX+AxlY6ccXZ7NGdaeYHeYEfzi92w=;
+        b=w2A21NaurjNXvZpKBRwxPljh4OlIUxzUIT7RVYxs0xQXSeQUbf+s8LrJiinJtxT+hB
+         Y+Zbrb01CPQkRW7hRCPm/pVev3EzPJt+kTNjsLsTQHUERw+Pv2T+XIV6xdpwBqyVgX2J
+         wOJVFqSUWjE/kRfBv76YWXgRL7HQ3s3sGTHt/wELK/uu7bpb11isCbpB8C2FRLsM9idN
+         KocDNeiOvUTaArJkSdI4uLb33Zy2NjuZhQBNiSr30bX2eugAyy6RGoyNWC9fTgOZusDR
+         yAPwiYxP6j8WkgL8/7cn0Prt0WOSe75EY+OKJT2iVy3Jj5KPkzdA43Bi8BaKHBjiymNX
+         wcHA==
+X-Forwarded-Encrypted: i=1; AKwUvBwuWZ+F6R+5FZldqFTFk03u+vCCXwHeADfktYGs1JGIBxS4HUvneVpIhcUQez/oZyIQFipPyGS/3TZ9MTY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL+cGIO3e2Nn8PlzbYGU1QYoWXT9OZtSdtWMNnxOuHpcDB5pAPS
+	s45XsTqXtkGjUUvdysX5zCKfg4DpWpbVkblcmLGjp4ZtETXOJ5B+/zP/
+X-Gm-Gg: AYBFou11MdFU61qT8TTiE7IL1mw6nCN2X7vBbhtzV/2mbvXoOBKdY//mT2THQegr3Ki
+	0mNK+8dCSdIjyOG/4cDfgNsyDEmBSp2UUeGnOO383yfAs614cxapF0spvubmAzo3dp/4EOOL/Tm
+	7UbJKB6MviKdHI/3G8R0DDmsARL6NA1IsB3svx89vufLp8elpATW3brEU5VxG0JBElSIsNS7g1u
+	Pn7JXSz6JSDaKyyX8adr1e3E/rJTUAVFmrUQTzZgs29AjJ/rTYnSEjy2FSpfdjVYFRRQC/ZA0Sw
+	lITKyFxobZt1OX9IuWJSeI1IrxMoUkWZmQJo0zkz0gDzPyBpf8EN968ZbmM+6WGvKKBuF9ZCAoJ
+	fwWkwdnGHfQIAP5vei5kO3Zu97xx4eCQlPOYzsj5YAaN2jkjiUBtsg3OkGgIkyQacFgexn9D0S1
+	JNiDQ9G5x5xJRb0n9vv7Z2RnuFXKAgKDpOU3Y8O0a2nRxgk9Y8aQ9dt5w+jfEc9qyxxofLZHajO
+	NJrSFl7xQDAY355EWtmkho/1Fc9Rns+ZcysFGSMgIGHH9pi9+60TJlv70h1Hp+XkwBD+3JbS3zt
+	caxTFvXPy1qA+dycB1VexS40FbPVDMv2VLMBzFshT1MqPU0K2G8uruZVFcpu6957/4bsYT14uPv
+	uazt51+UXQTfUGt9Gapt6j871VV9IuQm5mS2PnJLL2Sjocofp4zbjvKj8xypchDTgYg==
+X-Received: by 2002:a05:6000:310c:b0:48d:faf4:54a8 with SMTP id ffacd0b85a97d-48e26493bedmr9081092f8f.11.1792651606193;
+        Wed, 21 Oct 2026 23:46:46 -0700 (PDT)
 Received: from localhost.localdomain (dynamic-2a02-3100-ad43-d501-2c28-bb72-120d-420e.310.pool.telefonica.de. [2a02:3100:ad43:d501:2c28:bb72:120d:420e])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e25828cd1sm10215624f8f.22.2026.10.21.23.46.38
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e25828cd1sm10215624f8f.22.2026.10.21.23.46.44
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 21 Oct 2026 23:46:39 -0700 (PDT)
+        Wed, 21 Oct 2026 23:46:45 -0700 (PDT)
 From: Karl Mehltretter <kmehltretter@gmail.com>
 To: Marc Zyngier <maz@kernel.org>,
 	Oliver Upton <oupton@kernel.org>
@@ -99,10 +100,12 @@ Cc: Karl Mehltretter <kmehltretter@gmail.com>,
 	kvm@vger.kernel.org,
 	linux-kselftest@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [RFC PATCH 0/3] KVM: arm64: Preserve level IRQ re-pending
-Date: Thu, 22 Oct 2026 08:46:25 +0200
-Message-Id: <20261022064628.4206-1-kmehltretter@gmail.com>
+Subject: [RFC PATCH 3/3] KVM: selftests: arm64: Test pending writes to active level IRQs
+Date: Thu, 22 Oct 2026 08:46:28 +0200
+Message-Id: <20261022064628.4206-4-kmehltretter@gmail.com>
 X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+In-Reply-To: <20261022064628.4206-1-kmehltretter@gmail.com>
+References: <20261022064628.4206-1-kmehltretter@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -114,56 +117,141 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-A guest can set a level interrupt pending again while handling it. The
-GIC records Active and Pending and delivers the interrupt after
-deactivation. KVM instead drops the second pending state for both the
-GICv2 and GICv3 backends.
+Add a two-vCPU GICv3 test for a level SPI set pending through
+GICD_ISPENDR. Re-pend the interrupt while it is active, first from the
+handling vCPU and then from the other vCPU. Require a second delivery
+after deactivation in both cases.
 
-The VGIC keeps software pending state outside the LR because commit
-67b5b673ad4d stopped placing Pending and Active together for level
-interrupts. When the LR is folded, KVM cannot distinguish the pending
-state used to populate the LR from a later ISPENDR write. This series
-records the later write and preserves it across deactivation. The last
-patch adds a two-vCPU GICv3 selftest.
+Also check that the other vCPU observes the initial pending state
+before the interrupt is acknowledged.
 
-The awkward case, and the reason for the RFC, is a write from another
-vCPU while the interrupt remains in an LR. KVM cannot know whether the
-write preceded or followed the guest ack. This series preserves the
-write. A pre-ack write can therefore cause one extra delivery, while a
-post-ack write is no longer lost.
+Without the VGIC fix, the pending state is cleared on deactivation and
+the test fails before the second delivery.
 
-The exact alternative is to stop and synchronize the target vCPU
-before applying such a write, as the active-state accessors do. Is the
-conservative replay acceptable here, or should ISPENDR pay that
-synchronization cost?
-
-The issue was reproduced with Zephyr, NuttX and RT-Thread guests. On a
-Raspberry Pi 400 host with a GIC-400, each GICv2 guest handled the SPI
-once before the fix and twice afterwards. A direct GIC-400 register
-test also delivered the interrupt twice. With a QEMU TCG GICv3 host
-running KVM, the new selftest failed before the fix and passed
-afterwards. Existing vgic_irq and kvm-unit-tests GIC cases passed on
-both versions. Those runtime tests used 8623551a424d.
-
-The series applies without conflicts to kvmarm/next at dd0bc00e3e92.
-The modified VGIC objects pass an arm64 GCC 14 W=1 build there, and the
-selftest builds natively on arm64. GICv5 does not use the LR path
-changed here. I have not tested a mapped physical interrupt or VFIO.
-
-Karl Mehltretter (3):
-  KVM: arm64: vgic-v2: Don't drop pending writes to active level IRQs
-  KVM: arm64: vgic-v3: Don't drop pending writes to active level IRQs
-  KVM: selftests: arm64: Test pending writes to active level IRQs
-
- arch/arm64/kvm/vgic/vgic-mmio.c              |   9 ++
- arch/arm64/kvm/vgic/vgic-v2.c                |  13 ++-
- arch/arm64/kvm/vgic/vgic-v3.c                |  13 ++-
- include/kvm/arm_vgic.h                       |   1 +
+Assisted-by: LLM
+---
  tools/testing/selftests/kvm/arm64/vgic_irq.c | 101 +++++++++++++++++++
- 5 files changed, 131 insertions(+), 6 deletions(-)
+ 1 file changed, 101 insertions(+)
 
-
-base-commit: dd0bc00e3e9201fd49b62ff9cc07890c89003afe
+diff --git a/tools/testing/selftests/kvm/arm64/vgic_irq.c b/tools/testing/selftests/kvm/arm64/vgic_irq.c
+index 3cb85932ee85c..81f38e523d3c0 100644
+--- a/tools/testing/selftests/kvm/arm64/vgic_irq.c
++++ b/tools/testing/selftests/kvm/arm64/vgic_irq.c
+@@ -959,6 +959,106 @@ static void guest_code_timer_spi(struct test_args *args, int cpuid)
+ 	GUEST_DONE();
+ }
+ 
++#define REPEND_READ	1
++#define REPEND_READ_DONE	2
++#define REPEND_WRITE	3
++
++/*
++ * A level-sensitive SPI that is set pending through GICD_ISPENDR stays
++ * pending for every vCPU until it is acked. If it is set pending again while
++ * it is active, it becomes active and pending and must be taken a second time
++ * once it has been deactivated. The second pending state comes from the vCPU
++ * that handles the interrupt in the first round, and from the other vCPU in
++ * the second.
++ */
++static void guest_code_level_repend(struct test_args *args, int cpuid)
++{
++	int i;
++
++	gic_init(GIC_V3, 2);
++
++	gic_set_eoi_split(1);
++	gic_set_priority_mask(CPU_PRIO_MASK);
++
++	if (cpuid == 0) {
++		u32 intid;
++
++		local_irq_disable();
++
++		gic_irq_set_config(MIN_SPI, false);
++		gic_set_priority(MIN_SPI, IRQ_DEFAULT_PRIO);
++		gic_irq_enable(MIN_SPI);
++
++		for (i = 0; i < 2; i++) {
++			gic_irq_set_pending(MIN_SPI);
++
++			if (i == 1) {
++				/* Not acked yet: the other vCPU sees it pending */
++				WRITE_ONCE(args->shared_data, REPEND_READ);
++				dsb(ishst);
++
++				do {
++					dsb(ishld);
++				} while (READ_ONCE(args->shared_data) != REPEND_READ_DONE);
++			}
++
++			GUEST_ASSERT(gic_irq_get_pending(MIN_SPI));
++			intid = wait_for_and_activate_irq();
++			GUEST_ASSERT_EQ(intid, MIN_SPI);
++
++			if (i == 0) {
++				gic_irq_set_pending(MIN_SPI);
++			} else {
++				WRITE_ONCE(args->shared_data, REPEND_WRITE);
++				dsb(ishst);
++
++				do {
++					dsb(ishld);
++				} while (READ_ONCE(args->shared_data) == REPEND_WRITE);
++			}
++
++			GUEST_ASSERT(gic_irq_get_active(MIN_SPI));
++			gic_set_eoi(intid);
++			gic_set_dir(intid);
++			isb();
++
++			/* The second pending state must not have been lost */
++			GUEST_ASSERT(gic_irq_get_pending(MIN_SPI));
++			intid = wait_for_and_activate_irq();
++			GUEST_ASSERT_EQ(intid, MIN_SPI);
++
++			gic_set_eoi(intid);
++			gic_set_dir(intid);
++			isb();
++
++			GUEST_ASSERT(!gic_irq_get_active(MIN_SPI));
++			GUEST_ASSERT(!gic_irq_get_pending(MIN_SPI));
++			GUEST_ASSERT_EQ(gic_get_and_ack_irq(), IAR_SPURIOUS);
++		}
++	} else {
++		do {
++			dsb(ishld);
++		} while (READ_ONCE(args->shared_data) != REPEND_READ);
++
++		for (i = 0; i < 64; i++)
++			GUEST_ASSERT(gic_irq_get_pending(MIN_SPI));
++
++		WRITE_ONCE(args->shared_data, REPEND_READ_DONE);
++		dsb(ishst);
++
++		do {
++			dsb(ishld);
++		} while (READ_ONCE(args->shared_data) != REPEND_WRITE);
++
++		gic_irq_set_pending(MIN_SPI);
++
++		WRITE_ONCE(args->shared_data, 0);
++		dsb(ishst);
++	}
++
++	GUEST_DONE();
++}
++
+ static void *test_vcpu_run(void *arg)
+ {
+ 	struct kvm_vcpu *vcpu = arg;
+@@ -1073,6 +1173,7 @@ int main(int argc, char **argv)
+ 		test_vgic_two_cpus(guest_code_asym_dir);
+ 		test_vgic_two_cpus(guest_code_group_en);
+ 		test_vgic_two_cpus(guest_code_timer_spi);
++		test_vgic_two_cpus(guest_code_level_repend);
+ 	} else {
+ 		test_vgic(nr_irqs, level_sensitive, eoi_split);
+ 	}
 -- 
 2.39.5 (Apple Git-154)
 
