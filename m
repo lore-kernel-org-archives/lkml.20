@@ -1,54 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.81
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.70
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792635517;
-	b=fjgvOweQ9wcN6Kjm00AkGVadJ2IaCVhZWZLU+TjRYGWUhIpZ4VmOKvKOJya1UdZwN00F
-	 FAuvtGNSaaSM/cSj/gurDNcoBolX9OTGjaH6jBjhJQJ84hQHOfiWs2LW0K6HhkkB87dno
-	 QGmihfu7t7UftNuPQhXqhtRpFA1crXzz0vKbNImdXuQz5EilMLrvxNnv4z8rWERrE1Zke
-	 T8lEhxtADaGzPYd0cpmrbItMOcMVnoJtSbYcSnz/fMjVDXaqU3MboIPdW/OpFMHuPJLN4
-	 bLG1Lh7/ATELEs/TMbFvEorlnia87VJQNwWZNSW7R3wj/IUz5CvRpYZv7WW0SDZASUg==
+	t=1792635505;
+	b=SF0zh6gF9fy0Ioy0wmbn3ClWX0VOPfeoI64BIRkBDQ0GhW4lZ1981dOYs9hqr7Vhl1qT
+	 9ebv+iNcOy0blB9M5tTul6lTTSwg35gfbTdg2mcIIRY7S1Ow1Ykm4LJjWI/qxe0JFYzJZ
+	 Q3jyiFc9K5EkPlIeBxdOHI3QmKFvZi9YaSUylHqfVN9eqWx3fhk2CFjSuAxwOTw3yWN1O
+	 pDJjJJKlj8ddNP50UtEOngnYAZUol+VSGHZa8jCAs9wL3qHiPTahz51/EKL5f+1sZ4l8v
+	 wBX3QAWDHBMQGHIIDCS8igI4OahKFxlz5pA8az5opcI3wbggYx+OIYdkSrj6KzB9k/g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792635517;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Content-Type:Mime-Version:Subject:From:
-	 In-Reply-To:Date:Cc:Content-Transfer-Encoding:Message-Id:References:
-	 To:X-Mailer;
-	bh=5FdXvp0CpV6t+Cak3H9/hip6PpHzjqeJ2F/KsA5v8Bg=;
-	b=bAPQKxwjVodIXFy/cpIzbglvJm5XF2iq9wnpXhTyqkMnjGmszN1FH/iRRrLF2w2n3PKP
-	 ZLJ9/866ignv9yoSValtLFiLGZ3f/Rlrn3S7xvYM6JWXfJYJHma2jURH/IPWQp/TkKJDu
-	 /xTNjKKPvC31G272Lni2Q6Om9ArAQjlYqZFL0V7CFBEmwO+KWt7CMkE7X0BNsg3EOwKND
-	 um656LfnbXpX0nG93WJI111q0Q7xA/dBj/C1Yr8nAkSHB5LHJANENN5cjGArOoxxNcqyg
-	 CmgfJYlX7KEm+tKORgKOxJEoruceS2LIpMbH4ctlvkpkSVj+dEVurCE9jj7IhUuj+Ew==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792635505;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Reply-To:Date:
+	 In-Reply-To:Mime-Version:References:X-Mailer:Message-ID:Subject:From:
+	 To:Cc:Content-Type;
+	bh=zKOY3KM6W7cTDdHPqzyzy77JGlYO/MSVD6fvE2c4CzM=;
+	b=t6ENLf8rajdvsdgz+gQ2CPZj4m6mvF3LYofHB0PdF1TVQd4a9uG+FlgCoYHm8kIX7BaJ
+	 9lusyeYtAbyr7PjGNkYlyollKSf1IHEnkfY40gkUsDXhpzTCGMsW8L3Rm2qs89iVrKtHc
+	 5oQ4STc8yAFAzyvtN1At+v0R7VpFP4WmhwFGjEav4JXMUhA2TxR1z71nl99tbnbn//QIJ
+	 7uzgLXMDNn+OHRuHMH7Rb+9quTZShSyEjNI1DZi19wigj3UIj7rzX0w2N6J9jp9YlfG6j
+	 5CEHriC9J+9AcigS6mWUgKLmHfPaS/M3LFBY58RGCoEouXqJIHEKZCTf2Y2NeP2t6nA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=IBxQWFNP;
-	arc=none smtp.remote-ip=95.215.58.81
-Received: from mta1.migadu.com (out-81.mta1.migadu.com [95.215.58.81])
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=QKVmesTO;
+	arc=none smtp.remote-ip=209.85.216.70
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52EA3606A31D
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 02:18:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 52EA3606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDE5D606A32C
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 02:18:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BDE5D606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=IBxQWFNP
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=MPi9YymNFv5TIm/0npc+3JpMtggtpk/tzZ51y3ItgYU=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792635514; v=1; x=1793240314;
- b=IBxQWFNPCvnFrgSk8wNrkI7Oi/n4lRyy9RW2H4ACiAxmQo+skmFBWY2sjZuCvAUumhz1cqSC
- D19c9ufAOOOr5StR1gJsNJPR3IXEVxdRLOYYRwKOIasZF9J/E9sLrfcmRQY0jjVEbKCnvaVJ231
- DA0VtRiikZiT5pSlcn2zXRsk=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id 4b7912ba18c63ef4;
-	Thu, 22 Oct 2026 02:18:34 +0000
-X-Mizu-Trace-ID: 4b7912ba18c63ef4
-X-Migadu-Flow: FLOW_OUT
-Content-Type: text/plain;
-	charset=us-ascii
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=QKVmesTO
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-3ad53f538d2so1384002a91.3
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 19:18:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1792635504; x=1793240304; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:reply-to:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=zKOY3KM6W7cTDdHPqzyzy77JGlYO/MSVD6fvE2c4CzM=;
+        b=QKVmesTO/tg+usxx4kVKRSyM9RPnxeQCvRRGHurKCKkI7MOiaYNY2akdqtUblKap5y
+         SmpQeXyiVhNzj/k8yGtId1byXHKARKfTwvof74QU13Ng/Q60bL1qWOIxHwMhzlnQbQNZ
+         pjfi/S42kyluBGL5+Nv6Pxw9fr8TUnh+FEgdnSL9MU/1U3XiqvM3zAu0jyIyHUYe+NUY
+         ZKjHAixOJ8p4AUTQvwbEqkCOM2TE5dFUDMfCfEOArWCn6U907wADJmsVpIo5yJP0eToU
+         J8el525NCZP3nA0PdQhJZPwmaa2UyEWDnuqZFlM47Tx8yASLsG0QBbqXt67uiQMGSOxC
+         mdXQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792635504; x=1793240304;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:reply-to:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=zKOY3KM6W7cTDdHPqzyzy77JGlYO/MSVD6fvE2c4CzM=;
+        b=g/pu2FEhwne6S2Pi33iRMzRQ3Nr00vb7ejMEnSlq0enChPyVOV6PzL8WHT8hGP/rT+
+         OJ1vF4kwk4fV6WWfexj7KY9AvOcWl5h4Zwce8nWJbQp6IOoot6rOvuldKrMOeo8eoRX2
+         WyV9K35c4CzqwCrNbiJmE1aJzyf1jlXwpWYOEENQYEPFPUHXXKPdRpxwPYhehVeJC9KZ
+         mT126AClyq1PHZcnOsl+4wM8kN2zzR+wVJZSJZXVzpmXI73FVnrEQloKcF2IaKk+MHUn
+         92e1johZTpt5I3be1idvnI8r2KOMAG6LepQUv97lOUfnHL5bo+cY25BA6CO8g29TJ8Qf
+         KECQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwjtf9Wr9Oj5P7AqENPz2XaMxPbZLlP+YuoSmQTYAvN53WEcGD4cZxnw5eXlKkRysUC+mmMQnY65mNVxfw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJOYrhNa2beC6wD8m3EpsrdRWyeU9GbbaZpJJqnzByF+QXPh1CQ
+	KtXD3+OzKDJrfCsCoceJcUMG3ajLpELeyfus6tXxKxpSLfPfQUWm7UwqASo6RnIHxkyBpevzdt3
+	4wo7UpA==
+X-Received: from pjsa18.prod.google.com ([2002:a17:90a:be12:b0:3ad:4377:79ba])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:224e:b0:3ad:6781:da6b
+ with SMTP id 98e67ed59e1d1-3ad86cd6d65mr3204983a91.62.1792635503892; Wed, 21
+ Oct 2026 19:18:23 -0700 (PDT)
+Reply-To: Sean Christopherson <seanjc@google.com>
+Date: Wed, 21 Oct 2026 19:18:19 -0700
+In-Reply-To: <20261022021820.298886-1-seanjc@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,82 +79,58 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.12\))
-Subject: Re: [PATCH] mm/page_counter: use WRITE_ONCE() for emin/elow when
- parent is the root
-From: Muchun Song <muchun.song@linux.dev>
-In-Reply-To: <20261021204818.3431099-1-shakeel.butt@linux.dev>
-Date: Thu, 22 Oct 2026 10:18:17 +0800
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- Johannes Weiner <hannes@cmpxchg.org>,
- Michal Hocko <mhocko@kernel.org>,
- Roman Gushchin <roman.gushchin@linux.dev>,
- Chris Down <chris@chrisdown.name>,
- Meta kernel team <kernel-team@meta.com>,
- linux-mm@kvack.org,
- cgroups@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- Sashiko <sashiko-bot@kernel.org>
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <DE0BFDD2-1BE5-4FB1-AE66-1D4C7DFACA1F@linux.dev>
-References: <20261021204818.3431099-1-shakeel.butt@linux.dev>
-To: Shakeel Butt <shakeel.butt@linux.dev>
-X-Mailer: Apple Mail (2.3901.100.1.1.12)
+Mime-Version: 1.0
+References: <20261022021820.298886-1-seanjc@google.com>
+X-Mailer: git-send-email 2.56.0.218.g1ec904b173-goog
+Message-ID: <20261022021820.298886-2-seanjc@google.com>
+Subject: [PATCH 1/2] KVM: nVMX: Save shadow VMCS when getting nested state iff
+ L2 is active
+From: Sean Christopherson <seanjc@google.com>
+To: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>
+Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Josef Bacik <josef@toxicpanda.com>, Chris Mason <mason@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
+When getting nested state, copy the shadow VMCS to the userspace buffer if
+and only if the vCPU is in L2, as that is the only scenario where the
+shadow VMCS is "active" and thus needs to be explicitly save/restored via
+KVM_GET_NESTED_STATE.  If the vCPU is in L1, then the shadow VMCS isn't
+active/cached by KVM, i.e. is just a pointer to memory, and doesn't need
+to be saved/restored (userspace is responsible for saving/restore guest
+memory as needed).
 
+This fixes a bug where KVM would save the shadow VMCS, but not account the
+size of the shadow VMCS, as the accounting correctly checks for L2 being
+active.  Note, the restore path also consumes the shadow VMCS payload if
+and only if L2 is active.
 
-> On Oct 22, 2026, at 04:48, Shakeel Butt <shakeel.butt@linux.dev> =
-wrote:
->=20
-> page_counter_calculate_protection() runs without locks. Several
-> reclaimers can update the same counter's emin and elow at the same
-> time, and readers such as mem_cgroup_below_min(), =
-mem_cgroup_protection()
-> and the dmem eviction code load them with READ_ONCE().
->=20
-> Commit b3a7822e5e75 ("mm, memcg: prevent mem_cgroup_protected store
-> tearing") made the main path store emin and elow with WRITE_ONCE(), =
-but
-> it missed the early return for a counter whose parent is the reclaim
-> root. Those two stores are the only plain accesses to emin and elow
-> left.
->=20
-> With CONFIG_KCSAN_STRICT=3Dy, a few tasks writing to the same cgroup's
-> memory.reclaim trigger reports like this within seconds:
->=20
->  BUG: KCSAN: data-race in page_counter_calculate_protection / =
-shrink_node
->=20
->  read (marked) to 0xff1f91b146d40e40 of 8 bytes by task 163 on cpu 4:
->   shrink_node+0x57a/0x1210
->   do_try_to_free_pages+0x194/0x930
->   try_to_free_mem_cgroup_pages+0x204/0x3f0
->   user_proactive_reclaim+0x28a/0x4d0
->   memory_reclaim+0x35/0x50
->   ...
->=20
->  write to 0xff1f91b146d40e40 of 8 bytes by task 167 on cpu 6:
->   page_counter_calculate_protection+0x1fa/0x360
->   mem_cgroup_calculate_protection+0x4e/0x70
->   shrink_node+0x53e/0x1210
->   ...
->=20
-> The default KCSAN config does not report it, because it treats aligned
-> word-sized plain writes as atomic.
->=20
-> Use WRITE_ONCE() for these two stores as well.
->=20
-> There is no functional change. Readers already accept stale values, =
-and
-> compilers emit a single word-sized store either way: with GCC 14 the
-> x86-64 object code is the same before and after this change.
->=20
-> Fixes: b3a7822e5e75 ("mm, memcg: prevent mem_cgroup_protected store =
-tearing")
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Signed-off-by: Shakeel Butt <shakeel.butt@linux.dev>
+In practice, writing more bytes than are reported is likely benign, as KVM
+correctly reports the maximum size for KVM_CAP_NESTED_STATE, and no known
+VMM invokes KVM_GET_NESTED_STATE twice on every save to precisely allocate
+its buffer, e.g. QEMU and Google's VMM both allocate the maximum size when
+the vCPU is first created/allocated.
 
-Acked-by: Muchun Song <muchun.song@linux.dev>
+Fixes: fa58a9fa7497 ("KVM: nVMX: include shadow vmcs12 in nested state")
+Reported-by: Josef Bacik <josef@toxicpanda.com>
+Cc: Chris Mason <mason@kernel.org>
+Signed-off-by: Sean Christopherson <seanjc@google.com>
+---
+ arch/x86/kvm/vmx/nested.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Thanks.
+diff --git a/arch/x86/kvm/vmx/nested.c b/arch/x86/kvm/vmx/nested.c
+index 9b0bfa2f854c..c2586bc9ebb5 100644
+--- a/arch/x86/kvm/vmx/nested.c
++++ b/arch/x86/kvm/vmx/nested.c
+@@ -6875,7 +6875,7 @@ static int vmx_get_nested_state(struct kvm_vcpu *vcpu,
+ 	if (copy_to_user(user_vmx_nested_state->vmcs12, vmcs12, VMCS12_SIZE))
+ 		return -EFAULT;
+ 
+-	if (nested_cpu_has_shadow_vmcs(vmcs12) &&
++	if (is_guest_mode(vcpu) && nested_cpu_has_shadow_vmcs(vmcs12) &&
+ 	    vmcs12->vmcs_link_pointer != INVALID_GPA) {
+ 		if (copy_to_user(user_vmx_nested_state->shadow_vmcs12,
+ 				 get_shadow_vmcs12(vcpu), VMCS12_SIZE))
+-- 
+2.56.0.218.g1ec904b173-goog
 
