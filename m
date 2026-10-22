@@ -1,62 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792643576;
-	b=ZGVjVtrhYzwjAOtIi8fgSJbCARccereornn7Lm3pz3LlSYU1SIP5tmISEfTVpAxVRWOn
-	 SfpfTQ4vkHQ1A4SkGYcwhEXdf/u2gYFuzZDj5M35wLmpQNiRAWR3wDMExYufZC0AHt83h
-	 K9vi+DhqxRs5+OppkHivJGET1oXAfgAqlUG3JMfIPK2tVhM4zXfrrss3Jd23OPZFJro6s
-	 +o5XL23NNWnAOdIYi9djjqJltUAav15Gd4D+YjPKEm3H1OkUjk29B6GRv3+nInaDavwu8
-	 SAokJz5ey53FMnQTYlqhKR6ez4AX/NlqsaC+jsKmOZIYLjw0VT9vHjEzWyhTOlBdaaQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792643576;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:Auto-Submitted:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=URC7r36kokGjXCV5G6Ei8oKV54JoMbconYpCKkPt2AY=;
-	b=r7N1/XAZ1g6NXuuCmcdi0f+GMsCSpgYt4v+PtFzjxGoYFxiBfnoa6VwtUEIleggj/d4t
-	 T7lnUDpKHqQ7kXePb0SDLB9HFWQbv7kADhIC9cbFhG3G60kAiUlSktwWhwC0hvoQMCyqo
-	 g7Hjmvk9+d96HZl7EkmmndJBEgEEMa6uF5J/D47S9BIbNS4vCUONZIw3uivfk+2kaOOy+
-	 DiHE5CKLvmUuML22l8gSnH/oTizESGfs0yfWmjR7L3bgXFRFt1pPVGpfee8KrLIwL4yQV
-	 b8IgxvbdNfACFnrQC5AylnV2zNt8HnB0vvnufqkMFI+TXiCPw06MR5xaM2EodcUBWPA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IEypLjeE;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.47
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792643642;
+	b=raK0l20NYE7jPw0CeNVINM1xlPluDX8TF59QeaVTv/XeSFX04eG8FCfgJiNsBsMKrc6M
+	 Dy1B8Vah9UPffoiOEMDWu308RFd3RCCLumsH19LePmobQIWPtmwhx7DO6CEcq5N+lZ8Og
+	 kpGRGEP2XOB+lYi16dbvVrXbrvKIj6fSM8OKPA/zmmtXMrbyZNFZ1tVFW6huIawonsWk0
+	 anqL41ssYzc71I/D7Era1Zp4jusgRvSyYNfC/wK7ljl0a+Gh0Qj4e9+t2eUYhcZozKixG
+	 HlD549jc99cvx2kyUjkVS3XxfteHJYKc96UiQ5y4UWBm1InVHhphnx/0WVjNtEEoeUA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792643642;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=FX6Mu1YeIXFmXkKYuzzN3WwkU16Ko5e6ASCr8EcCtu0=;
+	b=WM/bY3WEU9hZraaXQQIMdNRZnLr1vhZr/DXwDwpuLwPQo60OhcVo0JxSblmLldWl3mVV
+	 mHbgBwU2cKOn/infVucrfpZwJF6ZXvz/EK6AKROTkyXn1snm8xumtC/nFvbfmggXavGtH
+	 vRehxfYkQDi40Bpdrxj/z9TnqH/rbJjordiKG0guBf6TCGvWv9JEHkBHaN48174ecRTSo
+	 is8SrmI2TSSmasnRaJjWy7QNrAvZOMMltyqUk4XzX1mznoeJWHHsqx0gXR2rmp8DnjAFZ
+	 t1ZwpnOpxlq06jBaMg5pdhaw1k2i85EBBEoErlx9TbddCxcm3Y6tP6lH+lMYSAHSFGQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=IJa4IgYw;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.47
+Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com [209.85.208.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11B5C606A319;
-	Thu, 22 Oct 2026 04:32:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D344606A31A
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 04:34:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3D344606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IEypLjeE
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E63581F000C1;
-	Thu, 22 Oct 2026 04:32:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792643575;
-	bh=URC7r36kokGjXCV5G6Ei8oKV54JoMbconYpCKkPt2AY=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=IEypLjeEhHEGnbNRHCWVmM012VHaCJyZPYzcRp/GK+k1GaQmTsIP3Yd5zE57DgmVQ
-	 /qm+06VEqQvQowGpWORJruliV2Xl3rxGChLzDxPKZXCbVI+lvSQsYc2ORIqHiNpm98
-	 uVs1xVIFGeOxVyxBMp4+PlCMeSHU+/oz4C4mg+GrYViXA/4pInsn236U8C/NMb5OCf
-	 YYvcKxTk2KCdEK/VBNZqUE8XHC3l8x6+2bw6fZXd5h+gGCaA0jhEJu2MxbLmFN40Ul
-	 7GEJO1IRof5+aoyqN9nP04d53sFx9p9WM5qFY8Hz6SV/Ehe7X87jyK1C+xbGvNqYvV
-	 1G9nf7AHA2OjA==
-From: netdev-bot+sinfo@kernel.org
-To: kmahammadraf <kmahammadraf@marvell.com>
-Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
- Sunil Goutham <sgoutham@marvell.com>, Ratheesh Kannoth <rkannoth@marvell.com>,
- Geetha sowjanya <gakula@marvell.com>, Subbaraya Sundeep <sbhatta@marvell.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Satha Rao <skoteshwar@marvell.com>
-Subject: Re: [PATCH net] Subject: [PATCH] octeontx2-af: fix TX scheduler queue
- index mask for 2K schedulers
-Date: Thu, 22 Oct 2026 04:32:54 +0000
-Message-ID: <179264357442.3290.13030103983603784553@kernel.org>
-In-Reply-To: <20261022042653.2640537-1-kmahammadraf@marvell.com>
-References: <20261022042653.2640537-1-kmahammadraf@marvell.com>
-Auto-Submitted: auto-generated
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=IJa4IgYw
+Received: by mail-ed1-f47.google.com with SMTP id 4fb4d7f45d1cf-6b413b0a974so1359216a12.2
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 21:34:02 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792643641; cv=none;
+        d=google.com; s=arc-20260327;
+        b=s4rn1VNhdw8mFH5m6xc03GSWBEMAoYCFyn8sLb7Lro5GPKjqmpOOIKcihy+iWMG2A9
+         AxdXu7oLyJfdCEuzVksgUJc1+pCi6z3LoBZO3J3IZYFcvAQT6DmTMeRnY9JYFbwtHelb
+         G1/hqnMPPtb60jL5CH78OeYx2CTWEezfcl2VghNnUQ+ZudadiKAi0oP5vAc0X6fZaruC
+         0t9uQoQmpq5VCQZk2wRddd4zdFTPkfWJ1SCzANS63SO88CrpsM3EtWO3unogP/Vt5fkX
+         q9qGvFQhT+Qky53J0DVweD2UAaeyjFVYfaPGO8ppGSui/mJwSjD9cuEByi2eqiex330w
+         Z0dQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=FX6Mu1YeIXFmXkKYuzzN3WwkU16Ko5e6ASCr8EcCtu0=;
+        fh=+wC5Ddse8QlStuI4iQ1ai8EBS0OeyNd5ynnhQMoAF6A=;
+        b=Zva7DXF2QNOVKgXjHdxMPShjvbc8W5pvGH88OohYs13bFiBlkAVg1jFY1UhjU0H8xb
+         xxs6oYrHrb8Es7xGozIzlDDe96nmBguUnbNXZ7R3Tiu1MP6tlhptARs6JI5kCPFQYfjR
+         9Xvhe8kZSZXWrR0dL+0JNUdIiuye0QllPUt3Yk5RaZF69bgAW/pLw4h6w8ing+Zywzez
+         GrZrH1UUb1pyy4CCxJYY9ga6GNTOCcp3LsdwpbJVQ9ULbtvh95UJCtRit94lYzQTHdm1
+         rrbWb0B1nvQF1fxdR4w9mkz73Z3sIIgcoV613Zv9eA4mnRthZmJlKE240o0IKocewJs5
+         jI5g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792643640; x=1793248440; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=FX6Mu1YeIXFmXkKYuzzN3WwkU16Ko5e6ASCr8EcCtu0=;
+        b=IJa4IgYwItYvijFw2H8a7jwzDvE0e18S5rbG4YRG6M7D8vlHwdIMtYPC88G+wIBAJX
+         Ljxs3KOlAjgZ71Qnb82PG9Tk8u5NggrPzLuKKSCuQlmFAbN9zqm2rgz7gPi4h3YSqsCg
+         XTm8fbMKIHDFgsiQAV5SMoOc6EAKEYh0IHExSwdqALm8yChkAfb854OHX/rgVRaG7oBJ
+         75tW7A70QBkIzLgO5TBKPCoRRq49X9oGTNsryvwFQJMIz6UqecYZfqfzYZ6kQ8x+9kch
+         xcZ4j6fqDYvyvC0huvTvMehdPiU52hvzjp4IA7nYjTsLoqIjdGmvorZ9YiryEDMSr/0E
+         lA4g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792643641; x=1793248441;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=FX6Mu1YeIXFmXkKYuzzN3WwkU16Ko5e6ASCr8EcCtu0=;
+        b=m9dqbqXhZEGHGMltsXThYk0+tLG0VvEhpuGI3ECqh9iuGRXQ6Zdi0/+jCcbDjQZsQV
+         3WEHaw/K9OF9St073Ohk1cF3D0j1BQZekSc7gPRne1bAgRKed2EjH4IXuxzZwF1n20H1
+         TLg9Lc1d5L1KH+2qyUJgjW84VR8a2/4R4nqfCNK443+FkDRCtKLDkWgmaqxDv2h/tlYM
+         c15r5ysXicn0Mt0uLCT7HK+xfzKVoo5Zwb9bYOHsjAG7HgNXgSXwbKcMSj7KB8vVIYMR
+         fZG3sbA6Io4fxrhG2xUNjNPv+L/MmW/PN1cDDuVlIq5TQPH9Rhc2WrxfUgJ+UaVJMNjx
+         ZRUA==
+X-Forwarded-Encrypted: i=1; AKwUvBw7MVMo0hwmh+rmi4NV4Txp40AIhfF4ghvYeQSZX6dQVjuGvH+FvMyKoyjLh3Mje0BNuhq0VTjFrHMrop4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKG3Tf3iZgir50IIM6LD3oZa+yCo3nL0zUfnrIsOPmKdxmBJmMJ
+	95ctPadxLd6C3mJot/uqwp+9ZHXhHopqM4VwJvRzMnGwk1fngF8XhPonhxnhTq4DGwdr50qgOWV
+	0ZmxbNv67spGy2+a7lB5lZjZVwQWuQl8=
+X-Gm-Gg: AYBFou1HpNMRoA64xu3HswM6sv1sgm3CmpZUWhjAe0emHJw8DLVnDmh2H9sFodCk4+U
+	sXG620CCyehd5ZnoYtnLlF5uiT7bICdJykHIFz9wUalHeFqYAAy9DjlGyAlxkccF3ciwldhVjY1
+	JIzyK6SrxsM8k2wItpVYDoUV5I9S2RUmUsDWh+dMdnRoWu07TTXoq1wADVX0CfTc5s3KE6sWdtF
+	85KN9e93w31M7WJyxLGe0AjYIIryUL20dmZOcH9Km7dIgF3JLReMWN53QLcoeFa1MybVAQwFbvI
+	ZsMoyMIrh+wyZX7ATPfiNaABTUgmPfD4mmNdzykI4h2uPQDEA0N+dV6O2tE8taFdhOd+nXpp9B5
+	7qxsJyl8Wa5IqjANeVYBatKhuDwZRkLDzKsTVR6Rl0JozsLjuZ7nJf/b2PMW0G6nNEeg=
+X-Received: by 2002:a05:6402:28c8:b0:6ac:bd53:d29a with SMTP id
+ 4fb4d7f45d1cf-6b408dcd1femr2989972a12.3.1792643640365; Wed, 21 Oct 2026
+ 21:34:00 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,29 +104,116 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+References: <20260928011123.450800-1-alistair.francis@wdc.com>
+ <as_r8n7p_wdbChuQ@google.com> <CAKmqyKOkmwompJqaP2k-oJicmXmqHY4E0wuLcrvkHLx+oauQ2Q@mail.gmail.com>
+ <DM596TT7E841.1U05OKY9N6I6C@nvidia.com>
+In-Reply-To: <DM596TT7E841.1U05OKY9N6I6C@nvidia.com>
+From: Alistair Francis <alistair23@gmail.com>
+Date: Thu, 22 Oct 2026 14:33:34 +1000
+X-Gm-Features: AclHuK9U67i3MHCSs1fpGty_QgfHHhn6FdMHJ0fAOkjnn4XpsrsbQBC3WfRL_pw
+Message-ID: <CAKmqyKMbs_N6C8MAKGUU11DW1y5nJRWPqnUcrVZoyi0SDjsv3g@mail.gmail.com>
+Subject: Re: [PATCH v4 00/22] lib: Rust implementation of SPDM
+To: Alexandre Courbot <acourbot@nvidia.com>
+Cc: Alice Ryhl <aliceryhl@google.com>, lukas@wunner.de, linux-cxl@vger.kernel.org, 
+	akpm@linux-foundation.org, Jonathan.Cameron@huawei.com, 
+	rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	jic23@kernel.org, bhelgaas@google.com, alistair@alistair23.me, 
+	djbw@kernel.org, linux-pci@vger.kernel.org, wilfred.mallawa@wdc.com, 
+	a.hindborg@kernel.org, gregkh@linuxfoundation.org, alex.gaynor@gmail.com, 
+	benno.lossin@proton.me, boqun.feng@gmail.com, bjorn3_gh@protonmail.com, 
+	tmgross@umich.edu, gary@garyguo.net, ojeda@kernel.org, 
+	Alistair Francis <alistair.francis@wdc.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi!
+On Thu, Oct 15, 2026 at 6:02=E2=80=AFPM Alexandre Courbot <acourbot@nvidia.=
+com> wrote:
+>
+> On Thu Oct 15, 2026 at 2:23 PM JST, Alistair Francis wrote:
+> > On Thu, Oct 15, 2026 at 6:54=E2=80=AFAM Alice Ryhl <aliceryhl@google.co=
+m> wrote:
+> >>
+> >> On Mon, Sep 28, 2026 at 11:11:01AM +1000, alistair23@gmail.com wrote:
+> >> > From: Alistair Francis <alistair.francis@wdc.com>
+> >> >
+> >> > Security Protocols and Data Models (SPDM) [1] is used for authentica=
+tion,
+> >> > attestation and key exchange. SPDM is generally used over a range of
+> >> > transports, such as PCIe, MCTP/SMBus/I3C, ATA, SCSI, NVMe or TCP.
+> >> >
+> >> > From the kernels perspective SPDM is used to authenticate and attest=
+ devices.
+> >> > In this threat model a device is considered untrusted until it can b=
+e verified
+> >> > by the kernel and userspace using SPDM. As such SPDM data is untrust=
+ed data
+> >> > that can be mallicious.
+> >> >
+> >> > The SPDM specification is also complex, with the 1.2.1 spec being al=
+most 200
+> >> > pages and the 1.3.0 spec being almost 250 pages long.
+> >> >
+> >> > As such we have the kernel parsing untrusted responses from a comple=
+x
+> >> > specification, which sounds like a possible exploit vector. This is =
+the type
+> >> > of place where Rust excels!
+> >> >
+> >> > This series implements a SPDM requester in Rust.
+> >>
+> >> So I looked a bit at this, and here are some comments. I will not repe=
+at
+> >> what Alexandre has already said.
+> >>
+> >> First, I'd like to say that it's good to see that all wire-format
+> >> parsing in lib/rspdm/validator.rs is written in completely safe Rust.
+> >> That's exactly what we want to see for parsing in Rust. We want the co=
+de
+> >> to have basically no unsafe code whatsoever so that we really get to
+> >> rely on the bullet-proof guarantees about bugs being caught at compile
+> >> time, or at least at runtime.
+> >>
+> >> Unfortunately it looks like the same cannot be said for the state
+> >> machine in lib/rspdm/state.rs, which has way too much unsafe code in i=
+ts
+> >> interaction with the rest of the kernel. There needs to be more
+> >> intermediate Rust abstractions here. This file should not have *any*
+> >> unsafe code, except maybe 1-2 blocks for using the C transport and
+> >> validate function pointers.
+> >
+> > Yeah, it's the crypto functions. There are currently no bindings, so
+> > it's just directly calling the C functions.
+> >
+> > Without the crypto functions it's just a single unsafe call to
+> > `transport_function()` in `state.rs` and a few in `lib.rs` to handl
+> > the C <-> FFI boundy.
+> >
+> > I was trying to avoid adding crypto and X.509 bindings in this series,
+> > as that's a few more subsystems this ends up touching. We need to add
+> > PQC as well, so crypto bindings are next on the todo list once this is
+> > merged.
+> >
+> > Is this going to stall on adding crypto bindings?
+>
+> So without going all the way to fully-fledged crypto bindings, you will
+> spare yourself and your reviewers quite a bit of pain if you at least
+> implement a safe and lightweight crypto wrapper that is local to SPDM
+> and could eventually grow into official crypto bindings as a future
+> effort. As it is the code is very hard to review: for instance
+> `crypto_free_shash` is always called after `free_desc`, and looks like
+> it could/should be part of it, but that's hard to assess as the crypto
+> code is mixed with the rest and called here and there. I just cannot
+> tell whether all these unsafe blocks are safe of not, which is a problem
+> since the goal of writing this in Rust is to prevent exploits.
+>
+> A self-contained crypto module exposing a safe interface would remove
+> that burden, reduce the number of `unsafe` blocks, and make the series
+> easier to review globally while not necessarily resulting in more code.
+> You just need to store the relevant pointers into a new data structure,
+> enforce the required invariants at construction time, and codify the
+> actions that SPDM is already doing in the form of methods.
 
-This is an automated message. This series looks like a fix, but its
-commit messages seem to be missing some information:
+Oh! That is a great idea. I have added that locally and it's pretty
+nice. I'll tidy it up a bit more and then send a v5
 
- - How the issue was discovered, e.g. hit in production, hit during
-   development, syzbot report, manual code inspection, LLM or static
-   analysis tool scan.
-
- - Whether the issue was actually triggered, or is only theoretical
-   (e.g. found by code inspection). If it was triggered please include
-   the symptoms, like the stack trace or error messages.
-
- - What hardware the change was tested on. For driver fixes please
-   mention the device (and if relevant firmware version) used for
-   testing, or say that the change was not tested on real hardware.
-
-Please do not repost the series just to address the above. Instead,
-reply to this email with the missing information, so that reviewers
-can take it into account. If the series needs another revision for
-other reasons, please include the information in the commit messages
-then.
-
-The evaluation is done by an LLM so it may be wrong, if you think
-that is the case please reply and explain.
+Alistair
