@@ -1,49 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792658367;
-	b=C4SxltATZzltpnYAl2BMZHwFJjS/wcJfZk0aMNOKec4xHwRHlWeWorF8dM+CEn4zVtly
-	 p0aOecp0LUWqsfC3zXLeRT2Z6TnLsoKa2U4ieHtCQh/69Lm3ferj7hUwDcaUJ7sigAOfC
-	 xTr6RxAdYiCy6V/7KC9r1twYoKB/XeDTlb/jNxbCuDtkM6QyM9jLhCrZUQva8Gwdk6byc
-	 EP0mpYrQ/0z88GYOMeyeD7cSuFwcmkodcDBhHrJquf5ZWoK9QfntlVUSZnhvO7ELvgtlJ
-	 xWlnUPvShVIaRUq/bzbrO+AIbIe1iH+fV9bcZ9VyvaFj63jNiRtt/kuWHG/XamCkrVA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792658367;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=CvCWEqXaZH/iIUkBgP+o8Ay2lvbiOFHenVSVWHTDnio=;
-	b=tvj/hEXdBVSnGssfdOToBlnWdDpY0rWNfL7a8CslFgjLIhBurLJco4jNO3f/8+9RPyYl
-	 /qry3l6WyEa2nhejPHLBHCqeZBDLPntbCbSodv/Xdyn4V2FUXN49ZfWk7JxX19qOgIDz0
-	 RAy25WH+gugC+ur2Tdkn0kkeI5LIdrhaQGGVsjxXrdBZuz18vKazRI2E2MDvQtGZsuT3F
-	 9Fw9bm3/lcPLLrAQPbRdwBR5th1gFiuL+iMypgwVSo3XotRgXEOSX2RzpBaiBgDG9iZZD
-	 mYp7OKOzX8CzsBZz+XxrIB5eKGrj/K33PZ5VGm3C3POeReWwpeqEhkqI1sYWc+NpQyg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=hEObLniC;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1045E606A319;
-	Thu, 22 Oct 2026 08:39:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1045E606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.50
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792658381;
+	b=qd70k/f8H8+AimezmJ3w+/GfmJ9Kt+oW+UkpsUHgTcBzvDYBunL31KGmeyGUV+rcQ5xT
+	 qF93ES/tsXOPub7gF8bCxnGYPUYgnHguOFn95RimK8Kuro+h8If++fXbqnxqTjY9OsGAN
+	 UFHhZNIsIFL/aYkfnXx0uLHjPz9qFjZ25ipPYIEehbn3DyXbOeiLw31/9MXjGYyAxiPaB
+	 O8JKN0cvKfj7uGvmu+NU5Qc0Fw4bqV/K6w2fTRdUdTd7zLXyA+YP9gooOYYKvE3SGT4BA
+	 15WHn0cF88xqe99LunAp72lEpDAZontUcoRY8g65K8YD8Cs3UXDcBHOAjDTgVHicRZA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792658381;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=2KPZKwtR8gVUogjYFjLaVtZoRLBRnCeb8v4XzpPQbCY=;
+	b=XImI1A1p5u793+3caIaL/zJwb+PDdMqYsLeVJSgW6XSJfuCIlXPUXf1yw8g+RQmjGpWr
+	 +Qv4GM5kL9PRXj81JVD1KQjwEPvbzJjgRJFBbpGsVSdeuXUkXEhmZufAnlrWt5EaVbhKk
+	 f0ZafB/PHvL9kiar7wvlwJV0Mb6aGub231hsWyfcH2Gt5q5XCtKrNWB+DLIuducdjMX9r
+	 FSd5H4AOU2+fQuxsKOy8DiZZHzD5OibBAAV9UD02L1qZHrRe9GW2OLMfEeeom82UecaJ6
+	 OWzN1z2ZQgdnFGkeHpSqtVjagCYXRDVcDYA72KyHVJnRTVPa2jyszkVsOzRB3+5nk+A==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=IwgNe1yP;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.50
+Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com [209.85.208.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCAAB606A319
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 08:39:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BCAAB606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=hEObLniC
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id DD9062C46;
-	Thu, 22 Oct 2026 01:39:21 -0700 (PDT)
-Received: from [10.2.197.99] (ewhatever.cambridge.arm.com [10.2.197.99])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id EE8D93F673;
-	Thu, 22 Oct 2026 01:39:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1792658365; bh=uD8Z+VnaxokujgVMBewvc6O/2Oc94t5bbNpab8XT2Mo=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=hEObLniCfO8tvUEME++blEmza9btcaiRUMVFVtYl9TdDINt/Jh+KSuOXaWp/rKmlo
-	 WUhI/MoxamaYnryozypEz5akzYCHQwBT1DP41jmVMtmfcNM9rOY0pgG75S1zir53qf
-	 PQfmGihfe1dbVdN8Zrb0zomrdSqiyDwI9lvPy+WU=
-Message-ID: <4a086f49-14a3-43a9-ba9b-ab387f5e7f91@arm.com>
-Date: Thu, 22 Oct 2026 09:39:20 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=IwgNe1yP
+Received: by mail-ed1-f50.google.com with SMTP id 4fb4d7f45d1cf-6b1aa4d71e7so1800047a12.0
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 01:39:40 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792658379; cv=none;
+        d=google.com; s=arc-20260327;
+        b=emFQLbCqbDx1sxLPK/7xRZ9JtNFQgx+DbUjM0lypCNYjkJYJmCJouWsERcJvGajKAQ
+         WdNtUC8bwhyguoGw6HfMsF96WmvGwK/PDpD1MsoanYWngNjbkDqFXeYugAozTYIhFEGc
+         ioqrdj2pfSShnRP5R2OxOOx+QmAjq+S7cLucSwXZLCtk3o3L2HCMeUFanOemjqd3KT1p
+         Venv7AaJd7tz2iCLmfjKGzKaBd2owbWJCSLcB+Aa1oDesg0YXkSd0+9Sgg5W6Ytl4svZ
+         NAqv3gLUmZjGF2l96R6WjX827Myu7YuUf/1E2YjVVfEDOYnR0wPOLQjlWTbQfwWZ69Oz
+         2qvg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=2KPZKwtR8gVUogjYFjLaVtZoRLBRnCeb8v4XzpPQbCY=;
+        fh=CCYZkvZk9x7ZoqMQWt4s/BqsgH6jDPVmkFuTQ7STeKQ=;
+        b=TLAfcVSkxomJmoJXr1ava/aF9kA6RHmZMvoLRjMNaBz4Hav9ZODa238Sa+OllY4rqj
+         X8ikqRWrqowBeiXssgvDDcyoKFKY6nlR1LVATSUJbgxthUFclhJ/EeJoYCqjbqhZAvf9
+         o86vZD7YRY6sQwsrL84nXbRMHPWsQPY+uONQu6UMiNQZCH5AZsPdsXyQMUvipA1Mkyns
+         ksPG2a/mpfrdpX9S7tAkswpLZZfwQaw7y9bFFXhPsSHgywEUsxEXc6qkNIBv9x0897jb
+         CqB27K+2f88nIl6Zti+G1P1zKIYVQHnV1Iudzuo8aTrkCUsPYuqceHxxsllcHZZCY3J/
+         +95A==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1792658379; x=1793263179; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=2KPZKwtR8gVUogjYFjLaVtZoRLBRnCeb8v4XzpPQbCY=;
+        b=IwgNe1yPf1MqsGE7n/CrAJQMA7+Zdw+zButTvfDZHlosqLH90QBB/TzJT5sZPVLA91
+         Vww3t7Zduor5C8ApHggkE5jbbSpzyrtAGwOsc+WTfis5PgPxP/k442YTq1ea0/Kg2HSq
+         tWQK0lKrDakdLmkhbapm9yRmZjH2PTOq5ezv62DYVkGc1RWiPOsgTwO77e/v/hHLxmJZ
+         pzu7qvKTzAOz0Z03mcIIqP0MPPBgGMXgLfyFU4mQForQaduQ0lkbb454JysjzEdewa8T
+         4MIx+bo5MGgWuvaiDhXQwoNQnCCesVqr4TvPtr/i3yeRZ4astwLPjmD1kyFF9n2J+aEE
+         NU0A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792658379; x=1793263179;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=2KPZKwtR8gVUogjYFjLaVtZoRLBRnCeb8v4XzpPQbCY=;
+        b=b2KeQ4QQsmqxiKKqfah/S/pX0YVO5B/r5gVExKEnZYZibxjiVo2Z2nZeEer2YUpWyQ
+         KL3Td1it4xxPh293LplTGF1An7isUZovPCpIP2uv9tX4yr3r8PJ+/xF81zTFrDoqhca1
+         FP5xvuRXAm7n29z/GQ3HCrvxFqLjG+H7newyuLKRkfrin9KVi/uZ2fcPTD5voYvMC6SM
+         A/8NgKlnEL2i50Ngpmwkxq0b/KmWJtDlHh/L/C0J/FznJglo8QUIG31uWp1elIbotf0Y
+         lfsZ2+cD4UnhckDWaWetTlWgi98aJZTKXR06evxvlI9gKVpBwexMTbLH+/EUQ1GccNsx
+         pMow==
+X-Forwarded-Encrypted: i=1; AKwUvBzJMMiwx3zEmMzNcFeCzppSXE97ghRK3bVCH+bfoZ+w1e5qe7xIE5JDPH7CAfzM1OnGLAJgDujOP7hMowM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLeIz7MDVfIfBZVd7zO7t8oh5lI+yaRs/AykaqVrikm9gnDBLFv
+	9xuOBqPePoUqag2vcdJShw5AhGLezOOa5WnaJ62yeX+UPPA94uvb8mptEpOoj3ydvBL2hChbtzk
+	xNv33VyA3aX8N0KUHjRRbZs3DALmdMK1jfVP/yQJ4hg==
+X-Gm-Gg: AYBFou3YKDHeAjS0LUC/8lC53+6teq7RNKAT6P0O0CVNG//sZI5MmvpiXxnPsshxFXB
+	SrOZ5rpGsG8fUTx9o83jzaClx6ozjvOtMjLfznrCjtW+00hZtDD9TcusnJ5Gwzd5FYH0j8FFYXL
+	oyP9kwNwJzfWoeoZc1GS1+EEz2jVsbtLHoN3Gg8e0SkQ5ZFGthXQxKRgeFqbhpeFnLdvOvOEZ27
+	/BmV2l7J0+XhDRYi6/iatl+HxUe5PWTyzzLcBg9q+Z1bCgP2zr0u5hMsdZesBIbql/zaBrbCtF4
+	0ErnSySxcBjnDBo8qwwOxFFL3OvJm2ltfaEqo+1J4/be1D9hx9QNo47jExE/67MUrGxkWIIdIR2
+	Xp1FZfMyR/1InL2tCkVAZKvALZhw+4wUWdPMggUps2V5ImcYiu5JJs1/ERmHGAy3GbnyQiiQ=
+X-Received: by 2002:a05:6402:51cb:b0:6b1:d661:d37f with SMTP id
+ 4fb4d7f45d1cf-6b408e8a023mr3631901a12.9.1792658379043; Thu, 22 Oct 2026
+ 01:39:39 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,110 +103,73 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v19 5/7] firmware: arm_rmm: Activate the RMM
-To: Catalin Marinas <catalin.marinas@arm.com>, Marc Zyngier <maz@kernel.org>,
- "Aneesh Kumar K . V" <aneesh.kumar@kernel.org>
-Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, will@kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- steven.price@arm.com, aneesh.kumar@kernel.org, oupton@kernel.org,
- gshan@redhat.com, joey.gouly@arm.com, tabba@google.com,
- yuzenghui@huawei.com, linux-coco@lists.linux.dev,
- gankulkarni@os.amperecomputing.com, sdonthineni@nvidia.com,
- alpergun@google.com, fj0570is@fujitsu.com, WeiLin.Chang@arm.com,
- lpieralisi@kernel.org, enju.kohei@fujitsu.com, sudeep.holla@arm.com,
- jonathan.cameron@oss.qualcomm.com
-References: <a11aba04-eaaa-43fd-988b-a2581b1b2fdb@arm.com>
- <araketG70TIKeNuf@arm.com> <12e83d88-de4c-4230-aac2-1796123320ad@arm.com>
- <70d47475-e26e-40e1-b409-b0c16aecb8c0@arm.com>
- <195cdfe4-a55a-453f-9c34-620738eca244@arm.com> <arqrZ_Auk9BYOopa@arm.com>
- <0f68dcff-1dfe-4515-9912-515ca6457674@arm.com> <arudWVBPXcnUvYNh@arm.com>
- <5d487949-9195-442f-97af-acb9e3fdfb0d@arm.com> <86ld7ryvm8.wl-maz@kernel.org>
- <atj7A1CV4paW3htS@arm.com>
-Content-Language: en-US
-From: Suzuki K Poulose <suzuki.poulose@arm.com>
-In-Reply-To: <atj7A1CV4paW3htS@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20261022034930.225042-1-sh_def@163.com> <aa72774f-ad04-4733-8faa-0853a32c2e4c@amd.com>
+In-Reply-To: <aa72774f-ad04-4733-8faa-0853a32c2e4c@amd.com>
+From: Vincent Guittot <vincent.guittot@linaro.org>
+Date: Thu, 22 Oct 2026 10:39:27 +0200
+X-Gm-Features: AclHuK8P98O-t4awgDeQ5jLhEb2zvpNyr3a5E4rtkHFskJomj1mGvJaM0F9UtTI
+Message-ID: <CAKfTPtAdVwjvXnLcK6b=msaTnJ6quTFeL=gt16nAoCmwQrEVVQ@mail.gmail.com>
+Subject: Re: [PATCH] sched/pelt: Fix truncation of the PELT period count
+To: K Prateek Nayak <kprateek.nayak@amd.com>
+Cc: Hui Su <sh_def@163.com>, Ingo Molnar <mingo@redhat.com>, 
+	Peter Zijlstra <peterz@infradead.org>, Juri Lelli <juri.lelli@redhat.com>, 
+	Dietmar Eggemann <dietmar.eggemann@arm.com>, Steven Rostedt <rostedt@goodmis.org>, 
+	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>, 
+	Valentin Schneider <vschneid@redhat.com>, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On 21/10/2026 18:48, Catalin Marinas wrote:
-> On Wed, Oct 21, 2026 at 03:30:07PM +0100, Marc Zyngier wrote:
->> On Wed, 21 Oct 2026 10:58:13 +0100,
->> Suzuki K Poulose <suzuki.poulose@arm.com> wrote:
->>>
->>> On 29/09/2026 12:15, Catalin Marinas wrote:
->>>> On Mon, Sep 28, 2026 at 07:28:20PM +0100, Suzuki K Poulose wrote:
->>>>> On 28/09/2026 19:01, Catalin Marinas wrote:
->>>>>> possible, to defer the RMM activation until the first user (still do the
->>>>>> RMI probing as an initcall). If we run on RME-capable hardware and
->>>>>> firmware but don't care about realms or TSM, we still get the normal OS
->>>>>> functionality.
->>>>>
->>>>> Would you prefer this in the first drop of the RMM ? Or is this
->>>>> something we could add as a separate series ?
->>>>
->>>> I think we could add the deferring as a separate patch, maybe together
->>>> with the KVM bits. An advantage of keeping it here if we merge this
->>>> first is that we still exercise the activation path without full realm
->>>> support or TSM. Otherwise a lot of this would be dead code until the
->>>> other series arrive. Either way, do it as as separate patch on top of
->>>> this series.
->>>>
->>>
->>> I have been looking at the "on-demand" activation support and came
->>> across the following design decision.
->>>
->>> * We have KVM_CAP_ARM_RME which advertises that KVM can create Realm VMs
->>>    to the userspace. A VMM could check this before it creates a Realm VM
->>>    using KVM_CREATE_VM with type=RealmVM.
->>>
->>>
->>> Now, we could delay the RMM activation as late as the KVM_CREATE_VM and
->>> kick it off while we initialise the kvm as part of kvm_arch_init_vm().
->>> But if that fails, we would fail the KVM_CREATE_VM.
->>>
->>> The question is, what should KVM_CAP_ARM_RME indicate ?  We could
->>> initially enable the cap based on the presence of RMM (but not
->>> activated). However, should we turn the KVM_CAP_ARM_RME=off when we
->>> fail to activate the RMM ? Is that senisble ? (i.e., runtime
->>> disabling a cap).
->>
->> I think this sets a bad precedent. If activation can fail, KVM end-up
->> not delivering on the promise that it makes, and that's not great.
->>
->> My take is that the least surprising behaviour is best. If you have
->> bought into the CCA kool-aid by enabling it on the kernel command
->> line, that's not by accident. You expect your VMs to reliably be
->> created when KVM tells you that CCA is available.
->>
->> So KVM_CAP_ARM_RME should indicate whether the RMM has been
->> successfully activated, and nothing else.
-> 
-> Tying activation to kvm-arm.mode=rmm works for me, roughly similar to
-> kvm-arm.mode=protected. It's still an eager activation (just
-> conditional) and KVM_CAP_ARM_RME then only reports whether activation
-> succeeded. We lose kexec/hibernation but that's fine, it was explicitly
-> requested on the command line.
+On Thu, 22 Oct 2026 at 10:35, K Prateek Nayak <kprateek.nayak@amd.com> wrote:
+>
+> Hello Hui,
+>
+> On 10/22/2026 9:19 AM, Hui Su wrote:
+> > accumulate_sum() computes the number of elapsed PELT periods in a
+> > u64 but returns u32. When the count is a multiple of 2^32, it is
+>
+> So at least an hour between PELT updates! I suppose it is possible
+> with nohz so not too far fetched.
 
-Thank you both, I will tie the activation to kvm init, gated on the
-kvm-arm.mode.
+Period is 1ms so it's more in the range of 50 days
 
-> 
-> There's also the case of a host-only PCIe TSM (without realms). IIUC
-> (grep'ing FIRME spec) on an RME system IDE key programming goes via the
-> RMM, so this would need the RMM activated even without KVM. Not sure it
-> makes sense without realms, so I think we can ignore it until there's a
-> concrete use case (and add one more hook to activate the RMM).
-
-We could, again gate this on kvm-arm.mode. RMM is not useful without
-the capability to run realms. The dependency is the other way around.
-If an RMM exists and would be used for any other device TSM, then it
-should act as the TSM for all devices, to make sure we have a single
-TSM managing the IDEs (and the SPDM connections).
-
-So, tying this again to the kvm-arm.mode=rmm, i.e., the capability
-to run Realms makes sense to me. Thoughts ?
-
-Suzuki
-> 
-
+>
+> > truncated to zero even though the PELT sums have been updated.
+> >
+> > The caller interprets zero as no period boundary crossed and skips
+> > recomputing the averages, leaving *_avg stale relative to *_sum.
+> >
+> > Return only whether any period elapsed, which is all the caller
+> > needs.
+> >
+>
+> Probably needs a:
+>
+> Fixes: a481db34b9be ("sched/fair: Optimize ___update_sched_avg()") # c079629862b2
+>
+> > Signed-off-by: Hui Su <sh_def@163.com>
+> > ---
+> >  kernel/sched/pelt.c | 2 +-
+> >  1 file changed, 1 insertion(+), 1 deletion(-)
+> >
+> > diff --git a/kernel/sched/pelt.c b/kernel/sched/pelt.c
+> > index 779eb58a4261..519bc9c40043 100644
+> > --- a/kernel/sched/pelt.c
+> > +++ b/kernel/sched/pelt.c
+> > @@ -146,7 +146,7 @@ accumulate_sum(u64 delta, struct sched_avg *sa,
+> >       if (running)
+> >               sa->util_sum += contrib << SCHED_CAPACITY_SHIFT;
+> >
+> > -     return periods;
+> > +     return !!periods;
+>
+> I would actually favor changing return type to u64. Since
+> accumulate_sum() is only called in one place, and that too within an
+> 'if' condition, I'm sure compiler can optimize it similarly.
+>
+> >  }
+> >
+> >  /*
+>
+> --
+> Thanks and Regards,
+> Prateek
+>
