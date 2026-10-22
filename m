@@ -1,65 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.198
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792671079;
-	b=P9ILKI1/jcOuLpzbNsD4vZkzy/hytCv44mNtckVDzApk9AAIRoFZru3d51L303xJTVsP
-	 3gvrfFU5b7YvWntDUGXBX/8fhIukB4WJ7YmHyU0gv5K6yywErf9qz+hZx6HOCMUdDQHSQ
-	 7UpdtT1g45O7RHbQMxOagyU7n6e/78ZDI/2JckVL2LnBhhPoCAgsXfSy4PboUAv/VIE0H
-	 Rp9rwdC880dYIoHUbQQG4kfrEp4MX0kjREvVQS7LUDq3rtKK0htD4fe/zZn15WLdVZHk3
-	 QTu7LCaMfWPFIYM87uFIRgJLNY4ltadiFanTqeI9sRQsukTssAMW2lfPbvdPrQI6KDQ==
+	t=1792671120;
+	b=Xra5tmCNarayTlurxeJpquP3/AErWlXr0XS0vnEmAyWCPifn/w9gKAbydK7Hq7DkmFhl
+	 s7G6EoUYOKbD0AVV3ajdcA3oIKUkrHjRM0CZowMoGPIzLUDSNNpGKEk1Rlrjabeh2dGDm
+	 sY/BynlVSn+fSJqV1tCH1nDSh0+SDuH6iytTIDZpBtBZkiGBzH8JiFAM1PB+w4nrPQMv2
+	 libp5cqBMgxpoFAInu3/REe4YGZJlqNkgpHdzyDKcNF6EmpvLDgw5Rj0d+qPn4ZzWawoy
+	 Du818oypowWiU81IfaBoH+VLjb/3cn1Fn0e2kONYdpB4tsjoTeDI4SkeK4GxI/lXQNQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792671079;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=R45se70P3EMmhMkKtYLGOoSJA2q332w3U9R9/qm3AvU=;
-	b=V9BeVQuiBEN1NCMtLboaSVoyMJf3xRNTlj6KwlalcKrUMW/msBC3dSx0ATXipfjlkfhr
-	 wA10peAd0ylm43eXZX01pwlc6KZzZJWfPcdMYlxOxJZ94bCd+zAEMobJONuTUswc4AQkh
-	 Nx+NcaNk63H1HMHRveeQPErs+ObICgo9nRI1pNTH97xlbtbPvPleGSWBfr9SEfR5oPI+k
-	 iGdD7P3b3s+Jk9sOsUTFu9jbXgPNMwNOMKmX8L3MYfI+OGt6KNhEEtbGH17R2Ihtaqk6Z
-	 Xj/V4SQ7gnrvaTY2sbAb5xPdubdOHBRN76uzP8BnEpuT2p1GhNzoHpUaAecLZVM6FIQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792671120;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Gm-Message-State:
+	 MIME-Version:X-Received:Date:In-Reply-To:X-Google-Appengine-App-Id:
+	 X-Google-Appengine-App-Id-Alias:Message-ID:Subject:From:To:
+	 Content-Type;
+	bh=BlJmxT1VL/7xfsSa2JU75Gql57GkRUZ3kJZ080WKl1Q=;
+	b=DeUQmSLHRTWp6lSkBR1TsXcNQVbH0OPaxufnQ2/7Rdqhhm+HDPBrTEez1JJdW/BJ575J
+	 8spA+1qRdPV9OYvSqDdZRizHQ17dmZi6oLBz2DNMQRh02xrury+XY8F0h7wsiJeKLVLO4
+	 ngoeOhZ6xeRysCXeHidcpY6pAlxJQqWwmPSQJhAg2ed8+bsq56diSucEeDN5bqXnX0pl3
+	 VtvKTNxfw244h9uW3sEMOm4iRVXrAh/wOBt8ZKa88Bzt3Z1xtvRxI0Hlc/RBGiOk6vJBA
+	 EjQG3w1ebO+HXYAEEEm9QbizdQHJdUzZQ8gGMkjQtS37mR7Pp6eHHtPZ4e0jYRcoJSA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dAUOmnUw;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.167.198
+Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FD93606A319;
-	Thu, 22 Oct 2026 12:11:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dAUOmnUw
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A5AD1F000C1;
-	Thu, 22 Oct 2026 12:11:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792671079;
-	bh=R45se70P3EMmhMkKtYLGOoSJA2q332w3U9R9/qm3AvU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=dAUOmnUwYmXnqjnb7xpvzxZUOGMYgicvXndxs7prGd8mnPM1HRCMzBTCy5Wqgajt0
-	 7ydupNhuB0KEpvBHR5rfrH5IvHMKVlKDABORylIiEdm8FrF1lNL770+I6n0iaPeAVl
-	 YC1M6XYdYp6OHunXm7cWdAcaU2dlpD3/998uXguRKcEj5GyZBrTEdi5TpuzW9WUY6V
-	 uR+cGqMYiHlpxwrDQC84R50dPT0QbaRbkx4eFfEHe0Fx1GsqR0lASPJUmBltm4xaIO
-	 vLuGnuxQA7/bhka5CHm5PNZw6Q7Lk2fsakVxVTvA/ssGxs5iP3VkeQW16AkZtzvLOY
-	 hPwMuhCsUC5Uw==
-Date: Thu, 22 Oct 2026 13:11:11 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Konstantin Khorenko <khorenko@virtuozzo.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	"David Hildenbrand (Arm)" <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, "Liam R. Howlett" <liam@infradead.org>, 
-	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
-	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
-	Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, Peter Xu <peterx@redhat.com>, 
-	Alex Williamson <alex@shazbot.org>, kvm@vger.kernel.org, 
-	=?utf-8?B?TG/Dr2M=?= Molinari <loic.molinari@collabora.com>, Shuah Khan <shuah@kernel.org>, linux-kselftest@vger.kernel.org, 
-	dri-devel@lists.freedesktop.org, Madhavan Srinivasan <maddy@linux.ibm.com>, 
-	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, linuxppc-dev@lists.ozlabs.org, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, Jason Gunthorpe <jgg@ziepe.ca>
-Subject: Re: [PATCH v4 1/4] mm/rmap: duplicate a PMD mapping as one in
- folio_dup_file_rmap_pmd()
-Message-ID: <atn3SPG5MKpj2Unj@gremlin>
-References: <20261021-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v4-0-66f00b7a564c@virtuozzo.com>
- <20261021-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v4-1-66f00b7a564c@virtuozzo.com>
- <atnEFyGRYGGf9shA@gremlin>
- <71101695-339d-4f8f-b9d8-dfadf7dbd0ed@virtuozzo.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 728C6606A31A
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 12:12:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 728C6606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4c467e19391so2624839b6e.3
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 05:12:00 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792671119; x=1793275919;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=BlJmxT1VL/7xfsSa2JU75Gql57GkRUZ3kJZ080WKl1Q=;
+        b=AH5eJ4UU3oPt6RQjiDvnu7cA0OPwqk/jNeoU6XcIgbvRH8XSTu3fsa7B61WaDfPAcX
+         HndMLzrptDKUsywa+764h9JNLU9uRchqvURhbRq5tveeh+s/OY3lZaPoSTIIGcB5rsUU
+         KFG7MWW0fPQaQE1LRiwY+8UcO/Lgp8Ms4rSU8m2Tk7As2V9m9yHH71DGOYhKhf9d69po
+         P/xg6cOT1K341luH4mVpZLOOHAXUbnlpbhaH5VhU5gtHiCBB1c6RnomoJQIxt5w5zjT6
+         4/Yo/ZXlZEklk6MLP2lJ0lXOSCseN8HpxcvMRx30C4cjgiNYX4VbaN3Rcu4ZyP1lx6nQ
+         TElA==
+X-Gm-Message-State: AFq9FYLa6Ye+7iMJPLvBLvIMpNuyBtPi3chfalt2e/keZy7vwMOQMkNe
+	w/jbNN/4pFlZGNR4yNwACmf8fVFPpJn1AmQOKW9Y4K/87NFucrJTyAUpoKFOzkgjw1hXYGM6Lbk
+	/9esYZn8owsNhAD4rdTtScYlQC1KLmvkGVd0+brSTDvx4hjbsGm5qJscdEf4=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,50 +57,25 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <71101695-339d-4f8f-b9d8-dfadf7dbd0ed@virtuozzo.com>
+X-Received: by 2002:a05:6808:221c:b0:4fb:a089:bf26 with SMTP id
+ 5614622812f47-5536017e84cmr3805057b6e.56.1792671119511; Thu, 22 Oct 2026
+ 05:11:59 -0700 (PDT)
+Date: Thu, 22 Oct 2026 05:11:59 -0700
+In-Reply-To: <6ad958f5.16f08417.1cb7b7.0001.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ad9fd8f.297debc7.3b379c.0008.GAE@google.com>
+Subject: Forwarded: media: em28xx: fix refcount underflow caused by em28xx_free_v4l2
+From: syzbot <syzbot+809dfc586f33fc44b6ac@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Thu, Oct 22, 2026 at 12:44:40PM +0200, Konstantin Khorenko wrote:
-> On 10/22/26 10:07, Lorenzo Stoakes (ARM) wrote:
-> >> Fixes: d8ef5e311d7b ("mm/rmap: convert page_dup_file_rmap() to folio_dup_file_rmap_[pte|ptes|pmd]()")
->
-> > Was this a mistake in d8ef5e311d7b, or actually intentional for whatever reason?
-> > If the latter this shouldn't be a fixes.
->
-> commit d8ef5e311d7bfde54b60ab45026f206eff31b2d2
->
->     mm/rmap: convert page_dup_file_rmap() to folio_dup_file_rmap_[pte|ptes|pmd]()
->
-> ...
-> +static inline void folio_dup_file_rmap_ptes(struct folio *folio,
-> +               struct page *page, int nr_pages)
-> +{
-> +       __folio_dup_file_rmap(folio, page, nr_pages, RMAP_LEVEL_PTE);
-> +}
->
-> ...
-> +static inline void folio_dup_file_rmap_pmd(struct folio *folio,
-> +               struct page *page)
-> +{
-> +#ifdef CONFIG_TRANSPARENT_HUGEPAGE
-> +       __folio_dup_file_rmap(folio, page, HPAGE_PMD_NR, RMAP_LEVEL_PTE);
-> +#else
-> +       WARN_ON_ONCE(true);
-> +#endif
-> +}
+For archival purposes, forwarding an incoming command email to
+linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com.
 
-OK so it was just wrong at the time :)
+***
 
->
-> Both functions were introduced in a single commit, i think it's a simple copy-paste issue.
->
-> The helper never had a caller, so nobody could hit it. If you prefer, I
-> can drop the Fixes tag and only mention d8ef5e311d7b in the changelog, as
-> there is nothing to backport.
+Subject: media: em28xx: fix refcount underflow caused by em28xx_free_v4l2
+Author: neganhat@gmail.com
 
-I mean, it seems like a bug to me? If there's no harm in backporting it I think you
-should add Cc: stable@vger.kernel.org in that case actually.
-
---
-Cheers, Lorenzo
+#syz test: linux-next 8f7df005a756
