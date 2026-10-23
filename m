@@ -1,54 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.207
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792719697;
-	b=p3NDpMLJAWcEM+cwHo+JePqMLB+HCdYnNtQk1v4EvM0P7XDQNHmLd/f+6ffonKHAYxmZ
-	 Cz3ceWeofiHuDqF5OSWKRwnzAbF8lp1S8z6YT18M7ePZg9WrNfHLGLwX5pFNHIaXy59aH
-	 02UG9i7ZooX2f8LzSdpz7MRbtqyAL2/V6Kc5jITIr+y+t7MsXKQEx7XdiBwYfWePtEz3h
-	 F2I8Yw2AY1/2I2V2Vmhu3MxpBvCgfW7TrddMOvpEv7XTl3xmZ9dOh/JN04SWC6hl4kKv1
-	 dpJQLTZIEjQgFCAXd0J2yicB52f8Qu5DbXNlz99GX8c++MZnRYByeNBYAWKlfX2t1aQ==
+	t=1792719827;
+	b=FkcdHQxiEvu1dc72NJM7ReVxibBraTuMHWgMV0kkoHNwG/vWCUPKKYm0VcC//pwiIacc
+	 n3XDR7EqLSi5chwbhnLKrecGgBMfXhUItxeh34m9IKqHhH1mTme0982lDj8hlZbbLWiuk
+	 ih2BikKGmGJ/oWBNf3xwCWVBbRcqllN5NnWnAbN5PVseylIEcRYS0RR5MlTgLGg3yXCZb
+	 4j//7cCTcNMpMjM5GM+i0te6nNmHDKDFqIAeblsAAR9KbWR8u3QFJxqydYR1Gd4esmtRN
+	 rCmGwtrY7HnHmLIrheduI7mTzGG+ssZJ3HOPj74IAvEO5+SKt43YdLdTiKkhPMhMhug==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792719697;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=hP0KBA+rRy4x64wgKIjta1bZFthYN4mc2kQX0835edk=;
-	b=rk4KbuNRRVd+NwAmNFpVKQdS19ncGYaU7SGKYkzsjaqQIR1cthwQLI7FKHae7aYPPd1Q
-	 XVzk+XO1Trka21xiwAdk8jAsCMzhrRlPJSsJl9u8KaG7iUneEQvPCaJTbrf2r97X2bs9X
-	 ws1ufh716VZAKZ8PZNm0ZFfSzNy8eaHLCSO15YOEsyfOFlDcgM4+/nQltp7eptBnNbGjG
-	 F2YYIAXDSjkfEmIeTGdSSt9dzGV2XNh6QRFEPWvITnrvMnFh92zXoxnuUKUtYWnGkUgc2
-	 +IymSSngAcrA1C4u4QeajtJiS3o38vsnNe4CBMl5kUgsEwGMpdGV8NhR3JIQypwO3rw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792719827;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=nJahHq/dhLGzw4vDnB7WcwfgTcni9/PlIZuKySAi6zI=;
+	b=er6XS6FR5E88gK1ymYe6CNqXH79bYm+D5OVy5grOEFrBedHM+gPIBRE2P+vptMQZr2Bf
+	 yjf1JhxjHHC04YDUYE+yVjwIM6lRaU0oH2YyT++vRvnik0zKgNNYov8UJ6H6pSN+3tvS6
+	 3CPmwgGlDmJHspkroJipv8G4P6ugJpByCzLHHY0OejME8PnIwCVOiwbUK51NxNYDottY/
+	 U6p3J9dLfj3HRwKQ9bbeviTsA1Win+tjCfHxjPhLRdsU9gRTsn25IZQ5SQuRv9hlMLjtD
+	 nVgKz12SORy/iopNkqgR6y5deAd5qvEWqJu/L9cyN+TK/vaomHp5bMnQfw7w0zaeMcw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=EhemhwrO;
-	arc=none smtp.remote-ip=91.218.175.207
-Received: from mta0.migadu.com (out-207.mta0.migadu.com [91.218.175.207])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Pd9s3mED;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C749606A31D
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 01:41:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1C749606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 007A1606A319
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 01:43:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=EhemhwrO
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=rWDElumkBOPy1a7EM5B02mSy46xW2Va/g+rFO2mrpTs=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792719694; v=1; x=1793324494;
- b=EhemhwrOhTkpoHWeuqBav1b7ftCriTsbdky1jPosmDelsFpT67HCR+3FC8Be5Nk6f1jEbOVk
- ex3JvDhz5qqPWbx2RxNj7at0SIDPuJehpLXB6483oIWC95KaFZhY4mef+Nv2EHhkkzQArSwJwS1
- iOq/1g6wXq358//exoCEPx+Q=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id f7e72994e1a7a8cb;
-	Fri, 23 Oct 2026 01:41:33 +0000
-X-Mizu-Trace-ID: f7e72994e1a7a8cb
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <0f191ffa-450a-4b0d-b2b6-7d29149d7f13@linux.dev>
-Date: Fri, 23 Oct 2026 09:41:29 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Pd9s3mED
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 824761F01825
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 01:43:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792719826;
+	bh=nJahHq/dhLGzw4vDnB7WcwfgTcni9/PlIZuKySAi6zI=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=Pd9s3mEDLdz/jVlYMNdeg/clqF9G+mI+gDJq11DtNzJzfudPPA17LatNCvuJnqrk5
+	 ndNN7H7MPskbJS6+8OUSkOgXgrQvQmOD5Lbsy1Qr0yIerMb213wFFQXhqn1aF5VuEk
+	 /kPs5vc7OHSM6PwD05HwDGjZtppT2Ju53d4YL+nco9UBdfrUYOpkRVqRjo+RXD8XpV
+	 jbjocFYzsVrgX5HXEkHQZyE0tNpczOHewmpplW+/Eo3St6mHDBjlwGQCghQ3LbIUko
+	 QPTmoxA9yYVxwzd88+ZqfrNX6JUZR01drr+DxYETvNGjpnI5IGo7jfdZ6eS2Ythfcl
+	 eX5vcIv1UcOHA==
+Received: by mail-ed1-f46.google.com with SMTP id 4fb4d7f45d1cf-6ac76a02368so390176a12.2
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 18:43:46 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByt3Dug3tGWXJ/NityJIW7KYFLORr4irBoTVyqmtDL2FsiNWL4GghktCs10iRDJJwkn1yQWHaAqiA/He7A=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIZlJZa9yDaCsCa6DXhkGMIUhSIANyGg0KXM0ex/9fK5T0Bhs4t
+	0LyenKgs3+K3X5W2148YFp5zBYxPsX+I5nJs39v2NQ41rpLbAK8aXsv3qRBPnZtDP+dV7WOOXgW
+	AMUGcjLQ3rCHBaSY7jPYXhib40bw6LyI=
+X-Received: by 2002:a17:907:94cc:b0:c26:1649:47a5 with SMTP id
+ a640c23a62f3a-c46a940913cmr117168666b.27.1792719825165; Thu, 22 Oct 2026
+ 18:43:45 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,98 +59,37 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH-next 2/6] cgroup/cpuset: Properly compute effective xcpus
- in update_parent_effective_cpumask()
-To: Waiman Long <longman@redhat.com>, Ridong Chen <ridong.chen@linux.dev>,
- Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
- =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>,
- Shuah Khan <shuah@kernel.org>
-Cc: cgroups@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-kselftest@vger.kernel.org
-References: <20261022031643.1351877-1-longman@redhat.com>
- <20261022031643.1351877-3-longman@redhat.com>
- <c65208d9-aba6-4e9a-affa-4f7cd8794a0c@linux.dev>
- <00130aa2-2f85-4c4f-8283-acfa6df7cae5@redhat.com>
-Content-Language: en-US
-From: Guopeng Zhang <guopeng.zhang@linux.dev>
-In-Reply-To: <00130aa2-2f85-4c4f-8283-acfa6df7cae5@redhat.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20261023004045.98484-1-mike.michalo@gmail.com>
+In-Reply-To: <20261023004045.98484-1-mike.michalo@gmail.com>
+From: Namjae Jeon <linkinjeon@kernel.org>
+Date: Fri, 23 Oct 2026 10:43:33 +0900
+X-Gmail-Original-Message-ID: <CAKYAXd-g779qGeZZ6_fBjwjxMtGmECirU4O1c2aEx91XAjhuLw@mail.gmail.com>
+X-Gm-Features: AclHuK_BICgCSSlASk9GhD5kDurEaTe5s48oxtrbShSJzURVLsIRQ4yIHcc594o
+Message-ID: <CAKYAXd-g779qGeZZ6_fBjwjxMtGmECirU4O1c2aEx91XAjhuLw@mail.gmail.com>
+Subject: Re: [PATCH] ksmbd: select CRYPTO_AES
+To: Michail Andreas Michalopoulos <mike.michalo@gmail.com>
+Cc: Sergey Senozhatsky <senozhatsky@chromium.org>, Tom Talpey <tom@talpey.com>, 
+	ChenXiaoSong <chenxiaosong@chenxiaosong.com>, linux-cifs@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-
-
-在 2026/10/22 22:47, Waiman Long 写道:
-> On 10/22/26 9:45 AM, Guopeng Zhang wrote:
->> Hi Longman,
->>
->> 在 2026/10/22 11:16, Waiman Long 写道:
->>> Since the introduction of cpuset.cpus.exclusive in commit
->>> e2ffe502ba45 ("cgroup/cpuset: Add cpuset.cpus.exclusive for v2"), a
->>> compute_effective_exclusive_cpumask() helper which is later renamed to
->>> compute_excpus() is added to compute the effective xcpus of a partition
->>> root. However update_parent_effective_cpumask() is not updated in all
->>> proper places to use the new helper to check if a given cpuset should
->>> remain a valid partition root. This can cause a cpuset to incorrectly
->>> remain a valid partition root even if no effective xcpus is left.
->>>
->>> Fix that problem by using compute_excpus() to compute the effective xcpus
->>> into delmask in all cases except partcmd_disable and partcmd_invalidate
->>> and use it for tasks_nocpu_error() check as well as checking its
->>> emptiness. This enables us to catch invalid partition root more
->>> accurately in update_parent_effective_cpumask().
->>>
->> I re-tested the repro from the link below on top of this series
->> (applied on cgroup/for-7.4-fixes), and it still fails:
->>
->>    https://lore.kernel.org/all/20261010075947.333549-3-guopeng.zhang@linux.dev/
->>
->>    cd /sys/fs/cgroup
->>    echo +cpuset > cgroup.subtree_control
->>    mkdir A
->>    echo 0-7 > A/cpuset.cpus
->>    echo 0-7 > A/cpuset.cpus.exclusive
->>    echo root > A/cpuset.cpus.partition
->>    cat A/cpuset.cpus.partition
->>    echo 1 > A/cpuset.cpus.exclusive
->>    cat A/cpuset.cpus.partition
->>
->> The last command still shows "root invalid (Parent unable to distribute
->> cpu downstream)".
->>
->> In this case compute_excpus() returns the stale user mask unchanged.
->> user_xcpus() is gone from update_parent_effective_cpumask(), but the
->> dependency just moved one level down: the new code calls
->> compute_excpus(cs, tmp->delmask), and its first line is
->>
->>    cpumask_and(excpus, user_xcpus(cs), parent->effective_xcpus)
->>
->> Here user_xcpus(cs) is cs->exclusive_cpus, which still holds the old
->> 0-7 when compute_excpus() runs: update_exclusive_cpumask() publishes
->> cs->exclusive_cpus only after partition_cpus_change(). Nothing corrects
->> it either - the sibling trim is skipped as exclusive_cpus is non-empty,
->> and for a direct child of the root cpuset the intersection with
->> parent->effective_xcpus is a no-op. So the stale 0-7 mask still reaches
->> tasks_nocpu_error() and PERR_NOCPUS is set again. Please point it out
->> if I got the analysis wrong.
->>
->> I have rebased my fix on top of this series and the partition recovers
->> correctly with it applied. Should the fix be folded into this patch,
->> or is there a better way to fix it? Happy to hear your thoughts.
-> OK, I will look into that again.
->>
->> Also, is the test case below worth adding here as well? Note that it
->> fails until the fix is in:
->>
->>      # An invalid local partition that took all the CPUs from its
->>      # populated parent should recover after its cpuset.cpus.exclusive
->>      # list is changed to a valid one.
->>      "C0-7:X0-7:P1  .      .      .     X1      .      .      .     0 A1:1|XA1:1 A1:P1 ."
-> 
-> This test case assumes that there are only 8 CPUs in the test system which may not be true in many cases. We need test case that will work no matter the system it is running on.
-> 
-You are right, I wasn't thinking clearly and missed that rule.
-
-Thanks,
-Guopeng
-
+On Fri, Oct 23, 2026 at 9:40=E2=80=AFAM Michail Andreas Michalopoulos
+<mike.michalo@gmail.com> wrote:
+>
+> ksmbd allocates "gcm(aes)" and "ccm(aes)" AEAD transforms for SMB3
+> encryption, but SMB_SERVER only selects CRYPTO_GCM and CRYPTO_CCM, not
+> an AES cipher. With a configuration in which nothing else enables
+> CRYPTO_AES, ksmbd builds but cannot allocate the transforms, and every
+> session that uses encryption fails:
+>
+>   ksmbd: Failed to alloc encrypt aead : -2
+>   ksmbd: crypto alloc failed
+>
+> Select CRYPTO_AES, as the SMB client already does.
+>
+> Fixes: a848c4f15ab6 ("cifsd: add Kconfig and Makefile")
+> Assisted-by: LLM
+> Signed-off-by: Michail Andreas Michalopoulos <mike.michalo@gmail.com>
+Applied it to #ksmbd-for-next.
+Thanks!
