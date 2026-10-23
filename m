@@ -1,90 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.178
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.95
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792722696;
-	b=zPStoDV1sEEis2HAHxj7A8nehi8o7ljFN4FQVvNMmcHm0i2xsKZyHhSqqPFXPNEedE6e
-	 gHEq7ymENCYEG8dDHOjWyjlHINv0IfZIsn3OjYLsABj4WT7M3oTRMhYRNY9x0sV5uQRKv
-	 sPKlaO+Y11l7xfoOhSkmx4Px+RT8qJgx4HCuHBN1dcOPW1b/kqGYoiNsPyxLIQsMFiEIa
-	 E7ofXvmAPbIVCsQUtrhxTS2bUl27uf/Nsk1SXhIeM86of2UGOgma/BSksMEkcO4chwKle
-	 JyxOhGh1kn823pPzQuMz79CN2+f0KdaBIgSw1Ogb6PVHIRpqP5k9a0cKH0jdI/CgXhQ==
+	t=1792722732;
+	b=tXsX4Y54RUzhhKdZmUxfwOCxaZ1S9LXG+357Y7sXBQ3W1OaO/OnWH3xV4qjM4iJC6xMJ
+	 6BJ/1DVVxiXfZ5gnJUjjfi0yNcojOkuAHp7ipGZmBXVb+PD06GKJNkWGrpXHgZ5thNOW8
+	 rKxN7eLZGFXBafcVETkbM4538ar+W4cMim2AV3JnIho4w3W7xO7kTucuACyjlNLC/gWwc
+	 l1BjWtSmZNzezFcCEHiqIEAR4xsxvVR6IsWfwt0+obL2paG3GtJ4gOXYjG6MszZ1maM6N
+	 SAXyJRBMbgwRQ9PXf4hXYqCW37mKObQvaktPHcNmIU7lh/JBiCRM8D5kalA+GPb1u+A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792722696;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=ksAqQEt7wgRnrEwMkGEYt7VjPYd0SKMXbelAnKdTXYE=;
-	b=YMCDzWYZGESX12i/sG9H28TIk+tFPuYvoCb/h1WqxmQOI7fF198qy0tuQe3opi+EFax7
-	 nyCOWjuVwkOY5N2LYneL36DfFSwKXARNcLWtkuTDBkPLBT64f/M/d1NmRUyBi6tBWlEVR
-	 KSg1syGsbnashIXnR8pEmUTopwOYwNgBeQHG0IUaJHpr7E9Udn0wf1dSEF445dVCaNL1v
-	 uDN168uyGFIRmusd41i5ki5TB7LUBV4DpJCWPm3jn+D1MCBln9egUPjZmI6P5zaClkgr0
-	 p5J2KomdtwTnubhGdTURFkxowQfBobtsBRLCMpI86R16DHRq8NR4ARMdNTZKtUypSWA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792722732;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=r7c3swfnj+SAiJYhFBwLA8X/WD+blCLvWAWJF6ltOFs=;
+	b=5iyVWAGAonocSW+jPAacKQ1RLJO7Ykt1W3y4/3G3eqpNFf8tE6JxI+5TTTzbgIS0kZ4C
+	 GZmww6obkjXb/kQToURaHynkDTqlyKhheVKEHU7/Kle2rZgnPMa9Qv1dLO2bWpXHVXKrN
+	 xtGlhtEKyhcgZmhAN3qOffXBVz9mRC08w/nVOdjNcpM/hrVLOlUO92ZUuM6uNF6ajLnm0
+	 9SUSfeMVEpK69NYcVTiPMo7zCy2App7uEGx4RO4clpVrF+/HQntKXjhntpqcxgug3BVUa
+	 NsUslT9xGRpraBbMPGu7Kfz6wCkaxzFRctX7jmkkA4e2Gds0+43arue5Ox4HuMODFIQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Oe1CMZ7t;
-	arc=none smtp.remote-ip=209.85.210.178
-Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com [209.85.210.178])
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=nzA2GmE4;
+	arc=none smtp.remote-ip=91.218.175.95
+Received: from mta0.migadu.com (out-95.mta0.migadu.com [91.218.175.95])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B033606A321
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 02:31:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2B033606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3117606A319
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 02:32:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C3117606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Oe1CMZ7t
-Received: by mail-pf1-f178.google.com with SMTP id d2e1a72fcca58-8a06c60065fso352308b3a.1
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 19:31:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792722695; x=1793327495; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ksAqQEt7wgRnrEwMkGEYt7VjPYd0SKMXbelAnKdTXYE=;
-        b=Oe1CMZ7tYNcoLHe0eavLG7OIHLIneB0XD2SCB089Kpg8J8yPNL3XT3E0rxHLjsaih0
-         49vXA5u7G0vI1b97RDBMuX8l3jMA9y6ZqBZUd1VZdBA46EEtzgjWJR45ni6gVVCob6ZN
-         ii7LDdjkY30+qxFY3t/YWUXCvtmzea3WZRKsfC+PgRA0j0fL46ybpEI2jYZchTEA9EIR
-         FrcXCpLbf+OuCrDZTR56oBoXHy4sOyhRbLvVue8g0wgb06LLwxJK+gf7KKxX28oU8yK/
-         FYrH9k8kqw3CTV/RAIFvBWhIkVhpV0jxzUOjAIsqkkmgGuvFTha9+qrOFmeW1b33jFOA
-         rP5g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792722695; x=1793327495;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ksAqQEt7wgRnrEwMkGEYt7VjPYd0SKMXbelAnKdTXYE=;
-        b=GLQqgMMirMxRY421eRmyLYYoMLMe35ntRBOvxCZ72xVtigZjIit+TPF5n9hdIt6X8q
-         u3XJ/AT8SCTGy/dFpgFsy5zkLpl36z9KkeUMyAUWgMT35sI9oaD2kmjEqIWmy2KCjPCX
-         MgozLFvcFVFnSy3JwgtiD5/VnLhU+yeiNxp1FiRFMbd7MUw530OlrQHi4JMQ6IxjTrkw
-         CzsSKjXhFqKung8TShcTWf9WjEiLAAb0iYlnxdRUZtQbqYf+7J95Q49fpgX34OLRLjP2
-         kuK0WiU/UmN1ENqry6hfo0BueZ39nGZTiwPnNdggFTXx129gk1VRgfsabQoLUltKAgpK
-         yuyA==
-X-Gm-Message-State: AFq9FYIrbi2rTe1WF88x+247RzzmN6lO5HY/UPooRwNJqjHuk9lPbzZG
-	AkvpLn+zrcG8hk9jTL6j7cl/6ZafDgtLJMUbqKDdyWROnckG+SFGaXDyhJZRKg==
-X-Gm-Gg: AYBFou31MTyFg+Dbn+ozmoiCQ87+Z83DBeSJkDnmbGt1IEcBUW+8WFuxPaH0gB80V8p
-	b41MKfllxpucv9d9kaTq0VU03j+DW5gK3AFTaBPTx9lX5JoBxr+GUxeJnPdhM3GVAFWsuMS4tPp
-	HkQSHVe028uq8HguHVPDkzEiwKEXmuMnfJjAlI4WQQxiqHR//8uMyQBsM8D1ALpaQVpR2kKnk3D
-	4SEcJt/c/RJWGiXaRf+Siy5VcymEg45xiTIWfMHRVUf4SwhE9yDGIWMsv6zUP1goh19LW9rpuMf
-	wm8uROHpG4QTOOl5hfPpx+pXq83OEJ77O9R7Ff5c8ph4iLzZED25LC+o0G4OuuHTF+5b+U4mANR
-	qREh2PvlaqNUYPrkuFHxKGXgpE8HIzmyVtAEMy2P/PhXsWDXElzut26uPAIIphbyM+7jXxSExon
-	ywOkoq1xLEKp627dLeFkF5JnAvqXKA+LGobPt+5JmQ5RlIozlb1E9a9WlYUZB7NXAYu+ovqE+KF
-	exVccdhx2yJysI4Bm+XdKJOIMnSGdtvDZ2NHoYKScX7rSlSWtd7Wav2LD9kUAUa9QRhU8BjC4K2
-	7BhN90K//RydpKTCuc/shIKwBmn+OyQgwxL2E6ecVFDV6z24hiItZGTp9b8w/8JviRVT2O4WLw=
-	=
-X-Received: by 2002:a05:6a20:a10b:b0:3e0:e400:3fd with SMTP id adf61e73a8af0-3e37665ccbamr644534637.43.1792722695158;
-        Thu, 22 Oct 2026 19:31:35 -0700 (PDT)
-Received: from f2fs-test.c.googlers.com.com (225.134.16.34.bc.googleusercontent.com. [34.16.134.225])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8a2c90f9397sm193403b3a.42.2026.10.22.19.31.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 19:31:33 -0700 (PDT)
-From: Daeho Jeong <daeho43@gmail.com>
-To: linux-kernel@vger.kernel.org,
-	linux-f2fs-devel@lists.sourceforge.net,
-	kernel-team@android.com
-Cc: Daeho Jeong <daehojeong@google.com>
-Subject: [PATCH] f2fs: flush devices when a sync checkpoint is skipped
-Date: Fri, 23 Oct 2026 02:31:18 +0000
-Message-ID: <20261023023118.3460118-1-daeho43@gmail.com>
-X-Mailer: git-send-email 2.56.0.257.gf7497c7d27-goog
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=nzA2GmE4
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=Kl4/f0wED6XjvWDZ9iOMhZfzmTjfloXcrEiM0IjOl9A=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792722728; v=1; x=1793327528;
+ b=nzA2GmE4Yh/G+hp15F1INaQ8plk0J9EG26KOPWZNUJzG2EKZfo00IeFbc+OMmoF+Enswn2Kr
+ oCsefht8iJ372OlQ3fHcMiY5NtNuYhvhN/3Qw1RylNDFF+JzAQWqH+bhYuMPHwDMckBQRm2dPrX
+ E4LJMcZddlMBGt1Wzx4Xi4vQ=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 4ce4a1801382ae1c;
+	Fri, 23 Oct 2026 02:32:08 +0000
+X-Mizu-Trace-ID: 4ce4a1801382ae1c
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <a340ec5a-c50b-4fa3-b325-52dba86f0015@linux.dev>
+Date: Fri, 23 Oct 2026 10:32:05 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,107 +58,160 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 07/12] mm: hugetlb_vmemmap: simplify shared tail page
+ handling
+To: Lance Yang <lance.yang@linux.dev>
+Cc: osalvador@suse.de, akpm@linux-foundation.org, rppt@kernel.org,
+ qi.zheng@linux.dev, jthoughton@google.com, david@kernel.org,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ Muchun Song <songmuchun@bytedance.com>
+References: <20261020115824.823278-6-songmuchun@bytedance.com>
+ <20261023022027.25898-1-lance.yang@linux.dev>
+Content-Language: en-US
+From: Muchun Song <muchun.song@linux.dev>
+In-Reply-To: <20261023022027.25898-1-lance.yang@linux.dev>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: Daeho Jeong <daehojeong@google.com>
 
-When fsync needs a checkpoint, f2fs_do_sync_file() writes and waits for
-the file data and then relies on the checkpoint to flush the device
-write caches. syncfs works the same way through f2fs_sync_fs(). But
-f2fs_write_checkpoint() skips a CP_SYNC or CP_FASTBOOT checkpoint
-without any flush when SBI_IS_DIRTY is clear.
 
-That can happen even though the data was just written. A checkpoint
-does not wait for F2FS_WB_DATA writes, so another checkpoint can commit
-the new block addresses of the file while its data writes are still in
-flight, flush the devices before they complete, and clear SBI_IS_DIRTY.
-The checkpoint requested by fsync is then skipped, and fsync returns
-while the data may still be in a volatile write cache. After a power
-cut, the file points to blocks that were never persisted.
+On 2026/10/23 10:20, Lance Yang wrote:
+> On Tue, Oct 20, 2026 at 07:58:19PM +0800, Muchun Song wrote:
+>> The remap walker currently carries a shared tail page selected by its
+>> caller, even though the optimize and restore callbacks can derive the
+>> same information from the folio being processed.  This adds redundant
+>> state to the walker and couples its interface to caller-side preparation.
+>>
+>> Derive the shared mapping state in the callbacks instead, keeping the
+>> mapping policy with the PTE being processed and simplifying the remap
+>> interface.
+>>
+>> No functional change intended.
+>>
+>> Signed-off-by: Muchun Song <songmuchun@bytedance.com>
+>> ---
+>> include/linux/vmemmap-optimization.h |  6 +-
+>> mm/hugetlb_vmemmap.c                 | 89 ++++++++++++----------------
+>> mm/mm_init.c                         |  6 +-
+>> mm/sparse-vmemmap.c                  |  5 +-
+>> 4 files changed, 49 insertions(+), 57 deletions(-)
+>>
+>> diff --git a/include/linux/vmemmap-optimization.h b/include/linux/vmemmap-optimization.h
+>> index 065840f3c241..858311a71b0c 100644
+>> --- a/include/linux/vmemmap-optimization.h
+>> +++ b/include/linux/vmemmap-optimization.h
+>> @@ -91,11 +91,13 @@ static inline struct page *vmemmap_shared_tail_page(unsigned int order,
+>> }
+>> #endif /* CONFIG_VMEMMAP_OPTIMIZATION */
+>>
+>> -static inline bool vmemmap_optimizable_pfn(unsigned long pfn)
+>> +static inline bool vmemmap_optimizable_pfn(unsigned long pfn, unsigned int order)
+>> {
+>> -	const unsigned int order = pfn_to_section_compound_order(pfn);
+>> 	const unsigned long nr_pages = 1UL << order;
+>>
+>> +	if (!IS_ENABLED(CONFIG_VMEMMAP_OPTIMIZATION))
+>> +		return false;
+>> +
+>> 	if (!is_power_of_2(sizeof(struct page)))
+>> 		return false;
+>>
+>> diff --git a/mm/hugetlb_vmemmap.c b/mm/hugetlb_vmemmap.c
+>> index 18b72d553955..8fac61b7d74a 100644
+>> --- a/mm/hugetlb_vmemmap.c
+>> +++ b/mm/hugetlb_vmemmap.c
+>> @@ -24,22 +24,18 @@
+>>   * struct vmemmap_remap_walk - walk vmemmap page table
+>>   *
+>>   * @remap_pte:		called for each lowest-level entry (PTE).
+>> - * @nr_walked:		the number of walked pte.
+>> - * @vmemmap_tail:	the page to be installed as non-first in the vmemmap range
+>> + * @nr_walked:		the number of PTEs successfully remapped.
+>>   * @vmemmap_pages:	the list head of the vmemmap pages that can be freed
+>>   *			or is mapped from.
+>>   * @flags:		used to modify behavior in vmemmap page table walking
+>>   *			operations.
+>>   */
+>> struct vmemmap_remap_walk {
+>> -	void			(*remap_pte)(pte_t *pte, unsigned long addr,
+>> +	int			(*remap_pte)(pte_t *pte, unsigned long addr,
+>> 					     struct vmemmap_remap_walk *walk);
+>> -
+>> 	unsigned long		nr_walked;
+>> -	struct page		*vmemmap_tail;
+>> 	struct list_head	*vmemmap_pages;
+>>
+>> -
+>> /* Skip the TLB flush while updating the vmemmap page tables. */
+>> #define VMEMMAP_REMAP_NO_TLB_FLUSH	BIT(0)
+>> 	unsigned long		flags;
+>> @@ -140,12 +136,14 @@ static int vmemmap_pmd_entry(pmd_t *pmd, unsigned long addr,
+>> static int vmemmap_pte_entry(pte_t *pte, unsigned long addr,
+>> 			     unsigned long next, struct mm_walk *walk)
+>> {
+>> +	int ret;
+>> 	struct vmemmap_remap_walk *vmemmap_walk = walk->private;
+>>
+>> -	vmemmap_walk->remap_pte(pte, addr, vmemmap_walk);
+>> -	vmemmap_walk->nr_walked++;
+>> +	ret = vmemmap_walk->remap_pte(pte, addr, vmemmap_walk);
+>> +	if (!ret)
+>> +		vmemmap_walk->nr_walked++;
+>>
+>> -	return 0;
+>> +	return ret;
+>> }
+>>
+>> static const struct mm_walk_ops vmemmap_remap_ops = {
+>> @@ -213,51 +211,51 @@ static struct page *vmemmap_dup_page_from_list(const struct page *src,
+>> 	return dst;
+>> }
+>>
+>> -static void vmemmap_optimize_pte(pte_t *pte, unsigned long addr,
+>> -				 struct vmemmap_remap_walk *walk)
+>> +static inline struct page *folio_vmemmap_shared_tail_page(const struct folio *folio)
+>> {
+>> -	struct page *page = pte_page(ptep_get(pte));
+>> -	pte_t entry;
+>> -
+>> -	/* Remapping the head page requires r/w */
+>> -	if (unlikely(walk->nr_walked == 0)) {
+>> -		struct page *head;
+>> +	return vmemmap_shared_tail_page(folio_order(folio), folio_zone(folio));
+>> +}
+>>
+>> -		VM_WARN_ON_ONCE(!PageHead((const struct page *)addr));
+>> +static int vmemmap_optimize_pte(pte_t *pte, unsigned long addr,
+>> +				struct vmemmap_remap_walk *walk)
+>> +{
+>> +	pte_t entry;
+>> +	struct page *src = pte_page(ptep_get(pte)), *dst;
+>> +	const struct page *page = (const struct page *)addr;
+>> +	const struct folio *folio = page_folio(page);
+>>
+>> -		head = vmemmap_dup_page_from_list(page, walk->vmemmap_pages);
+>> -		entry = mk_pte(head, PAGE_KERNEL);
+>> +	if (likely(vmemmap_optimizable_pfn(page_to_pfn(page), folio_order(folio)))) {
+>> +		dst = folio_vmemmap_shared_tail_page(folio);
+>> +		if (!dst)
+>> +			return -ENOMEM;
+> One thing caught my eye here ... shared tail allocation can now fail after
+> we've already remapped the head.
 
-Flush the write caches of all devices when a sync checkpoint is skipped.
+Right. Once the shared page has been allocated successfully, this
+shouldn't be a common case.
 
-This was found by generic/455 with compression enabled for all files,
-where every fsync goes through a checkpoint. On a 4KB page kernel, 3 of
-100 runs lost fsynced blocks without this patch and none of 100 runs did
-with it.
+>
+> IIUC, nothing to worry about there, though :) since rollback keeps the
+> new head mapped and flushes before clearing the optimized flag or freeing
+> the old backing page.
 
-Signed-off-by: Daeho Jeong <daehojeong@google.com>
----
- fs/f2fs/checkpoint.c | 18 ++++++++++++++----
- fs/f2fs/f2fs.h       |  1 +
- fs/f2fs/segment.c    | 17 +++++++++++++++++
- 3 files changed, 32 insertions(+), 4 deletions(-)
+Yes.
 
-diff --git a/fs/f2fs/checkpoint.c b/fs/f2fs/checkpoint.c
-index 1ed38c668fc..158d97fc349 100644
---- a/fs/f2fs/checkpoint.c
-+++ b/fs/f2fs/checkpoint.c
-@@ -1973,10 +1973,20 @@ int f2fs_write_checkpoint(struct f2fs_sb_info *sbi, struct cp_control *cpc)
- 
- 	stat_cp_time(cpc, CP_TIME_LOCK);
- 
--	if (!is_sbi_flag_set(sbi, SBI_IS_DIRTY) &&
--		((cpc->reason & CP_FASTBOOT) || (cpc->reason & CP_SYNC) ||
--		((cpc->reason & CP_DISCARD) && !sbi->discard_blks)))
--		goto out;
-+	if (!is_sbi_flag_set(sbi, SBI_IS_DIRTY)) {
-+		if (cpc->reason & (CP_FASTBOOT | CP_SYNC)) {
-+			/*
-+			 * The data that fsync or syncfs waited for may have
-+			 * completed after the last checkpoint flushed the
-+			 * devices, and that checkpoint may already point to
-+			 * it, so flush the devices.
-+			 */
-+			err = f2fs_flush_all_devices(sbi);
-+			goto out;
-+		}
-+		if ((cpc->reason & CP_DISCARD) && !sbi->discard_blks)
-+			goto out;
-+	}
- 	if (unlikely(f2fs_cp_error(sbi))) {
- 		err = -EIO;
- 		goto out;
-diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
-index 1f9bd8e3b52..a4a38818988 100644
---- a/fs/f2fs/f2fs.h
-+++ b/fs/f2fs/f2fs.h
-@@ -4265,6 +4265,7 @@ void f2fs_balance_fs_bg(struct f2fs_sb_info *sbi, bool from_bg);
- int f2fs_issue_flush(struct f2fs_sb_info *sbi, nid_t ino);
- int f2fs_create_flush_cmd_control(struct f2fs_sb_info *sbi);
- int f2fs_flush_device_cache(struct f2fs_sb_info *sbi);
-+int f2fs_flush_all_devices(struct f2fs_sb_info *sbi);
- void f2fs_destroy_flush_cmd_control(struct f2fs_sb_info *sbi, bool free);
- void f2fs_invalidate_blocks(struct f2fs_sb_info *sbi, block_t addr,
- 						unsigned int len);
-diff --git a/fs/f2fs/segment.c b/fs/f2fs/segment.c
-index 06fb92fc847..5b015cf9071 100644
---- a/fs/f2fs/segment.c
-+++ b/fs/f2fs/segment.c
-@@ -822,6 +822,23 @@ int f2fs_flush_device_cache(struct f2fs_sb_info *sbi)
- 	return ret;
- }
- 
-+/*
-+ * Flush the write caches of all devices, regardless of which ones received
-+ * writes since the last checkpoint.
-+ */
-+int f2fs_flush_all_devices(struct f2fs_sb_info *sbi)
-+{
-+	int ret, i;
-+
-+	if (test_opt(sbi, NOBARRIER))
-+		return 0;
-+
-+	ret = __submit_flush_wait(sbi, sbi->sb->s_bdev);
-+	for (i = 1; !ret && i < sbi->s_ndevs; i++)
-+		ret = __submit_flush_wait(sbi, FDEV(i).bdev);
-+	return ret;
-+}
-+
- static void __locate_dirty_segment(struct f2fs_sb_info *sbi, unsigned int segno,
- 		enum dirty_type dirty_type)
- {
--- 
-2.56.0.218.g1ec904b173-goog
+>
+> [...]
+>
+> Reviewed-by: Lance Yang <lance.yang@linux.dev>
 
+Thanks.
