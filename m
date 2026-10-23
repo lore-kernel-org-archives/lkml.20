@@ -1,102 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.173
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792745490;
-	b=xVhKXGSa7ZR/6C8PIhkOug5J9kjzrmEE3cARKjJNcrIMXl/Y9gJ6Rn4dg1e8UEF5Oxgo
-	 CebrPOj92BeqxaQ+jYDIPtmDEUiBH0RVGr/ugvXB3kZ1doApawjmhwsoA9SjfQgm0xfU9
-	 0Zl7uEfRQuL+yb5bru309Rs999KHFkAdfsyi5INv36vxgymGCxUiTrp2cH6dWBke1e01+
-	 q0WrRdt0fy+i5CvhP47JWMW0k/maLUYWQfwRc+rs3XDbwDyUWWfll2/lbk4Q37u+Ovg3q
-	 IFiLYiC5BxnDAR1XUsy32yTSlP9Ws+iKEuQvAH0/khy4rxQRmHa8fciV3YFr3mnQixA==
+	t=1792745514;
+	b=1kCL8VDsqYU3IyUI29O8MA24/Qoq2aOld17QzbkAmjENs5N0bRh22pCY/LuAQFANPy8O
+	 s1MAEFAMBX0S//iD9d5AxdaL8VEyar2OfrLo37jJLxfsXhPOMgA2H98yCIlw1dxkb7CCo
+	 M6BmCZdFlJF9jsR/tLNxpysAY3rwTbOS5R9LmnLrkYk6EAKsrz9XJaWFJfKydz1pnh2Vq
+	 9EZGPwGYxVk89HJZO/oDG9vOcLYH6ZBSKTkRB2vZJqgEJq5JQ0TSYjUXv1Dfsd64SetV3
+	 NrS/OYJTjiWLaYnMNAYUFMOjJwSQ7/hGJdxCOvmYrWZ/OxxNkBfoEDYjSmVjZWc6YGA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792745490;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Spam-Flag:
-	 X-Spam-Level:X-Spamd-Result:X-Spam-Score;
-	bh=O8hx2K3MguPb+IPLbG/1EkjyoxvdTxrh8Upow7TUDnI=;
-	b=tXFB4qEbqSXZt77eO+IewpDciUZP5qZ686cJq6M8g9TiDLWfAxsRsiMmfgOoobcFBeBd
-	 mPsl7TpTJT4yDWXvrWjMbaNVvF1b+86+Ptwtp7phxvuN5YVidBWzs54U4OX/TwK6ABDsu
-	 mAd92cN+B5MQzT8WAnGd53j/nf3RX2XMwPJe5K6jQDdpg0W+uaKTrHzaR0naW0WlwojhP
-	 yMInpcjE+RogBXq5IuTKzAmFgt4MKmivvtINfMME5wnGTcSBbBH5uJ9XQ+diHwZ4S1TtR
-	 /qQflPhNVDLZQGc2X1qg0XFXMUoYolM9TeS9GOQoRS7mQPijb8ILxqfD4fo0XRwaadA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792745514;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=XsQ7jb7KO3Mrp8snOLVCes53wF+hkQPQbyMlf+Nofr8=;
+	b=SEYSVA9QThf5fmtA4Vbq9gE536RNfru/qjaY4w91pG3Ie6lNFPnOyZLnV0LtlGOt86c+
+	 rtAgKeH62vhIE+UEF+3QWNud6MKtcfbwWWsunwV+ez1ijfqMgzzVOeehCvK1RbUoWe1jb
+	 FdeTiE7ptXk4S66OOfZq6u3A57eM8I0IYPJjU3RlrhDCxfTGyY120W18arL0hd9xIgXHR
+	 BQbL4Uw0TsPF8eTiJ5JYkiUauTWhj3HkxDlpRIXZi5dQWoFJnNoehYYwQHYNN5rIifmgv
+	 dKQwo7LqZpEjgpmBJuCtEOLw/y5Im7XJoLLl2Jtz/iz6pB3H9YZ304DTWLcflW6sJSg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=Ncb6doRW;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=wlrmthuq;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=Ncb6doRW;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=wlrmthuq;
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=OlLf0Bg8;
+	arc=none smtp.remote-ip=209.85.221.173
+Received: from mail-vk1-f173.google.com (mail-vk1-f173.google.com [209.85.221.173])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A99A606A31A;
-	Fri, 23 Oct 2026 08:51:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4A99A606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BBC9606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 08:51:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9BBC9606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=Ncb6doRW;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=wlrmthuq;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=Ncb6doRW;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=wlrmthuq
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 694D321C53;
-	Fri, 23 Oct 2026 08:51:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1792745488; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=O8hx2K3MguPb+IPLbG/1EkjyoxvdTxrh8Upow7TUDnI=;
-	b=Ncb6doRWi7VgBR6oi6ujgD7vx6n6h0AX6SD7uchzq0vurbRtwgFu7RPoNr6pTXBn5ViUme
-	uARXHu05lkukBJBwIG3fcG2uv2DVJvZY9nPYHVyN+YNsMauUzpGdHDvfxdJ+zKYt8rsl0Y
-	t5/6lZ8ElqWW5cAhEtZ40EvcYGKQZ7U=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1792745488;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=O8hx2K3MguPb+IPLbG/1EkjyoxvdTxrh8Upow7TUDnI=;
-	b=wlrmthuqSM1J6WSEGckl8A6kE3ho3whlf/xeixnubJ7V3ISJTmhd+NljKcbnw9fq6GGbtZ
-	MPUHgVULBbiB0GDA==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1792745488; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=O8hx2K3MguPb+IPLbG/1EkjyoxvdTxrh8Upow7TUDnI=;
-	b=Ncb6doRWi7VgBR6oi6ujgD7vx6n6h0AX6SD7uchzq0vurbRtwgFu7RPoNr6pTXBn5ViUme
-	uARXHu05lkukBJBwIG3fcG2uv2DVJvZY9nPYHVyN+YNsMauUzpGdHDvfxdJ+zKYt8rsl0Y
-	t5/6lZ8ElqWW5cAhEtZ40EvcYGKQZ7U=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1792745488;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=O8hx2K3MguPb+IPLbG/1EkjyoxvdTxrh8Upow7TUDnI=;
-	b=wlrmthuqSM1J6WSEGckl8A6kE3ho3whlf/xeixnubJ7V3ISJTmhd+NljKcbnw9fq6GGbtZ
-	MPUHgVULBbiB0GDA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id E77F1133F6;
-	Fri, 23 Oct 2026 08:51:27 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id ezGjJw8g22pkHwAAD6G6ig
-	(envelope-from <tzimmermann@suse.de>); Fri, 23 Oct 2026 08:51:27 +0000
-Message-ID: <2a9b1325-386b-4460-8651-13fc43dca6c6@suse.de>
-Date: Fri, 23 Oct 2026 10:51:27 +0200
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=OlLf0Bg8
+Received: by mail-vk1-f173.google.com with SMTP id 71dfb90a1353d-5eac01ff101so287590e0c.2
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 01:51:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792745512; x=1793350312; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=XsQ7jb7KO3Mrp8snOLVCes53wF+hkQPQbyMlf+Nofr8=;
+        b=OlLf0Bg8codaTQcw5DcH+h/1/uwGj+Gp1nUwjStmUDhQDUIqGONd2WeFQGkvXClMUW
+         j7bHlpOcJqBfCHIqNM40FRxOKlMouS+yza9v51Vv7WrITnDywHcTI9xXeMPt0C85gJMD
+         x290lNXjcjVDmopfljxhH9DYat5XDr3jXk5/FWGkfLtNf3k6KoPmbcy8GmVayqlyvFML
+         fkngQ4lb05PQHFd15G2kksBYmExgt90FgwA9iUTUclFiRhfVk2e4SfcUnkEv8KAWRXmr
+         RlwT+bMTMLEwZM1PSIiO0ecW1+Z2PpKovuPpBF+8bmPE3XUnCUEsQdjTXrZqjIjA+nkE
+         lc4w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792745512; x=1793350312;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=XsQ7jb7KO3Mrp8snOLVCes53wF+hkQPQbyMlf+Nofr8=;
+        b=xyoGkm8qdyqspHgznP7vhqKJGc7fBVdDiwi2+Hz8JmgnVxyWllqnXlqurbDv7P2jt3
+         pjzNOf1agn8de+Dcm2AAS6vBWTCXNKhjS15U0XO7Yy/ND5DFqvpOWm0gXrGQVBgbDsGe
+         2639zdvzSRqrDyV0Zah4bNhu1iQuO70lk+t9Ex0AC6KtyA8tUz29aOjzanltrEYPQMqI
+         cl9ZEF8QLG8l2Vmoj0k3i3Hxf62AOLwPHjmJoSdjdqjAsw08u72H7UPzj+o5Ob6wOXRV
+         ArvxlBUH3L1AFxQlMb9LTkzOL/inI/mHGcCJX4p1lNQH3h+oxejK0UBkUpZIsIag11Zw
+         sxGQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzQ3yVhuda8x19wED9sSDCgrVeqwtx1M//P8teMd751C/2L+L5KjVoiew/0KeSLVyceTmFwGIZx81sT49Y=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL/wzL4I5splMO8sTsBqJpLTjiG6dcRKp3MwwTGvNY2ZdKGMmxc
+	5S02ZAt7yf9jhu2+IdXrudLc7Efl+ohOBNodRG9rbDMbYwvfPkmoF9Mx
+X-Gm-Gg: AYBFou3Gk+rRFBuwpwh387wyEXI48NqJn3x4jWnJ8melX9RsXa+MEVYPMuRRi0jlljt
+	QChepTZ+0C235cC/IA48Awpy3F/GEBUtOpjfeTHtxNwfTIfmyyiNGp5IcYbycOL33BOkif9LEZe
+	zHiXnZ3wDCgryKFA0YQfeolNwhJrgcGzFL3aiPpXGlPwD44CmjZoWerrM1bw1zN23wx3BwfSXOZ
+	c+LAuMhTVkmoQoRJ+4aHtW2ZhxSKICo6FJD0SD8eQD+rPdd4dk/8tyOSr8iVYClKzlr6krcFxA2
+	jICvkI2LCsqz7ppIMp44xNR9nlAxWiaRMGNqQXmMFgujEkJe0V/frO3MlGmNj0bgqNiuw9FlQ5T
+	NDYhY7UQdV2dlUy8gCZFrYU7uTA37uE/aKW1T8Q25IM/zgut9jg7ZYYvfsMGfQ9P4SmGIP9+s0P
+	tpOFti3je37ZmWukQISiXXdK9FIenrRSK4uw2QPuErKGbnoEo+hqePcwGwzMseF7y7HNODaA7bH
+	Rfv7VtCWAFzcxBvB5JBr4F9Xcsu6bNk0zZWJRxlPkWcwRihb2veDQUYVBTiZqudBDSwbwZR+Cyc
+	cpLCShlCGeF1Ed0TlIQ0
+X-Received: by 2002:a05:6122:3482:b0:5d4:dd7c:b22b with SMTP id 71dfb90a1353d-5ec14a86114mr472271e0c.12.1792745512510;
+        Fri, 23 Oct 2026 01:51:52 -0700 (PDT)
+Received: from Biostar-A520MT ([187.94.15.233])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5ec13f674c5sm1717371e0c.16.2026.10.23.01.51.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 23 Oct 2026 01:51:52 -0700 (PDT)
+From: Breno Rodrigues Alves <breno3011alves@gmail.com>
+To: Ryusuke Konishi <konishi.ryusuke@gmail.com>
+Cc: Viacheslav Dubeyko <slava@dubeyko.com>,
+	linux-nilfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Breno Rodrigues Alves <breno3011alves@gmail.com>
+Subject: Re: [PATCH] nilfs2: remove two dead '#if 0' blocks
+Date: Fri, 23 Oct 2026 05:51:32 -0300
+Message-ID: <20261023085132.4874-1-breno3011alves@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <CAKFNMomoPV87KM94eYMHNz9WG9CuAHOWVEgPbsEBUZi55jhHpg@mail.gmail.com>
+References: <20261022220637.89697-1-breno3011alves@gmail.com> <CAKFNMomoPV87KM94eYMHNz9WG9CuAHOWVEgPbsEBUZi55jhHpg@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,142 +99,14 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/fbdev: Replace __MODULE_STRING() with __stringify()
-To: Sasha Levin <sashal@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Petr Pavlu <petr.pavlu@suse.com>, Luis Chamberlain <mcgrof@kernel.org>,
- Daniel Gomez <da.gomez@kernel.org>, Sami Tolvanen <samitolvanen@google.com>,
- Aaron Tomlin <atomlin@atomlin.com>, dri-devel@lists.freedesktop.org,
- linux-modules@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261022175543.1831620-1-sashal@kernel.org>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20261022175543.1831620-1-sashal@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Spam-Flag: NO
-X-Spam-Level: 
-X-Spamd-Result: default: False [-13.29 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	XM_UA_NO_VERSION(0.01)[];
-	RCVD_TLS_ALL(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[13];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[gmail.com,ffwll.ch,suse.com,kernel.org,google.com,atomlin.com,lists.freedesktop.org,vger.kernel.org];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url,imap1.dmz-prg2.suse.org:helo,suse.de:email]
-X-Spam-Score: -13.29
 
-Hi
+Hi Ryusuke,
 
-Am 22.10.26 um 19:55 schrieb Sasha Levin:
-> Commit 08abfa5a161e ("drivers: Replace __MODULE_STRING() with
-> __stringify()") converted the drm_fbdev_overalloc parameter description
-> in drm_fb_helper.c ahead of the removal of __MODULE_STRING().
->
-> Commit 6b5a66fd9f21 ("drm/fbdev: Move fbdev module parameters next to
-> module init") moved that parameter into drm_kms_helper_common.c while it
-> still used __MODULE_STRING(), so the conversion never reached the moved
-> code. drm_kms_helper_common.c is now the last user of the macro, and
-> removing the macro breaks the build with CONFIG_DRM_FBDEV_EMULATION=y:
->
->    drivers/gpu/drm/drm_kms_helper_common.c:46:18: error: expected ')' before '__MODULE_STRING'
->
-> Use __stringify() instead. The parameter description is unchanged.
->
-> Signed-off-by: Sasha Levin <sashal@kernel.org>
+Thank you for the pointer - I should have checked the latest mainline
+master and the linux-nilfs list history before sending.  Please consider
+the patch dropped.
 
-Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
+I will be more careful next time.
 
-> ---
-> This depends on 6b5a66fd9f21 in drm-next and 08abfa5a161e in
-> modules-next, both queued for 7.4. Petr plans to remove
-> __MODULE_STRING() once his conversions are in mainline, so this needs to
-> land first, either through drm-misc after 7.4-rc1 or together with the
-> removal patch.
-
-Dave, could we put this patch directly into drm-next? It seems like this 
-fixes a broken merge commit.
-
-Best regards
-Thomas
-
->
-> Build-tested on next-20261022 (x86_64, gcc) with __MODULE_STRING()
-> removed from module.h. The parameter description in modinfo is
-> unchanged.
->
->   drivers/gpu/drm/drm_kms_helper_common.c | 3 ++-
->   1 file changed, 2 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/drm_kms_helper_common.c b/drivers/gpu/drm/drm_kms_helper_common.c
-> index 1e55ecac46989..346f6c4c0b234 100644
-> --- a/drivers/gpu/drm/drm_kms_helper_common.c
-> +++ b/drivers/gpu/drm/drm_kms_helper_common.c
-> @@ -28,6 +28,7 @@
->   #include <linux/export.h>
->   #include <linux/module.h>
->   #include <linux/moduleparam.h>
-> +#include <linux/stringify.h>
->   
->   #include "drm_crtc_helper_internal.h"
->   #include "drm_panic_internal.h"
-> @@ -43,7 +44,7 @@ EXPORT_SYMBOL(drm_fbdev_overalloc);
->   module_param(drm_fbdev_overalloc, int, 0444);
->   MODULE_PARM_DESC(drm_fbdev_overalloc,
->   		 "Overallocation of the fbdev buffer (%) [default="
-> -		 __MODULE_STRING(CONFIG_DRM_FBDEV_OVERALLOC) "]");
-> +		 __stringify(CONFIG_DRM_FBDEV_OVERALLOC) "]");
->   
->   /*
->    * In order to keep user-space compatibility, we want in certain use-cases
-
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
-
-
+Breno
