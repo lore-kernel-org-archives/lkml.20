@@ -1,102 +1,46 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=128.116.240.228
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792757800;
-	b=gugroFWDN91EgJYETpsFRIfb5qmp5aWMfqmBBuPNY2RMBKKBCT8rECsUjvLTojPQB4j4
-	 lFGiGgYfJyLoRwZNa/jDAgN1w07dZiq9FiJLsMBCtdSU7Pgb1Z+8ytYTBIVmIXPfu7bB5
-	 a2w/VuT37zS069MwlOJ/kXDlATEfu0zU2NWINppqAlJBjgExKwRjvp6xkIfqzC07IGXfj
-	 XcdP1h8S5h/AyL8RkseGvi0h7Cue+Ons01ydBLd0gR/Crz2jNPpBeeJwGx5YunmNElKiu
-	 DqyxpvlB9d7n5LhamnQOsMpfcOwXIwQmmumcf7j2BfZtMt+jHc1JuIroU01nfJjBrsQ==
+	t=1792757801;
+	b=O6aIVEy0HI3hGoI/ygtp3Sc3TSmM2BggVncpNDyPfy2rOkJX9B8CoUQ8vm7Tt9Ov0JNA
+	 h0nKxVmDhKQNzMxEioWvg30XdGeGj+i50bHWQ+6P+9NcnanRQREhrrpahvi260a30pldR
+	 /Alz/rTbuaJ3dxrPkXcM9q0oMEkjG1kUyxEs+6QxswQGPkjtlENYtI30XSM2ZKogsDkKb
+	 9wnTkyLHMNM/lRvA2Ws0trPKAM0Jx4hlwyGAflegxWVeWi1z7uaCxqEwBr5yVFJqW1wUT
+	 arz5ISw6f6+Ovf1moGwpnGAqIcZ3UokefTVhEKAJdRecEPreFWNTK8bSDmYFkS1nS1Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792757800;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=pH7C+Ic+skXIiL+8yDLrJvoIJ/Xi8EZtJUFQlV0QBE0=;
-	b=JGlb38dfW3i1w2tAWSJBxrYtbb5NhHdnmE6uFITyNbzjzqtPnksTScvTcl/2z5ZUwmI2
-	 YwUDaoQK5nm85NvA8klhnUOs7hQB9qVzGml4lJQr0cHFY54tyqnUfEbQuRnH7p3WETeKp
-	 ZWJrWsTFxvyeyCMylIQE++l0Ov4YFnRUM6iqFpztoVXkcdtUTJEoOXAcBtyQMbSjcrMOa
-	 rijOCa4JRaHiKzVxPnljlcwARyvDtn2YzFV5I1pdndftXL9NADeJ1MxtqCFVe0S6pMIM+
-	 IiCkZx5xQQOOJxwQPL6NsZ1bOAqcyC06dKIAeWxPaNvMN5M2WQ9p0FXRgvTRDCwzm8w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792757801;
+	h=DMARC-Filter:DKIM-Signature:Received:Mime-Version:
+	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:Cc:Subject:
+	 From:To:X-Mailer:References:In-Reply-To;
+	bh=mlkUlTBy3gi5X/PNLdqR3eK+uOg/TJTghfW/CD9/gwY=;
+	b=dB7ddjoyRWshFp3fx7KrslUqGYDxVh29xB2+lJOtEGYkHZjmye6GK9XuasMo2Cu0mgmb
+	 wxczAuwlL6n99KDOd27OaWkvBNAHySfXYlXDDlpJ9MbZv+vd/fyp+BzA6gm1RNOGCsU2x
+	 6osaD17zhCYIPCUWt4PM4XMtUzS+m/2wOP7yi/YjLy7CSn5WEeyJIphmYrn3bLoy76mXf
+	 6m9UzLKznWnU+oHhX70YOt0meouulXMgXatiBblgVMIBzFXXx1j1TfW5vKKjFBqo4u0Aw
+	 8qrYwAnZMR5eg84BRzt4qpJd+dGVT4Ic1a/2gZiRVJR5zRJF4xzRfkWBBDN1FQ36HeA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=KW995WiV;
-	arc=none smtp.remote-ip=209.85.218.46
-Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com [209.85.218.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=arkamax.eu;
+	spf=pass smtp.mailfrom=arkamax.eu;
+	arc=none smtp.remote-ip=128.116.240.228
+Received: from arkamax.eu (128-116-240-228.dyn.eolo.it [128.116.240.228])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2487606A31F
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 12:16:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C2487606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=KW995WiV
-Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c4322d310e7so122989866b.0
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 05:16:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792757798; x=1793362598; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=pH7C+Ic+skXIiL+8yDLrJvoIJ/Xi8EZtJUFQlV0QBE0=;
-        b=KW995WiV+2FKvyP/wgDtPTisweGN15FcNyMcGyClqJusS2poI0hz2xccJKOyCiI8Pv
-         MqChXnM36N3LKhLeA3IZ0Xk4pnF8RWFkyj8Q69NAruevjjSaB2ttKASmsWper5vSfGhD
-         Jz55nnvno4+UoxIFirw6wrTT0NMXfzI0L1sUd9/cmYHESFmkqHBm0sTPd/Sq9yEv7JC8
-         8ZKUjFoprG35SN44ahrR4rNebW1k3645bCEZt+RAn4PufSpxNXeTdhzh32T8QTsaWlka
-         twwdtrPXQaN7hhH/6wfANSkuq/zE28bvyJBU9X+tGSK0eSoVl7zYGk2/bhim0dny6MOx
-         KiDA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792757798; x=1793362598;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=pH7C+Ic+skXIiL+8yDLrJvoIJ/Xi8EZtJUFQlV0QBE0=;
-        b=Tt2M728SXZtAvqB9r89LPK4t13JLJIJeAGkWcQER1dsO9VfmsNAjUW7uU1Z5+lBobA
-         PdbG+r63xAE/C3UcOaZiheY2b2CvLprmC5V1+bAF5FKj0vvd4RD4SL5Ya3hFTpoHJL/E
-         F/10EHzf3TnuHpAlNaOHQ75I015DtQGx57lmIz31sqbq4NK8d3z2nthPhPN+xkqq4pMk
-         xjjmKhptVfqrQ0WLWzsqdX9Z6jH73j0nCGEhyutYon3J5TWASsXfqsH/hv1YEquvNOvd
-         3Zz4FVhSmWgqHljzug+i0lgh2Pjvm9Gy3pbT1b6YpjfNpZRGoRwiid3cGfSjWlZ1mh/T
-         FUGA==
-X-Forwarded-Encrypted: i=1; AKwUvByeoUQEWqWj536PIDkamFzPGhdO9gLd7P7nVYTwB/7RYHk9CaHgseqGKPMQ0LPTFoujxcltls0FQbWC0EY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLdvKYxcovQN8h3ip4IPpQZDMgoqd9OrWc3zY6Nb7cQvlnBXOGC
-	/5JpP7AsRwJ4da9n0hdIzaejbB+omaB1vkjA0a5KJyCfkWFnSlDHOyNa
-X-Gm-Gg: AYBFou0JjfSAy02WsHYfoGn+Tu4V9GW93adOj546b06iVkNpjX2yY3Lo5UZIG1D5zHB
-	4BU685JSAUr1fOAGgKOaZvOBXse9J1dfKvTG5T/5qJKw3kb4jiM+fH0w49I3XLF81V4/5378Udk
-	9k+LFlQw0SNgdF/JUGEyDfVT0YNyCrIp9o6tsW1fZOFdIOpo7LZxMauma7RfqWQByAlybvWzFA6
-	8ASsejXhl9qMrz2MEo0TzIpjOJ3hSBm6xpVh2OWkgMUCb1atlv5HUvJdjqcS7ewPNn9dX4Rb7s2
-	PRJfs9a5PwHkqTZ4rlUKOba7jy7i55dIrKB/5+I4xccMsaEYaYmq8n/qo/99+jPRFUtvCpkPM67
-	CWxXGEcKaFDY2ryrUWUnvctBVcTu6mfkARDzJajvVaHoUS+FTcD0yyFdOVyITCa0hFoDSz9k7cC
-	+M3d8TFaezf91X+vKtgoiUnjiUWEquit7qhzENSr7IYVMy25rR6vqYrctuRqJpjifnFGQdQD37t
-	XiSgGDDP5jCDX22QKNIyKzYyokzzjPrg1Kxg+lJDxODpGDx1A==
-X-Received: by 2002:a17:907:9309:b0:c2e:63ba:1f90 with SMTP id a640c23a62f3a-c46a92d5849mr287640866b.48.1792757797774;
-        Fri, 23 Oct 2026 05:16:37 -0700 (PDT)
-Received: from localhost ([2a03:2880:32ff:4f::])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c46a5cf5540sm95824066b.78.2026.10.23.05.16.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 23 Oct 2026 05:16:37 -0700 (PDT)
-From: Vlad Poenaru <vlad.wing@gmail.com>
-To: Jinqian Yang <yangjinqian1@huawei.com>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Marc Zyngier <maz@kernel.org>
-Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Michael Chan <michael.chan@broadcom.com>,
-	Pavan Chebbi <pavan.chebbi@broadcom.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Breno Leitao <leitao@debian.org>,
-	Andrew Preece <apreece@meta.com>,
-	netdev@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	regressions@lists.linux.dev
-Subject: Re: [PATCH] irqchip/gic-v3-its: Enable dynamic MSI-X allocation
-Date: Fri, 23 Oct 2026 05:16:35 -0700
-Message-ID: <20261023121635.2190639-1-vlad.wing@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261022193620.2152038-1-vlad.wing@gmail.com>
-References: <20261022193620.2152038-1-vlad.wing@gmail.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 470C7606A31D
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 12:16:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 470C7606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=arkamax.eu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arkamax.eu
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; s=mail1; bh=IpHhtEj7MQFXuK
+	jI807etXOb5FXQT1zBeNAvZ4SdQkc=; h=in-reply-to:references:to:from:
+	subject:cc:date; d=arkamax.eu; b=To+f6UD4wqx89wwjicO1lJV9TziT4ctx11TNk
+	VVQ+D72bSnhwuFEkE7HoggQvslZt8uwFOLd5Se2xbMGrhsLEikp+wA+NkTGKtQvKQjBUeT
+	3d/2DbnlldIDHXAp0FRKPDnSVfl+WZKVSJYHd4yQvxZHnw62kisGWwWKiWjpI8t/trE137
+	zwQw+5iuLMWxG+A6tyz02kB+6IjKA6aScpnpJSoV4XrLN94l+eWIrVT0OUYBnqvjauxyNb
+	CA/n4KgVTzISJXEjjeiTX606A6N3DCVo1CxaLWfiLVnc4yh1CbCNSk1+BF/RykZKwX9SVi
+	zvoV8AFH8TkJ3Jf0UdUQoMMNg==
+Received: from localhost (128-116-240-228.dyn.eolo.it [128.116.240.228])
+	by arkamax.eu (OpenSMTPD) with ESMTPSA id ab229737 (TLSv1.3:TLS_AES_256_GCM_SHA384:256:NO);
+	Fri, 23 Oct 2026 14:16:31 +0200 (CEST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,40 +49,91 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 23 Oct 2026 14:16:30 +0200
+Message-Id: <DMC7LJCQ1QZO.M3C252P8IZG4@arkamax.eu>
+Cc: <hch@lst.de>, <sagi@grimberg.me>, <kch@nvidia.com>,
+ <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] nvmet: protect nvmet_ports_list with nvmet_config_sem
+From: "Maurizio Lombardi" <mlombard@arkamax.eu>
+To: "Qing Zhang" <diasyzhangqing@gmail.com>,
+ <linux-nvme@lists.infradead.org>
+X-Mailer: aerc 0.22.0
+References: <179275538809.275862.8334230595898232727@tencent.com>
+In-Reply-To: <179275538809.275862.8334230595898232727@tencent.com>
 
-Two updates on this report.
+On Fri Oct 23, 2026 at 1:36 PM CEST, Qing Zhang wrote:
+>>From 554233f4165842a0a104896c30ed4d2e89c11931 Mon Sep 17 00:00:00 2001
+> From: Qing Zhang <diasyzhang@tencent.com>
+> Date: Fri, 23 Oct 2026 19:29:28 +0800
+> Subject: [PATCH] nvmet: protect nvmet_ports_list with nvmet_config_sem
+>
+> Readers of nvmet_ports_list (e.g. nvmet_subsys_disc_changed()) hold
+> nvmet_config_sem and assert it via lockdep.  The writers --
+> nvmet_ports_make() and nvmet_port_release() -- do not take the lock;
+> they rely on the parent directory's VFS inode lock for serialization,
+> which is an implementation detail of configfs and not a guaranteed
+> contract.  Align the writers with the lock the readers already require.
+>
+> Also move list_add() in nvmet_ports_make() to after the port is fully
+> initialized: the old position published the port on the global list
+> before INIT_LIST_HEAD(&port->subsystems), so a concurrent reader
+> could traverse uninitialized list heads.
+>
+> flush_workqueue() in nvmet_port_release() stays outside the semaphore
+> to avoid a lock dependency on nvmet_wq.
+>
+> Fixes: b662a078576e ("nvmet: enable Discovery Controller AENs")
+> Signed-off-by: Qing Zhang <diasyzhang@tencent.com>
+> ---
+>  drivers/nvme/target/configfs.c | 8 ++++++--
+>  1 file changed, 6 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/nvme/target/configfs.c b/drivers/nvme/target/configf=
+s.c
+> index b03b5d1c2dc3..75cb9e63025f 100644
+> --- a/drivers/nvme/target/configfs.c
+> +++ b/drivers/nvme/target/configfs.c
+> @@ -2009,7 +2009,9 @@ static void nvmet_port_release(struct config_item *=
+item)
+> =20
+>  	/* Let inflight controllers teardown complete */
+>  	flush_workqueue(nvmet_wq);
+> +	down_write(&nvmet_config_sem);
+>  	list_del(&port->global_entry);
+> +	up_write(&nvmet_config_sem);
+> =20
+>  	key_put(port->keyring);
+>  	kfree(port);
+> @@ -2070,8 +2072,6 @@ static struct config_group *nvmet_ports_make(struct=
+ config_group *group,
+>  			port->ana_state[i] =3D NVME_ANA_INACCESSIBLE;
+>  	}
+> =20
+> -	list_add(&port->global_entry, &nvmet_ports_list);
+> -
+>  	INIT_LIST_HEAD(&port->entry);
+>  	INIT_LIST_HEAD(&port->subsystems);
+>  	INIT_LIST_HEAD(&port->referrals);
+> @@ -2105,6 +2105,10 @@ static struct config_group *nvmet_ports_make(struc=
+t config_group *group,
+>  	configfs_add_default_group(&port->ana_default_group.group,
+>  			&port->ana_groups_group);
+> =20
+> +	down_write(&nvmet_config_sem);
+> +	list_add(&port->global_entry, &nvmet_ports_list);
+> +	up_write(&nvmet_config_sem);
+> +
+>  	return &port->group;
+>  }
+> =20
 
-First, a correction: it is not specific to our debug config. Our
-production config hits it as well, on every Grace + BCM57508 machine
-we tried, at the same point in boot.
+Yes, I was already planning to submit the same fix as part of this
+larger patch: https://lore.kernel.org/linux-nvme/DLOGQG9GZC3X.1UZ2MY7S3T5N2=
+@arkamax.eu/
+but I didn't have time to finish the tests and submit it.
 
-Second, the root cause is in bnxt_en, and this commit only exposes it.
-When the channel count is raised, bnxt_check_rings() allocates the
-extra MSI-X vectors before firmware has reserved them for the
-function. On BCM57508, writes to MSI-X table entries beyond the
-reserved IRQs don't stick, so the message written when the vectors
-are activated is lost, and the entries stay zero after the
-reservation.
-x86 never notices because GENERIC_IRQ_RESERVATION_MODE makes the PCI
-MSI domains MSI_FLAG_MUST_REACTIVATE and the message is written again
-at request_irq() time. With this commit, arm64 GICv3 takes the same
-dynamic path but writes the message only once, at allocation.
+Reviewed-by: Maurizio Lombardi <mlombard@redhat.com>
 
-Instrumenting the driver showed it directly. After the channel count
-went from 18 to 32, MSI-X entries 18-31 read back as all zero, while
-the cached msi_msg and the ITS LPI mapping were correct. Exactly the
-14 rings on those vectors lost their completions.
-
-The fix is posted to netdev:
-
-  https://lore.kernel.org/all/20261023121321.2127263-1-vlad.wing@gmail.com/
-
-With it, the same machine runs cleanly through the channel change and
-the ring resize. I don't think the ITS change needs to be reverted.
-
-#regzbot monitor: https://lore.kernel.org/all/20261023121321.2127263-1-vlad.wing@gmail.com/
-
-Thanks,
-Vlad
