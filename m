@@ -1,78 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1792757762;
-	b=WEjfsh/JXbtBvPfMMKsbL0W3uDgd8PXGDBKzKlA6mpBqb+uAgebP5P7B3JoeiBU/FGhV
-	 a17S30hFDS35R0IJyA+RYbczo76D5iwZvrsv20Mi459ufJmkk7x5cxXnA8bRt+pJPvfJ7
-	 3UtPKKZN8eQxLGpJgWypnO3Mm9T91lRdNGlkGL8ppIW6eOyhrgjgSduU9H03R2aWRxape
-	 riYvpLSXMOM3mSHxbOZgabaUUF1GiZv3oDHmS6T5VzXvI6R+YVOW5OX565+6+gidKq7Fv
-	 b5GwKuaqBHpaJafJLSltJ5RC9Hlefxfcg9aPihdWofyx6sNXucPsGykJ1xJO1fUEdSQ==
+	b=IB7lOdjmQPex4uj95tozrc3ppek3Y9BNNPx8uma1UvDF3FcOjeqnaKdsxCcIPFV26org
+	 5PQKxAFSKm6r0ZqI8aSx8TZl9A5jRom1MgM+zO9CQ/dbLOlwuY7TL3UC8Jt9VKEfWIMZM
+	 mauwoDfDbeqB9y1YzTFJ6To8oMdTMeEF7QUyra/OWcxjscjP46xLTfrM4nwYYWraZf/Hd
+	 DvO3lQBdVicdpue7RsQOlxPsMAiMBUdhMhfCqN5UFLuM6Kfq5UYtckIZgjw1A1LKZd72B
+	 SLFRV8IxarJ75v9KWEfqxCEoqXQe2/lHdrMq3Q07100HIrmsv/C+VMXeCms7NxP/V7g==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1792757762;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=3GORZK3c+NktRNRYfOm/wPyfDuSwND35reMdEvDAno4=;
-	b=c+l9rmybnC6ZBPcpKHa6LBXinxvHTU42xE12aLLUKXeFhaBdqjYz4v07gIR8iCekdvZp
-	 t+qNanMh/Wuaz3gNvTBmHNiBYuABMdy+Aajo2w9FPGK5I62JH8L9HswAi/6pifLchwrq0
-	 WPF0e1p+e9yLdFyVT4i9dFtZCgGtIEIhWWcNwv4IB/1sz8iJbF2YIY6n16tgJXdlihGnx
-	 HWyFZPvMQ6omsZ1bpDT2oVJeyf5xZU95KYK2bHuwIR6jYtq3TmPAzrdnlS5Upickt26g1
-	 ZgeiFC56EGyu16QIO0UNPlZMz3VjTawZ0ULYtz14/T3B+kTm417KaT2BcW7C4EfaGYg==
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=wai/fv8He2bUMFBQcGL6ak8rhD3PpppCCtWpYfGfutc=;
+	b=41qj/HEY8jdOJcF1y6TPX6b2smC4odQUsQNBcroT5hYPDBoDFI0IInZJxWXlnLhZ1Ull
+	 SUB1rXXZe+t0ywIE+0R/QX/LRVQk4EWNAgGs7Sap02H6CGF2PEbLjqDqbt2pt/Wh45ZpB
+	 sJol/+3igxGWfhU0CKekgmSkq50rYc1t6Hzxcuwc6KZh7t5RVdM72eeF9/hY2QC0ZuTMy
+	 TaoMYWQIqxDX3S3DdZBXT2w0BjqlSg73wjOGrsFAssFhsnEjEaq8ggsuD3laha/7/gLjD
+	 M9gF1t9m3z84PAfpE+oJLFxx3VKDuDAFNhnB4GAgUQjgF+Wm2Jzy+tdapae450999jg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TzDwF0LP;
-	arc=fail smtp.remote-ip=100.103.45.18
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="mJn/t3Vq";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61AE7606A31E;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71DCA606A31A;
 	Fri, 23 Oct 2026 12:16:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TzDwF0LP
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mJn/t3Vq
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
 	t=1792757762;
-	b=Z1iC9sX/MAWEfg35U3y5jscHrYoQFobKvHMajNFvO4Zl0p6/KAg/UK9vjyaxTS9fEEcf
-	 BuCn3x36m4/hZ+g8n+/+LszO3ts/amprfUliL3NJ+U4LV5I4xWKWsctBfdwQ/JYvQaI7f
-	 aTyuSmBn/SNR+WxvC7gMQnrGzfV8t88/Ibn+ecrVmo+w2jpxg8ClnerRhMZuWzB1tqxDB
-	 mSyYr3aJZvlpez8qy5Fy3gJ5Ym04dn88EVYP8DUdRS6nNQMkKlgkyuhqOS4nDEYHrOR6V
-	 4gFYNoxhqNywuJerEw9f2RZYBrNPGzdOamRrWwuw1gRBIDV3r3geb7Hc5bTIpilUmWA==
+	b=P6ociyq7MG5CtUU+Pees8mK0zLXiTUUs6h8x2OYOSR+mkLkXT0qXclCvKmAyL7qogSPE
+	 59seN1MDLOaaeCibd1eTmuwvKpX7kIGuh4eiTqRlvMia0RrQ/vtIwijKD87alBT3gg5Wi
+	 w0trL2m5Se+l2XciiXIBJ9ldT9kTsYBvLgVtUIjmDAjSbEm13CgvhXiY++Tg/B3MpcaVR
+	 pp7GThAufx5GzVHYAGEu9PPZfFr6S42Kqs30LIYgaNJaPVrcBgx1ciWeB+rlltJO4X3TW
+	 Qp9Ml/6joDdIRRF3Mnz7n1+WijlH4m1ID1i//j0NwDhdlvz5BdeKFDfnFRV7ppI9fww==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
 	c=relaxed/relaxed; t=1792757762;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=3GORZK3c+NktRNRYfOm/wPyfDuSwND35reMdEvDAno4=;
-	b=EwWpnxqph64h5KlU+vJMtn3UyUhdQyzaqQt4EZ6g9iyojvx9Sal2xHSFFfhXtEdd/cJq
-	 7DyHSaUGU5H3b6rbB5jzskOxBFrx19d0fNfg+Q2ewEreh8HIBTNRx33yOmPaAec2Y9oOx
-	 IVb8k8OurKtAzfh0/ikbG/0/JtKp4WBPjJMQlv1YiDViP++DNF1psSJHkYdVFk4MqhQgX
-	 45ZyNnKXtvXw7QhqLqbehgsXK7ZOz6VPqSwvJY9h1Cd+fTom1jaJs9RNQZX6LpWU8D4EW
-	 P/dFxYUx29r9kzopJFY7ZL4weHSl9HoXU8Lgm7+Ets7NHmxFUwXJYb2GDFVBG7kEpPA==
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=wai/fv8He2bUMFBQcGL6ak8rhD3PpppCCtWpYfGfutc=;
+	b=fOa8tJPIw/6rPD63D8DeR+h1ORjDCslzkiO3VBei8EbVeK0F3ytZcTGuq5BYLs/DM1Gi
+	 zsBTesFz2bHVdveuy3B79Y5GSNQM66aEbEbKmLzq71+pxHM8l6bp3FNEjOl9mWCxaUOvA
+	 i3JYlOSjAlK4SyjDnSNjZHC1ULlVI3MhomDZKksPJ4846SEAk3jHJneA1lufMmj/m2jUO
+	 PKhvnWI4SvquZ1L2AToMqwvep9RW8xRxhwk0pAL0zBFWFyQEFHfv3J7mUqQnE2esHsYIa
+	 qV6Kat+ur+A3M5yxsYIKbGtPmMxVB1bCQCVnvpfzf++ZloGwhpjSE3uFwQfsjsM5Q1Q==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 503E21F01829;
+	by smtp.kernel.org (Postfix) with ESMTPS id 502DE1F01825;
 	Fri, 23 Oct 2026 12:16:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1792757762;
-	bh=3GORZK3c+NktRNRYfOm/wPyfDuSwND35reMdEvDAno4=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=TzDwF0LPq4Q3F00AlEHx2fsvcdK4e7cM+ftvcVfHU4jQnHcWePlrRMpRgfh1ObduM
-	 KAQheeozgJrdd06q2pl0BYAJwqJRMCypmrQQNufZp5gruehhsLCmQ9l6NQh/RCAWlR
-	 GVQikKA4MI6A3T44QxTX8QruTLWDs50hz4tbqJEyFYozuMSxeHmj4Zdj5sz7Rnc62h
-	 P1aD6fmAx20OxAIfq51ZTav9VWmni+2EzpB4ZO7MdGrSNWgeDKlo3JU7cHHyDtqfkJ
-	 3sTwSYRL93t6Vc9M4C1ME4Nm0fgz0GR/eUufCj+dzzGbgq8Q3yy9O9jyfuxmcKg6fd
-	 V2kdqsKbgCebQ==
+	bh=wai/fv8He2bUMFBQcGL6ak8rhD3PpppCCtWpYfGfutc=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=mJn/t3VqeZG4Q3eklWm+HL67p/CWzy4zHr6JrDSBHzjuybRfecXcW8X2nmPsyKn7t
+	 hQj0XjovKyQWniT+4SILpF7dV+43bvO9FcmWaPSECq6887kDNu7Qk79xBlTbuA/OlR
+	 smR54zq1aVkKYoBx7pEFyLm4c0WRpxxR/E5W+/BpWugvGtOOZauNGhzogNIp4LUD8r
+	 SD4zaAblYSTFfgoGU2E3Zv//3F1phWNJe9UMNthfPipBjYTccuAWyclIt21qwYmHUd
+	 hA4KJbi+TNehcj1eKadyOeArISHbDa7OqAfMfxt1rqnMXU3zqQeZF+YYofvYLy0YOL
+	 v0+jCuE4Noe7w==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id B0A21444EF;
+	by lkml.kernel.org (Postfix) with ESMTP id A6A6944502;
 	Fri, 23 Oct 2026 12:16:00 +0000 (UTC)
 From: Massimo Toscanelli via B4 Relay <devnull+massimo.toscanelli.leica-geosystems.com@kernel.org>
-Date: Fri, 23 Oct 2026 12:15:27 +0000
-Subject: [PATCH 1/2] usb: gadget: f_ncm: do not notify from ncm_set_alt()
+Subject: [PATCH 0/2] usb: gadget: f_ncm/f_ecm: do not notify from set_alt()
+Date: Fri, 23 Oct 2026 12:15:26 +0000
+Message-Id: <20261023-ncm-ecm-lpm-v1-0-d01e81fbf460@leica-geosystems.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,79 +84,58 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261023-ncm-ecm-lpm-v1-1-d01e81fbf460@leica-geosystems.com>
-References: <20261023-ncm-ecm-lpm-v1-0-d01e81fbf460@leica-geosystems.com>
-In-Reply-To: <20261023-ncm-ecm-lpm-v1-0-d01e81fbf460@leica-geosystems.com>
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAN5P22oC/yXMSw5AMBSF4a3IHWtSFc+tiEEfF1coaRGJ2Ltic
+ Abf4PwXeHSEHuroAocHeVpsQBJHoAdpe2RkgkFwkSdcpMzqmWHYtM7MlMpIybOiyhHCY3XY0fn
+ Vmva339WIensTcN8PxY9WdW8AAAA=
+X-Change-ID: 20261023-ncm-ecm-lpm-d8bdaa05796e
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Cc: Neill Kapron <nkapron@google.com>, Kuen-Han Tsai <khtsai@google.com>, 
  linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, 
  Massimo Toscanelli <massimo.toscanelli@leica-geosystems.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1875;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1243;
  i=massimo.toscanelli@leica-geosystems.com; h=from:subject:message-id;
- bh=hQVH6VWyCLNHwuW5Htd2QhnoAZtXU6Oc3of/HZbqcLo=;
- b=owGbwMvMwCVmIB2leGXyl1LG02pJDFm3/f/zu3VdWDrD6jX/nPVeKoGmfmu77WfFNXW2hllnH
- ss5wNjbUcrCIMbFICumyHJtS/j3CNvcsB1ZXatg5rAygQxh4OIUgInoL2JkeM7+4frpyfveO+xN
- r7h7tWRid2B9xOGHrD1boyYIrNhqwMrwP31+d7vP86AJ8unNsrfP7P9Y2V62+bGdqmvRNyWuE6s
- 6mAA=
+ bh=I4f84Py9CB+7jlDOXX8Ue6geUC18b5pebZvms0M9osU=;
+ b=owGbwMvMwCVmIB2leGXyl1LG02pJDFm3/X9L86mfeyQazpK43/2Fad6/dS+9z/o1rdP+2+67p
+ OyzRZV7RykLgxgXg6yYIsu1LeHfI2xzw3Zkda2CmcPKBDKEgYtTACaybDojw/bUtj0xhV7snixf
+ j5pOLzZrnRIcoPRR/aqvJ2f0/GVmBQy/WVWfLW74+6nfuit0wTrm0K2FPq3BOrv/P1V4qmT7pCC
+ GDwA=
 X-Developer-Key: i=massimo.toscanelli@leica-geosystems.com; a=openpgp;
  fpr=D6B457F7583D6D56B86A8AAA301B5A21D493F475
 X-Endpoint-Received: by B4 Relay for
  massimo.toscanelli@leica-geosystems.com/default with auth_id=1289
 X-Original-From: Massimo Toscanelli <massimo.toscanelli@leica-geosystems.com>
 Reply-To: massimo.toscanelli@leica-geosystems.com
-Content-Transfer-Encoding: 7bit
 
-From: Massimo Toscanelli <massimo.toscanelli@leica-geosystems.com>
+f_ncm and f_ecm queue a notification on the interrupt endpoint already
+at SET_CONFIGURATION, when the data interface is in altsetting 0. If the
+host loads no class driver, nobody reads it. While data is pending for
+the host the device may answer NYET to an LPM request, and DWC3 does,
+so the device never enters L1. The USB-IF USB3CV tool fails the
+"L1 Suspend/Resume" test (TD 9.21) because of this.
 
-ncm_set_alt() calls ncm_notify() for both altsettings of the data
-interface. So a notification is already queued at SET_CONFIGURATION,
-when altsetting 0 is selected, and it waits until the host reads the
-interrupt endpoint.
+For altsetting 1 the call in set_alt() is not needed: gether_connect()
+already notifies through the open/close callbacks. The extra call also
+makes the host see two connection notifications before the speed one.
 
-The USB 2.0 LPM ECN (section 2.2.2) lets a device answer NYET to an LPM
-request when it has data pending for the host, and DWC3 does so. So
-when the host loads no class driver, like the USB-IF test tool, the
-device never enters L1 and the LPM L1 test fails.
+Patch 1 fixes f_ncm, patch 2 makes the same change in f_ecm.
 
-The CDC NCM spec (version 1.1, section 9.2) [1] asks for the
-notifications only when the host selects altsetting 1. There the call
-is not needed: gether_connect() already calls ncm_open() or
-ncm_close(), and both notify. The extra call only restarts the
-sequence while the first notification is in flight, so the host gets
-two connection notifications before the speed one.
-
-The old ether.c also notified only for altsetting 1, until commit
-da741b8c56d6 ("usb ethernet gadget: split CDC Ethernet function")
-moved the call out of that branch in f_ecm. f_ncm copied that
-pattern.
-
-Remove the call.
-
-Fixes: 9f6ce4240a2b ("usb: gadget: f_ncm.c added")
-Link: https://www.usb.org/sites/default/files/NCM11.pdf # [1]
 Signed-off-by: Massimo Toscanelli <massimo.toscanelli@leica-geosystems.com>
 ---
+Massimo Toscanelli (2):
+      usb: gadget: f_ncm: do not notify from ncm_set_alt()
+      usb: gadget: f_ecm: do not notify from ecm_set_alt()
+
+ drivers/usb/gadget/function/f_ecm.c | 8 --------
  drivers/usb/gadget/function/f_ncm.c | 4 ----
- 1 file changed, 4 deletions(-)
+ 2 files changed, 12 deletions(-)
+---
+base-commit: bdf12cde30830d46a8ef1ba93986356f1164b4f1
+change-id: 20261023-ncm-ecm-lpm-d8bdaa05796e
 
-diff --git a/drivers/usb/gadget/function/f_ncm.c b/drivers/usb/gadget/function/f_ncm.c
-index 500c9c19c78..0c7ec74d390 100644
---- a/drivers/usb/gadget/function/f_ncm.c
-+++ b/drivers/usb/gadget/function/f_ncm.c
-@@ -921,10 +921,6 @@ static int ncm_set_alt(struct usb_function *f, unsigned intf, unsigned alt)
- 				return PTR_ERR(net);
- 			ncm->netdev = net;
- 		}
--
--		spin_lock(&ncm->lock);
--		ncm_notify(ncm);
--		spin_unlock(&ncm->lock);
- 	} else
- 		goto fail;
- 
-
--- 
-2.43.0
+Best regards,
+--  
+Massimo Toscanelli <massimo.toscanelli@leica-geosystems.com>
 
 
