@@ -1,100 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=116.203.120.240
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792788132;
-	b=2DPD0et8tpakk/X8oSt+qI3kmFnl4yBBJO8TYEIkjivE+XdMfguGsFs2fjWYltmkO7GU
-	 Lx1s3gN+Si95vrKBzIvkvg+gdbMXb1rCU+41XIIvxXeR5Mu+cgOeiR7uV8AfMKtAlk40s
-	 k/YnuXPpWqW46WNY7byGLfB1QQ+9HdMc/o4XlMMIakunR9CMd6ZCpaspyYaX+kPr7t0i+
-	 7BmCiz6cVtpp7AKVNKlQjCHDyaTBUiaMP9VDogqYpYuDgydjwqiU2fXGgIcDGEO0CTUyK
-	 oi+hRpqwAPLBokYT8zvbv9DGYx4Cc+XKNe75J5MT6GZd2R8CQAcqcOC7dJbl+qNHGBA==
+	t=1792788145;
+	b=qE/w44oSxkKkQZAv3TrwM2KXsHpi+D14Fa/JvwMALxZpEEK1PFH6OMulSNHvT24k2pwO
+	 GQVXjNRHWmVHqTfmMehYwozYUHvqOIBlNaWUekdTLKtFgPqHGlGCoVynripyjmmSfru1q
+	 2WSGkpsCFl+X/k6MAKpJB/Gn76r28vUcnwE4AgW0DAYb9sbLCsgOulC3Dk+O3X3RBqJhw
+	 EzSUU9JyFHwEJL1dM4Bp7x1ROTdgFdey7y7IpVl97rhaDxEGgEb7VNhGgUsA3+dTcMLJx
+	 GyMgt3iI0hOjguIeJSaUuDDztiAFNaJAeVlgQ1n7WnYU6a7l4APfHxE710HjpUc8u2A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792788132;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=CltLoSVZI1vl9e5Xk8AH5ABIellf5efpdTrcem8ydxA=;
-	b=MXtUHlVAIxwB9aZBoO2+pQp1VjlgHSTSveIm4QP/G+myE5zhwwzJ+tc/WCbml46zcVT4
-	 iPAQGzpm4eL9x3DWID0mwfIfNmh+cOH5RLbidmHNP7tdbNNmNixj6iGCb3ZkyUpR3YPF6
-	 173gUQ14pyGvUR6IRTCGgIHaZebOCEw3oUvx+OImD2Z2CZakguSBrakc8TuKR1sOjijzf
-	 y3RfkiOe2cFKmDYm0eXLAgG6VxwxWLgGpgj43iAYbBMh1oqWcZoYCvTDx20q8bK+0+C9G
-	 2ncJ3zMi/HBQLGjCOvAN0+A0dGCgtZb9bDz0nGgTRqNl0iN0qhyimzdYKgGokQCuwBA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792788145;
+	h=DMARC-Filter:Date:DKIM-Signature:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type;
+	bh=COpiAirfJW1xxVg1u9cfsoxdrpIGBM2kVJHRlSGDvkg=;
+	b=2T6hfwnJGurW+YYweXbWGrfVIOLbE1HJPigJjd49bJUcnPJPtWyzMHjnTWfP/1xDU0Zb
+	 kmhHsmi8BpMMTFGQdhGII2oD2KMJJwCd4Gmp69KlbtbADu2DpTsG8C9bwq5kSi1wLSVoh
+	 Xw/AQTLwkJnRS8+giuOHk2fvsS18Bk54w9u8mZXKGOLacPoG3HftWOojruDCtmxNBoxs0
+	 fsX38AR6cmSQa5VtnWsiyQIOuEYAubeLLV/v/WMjVXrplKk6KZ48PqPTn+mx02u9pvEvS
+	 AFUQpY+1sxbN4sOkLx19FdWEPwAAbUjo4goHB+pcZOLj4noPCQVMUacJMTHwJTokgEA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=mgcrea.io;
-	spf=pass smtp.mailfrom=mg-crea.com;
-	dkim=pass header.d=mg-crea-com.20251104.gappssmtp.com header.i=@mg-crea-com.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=oBwgfwHm;
-	arc=none smtp.remote-ip=209.85.221.46
-Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=bues.ch;
+	spf=pass smtp.mailfrom=bues.ch;
+	dkim=pass header.d=bues.ch header.i=@bues.ch header.a=rsa-sha256 header.s=main header.b=C5WH1fbR;
+	arc=none smtp.remote-ip=116.203.120.240
+Received: from mail.bues.ch (bues.ch [116.203.120.240])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D770606A31F
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 20:42:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1D770606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=mgcrea.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mg-crea.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 746F4606A31A;
+	Fri, 23 Oct 2026 20:42:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 746F4606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bues.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bues.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mg-crea-com.20251104.gappssmtp.com header.i=@mg-crea-com.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=oBwgfwHm
-Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-48e1d0e5dafso1625383f8f.1
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 13:42:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=mg-crea-com.20251104.gappssmtp.com; s=20251104; t=1792788130; x=1793392930; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=CltLoSVZI1vl9e5Xk8AH5ABIellf5efpdTrcem8ydxA=;
-        b=oBwgfwHmsmBxfTS5JX5faiudumKHXgvyGSxkRfoSfRdtoBdDGifQhNkwXDGZFrdbLM
-         8cFvt7/panM+aqJVOdfJZE6KWSVNcByOIC/JoCTQZYTPP4uWqSRBG4PBQz75NV0Ipe9F
-         wHUFc7co3li5NzRlwqZY6l3sXhtOW5hRYK3uT8jlE1HAFYYaOjOhoIum+LErH+ls1efd
-         GmmpSqooWmac6Lpyas+yN0e+D5maG6px4YdIK/DL6dqJvU31vbeJwit18gc06ZkwjCk+
-         GDffnYK0+S7/4E8YjhLF8buPz+z8XeTCz54JP+vYhxw/74iPIcDJKZXJP5PTVXYyitTZ
-         wQXA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792788130; x=1793392930;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=CltLoSVZI1vl9e5Xk8AH5ABIellf5efpdTrcem8ydxA=;
-        b=dw/oX1KwjcvFqyW8ZTZoju66/FkDZEGuyfiSApKnQ8KmBsO6Eyf8nVs1oTlTx0D42S
-         leSIrPcGm9169lWCQd83Uf/Vj5FukVIqn6bOeFKp2HAObItJ8ALtUzK87JTF8/pwJClb
-         3s/YgZuCAxqChZNk0FQHq2nWA7pvzSliY3xkF6BnT11wlKkcmyFSrx/Ib9PM2/9Bg5Mg
-         4yCvUsGyWxubhh3diO/ccovMRzLrkFnE8eLBOvmztMTvsrh0PGf4E6hEIBTsIkFKtXTq
-         544EhtweuDFmV/gXY/t52PSW/13HS/tW47gxBNDnAD3nyKuMBZzuJZZyV8NSaIASQj3P
-         BMmQ==
-X-Forwarded-Encrypted: i=1; AKwUvBylmhacKE0LwowyeeDMP6rJ5FA7rejD55oaJrHLT2bFvXQ/t8yza35TXcsKSw71LLx4d6xlHdW+wG0CMCk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKhr+NyTKtkpOCBqhwCT06bxZhb6qE2LlyFMpx0Nma6jez7vnYo
-	MtWSrwGtTDZu4+ImQIfrfed/9kvGlTN9NlUUcjYRG0OSPVBlrqpuJrXTM/g5E1m5T9M=
-X-Gm-Gg: AYBFou0CBtIXdoFFe4nGqCtQdAawLJmq8rf2Qe/btuKVg6qM9H+F7hz/HNpxUKh8eyF
-	QG/w1BDG9h2msnxzQQh1iz3seiy/ZqAqKCmmmPA2V7h9LXG1Qf68jlH/8Nv3q+3WOCxVP9qRnHT
-	UfvJ5VDIn13QtbWD6A90nc5zzsbnOKj+MpEVnuZCUyqm/VBQskZwSE8WYgbdKiV4Wl5C+fyRTtg
-	2Myniqv4mpOP9RTdiclfmd78ISQLbGDDKKvChv+EiBe0LOtTZ6cJIYq9LmfrWWyIaB4m2LWfGXL
-	lb8iLzFbMyGNfBPu6R0wj70jSja/Qfxne/jld3OU3TYhwcYKoZZbId8bMscZLdXhMo3MMV7eFv9
-	Qm17P1x6SSfaEYB/EoHFZQ35CGV9+1oVCVc9a5qKfBKSGZcnbEvMtPWniTgw3Vz+YE2kIIhxTeq
-	Y3omX7LTqaERqdi7g6ro4UkE2vcfICqV2NSKHuqwQcMdfgNKD9ZD/HCD5Ql+JPX5mA10fAyQ3Gv
-	Ox6LW7IYITUf0no/4Jrr9uz1tQetLRHKAWs3O2z1SFRLl4iCsFFQy9xHtEF6VawsUtA4okgyskq
-	kfh80gPZ3Xs=
-X-Received: by 2002:a05:6000:470a:b0:48a:f4d4:e1f3 with SMTP id ffacd0b85a97d-48e3ed1ef39mr167225f8f.13.1792788130622;
-        Fri, 23 Oct 2026 13:42:10 -0700 (PDT)
-Received: from localhost.localdomain ([2a01:e0a:9c3:9990:89bb:701c:1852:56c])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ebd4ba7sm200998f8f.33.2026.10.23.13.42.09
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Fri, 23 Oct 2026 13:42:10 -0700 (PDT)
-From: Olivier Louvignes <olivier@mgcrea.io>
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: David Lechner <dlechner@baylibre.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Paul Cercueil <paul@crapouillou.net>,
-	linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-mips@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Olivier Louvignes <olivier@mgcrea.io>
-Subject: [PATCH 1/2] dt-bindings: iio: adc: Add the Ingenic X1600 ADC
-Date: Fri, 23 Oct 2026 22:42:08 +0200
-Message-ID: <20261023204209.48556-1-olivier@mgcrea.io>
-X-Mailer: git-send-email 2.54.0
+	dkim=pass (2048-bit key, unprotected) header.d=bues.ch header.i=@bues.ch header.a=rsa-sha256 header.s=main header.b=C5WH1fbR
+Date: Fri, 23 Oct 2026 22:41:40 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bues.ch; s=main;
+	t=1792788142;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=COpiAirfJW1xxVg1u9cfsoxdrpIGBM2kVJHRlSGDvkg=;
+	b=C5WH1fbROxWG8k5bo3Oorcq018DJ/1QAQ3sH98NBUe/W+mNyvOlP5NwTiah9H4yO7deKiA
+	AptTBgxGQSVlkqHOVt73MOmNXftzsJaOCLE945+Ep+1HPYUsQ9iDCfSWB5Q9NnFSYtkKXx
+	sHpgvAWSelL39NEH46bEUfkgiHKIymYS5gEAQ9E+aJLIUGs89qTx0p/q1l5PmFCiApLFRm
+	kFLnr5+ynYqYpxRlZDj0jvQx000ULbJemAND1d97N2v5a+j/HGXMgbJTiW9DYfAlaMB9YE
+	isqW1TMtT7JKWkhRrXY+kh/M8f3SuO1VbvlTzx5F0pwQNxm83Vh1g2Mq+IJSvQ==
+From: Michael =?UTF-8?B?QsO8c2No?= <m@bues.ch>
+To: Rosen Penev <rosenp@gmail.com>
+Cc: linux-wireless@vger.kernel.org, b43-dev@lists.infradead.org (open
+ list:B43 WIRELESS DRIVER), linux-kernel@vger.kernel.org (open list)
+Subject: Re: [PATCH wireless] wifi: b43: map the RX buffers
+ DMA_BIDIRECTIONAL
+Message-ID: <20261023224140.465903eb@barney>
+In-Reply-To: <20261023221424.2722795e@barney>
+References: <20261023190653.70741-1-rosenp@gmail.com>
+ <20261023221424.2722795e@barney>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,86 +64,64 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; boundary="Sig_/A+dZC/cF/CkDIhpzPpycaYS";
+ protocol="application/pgp-signature"; micalg=pgp-sha512
 
-The X1600's SAR ADC has four auxiliary channels and none of the
-touchscreen or battery engines of the JZ47xx ADCs in
-ingenic,adc.yaml, so it gets a binding of its own.
+--Sig_/A+dZC/cF/CkDIhpzPpycaYS
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-Signed-off-by: Olivier Louvignes <olivier@mgcrea.io>
----
- .../bindings/iio/adc/ingenic,x1600-adc.yaml   | 60 +++++++++++++++++++
- 1 file changed, 60 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/iio/adc/ingenic,x1600-adc.yaml
+To explain this further:
 
-diff --git a/Documentation/devicetree/bindings/iio/adc/ingenic,x1600-adc.yaml b/Documentation/devicetree/bindings/iio/adc/ingenic,x1600-adc.yaml
-new file mode 100644
-index 000000000000..7886836b10c6
---- /dev/null
-+++ b/Documentation/devicetree/bindings/iio/adc/ingenic,x1600-adc.yaml
-@@ -0,0 +1,60 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/iio/adc/ingenic,x1600-adc.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Ingenic X1600 ADC
-+
-+maintainers:
-+  - Olivier Louvignes <olivier@mgcrea.io>
-+
-+description:
-+  The SAR ADC of the Ingenic X1600 SoC, with four auxiliary input channels
-+  measured against a 3.3 V reference. Its clients select a channel by index
-+  through "io-channels".
-+
-+properties:
-+  compatible:
-+    const: ingenic,x1600-adc
-+
-+  reg:
-+    maxItems: 1
-+
-+  clocks:
-+    maxItems: 1
-+
-+  clock-names:
-+    items:
-+      - const: adc
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  '#io-channel-cells':
-+    const: 1
-+
-+required:
-+  - compatible
-+  - reg
-+  - clocks
-+  - clock-names
-+  - interrupts
-+  - '#io-channel-cells'
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    adc@10070000 {
-+        compatible = "ingenic,x1600-adc";
-+        reg = <0x10070000 0x30>;
-+
-+        clocks = <&cgu 28>;
-+        clock-names = "adc";
-+
-+        interrupt-parent = <&intc>;
-+        interrupts = <11>;
-+
-+        #io-channel-cells = <1>;
-+    };
+- I might be wrong, but this patch looks completely bogus to me.
+  Why would this be bi-directional?
+  If this is accessed bi-directionally, there must be a bug somewhere else.
+- Please provide a HUMAN WRITTEN patch description.
+  This is really important.
 
-base-commit: a3b3580713f3ac5a32dc2874ee546828977a1d68
--- 
-2.39.5
+I am all for using AI for development.
+Especially for such old and legacy code.
+HOWEVER, there must be a human present and understanding what is being done.
 
+Please slow down your submissions.
+Think about your patches before submission.
+TEST your code before submission and send evidence of your tests.
+Untested code is to be rejected.
+
+--=20
+Michael B=C3=BCsch
+https://bues.ch/
+
+
+On Fri, 23 Oct 2026 22:14:24 +0200
+Michael B=C3=BCsch <m@bues.ch> wrote:
+
+> Quite honestly, to me this looks like a lot of AI slop is sent to b43 the=
+se days.
+> Can you please slow down your submissions so that actual people get a cha=
+nce to review the stuff?
+> Thanks!
+>=20
+
+--Sig_/A+dZC/cF/CkDIhpzPpycaYS
+Content-Type: application/pgp-signature
+Content-Description: OpenPGP digital signature
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEEihRzkKVZOnT2ipsS9TK+HZCNiw4FAmrbxoQACgkQ9TK+HZCN
+iw4QPhAAi17mINLOEeqDnVvjz/BSwRowOsI4dK9+hEjvuleukzqvk0T2kSNFrU/9
+ROF7PHAiOJeT3ywsRBiR9LI2ik5WvBaRWlJXnBZ42Z7Fl133A+YA/Ixh4qwro/1h
+S3x7xFtqOhy/2v8ZppvW1FPc+w4GCevTfYwj+9bvfy0WHbu5VozQwUdIjY5B6vLm
+hGaHlTIeL5Bs4K2+Rvp4i1r4nGZ5uSD8Gkd+PZoj0m/4fpaDsOJLJVXd25HdrPi5
+XZQUlN3I2AJJL0t7EXqX60CopYEDVKMjQVrjRj4QJr51BLDMZVMOmaqpY7aNCaJ/
+zGhp+94+EltJr39uhyjhZoDlE7MKb/XK3hyqUdJyLp2FvosrCYjiyt3oCdp0Q6l0
+PqrBOmErIttstglW2IA7kDDdSH84lB6mig7z/0E4W8v/iAbbQBxNXAEqJaeV4cv+
+fWzguyokIrn7tqlSpHCqqn8mNYKxnunjRPODmmXeTA02YWJhf0gH5vxKtu4dAKpc
+7PDfg7gSx6N60S+mXtmaZOmLUrMmrmV09jGB9VKqO2kjDj5pOtAUqnVlIQdYFVx2
+4DpN7yORaE+IvMVADn9dhvqzJ/nhDJFXwgAgTynNAzvCJAyDBTZX/AddsYhVCL+0
+GmmpshB/urhaR5e1siORgsGMIzY8xzaVJ0/IWdcKvpbvCK59pKI=
+=Xmwj
+-----END PGP SIGNATURE-----
+
+--Sig_/A+dZC/cF/CkDIhpzPpycaYS--
