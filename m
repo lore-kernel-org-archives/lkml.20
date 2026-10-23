@@ -1,102 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.69.9
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792767244;
-	b=jfUYiSQqyzt028Gawyr/+O7T+LHXUk8FAPWMGt6zXIRVlEroB9ZgvUk1vmnSkFyi/bfC
-	 oB76dha+SHIhdcrUTavFf+6z3UzjWvzqB30AsDBVXKFT05dQUuQhWcyt8bgt6ubtENa8p
-	 nORFUhoxRz23NiN2xi9AwwsWGPV4w8RPmtd1vkFiqnp/EVrzLo5o67c06P+SXRT5RD4yz
-	 ar5rVD7toNpDf6PqNg9NLWsjJwYR+h/EScKszuLTKf6oFKWASqEwayg6LyGqBEuMWyrKO
-	 CM0N7Zff8HUDl61C1DbkMHi9UDAl/s9grE7I6GVJkPhasStcjKlzDzxlXZBg42aC45g==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792767244;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=kRUp4YZ6Rlu3Fh4pgW/bHKHRNhe0Y4ojmhl0CqVZbrI=;
-	b=cbzbIBBsynyBLecPuAZoG7iRxegR3dcCX7ct6cbQrvKQW3NVRpqHCIcyTaAvv85lLLmt
-	 SJSlCMS9aIgXJ1N3kh/B5xKUaN4dkd79jc7zyfZeL9SNS61HLD8TkkIyqD4xefzhukSlH
-	 g10PHdTnnOZCF38b4KigGN/M+MM3mqB7yhU9aBj/b2VLLDufUMK0EdeOh9e9eO9z9BUX3
-	 zZhHRODFz5lVykzQOrh35537jmFz9WKQ4hHgQhwPZhvTqH4fx1pfz8MUOBqXYZvTCvgsH
-	 2xRklYuV06OVKrIg0hMWb4ju7L0vShoE9B06AnegXcvnGC0F332tchqVk/wNF52e/kw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=criteo.com;
-	spf=pass smtp.mailfrom=criteo.com;
-	dkim=pass header.d=criteo.com header.i=@criteo.com header.a=rsa-sha256 header.s=selector2 header.b=Gf1XKtau;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.69.9
-Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010009.outbound.protection.outlook.com [52.101.69.9])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.156.1
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792767324;
+	b=Om1zPxXaQyqh2DLbh93+VNjoSQ7lNrWjPyJaMmzyR2UKP1e5te+MlSDdtgKctP4rg4Sg
+	 4ypPXCsdLhEFzZcbJGVlBCiHmyS9D4Y6mMKQyS4XC4it3k1O+tEe7vvaxQjm5tSNDwpOT
+	 wstsCeiprymEHSx+L51oWgOE4OnXKIEjCRzb0qan+0dcNFQ7Oz6s/tseFC33nC0SzK/v0
+	 Q27gWgUJivCoP7PfKu1cCe4dv4oQlwJVEMzKH6djIBYFcgsmo9+yLYFH7KIuQxEaM8+jh
+	 IhUKU8XRUzj4hl9NMHOdmcfnPkobDz7B9i07oji83CqLsBGh27S4o37ITfZEaB8nqGQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792767324;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:Received:Received:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-TM-AS-GCONF:X-Proofpoint-Reinject:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-GUID:X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=jx+rZOP8xwcac82m3lLT/zD5D1pNBdMovtbyHIAMsmQ=;
+	b=O70WZwkw/SPnt5XrmHpThNSnPNf6f2s7vQZQPrM20hNGaO1+tvQhv2xIP05VJHGZnR+G
+	 p8XQG09vfPQuVhcZ+IGis9ClF+Fg54l1S2rEUrfGginHfja3UgS5vgvG2tqHSQVW/Naxq
+	 +WxLxHTkjWsCUz/j3N+zNzmHXLJdh9kJoOafwNj1fUe19B25gAGDD9hozQ0P6aXINxmWb
+	 0lJnPmZJ1/YTLj4W+3pDiNkMkxAF8jkdPNeQK7cK20nion/O6GRk8nA2K0xlvvqWEC3mh
+	 rZTiX1pbuLLTr25Tvl3T78u0cBY7dtmggZ9bSIyFFq4KNtAyEPo8R0i3XQPaBQ+MfYQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.ibm.com;
+	spf=pass smtp.mailfrom=linux.ibm.com;
+	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=a8Vf2DKh;
+	arc=none smtp.remote-ip=148.163.156.1
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39929606A31D
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 14:54:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 39929606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=criteo.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=criteo.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BFC5606A31B;
+	Fri, 23 Oct 2026 14:55:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6BFC5606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=criteo.com header.i=@criteo.com header.a=rsa-sha256 header.s=selector2 header.b=Gf1XKtau
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=pP61BUWnUFAmXGxX2C/h1EX+0RZWR4KbLiqNnGZorAk1HuQKv9dclavfzhqCcCizlklDMek8Sxljb3aZie9UgGqnwddf62kHB/6fUCiUmRjlRSGlIpjQyqhkORwUWh5Zg3ZFAFrP6EBOvjxhqW1MUbZIaKdrCjrjpyHzDkjgLoCULbgXBF8x/Cn4cMajQ1G7CnP2dxrprlmB9Ou7I7X9c9K2t0w63zcRudkzduh4Hu1maLSZ5M+Dn4qBx187LsvZ/57qGOqNP/tn78gSzuJ0zYa+H8QqO6QSVw9ddEMxn7RUt4XXtzS9FyAlOepOtvWvffMhl1EejWjE3AAFw8s3Ww==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=kRUp4YZ6Rlu3Fh4pgW/bHKHRNhe0Y4ojmhl0CqVZbrI=;
- b=wEcypmTJoRB49oUus9QeK7Sb39wOjlnOaR3O1gZaoAkU1p5hlTS4GCs7bftTZLISsaNcYR0NUPZmeOVCFoN64XiwNqyUUFrNVM4PvLLcFS6URvXhbisTrit3HVVgzbnDmOljMtkHvO225LEKHz2rU83VUIVJ3UqU25IsbIGF6T2LlAKWZousmQ7v4DfMZPhLTq+MdOK7kJEtwm0HgUHpnS8Sqdnrq3L7Z6I1IdueXP6/VfR/QARklQbXGo9/osw9vlHttD1lNO1B6nRFFgG9e12g1L8xlzx6hfD3ilABC7eGSz29zI6N4SGDqvWptUqeiu75sDil0HVCiQMfKy9LVg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=criteo.com; dmarc=pass action=none header.from=criteo.com;
- dkim=pass header.d=criteo.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=criteo.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=kRUp4YZ6Rlu3Fh4pgW/bHKHRNhe0Y4ojmhl0CqVZbrI=;
- b=Gf1XKtaumpVusX8KuKhP7bY4D70+aAS0t4nBKW0q+uiomUEo2FTRVoc0w1h501y4JFwZdtFhSOLkr8Wiu4sIK18c4FdQaNbgcHaLuyg8daY56xw3WD7zObmhQRlgMyAzZhtRHj6Hq1H0jOluCyJnzy/dzIxmZiQUmXkdTISPk+FPCQiNBuwg9Tgd56XqwGpAnewVYWQA6ZpMODn2j4ANNTvz2ZzXV2QQaUkbfATKSrRUbg6wb10OoIGxWnO3ZZKaiMT8Jj5EI8rddn4PlLRhLpdvzSQBvq5KGiaLigMk73b+WTytNnOOX+Tn2lvka1Jvif6D8yeOv2Rz5AnXs119aQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=criteo.com;
-Received: from VI1PR04MB5310.eurprd04.prod.outlook.com (2603:10a6:803:57::26)
- by GVXPR04MB11588.eurprd04.prod.outlook.com (2603:10a6:150:2c0::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Fri, 23 Oct
- 2026 14:53:56 +0000
-Received: from VI1PR04MB5310.eurprd04.prod.outlook.com
- ([fe80::3b8e:ff4c:76b4:a012]) by VI1PR04MB5310.eurprd04.prod.outlook.com
- ([fe80::3b8e:ff4c:76b4:a012%5]) with mapi id 15.21.0546.012; Fri, 23 Oct 2026
- 14:53:56 +0000
-Message-ID: <7fec6534-9e57-4041-8699-72c5950c7e2a@criteo.com>
-Date: Fri, 23 Oct 2026 16:53:54 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] nvme: honor the volatile write cache enable state
-To: Keith Busch <kbusch@kernel.org>
-Cc: linux-nvme@lists.infradead.org, axboe@kernel.dk, hch@lst.de,
- sagi@grimberg.me, linux-kernel@vger.kernel.org,
- Erwan Velu <erwanaliasr1@gmail.com>
-References: <20261016141208.2641974-1-e.velu@criteo.com>
- <atJXYHJa4jkUWJmP@kbusch-mbp>
- <CAL2Jzuz1qFwLSA=iivp5qLCTL6-4rvKmvFzJbOQzjPu6j_7Y2A@mail.gmail.com>
- <atJeazM_rJ0uj3vt@kbusch-mbp>
- <CAL2Jzux8v6zCxfcdd=MY5n0zQMVSa-_8Lki9z-fz7bFShNf7vw@mail.gmail.com>
- <atJk_2FmzjUZYO_Z@kbusch-mbp>
- <f665dc3e-fc5c-4352-8e41-a46b7ae97946@criteo.com>
- <CAL2JzuwuZp0gg1D7wSn7cdgpnhotnuLP6YpPd-SrdVyqhkeiJw@mail.gmail.com>
- <atqZmctbU0siYmVX@kbusch-mbp>
-Content-Language: en-US
-From: Erwan Velu <e.velu@criteo.com>
-In-Reply-To: <atqZmctbU0siYmVX@kbusch-mbp>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PA7P264CA0293.FRAP264.PROD.OUTLOOK.COM
- (2603:10a6:102:370::19) To VI1PR04MB5310.eurprd04.prod.outlook.com
- (2603:10a6:803:57::26)
+	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=a8Vf2DKh
+Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69NEE26s3183214;
+	Fri, 23 Oct 2026 14:55:12 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=pp1; bh=jx+rZOP8xwcac82m3lLT/zD5D1pN
+	BdMovtbyHIAMsmQ=; b=a8Vf2DKhfwXf+Ji+xrTBtFCHgXMfFccaraXjIt7ooRU8
+	Ji+hLz23EuqJZDvyA+JN8Gkjr4oYwJy0Bd8JEMB1EXIcCbGaKit1bpCrorZkbGhH
+	iPJvEkV/dQpyAzUEe1pHu4/10oo7jrxtn187EQbCutSl7JAmt3CEKGM/TyjiUJn9
+	+rnSZtdf2aHvPSZTsmpkLnK74rjh6Yp5WF0/2kpat+Nwsy+78lHQN15KGWp6L/d+
+	We2RI2tWLL8v4PX6SXwv6o5bHkg5vwIoqjSwCSxPAqyaE57Kj45RxmYppy+qoVSJ
+	rCin9iLDdBidCGuwgIS34+TAlbEhKN6HU+a968NI9w==
+Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hdw5ant8b-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Fri, 23 Oct 2026 14:55:11 +0000 (GMT)
+Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma22.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69NEL2T72203331;
+	Fri, 23 Oct 2026 14:55:10 GMT
+Received: from smtprelay03.fra02v.mail.ibm.com ([9.218.2.224])
+	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4hekdgmhgu-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 23 Oct 2026 14:55:10 +0000 (GMT)
+Received: from smtpav03.fra02v.mail.ibm.com (smtpav03.fra02v.mail.ibm.com [10.20.54.102])
+	by smtprelay03.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69NEt6bM39780780
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Fri, 23 Oct 2026 14:55:06 GMT
+Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 8F3F820043;
+	Fri, 23 Oct 2026 14:55:06 +0000 (GMT)
+Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 0237F20040;
+	Fri, 23 Oct 2026 14:55:03 +0000 (GMT)
+Received: from localhost.localdomain (unknown [9.39.19.79])
+	by smtpav03.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Fri, 23 Oct 2026 14:55:02 +0000 (GMT)
+From: Amit Machhiwal <amachhiw@linux.ibm.com>
+To: Steven Rostedt <rostedt@goodmis.org>,
+        Masami Hiramatsu <mhiramat@kernel.org>,
+        linux-trace-kernel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org
+Cc: Amit Machhiwal <amachhiw@linux.ibm.com>,
+        =?UTF-8?q?Michal=20Such=C3=A1nek?= <msuchanek@suse.de>,
+        Vincent Donnefort <vdonnefort@google.com>,
+        Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+        Madhavan Srinivasan <maddy@linux.ibm.com>,
+        "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+        Harsh Prateek Bora <harshpb@linux.ibm.com>,
+        linux-kernel@vger.kernel.org, kvm@vger.kernel.org,
+        kvm-ppc@vger.kernel.org, stable@vger.kernel.org
+Subject: [PATCH v4] ring-buffer: Do not check si_mem_available() before deferred init completes
+Date: Fri, 23 Oct 2026 20:24:59 +0530
+Message-ID: <20261023145459.47516-1-amachhiw@linux.ibm.com>
+X-Mailer: git-send-email 2.54.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,101 +99,131 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VI1PR04MB5310:EE_|GVXPR04MB11588:EE_
-X-MS-Office365-Filtering-Correlation-Id: 27d6c395-9feb-4874-b377-08df311575db
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|23010399003|376014|366016|22082099003|18002099003|4143699003|11063799006|10067099003|261021123027099003|56012099006|261022075727099003;
-X-Microsoft-Antispam-Message-Info:
-	wPtpjJzvEbBnmm2L+xZrpU6vrqtWCUAIC2hcs3jqQvT+AZzZsqO9GcWiyonaRBhfQkyrdW/J0xsUhw98l98l5w9HWwdR+sfMPTTYKIlkJm8PZrV55fwbJM0qQTGsCrRt/GnIztCIgr/c3FlTRGxCjjI8YQeAUNfUvkTYLoeAzeksWc6hrEHyjhqLfdY1w2ytUS142j4Hq6QD34T+VoxWpRqus09JVmqcBKwNgoBYaELMTGciQOwL7PtJqwmDnrMGwphZAM2Zgv1ONQtLibkcE40kK5HBf4bEFnt5xHrKrXiSE7PqTpjzlK36BVS/Hi7HXWVPbSr1Ht6ykVP1CRd5/V3Lh1pgAlvirlmGSK40q4RjvaAC1K5Ul0H4F5RbJW4YSv3VkdxkH6Fh5BLpjeSqH8A/QYXeAFXpAdy30Kg+InH7h29cDm7vKinGrAKNRWSRgld/C4AzBdPVn9CVmhBlILc0wqwXg40SwJl/QJ8Z+cWczUa0TLsqLkwBj+6y0EQls7pU4A3VTdQ6Q+HUuNWHAT5wEjiCPIqqzJDGKNwWW6ccEwqMQUOcSAHGNibg3T9G9OJPpqqyQAijNijTaxJ43vv7iYxo3HbmxLIlKBSL9Z8XX7qeNFcNBBjRlj5syGUlrYgu86P9EpwNKbfnNx3LP//h4iipUp7Jlo6D+zK5lgk=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5310.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(376014)(366016)(22082099003)(18002099003)(4143699003)(11063799006)(10067099003)(261021123027099003)(56012099006)(261022075727099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?UCtTVTJhSWU1aDJoQzhyR09iaFJhVDZ0SHhPWHNPNlBMZWtpNFByNHhYWmNm?=
- =?utf-8?B?dVBKY1VkSTlJV2hpUU5jb3E4OUtPWmZnRHZ3TXBIS0JramRHZGtnNElRcVlS?=
- =?utf-8?B?Q2tud1FCeW14V1N6WkNBU1VSRmpIazJ3RnJ3Z0pDVlltVEZNUnQ4REowQUhD?=
- =?utf-8?B?ejd2U2t1dXFGZ3Q2aWJKdUM3S2tSZFhtMnRVWGpqR3Z1djZCZDEvQ05JYlJX?=
- =?utf-8?B?K2dYOGRSOWU4eDVyZHBJcms2bnZIZEN3c0xvZlRkUDZHNkp3L3VWaHJKNkJj?=
- =?utf-8?B?bERpNWptOVo1cVJjSHE1Y0YrenJoTS91MjR2RERDemovZjVyT0IyMzRxV0xp?=
- =?utf-8?B?b3BYVUNtc2Z5V0JmVGdVWHR2dThlVXBSbUcvUFhUMWlXcGZTMGVuV3l6MWVG?=
- =?utf-8?B?dFBqWGgyNk1FMGRFQW9JaUMxTkNJVm0wU0JvUlVPOUk4K3lEb01QODRUQjkx?=
- =?utf-8?B?cVJDMDNJSGsxNnJaaFQ5YmF2LzhoTVg0Ym5pQ2JaVytkUGFtT1ViQlZYSUJ2?=
- =?utf-8?B?dHRYSWZYa3pKQWVlczlmbGlsdWdETmg2WFF6R0ZOUENCbDBhRC9NQUo5RDAx?=
- =?utf-8?B?UlRsVFptM1N0T2pFMWx1a3oxT2FpK2xwV1RGaWlybEoyeW9uS3hYQ0FTMVlL?=
- =?utf-8?B?VzZxWnRQaTc5LzRIdXlORmFhWWVHbkVPNDlia1RxbnA4WGlyMjk1a0VGeTVw?=
- =?utf-8?B?Zm1hc3VwYlBCOHZQNlhyM3ZGbTFzOWhhcUNwUGVLRk1rcDlIZGh4ZVo5b1Fr?=
- =?utf-8?B?djBIeGtCQ2xZOTJxSEhleFE4aUlJWXlNajdYMFZ0M2hJeTZTZlc2aWhrZkla?=
- =?utf-8?B?T1FMRFpSSkthY2dIVnZxd1R2ckdEWnVndHl3b0N6czhTcXRVSDYvWHE5dmtn?=
- =?utf-8?B?N2tDS1d0a3A0YS9qVmxQQ0ZTczhIYUhndElRRnpibzN0SmFzUTVkNmNwSmZP?=
- =?utf-8?B?K01RdlZWV0oyNzRnRFRPYlg1VnlEcWwrSG9GS1Zpb0lma2UvdDQ3ZVBmREZV?=
- =?utf-8?B?b1Q0bHQ0dnVOQnZKak1FcHd3Ly83TkY5UWNvc0RraDc4TGI0YVBNY1U0cmow?=
- =?utf-8?B?enVPUWZ6bTc0ZXJqNUVUMUI1VmpUV1NqNDA1M3BldDRwOExpUTZydnQ1bmVP?=
- =?utf-8?B?bXhTU3hJM2JrRHlWeS96czJkZjJ5U0lZcVR5d2ZYZjJ1TUtxcW51NlB6aUdh?=
- =?utf-8?B?VTROdFJPSTY1RGVhS1JYdC9JQlRRVDV0N3hhOTFoS1U2SFRMYWovLzlFU21I?=
- =?utf-8?B?M28vQ3A2K1NsZ200cTg3cnVIdzFhVEJ2bDlsb3FMUUF3b0dJdXBJRFltWDNH?=
- =?utf-8?B?L1lKbE9FcCtOTjR1MWZzSWI4VXpkMDJVZlpyN0FxcTAwNmZBRWs2S2NMdDQ5?=
- =?utf-8?B?YUlwdm1FTnVHT3JqUVpOVkRScGVOTzJsQzRjWFFvckl2QVBaSDFHV1l0TlFx?=
- =?utf-8?B?Z3UyU3IzTG1ud1dBVnVqZGVFRDVWMlhiRVd6RTdKY255M0tqd1dITElXcFpa?=
- =?utf-8?B?ZzNIdXpQdXZOazFxM2NITmt4OC9OaDA2bXAwOUpVMVE2YlNJQjV2aHZYMDgx?=
- =?utf-8?B?cTdMcVF4OU95TnZ6Ui9LYWI1ZXFjMTdTZTJ2bFpvdEVXUzZkQlUrOWt3dTRu?=
- =?utf-8?B?dHpjVkpmeFh2VGRrVks4NG41aU93VnkraEplUW8rY2FGcVVEellhNm5Yakhi?=
- =?utf-8?B?cXBoNGpLbUdsRjhYdkptRS9yY3dJY3Zucm5ncGRxTlJ5MWdkU01UWlNLVitn?=
- =?utf-8?B?cUN3dmdIUGpPU0tqT3BraElWSm00WEhwL1N2cHFJc05nb3NwZ1dxVklwTVY1?=
- =?utf-8?B?MDR4MmwvcmRRR2NRNnhpRUNDVUFPMUkwUE9PV1RUMWJGYWV4TEJmOUtmdkNR?=
- =?utf-8?B?cjBpb1R6cTR0SmZkRHhWbjQ3RHpIUzdhSnF3QlNEU015bGYvditWdkhDVS85?=
- =?utf-8?B?UENKVlVwWmFNOE0xVWNzMkZPdy9reUF3T25iSnZJcUpqaUtpcENkVk1JS2xw?=
- =?utf-8?B?QnJBeDVuY2FpTU4rRkEvSGs0R0RyN1Noa1BDOGl5ajNqeDN6U3NoaCtldkNz?=
- =?utf-8?B?UFlUZE9xRmZlbEJNTlpHdXhWclA2SUp5ME9FZlhGaDNXcGd5Qmp6OWNqWGVJ?=
- =?utf-8?B?K3Q0YVFWYkpsdDNPWlg5cXpKZ1pUeVRqa0xVQkRGcXVXWm9NUVkzcnI4YkpW?=
- =?utf-8?B?TTA3MytjcGlQQmV3aGlwZnQ4TWhNVzIxVmVjTnNUTVJxZXZvNUx2NEUrZXpW?=
- =?utf-8?B?WldoNUlDN1dPREx6ajQ5Y2lZa3hBQW5heWQ1WkRzc2hLbFl4blNQWkV1R2dJ?=
- =?utf-8?B?VDAvY2o1Y0VEdnFqa1BZS00yRFdGb0wyVS9ZUWNtbERWRyt2UTZxUT09?=
-X-OriginatorOrg: criteo.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 27d6c395-9feb-4874-b377-08df311575db
-X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5310.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Oct 2026 14:53:55.9637
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 2a35d8fd-574d-48e3-927c-8c398e225a01
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: UDKjShvPgzauMSZPcO9YI829cfBnADK3WONsQVBUXQnySD3AT/So7vHaPcvyIPFtCNw4cexmx97AAXgLitxHnw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR04MB11588
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIzMDA1NyBTYWx0ZWRfX8LuU3I5P0B58
+ /EljYfBSXZxZrxmFIDCdICUVxIsWCb2H/dTiO5++0vv3qykDZR7zA6Pvjjv80woEKdQQME+dkH/
+ fXlRADq9N67LdIwdTogDStjTYXSgpIs=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIzMDA1NyBTYWx0ZWRfXzYbtFPYJa8Ww
+ cy5i3sHy77EOexqDWc1hUnVSejIHJQtllyE82/+OyrQTLKvT+SLdJtihaGO1AGtHi1WJq9U6gsR
+ 4ENNJFh7KWQxPgERdI8J2MTmZC642FxnJLCsAEMQJj0p6t0Uon8t6sXveFNewxszOS490SA57Ps
+ 1lvbnK4ulOL+Qi7DxBn1iOTaRMnWp9Tp1AVkaKkKZ7RluyC2LPawwQ6F2MN65291pOxrs9M45Ww
+ nzWAg/J1BJyEQeaOQGsTqPzOCzV/pQdj/xtNwIIv33pOVLncAS7l/y+lvrd2YF5xT4M6+sjP5lc
+ 8jTGY6YU7ILkUo03KoNwq8zEgvxXEpfOMS/YiMc1e69yDRS70pNeCLpI0GMJXDBVvd7PIc87Vua
+ xW+jostwNv1emQwZfYX+yTuJY/UvmlRzoyQcApi7i9whObD6JEnB/rrxZwArUDdGB05hGS/VGN5
+ OvM1c8s434NATZ0R7wA==
+X-Proofpoint-GUID: gGiItzZ_jiSML3gPj1pimkC8aKari-p9
+X-Authority-Analysis: v=2.4 cv=JIKuIMKb c=1 sm=1 tr=0 ts=6adb7550 cx=c_pps
+ a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=U7nrCbtTmkRpXpFmAIza:22 a=VwQbUJbxAAAA:8
+ a=VnNF1IyMAAAA:8 a=z8eC79uxFTNzhPLTDY8A:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+X-Proofpoint-ORIG-GUID: RfFxfd_wYjxMJjdLPP7smqeil-QS3kYi
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-23_04,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 malwarescore=0 lowpriorityscore=0 adultscore=0
+ priorityscore=1501 spamscore=0 phishscore=0 bulkscore=0 clxscore=1015
+ impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
+ definitions=main-2610230057
 
+During early boot (early_trace_init() called from start_kernel()),
+tracing allocates initial ring buffers (temp_buffer, array_buffer, and
+snapshot_buffer) for CPU 0.  Later, as secondary CPUs come online during
+smp_init(), each CPU's ring buffer is allocated via trace_rb_cpu_prepare().
 
-On 10/23/26 01:17, Keith Busch wrote:
-[...]
-> I just wanted to see if there was any difference in the controller's
-> Flush behavior when the volatile cache was enabled vs disabled, and this
-> looks like it's the same either way. The Flush should have been a no-op
-> to the device with WCE cleared, so something seems off here.
->
-> I'm wondering if the device is actually really respecting WCE set to 0
-> now. That might be tricky to prove, but it wouldn't be the first time a
-> device lied  about durability. Not saying that's happening here, but the
-> behavior you're reporting is suspicious: 15usec writes are not
-> physically possible with TLC NAND (your model says BiCS TLC) without a
-> cache, and your controller says your cache is volatile.
->
-> Anyway, the principle of what you're proposing looks fine to me from a
-> spec standpoint. I'll get this queued up if I don't see any other review
-> feedback or concerns that it's going to corrupt something...
+Before attempting page allocation, __rb_allocate_pages() performs a
+heuristic check using si_mem_available() to return early with -ENOMEM if
+memory appears insufficient.
 
-Thanks for your feedback.
+However, on kernels built with CONFIG_DEFERRED_STRUCT_PAGE_INIT=y,
+NR_FREE_PAGES only reflects the initial non-deferred pool across the entire
+period from early_trace_init() through smp_init().  defer_init() leaves
+only a single section per node (e.g.  16 MiB with 64 KB pages) initialized
+up-front, and on kernels with large static binary footprints (debug
+configurations enabling PAGE_OWNER, DEBUG_PAGEALLOC, KFENCE, or SLUB_DEBUG),
+early core initialisations (SLUB caches, vmalloc, static ftrace records)
+consume virtually all managed pages in this pool.
 
-I'll discuss this firmware question with the vendor in private and will 
-keep you aware.
+si_mem_available() therefore returns a false negative (often 0-1 pages)
+across both SYSTEM_BOOTING (for the initial CPU 0 buffers) and
+SYSTEM_SCHEDULING (for secondary CPU buffers via trace_rb_cpu_prepare()),
+causing __rb_allocate_pages() to prematurely abort with -ENOMEM.
 
-Considering the performance impact for these type of device,s would you 
-be open to a backport to stable once merged ?
+This failure is false: the buddy allocator is designed to replenish
+ZONE_NORMAL on demand via deferred_grow_zone() when an actual allocation
+is attempted.  Checking si_mem_available() before calling alloc_pages_node()
+short-circuits this on-demand growth entirely.
 
-This patch is really about matching the spec and it would be probably a 
-great positive impact for many stable users to benefit from this patch.
+deferred_grow_zone() is only permanently disabled after page_alloc_init_late()
+completes (it spawns per-node kthreads and blocks until done), which happens
+inside kernel_init_freeable() — before system_state is set to
+SYSTEM_FREEING_INITMEM.  Skip the si_mem_available() check until
+SYSTEM_FREEING_INITMEM, at which point all deferred pages are initialized
+and si_mem_available() is accurate.
 
-WDYT ?
+Use IS_ENABLED(CONFIG_DEFERRED_STRUCT_PAGE_INIT) to set i = LONG_MAX during
+this window, unconditionally bypassing the threshold check.  On kernels
+without deferred init IS_ENABLED() compiles the branch away and the original
+check is preserved unchanged.
 
-Erwan,
+Fixes: 2a872fa4e9c8 ("ring-buffer: Check if memory is available before allocation")
+Cc: stable@vger.kernel.org
+Reported-by: Michal Suchánek <msuchanek@suse.de>
+Closes: https://lore.kernel.org/all/arYskzbiaNzBR9MD@kunlun.suse.cz/
+Link: https://lore.kernel.org/all/arYskzbiaNzBR9MD@kunlun.suse.cz/
+Signed-off-by: Amit Machhiwal <amachhiw@linux.ibm.com>
+---
+Changes since v3:
+ - Replace #ifdef CONFIG_DEFERRED_STRUCT_PAGE_INIT / #else / #endif with
+   IS_ENABLED() + i = LONG_MAX to avoid duplicating the threshold check.
+   (Vincent Donnefort)
+ - Trim the in-code comment to one sentence. (Vincent Donnefort)
+
+Changes since v2:
+ - Rebase on top of upstream ring_buffer.c changes from Vincent Donnefort;
+   update threshold to i < (nr_pages << subbuf_order). (Michal Suchánek)
+
+Changes since v1:
+ - Extend the guard to cover SYSTEM_SCHEDULING as well: smp_init() calls
+   trace_rb_cpu_prepare() -> __rb_allocate_pages() before page_alloc_init_late()
+   completes, so the false negative window spans both SYSTEM_BOOTING and
+   SYSTEM_SCHEDULING. Use system_state >= SYSTEM_FREEING_INITMEM as the correct
+   boundary.  (Sashiko, Vincent Donnefort)
+ - Wrap in #ifdef CONFIG_DEFERRED_STRUCT_PAGE_INIT to preserve the original
+   check unchanged on non-deferred kernels. (Vincent Donnefort)
+ - Drop Tested-by: guard condition changed, requesting fresh test.
+
+ kernel/trace/ring_buffer.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/kernel/trace/ring_buffer.c b/kernel/trace/ring_buffer.c
+index 9c4e40847e43..09c02e838c4d 100644
+--- a/kernel/trace/ring_buffer.c
++++ b/kernel/trace/ring_buffer.c
+@@ -2463,8 +2463,16 @@ static int __rb_allocate_pages(struct ring_buffer_per_cpu *cpu_buffer,
+ 		 * memory. It may not be accurate. But we don't care, we just want
+ 		 * to prevent doing any allocation when it is obvious that it is
+ 		 * not going to succeed.
++		 *
++		 * With CONFIG_DEFERRED_STRUCT_PAGE_INIT, si_mem_available()
++		 * will reflect the actual available memory only after
++		 * SYSTEM_FREEING_INITMEM.
+ 		 */
+ 		i = si_mem_available();
++		if (IS_ENABLED(CONFIG_DEFERRED_STRUCT_PAGE_INIT) &&
++		    system_state < SYSTEM_FREEING_INITMEM)
++			i = LONG_MAX;
++
+ 		if (i < (nr_pages << subbuf_order))
+ 			return -ENOMEM;
+ 
+
+base-commit: 734bef548a96e8774d6eef5dfa2026c6edc4e80b
+-- 
+2.54.0 (Apple Git-157)
 
