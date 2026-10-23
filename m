@@ -1,64 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.19
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792763703;
-	b=2ViKy1LrGI/x4bMBD8/y9jWSszkN7y7m72WzUDOxilJhDu881lZ9ndK5HyPkXl6Dyk2G
-	 mPCnVzG0Iql0Oc+FsHEBETyT7dbsH7sR1/a7kqdfeggsG0Pi4e+hn7yoLjrkYms2HrraQ
-	 vsX3YhZRC6M7fn8Bgw/NAprvZ+17aO3QzHldzNkQENGMkfbrpBn3yzxNVBbZIRuxG85dc
-	 yOpNrKzTBpqiWyVV84Bkxo156q8VoT4aWRaf8OPwizUVvnucB6GeEQ0IVbrhgeFhJ0G9I
-	 wRwBBGruQKAY9jr1levcB8M62Lj5GWyh+VvnyZ3cn4eGrkIyUQXf81R3JvU9Qn/dbnw==
+	t=1792763739;
+	b=e0kokMQVEWRCG1N2gSbjpHKx++N+HbwXt5SxghYdDRiV8mh2X5egbQdUn5EqAiRSatgJ
+	 k5XsGBShHVFvA52ezvPSEAMpL+cfgf4zQkh3QF7ZwSR1e+el8jyJ2YxF9rl3SvVKBR49H
+	 VJrVsrk6pJZHm5Fe8BRNcDYGEoyiU6c/vj008VBO1Zv7v2/PodHQdFxpaaNps6HH/mypF
+	 8n0OcreuX8pSuvJkWSM9bXpd2YWR8Sdpg5jnwb/nhZkm0PIRvPZBSTP6b+2Q2ROesDLhn
+	 eZVkeZXweAqO3JkV0FGu3btepGkA7OXClZnnWAJsXycPT67cvROVMcKUoY/njbpYN2w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792763703;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
+	a=rsa-sha256; c=relaxed/relaxed; t=1792763739;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
 	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
-	bh=xoo0lQVi7D+LDy6SMQY6MCNGt5PY3AwS8e+cRnahJfQ=;
-	b=l05zLczHlyStSyxnFtC7BeN4IJ9sUahpPRCeRoe/cIQBf/EvEoUZe3XGgPw/QLHbuzq4
-	 cFqZxAh0jCKcgRwaN8JnDXTLGwXLk/8wR3mJbXIJzcnunOdlvEZCk/wHLr4xNxQdVKX5/
-	 JjGikT8K/zxZfiQPRUPMdWJUD+C7NY9fnYyVF6yExXD1rsj0yIaW0zhrQvBLEY1x53+9J
-	 tHrnw4kGkJJs3Xsi5Kb1Ny8xmd1eVh2dQCa9Dom9VcVFGv1UO52ABrpPDS6Y3sSjVZudJ
-	 YQkenzgwaKzeQFEsLXW6c6fiuPIPtBGeX3jdqXMIwDQrFpKfJLqOf9EMLAH/2dG8AtQ==
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=Ufbwdy3tcu5w/NiYngE4mrieI3bOTwOle0zORVQS+fA=;
+	b=qvTU8hgz6336n4MDCzYXQNB/sXwfmzYgM5YjVNDgcPYB0xv4aEBdKrP6YzQGze5qwT8y
+	 xDGDmvwcrF0nwvvCDMtQjCFunfGSe3Ng+xo88vOsky3tqft9LpMJiBllHWChkpmfheCbo
+	 iw9660rI7vedsDuD13qkOqJMxy7CtpCjVdO62s9cpqtCvFNShm6hRoa8jQdPJLPKdVadh
+	 K+NgjPsOeRdTMflp19uoC+EhtocOOHL+yJ8GwjNX8Xok7VmvVvADisoOhaplb0Mjnui/h
+	 ci+mOsrX0XIKjtk+pPu3Ixn3OP1EWIU6vLbUALUZKM/tzlShZBpsov1Sb2MQmMyRrUQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=FYOtbvak;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 64C3D606A31F
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 13:55:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 64C3D606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=nrx7+HVz;
+	arc=none smtp.remote-ip=192.198.163.19
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBF6E606A31D;
+	Fri, 23 Oct 2026 13:55:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DBF6E606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=FYOtbvak
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 8CBFE328E
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 06:54:58 -0700 (PDT)
-Received: from [192.168.0.1] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 887A23F673
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 06:55:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1792763701; bh=CBAd3D2nS0pV5DyJNQc3hXRDVv+Z6NVGzTQtyO8Q/is=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=FYOtbvakpectj5foClqqn+npOx8zrTX2xH63W8cND9stz8wRaZHPyaI1PN3T6KKuy
-	 AWINjhBzkNnNCFMIw7zOBQ/kyFv4GThBzaavxGBzey9Zaecjx11bSta39OUcyGplOw
-	 EOLvfsBTl4eBTLE0vLHydYORok66amuFBaCOrSK4=
-Date: Fri, 23 Oct 2026 14:54:49 +0100
-From: Liviu Dudau <liviu.dudau@arm.com>
-To: Lukas Zapolskas <lukas.zapolskas@arm.com>
-Cc: Daniel Almeida <daniel.almeida@collabora.com>,
-	Alice Ryhl <aliceryhl@google.com>,
-	Boris Brezillon <boris.brezillon@collabora.com>,
-	Steven Price <steven.price@arm.com>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
-	nd@arm.com
-Subject: Re: [PATCH v7 3/8] drm/panthor: Add DEV_QUERY.PERF_INFO handling
-Message-ID: <attnKY2jJvfF6X6q@e142607>
-References: <20261011-panthor-performance-counters-v7-0-12c32495062f@arm.com>
- <20261011-panthor-performance-counters-v7-3-12c32495062f@arm.com>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=nrx7+HVz
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792763739; x=1824299739;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=qv8AF4lwgT1ErZ8+l3VO25ckzipNEu6QDynTlTcjddQ=;
+  b=nrx7+HVzg0TML5zp3PZady78EXR0bcRhNTEpGl9Cymnw6NkvcQtk8Uzu
+   9sjc2U5gEJVN96KtfTTkKvel8SgZMJy6Tlo7NpgqgP3ojzMMuYCpt9ytT
+   I3+mbVB+0UvI6g+mzgLBAvTUZXIPQgFNiXa4ydF9LVPuaXBlRdPzO1cOb
+   NFkEMJ49hAXgTjsC7PhHaGjUfZrHE6h6SsFKybDN82B1w2jCMBSu776jb
+   jUbJwhfX6xpUapG6Eh0bvX/9XCA2+dJrMCvXjnIDcvlvNOx9xFXocqfX5
+   Y7qeTSR7tgpwek3eumqvLuS4SRVLUirTLYr5j4JN3BtZxL7x1pMYKAFEF
+   A==;
+X-CSE-ConnectionGUID: LhLHBhGVRxSlhs0lHK8mCw==
+X-CSE-MsgGUID: UUOKgcw5SaGeLSPjaXuCaQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11943"; a="1629515"
+X-IronPort-AV: E=Sophos;i="6.27,174,1787036400"; 
+   d="scan'208";a="1629515"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Oct 2026 06:55:38 -0700
+X-CSE-ConnectionGUID: J4hxzMhLTFqhafqYiP/9EA==
+X-CSE-MsgGUID: Jyv2X9VUTCq27V97pDfkvg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,174,1787036400"; 
+   d="scan'208";a="3594844"
+Received: from kniemiec-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.100])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Oct 2026 06:55:36 -0700
+Date: Fri, 23 Oct 2026 16:55:33 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Lorena Tanase <tanaselorena3@gmail.com>
+Cc: hansg@kernel.org, mchehab@kernel.org, andy@kernel.org,
+	gregkh@linuxfoundation.org, sakari.ailus@linux.intel.com,
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-staging@lists.linux.dev,
+	Daniel Baluta <daniel.baluta@nxp.com>
+Subject: Re: [PATCH] staging: media: atomisp: Fix double blank line
+Message-ID: <attnVU9A2GvgYuy9@ashevche-desk.local>
+References: <20261023123158.6176-1-tanaselorena3@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,302 +81,28 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261011-panthor-performance-counters-v7-3-12c32495062f@arm.com>
+In-Reply-To: <20261023123158.6176-1-tanaselorena3@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Sun, Oct 11, 2026 at 06:36:50PM +0100, Lukas Zapolskas wrote:
-> This change adds the IOCTL to query data about the performance counter
-> setup. Some of this data was available via previous DEV_QUERY calls,
-> for instance for GPU info, but exposing it via PERF_INFO
-> minimizes the overhead of creating a single session to just the one
-> aggregate IOCTL, and removes the dependence on architectural details of
-> the counter layout.
-> 
-> This required reading one of the GPU registers, which is exposed via
-> a new helper in the gpu header.
-> 
-> The current handling covers GPUs from the Mali-Gx10 up to and including
-> the Mali-G1.
-> 
-> Signed-off-by: Lukas Zapolskas <lukas.zapolskas@arm.com>
+On Fri, Oct 23, 2026 at 03:31:58PM +0300, Lorena Tanase wrote:
+> Removed blank line to ensure linux kernel coding style. Found using
+> checkpatch.pl script.
 
-Hi,
+Cool, but is this the only problem in the driver?
 
-I can't find a best place to put my thoughts in so I'm going to use this patch to
-say how I think I would like the series to look like. The general idea is that
-while a series introduces new functionality, each patch should ideally
-stand on its own and be able to be committed individually without breaking the
-previous version or end up confusing user space.
+> Cc: Daniel Baluta <daniel.baluta@nxp.com>
 
-Therefore, I would merge patch 1/8 and 3/8 into a single bigger patch that at least offers
-support for some of the exposed uAPI. Whether that means we should bump the driver's
-minor version twice it's up for debate, but at least we don't end up having uAPI
-headers with no implementation in case only the first commit in the series is merged.
+Please, put the Cc list after the '---' line, so it won't pollute commit
+message.
 
+> Signed-off-by: Lorena Tanase <tanaselorena3@gmail.com>
 > ---
->  drivers/gpu/drm/panthor/Makefile         |  1 +
->  drivers/gpu/drm/panthor/panthor_device.c |  7 +++
->  drivers/gpu/drm/panthor/panthor_device.h |  3 ++
->  drivers/gpu/drm/panthor/panthor_drv.c    | 10 +++-
->  drivers/gpu/drm/panthor/panthor_gpu.c    |  5 ++
->  drivers/gpu/drm/panthor/panthor_gpu.h    |  2 +
->  drivers/gpu/drm/panthor/panthor_perf.c   | 87 ++++++++++++++++++++++++++++++++
->  drivers/gpu/drm/panthor/panthor_perf.h   | 15 ++++++
->  8 files changed, 129 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/panthor/Makefile b/drivers/gpu/drm/panthor/Makefile
-> index dd15d52a88ba..c65fff290720 100644
-> --- a/drivers/gpu/drm/panthor/Makefile
-> +++ b/drivers/gpu/drm/panthor/Makefile
-> @@ -10,6 +10,7 @@ panthor-y := \
->  	panthor_heap.o \
->  	panthor_hw.o \
->  	panthor_mmu.o \
-> +	panthor_perf.o \
->  	panthor_pwr.o \
->  	panthor_sched.o
->  
-> diff --git a/drivers/gpu/drm/panthor/panthor_device.c b/drivers/gpu/drm/panthor/panthor_device.c
-> index 9687c59de350..2877d47c6717 100644
-> --- a/drivers/gpu/drm/panthor/panthor_device.c
-> +++ b/drivers/gpu/drm/panthor/panthor_device.c
-> @@ -24,6 +24,7 @@
->  #include "panthor_gpu.h"
->  #include "panthor_hw.h"
->  #include "panthor_mmu.h"
-> +#include "panthor_perf.h"
->  #include "panthor_pwr.h"
->  #include "panthor_sched.h"
->  
-> @@ -287,6 +288,10 @@ int panthor_device_init(struct panthor_device *ptdev)
->  	if (ret)
->  		goto err_unplug_fw;
->  
-> +	ret = panthor_perf_init(ptdev);
-> +	if (ret)
-> +		goto err_unplug_sched;
-> +
->  	panthor_gem_init(ptdev);
->  
->  	/* Now that everything is initialized, we can enable the reset work. */
-> @@ -305,6 +310,8 @@ int panthor_device_init(struct panthor_device *ptdev)
->  
->  err_disable_autosuspend:
->  	pm_runtime_dont_use_autosuspend(ptdev->base.dev);
-> +
-> +err_unplug_sched:
->  	panthor_sched_unplug(ptdev);
->  
->  err_unplug_fw:
-> diff --git a/drivers/gpu/drm/panthor/panthor_device.h b/drivers/gpu/drm/panthor/panthor_device.h
-> index b55a3f9edd41..d93b182a3d9b 100644
-> --- a/drivers/gpu/drm/panthor/panthor_device.h
-> +++ b/drivers/gpu/drm/panthor/panthor_device.h
-> @@ -174,6 +174,9 @@ struct panthor_device {
->  	/** @pwr: Power control management data. */
->  	struct panthor_pwr *pwr;
->  
-> +	/** @perf_info: Performance counter interface information. */
-> +	struct drm_panthor_perf_info perf_info;
-> +
->  	/** @gpu: GPU management data. */
->  	struct panthor_gpu *gpu;
->  
-> diff --git a/drivers/gpu/drm/panthor/panthor_drv.c b/drivers/gpu/drm/panthor/panthor_drv.c
-> index 8cdba0c1a14b..b6b55b0f2ff5 100644
-> --- a/drivers/gpu/drm/panthor/panthor_drv.c
-> +++ b/drivers/gpu/drm/panthor/panthor_drv.c
-> @@ -182,7 +182,8 @@ panthor_get_uobj_array(const struct drm_panthor_obj_array *in, u32 min_stride,
->  		 PANTHOR_UOBJ_DECL(struct drm_panthor_queue_submit, syncs), \
->  		 PANTHOR_UOBJ_DECL(struct drm_panthor_queue_create, ringbuf_size), \
->  		 PANTHOR_UOBJ_DECL(struct drm_panthor_vm_bind_op, syncs), \
-> -		 PANTHOR_UOBJ_DECL(struct drm_panthor_bo_sync_op, size))
-> +		 PANTHOR_UOBJ_DECL(struct drm_panthor_bo_sync_op, size), \
-> +		 PANTHOR_UOBJ_DECL(struct drm_panthor_perf_info, shader_blocks))
->  
->  /**
->   * PANTHOR_UOBJ_SET() - Copy a kernel object to a user object.
-> @@ -959,6 +960,10 @@ static int panthor_ioctl_dev_query(struct drm_device *ddev, void *data, struct d
->  			args->size = sizeof(ptdev->mmu_info);
->  			return 0;
->  
-> +		case DRM_PANTHOR_DEV_QUERY_PERF_INFO:
-> +			args->size = sizeof(ptdev->perf_info);
-> +			return 0;
-> +
->  		default:
->  			return -EINVAL;
->  		}
-> @@ -992,6 +997,9 @@ static int panthor_ioctl_dev_query(struct drm_device *ddev, void *data, struct d
->  	case DRM_PANTHOR_DEV_QUERY_MMU_INFO:
->  		return PANTHOR_UOBJ_SET(args->pointer, args->size, ptdev->mmu_info);
->  
-> +	case DRM_PANTHOR_DEV_QUERY_PERF_INFO:
-> +		return PANTHOR_UOBJ_SET(args->pointer, args->size, ptdev->perf_info);
-> +
->  	default:
->  		return -EINVAL;
->  	}
-> diff --git a/drivers/gpu/drm/panthor/panthor_gpu.c b/drivers/gpu/drm/panthor/panthor_gpu.c
-> index a383b04f101e..726a70b74346 100644
-> --- a/drivers/gpu/drm/panthor/panthor_gpu.c
-> +++ b/drivers/gpu/drm/panthor/panthor_gpu.c
-> @@ -508,3 +508,8 @@ int panthor_gpu_coherency_init(struct panthor_device *ptdev)
->  	drm_err(&ptdev->base, "Coherency not supported by the device");
->  	return -ENOTSUPP;
->  }
-> +
-> +u32 panthor_gpu_get_prfcnt_features(struct panthor_device *ptdev)
-> +{
-> +	return gpu_read(ptdev->gpu->iomem, GPU_PRFCNT_FEATURES);
-> +}
-> diff --git a/drivers/gpu/drm/panthor/panthor_gpu.h b/drivers/gpu/drm/panthor/panthor_gpu.h
-> index f615feb05609..46a6ca98cbb1 100644
-> --- a/drivers/gpu/drm/panthor/panthor_gpu.h
-> +++ b/drivers/gpu/drm/panthor/panthor_gpu.h
-> @@ -60,4 +60,6 @@ u64 panthor_gpu_get_cycle_count(struct panthor_device *ptdev);
->  
->  int panthor_gpu_coherency_init(struct panthor_device *ptdev);
->  
-> +u32 panthor_gpu_get_prfcnt_features(struct panthor_device *ptdev);
-> +
->  #endif
-> diff --git a/drivers/gpu/drm/panthor/panthor_perf.c b/drivers/gpu/drm/panthor/panthor_perf.c
-> new file mode 100644
-> index 000000000000..cbfe1ca5872d
-> --- /dev/null
-> +++ b/drivers/gpu/drm/panthor/panthor_perf.c
-> @@ -0,0 +1,87 @@
-> +// SPDX-License-Identifier: GPL-2.0 or MIT
-> +/* Copyright 2023 Collabora Ltd */
-> +/* Copyright 2025 Arm ltd. */
-> +
-> +#include <linux/bitops.h>
-> +#include <drm/panthor_drm.h>
-> +
-> +#include "panthor_device.h"
-> +#include "panthor_fw.h"
-> +#include "panthor_gpu.h"
-> +#include "panthor_gpu_regs.h"
-> +#include "panthor_perf.h"
-> +
-> +/**
-> + * PANTHOR_PERF_COUNTERS_PER_BLOCK - On CSF architectures pre-11.x, the number of counters
-> + * per block was hardcoded to be 64. Arch 11.0 onwards supports the PRFCNT_FEATURES GPU register,
-> + * which indicates the same information.
-> + */
-> +#define PANTHOR_PERF_COUNTERS_PER_BLOCK (64)
-> +
-> +/**
-> + * PANTHOR_HW_COUNTER_SIZE - The size of a hardware counter in the FW ring buffer.
-> + */
-> +#define PANTHOR_HW_COUNTER_SIZE (sizeof(u32))
-> +
-> +struct panthor_perf_counter_block {
-> +	struct drm_panthor_perf_block_header header;
-> +	u64 counters[];
-> +};
-> +
-> +static size_t get_annotated_block_size(size_t counters_per_block)
-> +{
-> +	return struct_size_t(struct panthor_perf_counter_block, counters, counters_per_block);
-> +}
-> +
-> +static size_t session_get_sample_size(const struct drm_panthor_perf_info *const info)
-> +{
-> +	const size_t block_size = get_annotated_block_size(info->counters_per_block);
-> +	const size_t block_nr = info->cshw_blocks + info->fw_blocks +
-> +		info->tiler_blocks + info->memsys_blocks + info->shader_blocks;
-> +
-> +	return info->sample_header_size + (block_size * block_nr);
-> +}
-> +
-> +static void panthor_perf_info_init(struct panthor_device *const ptdev)
-> +{
-> +	struct panthor_fw_global_iface *glb_iface = panthor_fw_get_glb_iface(ptdev);
-> +	struct drm_panthor_perf_info *const perf_info = &ptdev->perf_info;
-> +
-> +	if (GPU_ARCH_MAJOR(ptdev->gpu_info.gpu_id) < 11) {
-> +		perf_info->counters_per_block = PANTHOR_PERF_COUNTERS_PER_BLOCK;
-> +	} else {
-> +		u32 features = panthor_gpu_get_prfcnt_features(ptdev);
-> +
-> +		perf_info->counters_per_block = PRFCNT_FEATURES_COUNTER_BLOCK_SIZE(features) /
-> +			PANTHOR_HW_COUNTER_SIZE;
-> +	}
-> +
-> +	perf_info->sample_header_size = sizeof(struct drm_panthor_perf_sample_header);
-> +	perf_info->block_header_size = sizeof(struct drm_panthor_perf_block_header);
-> +
-> +	if (GLB_PERFCNT_FW_SIZE(glb_iface->control->perfcnt_size))
-> +		perf_info->fw_blocks = 1;
-> +
-> +	perf_info->cshw_blocks = 1;
-> +	perf_info->tiler_blocks = 1;
-> +	perf_info->memsys_blocks = GPU_MEM_FEATURES_L2_SLICES(ptdev->gpu_info.mem_features);
-> +	perf_info->shader_blocks = hweight64(ptdev->gpu_info.shader_present);
-> +
-> +	perf_info->sample_size = session_get_sample_size(perf_info);
-> +}
-> +
-> +/**
-> + * panthor_perf_init - Initialize the performance counter subsystem.
-> + * @ptdev: Panthor device
-> + *
-> + * Return: 0 on success, negative error code on failure.
-> + */
-> +int panthor_perf_init(struct panthor_device *ptdev)
-> +{
-> +	if (!ptdev)
-> +		return -EINVAL;
-> +
-> +	panthor_perf_info_init(ptdev);
-> +
-> +	return 0;
-> +}
-> diff --git a/drivers/gpu/drm/panthor/panthor_perf.h b/drivers/gpu/drm/panthor/panthor_perf.h
-> new file mode 100644
-> index 000000000000..3c32c24c164c
-> --- /dev/null
-> +++ b/drivers/gpu/drm/panthor/panthor_perf.h
-> @@ -0,0 +1,15 @@
-> +/* SPDX-License-Identifier: GPL-2.0 or MIT */
-> +/* Copyright 2025 Collabora Ltd */
-> +/* Copyright 2025 Arm ltd. */
-> +
-> +#ifndef __PANTHOR_PERF_H__
-> +#define __PANTHOR_PERF_H__
-> +
-> +#include <linux/types.h>
-> +
-> +struct panthor_device;
-> +
-> +int panthor_perf_init(struct panthor_device *ptdev);
-
-You could add the declaration in panthor_device.h and drop the creation of the new header file.
-
-Otherwise, the content of the patch looks good to me.
-
-Best regards,
-Liviu
-
-
-> +
-> +#endif /* __PANTHOR_PERF_H__ */
-> +
-> 
-> -- 
-> 2.43.0
-> 
 
 -- 
-====================
-| I would like to |
-| fix the world,  |
-| but they're not |
-| giving me the   |
- \ source code!  /
-  ---------------
-    ¯\_(ツ)_/¯
+With Best Regards,
+Andy Shevchenko
+
+
