@@ -1,75 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.171.160.6
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792740877;
-	b=IefwTCWM63s05kORv01mwV8OjfyYG1UWMxk/ihDS2QZ4PDAhc8pW/cohNmLfXPgzhkXT
-	 rmo4gligNiwiVo5LtF3QzjIVd5RYCm3QFEGwgNzmIgL5mxOcHKnI4YaBQbABHR7ezvm//
-	 rSqe6EZ8Y4v6Pw2dsjgvkAQO0NoFlocHI8WHoWHpYy9nkAYX4QutuR4WTbDtMllHqlF1X
-	 bXd4YrrrFnlTP4xJS+4taP5fdnwVnMc0kr11zhp3L5XCSlrlyd3do6WR9nsx6Z94jeV5M
-	 DWagV3u8XTeMzKRR8Mnn87C+Sk6hH0TqLlp2s3guRgCaro41SKWtYpFzj4LExo/Euqg==
+	t=1792740879;
+	b=IZMWjpVWTkGY+h9EpPBdRq34PqYnCEKty1FsupvG0bvvKy9OQiqPUSY6N/iwi+oCAHgU
+	 +lQNHbFBlqkNJcPUZVWGrv6jjPWw5KcWpowceuubi+1Nh41SYnsRa7ipbxeCRDlBAvvaF
+	 V1CmJu4VNbNt4jOBFnuS4sQYJRWMJ9ot0PM9f6CxVUvuiv1cKbGeubSO8hzhTSh2Ejpvo
+	 gE9C9XzgUMm3bvZ/cuhUIWXWAXuB7jQOmcAd5rEjGRzDBYSvBC+i8QYQxfLhzRs1goqCe
+	 UjIX57FV6p79yY2osQTUgVlWlCegrncbthg9QoPgbEvOnNoY4K8vnTl8bMiMTTgZdsw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792740877;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:Received:
-	 Received:From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 User-Agent:MIME-Version:Content-Type;
-	bh=qOAdMOQY5J9NNt1Z5+wFuHl1BjwJlXA8PuZ3ex4nsL4=;
-	b=VttwOyMEBS6H+7U8OOE78Cl2VW64/lXRKCwbxiWacTCgfgtV1SpaBYOeBxdDDwrhulYY
-	 OokyqYxPJgJ/fYfrGtlXk5VFBsuJvQs+Wv34JrHmHyff2vlmzhHRosOUqJ+17BuegbWg0
-	 6f6buW4sfrzU+O+ckoFTbcienrPE4RrK4ldDzmD/XWk+BKqfSKFutf/9veMPlvnM/M5LV
-	 XyJ7S0/2mfLTiz6BTxhw0VxBueT2KTAFiGbR73/v4XB3Nzyc8y+9lxB8sVGoKQYc1k0yW
-	 muyxY8Yef7PKM15Wt5UvaCYkoXthGSscScQ2Vvq1YaAcG4Xzb8ZdwcJIpy7HlbKXC5w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792740879;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=OIX7l9JSAlMqQr0Ju+ts9cEQxL6n0uf9RUiDDUXeVNk=;
+	b=Ch4Y87cNXJ4hw7QPmdcftMkH0pNrYUNN/Np81LDnxgU1WArV87L34H+ae+R6Db9D4PfN
+	 f1YDzWtsgcT9JwXvIipuYQoRKFTDc1oOe2/ALWJ+eR2U5Lr1RM7XcSn/ymNNAo6lpbGCZ
+	 GSKzXOrm97kBlQZAwbci/w/uPXOWTU9YrwSY6Hoqaw0F2Xs2ZDJSGhteqYv0D8U63ue+V
+	 nR4zUmrzMAk8U0WAC05YZjw5BLz7AwIjZL/FgkoJaqnCW8K6Rdjqh/EAeSM2Db8p/S6SM
+	 TmICmoncJeJr+RvKprzkOTP1f8OM4cJbN+pFMm67aLkLKtC9Lu0QLK0kSqq+SevHCAQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mail.parknet.co.jp;
-	spf=pass smtp.mailfrom=parknet.co.jp;
-	dkim=pass header.d=parknet.co.jp header.i=@parknet.co.jp header.a=rsa-sha256 header.s=20250114 header.b=e+YncPC0;
-	dkim=pass header.d=parknet.co.jp header.i=@parknet.co.jp header.a=ed25519-sha256 header.s=20250114-ed25519 header.b=UZTY7ZgP;
-	arc=none smtp.remote-ip=210.171.160.6
-Received: from mail.parknet.co.jp (mail.parknet.co.jp [210.171.160.6])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ct3RZzN4;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E4D9606A31D;
-	Fri, 23 Oct 2026 07:34:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7E4D9606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mail.parknet.co.jp
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=parknet.co.jp
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D61D2606A328;
+	Fri, 23 Oct 2026 07:34:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=parknet.co.jp header.i=@parknet.co.jp header.a=rsa-sha256 header.s=20250114 header.b=e+YncPC0;
-	dkim=pass header.d=parknet.co.jp header.i=@parknet.co.jp header.a=ed25519-sha256 header.s=20250114-ed25519 header.b=UZTY7ZgP
-Received: from ibmpc.myhome.or.jp (server.parknet.ne.jp [210.171.168.39])
-	by mail.parknet.co.jp (Postfix) with ESMTPSA id 0B34B209679B;
-	Fri, 23 Oct 2026 16:34:35 +0900 (JST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=parknet.co.jp;
-	s=20250114; t=1792740875;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=qOAdMOQY5J9NNt1Z5+wFuHl1BjwJlXA8PuZ3ex4nsL4=;
-	b=e+YncPC0TrzpWHbqBmRRwEb0a1hn1/1rl6x7AijwDjfqkpBQmB9HVFErtnUsPJBKcE9+Kn
-	vlYuSNBud6Y88jGa4xO+voOAWKzN8Jbq7SCTYct5jXpsmTZK0/31d1PaK5uNXp+o5bKs9Z
-	FDQLqG1xBhyG/mjXkywJ8I8zytWG02hEJP19UhYEfkJc/aWqbbji3CtHpLS7gf055cqJJO
-	7cvtAo7s58lTCzaWJ08QL5Z5M9qzZ0w5J2NIZIyW2T7wv8IymzfkTHj8Pyn1T0DUW/I7lL
-	8uBjncuEKx6gMSdkUyDeW6Tpcd2Rgvx4v9YeLB9IoBTPK956j4KSqP2CbrgFZw==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=parknet.co.jp;
-	s=20250114-ed25519; t=1792740875;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=qOAdMOQY5J9NNt1Z5+wFuHl1BjwJlXA8PuZ3ex4nsL4=;
-	b=UZTY7ZgPH0YwwbBomk5NVlBiB4swj+BmyZ0S6upbjLDbLImju45XqRTXKjCF5h5YBY0csE
-	eAwp2/zkrgT0XHAQ==
-Received: from devron.myhome.or.jp (devron.myhome.or.jp [192.168.0.3])
-	by ibmpc.myhome.or.jp (Postfix) with ESMTPS id 8CE06E00107;
-	Fri, 23 Oct 2026 16:34:34 +0900 (JST)
-Received: by devron.myhome.or.jp (Postfix, from userid 1000)
-	id 80A032200179; Fri, 23 Oct 2026 16:34:34 +0900 (JST)
-From: OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
-To: Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
-Cc: linux-fsdevel@vger.kernel.org,  linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] fat: hold truncate_lock in fat_write_failed()
-In-Reply-To: <20261021162105.62525-1-matheus.aalmeida@inf.ufrgs.br>
-References: <20261021162105.62525-1-matheus.aalmeida@inf.ufrgs.br>
-Date: Fri, 23 Oct 2026 16:34:34 +0900
-Message-ID: <87se1wj2et.fsf@mail.parknet.co.jp>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ct3RZzN4
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 33E3E1F01828;
+	Fri, 23 Oct 2026 07:34:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792740878;
+	bh=OIX7l9JSAlMqQr0Ju+ts9cEQxL6n0uf9RUiDDUXeVNk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ct3RZzN4FJzAgCV52jbDVDNq9GVv8I51XFFJHPXlHaFYSdf36kkOA5pWMm9a6Twnt
+	 moism0coMV3XQTlXilR3+WnBaYjky98vNdZeH9T+VYV4NDmnKNoLl7BKOl3C5Xgvdr
+	 xXnZRnhRvap+mS/jSkfMbC/4ld0F90kOYqOCTiTbuDn75BRT5KrT8sdEaXi5XYcgLJ
+	 GIaiNccrKFRrgs2tHq2Rx5sly+0lGsa/tkkGUy16qXyv/mWv4dUtAUfSl19Eiit8Nr
+	 JwcnEkQsKulvCRRSoOzy9yrTp37ptNuJuJW5WlKfAIFDuV4ozP2YAQEM+K1aSX76e+
+	 NF1dRo6+GdNtw==
+Date: Fri, 23 Oct 2026 08:34:33 +0100
+From: Simon Horman <horms@kernel.org>
+To: Daniel Machon <daniel.machon@microchip.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Steen Hegelund <Steen.Hegelund@microchip.com>,
+	UNGLinuxDriver@microchip.com,
+	Bjarni Jonasson <bjarni.jonasson@microchip.com>,
+	Lars Povlsen <lars.povlsen@microchip.com>, netdev@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] net: sparx5/lan969x: do not read past skb->len when
+ injecting a frame
+Message-ID: <20261023073433.GG708417@horms.kernel.org>
+References: <20261021-sparx5-inject-tail-bytes-v1-1-7dcc035c8ddf@microchip.com>
+ <20261021112533.m6fh7xoqp74uevho@DEN-DL-M70577.microsemi.net>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,38 +65,32 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261021112533.m6fh7xoqp74uevho@DEN-DL-M70577.microsemi.net>
 
-Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br> writes:
+On Wed, Oct 21, 2026 at 01:25:33PM +0200, Daniel Machon wrote:
+> > sparx5_inject() writes the frame to the injection FIFO one 32-bit word
+> > at a time, and pads frames shorter than 60 bytes with zero words.
+> > 
+> > Before this patch, the last word is loaded whole even when skb->len is
+> > not a multiple of four, so 1 to 3 bytes past the end of the frame are
+> > read. For a frame shorter than 60 bytes those bytes are also
+> > transmitted, as VLD_BYTES marks the whole last word valid and the
+> > padding starts at the next word.
+> > 
+> > Write the trailing bytes from a zeroed word. The number of words written
+> > and VLD_BYTES are unchanged.
+> > 
+> > Found by an AI code review agent, and reproduced on lan969x and sparx5
+> > with register injection: bytes 57 to 59 of a 57 byte frame were not
+> > zero. With the fix they are zero, and traffic still passes on both
+> > chips.
+> > 
+> > Fixes: f3cad2611a77 ("net: sparx5: add hostmode with phylink support")
+> > Signed-off-by: Daniel Machon <daniel.machon@microchip.com>
+> 
+> I somehow forgot to include the target tree. This one goes to net.
 
-> The current fat_write_failed() implementation calls into
-> fat_truncate_blocks() without holding truncate_lock. Make it so it is
-> held exclusive while truncating.
->
-> Fixes: 459f6ed3b8c7 ("fat: convert to use the new truncate convention.")
-> Signed-off-by: Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
-> ---
->  fs/fat/inode.c | 2 ++
->  1 file changed, 2 insertions(+)
->
-> diff --git a/fs/fat/inode.c b/fs/fat/inode.c
-> index 141276fcf8db..2a16ed415631 100644
-> --- a/fs/fat/inode.c
-> +++ b/fs/fat/inode.c
-> @@ -216,7 +216,9 @@ static void fat_write_failed(struct address_space *mapping, loff_t to)
->  
->  	if (to > inode->i_size) {
->  		truncate_pagecache(inode, inode->i_size);
-> +		down_write(&MSDOS_I(inode)->truncate_lock);
->  		fat_truncate_blocks(inode, inode->i_size);
-> +		up_write(&MSDOS_I(inode)->truncate_lock);
+Reviewed-by: Simon Horman <horms@kernel.org>
 
-Which race this prevent?
-
-Thanks.
-
->  	}
->  }
-
--- 
-OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
