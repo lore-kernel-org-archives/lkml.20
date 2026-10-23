@@ -1,73 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792793078;
-	b=2fOmPAhI/0EF/1B588FjZlOIPdDDRvHVKcJYwKFjdh6CKnOgmHc38/Y/kiviGTOsecdO
-	 r1mQpPRI1bu19efukWj7yRiFFk2429lD/TFIdB/2pT+2YbDb8fB5bySCOgW9I77NpvVHQ
-	 zghNrqj32g+IkDmv7vIyCVWyZycAps8K4tDYG+kp9zbmizl6YtotjkSvZDlastfGPU6VE
-	 bAnWgBeVmnyXvvratsHwQSX+CfWR+q140z9ib/vP/fLYrBxeVC04D7YBICQAaB1LPs4Hn
-	 AJbCLoeYkGEe0Ad3bhHHj6UYK5kLB+as2yMbbH4YgXMUFscMXmOWF6nIBNHX5zO3h0g==
+	t=1792793076;
+	b=KqyGzxLWkoPPM9vBLbi7CqkjUuiFt785o3Yav29r8eRPC+zwrI/ACTQb9fCOXweeU8eq
+	 9YRxLWt5mB0EGIfnRR7yy1KuXyEWU8L+EOq8g5CX3rERFALFrAi51P7uyyOl86rNP+9L6
+	 qyg8OEVSOW1g8PNo4QJFZO8HF96uoPMKf3/GHFwwE4OZO4+A7DcebH2Q9ZjUMSkyXAc+T
+	 vmKevD4A4vI1yCXbNHksCgTPzy2QEZjWxuF1SyqjOvOGKAazZavlWotrvZnPTi5xmXgtk
+	 qzBbEHv5jhpCqrV7YPDh0Rh+24wAmUeBuvPbBAJ3PEPERI+vN9pj+dirxKYmVUx6mWg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792793078;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792793076;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Received:Date:In-Reply-To:Mime-Version:
 	 References:X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=Imkl+lCh2amOIl7OPjvbW89tay83MnRUpglGigXbVZc=;
-	b=Ni2L3j/5vDI2HN9d4l9sTUJkn/vjyM9rnpB7cLKEaPK224hccaudbVHhJNX/QNWAibvP
-	 qe/fVRnFa239qcVkJi1cXjETpZyWBTrLqiHOqX8uNfN/qhiHlnzcN8LgBkSyeerzqsyAc
-	 qmc2/J4a2XINLPe3jASq5be8lAZCyToMjIqKaPlj5Wvk3IBR7f/vJ56PPoHggR7bPFegb
-	 qYjYVT3kUQmpHL5ABdKa3OHnlc3pCpKzKrabHvCx8D4E0eWIzgyKxKPvDsrD8B/cSTxZI
-	 5oR0Di8QxD9z/JFPrS6MepgLFNpxx5UKya1cPZCv8svluZxS2i21VSAh8WCM/cL88Pw==
+	bh=3pew01NS0T0nJms9HabRzjaU8su/NDIdILWmbqWJRT0=;
+	b=WQljRam1VpaXUWUcMi3US+eiPELZdIKVKdVTuFf08feI+rNH79aGBPIDX/wef2/QNPP7
+	 VQMArp2Zu/YRnmFLH55oeFQqqbUa4IRebaRZ2epSnovy5kb6kVJJiplrSxDLmce+4skoM
+	 T95lgJrPCdlCg2bLk628BEfXTFDQ48cjl6/I6GQv7OOG8kaezRx3iXGfrOVOVa3VVFvNG
+	 7AEqn0DMBpth8zAYfMSf/7jExJBK5vyIH6w9s7UCuWjeOGE87LnSMYYHgeiHm/oXb/gT2
+	 rIaaOSgOX7plhERqmDFxsZzLHhncf3Dxd2x3ipMgCgXGZ8djkwWYgLZJY5qAQZyq38A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--jstultz.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=nJz4YTly;
-	arc=none smtp.remote-ip=209.85.215.199
-Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=RtDsPQFJ;
+	arc=none smtp.remote-ip=209.85.214.199
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C007D606A324
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 22:04:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C007D606A324
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70AA5606A327
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 22:04:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 70AA5606A327
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--jstultz.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=nJz4YTly
-Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cd6532dbd7bso914076a12.2
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 15:04:37 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=RtDsPQFJ
+Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2d02df2bf09so9142375ad.0
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 15:04:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792793077; x=1793397877; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1792793076; x=1793397876; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Imkl+lCh2amOIl7OPjvbW89tay83MnRUpglGigXbVZc=;
-        b=nJz4YTlyQjA9yhfPGayLubWiPznTnhWnuhC9g3N2tu/z88e6JsJnN/GjpTR8KGXvO3
-         Yino0qR35XlyS9tLzjeryKm1XtkcwvZtzt0t6GRCaokobHgex32lACLssvFz4EWulf4M
-         +Zf+krG3mAF5hAnWQk/9Ync8wQRqKpa2pEqaMz4vTq9PXMq+T3pKYvYvfTx5BJz3zkR0
-         f8YDQ2OaMgYy/a39p1bXpmlPpWXTwtj7r7RdYmZIIY2udj/JdKJKVah+eBKEtQNSoone
-         rVNiVUxR7kYIjsZ1fXuUoC6uVbsQsVv55Gcx9l1z/pjVRSpooOqNWQt7p9YKLbqfB2Pt
-         ajQQ==
+        bh=3pew01NS0T0nJms9HabRzjaU8su/NDIdILWmbqWJRT0=;
+        b=RtDsPQFJcbaMBz3VuYYggnckwB/kBTbK1I/PTOcrEzRfDcTsp71rnovoiZtW10ltDK
+         49WZ1JNyL9MNJiXtiEj5FyPEuXeEUIH0Bhs+js7T6NM5pSvfOniUk7zooLQpN5GgUXo2
+         Phz75PiDK+dH1GCKT914Y8TUy90lGCDMenFWzPBESwtYqU/nMeoZJ/oKliGuGc/FjMPk
+         7fmVd77t2e34Zlc0/ij9zy4ZXYlQ7q89H2tuSzYkUOmU6wLkN04J8HKrOoJAMBGCN1yp
+         +0kjJGXMih30Ig/9/EZ5u7pK9XevAqNhoSH3XqVqwcfQq8vo6OHMQvkoLjRugAYtCSfi
+         ICFQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792793077; x=1793397877;
+        d=1e100.net; s=20260707; t=1792793076; x=1793397876;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Imkl+lCh2amOIl7OPjvbW89tay83MnRUpglGigXbVZc=;
-        b=FFleIbP1JxnhoynZuU48URMBjENdZqs9hqyOzvNzhCwWsoV4Uf4Y669wYoDHXNJZYc
-         yfopj8O6ej8SLsGeDDtZ44IxZk3LT405h1bjMliPKFvYoV+tDQOQjWSATK/PZps5ogHh
-         RAq7DhEU0d3UZNGlhtxtlT9VGsBHyfM0YTcuaI+P3On0aloC1lBQjgoPSHfLCIKG/BFR
-         yHVqKH01I9ko73mZVo8Si4M8b3Az93B7w8O5Qa50Sk1R0Hu/Z8DKkz+JdCIA6m045MSU
-         vhnDio1kGBp+RKkBxY+DlTPL+7VFn6VktC4XuFjkzmkOkZxIQ/sRtHtpSf49zT5PIJAr
-         VYWg==
-X-Gm-Message-State: AFq9FYJm10BSeVIN4juTl5X2kbZiIAy7Zay3cxvQpGMNXRahBOme5QrT
-	yQgkZa4X7dHxu2vbKTe3c6tJRgXAkh692V02iagBcUs0RX633u3zpEnRObCdprFdte+GJw9IkWt
-	Zpy44n7paDG7WwgCYOI+lnTyAXej0/wohAlneh7x2KdN2vHyaJC3BwJeCBBV0+nI484d6CYHN9X
-	RBPmRiXq5DIG4EjOjNFr9/G/zG1y6zUbxlHM1MpTGNzwU3bfbJ
-X-Received: from pgdo3-n1.prod.google.com ([2002:a05:6a02:6203:10b0:cd8:b2f9:5623])
- (user=jstultz job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a20:548d:b0:3e0:c3f8:4821
- with SMTP id adf61e73a8af0-3e7cd4da8b4mr309163637.41.1792793076595; Fri, 23
- Oct 2026 15:04:36 -0700 (PDT)
-Date: Fri, 23 Oct 2026 22:04:14 +0000
+        bh=3pew01NS0T0nJms9HabRzjaU8su/NDIdILWmbqWJRT0=;
+        b=MPbR9Khx/PPpbfogwBmVfJCKat/4y7i4OMe8lxl7G7FVEu8/U782rfgPVahJf6pWj0
+         rkg+h+wskIDBUEHCQ2IGnLHOuh9yQMSt4UnCy33NRxWF5O84vV4C9LoTbtP6ptYHMdkU
+         PBVlXHYJXDZp8Wq0cqORqHKathBtmzI2lpgSkr/FLkHn/uPvs+Y7HHVImS+ysdg5P28R
+         MT27lyZ97K47MumoQdF3H+2yVi/9nhs0USWHrCrpuKmpe5QxHP8CdTqTnqZgTfyYXGLk
+         D/djJt4BTWijbuzwWQzEukCcnPiwALGC9z50jrJljRfXpJv18bPk2pehHsmvZkCF31/E
+         xtpg==
+X-Gm-Message-State: AFq9FYKq2khJTJAxWjE470B/Jd2rLnZvQdViXVtZv6qQPNwygDjoaupS
+	RQhzsFYeocmKmDt9eKON0bnPmCwMtsq6DWTfIVz6mzH/naFe6fY2Ypr0XhepIVFcCfhDv9B0Hqb
+	bJ+J0aV2BXRNzVNTVC5yldcgyhc2DwoxfuIx/pg02RMzDZAJN0Lb/vmInDD2+B9jeazrYz4DhMq
+	AW3TZklYAY1W401Q+K+XEzLbqSqi+NDKjEeMS6GykrR1p2BH/l
+X-Received: from plbjb17.prod.google.com ([2002:a17:903:2591:b0:2e2:c8c0:e8eb])
+ (user=jstultz job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:cf12:b0:2e9:66c4:1713
+ with SMTP id d9443c01a7336-2ea9c917ba4mr2224925ad.58.1792793075434; Fri, 23
+ Oct 2026 15:04:35 -0700 (PDT)
+Date: Fri, 23 Oct 2026 22:04:13 +0000
 In-Reply-To: <20261023220431.1106611-1-jstultz@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -80,66 +80,54 @@ Precedence: list
 Mime-Version: 1.0
 References: <20261023220431.1106611-1-jstultz@google.com>
 X-Mailer: git-send-email 2.56.0.257.gf7497c7d27-goog
-Message-ID: <20261023220431.1106611-4-jstultz@google.com>
-Subject: [PATCH v33 3/7] sched/core: Activate blocked donor when no owner is found
+Message-ID: <20261023220431.1106611-3-jstultz@google.com>
+Subject: [PATCH v33 2/7] sched/core: Use the scheduling context for remote ticks
 From: John Stultz <jstultz@google.com>
 To: LKML <linux-kernel@vger.kernel.org>
-Cc: K Prateek Nayak <kprateek.nayak@amd.com>, John Stultz <jstultz@google.com>, 
+Cc: "Shubhang Kaushik (Ampere)" <sh@gentwo.org>, John Stultz <jstultz@google.com>, 
 	Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
-	Thomas Gleixner <tglx@linutronix.de>, Juri Lelli <juri.lelli@redhat.com>, 
-	Vincent Guittot <vincent.guittot@linaro.org>, Valentin Schneider <vschneid@redhat.com>, 
-	Suleiman Souhlal <suleiman@google.com>, Andrea Righi <arighi@nvidia.com>, Metin Kaya <Metin.Kaya@arm.com>, 
+	K Prateek Nayak <kprateek.nayak@amd.com>, Thomas Gleixner <tglx@linutronix.de>, 
+	Juri Lelli <juri.lelli@redhat.com>, Vincent Guittot <vincent.guittot@linaro.org>, 
+	Valentin Schneider <vschneid@redhat.com>, Suleiman Souhlal <suleiman@google.com>, 
+	Andrea Righi <arighi@nvidia.com>, Metin Kaya <Metin.Kaya@arm.com>, 
 	Dietmar Eggemann <dietmar.eggemann@arm.com>, Steven Rostedt <rostedt@goodmis.org>, 
 	Zimuzo Ezeozue <zezeozue@google.com>, Waiman Long <longman@redhat.com>, 
 	Boqun Feng <boqun.feng@gmail.com>, "Paul E. McKenney" <paulmck@kernel.org>, 
 	Joel Fernandes <joelagnelf@nvidia.com>, Qais Yousef <qyousef@layalina.io>, 
 	Xuewen Yan <xuewen.yan94@gmail.com>, kuyo chang <kuyo.chang@mediatek.com>, 
 	hupu <hupu.gm@gmail.com>, Zhan Xusheng <zhanxusheng@xiaomi.com>, 
-	"zhidao su (Xiaomi)" <soolaugust@gmail.com>, Hui Su <sh_def@163.com>, 
-	"Shubhang Kaushik (Ampere)" <sh@gentwo.org>, kernel-team@android.com
+	"zhidao su (Xiaomi)" <soolaugust@gmail.com>, Hui Su <sh_def@163.com>, kernel-team@android.com
 Content-Type: text/plain; charset="UTF-8"
 
-From: K Prateek Nayak <kprateek.nayak@amd.com>
+From: "Shubhang Kaushik (Ampere)" <sh@gentwo.org>
 
-mutex_unlock_slowpath() follows:
+sched_tick_remote() assumes that a CPU in full dynticks mode has only
+one running task. It therefore assumes that proxy execution cannot be
+active and that rq->curr == rq->donor.
 
-    if (owner & MUTEX_FLAG_HANDOFF)
-        break /* ... and do __mutex_handoff() */
+However, sched_can_stop_tick() can stop the tick with multiple tasks on
+the runqueue. With exactly one SCHED_RR task, the tick is not needed for
+round-robin timeslice rotation. When there are no SCHED_RR tasks,
+SCHED_FIFO tasks do not require the tick because they have no forced
+tick preemption. Lower scheduling-class tasks can still be queued in
+both cases.
 
-    if (atomic_long_try_cmpxchg_release(&lock->owner, &owner, __owner_flags(owner))) {
-        if (owner & MUTEX_FLAG_WAITERS)
-            break; /* ... and wake up the forst waiter. */
+Consequently, a SCHED_FIFO task blocked on a SCHED_NORMAL mutex owner
+can remain rq->donor while find_proxy_task() selects the owner to
+execute as rq->curr. sched_tick_remote() can therefore run with
+rq->curr != rq->donor.
 
-MUTEX_FLAG_HANDOFF is only set by first-waiter after it has been woken
-up and in absence of MUTEX_FLAG_HANDOFF, the owner clears itself from
-the lock_word and wakes up the first waiter to try a
-__mutex_trylock_or_handoff().
+The full-nohz state check in sched_tick_remote() is intentionally racy
+and can allow an extra or missed remote tick. This issue does not rely
+on that race: the tick can be legitimately stopped in the cases above.
 
-MUTEX_FLAG_HANDOFF exists to prevent new optimistic spinners from
-trying to hijack the lock from waiter all the time and potentially
-starving them but it is not necessary for MUTEX_FLAG_HANDOFF to be
-always set in presence of a waiter.
+Use rq->donor for the remote class tick and its full-nohz tick-interval
+sanity check, matching sched_tick() and hrtick().
 
-If a blocked donor is deactivated when no owner is observed, it may not
-be woken up until it becomes the first waiter and is naturally woken up
-which breaks proxy in the interim.
-
-Wake up the blocked donor and allow it to grab the lock when no owner is
-observed. If the task manages to grab the lock, the block chain will
-follow at the next proxy migration. If the task fails to grab the lock,
-same situation is restored and everyone migrated to the CPU of new
-owner.
-
-Similarly, do the same for the NULL blocked_on/mutex pointer for
-consistency.
-
-Fixes: f13beb010e4a ("sched: Have try_to_wake_up() handle return-migration for PROXY_WAKING case")
-Signed-off-by: K Prateek Nayak <kprateek.nayak@amd.com>
+Fixes: 7de9d4f94638 ("sched: Start blocked_on chain processing in find_proxy_task()")
+Signed-off-by: Shubhang Kaushik (Ampere) <sh@gentwo.org>
 Signed-off-by: John Stultz <jstultz@google.com>
 ---
-v33:
-* Added similar logic for the null mutex/blocked_on case
-
 Cc: Peter Zijlstra <peterz@infradead.org>
 Cc: Ingo Molnar <mingo@redhat.com>
 Cc: K Prateek Nayak <kprateek.nayak@amd.com>
@@ -167,76 +155,44 @@ Cc: Hui Su <sh_def@163.com>
 Cc: Shubhang Kaushik (Ampere) <sh@gentwo.org>
 Cc: kernel-team@android.com
 ---
- kernel/sched/core.c | 27 ++++++++++++++++++++++-----
- 1 file changed, 22 insertions(+), 5 deletions(-)
+ kernel/sched/core.c | 14 ++++----------
+ 1 file changed, 4 insertions(+), 10 deletions(-)
 
 diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-index 729ebaca35e1a..2cb42de255f7a 100644
+index 0ab15f03cb947..729ebaca35e1a 100644
 --- a/kernel/sched/core.c
 +++ b/kernel/sched/core.c
-@@ -6921,6 +6921,19 @@ static inline void proxy_reacquire_rq_lock(struct rq *rq, struct rq_flags *rf)
- 	update_rq_clock(rq);
- }
+@@ -5934,26 +5934,20 @@ static void sched_tick_remote(struct work_struct *work)
+ 	 */
+ 	if (tick_nohz_tick_stopped_cpu(cpu)) {
+ 		guard(rq_lock_irq)(rq);
+-		struct task_struct *curr = rq->curr;
++		struct task_struct *donor = rq->donor;
  
-+static void
-+proxy_activate(struct rq *rq, struct rq_flags *rf, struct task_struct *p)
-+	__must_hold(__rq_lockp(rq))
-+{
-+	lockdep_assert_rq_held(rq);
-+	proxy_resched_idle(rq);
-+	proxy_release_rq_lock(rq, rf);
-+
-+	wake_up_process(p);
-+
-+	proxy_reacquire_rq_lock(rq, rf);
-+}
-+
- /*
-  * If the blocked-on relationship crosses CPUs, migrate @p to the
-  * owner's CPU.
-@@ -7013,11 +7026,11 @@ find_proxy_task(struct rq *rq, struct task_struct *donor, struct rq_flags *rf)
- 		struct mutex *mutex = p->blocked_on;
- 		if (!mutex) {
- 			clear_task_blocked_on(p, mutex);
--			if (task_current(rq, p)) {
-+			if (task_current(rq, p) || p->wake_cpu == task_cpu(p)) {
- 				p->is_blocked = 0;
- 				return p;
+ 		if (cpu_online(cpu)) {
+-			/*
+-			 * Since this is a remote tick for full dynticks mode,
+-			 * we are always sure that there is no proxy (only a
+-			 * single task is running).
+-			 */
+-			WARN_ON_ONCE(rq->curr != rq->donor);
+ 			update_rq_clock(rq);
+ 
+-			if (!is_idle_task(curr)) {
++			if (!is_idle_task(donor)) {
+ 				/*
+ 				 * Make sure the next tick runs within a
+ 				 * reasonable amount of time.
+ 				 */
+-				u64 delta = rq_clock_task(rq) - curr->se.exec_start;
++				u64 delta = rq_clock_task(rq) - donor->se.exec_start;
+ 				WARN_ON_ONCE(delta > (u64)NSEC_PER_SEC * 30);
  			}
--			goto deactivate;
-+			goto activate;
+-			curr->sched_class->task_tick(rq, curr, 0);
++			donor->sched_class->task_tick(rq, donor, 0);
+ 
+ 			calc_load_nohz_remote(rq);
  		}
- 
- 		/*
-@@ -7046,14 +7059,15 @@ find_proxy_task(struct rq *rq, struct task_struct *donor, struct rq_flags *rf)
- 			/*
- 			 * If there is no owner, either clear blocked_on
- 			 * and return p (if it is current and safe to
--			 * just run on this rq), or return-migrate the task.
-+			 * just run on this rq), or wake the task to try
-+			 * and grab the lock it is blocked on.
- 			 */
- 			__clear_task_blocked_on(p, NULL);
--			if (task_current(rq, p)) {
-+			if (task_current(rq, p) || p->wake_cpu == task_cpu(p)) {
- 				p->is_blocked = 0;
- 				return p;
- 			}
--			goto deactivate;
-+			goto activate;
- 		}
- 
- 		if (!READ_ONCE(owner->on_rq) || owner->se.sched_delayed) {
-@@ -7143,6 +7157,9 @@ find_proxy_task(struct rq *rq, struct task_struct *donor, struct rq_flags *rf)
- 
- resched_idle:
- 	return proxy_resched_idle(rq);
-+activate:
-+	proxy_activate(rq, rf, p);
-+	return NULL;
- deactivate:
- 	proxy_deactivate(rq, p);
- 	return NULL;
 -- 
 2.56.0.257.gf7497c7d27-goog
 
