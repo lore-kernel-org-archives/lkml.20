@@ -1,111 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792751176;
-	b=fTuQDOHRzD1eywBxuRz71HzK6kWw5s2nQcIRd/6iBOqjNdDeCPBseznHWBaG0JZL4iAL
-	 jHxBs8mkXvqpLw/+PND21+Zihq0g4RgWGzp3IjxYhZJeNDl88RhNsrZuQyz0ZPA3nrVLP
-	 1P46r9eI2ZQ8kmPi0uygAfH35ep0WEfuN3M6apXYAej8PkcdRcLXXaAxv/ZpSIG+UEy4K
-	 CAmVdbEI8c/SCGUByMNo3eGjDRYgIB7xbK97GzCMUXP6B3I5IZFVe4OCAha8g/tMYUJim
-	 dL6rJg8Xyrt7k4zq0yeyDnH2NDeWbIegWdpvEJypsOPu17SU6V3aMJPJ8sGsYEJe1TQ==
+	t=1792751203;
+	b=pqwNlxDyWjJRDUbdm9rI1XYzs7SWM+9sGP1sfEJDa3a7HTvB11jRvJ4BfbMrSLs3r2d7
+	 vjL+pfS/JyrkbBk/rCcRp9OBIvKzIxBCWQSp+kmR7MA8lN0aoQStG1GKrFFCJBQ0hOKLX
+	 5TfAhelMIBIjWyvtjncVOe/imhwmMlLxQAODnyoSU+aGkRSkCLWuf92y7WbgwokoVqa50
+	 O9IwfWh/T99vgTcaowzEAtFTdKxf/yIEW1MOkVZFDqj81b3lnAsjuQ6gCS51W1cBdhv9n
+	 8sTzllEXMmLFKpLGZCvs967GdwxIcPx3FrRIDdtr35R6CEBvFnNXaR0GyIhGL2Keciw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792751176;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Authority-Analysis:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=t38QF437OGSZbU1LgmCYZ33oL6v3P/HVKC+sKk2KKj8=;
-	b=VhvZvW+c7Whn5QCMjjDPeLx2kK5Gqfe17+PxXS8mfFWRTh5lAszs+Siwnfp2IM4V02nz
-	 Qc9qvsC11LeMpZzjRB5RPfQyS1d1iWbUREZRjhF2Sp1jOF+z2Yj9gv/lmIiy9ALpvrsRg
-	 plAZkr0N2260LDuAvCjA0yFBffMbWSkf5JioHxXEvAY9HR9S9DuRN7X7PHIx0gkmcVIsv
-	 PMHI38haG4bmVUQ5RruUY8F3D2JmJgHn4WJ2jv6Vr83Vp3R9acrVk7+FzGkTPGM2XG1F0
-	 /CeTdVy0bxVY3pWsdq0rMMvpifq7cqU1heuzDl6eUJdJrUn64rdE9EyHEVefxqpEEgw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792751203;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To:
+	 Organization;
+	bh=OyVZC7TyCFl9hj7gzv9g50lgBQyyWfj16zOWrajtCig=;
+	b=VqZ7QAiO1bEGcAQgpIbEGO1W9oJaGRRAOW0JPFezUP1eq5n5e8+t2+MzA6jxNlSiC3Qo
+	 8Q+k89bspcVz5GwoPWdfxWqKavB8aIW/M742nRgqc8RReSxzuFSY5kRopHMosayFgVbFg
+	 bbH+T+8NdOE7C0yjfSVoDrqMDtuY+ilALjc67Rn/uwyKnGfn3wi2liuAYGyK1PGM+Zf0n
+	 yaYQhuzXDM5hGn1Vv+j0z/JmUGadUakLEI2Yq+fnsms1J+VDE7EGyiek0vTwgIgAtWVMi
+	 7T8nAEJrX4mVQiaz4KOuyo21cNW1xLko1Wr0HzOq/3U6yy+C3xQgVW82SP1qYn+PYAw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=QgBLDPCZ;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=jwbdT4rw;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=XZ+DqvEY;
+	arc=none smtp.remote-ip=192.198.163.11
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12DB5606A326
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 10:26:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 12DB5606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A22A606A31B;
+	Fri, 23 Oct 2026 10:26:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4A22A606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=QgBLDPCZ;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=jwbdT4rw
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69NAAUnL1948369
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 10:26:15 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	t38QF437OGSZbU1LgmCYZ33oL6v3P/HVKC+sKk2KKj8=; b=QgBLDPCZRKnWFt7R
-	GQySepEZHhLJwvp9cpFc1+XalNBUIf+bv6eGjktc3F7///EVijMuSwVuBL1OzQIU
-	beDPm6e3dZCXtad1VbQ7ZrjSiwtQKRX7TGDlo4YS+Z39vTRkJOoEue4ztF4To91h
-	oNPxy7VHMwdnba8X0SQrWr1nXsUIny61g0Yb5wJta5Te6CVoBLbk1msoBPew4e1c
-	NOprPZKQTHaN/t6u4bbUuvmW2zRsl5W78TKWZCifjcLnkybNEp4GPBjUCzhx59tD
-	50pMBcgKYPWhJ/wpQvxcyotIspPglT7QnofnPr9nHCyUkdh8ieEGNhBmGjJ9W0m9
-	qxJ/Pw==
-Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com [209.85.219.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hfqmtu7qe-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 10:26:15 +0000 (GMT)
-Received: by mail-qv1-f70.google.com with SMTP id 6a1803df08f44-90c4d46037eso1665576d6.1
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 03:26:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792751174; x=1793355974; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=t38QF437OGSZbU1LgmCYZ33oL6v3P/HVKC+sKk2KKj8=;
-        b=jwbdT4rwDiC2J6hxTHfvkqUXCsjVoFP157nK197lidnh2FgMeJMDyefrhyFNwwpSOM
-         b13u9VC7w8sRHTazYLjNWRbXK02QbI0/9RTXgzvz73wi85bOyqH8NJrZbhS8cDDrt6vj
-         mAcdfqlIUspd6e5ySasfAw6dqe4nxksr/uCL2suATiC0/mV8xBsz6Rma/wS5HvRvH5Lu
-         p43a01I54kFbeuFUwdE94N3CDEaAqEPHsQXdDp5iFapmOreKisp3vpihc16c3Hif7uSv
-         XKm6G0XFVZqzlEHC0soKCHDqOhvzOsDl/PYWHR3wqN/pBFEEhx/hbv2G8JhkXSJhhQL7
-         j6dQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792751174; x=1793355974;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=t38QF437OGSZbU1LgmCYZ33oL6v3P/HVKC+sKk2KKj8=;
-        b=tiQhtKxvZRkYn6Rd6OwXKvbxelACCRaM1C4FJp1O5oFHFE5ilHUm0FxvF67f2iq6+9
-         cCv73z8JuXv8nt37WQLCaKbWQdjvtI82jIOpf1qxNrq+u4S6KZw5zMTtP/mjQg4frymB
-         qQ8C19aBMtXc1CXekfo9omgQTFgUpCUGlFQuMbwojgwzgiad2TQ6WYJG1sA2QrQclA9I
-         0q8ILXmf5cBN6F3P1t4qk/T4ZrnZBNnY0Z+gQ53pyJqZVdjnoZ5I/OPlC2BOm2hK2Hvo
-         YwnYpta696RHI5xcu037uKME+peHv6LdBkPguZgcH9FGhPV3nTHBnkGyu0jWo1aiX6i+
-         n/KQ==
-X-Forwarded-Encrypted: i=1; AKwUvBynWejSJP59O4h3jyul/9D+xmHzT37a2DOXk9mfvqvDATnTkvyk6dwVQVsLFxY2958kYG7oIaP+A6gIojU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLXowt2tyeXMaQ4W8LjHeScM2WGKAKy6KboB5phnpz39I76+j0w
-	NiSUvsN6CPpaUKMzO6tUpCUguv5t/L4LQygBnjCdsEy7epTqmGTC3KRr2l13sCFGtG641YarSQ7
-	xoCiuhi3ZSC4iNmNlPFPQjheMgb9Vw982t4349kK+3hQb+WIZbpVqYq3bm4Yc81Z5W9Q=
-X-Gm-Gg: AYBFou2sbLJbomGCA+ltmI0rgiZ+hUPir/EDnB63cLn+gWQtx7aX9oupplpCHxHSZeR
-	Qav4YFjmD9V4HZlghWJOQTiiGNyZD0qxeidN4t6yYtb4U62+eVglPhuWFo0e4ZwFIdITfjo4M9m
-	U0UGgwzupZArp7PKJUREMF14dfmmiyVj+S04L76j+9YYq/6CvAyuA2G5wk3OIAGOjXwo2Mx654M
-	CEgunuroae16YZbHRXULCl20/TO+Or8r113r1j5OEC5k505Vtv53R8GW3AmibD4/66q0YMPp7Xo
-	w8Bo1SahGe/OZjgXGTw91A/I+9VqLj5uzggEOxLev3FrT/UHA5orf4rrF0jexeDTphLcjkQSv2e
-	eCRM3IB6jgrXU/vd12Ag0Zw==
-X-Received: by 2002:a05:620a:8121:b0:93e:54fc:2c79 with SMTP id af79cd13be357-93f6f96e833mr361782885a.5.1792751174345;
-        Fri, 23 Oct 2026 03:26:14 -0700 (PDT)
-X-Received: by 2002:a05:620a:8121:b0:93e:54fc:2c79 with SMTP id af79cd13be357-93f6f96e833mr361779385a.5.1792751173857;
-        Fri, 23 Oct 2026 03:26:13 -0700 (PDT)
-Received: from [192.168.226.26] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c46a5cf7164sm85473666b.76.2026.10.23.03.26.10
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 23 Oct 2026 03:26:13 -0700 (PDT)
-Message-ID: <2bcea2ae-b79c-4138-98ab-aa401466f9f2@oss.qualcomm.com>
-Date: Fri, 23 Oct 2026 12:26:09 +0200
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=XZ+DqvEY
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792751202; x=1824287202;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=aPaduRkr9nXpF3GWNMIXAyDhEP1X7FI5F9u8q0iwg7E=;
+  b=XZ+DqvEY8AnA1MnV6Cgyutp9ST0kibU3Z1PajjMRKYY5kBEn4SrlHJCX
+   iQEDzM67CV4R+/f0kgWc8ziSO9lhqSAAL38KDQ704WDGiQZZ/KOpru0FU
+   OyksnU0H/aZnym4WAiSg//aiAoTsPvhN6kj6/lJjLQMZXexzytlszrLPV
+   X5g6g6rI7sSdHz5DZasVtn+e4efWAnnTXp9tH35zDmX1803HyOTA7tOuA
+   84qqr3/Sm1afeW/IUNmd8PM9tm8AEvvi7GiD6SZyoUoUYEiy8SutakMPb
+   lj7gHFc2LR+BTKMUSe9ZzYfkPDBdZe7AqtsmpJlHb5U6jrbsG8TOqV2Dq
+   Q==;
+X-CSE-ConnectionGUID: gS2/rJJ8TmKfQZtC8FajGQ==
+X-CSE-MsgGUID: tDqaVAOQTCii1Q22k+DkCw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11943"; a="1412801"
+X-IronPort-AV: E=Sophos;i="6.27,174,1787036400"; 
+   d="scan'208";a="1412801"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Oct 2026 03:26:41 -0700
+X-CSE-ConnectionGUID: hca8ocJlTaSy8BALbuAkrg==
+X-CSE-MsgGUID: wufAoAgNSDKUR+clE8W0og==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,174,1787036400"; 
+   d="scan'208";a="3974342"
+Received: from kniemiec-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.100])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Oct 2026 03:26:38 -0700
+Date: Fri, 23 Oct 2026 13:26:36 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: radu.sabau@analog.com
+Cc: Lars-Peter Clausen <lars@metafoo.de>,
+	Michael Hennerich <Michael.Hennerich@analog.com>,
+	Nuno Sa <nuno.sa@analog.com>, Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Alexandru Ardelean <alexandru.ardelean@analog.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+	linux@analog.com
+Subject: Re: [PATCH v4 5/8] iio: imu: Add driver for the ADI ADIS16607
+Message-ID: <ats2XBBnfGmusCI2@ashevche-desk.local>
+References: <20261023-adis16607-v4-0-a4d541ebfd13@analog.com>
+ <20261023-adis16607-v4-5-a4d541ebfd13@analog.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,80 +89,424 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/5] drm/msm/dp: Add DisplayPort controller for
- Kaanapali
-To: Balaji Kalkonda <balaji.kalkonda@oss.qualcomm.com>,
-        Rob Clark <robin.clark@oss.qualcomm.com>,
-        Dmitry Baryshkov
- <lumag@kernel.org>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Kuogee Hsieh <quic_khsieh@quicinc.com>,
-        Yongxing Mou <yongxing.mou@oss.qualcomm.com>,
-        Yuanjie Yang <yuanjie.yang@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>,
-        Mahadevan P <mahadevan.p@oss.qualcomm.com>,
-        Mukesh Savaliya <mukesh.savaliya@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
-        freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20261022-kaanapali_dp-v3-0-b5ae8e6083c3@oss.qualcomm.com>
- <20261022-kaanapali_dp-v3-2-b5ae8e6083c3@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20261022-kaanapali_dp-v3-2-b5ae8e6083c3@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=Gt3XaU1C c=1 sm=1 tr=0 ts=6adb3647 cx=c_pps
- a=oc9J++0uMp73DTRD5QyR2A==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=EUspDBNiAAAA:8 a=pYsF8wcMre0XH_84TdcA:9 a=QEXdDO2ut3YA:10
- a=iYH6xdkBrDN1Jqds4HTS:22
-X-Proofpoint-GUID: nA1cEDns_gviszl-3kIsPw39GwyUBrFk
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIzMDA0MCBTYWx0ZWRfX4JSJAyB1mqKf
- jjUPFTuDZAhaMUDi/p5YIbvEZ6BczAjxOSTXB30rcEmeQkyhJb7cWrOef4SCbMkLTvOpgVybDJU
- xPzlDLK/bXzSNnniw1vL5C++y/92Nm5CBFjyKyoJSTWq+MbAq+WK3TOnAi+KTdigHQK3ksNEYYD
- UCcigA/TLZsOs0Eytc1mLDCaqabhfCBDlUD7c0q5Bu2fJqOGCm3XJk0DErO2Q5krtCbtZuEBsEi
- cirImhTJkIqAc805QgvUJFn8RU8uk8i/IjNaHQc+vqncIJb0NberY4Ncw9ltsfDNlK6AoNA4bbd
- o1t6Ue9San1irJMfHglfd9VmE61/OmAf9Ne2q34W/7N747bDxKRwoh4k3rr99aIHiA4JbiaNLSX
- i99gbGbs2AgAHUbFneMBxYXZfoNybn0IJ/NKo4xdT0hNo+ACPBMfxt3DaDoG6Uu6XfJDsJg9U7T
- pg5d/y6t5996eq2/72Q==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIzMDA0MCBTYWx0ZWRfX+MoKNynRLpzC
- iMv36y+5xf+Bc1mn0t78CnFCUYku9ZhOi/PpG9uopShh8JGCnWqIiaIcg06r8Aj4f0srt9Y/kdR
- QZRAKK2BLlGJv5Zta7dX0yB3zda0ttQ=
-X-Proofpoint-ORIG-GUID: nA1cEDns_gviszl-3kIsPw39GwyUBrFk
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-23_03,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 spamscore=0 suspectscore=0 malwarescore=0 adultscore=0
- clxscore=1015 priorityscore=1501 impostorscore=0 phishscore=0
- lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
- definitions=main-2610230040
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261023-adis16607-v4-5-a4d541ebfd13@analog.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On 10/22/26 11:49 AM, Balaji Kalkonda wrote:
-> The Qualcomm Kaanapali platform comes with a DisplayPort controller
-> with a different base offset than the previous SM8650 SoC, add support
-> for this in the DisplayPort driver.
+On Fri, Oct 23, 2026 at 12:30:22PM +0300, Radu Sabau via B4 Relay wrote:
+
+> The ADIS16607 is a Precision MEMS IMU from Analog Devices with
+> triaxial gyroscope and accelerometer, delta angle/velocity, and
+> temperature channels, communicating over a custom SPI Half-Duplex
+> protocol. ADIS16607-2 has a ±450°/s gyroscope range, ADIS16607-3
+> ±2000°/s; both share a ±40g accelerometer range and an 8 kHz internal
+> clock.
 > 
-> Signed-off-by: Balaji Kalkonda <balaji.kalkonda@oss.qualcomm.com>
-> ---
+> This is the base driver: probe, raw channel reads, sampling-frequency
+> control, startup/self-test via adislib, and debugfs identity entries.
+> No buffered capture, external clock sync, or calibration bias yet -
+> those follow in later patches.
+> 
+> Self-test leaves the device's SELF_TEST register cleared on every exit
+> path, not just on success, so a read failure or a failed delta check
+> doesn't leave the sensor stuck in its self-test/force state until the
+> next reset.
 
-you lost the tags from v1
+...
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> +++ b/drivers/iio/imu/Kconfig
 
-Konrad
+> +	tristate "Analog Devices ADIS16607 and similar IMU driver"
+
+(see below)
+
+
+...
+
+> +struct adis16607_chip_info {
+> +	const struct iio_chan_spec *channels;
+> +	const char *name;
+> +	u32 num_channels;
+> +	u32 gyro_max_val;
+> +	u32 gyro_max_scale;
+> +	u32 accel_max_val;
+> +	u32 accel_max_scale;
+> +	u32 temp_scale;
+> +	u32 deltang_max_val;
+> +	u32 deltvel_max_val;
+> +	u32 int_clk_hz;
+
+_Hz
+
+> +	u16 max_dec;
+> +};
+
+...
+
+> +struct adis16607 {
+> +	struct adis adis;
+> +	const struct adis16607_chip_info *info;
+> +	unsigned long clk_freq_mhz;
+
+_MHz or _mHz? (I believe it's the first one.)
+This is why case-sensitive units (as per physics) are important.
+
+> +	u64 sample_period_ns;
+> +};
+
+...
+
+> +		/* Combine: 24-bit value with MSW in upper 16 bits, LSW in lower 8 bits */
+
+Make it multi-line and to fix 80 characters.
+
+> +		*val = ((val_msw << 8) & 0xFFFF00) | val_lsw;
+
+Why not GENMASK()? Can val_msw be u16 or other 16-bit type?
+
+...
+
+> +static int adis16607_sensor_self_test(struct adis16607 *st)
+> +{
+> +	struct adis *adis = &st->adis;
+> +	u16 st1_val[6], st2_val[6];
+> +	s16 delta_max[6] = {
+> +		ADIS16607_ACCEL_XY_DELTA_MAX,
+> +		ADIS16607_ACCEL_XY_DELTA_MAX,
+> +		ADIS16607_ACCEL_Z_DELTA_MAX,
+> +		ADIS16607_GYRO_DELTA_MAX,
+> +		ADIS16607_GYRO_DELTA_MAX,
+> +		ADIS16607_GYRO_DELTA_MAX,
+> +	};
+> +	int ret, i;
+
+Why is 'i' signed?
+
+> +	/* Enable sensor self-test */
+> +	ret = __adis_write_reg_16(adis, ADIS16607_REG_SELF_TEST,
+> +				  ADIS16607_SNSR_SELF_TEST_MASK);
+> +	if (ret)
+> +		return ret;
+> +
+> +	/* Wait for self-test to settle before reading results */
+> +	msleep(adis->data->timeouts->self_test_ms);
+> +
+> +	/* Read first set of self-test data */
+> +	for (i = 0; i < ARRAY_SIZE(st1_val); i++) {
+> +		ret = __adis_read_reg_16(adis, ADIS16607_REG_SELF_TEST_DATA(i),
+> +					 &st1_val[i]);
+> +		if (ret)
+> +			goto clear_self_test;
+> +	}
+> +
+> +	/* Force self-test */
+> +	ret = __adis_write_reg_16(adis, ADIS16607_REG_SELF_TEST,
+> +				  ADIS16607_SNSR_SELF_TEST_MASK | ADIS16607_ST_FORCE_MASK);
+> +	if (ret)
+> +		goto clear_self_test;
+> +
+> +	/* Wait for forced self-test to settle before reading results */
+> +	msleep(adis->data->timeouts->self_test_ms);
+> +
+> +	/* Read second set of self-test data */
+> +	for (i = 0; i < ARRAY_SIZE(st2_val); i++) {
+
+In both for-loops iterator is local, so
+
+	for (unsigned int i = 0; i < ARRAY_SIZE(st2_val); i++) {
+
+> +		ret = __adis_read_reg_16(adis, ADIS16607_REG_SELF_TEST_DATA(i),
+> +					 &st2_val[i]);
+> +		if (ret)
+> +			goto clear_self_test;
+> +
+> +		if (!adis16607_delta_check((s16)st1_val[i], (s16)st2_val[i],
+> +					   delta_max[i])) {
+> +			dev_err(&adis->spi->dev,
+> +				"Self-test failed for axis %d: delta out of range\n", i);
+> +			ret = -EINVAL;
+> +			goto clear_self_test;
+> +		}
+> +	}
+> +
+> +	/* Clear self-test register */
+> +	return __adis_write_reg_16(adis, ADIS16607_REG_SELF_TEST, 0);
+> +
+> +clear_self_test:
+> +	/*
+> +	 * Best-effort cleanup after a failure above - leave the device out
+> +	 * of its self-test/force state rather than stuck in it until the
+> +	 * next reset. Warn rather than returning this write's own result,
+> +	 * so a cleanup failure doesn't mask the real error that got us here.
+> +	 */
+> +	if (__adis_write_reg_16(adis, ADIS16607_REG_SELF_TEST, 0))
+> +		dev_warn(&adis->spi->dev, "failed to clear self-test register\n");
+> +
+> +	return ret;
+> +}
+
+...
+
+> +static int adis16607_self_test(struct adis *adis)
+> +{
+> +	struct adis16607 *st = container_of(adis, struct adis16607, adis);
+> +	struct device *dev = &adis->spi->dev;
+> +	u16 diag_stat;
+> +	int ret;
+> +
+> +	/* Inertial Settling Time (Table 1), needed before self-test reads sensor data */
+
+Make it fit 80.
+
+> +	msleep(40);
+> +
+> +	ret = adis16607_sensor_self_test(st);
+> +	if (ret)
+> +		return ret;
+> +
+> +	/* Read diag_stat again to clear any faults latched during self-test */
+> +	ret = __adis_read_reg_16(adis, ADIS16607_REG_DIAG_STAT, &diag_stat);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = __adis_check_status(adis);
+> +	if (ret)
+> +		dev_err(dev, "status check after self-test failed: %d\n", ret);
+> +
+> +	return ret;
+> +}
+
+...
+
+> +static int adis16607_firmware_revision_show(struct seq_file *s, void *arg)
+> +{
+> +	struct adis16607 *st = s->private;
+> +	u16 rev;
+
+Can this be
+
+	struct revision {
+		u8 minor;
+		u8 major;
+	} rev;
+
+?
+
+> +	int ret;
+> +
+> +	ret = adis_read_reg_16(&st->adis, ADIS16607_REG_REV_ID, &rev);
+> +	if (ret)
+> +		return ret;
+> +
+> +	seq_printf(s, "%u.%u\n", (rev >> 8) & 0xff, rev & 0xff);
+> +	return 0;
+> +}
+
+...
+
+> +static int adis16607_show_serial_number(void *arg, u64 *val)
+> +{
+> +	struct adis16607 *st = arg;
+> +	u64 serial;
+> +	u16 tmp;
+> +	int ret;
+> +
+> +	ret = adis_read_reg_16(&st->adis, ADIS16607_REG_SERIAL_NUM0, &tmp);
+> +	if (ret)
+> +		return ret;
+> +
+> +	serial = (u64)tmp;
+
+How is explicit casting helpful here?
+
+> +	ret = adis_read_reg_16(&st->adis, ADIS16607_REG_SERIAL_NUM1, &tmp);
+> +	if (ret)
+> +		return ret;
+> +
+> +	serial |= ((u64)tmp << 16);
+> +
+> +	ret = adis_read_reg_16(&st->adis, ADIS16607_REG_SERIAL_NUM2, &tmp);
+> +	if (ret)
+> +		return ret;
+> +
+> +	serial |= ((u64)tmp << 32);
+
+What about reversing the order and shift serial instead?
+
+	u64 serial = 0;
+
+	ret = adis_read_reg_16(&st->adis, ADIS16607_REG_SERIAL_NUM2, &tmp);
+	if (ret)
+		return ret;
+
+	serial |= tmp;
+
+	ret = adis_read_reg_16(&st->adis, ADIS16607_REG_SERIAL_NUM1, &tmp);
+	if (ret)
+		return ret;
+
+	serial <<= 16;
+	serial |= tmp;
+
+	ret = adis_read_reg_16(&st->adis, ADIS16607_REG_SERIAL_NUM0, &tmp);
+	if (ret)
+		return ret;
+
+	serial <<= 16;
+	serial |= tmp;
+
+> +	*val = serial;
+> +	return 0;
+> +}
+
+...
+
+> +static int adis16607_set_freq(struct adis16607 *st, u32 freq)
+> +{
+> +	u32 dec;
+> +	int ret;
+> +
+> +	if (!freq)
+> +		return -EINVAL;
+> +
+> +	adis_dev_auto_lock(&st->adis);
+> +
+> +	dec = DIV_ROUND_CLOSEST(st->clk_freq_mhz, freq);
+> +	if (dec)
+> +		dec--;
+> +
+> +	dec = min_t(u32, dec, st->info->max_dec);
+
+No min_t(). Make the types to be compatible for min().
+
+> +	ret = __adis_write_reg_16(&st->adis, ADIS16607_REG_DEC_RATE, dec);
+> +	if (ret)
+> +		return ret;
+> +
+> +	st->sample_period_ns = DIV_ROUND_CLOSEST_ULL((u64)NSEC_PER_SEC * 1000ULL * (dec + 1),
+> +						     st->clk_freq_mhz);
+
+Make it fit. Using temporary variable usually helps. Also you don't need (u64)
+casting or ULL suffix. On top of that, what is another 1000 multiplier for?
+
+I would expect a comment on top with explaining magic(s).
+
+> +	return 0;
+> +}
+
+...
+
+> +	case IIO_CHAN_INFO_SAMP_FREQ:
+> +		ret = adis16607_get_freq(st, &tmp);
+> +		if (ret)
+> +			return ret;
+> +		*val = tmp / 1000;
+> +		*val2 = (tmp % 1000) * 1000;
+
+What is 1000? HZ_PER_KHZ? KHZ_PER_MHZ?
+
+> +		return IIO_VAL_INT_PLUS_MICRO;
+
+...
+
+> +static int adis16607_write_raw(struct iio_dev *indio_dev,
+> +			       const struct iio_chan_spec *chan,
+> +			       int val, int val2, long info)
+> +{
+> +	struct adis16607 *st = iio_priv(indio_dev);
+> +	u32 tmp;
+> +
+> +	switch (info) {
+> +	case IIO_CHAN_INFO_SAMP_FREQ:
+> +		tmp = val * 1000 + val2 / 1000;
+> +		return adis16607_set_freq(st, tmp);
+
+Ditto.
+
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +}
+
+...
+
+> +#define ADIS16607_MOD_CHAN(_type, _mod, _address, _si) { \
+> +	.type = (_type), \
+> +	.modified = 1, \
+> +	.channel2 = (_mod), \
+> +	.info_mask_separate = BIT(IIO_CHAN_INFO_RAW), \
+> +	.info_mask_shared_by_type = BIT(IIO_CHAN_INFO_SCALE), \
+> +	.info_mask_shared_by_all = BIT(IIO_CHAN_INFO_SAMP_FREQ), \
+> +	.address = (_address), \
+> +	.scan_index = (_si), \
+> +	.scan_type = { \
+> +		.sign = 's', \
+> +		.realbits = 24, \
+> +		.storagebits = 32, \
+> +		.endianness = IIO_BE, \
+> +	}, \
+> +}
+
+This is not a function, I would rather shift it right by a tab with a split
+(also indent the backslashes, it makes it easier to read).
+
+#define ADIS16607_MOD_CHAN(_type, _mod, _address, _si)		\
+	{							\
+		.type = (_type),				\
+		...
+	}
+
+...
+
+> +#define ADIS16607_MOD_CHAN_DELTA(_type, _mod, _address, _si) { \
+> +	.type = (_type), \
+> +	.modified = 1, \
+> +	.channel2 = (_mod), \
+> +	.info_mask_separate = BIT(IIO_CHAN_INFO_RAW), \
+> +	.info_mask_shared_by_type = BIT(IIO_CHAN_INFO_SCALE), \
+> +	.info_mask_shared_by_all = BIT(IIO_CHAN_INFO_SAMP_FREQ), \
+> +	.address = (_address), \
+> +	.scan_index = (_si), \
+> +	.scan_type = { \
+> +		.sign = 's', \
+> +		.realbits = 24, \
+> +		.storagebits = 32, \
+> +		.endianness = IIO_BE, \
+> +	}, \
+> +}
+
+Ditto.
+
+...
+
+> +/*
+> + * No external clock sync support yet: always run on the internal clock.
+> + * Default dec=0 after reset, so period = 1 / clk_freq_mhz.
+> + */
+> +static int adis16607_config_clk(struct adis16607 *st)
+> +{
+> +	st->clk_freq_mhz = st->info->int_clk_hz * MILLI;
+
+So, it's milli-hertz then? We have MILLIHZ_PER_HZ.
+
+> +	st->sample_period_ns =
+> +		DIV_ROUND_CLOSEST_ULL((u64)NSEC_PER_SEC * MILLI, st->clk_freq_mhz);
+> +	return 0;
+> +}
+
+Yeah, this magic 1000 should be explained everywhere.
+
+...
+
+> +MODULE_DESCRIPTION("Analog Devices ADIS16607 IMU driver");
+
+Make the text the same as per Kconfig. Whatever wording you choose.
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
