@@ -1,115 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.228.6
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792771157;
-	b=26K7RcA0SusKSK/U3eATEfFW886iNFjVz9KWRG6q7HN5shpY968is6P1oUk9UF5HZZYF
-	 /YGzCQTT5cc+XIrQZQXiXXXGYSr4rPbmIRM6YKssj4ggWYV8ti0myi6eTLB3HLTQlLDXR
-	 VH5jMSGxG1OrobtnELX+J10OjNCEp13cHX4GHJ36CRC4MU+ZMS1tWRWkwPGEjy97kwMsh
-	 F7t3HGpXYTkzC9Hg4f7+RjN2u58mau6q9Y76MVCKgBKMvSsy2hwijq81p8CHnqF6thLX1
-	 8QwJGxLSoOW8DWfJvjyI1f+dcHlu5rfdLahQe8jdEnj9I/awe33e/yIoTc5youeUxBA==
+	t=1792771367;
+	b=Lk0YlSZ5Vs9ECVrTTkeW4trHeIfMzn43hWWBlU0PLinfsIMmpzuAbH1fgQR0o6jMXWUz
+	 qURZmEQ5+Nmco803tnUq4IkDOo79C79Xqmn/56iQLaIoddp95bgUsXHIgPSxW/P9Jwbdb
+	 GK6d1/yN+qS3pTm8cf9owt84dycCMV/yrBlggjo4DZhk5RD9fmQA1Rz6QUwDO0Jl8zN1E
+	 qBFkHrFSYFop6yNPd3rHCh6dy2L27yCxdhx727meCyWcWsFce9lHNwJfdVjpneGohJ3x6
+	 TMjlMqgeeACrxygcJmmukOXGmO+lN35rn2pFSe472k0Z6VMhMm96XLIROKMje+a24Mg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792771157;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792771367;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=qfip9nPMyQ6NKHGpF7rQvQFL04olz8IZl5yoz+w1jok=;
-	b=h9W3rZ+nxLzYZ7i7okictwclriTIc/k8N7nUz2DNnTOcrr7nhNYnHQyvnQmzfDpogwwZ
-	 AFOcNN012+HKq6d/F4zoN2r1ph7KGj6umc7mKZq/VZNXDzFe2jKVTMeR8PEwMr6E5jYWO
-	 fTi8C1VT/IHCX/Z2nu9/bx4y9qc8fwTu2rcsaeb0XCYI4lRH+wI8F5ZcHOJXdnrjjBZR7
-	 T8vTOg3I4FdLxOoCa+8WMAJ3gEcyqRbt11j8uvKIffQDorROA5Q6K/5VbQs5khB0Q4NCY
-	 TsKiVhvvOuqQBtwCqDaSB53OBYUApGdS/riIYPuEDx1+8HFcIfylFbCURUUxJ96QRaQ==
+	 From:To:Cc:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Date:Message-ID;
+	bh=bA0Hsp5XXumXBy4rVBwW8fxcNqmGHi/YDDxKz56CdE0=;
+	b=cs9l0eIEpeAo1A+ubnOX1ELXFyBw38Dce7lE/0/L6FRtqLm8fBWcRZ5myGod2UKm5Dz+
+	 8QMxTnwxM4IfxHOORhVN7N39cgZAVCPkM5Rz8bmCPSuxQGdXmQtr9oIBX7nYbMLvIndI/
+	 7nM45oLqOvMrgo11a4QA3f8q4ysAV4w8NGBZQw71kx8wG5d/wDChF/6/VWGv4KvXqSlSd
+	 YA5I25ddgVxJ/UoG2C+KdKpsFQI7dq9hFkLlWZOZjlVcwOZBWr4NiWBa9ckRjkQj0uwkR
+	 AN6LaVRLIo/TVE0yO/J5TGhYYmHVykW/XU+/qwi8E09HXYTBjJ4z8FqSkD1UXNBF9Uw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=ziepe.ca;
-	spf=pass smtp.mailfrom=ziepe.ca;
-	dkim=pass header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=pOV9sna9;
-	arc=none smtp.remote-ip=209.85.160.172
-Received: from mail-qt1-f172.google.com (mail-qt1-f172.google.com [209.85.160.172])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ioYawQ07;
+	arc=none smtp.remote-ip=74.125.228.6
+Received: from mail-pz2-f6.google.com (mail-pz2-f6.google.com [74.125.228.6])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76989606A322
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 15:59:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 76989606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14D9F606A31D
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 16:02:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 14D9F606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=pOV9sna9
-Received: by mail-qt1-f172.google.com with SMTP id d75a77b69052e-53644b28706so13933741cf.3
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 08:59:16 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ioYawQ07
+Received: by mail-pz2-f6.google.com with SMTP id 41be03b00d2f7-cc75f2924abso612609a12.1
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 09:02:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ziepe.ca; s=google; t=1792771155; x=1793375955; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=qfip9nPMyQ6NKHGpF7rQvQFL04olz8IZl5yoz+w1jok=;
-        b=pOV9sna9TZaCqywtdDI8h+mSGdu3kY7TvcG6DQSaz/wzZ4RWxvzzkBqqhU+wauIVz0
-         y7gqDg4Pv98+G/EoG0dUf5Bpk4Cl0e0UZ7LUISdotu9Tsw4EOlJNa9g21e1C+Zf9KMZH
-         gYHQI9+v1MeGOmU6kjTdceiCLbZqOiGD/vZZ2gPbf7Lfpg+R46vh7tpjBVmQ5GGunmYC
-         VtuXQ6ZEps4zStuYQLp7cEl/vePQpZ5aYQvoiujxoHTHp/fCRUKvmNk27XK19PLiHYCI
-         JYluupC4j0EMlwXjgXHC4TBCzVFNeQ1eRj7qeCWp0ln6/w6oJwD1gZkKqq5ddT+khVyu
-         ejmA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792771155; x=1793375955;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1792771366; x=1793376166; darn=vger.kernel.org;
+        h=message-id:date:content-transfer-encoding:content-type:mime-version
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=qfip9nPMyQ6NKHGpF7rQvQFL04olz8IZl5yoz+w1jok=;
-        b=zV40Ni3Q8Vf1sJpUVzUOnvSpTeEYur5+50ttA/yBH0hgMDJNQ2wcR5HFOQR8/iJQQx
-         /2r5XEbA22RqUM+N0PXQkVTSRlo4zwi4qWoIhMMKvGN2r5sVQ+abxjwycE6H6kZqbCFA
-         0DxUKT6iMmUPNC3pdah/Np8sxnXKFjgJwjMqEss43UO9RLsAjJMrA7QwV7eqFETFs3wj
-         Boaa/roAUua184fli3Rh/zRjj4OHnAxh0EI5dldp1piJ5DJdDbHG6nzEFQYfHLtqeHG7
-         7ZLcK+6Ag2RjvEBceaTlcLEdblW6QJi42QBouVjPug3OJhNQYFIwKYyy+6CmmRo2HiZw
-         1BYA==
-X-Forwarded-Encrypted: i=1; AKwUvBw/GoNxgiyNHHblcXGXTSDYAJiyA7UzQMIDxvX3no8bHmT7r2s7bgDg3b3JjMZCHp7dSZr8k+2fhbFYZeQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLAJNtpAlpqCeGCpbWXQ8fHgEmvfUDt/9ShBgU936zINAH1FcmF
-	nycn/5lRHxK9peOXu7ys6wo7A3rdzkYf8eLlD2pH7QSipFttHENjwSJa4k/6mt7YX4Y=
-X-Gm-Gg: AYBFou14sDygrlFqovhyL548Nj4Npe7efQou2+d9o2IZxF2xLrG9n+GDjpopgRFiyO3
-	tZJaNHiY9sVQE+6rS1hO9nELpAiuSm1iQgfvFDcMmxTQzIVfKvLhcZQAB0/qznmJDw5A4ea1RAB
-	us+o0ABc5fKjh2mu3PUYprzaXbnhhKQ+rdU4lWk3lGtB4wAEgcJzPrdH87cCW6QFSXMEs6rLPTh
-	9bmScOXyIp90hfEAuNhK/x8oThEQ89ZmF/XmqQ7s2soqWV/WNHz5gVMpuipmCHPTOCzCX/tgQOg
-	9s8/Efcjo0pKA52ctktpM5gAujG89kA63AoTfMMth98ljQKA3qK8g4HUlE3yvYmvWY/unxYgkHy
-	OoGQXkFsHsMhG1pYwmOHM93gkWjWHb4FepK5/hXSHJpxAU1e2Ku6ra+vfiVaI4EGxMfCWW9h4fv
-	vPTPr+i/jbVrJd1I7q8QNEaVD1eDFZW5y3NYmfPmFejlorTdu7OsKvIiXTWlriYrDTwek07axXG
-	BvM/lmulfDldlaoCeqYhS449yzEWaDWxISI9A5FF1XEqru5KNIrX2F+8gozEjcG3PU2hWkngBcA
-	yZ5MqhHvd//fMLf8uLLIBp1IFpUL2iu816Yh0w==
-X-Received: by 2002:a05:622a:a0e:b0:535:859c:b6ff with SMTP id d75a77b69052e-536c24e2452mr39136051cf.20.1792771155235;
-        Fri, 23 Oct 2026 08:59:15 -0700 (PDT)
-Received: from ziepe.ca (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net. [159.2.239.150])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-53836c78f67sm656181cf.27.2026.10.23.08.59.14
+        bh=bA0Hsp5XXumXBy4rVBwW8fxcNqmGHi/YDDxKz56CdE0=;
+        b=ioYawQ07vEYfZgiCUpuqQBf5p+5+N36D1zBPS7vgD8sADIRiwLMD6AhR4hv76wPZmJ
+         BJ7KUBhSzyY00H4HMuzyc4mqZyqcA0mKasXmHCMft7amo2Kk2Jy48u97xC77jJtxfJ5P
+         4R80ui1qypV7HIwZY+g3LbKrAdz/BZKw+jINiYci6ZGbk6IIteJnqsPSPq5x1xWtdEJ8
+         ErrjDbMOZxl2xnaDrvsl3bayw/7bhtx0viu+TYr8HilXYTnaqQpSx+8aTNoilXA9p408
+         4L6GYKnNFSn7G//tNP/FC2BVqEu4sfdttnV4ELlI1Apheva9qBKqV+aZmKLAueOemnO4
+         /Kag==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792771366; x=1793376166;
+        h=message-id:date:content-transfer-encoding:content-type:mime-version
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=bA0Hsp5XXumXBy4rVBwW8fxcNqmGHi/YDDxKz56CdE0=;
+        b=AwY/4zREtoWo2uS9TXktfNsBHNgSeFolW8r2YCwtUR5ig+ntvZMTQ6lDHsCP3dEcxi
+         JOEcFEk3dXit+SAa8D/m+RkmIPseqciNHTy8OU3W7tHbzBFGY0Eq4whmWMAQ9beCtlRJ
+         1tFzNidayBJ+UInJ/PW6EbBZ+C7Z+PZ5nStqu8ahyrdaL06KbPmFaaoBXAgGqEQec/AL
+         KeNFk7r9YkiIrTWwy/QM5z/FCJH4E3HjKmk+P8Cilag+HFffs+Mmkakd/Y+hjuLwKsQk
+         cNDJ9vx4RcTi6BG+ZwSOqJh7mSBN+wuu3rgozW4tTs+x/W0yG0fPl4j/S7FTvCnIKYUq
+         a9Lg==
+X-Forwarded-Encrypted: i=1; AKwUvBy/fE2fOU4RblafYUGpfufjwbiza3GHL7usWym7Glqi4S/uXcxru75qs2RFSb93716G67si7Ex+5JN0nbk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKmgCRvR2hbOC2tYuuZxUnrfcvW2rExMi3f195DtL5oBRv52lGY
+	2fqqtB+7fr4ySQolHyw90k9djHZawl8DMPqEj85b/Tw7EaiybfKwpmcJHeDEwUzXzSzQeZ8E
+X-Gm-Gg: AYBFou1WmwS74Gdm4gZv3h15Qb0nqiuTJTeyLnPBAtkZ4bKFjuso2fw+JHcTLjt1cSE
+	Iu1Wjk/zy1A4JMo5qJ4311L6QJfiG1Tm2M1ztGXKwZNYb8Sb3MdCxChCjvH4SI6hwfE6EOqLaYM
+	P8wRdwnnXCpXf9SRY5EokvlOTZbgoiflmscbRiGYi8ZUzVBdKQIKE3sDy9/Tb/lFTKcUDkcly2/
+	Ab32tmr0+rc/eGcKDXbD8LTYdvW/G9Fga9qU4a/ALg8reSZQBZ8mDGYItLFEvaKXimqLg7JUyXF
+	TIL+WM/7EVTYd2PGLpyp5OeKpkMZjRlG8tto3+T6ifuenW8P4MXJnTtRrFuKjhX+/fT3XxNghPd
+	ngcUSdILlLAQzG5ntTDkCKpPsTsCIcS48lTvw2cHtKppzyqD6hMhL+6ouCvrFGn8FxE/HzLN8R7
+	uZGOkFkF1KuLI9rtXxeneERp705uWC292liok/3AbDE13BKBtrFD2w+xoHJCIEOgR6q7KZ5e+GF
+	2CAXPJlwrVo9P3uaAe1YcY6N6bWo85VUcXLariowpSF8E0+koGUo0QT8Ej50Ja4GRTZ4CH4O/zx
+	E0JUQ1oc0BQX4DXHadxG9omLOVJSoz9XN3o0ntWnhwslI9W/uQR6vg==
+X-Received: by 2002:a05:6a00:4c94:b0:89d:faf6:c69d with SMTP id d2e1a72fcca58-8a2c66893d8mr2481398b3a.58.1792771366283;
+        Fri, 23 Oct 2026 09:02:46 -0700 (PDT)
+Received: from localhost (n106-71-19-159.sun21.vic.optusnet.com.au. [106.71.19.159])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8a336e586f0sm165409b3a.7.2026.10.23.09.02.41
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 23 Oct 2026 08:59:14 -0700 (PDT)
-Received: from jgg by wakko with local (Exim 4.97)
-	(envelope-from <jgg@ziepe.ca>)
-	id 1xKHfm-0000000Go19-0EMi;
-	Fri, 23 Oct 2026 12:59:14 -0300
-Date: Fri, 23 Oct 2026 12:59:14 -0300
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: Leon Romanovsky <leon@kernel.org>
-Cc: Bjorn Helgaas <helgaas@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
-	Logan Gunthorpe <logang@deltatee.com>,
-	"Joerg Roedel (AMD)" <joro@8bytes.org>,
-	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
-	Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
-	Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
-	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org, iommu@lists.linux.dev,
-	Tushar Dave <tdave@nvidia.com>, linux-media@vger.kernel.org,
-	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
-	linux-rdma@vger.kernel.org, kvm@vger.kernel.org,
-	Chaitanya Kulkarni <kch@nvidia.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jens Axboe <axboe@kernel.dk>, Alex Williamson <alex@shazbot.org>,
-	Ankit Agrawal <ankita@nvidia.com>, Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Sumit Semwal <sumit.semwal@linaro.org>
-Subject: Re: [PATCH v9 02/18] PCI/P2PDMA: Derive routing from directional ACS
- controls
-Message-ID: <20261023155914.GK3977851@ziepe.ca>
-References: <20261007063227.GC7822@unreal>
- <20261007204045.GA783967@bhelgaas>
- <20261009174301.GC11438@unreal>
+        Fri, 23 Oct 2026 09:02:46 -0700 (PDT)
+From: Aveline Noir <jm5905938@gmail.com>
+To: SJ Park <sj@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+    damon@lists.linux.dev,
+    linux-mm@kvack.org,
+    linux-kernel@vger.kernel.org
+Subject: [PATCH] mm/damon/core: reset watermark wait state on each iteration
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -119,51 +94,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261009174301.GC11438@unreal>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Date: Sat, 24 Oct 2026 00:01:31 +0800
+Message-ID: <179277129124.2.16132047926074873101.damon-empty-schemes@gmail.com>
 
-On Fri, Oct 09, 2026 at 08:43:01PM +0300, Leon Romanovsky wrote:
-> On Wed, Oct 07, 2026 at 03:40:45PM -0500, Bjorn Helgaas wrote:
-> > On Wed, Oct 07, 2026 at 09:32:27AM +0300, Leon Romanovsky wrote:
-> > > On Tue, Oct 06, 2026 at 03:49:47PM -0500, Bjorn Helgaas wrote:
-> > > > On Thu, Oct 01, 2026 at 02:55:10PM +0300, Leon Romanovsky wrote:
-> > > > > From: Leon Romanovsky <leonro@nvidia.com>
-> > > > > 
-> > > > > pci_bridge_has_acs_redir() treats Request and Completion Redirect as
-> > > > > interchangeable. On asymmetric fabrics, a control for only the reverse TLP
-> > > > > direction can unnecessarily force P2PDMA through the host bridge.
-> > > > 
-> > > > Does "the reverse TLP direction" refer to Completions?
-> > > 
-> > > In general, the P2P code treats TLPs flowing from device A to device B the
-> > > same as TLPs flowing from device B to device A.
-> > > 
-> > > However, in the context of this commit message, yes: completions flow in the
-> > > opposite direction from the device's perspective.
-> > 
-> > And I guess asymmetric fabrics must mean fabrics where Request
-> > Redirect and Completion Redirect are not set the same way?
-> 
-> Yes, in some of our systems, deviceA to deviceB is going through
-> different route than deviceB to deviceA.
+Found while reviewing the DAMON source code that if an online commit 
+removes all schemes while kdamond is waiting for watermark activation,
+the scheme loop becomes empty but min_wait_time keeps the previous 
+positive value.  kdamond then keeps sleeping instead of resuming 
+monitoring without schemes.
 
-It is a little more subtle, I think practical systems try very hard to
-avoid that since many host bridges do not like seeing only half of an
-exchange.
+Initialize min_wait_time and init_wait_time on each loop iteration so
+the wait is calculated from the current schemes and an empty scheme
+list resumes monitoring.
 
-What we end up with is Relaxed Ordering and Strict Ordering take
-different flows in the fabric.
+Fixes: 6e74d2bf5a26 ("mm/damon/core: add a new callback for watermarks checks")
+Assisted-by: LLM
+Signed-off-by: Aveline Noir <jm5905938@gmail.com>
+---
+An x86-64 KVM test using free-memory watermarks reproduced the stall
+with nr_schemes=0 followed by commit.  The same test resumed monitoring
+with this fix.  DAMON KUnit and selftests all passed.
 
-> > But I asked about ordering because it sounds like this patch expects
-> > to encounter asymmetric fabrics where Request Redirect and Completion
-> > Redirect may not be set the same way, and the spec implies that
-> > asymmetry may result in ordering violations.
-> 
-> My guess is that the hardware and system architects have ensured this
-> doesn't happen. At least, I haven't received any complaints about this
-> series during internal testing.
+ mm/damon/core.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-Yes, the ACS combination is selected to avoid ordering issues
-
-Jason
+diff --git a/mm/damon/core.c b/mm/damon/core.c
+index eb1fcdabc007..f61ff763d4de 100644
+--- a/mm/damon/core.c
++++ b/mm/damon/core.c
+@@ -3976,10 +3976,11 @@ static int kdamond_wait_activation(struct damon_ctx *ctx)
+ {
+ 	struct damos *s;
+ 	unsigned long wait_time;
+-	unsigned long min_wait_time = 0;
+-	bool init_wait_time = false;
+ 
+ 	while (!kdamond_need_stop(ctx)) {
++		unsigned long min_wait_time = 0;
++		bool init_wait_time = false;
++
+ 		damon_for_each_scheme(s, ctx) {
+ 			wait_time = damos_wmark_wait_us(s);
+ 			if (!init_wait_time || wait_time < min_wait_time) {
