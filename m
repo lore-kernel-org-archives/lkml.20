@@ -1,68 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.108.3.25
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.159
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792755676;
-	b=xtz5OhMHrdSTsOZZeuuQfANxwnyVcsyphhyjmP0TCsm1VKEAJCMiQtWqeM5I7uXI41pX
-	 E53cFnj0OL8ubVfxdwgyx7iDB+pZtkUQrrcJk3eQwwedplbgocMQ/p6j1WNqBuWBD6jAh
-	 dwGBr0tsCtBdjxWOMOYoG9jeDaVq+z4Gbsa27b6sIP8l8npdBnjAehqe0/izeMgpM2CZ5
-	 g9TUIN7xbmsL+k6+wqoXr0oilHiEGFyCTHZjJaKP5pldcqCF/8h+vvoOefMkP4XJ9YfdW
-	 O21K9e9tlhq+wfarD7riEIOXoTsUGReWh2tpwK7MqBXlcdk1wPuo8osKGBEoC+KIgBw==
+	t=1792755826;
+	b=R9gT8mwcBr9sCa+3mHvR1NiGlKOgqN+5sD5U96jbzE2UPAyFTV0diYghX7tASdNvhnq6
+	 LYYVWC+rvVFIBDxATwNrsknvqNkeUsRqnmQubCT75wlOCFyxHRWkl6/u6hR19VOa7Benz
+	 NZ/yXh4+9lymiXLA6510Ozn7CQQ3/bJFA7363pIMKDV9MyTkdlX7JeiK1m+rr8BENYwM1
+	 TJtBk4RwIERUCx+hLcvP2mvaTDJ+zwT9biJIj8P4NZKdMGQwEG3Qxr2Veh4/55Q6/egay
+	 Xyr4e0kt5ooHvGmxF2d7Irp6zzyziXfd+/4bhZ6sb0lwOwC8du9646xxTWruT+yA0eQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792755676;
-	h=DMARC-Filter:DKIM-Signature:X-SMAIL-HELO:Received:X-Sender:X-Auth-ID:
-	 X-SMAIL-MID:X-SMAIL-UIID:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=5cygoKyDem6jl3IIN+AbxX+FnzVwflEWGyoiGRY80Yg=;
-	b=fMZuA4CBNy+uydOkLOpnI14O66BsPPbYSmEtKYudDUFRd3Vw74YZSv4GkzVzNQQ7pXuD
-	 Uo/ouAsLivCoG9x2Wr3ZQ2jJq76VdeFVLAfHTEcKZlVrtpa2xRmWCMxNjwfzPkVohBcfX
-	 Sc0PHbc8qwu00H4n4waoTEuCwuY+QpXnN9NaZaD9n3ZaX6+Ay8a0sb5xHfWXAKKd1+72L
-	 j96WIsqw4vURcHJ+ZGjIaLdwPqRtRUBzuTv3WWprJVCjQacKNsugIbb4R4BP/m1ucLLus
-	 SXAK9AqhQONLf1W9ygh/G6lq4+X+9+2P480MtexflHD3LrbkjPUixXda4XEqvvGmSCQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792755826;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=KgpBrfHk3ZcXVJb3OFlcK7UTRxl4zauHGFlDn82kZWc=;
+	b=WRmG3CaDMPeSYKXoiqK9rA3gRnB3MjFQKgA4fSCi1ZNvEFUofdYiSVV7VKZGkohgTQph
+	 2fZ4oZc+QzRUd2vdFQqPHOEOKCeskYDzKEEIEKyymfNJgir/Z7Mv4TSAVjgmytWIcG9WQ
+	 wQV1CpOOfzOjAqVxEIZNcu83KlhudMcGw8FBgjdZVpdydlUlRpZ4RQhCoJNZXQuC4qbK6
+	 J30+jnkmvZmYVhJek3Nj/PZCpCL0TB93zbnZUgeVvdxWRGMkg7RB5B9qxTSfcaCrP7gJe
+	 G3SJv4lBYrQx4Y1yd7SPGX3EIPU9t/41qLNHl5mEzj4qTDeA2ymtdtTi/KyTgp7wmfQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=sina.com;
-	spf=pass smtp.mailfrom=sina.com;
-	dkim=pass header.d=sina.com header.i=@sina.com header.a=rsa-sha256 header.s=201208 header.b=T7hu9hVa;
-	arc=none smtp.remote-ip=202.108.3.25
-Received: from r3-25.sinamail.sina.com.cn (r3-25.sinamail.sina.com.cn [202.108.3.25])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=MFFslLEz;
+	arc=none smtp.remote-ip=91.218.175.159
+Received: from mta0.migadu.com (out-159.mta0.migadu.com [91.218.175.159])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D0FB606A31B
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 11:41:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8D0FB606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sina.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E8B6606A31B
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 11:43:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7E8B6606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=sina.com header.i=@sina.com header.a=rsa-sha256 header.s=201208 header.b=T7hu9hVa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sina.com; s=201208; t=1792755673;
-	bh=5cygoKyDem6jl3IIN+AbxX+FnzVwflEWGyoiGRY80Yg=;
-	h=From:Subject:Date:Message-ID;
-	b=T7hu9hVax26zxqcRaWleaqz5PkCMUoMt7y7Z3deG6meK8VIjBMexx1HeWRIP8554C
-	 0vABZjs0or3gfvrpj9vC6rD7FzbukNFxBoYnxKpcufDHYYAcgdbLS/CfHE5aSl2ls9
-	 YLcDF+BYuSYTeUv2sbZGFMukcoyhIPzV2Nkfa3J0=
-X-SMAIL-HELO: localhost.localdomain
-Received: from unknown (HELO localhost.localdomain)([221.216.116.244])
-	by sina.com (10.54.253.31) with ESMTP
-	id 6ADB47CC00006537; Fri, 23 Oct 2026 19:41:04 +0800 (CST)
-X-Sender: hdanton@sina.com
-X-Auth-ID: hdanton@sina.com
-Authentication-Results: sina.com;
-	 spf=none smtp.mailfrom=hdanton@sina.com;
-	 dkim=none header.i=none;
-	 dmarc=none action=none header.from=hdanton@sina.com
-X-SMAIL-MID: 5283336815912
-X-SMAIL-UIID: 834902246C7247D7A48A785F4A216E1C-20261023-194104-1
-From: Hillf Danton <hdanton@sina.com>
-To: Sergey Senozhatsky <senozhatsky@chromium.org>
-Cc: Barry Song <21cnbao@gmail.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Brian Geffon <bgeffon@google.com>,
-	linux-kernel@vger.kernel.org,
-	linux-block@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: Re: [PATCH v6 09/13] zram: split zcomp into separate R/W streams
-Date: Fri, 23 Oct 2026 19:40:49 +0800
-Message-ID: <20261023114050.1011-1-hdanton@sina.com>
-In-Reply-To: <atrnvuQkeldgPqH5@google.com>
-References: 
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=MFFslLEz
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=8wMLzGll6jVNiO5BAgyO9Sjgdz2dhskrMMCjXCL9Bh0=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792755822; v=1; x=1793360622;
+ b=MFFslLEzMO0GKqk0EVgs4mBCP5Qqe7TWOWNQg3GWnYwzvNa8WUQmSkRCDuMn9kX1CX4MuTDk
+ ZF7GG9JwwOOKuoZDkT4h1xdQw1lh4vtv+iOUqYL3FnY+NHR5p+6EWtngOc04p8M5xHANf2zekXC
+ GMBk2NcxUMlpqAdBbiJ9xvQM=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 27d1656d2bb95f51;
+	Fri, 23 Oct 2026 11:43:42 +0000
+X-Mizu-Trace-ID: 27d1656d2bb95f51
+X-Migadu-Flow: FLOW_OUT
+From: Jiayuan Chen <jiayuan.chen@linux.dev>
+To: netdev@vger.kernel.org
+Cc: Jiayuan Chen <jiayuan.chen@linux.dev>,
+	stable@vger.kernel.org,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Kuniyuki Iwashima <kuniyu@google.com>,
+	Neal Cardwell <ncardwell@google.com>,
+	Joel Granados <joel.granados@kernel.org>,
+	Matthias Tafelmeier <matthias.tafelmeier@gmx.net>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net] net: reject dev_weight products that overflow int
+Date: Fri, 23 Oct 2026 19:42:25 +0800
+Message-ID: <20261023114228.289161-1-jiayuan.chen@linux.dev>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,85 +75,71 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On Fri, 23 Oct 2026 14:01:32 +0900 Sergey Senozhatsky wrote:
-> On (26/10/22 19:11), Hillf Danton wrote:
-> [..]
-> > What I am confused is -- why decompression needs to run faster without boosting
-> > compression up. Where is the compressed material?
-> 
-> In a typical embedded device (e.g. android) zram write is swap-out
-> (direct, indirect kswapd, or backgroud service swapping out idle apps),
-> users don't see those.  zram read, on the contrary, is what users
-> see - because that's swap-in, read bursts when user brings back idle
-> app (camera app, etc.) which needs to get back to foregound quickly.
-> So, the read path is more important.
-> 
-> I tested the series against PE.
-> 
-Thanks for sharing data.
+proc_do_dev_weight() sets the backlog NAPI weight and the qdisc quota
+to dev_weight * dev_weight_rx_bias and dev_weight * dev_weight_tx_bias.
+The three sysctls only have a lower bound of 1, so the products can
+overflow int and end up <= 0, e.g. dev_weight=65536 and
+dev_weight_rx_bias=65536 give a backlog weight of 0.
 
-> readers vs readers (no writers) 3 runs
-> 
->     BASE+PE     IOPS 1,449k  avg 3.48us  sd 155.6us  p99.99 26.8us  max 280,820us
->                 IOPS 1,435k  avg 3.69us  sd 322.9us  p99.99 24.2us  max 540,512us
->                 IOPS 1,459k  avg 3.46us  sd  92.8us  p99.99 25.5us  max 172,186us
->     PATCHED+PE  IOPS 1,457k  avg 3.31us  sd  15.9us  p99.99 25.5us  max   7,580us
->                 IOPS 1,475k  avg 3.28us  sd  14.6us  p99.99 24.5us  max   7,327us
->                 IOPS 1,463k  avg 3.32us  sd  17.2us  p99.99 28.5us  max   6,816us
-> 
-     BASE+PE     IOPS 1,449k
-                 IOPS 1,435k
-                 IOPS 1,459k
-		+)----------
-		      4,343
-	       /3)----------
-		      1,447
+With a weight <= 0, __napi_poll() never sees work < weight. Once
+process_backlog() drains the queue and completes the NAPI by itself,
+__napi_poll() still asks for a repoll, so net_rx_action() keeps putting
+back a NAPI that is no longer scheduled and NET_RX spins on that CPU
+with nothing to do. Restoring the sysctls does not help, as napi->weight
+is only refreshed by process_backlog(), which is never called again.
 
-     PATCHED+PE  IOPS 1,457k
-                 IOPS 1,475k
-                 IOPS 1,463k
-		+)----------
-		      4,395
-	       /3)----------
-		      1,465
+After 3 pings over lo on CPU 2, with CONFIG_DEBUG_NET:
 
-		(1,465 - 1,447) / 1,447 = 18 / 1,447 = 1%
+  (NULL net_device): NAPI poll function process_backlog+0x0/0x1200 returned 1, exceeding its budget of 0.
+  repoll requested for device (efault) process_backlog but napi is not scheduled.
+  repoll requested for device (efault) process_backlog but napi is not scheduled.
+  ...
 
+and with nothing queued anymore, NET_RX keeps running on CPU 2:
 
-> R/W stream split makes sense for reasons that we already mentioned.
-> Readers don't need to be blocked on Writers - they don't compete for
-> the same data.  And, moreover, readers don't need to be serialized at
-> all for stateful decompression.
-> 
-> writers vs readers 3 runs
-> 
->     BASE+PE     IOPS 1,271k  avg 5.57us  sd 1,393us  p99.99 27.5us  max 1,581,800us
->                 IOPS 1,461k  avg 3.43us  sd    78us  p99.99 23.9us  max   227,015us
->                 IOPS 1,444k  avg 3.48us  sd   222us  p99.99 23.9us  max   592,628us
->     PATCHED+PE  IOPS 1,457k  avg 3.32us  sd    18us  p99.99 27.5us  max     5,620us
->                 IOPS 1,464k  avg 3.31us  sd    17us  p99.99 24.2us  max     5,621us
->                 IOPS 1,475k  avg 3.29us  sd    16us  p99.99 26.5us  max     5,620us
-> 
-     BASE+PE     IOPS 1,271k
-                 IOPS 1,461k
-                 IOPS 1,444k
-		+)----------
-		      4,176
-	       /3)----------
-		      1,392
+  NET_RX on cpu2: +454190 in 5s, ksoftirqd/2 at ~82% CPU
 
-     PATCHED+PE  IOPS 1,457k
-                 IOPS 1,464k
-                 IOPS 1,475k
-		+)----------
-		      4,396
-	       /3)----------
-		      1,465
+Reject writes that make either product overflow int, and print the
+values involved.
 
-		(1,465 - 1,392) / 1,392 = 73 / 1,392 = 5%
+Fixes: 3d48b53fb2ae ("net: dev_weight: TX/RX orthogonality")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
+---
+ net/core/sysctl_net_core.c | 15 ++++++++++++---
+ 1 file changed, 12 insertions(+), 3 deletions(-)
 
+diff --git a/net/core/sysctl_net_core.c b/net/core/sysctl_net_core.c
+index 473c162736d6..4f3796bc8870 100644
+--- a/net/core/sysctl_net_core.c
++++ b/net/core/sysctl_net_core.c
+@@ -318,14 +318,23 @@ static int proc_do_dev_weight(const struct ctl_table *table, int write,
+ 			   void *buffer, size_t *lenp, loff_t *ppos)
+ {
+ 	static DEFINE_MUTEX(dev_weight_mutex);
+-	int ret, weight;
++	int ret, weight, old, rx, tx;
+ 
+ 	mutex_lock(&dev_weight_mutex);
++	old = *(int *)table->data;
+ 	ret = proc_dointvec_minmax(table, write, buffer, lenp, ppos);
+ 	if (!ret && write) {
+ 		weight = READ_ONCE(weight_p);
+-		WRITE_ONCE(net_hotdata.dev_rx_weight, weight * dev_weight_rx_bias);
+-		WRITE_ONCE(net_hotdata.dev_tx_weight, weight * dev_weight_tx_bias);
++		if (check_mul_overflow(weight, dev_weight_rx_bias, &rx) ||
++		    check_mul_overflow(weight, dev_weight_tx_bias, &tx)) {
++			pr_warn("dev_weight(%d) * (rx_bias(%d) or tx_bias(%d)) overflows int\n",
++				weight, dev_weight_rx_bias, dev_weight_tx_bias);
++			WRITE_ONCE(*(int *)table->data, old);
++			ret = -EINVAL;
++		} else {
++			WRITE_ONCE(net_hotdata.dev_rx_weight, rx);
++			WRITE_ONCE(net_hotdata.dev_tx_weight, tx);
++		}
+ 	}
+ 	mutex_unlock(&dev_weight_mutex);
+ 
+-- 
+2.43.0
 
-	improvment	within 5%	more than 10%	more than 20%
-	(mIngo's) rule	safely ignored	good		standing ovation
-
-More than two miles away from standing ovation.
