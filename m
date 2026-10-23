@@ -1,48 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792793413;
-	b=X68b7vCyFUQQvMpr7oPPMGM1sFFsy3cjpZDAq525QwGs7/AouzYZGOhfBjMV+hZnXTDp
-	 IVvCHSokbSwdps7qeV4MGYHjfGw2OU151Q1K/Cxn3E9ngv55PRzPmyCoyPQQpaX+qIYQY
-	 6Pa0aLbzAyvoKHJHeGwZoisSQpQpdG0CEXNnQNeIicIY9zuVkUnacZG7Gyr6PwaqltQES
-	 2+1avpAnBj4saZuK8VbpQLida9cIJgR1M5FfDfB6ep3zADFHvZfzilKLTPma1V+ZVUiKe
-	 3KQAtXwL8OnkkmDlVegyc3uWAMzK9BYw74J4s1kAw4iFZIvV9KLTJYzRRYp4TMtYSSA==
+	t=1792793408;
+	b=LWtPIFX+F8uw/QmEXZ+Lnvwl4Nsk7DkI7h1FwM8dqTPsQP4ysZto1MrTchl2UdIVUwmV
+	 /Ngwg6m9QtIPzg0tZpkdoodSU6EyUgOll3RBYGKHuimlonfUN0x7iewXNFbtBr2hMppEi
+	 Snjd36uoDdgM5P34ZpclmIKhS5JROyGK7rV0StnWI8ulr7OA2ehiHVpiMQJihwNPVOpi7
+	 3P8WRPj8ClbpKNJa3sk6tpF/HvqNB+BY3B3AMf7Pm8+KcbtyJNrsfxheI2V6KmnOl/xmZ
+	 r0sNt5IT71LsaxdCyVzxPhO8rHyDbpvSkUGcEPygLigdi7BV8P4R5+hBr0EOD+Z4cOg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792793413;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792793408;
 	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
 	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
 	 In-Reply-To:To:Cc;
-	bh=1mCqzzxWjMqDLySJJYwOwUosu8W8pSpFwSVp2R8njlg=;
-	b=0bc9gIfCbPXpkQdufwUdd6obcCGSOsWSqNyWRhpze+o9BcmBffILebUb8SZUM7gGm3Vd
-	 AOqHwENFqo9WU6q09A2YiHb4DG4oiUc7+/0AQuIUm45f4Bv2rNopa9cdlhMnLEkXEJ3da
-	 6fPveLORwuW06UDX8E7Leoa271YZVIehzwY6hy4DfPYDiI8M1fN9bV+CVioiWTOBVJceb
-	 pwCNLAiT+6qveG8wKkY+JO4uLTrmg5neXOLIHPBIw1mldoupVAMpjLoDupN62NpCaSj5G
-	 8QUo/Xj5nbUu9Cw8iB5IGISaky84bkwCq2XC6Ms26o3F2qRprl+mZ9zSkdtQtNJNdAQ==
+	bh=IMKxAJTioTnFgV2kKOcnfYJ3tZQRRjdSbCM++F5BVaE=;
+	b=LhuZb6pi51POkTDhxVbUf4cqco/pNBijVoVDfRD+PBzF9cHaya6Q7vL+cKs8UIgiWN5l
+	 StA7bMjS1blJgzj8GJ4xw7ur+eHQwdsp+Dbcnm9mdMRT9Yet/o+rqV/bYda4CjsV+VkfI
+	 YDtHks5Ys3pRPihY/Djh1e35IngxMgf4YF3yl+6gLQRt5CoHj4TFJzFLrNV1E+1jGTKIQ
+	 IeP4GKaIeghUNSqnlbW35YS7vJ1iB0zrjhScpKfkp8+mGEgvek+nO54gx5JK2Hl6ASvjo
+	 qF22h5SmpOHEl4HSALVo0b4/G5S6scDsBo01LtSyhfq5v/yXggEXvPjrcAjQZ0xMBHQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dGABpSKP;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FlVzCnuS;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56A6A606A320;
-	Fri, 23 Oct 2026 22:10:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40A19606A31A;
+	Fri, 23 Oct 2026 22:10:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dGABpSKP
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 893311F031E1;
-	Fri, 23 Oct 2026 22:10:12 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FlVzCnuS
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C7E661F01825;
+	Fri, 23 Oct 2026 22:10:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792793412;
-	bh=1mCqzzxWjMqDLySJJYwOwUosu8W8pSpFwSVp2R8njlg=;
+	s=k20260515; t=1792793407;
+	bh=IMKxAJTioTnFgV2kKOcnfYJ3tZQRRjdSbCM++F5BVaE=;
 	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=dGABpSKPZXwVN8md7NweVLdckETbZ2Ef8Z+44/cJuijCtGN+KEQG4VkcoPE8n9h/0
-	 6zoAZVw+BtWLCt6JmAPVQ6NgM6kJe2AYmT0pNKOrpt1kbk08bZPARaTBttkoewsYLf
-	 v36CrtFjuH/pTLsyV1UVaaYS+djeu13YqdMV8KdoVZyeN4Ov04U/S4RqxDDo9b3F1N
-	 Os7VK9CGUv5CkwAUktn62mGVRL3kKvzGDUPY77GhzmTFCZ7s0umUNd8ztRaYuIP0Ub
-	 Jo2CrcwIR/CmqhFfxV0hFyFmRbbTPwwhPpmJRK1JhDtXqC8Tg9mvaTDvlrUa6Yw3sD
-	 NYFxpfA0A7NMg==
+	b=FlVzCnuSbMh0amDfEVVUsCnuMcnW2pIkQdyeD3xYmsVO/j3oLQNDsS7C0ScjMY+7K
+	 uuhKbctsX7VAbbLir9L8PRt1Dfj3Aona0l53vEz5QvJl2oUr5/Sxczz46GKw2GCTbf
+	 yAkP1iehxYCs66jJmkfVxNt/rMxGx4/zHjIEcXmVG14WyR4PrW6syV4hlBnyGrKxs/
+	 SGGm1pAFiH9x6W4hdroIbnw5omfRwoakIdzwNv3E0fct9KCFgw1R/4n3NoNoe7XCEP
+	 Le7MJZIJ74VZUH93B6Vi7rnVSYHAIzS7gfegpwCVHIp2vfvkI6XtTo14fjhIwzY6VN
+	 r0AADJEKpf7Zw==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 81505391B158;
-	Fri, 23 Oct 2026 22:10:12 +0000 (UTC)
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id BE5B7391B158;
+	Fri, 23 Oct 2026 22:10:07 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -54,43 +54,43 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH] Bluetooth: MGMT: Return RFKILLED for Set Powered on a
- blocked
- controller
+Subject: Re: [PATCH v4 0/3] Bluetooth: btmtk: fix ISO data reception
 From: patchwork-bot+bluetooth@kernel.org
 Message-Id: 
- <179279341105.1294506.2700531975523429266.git-patchwork-notify@kernel.org>
-Date: Fri, 23 Oct 2026 22:10:11 +0000
-References: <20261021065833.120347-1-tooangel@tooangel.de>
-In-Reply-To: <20261021065833.120347-1-tooangel@tooangel.de>
-To: Tobias Wilken <tooangel@tooangel.de>
-Cc: linux-bluetooth@vger.kernel.org, luiz.dentz@gmail.com,
- marcel@holtmann.org, linux-kernel@vger.kernel.org
+ <179279340621.1294506.18194273796007140982.git-patchwork-notify@kernel.org>
+Date: Fri, 23 Oct 2026 22:10:06 +0000
+References: <20261022032150.2213479-1-chris.lu@mediatek.com>
+In-Reply-To: <20261022032150.2213479-1-chris.lu@mediatek.com>
+To: Chris Lu <chris.lu@mediatek.com>
+Cc: marcel@holtmann.org, johan.hedberg@gmail.com, luiz.dentz@gmail.com,
+ hao.qin@mediatek.com, ot_wenlong.tian@mediatek.com, sean.wang@mediatek.com,
+ will-cy.Lee@mediatek.com, ss.wu@mediatek.com,
+ linux-bluetooth@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-mediatek@lists.infradead.org
 
 Hello:
 
-This patch was applied to bluetooth/bluetooth-next.git (master)
+This series was applied to bluetooth/bluetooth-next.git (master)
 by Luiz Augusto von Dentz <luiz.von.dentz@intel.com>:
 
-On Wed, 21 Oct 2026 08:58:33 +0200 you wrote:
-> Since MGMT_OP_SET_POWERED runs through hci_cmd_sync, powering on a
-> controller that is blocked by rfkill fails with -ERFKILL from
-> hci_dev_open_sync(), and mgmt_set_powered_complete() reports it with
-> mgmt_status(err). mgmt_errno_status() has no case for -ERFKILL, so
-> userspace gets MGMT_STATUS_FAILED instead of MGMT_STATUS_RFKILLED.
+On Thu, 22 Oct 2026 11:21:47 +0800 you wrote:
+> Two fixes for btmtk_recv_isopkt(), found while debugging LE Audio on
+> MT7925, plus an update to the ISO data transmission setting. The function
+> is shared by every MediaTek USB controller that supports ISO data, so none
+> of this is specific to that part.
 > 
-> Before that conversion, power on went through hci_power_on(), whose
-> error path mgmt_set_powered_failed() still maps -ERFKILL to
-> MGMT_STATUS_RFKILLED. bluetoothd relies on that status: for
-> RFKILLED it sets the adapter PowerState to "off-blocked" and returns
-> org.bluez.Error.Blocked for the Powered property, for any other status
-> it returns org.bluez.Error.Failed.
+> Patch 1 drops the zero padding that the ISO interrupt IN endpoint appends
+> to each transfer instead of parsing it as ISO packets.
 > 
 > [...]
 
 Here is the summary with links:
-  - Bluetooth: MGMT: Return RFKILLED for Set Powered on a blocked controller
-    https://git.kernel.org/bluetooth/bluetooth-next/c/65683fbed5c8
+  - [v4,1/3] Bluetooth: btmtk: drop zero-length ISO packets from endpoint padding
+    https://git.kernel.org/bluetooth/bluetooth-next/c/fa9d4ec85257
+  - [v4,2/3] Bluetooth: btmtk: bound the ISO payload length by the controller's MTU
+    https://git.kernel.org/bluetooth/bluetooth-next/c/61eb283d06c7
+  - [v4,3/3] Bluetooth: btmtk: derive the firmware ISO setting from MTK_ISO_THRESHOLD
+    https://git.kernel.org/bluetooth/bluetooth-next/c/c9d0dedffc1e
 
 You are awesome, thank you!
 -- 
