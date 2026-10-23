@@ -1,52 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792761638;
-	b=EaFjG1A8F9ZDysTyfjw9pm/rd76lPzI2ha+6N2emAWpZXi7T3iksaADM68b+AdL1WkBn
-	 eYNlZZ81YwhVrlFztZkj4N+lNWxg54G/gHOps9hyk5R3dyZ3gdtBLCqYPPbduJafadi2Y
-	 J/3kIo+sGuo0zQUWi9MVE9IO18zCcUM/K0aTTHsjbnhFiRm4+2hpx+uGL9KmR9hHy2PXO
-	 ODn79XsUsUbJCrscpf02oLxMdIUlIck7MQ1hWV2bpL4shVYQoYgvv4lKbT9gwjTcoaJjO
-	 nHFKkR0kPk9GyJiiUout5syeNmwncKylxT9vu0Vs8FU2kGmBKjtcOmkjKxMJ6heZSNg==
+	t=1792761763;
+	b=z5hra4aUkKQnvgJbBJ5cYlnjnoWWvyu3z9xHd3T3b3P8mC9YwR25CWtovySgDF2VU3mW
+	 Lj8XQQ5E4VKK8AshBIZuVuTjQjoXFi3riEzs8kDrJ2lOGTDJG13luQ3Ji52TyeVKu8INf
+	 L6VqDLtM+HKhBP2iII38XxBvR+O2+FlVZK74A3PaVtEkWY3qGZmwSlu9vX9XPlX1X6g3a
+	 fLwCxEQ78CoK1przwZCxwY8VTx4trSOnMCdJh5gzWG7wht89+XdlUlJEieoYE29EDDaxd
+	 DOczzGLLZSfAmVeDAbU4xNlI/WFSkza4k8LMxXrxA+DqHaeiQ3MjxtVrtrF9l30lH0g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792761638;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:From:Date:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
-	 References:In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key;
-	bh=tx7JqVA3FUzSdiK18OVw/NfkiEMje40ezK5GaQ4E24s=;
-	b=QxTxcVFNROFB3hI9alX+PosXmhfnFNZSHVlMY4JYktX45yAC3BIC+NVTkTOgws8S5+5V
-	 mpPz1yg16ftmDzGey++vdCzI8Y7MnpbfA4wsMabzvMTXeMzFYLF2XOqt5sg39A4C6ZQu5
-	 O+29cIozE2SNdNEgzWoBo+ZbF+qoCDq9AzgCoyv0Hw8BQFl/U48qltHxMGGJWgPoAFjPR
-	 cSy3LUGJ0L/gfMGb4uP5gulx4RcP6SScbP3khtwjYGIYR7xS5Cz/JbkM9uA2NCjUHok1b
-	 4jm4+a1DYtTPAoDIj2OV79z3QRKypEQieR54ASAmi8EoIw+3FshQq7Kc7PlvCvv3Ecw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792761763;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=W2Cpxy4wVss+iIJW+q/MvPFsOUQNm5aAmpJ0e8BYxrw=;
+	b=czt0il+ZdeLgOPmf0gewkb3dPX9y3oWXB0iDwBJzYDQqrPVD5GlpsSqsEuMjyVnWmztY
+	 q/f0lm4Lzdgy3MxKdZ+M0ayf4u9ujkl5WX9WfV7v1Zc7O1Dvr+CU1kpzk24EyHq/NK3c6
+	 WciMORUJXgQrjQYHMrwMZfKfsbziTE/ZgdESq2K8INGdgchfcRDdvFopE5WhQJj5jytO5
+	 7u8xT9tJqWSk2SI+8BHTcVj2sV6t8TbHuTHqaBWqOevmyhqwlTukz7oXQVu0lb0G6h40n
+	 b06/43HyPNUx6nnTKwHD242H97EEwgYZIdxh6AypLLett4zh/6+XDhYcOAGnK/nWq7Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=aUjLHPCY;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 02406606A32F;
-	Fri, 23 Oct 2026 13:20:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 02406606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oCogN7ON;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 5DA04606A31A;
+	Fri, 23 Oct 2026 13:22:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=aUjLHPCY
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 4160F328E;
-	Fri, 23 Oct 2026 06:20:33 -0700 (PDT)
-Received: from e132581.arm.com (unknown [10.2.196.114])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 765713F673;
-	Fri, 23 Oct 2026 06:20:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1792761636; bh=kWH9fuk43xDSbnzyHI+7jLKjTx3clQU7Bx9Y/r1e2d4=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=aUjLHPCY18ScP0fcsz5l+LaJOm73Q9Uyc1jStvyykQma/RGQu5JXUtwqHhn77p7a4
-	 alPTdqvQy9r9rVXRzrJT4vUSDKZn3+B836QCUvXPwNyorA6hmUKOSRK0/RZ+qvuAoB
-	 g8KUHp1z4HYLZcx9b7rRzl8SywIHUjoEZgx4v3vA=
-From: Leo Yan <leo.yan@arm.com>
-Date: Fri, 23 Oct 2026 14:20:25 +0100
-Subject: [PATCH 2/2] perf timechart: Initialize Textual attributes in
- constructors
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oCogN7ON
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 5B5061F01825;
+	Fri, 23 Oct 2026 13:22:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792761762;
+	bh=W2Cpxy4wVss+iIJW+q/MvPFsOUQNm5aAmpJ0e8BYxrw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=oCogN7ON1s3A8gapiPvC+G8QBqjFb9jRSpQgM7yTWdjtD7NiA9wkYd+c6QwlopZEP
+	 vxPkhoUqWKapFuCAKBhYqkwiF/4Beq3LeOo86nE/hTzCQxM75To++V+PtmOx7GhO6g
+	 vwUiEHiTMfi40tTInELCf1eemkpf55kidv/2dfNkeVEHKlMBphQlOzr7R3qE2LTwKq
+	 UHX67RGrQNm60W39u7LaNN+VfPaMCB1DE5/GTSQ8jyQ4G4T/XBPoVGI0akNxOes4IY
+	 TZZzGsAh3HMcihhBkHlrVg1bbVJaSFqKGafBz/ZHb5Tu0Bp/LegvLcM/As1ztDI+75
+	 onGwtNPVbK/Ow==
+Date: Fri, 23 Oct 2026 16:22:39 +0300
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: David Howells <dhowells@redhat.com>
+Cc: keyrings@vger.kernel.org,
+	Linus Torvalds <torvalds@linux-foundation.org>,
+	Eric Biggers <ebiggers@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
+	"Serge E. Hallyn" <serge@hallyn.com>,
+	open list <linux-kernel@vger.kernel.org>,
+	"open list:SECURITY SUBSYSTEM" <linux-security-module@vger.kernel.org>
+Subject: Re: [PATCH v2 5/6] KEYS: Replace assoc_array with rhashtable
+Message-ID: <attfn7_lt4Zhl99e@kernel.org>
+References: <20261023120953.1206778-1-jarkko@kernel.org>
+ <20261023120953.1206778-6-jarkko@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -56,72 +63,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261023-perf_fix_pylint_warning-v1-2-b9da8dae2fe9@arm.com>
-References: <20261023-perf_fix_pylint_warning-v1-0-b9da8dae2fe9@arm.com>
-In-Reply-To: <20261023-perf_fix_pylint_warning-v1-0-b9da8dae2fe9@arm.com>
-To: Arnaldo Carvalho de Melo <acme@kernel.org>, 
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
- Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, 
- Adrian Hunter <adrian.hunter@intel.com>, 
- James Clark <james.clark@linaro.org>, 
- Alice Rogers <alice.mei.rogers@gmail.com>, 
- Aishwarya TCV <aishwarya.tcv@arm.com>
-Cc: Arnaldo Carvalho de Melo <acme@redhat.com>, 
- linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Leo Yan <leo.yan@arm.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792761629; l=1982;
- i=leo.yan@arm.com; s=20250604; h=from:subject:message-id;
- bh=kWH9fuk43xDSbnzyHI+7jLKjTx3clQU7Bx9Y/r1e2d4=;
- b=z9TZYIIEAz5DyQ6HkC4vx/D98MoQ0UW2UrTiz++85veK3XQMg/RfxXFOke7a81YnQ76KLhHIy
- jfE0on2vb5aB0TayQN291+gOtvMCPFP3MMK+yzckBEFVVjDfR8yqyc+
-X-Developer-Key: i=leo.yan@arm.com; a=ed25519;
- pk=k4BaDbvkCXzBFA7Nw184KHGP5thju8lKqJYIrOWxDhI=
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261023120953.1206778-6-jarkko@kernel.org>
 
-When Textual is unavailable, pylint cannot resolve the inherited
-virtual_size and sub_title attributes, which triggers pylint warnings
-and caused arm64 cross build failure:
+On Fri, Oct 23, 2026 at 03:09:25PM +0300, Jarkko Sakkinen wrote:
+> The keyring subsystem depends on assoc_array for searching keys by their
+> description, type and domain. It is the sole user of this data structure,
+> which has during the age of LLMs transformed into a maintenance nightmare.
+> 
+> assoc_array needs to be replaced with a data structure meeting the
+> following criteria:
+> 
+> 1. Must be suitable for a sparse key-value store.
+> 2. Must have multiple in-kernel users.
+> 3. Would be nice if it had dedicated maintainers.
+> 
+> rhashtable is likely the best pick from the available options as it is
+> designed for a sparse key space, has dedicated maintainers, and multiple
+> in-kernel users.
+> 
+> assoc_array is replaced with two new data types:
+> 
+> - keyring_index: contains a searchable index of links to keys and an RCU
+>   protected list for active links, which is used to provide stable walks.
+> - keyring_link: a keyring node and its contents. Multiple of these can be
+>   associated with a key as it can belong to multiple keyrings.
+> 
+> assoc_array_edit is substituted with two-element array of keyring_link
+> pointers with no specific data type defined.
+> 
+> Jenkins hash digest's used by rhashtable are rehashed from the SipHash
+> digests of search keys and links.
+> 
+> Assisted-by: LLM
+> Suggested-by: Eric Biggers <ebiggers@kernel.org>
+> Co-developed-by: Linus Torvalds <torvalds@linux-foundation.org>
+> Signed-off-by: Linus Torvalds <torvalds@linux-foundation.org>
+> Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
 
-  ************* Module ttimechart
-  python/ttimechart.py:1086:8: W0201: Attribute 'virtual_size' defined outside __init__ (attribute-defined-outside-init)
-  python/ttimechart.py:1422:12: W0201: Attribute 'sub_title' defined outside __init__ (attribute-defined-outside-init)
-  python/ttimechart.py:1496:8: W0201: Attribute 'sub_title' defined outside __init__ (attribute-defined-outside-init)
-  python/ttimechart.py:1510:8: W0201: Attribute 'sub_title' defined outside __init__ (attribute-defined-outside-init)
+I did quite extensive testing on this revision and have deployed these
+patches to my at-work project builds, which is a vLMM appliance type of
+an operating system.
 
-Initialize both attributes in their respective constructors. Use
-Textual's default empty virtual size, with the actual geometry
-computed when the timeline mounts or resizes.
-
-Fixes: e7a72d691980 ("perf timechart: Add an interactive --tui mode")
-Signed-off-by: Leo Yan <leo.yan@arm.com>
----
- tools/perf/python/ttimechart.py | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/tools/perf/python/ttimechart.py b/tools/perf/python/ttimechart.py
-index 34ecf84e68c1db7f542070dde608ac09d662a1b2..16d2bbbdd98b23d64ab42643db42686cad98f0f0 100755
---- a/tools/perf/python/ttimechart.py
-+++ b/tools/perf/python/ttimechart.py
-@@ -1065,6 +1065,7 @@ class TimelineView(ScrollView):
-         self.can_focus = True
-         self.data = data
-         self.rows = rows
-+        self.virtual_size = Size(0, 0)
-         self.cache: Dict[int, List[Cell]] = {}
-         self.cache_key: Tuple[float, float, int, Optional[ThemeColors]] = (0.0, 0.0, 0, None)
-         self.label_style = Style()
-@@ -1332,6 +1333,7 @@ class TimechartApp(App):
-         """
-         super().__init__()
-         self.input_name = input_name
-+        self.sub_title = input_name
-         self.power_only = power_only
-         self.tasks_only = tasks_only
-         self.filters = filters
-
--- 
-2.34.1
-
+Br, Jarkko
