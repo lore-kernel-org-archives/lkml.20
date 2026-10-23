@@ -1,94 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792743513;
-	b=pC/Tw6TTuXxYJtDRY7tFIuyGqD2O9T0ce6OZLYYPN6tlMSjhiXnbDACsTSNqH5VRM2ce
-	 BKXF9IBkkEwqfz4YkdVyOhT2VZB7x2d55iUL+2VvvxiNMP/MOGn3CGMgD2/RixtD8Lj90
-	 qdcjQHD/SaY869LTHENplfssPZSjX8p3Cz/uII4FOe5BeatToGQrNtwdyELXDkdur7zw/
-	 DsQU1fWnfr9KKWGJJbX54gqwnhvTvOchmlIxfj+1U8fpikEvBVIqu+ELeAzvYPQ6JPHrY
-	 8B8bScYBmhn4lXvIzu+yb8ceVtfAu0MGjB+EQZU/2cWuceZpejfjT+lU5QCSZiQwtZQ==
+	t=1792743601;
+	b=0sIrf3q7Fuf6oOYAXvQXQQ5bL8VuHIbOR/w/rgU5H++5egKa3pInkwxGys5JgJvQ7C+S
+	 ZywPvdbW5pHiE/ixXoz7uuvhdInCEzXTcdgdGHf7TDToiXpr3JvawNQVtmKyycnq5BeU2
+	 /HbRh3f73o2/HsQ1is52DtYXLuN5XjBhFMVDv0hzlUkHKgugvJ3X5RXOfzBmvt2uZD8xw
+	 qDL5DZlB/HzXgbxchyM3I1lGDywS526I4ujIX4X0wGbkdwbxa3uSa9tHLV6ndbLofqJLR
+	 evQ9gVcc0V2z6VxhocM04MPCyZB+K9o9EnbbWwvrpkMU/WVEZ1FX1jX4jXly0/i1kBQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792743513;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=n5vPrfbmjtB4d4z+h+75wRb54w4l+pZIgRZmf289DF4=;
-	b=r49zTN60eJe1jSN57a21MOhWx7kq3fBrvqs7Oz3VTtGjqo0M4iKDk4sG8OfLzcnUyZ1t
-	 a+O1urmkE4mmrwMJbCj9d0iiltPOjovtm52koWJdEEf9iTnlKNixTfXxbBtk+KaBb3//i
-	 njKbXfce3kcbGHJGHNo9FCWETBWXQD/GQ4lgYIGreZbsqO35uTx7ubOcC+8+74sQQzLC3
-	 hPCe7SBw1fqA7vxJRspSnkJQdqsCcGw2dGt60EoKn3flx1RFkQ3uXNJQgcT8XF5zzDVsV
-	 hYFoyvQ+/r5VgQt51ld9wanMXD/eLMytkZCyYkqkXbvARJ4lpNCo+o2qPfdGjWvVdgA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792743601;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=w+uZcRKsV5h7EXsxKjGUwOGNuNwl+VfHuYMNxjipb3o=;
+	b=fk16iKPH/DeZCP4m77TpFsSEKexgEMWyKCemtcCUIDYCERwMckY0nj5o8Z2/JTehu1qg
+	 T8VUderA5vyW5knJULcw/Js7faSDgdNdZiWMr3V1Y3vCPA7jKFTgEyai6xPJ6kizEo1iH
+	 SWnQ4IudOTYPHBG+cT41I7QaUOFcc/AUL/o5JAW62vU1njqTCus4HsbLnivsUMolbAgzy
+	 HNUZuQCrHsiv9kdGmsN6GX4Atxb4P+oe5iVfUwlOZoF6/cEBf8ZbY14plaVSiIgI3Tpyw
+	 GK5mFLYLiLoCSr+NGhAf4r1UnzT9cyS+URJzMJi+bO2Mbjg+j02VLk4nqaiknEGOy7w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=U5UB5jg0;
-	arc=none smtp.remote-ip=209.85.216.51
-Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="hC/L1MQ7";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C7FE606A331
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 08:18:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1C7FE606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 731C9606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 08:20:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=U5UB5jg0
-Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-3acc96a256dso380337a91.3
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 01:18:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792743512; x=1793348312; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=n5vPrfbmjtB4d4z+h+75wRb54w4l+pZIgRZmf289DF4=;
-        b=U5UB5jg0MQlQYbNuXux7dTw0ltZUfisJz2vPD77hmiYC1LgyP+lRIaq9jgJJOZgBOi
-         gKtT3TZaCHB7A/dhbwoNvRDF4oaHHMlqvxpddr+A0+3m7zKvAXqKRmqEcGoEYpQ/o/gB
-         +F7BMs1HeZFjJGro8fl7JS9LqgHF3wpYFr46oxMDCyC6d28VJAeAounbfIyUm2Xu2yPN
-         Uk4vecIvihbZNNs5Av71eI8AfdKv2CWnvfXkDOJge03MnA9oyBYWFyvokDyZ8fd57e7J
-         wXWLOIURgjr3thaczfszRlW0Xtk7WsPb+OhrYw6/k1gpMsguNmvnK3LCFFHiI8tTqmIL
-         csTQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792743512; x=1793348312;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=n5vPrfbmjtB4d4z+h+75wRb54w4l+pZIgRZmf289DF4=;
-        b=gJZwipT4PLQEXaLIrpL11wf11byQyRiiq1dto2B9fJoEguCVFOy49ca0bbs2qQ+kRH
-         5rs9MnuQKSruzQ87v7OM44R2eMWlQhUS8c47V52Igg3qTDvmB9t7b5HRYumLYUFfGZ6s
-         8e9R7dfW/fDDLwYqvplReajjkYvk0yq5qoxktv5A+BQcPn8rAeJHUCWW10+rD+aAbsR3
-         XDzbkP3VMK11T68huS8Nu2egmRJxQZXAlQBl/Xol6jnh7L+GaupBvdL+4nlPEbeNNxYw
-         YJeB1b6rJkCYxrVUinclYUgpoAck7d/D4EVf/Hr6OqsC4Nx4gkD6l2glgE8vJkR83bNm
-         Z1xQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwXb0m1ra2Y0Jm/u5Kmi0uC8ro8WXascnTAZfYh1QGJk0Wx0sa/L5c0UYOLXfHhy+4eGMiTc0G8Xu2Nzmo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKQwL8ZiQpQnD57HfAKuteKYMldHBH+Q7hGNUufIto2gg1QD+p4
-	09cyYegp++d13Nt/9OLufkWqKm8qFuBr97XlpKgHjDcLbw8nD9EiiOKk
-X-Gm-Gg: AYBFou1Kuhr1tvTMAl/i2eIe/qZ5Q6SXpEsQQiFpGy1iVkWVdV7nJ7uLyHM16WDZbfI
-	FeXugOOU8B0EDB7oD5inU7sGI9+nxHfDFwraAOdf8NYTj8HxoAo1XFIcKfrLiOobruoCEav9tyR
-	Gibfdd1wrb+70dZeCGMokw2Q2kwNUSGJ1cn82jDQAZ3I8jyHXpjzLXd7A5ArfsD6/WNIpwcH5BG
-	9Dua0BclCKdk150QfGzQBWKFj9EyIdr8klzx+yWgn4TPgzNOOjH0HA0JVnmRbtYacxSnkS8PZVd
-	AlClfs56xlP+UGqkXM2PT9HB2YNAVarlGwJySX3mZPrug4n8GxWFrF/femEcw5ItijAHPiawn43
-	odMo5T7w0Hs1EQvC3+7+tYkRZk9TLPKKzj4Kum+e0IJxLFb7qEwu2pu03fWYfFp0LQZf5A6GHha
-	mHaOvpJHC2n9viybYPUUC4xB0eOB41Z1QhyLd3S/qE1zSKWTt6R5XzeMy4tQoVkgAekz8Gy+sdv
-	J9JlU8V1ua0iBwtsl2Wp7lYoPD9CAjrCzyOhsoEbY9R1UoS7pAjIDAZJql9dhYcBARq+Zjed4Fn
-	XSrO0JPOWaNBh5iLFlbz9mZwW/i0ScaUzCRXe/N80hmvURxVXLhG
-X-Received: by 2002:a17:90a:d007:b0:3ac:9a5e:9ce9 with SMTP id 98e67ed59e1d1-3adce02dfbdmr1235557a91.29.1792743512400;
-        Fri, 23 Oct 2026 01:18:32 -0700 (PDT)
-Received: from hostname.tail4fb79.ts.net ([2401:7400:c804:b668:65cc:625f:9c43:1e88])
-        by smtp.googlemail.com with ESMTPSA id 98e67ed59e1d1-3adcb1b134csm2532052a91.8.2026.10.23.01.18.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 23 Oct 2026 01:18:31 -0700 (PDT)
-From: Ho Jie Feng <hjf3108@gmail.com>
-To: basavaraj.natikar@amd.com
-Cc: stable@vger.kernel.org,
-	Ho Jie Feng <hjf3108@gmail.com>,
-	Jiri Kosina <jikos@kernel.org>,
-	Benjamin Tissoires <bentiss@kernel.org>,
-	linux-input@vger.kernel.org,
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hC/L1MQ7
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 739661F01825;
+	Fri, 23 Oct 2026 08:19:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792743601;
+	bh=w+uZcRKsV5h7EXsxKjGUwOGNuNwl+VfHuYMNxjipb3o=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=hC/L1MQ7M1aO8VZ1NXHGDX9iszEeVlPNaBbhvunGdg6YNBPw8L9Mzspsy+ar1087V
+	 HmI/6gwOaEEx2Kl+YPdzPJZt36tE6xVjAKtEEucZ7Tmsn7YBZNJaj04xcEv4cCsdqT
+	 vU7oHMiREtChPgWu+glIZCkuwamoY67wWqaJ4q9USt5OWNPUp4zvOLwDRVfw9EwNbv
+	 Yps23mfbB9M/jv+2MAx6cHKMEPuPmw0tRfdrDDKlr6q+B852EUofQvXDP6WhhStfy7
+	 4OfSVa4tbqcjD2OakjYBIpsekvIf0gLa5MNL9qrnUPH3S5/pgVH3oTl4hj32sCWyr3
+	 teIHgcWiNO/Lg==
+Date: Fri, 23 Oct 2026 09:19:55 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Cc: Luiz Capitulino <luizcap@redhat.com>, 
+	Andrew Morton <akpm@linux-foundation.org>, "Liam R. Howlett" <liam@infradead.org>, 
+	Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+	David Hildenbrand <david@kernel.org>, Jakub Matena <matenajakub@gmail.com>, linux-mm@kvack.org, 
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2] HID: amd_sfh: Use shared interrupts
-Date: Fri, 23 Oct 2026 16:18:02 +0800
-Message-ID: <20261023081803.21761-1-hjf3108@gmail.com>
-X-Mailer: git-send-email 2.55.0
+Subject: Re: [REGRESSION] mremap() fails VMA expansion when VM_MIXEDMAP is set
+Message-ID: <atsYe34Qvw5oUDMZ@gremlin>
+References: <20261023023106.515365-1-luizcap@redhat.com>
+ <8c53e58c-f7d2-4e98-8d03-7ff1163c1159@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,117 +60,30 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <8c53e58c-f7d2-4e98-8d03-7ff1163c1159@kernel.org>
 
-The AMD SFH driver requests interrupts without IRQF_SHARED.
-This can cause VFIO PCI passthrough initialization to fail
-when a passed-through device shares the interrupt with AMD MP2.
+On Fri, Oct 23, 2026 at 09:16:12AM +0200, Vlastimil Babka (SUSE) wrote:
+> On 10/23/26 04:31, Luiz Capitulino wrote:
 
-Request the interrupt with IRQF_SHARED. Check for a pending MP2
-interrupt before clearing and acknowledging it, and return IRQ_NONE
-when no MP2 interrupt is pending so the interrupt can be shared with
-other devices.
+> > This regression was introduced in v6.1 by commit ca3d76b0aa80 ("mm: add merging
+> > after mremap resize"). This commit changed mremap() to use vma_merge() instead
+> > of vma_adjust() for the expansion case. However, vma_merge() returns NULL for
+> > a VMA that has any of the VM_SPECIAL flags set.
+>
+> Hi,
+>
+> 6.1 was a rather long time ago. How was it discovered just now? I.e. what
+> use case broke by the change and prompted creating the reproducer?
+>
+> Vlastimil
+> Thanks,
 
-On an AMD Ryzen 7 7735HS host running 7.0.0-38-generic kernel
-from Ubuntu, trying to pass through an xHCI controller
-(1022:161d, 0000:e6:00.3) fails with this message:
+Thanks, I have the same questions :)
 
-  genirq: Flags mismatch irq 45.
-  00200080 (vfio-intx(0000:e6:00.3)) vs. 00200000 (pcie_mp2_amd)
+Do always include that kind of information and whether it was an LLM-discovered
+thing or whether you had an actual workload that was impacted, etc.
 
-QEMU reports:
-
-  vfio 0000:e6:00.3: Failed to set up TRIGGER eventfd signaling for
-  interrupt INTX-0: VFIO_DEVICE_SET_IRQS failure: Device or resource busy
-
-With this change, the passthrough is successful through VFIO
-on the same host.
-
-Fixes: 7f016b35ca76 ("HID: amd_sfh: Add interrupt handler to process interrupts")
-Cc: stable@vger.kernel.org
-Signed-off-by: Ho Jie Feng <hjf3108@gmail.com>
----
- drivers/hid/amd-sfh-hid/amd_sfh_common.h |  6 +++---
- drivers/hid/amd-sfh-hid/amd_sfh_pcie.c   | 18 ++++++++++++------
- 2 files changed, 15 insertions(+), 9 deletions(-)
-
-diff --git a/drivers/hid/amd-sfh-hid/amd_sfh_common.h b/drivers/hid/amd-sfh-hid/amd_sfh_common.h
-index e8cc7f1d289cc..4481a50359de6 100644
---- a/drivers/hid/amd-sfh-hid/amd_sfh_common.h
-+++ b/drivers/hid/amd-sfh-hid/amd_sfh_common.h
-@@ -85,7 +85,7 @@ struct amd_mp2_ops {
- 	void (*stop)(struct amd_mp2_dev *privdata, u16 sensor_idx);
- 	void (*stop_all)(struct amd_mp2_dev *privdata);
- 	int (*response)(struct amd_mp2_dev *mp2, u8 sid, u32 sensor_sts);
--	void (*clear_intr)(struct amd_mp2_dev *privdata);
-+	bool (*clear_intr)(struct amd_mp2_dev *privdata);
- 	int (*init_intr)(struct amd_mp2_dev *privdata);
- 	int (*discovery_status)(struct amd_mp2_dev *privdata);
- 	void (*suspend)(struct amd_mp2_dev *mp2);
-@@ -100,9 +100,9 @@ struct amd_mp2_ops {
- 
- void amd_sfh_work(struct work_struct *work);
- void amd_sfh_work_buffer(struct work_struct *work);
--void amd_sfh_clear_intr_v2(struct amd_mp2_dev *privdata);
-+bool amd_sfh_clear_intr_v2(struct amd_mp2_dev *privdata);
- int amd_sfh_irq_init_v2(struct amd_mp2_dev *privdata);
--void amd_sfh_clear_intr(struct amd_mp2_dev *privdata);
-+bool amd_sfh_clear_intr(struct amd_mp2_dev *privdata);
- int amd_sfh_irq_init(struct amd_mp2_dev *privdata);
- 
- static inline u64 amd_get_c2p_val(struct amd_mp2_dev *mp2, u32 idx)
-diff --git a/drivers/hid/amd-sfh-hid/amd_sfh_pcie.c b/drivers/hid/amd-sfh-hid/amd_sfh_pcie.c
-index b3cb13b8c5e87..f48a096a6d2bc 100644
---- a/drivers/hid/amd-sfh-hid/amd_sfh_pcie.c
-+++ b/drivers/hid/amd-sfh-hid/amd_sfh_pcie.c
-@@ -103,25 +103,31 @@ static void amd_stop_all_sensor_v2(struct amd_mp2_dev *privdata)
- 	writel(cmd_base.ul, privdata->mmio + AMD_C2P_MSG0);
- }
- 
--void amd_sfh_clear_intr_v2(struct amd_mp2_dev *privdata)
-+bool amd_sfh_clear_intr_v2(struct amd_mp2_dev *privdata)
- {
- 	if (readl(privdata->mmio + amd_get_p2c_val(privdata, 4))) {
- 		writel(0, privdata->mmio + amd_get_p2c_val(privdata, 4));
- 		writel(0xf, privdata->mmio + amd_get_p2c_val(privdata, 5));
-+		return true;
- 	}
-+
-+	return false;
- }
- 
--void amd_sfh_clear_intr(struct amd_mp2_dev *privdata)
-+bool amd_sfh_clear_intr(struct amd_mp2_dev *privdata)
- {
- 	if (privdata->mp2_ops->clear_intr)
--		privdata->mp2_ops->clear_intr(privdata);
-+		return privdata->mp2_ops->clear_intr(privdata);
-+
-+	return false;
- }
- 
- static irqreturn_t amd_sfh_irq_handler(int irq, void *data)
- {
--	amd_sfh_clear_intr(data);
-+	if (amd_sfh_clear_intr(data))
-+		return IRQ_HANDLED;
- 
--	return IRQ_HANDLED;
-+	return IRQ_NONE;
- }
- 
- int amd_sfh_irq_init_v2(struct amd_mp2_dev *privdata)
-@@ -129,7 +135,7 @@ int amd_sfh_irq_init_v2(struct amd_mp2_dev *privdata)
- 	pcim_intx(privdata->pdev, true);
- 
- 	return devm_request_irq(&privdata->pdev->dev, privdata->pdev->irq,
--				amd_sfh_irq_handler, 0, DRIVER_NAME, privdata);
-+				amd_sfh_irq_handler, IRQF_SHARED, DRIVER_NAME, privdata);
- }
- 
- static int amd_sfh_dis_sts_v2(struct amd_mp2_dev *privdata)
-
-base-commit: 2c2fe95ab19b09bef7391e3e5cdf8146d09792b6
--- 
-2.55.0
-
+--
+Cheers, Lorenzo
