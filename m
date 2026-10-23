@@ -1,60 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=116.203.120.240
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792788145;
-	b=qE/w44oSxkKkQZAv3TrwM2KXsHpi+D14Fa/JvwMALxZpEEK1PFH6OMulSNHvT24k2pwO
-	 GQVXjNRHWmVHqTfmMehYwozYUHvqOIBlNaWUekdTLKtFgPqHGlGCoVynripyjmmSfru1q
-	 2WSGkpsCFl+X/k6MAKpJB/Gn76r28vUcnwE4AgW0DAYb9sbLCsgOulC3Dk+O3X3RBqJhw
-	 EzSUU9JyFHwEJL1dM4Bp7x1ROTdgFdey7y7IpVl97rhaDxEGgEb7VNhGgUsA3+dTcMLJx
-	 GyMgt3iI0hOjguIeJSaUuDDztiAFNaJAeVlgQ1n7WnYU6a7l4APfHxE710HjpUc8u2A==
+	t=1792788240;
+	b=YPIVzugxMwgk7o+juIIpCcp3XTf+clHUTUSxii+cRbNcvIrY2ztVKVNTyOQ0evVYP4yM
+	 Eq26tYX8OGUxTEiI8ZTS7fagaJqUugt9ItBxRRE3fQCcAJLagnQE8IHno4ZSNeMZwMPlV
+	 spbaXOsMgB+6kM8pZpBy8NY8BDXoYlH/Ru/RtjATRf7XclaQSwwADBH4PeBIWTU5yh0Cm
+	 RdJNaKvDKbHTg/SCbQsb40Vy5EeW6uxuf4b8wbELSzApJzP69CJAj30yYzD1IZi1YAhIu
+	 eV/URIMEyu4HFkBKVYmwye5xCJftRUerSReyMK6dk1nmkAO2rX5zrgJSg18r1I/tyUA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792788145;
-	h=DMARC-Filter:Date:DKIM-Signature:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type;
-	bh=COpiAirfJW1xxVg1u9cfsoxdrpIGBM2kVJHRlSGDvkg=;
-	b=2T6hfwnJGurW+YYweXbWGrfVIOLbE1HJPigJjd49bJUcnPJPtWyzMHjnTWfP/1xDU0Zb
-	 kmhHsmi8BpMMTFGQdhGII2oD2KMJJwCd4Gmp69KlbtbADu2DpTsG8C9bwq5kSi1wLSVoh
-	 Xw/AQTLwkJnRS8+giuOHk2fvsS18Bk54w9u8mZXKGOLacPoG3HftWOojruDCtmxNBoxs0
-	 fsX38AR6cmSQa5VtnWsiyQIOuEYAubeLLV/v/WMjVXrplKk6KZ48PqPTn+mx02u9pvEvS
-	 AFUQpY+1sxbN4sOkLx19FdWEPwAAbUjo4goHB+pcZOLj4noPCQVMUacJMTHwJTokgEA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792788240;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=Kg5sEdhQ2g+V2nQgohzkE2jL3J0nwWNaN3yyyXVB1Vc=;
+	b=Vq687THnq1jiQifKaOSzN24UB2KOGUbL799aI6Lx5LCyQQ+9k9glH8RhUY8y/pW4Eo3P
+	 vz9HRyTfSooIIUF4whS/51zEhoc9wz2JSfM+nWe6EPef8yfwgCgo54/zFpJm9kOpT8K9M
+	 GQk5EqJNB22nbaL08+tf4J+sbU13whq3sgItkuuVRyGdNW98pziLRJa6QxKvYMqkHItvL
+	 vM+71/9wjRmYgH3v8Cppu9Mt4eup6NQWjWrZluNiQuuTFv5aO0DxK/jS4cf7Xj4uBKq/d
+	 5Tu5+TWtfbjgH/g9wL1/7jPk/Rw/hpfabQqIsRMa9kza5oBSPywkw3O9K0VYuDj1Btg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bues.ch;
-	spf=pass smtp.mailfrom=bues.ch;
-	dkim=pass header.d=bues.ch header.i=@bues.ch header.a=rsa-sha256 header.s=main header.b=C5WH1fbR;
-	arc=none smtp.remote-ip=116.203.120.240
-Received: from mail.bues.ch (bues.ch [116.203.120.240])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=lYuX0DGP;
+	arc=none smtp.remote-ip=192.198.163.11
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 746F4606A31A;
-	Fri, 23 Oct 2026 20:42:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 746F4606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bues.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bues.ch
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DC84606A31A;
+	Fri, 23 Oct 2026 20:43:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0DC84606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bues.ch header.i=@bues.ch header.a=rsa-sha256 header.s=main header.b=C5WH1fbR
-Date: Fri, 23 Oct 2026 22:41:40 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bues.ch; s=main;
-	t=1792788142;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=COpiAirfJW1xxVg1u9cfsoxdrpIGBM2kVJHRlSGDvkg=;
-	b=C5WH1fbROxWG8k5bo3Oorcq018DJ/1QAQ3sH98NBUe/W+mNyvOlP5NwTiah9H4yO7deKiA
-	AptTBgxGQSVlkqHOVt73MOmNXftzsJaOCLE945+Ep+1HPYUsQ9iDCfSWB5Q9NnFSYtkKXx
-	sHpgvAWSelL39NEH46bEUfkgiHKIymYS5gEAQ9E+aJLIUGs89qTx0p/q1l5PmFCiApLFRm
-	kFLnr5+ynYqYpxRlZDj0jvQx000ULbJemAND1d97N2v5a+j/HGXMgbJTiW9DYfAlaMB9YE
-	isqW1TMtT7JKWkhRrXY+kh/M8f3SuO1VbvlTzx5F0pwQNxm83Vh1g2Mq+IJSvQ==
-From: Michael =?UTF-8?B?QsO8c2No?= <m@bues.ch>
-To: Rosen Penev <rosenp@gmail.com>
-Cc: linux-wireless@vger.kernel.org, b43-dev@lists.infradead.org (open
- list:B43 WIRELESS DRIVER), linux-kernel@vger.kernel.org (open list)
-Subject: Re: [PATCH wireless] wifi: b43: map the RX buffers
- DMA_BIDIRECTIONAL
-Message-ID: <20261023224140.465903eb@barney>
-In-Reply-To: <20261023221424.2722795e@barney>
-References: <20261023190653.70741-1-rosenp@gmail.com>
- <20261023221424.2722795e@barney>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=lYuX0DGP
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792788240; x=1824324240;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=SdXxGKPsZhSER7+T11B25dIGAkc06IB10PwDrkQUjNI=;
+  b=lYuX0DGPpfWeLOYv+eaK/6SL9Iyv2vaaUxpv2glmrhFhw3qyiO9ff8k/
+   FDBVVBqh9gZNz5TdVWzWC0Lt0A+jjICopRqJwuoWlFsDRbUKiUYD7pEJD
+   KTbYKPWbDsdA5biyaCBr1OvF5cSm88X3ABkkACJCzOPxtPuRycdjY8Xpy
+   W9gZxJ0UQ+7VKnj/de16u/7WzLKz5JydxKdSwKR+otY4j/3QRymccV/+q
+   SWWA1IboWQD4XvRnzKt/hzBoYhVOZin5tAcMlt/OnIjmObG/QiRC+4oh8
+   AUZdfOB1YCadsu1P14SH2gzHzDLAbd76ivlS+cY5qfK/sEFvJ6Ys8bUMa
+   w==;
+X-CSE-ConnectionGUID: 3vpQCp1DSG+jAeIc/eFnIA==
+X-CSE-MsgGUID: CRNHAx4kSru0L7Mb0aIpTw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11944"; a="1455977"
+X-IronPort-AV: E=Sophos;i="6.27,174,1787036400"; 
+   d="scan'208";a="1455977"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Oct 2026 13:44:00 -0700
+X-CSE-ConnectionGUID: 4Lky41bqRqSvgB3SMkw+dw==
+X-CSE-MsgGUID: e4UaoCamQPK9VSpUQTONew==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,174,1787036400"; 
+   d="scan'208";a="3742384"
+Received: from soc-pf446t5c.clients.intel.com (HELO [10.24.80.90]) ([10.24.80.90])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Oct 2026 13:44:00 -0700
+Message-ID: <4e8ffa1b-a0bc-4a77-b1f2-cc1c84f9d8ec@linux.intel.com>
+Date: Fri, 23 Oct 2026 13:43:59 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,64 +72,78 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="Sig_/A+dZC/cF/CkDIhpzPpycaYS";
- protocol="application/pgp-signature"; micalg=pgp-sha512
-
---Sig_/A+dZC/cF/CkDIhpzPpycaYS
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/2] virt: tdx-guest: Fix timeout detection in
+ wait_for_quote_completion()
+To: moe@flashbots.net, Kiryl Shutsemau <kas@kernel.org>,
+ Rick Edgecombe <rick.p.edgecombe@intel.com>,
+ Dave Hansen <dave.hansen@linux.intel.com>,
+ Erdem Aktas <erdemaktas@google.com>, Tom Lendacky <thomas.lendacky@amd.com>,
+ Dan Williams <djbw@kernel.org>
+Cc: Jun Miao <jun.miao@intel.com>, x86@kernel.org,
+ linux-coco@lists.linux.dev, kvm@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261022-tdx-guest-quote-poll-v2-0-7543c6eb2d36@flashbots.net>
+ <20261022-tdx-guest-quote-poll-v2-1-7543c6eb2d36@flashbots.net>
+Content-Language: en-US
+From: Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
+In-Reply-To: <20261022-tdx-guest-quote-poll-v2-1-7543c6eb2d36@flashbots.net>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 7bit
 
-To explain this further:
+Hi,
 
-- I might be wrong, but this patch looks completely bogus to me.
-  Why would this be bi-directional?
-  If this is accessed bi-directionally, there must be a bug somewhere else.
-- Please provide a HUMAN WRITTEN patch description.
-  This is really important.
+On 10/22/2026 9:31 AM, Moe Mahhouk via B4 Relay wrote:
+> From: Moe Mahhouk <moe@flashbots.net>
+> 
+> wait_for_quote_completion() counts the seconds it has waited in i and
+> reports a timeout when i == timeout. That gets both outcomes of the
+> last second wrong:
+> 
+> - If the request is still in flight after the last sleep, the loop
+>   condition increments i once more before it fails, so the loop ends
+>   with i == timeout + 1 and the function returns 0. The caller then
+>   returns -EIO instead of -ETIMEDOUT, without the "GetQuote request
+>   timedout" message. Before commit 0f409eaea53e ("virt: tdx-guest:
+>   Return error for GetQuote failures") a timed-out request even
+>   returned success with an empty Quote.
+> 
+> - If the VMM completes the request during the last sleep, the loop ends
+>   on the status check with i == timeout, and the function returns
+>   -ETIMEDOUT for a completed request, discarding the Quote.
+> 
+> Decide on the Quote buffer instead: the request timed out if it is
+> still in flight when the wait ends.
+> 
+> Fixes: f4738f56d1dc ("virt: tdx-guest: Add Quote generation support using TSM_REPORTS")
+> Reported-by: Kiryl Shutsemau <kas@kernel.org>
+> Closes: https://lore.kernel.org/all/atoHWgQF-0vlTRK4@thinkstation/
+> Signed-off-by: Moe Mahhouk <moe@flashbots.net>
+> ---
 
-I am all for using AI for development.
-Especially for such old and legacy code.
-HOWEVER, there must be a human present and understanding what is being done.
+Since it can be back ported add Cc: stable@vger.kernel.org
 
-Please slow down your submissions.
-Think about your patches before submission.
-TEST your code before submission and send evidence of your tests.
-Untested code is to be rejected.
-
---=20
-Michael B=C3=BCsch
-https://bues.ch/
+Reviewed-by: Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
 
 
-On Fri, 23 Oct 2026 22:14:24 +0200
-Michael B=C3=BCsch <m@bues.ch> wrote:
+>  drivers/virt/coco/tdx-guest/tdx-guest.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/virt/coco/tdx-guest/tdx-guest.c b/drivers/virt/coco/tdx-guest/tdx-guest.c
+> index 11d741da3b35..a5a53174f9d9 100644
+> --- a/drivers/virt/coco/tdx-guest/tdx-guest.c
+> +++ b/drivers/virt/coco/tdx-guest/tdx-guest.c
+> @@ -282,7 +282,7 @@ static int wait_for_quote_completion(struct tdx_quote_buf *buf, u32 timeout)
+>  			return -EINTR;
+>  	}
+>  
+> -	return (i == timeout) ? -ETIMEDOUT : 0;
+> +	return (buf->status == GET_QUOTE_IN_FLIGHT) ? -ETIMEDOUT : 0;
+>  }
+>  
+>  static int tdx_report_new_locked(struct tsm_report *report)
+> 
 
-> Quite honestly, to me this looks like a lot of AI slop is sent to b43 the=
-se days.
-> Can you please slow down your submissions so that actual people get a cha=
-nce to review the stuff?
-> Thanks!
->=20
+-- 
+Sathyanarayanan Kuppuswamy
+Linux Kernel Developer
 
---Sig_/A+dZC/cF/CkDIhpzPpycaYS
-Content-Type: application/pgp-signature
-Content-Description: OpenPGP digital signature
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCgAdFiEEihRzkKVZOnT2ipsS9TK+HZCNiw4FAmrbxoQACgkQ9TK+HZCN
-iw4QPhAAi17mINLOEeqDnVvjz/BSwRowOsI4dK9+hEjvuleukzqvk0T2kSNFrU/9
-ROF7PHAiOJeT3ywsRBiR9LI2ik5WvBaRWlJXnBZ42Z7Fl133A+YA/Ixh4qwro/1h
-S3x7xFtqOhy/2v8ZppvW1FPc+w4GCevTfYwj+9bvfy0WHbu5VozQwUdIjY5B6vLm
-hGaHlTIeL5Bs4K2+Rvp4i1r4nGZ5uSD8Gkd+PZoj0m/4fpaDsOJLJVXd25HdrPi5
-XZQUlN3I2AJJL0t7EXqX60CopYEDVKMjQVrjRj4QJr51BLDMZVMOmaqpY7aNCaJ/
-zGhp+94+EltJr39uhyjhZoDlE7MKb/XK3hyqUdJyLp2FvosrCYjiyt3oCdp0Q6l0
-PqrBOmErIttstglW2IA7kDDdSH84lB6mig7z/0E4W8v/iAbbQBxNXAEqJaeV4cv+
-fWzguyokIrn7tqlSpHCqqn8mNYKxnunjRPODmmXeTA02YWJhf0gH5vxKtu4dAKpc
-7PDfg7gSx6N60S+mXtmaZOmLUrMmrmV09jGB9VKqO2kjDj5pOtAUqnVlIQdYFVx2
-4DpN7yORaE+IvMVADn9dhvqzJ/nhDJFXwgAgTynNAzvCJAyDBTZX/AddsYhVCL+0
-GmmpshB/urhaR5e1siORgsGMIzY8xzaVJ0/IWdcKvpbvCK59pKI=
-=Xmwj
------END PGP SIGNATURE-----
-
---Sig_/A+dZC/cF/CkDIhpzPpycaYS--
