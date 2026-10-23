@@ -1,112 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.175
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.171.160.6
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792770135;
-	b=CerPWZ2EJ4qTrmyhQb3L0KUNlOyNnE0hNiSvw8IspyfqMAa9FpQbvT7RSiFIhCotIi5V
-	 mP8NEn0wIdaZIY0xGAY2aOuKx5p5iwwgRguF+ihZ0v2YqKRjSKYBMudBSQJquS5wP8Jbt
-	 FtkVfRL/aOnpNcPIujTb1cr4eGss+59GGqd1aWKUpj9qnTIycfaSM3IQ8GLavt87Qw0Dw
-	 o6JG39zStilX/3v0XlqOeK5/DRol6iJXIx2AsY26uraaM0EAfuxnCuza/iot1JkHnLqga
-	 pJbznboYXYo05ClC1p/NsHUSDxOjaY6YY3w1/n9se4ZlyqX3YDFpJIkTguKCZKbXSxg==
+	t=1792770249;
+	b=mTFgXiyZM/zEP5/zURa4I3nMX1OSxCKCj8y0TyVHH5xtPVKuVyivAS3Q1x5rBXpRO82/
+	 HcpskuIi2QXNzTsnw2A8uiFsVyNCh9IxUZ1mI3I/py+1A72JWQ8Yme9Q54/FvokHJ8elU
+	 XyhsPzbbNFdnWulyeFjdUVhnY5A8Bs+Iz35P8y5p3e73Zi+aJm78cQ7J91bzHAC7JculZ
+	 kveRicSbustzXBVsSkQtbR+/KdPPSq47H+dkroTZL9S/um+0ms6YJcCCjKQO5wxlZ2YkT
+	 fdDIyCIy4PXOnGbz3v+KAIEfDFj5Q+S0XeJgSToZztU3aWkl2vM7t+I3FLSA6L3rVxA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792770135;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=rug7Neq15IHiij489G0zvk8NhY0SVtgpPgzc6r/gkrk=;
-	b=D8USOqP98jZ/hNR1PhUABP5qm331FdgDy90NdBTuwNoeSw9tF308cgdkX6PTxEoZ+IgU
-	 MYSDZnN+bzVwGBD7Z4WrWKDh2t9gXnpDne3FK38vFa3oTlG/BwWgHDuWKrpHMrePTPbeR
-	 1+Og6Dr3PjpssnwJOQ+LrZfvuWh9zc6FxY03WDUhqqe9wg0Zbchs2AfifGPznZ8eMCl72
-	 Tdh5g0J+b9Xd18u8fTUE/68BKVpsBiW4IZjsHM5fbv+Qfv3N7L1TuOG/f57WB86PKTeCo
-	 /NaP2elwCbSXf+ELM+CvDmt0XIEXgUoB9Kgo+TgCFwHRGzpWFqPHUNZ2IPP6RJddzcQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792770249;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:Received:
+	 Received:From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 User-Agent:MIME-Version:Content-Type;
+	bh=rjUCtJIciQo5ho3Ui9ESxf094IT1YDCnkt3qhuw9aiE=;
+	b=gjiH+XAY2TSpEKq7++HoyG04sDB1KeFV+HeCko5lZc2tSfqvZEA+EvH16O6cizdIlbGM
+	 lH+SaDq3dCsV1fUTQu7hO9RMVc+W8hFTUuKZxa0I2+OC2HbLgP1fab0pNBvSetupl9fN+
+	 eKgwc0PhsUaOM/nNuy3eWbz5Musj+THH8ym6hV/r0dAZLDuiXVKcRMosNbdqiajA1WGnl
+	 6ynn1q6vDfEoyaU46k2xOloIS8bwhH+cXGYwM+18QPif41dHI0GinNK8Frf+FqCZXUXp0
+	 lqv+AjGbodL/eBmtXbAEPkUZYgPjoeNXphuaPbmlJRKeYEtz65ze/CzNNtqIiGNqJ6g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=ziepe.ca;
-	spf=pass smtp.mailfrom=ziepe.ca;
-	dkim=pass header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=c27WBFJ2;
-	arc=none smtp.remote-ip=209.85.222.175
-Received: from mail-qk1-f175.google.com (mail-qk1-f175.google.com [209.85.222.175])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=mail.parknet.co.jp;
+	spf=pass smtp.mailfrom=parknet.co.jp;
+	dkim=pass header.d=parknet.co.jp header.i=@parknet.co.jp header.a=rsa-sha256 header.s=20250114 header.b=vOzaNoRz;
+	dkim=pass header.d=parknet.co.jp header.i=@parknet.co.jp header.a=ed25519-sha256 header.s=20250114-ed25519 header.b=SAP4HN9N;
+	arc=none smtp.remote-ip=210.171.160.6
+Received: from mail.parknet.co.jp (mail.parknet.co.jp [210.171.160.6])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BEF3606A331
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 15:42:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2BEF3606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA9A6606A321;
+	Fri, 23 Oct 2026 15:44:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EA9A6606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mail.parknet.co.jp
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=parknet.co.jp
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=c27WBFJ2
-Received: by mail-qk1-f175.google.com with SMTP id af79cd13be357-93f269e335eso106385985a.3
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 08:42:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ziepe.ca; s=google; t=1792770134; x=1793374934; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=rug7Neq15IHiij489G0zvk8NhY0SVtgpPgzc6r/gkrk=;
-        b=c27WBFJ20LlEkXwtFWR0pToqFQOALwL+bcaaVuyVwXUk924Vl3bY2TE+HzwUkjjWpt
-         QaaeAPi6z5Ti+PWEFO4B/P+zy2aL4YiNfo4wU22IWJR8UJl5UsOSPZsuUwdq+P5P5bI9
-         72boUzrYkytCjS3Ko/P0xykJ3PbDwA2rQfd47sTgSJkaHkjkNaWVyqh7Xfj2zU9voNek
-         oHWce6+kRLUM7XPX8O2BXEN48XjkeD/eVwT16b3bS4zufHv2bthZ5aNwPUaW3+/wB8mR
-         3LSVs3lqw0vf+xIhH8LUjQVpYyx9cBXBWmBXwJ0sj/UDAKDRx/Nl2/3V8k+ZJ60Qkgg3
-         R0XQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792770134; x=1793374934;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=rug7Neq15IHiij489G0zvk8NhY0SVtgpPgzc6r/gkrk=;
-        b=X7pFzslS0bTF9BSB8zttAbUVACT1eeFpAtfS7k3fWRNpQ5gYVlXFKimgIQLNCS8knc
-         gS5cvOhzZ0DRDb1079Y2M5/mO/mpzVy74Sl40vOvYaWA6m8OugxwnbdVxdagG2O1qpOB
-         p7sM4mxD13Ztw3YnJbhDdyqzdecJFnhkM2KF1IkNxISjl3+5PH4/8YeCEfIp1o7o134P
-         1NTXMVNl1hLWsRh6UzL4b2MeM9bwAlXjhSWBHQVSYRrri9fmeJUKlqamIb7nHaxIrffW
-         TvUu1b6u9JWPqoZt7FN9TqvngmKVU9qyeiBCnDcdQ3hQdHDmQpKTfhkpqPjifoXHEJCC
-         VyLA==
-X-Forwarded-Encrypted: i=1; AKwUvBwZ6BC0bWzIYrHipg3nEkbqWFRM55D8lH6Js71lOqXzzp6YM/Dfh1P4Ixsmy23LKVKqY+BTCZalmGQjPq0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKjTwrKk5Jc9Rckp+V+9JCnU3h1+OskP7T1T5jPDRwIenfkdgYF
-	1+yH4I0qfoZDFn8kwsPaEWYU/bYgilGxh9J8Y25n6CMnBZiEynvV6jKEDfS2FfcQUTY=
-X-Gm-Gg: AYBFou2ULOkYaHfmxb1wkE6CdgYgzmqaDRw77q7v60F/0OI+01278lyMpqld/Au+cP3
-	FpGZHrf9Yo9mDjjQpCLLOKqTDTHauyOkAgrySExca7tt17hnGucauMO0gt8rZmyD/WW2dyOE7Ph
-	tWJAGMUnlHNT1XreA0dJVnvKw/fC78oeN53/lqWuq4J4ftvGV8SHMzdzs37zT7ltPr+pQ3c5wkG
-	sXsWMNLSU7SlaGFH0Vu6M9Qzo1KGQWXR54f5oOnclj7DF69ibTXbs3jlultiwSftb4te66nCArw
-	kXNuhjGqs1GFQM3zN9w1uvORfHJZlvh0X480U2Yv5yoQhWkp/R/Bz7MeALLjYZB1Xlm48f7TJ0W
-	mW8gWq4EisR4EOnpsDqBVjApgTUZ/QXDTAakxU/EnO6+5N3dGJ5BevdYhHn5mymN/+Pxxm+JGj2
-	HRR4TdWMXVUH51bZGojzqbPc810dqEDffQRoX/Et59aC3rO6MBzpg9QQBqURj8wJuH2IgVhnwmE
-	Hyl7t3Q8jVK0kQbWv/Y3iPHSZJkho8Ec82fEpQgc7BjwXhmmtg6QogYS05Ey/1glS6d/8TrRyHv
-	fHcX6xP70HARTtqPwoChETA5JIWzyGvW8AMO9A==
-X-Received: by 2002:a05:620a:1a11:b0:93e:5ef8:c794 with SMTP id af79cd13be357-93f6f9648bbmr497429285a.38.1792770134059;
-        Fri, 23 Oct 2026 08:42:14 -0700 (PDT)
-Received: from ziepe.ca (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net. [159.2.239.150])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-94047b362a5sm45129985a.33.2026.10.23.08.42.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 23 Oct 2026 08:42:13 -0700 (PDT)
-Received: from jgg by wakko with local (Exim 4.97)
-	(envelope-from <jgg@ziepe.ca>)
-	id 1xKHPI-0000000Gn79-3Zzp;
-	Fri, 23 Oct 2026 12:42:12 -0300
-Date: Fri, 23 Oct 2026 12:42:12 -0300
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>
-Cc: Jiri Pirko <jiri@resnulli.us>, linux-coco@lists.linux.dev,
-	linux-kernel@vger.kernel.org, linux-api@vger.kernel.org,
-	x86@kernel.org, kvm@vger.kernel.org, linux-doc@vger.kernel.org,
-	david.quigley@intel.com, lukas@wunner.de, ksinyuk@kernel.org,
-	rodrigo.vivi@intel.com, cedric.xing@intel.com, sameo@meta.com,
-	drdeeglaze@gmail.com, James.Bottomley@hansenpartnership.com,
-	aik@amd.com, jpiotrowski@nvidia.com, qinkun@google.com,
-	pgonda@google.com, jic23@kernel.org, alistair.francis@wdc.com,
-	ankita@nvidia.com, suzuki.poulose@arm.com, kas@kernel.org,
-	rick.p.edgecombe@intel.com, elena.reshetova@intel.com,
-	dave.hansen@linux.intel.com,
-	sathyanarayanan.kuppuswamy@linux.intel.com, peter.fang@intel.com
-Subject: Re: [PATCH RFC 00/20] attestation: Add a common subsystem and TDX
- support
-Message-ID: <20261023154212.GJ3977851@ziepe.ca>
-References: <20261015145053.3664509-1-jiri@resnulli.us>
- <yq5a7bjajaco.fsf@kernel.org>
- <atooh7uO2RauUTfY@FV6GYCPJ69>
- <yq5av76sj10a.fsf@kernel.org>
- <20261023142038.GE3977851@ziepe.ca>
- <yq5ase1wiggs.fsf@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=parknet.co.jp header.i=@parknet.co.jp header.a=rsa-sha256 header.s=20250114 header.b=vOzaNoRz;
+	dkim=pass header.d=parknet.co.jp header.i=@parknet.co.jp header.a=ed25519-sha256 header.s=20250114-ed25519 header.b=SAP4HN9N
+Received: from ibmpc.myhome.or.jp (server.parknet.ne.jp [210.171.168.39])
+	by mail.parknet.co.jp (Postfix) with ESMTPSA id B0F2B26F765F;
+	Sat, 24 Oct 2026 00:44:05 +0900 (JST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=parknet.co.jp;
+	s=20250114; t=1792770246;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=rjUCtJIciQo5ho3Ui9ESxf094IT1YDCnkt3qhuw9aiE=;
+	b=vOzaNoRzZo7uZ1GSiuZSIh0j85HbaZEYuiBYhi4QN6q/kmmRGVYe0QghsOSt/oYQ/i5H+Y
+	+MMcsMMKrZ+9vaX5L5UrNPij2Xf3tFbUKOjnAcZ3c8AwiGMV0fiza58QKL1AYBUcEVvYNq
+	wpBTD7DrVeQiTAL0YwCYyQzzY/tA03sxZFJk3nFMKaz0P2S338Ag/MX/Atnn8sNKXm9ZBl
+	qhA2+P1cok8xRwFrU5r5A28OiChZA6hTYQpwKxGIZQSdnG5GPfSwag6iMyz5Hl5oprnj6K
+	+gZy15TonTEMi25Z1Xccr7cAvCLahPLJV3KWYDVQhsjKdrkCcdhGjeKjU9IBRQ==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=parknet.co.jp;
+	s=20250114-ed25519; t=1792770246;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=rjUCtJIciQo5ho3Ui9ESxf094IT1YDCnkt3qhuw9aiE=;
+	b=SAP4HN9N/INquwHixuBNZ7oJxx7EuireA65RWgoudhMgpEUtjgM7ulu9VGO5fNbtS9mp+V
+	w4eFfSzynLZFRkCA==
+Received: from devron.myhome.or.jp (devron.myhome.or.jp [192.168.0.3])
+	by ibmpc.myhome.or.jp (Postfix) with ESMTPS id 0B4DCE001BF;
+	Sat, 24 Oct 2026 00:44:05 +0900 (JST)
+Received: by devron.myhome.or.jp (Postfix, from userid 1000)
+	id 02556220017B; Sat, 24 Oct 2026 00:44:04 +0900 (JST)
+From: OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
+To: Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
+Cc: linux-fsdevel@vger.kernel.org,  linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] fat: preallocate space before expanding in
+ fat_cont_expand()
+In-Reply-To: <87wlr8j2gs.fsf@mail.parknet.co.jp>
+References: <20261021154024.56868-1-matheus.aalmeida@inf.ufrgs.br>
+	<87wlr8j2gs.fsf@mail.parknet.co.jp>
+Date: Sat, 24 Oct 2026 00:44:04 +0900
+Message-ID: <87ld7oqv5n.fsf@mail.parknet.co.jp>
+User-Agent: Gnus/5.13 (Gnus v5.13)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -116,60 +81,41 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <yq5ase1wiggs.fsf@kernel.org>
+Content-Type: text/plain
 
-On Fri, Oct 23, 2026 at 08:58:35PM +0530, Aneesh Kumar K.V wrote:
-> Jason Gunthorpe <jgg@ziepe.ca> writes:
-> 
-> > On Fri, Oct 23, 2026 at 01:34:53PM +0530, Aneesh Kumar K.V wrote:
-> >
-> >> CCA currently takes the device identity index during pdev_create. I am
-> >> investigating how to retrieve the certificate chains for all slots. For
-> >> now, I have implemented the sequence below.
-> >
-> > Yeah, I think the consensus at LPC was this may be a gap in CCA.
-> 
-> I checked with Alexey, and if I understand him correctly, TIO also needs
-> to establish eight separate connections to retrieve the certificate
-> chains.
+OGAWA Hirofumi <hirofumi@mail.parknet.co.jp> writes:
 
-Lovely!
+>>  static int fat_cont_expand(struct inode *inode, loff_t size)
+>>  {
+>>  	struct address_space *mapping = inode->i_mapping;
+>>  	loff_t start = inode->i_size, count = size - inode->i_size;
+>>  	int err;
+>>  
+>> -	err = generic_cont_expand_simple(inode, size);
+>> +	/*
+>> +	 * Preallocating space here is more efficient than during
+>> +	 * generic_cont_expand_simple() because of batching.
+>> +	 */
+>> +	err = inode_newsize_ok(inode, size);
+>>  	if (err)
+>>  		goto out;
+>> +	err = fat_preallocate(inode, size);
+>> +	if (err)
+>> +		goto out;
+>> +	err = generic_cont_expand_simple(inode, size);
+>> +	if (err) {
+>> +		down_write(&MSDOS_I(inode)->truncate_lock);
+>> +		fat_truncate_blocks(inode, inode->i_size);
+>> +		up_write(&MSDOS_I(inode)->truncate_lock);
+>
+> Is this fat_truncate_blocks() really required?
+>
+>> +		goto out;
+>> +	}
 
-> For now, I am trying Jiri's suggestion: use Rust SPDM to fetch the
-> certificate chain and return it via evidence-get. evidence-accept then
-> does pdev-create with the specified slot number and compares the
-> evidence data returned by the RMM with the value cached by Rust SPDM. If
-> they match, it uses the cached value for set_pub_key. This seems to be
-> working. (FVP only supports slot 0, hence only one blob-instance)
+And maybe this will change the user visible behavior for ENOSPC. (I'm
+not sure if it is ok for now)
 
-That's a pretty good idea, and works for every arch! Maybe that is
-the best long term direction.
-
-IDK about all this "Caching" stuff, I'm not sure I love the name
-"Cache" to refer to the security important reference certificate
-bundles. It should have a stronger name to reflect how critical it is
-in the entire security design of SPDM. You select the certificates
-once and everything following must match that or something bad has
-happened. It is effectively a key part of the channel binding.
-
-But yes, RMM is sort of backwards here, the slot number should come
-with information about the certificates, but I think this is fine to
-have RMM fetch them again and then we just confirm everything matches
-the kernel's target. If we don't do a get prior to connecting then the
-kernel would just adopt the RMM's result as the target certificate
-chain for the slot?
-
-It certainly seems like it should be all sketched out and the uAPI
-confirmed. Given the state of things I don't see an issue with a slot
-0 only initial configuration (ie EOPNOTSUPP the certificate gets) so
-long as the long term resolution is clear.
-
-Which is an interesting question for Jiri on CTLV, one of the things
-we have in RDMA is runtime schema pruning. Based on runtime device
-capabilities parts of the schema can be disabled. Can we get there
-with CTLV too? Then introspection could return if the underlying
-implementation supports some of this stuff..
-
-Jason
+Thanks.
+-- 
+OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
