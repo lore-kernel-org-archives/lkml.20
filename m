@@ -1,70 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.6
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792740794;
-	b=LDw6kISzemjB5yTWTLC7jAD9K7biEii754a/BnqWpalHSOc98BBHL+KKiAQzBGch11eQ
-	 wBX8LVA1puLY8U6uNwwvAIcw5Lqgyuc2VPDv3FHp86dEMc6JrMg8dgNzErH0GhJE+D62q
-	 u5D+f+wLMw8N8FOjgL8XJvPmKrtTI9UhlMtd7med2wugv4h4gs0MSb9d5tPAg5JQVafR5
-	 kIy8ABDDgCynP6CPicr/MvCCNZLhFmdqnnQy3XSPtVQY4VV58rdhIV+yf3m52zc09zuhs
-	 KpyKY3aa61fGdbFs4fJMtqU20jdPsHEUvJOnZTJ9/awSVS4wAL1lCqwoZARK4q4PRDQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792740794;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=GCPeXdVtsAIGZmNIgcd/gdVcV03xEPsGBvi1mGdnz00=;
-	b=wArpKe/+Czjs3WUxcX+BTq3QYIzE3z55p64LuJNknmzDtw+Ad0VxpTPhMkJCPR3BVgWl
-	 UTYmVogVOgz0kdEXNgr6WX4wm6SuJGKKPBY2lQ3Fb5mXvaTrbbdsLsOQARUWC6iHh7B8/
-	 n5+EE53EubLwHrUsEfze3dPZ/6mPCDBA/KYzeVN/JaB6LBvRfnSnZ3qqcw1MzgkC4V1QT
-	 gkbnMy+aAblfeHDdgpFOW5NLZTNKhdfI+8ik6lBTbt/sRXc41cKLiflqQoo6vUqmC93Q0
-	 FmXbOtu0w5LwIXFGvO+iyFSMfWvFP898Pne8tIoGFH6EvoI+vus+OWdeyX5/V35KDZg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=EVbRIxhR;
-	arc=none smtp.remote-ip=91.218.175.6
-Received: from mta0.migadu.com (out-6.mta0.migadu.com [91.218.175.6])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792740799;
+	b=ybUbyMfsJFiS4HohHTIPS0z4MxQGM6QJtDrSEVHV/6tTruLRLztmaXRfJ5iFmaJtq7fr
+	 XdIywVsjofCGkRHjiUlPJAB+IRjbi3/25n745m0/MxVlQxpM34xeYILKIER7PIOqCq9AL
+	 9eHN63h1L/RM/nsLlXjYJxEut+hPsKgneJc9PAySjHMHFcuZH2HnpDRQ9UNi0klEqXnnd
+	 S8znYFtAmHEjVJMMkCRnR+LJTTe6/MP/BXx1kVbqUSZiGRRR9hRkKLLahpbiRwqJB5z/O
+	 v9TkfgLvPAAp91S2HuM6Xb9HC8pUb4Ii7OtWFMIE8hML+7i7aT3OA8shyvo8cLul98g==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792740799;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=S6XKfn92IyUJY1cSUHMeiE49TgcbF+Rpj7AMk6zxFsI=;
+	b=RQyjXZ1X80td2AbNtlf6Ov7jMK4FqKaY1/eUd91hly7XWnJhXziny8QMf7tO8MV4WURj
+	 RMDkh84vmKz4yL51TTGWTfyECCN6X36f/Y863yzoi7Ey9G5KkAWlhRAsxvHG6dL0vo1Tx
+	 X6QMoeEiE+qy3+NLmS/lYKj4AND3J6Sdl0XpeAPrvT5APIbhkfAKwcZMuCif3e2dnYV14
+	 nb0yyOwaG1+z59kNe92aV90HTjtx6UMp1VIvpceqaMWxAgrZu7ZclueyN1/BR9CK0yRTH
+	 smxzyrEya/FyJE48TAdQFAMAsHPnlzeFUtV7lWnHva8zS2V7KsSWsPMX4suaVdwxI7w==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="RC1vF3/M";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35840606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 07:33:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 35840606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2C13606A31B;
+	Fri, 23 Oct 2026 07:33:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=EVbRIxhR
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=0k5lukGRbTSNqdymG8Q7jy3MBEvP6PLNPDsNCvsgCNU=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792740790; v=1; x=1793345590;
- b=EVbRIxhRd2WKhWwLCBLWHeEPX4x+INc6XdqV7wInMLUbJnSQGRK7n9CATxTQrslUzhy8jD6p
- z64DZ2fv3cFW5Z+aTWz+EAbjexpgWsHMIAMTifzjcIixWAcDWR8az8lYvkPhBK7K/SutmBv8Css
- foFRytcIx1nZTiuV4hr3KABg=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 0fec9d0276b536b5;
-	Fri, 23 Oct 2026 07:33:10 +0000
-X-Mizu-Trace-ID: 0fec9d0276b536b5
-X-Migadu-Flow: FLOW_OUT
-From: Lance Yang <lance.yang@linux.dev>
-To: songmuchun@bytedance.com
-Cc: osalvador@suse.de,
-	akpm@linux-foundation.org,
-	rppt@kernel.org,
-	qi.zheng@linux.dev,
-	lance.yang@linux.dev,
-	jthoughton@google.com,
-	david@kernel.org,
-	muchun.song@linux.dev,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 12/12] mm: hugetlb_vmemmap: make vmemmap PTE conversion folio-oriented
-Date: Fri, 23 Oct 2026 15:33:03 +0800
-Message-ID: <20261023073303.66682-1-lance.yang@linux.dev>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20261020115824.823278-11-songmuchun@bytedance.com>
-References: <20261020115824.823278-11-songmuchun@bytedance.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RC1vF3/M
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1792740798;
+	b=EX7r0MqEBQ3EKUMQVw6PNM62Gu25262KXddPBfIKvCPw6l5gt+J2XYSlUF7+IAK1X4EC
+	 vIsZoM1lMS873yZa9FRiaoHUKdsEMs1HPeZWJD0830dbLfCvI7GyYBQoIAc84K31Y9cR8
+	 Wj19OF2wYcRbCu7tJaVLNascvjDqstdXvdsfw9QsvlwhVJHspssaJ+leMRoZ4jKd6Or/0
+	 qzK4TgNHZbApJvtnuIIlblwVy1vk9U7MIXiXGCETzM9J6o6LWu9xilosnKYhPV0Vg5NdO
+	 KsIGt5Sb/FZVnyUvO3iSC4JDx4kPfjcmIlDgzzTB6ZBRcRnYr6pHJrtYcH/ulcjGtjQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1792740798;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=S6XKfn92IyUJY1cSUHMeiE49TgcbF+Rpj7AMk6zxFsI=;
+	b=jjobU7+XIz2co1vB/y1gABkIsPGh0Mw+X7ahMcAVsTGk2f7wTAfwrvBoTZonVaDgxf+m
+	 CbDg39WUyAyKr3c26nxh0WRl9q5wqXHveFIXhzF4BK2DIqUSg1ewNNynUEHd+3uKHnbEI
+	 lydc9My8sagjem+e3Xr56jZ0dBImLlVeeeswpGldybTlYyUamBokBsulpMapLyy+XGk2w
+	 ClfcuHNbuq5pECTdKoVwBEbvbOVZ0E4TkAYRW4ndvX3f3LRS64RwtNYgn0r4ks+jc/SGJ
+	 BGBxNxMXHCcseKBs1OoGIdrmFHwfmnKnRcMLhiva6RzC0UiJ2basahpikd6A+WkORMQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id DF4F01F031E3;
+	Fri, 23 Oct 2026 07:33:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792740798;
+	bh=S6XKfn92IyUJY1cSUHMeiE49TgcbF+Rpj7AMk6zxFsI=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=RC1vF3/MeAsKuTUVszHXQ5ECvxszAtQ9gABEdCdXJN6Yo3mq6naaPTPW5yxJ6ZDAL
+	 Q1W8JtK4oJCPLRLFy6W9VWACqpoPhUssNCBIj2L5dpc0NkdDL8uEY5eowHAklPOkNW
+	 NlRniTrMgX8sPizXhtmji753xvVBDlPIname+Y/5UBqIjfazbBzyu9qCSIkqpCuRgZ
+	 EGs66NbTOc6uv+cFyj9yGD1gjeeUNDpWTgUrudmMxTwaCD+SUhLSYW/Twstu6vhvHs
+	 1GgD6XY+XDSIlzGgYWuU2keYv1HJMkhIfrw9zY7P7X9CqmncFF6dmiKy/BEGLQbOjW
+	 CjHuA+3IpadrQ==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 3C65D443E6;
+	Fri, 23 Oct 2026 07:33:17 +0000 (UTC)
+From: Han Gao via B4 Relay <devnull+gaohan.iscas.ac.cn@kernel.org>
+Subject: [PATCH 0/5] riscv: kexec: fix kexec_file with CMA-backed segments
+Date: Fri, 23 Oct 2026 15:33:13 +0800
+Message-Id: <20261023-riscv-kexec-cma-fixes-v1-0-825b90ea23c4@iscas.ac.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,25 +83,76 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXM0QqCQBCF4VeRuW5AV9S2V4ku1vGYU2SxkyKI7
+ 95qlx+H/6xkiAqjS7ZSxKym7zGhOGUkQxjvYO2SyeWuLnJXclSTmZ9YICyvwL0uMPat1L7x51B
+ JT6n9RBxDSq+3v21qH5Dvfkbb9gOHEL0ueQAAAA==
+X-Change-ID: 20261023-riscv-kexec-cma-fixes-9bc69798a5cf
+To: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
+ Nathan Chancellor <nathan@kernel.org>, 
+ Nick Desaulniers <ndesaulniers@google.com>, 
+ Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
+ Andrew Morton <akpm@linux-foundation.org>, 
+ Baoquan He <baoquan.he@linux.dev>, Mike Rapoport <rppt@kernel.org>, 
+ Pasha Tatashin <pasha.tatashin@soleen.com>, 
+ Pratyush Yadav <pratyush@kernel.org>, Yao Zi <me@ziyao.cc>
+Cc: Han Gao <rabenda.cn@gmail.com>, Han Gao <gaohan@iscas.ac.cn>, 
+ linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ llvm@lists.linux.dev, kexec@lists.infradead.org
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792740795; l=1990;
+ i=gaohan@iscas.ac.cn; s=20261021; h=from:subject:message-id;
+ bh=Thjxfmu56NJtgVUdSnPeX0m3Ki7icxN2HFTUo0uN07Y=;
+ b=XDRVxrg/MPvhZsdxIHy3UA8cSlaAZoQOXZCJXfFOxKsAnZAwNXDEMiirk3dJXJ0NxyUn3KHzz
+ ALTRjBPSRlUDwLRKSoyIDI9T86UgT2itnhAauIZ2jOmBuocOu7ukC1r
+X-Developer-Key: i=gaohan@iscas.ac.cn; a=ed25519;
+ pk=J8WHEK3filS86QaCaIHDGafqhxKyQ4K7+vFgRirTIiY=
+X-Endpoint-Received: by B4 Relay for gaohan@iscas.ac.cn/20261021 with
+ auth_id=1262
+X-Original-From: Han Gao <gaohan@iscas.ac.cn>
+Reply-To: gaohan@iscas.ac.cn
+
+I ran into these while doing kexec_file reboots in a loop on a Zhihe
+A210 board. Things mostly worked, but every few rounds the next kernel
+would hang or purgatory would spin, depending on where the segments and
+the DTB happened to land. Most of it goes back to segments now being
+allocated from CMA, which exposed a few assumptions that no longer hold.
+They are separate bugs, so each one gets its own patch.
+
+Patch 1 lets the RISC-V relocation code turn the MMU off even when the
+entry list has no indirection page, which is the normal case with CMA.
+Patch 2 fixes the purgatory relocations, which assumed a PC-relative low
+part always sits right after its high part. Patches 3 and 4 are in the
+generic code: CMA quietly caps the alignment below what the RISC-V
+kernel needs, and the tail of CMA segment pages was never cleared even
+though the purgatory digest expects zeroes there. Patch 5 reserves the
+DTB early enough that a CMA pool cannot be placed on top of it.
+
+With all five applied, the board survives repeated kexec_file reboots,
+including the layouts where every segment comes from CMA.
+
+---
+Han Gao (5):
+      riscv: kexec: Disable the MMU before walking the entry list
+      riscv: kexec_file: Pair PC-relative low parts with their high parts
+      kexec_file: Honor the segment alignment for CMA allocations
+      kexec_core: Clear the unused part of CMA segments
+      riscv: mm: Reserve the DTB before scanning reserved memory
+
+ arch/riscv/kernel/kexec_relocate.S     | 29 ++++++------
+ arch/riscv/kernel/machine_kexec_file.c | 84 ++++++++++++++++++++++++++--------
+ arch/riscv/mm/init.c                   | 18 ++++----
+ kernel/kexec_core.c                    |  6 +--
+ kernel/kexec_file.c                    |  7 +++
+ 5 files changed, 99 insertions(+), 45 deletions(-)
+---
+base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
+change-id: 20261023-riscv-kexec-cma-fixes-9bc69798a5cf
+
+Best regards,
+--  
+Han Gao <gaohan@iscas.ac.cn>
 
 
-On Tue, Oct 20, 2026 at 07:58:24PM +0800, Muchun Song wrote:
->Converting a folio's vmemmap mappings from PMDs to PTEs is a per-folio
->operation, but the current interface exposes a raw address range and
->hardcodes deferred TLB flushing.  This splits the common mechanism
->across layers and couples it to the HugeTLB batching policy.
->
->Make the folio the unit of PTE conversion and let callers select the TLB
->flush policy through the folio-oriented interface.  This keeps
->HugeTLB-specific eligibility and batching outside the common operation.
->
->No functional change intended.
->
->Signed-off-by: Muchun Song <songmuchun@bytedance.com>
->---
-
-Nothing jumped out at me, so:
-
-Reviewed-by: Lance Yang <lance.yang@linux.dev>
