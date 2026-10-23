@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792778186;
-	b=Q+XxHpN2yUEOWjRPgukQGCE9Qhnp0lQQjPPXxTRuKn6ZDZLR6HDX7TKk4LIvHS0OyMOI
-	 /ma/6duUaZMbuS85TlvuxxQOExsMOES4WuS6deuGXJ0K5XUOD8JsLRz0nGPnhl4gNr0gz
-	 BUjsEwCOF2UV2ZcB2MW7w92jLDDLgd2w4bMg4FE34AZHSTMSGLz9geNEr23qlybjtahNL
-	 v+EO7iQYrRrhgLv3nCCnmBySZLtGEuZf10tFihLKbvEGE1NG9F0VbV7sxZvlr2uu15dC/
-	 qdhb+LGW/RYmfsRpBcQaXhjBHK2Jd9XKjGVOWDJCNbU6UHXVnDbARKEcF1Iy0kBEWJA==
+	t=1792778178;
+	b=xt6/E1/eeEujE28xywz86+4L/n4JtXAjiOqY93FiXK+dY+/cteBbO6/xOdX22XJsNN32
+	 3touyTiaFoVM6t6qEY5NBc/X6fnglA86QUIBrNXBsRM12hq2PIWEuL/8uCqF70q6NxJIY
+	 CpaTHfW+/wEOre1kD6jMO1i2A32Mh2s4BrvwCrw17PaGqPsDtuJu84MmSUztVEAcTkmJU
+	 DhLJm28Ye98nUzlHU+pq0+cisok7zC7sKhkTfzIsrdCxFkT7eawzCoSn7TLIO8xl7C7jT
+	 8/HK5oPPrJw0nAob/m/nG0SDaX11DI2cnIYXNV6ljLGnNs6C/PGomdAAS0QH0HKIUlA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792778186;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792778178;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=DU/FHBSrUiFBgcNq4qGf903c8btB14t5fSRjxDVg00Y=;
-	b=BDWEzzVgm75Ao2fMgo8duqDZqByNlY5yDJWm6LykTlLSjn/I5InXdi5597yE0o2th6iT
-	 d3LDgI10ctNgmBQGqI+OGqZmbo2k34OknW63k+EG8NWeFXAb1ONRBPzxHeWvp49mFuPYn
-	 el3HqIqdvG3bJlzcfNEzUfZkOtup0c5q26Qus36ft7n6wiMEW+MdRUFgatDZr5wXK4R/Y
-	 ar6WMXHEGXOtA2NaqMsKOJnPq1OCb09FXEAYJvNCrf093dUaQoLG2DOp49PJrHNmi9dVM
-	 jjISlUXCPBFfj6rG/kI4p606lR7kN/6LBJ8MBczhthzgVWIszMDJSl/sbS/8B5B26GQ==
+	bh=8I+YqADEE6SEYnCz+JJg1Bnd3FMUkRM02RFKqlGPjiA=;
+	b=u1/o/+ru8V4Kaxpe0W8mr5K2rfi/TC7aGtC4GkrMpEMnIrvOdZdNKEClv2QYVpMO9nwq
+	 qEDtdZao9woyW7HglvwcJugycjE+wdjCaNjTcNPH9OgFKnvm2e+v0LcKhN+nOsz9ihAlC
+	 VTY/BcVabga25OmHf5KqYSe2WNn2EWkOxig7B4DFQW75I++jGMYlrptXrRzu5LS70sgPK
+	 IuC9wZWUPVdTstrUIDMEULlk+dCFQbl/BmapUUNaxNuaFrorDMr1ICWY15PmXEWeph8d+
+	 OnlqZyDompnzp0uJ0R3QpKduR17Bw5lyaQFqWLrfixG7YMtnrmAvf5SBamP42NzQ23A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BVHQHQkp;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XeoVTqCa;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AF0A60A5BEA;
-	Fri, 23 Oct 2026 17:56:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E44E860A2626;
+	Fri, 23 Oct 2026 17:56:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BVHQHQkp
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 189841F031EC;
-	Fri, 23 Oct 2026 17:56:25 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XeoVTqCa
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9FD4B1F031EA;
+	Fri, 23 Oct 2026 17:56:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792778185;
-	bh=DU/FHBSrUiFBgcNq4qGf903c8btB14t5fSRjxDVg00Y=;
+	s=k20260515; t=1792778177;
+	bh=8I+YqADEE6SEYnCz+JJg1Bnd3FMUkRM02RFKqlGPjiA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=BVHQHQkp4HQOukjpGX9/Z4l1B1zr948g3spd+h2CMXhapCU2uoshDbGjXZXbVAQCI
-	 5EnZkGS1AfzWhyDICsnm10mh3VMBFcUX3A2tDDk2dsRNFEZrsguvMBI4O0IaKW9ZfN
-	 cfPKmTL99YqBO31JeK1oOE1cdIJRviPh3kSOPOZ+vz5PRZIULxFy30rUyAukfPErKD
-	 7zE7GIMXfbrHENDJbAaHhcQX8S+M3Ljw3pyzPdDv03UVpmJ6eKWiHvNglN8ULgxZJh
-	 yw2CN/qWD9FGT9MG3qKLu6XJWENPThdSYRwCQlgFrLdn0vHVIUPT0eFLVdbEOw3/K+
-	 o/N0jSJYA78pg==
+	b=XeoVTqCaIQLu4YXdJhR0efxti069jbzgwW14ap+12UuK7uaKLYF89XHerxgKhBbAA
+	 noJV7ShjphbkfUzhOPEcVQ//Sf3mQJxyxnoh4tpsU3RS4UwGJUWeIopEIopqRbZqS0
+	 3gOaFtGkysz6lqaZ1KVF3VAGiK1z81d+A9rO9jbJQbHbempzquB2PIWGXLzBhl3Iw8
+	 HxIRAid24RQf7DFY++2DCE+dLRRDD9Wz8P0+exaNYDhF+/GoPaBUfkooIme59pqpQQ
+	 a+IBEKhV2Xu8Gvlt+labv5JA6dJhScru+XDGEZHmN7UpUWQY5DLiDhptokQgz8HGjz
+	 SyUZGulWcq1zA==
 From: Tejun Heo <tj@kernel.org>
 To: sched-ext@lists.linux.dev
 Cc: David Vernet <void@manifault.com>,
@@ -48,9 +48,9 @@ Cc: David Vernet <void@manifault.com>,
 	David Dai <david.dai@linux.dev>,
 	linux-kernel@vger.kernel.org,
 	Tejun Heo <tj@kernel.org>
-Subject: [PATCH 15/17] sched_ext: Factor out bypass_lb_move() and insert with the donor DSQ unlocked
-Date: Fri, 23 Oct 2026 07:56:06 -1000
-Message-ID: <20261023175608.4120910-16-tj@kernel.org>
+Subject: [PATCH 08/17] sched_ext: Fix a cpu idling with a runnable rescuee
+Date: Fri, 23 Oct 2026 07:55:59 -1000
+Message-ID: <20261023175608.4120910-9-tj@kernel.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261023175608.4120910-1-tj@kernel.org>
 References: <20261023175608.4120910-1-tj@kernel.org>
@@ -65,210 +65,137 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Prepare the bypass load balancer for moving tasks homed on other cpus. Such
-a move takes the task's own rq lock through the remote consumer's handshake,
-which drops the donor DSQ lock on the way, so its insert runs with the donor
-DSQ unlocked and under the task's rq lock. The balancer's own move holds the
-donor DSQ lock throughout, with the donee DSQ lock nested inside.
+A scheduler preempts a running rescuee like any other task by zeroing its
+slice. The rescue grant survives the preemption. put_prev_task_scx()
+restores the unserved remainder through scx_rescue_keep() and queues the
+rescuee at the tail of the local DSQ, behind whatever the scheduler wanted
+to run first.
 
-Switch the donor-homed move to the same scheme so that one body can serve
-both: factor it out of bypass_lb_cpu() into bypass_lb_move(), which takes
-the task off the donor DSQ and inserts with the DSQ unlocked. A task that
-can't run on the donee goes back to the head of the donor DSQ instead of
-being skipped in place.
+That breaks down when the scheduler zeroes the slice but dispatches nothing.
+dispatch_one() keeps the previous task running only with slice left or, when
+nothing else is runnable, with its scheduler holding SCX_CAP_BASE on the cpu
+and not taking the last task through SCX_OPS_ENQ_LAST. A rescuee fails both
+once its slice is zeroed if its scheduler lacks BASE there or takes the last
+task:
 
-The walk parks its cursor behind the task before each move and resumes from
-it afterwards. It is bounded to the tasks queued when it began, by their DSQ
-sequence numbers, so a task it put back is not visited again in the same
-pass.
+ 1. ops.tick() or scx_bpf_task_set_slice() zeroes the rescuee's slice
+ 2. the pick finds nothing else to run and settles on idle
+ 3. put_prev_task_scx() restores the remainder and queues the rescuee on the
+    local DSQ
+ 4. nothing reschedules the cpu, as the pick has settled and __schedule()
+    clears need_resched right after it
 
-Before, the walk held both the donor rq lock and the donor DSQ lock across
-every move. The donor DSQ can be very long and contended, a walk competing
-with the cpu's dispatch and the enqueues for the DSQ lock would crawl, and
-the walk is what relieves that contention by moving tasks off the DSQ. The
-walk now cycles the DSQ lock around each insert but still holds the rq lock
-throughout, and that alone keeps dispatch and enqueues away. The DSQ lock is
-uncontended when retaken, so cycling it is cheap.
+The cpu idles with the rescuee queued until an unrelated wakeup or the
+rescue timer's escalation.
 
+Restore the remainder from dispatch_one() too. When nothing else is
+runnable, its last keep now keeps the rescuee running on the remainder, so
+the pick never settles on idle with a rescuee runnable. put_prev_task_scx()
+keeps handling a displaced rescuee, where another task won the pick.
+
+A rescuee that passes the existing keep-last test is kept there instead and
+continues as an ordinary task, its rescue ended with the zeroed slice. That
+is fine as its scheduler holds SCX_CAP_BASE on the cpu.
+
+The new keep also covers bypassed tasks run under rescue in the following
+patches.
+
+v2: The dispatch_one() comment and description now say that a rescuee whose
+scheduler holds SCX_CAP_BASE on the cpu passes the keep-last test and
+continues as an ordinary task (sashiko).
+
+Fixes: 5fd501744b10 ("sched_ext: Add bandwidth-limited rescue execution for stranded tasks")
 Signed-off-by: Tejun Heo <tj@kernel.org>
 ---
- kernel/sched/ext/ext.c | 131 ++++++++++++++++++++++++++++-------------
- 1 file changed, 91 insertions(+), 40 deletions(-)
+ kernel/sched/ext/ext.c | 38 +++++++++++++++++++++++++++++++++++---
+ kernel/sched/ext/sub.c | 15 ++++++++-------
+ 2 files changed, 43 insertions(+), 10 deletions(-)
 
 diff --git a/kernel/sched/ext/ext.c b/kernel/sched/ext/ext.c
-index 8d87dca8bb62..05002929da67 100644
+index a9961dc33af0..de3fa7476fec 100644
 --- a/kernel/sched/ext/ext.c
 +++ b/kernel/sched/ext/ext.c
-@@ -6530,6 +6530,57 @@ bool scx_hardlockup(int cpu)
- 	return true;
- }
- 
-+/**
-+ * bypass_lb_move - Move one task off a bypass DSQ for the balancer
-+ * @sch: host sched whose bypass DSQs are balanced
-+ * @donor_rq: rq of the cpu whose bypass DSQ gives up @p, locked
-+ * @donor_dsq: @sch's bypass DSQ on @donor_rq's cpu, locked
-+ * @p: task on @donor_dsq, homed on @donor_rq
-+ * @donee: cpu whose bypass DSQ receives @p
-+ *
-+ * Take @p off @donor_dsq and insert it into the bypass DSQ of @donee. The
-+ * caller picks @donee from @p's affinity alone and task_can_run_on_remote_rq()
-+ * can still refuse the move under @p's rq lock. @p then goes back to the head
-+ * of @donor_dsq.
-+ *
-+ * @donor_rq and @donor_dsq are locked on entry and on return. @donor_dsq is
-+ * unlocked across the insert, so the caller's walk must find its place in it
-+ * again after the call.
-+ *
-+ * Return the cpu that received @p, or -1 if @p went back onto @donor_dsq.
-+ */
-+static s32 bypass_lb_move(struct scx_sched *sch, struct rq *donor_rq,
-+			  struct scx_dispatch_q *donor_dsq, struct task_struct *p, s32 donee)
-+{
-+	struct scx_dispatch_q *dst_dsq;
-+	u64 enq_flags;
-+	s32 ret;
-+
-+	lockdep_assert_rq_held(donor_rq);
-+	lockdep_assert_held(&donor_dsq->lock);
-+
-+	scx_wait_dispatching(p);
-+	dispatch_dequeue_locked(p, donor_dsq);
-+	raw_spin_unlock(&donor_dsq->lock);
-+
-+	/* @p's affinity is stable under its rq lock */
-+	if (task_can_run_on_remote_rq(sch, p, cpu_rq(donee), false)) {
-+		dst_dsq = scx_bypass_dsq(sch, donee);
-+		enq_flags = 0;
-+		ret = donee;
-+	} else {
-+		/* back where it was, at the head so that the walk skips it */
-+		dst_dsq = donor_dsq;
-+		enq_flags = SCX_ENQ_HEAD;
-+		ret = -1;
-+	}
-+
-+	scx_dispatch_enqueue(sch, donor_rq, dst_dsq, p, 0, 0, enq_flags);
-+
-+	raw_spin_lock(&donor_dsq->lock);
-+	return ret;
-+}
-+
- static u32 bypass_lb_cpu(struct scx_sched *sch, s32 donor,
- 			 struct cpumask *donee_mask, struct cpumask *resched_mask,
- 			 u32 nr_donor_target, u32 nr_donee_target)
-@@ -6553,14 +6604,15 @@ static u32 bypass_lb_cpu(struct scx_sched *sch, s32 donor,
- 
- 	raw_spin_rq_lock_irq(donor_rq);
- 	raw_spin_lock(&donor_dsq->lock);
-+	/* bound the walk to the tasks queued now, see the seq test below */
-+	cursor.priv = donor_dsq->seq;
- 	list_add(&cursor.node, &donor_dsq->list);
- resume:
- 	n = container_of(&cursor, struct task_struct, scx.dsq_list);
- 	n = nldsq_next_task(donor_dsq, n, false);
- 
- 	while ((p = n)) {
--		struct scx_dispatch_q *donee_dsq;
--		int donee;
-+		s32 donee, cpu;
- 
- 		n = nldsq_next_task(donor_dsq, n, false);
- 
-@@ -6570,6 +6622,13 @@ static u32 bypass_lb_cpu(struct scx_sched *sch, s32 donor,
- 		if (cpumask_empty(donee_mask))
- 			break;
- 
-+		/*
-+		 * A task queued after the walk began, including one the walk
-+		 * itself put back, is left for the next pass.
-+		 */
-+		if (u32_before(cursor.priv, p->scx.dsq_seq))
-+			continue;
-+
- 		/*
- 		 * If an earlier pass placed @p on @donor_dsq from a different
- 		 * CPU and the donee hasn't consumed it yet, @p is still on the
-@@ -6583,49 +6642,41 @@ static u32 bypass_lb_cpu(struct scx_sched *sch, s32 donor,
- 		if (donee >= nr_cpu_ids)
- 			continue;
- 
--		donee_dsq = scx_bypass_dsq(sch, donee);
--
--		/*
--		 * $p's rq is not locked but $p's DSQ lock protects its
--		 * scheduling properties making this test safe.
--		 */
--		if (!task_can_run_on_remote_rq(sch, p, cpu_rq(donee), false))
--			continue;
--
--		/*
--		 * Moving $p from one non-local DSQ to another. The source rq
--		 * and DSQ are already locked. Do an abbreviated dequeue and
--		 * then perform enqueue without unlocking $donor_dsq.
--		 *
--		 * We don't want to drop and reacquire the lock on each
--		 * iteration as @donor_dsq can be very long and potentially
--		 * highly contended. Donee DSQs are less likely to be contended.
--		 * The nested locking is safe as only this LB moves tasks
--		 * between bypass DSQs.
--		 */
--		dispatch_dequeue_locked(p, donor_dsq);
--		scx_dispatch_enqueue(sch, cpu_rq(donee), donee_dsq, p, 0, 0, SCX_ENQ_NESTED);
--
- 		/*
--		 * $donee might have been idle and need to be woken up. No need
--		 * to be clever. Kick every CPU that receives tasks.
-+		 * The move drops @donor_dsq's lock. Park the cursor behind @p
-+		 * and resume from it afterwards.
- 		 */
--		cpumask_set_cpu(donee, resched_mask);
-+		list_move(&cursor.node, &p->scx.dsq_list.node);
-+		cpu = bypass_lb_move(sch, donor_rq, donor_dsq, p, donee);
-+		if (cpu >= 0) {
-+			/*
-+			 * @cpu might have been idle and need to be woken up.
-+			 * No need to be clever. Reschedule every cpu that
-+			 * receives tasks.
-+			 */
-+			cpumask_set_cpu(cpu, resched_mask);
- 
--		if (READ_ONCE(donee_dsq->nr) >= nr_donee_target)
--			cpumask_clear_cpu(donee, donee_mask);
-+			if (READ_ONCE(scx_bypass_dsq(sch, cpu)->nr) >= nr_donee_target)
-+				cpumask_clear_cpu(cpu, donee_mask);
- 
--		nr_balanced++;
--		if (!(nr_balanced % SCX_BYPASS_LB_BATCH) && n) {
--			list_move_tail(&cursor.node, &n->scx.dsq_list.node);
--			raw_spin_unlock(&donor_dsq->lock);
--			scx_rq_lock_drop(donor_rq);
--			raw_spin_rq_unlock_irq(donor_rq);
--			cpu_relax();
--			raw_spin_rq_lock_irq(donor_rq);
--			raw_spin_lock(&donor_dsq->lock);
--			goto resume;
-+			/*
-+			 * The rq lock is held across the walk, not cycled per
-+			 * move. @donor_dsq can be very long and contended, and
-+			 * the rq lock is what keeps its consumer and enqueuers
-+			 * away while the walk cycles the DSQ lock. The walk can
-+			 * still take a while, so let the cpu breathe every so
-+			 * often.
-+			 */
-+			if (!(++nr_balanced % SCX_BYPASS_LB_BATCH)) {
-+				raw_spin_unlock(&donor_dsq->lock);
-+				scx_rq_lock_drop(donor_rq);
-+				raw_spin_rq_unlock_irq(donor_rq);
-+				cpu_relax();
-+				raw_spin_rq_lock_irq(donor_rq);
-+				raw_spin_lock(&donor_dsq->lock);
-+			}
+@@ -3361,6 +3361,34 @@ static enum scx_dsp_verdict dispatch_one(struct rq *rq, struct task_struct *prev
+ 			verdict = SCX_DSP_PREV;
+ 			goto has_tasks;
  		}
-+		goto resume;
++
++		/*
++		 * The scheduler preempts a rescuee like any other task by
++		 * zeroing its slice. The grant survives the preemption. The
++		 * rescuee gets the unserved remainder back and runs again
++		 * behind whatever the scheduler wanted to run first.
++		 *
++		 * Two sites restore the remainder. When another task won the
++		 * pick, put_prev_task_scx() restores it and queues the rescuee
++		 * at the tail of the local DSQ.
++		 *
++		 * When nothing else is runnable, the cpu must not go idle with
++		 * the rescuee queued. The keep above takes a rescuee whose
++		 * scheduler holds %SCX_CAP_BASE here and doesn't take the last
++		 * task through %SCX_OPS_ENQ_LAST.
++		 *
++		 * The pick then ends its zeroed slice, and the rescue with it,
++		 * and refills a default slice. The task continues as an
++		 * ordinary one, which is fine as its scheduler holds BASE here.
++		 *
++		 * For any other rescuee, a reinsert from put_prev_task_scx()
++		 * would come after the pick settled on idle. Keep it running on
++		 * the remainder here.
++		 */
++		if (unlikely(prev == scx_rescuee(rq)) && scx_rescue_keep(rq, prev)) {
++			verdict = SCX_DSP_PREV;
++			goto has_tasks;
++		}
+ 	}
+ 	rq->scx.flags &= ~SCX_RQ_IN_DISPATCH;
+ 	return SCX_DSP_NONE;
+@@ -3578,9 +3606,13 @@ static void put_prev_task_scx(struct rq *rq, struct task_struct *p,
  	}
  
- 	list_del_init(&cursor.node);
+ 	/*
+-	 * If the slice is consumed, protection ends with it. A rescuee keeps
+-	 * going when a preemption or ops.stopping() zeroed its slice, see
+-	 * scx_rescue_keep().
++	 * If the slice is consumed, protection ends with it.
++	 *
++	 * A rescuee keeps going when a preemption or ops.stopping() zeroed its
++	 * slice. Here another task won the pick. scx_rescue_keep() restores the
++	 * unserved remainder and the reinsert below queues the rescuee at the
++	 * tail of the local DSQ. When nothing else is runnable, dispatch_one()
++	 * keeps the rescuee running on the remainder instead.
+ 	 */
+ 	if (!p->scx.slice) {
+ 		if (unlikely(p == scx_rescuee(rq)))
+diff --git a/kernel/sched/ext/sub.c b/kernel/sched/ext/sub.c
+index d3f89ec4e4fa..42ac92ecb627 100644
+--- a/kernel/sched/ext/sub.c
++++ b/kernel/sched/ext/sub.c
+@@ -480,16 +480,17 @@ void scx_rescue_end(struct rq *rq)
+ }
+ 
+ /**
+- * scx_rescue_keep - Keep the rescue going for a preempted-out rescuee
++ * scx_rescue_keep - Keep the rescue going past a zeroed slice
+  * @rq: rq @p is running on
+- * @p: task under rescue whose slice is exhausted
++ * @p: task under rescue
+  *
+- * Called from put_prev_task_scx() to decide what an exhausted slice means for
+- * the rescuee. scx_rescue_charge() ends the rescue the moment the admitted
++ * Decide what an exhausted slice means for the rescuee. dispatch_one() calls
++ * this when nothing else is runnable and put_prev_task_scx() when another task
++ * won the pick. scx_rescue_charge() ends the rescue the moment the admitted
+  * slice is fully served, so arriving here with the rescue still open means @p
+- * was preempted. Restore the unserved remainder and return %true - @p stays the
+- * rescuee and the caller reinserts it at the tail of the local DSQ, behind
+- * whatever preempted the rescuee.
++ * was preempted. Restore the unserved remainder and return %true. @p stays the
++ * rescuee. dispatch_one() keeps it running and put_prev_task_scx() reinserts it
++ * at the tail of the local DSQ, behind whatever preempted the rescuee.
+  *
+  * Return %false to end the rescue instead - the slice is already fully served,
+  * @p is leaving the rq or bypass is dismantling rescues.
 -- 
 2.56.0
 
