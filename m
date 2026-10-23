@@ -1,61 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792789143;
-	b=JFjRHghU0aSrulPtGDk5w1xx5WigaWUOK+i/kl07Fz+XJSoauSw0jZ/slvuT0OvHPNoJ
-	 nNX25RkFFtL8OjcfaLadzF50rfaxm8Ep/gf71LMdi/C43RpRQvDpGjyMN8HgtEU3RGcg4
-	 K8tfPw06VjIdZmUYuqKr6e3btBUYjpr6El7SDpMAONGcFny7sm4zQgnf9Ej3CwNnDp4gR
-	 AREIkruO4x640CZg274vjjKKGtkOgUr4CueqxuhLc1UwUAXk9V8XmPUXicXdy8aW+CZsC
-	 WZThNUxsrgYOu/6h5wK6B5h79M1q3lX3zGdgAYbua5C6lsS8qJa7s+IRKiGj35nOphA==
+	t=1792789221;
+	b=XqkW5Ld6N9Q0Pi3e8EYhHXTk/cqAuYWEgB8IUKxsUMjrOGP1DE94YOJQwHYxoSaS85QE
+	 gJOKggw0U+SRzu1RZhv3Z8f2ODuhl6CsqLFIHORKNJgdbWdNtTXnjWu/Cz6ZKBN1nGOAT
+	 LUViPKTdbDgBnnZ+Z+bMrOlvrUuF9/f2jEODrz3Eb/PQ58mlvAmK2BlSL2dqmSQ8R1pkM
+	 jqRZEPGPXMT4k0JpHy1pMPi+5WtK/N9f4tg29MiApjMd1OKuNP4tzOgguxleK7EM1a9Zj
+	 1kf/9T+mMMS/3yd8/SFk6OlYbIneBacjym2bsLOFhZP/FGFUCJnXiYFxtlLD1211UQQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792789143;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=NqkLuJBowrg5uO/LzxwlbNqWRXOx6BWUFV29tyybZko=;
-	b=iF3BUkcCyfZ9hBogTyOWrexEqB9JMTIAe0pWsIGMKP364w+6QH3Bd1cv0vKWUsdK+3GI
-	 T5/bq6mcZ+4K30uS4K0CcGUEVH8Sl2SuNMMabrCeW0A/4jwajYAj2ALWwFl/pJoHC68ZR
-	 ZZgCx1DVV24iEEq7CAeHI1+PzXxTXCUqUZ7lKcl7MaMmcRJ3RrIywsAMz/s8hYZq6KC5W
-	 wG7ia0dAcb4UJCIaHzLQCgfp+T9yh15qeahW3b5fE5tFbJKFV2OxobHBiF+ZA/PeuEIG/
-	 bIS7MecS7hjomaoOyMqNkpM0wKmcu+R+M2UTitA+mhiNmP+zs20Ke7LeBVGhKle7fCg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792789221;
+	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
+	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc;
+	bh=/zRNtfPAXTthuW4uanzpc66x09wuudOPAK79gmQZrRI=;
+	b=S8xj77V6CEKgBn1qA9wlZjq8y2XbbVEop2qK38Jlqtu0XotcS9ftXcAJcmRAizCryqsb
+	 e628C/zq2LjgJOgBrOyAzBnsRz/jko6pQ2HRJUaPHn7An2UXs2NrxEk35/D6e0Y6GyFdg
+	 Epx+Xs1mRHLC36V1L5sNAZkT2JfH4SbCxs8dROPhlrQoMTmT2ciBarvLRmgGIriTz/PBJ
+	 QgbbUK28OKKrgxOJhYIJDiDZQolywnrPlU3lFfWxBdyLOz/pMfHkDSedMKfSnBhFjVY9M
+	 H7AzHd2qW0pVL9gFK9ramTqzn/hcvqc/+neU9N7gw1BeJwW7c6mfYAd435iuwejvxGA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mitaLlNr;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YFYRfzCY;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A212606A31B;
-	Fri, 23 Oct 2026 20:59:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 846A5606A31F;
+	Fri, 23 Oct 2026 21:00:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mitaLlNr
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 01CC81F01825;
-	Fri, 23 Oct 2026 20:59:00 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YFYRfzCY
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 104201F01828;
+	Fri, 23 Oct 2026 21:00:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792789143;
-	bh=NqkLuJBowrg5uO/LzxwlbNqWRXOx6BWUFV29tyybZko=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=mitaLlNrKV/nfViGZGWPL8DopsgmEkL7ebk3WYav7/TSUHeFAq5AGZmnDc4tXWn7k
-	 783/fAuBYjd7AWZWs2B4Vxu68y4f4h3OaGZ3RKjITdTVpsDxBR+Ac3MbEn5Tenjuod
-	 MGhhuw88vCZ3OC2zuyibiLUOnZs7caWpkklT/0mIoge5Xs1Rgj4wRWeOP8GDbbYzln
-	 Xd+crNHPF8jSjXa4uBJq8kkViuDDadMFCx0uky7s7N8rJZekG9+qxk7W+R4Udim95y
-	 S/Ks1/mfiVe+axlXozUa33T03uy7ndZZLzMpiqStqGnJg8wkRjQ8spjH7dNyFYeinN
-	 l/IOrFBtLrKdg==
-Date: Fri, 23 Oct 2026 21:58:58 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Jesper X Nilsson <jesper.x.nilsson@axis.com>
-Cc: David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
- <nuno.sa@analog.com>, "Andy Shevchenko" <andy@kernel.org>, Rob Herring
- <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, "Stefan Windfeldt-Prytz"
- <stefan.windfeldt-prytz@axis.com>, <linux-iio@vger.kernel.org>,
- <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <kernel@axis.com>, Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Subject: Re: [PATCH v2 0/4] This series adds support for Texas Instruments
- OPT4041 Ambient light sensor
-Message-ID: <20261023215858.623ef46b@jic23-hlaptop>
-In-Reply-To: <20261023-opt4041-v2-0-ee320812804c@axis.com>
-References: <20261023-opt4041-v2-0-ee320812804c@axis.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=k20260515; t=1792789221;
+	bh=/zRNtfPAXTthuW4uanzpc66x09wuudOPAK79gmQZrRI=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=YFYRfzCYnXyURdqNWs7hnCa3Z5NRRwVwm+2+QYwbOrmuvfcqf3z8+1VsLXhYtsc1w
+	 na2hv0CIQ39ZPBSatuvpXr+BhEFHIjczDz7IxRa6rg+EyD1ZDsj1/ATsvKjpYG0JIp
+	 uqyvaFQTU+/1GHTq+OraO+2CGKuxHxd3n3OENDlTDzTXAMfIeq6JF5Zj4HhAXlC2iP
+	 P5cq+R/7+c5O7AcpxGMg0GRTgACGA6pkmLkisoe/lpORy5ktpnGGNFoTqPRNlTrzlX
+	 eYmri4DKy8QT0zQvAnRcuV/serlfrsNBqUlgX9rLhRFvLrariIJYRO5+ZcAv1RpF8q
+	 Y2EVEriTWMXIA==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 074A8391B157;
+	Fri, 23 Oct 2026 21:00:21 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,41 +53,44 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net 0/2] net: pse-pd: si3474: two driver fixes
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179278921957.1268720.1927086301810125998.git-patchwork-notify@kernel.org>
+Date: Fri, 23 Oct 2026 21:00:19 +0000
+References: <20261019162453.1244120-1-piotr@kubik.pl>
+In-Reply-To: <20261019162453.1244120-1-piotr@kubik.pl>
+To: Piotr Kubik <piotr@kubik.pl>
+Cc: netdev@vger.kernel.org, o.rempel@pengutronix.de,
+ kory.maincent@bootlin.com, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ linux-kernel@vger.kernel.org, github@szelinsky.de
 
-On Fri, 23 Oct 2026 14:30:27 +0200
-Jesper X Nilsson <jesper.x.nilsson@axis.com> wrote:
+Hello:
 
-> Extend the opt4001 driver to support OPT4041, since it is so similar to
-> OPT4001. The OPT4041 adds a second channel, a wide band channel ranging
-> from 380nm to 1000nm. The register map is almost the same for both
-> devices. OPT4001 has an internal fifo of size four, OPT4041 has two
-> fifos of size two, one for each channel.
+This series was applied to netdev/net.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
+
+On Mon, 19 Oct 2026 18:24:51 +0200 you wrote:
+> Two fixes for the Si3474 PSE driver, found while preparing 2-pair and
+> semi-auto support for it.
 > 
-> Since OPT4041 has two channels it has one bit in register 0Bh to select
-> which channel is compared to the threshold register. The driver does not
-> support setting the threshold registers, so no new support has been
-> added for this.
+> Patch 1 stops si3474_pi_enable() from clearing detection and
+> classification of the other PI in the same quad. Without it, a PD on
+> that PI gets no power after a later plug-in.
 > 
-> The OPT4041 is pin compatible and has the same package as
-> opt4001-sot-5x3. Although the device id is different, I added a new
-> compatible string since the driver already had different compatible
-> strings to differentiate between the two OPT4001.
-> 
-> Datasheet: https://www.ti.com/lit/gpn/opt4041
-> Signed-off-by: Jesper X Nilsson <jesper.x.nilsson@axis.com>
+> [...]
+
+Here is the summary with links:
+  - [net,1/2] net: pse-pd: si3474: keep detection enabled on the other PIs
+    https://git.kernel.org/netdev/net/c/b530456be771
+  - [net,2/2] net: pse-pd: si3474: validate the channels of a PI
+    https://git.kernel.org/netdev/net/c/110eb808324f
+
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
 
-Normally I'd say slow down to give more time for review, but seems
-you got good reviews anyway and the code looks clean to me.
-
-Ah well, sometimes you win - but generally wait a few days at lesat
-between versions.
-
-Applied to the testing branch of iio.git. I'll be rebasing that
-on rc1 once available.
-
-thanks,
-
-Jonathan
