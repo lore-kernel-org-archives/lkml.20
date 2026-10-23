@@ -1,63 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.5
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792762990;
-	b=Vm6nLF95de/HHX6eEcXmd8lOisgqhW5Vx79AAUkjRINLSdwR2BRRvSpdW75XElGpxNND
-	 YKagSGExDbfMmAU9BOWzlsMluX0TyutaSiOtMsXy5NiM468Q+cMa6IbTIEoQ7FmJbl9Ez
-	 qLLRhFPJkDE5TCeRjgeOeCV6ftnKITeo3w2oefVu01aya8x94H4NbA1E+wxT17vGOypRR
-	 65cOWvBcGyzbud67sEgqmkXABlG22b2G5AUevfZ3Bg22IJkNR/h/6JMqmFEi22S0O1OvD
-	 SmH5LtAaarKaBMDB8oTIwdXynxK/G500LnJFLX+HZ/QC/Oj5nMs/TEYoZvGUuM2Dc+Q==
+	t=1792763013;
+	b=MwJvqyVDFCzGs3nEUeFGVlIbA9f+eTuxC/5OnvHpdjEDtns8DxTE+jL299l7UT1L5xF5
+	 1sGbaeIsCr0VgCfQFv0Mu2bQpJIdgCgtFA4gXRXbGD3jMJrgQbZpv3HfagEYeAb8JNvkg
+	 sNMoTu1kcADefqm8S1vDTf0Sw2hpyoOYFaGvIxUuOCyIQz8UbuaVVQx+axqRCv7On+tgK
+	 W369TDb1ozvIm7KfLZu2eF2CyZe6+TDBpMVLedjy2QAlXJva09AITOC+GF1Z6H91Ad9Ru
+	 FcQWkbrs327leAnY6e+ejoVmIqOcvfLLxzs5XwYdX57FcJDOGumXBBNN0bTreTvNjUw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792762990;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=TZc0+BmeU6eS10RHwjL0sGapBIE/oV5/5PVBwOg8ny4=;
-	b=pQtWgzVHtemTDWeZgWARZYZQZWfsIiUAge6t24CYMqDrtZhzNrXvuuTAEWtz8RNmVxpc
-	 P9sU9VDPiV3/Kgiqc2P3176f/CeqBEj7wjKyQfp+qAnUZs3TInzZKaEmW0NkMEyQEg19L
-	 eBUqQTmBn+IeDN2C7ummk/pzTmT7X0ELw6RSlj5RGWwP4zhZhrYDwhPHy6nR79LD7rKqt
-	 VYxenBnXTo4G3vwBSxuQ09sdiXMIikZ2aglSEuUjj983igJo3bbKUUZIT+vZitpO1fHY1
-	 GK+z3mQQ2Z3pja4kS0zFCAjjfi9AKs5Po0IVpS9CEt5bgDqLBfvWtEuoM/gnOjNeaqA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792763013;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=4I8C7LS9Ebq+RsUKShRZmElkynjaFDjGXMud7w6ijM8=;
+	b=4Zg6sBr7U7Hn2vDSqqtQFT8zZ9RLUtAy7FpbcF3DXKiYtQJAMeUoGwfKDjmknrfhPhOL
+	 V1iXQDu+oUXoW8Y5UawO3oJzlk2If8Hl13nVgo5hKmif0YVE8ddROan900kkMNYB0nTjJ
+	 hfoE0w96YyL8BT2hpG2VAp9MsBFnDgfTwJIqc2UO303Us3fEwL9QjA/D6j1Z0up8cc+yT
+	 4fICyb5+feFU+maKfEnDfPgaQzRsbgK2VM1pWnPsuwp5m8+5IlKM2+OkZdVi35aVhtq0W
+	 z5Hui1o2LSH6qwalRYkKoA+NEXXUyJ5OcemaSn3hiNAdOqFZDDvtaIdRj1/orDjSPow==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=PIEMhF2B;
-	arc=none smtp.remote-ip=220.197.31.5
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A66B606A31B;
-	Fri, 23 Oct 2026 13:43:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6A66B606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=jlUDdA7Q;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 61522606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 13:43:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 61522606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=PIEMhF2B
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=TZ
-	c0+BmeU6eS10RHwjL0sGapBIE/oV5/5PVBwOg8ny4=; b=PIEMhF2BF4m30Tku/H
-	X7bclQi+hzM2Kod0sPHDZ1Uz4MEZ3SC6qXnci1nyCSMW+OQ2xKm3qHp3SD2QgaE3
-	6Xa9BNAgEVHC8GH/RSSZpB44bRVrhzVU238Js0BwtHHDmEbuX77Drw49Qf/TSsRB
-	OMpWQ62NsXZAOM55MvQSTkWTo=
-Received: from flipped.. (unknown [])
-	by gzga-smtp-mtada-g0-3 (Coremail) with SMTP id _____wD33x04ZNtq3eINCQ--.19371S2;
-	Fri, 23 Oct 2026 21:42:17 +0800 (CST)
-From: Sicong Huang <congei42@163.com>
-To: Edward Cree <ecree.xilinx@gmail.com>
-Cc: netdev@vger.kernel.org,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Kees Cook <kees@kernel.org>,
-	linux-net-drivers@amd.com,
-	linux-kernel@vger.kernel.org,
-	Sicong Huang <congei42@163.com>
-Subject: [PATCH net v2] sfc: fix use-after-free of filter_work in efx_realloc_channels()
-Date: Fri, 23 Oct 2026 21:42:14 +0800
-Message-Id: <20261023134214.322796-1-congei42@163.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=jlUDdA7Q
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 6E2F01C00;
+	Fri, 23 Oct 2026 06:43:28 -0700 (PDT)
+Received: from [10.2.212.23] (e121345-lin.cambridge.arm.com [10.2.212.23])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id BFFD83F959;
+	Fri, 23 Oct 2026 06:43:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1792763011; bh=fCH8Bmguz7AIGj8B74jO3aVsHYpkx2Drb51PhaFvVVA=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=jlUDdA7Q6YhVFyc3r63QNHS9/fYgwiCfXdlLas7xY55jXXVRMEOVNu1pW87w4JKC8
+	 cU2SnHFz2xhR0mLxjQkYnOVkHvEo0x1jyT3tWrZovDoR8l0gGMtADTPqsqbDajasrn
+	 COO49/fSsUfhMquBHURVeAEupUdXM/sWVp+tOG/k=
+Message-ID: <3d1eb92f-3447-49f0-a210-fd4fa015304b@arm.com>
+Date: Fri, 23 Oct 2026 14:43:28 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,152 +53,142 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD33x04ZNtq3eINCQ--.19371S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW3Ww1kJFy7Kr1xtr4xXw1rXrb_yoW7GF4kpF
-	W5JrWUXrW3XFZ8GFn2qw1kAF4rGw4kG34jgr98tw4rZ34rArnxAFnYqa4Ygr4DJr4xAr4a
-	vr15Ar48X3Z8JrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0piKsUtUUUUU=
-X-CM-SenderInfo: 5frqwvrlusqiywtou0bp/xtbC9hu4q2rbZDtmewAA3N
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH 3/3] iommu/arm-smmu-v3: Add support for hitless
+ replace of S1 domains
+To: Samiullah Khawaja <skhawaja@google.com>, Joerg Roedel <joro@8bytes.org>,
+ Will Deacon <will@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>
+Cc: Kevin Tian <kevin.tian@intel.com>, Alex Williamson <alex@shazbot.org>,
+ iommu@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, Pasha Tatashin <pasha.tatashin@soleen.com>,
+ David Matlack <dmatlack@google.com>, Lu Baolu <baolu.lu@linux.intel.com>,
+ Pranjal Shrivastava <praan@google.com>
+References: <20260925011308.3381953-1-skhawaja@google.com>
+ <20260925011308.3381953-4-skhawaja@google.com>
+From: Robin Murphy <robin.murphy@arm.com>
+Content-Language: en-GB
+In-Reply-To: <20260925011308.3381953-4-skhawaja@google.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-With CONFIG_RFS_ACCEL, each channel has a delayed work item,
-channel->filter_work, that expires aRFS filters. efx_poll() queues it
-with mod_delayed_work(), and efx_filter_rfs_expire() always re-arms it
-with schedule_delayed_work(dwork, 30 * HZ). Once efx_poll() has queued
-it, the work is therefore always pending, queued or running. It is
-only cancelled in efx_remove_filters(), which is not called on the ring
-resize path.
+On 25/09/2026 2:13 am, Samiullah Khawaja wrote:
+> S1 domains are programmed by CD entries in the CD table. During a new
+> domain attach these are updated using write_cd_entry. Since ASID and
+> TTB0 are in different 64-bit words, the write_cd_entry considers it a
+> non-hitless update and sets V=0. This means such an update is disruptive
+> and would generate translation faults if there are ongoing DMAs.
+> 
+> Replace the CD entries by using an unused temporary ASID in following
+> sequence to allow hitless replacement of CD entry,
+> 
+> - Update the CD entry with temporary ASID.
+> - Update the CD entry with the target TTB0.
+> - Update the CD entry with the target ASID.
+> 
+> Signed-off-by: Samiullah Khawaja <skhawaja@google.com>
+> ---
+>   drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c | 66 ++++++++++++++++++++-
+>   1 file changed, 64 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
+> index 5732f3ba0122..59f4b8cf89f6 100644
+> --- a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
+> +++ b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
+> @@ -1641,6 +1641,68 @@ void arm_smmu_write_cd_entry(struct arm_smmu_master *master, int ssid,
+>   	arm_smmu_write_entry(&cd_writer.writer, cdptr->data, target->data);
+>   }
+>   
+> +/* Invalidate every stage-1 TLB entry tagged with @asid. */
+> +static void arm_smmu_tlb_inv_asid(struct arm_smmu_device *smmu, u16 asid)
+> +{
+> +	enum arm_smmu_cmdq_opcode op = (smmu->features & ARM_SMMU_FEAT_E2H) ?
+> +					       CMDQ_OP_TLBI_EL2_ASID :
+> +					       CMDQ_OP_TLBI_NH_ASID;
+> +
+> +	arm_smmu_cmdq_issue_cmd_with_sync(smmu,
+> +					  arm_smmu_make_cmd_tlbi(op, asid, 0));
+> +}
 
-Resizing the rings via ethtool -G calls efx_realloc_channels(). It
-copies each channel, swaps the copies into efx->channel[] and frees the
-old channel structures. Nothing on this path cancels the old channel's
-filter_work. So the old filter_work can fire after its channel has
-been freed. The timer core and delayed_work_timer_fn() then access
-the freed delayed_work. efx_filter_rfs_expire() gets the freed channel
-back via container_of(), dereferences it and re-arms the timer inside
-the freed object.
+Feels like this should probably use the existing invalidation machinery...
 
-A possible race is:
-CPU0                             CPU1
-efx_ethtool_set_ringparam()
-efx_realloc_channels()
-efx_stop_all()  //NAPI stopped, timer still armed
-efx_copy_channel()
-swap(efx->channel[i], ...)
-efx_remove_channel(old)
-kfree(old)  //free here!
-                                 old->filter_work.timer fires
-                                 delayed_work_timer_fn()
-                                 efx_filter_rfs_expire()
-                                 channel = container_of(dwork, ...)
-                                 channel->rfs_last_expiry  //UAF!
-                                 schedule_delayed_work(dwork, 30 * HZ)
+> +
+> +static void arm_smmu_cd_set_asid(struct arm_smmu_cd *cd, u16 asid)
+> +{
+> +	cd->data[0] &= ~cpu_to_le64(CTXDESC_CD_0_ASID);
+> +	cd->data[0] |= cpu_to_le64(FIELD_PREP(CTXDESC_CD_0_ASID, asid));
+> +}
+> +
+> +static void arm_smmu_replace_cd_entry(struct arm_smmu_master *master, int ssid,
+> +				      struct arm_smmu_cd *cdptr,
+> +				      const struct arm_smmu_cd *target)
+> +{
+> +	struct arm_smmu_device *smmu = master->smmu;
+> +	struct arm_smmu_cd stage;
+> +	u32 tmp_asid;
+> +
+> +	lockdep_assert_held(&arm_smmu_asid_lock);
+> +
+> +	/*
+> +	 * Nothing is translating through an invalid CD, and an update that
+> +	 * invalidates one cannot be made hitless anyway.
+> +	 */
+> +	if (!(cdptr->data[0] & cpu_to_le64(CTXDESC_CD_0_V)) ||
+> +	    !(target->data[0] & cpu_to_le64(CTXDESC_CD_0_V)))
+> +		goto write_directly;
+> +
+> +	if (xa_alloc(&arm_smmu_asid_xa, &tmp_asid, XA_ZERO_ENTRY,
+> +		     XA_LIMIT(1, (1 << smmu->asid_bits) - 1), GFP_KERNEL))
+> +		goto write_directly;
+> +
+> +	/* Copy the existing cd entry and update only the ASID. */
+> +	stage = *cdptr;
+> +	arm_smmu_cd_set_asid(&stage, tmp_asid);
+> +	arm_smmu_write_cd_entry(master, ssid, cdptr, &stage);
+> +
+> +	/* Copy the target cd entry and update ASID to the temporary ASID. */
+> +	stage = *target;
+> +	arm_smmu_cd_set_asid(&stage, tmp_asid);
+> +	arm_smmu_write_cd_entry(master, ssid, cdptr, &stage);
+> +
+> +	arm_smmu_tlb_inv_asid(smmu, tmp_asid);
+> +
+> +	/* Update to the target cd entry as it should be hitless now. */
+> +	arm_smmu_write_cd_entry(master, ssid, cdptr, target);
+> +
+> +	arm_smmu_tlb_inv_asid(smmu, tmp_asid);
+> +	xa_erase(&arm_smmu_asid_xa, tmp_asid);
+> +	return;
+> +
+> +write_directly:
+> +	arm_smmu_write_cd_entry(master, ssid, cdptr, target);
+> +}
+> +
+>   void arm_smmu_make_s1_cd(struct arm_smmu_cd *target,
+>   			 struct arm_smmu_master *master,
+>   			 struct arm_smmu_domain *smmu_domain)
+> @@ -3664,8 +3726,8 @@ static int arm_smmu_attach_dev(struct iommu_domain *domain, struct device *dev,
+>   		struct arm_smmu_cd target_cd;
+>   
+>   		arm_smmu_make_s1_cd(&target_cd, master, smmu_domain);
+> -		arm_smmu_write_cd_entry(master, IOMMU_NO_PASID, cdptr,
+> -					&target_cd);
+> +		arm_smmu_replace_cd_entry(master, IOMMU_NO_PASID, cdptr,
+> +					  &target_cd);
 
-Because the work re-arms itself every 30 seconds, this is not a narrow
-timing window. One successful ethtool -G after efx_poll() has queued
-filter_work is enough to trigger it.
+No, we cannot blindly do this for arbitrary ->attach_dev calls - the 
+majority of S1->S1 transitions are going to be moving back and forth 
+between the default domain and user domains, where there is zero 
+expectation, let alone guarantee, that the translations would be 
+equivalent and thus not liable to lead to TLB conflict aborts or 
+amalgamation hell.
 
-The Siena driver has its own copy of this code in
-efx_siena_realloc_channels() and has the same problem.
+This needs to be in a dedicated "I know what I'm doing and I fully 
+accept the consequences if I get it wrong" call path.
 
-Introduce efx_free_channel() to cancel filter_work synchronously
-before freeing the channel. Use it in efx_realloc_channels() and
-efx_fini_channels(), and in their Siena equivalents. This keeps
-cancellation of the per-channel expiry work inside the channel
-deallocation API.
+Thanks,
+Robin.
 
-Fixes: 3af0f34290f6 ("sfc: replace asynchronous filter operations")
-Signed-off-by: Sicong Huang <congei42@163.com>
----
-Changes in v2:
-- Introduce efx_free_channel() to cancel filter_work synchronously
-  before freeing the channel. Replace the direct kfree() calls in 
-  the reallocation and final teardown paths with this helper in 
-  both drivers.
-- Add the Fixes tag.
-
-Link to v1: https://lore.kernel.org/netdev/20261022133927.3860186-1-congei42@163.com/
-
- drivers/net/ethernet/sfc/efx_channels.c       | 12 ++++++++++--
- drivers/net/ethernet/sfc/siena/efx_channels.c | 12 ++++++++++--
- 2 files changed, 20 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/net/ethernet/sfc/efx_channels.c b/drivers/net/ethernet/sfc/efx_channels.c
-index f4dc3f3f4416..3e29b892e90c 100644
---- a/drivers/net/ethernet/sfc/efx_channels.c
-+++ b/drivers/net/ethernet/sfc/efx_channels.c
-@@ -561,6 +561,14 @@ static struct efx_channel *efx_alloc_channel(struct efx_nic *efx, int i)
- 	return channel;
- }
- 
-+static void efx_free_channel(struct efx_channel *channel)
-+{
-+#ifdef CONFIG_RFS_ACCEL
-+	cancel_delayed_work_sync(&channel->filter_work);
-+#endif
-+	kfree(channel);
-+}
-+
- int efx_init_channels(struct efx_nic *efx)
- {
- 	unsigned int i;
-@@ -589,7 +597,7 @@ void efx_fini_channels(struct efx_nic *efx)
- 
- 	for (i = 0; i < EFX_MAX_CHANNELS; i++)
- 		if (efx->channel[i]) {
--			kfree(efx->channel[i]);
-+			efx_free_channel(efx->channel[i]);
- 			efx->channel[i] = NULL;
- 		}
- }
-@@ -898,7 +906,7 @@ int efx_realloc_channels(struct efx_nic *efx, u32 rxq_entries, u32 txq_entries)
- 		if (channel && channel->type->copy) {
- 			efx_fini_napi_channel(channel);
- 			efx_remove_channel(channel);
--			kfree(channel);
-+			efx_free_channel(channel);
- 		}
- 	}
- 
-diff --git a/drivers/net/ethernet/sfc/siena/efx_channels.c b/drivers/net/ethernet/sfc/siena/efx_channels.c
-index 1fc343598771..1a8985c153f9 100644
---- a/drivers/net/ethernet/sfc/siena/efx_channels.c
-+++ b/drivers/net/ethernet/sfc/siena/efx_channels.c
-@@ -563,6 +563,14 @@ static struct efx_channel *efx_alloc_channel(struct efx_nic *efx, int i)
- 	return channel;
- }
- 
-+static void efx_free_channel(struct efx_channel *channel)
-+{
-+#ifdef CONFIG_RFS_ACCEL
-+	cancel_delayed_work_sync(&channel->filter_work);
-+#endif
-+	kfree(channel);
-+}
-+
- int efx_siena_init_channels(struct efx_nic *efx)
- {
- 	unsigned int i;
-@@ -591,7 +599,7 @@ void efx_siena_fini_channels(struct efx_nic *efx)
- 
- 	for (i = 0; i < EFX_MAX_CHANNELS; i++)
- 		if (efx->channel[i]) {
--			kfree(efx->channel[i]);
-+			efx_free_channel(efx->channel[i]);
- 			efx->channel[i] = NULL;
- 		}
- }
-@@ -932,7 +940,7 @@ int efx_siena_realloc_channels(struct efx_nic *efx, u32 rxq_entries,
- 		if (channel && channel->type->copy) {
- 			efx_fini_napi_channel(channel);
- 			efx_siena_remove_channel(channel);
--			kfree(channel);
-+			efx_free_channel(channel);
- 		}
- 	}
- 
-
-base-commit: f4377bf85887f57b59abb5479f7660a81ffe4449
--- 
-2.34.1
+>   		arm_smmu_make_cdtable_ste(&target, master, state.ats_enabled,
+>   					  STRTAB_STE_1_S1DSS_SSID0);
+>   		arm_smmu_install_ste_for_dev(master, &target);
 
