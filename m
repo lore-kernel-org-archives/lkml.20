@@ -1,75 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=134.76.10.21
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.96
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792775701;
-	b=aRGmeS0qW0fI2NRGwHqbmGQRxeY5+gFjjdmneOh/bG/4+qsAJIMgCYeDrpZlDmYIi7rM
-	 6gsWngZPpmcw1hd53cy17LOYrqJOn3AtMjqJ3y3w2+yTuybw4+GVhRHf0qEpU9fpTu5pt
-	 mGTK5dD/MC2UzqbD9Y7c1Vu3ga0Okh41+1gB15uNm/4Lq2xaMpS/bMC3j6EwlnkWccvqz
-	 UYjLTinwzdDdhiek9EPzpiCWKMmNT7QJT/oKvZu8cARU89qCnxE5XO1+ZBupFKjeFNoJo
-	 YPE7aBwiRt3gWO3wLNzD7qOmTGa+BEGQpcA7oTEEGn7Z+JK4koz4YAT3nqwEQJbRZKw==
+	t=1792775738;
+	b=0fDrqUEy1C0EGJpMo2v3WQ9/8F1wQetDT3tYpbSXIL5SK1cVxVvnESHPb1jDXMQNfPEB
+	 Y54bCe/tGXTr5zYvlUjJ85PqPZ3lUxTirpYntG7RLa47IN5qSdn0VA2o9RIgYd3xUpXiU
+	 VLuOLymb1rgGma9dTJsantdE/Chcnz+KnLizKyS5kv9ixb2dIm/Xt2hwannxieErq4vUi
+	 4dZM+9+37J/XAsH0f5xtteSZLMtzV/gmvTGxhjbp3dvf4IcbCw8AxemSL8VKjMF74baKZ
+	 GPXXwq2JYeS/iRa2lguwA6q7vL1YrIRTi6r/A2LHJuTRySbGFhDHq/YP5roT3qRBHwA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792775701;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Received:From:To:CC:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy:X-Virus-Scanned:X-Spam-Level;
-	bh=PSMamqooMg61vJdbSpJlmucu4wryIKpU8Ww25uB+4NE=;
-	b=KjCKduEHAPzbUyYVGQrnGstC5i4vgcYgSPguYwlKC2G9pcFw9h19zL3xR0xjmh9gNLkk
-	 iFKkfI1NIqdvw6kRBeSRi+47RIvqBzwKfmFGq9pL7YriSxooWg+TtwlOEJKlN7baz5uKO
-	 LOtJCQ9N2besHLXz2Q2pDVDL/SSEvJ5yzoajeyUdXWM0+RwHeV7AZB9DCcbVtjOVmsx4g
-	 /g1pXJJ55HH9roUoLvV94rlY4Hk21hNfGaCFhT+G056Wf493hqMuIvZbA1cUtLAHdAzSP
-	 Cvxt2JUaTqxDf3mFNpsIxNOel1BfGAHMzoktvp/Jz2a7H/ARFSTxskU2VbCajuPOMPA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792775738;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=uOTjqmyRNUWkFdydZyKOHkZPBvFbPtsWEgtGBpk+JSg=;
+	b=KKbxEprBwlwKpD1Rliwool6sBPMTvKwq+zhnjTg1qB8bcqQsbhAeyI9p6S1QM/Cck21V
+	 qeC6pig3cAGG5JtREeOOqg7GtV7m21q4qyz77n3pw1lmcOcNbPClfz3geUosGfsLFnrFD
+	 /SP8hC2V2AxSOSHgDljrUUQXDOg+2AAKpDZY0g9OoENUwxLZd5dWxwR+hz1+anW4zBvGo
+	 3C9oojkpArMoqNE2fC0+LFS9f0u8ScnS5IXsBaN55sJimJlMrigsC0vM8CNifvn3xGITQ
+	 Vm/8DVQ/qwUsjYIBL/QOaJPwxnXMGM5cb5mFHjhOOU85K3kqxuuoHdqL/501MAKlqDw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cispa.de;
-	spf=pass smtp.mailfrom=cispa.de;
-	dkim=pass header.d=cispa.de header.i=@cispa.de header.a=rsa-sha256 header.s=2023-rsa header.b=lAF6D+1e;
-	arc=none smtp.remote-ip=134.76.10.21
-Received: from mx-2023-1.gwdg.de (mx-2023-1.gwdg.de [134.76.10.21])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=waldn.net;
+	spf=pass smtp.mailfrom=waldn.net;
+	dkim=pass header.d=waldn.net header.i=@waldn.net header.a=rsa-sha256 header.s=key1 header.b=hXUsRcAY;
+	arc=none smtp.remote-ip=95.215.58.96
+Received: from mta1.migadu.com (out-96.mta1.migadu.com [95.215.58.96])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95E1A606A31D;
-	Fri, 23 Oct 2026 17:15:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 95E1A606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cispa.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cispa.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C004606A31D
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 17:15:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1C004606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=waldn.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=waldn.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=cispa.de header.i=@cispa.de header.a=rsa-sha256 header.s=2023-rsa header.b=lAF6D+1e
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=cispa.de;
-	s=2023-rsa; h=Content-Type:Content-Transfer-Encoding:MIME-Version:Message-ID:
-	Date:Subject:CC:To:From:Sender:Reply-To:Content-ID:Content-Description:
-	Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
-	In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
-	List-Post:List-Owner:List-Archive;
-	bh=PSMamqooMg61vJdbSpJlmucu4wryIKpU8Ww25uB+4NE=; b=lAF6D+1eIMQMDK5xtoOirYs3Xw
-	fnsaRK/4k8CgyAF+mWPoVW42D2xFP0mj2lODUkyvkQSV8IQJbsnLaGdulCUUMd8cy16NEoS3zuHHD
-	U2b/tZgH+ghUSqn/+u2UwkyqBrESTFLan99gsJeVuvDWOWBY7qVwOHNutI1wk5Qa15U2Kz5mcez4V
-	IHZgty3sTJOWSCFtaPBJmyF+C99BMwdEmTOdByzePUgN938n1xZb5qlnc/0rfSrQcH+MAkmQF6fSZ
-	cQJFwBX7JRR8vh5YqVc0ZFpq5QYTIlbIjL6AjFcul95Ni0XXrthQtKATPI+Lqa5TB0apdbeqje7vx
-	j79wvD1w==;
-Received: from mailer.gwdg.de ([134.76.10.26]:59957)
-	by mailer.gwdg.de with esmtp (GWDG Mailer)
-	(envelope-from <amirmohammad.eftekhar@cispa.de>)
-	id 1xKIr4-00Emxv-3C;
-	Fri, 23 Oct 2026 19:14:58 +0200
-Received: from mbx19-gwd-01.um.gwdg.de ([10.108.142.50] helo=email.gwdg.de)
-	by mailer.gwdg.de with esmtps (TLS1.2:ECDHE-RSA-AES256-GCM-SHA384:256)
-	(GWDG Mailer)
-	(envelope-from <amirmohammad.eftekhar@cispa.de>)
-	id 1xKIr4-000MM1-1p;
-	Fri, 23 Oct 2026 19:14:58 +0200
-Received: from localhost (10.250.9.199) by mbx19-gwd-01.um.gwdg.de
- (10.108.142.50) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.56; Fri, 23 Oct
- 2026 19:14:57 +0200
-From: Amirmohammad Eftekhar <amirmohammad.eftekhar@cispa.de>
-To: Sean Christopherson <seanjc@google.com>, Paolo Bonzini
-	<pbonzini@redhat.com>
-CC: <kvm@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<amirmohammad.eftekhar@cispa.de>
-Subject: [BUG] KVM: nVMX: emulating SMSW/LMSW/POPF/PUSHF for L2 injects a spurious #UD (vmx_check_intercept default)
-Date: Fri, 23 Oct 2026 19:14:37 +0200
-Message-ID: <20261023171437.637799-1-amirmohammad.eftekhar@cispa.de>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key, unprotected) header.d=waldn.net header.i=@waldn.net header.a=rsa-sha256 header.s=key1 header.b=hXUsRcAY
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=bK4TXPNXctxarcSsHlGeHHSHsHKJGqcOVwvu8B7oRYA=;
+ c=simple/simple; d=waldn.net;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792775736; v=1; x=1793380536;
+ b=hXUsRcAYPMTmuSnqXSpWvv1LYNBQ97VYJ4hbo8V5DL03aT8VHsW2fLV769m4UQrOr6TauIPz
+ 5rEi2uFrnvZqE/NJ8KGbAYFprrNbZKj18NkWIH+6YcTf8twfssHQFU3UZTqlQj+3ibMad3jfsJ6
+ eWZOprP7bI3bkI566EVrfFBJM0GokVhVVQZQNIUXBLnF3BrCmwmV8zxpdALS2QH78zEeMRQpaPT
+ dj3B89xfu0Hmam3sGnZ0ibjuPeQKKQqB3T9RDol4R71JG8k6u8GPDWEZh0r8RN/SMbdfadYe1QA
+ H+zVBlqYWlK22gfLEWq856eoco/+8icp2Hsl8OiW9N88w==
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 118033012f27832e;
+	Fri, 23 Oct 2026 17:15:17 +0000
+X-Mizu-Trace-ID: 118033012f27832e
+X-Migadu-Flow: FLOW_OUT
+From: Amelia Crate <acrate@waldn.net>
+To: Kees Cook <kees@kernel.org>,
+	linux-security-module@vger.kernel.org
+Cc: Paul Moore <paul@paul-moore.com>,
+	James Morris <jmorris@namei.org>,
+	"Serge E . Hallyn" <serge@hallyn.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Amelia Crate <acrate@waldn.net>
+Subject: [RFC PATCH] loadpin: allow untoggleable enforcement on filesystems which don't appear to be read-only
+Date: Fri, 23 Oct 2026 12:15:08 -0500
+Message-ID: <20261023171508.3460300-1-acrate@waldn.net>
+X-Mailer: git-send-email 2.54.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,84 +72,121 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: MBX19-SUB-05.um.gwdg.de (10.108.142.70) To
- mbx19-gwd-01.um.gwdg.de (10.108.142.50)
-X-Virus-Scanned: (clean) by clamav
-X-Spam-Level: -
 
-Hi,
+Some filesystems, such as composefs created from layers which are entirely
+read-only, can't be easily detected as a read-only file system. In addition to
+filesystems which are read-only without having a backing read-only block device
+I believe this is also useful for cases where immutability of the filesystem is
+enforced by the hypervisor or the host, such as 9p shares or virtiofs.
 
-Reporting a nested-emulation fidelity bug (correctness / KVM-vs-hardware and
-VMX-vs-SVM differential; not memory-safety). It appears to be the same class
-the stalled series "KVM: nVMX: Synthesize nested VM-Exit for supported
-emulation intercepts" / "Consolidate missing X86EMUL_INTERCEPTED logic in L2
-emulation" (v2, Jan 2025) set out to fix, which has not landed; v7.3-rc6 still
-carries the stub. Sending a concrete, reproduced list of the reachable
-instructions in case it helps revive that work, and a minimal stop-gap.
+It is still desirable to enforce LoadPin and disallow toggling enforcement in these cases.
+This patch gives system administrators a way to disallow toggling LoadPin enforcement even
+when the immutability of a filesystem is unclear.
 
-The defect
-----------
-The x86 instruction emulator has no notion of L1 vs L2; all nested-intercept
-fidelity is delegated to vmx_check_intercept() (arch/x86/kvm/vmx/vmx.c:8190),
-which is a partial stub ending in:
+Signed-off-by: Amelia Crate <acrate@waldn.net>
+Assisted-by: Codex:gpt-6
+---
+ Documentation/admin-guide/LSM/LoadPin.rst     |  8 +++++++-
+ .../admin-guide/kernel-parameters.txt         |  7 +++++++
+ security/loadpin/loadpin.c                    | 20 ++++++++++++++++++-
+ 3 files changed, 33 insertions(+), 2 deletions(-)
 
-	/* TODO: check more intercepts... */
-	default:
-		return X86EMUL_UNHANDLEABLE;		/* vmx.c:8272-8274 */
-
-For an instruction VMX does NOT actually intercept, the architecturally correct
-answer is X86EMUL_CONTINUE (let it execute), not UNHANDLEABLE. SMSW and LMSW are
-decoded with an intercept hook (emulate.c, II() -> ctxt->intercept =
-x86_intercept_smsw/_lmsw) and the hook is consulted whenever check_intercepts is
-set, which x86.c sets precisely for L2:
-
-	r = x86_emulate_insn(ctxt, is_guest_mode(vcpu) && ...);	/* x86.c */
-
-So for L2, SMSW reaches vmx_check_intercept() -> default -> UNHANDLEABLE before
-em_smsw runs. UNHANDLEABLE becomes EMULATION_FAILED, handle_emulation_failure()
-queues #UD unconditionally, and the CPL0/userspace-exit escape hatch is gated on
-!is_guest_mode, so L2 is resumed with a spurious #UD pending. For L1
-(is_guest_mode false) check_intercepts is false, em_smsw runs, and the
-instruction completes. SMSW merely reads CR0[15:0] and has no VMX intercept
-control, so #UD is architecturally impossible here.
-
-Reachability: L0 only runs its emulator on an L2 instruction that faults to it,
-i.e. a memory operand resolving to an MMIO/unbacked GPA, which L1 controls via
-EPT12. No privilege beyond running a nested guest.
-
-Reachable instructions (reproduced, fresh VM per arm)
------------------------------------------------------
-Confirmed at runtime on BOTH vendors (Intel 7.3-rc3, AMD 7.3-rc2):
-
-  SMSW   #UD on VMX,     clean on SVM   (II SrcNone|DstMem|Mov)
-  LMSW   #UD on VMX,     clean on SVM   (II SrcMem16|Mov|Priv; also has a real
-                                         selective-CR0 intercept to honour)
-  POPF   #UD on VMX,     clean on SVM   (II ImplicitOps|Stack)
-  PUSHF  hang on VMX,    clean on SVM   (store re-faults the injected #UD until
-                                         the watchdog), clean on SVM
-  IRET   fails on BOTH   -> EXCLUDED (vendor-neutral emulator limitation, not
-                                      this bug)
-
-The VMX-vs-SVM split is the root cause made visible: svm_check_intercept()
-initialises ret = X86EMUL_CONTINUE and returns it for anything the nested VMCB
-does not actively intercept (svm.c:4852), whereas vmx_check_intercept()'s
-default returns UNHANDLEABLE.
-
-Suggested fix
--------------
-The general fix is the stalled series (synthesize a nested VM-exit for
-emulated-but-intercepted instructions; CONTINUE otherwise). As a minimal
-stop-gap, add cases to vmx_check_intercept(): SMSW -> X86EMUL_CONTINUE (no
-intercept exists); LMSW -> evaluate the nested CR0-load/selective-CR0 intercept
-and either reflect a nested VM-exit or CONTINUE; PUSHF/POPF -> CONTINUE (no VMX
-control). SVM already models all of these.
-
-Reproducer: an EPT12-override harness points one L2 instruction's memory operand
-at an unbacked (MMIO) GPA and runs it; a MOV control through the same fault path
-emulates cleanly, isolating the instruction as the sole variable. Happy to share
-it or test patches.
-
-Thanks,
-Amirmohammad
+diff --git a/Documentation/admin-guide/LSM/LoadPin.rst b/Documentation/admin-guide/LSM/LoadPin.rst
+index a90fd9dac960..f1e8825d0fe8 100644
+--- a/Documentation/admin-guide/LSM/LoadPin.rst
++++ b/Documentation/admin-guide/LSM/LoadPin.rst
+@@ -16,10 +16,16 @@ boot ("``loadpin.enforce=0``").
+ 
+ LoadPin starts pinning when it sees the first file loaded. If the
+ block device backing the filesystem is not read-only, a sysctl is
+-created to toggle pinning: ``/proc/sys/kernel/loadpin/enabled``. (Having
++created to toggle pinning: ``/proc/sys/kernel/loadpin/enforce``. (Having
+ a mutable filesystem means pinning is mutable too, but having the
+ sysctl allows for easy testing on systems with a mutable filesystem.)
+ 
++Some filesystems may appear to be mutable, but are in fact read-only.
++In this case, ``loadpin.force_enforce=1`` can be set to require enforcement
++of LoadPin on all filesystems. When LoadPin is enabled,
++``/proc/sys/kernel/loadpin/force_enforce`` reports the state of this option.
++This option is independent of whether LoadPin is enabled.
++
+ It's also possible to exclude specific file types from LoadPin using kernel
+ command line option "``loadpin.exclude``". By default, all files are
+ included, but they can be excluded using kernel command line option such
+diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
+index 1b2ae71def21..df8c145cc63d 100644
+--- a/Documentation/admin-guide/kernel-parameters.txt
++++ b/Documentation/admin-guide/kernel-parameters.txt
+@@ -3540,6 +3540,13 @@ Kernel parameters
+ 			Enable Live Update Orchestrator (LUO).
+ 			Default: off.
+ 
++	loadpin.force_enforce= [SECURITY]
++			Format: <bool>
++			Force LoadPin enforcement until reboot, even when the
++			pinned filesystem is not backed by a read-only block
++			device. Requires LoadPin to be enabled in the active LSM list.
++			Default: off.
++
+ 	lockd.nlm_grace_period=P  [NFS] Assign grace period.
+ 			Format: <integer>
+ 
+diff --git a/security/loadpin/loadpin.c b/security/loadpin/loadpin.c
+index f71861f98e1a..b260ad299a2c 100644
+--- a/security/loadpin/loadpin.c
++++ b/security/loadpin/loadpin.c
+@@ -45,6 +45,7 @@ static void report_load(const char *origin, struct file *file, char *operation)
+ }
+ 
+ static int enforce = IS_ENABLED(CONFIG_SECURITY_LOADPIN_ENFORCE);
++static bool force_enforce __ro_after_init;
+ static char *exclude_read_files[READING_MAX_ID];
+ static int ignore_read_file_id[READING_MAX_ID] __ro_after_init;
+ static struct super_block *pinned_root;
+@@ -60,11 +61,19 @@ static bool loadpin_root_writable;
+ static int proc_handler_loadpin(const struct ctl_table *table, int dir,
+ 				void *buffer, size_t *lenp, loff_t *ppos)
+ {
+-	if (!loadpin_root_writable && SYSCTL_USER_TO_KERN(dir))
++	if ((force_enforce || !loadpin_root_writable) && SYSCTL_USER_TO_KERN(dir))
+ 		return -EINVAL;
+ 	return proc_dointvec_minmax(table, dir, buffer, lenp, ppos);
+ }
+ 
++static int proc_handler_force_enforce(const struct ctl_table *table, int dir,
++				      void *buffer, size_t *lenp, loff_t *ppos)
++{
++	if (SYSCTL_USER_TO_KERN(dir))
++		return -EPERM;
++	return proc_dobool(table, dir, buffer, lenp, ppos);
++}
++
+ static const struct ctl_table loadpin_sysctl_table[] = {
+ 	{
+ 		.procname       = "enforce",
+@@ -75,6 +84,13 @@ static const struct ctl_table loadpin_sysctl_table[] = {
+ 		.extra1         = SYSCTL_ZERO,
+ 		.extra2         = SYSCTL_ONE,
+ 	},
++	{
++		.procname       = "force_enforce",
++		.data           = &force_enforce,
++		.maxlen         = sizeof(force_enforce),
++		.mode           = 0444,
++		.proc_handler   = proc_handler_force_enforce,
++	},
+ };
+ #endif
+ 
+@@ -436,6 +452,8 @@ DEFINE_LSM(loadpin) = {
+ };
+ 
+ /* Should not be mutable after boot, so not listed in sysfs (perm == 0). */
++module_param(force_enforce, bool, 0);
++MODULE_PARM_DESC(force_enforce, "Always enforce module/firmware pinning");
+ module_param(enforce, int, 0);
+ MODULE_PARM_DESC(enforce, "Enforce module/firmware pinning");
+ module_param_array_named(exclude, exclude_read_files, charp, NULL, 0);
+-- 
+2.54.0
 
