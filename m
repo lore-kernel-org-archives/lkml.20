@@ -1,112 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.217.53
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792784272;
-	b=oO4S8WubTjWMS8S27BmOS8xw/fDkaE/NS6sDURHJvZntKIVHNcS/f7KtAVkfQV56sbma
-	 U6WBB3zeJS8SjlG97XFX5yCMloY/1pSTGkqIiccHak7l5HqCjlGuyvVnx2vuj6NiVB0jV
-	 a0kZUUnf3u2z9KkWsLb1QKDO28PX5hUbZTND1pT63+qfdP2+TnrHN5hgvk4TYFcQ2ecYS
-	 sOWnJCYgYaKGVOgjqtBDRWUnZiftLpklg77oXkSLl4nhqDgJXIGOe7/HRhuZ2qwILY8jW
-	 Y4E0tSpdarfSfwieZ+OPHMxOLvC27Mn8mrVvdN3tXwpRHJKK40021h8VLmY8IRgG2hA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792784272;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=dBqlzpdFcJ3hUDMw92HPVyeVA39vP3B1zf8tX9+k8sk=;
-	b=bKRDANNH9AbSgWvFhtPFSwGWGWr0eGl2i1/sXbdBiPNp7yRTp2KEAWIPt0ywZVtPWiIr
-	 PGJcikU7AyHTkmPotuxxi6+NwddaH/Cz1LZN2WKdrJLPbkI7eoE0rjZ1d1ZLupJdrtyNm
-	 +p1sn7HLP3OhlEZeR3pvyqeDlrma7GX1EIJTsQfeRNZmnMNdQN3Xof0J4H6x15EtOfuQC
-	 vHk54twYfzfPAhtfCdGNangpbkeCQsOIf+zkuKEqnJT9DF1TpdPTPMO+n8ydB/RHpFJot
-	 RMUXC4C/hoYVShpVrXjcf8+72Rq8eL/blcCIF7YI0LhcpXzzK6ErEp0LW/066qn4/Iw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=pZlfqFW0;
-	arc=none smtp.remote-ip=209.85.217.53
-Received: from mail-vs1-f53.google.com (mail-vs1-f53.google.com [209.85.217.53])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.130.33
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792784292;
+	b=0jLLUusTuD4gzaAhDIRIMqCMIZfe9OJw3hHLYhMVLkgiOkIQQh8tf7uKO3grLRxHQWNC
+	 HwIsRVhvS6wMam7Y6J7b04x3rY7Tecg6a33B5O3R2m/Ymcm/8OcOoMP6zbs2rhZyAlmvF
+	 GGkAMY/oE9mSJhCsRtN0fdTgBlbi0KjNq0G1pfk+Ai6wFH3cEJWS/fxYkvYFBVkaOlxEZ
+	 j6KlICa4LAQ1qchZFE7wj2S/17Synq/ku04/IL6oUi4MIRGB+S1Kqa5HSSzYbDbIbtvup
+	 oDcPsT7Q+0G0JfnBJih9+eDfGSGYxNvwKxKc7y6fH03OU2z9mgqk4MK8NLe5Pd5F42Q==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792784292;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=q5aOef4AIJ6NC76DKf+Q/vMSaVUAyMGbuC0/6TCZ2uI=;
+	b=ioqqrGGgxi8o5u4zcdauDnnAeQOrces9O5xIOW25chS91tuEQh43HcqqRxCfKruvJBCt
+	 Jgxzn9qCkNJ+HNiEfk6GlEaAT/GWLg8HtVy/mPPqxeN8RNKY4T8hZQoFhNkoxJtvHBYzO
+	 qFEj7sXc9NAnjdKyZQtaKgyuU7Ow4+01onGhkVvMzA1EwKWS3qM/ITq+HC4GDHEHxxIjG
+	 mqjHs2gJ7xg44ng6vPkerYImbli1HpmFuZSyukxglSZVNZhOiht/khD83wOzHoPtuHo99
+	 ZHiUIF7AM07EEFIBdqpG2ThsJfiOb/y8OyrSg4OzQhgj18ZHv8RLYbkCHNd1S3DBpnA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=Brvb2mE2;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.130.33
+Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011033.outbound.protection.outlook.com [40.107.130.33])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 177F1606A31B
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 19:37:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 177F1606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E814606A31D;
+	Fri, 23 Oct 2026 19:38:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1E814606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=pZlfqFW0
-Received: by mail-vs1-f53.google.com with SMTP id ada2fe7eead31-745497ac8fcso571915137.0
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 12:37:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792784270; x=1793389070; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:subject
-         :references:in-reply-to:message-id:cc:to:from:date:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=dBqlzpdFcJ3hUDMw92HPVyeVA39vP3B1zf8tX9+k8sk=;
-        b=pZlfqFW0RtfJVe2ispa6nozv4AXQIPar7T5xrUUaAcsv1voVu0GdwTl/86CDn9W7L5
-         c/d9WZSqghU4WxTrERP2c4j1GQsiVYTJL8z+VacZjjgI12E7UdJPiPf3kzgb5uKB+dWK
-         mJ4sTYkwcK7YkOmZcGTXqObzN0v6JGK8l3mNclJXrsoGI+B5OsPorjniK3x+NTfDOsgU
-         WAHl9RlwtZfVaOY6t6JHZip3sq2R7EF2bTY3/YPlYsySkrowvP4XXiuPiEdHfcyf0mc2
-         EMHGZuy5bc9HA1iPzfzCRobbZBMSOPGFK5VTGaXJ4aC1mTORrAZDo+RvvifzDkUWguMu
-         fJ0g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792784270; x=1793389070;
-        h=content-transfer-encoding:content-type:mime-version:subject
-         :references:in-reply-to:message-id:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=dBqlzpdFcJ3hUDMw92HPVyeVA39vP3B1zf8tX9+k8sk=;
-        b=Z6IEqmtISlxcOsSpIJx8WSAog0Z7NaT0VKqdbC3fOhhGm94BwN1H7wYm5pPrOVwxWi
-         WmADVcuIrR4HoWTAgEUMPTXIVvtJOFcN3zr02Htdoz3UPz5ML7+NnAt6+Nhyjh8Shlmt
-         4+OGGla8jnZ+QdGCm2urhEBrzI01ET3CBE9IOqeYoCmIUNT7tBXiiYX3FqJjPo2psuQN
-         leMSOe9hbt8rv2emgjwe/hOGKb1s0bRCmy9vrt3K2OIMIt/75CP8rcx+KvWTdoer7d1n
-         8EkCs7mZ1ZxVD8W87QWdm3wt7r2u7XLKG3h1SPasai6Qp1tjHFpGZ6/dAylHlAT1UnvT
-         SPsA==
-X-Forwarded-Encrypted: i=1; AKwUvBxDTKBb1vyHK/oXHeB7PnG6GmWPGakuTumawC1ZV+HY6WJ9OtVSWmgQ0ImeyEEL0uPg8aHv2lPs9vPBmYU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKlkYyThGbwnpDIguCa/UA19G7TfGifzGxNmDGHc54UXHD0lpDG
-	fK/CIIrG0/FTGI3MQRi+TxnoI8/QRGIS6dPTsPrMarXiniLfHEtfZS/q
-X-Gm-Gg: AYBFou3Tt3u1B+DDw7BAS9MkzNPoxmuqDWeb9/IZ4YEAg5Oy4N8NSvNAesEcjwKtKXP
-	geFT5vI0q49PF39R2uj4A1axZIOv31RlQWzcwxunrNs8aMqJX7v1DpYeCRFMbpGJTwz6Z+j17Ro
-	bWX1KMNvszCQoba7VyhRY+rhMtDMw7H02feJX1kG2Q5pd9m0HpwyjethsdeSX5L53qkDWJ2MH3t
-	DdxWqz1B54hMgac1bCjOm7/Vx4mIPcJfVvi8T9v8KUXB2WAj8myLxswQpjOwIXgo4HPCy7SZRcL
-	tWVqSY0FLk2GfJtLe4jCCUmjfjJcyyGvLPqytX4muZqN06QVDyMNajhPH+DUPJvICbW+qCQPa7C
-	SVWNcpCyI4JY6bGtgD/cvAT+YY8PXfLDPUFff0Gvtw42hIaCpIc4VpayKKNKWOOz6PaOrHz7Il4
-	eDQYDF3H3N/StBgiv1hSP1zOjTaqxUHVeFQVBuaXMjQ3LoQg2+QRPolJqBitGw2nSeJUp+AN7wx
-	oRh1ZMjO/55KK5T0NKQJ99zyMkwAt/K8KT5qQ/c5uwiD5S8Pl5tzVZC5PfGwu58aXFo5fzEpx5N
-	Kgu40GfSuXCf+VUKqRJ0dp2ucZsxKzaQ3YEtqidag1FqpxRHGxFMbv4dwLYxDrYpsOI8rGnPYs1
-	63GeIwBgMyIbCno0rcDM=
-X-Received: by 2002:a67:e7cb:0:b0:7cb:bc5e:7dab with SMTP id ada2fe7eead31-7ce5cd5c735mr53020137.24.1792784269876;
-        Fri, 23 Oct 2026 12:37:49 -0700 (PDT)
-Received: from gmail.com (111.46.245.35.bc.googleusercontent.com. [35.245.46.111])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-9910e5f0452sm455908241.0.2026.10.23.12.37.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 23 Oct 2026 12:37:49 -0700 (PDT)
-Date: Fri, 23 Oct 2026 15:37:48 -0400
-From: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
-To: "Michael S. Tsirkin" <mst@redhat.com>, 
- linux-kernel@vger.kernel.org
-Cc: Willem de Bruijn <willemdebruijn.kernel@gmail.com>, 
- Chris Arges <carges@cloudflare.com>, 
- =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>, 
- Phil Sutter <phil@nwl.cc>, 
- Jason Wang <jasowangio@gmail.com>, 
- =?UTF-8?B?RXVnZW5pbyBQw6lyZXo=?= <eperezma@redhat.com>, 
- Xuan Zhuo <xuanzhuo@linux.alibaba.com>, 
- Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, 
- Eric Dumazet <edumazet@kernel.org>, 
- Jakub Kicinski <kuba@kernel.org>, 
- Paolo Abeni <pabeni@redhat.com>, 
- netdev@vger.kernel.org, 
- virtualization@lists.linux.dev, 
- Max Krasnyansky <maxk@qualcomm.com>, 
- Rusty Russell <rusty@rustcorp.com.au>, 
- Paulos Yibelo <habte.yibelo@gmail.com>
-Message-ID: <willemdebruijn.kernel.3ae6f662e1ed8@gmail.com>
-In-Reply-To: <bd468c7ea5468d6e3827a3c678eee15243615580.1792768096.git.mst@redhat.com>
-References: <cover.1792768096.git.mst@redhat.com>
- <bd468c7ea5468d6e3827a3c678eee15243615580.1792768096.git.mst@redhat.com>
-Subject: Re: [PATCH net v6 4/5] net: resolve uncommon partial checksums at
- ingress
+	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=Brvb2mE2
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=O0WntiXbfIL28qQ6n9Nu7iWIfWFpu6PwYQ5qLqT2ZkdZ1VgVHmSJ3d410X4y5zYTiQ5esx7HonwC8B3orbNGMSNkSn050p2/CwLbBPMvqUoMlsH0SQealbb7XWpk2A/aVskM61Vh0TARZ7RZ2fNhCAvnxsPhs89Hx/OnpWnQ2h8wgByJ+fbwCOi7zepw5OmCvB3U9R9272LUtCwuyXDZKQ9RPT5MXzMyPJeYPyIkBubK3m3tGYRQPi5wTT7WY0ezvKhwaLyHqQl98rk/mqCVnpCJdEO3f/pttUfqX6mIoQyToNlGpr1nIc/HujmiETDZiA8jrsUmruu4jFQLBQhDNA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=q5aOef4AIJ6NC76DKf+Q/vMSaVUAyMGbuC0/6TCZ2uI=;
+ b=yrumYYpPz1IE12i+A1zbLT2AkQf9bUwEPniTsbl9VxWLj+pEl3+o6nsNv8x18/w5J7AhllhqhYEw/AQ0l3eswuyT7cwYhjJcafSwvuSLszDmMvAILLRL2YcnrTX98qlb5r1R9VaKGf7jskwsXZt9baXaHAJwbiqLMmhZzonEXdbUkw1N1AcZUvbnEhSAc1WJSVw03FMXnwcTY6rVQ5p4pYVM6C+Z+dcnlGvL06pXXJU8gmAJVITqD0VZxHb/O6Lz/v2dKksLlYRutGBlBCz7QlHXOiaxXRWNJjKasKgUFMA36WXihmJJagozhQPk3yiERrMOQrlNGR9ZurDHQyvBsA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=q5aOef4AIJ6NC76DKf+Q/vMSaVUAyMGbuC0/6TCZ2uI=;
+ b=Brvb2mE2WTED7i3RU+Z0rz4Jot0Lxcl9zsdwQIV0v0hfPA5xeBniTr7E2NJJbqacxWnoX7nQBBGL2wAI7Oboi7r+qbNj3Vvx8QAftDN97Y9MpTIW1+PzHaaINt6rkSRebvSS+WUfCxMCKtm/CFGRlM5SL5B+q4nKqxBhFZsUfwl6z+mAfKClGLn/vPqyUFZLwZpUPIlS70qOU/uReslz2zIs/R3axSOoekDDddYw3vp1q/+kUlybd1QDeQzyLNo7fR79WdDCVaBrtaG01gZnXUBq1jTzKCuNcNDxcfbVAuIXAOsMJm9XGl4SuZCpN1iHeSd4zhLCUn5D1dytGLXN4w==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
+ by AS1PR04MB9238.eurprd04.prod.outlook.com (2603:10a6:20b:4c6::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Fri, 23 Oct
+ 2026 19:38:08 +0000
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b%6]) with mapi id 15.21.0546.012; Fri, 23 Oct 2026
+ 19:38:08 +0000
+Date: Fri, 23 Oct 2026 14:38:00 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Mostafa Saleh <smostafa@google.com>
+Cc: linux-kernel@vger.kernel.org, dmaengine@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org, vkoul@kernel.org,
+	Frank.Li@kernel.org, bartosz.golaszewski@oss.qualcomm.com
+Subject: Re: [PATCH v2 1/2] dmaengine: qcom: bam_dma: Take a PM ref at
+ remove()
+Message-ID: <atu3mEp6akaVPSya@SMW015318>
+References: <20261023101536.3965344-1-smostafa@google.com>
+ <20261023101536.3965344-2-smostafa@google.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261023101536.3965344-2-smostafa@google.com>
+X-ClientProxiedBy: DS7PR06CA0038.namprd06.prod.outlook.com
+ (2603:10b6:8:54::19) To MI3PR04MB12438.eurprd04.prod.outlook.com
+ (2603:10a6:290:76::14)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -116,235 +98,113 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|AS1PR04MB9238:EE_
+X-MS-Office365-Filtering-Correlation-Id: 818b9d99-e278-45b1-83c2-08df313d2a39
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|1800799024|376014|19092799006|366016|56012099006|4143699003|11063799006|261009223027099003|261021121427099003|10067099003|22082099003|18002099003|261021123027099003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	8BjrngkhbZHwBr71OG4sj8vftKL53jXS3WmGnUgFp/dkC2ViS5Vjz4IfUYnTunf+rVwptMhe1wjcwCJEJAodY6PjQ0ObJK8jDJ8C2GW9TRf4/HrblquWpe93TcmdBIP078y242EyxgVBlyhw46GVmzN+nXk1b2XnkylEnTv0dChT4F7ISPEfnX0XDzLbLJINUQ+5vjgvTzMr126JkF4wkBfMj5McCOtaw2Oc1P5TVEr2RO612QYZ9oKpX1jRPgixrUbw0CjyyX2oFXK7wTpLZgeNDZGxeA4NyPGZKLEQWfF91QBIC3wYPDZG8+bejO2Q8ZJZbn4Trueb3L3QBw4B8pOj0rTDlBzunkuL4k5jM/aXszSAabWfBTZ8GE5iZcVNxQAS+9YtOIl1aeFeSfyNZBhngOVKKDZDaxYrQVqOt8qPVd9pVJDJmY9GzEB2/t1wJ7xdSQLGABn0WTaRVC8EDZex/92HlK0h29XeJcnLg/IlJbiV5+c72kDu0WQ1G2EN3/ZIt1XDvh6mUO2sIbZXJUI5tVh/9Cxbuu65dR8vA02B9D/I7oIQ3SG0jozeXpLquaXMtLFE7HL1SMtfn0xN10q12wl7PzJjC2+zE0xm7r5SWRhNgRHlgIVf9tXTUrDDCqBfGGL4hgKfcMB5xAPBdwhHbT5tHRkqcbk4KPEmceU=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(376014)(19092799006)(366016)(56012099006)(4143699003)(11063799006)(261009223027099003)(261021121427099003)(10067099003)(22082099003)(18002099003)(261021123027099003)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?dNoS/MQaYM3/3XQserwp//irFOwtyfDxfH+/kDsN1+Y9mIdP7TqoB4HXurTZ?=
+ =?us-ascii?Q?mzbXJZ5KuPEHeCvi1QgJfEYH6tpLsApacr6jdM7LLJlc+ldwKQ+0pu85OpDJ?=
+ =?us-ascii?Q?GskMEVafMHW1urWMvnS7rEmVeSl23xt/2SygT+JVppawT5WJKrHd8QRIuei5?=
+ =?us-ascii?Q?EY9UzUHpx+dJGGC5nt7yIFViemttmvXDU0uPWdzMbfOi40x6iVNFHhtnZ9rX?=
+ =?us-ascii?Q?r/kPaFdsoWyUnahWnL279i2NsRjvhchaI6QkCwoD4kJgDfqsALggb10lFTXB?=
+ =?us-ascii?Q?BBOuCrAfJiUzMoPhYBI8wUBba+xrg1F1rsvzbhpUrXFSo8oOG5bf28fZ54Bl?=
+ =?us-ascii?Q?ccalixCg6WZ4feD5wfBw8Q94qqUEjkuciFXR3jBYehVU1Ss6bO5ipc8ulb1c?=
+ =?us-ascii?Q?kuinAFsfWBu4Hl8pAVycHmzllLTj+yP0B1vetKdPYFJktkNLx5JdLoXhfwwP?=
+ =?us-ascii?Q?MC9Nr6n/ZmRBA8YBk6gPoRqy893Gc1lkww/NjS/JGMD2uHkU7cZtHs1jOZwg?=
+ =?us-ascii?Q?TJpmks1he3Ud+cqT5GAwFA1kwbAR8uc0vPNcMWXxvebiI8Kq6I+R9fQ6lLiE?=
+ =?us-ascii?Q?TO4UQXt87NV+zgH7CPUf4hxOfTR7PD+/55em7JW9LGrJYnbPxTh1wu/yYlDd?=
+ =?us-ascii?Q?kBW9YsbPaKcdQwp9PTAtY0BrEtKzJETmpdNuzABdGMNAcgfX0bZjdiuGo9Og?=
+ =?us-ascii?Q?/tZYoVtv+fG6jEYBIsNWpRKktc5uHkxAUiwQqxdyPZPu7fo9qnXZQ6MTpWzk?=
+ =?us-ascii?Q?f/3UsPxHV35BIkxXjCQsVKt9UkpzWYEJ5s6vDQcuAsi5WzyZEG4cA99pjHj6?=
+ =?us-ascii?Q?2+DjLyDrb84I4xRAE2SnBeeTcN+Rq53w/2IbOub6oUm0MOZl9YHVIEj459G0?=
+ =?us-ascii?Q?kBQ/PUb7YCZgqtZctORR9tyAdBy8RpZhzVJ8WzUbv7/AL6Djb23LtcYEVhl6?=
+ =?us-ascii?Q?dW6zSMkRY7IYe6A3AvftGgVnHhpneBWZ+a8Kw5jMdfrJTv2jyAied+uo2QS0?=
+ =?us-ascii?Q?W90DQsJjmvtJWWX8Ld5H8ZaEhzqAlsR1sy6QIGPdhSQMb7VBrxmQ1Kxxm+V8?=
+ =?us-ascii?Q?kxCiaiHPzA5ix2fw5NbxhpZ1wq3tXPkCieLKYjmHWbaWEVQH8DGWxMuzlXUC?=
+ =?us-ascii?Q?AOrC6g7Kv81v+tp+mbIkigUXmxiXNWb3Rx2lxh98s/BDr3WujHOkEYN0Dp/R?=
+ =?us-ascii?Q?pN1AfYQEPVM/B3B1U9mbdN+5pA+FoTmatC0N8GqovnclSe3CUA4b+OvqSyfH?=
+ =?us-ascii?Q?lGpEgtt/k4suh6eWrAk0Lvad5Hd44/DVtefFnl9zWqeSurj9l4yHnXmtgGIq?=
+ =?us-ascii?Q?HWkc0FlSRT3YHOywcgCKJ4ycQl6MmERb8qVFEwnsHykbTQqWSXtn5PO2DTFy?=
+ =?us-ascii?Q?dsauS1H53ZW7nfs6qMu7MwnCPO1v4/d7tq3A52eF3g1mJeL7SQPNIFcTVn90?=
+ =?us-ascii?Q?hgzNqjC9ypurmNb8zFXUNYSY8+pdY6Ar4uUB7rpi7qL6P7+TzyFOeTJXMqCf?=
+ =?us-ascii?Q?t84w3Fk0NaDi9aWBwPqy+SyCG8rLytx+tCWNEuY7Pocqt9cTwefRRCjKj0DL?=
+ =?us-ascii?Q?JFRKsVktxjJF5y4XWVforCVHDPqvNSr8jOXPSRl6nWxlNChsXc/LpRpeD/zZ?=
+ =?us-ascii?Q?ka/b4qVgjOnApTW9PeJyAS8DmWH6fSpjXG4XocO7r1rGwD8579R0bMgWO2gz?=
+ =?us-ascii?Q?C4+a6Fhijlpapio08DyMdtpEyca8gQrJDogz0zRTOcxSfchoXcip/2E8mJ5y?=
+ =?us-ascii?Q?taxnSASpOMovTGbWrfQ5obi493DiuiHziSATgvm1hoLJAVjREGUz?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 818b9d99-e278-45b1-83c2-08df313d2a39
+X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Oct 2026 19:38:08.3333
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: +yeNq7lQwgwzoOnHgGV7p4pBuuyQTzo9KzZXSl7drPQr9LiGG3XfhpkToTJV+Jt47en++LflqudIKjHqsLspHWRJXQVCdDe2jgR+llt5IGNiIRPDfMsWuoAkQG4OqpF2
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS1PR04MB9238
 
-Michael S. Tsirkin wrote:
-> As reported first by Paulos Yibelo <habte.yibelo@gmail.com> (after which
-> others, credited below, found more ways the bug can affect users) a
-> virtio net header can place CHECKSUM_PARTIAL at any in-packet offset.
-> If that state is retained, later checksum completion can modify the
-> packet after protocol processing has made decisions from it.
-> 
-> Let's fix that: let's validate csum_start and csum_offset and only keep
-> CHECKSUM_PARTIAL when csum_start and csum_offset match a parsed TCP or
-> UDP header, while handling VLAN headers, IPv4 options and IPv6 extension
-> headers.  Complete other non-GSO checksums immediately, before any
-> protocol processing runs.
-> 
-> We can't easily "complete the checksum" for GSO we don't recognize - GSO
-> assumes knowledge of the protocol. We could segment ignoring the
-> checksum then do whatever csum_start and csum_offset say, but that
-> seems like an overkill for something that shouldn't happen.
-> 
-> There's some risk here:
-> - non-gso packets which can't be parsed get checksum calculated in
->   software, adding performance overhead
-> - gso packets which can't be parsed get dropped
-> 
-> Note that for zero copy, userspace can change the data after the
-> checksum has been calculated.  This is fundamental to zero copy by
-> design, and the only outcome is a bad checksum and a packet drop.
-> 
-> To mitigate the risks, the following patch will add a sysctl knob to
-> bypass the resolution. This is reasonable if the setup is such that
-> there is no protocol processing at all.
-> 
-> UDP tunnel headers get the same handling on the inner header.
-> 
-> Packets without VIRTIO_NET_HDR_F_NEEDS_CSUM are unaffected.
-> 
-> Reported-by: Paulos Yibelo <habte.yibelo@gmail.com>
-> Reported-by: Chris Arges <carges@cloudflare.com>
-> Tested-by: Chris Arges <carges@cloudflare.com>
-> Fixes: f43798c27684 ("tun: Allow GSO using virtio_net_hdr")
-> Suggested-by: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
-> Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
+On Fri, Oct 23, 2026 at 10:15:35AM +0000, Mostafa Saleh wrote:
+> bam_dma_remove() calls pm_runtime_dont_use_autosuspend() and
+> pm_runtime_force_suspend(), which on a BAM with its own clock disables
+> bam_clk, and only then writes BAM_IRQ_SRCS_MSK_EE and terminates the
+> channels, touching registers of a block whose clock has just been
+> removed, causing the board to reset.
+>
+> Sashiko(Locally) also reports, it then calls clk_disable_unprepare()
+> on a clock that runtime suspend already disabled, which can trigger
+> "already disabled" warning in clk_core_disable().
+>
+> Hold a runtime PM reference across the register accesses and the
+> channel teardown. Once the hardware is quiet, disable runtime PM with
+> the device still active and drop the clock exactly once, balancing the
+> clk_prepare_enable() in probe.
+>
+> Fixes: 7d2545599f5b ("dmaengine: qcom-bam-dma: Add pm_runtime support")
+> Signed-off-by: Mostafa Saleh <smostafa@google.com>
 
-A few comments inline. All but one cosmetic. Feel free to ignore
-those. Please do review the comment from an LLM about the tunnel.
-Aside from that LGTM.
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
 
-> +static inline struct iphdr *virtio_net_ip4_parse(struct sk_buff *skb,
-> +						  unsigned int nhoff,
-> +						  unsigned int *thoff)
-> +{
-> +	struct iphdr *iph;
-> +
-> +	if (!pskb_may_pull(skb, nhoff + sizeof(struct iphdr)))
-> +		return NULL;
-> +
-> +	iph = (struct iphdr *)(skb->data + nhoff);
-> +	if (iph->version != 4 ||
-> +	    iph->ihl < sizeof(struct iphdr) / sizeof(u32))
-> +		return NULL;
-> +
-> +	*thoff = nhoff + iph->ihl * sizeof(u32);
-> +	/* Pull the options as well: the transport header offset
-> +	 * returned above must be within the linear data.  iph goes
-> +	 * stale across the pull.
-> +	 */
-> +	if (!pskb_may_pull(skb, *thoff))
-
-perhaps a local var instead of dereference the pointer here.
-though the compiler probably optimizes that anyway (?)
-> +		return NULL;
-> +
-> +	return (struct iphdr *)(skb->data + nhoff);
-> +}
-> +
-
-> +/* Walk the L3 header at @nhoff: where does its transport header
-> + * start, and which protocol is it?  Returns false if the header
-> + * is truncated, malformed or fragmented.
-> + */
-> +static inline bool
-> +virtio_net_l4_start(struct sk_buff *skb, unsigned int nhoff, __be16 proto,
-> +		    unsigned int *thoff, int *ip_proto)
-> +{
-> +	if (proto == htons(ETH_P_IP)) {
-> +		const struct iphdr *iph = virtio_net_ip4_parse(skb, nhoff, thoff);
-> +
-> +		if (!iph || ip_is_fragment(iph))
-> +			return false;
-> +		*ip_proto = iph->protocol;
-> +		return true;
-> +	}
-> +
-> +	if (proto == htons(ETH_P_IPV6)) {
-> +		const struct ipv6hdr *iph;
-> +		int flags = 0;
-> +
-> +		if (!pskb_may_pull(skb, nhoff + sizeof(*iph)))
-> +			return false;
-> +		iph = (const void *)(skb->data + nhoff);
-> +		if (iph->version != 6)
-> +			return false;
-> +		*thoff = nhoff + sizeof(*iph);
-> +		*ip_proto = iph->nexthdr;
-> +		if (*ip_proto != IPPROTO_TCP && *ip_proto != IPPROTO_UDP) {
-> +			*thoff = nhoff;
-> +			/* Find the transport header behind any
-> +			 * extension headers, AH included.
-> +			 */
-> +			*ip_proto = ipv6_find_hdr(skb, thoff, -1, NULL,
-> +						  &flags);
-> +			if (*ip_proto < 0 || flags & IP6_FH_F_FRAG)
-> +				return false;
-
-Since ipv6_find_hdr is called with target -1, any non extension
-header might pass. Do we want to restrict here to IPPROTO_TCP and
-IPPROTO_UDP again? No other transport layer requests csum offload.
-
->  static inline int virtio_net_hdr_to_skb(struct sk_buff *skb,
->  					const struct virtio_net_hdr *hdr,
->  					bool little_endian)
->  {
-> -	return __virtio_net_hdr_to_skb(skb, hdr, little_endian, hdr->gso_type);
-> +	typeof(skb->transport_header) old_transport = skb->transport_header;
-> +	int ret = __virtio_net_hdr_to_skb(skb, hdr, little_endian,
-> +					  hdr->gso_type);
-> +
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	if (skb->ip_summed != CHECKSUM_PARTIAL ||
-> +	    virtio_net_csum_partial_ok(skb, hdr->gso_type))
-> +		return 0;
-
-This is the common hotpath, but default branch prediction is to
-predict if without else as not-taken. Probably not very important on
-modern server CPUs, but optionally add likely. Same below in the
-tunnel code.
-> +
-> +	/*
-> +	 * Here we do not trust the checksum metadata.
-> +	 * __virtio_net_hdr_to_skb set the transport header to csum_start
-> +	 * from virtio hdr, restore it to a known good value.
-> +	 */
-> +	skb->transport_header = old_transport;
-> +
-> +	return __virtio_net_resolve_csum_partial_mismatch(skb);
+> ---
+>  drivers/dma/qcom/bam_dma.c | 6 +++---
+>  1 file changed, 3 insertions(+), 3 deletions(-)
+>
+> diff --git a/drivers/dma/qcom/bam_dma.c b/drivers/dma/qcom/bam_dma.c
+> index f67a93a37d48..8a1f4e5d24d1 100644
+> --- a/drivers/dma/qcom/bam_dma.c
+> +++ b/drivers/dma/qcom/bam_dma.c
+> @@ -1403,12 +1403,10 @@ static void bam_dma_remove(struct platform_device *pdev)
+>  	struct bam_device *bdev = platform_get_drvdata(pdev);
+>  	u32 i;
+>
+> -	pm_runtime_dont_use_autosuspend(&pdev->dev);
+> -	pm_runtime_force_suspend(&pdev->dev);
+> -
+>  	of_dma_controller_free(pdev->dev.of_node);
+>  	dma_async_device_unregister(&bdev->common);
+>
+> +	pm_runtime_get_sync(&pdev->dev);
+>  	/* mask all interrupts for this execution environment */
+>  	writel_relaxed(0, bam_addr(bdev, 0,  BAM_IRQ_SRCS_MSK_EE));
+>
+> @@ -1428,6 +1426,8 @@ static void bam_dma_remove(struct platform_device *pdev)
+>
+>  	tasklet_kill(&bdev->task);
+>
+> +	pm_runtime_disable(&pdev->dev);
+> +	pm_runtime_put_noidle(&pdev->dev);
+>  	clk_disable_unprepare(bdev->bamclk);
 >  }
->  
-
->  static inline int
->  virtio_net_hdr_tnl_to_skb(struct sk_buff *skb,
->  			  const struct virtio_net_hdr_v1_hash_tunnel *vhdr,
-> @@ -293,6 +558,7 @@ virtio_net_hdr_tnl_to_skb(struct sk_buff *skb,
->  	unsigned int inner_nh, outer_th, inner_th;
->  	unsigned int inner_l3min, outer_l3min;
->  	u8 gso_inner_type, gso_tunnel_type;
-> +	__be16 inner_proto;
->  	bool outer_isv6, inner_isv6;
->  	int ret;
->  
-> @@ -335,9 +601,12 @@ virtio_net_hdr_tnl_to_skb(struct sk_buff *skb,
->  	/* Let the basic parsing deal with plain GSO features. */
->  	ret = __virtio_net_hdr_to_skb(skb, hdr, true,
->  				      hdr->gso_type & ~gso_tunnel_type);
-> -	if (ret)
-> +	if (ret < 0)
->  		return ret;
->  
-> +	if (!virtio_net_tnl_offsets_ok(skb, outer_isv6, outer_th))
-> +		return -EINVAL;
-> +
->  	/* In case of USO, the inner protocol is still unknown and
->  	 * `inner_isv6` is just a guess, additional parsing is needed.
->  	 * The previous validation ensures that accessing an ipv4 inner
-> @@ -352,8 +621,8 @@ virtio_net_hdr_tnl_to_skb(struct sk_buff *skb,
->  			return -EINVAL;
->  	}
->  
-> -	skb_set_inner_protocol(skb, inner_isv6 ? htons(ETH_P_IPV6) :
-> -						 htons(ETH_P_IP));
-> +	inner_proto = inner_isv6 ? htons(ETH_P_IPV6) : htons(ETH_P_IP);
-> +	skb_set_inner_protocol(skb, inner_proto);
->  	if (hdr->flags & VIRTIO_NET_HDR_F_UDP_TUNNEL_CSUM) {
->  		if (!tnl_csum_negotiated)
->  			return -EINVAL;
-> @@ -368,7 +637,20 @@ virtio_net_hdr_tnl_to_skb(struct sk_buff *skb,
->  	skb->inner_mac_header = inner_nh + skb_headroom(skb);
->  	skb->transport_header = outer_th + skb_headroom(skb);
->  	skb->encapsulation = 1;
-> -	return 0;
-> +
-> +	if (!skb_is_gso(skb))
-> +		skb_shinfo(skb)->gso_type &= ~(SKB_GSO_UDP_TUNNEL_CSUM |
-> +					       SKB_GSO_UDP_TUNNEL);
-> +
-> +	/*
-> +	 * We know VIRTIO_NET_HDR_F_NEEDS_CSUM was set so __virtio_net_hdr_to_skb
-> +	 * set CHECKSUM_PARTIAL.
-> +	 */
-> +	if (virtio_net_csum_partial_ok_at_offset(skb, gso_inner_type, inner_nh,
-> +						 inner_proto))
-> +		return 0;
-> +
-> +	return __virtio_net_resolve_csum_partial_mismatch(skb);
-
-    Allowing `!skb_is_gso(skb)` packets through `virtio_net_hdr_tnl_to_skb()`
-    has a few issues:
-
-    1. When `!skb_is_gso(skb)` and `virtio_net_csum_partial_ok_at_offset()`
-       returns false, `__virtio_net_resolve_csum_partial_mismatch()` completes
-       the checksum in software and lets the packet pass, but `skb->encapsulation`,
-       `skb->inner_protocol`, `skb->inner_transport_header`,
-       `skb->inner_network_header`, and `skb->inner_mac_header` have already
-       been populated with the unvalidated `inner_th` (`csum_start`) and
-       `inner_nh` offsets (unlike `virtio_net_hdr_to_skb()`, which restores
-       `skb->transport_header`).
-    2. If `!skb_is_gso(skb)` and `VIRTIO_NET_HDR_F_UDP_TUNNEL_CSUM` is set,
-       clearing `SKB_GSO_UDP_TUNNEL_CSUM` drops the outer UDP checksum request,
-       since a non-GSO skb can only carry a single `CHECKSUM_PARTIAL` offset
-       (at `inner_th`).
-    3. On RX, a non-GSO UDP packet with `CHECKSUM_PARTIAL` at `inner_th` causes
-       `skb_csum_unnecessary()` (`skb_checksum_start_offset(skb) >= 0`) to treat
-       the outer UDP checksum as already validated.
-
-    Unlike plain GSO (commit 7c6d2ecbda83), UDP tunnel offload is modern-only and
-    explicitly requires GSO (`/* The UDP tunnel must carry a GSO packet, but no UFO. */`).
-    Why not reject `!skb_is_gso(skb)` right after `__virtio_net_hdr_to_skb()`, and
-    return `-EINVAL` directly if `!virtio_net_csum_partial_ok_at_offset()`?
+>
+> --
+> 2.56.0.307.g5fe7bd680c-goog
+>
