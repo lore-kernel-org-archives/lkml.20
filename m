@@ -1,45 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792716675;
-	b=ilqPX/OLqNsjaucBhmgvrWaj3VgWEWqlMHvCn8QP9zvlBd5/7vTaLwbn32sVV/rGvbuk
-	 SgC0oB46XuX0tFV/1Iuq7vGt7Vvki0ZXfTjl2hBK/JKYds8E7XXby4fcs7H/a3vboGtwd
-	 rL+VtEGSSkt8l4PTcdeTU7LLEoOsgd41pngsV/FkQKuRHZflg1uoxkHcbybM4KVKTGjn2
-	 97uHs500eO6edIAUkSfijiC4HjvBOlEcWqJ2c0CU5wAg6KFeYoM/XaZfGlb3ye7F6uFq+
-	 5uKY3cZtl9cnFo1WWOl2J6yF870SgRW3Q5NtebTWhY0EGmQddMgqv3poqgJgLQvYBdA==
+	t=1792716787;
+	b=PJG8rO1Zwbg0jmtZTs1s3g49QMUGc62J7D2OLesMmhvb6wsKNwwkaxq8FMUzVQl6PgMj
+	 i4ggYWU1oZhabEgfVJJdySjj+ltcUJNM7t/klU403aXF5WSrScygotmnt3EcqwVtD+RYa
+	 Fs+zIGX79tzGj4b3kJd+EC3bGltLP0CJpHjaSXEi1fRq1Jm3KupQlxfgUbMWLq5OpgVuG
+	 Vlxi3Bs8MSgHC2Vfn2Vl099VigSpWzUesXsCJjwHVCH3GD8DxmMdVu7P+uw4JFpwVR99m
+	 oUDB+yQdcoSV7mdjg4uwqxxbTCvlaDPmp9ZjpcA/YeXr14+uKmfZvGAZpynoKpg8Vug==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792716675;
-	h=Received:DKIM-Signature:Content-Type:MIME-Version:Message-Id:
-	 In-Reply-To:References:Subject:From:To:Cc:Date;
-	bh=X5GYCdh8xmF1VOcwMI9Rmm9Dlopew8Em98MYwDhZlz0=;
-	b=ENBJa2j/Vz0kXtjh+cviIoXgNfVccn14qTrgWtXFXMFyLqdoTVMv0m7ke99pVirHmJim
-	 Ld0atMM9AXndlA5vfInaCPp2XdyVzwfAtt69kxfIDBZrc2r9wK1HeXgz10VeZ6g9WtEjd
-	 CkjN/BD8RBbPcQ9cz+IrgdDLnXAMVJkfkG+ypeZ9tpZ2vfwsdQhE5DaX6L0d5kyt1eSYn
-	 Yq5xNmUw73I+rtpcnUZgjCWKxIrxIDHYYmUL6Rp4xCtbOdwTrua2vS94+Z3bldicUKo6H
-	 nUz6Xv2+5C8pTug6a2DFAK32aL69J/w9KUjX3szrPaXEkZmk5BtCWl/aesiFrUzjCwQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792716787;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Authority-Analysis:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=s883LoO0lM4UTK/8TXk04oaoWPK/eZ+nlT0uh+23ikY=;
+	b=3gzyTejmqqnBOaaM40po0tiJIDXoMFtrepW63taJeI2fxxJ5BjQjqSOWO7z819EZkQ9Z
+	 kSHsDD+/0/nYr2DKH/mC5NebHuQ0H1Mj+lqeogw8SjarqH2WZtmqfkWK5DsypxpRrcAc5
+	 /j3fv/m32HkzAMybdMVhk9BBYJWZ14CboP+/0biAGnOvV6ZtJPczBf7iOAbJhybxUNR+o
+	 HTGgB+JXYWM0pTmdDYE3xcUKlIZxQr1IAC8HUt0iPCy81L5O22oorVYnjEL9cvdJQrbCs
+	 U/L3rT6/pXDNe1+g54qBQFVIAnjICI65AReQJ9dzMCnQexioYkwGUD6PMlRP57zurtw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PjdbaiF2;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=temperror header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=NX415fE3;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=VsS9FNQ6;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81F92606A320;
-	Fri, 23 Oct 2026 00:51:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33471606A31B
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 00:52:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 33471606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PjdbaiF2
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F9401F01825;
-	Fri, 23 Oct 2026 00:51:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792716675;
-	bh=X5GYCdh8xmF1VOcwMI9Rmm9Dlopew8Em98MYwDhZlz0=;
-	h=In-Reply-To:References:Subject:From:To:Cc:Date;
-	b=PjdbaiF2zllHQoqqlIrAUp9LjOt6GiwrLwHJUctXypc7wQuyWRR8+0Y34F6xNbbQi
-	 YMZJjhQb/GC54H5a+z/c6yMCNA2isQLWBgg3zeVk+dcAbBjPWhWFFFGOsf7oG0ydeX
-	 NO7pFbDj9Xf1psUs3tsGeyy0lM31+ziZUNurXLMoQDRV4hB6z5qMFMWC4NLWNI9+zE
-	 Ib3vVwSS8E5wWh4ETKbbsQUJOTP8c+Exxmtql3go55k/HllI7H0lkifDAt3nKSQtu2
-	 mbvqSKbndlGzOYDKdHzdqSrGt2Elee41qCu+sbkQ9+Bs8ZsfqQSfJDvHy36M38LyUI
-	 yEWeOozZ1qgxQ==
-Content-Type: multipart/mixed; boundary="===============0694406438474598081=="
+	dkim=temperror header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=NX415fE3;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=VsS9FNQ6
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69MMFC6U394291
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 00:52:56 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	s883LoO0lM4UTK/8TXk04oaoWPK/eZ+nlT0uh+23ikY=; b=NX415fE3rWdzG1Sj
+	Albm//L03kjdQGqn7HqFGco3s/S3+DeUF4rvHO9vy7Qg4lMeMR+5NejffyY81nBU
+	lCLDwLMfgzRC8bhrIN62DwKsOwza8QFHnolHFmyJNGZiGu80As/YaftJTKWoV/AB
+	cWqTwBtOo/9JOHdYqg5Eb1m8XwHvquOdgDZ4MMn/A4272z0CXd3NwBG1YiFiz1K8
+	yFMo+/R1MWYegWgbtF3l5bLbOsw4ePMLySS63NaNzrGJX76LB3aJCqNJIKMMuMba
+	Sz68QsKCA2yFBeIMKPREeOfMOQFlXbhHDNv627V1un/ZvJ5g/dzOn2nJVvSLvYTX
+	8U64ew==
+Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hfqmts6ru-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 00:52:56 +0000 (GMT)
+Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-351788121cfso1326183eec.0
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 17:52:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1792716776; x=1793321576; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=s883LoO0lM4UTK/8TXk04oaoWPK/eZ+nlT0uh+23ikY=;
+        b=VsS9FNQ6IYusgSDTY/aBENcqBxTRdtpE33RYuVujnOzRPPthoEHB70Bnyl729fvBOF
+         /JvYmwrFDTbOpu/ePYohOU23gS90avqMkOJyFWHYdFcmgIEDIR0Yeb5UJ+dEaAVOtMYq
+         91N+oymuaHM6VrgtQmUoks4JHByIybEb3XL/F6XatE4Ma5hd8uGIN7cU0l2zOvVUdmQv
+         uC6BjhaERamzDK9qWd7c3eajdWzs8BvvC+gxPV0y/5buuwHE6DmpwFctamQdxksn0UbL
+         50028aQKxG8YfJSojm2ysnlD3563Uq/2wA4aS2oKjy+ZbLoElNwc33QoOUvPLDNxU67K
+         itDA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792716776; x=1793321576;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=s883LoO0lM4UTK/8TXk04oaoWPK/eZ+nlT0uh+23ikY=;
+        b=x79aVThIoSa8tMQ1wAzJGOl88AQ85TWqbp3x9q99NxmfhbaMqzLTgyKoohdnIGyZvB
+         ATYY1PB6UgyW0CszZRBA0V5hNwjPMqfd4w2b52WdAIfcMgjQlubJDR72IzPUfqrARmud
+         LC8MIC5vC9LH7x6y31MdAAxiBdh2pN60TtKSRIUjfbB18LdlNyLbdfMLlV8qjwJ5x2DZ
+         EfR4g3vPNeuwz3TEm+KBobKQfexWJqAeYU3KemLtYhxvbuLcscH8b8tHavugCAPiTE2w
+         3aqGWTgZpt0C1EFkz2zCwMxewZvEJtJRKIZ9QF3YU1dQAU+M24cno13AofVOoajUjKTd
+         z/Uw==
+X-Forwarded-Encrypted: i=1; AKwUvBxN6W3P2xLvdQAV/YI1/CN4DU6S1h1kKCub0UFI6HnbDrFhSVxXw+d1FjzyX5Bvb8klJ7DvW3uN086xY3w=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLJwFOQkR5a0KANBB2bYMk1SOs7tdWJKDY1fs018e+wwqZ2rFpo
+	yWLwDvlHPgLRSoueCxLU8d1gMrzq3OB+UodfuilJWZ7fdxwM/NoJV8mKXvmJLnBm1UC6C6bAZJU
+	dzm9upUQPW8Z9Zj7X4un/yD+o5+GO2lot+mQDNBMAM2aB9iIElcrOK5HqHOe9aSpwv98=
+X-Gm-Gg: AYBFou3Yc5c2FKc+0DpbhE4jZ6fwZmJsJNM6XN/bHSs6Qkq1LY2zOqsX/lqW96jZkeW
+	O2PrEklt8EbOf7aWv4+XO3vrYyRblgyGxSgYHYD03A0Fvo7J1Hx4rXQ/pYvQgET58DwLZJ+5DIm
+	z6vEyMRtxpXjE4QLBpMgcJN2CIeuoVLlgC1TKagjZkkEvZe5Xp6+FNVEZmk2Y2oFOsWDrCyPLbX
+	FY7dPoI4jTz4gR0u8367iVYT1xJ1xOjUa/LyceInx+b2vKb/B5Pxr3jJpiEY4ymf616J9VQ8Oid
+	tOnGwAofS3GMN1uI/jiYgZ5A8DecItnait/tsmZ/6xvVWRbYYelqP/DgPjqDNfCi7GfpnMyxrT8
+	iDVol0uvdZ36y5jcQBpxUDNMXJ7yVXqqFf2QJf+5q8gFAfY/PkJ9pjn993Q==
+X-Received: by 2002:a05:701b:4349:b0:193:9aa3:4748 with SMTP id a92af1059eb24-195bc01e742mr1050054c88.1.1792716775553;
+        Thu, 22 Oct 2026 17:52:55 -0700 (PDT)
+X-Received: by 2002:a05:701b:4349:b0:193:9aa3:4748 with SMTP id a92af1059eb24-195bc01e742mr1050029c88.1.1792716775026;
+        Thu, 22 Oct 2026 17:52:55 -0700 (PDT)
+Received: from [10.71.181.181] (i-global254.qualcomm.com. [199.106.103.254])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-195eb9afd61sm1802501c88.14.2026.10.22.17.52.53
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 22 Oct 2026 17:52:54 -0700 (PDT)
+Message-ID: <101a2b35-5bcf-48c3-b862-6cd703c67d76@oss.qualcomm.com>
+Date: Thu, 22 Oct 2026 17:52:53 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -49,182 +115,99 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-Id: <90371d2279a5eb08966a82325922e1f15eb93560d4019f5c9020956cadb4120a@mail.kernel.org>
-In-Reply-To: <20261023001603.560210-12-wusamuel@google.com>
-References: <20261023001603.560210-12-wusamuel@google.com>
-Subject: Re: [PATCH bpf-next v2 4/6] libbpf: Resolve typeless ksyms via KALLSYMS_QUERY ioctl
-From: bot+bpf-ci@kernel.org
-To: wusamuel@google.com,corbet@lwn.net,skhan@linuxfoundation.org,rdunlap@infradead.org,viro@zeniv.linux.org.uk,brauner@kernel.org,jack@suse.cz,andrii@kernel.org,eddyz87@gmail.com,ihor.solodrai@linux.dev,ast@kernel.org,daniel@iogearbox.net,memxor@gmail.com,martin.lau@linux.dev,song@kernel.org,yonghong.song@linux.dev,jolsa@kernel.org,emil@etsalapatis.com,nathan@kernel.org,ndesaulniers@google.com,morbo@google.com,justinstitt@google.com
-Cc: wusamuel@google.com,kernel-team@android.com,linux-kernel@vger.kernel.org,linux-fsdevel@vger.kernel.org,linux-doc@vger.kernel.org,bpf@vger.kernel.org,linux-kselftest@vger.kernel.org,llvm@lists.linux.dev,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
-Date: Fri, 23 Oct 2026 00:51:13 +0000 (UTC)
-
---===============0694406438474598081==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] media: qcom: camss: configure C-PHY in the new
+ csiphy_stream_on()
+To: George Neacsu <geocausa@gmail.com>
+Cc: David Heidelberg <david@ixit.cz>, Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>, Bryan O'Donoghue <bod@kernel.org>,
+        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+        Loic Poulain <loic.poulain@oss.qualcomm.com>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, gjorgji.rosikopulos@oss.qualcomm.com,
+        jigarkumar.zala@oss.qualcomm.com,
+        hariram.purushothaman@oss.qualcomm.com, akapatra@quicinc.com,
+        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        linux-media@vger.kernel.org, krzysztof.kozlowski@oss.qualcomm.com,
+        daniel@quora.org, konrad.dybcio@oss.qualcomm.com,
+        alex.vinarskis@gmail.com
+References: <20261017040529.3832120-1-anusha.nandi@oss.qualcomm.com>
+ <20261017104853.148839-1-geocausa@gmail.com>
+Content-Language: en-US
+From: Anusha Arun Nandi <anusha.nandi@oss.qualcomm.com>
+In-Reply-To: <20261017104853.148839-1-geocausa@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=Gt3XaU1C c=1 sm=1 tr=0 ts=6adaafe8 cx=c_pps
+ a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=orMkujGkvO2Z0ebMhLoA:9 a=QEXdDO2ut3YA:10 a=6Ab_bkdmUrQuMsNx7PHu:22
+X-Proofpoint-GUID: MuQHd_HdhEa1fhvkzwvJakho-F6d1a7v
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIzMDAwMyBTYWx0ZWRfX1O9e8xM61Hs3
+ drCBWiLb7r1i9E1CyK6tfWaTGEl/kphYVmPJ2wRNyTVPxbDeDFmKSSDmToe+ryS8dRtPBWZlJc1
+ R/JdGBrlHiosKSHKFuqFstTLDpbE0zF5pZme7tHyv2uUcMbwGJm8NIKHZROnI9+4PlgZd4AnpAn
+ 8QgK0iJ2IBRYYFE3T040GNcedtK7hLy4TKhTyuyaYJF7awGHtU1VNFWQpMnCu25vC8qFUND4C7Z
+ 23fQvpmMiEgcxMytTOUVedZmr8wmIlnZehKgSFf5X566xp/mVMwuP84uY0FqaLZg2WX5cNAMARr
+ wvLiOdIAUn8DZ1lZLdkPwjuFMVj7x5j23f6IgNUD+QNUdtHmVP6XCahXLUoedX57JHSVfF87BJy
+ x6KwTlMQ0+CzFEgvnhdql6BkARU3mKRfQxzveTz1fjbHWiVgDWEF/WbA9D+3/gSViZJVNFmduyp
+ uB+Ar8i8z6j7pFVy9zw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIzMDAwMyBTYWx0ZWRfX7gCmL2oc+BI2
+ TEAmYgIBCJqUF9BBeo7QzFYE5rcHjhtZ0Jjq5viKMzmRMUBscUHuS00TT+rnwkh/SwW0IXaDChw
+ ccENTLYMzH04cXu6HKPizdEjGj+fwsM=
+X-Proofpoint-ORIG-GUID: MuQHd_HdhEa1fhvkzwvJakho-F6d1a7v
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-22_07,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 spamscore=0 suspectscore=0 malwarescore=0 adultscore=0
+ clxscore=1015 priorityscore=1501 impostorscore=0 phishscore=0
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
+ definitions=main-2610230003
 
-> libbpf: Resolve typeless ksyms via KALLSYMS_QUERY ioctl
+Hi George,
 
-TL;DR:
-- Possible regression: ioctl lookup ignores .llvm. suffixed symbols, so
-  typeless ksyms may fail to load or resolve to 0 on LTO kernels
-- Fallback to kallsyms parsing may miss -EACCES (SELinux/seccomp), failing
-  loads that worked before
+Thank you for bringing this up. This will be rectified in the next series.
+Overlooked this.
 
-> diff --git a/tools/lib/bpf/libbpf.c b/tools/lib/bpf/libbpf.c
-> index 8fcb8cf39cc0..0e94d2335bd7 100644
-> --- a/tools/lib/bpf/libbpf.c
-> +++ b/tools/lib/bpf/libbpf.c
+Regards,
+Anusha
 
-[ ... ]
+On 10/17/2026 3:48 AM, George Neacsu wrote:
+> Hi Anusha,
+> 
+> One units issue showed up while testing this on X1E80100.
+> 
+> camss_get_link_freq(..., cphy=true) returns the V4L2 C-PHY link
+> frequency. The media documentation defines link frequency as the bus
+> frequency, explicitly not the symbol rate; its C-PHY pixel-rate formula
+> also has the factor of two that makes the C-PHY symbol rate twice the
+> V4L2 link frequency.
+> 
+> For the SP11 IMX681, the exact Windows/QTI sensor mode programs PLL2
+> for a 2.400 Gsym/s C-PHY rate (19.2 MHz * 375 / 3). The same 68-write
+> mode programming was also observed live under KD on this machine.
+> camss_get_link_freq() returns the corresponding 1.200 GHz V4L2 link
+> frequency.
+> 
+> phy_mipi_cphy_get_default_config_for_hsclk() takes the high-speed symbol
+> rate, so passing link_freq directly here fills hs_clk_rate with
+> 1.2 Gsym/s rather than 2.4 Gsym/s. I think this wants:
+> 
+>     phy_mipi_cphy_get_default_config_for_hsclk((u64)link_freq * 2,
+>                                                 num_lanes, cphy_cfg);
+> 
+> I instrumented that path on X1E and get link=1200000000 Hz and
+> symbol=2400000000 sym/s. Capture succeeds with those values.
+> 
+> The qcom provider then needs to keep those units distinct too; I have a
+> separate comment on that patch.
+> 
+> Thanks,
+> George
 
-> @@ -9644,8 +9662,64 @@ static int kallsyms_cb(unsigned long long sym_addr, char sym_type,
->  	return 0;
->  }
->
-> -static int bpf_object__read_kallsyms_file(struct bpf_object *obj)
-> +static int bpf_object__query_ksyms(struct bpf_object *obj)
-> +{
-> +	struct kallsyms_query q;
-> +	struct extern_desc *ext;
-> +	int err = 0;
-> +	int fd;
-> +	int i;
-> +
-> +	fd = open("/proc/kallsyms", O_RDONLY | O_CLOEXEC);
-> +	if (fd < 0)
-> +		return -errno;
-> +
-> +	for (i = 0; i < obj->nr_extern; i++) {
-> +		ext = &obj->externs[i];
-> +		if (ext->type != EXT_KSYM || ext->ksym.type_id)
-> +			continue;
-> +
-> +		q = (struct kallsyms_query){
-> +			.size = sizeof(q),
-> +			.query_flags = KALLSYMS_QUERY_BY_SYMBOL,
-> +			.sym_name_addr = ptr_to_u64(ext->name),
-> +		};
-> +
-> +		if (ioctl(fd, KALLSYMS_QUERY, &q) < 0) {
-> +			err = -errno;
-> +			if (err == -ENOENT) {
-> +				err = 0;
-> +				continue;
-> +			}
-> +			if (err == -EADDRNOTAVAIL)
-> +				pr_warn("extern (ksym) '%s': resolution is ambiguous\n",
-> +					ext->name);
-> +			break;
-> +		}
-
-Can this regress typeless ksyms on CONFIG_LTO_CLANG kernels?  The old
-kallsyms_cb() deliberately matched data symbols that carry a suffix:
-
-    res = strstr(sym_name, ".llvm.");
-    if (sym_type == 'd' && res)
-        ext = find_extern_by_name_with_len(obj, sym_name, res - sym_name);
-
-That was added by commit c56e59776f46 ("libbpf: Handle <orig_name>.llvm.<hash>
-symbol properly") after test_ksyms failed on a CONFIG_LTO_CLANG_THIN kernel,
-where bpf_link_fops had been renamed to bpf_link_fops.llvm.<hash>.  That
-commit also lists tk_core, fake_dst_ops and __fs_reclaim_map as real
-renamed symbols.
-
-On the kernel side, KALLSYMS_QUERY only matches names exactly:
-kallsyms_lookup_names() does a strcmp() on the expanded name, and
-kallsyms_mod_find_cb() also uses strcmp().  So a lookup for "bpf_link_fops"
-returns -ENOENT when only "bpf_link_fops.llvm.<hash>" exists.
-
-Here -ENOENT is treated as "not found", err is cleared and the loop
-continues.  bpf_object__resolve_typeless_ksyms() then falls back only on
--ENOTTY or -EPERM, so libbpf_kallsyms_parse() is never reached.  On a
-kernel that has this ioctl:
-
- - a strong "extern const void foo __ksym;" now makes bpf_object__load()
-   fail with "extern 'foo' (strong): not resolved" (-ESRCH), where it
-   loaded before
- - a weak one silently gets address 0 instead of the real address
-
-The selftests helper kallsyms_find() in trace_helpers.c still strips
-".llvm." from 'd' symbols, so it and libbpf now disagree about what
-test_ksyms (bpf_link_fops) should resolve to.
-
-The commit message notes this difference, but gives no reason for dropping
-behavior that libbpf added on purpose.  libbpf kept the .llvm. handling
-elsewhere to avoid regressions, and commit f8a05692de06 says "we'd like to
-not regress".
-
-Would it work to fall back to libbpf_kallsyms_parse() for typeless externs
-that are still unresolved after the ioctl pass?  That only costs extra time
-when a symbol is actually missing.  Alternatively, the kernel query could
-match the .llvm. suffix for data symbols.  I did not find a fix for this in
-the rest of the series.
-
-> +		ext->is_set = true;
-> +		ext->ksym.addr = q.sym_addr;
-> +		pr_debug("extern (ksym) '%s': resolved in kernel to 0x%llx\n",
-> +			 ext->name, ext->ksym.addr);
-> +	}
-> +	close(fd);
-> +	return err;
-> +}
-> +
-> +static int bpf_object__resolve_typeless_ksyms(struct bpf_object *obj)
->  {
-> +	int err;
-> +
-> +	err = bpf_object__query_ksyms(obj);
-> +	/*
-> +	 * Fall back to parsing /proc/kallsyms only if the ioctl is not
-> +	 * accessible: not present (-ENOTTY on older kernels) or kallsyms
-> +	 * addresses hidden from this opener (-EPERM, e.g. kptr_restrict).
-> +	 */
-> +	if (err != -ENOTTY && err != -EPERM)
-> +		return err;
-
-Does this fallback miss other ways the ioctl can be blocked while reading
-/proc/kallsyms is still allowed?
-
-The old code never issued an ioctl on this file.  Now every KALLSYMS_QUERY
-goes through security_file_ioctl().  For this command selinux_file_ioctl()
-takes the default case and calls ioctl_has_perm(cred, file, FILE__IOCTL,
-(u16)cmd), which returns -EACCES when the policy grants read on the
-kallsyms label but not ioctl, or limits ioctl commands with allowxperm.  A
-seccomp filter that makes ioctl() return an errno other than EPERM has the
-same effect.
-
-In those setups bpf_object__query_ksyms() returns -EACCES (or similar),
-bpf_object__resolve_typeless_ksyms() returns it as-is, and
-bpf_object__resolve_externs() turns it into -EINVAL:
-
-    err = bpf_object__resolve_typeless_ksyms(obj);
-    if (err)
-        return -EINVAL;
-
-So an object with any typeless ksym now fails to load, even though parsing
-the text file would have worked as it did before this patch.
-
-The failure is also hard to diagnose.  Apart from -EADDRNOTAVAIL, nothing
-from the ioctl or from open() is reported.  The open() failure path is a
-bare:
-
-    fd = open("/proc/kallsyms", O_RDONLY | O_CLOEXEC);
-    if (fd < 0)
-        return -errno;
-
-without the "failed to open /proc/kallsyms" pr_warn() that
-libbpf_kallsyms_parse() prints, so the user only sees "failed to load
-object".
-
-Should the fallback cover any error other than -EADDRNOTAVAIL (and other
-real lookup errors), or at least -EACCES as well, with a pr_warn() for the
-errors that are not handled?
-
-
----
-AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
-See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
-
-CI run summary: https://github.com/kernel-patches/bpf/actions/runs/39878338337
---===============0694406438474598081==--
