@@ -1,67 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.92.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792774630;
-	b=4+ABUFG44e1eHaoR+h5LqqnulmwfoLwblEpT4d16xvNHYtcZlLOcOs9tgJF3YuV2GLkx
-	 irmgfNaonjUkZWvhhOxvJfkrO5zd7h9O2Wcj9XnOwXfGwTkL3Byx9y8OMTcbmdwpfY+qi
-	 0K6OsVmoU7+yoFoC61Sr0G6jAQ7+bJGi9VZP4uS1YxUvgB4eS/a1hxr77JjxdYb9ilMWu
-	 cf14K4raWCbFZE+LD0BTeSz2xtF6MW42RAxjF0g+HCzAdKjf4hQDDRIo9w90cmwLpkre0
-	 o09bbsHqqs1BPTxe0i+QhQfMfUCTsqdtPZy56QCo5lM+HMBZecNarUg5Zy13u1Ac5aQ==
+	t=1792774828;
+	b=4dJYNMDynLCmUKSZJnBh/YEwMYmb/oIBQT/HLG91/GHRBdklqHVqZxd/jYrNZ6UoXLxM
+	 cH0OYxD+4nOOBsTssWjIcSwnQuw1nE6JC50NG6h8Hq0Z193zv8OuYQi5jyarKoMZj1XgX
+	 LKzT3XiCtGDCQsV9CQj5ASi5YMquhFEX6/Ci0n62DiWP1IJHKl8a9FBM1mmTrr+7kAw4Q
+	 PlORsI4ji9l+GZ5LJTETMAJ8FdDMmVrtcSpLvbaseayB5fnzvdiYCsmx5qLoqKkdsQp7O
+	 2PXXOQ5Z/zT+tB4UA+k8b34L7G+ykyq2ouZQC0eVGQ/RcTn/etNI20DzwjYP4RWVSwg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792774630;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Scanned-By;
-	bh=VNW6u+2D4YHZ7igxJ6xR3IWLm3wxx7zC4IY7nBuwiEQ=;
-	b=lx7uEYNlEhtIWWORcf82RnBrNxMcQFWy+NrjGXK+eeLBRE8P6cFJJaPMD/LBCBstdcqq
-	 4UfreSBg6E4F16aXgi0TaTeeiSQreylhVp4wpWTd0oy3fimWd6oNzRbrfLZXXpwKSIhdE
-	 qJEMdPnT37ey90rHwT92TDR0HML8hmT2XT3AhZ01H5uTQN+OOQbtBnic6ylWq6emfqogt
-	 RwiFZ0FjSelsEyas8tt4DbMcdKXYwrEEtzO2WpW1pWidk5J0v7UbjV/MZkfAqWDy0+lea
-	 3kpZFAe/9dUwI50owKKDFBuX+SrOJRK97qeSJmfAc1VPq/kJ7d1e3lOtXyHO8tfT/Kg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792774828;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=MxGAKl4YWl46xL25FR4xKOwku7Y7gIDUUXB+yQ+kYZw=;
+	b=yIjBA9vCVl/nqUXmrED7DGVIaa8FEwWox6CXTZF8o9vL/W8pID0KFiUxirC9d/v4ZwvR
+	 +G+Lt9cHFYKW7ivMb8ZKzvR85qvsJGlLSQcL5/T+CueOde2HGtWafT/vJ2NwYNTzienDF
+	 oFfdT1/vQcfeD+27YqlqgU135/lSDMRKIg+/stKTHXGs9iK5c4kMWr5QyD5vujEoQG5KR
+	 2C++56oeldmDWiFyuKRf12fgQhGjoHJnTwnpP9MdCVDdN94bn7K+0QdxPrx4L+OnLijp3
+	 bMsx4Fv/TY/R3iQtJXAPdrUwO0ks6+bZpmav4EJMKpPLowlFpclCGHV5l12q4JOpZNg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b="E9/9K98T";
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	dmarc=pass header.from=infradead.org;
+	spf=pass smtp.mailfrom=infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=EL7YOdUM;
+	arc=none smtp.remote-ip=90.155.92.199
+Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44953606A31E
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 16:57:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 44953606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 228FE606A31A;
+	Fri, 23 Oct 2026 17:00:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 228FE606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=E9/9K98T
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1792774629;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=VNW6u+2D4YHZ7igxJ6xR3IWLm3wxx7zC4IY7nBuwiEQ=;
-	b=E9/9K98TTMfkQU6UFDNe+pXe+wYDbcANM6AQzpuSVUAtNWDMlAxt9Ao30Z5nCzy9aYLjYK
-	ng4KbsKkR7d7tnyQYNJLuXYqXyhdn+fA5RWSyeO/irw28WLA1xJRz2lQ0i1isLHE7ytBiM
-	lWQ1jndoZ/04Jz9krrqhlwHl+jRiNeQ=
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-49-kpdgEFPGO1OWciwIGZSOzw-1; Fri,
- 23 Oct 2026 12:57:03 -0400
-X-MC-Unique: kpdgEFPGO1OWciwIGZSOzw-1
-X-Mimecast-MFC-AGG-ID: kpdgEFPGO1OWciwIGZSOzw_1792774622
-Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id B3151180063D;
-	Fri, 23 Oct 2026 16:57:01 +0000 (UTC)
-Received: from [100.91.18.181] (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 1F5DE195608B;
-	Fri, 23 Oct 2026 16:57:00 +0000 (UTC)
-Message-ID: <057b3c65-430c-42eb-adfe-02579fdd7360@redhat.com>
-Date: Fri, 23 Oct 2026 12:56:59 -0400
+	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=EL7YOdUM
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=MxGAKl4YWl46xL25FR4xKOwku7Y7gIDUUXB+yQ+kYZw=; b=EL7YOdUMOXYtIBg2eByM6rjYkV
+	se888A7Ga27uuAogvpp9hIo5ulVbMLFbH8e2FVsGSQ8aAjFXiSzSxT9SenolkXDJIjaHq1vtbmh39
+	gAEasLrBRktsYrhfWQcyleh1CbK7CPldISxoi/UlhDoY+HJLXVKUAekNkVjtHJqKeqHPju0a2ZuU0
+	wxaZ4GDt4goQO94hIeXwf68yFj0kseLolSc3aaPJ8p3oWuI2X1pVT2hyBGeR0vKtOo+ctPjY+vNpC
+	BuESfV3Khs1kib+QO/1AdxOHYeVk5dSGzcVL9h7eeY0sKMmngtLX+fOrpHrJcRSqzL50K3hRqzjvz
+	FaXgWiCA==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by desiato.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xKIcy-0000000A836-1upq;
+	Fri, 23 Oct 2026 17:00:24 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id AD2E2300720; Fri, 23 Oct 2026 19:00:23 +0200 (CEST)
+Date: Fri, 23 Oct 2026 19:00:23 +0200
+From: Peter Zijlstra <peterz@infradead.org>
+To: "Paul E. McKenney" <paulmck@kernel.org>
+Cc: kernel test robot <yi1.lai@intel.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>, oe-lkp@lists.linux.dev,
+	lkp@intel.com, linux-kernel@vger.kernel.org,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Phil Auld <pauld@redhat.com>, aubrey.li@linux.intel.com,
+	yu.c.chen@intel.com
+Subject: Re: [linus:master] [sched/core]  118a2cf4ce:
+ stress-ng.schedpolicy.ops_per_sec 14.1% regression
+Message-ID: <20261023170023.GY2823843@noisy.programming.kicks-ass.net>
+References: <202610231954.51716452-lkp@intel.com>
+ <b39cd288-9133-40e1-b27d-d8ef3973b37c@paulmck-laptop>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,119 +72,42 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH-next 2/6] cgroup/cpuset: Properly compute effective xcpus
- in update_parent_effective_cpumask()
-To: Ridong Chen <ridong.chen@linux.dev>, Tejun Heo <tj@kernel.org>,
- Johannes Weiner <hannes@cmpxchg.org>, =?UTF-8?Q?Michal_Koutn=C3=BD?=
- <mkoutny@suse.com>, Shuah Khan <shuah@kernel.org>
-Cc: cgroups@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-kselftest@vger.kernel.org, Guopeng Zhang <guopeng.zhang@linux.dev>
-References: <20261022031643.1351877-1-longman@redhat.com>
- <20261022031643.1351877-3-longman@redhat.com>
- <d4ce3eba-b48a-4e63-af0f-87cd27d04e4c@linux.dev>
-Content-Language: en-US
-From: Waiman Long <longman@redhat.com>
-In-Reply-To: <d4ce3eba-b48a-4e63-af0f-87cd27d04e4c@linux.dev>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <b39cd288-9133-40e1-b27d-d8ef3973b37c@paulmck-laptop>
 
-On 10/23/26 2:45 AM, Ridong Chen wrote:
->
->
-> On 10/22/2026 11:16 AM, Waiman Long wrote:
->> Since the introduction of cpuset.cpus.exclusive in commit
->> e2ffe502ba45 ("cgroup/cpuset: Add cpuset.cpus.exclusive for v2"), a
->> compute_effective_exclusive_cpumask() helper which is later renamed to
->> compute_excpus() is added to compute the effective xcpus of a partition
->> root. However update_parent_effective_cpumask() is not updated in all
->> proper places to use the new helper to check if a given cpuset should
->> remain a valid partition root. This can cause a cpuset to incorrectly
->> remain a valid partition root even if no effective xcpus is left.
->>
->> Fix that problem by using compute_excpus() to compute the effective 
->> xcpus
->> into delmask in all cases except partcmd_disable and partcmd_invalidate
->> and use it for tasks_nocpu_error() check as well as checking its
->> emptiness. This enables us to catch invalid partition root more
->> accurately in update_parent_effective_cpumask().
->>
->> Some test case are added to test_cpuset_prs.sh for invalidating a
->> partition root due to its effective xcpus becoming empty as well as
->> making sure that an invalid partition can only be revived when exclusive
->> CPUs are available agin.
->>
->> Fixes: e2ffe502ba45 ("cgroup/cpuset: Add cpuset.cpus.exclusive for v2")
->> Signed-off-by: Waiman Long <longman@redhat.com>
->> ---
->>   kernel/cgroup/cpuset.c                        | 36 +++++++++----------
->>   .../selftests/cgroup/test_cpuset_prs.sh       |  6 ++++
->>   2 files changed, 22 insertions(+), 20 deletions(-)
->>
->> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
->> index 7ead8c3b7974..db6e4663f4be 100644
->> --- a/kernel/cgroup/cpuset.c
->> +++ b/kernel/cgroup/cpuset.c
->> @@ -1798,7 +1798,6 @@ static int 
->> update_parent_effective_cpumask(struct cpuset *cs, int cmd,
->>       int deleting;    /* Deleting cpus from parent's 
->> effective_cpus    */
->>       int old_prs, new_prs;
->>       int part_error = PERR_NONE;    /* Partition error? */
->> -    struct cpumask *xcpus = user_xcpus(cs);
->>       int parent_prs = parent->partition_root_state;
->>       bool nocpu;
->>   @@ -1841,30 +1840,29 @@ static int 
->> update_parent_effective_cpumask(struct cpuset *cs, int cmd,
->>       if (!newmask && xcpus_empty(cs))
->>           return PERR_CPUSEMPTY;
->>   -    nocpu = tasks_nocpu_error(parent, cs, xcpus);
->> +    /*
->> +     * Except for partcmd_disable, use delmask to compute the current
->> +     * effective xcpus value and use it for tasks_nocpu_error check.
->> +     */
->> +    if (cmd != partcmd_disable) {
->> +        compute_excpus(cs, tmp->delmask);
->> +        nocpu = tasks_nocpu_error(parent, cs, tmp->delmask);
->> +    }
->>         if ((cmd == partcmd_enable) || (cmd == partcmd_enablei)) {
->> -        /*
->> -         * Need to call compute_excpus() in case
->> -         * exclusive_cpus not set. Sibling conflict should only happen
->> -         * if exclusive_cpus isn't set.
->> -         */
->> -        xcpus = tmp->delmask;
->> -        if (compute_excpus(cs, xcpus))
->> - WARN_ON_ONCE(!cpumask_empty(cs->exclusive_cpus));
->>           new_prs = (cmd == partcmd_enable) ? PRS_ROOT : PRS_ISOLATED;
->>             /*
->>            * Enabling partition root is not allowed if its
->>            * effective_xcpus is empty.
->>            */
->> -        if (cpumask_empty(xcpus))
->> +        if (cpumask_empty(tmp->delmask))
->>               return PERR_INVCPUS;
->>   -        if (prstate_housekeeping_conflict(new_prs, parent_prs, 
->> xcpus, NULL))
->> +        if (prstate_housekeeping_conflict(new_prs, parent_prs, 
->> tmp->delmask, NULL))
->>               return PERR_HKEEPING;
->>   -        if (tasks_nocpu_error(parent, cs, xcpus))
->> +        if (nocpu)
->>               return PERR_NOCPUS;
->
-> update_parent_effective_cpumask is only used for the local partition. 
-> So I'd suggest adding a local_partition_validate helper, which can be 
-> used for both partition enable and update. For now this logic is 
-> spread out, and many corner cases would easily be missed.
+On Fri, Oct 23, 2026 at 09:14:02AM -0700, Paul E. McKenney wrote:
+> On Fri, Oct 23, 2026 at 07:49:20PM +0800, kernel test robot wrote:
+> > 
+> > 
+> > Hello,
+> > 
+> > kernel test robot noticed a 14.1% regression of stress-ng.schedpolicy.ops_per_sec on:
+> > 
+> > 
+> > commit: 118a2cf4ced60777a2408001e2b4838fed1cea55 ("sched/core: Call wakeup_preempt() for queued tasks during class change") https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git master
+> > 
+> > testcase: stress-ng
+> > config: x86_64-rhel-9.4
+> > compiler: gcc-14
+> > test machine: 224 threads 2 sockets Intel(R) Xeon(R) Platinum 8480CTDX (Sapphire Rapids) with 256G memory
+> > parameters:
+> > 
+> > 	nr_threads: 100%
+> > 	testtime: 60s
+> > 	test: schedpolicy
+> > 	cpufreq_governor: performance
+> > 
+> > 
+> > If you fix the issue in a separate patch/commit (i.e. not just a new version of the same patch/commit), kindly add following tags
+> > | Reported-by: kernel test robot <yi1.lai@intel.com>
+> > | Closes: https://lore.kernel.org/oe-lkp/202610231954.51716452-lkp@intel.com
+> 
+> This regression is not a good thing, but this commit is fixing a real bug.
 
-I am thinking about breaking up update_parent_effective_cpumask() to be 
-more like what we are doing with remote partition to share as much 
-common part as possible. This cleanup work will be in a later patch 
-series. Since this is a fix patch, I don't want to make too many changes 
-to make it hard to backport to earlier releases.
+I think I have a patch somewhere stuck in my review queue for -rc1 that
+might help with this:
 
-Cheers,
-Longman
+  https://patch.msgid.link/CANGjgdmNCfm%3DSctvKZ44y8b5n8t_JSp4meX%3DDKGnG74B3g1vVw%40mail.gmail.com
 
+If not, too bad, correctness first and all that.
