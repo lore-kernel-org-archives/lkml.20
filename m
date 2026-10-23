@@ -1,101 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792722679;
-	b=ZEq96VuU7uiog5OyxW4324lvhVh0EO1A8CcRQbEfX/nAeb4iy+2RDNpSRKsc9l8DJVIT
-	 3I9IikX4Tv6tDMNyYL6bDDJQEQANL11YvA8LoEFpRmro8A8sjE+L0biG1Nx2+21Nlwj9y
-	 DGmN+TJq+t5H84O78tk+IcBfyRirbje6W6bhBMCFH5kUyWxEhbhRPqkNrhlhcCNtU7UWg
-	 ODEk7wMZnkm6tyNe0lsDYLFqD/nwTWZ6pNG6rKISCcOJ0mhZVVjjedUgGxtdPosGIW7aH
-	 DM9clZq/kII7nNpDgqEzfLFo+lXSFNGQvqmZHsyyuycKfvCqEMkHqPI36FUeeOwfswA==
+	t=1792722682;
+	b=Qu39tJDmdeQASLAcevNBAxayWHUcJsjqvgVN4Ob4YC5MpFYelrEU9z3ePyGU1vAWbHjc
+	 ApXJXR8VsRhJZ31T1lvzDqBAw7ptzRttkgkFwBQWVhynK83lYG6XXoNtRAXTQAVLnw6h2
+	 h4WmK/ts1PqcctYnzgzPkqXvVwP51N2CfmWlaGE2ek/9snodAo78DuyMqARdX60Zqsoox
+	 Iyd38odElR3kC/1ue2yMlVhD1C6HvVnRiAFI/aiw3OuCLMdb2mPkLh58ZimtURnXDH28H
+	 n2XOWV0zdbTc+pMMozQ5qKm7odl+wkjHy0OZCmMdcKe6XUgHqc147k3O33er8cS8WDg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792722679;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=S1AF2UytDZrLksg5esVe6mH/dBIR/sAfPawxfA5KC8w=;
-	b=AE4jWJMHQP81/FKGTqL9t0H3sRiRohLHrmkjluinxiKjNesrWQ6hyX7dZF2T0wlK7xvS
-	 uEgnx4riMbUtjhjzU+YvBWLLc1qC1KuXgJvwvKXsMLTOeKoDIkzhu/dCAsDYG7r8nHr4w
-	 6gkzbOECX3N/SXY2CqqK47Z7R/UI97Oj9AJKbwaUkuPlLKKhJ/H3xyRqMLXeSGFhWCSQe
-	 TUkhno2MSKbMrQYN9oeW1q5Q+2O38ctUa4bjYaFYZEBzjkKd67BYUeipUzGj/aStj6U8C
-	 7cwYbl1wvB//k+d2jQ8O5jR425Tk3pYF0bVI5uG9SkYNf3ATbiwOZPbrPahoTcOffrA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792722682;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:Cc:Subject:Date:
+	 Message-ID:MIME-Version:Content-Transfer-Encoding:X-Scanned-By;
+	bh=HZzC1723EY2w+cC5K2qlsvEI7wuY7VANYPe4uNl7HOk=;
+	b=BHvp/qILkcpo1PnZKmWQZ+y17QwU+9QHUuoEJ4F8H+geQ1hHn9i0REK60qFEsIyfqJUY
+	 +JiKiQk+TvLxddK6uwuVE8aI8uzXAIkks7rduiltS3w3vNHFAx8tNFgKb37FGuMDXYZ9X
+	 8/pfKDhM3SdliuOnAYc6f/ulOYiXBBEXFjeoWS9apB1nXuWB/YqlR/0ga6v4YDqGWcO1r
+	 ElZ5oxPq79oiuL8IaPE8nblA1T+e6ni6P4/Y61b+t4YSgTiR1qaVOb5iowhI0z9MYzJgH
+	 sDoDm7+pa/S4DLCFrzZtGk/ogfBzHOvEK9hFrFnnT1hMlNOO3l8kEhHbrKh0YLveb6Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=KYCzpD5I;
-	arc=none smtp.remote-ip=209.85.214.182
-Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=gyGZ0wUZ;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 051AF606A31B
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 02:31:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 051AF606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9030F606A319
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 02:31:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9030F606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=KYCzpD5I
-Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2e987b4a710so7547525ad.1
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 19:31:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792722678; x=1793327478; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=S1AF2UytDZrLksg5esVe6mH/dBIR/sAfPawxfA5KC8w=;
-        b=KYCzpD5IR1M+2IIDBjWscNKgVBti2KOnv7ywu8mpIgngCL2c7B4RMNX3iouL0kK/hW
-         zWOGSc6g18snoUecATBy6hh6Pu/LFq4GxD500hZiz1md70sMraNVQvH8As8IApgeUfiP
-         vonBJkK6s+ivhEOkVOYpnGGMSAM/zfJldVj/8jH2ZLs8amcr2Dq18clLe+oX575qXIKr
-         zDj89+gMaiWBR6h3gUE3FEK+OrTticREPbe63ueJHYzZ4ximG5O2DunfhmD9Q57IjJF6
-         tdmMnQFZmPZlED7lLK7lIg+9P80OVfC5RGVDUu2nEP4niurZJ/gjCABuJySqw4LxYroN
-         0OPA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792722678; x=1793327478;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=S1AF2UytDZrLksg5esVe6mH/dBIR/sAfPawxfA5KC8w=;
-        b=hJpy8xrqin27KqlJhAzKjv5fe+sEXsYqmubEdzWQb6nuHd5gCpHX0rypWMbGbfgrZb
-         Drc9aWgI6LKDIl9KgoNGAw8rDb5hO7TQOsxw9DyYfkifVRqACgJMHQFzAwAIRDpY2YF2
-         1OdHthbInPD0rpzBUD5BvUAW1S7zgzTWHX4hfE93IGpOInYN5ayIf+v53MdgR/lILrAU
-         I8CLwUeieQxGsZ7HDNGCMZxqiIjMoGH3wpa8myBHRa5rwxzYAb+zP0QrJm/akblo21Wo
-         LjyGPHZa3fv7P+uuB8qWUKmBdwFqRM6KTf72r6UlTHAVAhN1ykaeVIUc6Q6TMn+3khMZ
-         TEkw==
-X-Gm-Message-State: AFq9FYKF9EDKExB9hIhR0cxGuZDK2JE/di/wvr1nTvuueOS61WPzHK3B
-	qfL6rX85lRDke2VnSjE8YGOSbsxTs9tmOUIvHBZjhxFUt6YKKsRj1qMX
-X-Gm-Gg: AYBFou2xE1spVYF9PZV2riQqWTy4rrFPLskiFR20BndWMoQUjRKb9rF65EQCN0Zd4JG
-	6zRfU7h83UtBYPPw6hdSjUYKTNH2JonrF1svVNWcpkqrV97d0yATb4+qiuOK1nAbMw2AHGlloeI
-	8hDTWglwEd3VFAf2PlKjr3X6jfKZ2T5i14n3vfdt9D4AR2JcEq0Ccm1sCoWcg+9jf5/OV3AAwrX
-	QKzMcI5mITM/afH2g1b5erp8btdW45Xkalbxcjp9P7ixXSpp/CXfMmfz9f2do3Ejp++alOdy6GS
-	whzV1YTm5ElPyvpj9i4fmsXF0frHuTnMVEzsAYe4lGozX61+laKsDNgce7nlRCIEpPHtFyMQ1TZ
-	9jh5Z8zNfWRrP/jNbx7VKm84PQvRsDCB7beeUF2Z05hJokiViQXPxuSmMEtD9QSAx2Ty9Pilg9I
-	Qziv3KJDgVpBqTw2YlUgS1WhnJJvNqiJ2u4pGigMi5HE8kOnBFQBJjFsJerfpFz/57C29sccOPb
-	Jd7prsHTiWAIJ5G9A1eD+w6LIxnJZDtEtnqBxYhFFZ9oEwicseeIckaNeMXcRZ6yZWLvaYIOQ39
-	UVmXGPF20+o8RfkJAV2h1n4SCN5UUJ55p5xvqavea7dulhLuJ/E=
-X-Received: by 2002:a17:90b:3b8e:b0:3a7:96c1:f6f6 with SMTP id 98e67ed59e1d1-3ada6f35f81mr3174897a91.34.1792722678131;
-        Thu, 22 Oct 2026 19:31:18 -0700 (PDT)
-Received: from localhost.localdomain ([240e:46c:1d00:19d6:7438:ad54:9ef4:bc36])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd8ba89a40fsm279852a12.14.2026.10.22.19.31.12
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 22 Oct 2026 19:31:17 -0700 (PDT)
-From: Yafang Shao <laoar.shao@gmail.com>
-To: mingo@redhat.com,
-	peterz@infradead.org,
-	juri.lelli@redhat.com,
-	vincent.guittot@linaro.org,
-	dietmar.eggemann@arm.com,
-	rostedt@goodmis.org,
-	bsegall@google.com,
-	mgorman@suse.de,
-	vschneid@redhat.com,
-	kprateek.nayak@amd.com,
-	gourry@gourry.net,
-	david@kernel.org,
-	tim.c.chen@linux.intel.com,
-	yu.c.chen@intel.com
-Cc: linux-kernel@vger.kernel.org,
-	Yafang Shao <laoar.shao@gmail.com>
-Subject: [PATCH 0/2] sched: small changes 
-Date: Fri, 23 Oct 2026 10:31:03 +0800
-Message-ID: <20261023023105.28829-1-laoar.shao@gmail.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=gyGZ0wUZ
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1792722680;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=HZzC1723EY2w+cC5K2qlsvEI7wuY7VANYPe4uNl7HOk=;
+	b=gyGZ0wUZQlQ7UjZmuP3QZmqu7W0KlvumzWUwzkuFLSnvr0mV6u78+fpO2rmhL5KgzuuPWR
+	RYPfyH/kx3mHsN6+W4vrnGomvXSHXXyt/KbG2/72klXpxdiOKAIrj1JQmL1xNJ4lzzcKeI
+	hutWRYCTPTlIBGdThePb3nVj7gt1XDs=
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-32-ihdDI37kMBSM249ZqvrqQA-1; Thu,
+ 22 Oct 2026 22:31:19 -0400
+X-MC-Unique: ihdDI37kMBSM249ZqvrqQA-1
+X-Mimecast-MFC-AGG-ID: ihdDI37kMBSM249ZqvrqQA_1792722677
+Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id E27281800631;
+	Fri, 23 Oct 2026 02:31:16 +0000 (UTC)
+Received: from lcapitul-thinkpadt14gen3.rmtcaqc.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 811127DF;
+	Fri, 23 Oct 2026 02:31:14 +0000 (UTC)
+From: Luiz Capitulino <luizcap@redhat.com>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Lorenzo Stoakes <ljs@kernel.org>
+Cc: Vlastimil Babka <vbabka@kernel.org>,
+	Jann Horn <jannh@google.com>,
+	Pedro Falcato <pfalcato@suse.de>,
+	David Hildenbrand <david@kernel.org>,
+	Jakub Matena <matenajakub@gmail.com>,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Subject: [REGRESSION] mremap() fails VMA expansion when VM_MIXEDMAP is set
+Date: Thu, 22 Oct 2026 22:31:06 -0400
+Message-ID: <20261023023106.515365-1-luizcap@redhat.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,19 +82,154 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
 
-These improments are found in the implementation of BPF-NUMAB series[0].
-They can be applied seperately.
+Growing a VM_MIXEDMAP VMA with mremap(), with or without MREMAP_MAYMOVE, fails
+with -ENOMEM when the address range after the VMA is free.
 
-[0]. https://lwn.net/Articles/1101442/
+This regression was introduced in v6.1 by commit ca3d76b0aa80 ("mm: add merging
+after mremap resize"). This commit changed mremap() to use vma_merge() instead
+of vma_adjust() for the expansion case. However, vma_merge() returns NULL for
+a VMA that has any of the VM_SPECIAL flags set.
 
-Yafang Shao (2):
-  sched: fix stale get_pref_llc() stub for !CONFIG_SCHED_CACHE
-  sched: use static_branch_likely() for the NUMA balancing tick check
+The issue is also present in latest Linus tree, except that the code has been
+refactored. In the current tree, the path now is expand_vma_in_place() ->
+vma_merge_extend() -> vma_merge_new_range(), which performs the check:
 
- kernel/sched/fair.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+	/* Special VMAs are unmergeable, also if no prev/next. */
+	if (vma_flags_test_any_mask(&vmg->vma_flags, VMA_SPECIAL_FLAGS) ||
+	    (!prev && !next))
+		return NULL;
 
--- 
-2.52.0
+This issue was originally reproduced with an external module that sets
+VM_MIXEDMAP on a VMA because it wants to insert pages with vm_insert_page().
+However, there's at least one in-tree reproducer: tcp_mmap().
+
+Note that commit ca3d76b0aa80 introduced other VMA expansion regressions,
+but they were caught and fixed early:
+
+- 6f12be792fde ("mm, mremap: fix mremap() expanding vma with addr inside vma")
+- d014cd7c1c35 ("mm, mremap: fix mremap() expanding for vma's with vm_ops->close()")
+
+Below you'll find a reproducer and an attempted fix.
+
+Reproducer
+==========
+
+This reproducer was written by an LLM and uses tcp_mmap(). It reproduces
+against v6.1 and latest Linus tree (2a08195e4db5). The issue is not
+reproduced on v6.0.
+
+#define _GNU_SOURCE
+#include <stdio.h>
+#include <unistd.h>
+#include <errno.h>
+#include <sys/mman.h>
+#include <sys/socket.h>
+
+int main(void)
+{
+        int fd, pagesize;
+        void *p, *ret;
+
+        fd = socket(AF_INET, SOCK_STREAM, 0);
+        if (fd < 0) {
+                perror("socket");
+                return 1;
+        }
+
+        pagesize = getpagesize();
+
+        /* tcp_mmap() sets VM_MIXEDMAP on this vma. */
+        p = mmap(NULL, 2 * pagesize, PROT_READ, MAP_SHARED, fd, 0);
+        if (p == MAP_FAILED) {
+                perror("mmap");
+                return 1;
+        }
+
+        /* Drop the upper half, so growing back into it can happen in place. */
+        if (munmap((char *)p + pagesize, pagesize)) {
+                perror("munmap");
+                return 1;
+        }
+
+        errno = 0;
+        ret = mremap(p, pagesize, 2 * pagesize, MREMAP_MAYMOVE);
+        if (ret == MAP_FAILED) {
+                printf("BUG REPRODUCED errno=%d\n", errno);
+                return 1;
+        }
+
+        printf("NOT REPRODUCED\n");
+
+        return 0;
+}
+
+Sketch fix
+==========
+
+In the fix below, I started with the same idea as d014cd7c1c35: on v6.1 I
+made mremap() expand VM_MIXEDMAP VMAs the same way that commit did for 
+VMAs with vm_ops->close(). Then I adapted it to the current tree. It fixes
+the reproducer and I didn't get regressions in MM kselftests nor the
+tools/testing/vma test.
+
+However, I'm not posting this as a fix because I'm unfamiliar with the VMA
+code so I'm not confident this is the right approach.
+
+I really don't mind someone more familiar with the code taking this over.
+
+diff --git a/mm/vma.c b/mm/vma.c
+index 6c35f0d775ab..ac9a0a8a4be9 100644
+--- a/mm/vma.c
++++ b/mm/vma.c
+@@ -851,9 +851,15 @@ static int commit_merge(struct vma_merge_struct *vmg)
+ 	return 0;
+ }
+ 
+-/* We can only remove VMAs when merging if they do not have a close hook. */
+ static bool can_merge_remove_vma(struct vm_area_struct *vma)
+ {
++	if (vma_flags_test(&vma->flags, VMA_MIXEDMAP_BIT))
++		return false;
++
++	/*
++	 * We can only remove VMAs when merging if they do not have a
++	 * close hook.
++	 */
+ 	return !vma->vm_ops || !vma->vm_ops->close;
+ }
+ 
+@@ -1093,6 +1099,20 @@ static __must_check struct vm_area_struct *vma_merge_existing_range(
+ 	return NULL;
+ }
+ 
++static bool can_merge_vma(const struct vma_merge_struct *vmg)
++{
++	/* VMAs without prev/next are unmergeable */
++	if (!vmg->prev && !vmg->next)
++		return false;
++
++	/* We can't merge VMA_IO, VMA_DONTEXPAND or VMA_PFNMAP */
++	if (vma_flags_test_any(&vmg->vma_flags, VMA_IO_BIT, VMA_DONTEXPAND_BIT,
++			       VMA_PFNMAP_BIT))
++		return false;
++
++	return true;
++}
++
+ /*
+  * vma_merge_new_range - Attempt to merge a new VMA into address space
+  *
+@@ -1152,9 +1172,7 @@ struct vm_area_struct *vma_merge_new_range(struct vma_merge_struct *vmg)
+ 
+ 	vmg->state = VMA_MERGE_NOMERGE;
+ 
+-	/* Special VMAs are unmergeable, also if no prev/next. */
+-	if (vma_flags_test_any_mask(&vmg->vma_flags, VMA_SPECIAL_FLAGS) ||
+-	    (!prev && !next))
++	if (!can_merge_vma(vmg))
+ 		return NULL;
+ 
+ 	can_merge_left = can_vma_merge_left(vmg);
 
