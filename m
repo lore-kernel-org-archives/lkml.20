@@ -1,95 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.209.47
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792734367;
-	b=RE0SS9LM1s00hGLrJzrtV4tF7InLGTMP6Zusb56w31ll6cnnUnggkXRujBqXtrNjuKnV
-	 AvDgPwYmeE4AQjohu4lJuMDpwtSLHN68aJOZPW0KV6/hKdnaGY4x0dptpBC6Jq6fdzHN5
-	 tsci1TKp6ngKQJqhjbV9pgnU2qsUhiCaTSIag2EAfETKANXNIuFWIAXflSAsvK1dhnFAs
-	 lbFMxFLz91n0mS7h7U8ibEVQK/8eHqxboYRTpWg1Y/fmCG7Axvquh8l2vg2wdvCfAXWZi
-	 D97GolYl403PvYHBYk8IOF5b8+F8DJLNi3yUy4PWL+Cz/u/lOsqrGg5uRuxzWv/OMtQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792734367;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=8U1YG8QWpK1PZXUFavlaWOThohr5+MJVVoLtmXeeTcc=;
-	b=suOSmyf7aJHXCWCtodsAtjcEbErcogru4IihF6HfIJ1hmo3DNKUqQmI12QSJUL0qtr2h
-	 fUYTqHtplyPCLk52OE38/0mGBstf1ERgW4O0AKhgD53sGnuqhI3G7ZeiPyt3jSVRdlVuz
-	 WD1b2CRo/mpT1NKRMTYa3QKiUJW4x+qEtb0dosEztNjfV3tGoADb8uQ2asnlWyrSebNSB
-	 VI+xGod7tNRokiMh25r2bg7omgHh+sbPz0PJc1kkX3BSKFO2P2CUiorZu88uyuRriycSX
-	 qtkXvnBIrx9V1dgsgBN8r+pv9Sazyl5P+A4NxKKaL3DTbXJldGlLMHbdCtZjhd657EA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=SqlsijhA;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.209.47
-Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012047.outbound.protection.outlook.com [40.107.209.47])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=139.138.61.252
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792734506;
+	b=Xup1k3gQnF3IGP10/vPV0/16VbpBQHjEEP6kRuzsnhVnqwo8d3ijTssg+5/Je1ywl8Xw
+	 FuWN8NdpFyJ2wrHCuR+SlWghKn5Ze5O8KZaqNp9N7TpExSmWQzeDYci4w9wuB/sylyeJ3
+	 5QnCaHRAKIIYSbBolx9WLh+L7bWwZbsO6ORxzdipmLrzjQhWRr493Dhv03zIDKtZ8zseM
+	 pO08u8cqd06H2oZhaLn22prdtA012EyNz5oXrQfowVnSb1GHYUSf8Kx+X+9F0WLN8/Vs+
+	 4bk4eZDsGk+kVu/D6othBju47V18LZXSlUL5KeCoHdS/lFQ0l9Xx3VUop6ifaB1iSsQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792734506;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:Received:Received:Received:Date:
+	 From:To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=wh7D8Tptc3ILYDf3UejxSTTFaEfE2VaROKuAZO+rrJ0=;
+	b=32EHVG5sYSglPT7SW+Pqh7c4ItkgIwYPL7eIlclFsy64m/ywASZlNDdBrPqSnOFhWIcx
+	 oUpFaU7fDrD8zOkx0/9qiZAFfPrCAdufqr0LtJsQ5Xi4SBoxY/gYaMNh0GtgOvn+cRGIi
+	 X+g24t7xRaCy6uiBMG3L8tCcIavqWnCf2ClcorM7p2L1JxSdkMOmCqDPuKdzzIxfW4Qcj
+	 NNVsirATjSlcPkFnVHc0posuqAJcW/VZydoM5jwSk3SiK1+w0QKrPNOemNHZV5eRyr5UC
+	 IvQFblU5yK3ZvMR/xV5Ws754BbX6yYybQNEhMe5gy7wUeXkwSJKnqCsQRicUxv8r08w==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=fujitsu.com;
+	spf=pass smtp.mailfrom=fujitsu.com;
+	dkim=pass header.d=fujitsu.com header.i=@fujitsu.com header.a=rsa-sha256 header.s=fj2 header.b="BoqclbJ/";
+	arc=none smtp.remote-ip=139.138.61.252
+Received: from esa7.hc1455-7.c3s2.iphmx.com (esa7.hc1455-7.c3s2.iphmx.com [139.138.61.252])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5149B606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 05:46:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5149B606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CA09606A325
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 05:48:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9CA09606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fujitsu.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fujitsu.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=SqlsijhA
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=gNuSFSi5Gwkc9vaOLYRsGTkw5FB0jcf5EUNgrY8Lnh9lrveG75bhzx9+Q5xcus1dhAfylckH3Nnl/A1H/RNzSCs8H5wwA9npUhOWjIRBY0OKcIv7Ivv32P08E2X/64uCneLNNaIIohj4DEzZRuXlYAbWd3UV+fRsnKW9DouLkRKRPNtP1kprN1SG5FEogVzO2TZ23I9R+yMt1qSKuLqiJoeHMO9W4MUO84RlY7+/6UoFL4i+rlqiHv6ujxtJpLcID1t/vHFHA5l+8M6YaaYLxoC7uvv7C2Rroy7xNK8KObhvT1xfSJyebn2bvvrQK/JAaNpKE8z/+n3S621avd2j4Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8U1YG8QWpK1PZXUFavlaWOThohr5+MJVVoLtmXeeTcc=;
- b=kMbatyPHIelB7Zse5LJPsoXgEpWs/X7rV5ftdNCsQ+m8iqkalTQdW+yQ3+4B0CtNyhhKQlWRexWDMeE6bAbWN8zt/NrYM+EfgXqy3uF91rCMo+JR7qmeEU84OyJVp+tiBJPxg4Dcsc+xDTsU300f8hL7nZ5U3T5TOPDCFX9sJH78kHyWYYNbosOYolJltpbOq/tAnzqt+U+6oklPYvElP/zQEW3ecDlDjGA4W5FtLOqISeKZaSf8j+effFTRjYyHaC1io2FamwIh68fc9gvPIrLyuXvQJcPSFEN/Taio9uJ7CmMy40k/SF0utZXzUIBfxjs0c8OkbF0VOAx0rODLCw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8U1YG8QWpK1PZXUFavlaWOThohr5+MJVVoLtmXeeTcc=;
- b=SqlsijhA7YxyymPFyrdprPlofZIKColVEkjKpAlBFj1OdBiEHdICBuUIBOOs/fsf9V4UcAmEOIAGQw6Ez/XxRb+srfYl/sUyS8XhbToVY2IfbdZVVod+li/Wmgx1jiqCyXcgmps5VIKNyjDZQox//8uuT9aZxRhXdmzTPTIwFB7AZ9ZzKuZFmvnqlWrHOlurGe+tveIbG0RTMrtSxAN7nHnrtkrkjhZ/bcWPQ+zLBUBgVOjzsiSgvSD3L6auSyjqMIcstXEMta2K0x72UhDlB/prlOb3L24aa0I+CqQLoUtEcgdLaFIwH/KGoLPyt9qIDJWLTSvLh6YIxXozCrmiGA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from BL1PR12MB5174.namprd12.prod.outlook.com (2603:10b6:208:31c::19)
- by DM6PR12MB4403.namprd12.prod.outlook.com (2603:10b6:5:2ab::24) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Fri, 23 Oct
- 2026 05:46:04 +0000
-Received: from BL1PR12MB5174.namprd12.prod.outlook.com
- ([fe80::58de:822b:868:96e9]) by BL1PR12MB5174.namprd12.prod.outlook.com
- ([fe80::58de:822b:868:96e9%6]) with mapi id 15.21.0546.017; Fri, 23 Oct 2026
- 05:46:03 +0000
-Date: Fri, 23 Oct 2026 07:45:57 +0200
-From: Andrea Righi <arighi@nvidia.com>
-To: Tejun Heo <tj@kernel.org>
-Cc: sched-ext@lists.linux.dev, David Vernet <void@manifault.com>,
-	Changwoo Min <changwoo@igalia.com>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	David Dai <david.dai@linux.dev>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] sched_ext: scx_qmap: Read SCX_RESCUE_DISABLE through
- the enum lookup tables
-Message-ID: <atr0lZ5dHdoZRz68@gpd4>
-References: <20261023000348.2726436-1-tj@kernel.org>
- <20261023000348.2726436-3-tj@kernel.org>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261023000348.2726436-3-tj@kernel.org>
-X-ClientProxiedBy: FR4P281CA0153.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:ba::14) To BL1PR12MB5174.namprd12.prod.outlook.com
- (2603:10b6:208:31c::19)
+	dkim=pass (2048-bit key, unprotected) header.d=fujitsu.com header.i=@fujitsu.com header.a=rsa-sha256 header.s=fj2 header.b=BoqclbJ/
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=fujitsu.com; i=@fujitsu.com; q=dns/txt; s=fj2;
+  t=1792734505; x=1824270505;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=jvaFqs1c0Q8y7cq4icfLd9Exgzwezb7YSxz6AKTovJw=;
+  b=BoqclbJ/xfvcZ1aJkLopCwxAtWb/zN5FrKJXgmgGK6dmZQWgF6o0GeQ7
+   W6uNIB4cTPtY1XMuydQyhhWwaFx1b7d8/UsbcaG0TRuBvF0U99QX4iRXD
+   0vzNO1KmnlrTTT/oV4YiLEPkI8HtZbDOSJc/Z0y2xl6/s+6e+gugEyGEY
+   rLyjojkHhHfcNYuTaXDxz/pgpDGeTBha2+0OQ0KpU4eo6f98nQztHOdYd
+   jcPWqFoPR3dRRlUK/uHga4MbmhwPHBZb3Fw6mYveb91lNzJm5qL52aGr+
+   97uxSXUOlvsJpbGxk7c8RCv2dUsnx4I15z1S3/jJInm8KEm8kUtoy2DWn
+   Q==;
+X-CSE-ConnectionGUID: eb0jNvBiRlqiLnL/OurrAg==
+X-CSE-MsgGUID: mmawl15+QNGgvCDG1gnDIQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11943"; a="238087237"
+X-IronPort-AV: E=Sophos;i="6.27,173,1786978800"; 
+   d="scan'208";a="238087237"
+Received: from gmgwuk01.global.fujitsu.com ([172.187.114.235])
+  by esa7.hc1455-7.c3s2.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Oct 2026 14:48:18 +0900
+Received: from az2uksmgm2.o.css.fujitsu.com (unknown [10.151.22.199])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by gmgwuk01.global.fujitsu.com (Postfix) with ESMTPS id 62DEEC01821
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 05:48:18 +0000 (UTC)
+Received: from az2nlsmom2.o.css.fujitsu.com (unknown [10.150.26.200])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by az2uksmgm2.o.css.fujitsu.com (Postfix) with ESMTPS id 13AE0180025A
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 05:48:18 +0000 (UTC)
+Received: from FCCLS0092175.localdomain (unknown [10.9.51.144])
+	by az2nlsmom2.o.css.fujitsu.com (Postfix) with SMTP id B947B1800109;
+	Fri, 23 Oct 2026 05:48:13 +0000 (UTC)
+Date: Fri, 23 Oct 2026 14:48:12 +0900
+From: Kohei Enju <enju.kohei@fujitsu.com>
+To: Yeoreum Yun <yeoreum.yun@arm.com>
+Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	Lorenzo Pieralisi <lpieralisi@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>, 
+	Suzuki Poulose <suzuki.poulose@arm.com>, Steven Price <steven.price@arm.com>, 
+	Sami Mujawar <sami.mujawar@arm.com>, "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
+	Jiri Pirko <jiri@resnulli.us>, GONG Ruiqi <gongruiqi1@huawei.com>, 
+	Jason Gunthorpe <jgg@ziepe.ca>
+Subject: Re: [PATCH RFC 1/3] firmware: arm_firme: introduce arm_firme driver
+Message-ID: <atr0fvi-FP7VCwki@FCCLS0092175.localdomain>
+References: <20261019-firme_interface-v1-0-27895c9cebaa@arm.com>
+ <20261019-firme_interface-v1-1-27895c9cebaa@arm.com>
+ <atnVCFWZLKR8GthP@FCCLS0092175.localdomain>
+ <atoM447tWm2EsoSP@e129823.arm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,128 +92,71 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL1PR12MB5174:EE_|DM6PR12MB4403:EE_
-X-MS-Office365-Filtering-Correlation-Id: 02606dc4-61fe-4e12-9860-08df30c8ecc1
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|1800799024|366016|56012099006|261021123027099003|261022105027099003|261009223027099003|261022075727099003|11063799006|4143699003|10067099003|18002099003|6133799003|261021121427099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	I/lnqvSYihpIF3M7rVLcvFPhp8b0U5PeUOyF2OYVGtEqrORa8x/oLpC7lL5YDu4dX2RCaIOaL14RL6m67UtzikGmGZ1NsPrSfBdafxzCBnXbeJ7dmYNgmdQPQFjuAWavL0GSVGs1k48c3PN3u+3EXnU1GYiCM5O+P3Vu/720hRtVkPgSTvSsV2C6/1U+iYgpjiz1aWJLFA1850iei298IO179ZXWalJYJ2EWhgvOuyGl4Xug0n/459jnRtc2YJiM1rrZhRatPaEGk/e6d+3x/GGM/RfmXUoJoy5fOzRXxQXPRIrDfAEyevnGU0WJYB8+KtUUbKSNZSvxpdmYlgX1EnbKekytq86yHmhTksYm4faSXsPhtMS+IxCwqhClgtRUH3iMvl+f1zhY+i72+jLRMd85xrHFIXMnUEkJSeRd8rdjUmPvcIr7gikgrm0gIErdlEnfR+ylIIRZolxVF+DWNAO6O6lFP5A+8MmLQcPSgxWabq68XWcUUu4oZs8t4aAddAXekR/ZPFo9Y+uFMLFjH7e5pyet0IMMD+jvqD/SCe7nqstujPo/k+XUmkq6yAk6ue5aEESvH8VjWWbbyZ6bIrhUqth/sa3opCE7HPGsOEsZ8LKEFJ/kl1Ev6z7CeVaglj9iCqemVRVETlTPohcVjs58B/I+YN6F9oSoB1jhBQY=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL1PR12MB5174.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(56012099006)(261021123027099003)(261022105027099003)(261009223027099003)(261022075727099003)(11063799006)(4143699003)(10067099003)(18002099003)(6133799003)(261021121427099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?zmzoWJxHKt0JX3DVwaqGH4ZYYGZLcrMo9dZ2ge9kyUhHHgV3aRsECSh9MKOP?=
- =?us-ascii?Q?KKCi1fuv671hoMwTDEwVfhFOflA6QYhlEXu9VcPLkPPwqZK22dC9qnKcv11P?=
- =?us-ascii?Q?HU+0n/Bcl0rit1HOKyhABkrW1d4YogbrsuKHa+HvnxZEvNI/Kjxg1FAEtNUW?=
- =?us-ascii?Q?B0wXZ9gP9oPTZ926q2BbRZwarHf4Znnro4xHCR1DPqMrMGNKdiZmgau234UP?=
- =?us-ascii?Q?wc+tkQ+fgAsUoM5Ap2WIEzggjSc4yJC209VWn6axIZphHuDysWNncGiyh71c?=
- =?us-ascii?Q?4X6p+BOXBzOrrgfpxM3+qqPB4cyr59D4MFXn4nutLFweHD5XMYtc1LEjLykP?=
- =?us-ascii?Q?btbIPMMc+EMkL/G0e2VzqKBwFu5agLPf2fE4PtbwLIsSoKNFzdTX3OT9+xyw?=
- =?us-ascii?Q?vCFBO35NQNKVPKFCx4EzD3PkQHZIcBgkSA/Zu7Prib3uBgWrTd1OLs0SoYl+?=
- =?us-ascii?Q?nNS8KUcibk/vpIaYwfqe717yUrcTMFvJx1e5WH9WXjl1CXpQEQBW3e85CkTI?=
- =?us-ascii?Q?ykNi80YFip1A5I/AaxZsmsWZm6FmWkRi2Nr8A3g8y6R63jovs/cdC+bdKA7u?=
- =?us-ascii?Q?2F1R2MDxJqlH+QFXY3XGybTWtfT629Vxa1HUFz56kVrDMrTD3NcxosYrH4xF?=
- =?us-ascii?Q?lJRkRQ9k4lepz+7TUv+sCw7b/OY9Apr0EV/Bhjo7aVfQaOV7nfH1ucPlwC6K?=
- =?us-ascii?Q?0It6ddbd4ic5EsK1uk8+E8RkH54freyM3hcl2cgrHcgSNh+dVNi3j2m8geGf?=
- =?us-ascii?Q?SklHC6PChMRNxDi3ICz6KQZhU65d4VqbNk+1fsoNvM/M0cX5sjR3kE/rUj9H?=
- =?us-ascii?Q?4/meN/a1EA2aytNQo5vegbrLXHtjiwgu3yz7EkwX+afPAUetiVlIMLWHXdKL?=
- =?us-ascii?Q?0S+kRUdFodsJXrtqIK+LnqXZP25AE+eOtJ5YAS94fGtEKOWD+bREaeY+uoF3?=
- =?us-ascii?Q?aYOBq9CQQX7YM4yuRkMtiJqEO+6m6N3inM2ePhw46lQmiHJ9Ounb1D1GYYxH?=
- =?us-ascii?Q?fMgyIIl7RkwE0dH7vdYUq9EfZmNdsKjxpCxOeMNasNXbfumZQwIYEfzk8FqH?=
- =?us-ascii?Q?c5mfd7DyJobjvi+H9MIKXgCuunMZzAwVZk7hRY1Ae+Fm7WkOuZKFqae58wv2?=
- =?us-ascii?Q?Bfv8fRBSIWXqJD5axIJ6XwlMM82JFlzwubrTB6QUXq2inN6KI1p9h2yfYhPB?=
- =?us-ascii?Q?OKcehZsY/GxAyawWfIWzvXe0uUB9GJq/cBMbj07NpPY19poSzAyNpjgO3lhV?=
- =?us-ascii?Q?t1oqRUTL/BlajzO4Vv3AIDKhdXlmS5MtdmCCe8yuCFSMrhYhl4Bn6YN7w/Bm?=
- =?us-ascii?Q?zZ4hStKFnVIq1UQfiHHWzEk7zRcZIvjJWH+kWDw4LQnFPBa7UA2wuRGxTz1l?=
- =?us-ascii?Q?vWaEtf2ScvuqmPXlN/8qjX9ndsmtS2X9zKDigGPw5PeQWcMZK28JsOrmgcXV?=
- =?us-ascii?Q?qpVibCxdhhjA0bFk5YA+bxF9stplCpiYgvhf3M6iyN3oryBEkkLmDuP+sBrn?=
- =?us-ascii?Q?Ze1fU/0Rw1SLlgi2yMER6wASwXbDwvdsphVDJ9IlhctGcRKxAkMb4ED/4RQ/?=
- =?us-ascii?Q?CvFsTobDFq6WHSneu0FRHMkvpUSQ9ARc82mjOIJNnawk+cIRb3Ff7z0NzPI+?=
- =?us-ascii?Q?a6glhu/JS2jp41FLUMEWO2e1aSLuGeYiglQBiFca8IxOmVNmxMdjJvDD36y6?=
- =?us-ascii?Q?1NdLdqVvQVZGni1V73BgSpcIpYPb/EGyMXSgnTR2YZTrWo5d?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 02606dc4-61fe-4e12-9860-08df30c8ecc1
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5174.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Oct 2026 05:46:03.4335
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: sZUl7jHG+nHqpaux0azi6Tov8TVrpA9WUD6/GB7bunoF9h1FpvZqjUQI6+GWzaca7boevtL6UU75OyfJym4uFQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4403
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <atoM447tWm2EsoSP@e129823.arm.com>
 
-On Thu, Oct 22, 2026 at 02:03:48PM -1000, Tejun Heo wrote:
-> 788b494fab1c ("sched_ext: scx_qmap: Drop the compat code") left one compat
-> lookup behind: the -B 0 case reads SCX_RESCUE_DISABLE with
-> __COMPAT_ENUM_OR_ZERO(). Userspace can read SCX_RESCUE_DISABLE only from BTF
-> as it is in the kernel-internal enum scx_consts. The enum lookup tables
-> already read their entries from BTF for every scheduler at open time.
+On 10/22 14:17, Yeoreum Yun wrote:
+> On Thu, Oct 22, 2026 at 06:48:49PM +0900, Kohei Enju wrote:
+> > On 10/19 15:14, Yeoreum Yun wrote:
+> > > The Realm Management Extension (FEAT_RME) is part of Arm Confidential
+> > > Compute Architecture (CCA) and enables support for dynamic, attestable
+> > > trusted execution environments ("Realms") on Arm systems.
+> > > 
+> > > Realm management flows depend on EL3 firmware for operations such as
+> > > Realm construction, resource allocation and isolation, and attestation
+> > > of initial Realm state.
+> > > 
+> > > The FIRME defines standard interfaces provided by EL3 firmware to
+> > > satisfy these dependencies. These interfaces include:
+> > > 
+> > >   - Granule Protection Table management
+> > >   - IDE key management for PCIe and CXL Root Ports
+> > >   - Memory Encryption Context management
+> > >   - Attestation token management
+> > >   - Integrated device management
+> > > 
+> > > Each group of interfaces forms a FIRME service. A base FIRME service
+> > > is also defined to provide common concepts, service discovery, and
+> > > feature discovery across services.
+> > > 
+> > > FIRME interfaces are implemented at the EL3 boundary between the
+> > > Non-secure, Realm, and Secure states. They may also be used on systems
+> > > without FEAT_RME, for example to provide firmware-based attestation or
+> > > security services.
+> > > 
+> > > arm_firme driver provides the common FIRME framework and service discovery
+> > > support for client drivers using below FIRME services:
+> > > 
+> > >   - Base service.
+> > >   - Attestation token management.
+> > > 
+> > > Signed-off-by: Yeoreum Yun <yeoreum.yun@arm.com>
+> > 
+> > Does this series assume that the kernel is running in EL2 implicitly?
+> > 
+> > The FIRME spec says:
+> >   An implementation of one or more FIRME services at a valid Exception level boundary between EL3 and the
+> >   highest Exception level in a different Security state is called a FIRME instance.
+> > 
+> > and I think only NS-EL2 can call FIRME interfaces as a NS FIRME
+> > instance, right?
 > 
-> Add SCX_RESCUE_DISABLE to the lookup tables and read it from the skeleton's
-> rodata. No behavior change.
+> Yeap. but it doens't forbid calling the FIRME from EL1 too.
 
-And, as a reminder, we should add SCX_RESCUE_DISABLE to the scx repo as
-well.
+I see. Then it's okay.
 
-Reviewed-by: Andrea Righi <arighi@nvidia.com>
+> As a just example, when the host running with pkvm, it could use
+> where kernel running as EL1.
+
+Thanks for the clarification, Yeoreum.
 
 Thanks,
--Andrea
+Kohei
 
 > 
-> Suggested-by: Andrea Righi <arighi@nvidia.com>
-> Link: https://lore.kernel.org/all/ataTuzRFTRm_pax6@gpd4/
-> Signed-off-by: Tejun Heo <tj@kernel.org>
-> ---
->  tools/sched_ext/include/scx/enums.autogen.bpf.h | 3 +++
->  tools/sched_ext/include/scx/enums.autogen.h     | 1 +
->  tools/sched_ext/scx_qmap.c                      | 2 +-
->  3 files changed, 5 insertions(+), 1 deletion(-)
+> [...]
 > 
-> diff --git a/tools/sched_ext/include/scx/enums.autogen.bpf.h b/tools/sched_ext/include/scx/enums.autogen.bpf.h
-> index 405a3e6b8f33..d0c37018659e 100644
-> --- a/tools/sched_ext/include/scx/enums.autogen.bpf.h
-> +++ b/tools/sched_ext/include/scx/enums.autogen.bpf.h
-> @@ -13,6 +13,9 @@ const volatile u64 __SCX_SLICE_DFL __weak;
->  const volatile u64 __SCX_SLICE_INF __weak;
->  #define SCX_SLICE_INF __SCX_SLICE_INF
->  
-> +const volatile u64 __SCX_RESCUE_DISABLE __weak;
-> +#define SCX_RESCUE_DISABLE __SCX_RESCUE_DISABLE
-> +
->  const volatile u64 __SCX_RQ_ONLINE __weak;
->  #define SCX_RQ_ONLINE __SCX_RQ_ONLINE
->  
-> diff --git a/tools/sched_ext/include/scx/enums.autogen.h b/tools/sched_ext/include/scx/enums.autogen.h
-> index 7ec2e5e41cb2..c4a7260f0983 100644
-> --- a/tools/sched_ext/include/scx/enums.autogen.h
-> +++ b/tools/sched_ext/include/scx/enums.autogen.h
-> @@ -9,6 +9,7 @@
->  	SCX_ENUM_SET(skel, scx_public_consts, SCX_OPS_NAME_LEN); \
->  	SCX_ENUM_SET(skel, scx_public_consts, SCX_SLICE_DFL); \
->  	SCX_ENUM_SET(skel, scx_public_consts, SCX_SLICE_INF); \
-> +	SCX_ENUM_SET(skel, scx_consts, SCX_RESCUE_DISABLE); \
->  	SCX_ENUM_SET(skel, scx_rq_flags, SCX_RQ_ONLINE); \
->  	SCX_ENUM_SET(skel, scx_rq_flags, SCX_RQ_CAN_STOP_TICK); \
->  	SCX_ENUM_SET(skel, scx_rq_flags, SCX_RQ_BAL_PENDING); \
-> diff --git a/tools/sched_ext/scx_qmap.c b/tools/sched_ext/scx_qmap.c
-> index 9b1cbe187ebd..fe2f206f5c8a 100644
-> --- a/tools/sched_ext/scx_qmap.c
-> +++ b/tools/sched_ext/scx_qmap.c
-> @@ -427,7 +427,7 @@ int main(int argc, char **argv)
->  			u32 ppt = strtoul(optarg, NULL, 0);
->  
->  			if (!ppt)
-> -				ppt = __COMPAT_ENUM_OR_ZERO("scx_consts", "SCX_RESCUE_DISABLE");
-> +				ppt = skel->rodata->__SCX_RESCUE_DISABLE;
->  			skel->struct_ops.qmap_ops->rescue_bandwidth_ppt = ppt;
->  			break;
->  		}
 > -- 
-> 2.56.0
-> 
-> 
+> Sincerely,
+> Yeoreum Yun
