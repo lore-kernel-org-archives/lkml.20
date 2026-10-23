@@ -1,95 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792724736;
-	b=dlbm4xpfW49+Gmg9OcFCY+1LO1ju7OgpcjB47uOvl6mBCU6BG4jSB5PrZPJLLk2oOpvv
-	 n1GsIsqzZAYLVRpUiBd04SotAcCn/xwooI9LXeci2j2JNTERIHR7aMnSBKKo/Ac7gWTet
-	 4JgT5Kgqg9xqaRp8qc0Q6avQQyYJA3DMQ6cwvDEuDfK6nyTIC5jtoXaSnlqDYJokVyHoP
-	 2+tG8MwDwhWPFwq/kJ0r4T4QEqiKvjyYyK6DzhnbHRPIdvu/WNjwKdBX1VnxyR3Y4hmrE
-	 dmdgr+pab3yt8ZzpIot9rO5B6LDoAzp+n3cmy1LUppcsTWb4Ud1k2o8ygjECbtu6F6w==
+	t=1792724755;
+	b=Xoo187xeYRXr8uDNX1/w4lSU4AG8TUB9oClJINfjBhsZ2CFLNkNSoHwMWma03vP0sztT
+	 J6oXFt0/89hUmWLRDIJ4CXXNuWQ8l5ZtYs5WlvWlW9CMNvyU3rL+Fb1bavPHSuNuXenfT
+	 AMpA9csNetb5AFeVuFtTzt8/RPODnkiyaBiGhwaT4oE92q6cFozqU4DU6cIih1ZLK+LI5
+	 7ZeyP5vhXXG0G/ELYiDiUGl2RooaDzkpZzHrLuv9nLSw6NuBEGPORS6WRE3DH/CzhIfxK
+	 jU4y0m7BdblXjLmATiGvoEPHpCHx8kEnLjyVv+iJmvUQaO0caMP8Ur5o2zA6RxJEaUw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792724736;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:X-Google-Original-From:To:Subject:Date:Message-Id:X-Mailer:
-	 Reply-To:MIME-Version:Content-Transfer-Encoding;
-	bh=pR6JdMczIcQeiJ74SnQg1wuYi/2QUh8zcrrU9uckavE=;
-	b=BHgD0e3Za2mfR97/4Q+fa5uv2uvfILO9p/973LBRh7SB4rz5IfTTbmmq4dpJSKGFHPyf
-	 4UcNsuDsQ3WFi1gpWvT5Cd/lMKPXJMgiuApHNmNIjyYORKTVbEzglOhuG8gPzbl9lE1S2
-	 qC8ZW2vAflu+KYD4XYk2pBrZxEx4+/H9/yEZhz7h7VE/4+53bagIXL5CmG1SN9kGSA3px
-	 Q8Jb4QWmvfaZJZXTgfpnOL8wCMYI6TmXlwJCKNuzSGD6FZ2j07Ab603sU4x7U49048jLu
-	 Tv3aA1EGqYGRXwEx5Aiu1k/Awem8p7i8Rv7v3nssPI9FojfmjGIrJyBkUIu3ye7GY6w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792724755;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=ZDt42fOmBzaw9BOmfiuldB3LQK2fIbNMiANSIszn4Uc=;
+	b=Cc/XzWTDiVddcRZkksLGZn2fCCKK0VpRVisdQoH0hBAVCHg916A3okxk0lED333V4eA9
+	 kKvGHRUE4mfgI8psX/rFNenb5ROZBoFZKsAKuqKOqVFdfZ5/NAdPqftxT4lYunN3vRRWs
+	 O8tWXlSdb8v0cDXadO8TGoS0exY477VrFCgeairaInpuXHnyIm5eHvdPiNm0Me7w5xgNd
+	 /ROxcGSkIBrL76Hvgn+PYciigJ66VTznL1CtX9Tk3kxbU4LB5YZ0B10TSlILTYSf2Dgta
+	 Co0b1q6kapn3cTqkCkgIT0HO5NTBjGKIVLH1I6l1ym8V82X1WYSYvgfRxxZnJF0wsWA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=DvXiqZD6;
-	arc=none smtp.remote-ip=209.85.210.172
-Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com [209.85.210.172])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oK49Fibt;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F708606A31E
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 03:05:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3F708606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8B90606A31A;
+	Fri, 23 Oct 2026 03:05:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=DvXiqZD6
-Received: by mail-pf1-f172.google.com with SMTP id d2e1a72fcca58-8a064fac8cbso248786b3a.1
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 20:05:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792724735; x=1793329535; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:reply-to:message-id:date
-         :subject:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=pR6JdMczIcQeiJ74SnQg1wuYi/2QUh8zcrrU9uckavE=;
-        b=DvXiqZD6rI5baXmmtvAKcFD9FRamTQZj8xR8gKdDi6TgjciM8fj9LDl0IX/zUNSvZQ
-         cRHDaTD1WALckJLUoGSnNxbtAy5WoLNsmhuSH/HhqrY1wAkJkH8plpoc2rwidN8JSBym
-         mBAaME+fDitKULSbG/Pk5/JGnaOX/kWtd6J0ZFE4jn6lmKjGJaF4JHOvUtJ8m1sfBHAy
-         8sQqeQBtsimO0wliuMMlxFLfth1RpxcvgY9l4i7G9l/QqPQt+maGbe6+kmy4qcTRCkEl
-         3MxYfvv6/5cpgzSp+yJjRLUIakuPN5HuKEVmFEapX4P+pc5gkEnguFiqc/4cR0+EQiSt
-         WVmg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792724735; x=1793329535;
-        h=content-transfer-encoding:mime-version:reply-to:message-id:date
-         :subject:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=pR6JdMczIcQeiJ74SnQg1wuYi/2QUh8zcrrU9uckavE=;
-        b=YA4Hn6D+5Xf4UonCkiGA0DoOgWH84E8GcwOmmb7gJ3j7wT2+zJ3eVFSI8Hh0ACUSU3
-         0XGYSRoEnTScQl5mXvaciu7VDzxpXjTAnk3F/Hw4dpPsE9FxF9J1P+IrZPa0fJsvzPbX
-         hjMVaq8hnf0YIh5FzoJhyHakuu8+atV/EvorFZFjdq0VV0GdcfzU+z8Musb0tvvdlvfg
-         V1qh16abC80HOrFirSk4iXh+aDngjT18UaY97WYc+1Cb7MvbqsDehHhZOn+/+QdenDHp
-         JwBeQYxkClRafvPsRzC/kA9HGrvQGxNLD4aXz3LKe/P3R0cbiOlUSuHqjbSMBeh1JWVf
-         uQlg==
-X-Forwarded-Encrypted: i=1; AKwUvBz2zhmVhjKGc+SYQQnaXUbqdsc8JuL6v/k/SyKOsXEzx4VdCHvMs+YD4ACM2hwIuz5GUIXljab9dmxVczw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJFopiXGXYyX8wmUMeRRravJmLrCjaS3BxfCJoWOTFoktRkt3vA
-	h/v90WWEcFkeg1EUJ2JF/dhZZUUWt5sCyiy9CR6+2hszUyz1ax/wOBOp
-X-Gm-Gg: AYBFou0P7Ed0ykdvrTbmGXK3mvwPJbwdMK5Svf2xhl428GqEVdo8EjEf2VJ+84m4ie1
-	A0b1mjoZEIbW+zC915fxcLG1w7rcH9OAJ4fsTQbkXSa3dnr1RwdgL3BeBmNbaEm/Hlm2S8EAMZr
-	8CasXNF5maIPXVhUG6pYoCNbEWA2wsz6vuJWp/GRjIZ2ObfUtK+EHb6aaYjMe/srGO0dXCYA76c
-	HxSpiUKgtI54GU7Hmc/jJg/p3hvDq6EfDTkobhlpyrO3/L/IQc9EalYghrRSkERhzaiQdkiiR0n
-	AVJW24w2vwwMAXd7imqmgFZfrJ5C1gHLzMoEIQo3B+mNNI2XuP+UOCBl5H9N+CVnjdsvr8kz6rv
-	691FekDtUbt8tMpHPJnUNkDpXjt8F0tsJYVRYdmjifrN9ixDhMqbtFLMkvMwBDf/f5Hbgdfw7uS
-	cqfZI9x3tlil5/vNM2FJFwQFVeo7Yoa7Kiu3u2q7ekWEDuc7diGbD9qWciJX8O0Vmyeo1fd782D
-	8VbW+YZEPbu7JeIfowazRv8TmGtgNd2fWKHafTvu0FUf7bv9drPLRLCR25kr2jGxoWrkGywrw2I
-	Bkug+AJdHjHYtNtGMLpb0fMg8KJyqNAsd63J36GBVRX/Pnvaq2eHjcvpMO8=
-X-Received: by 2002:a05:6a00:440d:b0:881:b7d0:8dd5 with SMTP id d2e1a72fcca58-8a2c661aa67mr900925b3a.32.1792724735459;
-        Thu, 22 Oct 2026 20:05:35 -0700 (PDT)
-Received: from localhost.localdomain (c-174-165-208-10.hsd1.wa.comcast.net. [174.165.208.10])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8a2c89d2e2esm215026b3a.13.2026.10.22.20.05.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 20:05:34 -0700 (PDT)
-From: Michael Kelley <mhkelley58@gmail.com>
-X-Google-Original-From: Michael Kelley <mhklinux@outlook.com>
-To: haiyangz@microsoft.com,
-	wei.liu@kernel.org,
-	decui@microsoft.com,
-	linux-kernel@vger.kernel.org,
-	linux-hyperv@vger.kernel.org
-Subject: [PATCH 1/1] Drivers: hv: Remove leftover support for old Hyper-V versions
-Date: Thu, 22 Oct 2026 20:05:27 -0700
-Message-Id: <20261023030527.1611-1-mhklinux@outlook.com>
-X-Mailer: git-send-email 2.25.1
-Reply-To: mhklinux@outlook.com
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oK49Fibt
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BCCDE1F01828;
+	Fri, 23 Oct 2026 03:05:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792724754;
+	bh=ZDt42fOmBzaw9BOmfiuldB3LQK2fIbNMiANSIszn4Uc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=oK49FibtSUHDW39Acn/cPucwmQE1gs5BqLf/XrGWh73yFD5OWclOR0dIF4K0qpmM4
+	 gyB+metm/WKCG1sm0A/PXEQj2oiV97s9Xt4pbQrqEMh2t1WmenZj6io7Dj75tJ0mVp
+	 60B2fdNXJ1SpEoXqarmbXiUXjOSK4caZuPtWityzZQkt/bHbPoUSWkVCtxOuSEktKx
+	 O+ttexyAJeT9t6fPRIs3umspsSozf/2tI2iuQikoZtFIDa5ao/gjKri3JjkCnuebPs
+	 3hXAFUWmj279fwoy55WQdBkYQcqX1nE7AeXAsZVuMRgp/ZX95dfAwW73SLk/4cxS9b
+	 APwhSDp44YB0g==
+Date: Fri, 23 Oct 2026 03:05:50 +0000
+From: Tzung-Bi Shih <tzungbi@kernel.org>
+To: Artem Shimko <a.shimko.dev@gmail.com>
+Cc: wim@linux-watchdog.org, linux@roeck-us.net, p.zabel@pengutronix.de,
+	Sergey.Semin@baikalelectronics.ru, mika.westerberg@linux.intel.com,
+	andi.shyti@kernel.org, iav@iav.lv, linux-watchdog@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/3] watchdog: dw_wdt: manage reset line during system
+ suspend/resume
+Message-ID: <atrPDqHCt5Y3OE8u@google.com>
+References: <y>
+ <20261022134354.534642-1-a.shimko.dev@gmail.com>
+ <20261022134354.534642-3-a.shimko.dev@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,36 +61,50 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261022134354.534642-3-a.shimko.dev@gmail.com>
 
-When removing support for running Linux guests on Windows Server
-2008/2008R2 and Windows 7, one area was missed due to the code
-comment spelling "2012" incorrectly. Remove that functionality now.
+On Thu, Oct 22, 2026 at 04:43:50PM +0300, Artem Shimko wrote:
+> diff --git a/drivers/watchdog/dw_wdt.c b/drivers/watchdog/dw_wdt.c
+> index 2cffe337b4ea..ec6a09673da4 100644
+> --- a/drivers/watchdog/dw_wdt.c
+> +++ b/drivers/watchdog/dw_wdt.c
+> @@ -382,6 +382,8 @@ static int dw_wdt_suspend(struct device *dev)
+>  	dw_wdt->control = readl(dw_wdt->regs + WDOG_CONTROL_REG_OFFSET);
+>  	dw_wdt->timeout = readl(dw_wdt->regs + WDOG_TIMEOUT_RANGE_REG_OFFSET);
+>  
+> +	reset_control_assert(dw_wdt->rst);
+> +
 
-Signed-off-by: Michael Kelley <mhklinux@outlook.com>
----
- drivers/hv/ring_buffer.c | 8 --------
- 1 file changed, 8 deletions(-)
+Doesn't it need to check the return value and propagate the error just
+like what dw_wdt_resume() does in the patch?
 
-diff --git a/drivers/hv/ring_buffer.c b/drivers/hv/ring_buffer.c
-index 72f30ab23d1d..d8b085dfdb46 100644
---- a/drivers/hv/ring_buffer.c
-+++ b/drivers/hv/ring_buffer.c
-@@ -561,14 +561,6 @@ void hv_pkt_iter_close(struct vmbus_channel *channel)
- 	start_read_index = READ_ONCE(rbi->ring_buffer->read_index);
- 	WRITE_ONCE(rbi->ring_buffer->read_index, rbi->priv_read_index);
- 
--	/*
--	 * Older versions of Hyper-V (before WS2102 and Win8) do not
--	 * implement pending_send_sz and simply poll if the host->guest
--	 * ring buffer is full.  No signaling is needed or expected.
--	 */
--	if (!rbi->ring_buffer->feature_bits.feat_pending_send_sz)
--		return;
--
- 	/*
- 	 * Issue a full memory barrier before making the signaling decision.
- 	 * If reading pending_send_sz were to be reordered and happen
--- 
-2.25.1
+> @@ -402,12 +404,22 @@ static int dw_wdt_resume(struct device *dev)
+>  		return err;
+>  	}
+>  
+> +	err = reset_control_deassert(dw_wdt->rst);
+> +	if (err)
+> +		goto unprepare_pclk;
+> +
+>  	writel(dw_wdt->timeout, dw_wdt->regs + WDOG_TIMEOUT_RANGE_REG_OFFSET);
+>  	writel(dw_wdt->control, dw_wdt->regs + WDOG_CONTROL_REG_OFFSET);
+>  
+>  	dw_wdt_ping(&dw_wdt->wdd);
+>  
+>  	return 0;
+> +
+> +unprepare_pclk:
+> +	clk_disable_unprepare(dw_wdt->pclk);
+> +	clk_disable_unprepare(dw_wdt->clk);
+> +
+> +	return err;
 
+There is only one user of `unprepare_pclk`.  Two options:
+A) Drop the goto label and inline the cleanup within `if (err) ...`.
+B) Refactor error handling for clk_prepare_enable() to use stacked goto
+   labels.
+
+I just realized [PATCH v2 3/3] actually does option B.  Please consider
+squashing patch 3/3 into this patch.
