@@ -1,92 +1,94 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792740701;
-	b=HsE2Q/ac9A7eA1hT67qUL2cQZNI8IIpVQnyH3OkAURLu4y8aLQ75UCSO8qfeI2JR5uEv
-	 kAFJJ395KTL/MdpaR1BU7Tshg3De3Q83/MJdq6cdlcJYpHe57ymVejIbZNfK9e3zOfx8l
-	 cf4Ff95Cnb0mZ0p+uOTax6ME+pvR1oQ5gtzQ4R/Jqy/8NPebDcSirxs3F5EoEz3VpqxHC
-	 5pb8JDaqUm0ToNIn4z0Ql4raDnu9qvs7bEcqHxcfMV4t1IqMNecNAH8a/cD9VgAjo0P1y
-	 H01wMHsAWIkQxUo7MJmzo1RzNRzrb3O/Jb0A2kBu88Vtiyk2RsicnZbJY5ZF9wXXJ+Q==
+	t=1792740737;
+	b=IVZ4SAAAHgs1PVFkf/q+65Cf3jFC99VKlnzQyC9TM1vUDEr+7JVjBmV3OsYqZ0be672a
+	 es3AFznvAn083roCjN6zI/4xfrY9Wlku3vjpdOYPb3ZN0eUmKIdVToqxk9+R+Juirg6Ir
+	 KNwcIBMGlFSmnBwoFibEVMGSAOyHU7B6/3R5tAmjhaA7dB32IfKDc5wmS3g1qv380bsZs
+	 lU9syRGmuIbndWdhSh5gJxW6ur5yzz2jbaVq9ji3Ra+z70V1ERIOYFrcITt4xy7ost3ZR
+	 C3AkSE5sJFaCf5HmqUMHR3juZ8osOwwwn6s5lyfojUDEcCXsOLH8xds/BW+1TsD2mIg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792740701;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792740737;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=vqy5QIw1/kas6DX7rXU+qCiDfbpbyVW/9On/rw4UvY0=;
-	b=nrQJaUU+pISTv2FgmAkSLCpOt5tvwv6dou+ljcLWGmGO7copmcg3KTl1ZBd6d8X0h9Kj
-	 5oji2HPocJYtEALLoYqvPCfkcKSw90je9A+3yS7X+QFlINQsDRkKmbleSYid1QMRPF4ot
-	 21KblHqZK+jLp3yvotx9oaoywXNejS0ZrTf9YnKMl2zGlFzEJLcMpyzWCzl7S9sVTmafb
-	 45zMvlKOA1idTWHqFDXtIDpbVqaJMxqbhsPWAfD5ECuOXF32pwTM7nRuziLin4C874R8H
-	 RwoaZis7lR+S6pSlAw/Rs2duSp9tz/ope/tmBkJ1AwySG4wkg5xVPIW2U6cBiZbXUJg==
+	bh=bhnlngDTdPCRzQ3WfPeVfNn/5dfQaEbDCnTEYto+WIk=;
+	b=Lng1op1WsEKXQizfhDtwRKXsBAUEiVe5BD4XCFNGry7VIn/ir/iwTJz6VKnQDFr+mHxx
+	 eeisvJ/fBGafudz+muOz4g6Ww5Kd+784wcB+Qc+U1EjSFvPviXAGFSXyL+tuhf0b6aQkA
+	 G1oluaaV6LmZEK3wZX/3+k+jsXRORR1nalFCDwe3QWpBLKGTaEzpr6OIpeku1x2emhtTR
+	 OD9/bXFalb3LsqnkrglSs5W2iIUzmERdgK3MlaQU1IWCJHKhUbP2V1ErE28i9zZ7FZP/v
+	 kJyk3bYbuc8LhkXCeVsn16kAuVFKW8xIrgS6p3BjOR4CNtDjNIag0I3s627+dZ8JIkA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=EhnaBkfU;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=d1+eVLMY;
 	arc=none smtp.remote-ip=209.85.214.182
 Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55C80606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 07:31:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 55C80606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B6F5606A31D
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 07:32:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3B6F5606A31D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=EhnaBkfU
-Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2ea4f255ba1so1850475ad.2
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 00:31:41 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=d1+eVLMY
+Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2e985106c0cso4445895ad.2
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 00:32:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792740701; x=1793345501; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792740736; x=1793345536; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=vqy5QIw1/kas6DX7rXU+qCiDfbpbyVW/9On/rw4UvY0=;
-        b=EhnaBkfUxu2a2jxX+TtWEz+UgIZ7+ZyB0oJNNgr68myThRbWH31oPmFPeN3lhqCGwl
-         VG3aJXlTqaK37+5XOu3lzKUSL/PelZFY2AwlBWZ5x1ynFFNvre6vQyVByO55Rcz7QK0+
-         j9z6Hq7WqyATfPmr+FmfH935aLKefYrGSuLgiYl0gUh9uqegq7l4sOSadVk4JMiaicGI
-         1slIm6tYKkE78bH3oQy42Zar6fs91KXmeCb6GiOIjfol9AR30BhoN0RcVH0qbWp12vv0
-         dX79EEYD4ZJtEbRShO3hjV+izmmOwetrp98TryFECNtuSWa4oZ6Hvunub6N76lTemDJe
-         N5MQ==
+        bh=bhnlngDTdPCRzQ3WfPeVfNn/5dfQaEbDCnTEYto+WIk=;
+        b=d1+eVLMYtXs0c/wY+D+8tqUVklOiPZV1r/PQ3RY7YaNYpOGlGBu5YWT9hIPUnww2eG
+         757QD4qV6c7lJZJ5RJ5UOlExl+FgIi98uN3v8UJI7DNVTppGdY4WlABffWATu1IsP763
+         RZZE941EiVPOjd9pcrvf/MTX9O3RH/XOaCq4sqAfkAMcAINYiciJw+lM2Z59dR2fnu/h
+         D6FyX3YJXYYb9MvNIEpWgZaHxSGEfw8GpYWuWiwhyOgelg9KKN+ZNcTnvkMkTriGf9rj
+         takfVi5mvcrHrKfp90V+ffHvQXZwdkHZWW5If72hirpLtbYLIEGlVkcG7+cl3jWNr+Ht
+         kW7A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792740701; x=1793345501;
+        d=1e100.net; s=20260707; t=1792740736; x=1793345536;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=vqy5QIw1/kas6DX7rXU+qCiDfbpbyVW/9On/rw4UvY0=;
-        b=1QYKwgEpBJppaaqJCS1/NWe/TZxVJ+3HLpZXNFwOARbW8T67YquHEZPYoap8ZmFpi+
-         K/0iOqbPS1IfBrotwRlpoKHBlKEBPhiXG8kWNMjJ2In+OUn4hAiHj7CafqOkZl84ZJy4
-         0p3vB5QCmrlAILoqILPt116dNO1sn5/XPWrjvviQVQSRYhfyNPcajpBPcLtd52g9v7O7
-         AtdDRxTtfLTkV/VcWrBz/gSHiBd7df/5DETyeffrGlds8b89mbrM8QZU8mHRQQiGeaBf
-         qqvmIFv0yGYbjzA5sjYZR+api67U5vM6luBzCVFaEcmWgLoNodr18QHrSIF72VJ859os
-         /tlA==
-X-Forwarded-Encrypted: i=1; AKwUvBzxjIY7+pfixV27XNt72CFXDGSpop1eDMQ07t6uLjjsElgaR2UAxtHBtI1oVqYe9N1u/GbAkSr+o2c/hFE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI/nyifpH+bHc2aIF6rS3Q+ieLA2ku9B83llqoDLk7lfIZCttPy
-	Y/Az6ptXbSaSJ3XdXv3UNchemr8cHq0z8TwbjlG7PxW2awxlARjGTAgA
-X-Gm-Gg: AYBFou1KG0BrsPAYv3NQQTniJTEjCMZNjObHNFKrWbDzN5GfILLONS1xLWWVAaQBbqu
-	TqRLiziKqTmXHhySXC4XLicQqARhe1kQS7GGcIYAMTGMpfQmy9VFt9P8mO3A+ZDe3bMhOUQCzJp
-	m4eYKCO+WBQbQPbms2s6Qjdy3cR0uwFkHv7nHH36XWLlEqKaZivgTzIpEA661upjThGKK4LZcDv
-	hk5z3JF5AZZZLGHGAXW/k6Soih3YNvmrqOa3IH9KYkFmFwly9ipH93yg4kdpQKQYlHFGMmHhc6Q
-	Lkf72DMlPjqXGKwqqDy7FgVGCWMksB3k6yD5viNQBCSFSD/cX+hHRlRXdKg59aVowTfCRBcblR3
-	o4iXv1hgGg2tFwuZpHUn3z6FEd4Ow2xuvkozXnvWtRo3gUm/V90eXGnDGY6p+Yll42RFKuSyD4g
-	rrgDCR617fs6qG+lw25gDabyz6ZxoHAHGltVY14MP29jdFqfH0WFOpCOiDr7lwNSLbJr+QZue4F
-	MynAyAuj+7CIfuf20oXBS1YONFMgAQJmcPzuANjaouCXWl5YyBU7pYOXy+vX+k9xYvnF/PPwvcG
-X-Received: by 2002:a17:903:190d:b0:2e9:9263:a6b with SMTP id d9443c01a7336-2ea7c33245emr14654155ad.40.1792740700661;
-        Fri, 23 Oct 2026 00:31:40 -0700 (PDT)
+        bh=bhnlngDTdPCRzQ3WfPeVfNn/5dfQaEbDCnTEYto+WIk=;
+        b=LstFMJMkB7k3srgtE9fBR5mAf7WVbpRxybhCJpM5MTKYaXpk49iI7qXgwiLzHGAlBQ
+         c9V+G4+0VeEzzPDir7nUmad0bV00FpN1IuxIAedw+mhM0f3unjBE8Ts+Q0ZOra4euZ0I
+         9bTmftKbuaU8WLflnJYuFTkf746afJYiuL2iUEavUP3EhFcQHntw3IwWGrLappb+FrPi
+         kfgTLZlfhNZz8SfEsbKGs/A6yEPAiDyQqyY+1dncgfsdmJ698QnC/VnjsNJioWg8Vf7I
+         8yXnTcjue7XqJCi6G5RMN7YRvSyl/RciSA0H+hfy6ZmNP/JJyNUYmtl92VBarLkHUZ07
+         /nQw==
+X-Forwarded-Encrypted: i=1; AKwUvBxZJULFaKGEAeE6G/SUQntJmMh6mEP9VwVZelzRkSUjlvdSfuIcHGMp1yiv+I4YZK7WwFSSLCJwurryzWA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJeOoTE7DFc7jUd3DKMn05FWFRqFUgL0PHOm79S2xBqE0nTgBrf
+	tO/z+FDFjs/Q/aCCtJbLYQfBFKYNHDNd/AAInX5ztZy8e5q7Jc8/Ji0k
+X-Gm-Gg: AYBFou306vWhLJNZJvtWrmwwqyr9YOM3Lf8F3tPLI+msae8xw5pfB+iXdLXQzzs9vQA
+	ZSsmrQgj8VYmQMOplRnK1JYgcjLt7jFtryrviF78d1yOk4CBRCD3qMftLXFaDkf9/wLk1aJbuYN
+	8QCgm4hyAcQ0YgEi0as+pgcO+i6Xzrp6cJxfCMXwkltYnigrPWuXr5ZV9vPv7LCTrlntGkFJ+4S
+	RzVKNfNZLawE8Gz7tfOc5yo/I0r4e7r9N8ONKZNwsWmcDVCEGyrTjzci6sI/VQ40xw7vgmnND6l
+	kbdWdJL44mXgw9MpFbsZ56jA0u5L1T73FbP4jdMYxjQD1hbfEjn2VbWnhjBA37LpvhapVVOv7fU
+	aknv6EbnRuXuUqpg8mB6LWmnWiaARbwm5Chnw3tbn5l/L6uP6wswUn2rqYdxgI/u0dI2vWdA1so
+	fiEbmSYEUn5Jy0nmH2ie2rfyWy7fT+N6iVdWWRLBC97Ep2kiaNsCRzkP2FB6WP9BLzSqbXQBJM4
+	W8XV1uPr6znPJc7uN4Y+pxM6CwAyPpJi7cx0S0KHPl8UIxnCGDu3/RahViccMIwK53Qj2kYPDM=
+X-Received: by 2002:a17:902:e547:b0:2e4:b112:14d with SMTP id d9443c01a7336-2ea7d132e9fmr13812005ad.54.1792740736475;
+        Fri, 23 Oct 2026 00:32:16 -0700 (PDT)
 Received: from spiderman.taila3fd8c.ts.net ([202.112.47.77])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ea7af6eed2sm6766545ad.7.2026.10.23.00.31.37
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ea7b3a8cfesm6769735ad.40.2026.10.23.00.32.13
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 23 Oct 2026 00:31:40 -0700 (PDT)
+        Fri, 23 Oct 2026 00:32:16 -0700 (PDT)
 From: Li Ximo <lixicaicai@gmail.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Michal Simek <michal.simek@amd.com>
-Cc: linux-usb@vger.kernel.org,
+To: Sinan Kaya <okaya@kernel.org>,
+	Vinod Koul <vkoul@kernel.org>
+Cc: Frank Li <Frank.Li@kernel.org>,
+	dmaengine@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
 	Wang Haoran <haoranwangsec@gmail.com>,
 	Li Ximo <lixicaicai@gmail.com>
-Subject: [PATCH] usb: gadget: udc-xilinx: Fix wild pointer dereference on empty EP0 queue
-Date: Fri, 23 Oct 2026 15:31:31 +0800
-Message-Id: <20261023073131.637062-1-lixicaicai@gmail.com>
+Subject: [PATCH] dmaengine: qcom: hidma: fix wild pointer stored in mchan->running when active list is empty
+Date: Fri, 23 Oct 2026 15:31:54 +0800
+Message-Id: <20261023073154.744365-1-lixicaicai@gmail.com>
 X-Mailer: git-send-email 2.25.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -101,65 +103,69 @@ Content-Transfer-Encoding: 8bit
 
 From: Wang Haoran <haoranwangsec@gmail.com>
 
-list_first_entry() does not return NULL when the list is empty; it
-returns the result of container_of() on the list head, i.e. a non-NULL
-wild pointer pointing into the enclosing struct xusb_ep rather than to
-a valid request. This was found by code audit.
+While auditing list_first_entry() users we found two call sites in the
+HIDMA driver that invoke it on mchan->active without verifying the list
+is non-empty. list_first_entry() never returns NULL: on an empty list
+head->next == head, so container_of() produces a bogus non-NULL pointer
+into the enclosing hidma_chan structure instead. That wild pointer is
+stored into mchan->running, and is later dereferenced in
+hidma_tx_status() where "if (mchan->running) runcookie =
+mchan->running->desc.cookie" passes precisely because the pointer is
+not NULL, yielding an out-of-bounds read / memory corruption.
 
-xudc_ep0_out() and xudc_ep0_in() are reached from the endpoint 0
-interrupt handler xudc_ctrl_ep_handler() purely based on the hardware
-FIFO status bits, without checking whether ep0->queue actually holds a
-request. The queue can be empty at that point: the gadget driver's
-setup() callback may not queue a request for every control transfer
-stage, and xudc_done() removes the request once it completes, after
-which bus timing can raise another FIFO ready/free interrupt. The
-unconditional list_first_entry() then yields a wild pointer, and the
-subsequent accesses to req->usb_req.actual, req->usb_req.buf and
-req->usb_req.length read or write unrelated kernel memory, leading to
-memory corruption or a crash. On real hardware this is triggerable by
-an external USB host controlling the token timing. Note that the
-enqueue side __xudc_ep0_queue() already guards the same queue with
-list_empty(), which shows the queue can legitimately be empty; the
-dequeue side was simply missing the symmetric check.
+The list can be empty at both sites on entirely normal paths. In
+hidma_callback(), the completed descriptor is first moved from active
+to completed; when it was the last active descriptor, the subsequent
+list_first_entry() runs on the now-empty list. In
+hidma_issue_pending(), a client calling dma_async_issue_pending()
+without any queued descriptor leaves both queued and active empty, and
+the "if (!mchan->running)" branch then fetches the "first" entry of an
+empty active list.
 
-Switch both functions to list_first_entry_or_null() and return early
-when no request is queued, mirroring the existing list_empty() guard
-on the enqueue side.
+Fix both sites by switching to list_first_entry_or_null(), which
+returns NULL for an empty list. This makes the existing NULL check on
+mchan->running in hidma_tx_status() effective, so the paused-channel
+cookie query takes the -EINVAL path instead of dereferencing a wild
+pointer. Both call sites already run under mchan->lock, so no
+additional locking is needed.
 
 Reported-by: Wang Haoran <haoranwangsec@gmail.com>
 Reported-by: Li Ximo <lixicaicai@gmail.com>
 Signed-off-by: Wang Haoran <haoranwangsec@gmail.com>
 ---
- drivers/usb/gadget/udc/udc-xilinx.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
+ drivers/dma/qcom/hidma.c | 12 +++++++-----
+ 1 file changed, 7 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/usb/gadget/udc/udc-xilinx.c b/drivers/usb/gadget/udc/udc-xilinx.c
-index bef06fe75..032d9f04f 100644
---- a/drivers/usb/gadget/udc/udc-xilinx.c
-+++ b/drivers/usb/gadget/udc/udc-xilinx.c
-@@ -1822,7 +1822,9 @@ static void xudc_ep0_out(struct xusb_udc *udc)
- 	unsigned int bytes_to_rx;
- 	void *buffer;
+diff --git a/drivers/dma/qcom/hidma.c b/drivers/dma/qcom/hidma.c
+index c939635be..925c912e0 100644
+--- a/drivers/dma/qcom/hidma.c
++++ b/drivers/dma/qcom/hidma.c
+@@ -176,8 +176,9 @@ static void hidma_callback(void *data)
+ 		queued = true;
  
--	req = list_first_entry(&ep0->queue, struct xusb_req, queue);
-+	req = list_first_entry_or_null(&ep0->queue, struct xusb_req, queue);
-+	if (!req)
-+		return;
+ 		/* calculate the next running descriptor */
+-		mchan->running = list_first_entry(&mchan->active,
+-						  struct hidma_desc, node);
++		mchan->running = list_first_entry_or_null(&mchan->active,
++							  struct hidma_desc,
++							  node);
+ 	}
+ 	spin_unlock_irqrestore(&mchan->lock, irqflags);
  
- 	switch (udc->setupseqrx) {
- 	case STATUS_PHASE:
-@@ -1875,7 +1877,10 @@ static void xudc_ep0_in(struct xusb_udc *udc)
- 	u8 *ep0rambase;
- 	u8 test_mode = le16_to_cpu(udc->setup.wIndex) >> 8;
+@@ -238,9 +239,10 @@ static void hidma_issue_pending(struct dma_chan *dmach)
+ 	}
  
--	req = list_first_entry(&ep0->queue, struct xusb_req, queue);
-+	req = list_first_entry_or_null(&ep0->queue, struct xusb_req, queue);
-+	if (!req)
-+		return;
+ 	if (!mchan->running) {
+-		struct hidma_desc *desc = list_first_entry(&mchan->active,
+-							   struct hidma_desc,
+-							   node);
++		struct hidma_desc *desc;
 +
- 	bytes_to_tx = req->usb_req.length - req->usb_req.actual;
- 
- 	switch (udc->setupseqtx) {
++		desc = list_first_entry_or_null(&mchan->active,
++						struct hidma_desc, node);
+ 		mchan->running = desc;
+ 	}
+ 	spin_unlock_irqrestore(&mchan->lock, flags);
 -- 
 2.30.2
 
