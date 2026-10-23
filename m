@@ -1,101 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.216.42
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792748484;
-	b=kSQEcGx+p+n4CFMxR+nWRL/HvyNiB3ioJ0dzeUOGHyn0eeJaST/H+MuLq17tJiExL7T5
-	 m5SwuB3B8k12lGNkqPC/7RQd7XNHUXRQeIkT9LUGUiLF10DxVz5oHkEcSBpWbZIXzO/hp
-	 yQvVxhmP+rJmk+sXbKjNzHjyJIT+su2/i0UjT0BN12DHl2aEAsT2KcAiayIEiJAdyRnrj
-	 t9V3bZ1cMVrR9s+deM2OnGKgQzz1WlHIfutLVEebEACQq6OgxlarJTWxFZjLMb1eD2T35
-	 My6TDCap0hOpiI5a6fdgLAWAnYMpPDyTaUzzS4kq+iPA11B15bRYMwkNbgbpNagRayw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792748484;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.49
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792748510;
+	b=XSLGHRg5oPVPTD5aJ+CGV9tJ+qFXQuDFPMfsLkSrgw4xsTlc+EXcJTJ122VKKEpCELYu
+	 p5i8jiGX6PuByYW+O+fpPGL6RKzluBHgM9yOY4QU/LbT0G6GqQy4wfkNcG2b3nLW9Gcnt
+	 9DA2gP8nJ2O6Ot13lxUgWWO8EEx3yLBuIWX8GZSfldEaqjeUQXwrK6H3OkbUZzilITTbw
+	 zSeFNse9VahlFy37xtBVEqEJakjh1iDPDEhQkXT9FqD/yUwv0N+PYCT2qJtwmAnqnIzba
+	 w1vvu4Zb2ZEBQb702m36xtjzFKPKBrrtVgTDYESr/8uPBceGzkR94Ni2G+/JhWjVVBA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792748510;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=Okgw5IuIeyoGQZ+JzmeJO9+dqCKtCII160B3B426Y1k=;
-	b=OFeSqskl8SpmEbTBFYuVODHcYLCvZ14XmTCREbz40WAqvIAODyyT6EJkYjBI6yebGZFJ
-	 FGx/Xe6pICnqS6RdnqMCGH/ilu2G4tyw03Z2gvBoKj8xNOD/bsvJ1D8j0YOf7BjT7gvt+
-	 I0pUii4D0gpfqb8Q607P8HjRAqmsV+LIIw5Wrxsskhes5E2apUor7fcIwsepj/SFr3moB
-	 aAfCCp2ehWjYy0Fxw5hWY9nrzqHoRmu4+GKRv/bmuK7/Ldzw8CWnDwUbFuxkgjyDFlEMT
-	 DXKpQCZnU/U69gnNurMpRFpl4ADW89ZDQ/ncb9ld0AFnI33Y/jE4/a7g7cVTxmt+JHA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=sartura.hr;
-	spf=pass smtp.mailfrom=sartura.hr;
-	dkim=pass header.d=sartura.hr header.i=@sartura.hr header.a=rsa-sha256 header.s=sartura header.b=NbnFC6ic;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.216.42
-Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=fFF2D3oBqdNknTwvIUSmhanyWdoVvDAzBCNug1HGEEE=;
+	b=sSz7xgALzTfHVjQp6PEzKeSo7dvPUinAZdOJuINVzeHf8WNW0cKTkJQ2XA9aJ58ZNm9k
+	 ftzSmgzQxPKDpPT86qBDGgZDMRhgbQk4Lx+HEYLUqZNPBTLwbekMQO2XXry6ICkomLSoo
+	 vTQSgEs0fay/GtB49Yzsr4aB7D6OVt4+w2azRzZS5c3MBkn1tc3Y86VJIhf0YXPCkYJ+d
+	 S5iI3l401ZKJ58PxdjmbduPkqxgDxo1RH6w+fWIPtuzP0AH2T9HJxiF8NnWPy2oM4Q3tf
+	 mxKFZaR6UnrzeXzs1bN0kfj3tPpCx49GeOAhN33V9XRktTCDivWOQIW7nRtcBI65DxQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=TkvX+h7X;
+	arc=none smtp.remote-ip=209.85.221.49
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CE58606A31B
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 09:41:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6CE58606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sartura.hr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sartura.hr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFBCA606A31B
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 09:41:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AFBCA606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=sartura.hr header.i=@sartura.hr header.a=rsa-sha256 header.s=sartura header.b=NbnFC6ic
-Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-3acc96a256dso418807a91.3
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 02:41:24 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792748484; cv=none;
-        d=google.com; s=arc-20260327;
-        b=KHSAKtcAOzZ8sn3FsBicZLI60fQToPPWJKX80btptmK7sKl4sJ4HZIiOfbz1DbmG9V
-         rpCxbX07RRWdJSPmul2DGD+IllbYWnKQUHj7rmW9kucI7YK8uxMi1rc3PwKeKkffdrT1
-         xLjWlI3Cm76jnMCpVykY9ziqnUc2VQXbJtSNQKtrfIk+QRjTtb3NQCLbS2WUyXNJedFH
-         sshyNxxUEjJBkfCQ6OhujX1x8BtJX5t3Bt+tHZ1bfklPkX5+X3WDMAFOV7Fm+MQfrdea
-         3EybYKKDrTOKpLeREmFNhW53colWnLVaaudayChEroVOU/aV5QgMFk7161/00QaBZlKf
-         OhZA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Okgw5IuIeyoGQZ+JzmeJO9+dqCKtCII160B3B426Y1k=;
-        fh=YwGouN2oP6axNXpIL5Q47ZiS7hCMooYO2Vo0dhOPU9M=;
-        b=VBHsxSxoEcXn2gYViM8RbMwWt3C1DLmV03etgF5r8CkBDlTdSu1Ejy63h8NewhXWc7
-         OE5h9H0KQS12p2j1Q+uhRIrU/qJlpfnIhelxDs5o1P/oE2EVoXtEJJ+N7aOp2+N7/har
-         WYAQGOyXBEHCUYt4dAlbcY75dYhGczW2GTBDth112qOtC+IWrwtmZev0O+oWPyKuoiUd
-         QVPxaiByA/bRsEChY61R1SMuwV74WkfzBh2FOi9PnCnA+usILyYgjYLLVb7ablmd+BGD
-         2e0sQmo+dv3o5Qg/gqiIBgCfa+sJnNhzT2vmcEJXOlGPvdyD/aWk5x3JGZFtEXcvDebb
-         OacQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=TkvX+h7X
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-48b042c0759so442280f8f.2
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 02:41:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=sartura.hr; s=sartura; t=1792748484; x=1793353284; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Okgw5IuIeyoGQZ+JzmeJO9+dqCKtCII160B3B426Y1k=;
-        b=NbnFC6ic7YCzTwBcbpR7q/m6kM1BIsWqz6AVmGqI2UzTJ+lilYdayfl9Dyqyd8Jlj0
-         LqKSdThWJ9k/Pfw78uVKyxE95Uu5wC3zbvaeyEzFc7D8m0MkQQZtVA/zy57hGDoqcUsd
-         AuNJkeR+JiGxFYp+RWwkId8zDBR8pg16lKQEls9eA2U+PPWJLA0gTKAsCx/cP/bcYOqO
-         pcltwsbn4oP5ffSMY4fEXa7KBDsVINYTbgAEqEfuUJLUO5gNu7xKSMgVi5RkiawqerjX
-         yNSaca1p+va8vnMpfklHN7Hy3wTFru44ogGI5wpGLFj1j2e/tXOKbflXa1anevxV7Dkj
-         FoXg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792748484; x=1793353284;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=linaro.org; s=google; t=1792748508; x=1793353308; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Okgw5IuIeyoGQZ+JzmeJO9+dqCKtCII160B3B426Y1k=;
-        b=1wMVAKwS7DgowCsOwmZRVltruZhi6gxI0/f7yYbtxj+1IDkkfXxkWLKY3LMYGYGHXh
-         DqwVxZMDqmu5PMzq/VXGmHQNqzZlfNR8H5MDLWvdK4+3IitVPNAtCDcnZpsjB4dgZ0J4
-         M/TFVKb1Plph0gnXNtcgpBjfoiNIv0+j199b7ILqLCwG9/7z7S5eDskCu2tdyDRqOgNo
-         WLLxtspVMM+hGgbE8DUpRWFSY/J1ZjKn36Mg7BmGV1BpkMmya6BCVhw5XJPsNj5afPJX
-         KvjnBSmJuENuRSwY0lU8LqeJtq0irbylN/kDWCSKdYWxTtkpCR/t5UFfIFnWLQ1hgIc/
-         wmCg==
-X-Forwarded-Encrypted: i=1; AKwUvBztrtPzkzRcjLJ7uYdpKOeZmrY0MD4WapB3aTiK+dVWtAlnavhWzZ8VyiAdrlJPmJKb2nsTOc+1jc6AnUs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJEm1wkofgDYjFP3/aXHZUWOA6sSQEFG1iNtHV/Qv5Bz0UvN61B
-	y37hBEJXHh0+1GRNH4t7OwI5niOBCQUugCfhIjkwgnPeJcg9c9/UNTMP7LdJDDfEMUgbjdv1YLk
-	QEsLs4qk0uPtTLRWzcdrzdyG8GC/NREX+0lqtDZ0eNQ==
-X-Gm-Gg: AYBFou3u5dKz4dzUaW//CrQ8vXdYQY7EVnd+YW5SEB0YKum0U2oTewKHiXjjLCd2S6S
-	PZtsNcvWFG/S78DcnJs1SlQZ35Y+yOgbdgi8ewopUJaP/9LWTJQG0NFpmSAjJ6zg/GSgRdlFq3s
-	TzIpGJGwCnO0GII8HB4fLuWQSzuz0cYf/LtaBc9bWLb/iv2OxUYhqFsRgDgqgHbXlfDUFHLrBkC
-	/cPpLeSxYxeXDvPlczr/FQ428vGWfrsbYZtf2M/P6Cw/g+mFTgyB2uFVh6TemhfazHQN11mqNrm
-	mJSUaH3MSzbyoOZk1vrPJ1cuLxQH/586imwktjgGivWvL267CgeHynl2/4/lKBveMog5FYJFfNq
-	ay3D6e8LCnVCKjuM20o1vEGozDTm1CVkKA8jOM0p6MZqQVWmWyuCJHETjTtO6fbbYVaNEqWTP5O
-	HHH+daIrXL9auLPz+y
-X-Received: by 2002:a17:90b:3805:b0:3a8:59d3:530f with SMTP id
- 98e67ed59e1d1-3adce0df541mr1412012a91.57.1792748483778; Fri, 23 Oct 2026
- 02:41:23 -0700 (PDT)
+        bh=fFF2D3oBqdNknTwvIUSmhanyWdoVvDAzBCNug1HGEEE=;
+        b=TkvX+h7Xkk2HUR49N4l/o6Ds0SyYryi2t1fJuBwjn/dTIhFnUsLkpc2kzkaFSQtYsK
+         X6d8S1uL0t9v1u0q0f+V3NzoMi1jsdPpMUiWIpr1PVD15HG8bcCyZu+x1xjBB8qiT7gx
+         xj5QJt7t+wUR0wbIGGAuwErl6j7kozJMIM0v+5+q+eahtvMTP5gh9mSFP/j45ERwiV3K
+         F4gt6SQK84EuAiSkppXPIEUuFqIM6dVdMcmjcpMKj37BJ3fwlbvUUpZdDSrbw2Vnj7wO
+         vt52xX1SF+Y+OPQPUOaR0O6FLrLDM9fhVYEAGTD2TcQbb88RSeVE0WoSM5EE2lC1B+0S
+         NE+w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792748508; x=1793353308;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=fFF2D3oBqdNknTwvIUSmhanyWdoVvDAzBCNug1HGEEE=;
+        b=mm6U/ET+gam1sovwvE9BBu3Rj00W6l5K7pcj6R5yJ9DGtO1AaPlB/M4D93jArd7aJo
+         CUpUjVWQGixdhF8QgSFmu7VjWa0imBTeNVkDoXO2gYJ5rxQXjoyPZ+bz5mDlXS6MwxXP
+         9E8xE9f0jw6fcKQiJg4hjJNuBUPlFdjiVZdOPXx/DdEq82KKg9Q0uvj+sxv0JTrY7Ii/
+         59X6gOM8CO3/bsoU9Kdom7JP5WqfbQOyLu4aKZH2NmVE5jTNaR9YZGghZxlAfXmavUOO
+         jMcVTKSUhDvQD5BE4zvA9Be4Bu5vaifWB7sS/FvHvZTPMHy6rbLuhQZaYqVYYDKStvHk
+         StRQ==
+X-Forwarded-Encrypted: i=1; AKwUvByUQ9tbwyAD+GxRhTZsCxRD8GmVdvAcK2IuFT/Eadl9HUWyiVNX9lOar5k/BISZPUjeHc6TRJwS1NyPuHA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYISpw3mh0Tvdr3pmMk9yO9hjav4g2NThZgn7p7bR4yD0F+031of
+	jf+6EcdjGOhCBR7jz+673wRP+/waeQ5U+3h4+Gps+++WZxs1Zm0P5dNzp42JMhxwKhI=
+X-Gm-Gg: AYBFou1lpairTZscXXv//SMadU1xC3V/QBaS7QCJbyZcRzVrz6c7hjVsmKvr7nbQVYg
+	gJepuZFQPXZeYpg2PT1dXCkUUQRVTE8ekEqSL+mnlN3ugqLh9fbO6MHQr7Gu3Xv1EjTDdii8jWm
+	hNAo7UnQIS68d49MtDFQP8XyOSKHY78Aym6K9iumwuM7PWmWVVl1W0WhL19Fm4DauFDwgx4mqW2
+	zpUIp7GWlxfqhl3qQPxO4fmrUgseGn2TObsAoQx3ft/NyjJfNWF3Ar/YO0hSQe7QTseA4I6+Z0Z
+	AqoVLw/OEambbrD36cgVQmtP8gY5MvwPsHbLuifTT8XS3KPjwFUwdIgxLWbb9mu/o17Knz17LrB
+	/9a3Be9qekAbKOUFnaft3tS9TOh3tFh0HTTsrurSc692i3dt+x4wO4n4VWSaHWJlaNM8g9EWVQZ
+	zssZHMJDyPUBBm6e/b84CBBRakdLSpSnLxUccMo5PCYG4AqxsmCRbBVnP29L/MQIQJeUDRY9Sqb
+	6UjrhpVW4ilvo95oYaW6fA4asEkWgvMNKbJnjoX04hFdJKh9r6XZfQkSpoR
+X-Received: by 2002:a5d:5d10:0:b0:48e:21f7:79ff with SMTP id ffacd0b85a97d-48e3859d173mr2609746f8f.33.1792748508060;
+        Fri, 23 Oct 2026 02:41:48 -0700 (PDT)
+Received: from [192.168.1.3] ([37.18.141.193])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e37eded3fsm3913978f8f.7.2026.10.23.02.41.47
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 23 Oct 2026 02:41:47 -0700 (PDT)
+Message-ID: <8ae9c5fb-a481-4437-baf0-6610d8131b3f@linaro.org>
+Date: Fri, 23 Oct 2026 10:41:46 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,78 +91,151 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261020065430.1251541-1-julius@bairaktaris.de>
- <30c21159-3008-463c-9cd2-a07f26668a25@sartura.hr> <9699033c-a9e1-4b11-a55f-b1aa216c700f@oss.qualcomm.com>
-In-Reply-To: <9699033c-a9e1-4b11-a55f-b1aa216c700f@oss.qualcomm.com>
-From: Robert Marko <robert.marko@sartura.hr>
-Date: Fri, 23 Oct 2026 11:41:12 +0200
-X-Gm-Features: AclHuK_z7zkTrXcOEBJ5YdNRtSSjaBF7iP_4-bXy54P0B5j7vSDrFZjtf2Rlh6M
-Message-ID: <CA+HBbNELhPAAZoUuXm3SrvgxiU0eMaiu5LB3wfup04_HuZ+yxg@mail.gmail.com>
-Subject: Re: [PATCH] clk: qcom: gcc-ipq6018: add fallback names for the bias
- PLL parents
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: Julius Bairaktaris <julius@bairaktaris.de>, Bjorn Andersson <andersson@kernel.org>, 
-	Stephen Boyd <sboyd@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
-	Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, 
-	Vladyslav Andreichykov <vladdrako007@gmail.com>, linux-arm-msm@vger.kernel.org, 
-	linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-On Wed, Oct 21, 2026 at 10:06=E2=80=AFAM Konrad Dybcio
-<konrad.dybcio@oss.qualcomm.com> wrote:
->
-> On 10/20/26 1:39 PM, Robert Marko wrote:
-> >
-> > On 20/10/2026 08:54, Julius Bairaktaris wrote:
-> >> From: Vladyslav Andreichykov <vladdrako007@gmail.com>
-> >>
-> >> bias_pll_cc_clk and bias_pll_nss_noc_clk are outputs of the CMN PLL,
-> >> which takes its AHB and SYS clocks from GCC, so the device tree does n=
-ot
-> >> pass them back to GCC. With only .fw_name these parents never resolve,
-> >> nss_ppe_clk_src stays an orphan, and setting it to 300 MHz fails with
-> >> -EINVAL. The NSS clocks below it, such as gcc_nss_edma_clk, read 0 Hz.
-> >>
-> >> Add .name fallbacks so they resolve to the clocks the CMN PLL register=
-s,
-> >> as gcc-ipq8074 already does.
-> >>
-> >> Tested-by: Vladyslav Andreichykov <vladdrako007@gmail.com>
-> >> Assisted-by: Claude:claude-opus-5-5
-> >> Signed-off-by: Vladyslav Andreichykov <vladdrako007@gmail.com>
-> >> Signed-off-by: Julius Bairaktaris <julius@bairaktaris.de>
-> >> ---
-> >
-> > Hi,
-> >
-> > This issue does not exist upstream, as CMN PLL is not yet wired due to =
-missing
-> > networking, even then the solution is not to add global name matching.
-> >
-> > The required clock inputs should just be passed to GCC directly which I=
- have
-> > just pushed to OpenWrt.
->
-> Just read your reply after writing mine, I'm looking forward to seeing
-> that patch!
-
-Hi Konrad,
-You mean the wiring for CMN PLL or?
-
-Regards,
-Robert
-
->
-> Konrad
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] coresight: etm4x: Fix event count decoding
+To: Leo Yan <leo.yan@arm.com>
+Cc: coresight@lists.linaro.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, Suzuki K Poulose <suzuki.poulose@arm.com>,
+ Mike Leach <mike.leach@arm.com>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Amir Ayupov <aaupov@fb.com>
+References: <20261022-arm_cs_fix_etm4_event_count-v1-1-588b2922a546@arm.com>
+Content-Language: en-US
+From: James Clark <james.clark@linaro.org>
+In-Reply-To: <20261022-arm_cs_fix_etm4_event_count-v1-1-588b2922a546@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
 
 
---=20
-Robert Marko
-Staff Embedded Linux Engineer
-Sartura d.d.
-Lendavska ulica 16a
-10000 Zagreb, Croatia
-Email: robert.marko@sartura.hr
-Web: www.sartura.hr
+On 22/10/2026 09:11, Leo Yan wrote:
+> TRCIDR0.NUMEVENT normally encodes the number of events minus one.
+>  From ETMv4.3 onwards, including ETE, a zero TRCIDR4.NUMRSPAIR instead
+> means that no events are implemented and NUMEVENT is zero. The sysfs
+> event controls currently interpret this combination as one event and
+> allow writes to unsupported event fields.
+> 
+> Decode NUMEVENT after NUMRSPAIR and store the actual number of events
+> in nr_event. Use the decoded resource count so that older ETM versions,
+> where a zero NUMRSPAIR represents one resource pair, still report at
+> least one event. Update both sysfs event controls to use the actual
+> count and clear their event fields when no events are implemented.
+> 
+> Also correct the instruction event enable mask for the single-event
+> case to use INSTEN[0]. The existing mask uses INSTEN[1], preventing
+> event 0 from being enabled.
+> 
+> This change depends on the recent driver refactoring. With no reported
+> failures, it is not intended for stable backporting.
+> 
+> Signed-off-by: Leo Yan <leo.yan@arm.com>
+> ---
+>   drivers/hwtracing/coresight/coresight-etm4x-core.c | 15 +++++++++--
+>   .../hwtracing/coresight/coresight-etm4x-sysfs.c    | 29 ++++++++++++----------
+>   2 files changed, 29 insertions(+), 15 deletions(-)
+> 
+> diff --git a/drivers/hwtracing/coresight/coresight-etm4x-core.c b/drivers/hwtracing/coresight/coresight-etm4x-core.c
+> index e21be6468e9544fe6e22f524de4fef9f89d7484f..b0e286f487017a4155595f14cbb9c9c33b17dc6b 100644
+> --- a/drivers/hwtracing/coresight/coresight-etm4x-core.c
+> +++ b/drivers/hwtracing/coresight/coresight-etm4x-core.c
+> @@ -1451,8 +1451,6 @@ static void etm4_init_arch_data(void *info)
+>   	caps->trccci = !!(etmidr0 & TRCIDR0_TRCCCI);
+>   	/* RETSTACK, bit[9] Return stack bit */
+>   	caps->retstack = !!(etmidr0 & TRCIDR0_RETSTACK);
+> -	/* NUMEVENT, bits[11:10] Number of events field */
+> -	caps->nr_event = FIELD_GET(TRCIDR0_NUMEVENT_MASK, etmidr0);
+>   	/* QSUPP, bits[16:15] Q element support field */
+>   	caps->q_support = FIELD_GET(TRCIDR0_QSUPP_MASK, etmidr0);
+>   	if (caps->q_support)
+> @@ -1519,6 +1517,19 @@ static void etm4_init_arch_data(void *info)
+>   	caps->nr_resource = FIELD_GET(TRCIDR4_NUMRSPAIR_MASK, etmidr4);
+>   	if ((drvdata->arch < ETM_ARCH_V4_3) || (caps->nr_resource > 0))
+>   		caps->nr_resource += 1;
+> +
+> +	/*
+> +	 * See ARM IHI0064H.b, sections 7.3.32 (TRCIDR0) and 7.3.36 (TRCIDR4).
+> +	 *
+> +	 * Before ETMv4.3, one event is always implemented. For ETM v4.3 and
+> +	 * later, NUMRSPAIR == 0 indicates that no events are implemented.
+> +	 * Otherwise, NUMEVENT encodes the number of events minus one.
+> +	 */
+> +	if (caps->nr_resource)
+> +		caps->nr_event = FIELD_GET(TRCIDR0_NUMEVENT_MASK, etmidr0) + 1;
+> +	else
+> +		caps->nr_event = 0;
+> +
+>   	/*
+>   	 * NUMSSCC, bits[23:20] the number of single-shot
+>   	 * comparator control for tracing. Read any status regs as these
+> diff --git a/drivers/hwtracing/coresight/coresight-etm4x-sysfs.c b/drivers/hwtracing/coresight/coresight-etm4x-sysfs.c
+> index db9e603f97ba82cd608d3d61881fe8153db020ff..fb38f0102290a53a681934c827abf107c141a740 100644
+> --- a/drivers/hwtracing/coresight/coresight-etm4x-sysfs.c
+> +++ b/drivers/hwtracing/coresight/coresight-etm4x-sysfs.c
+> @@ -513,19 +513,22 @@ static ssize_t event_store(struct device *dev,
+>   
+>   	raw_spin_lock(&drvdata->spinlock);
+>   	switch (caps->nr_event) {
+> -	case 0x0:
+> +	case 0:
+> +		sysfs_config->eventctrl0 = 0;
+> +		break;
+> +	case 1:
+>   		/* EVENT0, bits[7:0] */
+>   		sysfs_config->eventctrl0 = val & 0xFF;
+>   		break;
+> -	case 0x1:
+> -		 /* EVENT1, bits[15:8] */
+> +	case 2:
+> +		/* EVENT1, bits[15:8] */
+>   		sysfs_config->eventctrl0 = val & 0xFFFF;
+>   		break;
+> -	case 0x2:
+> +	case 3:
+>   		/* EVENT2, bits[23:16] */
+>   		sysfs_config->eventctrl0 = val & 0xFFFFFF;
+>   		break;
+> -	case 0x3:
+> +	case 4:
+>   		/* EVENT3, bits[31:24] */
+>   		sysfs_config->eventctrl0 = val;
+>   		break;
+> @@ -565,22 +568,22 @@ static ssize_t event_instren_store(struct device *dev,
+>   	/* start by clearing all instruction event enable bits */
+>   	sysfs_config->eventctrl1 &= ~TRCEVENTCTL1R_INSTEN_MASK;
+>   	switch (caps->nr_event) {
+> -	case 0x0:
+> -		/* generate Event element for event 1 */
+> -		sysfs_config->eventctrl1 |= val & TRCEVENTCTL1R_INSTEN_1;
+> +	case 1:
+> +		/* generate Event element for event 0 */
+> +		sysfs_config->eventctrl1 |= val & TRCEVENTCTL1R_INSTEN_0;
+>   		break;
+> -	case 0x1:
+> -		/* generate Event element for event 1 and 2 */
+> +	case 2:
+> +		/* generate Event element for events 0 and 1 */
+>   		sysfs_config->eventctrl1 |= val & (TRCEVENTCTL1R_INSTEN_0 |
+>   						   TRCEVENTCTL1R_INSTEN_1);
+>   		break;
+> -	case 0x2:
+> -		/* generate Event element for event 1, 2 and 3 */
+> +	case 3:
+> +		/* generate Event element for events 0, 1 and 2 */
+>   		sysfs_config->eventctrl1 |= val & (TRCEVENTCTL1R_INSTEN_0 |
+>   					     TRCEVENTCTL1R_INSTEN_1 |
+>   					     TRCEVENTCTL1R_INSTEN_2);
+>   		break;
+> -	case 0x3:
+> +	case 4:
+>   		/* generate Event element for all 4 events */
+>   		sysfs_config->eventctrl1 |= val & (TRCEVENTCTL1R_INSTEN_0 |
+>   					     TRCEVENTCTL1R_INSTEN_1 |
+> 
+> ---
+> base-commit: 343cfcbb3ecfdb80aa576a428cfa3b65ad783842
+> change-id: 20261022-arm_cs_fix_etm4_event_count-49f384a2f6a7
+> 
+> Best regards,
+
+Reviewed-by: James Clark <james.clark@linaro.org>
+
