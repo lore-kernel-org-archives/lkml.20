@@ -1,48 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792789221;
-	b=XqkW5Ld6N9Q0Pi3e8EYhHXTk/cqAuYWEgB8IUKxsUMjrOGP1DE94YOJQwHYxoSaS85QE
-	 gJOKggw0U+SRzu1RZhv3Z8f2ODuhl6CsqLFIHORKNJgdbWdNtTXnjWu/Cz6ZKBN1nGOAT
-	 LUViPKTdbDgBnnZ+Z+bMrOlvrUuF9/f2jEODrz3Eb/PQ58mlvAmK2BlSL2dqmSQ8R1pkM
-	 jqRZEPGPXMT4k0JpHy1pMPi+5WtK/N9f4tg29MiApjMd1OKuNP4tzOgguxleK7EM1a9Zj
-	 1kf/9T+mMMS/3yd8/SFk6OlYbIneBacjym2bsLOFhZP/FGFUCJnXiYFxtlLD1211UQQ==
+	t=1792789223;
+	b=LlIQ1LTpj0eCdapC36xEPg/zxH2gC1+/9M8SES5oanvvsICTHXuPeJk7WH50+HD4Xmrt
+	 He+RjO5/JekUq2jzDw1hpSgrnlE/LpJvllWZ3UDnY3mVh10z6l42d4TLtGg88/yChkzAR
+	 l9o27XsXTf3X30+35cS+BkBVePgXiGx+LWkoNuAn4sR0HIvd52nq6yTaILfVGR+Jl3krv
+	 UXBI83YtVoCEm5RnXfjtBaVHR6Uz0r8U0WZLPaPlHXiYNgSaoBgJlSNQ4oOeBKYwPQ0Qs
+	 eP9V+RamwEY8aH4K89MZznhfP+7BtL/P9t4j3dSIEP8NyBhXy/GqtgoQKy6aWT+ha+g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792789221;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792789223;
 	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
 	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
 	 In-Reply-To:To:Cc;
-	bh=/zRNtfPAXTthuW4uanzpc66x09wuudOPAK79gmQZrRI=;
-	b=S8xj77V6CEKgBn1qA9wlZjq8y2XbbVEop2qK38Jlqtu0XotcS9ftXcAJcmRAizCryqsb
-	 e628C/zq2LjgJOgBrOyAzBnsRz/jko6pQ2HRJUaPHn7An2UXs2NrxEk35/D6e0Y6GyFdg
-	 Epx+Xs1mRHLC36V1L5sNAZkT2JfH4SbCxs8dROPhlrQoMTmT2ciBarvLRmgGIriTz/PBJ
-	 QgbbUK28OKKrgxOJhYIJDiDZQolywnrPlU3lFfWxBdyLOz/pMfHkDSedMKfSnBhFjVY9M
-	 H7AzHd2qW0pVL9gFK9ramTqzn/hcvqc/+neU9N7gw1BeJwW7c6mfYAd435iuwejvxGA==
+	bh=jYZIYMBd8UVK6BNo8UCuf5+CZmWdq5SaCGptMRiApvg=;
+	b=jSJIvXODCmLuMuoZVOXcyrqehaI0LNUZb2GGTyMc5gEDMUbJuL7PbYYbwnZbVrIxHgIG
+	 5r7TsJ3OfN2edGcOyqTi/svOy1vRa3X6jy863fi84g0+oObYK2TbukVJMgS0OQgSkVRDV
+	 zb0gzxiiTjh341apA88n/doAcrfBv8lI4kx1KhU6pSA85I7uJ+Zn1LNALEb7q0qvTa7Fv
+	 kMcVawoe8bA3y0vyN4/gyERxmNeEMy+7B7NaVmgcz/iNVkx1lW8Gc0q+YEb5825C36x+4
+	 QYjPI94RkJylJicUIszfpxcQ0L4ntwRCa6apEfuvjoLIgVCjiBw2dzX3t4Si+qmjFxg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YFYRfzCY;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cj8Ta3rK;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 846A5606A31F;
-	Fri, 23 Oct 2026 21:00:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE5C0606A31D;
+	Fri, 23 Oct 2026 21:00:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YFYRfzCY
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 104201F01828;
-	Fri, 23 Oct 2026 21:00:21 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cj8Ta3rK
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 897CB1F01825;
+	Fri, 23 Oct 2026 21:00:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792789221;
-	bh=/zRNtfPAXTthuW4uanzpc66x09wuudOPAK79gmQZrRI=;
+	s=k20260515; t=1792789222;
+	bh=jYZIYMBd8UVK6BNo8UCuf5+CZmWdq5SaCGptMRiApvg=;
 	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=YFYRfzCYnXyURdqNWs7hnCa3Z5NRRwVwm+2+QYwbOrmuvfcqf3z8+1VsLXhYtsc1w
-	 na2hv0CIQ39ZPBSatuvpXr+BhEFHIjczDz7IxRa6rg+EyD1ZDsj1/ATsvKjpYG0JIp
-	 uqyvaFQTU+/1GHTq+OraO+2CGKuxHxd3n3OENDlTDzTXAMfIeq6JF5Zj4HhAXlC2iP
-	 P5cq+R/7+c5O7AcpxGMg0GRTgACGA6pkmLkisoe/lpORy5ktpnGGNFoTqPRNlTrzlX
-	 eYmri4DKy8QT0zQvAnRcuV/serlfrsNBqUlgX9rLhRFvLrariIJYRO5+ZcAv1RpF8q
-	 Y2EVEriTWMXIA==
+	b=cj8Ta3rKCWsYnSXSk1mSV3LnwSX19itCnyXb5OX5n+KEBm1m6Mt/SYG5xqFpde/bv
+	 rDFtNjfCyGOtJiGDMJfAC+w2nzncR85+Sim4ak6Wmotw7g+vHYd0E+q8l7dSW+nzjC
+	 0etCEkKUTfmHIwzGEXzdkAwOr28ad7juj/YoWC4JBtdIxO66tmdq3KkfeCJqWQuYkQ
+	 gB8OjmtjGEp1MKegI68ENsuDDJmXzzgcHFpxm59IvxTi/X9Wnhg3enHphWM6N/ci2M
+	 7RcChHAhdJ6aUU9vNyxLS46jU5emYnPhhMJBjknF/kjUtfJXXyu+GUyUmqnSeA0Mow
+	 F20mk/kUOQxzw==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 074A8391B157;
-	Fri, 23 Oct 2026 21:00:21 +0000 (UTC)
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 81705391B157;
+	Fri, 23 Oct 2026 21:00:22 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -54,39 +54,40 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net 0/2] net: pse-pd: si3474: two driver fixes
+Subject: Re: [PATCH net] gve: fix out-of-bounds read in
+ gve_get_flow_rule_entry()
 From: patchwork-bot+netdevbpf@kernel.org
 Message-Id: 
- <179278921957.1268720.1927086301810125998.git-patchwork-notify@kernel.org>
-Date: Fri, 23 Oct 2026 21:00:19 +0000
-References: <20261019162453.1244120-1-piotr@kubik.pl>
-In-Reply-To: <20261019162453.1244120-1-piotr@kubik.pl>
-To: Piotr Kubik <piotr@kubik.pl>
-Cc: netdev@vger.kernel.org, o.rempel@pengutronix.de,
- kory.maincent@bootlin.com, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- linux-kernel@vger.kernel.org, github@szelinsky.de
+ <179278922106.1268720.5910307752725835435.git-patchwork-notify@kernel.org>
+Date: Fri, 23 Oct 2026 21:00:21 +0000
+References: 
+ <AS8P251MB0001135AF3233180DC42DCD1C8672@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM>
+In-Reply-To: 
+ <AS8P251MB0001135AF3233180DC42DCD1C8672@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM>
+To: Aamir Ahmed <elb12345@hotmail.co.uk>
+Cc: netdev@vger.kernel.org, joshwash@google.com, hramamurthy@google.com,
+ andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, stable@vger.kernel.org,
+ linux-kernel@vger.kernel.org
 
 Hello:
 
-This series was applied to netdev/net.git (main)
+This patch was applied to netdev/net.git (main)
 by Jakub Kicinski <kuba@kernel.org>:
 
-On Mon, 19 Oct 2026 18:24:51 +0200 you wrote:
-> Two fixes for the Si3474 PSE driver, found while preparing 2-pair and
-> semi-auto support for it.
-> 
-> Patch 1 stops si3474_pi_enable() from clearing detection and
-> classification of the other PI in the same quad. Without it, a PD on
-> that PI gets no power after a later plug-in.
+On Tue, 20 Oct 2026 23:33:46 +0100 you wrote:
+> gve_get_flow_rule_entry() checks the requested location against the
+> first and last cached rules, but rules_cache_num can be 0 while
+> rules_cache_synced is true: GVE_FLOW_RULE_QUERY_RULES returns the rules
+> from the requested location onwards, so a request past the last
+> installed rule - or any request when no rules are installed - returns
+> zero rules, which the driver accepts and marks as synced.
 > 
 > [...]
 
 Here is the summary with links:
-  - [net,1/2] net: pse-pd: si3474: keep detection enabled on the other PIs
-    https://git.kernel.org/netdev/net/c/b530456be771
-  - [net,2/2] net: pse-pd: si3474: validate the channels of a PI
-    https://git.kernel.org/netdev/net/c/110eb808324f
+  - [net] gve: fix out-of-bounds read in gve_get_flow_rule_entry()
+    https://git.kernel.org/netdev/net/c/45e0a63f9c86
 
 You are awesome, thank you!
 -- 
