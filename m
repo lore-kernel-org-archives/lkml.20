@@ -1,60 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.96
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.73
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792751832;
-	b=nMyA3NV2d3eINgb5OVRzaELjT6to+YlZvw++YQlsQdicdxmov9IsGtx2hDMrk7sZlrhF
-	 IcfR6NbcgJpAMJOM0nk+8CLQPs+KQgHpHvzKK8UR3yuDvLQjpIGnZ8ohXEpBbNF8LfDuu
-	 EwT5wunbpObt2oFEsR9J3n+NOtSgHXGvAHJe6YDhIRv1VTEOwAEBFGRcQZtyOJOwwIsRQ
-	 C11vuJjAZMQ6v6ZQohWWiDhTc4kZzKM7W/SkmiwkOZNxs4jdRjL6l9OiYthj88ZUy3oXQ
-	 w+Hctvv8RlytTmuDDwtV/4axomWlGa6aHLYDbyFApI4WCzOpe8rrZh2vD8piyTb3B2g==
+	t=1792751912;
+	b=UZU8cSaA+agdBeurrXzUIO2lhmE9TMwuxXBtTLDxh4HWPOr7+qU5HbJnAQOc5A4VENwe
+	 uX98rK6l9BabN3vArmw5PGcH4iQ2Ktvq7q02Hh666LlCsc2EII9yyNUo2Fj3zHrbzT2mX
+	 mJyIOmK4JwyW4DJNqmnbgRVu1MPHZRN2msmk/oUHaFrirVTQvKJw1QqIznO6Fs1bcbF7Y
+	 5Cui6+dgmpUVy1Uf+/ZvRGxioGHK3ItZ5i1KplEm+KgMuIevYjufW7AqKixYjw+F9w5S4
+	 U4cK1svutSs9fJIw2deRJW09nQavdTW8ugLykitnYs6+xoNbVarGCxjCc+y8cX6BMKw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792751832;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=o+ECcOPFP4Q0KHoI1iYU3bYydXUFN1HkYHahxH+riFQ=;
-	b=cb0GHUp9viR+nJwrrumeLNcuETlU9ZaNAUBPb2jWaC9fgNQM6GVPTju/EaGASMY0p3ng
-	 yAjeVrQs7YHdJ4EKrrIFGwdlbg2NNHFI0Fd105B9mYXybrRqJLwBDmJ7nSy3Fxow8/MX7
-	 BMfWKnIZACXer6EeEekA9KSjnSG9O1F7GgkFylzJlAMn7ukQE76lcBgPggiewBK3x2CTP
-	 xYKG4DExV5h8B0uGEQAxo4nrdT2GW5wtMzGg/6nREWAG4tC7SHpYItevknuUtIHOypjf7
-	 6gSuCjurLUkPam8+eHmJoxW3QZ7C5jQalwr8NYPalSeNFwVh/UjE32SbxohFh8fk8gw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792751912;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type;
+	bh=cLLRVkOcST0DyQ8J/JKflZi0Zz/mIu85uAsHsW1TVFg=;
+	b=WJ5vgdfVu5x11oghxOFEhueZFW82tHuHWdn1frkSgl3Bqje92FHmKaAFYjgHUm1mbdAp
+	 9m68KMRr1DzDqv8W1J7UDNSTy1t5pizYVIV5iL3OBafJbqD8LO3U0W6tCI5rDMfE5rqtU
+	 ZBppwx9w5vu5PAMl6qaWs1ApmpWtYDGKgvtE1P9m5CeSDFXZ0Yd9HNa2Py4HSQ50FRriK
+	 kFQAHDUuGUtSJSDHqpRQFh4foA0ZT8ECwHSPjLi0vvm9qcIYXQ+jX15vazQ3HRlFJMByu
+	 e3YG91iOOgqyjWcnRAp7liMmy0icQQkJEtP5qnpU3w7Bup8HXlN1dYDW9lozbSZlC6w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=protonmail.com;
-	spf=pass smtp.mailfrom=protonmail.com;
-	dkim=pass header.d=protonmail.com header.i=@protonmail.com header.a=rsa-sha256 header.s=protonmail3 header.b=CAHB0lxR;
-	arc=none smtp.remote-ip=79.135.106.96
-Received: from mail-10696.protonmail.ch (mail-10696.protonmail.ch [79.135.106.96])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=wfyKlkHU;
+	arc=none smtp.remote-ip=95.215.58.73
+Received: from mta1.migadu.com (out-73.mta1.migadu.com [95.215.58.73])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52CB2606A31B
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 10:37:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 52CB2606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=protonmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C18D606A31E
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 10:38:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6C18D606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=protonmail.com header.i=@protonmail.com header.a=rsa-sha256 header.s=protonmail3 header.b=CAHB0lxR
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
-	s=protonmail3; t=1792751828; x=1793011028;
-	bh=o+ECcOPFP4Q0KHoI1iYU3bYydXUFN1HkYHahxH+riFQ=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=CAHB0lxRMqXctul9TXuCz0SppNXysNmJcaeq10Yg/tKTyAyDV7KKpVnWsQjFX0c4E
-	 V1To/2drqTm1h4+kfmJLVEru2i2gn77PkBw/JZ6SyQ1GK5qIZLmAJHTRdPanBJXbid
-	 t6eAfFm1eZlRBwal6wtpl2mg5gGeF1TMczX9aFfQFXsEIvE0IyBiQsMQoUB1PLhdd3
-	 fGd4u2wk92wliOcoU0bMMY7AkYDurVjdLLcqtAlrGbzHCs2NM1PMz6LHhLAKZs9e0A
-	 eGCSYzeRU0vJBosjL5lWafE4H8XETUjQiwlcf4mqiedDug5zYENrTPoRe8fwNci39O
-	 Pv+mUk34E8xrw==
-Date: Fri, 23 Oct 2026 10:37:00 +0000
-To: Max Zhen <max.zhen@amd.com>
-From: Umio-Yasuno - coelacanth_dream <coelacanth_dream@protonmail.com>
-Cc: ogabbay@kernel.org, quic_jhugo@quicinc.com, lizhi.hou@amd.com, dri-devel@lists.freedesktop.org, mario.limonciello@amd.com, karol.wachowski@linux.intel.com, linux-kernel@vger.kernel.org, sonal.santan@amd.com
-Subject: Re: [PATCH V1 1/5] accel/amdxdna: Use compatible fdinfo engine key
-Message-ID: <qAXy4UirzgL1y5Voy73b1qQ5-Fa_UPNl--88ahgTxRsSyCIv3DNdH5BuSoBYG-i6TTNzXl9RtS32KGeXaLvghgM39yNrAUFq5_ZG9d9w5Tc=@protonmail.com>
-In-Reply-To: <20261022155753.232976-1-max.zhen@amd.com>
-References: <20261022155753.232976-1-max.zhen@amd.com>
-Feedback-ID: 19510729:user:proton
-X-Pm-Message-ID: cbb43f3610f25222a2e032b5542edb11435266fd
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=wfyKlkHU
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=cLLRVkOcST0DyQ8J/JKflZi0Zz/mIu85uAsHsW1TVFg=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792751909; v=1; x=1793356709;
+ b=wfyKlkHUts97FSALHB1JY6s8OPWvgzatECATx8ULBCYmk9MDWedb36zFJ8pPWAR85iaDIWNg
+ MbOTj/b2IRQuzUP3gdqZ0cW6qRlnH/ZSfEZ8PndebtYRiNlBS9X5C8DfQDImj+JlHqVifYh/umS
+ P6Pxb1QBmaf0Tb93/7AyeNK0=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id a02d05a86203f22e;
+	Fri, 23 Oct 2026 10:38:29 +0000
+X-Mizu-Trace-ID: a02d05a86203f22e
+X-Migadu-Flow: FLOW_OUT
+Received: by mail-lf1-f51.google.com with SMTP id 2adb3069b0e04-5be4a7b9e6fso4966e87.1
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 03:38:25 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwgaolYc+VLQfc2h1UKjtqKJrcVfk4CRaSiBjsqNNvleOVGS2+IwGJyz3UuZJwXvJehpCJGqiCIi+bDJfg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJTtW4IK2BIg2FSl62K9aOpk4vTi2gnyMHWZJNeIZ/EKXHjNPIV
+	7bba7jJ/iaZSq9Zwgl5pe7FVxNlGpD0oIdg5C77uLUqW+Nowe7PIcrr4J8+z8nZqZIA9EJAfqgC
+	sNZTtN5AbWt04GioYvy92qR/yjBIVuykBslByNi+k
+X-Received: by 2002:a05:6512:3e26:b0:5bc:fbf6:2352 with SMTP id
+ 2adb3069b0e04-5bfb06d38a0mr119014e87.9.1792751904240; Fri, 23 Oct 2026
+ 03:38:24 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,67 +66,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+References: <20261023070110.1833446-1-fuad.tabba@linux.dev>
+ <20261023070110.1833446-2-fuad.tabba@linux.dev> <86fqxwzul7.wl-maz@kernel.org>
+ <CA+EHjTw08SZC_3Uodt6ew6vXVH-doW-8G41fVCF-rmaKsv+0fQ@mail.gmail.com> <86ecdgzp6m.wl-maz@kernel.org>
+In-Reply-To: <86ecdgzp6m.wl-maz@kernel.org>
+From: Fuad Tabba <fuad.tabba@linux.dev>
+Date: Fri, 23 Oct 2026 11:37:47 +0100
+X-Gmail-Original-Message-ID: <CA+EHjTy0jpY3sdVCENJRj_kfRDwbZ6TpkCAHQ2xUO-7ZuErpcA@mail.gmail.com>
+X-Gm-Features: AclHuK-Z7-qsjF596RnJ21sZzB7mzj2vXd60dbcKuOxyJq8KgdnvpDHBkQR87RQ
+Message-ID: <CA+EHjTy0jpY3sdVCENJRj_kfRDwbZ6TpkCAHQ2xUO-7ZuErpcA@mail.gmail.com>
+Subject: Re: [PATCH 1/2] KVM: arm64: Hide FEAT_LS64_ACCDATA from guests
+To: Marc Zyngier <maz@kernel.org>
+Cc: Oliver Upton <oupton@kernel.org>, kvmarm@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org, Joey Gouly <joey.gouly@arm.com>, 
+	Suzuki K Poulose <suzuki.poulose@arm.com>, Zenghui Yu <yuzenghui@huawei.com>, 
+	Steffen Eiden <seiden@linux.ibm.com>, Catalin Marinas <catalin.marinas@arm.com>, 
+	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+	Yicong Yang <yangyicong@hisilicon.com>, Zhou Wang <wangzhou1@hisilicon.com>, 
+	Arnd Bergmann <arnd@arndb.de>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
+Hi Marc,
 
-On Friday, October 23rd, 2026 at 0:58, Max Zhen <max.zhen@amd.com> wrote:
+On Fri, 23 Oct 2026 11:28:17 +0100, Marc Zyngier <maz@kernel.org> wrote:
+[...]
+> No, I want this fixed by enabling ACCDATA support by default, which is
+> what we have *already* promised to userspace, and see the fireworks.
+> You can add an arm64.nols64 kernel option if you want, which is
+> consistent with what we do for CNTPOFF, NV3, and other extensions that
+> depend on FW enabling them.
 
-> The released out-of-tree amdxdna driver uses amdxdna_accel_driver as the
-> drm-engine key string, which is consumed by several applications.
->
-> Use the same key string in the upstream driver to maintain compatibility
-> with the out-of-tree driver.
->
-> Reported-by: Umio Yasuno <coelacanth_dream@protonmail.com>
-> Closes: https://github.com/amd/xdna-driver/issues/1754
-> Fixes: 489a8539ca6f ("accel/amdxdna: Expose NPU device busy time via DRM =
-fdinfo")
-> Signed-off-by: Max Zhen <max.zhen@amd.com>
+Will do. v2 will have your patches 3 and 4 from [1] rebased, EnAS0 set
+when the guest has LS64_ACCDATA, and an arm64.nols64 option.
 
-Reviewed-by: Umio Yasuno <coelacanth_dream@protonmail.com>
+Cheers,
+/fuad
 
-Thanks!
-
-> ---
->  Documentation/accel/amdxdna/amdnpu.rst  | 2 +-
->  drivers/accel/amdxdna/amdxdna_pci_drv.c | 4 ++--
->  2 files changed, 3 insertions(+), 3 deletions(-)
->
-> diff --git a/Documentation/accel/amdxdna/amdnpu.rst b/Documentation/accel=
-/amdxdna/amdnpu.rst
-> index d72af1b51ccf..b0cc481c73ae 100644
-> --- a/Documentation/accel/amdxdna/amdnpu.rst
-> +++ b/Documentation/accel/amdxdna/amdnpu.rst
-> @@ -289,7 +289,7 @@ Example of the output showing the implemented key val=
-ue pairs:
->          drm-driver:=09amdxdna_accel_driver
->          drm-client-id:=093219
->          drm-pdev:=090000:c5:00.1
-> -        drm-engine-npu: 14003870 ns
-> +        drm-engine-amdxdna_accel_driver:        14003870 ns
->          amdxdna_accel_driver-heap-alloc:=0960 KiB
->          amdxdna_accel_driver-internal-alloc:=0967588 KiB
->          amdxdna_accel_driver-external-alloc:=090
-> diff --git a/drivers/accel/amdxdna/amdxdna_pci_drv.c b/drivers/accel/amdx=
-dna/amdxdna_pci_drv.c
-> index edf807c93144..f233eb70a295 100644
-> --- a/drivers/accel/amdxdna/amdxdna_pci_drv.c
-> +++ b/drivers/accel/amdxdna/amdxdna_pci_drv.c
-> @@ -284,9 +284,9 @@ static void amdxdna_show_fdinfo(struct drm_printer *p=
-, struct drm_file *filp)
->  {
->  =09struct amdxdna_client *client =3D filp->driver_priv;
->  =09size_t heap_usage, external_usage, internal_usage;
-> -=09char *drv_name =3D filp->minor->dev->driver->name;
-> +=09char *drv_name =3D "amdxdna_accel_driver";
->
-> -=09drm_printf(p, "drm-engine-npu:\t%llu ns\n",
-> +=09drm_printf(p, "drm-engine-%s:\t%llu ns\n", drv_name,
->  =09=09   amdxdna_io_stats_busy_time_ns(client));
->
->  =09mutex_lock(&client->mm_lock);
-> --
-> 2.34.1
->
->
+[1] https://lore.kernel.org/all/20240815125959.2097734-1-maz@kernel.org/
