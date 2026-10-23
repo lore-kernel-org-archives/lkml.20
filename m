@@ -1,89 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792740212;
-	b=Ava+Gehm3TpvRXIHwRED8ms6vcvKM78r8kLui6DmpcUUL8huWce4YH9PZdk/ff+9DP7q
-	 RuxLjOnKxxiU3q50UlS/2XDQHCjQyqlK6/yvEtoPfmRBXPhJSx9hIpnF1nFdibruE9QUb
-	 22/fHLRVRyMDkZGArULxiJgKgnYkCZWWPRCxDRzHnB75Vk7Yz0n3X6fdPpckuBS46IHxP
-	 O7T8yPGTO5IG6vmYkeylnMlbSQibvssjjxBQtElylmvDyT5Ao1xHwxmKrLzVgu/9mKHZy
-	 rhj5fgdN4dkjlZnq4i/cciRjEEdXPchJmkI8VYWcLS8qI1gGO99w7tImRte9116k2IA==
+	t=1792740268;
+	b=NUewl+MvmDtso4PXVZwkUpyIat6ES9z+3MyfWncsUdIP0uxgVkQ1duNC59RGLC+J47EO
+	 TSUk5635PEG0rc1szbDyDnvoTTj/pDnSziwjnOsAHPgq0KTRmXMznQ4qAdUQsYV0E4bnx
+	 N6yUow1oVK4J6CU02DfOaMbAnjD0smK3QwDAw6RxIjbPnS/HFsf53ChPrpBfLM1HECvMn
+	 /ALV5LDqFY/Ud/R00CnOlrpvbeFj4imbcWPewzoxHa8MeeaMJGzB6RfiD0IuwqKDWZ8+1
+	 jjczd96VeoxHDdfq/R7Gg5DTlTHB0hDPdFGaLPx43SwIIMU/PW7GheIKAkd3UNNu4yw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792740212;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:From:Reply-To:Subject:To:Cc:
-	 References:Content-Language:Autocrypt:Organization:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=zEG/GVHCLQPnI88SpC5VPZ3TgR9urVz0hXrc0LNloI0=;
-	b=E9IYtQSOw44/hZjMBwOWcgoCKNHWiiuAhm+OHKr1dTGXQpr3kH78mPPjSrNNbIHlkb1U
-	 5YtjVRg4O7Zmw1A3ASy9jeTdwjaC4aHJme2T7WBZWf+7ziSqRMt6v7QYpp9ytoxj2a66y
-	 aEGi142/SfAQW/VYEBhwYmU10oaqvUa7Lf7ql9cmXQ3345jZXf+jouaOfz3vHZeNYeSv7
-	 dEG8ul14WVRdiq7Z+ZSvDHUgjHUitye3GaCQYPOOi+gK9Y7qtFOIRvfMtM2Ola2bvmoAT
-	 4AWT+Ho2kbxGh7rk0Dr874Q5QKWCGPyhdvJva2hxcGpLr+DbLwAhrK/h7yic94M6T0A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792740268;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Content-Type:
+	 Date:Message-Id:Cc:Subject:From:To:Mime-Version:
+	 Content-Transfer-Encoding:X-Mailer:References:In-Reply-To:
+	 X-Last-TLS-Session-Version;
+	bh=AigCNMwxBJZuWvXglsaLwBUjZkmiCAeb490K3Kjidoc=;
+	b=TKQdAjdoijFWosUiTdCk1DryyYVrC1GHiph6M9GrU87yfjMG1Hvgbb0D/EthskE5BD0c
+	 WEOYb1HbGvk3iXLSJMq2Mot+et/74cmZL0gXyzYJxqWqpQFqx1vEc63IY+31W9BEqwT/1
+	 gFfd6X5SaqomSK1fJH9FhQ+3OG84QU/cutAuial/B7P6zKdXb4hJI7R9yLjql6AwT528H
+	 lKmkCf/3em8zbvvWiYoqdVT3KrM6Kb0llJ0GtyC3/ZhME7Jynn+g/Dk6+i7TJkk5/B70+
+	 NZT8Q6dVqFR6a7LuXfyEeFbenJFeHucgW8Mvx+3312gkYqX5rc0BTLwMoeK+E9NgY7g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=ETT0rPWl;
-	arc=none smtp.remote-ip=209.85.221.41
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=hstKxnHJ;
+	arc=none smtp.remote-ip=185.246.84.56
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C4BC606A31D
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 07:23:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2C4BC606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA8C0606A31B
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 07:24:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BA8C0606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=ETT0rPWl
-Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-48c45111bebso262703f8f.0
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 00:23:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1792740210; x=1793345010; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=zEG/GVHCLQPnI88SpC5VPZ3TgR9urVz0hXrc0LNloI0=;
-        b=ETT0rPWlyJHUiGfPOgj/71FpiLTcE3uORng3ml1Bl3MB1ZqY6YLvytXfgRE3exKnDZ
-         dHKFoMCw+zsFz7IHzYh7iTgwVaFWZjYDH8YnkMBgJQNsFLTfGoaAYruXBgyGso4zznAc
-         CJ3nfhCtdFI2iBsDUAZAYgcnAE/2z7Xo7aL6nQqOhIffGdtEJnag26cprTSZFfeQzfAI
-         myPzmVaH9YaqCmOQfwrzzaTJa9t5AqTREua7lJ0h86PPtsdqRboVWIt1PclY7wvA8XrX
-         hd6gVZFMIwBmJic6JMLncKOSe552Oj1dfjkVUAxblyhDWRV1O/SB+xgVvA7IchL/PWpR
-         AZ3w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792740210; x=1793345010;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=zEG/GVHCLQPnI88SpC5VPZ3TgR9urVz0hXrc0LNloI0=;
-        b=rN0km418ZrjQWhMnZTg+TtX1twkyxDu9gMVBWQ0MUi7xrp5UPSSmvKqQai/AfakXHY
-         3e6r34VkkisMN68tPMjpq4vXuDGj8kjrCehlPEEtrxm8lvfYG4GaFOOcEuFVA+Bgu3Xi
-         cX1iMZ/xO8QE7Bj51qr4DOnbmqnHcIOXFdzs0yj1Q+F+mQKtHouNCMViQ0d+hwMaPCcY
-         ecScYaJ8nNwEMvD1/k0vx02AOZBbu3/DrZTp771bRLClLDuTHPQBD2ntwzRdUnGx5vUL
-         U9AGiUHFO3Cixc7690lFdM8K9v60cdAa/OT6FXSv7dvoMpIDzIfC3DFMh0Wik6wUFXgs
-         UNPQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwqkwSui6OX37el1591l15l7+lo6ykG7LIn6hDxBH4INH2k+6c9sw1njGorcoTin8uuOv82pF8hCXiYg8o=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIZ8vda44OPQBUWmmTfbikDdTMXQdnngZU/gbSSMlBW3Qn/jVDA
-	veO/cwzIH4hryUJX7zBL304UPnmL2Euxi/RPO2usP1ThRRHEP8ZcfQ1zJmlPd/8xHMHrEAttKAN
-	eZIh9
-X-Gm-Gg: AYBFou1Xyol9HXCQy+VbUjVVgHLouir9yYQu28Y3QsJtp+vuOEGFmA7LhY4iW7M56e4
-	CNYhvhdmHMXhljngZ5pYBMvIxUFgU4YaXOGXPk/b7O+l7HoSTrDuhCs8XU3dnjpFj/WYnI9SXZA
-	oe6KyxeUuFXLKG6PwMiCMkx+dhBevCw65uSrRUA6XwBZEVRJjO3Wy5jEyHIof6O6ZdeEElwGdlK
-	JV+wIp6IvITAQxubcUx88GgYrYTbWVaYvkavuG+Pcoi5hTRRpENSj/KIcVvKr9djpK9D0Hb9q4u
-	S4GKvsH5/FKfxRlLUWRD+irhdRiRYZlYwa5BTWNDZoeaI+577NeU5zkYmRPip22nWUhE9clIWE4
-	ake5f81skbg3ja1TGpDq2Eyv3mVLagc3cxEjbCHGzf7ATmJiEjejQlSr5ouKhxA7ffRy3Kb4esV
-	HQi3hQzm30qTpmNsmwm7ZF1oBNrMMVyCW1r4HW76sHAUMC1p03GMVhz+mTDJ7lChUtJnlz3caUn
-	p5Jpl1o61pT0Y1XA/CJn2LLDfXQWwQ1Njn0KcSHoOoDgFU5vbk++NADPDeBNZXjAsa6xFZpuGyr
-	QEBk5B9tACD8eO5M8DZ8bI5SlXcOD3P0k1w=
-X-Received: by 2002:a05:6000:40d9:b0:48d:f470:6b3e with SMTP id ffacd0b85a97d-48e3858b5f3mr1960195f8f.13.1792740210407;
-        Fri, 23 Oct 2026 00:23:30 -0700 (PDT)
-Received: from ?IPV6:2a01:cb1c:fcf:4600:1c53:498d:36f3:7085? ([2a01:cb1c:fcf:4600:1c53:498d:36f3:7085])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e37edce4fsm3456370f8f.6.2026.10.23.00.23.29
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 23 Oct 2026 00:23:29 -0700 (PDT)
-Message-ID: <3bf32179-dd0d-411c-af37-54d50eb7986e@linaro.org>
-Date: Fri, 23 Oct 2026 09:23:28 +0200
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=hstKxnHJ
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 2C48F1A12EC
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 07:24:19 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id ED04260398;
+	Fri, 23 Oct 2026 07:24:18 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id A25F710328EBA;
+	Fri, 23 Oct 2026 09:24:15 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1792740258; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=AigCNMwxBJZuWvXglsaLwBUjZkmiCAeb490K3Kjidoc=;
+	b=hstKxnHJfU+yB1qlSwWtc8iJkFJc1gclOJhQ6YgKSwGdrFpxR36ZSzouF0DrW9ETDSuv9R
+	SY5gnhS6niaUfwWG29jVin6UCc3oQmWxgsDZ3buofay5/ZsRTaUIMAQOd7DXm+FTgieU4S
+	cOit56+rTh9my65f2a+vHKxRPPdgntmWaO3IFlUsJ9SYU5iRTeTfFV/mS3TRMfCOx1C03M
+	yDTLXKh+Y06/gbDKyiao09IMx8v11ZTwdzexNojA3x2JnFyMUHVmKIcsZy3PDSWC4Yp1m4
+	9zAYwEHUNecZT9mj9xpVr+aYb3jRDVVpuvijlXqnYdAB/8LVZ8OVODZii+FHPw==
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 23 Oct 2026 09:24:13 +0200
+Message-Id: <DMC1DQX9EJ3P.4VWHJ27R9JLG@bootlin.com>
+Cc: "Liam Girdwood" <lgirdwood@gmail.com>, "Rob Herring" <robh@kernel.org>,
+ "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley"
+ <conor+dt@kernel.org>, <linux-kernel@vger.kernel.org>,
+ <devicetree@vger.kernel.org>, "Thomas Petazzoni"
+ <thomas.petazzoni@bootlin.com>, "Herve Codina" <herve.codina@bootlin.com>,
+ "Miquel Raynal" <miquel.raynal@bootlin.com>
+Subject: Re: [PATCH 5/5] regulator: Add TI LM51772 support
+From: "Paul Louvel" <paul.louvel@bootlin.com>
+To: "Mark Brown" <broonie@kernel.org>, "Paul Louvel"
+ <paul.louvel@bootlin.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,81 +72,163 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH 0/4] Fix and complete the GIC description of Amlogic S7
- and S7D
-To: Carlo Caione <ccaione@baylibre.com>, Kevin Hilman <khilman@baylibre.com>,
- Jerome Brunet <jbrunet@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Xianwei Zhao <xianwei.zhao@amlogic.com>
-Cc: linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261022-upstream-s7-s7d-gicc-size-v1-0-8285053cf4ee@baylibre.com>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <20261022-upstream-s7-s7d-gicc-size-v1-0-8285053cf4ee@baylibre.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
+References: <20261021-paul-lm51772-v1-0-25f0ffbffa8d@bootlin.com>
+ <20261021-paul-lm51772-v1-5-25f0ffbffa8d@bootlin.com>
+ <atpJCnOMOlLSNvqL@sirena.org.uk>
+In-Reply-To: <atpJCnOMOlLSNvqL@sirena.org.uk>
+X-Last-TLS-Session-Version: TLSv1.3
 
-On 10/22/26 20:30, Carlo Caione wrote:
-> The S7 and S7D device trees describe only the first 256 bytes of the
-> GIC-400 CPU interface, which spans 8 KiB, and leave out its virtual
-> interface control (GICH) and virtual CPU interface (GICV) regions.
-> 
-> With the short CPU interface, the GIC driver disables the split priority
-> drop and deactivation mode and warns at boot (patches 1 and 2). Without
-> GICH and GICV, it cannot hand the GIC over to KVM (patches 3 and 4). It
-> needs the split mode for that too, so KVM gets its in-kernel vGIC only
-> with the whole series.
-> 
-> Signed-off-by: Carlo Caione <ccaione@baylibre.com>
-> ---
-> Carlo Caione (4):
->        arm64: dts: amlogic: s7: fix the GIC CPU interface region size
->        arm64: dts: amlogic: s7d: fix the GIC CPU interface region size
->        arm64: dts: amlogic: s7: describe the GIC virtualization regions
->        arm64: dts: amlogic: s7d: describe the GIC virtualization regions
-> 
->   arch/arm64/boot/dts/amlogic/amlogic-s7.dtsi  | 4 +++-
->   arch/arm64/boot/dts/amlogic/amlogic-s7d.dtsi | 4 +++-
->   2 files changed, 6 insertions(+), 2 deletions(-)
-> ---
-> base-commit: 8610d31587e139380db9cb8708f4263833b482d0
-> change-id: 20261022-upstream-s7-s7d-gicc-size-db94cb656d36
-> 
-> Best regards,
-> --
-> Carlo Caione <ccaione@baylibre.com>
+Hi Mark,
 
-Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+On Thu Oct 22, 2026 at 7:34 PM CEST, Mark Brown wrote:
+> On Wed, Oct 21, 2026 at 12:27:46PM +0200, Paul Louvel wrote:
+>
+>> +static int lm51772_regulator_set_voltage_sel(struct regulator_dev *rdev=
+, unsigned int selector)
+>> +{
+>> +	const struct lm51772_priv *priv =3D rdev_get_drvdata(rdev);
+>> +	int ret;
+>
+>> +	/*
+>> +	 * The LM51772 uses hardcoded OVP thresholds. Update the OVP threshold
+>> +	 * to match the new voltage.
+>> +	 */
+>> +	if (priv->ovp_thres) {
+>> +		ret =3D regulator_list_voltage_pickable_linear_range(rdev, selector);
+>> +		if (ret < 0)
+>> +			return ret;
+>> +
+>> +		ret =3D lm51772_set_ov(rdev, ret + priv->ovp_thres);
+>> +		if (ret)
+>> +			return ret;
+>> +	}
+>> +
+>> +	return regulator_set_voltage_sel_pickable_regmap(rdev, selector);
+>
+> If the voltage is being lowered this will lower the threashold prior to
+> lowering the voltage which could cause the protection to flag.  I guess
+> we need to look to see if the voltage is being raised or lowered and do
+> the change before or after as appropriate.
+>
 
-Thanks,
-Neil
+If new_uV > old_uV, and we set ovp after or before, that doesn't matter, be=
+cause
+the voltage only ramp up without getting a chance to be > ovp.
+If new_uV < old_uV, if we set ovp before, the protection will flag, and if =
+we
+set ovp after, the protection might still flag because of the slew rate del=
+ay
+(or put another way, there is no guarantee that the voltage will be low eno=
+ugh
+so that the ovp don't trip).
+
+My idea is to implement the .set_voltage_time() callback, to inform the cor=
+e how
+much time it will take for the regulator to reach the new voltage, to that =
+we
+fsleep() for the correct amount of time [1].
+Then, the core could call .set_over_voltage_protection() if the driver enab=
+led a
+new 'fixed_ovp' flag:
+
+--- a/drivers/regulator/core.c
++++ b/drivers/regulator/core.c
+@@ -4014,6 +4014,16 @@ static int _regulator_do_set_voltage(struct regulato=
+r_dev *rdev,
+ 				     (void *)data);
+ 	}
+=20
++	if (old_uV !=3D best_val) {
++		if (rdev->desc->fixed_ovp && ops->set_over_voltage_protection) {
++			ret =3D handle_notify_limits(
++				rdev, ops->set_over_voltage_protection,
++				&rdev->constraints->over_voltage_limits);
++			if (ret =3D=3D -EOPNOTSUPP)
++				ret =3D 0;
++		}
++	}
++
+
+[1]: https://elixir.bootlin.com/linux/v7.3/source/drivers/regulator/core.c#=
+L4005
+
+>> +static int lm51772_regulator_set_current_limit(struct regulator_dev *rd=
+ev, int min_uA, int max_uA)
+>> +{
+>> +	struct lm51772_priv *priv =3D rdev_get_drvdata(rdev);
+>> +	u64 voltage_uV =3D ((u64)priv->sense_res_milliohms * max_uA) / 1000;
+>
+> Does this build on arm32 or similar things that need a libgcc division
+> implmentation?  div_u64().
+>
+>> +	if (status_reg & LM51772_STAT_INPUT)
+>> +		errors |=3D REGULATOR_ERROR_UNDER_VOLTAGE;
+>
+> That sounds like an error with the input so I'm not sure under voltage
+> is the right error to report.
+
+Since there is no error for input under voltage, I guess I can use
+REGULATOR_ERROR_FAIL then ?
+
+>
+>> +static int lm51772_irq_map_event(int irq, struct regulator_irq_data *ri=
+d,
+>> +			     unsigned long *dev_mask)
+>> +{
+>> +	struct regmap *regmap =3D rid->data;
+>> +	unsigned int reg, errors;
+>> +	int ret;
+>> +
+>> +	ret =3D regmap_read(regmap, LM51772_REG_STATUS_BYTE, &reg);
+>> +	if (ret)
+>> +		return REGULATOR_FAILED_RETRY;
+>> +
+>> +	errors =3D lm51772_status2err(reg);
+>
+> Does this do the right thing if multiple errors are flagged?
+>
+
+No.. should iterate with for_each_set_bit() on errors and then do
+regulator_err2notif() on each bit.
+
+>> +static int lm51772_irq_renable(struct regulator_irq_data *rid)
+>> +{
+>> +	struct regmap *regmap =3D rid->data;
+>> +	unsigned int reg;
+>> +	int ret;
+>> +
+>> +	ret =3D regmap_read(regmap, LM51772_REG_STATUS_BYTE, &reg);
+>> +	if (ret)
+>> +		return REGULATOR_FAILED_RETRY;
+>> +
+>> +	if (rid->opaque && rid->opaque =3D=3D reg) {
+>> +		ret =3D regmap_read(regmap, LM51772_REG_CLEAR_FAULTS, &reg);
+>> +		if (ret)
+>> +			return REGULATOR_FAILED_RETRY;
+>
+> Shoud _CLEAR_FAULTS be volatile?
+>
+
+Yes.
+
+>> +static const struct reg_default lm51772_reg_defaults[] =3D {
+>> +	{ LM51772_REG_CLEAR_FAULTS, 0x00 },	{ LM51772_REG_ILIM_THRESHOLD, 0x64=
+ },
+>> +	{ LM51772_REG_VOUT_TARGET1_LSB, 0x58 }, { LM51772_REG_VOUT_TARGET1_MSB=
+, 0x02 },
+>> +	{ LM51772_REG_STATUS_BYTE, 0x00 },	{ LM51772_REG_USB_PD_CONTROL_0, 0x0=
+1 },
+>
+> STATUS_BYTE is volatile so a default isn't terribly sensible (but
+> harmless).
+
+Thanks.
+Best regards,
+--=20
+Paul Louvel, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
+
