@@ -1,65 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.177
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792750745;
-	b=Fez70vhzVqTKmIroEbObPR9XxjuyAUKOMQ+n4Oa70zPwQFyySyEM8KEd9s05I+QWCSQm
-	 +sXbu5Zc3FdC6WtzSHWm56qY00dmjcp0bDYMt0sA4tbpE5VeGis3rNEwj/TYK/JhlYeep
-	 TQo1NrR3sDNtAdl/o8mJpmOpBMQ037yFvOyWTcw8KXomE8nq+bndnYrl5h12hK3sNQq3Y
-	 vFCrFNrcrdCDoKSm35YSvsCAerRylQCzkwFIDu+m9DB0SyZCWbRaYjPi8YCFqi2cvhTxS
-	 X2UoziDZ4YJ+6qz2v6nt+EtVxho5A3/up3+4ofswMlmN3t+qJRc1RYu4Q2IxH2dcFmw==
+	t=1792750747;
+	b=pQtSg7+a5zVr85vhXMG6hZK/x8WfSMRT2Ers/DbyBI9y6sMwxBZjD9tWWezqEbIe8JCT
+	 t9E/bOP9U1UlkAjzaqtte8TAGy2B10nB/PN8OQ3aPX2XX0svg88Scc+6aUfKrE+Fc92YD
+	 3ItlExPWDgf4w/J3K7pbx4+YbDneZvdzhpHBw4yP4KqFRgfpvAwzSnLcp8C1lcd/m6gpl
+	 Z4qgj0VjOLislnyDxT1S7cmWDFteUdB5CiU1a1xB6lRDngDUimGpjLG2sVLEWyq9MOIwH
+	 wnZZmBmcqzOJaTAWqqvsdnLRTliVEzhM1XZfDyeMYI9tTWgTcCOuzi7lUFX3pGWnbAQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792750745;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=xVoPvZV32EnV3nhq+nvsH8tkgnbU6lXXBkfpvhV3RiQ=;
-	b=M/TIZKu87SSmREEeRWR9cFiMc3PzEqI2+C+vH7eDbREIRFr0hAgQpOkaG4N+Zw6yf4SQ
-	 GZv38BvlAw4Nv0UTnP0d54XXWhmYEc5joV1isX/e/9xWHFF5W/knCxhABQOtd8PUXu9AL
-	 MFYx1bYKTxZsMlHpiU4oyzp6sx4nlNxArzxcYrWNA7gbzoOiaYJAq4wUQiqlK4Ux56qb+
-	 7oOMu/irtAvY4QGLZOjQMAWgqCLiDZAcB3T4SztISltzA4AGpSG4oKX2HkwFd7Wk57Ixa
-	 eBTz34BsmL/WgEx9MWdbbeRAI2/phb5P/AbhtPUrDWYb9mBPdZ4QMBmt1cNRtAtoTRg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792750747;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=EtqIIM3bW6NOeXuYxzInv9x9RXwFgInG15ngZwHQesg=;
+	b=GoFLdWinn0ZuVzzIRoVXXIdXa1Ssmwa9Prw/Gters+xigdJGxaGntBgKiOVgpx+ZJ0AX
+	 E4MwxwqE1u+GwzgqtTv5Rey49eQuL9wwOwLITaIwDbm9tGpoEV42xqF4ebOg75XMv+pze
+	 8nNEJl2DorJGD8YM64aFqGQmp+pPLBKazvvFY2Dj0mYu5009/w2Wl/4gVL6/qfJF1IUnf
+	 oUHMKhPhi1hKysnGU7MfPgxmBEeA6eicRH41NOxHH/uRURu7inJD9cZB6SIx728IsQQPz
+	 /TccMbYRstjDGZxCaE2RxgWnSa3PMHOToKEXdzraDy5G1eRw+JrKoJu5c8kAr0072Jw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=H87Iowrz;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2C226606A31B;
-	Fri, 23 Oct 2026 10:19:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2C226606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=WgJoA6S4;
+	arc=none smtp.remote-ip=74.125.82.177
+Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9B25606A323
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 10:19:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C9B25606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=H87Iowrz
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 3502A1650;
-	Fri, 23 Oct 2026 03:19:00 -0700 (PDT)
-Received: from localhost (a085714.arm.com [10.164.19.28])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 6AFBD3F7B4;
-	Fri, 23 Oct 2026 03:19:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1792750743; bh=cTejc6vMr58Bc8gk6KW2BncO0y2Cvz1clpAKwoF7/Ic=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=H87IowrzP0rj9C3cOW7Vzu9QCUMfiSLZ0/G+PHAGddRwpJrTeToyiptqu8vx7+3pH
-	 w8RG+x0XddtHFphc6crHsU1gk8O6PWmj3qeZaN0M0Ly+45BVp2wb77l+7WxSJLLoTm
-	 DUEPs9U6xhyWQsEoNRpuxhalPnHIewHnLwfzo0Zw=
-Date: Fri, 23 Oct 2026 15:48:59 +0530
-From: Anshuman Khandual <anshuman.khandual@arm.com>
-To: Muchun Song <songmuchun@bytedance.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	David Hildenbrand <david@kernel.org>, Oscar Salvador <osalvador@suse.de>, 
-	Dave Hansen <dave.hansen@intel.com>, Paul Walmsley <pjw@kernel.org>, 
-	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
-	Alexandre Ghiti <alex@ghiti.fr>, =?utf-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@rivosinc.com>, 
-	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
-	Mark Rutland <mark.rutland@arm.com>, Kevin Brodsky <kevin.brodsky@arm.com>, 
-	Alexander Gordeev <agordeev@linux.ibm.com>, Alistair Popple <apopple@nvidia.com>, linux-mm@kvack.org, 
-	linux-riscv@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org, Muchun Song <muchun.song@linux.dev>
-Subject: Re: [PATCH v3 4/4] arm64/mm: fix destructor for unconstructed
- hotplug page tables
-Message-ID: <4vrj226au2t5cyjsgqem7bami3tsgn57zcbw6cbedhkutknnh3@p4hngiltvm6j>
-References: <20261023063428.3658761-1-songmuchun@bytedance.com>
- <20261023063428.3658761-5-songmuchun@bytedance.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=WgJoA6S4
+Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-354ba08cfd1so1274838eec.1
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 03:19:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792750746; x=1793355546; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=EtqIIM3bW6NOeXuYxzInv9x9RXwFgInG15ngZwHQesg=;
+        b=WgJoA6S44uO/kodNCvO5TWbOc5qRb941lr1BdiQSPZD1ZmbbclzwNvze+lgsbWqm+j
+         vL0hh4xcgsfWF9OZTnxs+7mFhoy49Q3FrUYbumgMFJNmeLOJvguO0mjbUThrdxcWFRi+
+         LgqqA8/+mad43oN5NaWT80APlrZc7Isi3ZCfIQZO/wVEOAGDHp/aoExxTdsBGwo340QM
+         8b+vAayY3N0rgkUXFHgAFb93/fEkdsVt6L2dgkBk+9DW2PXNs0nwivLfOEPVbv/LI/yd
+         eIsZziTPdkHUj1twXuTaIMAL3S6XIRRilLxju6S5J9OKXjRXTufHW9Yene8JaU6X3Hg0
+         +rog==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792750746; x=1793355546;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=EtqIIM3bW6NOeXuYxzInv9x9RXwFgInG15ngZwHQesg=;
+        b=CNa/rtZRW0aYc+dpGyBEpOR0Un40XxOYQMX3PO6UREHUJ9hKJRhfgqU6ZDLNTVGRH6
+         6s0a9SauT7FHu/27gIAFapaYNbzlNGmIfmFUFzMsqrmLbi5zx63T4SgGfkNa+r380A7y
+         q4hRBF8hRfUAi6gCCcmP86UkulDTMbVZHjEyBRjS5SaM76MHsU7eCVRRYNAz5w+24iGF
+         jIbn4AGv0ftjc5gsKcATNw+kTiV29B4P6SiTzsTccd0FDmlw6lxbn/PwqH+gogjY+O9i
+         CAqCWLpQqv7apLnX2ASZ7Qvziv/3tSTf+NAeq1R2GWrqfVG/LL3pFlIC0fGg+IbSxSlO
+         tN6g==
+X-Forwarded-Encrypted: i=1; AKwUvBxe/FohKpt7WOdM1GlB34itBvVyqDEsqUCrpZD3m+PkJcn9LXNWg4QIGnGzXqYgIZW8leiAeSOenn+B2mI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJTdBEFTUTVC5EOLf+f10X4xv6zthM7KFGhGLCRfTDKRLxxEB7w
+	7tJT8ze93bIiSXBsAKg79Gg0OltLwND6oQTS/hnkJTufCZE/rfN+dPb0
+X-Gm-Gg: AYBFou2Z1dGb511CKFIKM0aalIO7nH2h8sRjGziWv+2x5dYEMuCl4i8NR8r5KlnSheL
+	oBkiTf3qdAB9ErUzJcn1pGix4Mr9xl/6tO7x5OlvH0EpD9Qsjf4iXjHBPAbFXZly6nHo8ZUfHGu
+	C8PlMWk7L0tweZy3m0rDiC1AOnu2rYr77L+yn5ThfmdzflsJPdmPGSf66BTZAEPG20aBm+YifPF
+	8QkgJBaR8KOEZkmm7dY3O06ifAlQBIHdnbntyAeHzLeMu3UyvosjkG+/QR3dvKJ4USGtYJ5T6Ri
+	6DP8dn1NohHTG3ME5I/WJitebM+SqHYNEiWPB6pcqVZ/wfKVBS50CvY+AEojGQlGNBJRcO6vJCk
+	Z4ylU703WZ+zBpGz9ljHF1obV3q1CNdnxOS2BIZCRs4bNHOMkPLkWOXefHGIbnaDeHAKesmupA/
+	ZupHhEZ4fJ4FZcFjBq1jYppzW8SmV2WLUVjrXZHUMcfFbwZH80ttnyXwRcN/kByir2DCeAjP79f
+	nroJrr/0rH90h3xt7oAGTq0x3RR9fOyEbVaGfuWRqdX2TK3mU56jzf+sSTQzNApHedxmqHuiwk=
+X-Received: by 2002:a05:693c:6383:20b0:369:5583:bf48 with SMTP id 5a478bee46e88-369d975b14fmr2185109eec.24.1792750745608;
+        Fri, 23 Oct 2026 03:19:05 -0700 (PDT)
+Received: from kernel.tail6741c6.ts.net ([185.220.238.37])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369d9deef9bsm5852176eec.22.2026.10.23.03.18.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 23 Oct 2026 03:19:02 -0700 (PDT)
+From: Kunwu Chan <kunwu.chan@gmail.com>
+To: jiangshanlai@gmail.com,
+	paulmck@kernel.org,
+	josh@joshtriplett.org,
+	work@onurozkan.dev,
+	frederic@kernel.org,
+	neeraj.upadhyay@kernel.org,
+	joelagnelf@nvidia.com,
+	boqun@kernel.org,
+	urezki@gmail.com
+Cc: rostedt@goodmis.org,
+	mathieu.desnoyers@efficios.com,
+	qiang.zhang@linux.dev,
+	rcu@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Kunwu Chan <kunwu.chan@gmail.com>,
+	Kunwu Chan <chentao@kylinos.cn>
+Subject: [PATCH 1/9] srcu: Record callback registration stack for KASAN
+Date: Fri, 23 Oct 2026 18:18:33 +0800
+Message-ID: <20261023101841.2910719-2-kunwu.chan@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261023101841.2910719-1-kunwu.chan@gmail.com>
+References: <20261023101841.2910719-1-kunwu.chan@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,63 +109,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261023063428.3658761-5-songmuchun@bytedance.com>
+Content-Transfer-Encoding: 8bit
 
-On Fri, Oct 23, 2026 at 02:34:28PM +0800, Muchun Song wrote:
-> Commit c594b83457cc ("arm64: mm: call pagetable dtor when freeing
-> hot-removed page tables") made free_hotplug_pgtable_page()
-> unconditionally run the page-table destructor. This matches page tables
-> allocated by the arm64 mapping code, which runs the corresponding
-> constructors.
-> 
-> However, arm64 also uses the generic sparse-vmemmap population code.
-> Runtime intermediate page tables allocated by that code do not run a
-> page-table constructor. Freeing one during memory hot-remove therefore
-> runs a destructor without a matching constructor and corrupts
-> NR_PAGETABLE accounting.
-> 
-> Free intermediate page-table pages through pagetable_free(). It runs the
-> destructor only for constructor-backed pages and then releases the page
-> through the page-table freeing path.
-> 
-> Fixes: c594b83457cc ("arm64: mm: call pagetable dtor when freeing hot-removed page tables")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Muchun Song <songmuchun@bytedance.com>
-> Reviewed-by: Kevin Brodsky <kevin.brodsky@arm.com>
-> Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Record the callback registration stack in __call_srcu()
+for KASAN diagnostics involving SRCU callbacks.
 
-Reviewed-by: Anshuman Khandual <anshuman.khandual@arm.com>
+Suggested-by: Zqiang <qiang.zhang@linux.dev>
+Signed-off-by: Kunwu Chan <chentao@kylinos.cn>
+---
+ kernel/rcu/srcutree.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-> ---
-> v3:
-> - Collect Acked-by from David Hildenbrand
-> - Collect Reviewed-by from Kevin Brodsky
-> 
-> v2:
-> - Free intermediate tables through pagetable_free() (suggested by David
->   Hildenbrand)
-> - Update the commit message for the page-table freeing path
-> ---
->  arch/arm64/mm/mmu.c | 3 +--
->  1 file changed, 1 insertion(+), 2 deletions(-)
-> 
-> diff --git a/arch/arm64/mm/mmu.c b/arch/arm64/mm/mmu.c
-> index 79d90226fd5d..4dce8fa227c3 100644
-> --- a/arch/arm64/mm/mmu.c
-> +++ b/arch/arm64/mm/mmu.c
-> @@ -1495,8 +1495,7 @@ static void free_hotplug_page_range(struct page *page, size_t size,
->  
->  static void free_hotplug_pgtable_page(struct page *page)
->  {
-> -	pagetable_dtor(page_ptdesc(page));
-> -	free_hotplug_page_range(page, PAGE_SIZE, NULL);
-> +	pagetable_free(page_ptdesc(page));
->  }
->  
->  static bool pgtable_range_aligned(unsigned long start, unsigned long end,
-> -- 
-> 2.54.0
-> 
+diff --git a/kernel/rcu/srcutree.c b/kernel/rcu/srcutree.c
+index 2b0e2b2d2c18..46fe2f0cef85 100644
+--- a/kernel/rcu/srcutree.c
++++ b/kernel/rcu/srcutree.c
+@@ -20,6 +20,7 @@
+ #include <linux/percpu.h>
+ #include <linux/preempt.h>
+ #include <linux/irq_work.h>
++#include <linux/kasan.h>
+ #include <linux/llist.h>
+ #include <linux/rcupdate_wait.h>
+ #include <linux/sched.h>
+@@ -1530,6 +1531,10 @@ static void __call_srcu(struct srcu_struct *ssp, struct rcu_head *rhp,
+ {
+ 	if (WARN_ON_ONCE(ssp->srcu_reader_flavor == SRCU_READ_FLAVOR_ATOMIC))
+ 		return; // Leak the callback rather than corrupt SRCU state.
++
++	/* Record the caller: the irq_work's stack says nothing about it. */
++	kasan_record_aux_stack(rhp);
++
+ 	if (should_rcu_defer()) {
+ 		struct srcu_defer *sndp = this_cpu_ptr(&srcu_defer);
+ 		struct srcu_data *sdp;
+-- 
+2.43.0
+
