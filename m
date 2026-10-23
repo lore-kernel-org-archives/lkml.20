@@ -1,95 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.19
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792747313;
-	b=hcaXeHzfK0G7eC7FNZo1GlbirAFCXVADmOEE2xIs7no2XvQeGbJsrtmznT1+WC+/KvoL
-	 8NODQR5qsQl20UwG/ks/3kjrwTmBdmpyJusr+zG8PFafb8PDzZ4qGxZBb87uiGalASEzE
-	 XA/hpaA0mMHFofDtMn2T42c4OcznvVFBmB2LRu19FKPSmCfF6BmwIZAeNTNyQHvkqymvs
-	 wLtvG+7dDHpcb/G8xE7YihgyNAuLu6VhG6GoKxwClGro1xInzOd1x9niOJH367rw1rOUo
-	 w50DaFlIA0XC0P3q6gKiAXO/nyfmH0qKzJFrcwzBNi6wrxGrjXmrzkqW2gEl8pmouBw==
+	t=1792747297;
+	b=ibhv0mmifNOWi+XlDilygg4JRm4HyEP43Lwc535b7Z0JhJ03npasLyZyL6nY86RgsF+u
+	 ujbYZvz7VvRASkFuHgI7ZrYcKayn5afKko4+B7zOVLn27MVgFA8bqCJhgcCz4Nr3AfZqu
+	 v9oR0j/CrzKyxOHIJ42E3BqGxBuw+6Xb5ADOuLJp2sn1pw+UwyiA9yRTIzLwdqTf39HGL
+	 9l1eMvk5SnSuKf+aUHrSmS4zG7rg1aG/DVB624FYSgJwiCweIjKSem1jkFX8IVwYB17wQ
+	 lWw0p0ugEbYWJHeB/c2DEJMMBLQtned2WMBg0nSL1VsWwgCAWbbIDulojmC60nwRtig==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792747313;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=HmjHL70SjYeeHWsidnbTxThGBvDUXps9xX6PjKAHEKQ=;
-	b=PEv2TPMjIjKSolZag8cE/xGKMIutLgRz6XO/YGrypNFOcxiyEvm1Oh0ttLtL9r4LPIPT
-	 FOPZPAcqc0/AdABe7osIfRQeeFdhxdBD6odW5jA1JrOersbOy+ZWOSWN37B6pxXR5M/br
-	 1H95HA925S0RPEcrUZpK0EnG2aI7NIG5aTSxfS8AFcl+TFnlskRX2GzSI9fmsoCoeoeoQ
-	 dbLKEmTjoVLtuH939LXDfJvJqzdEUtNQjUlzyCg73vb4iQqB9m1UIjT60eUpgvShliYeC
-	 En5NzX0iqYvZMZMdUwE8h9C/bYnIdcmgbM+SeAjkAGJIZcqxbb7r1Oz8bqaO5lkwEhQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792747297;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=E01OFEDqH9sXZd7tPhFmVmg7Ca1ncXhpd94FrhXUEKg=;
+	b=oh5zDsVuShjFHzj2+R+X5mNJ8t1Jpdyy0wiKRoamvCHnWfqtEqE3rqnbkHJfPVLILOiE
+	 e2O5lv5ZHF+lrn/zwrgTNC9baIwfBDRTxzLPID0rSisUnfl3+PPqdbPXQYvLWm6THp2sd
+	 YEV/OUviiuLz+QL7azpy5nsSRqvj0f/9bZxTQYPW4X9CYGgmNZDkGsgCRM18l7+LdPZRS
+	 JnZMoaW+mawaGfhEm5FhVoEmyfuGJ/uN1/RLwsI8NcWLkJfgGVGRmQDhzYH2d2V7H+BmO
+	 Isz7C1r9eOfQWTZbXaxr0QeKGVgNA+ncfNfzh8w4UdCi1utGnuWvISmlXpYF2eSdbgA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=baylibre.com;
-	spf=pass smtp.mailfrom=baylibre.com;
-	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=AoVoI6+p;
-	arc=none smtp.remote-ip=209.85.128.49
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=hO3T1PDV;
+	arc=none smtp.remote-ip=192.198.163.19
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 791D6606A321
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 09:21:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 791D6606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B45ED606A31E;
+	Fri, 23 Oct 2026 09:21:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B45ED606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=AoVoI6+p
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a0286c981dso6724235e9.2
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 02:21:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1792747311; x=1793352111; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=HmjHL70SjYeeHWsidnbTxThGBvDUXps9xX6PjKAHEKQ=;
-        b=AoVoI6+pp+gL/JBGzfNKGQOz2A3uS42562gdzOMf+SfOy7QLNULEY/J/Nsdh+nwqEZ
-         BCd/53IKR9sBj+t7VLklJJjNGYq707j8vzT8tFN4X5AGHrv5OkDRH+bsXJdDA3rLgyUC
-         HnUoXa8UoysH7xisFxaL0vwA4bn6LUmDtP2nmkXDmzaQhTJ1/5T2d1lmv/emORm+vLMw
-         4xD6OgsTmvuJq0QpqldjZKk+NZG1FU9TUGFdIfIB2b8bTJLOKs8z7+rFGnMVR+Arh/WW
-         Ni3VnHEJ9zuEr7c5QFyJb8AsxV9SWhHOLzf+MSrMXc7cUw7wH1L+5bOm79oe4LrtA6Gi
-         xNdQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792747311; x=1793352111;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=HmjHL70SjYeeHWsidnbTxThGBvDUXps9xX6PjKAHEKQ=;
-        b=E3oqb6h4grt0RFnw6b5yCugQ5lUss0f2Nq7IyquB1UxnY0Yr1WZleUgef/O5h2kn1T
-         K8MSUnuNxG85rpRWBDYouHITW61mygdnizhWkKz9CDD5l4pX5EKsNQi88vv9H4hZ6825
-         p3DFonFMJyHbbqkBpHjqtN325ThZXmkv9nCbMvNNaopTL5rOI26TXPds8sWZdT4TA6/7
-         cDrS2YvQvjspEWNtfS85Vq6l15AsqvUrCvuSDZGpGR7xnKMI2PiF6fyxGK6sbgCyP354
-         w0nT5oNfHiEIbqRhEVf/+CyUm1uB3IaqzR6ZC12SfJfxiUMt4fzZvS6csxVKGN+8JrvZ
-         Z6RQ==
-X-Forwarded-Encrypted: i=1; AKwUvBze3ABP4JdxakOkCaze5N7OhZEsQCFsAxmkFsk69rGsdhNnXV1Zqs6hLt+1my0etxFb7m01TdcuUScrt9g=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKEPZRP/emMFddVD4AvvLcIECGCFC/0jjrZ2idPFhiAKw1Ry0KS
-	GQoLmfYhW9zoGBJ9h0rS9nJCAk/8wXcyv7knoteIoiyZuq/P1wRTUmG0Glwv2bYTZAY=
-X-Gm-Gg: AYBFou3lVRHBF22rsMvzwMWQGgwg1UZ4InLinZCTWCnEUXbcCNd5Hkaz62JkrHwO+GD
-	Ip5b0QcXqkRHuVVO3YvcADYQ9QMGiMlmpHrRioEaYY7ulHnmTqmtGRWWn7iiGHrl72yvNBiDjbr
-	YKm2RVHpkb8kPjeh9bf8a2CCA11Ug94PT737k/mX44Mh+CRfnaauRL+5JiPFt7CDN4irSC/Edv1
-	zkwW1WFG0HY11nW4/lTDCe9D5HzgSXQIU07/Zb32UR/0NwX3PXiHFc/fNrYMqlRnbESv4LpqFaY
-	azeHqXJkHFI2ABjF2ZNPppeqLCVUjvR6UBs2ELMb5kY+EMtWpoOHL9QGirdp0GFBf1DQ8Spno2b
-	Dikoh7J7BR/v7Hw9eYEValPlvSGTWQTnoqE89U8k1YQMz7WD1CsLW4bvMlwrQxst3T+M1y48gxN
-	P5NPLUeUOT59Kt8DGvz8e4A+CZ5aX9qVe2LXKhPa3MlStmW4vIjyi9ODGcC0e/4l8y4VAD2nk2g
-	KAlXTTXbEXpd4AS77I/Ho4mt6pCSU2HTUy4UypcQqEPS/j9kKqcF4bSZAVdmyKkXHCQW3cWbbl/
-	kE1XqgvTZ/qKLfyKn4tV/B/tyId4Kj5+oA7RrC1GD88=
-X-Received: by 2002:a05:600c:314f:b0:4a2:b89:b02 with SMTP id 5b1f17b1804b1-4a211c9c5c1mr26749325e9.10.1792747310749;
-        Fri, 23 Oct 2026 02:21:50 -0700 (PDT)
-Received: from localhost (p200300f65f19a9045816c66224fa2d94.dip0.t-ipconnect.de. [2003:f6:5f19:a904:5816:c662:24fa:2d94])
-        by smtp.gmail.com with UTF8SMTPSA id ffacd0b85a97d-48e38025d76sm3827688f8f.13.2026.10.23.02.21.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 23 Oct 2026 02:21:49 -0700 (PDT)
-Date: Fri, 23 Oct 2026 11:21:48 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: Mark Pearson <mpearson-lenovo@squebb.ca>, 
-	"Derek J. Clark" <derekjohn.clark@gmail.com>, Ike Panhc <ikepanhc@gmail.com>, Hans de Goede <hansg@kernel.org>, 
-	Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>, Maxim Mikityanskiy <maxtram95@gmail.com>, 
-	platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] platform/x86: ideapad-laptop: do not poke keyboard
- controller
-Message-ID: <atsmraNrFH4HW3Qb@monoceros>
-References: <4b2f60a7ceac543bd8b889b9c0772b2c@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=hO3T1PDV
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792747298; x=1824283298;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=LFDdH9cxDx4nWcAvFzgFbCZpInF+MMfpZjdpF6Qea0U=;
+  b=hO3T1PDVJb0lEnh3YD7/zIxjdt4BX5fV6TO9QkkoK5VNhLQNSjNTEbPw
+   PjJwQCYWf4WREk9k4QWkwPuxHtArwhMM48vOUnI6cWV/Zn2FThjIYsYUa
+   oRFOheWPM0qeF5uXGitBbg9Ovduj6YK8YmRXShecvenuu11cDkzQ+KQHU
+   BbveGOdufZRprcYNp8woK1w3shUHyVfr4kHEDkDBK6p8sE4DVh8N339oD
+   N/eBr9jSmueryhfwPMH0sYXHFaWPW16liicCuG6UHOaNCCfgTpbaMS1Tw
+   5af1PXd9rb7dbizON5at1w4lqIEIkjF826O7hshHw20DDT2xYSADO/1rZ
+   Q==;
+X-CSE-ConnectionGUID: EOeKI8j1Qz+pRaQhYSj0AA==
+X-CSE-MsgGUID: BpXVto6RSCud6N9Q4ZF5tw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11943"; a="1612237"
+X-IronPort-AV: E=Sophos;i="6.27,174,1787036400"; 
+   d="scan'208";a="1612237"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Oct 2026 02:21:37 -0700
+X-CSE-ConnectionGUID: kOs0lpCyS5KwgNZsqsOTFQ==
+X-CSE-MsgGUID: yS19R6TbQwKWgi7eSHiYmw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,174,1787036400"; 
+   d="scan'208";a="4079337"
+Received: from binbinwu-mobl.ccr.corp.intel.com (HELO [10.124.245.162]) ([10.124.245.162])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Oct 2026 02:21:30 -0700
+Message-ID: <f7f84b44-e2fc-4d8c-b2e5-e5327086d026@linux.intel.com>
+Date: Fri, 23 Oct 2026 17:21:28 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,59 +72,83 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="igkmiqlhogoklxiv"
-Content-Disposition: inline
-In-Reply-To: <4b2f60a7ceac543bd8b889b9c0772b2c@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v10 11/28] KVM: x86: Add a helper to detect if FRED is
+ enabled for a vCPU
+To: Sohil Mehta <sohil.mehta@intel.com>, kvm@vger.kernel.org, x86@kernel.org
+Cc: Paolo Bonzini <pbonzini@redhat.com>,
+ Sean Christopherson <seanjc@google.com>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, Thomas Gleixner <tglx@kernel.org>,
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+ Dave Hansen <dave.hansen@linux.intel.com>, "H . Peter Anvin"
+ <hpa@zytor.com>, Xin Li <xin@zytor.com>, Andy Lutomirski <luto@kernel.org>,
+ Peter Zijlstra <peterz@infradead.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Tom Lendacky <thomas.lendacky@amd.com>, Nikunj A Dadhania <nikunj@amd.com>,
+ Shivansh Dhiman <shivansh.dhiman@amd.com>,
+ David Woodhouse <dwmw@amazon.co.uk>, Chao Gao <chao.gao@intel.com>,
+ Zhao Liu <zhao1.liu@intel.com>, Yosry Ahmed <yosry@kernel.org>,
+ David Matlack <dmatlack@google.com>, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org
+References: <20260911213659.2025974-1-sohil.mehta@intel.com>
+ <20260911213659.2025974-12-sohil.mehta@intel.com>
+From: Binbin Wu <binbin.wu@linux.intel.com>
+Content-Language: en-US
+In-Reply-To: <20260911213659.2025974-12-sohil.mehta@intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-
---igkmiqlhogoklxiv
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v3] platform/x86: ideapad-laptop: do not poke keyboard
- controller
-MIME-Version: 1.0
-
-On Wed, Oct 21, 2026 at 09:50:56PM -0700, Dmitry Torokhov wrote:
-> On Ideapad Z570 the driver tries to disable and re-enable data coming
-> from the touchpad by poking directly into 8042 keyboard controller.
-> This may coincide with the controller resuming and leads to spews in
-> dmesg and potentially other instabilities.
->=20
-> Instead of using i8042_command() to control the touchpad state create
-> an input handler that serves as a filter and drop events coming from
-> the touchpad when it is supposed to be off.
->=20
-> Reviewed-by: Mark Pearson <mpearson-lenovo@squebb.ca>
-> Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+On 9/12/2026 5:36 AM, Sohil Mehta wrote:
+> From: "Xin Li (Intel)" <xin@zytor.com>
+> 
+> Add is_fred_enabled() to detect if FRED is enabled on a vCPU.
+> 
+> Signed-off-by: Xin Li (Intel) <xin@zytor.com>
+> [ Sean: removed the "kvm_" prefix from the function name ]
+> Signed-off-by: Sean Christopherson <seanjc@google.com>
+> Signed-off-by: Sohil Mehta <sohil.mehta@intel.com>
+> Tested-by: Shan Kang <shan.kang@intel.com>
+> Tested-by: Xuelian Guo <xuelian.guo@intel.com>
+> Reviewed-by: Chao Gao <chao.gao@intel.com>
 > ---
->=20
-> v3:
-> - add missing header includes (compiler.h, container_of.h, errno.h,
->   mod_devicetable.h, slab.h, spinlock.h)
+> v10:
+>  - Add back the change log (Binbin Wu and Sean).
+> ---
+>  arch/x86/kvm/regs.h | 15 +++++++++++++++
+>  1 file changed, 15 insertions(+)
+> 
+> diff --git a/arch/x86/kvm/regs.h b/arch/x86/kvm/regs.h
+> index 447f0ec3e63e..4e641a6c20f9 100644
+> --- a/arch/x86/kvm/regs.h
+> +++ b/arch/x86/kvm/regs.h
+> @@ -364,6 +364,21 @@ static __always_inline bool kvm_is_cr4_bit_set(struct kvm_vcpu *vcpu,
+>  	return !!kvm_read_cr4_bits(vcpu, cr4_bit);
+>  }
+>  
+> +/*
+> + * It's enough to check just CR4.FRED (X86_CR4_FRED) to tell if
+> + * a vCPU is running with FRED enabled, because:
+> + * 1) CR4.FRED can be set to 1 only _after_ IA32_EFER.LMA = 1.
+> + * 2) To leave IA-32e mode, CR4.FRED must be cleared first.
 
-noooooooo, mod_devicetable.h is wrong, I want to get rid of that header
-and input_device_id is already provided by <inux/input.h>.
+It seems KVM doesn't enforce it in kvm_set_cr0() for 2).
 
-If you want full iwyu, please use <linux/device-id/input.h> instead.
+> + */
+> +static inline bool is_fred_enabled(struct kvm_vcpu *vcpu)
+> +{
+> +#ifdef CONFIG_X86_64
 
-Best regards
-Uwe
+Nit:
+This seems to be unnecessary.
+X86_CR4_FRED is defined as 0 in non 64-bit build.
 
---igkmiqlhogoklxiv
-Content-Type: application/pgp-signature; name="signature.asc"
+> +	return kvm_is_cr4_bit_set(vcpu, X86_CR4_FRED);
+> +#else
+> +	return false;
+> +#endif
+> +}
+> +
+>  static inline ulong kvm_read_cr3(struct kvm_vcpu *vcpu)
+>  {
+>  	if (!kvm_register_is_available(vcpu, VCPU_REG_CR3))
 
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmrbJykACgkQj4D7WH0S
-/k7UUQf/fhPoADJkA8uE7YZ9tqBim2i0UzkFm07T8xnmU4CnTZhCoQ9Ozmsd6tr5
-1FGS21kPcdsoYa+h7unjfuMHYJNcG/WOx2VAp3BgYSwNgKYT4rnD4biWgJHQRNrM
-lhWcoLpkwuaUHXHcexOVQTbc2kjVhLQ9kUQFV7aR1za6pX+THOsGsys//h3v+/eI
-ReOfDJDne0l72AgYWxcPkyttdqZBYFnGg6pjvF/FsBReCyvxnszGvO7ZJg5s63bP
-ikNxNMtfJU18X2ZxhpE9/s4zkYcgEFm8ggEZbEVIIKKjEZzX64P5U5Mp5rc+OOJu
-JMUHB+DaL4Dp1tgHVXnTechZ2zULUw==
-=vw9K
------END PGP SIGNATURE-----
-
---igkmiqlhogoklxiv--
