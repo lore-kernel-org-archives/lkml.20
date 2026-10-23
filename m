@@ -1,65 +1,65 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792739004;
-	b=I1D6/+X8EDq00mWHc5mFZY2O+BQD7muJjV0GqulCRKcVKfqq6PdlVneet+QB/buMfcHx
-	 clLxeTfvA/GM2TN2zYeqKxXoNAXkvOz4RD2g3t4Ca2WqqA/KIJSRhWQt2ucfp+mOCPlgp
-	 io88Hh2kjZyGHFLNP05k1W0vFpagyYvpFGnEqU7Edr0u1rfvP415DJSXzRDRiwbi10JqL
-	 3VQYGn2+M/vUgBbnDwOrefeAj2BRt+uP4dzz08mmHN8V2smw731i1nGsVax16twVBgdqG
-	 kpiTKC6WNFY5QMWmC1KpWxmrIcxULLTEluesOToW4RGw3V0y5pRbY75dvcAYi9VYzFQ==
+	t=1792739006;
+	b=z5jm9/kuoUeDwr1MFBeeadhDHgMC3kHs2dnok15jGWItNhiO4siLmEBMDQzIkbO9WRjy
+	 vJ1BGfsfJd9cbrl7SV6C0SECeiW/BIvVm1r13uEDgySSMWUeqsDQgPZS9bjTOfQtg89ed
+	 k8HV3+P06ZY7I55OHqxQ9jg3E4p1zxG5P8+NcQ3vASiJ8fC9ugSlstC7FLyu5TY1x2SND
+	 0jLDRojqvjMTQPvMba25gmddwhih2loKIuHbww5Ui3FUCb0gJsLh67/GLIRgWhxrmHZoZ
+	 zKmH9cHkvg/K5+hckGAgylnCb6Ptn3RrIkuBD0figgGBX77YNCP7CijWjqpuUaE/j8g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792739004;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792739006;
 	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
 	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:Cc:Subject:Date:
 	 Message-ID:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-Scanned-By;
-	bh=fjvVqcSfa+2zBtBR5VJVLHJipBPKH87jRFs97wxFpX8=;
-	b=TW1L7Z+hRr/Eb2rvnPGaVqEHLF85/T8h+QJLRi2jLZSm86aldPt5CLFJ545sQxovU6Am
-	 kAch25ZqVnjAE/45kJmLxVWMg71GBdVxSkmdzRNRY3OlUaqrtAbDcIePO14iJ1AKCmhP3
-	 thYccxirY9HP7dMHPw/pCO2hfzNL5cxwvMwMKEBJob80EvgoNNYGkfc3MO2UXRlJEc96L
-	 kEJwRWYJUWdlW5XaUk5YxcFP2UWXyIuZFiZob+Oj/r0kHGa0WcJ8k8q4keWdsz1uZeeGG
-	 ZV1S3x/zxlJ6v0dz8g6kTgg+g6BepQF40yr5Fy30rEPxGIBiUbC/iwwhmsnhNQX2aqQ==
+	bh=pwY019oU3C9OxFF5eUZEycOGj4BsSFzJByYT9dKQ8So=;
+	b=oLMoJw2BdhUWqt8ezRAWeQEf7Dbv/7bEq3WyOgHafU3M7pbtGEcIN3QdDnT9kWBWfy8y
+	 0hmhHnSVSVvV10/ki6Wmvavt4Tf5pH23qsvfJBoBPwHpXgn8/t5Lv2NXoTNVSL7UwCslz
+	 pTrL8WYrdeeVP1U8FeU4768e/Wzb15hgHzjVZZAIrOJebiJ1J8+U8+zEzGnRvYn6eFE0P
+	 Sh4kRkBSluVvrtpM777DFpu20NaAYjRvIMlR1ZkaKl428U2J1HynrvTQoCx4DnbhnAXN7
+	 +rxDPz+M3aDkY3wNBGSCqtN/Z1VpPBZhGZPMhYbpPA58J1We2JFGChlFc+SCeJsE9+w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=redhat.com;
 	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=ExQCAALV;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=K3v3SkgI;
 	arc=none smtp.remote-ip=170.10.129.124
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8464D607E954
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 07:03:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8464D607E954
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8014660A2635
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 07:03:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8014660A2635
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=ExQCAALV
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=K3v3SkgI
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1792739002;
+	s=mimecast20190719; t=1792739004;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=fjvVqcSfa+2zBtBR5VJVLHJipBPKH87jRFs97wxFpX8=;
-	b=ExQCAALVqeKc1u6atReacAUFFgYv5RscGSBcvvsP3/vFySsFpcXGXMFUzWzs2cyNOYsY5Q
-	1RHJ/x+lfP+mdLF5Bk5Yxcf/XuZRrEFUbwaN6iE1dzR1PUfBdvb3dUXHva3YPn70QQJqF7
-	NQYgRrylHt/6lXhMm0XHQU0aAFQaEAI=
-Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
+	bh=pwY019oU3C9OxFF5eUZEycOGj4BsSFzJByYT9dKQ8So=;
+	b=K3v3SkgIy2HTyDC4N9bYlwe3zVEcTQ5Elqk/RJ8/q9ddpqLmL18dXtASYwzVCyN2N1cct0
+	1OukZwANCuMiLab0vzb5TGB43vF46vjExrovjw605WH+BeU/SjGfwBP6ASl2JZP4rJhjfM
+	L48flfq1cRts2gYbPwu+/YX7p7VCw3o=
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
  (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-329-mX9E7ey5N4iP5lpaaMmYTQ-1; Fri,
- 23 Oct 2026 03:03:17 -0400
-X-MC-Unique: mX9E7ey5N4iP5lpaaMmYTQ-1
-X-Mimecast-MFC-AGG-ID: mX9E7ey5N4iP5lpaaMmYTQ_1792738994
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-31-6C2F93JlOfGx6fuJEDqLpw-1; Fri,
+ 23 Oct 2026 03:03:22 -0400
+X-MC-Unique: 6C2F93JlOfGx6fuJEDqLpw-1
+X-Mimecast-MFC-AGG-ID: 6C2F93JlOfGx6fuJEDqLpw_1792739000
 Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id B731E1800149;
-	Fri, 23 Oct 2026 07:03:14 +0000 (UTC)
+	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 3007A18005BA;
+	Fri, 23 Oct 2026 07:03:20 +0000 (UTC)
 Received: from poros-thinkpadp16vgen1.tpbc.com (unknown [10.44.32.22])
-	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id BED8E180029C;
-	Fri, 23 Oct 2026 07:03:09 +0000 (UTC)
+	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 247CD180029C;
+	Fri, 23 Oct 2026 07:03:14 +0000 (UTC)
 From: Petr Oros <poros@redhat.com>
 To: netdev@vger.kernel.org
 Cc: Petr Oros <poros@redhat.com>,
@@ -82,9 +82,9 @@ Cc: Petr Oros <poros@redhat.com>,
 	intel-wired-lan@lists.osuosl.org,
 	linux-kernel@vger.kernel.org,
 	linux-rt-devel@lists.linux.dev
-Subject: [PATCH iwl-net v2 1/5] ice: check the auxiliary device pointer under adev_mutex
-Date: Fri, 23 Oct 2026 09:02:53 +0200
-Message-ID: <20261023070258.730168-2-poros@redhat.com>
+Subject: [PATCH iwl-net v2 2/5] ice: take tc_mutex before the auxiliary device locks in ndo_setup_tc
+Date: Fri, 23 Oct 2026 09:02:54 +0200
+Message-ID: <20261023070258.730168-3-poros@redhat.com>
 In-Reply-To: <20261023070258.730168-1-poros@redhat.com>
 References: <20261023070258.730168-1-poros@redhat.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -99,124 +99,57 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
 
-ice_set_channels() and the mqprio path of ice_setup_tc() test
-cdev->adev before taking pf->adev_mutex and dereference it afterwards.
-ice_unplug_aux_dev() clears the pointer under the mutex from the
-service task, from ice_prepare_for_reset() and from the devlink RoCE
-and iWARP parameter handlers, none of which hold the RTNL lock, so the
-pointer can go away between the test and the device_lock() call.
+The mqprio path of ice_setup_tc() takes pf->adev_mutex and the auxiliary
+device lock first and pf->tc_mutex after them. The dcbnl handlers take
+pf->tc_mutex first and reach pf->adev_mutex through ice_pf_dcb_cfg() and
+ice_send_event_to_aux(). Both run with the RTNL lock held, so the two
+orders do not deadlock against each other, but they form a circular
+dependency for lockdep, and the DCB reconfiguration is about to hold
+pf->adev_mutex for longer.
 
-Take pf->adev_mutex first and test the pointer under it. Without a
-device the mutex is released again and the rebuild runs unlocked as
-before.
+Take pf->tc_mutex first, which is the order the dcbnl side has used
+since pf->adev_mutex was introduced.
 
-Fixes: a6a0974aae42 ("ice: Prevent set_channel from changing queues while RDMA active")
 Fixes: 4b31fd4d77ff ("ice: Fix RDMA VSI removal during queue rebuild")
 Signed-off-by: Petr Oros <poros@redhat.com>
 ---
 v2:
-- new patch, the pointer test raced with ice_unplug_aux_dev()
+- new patch, ice_setup_tc() took pf->adev_mutex before pf->tc_mutex
+  while the dcbnl handlers take them the other way round
 ---
- drivers/net/ethernet/intel/ice/ice_ethtool.c | 22 +++++++++++++-------
- drivers/net/ethernet/intel/ice/ice_main.c    | 22 +++++++++++++-------
- 2 files changed, 28 insertions(+), 16 deletions(-)
+ drivers/net/ethernet/intel/ice/ice_main.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/net/ethernet/intel/ice/ice_ethtool.c b/drivers/net/ethernet/intel/ice/ice_ethtool.c
-index bf9a821c543b7f..5482a64c81c95a 100644
---- a/drivers/net/ethernet/intel/ice/ice_ethtool.c
-+++ b/drivers/net/ethernet/intel/ice/ice_ethtool.c
-@@ -3888,6 +3888,7 @@ static int ice_vsi_set_dflt_rss_lut(struct ice_vsi *vsi, int req_rss_size)
- static int ice_set_channels(struct net_device *dev, struct ethtool_channels *ch)
- {
- 	struct ice_netdev_priv *np = netdev_priv(dev);
-+	struct auxiliary_device *adev = NULL;
- 	struct ice_vsi *vsi = np->vsi;
- 	struct ice_pf *pf = vsi->back;
- 	int new_rx = 0, new_tx = 0;
-@@ -3942,14 +3943,19 @@ static int ice_set_channels(struct net_device *dev, struct ethtool_channels *ch)
- 		return -EINVAL;
- 	}
- 
--	if (pf->cdev_info && pf->cdev_info->adev) {
-+	if (pf->cdev_info) {
- 		mutex_lock(&pf->adev_mutex);
--		device_lock(&pf->cdev_info->adev->dev);
--		locked = true;
--		if (pf->cdev_info->adev->dev.driver) {
--			netdev_err(dev, "Cannot change channels when RDMA is active\n");
--			ret = -EBUSY;
--			goto adev_unlock;
-+		adev = pf->cdev_info->adev;
-+		if (adev) {
-+			device_lock(&adev->dev);
-+			locked = true;
-+			if (adev->dev.driver) {
-+				netdev_err(dev, "Cannot change channels when RDMA is active\n");
-+				ret = -EBUSY;
-+				goto adev_unlock;
-+			}
-+		} else {
-+			mutex_unlock(&pf->adev_mutex);
- 		}
- 	}
- 
-@@ -3965,7 +3971,7 @@ static int ice_set_channels(struct net_device *dev, struct ethtool_channels *ch)
- 
- adev_unlock:
- 	if (locked) {
--		device_unlock(&pf->cdev_info->adev->dev);
-+		device_unlock(&adev->dev);
- 		mutex_unlock(&pf->adev_mutex);
- 	}
- 	return ret;
 diff --git a/drivers/net/ethernet/intel/ice/ice_main.c b/drivers/net/ethernet/intel/ice/ice_main.c
-index d88835482d3aac..984479f1e1f6d9 100644
+index 984479f1e1f6d9..8693ca285d5f1e 100644
 --- a/drivers/net/ethernet/intel/ice/ice_main.c
 +++ b/drivers/net/ethernet/intel/ice/ice_main.c
-@@ -9406,6 +9406,7 @@ ice_setup_tc(struct net_device *netdev, enum tc_setup_type type,
- 	struct ice_netdev_priv *np = netdev_priv(netdev);
- 	enum flow_block_binder_type binder_type;
- 	struct iidc_rdma_core_dev_info *cdev;
-+	struct auxiliary_device *adev = NULL;
- 	struct ice_pf *pf = np->vsi->back;
- 	flow_setup_cb_t *flower_handler;
- 	bool locked = false;
-@@ -9438,14 +9439,19 @@ ice_setup_tc(struct net_device *netdev, enum tc_setup_type type,
+@@ -9438,6 +9438,8 @@ ice_setup_tc(struct net_device *netdev, enum tc_setup_type type,
+ 			return -EOPNOTSUPP;
  		}
  
++		mutex_lock(&pf->tc_mutex);
++
  		cdev = pf->cdev_info;
--		if (cdev && cdev->adev) {
-+		if (cdev) {
+ 		if (cdev) {
  			mutex_lock(&pf->adev_mutex);
--			device_lock(&cdev->adev->dev);
--			locked = true;
--			if (cdev->adev->dev.driver) {
--				netdev_err(netdev, "Cannot change qdisc when RDMA is active\n");
--				err = -EBUSY;
--				goto adev_unlock;
-+			adev = cdev->adev;
-+			if (adev) {
-+				device_lock(&adev->dev);
-+				locked = true;
-+				if (adev->dev.driver) {
-+					netdev_err(netdev, "Cannot change qdisc when RDMA is active\n");
-+					err = -EBUSY;
-+					goto adev_unlock;
-+				}
-+			} else {
-+				mutex_unlock(&pf->adev_mutex);
- 			}
+@@ -9456,15 +9458,14 @@ ice_setup_tc(struct net_device *netdev, enum tc_setup_type type,
  		}
  
-@@ -9456,7 +9462,7 @@ ice_setup_tc(struct net_device *netdev, enum tc_setup_type type,
+ 		/* setup traffic classifier for receive side */
+-		mutex_lock(&pf->tc_mutex);
+ 		err = ice_setup_tc_mqprio_qdisc(netdev, type_data);
+-		mutex_unlock(&pf->tc_mutex);
  
  adev_unlock:
  		if (locked) {
--			device_unlock(&cdev->adev->dev);
-+			device_unlock(&adev->dev);
+ 			device_unlock(&adev->dev);
  			mutex_unlock(&pf->adev_mutex);
  		}
++		mutex_unlock(&pf->tc_mutex);
  		return err;
+ 	case TC_SETUP_QDISC_ETF:
+ 		return ice_offload_txtime(netdev, type_data);
 -- 
 2.56.0
 
