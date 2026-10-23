@@ -1,60 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792756525;
-	b=aJu6JYnGpbV2QkeJILj9g/lp6rWIjPazgZSiEEaenlL9j5y4Pe9kITl6DrAfTA66R6cL
-	 QHaDe5LQFmsFA+kyt895VheaTTQdcmeXFLekcl4tFVtcgyVkfnH3SRyvyPNzZEKHVN92Q
-	 EeaTFfEC5mQxiD7+TxGU+RvULvW+Y1eV6ozlMkvjOs8kSAidBUClWrCXF6r5ZjKYhP8vd
-	 v9j4mvxu1kIv2SP78DzRcax2y1jt9yFm7ZiIvqYFlu2VdxMDGTEcp6N/poi8jpzH4whiK
-	 8h1bGTZemqyY6DEeuzc/7juKufX53kSLJhw6KNYb/PSMhTP9TT76nOYa3GCesSCyPDA==
+	t=1792756527;
+	b=zgOTAjewr/JnO7cjxNn0qjB3xVn2dgkXNE68rQz34f+tuxrk18+OiXQqdEnca9ktp3IC
+	 ljKpkK/CzpWvLG3Eh/PEQZqFudoQr9uoqAqSx5fvU/lA3ghhyPXNr20RWURHGNtq5b615
+	 3kScHpPwlqgc92WGFalrZBBu4+fVFUEDPkzsC0ztGzAIwF7neTAr9ffRsZO+AFWhswNkl
+	 EI1580aFZFqYyE5rIkAIv3MPiVahzxCER+cppdmsRPvtrzZzA+g5lIu3RDQ9waxmrSIsC
+	 /Z4duKfqc52UgEsnPmVAXGY/bWzeBEGItxnHfdRpqs5ua8l4ePhYF2IE1mmDiQ0M5Aw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792756525;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=+J7+chlUKksNinAiql6F9+R5z+c+bp9wJK80EKeQE34=;
-	b=4EcrlQcwJ3d+4I/5E8TIRCTdDJndxobr4CMZYYkWmrEwbS2g6l1Ernetz5nJkNOwPeiW
-	 Bb2CiTQGSZAaSfOdLgiZ4RAPGE31TgX18axD1ciNgFFZ8TlHDxHwz78sQJJBmGiTaTMfm
-	 BvQ81aGEdX+E306aVoxQk/Wy1DYervZyq28Rd2vB/XTN8Ciai9gigBlkmkFuAhM+HM82z
-	 nntgOp6aEhYW5GzgXCCFuRWGuOB/WajSmg8hBYfRwENUqSVjNPrfA+oHsYakIbTEtU/XW
-	 I8ogUNuJ5cBVjxnbL+zaiII8HofP2RMwFqqn/XaeKpeSHsXcP/Zr5sIA35+FTe9X9jQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792756527;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:Content-Language:To:
+	 Cc:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=j8yx8MHMvq3picZ6FejOsjo0XQHjNiSaAE6rAN+gpXs=;
+	b=ZcLcZs4tcCkM6Bm/41wn2rNgdb52WQik6CPigJTZHnEn07tZWsgo5AtFeGaQ47RwOqy3
+	 xTTaVq1tzKJ3nXZAZ+ArVxaLfBObdTL+ROwjYuiUwwy8s2GVC0JiP8hnZTzKDaUDcNi96
+	 zCUyi4z1va6e87HRq0UfVQxDiP9YJpyVApbp52xMBsJmFq4lzNhj4Yq9zVJ7VMEtzTzFF
+	 lwibVTSKrX3n2sazN3G0pq8rZpn7nx7qvazqfVemeK9D8K5Yf5Bhaz5qAlbX31979oQg+
+	 SUl0p3wVAsB/e9kn/NFq4Hsz3Hc6LMhaQIbwFM5+TGRNVAonjc/pYYpPhucU9FeL2xw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jA4GCHio;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=blackwall.org;
+	spf=none smtp.mailfrom=blackwall.org;
+	dkim=pass header.d=blackwall.org header.i=@blackwall.org header.a=rsa-sha256 header.s=google header.b=PFHvA544;
+	arc=none smtp.remote-ip=209.85.221.54
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 906A9606A31A;
-	Fri, 23 Oct 2026 11:55:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A232E606A329
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 11:55:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A232E606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=blackwall.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=blackwall.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jA4GCHio
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF9CD1F01825;
-	Fri, 23 Oct 2026 11:55:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792756524;
-	bh=+J7+chlUKksNinAiql6F9+R5z+c+bp9wJK80EKeQE34=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=jA4GCHioLnh8Xr96QIIHVW+nN3iIN9GRl4f76JqeEBvqLVpvwXgRFeaiB1r+znXPq
-	 AXdRUQd5XdeQNp+vd6CgHfyy3cJLjNAZcgymBNUKwfNpfj1sXK7sFHEkI6GKWnr6KB
-	 QYejAVCiKvRGaL9YDPFukoWioRAkbhRbz3YN5Fk0vuw1RsiU77DUKr7OR0TRripnZW
-	 Vm68A7xcYknYArvvsw393lu0cH2tyctvdPaYrV5PsNd9QIHmUbdH/j9l1BzKi8sOW1
-	 C/yVB2b7OU3DWxOTs2uuWPHuGBAyVYTsLQeD1SbOaPLNF4rC5znMLzHxYHi3C/HbWw
-	 xrW4QKU6Umpcw==
-Subject: Re: [PATCH net v3 1/2] net: bcmgenet: recover from a failed resume
-From: netdev-bot+sashiko@kernel.org
-To: nb@tipi-net.de
-Cc: opendmb@gmail.com, florian.fainelli@broadcom.com,
- bcm-kernel-feedback-list@broadcom.com, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- justin.chen@broadcom.com, f.fainelli@gmail.com, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Date: Fri, 23 Oct 2026 11:55:23 +0000
-Message-ID: <179275652332.3134.3420351260504788140@kernel.org>
-In-Reply-To: <20261022-nb-genet-fini-dma-net-v3-1-6e9fc89c0156@tipi-net.de>
-References: <20261022-nb-genet-fini-dma-net-v3-1-6e9fc89c0156@tipi-net.de>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key, unprotected) header.d=blackwall.org header.i=@blackwall.org header.a=rsa-sha256 header.s=google header.b=PFHvA544
+Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-48e10a70540so472985f8f.1
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 04:55:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=blackwall.org; s=google; t=1792756525; x=1793361325; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=j8yx8MHMvq3picZ6FejOsjo0XQHjNiSaAE6rAN+gpXs=;
+        b=PFHvA544qyvx7w23MQzVC74QWW/SRzZ620CxgtB5Lzfts/kmVLTK9LVu/PbiUqtpmQ
+         fR6SuJXzgDBWYoMN7OqDs+CmxiTblqUxWpUQB7tSj1GlX7ylAnRSILjXSkLCdUmsFban
+         /T4jZP5o9Tcbq+DZj4jdLX8JGj9YBQ+txlhoGdsx8nByhZNxj9hBy7jdrc5TIdVsaptn
+         HQl1EynC6kjNPhBihCrE6XueQBipApHotswqnWp0psjcqm8nYlIak5g6Lp1QgA3vFRl0
+         QcHle9PEatWJcP5XNeld+S5KWxy0om2BibO6CQY/aWvEDSShhmPCdGtAchjwYvNlHAvu
+         Aucw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792756525; x=1793361325;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=j8yx8MHMvq3picZ6FejOsjo0XQHjNiSaAE6rAN+gpXs=;
+        b=fIfZy056kht00D2CPpXT6IsMlAEpfO1a4lWe+ZFUHqUzLfxlRTTDbhOok39JRZQIXP
+         rKVh2a79VixBQnQWlzQ/4tqgPdd6aeIFZseHBCjSHwL+5bswttkHMVXdrfQtNuEqdqcA
+         +zPfrpCS1EOFyI323XTomnEurZemJAKmhzHKKC0Sp0zMcGs9jxkN5juz05bvBzIPEVMV
+         bqUK99RsHq5Tzlv7qYvALp/S6emXqB3GY2SXW6wnILsxV36RUp6hX/b7H7cNLksGsEJ6
+         olOGgytkfxkrs0+0uM8PkOIDdPe3qd9dD5RWJWA/L+L0MVLJ3EsajZ+iTA+0szC/kf5c
+         DEyw==
+X-Forwarded-Encrypted: i=1; AKwUvBxtmSIVyslk+IeyepemaQcAy3JX7GBzHtmS3FxXJ6lBz5NUtWVujTEQSsBGHUHZ0ArJ1Uz3zHm2R3Z4VuQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKasm2iU3RXdHx8uHRi9NjoavVUQQBG5EwPdXreg6240oHvQXvg
+	BQ78Cfft4MU4WJFl/W4UfE+FGJreRbNUE5NVrwHenpFw4aAy25ihHC5YRY1MPBO+pLI=
+X-Gm-Gg: AYBFou2I82QMEOA79FfS8MEEL1BWLKVCiAdlxnLyhrjf9LVndnrvaVLfxzKtdd1Ji3/
+	ZcDbZWV31qozLFafrZTz1NK40NxuWp3gf9zb6Xiziwcs97ZHJu0su2uMCd63fXGxulNAL1IW3gw
+	QLodF/wizE9+iEoXyzEVxiXNWHn1FC8cUrDctQ3Ukvs3pmyu39B1OoP1ZNieeN0jHFiypZhaZay
+	Nb0EC2xRr4JB+Fk2OJzo3zKgUzq+nRoQ+FmeMVejEJULyX6gUvAKF22hrW3ew4cZN7cJC4QZRfn
+	px2zmhY8R9q0r4Xtd8OM/D5dqNAfN8Q8RuyRni8dm8fDN+3zVoGG4lhUoXeY1yFXI1VbZ5dCy5/
+	huC32FJqi1ujt7+I00uAg10k5f/O6pavUBMIoFeqv6dQBZNq7XJTREy+gmiVvDbBN09VpgEtcfb
+	eDVkdUPwD/FzzadI/+ZnbOT4PJSdHQ9RHX/eejbj4XOe1WvKbqGv310vXl1nUiL4oSv8pJ79uqP
+	Zc96iRD8ho/19Ub/zmS4d+2RVHPSeyP48o7AfB9CDOZ+FmogeTzsndtus8iRmlXDyBP6M+U7hUc
+	dnmjuUxyyBmLZPrJkWON7l5a0jgcVuc=
+X-Received: by 2002:a05:6000:2407:b0:48e:3fc:e393 with SMTP id ffacd0b85a97d-48e38546abdmr3350412f8f.6.1792756524809;
+        Fri, 23 Oct 2026 04:55:24 -0700 (PDT)
+Received: from [192.168.0.161] (78-154-14-127.ip.btc-net.bg. [78.154.14.127])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e380314aesm4238717f8f.28.2026.10.23.04.55.23
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 23 Oct 2026 04:55:24 -0700 (PDT)
+Message-ID: <dac940d7-ac2b-41ea-b362-9c95edb5bcb6@blackwall.org>
+Date: Fri, 23 Oct 2026 14:55:23 +0300
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,118 +91,72 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net] bonding: fix out-of-bounds read of arp_ip_target
+Content-Language: en-US, bg
+To: Jiayuan Chen <jiayuan.chen@linux.dev>, netdev@vger.kernel.org
+Cc: stable@vger.kernel.org, Jay Vosburgh <jv@jvosburgh.net>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ linux-kernel@vger.kernel.org
+References: <20261023104528.232427-1-jiayuan.chen@linux.dev>
+From: Nikolay Aleksandrov <razor@blackwall.org>
+In-Reply-To: <20261023104528.232427-1-jiayuan.chen@linux.dev>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+On 23/10/2026 13:45, Jiayuan Chen wrote:
+> arp_ip_target is a module parameter array with BOND_MAX_ARP_TARGETS
+> entries. In the loop parsing it in bond_check_params(), arp_ip_count is
+> the number of accepted targets, while i is the index into
+> arp_ip_target. Invalid and duplicate entries are skipped without
+> bumping arp_ip_count, so bounding the loop with arp_ip_count lets i run
+> past the end of arp_ip_target, e.g. 16 targets with one duplicate:
+> 
+>    BUG: KASAN: global-out-of-bounds in bond_check_params.constprop.0+0x1148/0x1440
+>    Read of size 8 at addr ffffffff96e9ee00 by task swapper/0/1
+>    Call Trace:
+>     <TASK>
+>     dump_stack_lvl+0x91/0xf0
+>     print_report+0xd1/0x630
+>     kasan_report+0xf3/0x130
+>     __asan_report_load8_noabort+0x14/0x30
+>     bond_check_params.constprop.0+0x1148/0x1440
+>     bonding_init+0x13/0xe0
+>     do_one_initcall+0xe7/0x5b0
+>     kernel_init_freeable+0xa91/0x1120
+>     kernel_init+0x24/0x220
+>     ret_from_fork+0x5b3/0x820
+>     ret_from_fork_asm+0x1a/0x30
+>     </TASK>
+> 
+>    The buggy address belongs to the variable:
+>     arp_ip_target+0x80/0xa0
+> 
+> Bound the loop with i instead. arp_ip_count never exceeds i, so it
+> stays within BOND_MAX_ARP_TARGETS too.
+> 
+> Fixes: 5a5c5fd48e3b ("bonding: arp_ip_count and arp_targets can be wrong")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
+> ---
+>   drivers/net/bonding/bond_main.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/net/bonding/bond_main.c b/drivers/net/bonding/bond_main.c
+> index 09aa45d71fab..7019e5d8fdc8 100644
+> --- a/drivers/net/bonding/bond_main.c
+> +++ b/drivers/net/bonding/bond_main.c
+> @@ -6273,7 +6273,7 @@ static int __init bond_check_params(struct bond_params *params)
+>   	}
+>   
+>   	for (arp_ip_count = 0, i = 0;
+> -	     (arp_ip_count < BOND_MAX_ARP_TARGETS) && arp_ip_target[i]; i++) {
+> +	     (i < BOND_MAX_ARP_TARGETS) && arp_ip_target[i]; i++) {
+>   		__be32 ip;
+>   
+>   		/* not a complete check, but good enough to catch mistakes */
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 0
+Reviewed-by: Nikolay Aleksandrov <razor@blackwall.org>
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [Medium] After a failed non-WoL resume, the next non-WoL system suspend
-  leaves the external PHY powered and linked.
-
---
-
-net: bcmgenet: recover from a failed resume
-
-This commit lets bcmgenet cope with a resume that fails in
-bcmgenet_init_dma(). The driver now sets rx_cbs and tx_cbs to NULL when
-it frees them, so they show whether a datapath exists, and the failure
-path no longer disables the clock. Close, suspend and the WoL resume now
-check that state, so they skip the datapath teardown that was already
-done.
-
-> diff --git a/drivers/net/ethernet/broadcom/genet/bcmgenet.c b/drivers/net/ethernet/broadcom/genet/bcmgenet.c
-> index f4cfbff49a1b..e7dec73d5b1c 100644
-> --- a/drivers/net/ethernet/broadcom/genet/bcmgenet.c
-> +++ b/drivers/net/ethernet/broadcom/genet/bcmgenet.c
-
-[ ... ]
-
-> @@ -4320,8 +4337,9 @@ static int bcmgenet_resume(struct device *d)
->  	/* Reinitialize TDMA and RDMA and SW housekeeping */
->  	ret = bcmgenet_init_dma(priv, false);
->  	if (ret) {
-> +		/* Leave the block clocked, close and suspend tear it down */
->  		netdev_err(dev, "failed to initialize DMA\n");
-> -		goto out_clk_disable;
-> +		return ret;
->  	}
-
-[ ... ]
-
->  static int bcmgenet_suspend(struct device *d)
->  {
->  	struct net_device *dev = dev_get_drvdata(d);
->  	struct bcmgenet_priv *priv = netdev_priv(dev);
-> -	struct bcmgenet_rxnfc_rule *rule;
-> -	u32 reg, hfb_enable = 0;
->
->  	if (!netif_running(dev))
->  		return 0;
->
-> +	/* A failed resume has torn the datapath down already. Resume still
-> +	 * enables irq1 on the WoL path, so it has to be disabled here.
-> +	 */
-> +	if (!priv->tx_cbs) {
-> +		if (device_may_wakeup(d) && priv->wolopts) {
-> +			bcmgenet_wol_arm_filters(priv);
-> +			disable_irq(priv->irq1);
-> +		}
-> +		return 0;
-> +	}
-
-[Severity: Medium]
-
-After a failed non-WoL resume, can the next non-WoL suspend leave an
-external PHY powered up with its link active?
-
-On the normal non-WoL path, bcmgenet_suspend() halts and suspends the
-PHY:
-
-bcmgenet_netif_stop(dev, true)
-  phy_stop()
-    PHY_HALTED -> phy_suspend()   (BMCR power-down)
-
-The failed resume has already done this before bcmgenet_init_dma()
-fails:
-
-bcmgenet_resume()
-  phy_init_hw()          drv->soft_reset() clears BMCR_PDOWN and sets
-                         phydev->suspended = 0
-  genphy_config_aneg()   restarts autoneg
-  bcmgenet_init_dma()    fails -> return ret
-                         (phy_resume() is never reached)
-
-This new early return then skips any PHY power-down. Calling phy_stop()
-here would not work either, because the PHY is still in PHY_HALTED.
-
-Nothing else seems to power the PHY down. bcmgenet_mii_probe() sets
-mac_managed_pm = true, so mdio_bus_phy_suspend() returns early, and
-bcmgenet_suspend_noirq() only powers down an internal GPHY via
-GENET_POWER_PASSIVE.
-
-So an external PHY whose driver has both .soft_reset and .suspend (for
-example genphy_soft_reset with genphy_suspend) would stay powered with
-its link up through system sleep.
-
-This would not show up with the bcm54xx PHY on CM4, which has no
-.soft_reset, or with the Generic PHY driver.
-
-Does the !priv->tx_cbs path need a phy_suspend() call (or similar) when
-WoL is not in use?
-
->
->  	netif_device_detach(dev);
->
->  	if (device_may_wakeup(d) && priv->wolopts) {
-
-[ ... ]
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261022-nb-genet-fini-dma-net-v3-0-6e9fc89c0156%40tipi-net.de
