@@ -1,41 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=13.76.78.106
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792721445;
-	b=x8mrdXXtCWE/LPoFX3Q3jeax/ZyJFs+m0tU96bPdxET6TuVAkPr9kbVOsrt0uvI50xg3
-	 Mxl2yzh/jtFB8sirhCrzmWuiT6BBuKPoDALrdM+3B0eqL1UwsJqvDVhDL1HxaALTheSYt
-	 j46uS/sr3Co1YkBzEooxfNEwsn0JhDrikKnQZExtHEPeqHB7mZ8qU+jZhLL+VLSdb9Kqr
-	 DYp+VbmfpFOcMSCUvPrbFJ2gtsjmKI72TW+ss74G51E9IYVm62C4VXgLJVEjzEx+GixPf
-	 3HSBz3LAjZOqClCg7utCAYoHySa/a9qwN0QguQ4atr5ab3s2F3NAMpQCB6NzLsWZo3g==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792721445;
-	h=DMARC-Filter:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
-	 X-CM-SenderInfo;
-	bh=PD4mBjmKOpR/Hm3u9iYV0SeR1imA2fdlEf0EChvTEws=;
-	b=iZ8UhE3dJ8dpFhXxxDCKV9olIpBaQylDrjZHyJpEfW0M5ezuYiKhgR4Y6iNQVb2D/LpA
-	 K/eRE0KtU5BIgNZlBzu4JuoR4pRxL883O9aNAETmqtErmTbg6vtfkDgnYApigtoeOl+tf
-	 76M7bntFFOh4XpVh57fZLzongYu3SsAEfRcib0uMgKLghOVrsCysy9+N47hrIgLUtwcVk
-	 TyDPQREh+xK5FLa411uIwWCmfCwLcDbENxrnf+p3b/0QI1RwI4M2gMFayTMDDx1eze1az
-	 81/+3zeU2F1kwL5wsOk+PLKhE1DH/Pv8Jx13D13EopRX5jPRSNUBRNG3KfAqV7/0rNQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=hust.edu.cn;
-	spf=pass smtp.mailfrom=hust.edu.cn;
-	arc=none smtp.remote-ip=13.76.78.106
-Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [13.76.78.106])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 71C2B606A319;
-	Fri, 23 Oct 2026 02:10:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 71C2B606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=hust.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hust.edu.cn
-Received: from hust.edu.cn (unknown [172.16.0.50])
-	by app1 (Coremail) with UTF8SMTP id IAEQrMDmLKMewtpqpYkcAQ--.50438S2;
-	Fri, 23 Oct 2026 10:10:38 +0800 (CST)
-Received: from [100.81.40.43] (unknown [222.20.126.216])
-	by gateway (Coremail) with SMTP id _____wDnKw4TwtpqWgyzAA--.37569S2;
-	Fri, 23 Oct 2026 10:10:31 +0800 (CST)
-Message-ID: <40aeaf0a-6e04-461c-a507-52f791b45541@hust.edu.cn>
-Date: Fri, 23 Oct 2026 10:10:27 +0800
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792721425;
+	b=kGlXoM6sNE/747V8o+kMNk6c9Kn+faD3vB7Rz4DWJWwK8fcePqLZKJX8f50P74QcYJHQ
+	 s2W2Qwjh0h4/9qG0ok95KLKqbPtEBgmshoH5cuPiG+Dugbv9h5x0cxMNo7mI1knILia6n
+	 ixDzqyvCQAgGJHF+ZrwMc2l5pJMhGIDaFa3v16lX32cn8LuB44xjP84GsjJGwj0x92u9y
+	 /FlDUC/yllVR3QNnHPrroJK2sD1wvAfk/Vit6a3OkomL+dXlF/c7gF0OCBmnpi+yA93oV
+	 o7vt+wa32hCSCxzuhdMGH/1IYiKZFLkUdGNPWvmajgGrTEeBF2PljUW87uXyFS1J9KA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792721425;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=ZlnvUHDwkjxP2Tsft5ngVTUhp+k9A8Q4gjAO6rLkhDQ=;
+	b=nr5/iGlcNV6i5MdakKt2HG1lcaV2PdRnrYecGBnsp0BBN+3qqMyXlYlzbnENTCsLMYFr
+	 QsiUjm7mxbEddS0G2zsZGlsZM0uquXfWIla0pWzxrq5ypKSRao1QYrFj+IoOC1GuzVdNv
+	 wu5d+fbsaU2vn1CTpWEbtHw1brhPCmJbd2iuWklw7fajoe2oevLsPq7dGlisCrljEjPj7
+	 tWm8e9MxqUlhto4LnySgm7SOvPqd3ea5cvk98sDEBrd3YXc9V16JShSGxl2F2zEJJu6ak
+	 ZRBNH2Ur1SlGqSI73yP0VTi3oWpibl5mw9tVI49LVKrxGPwM2vxbJtCwhx3WWyvMatg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V3nUeMnt;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3F77606A328;
+	Fri, 23 Oct 2026 02:10:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V3nUeMnt
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1792721424;
+	b=RUjaWOoJzfVmdHRLd7YVckjFPKPBW/7RpXfyeAjBoIE+Vg9JKClq7Pn95lBXNctAqQam
+	 L0UTvAKhj8YJ23F066xuEmPb/sl2d11ySEZzS2WHBdTzUzhVEO+Xoi5l/lK8MLIBP8fif
+	 6QuagR+rvsV2Sse6cMM/lbwdyGsNKPf8YZ+QCt6QWaDTisD3fwCQJsNCn9bFI0Ya8BRNL
+	 Y50sMZNCWE5+Q6dvhPCGOb9Z1SNKR7o44Ybt1TKxMGLLBuwcd/+dshW+sGC7yDKQSCx+/
+	 oQPXA9HIrPeC/ZLRgcXemdhtpZ10WsVaVCUrklXTSOlg0RYI4sBpQlR/A5qVTgwVqhw==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1792721424;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=ZlnvUHDwkjxP2Tsft5ngVTUhp+k9A8Q4gjAO6rLkhDQ=;
+	b=fJ7gq47SwcrzY3uV+2THR/6cUI4+AWseEOdoxNZuecSt5GRHdIdgrWCSMnHqNU9ZUGy2
+	 mxO3EHMtTubz9goHZPNE8W3kokIXgDHKV0oWCEHqrL983IyK3ExHbnmhe1npzSr/G612G
+	 /jJ5an48TilIvq6gpqLjJXoLGTx1fBK1PB2zIiasBee/LSt6XigBmBUE4BMDwtl1XiTGo
+	 ryJXTzS40Ad+jttk9sIMnn7YZ5RxFjJekds+iBseZD+Ak7x2IUgm6XkP7pryM2QVwvBud
+	 FEEQ0nCut6qwDQa91S9GcKFu6bdQuP60Ux5XMEUTDBgyODlonbT719FMDDnShiAlbwg==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id D40F41F01829;
+	Fri, 23 Oct 2026 02:10:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792721424;
+	bh=ZlnvUHDwkjxP2Tsft5ngVTUhp+k9A8Q4gjAO6rLkhDQ=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=V3nUeMnt1lpFpHYtSuN/zxttIpZVW8nF54/E/j5BeQU3dK4a91F1ZEVpZnlFcenxL
+	 PG3mOO0DFMh29AX77n6tUOZ0bcdxqlda7j4dbqnMfym1ykR5mQQggt7VRKTs8i8rF+
+	 fK2wLrhVt7L+oKOCCAeiIa0yCcvSSE31DCXTPYpLpi7lDEr64veNSGbbiDkOxIAF/Z
+	 70d+kCQP2TiXt3kbn4vOWdON+C8Dk67TN1AMb+TcSU4gGitNzpb3Wuc++7Xjodr1Ij
+	 m42xu/Q7zYCCiTmds2OIrSgvt2cFLK9j8M6jZDfGbfQb6pgFWtnxmgmTPIL5Mv9tUK
+	 yQRi9yFB4jXuQ==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 408C542194;
+	Fri, 23 Oct 2026 02:10:21 +0000 (UTC)
+From: Daejun Park via B4 Relay <devnull+daejun7.park.samsung.com@kernel.org>
+Date: Fri, 23 Oct 2026 11:10:22 +0900
+Subject: [PATCH v2 1/4] nfsd: share the grant slot record between
+ delegations and layouts
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -45,206 +83,325 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] docs: doc-guide: add a guide for translators
-To: Daniel Pereira <danielmaraboo@gmail.com>
-Cc: wy@wyuan.org, jani.nikula@linux.intel.com, alexs@kernel.org,
- corbet@lwn.net, skhan@linuxfoundation.org, rdunlap@infradead.org,
- si.yanteng@linux.dev, chenyou910331@gmail.com, federico.vaga@vaga.pv.it,
- akiyks@gmail.com, carlos.bilbao@kernel.org, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261015125644.12908-1-danielmaraboo@gmail.com>
- <20261015125644.12908-2-danielmaraboo@gmail.com> <atQ_mXYNqs4tnDpW@wyuan.org>
- <79dd90f0.11f3f.1a15272eff3.Coremail.dzm91@hust.edu.cn>
- <CAMAsx6eb3X7GLheOaVoumORnvKftFYkU0VHynZYyx9m74+CTTw@mail.gmail.com>
-From: Dongliang Mu <dzm91@hust.edu.cn>
-In-Reply-To: <CAMAsx6eb3X7GLheOaVoumORnvKftFYkU0VHynZYyx9m74+CTTw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:IAEQrMDmLKMewtpqpYkcAQ--.50438S2
-Authentication-Results: app1; spf=neutral smtp.mail=dzm91@hust.edu.cn;
-X-Coremail-Antispam: 1UD129KBjvJXoW3Ww1DZFykWF48CrW7Xr4xZwb_yoW3AryDpF
-	W3GFyxK3ZxJ347Ar1Igw4UAF1Sya1xGw4UXr9rt3s3Arn0yr92qF43tr9YgF97WrWkua4j
-	qF4jgry3WrW5AFJanT9S1TB71UUUUbUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUQGb7Iv0xC_Cr1lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
-	cIk0rVWrJVCq3wA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK021l84ACjcxK6xIIjx
-	v20xvE14v26w1j6s0DM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4UJVWxJr1l84ACjcxK
-	6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_GcCE3s1ln4kS14v26r
-	126r1DM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI
-	12xvs2x26I8E6xACxx1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj64x0Y40En7xvr7AKxV
-	WxJr0_GcWlYx0E74AGY7Cv6cx26r4fZr1UJr1lYx0Ec7CjxVAajcxG14v26r4UJVWxJr1l
-	Ox8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JMxkF7I0En4kS14v26r1q6r43MxkIec
-	xEwVCm-wCF04k20xvY0x0EwIxGrwCF04k20xvE74AGY7Cv6cx26r4fZr1UJr1l4I8I3I0E
-	4IkC6x0Yz7v_Jr0_Gr1l4IxYO2xFxVAFwI0_JF0_Jw1lx2IqxVAqx4xG67AKxVWUJVWUGw
-	C20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48J
-	MIIF0xvE2Ix0cI8IcVAFwI0_JFI_Gr1lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMI
-	IF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E
-	87Iv6xkF7I0E14v26r1j6r4UYxBIdaVFxhVjvjDU0xZFpf9x07Uq4E_UUUUU=
-X-CM-SenderInfo: asqsiiirqrkko6kx23oohg3hdfq/
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261023-nfsd-layout-refcall-v2-1-2160bddced0c@samsung.com>
+References: <20261023-nfsd-layout-refcall-v2-0-2160bddced0c@samsung.com>
+In-Reply-To: <20261023-nfsd-layout-refcall-v2-0-2160bddced0c@samsung.com>
+To: Chuck Lever <cel@kernel.org>, Jeff Layton <jlayton@kernel.org>, 
+ NeilBrown <neil@brown.name>, Olga Kornievskaia <okorniev@redhat.com>, 
+ Dai Ngo <Dai.Ngo@oracle.com>, Tom Talpey <tom@talpey.com>
+Cc: Christoph Hellwig <hch@lst.de>, 
+ Benjamin Coddington <ben.coddington@hammerspace.com>, 
+ Trond Myklebust <trondmy@kernel.org>, Anna Schumaker <anna@kernel.org>, 
+ linux-nfs@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Daejun Park <daejun7.park@samsung.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792721421; l=10984;
+ i=daejun7.park@samsung.com; s=20261006; h=from:subject:message-id;
+ bh=QxHRB7614mP6+oETtTBuCFRB1KVGlQKvj8Q12/DfSdI=;
+ b=i9FJEuH2Uv6+d6KTY6L9PHRBUOL+a4YIb3twxCRgzupw10ETrvoPGcdJ9aMHvdQGjW7sUGGuX
+ srwN+5zlXMbAQk6nH7857iEEjCEVpv/S5DaKxLbZpEC+tEhAY26ayEu
+X-Developer-Key: i=daejun7.park@samsung.com; a=ed25519;
+ pk=4yUfDqGRZTIj0Ik43z1GoMZRWCNm/rgX6uJuM9dtNIg=
+X-Endpoint-Received: by B4 Relay for daejun7.park@samsung.com/20261006 with
+ auth_id=1122
+X-Original-From: Daejun Park <daejun7.park@samsung.com>
+Reply-To: daejun7.park@samsung.com
+Content-Transfer-Encoding: 7bit
 
+From: Daejun Park <daejun7.park@samsung.com>
 
-On 10/23/26 1:09 AM, Daniel Pereira wrote:
-> On Mon, Oct 19, 2026 at 12:37 +0800, Dongliang Mu wrote:
->> So my suggestion is that, after confirming all the translated
->> docuementation follows this style, we can delete this field and write
->> this relocation style in the translation guidance.
-> Hi Weijie, Dongliang, Alex, Jani,
->
-> I checked docs-next. it_IT, pt_BR, ja_JP and ko_KR already mirror the
-> original path for every file. There are 14 files in sp_SP, zh_CN and
-> zh_TW that do not, for two reasons:
->
-> - the original has moved and the translation was not moved with it:
-> magic-number (now in staging/), gdb-kernel-debugging (now in
-> process/debugging/), security-bugs (now in process/), xfrm_proc
-> (now in networking/xfrm/), memory-barriers (now in
-> core-api/wrappers/), and the three gfs2 documents in zh_CN;
-> - the document exists only in the translation: glossary.rst in zh_CN
-> and zh_TW, and how-to.rst in zh_CN.
->
-> So I agree with Dongliang's order. For v3 of the guide I propose:
->
-> - state the path mirroring as a rule, since the language switcher and
-> checktransupdate.py both depend on it;
-> - describe ":Original:" as optional and not needed when the path
-> mirrors the original, instead of showing it in the header example.
->
-> Moving the files above and removing the existing ":Original:" fields
-> can then be done per language, as separate series, by people who know
-> each translation. I can send the moves for the files whose originals
-> were relocated, if the maintainers of those translations agree.
+The delegation code remembers the forward-channel slot that carried the
+request that granted a delegation (dl_recall_grant), tests whether the
+client has retired that slot since (nfsd4_recall_grant_slot_retired()),
+and names the request as a referring call in the CB_SEQUENCE of a
+recall. The next two patches need the same for layouts.
 
+Make the record a type of its own, struct nfsd4_grant_slot, and move the
+code that fills it in, the slot test and the code that adds the
+referring call into nfsd41_record_grant_slot(),
+nfsd41_grant_slot_retired() and nfsd41_cb_referring_grant(), named for
+the session machinery they depend on. The flag that was part of the
+delegation's record stays with the delegation, as
+dl_recall_retired_at_send.
 
-I agree with this proposal. Ask maintainers of each translation to 
-solves these issues first.
+No change in behavior.
 
-Daniel, can you list all 14 files in sp_SP, zh_CN and zh_TW?
+Signed-off-by: Daejun Park <daejun7.park@samsung.com>
+---
+ fs/nfsd/nfs4state.c | 115 ++++++++++++++++++++++++++++++++++++----------------
+ fs/nfsd/state.h     |  24 +++++++----
+ 2 files changed, 96 insertions(+), 43 deletions(-)
 
-Dongliang Mu
+diff --git a/fs/nfsd/nfs4state.c b/fs/nfsd/nfs4state.c
+index f2b52ba901..735eaa4b7f 100644
+--- a/fs/nfsd/nfs4state.c
++++ b/fs/nfsd/nfs4state.c
+@@ -1291,7 +1291,7 @@ __alloc_init_deleg(struct nfs4_client *clp, struct nfs4_file *fp,
+ 	dp->dl_recalled = false;
+ 	dp->dl_recall_rejected = false;
+ 	dp->dl_recall_grant.valid = false;
+-	dp->dl_recall_grant.retired_at_send = false;
++	dp->dl_recall_retired_at_send = false;
+ 	get_nfs4_file(fp);
+ 	dp->dl_stid.sc_file = fp;
+ 	nfsd4_init_cb(&dp->dl_recall, dp->dl_stid.sc_client,
+@@ -6251,37 +6251,49 @@ bool nfsd_wait_for_delegreturn(struct svc_rqst *rqstp, struct inode *inode)
+  * gen_sessionid() composes a sessionid from the client's clientid and a
+  * sequence counter, so the sequence alone identifies the granting session.
+  */
+-static void nfsd4_recall_grant_sessionid(const struct nfs4_delegation *dp,
+-					 struct nfsd4_sessionid *sid)
++static void nfsd41_grant_slot_sessionid(struct nfs4_client *clp,
++					const struct nfsd4_grant_slot *grant,
++					struct nfsd4_sessionid *sid)
+ {
+-	sid->clientid = dp->dl_stid.sc_client->cl_clientid;
+-	sid->sequence = dp->dl_recall_grant.sessionid_seq;
++	sid->clientid = clp->cl_clientid;
++	sid->sequence = grant->sessionid_seq;
+ 	sid->reserved = 0;
+ }
+ 
+-static bool nfsd4_recall_grant_slot_retired(struct nfs4_delegation *dp)
++/**
++ * nfsd41_grant_slot_retired - has the client seen the reply to a grant?
++ * @clp: client that sent the granting request
++ * @grant: forward-channel slot that carried the request
++ *
++ * Context: Takes nn->client_lock.
++ *
++ * Return: true if the client has gone on to use the slot for a later
++ * request, or has given the slot up, so that it must have received the
++ * reply. False if that cannot be shown, and if @grant is not valid.
++ */
++bool nfsd41_grant_slot_retired(struct nfs4_client *clp,
++			       const struct nfsd4_grant_slot *grant)
+ {
+-	struct nfs4_client *clp = dp->dl_stid.sc_client;
+ 	struct nfsd_net *nn = net_generic(clp->net, nfsd_net_id);
+ 	struct nfsd4_session *ses;
+ 	struct nfsd4_sessionid sid;
+ 	bool retired = false;
+ 	void *entry;
+ 
+-	if (!dp->dl_recall_grant.valid)
++	if (!grant->valid)
+ 		return false;
+ 
+-	nfsd4_recall_grant_sessionid(dp, &sid);
++	nfsd41_grant_slot_sessionid(clp, grant, &sid);
+ 
+ 	/*
+-	 * A missing session does not prove the client saw the grant: a
++	 * A missing session does not prove the client saw the reply: a
+ 	 * DESTROY_SESSION unhashes its own session before the reply to
+ 	 * that compound is encoded.
+ 	 */
+ 	spin_lock(&nn->client_lock);
+ 	ses = __find_in_sessionid_hashtbl((struct nfs4_sessionid *)&sid,
+ 					  clp->net);
+-	entry = ses ? xa_load(&ses->se_slots, dp->dl_recall_grant.slotid) : NULL;
++	entry = ses ? xa_load(&ses->se_slots, grant->slotid) : NULL;
+ 	if (xa_is_value(entry)) {
+ 		/*
+ 		 * A slot is freed only once the client has acknowledged
+@@ -6294,18 +6306,49 @@ static bool nfsd4_recall_grant_slot_retired(struct nfs4_delegation *dp)
+ 
+ 		/*
+ 		 * A reactivated slot was freed and rebuilt, so the same
+-		 * acknowledgment applies. The seqid test errs toward
+-		 * revoking: a rebuilt slot restarting at seqid 1 matches
+-		 * an old grant.
++		 * acknowledgment applies. The seqid test errs toward "not
++		 * retired", the side on which the callers do not take the
++		 * client's answer at once: a rebuilt slot restarting at
++		 * seqid 1 matches an old grant.
+ 		 */
+ 		retired = (slot->sl_flags & NFSD4_SLOT_REUSED) ||
+ 			  ((slot->sl_flags & NFSD4_SLOT_INITIALIZED) &&
+-			   slot->sl_seqid != dp->dl_recall_grant.seqid);
++			   slot->sl_seqid != grant->seqid);
+ 	}
+ 	spin_unlock(&nn->client_lock);
+ 	return retired;
+ }
+ 
++/**
++ * nfsd41_cb_referring_grant - name a granting request as referring call
++ * @cb: callback that refers to state the request created
++ * @clp: client that sent the request
++ * @grant: forward-channel slot that carried the request
++ *
++ * Does nothing if @grant is not valid.
++ *
++ * Context: May sleep. Caller serializes access to @cb, as for
++ * nfsd41_cb_referring_call().
++ */
++void nfsd41_cb_referring_grant(struct nfsd4_callback *cb,
++			       struct nfs4_client *clp,
++			       const struct nfsd4_grant_slot *grant)
++{
++	struct nfsd4_sessionid sid;
++
++	if (!grant->valid)
++		return;
++	nfsd41_grant_slot_sessionid(clp, grant, &sid);
++	nfsd41_cb_referring_call(cb, (struct nfs4_sessionid *)&sid,
++				 grant->slotid, grant->seqid);
++}
++
++static bool nfsd4_recall_grant_slot_retired(struct nfs4_delegation *dp)
++{
++	return nfsd41_grant_slot_retired(dp->dl_stid.sc_client,
++					 &dp->dl_recall_grant);
++}
++
+ /*
+  * ->prepare does not run on every send: nfsd4_run_cb_work() skips it
+  * on a requeue, and a retry via rpc_restart_call_prepare() re-enters
+@@ -6315,9 +6358,9 @@ static bool nfsd4_recall_grant_slot_retired(struct nfs4_delegation *dp)
+  */
+ static void nfsd4_refresh_recall_grant(struct nfs4_delegation *dp)
+ {
+-	dp->dl_recall_grant.retired_at_send =
++	dp->dl_recall_retired_at_send =
+ 			nfsd4_recall_grant_slot_retired(dp);
+-	if (dp->dl_recall_grant.retired_at_send)
++	if (dp->dl_recall_retired_at_send)
+ 		nfsd41_cb_destroy_referring_call_list(&dp->dl_recall);
+ }
+ 
+@@ -6345,15 +6388,9 @@ static bool nfsd4_cb_recall_prepare(struct nfsd4_callback *cb)
+ 
+ 	nfsd4_refresh_recall_grant(dp);
+ 
+-	if (dp->dl_recall_grant.valid && !dp->dl_recall_grant.retired_at_send) {
+-		struct nfsd4_sessionid sid;
+-
+-		nfsd4_recall_grant_sessionid(dp, &sid);
+-		nfsd41_cb_referring_call(&dp->dl_recall,
+-					 (struct nfs4_sessionid *)&sid,
+-					 dp->dl_recall_grant.slotid,
+-					 dp->dl_recall_grant.seqid);
+-	}
++	if (!dp->dl_recall_retired_at_send)
++		nfsd41_cb_referring_grant(&dp->dl_recall, dp->dl_stid.sc_client,
++					  &dp->dl_recall_grant);
+ 	return true;
+ }
+ 
+@@ -6405,7 +6442,7 @@ static int nfsd4_cb_recall_done(struct nfsd4_callback *cb,
+ 		 * the grant. Trust the rejection only if the slot had
+ 		 * retired when this recall was sent.
+ 		 */
+-		if (dp->dl_recall_grant.retired_at_send) {
++		if (dp->dl_recall_retired_at_send) {
+ 			nfsd4_deleg_recall_rejected(dp);
+ 			return 1;
+ 		}
+@@ -7014,19 +7051,25 @@ static bool nfsd4_want_read_deleg(const struct nfsd4_open *open)
+ 		OPEN4_SHARE_ACCESS_WANT_READ_DELEG;
+ }
+ 
+-static void
+-nfs4_delegation_record_grant_slot(struct nfs4_delegation *dp,
+-				 const struct nfsd4_compound_state *cstate)
++/**
++ * nfsd41_record_grant_slot - remember the slot that carries a request
++ * @grant: record to fill in
++ * @cstate: compound state of the request
++ *
++ * Leaves @grant alone for a request without a session (NFSv4.0).
++ */
++void nfsd41_record_grant_slot(struct nfsd4_grant_slot *grant,
++			      const struct nfsd4_compound_state *cstate)
+ {
+ 	const struct nfsd4_sessionid *sid;
+ 
+ 	if (!cstate->session)
+ 		return;
+ 	sid = (struct nfsd4_sessionid *)cstate->session->se_sessionid.data;
+-	dp->dl_recall_grant.sessionid_seq = sid->sequence;
+-	dp->dl_recall_grant.slotid = cstate->slot->sl_index;
+-	dp->dl_recall_grant.seqid = cstate->slot->sl_seqid;
+-	dp->dl_recall_grant.valid = true;
++	grant->sessionid_seq = sid->sequence;
++	grant->slotid = cstate->slot->sl_index;
++	grant->seqid = cstate->slot->sl_seqid;
++	grant->valid = true;
+ }
+ 
+ static struct nfs4_delegation *
+@@ -7135,7 +7178,7 @@ nfs4_set_delegation(struct nfsd4_open *open,
+ 	 * visible to lease breakers. A conflicting open can drive
+ 	 * CB_RECALL to completion from that point on.
+ 	 */
+-	nfs4_delegation_record_grant_slot(dp, cstate);
++	nfsd41_record_grant_slot(&dp->dl_recall_grant, cstate);
+ 
+ 	if (stp->st_stid.sc_export)
+ 		dp->dl_stid.sc_export = exp_get(stp->st_stid.sc_export);
+@@ -10771,7 +10814,7 @@ nfsd_get_dir_deleg(struct nfsd4_compound_state *cstate,
+ 	dp = alloc_init_dir_deleg(clp, fp);
+ 	if (!dp)
+ 		goto out_delegees;
+-	nfs4_delegation_record_grant_slot(dp, cstate);
++	nfsd41_record_grant_slot(&dp->dl_recall_grant, cstate);
+ 	if (cstate->current_fh.fh_export)
+ 		dp->dl_stid.sc_export =
+ 			exp_get(cstate->current_fh.fh_export);
+diff --git a/fs/nfsd/state.h b/fs/nfsd/state.h
+index 5f43668486..2c00b334c3 100644
+--- a/fs/nfsd/state.h
++++ b/fs/nfsd/state.h
+@@ -276,6 +276,14 @@ struct nfsd4_cb_notify {
+ 	struct nfsd4_callback		ncn_cb;		// notify4 callback
+ };
+ 
++/* Forward-channel slot that carried a request which created state */
++struct nfsd4_grant_slot {
++	u32			sessionid_seq;
++	u32			slotid;
++	u32			seqid;
++	bool			valid;
++};
++
+ /*
+  * Represents a delegation stateid. The nfs4_client holds references to these
+  * and they are put when it is being destroyed or when the delegation is
+@@ -315,13 +323,8 @@ struct nfs4_delegation {
+ 	bool			dl_setattr;
+ 
+ 	/* Forward-channel slot that carried the granting request */
+-	struct {
+-		u32			sessionid_seq;
+-		u32			slotid;
+-		u32			seqid;
+-		bool			valid;
+-		bool			retired_at_send;
+-	} dl_recall_grant;
++	struct nfsd4_grant_slot	dl_recall_grant;
++	bool			dl_recall_retired_at_send;
+ 
+ 	union {
+ 		/* for CB_GETATTR */
+@@ -949,6 +952,13 @@ extern void nfsd41_cb_referring_call(struct nfsd4_callback *cb,
+ 				     struct nfs4_sessionid *sessionid,
+ 				     u32 slotid, u32 seqno);
+ extern void nfsd41_cb_destroy_referring_call_list(struct nfsd4_callback *cb);
++extern void nfsd41_record_grant_slot(struct nfsd4_grant_slot *grant,
++				     const struct nfsd4_compound_state *cstate);
++extern bool nfsd41_grant_slot_retired(struct nfs4_client *clp,
++				      const struct nfsd4_grant_slot *grant);
++extern void nfsd41_cb_referring_grant(struct nfsd4_callback *cb,
++				      struct nfs4_client *clp,
++				      const struct nfsd4_grant_slot *grant);
+ extern void nfsd4_init_cb(struct nfsd4_callback *cb, struct nfs4_client *clp,
+ 		const struct nfsd4_callback_ops *ops, enum nfsd4_cb_op op);
+ extern bool nfsd4_run_cb(struct nfsd4_callback *cb);
 
+-- 
+2.43.0
 
->
-> Thanks,
-> Daniel
->
->
-> Em seg., 19 de out. de 2026 às 01:37, 慕冬亮 <dzm91@hust.edu.cn> escreveu:
->>
->>> 发件人: "Weijie Yuan" <wy@wyuan.org>
->>> 发送时间:2026-10-18 11:40:09 (星期日)
->>> 收件人: "Daniel Pereira" <danielmaraboo@gmail.com>
->>> 抄送: "Jonathan Corbet" <corbet@lwn.net>, "Shuah Khan" <skhan@linuxfoundation.org>, "Randy Dunlap" <rdunlap@infradead.org>, "Alex Shi" <alexs@kernel.org>, "Yanteng Si" <si.yanteng@linux.dev>, "Dongliang Mu" <dzm91@hust.edu.cn>, "Chen-Yu Yeh" <chenyou910331@gmail.com>, "Federico Vaga" <federico.vaga@vaga.pv.it>, "Akira Yokosawa" <akiyks@gmail.com>, "Carlos Bilbao" <carlos.bilbao@kernel.org>, "Avadhut Naik" <avadhut.naik@amd.com>, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, "Jani Nikula" <jani.nikula@linux.intel.com>
->>> 主题: Re: [PATCH v2 1/2] docs: doc-guide: add a guide for translators
->>>
->>> +cc Jani Nikula
->>>
->>> On 2026-10-15 09:56:42 -0300, Daniel Pereira <danielmaraboo@gmail.com> wrote:
->>>
->>>> The documentation has seven translations, but nothing in the English
->>>> documentation explains how to contribute to them.  The only guide that
->>>> exists, Documentation/translations/zh_CN/how-to.rst, is written in
->>>> Chinese and covers the zh_CN translation only.
->>>>
->>>> As a result, the same problems come up over and over in the review of
->>>> translation patches: labels and citations copied from the original,
->>>> which are global in Sphinx and collide with the English ones; partial
->>>> builds with SPHINXDIRS that hide those collisions; lines over 80
->>>> columns; translations not added to any toctree; missing commit
->>>> descriptions, tags separated by blank lines, HTML email rejected by the
->>>> lists, and the documentation maintainer left out of the recipients.
->>>>
->>>> Add Documentation/doc-guide/translations.rst, a guide that covers the
->>>> whole workflow of a translation: choosing what to translate, the layout
->>>> of a translated document (path, header, labels, citations,
->>>> cross-references, what must not be translated), translation quality and
->>>> terminology, adding the document to the build, checking it with a full
->>>> htmldocs build, checkpatch and checktransupdate.py, preparing and
->>>> sending the patch, the review process, keeping translations up to date
->>>> and starting a new translation.  The commit message format it suggests
->>>> is the one already recognized by tools/docs/checktransupdate.py.
->>>>
->>>> Link the guide from the doc-guide index and from the translations
->>>> index.
->>>>
->>>> Signed-off-by: Daniel Pereira <danielmaraboo@gmail.com>
->>>> ---
->>>> Changes in v2:
->>>> - Drop the Assisted-by references from the AI tools section, the tags
->>>>    example and the checklist (Weijie Yuan).
->>>> - Use a plain path in the ":Original:" example and drop ":Translator:"
->>>>    from it (Weijie Yuan).
->>>>
->>>> v1: https://lore.kernel.org/linux-doc/20261013003702.5824-2-danielmaraboo@gmail.com/
->>>>
->>>>   Documentation/doc-guide/index.rst        |   1 +
->>>>   Documentation/doc-guide/translations.rst | 694 +++++++++++++++++++++++
->>>>   Documentation/translations/index.rst     |   3 +
->>>>   3 files changed, 698 insertions(+)
->>>>   create mode 100644 Documentation/doc-guide/translations.rst
->>> [...]
->>>
->>>> +Anatomy of a translated document
->>>> +================================
->>>> +
->>>> +Location and file name
->>>> +----------------------
->>>> +
->>>> +A translation mirrors the path of its original under the language
->>>> +directory, and keeps the same file name::
->>>> +
->>>> +  Documentation/process/howto.rst
->>>> +  Documentation/translations/<lang>/process/howto.rst
->>>> +
->>>> +Do not translate file or directory names.  The documentation build uses
->>>> +this mapping to add, at the top of every page, links to the same page in
->>>> +the other languages; it only works if the paths match.
->>>> +
->>>> +The file header
->>>> +---------------
->>>> +
->>>> +Start the file with the same SPDX license identifier as the original.
->>>> +Most translations then indicate, in some form, which document was
->>>> +translated and include the language's disclaimer.  For example, the
->>>> +Italian translation uses::
->>>> +
->>>> +  .. include:: ../disclaimer-ita.rst
->>>> +
->>>> +  :Original: Documentation/core-api/symbol-namespaces.rst
->>>> +
->>>> +A plain path is enough in the ``:Original:`` field: the documentation
->>>> +build turns ``Documentation/...`` paths into links automatically.
->>> Oh, btw. There's a comment about ":Original:" from Jani [1]:
->>>
->>> | I'm wondering, are these :Original: fields useful anymore since the
->>> | translations extension adds the button to switch between languages?
->>> |
->>> | The pretty much hard-coded expectation is that the English version at
->>> | path/to/foo.rst is the original, and its translations are at
->>> | translations/xx_YY/path/to/foo.rst.
->>> |
->>> | I.e. neither the HTML nor the RST benefit from it, and it's just
->>> | repetition.
->>>
->>> Perhaps we could have a bit of discussion here?
->> Hi Jani and Weijie,
->>
->> if all the translation documentation follows the relocation style -
->>
->> Documentation/XXX/XXX.rst to Documentation/translations/XXX/XXX.rst,
->>
->> the ":Original:" has no meaning, but actually this convention does not work sometimes.
->>
->> BTW, tools/docs/checktransupdate.py uses this relocation style in the zh_CN translation. When I try to test this script in other translations, this issue occurs.
->>
->> So my suggestion is that, after confirming all the translated docuementation follows this style, we can delete this field and write this relocation style in the translation guidance.
->>
->> Dongliang Mu
->>
->>> Thanks.
->>>
->>> [1] https://lore.kernel.org/linux-doc/c719c6756f345c6c39db483654578ef09de1948f@intel.com/
->>
->> ------------------------------
->> Best regards,
->> Dongliang Mu
 
