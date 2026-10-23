@@ -1,103 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.44.87
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792747825;
-	b=EGFpNl0Arm9lSmnRChV7xRIjbhIQWSvFkXFqE9uhzZLqUtg5l7JKM63LVfzYT3xY5Bxp
-	 l9sHbYlh8vQY2sr8cn/CM16hbRxA1kLWxaEQw+Htk1J3pGCaXHBMyva57jlkFMKZfPrRv
-	 hy7ZydTfWsx8Phh/14slUuZTQSz/73xq8Oy/nZqjw9mDxfKfd3IpFjFKs5Mteg2qvrJDj
-	 Qcuu0l5+qMwjAqpTlt6RyulhIwfvTV6CJmhnaxN+O5zHC5ROYMpQceIh0F04uZjLGQTOD
-	 xaW+SPy+RFgWkr/7NLSrtuYybH1q2dd/1vgjE8Tcj09EZkFrh2PNqMawjlWYzx5TZig==
+	t=1792747823;
+	b=4b748tyRSW8MF5oJybMP3/FStNEDb3OXJ7L7KZEUYp+wMT+hLsie6a1FhVp7FDQUEFWU
+	 D5qrVC/KGX4NQQ6D8UbY3+aS0Xf7j6LL0kKFD18s8G6n/5VoVwDExLl7xvXI6mdQsO5HV
+	 ZYmcQvaFz7WsE4NXmQH8/bL8SqsV5/koIlBEIgFy4POui/udjDqV+LrnvTGHqv6busud6
+	 u/Q6DLPGqmN9i2NgDe0ynZ3KF7y5XAZPg53bjY/zl0FYiBmKiFd140CsuM/QOc5Cf3GUY
+	 IcIZVuYKKfUgPuLSkvFopbpBjVwDdDBCZISraAD1J8R86CSGSuM8h3d3YSJAJFPjSkQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792747825;
-	h=DMARC-Filter:Received:Received:X-MS-Exchange-Authentication-Results:
-	 Received-SPF:Received:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-EOPAttributedMessage:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:Content-Type:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=ExE8VHlcy5atEQBKRME3h9gGQ3lOlGxZcjmk5Gv0WAs=;
-	b=OwnvRmzzZLEme/PASTSEKtjmyOHMA0aguD/qYoZEBARImf4t84meq8luIQmXliWKOxml
-	 9Vr8zH9AJ0viqSWqWpL3QRw+UFVoivLPd++1i5FHJuCCaFfDjf9RQwijLiIvsUzEWTSkv
-	 Fb4vN0BNsw1Etq2EO93Dp5nm+8JwtmBe6wYPugi7JV+G36LQfpDgTpbxViZxLLGIEc/ne
-	 gimNVAsfI3XIQFnbR2p046Kt1RRbNn8sBjZgafkAwyZpxDYC/gO3aqjgiJ3NMTDeRXgY2
-	 CbUeMPKwgslL2cmizq46DXEu++JCPtq6kQCy8ooAXPqES0oCazLcBsWAPdGPUemPXFQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792747823;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=pB36FfLi7RMVdPVfDUHJb5Dk460FVoky804DxF7wsCs=;
+	b=i7jHKjPRsGSnVuXQN8F3ZSxDO0C2AHzKkZ5147Fp9Dp57XGdPfMBRr4RfDiNJN7sg6sc
+	 efmEHd0AD0spGPTc9AgS/tA4R+DJbSY/e2ZarTxUkQWK5EEMXBAYoY/7ND0W2fISIhqgc
+	 a6FuQcSXpF0mgo2pJ2ZQpl4C1V/+jt8Jq8iRvjjOmMdbBYv7DXj3G3ppOeAvIDE2bfLw5
+	 oA5Qq2T5Gg5fg3NVBcbOpikqu8epCDY46eijm2zJXw9qzUZMX3QtCpKLbJyuVzcUJw0OB
+	 IkndnLcPZX1nEjh0+73W3/b2Zzmt4rGAC30CsFYYqJHqJDJhNtuK4GFbyt4bCWS/57Q==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=cixtech.com;
-	spf=pass smtp.mailfrom=cixtech.com;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.44.87
-Received: from SEYPR02CU001.outbound.protection.outlook.com (mail-koreacentralazon11023087.outbound.protection.outlook.com [40.107.44.87])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LeyI0LX9;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0F43606A321;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54043606A32F;
 	Fri, 23 Oct 2026 09:30:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A0F43606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cixtech.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=DMPAbWcZC8Og/WW+RSzljN4EjRKyo72jVwz9HlPoTeyjsTVmWXF+ulsYD3RTz1k/7UYC188BBtM9l+zSCif4ByJ9IdWZZxMIRIaIhe71hlghHvNXXwwq3/QRsXrNC8Zib7ZDDJOHEx8l1+ocbPDqcVH/OrzQUfvbM+9KsrKogdM7FVmbNpXJh253qmqMSmZc0zYBQ9aQ42TfnQOjIVXGxFyS/ntfbTqnLjfzKPFrnDNOyhIBtagu7Y8cgEgEDLNvucmKk7y4QEtODnmuSdBn5ns/R1ve2X0jf2+YxoT8P5ZQdX5Oo/Imh58YehJU/HyElaK2kSeo8/VbQTbguT1XNw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ExE8VHlcy5atEQBKRME3h9gGQ3lOlGxZcjmk5Gv0WAs=;
- b=UIOqSCnYhqUH9yQ+/QPpTCwTVmah4b9BorI8nlAh2x4wVUCAgHZS5iEcjqrS82GFv8vnbO2Gui+y4Y4o4cV4VRLgmkGVOuZ8tcrcfAPHypygsEJvsjW4oKITgn3VCkxv/ADR+ppf+p+N0AIaK/Hy60duijRBQgtDY0jwVE+kOc96xEDIp1CGgDTKd0DUA9L3s40ywuv/nooKetcMWCuWS5z7OclQR+7b2fXvNFaRXARDRMok9863A4gu+ssaMGX+uxD6BYi6Mzz7IzHx7ZTMMGC9CscSRV4iwx/4A/ava70K1igKxI0+4yHxWVgtZ67jezQE61BN2q36J4pILSiU4w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 222.71.101.198) smtp.rcpttodomain=arm.com smtp.mailfrom=cixtech.com;
- dmarc=bestguesspass action=none header.from=cixtech.com; dkim=none (message
- not signed); arc=none (0)
-Received: from SI2PR02CA0024.apcprd02.prod.outlook.com (2603:1096:4:195::18)
- by SEZPR06MB6038.apcprd06.prod.outlook.com (2603:1096:101:e7::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.4; Fri, 23 Oct
- 2026 09:30:20 +0000
-Received: from SG1PEPF000082E7.apcprd02.prod.outlook.com
- (2603:1096:4:195:cafe::a2) by SI2PR02CA0024.outlook.office365.com
- (2603:1096:4:195::18) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.546.18 via Frontend Transport; Fri,
- 23 Oct 2026 09:30:19 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 222.71.101.198) smtp.mailfrom=cixtech.com; dkim=none (message not signed)
- header.d=none;dmarc=bestguesspass action=none header.from=cixtech.com;
-Received-SPF: Pass (protection.outlook.com: domain of cixtech.com designates
- 222.71.101.198 as permitted sender) receiver=protection.outlook.com;
- client-ip=222.71.101.198; helo=smtprelay.cixcomputing.com; pr=C
-Received: from smtprelay.cixcomputing.com (222.71.101.198) by
- SG1PEPF000082E7.mail.protection.outlook.com (10.167.240.7) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.546.15 via Frontend Transport; Fri, 23 Oct 2026 09:30:19 +0000
-Received: from ubuntu (unknown [172.20.64.99])
-	by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id 2C3484102B47;
-	Fri, 23 Oct 2026 17:30:18 +0800 (CST)
-From: Jelly Jia <Jelly.Jia@cixtech.com>
-To: vkoul@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	robin.murphy@arm.com
-Cc: devicetree@vger.kernel.org,
-	Frank.Li@kernel.org,
-	cix-kernel-upstream@cixtech.com,
-	dmaengine@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Jelly.Jia@cixtech.com,
-	Frank Li <Frank.Li@nxp.com>
-Subject: [PATCH v4 1/5] dmaengine: arm-dma350: Fix source trigger bit
-Date: Fri, 23 Oct 2026 17:30:13 +0800
-Message-ID: <20261023093017.3248454-2-Jelly.Jia@cixtech.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261023093017.3248454-1-Jelly.Jia@cixtech.com>
-References: <20261023093017.3248454-1-Jelly.Jia@cixtech.com>
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LeyI0LX9
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1792747822;
+	b=1jUY+Mj+U39GIIXIKTYBEXgPnASaWe3YTwbEqwu7/9RZXGp116rYzNQlQukCpvuv+h1/
+	 oKevx3TNHKCyZ5wMVF2pWS0rSEgZjKSW2H4Kin4PxnLdQY3j7teetTqCOPHqFgJTbiJlZ
+	 yr0J9l5h+J2uQsAZe7BPu6kxKqJGEBKghfr4Uw0gD7tNj/BerX3A0ynrDXoPNL708guGu
+	 4KhYlwBWM43G+fyezBMKmIkFLiBje11EXxisaDoDQ66bGIYP6IaA530jC7tOQyQ7djraz
+	 9prq38vfhVs2RePTzekClaWKNk8ueT88jWbb7IuiMtzXtURmV9eCNKhQQtQx/wf0cyA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1792747822;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=pB36FfLi7RMVdPVfDUHJb5Dk460FVoky804DxF7wsCs=;
+	b=IyMAXrvZBLeqjcT5TNCKyx9gsTaIZnhDE7Wuu8o6l2KqbTNE7kDj14TR6NZzZCQnP88s
+	 zg8LH727H2nrL5SQqpSohez2xhAcbfCO6+aqmxZ3HmacgSo9ePtB/PpfyJIF9/6lXoe1H
+	 Vdy7ae9KXrgFjDzoK1q5FSeX341xPfowKaoJMaiMgnuEiRocReTropjmZE3c8D5pvraAD
+	 gbmN3Mks+NZirjd/CGixshdsLjBmWtj/ZxGruyuLf5BMFmBDymOpnLUoLAPFY+AMMVIvd
+	 11ElBoMQ8K+ehw3afFqeCDNXviTCDYzhXlGdp29B2ry7js0Z/qK7NDt7OWWr2n7XBJw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id D892C1F01825;
+	Fri, 23 Oct 2026 09:30:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792747822;
+	bh=pB36FfLi7RMVdPVfDUHJb5Dk460FVoky804DxF7wsCs=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=LeyI0LX9W6M9nvamNf/WvubSSp6ZLywAw9VKtBBR3JO09EZg0Gig/DO0jencNHAP5
+	 0jmGXY4X9fyux8P9ZEJa1YrV7cU5QcrRVYRLasdlH4UftdhGf7CvnS5Or7c4PNTMKw
+	 NEuysyBljurui/hB2//uE1ewPntzwOekDbsDmtfOSd0E7cTJ48VJoL9sBpnuZ1j8Hh
+	 XLeHqe3Mkj/EpRGFl4q+EcxnGP0jxDBVThZ2cGUn18EQlsL3oK+2VFVQ2Ksh6Rt5fj
+	 nTeJbgkL0ynMetV81upPSET1h2L2NLiiaFU8q9WL8Zi8ao2y8aqLk1YdWkFcQ88dxY
+	 qSA8JhU2HidYg==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 57AE344460;
+	Fri, 23 Oct 2026 09:30:21 +0000 (UTC)
+From: Radu Sabau via B4 Relay <devnull+radu.sabau.analog.com@kernel.org>
+Date: Fri, 23 Oct 2026 12:30:20 +0300
+Subject: [PATCH v4 3/8] iio: imu: adis: Add optional post_reset_setup
+ callback
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,64 +83,93 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SG1PEPF000082E7:EE_|SEZPR06MB6038:EE_
-Content-Type: text/plain
-X-MS-Office365-Filtering-Correlation-Id: 2808309e-4376-4109-4e20-08df30e8411f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|23010399003|376014|7416014|82310400026|36860700016|261022105027099003|261021123027099003|261021121427099003|261009223027099003|10067099003|56012099006|18002099003|22082099003|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	ZUxa/g82gKhyLuJmNhq5owBZ4FsGZBRwtc/3LuraagvcCY77ZZML3lXy0LXGv5IsVndFiqm6pwBZMEwEr5BeZn43VmYLvEDveez/49SmwZTYC5ne9YnW1Vkw/Jmz/iWHijE9II8bwdYy7AnyTr3+xtI2XUcv+M8S8YctSKX0Yj+TVbxbZb98dyiVakjHjSO3Hj8BFA/Vmh5MNNnhFIYUpXyFkIqOr1SJnOOiItv6xrwLeCaXHsy//tZENG8kV2Odx9xxuknAR91j55MptZHFG6RI492CUWTSCD3b233YSTuivDoNgSZLc/MZTudjs5cUpTYqzWxiBEc5RZYJqYvUAXdqdyHn4DR4pdCNAflzT7WUHBYGH/p2dt+DYvf/VPImROvwlIDDu7dYm7aatbK1DcVXTZAfm6djVzWiSP3XQ7QUcLRzuWFeftO5i/oK/X/lrWv/53KNrsLMXmELLC8W9b3Hn/uceLckslaIgLjPzL26UEZpHeJBwkuWdTNLulu2+MoGOA8gjHCd0B7bUBRxmImUa99rAg+KYK0UOJ05N7yJ8cDVUyle8CHmVMVrSajHp4qHrF/GNS+l89Wj+93ootVIdOyokuKLD0pxvrStAb/FBFDE0FwElLAT4GjVqB+exqjx86CIg61MCQMzIlv7fqt8m8tK43sltuk+29io2uNUy+P8i3BWm/cECR4cVP1tWv00Rqo/qDfQUy7WiZv3vw==
-X-Forefront-Antispam-Report:
-	CIP:222.71.101.198;CTRY:CN;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtprelay.cixcomputing.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(376014)(7416014)(82310400026)(36860700016)(261022105027099003)(261021123027099003)(261021121427099003)(261009223027099003)(10067099003)(56012099006)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	lY/oeFefdH863qLReB0grDi8aDVvV+1vHshPiQ8dFXmf7t2sxh0X/hIOfMoPBvU7KpV074vZWkI9BBRwKkjCCy7XdfY/GKLLG252mdl8I3VUnn3su8V2SjkVDnLqJMBhpocgUXAjV/sGWh7Nhu/q7Jzl/DhvZZOOeGtLatxYIbBl40THu81p0f/CecNOMdDNDx/1tKPRgGdgi9jFu5QmGX3uOR8GsHSk77vDfxDtpSj2TokNLtsznAp0UmB6D9HWMUnoyxptkRiihGIPlAhyy9ipFRE+66N9F/Xzp8lhXtgWrv5kuVrYUQUG+4di3CdbtE9wI2gjotITsd5qDlrMUmCLWsaurYBhCylosHgBlpeIuwxTKBqiZb/wA5QZOBnnBxlWARnlUXT7WNOIQX2G2Ukr35R4dohFJW3TAEo5qE3ZNoTL1PI3GD2izzTbAwsD
-X-OriginatorOrg: cixtech.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Oct 2026 09:30:19.1100
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2808309e-4376-4109-4e20-08df30e8411f
-X-MS-Exchange-CrossTenant-Id: 0409f77a-e53d-4d23-943e-ccade7cb4811
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0409f77a-e53d-4d23-943e-ccade7cb4811;Ip=[222.71.101.198];Helo=[smtprelay.cixcomputing.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SG1PEPF000082E7.apcprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SEZPR06MB6038
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261023-adis16607-v4-3-a4d541ebfd13@analog.com>
+References: <20261023-adis16607-v4-0-a4d541ebfd13@analog.com>
+In-Reply-To: <20261023-adis16607-v4-0-a4d541ebfd13@analog.com>
+To: Lars-Peter Clausen <lars@metafoo.de>, 
+ Michael Hennerich <Michael.Hennerich@analog.com>, 
+ Nuno Sa <nuno.sa@analog.com>, Jonathan Cameron <jic23@kernel.org>, 
+ David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>, 
+ Alexandru Ardelean <alexandru.ardelean@analog.com>, 
+ Radu Sabau <radu.sabau@analog.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux@analog.com, 
+ Jonathan Cameron <jic23@kernel.org>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792747820; l=2254;
+ i=radu.sabau@analog.com; s=20261001; h=from:subject:message-id;
+ bh=AxyPMdWe1dfHmRZJ8557DpedZhOiyzpzTaIVnfJheV8=;
+ b=FZXhlGaYJE1OPG3ofpX4RgWCnZf6/yfkixVe6xYjUp/sgvByJFsh1LO9NEQu5KAw2U3UYHodq
+ xTliY6bzpeoCMBmJtCPDVLcHFkc23PjHo3ax/yy0Q3gfmtXj2bnplTd
+X-Developer-Key: i=radu.sabau@analog.com; a=ed25519;
+ pk=XOZSO/Ut8qfYw7khL8lUF65Pgl+VLihISyS+Iy9jY8c=
+X-Endpoint-Received: by B4 Relay for radu.sabau@analog.com/20261001 with
+ auth_id=1094
+X-Original-From: Radu Sabau <radu.sabau@analog.com>
+Reply-To: radu.sabau@analog.com
+Content-Transfer-Encoding: 7bit
 
-CH_CTRL_USESRCTRIGIN is the source trigger enable bit in CH_CTRL and must
-use bit 25, not bit 26 which is the destination trigger enable bit
-(CH_CTRL_USEDESTRIGIN).
+From: Radu Sabau <radu.sabau@analog.com>
 
-The constant has no users yet, but enabling the source trigger input
-would silently enable the destination trigger input instead, breaking
-any transfer that waits for a peripheral request. Fix it before the
-first user arrives.
+Add an optional post_reset_setup callback to struct adis_data, called
+right after reset and before self-test. Not all ADIS devices need
+extra bring-up between reset and self-test (SPI mode locking, status
+or bootloader checks, pin or burst-mode configuration, etc.) - purely
+additive: defaults to NULL, no change for existing drivers.
 
-Fixes: 5d099706449d ("dmaengine: Add Arm DMA-350 driver")
-Signed-off-by: Jelly Jia <Jelly.Jia@cixtech.com>
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
+Signed-off-by: Radu Sabau <radu.sabau@analog.com>
 ---
- drivers/dma/arm-dma350.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/iio/imu/adis.c       | 6 ++++++
+ include/linux/iio/imu/adis.h | 7 +++++++
+ 2 files changed, 13 insertions(+)
 
-diff --git a/drivers/dma/arm-dma350.c b/drivers/dma/arm-dma350.c
-index 09403aca8bb0..4e17130de6c8 100644
---- a/drivers/dma/arm-dma350.c
-+++ b/drivers/dma/arm-dma350.c
-@@ -63,7 +63,7 @@
+diff --git a/drivers/iio/imu/adis.c b/drivers/iio/imu/adis.c
+index 5c3bb7259037..332cc7b0ff35 100644
+--- a/drivers/iio/imu/adis.c
++++ b/drivers/iio/imu/adis.c
+@@ -419,6 +419,12 @@ int __adis_initial_startup(struct adis *adis)
+ 		msleep(timeouts->sw_reset_ms);
+ 	}
  
- #define CH_CTRL			0x0c
- #define CH_CTRL_USEDESTRIGIN	BIT(26)
--#define CH_CTRL_USESRCTRIGIN	BIT(26)
-+#define CH_CTRL_USESRCTRIGIN	BIT(25)
- #define CH_CTRL_DONETYPE	GENMASK(23, 21)
- #define CH_CTRL_REGRELOADTYPE	GENMASK(20, 18)
- #define CH_CTRL_XTYPE		GENMASK(11, 9)
++	if (adis->data->post_reset_setup) {
++		ret = adis->data->post_reset_setup(adis);
++		if (ret)
++			return ret;
++	}
++
+ 	ret = adis_self_test(adis);
+ 	if (ret)
+ 		return ret;
+diff --git a/include/linux/iio/imu/adis.h b/include/linux/iio/imu/adis.h
+index c09b381eb619..3d7c7febaec6 100644
+--- a/include/linux/iio/imu/adis.h
++++ b/include/linux/iio/imu/adis.h
+@@ -52,6 +52,12 @@ struct adis_timeout {
+  * @self_test_mask: Bitmask of supported self-test operations
+  * @self_test_reg: Register address to request self test command
+  * @self_test_no_autoclear: True if device's self-test needs clear of ctrl reg
++ * @post_reset_setup: Optional device-specific hook called after reset,
++ *		before self-test. Not all ADIS devices need extra bring-up
++ *		between reset and self-test (SPI mode locking, status or
++ *		bootloader checks, pin or burst-mode configuration, etc.) -
++ *		only called when set. Must return 0 on success, a negative
++ *		error code otherwise.
+  * @self_test: Optional device-specific self-test override. When set,
+  *		it is called instead of the generic mask-write/sleep/
+  *		check-status sequence. The callback owns its own pass/fail
+@@ -88,6 +94,7 @@ struct adis_data {
+ 	unsigned int self_test_mask;
+ 	unsigned int self_test_reg;
+ 	bool self_test_no_autoclear;
++	int (*post_reset_setup)(struct adis *adis);
+ 	int (*self_test)(struct adis *adis);
+ 	const struct adis_timeout *timeouts;
+ 
+
 -- 
-2.54.0
+2.43.0
+
 
