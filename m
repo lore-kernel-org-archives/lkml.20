@@ -1,67 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=45.79.88.28
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792767625;
-	b=qO+HK7su27uQjH3QKFvpOm9gjuzQsV4fQdjyLVl+qD8fcF8qk16xuFugS/0rjjkNnD2p
-	 vWBvKqTbFwAmQjT9ScMyNPGxQxjj2SnUH+dg74hlUF8oB3g2BdoUWgzDL7+fKLTKIkeWs
-	 2WnnbjfBon3pguQ0Ke2BTGrx+xEDbP3QbzuRHtb9eFpt+b03fDlJXvXnk7bGTNv9ter5g
-	 dKJYKCjpQ3qZc9k9aEkaJFcjk+pBUKUzAt9wgNl+6afVucoR7pvuT73a4oha8CbymcABZ
-	 +Ac4XAypRfrrZterfzejJ9EUDUvss/yTbPK/PMo/28A/t6FDAhXpBB4OgeZW2Twmy2w==
+	t=1792767815;
+	b=qJrfnjJerj/uyscC8gGlemnEXITNh4E7O/qwFynbycgStXoYCByp8/Xq3xnwiS2Yfx5r
+	 F7doB6/myxe4o6imvl1KeNWNF+KbSxYgLMozQZw1cdZSlOxkqc3UOg3H5xvdm2OHLLXsL
+	 uCQ74B++yiP6Shi5Mn7SpT8TUWN+4awCsCmTcpTKGX8IumDKIWZz0c9peuXOiI9s1Hd4+
+	 khrTPz7GXwwoVZ7GG23RTRVALPQyRe43Jw+j3v5n6YI0OPkwYUPMCmh3U4kEjfvhvOMyO
+	 Ze3Mw3KZnx5JvUYwrZ+pOxGKuJrCHpNeZ1nl1JHlmlkNDQ6GMBwVaNdZ4JkFrWx8MaQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792767625;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=7bmXE9eB7alT01S68+GEqtmKgfMF4L3T/lFunQRLqUY=;
-	b=ZUJxBXOnns9WIn+yeEkOZaDDgNfVzU7NUMjhVrq5ZnXTIS9U6YPoEJ5LKKlUymJhsqOn
-	 D+66SAY+JoLsY/DUf9lTRFg0KDjkB9ZFdI+806/r49leo7S97uMKnXZi7aVpEMXq9sjQH
-	 ez2k/eLS+H8Qy+k7Vq0iQge6CNBRqFU7l6+O+lkdK8loMZ9jChS+nYZzkEBtFhYqqprs7
-	 CzSJf6mMbvzN0QB6uLeaT6yrLA8P6a00zEo78b5cCr7Efp4T26kByTjj3TrlbKwLE0ZvV
-	 7pwlv6xQA+7vZpQG7JdyngnHBOvPpWOllgiv50/JJMApIgj3Bqkgnh6RNxgYLTd5B8g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792767815;
+	h=DMARC-Filter:DKIM-Filter:DKIM-Signature:Received:From:To:Cc:Subject:
+	 In-Reply-To:References:Date:Message-ID:MIME-Version:Content-Type;
+	bh=BBmchvCqGj4CsfCYm3jgo2XmGMieZ81AU7UvffIeeL0=;
+	b=SYA/sSfnkajVd+YJLg10KS53bA38SSxLW97Dz40K4l7nuiQe57MSNSJOA6NB0XKqbkAR
+	 2yigLJXE1Q3j31MxlB2KiTWiMqVLR5BB6SjXhYE3G7YjcjxSWTKmSAH/iumS50AAdfNOY
+	 wYXaIVRPDXqrvQGy2qSUIqY6RMiO0RXu1YgUj+gOH9SUz6EqSzL9NOg+Q3WRzlZ2i4BOC
+	 kmuQj4H5SCXS7jklkf3LuuFoewcud1eMabF2mz4mYbA3pa985acWe4lp4zUrvrNnWSPm+
+	 4JCl/nKLPRFHFycM8YT+LTo2G3ecouQUTJpSECvVBlBDZbuGwsw1Xc+35iDti68t60A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Qz65DyB1;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=lwn.net;
+	spf=pass smtp.mailfrom=lwn.net;
+	dkim=pass header.d=lwn.net header.i=@lwn.net header.a=rsa-sha256 header.s=20201203 header.b=RBdX13xB;
+	arc=none smtp.remote-ip=45.79.88.28
+Received: from ms.lwn.net (ms.lwn.net [45.79.88.28])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73BBE606A32A;
-	Fri, 23 Oct 2026 15:00:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CB92606A31B;
+	Fri, 23 Oct 2026 15:03:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0CB92606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lwn.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lwn.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Qz65DyB1
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD8A31F031E1;
-	Fri, 23 Oct 2026 15:00:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792767625;
-	bh=7bmXE9eB7alT01S68+GEqtmKgfMF4L3T/lFunQRLqUY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Qz65DyB1QDCzSVoTx6uXxOvKWmS2R8mZfO/NABTvk6rz5211L+k2sd4Q78SicBJf3
-	 XCIFj4bAp7tM5Y3XNl1UU5I7263BbMzbmnko44BmpQ3Qi4yBNFCAUJGkB1t6mrEO41
-	 aTQBhN+7NSKFyrjWT1ic+L6pwJcZYx8ZFqJQrn3eTC/eOmluVsO4F+oYmwIThkcswq
-	 csTH2oIj7EBF3ecJsX+wD2pHDOQJTrfyoAPo117BmBIvEjbYN1wLCTEyMiqR5vQo08
-	 kZMp7tzKASXXaved61t48KwGVAKSJcn6fTEa17pMahgcsanyhmFlzyrU+kzrwWj2MV
-	 9YJvxGqJ28AwA==
-Date: Fri, 23 Oct 2026 17:00:22 +0200
-From: Frederic Weisbecker <frederic@kernel.org>
-To: Peng Wang <peng_wang@linux.alibaba.com>
-Cc: Anna-Maria Behnsen <anna-maria@linutronix.de>,
-	Ingo Molnar <mingo@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J . Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Waiman Long <longman@redhat.com>, Tejun Heo <tj@kernel.org>,
-	He Rongguang <herongguang@linux.alibaba.com>,
-	linux-kernel@vger.kernel.org, linux-api@vger.kernel.org,
-	driver-core@lists.linux.dev, linux-trace-kernel@vger.kernel.org,
-	cgroups@vger.kernel.org
-Subject: Re: [RFC PATCH v2 1/2] tick/nohz: Add a policy dependency for full
- dynticks
-Message-ID: <att2hiYaaHTIkzG9@localhost.localdomain>
-References: <cover.1792242566.git.peng_wang@linux.alibaba.com>
- <58bc33cb018a2651e9cc3fc02baad7de4d543705.1792242566.git.peng_wang@linux.alibaba.com>
+	dkim=pass (2048-bit key, unprotected) header.d=lwn.net header.i=@lwn.net header.a=rsa-sha256 header.s=20201203 header.b=RBdX13xB
+DKIM-Filter: OpenDKIM Filter v2.11.0 ms.lwn.net 0DD0040915
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lwn.net; s=20201203;
+	t=1792767808; bh=BBmchvCqGj4CsfCYm3jgo2XmGMieZ81AU7UvffIeeL0=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:From;
+	b=RBdX13xB95iXHyuucPEKbEKpnFAN8zA3RKggzAq62mBaPNAhJyTbpEWp6XgGAQ3XD
+	 qfWKky2rJ+AmNcE5hJYVrMAYLdBubnY1cdy5UJMfgBPaFEffU+/v/LpSQdDceBHda3
+	 pKei44g30FqMbK+Yb9r3goZvUyre4VGQBPmZRuOHzp6PRVZOYO30qmMA2bdETY6YTi
+	 jzs0R8gaiEoVo9nowREyOtf5k08HMOOYKtIQRK7g4pVAe9ouZXRyswWlD2jv6INI1G
+	 4OjazTG4j6ICQfBt9JzrA/rpOdgUitF7E3bm+3AJNxuhxrseZpVgI3DNjr5GHLE+sH
+	 QjgBXHgnUbsoA==
+Received: from localhost (unknown [IPv6:2601:280:4600:814::1fe])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by ms.lwn.net (Postfix) with ESMTPSA id 0DD0040915;
+	Fri, 23 Oct 2026 15:03:27 +0000 (UTC)
+From: Jonathan Corbet <corbet@lwn.net>
+To: Mark Brown <broonie@kernel.org>
+Cc: Andrew Halaney <andrew@amutable.com>, Christian Brauner
+ <brauner@kernel.org>, Linux Kernel Mailing List
+ <linux-kernel@vger.kernel.org>, Linux Next Mailing List
+ <linux-next@vger.kernel.org>, Pasha Tatashin <pasha.tatashin@soleen.com>
+Subject: Re: linux-next: manual merge of the jc_docs tree with the origin tree
+In-Reply-To: <attxYMtvBc5AMf9U@sirena.co.uk>
+References: <attxYMtvBc5AMf9U@sirena.co.uk>
+Date: Fri, 23 Oct 2026 09:03:27 -0600
+Message-ID: <87y0boxxvk.fsf@trenco.lwn.net>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,181 +68,51 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <58bc33cb018a2651e9cc3fc02baad7de4d543705.1792242566.git.peng_wang@linux.alibaba.com>
+Content-Type: text/plain
 
-Le Sat, Oct 17, 2026 at 09:13:41PM +0800, Peng Wang a écrit :
-> Cloud hosts may pin vCPU threads one-to-one to host CPUs. At full
-> allocation this includes the housekeeping CPUs, which always retain
-> their non-idle tick. Operators want comparable performance for otherwise
-> equivalent vCPUs. Retaining the non-idle tick on nohz_full CPUs as well
-> avoids one placement-dependent difference in host tick interference.
-> With spare capacity, selected CPUs may stop the tick to reduce host
-> scheduler-tick interference with vCPUs.
-> 
-> Allocation changes as VMs are created or destroyed while other VMs
-> remain running. A vCPU thread may be the only runnable task in either
-> state, so existing tick dependencies do not express this policy.
+Mark Brown <broonie@kernel.org> writes:
 
-I'm not sure I understand correctly what you are trying to solve.
-Are you saying that you want to keep the tick running when there
-is more than one vCPU per CPU? Because the scheduler already takes
-care of that.
+> Hi all,
+>
+> Today's linux-next merge of the jc_docs tree got a conflict in:
+>
+>   tools/lib/python/kdoc/xforms_lists.py
+>
+> between commit:
+>
+>   fd0349aadbb99 ("pid: add helpers to operate on a struct pid array")
+>
+> from the origin tree and commit:
+>
+>   4180abdb5d938 ("docs: xforms_lists: Handle DECLARE_KHOSER_PTR() struct members")
+>
+> from the jc_docs tree.
 
-> 
-> Add a per-CPU POLICY dependency within the boot-time nohz_full set.
-> Permission defaults to enabled. The policy can be changed without
-> taking CPUs offline. Revoking permission uses the existing asynchronous
-> kick; granting it leaves all other dependencies effective. Preserve
-> POLICY across CPU hotplug and report it in tick_stop tracing.
-> 
-> Idle tick suppression, nohz_full membership, context tracking, RCU
-> offloading and housekeeping configuration are unchanged.
+Interesting...I'm a little surprised to see Christian's change to the
+kerneldoc tooling for the first time ... oh well.
 
-This still keeps the overhead of nohz_full even if the tick stays on, right?
-(RCU nocb, kernel <-> user overhead, etc...). Isn't it a problem for you?
+> I fixed it up (see below) and can carry the fix as necessary. This
+> is now fixed as far as linux-next is concerned, but any non trivial
+> conflicts should be mentioned to your upstream maintainer when your tree
+> is submitted for merging.  You may also want to consider cooperating
+> with the maintainer of the conflicting tree to minimise any particularly
+> complex conflicts.
+>
+> diff --cc tools/lib/python/kdoc/xforms_lists.py
+> index 320f977c5bac2,161acac90ea3b..0000000000000
+> --- a/tools/lib/python/kdoc/xforms_lists.py
+> +++ b/tools/lib/python/kdoc/xforms_lists.py
+> @@@ -45,7 -45,7 +45,8 @@@ class CTransforms
+>           (CMatch("DECLARE_HASHTABLE"), r"unsigned long \1[1 << ((\2) - 1)]"),
+>           (CMatch("DECLARE_KFIFO"), r"\2 *\1"),
+>           (CMatch("DECLARE_KFIFO_PTR"), r"\2 *\1"),
+> +         (CMatch("DECLARE_KHOSER_PTR"), r"\2 \1"),
+>  +        (CMatch("DECLARE_PIDS"), r"struct pid *\1[(\2) + 1]"),
+>           (CMatch("(?:__)?DECLARE_FLEX_ARRAY"), r"\1 \2[]"),
+>           (CMatch("DEFINE_DMA_UNMAP_ADDR"), r"dma_addr_t \1"),
 
-Thanks.
+The resolution is fine, of course.
 
-> 
-> Co-developed-by: He Rongguang <herongguang@linux.alibaba.com>
-> Signed-off-by: He Rongguang <herongguang@linux.alibaba.com>
-> Signed-off-by: Peng Wang <peng_wang@linux.alibaba.com>
-> ---
->  include/linux/tick.h         |  8 +++++--
->  include/trace/events/timer.h |  3 ++-
->  kernel/time/tick-sched.c     | 42 ++++++++++++++++++++++++++++++++++++
->  3 files changed, 50 insertions(+), 3 deletions(-)
-> 
-> diff --git a/include/linux/tick.h b/include/linux/tick.h
-> index b121c5d53e308..8b250f245ff31 100644
-> --- a/include/linux/tick.h
-> +++ b/include/linux/tick.h
-> @@ -111,9 +111,10 @@ enum tick_dep_bits {
->  	TICK_DEP_BIT_SCHED		= 2,
->  	TICK_DEP_BIT_CLOCK_UNSTABLE	= 3,
->  	TICK_DEP_BIT_RCU		= 4,
-> -	TICK_DEP_BIT_RCU_EXP		= 5
-> +	TICK_DEP_BIT_RCU_EXP		= 5,
-> +	TICK_DEP_BIT_POLICY		= 6
->  };
-> -#define TICK_DEP_BIT_MAX TICK_DEP_BIT_RCU_EXP
-> +#define TICK_DEP_BIT_MAX TICK_DEP_BIT_POLICY
->  
->  #define TICK_DEP_MASK_NONE		0
->  #define TICK_DEP_MASK_POSIX_TIMER	(1 << TICK_DEP_BIT_POSIX_TIMER)
-> @@ -122,6 +123,7 @@ enum tick_dep_bits {
->  #define TICK_DEP_MASK_CLOCK_UNSTABLE	(1 << TICK_DEP_BIT_CLOCK_UNSTABLE)
->  #define TICK_DEP_MASK_RCU		(1 << TICK_DEP_BIT_RCU)
->  #define TICK_DEP_MASK_RCU_EXP		(1 << TICK_DEP_BIT_RCU_EXP)
-> +#define TICK_DEP_MASK_POLICY		(1 << TICK_DEP_BIT_POLICY)
->  
->  #ifdef CONFIG_NO_HZ_COMMON
->  extern bool tick_nohz_enabled;
-> @@ -205,6 +207,8 @@ extern void tick_nohz_dep_set_signal(struct task_struct *tsk,
->  extern void tick_nohz_dep_clear_signal(struct signal_struct *signal,
->  				       enum tick_dep_bits bit);
->  extern bool tick_nohz_cpu_hotpluggable(unsigned int cpu);
-> +extern bool tick_nohz_full_get_allowed(unsigned int cpu);
-> +extern int tick_nohz_full_set_allowed(unsigned int cpu, bool allowed);
->  
->  /*
->   * The below are tick_nohz_[set,clear]_dep() wrappers that optimize off-cases
-> diff --git a/include/trace/events/timer.h b/include/trace/events/timer.h
-> index 3aa0608c63611..dff9579cd90eb 100644
-> --- a/include/trace/events/timer.h
-> +++ b/include/trace/events/timer.h
-> @@ -435,7 +435,8 @@ TRACE_EVENT(itimer_expire,
->  		tick_dep_name(SCHED)			\
->  		tick_dep_name(CLOCK_UNSTABLE)		\
->  		tick_dep_name(RCU)			\
-> -		tick_dep_name_end(RCU_EXP)
-> +		tick_dep_name(RCU_EXP)			\
-> +		tick_dep_name_end(POLICY)
->  
->  #undef tick_dep_name
->  #undef tick_dep_mask_name
-> diff --git a/kernel/time/tick-sched.c b/kernel/time/tick-sched.c
-> index 87e2a7a875265..0d6fcc3736bae 100644
-> --- a/kernel/time/tick-sched.c
-> +++ b/kernel/time/tick-sched.c
-> @@ -375,6 +375,11 @@ static bool check_tick_dependency(atomic_t *dep)
->  		return true;
->  	}
->  
-> +	if (val & TICK_DEP_MASK_POLICY) {
-> +		trace_tick_stop(0, TICK_DEP_MASK_POLICY);
-> +		return true;
-> +	}
-> +
->  	return false;
->  }
->  
-> @@ -561,6 +566,39 @@ void tick_nohz_dep_clear_cpu(int cpu, enum tick_dep_bits bit)
->  }
->  EXPORT_SYMBOL_GPL(tick_nohz_dep_clear_cpu);
->  
-> +/* Read policy, not whether a CPU currently has its tick stopped. */
-> +bool tick_nohz_full_get_allowed(unsigned int cpu)
-> +{
-> +	struct tick_sched *ts = per_cpu_ptr(&tick_cpu_sched, cpu);
-> +
-> +	/* CPU teardown resets and restores this bit under stop_machine(). */
-> +	return !(atomic_read(&ts->tick_dep_mask) & TICK_DEP_MASK_POLICY);
-> +}
-> +
-> +int tick_nohz_full_set_allowed(unsigned int cpu, bool allowed)
-> +{
-> +	struct tick_sched *ts = per_cpu_ptr(&tick_cpu_sched, cpu);
-> +
-> +	if (!tick_nohz_full_cpu(cpu))
-> +		return -EINVAL;
-> +
-> +	/* CPU device removal may wait for an active sysfs callback. */
-> +	if (!cpus_read_trylock())
-> +		return -EBUSY;
-> +
-> +	if (allowed) {
-> +		tick_nohz_dep_clear_cpu(cpu, TICK_DEP_BIT_POLICY);
-> +	} else if (cpu_online(cpu)) {
-> +		/* The existing kick requests an asynchronous restart. */
-> +		tick_nohz_dep_set_cpu(cpu, TICK_DEP_BIT_POLICY);
-> +	} else {
-> +		/* Record policy without queuing irq_work on an offline CPU. */
-> +		atomic_or(TICK_DEP_MASK_POLICY, &ts->tick_dep_mask);
-> +	}
-> +	cpus_read_unlock();
-> +	return 0;
-> +}
-> +
->  /*
->   * Set a per-task tick dependency. RCU needs this. Also posix CPU timers
->   * in order to elapse per task timers.
-> @@ -1533,6 +1571,7 @@ void tick_sched_timer_dying(int cpu)
->  {
->  	struct tick_sched *ts = &per_cpu(tick_cpu_sched, cpu);
->  	unsigned long idle_calls, idle_sleeps;
-> +	int policy;
->  
->  	/* This must happen before hrtimers are migrated! */
->  	if (tick_sched_flag_test(ts, TS_FLAG_HIGHRES))
-> @@ -1540,7 +1579,10 @@ void tick_sched_timer_dying(int cpu)
->  
->  	idle_calls = ts->idle_calls;
->  	idle_sleeps = ts->idle_sleeps;
-> +	/* Preserve only the policy dependency across CPU offline/online. */
-> +	policy = atomic_read(&ts->tick_dep_mask) & TICK_DEP_MASK_POLICY;
->  	memset(ts, 0, sizeof(*ts));
-> +	atomic_set(&ts->tick_dep_mask, policy);
->  	ts->idle_calls = idle_calls;
->  	ts->idle_sleeps = idle_sleeps;
->  }
-> -- 
-> 2.47.0
-> 
+Thanks,
 
--- 
-Frederic Weisbecker
-SUSE Labs
+jon
