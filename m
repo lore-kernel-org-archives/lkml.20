@@ -1,101 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.47
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792795142;
-	b=XLML1VFDTFXTyKHpvsYlmn2ka3IgUVOp/AgMcSujYkFLLjsQ3d0hm6zel0KSbKiqFonq
-	 898MkAQ+AN8xOURYL5qzzcVL0hPvEF+Wk4Za4DHiuOmRl+BxpErihCeo9YA79U5Q3dezZ
-	 clGSBtBQiC5FnAmy001S3C+RvCgQjgzocBToJvWK/reZRA4eKjZTrDD8tkjVC6G+n6DLU
-	 KU0WIeeMUZX2PQColoBo+wx9M4gn9TfXsNruQMoz8/LJi4SGyor03LVIpMKlJLTkj6WHA
-	 aPm7vNJ9kf9+vTI79nCkQ1Hlla9wB0KM4FHOUfXekYmq5MSTjfusp1A6rt2o482gujA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792795142;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=DQb9soIuy2IWf1LrfZEp4aNcssN1ddSrfFmGCMehWsg=;
-	b=VLU9iuSw5GboePaT6AuFKdvt/HG2fSPqxtkt5WfSpJaKFiwlj07lA2cLhwCVihQcG18E
-	 o7fJ2x69ERRPfl1+p1A+cKdccl2EKdkvh684PDwllWTo6ID42xIWIY/AgOuRFQm5+nTm2
-	 BI9SFbXafJ/Ts3raf+jMIem3V5vPQIVBC/yrpOcVRPqOohrGidPI6OCoNY79Ge6+mg+vv
-	 9FM+/eAsJHaRxoL2oW68YoA8OO4ibzr7kCIB5MqFs1SBA0OEfx9f1p5afKq2OTlcBW3U7
-	 kFeCZJ8gCxUVVHPR60OrIDVcXMVm5fbP2ie20tizBRFFQjXxileEap8hBU3btXpmtog==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=h2JEsMGR;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.47
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792795240;
+	b=M/bHWXwSQN2gwSJaNY/T4bazmtwl0m/hvonBaJjQ05aEWcjUgIgwBt77lbwDC/nj0cfh
+	 GbQjr0w14UVoI4XT/ABClyOG+4k1fgW4WYl0bSFePA4wUkitglpawl8SCMErQd+xpVe+s
+	 WR4txDs4CQ6wnU4DrViwQhnR6FIruJmz8kCocvnZyNN3dOC3XxyX6qCAlUauad8iyYY9i
+	 PwTEnvfBHDP4Wu8SgYmKWe6KezFex7UqjBqq6SAOsGTLNJMdgglvkhXHlGBIcB8bSXJZF
+	 e2N1lVSGIbVcpczPkbd6PQb8HmENhm0DvW2daO11DRlZRkiUJha/KFU6etAvqw79Vgw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792795240;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=toaJDSs62ZHNYBOfBOHKWkIdx7+IHlsjRBQrBLBAFDE=;
+	b=w7N14hWB6sArk9MZef5FZldr2Mv8BPinIevxQALssaXWGXiNMf++Hb9zNtmwWQmrtcAU
+	 9XgygK9Y3jqgg7+zfV5yVLj1vbLvuoniYt495NbyP0tw4wfOH7ChI2pBwY0BB/ewRmjmK
+	 uIp5UUmLflFdN98x8xwDBh3oGjhXJ+zMQdle1ClSaH47fAGcEQVZMeVb4dTmfMsrNVlxd
+	 /Zl2bR1pD+avxwrwI8LEdQwLNA6KIswYaOCBAVWxjrLaWu7ZiWQ6svlZ361SmmxqW+ViU
+	 AMTNJbmYNYAvgMuH4J6KJS5u0BdO02GZHQdhD/aD5DoGBGMp4DcKAIXbY/gst54b/AA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ea3kK4WE;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33DBA606A31B
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 22:39:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 33DBA606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F960606A31A;
+	Fri, 23 Oct 2026 22:40:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=h2JEsMGR
-Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-48dc202a60eso698504f8f.3
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 15:39:02 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792795140; cv=none;
-        d=google.com; s=arc-20260327;
-        b=iPR1hn3lY3JFMgl6KSAaBFgqB2Y+5+lDyCsxi06/36xPnEYj8jzGvLJE1CMNOrdA+x
-         pU0e9QaePUaOwD3vJzE/+eU9+ocWIjAXYVbDDH3IPgO7gN/Ud4hnr8LI1pp1jXWS+GBE
-         lWr/codPOjal1Qs9A+0euhHEKCIZnMLBzwXeRnbQda6NLHeO5Mwn3aaOGrb4tA8Dn85L
-         fn49IuLWVMHzKKXXno9NJvVi81+dpOgMqwi5patwL+2h+NGuON8EjIEHDWoBTXi3x5qQ
-         sfBx7g9mM/zcSgsRa6O5zNdYmfYeamFDeTVlA27epFyifTqZy39tF+Q3ydneP84s1P5r
-         nKJA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=DQb9soIuy2IWf1LrfZEp4aNcssN1ddSrfFmGCMehWsg=;
-        fh=7inVXxjVBgnOgcW7GwTYuGJSD4QBRfpm3gzDnDr4eSE=;
-        b=ncw698Jav1qbiL8jdjG/IFNmfFN4Kb8N/fovODpf8l3xfH9GBK1gO7FH5NredBdMX+
-         NWZFsJBNfUZXazGwOqwEoIbPMxC/wbVdDbwILNZg+C5UWNDJqfwIpUpMhILE3mUjLDAq
-         sdapFisZf4tpFjeQDLHi3OOoNjsIv6JtmyVCcZk0FMW5c6Z+KhL0EbJAdaUuODcneNPP
-         kGxRuJKOSpMOCvooV2rwUmskZ8wsoviqU/klxkfponUz3mNaZh6YuJ7NfBfU1vPU9vR+
-         z0Uqzm8ufnmBX3Endlf3tCdlGEjMp0lb52S/e075DwhJ+CS4td2Mgak396TRpo5pzZ2T
-         bUfQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792795140; x=1793399940; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=DQb9soIuy2IWf1LrfZEp4aNcssN1ddSrfFmGCMehWsg=;
-        b=h2JEsMGRrVURSB0j47TGc5GJasxIhVL/JHhnfpggkvfbknB7iXYx4eM3fv179YZizS
-         UDP0PvSpu3n/sqjgLr1SrF3YXEfIYj+wNtrMzD4T2trvVG1avenYj5g3ZI+meZwGPRK9
-         opn7VSPA5ZI7wDpF+91pO+99cubxigV7u0ifnJvgrwnqjxpMGyoOflnN2rJ4GbjRUn3+
-         UaYcfeSvsBOUXLlS3Itld7VGw0rSpsygpl6Kkm8EnqjFSllNzdz/+Afc6yuZBmetCJHF
-         b5ayg8KUcHpQIuOh3oxQ67ZOL86P+WJV6NHR/yZMHzjfHGdS/VoAQ/Ssp4lKbf3Qm6nI
-         x5nQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792795140; x=1793399940;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=DQb9soIuy2IWf1LrfZEp4aNcssN1ddSrfFmGCMehWsg=;
-        b=K2/r0cD1156IkDX1K0DW5E1wPh6wT1ASvl7dfge78iXQh+fSM80P42PxM48s7YwEPY
-         ph5SdKjnU+TmNyil2obiiBWY6leQgGAvAZefG2LAK3t0Oax/cefqzoTRFQdfaT+UtNvX
-         ud7iLW0b+Qxvg3t6bxDO7yKT2IcNmK6pTMOfsPH9SnQ9Hs8ZwvIEcOVvRexBBsIagBO4
-         xeO63jikKaFt3BmJMdSJwAp7gu4eUSpsaDfpO+H7pjA1X8cEOWYyQcH3UVRQgh8/5k/p
-         /o/9nzdW5RbE6WieVLio3Sg1ReJZhM6g1NdM3fTYsz81MKStzKY9czr2J8pBFk4sXh+X
-         zoKQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzj03yDjnn/9rV7mJNx+Yic52Ca9GYRmIZE/BmhYF+0uF84C9iWGV5sCONQ4HgkxhJyHytn8xQVv5FAlhE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJE5PBp/5KSmdlc/9jpKZ0UJfkUEvQsleD5BRZc2NvAnMO7RAQK
-	PZwRTO5tBnwokIPZxc/rJPdKKBG7CrocvZrAb/vJYeP0BL0P6uXNXwtvEiZgL5t2CIvtHGy9CNn
-	pLtb6fY8OtBe2goLTRair1geTX4GE7BI=
-X-Gm-Gg: AYBFou0IbSlGqgMmWa8DR50cRxXuynLEtU4DkStT8I/yEploVA1wnGyIHzwCy/k1dRi
-	brQa25MfuabligzpGa3dG+kEHENee0SV//f5H2V6ZDzmzYoqmrIabDsVptyDb6A9xdK1595/GFX
-	3m4sJZmEMMiIfl8Hkvk70bZ2KIErEt9vW3p8IbqHMdHvKDprc6X/oRuxuKGsyZtpz5cHzjC/EHX
-	peve4Un1Re9GejZpFspzc641lq5qsnfbol2BztczDp16lmX0oFmNPVK8IRGJiX9YrsceHzGwsVP
-	i1MSFgXtHOAvWHv+2jwJ+zZ/za6EEseC5VxBWNQcuMfSu1hW8PHLcTSoTJqH4ohy5T7/1vCMPjH
-	HBe+UGjoKquHTxOYCf6yvG+2+gqQ+ZpeHJ+oMQD53hJFq3lIfh8UEhM41jpgScCVUzjl2eFPbJC
-	df8LuWtiO2hVvx3+pH+VQ5e0kCFHGdHebzhx1W4ml4NTDQ9s4mNZZj
-X-Received: by 2002:a05:6000:40cc:b0:48d:f069:570c with SMTP id
- ffacd0b85a97d-48e3eb93429mr575083f8f.41.1792795140106; Fri, 23 Oct 2026
- 15:39:00 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ea3kK4WE
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8FBD81F01825;
+	Fri, 23 Oct 2026 22:40:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792795240;
+	bh=toaJDSs62ZHNYBOfBOHKWkIdx7+IHlsjRBQrBLBAFDE=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=Ea3kK4WEjuDq3KDnc9t7CEhlvCJXCApwvtLbMUVJUoMYUvWGbI/udd7sr5Z+v7YQc
+	 vO4HhHEK5qgz7080ok/JUUcQozb2i307NRB9LszUvd0/D/RFWI5RBNDhztb2ajOy6G
+	 PlpWuwh2E/uzjh8aYLbkp93svf7TTvBr+aj38yRSjze1pTCVqdoxHSJPHgMAyVijzv
+	 RP58s3+3UxJWyS7IG/OHY9jGDytD9zJIwbNxg46mX9qPZPkAkdWJJPTGPDO4SXlWq5
+	 8yp8jXgwLgHM/J/7qORCeGUN1qdHqbM2zyzwEZXKK5bNPzLuL3RWMVWCYjVTIRO0Nu
+	 s6PgQp7Z46EOQ==
+Date: Sat, 24 Oct 2026 00:40:33 +0200
+From: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+To: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+Cc: Pierre Gondois <pierre.gondois@arm.com>, Tony Luck
+ <tony.luck@intel.com>, Borislav Petkov <bp@alien8.de>,
+ linux-kernel@vger.kernel.org, James Morse <james.morse@arm.com>, Mark Brown
+ <broonie@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>, Len Brown
+ <lenb@kernel.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, Shuai Xue
+ <xueshuai@linux.alibaba.com>, Maciej Wieczor-Retman
+ <maciej.wieczor-retman@intel.com>, Pawel Chmielewski
+ <pawel.chmielewski@intel.com>, Dave Jiang <dave.jiang@intel.com>, "Fabio M.
+ De Francesco" <fabio.m.de.francesco@linux.intel.com>, Breno Leitao
+ <leitao@debian.org>, Dan Williams <djbw@kernel.org>, Terry Bowman
+ <terry.bowman@amd.com>, Ard Biesheuvel <ardb@kernel.org>, Morduan Zang
+ <zhangdandan@uniontech.com>, linux-acpi@vger.kernel.org,
+ linux-edac@vger.kernel.org, acpica-devel@lists.linux.dev, Ashok Raj
+ <ashok.raj@oss.qualcomm.com>
+Subject: Re: [PATCH v2 0/6] CPER: Add Memory Error Section 2 support
+Message-ID: <20261024003917.283b890d@foz.lan>
+In-Reply-To: <20261023142621.00007051@oss.qualcomm.com>
+References: <20261019203915.2019037-1-pierre.gondois@arm.com>
+	<20261020101048.00000186@oss.qualcomm.com>
+	<0817615d-5e96-4a3a-b39e-3e5d1b88e716@arm.com>
+	<20261023142621.00007051@oss.qualcomm.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,106 +74,90 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <5fdb3777-95a2-48f9-bb38-aa4ba3c96a81@kernel.org>
- <CAKEwX=MuW6q354nB3tyFTM8d3ox7LRaqcSfUxeATR=Sop5mZPw@mail.gmail.com>
- <5ca344de-bc34-4a9b-ab85-f553811a1d9c@kernel.org> <CAKEwX=N05iOC4hmiyTt5OxjAsOfU7_V8xGfmK_RgUyrKtuyUTA@mail.gmail.com>
- <CAMgjq7DJwGCHCAchcfi2Kcu+XHx2YnKXDj53e0t2kpG_GSejkQ@mail.gmail.com>
- <aqgMCIOFi0dKx_6L@fedora> <CACePvbVMFA9N0nQers=sOnSXGbNhtNE0ewq47AJEH5Cr8imQXA@mail.gmail.com>
- <CAKEwX=OMYhUs3tt7jUzEzxsOW3yA2JmzpwwxVBP2eZuHOFu=vw@mail.gmail.com>
- <CACePvbUMjRgK=dQzLjECgBXaUtQSPdAnBXL1Y4=Kh5d15swYvQ@mail.gmail.com>
- <5c8a2b7b-b76d-4bba-92e1-ec3d66794273@kernel.org> <20261014195354.GA371161@cmpxchg.org>
- <CAKEwX=Mwc+D+AN-B5T7p=80fqCDijdsiJjd6aN_3YMrEQjyvwQ@mail.gmail.com>
- <a24ca7b8-8b42-43f3-ad72-afe62f97f76c@kernel.org> <CAKEwX=OdbOrFbdihntP3rmcWJUyM1UpYa5n+pYjt_feMQwx8yA@mail.gmail.com>
- <CAKEwX=PCSyCEAqxeOH6CkCMu1eB3xUn3iz5XNuTbpDM3EmWYAg@mail.gmail.com>
- <c6e62e80befa886fccd36d34a39cf56ea5b9c9c2.camel@surriel.com>
- <CAO9r8zOtK7YYdBNS+h5bNW-miKED7p4G0igy=D-=HRnGqA-38A@mail.gmail.com> <179279233116.3784731.9576593182600250610.b4-reply@b4>
-In-Reply-To: <179279233116.3784731.9576593182600250610.b4-reply@b4>
-From: Nhat Pham <nphamcs@gmail.com>
-Date: Fri, 23 Oct 2026 15:38:48 -0700
-X-Gm-Features: AclHuK_IYUAj5HLbnP3AeCgr3emPoTaAjXpZJxAWWXcpmGT_QzEhtpufA_J3jmE
-Message-ID: <CAKEwX=Nf57X+Bb7C+0L1L6bkVDw2rjTMSfn=xuMRsXY_qrB_ZA@mail.gmail.com>
-Subject: Re: Path forward for Virtualized Swap?
-To: "Gregory Price (Meta)" <gourry@gourry.net>
-Cc: Yosry Ahmed <yosry@kernel.org>, Rik van Riel <riel@surriel.com>, Wei Xu <weixugc@google.com>, 
-	"David Hildenbrand (Arm)" <david@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>, Chris Li <chrisl@kernel.org>, 
-	Baoquan He <baoquan.he@linux.dev>, Kairui Song <ryncsn@gmail.com>, 
-	Michal Hocko <mhocko@kernel.org>, Roman Gushchin <roman.gushchin@linux.dev>, 
-	Shakeel Butt <shakeel.butt@linux.dev>, Muchun Song <muchun.song@linux.dev>, 
-	Kemeng Shi <shikemeng@huaweicloud.com>, Barry Song <baohua@kernel.org>, 
-	YoungJun Park <youngjun.park@lge.com>, Chengming Zhou <chengming.zhou@linux.dev>, 
-	"Lorenzo Stoakes (Oracle)" <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
-	"Vlastimil Babka (SUSE)" <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	=?UTF-8?Q?Suren_Baghdasaryan=EF=BF=BC?= <surenb@google.com>, 
-	Qi Zheng <qi.zheng@linux.dev>, Axel Rasmussen <axelrasmussen@google.com>, 
-	Yuanchu Xie <yuanchu@google.com>, Wenchao Hao <haowenchao22@gmail.com>, 
-	Jonathan Corbet <corbet@lwn.net>, Hugh Dickins <hughd@google.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, Tejun Heo <tj@kernel.org>, 
-	=?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Kunwu Chan <kunwu.chan@linux.dev>, 
-	Meta kernel team <kernel-team@meta.com>, Linux Memory Management List <linux-mm@kvack.org>, 
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, linux-doc@vger.kernel.org, 
-	"open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)" <cgroups@vger.kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
-	Joshua Hahn <joshua.hahnjy@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Fri, Oct 23, 2026 at 2:52=E2=80=AFPM Gregory Price (Meta) <gourry@gourry=
-.net> wrote:
->
-> On 2026-10-23 13:25 -0700, Yosry Ahmed wrote:
-> > On Fri, Oct 23, 2026 at 1:03=E2=80=AFPM Rik van Riel <riel@surriel.com>=
- wrote:
+On Fri, 23 Oct 2026 14:26:21 -0700
+Jonathan Cameron <jonathan.cameron@oss.qualcomm.com> wrote:
+
+> On Thu, 22 Oct 2026 09:07:25 +0200
+> Pierre Gondois <pierre.gondois@arm.com> wrote:
+> 
+> > On 10/20/26 19:10, Jonathan Cameron wrote:  
+> > > On Mon, 19 Oct 2026 22:38:39 +0200
+> > > Pierre Gondois <pierre.gondois@arm.com> wrote:
+> > >    
+> > >> The support is mostly duplicated from Memory Error Section handling.
+> > >> Other than differences coming from the content of  Memory Error
+> > >> Section 1 and 2, differences in the support are:
+> > >>
+> > >> - v2 do not rely on a compact "struct cper_mem_err_compact" struct.
+> > >> This structure was used to support older versions of the Memory
+> > >> Error Section (1). This is not needed for the new structure.
+> > >>
+> > >> - The compact version is also used by the tracing framework.
+> > >> To avoid relying and propagating a non-standard record format,
+> > >> through trace event (cf. extlog_mem event) the new trace event
+> > >> prints each field individually.
+> > >>
+> > >> The last patch of the serie was only build-tested due to the
+> > >> absence of relevant hardware. apei_mce_report_mem_error() and
+> > >> arch_apei_report_mem_error() implementations were also removed since
+> > >> last version.
+> > >>
+> > >> It will also require a proper handling from the rasdaemon. Applying
+> > >> this last patch without rasdaemon support will silent the reports of
+> > >> Memory Error Section 2 error, cf. ras_userspace_consumers() check.    
+> > > Hi Pierre,
 > > >
-> > > +-------+     +------------+
-> > > | vswap |-----| swap cache |
-> > > +---+---+     +------------+
-> > >     |
-> > >     +----------+-----------+
-> > >     |          |           |
-> > > +---+---+  +---+---+   +---+---+
-> > > | swap  |  | zswap |   | zram  |
-> > > | file  |  |       |   |       |
-> > > +-------+  +-------+   +-------+
-> > >
-> > > What exactly do people want to accomplish here?
-> >
-> > Today if you swapoff a swapfile, every is swapped in into the
-> > swapcache, whether it's in zswap or on disk. With vswap, you have no
-> > way to trigger swapin of compressed memory in zswap.
-> >
->
-> This seems like a missing interface in zswap, rather than something
+> > > I'd slow down a bit.  We are mid merge window and convention is normally
+> > > one version a week or so anyway.  Better to gather up feedback from
+> > > a number of folk and spin only one revision to cover it all.
+> > >    
+> > Hello Jonathan,
+> > 
+> > Ok sure, as the v1 was reviewed quickly I thought there was a chance
+> > of having the serie accepted quickly aswell. I ll wait a bit more.
+> > 
+> > Thanks for the review,
+> > 
+> > Pierre
+> >   
+> 
+> A general question that came up in a related thread with one of
+> our RAS architects. How does firmware decide what to send?  As far as
+> I can tell firwmare has no way to know whether the OS understands the CPER
+> Memory Section 2. 
+> 
+> So options that come to mind.
+> 1. Firmware must send a CPER with both Memory Section and Memory Section 2.
 
-Yeah, and I don't think implementing "draining" for zswap is terribly hard.
+Please don't do this: this would require either Kernespace or userspace to
+discard one of the reports, only if the other one is there, which can be
+tricky. Could be done more easily at userspace, but only if some database 
+support is enabled, but, at least on rasdaemon, this is an optional module.
 
-Zswap already has the reverse mapping (from zswap entry ->
-virtual/physical swap slot). You can loop through zswap lrus, then for
-each zswap entry, basically invoke the first half of
-zswap_writeback_entry(), which loads the content into memory (i.e swap
-cache).
+> 2. For whatever other reason a platform knows it doesn't work with old kernel
+>    so can assume support in kernel and hopefully userspace got updated too.
+> 
+> 3. We propose some additional discoverability (quickly - code first) to ACPI
+>    so that it can be a negotiated contract between OS and firmware.
+>    Until the OS confirms it understands Memory Section 2, firmware has to send
+>    the older one (or risk the record not being understood).  After that
+>    negotiation it can do what it likes - probably send the Memory Section 2 form.
+> 
+> Option 1 and 2 are ugly at best.
+> 
+> Obvious path to me for option 3 is an _OSC like the one for generic initiators
+> that we discovered a need for whilst implementing that years ago.
+> 
+> Anyhow have a better idea?  The above doesn't solve the end to end problem as
+> maybe userspace still has no idea what this new tracepoint is, but at least gets
+> us past hop 1 (so through the kernel). 
+> 
+> If we conclude _OSC plan works I'll draft a code first proposal.
+> 
+> Jonathan
 
-But you're right - this is something that belongs to the backend
-layer, not the virtual layer!
-
-> vswap needs.  But you could just write this as
->
-> vswap swapoff {
->   disable new backend writeback (swapcache fault-in only)
->
->   for each backend {
->     backend swapoff
->   }
-> }
->
-> so rather than vswap.swapoff() you'd actually just want a stop-bit that
-> says to disable the swap subsystem writeback behavior to all backends.
-
-Yeah if we can "swapoff"/"drain" each backend then that brings all the
-content into memory!
-
->
-> Otherwise the user can just disable each backend individually.
->
-> --
-> ~Gregory
->
+Regards,
+Mauro
