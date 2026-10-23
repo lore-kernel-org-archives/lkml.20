@@ -1,114 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.146
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792795108;
-	b=Op32qSCuGs1J5b0dPW+xdbm6nsarMNxO34W7RLL5Hk2YW7p1oxUgLJ/QDXxUYSdhYiP9
-	 jB/Q+q4HpXkc7CDPePVDM2AvcnXAtVlPGDR8IecsD34JFf4nP9g75sa0/NQwqFxfJaNuK
-	 nzJgDkAcTdUAUk7jDoqgDVsyt8Vjv2bNwHKHvjmqc/IgDPTU0MEDSbEf0IcVxDDlx12xt
-	 HLNc++cr/sVKoHOi++dRl6xN6UrJnJuzJjJ8ojfQ6tZ4RLbAe8+o9j4NPi9Jnx38j8NB0
-	 TBZ1B0DiHurW/OTCQxdH65pBseB5CfgAdFIg7mm1fRxDJpuRnk1TvQ6bAGbNTNzClOQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792795108;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:Content-Type:Content-Transfer-Encoding:MIME-Version:From:To:
-	 Cc:Subject:In-reply-to:References:Date:Message-id:Reply-To;
-	bh=CXpjL5aV+fL/tQYDIsd7gu8pYrT13G45saJG84Sqomw=;
-	b=y9d8y9KrY7v+O2jpgyml1i6hvi49HQ03BF0xAQV8Hfx1VoeWVHaJNrNt7Vn8OoA9Y1og
-	 Sp63VQSemo6+P90oAyRctoQhtg1ToTK6vcbuQKV5gAl5tTt5xjt5M9tYX3rg0wa2p0dEx
-	 HUBpSnTY1lm5wux9RXUszdzXvuYs4xOn08nja/rOyaeW5Xh6KaH70LGXs46lOmWf22/vM
-	 wIqp4dwajt4HmUwLcuf2rb1QJ9pwOvmsge8lieXW2E7tdX0c843HdKyDl/BhVXvtm/lx6
-	 nDoxRdFxPDiAhqm0bj2X7WxlGci4t28cOGI1s1ST7uXyTqBc1drfw23yxbAPZYXWdwA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ownmail.net;
-	spf=pass smtp.mailfrom=ownmail.net;
-	dkim=pass header.d=ownmail.net header.i=@ownmail.net header.a=rsa-sha256 header.s=fm2 header.b=k9NO7nUw;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b="Y7J+9/EW";
-	arc=none smtp.remote-ip=103.168.172.146
-Received: from fout-a3-smtp.messagingengine.com (fout-a3-smtp.messagingengine.com [103.168.172.146])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.47
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792795142;
+	b=XLML1VFDTFXTyKHpvsYlmn2ka3IgUVOp/AgMcSujYkFLLjsQ3d0hm6zel0KSbKiqFonq
+	 898MkAQ+AN8xOURYL5qzzcVL0hPvEF+Wk4Za4DHiuOmRl+BxpErihCeo9YA79U5Q3dezZ
+	 clGSBtBQiC5FnAmy001S3C+RvCgQjgzocBToJvWK/reZRA4eKjZTrDD8tkjVC6G+n6DLU
+	 KU0WIeeMUZX2PQColoBo+wx9M4gn9TfXsNruQMoz8/LJi4SGyor03LVIpMKlJLTkj6WHA
+	 aPm7vNJ9kf9+vTI79nCkQ1Hlla9wB0KM4FHOUfXekYmq5MSTjfusp1A6rt2o482gujA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792795142;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=DQb9soIuy2IWf1LrfZEp4aNcssN1ddSrfFmGCMehWsg=;
+	b=VLU9iuSw5GboePaT6AuFKdvt/HG2fSPqxtkt5WfSpJaKFiwlj07lA2cLhwCVihQcG18E
+	 o7fJ2x69ERRPfl1+p1A+cKdccl2EKdkvh684PDwllWTo6ID42xIWIY/AgOuRFQm5+nTm2
+	 BI9SFbXafJ/Ts3raf+jMIem3V5vPQIVBC/yrpOcVRPqOohrGidPI6OCoNY79Ge6+mg+vv
+	 9FM+/eAsJHaRxoL2oW68YoA8OO4ibzr7kCIB5MqFs1SBA0OEfx9f1p5afKq2OTlcBW3U7
+	 kFeCZJ8gCxUVVHPR60OrIDVcXMVm5fbP2ie20tizBRFFQjXxileEap8hBU3btXpmtog==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=h2JEsMGR;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.47
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61B13606A320
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 22:38:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 61B13606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ownmail.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ownmail.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33DBA606A31B
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 22:39:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 33DBA606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ownmail.net header.i=@ownmail.net header.a=rsa-sha256 header.s=fm2 header.b=k9NO7nUw;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=Y7J+9/EW
-Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
-	by mailfout.phl.internal (Postfix) with ESMTP id 8A7F9EC0192
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 18:38:26 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-01.internal (MEProxy); Fri, 23 Oct 2026 18:38:26 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ownmail.net; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:reply-to:subject:subject:to:to; s=fm2; t=
-	1792795106; x=1792881506; bh=CXpjL5aV+fL/tQYDIsd7gu8pYrT13G45saJ
-	G84Sqomw=; b=k9NO7nUwus6pgom+xJ3Prj6B7WYKUU6iuNkvaMBD4fEtpk5/Tyl
-	+nITaTlHB+oLEhndk/KHP8Dt6B/+XbLy1+qZfUa+hTkpV75NAHRK7ud14lokFSJM
-	0ZHmL3XQSHT+LCp3031Ju1pFelvJOLUXWrC+zHGHwuYD/BiD34vMi2Sw1wwh9boy
-	5Ar1R03kPEn+OXIFlRAM5WZ4xOSvYtksf/caK9sGPD+F9/kbbbBB0FATprhLYFD9
-	KBEcSUPYE06e6i5S1Nh9Qm1Bcm0Ammz3hDNtDkqRURgMrGC8tGjbneeNpND65Fnq
-	DBd5heCpHPzJNEeg+luBU85MGhSHySANDig==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1792795106; x=
-	1792881506; bh=CXpjL5aV+fL/tQYDIsd7gu8pYrT13G45saJG84Sqomw=; b=Y
-	7J+9/EWOXaB0LzEx5mgwKelbGgi89TUuSfSSKznxAuR7DNlDhCe+F10bXsHoTi6d
-	S08Lvz+/9ihvDuCRl+DDVGVNGMhi06Q3KAI1qs0xFkchU1/C0CjH0HzcZwchFbu1
-	DsV52aHkXYeRdcA22Pg8ThUxJIDtCFyXmNm6ri3l9q6PEHNSF1TSQpqac4ZYwoci
-	irtZPU2zirm3pv3M4kc0+4Hfb3ML567EoKqYi2l6gEq4YJs7mLhH0x836hBT9BTv
-	oJTxq6Q+b99kBFxsbVLzAYTJbXlqRaHaU0Odnb9Rcob2XW4tvWufp3Q+Fd6grqZo
-	hUVPqef1AH2llpB3K7ZXQ==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
-	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
-	action=sign d=ownmail.net a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1792795106; d=ownmail.net;
-	mf=PG5laWxiQG93bm1haWwubmV0Pg==;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:buCRIqYNd18z8t2C7tjFoCvTyHM/qVrgrAuOEUurpAxuXU2
-	DijqMgj1n5BrRS3/4zqiHbuaqjFvxfIvq+ZfJZX1bFlEkmmtq4DsSWboivX6S/AF
-	gdJS7Yfb/KiAgAzzP+MEE1YovYzUhjMSi28M6T5CuiVlCzkD2hkaV43cw8zG2Lr3
-	pqWJasqDhr/E/hXINq31kpx5mU/qgkF2DOc04FbJiJ2VEri48kGpDgyij6TLax6h
-	Bf5vC3mEDpSeZYYOgxGyFqXZCOzsTwn+hmwUTmpBwX+8+e24JtXYZgmIe0077kZG
-	v3pw9Tdq49fUSLGotPmGhvmNa4Bop9LayM7VS5w==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
-	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
-	action=mi-m=1; hc=13;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,reply-to,
-	subject,to;
-Message-Instance: m=1; h=sha256:KmLnJKZDRE19PAX56rvC54Ee6o1ap2dCE9utRFVjjL0=:wEUenmc4EYB8ur+IAcaeJAPVN3w/PSx3oXhanP+XV3c=;
-X-ME-Sender: <xms:4uHbagj4QnAUlrcQZct5Cbs--ItFzGvlkiKsie4pFfwxInLm0Bt54g>
-    <xme:4uHbanRRM_H6eAsin1dYZv6--GGXkDplmBKmBCeJ1oPPik87i5SHq_3Sn86hPr3zp
-    GX-0dPhYL3DcC53edx7vnatP3VvfdJR6glD8hGIQzQjWMyI3BY>
-X-ME-Received: <xmr:4uHbahYqRnSzPGk0LwAw7gpA5LX39nDoszXFiZ36shL4DWZcscgJzDuCeNCz1U0oFqz9IlSeXablvRe39zUTSrCNtIQRhK4>
-X-ME-Proxy-Cause: dmFkZTG3Q/70zTOldkKwQ/nRgy4pIRffckwi2d0zpsPIWfS8PNEp1RPAIJQ+x4vQcGat3g
-    qzQdPStc3TCac79qZLXbXiD3sTtVOHHv5cqUO1Wd+MwnhD0WzDnwjLyE8D1QBMRZ7Q3PXG
-    zjxO1rKtu2atByIb/LLvCdY896C8BgpqdgbIwmsyP3bfg8lLjtyy1K1KC97OCP8Li3II3v
-    BfY9tHc/0LsAp61D4lhkbW0+R9rbMeDd+9etu8BTxzXXVbxKxJxRdiFACgx4/sL3n/EIde
-    4TPcJjZ/Ri7DlwgnKPWVVOP8jqSk37nWVK5cfE0Q8ZpFFKxpP5+CKFxupBfedjqGeHqaAY
-    Ps5NSPTyhLbgfZd84yro+dup3JiuMW6kKtCgerFIyzbKVHBAUOjUIldRsPIRmJ+igIp3fy
-    PtR9hqheMmajfBBchViUWLWyviR6XtD2Hz7ijxcFALDL9qkqVZ2elQnrYfrlfJuoxrSOrF
-    v7lw4XZmc9Ffv3wqSSftRZSUCu+Yc+9NmuFvzB/L1xaeKvuf4oUsHDrW/fV82GMN9ueRDN
-    eue/iSTcuaqJzYD0iWtxDmiNH2GfKDxc/7yhPj8sw610ii4+5lilSf1/buThdElax9LfgJ
-    Y4YkzjykyTuzKmRY9rGkBhvu/+2DS4HX4hgbv/i0lbwVSBR+weE8EP5l+Pag
-X-ME-Proxy: <xmx:4uHbakSC3GKcUcsT3aQ3WTEn1GdBsYRvZNtVYa7VCKMjI_CTUEyuyg>
-    <xmx:4uHbag-qZxOfqU5eNfQ8tYsyt_Je-LSBSer_6MgfIZuui0Hle2BJ2Q>
-    <xmx:4uHbakhN8urUjjOdSgzTyxskPC0P0OxBqN_fSZIt-VK2GjoklUbdbg>
-    <xmx:4uHbahbRSjFaFCYIoNzBQG6nNzukQO_PmNXmusvcsyERO649tkhe9A>
-    <xmx:4uHbasFkA85Uc_YspYqqeG3u4x7oct4lPV_fPyRLidJNztOtYYmhHag0>
-Feedback-ID: i9d664b8f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 23 Oct 2026 18:38:22 -0400 (EDT)
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=h2JEsMGR
+Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-48dc202a60eso698504f8f.3
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 15:39:02 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792795140; cv=none;
+        d=google.com; s=arc-20260327;
+        b=iPR1hn3lY3JFMgl6KSAaBFgqB2Y+5+lDyCsxi06/36xPnEYj8jzGvLJE1CMNOrdA+x
+         pU0e9QaePUaOwD3vJzE/+eU9+ocWIjAXYVbDDH3IPgO7gN/Ud4hnr8LI1pp1jXWS+GBE
+         lWr/codPOjal1Qs9A+0euhHEKCIZnMLBzwXeRnbQda6NLHeO5Mwn3aaOGrb4tA8Dn85L
+         fn49IuLWVMHzKKXXno9NJvVi81+dpOgMqwi5patwL+2h+NGuON8EjIEHDWoBTXi3x5qQ
+         sfBx7g9mM/zcSgsRa6O5zNdYmfYeamFDeTVlA27epFyifTqZy39tF+Q3ydneP84s1P5r
+         nKJA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=DQb9soIuy2IWf1LrfZEp4aNcssN1ddSrfFmGCMehWsg=;
+        fh=7inVXxjVBgnOgcW7GwTYuGJSD4QBRfpm3gzDnDr4eSE=;
+        b=ncw698Jav1qbiL8jdjG/IFNmfFN4Kb8N/fovODpf8l3xfH9GBK1gO7FH5NredBdMX+
+         NWZFsJBNfUZXazGwOqwEoIbPMxC/wbVdDbwILNZg+C5UWNDJqfwIpUpMhILE3mUjLDAq
+         sdapFisZf4tpFjeQDLHi3OOoNjsIv6JtmyVCcZk0FMW5c6Z+KhL0EbJAdaUuODcneNPP
+         kGxRuJKOSpMOCvooV2rwUmskZ8wsoviqU/klxkfponUz3mNaZh6YuJ7NfBfU1vPU9vR+
+         z0Uqzm8ufnmBX3Endlf3tCdlGEjMp0lb52S/e075DwhJ+CS4td2Mgak396TRpo5pzZ2T
+         bUfQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792795140; x=1793399940; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=DQb9soIuy2IWf1LrfZEp4aNcssN1ddSrfFmGCMehWsg=;
+        b=h2JEsMGRrVURSB0j47TGc5GJasxIhVL/JHhnfpggkvfbknB7iXYx4eM3fv179YZizS
+         UDP0PvSpu3n/sqjgLr1SrF3YXEfIYj+wNtrMzD4T2trvVG1avenYj5g3ZI+meZwGPRK9
+         opn7VSPA5ZI7wDpF+91pO+99cubxigV7u0ifnJvgrwnqjxpMGyoOflnN2rJ4GbjRUn3+
+         UaYcfeSvsBOUXLlS3Itld7VGw0rSpsygpl6Kkm8EnqjFSllNzdz/+Afc6yuZBmetCJHF
+         b5ayg8KUcHpQIuOh3oxQ67ZOL86P+WJV6NHR/yZMHzjfHGdS/VoAQ/Ssp4lKbf3Qm6nI
+         x5nQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792795140; x=1793399940;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=DQb9soIuy2IWf1LrfZEp4aNcssN1ddSrfFmGCMehWsg=;
+        b=K2/r0cD1156IkDX1K0DW5E1wPh6wT1ASvl7dfge78iXQh+fSM80P42PxM48s7YwEPY
+         ph5SdKjnU+TmNyil2obiiBWY6leQgGAvAZefG2LAK3t0Oax/cefqzoTRFQdfaT+UtNvX
+         ud7iLW0b+Qxvg3t6bxDO7yKT2IcNmK6pTMOfsPH9SnQ9Hs8ZwvIEcOVvRexBBsIagBO4
+         xeO63jikKaFt3BmJMdSJwAp7gu4eUSpsaDfpO+H7pjA1X8cEOWYyQcH3UVRQgh8/5k/p
+         /o/9nzdW5RbE6WieVLio3Sg1ReJZhM6g1NdM3fTYsz81MKStzKY9czr2J8pBFk4sXh+X
+         zoKQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzj03yDjnn/9rV7mJNx+Yic52Ca9GYRmIZE/BmhYF+0uF84C9iWGV5sCONQ4HgkxhJyHytn8xQVv5FAlhE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJE5PBp/5KSmdlc/9jpKZ0UJfkUEvQsleD5BRZc2NvAnMO7RAQK
+	PZwRTO5tBnwokIPZxc/rJPdKKBG7CrocvZrAb/vJYeP0BL0P6uXNXwtvEiZgL5t2CIvtHGy9CNn
+	pLtb6fY8OtBe2goLTRair1geTX4GE7BI=
+X-Gm-Gg: AYBFou0IbSlGqgMmWa8DR50cRxXuynLEtU4DkStT8I/yEploVA1wnGyIHzwCy/k1dRi
+	brQa25MfuabligzpGa3dG+kEHENee0SV//f5H2V6ZDzmzYoqmrIabDsVptyDb6A9xdK1595/GFX
+	3m4sJZmEMMiIfl8Hkvk70bZ2KIErEt9vW3p8IbqHMdHvKDprc6X/oRuxuKGsyZtpz5cHzjC/EHX
+	peve4Un1Re9GejZpFspzc641lq5qsnfbol2BztczDp16lmX0oFmNPVK8IRGJiX9YrsceHzGwsVP
+	i1MSFgXtHOAvWHv+2jwJ+zZ/za6EEseC5VxBWNQcuMfSu1hW8PHLcTSoTJqH4ohy5T7/1vCMPjH
+	HBe+UGjoKquHTxOYCf6yvG+2+gqQ+ZpeHJ+oMQD53hJFq3lIfh8UEhM41jpgScCVUzjl2eFPbJC
+	df8LuWtiO2hVvx3+pH+VQ5e0kCFHGdHebzhx1W4ml4NTDQ9s4mNZZj
+X-Received: by 2002:a05:6000:40cc:b0:48d:f069:570c with SMTP id
+ ffacd0b85a97d-48e3eb93429mr575083f8f.41.1792795140106; Fri, 23 Oct 2026
+ 15:39:00 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -118,115 +105,106 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-From: NeilBrown <neilb@ownmail.net>
-To: "Jonathan Flynn" <jonathan.flynn@hammerspace.com>
-Cc: "Trond Myklebust" <trondmy@kernel.org>, "Anna Schumaker" <anna@kernel.org>,
- "Alexander Viro" <viro@zeniv.linux.org.uk>,
- "Christian Brauner" <brauner@kernel.org>, "Jeff Layton" <jlayton@kernel.org>,
- "Jan Kara" <jack@suse.cz>, linux-fsdevel@vger.kernel.org,
- linux-nfs@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] nfs: set NFS_FSDATA_BLOCKED before invalidating d_seq
-In-reply-to: <20261023192215.1795577-1-jonathan.flynn@hammerspace.com>
-References: <20261023015239.2163480-2-neilb@ownmail.net>
-  <20261023192215.1795577-1-jonathan.flynn@hammerspace.com>
-Date: Sat, 24 Oct 2026 09:38:18 +1100
-Message-id: <179279509880.1157394.17104184170834248641@noble.neil.brown.name>
-Reply-To: NeilBrown <neil@brown.name>
+References: <5fdb3777-95a2-48f9-bb38-aa4ba3c96a81@kernel.org>
+ <CAKEwX=MuW6q354nB3tyFTM8d3ox7LRaqcSfUxeATR=Sop5mZPw@mail.gmail.com>
+ <5ca344de-bc34-4a9b-ab85-f553811a1d9c@kernel.org> <CAKEwX=N05iOC4hmiyTt5OxjAsOfU7_V8xGfmK_RgUyrKtuyUTA@mail.gmail.com>
+ <CAMgjq7DJwGCHCAchcfi2Kcu+XHx2YnKXDj53e0t2kpG_GSejkQ@mail.gmail.com>
+ <aqgMCIOFi0dKx_6L@fedora> <CACePvbVMFA9N0nQers=sOnSXGbNhtNE0ewq47AJEH5Cr8imQXA@mail.gmail.com>
+ <CAKEwX=OMYhUs3tt7jUzEzxsOW3yA2JmzpwwxVBP2eZuHOFu=vw@mail.gmail.com>
+ <CACePvbUMjRgK=dQzLjECgBXaUtQSPdAnBXL1Y4=Kh5d15swYvQ@mail.gmail.com>
+ <5c8a2b7b-b76d-4bba-92e1-ec3d66794273@kernel.org> <20261014195354.GA371161@cmpxchg.org>
+ <CAKEwX=Mwc+D+AN-B5T7p=80fqCDijdsiJjd6aN_3YMrEQjyvwQ@mail.gmail.com>
+ <a24ca7b8-8b42-43f3-ad72-afe62f97f76c@kernel.org> <CAKEwX=OdbOrFbdihntP3rmcWJUyM1UpYa5n+pYjt_feMQwx8yA@mail.gmail.com>
+ <CAKEwX=PCSyCEAqxeOH6CkCMu1eB3xUn3iz5XNuTbpDM3EmWYAg@mail.gmail.com>
+ <c6e62e80befa886fccd36d34a39cf56ea5b9c9c2.camel@surriel.com>
+ <CAO9r8zOtK7YYdBNS+h5bNW-miKED7p4G0igy=D-=HRnGqA-38A@mail.gmail.com> <179279233116.3784731.9576593182600250610.b4-reply@b4>
+In-Reply-To: <179279233116.3784731.9576593182600250610.b4-reply@b4>
+From: Nhat Pham <nphamcs@gmail.com>
+Date: Fri, 23 Oct 2026 15:38:48 -0700
+X-Gm-Features: AclHuK_IYUAj5HLbnP3AeCgr3emPoTaAjXpZJxAWWXcpmGT_QzEhtpufA_J3jmE
+Message-ID: <CAKEwX=Nf57X+Bb7C+0L1L6bkVDw2rjTMSfn=xuMRsXY_qrB_ZA@mail.gmail.com>
+Subject: Re: Path forward for Virtualized Swap?
+To: "Gregory Price (Meta)" <gourry@gourry.net>
+Cc: Yosry Ahmed <yosry@kernel.org>, Rik van Riel <riel@surriel.com>, Wei Xu <weixugc@google.com>, 
+	"David Hildenbrand (Arm)" <david@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>, Chris Li <chrisl@kernel.org>, 
+	Baoquan He <baoquan.he@linux.dev>, Kairui Song <ryncsn@gmail.com>, 
+	Michal Hocko <mhocko@kernel.org>, Roman Gushchin <roman.gushchin@linux.dev>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, Muchun Song <muchun.song@linux.dev>, 
+	Kemeng Shi <shikemeng@huaweicloud.com>, Barry Song <baohua@kernel.org>, 
+	YoungJun Park <youngjun.park@lge.com>, Chengming Zhou <chengming.zhou@linux.dev>, 
+	"Lorenzo Stoakes (Oracle)" <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
+	"Vlastimil Babka (SUSE)" <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	=?UTF-8?Q?Suren_Baghdasaryan=EF=BF=BC?= <surenb@google.com>, 
+	Qi Zheng <qi.zheng@linux.dev>, Axel Rasmussen <axelrasmussen@google.com>, 
+	Yuanchu Xie <yuanchu@google.com>, Wenchao Hao <haowenchao22@gmail.com>, 
+	Jonathan Corbet <corbet@lwn.net>, Hugh Dickins <hughd@google.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, Tejun Heo <tj@kernel.org>, 
+	=?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Kunwu Chan <kunwu.chan@linux.dev>, 
+	Meta kernel team <kernel-team@meta.com>, Linux Memory Management List <linux-mm@kvack.org>, 
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, linux-doc@vger.kernel.org, 
+	"open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)" <cgroups@vger.kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
+	Joshua Hahn <joshua.hahnjy@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Sat, 24 Oct 2026, Jonathan Flynn wrote:
-> block_revalidate() calls write_seqcount_invalidate(&dentry->d_seq) and
-> only then sets dentry->d_fsdata to NFS_FSDATA_BLOCKED.  Because ->d_seq
-> is invalidated before NFS_FSDATA_BLOCKED is set, an RCU-walk open can
-> get past an unlink that is in progress.
-> 
-> The barrier in write_seqcount_invalidate() is issued before the
-> increment, so it orders only the stores made before the call.  An
-> RCU-walk lookup that samples ->d_seq after the increment can still read
-> the old ->d_fsdata, and so ->d_revalidate() accepts the dentry.  The
-> walker then waits for ->d_lock in lockref_get_not_dead(), takes its
-> reference, and passes the ->d_seq recheck in __legitimize_path(),
-> because ->d_seq still holds the value the walker sampled.  By then
-> nfs_unlink() has seen d_count() == 1 and sends the REMOVE instead of
-> silly-renaming, so the open proceeds on a file the server is removing.
-> 
-> Set NFS_FSDATA_BLOCKED first, then call write_seqcount_invalidate().  A
-> walker that samples the new ->d_seq then also sees NFS_FSDATA_BLOCKED
-> and returns -ECHILD.  A walker that sampled the old ->d_seq fails the
-> recheck and retries in ref-walk, which waits for the unlink to finish.
-> __d_drop() follows the same order: unhash the dentry, then invalidate
-> ->d_seq.
-> 
-> Also correct the comment in block_revalidate(): the ->d_seq recheck is
-> in __legitimize_path() and try_to_unlazy_next(), not in
-> legitimize_mnt().
-> 
-> Signed-off-by: Jonathan Flynn <jonathan.flynn@hammerspace.com>
-> ---
-> Neil, this answers Sashiko's second point on 1/9: v3 still calls
-> write_seqcount_invalidate() before it sets NFS_FSDATA_BLOCKED.  This
-> patch applies on top of v3; fold it into 1/9 if you prefer.
-> 
-> The window with the v3 order:
-> 
->   CPU0: nfs_unlink(), ->d_lock held     CPU1: RCU-walk open, same name
->   d_count() == 1, no silly-rename
->   write_seqcount_invalidate(&d_seq)
->                                         __d_lookup_rcu() samples the
->                                           new ->d_seq
->                                         ->d_revalidate() reads ->d_fsdata,
->                                           not yet NFS_FSDATA_BLOCKED
->   d_fsdata = NFS_FSDATA_BLOCKED
->   spin_unlock(&dentry->d_lock)
->   REMOVE sent                           lockref_get_not_dead() takes a ref
->                                         read_seqcount_retry() passes
->                                         the open proceeds
+On Fri, Oct 23, 2026 at 2:52=E2=80=AFPM Gregory Price (Meta) <gourry@gourry=
+.net> wrote:
+>
+> On 2026-10-23 13:25 -0700, Yosry Ahmed wrote:
+> > On Fri, Oct 23, 2026 at 1:03=E2=80=AFPM Rik van Riel <riel@surriel.com>=
+ wrote:
+> > >
+> > > +-------+     +------------+
+> > > | vswap |-----| swap cache |
+> > > +---+---+     +------------+
+> > >     |
+> > >     +----------+-----------+
+> > >     |          |           |
+> > > +---+---+  +---+---+   +---+---+
+> > > | swap  |  | zswap |   | zram  |
+> > > | file  |  |       |   |       |
+> > > +-------+  +-------+   +-------+
+> > >
+> > > What exactly do people want to accomplish here?
+> >
+> > Today if you swapoff a swapfile, every is swapped in into the
+> > swapcache, whether it's in zswap or on disk. With vswap, you have no
+> > way to trigger swapin of compressed memory in zswap.
+> >
+>
+> This seems like a missing interface in zswap, rather than something
 
-Thanks. This diagram is really helpful.
+Yeah, and I don't think implementing "draining" for zswap is terribly hard.
 
-I think I will move the d_fsdata = NFS_FSDATA_BLOCKED assignment before
-the comment and maybe add a bit of explanation.
+Zswap already has the reverse mapping (from zswap entry ->
+virtual/physical swap slot). You can loop through zswap lrus, then for
+each zswap entry, basically invoke the first half of
+zswap_writeback_entry(), which loads the content into memory (i.e swap
+cache).
 
-Thanks for helping me understand this problem.
+But you're right - this is something that belongs to the backend
+layer, not the virtual layer!
 
-NeilBrown
+> vswap needs.  But you could just write this as
+>
+> vswap swapoff {
+>   disable new backend writeback (swapcache fault-in only)
+>
+>   for each backend {
+>     backend swapoff
+>   }
+> }
+>
+> so rather than vswap.swapoff() you'd actually just want a stop-bit that
+> says to disable the swap subsystem writeback behavior to all backends.
 
+Yeah if we can "swapoff"/"drain" each backend then that brings all the
+content into memory!
 
-> 
-> Your afs 1/5 also sets DCACHE_BLOCKED after write_seqcount_invalidate().
-> 
->  fs/nfs/dir.c | 11 ++++++++---
->  1 file changed, 8 insertions(+), 3 deletions(-)
-> 
-> diff --git a/fs/nfs/dir.c b/fs/nfs/dir.c
-> index 53cd3adf3ffe..79331e0fa044 100644
-> --- a/fs/nfs/dir.c
-> +++ b/fs/nfs/dir.c
-> @@ -1879,15 +1879,20 @@ static void block_revalidate(struct dentry *dentry)
->  	/* Any new reference that could lead to an open
->  	 * will either:
->  	 *  - take ->d_lock in lookup_open() -> d_lookup() or
-> -	 *  - will check d_seq in legitimize_mnt()
-> +	 *  - will check d_seq in __legitimize_path() or try_to_unlazy_next()
->  	 *
->  	 * Holding this lock and invalidating ->d_seq ensures we cannot
->  	 * race with __nfs_lookup_revalidate().
->  	 */
->  	lockdep_assert_held(&dentry->d_lock);
-> -	write_seqcount_invalidate(&dentry->d_seq);
-> -
->  	dentry->d_fsdata = NFS_FSDATA_BLOCKED;
-> +
-> +	/*
-> +	 * Set NFS_FSDATA_BLOCKED before invalidating ->d_seq: the barrier in
-> +	 * write_seqcount_invalidate() orders only earlier stores, so an
-> +	 * RCU-walk that samples the new ->d_seq also sees NFS_FSDATA_BLOCKED.
-> +	 */
-> +	write_seqcount_invalidate(&dentry->d_seq);
->  }
->  
->  static void unblock_revalidate(struct dentry *dentry)
-> -- 
-> 2.43.0
-> 
-> 
-
+>
+> Otherwise the user can just disable each backend individually.
+>
+> --
+> ~Gregory
+>
