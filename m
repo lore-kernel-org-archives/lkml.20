@@ -1,100 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.41
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792780414;
-	b=G5wZx2ovBs6Rmch6jtE5K9AIP/pMr7NRB0LUMLTnVEFFTQNZGgTLAsmYw0fdQHY7B5DY
-	 ZRTUWLZaUrDo0PNCzac2zFjIEHvBHiOGsI3V5fiT56ktxmpK49Mtpvz813sFAXx04ibPP
-	 zSVdHvgwicqbV5sJmhaK/DkvtRH8SQQEFjaEH3Sfz3ZiTtQEx8YS99erXNNxIX1iyxCZw
-	 iQvUOWfIqHo0y9/3yTE/mchKVA4F7gvmGoYoFMPyJUqoT/GPPAucRNVCjjKEW1/Y8PN5z
-	 T4uCCHeHp5VyKNpLbBRpl72Xy2PN04mB7HiQZZS2YK/XxiUajHCO41QYYaBt4TTaAlQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792780414;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792780479;
+	b=DosmbaLdWV6l8bM/6HRkBrExoXPZ/CtBJCz4tXf3PEh/6YXH/Nv5AWp7J320Q/8smvrM
+	 jSzSCSQgWFWiU132H5VxA4oC7+QJ5nsUohW3QkPd/V069iMc47Tn2smg5Lu7NNPxyAVVV
+	 Wsx/KIDkC9HjmdIFHfAhOFnoxQqHRwSzu/mfVOncRr5o+12sIbbWLm9hEjAxGifzbl2sV
+	 rYitUQSA9Anp0vcCozbAsfvCcEXkCIn9O7TojyrVT1SHLAGKkwq04+Hby/T08F/Lg2Zz0
+	 OHjfMFwEWUWkfC8l+s25NoQduDVIJ6xHSdG1GuwOe6yT+IE9GkFmVBr+Me7OdsaOD4A==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792780479;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=lJ/PTfv5RXcFCq/Fmv1kk7W2C7lDfDCOzu0A1tXDMGI=;
-	b=B/by5ko4RDsw0iaaNtTD7x7ml6bdbxBb3q7PqHCDgXm7ty8eeghuQiv2RObrKiOwmbEP
-	 X2dEdtfRuSvEA4/0hPMUCvieVbrGx/XS+Il0fvnLe/i1u8VI6mh4CAiR4GIpsEyChAaY5
-	 RQf+QKovwYC+J/qytjtRXy7pJs5GsT6ahjUhtctVBVfF5WQS2S2VB6IZYLmJzmMgy30EN
-	 yBLCMDmNE7O7ODyWXPbgY0GU2enbQVP31ZM5ifeg35qckfqbtHVb6KSSXItk+FnD/BQQt
-	 H4swLwSzQrpJbAz+C7a7lfKOrVkw7/viQCgcbsX22soj5iGOpUz22HlflyGU8gcA6ww==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=ouyVlE+t;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.41
-Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com [209.85.208.41])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=75mO7UG1vq+0X8jAgs1gX8uFdOb25/StouuKNbz6JpE=;
+	b=SHOe6psDbw2uZohrG3wjlrP0bTQhPslFppIJ0ZueB1dKsIVB28KVk91nx1iOUKMhMAAd
+	 7a9EngbjNH1e7HJRavG56gFkXMudyz0ONRGb1kkSSLkn8/YnJ7q45WH8YzIwR16XrRnqi
+	 IcRdyrfmtSynfJGUUkKUPpkDLV7eDNdPEd7x2zqevDZG/s5kAiVOy0Y51zHYNn1hjRXW+
+	 l92tpoRgJ+6ArOuqWciS/dBdXw6BA8qta4Vs901D8LD9+aZbtbrncLpGI+IPs/hXxA9YM
+	 vBbjsiiTSeIJGGnMcXdGMEsAloatMdm3a3T0S+d4evci/S8k9CjzovtrtGS1IyNVSoQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=KTjbPWgY;
+	arc=none smtp.remote-ip=209.85.128.45
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7C5C606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 18:33:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B7C5C606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52A8A606A31B
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 18:34:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 52A8A606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=ouyVlE+t
-Received: by mail-ed1-f41.google.com with SMTP id 4fb4d7f45d1cf-6b1aa36fc0eso1774a12.0
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 11:33:33 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792780412; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Fx/1cpEZOb5UfMzCXN7aDku9UWyHio9kEh4lkJ+mHG/pCXBg9V0WgVMimyz6Ov9QAb
-         UgAw5g4IM/ksHCsjOfQpBTY0hKa1+EvsuNGtovHN8mVjVhAVjCTeQoesMv/MIidsPoPW
-         ybmaLH6b+GWcDgLDMpToxe8stBRiQ+xvjhfPf/t1D8iOHcqzOb9VwqDCAS6sHRjj8DxS
-         l0/ACUZgS3mA3pIxi3YPleInhcouPUiCrowtpaF3bI4wO9zaqC6MgU9TlKqTjSDbm3bU
-         UVWmi36laf2wY5Kz8ENcttj1F73R8/54Ct0Klx9cUcmV7+i6D9/y6YA8CXMy3fr7+6Of
-         bfdw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=lJ/PTfv5RXcFCq/Fmv1kk7W2C7lDfDCOzu0A1tXDMGI=;
-        fh=E82fQbo4FuKswx5qV5+wg6jhy4ZCo+zTy5m26+357g0=;
-        b=E7+X98RkRd0GRkKJ7+CgdHvjm4YEG/cCDB1bHPaopCWK5nNh82fgwFF8lyzWyIgLkq
-         EScxPy2iB5akdaY7PBLJzQSG+E0/9lrn8NPBfsrbsAzE8hOHsYraMIsXXkbSAx8mVYff
-         uSP98oI7R0eqv9JnqdTcvARmmKJ/kJn6gzlHRg5bH140VhXuaXtX4YVHkyD5KPeIJomh
-         8SdcNk0r0x0ky+Hgp7IYEnXTqL+1ZorPoV4oGQEDhhmXprY4Y1RcUJjYIKUMejx6eQ+2
-         zojoIv/fHMQcilGVXZDC9NcrXUZ6QuzB9cf6P0PT3XFX6Gzj6zfcDHlFoQAvDGLwhVQf
-         lR9A==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=KTjbPWgY
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a20a37703bso9045525e9.1
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 11:34:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792780412; x=1793385212; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=lJ/PTfv5RXcFCq/Fmv1kk7W2C7lDfDCOzu0A1tXDMGI=;
-        b=ouyVlE+tjZggbTz9IPfAlCSRI9kRdKGAaLaDjGr+hBPcBH34MkLaa5erTh77aq4/7u
-         hIP3wurytOhz05R0FADGgynVgyYfkOnS6Y8nwi0cEBnzQp+0Ru4boPB26Qx5Qb/tUaAH
-         atCIKeHgnXxS3ViYZWy0YGWIGwTyVHA8y671I8YWfZI5C6coJKZHXTVKN3s23Wm5tCJV
-         GYPi4cPKEzjidVSK1gFlBtNtkam7jykRz+KqU0P3ABF3kNU7w+VGjLJaNUutqoCqj/TP
-         zJru9puV1P2oD9oUpIJsWFdNJPkye1y6QjeXZKa5x2/idGm7D122SUPvJmA4ejc60b9z
-         ObDw==
+        d=gmail.com; s=20251104; t=1792780478; x=1793385278; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=75mO7UG1vq+0X8jAgs1gX8uFdOb25/StouuKNbz6JpE=;
+        b=KTjbPWgYAawsd7VLvnr57xCEXN4cQkVOrYV5Ymkgp5sgasW5Ulc9IxJpX3cDHDMs3m
+         o7w7+OJz2PUuV5BqKOisJR28/mtmTua1uahZBlUQFhmHYjgou12MUfgx/tDHt5JeCWg9
+         tYwtmoEpjuhVauVRqSOF0xEHUEuPQpyWD3E8Gep3JJUHD3B3rtjzxt2bDrkmWn7grpcr
+         R6hlfE8Dy19iXgG0nKWYXng8pRnMNrTO+98CFmLTufK+sQaD56lWquCmtk/8c+zUH4VY
+         WEHAONY0QbrHEW5WWjAnU/cwkYP9y0ANIypygetbm7PmatQ7hJjKhWgMpG31XKRZWbrl
+         eS2Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792780412; x=1793385212;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=lJ/PTfv5RXcFCq/Fmv1kk7W2C7lDfDCOzu0A1tXDMGI=;
-        b=1Tl/HwPn3owEl9Gt6CB09gCy/eZDuq68jSNjDNDtB/8TR1XUfwRTmb/n/bCQxEgSwu
-         Ja7DohyBCQZ/JRE0lCl2DmbOTXy2Q48w+iLIqyMvmBQ0IokKF7KZWs8tLlhuG+DTWKif
-         l/ZfBUOXJQuBx60XiCsXaFzEMAvDCB8fKqI2wc9IkKqjjZOnGtb3Nv/yTxQI39yNRVpZ
-         PqW9Q2BtyUhXV7ORtYF5bk5AZ8K3EY4rA8wG8EPfYUztQ+Yx/OFlIjSj1+IJZ2TVRtp5
-         gfYo9dv4zLEpueIdr1Ke9IXxnTxfomZY8h8czo+aYQKD85ubw5NEbnSy3ldmaMkQmEaJ
-         8MEg==
-X-Forwarded-Encrypted: i=1; AKwUvBwUqgnbQeCefCXNJYafgy0yk7Ytxv+/7MpEOXF6L5xpCs6am7WKJiMQ6Oq5MmYx/gyBR/Z8eCT/OUA5lsE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLyENF1ICk3zB3RE6vxAwtdVkoMxiWoIYKG7P3+KHnPzuO21mBK
-	iqSGxxOtyceNOJOK5rqfXkLQ92nNjAh2d/ocfUw6EhyYAbSyK875glnqPSqs2b534Kita4q/jzM
-	kGhyqM69VuTetuRgZuL8TKph/xfmVfkALxXOsKdGr
-X-Gm-Gg: AYBFou3FCFaRbOUn+QZivTiq0MMrp3WvEMX7fK51YUVK8VOOEvjq3UI+34VVo0TrFVw
-	CqkGNyHt5vXR9CMqxmTqVRbda24S9SkrDW2iNSwpIOUB0ADAA0XbKfdJC9KQk9H2hROYEJmUF3F
-	ZKFpGSApOMMlWfQ7352I11WPJ01k7zQ1LyE0oxz6Ijzk/RLS0ahc1hEOu41oE9etfAO/sQ5VOpE
-	5gD20olt6n+FW23P0meXnWyiRZlnK0nWQlQmGmRhOYgNPfkKC16dEWv2LmgbIMfGRfWvRgO54Zm
-	4RsDNSD8WnWaf0KJIzRfaCIBdrRZCLkqWuM2ioITFaxgSZBPjDaz6wNYpOpfrNQQtGw1iNSIGhA
-	jPxg+t+VFjfDplqMPAkDOEcMmZSrfepwwabkD53tuztKsTyaCTKFh9Jv3IQ==
-X-Received: by 2002:a05:6402:1488:b0:6b4:18f4:94a0 with SMTP id
- 4fb4d7f45d1cf-6b44260476amr7317a12.1.1792780411407; Fri, 23 Oct 2026 11:33:31
- -0700 (PDT)
+        d=1e100.net; s=20260707; t=1792780478; x=1793385278;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=75mO7UG1vq+0X8jAgs1gX8uFdOb25/StouuKNbz6JpE=;
+        b=nGVTtSOyzboMVN6bgOM3TrL6lSQVhIl+bE+LAFAnY7vJIYiNUF12xhBGueD+1KlONQ
+         GDSJLR8OVNW3VoxkMEewjLhlEGUt077j9YfbCTc5J5f773w4mGDRXuJkSXYjYdOdC2so
+         xNg0eWCmYvRfJjyqQp90g1AIKwFQRLE31okDPmIre9SuH8eWEX+EwaG/rdPAavr+0zMg
+         4wJGOKDsc19sgr0J4d+9IJMyRjpVpQoeGohDCz4o0lYT9F8QDH9LiOutUd33AqU7h0Ww
+         6pjKgIc08ZLGJe5qTK4YWe38/rBX0H5+ujr+gfuD3dBAWWhnv/KJDZ+COMrBoq0QIJS8
+         7I1Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxXByLDenzGrDJIIZ9RG7uIxpZ3L138+rYdW2N4YoB1SaIiSn4nqjXFv4XPvX6btkTYkszBzPlh1l+TKo4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIgGbeX4DbW8KI8/ihQa7kmfPvL9SPMYxCBZwLym4FXF3mCg1z8
+	AyhmSzHXFAhDErhZszWRrVWPkzg7LcAyKTuuPAtfe0wtrADgkVmJJr+3
+X-Gm-Gg: AYBFou0VKWOuVg/B4xT34ru1c7lJmj+dEF5P2Qmna5kdz8+5bgyRzJifGI+Stk0Fy88
+	yjpFbD4Uq9qXV3zYiygYbK+XmTG+45fqFT3QVsi7qrXxnnpsBp0NFQI4WafG+4SDHjE+dvstkTN
+	H3nd2vxVrsC+8jCvQh+kfnnmxOlSxDXFmGc0KcFK2nM9ULO8HuOh6o5hh6dxuyLJHX92sGhGLxH
+	lpdSZKePBOoaXiCgMY0L5AQx7TuJkZwftqIH3F8dmHl6sDGoJIHd/x4OYm32yvTyIyBNPB+2lR+
+	sNYjeg4R++ulwM0aOAtSBO+8jj63xOHNGKPGI1U0Q4IgQmaIyF8L7PbrrdeOE6iO+d+Sl9e86M6
+	lt94aZucKypvqIx3aGPv92HHzI9aKq5A5TI3W31RdCX0hRdn3Z4qYc9cEz2+k8lFlzbhazv1LsN
+	jzo5GuWnFlwIX/EJYWB5LcoC4B561knxu2XEMeik1xvBFMIOa5zsnpQtSRTnP8e24CDjd3NqSG2
+	rIZ/a9LfBcVHRpRKsyPtYGmEdzRNNP8TO+LWSX5mr+IuuZKMUqTQkiLXTrOafgQYW7ORNGAzPTz
+	JsPaQde77eHC58MBk1phdm+ZzVLT
+X-Received: by 2002:a05:600c:4f90:b0:4a2:1a:a11d with SMTP id 5b1f17b1804b1-4a211bb82ecmr57685885e9.0.1792780477504;
+        Fri, 23 Oct 2026 11:34:37 -0700 (PDT)
+Received: from DESKTOP-IR7J1S9.localdomain ([105.98.0.106])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a08013esm1084415e9.14.2026.10.23.11.34.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 23 Oct 2026 11:34:37 -0700 (PDT)
+From: Drif Abdelmalek Mohamed Said <drifabdelmalekmohamedsaid@gmail.com>
+To: Alexey Dobriyan <adobriyan@gmail.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Shuah Khan <shuah@kernel.org>
+Cc: linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Drif Abdelmalek Mohamed Said <drifabdelmalekmohamedsaid@gmail.com>
+Subject: [PATCH] selftests/proc: proc-empty-vm: wait for child's SIGSEGV instead of sleep(1)
+Date: Fri, 23 Oct 2026 19:34:33 +0100
+Message-ID: <20261023183434.9109-1-drifabdelmalekmohamedsaid@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,33 +97,75 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20260918193937.569414-1-zide.chen@intel.com> <20260918193937.569414-8-zide.chen@intel.com>
-In-Reply-To: <20260918193937.569414-8-zide.chen@intel.com>
-From: Jim Mattson <jmattson@google.com>
-Date: Fri, 23 Oct 2026 11:33:19 -0700
-X-Gm-Features: AclHuK_CT9diReeX_afaBUV3QEArYKCd0k-Zn51egC-a7l25vS2kQ6aRFfZD0_Q
-Message-ID: <CALMp9eT-vAspszOpGu8Y=tj61Ed9NFre-fho_uHN7YGqbpnXSg@mail.gmail.com>
-Subject: Re: [PATCH v9 07/12] KVM: x86/pmu: Emulate RDPMC on performance metrics
-To: Zide Chen <zide.chen@intel.com>
-Cc: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>, 
-	Peter Zijlstra <peterz@infradead.org>, kvm@vger.kernel.org, Andi Kleen <ak@linux.intel.com>, 
-	Stephane Eranian <eranian@google.com>, linux-kernel@vger.kernel.org, 
-	Mingwei Zhang <mizhang@google.com>, Das Sandipan <Sandipan.Das@amd.com>, 
-	Shukla Manali <Manali.Shukla@amd.com>, Dapeng Mi <dapeng1.mi@linux.intel.com>, 
-	Xudong Hao <xudong.hao@intel.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Fri, Sep 18, 2026 at 12:50=E2=80=AFPM Zide Chen <zide.chen@intel.com> wr=
-ote:
->
-> If the host has the PERF_METRICS capability but it's not present on
-> the guest, RDPMC interception must be enabled and KVM should inject
-> an #GP when the guest attempts a PERF_METRICS RDPMC.
->
-> If the guest has PERF_METRICS but RDPMC interception is enabled for
-> other reasons, KVM needs to emulate RDPMC with type 0x2000.
->
-> Signed-off-by: Zide Chen <zide.chen@intel.com>
-> Reviewed-by: Dapeng Mi <dapeng1.mi@linux.intel.com>
-Reviewed-by: Jim Mattson <jmattson@google.com>
+The test had a TODO asking for a reliable way to know when the child's
+munmap() has finished, and used sleep(1) in the meantime.
+
+Unmapping the whole address space leaves the child with no code to run,
+so it segfaults. Since it is traced, the SIGSEGV stop is reported to
+the parent through waitpid(), which is exactly the signal the TODO
+wanted. Wait for it there and drop the sleep and the TODO.
+
+The stop is now consumed up front, so SIGKILL the child before the
+final reap.
+
+Fixes: 5bc73bb3451b ("proc: test how it holds up with mapping'less process")
+Signed-off-by: Drif Abdelmalek Mohamed Said <drifabdelmalekmohamedsaid@gmail.com>
+---
+ tools/testing/selftests/proc/proc-empty-vm.c | 24 ++++++++++++--------
+ 1 file changed, 14 insertions(+), 10 deletions(-)
+
+diff --git a/tools/testing/selftests/proc/proc-empty-vm.c b/tools/testing/selftests/proc/proc-empty-vm.c
+index b3f898aab4ab..cf65313a25f5 100644
+--- a/tools/testing/selftests/proc/proc-empty-vm.c
++++ b/tools/testing/selftests/proc/proc-empty-vm.c
+@@ -41,6 +41,7 @@
+ #include <sys/types.h>
+ #include <sys/wait.h>
+ #include <unistd.h>
++#include <signal.h>
+ 
+ #ifdef __amd64__
+ #define TEST_VSYSCALL
+@@ -500,13 +501,18 @@ int main(void)
+ #endif
+ 		return EXIT_FAILURE;
+ 	} else {
+-		/*
+-		 * TODO find reliable way to signal parent that munmap(2) completed.
+-		 * Child can't do it directly because it effectively doesn't exist
+-		 * anymore. Looking at child's VM files isn't 100% reliable either:
+-		 * due to a bug they may not become empty or empty-like.
+-		 */
+-		sleep(1);
++		int wstatus;
++		pid_t p;
++
++		for (;;) {
++			p = waitpid(pid, &wstatus, 0);
++			if (p == -1 && errno == EINTR)
++				continue;
++			break;
++		}
++		assert(p == pid);
++		assert(WIFSTOPPED(wstatus));
++		assert(WSTOPSIG(wstatus) == SIGSEGV);
+ 
+ 		if (rv == EXIT_SUCCESS) {
+ 			rv = test_proc_pid_maps(pid);
+@@ -525,10 +531,8 @@ int main(void)
+ 		}
+ 
+ 		/* Cut the rope. */
+-		int wstatus;
++		kill(pid, SIGKILL);
+ 		waitpid(pid, &wstatus, 0);
+-		assert(WIFSTOPPED(wstatus));
+-		assert(WSTOPSIG(wstatus) == SIGSEGV);
+ 	}
+ 
+ 	return rv;
+-- 
+2.43.0
+
