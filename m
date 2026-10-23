@@ -1,65 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.253
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792748244;
-	b=hxQeX8rz+4VKnYu2rJMD60zLjP3YBfBf7hKwt93xN2QImxwHns41dY3sLFaYAUOdZYuL
-	 4jnTVzDULVhEY5XAcO9BZQiI6FcEUzHCBmlbpGxKpcTXmtVFI3/tngu8G+SdNg/lNqdqp
-	 2kRd343dgaYxv814o90SThCunenzggjpbvwcelgdbQiTmfA7GWcRzmQLrbaxPfgAQgifP
-	 0arDY50+vwlHYVsQt7cOjVhnGRMXlzdcBMsKlh5ioyUbl7kcVoKGcKisjwC42s03OmL9A
-	 YBInNUh65+gO/mXo37yr2dlTORy1yeTYLQFS+L5RNmanf7/P/EdvBMKae3b2uzrbB5w==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792748244;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-Id:
-	 X-Mailer;
-	bh=pybXVhZhBi2T1QqTyBMkUK4T7YKg68mq8AEQc+l2iHo=;
-	b=Zpv+lXiZffwXNvdVccX7DMUzXN+END4xmhBNkYk/c9pzyy6rTIb5R8tT5aEhbz16w7Bz
-	 ZcSjFVzpVcKELmE8o2YtI32RXROXC4KB+IzUk9PelIiZ31QD5cdfv7iSatZCZga96TMrO
-	 iblCmfCzDIPhSo4dgVnHrG7lmXYpQiUF8g9KPxDmqpQMKyTysTmd0PY0X+ow59Sr+vlr6
-	 Otn0if+cDU7utjN0upv3SOQsoYep56avYZbkywls73TgFhgpHp5lU0fbLVQyyXuNKUo0I
-	 bsUqtKHRQVFPPmj4AWcISUTVF+LqnTUR8ubtX3C4IgNjwVvG22ST61xpbuS0b3T7CNA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="nkCh/YJT";
-	arc=none smtp.remote-ip=95.215.58.253
-Received: from mta1.migadu.com (out-253.mta1.migadu.com [95.215.58.253])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792748318;
+	b=SbF/B7yGeyfgFdi2XLL7/xEFNVDxSoWcEAeOhLmEbyqlaxzBbHXz4uCdF14WtrVLgbN3
+	 1D3pd/Rrofn42MJOGJ3G+ufaxG24zQTxJzTgrXPjlm6TCITd99owHaYUhYCBCMsHESNgZ
+	 5VgwoekgfOjeke6YUersUa63B4ncEdsx39agxIP04MGyU8+X4PCWgcedII5OVfXSNxtpp
+	 mnQZ0rEsNcMorRG7l5yp5nSGq5zCUqa5MRUkYG2OH+tUR4Y13sFLh0yGaw5unQ4Khj3bo
+	 W3qW3etlhPWx3wddJhbOwpzyWZaRx5jI6iaJapk9F6bTx1bFW+6EFIaxSgIMgw3v6cg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792748318;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=ivlu9gZUoZpAO3rDeEUhzGrJLnpEDAs/cTBRPWcuhG8=;
+	b=nJppMhlkAmeXvRT7Zro/QBwifBkN85J4QNrFpRniLhEB1Lpi8crVEkkTu8ClL69Eezux
+	 Rtlm9JAYJZUQTnzS/w9CuiR0Y3D4D95nTDtGBNcZiyEsILFZedX2YvVWZRRIE3+FhS84v
+	 HGZ9pmPr/q1eDS6DNxz23ws9v290+AjA3HbSIPfpmyfAt9oOY2xd+Z/wGC10VlZOTxGz/
+	 WIWjIb18c9+RrQnclH4qyxEyLTbFaJ/FkHEHjk0RNkJFt+Dvvckeg9Uu/VkufEu8AhZje
+	 WvAz9Bs7mHhCH28UjLfpn3nPw7hCjAMi59YCX80KSPG/zymm1zEdgLBK94GkQfudZgg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HrL9TBoy;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 796DA606A31A;
+	Fri, 23 Oct 2026 09:38:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HrL9TBoy
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1792748318;
+	b=o1GvNGOdaSySdRmtmL/ylJp60kMg3TkQCUoaF9jigroj+l9JS75eqTl9NlvtEBXlR72q
+	 Go0J7R2PxmWOqSkSLr7g9LfcRGxOWkqy3HyS/cwkJPPgAFYS5j2mgya0Um0ST9MpvLFwj
+	 wj5L3URPKelxKt5aP1YfDJ5O2P5RohAfmsuoMYUqyxJm4JNKcSFPJOfBh7amThdgJJf29
+	 NqXxZjvtv2sutT1lOKt1SSw5gbuprfwtZORRbeIldL4j9VA7hed4K7DB85lFu7wiPuCjT
+	 zEY9HmmOIeKyHy8+2xob6KkW8TsBb6pEYx8eFomtXkVC5VQ4wzeG7yE0pMlvHCGjyQg==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1792748318;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=ivlu9gZUoZpAO3rDeEUhzGrJLnpEDAs/cTBRPWcuhG8=;
+	b=qOnwyMJDaJpfwCn3F76cBDylH1JAGDyVADQM2MdOAOg/LFuGUpDeMYbBpMVYo+Pq3QmG
+	 2ExpJFO+sS0WfFqdl9w8G1ukXjDYc5ggfy6+xrDg2AOAIjkOqTC/zn4kHzoAoNWpEnwjK
+	 hbWOcDjxd0SAiunM9ricbXCA3A7MTkEggP3tb2t7ejBsIi+x9dhRdlRcBy1g6WaqceZqV
+	 Zct+Zx4lbaCAP1CzCemFiF8gfwYLxwJ3nNYTGg17BbaZ9E0RKpzJv6ZhCb4ccLPSFITRl
+	 xokUZ3IgySk1WG8mjc88xBjRmbkYWXjeoNk3c8XQvTSibxuqsAdSaJ6OtljsrQU/UtQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6989E606A322
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 09:37:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6989E606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=nkCh/YJT
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=IJyVqD6O38pH1RxzuuYvD5tOHAW4ZQ52I22UXDLS++w=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792748240; v=1; x=1793353040;
- b=nkCh/YJT/9NwdNFsEanOcNFyTA2XDNUftF2osfiVLUK3hmFWQ8ZFu+Z0Wokklyrjq8at4PLN
- +Xjk078k31nvhSmJfqoTbOeC/Qpzw3GngIfJ5bmHsclPSXr0aKrKr5d6sWHfk6Kq2nIXBgsWmkl
- y0ROGQ2SSCAb+svJM+491w5k=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 92fa53b973cb4534;
-	Fri, 23 Oct 2026 09:37:20 +0000
-X-Mizu-Trace-ID: 92fa53b973cb4534
-X-Migadu-Flow: FLOW_OUT
-From: Zqiang <qiang.zhang@linux.dev>
-To: paulmck@kernel.org,
-	frederic@kernel.org,
-	neeraj.upadhyay@kernel.org,
-	joelagnelf@nvidia.com,
-	urezki@gmail.com,
-	boqun@kernel.org
-Cc: qiang.zhang@linux.dev,
-	rcu@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2] rcutorture: Avoid create fwd_prog_tasks for tasks-rude and srcu-atomic
-Date: Fri, 23 Oct 2026 17:37:16 +0800
-Message-Id: <20261023093716.25717-1-qiang.zhang@linux.dev>
-X-Mailer: git-send-email 2.17.1
+	by smtp.kernel.org (Postfix) with ESMTPS id 7761F1F01825;
+	Fri, 23 Oct 2026 09:38:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792748318;
+	bh=ivlu9gZUoZpAO3rDeEUhzGrJLnpEDAs/cTBRPWcuhG8=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=HrL9TBoy80ZaW5AKCY59p6fLWAvUHDO7sjAZkwEC9sHWwV14uItPHG/nX8LW7pmZR
+	 7j7qttlrhKJMp0nDGEHuYh/ja/l0bxmzk4yLUNLF0aD5M7Mi3TMx/DRXHgK+sRt5Jr
+	 +e2YhBbt2CA2qn6+vM69NxvEVfLo/DRDvdbxSDVy+fbPM8oFpw9vcfnfglsfv7K97u
+	 vp2G+CrPnvX2tBfUhLRzHHtItTteNN+k1pUX4NsNmITp/QvXpl80E1uUaxsyx6thqg
+	 ubLPY4/mYWClGGnJI3noX8Tc03A11Sx/W8WLZ2jB+zd7WtbMftLQp6xC6ogg3SY8iT
+	 w8ZmEt63V1A/w==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id C7EA944457;
+	Fri, 23 Oct 2026 09:38:36 +0000 (UTC)
+From: Joe Finzel via B4 Relay <devnull+joe.sudmix.de@kernel.org>
+Date: Fri, 23 Oct 2026 11:38:05 +0200
+Subject: [PATCH] drm/nouveau/gsp: only handle GSP interrupts routed to the
+ host
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,65 +82,136 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261023-nouveau-gsp-irqdest-v1-1-5dd6131faa14@sudmix.de>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MQQqAIBBA0avErBtQA8muEi0kp5qNllMRSHdPW
+ r7F/wWEMpPA0BTIdLNwihW6bWDefFwJOVSDUcZqZTqM6brJX7jKjpyPQHKiV712QVPwzkIt90w
+ LP/91nN73A0eequxlAAAA
+X-Change-ID: 20261023-nouveau-gsp-irqdest-a0819d1eda96
+To: Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Ben Skeggs <bskeggs@nvidia.com>, Dave Airlie <airlied@redhat.com>
+Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+ Joe Finzel <joe@sudmix.de>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792748316; l=4484;
+ i=joe@sudmix.de; s=default; h=from:subject:message-id;
+ bh=b17+26F2qy81a+KL88BTwZnr9eyzHZo5HKZat40hBY0=;
+ b=MbIuyuHc8Or6oZda9Wk1YBS5NKVR+tSNgUAdhPdBE3ZtOClgBMW1X93E8PHSnTQpSFYVhTLo0
+ mcivfq9ZJCuAIrUbRqoyhiYIYpa/MDhEK0WuDFxf8AcprRTcqtduk3G
+X-Developer-Key: i=joe@sudmix.de; a=ed25519;
+ pk=vaX11uVm57me/1N8otNmzMMnsE+f0U3/Hi9TCPbnvZM=
+X-Endpoint-Received: by B4 Relay for joe@sudmix.de/default with
+ auth_id=1151
+X-Original-From: Joe Finzel <joe@sudmix.de>
+Reply-To: joe@sudmix.de
+Content-Transfer-Encoding: 7bit
 
-When running the tasks-rude and srcu-atomic tests, the fwd_prog_tasks
-kthread is created because the default value of fwd_progress is 1.
-however, the two RCU flavors not support ->call():
+From: Joe Finzel <joe@sudmix.de>
 
-1. tasks-rude: commit b428a9de9bba ("rcutorture: Stop testing RCU Tasks
-   Rude asynchronous APIs") removed .call and .cb_barrier from tasks-rude,
-   but left the .cbflood_max = 50000.
+The GSP's interrupt handler takes every pending interrupt the RISC-V
+IRQMASK enables as its own, without looking at IRQDEST, which says
+whether an interrupt goes to the host or to the GSP itself. One that
+belongs to GSP-RM, pending when the host's handler runs for the message
+queue, is reported as unknown, cleared and masked off with IRQMCLR,
+taking it away from the firmware:
 
-2. srcu-atomic: srcu_torture_init_forbidden_apis() sets ->call to NULL
-   for SRCU_READ_FLAVOR_ATOMIC runs, but leaves ->cbflood_max untouched.
+  nouveau 0000:01:00.0: gsp: intr 00040000
 
-In both cases, the non-zero ->cbflood_max fools the check above into
-creating the fwd_prog_tasks kthreads, even though those kthreads cannot
-possibly carry out any forward-progress test:
+NVIDIA's driver reads the interrupts routed to the host as
+IRQSTAT & IRQMASK & IRQDEST (kflcnRiscvReadIntrStatus_TU102() and
+_GA102()). Do the same, with IRQDEST from NVIDIA's register headers
+next to IRQMASK on each falcon.
 
-1. The rcu_torture_fwd_prog_cr() returns immediately due to cur_ops->call
-   is NULL:
+Seen once in a few boots on an RTX 3070 Ti (GA104, GSP-RM 570.144),
+before the login prompt. There IRQMASK reads 0x01049042 and IRQDEST
+0x01000040: 0x00040000 is enabled but routed to the GSP.
 
-[   68.022674] rcu_torture_fwd_prog_cr: No ->call(), so no forward-progress test 0
-[  129.462046] rcu_torture_fwd_prog_cr: No ->call(), so no forward-progress test 0
-[  190.902123] rcu_torture_fwd_prog_cr: No ->call(), so no forward-progress test 0
-[  252.343809] rcu_torture_fwd_prog_cr: No ->call(), so no forward-progress test 0
-
-2. The rcu_torture_fwd_prog_nr() is never even invoked, because its caller
-   requires cur_ops->stall_dur, and neither tasks-rude nor srcu-atomic
-   provide ->stall_dur (only rcu_ops does).
-
-Therefore, creating fwd_prog_tasks kthreads is pointless, this commit adds
-->call and ->cb_barrier to the forward-progress check, rejecting flavors
-that lack the cbflood_max set and a positive ->stall_dur.
-
-simple verification output:
-
-[    3.062959][    T1] srcu-torture: rcu_torture_fwd_prog_init: Disabled, unsupported by RCU flavor under test
-[    2.922323][    T1] tasks-rude-torture: rcu_torture_fwd_prog_init: Disabled, unsupported by RCU flavor under test
-
-Suggested-by: Joel Fernandes <joelagnelf@nvidia.com> 
-Signed-off-by: Zqiang <qiang.zhang@linux.dev>
+Fixes: 830531e94712 ("drm/nouveau/gsp/r535: add interrupt handling")
+Cc: stable@vger.kernel.org
+Signed-off-by: Joe Finzel <joe@sudmix.de>
 ---
- kernel/rcu/rcutorture.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/nouveau/include/nvkm/engine/falcon.h  | 1 +
+ drivers/gpu/drm/nouveau/nvkm/subdev/gsp/ga100.c       | 1 +
+ drivers/gpu/drm/nouveau/nvkm/subdev/gsp/ga102.c       | 1 +
+ drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c | 4 +++-
+ drivers/gpu/drm/nouveau/nvkm/subdev/gsp/tu102.c       | 1 +
+ 5 files changed, 7 insertions(+), 1 deletion(-)
 
-diff --git a/kernel/rcu/rcutorture.c b/kernel/rcu/rcutorture.c
-index 968343be4e0d..92ff197f4789 100644
---- a/kernel/rcu/rcutorture.c
-+++ b/kernel/rcu/rcutorture.c
-@@ -4007,9 +4007,8 @@ static int __init rcu_torture_fwd_prog_init(void)
- 	} else if (fwd_progress < 0) {
- 		fwd_progress = nr_cpu_ids;
- 	}
--	if ((!cur_ops->sync && !cur_ops->call) ||
--	    (!cur_ops->cbflood_max && (!cur_ops->stall_dur || cur_ops->stall_dur() <= 0)) ||
--	    cur_ops == &rcu_busted_ops) {
-+	if (!cur_ops->sync || ((!cur_ops->call || !cur_ops->cb_barrier || !cur_ops->cbflood_max) &&
-+	    (!cur_ops->stall_dur || cur_ops->stall_dur() <= 0))) {
- 		VERBOSE_TOROUT_STRING("rcu_torture_fwd_prog_init: Disabled, unsupported by RCU flavor under test");
- 		fwd_progress = 0;
- 		return 0;
+diff --git a/drivers/gpu/drm/nouveau/include/nvkm/engine/falcon.h b/drivers/gpu/drm/nouveau/include/nvkm/engine/falcon.h
+index 341f133dc38..eb8adaf07fe 100644
+--- a/drivers/gpu/drm/nouveau/include/nvkm/engine/falcon.h
++++ b/drivers/gpu/drm/nouveau/include/nvkm/engine/falcon.h
+@@ -63,6 +63,7 @@ struct nvkm_falcon_func {
+ 	int (*select)(struct nvkm_falcon *);
+ 	u32 addr2;
+ 	u32 riscv_irqmask;
++	u32 riscv_irqdest;
+ 	bool reset_pmc;
+ 	int (*reset_eng)(struct nvkm_falcon *);
+ 	int (*reset_prep)(struct nvkm_falcon *);
+diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/ga100.c b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/ga100.c
+index d5126fe39d2..10e2813a016 100644
+--- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/ga100.c
++++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/ga100.c
+@@ -27,6 +27,7 @@ ga100_gsp_flcn = {
+ 	.enable = gm200_flcn_enable,
+ 	.addr2 = 0x1000,
+ 	.riscv_irqmask = 0x2b4,
++	.riscv_irqdest = 0x2b8,
+ 	.reset_eng = gp102_flcn_reset_eng,
+ 	.reset_wait_mem_scrubbing = gm200_flcn_reset_wait_mem_scrubbing,
+ 	.bind_inst = gm200_flcn_bind_inst,
+diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/ga102.c b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/ga102.c
+index b6b3eb6f4c0..96fa26fa612 100644
+--- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/ga102.c
++++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/ga102.c
+@@ -140,6 +140,7 @@ ga102_gsp_flcn = {
+ 	.select = ga102_flcn_select,
+ 	.addr2 = 0x1000,
+ 	.riscv_irqmask = 0x528,
++	.riscv_irqdest = 0x52c,
+ 	.reset_eng = gp102_flcn_reset_eng,
+ 	.reset_prep = ga102_flcn_reset_prep,
+ 	.reset_wait_mem_scrubbing = ga102_flcn_reset_wait_mem_scrubbing,
+diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c
+index 94925f1590e..463e463db24 100644
+--- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c
++++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c
+@@ -64,7 +64,9 @@ r535_gsp_intr(struct nvkm_inth *inth)
+ 	u32 intr = nvkm_falcon_rd32(&gsp->falcon, 0x0008);
+ 	u32 inte = nvkm_falcon_rd32(&gsp->falcon, gsp->falcon.func->addr2 +
+ 						  gsp->falcon.func->riscv_irqmask);
+-	u32 stat = intr & inte;
++	u32 dest = nvkm_falcon_rd32(&gsp->falcon, gsp->falcon.func->addr2 +
++						  gsp->falcon.func->riscv_irqdest);
++	u32 stat = intr & inte & dest;
+ 
+ 	if (!stat) {
+ 		nvkm_debug(subdev, "inte %08x %08x\n", intr, inte);
+diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/tu102.c b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/tu102.c
+index 11a37963bd4..823532758af 100644
+--- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/tu102.c
++++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/tu102.c
+@@ -420,6 +420,7 @@ tu102_gsp_flcn = {
+ 	.enable = gm200_flcn_enable,
+ 	.addr2 = 0x1000,
+ 	.riscv_irqmask = 0x2b4,
++	.riscv_irqdest = 0x2b8,
+ 	.reset_eng = gp102_flcn_reset_eng,
+ 	.reset_wait_mem_scrubbing = gm200_flcn_reset_wait_mem_scrubbing,
+ 	.bind_inst = gm200_flcn_bind_inst,
+
+---
+base-commit: fb26cf4f1df40a462ea65552a3fbcc8cfafab523
+change-id: 20261023-nouveau-gsp-irqdest-a0819d1eda96
+
+Best regards,
 -- 
-2.17.1
+Joe Finzel <joe@sudmix.de>
+
 
