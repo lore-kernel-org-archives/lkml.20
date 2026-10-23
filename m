@@ -1,112 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792762231;
-	b=vzpg0uUL6Fm0YYxuMo4iLc1BQv2vwOKCl1kbBSWdI0ElnNJ1Oz5muPgcHpG49L6mlM1n
-	 bnl19OXvNRG+61OPkW2UhaJUQQKTHW9W9Q8AUXq4OKDjuTxohp7/gM80u5iZxlfxGEESA
-	 V5dCUpYBCHBf2uxEG4CqIFUkUzDL6MjrcVxvxAVR/YKq3WhrYhVS/xoUMGBa162b5qLKn
-	 99Z1Es9NhRe0vougSP//ACuStaOD/8N1E8faPYnoKhYN/x6akv/p33Yy/pGYTpVJfWKrS
-	 Yi6ku72ME3wY+3MHr/thhUgZ5gqJngVBtlPq2gv1JAeoxUL6AdaHGiGrASVVfSUZBcA==
+	t=1792762290;
+	b=HPws9S7FEQuDONmQorURHN6IEaDQBF1NKuDoVtDQ06fLfdns9KGkToHRRnr2EqrLZ2Fg
+	 KzKQIWzmXYuwXo/sBGC+0aIwAhs1yRe2IeMsZ4c0iUsDYxgjFNVUcD+h/MV9EmmeC3aYW
+	 NmUYj4GX6TnlwKgbyLn4OtbMi1wczc2jCZLLyorAT0UavIXBEf32AKJue3U3sdOwfYINz
+	 7ZPJ8L0N1PhkrhL/kv/ODTzIVhv3L8rcbUNU6/ggVI0YkLYaaLxrI6F0DCZylLqpb9NZ+
+	 wMHuai2RkawchOka5gC6pG4TnK8Nu2t/s2Zpht8tE0gYcNq/DxjbfnBIgs2TcjF7W3A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792762231;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Date:Message-ID:From:To:Cc:Subject:
-	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
-	 X-Spam-Flag:X-Spam-Level:X-Spamd-Result:X-Spam-Score;
-	bh=H5C2YgX9zoAUN8RdPNBEehJ+u01y85A4y2Tev8DT1hg=;
-	b=xgjgE7N7gx28oIzcqKF/22kpo/lR0ZOo8fUeXi7fVzXTD3k/cOyreBb0p/gtW9FPWQ/J
-	 chNRU2WxVgH6hQjgAKA/qXHEjbcBriZwqtedjdAqyLWvnLJ2V5YUi08ht7vPngKiijtYv
-	 I2Q6Q5D8Wj03oPkNsHKE3/PWQ9+vJQZmxVE+HwtOeHa5k+IIwNj7lmDZE/5AR98cSMYBU
-	 bx5ONlZ9TtP9tHTUFI8kbc8WT2i1dJvkGdoybdlPIjJh2Fd4hZ0vWYlhs/QUrRw+rjBay
-	 O9YDAtFgO2DciGfR5s9s4SUw0QP5an48L+mNUAxGh4IuOxjyzzaMyBUQyhRl5IPoHsQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792762290;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=2WvI4fwTkfjqkPVTmW8l6edz7EjA83sUtMLiWbm6O04=;
+	b=rQKYTy1E44Ic15S1h3xXaVhioXvadC8gewzQrpubFezr+cTI0SC5D8B7XCUiUZfzL65C
+	 B36fRULJb84aHlKMd71dsc0hurd2q9NqaZ2NvvaLNagCC70+jPKl0vdvqOcJouPljT8GI
+	 GCTAdElU8yCm75fPwmjn/s6XqOXazegDD9NuwD2zELbtlSYbZ3Wt/NZR5AuBJUw5yVKn9
+	 FIXQA8CHU/7dxfX5lOB1xanssmt3xKKCnQlrIH4ivFHyzatMxN+PWWjM4tjtzba91yF7Q
+	 zn+Tl1wOc71mDuQnm4YhJIrwo3m1y8LVTrYcypLtB64cVn78c69CDvSz2wVN4Hh1q+g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=DM2fPH07;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=C2qqh51M;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=DM2fPH07;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=C2qqh51M;
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cJjN6ITC;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46F7F606A31F;
-	Fri, 23 Oct 2026 13:30:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 46F7F606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBD6E606A31B
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 13:31:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=DM2fPH07;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=C2qqh51M;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=DM2fPH07;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=C2qqh51M
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 706C5220D3;
-	Fri, 23 Oct 2026 13:30:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1792762229; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=H5C2YgX9zoAUN8RdPNBEehJ+u01y85A4y2Tev8DT1hg=;
-	b=DM2fPH07E17ZTllrMqBRrD7OXjttjIWUEXjPuHEzvJUpNbQXN5qmQX5BKeCz7uARth7cFG
-	j2H5n9KXSd3FPBvFvWtuOM/bHW/K9BbLIrWGBAEec5ocN9CYFBpX6PD+8s70dyUcWwhRn7
-	gjREfMDayFpjOGuAUiu20/NDOkbWSKI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1792762229;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=H5C2YgX9zoAUN8RdPNBEehJ+u01y85A4y2Tev8DT1hg=;
-	b=C2qqh51MJIORQZbHuWwC4QjEFo8QJkfsrAgse2aSBwc/Y3PojDaCf1KInPaBjuBeY9iV3R
-	CaW8W3f6HwFeUfBg==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1792762229; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=H5C2YgX9zoAUN8RdPNBEehJ+u01y85A4y2Tev8DT1hg=;
-	b=DM2fPH07E17ZTllrMqBRrD7OXjttjIWUEXjPuHEzvJUpNbQXN5qmQX5BKeCz7uARth7cFG
-	j2H5n9KXSd3FPBvFvWtuOM/bHW/K9BbLIrWGBAEec5ocN9CYFBpX6PD+8s70dyUcWwhRn7
-	gjREfMDayFpjOGuAUiu20/NDOkbWSKI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1792762229;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=H5C2YgX9zoAUN8RdPNBEehJ+u01y85A4y2Tev8DT1hg=;
-	b=C2qqh51MJIORQZbHuWwC4QjEFo8QJkfsrAgse2aSBwc/Y3PojDaCf1KInPaBjuBeY9iV3R
-	CaW8W3f6HwFeUfBg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 12033133F6;
-	Fri, 23 Oct 2026 13:30:29 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 342PNXRh22rrSgAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Fri, 23 Oct 2026 13:30:29 +0000
-Date: Fri, 23 Oct 2026 15:30:28 +0200
-Message-ID: <87pkx0a6iz.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Kazuki Hanai <hnkz.64@gmail.com>,
-	Takashi Iwai <tiwai@suse.de>,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	David Carlier <devnexen@gmail.com>
-Subject: Re: [PATCH] ALSA: us122l: mark hwdep mappings VM_MIXEDMAP
-In-Reply-To: <20261023-fix-us122l-mixedmap-v1-1-e7bdd053850f@kernel.org>
-References: <20261023-fix-us122l-mixedmap-v1-1-e7bdd053850f@kernel.org>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cJjN6ITC
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CBF631F01825;
+	Fri, 23 Oct 2026 13:31:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792762289;
+	bh=2WvI4fwTkfjqkPVTmW8l6edz7EjA83sUtMLiWbm6O04=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=cJjN6ITCrKGp/Zt9vSLOMvG+/9Jn1YUjCSVtWOgD1YQUQEaLudL3DbVrEobl+/CdF
+	 zMnpf8PfHajhhgJuYqaIkQwzTH7X48UCNltVpRUVJ+z5BrinS4OB7+AxCfjHmy7ERE
+	 VyT7yzNeytZs6/vIWH4ap7qm0avTm7AGJHNyKoxxJAxQ4VUp1H6KUFKSnI6KC8Cgif
+	 1Z1t5meazWmwmCtftA46ZqOapfMDSsHJLOBHO8c1g+Ut1G0xR7f19qhlP1pEjFT1jL
+	 fSbp0ym6IgF2Ou1umoKZ9VKEwzruXAluK3sgWGHEHufglt8pQS70izjsRWOEr/AC7v
+	 kX89URuEka2yw==
+Date: Fri, 23 Oct 2026 15:31:26 +0200
+From: Frederic Weisbecker <frederic@kernel.org>
+To: Peng Wang <peng_wang@linux.alibaba.com>
+Cc: Anna-Maria Behnsen <anna-maria@linutronix.de>,
+	Ingo Molnar <mingo@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	He Rongguang <herongguang@linux.alibaba.com>,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] tick/nohz: Reevaluate the tick for kicks flushed
+ outside hardirq
+Message-ID: <atthrrwRchO2FL8g@localhost.localdomain>
+References: <atofid9HivdbUuj2@localhost.localdomain>
+ <20261022175500.15940-1-peng_wang@linux.alibaba.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,76 +61,83 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spam-Flag: NO
-X-Spam-Level: 
-X-Spamd-Result: default: False [-10.80 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	TAGGED_RCPT(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ARC_NA(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCPT_COUNT_SEVEN(0.00)[10];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[linux-foundation.org,perex.cz,suse.com,gmail.com,suse.de,vger.kernel.org,kvack.org];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	URIBL_BLOCKED(0.00)[imap1.dmz-prg2.suse.org:helo,suse.com:email,suse.de:email,perex.cz:email];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,imap1.dmz-prg2.suse.org:helo,suse.de:email]
-X-Spam-Score: -10.80
+MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261022175500.15940-1-peng_wang@linux.alibaba.com>
 
-On Fri, 23 Oct 2026 12:21:31 +0200,
-Lorenzo Stoakes (ARM) wrote:
+Le Fri, Oct 23, 2026 at 01:54:57AM +0800, Peng Wang a écrit :
+> The nohz full kick relies on IRQ exit to reevaluate the tick. However,
+> a remote kick can also be flushed from task context without an IRQ
+> exit guaranteed to follow. If a tick dependency is set or an earlier
+> timer is queued after the idle-exit reevaluation, the required tick
+> update can be delayed until another interrupt.
 > 
-> mm has recently moved to a strict model which requires any driver which
-> clears VMA_MAYWRITE_BIT to be mapping non-mm-managed memory
-> (VMA_PFNMAP_BIT or VMA_MIXEDMAP_BIT), failing any such mmap() with an
-> error and a kernel warning - see "mm/vma: only allow mmap to clear
-> VMA_MAYWRITE_BIT if not mm-managed".
+> Reevaluate the tick directly from the callback outside hardirq context.
+> Keep the existing IRQ-exit handling for hardirq callbacks. The offline
+> flush remains harmless because tick_sched_timer_dying() has already
+> cleared TS_FLAG_NOHZ.
 > 
-> However, simultaneous to this, commit 71c610aeb177 ("ALSA: us122l: Prevent
-> write upgrades for read mappings") updated us122l to clear
-> VMA_MAYWRITE_BIT without marking the region with either VMA_PFNMAP_BIT or
-> VMA_MIXEDMAP_BIT.
-> 
-> vm_insert_pages() and friends set this automatically, however this driver
-> maps its pre-allocated pages from a fault handler, so never calls these.
-> 
-> Simply set the flag in usb_stream_hwdep_mmap() to resolve the issue. This
-> correctly marks the mapping as one whose pages core mm does not manage,
-> which has no meaningful impact for this driver beyond preventing the mmap()
-> from failing.
-> 
-> Fixes: 71c610aeb177 ("ALSA: us122l: Prevent write upgrades for read mappings")
-> Reported-by: David Carlier <devnexen@gmail.com>
-> Closes: https://lore.kernel.org/20261018025905.201296-1-devnexen@gmail.com
-> Cc: Kazuki Hanai <hnkz.64@gmail.com>
-> Cc: Takashi Iwai <tiwai@suse.com>
-> Cc: Jaroslav Kysela <perex@perex.cz>
-> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> Fixes: 4b44a21dd640 ("irq_work, smp: Allow irq_work on call_single_queue")
+> Fixes: a5183862e76f ("tick/nohz: Conditionally restart tick on idle exit")
+> Suggested-by: Frederic Weisbecker <frederic@kernel.org>
+> Co-developed-by: He Rongguang <herongguang@linux.alibaba.com>
+> Signed-off-by: He Rongguang <herongguang@linux.alibaba.com>
+> Signed-off-by: Peng Wang <peng_wang@linux.alibaba.com>
 > ---
-> Andrew - I think easiest for you to take this.
+> Changes in v2:
+> - Reevaluate the tick directly outside hardirq instead of requeueing,
+>   as suggested by Frederic.
+> - Use the full update for both dependencies and timer deadlines. Keep
+>   IRQ-exit handling for hardirq callbacks and the existing NOHZ guard
+>   for CPU teardown.
 > 
-> It should go in before my series ideally to avoid bisection hazard, I think
-> while it's a fix for the driver, that'll be the safest way.
+> v1: https://lore.kernel.org/all/43668cf88d976084e2865ec07dea82b64ad402ba.1792240863.git.peng_wang@linux.alibaba.com/
+> 
+>  kernel/time/tick-sched.c | 6 +++++-
+>  1 file changed, 5 insertions(+), 1 deletion(-)
+> 
+> diff --git a/kernel/time/tick-sched.c b/kernel/time/tick-sched.c
+> index 6c3fea386713..ece2c21cec84 100644
+> --- a/kernel/time/tick-sched.c
+> +++ b/kernel/time/tick-sched.c
+> @@ -400,9 +400,13 @@ static bool can_stop_full_tick(int cpu, struct tick_sched *ts)
+>  	return true;
+>  }
+>  
+> +static void tick_nohz_full_update_tick(struct tick_sched *ts);
+> +
+>  static void nohz_full_kick_func(struct irq_work *work)
+>  {
+> -	/* Empty, the tick restart happens on tick_nohz_irq_exit() */
+> +	/* Task-context flushes may not be followed by an IRQ exit. */
+> +	if (!in_hardirq())
+> +		tick_nohz_full_update_tick(this_cpu_ptr(&tick_cpu_sched));
 
-Yes, feel free to take:
+Just in case, even though it shouldn't happen, just have the following sanity
+checks to return early:
 
-Acked-by: Takashi Iwai <tiwai@suse.de>
+if (WARN_ON_ONCE(!tick_nohz_full_cpu(smp_processor_id())))
+    return;
 
+if (!in_hardirq()) {
+    if (WARN_ON_ONCE(tick_sched_flag_test(ts, TS_FLAG_INIDLE)))
+       return;
+    tick_nohz_full_update_tick(this_cpu_ptr(&tick_cpu_sched));
+}
 
-thanks,
+Thanks!
 
-Takashi
+>  }
+>  
+>  static DEFINE_PER_CPU(struct irq_work, nohz_full_kick_work) =
+> 
+> base-commit: 70dd4ee72eb2d5793c62e71c14e3aba78e5a4e56
+> -- 
+> 2.47.3
+> 
+
+-- 
+Frederic Weisbecker
+SUSE Labs
