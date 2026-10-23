@@ -1,68 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.92.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792774828;
-	b=4dJYNMDynLCmUKSZJnBh/YEwMYmb/oIBQT/HLG91/GHRBdklqHVqZxd/jYrNZ6UoXLxM
-	 cH0OYxD+4nOOBsTssWjIcSwnQuw1nE6JC50NG6h8Hq0Z193zv8OuYQi5jyarKoMZj1XgX
-	 LKzT3XiCtGDCQsV9CQj5ASi5YMquhFEX6/Ci0n62DiWP1IJHKl8a9FBM1mmTrr+7kAw4Q
-	 PlORsI4ji9l+GZ5LJTETMAJ8FdDMmVrtcSpLvbaseayB5fnzvdiYCsmx5qLoqKkdsQp7O
-	 2PXXOQ5Z/zT+tB4UA+k8b34L7G+ykyq2ouZQC0eVGQ/RcTn/etNI20DzwjYP4RWVSwg==
+	t=1792774876;
+	b=u13yKXJuXfiDQCGFEcghh6dVpaIfMD2A6cjlP7c1v4wFXAVp9LzSelZQELFrCsnMkhpD
+	 15t5UWUUKIshO1cIqopwMtg392ukATVvs0bVThCIxBpQ0vM1YWzn7IS+Rgyn/cg30WBbo
+	 u1Wu+YJYDtFy1vrvceHFvV1POcCwQRJOSHAiP5u6fpLLQoUi8VY/3qZZYsGaPkjQghpdD
+	 s0/0gqnffcJ4FwyVm28k3SQbjLLGSjVs8Mlsl5iwWDcWM5YAs0m1I5n9mOgh96r7Ftcov
+	 NclpNnS9//Gj5aQ5edPiSA57oCb0pmA5pHc2NCgiRgjkBJ6/XmJgCoaiJfxpN+N4p7Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792774828;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=MxGAKl4YWl46xL25FR4xKOwku7Y7gIDUUXB+yQ+kYZw=;
-	b=yIjBA9vCVl/nqUXmrED7DGVIaa8FEwWox6CXTZF8o9vL/W8pID0KFiUxirC9d/v4ZwvR
-	 +G+Lt9cHFYKW7ivMb8ZKzvR85qvsJGlLSQcL5/T+CueOde2HGtWafT/vJ2NwYNTzienDF
-	 oFfdT1/vQcfeD+27YqlqgU135/lSDMRKIg+/stKTHXGs9iK5c4kMWr5QyD5vujEoQG5KR
-	 2C++56oeldmDWiFyuKRf12fgQhGjoHJnTwnpP9MdCVDdN94bn7K+0QdxPrx4L+OnLijp3
-	 bMsx4Fv/TY/R3iQtJXAPdrUwO0ks6+bZpmav4EJMKpPLowlFpclCGHV5l12q4JOpZNg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792774876;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Scanned-By;
+	bh=TnZyZp1qu9eI+Zvij25Jc9PeQuns/xKEfEAXbeJwiO4=;
+	b=ri4TYx6EcUSILCQjsveU4kE+wTkRhRnV72cJnR1EL5Xe32TKKC4v8Dd8bbMx3ljtcZEb
+	 aeLpFWMGTS+fmP5QYHuVDzkehJDck4oCugMKQTkRWkfETkvo0EhC/KMTMFXHD/7AejyiE
+	 C9COP9Uu2ifGm396PmFou/sWbHycUut+1p8xWngXImGJpN1DAqExAu/dN/g2G8vjO8Iyd
+	 llMAb3P3veUhYlybnqj2KDG7H+ictgzJE1X7NV+4NwKSXtOu38X4Cav2jmL3dlZEe44yI
+	 5aIZJIHKWs4EbLJYqDpbCR1rKFmCGujp/xhQe5XT+AarSTt66mUkJAV71EeKWtRleHg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=pass smtp.mailfrom=infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=EL7YOdUM;
-	arc=none smtp.remote-ip=90.155.92.199
-Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b="ZscUarT/";
+	arc=none smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 228FE606A31A;
-	Fri, 23 Oct 2026 17:00:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 228FE606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68601606A31E
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 17:01:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 68601606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=EL7YOdUM
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=MxGAKl4YWl46xL25FR4xKOwku7Y7gIDUUXB+yQ+kYZw=; b=EL7YOdUMOXYtIBg2eByM6rjYkV
-	se888A7Ga27uuAogvpp9hIo5ulVbMLFbH8e2FVsGSQ8aAjFXiSzSxT9SenolkXDJIjaHq1vtbmh39
-	gAEasLrBRktsYrhfWQcyleh1CbK7CPldISxoi/UlhDoY+HJLXVKUAekNkVjtHJqKeqHPju0a2ZuU0
-	wxaZ4GDt4goQO94hIeXwf68yFj0kseLolSc3aaPJ8p3oWuI2X1pVT2hyBGeR0vKtOo+ctPjY+vNpC
-	BuESfV3Khs1kib+QO/1AdxOHYeVk5dSGzcVL9h7eeY0sKMmngtLX+fOrpHrJcRSqzL50K3hRqzjvz
-	FaXgWiCA==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by desiato.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xKIcy-0000000A836-1upq;
-	Fri, 23 Oct 2026 17:00:24 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id AD2E2300720; Fri, 23 Oct 2026 19:00:23 +0200 (CEST)
-Date: Fri, 23 Oct 2026 19:00:23 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: "Paul E. McKenney" <paulmck@kernel.org>
-Cc: kernel test robot <yi1.lai@intel.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>, oe-lkp@lists.linux.dev,
-	lkp@intel.com, linux-kernel@vger.kernel.org,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Phil Auld <pauld@redhat.com>, aubrey.li@linux.intel.com,
-	yu.c.chen@intel.com
-Subject: Re: [linus:master] [sched/core]  118a2cf4ce:
- stress-ng.schedpolicy.ops_per_sec 14.1% regression
-Message-ID: <20261023170023.GY2823843@noisy.programming.kicks-ass.net>
-References: <202610231954.51716452-lkp@intel.com>
- <b39cd288-9133-40e1-b27d-d8ef3973b37c@paulmck-laptop>
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=ZscUarT/
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1792774875;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=TnZyZp1qu9eI+Zvij25Jc9PeQuns/xKEfEAXbeJwiO4=;
+	b=ZscUarT/w7Z8cPBZNo/heVmgk6hdpoqCeUpp3TgSGd22/q4MEZ8dcw6C6N7gv5yuw20XMt
+	YjqwTS2uZc1qECJe5Ko4fS8BCjtv7QI5TZEMVgTsnkyzVR5LxVkqByuLVN2rIJ+VeBxGvD
+	B9Ug616QZbAptelbVFwgKS0dobk0r6c=
+Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-167-6HhmWn2mPNC9ROcWRyNCvg-1; Fri,
+ 23 Oct 2026 13:01:09 -0400
+X-MC-Unique: 6HhmWn2mPNC9ROcWRyNCvg-1
+X-Mimecast-MFC-AGG-ID: 6HhmWn2mPNC9ROcWRyNCvg_1792774867
+Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id D9F491955D7C;
+	Fri, 23 Oct 2026 17:01:06 +0000 (UTC)
+Received: from [100.91.18.181] (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 1F5AA1955F01;
+	Fri, 23 Oct 2026 17:01:05 +0000 (UTC)
+Message-ID: <1ac81041-b85c-4681-b8f5-c535bfa9318d@redhat.com>
+Date: Fri, 23 Oct 2026 13:01:04 -0400
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,42 +71,120 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <b39cd288-9133-40e1-b27d-d8ef3973b37c@paulmck-laptop>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH-next 3/6] cgroup/cpuset: Fix incorrect effective_cpus bug
+ in update_cpumasks_hier()
+To: Ridong Chen <ridong.chen@linux.dev>, Tejun Heo <tj@kernel.org>,
+ Johannes Weiner <hannes@cmpxchg.org>, =?UTF-8?Q?Michal_Koutn=C3=BD?=
+ <mkoutny@suse.com>, Shuah Khan <shuah@kernel.org>
+Cc: cgroups@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-kselftest@vger.kernel.org, Guopeng Zhang <guopeng.zhang@linux.dev>
+References: <20261022031643.1351877-1-longman@redhat.com>
+ <20261022031643.1351877-4-longman@redhat.com>
+ <fda68203-1626-4118-9664-79064aad4548@linux.dev>
+Content-Language: en-US
+From: Waiman Long <longman@redhat.com>
+In-Reply-To: <fda68203-1626-4118-9664-79064aad4548@linux.dev>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
 
-On Fri, Oct 23, 2026 at 09:14:02AM -0700, Paul E. McKenney wrote:
-> On Fri, Oct 23, 2026 at 07:49:20PM +0800, kernel test robot wrote:
-> > 
-> > 
-> > Hello,
-> > 
-> > kernel test robot noticed a 14.1% regression of stress-ng.schedpolicy.ops_per_sec on:
-> > 
-> > 
-> > commit: 118a2cf4ced60777a2408001e2b4838fed1cea55 ("sched/core: Call wakeup_preempt() for queued tasks during class change") https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git master
-> > 
-> > testcase: stress-ng
-> > config: x86_64-rhel-9.4
-> > compiler: gcc-14
-> > test machine: 224 threads 2 sockets Intel(R) Xeon(R) Platinum 8480CTDX (Sapphire Rapids) with 256G memory
-> > parameters:
-> > 
-> > 	nr_threads: 100%
-> > 	testtime: 60s
-> > 	test: schedpolicy
-> > 	cpufreq_governor: performance
-> > 
-> > 
-> > If you fix the issue in a separate patch/commit (i.e. not just a new version of the same patch/commit), kindly add following tags
-> > | Reported-by: kernel test robot <yi1.lai@intel.com>
-> > | Closes: https://lore.kernel.org/oe-lkp/202610231954.51716452-lkp@intel.com
-> 
-> This regression is not a good thing, but this commit is fixing a real bug.
+On 10/23/26 3:07 AM, Ridong Chen wrote:
+>
+>
+> On 10/22/2026 11:16 AM, Waiman Long wrote:
+>> With the introduction of cpuset.cpus.exclusive, the computation of
+>> effective_cpus differs depending on if a cpuset is a valid partition
+>> root or not.
+>>
+>> In update_cpumasks_hier(), effective_cpus is computed early
+>> to check if the current subtree can be skipped. Later on
+>> update_parent_effective_cpumask() may be called which can change the
+>> partition state from valid to invalid or vice versa. If the partition
+>> state changes, the previously computed effective_cpus may no longer be
+>> valid. Fix that by recomputing effective_cpus again when that happens.
+>>
+>> Also add a new test case into test_cpuset_prs.sh to verify this change.
+>>
+>> Fixes: e2ffe502ba45 ("cgroup/cpuset: Add cpuset.cpus.exclusive for v2")
+>> Signed-off-by: Waiman Long <longman@redhat.com>
+>> ---
+>>   kernel/cgroup/cpuset.c                            | 10 ++++++++--
+>>   tools/testing/selftests/cgroup/test_cpuset_prs.sh |  3 +++
+>>   2 files changed, 11 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
+>> index db6e4663f4be..7b9062326f35 100644
+>> --- a/kernel/cgroup/cpuset.c
+>> +++ b/kernel/cgroup/cpuset.c
+>> @@ -2316,10 +2316,16 @@ static void update_cpumasks_hier(struct 
+>> cpuset *cs, struct tmpmasks *tmp,
+>>           if (update_parent) {
+>>               update_parent_effective_cpumask(cp, partcmd_update, 
+>> NULL, tmp);
+>>               /*
+>> -             * The cpuset partition_root_state may become
+>> -             * invalid. Capture it.
+>> +             * Capture current partition_root_state as it may have
+>> +             * changed. Recompute effective cpumask if changed.
+>>                */
+>>               new_prs = cp->partition_root_state;
+>> +            if (new_prs != old_prs) {
+>> +                if (new_prs > 0)
+>> +                    compute_partition_effective_cpumask(cp, 
+>> tmp->new_cpus);
+>> +                else
+>> +                    compute_effective_cpumask(tmp->new_cpus, cp, 
+>> parent);
+>> +            }
+>>           }
+>
+> If cs is a partition (remote or local), we call 
+> compute_partition_effective_cpumask to compute the effective cpumask; 
+> otherwise we should call compute_effective_cpumask. Wouldn't it be 
+> better to call compute_partition_effective_cpumask whenever cs is a 
+> valid partition, so we can eliminate the branch outside?
+>
+> ```
+> static void compute_effective_cpumask(struct cpumask *new_cpus,
+>                       struct cpuset *cs, struct cpuset *parent)
+> {
+>     bool has_cpus;
+>
+>     if (is_remote_partition (cs) ||
+>         (is_partition_valid(cs) && is_partition_valid(parent)))
+>         return compute_partition_effective_cpumask(cs, &new_cpus);
+>
+>     has_cpus = cpumask_and(new_cpus, cs->cpus_allowed, 
+> parent->effective_cpus);
+>     if (!has_cpus && is_in_v2_mode())
+>         cpumask_copy(new_cpus, parent->effective_cpus);
+> }
+> ```
+>
+Good point. I will send a separate patch to do the consolidation.
 
-I think I have a patch somewhere stuck in my review queue for -rc1 that
-might help with this:
+Cheers,
+Longman
 
-  https://patch.msgid.link/CANGjgdmNCfm%3DSctvKZ44y8b5n8t_JSp4meX%3DDKGnG74B3g1vVw%40mail.gmail.com
+>> spin_lock_irq(&callback_lock);
+>> diff --git a/tools/testing/selftests/cgroup/test_cpuset_prs.sh 
+>> b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
+>> index 47791591002f..8595b6b4b7bf 100755
+>> --- a/tools/testing/selftests/cgroup/test_cpuset_prs.sh
+>> +++ b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
+>> @@ -364,6 +364,9 @@ TEST_MATRIX=(
+>>       " C1-4:X2-4 C2-4:X3-4:P1 C3-4:X4:P2 \
+>>                      .      .      X5      .      .    0 
+>> A1:1-4|A2:2-4|A3:3-4 \
+>>                                          A1:P0|A2:P-1|A3:P-2 ."
+>> +    " C1-5:X3-5:P2 C3-5:X4-5:P2 C4-5:X5:P2 \
+>> +                   .    X1-4     .       .      .    0 
+>> A1:1-3|A2:4|A3:4 \
+>> +                                       A1:P2|A2:P2|A3:P-2 1-4"
+>>       " C1-4:X2-4 C1-4:X3-4:P1 C3-4:X4:P2 \
+>>                      .      .      .      X1      .    0 
+>> A1:1-2|A2:3-4|A3:3-4 \
+>>                                          A1:P0|A2:P1|A3:P-2 ."
+>
 
-If not, too bad, correctness first and all that.
