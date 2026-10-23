@@ -1,68 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.12
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792789102;
-	b=OeYOzUVPeHITp89ziDZtjTSMZr4qZfaiGmUHiW/YrarZBfnqFJIvp4+A08Khj59R2U8L
-	 oexzir/yIxGpZFHfoWApek81VNkNFt13+fiZfHDLxlAP78Q/iTis7M3UzvPPvAhXkXIYs
-	 3mjGaCBgkC7l6krILLMIGcPi7lc1vAcYJjNHtB20JZfW4zsIP4HDIqWTszCqz3fft0Ohs
-	 PAVFtqmEGKJ+i9/O6WKR27RkKRC3KI/WpUSNdqGED+SpMeWR3SrvzPEfJGYcOtVBjOP20
-	 htmBBP+0gpCf91pTEwRRzJhdoQgJz32LKVXpso5xw+Bp0b9dFRyXlcIMFXrwQv2FbGQ==
+	t=1792789143;
+	b=JFjRHghU0aSrulPtGDk5w1xx5WigaWUOK+i/kl07Fz+XJSoauSw0jZ/slvuT0OvHPNoJ
+	 nNX25RkFFtL8OjcfaLadzF50rfaxm8Ep/gf71LMdi/C43RpRQvDpGjyMN8HgtEU3RGcg4
+	 K8tfPw06VjIdZmUYuqKr6e3btBUYjpr6El7SDpMAONGcFny7sm4zQgnf9Ej3CwNnDp4gR
+	 AREIkruO4x640CZg274vjjKKGtkOgUr4CueqxuhLc1UwUAXk9V8XmPUXicXdy8aW+CZsC
+	 WZThNUxsrgYOu/6h5wK6B5h79M1q3lX3zGdgAYbua5C6lsS8qJa7s+IRKiGj35nOphA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792789102;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=47fFe2ZVWzD2M+xi/Gv522xhXtrQ0E4Nr3GRjs7cPpA=;
-	b=GBc8wMY2v+h8XbDHsFGgH50IVfBIKvjaRXv3qlGqOspxnzd0H+lvtQJ5vgDzXOmpmGvj
-	 MjA2g7Edihq5DCwLya1+znfxoorqecjEZPXKjgqsdPsfurIqJTJq2kQ95xFlmEVZtq+zF
-	 /gYI2VzuZNcFbyoDZwy+L+NOnM2g8eHcTLHYzkJZZAjnM5ugxPG/O0fexYWIl0nMgtIq2
-	 1LI+kGsc4jLWlpWjc5PhQlhUAtdHE/4xLX+FlpiSrPNrTIuUCsoZi8bjoQhLbJN2fgCh6
-	 NlG+Ukt9JV8flL6pqXtg7YKn6k3zp205FzCi7o9ANAiYA5+W/mLQ6pVI23RPsr2ksvA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792789143;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=NqkLuJBowrg5uO/LzxwlbNqWRXOx6BWUFV29tyybZko=;
+	b=iF3BUkcCyfZ9hBogTyOWrexEqB9JMTIAe0pWsIGMKP364w+6QH3Bd1cv0vKWUsdK+3GI
+	 T5/bq6mcZ+4K30uS4K0CcGUEVH8Sl2SuNMMabrCeW0A/4jwajYAj2ALWwFl/pJoHC68ZR
+	 ZZgCx1DVV24iEEq7CAeHI1+PzXxTXCUqUZ7lKcl7MaMmcRJ3RrIywsAMz/s8hYZq6KC5W
+	 wG7ia0dAcb4UJCIaHzLQCgfp+T9yh15qeahW3b5fE5tFbJKFV2OxobHBiF+ZA/PeuEIG/
+	 bIS7MecS7hjomaoOyMqNkpM0wKmcu+R+M2UTitA+mhiNmP+zs20Ke7LeBVGhKle7fCg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=UomQidKl;
-	arc=none smtp.remote-ip=198.175.65.12
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mitaLlNr;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56E60606A31B;
-	Fri, 23 Oct 2026 20:58:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 56E60606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A212606A31B;
+	Fri, 23 Oct 2026 20:59:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=UomQidKl
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792789101; x=1824325101;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=Ks7Gx4OVJpb109E2zCSIAV0QP2uyhcmqOu5LqKpAbhw=;
-  b=UomQidKlXcoPjeT/CaO1rbTNvA/SxK7wuY8+Me7w/TK6s4N+xcVoJwwn
-   rxnNo4S2l/DpkYcMC1pxtLiy3/WFH+ASeo/PRepJ4WHOVllVIVAuF1gZu
-   V3KG5Bbr+A2LxK9PoYkhi0CXrZ27QjBdFQEZUInS0o4NgBtfdlQEKI8c2
-   AgIhG68nmBsCP/VfyuJV7Y5o3fnNjBo1e0zwfjcS9e/WdQMuHKFsjpHj5
-   2e09EKvRp9X6rSSuWNFDB0Q3fkIcC6iYbSEKLJbnf1ETAQUpuEc33m4vF
-   gxwMiCogCFKpHChAq8oJCmD8Ym0LznDwWA8uk4hQWN6axgHReyEt7vqoU
-   A==;
-X-CSE-ConnectionGUID: hbtzdOv3TEiNUDKp1/pM+A==
-X-CSE-MsgGUID: rm/Axp7OSVeN41JZ50KK7g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11944"; a="1440509"
-X-IronPort-AV: E=Sophos;i="6.27,174,1787036400"; 
-   d="scan'208";a="1440509"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
-  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Oct 2026 13:58:21 -0700
-X-CSE-ConnectionGUID: ptr2M49qRaiYrDw1HxCWYw==
-X-CSE-MsgGUID: E2s5XuQmRAOf+b72Nk+Qkw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,174,1787036400"; 
-   d="scan'208";a="3744554"
-Received: from soc-pf446t5c.clients.intel.com (HELO [10.24.80.90]) ([10.24.80.90])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Oct 2026 13:58:21 -0700
-Message-ID: <6090c951-edda-44f1-9569-c6d268649465@linux.intel.com>
-Date: Fri, 23 Oct 2026 13:58:20 -0700
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mitaLlNr
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 01CC81F01825;
+	Fri, 23 Oct 2026 20:59:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792789143;
+	bh=NqkLuJBowrg5uO/LzxwlbNqWRXOx6BWUFV29tyybZko=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=mitaLlNrKV/nfViGZGWPL8DopsgmEkL7ebk3WYav7/TSUHeFAq5AGZmnDc4tXWn7k
+	 783/fAuBYjd7AWZWs2B4Vxu68y4f4h3OaGZ3RKjITdTVpsDxBR+Ac3MbEn5Tenjuod
+	 MGhhuw88vCZ3OC2zuyibiLUOnZs7caWpkklT/0mIoge5Xs1Rgj4wRWeOP8GDbbYzln
+	 Xd+crNHPF8jSjXa4uBJq8kkViuDDadMFCx0uky7s7N8rJZekG9+qxk7W+R4Udim95y
+	 S/Ks1/mfiVe+axlXozUa33T03uy7ndZZLzMpiqStqGnJg8wkRjQ8spjH7dNyFYeinN
+	 l/IOrFBtLrKdg==
+Date: Fri, 23 Oct 2026 21:58:58 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Jesper X Nilsson <jesper.x.nilsson@axis.com>
+Cc: David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
+ <nuno.sa@analog.com>, "Andy Shevchenko" <andy@kernel.org>, Rob Herring
+ <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, "Stefan Windfeldt-Prytz"
+ <stefan.windfeldt-prytz@axis.com>, <linux-iio@vger.kernel.org>,
+ <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <kernel@axis.com>, Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Subject: Re: [PATCH v2 0/4] This series adds support for Texas Instruments
+ OPT4041 Ambient light sensor
+Message-ID: <20261023215858.623ef46b@jic23-hlaptop>
+In-Reply-To: <20261023-opt4041-v2-0-ee320812804c@axis.com>
+References: <20261023-opt4041-v2-0-ee320812804c@axis.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,106 +65,41 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] virt: tdx-guest: Poll Quote status with
- exponential backoff
-To: moe@flashbots.net, Kiryl Shutsemau <kas@kernel.org>,
- Rick Edgecombe <rick.p.edgecombe@intel.com>,
- Dave Hansen <dave.hansen@linux.intel.com>,
- Erdem Aktas <erdemaktas@google.com>, Tom Lendacky <thomas.lendacky@amd.com>,
- Dan Williams <djbw@kernel.org>
-Cc: Jun Miao <jun.miao@intel.com>, x86@kernel.org,
- linux-coco@lists.linux.dev, kvm@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261022-tdx-guest-quote-poll-v2-0-7543c6eb2d36@flashbots.net>
- <20261022-tdx-guest-quote-poll-v2-2-7543c6eb2d36@flashbots.net>
-Content-Language: en-US
-From: Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
-In-Reply-To: <20261022-tdx-guest-quote-poll-v2-2-7543c6eb2d36@flashbots.net>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
+On Fri, 23 Oct 2026 14:30:27 +0200
+Jesper X Nilsson <jesper.x.nilsson@axis.com> wrote:
 
-
-On 10/22/2026 9:31 AM, Moe Mahhouk via B4 Relay wrote:
-> From: Moe Mahhouk <moe@flashbots.net>
+> Extend the opt4001 driver to support OPT4041, since it is so similar to
+> OPT4001. The OPT4041 adds a second channel, a wide band channel ranging
+> from 380nm to 1000nm. The register map is almost the same for both
+> devices. OPT4001 has an internal fifo of size four, OPT4041 has two
+> fifos of size two, one for each channel.
 > 
-> wait_for_quote_completion() sleeps for a full second before it first
-> checks whether the VMM has completed a GetQuote request, and then
-> rechecks once per second. Every Quote request therefore takes at least
-> one second, however quickly the host answers.
+> Since OPT4041 has two channels it has one bit in register 0Bh to select
+> which channel is compared to the threshold register. The driver does not
+> support setting the threshold registers, so no new support has been
+> added for this.
 > 
-> With a local Quote Generation Service the VMM completes the request in
-> a few milliseconds. On an Emerald Rapids host (KVM, QEMU 11.1, Intel
-> QGS), back-to-back Quote requests through configfs-tsm took 1021-1024 ms
-> each; with this change they take 6-12 ms at HZ=250. Since quote_lock
-> serializes requests, the one-second floor also caps a TD at about one
-> Quote per second, which hurts users that bind a fresh Quote to every
-> connection, such as attested TLS.
+> The OPT4041 is pin compatible and has the same package as
+> opt4001-sot-5x3. Although the device id is different, I added a new
+> compatible string since the driver already had different compatible
+> strings to differentiate between the two OPT4001.
 > 
-> Poll with an exponential backoff instead: sleep 1 ms first and double
-> the interval up to 100 ms, so that a fast Quote is noticed within a few
-> milliseconds while a slow one costs at most ten wakeups per second. The
-> sleep stays interruptible, and the timeout becomes a deadline in
-> jiffies.
-> 
-> Signed-off-by: Moe Mahhouk <moe@flashbots.net>
-> ---
->  drivers/virt/coco/tdx-guest/tdx-guest.c | 19 +++++++++++++------
->  1 file changed, 13 insertions(+), 6 deletions(-)
-> 
-> diff --git a/drivers/virt/coco/tdx-guest/tdx-guest.c b/drivers/virt/coco/tdx-guest/tdx-guest.c
-> index a5a53174f9d9..000fff4ef6f5 100644
-> --- a/drivers/virt/coco/tdx-guest/tdx-guest.c
-> +++ b/drivers/virt/coco/tdx-guest/tdx-guest.c
-> @@ -16,6 +16,7 @@
->  #include <linux/set_memory.h>
->  #include <linux/io.h>
->  #include <linux/delay.h>
-> +#include <linux/jiffies.h>
->  #include <linux/sockptr.h>
->  #include <linux/tsm.h>
->  #include <linux/tsm-mr.h>
-> @@ -271,18 +272,24 @@ static struct tdx_quote_buf *alloc_quote_buf(void)
->   */
->  static int wait_for_quote_completion(struct tdx_quote_buf *buf, u32 timeout)
->  {
-> -	int i = 0;
-> +	unsigned long deadline = jiffies + secs_to_jiffies(timeout);
-> +	unsigned int sleep_ms = 1;
->  
->  	/*
-> -	 * Quote requests usually take a few seconds to complete, so waking up
-> -	 * once per second to recheck the status is fine for this use case.
-> +	 * A local Quote Generation Service usually completes the request
-> +	 * within a few milliseconds. Poll with an exponential backoff, from
-> +	 * 1 ms up to 100 ms, so that a fast Quote is noticed promptly while
-> +	 * a slow one costs at most ten wakeups per second.
+> Datasheet: https://www.ti.com/lit/gpn/opt4041
+> Signed-off-by: Jesper X Nilsson <jesper.x.nilsson@axis.com>
 
-Nit: msleep_interruptible() rounds up to whole jiffies, so at HZ=250 the 1,
-2 and 4 ms steps are all one tick. The 1ms comment is confusing. Drop it
-or clarify it.
 
->  	 */
-> -	while (buf->status == GET_QUOTE_IN_FLIGHT && i++ < timeout) {
-> -		if (msleep_interruptible(MSEC_PER_SEC))
-> +	while (READ_ONCE(buf->status) == GET_QUOTE_IN_FLIGHT) {
-> +		if (time_after(jiffies, deadline))
-> +			return -ETIMEDOUT;
-> +		if (msleep_interruptible(sleep_ms))
->  			return -EINTR;
-> +		sleep_ms = min(2 * sleep_ms, 100U);
->  	}
->  
-> -	return (buf->status == GET_QUOTE_IN_FLIGHT) ? -ETIMEDOUT : 0;
-> +	return 0;
->  }
->  
->  static int tdx_report_new_locked(struct tsm_report *report)
-> 
+Normally I'd say slow down to give more time for review, but seems
+you got good reviews anyway and the code looks clean to me.
 
-Reviewed-by: Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
+Ah well, sometimes you win - but generally wait a few days at lesat
+between versions.
 
--- 
-Sathyanarayanan Kuppuswamy
-Linux Kernel Developer
+Applied to the testing branch of iio.git. I'll be rebasing that
+on rc1 once available.
 
+thanks,
+
+Jonathan
