@@ -1,61 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.158.5
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792761442;
-	b=tIWpQaHdLqzjwQz2gFI92zhyqYg3Ygdby2C35rrc7lGjMgorzu8a+XI+RShfdXeuK4WV
-	 YdbYs2RgjXvnz+1xMtP7Copnrr4lPU2IWbyIi6RmR27ZuLjt9LDrJl/2aARV5oGH+PPl1
-	 nWHv5S8lHvnDdFC198bdgt5eY+ngJvorGtEHjrTS6dJsW6n/boL8cYMtgvaJ2UiH/oHzz
-	 CETAe7FueFkvZ0EEJ7cgGS99Q4NGOG/g5kep4CA61zI6d16fefryZwx4Jm6FQfKO/FahF
-	 4uxQqB/vBG2hIMAlvUt0pXECG3qao7gqnEDEM4fwbosD8FdKUoq8wkPrfOw7QKYXSsw==
+	t=1792761449;
+	b=qLh9QdpProOS5GP6EyeVUSgpXULUDksG1kUyZ15aY8o9B3mEhAk0E0BayVkuI0Mo48w6
+	 CIf3cD4GVgTAmvPqlvTKrRg9xbUMQL09IPWuUghQdpAeUEUgFXDBE81VANZF1epWtsoQX
+	 P1Uym6nbAuxI9N9mrzaEKWDhUV/B3bcXGI6bdtxyZaH0dsXHWZ1UqhJfWdSrNCeCJKSa4
+	 X0YshIN/9joYOQfzSD7vrnWuD3rYcJrm7A4+mrcTmhPIh/H3X4Wv5vQ711PrDTA0h9Jru
+	 +2+HqVnYB5el/VrkKJm9c+CnDoRFjrOnLMbOmoauSATPePO4x4RuQmPBQx1N5DLY9tg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792761442;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
-	bh=0S7BJO5Y6P2JevjXrAwLRgy3pn+8oxplRo5cKT+TNu8=;
-	b=lgnqBLyqU4FrcW8g4+uNlFD/i3IL0rEMNT8skIosPJzAEeB7j7uyr9C40+RwqxVDnBtN
-	 rXy/FBh3qevcKbLjU0SVF1Rl9tScN1hhDHJyQXqxzEd/QdbRJK4Tb19MH49mGklsyWucD
-	 NojqzhFvL3g07i+W6oJcWWqKjH1ias5MZGp6veNwCXinoX4BHBlueGOBo/7qYIQfuQFTz
-	 k8H48N7mWU9pxNlmPpCTN+Mt1qwg4c2KwnjCDCvhqIqVVdkDzJ8HvjMqV1wXANigV0ISa
-	 lKIZA2WW1tKfYl3zAER3ku0YUVVgO+eyf9VXirtA1hBmqZmis/Z2cvvqgWozNwpXY6w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792761449;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:Received:Received:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-TM-AS-GCONF:X-Proofpoint-Reinject:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=8zmldvaYoe7Mp4MxwSY1m+UK3fG/NAgF/n9tmVSG5EM=;
+	b=3pGX+sHSnwqkwSxTiaV8WISOlz4GSH/C6DJV76k18PhV4Fb40QiNWbZDqZvpHH8EmjLt
+	 pYlAwshXXRBQSG1/xLR4U4Sxeg0TaS5XsqaNoqSqOWqSwfsLn0yLXwYPbxU8MkPCKhyQD
+	 anFiLdgYZe+c4SDIC6r5rGD4mGeNE56S8zzoJwKviEFPoBp/+dCICjZ6EVJ1NKr36v50y
+	 t848RMqQeVW0KeYsU1iPDJ5j9QMNcxcJpevg2yC/USeOoett36+dssn71v4MZz8rNh5Mq
+	 APGlTSo/cYVHjm8cZ6TdbzNPYKLoybbUgSucTpx/LBz4J2gxCcXQa7rbIv/uGLNvGyw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=hjKHNlkT;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5C7BE606A320
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 13:17:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5C7BE606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=linux.ibm.com;
+	spf=pass smtp.mailfrom=linux.ibm.com;
+	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=WF9nphJZ;
+	arc=none smtp.remote-ip=148.163.158.5
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13887606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 13:17:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 13887606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=hjKHNlkT
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id E46D2328D
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 06:17:16 -0700 (PDT)
-Received: from [192.168.0.1] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id D997A3F673
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 06:17:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1792761440; bh=mXG0XX15yKYdw+EhkLniRyMbPXcVVDIBIbKHabfygrs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=hjKHNlkTnxUdD1No2WVEwaDR7Ucv6OXGTKiE8jiCmFGfbVjIVN/7SdmKSwKD46EA1
-	 vE+9VtTwKG7UD2coUffHvXu63V6CytydLY9PBO8JD9o60i85vNnYA/2MfH09e4Umlk
-	 NiKu+m6Zb0s/2oh1gUdfMXIjEOVLKgnjmQPOi27U=
-Date: Fri, 23 Oct 2026 14:17:17 +0100
-From: Liviu Dudau <liviu.dudau@arm.com>
-To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
-	kernel-dev@igalia.com,
-	Boris Brezillon <boris.brezillon@collabora.com>,
-	Bradley Morgan <include@grrlz.net>, Chia-I Wu <olv@google.com>,
-	Matthew Brost <matthew.brost@intel.com>,
-	Steven Price <steven.price@arm.com>, Tejun Heo <tj@kernel.org>
-Subject: Re: [PATCH v7 2/4] workqueue: Separate sysfs mutable vs immutable wq
- attribute sanitizing
-Message-ID: <atteXW1M-ZnWt6r3@e142607>
-References: <20261022093848.5727-1-tvrtko.ursulin@igalia.com>
- <20261022093848.5727-3-tvrtko.ursulin@igalia.com>
+	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=WF9nphJZ
+Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69NAEB6O1465764;
+	Fri, 23 Oct 2026 13:16:59 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=pp1; bh=8zmldvaYoe7Mp4MxwSY1m+UK3fG/NAgF/n9tmVSG5
+	EM=; b=WF9nphJZ/Za/0GVffeoaQxVCOdYjpwyT7S5AVyj2m6rsatV1N3UnITf8Z
+	q14aj9Vx77ARP+UvllW/q53sLO74+zma4Si6hFWVmgn52ntpBQ/7OGqEbXhWBuE2
+	WdnaK+3DON70CPuQpheWWKcM0V7sEll5591G367WxNfkQaKpPBNMAvf9NDwdg/Oz
+	qxH/AvRlP7JFMNkOq6JQhQNYfrJw2hBWWSPscnaZy7M2uBPXtRmo0ZbaXO8VSn2c
+	g07WPxXubu5n1pprnUnTQr50+3SBwjbKy4qPbPCGrAq6YGzBcrjZUGryLSma1Ngv
+	TSZTN10VRSsY30Qic/g+FfYoa1cjQ==
+Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hdw58mngs-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Fri, 23 Oct 2026 13:16:58 +0000 (GMT)
+Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma22.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69NAYpXr1950329;
+	Fri, 23 Oct 2026 13:16:58 GMT
+Received: from smtprelay04.fra02v.mail.ibm.com ([9.218.2.228])
+	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4hekdgm4t7-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 23 Oct 2026 13:16:57 +0000 (GMT)
+Received: from smtpav04.fra02v.mail.ibm.com (smtpav04.fra02v.mail.ibm.com [10.20.54.103])
+	by smtprelay04.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69NDGr7F27525876
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Fri, 23 Oct 2026 13:16:53 GMT
+Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id B971A2004D;
+	Fri, 23 Oct 2026 13:16:53 +0000 (GMT)
+Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 1D45820043;
+	Fri, 23 Oct 2026 13:16:49 +0000 (GMT)
+Received: from li-7bb28a4c-2dab-11b2-a85c-887b5c60d769.ibm.com.com (unknown [9.39.19.68])
+	by smtpav04.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Fri, 23 Oct 2026 13:16:48 +0000 (GMT)
+From: Shrikanth Hegde <sshegde@linux.ibm.com>
+To: maddy@linux.ibm.com, linuxppc-dev@lists.ozlabs.org, peterz@infradead.org,
+        tim.c.chen@linux.intel.com
+Cc: sshegde@linux.ibm.com, christophe.leroy@csgroup.eu,
+        linux-kernel@vger.kernel.org, ritesh.list@gmail.com,
+        kprateek.nayak@amd.com, yu.c.chen@intel.com, vineethr@linux.ibm.com,
+        vincent.guittot@linaro.org, srikar@linux.ibm.com, npiggin@gmail.com,
+        mpe@ellerman.id.au
+Subject: [PATCH v2 0/4] powerpc/topology: Introduce llc_override kernel parameter
+Date: Fri, 23 Oct 2026 18:46:42 +0530
+Message-ID: <20261023131646.2907938-1-sshegde@linux.ibm.com>
+X-Mailer: git-send-email 2.54.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,139 +94,73 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261022093848.5727-3-tvrtko.ursulin@igalia.com>
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIzMDA1MSBTYWx0ZWRfX1Qv7yeFQ2Ik+
+ hT9ZniMGpDaLa7hZZS5PDho5oSQRPf+YP7FzHQvLJWLgM/LSyxx3EMv6nBXlA1f6mf5f1L7FlX7
+ TuXQ6xONuAP4ZK2kswpXQB83nTZQE6M=
+X-Proofpoint-GUID: xgkZ0ph2K9rIvFShh5kCe0CLFO70v21W
+X-Proofpoint-ORIG-GUID: tkcAVau6K2n4UuIhay--Pbxct1tq9QaI
+X-Authority-Analysis: v=2.4 cv=UOBIjyfy c=1 sm=1 tr=0 ts=6adb5e4a cx=c_pps
+ a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
+ a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
+ a=V8glGbnc2Ofi9Qvn3v5h:22 a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8
+ a=f8snuxdgJl2q5W0zcO8A:9
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIzMDA1MSBTYWx0ZWRfXxv3urJTNI5YK
+ MXwyWHpU9WzewKFMQOveglX1Z62OBfwAU/aae3KTl1K5uDQn4aXNBEWeoppqYNRMQ7yYydz/dZ1
+ N6dth86/3Ijsuppo8QwMdJUmKGLe0NOOZsi+rNnyIV2AjST08kUWKbB088tHdi83kUs7ud/Q6Qf
+ cv2XrWV8sp5aCeeUe98JU6fFFW/Vn2g9yEMYEtXni04njG3TuEACRcTWwGIDlRH2+PK+sJkgQb0
+ d/E3JexysWlKUNLBnm9fECpeGddjXv3z8VY6AWOC7XSbnCfRtzE/XEUy8ndUCZIIJd06CWTVrAT
+ Q6QI8XQkWDj4O/s4MW/v8nHDdN/gNJitWINcajWL91ITmQdZrYbLDS07DhpiDoyK3twaqbEjYCF
+ V7AuBL/FU5PSnmpU0iULw/EQ72BN4jBw438isH0BttKmAYtVcj1/SICjWUdaHyjQHnTcBZSQI5E
+ vhEUaxLVuw3+W2LboKg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-23_03,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 clxscore=1015 suspectscore=0 spamscore=0 priorityscore=1501
+ lowpriorityscore=0 adultscore=0 impostorscore=0 bulkscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610230051
 
-On Thu, Oct 22, 2026 at 10:38:46AM +0100, Tvrtko Ursulin wrote:
-> In preparation for adding more sanitization steps split the current ones
-> into ones which are immutable and the ones which can be modified from
-> sysfs.
-> 
-> Point being that the mutable steps must only run on the initial workqueue
-> creation, while the immutable properties need to be sanitized every time
-> attributes are applied.
-> 
-> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-> Cc: Boris Brezillon <boris.brezillon@collabora.com>
-> Cc: Bradley Morgan <include@grrlz.net>
-> Cc: Chia-I Wu <olv@google.com>
-> Cc: Liviu Dudau <liviu.dudau@arm.com>
-> Cc: Matthew Brost <matthew.brost@intel.com>
-> Cc: Steven Price <steven.price@arm.com>
-> Cc: Tejun Heo <tj@kernel.org>
+Provide an option for users to enable cache aware scheduling on powerpc
+via a command line parameter.
 
-Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
+More details of the problem and context is in cover-letter of v1.
+v1: https://lore.kernel.org/all/20261012102037.2477378-1-sshegde@linux.ibm.com/
 
-Best regards,
-Liviu
+v1->v2:
+- Move to kernel parameters from debugfs. This helps to keep
+  llc_id consistent which doesn't change across sched domain
+  rebuilds. (Tim Chen)
+- Update arch_llc_mask to reflect the override (Tim Chen)
+- Limit only to mc, pkg (Srikar Dronamraju)
 
-> ---
->  kernel/workqueue.c | 49 ++++++++++++++++++++++++++++------------------
->  1 file changed, 30 insertions(+), 19 deletions(-)
-> 
-> diff --git a/kernel/workqueue.c b/kernel/workqueue.c
-> index d8cf546d853f..c634b20f1874 100644
-> --- a/kernel/workqueue.c
-> +++ b/kernel/workqueue.c
-> @@ -5706,6 +5706,32 @@ static void apply_wqattrs_cleanup(struct apply_wqattrs_ctx *ctx)
->  	}
->  }
->  
-> +/* Sanitize attributes not modifiable via sysfs. */
-> +static void
-> +sanitize_immutable_workqueue_attrs(struct workqueue_struct *wq,
-> +				   struct workqueue_attrs *attrs)
-> +{
-> +	if (wq->flags & __WQ_ORDERED)
-> +		attrs->ordered = true;
-> +}
-> +
-> +/* Sanitize attributes modifiable via sysfs. */
-> +static void
-> +sanitize_mutable_workqueue_attrs(struct workqueue_struct *wq,
-> +				 struct workqueue_attrs *attrs)
-> +{
-> +	if (wq->flags & WQ_HIGHPRI)
-> +		attrs->nice = HIGHPRI_NICE_LEVEL;
-> +}
-> +
-> +static void
-> +sanitize_workqueue_attrs(struct workqueue_struct *wq,
-> +				 struct workqueue_attrs *attrs)
-> +{
-> +	sanitize_immutable_workqueue_attrs(wq, attrs);
-> +	sanitize_mutable_workqueue_attrs(wq, attrs);
-> +}
-> +
->  /* allocate the attrs and pwqs for later installation */
->  static struct apply_wqattrs_ctx *
->  apply_wqattrs_prepare(struct workqueue_struct *wq,
-> @@ -5735,6 +5761,7 @@ apply_wqattrs_prepare(struct workqueue_struct *wq,
->  	 * every possible CPU and never falls back, so it has no default.
->  	 */
->  	copy_workqueue_attrs(new_attrs, attrs);
-> +	sanitize_immutable_workqueue_attrs(wq, new_attrs);
->  	wqattrs_actualize_cpumask(new_attrs, unbound_cpumask);
->  	cpumask_copy(new_attrs->__pod_cpumask, new_attrs->cpumask);
->  	if (!(wq->flags & WQ_PERCPU)) {
-> @@ -5757,6 +5784,7 @@ apply_wqattrs_prepare(struct workqueue_struct *wq,
->  
->  	/* save the user configured attrs and sanitize it. */
->  	copy_workqueue_attrs(new_attrs, attrs);
-> +	sanitize_immutable_workqueue_attrs(wq, new_attrs);
->  	cpumask_and(new_attrs->cpumask, new_attrs->cpumask, cpu_possible_mask);
->  	cpumask_copy(new_attrs->__pod_cpumask, new_attrs->cpumask);
->  	ctx->attrs = new_attrs;
-> @@ -5919,24 +5947,6 @@ static void unbound_wq_update_pwq(struct workqueue_struct *wq, int cpu)
->  	put_pwq_unlocked(old_pwq);
->  }
->  
-> -/* the attrs @wq asked for, as spelled by its flags */
-> -static struct workqueue_attrs *alloc_wq_std_attrs(struct workqueue_struct *wq)
-> -{
-> -	struct workqueue_attrs *attrs;
-> -
-> -	attrs = alloc_workqueue_attrs();
-> -	if (!attrs)
-> -		return NULL;
-> -
-> -	if (wq->flags & WQ_HIGHPRI)
-> -		attrs->nice = HIGHPRI_NICE_LEVEL;
-> -
-> -	if (wq->flags & __WQ_ORDERED)
-> -		attrs->ordered = true;
-> -
-> -	return attrs;
-> -}
-> -
->  static int alloc_and_link_pwqs(struct workqueue_struct *wq)
->  {
->  	struct workqueue_attrs *attrs;
-> @@ -5948,10 +5958,11 @@ static int alloc_and_link_pwqs(struct workqueue_struct *wq)
->  	if (!wq->cpu_pwq)
->  		goto enomem;
->  
-> -	attrs = alloc_wq_std_attrs(wq);
-> +	attrs = alloc_workqueue_attrs();
->  	if (!attrs)
->  		goto enomem;
->  
-> +	sanitize_workqueue_attrs(wq, attrs);
->  	ret = apply_workqueue_attrs_locked(wq, attrs);
->  	free_workqueue_attrs(attrs);
->  	if (ret)
-> -- 
-> 2.56.0
-> 
+Notes:
+
+- A selftest for the functional validation of cache aware scheduling
+  is a good idea as we discussed in v1. It is a significant change on
+  its own and likely takes time. I am thinking it might be good idea to
+  revisit selftests for scheduler in general. (We have very few).
+  Maybe worth a discussion in coming OSPM. 
+
+- I am on parental leave. This version is pretty much what I had last week
+  and I haven't gotten any chance to update since. just sending it out.
+  Sorry if I have missed to address any comments.
+  Please expect delays in my response.
+
+Shrikanth Hegde (4):
+  powerpc/topology: Introduce llc_override kernel parameter
+  powerpc/topology: Update mc/pkg flags based on llc_override
+  powerpc/topology: update arch_llc_mask based llc_override
+  Documentation/powerpc: Add details about llc_override
+
+ .../admin-guide/kernel-parameters.txt         | 15 ++++
+ arch/powerpc/include/asm/topology.h           |  8 +--
+ arch/powerpc/kernel/smp.c                     | 69 +++++++++++++++++--
+ 3 files changed, 81 insertions(+), 11 deletions(-)
 
 -- 
-====================
-| I would like to |
-| fix the world,  |
-| but they're not |
-| giving me the   |
- \ source code!  /
-  ---------------
-    ¯\_(ツ)_/¯
+2.52.0
+
