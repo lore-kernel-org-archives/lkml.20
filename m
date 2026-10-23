@@ -1,52 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792793375;
-	b=VXcrcUaPGnROKVLnfFAAarhBMrq5mptSRJUYf5K04H9BXBP/RYkyKyE6LArmEYtZ2UVu
-	 JdXYTePs73spimzU133NHAf6xK9K+ShDVEh+QGMZtCfZk+8JAXHWNXHSFbRKbKDV3otCa
-	 DXpDoJgPcWKl4Sj1XTcbJ1lOdz6girqKjLjA9/71OK8MrKJjGZCQZ3FxTlizeHMnCvH65
-	 BF6LDSBJ/mQOJT9/3zqD511rQMQ6IElPQ0fpebl3ekOQilMIZjVLlGGvjBJqSlh1IVRCA
-	 d0w1II8SF+g1MpQjpuSdSn4YEbpTyagJSPlf2skfXMFVFqcNM+t4Tif6nfkliigLIKg==
+	t=1792793413;
+	b=X68b7vCyFUQQvMpr7oPPMGM1sFFsy3cjpZDAq525QwGs7/AouzYZGOhfBjMV+hZnXTDp
+	 IVvCHSokbSwdps7qeV4MGYHjfGw2OU151Q1K/Cxn3E9ngv55PRzPmyCoyPQQpaX+qIYQY
+	 6Pa0aLbzAyvoKHJHeGwZoisSQpQpdG0CEXNnQNeIicIY9zuVkUnacZG7Gyr6PwaqltQES
+	 2+1avpAnBj4saZuK8VbpQLida9cIJgR1M5FfDfB6ep3zADFHvZfzilKLTPma1V+ZVUiKe
+	 3KQAtXwL8OnkkmDlVegyc3uWAMzK9BYw74J4s1kAw4iFZIvV9KLTJYzRRYp4TMtYSSA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792793375;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=7dNcTbu9dSxbJpse2us0c/1XzcXfjLT8MtjeAWDpV5E=;
-	b=cwFRvTN9sIdhvW/0Ryhfv6p0OR8Q+15r2SRa1ecddOIdpfEO/XjLvWytsBjaGI+4wrPl
-	 i6IVCoUULOBvO5jeGxO8zLrTRFkl6gOOUYW26/OUaKQ8TxtY/4/wlALdgLDOau7ybfySC
-	 Wci/2U+kvYWHOmA3tHesB3FDxXsKiYlGBdymny/E4WEcendPatgbtcfZQukxdLicu0pj7
-	 jvtXvEWuHNHSy49wLH/K7f6jzdFORBxc9tXm8spbYriRUcLwKDimGVTJkSOegGxhQnJ/n
-	 FRXm1MGcnuOdj8/LY63O4vuizlZGhhb7w1KFLS9GHDTlfcQcjdg1tYol812c0Pgm91Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792793413;
+	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
+	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc;
+	bh=1mCqzzxWjMqDLySJJYwOwUosu8W8pSpFwSVp2R8njlg=;
+	b=0bc9gIfCbPXpkQdufwUdd6obcCGSOsWSqNyWRhpze+o9BcmBffILebUb8SZUM7gGm3Vd
+	 AOqHwENFqo9WU6q09A2YiHb4DG4oiUc7+/0AQuIUm45f4Bv2rNopa9cdlhMnLEkXEJ3da
+	 6fPveLORwuW06UDX8E7Leoa271YZVIehzwY6hy4DfPYDiI8M1fN9bV+CVioiWTOBVJceb
+	 pwCNLAiT+6qveG8wKkY+JO4uLTrmg5neXOLIHPBIw1mldoupVAMpjLoDupN62NpCaSj5G
+	 8QUo/Xj5nbUu9Cw8iB5IGISaky84bkwCq2XC6Ms26o3F2qRprl+mZ9zSkdtQtNJNdAQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XFURxrdU;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dGABpSKP;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 630C6606A31A;
-	Fri, 23 Oct 2026 22:09:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56A6A606A320;
+	Fri, 23 Oct 2026 22:10:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XFURxrdU
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E3BB1F01825;
-	Fri, 23 Oct 2026 22:09:34 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dGABpSKP
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 893311F031E1;
+	Fri, 23 Oct 2026 22:10:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792793375;
-	bh=7dNcTbu9dSxbJpse2us0c/1XzcXfjLT8MtjeAWDpV5E=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=XFURxrdUSG+mzs2T8f4F3J5m4XUZVPa1SBjwL1KoCVFhwfBRleq65OmmrtGcf3bHw
-	 N4KF55MArNkG2FPnL42ZqDG4W1ABWVDgbAUa5e7N/2oVnDaxZM7FvdPJdR2uPatDBe
-	 ZUriKPYBlaRtn80gaOBae+eQcyOgX0+h/lapt9ZxnTDJMQYzDLqIztZvg5JuBdoFHQ
-	 7KihBC6oPDjVQDkn4VsN+6OwgGBJSgy5LbANoHmq9jHN3A43wJGtSgIxkxjg0ygkAv
-	 RXz1ZaCenrgLX6u8Gbp9JoLt/klGsCveAq8A6pjRvbl6pZwcsTk/ZqQjUtocNmJHRX
-	 AbfQ2BCuxQrbg==
-Date: Sat, 24 Oct 2026 00:09:26 +0200
-From: Andi Shyti <andi.shyti@kernel.org>
-To: Myeonghun Pak <mhun512@gmail.com>
-Cc: wsa+renesas@sang-engineering.com, linux-renesas-soc@vger.kernel.org, 
-	linux-i2c@vger.kernel.org, linux-kernel@vger.kernel.org, ae878000@gmail.com
-Subject: Re: [PATCH] i2c: sh_mobile: request IRQs after mapping registers
-Message-ID: <atvUWb-PzouZzL5D@zenone.zhora.eu>
-References: <20261017233416.47b09ffff48f.i2c-sh-mobile@gmail.com>
+	s=k20260515; t=1792793412;
+	bh=1mCqzzxWjMqDLySJJYwOwUosu8W8pSpFwSVp2R8njlg=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=dGABpSKPZXwVN8md7NweVLdckETbZ2Ef8Z+44/cJuijCtGN+KEQG4VkcoPE8n9h/0
+	 6zoAZVw+BtWLCt6JmAPVQ6NgM6kJe2AYmT0pNKOrpt1kbk08bZPARaTBttkoewsYLf
+	 v36CrtFjuH/pTLsyV1UVaaYS+djeu13YqdMV8KdoVZyeN4Ov04U/S4RqxDDo9b3F1N
+	 Os7VK9CGUv5CkwAUktn62mGVRL3kKvzGDUPY77GhzmTFCZ7s0umUNd8ztRaYuIP0Ub
+	 Jo2CrcwIR/CmqhFfxV0hFyFmRbbTPwwhPpmJRK1JhDtXqC8Tg9mvaTDvlrUa6Yw3sD
+	 NYFxpfA0A7NMg==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 81505391B158;
+	Fri, 23 Oct 2026 22:10:12 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -56,42 +53,48 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261017233416.47b09ffff48f.i2c-sh-mobile@gmail.com>
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH] Bluetooth: MGMT: Return RFKILLED for Set Powered on a
+ blocked
+ controller
+From: patchwork-bot+bluetooth@kernel.org
+Message-Id: 
+ <179279341105.1294506.2700531975523429266.git-patchwork-notify@kernel.org>
+Date: Fri, 23 Oct 2026 22:10:11 +0000
+References: <20261021065833.120347-1-tooangel@tooangel.de>
+In-Reply-To: <20261021065833.120347-1-tooangel@tooangel.de>
+To: Tobias Wilken <tooangel@tooangel.de>
+Cc: linux-bluetooth@vger.kernel.org, luiz.dentz@gmail.com,
+ marcel@holtmann.org, linux-kernel@vger.kernel.org
 
-Hi Myeounghun,
+Hello:
 
-On Sat, Oct 17, 2026 at 11:35:16PM -0400, Myeonghun Pak wrote:
-> The managed IRQ handlers are acquired before the managed register
-> mapping, so devres unmaps the registers before freeing the IRQs. A
-> transfer wakes its waiter before the ISR's final register read, and
-> unregistering the adapter does not synchronize these IRQs. An in-flight
-> handler can therefore still access the mapping when it is released
-> during driver detach.
+This patch was applied to bluetooth/bluetooth-next.git (master)
+by Luiz Augusto von Dentz <luiz.von.dentz@intel.com>:
+
+On Wed, 21 Oct 2026 08:58:33 +0200 you wrote:
+> Since MGMT_OP_SET_POWERED runs through hci_cmd_sync, powering on a
+> controller that is blocked by rfkill fails with -ERFKILL from
+> hci_dev_open_sync(), and mgmt_set_powered_complete() reports it with
+> mgmt_status(err). mgmt_errno_status() has no case for -ERFKILL, so
+> userspace gets MGMT_STATUS_FAILED instead of MGMT_STATUS_RFKILLED.
 > 
-> With forced-threaded IRQs, the handler can be preempted after waking the
-> transfer waiter and before its final ICSR read.
+> Before that conversion, power on went through hci_power_on(), whose
+> error path mgmt_set_powered_failed() still maps -ERFKILL to
+> MGMT_STATUS_RFKILLED. bluetoothd relies on that status: for
+> RFKILLED it sets the adapter PowerState to "off-blocked" and returns
+> org.bluez.Error.Blocked for the Powered property, for any other status
+> it returns org.bluez.Error.Failed.
 > 
-> Map the registers before requesting the IRQs so that managed cleanup
-> frees and synchronizes all handlers before unmapping their registers.
-> Keep IRQs available while unregistering the adapter because client
-> removal may perform transfers.
-> 
-> This issue was identified as part of our ongoing research while
-> reviewing kernel code.
-> 
-> Fixes: 7fe8a9993337 ("i2c: sh_mobile: devm conversion, irq setup")
+> [...]
 
-Normally, I don't like taking fixes that don't address real
-issues, especially speculative AI-generated fixes.
+Here is the summary with links:
+  - Bluetooth: MGMT: Return RFKILLED for Set Powered on a blocked controller
+    https://git.kernel.org/bluetooth/bluetooth-next/c/65683fbed5c8
 
-However, this looks like a harmless reordering that seems
-correct, although the issue it addresses is rather
-hypothetical.
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
-I'll remove the Fixes: tag, since this is purely speculative,
-and apply the patch to i2c/i2c.
 
-Thanks,
-Andi
