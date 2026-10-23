@@ -1,74 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.69
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792750597;
-	b=KzEWQffMyIoexid1mNT9/nkVplWbRua+7KH/Sa2E5gLSCy/ocLffhstNTT41UX4lAeBA
-	 r5WCldqntTH7vuuzSHx7M1DKyzNgT8GsipGhAb84XLGAueOw3o6uHOyf0eSWjyQGt3Rcc
-	 rNiVKvP0lWa/2zaDk3LnrNVgUryIeadhCDjUTu667ZPupxPmCjAknmMc6T9S30DvppYz2
-	 veHf7p2r0qUal2gIfhGa2kc2IHIY3SIAIcETPQQBgqJ9ZPUyhN+Zuf4vGbEV9X2m+zsxA
-	 drIuOS/FH8iioRw8YFtLoPiIp/nKf7bmyD4O9orW3TOgWd5dSoAfAAZfvr7ArKFVpNw==
+	t=1792750637;
+	b=lZRakikVteadmJkd6KTVSPCTZoz0EZETmq/y3sIV4XnW4A0x1H+EC1pcn8Jxn1J09+C+
+	 XpXRkF24N0jJszLI8HryuTXylsrnRxDZ2zzoXQh93EAP81clmSE+TU2sVab7i7hd4voR6
+	 LgIaK/BF89QD96JkCDb1hshVhtRxPYvqfApoRjPJAwIEfYriTsmua3XQ1KKupVgY1ceW4
+	 NMaTrEWEO/zfWox+q4xTqXxOnFWLNweEkySurB3/KUyW/hC1wTwtfenMPKeHCmDa8ZQmR
+	 WVe5cZxEgiqcgfPltwBSmY1bsK8hMnMhmrTeSYed0f0Hgcnxd/nLBMERE/Sgqzj/ETg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792750597;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Received:Date:In-Reply-To:Mime-Version:
-	 References:X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=w3JinBf0Z2jF81QKjb6rRVvSkFxoBcyPBCQyWjZnSYE=;
-	b=RKiwD5WnbDYpZ7qDA1nvZcaUNH+nO0PDHmshii6yDoKjbO8xDarkQm7uFEFExYytVD1S
-	 vrwRy1jbj0h0pKNELidrTFT1jPa1XljFae3xMeZaBU/SakgwLXIm9qRkdB4TssOs0q/gf
-	 D1iy3cf+FI3F3ooq1un0PPvF+AO0Z9OUSp84QJi4FSZBMwNJkKbdqpkhc6885Welj6cn/
-	 zCFAwh07BvrRis7QGB0L3bne4OVsEq2hZ0hbJ06W5bD9VkQnLhZj2I9zHFo4gCUc+G4t5
-	 dGaO4DsK++bhPr3PLs90k8dnZbCmOVam40y1r0eDJz/vw/Voj/l6xFNPJdgBhliBIDQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792750637;
+	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
+	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=gpeLZJVtpiJlPDO3HGOLqYYd8BW6Z+Hn1e4Q/28eTGA=;
+	b=dw7L76MQ+BAhh8ijk+p7XX96Gh2HzcSbFmTLefx12mSTYUwiIet+hbi/At41gjQb4B9c
+	 RJUxYsEiBb8prM51wylpcv67JvvUCH53glsO+A/HB0hbf7tS8r1pUyooF93AnLtCBNiLD
+	 8N0QNpmrQjcBUdCT02mbMyHWuACUfl9k8Ul7sbOcTxDhk6mk/8ZALRub66JlevYfIFcfK
+	 SdhkpL9UAbtss4xqw2CGbKjrPLB0b7pCk0TzavXJ3JoNfo64QdKXhwBHc6+YFnO/GBXFu
+	 Jv2Y8ozZOUr06UR6uMQLXYpmavASMM0oKO3xUGm8cv/jH3wXmdJwh8ZlGJirqVZjLXw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--smostafa.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=lKBxdyju;
-	arc=none smtp.remote-ip=209.85.218.69
-Received: from mail-ej1-f69.google.com (mail-ej1-f69.google.com [209.85.218.69])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="VYk/D+3k";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB5B3606A321
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 10:16:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CB5B3606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--smostafa.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C730606A31A;
+	Fri, 23 Oct 2026 10:17:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=lKBxdyju
-Received: by mail-ej1-f69.google.com with SMTP id a640c23a62f3a-c4163a5400eso198129666b.1
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 03:16:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792750595; x=1793355395; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=w3JinBf0Z2jF81QKjb6rRVvSkFxoBcyPBCQyWjZnSYE=;
-        b=lKBxdyjushZ+5eg971tfk2uIwBETMu3NrDXozbFHyWCXB5At8VD7ucPRFqLIBZunsz
-         m8VpXVYAo8CRUVTcSsaqPf84rMM6G81z6tdjEUf1xbsvUAQR4pKPJm0U41XIK9UbaFxR
-         Xc/hMMQ2BKe22GNP3SNK3PJDQ09YBvn5/T0Sgn1D5cZEwNaXD9HImYqcr4BwOhD4wE7R
-         32zBUf349CB+OtDLe4HHr7EVHwCYdGcWwYwom8ge4ZIEEWrOhD6iwjM47tUsrBceEGHw
-         C3DpV3vxZ77EGR9vEr3PQal9vx/SdL0yjK55oPgXmqPCX/V4j07QviSvXjiY22h6BwYU
-         MZaA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792750595; x=1793355395;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=w3JinBf0Z2jF81QKjb6rRVvSkFxoBcyPBCQyWjZnSYE=;
-        b=w50iDvrWxHsSZ7eyAaqMMWeDHVZIeLob/0UK9hfg65DYMZSgrboe5XRxoJJy4mXAGY
-         UomZRIUMzBV1wWJdHySV4YjEdWL1mumxAe9k4sshztKPFgxDDhO4ID0LckP4IXkvjMDf
-         r/aJr+hFF9QyKXeA3WWkW8aiJNWEE5W1FDprLK9teYT4GSdyuJjAT4vPR7hpHr8hSd1O
-         TaMEgiupCqyzgghvfKFY+fzHrLNZecOJShdxSZM95f/V0IRDzKt1XKG75eWhncpF38Tx
-         lBEIfKcsqdlAmccsMUbvmTLv0a4JZTF4B0cFL4SC7+lOPn3Ygdx2tfMd30Sexr9uZ4v4
-         6OUA==
-X-Gm-Message-State: AFq9FYIuOtCQh4ntzJS3cogiOoIMp+pW5WbltPqbeHXF7+3lutZtFoYw
-	ahHpKL3gx27bYO+KOjNhbi4VyUKJ3vrmJLKurCCy7K9F9eUGH2awaoE9re1VX8JOS5bf5FuFnOO
-	AbA49aMQ23zdZW/t0ozfWxj+cOGo2quI3K51XCLntjEtn8J6eN07161kE2Z9J9yLEqd8kyrlkA4
-	i0KqLdZjiTZRkIKpDFlxltDKjO8UGnq2rTs0ThsxOtdgtq2/GIQB2CffU=
-X-Received: from ejcog42.prod.google.com ([2002:a17:907:1dea:b0:c31:81f2:c52b])
- (user=smostafa job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:907:da2:b0:c2a:ac35:95fb with SMTP id a640c23a62f3a-c468d88a5c0mr676886766b.24.1792750595024;
- Fri, 23 Oct 2026 03:16:35 -0700 (PDT)
-Date: Fri, 23 Oct 2026 10:15:35 +0000
-In-Reply-To: <20261023101536.3965344-1-smostafa@google.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VYk/D+3k
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B73411F01825;
+	Fri, 23 Oct 2026 10:17:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792750636;
+	bh=gpeLZJVtpiJlPDO3HGOLqYYd8BW6Z+Hn1e4Q/28eTGA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=VYk/D+3kbKnN4Td708RzwXNiZQVZkFWUmZxiuigbcwG+CdlVoZzrggmWEYTIZLwuh
+	 AzXJb59AXe41gthqxiYcdHMvmnpJEdZaoscSDro0jUBpaQEzorZAmc/U0kFk91XQwy
+	 ak0p76QwdoFgt6Uxn2BIe3th7Ohg6KmkLYhX3sGt/7cOKh2U6xoEzL+9ncKD9Gtlki
+	 3tUvSxvqITPkB8czRLZuV/ZsDod6v3hlLKdk4wT1ygaQznFpM9OFOy60We3qObERos
+	 NC37C3T09OtndSaZM/duFZcoS4/5fy9dfm/7jHIc048POkCIMSzGm/jgTpk7PMk+MP
+	 XzcuznffEhkGQ==
+Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
+	by mailfauth.ams.internal (Postfix) with ESMTP id 6975A198003A;
+	Fri, 23 Oct 2026 06:17:12 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-03.internal (MEProxy); Fri, 23 Oct 2026 06:17:14 -0400
+X-ME-Sender: <xms:JzTbamcM6thTVQGnNUGh5O7vXtFmn-fFEBcx-um2RSE3YGq57VkFrw>
+    <xme:JzTbagFRooSn3XcuAnLfBtgpWGZp6Evs0rL_gpPZ6UNyH9ycxo5F3rvatpJzelQm8
+    yIbvAUMe5JL4TA5XMciswkJl9IZIUdHxi4VrrpsMk_77z5fvsmn903N>
+X-ME-Received: <xmr:JzTbak1qpy8Z6yC8grYUdBiyEYMJdJ6LcAeUO9Oo4InJHUdVFjUbJS33WjU>
+X-ME-Proxy-Cause: dmFkZTErg9z4G4UhidklPuc8uFrLu2Z2aaxmgnGy3D0KEdUY6W7O/OlsaLOLS5DbOc08LB
+    +5/iEztytUd59/o2IkmcrQGmA/fZJJD1NOHadjZHONHNkkocRANUoUv+g0S8bKlfeTQ+Fl
+    JWTd5e9DLxWLLLAP+rGKsOMDHdiWSzUzgTQlZp+FcF6FlQHgqwNAX3euVj9+ZJdBXcMrk3
+    sFB4RuHQI1wi9F9fPlEHNIObiUrEWqNOoCQvC36+l3uwhPwTowNT04EaTvE+HV8B7IJgqo
+    ZNY6ia+NrtfoBJmiriJ0t9g0M7mlpIN/h6AJiITfUM4iGRmbdgNy+hX4rzpdjUQJVckkcf
+    R1FVprDjCR3M6+GS67BrJ7uOzJWXeVND86gwtT679fhrrz/yzaXzvahEraMbK+H3fWzZ0l
+    D7RO0rkhGNX47LUnKuFs96ULJscKhEltHMup9JV9Rj315617++feXwpPDC0whXS7AA9x7b
+    mA0+gnFZQ6jYx0lpO+PXUIRO9ORhl8mmBvzWQbUpvLohOhrhZsec5F5s67HXOOq7jfoQB8
+    cRa6EzcDscpNfcGPtWkNkYRO9fSCuGryHQZrwPOCHytoRDDhHXG80raBJQzcjV9KwzBmJW
+    RD7huo7vf95k76ktT8jRXuqaB+ZECAwZoI3eIyDaZksX5riQla3+0EgstAeQ
+X-ME-Proxy: <xmx:JzTbagIodmA06YeFG2ObXsM6bu0asV1jbKGP6NOGcj-5aH96uXehzg>
+    <xmx:JzTbav2poA5KMbiX94TINoYMtbvJpT-_VEIvxX1OZP50l6jn_Z1YJg>
+    <xmx:JzTbarj0NwG5BPrVWnS-ubsq0QLHh7HGrL4iAC3ITKbu9PcKc1kpCQ>
+    <xmx:JzTbav09oRLTFwhhGukdOsryfPzJVIQmk2dREs0dOn1q15jyLK5i9A>
+    <xmx:JzTbamdL2cE8AUTDCr-OJSFGboKtUIfnCbTufQJR-RwIrkFOAH0qbs-9>
+Feedback-ID: i10464835:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 23 Oct 2026 06:17:11 -0400 (EDT)
+Date: Fri, 23 Oct 2026 11:17:10 +0100
+From: Kiryl Shutsemau <kas@kernel.org>
+To: moe@flashbots.net
+Cc: Rick Edgecombe <rick.p.edgecombe@intel.com>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, Erdem Aktas <erdemaktas@google.com>, 
+	Tom Lendacky <thomas.lendacky@amd.com>, Dan Williams <djbw@kernel.org>, Jun Miao <jun.miao@intel.com>, 
+	Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>, x86@kernel.org, linux-coco@lists.linux.dev, kvm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 0/2] virt: tdx-guest: Fix and speed up the wait for a
+ Quote
+Message-ID: <atsz9rdU4CCjhSD2@thinkstation>
+References: <20261022-tdx-guest-quote-poll-v2-0-7543c6eb2d36@flashbots.net>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,65 +88,24 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261023101536.3965344-1-smostafa@google.com>
-X-Mailer: git-send-email 2.56.0.307.g5fe7bd680c-goog
-Message-ID: <20261023101536.3965344-2-smostafa@google.com>
-Subject: [PATCH v2 1/2] dmaengine: qcom: bam_dma: Take a PM ref at remove()
-From: Mostafa Saleh <smostafa@google.com>
-To: linux-kernel@vger.kernel.org, dmaengine@vger.kernel.org
-Cc: linux-arm-msm@vger.kernel.org, vkoul@kernel.org, Frank.Li@kernel.org, 
-	bartosz.golaszewski@oss.qualcomm.com, Mostafa Saleh <smostafa@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261022-tdx-guest-quote-poll-v2-0-7543c6eb2d36@flashbots.net>
 
-bam_dma_remove() calls pm_runtime_dont_use_autosuspend() and
-pm_runtime_force_suspend(), which on a BAM with its own clock disables
-bam_clk, and only then writes BAM_IRQ_SRCS_MSK_EE and terminates the
-channels, touching registers of a block whose clock has just been
-removed, causing the board to reset.
+On Thu, Oct 22, 2026 at 04:31:40PM +0000, Moe Mahhouk via B4 Relay wrote:
+> Getting a TDX Quote takes at least one second, because
+> wait_for_quote_completion() sleeps a full second before each status
+> check, while a local Quote Generation Service answers in a few
+> milliseconds. Patch 2 polls with an exponential backoff instead.
+> 
+> In v1, Kiryl noticed that the same loop gets a real timeout wrong.
+> Patch 1 fixes that on its own, so that it can be backported; patch 2
+> then replaces the loop.
 
-Sashiko(Locally) also reports, it then calls clk_disable_unprepare()
-on a clock that runtime suspend already disabled, which can trigger
-"already disabled" warning in clk_core_disable().
+For the series:
 
-Hold a runtime PM reference across the register accesses and the
-channel teardown. Once the hardware is quiet, disable runtime PM with
-the device still active and drop the clock exactly once, balancing the
-clk_prepare_enable() in probe.
+Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
 
-Fixes: 7d2545599f5b ("dmaengine: qcom-bam-dma: Add pm_runtime support")
-Signed-off-by: Mostafa Saleh <smostafa@google.com>
----
- drivers/dma/qcom/bam_dma.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/dma/qcom/bam_dma.c b/drivers/dma/qcom/bam_dma.c
-index f67a93a37d48..8a1f4e5d24d1 100644
---- a/drivers/dma/qcom/bam_dma.c
-+++ b/drivers/dma/qcom/bam_dma.c
-@@ -1403,12 +1403,10 @@ static void bam_dma_remove(struct platform_device *pdev)
- 	struct bam_device *bdev = platform_get_drvdata(pdev);
- 	u32 i;
- 
--	pm_runtime_dont_use_autosuspend(&pdev->dev);
--	pm_runtime_force_suspend(&pdev->dev);
--
- 	of_dma_controller_free(pdev->dev.of_node);
- 	dma_async_device_unregister(&bdev->common);
- 
-+	pm_runtime_get_sync(&pdev->dev);
- 	/* mask all interrupts for this execution environment */
- 	writel_relaxed(0, bam_addr(bdev, 0,  BAM_IRQ_SRCS_MSK_EE));
- 
-@@ -1428,6 +1426,8 @@ static void bam_dma_remove(struct platform_device *pdev)
- 
- 	tasklet_kill(&bdev->task);
- 
-+	pm_runtime_disable(&pdev->dev);
-+	pm_runtime_put_noidle(&pdev->dev);
- 	clk_disable_unprepare(bdev->bamclk);
- }
- 
 -- 
-2.56.0.307.g5fe7bd680c-goog
-
+  Kiryl Shutsemau / Kirill A. Shutemov
