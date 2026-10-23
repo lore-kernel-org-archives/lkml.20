@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792797668;
-	b=hQJFiF4vJgwwZJViNsXYSuFC4rvytaIG+/nByczUpbjt3kE1K5ZzNPJCzWkd0e4ZP6W3
-	 X4Y7YtlZLbib6GsSMLGxC5V69q3xX8Et00zFharUOtMk9D2/7RWZYsvktiKrwMNc1O4Ia
-	 tPM9UXq6K312BBGlq7VmHScCk7TTJjwHKh4XO2YggJLgKDbTL/9bkW9QKXxUCEgLnWwBS
-	 KEZVW/e5FdkXFswWiin/9RBUMRyS9CPl6bbW4e+u6DaQ9N9YTbfiyTJj9Je+T7CeKNM/1
-	 Zko9ygcB4hhm1yofalsICPM+jFaWv+PPv2WowbbvZgUdojypFNnJonlmzFArzmCEgag==
+	t=1792797666;
+	b=1VPnG8yr6aPxdBtpTWtqaR4MPYTq3V70l1txRZMQ8YhRGz650ENGjByy70hwPSBwc6lt
+	 pzmObZz/HKNQ/359FGA6HlqTxeoepyam/25qfMQD9hQmWGpI/Pzqko1VlNlcjHX4/5b8q
+	 93UaPHz3jj6AGS8nhR9BQviXjRhkWl7aE4YVXxogLQijufWsODI6/Xpe/h0TbXfzd3sV/
+	 g0qwMMnCCxAYEFqXL0npIAcomdIre9uhzedRtimiikIM/CNSw9vpWfwnTfJUud70+XiFH
+	 h+twelHkZNHgNG67Q9uxJViEx9qFMHqXygWxQLBPGhGaMyX9u5A3IqiCxbmFe/i9MkQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792797668;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792797666;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=DP8P5k9s+Vgq0rAx5U8N2lMMuwH/iK3Uoaoia9Rowxk=;
-	b=vkZyafFm3R9EZSM7Dumxv6DafgQH9RkHi5iRV/TQmzQUZ1BI6ctn667/7zlI7xZ0V7yr
-	 9lSWUy8dRJeO4g+61gIrvQCng5a+DYfMereIIZENQM2LJ3WXCo9SCstkoKTgeB+4XSXP4
-	 LDOGqkJGnJvlxgjswm3XORpgxAaIOkYhLZRvDffAeODqnDcewq6l0nxUfXx/yvGwd9APZ
-	 gD7fWAV/OvBP0atTpjOoQPmeO60rVPsrIU/w6aKmAClBhLWZeufoUgOYGTJDDz5afoJES
-	 yUW+bEQOliTj99NyZiKvx6LIaKVc4gM1MaTUkTydy889lgap9E85gINQU1pKkh0g9aQ==
+	bh=KMg0KVF3ZWVSxxslXVvdaDd3aj4ZmtDGVo8qd6l4NXA=;
+	b=JqiWiDjmVx+bzSzGvjzehFpc38SDTusp4UoxOUGLgSXusi5Fg6/8/X35uWOizvZ86cVy
+	 RDdnd57oa2+ffkIcQArY+vr+vDp4BAQkcfxNwN0uMwUJTzJwiAThID92XKi4OXVi4zsvM
+	 ev8tliX8nwHJm5r5p1yDdDI3dX8oIsLb0u87fZYKN4w2oxUvF5+UTtDNuLivb/bXxNrOD
+	 abO5Bs0WbXoKes3lwgmN5Sj54K6wivpH000BZWhFpUQIC9P3qpFnJlbxfNi1IKsaxUXFo
+	 qIAaG0+0OBq5DhKazlODjfxL9vzltogEHCgYI+samLUPvDO8z9sfJVp/yC/PDUSqAJA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="cfj1RE2/";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="VJ/xs6JQ";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2298E60A263F;
-	Fri, 23 Oct 2026 23:21:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01CE8606A327;
+	Fri, 23 Oct 2026 23:21:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cfj1RE2/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A46BA1F01828;
-	Fri, 23 Oct 2026 23:21:07 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VJ/xs6JQ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 78C671F031E0;
+	Fri, 23 Oct 2026 23:21:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792797667;
-	bh=DP8P5k9s+Vgq0rAx5U8N2lMMuwH/iK3Uoaoia9Rowxk=;
+	s=k20260515; t=1792797665;
+	bh=KMg0KVF3ZWVSxxslXVvdaDd3aj4ZmtDGVo8qd6l4NXA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=cfj1RE2/SnS4P2jIZq9v8c+jqOoa8or+YmOurAhe6kXrMV1Zy6GWU/vIIr2ao1uUa
-	 WagfSEbf59/bCcbNOcwhTl558lGBfBOXY7t51zm1tgsVjYZeQIrW1MngRCzww89b4m
-	 oztBxrs5Nes7GTRptGvhn7pLuD5seKp6DE189+GQCr4gt5bvh2Fw0EMBZ66urJ9X15
-	 PH1wk9PDhU9dCTifv0f5qNGH2OGSB6Rdq9lQ+hceGsQ4GXGX/CL5wLT+EtWixkTKRn
-	 0Vy6YQkfXschBXf1Bcrue9xGz6wQqlmYy/Nx3DUn0eB+mev+ucSMPWb/qfcZ87GJbf
-	 pMzdIZgEX7HyA==
+	b=VJ/xs6JQIBGALTiKydO/cRvFj+BL/vKz+lRBLBqQqr4FRjGD67Ig1IvXaD1ejXY5d
+	 1ShqSuowzGQ5ZNGtZ6wNTAw7oxlejkqA8sN7H26jpHCecbJsm2pc6YAOYxs5HVT9po
+	 xBP7hrGQ1hzodyTI9MQ45+sy07y2Fqs2tAAH94ehDUsKSS8B6fJ0Oum3QQ6hOQEtGn
+	 XlakBZ6xn0vVZoZhrftc1/zSgG6N9LoSdIUYQl9/pQnmtSE20aDta+QUcsCHMl/dWy
+	 1FcuEk8roi6+Zdr6Nal62m+gkQnxcw1yRGalD3z63fCm0ejEFwgOoDcManPoD3nwQl
+	 0vieJKL0qxWpg==
 From: Tejun Heo <tj@kernel.org>
 To: sched-ext@lists.linux.dev
 Cc: David Vernet <void@manifault.com>,
@@ -48,9 +48,9 @@ Cc: David Vernet <void@manifault.com>,
 	David Dai <david.dai@linux.dev>,
 	linux-kernel@vger.kernel.org,
 	Tejun Heo <tj@kernel.org>
-Subject: [PATCH 4/4] sched_ext: Drop stale entries from the enum lookup tables
-Date: Fri, 23 Oct 2026 13:21:02 -1000
-Message-ID: <20261023232102.1124938-5-tj@kernel.org>
+Subject: [PATCH 2/4] sched_ext: Sync tools autogen enum lookup tables from the scx repo
+Date: Fri, 23 Oct 2026 13:21:00 -1000
+Message-ID: <20261023232102.1124938-3-tj@kernel.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261023232102.1124938-1-tj@kernel.org>
 References: <20261023232102.1124938-1-tj@kernel.org>
@@ -65,83 +65,52 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The enum lookup tables, enums.autogen.h and enums.autogen.bpf.h, are
-maintained by hand despite their names. Five entries name enums the kernel
-no longer has. Their lookups in the running kernel's BTF store 0, and
-nothing in tools/ uses them. Drop them. No behavior change.
+Sync the two enum lookup tables, enums.autogen.h and enums.autogen.bpf.h,
+with the scx repo at a094b6ec68c9 ("scheds/include: Sync with kernel
+sched_ext/for-7.5 (b1c2a6b0d90d)").
 
-Suggested-by: Andrea Righi <arighi@nvidia.com>
-Link: https://lore.kernel.org/all/atr0I5EF7hmM_m7Y@gpd4/
+The kernel copy gains SCX_ENQ_CPU_SELECTED, which scx added in f2fd24198edc
+("scheds/include: Add SCX_ENQ_CPU_SELECTED to the enum tables"). The flag's
+value changed in 376f8963bbda ("sched: Re-arrange the {EN,DE}QUEUE flags"),
+so BPF code should read it from the running kernel.
+
+ebf993609d70 ("sched_ext: Regenerate tools autogen enum headers")
+regenerated the other two tables, enum_defs.autogen.h and
+enums_abi.autogen.h, from this tree's vmlinux.h. They are newer than scx's
+copies and stay as they are.
+
 Signed-off-by: Tejun Heo <tj@kernel.org>
 ---
- tools/sched_ext/include/scx/enums.autogen.bpf.h | 15 ---------------
- tools/sched_ext/include/scx/enums.autogen.h     |  5 -----
- 2 files changed, 20 deletions(-)
+ tools/sched_ext/include/scx/enums.autogen.bpf.h | 3 +++
+ tools/sched_ext/include/scx/enums.autogen.h     | 1 +
+ 2 files changed, 4 insertions(+)
 
 diff --git a/tools/sched_ext/include/scx/enums.autogen.bpf.h b/tools/sched_ext/include/scx/enums.autogen.bpf.h
-index db23be9cc88b..8c9ecad561c9 100644
+index d0c37018659e..db23be9cc88b 100644
 --- a/tools/sched_ext/include/scx/enums.autogen.bpf.h
 +++ b/tools/sched_ext/include/scx/enums.autogen.bpf.h
-@@ -22,24 +22,12 @@ const volatile u64 __SCX_RQ_ONLINE __weak;
- const volatile u64 __SCX_RQ_CAN_STOP_TICK __weak;
- #define SCX_RQ_CAN_STOP_TICK __SCX_RQ_CAN_STOP_TICK
+@@ -130,6 +130,9 @@ const volatile u64 __SCX_ENQ_WAKEUP __weak;
+ const volatile u64 __SCX_ENQ_HEAD __weak;
+ #define SCX_ENQ_HEAD __SCX_ENQ_HEAD
  
--const volatile u64 __SCX_RQ_BAL_PENDING __weak;
--#define SCX_RQ_BAL_PENDING __SCX_RQ_BAL_PENDING
--
--const volatile u64 __SCX_RQ_BAL_KEEP __weak;
--#define SCX_RQ_BAL_KEEP __SCX_RQ_BAL_KEEP
--
--const volatile u64 __SCX_RQ_BYPASSING __weak;
--#define SCX_RQ_BYPASSING __SCX_RQ_BYPASSING
--
- const volatile u64 __SCX_RQ_CLK_VALID __weak;
- #define SCX_RQ_CLK_VALID __SCX_RQ_CLK_VALID
- 
- const volatile u64 __SCX_RQ_IN_WAKEUP __weak;
- #define SCX_RQ_IN_WAKEUP __SCX_RQ_IN_WAKEUP
- 
--const volatile u64 __SCX_RQ_IN_BALANCE __weak;
--#define SCX_RQ_IN_BALANCE __SCX_RQ_IN_BALANCE
--
- const volatile u64 __SCX_RQ_IN_DISPATCH __weak;
- #define SCX_RQ_IN_DISPATCH __SCX_RQ_IN_DISPATCH
- 
-@@ -103,9 +91,6 @@ const volatile u64 __SCX_TASK_READY __weak;
- const volatile u64 __SCX_TASK_ENABLED __weak;
- #define SCX_TASK_ENABLED __SCX_TASK_ENABLED
- 
--const volatile u64 __SCX_TASK_NR_STATES __weak;
--#define SCX_TASK_NR_STATES __SCX_TASK_NR_STATES
--
- const volatile u64 __SCX_TASK_DSQ_ON_PRIQ __weak;
- #define SCX_TASK_DSQ_ON_PRIQ __SCX_TASK_DSQ_ON_PRIQ
++const volatile u64 __SCX_ENQ_CPU_SELECTED __weak;
++#define SCX_ENQ_CPU_SELECTED __SCX_ENQ_CPU_SELECTED
++
+ const volatile u64 __SCX_ENQ_PREEMPT __weak;
+ #define SCX_ENQ_PREEMPT __SCX_ENQ_PREEMPT
  
 diff --git a/tools/sched_ext/include/scx/enums.autogen.h b/tools/sched_ext/include/scx/enums.autogen.h
-index 369f8d88c7db..1df2b8a505ff 100644
+index c4a7260f0983..369f8d88c7db 100644
 --- a/tools/sched_ext/include/scx/enums.autogen.h
 +++ b/tools/sched_ext/include/scx/enums.autogen.h
-@@ -12,12 +12,8 @@
- 	SCX_ENUM_SET(skel, scx_consts, SCX_RESCUE_DISABLE); \
- 	SCX_ENUM_SET(skel, scx_rq_flags, SCX_RQ_ONLINE); \
- 	SCX_ENUM_SET(skel, scx_rq_flags, SCX_RQ_CAN_STOP_TICK); \
--	SCX_ENUM_SET(skel, scx_rq_flags, SCX_RQ_BAL_PENDING); \
--	SCX_ENUM_SET(skel, scx_rq_flags, SCX_RQ_BAL_KEEP); \
--	SCX_ENUM_SET(skel, scx_rq_flags, SCX_RQ_BYPASSING); \
- 	SCX_ENUM_SET(skel, scx_rq_flags, SCX_RQ_CLK_VALID); \
- 	SCX_ENUM_SET(skel, scx_rq_flags, SCX_RQ_IN_WAKEUP); \
--	SCX_ENUM_SET(skel, scx_rq_flags, SCX_RQ_IN_BALANCE); \
- 	SCX_ENUM_SET(skel, scx_rq_flags, SCX_RQ_IN_DISPATCH); \
- 	SCX_ENUM_SET(skel, scx_dsq_id_flags, SCX_DSQ_FLAG_BUILTIN); \
- 	SCX_ENUM_SET(skel, scx_dsq_id_flags, SCX_DSQ_FLAG_LOCAL_ON); \
-@@ -39,7 +35,6 @@
- 	SCX_ENUM_SET(skel, scx_ent_flags, SCX_TASK_INIT); \
- 	SCX_ENUM_SET(skel, scx_ent_flags, SCX_TASK_READY); \
- 	SCX_ENUM_SET(skel, scx_ent_flags, SCX_TASK_ENABLED); \
--	SCX_ENUM_SET(skel, scx_ent_flags, SCX_TASK_NR_STATES); \
- 	SCX_ENUM_SET(skel, scx_ent_dsq_flags, SCX_TASK_DSQ_ON_PRIQ); \
- 	SCX_ENUM_SET(skel, scx_kick_flags, SCX_KICK_IDLE); \
- 	SCX_ENUM_SET(skel, scx_kick_flags, SCX_KICK_PREEMPT); \
+@@ -48,6 +48,7 @@
+ 	SCX_ENUM_SET(skel, scx_kick_flags, SCX_KICK_ALL_FLAGS); \
+ 	SCX_ENUM_SET(skel, scx_enq_flags, SCX_ENQ_WAKEUP); \
+ 	SCX_ENUM_SET(skel, scx_enq_flags, SCX_ENQ_HEAD); \
++	SCX_ENUM_SET(skel, scx_enq_flags, SCX_ENQ_CPU_SELECTED); \
+ 	SCX_ENUM_SET(skel, scx_enq_flags, SCX_ENQ_PREEMPT); \
+ 	SCX_ENUM_SET(skel, scx_enq_flags, SCX_ENQ_PREEMPT_LAZY); \
+ 	SCX_ENUM_SET(skel, scx_enq_flags, SCX_ENQ_IMMED); \
 -- 
 2.56.0
 
