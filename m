@@ -1,86 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.14
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792738481;
-	b=kNmqVg5e+zJGQvilgtE3iaVGVJY94a4KISwkQAD23ALZQY+yjNujHdWjYerlaQk38mu/
-	 T+gzkN8+yY382wdIKQWPwGJ1uFSu3TQWi4PJq0Y2XCglInaiBJiL3ZPMMX1QrVJdxegl3
-	 Xxv5B+GzUqbXlUSEo1JkhL7QtOCyxWysW8xw7XXsMveyCx4aXIv4c6hLX4URrCStI76rq
-	 PMAB8/h5rvp955dISSWaEj78CGW5rTMxrZVMbj+7gxCMoKQ3bmu0eFMhtjNxoOuQH8f85
-	 zg9PXI+fEn1QjS4ksO7Legfb2MPzEKv0+Kq4sRDB/dwnXCtsYe9palc9j5/mWi7EoWQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792738481;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=8hvAczPVxFHsHRebSf3Lol2Zt9I+a7FbbQSRQrC7VAk=;
-	b=l1NmMt4br90aqUomxM2GnjYuyL0Z6ZhTPkr94e065TiUeAUPjfTkq6bzskGO9jXiDQyg
-	 22HA4lTNdUqsF6TDzETsPda5ZpjEP6GDnAArAL8I2seieskE5irQN7vnF1zIcBpb4n/rj
-	 vmJhq/9dx9/A6C74T3vaV//GiXbcM+DeNKHDlBiOOLnyjcUiqlWiX6/yN7Kto6Q2KJ0Em
-	 atjI5GpzmguDeOvj/86DWNb2vVK1+NYCXxdGT8kbsCkQu6Zd9EudVT2xylwBfNbUPGlYb
-	 W+wtrBuPFVpQYHrBSA30WYtg6dSmtRSD6TJnQ197q3NfsiL+86hPITA4qDt/vadAurA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=UwFlGWyW;
-	arc=none smtp.remote-ip=198.175.65.14
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.56.20
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792738550;
+	b=UrYrg0nY8v+WB/7VQ/3sZ0JI3fIqwdNbEER+sunowebUrFn8WKvn/FLNai6gL+D8QA4e
+	 7/AFhrXj43Ig/1EQlO9MkaLoAejdmtyDgDM5JlonPbt7MPqLNgYahHUv7aFQE80J2/pUN
+	 7QnzP/UgWCifLRuRLhRVsEw/Tj8/KHg4N20bykVPdpRVSGDGaBzyF/2z/5AYwBVeLUs4d
+	 YPYBjMRXmAQRBRijyVJyxXeChDcrfd4DpkTj2yH6j7CdzK4a544GeW7vEOsmYPUMRDJR0
+	 2YRDv3ltKvtmkoyjYNOjZQ6ylhDBF95bCUHcOAIPmK35MOk7Fk3K2wdlKQE8o4qI8FQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792738550;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
+	 References:MIME-Version:Content-Transfer-Encoding:Content-Type:
+	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=zRxUZ+CrFYY9HCsaWb8vhM26Fu+Ahe5VdmQ8u9cPNgY=;
+	b=gPGDBD8vx1MW69OKcadTAATSexjOzCd4uO/cbQ9xVo243SgD71wZLb82PbxdKq/pvBNQ
+	 6XRgdggJRRopj5jzDHXwm+EJTE7upqaJVrllKv9gZaF4++RR/LyYASQVOKJoBqG6CMjUm
+	 71+JpJpsu9WZGC032rBS9YeoH/Khfk1N3m++Ebi7hUP7/rl1jEgJshbmyRfWtfxaz77Cv
+	 Un0NjI0GDm7unf5jiGjLO31yMrDcH+/gtYTbKdAv/taynPxvERwMNaXCXIJLq4rFnNMsj
+	 6Wilg6wQ6dXfXtA/f7kcGvIHjo83Jvqon7Cr4MeNIEICU5sdFJFsqgSc42sPLBcMUgg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=RdD7naEb;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.56.20
+Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010020.outbound.protection.outlook.com [52.101.56.20])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BC63606A31B;
-	Fri, 23 Oct 2026 06:54:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8BC63606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C7A5606A31E;
+	Fri, 23 Oct 2026 06:55:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5C7A5606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=UwFlGWyW
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792738481; x=1824274481;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=4fYFw8sybPANT0pmg6TRi7WCeCgWOOdKQ2cph3BSk4U=;
-  b=UwFlGWyWTZuzw1xgYVwdyDmvVofNJihelI6JM0B0SGMwNYA6wRUUMCMm
-   pbnEwviCrjp+ajODAxuBi0Agg0PWrVeN1Zt/+iA+4Rbbi05fZGV4zJsL8
-   uTbVua4Quz2Z0Egtn+G1pBOvuJIVGeeFNmSaE6Uz4429Alh2kL0V4VKWU
-   orvz4lZ7o654nITPl4IdkAvHIV9mYc2rcRuG6RRJtUXKkX7439RkeU2C8
-   KYxuMV0ixdAKgnfGnYThaJIKa+zNjZ/ssxs/jHORsPMN4ARyv4ARLxzUL
-   bhsxo+Wi21Q5FnUqeL3IwOtGWTR4y9/dF2EtyxeSyGMLC0iD2F7Sj+wFo
-   Q==;
-X-CSE-ConnectionGUID: oqmRNvRwQg+Spjxky65obA==
-X-CSE-MsgGUID: X/PiFiOZTG60WasN068DIg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11943"; a="1370695"
-X-IronPort-AV: E=Sophos;i="6.27,173,1787036400"; 
-   d="scan'208";a="1370695"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
-  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Oct 2026 23:54:40 -0700
-X-CSE-ConnectionGUID: hTN0BJUnQ1yiGOW5M4cBhg==
-X-CSE-MsgGUID: 6xhOWRCTTpOIfvZjuZBk5Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,173,1787036400"; 
-   d="scan'208";a="3556295"
-Received: from kniemiec-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.100])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Oct 2026 23:54:37 -0700
-Date: Fri, 23 Oct 2026 09:54:34 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Brian Norris <briannorris@chromium.org>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Ulf Hansson <ulfh@kernel.org>, linux-pm@vger.kernel.org,
-	Andy Shevchenko <andy@kernel.org>,
-	David Lechner <dlechner@baylibre.com>, linux-iio@vger.kernel.org,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Marek Vasut <marek.vasut+renesas@mailbox.org>,
-	Rui Miguel Silva <rmfrfs@gmail.com>, linux-kernel@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org
-Subject: Re: [PATCH v2 00/17] iio: Stop looking at
- pm_runtime_put_autosuspend() return codes
-Message-ID: <atsEql7X20hGytXv@ashevche-desk.local>
-References: <20261021235818.3059519-1-briannorris@chromium.org>
- <atm0umwtxZlQSAhy@ashevche-desk.local>
- <atpMNk6ymCpC5BL_@google.com>
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=RdD7naEb
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ZaQD5guwbuuEnjELMzewflLbPP7oH2hjI3qwBckAZ0gL1daRSbBOCJnuf4QPhCiQEvGs1yzblQKE4ROjJWpkQeQCkN/iwKgZwP8c0VPkzTH5eLyF6rfU9gjSDd7ae4gCuFmgZaQQTG7VMZIKjyGTC2jVLLxNpYJfERHyZex5ORR3g5q0KlNs/iYwNtD8ffTIobWtSR3r/8Ft3KRxNsiCKCYzKrjuQO8+eEnTUPAf2H5h4VzpRaj/J2rPLbvufu8kQdIbhwPNDM7n6cljRxmfCVvmwWvFDNISY+PNNI5vHEr+byLUYU1SE+LsDC4b0690tt/iF6jqnSUsfraceX+qOg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=zRxUZ+CrFYY9HCsaWb8vhM26Fu+Ahe5VdmQ8u9cPNgY=;
+ b=otRhTR/9agFot5wT125LNDqHU1C37kiXhLTn1Q8FAd3EDBesq71tqAgANS1lxD9AwxAUfkAfyg2sXRdU9/CgrW+q+je/mkvvaYzyOJNN/daSxlIl+71v2pjAq34q8rqvDL0M90H9hkeJyxFXYoPUkcxuuAVNGGnU1HEe7v9ubPFIQTMtp/i8EqGdjCbp+F6DDHfdBjsGLaxEny5qnhiEmpj9HZ4iaG07TT5vUBABzbI/eXCx3f112qAuRTt8QeeNabXkZT5OA432yBkfDvOoTnOw7MbsLbt1P0Vuw6chuJLwov/TxrHIDNn07B+lebcZRgobxt4WMriNkOWA7OmoCA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=zRxUZ+CrFYY9HCsaWb8vhM26Fu+Ahe5VdmQ8u9cPNgY=;
+ b=RdD7naEbdn7hVopNpnKH8Hbdxq7MZeQ2lWFEkwvWF2YM6jlnHFT7JiONexG8O63mr352wzaEwIfUk2/eDCAe+RlvgOZgTXlSsWAEQmEJbNCMsjVM+llynyKj3YqJF37v6V8EyV+trjJDsiBUjo9ifXBZQfce+TdFpKsTsX0TU+0=
+Received: from SJ0PR13CA0220.namprd13.prod.outlook.com (2603:10b6:a03:2c1::15)
+ by MW6PR12MB8664.namprd12.prod.outlook.com (2603:10b6:303:23c::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.14; Fri, 23 Oct
+ 2026 06:53:44 +0000
+Received: from CO1PEPF00012E63.namprd05.prod.outlook.com
+ (2603:10b6:a03:2c1:cafe::9) by SJ0PR13CA0220.outlook.office365.com
+ (2603:10b6:a03:2c1::15) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.569.3 via Frontend Transport; Fri, 23
+ Oct 2026 06:53:44 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ CO1PEPF00012E63.mail.protection.outlook.com (10.167.249.72) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.546.15 via Frontend Transport; Fri, 23 Oct 2026 06:53:43 +0000
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Fri, 23 Oct
+ 2026 01:53:43 -0500
+Received: from amd-System-Product-Name.amd.com (10.180.168.240) by
+ satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.53
+ via Frontend Transport; Fri, 23 Oct 2026 01:53:38 -0500
+From: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
+To: <broonie@kernel.org>
+CC: <alsa-devel@alsa-project.org>, <lgirdwood@gmail.com>, <perex@perex.cz>,
+	<tiwai@suse.com>, <pierre-louis.bossart@linux.dev>,
+	<yung-chuan.liao@linux.intel.com>, <Basavaraj.Hiregoudar@amd.com>,
+	<Sunil-kumar.Dommati@amd.com>, <venkataprasad.potturu@amd.com>,
+	<Syed.SabaKareem@amd.com>, <Mario.Limonciello@amd.com>,
+	<Richard.Gong@amd.com>, <Vijendar.Mukunda@amd.com>, <Poojitha.N@amd.com>,
+	<linux-sound@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<sound-open-firmware@alsa-project.org>
+Subject: [PATCH v3 04/13] ASoC: amd: acp: log ASOC_SDW_ACP_DMIC1 quirk in SOF SoundWire machine driver
+Date: Fri, 23 Oct 2026 12:20:40 +0530
+Message-ID: <20261023065216.3473883-5-Vijendar.Mukunda@amd.com>
+X-Mailer: git-send-email 2.48.1
+In-Reply-To: <20261023065216.3473883-1-Vijendar.Mukunda@amd.com>
+References: <20261023065216.3473883-1-Vijendar.Mukunda@amd.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -90,54 +115,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <atpMNk6ymCpC5BL_@google.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1PEPF00012E63:EE_|MW6PR12MB8664:EE_
+X-MS-Office365-Filtering-Correlation-Id: 26cd8fcd-6cb4-4ea6-85bf-08df30d26121
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|1800799024|7416014|36860700016|23010399003|82310400026|56012099006|11063799006|261009223027099003|10067099003|18002099003|22082099003|261021121427099003;
+X-Microsoft-Antispam-Message-Info:
+	YSICwQH0cJiGLYHEMCnBKL9M2K0E4UBkPAnqGJGRL1Pg8gXYDen8ORKYYSC92wjLyrFU6SakVEqqDBoVjnOBH3fF/4JLdcxcsCPpz4n+Cn8TKxT+0X18suke2riEvkf7LXWjft6bZje0VJFRBClMueGUWt2IEwyjauS416wmaji2A+QAXF5wqc+dyvIlHH112psge2Do6jbm+fAaS7J6EAaS5rsIdEIClHoewOYy2eM+0eCp+jL+cqhpCnJ0fycTJrdI2Zp0qRAJhcCCazxuRUIEc5lV/u97H+T+LDrxtUG4rwEXi1vXvpMlMRSXJ5ygll9cRWSWIhnd6U7l9cnsOTH3lScQuR4LvR31k48gQ0v7HQAbRB28vrHUW0cQhq3/gPHUoIUiNe529kOt2Rd3k6YlTzsyHbGWHvdIl9lUSrWsXQxWxyObL+PsRJ/doZEamkMjzfofz84jaMIlmQJNKNWAZjQmuaRvutfhRQEE2Sk4E+iUWz16Xp2N32efklyvhhF7kGp40XPjSkFf2TfXD6bHcslDwEIBPivQK1IIF3wa+eha9qri49+X7qx3LLW9BCwu9NqpBfkBJqxchNvWsOxjMI7U+AWwYR2suP9RQPF0CmfQn28wasaXqZT2MB6vVDWAOP1vMlkIIfb9jBGS5FNIO4iSBbZyBd5hyb1w4qCEAVdwUlTvUSsw9nVvw5lj2IhDQLrqqStuA6bvNCYE+Q==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(1800799024)(7416014)(36860700016)(23010399003)(82310400026)(56012099006)(11063799006)(261009223027099003)(10067099003)(18002099003)(22082099003)(261021121427099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	jBLoqhKIsvoHaAnc2XY1KupfTZMxXkMabKDiiW5Lq47leVtysoUydV5Rp2WvCICM2dIiAeJLhfSKGII9KfknpZm5CswNbWihKBFHNdG5NgwR3xNWnXVZaxqiRQGQoPsTibdz/41T1cJ5dacLlv8YInLaEGmXPI489Mu3/Id36mN9Wm3net08awLbkBTzFJHxXad0vzZANSrS0heZaxq7LsvjzWaNAo2SJd2Yas6yrLX2rDy5iMV2OEKtrTAIaTcZwj5DrCYwYlRbi5DG3rUU1yRAr6hW+eIEYDr7TxYFN+jvK97Vlg9zvdqPF3jh4WN5NkwmxKruSMay6UBGfQJvhMqm7v0H+X7taTDXvfJf8lsMQjQsAyfHGVU5eVSUZSC3jeepx0s66ao7ArEYWvHHN5r1crdU3i16aE9iydCqanc9VYaapx6GIgKldnoMXmiq
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Oct 2026 06:53:43.9404
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 26cd8fcd-6cb4-4ea6-85bf-08df30d26121
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CO1PEPF00012E63.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB8664
 
-On Thu, Oct 22, 2026 at 10:47:34AM -0700, Brian Norris wrote:
-> On Thu, Oct 22, 2026 at 10:01:14AM +0300, Andy Shevchenko wrote:
-> > After three patches I stopped because it seems more works needs in each of
-> > the individual drivers. Yes, the series can be applied as is in exchange for
-> > a bigger additional churn in the future. My preference is to see everything
-> > settled down in a single step.
-> 
-> There are limits in how much work I'm willing to do on a bunch of
-> drivers I don't use, can't test, and frankly have no actual interest in.
-> I'm sure if I spent a few more minutes on each driver, I could find
-> another dozen things to try to improve.
-> 
-> I can go back to the v1 approach (fix only what I came to do) if you'd
-> prefer.
-> 
-> Or, I'd prefer to stick with the sentiment Jonathan expressed in
-> optionally requesting additional refactoring:
-> https://lore.kernel.org/all/20261018211807.66bfea0d@jic23-hlaptop/
-> that most of these changes are optional, and that fixing 1 thing is not
-> a subscription to fixing everything.
+Add ASOC_SDW_ACP_DMIC1 to log_quirks() so the active PDM controller
+selection is visible in boot-time diagnostics alongside the other
+ACP quirk bits.
 
-Right, but my concerns is that in (some) cases you can do one step further and
-use PM_RUNTIME_ACQUIRE*() instead of putting first the explicit calls in this
-series and makes someone to basically do the same again. To me it sounds like
-a double effort. Yes, that is_active thing perhaps to much to follow, but even
-there it can be refactored to something like
+Signed-off-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
+---
+ sound/soc/amd/acp/acp-sdw-sof-mach.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-	if (is_active) {
-		ret = regmap...
-	} else {
-		PM_RUNTIME_ACQUIRE*();
-		...
-		ret = regmap...
-	}
-
-without changing the driver logic.
-
-Whatever, I am not a maintainer here, so if Jonathan is okay with this churn,
-then it's fine.
-
+diff --git a/sound/soc/amd/acp/acp-sdw-sof-mach.c b/sound/soc/amd/acp/acp-sdw-sof-mach.c
+index afc5ac679ce37..40df873ec024e 100644
+--- a/sound/soc/amd/acp/acp-sdw-sof-mach.c
++++ b/sound/soc/amd/acp/acp-sdw-sof-mach.c
+@@ -28,6 +28,8 @@ static void log_quirks(struct device *dev)
+ 			SOC_JACK_JDSRC(sof_sdw_quirk));
+ 	if (sof_sdw_quirk & ASOC_SDW_ACP_DMIC)
+ 		dev_dbg(dev, "quirk SOC_SDW_ACP_DMIC enabled\n");
++	if (sof_sdw_quirk & ASOC_SDW_ACP_DMIC1)
++		dev_dbg(dev, "quirk ASOC_SDW_ACP_DMIC1 enabled\n");
+ }
+ 
+ static int sof_sdw_quirk_cb(const struct dmi_system_id *id)
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.48.1
 
