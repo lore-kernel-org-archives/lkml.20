@@ -1,96 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.70
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792756385;
-	b=xWAwIKZicNMOgUuCVxAf214U/WKAUJU8K7HQtnX7TSEmggGd21H2T+p/AoW9RYlN4IKP
-	 reWfwuEsmBj5uEvHHHaG5a6nlepJf6NLsbd0x0/2+V8edFwDQbBRjJVI3Mmx01FH00Ad7
-	 GMNBppz6eeMynR+TCBTRJQQEgXZK/3P0hfTntm2SFotxCD7cBrOEjcAZZaw28kpWlY+Bg
-	 q5fD3JXEyLwTcr8fy8WD2Oap42k7LfbBbnXVBrYSuiIEvsqJA25pdX5LmWeM9PMU8epeg
-	 GLiJ1aLKES85esQ3Kj4lFL1P3eFxDd5o2zHJhnkEj90p91nj3mNDuDSVxbABRzcnL2Q==
+	t=1792756413;
+	b=oO02Tejw0ft0g9KhZ2GsJSpI7DRravSukZBgfWDp34irH2NBI+62ecl8s8dBYdlvxI3H
+	 1VpQAPVqF+4F8K94eHTZaX8jsV+tlMTrVQIZuX8h5iW+l8xvPHnmmbJVW+D+fMwj3wkKp
+	 8IDfzVXN1He3zvxKyHJSWY6gmR4k+bKSTaGaFZWPY1NJw8XSJX0WmOPMNZ59M4qFKOF5r
+	 Fp4Wv/F2WK42p6+kfqF33d07PSe94Ejqfm2SoIxrD5RJh3sGy3NbAKuW9mtj6IccU/07v
+	 w/IGBVVGbIYhEUtMO+xSOTyDnmKukXRy1DZgBT9AIVCj1aEZDGeVJrRkQ/UL3tLmr5A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792756385;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792756413;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=TaTsYfuLxHhBqdkMeXFHx9EDOOo9W7TtKJpx5ldOBss=;
-	b=HBNV80gNB/+1aPK586Z7PbCD5pR60hLQsf8lR5EgOIa8Hva4bQs8Q1n5HKh0vVNesRgx
-	 WApCTZf5VbabyhreVdQfr/WSC4cfO34Rjro1CvLtoUrQ5p4dGizgp0r81X+1LtwQWdUEO
-	 A9kwySxHc18ugduRGA+NcuiUSyHSIq1OQi2rbnyB0azSUywVNmFcIS7k7kct8vFhzk3UU
-	 4mR8mf3iUFGjZq2INxRYzl3/nPCRqsCl3Oq4qMVwZ0t1n1CnYYYaFIkTSR7sRaLrbVQuf
-	 K6gxkIPEBrwfCxtNBFA+S9NpwqZLi9TlzuOIY7Px1dwCBH2xNavMK6WShQ3lJYjbxmA==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
+	 Content-Type;
+	bh=uLj6FN5zzpYaXQgmzegMg+GrSB746kgYZ/YLy03P7lg=;
+	b=XsYVALIYrVp7qsDs6Z/z3EcT/78dI66mCHelDa6d0GhXVenGDGnimDztdQXazVT/48Za
+	 h7NrAJuruB42r6P6ep2AOP2Dm3uqms/NhgTt+BYIRjlaW6AC7axZUDgOQW/DkIkHF+GNl
+	 Ov7tgBnQz3EdFothzpBtst9eG0o8cJhIjgbxkNiAV3VgOhTtRri74B45zmI2s5SbwLaJo
+	 7rOLVn4mD1Hn6mzkvL5bJ6iChLkTL9an/qk+n1+qhTnEvNhbrDsuklECeBegNc/hb6xbU
+	 ZumU1KuZzDHqr5Mr3nczYrTRokfQ+tdpMeg3Azg5SaetCw+KyA0gXLwuFwRr3p2XOIg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=PZ0o7VH1;
-	arc=none smtp.remote-ip=209.85.221.43
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=QWU5f+ED;
+	arc=none smtp.remote-ip=209.85.128.70
+Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com [209.85.128.70])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B97F606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 11:53:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3B97F606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF78A606A31B
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 11:53:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AF78A606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=PZ0o7VH1
-Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-48e0d1c095dso536676f8f.1
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 04:53:05 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=QWU5f+ED
+Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-4a2000d5ebeso6103275e9.2
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 04:53:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792756384; x=1793361184; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=TaTsYfuLxHhBqdkMeXFHx9EDOOo9W7TtKJpx5ldOBss=;
-        b=PZ0o7VH1T2n0oaJC/6wRcOdYvYc8otyM4i2atn89dMPbvln+coSJUuk/DUQb3D6GB6
-         1wCaXj0lHHVp/Tdql8++xuX7fAlREFqqTr8mmVZishta2e+qXpws34pBKfZ3dULkg2jE
-         WzOk3yzgoujB9WkwSC2ilvj/aZMkQ5SU1FKzydL6wRb0SUr363HfIdT3QzkUo9jVB66a
-         E0WyPefvykFOXyHXyUUW8gFOJU8wFvmLt3Gg17uPiRYPu0rAYhUDELcoZiKtovvmZTDb
-         9tlGIp/ICOWIdfN46P7AsbPdGOHFTQQuhRC5Eh6mHK2CmR9k5Kv/+ZxnU3iJSOxQzPZ3
-         rE8g==
+        d=google.com; s=20251104; t=1792756411; x=1793361211; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=uLj6FN5zzpYaXQgmzegMg+GrSB746kgYZ/YLy03P7lg=;
+        b=QWU5f+EDJNbdlgHnTd8YuzV6uiPohjbj3JxCxOniJovIm4LNH4ZNqKwgl7mbkqk2mh
+         T1klAOhq1340biDup5vOzhXop9oXcydP12rLp2LHVJ/IGrpHQ2DdVZDr7YAYuixNPZdC
+         Y8EyQjJmRKeIQ5vrnNFw/o/Qw1X9byv2MQkq/I/KAb81p7E8R/xgfFeIpwEglwaAAEvy
+         SoCSHtGC+GoZCm8+p2EbZL101cgiFCCSpuL+1UvpH/ofXWb+4ZlY/vW+r9lIfGRJ0FSY
+         OVrqyRL40+wltOuYWfP/o2Px2t4SBLk/5iMzpcw95cfYNt8rbrWgbGunEoHMecHiuNfr
+         ZE9Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792756384; x=1793361184;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1792756411; x=1793361211;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=TaTsYfuLxHhBqdkMeXFHx9EDOOo9W7TtKJpx5ldOBss=;
-        b=HZaCjgi+RgJ9wdIxAR0RsueO1kjfhyGYhZXuBMHFhS9LAAzvYQywdm+4yI1CXFvOcV
-         MDDsLDCaP70c7U8mQIFGypoNuUeoCwRkLdxGaoL/whbkOBv9MALYk8HvqV91GRfHjd1e
-         KP3DVQJ1WU0UjiDaZzRWw0MMkuQpC94aP1dZbauVnTTe7h23K0vpYS3Yd7t2itdFrz/t
-         ZKeBkdgNzCFLM5SkNpdrTwl87+KnHkTw0BnGXPPfSKzBM+xKtX7FPwoV302I9bRixvwk
-         jBB5xITyrG+VxbaK1xzbHEd2yUH//AiMuOWHda6mQDQxpXLPeaz3Q424UpwRSDe3m8hx
-         kOcA==
-X-Forwarded-Encrypted: i=1; AKwUvByTDfUKxWh2xTzzOgQNYazV9V+h0PSLRF4TTckJqA22T1tfCo16KJo+r3JE2Q3MLz0JN7eqdsOP4cBed/k=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ6u0rm8Ru1eK0BbHLJoI++07gYLFfijUkPn3SZpnWxKMGkQK2I
-	KMZulY3oRAOW1JuXg4efNqUe31QtbrDHURjfGkVafaF2h+YS/R/LbzDg
-X-Gm-Gg: AYBFou2awltFxOkaRJCw/COD7cxIENqjZWHBr9II/5eos/sTusfoCKReF7T1lqtwbdH
-	pARlpZd5iNT7EozsLDDhX/2AeDTqlLlBqYFHx9BmIJkIaCIY8+ohztp3nj2nqHhCHmD5TXiNJaF
-	T8LiRB8JkHBIUVeNj5C4y6nzUADUKFypx5AQKVgxDbWl74qofQfdwjJcZv0usRXmxB56CgWeqoe
-	ibdHXbxm14O6xXgpPfBe0jUzBJk++VkgSg0dQnDcjx2+wvrltSXWSVdQmksf57LeMJQD8AOPGDC
-	rc2lRyu2c/xRoCNUOYS0PoOBytbEgPSprr24ce9TJdfkAlJZyImU8NlUr/x4EKkDFnv2hFNE+TC
-	bZ7wl1hVtp46eod24B9aF7qqj/PTcMUCHtdt63CWtmlvpxwavnG9WWcJRss4uSFvj+PmvPNUdR9
-	VWDnWv67Uk5pXqQThJ2Slj/fVOwD2Yx6xOW975a2Jz2vz4r99qznKdk756aq4Ju8KPgpUi7xs4c
-	483pHFcJT+sAZMe+lvTS3A6EclqwOe1VMEfkXzQuYhi2k+HNu4k6vDwkE22D18vz2dxFwhS0ee7
-	ah5ORn9GA1BOVmpK/zHIf89fpnItmAc=
-X-Received: by 2002:a05:6000:2b12:b0:488:8931:b1b2 with SMTP id ffacd0b85a97d-48e385962ffmr2119753f8f.28.1792756383503;
-        Fri, 23 Oct 2026 04:53:03 -0700 (PDT)
-Received: from SurHub.localdomain ([102.208.97.12])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e38048ad9sm4787574f8f.35.2026.10.23.04.53.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 23 Oct 2026 04:53:02 -0700 (PDT)
-From: Abdifatah Suruur <suruurism@gmail.com>
-To: linux-cifs@vger.kernel.org
-Cc: Paulo Alcantara <pc@manguebit.org>,
-	Namjae Jeon <linkinjeon@kernel.org>,
-	Ronnie Sahlberg <ronniesahlberg@gmail.com>,
-	Shyam Prasad N <sprasad@microsoft.com>,
-	Tom Talpey <tom@talpey.com>,
-	Bharath SM <bharathsm@microsoft.com>,
-	samba-technical@lists.samba.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2] smb: client: fix fiemap wild read on empty truncated response
-Date: Fri, 23 Oct 2026 14:52:46 +0300
-Message-ID: <20261023115246.23030-1-suruurism@gmail.com>
-X-Mailer: git-send-email 2.53.0
+        bh=uLj6FN5zzpYaXQgmzegMg+GrSB746kgYZ/YLy03P7lg=;
+        b=V+6LLSOQJ7p4xPFm/ukPTv7ggMW4Gn+q/H62uny+iMX4n0trS/QRKjLrTOvq8gHsKM
+         mJmgP9Kkm71/4QVJSFoaFihsC0CV6Gf0SyvK77AMNWcxOE/s3MM5pIp5bhSnFZ1LMF/h
+         hoIyFTTjA3HSuknDguptPs8S1tR6x5Buy2mCUyDMAdHwWSBX5u7iwG1mTPDoTL1GOP3w
+         /W7zKCUPfJ95tdp0gMRFg7ZFxEub8l7B58fDREy1KdjsszKMbZ02UST7T/VeoSWf0Rn5
+         M3VLJ8aK+h8VB04asF/9hJjT4jblhn5ItidXJpOcPcz6d67BrUSAtJCTHo15uRSFDrwv
+         dM5w==
+X-Forwarded-Encrypted: i=1; AKwUvBwybL/Wn+i9G+iyOWW4GbzJ/rTnebxjCuu2kw1/2oGe1hO/b7nTFQ2ginmLAb8bvPEqhOJpLgjEZ04GXeY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL0yZ3k5n2WLpBJBuM8EeNkMyJrTDgoDQOtp4SFwTnl3gfzjcYW
+	x0hxlaFMyr6N4OKIk6eubYUR+23GnKWjRYFHD8nL6Jz4mkHgkh/fc+X0XKCFh6ZEmNvTGgVNdAV
+	DH8PQWVqqcQCAssNZ4w==
+X-Received: from wmoh19.prod.google.com ([2002:a05:600c:3153:b0:4a1:8915:6ed2])
+ (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:600c:4e8a:b0:49f:fe39:5bc8 with SMTP id 5b1f17b1804b1-4a211ee9b8amr34064815e9.12.1792756410725;
+ Fri, 23 Oct 2026 04:53:30 -0700 (PDT)
+Date: Fri, 23 Oct 2026 11:53:26 +0000
+In-Reply-To: <atqh41vrlC4xVtaj@um790>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,98 +78,51 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+References: <20261020-tyr-ioctls-v4-0-704de77da223@kylinos.cn>
+ <20261020-tyr-ioctls-v4-2-704de77da223@kylinos.cn> <atqh41vrlC4xVtaj@um790>
+X-Mailer: git-send-email 2.56.0.257.gf7497c7d27-goog
+Message-ID: <20261023115327.1776353-1-aliceryhl@google.com>
+Subject: Re: [PATCH v4 02/11] rust: mm: add `task_size` helper
+From: Alice Ryhl <aliceryhl@google.com>
+To: Deborah Brouwer <deborah.brouwer@collabora.com>, Ke Sun <sunke@kylinos.cn>
+Cc: Alice Ryhl <aliceryhl@google.com>, Miguel Ojeda <ojeda@kernel.org>, 
+	Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+	"=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?=" <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, 
+	Andreas Hindborg <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>, 
+	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
+	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
+	"=?UTF-8?q?Onur=20=C3=96zkan?=" <work@onurozkan.dev>, Lorenzo Stoakes <ljs@kernel.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, Lyude Paul <lyude@redhat.com>, David Airlie <airlied@gmail.com>, 
+	Simona Vetter <simona@ffwll.ch>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	"Rafael J. Wysocki" <rafael@kernel.org>, Sami Tolvanen <samitolvanen@google.com>, 
+	rust-for-linux@vger.kernel.org, linux-mm@kvack.org, 
+	dri-devel@lists.freedesktop.org, driver-core@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, Alvin Sun <alvin.sun@linux.dev>
+Content-Type: text/plain; charset="UTF-8"
 
-smb3_fiemap() treats -E2BIG from SMB2_ioctl() as a truncated range blob
-and loops for the next chunk. If the server reports
-STATUS_BUFFER_OVERFLOW with OutputCount == 0, SMB2_ioctl() returns
--E2BIG with out_data == NULL and out_data_len == 0, and the existing
-length checks accept the empty result. The loop then evaluates
+On Thu, Oct 22, 2026 at 04:53:07PM -0700, Deborah Brouwer wrote:
+> On Tue, Oct 20, 2026 at 04:25:19PM +0800, Ke Sun wrote:
+> > From: Alvin Sun <alvin.sun@linux.dev>
+> 
+> I was testing Tyr's auto allocation for the user va range,
+> and was surprised to see that mm.task_size() is always returning 0.
+> It seems like it should work since it uses the task_size from
+> struct mm_struct, but it doesn't, at least for me. 
+> 
+> If you look at tyr-dev, I think it would be better to use Sami's approach:
+>   428d71932b6f rust: task: add task_size()
+> 
+> Sami creates a task_size() method for CurrentTask which is our equivalent
+> to the `current` global and then you can see that task_size becomes much
+> more clearly the equivalent of "TASK_SIZE_OF" used by panthor.
+> 
+> This approach also correctly returns a user va range when Tyr has to
+> assign it in my tests, so let's switch over.
 
-	next = out_data[num - 1].file_offset + ...
++1 to switching to CurrentTask::task_size(&self) backed by a C helper
+calling TASK_SIZE_OF(current). Please also include `<linux/mm.h>` in
+`rust/helpers/task.c`, as on some architectures (e.g. riscv) `TASK_SIZE` is
+defined in `<asm/pgtable.h>` rather than `<linux/sched/task.h>`.
 
-with num == 0, reading 16 bytes before NULL.
-
-Reject a truncated range blob that contains no range, so the resume
-offset is never computed from an empty response. Also require the last
-range in a truncated blob to advance the resume offset without
-overflowing, and to stay within the requested range; a malicious or
-broken server could otherwise make no progress or underflow len and loop
-forever. Free the previous response buffer before retrying.
-
-Reproduced on 6.6.87.2 with a malicious SMB2 server that answers
-FSCTL_QUERY_ALLOCATED_RANGES with STATUS_BUFFER_OVERFLOW and
-OutputCount == 0; an FS_IOC_FIEMAP ioctl on the mount oopses in
-cifs_fiemap() with CR2 = fffffffffffffff8. The code path is unchanged
-on mainline.
-
-Cc: stable@vger.kernel.org
-Signed-off-by: Abdifatah Suruur <suruurism@gmail.com>
----
-v2:
-- Validate the resume offset in a truncated range blob (overflow, forward
-  progress and remaining length) and free the previous response buffer
-  before retrying, addressing the sashiko review of v1.
-
- fs/smb/client/smb2ops.c | 36 +++++++++++++++++++++++++++++++++---
- 1 file changed, 33 insertions(+), 3 deletions(-)
-
-diff --git a/fs/smb/client/smb2ops.c b/fs/smb/client/smb2ops.c
-index 20624f5dff9b..56b3b183db4b 100644
---- a/fs/smb/client/smb2ops.c
-+++ b/fs/smb/client/smb2ops.c
-@@ -4360,6 +4360,15 @@ static int smb3_fiemap(struct cifs_tcon *tcon,
- 		goto out;
- 	}
- 
-+	/*
-+	 * A truncated range blob must contain at least one range, otherwise
-+	 * there is no offset to resume from and out_data is NULL.
-+	 */
-+	if (!last_blob && out_data_len == 0) {
-+		rc = -EINVAL;
-+		goto out;
-+	}
-+
- 	num = out_data_len / sizeof(struct file_allocated_range_buffer);
- 	for (i = 0; i < num; i++) {
- 		flags = 0;
-@@ -4380,10 +4389,31 @@ static int smb3_fiemap(struct cifs_tcon *tcon,
- 	}
- 
- 	if (!last_blob) {
--		next = le64_to_cpu(out_data[num - 1].file_offset) +
--		  le64_to_cpu(out_data[num - 1].length);
--		len = len - (next - start);
-+		u64 last_start, last_len;
-+
-+		last_start = le64_to_cpu(out_data[num - 1].file_offset);
-+		last_len = le64_to_cpu(out_data[num - 1].length);
-+
-+		/*
-+		 * A truncated range blob must advance the resume offset and
-+		 * stay within the requested range.  A malicious or broken
-+		 * server could otherwise overflow the offset, make no
-+		 * progress, or underflow len and keep us looping forever.
-+		 */
-+		if (check_add_overflow(last_start, last_len, &next) ||
-+		    next <= start) {
-+			rc = -EINVAL;
-+			goto out;
-+		}
-+		if (next - start >= len) {
-+			rc = 0;
-+			goto out;
-+		}
-+
-+		len -= next - start;
- 		start = next;
-+		kfree(out_data);
-+		out_data = NULL;
- 		goto again;
- 	}
- 
--- 
-2.53.0
-
+Alice
