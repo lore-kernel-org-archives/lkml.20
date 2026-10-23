@@ -1,64 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.173
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=67.231.148.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792749679;
-	b=ReuHGQcGaCWLTMEs/EaeOQNnDTGoXbWMbU5YfuK/WAzZrn80UvfXkCopDIUqsLLBbs6b
-	 q+J1LWOAFoZ++D3sj+piv8agjiHrMDRVk0xuaA4OVYKbreHnWGmJOvBLrkGF18ajlAiKw
-	 yFdxfp78qTimsu+uSbF6t6PyxamyIEMkBRILTdAL7kwtGLTwuzQZRnLaNMnB+Jar1lK63
-	 9eDU1Jec4TF8kbIB1H0KF47xwAGc5fnzlWe2HcrIdXqowMemhWnnui3zZZRgz0YUIGR1V
-	 D4I0lp20+oV4RgcNKXVbPDgx2HmQgMMYuFnQ9Dt0n0hTGrGdRSvn+3q10cgZiES7+kg==
+	t=1792749688;
+	b=oaBrIhDSQZU8ZE6OmUl0hbNiTTVGQsl6mUnTRo3x74RDw9zA10siBuyqNBRmIYlXtpT1
+	 YDlNeL1bV0Ifc4jTt6UIlXmeciD+VEbIw+Rec3zkjKIeA95c3VkBwk+E3ByVdaUoP2agJ
+	 jewhP6OQ0iVaH84rUPRoEOsc1AZ56YgLdfGzgnWmA6/3VNX1BUSSbfc07JkuZtAq6Hvmd
+	 WCK8W8lKwUBDagrVYkrs52kiQ49BlqcBgN4GeMjE6LDIULt32Ta1U9rNwn5CRwQ7pV4iI
+	 LTvGEjzXa36FIKsUbwICwQvuyy6r6yWTow5B4SjkU9x6VLhHydJro6a2hpcyV3TmzAg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792749679;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=M0s3SFlMeOGNR0VjX2ZhF+zTIKdV5x/45iKV7UcMLG0=;
-	b=s9ONk4olyicNP6ZRKCBiIyuIfKhGgCDk+ucmJr/GxfTj+NYgfgAXysvTZW6AXzWeHAFh
-	 8VfYMWl4PiADX5Xi/Jwcn0K660iUzw/j+kijwwr7A2QS1UGWcaZIcHJt5GsbKWcCfwSgx
-	 xTUp5zwIC0HVuLDjLF+bt+/SmgKY5/JKkLgpt/J/ll0mCJJUhDIY1CDD47tmRl6ntexuO
-	 3/1m0mZKabSuMwFO9sXMr8q44I/zXFT7ZE1EsOEhIrKs2/NR3Sxb2h/RNk+ML/knvlNty
-	 nNiRqH/8siXZvKEx3kNHnvs2FtpdjfBbxw8IBjTJDRGaYUcYGOJWHG3/w5F9k552nrw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792749688;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
+	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Virus-Version;
+	bh=6iq612J16q5nGpq9ukoIawRWHB2fhQA00l1lXotI5tM=;
+	b=aD+O7MzyHx8beC6QFMKB5c6hV0SRHFeSqMOhamHHu8qW/sMgyugzQxkXHlUE16V44vPy
+	 +1hQzCngwYQyGgfoKwQq4cyZqZ5Yy35kFs5IlByNsYtwZ3KAncR6/kYWufjvdLMJqsnNB
+	 MKX0L5iGXSej/+JnV0X+EW66nA+9yxkPC1JKNaoXVko6TBk9NpcKv4PfAOdQAOxjbaAmU
+	 OKu6MCnnh8RA95M66TK5pRZeVOVoIMohE45oOxE2EUrgwTjRsyV4SNA+8RjTo2uNv3mI2
+	 JRt0DoPSns5LuLIQGYUBSKQP+bcCMGxbEEJVCRDv37nMExZd5vRxvjNLiGx4BGqMY+g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=grimler.se;
-	spf=pass smtp.mailfrom=grimler.se;
-	dkim=pass header.d=grimler.se header.i=@grimler.se header.a=rsa-sha256 header.s=key1 header.b=l1z0FiUo;
-	arc=none smtp.remote-ip=91.218.175.173
-Received: from mta0.migadu.com (out-173.mta0.migadu.com [91.218.175.173])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=marvell.com;
+	spf=pass smtp.mailfrom=marvell.com;
+	dkim=pass header.d=marvell.com header.i=@marvell.com header.a=rsa-sha256 header.s=pfpt0220 header.b=Rea2Zsl+;
+	arc=none smtp.remote-ip=67.231.148.174
+Received: from mx0b-0016f401.pphosted.com (mx0a-0016f401.pphosted.com [67.231.148.174])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BBEC606A31B
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 10:01:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1BBEC606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=grimler.se
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=grimler.se
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42A42606A31B;
+	Fri, 23 Oct 2026 10:01:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 42A42606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=marvell.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marvell.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=grimler.se header.i=@grimler.se header.a=rsa-sha256 header.s=key1 header.b=l1z0FiUo
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=Sl832lwWv9q0+uztm4xFM++41k7qXCoKfbSb4C6WYFM=;
- c=simple/simple; d=grimler.se;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792749675; v=1; x=1793354475;
- b=l1z0FiUo0EzYZ5/WiXjcU/n8db2gMYv3Qs5CzXmz7x4paclekKYJAoHmd7N4F4YdsfRr8B1d
- C+8jrLNs7HRHRWIIuKmawALtuA8BNR7m2CP731aCH6I5o1ILx0mUWcuzPLOLgA7Xw/sm7uL5RlO
- frNihZP4Fv0p8gCGuz2/Vhhg=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id 6fe652901f52c9d0;
-	Fri, 23 Oct 2026 10:01:15 +0000
-X-Mizu-Trace-ID: 6fe652901f52c9d0
-X-Migadu-Flow: FLOW_OUT
-Date: Fri, 23 Oct 2026 12:01:10 +0200
-From: Henrik Grimler <henrik@grimler.se>
-To: Josef Schlehofer <pepe.schlehofer@gmail.com>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>,
-	Alim Akhtar <alim.akhtar@samsung.com>,
-	Peter Griffin <peter.griffin@linaro.org>,
-	Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
-	linux-samsung-soc@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] ARM: dts: samsung: Add Hardkernel ODROID-U2
-Message-ID: <20261023100110.GA24541@localhost>
-References: <20261022055208.17746-1-pepe.schlehofer@gmail.com>
- <20261022055208.17746-3-pepe.schlehofer@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=marvell.com header.i=@marvell.com header.a=rsa-sha256 header.s=pfpt0220 header.b=Rea2Zsl+
+Received: from pps.filterd (m0045849.ppops.net [127.0.0.1])
+	by mx0a-0016f401.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69N7FgD43411314;
+	Fri, 23 Oct 2026 03:01:17 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marvell.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=pfpt0220; bh=6iq612J16q5nGpq9ukoIawR
+	WHB2fhQA00l1lXotI5tM=; b=Rea2Zsl+IXp7sjJJsI3/84goQVornVEeGbPim/X
+	mCKGyZJI+qYL2KEPTo1OtUY0ZYwpw1lATspCaXHirGBuiFfoV37sbutXW8Do2d+B
+	6mDdIUbK+yqkqT8P7VSEok9R527x3yDmFhmgQsprr7ejvzjoU6JeE/EkMc5055fe
+	gU3g/MH3vWqfSGUyWEbBxwTxO3gfMaEZ0PnyGGQaGFKt3prmHS6mzn2dYn2C9Onp
+	S0Z2YrgjZr+xjjJY8Rt1N7XZkluxNR75AJ7OTiCVgpRS/oGkeTzSnNTkrstYoxZy
+	6wwvVKHrurdAmknAMbXalVORCWCBHlC71OdoxuYFceUT/4A==
+Received: from dc5-exch05.marvell.com ([199.233.59.128])
+	by mx0a-0016f401.pphosted.com (PPS) with ESMTPS id 4hfmdtn7wv-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 23 Oct 2026 03:01:17 -0700 (PDT)
+Received: from DC5-EXCH05.marvell.com (10.69.176.209) by
+ DC5-EXCH05.marvell.com (10.69.176.209) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.25; Fri, 23 Oct 2026 03:01:16 -0700
+Received: from maili.marvell.com (10.69.176.80) by DC5-EXCH05.marvell.com
+ (10.69.176.209) with Microsoft SMTP Server id 15.2.1544.25 via Frontend
+ Transport; Fri, 23 Oct 2026 03:01:16 -0700
+Received: from localhost.localdomain (unknown [10.110.24.192])
+	by maili.marvell.com (Postfix) with ESMTP id A07F73F707D;
+	Fri, 23 Oct 2026 03:01:16 -0700 (PDT)
+From: vmukunda <vmukunda@marvell.com>
+To: <netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+CC: Sunil Goutham <sgoutham@marvell.com>,
+        Ratheesh Kannoth
+	<rkannoth@marvell.com>,
+        Geetha sowjanya <gakula@marvell.com>,
+        "Subbaraya
+ Sundeep" <sbhatta@marvell.com>,
+        Andrew Lunn <andrew+netdev@lunn.ch>,
+        "David S
+ . Miller" <davem@davemloft.net>,
+        Eric Dumazet <edumazet@kernel.org>,
+        "Jakub
+ Kicinski" <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+        vmukunda
+	<vmukunda@marvell.com>
+Subject: [PATCH net] octeontx2-af: Fix npc_delete_flow counter read for cn20k
+Date: Fri, 23 Oct 2026 10:01:12 +0000
+Message-ID: <20261023100112.3402726-1-vmukunda@marvell.com>
+X-Mailer: git-send-email 2.25.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,150 +91,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261022055208.17746-3-pepe.schlehofer@gmail.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIzMDAzOSBTYWx0ZWRfXxyUHtSiexsmL
+ adNQOoA1ThznkVSu07qnbPMVNFB8JaUzDC8EfDb1t/iCSdKrhmKVGSQ/GqvBbTpjrXb62j56c+t
+ KoVBl8omdrcflVCFCmyAg2RJyaDT7eg=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIzMDAzOSBTYWx0ZWRfX2UXQzpKsM4ws
+ Lu4t3lMsnQIW8AxwBrdT3FxSaeeDJeaMm4lTG3XK4EU4n7zkF1tAIH3JD7ckcWLFA0CXBj6PqdV
+ ptZovzg1dq064z/jHBtdBbGPXpSU9OM328A/kEY/9GHhz6/Zy6F5D2KgA67D7mPCbf7p+XE6Hfu
+ cwFvD/oE5MRcVzEwLvYygxv19DsF61lsw40Lad+doOAkJoejkGt5budbT9ULibLuj3kaudoxyI2
+ 2xlLGHjuUpcax48KQrR7eQYe/dobVgm5OuAVhkIoX1GvqZx3RlSdaAEYe0ftWp0xPcOywlL3JpH
+ WmJ3rINUPV+6FCiBdbEOve0fSZqp4rXD88CdjakOCOi+utOjTO4/8yt8o42AksVNosIHIeNTyrU
+ AHkoRVGiIEPy8esEumrpI6wI6c3nTQpmoQcr9vIzFOKvrl07IjSJDz3HxyzLe1DCL0lBJ1ntyix
+ 5YhXag8PD+EiGXjK5Lg==
+X-Proofpoint-GUID: CXvk2G0y0xCJAedXx4zy1Y-wMHe-_Cux
+X-Proofpoint-ORIG-GUID: CXvk2G0y0xCJAedXx4zy1Y-wMHe-_Cux
+X-Authority-Analysis: v=2.4 cv=PalqFShd c=1 sm=1 tr=0 ts=6adb306d cx=c_pps
+ a=rEv8fa4AjpPjGxpoe8rlIQ==:117 a=rEv8fa4AjpPjGxpoe8rlIQ==:17
+ a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=l0iWHRpgs5sLHlkKQ1IR:22
+ a=EAYMVhzMl8SCOHhVQcBL:22 a=M5GUcnROAAAA:8 a=j3AFsqOYKst2VyhahHcA:9
+ a=OBjm3rFKGHvpk9ecZwUJ:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-23_02,2026-10-21_02,2025-10-01_01
 
-Hi Josef,
+From: Subbaraya Sundeep <sbhatta@marvell.com>
 
-On Thu, Oct 22, 2026 at 07:52:08AM +0200, Josef Schlehofer wrote:
-> ODROID-U2 is a single board computer from Hardkernel based on the
-> Samsung Exynos4412 Prime SoC with 2 GB of LPDDR2 RAM. It is the
-> predecessor of the ODROID-U3 and shares most of its design:
-> - microSD card slot and eMMC module socket
-> - SMSC LAN9730 10/100 Ethernet on HSIC0
-> - SMSC USB3503A hub on HSIC1 with two USB 2.0 host ports
-> - micro-HDMI port with CEC
-> - MAX98090 audio codec with a 3.5 mm headphone jack and an on-board
->   digital microphone
-> - MAX77686 PMIC
-> - 2-pin header for an optional PWM controlled cooling fan
-> - blue heartbeat LED
-> 
-> Unlike the ODROID-U3, the micro-USB port has no VBUS supply switch, so
-> it can only work in peripheral mode, and there is no expansion header
-> with SPI. The 3.5 mm jack is headphone only and the speaker outputs of
-> the codec are not connected.
-> 
-> Add a device tree for the board that includes the ODROID-U3 one and
-> describes only these differences, as the ODROID-X2 does with the
-> ODROID-X, and update the comments in the common dtsi, as the LDO22 and
-> BUCK8 constraints are now also used by the ODROID-U2.
-> 
-> Also route "HiFi Capture" to "Mixer DAI RX", as on the ODROID-XU3. The
-> odroid sound card driver adds only the playback routes for boards with
-> a single CPU DAI, so without it the DPCM capture path to the I2S
-> back-end is incomplete and recording from the digital microphone fails
-> with "no backend DAIs enabled for Primary".
-> 
-> Link: https://www.hardkernel.com/shop/odroid-u2/
-> Link: https://www.hardkernel.com/blog-2/odroid-u2-u-schematics/
-> Signed-off-by: Josef Schlehofer <pepe.schlehofer@gmail.com>
-> ---
->  arch/arm/boot/dts/samsung/Makefile            |  1 +
->  .../dts/samsung/exynos4412-odroid-common.dtsi |  6 +--
->  .../boot/dts/samsung/exynos4412-odroidu2.dts  | 42 +++++++++++++++++++
->  3 files changed, 46 insertions(+), 3 deletions(-)
->  create mode 100644 arch/arm/boot/dts/samsung/exynos4412-odroidu2.dts
-> 
-> diff --git a/arch/arm/boot/dts/samsung/Makefile b/arch/arm/boot/dts/samsung/Makefile
-> index e0143ee8c82d..2a173e4b3e1a 100644
-> --- a/arch/arm/boot/dts/samsung/Makefile
-> +++ b/arch/arm/boot/dts/samsung/Makefile
-> @@ -16,6 +16,7 @@ dtb-$(CONFIG_ARCH_EXYNOS4) += \
->  	exynos4412-i9305.dtb \
->  	exynos4412-itop-elite.dtb \
->  	exynos4412-n710x.dtb \
-> +	exynos4412-odroidu2.dtb \
->  	exynos4412-odroidu3.dtb \
->  	exynos4412-odroidx.dtb \
->  	exynos4412-odroidx2.dtb \
-> diff --git a/arch/arm/boot/dts/samsung/exynos4412-odroid-common.dtsi b/arch/arm/boot/dts/samsung/exynos4412-odroid-common.dtsi
-> index 93ddbd4b0a18..b56b92c78c1d 100644
-> --- a/arch/arm/boot/dts/samsung/exynos4412-odroid-common.dtsi
-> +++ b/arch/arm/boot/dts/samsung/exynos4412-odroid-common.dtsi
-> @@ -414,8 +414,8 @@ ldo21_reg: LDO21 {
->  
->  			ldo22_reg: LDO22 {
->  				/*
-> -				 * Only U3 uses it, so let it define the
-> -				 * constraints
-> +				 * Only U2 and U3 use it, so let them define
-> +				 * the constraints
->  				 */
->  				regulator-name = "LDO22";
->  				regulator-boot-on;
-> @@ -486,7 +486,7 @@ buck7_reg: BUCK7 {
->  			buck8_reg: BUCK8 {
->  				/*
->  				 * Constraints set by specific board: X,
-> -				 * X2 and U3.
-> +				 * X2, U2 and U3.
->  				 */
->  				regulator-name = "BUCK8_2.8V";
->  			};
-> diff --git a/arch/arm/boot/dts/samsung/exynos4412-odroidu2.dts b/arch/arm/boot/dts/samsung/exynos4412-odroidu2.dts
-> new file mode 100644
-> index 000000000000..bc14df9be9f7
-> --- /dev/null
-> +++ b/arch/arm/boot/dts/samsung/exynos4412-odroidu2.dts
-> @@ -0,0 +1,42 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * Hardkernel's Exynos4412 based ODROID-U2 board device tree source
-> + *
-> + * Copyright (c) 2026 Josef Schlehofer <pepe.schlehofer@gmail.com>
-> + *
-> + * Device tree source file for Hardkernel's ODROID-U2 board which is based
-> + * on Samsung's Exynos4412 SoC. The board is the predecessor of the
-> + * ODROID-U3, so only the differences from it are described here.
-> + */
-> +
-> +#include "exynos4412-odroidu3.dts"
-> +
-> +/ {
-> +	model = "Hardkernel ODROID-U2 board based on Exynos4412";
-> +	compatible = "hardkernel,odroid-u2", "samsung,exynos4412", "samsung,exynos4";
-> +};
-> +
-> +/* No VBUS supply switch on the micro-USB port */
-> +/delete-node/ &vbus_otg_reg;
-> +
-> +&hsotg {
-> +	dr_mode = "peripheral";
-> +	/delete-property/ vbus-supply;
-> +};
-> +
-> +&sound {
-> +	model = "Odroid-U2";
-> +	audio-routing = "Headphone Jack", "HPL",
-> +			"Headphone Jack", "HPR",
-> +			"DMICL", "DMIC",
-> +			"DMICR", "DMIC",
-> +			"Mixer DAI RX", "HiFi Capture";
-> +	samsung,audio-widgets =
-> +		"Headphone", "Headphone Jack",
-> +		"Microphone", "DMIC";
+On cn20k, the MCAM match counter cannot be read from
+NPC_AF_MATCH_STATX. Skip reading the counter value in
+npc_delete_flow on cn20k. Counter support for cn20k is TBD.
 
-Should be no need for newline after = for
-samsung,audio-widgets. Writing it as:
+Fixes: 5f83b4729440 ("octeontx2-af: Do not access match stats for cn20k")
+Signed-off-by: Subbaraya Sundeep <sbhatta@marvell.com>
+Signed-off-by: vmukunda <vmukunda@marvell.com>
+---
+---
+ drivers/net/ethernet/marvell/octeontx2/af/rvu_npc_fs.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-	samsung,audio-widgets = "Headphone", "Headphone Jack",
-				"Microphone", "DMIC";
+diff --git a/drivers/net/ethernet/marvell/octeontx2/af/rvu_npc_fs.c b/drivers/net/ethernet/marvell/octeontx2/af/rvu_npc_fs.c
+index ea5d462a66ee..06916b38ae2c 100644
+--- a/drivers/net/ethernet/marvell/octeontx2/af/rvu_npc_fs.c
++++ b/drivers/net/ethernet/marvell/octeontx2/af/rvu_npc_fs.c
+@@ -1960,7 +1960,7 @@ int rvu_mbox_handler_npc_delete_flow(struct rvu *rvu,
+ 			/* single rule */
+ 			} else if (req->entry == iter->entry) {
+ 				blkaddr = rvu_get_blkaddr(rvu, BLKTYPE_NPC, 0);
+-				if (blkaddr)
++				if (blkaddr && !is_cn20k(rvu_pdev))
+ 					rsp->cntr_val = rvu_read64(rvu, blkaddr,
+ 								   NPC_AF_MATCH_STATX(iter->cntr));
+ 				list_move_tail(&iter->list, &del_list);
+-- 
+2.25.1
 
-gives max width of 62 wide chars. With that fixed:
-
-Reviewed-by: Henrik Grimler <henrik@grimler.se>
-
-Best regards,
-Henrik Grimler
-
-> +};
-> +
-> +/* No expansion header with SPI */
-> +&spi_1 {
-> +	status = "disabled";
-> +};
-> -- 
-> 2.54.0 (Apple Git-157)
-> 
