@@ -1,87 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792749433;
-	b=VKt7vtJS6pMzdfo7Nl64sELK2S6CI7hrYPgcY8PPw85ET8JmVp0FkzIK1sA6rwYlH2us
-	 5FsPvMee0myddTeCqpqhxdUwDqLCvdtx2C2OZkLhziZKrhC3KLaLYwlLF5sEtIOD7E46Q
-	 XiSmbn4enn9DuTPEbnrPC7dPh7boCki3SrPN1W2rWyHCZm//29D+WIajkeO/d3MDKUyjz
-	 frcsUdTPSJnAt0MQyBa74rxSfQ8oqZGodXa68it9bpKxHVWESUtnkhuI08QGRW532evqN
-	 0UwFFnB8MD2luqydSc8Sg7mAFp3tVpVGi/YKYIrruiMBVWLGRRpQQwAwCPNV/35Ikhg==
+	t=1792749440;
+	b=fIevRwkdIc9vYCqxXklxcq6G0m3k0Ujw2uCTSdsbGJ1qxg2sJZ7jaZpMCk64fs26t8yY
+	 1cXbrcY9Ful9cZ1qVBUSt523YmNSfBz8AijlVm7WDc9yijFJG7W3CQ2zKQA4R8UnwtvX1
+	 S0VtPQRT1RXqa736NbIyseceapJn7TjcCXBWOIpEpNdT0MGsCYBxwmh+Zw7ekhHhdKxLN
+	 LNlXxtavtUgZ6+81MO6/6F81LV0yp7V4FtJJsy3TOIl6CYiJTIGcrFARH5TIAauSiOKBE
+	 6ZifFskbwYmSoriuCDEhLvSM5dP5Js2lnNf2EbOxNWjDPAfS07UoD93uyy2xX+2RjVQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792749433;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792749440;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:References:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
 	 Content-Language:From:In-Reply-To:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=5zYKXoFoRrW/rjS0dALsJeII0OIOKVqHguJNCNYo2aI=;
-	b=zuloro0zet5mO2bzsZ5JsoApZWoCEPzqgF/3Chy3oTW2F4dOs0cAN9yId+jvB1DCYhQF
-	 Xag8AS5EH7RJZL5vCg47wae8nKUrJAWqUmvgtxQrwhXQpjccKkmydrE3tSMKb8yx1d/0t
-	 E54HKdxBaU6qAMtNUW3NlHEJqBTbNuIdFypvLDMxYGaSCc2xyvh15gCE1h7cS9xTRQuwh
-	 BNSQ9vdKDwrpnzwkuCFw7wYSemZSRfsfuup5BpCREo0TULGKBUYE47wpy3tbsiQYUDnwA
-	 X8+pVEW3xvLCM+M816yxhH52O6idV17kfocKhKZBTWnstPb+rn6sR+szvEaiipP8x5g==
+	bh=xvvqzujp+UcUXklzEphgGnO39VToizQWS1KqHHoKSVA=;
+	b=m6asSbJqhWmJOaazQZpIq7xsLglatmsNnkHF0Zzp/VIx48HqjAYpFns8ICbprRIeTvR2
+	 vf32QzI8qKklv4HuqGPsCxMIvRjKwsJeo9NNAtxU1rEejdHmkTD8jFsghTL5A7APFJYK1
+	 y5ppG6exZPDMyKgC67Ab+9+xGdUlJlHk79/W/fZKa7wggh6fd57nzgfZ5vXe/ehDkBYsM
+	 5fDtaVlzlyoWecdb/itMBmeQV/0lZrplzQwA5z02Pg+NCyipTGpHrG3g1g1rarl3ZH1QP
+	 ywq/DzzqJuXLFWIL6HYmxe/TDIj1Et/ogqgi53vOdZA6CqHqgKF8eaIO6FjUaMG5BFg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=blackwall.org;
-	spf=none smtp.mailfrom=blackwall.org;
-	dkim=pass header.d=blackwall.org header.i=@blackwall.org header.a=rsa-sha256 header.s=google header.b=lPUKPWt6;
-	arc=none smtp.remote-ip=209.85.221.48
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=eZsyXKks;
+	arc=none smtp.remote-ip=209.85.128.46
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6FE9606A31B
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 09:57:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E6FE9606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=blackwall.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=blackwall.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30DA2606A31E
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 09:57:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 30DA2606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=blackwall.org header.i=@blackwall.org header.a=rsa-sha256 header.s=google header.b=lPUKPWt6
-Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-48dfdd0678dso481320f8f.0
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 02:57:11 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=eZsyXKks
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a0286c981dso7079375e9.2
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 02:57:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=blackwall.org; s=google; t=1792749430; x=1793354230; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1792749438; x=1793354238; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=5zYKXoFoRrW/rjS0dALsJeII0OIOKVqHguJNCNYo2aI=;
-        b=lPUKPWt6Hycmbn6IYRhAtJBMMMtFtAg/QHyTDYFareIA8qANZBrOnuKO2bsyCcqKz7
-         oL8bBFvkG2pzR6UHOK+06X1Jmc+eQZHAN7xBZ7oxRiY1YDz8I6iBZElzHNpqMo7SzBOn
-         y/pjgu4kvTWCLlty4gU7xrkC8OberYR6zMo/xyFl2vIntUlRQ1cZe2rn7BnJd9QGe7eu
-         Xorjiy6tTIA32RMvxo5zit8lBYdKS+2WXjfHkpmOOcxnAItWJlnF3dOBp+EcMlTlgbIb
-         D1PRW5TFNhg/6OWYNCrEFxkelp/LmO8i9RlhzWtP5YDBu3PgzaMwZIge/afmkAxr1S5x
-         Pt/Q==
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=xvvqzujp+UcUXklzEphgGnO39VToizQWS1KqHHoKSVA=;
+        b=eZsyXKksxN8BCD/duKo2Y8veCkOWLcbAnxiyGv46/WB9VHF7IMqYt8OphXyMaeBwCv
+         tv8PGwIyUUOpk1L7DfEnkqHP3mBYQo+Lfe87+4QaqX+63RMhy+wwjD85jxDZRaMYho0t
+         rqzAbLNmne2l9ElHlEJjhA/Hete6uECRjPONA7S2F4JOdgAZLCymi/2Ryt3YKvUGocRJ
+         2BUnBP9ShKBFOQHQGe04DTiCdgS2gvB65Jl0RX2pv8YhvnsfxqVRxWpGjhrUhdLSsDq8
+         +iisK9BzcuuZPOIbgBAJYdtZ7teifs7at2VggpdCVhs8AvbF3PF4BnkpG4LHj+RSO1W4
+         xvQw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792749430; x=1793354230;
+        d=1e100.net; s=20260707; t=1792749438; x=1793354238;
         h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=5zYKXoFoRrW/rjS0dALsJeII0OIOKVqHguJNCNYo2aI=;
-        b=HGbKSgkFN6+IYIO6J2VCTbxfAo5QkwQnzXBSr4fz+yACGDHNhToLSH/dHU2+tIQL6o
-         oA8nW4InhnWf4n0V9z1b7kzeYFe2AAyBpD6wc94kf9flu3X+NpySLVFDtQEU/S/nrOSJ
-         ssYb790nzPIyK0NVOcyLa6aX+6x2+P4taEU/f/OtiNaNkDfTC+hSIaf12QA/fzgVGY9w
-         DEfX3iRpmsGJ1yLOrHQUUcfC0i7//ifrVjx9IneWkkHm8hxtV+utaak5o8BAGAN5lH6f
-         Fa8dcnF/fZuTVC1vIXhClwVcl31STbtOPu5TZXuOHk7TvzoiTg8PXh4HSZBE6cvOvlc2
-         T0nw==
-X-Forwarded-Encrypted: i=1; AKwUvBwKM15PAuGQ3jlg2dkCKacDbTi4kW0zbSdcP7VDfJUNtKnReiHG/wvzJATAztsCHCQ7uOxXMNav+fWyiCY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK/zpFrvHAOALEU6YjWkwpt/wo1LkQaH1vdAp+wLULXfDK/FI1i
-	nUEbP10xHMTHm8wGLFnTmXt4lWuWAqO4UUYBHIjO3oJLysesC89XKrCDgRa4c+ko9Os=
-X-Gm-Gg: AYBFou0fWHYR4e1fwXFu8ADCFw9ODM2ojS4p+IzZxGN0OJ3URIQzTmmHonZwRFG7rs+
-	tOkKuTLpoKyAST7t6OCHFhM5b4EWT0i2/jyNbZx4Cj1+vaBY8cI0B7IvqZLZptuffhZ2xhLjrlA
-	QGNPrcdp+bRkSwAmLJhxYzJ3C8hPfKBW5M9Gw9+DSD2bgv0fmgC383VTSuxRejEStfwMBQoT0Ak
-	6QrFySxwMgB4r3CzbKJKiHeBRJZLVDKxyNOkDuqp+bPR7iGO6ioQ7eZxZr/wTZWtCVexapnsard
-	lTJUOliAX/REE8Slc/8cbomUhXhTc+Ew55pPVkLXD81pPGAezFRhAalzGRPSlFS+ku5L1Ut21xN
-	UJcShq6Yjb2a6uU71tfqI8qT4lkhNGevJ5jBrCuUqrJhN1Dp3F7d3bGFLrWWURvRONI4fruwAzf
-	pEA5PGVcDKpLbN6MIITg9MpT1djP3fTLvDBYhQ1C6OOcI+EfXWOoU0OsRHgUMEU4JwId3nS6A/R
-	w2XEyMzoYkNl1fL7kJCBl4olfYd8bd9QnftGFcEydqLW8psYd1D/UitXrC6bFfarpEgbOH23yU5
-	q28beFNrwA==
-X-Received: by 2002:a5d:4c4a:0:b0:487:27f9:842 with SMTP id ffacd0b85a97d-48e385b0220mr2207570f8f.55.1792749430068;
-        Fri, 23 Oct 2026 02:57:10 -0700 (PDT)
-Received: from [192.168.0.161] (78-154-14-127.ip.btc-net.bg. [78.154.14.127])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3804872csm3994786f8f.34.2026.10.23.02.57.08
+        bh=xvvqzujp+UcUXklzEphgGnO39VToizQWS1KqHHoKSVA=;
+        b=J+s3kYnMM81mwapG1uXkcNA4iKwSG/dzrCLVqgqXK3kVItFyVzEAKDS4JDliCuuyVa
+         quCAMZCF1i0aYAh3f7Hjw5biTcgfqfovZBVIixqKMGGqx3Y65QqQNFDdCve1cePs1uXF
+         WZC5XnWo6z7MREOJxqEgBUvM2DYRg3EhCqh5SomdFk5ss4pPD2cOABrWDc26vjdz5R64
+         M+QGZJiX5aEKN8ykek+pICi9klgvYqbWoDGzj6IJ8DIywRtDG1/ROUB9Y2gvV8VAIp3r
+         phn82zCkVc55PPEZJJmyghPbCwss5WoKP8R28KClkwNFii1siTQj1xn+0uRI83aI/zF1
+         gTPw==
+X-Forwarded-Encrypted: i=1; AKwUvByrQXhhU6054LW3r1DhzJhf8annHuzCWs900pq70MrRfZc19GvAf6J58KgICMc3B7ygowmcr4wZgt8+K38=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK5Ocz2y5u+kCbMqg2M/scCu5wHofYLNU0sPDRw5s0NjSmJ8Icv
+	ndZDlt4b5eQQ1rFOxKi+tDiLiPYl/qx0akYxzMO4SmRsZ9qkEtep5ygxb8XrpWAsdKI=
+X-Gm-Gg: AYBFou2x+iIswTrp7XTUL2gfLPg5OkjhoZYVWxdqSY392OFD1SqXntUz+mpNy5wTX/1
+	EVv6/ap5u1mT4rs5MxWdM85NTsZCQ2RdZgBmLOKmKFQURBkhU8XpoAhEGhPL3sOgtiuWHnuF8xO
+	WQxAMNXXweExkwaxdAvzCsD8yi/cD3q0yR50DW5bQlpYda96WfGmNTp6CFWXI0vnXgsrGO0JbPl
+	81QBE91accG3BDUUL5enWsQTSanh1VsCQ/WM8e6slPYK7WHzaor8nxJBOgWzipWS73wUOMmWVcY
+	XUino+ty7acf5O1Ydh0Jos+AYpcTZVWiQ5fDnWvCHM94ih061jeXWbFZIOmaR2ZtnjvHsFWUuet
+	SshL4sjh4dVEdcnXRml0iY4UZl2GUKJ8z4mR+OmmN9LnfZccO5ZRkIu+/Y7yVmXjU4RwX3W0QUq
+	ZGixgiE/UoPs02UrCu/eYEKTvdZaYWym9Zt2oK8JRW5fa/pykJPtDuNS4aSQUtVRT86TH4obKTn
+	naWl5hp65HbEsZGaOLiqr0XFXIohICnGabrdnhrO9ppw+pVI5LRLY4Xn6gR
+X-Received: by 2002:a05:600c:8b38:b0:49d:34:420d with SMTP id 5b1f17b1804b1-4a211cbaf90mr26505825e9.20.1792749438440;
+        Fri, 23 Oct 2026 02:57:18 -0700 (PDT)
+Received: from [192.168.1.3] ([37.18.141.193])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a2153c14c6sm21226225e9.1.2026.10.23.02.57.17
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 23 Oct 2026 02:57:09 -0700 (PDT)
-Message-ID: <cbcff85c-49f5-4920-94ee-53dc10c9ad96@blackwall.org>
-Date: Fri, 23 Oct 2026 12:57:08 +0300
+        Fri, 23 Oct 2026 02:57:17 -0700 (PDT)
+Message-ID: <8a8c036e-a78b-449d-9f02-8b9b4767dfe7@linaro.org>
+Date: Fri, 23 Oct 2026 10:57:16 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,90 +92,203 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net] net: bridge: do not bypass port state for MST without
- VLAN filtering
-To: Tobias Waldekranz <tobias@waldekranz.com>,
- Cheng Yongkang <teel4res@gmail.com>, Ido Schimmel <idosch@nvidia.com>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Simon Horman <horms@kernel.org>, bridge@lists.linux.dev,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <179268538303.70821.3493915601694605045@gmail.com>
- <877bj8iz0p.fsf@waldekranz.com>
-Content-Language: en-US, bg
-From: Nikolay Aleksandrov <razor@blackwall.org>
-In-Reply-To: <877bj8iz0p.fsf@waldekranz.com>
+Subject: Re: [PATCH v2 3/4] coresight: etm4x: Report the external outputs the
+ PMU counts
+To: Amir Ayupov <aaupov@fb.com>, Leo Yan <leo.yan@arm.com>,
+ Mike Leach <mike.leach@arm.com>
+Cc: Jonathan Corbet <corbet@lwn.net>, Randy Dunlap <rdunlap@infradead.org>,
+ Shuah Khan <skhan@linuxfoundation.org>, coresight@lists.linaro.org,
+ linux-arm-kernel@lists.infradead.org, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Suzuki K Poulose <suzuki.poulose@arm.com>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>
+References: <20261012230527.750567-1-aaupov@fb.com>
+ <20261012230527.750567-4-aaupov@fb.com>
+Content-Language: en-US
+From: James Clark <james.clark@linaro.org>
+In-Reply-To: <20261012230527.750567-4-aaupov@fb.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 23/10/2026 11:47, Tobias Waldekranz wrote:
-> 
-> Hi Cheng,
-> 
-> On tor, okt 22, 2026 at 08:26, Cheng Yongkang <teel4res@gmail.com> wrote:
->> br_mst_is_enabled() is true when the bridge MST option is set and the
->> port has a VLAN group, and nbp_vlan_init() installs a VLAN group on
->> every port even when VLAN filtering is disabled.  While it is true,
->> ingress treats the port as forwarding and egress skips the
->> BR_STATE_FORWARDING check, so that the per-VLAN MST state is enforced
->> instead.  That state is only checked when VLAN filtering is enabled,
->> though: br_allowed_ingress() returns early otherwise, and
->> br_allowed_egress() only checks frames that were VLAN-filtered on
->> ingress.
->>
->> With MST enabled and VLAN filtering disabled, no port state is enforced
->> at all, and a port in BR_STATE_BLOCKING or BR_STATE_DISABLED still
->> forwards traffic, defeating STP and MRP loop protection.  MST can be
->> enabled in this configuration, since br_mst_set_enabled() only requires
->> that no port has a VLAN, for example with default_pvid 0.  In that setup
->> a BLOCKING port kept forwarding broadcast frames while MST was enabled,
->> and stopped when MST was disabled.
->>
->> Commit 8dca36978aa8 ("net: bridge: fix use-after-free due to MST port
->> state bypass") stopped this bypass during port deletion by also
->> requiring the port VLAN group; the bypass itself remained.
->>
->> Also require VLAN filtering in br_mst_is_enabled(), so the normal port
->> state checks apply until VLAN filtering is enabled.
->>
->> Fixes: ec7328b59176 ("net: bridge: mst: Multiple Spanning Tree (MST) mode")
->> Assisted-by: LLM
->> Signed-off-by: Cheng Yongkang <teel4res@gmail.com>
->> ---
->>   net/bridge/br_private.h | 1 +
->>   1 file changed, 1 insertion(+)
->>
->> diff --git a/net/bridge/br_private.h b/net/bridge/br_private.h
->> index ff746f036f54..85065304597e 100644
->> --- a/net/bridge/br_private.h
->> +++ b/net/bridge/br_private.h
->> @@ -1953,6 +1953,7 @@ static inline bool br_mst_is_enabled(const struct net_bridge_port *p)
->>   	/* check the port's vlan group to avoid racing with port deletion */
->>   	return static_branch_unlikely(&br_mst_used) &&
->>   	       br_opt_get(p->br, BROPT_MST_ENABLED) &&
->> +	       br_opt_get(p->br, BROPT_VLAN_ENABLED) &&
->>   	       rcu_access_pointer(p->vlgrp);
->>   }
->>   
->>
->> base-commit: f4377bf85887f57b59abb5479f7660a81ffe4449
->> -- 
->> 2.34.1
-> 
-> I suppose the other way to fix this issue would be to require VLAN
-> filtering being enabled in order to enable MST filtering.
-> 
->  From a user perspective, that seems natural since you need to associate
-> packets with VLANs (i.e., have VLAN filtering enabled) in order to make
-> any use of MST filtering.
-> 
->  From the bridge's perspective it might be less desirable since it would
-> mean that the two options would become entangled - the bridge would have
-> to refuse VLAN filtering disablement while MST is enabled.
 
-Indeed, that can break users because of new option ordering.
-I'm sorry but this is a no-go.
 
-Cheers,
-  Nik
+On 13/10/2026 00:05, Amir Ayupov wrote:
+> Some CPUs count the trace unit's external outputs as the PMU common
+> events TRCEXTOUT0-3 (0x4010-0x4013), which lets a configuration drive a
+> PMU event from trace unit events. Other CPUs, Neoverse N1 for example,
+> have no such events, and a feature relying on them would silently do
+> nothing there.
+> 
+> Detect at probe, on the trace unit's CPU, which outputs the PMU counts:
+> the trace unit has an external output for each of its events
+> (TRCIDR0.NUMEVENT), and from PMUv3p1, PMCEID0_EL0[63:32] reports which of
+> the common events 0x4000-0x401f are implemented. Per the ETE
+> specification, an implemented TRCEXTOUTn event counts external output n;
+> only whether that output is also an external input is IMPLEMENTATION
+> DEFINED.
+> 
+> Add a capability match flag for each output,
+> CS_CFG_MATCH_CAP_PMU_EXTOUT(n), set it on ETMs whose PMU counts that
+> output, and show it in the feature's configfs 'matches' attribute. With
+> capabilities matched separately from the device class, a feature that
+> requires one only loads on those ETMs.
+> 
+> Assisted-by: Devmate:Opus-5.5
+> Signed-off-by: Amir Ayupov <aaupov@fb.com>
+> ---
+>   .../hwtracing/coresight/coresight-config.h    |  4 +++
+>   .../hwtracing/coresight/coresight-etm4x-cfg.c |  5 ++-
+>   .../coresight/coresight-etm4x-core.c          | 32 +++++++++++++++++++
+>   drivers/hwtracing/coresight/coresight-etm4x.h |  3 ++
+>   .../coresight/coresight-syscfg-configfs.c     |  7 ++++
+>   5 files changed, 50 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/hwtracing/coresight/coresight-config.h b/drivers/hwtracing/coresight/coresight-config.h
+> index af6ef96b9ae01..10e95f5ecc8d9 100644
+> --- a/drivers/hwtracing/coresight/coresight-config.h
+> +++ b/drivers/hwtracing/coresight/coresight-config.h
+> @@ -35,6 +35,10 @@
+>    * a device that matches one of its classes and has all of its capabilities.
+>    */
+>   #define CS_CFG_MATCH_CAP_MASK		0x0000ff00
+> +/* trace unit external output n is countable by the PMU as TRCEXTOUTn */
+> +#define CS_CFG_MATCH_CAP_PMU_EXTOUT_SHIFT	8
+> +#define CS_CFG_MATCH_CAP_PMU_EXTOUT_NR	4	/* TRCEXTOUT0-3 */
+> +#define CS_CFG_MATCH_CAP_PMU_EXTOUT(n)	BIT(CS_CFG_MATCH_CAP_PMU_EXTOUT_SHIFT + (n))
+>   
+>   /* flags defining device instance matching - used in config match desc data. */
+>   #define CS_CFG_MATCH_INST_ANY		0x80000000 /* any instance of a class */
+> diff --git a/drivers/hwtracing/coresight/coresight-etm4x-cfg.c b/drivers/hwtracing/coresight/coresight-etm4x-cfg.c
+> index e1a59b4345052..09a7a6b86968c 100644
+> --- a/drivers/hwtracing/coresight/coresight-etm4x-cfg.c
+> +++ b/drivers/hwtracing/coresight/coresight-etm4x-cfg.c
+> @@ -174,9 +174,12 @@ static int etm4_cfg_load_feature(struct coresight_device *csdev,
+>   
+>   int etm4_cscfg_register(struct coresight_device *csdev)
+>   {
+> +	struct etmv4_drvdata *drvdata = dev_get_drvdata(csdev->dev.parent);
+>   	struct cscfg_csdev_feat_ops ops;
+> +	u32 match_flags = CS_CFG_ETM4_MATCH_FLAGS;
+>   
+>   	ops.load_feat = &etm4_cfg_load_feature;
+> +	match_flags |= (u32)drvdata->pmu_extout << CS_CFG_MATCH_CAP_PMU_EXTOUT_SHIFT;
+>   
+> -	return cscfg_register_csdev(csdev, CS_CFG_ETM4_MATCH_FLAGS, &ops);
+> +	return cscfg_register_csdev(csdev, match_flags, &ops);
+>   }
+> diff --git a/drivers/hwtracing/coresight/coresight-etm4x-core.c b/drivers/hwtracing/coresight/coresight-etm4x-core.c
+> index 2247ad55d4442..1e78774025d13 100644
+> --- a/drivers/hwtracing/coresight/coresight-etm4x-core.c
+> +++ b/drivers/hwtracing/coresight/coresight-etm4x-core.c
+> @@ -30,6 +30,7 @@
+>   #include <linux/uaccess.h>
+>   #include <linux/perf_event.h>
+>   #include <linux/perf/arm_pmu.h>
+> +#include <linux/perf/arm_pmuv3.h>
+>   #include <linux/platform_device.h>
+>   #include <linux/pm_runtime.h>
+>   #include <linux/property.h>
+> @@ -1368,6 +1369,35 @@ static void etm4_fixup_wrong_ccitmin(struct etmv4_drvdata *drvdata)
+>   	}
+>   }
+>   
+> +/*
+> + * Find the external outputs of this trace unit that the PMU counts as the
+> + * common events TRCEXTOUT0-3. The trace unit has an external output for each
+> + * of its events, and PMCEID0_EL0[63:32] reports the common events
+> + * 0x4000-0x401f from PMUv3p1.
+> + *
+> + * Must run on the CPU that owns the trace unit.
+> + */
+> +static u8 etm4_pmu_extout(struct etmv4_drvdata *drvdata)
+> +{
+> +	int pmuver = read_pmuver();
+> +	u64 pmceid;
+> +	u8 extout = 0;
+> +	int n;
+> +
+> +	if (!pmuv3_implemented(pmuver) || pmuver < ID_AA64DFR0_EL1_PMUVer_V3P1)
+> +		return 0;
+> +
+> +	pmceid = read_pmceid0() >> 32;
+> +	/* nr_event is TRCIDR0.NUMEVENT, the number of events minus one */
+> +	for (n = 0; n <= drvdata->nr_event; n++) {
+> +		if (pmceid & BIT_ULL(ARMV8_PMUV3_PERFCTR_TRCEXTOUT0 + n -
+> +				     ARMV8_PMUV3_EXT_COMMON_EVENT_BASE))
+> +			extout |= BIT(n);
+> +	}
+
+Maybe an pmuv3_event_implemented() function in arm_pmuv3.c would be a 
+better fit for this. It can do something like:
+
+   if (event > ARMV8_PMUV3_EXT_COMMON_EVENT_BASE)
+      return (event - ARMV8_PMUV3_EXT_COMMON_EVENT_BASE) & pmceid_IDhi;
+   else
+      return event & pmceid_IDlo;
+
+etc.
+
+
+
+> +
+> +	return extout;
+> +}
+> +
+>   static void etm4_init_arch_data(void *info)
+>   {
+>   	u32 etmidr0;
+> @@ -1522,6 +1552,8 @@ static void etm4_init_arch_data(void *info)
+>   	/* NUMCNTR, bits[30:28] number of counters available for tracing */
+>   	drvdata->nr_cntr = FIELD_GET(TRCIDR5_NUMCNTR_MASK, etmidr5);
+>   
+> +	drvdata->pmu_extout = etm4_pmu_extout(drvdata);
+> +
+>   	coresight_clear_self_claim_tag_unlocked(csa);
+>   	etm4_cs_lock(drvdata, csa);
+>   	cpu_detect_trace_filtering(drvdata);
+> diff --git a/drivers/hwtracing/coresight/coresight-etm4x.h b/drivers/hwtracing/coresight/coresight-etm4x.h
+> index df9e0748d71ec..11d95a4518b88 100644
+> --- a/drivers/hwtracing/coresight/coresight-etm4x.h
+> +++ b/drivers/hwtracing/coresight/coresight-etm4x.h
+> @@ -979,6 +979,8 @@ struct etmv4_save_state {
+>    * @nrseqstate: The number of sequencer states that are implemented.
+>    * @nr_seq_ctrls: The number of sequence state transition control registers.
+>    * @nr_event:	Indicates how many events the trace unit support.
+> + * @pmu_extout:	Bitmap of the external outputs n that the PMU counts as
+> + *		TRCEXTOUTn.
+>    * @nr_resource:The number of resource selection pairs available for tracing.
+>    * @nr_ss_cmp:	Number of single-shot comparator controls that are available.
+>    * @trcid:	value of the current ID for this component.
+> @@ -1045,6 +1047,7 @@ struct etmv4_drvdata {
+>   	u8				nrseqstate;
+>   	u8				nr_seq_ctrls;
+>   	u8				nr_event;
+> +	u8				pmu_extout;
+>   	u8				nr_resource;
+>   	u8				nr_ss_cmp;
+>   	u8				trcid;
+> diff --git a/drivers/hwtracing/coresight/coresight-syscfg-configfs.c b/drivers/hwtracing/coresight/coresight-syscfg-configfs.c
+> index 2b40e556be872..7893d40f2e9ea 100644
+> --- a/drivers/hwtracing/coresight/coresight-syscfg-configfs.c
+> +++ b/drivers/hwtracing/coresight/coresight-syscfg-configfs.c
+> @@ -243,6 +243,7 @@ static ssize_t cscfg_feat_matches_show(struct config_item *item, char *page)
+>   							struct cscfg_fs_feature, group);
+>   	u32 match_flags = fs_feat->feat_desc->match_flags;
+>   	int used = 0;
+> +	int n;
+>   
+>   	if (match_flags & CS_CFG_MATCH_CLASS_SRC_ALL)
+>   		used = scnprintf(page, PAGE_SIZE, "SRC_ALL ");
+> @@ -250,6 +251,12 @@ static ssize_t cscfg_feat_matches_show(struct config_item *item, char *page)
+>   	if (match_flags & CS_CFG_MATCH_CLASS_SRC_ETM4)
+>   		used += scnprintf(page + used, PAGE_SIZE - used, "SRC_ETMV4 ");
+>   
+> +	for (n = 0; n < CS_CFG_MATCH_CAP_PMU_EXTOUT_NR; n++) {
+> +		if (match_flags & CS_CFG_MATCH_CAP_PMU_EXTOUT(n))
+> +			used += scnprintf(page + used, PAGE_SIZE - used,
+> +					  "PMU_EXTOUT%d ", n);
+> +	}
+> +
+>   	used += scnprintf(page + used, PAGE_SIZE - used, "\n");
+>   	return used;
+>   }
 
