@@ -1,77 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=134.76.10.21
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792746576;
-	b=IhbOEUSxZ3wWO+FUc0iS8b/08YAf10JcGTccBa7tL6xdj042EZAGF4J2UURcLUfV60Oj
-	 I/m/Uj17aEKbucAieMJwXrUN8xhg7jE5Ac9zytL0i1jC7jmajvLRyGoa8vqowBGkVcEbw
-	 9nCc2LpP2239lmbpYPr9CSremZ5gGgLnkhj2JVfBKM2tmG0JUCuMaZWwTKUiUAfNNjQFo
-	 8/fi6xbq865ZviAMUcP0kcFkt/l0LuWxIG+jmDiCSSmF3ESvDzXZ+IhfFro3Rn61jJSGe
-	 Exei17PQhS+0YWAdQHgrg6JpBYJE8Qc6fFFpEL8jBTDGP9VNDQTpFDbRM8hFuRglOvw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792746576;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Received:From:To:CC:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy:X-Virus-Scanned:X-Spam-Level;
-	bh=BPeNtzKdkjRk3yYLPGGWWs/Dmk7smFspz0pCOoXktR4=;
-	b=yvwZw0/ZyBi+CAcnsF9HZZHrNtqPP9pNCOL19KhEB63x+VA1ADWAHxF+5O2wywp2bHPs
-	 PogP3MMMA5ClJzvLNm/135wN39h1IAX6y0Ya5I6pXVYaWneuYGAU32/HwmVA6nZrctBMi
-	 u9nn3mSOZJqq4Y8jQAb7otKxfyci4UY1spVZNHd53ENeS01Ds+VBUHP4Xz7ADP9b8sC9b
-	 L4mP4mJs7MfzEKdtNwbnVi0qB9LTwIHmHV4Fa33D93bhBNOaMsLtTv8vLPV1mk4OwM0CZ
-	 H/zEk+Vxb2TwEI6O1icm3e/Rx7f8GgsqjxZnoqRyKcricbJxDgWruDm45gVGGlXbVqg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cispa.de;
-	spf=pass smtp.mailfrom=cispa.de;
-	dkim=pass header.d=cispa.de header.i=@cispa.de header.a=rsa-sha256 header.s=2023-rsa header.b=bd6wny8Y;
-	arc=none smtp.remote-ip=134.76.10.21
-Received: from mx-2023-1.gwdg.de (mx-2023-1.gwdg.de [134.76.10.21])
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=85.215.255.51
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1792746582;
+	b=wEcuKsH4ONhzI+l/WCXGIZdoMe1TKV8k2oVrG1F3xRmnhIFxXhsbXpuKo8Fv5uAeZ7ZU
+	 LicOY1wRYdQBxtMTmu4nGPDGxfIpbISq+lo/AEfXP/TcEz6+B8x2P2I0dTj0Z79piSw1+
+	 qmre/zNyOWs38Wwj+cWiltkoZywcYUU0i25J3Nti0aNrSOI0b+CTz0HEuSF5xwvxv4t50
+	 arfXkuQWItyimrGKnbkSyG/e7m4+8mC94J09ya4gXedrhCKcLFZEw6V0oIYaCbklwcwPe
+	 +ayud+STsokBhbN+N6FynGrnU9SlxbzD3a9Zc/fV9m+BHHq6Acxc9pwH+wgBLWeodFQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792746582;
+	h=DMARC-Filter:X-RZG-CLASS-ID:DKIM-Signature:DKIM-Signature:X-RZG-AUTH:
+	 Received:Content-Type:Content-Transfer-Encoding:From:Mime-Version:
+	 Subject:Date:Message-Id:References:Cc:In-Reply-To:To:X-Mailer;
+	bh=/YMpiyHb/oOoVAqYaniKbsFsgRAlHMfRbUn7Sd2BORY=;
+	b=UKqrlaw3TxyoMU05gLuAMOFWjPNaCAD0gpNPebFT1lNwfGjHhunsHtKZh7WtjBumnNZJ
+	 zv18Qgb5Lnggt26lLBzjfUCOzQ87750zLBs4QZn30yl8fAmqAhhM67LUtPAzu5Z3J0nOY
+	 HghiZdfSnMq1Q1sKfG0G7kLTt/vWr0DviBMNWli38+NqBnMUdfjJW1i+Eslxs3FnCWeyb
+	 5I4Ka2VsQ6TnxBaU34PkP63tYVnbzPSFiHOmrxOak9e4z01YhCnJgbvER59bRVoekktQ0
+	 Qg0gZ1SOe83J+qAAO4xBEbbu2TwUYPuKQyZUIeFivUqy3JmvDcMJPxAsk6ErWBUfRPQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=xenosoft.de;
+	spf=none smtp.mailfrom=xenosoft.de;
+	dkim=pass header.d=xenosoft.de header.i=@xenosoft.de header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=EItz6hEu;
+	dkim=pass header.d=xenosoft.de header.i=@xenosoft.de header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=C64gwSyJ;
+	arc=fail smtp.remote-ip=85.215.255.51
+Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de [85.215.255.51])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF7E7606A31A;
-	Fri, 23 Oct 2026 09:09:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DF7E7606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cispa.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cispa.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E6D5606A320
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 09:09:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8E6D5606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=xenosoft.de
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=xenosoft.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=cispa.de header.i=@cispa.de header.a=rsa-sha256 header.s=2023-rsa header.b=bd6wny8Y
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=cispa.de;
-	s=2023-rsa; h=Content-Type:Content-Transfer-Encoding:MIME-Version:References:
-	In-Reply-To:Message-ID:Date:Subject:CC:To:From:Sender:Reply-To:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
-	List-Post:List-Owner:List-Archive;
-	bh=BPeNtzKdkjRk3yYLPGGWWs/Dmk7smFspz0pCOoXktR4=; b=bd6wny8YKGwvc+gfYRDfnd2bUT
-	DmwaKghgKrH4dtaIiknXovMUuv+NyxFqJvNfU6nqDAiufJCC6X93Ijb/ULfy1Mi094Wh/BsssNXQl
-	9ZdCZEWBQOlzyZoyqbI+lELp2K9Ke+NsyAt1llsWU8K34SdBcJIvGrxMNa+tqABpuDfW/MmZAvViA
-	5XW8VgGjLybpWaFVJbiHfFIlgBQgg/4WZLgT+cPml+OZsblJQsXSzY3tBHJO4ixdSdkQ/BoHcFnHE
-	nzZspBEdk+s9J90LEbjycmYfJsZ0ZqDMcuiZisSUS4OsFbtwB1gQPbdaMFpT3+3jeTN9SrQJgPCKq
-	RJkvunwg==;
-Received: from mailer.gwdg.de ([134.76.10.26]:35063)
-	by mailer.gwdg.de with esmtp (GWDG Mailer)
-	(envelope-from <amirmohammad.eftekhar@cispa.de>)
-	id 1xKBHJ-00EUFJ-16;
-	Fri, 23 Oct 2026 11:09:32 +0200
-Received: from mbx19-gwd-01.um.gwdg.de ([10.108.142.50] helo=email.gwdg.de)
-	by mailer.gwdg.de with esmtps (TLS1.2:ECDHE-RSA-AES256-GCM-SHA384:256)
-	(GWDG Mailer)
-	(envelope-from <amirmohammad.eftekhar@cispa.de>)
-	id 1xKBHI-0004oX-2z;
-	Fri, 23 Oct 2026 11:09:32 +0200
-Received: from localhost.localdomain (10.250.9.199) by mbx19-gwd-01.um.gwdg.de
- (10.108.142.50) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.56; Fri, 23 Oct
- 2026 11:09:31 +0200
-From: Amirmohammad Eftekhar <amirmohammad.eftekhar@cispa.de>
-To: <yosry@kernel.org>, <seanjc@google.com>
-CC: <pbonzini@redhat.com>, <kvm@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <jmattson@google.com>,
-	<amirmohammad.eftekhar@cispa.de>
-Subject: Re: [PATCH] KVM: nSVM: Reset the virtual VMLOAD/VMSAVE bit in vmcb02 on every nested VMRUN
-Date: Fri, 23 Oct 2026 11:09:24 +0200
-Message-ID: <20261023090924.9685-1-amirmohammad.eftekhar@cispa.de>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <atqdBFgoztW0nhoC@google.com>
-References: <atpGGKVAL3bAnmnk@google.com> <atqdBFgoztW0nhoC@google.com>
+	dkim=pass (2048-bit key, unprotected) header.d=xenosoft.de header.i=@xenosoft.de header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=EItz6hEu;
+	dkim=pass header.d=xenosoft.de header.i=@xenosoft.de header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=C64gwSyJ
+ARC-Seal: i=1; a=rsa-sha256; t=1792746577; cv=none;
+    d=strato.com; s=strato-dkim-0002;
+    b=LCLkUGG2bI9r5dSw2cyB4v57wJat8ND+fHrm9Z/iA9RQ5lDCZ5HUno0MvEyIOpcL0V
+    AkePAAK4zSwb42UpkRkzB9d1yPHj6y0aQaUFDMoOivJQplF2vjQiY1+49ErTzTa21Fhr
+    Tpfkba0Bw/lIEw9OSXzxCgQ3sTs++I1ZHjesgW+/V8FSGSjt5wio38FOUwQ64pk3R2bv
+    IgLSZRC40oX0duePLzdfHHHbQKHgZCKp+FPU30mYLkTLzGfHXZLz5iIIueaqWtrW8l8f
+    9lHb1nO/Xy9SL2EvscdhvbMRNekJ5hJvJcOoi6FcT9ZPN0XPu7OIjYvhrZjjMV7Y2ivd
+    7pGA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1792746577;
+    s=strato-dkim-0002; d=strato.com;
+    h=To:In-Reply-To:Cc:References:Message-Id:Date:Subject:From:Cc:Date:
+    From:Subject:Sender;
+    bh=/YMpiyHb/oOoVAqYaniKbsFsgRAlHMfRbUn7Sd2BORY=;
+    b=BToN0AXvGKzaaTc9M+Yc0lhrIOXD49X0Bwa4+9FfMHsW+1ZnIg0AfIdJnDiaZ+mVas
+    VTcu5T28xMOBvW1Qp1VTlMFWHA6OpB00GGcNoT/1HiHtN1TV/yOutRVa/onq7kaDpSRg
+    k1VsMVT2qQit77gJ2beD4xgbOntAoxAQJZuMBc1nD04o+U9srBXVk1PJZEStWm6m+szV
+    9v/382uejNNdJnFZXvU6JFIzAxi0xc28eCxCITVDIiVcVQTBgcnmTDhAfJ9KwGe1jcZH
+    B9Mp6+HdLpOMYwSdu41/jaWFwrs5hHvn57JK4VXvnlCxk3TT4Qhhj6ZqnetQ43hSnepM
+    WfDw==
+ARC-Authentication-Results: i=1; strato.com;
+    arc=none;
+    dkim=none
+X-RZG-CLASS-ID: mo01
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1792746577;
+    s=strato-dkim-0002; d=xenosoft.de;
+    h=To:In-Reply-To:Cc:References:Message-Id:Date:Subject:From:Cc:Date:
+    From:Subject:Sender;
+    bh=/YMpiyHb/oOoVAqYaniKbsFsgRAlHMfRbUn7Sd2BORY=;
+    b=EItz6hEuI/LDAPJvLWeasBlJVMkDyFS63irOauhUYRb4BoLE+tulerRJhEJ/UKWEwH
+    nhffManP8L8+m7Q6Sau++Hd7m6kBC/jcxLCenYZ1PwQzAFkryclksaSDqAFBi0qfqXmb
+    OeZVSFYY3wjBLn7IKkWC85iGMQzmidACpaThPDB2a/LFwT9VoCgjd1LJhQ9YSExANktw
+    SQIFsYXxAVM03W3eViIt7MOpqDceB5769/U6x04BNwrlv9rW8pr1PJCq8VZrDQe7Vnju
+    P5N3NAzzQ6ob11GpdBQP62kSSHi4199K1EnujZYxth4stj5MbKWHoIlh88uuyHnftBT2
+    0QGA==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1792746577;
+    s=strato-dkim-0003; d=xenosoft.de;
+    h=To:In-Reply-To:Cc:References:Message-Id:Date:Subject:From:Cc:Date:
+    From:Subject:Sender;
+    bh=/YMpiyHb/oOoVAqYaniKbsFsgRAlHMfRbUn7Sd2BORY=;
+    b=C64gwSyJHeO6P/nykKZpgCvhbOw2GziBTdD0Xk5d2Bnn+ZvUTv/s4Kni5ITz2AWPcz
+    Y+KmN6He9IC5szLvilDw==
+X-RZG-AUTH: ":L2QefEenb+UdBJSdRCXu93KJ1bmSGnhMdmOod1DhGN0rBVhd9dFr6KxrfO5Oh7V7X5q1sy7MWioscGEbW2z9QYPf5P1ugQGy1cNYzA=="
+Received: from smtpclient.apple
+    by smtp.strato.de (RZmta 55.6.3 AUTH)
+    with ESMTPSA id e825d929N99aZHN
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+	(Client did not present a certificate);
+    Fri, 23 Oct 2026 11:09:36 +0200 (CEST)
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: quoted-printable
+From: Christian Zigotzky <chzigotzky@xenosoft.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,49 +94,48 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: MBX19-FMZ-05.um.gwdg.de (10.108.142.64) To
- mbx19-gwd-01.um.gwdg.de (10.108.142.50)
-X-Virus-Scanned: (clean) by clamav
-X-Spam-Level: -
+Mime-Version: 1.0 (1.0)
+Subject: Re: [PATCH] Connecting the SB600's i8259 controller rather in pasemi's pci.c than in pasemi's setup.c.
+Date: Fri, 23 Oct 2026 11:09:26 +0200
+Message-Id: <B4E8FA8C-86CC-45A2-8A61-8A265BF02114@xenosoft.de>
+References: <d14e954f-d7ed-493e-bbbd-8a4bd780332d@kernel.org>
+Cc: Philip Li <philip.li@intel.com>, kernel test robot <lkp@intel.com>,
+ Madhavan Srinivasan <maddy@linux.ibm.com>,
+ Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
+ Christophe Leroy <chleroy@kernel.org>, linuxppc-dev@lists.ozlabs.org,
+ linux-kernel@vger.kernel.org, oe-kbuild-all@lists.linux.dev,
+ "R.T.Dickinson" <rtd2@xtra.co.nz>,
+ Darren Stevens <darren@stevens-zone.net>,
+ Damien Stewart <hypexed@yahoo.com.au>,
+ Christian Zigotzky <info@xenosoft.de>
+In-Reply-To: <d14e954f-d7ed-493e-bbbd-8a4bd780332d@kernel.org>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+X-Mailer: iPhone Mail (24A446)
 
-On Wed, Oct 22, 2026, Yosry Ahmed wrote:
-> So this test case passing should be confirming my allegation that
-> intercepts take precedence over VLS.
 
-I could be missing something, but a hardware repro points the other way,
-at least on this part (Zen 4, Ryzen 5 PRO 8500GE, mainline 7.3-rc3). The
-L2 runs "vmload; cpuid", so the exit code says whether VMLOAD was
-intercepted (SVM_EXIT_VMLOAD, 0x82) or virtualized and run on to the
-cpuid (SVM_EXIT_CPUID, 0x72):
 
-  - Single VMRUN, vmcb12 VLS off, L1 intercepting VMLOAD: 0x82. The
-    intercept is honored, as expected.
-  - VMRUN #1 enables VLS legitimately (0x72), then VMRUN #2 with vmcb12
-    VLS=0 and L1 intercepting VMLOAD: still 0x72. 3/3.
+On 23 October 2026 at 08:48 am, Krzysztof Kozlowski <krzk@kernel.org> wrote:=
 
-The difference from nested_vmsave_vmload_test.c is that the test only
-looks at a single VMRUN. On VMRUN #2 vmcb12 has VLS off, so
-nested_vmcb_needs_vls_intercept() returns true and
-nested_vmcb02_recalc_intercepts() sets INTERCEPT_VMLOAD/VMSAVE in vmcb02.
-But vmcb02->control.misc_ctl2 still has the VLS enable bit from VMRUN #1,
-since it is only ever OR-set and never cleared, so vmcb02 enters VMRUN #2
-with both INTERCEPT_VMLOAD and VLS set and the CPU virtualizes VMLOAD
-anyway. That is the dropped intercept.
 
-So with both bits live in the same vmcb02, VLS wins over the intercept on
-this hardware, which is why I think the stale bit is an actual
-intercept-drop (an L1 that intercepts VMLOAD/VMSAVE for its own L2 loses
-that intercept after it has used VLS even once) rather than only untidy
-state.
+This patch received reports which basically rejected the patch for
+inclusion and we wait for proper, fixed version, as explained in
+submitting patches document.
 
-I haven't managed to square that with your reading of the test, so it is
-entirely possible I am wrong about the precedence. If it helps I can send
-the reproducer, or dump vmcb02->control (the intercept bitmap plus
-misc_ctl2) right before the VMRUN #2 that virtualizes VMLOAD, so we can
-confirm both bits are set going in.
+Patch also did not follow standard naming rules of commits, so again,
+please read the docs (submitting patches) how to properly describe and
+send your contribution.
+
+Best regards,
+Krzysztof
+
+- - -=20
+
+Hi Krzysztof,
+
+But the patch has been ready for a long time; it has also been tested and is=
+ already in the right place: https://patchwork.ozlabs.org/project/linuxppc-d=
+ev/patch/20260801043458.12500-1-chzigotzky@xenosoft.de/
 
 Thanks,
-Amirmohammad
+Christian=
+
