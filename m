@@ -1,108 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792756624;
-	b=WduefCIBRxD9qZwcMKXhxJSK8c7BBzUYkIfo90jda2RMEbeseJdIAz0ZycpPRpWaZr9E
-	 lqrNR3ErucXhJ7G0Ar+F9ILwCMVQc48+ydUg1799aDGRcex3tW0BoI8XOmdScRN9Q526f
-	 Ys3Xab98EwrFlIJuCps+25XfsXWvkGLKqTZOcFrW5W1QJXRS+ntBzjBVXcs+9IS8Y0uIX
-	 +SdnpwakoxUu1LV199g91bLGdq50merDS0qhBssM+AgKOUWvdZBdWq4MrFDqCSp8Y8u8Y
-	 n8EOQCMkuY5FjZK77RU0jmH8deuafMqoxP1AMB1NkbovBzUxQR8RtIqDoMrAO5HM0Dg==
+	t=1792756666;
+	b=rtF3UF9zp5olNqaFIRELMD1Qgo6fqo3rGjBr582EmSCw6HX8ok/EXOP5FzjD4jjTfi7B
+	 7HC+wQCygzZHSLvAm0Rce21NzHqd3ZkWsNvcUYCwzrenk99/gObd0KrlSAKgR5c1wmwwH
+	 yFxMJfzuKgKPC3sB+QywqHHD2mKEkBNs5ZXDoVAQBSXiseNywaN04LOqF845ncEJNsTEY
+	 pqCAEQDbLj8TFYIjwgX8tnu2a0xXa/eDWrpEadEYsTEkAkJOZpyuS9wnEOTuLmlJtHRbs
+	 C/dY6ztg0lIbYmEVxlJ/gkIN/wO+ZkdSsjk6rhdX2gRNO+9Ca58qpkokLVWR1hQxiQw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792756624;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Spam-Flag:X-Spam-Level:X-Spamd-Result:X-Spam-Score;
-	bh=s7GyYTsxFkDixHtR/HmKPa+oNPiXtL+xyApDo2gROCg=;
-	b=HuDUm7hPjEhHMoPc3WA2ZMO4HpjxRBTJZ12NsoeFJvm9bZt3b6X4piI8dXMtDPFQgYRl
-	 qRIpRUucR9XYxmTnnhSFeiQChNbfE3BFyzCg5ihhmoyT4SfClaR5zLuVte3926KefIG6+
-	 upm6gtXJq585w4LHDnzqt+e7PWelG1kA5C7dMP7ICx+fybedvCfDDaRD35WaUid6fwPys
-	 HUUxLTq0p4X1+emwFXo7vc16ZIQ3TZzUzqnyrllp9kCyJ5iabBxk/fNE9akLb4XZPR0zj
-	 cfBxw0WvfpIEYU+NenmAl51LidddFIi6ieSTSTTOzfnTLIpvvjOkhFU4cV5kCX5tr/Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792756666;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=G4ewQLUXqh6UoQ5uJbT6hYexcqObJQ6Phji4QpcyzL8=;
+	b=LS8ILKjDoennb2gf+GOFEapGYCZHTy8TH8xItY4XIEocRhtImdvwQOtIA3dqK2IolbWY
+	 xt4adfjj15tSdMdPBfK10UDAnIvEFFz0h+Ig0nj+Sjgo3TA143W6Nc1Nwz6OKEtfije7/
+	 pBVgp9035NT9EPRIa+YKqquArKfToD+rEaCBMdLRwzABMuqzjY1UnmMaNrSGQvsbnlKsh
+	 Z3gCNTPBo9KxjG7YueD2Kxrw9GZ0L7cYTRAPLjWaTqIKUkbkwry5RCS8hJtM4BxUks5Gb
+	 7lRmrnYehw14qfh46/pXYrDcmacdR0lEtelX4etEEf3uT0oiuCoCtR/lRG0ArdvBUKg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=suse.cz;
-	spf=pass smtp.mailfrom=suse.cz;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=kOdAjzyB;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=0S8wGFsk;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=kOdAjzyB;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=0S8wGFsk;
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WaLp0bpR;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FF9A606A336;
-	Fri, 23 Oct 2026 11:57:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8FF9A606A336
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FFB7606A31D;
+	Fri, 23 Oct 2026 11:57:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=kOdAjzyB;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=0S8wGFsk;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=kOdAjzyB;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=0S8wGFsk
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id B236A2217F;
-	Fri, 23 Oct 2026 11:57:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1792756621; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=s7GyYTsxFkDixHtR/HmKPa+oNPiXtL+xyApDo2gROCg=;
-	b=kOdAjzyBqtQ5JaTpPMHmj8LyMCsCQdexZt5AnrfVMp+RvzsLIGiVsa2Yo/Dnob+bQZ3tGD
-	j/jThp6dE/uKLhPaauC9A6A9JHoPgFPNEdUgGelYeLyiYoDzP8oUzDRUp3VAfYcJoDR+bQ
-	a9JDqnf3HZrMPrWmiNJv6GgZI4de6eY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1792756621;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=s7GyYTsxFkDixHtR/HmKPa+oNPiXtL+xyApDo2gROCg=;
-	b=0S8wGFskMJmtZylvem8SZ2I7AJfndktgpJuinZTkbemsRf5mUge/YBaIq9GW6CRaBCC/cN
-	9lPcKWONwPWEuvCw==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1792756621; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=s7GyYTsxFkDixHtR/HmKPa+oNPiXtL+xyApDo2gROCg=;
-	b=kOdAjzyBqtQ5JaTpPMHmj8LyMCsCQdexZt5AnrfVMp+RvzsLIGiVsa2Yo/Dnob+bQZ3tGD
-	j/jThp6dE/uKLhPaauC9A6A9JHoPgFPNEdUgGelYeLyiYoDzP8oUzDRUp3VAfYcJoDR+bQ
-	a9JDqnf3HZrMPrWmiNJv6GgZI4de6eY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1792756621;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=s7GyYTsxFkDixHtR/HmKPa+oNPiXtL+xyApDo2gROCg=;
-	b=0S8wGFskMJmtZylvem8SZ2I7AJfndktgpJuinZTkbemsRf5mUge/YBaIq9GW6CRaBCC/cN
-	9lPcKWONwPWEuvCw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 7A2B5133F6;
-	Fri, 23 Oct 2026 11:57:01 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id MY55FY1L22oUZgAAD6G6ig
-	(envelope-from <jack@suse.cz>); Fri, 23 Oct 2026 11:57:01 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
-	id 027F4A1415; Fri, 23 Oct 2026 13:56:52 +0200 (CEST)
-Date: Fri, 23 Oct 2026 13:56:52 +0200
-From: Jan Kara <jack@suse.cz>
-To: Ojaswin Mujoo <ojaswin@linux.ibm.com>
-Cc: Theodore Ts'o <tytso@mit.edu>, 
-	Andreas Dilger <adilger.kernel@dilger.ca>, Baokun Li <libaokun@linux.alibaba.com>, Jan Kara <jack@suse.cz>, 
-	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, Zhang Yi <yi.zhang@huawei.com>, linux-ext4@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] ext4: return -EINVAL on hole in
- ext4_convert_unwritten_extents_atomic()
-Message-ID: <mn4jxlh52gkg5vqhxf5q7kd6ecszx5haujozrqdgxpkonepe2a@ntyq4plapjgt>
-References: <20261023-ext4-atomic-endio-fix-b4-v1-1-f91feb0b9613@linux.ibm.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WaLp0bpR
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 914361F01825;
+	Fri, 23 Oct 2026 11:57:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792756666;
+	bh=G4ewQLUXqh6UoQ5uJbT6hYexcqObJQ6Phji4QpcyzL8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=WaLp0bpRfAVN6OXKomOYDcg/G6wVG7rd3noWw8X64V8rYzUwa6hoVCzGNNB9XS85X
+	 laSZCZ8R1n/wbzm5Ltq1xVauCa1zOStiS9c72lEuJPyL1vE/e2BlDWoLYses9Qh87m
+	 1kzJECu/VlpFsH/R2xz4BGFByrGICyvT6KqPOCrdEPRLLoK4x2+ClMH3mgBEWBIv6x
+	 TUSXYFfE/Fl0c2fDs0jY2ja7LNrrJS68QwA2GEY0ybbW6IiaG3hrt6ZO1KtFUV6V2W
+	 guIOw/oYIoWXPHPDki/kWCeGI+d8V8Xptqj9kf4tySPYSycrBbtGoM4SjGMWFGZGi+
+	 JcnNyfgmGO6Yg==
+Date: Fri, 23 Oct 2026 13:57:42 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
+Cc: Stephan Gerhold <stephan@gerhold.net>, 
+	Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Loic Poulain <loic.poulain@oss.qualcomm.com>, Sergey Ryazanov <ryazanov.s.a@gmail.com>, 
+	Johannes Berg <johannes@sipsolutions.net>, Eric Dumazet <edumazet@kernel.org>, 
+	linux-arm-msm@vger.kernel.org, netdev@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>
+Subject: Re: [PATCH net-next v3 1/2] dt-bindings: net: qcom,bam-dmux: Add
+ memory-region and qcom,vmid properties
+Message-ID: <20261023-rational-fuzzy-chital-7ff1c0@quoll>
+References: <20261021-qcom-bam-dmux-vmid-ext-v3-0-cedd1f681102@oss.qualcomm.com>
+ <20261021-qcom-bam-dmux-vmid-ext-v3-1-cedd1f681102@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -112,85 +64,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261023-ext4-atomic-endio-fix-b4-v1-1-f91feb0b9613@linux.ibm.com>
-X-Spam-Flag: NO
-X-Spam-Level: 
-X-Spamd-Result: default: False [-11.30 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ARC_NA(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	TAGGED_RCPT(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCPT_COUNT_SEVEN(0.00)[9];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	TO_DN_SOME(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[mit.edu,dilger.ca,linux.alibaba.com,suse.cz,gmail.com,huawei.com,vger.kernel.org];
-	RCVD_COUNT_THREE(0.00)[3];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:email,suse.com:email]
-X-Spam-Score: -11.30
+In-Reply-To: <20261021-qcom-bam-dmux-vmid-ext-v3-1-cedd1f681102@oss.qualcomm.com>
 
-On Fri 23-10-26 15:53:45, Ojaswin Mujoo wrote:
-> We should ideally never encounter a hole during the endio conversion as
-> that indicates something is wrong with our extent handling. Still if we do
-> find a hole at atomic write endio, ext4_map_blocks() returns 0 which would
-> be returned back to callers by ext4_convert_unwritten_extents_atomic().
-> This can be wrongly interpreted as a success. Fix this by bailing out with
-> -EINVAL instead.
+On Wed, Oct 21, 2026 at 12:09:43PM +0530, Vishnu Santhosh wrote:
+> Some Qualcomm SoCs, such as Shikra, run the modem in a separate security
+> domain with restricted access to system memory. BAM-DMUX DMA mappings
+> must therefore be constrained to a designated region that can be shared
+> with the modem.
 > 
-> Signed-off-by: Ojaswin Mujoo <ojaswin@linux.ibm.com>
-
-Makes sense! Feel free to add:
-
-Reviewed-by: Jan Kara <jack@suse.cz>
-
-								Honza
-
+> Add an optional memory-region property to reference a restricted DMA
+> pool used for BAM-DMUX mappings, and a qcom,vmid property to identify the
+> remote execution environment that is granted access to the pool through
+> SCM.
+> 
+> Require memory-region whenever qcom,vmid is specified.
+> 
+> Add the qcom,shikra-bam-dmux compatible, with qcom,bam-dmux as fallback,
+> and require both properties for it.
+> 
+> Co-developed-by: Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>
+> Signed-off-by: Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>
+> Signed-off-by: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
 > ---
->  fs/ext4/extents.c | 8 ++++++++
->  1 file changed, 8 insertions(+)
-> 
-> diff --git a/fs/ext4/extents.c b/fs/ext4/extents.c
-> index 7193429a05e1..b54d8227786b 100644
-> --- a/fs/ext4/extents.c
-> +++ b/fs/ext4/extents.c
-> @@ -5107,6 +5107,14 @@ int ext4_convert_unwritten_extents_atomic(handle_t *handle, struct inode *inode,
->  		map.m_lblk += ret;
->  		map.m_len = (max_blocks -= ret);
->  		ret = ext4_map_blocks(handle, inode, &map, flags);
-> +		if (ret == 0) {
-> +			ext4_msg(inode->i_sb, KERN_ERR,
-> +				 "inode #%llu: block %u: len %u: "
-> +				 "hole found while converting extents for atomic write",
-> +				 inode->i_ino, map.m_lblk, map.m_len);
-> +			ret = -EINVAL;
-> +			break;
-> +		}
->  		if (ret != max_blocks)
->  			ext4_msg(inode->i_sb, KERN_INFO,
->  				     "inode #%llu: block %u: len %u: "
-> 
-> ---
-> base-commit: 8c4f6e3376348fc3162eed86a05b933921c8f9ed
-> change-id: 20261023-ext4-atomic-endio-fix-b4-9e1ead9e1aca
-> 
-> Best regards,
-> -- 
-> Ojaswin Mujoo <ojaswin@linux.ibm.com>
-> 
--- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+>  .../devicetree/bindings/net/qcom,bam-dmux.yaml     | 36 +++++++++++++++++++++-
+>  1 file changed, 35 insertions(+), 1 deletion(-)
+
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+
+Best regards,
+Krzysztof
+
