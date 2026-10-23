@@ -1,82 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.8
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.225
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792746873;
-	b=IWEnG69dq4Bx7VrHRY8m5Sl7l/Q7UupY966KzrUdQRM7yHY9SO8BoeWTrURgIaVG0QMv
-	 3Z3wKBsCbKTIKTHLkJsOa25lsFSbDIvr4NXz78mCjOWQ/klVB8jbzXhnmcm7w6Uw/U6qb
-	 zYyw46geY/YcOR5u6rendBYJy/DSN2Mwq1k/KD4tT/7tjwvRxSFgFgVyWo3Bwpdk3jcDt
-	 Zjbgc6+YXzi51kwHxIOIvvW/UsUygz0GRUjHoTiOq41vjQOSvGds9thW1UfBKKxEbfMni
-	 WxPIwdQcG6aDm6Ww31ZgC9EqDBQ5bxfMsF9ehcfAPwhmi/V2VqDwUzTodl0EbKkfqyw==
+	t=1792746880;
+	b=DSICYm82p6nL/xglVtZfCDL8zwfbPYudlv1xZlUZO1JLlSReV9KS/w9ITRQ6CQ7e8gu7
+	 WpcfWKNwkxjNeaLZnFRXq3kLslTwcPYtgj8mgv/QYzvCdd9Tt1EsB/NwW6O/OtUJHjYSU
+	 S8CobIbKNjgAHd8QFf6VZS5nmn2Qy22Pvy/vhztrt/tYKjG6J4MECHQaymBhjs7w8yJmJ
+	 kprTKetpCbtI34P3yPA4XFIuZsOY2BEbg5V5APesTZ/S///UWqZUoHyK03M1jx4Tqdkcm
+	 y7b4v/VcggBRPjC/RtXMGaV6WVujw1Dj6P6gfmXLIKp0+RrYu4lajV3JEyBBmDajVOQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792746873;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=VtvWRjl8MAnddMfovWj2q6w872RtxbrfTWw2pjGsNnM=;
-	b=KE3OYEsX98jXBR1bmC19ExF2D0rxhtvLNnHOLaXaJOSk4rY8IP/EAHHitUzghZSCtYnL
-	 zbI+HAsDLCQonYfTtIkrjn6JLSqB68vGcgLEzIWTzySGSn5IK9lj4sBQBEy5UC6RKKkEu
-	 3bE+pSyK0vjnCjPYyC04l6T4yrLFwIv6KNffxnGNJFTeP48vSWLkgnqZTuLJh6oj8Y1j1
-	 zWGyF6MXN149nfabLzaCNPhAq0b/xwIKZRb+O9/AKmGa0Y6aTDhvIPPbtKP8459zSnpyW
-	 Sf6GQ8nICKdN3VSOjE+PfWzUlQWelrS3MCVCPa5/A7oCW0fSlpJ5m1Rn/DFUcr+3MmQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792746880;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=4zAc3he/vCh5XQJ3xmbFTBFKdpkOc7QTrO/peAQSjfo=;
+	b=yrR8sjR+dYyNO/Sbc+/9g4QRlpLq4PGM0rFqurT/8xrbCjPxIrcWDo1eLNOblyQcUoD8
+	 Blwak7trRrJ7U3hcgFqSpzGuJxlUwtZBcyOwkUdwlOz5YqZT1Xpzel09Ue8dgjCrPzWdR
+	 kiTXRxUFC6lwTAWEjfWwcybarDcV1ea/aRPcm7CEvA3WXFY+yycn0E2uxJ1aNz7TXgZGu
+	 CE7IkXKzwv+On8TXHYTcbRtrfLoJaKAQ8wiK8OxxRvgreVhBvpDsf3cwkmW+xL5hQ/dFf
+	 0Hr2Qj1Rlnw75W2TJPjO8lmcLBK65LiInIPeh7++iVtCxr2SWGCSUauNqzv1SC9UsRA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=O2vUllAP;
-	arc=none smtp.remote-ip=192.198.163.8
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=FvmHYpW9;
+	arc=none smtp.remote-ip=91.218.175.225
+Received: from mta0.migadu.com (out-225.mta0.migadu.com [91.218.175.225])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC25E606A31B;
-	Fri, 23 Oct 2026 09:14:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AC25E606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB749606A330
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 09:14:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CB749606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=O2vUllAP
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792746873; x=1824282873;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=2W39ih95/AzH17zBqn6rXJXjjgFZun+fD1/GtsbiOl8=;
-  b=O2vUllAPIFDhc83mLr/g9VLBoisngjk+bb6qh3pObjQ2wbvUH7XsgikX
-   YNl9ZRoa+6ZHwR1QiArJCI/ThYnBoFlt5g6AkmAQnershqHBPmfqykhdr
-   uBUw6fODlZndtwwwj6EOImzFyB5XLLLVUc7tDSqgetFdJiClyg+/EnUzw
-   /D2F5tVmhZ0nnaaMXqZAEBAb6KjXD0myQLQh/aZPZ/2KjS4CElP9NquIV
-   86T6sKc+YN8u8z2HeI5eUWQIO+JB9elJWepaGSc+/ahIHr0XBWZWXAJJl
-   LTJ3tBm1yyKbijLuMAgxclvwem5rlqVXVQLq59DL2zn2FVxtRBaqdelKF
-   A==;
-X-CSE-ConnectionGUID: 6kJuGdiwQ1C43VeleGWR4A==
-X-CSE-MsgGUID: BQSd+Gs8S1StyUPGuY4aQg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11943"; a="1399923"
-X-IronPort-AV: E=Sophos;i="6.27,174,1787036400"; 
-   d="scan'208";a="1399923"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Oct 2026 02:14:32 -0700
-X-CSE-ConnectionGUID: Jbq1sZTuSHmmN4/ImqFQnQ==
-X-CSE-MsgGUID: KZS3rtAYTC6W5vNMIGoNRw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,174,1787036400"; 
-   d="scan'208";a="3685630"
-Received: from kniemiec-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.100])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Oct 2026 02:14:28 -0700
-Date: Fri, 23 Oct 2026 12:14:26 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Jesper X Nilsson <jesper.x.nilsson@axis.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Stefan Windfeldt-Prytz <stefan.windfeldt-prytz@axis.com>,
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, kernel@axis.com
-Subject: Re: [PATCH 3/3] iio: light: opt4001: add support for opt4041
-Message-ID: <atslcgx03BMp-juY@ashevche-desk.local>
-References: <20261023-opt4041-v1-0-45227f82d05c@axis.com>
- <20261023-opt4041-v1-3-45227f82d05c@axis.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=FvmHYpW9
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=bCF8cbR3CbPnLMlPgvVa1/bBaRcT7OGjsLq3olXXh6Q=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792746877; v=1; x=1793351677;
+ b=FvmHYpW9aue5DDkI54G1xWxUCkzbbIfriTbxvh0qPAEbJunpYQD84yBr9kqdtmFDdh3zuNI0
+ J+XK4IWtTWqJQof0Yu+ayZL9WCLHQVt/baf1oRKciCg0wgexG+gPkg9pIwAlU2LbvgBIfMyxnrZ
+ W08ljWi7vhC66CWhS8XTbEUE=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 5c5795b909675e0d;
+	Fri, 23 Oct 2026 09:14:36 +0000
+X-Mizu-Trace-ID: 5c5795b909675e0d
+X-Migadu-Flow: FLOW_OUT
+From: Jiayuan Chen <jiayuan.chen@linux.dev>
+To: netdev@vger.kernel.org
+Cc: Jiayuan Chen <jiayuan.chen@linux.dev>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	David Ahern <dsahern@kernel.org>,
+	Ido Schimmel <idosch@nvidia.com>,
+	Kuniyuki Iwashima <kuniyu@google.com>,
+	Nikolay Aleksandrov <razor@blackwall.org>,
+	Joel Granados <joel.granados@kernel.org>,
+	Chia-Yu Chang <chia-yu.chang@nokia-bell-labs.com>,
+	Yung Chih Su <yuuchihsu@gmail.com>,
+	Wyatt Feng <bronzed_45_vested@icloud.com>,
+	Fernando Fernandez Mancera <fmancera@suse.de>,
+	Flavio Leitner <fbl@redhat.com>,
+	Hannes Frederic Sowa <hannes@stressinduktion.org>,
+	Petr Mladek <pmladek@suse.com>,
+	"Paul E. McKenney" <paulmck@kernel.org>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net 0/5] net: fix misc signed overflows caused by bad sysctl values
+Date: Fri, 23 Oct 2026 17:13:26 +0800
+Message-ID: <20261023091419.167088-1-jiayuan.chen@linux.dev>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,108 +81,31 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261023-opt4041-v1-3-45227f82d05c@axis.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
 
-On Fri, Oct 23, 2026 at 09:48:15AM +0200, Jesper X Nilsson wrote:
-> Extend the opt4001 driver to also support OPT4041. The devices are very
-> similar, with the difference being OPT4041 having two channels, one
-> visible and one wide band channel ranging from 380nm to 1000nm.
-> 
-> The register map is almost the same. OPT4001 has registers to read out
-> the last four values sampled. OPT4041 maps to the same registers, but
-> has two channels, saving the last two samples for each channel.
+Recently I have reviewed quite a few fixes for variable overflows caused
+by config values, i.e. a value set from sysctl, module params or netlink
+that is accepted as valid but later overflows when it is used in a
+calculation. I believe there are more of these still out there, so I
+used an LLM to dig through the code and it found the issues fixed in
+this series.
 
-...
+All of them have been reproduced and verified in QEMU.
 
-> Assisted-by: LLM
+Jiayuan Chen (5):
+  ipv6: restrict gc_elasticity to 31
+  ipv4: fix shift-out-of-bounds in ip_rt_send_redirect()
+  ipv6: restrict mld_qrv to 255
+  ipv4: restrict igmp_qrv to 255
+  net: restrict message_cost and message_burst to non-negative values
 
-Drop this.
-
-...
-
->  	help
->  	  If you say Y or M here, you get support for Texas Instruments
-> -	  OPT4001 Ambient Light Sensor.
-> +	  OPT4001 and OPT4041 Ambient Light Sensors.
-
-We in IIO established kinda a style for this to be scalable, id est list them
-one-per-line:
-
-	  If you say Y or M here, you get support for Texas Instruments
-	  Ambient Light Sensors:
-	  - OPT4001 (...can add some short useful detail here...)
-	  - OPT4041 (...can add some short useful detail here...)
-
->  	  If built as a dynamically linked module, it will be called
->  	  opt4001.
-
-Perhaps also consider changing summary text at tristate to make it like
-"...OPT4001 and compatible".
-
-...
-
-> - * Device driver for the Texas Instruments OPT4001.
-> + * Device driver for the Texas Instruments OPT4001 and OPT4041.
-
-Make this and MODULE_DESCRIPTION() to be the same as summary in the Kconfig,
-see above.
-
->   */
-
-...
-
-> +static const struct iio_chan_spec opt4041_channels[] = {
-> +	{
-> +		.type = IIO_LIGHT,
-> +		.address = OPT4001_LIGHT1_MSB,
-> +		.info_mask_separate = BIT(IIO_CHAN_INFO_PROCESSED),
-> +		.info_mask_shared_by_all_available = BIT(IIO_CHAN_INFO_INT_TIME),
-> +		.info_mask_shared_by_all = BIT(IIO_CHAN_INFO_INT_TIME)
-
-Trailing comma.
-
-> +	},
-> +	{
-> +		.type = IIO_INTENSITY,
-> +		.modified = 1,
-> +		.channel2 = IIO_MOD_LIGHT_BOTH,
-> +		.address = OPT4041_LIGHT2_MSB,
-> +		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW) | BIT(IIO_CHAN_INFO_SCALE),
-> +		.info_mask_shared_by_all_available = BIT(IIO_CHAN_INFO_INT_TIME),
-> +		.info_mask_shared_by_all = BIT(IIO_CHAN_INFO_INT_TIME)
-
-Ditto.
-
-> +	},
-> +};
-
-...
-
-> +static const struct opt4001_chip_info opt4041_sot_5x3_info = {
-> +	.mul = 5850,
-> +	.div = 10000000,
-
-Just sent a patch to move this to use struct s32_fract, I believe you may
-incorporate it into your series as a precursor).
-
-> +	.name = "opt4041-sot-5x3",
-> +	.channels = opt4041_channels,
-> +	.num_channels = ARRAY_SIZE(opt4041_channels),
-> +	.device_id = OPT4041_DEVICE_ID_VAL,
-> +};
-
-...
-
-> +MODULE_DESCRIPTION("Texas Instruments opt4001 and opt4041 ambient light sensor driver");
-
-See above.
+ net/core/sysctl_net_core.c | 21 +++++++++++++++++++--
+ net/ipv4/route.c           |  7 ++++---
+ net/ipv4/sysctl_net_ipv4.c |  4 +++-
+ net/ipv6/route.c           |  6 +++++-
+ net/ipv6/sysctl_net_ipv6.c |  4 +++-
+ 5 files changed, 34 insertions(+), 8 deletions(-)
 
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.43.0
 
