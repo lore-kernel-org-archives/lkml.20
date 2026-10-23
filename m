@@ -1,61 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792779600;
-	b=UxtRZqXoaxp3GRts+IiCH8SdQe0TaKNyamDHA2n8XYSQXUhKLWkSBh2ufxC5uMAena4Y
-	 b38R/uzLOEkkBhyz9t5UYp/WZs4E3w4Vdksdxm/7MALUuFiMCAr/5wuEeE8JkvDLAW2e7
-	 YxNXVEH1Okw86nbX0z0yG1zpfB4MGwYCd1U9ydJOjdmWELB2xthKHlqccu11Q0CY9ZGGV
-	 QZg9xa8dsPSiKllfhdhgweM9m8zHPRKNvpaOGtJ7YllW+T5OcQtw5H34i3geenDfaAPMW
-	 /YjTkFSX4TmoADaL73bAKaIiuCkwwXGCpAtI5m8BM50NvJlN98YZ1Nr21Kggp/7uagQ==
+	t=1792779607;
+	b=NMR7RV5GPgGcYG5oyYzSdDI9JQQeJQL1CwGe7XCmSs39oVl3Nqy22pwypppldxL+7SLM
+	 vXs5e8dRUTuDf5x/Z6CNCzj2wwh2wNz6XMlt+vYmmEs1HQ/NnmY9/1XCvo8WDupuxcuHi
+	 WrSl7J/3Yfu/UGmITWwMsDDABsNeJOz7UtHFLLbTcf5+Qg6N79txLjcjiVKAL5L5ea3Ny
+	 tbw7XCygR5Z9gCMnZxE8CRnBXbS6mYTV3ebU+7cV4pAcq8MzONmdJyLutetTY4qjQ9KUZ
+	 joVfmYb267eALSYlaeJah8ehEBUww0qKobKTXrZZfhOUGN02CBUYOahPDkT0h28swWw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792779600;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792779607;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 Mail-Followup-To:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=G2c9gMhC26zOajKSMEZ7r3qKmAbIN4QuJKbmwPZjihI=;
-	b=4TEgIFMKPmyMhYlttFMG4hSImO7k5eEjmyYVF8awaEgfEpKWEcFz8sUdFXEJs/TAdkyY
-	 hmXq0UVSkZjQ1ks9QGUlCFV2xkf0GVHZz1Vi7RlVlphRNuiTe9SBXykTfwIP9s+VHW6Mk
-	 2yEIt8wDU/y9Y603Mng35BOdq/yoNpUJPbfZjENJeDm4OmBS72f+kfKU0QjgWKkqdsfdK
-	 p5M4/ju1nBpKrk86VVeKgMIvGd81Fy6DxciZ2CpLTxJwQggNKV/bFHB/1TabYwBb/cx4+
-	 P7HOW/12AalmtUXfqvDMc1NzYxOtUFt6ngO0xahP2FCQENn7TvnTAirh4L1dNYTctOQ==
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=n4JcfF8uWyN7U+HWj8jtqOevy4U9dtFdq/NbsoSQUcg=;
+	b=Ve6ap5XLmtFuKfXwwNsdTJMyxb/xVLFljjcEzBZQatrGy9R/y2u0t80ACo5UWR8Io8Kj
+	 AxYwvKWSikiDqOpfZyebpw8fqOF/PfmD/XbSga5gPPayqFt77+tcoQ1eR6VMBX4/ICnNH
+	 RFWJFN4yffwlenrXLI6oicExy8dNBHx1HQ57pEe6x8AyN8Lmz1bTk7XjyArDxBTYE8KrQ
+	 8zxCvpX3ttsxJBw8T1Wfr5kzrpylUwYE7fesqwpQXe2l63rQlNsDP3Z+29UT/iw4CT4eC
+	 W+PyBhfqNIwJpr9xRuyQr2n3U03+oRUBYzWC2NXe1I9F2YS/X8auYt/7FaJChJ7DZPA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OWlPZqPU;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c89ZcEzW;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB2FE606A31D;
-	Fri, 23 Oct 2026 18:19:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAE29606A31A;
+	Fri, 23 Oct 2026 18:20:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OWlPZqPU
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F24E1F01825;
-	Fri, 23 Oct 2026 18:19:52 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c89ZcEzW
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 26CAD1F01828;
+	Fri, 23 Oct 2026 18:20:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792779599;
-	bh=G2c9gMhC26zOajKSMEZ7r3qKmAbIN4QuJKbmwPZjihI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=OWlPZqPULT7AvYT142dXhPcGli+cTs827dJh+OFQRg3hqG9TU077T28tpi5Y/QbfU
-	 2O/oynuiepFmtEL7o/JYxeYIzGLIOuLFH8rWl+NFhJ+Va8rdylrykdLt53QhSOi++0
-	 ucquZUZBvBo5MjidzBWGjh4eQDUJ1w8E8gASUL1pMvAjRR4MJI/20psHpIMk7y2PZW
-	 al/+3tna+QI063mE3WJbffMTk3VY09wVqD/WJL5ryIWwaC5Wm0OtATwHTLKGYtf1pn
-	 4Zrlrj2naxR7KOZ9VxCQlARjKIJvAelMZzQWZklNgKIQeZao5eYVV3Tv76tHsyV3JU
-	 dbbYXM6Sra/cg==
-Date: Fri, 23 Oct 2026 20:19:36 +0200
-From: Gao Xiang <xiang@kernel.org>
-To: Hengyu Liang <hengyul@cs.unc.edu>
-Cc: xiang@kernel.org, chao@kernel.org, zbestahu@gmail.com, jefflexu@163.com,
-	dhavale@google.com, hongbohbli@tencent.com, guochunhai@vivo.com,
-	linux-erofs@lists.ozlabs.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] erofs: fix metadata reads at the end of file-backed
- images
-Message-ID: <atulOBxgbf0OIyOE@XiangdeMacBook-Pro.local>
-Mail-Followup-To: Hengyu Liang <hengyul@cs.unc.edu>, xiang@kernel.org,
-	chao@kernel.org, zbestahu@gmail.com, jefflexu@163.com,
-	dhavale@google.com, hongbohbli@tencent.com, guochunhai@vivo.com,
-	linux-erofs@lists.ozlabs.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-References: <20261023174232.3282900-1-hengyul@cs.unc.edu>
+	s=k20260515; t=1792779606;
+	bh=n4JcfF8uWyN7U+HWj8jtqOevy4U9dtFdq/NbsoSQUcg=;
+	h=Date:From:To:Cc:Subject:In-Reply-To;
+	b=c89ZcEzWmZiP96A3AFYWNHl2c1DrQASv3EEK4Izx3Dv+XPxPoA02UwK86asvGkqOu
+	 cotGlZOfS/MEEDBfxrQGq05S0i1WSW1M8MUmgdNy1MISN4YiRcOQ+jWU5lKl0i1Pga
+	 1E4znn5j1Wgg1lOwixT81kdPsZvKmCEMyPGrXA/rV3caKSBmBuaRMNPp7ObjW4gmC+
+	 W2pFfDBeQ8/QGFKoTbUoEEsX9kFoC9a9DjjSTv4SXTVVl506iTR8bnzupimMl0bAav
+	 CeWgdZNbO+KMba8w2oVr6mbM46O1oFNIs41iVE8PB2D4T7/Pj+7ORWKSX/iwJUM6RZ
+	 K9b9Nee8Uk80Q==
+Date: Fri, 23 Oct 2026 13:20:04 -0500
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Anthony Ruhier <aruhier@mailbox.org>
+Cc: Bjorn Helgaas <bhelgaas@google.com>, linux-pci@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Baochen Qiang <baochen.qiang@oss.qualcomm.com>,
+	Vasanthakumar Thiagarajan <vasanthakumar.thiagarajan@oss.qualcomm.com>,
+	Jeff Johnson <jeff.johnson@oss.qualcomm.com>,
+	Manivannan Sadhasivam <mani@kernel.org>
+Subject: Re: [PATCH] PCI: Disable LTR on Qualcomm WCN7850 [17cb:1107] to
+ allow ASPM L1.2
+Message-ID: <20261023182004.GA2796729@bhelgaas>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,115 +60,105 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261023174232.3282900-1-hengyul@cs.unc.edu>
+In-Reply-To: <20261023-quick-wcn7850-v1-1-9a139b9b2c8e@mailbox.org>
 
-Hi Hengyu,
+[+cc Qualcomm folks]
 
-On Fri, Oct 23, 2026 at 01:42:31PM -0400, Hengyu Liang wrote:
-> Commit e587a984d332 ("erofs: use dedicated meta inodes for file-backed
-> mounts") made erofs_read_meta_folio() read the metadata of a
-> file-backed mount one whole folio at a time.
-> 
-> However, an image only has to be a multiple of its block size. With a
-> block size below the page size, it can end in the middle of a page. The
-> read of that last page is then short, and erofs_fileio_ki_complete()
-> fails it with -EIO. As of now, inodes in the last page of such an image
-> cannot be read, and an image smaller than a page cannot be mounted.
-> 
-> The issue can be reproduced with util-linux 2.41, whose mount uses the
-> image file directly:
-> 
->     mkdir src
->     for i in $(seq 50); do echo $i > src/$i; done
->     mkfs.erofs -b512 test.erofs src
->     mount -t erofs test.erofs /mnt
->     ls -l /mnt
-> 
-> Before that commit, ls -l lists all 50 files. After it, ls -l reports
-> "Input/output error" for 24 of them.
-> 
-> This patch reads the folio only up to the end of the backing file and
-> zeroes the rest, as the page cache of the backing file did before.
-> 
-> Fixes: e587a984d332 ("erofs: use dedicated meta inodes for file-backed mounts")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Hengyu Liang <hengyul@cs.unc.edu>
+On Fri, Oct 23, 2026 at 07:39:35PM +0200, Anthony Ruhier wrote:
+> The WCN7850 Wifi/BT card, found in several Snapdragon X laptops, never
+> enters ASPM L1.2 when LTR is enabled. Its firmware reads the
+> LTR_L1.2_THRESHOLD set at enumeration and reports an LTR value just
+> below it, so the L1.2 entry condition is never met and the link stays in
+> L1.1.
 
-Thanks for catching this!
+Here are the ASPM L1.2 entry conditions in PCIe r7.0, sec 5.5.1:
 
-Yes, since we reject short read on the complete I/O path,
-but it makes post-EOF behavior wrong.
+  The following rules define how the L1.1 and L1.2 substates are entered:
+  
+    - Both the Upstream and Downstream Ports must monitor the logical
+      state of the CLKREQ# signal.
+      ...
 
+    - When in ASPM L1.0 and the ASPM L1.2 Enable bit is Set, the L1.2
+      substate must be entered when CLKREQ# is deasserted and all of
+      the following conditions are true:
+
+      - The reported snooped LTR value last sent or received by this
+	Port is greater than or equal to the value set by the
+	LTR_L1.2_THRESHOLD Value and Scale fields, or there is no
+	snoop service latency requirement.
+
+      - The reported non-snooped LTR last sent or received by this
+	Port value is greater than or equal to the value set by the
+	LTR_L1.2_THRESHOLD Value and Scale fields, or there is no
+	non-snoop service latency requirement.
+
+By "firmware reports LTR value", do you mean that the WCN7850 sends an
+LTR Message with snooped/non-snooped values just below
+LTR_L1.2_THRESHOLD?
+
+And since the reported LTR values are never greater than or equal to
+LTR_L1.2_THRESHOLD, the link never enters L1.2?
+
+If so that sounds like a clue that the firmware went to some lengths
+to prevent L1.2 from being used, which is "interesting."
+
+> Windows does not set LTR Mechanism Enable for this device (verified by
+> dumping the ACPI tables), and the link idles in L1.2 normally.
+
+I don't know that ASL not enabling LTR is definitive (lspci would be
+more direct).  But it sounds like you've verified that the link is
+actually in L1.2 when idle.
+
+> Replicate the same behavior: clear PCI_EXP_DEVCTL2_LTR_EN for WCN7850 at
+> enumeration and again on resume, as the LTR state is restored there.
+> 
+> On a Lenovo Yoga Slim 7x (X1E80100) this allows the link to reach L1.2
+> and reduces idle power by about 70 mW.
+> 
+> Signed-off-by: Anthony Ruhier <aruhier@mailbox.org>
 > ---
-> Tested in KVM with KASAN on a804c5742bff: file-backed mounts of images
-> with 512 to 4096 byte blocks, uncompressed and compressed, with and
-> without directio. With this patch every file reads back correctly;
-> without it, 24 of the 36 mounts give errors. Not tested on 16K or 64K
-> page kernels, where 4K-block images should be affected too.
+>  drivers/pci/quirks.c | 14 ++++++++++++++
+>  1 file changed, 14 insertions(+)
 > 
->  fs/erofs/fileio.c | 15 ++++++++++++---
->  1 file changed, 12 insertions(+), 3 deletions(-)
-> 
-> diff --git a/fs/erofs/fileio.c b/fs/erofs/fileio.c
-> index c36a90a1a4cb..b4ed7fe7347c 100644
-> --- a/fs/erofs/fileio.c
-> +++ b/fs/erofs/fileio.c
-> @@ -142,17 +142,26 @@ int erofs_read_meta_folio(struct file *file, struct folio *folio)
->  		.dev = { .m_pa = folio_pos(folio), },
->  	};
->  	struct inode *inode = folio_inode(folio);
-> +	size_t len = folio_size(folio);
-> +	loff_t pos, isize;
->  	int err;
+> diff --git a/drivers/pci/quirks.c b/drivers/pci/quirks.c
+> index 1aa87a3ef9ed..374c505981a0 100644
+> --- a/drivers/pci/quirks.c
+> +++ b/drivers/pci/quirks.c
+> @@ -3795,6 +3795,20 @@ DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_QCOM, 0x1103, quirk_no_bus_reset); /* WCN
+>  DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_QCOM, 0x1107, quirk_no_bus_reset); /* WCN7850 */
+>  DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_QCOM, 0x0308, quirk_no_bus_reset); /* SDX62/SDX65 */
 >  
->  	err = erofs_map_dev(inode->i_sb, &io.dev);
->  	if (err)
->  		return err;
->  
-> +	pos = io.dev.m_dif->fsoff + io.dev.m_pa;
-> +	isize = i_size_read(file_inode(io.dev.m_dif->file));
-> +	/* the image may end in the middle of the folio, zero the rest */
-> +	if (pos < isize && isize - pos < len) {
-> +		len = isize - pos;
-> +		folio_zero_segment(folio, len, folio_size(folio));
-> +	}
+> +/*
+> + * The WCN7850 firmware reports an LTR just below the LTR_L1.2_THRESHOLD it
+> + * sees at boot, preventing it to ever enter L1.2.
+> + * With LTR disabled the link idles in L1.2, similar to what Windows does.
+> + */
+> +static void quirk_wcn7850_disable_ltr(struct pci_dev *pdev)
+> +{
+> +	pcie_capability_clear_word(pdev, PCI_EXP_DEVCTL2,
+> +				   PCI_EXP_DEVCTL2_LTR_EN);
+
+I don't think we can guarantee that the PCI core ASPM support will
+leave LTR disabled.  I don't see anything there that looks like "leave
+PCI_EXP_DEVCTL2_LTR_EN unchanged."
+
+> +}
+> +DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_QCOM, 0x1107, quirk_wcn7850_disable_ltr);
+> +DECLARE_PCI_FIXUP_RESUME_EARLY(PCI_VENDOR_ID_QCOM, 0x1107,
+> +			       quirk_wcn7850_disable_ltr);
 > +
-
-Can you just 
-	pos = folio_end_read(fi.folio, uptodate);
-	isize = i_size_read(file_inode(io.dev.m_dif->file));
-	if (pos + folio_size(folio) > isize) {
-		len = isize > pos ? isize - pos : 0;
-		folio_zero_segment(folio, len, folio_size(folio));
-		if (!len) {
-			folio_end_read(folio, true);
-			return 0;
-		}
-	}
-
-...
-
-Since post-EOF should be filled with zeroes all the time.
-
->  	io.rq = erofs_fileio_rq_alloc(inode->i_sb, io.dev.m_dif->file);
->  	io.rq->bio.bi_end_io = erofs_fileio_meta_endio;
-> -	io.rq->bio.bi_iter.bi_sector =
-> -		(io.dev.m_dif->fsoff + io.dev.m_pa) >> 9;
-> -	bio_add_folio_nofail(&io.rq->bio, folio, folio_size(folio), 0);
-> +	io.rq->bio.bi_iter.bi_sector = pos >> 9;
-> +	bio_add_folio_nofail(&io.rq->bio, folio, len, 0);
-
-Thanks,
-Gao Xiang
-
->  	erofs_fileio_rq_submit(io.rq);
->  	return 0;
->  }
+>  /*
+>   * Root port on some Cavium CN8xxx chips do not successfully complete a bus
+>   * reset when used with certain child devices.  After the reset, config
 > 
-> base-commit: a804c5742bff224d4cb4d25dd383554d598be32b
-> -- 
-> 2.53.0
+> ---
+> base-commit: 7be4bc52fd9e0e55dc9a2e0232b89427d2c4b614
+> change-id: 20261023-quick-wcn7850-a792968cc25f
 > 
+> Best regards,
+> --  
+> Anthony Ruhier <aruhier@mailbox.org>
 > 
