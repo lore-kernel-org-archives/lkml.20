@@ -1,136 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.208.63
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792788626;
-	b=SecBuBckaBO2Z3ffBDEMjdx3nZGiPbp619EGDmtQVaZ0ahxkclh4xZKaMENO7kUrLmRP
-	 JlRnbCAYp5h1YjXEvxtc/6DeOkTHKEWvLj63IkFAQpOeYmqfFif4Q9cLun6w3BzKK4C8F
-	 ku6csm/3b4cGORKYWhrLXnrlZO7cxt+X9psXzbdIL4ym2LAQzNfk2VigSSCFh37W8Fq+6
-	 YDtvUKNzLwtBO94S/2O/tAIqxR55mxWLob+GIEW2SLQgRPrCQtPrwwI+zSOvCsokvSdbW
-	 jNe6wzJtbPDKPMF89F4PqfrE0NKNQ0LqmVoYWMwOB08CA/x4GLSmaY8nAp9lAZah3uA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792788626;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:To:Cc:References:Subject:Content-Language:From:Autocrypt:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:
-	 MIME-Version:X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=Ia5tWyLV6/Psp4G4ilsi1BxXmFUMqlclhF8Oq9n+Nrk=;
-	b=sOkrkoeq0ZnB772Pj5jT6/2sV+sRfAm5wsHxs+REX7jfcA5/6BlvEQ5zQzWRCTnHM504
-	 /J8nQfvh4/VzuQCnGrSG+Jic7XhlmSIMkvxCfZXHt9oIjrQ7Enb32vGWLTbDSEQH9tcfU
-	 nAwAcTE/QNXlA30kpexvDqWiXpByNuA9FI2Smzl+QuFy0pBoHZF4ViANaupIFxqGxgjaj
-	 EmpvuPj3GNsax12yvnMsZtfuENqkbT16G67860KAfKUGtNluYz0UuW+9W2x6DhObnoChU
-	 IqWBMq5Cvb7kBQ2AuWLuKSky1rFcB7aF8/h/ONSyAZhznQrS1Bx0/J7tk5Q7eRBe2bA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=citrix.com;
-	spf=pass smtp.mailfrom=citrix.com;
-	dkim=pass header.d=citrix.com header.i=@citrix.com header.a=rsa-sha256 header.s=selector1 header.b=zFFppzpD;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.208.63
-Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11011063.outbound.protection.outlook.com [40.107.208.63])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792788677;
+	b=1X592fmCC1jCZGXfwnZlGA9lLKlujrmxbSpfpnoZkl4iIN2v4Syd/EXKQQEmlbk01Vab
+	 +hYXmPUGz8kFpndRG4CuNUJbco8N953nNj90OsmTxsg/hfhiBtK3FI7h0vGWYRBTaV7Qo
+	 M1erbg9sWcujdkUeN8TpYxQ7As2DBw3u6qWlBElOs2WahuI9g4PxQy+Ed0ktHEg/WSTeZ
+	 mfg7DNQDBET3Vg8CqbwXdaInmhgjYzmKzBLZPMA66/YJv+3AVWmwCav5yI5Yejoz2Jig7
+	 dUyPPloDYpsM3GZ2wDbaEMXH6Fxgw4f0l4cX3aHkckkxxW/2LsS1sq/cQMnn6kjozug==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792788677;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=/OcUX/aLlPX2c4N33EvgPxJCYKMlff+nB//66pDqPWY=;
+	b=OvkvAvrt51Y5H05bAAezXYQl70TzjT+//kwRuAkMStUZ4jggpwsAb19HrLsp5JFvmbmF
+	 lNpgZhZfyDPEo6hSPe20OZsnx9hj5Iqed2ZUrP+dxB+Xp0bUDP4hfkH9K8+JtmV4kVjbo
+	 F4bGk4DH4pYs929eIF0l4oZIVv/P5teCh2RJU7gYK5AozRXsJiibdQXswQnptHI+bBx6N
+	 LBaGksKC7pHxia8V7u970VBzFHZyF4Y9KH0uXY0YWImohewajP67GhYtLb9jZBuJ1eINL
+	 HJ8VZm5ZG4JRN/u9v9Cj/xDlNFpwH4d8Jnlj14OLC84WrPTG/HdAJo7sQj4Et0pI4xw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N9VRqbQ5;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88432606A31B;
-	Fri, 23 Oct 2026 20:50:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 88432606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=citrix.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=citrix.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75D5F606A31D;
+	Fri, 23 Oct 2026 20:51:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=citrix.com header.i=@citrix.com header.a=rsa-sha256 header.s=selector1 header.b=zFFppzpD
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=C/eXyctVpYUEfOG1kXGjh8WJm6754xjlSc/l1nzh+wyM4pCIhY9CIyMiMP/wXemTJ14+gaEMeplI4PU+87sYpDeQhhG4zItmGnmVy5NgnmuBi5FkCYYkfcWBGRtZ/pzKkzAPxOlOoZq/hR0XWrM1Hty7QpG41TSQLWsVpk52zNUzVGIxeT9PZGl0e766MjnivyQ995PpjBCM/EUkzaOBsOm3oP4KC9+oYAZVEF6+N3JmEnv2ao6TTfRSIRls9yFIOppc/KvpAUgPA3Tb6HJN60Ix/825dDan+d7oLCSlI96HULJ5pLcIzrOHG71mfbMoF7sW0IyH32+2a4ZJuS17fQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Ia5tWyLV6/Psp4G4ilsi1BxXmFUMqlclhF8Oq9n+Nrk=;
- b=Wh6ZwEvFJC6WIKQAQsSeVd8WvZgTx9u1EanN237sS0gqPDvrAwOmNY1Z6fNG11cbqpKuQR579xeiBV1nx1cc1hEMabFjJ0NKeiCshPgXo68w54Mq8bo7nSypSaGkpWXo5hCxY/kVYAslyJd8VKbIt8KzyTe54C+FfY+TJKPrMTI/r8GiKOPoFyeFmKolAQgsW3LUBEFvtLofkG9JkXIKZ4F6pWc6sxahp7teWNn7PQ/KFYxH1u8SiuJsF7oTUrjJdAX5hFhwUoLbPb6hQX0J3VysRM2EO5hXfSl0wxV3nEJGZ4drnKgn6ok5U3m+7tjFdzr25LXU4odTe7XoE0ttMQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Ia5tWyLV6/Psp4G4ilsi1BxXmFUMqlclhF8Oq9n+Nrk=;
- b=zFFppzpDSw6M5PkUQZkm1bRmo5q3d7JyHCJYb2TYkov9W3hYNFG8aVgBU8GaiOinVmWu7fx9jtdOlI9sN2LM40Tkw3+3bpDrS4ryCTmO2LTecNywqDr/C3pwyGsmarqbMdw3tpwLCnkqJRpJf+WaZL1QFEcyzTFLASN835JJ+Fs=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-Received: from CH8PR03MB8275.namprd03.prod.outlook.com (2603:10b6:610:2b9::7)
- by DS0PR03MB8246.namprd03.prod.outlook.com (2603:10b6:8:297::24) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.19; Fri, 23 Oct
- 2026 20:50:23 +0000
-Received: from CH8PR03MB8275.namprd03.prod.outlook.com
- ([fe80::a70d:dc32:bba8:ce37]) by CH8PR03MB8275.namprd03.prod.outlook.com
- ([fe80::a70d:dc32:bba8:ce37%4]) with mapi id 15.21.0546.017; Fri, 23 Oct 2026
- 20:50:23 +0000
-Message-ID: <9e3c40e9-d211-432b-ac1e-19cd878257e6@citrix.com>
-Date: Fri, 23 Oct 2026 21:50:20 +0100
-User-Agent: Mozilla Thunderbird
-To: seanjc@google.com
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, chao.gao@intel.com,
- kvm@vger.kernel.org, linux-kernel@vger.kernel.org, pbonzini@redhat.com
-References: <YhekNhrK7VKW1jDV@google.com>
-Subject: Re: [PATCH] KVM: x86: Do not change ICR on write to APIC_SELF_IPI
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <YhekNhrK7VKW1jDV@google.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: LO6P123CA0026.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:313::17) To CH8PR03MB8275.namprd03.prod.outlook.com
- (2603:10b6:610:2b9::7)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N9VRqbQ5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A3FA1F01825;
+	Fri, 23 Oct 2026 20:51:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792788677;
+	bh=/OcUX/aLlPX2c4N33EvgPxJCYKMlff+nB//66pDqPWY=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=N9VRqbQ5AeurshupeTXKA3/1KTdV7whk+bpY0Iy3pEyWOK1ty/CMmfo2uV7fE3ScG
+	 cp9sKV9g602uNUtO0K74gWDNg7pDioLgUXkx1n3+2Yk0w3bnQWXMY2syuSAU8jAMiz
+	 fzSsPz/P6NT9F/TC51Pk9KmLrxYYXTOde3KuwPymGNKpCTrbdmEROFCvxbN+vQZV+V
+	 17i29HBRZnqU+9y1fPvomjjLz+nJACiK6VD9SO9aSxYjE7qXdObynBo4UaJTlAmAKw
+	 WGrONQFE5rS3hSZ/9e/hlwLhZtzEpw7yCs6X6iNiCMM+CKFUka3EPWOwje3Cn1u42q
+	 V4Xd3NZPSjMhQ==
+Message-ID: <6f1bd275-6751-4931-b996-b1c8ee6e4629@kernel.org>
+Date: Fri, 23 Oct 2026 22:51:06 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -140,87 +51,217 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH8PR03MB8275:EE_|DS0PR03MB8246:EE_
-X-MS-Office365-Filtering-Correlation-Id: 931e72f8-6fdd-4eb8-5371-08df3147424e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|366016|23010399003|1800799024|261022105027099003|56012099006|10067099003|22082099003|18002099003|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	MUEma6eWFtemutxX0A/SBgqSeKaJ8alUDvY+ZHJJxbIgNJu2B6+1ZjMfEfxpOBvHJgW0+YjTLxTMtVOzfSNt7h9oRmyiU+OlSc7uf3k+lefzxEwLUJm2iRWMzrUf28wc0vuhXsIB8C/QEBrkevpX+YeE4u29reJvF4V44evuYydUV5LZDL0/y58Ssx02USev88J86c7/x9UYDQGFOuTsQL1h68yUVW+K69+Z8U9MzyMHclv2f1QDautry/74h0d/duY85JskW4q+60dOGeoZtGru9oURafhSqii2PH/cR+AX5or3MKzBEoQCgf8Brs7ouvg09487BywnmIn+KhBvKcAtiCITXXKZ1Dvr9/ZzRTu+6BqO65KC2jCTqEGv6ZX0a6/ie5RBeWg48QGmBFIVDNGfYdWJ7YjwNDgdA6OqVf7Sih+MFW8yrCdQYLcp3Cu9rb/KyTN1+sO3JMpsIkpDeqa61tZ1onoDANxqWwVRFpp3/VQg2cf5t0GHOHVzH5mCJLxpIpaqZtGUp0Szz7tnZ4wsmyTgx1Q+tDrUNkW/tg2EpKJfU7oFGFjqARuR/lPMK2lSPlmv9ay/PMxpWeuY4JOHOdzKADMKJ6GAuNS3F44XNMIK3c58oRaJ/DFPlzX1I9Nzo2c6qaYLk6jbNhv00w0ic+AcuqTcqlFRifEgTVE=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH8PR03MB8275.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(23010399003)(1800799024)(261022105027099003)(56012099006)(10067099003)(22082099003)(18002099003)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?K1Z0R2MrVjROZzZIS3FYcG1URFRpVFZhZ1hIS1pJNlpUVTNEUG1Wd3hydElK?=
- =?utf-8?B?NzlKeHNHMkJKdGx6QWJsalg1ZCsvejR3TGdJb0F6bXBrZWFhbWhmSmRqNmx0?=
- =?utf-8?B?S0paNDJFM04vWUhuUjFnbWIvMjRyZUY3WWFjSVZxL0IyN3V4R1g5Qk9IOWFr?=
- =?utf-8?B?TTFPWkU2WWN3eHA2RmVhMks2Z0hjMWVTZFBBeDlIWVFISTJoUGFJQ1ZXejZY?=
- =?utf-8?B?S2lMeEpycGtBVU9WWG9BRDRXRm5mQ1JodW9oTDFOMk1sVnpDd1dwdE01T1k5?=
- =?utf-8?B?bDlPODd3T3ErdTQ1Tjk2ckN0bTRQUU9KcDhvTGxUNWlWcjJBUGZwcWlsZmkz?=
- =?utf-8?B?RXFmdklIdzZiem1jSFFna1VzSjBIQ1M4c2piS1J2V0FNZlFYT1F2NHluQnR5?=
- =?utf-8?B?ZGxtQ1V5ZjY2NWdFTW9nQ2FRa0JyakRzdG5GUFVMQUNWYU1JYmtncG12cDNO?=
- =?utf-8?B?aTVjWm9Ta3lKQ0FPa3NHTSt0aFpEdFhrTFUvRDZRa1E1dXRiY1RxcUduU3Ix?=
- =?utf-8?B?a3FBM09McklJeXRaejhjS0NiOEp0MHlSR0FBTkhNVWpZNE9Xa1d6MmJ6SDdy?=
- =?utf-8?B?b3g4ZTJzWGVoTy9zM0U0R1I1ZWxGSnlFdVVFY01zRlpScHdPVGNUYWZVTG9l?=
- =?utf-8?B?M2pTSUZzcksyWENWcW1ZcXkwN3FjR3l5bmZhVkswL0FMWm0wNXZKZ05YTncx?=
- =?utf-8?B?eGtNbVZvMUFVcUZnWUVpUC9BZVA1Q2xqbXoxYlF2OEd5NlErdHZtZHFSczF2?=
- =?utf-8?B?S1hFZEdFOVdZRnRtbzRDVDhmWDRLOTRBRVFtQUg5Qlhsbk1sUTRybUp5aEow?=
- =?utf-8?B?V0NiaFVXMmlHd0E1K05XOWVMZStkY2RjY2FaM1lIaWk5MklGQW5qdzlXR2RG?=
- =?utf-8?B?RCtjd2RJaGJLeFIvWkFKdEMwNE1SUVFySkhJaXZ4TUhPeHZDenlSVkN4SWcr?=
- =?utf-8?B?MTNqK1ExWXNaSStYY1hQdDMyeGw0NlhjUzJxbnpkQjdYQjRqWGxmWEN2M3pX?=
- =?utf-8?B?SUQ4Vkx5eFBLQkYvaEJ1Z1JQNjZKTWFaVHQ1dXc4bGFGUVMyaXpSaDdJTWU5?=
- =?utf-8?B?YU9wUCthSkVVQzBVNjRyNGJEMmNITnl3dDV6RVJaZUxEbTF5Q3MzNDdmdXpG?=
- =?utf-8?B?ei82eWxBT0hMOTdNZjg0N3plb1FMWGNGNFh0WEs5VUYxZXdEaVM5LzREOTNs?=
- =?utf-8?B?b1FxdVNhK0liN0w0c28zSmxrdm9VKzZlQU1uVzRrd3VNWGhMWGk2RXFCOTZo?=
- =?utf-8?B?NUpDdnZGU3JMWVBKOUJud3QwOWdnME1OTHFUdkx4a3NXVU01RjlLdmduYVAy?=
- =?utf-8?B?ei9uTXVxRmZCbmpINU81VzRJNFVJdWpMQ0hEN29ZUENaVmFVa0x0NHZhUzNS?=
- =?utf-8?B?eW9xWStUSGIyYmMvQWkrRjNvbUtEUjAybnhkaVJMQ3lpYmZqa2ZOZE1OOFB2?=
- =?utf-8?B?b3pZVi9CM0VBcTNJS2srL1NXVG5vVExWaGxjNVJ2Q2NZYUZJeGpLYUtPR1gy?=
- =?utf-8?B?Mmx1a1lLSTNWZ1VsbEd3dVBmaldlenJHekFBOUhReGZRUjRwTHBBNFpMYWNi?=
- =?utf-8?B?QTRzQm81U0Y5a1I4cGsvQTRpUmJQZTliZlRLWGxobzJTR0c5UENvRS9hQkVE?=
- =?utf-8?B?UG16N0FwTjVtSU13WU5BUWt0TG1BQWxLYkR3dHRUblVWeUJWb2MzMVZvcFBJ?=
- =?utf-8?B?RTZRQWkwRTRQWUJ1ZFF4UVRZMUZ1ZkdwbkZkQTRDYU5KdmVHVXFwU1VVdXBZ?=
- =?utf-8?B?SWtMcjMzRXUxQWQ5SDFXdDNtY2VrNkV1MEd5b1gwWFZLRWV1OVh0WW5VekFR?=
- =?utf-8?B?OTRlc0RSSTZhNGZBT1djNWNDSVdjT3FqN1A2WitzeWRWT2YxNDJMMkJPNFVq?=
- =?utf-8?B?NWdNNTVHS21HS0k3MEdoUmIvVXhLcllLcnZGVVR6SURabDlKUWpzSE5JRVRk?=
- =?utf-8?B?YXBIb095ekxaWkdMR3B5WHVEWEFvU1dMN1JHZkJUV0wzVUZPU0prL1JJM3Nh?=
- =?utf-8?B?YkprOEVTaUNWZGRtVWRoTjIraGl5WnZkKzdmTjlHY3hsRERTbm0xQTVGeUtS?=
- =?utf-8?B?M0VMbGRkUXR2eGdXUUdGYVo3TExWc1FZU1d3OVJjcmVCNGZQbG9BRk5QRmt1?=
- =?utf-8?B?VjErM0Q2LzlwK2FHRzZYaWtjM3ZJS2hqNUxJc253bzJPRnlXdytPS3dRZGZG?=
- =?utf-8?B?ZE9haEhTYmJ6SkFodll5M21rZFRuMUtibEpVVjZSQ3J1dTJYdkVSMkNLaC9R?=
- =?utf-8?B?S1kvVkVZWE13bkh5a1AzSWZWMFZ5aEIwRm9RMmwyOENpVUE2aDJkUnViR0tl?=
- =?utf-8?B?UDZDWVlqbGRFWGppMDIzcW9paEl5UlRFUkk1enJOMiszQktzaVVVaVFLeWts?=
- =?utf-8?Q?o0VCN3rG3VXK9P48=3D?=
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 931e72f8-6fdd-4eb8-5371-08df3147424e
-X-MS-Exchange-CrossTenant-AuthSource: CH8PR03MB8275.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Oct 2026 20:50:23.6389
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ckVEqBDMrhLXARcNGGaNvVGS7UCTOeKjTuYLMXN3C+3fuT6IaToOZkRFrE8vX3FQ/+fy2UOQFsVN0godI2ZVn3vvVdEii9T6bXjHAA1mPf4=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR03MB8246
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH bpf-next 6/9] uprobes: Don't sleep on mmap_lock with
+ dup_mmap_sem held in dup_mmap()
+To: Alexei Starovoitov <alexei.starovoitov@gmail.com>, bpf@vger.kernel.org
+Cc: daniel@iogearbox.net, andrii@kernel.org, eddyz87@gmail.com,
+ memxor@gmail.com, oleg@redhat.com, peterz@infradead.org,
+ mhiramat@kernel.org, jolsa@kernel.org, akpm@linux-foundation.org,
+ liam@infradead.org, ljs@kernel.org, surenb@google.com, vbabka@kernel.org,
+ jannh@google.com, hughd@google.com, kees@kernel.org, mingo@redhat.com,
+ tglx@kernel.org, x86@kernel.org, linux-trace-kernel@vger.kernel.org,
+ linux-mm@kvack.org, linux-perf-users@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261022015712.1297331-1-alexei.starovoitov@gmail.com>
+ <20261022015712.1297331-7-alexei.starovoitov@gmail.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20261022015712.1297331-7-alexei.starovoitov@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-> On Thu, Feb 24, 2022, Paolo Bonzini wrote:
->> Emulating writes to SELF_IPI with a write to ICR has an unwanted side
->> effect: the value of ICR in vAPIC page gets changed. The lists
->> SELF_IPI as write-only,                                                  ^
->> 					         |- SDM
->>
->> with no associated MMIO offset, so any write should have no visible
->> side effect in the vAPIC page. Reported-by: Chao Gao
->> <chao.gao@intel.com> Signed-off-by: Paolo Bonzini
->> <pbonzini@redhat.com> ---
->
-> Reviewed-by: Sean Christopherson <seanjc@google.com>
+On 10/22/26 03:57, Alexei Starovoitov wrote:
+> From: Alexei Starovoitov <ast@kernel.org>
+> 
+> dup_mm() takes dup_mmap_sem for reading and then dup_mmap() sleeps on
+> mmap_lock of the parent. When another thread keeps that mmap_lock busy
+> register_for_each_vma() waits for the reader, and every other fork() in
+> the system waits for the writer. The parent doesn't have to map the file:
+> 
+>   A thread 1:  mmap(MAP_POPULATE) -> mmap_read_lock(A)
+>   A thread 2:  fork() -> percpu_down_read(&dup_mmap_sem),
+>                mmap_write_lock_killable(A) sleeps
+>   tracer:      percpu_down_write(&dup_mmap_sem) sleeps
+>   others:      fork() -> percpu_down_read(&dup_mmap_sem) sleeps
+> 
+> dup_mmap() needs both locks. Don't sleep on one of them while holding
+> the other. Sleep on mmap_lock and trylock dup_mmap_sem. If that fails sleep
+> on dup_mmap_sem and trylock mmap_lock, and so on. Taking mmap_lock and then
+> sleeping on dup_mmap_sem is simpler, but then all threads of the parent
+> wait for mmap_lock as long as the writer holds dup_mmap_sem.
+> 
+> Both are taken in dup_mmap() now, so release dup_mmap_sem there too.
+> Commit 8ac662f5da19 ("fork: avoid inappropriate uprobe access to invalid
+> mm") moved that to dup_mm() to hide the child from uprobes until mmput()
+> when dup_mmap() fails. Since commit 43873af772f8 ("mm: change dup_mmap()
+> recovery") dup_mmap() removes all vmas of such child before it drops
+> mmap_lock.
+> 
+> dup_mmap_sem is released before dup_userfaultfd_complete(), so the monitor
+> that doesn't read UFFD_EVENT_FORK no longer blocks every fork(). During
+> that wait register_for_each_vma() can find the child, while no task points
+> to its mm. The next patch deals with that.
+> 
+> Thread 1 of process A loops over mmap(4G, MAP_POPULATE) and munmap().
+> Thread 2 calls fork() in a loop. Nobody maps the file. Process B calls
+> fork() in a loop. 32 cpu VM. Median (max) of 15-25 runs, msec:
+> 
+>                          the longest fork() in B    attach
+>                          before      after          before  after
+>  uprobe_multi, 1 uprobe  206 (219)   0.10 (0.30)       220   11.7
+>  uprobe_multi, 4 uprobes 208 (428)   0.08 (0.32)       219   13.5
+>  perf_event, 4 uprobes   419 (424)   0.10 (0.44)       632   11.4
+> 
+> During detach: 265-293 -> 0.19-0.37.
+> 
+> Signed-off-by: Alexei Starovoitov <ast@kernel.org>
+> ---
+>  include/linux/uprobes.h |  5 +++++
+>  kernel/events/uprobes.c |  5 +++++
+>  kernel/fork.c           |  4 ----
+>  mm/mmap.c               | 19 +++++++++++++++++--
+>  4 files changed, 27 insertions(+), 6 deletions(-)
+> 
+> diff --git a/include/linux/uprobes.h b/include/linux/uprobes.h
+> index d34dbc0fbbfe..6d74efa80d04 100644
+> --- a/include/linux/uprobes.h
+> +++ b/include/linux/uprobes.h
+> @@ -211,6 +211,7 @@ extern void uprobe_unregister_sync(void);
+>  extern int uprobe_mmap(struct vm_area_struct *vma);
+>  extern void uprobe_munmap(struct vm_area_struct *vma, unsigned long start, unsigned long end);
+>  extern void uprobe_start_dup_mmap(void);
+> +extern bool uprobe_try_start_dup_mmap(void);
+>  extern void uprobe_end_dup_mmap(void);
+>  extern void uprobe_dup_mmap(struct mm_struct *oldmm, struct mm_struct *newmm);
+>  extern void uprobe_free_utask(struct task_struct *t);
+> @@ -277,6 +278,10 @@ uprobe_munmap(struct vm_area_struct *vma, unsigned long start, unsigned long end
+>  static inline void uprobe_start_dup_mmap(void)
+>  {
+>  }
+> +static inline bool uprobe_try_start_dup_mmap(void)
+> +{
+> +	return true;
+> +}
+>  static inline void uprobe_end_dup_mmap(void)
+>  {
+>  }
+> diff --git a/kernel/events/uprobes.c b/kernel/events/uprobes.c
+> index a9274016c55d..92ccb730278f 100644
+> --- a/kernel/events/uprobes.c
+> +++ b/kernel/events/uprobes.c
+> @@ -1927,6 +1927,11 @@ void uprobe_start_dup_mmap(void)
+>  	percpu_down_read(&dup_mmap_sem);
+>  }
+>  
+> +bool uprobe_try_start_dup_mmap(void)
+> +{
+> +	return percpu_down_read_trylock(&dup_mmap_sem);
+> +}
+> +
+>  void uprobe_end_dup_mmap(void)
+>  {
+>  	percpu_up_read(&dup_mmap_sem);
+> diff --git a/kernel/fork.c b/kernel/fork.c
+> index 10f2d05d816a..8fd6be932afe 100644
+> --- a/kernel/fork.c
+> +++ b/kernel/fork.c
+> @@ -1539,11 +1539,9 @@ static struct mm_struct *dup_mm(struct task_struct *tsk,
+>  	if (!mm_init(mm, tsk))
+>  		goto fail_nomem;
+>  
+> -	uprobe_start_dup_mmap();
+>  	err = dup_mmap(mm, oldmm);
+>  	if (err)
+>  		goto free_pt;
+> -	uprobe_end_dup_mmap();
+>  
+>  	mm->hiwater_rss = get_mm_rss(mm);
+>  	mm->hiwater_vm = mm->total_vm;
+> @@ -1558,8 +1556,6 @@ static struct mm_struct *dup_mm(struct task_struct *tsk,
+>  	mm->binfmt = NULL;
+>  	mm_init_owner(mm, NULL);
+>  	mmput(mm);
+> -	if (err)
+> -		uprobe_end_dup_mmap();
+>  
+>  fail_nomem:
+>  	return NULL;
+> diff --git a/mm/mmap.c b/mm/mmap.c
+> index 4bf26b0f1e6e..6ce654e33e3b 100644
+> --- a/mm/mmap.c
+> +++ b/mm/mmap.c
+> @@ -1713,8 +1713,22 @@ __latent_entropy int dup_mmap(struct mm_struct *mm, struct mm_struct *oldmm)
+>  	LIST_HEAD(uf);
+>  	VMA_ITERATOR(vmi, mm, 0);
+>  
+> -	if (mmap_write_lock_killable(oldmm))
+> -		return -EINTR;
+> +	/*
+> +	 * Take mmap_lock of oldmm and dup_mmap_sem of uprobes.
+> +	 * Don't sleep on one of them while holding the other.
+> +	 */
+> +	for (;;) {
+> +		if (mmap_write_lock_killable(oldmm))
+> +			return -EINTR;
+> +		if (uprobe_try_start_dup_mmap())
+> +			break;
+> +		mmap_write_unlock(oldmm);
+> +
+> +		uprobe_start_dup_mmap();
+> +		if (mmap_write_trylock(oldmm))
+> +			break;
+> +		uprobe_end_dup_mmap();
+> +	}
+A note that I will have revised fix from Josef conflict with the changes here.
+Nothing that cannot be worked around, but the whole "take writelock in dup_mmap"
+is shaky as it seems.
 
-This patch was just attempted to be ported to Xen.
+-- 
+Cheers,
 
-Contrary to the claim, Intel Core (P-cores) really do overwrite ICR when
-processing SELF_IPI.
-
-~Andrew
+David
