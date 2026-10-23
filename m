@@ -1,144 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=198.175.65.9
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1792721400;
-	b=5gMI2Jj53ctPsjPvR0CMczp+hDfIVYgUntZr7d9FLNZ5C9toR16zL1KlzGlHCwQl2EPV
-	 tATpbU2zBUwPAwnyf1KCWNxeJLTV73k72xvQ9LTI0FDtm0yDKpa2ShKx5EAqI/HhUJrJp
-	 VG68wLpgHHRUgduavVWmcVa7swJl1Gh+J9XIlC7vXt2U+G3HMhDGHFYVcaZdYJ1wMF1x3
-	 +pEjzPkoopWeaobR4rbnPZzwk0qwm6OIMeHOSXAK1yYSKuSRaVEfdXl9siOLttzHpW1ib
-	 bV3yQQ1DPnV99W4wF4vUCmpk09RCBUnQV7FYKHF78ToOGr1a74RXKwc8sPInTcYr1/g==
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792721423;
+	b=miHvaqpqz6qifz7tpr2XL00lZk3toRdm0vR0xKnrinCz+utf3Rj+2Uciw7eHj/vLOdO8
+	 e2dfwLHaLulq/jXd2PNN9wlo6y6+aJbV8me808DZOIV8vANg3v9aKomJ26tJhEJwJwODj
+	 ji2wgVGUQjR1Asg5ikthHfpYO6j7ZbNFPUW6TQmew8fXqui70/ejkUQYBrzoI7K2EbKyQ
+	 7HIl2Tqxon1gfpRQkwmuylST1K3kkBv6rsJc5pAF5BKWsZ/QNS7puELYVmEVeP8R0836p
+	 uV7ffQskl4jm7gGTkFlCQB+XnwFtmO1RhVW/6lxdzFpGzyz4Vban87zv/hfLM5MkkpQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792721400;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
-	 Received:Received:Received:Message-ID:Date:User-Agent:Subject:
-	 Content-Language:To:CC:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-LD-Processed:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
-	bh=7zNlwiH1N/9qDYL1EzcQR2rRs94gGBl5nWSn08VFg3k=;
-	b=1VJzjqBYJpc0bJRB8rFM2Vy8UsRm18UaSipB2r0WnNruw94KRpdtjdRcFdxZIB6wNehv
-	 KfULykptDftx2/QyXtnFco3PEkVbd8nToRbm13tw/b9R+x+YEUxPN+jff5PHT42c6zalb
-	 qQ26zoPeL5v314m5UTraMbNxfgNr3Il8K9TaGr0mgfg5t7bkEQXJ6XNrVdDDlsYyiX7mi
-	 kVTQcmGknTNOSScExbpq0BLTY6OJNNW5lzCCiAxRfTSq5gPZjFKTWTui9LehB3POP44cl
-	 1zxzDnJhxfEkmMyj3rviIf6hZtJrZw6BuE7WGXXKgenfOdYGOJg+ViHf1NVm1zNt4/w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792721423;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=Pwps7bMg45npWaSQsZjGkN3Qx0Hkho/rcLpuXEcHFgk=;
+	b=sNvhzJbkpVXoBOOixd1lVMANl24cHKEM4qzfje3sgWtRvGt6CF0NAnGx8Y4Efw5/pXKk
+	 1VCPguwKZuyy1pXT3yPtySVkqOL+S8jVM29pPFch3wydPAzI3nz34dM3/Y7pZgzWy2GbN
+	 5DseEgH+21F5lnDwcQlwons5ehZp+88w3DDhAH02eXXhXJy14pvEN5Bp9Xo3SJVIMleqL
+	 ke0N8UO0xUJvlCfX9FUqtJ+r74zJpvx3n27MNduNJay45RhDUU2e9CY1JTSXIgNTS0UE7
+	 wg6xsloAKKPCbiW2479zIbv6LoyXcIu3S0ct4Dbd8E08yy2dwSqLwWM8wfCKbJnc4hg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ESJNASYd;
-	arc=fail smtp.remote-ip=198.175.65.9
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Ke/QWWo+";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7E92606A319;
-	Fri, 23 Oct 2026 02:09:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B7E92606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07BEB606A319;
+	Fri, 23 Oct 2026 02:10:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ESJNASYd
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792721399; x=1824257399;
-  h=message-id:date:subject:to:cc:references:from:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=Gq5Ji+FkS5apj7QREEaqwbe9yn5OkzKnrmVRrxquEMU=;
-  b=ESJNASYdPkIIKvkcP8XuRjOF4h9UKueGpi7+zTuBEwJ5brEqH1IEad6V
-   20y7kRsoPvobGEos59tYDbFfS1ZlD0G2Ribcu7L0MbF2v7binFRUYLSf1
-   D1aXMRgSu2qN3EBuH7fzOSr3CxOmy3fJGW6PMXOePwNJKTqfphBHMysnx
-   WHRA/VjQue24E43Ew1UbVKksWpwhanLQXL+ie2+F/NNIL/2JsJABA+K9a
-   7l6EIS0LBqTQMp54K//MjMUX797deqVmv2ynlQ+TbMqOPAQvG+cd4CYjW
-   qFVICy3P6AMu3o0Xh8d/i4sTLwDS9dqBvplK3wkOBnpQh0wjRO4VMrEQL
-   g==;
-X-CSE-ConnectionGUID: VO1MeqCeQq+JDv1itDWCAQ==
-X-CSE-MsgGUID: ND/qRMSjQ5+Y02/5BZ3yow==
-X-IronPort-AV: E=McAfee;i="6800,10657,11943"; a="1361340"
-X-IronPort-AV: E=Sophos;i="6.27,173,1787036400"; 
-   d="scan'208";a="1361340"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
-  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Oct 2026 19:09:58 -0700
-X-CSE-ConnectionGUID: dWC6gdoaT/WNWYvy0qT5FQ==
-X-CSE-MsgGUID: LYlOF7/IQSyzd/t256ao0g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,173,1787036400"; 
-   d="scan'208";a="3835475"
-Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
-  by fmviesa001.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Oct 2026 19:09:57 -0700
-Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Thu, 22 Oct 2026 19:09:56 -0700
-Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49 via Frontend Transport; Thu, 22 Oct 2026 19:09:56 -0700
-Received: from CH5PR02CU005.outbound.protection.outlook.com (40.107.200.51) by
- edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Thu, 22 Oct 2026 19:09:56 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=uTWj4Kd2mTNPVTbJOZd//O75h5UNPSzjhIcJqS9DmnHZPsBg9ekfoYmskF1m+LtlP5kb+3GuvLH+vLcm0vj8Qiib75t34g3a0G3+L5BW84/GNYLO5s5au6b8fmCRTfGxjbLS6sT+N6ez90/eimMWrzbwrx0qQUYnYph6+xoEVfNyDKevx7gFyfwlyZajVWgKkflsMayC86/bcz5PcdE5jyk1djUoRkTq1kgnKoHFsrBu1NG3W9YzkxcfcILDyMfzFvn/309xnUxauy/I7cE452giJA8TkMqfaPl0QlTz/jtxS5BsZL9abGHBCHToAkSv6Fn3sQRwxic9ARQvBkuTpQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=7zNlwiH1N/9qDYL1EzcQR2rRs94gGBl5nWSn08VFg3k=;
- b=ATuttq8XWbgHwG0NnI4hAgFkxNZPvApriYMIEjhLAPCQ6BFRrdMGnqHlncsJcL3K8tTxUio0Abwl/BefIuZPdh34XFX9sdp3DPCaUp2Gn2UfG8ncs+S1ghHfQ1Qgyo5UDzjaAaH8KXxMwoOBJTuAjMIJkUrtFikJaGMT+fhIVxljrAu1WLhFFluFtxOc4tbS73GqWLeUMfVxFfHq1FJR7W4afQ4jLal1DKLLFVtP6yPe3YjvZI+W+Y/TLN5nKCGC7GRxVU8Ttjyx95EElFI5so8hFLkTe1YG/hH0Kq9tcySdaiUTTy87r1WNsA7zJBRDbp6+7DoRL5ZOGg57naEECg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from CY8PR11MB7846.namprd11.prod.outlook.com (2603:10b6:930:79::14)
- by PH7PR11MB7004.namprd11.prod.outlook.com (2603:10b6:510:20b::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.18; Fri, 23 Oct
- 2026 02:09:51 +0000
-Received: from CY8PR11MB7846.namprd11.prod.outlook.com
- ([fe80::cae0:d05c:b2fc:c395]) by CY8PR11MB7846.namprd11.prod.outlook.com
- ([fe80::cae0:d05c:b2fc:c395%5]) with mapi id 15.21.0546.017; Fri, 23 Oct 2026
- 02:09:50 +0000
-Message-ID: <91c1426d-b479-4e24-b1e4-2ce8b27701a5@intel.com>
-Date: Thu, 22 Oct 2026 19:09:46 -0700
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v10 01/28] KVM: VMX: Enable support for secondary VM exit
- controls
-Content-Language: en-US
-To: Binbin Wu <binbin.wu@linux.intel.com>
-CC: <kvm@vger.kernel.org>, <x86@kernel.org>, Paolo Bonzini
-	<pbonzini@redhat.com>, Sean Christopherson <seanjc@google.com>, "Jonathan
- Corbet" <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, "Thomas
- Gleixner" <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov
-	<bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, "H . Peter Anvin"
-	<hpa@zytor.com>, Xin Li <xin@zytor.com>, Andy Lutomirski <luto@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, Tom Lendacky <thomas.lendacky@amd.com>, "Nikunj
- A Dadhania" <nikunj@amd.com>, Shivansh Dhiman <shivansh.dhiman@amd.com>,
-	"David Woodhouse" <dwmw@amazon.co.uk>, Chao Gao <chao.gao@intel.com>, Zhao
- Liu <zhao1.liu@intel.com>, Yosry Ahmed <yosry@kernel.org>, David Matlack
-	<dmatlack@google.com>, <linux-doc@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <linux-kselftest@vger.kernel.org>
-References: <20260911213659.2025974-1-sohil.mehta@intel.com>
- <20260911213659.2025974-2-sohil.mehta@intel.com>
- <1e219be9-e7c8-455c-a3ff-10f80515d4dc@linux.intel.com>
-From: Sohil Mehta <sohil.mehta@intel.com>
-In-Reply-To: <1e219be9-e7c8-455c-a3ff-10f80515d4dc@linux.intel.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: BY3PR10CA0012.namprd10.prod.outlook.com
- (2603:10b6:a03:255::17) To CY8PR11MB7846.namprd11.prod.outlook.com
- (2603:10b6:930:79::14)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ke/QWWo+
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1792721422;
+	b=0JvuOXz+JNPdHvJaUzblfb8ukr4blMIam1Zly/IRaYimBDYKgqHtZfXFvzRAKy48u2w+
+	 rgYXbkpw3GTOZDqje7CZWidWI+CGYyRQMqgO8/7a9XcBTD96Wkn79CAOfYZzOfUnaO+Pq
+	 SRU7nnSWdTQo5tMUnSFzn7PtvVzGxdOOFxvGsmWP+NEpGAnmUloJ2aQuFVTYxDinYO+KJ
+	 o0TmN72y4dewDV8hPeQZ+wUZSJlBWGMlqKb1rjxRzIvsGooo2b0IDjl1AF3+mLCYjcrpM
+	 P9SkrgOSXmOOi2FG4YaPyg57wI4tD8UkNHbLef4om6+vo6t3V2quez1piCWtVh9pNgQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1792721422;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=Pwps7bMg45npWaSQsZjGkN3Qx0Hkho/rcLpuXEcHFgk=;
+	b=znPgesc4j28/1b/NfdmZ8L+ySg75wWALZK/nSbTiN1aEQmYwKXDx5cyiIL+LLlzR0UuT
+	 JkoHriyQyDpePB6gA+Qn5YH7hMagBMUAItN6DjmHlresHoAFrvnVbvMq8xTB0ys1zndu8
+	 L6Y97VZcwohXAJ2mLU41zqr9A+yWegRofYp4cbMMbUhHPiW2o2Q/dN8P7RmgpCtFIAzwO
+	 gxBgnJJP6DwO8X1d6wqvjsSfdchOADx6k5RVZehVrYaPl3DpY935I3P/1Cy6zjelWGc6F
+	 j1qus+jHRXg6fGnaTI+um8/iicTa7cDnF21K7/i2Q8IPbharPYRMNHhbH7VheGpXCZQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id D44131F031E3;
+	Fri, 23 Oct 2026 02:10:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792721422;
+	bh=Pwps7bMg45npWaSQsZjGkN3Qx0Hkho/rcLpuXEcHFgk=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=Ke/QWWo+w7FWgdNjzWX8Iw8W8UC+6kzBrw2IRDkszAD9zVOuCm18VxiqWe7ohLJ+4
+	 Mz1o1ugZQF+K/2zCYM7EjAqVvs33Iu/Usj3u88CZC8SPmPdw1eyaclu9eHI5NBwPE3
+	 7Iw0nYF6ehwIphnRKKnt3TwyDeQCdAIcIaoJB9qzJAwRfYUuaIYCYyUbuN60fmEpTC
+	 KnrkMcvgGxcRC6Sv33PV62SpY8D6/40huVSi8vyVmkGslqoa6ONDSSfrVbnXVaXUWF
+	 adwD6GOHQf/C6cCKl8AdVLj9cDuCczhlDLc+b5agUzrhp1JV8W8b310dKW8GlfuFPU
+	 Zmh/J86xcwqaQ==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 5D35B4219E;
+	Fri, 23 Oct 2026 02:10:21 +0000 (UTC)
+From: Daejun Park via B4 Relay <devnull+daejun7.park.samsung.com@kernel.org>
+Date: Fri, 23 Oct 2026 11:10:25 +0900
+Subject: [PATCH v2 4/4] nfsd: do not fail a LAYOUTGET on a lease break by
+ the same client
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -148,101 +83,322 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY8PR11MB7846:EE_|PH7PR11MB7004:EE_
-X-MS-Office365-Filtering-Correlation-Id: fc4dd0b4-8bcf-40d5-5047-08df30aab7fd
-X-LD-Processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|7416014|366016|376014|1800799024|23010399003|56012099006|4143699003|11063799006|10067099003|18002099003|261009223027099003|22082099003;
-X-Microsoft-Antispam-Message-Info: 1ZphGhNFNnU9y4UAIk+JAnolozGXi/J/XjzA+m68LO5PU2bHznn3H/q/EhY3bbxt2uiphcunZVIrUmwcVC8/Yq1IvKUd9PBMvpUUxN2S2A/yHFxE8byY3OtD3DXBGYKq7drpGTfEyne8Jc7b5GVVIr+3z9bnbYUO3pLMO1sToVyD7iVeqW0FmLe85L/C05ITJI5dQqvTPIB9lQRGdOZIG5qbedHsqD6/0/01XVZ//y7Z/64PtdzS6+Hi/zXgrcYMN8UVBOVT1vFohKkQqTVv/3MzzMMMpRKuYvU3tL8C3Ntz0kO54I8IXQ7gTsAnRc2D4v/hbhvaq0x7uK1866fINvEeiglRz3thxw/x7ZmU1IgOvlo4Il100TNwwkHpmQduQzpAoqd+XTIbLJc0gyljtboghZuNMds7ngGj3QPMIwJ9y32DuvFkOGpQKWxKkzpYvn+9xNBLwpJl9ji3c0iAQRJUpq0NHZUuKoyda9+h9I47QBhXp8EUcTVrTWxGTyPNo5YT5trX/k5F8U51jgHG9lMqV6J+2/XPrQK+zzIPbeidYLHwl1BKVV9vkzvN6ZP5UkCxck4Wvd65mvLCnh9nOVYUivK9H8irP+GTVQqwI4qMYBtgGf1nT+swpR9L1Kz8nyifpREkwRN8HVIIwow++SYi1p2T+ZEOQo+7vMYOoH8=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CY8PR11MB7846.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(366016)(376014)(1800799024)(23010399003)(56012099006)(4143699003)(11063799006)(10067099003)(18002099003)(261009223027099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?QUVQUE1HSUZ5MUdJSlJsd2ppVUlpOHQyM3FLbUJ2MUkzeDFXVTFLNG9zRmhU?=
- =?utf-8?B?UW05UzA1T0svd2JKQWlHNks3QUd1Q1dLeHhWREF3SGVBUmtLTkwzcWpCRmkx?=
- =?utf-8?B?eWN0WkxQZTJNR0xGYmlFN25VNjZhUTVKVitac2xzVlVzalp1TTZvc2RHcGtj?=
- =?utf-8?B?OVFTbUppTHFzNldsaGk4OGlEQytkeDdOVVhuSXV6dllFWi9UOUVOQXNxY0o0?=
- =?utf-8?B?S0d6eHBVTmZ0WG5vRDMydVgyYjJyUzBrWWt6THNzNXZiZkVMNk5XdjBUbHRn?=
- =?utf-8?B?T2pRdUptRWkxTE42dEVaQ29sTXpRcldUeGdQUVZ6RG41bmRMcmFibmRBTmNT?=
- =?utf-8?B?ZW8rWmpIUkV3ZzNGczhFekxKb004ek9wdjJLT3FxR3VCTk9PNHE0SVh4NkpY?=
- =?utf-8?B?dnhVMFJqU0xuYzVZMnc0TDJJaXIra3oyQXZtanpOUkViK3d3MTNwdU5uSURu?=
- =?utf-8?B?Y2ZTQmN2VXY4TkJ1aElnTnE5U3JQeFl5OHlsUHczcVhTNmpsa0Q0ejJLVjdl?=
- =?utf-8?B?RVB5bURaYzFqZjdYZndlanNwVUxUNnhoRTIyU2E3R3pSallGRkhOSVZVbjVQ?=
- =?utf-8?B?OUJHTS91L0EyNStGOFlXdEFYN1BRZ2pTM3p4aVRWcEZXaENCTUZGVHVnanFD?=
- =?utf-8?B?UDJwZ1V3TGVLa2dBQitwK1pZcE5pQnl1LzZZQW1hT1NUSGorZ2pBU0hKODJn?=
- =?utf-8?B?K1lZN1IxdC9vWVZjVEp6dHJ1WmpWSnY0V3d1cmhYUjQwMlFJcDBMVWF5TG8v?=
- =?utf-8?B?TGIwVi9uZzFtMlgycWJXYVptOFdrbnNYS0NQYVBVaEZHbngyVkZaK2UxNjRa?=
- =?utf-8?B?czU2cU9nRlo2eTdac1R3Zy9RL0N6eXlpOFhNUWJmd1BId0YyRVQ3eFRPdUp0?=
- =?utf-8?B?MVQ5alBSYUh3RWNnQXRqb1R5S2JsblZ3ZmMvaWExQlFVVlIwamx1eFdZWDc1?=
- =?utf-8?B?cnBqS216YWlERVZYdzNUaGJhRDBNMGJSRG5FWWk0YWIyM0lNeXRWc1BTOGdW?=
- =?utf-8?B?V0g1QkJwcGtyU0hTZE1HRFpGQkNZWExHWmFYZXlYeXJwakx0dWtuODR6QkZ6?=
- =?utf-8?B?ZFptMlR5TlBTREhNTkJ3UFZDbnY0cUVUQUcwVzcvR0h5MGxETTk4blBmMDND?=
- =?utf-8?B?YUhJNXFTbDZiS0tQcjV6L295MENSZDdHQkNkQ0pXQjlVZVJ5SldpQndtejA3?=
- =?utf-8?B?bXFoYnI3bllzQVIwK2pLYitrN1JCZEZXamFCSG1JcWk4VnlleUFEQkp0SXZU?=
- =?utf-8?B?UUthV1cySEMyd1pUZjRvSjRYSlBwWnMxTEdRWWVHUmZKdGlhRUdaeW4xeEMr?=
- =?utf-8?B?V2VPVzJtbm4xMm9PVG9RSTRKRGc3UkQ2RXZOMkY0ODNxNldNTmpGWkw4UUEw?=
- =?utf-8?B?TE9RaGJrdHlTU1E2eEF6M3V5OEFKUlFDL0ZLYU4yOUlaWUV6WmcyNmJhTWdP?=
- =?utf-8?B?ZW1OY1RPN2VFNnRYcEFxM1NYYnBVVXJUbmVGMWNqMVFKeUQ0bjRmMm5MUUJ2?=
- =?utf-8?B?UWRsN1ZHKzBqSmhNcGo5dDJSR1lDL1J2andxaTY5VFhNWGdNVzQybDBWZTlS?=
- =?utf-8?B?WWkwamVpV1lKRzhMbkowQ01SK0plOGlzT2xFc1RFWGprdktPbTFDNEY3cFN4?=
- =?utf-8?B?WXVBWE5adzJuQm5QMnFrUEdjVU5ZL09ldExxWEFJM2kxeVNjZmxiamQ3K2dV?=
- =?utf-8?B?ZHl5cE92ZE5QaHZiUkpNS3BYbnByM0gzcnB2ekZmV2tlQWNJV3VHbzM1NHRs?=
- =?utf-8?B?ZUF6RVNqUXBIMC92OUNLeEdYVTluSVovc0tTaU9IUlpndVNwV2xoOHA3d0hu?=
- =?utf-8?B?bzVKb3paOTNub3VqRERReVUwSW9sNGsrUllQcnlWYllqVEZzdThKaHYyeHlU?=
- =?utf-8?B?eGc4VkpRLzU4dDhaVnI5MGtqRnRkU3N5aVpWeXdkbTdMU3ZHWmVWamdqbURP?=
- =?utf-8?B?T0RlbzZpMklRcnNxY3J2c0hsKzBZTzQ2Zkw3WnRTWmNYYVR2anVMTzdYR2xF?=
- =?utf-8?B?RHlLbGtaZ0NLWDR4TnBLOXA0MndzcmZPaFJrNW1ObW5jcHNOU2IydHJQS3p5?=
- =?utf-8?B?ZXdObUE0KytQVUVMSGhrUVdod2Fyd3A1Y1FnR0cyRGtPZkhnZVJFSTlmc2hx?=
- =?utf-8?B?Q2ZkMmFHSXdDTVRCUnlBTUM2cjFVU2xvYUplZHdUK2d4eDNqNzFsNm56RERQ?=
- =?utf-8?B?NGo0UW9HdElkMVo4WXJKZnJDZlE2K0N5aFlRczYwVDNSb0gxNUNZVjJGNHIw?=
- =?utf-8?B?MDA1UmM5OEkwRVJRQzY1dUZoNXhoalFDVTcwMFo4MDViZm1sT09vQjNuUC9m?=
- =?utf-8?B?ZFVqbTgxeThxZHhQUDdvSFcxYngwNS9kTmZRUVRvM0lGNk9SaG5DQT09?=
-X-Exchange-RoutingPolicyChecked: hl2MidBbB9z9umO2HOmjSNCaYrMAlCS/J/cbIwXB49bFnymmLDc/kMF83yV0fmm86kPPWhashAbhBCMCU7m2XBKhJFEwr/AlkQUm3qin+zNN8dYaa6p2U+TJzh81Z5q2pkMZbJ49zqC9URVfBFPejRHqEA53pkPRVJTKSECmnQtZ5w21wCI4jjjRaDKUARPXdNf/xGv4lybvStnLZ3U7IOZm8V2jdnG1360M58hcWnHCG+UgW1pdkexKomJR7ZSkyvHe+w1IOVWrqUMkMmiTbzvd/vzlW/6V/08QOruuL/T2dLHDH33iv0WhWrV9f1MTbB/c/rcL1kqu5USBc0O3Kg==
-X-MS-Exchange-CrossTenant-Network-Message-Id: fc4dd0b4-8bcf-40d5-5047-08df30aab7fd
-X-MS-Exchange-CrossTenant-AuthSource: CY8PR11MB7846.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Oct 2026 02:09:50.0920
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: On71KCp+M7996+dnyBN++CAr99uh9rToEGsiXYtwzUFdAeek0BahGvi0HbioQOpD9KEzR8bgoiYbcEMylBCLwg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR11MB7004
-X-OriginatorOrg: intel.com
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261023-nfsd-layout-refcall-v2-4-2160bddced0c@samsung.com>
+References: <20261023-nfsd-layout-refcall-v2-0-2160bddced0c@samsung.com>
+In-Reply-To: <20261023-nfsd-layout-refcall-v2-0-2160bddced0c@samsung.com>
+To: Chuck Lever <cel@kernel.org>, Jeff Layton <jlayton@kernel.org>, 
+ NeilBrown <neil@brown.name>, Olga Kornievskaia <okorniev@redhat.com>, 
+ Dai Ngo <Dai.Ngo@oracle.com>, Tom Talpey <tom@talpey.com>
+Cc: Christoph Hellwig <hch@lst.de>, 
+ Benjamin Coddington <ben.coddington@hammerspace.com>, 
+ Trond Myklebust <trondmy@kernel.org>, Anna Schumaker <anna@kernel.org>, 
+ linux-nfs@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Daejun Park <daejun7.park@samsung.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792721421; l=13186;
+ i=daejun7.park@samsung.com; s=20261006; h=from:subject:message-id;
+ bh=KnGMB0uW//H10UcDvkCS6Dac/ufCUyYjUaxjBYG9z24=;
+ b=pWzAds3HSNTZ2WaEF7+ROG0f0iL7A9t+d3zZDZPPEpHYfvfeAZDM0nOc8bfXqx0XML7VVQ7rp
+ OkCa60zUa2GD0rXsHGoBn6Nhp0iwQiOkGb77BypWj5TfrgqjOyCCole
+X-Developer-Key: i=daejun7.park@samsung.com; a=ed25519;
+ pk=4yUfDqGRZTIj0Ik43z1GoMZRWCNm/rgX6uJuM9dtNIg=
+X-Endpoint-Received: by B4 Relay for daejun7.park@samsung.com/20261006 with
+ auth_id=1122
+X-Original-From: Daejun Park <daejun7.park@samsung.com>
+Reply-To: daejun7.park@samsung.com
+Content-Transfer-Encoding: 7bit
 
-On 10/22/2026 2:27 AM, Binbin Wu wrote:
+From: Daejun Park <daejun7.park@samsung.com>
 
->>
->> Signed-off-by: Xin Li (Intel) <xin@zytor.com>
->> Signed-off-by: Sohil Mehta <sohil.mehta@intel.com>
-> 
-> Reviewed-by: Binbin Wu <binbin.wu@linux.intel.com>
-> 
+"nfsd: fail a LAYOUTGET in progress when the layout lease is broken"
+fails a LAYOUTGET whose layout stateid has no layouts yet when the lease
+is broken, so that no layout is handed out after the break without a
+recall. Since "nfsd: answer NFS4ERR_DELAY instead of waiting for a
+layout recall", a WRITE through the metadata server that meets a layout
+of its own client gets NFS4ERR_DELAY, and the Linux client resends it
+every 0.1 seconds; a resend breaks the lease of any LAYOUTGET that the
+same client has in progress. A client that writes through the metadata
+server while it does I/O through a layout of the same file, as the Linux
+client does for O_DIRECT writes that are not aligned to a page, then
+gets NFS4ERR_RECALLCONFLICT for LAYOUTGET after LAYOUTGET, and waits up
+to 15 seconds between them.
 
-Thank you for reviewing the patches.
+When the break comes from a request of the client that holds the layout
+stateid, nfsd4_break_file_layout() notes that the break met a LAYOUTGET
+in progress and when the break times out (fl_break_time), and
+nfsd4_insert_layout() recalls the layout as soon as it adds it. The
+LAYOUTGET succeeds and the client is asked for the layout back at once.
+nfsd4_layout_breaker_is_holder() finds the client of the breaker as
+nfsd_breaker_owns_lease() does for delegations. The layout is still
+recalled: a write through the metadata server can change the block
+mapping that the layout describes. A break by another client or by a
+local process fails the LAYOUTGET as before, and the conflicting
+operation goes ahead without waiting for a recall, unless a break by the
+holder came first. The new case is traced as nfsd_layout_break_pending.
 
-> [...]
-> 
->> diff --git a/arch/x86/kvm/vmx/vmx.c b/arch/x86/kvm/vmx/vmx.c
->> index 504630f0eb40..b4aec4218b7d 100644
->> --- a/arch/x86/kvm/vmx/vmx.c
->> +++ b/arch/x86/kvm/vmx/vmx.c
->> @@ -2751,8 +2751,9 @@ static int setup_vmcs_config(struct vmcs_config *vmcs_conf,
->>  	u32 _cpu_based_exec_control = 0;
->>  	u32 _cpu_based_2nd_exec_control = 0;
->>  	u64 _cpu_based_3rd_exec_control = 0;
->> -	u32 _vmexit_control = 0;
->>  	u32 _vmentry_control = 0;
->> +	u32 _vmexit_control = 0;
->> +	u64 _vmexit2_control = 0;
-> 
-> 
-> Nit:
-> Could be _vmexit_2nd_control to be consistent with _cpu_based_2nd_exec_control
-> above, as well as vmexit_2nd_control in struct vmcs_config.
-> 
+A LAYOUTGET that would add its layout after the break has timed out
+fails as before, whether or not the timeout has been noticed yet:
+time_out_leases() notices it only when another lease operation on the
+file comes, and a layout added in between would be recalled when it is
+already due and have its client fenced if that operation comes before
+the layout is back. When the timeout is noticed first,
+nfsd4_layout_lm_breaker_timedout() marks the layout stateid recalled, so
+that the LAYOUTGET fails. A layout added shortly before the break times
+out is recalled with what is left of fs.lease-break-time, and its client
+is fenced if it does not return the layout by then, where the LAYOUTGET
+failed before this patch. With the default of 45 seconds that takes a
+LAYOUTGET that has been in progress for most of that time.
 
-Sure, will update it.
+The recall is queued before the LAYOUTGET reply is sent and can reach
+the client first; a client that answers NFS4ERR_NOMATCHING_LAYOUT then
+would have its layout thrown away while it uses it. The resent recall of
+"nfsd: resend a layout recall once before trusting NOMATCHING_LAYOUT"
+and the referring call that CB_LAYOUTRECALL carries since "nfsd: send a
+referring call with CB_LAYOUTRECALL" cover that, for a client that takes
+the reply in within about three seconds or holds the recall back, which
+is why this comes after them. A recall that cannot be sent because the
+backchannel is down ends at once and drops the layouts, as any layout
+recall does today; with this patch that can take the layout that the
+LAYOUTGET is handing out.
 
+One client writing 1 MiB blocks with O_DIRECT through its block layout
+and 512 bytes at the middle of a page through the metadata server to the
+same file, for 30 seconds: before this patch 51, 54 and 12 of the 1 MiB
+writes were done in three runs, as the LAYOUTGETs failed and the client
+backed off; with it 240, 249 and 244, with no 1 MiB block lost. The 512
+byte writes went from 5172, 5137 and 7589 to 1473, 1214 and 1397: the
+client now holds a layout most of the time, and such a WRITE meets it
+and gets NFS4ERR_DELAY. The same change without the two patches above
+lost 75 of 600, 79 of 589 and 87 of 600 blocks.
+
+With fs.lease-break-time at one second and a test-only delay before
+nfsd4_insert_layout(), a 512 byte write through the metadata server 0.3
+seconds into the LAYOUTGET broke the lease and was resent every 0.1
+seconds; the first resend after the break timed out came 37 to 44 ms
+after it. A layout added 25 to 29 ms before the break timed out was
+recalled at once and returned in each of five runs, without fencing.
+LAYOUTGETs that would add their layout about 17 or 30 ms after the break
+had timed out, before that resend, failed with NFS4ERR_RECALLCONFLICT in
+each of five runs at each offset. With the test of the deadline taken
+out, they handed the layout out. At 17 ms the client returned it before
+the resend in each of five runs, and nothing was fenced; at 30 ms the
+resend timed the break out while the client still held the layout, and
+had it fenced, in four of five, and came first in the fifth.
+
+With a test-only delay of three seconds and a local write on the server
+that breaks the lease during that delay and goes ahead one second later,
+the LAYOUTGET fails with NFS4ERR_RECALLCONFLICT with this patch in each
+of three runs: a local process is not the holder, so this patch leaves
+that case alone. With another client breaking the lease, as in the test
+of "nfsd: resend a layout recall once before trusting NOMATCHING_LAYOUT"
+without the delay, the 1 MiB writes went on with the whole series as
+without it, 600 blocks in each of three runs of 30 seconds, and no
+recall overtook a reply; without the series, one did in one of three
+runs, and that block read back as zeroes.
+
+No Fixes: tag, as "nfsd: fail a LAYOUTGET in progress when the layout
+lease is broken" is not upstream yet. Where that patch is backported,
+this one is needed too, but only together with the two patches before
+it, so only where "NFSD: Send referring calls with CB_RECALL" and its
+series are, and not before v7.1.
+
+Signed-off-by: Daejun Park <daejun7.park@samsung.com>
+---
+ fs/nfsd/nfs4layouts.c | 81 ++++++++++++++++++++++++++++++++++++++++++++-------
+ fs/nfsd/state.h       | 11 +++++++
+ fs/nfsd/trace.h       |  1 +
+ 3 files changed, 82 insertions(+), 11 deletions(-)
+
+diff --git a/fs/nfsd/nfs4layouts.c b/fs/nfsd/nfs4layouts.c
+index 7a0353149e..c797bc7d93 100644
+--- a/fs/nfsd/nfs4layouts.c
++++ b/fs/nfsd/nfs4layouts.c
+@@ -336,6 +336,8 @@ nfsd4_alloc_layout_stateid(struct nfsd4_compound_state *cstate,
+ 	}
+ 
+ 	ls->ls_recall_start = 0;
++	ls->ls_break_pending = false;
++	ls->ls_break_time = 0;
+ 	ls->ls_fenced = false;
+ 	ls->ls_fence_inflight = false;
+ 	ls->ls_fence_stopped = false;
+@@ -459,16 +461,42 @@ nfsd4_recall_file_layout(struct nfs4_layout_stateid *ls)
+ 	spin_unlock(&ls->ls_lock);
+ }
+ 
++/* Whether the lease break comes from a request of the client of @ls */
++static bool
++nfsd4_layout_breaker_is_holder(const struct nfs4_layout_stateid *ls)
++{
++	struct svc_rqst *rqstp = nfsd_current_rqst();
++	struct nfsd_thread_local_info *ntli;
++
++	if (!nfsd_v4client(rqstp))
++		return false;
++	ntli = rqstp->rq_private;
++	return *ntli->ntli_lease_breaker == ls->ls_stid.sc_client;
++}
++
+ /*
+- * A layout stateid with no layouts belongs to a LAYOUTGET in progress
+- * and already holds the lease. Mark the stateid recalled so that
+- * nfsd4_insert_layout() fails the LAYOUTGET and the lease is released.
++ * A lease break also has to reach a LAYOUTGET in progress, whose layout
++ * stateid holds the lease but has no layouts yet. Mark the stateid
++ * recalled so that nfsd4_insert_layout() fails the LAYOUTGET and the
++ * lease is released. When the break comes from a request of the same
++ * client, as a WRITE through the metadata server that the Linux client
++ * sends next to its I/O through the layout, failing its LAYOUTGET would
++ * have it back off and fail again: note the break and its deadline
++ * instead, and let nfsd4_insert_layout() recall the layout as soon as it
++ * adds it, unless the break is past its deadline by then.
++ * ->lm_break() is not called again for a lease that is already breaking.
+  */
+ static void
+-nfsd4_break_file_layout(struct nfs4_layout_stateid *ls)
++nfsd4_break_file_layout(struct nfs4_layout_stateid *ls,
++			unsigned long break_time)
+ {
+ 	spin_lock(&ls->ls_lock);
+-	if (!ls->ls_recalled && list_empty(&ls->ls_layouts)) {
++	if (!ls->ls_recalled && list_empty(&ls->ls_layouts) &&
++	    nfsd4_layout_breaker_is_holder(ls)) {
++		ls->ls_break_pending = true;
++		ls->ls_break_time = break_time;
++		trace_nfsd_layout_break_pending(&ls->ls_stid.sc_stateid);
++	} else if (!ls->ls_recalled && list_empty(&ls->ls_layouts)) {
+ 		ls->ls_recalled = true;
+ 		atomic_inc(&ls->ls_stid.sc_file->fi_lo_recalls);
+ 		trace_nfsd_layout_recall_empty(&ls->ls_stid.sc_stateid);
+@@ -478,6 +506,18 @@ nfsd4_break_file_layout(struct nfs4_layout_stateid *ls)
+ 	spin_unlock(&ls->ls_lock);
+ }
+ 
++/*
++ * Whether the lease break noted by nfsd4_break_file_layout() is past its
++ * deadline. A layout added now would be recalled too late, whether or
++ * not time_out_leases() has noticed the timeout yet.
++ */
++static bool
++nfsd4_layout_break_expired(const struct nfs4_layout_stateid *ls)
++{
++	return ls->ls_break_pending && ls->ls_break_time &&
++	       time_after(jiffies, ls->ls_break_time);
++}
++
+ static inline u64
+ layout_end(struct nfsd4_layout_seg *seg)
+ {
+@@ -553,7 +593,7 @@ nfsd4_insert_layout(struct nfsd4_layoutget *lgp, struct nfs4_layout_stateid *ls)
+ 	if (nfserr)
+ 		goto out;
+ 	spin_lock(&ls->ls_lock);
+-	if (ls->ls_recalled) {
++	if (ls->ls_recalled || nfsd4_layout_break_expired(ls)) {
+ 		nfserr = nfserr_recallconflict;
+ 		goto out_unlock_ls;
+ 	}
+@@ -575,7 +615,7 @@ nfsd4_insert_layout(struct nfsd4_layoutget *lgp, struct nfs4_layout_stateid *ls)
+ 	if (nfserr)
+ 		goto out;
+ 	spin_lock(&ls->ls_lock);
+-	if (ls->ls_recalled) {
++	if (ls->ls_recalled || nfsd4_layout_break_expired(ls)) {
+ 		nfserr = nfserr_recallconflict;
+ 		goto out_unlock_ls;
+ 	}
+@@ -589,6 +629,10 @@ nfsd4_insert_layout(struct nfsd4_layoutget *lgp, struct nfs4_layout_stateid *ls)
+ 	new = NULL;
+ done:
+ 	nfs4_inc_and_copy_stateid(&lgp->lg_sid, &ls->ls_stid);
++	if (ls->ls_break_pending) {
++		ls->ls_break_pending = false;
++		nfsd4_recall_file_layout_locked(ls);
++	}
+ out_unlock_ls:
+ 	spin_unlock(&ls->ls_lock);
+ out:
+@@ -1182,7 +1226,7 @@ nfsd4_layout_lm_break(struct file_lease *fl)
+ 	 * Enforce break lease timeout to prevent NFSD
+ 	 * thread from hanging in __break_lease.
+ 	 */
+-	nfsd4_break_file_layout(fl->c.flc_owner);
++	nfsd4_break_file_layout(fl->c.flc_owner, fl->fl_break_time);
+ 	return false;
+ }
+ 
+@@ -1373,7 +1417,9 @@ static void nfsd4_layout_fence_worker(struct work_struct *work)
+  *
+  * Schedule a worker to fence the client from accessing the block device.
+  * If the layout type has no fence operation, the worker runs the fence
+- * script instead.
++ * script instead. If a lease break of its own client met the LAYOUTGET
++ * of a layout stateid that has no layouts yet, mark it recalled instead,
++ * so that the LAYOUTGET fails.
+  *
+  * This function runs under the protection of the spin_lock flc_lock.
+  * At this time, the file_lease associated with the layout stateid is
+@@ -1413,8 +1459,21 @@ nfsd4_layout_lm_breaker_timedout(struct file_lease *fl)
+ 		spin_unlock(&ls->ls_lock);
+ 		return false;
+ 	}
+-	if (list_empty(&ls->ls_layouts) ||
+-			!refcount_inc_not_zero(&ls->ls_stid.sc_count)) {
++	if (list_empty(&ls->ls_layouts)) {
++		/*
++		 * The lease goes away and the conflicting operation goes
++		 * ahead, so a LAYOUTGET that the break met must not add a
++		 * layout any more: fail it as nfsd4_insert_layout() fails one
++		 * on a recalled layout stateid.
++		 */
++		if (ls->ls_break_pending && !ls->ls_recalled) {
++			ls->ls_recalled = true;
++			atomic_inc(&ls->ls_stid.sc_file->fi_lo_recalls);
++		}
++		spin_unlock(&ls->ls_lock);
++		return true;
++	}
++	if (!refcount_inc_not_zero(&ls->ls_stid.sc_count)) {
+ 		spin_unlock(&ls->ls_lock);
+ 		return true;
+ 	}
+diff --git a/fs/nfsd/state.h b/fs/nfsd/state.h
+index 5cf3a5ac46..ec325825d7 100644
+--- a/fs/nfsd/state.h
++++ b/fs/nfsd/state.h
+@@ -876,6 +876,17 @@ struct nfs4_layout_stateid {
+ 	/* The client has answered NFS4_OK to the recall */
+ 	bool				ls_recall_accepted;
+ 	bool				ls_recalled;
++	/*
++	 * A lease break of this client met a LAYOUTGET in progress: recall
++	 * the layout it adds, or fail it once the break is past its time.
++	 * Under ls_lock.
++	 */
++	bool				ls_break_pending;
++	/*
++	 * fl_break_time of that break: 0 if it does not time out.
++	 * Under ls_lock.
++	 */
++	unsigned long			ls_break_time;
+ 	struct mutex			ls_mutex;
+ 	/*
+ 	 * The latest NFSD4_LAYOUT_MAX_GRANTS LAYOUTGETs that added a
+diff --git a/fs/nfsd/trace.h b/fs/nfsd/trace.h
+index a2c21d491a..2110e95ee1 100644
+--- a/fs/nfsd/trace.h
++++ b/fs/nfsd/trace.h
+@@ -829,6 +829,7 @@ DEFINE_STATEID_EVENT(layout_commit_lookup_fail);
+ DEFINE_STATEID_EVENT(layout_return_lookup_fail);
+ DEFINE_STATEID_EVENT(layout_recall);
+ DEFINE_STATEID_EVENT(layout_recall_empty);
++DEFINE_STATEID_EVENT(layout_break_pending);
+ DEFINE_STATEID_EVENT(layout_recall_done);
+ DEFINE_STATEID_EVENT(layout_recall_resend);
+ DEFINE_STATEID_EVENT(layout_recall_new_seqid);
+
+-- 
+2.43.0
 
 
