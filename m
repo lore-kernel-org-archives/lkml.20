@@ -1,83 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792754638;
-	b=FfNoIJLcJZNXAAcqov59KXsGPMZM0uZgsskrMzrGGrNFoKhUtwyoUKrmGAVIeG7aq1N4
-	 cOR3LhQyx/4lGTwMckU1Xx7UOg590OykUwVy4ngKb1qe5gERWALz227JceCxcW1puJ3HT
-	 7ycAbcrE4S1zidWxMZ62N1GKASzuiPPTa6F7A8FeImLh/StpYPnOAffIiNt/L4VUKREAP
-	 8FbaYTqqeR6UMSYbAgK2E5pZgtl6vd8LVQKiwhg2HO5QI3pNaZYJo4RcGlgWp02fKwbG2
-	 B5yFi+XLynCXdcZ482exo36zIg5m3Ynf0Bb88jb7onlOM4fydqybQ6M4AA2vKNvVeCg==
+	t=1792754711;
+	b=2LKnLLXVaxMN+ACrMsCR3GyiHZPI+PXDsgR5+ENv5Pz3nG7dFrTDcwDt+iK1n80yNWUT
+	 IpCJOON/KSOdeeHIYSX81m8f7Hd5bpYiOQUefQRbAyDoroi6XhDhdzRceDm5vjTotpJ4U
+	 PatHpbwY1kcxJ/av4WsKIa2DeKBu1uLxGkTRzhot3PFIc1DGXG8w9ejnBiRtlkWR2nh1b
+	 tAweqb/pH/u4/kDPkwFToNOWa/B5gBavN6ylZWFODvh6mCYHGblvpcpVrbAUBlHu0wpXi
+	 gbzui+cMoF+IQKQVylbVhc/xEYWVFRrtfPCnwzwBX2zzFDIDksY7QrJEHaJ6TlrWTVA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792754638;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Mime-Version:Content-Transfer-Encoding:Content-Type:Date:Message-Id:
-	 To:Cc:Subject:From:X-Mailer:References:In-Reply-To;
-	bh=N1uafdkSoG45teNOXMHIESgP5w0nSF1SWyeyKNWtWPU=;
-	b=CYj53lLtNwxvOzDsiKJIg9hzGn4bO5vSfm9xJ73K7Q8Rv5kIuek1NtXspiH3p8B5EZot
-	 Y8h+moyQI7XPmV4P99uDzYGKIeATWNLyR7H4mBXC9wTdIOlBXvo2xgYrsQm5wb8kTmacf
-	 khyCogacF6UNwP+Wj6PQbBiTtFuWZF4I2iJ9DhooFoLUTGyEK4ueiwHAlxY5j1K25l/97
-	 bA6tD2ucekMWnCVeXbWX31ty8M0lRDxXI1hDaHkoEJttgKxgAtGQAMp7cLZp3b7ylwI+R
-	 G9TJadb6+x6hF9V/AuA7s6x8Yh6tQR0f0JkaMqtLN6nJxmVe7OnVogwMi7nHvAqMB5w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792754711;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=W2nKm0rLN392hw5JmRVlu3U7b96TGQMs8eVI+K1UXmU=;
+	b=WZLX7IrPCA6j3F02TeywHMMMj+qUkATMhIlJANUp/scLNHTK5AehceN3TZzYFa6UNcNZ
+	 JkjBOgAev2hWy1aOF7Z/ohH61UJMfCtKAadiyOjWiHoUvBPRJKu92uLGRyd1MOnU8kRdF
+	 74U/V2SfGDt0g92k9J4A/dSUT8xl7UN/plR+4DBpnPILhFQVywGhpF2KBPZPO82eHufF8
+	 FlSZUdCDIc88YLGe0nMd8jsUUXykI+FL14I+7ZMVNMrKwkB1SI1Ve9taGNFQCJD1pUD8e
+	 18Z+3ZJN7r0spLntYPryXu7QLyFuM4fH596lr1fZ8X4CtpszmusjBzQEDH366VK1hLg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=dUOuUlHv;
-	arc=none smtp.remote-ip=209.85.219.50
-Received: from mail-qv1-f50.google.com (mail-qv1-f50.google.com [209.85.219.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PWvVjhEq;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FBB1606A31B
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 11:23:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9FBB1606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DA30606A31A;
+	Fri, 23 Oct 2026 11:25:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=dUOuUlHv
-Received: by mail-qv1-f50.google.com with SMTP id 6a1803df08f44-91c162febb9so6199906d6.3
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 04:23:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792754636; x=1793359436; darn=vger.kernel.org;
-        h=in-reply-to:references:from:subject:cc:to:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=N1uafdkSoG45teNOXMHIESgP5w0nSF1SWyeyKNWtWPU=;
-        b=dUOuUlHvcfkvN7k4IoY3LaypXMKcJIvvcyVW7aGhsepJ3HvFBywVGaBERoSlUNzRwe
-         Op7xspvjrXDmqprWmlnwEjP+ZZ0qAuUKTI0Dh9+j6O5lno/rA5okVvKXeCAuR059O23Z
-         rLJCKNchI1fraEsobuGk9ON6kcc9Ezba3wxBCgCjFC9AVGi7uBgLDizERG8fq+vDSIry
-         BvqAZrQWH6Ax59//88mjaM1Y9Zq9EH7zuWlOnoZcuWwiJyUZl+0iwtt9pQCe6I7cY/B4
-         gnWsk4YnIXW18iIntHz0cW741gXaHTiN6ihpIOHTzQ0WWglDFNdK+V3F4dNAZ8yxLrVj
-         WGAQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792754636; x=1793359436;
-        h=in-reply-to:references:from:subject:cc:to:message-id:date
-         :content-type:content-transfer-encoding:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=N1uafdkSoG45teNOXMHIESgP5w0nSF1SWyeyKNWtWPU=;
-        b=w0DiSI7umEir69Ptu+ouqWktn+e8+BkC1LTGkza5Muvq0VIsoH8ZEsQGJtycKAz4H4
-         e6miZ50Pppis+UXPHrjOlbGZBbJx/uapFVy3LpFVvSveXJQYGUKgJZvQYETrXHAfuRyQ
-         NeQK/8J3opHHGr4e4PJbqzDBbQ14M7DIzPagncMbm0Jetntp1b2Q1l38FNsMrpW9znbu
-         X/sL2d0Y1Gq/BfWR8IP6Du4gCrthcjDlbeadSJ0y/PFKJc2XFRk6aQwjNtrL48AJ37pX
-         UNs9FTVPLyb96zGZQ+AxkEwu4VBr4Vg3yy/cTOK9dD+gY7rOUl2UZhW0vAOkG6xQKFLU
-         fFlA==
-X-Forwarded-Encrypted: i=1; AKwUvBw1SaE/H4RwBlboABcBGl88RmSU8KByf2GlMaTDsTJWCYhc+EgMymAQ0oR5XdwX0SgLzRbyqlOUfhRGKhk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ8so7D+RevpV3sYrMsHuT1OvdAn2OcWfCbKpQuak6youE6beg7
-	soycLfRCVdSxQQkmhUGAC6NCZvm2K6NEYASWWdeuaMWP0QImwIbEImwLmUwbyw==
-X-Gm-Gg: AYBFou2oDs3O7OmWok5MLpSMiUqY7d7afEdmUq/puUCP3USkjm6MjxTNl0fw4oZ8pUk
-	xqq+99B6JQbOfFNRsK9hBBHsZ+UnqlUZ0IlkAZnh2M/SAMaBEGkYpk2cHUi3+PEqBlswSKzI9Kg
-	FoSIw07eUNIIXHG3CzGD0mmbKgOXFeREWyclZUTNn/NTPkLnzrd9UQkMhD3uqBfVV3CHq9qE+UQ
-	uR78emoQvwMnUJyFT1VivtGExq7u0oRnG2HfKNvwQv1TvfPs9GFQ4+vrx5hX0s21nbP/yVap9lP
-	dJjKW1KtOsKlrBb2RpjFvJsXFa+x4do5woMZf+jEhkxQb4s89pwjY1oz53cE32fBqH2yyjsJmPc
-	Jf7D5sr+MYZgfvrbbimS8CyX0hx8q8KXqDVM9WX6GPPGeE3LAUxfFoZe1T+C8nqWrQQO4mp69m8
-	IZ0i3VQe6oUCr5cG56ZrXgZTpDFpWvK5DU+2xPoTQPHq5yMZePH/hqzFlKznns67rxS80lkNsxx
-	lrhtbDbFKnNdWF7F/OmIuTDKIztL/lhok7KOwR8Jd96wztvDAXtRC2XrCN9
-X-Received: by 2002:a05:6214:623:b0:919:5f43:99f1 with SMTP id 6a1803df08f44-91c3a8a8e6dmr21752026d6.30.1792754636437;
-        Fri, 23 Oct 2026 04:23:56 -0700 (PDT)
-Received: from localhost ([2600:4040:9399:4000:e553:72e5:7d37:c7ef])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91c396f314bsm17620076d6.24.2026.10.23.04.23.55
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 23 Oct 2026 04:23:55 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PWvVjhEq
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7BCF81F01825;
+	Fri, 23 Oct 2026 11:25:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792754710;
+	bh=W2nKm0rLN392hw5JmRVlu3U7b96TGQMs8eVI+K1UXmU=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=PWvVjhEqdNCWIJQohhYTxa8/jS+/m5syrySjHqxZiY25CQ1RbRA1T23IvLi5MoxQs
+	 wGdDgkjGIrJlqdGO+cCk6h7g8UWjh/9y6QiN7x+bpqwGAPpUKcHHpoGJTbaV6bKszm
+	 IbZ+0yPieE6eL3JRmgrUtlp9vvwR2AB8Bi8ibAUrINtuf2Ei+EGxmI/7Xt5JKQEKUL
+	 FP7HjVHha4l/OJsCUsXfMRqpPQ01cuThewl195hjXC0YafzA3GDZEwkVgZ5vaszMrW
+	 TidZCp47zvTK1FzTtsAOQW9f2vXYsDNFBWU5xxqBKH/KEM1skSt0ltPSWZ7vi9pgPd
+	 pSHDdWFXVaujg==
+Message-ID: <051bd988-9817-49e3-bfc4-0e3ca86bc91a@kernel.org>
+Date: Fri, 23 Oct 2026 13:25:00 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,228 +50,145 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 4/8] i3c: renesas: Add RZ/G3L support
+To: Biju Das <biju.das.jz@bp.renesas.com>,
+ wsa+renesas <wsa+renesas@sang-engineering.com>
+Cc: Diogo Ivo <diogo.ivo.sx@renesas.com>,
+ Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Frank Li <Frank.Li@nxp.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Geert Uytterhoeven <geert+renesas@glider.be>,
+ "magnus.damm" <magnus.damm@gmail.com>, Stephen Boyd <sboyd@kernel.org>,
+ Brian Masney <bmasney+clk@redhat.com>,
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Linus Walleij <linusw@kernel.org>,
+ "linux-i3c@lists.infradead.org" <linux-i3c@lists.infradead.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
+ "linux-clk@vger.kernel.org" <linux-clk@vger.kernel.org>,
+ "linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>
+References: <20261020-divo-ssgrlpcsrc-2966-i3c-v1-0-30a47f25e515@renesas.com>
+ <20261020-divo-ssgrlpcsrc-2966-i3c-v1-4-30a47f25e515@renesas.com>
+ <20261023-thundering-axolotl-of-examination-aaa6ba@quoll>
+ <ats6zi2lZW09Bs2e@shikoro>
+ <TY3PR01MB1134645CCEF0656592B93690586642@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <TY3PR01MB1134645CCEF0656592B93690586642@TY3PR01MB11346.jpnprd01.prod.outlook.com>
 Content-Type: text/plain; charset=UTF-8
-Date: Fri, 23 Oct 2026 07:23:55 -0400
-Message-Id: <DMC6H9OT57RA.30RKA7CO0856R@gmail.com>
-To: "Todd Freed" <toddfreed@meta.com>, <netdev@vger.kernel.org>
-Cc: "Daniel Zahka" <daniel.zahka@gmail.com>, "Jakub Kicinski"
- <kuba@kernel.org>, "Willem de Bruijn" <willemdebruijn.kernel@gmail.com>,
- "David S. Miller" <davem@davemloft.net>, "Eric Dumazet"
- <edumazet@kernel.org>, "Paolo Abeni" <pabeni@redhat.com>, "Simon Horman"
- <horms@kernel.org>, "Andrew Lunn" <andrew+netdev@lunn.ch>, "Shuah Khan"
- <shuah@kernel.org>, "Raed Salem" <raeds@nvidia.com>, "Rahul Rameshbabu"
- <rrameshbabu@nvidia.com>, "Cosmin Ratiu" <cratiu@nvidia.com>,
- <linux-kernel@vger.kernel.org>, <linux-kselftest@vger.kernel.org>,
- =?utf-8?q?Bj=C3=B6rn_T=C3=B6pel?= <bjorn@kernel.org>
-Subject: Re: [PATCH net v2 1/2] psp: fix transport mode encap with ipv6
- extension headers
-From: "Daniel Zahka" <daniel.zahka@gmail.com>
-X-Mailer: aerc 0.21.0-threadmapfix
-References: <20261022223014.556388-1-toddfreed@meta.com>
- <20261022223014.556388-2-toddfreed@meta.com>
-In-Reply-To: <20261022223014.556388-2-toddfreed@meta.com>
+Content-Transfer-Encoding: 7bit
 
-On Thu Oct 22, 2026 at 6:30 PM EDT, Todd Freed wrote:
-> psp_dev_encapsulate() inserts the udp and psp headers and rewrites the
-> l3 next header to udp.
->
-> if the packet is an ipv6 packet with extension headers, the transport
-> header comes after them, so rewriting the next header of the ipv6 fixed
-> header produces a malformed packet.
->
-> a psp tcp socket emits such packets if certain socket options are set on
-> it (e.g. IPV6_DSTOPTS). with mlx5, these packets also go out
-> unencrypted.
->
-> fix by walking the extension header chain to rewrite the nexthdr on the
-> last one in the chain instead. the walk looks at the extension header
-> types only to find their lengths, and to reject these,
->
-> - NEXTHDR_FRAGMENT. this could work, but udp+psp would need to come
->   before it, which is different than how the other option types are
->   handled. for now, keep fragments unsupported for transport mode.
->
-> - NEXTHDR_ROUTING. the tcp checksum covers the final destination, but
->   drivers seed tso checksums from the daddr in the fixed hdr
->   (mlx5e_psp_handle_tx_skb()), so this would produce bad checksums.
->   could be supported with more work.
->
+On 23/10/2026 13:01, Biju Das wrote:
+> Hi Wolfram,
+> 
+>> -----Original Message-----
+>> From: Wolfram Sang <wsa+renesas@sang-engineering.com>
+>> Sent: 23 October 2026 11:46
+>> Subject: Re: [PATCH 4/8] i3c: renesas: Add RZ/G3L support
+>>
+>> On Fri, Oct 23, 2026 at 10:28:16AM +0200, Krzysztof Kozlowski wrote:
+>>> On Tue, Oct 20, 2026 at 10:14:58AM +0100, Diogo Ivo wrote:
+>>>> Add support for the I3C Bus Interface on the Renesas RZ/G3L
+>>>> (R9A08G046) SoC by adding the renesas,r9a08g046-i3c compatible to
+>>>> the OF match table.
+>>>>
+>>>> The controller is very similar to the IP on the RZ/G3S. However, for
+>>>> instance the RZ/G3L variant has no HDR Exit Pattern detection interrupt:
+>>>> RZ/G3S exposes 17 interrupts, while RZ/G3L exposes 16. A RZ/G3L node
+>>>> therefore cannot be described with the RZ/G3S compatible, as its
+>>>> bindings require at least 17 interrupts. The same point applies to
+>>>> RZ/G3E, that requires 3 clocks while the RZ/G3L requires 2.
+>>>>
+>>>> From the driver point of view there is no difference between the two
+>>>> SoCs: the driver only consumes the tclk clock, the presetn and
+>>>> tresetn resets and seven named interrupts (resp, rx, tx, st, sp,
+>>>> tend, nack), all of which are among the 16 shared ones. No driver
+>>>> changes are needed besides the new compatible.
+>>>>
+>>>> Signed-off-by: Diogo Ivo <diogo.ivo.sx@renesas.com>
+>>>> ---
+>>>>  drivers/i3c/master/renesas-i3c.c | 1 +
+>>>>  1 file changed, 1 insertion(+)
+>>>>
+>>>> diff --git a/drivers/i3c/master/renesas-i3c.c
+>>>> b/drivers/i3c/master/renesas-i3c.c
+>>>> index 4fddc1b4fdbb..80a6df1151bf 100644
+>>>> --- a/drivers/i3c/master/renesas-i3c.c
+>>>> +++ b/drivers/i3c/master/renesas-i3c.c
+>>>> @@ -1625,6 +1625,7 @@ static const struct dev_pm_ops
+>>>> renesas_i3c_pm_ops = {
+>>>>
+>>>>  static const struct of_device_id renesas_i3c_of_ids[] = {
+>>>>  	{ .compatible = "renesas,r9a08g045-i3c" },
+>>>> +	{ .compatible = "renesas,r9a08g046-i3c" },
+>>>
+>>> So fully compatible? If so, drop this and express compatibility in the
+>>> bindings.
+>>
+>> Well, this SoC has 16 irqs / 2 clocks. The other variants have 16 / 3 and 17 / 2. So, to which one should
+>> it be compatible? I'd think 17 / 2 is the easier one.
 
-The stack should seed the tcp check correctly with the sk dst addr. If
-mlx5's lso implementation can't take that into account, I'm not sure a
-generic helper should be the one rejecting the skb.
+The number of inputs really does not matter here - all are anyway
+expressed in DTS. Question is whether these number makes a difference
+for driver.
 
-> - NEXTHDR_NONE, and types which ipv6_ext_hdr() doesn't know.
->
-> on rx, the inverse process is performed in psp_dev_rcv(). transport mode
-> psp fragments are rejected on this path as before.
->
-> note that the stack doesn't fragment ipv6 tcp packets, so a psp socket
-> won't be able to exercise the tx fragment path.
->
-> Suggested-by: Daniel Zahka <daniel.zahka@gmail.com>
-> Fixes: fc724515741a ("psp: provide encapsulation helper for drivers")
-> Fixes: 0eddb8023cee ("psp: provide decapsulation and receive helper for d=
-rivers")
-> Signed-off-by: Todd Freed <toddfreed@meta.com>
-> ---
->  net/psp/psp_main.c | 78 +++++++++++++++++++++++++++++++++++++++++-----
->  1 file changed, 70 insertions(+), 8 deletions(-)
->
-> diff --git a/net/psp/psp_main.c b/net/psp/psp_main.c
-> index c9c1a8826b7f..0c009d7b08c0 100644
-> --- a/net/psp/psp_main.c
-> +++ b/net/psp/psp_main.c
-> @@ -4,6 +4,7 @@
->  #include <linux/list.h>
->  #include <linux/netdevice.h>
->  #include <linux/xarray.h>
-> +#include <net/ipv6.h>
->  #include <net/net_namespace.h>
->  #include <net/psp.h>
->  #include <net/udp.h>
-> @@ -185,6 +186,42 @@ unsigned int psp_key_size(u32 version)
->  }
->  EXPORT_SYMBOL(psp_key_size);
-> =20
-> +/**
-> + * psp_ipv6_nexthdr_off() - find the offset to the l4 proto nexthdr
-> + * @hdr:  ipv6 fixed header
-> + * @len:  l3 header total length
-> + *
-> + * Return: offset from @hdr, or -1 to drop the packet
-> + */
-> +static int psp_ipv6_nexthdr_off(const u8 *hdr, unsigned int len)
-> +{
-> +	unsigned int nh =3D offsetof(struct ipv6hdr, nexthdr);
-> +	unsigned int off =3D sizeof(struct ipv6hdr);
-> +	const struct ipv6_opt_hdr *eh;
-> +	unsigned int rem;
-> +	u8 type;
-> +
-> +	while (off < len) {
-> +		eh =3D (const void *)(hdr + off);
-> +		type =3D hdr[nh];
-> +
-> +		if (!ipv6_ext_hdr(type) || type =3D=3D NEXTHDR_NONE ||
-> +		    type =3D=3D NEXTHDR_FRAGMENT || type =3D=3D NEXTHDR_ROUTING)
-> +			return -1;
+>>
+>> Or should we even refactor r9a08g047-i3c to be compatible with r9a08g045-i3c ? We currently don't use the
+>> third clock as well. That would mean deprecation of the old plain 'r9a08g047-i3c' binding, of course.
+>>
+>> Opinions?
+> 
+> RZ/G3E I3C does not have analog filter compared to RZ/G3L and RZ/G3S
+> Moreover, it supports - High-speed mode (Hs-mode): 0 to 3.4 Mbps.
 
-return an error code instead of -1?
+Features define compatibility, but nevertheless this has to be addressed
+in the commit msg. That's why I referred to writing bindings in other patch.
 
-> +		rem =3D len - off;
-> +		if (rem < sizeof(*eh))
-> +			return -1;
-> +
-> +		nh =3D off + offsetof(struct ipv6_opt_hdr, nexthdr);
-> +		if (type =3D=3D NEXTHDR_AUTH)
-> +			off +=3D ipv6_authlen(eh);
-
-I was expecting auth header to be part of the reject list.
-
-> +		else
-> +			off +=3D ipv6_optlen(eh);
-> +	}
-> +
-> +	return off =3D=3D len ? nh : -1;
-> +}
-> +
->  static void psp_write_headers(struct net *net, struct sk_buff *skb, __be=
-32 spi,
->  			      u8 ver, unsigned int udp_len, __be16 sport)
->  {
-> @@ -243,7 +280,7 @@ static void psp_write_headers(struct net *net, struct=
- sk_buff *skb, __be32 spi,
->  }
-> =20
->  /* Encapsulate a TCP packet with PSP by adding the UDP+PSP headers and f=
-illing
-> - * them in.
-> + * them in. With IPv6, they go after any extension headers.
->   */
->  bool psp_dev_encapsulate(struct net *net, struct sk_buff *skb, __be32 sp=
-i,
->  			 u8 ver, __be16 sport)
-> @@ -251,10 +288,17 @@ bool psp_dev_encapsulate(struct net *net, struct sk=
-_buff *skb, __be32 spi,
->  	u32 network_len =3D skb_network_header_len(skb);
->  	u32 ethr_len =3D skb_mac_header_len(skb);
->  	u32 bufflen =3D ethr_len + network_len;
-> -
-> -	if (skb->protocol !=3D htons(ETH_P_IP) &&
-> -	    skb->protocol !=3D htons(ETH_P_IPV6))
-> +	int nh_off =3D 0;
-> +
-> +	if (skb->protocol =3D=3D htons(ETH_P_IPV6)) {
-> +		/* UDP + PSP after the extension headers, if any */
-> +		nh_off =3D psp_ipv6_nexthdr_off(skb_network_header(skb),
-> +					      network_len);
-> +		if (nh_off < 0)
-> +			return false;
-> +	} else if (skb->protocol !=3D htons(ETH_P_IP)) {
->  		return false;
-> +	}
-> =20
->  	if (skb_cow_head(skb, PSP_ENCAP_HLEN))
->  		return false;
-> @@ -272,7 +316,7 @@ bool psp_dev_encapsulate(struct net *net, struct sk_b=
-uff *skb, __be32 spi,
->  		ip_hdr(skb)->check =3D
->  			ip_fast_csum((u8 *)ip_hdr(skb), ip_hdr(skb)->ihl);
->  	} else {
-> -		ipv6_hdr(skb)->nexthdr =3D IPPROTO_UDP;
-> +		skb_network_header(skb)[nh_off] =3D IPPROTO_UDP;
->  		be16_add_cpu(&ipv6_hdr(skb)->payload_len, PSP_ENCAP_HLEN);
->  	}
-> =20
-> @@ -331,8 +375,23 @@ int psp_dev_rcv(struct sk_buff *skb, u16 dev_id, u8 =
-generation, bool strip_icv)
->  			return -EINVAL;
-
-If you send a v3, I think you should put the psp_dev_rcv() in a
-serparate patch.
-
->  	} else {
->  		struct ipv6hdr *ipv6h =3D (struct ipv6hdr *)(skb->data + l2_hlen);
-> +		u8 nexthdr =3D ipv6h->nexthdr;
-> +		__be16 frag_off;
-> +		int off;
-> =20
-> -		is_udp =3D ipv6h->nexthdr =3D=3D IPPROTO_UDP;
-> +		/* UDP + PSP come after any extension headers. Fragment and
-> +		 * routing headers are not supported in transport mode.
-> +		 */
-> +		off =3D ipv6_skip_exthdr(skb, l2_hlen + sizeof(*ipv6h), &nexthdr,
-> +				       &frag_off);
-> +		if (unlikely(off < 0 || frag_off))
-> +			return -EINVAL;
-> +
-> +		is_udp =3D nexthdr =3D=3D IPPROTO_UDP;
-> +		l3_hlen =3D off - l2_hlen;
-> +		if (l3_hlen !=3D sizeof(struct ipv6hdr) &&
-> +		    !pskb_may_pull(skb, l2_hlen + l3_hlen + PSP_ENCAP_HLEN))
-> +			return -EINVAL;
->  	}
-> =20
->  	if (unlikely(!is_udp))
-> @@ -386,11 +445,14 @@ int psp_dev_rcv(struct sk_buff *skb, u16 dev_id, u8=
- generation, bool strip_icv)
->  		iph->check =3D ip_fast_csum((u8 *)iph, iph->ihl);
->  	} else {
->  		struct ipv6hdr *ipv6h =3D (struct ipv6hdr *)(skb->data + l2_hlen);
-> +		int nh_off =3D psp_ipv6_nexthdr_off((u8 *)ipv6h, l3_hlen);
-> =20
-> -		if (unlikely(ntohs(ipv6h->payload_len) < encap))
-> +		if (unlikely(nh_off < 0 ||
-> +			     ntohs(ipv6h->payload_len) <
-> +			     l3_hlen - sizeof(*ipv6h) + encap))
->  			return -EINVAL;
-> =20
-> -		ipv6h->nexthdr =3D psph->nexthdr;
-> +		((u8 *)ipv6h)[nh_off] =3D psph->nexthdr;
->  		ipv6h->payload_len =3D htons(ntohs(ipv6h->payload_len) - encap);
->  	}
-> =20
-
+Best regards,
+Krzysztof
