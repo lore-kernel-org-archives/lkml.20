@@ -1,60 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792749507;
-	b=NAwV0yoafhdKivTkc2ZajX6fVRiBLcSYTqsRv7oB6a+Da44qsLmFL9HN0w8kbqO8ao/s
-	 AobdYUPwHjTv0gV8y1znl/EXcwATidsXTOn5LvlDeDC792LdCbe47690edlf/9zdQV21P
-	 rWsQM0kVzCS7mDHf8v8pPhtVhwinIItunbL19UqC0+UFmNfKCWd8cOdFG9kBSuQY57s1T
-	 473aDjGGUest8th1jcvU4GE7dNhvl4l30NWmZwzuosehV5HtPpTiyCQfESn3D6e2hCMAt
-	 xJYYC493lHylFXNbExvjGKGcJSs1fn7zvWHZSWKiF3NzTYNXVDa41N9jtNYEZRFdnzQ==
+	t=1792749562;
+	b=CteVezYqY7VEguLgsBzz2fteNHAD4W9TWWD8mQc8tdil1rtIdCfGsJledHT/zsUEWf8g
+	 3ZN6fHfAByDM3MyCjmCq+gIrtT3QQ5RuefzrasEvtxG+4WDDPoIGkpRVRlEHItktOlTAS
+	 2344nKl1kCzTUePJBkMgNGoxhhosPQU4FXhXutDzdr34g6z4TxlwD3JAGKpxh8+miUckU
+	 mxUKpTDRNruLQOvH2Urc9vEXLvpYYuygwrM6c98jRbDp4bGkr2/u+58LbPui8T7TS2PKb
+	 xHX9+Ba6YhY7aqISyMSYxD+PEW3tCI8qiHg+U8BkZ/TbsolisQhBCHHFitwCXLKw0mw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792749507;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=Ve7/ta2qXklayNEaTRWpAyY7NQ5wEHfm2ehfZ70xWKQ=;
-	b=wqA4074bHvcPeb5HrAgM7RKp9QXAKjhKmBI01HmWYaOj3JzK+CfP5uHwAxStkrRpxQ5T
-	 hMRl+uEZjZUM1hLgCf6bXVoZfOQkOmV/OeqS5puw2y5pCzwfn7N9TGsBEKYPF6JS5Ff8I
-	 K8gQhwsLCf4rGUbyNIyGgQpPYcG+hSY9g67G+eoWobg012OqNW5JtE9+KFQeSYt5lEiHo
-	 h+KhKu8eBf8VCSgKdHNoiPJWnlCx+WsSsx39VEnHWN+plq+yYvbXdoyvwT29tTlCYz9yM
-	 jHTb9ZixbZ+IQzKbD5olrrPETFWjQ3gaJbI6hoTNEYHGwnTDdRxn486CKWYopjGXY/Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792749562;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Gm-Message-State:X-Gm-Gg:
+	 X-Received:X-Received:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Authority-Analysis:X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=qObhk7P6qFFtcYvqpzRA+rRNnFaua2XVu7v9r0gfD6k=;
+	b=btXjFLku0jp0116lnAxXVw9UJ3XiFLTsKmUH0TotzKjr4GbDnj/uV9zyXN1x82dU3wQT
+	 vOY8EPOJpLq5Fo4o8jqTrGOl3RDVdMjb7SwAVMZ2XSIWEdh31vRPomoWfBoOZ2VM2svJU
+	 2gLUpvacBuraOYBg4ZLO90U4UkTQef0rHqGsFsWt3qbeXWURYl9gctLupjQ0DHDjZp2AG
+	 tAra9A6EHl9zwJtHg/hY0lrTVo9a8t00+gH4vCtL2ODB/wI7TmzhDMH9wVJlC4Fo6heHX
+	 m3I594DXrhUSG1rb84jbavmuJh+1/pDuprMRwWkmO8Hq09xKj63TONfchM0tGMM6+dg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K1lNtpLJ;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=VIu1ZjJP;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=jTQCQP3u;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66416606A31A;
-	Fri, 23 Oct 2026 09:58:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84577606A31B
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 09:59:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 84577606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K1lNtpLJ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6BB2F1F01829;
-	Fri, 23 Oct 2026 09:58:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792749507;
-	bh=Ve7/ta2qXklayNEaTRWpAyY7NQ5wEHfm2ehfZ70xWKQ=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=K1lNtpLJ5hGgTEJHSo7X+occejhyWypLrDv/ENmR43gWm4csEY/tDA9KWScEyd4qB
-	 hZZ6cqWfRxR934Po00vYpLMEuX4eVbMzEzLRhYLprt2NJNUNyDJ20i6UnnFWRgqjGt
-	 1aZeiNgOA+nwkS+fsXOGsIghycIqdsEP5qtlXB64cD3RDYFnUBimIxiDxR0Jyg4bd7
-	 ZS4IEB+oii7QSiMCF3uNvF9GiH0I0LjjRe36Anghsu+kwDDV1n1p5n8rIU2PV44kpp
-	 vFTf8heq2IL9Zvdj91uxwghENinIbcNR/3uZ8JiGznBQMpGPtkg5Gxs++0Hz7S+svr
-	 zk9lRm1VQwgxA==
-Subject:
- Re: [PATCH 3/3] can: ifi_canfd: enable NAPI before starting the controller
-From: netdev-bot+sashiko@kernel.org
-To: patrzhan@amazon.com
-Cc: mkl@pengutronix.de, mailhol@kernel.org, linux-can@vger.kernel.org,
- pisa@cmp.felk.cvut.cz, ondrej.ille@gmail.com, harini.t@amd.com,
- michal.simek@amd.com, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, kuba@kernel.org
-Date: Fri, 23 Oct 2026 09:58:25 +0000
-Message-ID: <179274950592.3130.11275892525697074934@kernel.org>
-In-Reply-To: <20261021205924.2538511-4-patrzhan@amazon.com>
-References: <20261021205924.2538511-4-patrzhan@amazon.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=VIu1ZjJP;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=jTQCQP3u
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69N7FU3M588011
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 09:59:20 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=qObhk7P6qFFtcYvqpzRA+r
+	RNnFaua2XVu7v9r0gfD6k=; b=VIu1ZjJPoBYcHKvUrgj7XR+WAuMUgGzYxq7Rm1
+	9xUj2mY3wwBPh+BbC4LI1F0CXX9He5t40CJXo3n8GGXpRTt4EWxqdFAIIMWVvTsS
+	EVMb5pna4us27CuvIKkg0F/BP8QpNDbWHUtizbaQokQXWVVlXsHp3AEZdJBazMvh
+	uMK0PFIPPOZZQh3Lss0CLxLQa271M6gpDmfqKreXyA6jTKmNSXLIUU8JwH+mFbnA
+	XO0+Y8OrJ32bqa7l2277h4sm+U6fyu6yOCFBgDDpJxQe2dSFYhdXWBujP/4HUSpR
+	cc2knUinb+RZKcJ7VPIF5wnkNNHZUaiLAUtmtQfg6pLSK/FA==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hfsmatjtd-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 09:59:20 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93f2005ce21so123033685a.3
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 02:59:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1792749560; x=1793354360; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=qObhk7P6qFFtcYvqpzRA+rRNnFaua2XVu7v9r0gfD6k=;
+        b=jTQCQP3uHIxlGiFL8WOl6ZNUAxW0MjvXzAzuiEHiaycm4EmNFVuWw+H0eCFtlokezo
+         3VVpO8/UbjM1bZTNGIwnu5nxQMbkOsJXtlV39lWNKbya5hgNq+K+lDvweUT+y1X5nmN+
+         EgfXLOzwiy0zMRuyUfXzEvACL7QLdvWLsjnqTECwR+YFr2cdqtz0SjzV6FeNZiveV8TD
+         dXF5jDnV0mYq4zD0ZOdU0k7TAxFVyUS3NJ2eeZK9DY1dwO2Cxd4kq0jXB6wMTHq9ItRI
+         A0RBvafBLIlSCfKirY/GheHWGaO9iXFn8QJLDPcQ3zt9Y5QYrLEI+2CbvzZSXMLdY5Zi
+         c/IA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792749560; x=1793354360;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=qObhk7P6qFFtcYvqpzRA+rRNnFaua2XVu7v9r0gfD6k=;
+        b=hDbQJ1Ciz78lnuQI5ipj1gNZ/buqfy3PmgbdcIsQIhtEWHEz8jZ/JNg9duGYhAdw8T
+         33oZ5AjaBZNAva3Ao1aBKiLtAZCr9HSLn+hell7w4PSfF1fsTCflalVakx33mRSMTaF+
+         ccFVaiJ5Stp2rj8V1T8B8YNPf2rNJwmHeV1UjqLhTnJpLbosoC3nKBEhwbl5Zam3tfIu
+         b8MLRPZ2h5+vEN6J1efSMvSVseaAyJ+tmuRlvU4Vmg4iZ/7938/EV1l3/5aHdsFZwdkt
+         n+5Pwtewgp8wvjRC7GLvefDwA/PeAXuUgN0OHylqlbgQH5zpuBRaUhndKxjoR4AhaBPa
+         WGGg==
+X-Gm-Message-State: AFq9FYKlegrVqKe4JtPJ2b9GCzVdaa38bE74WnE27kBpCOmwykecDFAH
+	9GU0L1QCVJjsg15dwawOfuYKh0CXWjAbJ9f83TrSV7Y+E2bYLJSYxPyKuHrPdhhQf2sTMdkCA1L
+	9exAYfnFC3w80emczoTL2Ln22fGbpuzmrqN14jxD6FKIZJXzC0u+nK30ZiIXzsFYopmKVVYgqfA
+	I=
+X-Gm-Gg: AYBFou1AHvHQ3BRCJ9Oj+FMIGoczONnDZT3hZF7KF+4w18tf+muuredzlQXCiMULBoL
+	t6oJ16FefSvpL/gykfPpI/1Eh2z4uvYjtANKxljvPshVCjOZh+jDDFb8OGi6EZVX10raosgQEJ6
+	L9M4/p8NdQnYLMETdRTqkqW6l2FlQftzDB24MaD54C/c7oHzkI8MKtI+EoGbKl1TBZUOWLP0qvx
+	PrnqNJaSSgB/OIWFGLP949GaXWQKobcC2A03VGK3tDs40mPOcCtFe0+bSy64SmTxHGVNs5MSOHR
+	X4Nhhay7XWW/rRYupRXglfey3lqSfhtZPI6A/gUwrOEs74tWrxsMk1VuBBlEPhpp4ov9ovMwfQg
+	LkLPfrqg7tbugy4YzkbCExc7iDskR
+X-Received: by 2002:a05:620a:400b:b0:93f:57a3:71ab with SMTP id af79cd13be357-93f6f94e2a4mr298871085a.32.1792749559665;
+        Fri, 23 Oct 2026 02:59:19 -0700 (PDT)
+X-Received: by 2002:a05:620a:400b:b0:93f:57a3:71ab with SMTP id af79cd13be357-93f6f94e2a4mr298869185a.32.1792749559202;
+        Fri, 23 Oct 2026 02:59:19 -0700 (PDT)
+Received: from brgl-qcom.local ([2a01:cb1d:dc:7e00:8916:7b9b:97a2:6c96])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a21555fcd1sm22619935e9.4.2026.10.23.02.59.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 23 Oct 2026 02:59:18 -0700 (PDT)
+From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Date: Fri, 23 Oct 2026 11:59:16 +0200
+Subject: [PATCH] power: sequencing: add .kunitconfig
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,130 +112,84 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261023-pwrseq-kunitconfig-v1-1-0576e431565b@oss.qualcomm.com>
+X-B4-Tracking: v=1; b=H4sIAPMv22oC/x3MTQqAIBBA4avErBPUQKOrRIvKyYbATPsD8e5Jy
+ 2/xXoKIgTBCVyUIeFOk3RWIuoJ5HZ1FRqYYJJdKcNkw/4SIB9suR+e8u4Us47oxbav0hMpACX3
+ Ahd5/2g85f6eCRPtkAAAA
+X-Change-ID: 20261023-pwrseq-kunitconfig-073d8867be6d
+To: Bartosz Golaszewski <brgl@kernel.org>
+Cc: linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
+        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=810;
+ i=bartosz.golaszewski@oss.qualcomm.com; h=from:subject:message-id;
+ bh=5Md/kZ+LiBWZqC7MEfaaUdwXUpxfghx5WOcwz1JD5lU=;
+ b=owEBbQKS/ZANAwAKAQWdLsv/NoTDAcsmYgBq2y/1+goXEDhbljKDgJhVgwN6lbQk5QgvC0nP6
+ GIevYmZOY6JAjMEAAEKAB0WIQSR5RMt5bVGHXuiZfwFnS7L/zaEwwUCatsv9QAKCRAFnS7L/zaE
+ w34bD/9yQb9tfGk5aPNAfGbc3i0vI0MHL52KO2KTf7C4sOdXIEPtXVmduzM8euH6Q4anHy5FN6+
+ W2ANoej2qAs2pkC440hahA1+ZQM7+a0e+9Tnr2BLqzDz8zjWuTC3ed8KV0c0dBfPRcA8s/sGfac
+ eIlOyaw8K/gGfK8rOajKFEluvCCOPuNo72/aq8ELw5fk+/ljcl7WmFooqUKjOpqS/0kKIekNreN
+ 28/1G/0Xkjjw9wGPwkOTL79em81GV/D4r9ANqpLCmjT3UfSR3HwpcfLzpYF8VVfGyzeT4+Tlnmu
+ zRQx78Z5Lkm9BeEZQ6qrrMtFP+jQwlV9qFB4lx0QLLiBRuuq1NBKdytPPV2lVtywM9q7RtBHDxt
+ juSvE+PC/h5ej5+dwBYyISLjdpMNGO5Xj0SGAXbAB/HIYv7vdPEbmtVd00ddTp0KixwTf+7oTZd
+ 1hyd0JBxyzZtJ5Y0KwKot6kvNDCV8tT5ZhAtsZZpjmh74/srKQY3ugHIyW5hhs2oiMeyIPHppwX
+ gk6W6E5qhbZ6IGuIsmf9t6i0EkY2ck2KFP1QSmf2E7/6NbhrwBit8xPca5mWmIiJA7DIWUrW9K9
+ Btibo9E7fCX9BFkApb6uY/2pKFt7mBoePQdOPqHFr9Ud0O//S02HaAUX8jchboijis310yJWh0O
+ 7GKrJuBjrMe2pGg==
+X-Developer-Key: i=bartosz.golaszewski@oss.qualcomm.com; a=openpgp;
+ fpr=169DEB6C0BC3C46013D2C79F11A72EA01471D772
+X-Authority-Analysis: v=2.4 cv=V7LoQuni c=1 sm=1 tr=0 ts=6adb2ff8 cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=EUspDBNiAAAA:8
+ a=DIZ46cZ5GcFYGT-oMLkA:9 a=QEXdDO2ut3YA:10 a=PEH46H7Ffwr30OY-TuGO:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIzMDAzOSBTYWx0ZWRfX3If4MHFfeCl7
+ o5NLmHmsnAbFXg1z75AlEEqGvQvNzYnjr03e8901naDbWnX02YQJs/RIof4rn7XERjLwObJ9TZ4
+ fdPhXwRmKtZwG65WNH+dtN2SFea2ijY=
+X-Proofpoint-GUID: W2bk8DgRMK2pLxtTKbQjBxlOu5XX7xdA
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIzMDAzOSBTYWx0ZWRfX5w7E+mhmQZiV
+ ycyqfMcak1ek16DmhJNIH/P77vUZsJpWpNhXESe4zM90NCafQEKF1MRdqP1/tcnBWmpR4H1V5Xq
+ Wv8HCEAjYy6+OBm0fRZq4gzTGstpF8DJirUu3C9uVoQsr3pcb/VbwegCB2KPF9j+Y3a4hcTCOsV
+ Z+2sttDdLicXEe97rp21n5xmitwq+a3z7bPXtyVEFw4a7wYLsYg7Ud7r6eoTbv1R00extJgPyWK
+ tXllKPSAzhFnWbrjbyQubb0x8OY2PN/LBI1rmQTg79LEtMeOTe1cfu3EQgBm5EVZgnlROBtCnXF
+ sHCT2Rg80t0WAnPQIZbn6VMrWVkicJjQ/SVY9JqbxrSebP6K8z8Xsz5tgiaMGDR3+pWOnt13Zzg
+ kQcmr7NXKpAL01WuR5BnnpyBWSNoO6HM/yh87B2ttgayXfiGvF6GyD3udU/ox0V8RH5IzZNGuof
+ xpKatDudjvdZwhs1eVQ==
+X-Proofpoint-ORIG-GUID: W2bk8DgRMK2pLxtTKbQjBxlOu5XX7xdA
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-23_02,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 adultscore=0 impostorscore=0 bulkscore=0 lowpriorityscore=0
+ malwarescore=0 priorityscore=1501 phishscore=0 spamscore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610230039
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+Add the Kconfig fragment allowing to run power sequencing kunit tests
+with kunit.py.
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 0
+Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+---
+ drivers/power/sequencing/.kunitconfig | 3 +++
+ 1 file changed, 3 insertions(+)
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+diff --git a/drivers/power/sequencing/.kunitconfig b/drivers/power/sequencing/.kunitconfig
+new file mode 100644
+index 0000000000000000000000000000000000000000..c73b4e374d0742f4ab550ddba04f873f476218e3
+--- /dev/null
++++ b/drivers/power/sequencing/.kunitconfig
+@@ -0,0 +1,3 @@
++CONFIG_KUNIT=y
++CONFIG_POWER_SEQUENCING=y
++CONFIG_POWER_SEQUENCING_KUNIT=y
 
-- [Medium] Because napi_enable() now runs before ifi_canfd_start(),
-  ifi_canfd_poll() can run against an IFI CAN FD IP that has not been…
+---
+base-commit: bd1ecbb61afefc6a8b876ccbc31e9228b44e9eab
+change-id: 20261023-pwrseq-kunitconfig-073d8867be6d
 
---
-
-can: ifi_canfd: enable NAPI before starting the controller
-
-This patch moves napi_enable() ahead of ifi_canfd_start() in
-ifi_canfd_open(). The goal is that an RX interrupt raised right after the
-controller is enabled can schedule the poll, instead of being dropped and
-leaving the interrupts masked.
-
-> diff --git a/drivers/net/can/ifi_canfd/ifi_canfd.c b/drivers/net/can/ifi_canfd/ifi_canfd.c
-> index 0f83335e4d07..feb738eb0c9a 100644
-> --- a/drivers/net/can/ifi_canfd/ifi_canfd.c
-> +++ b/drivers/net/can/ifi_canfd/ifi_canfd.c
-> @@ -846,9 +846,12 @@ static int ifi_canfd_open(struct net_device *ndev)
->  		goto err_irq;
->  	}
->  
-> +	/* Keep before ifi_canfd_start(): the ISR masks the interrupts and only
-> +	 * the poll unmasks them.
-> +	 */
-> +	napi_enable(&priv->napi);
->  	ifi_canfd_start(ndev);
-
-[Severity: Medium]
-With NAPI enabled before ifi_canfd_start(), can ifi_canfd_poll() now run
-against an IP that has not been reset yet? Can it also run alongside the
-reset and programming sequence in ifi_canfd_start()?
-
-The handler is installed with IRQF_SHARED just above. So ifi_canfd_isr()
-can run because of another device on the line, or because of a line that
-is still asserted. The ISR acts on the raw status and does not AND it with
-IRQMASK:
-
-ifi_canfd_isr() {
-    ...
-	isr = readl(priv->base + IFI_CANFD_INTERRUPT);
-    ...
-	if (isr & rx_irq_mask) {
-		ifi_canfd_irq_enable(ndev, 0);
-		napi_schedule(&priv->napi);
-	}
-    ...
-}
-
-Before this patch, NAPI was still disabled, so this schedule was dropped.
-The ifi_canfd_irq_enable(ndev, 1) inside ifi_canfd_start() then recovered.
-Now the schedule succeeds.
-
-ifi_canfd_plat_probe() only reads IP_ID, VER and CANCLOCK, and the driver
-has no .shutdown hook. After a kexec or warm boot, could the IP still hold
-RX data or error status when the device is first opened?
-
-If so, the poll can run on another CPU, or at irq_exit in the middle of
-ifi_canfd_start(). It would then do the following with no lock:
-
-  - read STCMD and RXSTCMD
-  - drain the RX FIFO through ifi_canfd_read_fifo()
-  - possibly write ERROR_CTR from ifi_canfd_handle_lec_err()
-  - call ifi_canfd_irq_enable(ndev, 1)
-
-Each of these could interleave with the HARDRESET, the RX/TX FIFO resets
-and the ERROR_CTR unlock/reset/enable writes in ifi_canfd_start().
-
-Possible results:
-
-  - a stale or half-reset FIFO entry delivered as a received frame
-  - a spurious ERROR_ACTIVE state-change frame with error_warning++,
-    because priv->can.state is still CAN_STATE_STOPPED
-  - a stale BUSOFF bit in STCMD, which makes
-    ifi_canfd_handle_state_change() do this:
-
-	priv->can.state = CAN_STATE_BUS_OFF;
-	ifi_canfd_irq_enable(ndev, 0);
-	priv->can.can_stats.bus_off++;
-	can_bus_off(ndev);
-
-In the bus-off case, ifi_canfd_start() then overwrites the state:
-
-	priv->can.state = CAN_STATE_ERROR_ACTIVE;
-
-With restart-ms set to 0, can_restart_now() would return -EBUSY, because
-the state is no longer CAN_STATE_BUS_OFF. Would the interface then stay
-carrier-off until the next down/up?
-
-The commit message says:
-
-  "NAPI can be enabled while the controller is in reset, because nothing
-  schedules it until an interrupt arrives."
-
-That seems to hold only after a previous close, where ifi_canfd_stop()
-writes HARDRESET, masks IRQMASK and clears INTERRUPT. It does not seem to
-hold for the first open after boot or kexec, or for ISR calls coming from
-the shared line.
-
-Would it be safer to quiesce the IP first? That would mean HARDRESET,
-masking IRQMASK and clearing INTERRUPT, either in probe or before
-napi_enable(). Another option is to move napi_enable() into
-ifi_canfd_start(), after the reset and interrupt clear and before
-ifi_canfd_irq_enable(ndev, 1).
-
-The bus-off restart path, ifi_canfd_set_mode() -> ifi_canfd_start(),
-already runs with NAPI enabled, so a similar overlap exists there. This
-change extends that existing weakness to the open path.
-
->  
-> -	napi_enable(&priv->napi);
->  	netif_start_queue(ndev);
->  
->  	return 0;
-
+Best regards,
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261021205924.2538511-1-patrzhan%40amazon.com
+Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+
