@@ -1,55 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=124.126.103.232
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792719633;
-	b=eRsP5aRe9fvqovumP19bFjehB4odF9fnhxOFpCgcw0JvK3aVRmRomGFv4qFTztMIiL0+
-	 fotVy2NaatrqbzrEHEbOsgYwnMN6sBDWT77A98w4VnHbDktZbTIOkILdCU8I54ElrobYF
-	 /cVK57z1wnODfdHStzqlzP9Oocmk4pvzsayeOUR+PjrclAof/qP2lM6OgLaAfGoqwD+WX
-	 yF0XTEzli6H4+0/VrwmtaWvL9B8rDW+gSBrpweoKUCDBFvRZIFtEgVZb28+ZCRP/rqAX1
-	 eezamd18m6dFFLDPhFw+FpbHK18Ahaehsp0v3MGvgexqeo72QCwrSK84ExQFbBnPVeQ==
+	t=1792719638;
+	b=g+RFBHnnTGDmh2fUHbPjOS/6HuQcD15i4bSSgtPf+exUApzL/m57U1pMgxh6e6aAiWCu
+	 jlCeFbg5T19FILgg4hMyJxtoEdNdyystuvS7B+vYDrYaiI2dJL1MStZub8g3oC4b3/eh/
+	 Q+BuV9PEh9nvP6Sgk0TgfX/qBybpYu4uEb3AY13N6emwtFOBnWZpD3X1QdSotbxHyV9AN
+	 lbU6/6GfU4TUbP7+9exQGlbEzGyf3yTZKS1hH2SAlWc14LPa81j6tjsFZGKQJdegBRm61
+	 gyYSwyeoFNJ08Q6xJhXDN2gmTo1Eeyxh8ZZNgXy6JkaArKuDLOKPH/sp2WXYb7SEpGg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792719633;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=+9YYjmGgAaJ7EMORGFSbBsWkUkc9dzDPtiE0Gn+pjLE=;
-	b=uPgECIQTVsgilI4Qv4PcNLQfDo7C2GcO2MFGxDfEm+9pVz+/AuvorYnj+iGg9JO+WsdU
-	 fNBfWS8gPiUQEuK6+xtuRq6zP9MrSHa1EiJpOlPfEGVmh8exOZOsZCsAJK+51v1T41qoL
-	 3P2srDC8ylunBhZ+Q6bAYOgm96ORKPgvMI+Q7idGCP2acbq6bOuUdSKVJxV8YO3yvxGOs
-	 T3Pii0X0cZsmBcJuAxHrW8CIjekP7eaRAiLgvBEvagQui4NcWqPE0wW9yIDSzy7qrQ7nG
-	 Gzm9TQ+lVQ9wkMJIt41Hv1S2l7tk65Oa379XqObRkh3oV/5hrmQgWRbmiy+yxuDsMNQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792719638;
+	h=DMARC-Filter:X-UUID:X-CID-P-RULE:X-CID-O-INFO:X-CID-META:X-CID-BVR:
+	 X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:X-User:Received:From:To:Cc:
+	 Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=0xtcPJBB9DR3vT+rc57esCIkDtzhcoeMa6X95T8tUaE=;
+	b=PE2AN7N/4GjrpwkU6r8jkbUsI5FpF1rFAVG6tzuJalBpb+M5SzHxbeJCNj5I798CxMqU
+	 62yS8MiAg41FCsuhCuXhIiwcJJLvH9PJ5l+sFkYAJm3aCvMEeagCA6VnZcp/TpZxAdg2K
+	 D3nnTLs4Xtj+M1KltXEd7E1Ruh6qhHJQvdS4HYy8YNENu4Dg28y+MRp3lOK/h0nDHC1jf
+	 wdsSh7DnOzY9+ZhwbqdJMT78+m7s+xlBfPwF+eHZWDEbfu1k5TSLToG9KNQCsZpjUXmsI
+	 52SbNW5sUU2O6Mt2cGrwW5GXomIsSAOGHnJkcIx7AALQTcXCX/UgFJDZRlYOld5SNCw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QYnnZOAg;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=kylinos.cn;
+	spf=pass smtp.mailfrom=kylinos.cn;
+	arc=none smtp.remote-ip=124.126.103.232
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 367AF606A319
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 01:40:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QYnnZOAg
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C03D21F031E5
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 01:40:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792719632;
-	bh=+9YYjmGgAaJ7EMORGFSbBsWkUkc9dzDPtiE0Gn+pjLE=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=QYnnZOAgyGqsBpIehYM5tf5nI7sJXhgOSiMb4zOmPoimgBqdJzzyvoI8LkSGeYWD8
-	 vt5QxL5ma+/Iw2De45qyIfTpGzhc1HLSQNvREza/WpAo3cZ09ICf1yzlTsgDcHaAcK
-	 6pIPgoLldSD8u0Tc1EkUe/h4iiNNozkthNk6VxY6k0EN4r5Oo0veMB3MS3tgYxtYRl
-	 firW5GymKP+FSgDfomA12c/G6yIYlpUSqQJVqNHwR5tb/4TqL53r96XM3nIS89Xqdl
-	 EV8QSuweFHeWvd/XDP2LcRpcvGcDXlvpXeoP7aRPDMpkXsBwNDQ1L+BgxZQiSEHsc8
-	 gfPtfC6GOfUqA==
-Received: by mail-qk1-f170.google.com with SMTP id af79cd13be357-93c5b7f5bfaso152045485a.1
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 18:40:32 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzSKgqDEKiQaGvGV6Pk7t6oZJPWEgEGUPItLCco4M40iYdD0QtQl2KB/RD2DZ0t99sr2xa1O5VKI1H82Bg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIWpHPFMEx6QSeUewye0Cog1iaAVPVd83BholK2vFD4kZpt978E
-	h0C3zvNGpAltD0LhFhZzvfKUi+DiYmdDvJPJBWtvIWTDzi1UGlx8v5z51iPYgm4j/mp0kfbyBVV
-	Xd742yri53ZkqU68W2EKsFn475BkwWuo=
-X-Received: by 2002:a05:620a:6007:b0:93e:60b7:eb1c with SMTP id
- af79cd13be357-93f6f78e722mr201796985a.8.1792719631974; Thu, 22 Oct 2026
- 18:40:31 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42033606A326;
+	Fri, 23 Oct 2026 01:40:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 42033606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: baf67b34ce8211f19a56ed5b684f684d-20261023
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:d6f6e49f-869c-47d2-b558-f62d9f71d1bd,IP:0,U
+	RL:0,TC:0,Content:0,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+	:release,TS:25
+X-CID-META: VersionHash:7db8b62,CLOUDID:3a105906de80bf8c66561fe19e8ebdc0,BulkI
+	D:nil,BulkQuantity:0,SF:102|865|898,TC:nil,Content:0|15|50|99,EDM:5,IP:nil
+	,URL:99|1,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,L
+	ES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_ULS
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: baf67b34ce8211f19a56ed5b684f684d-20261023
+X-User: lijiayi@kylinos.cn
+Received: from thinksys.tail1c7620.ts.net [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <lijiayi@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 2022889980; Fri, 23 Oct 2026 09:40:30 +0800
+From: Jiayi Li <lijiayi@kylinos.cn>
+To: Oliver Neukum <oneukum@suse.com>
+Cc: Alan Stern <stern@rowland.harvard.edu>,
+	Michal Pecio <michal.pecio@gmail.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-usb@vger.kernel.org,
+	linux-scsi@vger.kernel.org,
+	usb-storage@lists.one-eyed-alien.net,
+	linux-kernel@vger.kernel.org,
+	Jiayi Li <lijiayi@kylinos.cn>
+Subject: [PATCH v2] usb: uas: wait for pending commands before unbinding
+Date: Fri, 23 Oct 2026 09:39:31 +0800
+Message-Id: <20261023013931.388916-1-lijiayi@kylinos.cn>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,62 +73,105 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <0cbd219d-f69d-4f72-aec5-43e1f2d978de@linux.alibaba.com>
- <20261022102726.56682-1-baohua@kernel.org> <fc302ca3-6bf6-4bde-b3e8-8d2e93a4e4ac@linux.alibaba.com>
- <CAGsJ_4z9GZkpV+mpoGogma4oSX4cHy+2UDzyUQSjjOLOfekEPg@mail.gmail.com> <4e647816-0b8b-4a75-8777-8580a574d752@linux.alibaba.com>
-In-Reply-To: <4e647816-0b8b-4a75-8777-8580a574d752@linux.alibaba.com>
-From: Barry Song <baohua@kernel.org>
-Date: Fri, 23 Oct 2026 09:40:20 +0800
-X-Gmail-Original-Message-ID: <CAGsJ_4xVR53NcKuN3bA6v+O=37PeQ2Vnj-8WHo6ScYH96N4seA@mail.gmail.com>
-X-Gm-Features: AclHuK_amfUjgaamNRqs111mMiTPJ2p4pxakjawSZik98l7IETdv3hokn4kCA-k
-Message-ID: <CAGsJ_4xVR53NcKuN3bA6v+O=37PeQ2Vnj-8WHo6ScYH96N4seA@mail.gmail.com>
-Subject: Re: [RFC PATCH v2] mm: vmscan: avoid anon scanning for GFP_NOIO with
- low swapcache in MGLRU
-To: Baolin Wang <baolin.wang@linux.alibaba.com>
-Cc: akpm@linux-foundation.org, axelrasmussen@google.com, baoquan.he@linux.dev, 
-	david@kernel.org, hannes@cmpxchg.org, kasong@tencent.com, 
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org, liuxiang.277@bytedance.com, 
-	ljs@kernel.org, mhocko@kernel.org, qi.zheng@linux.dev, shakeel.butt@linux.dev, 
-	weixugc@google.com, yuanchu@google.com, zhangbo56@xiaomi.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Fri, Oct 23, 2026 at 9:36=E2=80=AFAM Baolin Wang
-<baolin.wang@linux.alibaba.com> wrote:
->
->
->
-> On 10/23/26 5:19 AM, Barry Song wrote:
-> > On Thu, Oct 22, 2026 at 7:26=E2=80=AFPM Baolin Wang
-> > <baolin.wang@linux.alibaba.com> wrote:
-> > [...]
-> >
-> >>>>                    }
-> >>>>
-> >>>>                    if (should_run_aging(lruvec, max_seq, sc, swappin=
-ess)) {
-> >>>> -                       if (try_to_inc_max_seq(lruvec, max_seq,
-> >>>> swappiness, false))
-> >>>
-> >>> This is quite tricky. If we pass swappiness=3D0, anon aging will be
-> >>> skipped. Do we want that for GFP_NOIO cases? I mean, these are not
-> >>> real cases where anon aging should be disabled.
-> >>
-> >> No, we have real use cases where 'vm_swappiness' is set to 0, which
-> >> means the workload never reclaims anon folios. So in this case we don'=
-t
-> >> need to age anon folios.
-> >
-> > My concern is that setting swappiness to 0 for GFP_NOIO also skips
-> > anon aging, making it behave the same as a real swappiness=3D0.
->
-> It will not. We will force anon aging for GFP_NOIO case.
+USB core normally disables interface endpoints before calling
+uas_disconnect(). This cancels pending URBs while the device may still
+be processing the associated commands. Some storage bridges then stop
+responding after a driver rebind and need a disconnect and reconnect
+to recover.
 
-This is fine. but what I am saying is that the walk.swappiness and anon vma=
-s
-are all skipped :-)
+Enable soft unbinding and block new SCSI requests before waiting for
+pending commands to finish. This keeps the endpoints available until
+the wait completes. Stop waiting when USB core marks the device as
+not attached, and continue with the existing cleanup on timeout.
 
->
-> > However, GFP_NOIO is only a temporary state, and subsequent
-> > allocations may not use GFP_NOIO.
->
+Keep requests blocked when leaving the preparation step, including on
+timeout. Set resetting before unblocking the host so that queued
+requests cannot submit new URBs during teardown.
+
+Signed-off-by: Jiayi Li <lijiayi@kylinos.cn>
+
+---
+Changes in v2:
+- Pair SCSI request blocking and unblocking in uas_disconnect().
+- Use the address of the embedded host_lock in the current tree.
+- Add the missing Signed-off-by tag.
+
+v1: https://lore.kernel.org/linux-usb/20261022123401.319479-1-lijiayi@kylinos.cn/
+
+diff --git a/drivers/usb/storage/uas.c b/drivers/usb/storage/uas.c
+index 8655edb..300ab63 100644
+--- a/drivers/usb/storage/uas.c
++++ b/drivers/usb/storage/uas.c
+@@ -9,6 +9,7 @@
+  */
+ 
+ #include <linux/blkdev.h>
++#include <linux/delay.h>
+ #include <linux/slab.h>
+ #include <linux/types.h>
+ #include <linux/module.h>
+@@ -1211,16 +1212,54 @@ static int uas_reset_resume(struct usb_interface *intf)
+ 	return 0;
+ }
+ 
++static void uas_pre_disconnect(struct usb_interface *intf)
++{
++	struct Scsi_Host *shost = usb_get_intfdata(intf);
++	struct uas_dev_info *devinfo = (struct uas_dev_info *)shost->hostdata;
++	unsigned long start_time;
++
++	start_time = jiffies;
++	for (;;) {
++		if (READ_ONCE(devinfo->udev->state) == USB_STATE_NOTATTACHED)
++			return;
++
++		flush_work(&devinfo->work);
++
++		if (!usb_wait_anchor_empty_timeout(&devinfo->sense_urbs, 5000))
++			break;
++
++		if (!usb_wait_anchor_empty_timeout(&devinfo->data_urbs, 500))
++			break;
++
++		if (time_after(jiffies, start_time + 5 * HZ))
++			break;
++		if (uas_cmnd_list_empty(devinfo))
++			return;
++
++		msleep(20);
++	}
++
++	shost_printk(KERN_ERR, shost, "%s: timed out\n", __func__);
++}
++
+ static void uas_disconnect(struct usb_interface *intf)
+ {
+ 	struct Scsi_Host *shost = usb_get_intfdata(intf);
+ 	struct uas_dev_info *devinfo = (struct uas_dev_info *)shost->hostdata;
+ 	unsigned long flags;
+ 
++	spin_lock_irqsave(&shost->host_lock, flags);
++	scsi_block_requests(shost);
++	spin_unlock_irqrestore(&shost->host_lock, flags);
++
++	uas_pre_disconnect(intf);
++
+ 	spin_lock_irqsave(&devinfo->lock, flags);
+ 	devinfo->resetting = 1;
+ 	spin_unlock_irqrestore(&devinfo->lock, flags);
+ 
++	scsi_unblock_requests(shost);
++
+ 	cancel_work_sync(&devinfo->work);
+ 	usb_kill_anchored_urbs(&devinfo->cmd_urbs);
+ 	usb_kill_anchored_urbs(&devinfo->sense_urbs);
+@@ -1260,6 +1299,7 @@ static void uas_shutdown(struct usb_interface *intf)
+ 
+ static struct usb_driver uas_driver = {
+ 	.name = "uas",
++	.soft_unbind = 1,
+ 	.probe = uas_probe,
+ 	.disconnect = uas_disconnect,
+ 	.pre_reset = uas_pre_reset,
