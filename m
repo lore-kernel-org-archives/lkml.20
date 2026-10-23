@@ -1,86 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.156.1
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792726855;
-	b=yCTEnJDArDOf3gCmZ0+qoDTo4QDYM/KB26twvBvDNFaUWSJnEsVfY4vvWPhfXH6jhyAn
-	 zt+3vyQlXQLHkSBEh4IopGttNgxTI+UfoEBVYlBpxfG0r0y6Zz35AyUFmN0M35mimqO53
-	 slKHbigviDb9S82iNw9xtZ423G3gWahVOzI59CfGQd3PByobAeo9yGM/H/Ys0jXrtslw7
-	 HpL3vEXcDnQrIPWs8W4ZN38SeiXKeMyjuHz97/vcOypwR5z9Vy0GD9OLr1YlJWe8tDhx7
-	 hOCZz5S/1778z8R1bvp/CStOSx8wZ6629rTP8QnO33gQ1K51waDmBiskok1Gk5fitNg==
+	t=1792727030;
+	b=INWYw2VgxysS0NDfBDX5WbkGVhGOa63CY69G2DE54wY0xrf/cV+G7s4jXzNAfVF3fBUu
+	 NEJNwLUn7cmYzvlfuRrlqt+ewOpIftM1PMUdjFottWIfAjBr4Nsr/hn5Bm6MU5vkTZrEh
+	 TObrSjmRyDixhAaaVJQRhE8jH3BALVW/oHHIqojdPQJkD9E8W9BeS5h2z8XUH8yxQxRzC
+	 l+/mA0diQwu8v3tDt8wuQlPZUxSAIqMxg/A7QT/vVh8us0iC55zEycmMtgSjv40lnMO7Q
+	 6jhNrNjlUZViH6cXsU2VSSKWr8wmlTf946tGk/1KcDEljYTk3eU6ybQSTEKfQCzCy7A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792726855;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:To:Cc:X-Mailer;
-	bh=r84gnXzTqJKBeirbLqju8kxJzezP08DsjHOvlAIc1ig=;
-	b=emB3TQjXYifJT11Dli9sl8YGUjAT2OkbqWXQJHip941J++q/fV7kIyVI4NZeAiJpsDF8
-	 8vbHXl3iv/Zj61omRiO1ebLPSEsoK5ZQpQu/I2ciJgoMoSxDy45mNsF2sMlTWsME3zyoT
-	 oLXJQNGh9L3p1+DqZ1hL6DNBSlGN+ztHed75X90KCuyElKDPG6jh90Aa92xe+1PubEozv
-	 kb55DHRJROJsLplIxJ18G+uAhEOFDH9a5d1pxo6YBrNlcnRlIIif5T+cJpuJRdsQaQriy
-	 CuIeyxUSmMaTzTWX2B/+F+3PPYH+wNy6E8bpVeR52+CPJmRrMMg02L9042EZH5qoZaA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792727030;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:Received:Received:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-TM-AS-GCONF:X-Proofpoint-Reinject:X-Proofpoint-GUID:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=6G0+vRbNzu44af59yjeJcszY1vwSJY8LZ/VKcohLElY=;
+	b=1CoExkaI7DH078rObx/175DOHqjcAM02Sos8Havkhyz00/JBKyYPY9vOVv9d/yX2UrXJ
+	 N2Xq+dxA8bG0q4gYzAIPtUpUHqxXYJHPBZY+vBy8Ask2Zkj9yo1M8sMX3bP8OponEZ5+N
+	 qCz2gVtzOQl4w08IrPsZxcuCNRM6UCu94p9jkZhwCxH84MMKiqYaqaYOvtFMq8Sexc0ts
+	 8gIrTl3o+JB9qrr2OFD0jOCB8sVWRELIq7EMqx8Hgeg5qmtujv2XtBEfNjNc5ccC7gAX0
+	 IDyUrbTnhMY04KoyDUM4COJPg7zFtfGYjCyMtYRjlznX/A0/KUfk3zNMzizh4s1o0Cw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=a+BSs70C;
-	arc=none smtp.remote-ip=74.125.82.41
-Received: from mail-dl1-f41.google.com (mail-dl1-f41.google.com [74.125.82.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=linux.ibm.com;
+	spf=pass smtp.mailfrom=linux.ibm.com;
+	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=oNmBCFhm;
+	arc=none smtp.remote-ip=148.163.156.1
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FE76606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 03:40:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8FE76606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00001606A319;
+	Fri, 23 Oct 2026 03:43:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 00001606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=a+BSs70C
-Received: by mail-dl1-f41.google.com with SMTP id a92af1059eb24-157fe9d771bso536078c88.0
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 20:40:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792726854; x=1793331654; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=r84gnXzTqJKBeirbLqju8kxJzezP08DsjHOvlAIc1ig=;
-        b=a+BSs70CnSHtlqDxy4yOOq7jhBUmuczALQlXzPK6l0MDO2MuwJq2oQgIHgMgAp8gMg
-         VHXgpNjCnNbmaxysLzr8ouqw/KoLtMHjl3+rHGuT8tNo4CLVnS3zqK8X3xCM+DjuTexv
-         HUr46qjvgWgQXufgpyb87UYdbxx/U/QiBD4gkTw6JHNu+f2R4jP8C1jDhQNZHSrhms5+
-         /nhlMx56GiuBMp78+uM94WbcDzf1uVrwufa0rgWXjfdBBNqCCcrrYQ24ZO/2BcVwI7NC
-         JZ8TU/LPi3k69Vk3HATWDsh7/6QZ2IS0w9PL7OLpIJ+IfyzqpLVpVYgN5fr7VVFsS/um
-         Ui3Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792726854; x=1793331654;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=r84gnXzTqJKBeirbLqju8kxJzezP08DsjHOvlAIc1ig=;
-        b=GYLGhLCVMD5MxlBtvq5sOl5C4MVVhkDlswBTORcpLGU8Rdf9vZb1U8jiNrMi14hKta
-         aja7x4dkY1JVC+MBeFRKi5FryfN7GHH0mvxACkBviuhNvi5g+YLvg0nH5Dq6pZsBkXkV
-         egojZg6CdEzSyvLDIti+sVQ1y/3VGo6msyfPLlpONKTZ7jQQAA9Abg+HEPUM5s/FHzaL
-         7dyamC6jP/3SizsxwpobfXi9EjZFPljAhpjmH2eNFjSJKxbpvcipStlJNr4XD+xAwquX
-         7Skzp9kS2heRrGWVmrTNeQIElPR4GPHiPxD+p/PHN8Vz93E1YI9GoYbQszuxTZuxqsSq
-         sXnA==
-X-Forwarded-Encrypted: i=1; AKwUvBy6Yn68raK3Gs5Rr2QaGUbLQMayomts9AtoYSrqUnm/sGc7rva6+R0x/QCZoU2hw77yT9nFneV6qhRV0Cc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIPV11VVk5XEmPVg9vK6qEbA8wZ7iK3MJvc3grVRCzbqPGkfUdf
-	VPcAi76nXt/Vd6ihSgbask0L5iN9W9bgUzJB0shB8mUdoSoa6tmbfwTt
-X-Gm-Gg: AYBFou2+K2T9kgTSR0WzxfFT2csedjJNFpQn2OoWbx+Xovm5L7PTZ4Xi2nAcSQfhdt9
-	tl5Rx/thq3iq9e3x/bB/RvrqvnSennfgmkmwQJiFDtb51O0FShN03zotkIxWXd9kby98H8cMUNu
-	Rd/bvnxIZmY5Ps27dv/9Cl8vFY5mI46QU3MqDy1YeXyrHlsduf0rAmyErxDAVX1j0wTifOgOv42
-	HUqAkPKzIua7xwMgBsIzbag2HQp4qJcIm8PfSuJQyXJA77ydmA+GPY4DkX2NfHlPzZDf5F9/MCi
-	aS0Hwmh+1dDx/7MHDmiaI4b12Dzu+F6gxO77S+6lfId6eTn6wf8C12r/kGAJwEq2Q1jKTHX/HQc
-	fMSVWVwpZsQNqZZQydJtqQ70oA4YQArfHAZaTJORM96upPQpQlOBOQDU+v7T77uk0wdAH58u1MU
-	Ia/nJs2MSWmBqtN7zYEbrXcE8udrAAmTgqNOzoMiD8TInJv9NJbXm9e6AwEwB6SpdCZW3HnFp7u
-	D2tFq7b3lB/ZyN7TpVzWHexyt3efJ1ywayepu8P1Dsy6vZ1IuE=
-X-Received: by 2002:a05:701b:4252:20b0:143:2719:566e with SMTP id a92af1059eb24-195c929683bmr1489574c88.42.1792726853488;
-        Thu, 22 Oct 2026 20:40:53 -0700 (PDT)
-Received: from [127.0.1.1] ([23.254.208.9])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-195e9e9cbdcsm2513150c88.5.2026.10.22.20.40.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 20:40:53 -0700 (PDT)
-From: Qiliang Yuan <odys.yuan@gmail.com>
-Date: Fri, 23 Oct 2026 11:40:49 +0800
-Subject: [PATCH v4] bcache: avoid holding bch_register_lock across
- cache_set recovery
+	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=oNmBCFhm
+Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69N1EHij4011184;
+	Fri, 23 Oct 2026 03:43:38 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=pp1; bh=6G0+vRbNzu44af59yjeJcszY1vwSJY
+	8LZ/VKcohLElY=; b=oNmBCFhmSWumA5X0+ZBPneasDC9boSOZxNGW5MjqFXyaGg
+	Mh+e5MJOLcQlpvuLC16ADNrF/mHZGCGrN0NRlEYW8arWc3iKlUteGigHTIGFeRRA
+	tN/zJaIjqlsSlu/Y9MSsS32dbEztk87ntbGLn2VLEGjDsgYSakAtriVuJgkjZG7b
+	gdi/nRy2VJhUo1TPu55CqKE+QNFA2sHHRL+9/vfrj9kVSyxbRE3hi/0HRzQ+/SFx
+	IgNeqWV0tmEOus0kI1su8SiGFXQ8peA/g8weSQoKqJf8rvz+kPw+ZvROzLphcBiD
+	R5WQtJhl8hMa0mNuYaTT/M7d8ho7k6mVKxU+3oWw==
+Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hdw5bu53v-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Fri, 23 Oct 2026 03:43:37 +0000 (GMT)
+Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma13.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69N1JtRn165622;
+	Fri, 23 Oct 2026 03:43:36 GMT
+Received: from smtprelay05.fra02v.mail.ibm.com ([9.218.2.225])
+	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4hefssb2dh-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 23 Oct 2026 03:43:36 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
+	by smtprelay05.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69N3hYem47513874
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Fri, 23 Oct 2026 03:43:35 GMT
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id D555D20043;
+	Fri, 23 Oct 2026 03:43:34 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 89CC320040;
+	Fri, 23 Oct 2026 03:43:32 +0000 (GMT)
+Received: from li-dc0c254c-257c-11b2-a85c-98b6c1322444.ibm.com (unknown [9.39.17.104])
+	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTPS;
+	Fri, 23 Oct 2026 03:43:32 +0000 (GMT)
+Date: Fri, 23 Oct 2026 09:16:21 +0530
+From: Ojaswin Mujoo <ojaswin@linux.ibm.com>
+To: linux-ext4@vger.kernel.org, "Theodore Ts'o" <tytso@mit.edu>
+Cc: Ritesh Harjani <ritesh.list@gmail.com>, Zhang Yi <yi.zhang@huawei.com>,
+        linux-kernel@vger.kernel.org, Baokun Li <libaokun@linux.alibaba.com>,
+        Jan Kara <jack@suse.cz>, Ye Bin <yebin10@huawei.com>,
+        kernel test robot <lkp@intel.com>
+Subject: Re: [PATCH v2] ext4: Fix sparse warning in extents kunit test when
+ EXT4_KUNIT_TESTS=m
+Message-ID: <atrYjeSXogEnUBJG@li-dc0c254c-257c-11b2-a85c-98b6c1322444.ibm.com>
+References: <20260924073929.2594339-1-ojaswin@linux.ibm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -90,307 +93,81 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261023-feat-bcache-v4-1-a8fddd8eb2f3@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAEDX2moC/33MQQ6CMBCF4auQWVtT2jqgK+9hXAxlgCZCTUsaD
- eHuFlYujMv3ku9fIHJwHOFSLBA4uej8lIc5FGAHmnoWrs0blFQoK4miY5pFY8kOLLTkMxoqq7Z
- VkMUzcOdee+12z3twcfbhvceT2t7fnaREKSpJpkFWBq289iO5x9H6EbZO0n+szrauM6s1ntDSt
- 13X9QM0zkoH4gAAAA==
-To: Coly Li <colyli@fygo.io>, Kent Overstreet <kent.overstreet@linux.dev>
-Cc: Coly Li <colyli@fnnas.com>, linux-bcache@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Qiliang Yuan <odys.yuan@gmail.com>
-X-Mailer: b4 0.13.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260924073929.2594339-1-ojaswin@linux.ibm.com>
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-GUID: Z35kNbcocHAHZxCpBNS-b7mmnWp-JHw_
+X-Proofpoint-ORIG-GUID: tpbFI48vCHlVzDh3L_v8gqoks7lxqaJI
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIzMDAxMiBTYWx0ZWRfX28uD9uDqDyEp
+ fuJaZKriTtktGDfPWEEsFjRzGCrStx7RnNrlRDDnFLcH/I/XsgPR4bk0IW89/tJ9PBdba8S7Bu4
+ BuvWOiCYg0/LadwvUMm9+g9P0pNWCqw=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIzMDAxMiBTYWx0ZWRfX/W/KLdn7FVRd
+ 85pUDURIVOt9edOKsalfwBcreFqFiREtETTWN+Xi1vSmiAf+1/pfSguPVkJrrD28EhTtCP99UHy
+ UCZ+3icbPQrxse2zyu2U92gawmWVbQyyibm1cvKjJTv9zbFC1l5e8z4GkbftcPRps6ogKu0y6Aj
+ PUCef5sbicq4eDQqdMwCJodK0+nZ+yJNQERrpMdGjZ2JfYWcGgdBfoMu+4oWc3Igx9aqYQyGVh3
+ A6zOdAL/tLN3zkrB3VVHwWlbvbxiGNaYI5D5wSL1nydta8XSAL+hurOFqNGDIwf83trvq1DpYCD
+ dVmXWAKuxaBX8t8mod+OPWN/rkqD6WH1Ej4kjUGtZ9qitIJQpWa7qw3ZjjKBp/+1r3hInrIzQXa
+ fAfauV0RLu0kNcqY/azeyUME8bnasvmBKKtN+eMuSSSenn7x1/c2WW8uzOporVaxiU437iisias
+ LWtfBIaq3rG5zvfDaKw==
+X-Authority-Analysis: v=2.4 cv=Gb2CDgXL c=1 sm=1 tr=0 ts=6adad7e9 cx=c_pps
+ a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
+ a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=uAbxVGIbfxUO_5tXvNgY:22 a=VwQbUJbxAAAA:8
+ a=QyXUC8HyAAAA:8 a=SRrdq9N9AAAA:8 a=i0EeH86SAAAA:8 a=VnNF1IyMAAAA:8
+ a=ozi8al-SNXDmhG0Np4AA:9 a=CjuIK1q_8ugA:10
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-23_01,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 adultscore=0 malwarescore=0 spamscore=0 phishscore=0
+ clxscore=1015 bulkscore=0 impostorscore=0 lowpriorityscore=0
+ priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
+ definitions=main-2610230012
 
-register_cache() holds bch_register_lock across register_cache_set(),
-which recovers a cache set from disk (journal replay, btree check,
-allocator start) before publishing it. The same global mutex serializes
-every sysfs store on cache sets and cached devices, and every
-register_bcache() call.
+On Thu, Sep 24, 2026 at 01:09:28PM +0530, Ojaswin Mujoo wrote:
+> When kunit tests are compiled as modules, the extents kunit test emits
+> a sparse warning:
+> 
+> >> fs/ext4/extents-test.c:59:3: sparse: sparse: symbol 'k_ctx' was not
+>    declared. Should it be static?
+> 
+> Fix this by declaring it as static.
+> 
+> Fixes: cb1e0c1d1fad ("ext4: kunit tests for extent splitting and conversion")
+> Reported-by: kernel test robot <lkp@intel.com>
+> Closes: https://lore.kernel.org/oe-kbuild-all/202609221900.Pgwrcp41-lkp@intel.com/
+> Reviewed-by: Baokun Li <libaokun@linux.alibaba.com>
+> Reviewed-by: Zhang Yi <yi.zhang@huawei.com>
+> Reviewed-by: Jan Kara <jack@suse.cz>
+> Signed-off-by: Ojaswin Mujoo <ojaswin@linux.ibm.com>
 
-Recovery time grows with cache size and device health, so registering
-one cache device stalls unrelated, already running devices. On a Ceph
-OSD node with 12 cache sets on two NVMe drives, udev scripts writing
-congested_read_threshold_us under /sys/fs/bcache/<uuid>/ and
-sequential_cutoff under /sys/block/bcacheN/bcache/, and registration of
-other cache devices, sit in D state for minutes. udevd kills and
-retries those workers every 3 minutes, delaying OSD startup:
+Hi Ted,
 
-  INFO: task bcache_cache_se:3496 blocked for more than 121 seconds.
-  Call trace:
-   __mutex_lock.constprop.0+0x1d4/0x5ec
-   mutex_lock+0x50/0x60
-   bch_cache_set_store+0x40/0x80 [bcache]
+A gentle ping on this small fix.
 
-Drop bch_register_lock in register_cache_set() while recovering a new
-cache set, and take it again to add the kobjects and attach pending
-devices. Keep the cache set on bch_cache_sets so that duplicate
-registrations and bcache_reboot() still see it, and mark it
-CACHE_SET_REGISTERING meanwhile: bch_cached_dev_attach() and the cache
-sysfs files leave it alone, __uuid_write() does not expect the lock, and
-__cache_set_unregister() waits for recovery, as bch_cache_set_error()
-or bcache_reboot() may stop the cache set at any time. Do not publish a
-cache set stopped that way. Take the cache kobject reference before
-recovery, and skip kobject_del() in cache_set_flush() if the cache set
-never reached sysfs. With a cache set recovering for about 15 seconds
-behind dm-delay (200ms reads), each operation started 1 second into
-recovery (3 runs):
+Regards,
+ojaswin
 
-                                    before (ms)    after (ms)
-  write congested_read_threshold_us   13893-14489    37-42
-  write sequential_cutoff             13889-14486    37-41
-  register another cache device       13923-14510    131-150
-
-Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
----
-Tested on a KASAN + lockdep kernel in a VM, with a cache set recovering
-behind dm-delay:
-
-- Switching the cache device to dm-error 1, 4, 6 or 9 seconds into
-  recovery: v3 hits a KASAN slab-use-after-free in cache_set_flush()
-  followed by a panic; v4 fails the registration and frees the cache
-  set cleanly.
-- kexec reboot 1 second into recovery: in v3, bcache_reboot() tears the
-  cache set down while it is still being recovered (kernfs WARNs from
-  cache_set_flush()); in v4 the teardown waits for recovery, the cache
-  set is not published, and bcache_reboot() reports "All devices
-  stopped". If recovery outlasts bcache_reboot()'s 10 second wait, it
-  times out as it does for any slow cache set.
-- Registering a copy of the recovering cache device is rejected as a
-  duplicate cache set member right away.
----
-V3 -> V4:
-- Make __cache_set_unregister() wait for recovery, which
-  bcache_reboot() or bch_cache_set_error() could otherwise tear down
-  concurrently, and do not publish a cache set stopped meanwhile (Coly)
-- Take the cache kobject reference before recovery and skip
-  kobject_del() for a cache set never added to sysfs, fixing a
-  use-after-free when recovery fails
-- Keep run_cache_set() and drop the lock inside register_cache_set()
-  instead of splitting recovery into new helpers
-- Describe the blocked interfaces and their impact, and add before/after
-  data to the commit message (Coly)
-- Use one identity for From and Signed-off-by (Coly)
-- Rebase onto v7.3-5024-g864c07de0c7d
-
-V2 -> V3:
-- Drop the mutex -> rw_semaphore conversion, which did not help stores
-  and raised a KABI concern (Coly)
-- Recover a new cache set without bch_register_lock and take the lock
-  only to publish it
-- Add CACHE_SET_REGISTERING to keep the cache set out of
-  bch_cached_dev_attach() and the cache sysfs files during recovery
-- Keep recovering an existing cache set under the lock
-
-V1 -> V2:
-- Hold the write lock throughout run_cache_set() instead of downgrading
-  it, closing a window where unregister could hit a half-initialized
-  cache set (Coly)
-- Take the write lock in all sysfs store wrappers, including
-  STORE_LOCKED and bch_flash_dev
-- Fix whitespace in the bcache_init() error path
-- bch_register_lock is not exported, so its type change does not affect
-  KABI
-
-v3: https://lore.kernel.org/r/20260706-feat-bcache-v3-1-8824683656ca@gmail.com
-v2: https://lore.kernel.org/r/20260706-feat-bcache-v2-1-70a4b6e246c0@gmail.com
-v1: https://lore.kernel.org/r/20260318-wujing-bcache-v1-1-f0b9aaf3f81d@gmail.com
----
- drivers/md/bcache/bcache.h |  4 +++
- drivers/md/bcache/super.c  | 64 +++++++++++++++++++++++++++++++++-------------
- drivers/md/bcache/sysfs.c  |  6 +++++
- 3 files changed, 56 insertions(+), 18 deletions(-)
-
-diff --git a/drivers/md/bcache/bcache.h b/drivers/md/bcache/bcache.h
-index ec9ff97150812..d293e93b8eadf 100644
---- a/drivers/md/bcache/bcache.h
-+++ b/drivers/md/bcache/bcache.h
-@@ -507,11 +507,15 @@ struct gc_stat {
-  * CACHE_SET_IO_DISABLE is set when bcache is stopping the whold cache set, all
-  * external and internal I/O should be denied when this flag is set.
-  *
-+ * CACHE_SET_REGISTERING is set while a new cache set is recovered without
-+ * bch_register_lock, before it is added to sysfs.
-+ *
-  */
- #define CACHE_SET_UNREGISTERING		0
- #define	CACHE_SET_STOPPING		1
- #define	CACHE_SET_RUNNING		2
- #define CACHE_SET_IO_DISABLE		3
-+#define CACHE_SET_REGISTERING		4
- 
- struct cache_set {
- 	struct closure		cl;
-diff --git a/drivers/md/bcache/super.c b/drivers/md/bcache/super.c
-index 97d9adb0bf96b..c209c92b60e91 100644
---- a/drivers/md/bcache/super.c
-+++ b/drivers/md/bcache/super.c
-@@ -503,7 +503,8 @@ static int __uuid_write(struct cache_set *c)
- 	unsigned int size;
- 
- 	closure_init_stack(&cl);
--	lockdep_assert_held(&bch_register_lock);
-+	if (!test_bit(CACHE_SET_REGISTERING, &c->flags))
-+		lockdep_assert_held(&bch_register_lock);
- 
- 	if (bch_bucket_alloc_set(c, RESERVE_BTREE, &k.key, true))
- 		return 1;
-@@ -1215,6 +1216,10 @@ int bch_cached_dev_attach(struct cached_dev *dc, struct cache_set *c,
- 		return -EINVAL;
- 	}
- 
-+	/* Let register_cache_set() attach it once recovered */
-+	if (test_bit(CACHE_SET_REGISTERING, &c->flags))
-+		return -EBUSY;
-+
- 	if (dc->sb.block_size < c->cache->sb.block_size) {
- 		/* Will die */
- 		pr_err("Couldn't attach %pg: block size less than set's block size\n",
-@@ -1728,7 +1733,8 @@ static CLOSURE_CALLBACK(cache_set_flush)
- 	bch_cache_accounting_destroy(&c->accounting);
- 
- 	kobject_put(&c->internal);
--	kobject_del(&c->kobj);
-+	if (c->kobj.state_in_sysfs)
-+		kobject_del(&c->kobj);
- 
- 	if (!IS_ERR_OR_NULL(c->gc_thread))
- 		kthread_stop(c->gc_thread);
-@@ -1828,6 +1834,7 @@ static CLOSURE_CALLBACK(__cache_set_unregister)
- 	struct bcache_device *d;
- 	size_t i;
- 
-+	wait_on_bit(&c->flags, CACHE_SET_REGISTERING, TASK_UNINTERRUPTIBLE);
- 	mutex_lock(&bch_register_lock);
- 
- 	for (i = 0; i < c->devices_max_used; i++) {
-@@ -1986,7 +1993,6 @@ struct cache_set *bch_cache_set_alloc(struct cache_sb *sb)
- static int run_cache_set(struct cache_set *c)
- {
- 	const char *err = "cannot allocate memory";
--	struct cached_dev *dc, *t;
- 	struct cache *ca = c->cache;
- 	struct closure cl;
- 	LIST_HEAD(journal);
-@@ -2137,13 +2143,6 @@ static int run_cache_set(struct cache_set *c)
- 	if (bch_has_feature_obso_large_bucket(&c->cache->sb))
- 		pr_err("Detect obsoleted large bucket layout, all attached bcache device will be read-only\n");
- 
--	list_for_each_entry_safe(dc, t, &uncached_devices, list)
--		bch_cached_dev_attach(dc, c, NULL);
--
--	flash_devs_run(c);
--
--	bch_journal_space_reserve(&c->journal);
--	set_bit(CACHE_SET_RUNNING, &c->flags);
- 	return 0;
- err:
- 	while (!list_empty(&journal)) {
-@@ -2163,7 +2162,9 @@ static const char *register_cache_set(struct cache *ca)
- {
- 	char buf[12];
- 	const char *err = "cannot allocate memory";
-+	struct cached_dev *dc, *t;
- 	struct cache_set *c;
-+	int ret;
- 
- 	list_for_each_entry(c, &bch_cache_sets, list)
- 		if (!memcmp(c->set_uuid, ca->sb.set_uuid, 16)) {
-@@ -2177,6 +2178,25 @@ static const char *register_cache_set(struct cache *ca)
- 	if (!c)
- 		return err;
- 
-+	/*
-+	 * Drop bch_register_lock while recovering the new cache set, so that
-+	 * sysfs and registration of other devices are not blocked meanwhile.
-+	 * Keep it on bch_cache_sets for duplicate detection and
-+	 * bcache_reboot().
-+	 */
-+	kobject_get(&ca->kobj);
-+	set_bit(CACHE_SET_REGISTERING, &c->flags);
-+	list_add(&c->list, &bch_cache_sets);
-+	mutex_unlock(&bch_register_lock);
-+
-+	ret = run_cache_set(c);
-+
-+	mutex_lock(&bch_register_lock);
-+	clear_and_wake_up_bit(CACHE_SET_REGISTERING, &c->flags);
-+	err = "failed to run cache set";
-+	if (ret < 0 || test_bit(CACHE_SET_STOPPING, &c->flags))
-+		goto err;
-+
- 	err = "error creating kobject";
- 	if (kobject_add(&c->kobj, bcache_kobj, "%pU", c->set_uuid) ||
- 	    kobject_add(&c->internal, &c->kobj, "internal"))
-@@ -2186,22 +2206,30 @@ static const char *register_cache_set(struct cache *ca)
- 		goto err;
- 
- 	bch_debug_init_cache_set(c);
--
--	list_add(&c->list, &bch_cache_sets);
- found:
- 	sprintf(buf, "cache%i", ca->sb.nr_this_dev);
- 	if (sysfs_create_link(&ca->kobj, &c->kobj, "set") ||
- 	    sysfs_create_link(&c->kobj, &ca->kobj, buf))
- 		goto err;
- 
--	kobject_get(&ca->kobj);
--	ca->set = c;
--	ca->set->cache = ca;
-+	/* Recover an existing cache set locked, as it is already visible */
-+	if (!c->cache) {
-+		kobject_get(&ca->kobj);
-+		ca->set = c;
-+		ca->set->cache = ca;
- 
--	err = "failed to run cache set";
--	if (run_cache_set(c) < 0)
--		goto err;
-+		err = "failed to run cache set";
-+		if (run_cache_set(c) < 0)
-+			goto err;
-+	}
-+
-+	list_for_each_entry_safe(dc, t, &uncached_devices, list)
-+		bch_cached_dev_attach(dc, c, NULL);
- 
-+	flash_devs_run(c);
-+
-+	bch_journal_space_reserve(&c->journal);
-+	set_bit(CACHE_SET_RUNNING, &c->flags);
- 	return NULL;
- err:
- 	bch_cache_set_unregister(c);
-diff --git a/drivers/md/bcache/sysfs.c b/drivers/md/bcache/sysfs.c
-index cfac56caa8047..af970f802dcf5 100644
---- a/drivers/md/bcache/sysfs.c
-+++ b/drivers/md/bcache/sysfs.c
-@@ -1032,6 +1032,9 @@ SHOW(__bch_cache)
- {
- 	struct cache *ca = container_of(kobj, struct cache, kobj);
- 
-+	if (ca->set && test_bit(CACHE_SET_REGISTERING, &ca->set->flags))
-+		return -EBUSY;
-+
- 	sysfs_hprint(bucket_size,	bucket_bytes(ca));
- 	sysfs_hprint(block_size,	block_bytes(ca));
- 	sysfs_print(nbuckets,		ca->sb.nbuckets);
-@@ -1140,6 +1143,9 @@ STORE(__bch_cache)
- 	if (bcache_is_reboot)
- 		return -EBUSY;
- 
-+	if (ca->set && test_bit(CACHE_SET_REGISTERING, &ca->set->flags))
-+		return -EBUSY;
-+
- 	if (attr == &sysfs_cache_replacement_policy) {
- 		v = __sysfs_match_string(cache_replacement_policies, -1, buf);
- 		if (v < 0)
-
----
-base-commit: 864c07de0c7dcbca58b61625dfa2e461ae63b242
-change-id: 20260706-feat-bcache-30e964a17dd2
-
-Best regards,
--- 
-Qiliang Yuan <odys.yuan@gmail.com>
-
+> ---
+>  fs/ext4/extents-test.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/fs/ext4/extents-test.c b/fs/ext4/extents-test.c
+> index bd7795a82607..9669b2197fca 100644
+> --- a/fs/ext4/extents-test.c
+> +++ b/fs/ext4/extents-test.c
+> @@ -48,7 +48,7 @@
+>  #define EXT_DATA_LBLK 10
+>  #define EXT_DATA_LEN 3
+>  
+> -struct kunit_ctx {
+> +static struct kunit_ctx {
+>  	/*
+>  	 * Ext4 inode which has only 1 unwrit extent
+>  	 */
+> -- 
+> 2.55.0
+> 
