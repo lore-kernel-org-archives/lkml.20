@@ -1,76 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.72
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.197
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792792315;
-	b=kpOlmp1bppuMjRhHS9EM9HBWVzWBG8Wf2uVzD3+2VxzDe1JGN0bby032wJLHn37JH7KT
-	 s6sbrLv4YYTgS4TLwG9lhondA2iK6StGanmh12pg0CIqkFObYowGhDFIcQ+BIMNzYneAF
-	 2v79hmdr/OUPNzQ7gwnn1Zmc8I6JMbJC/P+p3vCFt1Kio1xl6/vLU7WCKs/uEbSOgZW66
-	 4SZc9zfW8BCUKoBmWfyNWVf3igfOYYsNV9wiHqgTbKpOzVpzM2cArbXMSrfJpMxtSTMmX
-	 jrklPAnyh74D89/YsYe0XH7RToHm5Anfd56Dc0+hYTf79w31HRE2r7k+ZRvrFcxnPEQ==
+	t=1792792330;
+	b=XmJNjajyUWsAnUiycdecBHaaLYG9exTLkld2/n6EqKrIeYONSxK9hSopfb6cSDgXNl0q
+	 ey20sncJ/lbljS1eFh5AOKcVz0KIeHmdnQvTfAKqoTTX/EVQXkiiQgcQrYJdK2LMXrfDi
+	 svqBSWJcXiB3gIQWVk1bAPhGNwu/6zpipZckfxgqcK2pTIyqIp3/xmDtYmtIQnxrULe0Y
+	 fSxvufc5FlXZKjHBSJ20sfi2j9BrAKw7cCo9YqBSAxMYDYL2Ij/rivtzaQ3Br+9MsugTi
+	 nlPp1mwMEwfrbxMgfwqOG62iEsr8m3UD2CcpffFLXPMG5Uh33xKOAWjVm1Fbsm3zLYw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792792315;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792792330;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=37bgzHVD8y8sAVNI32vtF0/e4Mt+8V5lKNPa4buINEw=;
-	b=5QzcOWtLvkRbZn8UZ9JcDgsWdR05aQb543/XuhMYKs8usNmQ7nTRAiKlD9znX7zKF/zK
-	 CqOfve1/icxyqVAJWG9Ks8p6HY/3+70KRzdk7qcgPhTPZ9J9g5moM03fM8aw3CpzY+MG+
-	 wysTF41FsMgQ7Ivj9T2y8tn1/gWi2XHrOHQ3Kr1dAC+vS5bat3wfqMmumZBtL+sr5YxNo
-	 amDnQ5FNJCjpN79ymjaD5F+lVHq7QXZ94HE7rr/7P6N2umaLCg1swTRoq983ZGS7AWX0c
-	 MwQnqhtI9cFRf2thkfM+DLQPL58KEqztN8B3XG0/dFgWqIYNvcbT3qOQAUl8U75xw3A==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
+	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=powphZXLhH8S0DAbGwSawM8KqytfbP1cF9uHOkKWMWI=;
+	b=OOphRW8+BTjsQRtce/HoiC68b7B94FSnqkl8F9xdd5W5h0Qpb/P98ZKPd2yKZ22YpOCd
+	 0IEE6DNM/katiO98Rtn96HdiFdwfX+5dtKXgOg+N7kc17HNwbef6kjuPtDel+aXZQ0INf
+	 3I/GI8Se9uimQxPcSTBz7pm7oYcNLtRKhStVrpHktGxg9tbEAwQxyFeWQt8SKnn3BKw/Q
+	 DVOnQ6h6naQxCFsvHaqsp6QrK6+Z/m3CP5EyIewnzSCS6OYeeprYjLR0rsk1RqJQdsdvZ
+	 HU94icgcnDrU/ZbAs9f3rR0iDlLI+qF3JFrMCnpMAirHqXxYVYnQuk87FyB5lXlXp+A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--tarunsahu.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=hTQFFix8;
-	arc=none smtp.remote-ip=209.85.208.72
-Received: from mail-ed1-f72.google.com (mail-ed1-f72.google.com [209.85.208.72])
+	spf=pass smtp.mailfrom=flex--coltonlewis.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=M6ZlctPX;
+	arc=none smtp.remote-ip=209.85.167.197
+Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D488606A326
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 21:51:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4D488606A326
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8EF5606A31D
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 21:52:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A8EF5606A31D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--tarunsahu.bounces.google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--coltonlewis.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=hTQFFix8
-Received: by mail-ed1-f72.google.com with SMTP id 4fb4d7f45d1cf-6a125f5b317so1429355a12.1
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 14:51:54 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=M6ZlctPX
+Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-4f8281066c4so1652323b6e.2
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 14:52:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792792313; x=1793397113; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:references:mime-version:in-reply-to:date:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=37bgzHVD8y8sAVNI32vtF0/e4Mt+8V5lKNPa4buINEw=;
-        b=hTQFFix8pn/Y3t4fncvPWkx+/E4dv1R+1G8m+PO1oOcB3UHZqMZlQsxwljO6bIWzBK
-         ppASh7LU3KTalFg/FChHtssFZEKiew4d081cMUVJVpJ+paXaJUT5+XzAlutxkXjf0J8t
-         Nly/LrQX47bht/9wdr/lSjgbzWtKvEDrZ7jujFjhT0L4t5DgH62d6ZeHQZdQczteFTSh
-         6LuwZ1uaBAAmjqeTmNy4ZAQwqzbnVIEGY6gYUyTFt/akgtqEYq/S7JyrJlSJeiQa9WHQ
-         u6WAL02GRPtB5i1ATfv/EhHpS64FKP40MtYzKrtbprMfusiahYeHhLCxcwR0nIxAmp6G
-         Ss+A==
+        d=google.com; s=20251104; t=1792792328; x=1793397128; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=powphZXLhH8S0DAbGwSawM8KqytfbP1cF9uHOkKWMWI=;
+        b=M6ZlctPXYoYAgkYIZONBO3nURYjOMZebko+yvQzXX0K3+db3LOjiHB9actSK7i36Y9
+         4SSQ5+1ZZUpm69GkjrAtTQ7Xm2itjRofwV1cJNUml9PqNDgtzCQIqzlmhaHZT8IA+ds7
+         v7tYkOQqIx8ci5XTh7lrSOIEI31gmavpqOmRv11uNDgzYt4MYG/mglQeHkYCcdm5+l6Y
+         w3scrmGvyqY7ky7d6RGlVkHVDJc7xd1p/UPybYekQvSjCzEKMdjkv+dweLj4bKZ1LiHP
+         xgd+3dP+02rQk93Wd3YEeJig58XcpFsHbpVKIBnto0sM9DGo5zZKZ2HqNc+ex+j0Hgto
+         La1w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792792313; x=1793397113;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:references:mime-version:in-reply-to:date
+        d=1e100.net; s=20260707; t=1792792328; x=1793397128;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=37bgzHVD8y8sAVNI32vtF0/e4Mt+8V5lKNPa4buINEw=;
-        b=EWJnxE2zzjj/XO1nuvIuDSKdqgYFpQE6+y1tYSrTqar048h9vmfARchrAIGhShl+w7
-         pIMav69cN4nnL0OE4sCYkRsJFmRg3NNjzQ2koBu/2ce/bRPNvHMN5Wits4Qeeg8kZ55o
-         hlO78bUIvL+omxX786uqGOKfCYe3EllsiXkdlOjKYf94JmeFUBOY4xxpNWFpEuE+Cc4r
-         z4N4mr24zMGOUpdHowg1EynHbB41BfURAFyV+c8OSo5ZiKFs5az7b5r/xf00T3YhqLR5
-         HOHFAXI2U303hikxpvIqPGGNWqPoG9fNYpJ256Uf0M7Lp/0bNgRGUkHSB078ndZr7nPi
-         6j9g==
-X-Forwarded-Encrypted: i=1; AKwUvBxYlS4R8zhI11sUCP0SWEkQvmL4qlfo87ncNGj47wB6fq5negmyXgHMv15rA+eKAMhm+ys16IQyfCaqwHw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLTKTk++2Ctb61AlMS2zU5E41/EUDW9AdjqrnZ0fxXSrgRxmLez
-	H/+JI2TScya7d5aSMFot0U9ZJ2UxmSZrgi+9mSKoAA0oaViEIECJeTXTXFWbXVKrjvSolNB5Es1
-	lVL0Bjwxafu6MM1/SxA==
-X-Received: from edve18.prod.google.com ([2002:a05:6402:1492:b0:6b3:c422:923c])
- (user=tarunsahu job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6402:5191:b0:6b1:b97b:744 with SMTP id 4fb4d7f45d1cf-6b442ff3810mr590380a12.32.1792792312470;
- Fri, 23 Oct 2026 14:51:52 -0700 (PDT)
-Date: Fri, 23 Oct 2026 21:51:51 +0000
-In-Reply-To: <atsQQcUiVhb9KXWZ@kernel.org>
+        bh=powphZXLhH8S0DAbGwSawM8KqytfbP1cF9uHOkKWMWI=;
+        b=JR99wZoJsOLK7V8E47b8QqdonJs7akHec/RgR7k+wqVVe9rraeziYsrO618FHDTpD+
+         Kp2PBbUw//Co1B8zoc1acHhsrzJGp8sdL9nDPwP4wxjMFm6Ds2DB1aieIRVK4yEUFyOt
+         ZDNaHhtU09vhq9CMxrIaunFDlcNc/Dha70TFSzIlhsIg3rDDZysDnAfSIla8YclJx6Wh
+         8ycbXL/HpWWvk4bwGa7RSJBn7Tz92LiVKEEwR15EB5WW5hAMsuPYCmpgrbq0Obr2X45d
+         Aj8C2pcZldnq+KAdecQiXheSX01GnajJ9wUhzR1Pd7zhmZVl9sfYvQmqfpai0azfvJwc
+         ps6g==
+X-Forwarded-Encrypted: i=1; AKwUvBzegKZrrDcCLLzd1TAB5AXcJ6koSemgt0+fUzj98cfjsHDKNqUkpzZS9WxGPGUv8uWzQqVXlcb6ilo7E+Q=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI+2j1DeXXoEd4pKSpuf/UtjXfuRzh6t7aVEUvVbnHkkFI0krNV
+	+qy48Pjw6cKNFVFmzQc8PcgUr1pJ08DK0NprLFfKKlb5FH4sQKmXPnijn8WUClGe7fVI0dJYuHv
+	no35oMll8rpuTgIk0/bJOqncrCQ==
+X-Received: from iocou10-n1.prod.google.com ([2002:a05:6602:c30a:10b0:9c4:1f4b:e117])
+ (user=coltonlewis job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:6808:11c8:b0:4f7:d324:bc36 with SMTP id 5614622812f47-55c002fc6a9mr386149b6e.43.1792792328262;
+ Fri, 23 Oct 2026 14:52:08 -0700 (PDT)
+Date: Fri, 23 Oct 2026 21:52:07 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,102 +76,101 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 Mime-Version: 1.0
-References: <20261021152527.375070-1-tarunsahu@google.com> <20261021152527.375070-2-tarunsahu@google.com>
- <CA+CK2bC_wc4LxvHe0TREbBP7esYW3pcMNtkGK-kqvf6MyvOh2g@mail.gmail.com>
- <9huzik2u6hs5.fsf@tarunix.c.googlers.com> <CA+CK2bDyk=F7W3J=q3pKCjsr2wy_PLdgqgu+ywp0F5HL=VoMpA@mail.gmail.com>
- <9huzld7q4zjz.fsf@tarunix.c.googlers.com> <atsQQcUiVhb9KXWZ@kernel.org>
-Message-ID: <9huz33twf5l4.fsf@tarunix.c.googlers.com>
-Subject: Re: [RFC PATCH v2 1/4] liveupdate: Rename handler compatible to name
-From: tarunsahu@google.com
-To: Mike Rapoport <rppt@kernel.org>
-Cc: Pasha Tatashin <pasha.tatashin@soleen.com>, Andrew Morton <akpm@linux-foundation.org>, 
-	joro@8bytes.org, Pratyush Yadav <pratyush@kernel.org>, maz@kernel.org, arnd@arndb.de, 
-	David Matlack <dmatlack@google.com>, jgg@nvidia.com, robin.murphy@arm.com, 
-	loganodell@google.com, oupton@kernel.org, kevin.tian@intel.com, 
-	alex@shazbot.org, dwmw2@infradead.org, pbonzini@redhat.com, seanjc@google.com, 
-	will@kernel.org, Alexander Graf <graf@amazon.com>, Bjorn Helgaas <bhelgaas@google.com>, 
-	baolu.lu@linux.intel.com, linux-arm-kernel@lists.infradead.org, 
-	linux-arch@vger.kernel.org, sagis@google.com, linux-mm@kvack.org, 
-	kvmarm@lists.linux.dev, iommu@lists.linux.dev, linux-pci@vger.kernel.org, 
-	kexec@lists.infradead.org, skhawaja@google.com, kvm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+X-Mailer: git-send-email 2.56.0.257.gf7497c7d27-goog
+Message-ID: <20261023215207.1465369-1-coltonlewis@google.com>
+Subject: [PATCH] irqchip/gic-v4: Use a separate lockdep class for vPE doorbell IRQs
+From: Colton Lewis <coltonlewis@google.com>
+To: Marc Zyngier <maz@kernel.org>, Thomas Gleixner <tglx@kernel.org>
+Cc: Radu Rendec <radu@rendec.net>, Oliver Upton <oupton@kernel.org>, 
+	linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, Raghavendra Rao Ananta <rananta@google.com>, 
+	Colton Lewis <coltonlewis@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-Mike Rapoport <rppt@kernel.org> writes:
+By default, init_desc() assigns the shared irq_desc_lock_class lockdep
+key to desc->lock for every struct irq_desc. Device drivers that
+register an IRQ affinity notifier establish a lock dependency chain of
+&irq_desc_lock_class --> &pool->lock --> &p->pi_lock --> &rq->__lock
+when irq_set_affinity_locked() calls schedule_work() while holding
+desc->lock.
 
-> On Wed, Oct 21, 2026 at 07:35:28PM +0000, tarunsahu@google.com wrote:
->> Pasha Tatashin <pasha.tatashin@soleen.com> writes:
->> > On Wed, Oct 21, 2026 at 2:16=E2=80=AFPM <tarunsahu@google.com> wrote:
->> >> Pasha Tatashin <pasha.tatashin@soleen.com> writes:
->> >>
->> >> > On Wed, Oct 21, 2026 at 11:25=E2=80=AFAM Tarun Sahu <tarunsahu@goog=
-le.com> wrote:
->> >> >>
->> >> >> --- a/include/linux/kho/abi/luo.h
->> >> >> @@ -84,18 +84,16 @@ struct luo_ser {
->> >> >>         u64 flbs_pa;
->> >> >>  } __packed;
->> >> >>
->> >> >> -#define LIVEUPDATE_HNDL_COMPAT_LENGTH  48
->> >> >> -
->> >> >>  /**
->> >> >>   * struct luo_file_ser - Represents the serialized preserves file=
-s.
->> >> >> - * @compatible:  File handler compatible string.
->> >> >> + * @name:        File handler name string.
->> >> >
->> >> > We are renaming from cpmaptible to name; I am not sure that is
->> >> > necessary. We can still use compatible for the same purpose as name=
-.
->> >> > Unless it really bothers people, but for me 'compatible' works just
->> >> > the same.
->> >>
->> >> Yes it is necessary, For example if we have two handler for a single
->> >> subsystem. We should refer it by handle this or handler that, not lik=
-e
->> >> handler with compatible string this and handler with compatible strin=
-g
->> >> that.
->> >
->> > I still feel like compatability makes more sense to me. Take an exampl=
-e:
->> >
->> > We have two file handlers for memfd (i.e., FH_OLD and FH_NEW): one has
->> > compatibility =3D "memfd", and the other has compatibility =3D
->> > "memfd_next_generation". The user chooses one of them to preserve the
->> > memfd data, and the compatibility string is saved alongside the FD.
->> > When the next kernel scans through the registered file handlers, it
->> > must find exactly one that is compatible with the preserved data.
->>=20
->> I will open this for vote.
->
-> I'd rather won't ;-)
->
-> "compatible" does not contradict more fine grained bitfields, and still h=
-as meaning.
-> Just like in FDT world from where we inherited it, it means "these ops ar=
-e
-> somewhat compatible with that serialized format, will check the details a=
-nd
-> will know for sure".
->
-> And IMO we should keep it.
-> =20
-> And please, trim your responses. I had to scroll 463 lines to see there's
-> nothing there.
+On GICv4 systems, scheduling out a KVM vCPU calls kvm_sched_out() ->
+kvm_arch_vcpu_put() -> vgic_v3_put() -> vgic_v4_put() ->
+its_make_vpe_non_resident() -> irq_set_vcpu_affinity() while holding the
+scheduler runqueue lock (&rq->__lock). Acquiring the vPE doorbell IRQ's
+desc->lock establishes &rq->__lock --> &irq_desc_lock_class, triggering
+a lockdep circular locking splat:
 
-Okay.
+  WARNING: possible circular locking dependency detected
+  ------------------------------------------------------
+  VCPU-0/109705 is trying to acquire lock:
+  ffff0001e41e4cc8 (&irq_desc_lock_class){-.-.}-{2:2}, at: __irq_get_desc_lock+0x5c/0xb0
 
-I will send the v3 soon with feature flags only. Also I will drop this
-and its next patch, as It will be part of other compatiblity series with
-exporting the schema to userspace so that userspace can make better
-decision in selecting the handler (As per the response from the other threa=
-d).
+  but task is already holding lock:
+  ffff00dad15fd260 (&rq->__lock){-.-.}-{2:2}, at: __schedule+0x23c/0x1850
 
-~Tarun
+  which lock already depends on the new lock.
 
->
-> --=20
-> Sincerely yours,
-> Mike.
+  Chain exists of:
+    &irq_desc_lock_class --> &p->pi_lock --> &rq->__lock
+
+   Possible unsafe locking scenario:
+
+         CPU0                    CPU1
+         ----                    ----
+    lock(&rq->__lock);
+                                 lock(&p->pi_lock);
+                                 lock(&rq->__lock);
+    lock(&irq_desc_lock_class);
+
+GICv4 vPE doorbell IRQs are internal to KVM and GICv4, set
+IRQ_NO_BALANCING, and never register an affinity notifier or queue work
+under desc->lock. Assign a dedicated lockdep class to vPE doorbell IRQs
+in its_alloc_vcpu_irqs() via irq_set_lockdep_class() to prevent this
+false positive.
+
+Fixes: 8e01d9a396e6 ("KVM: arm64: vgic-v4: Move the GICv4 residency flow to be driven by vcpu_load/put")
+Signed-off-by: Colton Lewis <coltonlewis@google.com>
+---
+
+Notes:
+    An LLM-based coding assistant was used to help analyze the lockdep
+    report and draft this patch. I reviewed the analysis and the change.
+    
+    Tested with this patch applied to a 6.18-based kernel (the affected
+    code is identical) on a GICv4.1 host with an idpf NIC and
+    CONFIG_PROVE_LOCKING=y: bring an idpf interface up, then run the KVM
+    vgic_lpi_stress selftest pinned to a CPU shared with a busy loop so
+    the vCPU is preempted while its vPE is resident. Without this patch
+    the splat fires on the first run. With it, five runs are clean and
+    lockdep records rq->__lock -> the new vPE doorbell class instead of
+    irq_desc_lock_class.
+
+ drivers/irqchip/irq-gic-v4.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/drivers/irqchip/irq-gic-v4.c b/drivers/irqchip/irq-gic-v4.c
+index 8455b4a5fbb0d..68ee288f6a076 100644
+--- a/drivers/irqchip/irq-gic-v4.c
++++ b/drivers/irqchip/irq-gic-v4.c
+@@ -157,6 +157,8 @@ static int its_alloc_vcpu_sgis(struct its_vpe *vpe, int idx)
+ 
+ int its_alloc_vcpu_irqs(struct its_vm *vm)
+ {
++	static struct lock_class_key vpe_irq_lock_class;
++	static struct lock_class_key vpe_irq_request_class;
+ 	int vpe_base_irq, i;
+ 
+ 	vm->fwnode = irq_domain_alloc_named_id_fwnode("GICv4-vpe",
+@@ -183,6 +185,8 @@ int its_alloc_vcpu_irqs(struct its_vm *vm)
+ 	for (i = 0; i < vm->nr_vpes; i++) {
+ 		int ret;
+ 		vm->vpes[i]->irq = vpe_base_irq + i;
++		irq_set_lockdep_class(vm->vpes[i]->irq, &vpe_irq_lock_class,
++				      &vpe_irq_request_class);
+ 		ret = its_alloc_vcpu_sgis(vm->vpes[i], i);
+ 		if (ret)
+ 			goto err;
+-- 
+2.56.0.257.gf7497c7d27-goog
+
