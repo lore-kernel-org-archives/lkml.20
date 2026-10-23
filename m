@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792733094;
-	b=Eb6FWPlq0P2gxciyq41uf94O6amAJkoLa5O/W0gtVUL/eybQB915ztliIUEoFtjjnd4x
-	 3Lw7WjQnwIP0rl0R93i0Z/8Ei8P7mCQdYNJwHikQmRJJeoRsKLgy6Xi33HsGVmQ8pIxFh
-	 YIbWSU2zCRrnkPFAvOWZFIiU4siE4HNgREHQHr1/lPrA3ycPzOGWiur2Sq4GTGz2rQPzO
-	 1R38FRHiCMBdMZ5u750+pVfxOiHDMSBz5LBjlko3DKv0Fj2M8PtXYaQ2W6vz32gCDMjgI
-	 achR8WdVSjQrhAKfFTWUme40w0WdhFSj1BilEz+P1vrPN0npt1mI072Oj5e4c3HHvMg==
+	t=1792733096;
+	b=DmdwczSdi2mUAKDV/BdoWbOCxxJoJ5n7Uu5KWTcoGOcZz7+cPyW1yJCJqzhRf5r/Eqc9
+	 gzOYT9FmZXXPsuWukIVg4sNZ4IolxvNpWVkwJ0xAoABp1uyQ0XQb05NpZkyuT3AiXH9Yc
+	 siEuP1NQTComj3+Hi+va8OzTdHYN9r1dEdfXm9VEUXnAxWIE8egnFM6TSMlw0Q67Mfsaf
+	 Cz4bAu/PsCILern4JOqBhX8lHZqfJGVJ3ulMgXuwyYwnlpkLgAb2rx8czPD6yBYjJVXzO
+	 5z99Mbr9oDWFSMYh0htTeKNi7eLW0VHbvhjJqT2p/Nw+pBU+mLS/FZMOjWAmZw5ROvw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792733094;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792733096;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=YnAljd2ySNsbiBHjSMmXM2oDmBbNkNQ4sGxao1JM8Z8=;
-	b=y+SfJ78sdZ5zL5yDC0xrupNuTOlxGs6W6nYossThM7I/fhRgHZIshsgGDdQ1fR4Zqc49
-	 dLg26SErV/JBfJLXe7Z57YeiSf7HYC5Bgv6Qv7l+fyRWQS73HuhVr04gTqCfesM/yfSZ1
-	 INht905mO8kTIIAY1FIMuGJX1/V8g4fGKUi1xu8UQsK1/p89JCK6dLPe8UxqKGb+RDYmy
-	 HKZF0u2hjMlCDk63+oTNKhEXjEv4Oc8oFwpeQOk+HBU3OhkpYarq1D3acdOOqM9ukdI1Q
-	 fIsf3Cf7uya2HcuUDfv+4cVwMeg+DTujINL2HJCH4OCfM/XPcOh5xg6ldQQTfbFI6dA==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=wRpA4vF4Sk/UfaW67b88A9WROnoA0uJnVaDmwLQ3n0Y=;
+	b=JstBNIQyjeLxvDN0bl+odIqWXV62+2bZgcLrYCUxwCbxlktSqaHKWlUbpQgfysKpGkq6
+	 bayRARysnI6I71hVR9ETPXRSjhrDmK+ZWjnja3sODN6VpKMh4C00tw8zPfZbjZSdlUWU7
+	 qMmhvYCrwQ+W+oeb+573VEEr9PRu7fMqPnbtbDbrkokxjKoc5SxiMwFkEnsywYvpKip+B
+	 O7CV2y+MG9RxeldKxn7UPeFXgnuDoo8ycCmJ0m6gtPwNZlczXNLLQPPS/P1QQdGfFYpYx
+	 Jh+7r6nPfE1R6h5OH/qWBJdmXE3bqAyEznJzCXvXwTq195lkdCM+kLwKdbuPB1Brhhw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iKjgMtqB;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OpJyqOFU;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58504606A319;
-	Fri, 23 Oct 2026 05:24:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D51F1606A32C;
+	Fri, 23 Oct 2026 05:24:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iKjgMtqB
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5FDAD1F01825;
-	Fri, 23 Oct 2026 05:24:53 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OpJyqOFU
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 84EDA1F01828;
+	Fri, 23 Oct 2026 05:24:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792733093;
-	bh=YnAljd2ySNsbiBHjSMmXM2oDmBbNkNQ4sGxao1JM8Z8=;
-	h=From:To:Cc:Subject:Date;
-	b=iKjgMtqBt9AKaNHUyzkkISY8EUhJQu42/YnGqI7n2RK39k4YOHmVMKn4mqeJXo6Kd
-	 KOwsSw9X2qgCRts9YZQqTqJnhUFqWayYt2pyoaZQi8eSajCp6iYCgrrkxM43epzm7D
-	 f70SQXLNAkpbt9upGzKMZzg2s/Cf+CGk4sV8UsoBxmgdbSxqTtwq9JrcUT6YVmf0NR
-	 9ldfyWAjeT/570uHOLgYty4myn9jqD4pc6XfcbwYftuAf8Jn9aiDdA24NBQHEzcCYh
-	 MsBSjotFiLPbQuuvn+9cwa4zY6pg6IBUwMKyQCKeGZ4i/EmYBJKCWvSmW64CMm5JSs
-	 X6GK4KgM6I+/A==
+	s=k20260515; t=1792733095;
+	bh=wRpA4vF4Sk/UfaW67b88A9WROnoA0uJnVaDmwLQ3n0Y=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=OpJyqOFUTqB8TmPshpe4LzneastbZoXU6vPr3ivgo+DGC3Mhubhqp2fdjvEyhrgb6
+	 KS4EuMq6vta4aqK89CtYthfWL8OWrgpRrgnWGQlaHRfyaNcZMWzgejNO8D1qH33BqY
+	 KuyDMoYkF1P/P534YHY3GlzlxXBngI9DW0m2OgF1nKWe/+wAMB+Xi2XAdlOUIpCJrz
+	 JOK21D2dVUBw+NbBGQ9KmCElthxF2Pnd9ruPlSgr0rdlkz1WZMYFW/J7TM9hn+ZeFx
+	 PJvT92ZbVLHcFbJ7NOa8qzgJJ1AZSHewjTpg0F/JoyZjj+4oJ0bPgx1obK4llOcZQC
+	 LyqdQonH2x80A==
 From: Tejun Heo <tj@kernel.org>
 To: sched-ext@lists.linux.dev
 Cc: David Vernet <void@manifault.com>,
@@ -48,10 +48,12 @@ Cc: David Vernet <void@manifault.com>,
 	David Dai <david.dai@linux.dev>,
 	linux-kernel@vger.kernel.org,
 	Tejun Heo <tj@kernel.org>
-Subject: [PATCHSET v2 sched_ext/for-7.4] sched_ext: Fix bypassed sub-scheduler tasks stalling when the host lacks caps
-Date: Thu, 22 Oct 2026 19:24:37 -1000
-Message-ID: <20261023052452.2889061-1-tj@kernel.org>
+Subject: [PATCH 02/15] sched_ext: Clear holding_cpu where the claim is confirmed
+Date: Thu, 22 Oct 2026 19:24:39 -1000
+Message-ID: <20261023052452.2889061-3-tj@kernel.org>
 X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261023052452.2889061-1-tj@kernel.org>
+References: <20261023052452.2889061-1-tj@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,113 +65,121 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hello,
+The bypass load balancer will take tasks off a remote cpu's bypass DSQ with
+unlink_dsq_and_switch_rq_lock() in the following patches and insert them
+into another bypass DSQ. Clearing holding_cpu after the claim is up to each
+claimant, so the balancer would need a clear of its own.
 
-v2 (keep a bypassed rescuee in dispatch_one()):
-- Add a patch expiring a bypassing prev's slice in dispatch_one() before
-  its keep test and dropping the bypass test from it. A bypassed rescuee
-  now keeps the cpu on its kernel slice and scx_dispatch_sched()'s
-  post-dispatch test no longer keeps a prev that dispatch_one() declined
-  (#10, sashiko).
-- Cover a rescuee that passes the keep-last test in the dispatch_one()
-  comment and description (#6, sashiko).
-- Update the descriptions and correct the refusal causes listed in #15
-  (#11, #15).
+unlink_dsq_and_switch_rq_lock() marks a task with holding_cpu for the gap
+between dropping the DSQ lock and taking the task's rq lock, so that a
+dequeue in that gap can tell the claimant it lost. Once the claimant holds
+the rq lock and finds the marker intact, nothing can take the task away
+under it and the marker has no reader left.
 
-v1: https://lore.kernel.org/r/20261022213836.2259069-1-tj@kernel.org
+Each claimant clears it at its own site after that point:
 
-A bypassing sub-scheduler's tasks run through the per-cpu bypass DSQs of
-its host, the nearest ancestor that is not bypassing. Caps are per cpu, and
-a cpu's dispatch descends into a scheduler only where it holds
-SCX_CAP_BASE, so a bypass DSQ on a cpu where the host lacks BASE is never
-consumed. Bypass placement and the bypass load balancer ignored that. A
-bypassed task could be queued or moved onto such a cpu and sit there until
-the host regained the cap or the bypass window ended, and a host holding
-BASE but not ENQ looped a bypassed task between its bypass DSQ and the
-reject drain instead of running it.
+ - dispatch_to_local_dsq(), which runs the handshake inline, in its same-rq
+   and fallback branches
+ - scx_proxy_reject_task() for the proxy reject
+ - the dequeue inside deactivate_task() for both remote moves
 
-The fixes make SCX_CAP_BASE the one cap a bypassed task needs and keep
-bypassed tasks off the cpus where the host lacks it. A bypass consume puts
-the task on the cpu being dispatched for, to run right away, which is what
-BASE grants. Where the host lacks BASE on a task's cpu, the task runs under
-rescue at bounded bandwidth instead of waiting for a dispatch that can't
-reach it. The bypass load balancer spreads tasks over the cpus where the
-host holds BASE only, and when the host loses BASE on a cpu it drains that
-cpu's bypass DSQ to the cpus that can still run the tasks, or sends them
-home to be placed again.
+Clear it where the claim is confirmed instead and drop the explicit clears.
+No behavior change.
 
-Running bypassed tasks under rescue leans on the rescue slice harder than
-before and exposed gaps there: a cpu could go idle with a runnable rescuee
-queued on it, the kernel's own slice writes under bypass served the grant a
-tick at a time, and a scheduler could extend the grant past the rescue's
-bandwidth. The grant is now a kernel-owned slice that the kernel's slice
-housekeeping leaves alone and schedulers can shorten but not extend, and a
-cpu no longer idles over a runnable rescuee.
+Signed-off-by: Tejun Heo <tj@kernel.org>
+---
+ kernel/sched/ext/ext.c      | 19 +++++++++++--------
+ kernel/sched/ext/internal.h | 11 ++++++-----
+ 2 files changed, 17 insertions(+), 13 deletions(-)
 
-Tested with a three-level hierarchy cycling bypass under pinned spinners,
-fork and context-switch storms, with caps revoked under queued tasks. The
-balancer's remote move and the drain were exercised, and the holding_cpu
-handshake, the cap-revoke placement and the rescue keep were model checked
-for small cpu counts.
+diff --git a/kernel/sched/ext/ext.c b/kernel/sched/ext/ext.c
+index 07857039aee6..bb36264e626f 100644
+--- a/kernel/sched/ext/ext.c
++++ b/kernel/sched/ext/ext.c
+@@ -2829,7 +2829,6 @@ static void scx_proxy_reject_task(struct scx_sched *sch, struct rq *rq,
+ 	lockdep_assert_rq_held(rq);
+ 	WARN_ON_ONCE(p->scx.flags & SCX_TASK_REENQ_REASON_MASK);
+ 
+-	p->scx.holding_cpu = -1;
+ 	p->scx.flags |= SCX_TASK_REENQ_PROXY;
+ 	scx_divert_strip_flags(p, &enq_flags);
+ 
+@@ -2863,8 +2862,9 @@ static void scx_proxy_reject_task(struct scx_sched *sch, struct rq *rq,
+  * tell whether we lost to dequeue by testing whether the holding_cpu still
+  * points to this CPU. See scx_dispatch_dequeue() for the counterpart.
+  *
+- * On return, @dsq is unlocked and @src_rq is locked. Returns %true if @p is
+- * still valid and detached from @dsq. %false if lost to dequeue.
++ * On return, @dsq is unlocked and @src_rq is locked. Return %true if @p is
++ * still valid and detached from @dsq, with holding_cpu cleared. Return %false
++ * if @p was lost to a dequeue.
+  */
+ static bool unlink_dsq_and_switch_rq_lock(struct task_struct *p,
+ 					  struct scx_dispatch_q *dsq,
+@@ -2887,11 +2887,13 @@ static bool unlink_dsq_and_switch_rq_lock(struct task_struct *p,
+ 	if (likely(p->scx.holding_cpu == cpu) && !WARN_ON_ONCE(src_rq != task_rq(p))) {
+ 		/*
+ 		 * Keep ->dsq set until we own @src_rq so that a racing dequeue
+-		 * can find @dsq and clear holding_cpu. Once ownership is
+-		 * confirmed, clear it under @src_rq so that deactivate_task()
+-		 * takes the !dsq path instead of retaking @dsq->lock.
++		 * can find @dsq and clear holding_cpu. Once we own @src_rq, the
++		 * handshake is over. Clear ->dsq so that deactivate_task()
++		 * takes the !dsq path instead of retaking @dsq->lock. Clear
++		 * holding_cpu with it so that no caller has to.
+ 		 */
+ 		p->scx.dsq = NULL;
++		p->scx.holding_cpu = -1;
+ 		scx_wait_dispatching(p);
+ 		return true;
+ 	}
+@@ -3127,20 +3129,21 @@ static void dispatch_to_local_dsq(struct scx_sched *sch, struct rq *rq,
+ 	    !WARN_ON_ONCE(src_rq != task_rq(p))) {
+ 		bool fallback = false;
+ 
++		/* the handshake is over, see unlink_dsq_and_switch_rq_lock() */
++		p->scx.holding_cpu = -1;
++
+ 		/*
+ 		 * If @p is staying on the same rq, there's no need to go
+ 		 * through the full deactivate/activate cycle. Optimize by
+ 		 * abbreviating move_remote_task_to_local_dsq().
+ 		 */
+ 		if (src_rq == dst_rq) {
+-			p->scx.holding_cpu = -1;
+ 			scx_dispatch_enqueue(sch, dst_rq, &dst_rq->scx.local_dsq, p,
+ 					     slice, vtime, enq_flags | SCX_ENQ_APPLY_SLICE);
+ 		} else if (unlikely(task_proxy_unsafe_to_move(p))) {
+ 			fallback = true;
+ 			scx_proxy_reject_task(sch, src_rq, p, enq_flags);
+ 		} else if (unlikely(!task_can_run_on_remote_rq(sch, p, dst_rq, true))) {
+-			p->scx.holding_cpu = -1;
+ 			fallback = true;
+ 			scx_dispatch_enqueue(sch, src_rq, find_global_dsq(sch, task_cpu(p)),
+ 					     p, slice, vtime,
+diff --git a/kernel/sched/ext/internal.h b/kernel/sched/ext/internal.h
+index 29e69a83d876..44ede6e6fe1a 100644
+--- a/kernel/sched/ext/internal.h
++++ b/kernel/sched/ext/internal.h
+@@ -2107,12 +2107,13 @@ static const char *scx_enable_state_str[] = {
+  *   4. Lock src_rq (where the task currently lives)
+  *   5. Verify p->scx.holding_cpu == current CPU, if not, dequeue won the
+  *      race (dequeue clears holding_cpu to -1 when it takes the task), in
+- *      this case migration is aborted
+- *   6. If src_rq == dst_rq: clear holding_cpu and enqueue directly
+- *      into dst_rq's local DSQ (no lock swap needed)
++ *      this case migration is aborted. Otherwise the claim is confirmed and
++ *      holding_cpu is cleared here, see unlink_dsq_and_switch_rq_lock()
++ *   6. If src_rq == dst_rq: enqueue directly into dst_rq's local DSQ (no lock
++ *      swap needed)
+  *   7. Otherwise, verify under src_rq lock that the task can be moved to dst_rq
+- *      (CPU affinity, migration_disabled, etc.). If not, clear holding_cpu,
+- *      leave the task on src_rq, and enqueue it on the fallback DSQ.
++ *      (CPU affinity, migration_disabled, etc.). If not, leave the task on
++ *      src_rq, and enqueue it on the fallback DSQ.
+  *   8. Otherwise (i.e. if the task can be moved to dst_rq), call
+  *      move_remote_task_to_local_dsq(), which releases src_rq, locks dst_rq,
+  *      and performs the deactivate/activate migration cycle
+-- 
+2.56.0
 
-Based on sched_ext/for-7.4 (1f5dde349ac2).
-
-This patchset contains the following 15 patches.
-
- 0001 sched_ext: Pack scx_ent_flags' multi-bit fields at the top
- 0002 sched_ext: Clear holding_cpu where the claim is confirmed
- 0003 sched_ext: Fix bypassed tasks looping on a host without SCX_CAP_ENQ
- 0004 sched_ext: Move refill_task_slice_dfl() below apply_slice_vtime()
- 0005 sched_ext: Restore a rescuee's slice after ops.stopping()
- 0006 sched_ext: Fix a cpu idling with a runnable rescuee
- 0007 sched_ext: Mark the rescue grant as a kernel slice with SCX_TASK_KERNEL_SLICE
- 0008 sched_ext: Refuse extending a kernel slice
- 0009 sched_ext: Fix a cpu idling after put_prev_task_scx() queues its task on the local DSQ
- 0010 sched_ext: Expire prev's slice in dispatch_one() under bypass
- 0011 sched_ext: Fix bypassed tasks stalling when the host lacks SCX_CAP_BASE
- 0012 sched_ext: Fix the bypass load balancer stranding tasks on cpus where the host lacks SCX_CAP_BASE
- 0013 sched_ext: Factor out bypass_lb_move() and insert with the donor DSQ unlocked
- 0014 sched_ext: Let the bypass load balancer move tasks homed on other cpus
- 0015 sched_ext: Fix queued bypassed tasks stalling when the host loses SCX_CAP_BASE
-
-The patches are organized as follows:
-
-- 0001-0002 prepare: pack scx_ent_flags' multi-bit fields at the top so
-  that the single-bit flags stay contiguous, and clear holding_cpu where
-  the claim is confirmed.
-- 0003 consumes bypass DSQs with SCX_ENQ_IMMED, so that a host with BASE
-  but not ENQ runs its bypassed tasks instead of looping them.
-- 0004-0008 fix the rescue slice handling that bypassed tasks under rescue
-  depend on: restore the remainder after ops.stopping(), keep a cpu from
-  idling with a runnable rescuee, mark the grant as a kernel slice that
-  the kernel's slice writes leave alone, and refuse extending it.
-- 0009 reschedules a cpu after put_prev_task_scx() queues its task on the
-  local DSQ through the plain insert too.
-- 0010 expires a bypassing prev's slice in dispatch_one() before its keep
-  test instead of refusing to keep it, so a bypassed rescuee keeps the cpu
-  on its kernel slice and the post-dispatch test can't keep a declined
-  prev.
-- 0011 sends a bypassed task to rescue when the host lacks BASE on its cpu.
-- 0012-0015 make the bypass load balancer cap-aware: capacity and donees
-  from BASE cpus only, a factored-out move that inserts with the donor DSQ
-  unlocked, moves of tasks homed on other cpus, and the drain of a cpu's
-  bypass DSQ when the host loses BASE there.
-
-The patchset is also available in the following git branch:
-
- git://git.kernel.org/pub/scm/linux/kernel/git/tj/sched_ext.git bypass-caps-v2
-
-diffstat follows. Thanks.
-
- include/linux/sched/ext.h                       |  22 +-
- kernel/sched/ext/ext.c                          | 527 +++++++++++++++++-------
- kernel/sched/ext/inlines.h                      |  15 +-
- kernel/sched/ext/internal.h                     |  12 +-
- kernel/sched/ext/sub.c                          |  57 ++-
- kernel/sched/ext/sub.h                          |  16 +
- tools/sched_ext/include/scx/enum_defs.autogen.h |   1 +
- tools/sched_ext/include/scx/enums_abi.autogen.h |  29 +-
- 8 files changed, 489 insertions(+), 190 deletions(-)
-
---
-tejun
