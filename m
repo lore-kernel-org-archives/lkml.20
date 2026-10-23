@@ -1,48 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792789226;
-	b=p0hWUlQ3zYf5YpdCBL6SAUJDNaK0iTnXkQqzLRPKgnhH9sCw8uxrlN8+CrNznCbtGSaD
-	 Tevyp+HZBrZZo7LVbba9HlhjL0rBa8C2lbPXDzJoliVoPgxGlTCH3cUxSNGGU0r+ii/g4
-	 0+FHb19QyWMRewn43iPddKsEqKlMxqSuGd9UB4ACMKrwdpvull5shz294s1NXZAph60KC
-	 Q3dEFyIoxNzhoLmpwI7rcQsKqKfjS3aiWNELOSwxLDg+KknZ94hJQz3GWRDQphOE+n+w1
-	 Elv8TQTBjUtEwnM8EbwWEBA91hIFpYIMy8vpm3/cvNUGh2JfEobnhqsR6rh2BAkdDFA==
+	t=1792789241;
+	b=I2UHnCKrUWiP4YOQylp/7UDw/7JgBy0KByhjvqWxZ1+041p8gRMV8EeCFwoDwUJ4IpCD
+	 5x/jy73kbqcHC+vVAjWFqyl3F7Imf9A+5ZVs4uwChNaVQIUnrTuCSLY+fftkvg+1ANDbD
+	 RcoLSld0KNi53CzCsyuz6Lwn66z3oWZ9l4NtLSB2IEmI/JcbljVzRkBgr++tjRHE8xeXU
+	 DDNk4gwe4eqPS6N/O33b3SrsFQ44TEyKnPax1B6qWBbajpOgrCsKdto/nNn9Bv765tos2
+	 1nLz5k3BRnkOn8RqUTC+zQLyU3FPCDjMIzhD9sItD/hcR7WZHDjz6s0R2tbxTiaAERw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792789226;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792789241;
 	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
 	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
 	 In-Reply-To:To:Cc;
-	bh=wMxatn9ZBgj5mTbs6ATeEIyXX0vaFfQVORNtXX+SfPY=;
-	b=zTwIWP0l4qQ/UfGgXTka8CLOkLiqXmCc0G9LS279i4wUIzxc6WKkaDNOjsF2eq9XckYW
-	 CXeu0W7+C9cV/4aiYhM4Lf+1gvYyDJDX9i/nVJOCuwt2Tqd9luyMC5hERlR/BVSVSzpSj
-	 Ck8faHgk8QDjpfpvTzaM8SODa6sahec/3NfCHOx45Pbyw9qSNbfxn1HM3AC9SgHBs3zkI
-	 revouiLh4PSK7trcTui7MNxa9h16HoCVsVLDWCs0EzKC2RsjUyil94sqB4mojF5EqDio3
-	 Qhr8zoxcjmafx9gZZh9jSz2DWSX1lBU0bgoG9xteG8CCKt6ADvWrQ8yp3wufdnz8vyQ==
+	bh=Dpo6rOC8b0oZMrJnBpilHYeohIGR7jL97FBiqCtY3kA=;
+	b=ODWcVQsxybmwibHrH2qavbvmzFLjG3IMjQSFI4jB25MVQavIC0kAyWUAqDM1KmVJr274
+	 hnQtIwpZLn+3KPTGsK0NPdthly8LiiTlJwwEROLEKrf41N0JOKUZuXThm65y12RS1+zuV
+	 D023N8/vBe1N58fuEXsaI32/M1geuTvd28V4LE1My3fVZADq0yPxf2spkrVcbaME2cGef
+	 WqiIWJ0HblwegOK15Aal7DX0TV4FeXTK81g4eYlh7CC9b8zGDgL8/qF0bquBmh+zr5SLV
+	 rVPoSXQasp0rR9Fxub3AARu5t3wOtS3dKMkIRkNP9KCG1x2wiT6JOqHKxGQUwpdXSsg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Twk5Chpi;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XbfTA7pL;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCBC4606A336;
-	Fri, 23 Oct 2026 21:00:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 748B6606A31A;
+	Fri, 23 Oct 2026 21:00:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Twk5Chpi
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A8651F031E0;
-	Fri, 23 Oct 2026 21:00:25 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XbfTA7pL
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 113C31F031E0;
+	Fri, 23 Oct 2026 21:00:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792789225;
-	bh=wMxatn9ZBgj5mTbs6ATeEIyXX0vaFfQVORNtXX+SfPY=;
+	s=k20260515; t=1792789241;
+	bh=Dpo6rOC8b0oZMrJnBpilHYeohIGR7jL97FBiqCtY3kA=;
 	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=Twk5ChpiEY7kvnfQzH1fP0t11NZBt/4OZAUPgaTYOicR84dfvLo0W3MDNoLFQiOV1
-	 rJ7wx5x/ZnOhk0lm6IJIL1iO1wcShildb4EOEzIEyFPu50t+I8xVBsv0upailKrgJx
-	 2+5KFkaPVAjPijNF17lATASjFV8a7rQ3DSZ7e2LLj+X35Jl6ILlreBJNejt8gkDxAl
-	 3c5VfputP/93/LWJUFOBjUZCQ7UcJJh1qPoXWPW6f+HiF+NDkSWK7gV1gwZJkXLaPh
-	 X5LaOo4+gcid3UM+bCiOUPCs9mX6VlypoQS73evK9UjpTu2/K0hoxuubl1qDGlyUV0
-	 Jcc7DI34f+coA==
+	b=XbfTA7pLu8c33dpOytc9kqa2iRxHaAhjmKdguoc10x/jOwMbvboOgxVchPwRY9VLC
+	 1zOTT/+qgXUTqMW65rzcAkCZhMs5XBoUhFGChWUs/vk+5eMwgMW52Ftsla2VL0/Gz2
+	 +Bek2EttiqSP2QQR0SdtQyd3CGaox4dcjbKj+HxAPUbmwaVr1nfWRu5/Iq5Ax0Q6fc
+	 z+Vp2i7ktfjl/GXOmKjVkR1QTFPtYIQM35/wXQMA87WEKAr5TJgS/gaObcCxBK9GB9
+	 HHjcbhaHWWNjN7njK41yP1rRiQFhYIZX8hKQlAb0CS17F4gfwgljlBarQuyDTgzgJI
+	 xb5Rujz4Rcpqg==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 815FD391B157;
-	Fri, 23 Oct 2026 21:00:25 +0000 (UTC)
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 07435391B157;
+	Fri, 23 Oct 2026 21:00:41 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -54,44 +54,47 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH] net: sparx5/lan969x: do not read past skb->len when
- injecting a frame
-From: patchwork-bot+netdevbpf@kernel.org
+Subject: Re: [PATCH] Bluetooth: hci_core: Fix queuing rx_work while workqueue
+ is
+ drained
+From: patchwork-bot+bluetooth@kernel.org
 Message-Id: 
- <179278922406.1268720.4078185766615858241.git-patchwork-notify@kernel.org>
-Date: Fri, 23 Oct 2026 21:00:24 +0000
-References: 
- <20261021-sparx5-inject-tail-bytes-v1-1-7dcc035c8ddf@microchip.com>
-In-Reply-To: 
- <20261021-sparx5-inject-tail-bytes-v1-1-7dcc035c8ddf@microchip.com>
-To: Daniel Machon <daniel.machon@microchip.com>
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, Steen.Hegelund@microchip.com,
- UNGLinuxDriver@microchip.com, bjarni.jonasson@microchip.com,
- lars.povlsen@microchip.com, steen.hegelund@microchip.com,
- netdev@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
+ <179278923956.1268720.15284721723706023982.git-patchwork-notify@kernel.org>
+Date: Fri, 23 Oct 2026 21:00:39 +0000
+References: <20261023161609.253097-1-akhilarul324@gmail.com>
+In-Reply-To: <20261023161609.253097-1-akhilarul324@gmail.com>
+To: Akhil Arul <akhilarul324@gmail.com>
+Cc: marcel@holtmann.org, luiz.dentz@gmail.com,
+ linux-bluetooth@vger.kernel.org, linux-kernel@vger.kernel.org,
+ syzkaller-bugs@googlegroups.com,
+ syzbot+2344fb8002f3ef5b1712@syzkaller.appspotmail.com
 
 Hello:
 
-This patch was applied to netdev/net.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
+This patch was applied to bluetooth/bluetooth-next.git (master)
+by Luiz Augusto von Dentz <luiz.von.dentz@intel.com>:
 
-On Wed, 21 Oct 2026 12:48:26 +0200 you wrote:
-> sparx5_inject() writes the frame to the injection FIFO one 32-bit word
-> at a time, and pads frames shorter than 60 bytes with zero words.
+On Fri, 23 Oct 2026 21:46:09 +0530 you wrote:
+> hci_recv_frame() drops a frame unless HCI_UP or HCI_INIT is set, but the
+> check is not synchronized with hci_dev_close_sync().  A driver can pass
+> the check, then close clears HCI_UP, flushes rx_work and starts
+> drain_workqueue(), and the late queue_work() of rx_work hits the
+> draining workqueue:
 > 
-> Before this patch, the last word is loaded whole even when skb->len is
-> not a multiple of four, so 1 to 3 bytes past the end of the frame are
-> read. For a frame shorter than 60 bytes those bytes are also
-> transmitted, as VLD_BYTES marks the whole last word valid and the
-> padding starts at the next word.
+>   workqueue: cannot queue hci_rx_work on wq hci0
+>   WARNING: kernel/workqueue.c:2352 at __queue_work+0x2c0/0x780
+>   Call Trace:
+>    queue_work_on+0xb2/0xc0
+>    hci_recv_frame+0x18f/0x330
+>    vhci_write+0x174/0x240
+>    vfs_write+0x271/0x680
+>    ksys_write+0x7c/0x110
 > 
 > [...]
 
 Here is the summary with links:
-  - net: sparx5/lan969x: do not read past skb->len when injecting a frame
-    https://git.kernel.org/netdev/net/c/9642ce6cb51e
+  - Bluetooth: hci_core: Fix queuing rx_work while workqueue is drained
+    https://git.kernel.org/bluetooth/bluetooth-next/c/63bcf9f4a40d
 
 You are awesome, thank you!
 -- 
