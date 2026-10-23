@@ -1,54 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.37
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=116.203.120.240
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792786432;
-	b=MOwdRvLAeOdZVFL7ZPD3AFeBy0tiFWlfC4amNRbkYswGnhXW472OfVNFj8lnU7UjPdZp
-	 LNMlD9DFeRW9BYltBxXTH6JK2iWHHt0SI4Py+Ibllrk/PCZbNEPDlw/qhuodMKKWcOcjD
-	 8SNlUIjOI4K5rtvT0X9tnXSYIBCEF03wZACS0MMytKf9Y8MUDWCOqTWpK/jmQbBG1maeL
-	 QF6tfD+yMQv8FGOKj3rsCz5oPJ36IVR0zQIFJOMnvLZOwJhXdgp3x6pZbKOp9HyHrcLol
-	 PN3qF/SoartqrS3Z3zjzNPrhf3mO7phvHrkEkwONmMOy+M0Cg2/uncVKxU60+bCCuOg==
+	t=1792786515;
+	b=Dyo0RYe/oha3OHxlHK1FnlNg1WFlxpE7zGniCH1/yrUbrKfP8idTT6KD7Cll4Scnuc69
+	 qx/s3z8prP/lFLGs9QVSrSVJxmJPo7d/rEofkJZ1MAznccL1NswwKvbQgKo+JU22olJl6
+	 buwY1xYsFiSVe+4k1GhceO+UkUn2EPnP0ISxf7l+s2RS9fOT6/+jgi59J8BqXP8p0d2KF
+	 MbDbY8uwkHr0Yr6Qd5R9kL4I5ELIkJ4+JSjpWOnhw7inqmFV8t12/An5nC0fdgLreBbbu
+	 1hE7FGuW0Yf+yF2uk6hZQMe4g1uDtKAU43RGo13/jfpQZhG77t+g8ewGu/s8GTTFZxw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792786432;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=O8zJuP0Ot29cykJumEd36/jpkmF637YijXUmNxlxlHs=;
-	b=vYAEBSpqLpFaTiQ6Cb/rJmmnItdvSq+ig98djL31kAz4UY5kLep2BGl8/bPrsWjPXGZR
-	 JGyNApO8GsdRGYs1KfagLgTXi2nUu8SCIFjdcZyIBGMICwecwRKSTzw3s1Q1Lk2Kn7AFC
-	 g9OWrCEK5rVqDPX8IgtrWt/ljl2eU1WHp74lPuUy8uoKfmtZ7s5S3tyHWvbp3+JG73h/z
-	 qrTrby8rVmqRGeFb9aRLV4xx5wV5KCF8Fw30wvh+zT2P0wpiqDgfK0cdphLlfivPc2ZBk
-	 yDXfTLcmxJLnAGPXs0FlEez8JedH+0G1YhlrcCb3ZbER+lupxfTwElslMTFeX1XxRFA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792786515;
+	h=DMARC-Filter:Date:DKIM-Signature:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type;
+	bh=m/PMCHPO/jr5fAoLR41c5oEssMjic1/6mLM+L0/ZmP4=;
+	b=zS8zecnPBgYxr12i2xLwtBW1YqpN+RoKuyDz5ASM99vUXhbHd39dobZx8bhzy1Npi4LW
+	 cFQY9yTG4QuBSRTjzK64/fvpe0OuIT9ZUdLnmQajw+yOTiwIGolb3n1psHaCyiCFwrYJc
+	 SJFSOXaJ+G3wNnFhNGtU0yk3UGih8F2wKjEtp1TRQTtJoJn6WLSfF4Z6dNwGn7sDSR96a
+	 u1+gKfzGr6pGEx1p0AhWdfKBDYWpzna5W6RwByQvX3Ve/HB1bzVT1y7Yjp2omCWiBkc+E
+	 zF6jGSHPWkX96FmqkN8+gV1yzbKMQavWgi6biXXUBmr6JaVXEL4EKJsgRqsoyaVtECA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=k+14i5YI;
-	arc=none smtp.remote-ip=91.218.175.37
-Received: from mta0.migadu.com (out-37.mta0.migadu.com [91.218.175.37])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=bues.ch;
+	spf=pass smtp.mailfrom=bues.ch;
+	dkim=pass header.d=bues.ch header.i=@bues.ch header.a=rsa-sha256 header.s=main header.b=faQCOktY;
+	arc=none smtp.remote-ip=116.203.120.240
+Received: from mail.bues.ch (bues.ch [116.203.120.240])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D31EC606A31E
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 20:13:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D31EC606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB105606A31A;
+	Fri, 23 Oct 2026 20:15:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AB105606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bues.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bues.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=k+14i5YI
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=a03eyxrKrab9+L0DXSFejSIOg808W4EwyuwEhzn7A8s=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792786428; v=1; x=1793391228;
- b=k+14i5YIoMGofBAbinKbqriTBzZ7I/nNyTRHolKAOY2lqcgeqobVo3VIULim4XRAG++QMoAC
- JikSP4S3Ch+xzqD11WJwd04hHYZXJa+zfyMgbg5kb1k0sqEB0Gpu6LkSOEDEtmIMt0IazLO3CH2
- aoghGWuy63mQG7wnK1PCB0n0=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 830156828f935bad;
-	Fri, 23 Oct 2026 20:13:48 +0000
-X-Mizu-Trace-ID: 830156828f935bad
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <75b66acc-354e-4cd2-b9cb-4c22e8a02635@linux.dev>
-Date: Fri, 23 Oct 2026 13:13:41 -0700
+	dkim=pass (2048-bit key, unprotected) header.d=bues.ch header.i=@bues.ch header.a=rsa-sha256 header.s=main header.b=faQCOktY
+Date: Fri, 23 Oct 2026 22:14:24 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bues.ch; s=main;
+	t=1792786506;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=m/PMCHPO/jr5fAoLR41c5oEssMjic1/6mLM+L0/ZmP4=;
+	b=faQCOktYlanW4afHud0z/jvY8YQ3Tmv0i2ALoSWK2H8If1W+1uJVT7tGEiHoYVYqK1RBO+
+	rR1YQhmJtJ3NVUphzwW1X76OekfXWPY9+Z1BNPZrrNHb1S1c6Mw0NJKrryPE8ctkXF5mWB
+	DMV8mOk7hWmENQPPj2am++9RrEU4+yAdDU/BvkAD/1Vv4FoKApUnQERaY6Tw2PfoiD4+8p
+	MIasi1nbRa5Jb0kImelCHnxPQidwk3gbnyQA1gESF5Hqos0eM73UsMGgHSyJuu70pjBNFG
+	pY8Nj/XLzX/Iz1h5LYjTnShAocH6ZJoBLNy4ipiyj4bZrrQ6P3HlVr8lgNavQg==
+From: Michael =?UTF-8?B?QsO8c2No?= <m@bues.ch>
+To: Rosen Penev <rosenp@gmail.com>
+Cc: linux-wireless@vger.kernel.org, b43-dev@lists.infradead.org (open
+ list:B43 WIRELESS DRIVER), linux-kernel@vger.kernel.org (open list)
+Subject: Re: [PATCH wireless] wifi: b43: map the RX buffers
+ DMA_BIDIRECTIONAL
+Message-ID: <20261023221424.2722795e@barney>
+In-Reply-To: <20261023190653.70741-1-rosenp@gmail.com>
+References: <20261023190653.70741-1-rosenp@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,40 +63,118 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 1/2] tracing: fgraph: allocate shadow stacks inline
- with GFP_NOWAIT
-To: Steven Rostedt <rostedt@goodmis.org>,
- Andrii Nakryiko <andrii.nakryiko@gmail.com>
-Cc: mhiramat@kernel.org, mark.rutland@arm.com,
- mathieu.desnoyers@efficios.com, andrii@kernel.org, peterz@infradead.org,
- linux-trace-kernel@vger.kernel.org, linux-kernel@vger.kernel.org,
- bpf@vger.kernel.org, kernel-team@meta.com, stable@vger.kernel.org
-References: <20261021174406.2891598-1-vineet.gupta@linux.dev>
- <20261021174406.2891598-2-vineet.gupta@linux.dev>
- <CAEf4BzaTYgNwiBtvYoSw1wzuFZchs-2CCP93gh2OeDt-919-eQ@mail.gmail.com>
- <20261023143816.48163575@gandalf.local.home>
-From: Vineet Gupta <vineet.gupta@linux.dev>
-Content-Language: en-US
-In-Reply-To: <20261023143816.48163575@gandalf.local.home>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; boundary="Sig_/EtGF2lcPb61ELDgqh=HK/KQ";
+ protocol="application/pgp-signature"; micalg=pgp-sha512
 
-On 10/23/26 11:38 AM, Steven Rostedt wrote:
-> On Fri, 23 Oct 2026 11:13:44 -0700
-> Andrii Nakryiko <andrii.nakryiko@gmail.com> wrote:
->
->> Acked-by: Andrii Nakryiko <andrii@kernel.org>
->>
->> I presume this will go through Masami and Steven's tree, is that right?
-> Yes, but it came in during the merge window, and since it's just a speed up
-> and not fixing something that's broken, I was going to let this go in the
-> next merge window. I rather have a change like this sit through a full -rc
-> release.
+--Sig_/EtGF2lcPb61ELDgqh=HK/KQ
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-It is a speed up but not for optimization sake but to cure rcu stalls in 
-production at Meta. IMHO it should go in sooner than wait a full release 
-cycle.
+Quite honestly, to me this looks like a lot of AI slop is sent to b43 these=
+ days.
+Can you please slow down your submissions so that actual people get a chanc=
+e to review the stuff?
+Thanks!
 
-Thx,
--Vineet
+--=20
+Michael B=C3=BCsch
+https://bues.ch/
+
+
+On Fri, 23 Oct 2026 12:06:53 -0700
+Rosen Penev <rosenp@gmail.com> wrote:
+
+> b43 poisons each RX buffer before it hands it to the device, and drops
+> a buffer that still carries the poison, as the device sometimes skips
+> one. The RX buffers are mapped and synced DMA_FROM_DEVICE. On a
+> non-coherent CPU like the BCM4716 or the BCM4708, the map and the sync
+> for the device then only invalidate the cache, so the poison written
+> just before never reaches memory. A skipped buffer is read as whatever
+> the memory held before, for a recycled buffer the data of its previous
+> use: garbage frames, or a length that sends dma_rx() into its path for
+> frames spanning several buffers.
+>=20
+> Map, sync and unmap the RX buffers DMA_BIDIRECTIONAL, so that the
+> poison is written back before the device gets the buffer.
+>=20
+> Reported on a Netgear R6400 (BCM4708, BCM4331).
+>=20
+> Fixes: cf68636a9773 ("b43: Refresh RX poison on buffer recycling")
+> Signed-off-by: Rosen Penev <rosenp@gmail.com>
+> ---
+>  drivers/net/wireless/broadcom/b43/dma.c | 14 ++++++++++----
+>  1 file changed, 10 insertions(+), 4 deletions(-)
+>=20
+> diff --git a/drivers/net/wireless/broadcom/b43/dma.c b/drivers/net/wirele=
+ss/broadcom/b43/dma.c
+> index 05da6987a845..c8585c6dff37 100644
+> --- a/drivers/net/wireless/broadcom/b43/dma.c
+> +++ b/drivers/net/wireless/broadcom/b43/dma.c
+> @@ -353,8 +353,14 @@ static inline
+>  		dmaaddr =3D dma_map_single(ring->dev->dev->dma_dev,
+>  					 buf, len, DMA_TO_DEVICE);
+>  	} else {
+> +		/*
+> +		 * Not DMA_FROM_DEVICE: on a non-coherent CPU, the map and
+> +		 * the sync for the device would then only invalidate the
+> +		 * cache, and the poison of b43_poison_rx_buffer() would
+> +		 * never reach memory.
+> +		 */
+>  		dmaaddr =3D dma_map_single(ring->dev->dev->dma_dev,
+> -					 buf, len, DMA_FROM_DEVICE);
+> +					 buf, len, DMA_BIDIRECTIONAL);
+>  	}
+> =20
+>  	return dmaaddr;
+> @@ -369,7 +375,7 @@ static inline
+>  				 addr, len, DMA_TO_DEVICE);
+>  	} else {
+>  		dma_unmap_single(ring->dev->dev->dma_dev,
+> -				 addr, len, DMA_FROM_DEVICE);
+> +				 addr, len, DMA_BIDIRECTIONAL);
+>  	}
+>  }
+> =20
+> @@ -379,7 +385,7 @@ static inline
+>  {
+>  	B43_WARN_ON(ring->tx);
+>  	dma_sync_single_for_cpu(ring->dev->dev->dma_dev,
+> -				    addr, len, DMA_FROM_DEVICE);
+> +				    addr, len, DMA_BIDIRECTIONAL);
+>  }
+> =20
+>  static inline
+> @@ -388,7 +394,7 @@ static inline
+>  {
+>  	B43_WARN_ON(ring->tx);
+>  	dma_sync_single_for_device(ring->dev->dev->dma_dev,
+> -				   addr, len, DMA_FROM_DEVICE);
+> +				   addr, len, DMA_BIDIRECTIONAL);
+>  }
+> =20
+>  static inline
+
+
+
+--Sig_/EtGF2lcPb61ELDgqh=HK/KQ
+Content-Type: application/pgp-signature
+Content-Description: OpenPGP digital signature
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEEihRzkKVZOnT2ipsS9TK+HZCNiw4FAmrbwCAACgkQ9TK+HZCN
+iw5vLA/8DgP3NmxzLRRtxhfbKFM0SPl36d7r97iUfi3lnPyV2HiDvZR6R2AIK7V8
+FmSgoLZTk73e29ildUC5bzampS/b2Ds220dSxNNvEE1dkwxjatPNQvR69GnRnitu
+Jtzg51WaJxm4CSzOxEpaB+IZbpoW+hC+7hNFZh5gflkfXjocPa14o/mCK3sWZyvv
+kSHXf32dRPZpz4S92feA8Ll88QvfaNRpLpWNu6AyoFYXFxn6CYOkYq7bbidcNCYz
+43zatonqNJ/WhjlZ/94XYTqjCFazz4+htEF6Ztp4u5xExX8eWz8eJzhq34gvd5nW
+bd20jVnC6A8Away6q81wD5wtFal2Fa5mpyy6F8YVjSrAW6NmE+x6h/op0a1l0Vw1
+N1j+aibPst8NJhXQ9+h4KfDEh5t4nVohpaTEia4wzNZOtQPEYoUyzK2mh0/KiQbc
+1xOHEXcjkIsZ0RlzEQ3YDNqM9m7Q9t2HS4hrwfMGdWlW0TxmhbIEBSQHhySQmtvF
+TEI4fTeTW8Xg5x+U2hdU4hkv+Knq5AAavykNBU9Clg+jqhq3OZIbsEY3x+kuJafJ
+W0wzJNi4cPwQDs4q5lJOki++s6u5fC3wWmgOomzJYmMxEDmYcgr2VmdyrvNQeTu7
+H6OsBVVrPQ9942VwW6LzuLyERgFScOOx4UYEPCMqfBHbnPSWQrs=
+=nu7c
+-----END PGP SIGNATURE-----
+
+--Sig_/EtGF2lcPb61ELDgqh=HK/KQ--
