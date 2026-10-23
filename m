@@ -1,78 +1,78 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792794708;
-	b=vYN0j31kQcrEK9DjfvWF1knSsWotQ7RvVS4AhjxcsEMeKUGXJEoet62yBVgACbTyvH1x
-	 B1g569uPS7lAP1Ju6okr75QotVYpUvXeMyhT8uhaBRuQTstpSszLJzGM7YtLzHHXqDy9X
-	 IueV9p5Xvo2+7pUahh4UlV/0pxG9jXnSOHEttKtIf/UqV6tMgJXEt/pf+znCuUTmRLbam
-	 dYlrAsXRZdTM0Jm5h3dzbPJjOjaop8UnSFt2iyfS4q9cvyabBKM+MpK3qSi+XasONU44e
-	 wofsoKIP9SblFsIKIUkNRbxGcai8N9prkR65Qmu0ac+k8EwHTfp0kUGRwBF0m+KP1lw==
+	t=1792794709;
+	b=spOoexol8K4jHMCTsJKApc0tse3F7u+PChW6oEqR0qOvxtTTt39hGx9uHt6b1sWjgu6S
+	 fuvnu3MK34xUxJt+RC3oe4zDuBwVIROXBIdrXeDk/duNjmUd3nq+b3V2OXo5+vGWcQLc1
+	 qH+ppzZbVFD5eI7lh/AQVS/fabZ4XwfwKfnnxw0J5Hqkmz2nyU8CXSko/tXfzhGTMdcXf
+	 xh0ENmf5odbHj73X7vTZXGVReLlWhJgg/AXk9+7+v4xxU443ZLOmyvrlNQBVHt8EXk5LZ
+	 XAybiLCcMmT9P6EyR6G1vrr22vKbQozw7Myl9lueBCdfttlWuagHxgC62SNoOMOrO2g==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792794708;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792794709;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=l1hLfNmJm6Tp07iYdqWR4eMFaTYBny+F5j2RVqR8uzs=;
-	b=nyWzXKfcP0fVoSXv6jW41wFg8g7zmRAs0/RZAcfvl76w3SIL5FaZs0ik3pZO9W8OxoSQ
-	 G7/jn3uq2jDLd55Gp22y58FYLHr/b7sCrcGzEWkyIl9vRLqh5lnh/JT1bglP9A9XI0J+8
-	 AbuiNc5EopnM2SmEuu5TDhUM6M+FrGi33BK34RMmo1bQH4AEIJcnDaFTCjcALbLlgLKra
-	 imSWjh2nOjqMvsI3O5xO5h/zGQhUiZWkdb9KpMph+Wb4GmXqrBoDm0BwkFXj1hxbOirfb
-	 KCrpswlSQLBWGzK5XkBK05MqJoFRtUmr7FqUwIe7gBVlyo/Y7ddnIKM/c2LHbN9SfOQ==
+	bh=YQBOc/CM354sSqrkphJzRZWH7Zi2IGtop00U9K950TU=;
+	b=h9TBRku6pSa0o0pMZdPbWMFkqQfUtqVOS+pBKmo28yvx9QLhYaB1h4nXndDJ9NVRxPwg
+	 hj1QMvOOblXA9y3WotuvA7AfCgZMDuBWxh/ZHfwcpnXKdC37+otynZ/l94AWiZWJtz/SR
+	 2h4pqdQQY9D6BFbeHL+AdoyksQ0mhNDWXKXEoFxCrCdspvQfZ5ZM5YA46HgmeG76G3tR2
+	 4h9YVkVdDNMFkAgh1waza+qPJ/0vCFA/8KD0WNeJcTBl0/N2GRVyVDxTsfPNA4S4FgOr9
+	 Gjcrx3VBk1oy5o04v1uFcJzp9J8DXI4Dof/9jAtNz1gXAA7stoehla00Llu6PkPduJw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l52pk1dG;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="MGet/0ig";
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 899F3606A31D;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5C5F606A31A;
 	Fri, 23 Oct 2026 22:31:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l52pk1dG
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MGet/0ig
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
 	t=1792794708;
-	b=Q/jlTaToqpPf0FUsxiB3cir/g0Vg00xuf+PX7W/v+Cj79J5PUxv+aALpiaw+4kL1A2EA
-	 uqzYRgAYQ3rJRV8gauynHJyns67GdFhwcyKEZzUo45L1eH34671idAuePkh6DMDTKJF3H
-	 mnTX9p9XDCkXwML9HQ9oRAeFAxAcIEq8QnpQFlqAnTPzVKyC6y6r5+NsSfOW9/x9py3U/
-	 kRQNJS0XsWspN5P5ECP+xO6LpKATuNB3Z7sbZtTFJbzqhv5K4MoTpn4qxq3+Pgn23TJ52
-	 h5uMxF5lzwhM0A51tLpJGgj/813PFHg4Hh2yuTvZ/ETtQc6h/08hA+hEL7j2UO5HTcQ==
+	b=XGar0sTNo61qyypLPAVRuxQJB8qeniWhX/jgZYhPGOvzOhR812ggNpRFVELTdCCj3+wI
+	 Yta2hp3sjcZJaw6h2qqlQgqgzVe8ncdFYF7+nTUHa6FFgi7J9IlU4HwxYV2QFBTuSfvWz
+	 dKk8k2iW2YhpjFJnWnEGWeVGB00vDTk5BCFvVRlKj6WRO77D2yKCmxbnScNSMhqKWUdD5
+	 72SDcsAtf738A0gU8wPuPDNG0yNxm+ERJk4wHyeU1qgPKWMSKFcsuLBjj8twMR82UT2fG
+	 +M5olLvFrQJCRpiJwZJlLRRlympG2uuzhoQImIknkFWezsOcnaxHdOCVsRcaq8QHXWw==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
 	c=relaxed/relaxed; t=1792794708;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=l1hLfNmJm6Tp07iYdqWR4eMFaTYBny+F5j2RVqR8uzs=;
-	b=ZBjban3nPBn30dwy7kMxPjgoxCbuR8RNTNcZQc0a7K7phSBG6hD1CJydwjC0ECyISwH4
-	 iKo72hUCuuuoo3KTVTeePRb4sPE90YLwcs8MVIUDBIZ71s0Rw/hmTa2FLmV0EjDoWI4fD
-	 /yir+7e0HovABJdcCYb8XSUz1V23JXXTfA90X6hnctfhyc6AQ5Q/R64wNMvCU8AUoeH0f
-	 mkG38/VsQMJoXSIyo2RMxCrU1x7pfz/5WCVLyFhewxigt4VIwgf0d6xQewBxG0tzudOaT
-	 jquMTaAOzz3SmJJxbxLRmBKYrRvcAd8OQdradd+wHrbNhDREu6Z5Xt99EL0ZacjmsFg==
+	bh=YQBOc/CM354sSqrkphJzRZWH7Zi2IGtop00U9K950TU=;
+	b=nivISNwaRrjEEERngXZw5mr+JWMAK806NcwSuyLv5T4z38nOIq6Kk9DQUp6C27emjbFw
+	 aeKi7nyzowi7toG1vpZIt60IX5zgI0pJqfJ29P6aJ7/mYCRoEjZ/QgyCUkpSEjty0/qjW
+	 JOSu+rOsD5dvyD/c65Djr2RLD+kc+maefRnR/4aecbUgNH2dQ5nFfaL/UsnwUPMZDBFDI
+	 nFOyUN0iMkkqtrfNiUV07XyRy77JO3Tmv/qofEBW9mzlmK9wkyD8kbqHrbPlC5JtjL6fw
+	 Iu4SNhwoI1/+0uHwbdCweTCNT5kb1NWibuhXJ90XAs79oAA3cYI+Taw0axSES/hheAQ==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 81B061F01825;
+	by smtp.kernel.org (Postfix) with ESMTPS id 82C1E1F01829;
 	Fri, 23 Oct 2026 22:31:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1792794708;
-	bh=l1hLfNmJm6Tp07iYdqWR4eMFaTYBny+F5j2RVqR8uzs=;
+	bh=YQBOc/CM354sSqrkphJzRZWH7Zi2IGtop00U9K950TU=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=l52pk1dGqCk7vnqoRBzX/U5LPsK26TXEgiVje5uRUpnWU0HkPy8CujFYruuJ6KpDO
-	 r2I4sQMGAcuAHbByXrkxL/ccE6KPyCUm7DMpzrSn+gF9ZV9BP94bhy8F1C8d7OM/av
-	 O0VM0z4BiEsmiPnJS+TJbqd1gd4JO/4bq4feEkPWr+fR1ZpluFc6ec8hXZBVDQd9xD
-	 /4YDKR6PT4Z/mg98or3b3EMSKVupB8G4M4pabM91kX4Vv98/Dx7HMKI56Ge7raVNQs
-	 nwSfHeMtvZ3rveLX1n+NnQ2ifHYKIsYFf11yoI8bxEIbZEGL7yGeZ816abanlP5Tdj
-	 FZvwifqyrxHEw==
+	b=MGet/0igxrsipMBpX5Q0BR+Z1n5w1MgqqFP4HNKjHfSz0dw7aP7f88kh5bM9Aot8/
+	 N0j506dPFykzYU9z8k7QeZ7E8tpaD2InHrdVTuM2iXMzuhhjPtiZdw73ssNPbcbcbf
+	 bPsGVDLIMFlsPt088i5cOfeHVnFQWMRy9utSWh32EumqugIMpgbx0xpjttOCngThFg
+	 cEfd3aTCIWP4EnUHoj6327DlFxQOpE/xXxPYMEua7DuDaVXffo6sdluncLVANLzw4Y
+	 QVI9JBblbncph/jfd8gcas4q9v9XqhYnTndae/OuBls1yADULBiXptIrZXU7JNPTKm
+	 4idSOM1v3QKZw==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id EB20944659;
-	Fri, 23 Oct 2026 22:31:46 +0000 (UTC)
+	by lkml.kernel.org (Postfix) with ESMTP id 09F4A44661;
+	Fri, 23 Oct 2026 22:31:47 +0000 (UTC)
 From: Max Bretschneider via B4 Relay <devnull+max.bretschneider.leica-geosystems.com@kernel.org>
-Date: Sat, 24 Oct 2026 00:28:52 +0200
-Subject: [PATCH v2 2/4] media: i2c: ov08d10: use the subdev active state
+Date: Sat, 24 Oct 2026 00:28:54 +0200
+Subject: [PATCH v2 4/4] media: i2c: ov08d10: add get_selection support
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,7 +83,7 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261024-ov08d10-get-selection-v2-2-f8c49972ca18@leica-geosystems.com>
+Message-Id: <20261024-ov08d10-get-selection-v2-4-f8c49972ca18@leica-geosystems.com>
 References: <20261024-ov08d10-get-selection-v2-0-f8c49972ca18@leica-geosystems.com>
 In-Reply-To: <20261024-ov08d10-get-selection-v2-0-f8c49972ca18@leica-geosystems.com>
 To: Jimmy Su <jimmy.su@intel.com>, Matthias Fend <matthias.fend@emfend.at>, 
@@ -92,12 +92,12 @@ To: Jimmy Su <jimmy.su@intel.com>, Matthias Fend <matthias.fend@emfend.at>,
 Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
  Max Bretschneider <max.bretschneider@leica-geosystems.com>
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792794706; l=8528;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792794706; l=4916;
  i=max.bretschneider@leica-geosystems.com; s=20260501;
  h=from:subject:message-id;
- bh=UO43Xv2+J6Y1h2wiVWCTdjZyFn23oU70HMAlGwInR+0=;
- b=Cm565KJjeQj4HmyAW7kcM147NrU7IdNINN4aQt8pOCZ746tCnJBZHzRzrTXqTzqiF3MjxoovV
- NiSzQuwvenUCth1ncGAQFC3zMpzWpHwun+vJ6wXpCmN/CgBn4i3pE39
+ bh=pSPbfW/+rQXIuQoU/4hrAg5l2fsycIgBp7w9O8RjxoE=;
+ b=zoQokf57qmjGEky4VZ/Z/6RraDLuWEPTwXHwQplZUWcK/7SQxcfb41UenzEFp2UzWJzx8rMWn
+ npE8Fr5YQBOCEo6VMB+YifxjKIyb+vzktfm86Dzi462BmqNBx34pRxP
 X-Developer-Key: i=max.bretschneider@leica-geosystems.com; a=ed25519;
  pk=jf4ba33jrWlsOdGemi2InMtJAngoJVZU8Moetp0ixik=
 X-Endpoint-Received: by B4 Relay for
@@ -108,256 +108,146 @@ Content-Transfer-Encoding: 7bit
 
 From: Max Bretschneider <max.bretschneider@leica-geosystems.com>
 
-Port the driver to the subdev active state. This simplifies locking,
-replacing the driver's own mutex with the control handler lock, which is
-also used as the state lock, and allows the driver's get_fmt
-implementation to be replaced by v4l2_subdev_get_fmt().
+The driver does not implement .get_selection, so it never reports the
+analogue crop rectangle of the active mode. Userspace has no way to learn
+which region of the pixel array a given mode reads out, and cannot assume
+a fixed one, because the modes differ: the full mode reads 3280x2460 at
+offset (4,8), while the 3264x2448 and the 2x2 binned 1632x1224 modes read
+3264x2448 at offset (12,16).
 
-Sharing those two locks means the state is held whenever set_ctrl() runs,
-so the control callbacks can access the stored format directly, and the
-__v4l2_ctrl_*() helpers can be called from the pad operations.
+Consumers that derive the sensor scale from the analogue crop and the
+output size therefore compute a wrong result for the cropped and binned
+modes, and may reject those configurations.
 
-The driver's get_fmt() recomputed the media bus code from the flip controls
-on every call, and so always reported the Bayer order matching the current
-flip settings. v4l2_subdev_get_fmt() returns the stored format instead, so
-the code is now refreshed in set_ctrl() when the flips change. The flip
-controls carry V4L2_CTRL_FLAG_MODIFY_LAYOUT, which tells userspace that
-changing them may modify the media bus format on the source pad.
+Track the analogue crop rectangle per mode, store it in the subdev state
+when the format is set, and report it through .get_selection. Also report
+V4L2_SEL_TGT_CROP_DEFAULT, V4L2_SEL_TGT_CROP_BOUNDS and
+V4L2_SEL_TGT_NATIVE_SIZE from the pixel array geometry.
+
+The pixel array geometry and the per-mode offsets are taken from the
+sensor datasheet and the recommended reference register sets.
 
 Signed-off-by: Max Bretschneider <max.bretschneider@leica-geosystems.com>
 ---
- drivers/media/i2c/ov08d10.c | 84 ++++++++++++++++++---------------------------
- 1 file changed, 34 insertions(+), 50 deletions(-)
+ drivers/media/i2c/ov08d10.c | 50 ++++++++++++++++++++++++++++++++++++++++++++-
+ 1 file changed, 49 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/media/i2c/ov08d10.c b/drivers/media/i2c/ov08d10.c
-index 4dc68ff89eda..f19c056608ea 100644
+index 4b503ddfa042..2e5ae8c49067 100644
 --- a/drivers/media/i2c/ov08d10.c
 +++ b/drivers/media/i2c/ov08d10.c
-@@ -571,9 +571,6 @@ struct ov08d10 {
- 	/* Current mode */
- 	const struct ov08d10_mode *cur_mode;
+@@ -65,6 +65,14 @@
+ #define OV08D10_REG_FLIP_OPT			0x32
+ #define OV08D10_REG_FLIP_MASK			0x3
  
--	/* To serialize asynchronous callbacks */
--	struct mutex mutex;
--
- 	/* lanes index */
- 	u8 nlanes;
- 
-@@ -913,6 +910,15 @@ static int ov08d10_set_ctrl(struct v4l2_ctrl *ctrl)
- 					 exposure_max);
- 	}
- 
-+	/* The flips change the Bayer order, refresh it even while powered off */
-+	if (ctrl->id == V4L2_CID_HFLIP || ctrl->id == V4L2_CID_VFLIP) {
-+		struct v4l2_subdev_state *state =
-+			v4l2_subdev_get_locked_active_state(&ov08d10->sd);
++/* OV08D10 native and active pixel array size */
++#define OV08D10_NATIVE_WIDTH			3288
++#define OV08D10_NATIVE_HEIGHT			2476
++#define OV08D10_PIXEL_ARRAY_LEFT		4
++#define OV08D10_PIXEL_ARRAY_TOP			8
++#define OV08D10_PIXEL_ARRAY_WIDTH		3280
++#define OV08D10_PIXEL_ARRAY_HEIGHT		2464
 +
-+		v4l2_subdev_state_get_format(state, 0)->code =
-+			ov08d10_get_format_code(ov08d10);
-+	}
+ #define to_ov08d10(_sd)		container_of(_sd, struct ov08d10, sd)
+ 
+ struct ov08d10_reg {
+@@ -110,6 +118,9 @@ struct ov08d10_mode {
+ 
+ 	/* Number of data lanes */
+ 	u8 data_lanes;
 +
- 	/* V4L2 control values will be applied only when power is already up */
- 	if (!pm_runtime_get_if_in_use(ov08d10->dev))
- 		return 0;
-@@ -976,7 +982,6 @@ static int ov08d10_init_controls(struct ov08d10 *ov08d10)
- 	if (ret)
- 		return ret;
++	/* Analogue crop rectangle, in native sensor coordinates */
++	struct v4l2_rect crop;
+ };
  
--	ctrl_hdlr->lock = &ov08d10->mutex;
- 	link_freq_size = ARRAY_SIZE(ov08d10->priv_lane->link_freq_menu);
- 	ov08d10->link_freq =
- 		v4l2_ctrl_new_int_menu(ctrl_hdlr, &ov08d10_ctrl_ops,
-@@ -1147,13 +1152,14 @@ static void ov08d10_stop_streaming(struct ov08d10 *ov08d10)
- static int ov08d10_set_stream(struct v4l2_subdev *sd, int enable)
- {
- 	struct ov08d10 *ov08d10 = to_ov08d10(sd);
-+	struct v4l2_subdev_state *state;
- 	int ret = 0;
+ /* 3280x2460, 3264x2448 need 720Mbps/lane, 2 lanes - 19.2 MHz */
+@@ -624,6 +635,7 @@ static const struct ov08d10_lane_cfg lane_cfg_2 = {
+ 		},
+ 		.link_freq_index = 0,
+ 		.data_lanes = 2,
++		.crop = { .left =  4, .top =  8, .width = 3280, .height = 2460 },
+ 	},
+ 	{
+ 		.width = 3264,
+@@ -637,6 +649,7 @@ static const struct ov08d10_lane_cfg lane_cfg_2 = {
+ 		},
+ 		.link_freq_index = 0,
+ 		.data_lanes = 2,
++		.crop = { .left = 12, .top = 16, .width = 3264, .height = 2448 },
+ 	},
+ 	{
+ 		.width = 1632,
+@@ -650,6 +663,7 @@ static const struct ov08d10_lane_cfg lane_cfg_2 = {
+ 		},
+ 		.link_freq_index = 1,
+ 		.data_lanes = 2,
++		.crop = { .left = 12, .top = 16, .width = 3264, .height = 2448 },
+ 	}}
+ };
  
--	mutex_lock(&ov08d10->mutex);
-+	state = v4l2_subdev_lock_and_get_active_state(sd);
- 	if (enable) {
- 		ret = pm_runtime_resume_and_get(ov08d10->dev);
- 		if (ret < 0) {
--			mutex_unlock(&ov08d10->mutex);
-+			v4l2_subdev_unlock_state(state);
- 			return ret;
- 		}
+@@ -1209,6 +1223,7 @@ static int ov08d10_set_format(struct v4l2_subdev *sd,
  
-@@ -1172,7 +1178,7 @@ static int ov08d10_set_stream(struct v4l2_subdev *sd, int enable)
- 	__v4l2_ctrl_grab(ov08d10->vflip, enable);
- 	__v4l2_ctrl_grab(ov08d10->hflip, enable);
- 
--	mutex_unlock(&ov08d10->mutex);
-+	v4l2_subdev_unlock_state(state);
- 
- 	return ret;
- }
-@@ -1192,12 +1198,10 @@ static int ov08d10_set_format(struct v4l2_subdev *sd,
- 				      width, height, fmt->format.width,
- 				      fmt->format.height);
- 
--	mutex_lock(&ov08d10->mutex);
  	ov08d10_update_pad_format(ov08d10, mode, &fmt->format);
--	if (fmt->which == V4L2_SUBDEV_FORMAT_TRY) {
--		*v4l2_subdev_state_get_format(sd_state, fmt->pad) =
--								fmt->format;
--	} else {
-+	*v4l2_subdev_state_get_format(sd_state, fmt->pad) = fmt->format;
-+
-+	if (fmt->which == V4L2_SUBDEV_FORMAT_ACTIVE) {
- 		ov08d10->cur_mode = mode;
+ 	*v4l2_subdev_state_get_format(sd_state, fmt->pad) = fmt->format;
++	*v4l2_subdev_state_get_crop(sd_state, fmt->pad) = mode->crop;
+ 
+ 	if (fmt->which == V4L2_SUBDEV_FORMAT_ACTIVE) {
  		__v4l2_ctrl_s_ctrl(ov08d10->link_freq, mode->link_freq_index);
- 		pixel_rate = to_rate(ov08d10->priv_lane->link_freq_menu,
-@@ -1221,27 +1225,6 @@ static int ov08d10_set_format(struct v4l2_subdev *sd,
- 					 h_blank);
- 	}
- 
--	mutex_unlock(&ov08d10->mutex);
--
--	return 0;
--}
--
--static int ov08d10_get_format(struct v4l2_subdev *sd,
--			      struct v4l2_subdev_state *sd_state,
--			      struct v4l2_subdev_format *fmt)
--{
--	struct ov08d10 *ov08d10 = to_ov08d10(sd);
--
--	mutex_lock(&ov08d10->mutex);
--	if (fmt->which == V4L2_SUBDEV_FORMAT_TRY)
--		fmt->format = *v4l2_subdev_state_get_format(sd_state,
--							    fmt->pad);
--	else
--		ov08d10_update_pad_format(ov08d10, ov08d10->cur_mode,
--					  &fmt->format);
--
--	mutex_unlock(&ov08d10->mutex);
--
+@@ -1270,13 +1285,45 @@ static int ov08d10_enum_frame_size(struct v4l2_subdev *sd,
  	return 0;
  }
  
-@@ -1254,9 +1237,7 @@ static int ov08d10_enum_mbus_code(struct v4l2_subdev *sd,
- 	if (code->index > 0)
- 		return -EINVAL;
- 
--	mutex_lock(&ov08d10->mutex);
- 	code->code = ov08d10_get_format_code(ov08d10);
--	mutex_unlock(&ov08d10->mutex);
- 
- 	return 0;
- }
-@@ -1270,12 +1251,8 @@ static int ov08d10_enum_frame_size(struct v4l2_subdev *sd,
- 	if (fse->index >= ov08d10->modes_size)
- 		return -EINVAL;
- 
--	mutex_lock(&ov08d10->mutex);
--	if (fse->code != ov08d10_get_format_code(ov08d10)) {
--		mutex_unlock(&ov08d10->mutex);
-+	if (fse->code != ov08d10_get_format_code(ov08d10))
- 		return -EINVAL;
--	}
--	mutex_unlock(&ov08d10->mutex);
- 
- 	fse->min_width = ov08d10->priv_lane->sp_modes[fse->index].width;
- 	fse->max_width = fse->min_width;
-@@ -1285,14 +1262,13 @@ static int ov08d10_enum_frame_size(struct v4l2_subdev *sd,
- 	return 0;
- }
- 
--static int ov08d10_open(struct v4l2_subdev *sd, struct v4l2_subdev_fh *fh)
-+static int ov08d10_init_state(struct v4l2_subdev *sd,
-+			      struct v4l2_subdev_state *sd_state)
++static int ov08d10_get_selection(struct v4l2_subdev *sd,
++				 const struct v4l2_subdev_client_info *ci,
++				 struct v4l2_subdev_state *sd_state,
++				 struct v4l2_subdev_selection *sel)
++{
++	switch (sel->target) {
++	case V4L2_SEL_TGT_CROP:
++		sel->r = *v4l2_subdev_state_get_crop(sd_state, sel->pad);
++		return 0;
++
++	case V4L2_SEL_TGT_NATIVE_SIZE:
++		sel->r.left = 0;
++		sel->r.top = 0;
++		sel->r.width = OV08D10_NATIVE_WIDTH;
++		sel->r.height = OV08D10_NATIVE_HEIGHT;
++		return 0;
++
++	case V4L2_SEL_TGT_CROP_DEFAULT:
++	case V4L2_SEL_TGT_CROP_BOUNDS:
++		sel->r.left = OV08D10_PIXEL_ARRAY_LEFT;
++		sel->r.top = OV08D10_PIXEL_ARRAY_TOP;
++		sel->r.width = OV08D10_PIXEL_ARRAY_WIDTH;
++		sel->r.height = OV08D10_PIXEL_ARRAY_HEIGHT;
++		return 0;
++
++	default:
++		return -EINVAL;
++	}
++}
++
+ static int ov08d10_init_state(struct v4l2_subdev *sd,
+ 			      struct v4l2_subdev_state *sd_state)
  {
  	struct ov08d10 *ov08d10 = to_ov08d10(sd);
++	const struct ov08d10_mode *mode = &ov08d10->priv_lane->sp_modes[0];
  
--	mutex_lock(&ov08d10->mutex);
- 	ov08d10_update_pad_format(ov08d10, &ov08d10->priv_lane->sp_modes[0],
--				  v4l2_subdev_state_get_format(fh->state, 0));
--	mutex_unlock(&ov08d10->mutex);
-+				  v4l2_subdev_state_get_format(sd_state, 0));
+-	ov08d10_update_pad_format(ov08d10, &ov08d10->priv_lane->sp_modes[0],
++	ov08d10_update_pad_format(ov08d10, mode,
+ 				  v4l2_subdev_state_get_format(sd_state, 0));
++	*v4l2_subdev_state_get_crop(sd_state, 0) = mode->crop;
  
  	return 0;
  }
-@@ -1303,7 +1279,7 @@ static const struct v4l2_subdev_video_ops ov08d10_video_ops = {
- 
- static const struct v4l2_subdev_pad_ops ov08d10_pad_ops = {
- 	.set_fmt = ov08d10_set_format,
--	.get_fmt = ov08d10_get_format,
-+	.get_fmt = v4l2_subdev_get_fmt,
+@@ -1290,6 +1337,7 @@ static const struct v4l2_subdev_pad_ops ov08d10_pad_ops = {
+ 	.get_fmt = v4l2_subdev_get_fmt,
  	.enum_mbus_code = ov08d10_enum_mbus_code,
  	.enum_frame_size = ov08d10_enum_frame_size,
- };
-@@ -1314,7 +1290,7 @@ static const struct v4l2_subdev_ops ov08d10_subdev_ops = {
- };
- 
- static const struct v4l2_subdev_internal_ops ov08d10_internal_ops = {
--	.open = ov08d10_open,
-+	.init_state = ov08d10_init_state,
++	.get_selection = ov08d10_get_selection,
  };
  
- static int ov08d10_power_off(struct device *dev)
-@@ -1471,6 +1447,7 @@ static void ov08d10_remove(struct i2c_client *client)
- 	struct ov08d10 *ov08d10 = to_ov08d10(sd);
- 
- 	v4l2_async_unregister_subdev(sd);
-+	v4l2_subdev_cleanup(sd);
- 	media_entity_cleanup(&sd->entity);
- 	v4l2_ctrl_handler_free(sd->ctrl_handler);
- 	pm_runtime_disable(ov08d10->dev);
-@@ -1478,7 +1455,6 @@ static void ov08d10_remove(struct i2c_client *client)
- 		ov08d10_power_off(ov08d10->dev);
- 		pm_runtime_set_suspended(ov08d10->dev);
- 	}
--	mutex_destroy(&ov08d10->mutex);
- }
- 
- static int ov08d10_probe(struct i2c_client *client)
-@@ -1545,7 +1521,6 @@ static int ov08d10_probe(struct i2c_client *client)
- 		goto probe_error_power_off;
- 	}
- 
--	mutex_init(&ov08d10->mutex);
- 	ov08d10->cur_mode = &ov08d10->priv_lane->sp_modes[0];
- 	ret = ov08d10_init_controls(ov08d10);
- 	if (ret) {
-@@ -1566,17 +1541,27 @@ static int ov08d10_probe(struct i2c_client *client)
- 	pm_runtime_set_active(ov08d10->dev);
- 	pm_runtime_enable(ov08d10->dev);
- 
-+	ov08d10->sd.state_lock = ov08d10->ctrl_handler.lock;
-+	ret = v4l2_subdev_init_finalize(&ov08d10->sd);
-+	if (ret) {
-+		dev_err(ov08d10->dev, "failed to init subdev state: %d\n", ret);
-+		goto probe_error_media_entity_cleanup;
-+	}
-+
- 	ret = v4l2_async_register_subdev_sensor(&ov08d10->sd);
- 	if (ret < 0) {
- 		dev_err(ov08d10->dev, "failed to register V4L2 subdev: %d\n",
- 			ret);
--		goto probe_error_media_entity_cleanup;
-+		goto probe_error_subdev_cleanup;
- 	}
- 
- 	pm_runtime_idle(ov08d10->dev);
- 
- 	return 0;
- 
-+probe_error_subdev_cleanup:
-+	v4l2_subdev_cleanup(&ov08d10->sd);
-+
- probe_error_media_entity_cleanup:
- 	pm_runtime_disable(ov08d10->dev);
- 	pm_runtime_set_suspended(ov08d10->dev);
-@@ -1584,7 +1569,6 @@ static int ov08d10_probe(struct i2c_client *client)
- 
- probe_error_v4l2_ctrl_handler_free:
- 	v4l2_ctrl_handler_free(ov08d10->sd.ctrl_handler);
--	mutex_destroy(&ov08d10->mutex);
- 
- probe_error_power_off:
- 	ov08d10_power_off(ov08d10->dev);
+ static const struct v4l2_subdev_ops ov08d10_subdev_ops = {
 
 -- 
 2.43.0
