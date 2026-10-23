@@ -1,77 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=67.231.148.174
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792760063;
-	b=OY9IlhJV3nkCwJ9tv5bi5OtG+62Q0zO0mIb2UZTIVDvirDA0V6h4aHq29foQBCB1F0wh
-	 Pd4HKmc+7ge3OF0V9yx0VGgmbTefKByaa+fn5+EkexUS5DZIoNxhohmOn3tsMCSj8EUJu
-	 PsZtjXD9WOEyhlpkGhFFRKCWWn9f+Fd25/jHYzVHTVUAkNX8lFlD1c2fJrDak4JWSXNp4
-	 xl6iIoTmr083PLKaP501POylLVh9OW6fVWHxFkmbZykZ91RGXHcbqEjVuM5/eOHJjW5eY
-	 RRjKqnIkMMAoZmI0QC7J8faNFUnEI6SsUXG/uoJiuh6Xl04/s4wLY8yui3OSLW3YE1Q==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792760063;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:X-Proofpoint-GUID:
-	 X-Authority-Analysis:X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version;
-	bh=KxDDx24IwThnMt1R6B5OHjmL9MgnUIM99BE57WHqO2o=;
-	b=fIGhk+RlURqwnB54Jg83NFnq5KOJrPKCaPaSoZ0fsryXU8nqAHTb/M9kMV9hGqbu4c36
-	 F28VlCgNr5lxOj9/ncQl+BbkPeMrJ86Nhc14vLbJsVoonfGYT+gdZq+x2r7Yl5dkb3hKx
-	 tbLu0yESYP0Bu2stYoAO3Kf5D7CRzJvsG22acqZBgklzDNHe1+fMqjRvMKdPaHpCFpRGu
-	 Sm83hep4oWBTGDbmzbt1iz1Wg0KwE0n7tzReKdGVNMEL3HbdBC+2xeAXgC95m06bUzadU
-	 W2Tws+KgicrkIHD5+SkQ9MzNNlixPK1ChK/DhlTe8lyyQstn4HkpyHJbgvn7hBSglzg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=marvell.com;
-	spf=pass smtp.mailfrom=marvell.com;
-	dkim=pass header.d=marvell.com header.i=@marvell.com header.a=rsa-sha256 header.s=pfpt0220 header.b=exkgpT2O;
-	arc=none smtp.remote-ip=67.231.148.174
-Received: from mx0a-0016f401.pphosted.com (mx0a-0016f401.pphosted.com [67.231.148.174])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792760106;
+	b=1jj+Ulk9HPy5fv7Nn/v77LHvpmKlg9Hry894fkl3/v5lDFNENgGX/TF3CM7Z9xW8uzWP
+	 0zr3rxRuic9EyKC8S9J7h3XMQL6+PCMZheLUVnVeSzkrzJNSbhcIHF9F+2uh++rnaZZRK
+	 N6DlG5QQ9WeloFGrrduT7BVEoOoh+0T/nEQR2K0ZjmB3OJ5tH1C2pgrJjt+BnkIYduD0i
+	 0emSP9Nv0yUjpNX0cdG0QjwFnDWOvIFqxRUCZSnk5bj2e+Hzo2AzmQph39TQkwqdtrfto
+	 VwR4+A7967bRBX6u1SkCTb9Dqxb6HH7qGMqet02aU7/8tsUcbXNv425j7ZcAArc6rtw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792760106;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=+997DNCqR7ECKcfajWdY1tQzietg9A83Oqx5Q3IXzQY=;
+	b=Cj1aLyCv8LWanxhYNuDDb+zaBXqjAC+fFxiNLkbgf1fdtCfu/LA4hotrBvM3y6ym5sSw
+	 GlTf3qxYfrTrJNYv4RCZ+5ri5WMmUVzEHJo5bcMu1yuCPYlJWtuLeravqhkwVvTMtNdV2
+	 u+iEjreTi8/LXFlapFUJGvPSit6psDsFtp+/mLJ0lyJ9RnsXxIILABQd9wJF9JZxm0UZr
+	 dUJLS2BlzPZZL+3U1CIwolamu01cUFVTYONMeYf7WLd3dt6bILx+Ad6m7584WBcyY5ljg
+	 0xlKzhO6zipHtPLBgnxrPDGblMWZHT023hg3At/rdQS6+YlJaSBC4F+DQ3oQTtqExbw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EDwaCfQ4;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25090606A31E;
+	Fri, 23 Oct 2026 12:55:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EDwaCfQ4
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1792760105;
+	b=Z0y/XcU6+7xocWqmVHdAobbexcTTxmna1K590qxC1Qvz7DwK0u/Sq79AXJ2I419T4O1r
+	 +dEldyi+C0NQM489/0fvYhWIMptDfZWB1iK3OqeZBZq/V3aN2VpPZq0wyJB9btkZMtmX6
+	 0B/ZCbE8DN2m9OPvM9KuX9nej+pL+jFUfP8pM7/N5IKQ4Dy/ls3yMb5MFD4RWWTvTHFsj
+	 /M4C/+Zn6PbKSfQLAouXddNK6Srup2IdW17ApCsBzD7D2sGKLh1u+vn6tHq4ezEIhim1l
+	 zwdO0u+ZTG9XngZPMXZTKyiVcO8vcibA+h8TdPBN9k7WX9IQ+ttWwp9rP+h7s30mMCw==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1792760105;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=+997DNCqR7ECKcfajWdY1tQzietg9A83Oqx5Q3IXzQY=;
+	b=F1858SvgBMC0cT0HDWQoLy7vU3HSsrS2N6PPqiC1w0+4CNPy7UCWkGzVghX2+n2JCHde
+	 1OAUV6+SxJBWXw1jl6UQfH/h2icCxsu35dlZaEtpoQxXuDRUkGZjWOQFIGm/gPC/R8ghc
+	 YODxUcQ4TxTCMBQNJjnsX67nzPBManVGu/LuJMGSIJcB+JqynsWc8+WCAI807EU100VGh
+	 AVZZset87mMve3YX8Q2NVKlMaGcpRT5g0RAvlGgET+YV58qYtdyDN5pTRYc9XOvSNP1hR
+	 rhtHZpScpdVn9YvwPC3qgPZU18d0CZo9sdLijBdnBqULpyLJMSzDYDIg9kL7xJhQiBw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C88C606A31A;
-	Fri, 23 Oct 2026 12:54:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9C88C606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=marvell.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marvell.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=marvell.com header.i=@marvell.com header.a=rsa-sha256 header.s=pfpt0220 header.b=exkgpT2O
-Received: from pps.filterd (m0431384.ppops.net [127.0.0.1])
-	by mx0a-0016f401.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69NADoj43110230;
-	Fri, 23 Oct 2026 05:54:19 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marvell.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=pfpt0220; bh=KxDDx24IwThnMt1R6B5OHjm
-	L9MgnUIM99BE57WHqO2o=; b=exkgpT2OOdaVDwVozFdknmOG7ZdVAX83eep2D+q
-	f5PWtFqnEhMDkZnXafnvgbfoxWXsV1yNGnssAWkxKaraUB8Vaff4JtjapqcYrxU8
-	CncAouxW6MZ99/iKR3COwUF/6ZdP0HKDH+bZDa3QFTqxyTTXVwYmb0ngN/UFAb0l
-	sD0yIbXSIrvRLEeyfxyBJ+3AFjv1F1ZwofyKX5uR5VZVPqSRZeyH8Zxm4UQZBXK4
-	Ph4NqIkYfiupkCItnH/wo8TBfTZ6umnUR+/bnHbqctBu6p+Y712CpawTh8pUXrA9
-	1dC1f+H1v4GTXz8QIKaSt+0rOHiRvJYPTLpHHnnw3BkuLZw==
-Received: from dc6wp-exch02.marvell.com ([4.21.29.225])
-	by mx0a-0016f401.pphosted.com (PPS) with ESMTPS id 4hfv15u6ye-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 23 Oct 2026 05:54:19 -0700 (PDT)
-Received: from DC6WP-EXCH02.marvell.com (10.76.176.209) by
- DC6WP-EXCH02.marvell.com (10.76.176.209) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.25; Fri, 23 Oct 2026 05:54:18 -0700
-Received: from maili.marvell.com (10.69.176.80) by DC6WP-EXCH02.marvell.com
- (10.76.176.209) with Microsoft SMTP Server id 15.2.1544.25 via Frontend
- Transport; Fri, 23 Oct 2026 05:54:18 -0700
-Received: from PE-LT7841.marvell.com (unknown [10.28.165.186])
-	by maili.marvell.com (Postfix) with ESMTP id 04FB93F7045;
-	Fri, 23 Oct 2026 05:54:13 -0700 (PDT)
-From: "Nimal Prabudoss [C]" <nprabudoss@marvell.com>
-To: <linux-scsi@vger.kernel.org>, <netdev@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>
-CC: <jmeneghi@redhat.com>, <mschmidt@redhat.com>, <manishc@marvell.com>,
-        <palok@marvell.com>, <spadol@marvell.com>, <jtaubepe@redhat.com>,
-        "Nimal
- Prabudoss" <nprabudoss@marvell.com>
-Subject: [PATCH] MAINTAINERS: Update maintainers for QLogic ETHERNET drivers
-Date: Fri, 23 Oct 2026 18:24:08 +0530
-Message-ID: <20261023125409.1989-1-nprabudoss@marvell.com>
-X-Mailer: git-send-email 2.54.0.windows.1
+	by smtp.kernel.org (Postfix) with ESMTPS id EE5FC1F01829;
+	Fri, 23 Oct 2026 12:55:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792760105;
+	bh=+997DNCqR7ECKcfajWdY1tQzietg9A83Oqx5Q3IXzQY=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=EDwaCfQ4f1QZnD0XAPgf5tJV/085B69uIZ9mEKpe/xC1m01GVwDojdn/iDp4uwcIm
+	 bcYUdjgamgFyg+7H6Yem6Fgues4fauOUQ7lbaIH1zQRxnap386hkb0qGyjiMjzDwFL
+	 z9/Co8KjzR5Nw1HZbOO3rtEKarptkI1jouNlyR8QSVgKdeLZ8lUquqq2rBRzDMlPGo
+	 hy2MoXPNO/wc/Xt/LlmoIpoYre0I3EwDxJMsuDL9dBVE3FsSkw0RQ+nzTUhLi2AKJ/
+	 nHgCEQ0iJttLYnOH1nTJsW67y/nO+i7YqcAk6+u6a/S4kF9ZPDkwYCp2w7KzjL7d8L
+	 xSS5c0vxgcDMQ==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 54B6644517;
+	Fri, 23 Oct 2026 12:55:04 +0000 (UTC)
+From: Ronald Claveau via B4 Relay <devnull+linux-kernel-dev.aliel.fr@kernel.org>
+Date: Fri, 23 Oct 2026 14:53:51 +0200
+Subject: [PATCH v2 1/3] clk: meson: g12a: fix swapped VID_PLL and
+ VID_PLL_DIV clock ids
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,64 +83,65 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Proofpoint-GUID: GDCeoP31oRJ5ZO9Ff3QVQMj9o5HTio2_
-X-Authority-Analysis: v=2.4 cv=RPQmjIi+ c=1 sm=1 tr=0 ts=6adb58fb cx=c_pps
- a=gIfcoYsirJbf48DBMSPrZA==:117 a=gIfcoYsirJbf48DBMSPrZA==:17
- a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=l0iWHRpgs5sLHlkKQ1IR:22
- a=TtqV-g6YmW1Jfm2GSLaY:22 a=M5GUcnROAAAA:8 a=VwQbUJbxAAAA:8
- a=q1_EPlUX0R6ygB9ete4A:9 a=OBjm3rFKGHvpk9ecZwUJ:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIzMDA1MCBTYWx0ZWRfXxjW1pxaf4sYO
- RYrSOrkMe/2k885VsGSg9SVfKE71LK7cToIb/gebFYXRyzAJ7a5k69r9/vn0nqO6IwB1gJ2LxmU
- CB9bdUF/NSY2h1D8k5BiYPf1W2nEsWQ=
-X-Proofpoint-ORIG-GUID: GDCeoP31oRJ5ZO9Ff3QVQMj9o5HTio2_
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIzMDA1MCBTYWx0ZWRfX6rDhBmIrRhcL
- MXwufDnOMj+a7UJ+ItqeBsRFgME6Ip5edmaJ1MLEBJB/LRONRoqnZH/7DpgHJNztmZ0pOwKXPqT
- WHWZ6frc8rxLnwuZgWXJhj1qpyQB8bySUqnhFc6mVsj+qpUA8hrHPsxiQ/8r0uBLB8jTmr39QbM
- TmA97qvsBAuAiN+qeEKhWhffAd4k7eqK3U+YwgawSUcXPJhB287x28rPV38rvqrUn429gzX3yAT
- kgvmr66BsBo6BA89PJGuYaw36MyBZ205ndvHIfzJLudZ20uLa1Da5xuuj2EGEeYtavUIWs+dKFq
- DkhUGZUSqya6XpzG/h45y9q86JulyqmcO5lGMVkj1dtx/K98E16DVSpEswL7Ky/+5uoGFa9hC8V
- irUfoDk6jcHy4lTAgLQ9hLM6qlv1r3RF9b571UYZjf/nM0UDx5XSCsM1dx6RfYl0iZT14xQ7Z6r
- XA8fkt5hXgATVWXd78g==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-23_03,2026-10-21_02,2025-10-01_01
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261023-fix-g12a-clk-v2-1-0b0b9b86d437@aliel.fr>
+References: <20261023-fix-g12a-clk-v2-0-0b0b9b86d437@aliel.fr>
+In-Reply-To: <20261023-fix-g12a-clk-v2-0-0b0b9b86d437@aliel.fr>
+To: Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jerome Brunet <jbrunet@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
+ Brian Masney <bmasney+clk@redhat.com>, Kevin Hilman <khilman@baylibre.com>, 
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
+ Jian Hu <jian.hu@amlogic.com>
+Cc: linux-amlogic@lists.infradead.org, linux-clk@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Ronald Claveau <linux-kernel-dev@aliel.fr>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1162;
+ i=linux-kernel-dev@aliel.fr; h=from:subject:message-id;
+ bh=2dFhwExwBBCr5nuNL1VrJSQXreYDqbsyvEBqlLalx/E=;
+ b=owGbwMvMwCWm1SvKXP3cUInxtFoSQ9btSGVuZ3ONeevX/mYy+WN19cemgF9fm4Ob+E/IvTv+b
+ vPXLzxbOkpZGMS4GGTFFFn651qeeHf56Jmve9RTYOawMoEMYeDiFICJfC5hZPhScHntV127Oo9g
+ Xbd7x07EHHj5Qu3q2tyXmlPz1v1d1AxUseTk0n96Ol9svUXkl07J27JSepd4yboVgjv+JH9kPJp
+ yiAkA
+X-Developer-Key: i=linux-kernel-dev@aliel.fr; a=openpgp;
+ fpr=DFD863F61375BF917F0012173953305EF1D0EC3E
+X-Endpoint-Received: by B4 Relay for linux-kernel-dev@aliel.fr/default with
+ auth_id=744
+X-Original-From: Ronald Claveau <linux-kernel-dev@aliel.fr>
+Reply-To: linux-kernel-dev@aliel.fr
+Content-Transfer-Encoding: 7bit
 
-From: Nimal Prabudoss <nprabudoss@marvell.com>
+From: Ronald Claveau <linux-kernel-dev@aliel.fr>
 
-Update maintainer list for BROADCOM BNX2 GIGABIT ETHERNET DRIVER
-and QLOGIC QL4xxx ETHERNET DRIVER to reflect current team structure.
+In g12a onecell data table CLKID_VID_PLL points to g12a_vid_pll_div
+and CLKID_VID_PLL_DIV points to g12a_vid_pll. So the ids are swapped.
 
-Signed-off-by: Nimal Prabudoss <nprabudoss@marvell.com>
+Swap the ids back to their right entries.
+
+Fixes: 085a4ea93d54 ("clk: meson: g12a: add peripheral clock controller")
+Signed-off-by: Ronald Claveau <linux-kernel-dev@aliel.fr>
 ---
- MAINTAINERS | 7 +++----
- 1 file changed, 5 insertions(+), 2 deletions(-)
+ drivers/clk/meson/g12a.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 3cb12243b636..4fdb0c2be63f 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -4595,7 +4595,8 @@ F:	include/linux/bcm963xx_nvram.h
- F:	include/linux/bcm963xx_tag.h
- 
- BROADCOM BNX2 GIGABIT ETHERNET DRIVER
--M:	Rasesh Mody <rmody@marvell.com>
-+M:	Nimal Prabudoss <nprabudoss@marvell.com>
-+M:	Sharad Padol <spadol@marvell.com>
- M:	GR-Linux-NIC-Dev@marvell.com
- L:	netdev@vger.kernel.org
- S:	Supported
-@@ -19067,6 +19068,8 @@ F:	drivers/scsi/qedi/
+diff --git a/drivers/clk/meson/g12a.c b/drivers/clk/meson/g12a.c
+index d0d4c7b6dc82..57fa086b9c8b 100644
+--- a/drivers/clk/meson/g12a.c
++++ b/drivers/clk/meson/g12a.c
+@@ -4622,9 +4622,9 @@ static struct clk_hw *g12a_hw_clks[] = {
+ 	[CLKID_HDMI_PLL_OD]		= &g12a_hdmi_pll_od.hw,
+ 	[CLKID_HDMI_PLL_OD2]		= &g12a_hdmi_pll_od2.hw,
+ 	[CLKID_HDMI_PLL]		= &g12a_hdmi_pll.hw,
+-	[CLKID_VID_PLL]			= &g12a_vid_pll_div.hw,
++	[CLKID_VID_PLL]			= &g12a_vid_pll.hw,
+ 	[CLKID_VID_PLL_SEL]		= &g12a_vid_pll_sel.hw,
+-	[CLKID_VID_PLL_DIV]		= &g12a_vid_pll.hw,
++	[CLKID_VID_PLL_DIV]		= &g12a_vid_pll_div.hw,
+ 	[CLKID_VCLK_SEL]		= &g12a_vclk_sel.hw,
+ 	[CLKID_VCLK2_SEL]		= &g12a_vclk2_sel.hw,
+ 	[CLKID_VCLK_INPUT]		= &g12a_vclk_input.hw,
 
- QLOGIC QL4xxx ETHERNET DRIVER
--M:	Manish Chopra <manishc@marvell.com>
-+M:	Nimal Prabudoss <nprabudoss@marvell.com>
-+M:	Sharad Padol <spadol@marvell.com>
-+M:	GR-Linux-NIC-Dev@marvell.com
- L:	netdev@vger.kernel.org
- S:	Supported
- F:	drivers/net/ethernet/qlogic/qed/
 -- 
-2.56.0
+2.43.0
+
 
