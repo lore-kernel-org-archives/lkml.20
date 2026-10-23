@@ -1,80 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=67.231.153.30
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.9
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792743695;
-	b=Wee1JZycae9HVoxzKFxpjMQlwtoBwJTFhJyovTCGs+w+t3BAVTmxdNV4BtjbFB05C9mP
-	 n/l3Ez5bLBjqYE7qC+8ISQ49uNnYluVADubK3pC7jcAKv+yaBI79CcHCC2XVI1sTGDRL0
-	 kGdeNr3VucCy4eol1StEV4XJrQdl6dD5Lu5y6WWpHOJh21O4oo7KFGgozcUANi7Hbq5du
-	 aTdgx2/5timxbNwvGICaBTQMfAYaNp4Awg5fWj8H5Bo9sBNdOTv6sewtKxWhv30otZnC3
-	 oweX5krh+hnS2jnWD+3/zIoKDnq0GLmqpK6zCuDx5bKWhx96Fp5CJFkb9C/lXRV+A/A==
+	t=1792743775;
+	b=UOkv/J6tfEcs/Kpgz1/9ZkAuVqmGX/6gN64eTCG3+XsHdtQyd/ngAJKWXHdxVmdl8Jod
+	 RQiDhBLCjNsEwpin5bCIdmflXfok8Ws48TwSMLmixm6iXC6R+xWK4k4mTTZVBxhP9PJo8
+	 C/9OfDc3RxJ0vj5RwIRwGfyGHnj/Grh/PCIf4nWmqpzoVIDfNknsH6WiEGZ/hv2nRmM7b
+	 HTMUldZnnfNpKuzfiWnPjfT71q3I0zTcp+2LL/fikOo1Jc0COzHQ57q1EGweZru6y5rT4
+	 gwln1Fj8YwfG4f7p71MTlJYIL+yUOt7KiG+0GOCwGfEJTP9lZb/6Vz/0hP2/S2gfDBw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792743695;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:From:To:CC:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-Proofpoint-GUID:X-Authority-Analysis:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Virus-Version;
-	bh=p6NHsQh6FnQZ5O5CU2muMwdS/Y29oiEXUuDekOVD+lI=;
-	b=Jg2D0iKEm4RPOQmj8WOLVS4+gKeE3Wx5uTbqtmLBF6s7GG5pEDTuJrF/3cs97OeVSokE
-	 JE3eJIH2hYQ3Ei0BJckrRKLcIO6CUDrQ1F3fq498Zd4bkx3w96oGD5YLOzsSMtcJhhCZE
-	 NSQBTdozcagnB25MBKgiH5j/7AsY/X1zpYEv6hKwoHmLkfAO3opGM2GldaNJCuCZxWXSQ
-	 oIFfBDwywPJlUxTmV+EFAU7lrtfIsT8qYCKxT6qxFoBu211z8Po+xvVY9woh0+9dByvNN
-	 XAF+wcBmlUcMrD2tJrgKVplgfyMrv9tDZ2MIg0GvVmFdejmJaoJntaetI3mDvxZfCjA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792743775;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:User-Agent;
+	bh=rFwRLuEL800954vZgLUxCOGD08K0kEaYzdU27GRt4rQ=;
+	b=W8kwcihdf7QFJw6qfE/wMcKAUP0z+sXOHtFLPMsc+lYTzcrXtQLjd0z+ID+un+bUKhEA
+	 wwXZDXXURmZRq9SlbMQg2F470Ge+B2UPAgyMg9JQP2dRW1IZcpkUGg9+0hd0ObApXj+BP
+	 hPu8lKj1YLSnHtPQeY2s8FfFPt/8AzkwKkX9WU7H1xd86wJie0rUaC4MWMHWnw/ub6y28
+	 Ac6Jes5G4yWT3dQgud2LbjQ15SmgHdXAfcKZV3Lmz0ov45pHSABNKqRiaHJKanVVE+6Qj
+	 uRvmGQh6YDwxR5RFJPkiM1iG3yklF+7xsD3HdAy/JWRRLt72ikgQCG1knHCveEOvd8A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=meta.com;
-	spf=pass smtp.mailfrom=meta.com;
-	dkim=pass header.d=meta.com header.i=@meta.com header.a=rsa-sha256 header.s=pps82601-s2048-2026-q3 header.b=Fu036nvQ;
-	arc=none smtp.remote-ip=67.231.153.30
-Received: from mx0b-00082601.pphosted.com (mx0b-00082601.pphosted.com [67.231.153.30])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Cw4EoFat;
+	arc=none smtp.remote-ip=198.175.65.9
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50C2A606A323
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 08:21:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 50C2A606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=meta.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=meta.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55303606A31D
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 08:22:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 55303606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=meta.com header.i=@meta.com header.a=rsa-sha256 header.s=pps82601-s2048-2026-q3 header.b=Fu036nvQ
-Received: from pps.filterd (m0109331.ppops.net [127.0.0.1])
-	by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69N7F9PA3370087;
-	Fri, 23 Oct 2026 01:21:08 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
-	:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=pps82601-s2048-2026-q3; bh=p6NHsQh6F
-	nQZ5O5CU2muMwdS/Y29oiEXUuDekOVD+lI=; b=Fu036nvQ3WEPMhkWHrIOM3XX8
-	kaV/aG338cCigSnvGUtXoYFzxQKqZ2zLKSFuzDG9hJ96X7QgB9qUQb50hZx9znCE
-	NbZzSbMHnl/VAXQoijs4tTArmSb87K97i5YVYTb4QO29NFB9QjsBaJU5JMElKN1F
-	a0wLux2Iz+94JPLNgfXBmk6gBMOEpTSWEL+CeorkTmsVMvQQgHa4Oc1nXf4e2Lk0
-	rfo/IdRlBZcuhd/9HEBuHKDAiji5zWP20ghnulGiSfRu+Ra7zZxXD4Z/RKAW5dql
-	LW0i9ORRjPSDTg4bMPD2limTu/OAXX2WObsFqEemB9eafxWbvHdCJ/TACowFQ==
-Received: from mail.thefacebook.com ([163.114.134.16])
-	by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4hf9mx9fp9-4
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
-	Fri, 23 Oct 2026 01:21:08 -0700 (PDT)
-Received: from localhost (2620:10d:c085:108::4) by mail.thefacebook.com
- (2620:10d:c08b:78::2ac9) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.56; Fri, 23 Oct
- 2026 08:21:06 +0000
-From: Ruben Hakobyan <hruben@meta.com>
-To: "Michael S . Tsirkin" <mst@redhat.com>,
-        David Hildenbrand
-	<david@kernel.org>
-CC: Breno Leitao <leitao@debian.org>, Atish Patra <atishp@meta.com>,
-        "Jason
- Wang" <jasowangio@gmail.com>,
-        =?UTF-8?q?Eugenio=20P=C3=A9rez?=
-	<eperezma@redhat.com>,
-        Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
-        "Alexander
- Duyck" <alexander.h.duyck@linux.intel.com>,
-        Andrew Morton
-	<akpm@linux-foundation.org>,
-        <virtualization@lists.linux.dev>, <linux-kernel@vger.kernel.org>
-Subject: [PATCH] virtio_balloon: batch large descriptor chains for page reporting
-Date: Fri, 23 Oct 2026 01:19:19 -0700
-Message-ID: <20261023081923.164950-1-hruben@meta.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Cw4EoFat
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792743774; x=1824279774;
+  h=date:from:to:cc:subject:message-id;
+  bh=te2N4EHsIew9AcDES7tPdYN3OKpGCFwcOOw9pYOjA0Q=;
+  b=Cw4EoFat4vU8fRpqfOidYQVX/pw9OSOrw2MZCrigzKmKtupshDUEyT9+
+   vh0jJtNL1thzZAv9k3N7DjcZPoWYNVxzuOD4V0kQTqtYmdyiXolTXihU4
+   h29t5d3EIan8lSMUyllPwNQp9j+NDD/qm4zFI1PIRrf+lPM/y5t3QmBhD
+   6x9mQw2aCTsxcOKTJjbti4b1RBzqimjb3nGiSU7gUN/sDCm5fNNo4qDgA
+   OJHlSFWMZddijP2gCpYxj85d0IiDtqwVYUaraj7sy+pPCtAehjid1QpfO
+   4vYmnXiZErR0WOme9MExWvlUVxltJ90BUevnxoElfvChjwYKpN1K+J1wS
+   w==;
+X-CSE-ConnectionGUID: Sq4cXR4dT0ezdK/69CBcCw==
+X-CSE-MsgGUID: 1RlYC+G8Rp2hvI0JkD/nPw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11943"; a="1381912"
+X-IronPort-AV: E=Sophos;i="6.27,173,1787036400"; 
+   d="scan'208";a="1381912"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Oct 2026 01:22:53 -0700
+X-CSE-ConnectionGUID: vfgmHO08SxmQCWMjUHzbUw==
+X-CSE-MsgGUID: sy4UbMw0RPWduvj1mvU1PQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,173,1787036400"; 
+   d="scan'208";a="3619693"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by fmviesa004.fm.intel.com with ESMTP; 23 Oct 2026 01:22:51 -0700
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xKAY4-00000000SLo-1Rf0;
+	Fri, 23 Oct 2026 08:22:48 +0000
+Date: Fri, 23 Oct 2026 16:22:17 +0800
+From: kernel test robot <lkp@intel.com>
+To: Link Mauve <linkmauve@linkmauve.fr>
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+ linux-kernel@vger.kernel.org, Madhavan Srinivasan <maddy@linux.ibm.com>,
+ "Mukesh Kumar Chaurasiya (IBM)" <mkchauras@gmail.com>
+Subject: error: kernel-address sanitizer is not supported for this
+ target
+Message-ID: <202610231657.7LxpWzaj-lkp@intel.com>
+User-Agent: s-nail v14.9.25
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,142 +81,26 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Proofpoint-GUID: Omy9UxNFoTOB8myOSsMFCBtB-vJiFFj1
-X-Authority-Analysis: v=2.4 cv=G7iJgNk5 c=1 sm=1 tr=0 ts=6adb18f4 cx=c_pps
- a=CB4LiSf2rd0gKozIdrpkBw==:117 a=CB4LiSf2rd0gKozIdrpkBw==:17
- a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=7x6HtfJdh03M6CCDgxCd:22
- a=wpfVPzegXHpEFt3DAXn9:22 a=mkMtH7XpAAAA:8 a=vovA2YXZAAAA:20 a=VabnemYjAAAA:8
- a=LV-WQNVlgMwP2ZNcymAA:9 a=I9Slk6e--tAXHahELIuT:22 a=gKebqoRLp9LExxC7YDUY:22
- a=bA3UWDv6hWIuX7UZL3qL:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIzMDAzMiBTYWx0ZWRfX5RHn0ccRY3Ml
- ky9o5oDxxlRFybnZs3KeOk8IgLegqv3Yahh2CN193WW0jmCW2Rdvoin8tkgtd+0ASH4fnq9IAw9
- WrBLv6rAdvsdtevjikpuTi8V8iWTFBM=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIzMDAzMiBTYWx0ZWRfX3HENgCL76aT+
- B5UNIbQlly8qbDPiTF4iQ+tTSENOkkwLcCbBXVjhBtas7kTH5o7VHziBuVQtc93h9RdqW3tu7yE
- GZocXJCy3y/ANm/EPyd8yRI5/jjB0Zjx74cQZUAflun79JVDQQHUfCu9uWgthmBNFxVOpRsFvMz
- BNmme7scFMaeXfCJU9AOACGmcTmtapblc8xTcCScmAClop3xsGBGNx6RYsUrbM2+kwl7l6r0rzH
- yo+4BypdDdhpOXbPRSQDKnKLkNLBq1QGaBVSE9UOMl6gPmtP2Pf34Wmo2JqrU9hMu0MfSSaEnkw
- l2Lg0v7U6iqhOvxBvG9mPe4PnAyfetvsouINCHi+0IgHT424lB2Qjbv31LZhrNBSP8+1WM01YoV
- R5ozoJuwh5j8fpIgP0yDrWMRRNwFtNBseanSfNcLVWhEdHQH887qeY/ku8rhcX5x7YPxNAkp0Ln
- B4fv7k/byhbC89C90rQ==
-X-Proofpoint-ORIG-GUID: Omy9UxNFoTOB8myOSsMFCBtB-vJiFFj1
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-23_02,2026-10-21_02,2025-10-01_01
 
-The virtio_balloon driver reports a scatter-gather list of free pages
-to the VMM so it may discard unused pages.
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+head:   7be4bc52fd9e0e55dc9a2e0232b89427d2c4b614
+commit: 73b741adb264967093ef4eb59905618a7e0d0de0 rust: Add PowerPC support
+date:   3 months ago
+config: powerpc-randconfig-1001-20261022 (https://download.01.org/0day-ci/archive/20261023/202610231657.7LxpWzaj-lkp@intel.com/config)
+compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project 2c419645e808a6667eee9dbb16c828f77e2fd2f0)
+rustc: rustc 1.96.0 (ac68faa20 2026-05-25)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261023/202610231657.7LxpWzaj-lkp@intel.com/reproduce)
 
-For an arm64 kernel with 64 KiB pages, the default reporting and
-allocation orders allow entries ranging from 2 MiB to 512 MiB. If the
-report contains a sufficient number of large entries, we will end up
-with a descriptor chain that represents over 4 GiB of memory. This
-violates virtio spec section 2.7.5.2, which requires that the total
-buffer length of a descriptor chain be at most 4 GiB [1]. A VMM that
-faithfully follows the spec may stop processing the descriptor chain
-when it exceeds 4 GiB, and discard less memory than it could. For
-example, this is the case for the virtio-queue in Rust-VMM [2].
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Fixes: 73b741adb264 ("rust: Add PowerPC support")
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202610231657.7LxpWzaj-lkp@intel.com/
 
-Batch the requests into descriptor chains of at most U32_MAX bytes
-(4 GiB - 1 byte). We use U32_MAX here so we can conveniently represent
-the batch length in a u32.
+All errors (new ones prefixed by >>):
 
-[1] https://docs.oasis-open.org/virtio/virtio/v1.4/virtio-v1.4.html
-[2]
-https://github.com/rust-vmm/rust-vmm/blob/9f7250b1555ebe022ea4133fda676e6311040738/vm-virtio/virtio-queue/src/chain.rs#L183-L190
+>> error: kernel-address sanitizer is not supported for this target
 
-Fixes: b0c504f15471 ("virtio-balloon: add support for providing free page reports to host")
-Signed-off-by: Ruben Hakobyan <hruben@meta.com>
----
-The wording in the spec is a bit ambiguous because it uses "chain
-length" for both descriptor counts and the total size of the memory
-ranges referenced by the descriptors. My read is that the byte limit
-applies to the sum of descriptor lengths, which is also what rust-vmm
-checks.
-
-Another option I considered was to limit reporting capacity based
-on the largest possible block. E.g. for 64 KiB pages, the largest
-block is 512 MiB, so limit the reporting capacity to 7 to stay
-below 4GiB. Although simpler, I found that the time to reclaim
-was quite a bit longer.
-
-I tested this patch on Cloud Hypervisor (which uses Rust-VMM)
-and QEMU (which doesn't enforce this limit).
-
- drivers/virtio/virtio_balloon.c | 47 ++++++++++++++++++++++++---------
- 1 file changed, 35 insertions(+), 12 deletions(-)
-
-diff --git a/drivers/virtio/virtio_balloon.c b/drivers/virtio/virtio_balloon.c
-index ab3e3d887e00..68ce627c8e04 100644
---- a/drivers/virtio/virtio_balloon.c
-+++ b/drivers/virtio/virtio_balloon.c
-@@ -15,6 +15,7 @@
- #include <linux/slab.h>
- #include <linux/module.h>
- #include <linux/balloon.h>
-+#include <linux/limits.h>
- #include <linux/oom.h>
- #include <linux/wait.h>
- #include <linux/mm.h>
-@@ -207,21 +208,43 @@ static int virtballoon_free_page_report(struct page_reporting_dev_info *pr_dev_i
- 	struct virtqueue *vq = vb->reporting_vq;
- 	unsigned int unused, err;
- 
--	/* We should always be able to add these buffers to an empty queue. */
--	err = virtqueue_add_inbuf(vq, sg, nents, vb, GFP_NOWAIT);
-+	while (nents) {
-+		bool unmark_end;
-+		struct scatterlist *sg_batch_start = sg;
-+		u32 batch_len = 0;
-+		unsigned int batch_nents = 0;
- 
--	/*
--	 * In the extremely unlikely case that something has occurred and we
--	 * are able to trigger an error we will simply display a warning
--	 * and exit without actually processing the pages.
--	 */
--	if (WARN_ON_ONCE(err))
--		return err;
-+		/*
-+		 * Virtio spec 2.7.5.2 limits the total buffer length of a
-+		 * descriptor chain to 2^32 bytes (4 GiB), so split larger
-+		 * reports into batches no bigger than that size.
-+		 */
-+		while (batch_nents < nents &&
-+		       sg->length <= U32_MAX - batch_len) {
-+			batch_len += sg->length;
-+			batch_nents += 1;
-+			sg = sg_next(sg);
-+		}
-+		unmark_end = !sg_is_last(&sg_batch_start[batch_nents - 1]);
- 
--	virtqueue_kick(vq);
-+		if (unmark_end)
-+			sg_mark_end(&sg_batch_start[batch_nents - 1]);
- 
--	/* When host has read buffer, this completes via balloon_ack */
--	wait_event(vb->acked, virtqueue_get_buf(vq, &unused));
-+		err = virtqueue_add_inbuf(vq, sg_batch_start, batch_nents, vb,
-+					  GFP_NOWAIT);
-+
-+		if (unmark_end)
-+			sg_unmark_end(&sg_batch_start[batch_nents - 1]);
-+
-+		if (WARN_ON_ONCE(err))
-+			return err;
-+
-+		virtqueue_kick(vq);
-+
-+		/* When host has read buffer, this completes via balloon_ack */
-+		wait_event(vb->acked, virtqueue_get_buf(vq, &unused));
-+		nents -= batch_nents;
-+	}
- 
- 	return 0;
- }
--- 
-2.53.0-Meta
-
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
