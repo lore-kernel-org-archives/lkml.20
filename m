@@ -1,67 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792789252;
-	b=HQfKIVeD51gAxCp0BMMHOwhZXsqMPzeug1119CQmzgYH/BVXbiPm1j42HYIV+pkvgwwH
-	 pwecMK+t/Uuk1Sw8XsmRhhu8uyLux/s1je33DmHR5gFG2zo6qgVJ7URljMl5ZB02RKYnl
-	 qdKcQ6ul58s2OKyJwi9cAdKvmY557wb4XgrokMsNhS8BO8D2tx0FkQJ0He2+iu9F9LjTT
-	 48WhHtQQDdkrg8SOecpwBy0mmBgz7rHmryxHdzNxRsGdA4JYV+Y017A3fNTpn3HjoHaYk
-	 /7KzJa+d2qEgJTWqRyFcJ9d4qPd9pHKnc427ulHInjk6QccvA7iOtzQJrGRL27fy7Qg==
+	t=1792789278;
+	b=v9SMwdWa7TulAgmKz2p5nNjws7gmfBy+sdA7wVSYpvlnzTS6kCmiuRYiwAGi9mEhdfgh
+	 +ERjOwc/Ba/Wpm8qVGQWfymU8viVrwOb1nE6jq7nlrkTLHA2yAYtADrvh0z8Vn5qTUgJJ
+	 hw6ap8t0Q7dIOM0z79FlPx8TuYoPIWIT7jyFDH4ZWMJy0BSXtdduTcTxv/DtP8sMwgzpx
+	 TAh7q8O0wVINU0ZMj74H2RzYVv8F5mZD8DawX5Z4/wtRaWmrt1O1wMZcErW1EV3484yth
+	 7LczdJnxApTergMRvoqiR6V6UM1Cq6CndG4YsNg+i5iM9P1KFSCsvSAqsawT8cBV3KA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792789252;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:References:From:Content-Language:Autocrypt:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Scanned-By;
-	bh=fO9tCv+Dk6N+Wu3Qpc9SroVvJnnr+VUFnmZ0sB7IXg8=;
-	b=DRJfsnh6jcMfKA/g4mD+WM2oqDBvvagLccLc/DMY9bB1jfAh/i5FTT598qr0hehfgMuF
-	 3ZPbY1PxoFWiMshQ077A6f6N0TBGdOVCezdF/uSbiIzvkKGsNb+53YSxCpWHtLuhI8i0Q
-	 iZNIpcQTUoBj3fI43eKcEGyR0n96VJk0PRaRYtxV+9s9besiqU8tf455541ez6/8e8p0W
-	 qWW/debhAy8+mKBMZEaJvZ4+o62hD47LaFhExLGR5BO6exUy9pzIRf7EZJ8EL4oMstCVd
-	 TLlshRwv+woYKwDoaILttDBMQTcgo/fwNNiHXWmsFNO1VCxFyOgEKwDezYfs1w1drDQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792789278;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:X-Mailer:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=/FhZ2gLZhVlx6sNQ93mhe7dJyMjd0gId+bxgk46J8aY=;
+	b=r5Qk64USb0fkZpby5rb2MPLAY91Xmmq6KKmK+KARgFUfHufRbpJI0Ty1ywwt611kbhp1
+	 VadcrIrOz/7ETXiROvJlGrHiC6yPiE7gyfesHP5G1Nl2DmF6tpmrSh4tLpXw7pSBurDMr
+	 Cqmz+KtTs9ogB/jlYpH+8sq2InLoJqvf3r7VnaZ1IE/saS83ojNCK7sY2VmDZupRXN8zX
+	 C0fjOiv7NzhTbhHUUeIEHoKFYqkhJBX25IMa8jAnBwEgtwES9g+qOvyZF3D/smxk/ddf9
+	 i0+vsNpQ2o8nrRdIEqUEQd/2bpO8Qxc+5kPMz0ehZ+8K2xwIEYmWPZQkB0RiQGlW90A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b="bQBAb/l0";
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=bFkc6Km9;
+	arc=none smtp.remote-ip=209.85.128.51
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78DC2606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 21:00:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 78DC2606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E240F606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 21:01:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E240F606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=bQBAb/l0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1792789250;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=fO9tCv+Dk6N+Wu3Qpc9SroVvJnnr+VUFnmZ0sB7IXg8=;
-	b=bQBAb/l028iuTudHJmK/6mFP0/J0D1LSpkqtJV/k8jTTIKi+slUnkduMWvFyUP30KKIv0t
-	PqWwfc372fK6kMYH92eN+T/6TRJa4SpiFqhhgjQ2/tMVZLGc6XmVMFz+45J7e9T5XGbb0+
-	FoaxfXrwqPxYOOlQ56tl5TeCpv6nbY0=
-Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-99-lfVUmV-uPeW1doAq3MUDGA-1; Fri,
- 23 Oct 2026 17:00:43 -0400
-X-MC-Unique: lfVUmV-uPeW1doAq3MUDGA-1
-X-Mimecast-MFC-AGG-ID: lfVUmV-uPeW1doAq3MUDGA_1792789241
-Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id ACB7C18007F1;
-	Fri, 23 Oct 2026 21:00:40 +0000 (UTC)
-Received: from [100.90.56.12] (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id D5D9F1800480;
-	Fri, 23 Oct 2026 21:00:36 +0000 (UTC)
-Message-ID: <bd608c7c-676a-4b65-97dd-626d0e8a5514@redhat.com>
-Date: Fri, 23 Oct 2026 23:00:34 +0200
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=bFkc6Km9
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a214c5c4c0so8431935e9.3
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 14:01:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792789276; x=1793394076; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=/FhZ2gLZhVlx6sNQ93mhe7dJyMjd0gId+bxgk46J8aY=;
+        b=bFkc6Km9gMu+tBV4XTN8kkvN/8KHDDC2ym1PxsDRQs1yyXuBI1eI9Uh90kY7bOyv/j
+         k00wKZBhSGWqqf8Gsz7Hf9rEKWXJsPEBZCBRv24Roco3FrcO0r6M1c08ZPilem6B/My2
+         vzKwLaLz5svyZmHwqSep1n76CPZEKH39UEeS/4AN34aeptGw3k+ENP8jS+8lvvtOkwk1
+         z9yZHDVZ6S9WbMkikRmW5zU+jztPUtyVC9RosB+JJO5LByB9PlwKku5Hqz1LEe2saszI
+         6y4wUsjYGE3pvIalAyRAgygjPdKGU4w9r2jxWeEmv6WRtBG1bLsAkfax7eV8OJPuwPCW
+         0CJg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792789276; x=1793394076;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/FhZ2gLZhVlx6sNQ93mhe7dJyMjd0gId+bxgk46J8aY=;
+        b=uw3FyKJtu0XZ15YCtfJvYk3KsfCkuLoWQxQnea4W0xR8RMMBYcUCUzuQb6dhWpAhSQ
+         0/1k87dbZ0QnevFHKQVetyb36FUkRTzYWQbuHMao86LDrCrED47BQS9EzMm2IAZqVFxf
+         +2d04frJG7D7Qc8yJ9/EC2bEU8XrZmWthvS9gdVJp9I2bpfyrTipqAVRdinPIQ0CSkNS
+         tZKtuSjSQBSQkfZW7b35A/6Sh5vxva4+1wtQx2kz6vYTH9f34rDrmM9XSGenxLJkRb1t
+         T7eqC8JLX2OgU4jB0E/f/5ykA3aYaQBevPGkZL6XNoOoZmGSJqGaYvAGsBvU56FhxSi/
+         +sfw==
+X-Forwarded-Encrypted: i=1; AKwUvBxd5qdj0f6qZP8OCe6PV11fiQxfT/6fsL6yCT0Girlf6jPfa1XL6tCPNz4AeZxGPHpKbsYL6qGd/8oQ44c=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLj+p1ebguq5XEBuLrThgn+mTEEHXJ2BVI4wedl43TqX2uWUtiQ
+	fsV2Q+haKfB2tEoKob2DEoehHPbqnud6D3jHpEFNZBV79Cyg9vtfwYCN
+X-Gm-Gg: AYBFou2kKm0WSVp8AfP9BTYxnhSlvYGctiXGXCWw0RB8kcp8EH0D+X3JW8mINhEh02v
+	RNwmdMkMQVDho9DItz3+RqJ902ktwlIJVQ5cX61V84LoqugMaaqBXlpb7aVkTz4ESTvkcDuoU1E
+	4NkctIklDTLafgNGaGkvaGosvs/YXdk3za/0cVOzSaBBzgrhJZwmUvt6HKmzjUgCC7USQfvHHsm
+	zZJSx0KkO/srV1xvg/chEQH6k/Z8WMmVvk+Av+e1E2IEYBIIkAX0JKqDx/Pgfjg0xmtRIstssTe
+	lDgf4NYScTD/usWN5LXh5GVfh6S/bSmtpYEmX1BreOURz9pXPHq9bNhNTX6BQWd6hhLIGUfIqy/
+	b4e+xl9i2YPNfK/SUy/c1R2ydPF2x+T4pxKXnpSqdBmyrnXHjBDtsJBkGdFWbEWqnXNNBNaXoop
+	wYwkE7E043a/8t9sWIlI1ECowbdyuTfFav5rSh59xfY8VaBvUUdD08BTzmqi05RTf9tEw2uHm8d
+	6o6brHZXvHtx8BTcloWQjW+WaG1DaKfOvmFYqrw94W4fIxFxiRUl+EHwABsmvuhqkbxR/0FOUPi
+	NTraIuBO/O7TKIy8
+X-Received: by 2002:a05:600c:5308:b0:4a2:86b8:7e9 with SMTP id 5b1f17b1804b1-4a35ac9d077mr1208455e9.16.1792789276136;
+        Fri, 23 Oct 2026 14:01:16 -0700 (PDT)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a0a9cafsm9983885e9.5.2026.10.23.14.01.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 23 Oct 2026 14:01:15 -0700 (PDT)
+Date: Fri, 23 Oct 2026 22:01:14 +0100
+From: David Laight <david.laight.linux@gmail.com>
+To: Takashi Iwai <tiwai@suse.de>
+Cc: Thorsten Blum <blum@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>, "Uwe =?UTF-8?B?S2xlaW5lLUvDtm5pZw==?= (The
+ Capable Hub)" <u.kleine-koenig@baylibre.com>, Zhao Dongdong
+ <zhaodongdong@kylinos.cn>, linux-sound@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] ALSA: cmipci: Use strscpy() in snd_cmipci_create()
+Message-ID: <20261023220114.2d8af17b@pumpkin>
+In-Reply-To: <87qzhg8axd.wl-tiwai@suse.de>
+References: <20261022164013.95811-2-blum@kernel.org>
+	<20261023194059.4e307a32@pumpkin>
+	<87qzhg8axd.wl-tiwai@suse.de>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,138 +103,75 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: Kernel Shadow Stacks Versus XFEATURE_MASK_GUEST_SUPERVISOR
-To: Dave Hansen <dave.hansen@intel.com>,
- Yang Weijiang <weijiang.yang@intel.com>, "Gao, Chao" <chao.gao@intel.com>,
- "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>,
- Maxim Levitsky <mlevitsk@redhat.com>, John Allen <john.allen@amd.com>,
- LKML <linux-kernel@vger.kernel.org>, peterz@infradead.org,
- kvm@vger.kernel.org, binbin.wu@linux.intel.com,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Thomas Gleixner <tglx@linutronix.de>,
- "Bae, Chang Seok" <chang.seok.bae@intel.com>,
- "Mehta, Sohil" <sohil.mehta@intel.com>
-References: <2f0560df-69fc-4fc1-81fa-447e289ec2df@intel.com>
-From: Paolo Bonzini <pbonzini@redhat.com>
-Content-Language: en-US
-Autocrypt: addr=pbonzini@redhat.com; keydata=
- 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
-In-Reply-To: <2f0560df-69fc-4fc1-81fa-447e289ec2df@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
 
-On 10/23/26 21:03, Dave Hansen wrote:
-> So, I'm working on kernel shadow stacks. I have some nice optimization
-> code like fred_update_rsp0() for SSP0. It avoids WRMSR's on exits to
-> userspace if FRED_SSP0 hasn't changed, just like FRED_RSP0.
+On Fri, 23 Oct 2026 21:38:22 +0200
+Takashi Iwai <tiwai@suse.de> wrote:
+
+> On Fri, 23 Oct 2026 20:40:59 +0200,
+> David Laight wrote:
+> > 
+> > On Thu, 22 Oct 2026 18:40:11 +0200
+> > Thorsten Blum <blum@kernel.org> wrote:
+> >   
+> > > To prepare for removing strlcat() from the kernel [1], use strscpy()
+> > > instead with the current driver name length as the append offset. Also
+> > > use size_t in the multi-channel branch to match strlen()'s return type.
+> > > 
+> > > No functional change.
+> > > 
+> > > Link: https://github.com/KSPP/linux/issues/370 [1]
+> > > Signed-off-by: Thorsten Blum <blum@kernel.org>
+> > > ---
+> > >  sound/pci/cmipci.c | 10 +++++++---
+> > >  1 file changed, 7 insertions(+), 3 deletions(-)
+> > > 
+> > > diff --git a/sound/pci/cmipci.c b/sound/pci/cmipci.c
+> > > index 9d9f784e3a8c..5722b722da95 100644
+> > > --- a/sound/pci/cmipci.c
+> > > +++ b/sound/pci/cmipci.c
+> > > @@ -2980,11 +2980,15 @@ static int snd_cmipci_create(struct snd_card *card, struct pci_dev *pci,
+> > >  		query_chip(cm);
+> > >  	/* added -MCx suffix for chip supporting multi-channels */
+> > >  	if (cm->can_multi_ch) {
+> > > -		int l = strlen(cm->card->driver);
+> > > +		size_t l = strlen(cm->card->driver);
+> > > +
+> > >  		scnprintf(cm->card->driver + l, sizeof(cm->card->driver) - l,
+> > >  			  "-MC%d", cm->max_channels);
+> > > -	} else if (cm->can_ac3_sw)
+> > > -		strlcat(cm->card->driver, "-SWIEC", sizeof(cm->card->driver));
+> > > +	} else if (cm->can_ac3_sw) {
+> > > +		size_t l = strlen(cm->card->driver);
+> > > +
+> > > +		strscpy(cm->card->driver + l, "-SWIEC", sizeof(cm->card->driver) - l);
+> > > +	}  
+> > 
+> > There are all sorts of reasons for not using strlcat() and various ways
+> > of changing code so that it doesn't need to do the string concatenation.
+> > But replacing calls with strlen() and strscpy() is just plain stupid.
+> > 
+> > It has no benefits and lots of downsides.  
 > 
-> Well, turns out that FRED_SSP0 isn't like FRED_RSP0 in one very
-> important way: it is an alias for PL0_SSP, which is managed via
-> XFEATURE_CET_KERNEL which is in:
+> Right.  The whole actions look to me like a crusade to a wrong goal.
+
+There are places where you either know the length from earlier
+or can get the string all built at once.
+Changing those does make sense.
+Similarly changing places which repeatedly strcat() bits of string.
+But these ones are silly.
+
+David
+
 > 
-> 	/* Supervisor features which are enabled only in guest FPUs */
-> 	#define XFEATURE_MASK_GUEST_SUPERVISOR  XFEATURE_MASK_CET_KERNEL
+> I was too tired of discussing the same thing again and again, so I
+> gave and took it once; but now I change mind and drop it again from
+> the queue.  The other patches from Thomas were OK as they can be seen
+> as optimizations, but this one has only downsides.
 > 
-> So, I was running along just fine in my nice shadow stack kernel going
-> in and out of the kernel just fine. But the first time I did an XRSTOR,
-> the XFEATURE_CET_KERNEL feature got set to its init state. My SSP0 cache
-> didn't notice and I tried to run userspace with SSP0=0. Much hilarity
-> ensued on the next kernel entry.
 > 
-> The most adorable part of all this is that I have KVM compiled
-> completely out on my config. The "only in guest FPUs" code is biting me
-> on a kernel that can't even run guests.
-
-If you want to quickly work around for your !CONFIG_KVM kernel, I would do
-
-#ifdef CONFIG_KVM
-/* Supervisor features which are enabled only in guest FPUs */
-#define XFEATURE_MASK_GUEST_SUPERVISOR  XFEATURE_MASK_CET_KERNEL
-#else
-#define XFEATURE_MASK_GUEST_SUPERVISOR  0
-#endif
-
-and a small adjustment like
-
-         BUILD_BUG_ON((XFEATURE_MASK_USER_SUPPORTED |
-                       XFEATURE_MASK_SUPERVISOR_SUPPORTED) &
-                      ~XFEATURES_INIT_FPSTATE_HANDLED);
-
-That will get rid of the bit in XSS.
-
-> Any thoughts on what we should do?
+> thanks,
 > 
-> Actually context switching XFEATURE_CET_KERNEL seems kinda silly in a
-> lot of ways. PL0_SSP can always be derived _and_ it isn't actually even
-> needed at context switch time, only when running userspace.
-
-True but, just to understand, what is the performance like if you 
-actually use XSAVES/XRSTORS to update SSP0 on context switches instead 
-of WRMSR+cache?  Hopefully the microcode does a bunch of optimizations 
-as well.
-
-> I could just aggressively blow away my SSP0 cache any time an XRSTOR
-> touches XFEATURE_CET_KERNEL. That would be easy. But it also seems silly
-> that XFEATURE_CET_KERNEL is being blown away at _all_ during normal
-> context switches. Heck, it goes further than that because:
-> 
-> fpregs_restore_userregs() does:
-> 
-> 	restore_fpregs_from_fpstate(fpu->fpstate,
-> 				    XFEATURE_MASK_FPSTATE);
-> 
-> Where XFEATURE_MASK_FPSTATE contains XFEATURE_MASK_SUPERVISOR_SUPPORTED.
-
-The actual mask used by restore_fpregs_from_fpstate is tighter though, 
-it's "fpu_kernel_cfg.max_features & XFEATURE_MASK_FPSTATE".
-
-Can you replace fpu_kernel_cfg.max_features with some fpstate->xyz 
-(sorry too late to think it through :)) that has CET_KERNEL for the 
-guest FPU and not for the regular one?
-
-> So a "restore_userregs" function is blowing away supervisor state.
-> 
-> IOW, I think we're using XFEATURE_MASK_FPSTATE a bit too broadly.
-> 
-> I'd like to get to a place where only the KVM code even has
-> XFEATURE_CET_KERNEL in its RFBM.
-That I agree, but I think it can be handled in 
-{save,restore}_fpregs_to_fpstate().
-
-Paolo
+> Takashi
 
