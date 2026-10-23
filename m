@@ -1,62 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.73
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792751912;
-	b=UZU8cSaA+agdBeurrXzUIO2lhmE9TMwuxXBtTLDxh4HWPOr7+qU5HbJnAQOc5A4VENwe
-	 uX98rK6l9BabN3vArmw5PGcH4iQ2Ktvq7q02Hh666LlCsc2EII9yyNUo2Fj3zHrbzT2mX
-	 mJyIOmK4JwyW4DJNqmnbgRVu1MPHZRN2msmk/oUHaFrirVTQvKJw1QqIznO6Fs1bcbF7Y
-	 5Cui6+dgmpUVy1Uf+/ZvRGxioGHK3ItZ5i1KplEm+KgMuIevYjufW7AqKixYjw+F9w5S4
-	 U4cK1svutSs9fJIw2deRJW09nQavdTW8ugLykitnYs6+xoNbVarGCxjCc+y8cX6BMKw==
+	t=1792751995;
+	b=FLfcmjM1kiPts+XHDWERs4bVX316TSTgPYFJS8DB4+4pldTNdboGbysR1ScIB+r+ga/j
+	 vMcdKzEjaafVW9/C0JoOR2wUqyuby1qF2f0IofaKWJVsN+hbWs5kFM3QMzBwRSzHbF0cR
+	 xofYnjDN3DQqZwHGmqvZTeGfznyKURq0wgBfoQSWtkDXrJvc0Sl53H1fhHQ9tp6itFp/6
+	 8vqRtFcKdcf4a+34l0vOuMZvsu4/MxpbC/Pyw1tlq6CdJHT1JOzee0JlPNr8sLNOr508p
+	 F4lb/MEoLvYPnbpoRiyiWhVEidvoImdSPVhmUtI9z7bHbirbsbPBDZQHwl/ul0XRH7g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792751912;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type;
-	bh=cLLRVkOcST0DyQ8J/JKflZi0Zz/mIu85uAsHsW1TVFg=;
-	b=WJ5vgdfVu5x11oghxOFEhueZFW82tHuHWdn1frkSgl3Bqje92FHmKaAFYjgHUm1mbdAp
-	 9m68KMRr1DzDqv8W1J7UDNSTy1t5pizYVIV5iL3OBafJbqD8LO3U0W6tCI5rDMfE5rqtU
-	 ZBppwx9w5vu5PAMl6qaWs1ApmpWtYDGKgvtE1P9m5CeSDFXZ0Yd9HNa2Py4HSQ50FRriK
-	 kFQAHDUuGUtSJSDHqpRQFh4foA0ZT8ECwHSPjLi0vvm9qcIYXQ+jX15vazQ3HRlFJMByu
-	 e3YG91iOOgqyjWcnRAp7liMmy0icQQkJEtP5qnpU3w7Bup8HXlN1dYDW9lozbSZlC6w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792751995;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Organization:Content-Type:Content-Transfer-Encoding:User-Agent:
+	 MIME-Version;
+	bh=aePbxP12bi9+JzkDwE4dblQZtnAtPL3OH/5MvF5gIsc=;
+	b=aKdANuo055rjJrP3IkXNJuz6k9pwbZyERZ5N/ldXWh8QQlQ8c01H4MXpJsD2YAZSRP02
+	 Epvq82vwdxa5IerylNM5A9fBhYQMh4P6mcVScpVgUTuqE0F88YfngPffA2OFuGI9oxL1K
+	 4bJj8TdRK/tsmFMgN4cUX9d5mqo9R3owMPB4q6BRlOp4qReHw/jzNIYyqAIGYQJmzw0Zv
+	 Lix5dNtN8zdOcrasvo+xsM6JkSouvbh0Pk7AOzbJVcw4VCx/9tXcfBmjpI0Ng3FCZ/cCW
+	 isKUZS8TKBLVPRIXvERqf8lA22PCtoy+xThFmZkD+3EoqA57rp/VaHhKTKgt6CdTcOA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=wfyKlkHU;
-	arc=none smtp.remote-ip=95.215.58.73
-Received: from mta1.migadu.com (out-73.mta1.migadu.com [95.215.58.73])
+	dmarc=none header.from=baylibre.com;
+	spf=pass smtp.mailfrom=baylibre.com;
+	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=QrhlYS9J;
+	arc=none smtp.remote-ip=209.85.221.47
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C18D606A31E
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 10:38:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6C18D606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FE11606A31D
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 10:39:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7FE11606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=wfyKlkHU
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=cLLRVkOcST0DyQ8J/JKflZi0Zz/mIu85uAsHsW1TVFg=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792751909; v=1; x=1793356709;
- b=wfyKlkHUts97FSALHB1JY6s8OPWvgzatECATx8ULBCYmk9MDWedb36zFJ8pPWAR85iaDIWNg
- MbOTj/b2IRQuzUP3gdqZ0cW6qRlnH/ZSfEZ8PndebtYRiNlBS9X5C8DfQDImj+JlHqVifYh/umS
- P6Pxb1QBmaf0Tb93/7AyeNK0=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id a02d05a86203f22e;
-	Fri, 23 Oct 2026 10:38:29 +0000
-X-Mizu-Trace-ID: a02d05a86203f22e
-X-Migadu-Flow: FLOW_OUT
-Received: by mail-lf1-f51.google.com with SMTP id 2adb3069b0e04-5be4a7b9e6fso4966e87.1
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 03:38:25 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwgaolYc+VLQfc2h1UKjtqKJrcVfk4CRaSiBjsqNNvleOVGS2+IwGJyz3UuZJwXvJehpCJGqiCIi+bDJfg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJTtW4IK2BIg2FSl62K9aOpk4vTi2gnyMHWZJNeIZ/EKXHjNPIV
-	7bba7jJ/iaZSq9Zwgl5pe7FVxNlGpD0oIdg5C77uLUqW+Nowe7PIcrr4J8+z8nZqZIA9EJAfqgC
-	sNZTtN5AbWt04GioYvy92qR/yjBIVuykBslByNi+k
-X-Received: by 2002:a05:6512:3e26:b0:5bc:fbf6:2352 with SMTP id
- 2adb3069b0e04-5bfb06d38a0mr119014e87.9.1792751904240; Fri, 23 Oct 2026
- 03:38:24 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=QrhlYS9J
+Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-48e011d370dso581398f8f.0
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 03:39:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1792751994; x=1793356794; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :organization:references:in-reply-to:date:cc:to:from:subject
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=aePbxP12bi9+JzkDwE4dblQZtnAtPL3OH/5MvF5gIsc=;
+        b=QrhlYS9JPq7JnApjBXfRmjqqe4dNo2BW1dKZxKhsHlgdnG8+5QiIsK+sTo8d5NTrR3
+         uWL3U+s6CEPmNkiIqq8g2iq94WIayXCdetnfnmIzsQJ6Fb0WzeJ88NN4n7lAwX5pKl1C
+         YZCnwU82I/rXc5kk9r85ZYypjhDys7+VJfnim8KgFjDHVq/tDqBu6h+JiplR2skAxuPU
+         EyxVXPRizn3ISu46j7omzgg8DbvKCwxcC30/pjVcFjQ9HkAGMWBAN/xAJ5yu0MIi1o3K
+         VhhP/x12m9ZrTl6La3MGoRKwN+cZDV/qqKuKyENAmh6vD6S5wXAZEVaGJiAq8ERCgAXX
+         8zeQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792751994; x=1793356794;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :organization:references:in-reply-to:date:cc:to:from:subject
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=aePbxP12bi9+JzkDwE4dblQZtnAtPL3OH/5MvF5gIsc=;
+        b=KT1QuBIoaD8vlbIiiYjGrlkLYqiWaAJeYwrJSUcbTjHL6EAUrFMn6Ffcg1S7/mdP+q
+         /KNR12sOR/vXvba1cg1jiE+ABxxnXG0vdbv4l1p7Wpk5kDwdnKMbyer4y1hXYv4eqgD6
+         UkIfhmI7LqIA30xSHZfO4ARNHHCyUFFob0CscQqur26kD5G5LAssp62J3bpUzEkjhYgH
+         gcXbI3PbQrLmiZPP5FUR5b9wypxy9uya6cMqU1acLp6odBRAjwk64+QQ8f/cRZSw/4B6
+         9ZB6cw6beNf+iuzQvLck9fO1aEcviQs5+Dq+QMETOBt3+qRxO61PjBQ9EYFAnQWhL/zG
+         pfUg==
+X-Forwarded-Encrypted: i=1; AKwUvBz7les27kdrFIKGnp4N0NIcrUGguQtRaM4egBgdVCxLElVYjG9NinfTIO1J9LViomCneWnsoUJ2HlLKcJc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJrkwdXmdkv/eypr4K6S61sFFkopTGLoxOEfwhuTbtplUah1PF3
+	ebcNXgKuRCX2lFrJWip5sb07dO8frCJNY7saivqdBV9DCQplEbiKLox7ZD2CuaWmTD4=
+X-Gm-Gg: AYBFou0RITSWbWl2ZlBwuXL/iouBA5HLAZOM57em8kB2Hc2x57bO3mB5mlspFsRE4aX
+	CefSRjgFvE1pPb2rfV42wXv15SJopSP4BvJsww0B1bnHZJlFWZhwEksdFrbyxkoWIVNAf6gp1kA
+	yxk4WtOtWPfGGUeaO3WsRJv5j1Bzu1BnrDXM81t0iyOJ52zwRtg/weT3ywdXYbOgcBP9Miv/qcI
+	tSTQkggI3IAKlVgGGqxn26f5FmGw6Wc9aZmcI+5JMNYJFjXl9Hqu52nZ3XGjufV+CQN+Ke57uhj
+	qPhBKqL0Y4a3wFAnFTaPPEX7fKclm3XAomyroD9UUJLb1jzpsw7GveKvLEJunYQz1hNnKrSX1nE
+	DQHy8DlfygS2esRTqMCZnwidasx++M49x1rycbkehCnH6894C/bbZLesI9o26LjFYsEjBQ59vOf
+	BrVGURrRRJnKvL5UB5/X4QjihK3HCRcoJMBfHtoBHJ9/5UlCPle6+gXDa5cM/7UNFb+qZ+aS5/f
+	xdUWz0VFlfOnNoMvgvE2FSRPtS03A5mtk+lacSGeOawNgVZDCOVOKzaF5SCXJZ7+xJ0uRXdGcJW
+	aJAKUXQO75Q6G8wHTgqG
+X-Received: by 2002:a05:6000:186c:b0:48c:6cdd:ba89 with SMTP id ffacd0b85a97d-48e385bdfeemr2784852f8f.36.1792751993862;
+        Fri, 23 Oct 2026 03:39:53 -0700 (PDT)
+Received: from ?IPv6:2a0e:439:c2d1:0:bce8:4acb:ee53:8d19? ([2a0e:439:c2d1:0:bce8:4acb:ee53:8d19])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e37edce4fsm4566663f8f.6.2026.10.23.03.39.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 23 Oct 2026 03:39:53 -0700 (PDT)
+Message-ID: <0bb53b3f00e9a1a834e32979bd1e08ecc4517411.camel@baylibre.com>
+Subject: Re: [PATCH v2 1/2 RESEND] usb: gadget: u_audio: pass channel counts
+ explicitly
+From: Francesco Lavra <flavra@baylibre.com>
+To: Kyle Farrell <kaf@nwlink.com>, Greg Kroah-Hartman
+	 <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org
+Cc: Jonathan Corbet <corbet@lwn.net>, Shuah Khan
+ <skhan@linuxfoundation.org>,  linux-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org
+Date: Fri, 23 Oct 2026 12:39:51 +0200
+In-Reply-To: <20261016162534.384844-2-kaf@nwlink.com>
+References: <20261016162534.384844-1-kaf@nwlink.com>
+	 <20261016162534.384844-2-kaf@nwlink.com>
+Organization: BayLibre
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.46.4-2 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,40 +106,54 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261023070110.1833446-1-fuad.tabba@linux.dev>
- <20261023070110.1833446-2-fuad.tabba@linux.dev> <86fqxwzul7.wl-maz@kernel.org>
- <CA+EHjTw08SZC_3Uodt6ew6vXVH-doW-8G41fVCF-rmaKsv+0fQ@mail.gmail.com> <86ecdgzp6m.wl-maz@kernel.org>
-In-Reply-To: <86ecdgzp6m.wl-maz@kernel.org>
-From: Fuad Tabba <fuad.tabba@linux.dev>
-Date: Fri, 23 Oct 2026 11:37:47 +0100
-X-Gmail-Original-Message-ID: <CA+EHjTy0jpY3sdVCENJRj_kfRDwbZ6TpkCAHQ2xUO-7ZuErpcA@mail.gmail.com>
-X-Gm-Features: AclHuK-Z7-qsjF596RnJ21sZzB7mzj2vXd60dbcKuOxyJq8KgdnvpDHBkQR87RQ
-Message-ID: <CA+EHjTy0jpY3sdVCENJRj_kfRDwbZ6TpkCAHQ2xUO-7ZuErpcA@mail.gmail.com>
-Subject: Re: [PATCH 1/2] KVM: arm64: Hide FEAT_LS64_ACCDATA from guests
-To: Marc Zyngier <maz@kernel.org>
-Cc: Oliver Upton <oupton@kernel.org>, kvmarm@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, Joey Gouly <joey.gouly@arm.com>, 
-	Suzuki K Poulose <suzuki.poulose@arm.com>, Zenghui Yu <yuzenghui@huawei.com>, 
-	Steffen Eiden <seiden@linux.ibm.com>, Catalin Marinas <catalin.marinas@arm.com>, 
-	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
-	Yicong Yang <yangyicong@hisilicon.com>, Zhou Wang <wangzhou1@hisilicon.com>, 
-	Arnd Bergmann <arnd@arndb.de>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
 
-Hi Marc,
+On Fri, 2026-10-16 at 09:25 -0700, Kyle Farrell wrote:
+> u_audio currently derives the channel count from the channel mask in
+> struct uac_params in several places.=C2=A0 Instead, pass the resolved cou=
+nt
+> explicitly, so the shared audio implementation does not depend on how
+> an individual USB audio function represents its channel configuration.
+>=20
+> Initialize the new channel count fields from the existing channel masks.
+> This preserves generated descriptors and makes no change to user-visible
+> behavior.
+>=20
+> Assisted-by: LLM
+> Signed-off-by: Kyle Farrell <kaf@nwlink.com>
+> ---
+...
+> diff --git a/drivers/usb/gadget/function/u_audio.h
+> b/drivers/usb/gadget/function/u_audio.h
+> index 9512b8fccfaa..46e1d6b5ca4e 100644
+> --- a/drivers/usb/gadget/function/u_audio.h
+> +++ b/drivers/usb/gadget/function/u_audio.h
+> @@ -41,12 +41,14 @@ struct uac_fu_params {
+> =C2=A0struct uac_params {
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0/* playback */
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0int p_chmask;=C2=A0=C2=A0=
+=C2=A0/* channel mask */
 
-On Fri, 23 Oct 2026 11:28:17 +0100, Marc Zyngier <maz@kernel.org> wrote:
-[...]
-> No, I want this fixed by enabling ACCDATA support by default, which is
-> what we have *already* promised to userspace, and see the fireworks.
-> You can add an arm64.nols64 kernel option if you want, which is
-> consistent with what we do for CNTPOFF, NV3, and other extensions that
-> depend on FW enabling them.
+With these changes, the channel masks are no longer used in u_audio.c, so
+we can remove them.
 
-Will do. v2 will have your patches 3 and 4 from [1] rebased, EnAS0 set
-when the guest has LS64_ACCDATA, and an arm64.nols64 option.
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0unsigned int p_channels;=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0/* resolved number of channels */
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0int p_srate;=C2=A0=C2=A0=
+=C2=A0=C2=A0/* rate in Hz */
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0int p_ssize;=C2=A0=C2=A0=
+=C2=A0=C2=A0/* sample size */
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0struct uac_fu_params p_fu=
+;=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0/* Feature Unit parameters */
+> =C2=A0
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0/* capture */
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0int c_chmask;=C2=A0=C2=A0=
+=C2=A0/* channel mask */
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0unsigned int c_channels;=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0/* resolved number of channels */
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0int c_srate;=C2=A0=C2=A0=
+=C2=A0=C2=A0/* rate in Hz */
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0int c_ssize;=C2=A0=C2=A0=
+=C2=A0=C2=A0/* sample size */
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0struct uac_fu_params c_fu=
+;=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0/* Feature Unit parameters */
 
-Cheers,
-/fuad
-
-[1] https://lore.kernel.org/all/20240815125959.2097734-1-maz@kernel.org/
