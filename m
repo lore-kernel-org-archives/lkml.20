@@ -1,47 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.5
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792748394;
-	b=mXE2FbT+D1PAWFIacNKguGjBvqzqAXiVpdo/tg6Lacalr2JENKjiF0+HND+Hgz09/G5+
-	 gCu+LFpA08v6ZT7lmM9CsjORWwqAxN0o0kW0yfG/PeExhXqe2Q+SpGdA07Lu/iQZn0ery
-	 ZpcQHhcciGYJzdfNCS0bRCwKhdeQeK1T4Qc981g2gh6RnNBcUqWcqcyoU7iJp60HUFmyQ
-	 c5TYF7N2bSrz2o18YfFo+GzdT3ZFjTTQijrnV2S8lftbl8Cq/eMmMHxJdDk5Wvqa6XAmm
-	 uuMcKTYImvdnXVsBWI6cQynVtjKASG1KpayfYZUcvlXzfqOc54kZFuPWDEQmrah6byA==
+	t=1792748434;
+	b=GGz9cNDqQABkpDyiiblJLK9ZH9BN6F8KVHn0H2DONcBUrvXbX05EEMzqnl9QT5atGDZw
+	 kpmCYyrRKKz9FZHCqXrMjXPaKx628qJTbPIN5oISGusJp7hs4/pSiP7WA5p0AX0ehzksc
+	 EZ9+k6KN624yH7m08eDm8Oj4GCCqu3mW8bISbLYYax4VIXQHkUep/HluIWQZ5pCXpvZRq
+	 +X+cqcvedi3ihTRJw/7bnsQSP/xKIYDlcOt29CXtWTHBuT0wffTtiIAD1qj9SA0iSmCdN
+	 ZnOyKNrJXEvf2aALTc6De8PC5fo8K3lUD9Ze5A5onx7GEWzJnNQ42o2pZgNglH7Xc7A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792748394;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=Zbo4H69cUqvzI4mr1Z35AeXw7zrN9617F5T5W5xQxQI=;
-	b=IV0NNWLzcD5Q0CJ3yEZCTupMoZ95VreIvSS8zqbGofpo15YnIEf4hA6u8dKcFRv1DBo6
-	 zgqtYfnvDsJgEdkoPVsRFwJTeYg9f9A9kYPHteuGfbsPRQ+LIdbdf3sXibUhuK3kg3IPG
-	 VSqbExs748nTXGAuXTELE2q0XWe32Zzkn/jf8bIIEQ0odEmWL1IqrD3hn6k+v1XCucPCQ
-	 TiDcV5Sk4J5ng+tKG1BuWO3ZfsxXDIVNbTiu/UYNh/IDjD11yWTl421FYlUhyjORzpTMh
-	 ijcWm20imyKipOLAklPoI6obTFlYo6aeccrD7hk/yDiE0LSszQ9aVeb6/xMU/uk4uqw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792748434;
+	h=DMARC-Filter:DKIM-Signature:Date:From:To:Cc:Subject:X-Priority:
+	 X-Mailer:In-Reply-To:References:X-NTES-SC:Content-Transfer-Encoding:
+	 Content-Type:MIME-Version:Message-ID:X-Coremail-Locale:X-CM-TRANSID:
+	 X-CM-SenderInfo:X-Coremail-Antispam;
+	bh=08vKktyOooZlbxT0oTsuP5OqZCX7BjmTHlFScp42WJs=;
+	b=fLF0LvmtNwv1Ch5s3UT25S8B3lZGR7jlOrqu44sXWZsj3VGcmlRt+N3wWNkEtZwt1SQn
+	 Ij9dQcemMiahFmCEauadQpzEgxvnGjY5eGXtUTrhSQbxRjD/vn0PcmKD6LwHbCgHluVff
+	 T+i4CjQblGiRsW6Yd7juOm5XNv1r06DYiqnJECTmW82cJ6C33iNeERNeF9NuXT8AYFlnB
+	 ktUJg43al+YdD8OqJoJhwK00FQzGPxD+pyt9mGfglJkrPQj2NzVgpI1bYvNG3neC3CIjR
+	 jsDcMzl0hCcuO6s937TUeC4cMXnb0qy7gOfqy0s4DpwsumUo1mapNaWWuzrNsdXtgWA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VytnqpKY;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=JT5Ta8Rq;
+	arc=none smtp.remote-ip=117.135.210.5
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B924606A31B;
-	Fri, 23 Oct 2026 09:39:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE2B5606A31A;
+	Fri, 23 Oct 2026 09:40:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AE2B5606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VytnqpKY
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 399CD1F01825;
-	Fri, 23 Oct 2026 09:39:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792748394;
-	bh=Zbo4H69cUqvzI4mr1Z35AeXw7zrN9617F5T5W5xQxQI=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=VytnqpKYpIHRPkeXyRIulPMzndR+eR+KkSB5eWRJF0fIGARDHMUlfit0DH9rcGzej
-	 ZEDWt/Ma2mi89dL9tIE2HZ806LYUfYSCYxikbxamsZ7LN3OG7g9hzQspm7MLJ56B6g
-	 8yLZU2g5QN3XZ7S0Z5QY5mhyfXSpDwzFWbzuKIRmbArYFA3q0IMTl8ds/T5isuRfmv
-	 zzfbQ7+9M72iHcoAnkA8/X6YxK3AuGrcGZnbfuf3ATV/HAaOHoKEx7vT/7hKkLZmER
-	 dLgbxRbqV1Kh30CRsgKmLuvqrXzArNAjrIJYzcDuFZTSS4yOg07AjJFGQt1Up49775
-	 o3k9vgs2beZww==
-Message-ID: <aa76425c-0579-42c2-832d-cc767703f3f5@kernel.org>
-Date: Fri, 23 Oct 2026 11:39:47 +0200
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=JT5Ta8Rq
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
+	Message-ID; bh=08vKktyOooZlbxT0oTsuP5OqZCX7BjmTHlFScp42WJs=; b=J
+	T5Ta8Rqp+QbQKMyJpNDbbBVjhuIEEPldNup3l6V1cd2EB7+WotOWc4G79MfXHJdS
+	6l1HiEnW0j9FO2aJKhh5dr7Uwpljgz13bfvOa7zbsM3PCYVaUV63aR7hY//okMlK
+	XlibSUYLi9OHjuY78O+QWp6494P4MhGk8qxdJdiLc0=
+Date: Fri, 23 Oct 2026 17:40:23 +0800 (CST)
+From: "jiale yao" <19888972804@163.com>
+To: "Jassi Brar" <jassisinghbrar@gmail.com>
+Cc: "Sudeep Holla" <sudeep.holla@kernel.org>, linux-acpi@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re:Re:Re: [PATCH] mailbox: pcc: validate PCCT subspaces before
+ parsing
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
+ 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
+In-Reply-To: <35886acd.272d.1a1617ceb00.Coremail.19888972804@163.com>
+References: <20261016141530.2795073-1-yaojiale02@163.com>
+ <CABb+yY0s=eHDyW-=5++9zetFid_oVGCQkhqSWBQs+ty4Bnb-EA@mail.gmail.com>
+ <35886acd.272d.1a1617ceb00.Coremail.19888972804@163.com>
+X-NTES-SC: AL_Qu2SAPuft0wp5SSZY+kcn08ShO49XMOyvfoi2YFTc8wEpyXixB0NU1p7LEDowtydLAKTmQelYAN08clCeqVbYnoL1I8O2r+5Z51XpBNwFA==
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=UTF-8
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,136 +66,72 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/6] dt-bindings: ptp: Document the TSCSS on Qualcomm
- Lemans and Monaco SoCs
-To: Imran Shaik <imran.shaik@oss.qualcomm.com>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Richard Cochran <richardcochran@gmail.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
- Taniya Das <taniya.das@oss.qualcomm.com>,
- Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, netdev@vger.kernel.org
-References: <20260727-tscss-v1-0-beed14e72510@oss.qualcomm.com>
- <20260727-tscss-v1-1-beed14e72510@oss.qualcomm.com>
- <02792987-7ad8-4a6b-81ad-559c63174bb0@kernel.org>
- <640acacb-1704-4ee6-aa34-d6be3b30b44b@oss.qualcomm.com>
- <f5aa313d-0e23-41fa-b59b-9388839b2525@kernel.org>
- <7f6839fb-59b0-4f6d-a3f8-7579f6d40857@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <7f6839fb-59b0-4f6d-a3f8-7579f6d40857@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Message-ID: <324e6ae9.8754.1a1682208ff.Coremail.19888972804@163.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID:figvCgD3_2WHK9tqI3FfAA--.3092W
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbC8Ad9t2rbK4ee2QAA3n
+X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
 
-On 13/10/2026 13:49, Imran Shaik wrote:
->>>>> +
->>>>> +patternProperties:
->>>>> +  "^etu-slice@[0-9a-f]+$":
->>>>> +    type: object
->>>>> +    description: ETU slice configuration
->>>>> +    properties:
->>>>> +      reg:
->>>>> +        maxItems: 1
->>>>> +
->>>>> +      pinctrl-0: true
->>>>> +
->>>>> +      pinctrl-names:
->>>>> +        items:
->>>>> +          - const: default
->>>>
->>>> Heh? Which code do you copy?
->>>>
->>>
->>> Each ETU slice has its own external event pin config, so kept pinctrl-0
->>> and pinctrl-names on the slice subnode. Please suggest if you prefer
->>> otherwise.
-
-Just drop both pinctrl properties, because you should not need them. You
-define them only if they are different than default.
-
->>
->> No, from where did you get this code? Why are you sending bindings which
->> are different then all other bindings?
->>
-> 
-> I was referring to the example in [1] when adding the pinctrl properties
-> under the etu-slice sub node.
-> 
-> [1] - 
-> Documentation/devicetree/bindings/media/samsung,exynos4212-fimc-is.yaml
-
-That's like 13 years old device binding, so unfortunately likely
-antipattern.
-
-
-
-> 
-> On checking further, I found that our etu-slice sub node deviates from
-> that example, since we don't have a compatible string for the sub node.
-> 
-> Please let me know if we should move the pinctrl properties under the
-> tscss node with per-slice names, or instead keep them under the
-> etu-slice sub node and add a compatible there.
-
-etu-slice does not feel like device at all unfortunately. I see only
-address space, so one resource, which might be enough but lack of
-description for the subnode is not helping. I have doubts that separate
-subnodes should be there in the first place, but if they stay, describe
-the child node fully - what sort of device it is. Just because there is
-independent timestamping counter does not make it separate device, just
-like independent interrupt in GIC is not itself an independent device.
-
-
-Best regards,
-Krzysztof
+QXQgMjAyNi0xMC0yMiAxMDo0MjoxOSwgImppYWxlIHlhbyIgPDE5ODg4OTcyODA0QDE2My5jb20+
+IHdyb3RlOgo+SGkgSmFzc2ksCj5BdCAyMDI2LTEwLTIyIDEwOjI2OjI3LCAiSmFzc2kgQnJhciIg
+PGphc3Npc2luZ2hicmFyQGdtYWlsLmNvbT4gd3JvdGU6Cj4+T24gRnJpLCBPY3QgMTYsIDIwMjYg
+YXQgOToxNeKAr0FNIEppYWxlIFlhbyA8eWFvamlhbGUwMkAxNjMuY29tPiB3cm90ZToKPj4+Cj4+
+PiBUaGUgUENDIG1haWxib3ggcHJvYmUgd2Fsa3MgUENDVCBlbnRyaWVzIGJ5IHRoZWlyIGRlY2xh
+cmVkIGxlbmd0aHMKPj4+IHdpdGhvdXQgY2hlY2tpbmcgdGhhdCBlYWNoIGVudHJ5IGlzIGNvbnRh
+aW5lZCBpbiB0aGUgdGFibGUuIEl0IGFsc28KPj4+IHBhc3NlcyBnZW5lcmljIGhlYWRlcnMgdG8g
+dHlwZS1zcGVjaWZpYyBwYXJzZXJzIHdpdGhvdXQgZXN0YWJsaXNoaW5nIHRoZQo+Pj4gcmVxdWly
+ZWQgcmVjb3JkIHNpemUuIE1hbGZvcm1lZCBmaXJtd2FyZSBjYW4gdGhlcmVmb3JlIG1vdmUgdGhl
+IGN1cnNvcgo+Pj4gb3V0c2lkZSB0aGUgUENDVCBvciBjYXVzZSBvdXQtb2YtYm91bmRzIGZpZWxk
+IHJlYWRzLgo+Pj4KPj4+IFZhbGlkYXRlIHRoZSB0YWJsZSBoZWFkZXIsIGVhY2ggc3Vic3BhY2Ug
+cmFuZ2UsIGFuZCB0aGUgbWluaW11bSBzaXplIGZvcgo+Pj4gc3VwcG9ydGVkIHN1YnNwYWNlIHR5
+cGVzIGR1cmluZyBib3RoIHRoZSBjb3VudGluZyBhbmQgcHJvYmUgcGFzc2VzLgo+Pj4KPj4+IFNp
+Z25lZC1vZmYtYnk6IEppYWxlIFlhbyA8eWFvamlhbGUwMkAxNjMuY29tPgo+Pj4gLS0tCj4+PiAg
+ZHJpdmVycy9tYWlsYm94L3BjYy5jIHwgNTMgKysrKysrKysrKysrKysrKysrKysrKysrKysrKysr
+KysrKysrKysrKysrLQo+Pj4gIDEgZmlsZSBjaGFuZ2VkLCA1MiBpbnNlcnRpb25zKCspLCAxIGRl
+bGV0aW9uKC0pCj4+Pgo+Pj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvbWFpbGJveC9wY2MuYyBiL2Ry
+aXZlcnMvbWFpbGJveC9wY2MuYwo+Pj4gaW5kZXggOTg4OGRhYjY0NjM5Li4zN2IyZGRiNDRiZGEg
+MTAwNjQ0Cj4+PiAtLS0gYS9kcml2ZXJzL21haWxib3gvcGNjLmMKPj4+ICsrKyBiL2RyaXZlcnMv
+bWFpbGJveC9wY2MuYwo+Pj4gQEAgLTU1Myw2ICs1NTMsNDIgQEAgc3RhdGljIGNvbnN0IHN0cnVj
+dCBtYm94X2NoYW5fb3BzIHBjY19jaGFuX29wcyA9IHsKPj4+ICAgICAgICAgLmxhc3RfdHhfZG9u
+ZSA9IHBjY19sYXN0X3R4X2RvbmUsCj4+PiAgfTsKPj4+Cj4+PiArc3RhdGljIGJvb2wgcGNjX3N1
+YnNwYWNlX2lzX3ZhbGlkKHN0cnVjdCBhY3BpX3N1YnRhYmxlX2hlYWRlciAqZW50cnksCj4+PiAr
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgdW5zaWduZWQgbG9uZyBlbmQpCj4+PiAr
+ewo+Pj4gKyAgICAgICB1bnNpZ25lZCBsb25nIHN0YXJ0ID0gKHVuc2lnbmVkIGxvbmcpZW50cnk7
+Cj4+PiArICAgICAgIHNpemVfdCBsZW5ndGgsIG1pbl9sZW5ndGg7Cj4+PiArCj4+PiArICAgICAg
+IGlmIChzdGFydCA+PSBlbmQgfHwgZW5kIC0gc3RhcnQgPCBzaXplb2YoKmVudHJ5KSkKPj4+ICsg
+ICAgICAgICAgICAgICByZXR1cm4gZmFsc2U7Cj4+Cj4+KGVuZCAtIHN0YXJ0IDwgc2l6ZW9mKCpl
+bnRyeSkpIGlzIGltcGxpZWQgYnkgdGhlIHR3byBsZW5ndGggIGNoZWNrcwo+PmJlbG93LCBzbyBv
+bmx5ICJzdGFydCA+PSBlbmQiIGlzIG5lZWRlZCBoZXJlLgo+Pgo+Pj4gKyAgICAgICBsZW5ndGgg
+PSBlbnRyeS0+bGVuZ3RoOwo+Pj4gKyAgICAgICBpZiAobGVuZ3RoIDwgc2l6ZW9mKCplbnRyeSkg
+fHwgbGVuZ3RoID4gZW5kIC0gc3RhcnQpCj4+PiArICAgICAgICAgICAgICAgcmV0dXJuIGZhbHNl
+Owo+Pj4gKwo+Pj4gKyAgICAgICBzd2l0Y2ggKGVudHJ5LT50eXBlKSB7Cj4+PiArICAgICAgIGNh
+c2UgQUNQSV9QQ0NUX1RZUEVfR0VORVJJQ19TVUJTUEFDRToKPj4+ICsgICAgICAgICAgICAgICBt
+aW5fbGVuZ3RoID0gc2l6ZW9mKHN0cnVjdCBhY3BpX3BjY3Rfc3Vic3BhY2UpOwo+Pj4gKyAgICAg
+ICAgICAgICAgIGJyZWFrOwo+Pj4gKyAgICAgICBjYXNlIEFDUElfUENDVF9UWVBFX0hXX1JFRFVD
+RURfU1VCU1BBQ0U6Cj4+PiArICAgICAgICAgICAgICAgbWluX2xlbmd0aCA9IHNpemVvZihzdHJ1
+Y3QgYWNwaV9wY2N0X2h3X3JlZHVjZWQpOwo+Pj4gKyAgICAgICAgICAgICAgIGJyZWFrOwo+Pj4g
+KyAgICAgICBjYXNlIEFDUElfUENDVF9UWVBFX0hXX1JFRFVDRURfU1VCU1BBQ0VfVFlQRTI6Cj4+
+PiArICAgICAgICAgICAgICAgbWluX2xlbmd0aCA9IHNpemVvZihzdHJ1Y3QgYWNwaV9wY2N0X2h3
+X3JlZHVjZWRfdHlwZTIpOwo+Pj4gKyAgICAgICAgICAgICAgIGJyZWFrOwo+Pj4gKyAgICAgICBj
+YXNlIEFDUElfUENDVF9UWVBFX0VYVF9QQ0NfTUFTVEVSX1NVQlNQQUNFOgo+Pj4gKyAgICAgICAg
+ICAgICAgIG1pbl9sZW5ndGggPSBzaXplb2Yoc3RydWN0IGFjcGlfcGNjdF9leHRfcGNjX21hc3Rl
+cik7Cj4+PiArICAgICAgICAgICAgICAgYnJlYWs7Cj4+PiArICAgICAgIGNhc2UgQUNQSV9QQ0NU
+X1RZUEVfRVhUX1BDQ19TTEFWRV9TVUJTUEFDRToKPj4+ICsgICAgICAgICAgICAgICBtaW5fbGVu
+Z3RoID0gc2l6ZW9mKHN0cnVjdCBhY3BpX3BjY3RfZXh0X3BjY19zbGF2ZSk7Cj4+PiArICAgICAg
+ICAgICAgICAgYnJlYWs7Cj4+PiArICAgICAgIGRlZmF1bHQ6Cj4+PiArICAgICAgICAgICAgICAg
+cmV0dXJuIGZhbHNlOwo+Pj4gKyAgICAgICB9Cj4+PiArCj4+PiArICAgICAgIHJldHVybiBsZW5n
+dGggPj0gbWluX2xlbmd0aDsKPj4KPj5Ib3cgYWJvdXQgc29tZXRoaW5nIGxpa2UKPj4KPj5zdGF0
+aWMgY29uc3QgdTE2IHBjY19zdWJzcGFjZV9taW5fbGVuW0FDUElfUENDVF9UWVBFX1JFU0VSVkVE
+XSA9IHsKPj4gICAgW0FDUElfUENDVF9UWVBFX0dFTkVSSUNfU1VCU1BBQ0VdID0KPj4gICAgc2l6
+ZW9mKHN0cnVjdCBhY3BpX3BjY3Rfc3Vic3BhY2UpLAo+PiAgICBbQUNQSV9QQ0NUX1RZUEVfSFdf
+UkVEVUNFRF9TVUJTUEFDRV0gPQo+PiAgICBzaXplb2Yoc3RydWN0IGFjcGlfcGNjdF9od19yZWR1
+Y2VkKSwKPj4gICAgW0FDUElfUENDVF9UWVBFX0hXX1JFRFVDRURfU1VCU1BBQ0VfVFlQRTJdID0K
+Pj4gICAgc2l6ZW9mKHN0cnVjdCBhY3BpX3BjY3RfaHdfcmVkdWNlZF90eXBlMiksCj4+ICAgIFtB
+Q1BJX1BDQ1RfVFlQRV9FWFRfUENDX01BU1RFUl9TVUJTUEFDRV0gPQo+PiAgICBzaXplb2Yoc3Ry
+dWN0IGFjcGlfcGNjdF9leHRfcGNjX21hc3RlciksCj4+ICAgIFtBQ1BJX1BDQ1RfVFlQRV9FWFRf
+UENDX1NMQVZFX1NVQlNQQUNFXSA9Cj4+ICAgIHNpemVvZihzdHJ1Y3QgYWNwaV9wY2N0X2V4dF9w
+Y2Nfc2xhdmUpLAo+Pn07Cj4KPlNvdW5kcyBncmVhdCwgSSB3aWxsIHN1Ym1pdCB2Mi4KCnYyIGlz
+IGluLCBodHRwczovL2xvcmUua2VybmVsLm9yZy9hbGwvMjAyNjEwMjMwOTM4MzkuNzE1MDM3LTEt
+eWFvamlhbGUwMkAxNjMuY29tLwoKPgo+VGhhbmtzIGZvciB5b3VyIHJldmlldy4KPgo+Pgo+PnJl
+dHVybiBlbnRyeS0+bGVuZ3RoID49IHBjY19zdWJzcGFjZV9taW5fbGVuW2VudHJ5LT50eXBlXTsK
+Pj4KPj5DaGVlcnMKPj5KYXNzaQo=
