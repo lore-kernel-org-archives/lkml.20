@@ -1,100 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.179
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792783340;
-	b=YCGXYn6q+rkUXKQpP9hbuKlBpEmg2MZ79eqACQkhreSM4Adb4fFuDXWZhAOl4Q2jXzrR
-	 d2KKqF8H83b1bae55dX07NApIQ7GLgHYLfhHtXtrez7UIau6TnZ1AHWEiztyFWutb0HSl
-	 Nk+gSn0KgR5mMBI/rSAO/OyUHMnCfFcLycumRo5i6xhEaJPNcuuR49kDKZ2Ns4oi5l/In
-	 cc9EE2zN5I8NrZxy9T8wUGEOAel7mj38XoyQ6TvFSXZTGluv19HowdnhJl7PBoxIQi3Yw
-	 /X6z2hAxFbxyxX0MWtLlxa1vaCNKUTUKcWvjoaRiPredZ7x49E3jWMRNDP+mQ3FdbZg==
+	t=1792783345;
+	b=uqvecV3XiuX3QHSwHKrm8WNhud3GSCp13bEKTo2eEbE47QLP+1qE85oaAgIuIbSKCqyL
+	 vYTxyer+2GDlLH0jmpGf0j1yRcTQ7tBriiCb33UqwF62ZrG+LSDQ88CthwqjRXsPLdMMI
+	 Xf4prqQxPltIs3tWx1B45nuGZpnGWyHMUXyLcJI8nnTQKlJdsIR211z5IFUrpgzjSyCGE
+	 D4zW7i4npQiTSQAmURDHBseu0A570uBbRC0FDBeWlQrH+fPPARPYwB/jHP8rksi9IKZc9
+	 wAsv3vkAzmVlzK6idWKO+pAfIn1TYN1nog/4/fN8sFabvTVDDgfgiCY7xQ1MSAmUMww==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792783340;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792783345;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=2O8huCNDA9D6LhH8u5r2l7pNtY046Fm8Q9bS6RsUJDY=;
-	b=ymX1HSoWqnR4RuruG56JqWagA74uwKGq7VHsNAP3bPs00gzcEpSgQcMtyYusicH/2h7G
-	 ZBCZ3XHdr9wrvoDXzBkspZckAKAQIrDcJyZ9Nle0e/JXarZXVavZbNXp6xZjYPPfKWUgX
-	 27/ngTsbPBjd75geYoTwof4+HkHOZL8RB1YHKzHD7Zs5mTaOKS4+HpNLUw0xZNN+EB1PD
-	 OrVGbW5T7pje6ItIGvJBjrlf8FmQcAx1W7Qn3vcCfo9sgt92FxMXJEfGJXGaOtPkfmNdd
-	 UHro10MEFk1iR1kJ9bvD2QT5pPILlf6uoT3PcYwW6enEU/1Lbx8xXb/YGMJF1V3PgBA==
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=ziCcW6Nw+6VJzNQIJUH4e2sx0xcfbPPXXhObGwJmYIE=;
+	b=VojLqDnAjM/QnRDQe6nnh2GHtS77qr51cE6YxlOaf0yZUHkMVKX2AyvW/ANcMJ/y3CfL
+	 /A1+LLRierSFvMcshFf7kyi9SPT8wVItlBcjVaQWoAC0mc3An+Jvl8zkXKOymejUtjKwc
+	 VdskVVbfLQNh7zDz16odnH3Oqilyv/EzYU+EmZqrDySzRKJvRVzVXndS0usRg7LwDzsue
+	 20MRh+iFJKqYONezJjwoyoT9z7J/Wrxa7F2/AJQKnxVrKVfeMTPDFCJLyrRFDNxB0MYM0
+	 ugMEVa2hiBEzuoQTVlRTFqLf7K2CFjWFOh0TR/KglWah332eDeaehDDyBDhesIf5FRw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=hammerspace.com;
-	spf=pass smtp.mailfrom=hammerspace.com;
-	dkim=pass header.d=hammerspace.com header.i=@hammerspace.com header.a=rsa-sha256 header.s=google header.b=FYo2dUm9;
-	arc=none smtp.remote-ip=209.85.167.179
-Received: from mail-oi1-f179.google.com (mail-oi1-f179.google.com [209.85.167.179])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=dFZlO4tc;
+	arc=none smtp.remote-ip=74.125.227.130
+Received: from mail-pj2-f2.google.com (mail-pj2-f2.google.com [74.125.227.130])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53034606A31B
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 19:22:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 53034606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=hammerspace.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hammerspace.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E4DC606A31B
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 19:22:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5E4DC606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=hammerspace.com header.i=@hammerspace.com header.a=rsa-sha256 header.s=google header.b=FYo2dUm9
-Received: by mail-oi1-f179.google.com with SMTP id 5614622812f47-55651e7de9bso685488b6e.0
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 12:22:19 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=dFZlO4tc
+Received: by mail-pj2-f2.google.com with SMTP id d9443c01a7336-2e613f813b0so1585075ad.1
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 12:22:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=hammerspace.com; s=google; t=1792783338; x=1793388138; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=2O8huCNDA9D6LhH8u5r2l7pNtY046Fm8Q9bS6RsUJDY=;
-        b=FYo2dUm9IDzTxiP+JO3yjXkilEcWtyqPRXdTw0z6K6HCizYBBurOEvQmtvbdr2iDnq
-         QOJIdi5+DONOLbX7xJgVbVsIbf04NypIzEO3tcy288Z6vSFmcaVoDaN6TJHKPkkogNVF
-         xFJ1YYIxkNaIEli8ASWpSHHMdWWy01QKtqatUP8e1jTjCyNRIMmyRkK5FenOsDGYFjbG
-         XyeuPwZgY0aH5cKpMyt4KlwnO0l/KoDDWVfou2z2L4R6CSaBxoGNjidw++L66qsx/WP/
-         VwqCGOPLM3/n8nYMbnLGpoC+d4oSShK31P+Tj4SpbC50hAEpJK8FTcWAbt3fNUj1xeaD
-         xxhA==
+        d=gmail.com; s=20251104; t=1792783345; x=1793388145; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ziCcW6Nw+6VJzNQIJUH4e2sx0xcfbPPXXhObGwJmYIE=;
+        b=dFZlO4tcgBxqWa6ww2l+eiCqhN/zMVe5ihPqyeOhd6DaK86oIhkuSt/xxs8M8CBogj
+         9FveXdESZpwj5dPUYOEtgIKN44SIg3EUqiHXHsRM2NBHc5i7pqYwMwOuiUlnVvwfJEok
+         oKvvYxlfmTVe4/hw2K/ttbeNywY3bGvGAN1qoCMBcvCpo+grAFABGqHX/04UpnZp55NS
+         +PBFpd/4d8BwlwkERe4W70xrmFHRBeWRT0lJduSMePZfUx1DxicfByHbMlHPFabBKf3z
+         uKLyAyOlnxPIsYNcpzLQhhyQcAqy0xYs8zXzYQBpi+au3wiRIWpwC5L9oWUYrfs1b/AO
+         Gb9g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792783338; x=1793388138;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=2O8huCNDA9D6LhH8u5r2l7pNtY046Fm8Q9bS6RsUJDY=;
-        b=MU1kS0SCkZgzuwoyIaokPHm2kBsBX3nZgbL+wejdIEJqGZed8ACL0CUfpbA5kyjkW1
-         7eZmIpBKoB8HJac2y1/L8Umd61LQyb8yDSMwkIueyPA4Gsmg6ZVtRYpT+ONM/eBl1EvW
-         UmuLl2ft/Q3ZR/nHYdGPvxe/Wr0TRuwcgBm3lg07Kf+ddjd4naVpyCuGm3nHXxyGSoXg
-         sbtnGOnlCVHZRH15hMsMfy/ZOjbeoXmkSUPAV3d9Sho71psdZNCWH7pFZUjJBOzdLi/E
-         kHWV3AujfOXO/WEovKFUS/CTybJu3otgyEch3YPlJlk22dOBHgpn9pbNuqG3XuS9SsUg
-         hArQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwvizJX94lnMI7OmL2caIrwrPF1egsTaxS+34FzWgmq3V+i8hUznWR1DJZH5Iqku5WAjDrGmM6avzjXV4s=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLIFEIT4rIysBLYny1fqtj3zlfZmLV1DM7rYR/sZBoobAKNwvfc
-	VQ0LR6TqH8ZIzhgSl49DGmwi05P0Y0ubbHwAjx1TQXHCWq7mbRbpjAZSIr9WeMJxyOY=
-X-Gm-Gg: AYBFou19wzpQ8iRZxKInmFpAvq8OZ9ejY9ZttnUt12URFtFr84q3K7hW3vk7s3AsIwB
-	6h1o6wr6GSBPSrPc47wavKJXai+rD01c01EtDquuSjarixBzVAIABcogSwTqqi09NqE+NKPNf5D
-	dpeEd3TMuj5YHz9O+vVlcGDtBegmDGTjqEW1sJL7CKvyvG5ml8+yW3l9jsSY5mDSzndCJnYPkSl
-	ZSwirSUfw1JJAiw3g4obJz8t2KuVx0lGQm8AJ+WfXlzXf6OIIw0G2LWFWTnJnB2a2w7TaIV5N1v
-	DSXT/xD5ndq3iXfPWMd11MelDKaSCUOIhJqXWibLnvnhq1no1FGM6lSLtHrEKIBMV/ID2qwPO66
-	OogDOHWV2BbBYYeny92Q+29OfrHBmPTZ0GmBnIMoKNS/W+//XnTSxTpIXVwmFqzArqPMrjdPVsQ
-	NujYe901bfHLCRxL1FIaMiccrc2jwMtQK/HrPKP4AawHwjsIMXxGLPM0Cd5nM3+qRiRFquLW1ww
-	9I9U6tWGqVw5vu95R/YGG3M0+K+b9uo+vvoMo0bRRH6qjrIF5ArQh3gpkO0SZ+SnpYhbNXx1mlX
-	WGzNjV5feNFUpz05PG8mJ1o=
-X-Received: by 2002:a05:6808:1982:b0:4f4:3790:65fd with SMTP id 5614622812f47-55c002b7e97mr146807b6e.29.1792783338131;
-        Fri, 23 Oct 2026 12:22:18 -0700 (PDT)
-Received: from localhost (75-163-200-235.clsp.qwest.net. [75.163.200.235])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-55bfe114ba4sm409050b6e.3.2026.10.23.12.22.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 23 Oct 2026 12:22:16 -0700 (PDT)
-From: Jonathan Flynn <jonathan.flynn@hammerspace.com>
-To: NeilBrown <neilb@ownmail.net>
-Cc: Trond Myklebust <trondmy@kernel.org>,
-	Anna Schumaker <anna@kernel.org>,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	Christian Brauner <brauner@kernel.org>,
-	Jeff Layton <jlayton@kernel.org>,
-	Jan Kara <jack@suse.cz>,
-	linux-fsdevel@vger.kernel.org,
-	linux-nfs@vger.kernel.org,
+        d=1e100.net; s=20260707; t=1792783345; x=1793388145;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ziCcW6Nw+6VJzNQIJUH4e2sx0xcfbPPXXhObGwJmYIE=;
+        b=gbUFUpiTS6dzD5VVBzuA7lqVvenUp/9Oj93bIMjzNWht822GK3Pr5RKKQDuSF5XLMf
+         NsDepwFIUpIWCJVTlKouyjb0j6WRL2C/nidClxuAaj50ArglXcaGtmvp59QVG2wDOUXa
+         Zvxf6d0juv7dXfyaTyAgci0acWLzHT2xz83dO8Qqnq5nxJLiIdTX6BcbBWcfyh6aYff9
+         vCeI2gBDwxqLvry76bTFjn9RdCJ4j4dkEgw7nmQlSDNlC2s3aBWno62Ny+pkqazbevE7
+         tQDs7WCnYU0M3yc6PA9z0KNDGoi9cafvs7E3KSRHXhLC789nn1BYwSSLNwbXISdJh8R6
+         7jTQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxRK+xDR3uNyHTvhNTtadRcnnguBf2LthWa0pI2YaS/jleQKJBpPl/5Y4qFRtGUk7DRavY9Tc2fpjgTTwo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIVWjJPJhrxNxHV0kFX8SoJj5U2XllYiZX2/gT6j54toXbyM1yN
+	q0OhwsAsARsnn/QZ2h7Whb5dT9wsoRe6qnYJO3x/nJUu8PJ0bhkyFCvHVlr8zKoFdpkw2QCu
+X-Gm-Gg: AYBFou0TZGIuNfeoZSp4/eXVTz+bVDjeEIGtt0kZbY3ShlSREIbVadXWm6iDuTHqFUE
+	DN4Ebc09hHI+UjjJQdnv9HK1ncEvem+tiO3J2S4XJYZY6JRyJDNHUv5OlJzymaVArXyKQWpqOEf
+	pNgAljG4LkwqPo3td5AhvSqcYVznG65hAQZ6hpzweuieU7j9DxbJupGqb3Cke9jrJb8V7E7NUfg
+	hE2J+MdLQ9BiTSSUEZWO3tmD62H4/x5AKq/oKY0PgaTrU4djVOQYurMwUtAjWoM48BDJb3P8wCB
+	8vqtwjrx5Ci5MJTkYAnRWnNLAVTBNL026tLqOPnXVw6dQ0mRHlcFqOX+Y1CkvXUVneVAenUYGAg
+	kH4bFeCxzmM+LzEPZJbnXj0vM0cbn26CY/ODOkncFs7CzvQJifkQED99cliaW82OXiM/kUmL7SO
+	j7Xrw+SNfLXuSTBWvSd++sS5Tcg/8g/PjpBzo5mO3QxjqJ3Y1uQmMuI2DaMlnFB1lXct6n5nzKZ
+	RkPeZqU2Brxp+GcyPiBme+Fpi4N91FFGXPxsttRwxx9fTjthY9Ln+c8uKCrRwy1aBS7gzeVP1l8
+	xdw=
+X-Received: by 2002:a17:90b:1647:b0:3ad:677f:567f with SMTP id 98e67ed59e1d1-3adeb694368mr116319a91.40.1792783344585;
+        Fri, 23 Oct 2026 12:22:24 -0700 (PDT)
+Received: from 192.168.1.7 ([2409:8a1e:2330:4ef0:20e4:738f:8d42:88af])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3adebacbf5fsm174163a91.6.2026.10.23.12.22.17
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Fri, 23 Oct 2026 12:22:20 -0700 (PDT)
+From: Rongzheng Wang <testwrzwrz@gmail.com>
+To: Christoph Hellwig <hch@lst.de>,
+	Sagi Grimberg <sagi@grimberg.me>
+Cc: Chaitanya Kulkarni <kch@nvidia.com>,
+	linux-nvme@lists.infradead.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH] nfs: set NFS_FSDATA_BLOCKED before invalidating d_seq
-Date: Fri, 23 Oct 2026 13:22:15 -0600
-Message-ID: <20261023192215.1795577-1-jonathan.flynn@hammerspace.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261023015239.2163480-2-neilb@ownmail.net>
-References: <20261023015239.2163480-2-neilb@ownmail.net>
+Subject: [PATCH] nvmet: use the enabled transport when disabling a port
+Date: Sat, 24 Oct 2026 03:18:51 +0800
+Message-Id: <20261023191851.5316-1-testwrzwrz@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,86 +98,95 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-block_revalidate() calls write_seqcount_invalidate(&dentry->d_seq) and
-only then sets dentry->d_fsdata to NFS_FSDATA_BLOCKED.  Because ->d_seq
-is invalidated before NFS_FSDATA_BLOCKED is set, an RCU-walk open can
-get past an unlink that is in progress.
+nvmet_disable_port() looks up the transport from the current
+disc_addr.trtype, while nvmet_enable_port() records the transport in
+port->tr_ops.  If trtype is changed while a port is being enabled, the
+port can be removed through a different transport, passing the private
+data of the original transport to the wrong ->remove_port().
 
-The barrier in write_seqcount_invalidate() is issued before the
-increment, so it orders only the stores made before the call.  An
-RCU-walk lookup that samples ->d_seq after the increment can still read
-the old ->d_fsdata, and so ->d_revalidate() accepts the dentry.  The
-walker then waits for ->d_lock in lockref_get_not_dead(), takes its
-reference, and passes the ->d_seq recheck in __legitimize_path(),
-because ->d_seq still holds the value the walker sampled.  By then
-nfs_unlink() has seen d_count() == 1 and sends the REMOVE instead of
-silly-renaming, so the open proceeds on a file the server is removing.
+The same mismatch is reachable with loop and RDMA: loop add_port()
+leaves port->priv NULL, and RDMA remove_port() dereferences it.
 
-Set NFS_FSDATA_BLOCKED first, then call write_seqcount_invalidate().  A
-walker that samples the new ->d_seq then also sees NFS_FSDATA_BLOCKED
-and returns -ECHILD.  A walker that sampled the old ->d_seq fails the
-recheck and retries in ref-walk, which waits for the unlink to finish.
-__d_drop() follows the same order: unhash the dentry, then invalidate
-->d_seq.
+Use port->tr_ops for removal and serialize trtype changes with
+nvmet_config_sem in nvmet_addr_trtype_store(), so the transport that
+added the port is also the one that removes it.
 
-Also correct the comment in block_revalidate(): the ->d_seq recheck is
-in __legitimize_path() and try_to_unlazy_next(), not in
-legitimize_mnt().
-
-Signed-off-by: Jonathan Flynn <jonathan.flynn@hammerspace.com>
+Fixes: 8f000cac6e7a ("nvmet-rdma: add a NVMe over Fabrics RDMA target driver")
+Reported-by: syzbot+c98b21427617af7f547a@syzkaller.appspotmail.com
+Link: https://syzkaller.appspot.com/bug?extid=c98b21427617af7f547a
+Link: https://lore.kernel.org/all/6acbc835.a150a118.27e199.003c.GAE@google.com/T/
+Signed-off-by: Rongzheng Wang <testwrzwrz@gmail.com>
 ---
-Neil, this answers Sashiko's second point on 1/9: v3 still calls
-write_seqcount_invalidate() before it sets NFS_FSDATA_BLOCKED.  This
-patch applies on top of v3; fold it into 1/9 if you prefer.
+ drivers/nvme/target/configfs.c | 16 ++++++++++++----
+ drivers/nvme/target/core.c     |  8 +++++---
+ 2 files changed, 17 insertions(+), 7 deletions(-)
 
-The window with the v3 order:
-
-  CPU0: nfs_unlink(), ->d_lock held     CPU1: RCU-walk open, same name
-  d_count() == 1, no silly-rename
-  write_seqcount_invalidate(&d_seq)
-                                        __d_lookup_rcu() samples the
-                                          new ->d_seq
-                                        ->d_revalidate() reads ->d_fsdata,
-                                          not yet NFS_FSDATA_BLOCKED
-  d_fsdata = NFS_FSDATA_BLOCKED
-  spin_unlock(&dentry->d_lock)
-  REMOVE sent                           lockref_get_not_dead() takes a ref
-                                        read_seqcount_retry() passes
-                                        the open proceeds
-
-Your afs 1/5 also sets DCACHE_BLOCKED after write_seqcount_invalidate().
-
- fs/nfs/dir.c | 11 ++++++++---
- 1 file changed, 8 insertions(+), 3 deletions(-)
-
-diff --git a/fs/nfs/dir.c b/fs/nfs/dir.c
-index 53cd3adf3ffe..79331e0fa044 100644
---- a/fs/nfs/dir.c
-+++ b/fs/nfs/dir.c
-@@ -1879,15 +1879,20 @@ static void block_revalidate(struct dentry *dentry)
- 	/* Any new reference that could lead to an open
- 	 * will either:
- 	 *  - take ->d_lock in lookup_open() -> d_lookup() or
--	 *  - will check d_seq in legitimize_mnt()
-+	 *  - will check d_seq in __legitimize_path() or try_to_unlazy_next()
- 	 *
- 	 * Holding this lock and invalidating ->d_seq ensures we cannot
- 	 * race with __nfs_lookup_revalidate().
- 	 */
- 	lockdep_assert_held(&dentry->d_lock);
--	write_seqcount_invalidate(&dentry->d_seq);
--
- 	dentry->d_fsdata = NFS_FSDATA_BLOCKED;
+diff --git a/drivers/nvme/target/configfs.c b/drivers/nvme/target/configfs.c
+index b03b5d1c2dc3..955f2b127970 100644
+--- a/drivers/nvme/target/configfs.c
++++ b/drivers/nvme/target/configfs.c
+@@ -387,10 +387,15 @@ static ssize_t nvmet_addr_trtype_store(struct config_item *item,
+ 		const char *page, size_t count)
+ {
+ 	struct nvmet_port *port = to_nvmet_port(item);
++	ssize_t ret = count;
+ 	int i;
+ 
+-	if (nvmet_is_port_enabled(port, __func__))
+-		return -EACCES;
++	down_write(&nvmet_config_sem);
 +
-+	/*
-+	 * Set NFS_FSDATA_BLOCKED before invalidating ->d_seq: the barrier in
-+	 * write_seqcount_invalidate() orders only earlier stores, so an
-+	 * RCU-walk that samples the new ->d_seq also sees NFS_FSDATA_BLOCKED.
-+	 */
-+	write_seqcount_invalidate(&dentry->d_seq);
++	if (nvmet_is_port_enabled(port, __func__)) {
++		ret = -EACCES;
++		goto out;
++	}
+ 
+ 	for (i = 0; i < ARRAY_SIZE(nvmet_transport); i++) {
+ 		if (sysfs_streq(page, nvmet_transport[i].name))
+@@ -398,7 +403,8 @@ static ssize_t nvmet_addr_trtype_store(struct config_item *item,
+ 	}
+ 
+ 	pr_err("Invalid value '%s' for trtype\n", page);
+-	return -EINVAL;
++	ret = -EINVAL;
++	goto out;
+ 
+ found:
+ 	memset(&port->disc_addr.tsas, 0, NVMF_TSAS_SIZE);
+@@ -407,7 +413,9 @@ static ssize_t nvmet_addr_trtype_store(struct config_item *item,
+ 		nvmet_port_init_tsas_rdma(port);
+ 	else if (port->disc_addr.trtype == NVMF_TRTYPE_TCP)
+ 		nvmet_port_init_tsas_tcp(port, NVMF_TCP_SECTYPE_NONE);
+-	return count;
++out:
++	up_write(&nvmet_config_sem);
++	return ret;
  }
  
- static void unblock_revalidate(struct dentry *dentry)
+ CONFIGFS_ATTR(nvmet_, addr_trtype);
+diff --git a/drivers/nvme/target/core.c b/drivers/nvme/target/core.c
+index 07a74c2e1f58..5aaeeffc9ba2 100644
+--- a/drivers/nvme/target/core.c
++++ b/drivers/nvme/target/core.c
+@@ -393,11 +393,13 @@ void nvmet_disable_port(struct nvmet_port *port)
+ 
+ 	lockdep_assert_held(&nvmet_config_sem);
+ 
+-	port->enabled = false;
+-	port->tr_ops = NULL;
++	if (!port->enabled)
++		return;
+ 
+-	ops = nvmet_transports[port->disc_addr.trtype];
++	ops = port->tr_ops;
++	port->enabled = false;
+ 	ops->remove_port(port);
++	port->tr_ops = NULL;
+ 	module_put(ops->owner);
+ }
+ 
+
+base-commit: 864c07de0c7dcbca58b61625dfa2e461ae63b242
 -- 
-2.43.0
+2.39.5 (Apple Git-154)
 
