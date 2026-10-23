@@ -1,84 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792737296;
-	b=kpe7BuhhPZItcYdJShVEUiVSKnQGNBNkV8lwXuMxQ1YyK4Wz8kiZZYHAMhdk+YxJopGQ
-	 6mKDtXV9rZeiL49K2WsIUC5yOKIF/o5v43Rp0cEMqs7oxpszJ4dwVRUOzaJN3Zy8JGlGd
-	 Pj44PhmDngELohlo+99CXMs4bolRc14k01E4tNMwF7i3uWsdgSiDkOYMpYgekelsU8Hcw
-	 ysLDGvBjHXIwtNgkczu8uWCogHveIBCwyHJ6Qyx6rw0qa7+zpw/uFE3VvKyq6nZux+MjH
-	 feS8cZvlwxUplM900GnHZPWXdm092WiJJ9b1YE9PcvUXy0phADpUmlddtPinyvKvkNQ==
+	t=1792737303;
+	b=AlQBdyV770bpSNVuH1z7LOj+DJy5PanmhaaBsdoVqBD+O1P+PKFzLDd5gQA2NaQ5p1dc
+	 EJB+KCFh9nmaFQ4p+YxuB5Fbmt7dYGC0gCYTMmIYPVusnP4akMP0Oq0BsmeW9YybRxCQE
+	 JcL3CfpwZbAfEzHIS3ii/uallgpUSr4YYggvrbJGIyDp8ERE1sr+KsAfp2e1V94qAmJ3Q
+	 ekdlt7BRbuEQ1kYZq+cd62GQ5/u3hC4c95qhJdguRfe8vO+yv37chy0siztO8Y5h8noDv
+	 2U+p/c8zMrYoAeBym1T3iCgOgxHUpXVnkLIoHQw5V9m6KZWefaoaVdPNtz449rFv2fg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792737296;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792737303;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=6F9SSG+/FeDA6bw52vBp7L6cM7wcJHblW41owDWPkN0=;
-	b=ck5cmioanQGrNbS6ix0heRUWgaDzOxXUpyo0xqZdQ6tW895zIJAvBOOZPhiQBcw5Q2A/
-	 HbjOg1n3v1zS/F9REYrSkEQDC7Jjz8yHpe54ic03Rj+JM/cNTWAcAYCFaagrR6pWRpB4n
-	 ouPrhf+3I6z0+eqQtBjKHz3Z9FuIT8NQrY0sD7uluN/HVxL2XHpvhRb7Al2BxtEDTtCBq
-	 LYwD/kJj714sAEYaz1DVJ4MK03NxnJtCN0Y8brJnGVFOH3a1Dxblxh8fOVnb60Fbb1Q5O
-	 GSP2XPc8NdsAwLEiOW8OtpuCpcxnwmaVNsy9H0r7WcVQm/rSh+HfGcO10yfBOvpaqNA==
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=dMWdlBhmxnvLIraZEDjRljS62kPMNDcGFS9KF9CUDaQ=;
+	b=ALH9bxy1TGb3wHDlVQRZBkKPYLLTYXwT3hNp22urc/ma8Xn96ct0Zq05/eMznBCLZ6Wd
+	 3NV7YPEDh2zD73pX+1Y7e/CSXZzIaZZL4Z3JpfT/rNoxhdPd8vQkRX3kN61Qk/1hHh/rf
+	 Q18ywK/gTUfT3BmBikQnvQ9IxA479U3qWIu40ytToOMUA4E6keu1eBh4tzn+2eIsaQDWO
+	 rR6HGh3ZppXKnPu+zW/xJZoUFaVg4P2g8gPpKfkzCJn1kt+qAnh5b8YasDWiY/cNPEvp7
+	 +g/A/crkpNYAHx4qeJBtoO9gYfd2DyvJ68H1UO3ggpzcq+LE1OBM+rgsRC5fYpWrL9A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=bytedance.com;
 	spf=pass smtp.mailfrom=bytedance.com;
-	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=google header.b=S6UphPG+;
-	arc=none smtp.remote-ip=209.85.216.52
-Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
+	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=google header.b=Ku2pLXJJ;
+	arc=none smtp.remote-ip=209.85.215.174
+Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com [209.85.215.174])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA7E6606A320
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 06:34:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BA7E6606A320
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8AF2606A31D
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 06:35:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A8AF2606A31D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=google header.b=S6UphPG+
-Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-3ab752f6244so448161a91.2
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 23:34:55 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=google header.b=Ku2pLXJJ
+Received: by mail-pg1-f174.google.com with SMTP id 41be03b00d2f7-cd623dfe420so400941a12.0
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 23:35:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bytedance.com; s=google; t=1792737295; x=1793342095; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=6F9SSG+/FeDA6bw52vBp7L6cM7wcJHblW41owDWPkN0=;
-        b=S6UphPG+rRft9PJK9LNUZxfkqKKdBYGxMdEU19sUyV8HeZ/ImIX25itKyinkC02Uou
-         0y6k0QqWX2M3bYEEIe8kKa8n2Qus54XCueOawO2ET/KsBA1iznnIdXGFKJVjogW6t1ZD
-         e9aaun4U7YIIeou0+NInUXRIp5wSU3d6jk+yPJpx0M7luC62QcyIC/1cHeq52c7/+Fih
-         zln6TnPTfPhSjBbXU8IZy050hDS4R42R8IGjVvWixUHRqeLAAfLFTzdsEj19kwfgU1Gn
-         7EQ+59idWYC1ZHB4VcX73UhSyQn2yxXfi2SWvDoIAZu4xHQCrlz3iJS+p0UFlco/wmUQ
-         0Hdw==
+        d=bytedance.com; s=google; t=1792737302; x=1793342102; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=dMWdlBhmxnvLIraZEDjRljS62kPMNDcGFS9KF9CUDaQ=;
+        b=Ku2pLXJJTB6Zbs+NAq8GQMT6NZtgy8bqAwhorT2SwgAsDjm/fP4v6M5oYY6buP8sa5
+         bSNwZarC75XpX9/yINlNZIUJ/ubLIiZNwfrAMTE2uU5UT/CMToxEcpIk5n+DWF1R1ZfD
+         dJ9SUPM0xznR+yqwMJFmz9x+3ywJZxJHfSY7gyVyrX2uMvNv+jiNQUv0QjIfAvwaVKgY
+         LCdUkDQMrNPVq7MoqUA9ghP2ai3vOb9QtyaOGegksLcH5qlEM9YqkFzMWV0KQ6RT9lxj
+         lb0AdRjLCx7wRMAjPwYGMtujdE63DNdmqryoeTwPdkMBrC/I/X0h90aHROBoPUm0vtTn
+         7ZXA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792737295; x=1793342095;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=6F9SSG+/FeDA6bw52vBp7L6cM7wcJHblW41owDWPkN0=;
-        b=JeLPmmqULueLXTTF/8+RrB4s/69J4xByW00tKf1pkzsbxLtqiM3XCtKvUJKJiTgfE2
-         67z7hctp2zCulJCsPLtHtnLZEB1ulV6kAPKlzAIrXRvD5Bu3aOiH/mRvbgk/hOBxdhTB
-         pzY2VDc4iQapXgM44w84hvihEunkuCWY4sia5Gm0FZi5zkyE7U9FjoebIRZpp2NpSZsI
-         5BM4jSvV3lSyHxf01Ot+k5nBP2RHT2CimLA/5I0Kvxcp8nza81QNZ+K5MeuhUKpEYs5+
-         qRF8plnrE+edQor4Ca3hiy/7yp+cxhYFG65+qYB6g4Nw2I70Z7Hn0sBNJyx/q4Llk3p6
-         uhdA==
-X-Forwarded-Encrypted: i=1; AKwUvByHLnkT8XPbDAiQPXxElphPSVGKgAWM/fARYHh052OfDzfQOblkqPkgpr3My7tYwQztbIGcEy08FnnDTQA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL+hLbhutkvG8mHWSS4KQGoMR1tPxvcAZimBldM5uVUfiYRSPDb
-	prLyzZR4S33DvrDneMrXSq4qmrCP7LYiiPxgpYC7Jt/twNplJprfLP14UZwyYag6xB8=
-X-Gm-Gg: AYBFou2DPIxwgxERnawj6g+dDmjXt3OePd0t0WJwPPDsWbapjvPaKjwCFse+rjcipzz
-	ROQJk7njArFUNLp3Wb89Yyq/aaaBArmqvLZ2Z142NOQbxxYXv+NEmaXZXwcSfMsgHMv0KhM9XEW
-	kFB0Ojybq2oy6iOLUvB5UKtPixiTd8XmS1eD/ytox2AL5b7R0tbs84vD2ap51X0a+mpYIxk6jwl
-	0P1iJIrQyNyACaahARxnt+u7PloORQzLlu8TGwevpLn18DL6zAAU0sNpyHEeIxZjQb2j/M9TEFj
-	7ye9/tvBwvxMkcPvtzQeoe6SmCBLMcfAc5edAmNlIJX5k/11t9R1scch6FhdlKv1bOM+q83ftdY
-	5xbx1THn2WnAg4F+i25AeZq+NEdmfV5nqW3IAaH8eaXlxOPfABo16UHKOQDP/PdX7abddRokWCa
-	2xZUzfrgshdivynZG8iWSpXVLrI51n/YgTB+qu696Q+MMRoXbJkJ+JTStqq5PRA9fIStg4QvRQm
-	zcejUlus3L4FpjYuno1X48jPMOWPp/K2zoSg+2loFDg1X2tgxtMa3t8GCPB7X77kxZEKeQbQOg2
-	HA==
-X-Received: by 2002:a17:90b:5487:b0:3ac:d79f:8229 with SMTP id 98e67ed59e1d1-3adce1737eamr1157717a91.61.1792737295119;
-        Thu, 22 Oct 2026 23:34:55 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1792737302; x=1793342102;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=dMWdlBhmxnvLIraZEDjRljS62kPMNDcGFS9KF9CUDaQ=;
+        b=OLMXh/bcnpXY2xzpILeVAoVi2nzNv6gPsyeqFZC6Xf2DoAxus73uqDlEW0PKnmvKSE
+         9Zm7kZyjP53pTHip/KqthZZWgt+vJPAp3cRR6bnkF2xtEeIptJjNb8xtjf4bn6NOz74x
+         f/ufvh8bBTShE6jHRWCi3ptkM3V7BNIz4GHhQrn/3JHwfVBALn0BNn9StNZPP6E1/YOw
+         cM5bxbGANLWFVHPxvhjyqO0LFQ4z1gBjuoeI6+fHPcfzVIL5m/xjNxsGsau8OnPQ5I9h
+         j9fNcIZqTeQNYvaAY0OrIlhUB5leNm1SgRnjV0Pc6pytkpppO0aOne4tix5Tm2TIz9f8
+         S37Q==
+X-Forwarded-Encrypted: i=1; AKwUvBzvyqvADSICHcenGlrrfvBIN1EdrMCdRXEEhbhpQe76krz3G0iIA+qSUywDx/zY/gfqTzMNWbNP0IJGf5A=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ5goeQYl3GZk5ONIe4g7Lt5qWVjsQwX4e5HEMfRjLtJLHjzLKB
+	zbWQYwuav45SQjbiFauXq/IdsXim9crb6QvZg004LYTXnq+MqIyYBG4ZX1AEzH44W04=
+X-Gm-Gg: AYBFou0pEiIyJTTDWMxlapHoBbgjrMxAr5e23cTisrb5kE/zyGLk28p1aCbidfgzWZ8
+	B2YVDBxrIbHvzhhFVpmAwA0/ItvwOdTWzziZOnBI+PERNVD869QUU2EHKdQLF3HMLV53RzsXNrL
+	XYnxPJt69zdOv9whRuYaSf/GAaHHAje7UrsyPs1+Nj+4Cxe7UN4Hqc23N+mb+7l/9h0jciA5yjb
+	tchCcrTcCDqSQ6fp9IRPYJGVS7H4PAKPAz5XvT4ZkIso3LFHJBvHclFhNEqMLUZ1cnmp4bZpdRZ
+	fuo+2RdHRuyUZW5OkEwQ3NAaA1ZvEW1imE3GVRm4CqknA14mEZipFab8MjJ7lVG6oQcFHqaIVz4
+	4eJdOFyIwaFdOWTU1+3SCbhOkI46E+UOZuaptGhqyv7LhueLUUqdKDisY/X+2/6AMgmoe8xxHoK
+	WZWxTtOTUtsDRAiFHL7/N9v67PIuoXvy1NOoq/aAYfQ7oqdvBuB2xSN8eEqVI4EJjpE30+RinRo
+	LD+3SDBY5irtD7waAU0z3eSJOB7pX6eWQrqaLP5rYqNAejADyLZzOOcsk4U823bofn0SsiF4tpX
+	GZs8sgVKJFaV1+6U7rO+UdQ=
+X-Received: by 2002:a17:90b:33cc:b0:3ac:7556:8eec with SMTP id 98e67ed59e1d1-3adce0ce647mr1174819a91.39.1792737301360;
+        Thu, 22 Oct 2026 23:35:01 -0700 (PDT)
 Received: from n232-176-004.byted.org ([36.110.163.103])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3add246f308sm575202a91.0.2026.10.22.23.34.49
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3add246f308sm575202a91.0.2026.10.22.23.34.55
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 23:34:54 -0700 (PDT)
+        Thu, 22 Oct 2026 23:35:00 -0700 (PDT)
 From: Muchun Song <songmuchun@bytedance.com>
 To: Andrew Morton <akpm@linux-foundation.org>
 Cc: David Hildenbrand <david@kernel.org>,
@@ -102,9 +101,9 @@ Cc: David Hildenbrand <david@kernel.org>,
 	stable@vger.kernel.org,
 	Muchun Song <muchun.song@linux.dev>,
 	Muchun Song <songmuchun@bytedance.com>
-Subject: [PATCH v3 3/4] riscv/mm: fix missing destructor for hotplug PUD tables
-Date: Fri, 23 Oct 2026 14:34:27 +0800
-Message-ID: <20261023063428.3658761-4-songmuchun@bytedance.com>
+Subject: [PATCH v3 4/4] arm64/mm: fix destructor for unconstructed hotplug page tables
+Date: Fri, 23 Oct 2026 14:34:28 +0800
+Message-ID: <20261023063428.3658761-5-songmuchun@bytedance.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20261023063428.3658761-1-songmuchun@bytedance.com>
 References: <20261023063428.3658761-1-songmuchun@bytedance.com>
@@ -117,51 +116,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Commit 8472cc4503eb ("riscv: mm: call PUD/P4D ctor in special kernel
-pgtable alloc") made alloc_pud_late() run the PUD page-table constructor.
-However, free_pud_table() still frees non-reserved PUD tables directly
-without decrementing NR_PAGETABLE.
+Commit c594b83457cc ("arm64: mm: call pagetable dtor when freeing
+hot-removed page tables") made free_hotplug_pgtable_page()
+unconditionally run the page-table destructor. This matches page tables
+allocated by the arm64 mapping code, which runs the corresponding
+constructors.
 
-Free PUD tables through the common free_pgtable_page() helper so that
-constructor-backed tables run the matching destructor before being
-freed.
+However, arm64 also uses the generic sparse-vmemmap population code.
+Runtime intermediate page tables allocated by that code do not run a
+page-table constructor. Freeing one during memory hot-remove therefore
+runs a destructor without a matching constructor and corrupts
+NR_PAGETABLE accounting.
 
-Fixes: 8472cc4503eb ("riscv: mm: call PUD/P4D ctor in special kernel pgtable alloc")
+Free intermediate page-table pages through pagetable_free(). It runs the
+destructor only for constructor-backed pages and then releases the page
+through the page-table freeing path.
+
+Fixes: c594b83457cc ("arm64: mm: call pagetable dtor when freeing hot-removed page tables")
 Cc: stable@vger.kernel.org
 Assisted-by: LLM
 Signed-off-by: Muchun Song <songmuchun@bytedance.com>
-Reviewed-by: Björn Töpel <bjorn@kernel.org>
 Reviewed-by: Kevin Brodsky <kevin.brodsky@arm.com>
 Acked-by: David Hildenbrand (Arm) <david@kernel.org>
 ---
 v3:
-- Collect Reviewed-by from Björn Töpel and Kevin Brodsky
+- Collect Acked-by from David Hildenbrand
+- Collect Reviewed-by from Kevin Brodsky
 
 v2:
-- Collect Acked-by from David Hildenbrand
+- Free intermediate tables through pagetable_free() (suggested by David
+  Hildenbrand)
+- Update the commit message for the page-table freeing path
 ---
- arch/riscv/mm/init.c | 5 +----
- 1 file changed, 1 insertion(+), 4 deletions(-)
+ arch/arm64/mm/mmu.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/arch/riscv/mm/init.c b/arch/riscv/mm/init.c
-index e111d25e18e1..f35fe4cda89c 100644
---- a/arch/riscv/mm/init.c
-+++ b/arch/riscv/mm/init.c
-@@ -1537,10 +1537,7 @@ static void __meminit free_pud_table(pud_t *pud_start, p4d_t *p4d)
- 			return;
- 	}
+diff --git a/arch/arm64/mm/mmu.c b/arch/arm64/mm/mmu.c
+index 79d90226fd5d..4dce8fa227c3 100644
+--- a/arch/arm64/mm/mmu.c
++++ b/arch/arm64/mm/mmu.c
+@@ -1495,8 +1495,7 @@ static void free_hotplug_page_range(struct page *page, size_t size,
  
--	if (PageReserved(page))
--		free_reserved_page(page);
--	else
--		__free_pages(page, 0);
-+	free_pgtable_page(page);
- 	p4d_clear(p4d);
+ static void free_hotplug_pgtable_page(struct page *page)
+ {
+-	pagetable_dtor(page_ptdesc(page));
+-	free_hotplug_page_range(page, PAGE_SIZE, NULL);
++	pagetable_free(page_ptdesc(page));
  }
  
+ static bool pgtable_range_aligned(unsigned long start, unsigned long end,
 -- 
 2.54.0
 
