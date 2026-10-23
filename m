@@ -1,101 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.54
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792765986;
-	b=TiSbbYOyXN/ZhQFVv1+5/v/HOxemOoYXfqSnPXdCG7QnYVQDHK03qfAf77WK1Rv57w2O
-	 in4e0z5U7/kTn1zYmXGmCfPowdqPbXid8fSOD4zEJ4eSUhbwisMG+aEvy99GsgnQ3WxfA
-	 BzlmoFxa14sVk+PTd4yDVzOKSJbCpkQ+/EkB+VUQTDbQAsYONc+p/diKPcYM+kTYMMc4/
-	 9Mmt/u/oguBsapIqCIC4v1fcXtR3I9egiYi5xV8tCc33kjF9wozzlzg0PHupX7RlWiteS
-	 yhGkF/HU4Rx1zSMDwx28yK9RmKQlJPboYBzvyvrjCC6H6nqJojY/JD9MJRY30HjDVFA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792765986;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=Z9n1+s+asPmDaBeXYRe4kG+xpLIMptFUgjTnOa8GCY4=;
-	b=l1OXlL2G4XYYsZ8+5CKAZ+eeIqj8ORHE+TAwThj8e6sh7KvUWYlIkXy254r/be5vJHSc
-	 NkK9Hz4uvDrB8tOxPP4rh07bTQwFb2kqAh6kbMO1JPbZ9IBlZRF3JTJZDKvfg7wF7Chbm
-	 P8H36URgulxkv1PR+eaUUraHop9wP1c0rx2VaDRouAaBMoeabbaBYdlgeJHYaeJqbG7DB
-	 7gn02RmIFzb9k4k0MPcJ74PkVwVndM/CZoEwGdhUDZmytoYGSX9vlCcDgIt59kaCa1Gen
-	 4oj+v5VRfCSBRQYEKdnB9QnhszgUxw28TvCx9LNsV8wgU0XmEFkzsFTcYSi+bovZ0lg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=brainfault.org;
-	spf=none smtp.mailfrom=brainfault.org;
-	dkim=pass header.d=brainfault.org header.i=@brainfault.org header.a=rsa-sha256 header.s=google header.b=fsdGyEoA;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.54
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43975606A323
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 14:33:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 43975606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=brainfault.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=brainfault.org
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792765998;
+	b=3T4aVrtJ2QEoLrOaSIf9LWRwjp0vvhBO6G9Dc0Fhgf80PqtXx9NSiWBOnrZXqwF4ts/U
+	 C4PDO3V9udicEUmYWg5ClXIkZ9m5hayzXOaIqjRliXkJL/0YNmiZTLA2XcflyTeGlYOq1
+	 Unc2R0haZchxEpr/cMQrYS2IZRYjJ+SzND31K3S2RZKg2i9JJd01v4bfYlE1iiCqzaej3
+	 UqwzExUdNF6NPya2A5LRdhbGCTtpplW61qDJqWgeQnwpXLoDxVr1npfqtrJcQM8ji/MTC
+	 /jtDwAVWRsPDvIfMItHkooQbQdiJ9wPGBdtw3FF5gkBoZWRq9LsJFAGhu099zs6IpgQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792765998;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
+	bh=Nc26iKEo+FAF4zXriteKYpkyX2aYUCNYCCN+BCusaCk=;
+	b=MLj0y64nsjzO7e632yPkEvcmewp1dECl8JkH7acMlSYE5mpuyMPxDS/e9BvAzsneo43t
+	 B9IHUpQsCB8emgt6FcY3T1/u0vefC5LrL0FIDbAYN7RqlJcyjeb42y5ujyZkzCmP7Jrqz
+	 55Ckzw2thyS3lg5KndnirAAO1SeoDKyfpK8KEMd98DIdiQpLm5muilT5Ps8Vw/fBag+Jn
+	 I9FcNO1IuMLPWhoai511OXWSU/kP48D4MzF9184WwGw3Z8SbtyfkAtePdDTBToUbi4t2x
+	 kGsJKPs4L0TeBL502ROuIwz6EtKrRVfPqlKEpmpRoEK4w/B/Ww3b2Vyd9M5X0WHWTTQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=BUU2ij64;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D223C606A31F
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 14:33:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D223C606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=brainfault.org header.i=@brainfault.org header.a=rsa-sha256 header.s=google header.b=fsdGyEoA
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a140e7405dso9208895e9.3
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 07:33:06 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792765985; cv=none;
-        d=google.com; s=arc-20260327;
-        b=lwMw4h8usdm+q9yBfwaVcvLMU9Flk53IaqWLez1HGJtJBxr/wva7boXJo4PpSpocKZ
-         oi9mZGijWeLhAfA8Kv48yGLVCmAMHi+HuHHpuRt855Uhey1o1Q1/uFqRu5Bxhbn2bKKP
-         hfa5I6n1kF67OONjzjX0QUf6MzHP+zEPPzoQsg9MTQuo9jnbXGiwRyz8o7yv5Fy/fH/p
-         ySvRpGcf0+iwIkEKIxS7MLYh/BIOlGUr4dZQE9Zqb3zvOPChAVSFcn+SCIWPQnHVX2mi
-         fgCoQ1+SukTk+ScM+E15iLO5IbNfrtSVUVkTglFVbxmnxuthcvYezE81+cz5A8Eq44NE
-         cldw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Z9n1+s+asPmDaBeXYRe4kG+xpLIMptFUgjTnOa8GCY4=;
-        fh=cjZzARdu/P/CU7ZPR/oMjvvRWu8SDJaP2OGn22lwiew=;
-        b=kVBINLH091+gg8l+ZQfAOQkqmugmGYvHDt0yt7QDBgSbzVDqHpekplkUgY4ynQyLtK
-         u7mrlxBfk3B734wN7fSVkPEO98wm13S7SZ6zPznHzQFP/DL6kVrbwUKGkZNC7Ifcpjo5
-         0UUNqmIRSXhea22xpTu/Ti7BDk8F4FMcybWlLsVrIfnLjNTmCcKtwwFJrBbHsV/LC2ei
-         Cqfv6Gs4A2vEG6e7eTBPVg11oRr3cjFwwBRHu6LjUNDt0doWzddW6/jTslIhxU72SWhF
-         wkEGkN+DvrqiPfjyi5a/O7k8QKQFo9EatDwtuAkFBzXFc6pnHMc8VNb+VLaWOK2Cea4e
-         wMOg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=brainfault.org; s=google; t=1792765985; x=1793370785; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Z9n1+s+asPmDaBeXYRe4kG+xpLIMptFUgjTnOa8GCY4=;
-        b=fsdGyEoAoNi9GphXvUJSQQBOizAj9ksNPCJJQuwHlnd5RHHQYkLbpKAoY+uv1IRLzt
-         TWuzRRQcxFpgyKv8WFbBHEMHLpHDP2AnNMWQGVIOtekq5t95HCYUjreXwL3LiUjc1y+F
-         7yHfwFi+WKk2nBx65TJ57AXzxvo/lHFdrKxzdZiBUbCk/YlcxhV7XeshEFqoug08Z8cj
-         ZGzf04fBpN/PcNy3wzdqdgS/Cc7pfg5S2sYcs2naMHWnBYLR+o98FckX8aQ5fwumOaCg
-         cAuR+uPp94mAvN56rwKYB9IEgiS7f4Qg6wGQ1UMNbO/v1iBP2GG9Qk3JX3U9OL750701
-         xqVw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792765985; x=1793370785;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Z9n1+s+asPmDaBeXYRe4kG+xpLIMptFUgjTnOa8GCY4=;
-        b=BWj5ENqMloJTO23Bn8vlvBc4ePW/G1CUhaKMdHc0vtsAFj7A1Jle+EoXM4+oZVq+9I
-         giUuEw9qHToUsjzmNYs5G4crKJMHWxVRW8sCHV7xnwlivt9Y71VqznPBfdapv+Fsev0U
-         DS/v9H7lbpQc2vIJywUIsIJJ9nvm1X00slJQs8PXL/Z6ZuH6XwihgDfaNd/71yW18KPG
-         L/inoW4g//Ft8b9YJlYbgCvlk/mqe8wgHx6ty/wWFkkxok/KV1FgmsIAizg6nrPcjO2b
-         iP9DGjwvcbTE8Kft6vfJ4gTW8RthV37s6MfPQ7th0vlmlRkP9yM68NruayU35SIfoRaN
-         e2Zw==
-X-Forwarded-Encrypted: i=1; AKwUvBxydlyzJdCuVo06iOblxs2b5emXp/Le6sr36hDaj9qrJYEbOuCQFXhIn2+zylh8lWkNCP5DANaaUvz0upQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKJ7Th8qZ+ylx78zB13gylmbAiQvyQEJ9Sm9bL/iZKh3MG3TxMm
-	CRp8OLtGDUWFq22i6q3kGMNmx5HRJwkLihE2RlrhnUEmN4FgT/IFSMLsQw7r+5OH5svwS8bjYiG
-	Dq1bvWOejugtwR+gNG/PbpO9cNwQHG8/EN9aA8F+aiA==
-X-Gm-Gg: AYBFou3OiOGWla2gOkISv9m3HZFfyQc8I8q9FUhMYolGseYVmf+a4Q7Dh3Up7qrZg2Q
-	6PX6gf54pJl1DNCORWMc59HHhSXK6YzP+0IDcn2dpcF7SSodenjlugVAY7FiQF2TPgCHDTn0cP1
-	Aq9QQxav9rWlqVEW5RxzoJ8SqlcUppvPS2drzEn+QguXIyhGtfJplOQxw87lUJEqouavwt5oCle
-	/KzGN0vqlshwErbBM7wJiCGHMgd3AMcZ3tG/R3XzRxjTscB4O1X67Jlc8ipO4QtR/e4lqfcaUSU
-	8zG0h457P4CV8yC6p8PJZusJDGXW5aoUILXWPq4R6TYXZaEwBP/cG4nI1ZBeglWr0YW0gTYv/I2
-	iULtuME1zGCokj/QkpOMGIRmkRhyTtwhvqZ49AEBOfC4H6tcC1Ao9GDKAwcAfQRQJxBN5oZrsPy
-	mbh8oLvWv48jmzOXxl0PCHtkk/RQUkYqMxzjL2X3qWWdoIrBHWFoAerh41
-X-Received: by 2002:a05:600c:1392:b0:4a1:742e:3 with SMTP id
- 5b1f17b1804b1-4a211ecf2d6mr37791005e9.27.1792765984553; Fri, 23 Oct 2026
- 07:33:04 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=BUU2ij64
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 1A7271C00
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 07:33:14 -0700 (PDT)
+Received: from [192.168.0.1] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 17E4A3F673
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 07:33:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1792765997; bh=Gn5JR1ydvrwm3YaCW1+DyZrrnVAr3G/GKLqMw2kyGeg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=BUU2ij64IarKx7jNLDB19S/VSNOBB1JLy5M0txtIry+1hUnJUq5n/a1YJd7b/iVBx
+	 oXgHw7pdw7EndvV/Vt0cS4r6Z4uzZLGC/KyES5EGBWeHPMMcSAyz1T0jYgarrqs+xY
+	 j8OG4aHCQaN+9dtBNjON6nmxJHfRUVWLXdqUi3Vw=
+Date: Fri, 23 Oct 2026 15:33:04 +0100
+From: Liviu Dudau <liviu.dudau@arm.com>
+To: Lukas Zapolskas <lukas.zapolskas@arm.com>
+Cc: Daniel Almeida <daniel.almeida@collabora.com>,
+	Alice Ryhl <aliceryhl@google.com>,
+	Boris Brezillon <boris.brezillon@collabora.com>,
+	Steven Price <steven.price@arm.com>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+	nd@arm.com
+Subject: Re: [PATCH v7 8/8] drm/panthor: Expose the panthor perf ioctls
+Message-ID: <attwIGMsvdfAx-j_@e142607>
+References: <20261011-panthor-performance-counters-v7-0-12c32495062f@arm.com>
+ <20261011-panthor-performance-counters-v7-8-12c32495062f@arm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,173 +68,195 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20260807-counter_delegation-v9-0-58658104e487@meta.com> <20260807-counter_delegation-v9-15-58658104e487@meta.com>
-In-Reply-To: <20260807-counter_delegation-v9-15-58658104e487@meta.com>
-From: Anup Patel <anup@brainfault.org>
-Date: Fri, 23 Oct 2026 20:02:52 +0530
-X-Gm-Features: AclHuK9X4t2_Wp-iA3viS1hPfBa-r77osa46AUeHd9u6gOQJy4rh2geNlywyhlQ
-Message-ID: <CAAhSdy1zHzqf0Ozgoz_nT81_tjg6ojsNgGQMUpeXNaJ6AN4yug@mail.gmail.com>
-Subject: Re: [PATCH v9 15/20] RISC-V: perf: Skip PMU SBI extension when not implemented
-To: Atish Patra <atish.patra@linux.dev>
-Cc: Will Deacon <will@kernel.org>, Arnaldo Carvalho de Melo <acme@kernel.org>, Ian Rogers <irogers@google.com>, 
-	Rob Herring <robh@kernel.org>, Paul Walmsley <pjw@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
-	Jiri Olsa <jolsa@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	James Clark <james.clark@linaro.org>, Namhyung Kim <namhyung@kernel.org>, 
-	linux-riscv@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
-	Conor Dooley <conor@kernel.org>, linux-kernel@vger.kernel.org, 
-	linux-perf-users@vger.kernel.org, devicetree@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261011-panthor-performance-counters-v7-8-12c32495062f@arm.com>
 
-On Fri, Aug 7, 2026 at 1:40=E2=80=AFPM Atish Patra <atish.patra@linux.dev> =
-wrote:
->
-> From: Charlie Jenkins <charlie@rivosinc.com>
->
-> When the PMU SBI extension is not implemented, sbi_v2_available should
-> not be set to true. The SBI implementation for counter config matching
-> and firmware counter read  should also be skipped when the SBI extension
-> is not implemented.
->
-> Signed-off-by: Atish Patra <atishp@meta.com>
-> Signed-off-by: Charlie Jenkins <charlie@rivosinc.com>
+On Sun, Oct 11, 2026 at 06:36:55PM +0100, Lukas Zapolskas wrote:
+> This patch implements the PANTHOR_PERF_SESSION ioctl series.
+> 
+> The minor version is bumped to indicate that the feature is now
+> supported.
+> 
+> Signed-off-by: Lukas Zapolskas <lukas.zapolskas@arm.com>
 
-LGTM.
+Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
 
-Reviewed-by: Anup Patel <anup@brainfault.org>
-
-Regards,
-Anup
-
+Best regards,
+Liviu
 
 > ---
->  drivers/perf/riscv_pmu_sbi.c | 55 ++++++++++++++++++++++++++------------=
-------
->  1 file changed, 32 insertions(+), 23 deletions(-)
->
-> diff --git a/drivers/perf/riscv_pmu_sbi.c b/drivers/perf/riscv_pmu_sbi.c
-> index fd4bf8804c9a..f0b8b6eff2ea 100644
-> --- a/drivers/perf/riscv_pmu_sbi.c
-> +++ b/drivers/perf/riscv_pmu_sbi.c
-> @@ -493,27 +493,32 @@ static void rvpmu_sbi_check_event(struct sbi_pmu_ev=
-ent_data *edata)
->         }
+>  drivers/gpu/drm/panthor/panthor_drv.c | 117 +++++++++++++++++++++++++++++++++-
+>  1 file changed, 115 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/panthor/panthor_drv.c b/drivers/gpu/drm/panthor/panthor_drv.c
+> index 3e62142d7ebd..5ca41cb9c1ba 100644
+> --- a/drivers/gpu/drm/panthor/panthor_drv.c
+> +++ b/drivers/gpu/drm/panthor/panthor_drv.c
+> @@ -184,7 +184,12 @@ panthor_get_uobj_array(const struct drm_panthor_obj_array *in, u32 min_stride,
+>  		 PANTHOR_UOBJ_DECL(struct drm_panthor_queue_create, ringbuf_size), \
+>  		 PANTHOR_UOBJ_DECL(struct drm_panthor_vm_bind_op, syncs), \
+>  		 PANTHOR_UOBJ_DECL(struct drm_panthor_bo_sync_op, size), \
+> -		 PANTHOR_UOBJ_DECL(struct drm_panthor_perf_info, shader_blocks))
+> +		 PANTHOR_UOBJ_DECL(struct drm_panthor_perf_info, shader_blocks), \
+> +		 PANTHOR_UOBJ_DECL(struct drm_panthor_perf_session_create, shader_enable_mask), \
+> +		 PANTHOR_UOBJ_DECL(struct drm_panthor_perf_session_start, user_data), \
+> +		 PANTHOR_UOBJ_DECL(struct drm_panthor_perf_session_stop, user_data), \
+> +		 PANTHOR_UOBJ_DECL(struct drm_panthor_perf_session_sample, user_data), \
+> +		 PANTHOR_UOBJ_DECL(struct drm_panthor_perf_session_destroy, handle))
+>  
+>  /**
+>   * PANTHOR_UOBJ_SET() - Copy a kernel object to a user object.
+> @@ -1603,6 +1608,103 @@ static int panthor_ioctl_bo_query_info(struct drm_device *ddev, void *data,
+>  	return 0;
 >  }
->
-> -static void rvpmu_sbi_check_std_events(struct work_struct *work)
-> +static void rvpmu_check_std_events(struct work_struct *work)
->  {
->         int ret;
->
-> -       if (sbi_v3_available) {
-> -               ret =3D pmu_sbi_check_event_info();
-> -               if (ret)
-> -                       pr_err("pmu_sbi_check_event_info failed with erro=
-r %d\n", ret);
-> -               return;
-> -       }
-> +       if (riscv_pmu_sbi_available()) {
-> +               if (sbi_v3_available) {
-> +                       ret =3D pmu_sbi_check_event_info();
-> +                       if (ret)
-> +                               pr_err("pmu_sbi_check_event_info failed w=
-ith error %d\n", ret);
-> +                       return;
-> +               }
->
-> -       for (int i =3D 0; i < ARRAY_SIZE(pmu_hw_event_sbi_map); i++)
-> -               rvpmu_sbi_check_event(&pmu_hw_event_sbi_map[i]);
-> +               for (int i =3D 0; i < ARRAY_SIZE(pmu_hw_event_sbi_map); i=
-++)
-> +                       rvpmu_sbi_check_event(&pmu_hw_event_sbi_map[i]);
->
-> -       for (int i =3D 0; i < ARRAY_SIZE(pmu_cache_event_sbi_map); i++)
-> -               for (int j =3D 0; j < ARRAY_SIZE(pmu_cache_event_sbi_map[=
-i]); j++)
-> -                       for (int k =3D 0; k < ARRAY_SIZE(pmu_cache_event_=
-sbi_map[i][j]); k++)
-> -                               rvpmu_sbi_check_event(&pmu_cache_event_sb=
-i_map[i][j][k]);
-> +               for (int i =3D 0; i < ARRAY_SIZE(pmu_cache_event_sbi_map)=
-; i++)
-> +                       for (int j =3D 0; j < ARRAY_SIZE(pmu_cache_event_=
-sbi_map[i]); j++)
-> +                               for (int k =3D 0; k < ARRAY_SIZE(pmu_cach=
-e_event_sbi_map[i][j]); k++)
-> +                                       rvpmu_sbi_check_event(&pmu_cache_=
-event_sbi_map[i][j][k]);
-> +       } else {
-> +               DO_ONCE_LITE_IF(1, pr_info,
-> +                               "Boot time config matching not required f=
-or smcdeleg\n");
-> +       }
->  }
->
-> -static DECLARE_WORK(check_std_events_work, rvpmu_sbi_check_std_events);
-> +static DECLARE_WORK(check_std_events_work, rvpmu_check_std_events);
->
->  static ssize_t rvpmu_format_show(struct device *dev,
->                                  struct device_attribute *attr, char *buf=
-)
-> @@ -712,6 +717,9 @@ static int rvpmu_sbi_ctr_get_idx(struct perf_event *e=
-vent)
->
->         cflags =3D rvpmu_sbi_get_filter_flags(event);
->
-> +       if (!riscv_pmu_sbi_available())
-> +               return -ENOENT;
+>  
+> +static int panthor_ioctl_perf_session_create(struct drm_device *ddev, void *data,
+> +					     struct drm_file *file)
+> +{
+> +	int ret, cookie;
+> +	unsigned long sid = 0;
+> +	struct drm_panthor_perf_session_create *args = data;
 > +
->         /*
->          * In legacy mode, we have to force the fixed counters for those =
-events
->          * but not in the user access mode as we want to use the other co=
-unters
-> @@ -999,7 +1007,7 @@ static u64 rvpmu_ctr_read(struct perf_event *event)
->                 return val;
->         }
->
-> -       if (pmu_sbi_is_fw_event(event)) {
-> +       if (pmu_sbi_is_fw_event(event) && riscv_pmu_sbi_available()) {
->                 ret =3D sbi_ecall(SBI_EXT_PMU, SBI_EXT_PMU_COUNTER_FW_REA=
-D,
->                                 hwc->idx, 0, 0, 0, 0, 0);
->                 if (ret.error)
-> @@ -2132,12 +2140,16 @@ static int __init rvpmu_devinit(void)
->         int ret;
->         struct platform_device *pdev;
->
-> -       if (sbi_spec_version >=3D sbi_mk_version(0, 3) &&
-> -           sbi_probe_extension(SBI_EXT_PMU))
-> -               static_branch_enable(&riscv_pmu_sbi_available);
-> +       if (sbi_probe_extension(SBI_EXT_PMU)) {
-> +               if (sbi_spec_version >=3D sbi_mk_version(0, 3)) {
-> +                       static_branch_enable(&riscv_pmu_sbi_available);
-> +                       if (sbi_spec_version >=3D sbi_mk_version(2, 0))
-> +                               sbi_v2_available =3D true;
-> +                       if (sbi_spec_version >=3D sbi_mk_version(3, 0))
-> +                               sbi_v3_available =3D true;
-> +               }
-> +       }
->
-> -       if (sbi_spec_version >=3D sbi_mk_version(2, 0))
-> -               sbi_v2_available =3D true;
->         /*
->          * We need all three extensions to be present to access the count=
-ers
->          * in S-mode via Supervisor Counter delegation.
-> @@ -2152,9 +2164,6 @@ static int __init rvpmu_devinit(void)
->         if (!(riscv_pmu_sbi_available_boot() || riscv_pmu_cdeleg_availabl=
-e_boot()))
->                 return 0;
->
-> -       if (sbi_spec_version >=3D sbi_mk_version(3, 0))
-> -               sbi_v3_available =3D true;
-> -
->         ret =3D cpuhp_setup_state_multi(CPUHP_AP_PERF_RISCV_STARTING,
->                                       "perf/riscv/pmu:starting",
->                                       rvpmu_starting_cpu, rvpmu_dying_cpu=
-);
->
-> --
-> 2.53.0-Meta
->
+> +	if (!drm_dev_enter(file->minor->dev, &cookie))
+> +		return -ENODEV;
+> +
+> +	if (!mem_is_zero(args->pad, sizeof(args->pad)))
+> +		return -EINVAL;
+> +
+> +	ret = panthor_perf_session_create(file, args, &sid);
+> +	if (ret)
+> +		return ret;
+> +
+> +	drm_dev_exit(cookie);
+> +	return sid;
+> +}
+> +
+> +static int panthor_ioctl_perf_session_start(struct drm_device *ddev, void *data,
+> +					    struct drm_file *file)
+> +{
+> +	int cookie, ret;
+> +	struct panthor_file *pfile = file->driver_priv;
+> +	struct drm_panthor_perf_session_start *args = data;
+> +
+> +	if (!drm_dev_enter(file->minor->dev, &cookie))
+> +		return -ENODEV;
+> +
+> +	if (args->pad0)
+> +		return -EINVAL;
+> +
+> +	ret = panthor_perf_session_start(pfile, args->handle, args->user_data);
+> +
+> +	drm_dev_exit(cookie);
+> +	return ret;
+> +}
+> +
+> +static int panthor_ioctl_perf_session_sample(struct drm_device *ddev, void *data,
+> +					     struct drm_file *file)
+> +{
+> +	int cookie, ret;
+> +	struct panthor_file *pfile = file->driver_priv;
+> +	struct drm_panthor_perf_session_sample *args = data;
+> +
+> +	if (!drm_dev_enter(file->minor->dev, &cookie))
+> +		return -ENODEV;
+> +
+> +	if (args->pad0)
+> +		return -EINVAL;
+> +
+> +	ret =  panthor_perf_session_sample(pfile, args->handle, args->user_data);
+> +
+> +	drm_dev_exit(cookie);
+> +	return ret;
+> +}
+> +
+> +static int panthor_ioctl_perf_session_stop(struct drm_device *ddev, void *data,
+> +					   struct drm_file *file)
+> +{
+> +	int cookie, ret;
+> +	struct panthor_file *pfile = file->driver_priv;
+> +	struct drm_panthor_perf_session_stop *args = data;
+> +
+> +	if (!drm_dev_enter(file->minor->dev, &cookie))
+> +		return -ENODEV;
+> +
+> +	if (args->pad0)
+> +		return -EINVAL;
+> +
+> +	ret = panthor_perf_session_stop(pfile, args->handle, args->user_data);
+> +
+> +	drm_dev_exit(cookie);
+> +	return ret;
+> +}
+> +
+> +static int panthor_ioctl_perf_session_destroy(struct drm_device *ddev, void *data,
+> +					      struct drm_file *file)
+> +{
+> +	int cookie, ret;
+> +	struct panthor_file *pfile = file->driver_priv;
+> +	struct drm_panthor_perf_session_destroy *args = data;
+> +
+> +	if (!drm_dev_enter(file->minor->dev, &cookie))
+> +		return -ENODEV;
+> +
+> +	if (args->pad0)
+> +		return -EINVAL;
+> +
+> +	ret = panthor_perf_session_destroy(pfile, args->handle);
+> +
+> +	drm_dev_exit(cookie);
+> +	return ret;
+> +}
+> +
+>  static int
+>  panthor_open(struct drm_device *ddev, struct drm_file *file)
+>  {
+> @@ -1687,6 +1789,11 @@ static const struct drm_ioctl_desc panthor_drm_driver_ioctls[] = {
+>  	PANTHOR_IOCTL(SET_USER_MMIO_OFFSET, set_user_mmio_offset, DRM_RENDER_ALLOW),
+>  	PANTHOR_IOCTL(BO_SYNC, bo_sync, DRM_RENDER_ALLOW),
+>  	PANTHOR_IOCTL(BO_QUERY_INFO, bo_query_info, DRM_RENDER_ALLOW),
+> +	PANTHOR_IOCTL(PERF_SESSION_CREATE, perf_session_create, DRM_RENDER_ALLOW),
+> +	PANTHOR_IOCTL(PERF_SESSION_START, perf_session_start, DRM_RENDER_ALLOW),
+> +	PANTHOR_IOCTL(PERF_SESSION_SAMPLE, perf_session_sample, DRM_RENDER_ALLOW),
+> +	PANTHOR_IOCTL(PERF_SESSION_STOP, perf_session_stop, DRM_RENDER_ALLOW),
+> +	PANTHOR_IOCTL(PERF_SESSION_DESTROY, perf_session_destroy, DRM_RENDER_ALLOW),
+>  };
+>  
+>  static int panthor_mmap(struct file *filp, struct vm_area_struct *vma)
+> @@ -1807,6 +1914,12 @@ static void panthor_debugfs_init(struct drm_minor *minor)
+>   * - 1.8 - extends DEV_QUERY_TIMESTAMP_INFO with flags
+>   * - 1.9 - adds DRM_PANTHOR_DEV_QUERY_MMU_INFO query
+>   *       - adds DRM_PANTHOR_VM_BIND_OP_MAP_SPARSE flag
+> + * - 1.10 - adds DEV_QUERY_PERF_INFO query
+> + *        - adds PERF_SESSION_CREATE ioctl
+> + *        - adds PERF_SESSION_START ioctl
+> + *        - adds PERF_SESSION_SAMPLE ioctl
+> + *        - adds PERF_SESSION_STOP ioctl
+> + *        - adds PERF_SESSION_DESTROY ioctl
+>   */
+>  static const struct drm_driver panthor_drm_driver = {
+>  	.driver_features = DRIVER_RENDER | DRIVER_GEM | DRIVER_SYNCOBJ |
+> @@ -1820,7 +1933,7 @@ static const struct drm_driver panthor_drm_driver = {
+>  	.name = "panthor",
+>  	.desc = "Panthor DRM driver",
+>  	.major = 1,
+> -	.minor = 9,
+> +	.minor = 10,
+>  
+>  	.gem_prime_import_sg_table = panthor_gem_prime_import_sg_table,
+>  	.gem_prime_import = panthor_gem_prime_import,
+> 
+> -- 
+> 2.43.0
+> 
+
+-- 
+====================
+| I would like to |
+| fix the world,  |
+| but they're not |
+| giving me the   |
+ \ source code!  /
+  ---------------
+    ¯\_(ツ)_/¯
