@@ -1,78 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1792794709;
-	b=spOoexol8K4jHMCTsJKApc0tse3F7u+PChW6oEqR0qOvxtTTt39hGx9uHt6b1sWjgu6S
-	 fuvnu3MK34xUxJt+RC3oe4zDuBwVIROXBIdrXeDk/duNjmUd3nq+b3V2OXo5+vGWcQLc1
-	 qH+ppzZbVFD5eI7lh/AQVS/fabZ4XwfwKfnnxw0J5Hqkmz2nyU8CXSko/tXfzhGTMdcXf
-	 xh0ENmf5odbHj73X7vTZXGVReLlWhJgg/AXk9+7+v4xxU443ZLOmyvrlNQBVHt8EXk5LZ
-	 XAybiLCcMmT9P6EyR6G1vrr22vKbQozw7Myl9lueBCdfttlWuagHxgC62SNoOMOrO2g==
+	b=fy4wVrs11gVdEW5Ox/IBCEIU6xDu9SrmeB2DYVJSFVviypm44UHkJoy8c6QSM9xloE9a
+	 lbooD9tqORPkOEyNfmjsrzaXH6ZtGnzG7lC+H9EFqMIwVhGKk8e37tFWBg0uMLj0MDglz
+	 lj199ne7yI8l82SHLY8ATFe980zBIf4AZMMKL2Gz8RDaaqYesgWQPp7LoFgqNwlbJIvi6
+	 TFJREzQdWhDQeHiOCW+2E3O6MWx5+2G503eAFuOhLh/Apa6ua7bl7iqONx0W2/yRqMHYz
+	 PW8txiUsow95aWqXhxeYRkPLPshdvDYy5Euvy9m88uZAAmWRimIZgW1xYKlfmtrBZKQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1792794709;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=YQBOc/CM354sSqrkphJzRZWH7Zi2IGtop00U9K950TU=;
-	b=h9TBRku6pSa0o0pMZdPbWMFkqQfUtqVOS+pBKmo28yvx9QLhYaB1h4nXndDJ9NVRxPwg
-	 hj1QMvOOblXA9y3WotuvA7AfCgZMDuBWxh/ZHfwcpnXKdC37+otynZ/l94AWiZWJtz/SR
-	 2h4pqdQQY9D6BFbeHL+AdoyksQ0mhNDWXKXEoFxCrCdspvQfZ5ZM5YA46HgmeG76G3tR2
-	 4h9YVkVdDNMFkAgh1waza+qPJ/0vCFA/8KD0WNeJcTBl0/N2GRVyVDxTsfPNA4S4FgOr9
-	 Gjcrx3VBk1oy5o04v1uFcJzp9J8DXI4Dof/9jAtNz1gXAA7stoehla00Llu6PkPduJw==
+	bh=Ts2JArpXv12Ag0wLiAcW+EK0WDMQDNM4qEPFyO7KPi0=;
+	b=N7WzPcUFVZa/tp18hxgJ+10O0nharTKXxlzIqZbvSkABiHcvIKvMf58muCBKcbZv2C9X
+	 G6Fskt2VIuND/Iv4BRWBRRYe7NWOqR+XokR15E/90jTg5eOmJ0EgWZswlIKj+zJlOK9gy
+	 Stw5eiHIMXhy0vGrS31gUK4j+hOnkOMbBmPNVAoYpuQM5j2a0eVza0GkkoD6zo4xcq3vi
+	 C5/EDdBmMjED9Agjbj1zH4zjtRpuM1enKcCZfq7FeF7cAjsYLe9vudFBEAlIUs9mNLUMZ
+	 /5STdomlrKPLmTsyOk/iYNCUEML+IW7BVChGjiSnYlak039/eiAcME0fziU1muvvDeQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="MGet/0ig";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="A/3fCnU0";
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5C5F606A31A;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89950606A31B;
 	Fri, 23 Oct 2026 22:31:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MGet/0ig
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A/3fCnU0
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
 	t=1792794708;
-	b=XGar0sTNo61qyypLPAVRuxQJB8qeniWhX/jgZYhPGOvzOhR812ggNpRFVELTdCCj3+wI
-	 Yta2hp3sjcZJaw6h2qqlQgqgzVe8ncdFYF7+nTUHa6FFgi7J9IlU4HwxYV2QFBTuSfvWz
-	 dKk8k2iW2YhpjFJnWnEGWeVGB00vDTk5BCFvVRlKj6WRO77D2yKCmxbnScNSMhqKWUdD5
-	 72SDcsAtf738A0gU8wPuPDNG0yNxm+ERJk4wHyeU1qgPKWMSKFcsuLBjj8twMR82UT2fG
-	 +M5olLvFrQJCRpiJwZJlLRRlympG2uuzhoQImIknkFWezsOcnaxHdOCVsRcaq8QHXWw==
+	b=X5ydOumK0GMI9dRpk2l8h2AZsm7L8/EWwRzkquawxgyBDgxokvLVmGfSf8BMxWQlrszp
+	 S5LERrp7b4dRqeobAqvh39zxqFBrbBWsMKDLqxCdl8/In+D1dahybtOHXX3VgH+OWiGI0
+	 owVnSSO3g/lEpFz5EAFpaWpKVmrzsPOJmR7oeiCaQUQ7LBIj4J4XqumuPjnGKyJl1ynsC
+	 GvXIYzZ/wuKy/6ODtKXCNyJEQXhiUBhUleHFgkuKuvfJJNqloXIWv1oenNEnz8QuRGQb2
+	 vktDwkXdpN8CRl81F3eGL102fh+mhwi9FVhFzAdz2jljeZ/sgloSNPCUtmfMjK98bFw==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
 	c=relaxed/relaxed; t=1792794708;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=YQBOc/CM354sSqrkphJzRZWH7Zi2IGtop00U9K950TU=;
-	b=nivISNwaRrjEEERngXZw5mr+JWMAK806NcwSuyLv5T4z38nOIq6Kk9DQUp6C27emjbFw
-	 aeKi7nyzowi7toG1vpZIt60IX5zgI0pJqfJ29P6aJ7/mYCRoEjZ/QgyCUkpSEjty0/qjW
-	 JOSu+rOsD5dvyD/c65Djr2RLD+kc+maefRnR/4aecbUgNH2dQ5nFfaL/UsnwUPMZDBFDI
-	 nFOyUN0iMkkqtrfNiUV07XyRy77JO3Tmv/qofEBW9mzlmK9wkyD8kbqHrbPlC5JtjL6fw
-	 Iu4SNhwoI1/+0uHwbdCweTCNT5kb1NWibuhXJ90XAs79oAA3cYI+Taw0axSES/hheAQ==
+	bh=Ts2JArpXv12Ag0wLiAcW+EK0WDMQDNM4qEPFyO7KPi0=;
+	b=ufvYCGLhj5Tpa/WAKcr76y1sE3IOfXhKRDnHavQY6kpFoGs68G1OCucEYhY8aLmZo7oY
+	 4l1kaoKv23zSRdDLX+SRSZ2PJqbMkeN4nTId4HT0W7+PJgrLZO+X7H5+h0m8soUc/TC1X
+	 H/SXlrzUGOHrekZfeojerTcTik+WYaQeMBJaIvGZbGaPAJeOhRA3/P6ucVKGmVrLHpiI6
+	 lY1ZbLhIksGpg7CWMlQFKxmWuhRt/jIVtdO9FZ9QfjnL1/QM8M/humaDzJXG2nQ7TtFr1
+	 LeHFNd3u5W8mA5Tpe+WgVrKyYCy+RaZHE6WnDYaTFNB/tjCvr994pRsw19YThzheKnA==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 82C1E1F01829;
+	by smtp.kernel.org (Postfix) with ESMTPS id 82EB91F031E0;
 	Fri, 23 Oct 2026 22:31:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1792794708;
-	bh=YQBOc/CM354sSqrkphJzRZWH7Zi2IGtop00U9K950TU=;
+	bh=Ts2JArpXv12Ag0wLiAcW+EK0WDMQDNM4qEPFyO7KPi0=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=MGet/0igxrsipMBpX5Q0BR+Z1n5w1MgqqFP4HNKjHfSz0dw7aP7f88kh5bM9Aot8/
-	 N0j506dPFykzYU9z8k7QeZ7E8tpaD2InHrdVTuM2iXMzuhhjPtiZdw73ssNPbcbcbf
-	 bPsGVDLIMFlsPt088i5cOfeHVnFQWMRy9utSWh32EumqugIMpgbx0xpjttOCngThFg
-	 cEfd3aTCIWP4EnUHoj6327DlFxQOpE/xXxPYMEua7DuDaVXffo6sdluncLVANLzw4Y
-	 QVI9JBblbncph/jfd8gcas4q9v9XqhYnTndae/OuBls1yADULBiXptIrZXU7JNPTKm
-	 4idSOM1v3QKZw==
+	b=A/3fCnU0KVVNCZ+iQiu39XSlvuuDHjBdDrhE9hLqwuRk2E5IV78TXtF3cErFLXTqd
+	 EmLH2jYTY3q++PlvwruIIxTB02YdqdjHeX//z6O8Shcqszp+pW+ArBAylLqTzl71zz
+	 S/NS+yUihemxCaQMDO513uaCjQCxX93CdlvFR2AWdt+ZDnzXy97ZdIMI1Olos9fFy4
+	 qZVaFuF3DvxkAJAuhBUTUUNW5EsG32w/Xy/77VKaXDuqrcX5NKu5hnzyLBdWiUYcI/
+	 P+i6qgvtuMj9rCT3MwReQg84OisqBU3/AogrkpZzFKBdeKQWiyuJkz39VemZ8a2s/T
+	 NZAs6Lzar4Dmg==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 09F4A44661;
-	Fri, 23 Oct 2026 22:31:47 +0000 (UTC)
+	by lkml.kernel.org (Postfix) with ESMTP id E247944637;
+	Fri, 23 Oct 2026 22:31:46 +0000 (UTC)
 From: Max Bretschneider via B4 Relay <devnull+max.bretschneider.leica-geosystems.com@kernel.org>
-Date: Sat, 24 Oct 2026 00:28:54 +0200
-Subject: [PATCH v2 4/4] media: i2c: ov08d10: add get_selection support
+Date: Sat, 24 Oct 2026 00:28:51 +0200
+Subject: [PATCH v2 1/4] media: i2c: ov08d10: fix NULL pointer dereference
+ in ov08d10_get_hwcfg()
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,21 +84,22 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261024-ov08d10-get-selection-v2-4-f8c49972ca18@leica-geosystems.com>
+Message-Id: <20261024-ov08d10-get-selection-v2-1-f8c49972ca18@leica-geosystems.com>
 References: <20261024-ov08d10-get-selection-v2-0-f8c49972ca18@leica-geosystems.com>
 In-Reply-To: <20261024-ov08d10-get-selection-v2-0-f8c49972ca18@leica-geosystems.com>
 To: Jimmy Su <jimmy.su@intel.com>, Matthias Fend <matthias.fend@emfend.at>, 
  Sakari Ailus <sakari.ailus@linux.intel.com>, 
  Mauro Carvalho Chehab <mchehab@kernel.org>
 Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, 
  Max Bretschneider <max.bretschneider@leica-geosystems.com>
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792794706; l=4916;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792794706; l=1799;
  i=max.bretschneider@leica-geosystems.com; s=20260501;
  h=from:subject:message-id;
- bh=pSPbfW/+rQXIuQoU/4hrAg5l2fsycIgBp7w9O8RjxoE=;
- b=zoQokf57qmjGEky4VZ/Z/6RraDLuWEPTwXHwQplZUWcK/7SQxcfb41UenzEFp2UzWJzx8rMWn
- npE8Fr5YQBOCEo6VMB+YifxjKIyb+vzktfm86Dzi462BmqNBx34pRxP
+ bh=eLsu5tl24BX1oODaXRTSuCWikGC+/dtd311jxFs+7AE=;
+ b=hIO6AMJ8wkZArMvQX4UdhsS4mGWC7tFTaNKFIJofJApLN7LIonU+0mTVcVqJhgr1UK+Q/hQ1o
+ u2eYkdGBrGpDi/ultjbXix/+rkLTEsPUvZ1xNvM/EtGXluyg0KN70GC
 X-Developer-Key: i=max.bretschneider@leica-geosystems.com; a=ed25519;
  pk=jf4ba33jrWlsOdGemi2InMtJAngoJVZU8Moetp0ixik=
 X-Endpoint-Received: by B4 Relay for
@@ -108,146 +110,48 @@ Content-Transfer-Encoding: 7bit
 
 From: Max Bretschneider <max.bretschneider@leica-geosystems.com>
 
-The driver does not implement .get_selection, so it never reports the
-analogue crop rectangle of the active mode. Userspace has no way to learn
-which region of the pixel array a given mode reads out, and cannot assume
-a fixed one, because the modes differ: the full mode reads 3280x2460 at
-offset (4,8), while the 3264x2448 and the 2x2 binned 1632x1224 modes read
-3264x2448 at offset (12,16).
+ov08d10_get_hwcfg() logs the number of data lanes using
+ov08d10->cur_mode->data_lanes, but cur_mode is only assigned later in
+probe(). At the point of the dev_dbg() call it is still NULL, as the
+driver data is allocated with devm_kzalloc(). ov08d10->priv_lane, which
+cur_mode is set to point into, is only assigned on the following line, so
+the value is not reachable here by any route.
 
-Consumers that derive the sensor scale from the analogue crop and the
-output size therefore compute a wrong result for the cropped and binned
-modes, and may reject those configurations.
+The arguments of dev_dbg() are only evaluated when the call site is
+enabled, so this dereferences NULL as soon as debugging is turned on for
+the driver:
 
-Track the analogue crop rectangle per mode, store it in the subdev state
-when the format is set, and report it through .get_selection. Also report
-V4L2_SEL_TGT_CROP_DEFAULT, V4L2_SEL_TGT_CROP_BOUNDS and
-V4L2_SEL_TGT_NATIVE_SIZE from the pixel array geometry.
+  Unable to handle kernel NULL pointer dereference at virtual address 0000000000000028
+  pc : ov08d10_get_hwcfg+0x1b0/0x228 [ov08d10]
+  Call trace:
+   ov08d10_get_hwcfg+0x1b0/0x228 [ov08d10] (P)
+   ov08d10_probe+0xdc/0x658 [ov08d10]
+   i2c_device_probe+0x194/0x388
 
-The pixel array geometry and the per-mode offsets are taken from the
-sensor datasheet and the recommended reference register sets.
+Print the number of data lanes parsed from the endpoint instead, which is
+the value the message refers to and which has just been validated.
 
+Fixes: 7be91e02ed57 ("media: i2c: Add ov08d10 camera sensor driver")
+Cc: stable@vger.kernel.org
 Signed-off-by: Max Bretschneider <max.bretschneider@leica-geosystems.com>
 ---
- drivers/media/i2c/ov08d10.c | 50 ++++++++++++++++++++++++++++++++++++++++++++-
- 1 file changed, 49 insertions(+), 1 deletion(-)
+ drivers/media/i2c/ov08d10.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/media/i2c/ov08d10.c b/drivers/media/i2c/ov08d10.c
-index 4b503ddfa042..2e5ae8c49067 100644
+index 0710d2243cc0..4dc68ff89eda 100644
 --- a/drivers/media/i2c/ov08d10.c
 +++ b/drivers/media/i2c/ov08d10.c
-@@ -65,6 +65,14 @@
- #define OV08D10_REG_FLIP_OPT			0x32
- #define OV08D10_REG_FLIP_MASK			0x3
+@@ -1432,7 +1432,8 @@ static int ov08d10_get_hwcfg(struct ov08d10 *ov08d10)
+ 		goto check_hwcfg_error;
+ 	}
  
-+/* OV08D10 native and active pixel array size */
-+#define OV08D10_NATIVE_WIDTH			3288
-+#define OV08D10_NATIVE_HEIGHT			2476
-+#define OV08D10_PIXEL_ARRAY_LEFT		4
-+#define OV08D10_PIXEL_ARRAY_TOP			8
-+#define OV08D10_PIXEL_ARRAY_WIDTH		3280
-+#define OV08D10_PIXEL_ARRAY_HEIGHT		2464
-+
- #define to_ov08d10(_sd)		container_of(_sd, struct ov08d10, sd)
+-	dev_dbg(dev, "Using %u data lanes\n", ov08d10->cur_mode->data_lanes);
++	dev_dbg(dev, "Using %u data lanes\n",
++		bus_cfg.bus.mipi_csi2.num_data_lanes);
  
- struct ov08d10_reg {
-@@ -110,6 +118,9 @@ struct ov08d10_mode {
- 
- 	/* Number of data lanes */
- 	u8 data_lanes;
-+
-+	/* Analogue crop rectangle, in native sensor coordinates */
-+	struct v4l2_rect crop;
- };
- 
- /* 3280x2460, 3264x2448 need 720Mbps/lane, 2 lanes - 19.2 MHz */
-@@ -624,6 +635,7 @@ static const struct ov08d10_lane_cfg lane_cfg_2 = {
- 		},
- 		.link_freq_index = 0,
- 		.data_lanes = 2,
-+		.crop = { .left =  4, .top =  8, .width = 3280, .height = 2460 },
- 	},
- 	{
- 		.width = 3264,
-@@ -637,6 +649,7 @@ static const struct ov08d10_lane_cfg lane_cfg_2 = {
- 		},
- 		.link_freq_index = 0,
- 		.data_lanes = 2,
-+		.crop = { .left = 12, .top = 16, .width = 3264, .height = 2448 },
- 	},
- 	{
- 		.width = 1632,
-@@ -650,6 +663,7 @@ static const struct ov08d10_lane_cfg lane_cfg_2 = {
- 		},
- 		.link_freq_index = 1,
- 		.data_lanes = 2,
-+		.crop = { .left = 12, .top = 16, .width = 3264, .height = 2448 },
- 	}}
- };
- 
-@@ -1209,6 +1223,7 @@ static int ov08d10_set_format(struct v4l2_subdev *sd,
- 
- 	ov08d10_update_pad_format(ov08d10, mode, &fmt->format);
- 	*v4l2_subdev_state_get_format(sd_state, fmt->pad) = fmt->format;
-+	*v4l2_subdev_state_get_crop(sd_state, fmt->pad) = mode->crop;
- 
- 	if (fmt->which == V4L2_SUBDEV_FORMAT_ACTIVE) {
- 		__v4l2_ctrl_s_ctrl(ov08d10->link_freq, mode->link_freq_index);
-@@ -1270,13 +1285,45 @@ static int ov08d10_enum_frame_size(struct v4l2_subdev *sd,
- 	return 0;
- }
- 
-+static int ov08d10_get_selection(struct v4l2_subdev *sd,
-+				 const struct v4l2_subdev_client_info *ci,
-+				 struct v4l2_subdev_state *sd_state,
-+				 struct v4l2_subdev_selection *sel)
-+{
-+	switch (sel->target) {
-+	case V4L2_SEL_TGT_CROP:
-+		sel->r = *v4l2_subdev_state_get_crop(sd_state, sel->pad);
-+		return 0;
-+
-+	case V4L2_SEL_TGT_NATIVE_SIZE:
-+		sel->r.left = 0;
-+		sel->r.top = 0;
-+		sel->r.width = OV08D10_NATIVE_WIDTH;
-+		sel->r.height = OV08D10_NATIVE_HEIGHT;
-+		return 0;
-+
-+	case V4L2_SEL_TGT_CROP_DEFAULT:
-+	case V4L2_SEL_TGT_CROP_BOUNDS:
-+		sel->r.left = OV08D10_PIXEL_ARRAY_LEFT;
-+		sel->r.top = OV08D10_PIXEL_ARRAY_TOP;
-+		sel->r.width = OV08D10_PIXEL_ARRAY_WIDTH;
-+		sel->r.height = OV08D10_PIXEL_ARRAY_HEIGHT;
-+		return 0;
-+
-+	default:
-+		return -EINVAL;
-+	}
-+}
-+
- static int ov08d10_init_state(struct v4l2_subdev *sd,
- 			      struct v4l2_subdev_state *sd_state)
- {
- 	struct ov08d10 *ov08d10 = to_ov08d10(sd);
-+	const struct ov08d10_mode *mode = &ov08d10->priv_lane->sp_modes[0];
- 
--	ov08d10_update_pad_format(ov08d10, &ov08d10->priv_lane->sp_modes[0],
-+	ov08d10_update_pad_format(ov08d10, mode,
- 				  v4l2_subdev_state_get_format(sd_state, 0));
-+	*v4l2_subdev_state_get_crop(sd_state, 0) = mode->crop;
- 
- 	return 0;
- }
-@@ -1290,6 +1337,7 @@ static const struct v4l2_subdev_pad_ops ov08d10_pad_ops = {
- 	.get_fmt = v4l2_subdev_get_fmt,
- 	.enum_mbus_code = ov08d10_enum_mbus_code,
- 	.enum_frame_size = ov08d10_enum_frame_size,
-+	.get_selection = ov08d10_get_selection,
- };
- 
- static const struct v4l2_subdev_ops ov08d10_subdev_ops = {
+ 	ov08d10->priv_lane = &lane_cfg_2;
+ 	ov08d10->modes_size = ov08d10_modes_num(ov08d10);
 
 -- 
 2.43.0
