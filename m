@@ -1,107 +1,106 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792757243;
-	b=3uTCJJdlAT+p75CnDowovC75UnLXjLlAlxWuNBuJnhkxwkzUU4SVaFihBtLyn/fNCrBb
-	 GA4Lgr6qNl7TBz0RUPrgwjibW5kFFCq8BUiMWdhzi+J4K2C1CN/A9MROOU1mn0rjg8cmD
-	 M7XA9gOGuHQ2J7gdDH0XgCDi+WmwJywRWtjmUB2lS6VRpZdsYMV3ayEI1oXaTUV1Y83Of
-	 VQhi381B/TbH1M4l7xrk7P+wkMyMCSEOH1/l4unj01OXfJFBbQSD1cYIO3iqCJVvLWzhe
-	 vQ/rjqmBTVOJoMTnqDNDi8AIRPyW+KIEU91ZIXeglnK8VzNc0luypzQ0yfHKuBaUeXQ==
+	t=1792757283;
+	b=hg3Mgju/mYVgefiRmQV0VV4JEnKCodR6HBALAbyZRBuMnkko/KhlegJgvwB3lJeFblef
+	 l115WrReweXy/lSEhysWWJ75NOulJYTd33e5J5yX4QgFTdUWWvSjqkbFHUAfqPlafGM0/
+	 VYfuVKW7fF0WZ8YCO3jLE2tDOxCjAnM6cqqgddVCALyOobVY1jIXSQXebBCfzFn/Py0Ef
+	 Mh546W/hGoRGppIfX+qYNE5eV+mrkRBkh1vlLdfQBzVn4vvi9JPmdVFW9zaiuQMFvXbd/
+	 +ktNK/FaJ1fnik0GnOo2R5ir74zq7Yf6aKhL7xsks4k7K4UuyFd7Nu5VejzQC2E+hPA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792757243;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Spam-Flag:X-Spam-Level:X-Spamd-Result:X-Spam-Score;
-	bh=XUbrPeQnOgIZP6pGS1DKqXoqEXyF7r5wbaFScABPre4=;
-	b=S9jEiiPSUQRk6RjNyuMLGoX3gCRM3+X2MURjdP+mPuBTTBsaVo+U/+MFAyuyJ8GtDDD9
-	 6f1DRmdc5cfXtcgPNghBC4OjdLpB5rRu/vrid/5CfjhOw7t+rQ5veOxsrGaQtmFNK6Vp8
-	 X0QpnyQCCt1o8J0oX0OUGid8Fmq9YO7YWQ67jZnhl1b6vWNCKe2GVj1monqMA2c7uZ2Fs
-	 LHLHSfx3taTPf6lkNS4hGkorbcVW1n+rTnuG+MXeoBhhllSjeFYbqQMKRwuXsS2ccyiZI
-	 YSaebn3aF03IOD/D85yjuLS/0OMOFviAi+mDIOAEXIycLFF85n+iKLLYq0HXyT2A9Rw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792757283;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=RdXJI0x7HsNY2cGNP3WXBwk0wIy56kzCps1jgvgyMwQ=;
+	b=KiRfUkh6agaQQYoN5QHOifpgzdWwWChQAcdkHAjlV6YQ/O0BXs5NsAVBUQU24iN5Oz7d
+	 HQUVx+uYCcOwFogpDrkILXt+YBn1F1U9mAnQgg31G7gNZL/0kLLhDuCjYcZfxNmq/OCr2
+	 J30DFCo4Eknitj0aNogGCOvx2HL06GKDPu/+sTRZqZuOfZB1e4jSWyMRn4pdKzXR4ylw4
+	 KvgmnuOZlf6LWfxuFC92qgHyBIfeeeLT+/uc0WZK50S4uKReeyE2wYkSoUILGoRyrZ1Vk
+	 OyCqnbxH44MS1KzbSf1b0QqUBQXEFnFIqQ0TvkLtAnmPZklYovtR8BlqJy2qF3yF4lw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=suse.cz;
-	spf=pass smtp.mailfrom=suse.cz;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=wWhhu1eB;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=xK+GmPxI;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=wWhhu1eB;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=xK+GmPxI;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=fq9jNBy7;
+	arc=none smtp.remote-ip=209.85.128.43
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87451606A31B;
-	Fri, 23 Oct 2026 12:07:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 87451606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 741C6606A31B
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 12:08:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 741C6606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=wWhhu1eB;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=xK+GmPxI;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=wWhhu1eB;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=xK+GmPxI
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id A6BD11F78D;
-	Fri, 23 Oct 2026 12:07:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1792757240; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=XUbrPeQnOgIZP6pGS1DKqXoqEXyF7r5wbaFScABPre4=;
-	b=wWhhu1eBUmCFKlUZYc7uF/hO9bF8w/izQ8jpz5Hpf0fS+LurDRacXMSjJmvcOA4xypmTul
-	5+G4pK35yh68L4+mNt1ty9o/tikdDXQe2ZC9BDdjzwB0qcu8ZyHBcQsGfeOxbNoLREYHiw
-	9l55VtkliyBU7N3xmonF6t2bywv3KKg=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1792757240;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=XUbrPeQnOgIZP6pGS1DKqXoqEXyF7r5wbaFScABPre4=;
-	b=xK+GmPxIpDQK7qAIntmy+r6ZNsSSuOpWutnmoJEHadSIsf74TzsQFg9wrXYRSNs5UewBTq
-	NXc1wKSQxDh/21Ag==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1792757240; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=XUbrPeQnOgIZP6pGS1DKqXoqEXyF7r5wbaFScABPre4=;
-	b=wWhhu1eBUmCFKlUZYc7uF/hO9bF8w/izQ8jpz5Hpf0fS+LurDRacXMSjJmvcOA4xypmTul
-	5+G4pK35yh68L4+mNt1ty9o/tikdDXQe2ZC9BDdjzwB0qcu8ZyHBcQsGfeOxbNoLREYHiw
-	9l55VtkliyBU7N3xmonF6t2bywv3KKg=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1792757240;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=XUbrPeQnOgIZP6pGS1DKqXoqEXyF7r5wbaFScABPre4=;
-	b=xK+GmPxIpDQK7qAIntmy+r6ZNsSSuOpWutnmoJEHadSIsf74TzsQFg9wrXYRSNs5UewBTq
-	NXc1wKSQxDh/21Ag==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 84DA7133F3;
-	Fri, 23 Oct 2026 12:07:20 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id Ux6cGvhN22okcQAAD6G6ig
-	(envelope-from <jack@suse.cz>); Fri, 23 Oct 2026 12:07:20 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
-	id 1BF12A1415; Fri, 23 Oct 2026 14:07:16 +0200 (CEST)
-Date: Fri, 23 Oct 2026 14:07:16 +0200
-From: Jan Kara <jack@suse.cz>
-To: Zhao Gongyi <zhaogongyi@bytedance.com>
-Cc: viro@zeniv.linux.org.uk, brauner@kernel.org, jack@suse.cz, 
-	jlayton@kernel.org, cel@kernel.org, neil@brown.name, linux-fsdevel@vger.kernel.org, 
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=fq9jNBy7
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a2167bd087so3521665e9.3
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 05:08:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792757282; x=1793362082; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=RdXJI0x7HsNY2cGNP3WXBwk0wIy56kzCps1jgvgyMwQ=;
+        b=fq9jNBy7VQCVOPP1Lmy75+Xjjtus69mYqfyB2DOr4z0dQhPOWCJhqx3VGXG5EcWKRd
+         BUlUuCRfr85TT5U9pG9X54OQB+XXAQ8eutJxzi8H4MY5r8NG5KR4Oj+iUFIMNQB2Vk8T
+         lM8MXSEd80Hsh+XbhJkwteVw4cLT5U/N9iKA/KOVbTVIhic4jvpJqR5ue6bU9bGsJVtH
+         XdC91w/IQGECN+ush3zJFzgS9j8Vq2BUuyXQ7NWIt0sGQHHA7CHyzu1WPwCK5ibQqiBw
+         TDAvgEqKa696/FwUfBGgSW86i1Xc+10d08dwrxjbL3gOeGuC91dE/wGDqVjbMcUlsXLI
+         dOXw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792757282; x=1793362082;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=RdXJI0x7HsNY2cGNP3WXBwk0wIy56kzCps1jgvgyMwQ=;
+        b=CHqpkpqY2dvPAnQCUHjTeFCofDsuC2P7Dcs4RO1RFKkWiM0DDvn9hGocNTN6D/naxC
+         t0Sbo2rT/94q6iqtORcBcM55VQsRRI+Wck0awGSl2xm/42WeR0dhhEyARykSP96AHiVe
+         +Q5LtFDWsN4Ax9a5S4bDK4/5GYaafpY/5N5lKLHXhSj0zZsJckQpqXb8WCLAnndmRkAu
+         etw/OzLkGyRmhRSPvhsa7wh9iL1hYPMAUQjDYAhv/xy+nRIhKiBsQdsu/9RkqNw2raWc
+         V4OVwoZsFpoZSAxzfGkROZX+QWUOYKLxLZHJz1C04Fe5DK2QKNSaCZ5nrmoieVE1w4JR
+         INvw==
+X-Forwarded-Encrypted: i=1; AKwUvBwxUAKvAFlYX+CWUqdE9/b6XQvC4VKemSm0Tl7GewVFvXAsyHsxBTr43D0iwwHV+asnt5nx3xUr3L10vOc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLwLQd5s8Gsq8DAZ6GRJeflk8H4bz/4GzCqMNJMNHugcAZRUsDW
+	D0qFlVA6/eU+9nWecMr05zOYrsXcHDhtd6+SJWmH5nazN8VcGzspzJM0
+X-Gm-Gg: AYBFou3cd0SI+1gqfA3J0vksD6iCxQSXtbC4C0+YuGOC248HZIty+r4/5Yip0yBClfT
+	hKuT93n7srjJq9RjeKHsyw//mkMqnH2KgXlNa5Sc9xquKiR5FzuyO4Pi9ekC05P2OXuqIhJxktx
+	C0ZEgVra1D+B1GTnS/aIiKvpfVWQAhb8JFCQBvCH5s9vWlelhEk1P6nFBXZl69zG/WUM3rtyBas
+	C5EOORRhew4i4FOMBvD5RVvSBQbPp8bbqgt920U9o4pv+M9r1ORB5kV0yMd0d6VQHNpL22iGJxz
+	p866m+c+SsBWPw7v3oXftTxNzZmNhSoqdMZdttN+P7JEiBKqAHJZrEiT2EVWVYV8LaY6n5n/ib+
+	e5jaYywWsbaNOAu/oYtFeWWqGU6nQnWwIMJNxC1ZLuO0CS3ptQMJNbVko4M0d6dswMQ6m2CkO7m
+	R3Esawt59/r+8VMYDkXw6uw6/dfenK1J0DSsRRRmeJ1Hatu5bRG62kQer4Xlu35pmKCm+ELWJCy
+	G+b0X60dEwN27lOPiVStjxI6BEcAYC4eZPPjdNwAg/7ajuD8YqGTQYX9o+rzabpoiKrnW1FvH0E
+	MUeVblRuKji8DrC6DfHGcNw9
+X-Received: by 2002:a05:600c:64c7:b0:4a1:93fd:8f8 with SMTP id 5b1f17b1804b1-4a211bf21f9mr31104145e9.4.1792757281607;
+        Fri, 23 Oct 2026 05:08:01 -0700 (PDT)
+Received: from andreayoga.wind3.hub ([151.76.51.95])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a29cdc74b7sm686225e9.14.2026.10.23.05.07.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 23 Oct 2026 05:08:00 -0700 (PDT)
+From: Andrea Parri <parri.andrea@gmail.com>
+To: "Paul E. McKenney" <paulmck@kernel.org>
+Cc: Andrea Parri <parri.andrea@gmail.com>,
+	Frederic Weisbecker <frederic@kernel.org>,
+	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
+	Joel Fernandes <joelagnelf@nvidia.com>,
+	Josh Triplett <josh@joshtriplett.org>,
+	Boqun Feng <boqun@kernel.org>,
+	Uladzislau Rezki <urezki@gmail.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Lai Jiangshan <jiangshanlai@gmail.com>,
+	Zqiang <qiang.zhang@linux.dev>,
+	Bradley Morgan <brads@mainlining.org>,
+	Kunwu Chan <kunwu.chan@gmail.com>,
+	rcu@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] filelock: keep superblock active through delegation
- wait
-Message-ID: <qtone4v3wl4dualmn744jmywp6newrftdoqomsrstcfniv3zxs@wsln5r4vk32o>
-References: <20261023111250.17696-1-zhaogongyi@bytedance.com>
+Subject: Re: [PATCH RFC -rcu/dev] hazptrtorture: Release all deferred hazard pointers before stopping
+Date: Fri, 23 Oct 2026 14:07:54 +0200
+Message-ID: <20261023120755.2463384-1-parri.andrea@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <579683e2-ee2a-46e8-8bf3-f7ecc5547581@paulmck-laptop>
+References: <20261019162005.12888-1-parri.andrea@gmail.com> <3e7abe29-df1f-4cb6-884f-dd0a70c5311f@paulmck-laptop> <20261021090652.20333-1-parri.andrea@gmail.com> <45a6159e-1bcd-45d4-af25-baddf729ac54@paulmck-laptop> <20261022125556.3559773-1-parri.andrea@gmail.com> <579683e2-ee2a-46e8-8bf3-f7ecc5547581@paulmck-laptop>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -111,142 +110,79 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261023111250.17696-1-zhaogongyi@bytedance.com>
-X-Spam-Flag: NO
-X-Spam-Level: 
-X-Spamd-Result: default: False [-12.80 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	ARC_NA(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCVD_COUNT_THREE(0.00)[3];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[9];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	RCVD_TLS_LAST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,imap1.dmz-prg2.suse.org:helo,bytedance.com:email,suse.cz:email]
-X-Spam-Score: -12.80
+Content-Transfer-Encoding: 8bit
 
-On Fri 23-10-26 19:12:50, Zhao Gongyi wrote:
-> A caller may drop its path after try_break_deleg() returns a delegated
-> inode but before break_deleg_wait() finishes. The extra inode reference
-> held in struct delegated_inode does not keep the superblock active.
-> 
-> After a lazy unmount, closing the delegation holder can release the last
-> mount reference and shut down the superblock while another task waits for
-> the delegation break. The waiter's final iput() can then enter the
-> filesystem's eviction code after its superblock-private state was freed.
-> This has been observed as a KASAN use-after-free in shmem_evict_inode().
-> 
-> When try_break_deleg() saves a delegated inode, take an active reference
-> to its superblock while the caller still pins the mount. Keep that
-> reference through break_deleg_wait() and the final iput(), then release
-> it with deactivate_super(). This protects every caller of the helpers,
-> including the mknod, mkdir, symlink and rmdir paths that drop their path
-> before waiting.
-> 
-> Fixes: e12d203b8c88 ("vfs: allow mkdir to wait for delegation break on parent")
-> Fixes: 4fa76319cd0c ("vfs: allow rmdir to wait for delegation break on parent")
-> Fixes: c826229c6a82 ("vfs: make vfs_create break delegations on parent directory")
-> Fixes: e8960c1b2ee9 ("vfs: make vfs_mknod break delegations on parent directory")
-> Fixes: 92bf53577f01 ("vfs: make vfs_symlink break delegations on parent dir")
-> Link: https://lore.kernel.org/r/20261016093421.90725-1-zhaogongyi@bytedance.com
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Zhao Gongyi <zhaogongyi@bytedance.com>
+On Thu, Oct 22, 2026 at 03:55:44PM -0700, Paul E. McKenney wrote:
+> On Thu, Oct 22, 2026 at 02:55:55PM +0200, Andrea Parri wrote:
 
-I'm a bit worried by the prospect of running superblock shutdown from
-break_deleg_wait(). But at this point I didn't find a site where this could
-happen and be problematic so feel free to add:
+[...]
 
-Reviewed-by: Jan Kara <jack@suse.cz>
+> Then let's please keep the torture_must_stop() check.  Yes, there is
+> still a window between the return from torture_must_stop() and the
+> call to torture_hrtimeout_ms(), but maybe that is something to take
+> care of later on.
 
-								Honza
+Will do.
 
-> ---
-> Changes since v1:
->   - Hold an active superblock reference in the delegation helpers instead
->     of adding mount references to the four fs/namei.c callers, as suggested
->     by Al Viro and Christian Brauner.
->   - Use &inode->i_sb->s_active in atomic_inc().
-> 
-> Validation:
->   Built an arm64 KASAN Image with LLVM=1 on af32da41b032, using the same
->   config, guest image, and local arm64 cpufeature compatibility change as
->   the v1 tests. The tested filelock.h diff is byte-identical to this patch,
->   which is based on v7.3-rc7 (24a19b953e2a). Image SHA-256:
->     b7ad342b0020c31ab2be97ceb441ebc38c5840f023350462bb816552fd175870
-> 
->   Ran the existing syzkaller reproducers under arm64 KVM with procs=6 and
->   repeat=0. Each test had one run:
-> 
->     syscall/variant    duration    programs    wait stack samples
->     mkdirat             300 s         2028          7
->     symlinkat           300 s         2064          8
->     mknodat S_IFREG     600 s         4168         18
->     mknodat S_IFIFO     600 s         4131         17
->     rmdir               600 s         4174         16
-> 
->   The stack samples identified the corresponding filename_*() waiter in
->   break_lease(). Every VM remained responsive through the requested run;
->   no Busy inodes, KASAN, WARNING, BUG, or panic appeared in serial output.
->   The unpatched baseline crashes reported in v1 were not rerun.
-> 
->  include/linux/filelock.h | 13 +++++++++----
->  1 file changed, 9 insertions(+), 4 deletions(-)
-> 
-> diff --git a/include/linux/filelock.h b/include/linux/filelock.h
-> index ec11cc6b4..e909db319 100644
-> --- a/include/linux/filelock.h
-> +++ b/include/linux/filelock.h
-> @@ -530,8 +530,8 @@ static inline bool is_delegated(struct delegated_inode *di)
->   *
->   * Break delegations in a non-blocking fashion. If there are
->   * outstanding delegations and @di is set, then an extra reference
-> - * will be taken on @inode and @di->di_inode will be populated so
-> - * that it may be waited upon.
-> + * will be taken on @inode and its superblock, and @di->di_inode will
-> + * be populated so that it may be waited upon.
->   *
->   * Returns 0 if there is no need to wait or an error. If -EWOULDBLOCK
->   * is returned, then @di will be populated (if non-NULL).
-> @@ -545,16 +545,21 @@ static inline int try_break_deleg(struct inode *inode, unsigned int flags,
->  	if (ret == -EWOULDBLOCK && di) {
->  		di->di_inode = inode;
->  		ihold(inode);
-> +		/* The caller may drop its mount before break_deleg_wait(). */
-> +		atomic_inc(&inode->i_sb->s_active);
->  	}
->  	return ret;
->  }
->  
->  static inline int break_deleg_wait(struct delegated_inode *di)
->  {
-> +	struct inode *inode = di->di_inode;
-> +	struct super_block *sb = inode->i_sb;
->  	int ret;
->  
-> -	ret = break_deleg(di->di_inode, 0);
-> -	iput(di->di_inode);
-> +	ret = break_deleg(inode, 0);
-> +	iput(inode);
-> +	deactivate_super(sb);
->  	di->di_inode = NULL;
->  	return ret;
->  }
-> -- 
-> 2.39.5 (Apple Git-154)
--- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+[...]
+
+> Yes, agreed, almost:
+>
+> o	Keep the hazptr_torture_do_pending() do-while loop as it
+> 	is, but add the for_each_possible_cpu() after loop exit.
+>
+> o	Stop the readers first, stop hazptr_torture_do_pending()
+> 	to flush out anything left from the readers, then stop
+> 	the writer.
+>
+> However, for the "almost", note that the "while (!torture_must_stop())"
+> needs to become "while (!kthread_should_stop())".  If this change is
+> not made, then hazptr_torture_do_pending() will exit its do-while loop
+> as soon as hazptr_torture_cleanup() calls torture_cleanup_begin().
+> This will of course defeat the reordering.
+>
+> Does that work, or am I still missing something?
+
+do_pending does leave the loop then, but the final pass goes after
+torture_kthread_stopping(), not right after the loop:
+
+	} while (!torture_must_stop());
+	torture_kthread_stopping("hazptr_torture_do_pending");
+	/* The readers have stopped, so nothing new can be deferred. */
+	for_each_possible_cpu(cpu)
+		hazptr_torture_do_one_pending(cpu, &rand);
+	return 0;
+
+torture_kthread_stopping() sleeps HZ/20 at a time until
+kthread_should_stop(), so the pass runs only once
+hazptr_torture_cleanup() stops do_pending, after the readers.
+
+With "while (!kthread_should_stop())" and the torture_must_stop()
+check before the sleep, do_pending would instead spin without sleeping
+from torture_cleanup_begin() until it is stopped.
+
+> Alternatively, you could keep the current do-while condition and place
+> a loop around your post-do-while code like this:
+>
+> 	while (!kthread_should_stop())
+> 		for_each_possible_cpu(cpu)
+> 			hazptr_torture_do_one_pending(cpu, &rand);
+>
+> But changing the do-while condition looks cleaner to me.
+
+That loop would spin too.
+
+> This code will also need adjustment when something like a call_hazptr()
+> is added, presumably along with a hazptr_barrier(), but we can worry
+> about that when it happens.
+
+Agreed.
+
+I have been running this version locally, with the rest of v1: a
+30-minute PREEMPT run, and a 30-minute NOPREEMPT run with
+torture_type=hazptr, pass.  With kthread_do_pending_ms=10000, the
+shutdown still takes less than 150ms.  If it works for you, v1 will
+have it.
+
+Thanks,
+  Andrea
