@@ -1,96 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792766777;
-	b=XU4xoEYkc2t6RP1qTbxtWCZq98GtqKSeTwoaFuImNlTpa2vTIUC5aLV9voLAlfIy9SP+
-	 +w9HgqEUW5nx+pFPc954LPysWJ64JkmCtgvjIPt0ByqSEyIgUotT6obGvESAapDsqcEbU
-	 4q6VSytN5iZ37Xdh3IEys+R2Mq/WpK/YbpUxCzYhBPKN65dWiY8H/DVTbtZrYU8uANzML
-	 EaK8cEMqZL/tWFcI7Fo4t4+Uk4dNmb4GmQ6GGIMZyaDnhMj4ZIytlgNLbAdUr5aGvYwMr
-	 chpOn17Z6yMwkEsz3IVM+0OPdCROK4RjKCSFhPW1+L8wgH4fnEl1cJ2Estc9k5moOug==
+	t=1792766797;
+	b=DJAsbfOjP1BHcnd6hmSb9B2vsU27wBr4l3v746+xes/9KgRtlp6XI2RtovoRT2pavbtR
+	 fYuUO1fqTEQH53PKjTASCPBI9BqhosdUm9MUoE4SQEJr+t7lvo+B2vYEjaIm9yXxdE5Sx
+	 lj548qkHHgubw/Cs/0uWDm/uLBtbjG34yT4J7kKo/YCpFZxXIe6FNqIyOjPVHgRnImpdw
+	 SwtU/1k9ln0vPoUf07esyX/QQR5YzcGH/TTHoJaqpjJXS/FrasKJVZZ+OUG/PFObS3mqf
+	 NnLudtHKSc191Go7y5mVbQ+bOmW744K/grnJ4K8WuGNOXPKl+wrDmfP8u96ESKcYrqg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792766777;
-	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
-	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=lqGtpWRMUHozarHKXyqBee5uJfZddr1rf+OxSwhQcQY=;
-	b=Q9RHRB4TnCwKzOP/1vSHy/M0CkODPH5XjhVR+09HgdRTNPIZsqE5MuvWMwTbStwkWbW5
-	 3mdj1TXuqtIVhk9gYVUCMQi4sNMzD/HjD8bUdNBkgquTKtH77RcD/Qa55+XpHCRhXz10j
-	 5sXeWBZIESKlvrNe8SUIehwNSK+ASCPs4O2PtFclTd+57PPuTM3buhRQiM8IQ4icHPUmM
-	 8wfa+aqPpYyD7bmkjX3umWBEj3y6OhtJD8v3h7wOvlFU5YxvCFNchL/7L2o5wc0BsU7sx
-	 bZIkLSVME2sBBDeUFhbitagXsMPqf6lGHRLtVDIV579jGs9xFXp7neY3CBRMmfOQJ6A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792766797;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:Auto-Submitted:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=PJRu7W6/Or1we5Gv3BgoLEtby0D0Y0UGgfjBHfRc5+k=;
+	b=4nfbsEHYG9vNEmb4rnwzvHhIgwocgI9/LsZaMR3tQ2wTqX8sdt1UGK2jIvrqqTHsJJar
+	 GxRLWN8YTvgnsYNFH0LKB2YfUDZKBGsf0y1gKKavYv5QFVbRrW/DtvMD9dQQ+XZvay3/e
+	 45eYrKwM0cbC8fdrEP6el4H/kpKVSvW4gthxC6BcIYZ2vlLGXr1+igEzCJunbCTCmsaT2
+	 cxBlSYXjMYu23jQljOis/TjqnYohZXntNA7vt6Fm64WyIjXqR/sOTboyqeV9ckWQZPSnF
+	 x2tX5Cvq7mumumKWhtDMUSSjcQlZPzw1uo2B4s/8ZIILAYCZzZrjY0bGyqgB1f5Kxkw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gcGNHg8q;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="lhJ/piKI";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A41C5606A324
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 14:46:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C871606A31A;
+	Fri, 23 Oct 2026 14:46:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gcGNHg8q
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8921C1F01829;
-	Fri, 23 Oct 2026 14:46:16 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lhJ/piKI
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 25EC91F031E0;
+	Fri, 23 Oct 2026 14:46:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792766777;
-	bh=lqGtpWRMUHozarHKXyqBee5uJfZddr1rf+OxSwhQcQY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=gcGNHg8qp3FVRGLx/dl+vDCCAiT0kPWGc+M/+9Rq3SIVplKNod9Drxw6TVcUKSdYz
-	 ZVal847Mm1lTe5YoPpbB6RVGc0lEK25uJjTcnU68V8IgbBZG7uW1DAcqoYylzVKnVZ
-	 qo2VLHffUEF0DSgRq5NLqjbjcqBq815XYJQKnvOEoVReDSVP0UrnCHRvEJ0OQzEf/G
-	 eN1tmn+sCieC5MgHJgG1O+iSZ3vklbLpQ3/1J440gi4l6y2Tqn9/5Na/ne7TJ/us5T
-	 m9gbwjAbNXFVgcevpFAjpEDW3Aja8oM7h4GrHLpxKVMu9Lz1umamuzSLDj8gKEN3+M
-	 PjLRg/aRwntug==
-Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
-	by mailfauth.ams.internal (Postfix) with ESMTP id ADC06198004A;
-	Fri, 23 Oct 2026 10:46:12 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-03.internal (MEProxy); Fri, 23 Oct 2026 10:46:15 -0400
-X-ME-Sender: <xms:NHPbaodxIwfmERKVMjO3emuC-DmCiY3_wsg_1clj_OjlSJ4QcopNZQ>
-    <xme:NHPbaj6DF3rY_8J2h4I3gpAc7Dgb1qW5r22W6entvNGUtZsQKI-pL8WkYi2aqDWcX
-    kIoIJEtvoTpCP5FLEUh8x0yyqUbWNSzsJ7LpsUZW_Ih_OXfbk9xLWk>
-X-ME-Received: <xmr:NHPbao3WddwwbxsCpGRLyfnGMn-oEOOo-xSQsrvLJUsLOPp5ELRM6ZuXcVU>
-X-ME-Proxy-Cause: dmFkZTGWzcuTEmWQLzfWqLZ4TItB4My1D1r9DQkczQVudo2y/CBinrz6rqIzv2fdTJmQit
-    MWJwEuqXf9cP1nnF52BUgbU7yUcs+aIKR0NY8tHKyUAivJTQMueCYpQn8ziVleohN2asNT
-    tGiSIb/MnF0vPL0n8KcVeHWwb9xD6DTByHfWnkc+E9lBZUsMWiAGWDml2tJ4AoFQ4qmqUq
-    klzQi7HiNDGq/ym69P3GPHlzA0NXkSTJL0DBnmmdXKgajw/9OG+7sspwLXuaVqp9sQ+R2u
-    vUgM0+L9lfRB0WiRaKnp8iETDuUJ7ldQdWNvFo8/07kNi01NTiuWZMMGjzKp3oJnYQ1kMe
-    aZmc1+hS843Xgoa+at+eHcthqrFTNsIASPbVgVkQdLBcwgNLu7f47IV84EwluPtPFk7HHj
-    1+OOrN5ppjcVEBedXqBYX28mBxEESempkNBsvPR/9gv+U656dlQkJ6Hy0PbhEtYHkYfRGn
-    emwXRBdrGi/52+YAD/MDJ1luUrBPlH3HdqF0uC79YL+SljSesdSUh0kBE5jzBGKa18s1fo
-    L2nyo7hZ8GmQH2Sp65qRN0u4GS2G4gUK83dT0rZiG9HsflYpRKpvrHv/ZxkI+8xU2yvc/1
-    2U770t5dX5AZkR/YSRK4lyW4+zSO3qlgebWsbxvTefu8FgM9L8ZrPx3JNQTA
-X-ME-Proxy: <xmx:NHPbamAm7NyUBz06IvsKkX4ExFTeotqYnXDVWnh28bi7qJBm-q1gVg>
-    <xmx:NHPbapHrTjiOSJmluRQ3UdYqxMxueCquFcSMHWzCsOVwKAV3RqU0lQ>
-    <xmx:NHPbago35GXJXdHH4AychpbXg6n8uSJ4cq75y25cdS1rRJCnNPx5Vg>
-    <xmx:NHPbap3IqfFmICatC8MF6w5rAe0H8G1201YtKl2IMScodEvb6MI-sg>
-    <xmx:NHPbasCOcP9XXZMfbA85AOiwEouDFFnDBy3EsIC-u_P8YgKgy91TwKAF>
-Feedback-ID: i10464835:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 23 Oct 2026 10:46:11 -0400 (EDT)
-Date: Fri, 23 Oct 2026 15:46:10 +0100
-From: Kiryl Shutsemau <kas@kernel.org>
-To: Dev Jain <dev.jain@arm.com>
-Cc: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>, 
-	Johannes Weiner <hannes@cmpxchg.org>, Andrew Morton <akpm@linux-foundation.org>, 
-	David Hildenbrand <david@kernel.org>, Harry Yoo <harry@kernel.org>, Usama Arif <usama.arif@linux.dev>, 
-	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
-	Brendan Jackman <brendan.jackman@linux.dev>, Zi Yan <ziy@nvidia.com>, Shakeel Butt <shakeel.butt@linux.dev>, 
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
-	kernel-team@meta.com
-Subject: Re: [PATCH v3] mm: page_alloc: make defrag_mode retries follow the
- promoted order
-Message-ID: <atty0n4UzTfI46eN@thinkstation>
-References: <20261012192834.6934ef85444dee4a60d6d876@linux-foundation.org>
- <as5q14OsbK2CmOrh@thinkstation>
- <20261014202936.GC371161@cmpxchg.org>
- <78238103-3a7f-432c-b1df-bd14d7cf4bb1@kernel.org>
- <atDMN5MoGrwJNpAj@thinkstation>
- <4aa14b41-9b89-494c-8825-55fffd5a541c@arm.com>
- <atiCG2iPrHwDznSZ@thinkstation>
- <d2b8edf0-39ab-4a44-bd0d-58230dee2fad@arm.com>
- <ats7oFM-fsYdUS8y@thinkstation>
- <attOFXch_TchIfEv@thinkstation>
+	s=k20260515; t=1792766797;
+	bh=PJRu7W6/Or1we5Gv3BgoLEtby0D0Y0UGgfjBHfRc5+k=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=lhJ/piKIfdhNEZoGhWPApUoE3iyAiqiT6YxakXouAHMieRB9JRNjJZ2rsXtEkC0Sz
+	 Iz4UQMKC4O5YYzk5SjQSswhNXJz+d3hJj8AGCHl7PoHNtjj4Aw2nV6kuYDPEHU5gEQ
+	 2DfR66U++EoB2XuIpYWt7N1ogj1/O51TR8sCV4VVtN+XW16rKHIG/HXjAuVeizX304
+	 z0k/jTDE5Xu56K4g3jJXDnhrov0tuAdWx/1fe0RUZrE8Wwo6zR379Q+dFn+ZJ8F8BO
+	 taGhhLdhYdtLkeZBPw0zKqo4BJVBBRv/P3BXUjBJ+fyS5Pa/OjBc6G5/bQz4LjXOgs
+	 FApBtMmWYJg9A==
+From: netdev-bot+sinfo@kernel.org
+To: Yingjie Wang <1075151112@qq.com>
+Cc: netdev@vger.kernel.org, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, jiayuan.chen@linux.dev,
+ ncardwell@google.com, kuniyu@google.com, corbet@lwn.net,
+ skhan@linuxfoundation.org, rdunlap@infradead.org, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH net v2] tcp: limit tcp_tso_rtt_log to a valid shift count
+Date: Fri, 23 Oct 2026 14:46:35 +0000
+Message-ID: <179276679566.3327.9704428594683564075@kernel.org>
+In-Reply-To: <tencent_31D2FFCCE76C50A695A1270151F825E90906@qq.com>
+References: <tencent_31D2FFCCE76C50A695A1270151F825E90906@qq.com>
+Auto-Submitted: auto-generated
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,17 +64,21 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <attOFXch_TchIfEv@thinkstation>
 
-On Fri, Oct 23, 2026 at 01:12:02PM +0100, Kiryl Shutsemau wrote:
-> The diff below replaces the previous one. It needs cleanup and splitting
-> before it goes upstream.
+Hi!
 
-Proper patchset:
+This is an automated message. This series looks like a fix, but its
+commit messages seem to be missing some information:
 
-https://git.kernel.org/pub/scm/linux/kernel/git/kas/linux.git page_alloc/nofrag-watermark-v1
+ - How the issue was discovered, e.g. hit in production, hit during
+   development, syzbot report, manual code inspection, LLM or static
+   analysis tool scan.
 
--- 
-  Kiryl Shutsemau / Kirill A. Shutemov
+Please do not repost the series just to address the above. Instead,
+reply to this email with the missing information, so that reviewers
+can take it into account. If the series needs another revision for
+other reasons, please include the information in the commit messages
+then.
+
+The evaluation is done by an LLM so it may be wrong, if you think
+that is the case please reply and explain.
