@@ -1,79 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792750216;
-	b=4+K6YtOazhfhmfUgkbLl/gZKev5mMsh6p4+SkXjSnKzcd8jsnLj/Vo3S6mYaUUPnHf8A
-	 xB+xRDiKOW2qmz3bbWUDc6Kwy04llYpiGV4H1GniHAJ3Zj+fcGVNu1StSA/W5Z3cowuwQ
-	 HQy5e0uYPvTXr4LLCeErw9Z2FbKFZ2wUB2NVVlIXkP2McTY4Ls3zrkGKqwIc+waukzplN
-	 R/T4GXJ5JXe1r6r7+SfT6bf2CeurIL+NS6dglqHuNfAdA8e4ShXCXMYTRoCBzxtnhFe0U
-	 xf/PlW7ZVjIVKZqS5WTq0C1YhW1+7kYNBlYFi7wMPl9/e6qaEOk3bf79O0eVNeSQTBA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792750216;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=GIjcJbhiZCM8A/Ohjw3DKcZtoKida5YLpCeOLFvQ9aQ=;
-	b=c7EqLKFhgjRTsIaIZ21fbVvFuAgopriUbz0U1r3EugPAsoP7kjiUkz0VS/E97AacKel8
-	 lVkg1RfJZODfEvTEDKLC0yG9im3xuIvl//5+UmQlvk3WZowdc85o7IB5zqYJ1ul5Xm9OM
-	 qNEZNWQodHTyPnKDw1ixDFOfrmoEZDKTWBqwjmI2O0MHmL8xyI3Ei7VITEyAlmiE7HNqb
-	 Xu6XRW0MUAd60rznf+Tzudp/qeECqec+M6+dtncRd87EqCFn0Oizr/AjlbeWPrwa6VtuO
-	 8UGtj52GFxc12HqQ3xR5am7NNHDiff07UQL6JAbPM+IumE6COBrZVl/PvPv7o7D0hRA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=a+XuSZCR;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B6D6606A31B;
-	Fri, 23 Oct 2026 10:10:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=a+XuSZCR
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1792750214;
-	b=rs6E0FVVg4vJpBpZszAnD+G2auV+90G1UYeis7G3tQRFjWQmS5ZMriCIn8KJMWPQeNoG
-	 rvw4mWq+8u9Dh2+RZNbbhtG/h9XP3ea94C0hmmpl0/EnPzS7qlubNxrxDaMka9o3fPFL4
-	 jiAJFkEPbAi08zsF6sScb2q5cXwJgjmoKRQ11YWsEnuMLYOzg75cAqTea57oAeZoEr0In
-	 SHB7HJi2dtgoYrto5ZJEoEsUwJCHEVN6ZpJAtFXsC9LhfEkpnjRdgz9wtn0wE1/zPxqOx
-	 lQrMnUvgzQhrhHYaTQTgWBKAJLQYFeyRaBT4D6tZULZgAErkSXmo3edoEDwq6XvoMfQ==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1792750214;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=GIjcJbhiZCM8A/Ohjw3DKcZtoKida5YLpCeOLFvQ9aQ=;
-	b=cpzHJFMkUyWT7t7hAkYI1DsOTxpVLW5q4ZCcAa0j3x/VcjoEdK/m82PxPnHwqNim3th+
-	 t5tMguOkwUjSz4f5N60c9xQgJjgU1GqJojrJr6x1GSyafWDSd+oookfgvqsZovhDQ7A+P
-	 xkUEOXCHxr+HLdV59bkj5ZuozZPgIJ+OCm9MyW+a3wvmuNEbyuq9AQAs9vMjMscuW1phL
-	 hTpRGi4Qstby/HK5ApggmOtMsXQ2y7lMjCr9nBvJ0gM5jHP1e012eDGV9REKtnRemhxLy
-	 IKMrBqe474YhcELKNXBsUzfOwAGYsjlVHCSRSGbbJf2PZVAbaqytMHNs2oYjNN4w6dw==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.50
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792750334;
+	b=wPkOMtldNEv7RaSJT6XChZeMNTOEJbfqAAOWNkFFZTU1lxBN514p+zPQ8p6oGRNb4mj3
+	 fAuf+2rMbv3MeZ7ceoMnIYGdBls/ubMFad1jORLpIwiyAIV30OowmlKosPlOL7GXgyVAw
+	 rGVD+OTmBwxrdq7dCaoBBzzj5te/8zCe2fnrcNFTq/IuyIMZnPlJbXoFZ7XugDb2EbUxZ
+	 StdEpebypPw0sY/FkE48+GHrEOSmwwyyvb0bfSJQAN7d0OvbdjDLJBnrOsEz+XC9EthxC
+	 Zx5XUsp/RqVtc5xaR8yJt7rM3ycX1yrxtQ0c1ebBaQLY8flJTpJZn3MH92Igyv4qI2Q==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792750334;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Subject:Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=xOkdMQgEfZtJLgU0fFwbDzze1EactQ9BVvcxXQMDTo4=;
+	b=AnnjveYOy0sAepl5EBJkqfWKrrGOPSs4HGWkadGp5h4HH/3JNoHGeiKFOm9Mu/OTTgCK
+	 JOqGZjsLNm12xXRonEe/WRNIYhnTjhbnnDz+WQMQaG/0A6gyZOkT2/maOKsJSEMPfCCZ5
+	 yZezBUVm2jNgczGVifgu1hi/AqksRadfy5SeyJrCpEftEvBkAHDnzjzGgMvpqb2voUlF6
+	 2jkFcG0XpUAdQMTTSmhk3Qnj1GGJCfvO8+7QVWVrZYMwK2LVzr78PDOnoCm5qSEplfKB4
+	 KtL1XZGr81hB3lxyv5lS1dlxn2s9okxWdkycwekOgCrNb0eaROdnk1agpzI/DYKdVnA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=suse.com;
+	spf=pass smtp.mailfrom=suse.com;
+	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=Gc7IXAzh;
+	arc=none smtp.remote-ip=209.85.221.50
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 63E4D1F031E0;
-	Fri, 23 Oct 2026 10:10:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792750214;
-	bh=GIjcJbhiZCM8A/Ohjw3DKcZtoKida5YLpCeOLFvQ9aQ=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=a+XuSZCRMFTUp8TfGOC6tmlkKgnvlS+wa36rCGL7MsMybpcCqOOY+5zPfXrl8vZW0
-	 SWlJixPfYZ0sAeomnQMBkPQ+xlCGW08nzAmDdZnkeNJzbj2IFlFMAxufkCs4izsUst
-	 tToHVZptpd7AotXNUXkcQWFGDj5xhD8oND+Cw0PIEYkj83vk2Ixt4ZQJwDnDpzm3Cj
-	 EgghMbuC06ilYB60qZuznjRb5aiqI4YF8DGvdtPd6mhdEI2u/G+ySp2fz91qKmiY6z
-	 YzEJxye5QL+rRtuqCczVwFLy0pk+UKVf987QOX+39xKh940/6YqEgJeMTcKVkAmV4w
-	 5GYnCufyCP0xQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id D815544499;
-	Fri, 23 Oct 2026 10:10:13 +0000 (UTC)
-From: Ishu Brar via B4 Relay <devnull+patches.brar.si@kernel.org>
-Date: Fri, 23 Oct 2026 15:40:08 +0530
-Subject: [PATCH 1/2] dt-bindings: clock: qcom: Add SM7250 graphics clock
- controller
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DAC5606A321
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 10:12:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3DAC5606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=Gc7IXAzh
+Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-48dfdd0678dso491863f8f.0
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 03:12:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1792750333; x=1793355133; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=xOkdMQgEfZtJLgU0fFwbDzze1EactQ9BVvcxXQMDTo4=;
+        b=Gc7IXAzh91GyjohKVdF/dqUtsNyzi4sPLVW0lyc/2BtjrHoPY3BuCMCWOvD34hkCWl
+         n60yTN2FJ1EMUDw7QSmeCBFOup8RfB+2be2lMwAMAManQ52u9j99pHXzo4kgpPBnBCsX
+         R1zSbxojmhxoHKQbVN8ZX2CXKxCfr8r6skio8EFwjBAEJKUQky8PsxBzUuOa+UzPv7pY
+         l2JCR7NLb2MIX+xS3NCnLVaQeAqg/IVTg4lP7wN9HJPUwz8P8hiXa1PsouDTh7h3D45C
+         g9F5/6+prgmRj5i4XwKhgJnS24ANiPI4v29jBHOj5si/fGZTUQPHHUPKm8L2RetuAaB/
+         CePw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792750333; x=1793355133;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=xOkdMQgEfZtJLgU0fFwbDzze1EactQ9BVvcxXQMDTo4=;
+        b=F70IarO0mPOpeQA5mQdmMf4CBXyr+VZOC2YyyT3JoKC1rb0vmsvk/hHRUKndC6nDGD
+         +TZoeXA1jNBwXW76gdj4XAUCFwLmBrJwkEAY1yO4iVQUlocNfZYzNpMoK7y+xNIUoJqj
+         d00bQ8RbhUFe5CjHqbZVqwfA2QVWEP53fkqAjiqt4b1WESSQOog6E+VQnuL6g86fppCt
+         y1rWy0lvYraFF4tsJKF0JixlEM+xKPPPdeE3XGBp5savQ0iBOOoqV0MRC+9lvT9UIYPu
+         eiDxwRAC61BRlRGOtEzTvh6nw9i4DkjE1wD1/SyMGgXdtEp3RrWfYUMjb4cjpGJykNp7
+         5iAQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxv50wo/jZ8d/7T4orgYgUBUOaO37SWxI3Gymdm9f0strq4ADyMn5G6ke5sr+3Qlw1vbXg4exX1Tb+b4sc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKUEnN4Qq38Yo5iAV64ODSqC5bpPvPYXdjc3F18n2IcYhfvftQV
+	wOXDnuxnV0TR/k23mxmvJw+eB6AMG7m65LIJY8m0zH8iseKmHg7wZ0r0c+MjJL1H5eM=
+X-Gm-Gg: AYBFou0B6uNoIE6Ps5JkJXItvCMUPrB/E+qlanjFhRgnOGwZTjRLsVMhoLadGOmghNZ
+	yUhg3svIFrhDmeIwlA/Mssy4b+4nPlL6VnVlKi87ah7XRua8ahkHlYO8tU4khwUpfBbXQnZVBWj
+	PrOMyUHNxSZ9vFI07inv+YKIWas1j044GlzXJJLYxkV5kGDUUKUf2IgAR5U7F+GIp1OEQcwJJoR
+	zRKIrDGr3vLteLEL+CDVw4ZYhSElrQztCaYMW+XSYpIwHK7k/fhly3+s+RHdb0WRBB1wDxu4Dce
+	1dMObreXihPqHkW3zQ2szhk5LyTcZxuP9ARpubSTeQ+awSBSsnDJUIVulvMANdQVbMdF+4NOXR9
+	gecGY6Ky3WodCaV+1YFj0QGPcwtYURwPJMeamBXvQJfbmhlSO752hvTfOeKwEFl61VhbL5vedAz
+	uX6esQsutuzLIQm1sb5tttChxDlH+FB5KKskY7sgxh38NnJ4q0MXt43JqJ4/2PDv1c4zo7us6SZ
+	7zsrti3HJAu1QpPczebwOhippwmbCJXiv9ttAG01O2MM+jNGPcPWWk=
+X-Received: by 2002:a5d:6f18:0:b0:48e:f47:273c with SMTP id ffacd0b85a97d-48e3854f342mr2931502f8f.8.1792750331152;
+        Fri, 23 Oct 2026 03:12:11 -0700 (PDT)
+Received: from localhost ([82.192.120.214])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3804ccb4sm4289462f8f.38.2026.10.23.03.12.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 23 Oct 2026 03:12:10 -0700 (PDT)
+From: Andrea della Porta <andrea.porta@suse.com>
+To: Guenter Roeck <linux@roeck-us.net>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Florian Fainelli <florian.fainelli@broadcom.com>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Andrea della Porta <andrea.porta@suse.com>,
+	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
+	Ray Jui <rjui@broadcom.com>,
+	Scott Branden <sbranden@broadcom.com>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Gregor Herburger <gregor.herburger@linutronix.de>,
+	Stanimir Varbanov <svarbanov@suse.de>,
+	linux-hwmon@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-rpi-kernel@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	linux-pwm@vger.kernel.org,
+	Gary Guo <gary@garyguo.net>,
+	Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+Subject: [PATCH RFC 0/4] hwmon: Add fan tachometer support for Raspberry Pi RP1
+Date: Fri, 23 Oct 2026 12:15:53 +0200
+Message-ID: <cover.1792748690.git.andrea.porta@suse.com>
+X-Mailer: git-send-email 2.51.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,112 +116,94 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261023-gpucc-sm7250-v1-1-d9149cece8be@brar.si>
-References: <20261023-gpucc-sm7250-v1-0-d9149cece8be@brar.si>
-In-Reply-To: <20261023-gpucc-sm7250-v1-0-d9149cece8be@brar.si>
-To: Bjorn Andersson <andersson@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
- Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Taniya Das <taniya.das@oss.qualcomm.com>, 
- Imran Shaik <quic_imrashai@quicinc.com>
-Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Ishu Brar <patches@brar.si>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792750212; l=2751;
- i=patches@brar.si; h=from:subject:message-id;
- bh=zNYJpd8CGDe4+jLuKQsFoERznSdYKLOwrl2HcMSC/Jw=;
- b=IWiL+WuU0aMzyFIDvNG6CyKEglNpi6iwZrVN+QBjuih/cd0siKsRB0IauF0wv2nTvBZ4f9iN9
- FUvwMdYxp40D8C9cnVj9LxlOpNMB4mDU3rltRFDrZZd617bQKUXMtjb
-X-Developer-Key: i=patches@brar.si; a=ed25519;
- pk=Ds+E23E3ntzjPzuBDyVRkOouclcNI5k75R+N42yJtCk=
-X-Endpoint-Received: by B4 Relay for patches@brar.si/default with
- auth_id=1189
-X-Original-From: Ishu Brar <patches@brar.si>
-Reply-To: patches@brar.si
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-From: Ishu Brar <patches@brar.si>
+Hi,
 
-Add the compatible for the graphics clock controller (GPU_CC) of the
-Qualcomm SM7250 SoC (Snapdragon 765/765G/768G), and the header with its
-clock, reset and GDSC indices. The clock inputs are the same as on
-SM8250, so the existing clock and clock-names constraints apply unchanged.
+This patch series adds fan tachometer / RPM monitoring support for the
+Raspberry Pi RP1 southbridge found on the Raspberry Pi 5.
+Please note that the patchset in [1] is a prerequisite for this one.
 
-Assisted-by: Claude
-Signed-off-by: Ishu Brar <patches@brar.si>
----
- .../devicetree/bindings/clock/qcom,gpucc.yaml      |  2 ++
- include/dt-bindings/clock/qcom,gpucc-sm7250.h      | 36 ++++++++++++++++++++++
- 2 files changed, 38 insertions(+)
+On the Raspberry Pi RP1, the active cooling fan speed is controlled via
+the RP1 PWM controller. In addition to generating PWM signals, the RP1
+monitors fan tachometer pulses. The pulse measurement and RPM calculation
+are performed autonomously by the RP1's onboard Cortex-M microcontroller
+core, which periodically writes the computed RPM value directly into
+dedicated MMIO registers located within the RP1 PWM hardware block.
 
-diff --git a/Documentation/devicetree/bindings/clock/qcom,gpucc.yaml b/Documentation/devicetree/bindings/clock/qcom,gpucc.yaml
-index 3ac441900..d262455f3 100644
---- a/Documentation/devicetree/bindings/clock/qcom,gpucc.yaml
-+++ b/Documentation/devicetree/bindings/clock/qcom,gpucc.yaml
-@@ -21,6 +21,7 @@ description: |
-     include/dt-bindings/clock/qcom,gpucc-sc7280.h
-     include/dt-bindings/clock/qcom,gpucc-sc8280xp.h
-     include/dt-bindings/clock/qcom,gpucc-sm6350.h
-+    include/dt-bindings/clock/qcom,gpucc-sm7250.h
-     include/dt-bindings/clock/qcom,gpucc-sm8150.h
-     include/dt-bindings/clock/qcom,gpucc-sm8250.h
-     include/dt-bindings/clock/qcom,gpucc-sm8350.h
-@@ -37,6 +38,7 @@ properties:
-       - qcom,sc8180x-gpucc
-       - qcom,sc8280xp-gpucc
-       - qcom,sm6350-gpucc
-+      - qcom,sm7250-gpucc
-       - qcom,sm8150-gpucc
-       - qcom,sm8250-gpucc
-       - qcom,sm8350-gpucc
-diff --git a/include/dt-bindings/clock/qcom,gpucc-sm7250.h b/include/dt-bindings/clock/qcom,gpucc-sm7250.h
-new file mode 100644
-index 000000000..f4536808d
---- /dev/null
-+++ b/include/dt-bindings/clock/qcom,gpucc-sm7250.h
-@@ -0,0 +1,36 @@
-+/* SPDX-License-Identifier: GPL-2.0-only OR BSD-3-Clause */
-+/*
-+ * Copyright (c) 2019, The Linux Foundation. All rights reserved.
-+ */
-+
-+#ifndef _DT_BINDINGS_CLK_QCOM_GPU_CC_SM7250_H
-+#define _DT_BINDINGS_CLK_QCOM_GPU_CC_SM7250_H
-+
-+/* GPU_CC clock registers */
-+#define GPU_CC_AHB_CLK				0
-+#define GPU_CC_CRC_AHB_CLK			1
-+#define GPU_CC_CX_APB_CLK			2
-+#define GPU_CC_CX_GMU_CLK			3
-+#define GPU_CC_CX_SNOC_DVM_CLK			4
-+#define GPU_CC_CXO_AON_CLK			5
-+#define GPU_CC_CXO_CLK				6
-+#define GPU_CC_GMU_CLK_SRC			7
-+#define GPU_CC_GX_GMU_CLK			8
-+#define GPU_CC_GX_VSENSE_CLK			9
-+#define GPU_CC_PLL1				10
-+#define GPU_CC_SLEEP_CLK			11
-+#define GPU_CC_HLOS1_VOTE_GPU_SMMU_CLK		12
-+
-+/* GPU_CC Resets */
-+#define GPUCC_GPU_CC_ACD_BCR			0
-+#define GPUCC_GPU_CC_CX_BCR			1
-+#define GPUCC_GPU_CC_GFX3D_AON_BCR		2
-+#define GPUCC_GPU_CC_GMU_BCR			3
-+#define GPUCC_GPU_CC_GX_BCR			4
-+#define GPUCC_GPU_CC_XO_BCR			5
-+
-+/* GPU_CC GDSCRs */
-+#define GPU_CX_GDSC				0
-+#define GPU_GX_GDSC				1
-+
-+#endif
+During earlier discussions, Uwe Kleine-König explicitly indicated a
+preference to keep the core PWM controller driver (drivers/pwm/pwm-rp1.c)
+focused strictly on PWM duties, rather than bloating it by registering an
+hwmon device directly from within the PWM driver (see [2]).
+
+Because the Linux PWM subsystem currently lacks a generic framework or
+consumer API for reporting hardware-calculated tachometer readings, this
+series implements a standalone hwmon driver (rp1-fan) using the following
+structure:
+
+-  The PWM driver exposes and exports rp1_pwm_read_tachometer() within a
+   dedicated symbol namespace ('RP1_PWM') to read the RPM value from
+   the MMIO block.
+-  A companion DT binding (raspberrypi,rp1-fan.yaml) introduces a vendor
+   property, 'raspberrypi,pwm-tachometer', to link the fan node to the
+   PWM controller node without overloading or abusing the standard 'pwms'
+   property.
+-  The rp1-fan hwmon driver parses this phandle, establishes a device link
+   for proper runtime and unbind dependency management, and registers the
+   standard hwmon 'fan1_input' sysfs attribute.
+
+An alternative architectural approach to the DT phandle + exported helper
+method would be to model the tachometer as a child device using the
+auxiliary bus framework (drivers/base/auxiliary.c). In that model, the RP1
+PWM driver would instantiate an auxiliary device for the tachometer, and
+the hwmon driver would bind to that auxiliary bus device without requiring
+a separate DT node.
+
+However, adopting the auxiliary bus would require a more significant
+rework and refactoring of the existing RP1 PWM driver. 
+
+I'd appreciate any feedback on whether the current companion driver with
+a dedicated DT property is acceptable, or if an auxiliary bus-based
+refactoring of the PWM driver is the preferred upstream path.
+
+Patch Breakdown
+---------------
+Patch 1: pwm: rp1: Export helper to read fan tachometer RPM
+Patch 2: dt-bindings: hwmon: Add Raspberry Pi RP1 fan binding
+Patch 3: hwmon: Add driver for Raspberry Pi RP1 fan tachometer
+Patch 4: arm64: dts: broadcom: bcm2712-rpi-5-b: Add RP1 fan tachometer node
+
+Thanks,
+Andrea
+
+
+LINKS:
+[1] - https://lore.kernel.org/all/cover.1790686331.git.andrea.porta@suse.com/
+[2] - https://lore.kernel.org/all/adLTwOTbkJ0VQXy6@monoceros/
+
+Andrea della Porta (4):
+  pwm: rp1: Export helper to read fan tachometer RPM
+  dt-bindings: hwmon: Add Raspberry Pi RP1 fan binding
+  hwmon: Add driver for Raspberry Pi RP1 fan tachometer
+  arm64: dts: broadcom: bcm2712-rpi-5-b: Add RP1 fan tachometer node
+
+ .../bindings/hwmon/raspberrypi,rp1-fan.yaml   |  39 +++++
+ Documentation/hwmon/index.rst                 |   1 +
+ Documentation/hwmon/rp1-fan.rst               |  41 ++++++
+ MAINTAINERS                                   |   1 +
+ .../boot/dts/broadcom/bcm2712-rpi-5-b.dts     |   5 +
+ drivers/hwmon/Kconfig                         |  11 ++
+ drivers/hwmon/Makefile                        |   1 +
+ drivers/hwmon/rp1-hwmon.c                     | 136 ++++++++++++++++++
+ drivers/pwm/pwm-rp1.c                         |  27 ++++
+ include/soc/bcm2835/raspberrypi-pwm-rp1.h     |  10 ++
+ 10 files changed, 272 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/hwmon/raspberrypi,rp1-fan.yaml
+ create mode 100644 Documentation/hwmon/rp1-fan.rst
+ create mode 100644 drivers/hwmon/rp1-hwmon.c
+ create mode 100644 include/soc/bcm2835/raspberrypi-pwm-rp1.h
 
 -- 
-2.56.0
-
+2.35.3
 
