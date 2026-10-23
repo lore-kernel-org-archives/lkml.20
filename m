@@ -1,70 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.168
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792722047;
-	b=q+jtqunfru7b9EMEspLsvJs4dI1PSYGss6SeO70qY6grPR8gD9zxmcNgHCo83t1FIUgm
-	 CpwTJY4bh4QkVwHclj4e376dvHgVk+GLP06ErRa91moLelPoNK8xZfEmP3OXRVQpTh+Qh
-	 GILgRqZ7rgG6VZyK6mGsDrnV6nSFeErH1e1CXaIko5UoQpOutSmu9Rtdfvx9fSuvhEIfu
-	 Y6m+5aeXzfsSzJshpBL/Th9pHAncHw/WegnMhBow7R2vc+AV4srcrHHzZI2ptLlZjQ4yL
-	 tgHnr8aFUA7LQP53d8o32oQq2lvtZhvTOA4WXkPpsZ2e04uDL9G51PpZKp3qcMszIPA==
+	t=1792722075;
+	b=Yf1ehoyC9dHiNWoSDGfG3jIOtA4s1ywd299V7Rnvn9xUcpPO5k8S7qFqdHwfvsIAyhl2
+	 P8NorXnliOPHK9aSiOPTSnFWc1xbJNHZmIK5PJb0vLtWeuWe8zViGM1aOfD1+m6yym0gc
+	 /wnWBcJsHaS6HDMas3MO4JkRiwg3tYPXzi/CeP5jpDczt83yMvwJZTg4YCTuZhbSZY5bY
+	 PFwctcyBDgzS8xjDOZ9DRjd7zeZOk50Mcs5X5iEZLWk3aBQM8dMYLld43qLK4CnyNN+BU
+	 5mArT/i/oR8UDj59KBDcDISpd0yV6Qx5/7eWponIaM6UbVfoUzlkzd1st0sUJYBUihA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792722047;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1792722075;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=lJj29YZXaCltYYYPax9FC2PzbE2sg7jlrCg6+nh2uVo=;
-	b=UVR73ScV8sskQH3HdR4oZJCj43LZXqopzP4GJQBcWhwLVs6xzwwOwYI3C16GcXUVSXNE
-	 wM0U7kyvkBjtzG+/23FwtkivCNX70kv+GCS/rmwiCQSeOX/fNOiaRCuX65DiNi3bJIKdX
-	 SsdLMtbMfEjpAw342n8CaogciX3Zpw8u9lvA8BJUUKzlebE0CYC4UXRUl5kwiSaZFhc+9
-	 MOWCXEwYMFKBNkVpQYWFXfhxQ2aXQ7+BwXcC9s74gz8cinoTXjEWTJJEtlk0sm6nVV8ok
-	 qQAjTafwa0opEupTFe/1KISA7f50oEV4obMG09MdDcv5wtNTbPAhmqzUrwP2m7x+PDw==
+	bh=XXX5hCVe20W2DEnZ0HF+fr0EqmB3/p1IDPVPZBeHOFk=;
+	b=Fol+8YtOzqzP6YnkO/w77eFsgKcKJLfHQRlia9BdnNAiHFnr3KANiR3lmWWTnsHf1hBF
+	 A7JwNFLDWLz8jCaLoTwvQcXG++yxFsA6oV979NRbJVdaci+1YptEF7PgV8kzm0zBFM27A
+	 OycxHQwF/jl2pvzmSZ+AQjy9NxUO7ke84yVYGczih9N5PKpJJ7BmRn0TVsxzzL15sbFFA
+	 hLCVW6AHyzWU05smM0TuG9d1KKamCzq7cq2fJY+6DwJTRJoR4c0dK9bt9aDcSWhenQM4E
+	 4Nj7UX2Op2wICCQWrBHAnNL1WJ2Gw/bNXkVQbHjRBzKuJyp+PLgiaDCGF9OUQJjoMsA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=mpcgfXNM;
-	arc=none smtp.remote-ip=95.215.58.168
-Received: from mta1.migadu.com (out-168.mta1.migadu.com [95.215.58.168])
+	dmarc=fail header.from=isslab.korea.ac.kr;
+	spf=none smtp.mailfrom=isslab.korea.ac.kr;
+	dkim=pass header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=D7ulQNAY;
+	arc=none smtp.remote-ip=209.85.216.44
+Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61EBD606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 02:20:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 61EBD606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60BEB606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 02:21:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 60BEB606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=mpcgfXNM
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=KJhxT0fyggms2ovfhLdLIeLX39g35Kvjs17mmy9bPQA=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792722044; v=1; x=1793326844;
- b=mpcgfXNMu0x+jvYFUegMNisiZHTA7U5VJQuxsqJx9DxvrDC9rWnOsMF8jVDAcEzWRqHQInmY
- ILVFEGtQ1rWT+0pK8FKnq2ga7gW3XJcRLITdMPN4aoTbz7TwHAid4Fu1v5E9006fe0wItbUAuW0
- QctmqteRJeFY8uqr7yKYrMyo=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 559e8641fd3a77b7;
-	Fri, 23 Oct 2026 02:20:33 +0000
-X-Mizu-Trace-ID: 559e8641fd3a77b7
-X-Migadu-Flow: FLOW_OUT
-From: Lance Yang <lance.yang@linux.dev>
-To: songmuchun@bytedance.com
-Cc: osalvador@suse.de,
-	akpm@linux-foundation.org,
-	rppt@kernel.org,
-	qi.zheng@linux.dev,
-	lance.yang@linux.dev,
-	jthoughton@google.com,
-	david@kernel.org,
-	muchun.song@linux.dev,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 07/12] mm: hugetlb_vmemmap: simplify shared tail page handling
-Date: Fri, 23 Oct 2026 10:20:27 +0800
-Message-ID: <20261023022027.25898-1-lance.yang@linux.dev>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20261020115824.823278-6-songmuchun@bytedance.com>
-References: <20261020115824.823278-6-songmuchun@bytedance.com>
+	dkim=pass (2048-bit key, unprotected) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=D7ulQNAY
+Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-3ada8bc2380so174065a91.3
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 19:21:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1792722072; x=1793326872; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=XXX5hCVe20W2DEnZ0HF+fr0EqmB3/p1IDPVPZBeHOFk=;
+        b=D7ulQNAYpQewZbA6rR4DxTDcoX9oMPs7QYZdu4flYQ3UEakeUTfC7TOSxNNhi8OAh0
+         jDQuD29MTwJKgOS1IOHArMimnzfJvu8FvdSr7izuK9dqyz17oRSlKwzQnI6FdQYMRM82
+         G2QDHuzwugLBqXAcH3RQLT67SVYC7Wy9FRlzGyvyonoPH8n2hHqF7Jq7O5V/tnHnkysF
+         f7IzCDR3eEDqQ8hrJgkR7w8v3aFcQbqYIa3YUKzlZrlPL7t84828V5X28zkPfi4vqAQy
+         wZwqaNglqVCbGHBLfFWt4ePexQuKzGwLdr1kdzFwULfW9msWfuVyMNwPXDotZKh7xJcR
+         nKmg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792722072; x=1793326872;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=XXX5hCVe20W2DEnZ0HF+fr0EqmB3/p1IDPVPZBeHOFk=;
+        b=pp/hfoJxSXjQ27IJZKBPQAL0xK1Jjm8rkrWnM3OEoq5tpIieNU+t8WgmQBwhqfmu44
+         DiWmJVQF2PL4+TUXGVqg0VBr0S8IZa7Lt374q2AZxA4+rnPA1oBgv4ZZkvL0Q91JQYKd
+         4bAA5TIyey+zHxxpBlAItYKcM0Pk9DLM6QIXpeT9BNzwJ0z+oO22hn2jduKWMs/3Lq4W
+         uKsoSLmZuzf6fhQFN9JHep3gMXfq/Sg2f+g9R75jXO8onpYmKzsmUFbWP13iarzPCJgl
+         VG0XyUW98PXuH+9AVLYbs3ABaYPdxcKEhCTxA9aXkCxCdNjH9wcKdUcbbGsId0YrWqVx
+         /9eg==
+X-Forwarded-Encrypted: i=1; AKwUvBxkpwJJzKxvD+jY4u+Jh/JWzu2ytEt8cSdPvqCBlb2ztthuU0wRhi4L1ZQYEVTlr3dLa6oJkIOjvp7OmB4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKSmy2hhZWEKSIYb9jp/y1Vi2tGNBohGHpsU8DRyDQhirJhCXRz
+	jR7BrwDzgKXMhbR2aZxPEWwDiYL/nz6wgUUPWgasJAByMbvGPC7owHtBIrc5cXrxPf6PyTSCEdt
+	pXYRU
+X-Gm-Gg: AYBFou0nxQnh56aLaZnpJv4TeeVqSKchZ0gpO0jgG/pZXFsdmZGxhuYNcK2SGc9IfCY
+	GiJxEMl5wAAFmVmXPvIuEzw4TpZft/FrBz8FESwdp6EVxqqJE32dBIxMyqXPHD52DJKjbHAvv33
+	dTbISmxWcmjZM12+Fb3VTFbGu3QSFe52QCH69fdkH82GhreRcflORtTEszxxANVmmHizhnmU7FE
+	u3fIA6cF6txAvhnFrpyq9YTVvSo7BkSPGue9466p/VYYJ3Y+xETxDrY4h0+8wCm9WltAdTW9vim
+	cqjr0NUtU2XkmJ+RCudzRNkU14oeYy+HWQcgXlnYJYZMySjcJqDvtCDkiTgM9a8As4VeTAHmjuf
+	uhnykGOVXmwwuY3QHbXV24AmvYekk0tZ5rJGmIvFowuoJX1sLYf/NIFRIWQzbHTN/I+qQO6tHkQ
+	rAJWAHp91tMiX+SEm61J/7zsNZ/lMOJC4V6RZUsCaMtp7nJMYc73iHroWtPUTCdtIg6+jRMfO/i
+	e2EXIFhG0RtugkiMMgM4GjfnI14JhnNaWExp7pPM7x6QYPphPbrNr+DG5poJNxVjjJ8c+IoLmLe
+	jmA=
+X-Received: by 2002:a17:90b:1fc7:b0:3ad:3715:d21 with SMTP id 98e67ed59e1d1-3adce7ca8c9mr598095a91.49.1792722072334;
+        Thu, 22 Oct 2026 19:21:12 -0700 (PDT)
+Received: from yhlee-960QFG.Davolink ([2406:5900:1044:110c:13e0:b266:5a7d:e119])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3add2994cd2sm183922a91.3.2026.10.22.19.21.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 22 Oct 2026 19:21:11 -0700 (PDT)
+From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+To: Nihar Panda <niharp@linux.ibm.com>,
+	"Martin K . Petersen" <martin.petersen@oracle.com>
+Cc: Benjamin Block <bblock@linux.ibm.com>,
+	Steffen Maier <maier@linux.ibm.com>,
+	Heiko Carstens <hca@linux.ibm.com>,
+	Vasily Gorbik <gor@linux.ibm.com>,
+	Alexander Gordeev <agordeev@linux.ibm.com>,
+	Christian Borntraeger <borntraeger@linux.ibm.com>,
+	Sven Schnelle <svens@linux.ibm.com>,
+	linux-s390@vger.kernel.org,
+	linux-scsi@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	yhlee@isslab.korea.ac.kr
+Subject: [PATCH] scsi: zfcp: bound the RSCN page walk to the status read payload
+Date: Fri, 23 Oct 2026 11:20:56 +0900
+Message-ID: <20261023022056.3106651-1-yhlee@isslab.korea.ac.kr>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,137 +106,72 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
+zfcp_fc_incoming_rscn() takes the number of RSCN pages from rscn_plen in
+the received ELS and walks that many four byte pages out of the status
+read buffer payload. The fabric chooses rscn_plen, it is a 16 bit field,
+and nothing compares it against the payload. A value of 65535 gives 16383
+entries, so the loop reads up to 65532 bytes out of a payload of
+FSF_STATUS_READ_PAYLOAD_SIZE, which is 4032. The status read buffer is a
+single page and its payload ends at the page boundary, so the walk
+continues into whatever follows that page.
 
-On Tue, Oct 20, 2026 at 07:58:19PM +0800, Muchun Song wrote:
->The remap walker currently carries a shared tail page selected by its
->caller, even though the optimize and restore callbacks can derive the
->same information from the folio being processed.  This adds redundant
->state to the walker and couples its interface to caller-side preparation.
->
->Derive the shared mapping state in the callbacks instead, keeping the
->mapping policy with the PTE being processed and simplifying the remap
->interface.
->
->No functional change intended.
->
->Signed-off-by: Muchun Song <songmuchun@bytedance.com>
->---
-> include/linux/vmemmap-optimization.h |  6 +-
-> mm/hugetlb_vmemmap.c                 | 89 ++++++++++++----------------
-> mm/mm_init.c                         |  6 +-
-> mm/sparse-vmemmap.c                  |  5 +-
-> 4 files changed, 49 insertions(+), 57 deletions(-)
->
->diff --git a/include/linux/vmemmap-optimization.h b/include/linux/vmemmap-optimization.h
->index 065840f3c241..858311a71b0c 100644
->--- a/include/linux/vmemmap-optimization.h
->+++ b/include/linux/vmemmap-optimization.h
->@@ -91,11 +91,13 @@ static inline struct page *vmemmap_shared_tail_page(unsigned int order,
-> }
-> #endif /* CONFIG_VMEMMAP_OPTIMIZATION */
-> 
->-static inline bool vmemmap_optimizable_pfn(unsigned long pfn)
->+static inline bool vmemmap_optimizable_pfn(unsigned long pfn, unsigned int order)
-> {
->-	const unsigned int order = pfn_to_section_compound_order(pfn);
-> 	const unsigned long nr_pages = 1UL << order;
-> 
->+	if (!IS_ENABLED(CONFIG_VMEMMAP_OPTIMIZATION))
->+		return false;
->+
-> 	if (!is_power_of_2(sizeof(struct page)))
-> 		return false;
-> 
->diff --git a/mm/hugetlb_vmemmap.c b/mm/hugetlb_vmemmap.c
->index 18b72d553955..8fac61b7d74a 100644
->--- a/mm/hugetlb_vmemmap.c
->+++ b/mm/hugetlb_vmemmap.c
->@@ -24,22 +24,18 @@
->  * struct vmemmap_remap_walk - walk vmemmap page table
->  *
->  * @remap_pte:		called for each lowest-level entry (PTE).
->- * @nr_walked:		the number of walked pte.
->- * @vmemmap_tail:	the page to be installed as non-first in the vmemmap range
->+ * @nr_walked:		the number of PTEs successfully remapped.
->  * @vmemmap_pages:	the list head of the vmemmap pages that can be freed
->  *			or is mapped from.
->  * @flags:		used to modify behavior in vmemmap page table walking
->  *			operations.
->  */
-> struct vmemmap_remap_walk {
->-	void			(*remap_pte)(pte_t *pte, unsigned long addr,
->+	int			(*remap_pte)(pte_t *pte, unsigned long addr,
-> 					     struct vmemmap_remap_walk *walk);
->-
-> 	unsigned long		nr_walked;
->-	struct page		*vmemmap_tail;
-> 	struct list_head	*vmemmap_pages;
-> 
->-
-> /* Skip the TLB flush while updating the vmemmap page tables. */
-> #define VMEMMAP_REMAP_NO_TLB_FLUSH	BIT(0)
-> 	unsigned long		flags;
->@@ -140,12 +136,14 @@ static int vmemmap_pmd_entry(pmd_t *pmd, unsigned long addr,
-> static int vmemmap_pte_entry(pte_t *pte, unsigned long addr,
-> 			     unsigned long next, struct mm_walk *walk)
-> {
->+	int ret;
-> 	struct vmemmap_remap_walk *vmemmap_walk = walk->private;
-> 
->-	vmemmap_walk->remap_pte(pte, addr, vmemmap_walk);
->-	vmemmap_walk->nr_walked++;
->+	ret = vmemmap_walk->remap_pte(pte, addr, vmemmap_walk);
->+	if (!ret)
->+		vmemmap_walk->nr_walked++;
-> 
->-	return 0;
->+	return ret;
-> }
-> 
-> static const struct mm_walk_ops vmemmap_remap_ops = {
->@@ -213,51 +211,51 @@ static struct page *vmemmap_dup_page_from_list(const struct page *src,
-> 	return dst;
-> }
-> 
->-static void vmemmap_optimize_pte(pte_t *pte, unsigned long addr,
->-				 struct vmemmap_remap_walk *walk)
->+static inline struct page *folio_vmemmap_shared_tail_page(const struct folio *folio)
-> {
->-	struct page *page = pte_page(ptep_get(pte));
->-	pte_t entry;
->-
->-	/* Remapping the head page requires r/w */
->-	if (unlikely(walk->nr_walked == 0)) {
->-		struct page *head;
->+	return vmemmap_shared_tail_page(folio_order(folio), folio_zone(folio));
->+}
-> 
->-		VM_WARN_ON_ONCE(!PageHead((const struct page *)addr));
->+static int vmemmap_optimize_pte(pte_t *pte, unsigned long addr,
->+				struct vmemmap_remap_walk *walk)
->+{
->+	pte_t entry;
->+	struct page *src = pte_page(ptep_get(pte)), *dst;
->+	const struct page *page = (const struct page *)addr;
->+	const struct folio *folio = page_folio(page);
-> 
->-		head = vmemmap_dup_page_from_list(page, walk->vmemmap_pages);
->-		entry = mk_pte(head, PAGE_KERNEL);
->+	if (likely(vmemmap_optimizable_pfn(page_to_pfn(page), folio_order(folio)))) {
->+		dst = folio_vmemmap_shared_tail_page(folio);
->+		if (!dst)
->+			return -ENOMEM;
+Every iteration also hands the four bytes it just read to
+zfcp_fc_enqueue_event(), and that event reaches user space through
+fc_host_post_event(), so the bytes past the payload are reported and not
+merely read.
 
-One thing caught my eye here ... shared tail allocation can now fail after
-we've already remapped the head.
+libfc bounds the same field. fc_disc_recv_rscn_req() refuses an RSCN whose
+rscn_plen is not covered by the received frame. zfcp does not share that
+code, so add the equivalent test here. Compare against the payload size
+rather than the firmware reported srb->length, because a bogus srb->length
+need not reach the payload at all.
 
-IIUC, nothing to worry about there, though :) since rollback keeps the
-new head mapped and flushes before clearing the optimized flag or freeing
-the old backing page.
+A conforming RSCN is unaffected. An FC data field holds at most 2112
+bytes, so at most 528 pages, well under the 1008 the payload can hold.
 
-[...]
+This is an out of bounds read and an information leak to user space. It is
+not a write and it corrupts no state. It assumes the adapter passes
+rscn_plen through unchanged, the same assumption the host bus adapter
+mediated paths in other drivers already make, and one the driver cannot
+check for itself.
 
-Reviewed-by: Lance Yang <lance.yang@linux.dev>
+Not tested on hardware. The bound follows from the field widths and the
+payload size.
+
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+---
+ drivers/s390/scsi/zfcp_fc.c | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
+
+diff --git a/drivers/s390/scsi/zfcp_fc.c b/drivers/s390/scsi/zfcp_fc.c
+index 05d0812978798..24efd29b66bfc 100644
+--- a/drivers/s390/scsi/zfcp_fc.c
++++ b/drivers/s390/scsi/zfcp_fc.c
+@@ -270,6 +270,18 @@ static void zfcp_fc_incoming_rscn(struct zfcp_fsf_req *fsf_req)
+ 	no_entries = be16_to_cpu(head->rscn_plen) /
+ 		sizeof(struct fc_els_rscn_page);
+ 
++	/*
++	 * The fabric chooses rscn_plen, so refuse a value that would walk
++	 * the page list past the end of the status read payload.
++	 */
++	if (no_entries > FSF_STATUS_READ_PAYLOAD_SIZE /
++			 sizeof(struct fc_els_rscn_page)) {
++		dev_warn(&adapter->ccw_device->dev,
++			 "An RSCN with a payload length of %u was dropped\n",
++			 be16_to_cpu(head->rscn_plen));
++		return;
++	}
++
+ 	if (no_entries > 1) {
+ 		/* handle failed ports */
+ 		unsigned long flags;
+
+base-commit: f47d223627f80cb7a1eb14c585fe6cb35de5e984
+-- 
+2.43.0
+
