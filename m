@@ -1,102 +1,142 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.84.55
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792738231;
-	b=plsDchmF4Wzi2kQNEDoAZl2e3yCUVYR8MOByLRVT26kEyPaU8Efe2emxtNWI9ufyD4Gs
-	 GsiWh/PQ+0H202ja50ISohNSbKQfvPW8Hnj1xShIuLXFGzHMEy+wtIHmiaHEsyUPsoqnQ
-	 O12YakwAt2jRF79VYdTC3c/EW+laDDX/CkJm1DJMBHU8xbtjDavHEIQtBFMtTrvFvopqL
-	 pPKoij1xB4nuR9vceUtTSX9eGbC1BHco6IcbZ/BVg/winx5mdRo4R2hsWUezvAZdpSMlX
-	 RhWATbBy8Uw/fz0bWPRaLq5vx7l7RXNxDKoUmyF/lMEgNw1a4XLhC2wn8BN1rxbolKg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792738231;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-ID:X-B4-Tracking:To:CC:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Originating-IP:
-	 X-ClientProxiedBy:X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=LfiU4EaGH2mzKnUAqT1yCPBUuJRXe4MmrmSz1Hb5dfc=;
-	b=BrjsMacwWdD/XJ1FhvgUlsRobJ0BA2CwlmHCWNOfn07yuibYG0xNvXMHUaQGwTiX4GcQ
-	 x2qIbKcJ4UxTuT6do6BAOlX24hXW5HNDunSexa+LgSa0PmoLFhh4ZtYqySEkNrUt7Rnxb
-	 2db0ig+4v35ULKHQLChAUgYTGb7SHWuoGFwT77P4eZOdbrOfLJoXf5s7Bn6HYY/SYkSRQ
-	 G7CMtgDnZdVicHPHoJeftciT3lUl04yyTccQ7pctHIHUVw346wf1KWTCs7DJikMZFLQTZ
-	 Gzr3thZyG0GcA0bydAAkrFMCXzqXMhaeqNAuz3ts34BSIycodWbQ3cN6iuA6t8o+iog==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=foss.st.com;
-	spf=pass smtp.mailfrom=foss.st.com;
-	dkim=pass header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256 header.s=selector2 header.b=D1d4j1y1;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.84.55
-Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010055.outbound.protection.outlook.com [52.101.84.55])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792738258;
+	b=Olh1oFPUHDZpi/pSk8DlFLnPqEynripV9wzaV3yqhCbMzJo9U3boOg1+rXzlhfpCTQTV
+	 SWtK9gfULWskU0OxcSZxQwcMuafNszcAlj0dDi+Wr4nurTaKAmklusNXK7kZ9Nb3R1KLC
+	 1n8Yh0Vebks9+Xs8y+ej1GhelUgEspWMzF8AUOpPp1Z5i005RFfagrNLDkv6ZfP6CXH2O
+	 e18xNNSzn7i3pDZypmfPidF6C3CzKPC1xxY92El7g7G+reNL/p/3+qtz9oxLqCxzXP366
+	 y12uzpUPhnUsXMUbkKWEpnFl0Jp/+9FSYC7SNN+nyCM2zR70wVGXagL6yBA7/2qj6fA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792738258;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:Cc:Subject:Date:
+	 Message-ID:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-Scanned-By;
+	bh=F6+noPVYF4kQP6smbqYTSV7WwZHDrBWE8Us7MYDz21A=;
+	b=IXTpcB15XjaYBb2UyvlE6n0jcTA20+QDuxNWno1/Tp0bUxCp/YDDpPruld+mc1P86EQb
+	 GQ+7p7AD+evDBqywIrdQ3KcVRHmQbDoHatFzzwpTaOwfVSjFOQCtLhGP0CtrVSKeLWywQ
+	 mz8r2+8Cz4Cz12O04j/9vDmSG9PhGl9hQNgO4tgQRIPgmOIMNi9kPRDGAnaSiX3wJ2LFy
+	 bgaBiBh4+KLkIyQGX6A4SuxO5NaskVVCvbtEQQHvOZHVyA6GbSCIPQY5C6ZcdLtvgKJP+
+	 35Fj5MssQKewXLDtV5VmTFMucPl/6pJgwQ+S2ZDFttFAX5086+e0zO+esKExrjVWSKA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=WiJAYFar;
+	arc=none smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5677A606A321;
-	Fri, 23 Oct 2026 06:50:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5677A606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A395606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 06:50:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7A395606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256 header.s=selector2 header.b=D1d4j1y1
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=zNh26LC/d9AyXdc61qdv3HEX3hPivass9brdassYGD7Kcx+xAG5sEiFQF5j5VW/XTxdzjuYC0q1AnhNn8TYVdvnET13i/M0oQqC9rpPV5LD/7Mxk19mBle9dNb/hqP+fmnrnr/whVA8G1EUzZ9Aq0E1JHNep4XlfJ3+NAUkxm0PwUQ2T3oHq4KMvz9Kje6EA4zFZNxn7/NY97hXidOiBM/Hku1T+p4z3L6rSF2tlHP5KXxqZ3FWowDYDhUeQYuZUNuAbFqOYsvoIZLA5mFUnu4PtUUUwADFvdQA9JdLUzyQuswaLS1TJEqUuSyjqm2/9rT0pDHCUqRu/IhaMT26WPQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=LfiU4EaGH2mzKnUAqT1yCPBUuJRXe4MmrmSz1Hb5dfc=;
- b=PSAbx6F1j9ivngkUMHV4Zwhzf3XxvaI99OwMVELIh5VRvc4PGEQaOVWegEsPEjtCsVBXXiT0Ggl4/YWBnf8VB02BaRB6KTL4QNZnjiVfqA3R4u59beR9YvibuCIjX/gVpsfCw2BN7Vi0v+BkXMLJGnCaadPqD412JNpY6C2BkpkfeIWQMLNXwaXp5PQCxoGGlYBDXl172SA/UzIJbR1YC6ahDW+HzB0JFP1FCItPVA/cs375vl6ZVvoEA9+QJLdWXZvDSdT2dQ6IvnYtDZCPRGrKx9cMiDdkZqnXYW/TyZywEj1iJhzcW4CmFs9yxL9aJNe+ePCm5zRBVVrUQ4P0jA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 164.130.1.59) smtp.rcpttodomain=gmail.com smtp.mailfrom=foss.st.com;
- dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=LfiU4EaGH2mzKnUAqT1yCPBUuJRXe4MmrmSz1Hb5dfc=;
- b=D1d4j1y1JeIxPkFmaBmbxHCexQJJqht3wCU5CUi5P4pQAHejVnZPp+MES9LjVFu8m9meXB8QhBMKvi7FmrTgNqVkErN674ANF1/IJvn4GIID8PzkjjO6zSUP7GIm+Ia6OJva1pQA0TpUFPSqw/aIU1EpjQTY1927pbQVNepvtpnFgMfImNkcUMTB6imVxo+nwUC9/gMKJ+LjlRnXoLIYZBO+fB9bfIn66F3jVZYlzFs88lkhG2fI1p3fdyAI/ybjhCBorOvE+P7u1XqXRga9Cawo2PcO8kmTb80hdLW0wTVAA3tbKwurKhUToQeMGHkmlDi2uwg4MlP6Ble6JRyJcQ==
-Received: from BE1P281CA0273.DEUP281.PROD.OUTLOOK.COM (2603:10a6:b10:84::17)
- by DB4PR10MB7064.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:10:3f0::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.3; Fri, 23 Oct
- 2026 06:50:26 +0000
-Received: from WA1PEPF00009B38.eurprd05.prod.outlook.com
- (2603:10a6:b10:84:cafe::4d) by BE1P281CA0273.outlook.office365.com
- (2603:10a6:b10:84::17) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.569.3 via Frontend Transport; Fri, 23
- Oct 2026 06:50:25 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=fail (sender IP
- is 164.130.1.59) smtp.mailfrom=foss.st.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=none header.from=foss.st.com;
-Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
- designate 164.130.1.59 as permitted sender) receiver=protection.outlook.com;
- client-ip=164.130.1.59; helo=smtpO365.st.com;
-Received: from smtpO365.st.com (164.130.1.59) by
- WA1PEPF00009B38.mail.protection.outlook.com (10.167.242.37) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.546.15 via Frontend Transport; Fri, 23 Oct 2026 06:50:25 +0000
-Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpo365.st.com
- (10.250.44.71) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Fri, 23 Oct
- 2026 08:50:45 +0200
-Received: from localhost (10.252.16.117) by STKDAG1NODE2.st.com
- (10.75.128.133) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Fri, 23 Oct
- 2026 08:50:24 +0200
-From: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
-Date: Fri, 23 Oct 2026 08:50:23 +0200
-Subject: [PATCH] clk: stm32mp25: allow MDF kernel clock rate changes to
- propagate to parent
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=WiJAYFar
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1792738256;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=F6+noPVYF4kQP6smbqYTSV7WwZHDrBWE8Us7MYDz21A=;
+	b=WiJAYFar5GLqm9jBfte1wVBOF0+8IuRTzYWgbucplaQuwiTc28SwjYD3DC6M3D70cFGrT8
+	z2mAjxn3+cDE9BLfZl/o6C2WBIvSaVC9DCPKgkYcVdTVPHeQsYjOtJJCTRXK4emGxXVw1V
+	CyBMzM3RQo4z+iuB+UBXSCtuRcHYgtA=
+Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-587-1BrFnSVrOACgn3OQUjDx2Q-1; Fri,
+ 23 Oct 2026 02:50:51 -0400
+X-MC-Unique: 1BrFnSVrOACgn3OQUjDx2Q-1
+X-Mimecast-MFC-AGG-ID: 1BrFnSVrOACgn3OQUjDx2Q_1792738248
+Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id BCC341955F71;
+	Fri, 23 Oct 2026 06:50:47 +0000 (UTC)
+Received: from thuth-p1g4.redhat.com (unknown [10.44.48.42])
+	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 7EFCD1956095;
+	Fri, 23 Oct 2026 06:50:27 +0000 (UTC)
+From: Thomas Huth <thuth@redhat.com>
+To: Arnd Bergmann <arnd@arndb.de>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nicolas Schier <nsc@kernel.org>,
+	Richard Henderson <richard.henderson@linaro.org>,
+	Matt Turner <mattst88@gmail.com>,
+	Magnus Lindholm <linmag7@gmail.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Huacai Chen <chenhuacai@kernel.org>,
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Heiko Carstens <hca@linux.ibm.com>,
+	Vasily Gorbik <gor@linux.ibm.com>,
+	Alexander Gordeev <agordeev@linux.ibm.com>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	x86@kernel.org,
+	Chris Zankel <chris@zankel.net>,
+	Max Filippov <jcmvbkbc@gmail.com>,
+	Ard Biesheuvel <ardb@kernel.org>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Luis Augenstein <luis.augenstein@tngtech.com>,
+	Maximilian Huber <maximilian.huber@tngtech.com>,
+	Anup Patel <anup@brainfault.org>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Shuah Khan <shuah@kernel.org>,
+	Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Andy Lutomirski <luto@kernel.org>,
+	Vincenzo Frascino <vincenzo.frascino@arm.com>
+Cc: soc@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-kbuild@vger.kernel.org,
+	=?UTF-8?q?Thomas=20Wei=C3=9Fschuh?= <linux@weissschuh.net>,
+	Mark Rutland <mark.rutland@arm.com>,
+	WANG Xuerui <kernel@xen0n.name>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+	Shrikanth Hegde <sshegde@linux.ibm.com>,
+	Christian Borntraeger <borntraeger@linux.ibm.com>,
+	Sven Schnelle <svens@linux.ibm.com>,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	Ilias Apalodimas <ilias.apalodimas@linaro.org>,
+	Atish Patra <atish.patra@linux.dev>,
+	Sean Christopherson <seanjc@google.com>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Nick Desaulniers <ndesaulniers@google.com>,
+	Bill Wendling <morbo@google.com>,
+	Justin Stitt <justinstitt@google.com>,
+	linux-alpha@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	loongarch@lists.linux.dev,
+	linux-mips@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org,
+	linux-s390@vger.kernel.org,
+	linux-efi@vger.kernel.org,
+	netdev@vger.kernel.org,
+	kvm@vger.kernel.org,
+	kvm-riscv@lists.infradead.org,
+	linux-riscv@lists.infradead.org,
+	linux-kselftest@vger.kernel.org,
+	llvm@lists.linux.dev
+Subject: [PATCH v5 13/13] treewide: Stop defining __ASSEMBLY__ for assembler files
+Date: Fri, 23 Oct 2026 08:48:50 +0200
+Message-ID: <20261023064908.66707-14-thuth@redhat.com>
+In-Reply-To: <20261023064908.66707-1-thuth@redhat.com>
+References: <20261023064908.66707-1-thuth@redhat.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,90 +146,309 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20261023-ups_mp25_clk_mdf-v1-1-3043b3fd4bc9@foss.st.com>
-X-B4-Tracking: v=1; b=H4sIAK4D22oC/x3MTQqAIBBA4avErBNsKMGuEiFiYw39iVIE0t2Tl
- t/ivQyJIlOCvsoQ6ebE51HQ1BW4xR4zCZ6KASWqRiKKKySzB+yM21azT15o7WzXem2dVlCyEMn
- z8y+H8X0/hI8nNmIAAAA=
-To: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>, Maxime Coquelin
-	<mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>
-CC: <linux-clk@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
-	Olivier Moysan <olivier.moysan@foss.st.com>, Gabriel Fernandez
-	<gabriel.fernandez@foss.st.com>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792738223; l=1247;
- i=gabriel.fernandez@foss.st.com; s=20261013; h=from:subject:message-id;
- bh=UYJe92XofvwW9024M6MvYoAscbsOueX8CFhCXRbov3k=;
- b=kzM4V5eYaJYY3DiUDiNaeot5DRVy4DMrdBKkjQUT7WEa97Wh5MoAlaVXqE75m5yHn8dxsswR6
- Kaurs+VedX+CZbVzDHtJQHgrn6F1Bj3B8knDv015MmW5qDuCje8uAyo
-X-Developer-Key: i=gabriel.fernandez@foss.st.com; a=ed25519;
- pk=BVZE1QjIfcrviw9RyyOGQGGsg9CNbaxyjYn9pAlkNyQ=
-X-ClientProxiedBy: STKCAS1NODE1.st.com (10.75.128.134) To STKDAG1NODE2.st.com
- (10.75.128.133)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: WA1PEPF00009B38:EE_|DB4PR10MB7064:EE_
-X-MS-Office365-Filtering-Correlation-Id: e8ceafd7-b1a8-4f39-eb2b-08df30d1eab1
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|23010399003|376014|36860700016|82310400026|56012099006|11063799006|261021123027099003|261021121427099003|261009223027099003|10067099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	Dh0D5FMNn8/qOp4Zyt93cIwadN0C7OsLDnDQ6UspeA6G75YjpjOlic5Dr/Yjp5BLgwGfA4UyldPohTBxN152KdBh1KnEvY71mNcK5Tn7xRiOLBR92lqxOSNt9NG78ijURX8fwYgscVg7Ekk/kP1scybZJrKnxC9TknaKAysmyJG/1pwQtHJnEHKyhdO91ti+3mlucgM/xOVXxKG0LSHEXQrWfdKrLcHMAPOsEfVgyfKXp8eqBUimpyShkavK926gUYlfc3heO2E3u/7w2QqdAKHGX8/oQ+d0oMjVi9HemdaJNRSe7j4mv8OZl3BSwGTGAjlc1NR89nUujqrDeaIAmEYWkHqTKwNLFhDuNuFy21klIw2wOry+dgM3xSWgiH8iIYDUPszkuyV0OZdTcT08AtJivKKW0nMH+uWksFVQ0ywV8njanPylvXQxwH0x48111EXIienBs1sdPBq4mfl18p5ZM0L8sg9kUXkKXFusbgPWxxpMSJ9fHhWJAkPQwl0auLz1aKGrcrc7muIK/3TvXHYMCOwqjoHp2OmmtMv5JNHOVN4t/+pau2OaktXxfJNU23O/8930RdlaCrHA6pCoiREsgzAeB9yJ/x49ruaesjnI0vkUb6NKu0w4MkA1bTZs21iY3W8/dPD3eZqNrCIUZdYGGr93d5NLkYxqgz8iSO4uZF3mkqRhNGO7FDkeBnCboVLQivLJr7BvEYUDnrVpuw==
-X-Forefront-Antispam-Report:
-	CIP:164.130.1.59;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(376014)(36860700016)(82310400026)(56012099006)(11063799006)(261021123027099003)(261021121427099003)(261009223027099003)(10067099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	g7NtxhIDu44z3Z2Uq+RiJ/Qc8GZfV4u5bjHs7Q9yNrxQerktwcUeIGc+CWGtw2163rpGqUuQztgPWB+6zdH1+tyyHXud7jK4BXxsmPRW0otsrCbzTwo2c9/e/bDcKNcOojdgjPlpoXcQ6qPLXpoCnmLj6QsDrog898L+fRpMxIDt13ldQxvPPMcs/4yaVE7MjPtWO6KfUwMsHyhINROE0mzE11vgexnkShFigNwBmN1DDouOThNxgtKknRGS3TGP/4ckEshOcYuLM18lU6xYKI5H/oLJptwBW4btd2NnZ6Sg5Av6uS730Wcm6fcDN2CSNUFNiR6uAtBOZ/OvK4jkh16sOf17cuow3N4g6xqg16HYvjVkgA777KjNXuBG+aybSzppsjTgQav6cOQXXTloWtQ66h934y8OBq/5/GKAxWK/1NYWsMLhkoQXUGI06ohf
-X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Oct 2026 06:50:25.2751
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e8ceafd7-b1a8-4f39-eb2b-08df30d1eab1
-X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.59];Helo=[smtpO365.st.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	WA1PEPF00009B38.eurprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB4PR10MB7064
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
 
-From: Olivier Moysan <olivier.moysan@foss.st.com>
+All spots have been changed to __ASSEMBLER__ (i.e. the macro that
+gets defined by the compiler), so we don't have to manually define
+__ASSEMBLY__ anymore.
 
-Add CLK_SET_RATE_PARENT to ck_ker_mdf1 to allow rate requests on the
-MDF kernel clock to propagate to its parent clock, FLEXGEN_23.
-
-Signed-off-by: Olivier Moysan <olivier.moysan@foss.st.com>
-Signed-off-by: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
+Signed-off-by: Thomas Huth <thuth@redhat.com>
 ---
-This patch is independent from the other STM32MP25 RCC changes that I
-am sending separately, and can be applied on its own.
----
- drivers/clk/stm32/clk-stm32mp25.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ Makefile                                             | 2 +-
+ arch/alpha/boot/compressed/Makefile                  | 2 +-
+ arch/arm64/kernel/vdso32/Makefile                    | 1 -
+ arch/loongarch/vdso/Makefile                         | 2 +-
+ arch/mips/boot/compressed/Makefile                   | 2 +-
+ arch/mips/vdso/Makefile                              | 2 +-
+ arch/powerpc/boot/Makefile                           | 2 +-
+ arch/powerpc/platforms/cell/spufs/Makefile           | 2 +-
+ arch/s390/Makefile                                   | 2 +-
+ arch/x86/boot/Makefile                               | 2 +-
+ arch/x86/boot/compressed/Makefile                    | 2 +-
+ arch/x86/realmode/rm/Makefile                        | 2 +-
+ arch/xtensa/kernel/Makefile                          | 2 +-
+ drivers/firmware/efi/libstub/Makefile                | 2 +-
+ drivers/net/wan/Makefile                             | 2 +-
+ scripts/Makefile.build                               | 2 +-
+ scripts/gfp-translate                                | 2 +-
+ scripts/headers_install.sh                           | 1 -
+ scripts/sbom/tests/cmd_graph/test_savedcmd_parser.py | 2 +-
+ tools/testing/selftests/kvm/lib/riscv/handlers.S     | 4 ----
+ tools/testing/selftests/vDSO/vgetrandom-chacha.S     | 2 --
+ 21 files changed, 17 insertions(+), 25 deletions(-)
 
-diff --git a/drivers/clk/stm32/clk-stm32mp25.c b/drivers/clk/stm32/clk-stm32mp25.c
-index eb0bc918ecee..8f6fe30b19ca 100644
---- a/drivers/clk/stm32/clk-stm32mp25.c
-+++ b/drivers/clk/stm32/clk-stm32mp25.c
-@@ -999,7 +999,8 @@ static struct clk_stm32_gate ck_icn_p_mdf1 = {
+diff --git a/Makefile b/Makefile
+index 0319cd716d73b..98bffdd9cf2d6 100644
+--- a/Makefile
++++ b/Makefile
+@@ -606,7 +606,7 @@ LINUXINCLUDE    := \
+ 		-I$(objtree)/include \
+ 		$(USERINCLUDE)
  
- static struct clk_stm32_gate ck_ker_mdf1 = {
- 	.gate_id = GATE_MDF1,
--	.hw.init = CLK_HW_INIT_INDEX("ck_ker_mdf1", FLEXGEN_23, &clk_stm32_gate_ops, 0),
-+	.hw.init = CLK_HW_INIT_INDEX("ck_ker_mdf1", FLEXGEN_23, &clk_stm32_gate_ops,
-+				     CLK_SET_RATE_PARENT),
- };
+-KBUILD_AFLAGS   := -D__ASSEMBLY__ -fno-PIE
++KBUILD_AFLAGS   := -fno-PIE
  
- /* OSPI */
-
----
-base-commit: a90ee4305c4a5df72c11b31dacfdc76e00fcf78a
-change-id: 20261022-ups_mp25_clk_mdf-99ca54f9ac96
-
-Best regards,
+ KBUILD_CFLAGS :=
+ KBUILD_CFLAGS += -fshort-wchar
+diff --git a/arch/alpha/boot/compressed/Makefile b/arch/alpha/boot/compressed/Makefile
+index eb930f01b4be4..16119a13e53a3 100644
+--- a/arch/alpha/boot/compressed/Makefile
++++ b/arch/alpha/boot/compressed/Makefile
+@@ -22,7 +22,7 @@ KBUILD_CFLAGS += -fno-asynchronous-unwind-tables
+ KBUILD_CFLAGS += -pipe -mcpu=ev4 -mno-fp-regs -ffixed-8
+ KBUILD_CFLAGS += -DDISABLE_BRANCH_PROFILING -D__DISABLE_EXPORTS
+ KBUILD_CFLAGS += $(CC_FLAGS_DIALECT)
+-KBUILD_AFLAGS := -D__ASSEMBLY__ $(KBUILD_CFLAGS)
++KBUILD_AFLAGS := $(KBUILD_CFLAGS)
+ 
+ # The stub has no sanitizer or coverage runtime. arch/alpha/lib/lib.a is
+ # built with the kernel's instrumentation and -mcpu=, so build private
+diff --git a/arch/arm64/kernel/vdso32/Makefile b/arch/arm64/kernel/vdso32/Makefile
+index 00efdc5d23543..0ba0b4bb3e013 100644
+--- a/arch/arm64/kernel/vdso32/Makefile
++++ b/arch/arm64/kernel/vdso32/Makefile
+@@ -77,7 +77,6 @@ VDSO_CFLAGS += -marm
+ endif
+ 
+ VDSO_AFLAGS := $(VDSO_CAFLAGS)
+-VDSO_AFLAGS += -D__ASSEMBLY__
+ 
+ # From arm vDSO Makefile
+ VDSO_LDFLAGS += -Bsymbolic --no-undefined -soname=linux-vdso.so.1
+diff --git a/arch/loongarch/vdso/Makefile b/arch/loongarch/vdso/Makefile
+index 0b84892d084b6..c2b73fd3781c0 100644
+--- a/arch/loongarch/vdso/Makefile
++++ b/arch/loongarch/vdso/Makefile
+@@ -32,7 +32,7 @@ cflags-vdso := $(ccflags-vdso) \
+ 	$(call cc-option, -fasynchronous-unwind-tables) \
+ 	$(call cc-option, -fno-stack-protector)
+ aflags-vdso := $(ccflags-vdso) \
+-	-D__ASSEMBLY__ -Wa,-gdwarf-2
++	-Wa,-gdwarf-2
+ 
+ ifneq ($(c-gettimeofday-y),)
+   CFLAGS_vgettimeofday.o += -include $(c-gettimeofday-y)
+diff --git a/arch/mips/boot/compressed/Makefile b/arch/mips/boot/compressed/Makefile
+index 2684540758a8d..3e3803b2db48f 100644
+--- a/arch/mips/boot/compressed/Makefile
++++ b/arch/mips/boot/compressed/Makefile
+@@ -30,7 +30,7 @@ endif
+ KBUILD_CFLAGS := $(KBUILD_CFLAGS) -D__KERNEL__ -D__DISABLE_EXPORTS \
+ 	-DBOOT_HEAP_SIZE=$(BOOT_HEAP_SIZE) -D"VMLINUX_LOAD_ADDRESS_ULL=$(VMLINUX_LOAD_ADDRESS)ull"
+ 
+-KBUILD_AFLAGS := $(KBUILD_AFLAGS) -D__ASSEMBLY__ \
++KBUILD_AFLAGS := $(KBUILD_AFLAGS) \
+ 	-DBOOT_HEAP_SIZE=$(BOOT_HEAP_SIZE) \
+ 	-DKERNEL_ENTRY=$(VMLINUX_ENTRY_ADDRESS)
+ 
+diff --git a/arch/mips/vdso/Makefile b/arch/mips/vdso/Makefile
+index 00d3ba2c482ac..4d04987e995de 100644
+--- a/arch/mips/vdso/Makefile
++++ b/arch/mips/vdso/Makefile
+@@ -33,7 +33,7 @@ cflags-vdso := $(ccflags-vdso) \
+ 	-fno-stack-protector -fno-jump-tables -DDISABLE_BRANCH_PROFILING \
+ 	$(call cc-option, -fno-asynchronous-unwind-tables)
+ aflags-vdso := $(ccflags-vdso) \
+-	-D__ASSEMBLY__ -Wa,-gdwarf-2
++	-Wa,-gdwarf-2
+ 
+ ifneq ($(c-gettimeofday-y),)
+ obj-vdso-y += vgettimeofday.o
+diff --git a/arch/powerpc/boot/Makefile b/arch/powerpc/boot/Makefile
+index 7ee0fa2d3371e..5dca91ec9f4aa 100644
+--- a/arch/powerpc/boot/Makefile
++++ b/arch/powerpc/boot/Makefile
+@@ -80,7 +80,7 @@ BOOTCFLAGS	:= $(BOOTTARGETFLAGS) \
+ 		   $(call cc-option,-mno-spe) $(call cc-option,-mspe=no) \
+ 		   -fomit-frame-pointer -fno-builtin -fPIC
+ 
+-BOOTAFLAGS	:= $(BOOTTARGETFLAGS) -D__ASSEMBLY__
++BOOTAFLAGS	:= $(BOOTTARGETFLAGS)
+ 
+ BOOTARFLAGS	:= -crD
+ 
+diff --git a/arch/powerpc/platforms/cell/spufs/Makefile b/arch/powerpc/platforms/cell/spufs/Makefile
+index 60319d4ff25a6..959617c4ee89c 100644
+--- a/arch/powerpc/platforms/cell/spufs/Makefile
++++ b/arch/powerpc/platforms/cell/spufs/Makefile
+@@ -15,7 +15,7 @@ SPU_AS		:= $(SPU_CROSS)gcc
+ SPU_LD		:= $(SPU_CROSS)ld
+ SPU_OBJCOPY	:= $(SPU_CROSS)objcopy
+ SPU_CFLAGS	:= -O2 -Wall -I$(srctree)/include -D__KERNEL__
+-SPU_AFLAGS	:= -c -D__ASSEMBLY__ -I$(srctree)/include -D__KERNEL__
++SPU_AFLAGS	:= -c -I$(srctree)/include -D__KERNEL__
+ SPU_LDFLAGS	:= -N -Ttext=0x0
+ 
+ $(obj)/switch.o: $(obj)/spu_save_dump.h $(obj)/spu_restore_dump.h
+diff --git a/arch/s390/Makefile b/arch/s390/Makefile
+index 8b712cd85fcd3..83ecc702f7146 100644
+--- a/arch/s390/Makefile
++++ b/arch/s390/Makefile
+@@ -17,7 +17,7 @@ KBUILD_CFLAGS	+= -fPIC
+ LDFLAGS_vmlinux	:= $(call ld-option,-no-pie)
+ extra_tools	:= relocs
+ aflags_dwarf	:= -Wa,-gdwarf-2
+-KBUILD_AFLAGS_DECOMPRESSOR := $(CLANG_FLAGS) -m64 -D__ASSEMBLY__
++KBUILD_AFLAGS_DECOMPRESSOR := $(CLANG_FLAGS) -m64
+ ifndef CONFIG_AS_IS_LLVM
+ KBUILD_AFLAGS_DECOMPRESSOR += $(if $(CONFIG_DEBUG_INFO),$(aflags_dwarf))
+ endif
+diff --git a/arch/x86/boot/Makefile b/arch/x86/boot/Makefile
+index 4a9bce32586d3..69d75072888d1 100644
+--- a/arch/x86/boot/Makefile
++++ b/arch/x86/boot/Makefile
+@@ -52,7 +52,7 @@ targets += cpustr.h
+ # ---------------------------------------------------------------------------
+ 
+ KBUILD_CFLAGS	:= $(REALMODE_CFLAGS) -D_SETUP
+-KBUILD_AFLAGS	:= $(KBUILD_CFLAGS) -D__ASSEMBLY__
++KBUILD_AFLAGS	:= $(KBUILD_CFLAGS)
+ KBUILD_CFLAGS	+= -fno-asynchronous-unwind-tables
+ KBUILD_CFLAGS	+= $(CONFIG_CC_IMPLICIT_FALLTHROUGH)
+ 
+diff --git a/arch/x86/boot/compressed/Makefile b/arch/x86/boot/compressed/Makefile
+index 680ad803cba7d..e73ef522496e1 100644
+--- a/arch/x86/boot/compressed/Makefile
++++ b/arch/x86/boot/compressed/Makefile
+@@ -49,7 +49,7 @@ KBUILD_CFLAGS += -include $(srctree)/include/linux/hidden.h
+ # that the compiler finds it even with out-of-tree builds (make O=/some/path).
+ CFLAGS_sev-handle-vc.o += -I$(objtree)/arch/x86/lib/
+ 
+-KBUILD_AFLAGS  := $(KBUILD_CFLAGS) -D__ASSEMBLY__
++KBUILD_AFLAGS  := $(KBUILD_CFLAGS)
+ 
+ KBUILD_LDFLAGS := -m elf_$(UTS_MACHINE)
+ KBUILD_LDFLAGS += $(call ld-option,--no-ld-generated-unwind-info)
+diff --git a/arch/x86/realmode/rm/Makefile b/arch/x86/realmode/rm/Makefile
+index a0fb39abc5c86..20bbe1af05acd 100644
+--- a/arch/x86/realmode/rm/Makefile
++++ b/arch/x86/realmode/rm/Makefile
+@@ -65,5 +65,5 @@ $(obj)/realmode.relocs: $(obj)/realmode.elf FORCE
+ 
+ KBUILD_CFLAGS	:= $(REALMODE_CFLAGS) -D_SETUP -D_WAKEUP \
+ 		   -I$(srctree)/arch/x86/boot
+-KBUILD_AFLAGS	:= $(KBUILD_CFLAGS) -D__ASSEMBLY__
++KBUILD_AFLAGS	:= $(KBUILD_CFLAGS)
+ KBUILD_CFLAGS	+= -fno-asynchronous-unwind-tables
+diff --git a/arch/xtensa/kernel/Makefile b/arch/xtensa/kernel/Makefile
+index d3ef0407401f6..ece4ae6dea97d 100644
+--- a/arch/xtensa/kernel/Makefile
++++ b/arch/xtensa/kernel/Makefile
+@@ -39,7 +39,7 @@ sed-y = -e ':a; s/\*(\([^)]*\)\.text\.unlikely/*(\1.literal.unlikely .{text}.unl
+ 	-e 's/\.{text}/.text/g'
+ 
+ quiet_cmd__cpp_lds_S = LDS     $@
+-cmd__cpp_lds_S = $(CPP) $(cpp_flags) -P -C -Uxtensa -D__ASSEMBLY__ \
++cmd__cpp_lds_S = $(CPP) $(cpp_flags) -P -C -Uxtensa \
+ 		 -DLINKER_SCRIPT $< | sed $(sed-y) >$@
+ 
+ $(obj)/vmlinux.lds: $(src)/vmlinux.lds.S FORCE
+diff --git a/drivers/firmware/efi/libstub/Makefile b/drivers/firmware/efi/libstub/Makefile
+index 415f63105b481..d4edc3c0c4556 100644
+--- a/drivers/firmware/efi/libstub/Makefile
++++ b/drivers/firmware/efi/libstub/Makefile
+@@ -61,7 +61,7 @@ KBUILD_CFLAGS := $(filter-out $(CC_FLAGS_LTO), $(KBUILD_CFLAGS))
+ # `-fdata-sections` flag from KBUILD_CFLAGS_KERNEL
+ KBUILD_CFLAGS_KERNEL := $(filter-out -fdata-sections, $(KBUILD_CFLAGS_KERNEL))
+ 
+-KBUILD_AFLAGS			:= $(KBUILD_CFLAGS) -D__ASSEMBLY__
++KBUILD_AFLAGS			:= $(KBUILD_CFLAGS)
+ 
+ lib-y				:= efi-stub-helper.o gop.o secureboot.o tpm.o \
+ 				   file.o mem.o random.o randomalloc.o pci.o \
+diff --git a/drivers/net/wan/Makefile b/drivers/net/wan/Makefile
+index 00e9b7ee1e012..4233143534465 100644
+--- a/drivers/net/wan/Makefile
++++ b/drivers/net/wan/Makefile
+@@ -57,7 +57,7 @@ $(obj)/wanxlfw.bin: $(obj)/wanxlfw.o FORCE
+ 	$(call if_changed,m68kld_bin_o)
+ 
+ quiet_cmd_m68kas_o_S = M68KAS  $@
+-      cmd_m68kas_o_S = $(M68KCC) -D__ASSEMBLY__ -Wp,-MD,$(depfile) -I$(srctree)/include/uapi -c -o $@ $<
++      cmd_m68kas_o_S = $(M68KCC) -Wp,-MD,$(depfile) -I$(srctree)/include/uapi -c -o $@ $<
+ 
+ $(obj)/wanxlfw.o: $(src)/wanxlfw.S FORCE
+ 	$(call if_changed_dep,m68kas_o_S)
+diff --git a/scripts/Makefile.build b/scripts/Makefile.build
+index 6127feb970c65..0b7c1e273f0cb 100644
+--- a/scripts/Makefile.build
++++ b/scripts/Makefile.build
+@@ -465,7 +465,7 @@ targets += $(lib-y) $(always-y)
+ # ---------------------------------------------------------------------------
+ quiet_cmd_cpp_lds_S = LDS     $@
+       cmd_cpp_lds_S = $(CPP) $(cpp_flags) -P -U$(ARCH) \
+-	                     -D__ASSEMBLY__ -DLINKER_SCRIPT -o $@ $<
++	                     -DLINKER_SCRIPT -o $@ $<
+ 
+ $(obj)/%.lds: $(src)/%.lds.S FORCE
+ 	$(call if_changed_dep,cpp_lds_S)
+diff --git a/scripts/gfp-translate b/scripts/gfp-translate
+index 8385ae0d5af93..f6353795fdca3 100755
+--- a/scripts/gfp-translate
++++ b/scripts/gfp-translate
+@@ -73,7 +73,7 @@ echo Parsing: $GFPMASK
+ #include <stdio.h>
+ 
+ // Try to fool compiler.h into not including extra stuff
+-#define __ASSEMBLY__	1
++#define __ASSEMBLER__	1
+ 
+ #include <generated/autoconf.h>
+ #include <linux/gfp_types.h>
+diff --git a/scripts/headers_install.sh b/scripts/headers_install.sh
+index 2f1d1767ca267..9c15e748761c4 100755
+--- a/scripts/headers_install.sh
++++ b/scripts/headers_install.sh
+@@ -36,7 +36,6 @@ sed -E -e '
+ 	s/(^|[^a-zA-Z0-9])__packed([^a-zA-Z0-9_]|$)/\1__attribute__((packed))\2/g
+ 	s/(^|[[:space:](])(inline|asm|volatile)([[:space:](]|$)/\1__\2__\3/g
+ 	s@#(ifndef|define|endif[[:space:]]*/[*])[[:space:]]*_UAPI@#\1 @
+-	s/__ASSEMBLY__/__ASSEMBLER__/g
+ ' $INFILE > $TMPFILE || exit 1
+ 
+ scripts/unifdef -U__KERNEL__ -D__EXPORTED_HEADERS__ $TMPFILE > $OUTFILE
+diff --git a/scripts/sbom/tests/cmd_graph/test_savedcmd_parser.py b/scripts/sbom/tests/cmd_graph/test_savedcmd_parser.py
+index 93787a1cd1566..8d9ae35764040 100644
+--- a/scripts/sbom/tests/cmd_graph/test_savedcmd_parser.py
++++ b/scripts/sbom/tests/cmd_graph/test_savedcmd_parser.py
+@@ -152,7 +152,7 @@ class TestSavedCmdParser(unittest.TestCase):
+         self._assert_parsing(cmd, expected)
+ 
+     def test_clang(self):
+-        cmd = """clang -Wp,-MMD,arch/x86/entry/.entry_64_compat.o.d -nostdinc -I../arch/x86/include -I./arch/x86/include/generated -I../include -I./include -I../arch/x86/include/uapi -I./arch/x86/include/generated/uapi -I../include/uapi -I./include/generated/uapi -include ../include/linux/compiler-version.h -include ../include/linux/kconfig.h -D__KERNEL__ --target=x86_64-linux-gnu -fintegrated-as -Werror=unknown-warning-option -Werror=ignored-optimization-argument -Werror=option-ignored -Werror=unused-command-line-argument -fmacro-prefix-map=../= -Werror -D__ASSEMBLY__ -fno-PIE -m64 -I../arch/x86/entry -Iarch/x86/entry    -DKBUILD_MODFILE='"arch/x86/entry/entry_64_compat"' -DKBUILD_MODNAME='"entry_64_compat"' -D__KBUILD_MODNAME=kmod_entry_64_compat -c -o arch/x86/entry/entry_64_compat.o ../arch/x86/entry/entry_64_compat.S"""
++        cmd = """clang -Wp,-MMD,arch/x86/entry/.entry_64_compat.o.d -nostdinc -I../arch/x86/include -I./arch/x86/include/generated -I../include -I./include -I../arch/x86/include/uapi -I./arch/x86/include/generated/uapi -I../include/uapi -I./include/generated/uapi -include ../include/linux/compiler-version.h -include ../include/linux/kconfig.h -D__KERNEL__ --target=x86_64-linux-gnu -fintegrated-as -Werror=unknown-warning-option -Werror=ignored-optimization-argument -Werror=option-ignored -Werror=unused-command-line-argument -fmacro-prefix-map=../= -Werror -fno-PIE -m64 -I../arch/x86/entry -Iarch/x86/entry    -DKBUILD_MODFILE='"arch/x86/entry/entry_64_compat"' -DKBUILD_MODNAME='"entry_64_compat"' -D__KBUILD_MODNAME=kmod_entry_64_compat -c -o arch/x86/entry/entry_64_compat.o ../arch/x86/entry/entry_64_compat.S"""
+         expected = "../arch/x86/entry/entry_64_compat.S"
+         self._assert_parsing(cmd, expected)
+ 
+diff --git a/tools/testing/selftests/kvm/lib/riscv/handlers.S b/tools/testing/selftests/kvm/lib/riscv/handlers.S
+index b787b982e922a..c8cc2d695f483 100644
+--- a/tools/testing/selftests/kvm/lib/riscv/handlers.S
++++ b/tools/testing/selftests/kvm/lib/riscv/handlers.S
+@@ -3,10 +3,6 @@
+  * Copyright (c) 2023 Intel Corporation
+  */
+ 
+-#ifndef __ASSEMBLY__
+-#define __ASSEMBLY__
+-#endif
+-
+ #include <asm/csr.h>
+ 
+ .macro save_context
+diff --git a/tools/testing/selftests/vDSO/vgetrandom-chacha.S b/tools/testing/selftests/vDSO/vgetrandom-chacha.S
+index 16f985b089d45..42839c5cf5ec4 100644
+--- a/tools/testing/selftests/vDSO/vgetrandom-chacha.S
++++ b/tools/testing/selftests/vDSO/vgetrandom-chacha.S
+@@ -3,8 +3,6 @@
+  * Copyright (C) 2024 Jason A. Donenfeld <Jason@zx2c4.com>. All Rights Reserved.
+  */
+ 
+-#define __ASSEMBLY__
+-
+ #if defined(__aarch64__)
+ #include "../../../../arch/arm64/kernel/vdso/vgetrandom-chacha.S"
+ #elif defined(__loongarch__)
 -- 
-Gabriel Fernandez <gabriel.fernandez@foss.st.com>
+2.56.0
 
