@@ -1,114 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.175
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.198
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792792912;
-	b=qhTxposxdz+xMQ+GEjaI1zlwJZC8tOwG0Tb33YxiPzUAtFIc/yfIVZ2mp1RdEfCEBqWs
-	 CtrIX50QSoAj/c7oznZ0OWEC+jlGJDcwHBS8nVc4cEwWkgQJKL9BVV5y6drrrDGT7KU4Y
-	 u3vijBlnU14gTBDtvtG8KYx+gxtIwfUtAwMBafBM3ivTSerBv9IpplnOFc2xGol++vVxU
-	 jVWrLItBgO3gHbJekWT659ypZ3zEYNJzBmzEM6+jUQxC6f3Q7cWUrX/zHHL62CVr90QYs
-	 JfK0oToM6Oc1UFZtYkJJ5h53A5FfdSE8qRWdJ+liSXIbuTNb/XX+GCEFxkgOXnZ7o4Q==
+	t=1792793079;
+	b=f+cx1d4KoFiRwQp0JjxGgml+9ZiUvjZ1PQj7iz+HzoWQTaUBWdkdk6sC6JxOhfSY+FHr
+	 pm1Z5wgo7TeuQS7aXsRgQCxNSNGEuWX4V6H3cFPZxzzcToRzCv6zodquTHDg+03vacEPo
+	 wAhtrYWHAl6R09X7KNwwLCzGOGfXZMUhcQrPr6/vw3NPzjjMTXu14qKXvRP+DwlrQH05G
+	 xGvJo3UurkP7nYXejbeE1y/eyL/7LSpV2RVU+tfzYJwCZQp22GbZDJjoNL6C1y47Mdy/V
+	 GJnIiWdnwj47l2VYk42WMXB7L7ioAHs4Tji4m++KWHT3oeTWQDpKektS2x1NFZFjCsA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792792912;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792793079;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=7bRloCtYRc/1CN8Q7Hs9aasGSanwrF1DkhN4CIO4rT0=;
-	b=I5xNSMz8oYk1RO78iTunaV4k0cvVd/tIDWc7tdIoH5MZUxz5Z8x+6sZKZghFl14/mnKn
-	 VgL5L3QjkO9oUqX0cL5hnmz+hk0vxlu6pXg9CHgAzS0UNdUJ1YCr6spPlQLnn0XYPzOtY
-	 /M7x6biuKlVH1HpCtG0H1LXTOowvslUSl9QTQEHEPI6WykURQVYaeO5SMY8lZcFoCE1tC
-	 hrsUJPcTky8K2KDX/vecZqJsUg47bSiRAuYbcaoTH1L3GMF7P5qpVQoU8owdpxeCxZ+fu
-	 oncDpdSWnqqC8G9173pnT6Ku4LlGxaWkeQxsnorGH4I8SB2JZYw1B9reuuAPBEbNNvA==
+	 X-Gm-Message-State:X-Received:Date:In-Reply-To:Mime-Version:
+	 References:X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=NSFiqAw6PVTudAFIrcFiVo5fhlIkKRQ/fgGjCwTm65k=;
+	b=edIJqs7f3yvIwC5EAWweq27Xr1r2PcUnXzpaaWQFWTOoDnomYF25dCTXr4CweT3tbgW2
+	 f/wtG7fK07anbioAJU6FMgcC1PEC7UnZHrZ1ZtZdGd92wviON+tfn7mDFp7tdq/5pklYN
+	 rlK4hDo9D/FYfpmnLrY00TpmQKUk1h+thb+7nw/4CXsPE0aNol9z2hqwgdGdqB3rhVY82
+	 BbcPvkHxooj6TtQjFdvSXuikZcHWYXa7BGPYn5l2KobSzv/wyr1H3ubti8mfMqj6RpbkX
+	 3G3hZmxBeq1no3STDLzLZfx4ggEvAmOvrtVnVlDHFYQnyD1XVLEhznsoTqIECu7JBaA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=ziepe.ca;
-	spf=pass smtp.mailfrom=ziepe.ca;
-	dkim=pass header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=H2Nk80SC;
-	arc=none smtp.remote-ip=209.85.222.175
-Received: from mail-qk1-f175.google.com (mail-qk1-f175.google.com [209.85.222.175])
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--jstultz.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b="YIoH/KAH";
+	arc=none smtp.remote-ip=209.85.210.198
+Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com [209.85.210.198])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE6EB606A320
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 22:01:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EE6EB606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FE85606A31B
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 22:04:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3FE85606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--jstultz.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=H2Nk80SC
-Received: by mail-qk1-f175.google.com with SMTP id af79cd13be357-93e4c00d71aso123549385a.3
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 15:01:51 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=YIoH/KAH
+Received: by mail-pf1-f198.google.com with SMTP id d2e1a72fcca58-89e96c03cd0so1083122b3a.1
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 15:04:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ziepe.ca; s=google; t=1792792911; x=1793397711; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=7bRloCtYRc/1CN8Q7Hs9aasGSanwrF1DkhN4CIO4rT0=;
-        b=H2Nk80SC0IE0suPURnYr9e6hZbC4LBCNbP2UbticIu/vM5Zx8lZxl1WF9oIVeOGweJ
-         W19x63RIXk3jCkb/8AZ9w0/6q6ZaY29bsZqX8VJh3ACjKIAi6gixXOH39qqPhJV0UGZD
-         h9hrX7AQMBlOV6X6RgQiCpuKPLs0LqoIe0SH9hdfWiIr6eNHUZFFbT0I/kCisS92xxMY
-         Ucn1ZlEpvxoCWlvTmp2e0dWk4YFXYfROdABgbIgP0F4SF8jcDI2aMT5TzMY19oaj7RhQ
-         ktu/3+o+78VzxnRBhNe+IMPeqMjRjTTMOSsOLuA26L6BAOJT0HaC4+T4MRB1PHDXmGMo
-         Ignw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792792911; x=1793397711;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20251104; t=1792793079; x=1793397879; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=7bRloCtYRc/1CN8Q7Hs9aasGSanwrF1DkhN4CIO4rT0=;
-        b=J0eU/UR9oiGjzlyzspsrHU0kHPFPTCzCopzxQJfOsZC+tN6zKzO1KMT/Urt5sMSCo/
-         hoSH6gI4BauFQt2WF6PIhrkj5HNcy4R5v/UJ6ehPkeAfYC8Spmd1IxvC4EUu0+9kc/Os
-         8g081Ecj1jF8wgWLM9yBT9dQBKMblkuH2+HPqIrP4rsNFB1Ps+99+k+xPSqNc7H8OqZy
-         zmX29N9fa5h6c82CdLasZb2eN10DWdWBFIQqQmui3lQS38P4AMn1Q83DD7spmQPv6t8N
-         8iTGO6XcVdnGsCizvpZE0aoQ148KGIqz+VlbQBF0eA72MSndicv3xW16oZXgHMJoJmAB
-         pklw==
-X-Forwarded-Encrypted: i=1; AKwUvBx0bwhuXwIpimHi7eKG1drQGqkzc+Y1M2HRUU4ZQmpM7B3MO7fxp+W7/QEY/JrMsWB5bHIwTTlXEmKZ6LA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJlpBTXVk845fDEim1/fXgKMVvGupGNNkPC3jGkmuOISU2U/2Me
-	dAH4SqIxV7BOzSGyiWBRt+8rTJD3tmNN2xttRaowJEXxKKpieEpCO81PFbhY5EjRbkY=
-X-Gm-Gg: AYBFou3Q5JS7+mr0sOWmbboOHLfRNW5KXQ8eJpzhhePHGyftd9Wu8CaQSxOcjKZmz9E
-	9N1wYLfohg5k0+1TCMTA26RPB9dX4NZYU3oZEtPex+F2OdYQNndpfzzap0rqs/l+umyn+m0JQJf
-	PHWuN84f1GifIZtr5sZC0h30gUfXxzzZIdqfS0USYup36SYoVr9GuvDR8YVWEjGFcyavfGFxyf5
-	by/4r4ZEzHU7RvESh6TB01lnxYJiC0ZB7cdCwVlD2mU7CRWzSacCh+keJB0IhHgDLLkMvo6Ev8M
-	si1bpq5tjcLWjCp/yPxTX6W6VaRLow+dwKYq4jTuIFSPnsSFVx/dF16jBvdISUZjCfMgq03F5aC
-	/l/Vi101o04JCVD7qfH1Om0jlmpTytCugN715A3LwL9IFGBXdYYvGDFEQheVWT0q0db/AVgbSfO
-	70KkkpcMB//ki8v8E05M1oF5D6gM2t0t8HKPNZtqSZwHE749olR27KHXhlOqGWVq/btanyJ7cRg
-	qSQCDmD3I36M2wHVAEhEm+fvprcH4hSnd+e5OI/NtMK2tc6V34o4LZXmJUMyag/6JgB/SqlaKvz
-	WHGyuGktKD38OC+s/Jmmdd9/WMPbNzn4+gy45Q==
-X-Received: by 2002:a05:620a:4441:b0:93e:c12c:f137 with SMTP id af79cd13be357-940ef9c87e0mr54142985a.82.1792792910841;
-        Fri, 23 Oct 2026 15:01:50 -0700 (PDT)
-Received: from ziepe.ca (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net. [159.2.239.150])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-940f078a762sm18520585a.30.2026.10.23.15.01.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 23 Oct 2026 15:01:49 -0700 (PDT)
-Received: from jgg by wakko with local (Exim 4.97)
-	(envelope-from <jgg@ziepe.ca>)
-	id 1xKNKe-0000000H7Vk-3jIV;
-	Fri, 23 Oct 2026 19:01:48 -0300
-Date: Fri, 23 Oct 2026 19:01:48 -0300
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: Bjorn Helgaas <helgaas@kernel.org>
-Cc: Leon Romanovsky <leon@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
-	Logan Gunthorpe <logang@deltatee.com>,
-	"Joerg Roedel (AMD)" <joro@8bytes.org>,
-	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
-	Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
-	Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
-	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org, iommu@lists.linux.dev,
-	Tushar Dave <tdave@nvidia.com>, linux-media@vger.kernel.org,
-	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
-	linux-rdma@vger.kernel.org, kvm@vger.kernel.org,
-	Chaitanya Kulkarni <kch@nvidia.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jens Axboe <axboe@kernel.dk>, Alex Williamson <alex@shazbot.org>,
-	Ankit Agrawal <ankita@nvidia.com>, Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Sumit Semwal <sumit.semwal@linaro.org>
-Subject: Re: [PATCH v9 02/18] PCI/P2PDMA: Derive routing from directional ACS
- controls
-Message-ID: <20261023220148.GN3977851@ziepe.ca>
-References: <20261023190036.GL3977851@ziepe.ca>
- <20261023201531.GA2805244@bhelgaas>
+        bh=NSFiqAw6PVTudAFIrcFiVo5fhlIkKRQ/fgGjCwTm65k=;
+        b=YIoH/KAH6ufZbmhDr8eMaFDDtsF0KRrvev492uSLYgfa1YaFCYad4q9AxXMN7hAexC
+         VNPtXJ7xriWc6+5nd4dXCE+HNVu6hycBReukEnAPcUcvvv9gObKpQx2WdpmATYaZGiAb
+         kkfH0AgnhUMQ5juAp91uMTUOpLJkeIvSeraMz2E/9aIMoC469vMlAsR1myAYjjrSNWXu
+         bGZiu7Ma2h8KXDxNIABJm7BBjRA62KusY9DZNuOTwpikDczw0BFQNL/osENWnrCYBDn2
+         05ttJBKUL/E9YmJQZzJNxRtsV9eolJ9fb3MrgqN+09+Nvr1xkwXpTGgs7WY3HvHUdVHQ
+         qPGQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792793079; x=1793397879;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=NSFiqAw6PVTudAFIrcFiVo5fhlIkKRQ/fgGjCwTm65k=;
+        b=nTvigd82YfUXN8foIqu5JDgH+1AgI/afxVQ4rVhhJay4miQxg19hNIuZNrVLppAw2e
+         bf05A4QBBOjkvu8eNWl47FWTGrKMQYRLRYRKMB2iKS8iPSjVvlJy/twaj+h4EDZoO7bq
+         ewThgEJnMmVAU164c2uaeMIESyQ67Y7gC6AR10wo44A16HMMJKat3rOO7zQ89r48dVnC
+         j5eRdYa9KZnoPXCtMrLWOeRdK/I1gtsi2EcvXNtEa9xlTQwGosQ/OhyqSWLSMpN55K8/
+         Ctr1eMviRF9mHK6XsgzKTfsOR5DC1PmbWRTK1uw954JYdd1cyjuIUmORhdz1WeI1W1Ai
+         XklQ==
+X-Gm-Message-State: AFq9FYIl09ZRUo1t09M43RQaCJzt1/nskt6g9IHyqcNHYYOaiCpnwbfD
+	UK+MoSoPtWEyu3S3wrO44rIhtDz4gEhp5N3RE6Od8dVg5nm0+fyCzPV2Eq5ev9tCIcB5gtcv2EC
+	0MVqKGPwflkKnCmSwnOD8DqXzfbLerInyllj6ZfWZG+F+SI1gUGSG2C7a7pegihkfKFu9KRxlgU
+	eShD4On6px89C2lMwC3zsfwVG+PKrzP6Z90aZ8Q2xKCpaxnykI
+X-Received: from pgbd15-n1.prod.google.com ([2002:a05:6a02:64cf:10b0:cd8:bc38:3b48])
+ (user=jstultz job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a20:3c8e:b0:3e0:e042:2450
+ with SMTP id adf61e73a8af0-3e7bfbe6b69mr309700637.51.1792793078353; Fri, 23
+ Oct 2026 15:04:38 -0700 (PDT)
+Date: Fri, 23 Oct 2026 22:04:16 +0000
+In-Reply-To: <20261023220431.1106611-1-jstultz@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -117,45 +77,137 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261023201531.GA2805244@bhelgaas>
+Mime-Version: 1.0
+References: <20261023220431.1106611-1-jstultz@google.com>
+X-Mailer: git-send-email 2.56.0.257.gf7497c7d27-goog
+Message-ID: <20261023220431.1106611-6-jstultz@google.com>
+Subject: [PATCH v33 5/7] sched/proxy: Break cyclic proxy chains by
+ deactivating blocked tasks
+From: John Stultz <jstultz@google.com>
+To: LKML <linux-kernel@vger.kernel.org>
+Cc: "zhidao su (Xiaomi)" <soolaugust@gmail.com>, John Stultz <jstultz@google.com>, 
+	Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+	K Prateek Nayak <kprateek.nayak@amd.com>, Thomas Gleixner <tglx@linutronix.de>, 
+	Juri Lelli <juri.lelli@redhat.com>, Vincent Guittot <vincent.guittot@linaro.org>, 
+	Valentin Schneider <vschneid@redhat.com>, Suleiman Souhlal <suleiman@google.com>, 
+	Andrea Righi <arighi@nvidia.com>, Metin Kaya <Metin.Kaya@arm.com>, 
+	Dietmar Eggemann <dietmar.eggemann@arm.com>, Steven Rostedt <rostedt@goodmis.org>, 
+	Zimuzo Ezeozue <zezeozue@google.com>, Waiman Long <longman@redhat.com>, 
+	Boqun Feng <boqun.feng@gmail.com>, "Paul E. McKenney" <paulmck@kernel.org>, 
+	Joel Fernandes <joelagnelf@nvidia.com>, Qais Yousef <qyousef@layalina.io>, 
+	Xuewen Yan <xuewen.yan94@gmail.com>, kuyo chang <kuyo.chang@mediatek.com>, 
+	hupu <hupu.gm@gmail.com>, Zhan Xusheng <zhanxusheng@xiaomi.com>, Hui Su <sh_def@163.com>, 
+	"Shubhang Kaushik (Ampere)" <sh@gentwo.org>, kernel-team@android.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Fri, Oct 23, 2026 at 03:15:31PM -0500, Bjorn Helgaas wrote:
-> On Fri, Oct 23, 2026 at 04:00:36PM -0300, Jason Gunthorpe wrote:
-> > On Fri, Oct 23, 2026 at 01:27:15PM -0500, Bjorn Helgaas wrote:
-> > 
-> > > > Yes, the ACS combination is selected to avoid ordering issues
-> > > 
-> > > Does a user have any way to know whether the configuration is safe?
-> > 
-> > No, unfortunately in PCIe so much is really difficult when it comes to
-> > deployment :(
-> > 
-> > > I'm wondering whether users might use "pci=config_acs=" to configure
-> > > ACS so things appear to work as they prefer but may not provide the
-> > > ordering guarantees drivers depend on.
-> > 
-> > I imagine that could happen, but on most practical systems the root
-> > complex will blow up if you do asymmetric routing so there is an early
-> > indication.
-> > 
-> > I know this because I've help debug such configurations at
-> > customers. Some servers helpfully MCE if you do this. Lovely.
-> 
-> I'm still confused about this because earlier in this thread, I
-> thought Leon said you do asymmetric routing:
-> 
->   Bjorn> And I guess asymmetric fabrics must mean fabrics where
->   Bjorn> Request Redirect and Completion Redirect are not set the same
->   Bjorn> way?
-> 
->   Leon> Yes, in some of our systems, deviceA to deviceB is going
->   Leon> through different route than deviceB to deviceA.
+From: "zhidao su (Xiaomi)" <soolaugust@gmail.com>
 
-Yeah, that's what I clarifed, it isn't quite accurate. The asymetric
-routing is between Strict Order and Relaxed Order TLPs, not
-request/response.
+find_proxy_task() follows the blocked_on/owner chain for a
+blocked donor. If the chain forms a cycle, __schedule() can keep
+walking the same chain while holding rq->lock.
 
-Jason
+Kernel locks are not allowed to have cycles (except ww_mutexes,
+which we handle properly), so this logic isn't likely to trip
+unless a bad driver has incorrect locking (which lockdep should
+detect). However, eventually we want to have proxy-enabled
+futexes, where we can't control userland's locking, and will
+need to avoid wasting cpu time iterating around a cycle.
+
+A PE cycle reproducer creates two tasks blocked on each other's
+mutexes. Without a guard, the guest does not complete within a
+90s vng timeout. With this change, loading the reproducer
+reports:
+
+  sched/pe: deadlock cycle detected, pid 128
+
+and a heartbeat kthread pinned to the same CPU continues to run:
+
+  pe_cycle_kmod: heartbeat 3 pid 129
+
+Rescheduling idle is not enough here: the same blocked_on
+relation remains, so the next scheduling pass can select the
+same donor and re-enter the same cycle.
+
+When the walk reaches the original donor again, clear the
+current blocked_on relation and deactivate that blocked task. Do
+the same for excessive chain depth after revalidating blocked_on
+under p->blocked_lock. This removes the task from the proxy-exec
+runnable-chain selection path and lets the scheduler make
+progress.
+
+Use 1024 as the depth limit to match rtmutex's default
+max_lock_depth.
+
+Signed-off-by: zhidao su (Xiaomi) <soolaugust@gmail.com>
+[jstultz: Simplified slightly, dropping WARN_ON and owner == donor
+ check, slightly reworked commit message]
+Signed-off-by: John Stultz <jstultz@google.com>
+---
+Cc: Peter Zijlstra <peterz@infradead.org>
+Cc: Ingo Molnar <mingo@redhat.com>
+Cc: K Prateek Nayak <kprateek.nayak@amd.com>
+Cc: Thomas Gleixner <tglx@linutronix.de>
+Cc: Juri Lelli <juri.lelli@redhat.com>
+Cc: Vincent Guittot <vincent.guittot@linaro.org>
+Cc: Valentin Schneider <vschneid@redhat.com>
+Cc: Suleiman Souhlal <suleiman@google.com>
+Cc: Andrea Righi <arighi@nvidia.com>
+Cc: Metin Kaya <Metin.Kaya@arm.com>
+Cc: Dietmar Eggemann <dietmar.eggemann@arm.com>
+Cc: Steven Rostedt <rostedt@goodmis.org>
+Cc: Zimuzo Ezeozue <zezeozue@google.com>
+Cc: Waiman Long <longman@redhat.com>
+Cc: Boqun Feng <boqun.feng@gmail.com>
+Cc: "Paul E. McKenney" <paulmck@kernel.org>
+Cc: Joel Fernandes <joelagnelf@nvidia.com>
+Cc: Qais Yousef <qyousef@layalina.io>
+Cc: Xuewen Yan <xuewen.yan94@gmail.com>
+Cc: kuyo chang <kuyo.chang@mediatek.com>
+Cc: hupu <hupu.gm@gmail.com>
+Cc: Zhan Xusheng <zhanxusheng@xiaomi.com>
+Cc: zhidao su (Xiaomi) <soolaugust@gmail.com>
+Cc: Hui Su <sh_def@163.com>
+Cc: Shubhang Kaushik (Ampere) <sh@gentwo.org>
+Cc: kernel-team@android.com
+---
+ kernel/sched/core.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
+
+diff --git a/kernel/sched/core.c b/kernel/sched/core.c
+index 43ba76b5a3464..12a42252bf474 100644
+--- a/kernel/sched/core.c
++++ b/kernel/sched/core.c
+@@ -6984,6 +6984,8 @@ static void proxy_migrate_task(struct rq *rq, struct rq_flags *rf,
+ 	proxy_reacquire_rq_lock(rq, rf);
+ }
+ 
++#define MAX_PROXY_CHAIN_DEPTH 1024
++
+ /*
+  * Find runnable lock owner to proxy for mutex blocked donor
+  *
+@@ -7019,6 +7021,7 @@ find_proxy_task(struct rq *rq, struct task_struct *donor, struct rq_flags *rf)
+ 	int this_cpu = cpu_of(rq);
+ 	struct task_struct *p;
+ 	int owner_cpu;
++	int chain_depth = 0;
+ 
+ 	/* Follow blocked_on chain. */
+ 	for (p = donor; p->is_blocked; p = owner) {
+@@ -7139,6 +7142,13 @@ find_proxy_task(struct rq *rq, struct task_struct *donor, struct rq_flags *rf)
+ 			 */
+ 			goto resched_idle;
+ 		}
++
++		/* Limit the depth we'll proxy to avoid cyclic deadlocks */
++		if (++chain_depth > MAX_PROXY_CHAIN_DEPTH) {
++			__clear_task_blocked_on(p, NULL);
++			goto deactivate;
++		}
++
+ 		/*
+ 		 * OK, now we're absolutely sure @owner is on this
+ 		 * rq, therefore holding @rq->lock is sufficient to
+-- 
+2.56.0.257.gf7497c7d27-goog
+
