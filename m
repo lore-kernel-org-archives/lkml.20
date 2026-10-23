@@ -1,86 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792746180;
-	b=FrsegPmBCsg+f4izU7ulPFZxGw8IZ4Aombz8SzKvOe78d7ZectW65LoLhmgz9c+iezCF
-	 Qec3sRnkr+0BKqw3nv1svTrsNSlF1Up2BHX80mczrX/WqTCURunMSiBg7hC34nabzPxQ4
-	 cjbD1tvVIpkFcvn5SxHUqmj0YjZz+1ioT3pG3kUoUZN5ywxAsD//9aBMFtL8llZK/xZjQ
-	 UBzBTo6t8l68nWunQYA5M6ZbEW3z4UhkmKvAEb96d1msRJWvjhGXQyFbR8WDws/nYYwsO
-	 pmxi2t/VcIzwsiP2WTGv5NocZeoO3ojrBmSPtI75X83s+5JV8L0vsmC0mxl3w6vYnqQ==
+	t=1792746172;
+	b=I7aEnNXMh3tkr2Q1VXyWvzvLAfE8KEJvOV3xK/hDQVmYEMxam4PQ72IYSSwKZ3HXaHzK
+	 iTzQMRbQGbCqKrK9RprhCC73BRP05AHd5JkDPZAVn7HBR9McCUz8jYyZtzSXJmQHFfc3j
+	 yyJZ028I5alpeX78K7HMFxoa8lvIw8cPDVCUZi6p021u990ru1mpexfhVW94kSyrQcrkv
+	 BKo9h9YjVMr129G2wv/Y8Mz+yML5FSXzChOg2aDvZvF0xbZow6VDiJanmrSFETL3fw6S+
+	 wZXpWjuR+8/88Zc7LbMJ/uF7WrkQZwfC8sXKPTfh+xPvR4KecVFgyiD+eqUSzrPykGg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792746180;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792746172;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=4lS1T9V/8hOQNSNI3skemZ6kD/gHU+QD/EI+Xu5vZYE=;
-	b=aBBzBpHATua0pEg4NuAYf7CwHg5FrlK0TBM3gRFTxxXncbPTC3Z18UifDsDK6VRsaWJc
-	 GlENdIfmgDUWpg/qawKtWS1CQwHE6pifMOqvfzohQi7uzc9z8StWzkcxwDysQpAYXzJvd
-	 AOWsUgg8oJODBAnD1QLfBrI7OLKrQp2H/pZOTzpOPzYeya6+uWpl9QiPx1xaA5bzaz1J0
-	 c790sAEFXXJPOwBfmjiVl1HbK/YRlO0pJY285Ck+9rfxyXfu0XyVLWWq3XP8OvKUkt2F9
-	 EQyylr1jkz9pmUy3rntK7YCVzYtP1bK/SGUb5mwQTPpwTV31AhS2MKGWvm/Lxis1+Cw==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=JO0tB7Xd9eWgQ+Y6nIQYBILBi0lSDC/RKqQDkgfwr9U=;
+	b=o80+gEITZKwvhmpXFfscwKaMCSY+JWxCreq3zYveQjFGzmuIkxSoDGE2gE7LAqEUeDMt
+	 0d22+VOlyVKboCZEUXhQr1/vDfdis4xwDn5+aAQD3xxYHlYT4zpSK82C2JqdbIHwPK1zO
+	 2QvQ/blt0BID5u36WAQsqf3MAVyyGW5FE66PuXoo6sK7wRgEGS/7lVD56pKB6d1qziG9U
+	 TVEikM3I9madTkukNADmg3DsjyMBOjQYp/S0KLmJ3wHNHdT7nAwEm+Y/oxX9giR5J2HaK
+	 ebNoEVHzJeqonkvY4T52sJKpxkDXIQYjeLNceKThSwidqoi78dR54cJHftvddEb821A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=vGOgjVzr;
-	arc=none smtp.remote-ip=209.85.128.54
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=tFgcO7MV;
+	arc=none smtp.remote-ip=209.85.216.54
+Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C3E9606A31D
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 09:02:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3C3E9606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A30C606A32E
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 09:02:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4A30C606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=vGOgjVzr
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a208d93758so6422745e9.3
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 02:02:53 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=tFgcO7MV
+Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-3ada4c06b7bso327939a91.2
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 02:02:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1792746172; x=1793350972; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1792746156; x=1793350956; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=4lS1T9V/8hOQNSNI3skemZ6kD/gHU+QD/EI+Xu5vZYE=;
-        b=vGOgjVzrmhHPQfF26vJcuPQEolaDK+5QQZWWPOaerfKisKndjY2bAa7B1GfCybFKUX
-         whoi9uJCcDoiVsIvhO15674cVslx1584Hb8Y9WuHs2U3Qlpt9zPBDG7gNxK7OjQATAIS
-         7B2BD2cjIXcqfnsTfmnvIwWh1jHtLTAtVSR4c3rhOx2zLKPhy0/IZ7Z3/FCr6/Zvfx47
-         93vssIIQyPfb5NfseXbVTqJihCj5FQ0sB/C1LQbRUgnzW21EneCbgZgwf5gUu6303wdP
-         BrBX2l9sjqEM6NO+3lgI5eI9sfqWLmmlYBWfbU+tyU/XXh++UTKFPvZoMfY0ver0I1bP
-         8Wsw==
+        bh=JO0tB7Xd9eWgQ+Y6nIQYBILBi0lSDC/RKqQDkgfwr9U=;
+        b=tFgcO7MVBOnZiWQopcfBHuDRSroc9h0A5wrBiJro0X7bFyWnJb+8EThzICDLOR/A3v
+         qMurC9aR3UJYR0jm+gzLuJKDIgULLbl7qfHC/paoV9LJ+zpocymdFXHClhPp6PTMAZzj
+         EBlUBgM88fe6867MfY+9fNtEf1YrDRq27Y7LDuGqxvWX0xfHKU1fDRZSkUsMZIlkrtsZ
+         wRhivkJXph9q1zYAL7/Bux2C7ugHYcku4NSKshHtUjkEn4Kuzxn7HD1ZGx8nCjjqQd7B
+         SDQ/xKcNKh3i6+KE0/BkUGmzhKBQa41aNI2QjdrD99a0DVqgaKTJSREjRO5cgqFzO5M+
+         q3lA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792746172; x=1793350972;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=4lS1T9V/8hOQNSNI3skemZ6kD/gHU+QD/EI+Xu5vZYE=;
-        b=DM6eMkkTRJQ71ErMWpS5LMxFzQzhcVkqENGXQIO2md8iEuKc8IAtoa1VJ/pTOk92HV
-         zecMmvESlMOSL9mEBt2H00pccS30ronA9FttGV+GZ3uS/yJQgIa92Mgvq6QzW7sGDKDH
-         r2oRdG9sP7HwciKCiatiFKxnHHOkqtUFKUVkc2iHwCR8hI509aJIj1uFT6AcLvz+5g9G
-         kdjDlthwx6UPveR9JZ2ZsYcFxikaBPbHK/uOLifnJc7LliK16/AfbGiMx/+A7dfr4Gme
-         QCKdmL0WtriJZZ4pNUllh8zrEI3BMVhpy4bACaGSI3XiT/0StvZjb4B2wSv3gwrbzha6
-         zYMg==
-X-Forwarded-Encrypted: i=1; AKwUvBxjbjXNvfMY8Aie6BncmCIHmG9emna+32/n2s0H+YZd8ozckELfkSYZj6oU8WkHc91yoIp8Bo1QyGv8mkg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJqDypZwa4IHfnXHwhEgHCeE7Ecw3I6xdRnPqAPegdDVjIX9X2V
-	qvmOQBv3E217K6mM4yRWayfvZmoraCpqvJUfXCUn98/Kk/zuakD89obLygeqIAAL9Ys=
-X-Gm-Gg: AYBFou0/EeF1wKtrupRB3jo81ok/VjwA8MPd9U/WpZ6LQEwrDWo3w+D4z2AUpss+R/e
-	Qz7Rh00vn0u7R052RbFAlA+iNjNewaIcuzszX2PbGR7+ORdc6Dv6T0+8WZ/KQrqhSa5GQgrss2C
-	jO0VlkFSm1KL4onvKFk5VzKGIHpCpdmDUYRoDXCOlQifwxE+hAVOd8OK6kkVjziwLt6z97XuQ4x
-	a6IkZf0qgwkc7dWubFxFdedOS4e08KbUp57RoZzRrQjTmK6sbl/0ew235Z18r6J/wnsIkQgDFlQ
-	uzdTefmsnEg81GK6voNx5D02XGN+BNsIQ/YenuG5btFuqt16L7wKLoemmVMQ4CQANG1JYmr5ggG
-	9MmR8AtsFVCVxbQOxVd4LrowjdcxqvNO+7gCJ4kzCHMUDdEUO1hGlOrdpsVCm9iw/EzcBIcj9ZW
-	3Kp/jS6iFn0YiEA+GFa7oftP1DUXiJ2I9KLyek3JylRaQ6hboco3sHoJj3r0f/xGIJOjcOWTizn
-	JdPCi0Vw2LicvFXHb/m9SblwfCZhnwhYSvtdmD3oMx3zFZKCwufh3P+ev8=
-X-Received: by 2002:a05:600c:4e04:b0:4a1:fb2f:eff with SMTP id 5b1f17b1804b1-4a211ee375emr24473815e9.18.1792746170827;
-        Fri, 23 Oct 2026 02:02:50 -0700 (PDT)
-Received: from pop-os.local ([37.18.141.193])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a210487d16sm60582535e9.15.2026.10.23.02.02.49
+        d=1e100.net; s=20260707; t=1792746156; x=1793350956;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=JO0tB7Xd9eWgQ+Y6nIQYBILBi0lSDC/RKqQDkgfwr9U=;
+        b=O2JOEFka0xAM7PM6Ca3oD5EdV7mk99KStFRTf55DrtZMLwu8P0Vjzr0M79i8gdByQP
+         7Vc4b6H1fGoY1SIdZuHqtBvXQYVNi/lZ1p7wUt841fTgCDZX2EfecpY7D2yJCsZDiE1M
+         vN8god1pKE+TbfBRqPGSoiQ0qbIv8wiO4+vyjP6aojF9z1+H8RyWTrHSpfX5iF+HljIV
+         MgHuevAStnYx7Fxo8wHyydEQh38CLPVloqsGmSa0wL1KDLzWlhYWCYS44bi8nOhYcfsG
+         6J6JE4iqsk+ZkHBQcYelCxAUn9rixxw5c4xrTIr2kg3wRRP/myv4WCBw4pVGEq13bFmH
+         3hMQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxzGnLdym5uznIBFbJUC9ueeUL0NIz68JM9eKLpzg1mHEE1Vj/QFY5vpyoNEWJmbqVS23c6tTInvfLXYp4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJhQlEVyuxns9qr1B+7OnrKXqHgMywZCLB8qb7b+o9wI52c54yS
+	4mStoiiyLkk8ZUOJ8skN2q5LWjK1df/hxdMoOoNVEni5tSU5/2p50r7W
+X-Gm-Gg: AYBFou3d0kAE6HIJtRpKyxdpHkEAgwf/aPxjvf24KtZh4wnlNacaL9WDV2DXcaveXLt
+	Bn9+dF9N3nhcibq8IBiHYIXGYuyyMyqNgVoVvxdjsIMwXk7AawvJkWJ7Wjk4km6hHo248UeBhVR
+	Va7JW8xQYYm2v2AwQ/lXTdcxHOIQMI7kmMJVm9PyPcFDHUquYgSp4wHp3mbpo0Wv2AwnMDfGYzM
+	Jpua2b4btZmjCHoyS5D8rQC9tVPLFfewnfZf0x3vRknFS3a3jBqlRIv+x3ChNpDnwqAFwmXZ8ST
+	xfPOM2sMd6VQbQrp6U+tZRvlQwnIFrFKnEpClj+4a32RL7SZCCR49m94rWOgFKl9TIgftSLGBD2
+	zqSBSJHJLsJuJp2EP8LtwfzvL5RPXEOPZrlTLR2b+t98qwgxvmhdBbivroocLk6H7cjM4NTpO1F
+	SN4mAmoJQUVlwWojCPMzwaOL4FNLmltf3p2JtDRE28bvrxiPVTF12TMWd7KSU4R0qGxqKnCpFgR
+	dpVvui2E9zW4HVXCBpSj8753lCdNjsnBweIHv3rQtO+Ular42jg6G6wWD0pm9jTIz+jUC59qOrh
+	b6lLj7sVn8m8CMeThC7l3kf7qOZdIP+5fbaoKv+43RqodYpSYC/yjxSoPLHA7ba0sQtwlgY=
+X-Received: by 2002:a17:90a:d40b:b0:3ac:9785:4c32 with SMTP id 98e67ed59e1d1-3adce03f56emr1208626a91.30.1792746156497;
+        Fri, 23 Oct 2026 02:02:36 -0700 (PDT)
+Received: from phuc-desktop.. ([183.91.15.56])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3adca62e477sm2718306a91.2.2026.10.23.02.02.32
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 23 Oct 2026 02:02:50 -0700 (PDT)
-From: James Clark <james.clark@linaro.org>
-Date: Fri, 23 Oct 2026 10:01:50 +0100
-Subject: [PATCH 1/2] perf test: Factor out the --skip check and its output
+        Fri, 23 Oct 2026 02:02:35 -0700 (PDT)
+From: phucduc.bui@gmail.com
+To: David Rhodes <david.rhodes@cirrus.com>,
+	Mark Brown <broonie@kernel.org>,
+	Richard Fitzgerald <rf@opensource.cirrus.com>,
+	Stephan Gerhold <stephan@gerhold.net>
+Cc: Liam Girdwood <lgirdwood@gmail.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+	Charles Keepax <ckeepax@opensource.cirrus.com>,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	HyeongJun An <sammiee5311@gmail.com>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	bui duc phuc <phucduc.bui@gmail.com>
+Subject: [PATCH 3/4] ASoC: codecs: tfa989x: Handle hw_params return value
+Date: Fri, 23 Oct 2026 16:01:56 +0700
+Message-ID: <20261023090157.518032-4-phucduc.bui@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261023090157.518032-1-phucduc.bui@gmail.com>
+References: <20261023090157.518032-1-phucduc.bui@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -90,198 +108,54 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261023-james-perf-test-skip-v1-1-b6c11bdafd46@linaro.org>
-References: <20261023-james-perf-test-skip-v1-0-b6c11bdafd46@linaro.org>
-In-Reply-To: <20261023-james-perf-test-skip-v1-0-b6c11bdafd46@linaro.org>
-To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
- Arnaldo Carvalho de Melo <acme@kernel.org>, 
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
- Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, 
- Adrian Hunter <adrian.hunter@intel.com>, 
- Alice Rogers <alice.mei.rogers@gmail.com>, Leo Yan <leo.yan@arm.com>
-Cc: linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Arnaldo Carvalho de Melo <acme@redhat.com>, 
- James Clark <james.clark@linaro.org>
-X-Mailer: b4 0.15.2
+Content-Transfer-Encoding: 8bit
 
-__cmd_test() checks the --skip list and prints the "Skip (user
-override)" line and its junit entry inline, and
-perf_test__shares_mlock_budget() repeats the check, with the list passed
-to both from cmd_test().
+From: bui duc phuc <phucduc.bui@gmail.com>
 
-Make the list static, like the other options, check it in
-perf_test__skip_suite() and move the output to
-print_suite_user_override(), so that the --skip-name option added next
-can hook into the same places.
+snd_soc_component_update_bits() may return 1 when the register value
+changes, but ASoC only marks the DAI hw_params as done when .hw_params()
+returns 0.
 
-No functional changes intended.
+Propagate negative errors and return 0 on success.
 
-Signed-off-by: James Clark <james.clark@linaro.org>
+Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
 ---
- tools/perf/tests/builtin-test.c | 83 +++++++++++++++++++++--------------------
- 1 file changed, 43 insertions(+), 40 deletions(-)
+ sound/soc/codecs/tfa989x.c | 17 +++++++++++++----
+ 1 file changed, 13 insertions(+), 4 deletions(-)
 
-diff --git a/tools/perf/tests/builtin-test.c b/tools/perf/tests/builtin-test.c
-index 880eece0bc12..cd0fc3dedc3e 100644
---- a/tools/perf/tests/builtin-test.c
-+++ b/tools/perf/tests/builtin-test.c
-@@ -68,6 +68,8 @@ static bool list_requisites;
- static unsigned int runs_per_test = 1;
- /* Number of lines to include in failure snippet. */
- static unsigned int failure_snippet_lines = 10;
-+/* Numbers of the test suites to skip, from --skip. */
-+static struct intlist *skiplist;
- /*
-  * The tests mapping ring buffers take turns using their share of
-  * kernel.perf_event_mlock_kb via this mutex, shared with the forked test
-@@ -342,6 +344,11 @@ static bool test_exclusive(const struct test_suite *t, int test_case)
- 	return t->test_cases[test_case].exclusive;
+diff --git a/sound/soc/codecs/tfa989x.c b/sound/soc/codecs/tfa989x.c
+index 7204be155eb9..885b3ea19c2c 100644
+--- a/sound/soc/codecs/tfa989x.c
++++ b/sound/soc/codecs/tfa989x.c
+@@ -160,15 +160,24 @@ static int tfa989x_hw_params(struct snd_pcm_substream *substream,
+ 			     struct snd_soc_dai *dai)
+ {
+ 	struct snd_soc_component *component = dai->component;
+-	int sr;
++	int sr, ret;
+ 
+ 	sr = tfa989x_find_sample_rate(params_rate(params));
+ 	if (sr < 0)
+ 		return sr;
+ 
+-	return snd_soc_component_update_bits(component, TFA989X_I2SREG,
+-					     TFA989X_I2SREG_I2SSR_MSK,
+-					     sr << TFA989X_I2SREG_I2SSR);
++	ret = snd_soc_component_update_bits(component, TFA989X_I2SREG,
++					    TFA989X_I2SREG_I2SSR_MSK,
++					    sr << TFA989X_I2SREG_I2SSR);
++	if (ret < 0)
++		return ret;
++
++	/*
++	 * ASoC only marks the DAI hw_params as done when .hw_params() returns 0.
++	 * Since snd_soc_component_update_bits() may return 1, explicitly
++	 * return 0 to ensure the DAI is correctly marked.
++	 */
++	return 0;
  }
  
-+static bool perf_test__skip_suite(int suite_num)
-+{
-+	return intlist__find(skiplist, suite_num + 1) != NULL;
-+}
-+
- static bool perf_test__matches(const char *desc, int suite_num, int argc, const char *argv[])
- {
- 	int i;
-@@ -1358,8 +1365,33 @@ static void print_tests_summary(void)
- 	strbuf_release(&summary_failed_tests_buf);
- }
- 
--static int __cmd_test(struct test_suite **suites, int argc, const char *argv[],
--		      struct intlist *skiplist)
-+static void print_suite_user_override(struct test_suite *t, int curr_suite, int width)
-+{
-+	int pad_width = get_max_desc_width(width);
-+	int term_width = get_term_width();
-+
-+	pr_info("%3d: %-*.*s:", curr_suite + 1, pad_width, term_width,
-+		test_description(t, -1));
-+	color_fprintf(debug_file(), PERF_COLOR_YELLOW, " Skip (user override)\n");
-+	summary_tests_skipped++;
-+	if (junit_filename) {
-+		char *escaped_class = xml_escape(test_description(t, -1));
-+		char *escaped_test = xml_escape("override");
-+		char *escaped_reason = xml_escape("user override");
-+
-+		strbuf_addf(&junit_xml_buf,
-+			    "    <testcase classname=\"%s\" name=\"%s\" time=\"0.000\">\n",
-+			    escaped_class, escaped_test);
-+		strbuf_addf(&junit_xml_buf, "      <skipped message=\"%s\"/>\n",
-+			    escaped_reason);
-+		strbuf_addstr(&junit_xml_buf, "    </testcase>\n");
-+		free(escaped_reason);
-+		free(escaped_test);
-+		free(escaped_class);
-+	}
-+}
-+
-+static int __cmd_test(struct test_suite **suites, int argc, const char *argv[])
- {
- 	static int width = 0;
- 	int err = 0;
-@@ -1434,37 +1466,9 @@ static int __cmd_test(struct test_suite **suites, int argc, const char *argv[],
- 				suite_matched = true;
- 			}
- 
--			if (intlist__find(skiplist, curr_suite + 1)) {
--				if (pass == 1) {
--					int pad_width = get_max_desc_width(width);
--					int term_width = get_term_width();
--
--					pr_info("%3d: %-*.*s:", curr_suite + 1,
--						pad_width, term_width,
--						test_description(*t, -1));
--					color_fprintf(debug_file(), PERF_COLOR_YELLOW,
--						      " Skip (user override)\n");
--					summary_tests_skipped++;
--					if (junit_filename) {
--						char *escaped_class =
--							xml_escape((const char *)
--								   test_description(*t, -1));
--						char *escaped_test = xml_escape("override");
--						char *escaped_reason =
--							xml_escape("user override");
--
--						strbuf_addf(&junit_xml_buf,
--							"    <testcase classname=\"%s\" name=\"%s\" time=\"0.000\">\n",
--							escaped_class, escaped_test);
--						strbuf_addf(&junit_xml_buf,
--							"      <skipped message=\"%s\"/>\n",
--							escaped_reason);
--						strbuf_addstr(&junit_xml_buf, "    </testcase>\n");
--						free(escaped_reason);
--						free(escaped_test);
--						free(escaped_class);
--					}
--				}
-+			if (perf_test__skip_suite(curr_suite)) {
-+				if (pass == 1)
-+					print_suite_user_override(*t, curr_suite, width);
- 				continue;
- 			}
- 
-@@ -1817,7 +1821,7 @@ static struct test_suite **build_suites(void)
- }
- 
- static bool perf_test__shares_mlock_budget(struct test_suite **suites, int argc,
--					   const char *argv[], struct intlist *skiplist)
-+					   const char *argv[])
- {
- 	int sharing = 0;
- 
-@@ -1827,7 +1831,7 @@ static bool perf_test__shares_mlock_budget(struct test_suite **suites, int argc,
- 		int curr_test_case;
- 		bool suite_matched;
- 
--		if (!t->needs_mlock || intlist__find(skiplist, curr_suite + 1))
-+		if (!t->needs_mlock || perf_test__skip_suite(curr_suite))
- 			continue;
- 
- 		suite_matched = perf_test__matches(test_description(t, /*test_case=*/-1),
-@@ -1865,7 +1869,7 @@ static bool perf_test__mlock_budget_exhaustible(void)
- }
- 
- static void perf_test__setup_mlock_budget(struct test_suite **suites, int argc,
--					  const char *argv[], struct intlist *skiplist)
-+					  const char *argv[])
- {
- 	/* Nothing can be denied the budget, nothing to take turns for. */
- 	if (!perf_test__mlock_budget_exhaustible()) {
-@@ -1874,7 +1878,7 @@ static void perf_test__setup_mlock_budget(struct test_suite **suites, int argc,
- 	}
- 
- 	/* Nothing runs at the same time, nothing to share the budget with. */
--	if (sequential || !perf_test__shares_mlock_budget(suites, argc, argv, skiplist))
-+	if (sequential || !perf_test__shares_mlock_budget(suites, argc, argv))
- 		return;
- 
- 	mlock_budget = mmap(NULL, sizeof(*mlock_budget), PROT_READ | PROT_WRITE,
-@@ -1936,7 +1940,6 @@ int cmd_test(int argc, const char **argv)
- 	OPT_END()
- 	};
- 	const char * const test_subcommands[] = { "list", "requisites", NULL };
--	struct intlist *skiplist = NULL;
- 	struct test_suite **suites;
- 	int ret;
- 
-@@ -2010,8 +2013,8 @@ int cmd_test(int argc, const char **argv)
- 		intlist__delete(skiplist);
- 		return err ? -err : -ENOMEM;
- 	}
--	perf_test__setup_mlock_budget(suites, argc, argv, skiplist);
--	ret = __cmd_test(suites, argc, argv, skiplist);
-+	perf_test__setup_mlock_budget(suites, argc, argv);
-+	ret = __cmd_test(suites, argc, argv);
- 	perf_test__teardown_mlock_budget();
- 	free(suites);
- 	intlist__delete(skiplist);
-
+ static const struct snd_soc_dai_ops tfa989x_dai_ops = {
 -- 
 2.43.0
 
