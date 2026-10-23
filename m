@@ -1,85 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792738182;
-	b=bqDaK2sFlpLsyZmp0y+Qc0iIrgq4ha+WiAN92s2+Y2/yAyoFTBQLNA4UglLB8Q4vXbsF
-	 bMvcyq7of4uIhJRt76KrCbcZdvpXjWuYT2320dccu+6t3W4iRnh2Te9uUjHKX0GKu9wYy
-	 iBNJtjmn9HLDnz4ae30ubuxBf6+/eT8yM+izU452kiQe41QTcKwAOCXljFNvy7S6AMhCy
-	 Liw0Uit+zt0XIPsXHY8mFKzCB/X52jKI+00H2lLfJi036chp2tuzWazWoCFjpAm0s6AS7
-	 AVNQjFYIBgTy2G1F8KTFcgAm3avg7bziTc1J6uXnlnWmb/Cq0MUWIUwo9cgifRGocmQ==
+	t=1792738192;
+	b=w4lJlYplhjvUU4n7kQLO1DFj2xU/toe7/5z0gZutqlb8Ab/Rr8krfwhTRSU1Xif8wLrk
+	 /lYDO7AqmjE/v6Yce0RD4MW2uBsop2sMe/bpZPWtcnPAv1K3J6ICIpipS96Y8ORyz/xZI
+	 Dkk/LprrpvWFgOxDLBLdS5TQa6R4H74bEe2M9OG1LXqzqWGknDFxEBjINelLhu2SvXELs
+	 DmVFMwqb3k9KKNz+zTdEB49ROu+TXct5cZclJlViiBVN+//PVqnTv+DLNpyiQ5F209un5
+	 +S7osu1SN5FHHVMOy3d5F2cCQsEiE2wdw24BKKVEdnA5w1vUpwKRuyJMZpnh1VQj4mQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792738182;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792738192;
 	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
 	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:Cc:Subject:Date:
 	 Message-ID:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-Scanned-By;
-	bh=d0gKi9bpiz5OB7/rDKl6lal/fHmcINerAfxrtrB7vus=;
-	b=qYASFtHBn49oqJGqLphNi3FiEfdLD/OZxv7kdNiE3XoZxLSkZ3+ptYSKPXCM1Ctv2NyP
-	 UjEwNd2YjFyqAF5SFBy6z6xjlA8/rqFTsKJSAfqL/vCTg9oWOsfszl8fHeXQNP55bwKeN
-	 kXRypM8iDJ/yjVqwrJmdkjwWYqwdT2DYrf7dXJWTJ8Zdoh2T2wbxm7O9NkyH7QA282wsT
-	 oaY/+gCy/nK+oGsdKAGax1S7IdbAOzC9EsqS6Ue20GfNM7kFAC1UNDuhuDLaLVegskSbL
-	 /rBZPJy/3ducQsd1Y8q/DYWcdKCvBD3KxnZ7/JfuWzxII8DlLRKER9lA+jFfwgSopww==
+	bh=5KBAP8s/gvZ5T5E5z3STKabsBKCenIox3Dw1zgP8Y70=;
+	b=ifPMvIFLGCIkAWhwvV7iNzdLDqvENg2bJAKd8atxFdLhrC1DiKJ/lbiTOtG3ABjKE/ht
+	 GHHMi8NTymNXOTYcsp6g5QxXC7u/UUjBe/KYlNxQu/uIV7p7/6stWpZXRy4sW+2n9TQsW
+	 XZmLdjQ7LPTxuSKUVEKjCp1TFub3PRLFeg8Z7z2XT5yZzB4nPGiz8nnOKuLAE2Ft42lPj
+	 XUjnYaAQHWnsu90h0zqaZfmsDzJS17uI+aGhVu2WXYpq93JY0vYeGsqRpUfnISDun0XRd
+	 wE6pZzm/mkSzCus7G9OuxltAHGH6O5TNyZGAXxYhF5jDYFTF5qLfFn0Bief047F+4Mg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=redhat.com;
 	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=dsnHWqu4;
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=TpoyfciP;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFB2B606A31B
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 06:49:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DFB2B606A31B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C9DF60A2604
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 06:49:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9C9DF60A2604
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=dsnHWqu4
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=TpoyfciP
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1792738180;
+	s=mimecast20190719; t=1792738190;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=d0gKi9bpiz5OB7/rDKl6lal/fHmcINerAfxrtrB7vus=;
-	b=dsnHWqu4u6cgxF4nZ7oWeTBkbZn+1WOB/wakkqGmfjKKHI9D8gI5gEzjGz73c7bc2/3PnJ
-	haduAOHZL5MbVQFge+rSeR5ZMd45tAtXFvGPL0YxKcmKeSlZjhiUMEAFVNNl2wWEeqLN4a
-	Tctb9Ajx8xN9dx4cfszxTziBCMCsSCc=
+	bh=5KBAP8s/gvZ5T5E5z3STKabsBKCenIox3Dw1zgP8Y70=;
+	b=TpoyfciPI8m91FoBC5lbEiUQ7yrPSyrw26ENamtRU/pOXjHJY+stexSjS091CY62FmBoik
+	8cglnE+0MdAiugSfcqt2fvyC0IHF3KCkdcb5lZtU0lTHEETiKJTyRHAvGlYUwhkZm09vge
+	EupOeUy/2QJ4bP13NRknjrQJoVNtX7s=
 Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
  (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-25-Qpiri9SrMVaNcnWCda3mbg-1; Fri,
- 23 Oct 2026 02:49:35 -0400
-X-MC-Unique: Qpiri9SrMVaNcnWCda3mbg-1
-X-Mimecast-MFC-AGG-ID: Qpiri9SrMVaNcnWCda3mbg_1792738173
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-110-SuGaaj_gP5aM0W7KkKCVMg-1; Fri,
+ 23 Oct 2026 02:49:40 -0400
+X-MC-Unique: SuGaaj_gP5aM0W7KkKCVMg-1
+X-Mimecast-MFC-AGG-ID: SuGaaj_gP5aM0W7KkKCVMg_1792738178
 Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 6087C18005BC;
-	Fri, 23 Oct 2026 06:49:32 +0000 (UTC)
+	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id CEFC818005BA;
+	Fri, 23 Oct 2026 06:49:37 +0000 (UTC)
 Received: from thuth-p1g4.redhat.com (unknown [10.44.48.42])
-	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 00B081956095;
-	Fri, 23 Oct 2026 06:49:26 +0000 (UTC)
+	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 2707819540C2;
+	Fri, 23 Oct 2026 06:49:32 +0000 (UTC)
 From: Thomas Huth <thuth@redhat.com>
 To: Arnd Bergmann <arnd@arndb.de>,
 	Nathan Chancellor <nathan@kernel.org>,
 	Nicolas Schier <nsc@kernel.org>,
-	Daniel Mack <daniel@zonque.org>,
-	Haojian Zhuang <haojian.zhuang@gmail.com>,
-	Robert Jarzmik <robert.jarzmik@free.fr>,
+	Florian Fainelli <florian.fainelli@broadcom.com>,
 	Russell King <linux@armlinux.org.uk>
 Cc: soc@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	linux-kbuild@vger.kernel.org,
 	=?UTF-8?q?Thomas=20Wei=C3=9Fschuh?= <linux@weissschuh.net>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
 	Nick Desaulniers <ndesaulniers@google.com>,
 	Bill Wendling <morbo@google.com>,
 	Justin Stitt <justinstitt@google.com>,
 	linux-arm-kernel@lists.infradead.org,
 	llvm@lists.linux.dev
-Subject: [PATCH v5 03/13] ARM: PXA: Replace __ASSEMBLY__ with __ASSEMBLER__
-Date: Fri, 23 Oct 2026 08:48:40 +0200
-Message-ID: <20261023064908.66707-4-thuth@redhat.com>
+Subject: [PATCH v5 04/13] ARM: BCM7XXX: Replace __ASSEMBLY__ with __ASSEMBLER__
+Date: Fri, 23 Oct 2026 08:48:41 +0200
+Message-ID: <20261023064908.66707-5-thuth@redhat.com>
 In-Reply-To: <20261023064908.66707-1-thuth@redhat.com>
 References: <20261023064908.66707-1-thuth@redhat.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -102,38 +101,25 @@ when dealing with uapi headers that rather should use __ASSEMBLER__
 instead. Let's standardize now on the __ASSEMBLER__ macro to avoid
 this confusion.
 
+Reviewed-by: Florian Fainelli <florian.fainelli@broadcom.com>
 Signed-off-by: Thomas Huth <thuth@redhat.com>
 ---
- arch/arm/mach-pxa/irqs.h     | 2 +-
- arch/arm/mach-pxa/pxa-regs.h | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+ arch/arm/include/asm/hardware/cache-b15-rac.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/arch/arm/mach-pxa/irqs.h b/arch/arm/mach-pxa/irqs.h
-index 22bf536a462d0..07d7aa3a65065 100644
---- a/arch/arm/mach-pxa/irqs.h
-+++ b/arch/arm/mach-pxa/irqs.h
-@@ -94,7 +94,7 @@
- 
- #define PXA_NR_IRQS		(IRQ_BOARD_START)
- 
--#ifndef __ASSEMBLY__
-+#ifndef __ASSEMBLER__
- struct irq_data;
- struct pt_regs;
- 
-diff --git a/arch/arm/mach-pxa/pxa-regs.h b/arch/arm/mach-pxa/pxa-regs.h
-index ba5120c06b8a5..b56c8899042c4 100644
---- a/arch/arm/mach-pxa/pxa-regs.h
-+++ b/arch/arm/mach-pxa/pxa-regs.h
-@@ -31,7 +31,7 @@
- #define io_v2p(x) (0x3c000000 + ((x) & 0x01ffffff) + (((x) & 0x0e000000) << 1))
- #define io_p2v(x) IOMEM(0xf2000000 + ((x) & 0x01ffffff) + (((x) & 0x1c000000) >> 1))
+diff --git a/arch/arm/include/asm/hardware/cache-b15-rac.h b/arch/arm/include/asm/hardware/cache-b15-rac.h
+index 3d43ec06fd359..b96365bfb2a87 100644
+--- a/arch/arm/include/asm/hardware/cache-b15-rac.h
++++ b/arch/arm/include/asm/hardware/cache-b15-rac.h
+@@ -1,7 +1,7 @@
+ #ifndef __ASM_ARM_HARDWARE_CACHE_B15_RAC_H
+ #define __ASM_ARM_HARDWARE_CACHE_B15_RAC_H
  
 -#ifndef __ASSEMBLY__
 +#ifndef __ASSEMBLER__
- # define __REG(x)	(*((volatile u32 __iomem *)io_p2v(x)))
  
- /* With indexed regs we don't want to feed the index through io_p2v()
+ void b15_flush_kern_cache_all(void);
+ 
 -- 
 2.56.0
 
