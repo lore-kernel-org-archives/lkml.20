@@ -1,75 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.71
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792788432;
-	b=GmORxb+zM5Mvx7q/yug2G0EnEkqYgIz19AAt1c9EmErZJUHvcIaxOMd7Bgl/Ndi39rWO
-	 jyuwlPFq9bEJSWw2Uvz8vGtg7BWiRYvQGMNSB8Rtd3azDQEVqauQWRFvm30K6NuqQTWzR
-	 NBASC560IT5PlpWNDM6qKzUy5Y8oBZm3s0707BdAkmiuZPZ4bMGV65OoQ3XIm2JFVetjx
-	 9r+zslrhQOggKF12z8pc1kvF75oSvcol5AP9XSJhkBd1dTpzYtVrBHmRXVfT+APrmx739
-	 uM+GHkCxoFpIEU8Y6/bKdf3e8G/MaXTZ9Sb/C8hNJcXqQHvt7H3XB1nRQ6b60FW9Kcw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792788432;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.53
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792788433;
+	b=gria70KdetZEVCo7wOBZxXJAEMa9KT7yqKZPajNh1C3MZH7ZifXivn/FvezUnVU69Q7z
+	 V9IdRoAzh1VBeaC10+uaWfSeL1QTynanNEZAcjDWc8Pq1HqQoT7NeTEKRL2k4fzaZRriT
+	 MWtUKYLaioFPjIyCXLmsdMU7Y2Ayesj1JcX0x4u+ZqMRzDAS90ZQJHRVDza9k8HtVcM9m
+	 JFDTmTgVn6M1av4GnwAT3wMpKE036ju/BcVL3/sZR8ShyLkSsTmGFbBJIgp121pXhAucp
+	 DVFV2IK1M542ybTwuRc8K18Xr1M6BApysBjFzw9G6opjyUkPCJDvQ00FLx7lmLKl1kA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792788433;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
-	 Content-Type;
-	bh=7hhjMhMlf0hWX4EL6DJukBZEvd//7wsBPb4Om2A7D4Y=;
-	b=SkxucrFV9GxuxWzLgwBghfaaE7p8cj10exyUUOsBqN0/CveiaNF9jDhGyp7UOGBhxsXo
-	 YUCq0N4+686MWuXeN8Do7Rcc63q1fGip1iGOtkOzHmTzowx+w+nm8GxV3RZoT+kwPqniS
-	 7M4fYQqX0u1qUpjGVSHbNA0idTeMBWTiciqNsMLV8MnhZxrIMQkRAczv0ucfu/gXs44kw
-	 Huwvs89E5lZMJfc2zOph0G4Bf3QEdGyrdorkT79bzI/TH77G+JkmBpG89Q1d/lJevEHT4
-	 3KQAHNDH3xa+FI7DjXWlg+ewitLaBZnrN78uRrne52lh6P+I5BlRD+REayFnX36PYDg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--hramamurthy.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=DV0Jo9sJ;
-	arc=none smtp.remote-ip=209.85.216.71
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=TCEbxm8avzTummi3Y3lCnYO6mye35k+RSerUFk+JTQ0=;
+	b=WEyqySbGr2fPFEKjxNXScC8/suuvZ4tmc4zoyo46jBQQKe0suZRPzuAexyflFkrL33RY
+	 DyhkSaouUG1CVi+mvy3PZxawCAOdqcgLy+0s9I11jInuPYcZQxA08v9niohmkPf6A3rcW
+	 OEhdJlbvsSpoJ8scc/UKj8r6AJre5bSV64jVrPSriX6dNnwY2PiyU/NkEmbLraDY7q2oO
+	 8yrjN/SbFAo/Ljcx7hjq8rOqUGIBrxOny7gPZGo6f706A8Eb6BM8k5Ek2r0QAffS9hMrq
+	 fwSf2cu0s0Qi2mxufBcmMkZ8vBUcgA8bUwJ77NNYe9xooq3hP/KT0yHa/mHcHpAMvRw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=oyY+LF3R;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.53
+Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com [209.85.218.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6285A60A261A
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 20:47:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6285A60A261A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--hramamurthy.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2C20606A31B
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 20:47:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A2C20606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=DV0Jo9sJ
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-3adc5b185bfso1326509a91.3
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 13:47:12 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=oyY+LF3R
+Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c34bff61551so180174366b.2
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 13:47:07 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792788426; cv=none;
+        d=google.com; s=arc-20260327;
+        b=XCTyJ7D3s78Gs+CNIa81tk7ku6/Wc/NMVlU6ppxVq9mzaNEeRIZ3J01jpPVRzlxU9n
+         mI1hvbcshKzh6yhwIC0Y9ijXmv2DUmFDy6IupeceBlFR22tK4EY2mDzDkHxEE2oa4qUF
+         vGfYvb3CgEhC5MsQcA/xTAD3ZDYowVoofCxbCOdY3O0IFM5JCtrxzmunaxDtsekiH4iB
+         9PlQKGAndAIeLHmtqytgMzmULTAa7i35dnO8nGVBvqgA7dukx1ADVxEgP2GdltrhqEQi
+         6L+KL9IPYg7li23ddCckHfXEcXReqjaA7hMw9ZsclRz+9eTz7lucpUG+tzFV3LIEKeos
+         /bfg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=TCEbxm8avzTummi3Y3lCnYO6mye35k+RSerUFk+JTQ0=;
+        fh=w5UmRn3tkUzXvYOXey+qPGGTOsxG/0a6z6IFoAKja0Q=;
+        b=SJnC5wNxnlJr4VnA3PLlRhVaTvkTwytaFID38Gye75n2g/Dk0HDF/Y6QnGPlbF+/Qp
+         jMkyZVe6SLWjNJwHKnfFuqHkMS4OZEWeq8l5c73S2uzdyKNgV/XLqRXAOJIosKuueLrx
+         L32Pom07PXzY2b+W75FyM5TeaBz/ik+n+YThlhnaUnp1zet15lWi9O5bj0pLkmEM+vc2
+         +G8TstAKjhZqmGKWcoH5GU4XGRW3tj2cXwTBhthns+Jp8ZpIuczfBtNDxOcjKt/0imNu
+         uOlhCLTejmpPFDtMKjmYxoigur3jte2T1BcD3RPSsVneYmIVAXVB9G/mbF++qyI8ZfVZ
+         8mmQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792788432; x=1793393232; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=7hhjMhMlf0hWX4EL6DJukBZEvd//7wsBPb4Om2A7D4Y=;
-        b=DV0Jo9sJOeYtNS+GdqyayVG5BEcagncM8oFKKusfUD1jTkbxCSz9f2owmdAhLsONzI
-         6VMo44vULDc77PjPYhWnvIqfY95D2DW6RpH9m/8KFk2ua88Ax9ReUj4hEwwOhmYLM34D
-         conUs//z2Y6gVNp8QeIKHxGHHEriQmJcCDqQizmWdirl7O1+c6hDcHFegm+QI1tbI8ay
-         b49C8x26cq0VxtGHldPhW5djJsh0ko0ZmaLh8LyPtwDCwH6RqEgYg5APvHFgnO+uKQQB
-         USDNSS/EidUR5fBo6uDjxCW+ep084B+S2PdwTOovegRYAVW9vVGZsjVIGohFlAcgTg0A
-         ED8Q==
+        d=gmail.com; s=20251104; t=1792788426; x=1793393226; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=TCEbxm8avzTummi3Y3lCnYO6mye35k+RSerUFk+JTQ0=;
+        b=oyY+LF3RBLKVUchgpkrZgHuXUdI3UhZ6sDH8n5vdQRyhJ702pqsWIZlC0Zo1JYcBqy
+         zWYIKFKmIfbmDKAwvihtYud0XXU0ugl+GgJSFXWFPMtauTSwJHYCiZNXt+SXBw3BD7m6
+         LThfv5zU3BkBH+tAC8OYLJgqi0fsp0izHfnUYufYTwFrw2nhltZ9d9iPBvFqRg89UYQu
+         Q9zKKfJRFoonqequfrUZBvFMJhMgii0wwfcjvh5bKPTN6COi0g9KjksenOOXtWtCZH7j
+         EMs7vlFV/J5VdEMlJXd5fUn8JNSg1I62nV9Jyov3HqZB2qy+f/AIzsjE1eyApoA8Fbu9
+         I/YQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792788432; x=1793393232;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=7hhjMhMlf0hWX4EL6DJukBZEvd//7wsBPb4Om2A7D4Y=;
-        b=aI1zlUZlVVPgnrH3aVUJnCI4KXNRoC7Afb4ELX1/vWl3xLIS7omaWhRey595vA/T1Z
-         raCBI1piYukH+k3T4T+7vqPj9KvaAsWJmGD+Vl88hCYn56mvOU9CP9gWJCY6RkV2Kyym
-         N3rYezG8TCI8UnqngnpAh4DxifR1Pia2IgVtVNChy6A6xmTaVjDBhUfdv71zsh3JzTdb
-         H78qwukN/ry0NZb1uTqdOts9yQ82j/SXfnpDwNqAUHmFZkq+kSbsJ/9crKbXyHEMoFzX
-         vYij1jZ+MEy+bINMOkvcAP5cmkqguvwyqQqNq6WtW2K0uQrWeUv++UK8Z3fIyZqkN+c8
-         XF4w==
-X-Forwarded-Encrypted: i=1; AKwUvBwFuBzI4/IUv32dSzrB8XJHS2NSNHaerkih5e3gjeW3uaOMQ6JNVwh5QrTExYTrIy1cNHscyVy77jbP2/U=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLv0yt4Kxte7NOA4rLRLec+WEimF2pOJR9xb7rcf1nX1k30FFaK
-	yWZ+tpx4DYk8NR2WffUVPMfb95C4OVUBxk6MdtaHG1z+5QToDaGO0EL68nyOZPQl/yCbksDMFSP
-	tkOQVKXxSaeyg4AXj73eb+csn9w==
-X-Received: from pjrn18.prod.google.com ([2002:a17:90a:b812:b0:3ac:3453:b5d5])
- (user=hramamurthy job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:90b:280c:b0:3ad:870d:1bfa with SMTP id 98e67ed59e1d1-3adead57cbfmr304919a91.23.1792788431642;
- Fri, 23 Oct 2026 13:47:11 -0700 (PDT)
-Date: Fri, 23 Oct 2026 20:47:06 +0000
-In-Reply-To: <20261023204706.3112215-1-hramamurthy@google.com>
+        d=1e100.net; s=20260707; t=1792788426; x=1793393226;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=TCEbxm8avzTummi3Y3lCnYO6mye35k+RSerUFk+JTQ0=;
+        b=zNwXjxzJ7c/w2J9p9LIiu1qjkxke4qrVH2LSG4/C/P+d9w9uuDnTJKmh26Q1ahNyvO
+         l3sb3KCmV5xWcpwi44MbfS0t3h+l5swlXqM+n1XY/IOP604P23GQgSsnsV0kdx0o96w7
+         0XLQ+4g2F8WXgfjjfS4GAoxs0EvHOlUdTgZ6w5npt9GGhiSID3NN5ClkMVPPc0EjpaLO
+         NmBm4aMQTXA0dJTSijhcRUj6Ba+QnLEOkI/NttoHUVTknnpkIjI7tvRlmSIfUifnCYwB
+         xtkOdkz3gypi9CqX0Mc0AioYKYoTTwQsYXXvvMquMVQnnyZpWvhHMuLwrK50Pz6Cr6zM
+         6Whg==
+X-Forwarded-Encrypted: i=1; AKwUvBx0koziQjb6YsBmneCcd8oD9k7RQ9KeBIk2+NHohBkDoeOjNfvT8MEhM9Gl5N9wGu1zpBz5TLrcSWcfC3w=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLcbYx1XzAv4r66h2eHuRatfiBTmtDGPxRKovV2yFhyDbofTMRS
+	UOwrEBv5Ot4ltFl8oJQqf87aMvTInO12yHyqpvJ4Dc0WVlQgKk298LJMERYJ0YG9AyCGdzvVTQ7
+	BXuBQkV/8yqRgEujQteO7b4SDNeVvJYCtfwSD
+X-Gm-Gg: AYBFou1DRePCvJdZc110Dwgo8uUwgwPwINJYx/B1Yt0kFe2NPJExXX8vKRUYKRV5/6K
+	fXDShLrDQnin0P/Mi6/5mm9eD2yhs7gOrXK18YwygKB0mENTtr4sYttQHoU8LgZfyjCPkkkU2PG
+	dtdJGqGp0GWb859qRKJF7zK5Jb+JhfBy4Z9EKHUe6JDuH/OmKnykkCEtG/jHOnTJM1eK6r/gf/H
+	FW44pPweWI5O0hyf65tRtQ64/SY2O33X6buydoe8MMbzb+7+1iu5KF4gi+ay8NQx1cRXnSzqkzV
+	1lo+RUttIMirJeSSvUHNutsYGpqAlOJgiM9aOTga4vcc8y4zfoztA0Tx/veAgit77GLiEjK0PcC
+	kjEqgIk5Qd8/um7fq6nszyeYjar8EiOjEqOUeGicH9jiV9EBeR80pD9AUMI0SvJ3x1n4sqwPPE6
+	X1rbOE3ADJYI0e/PRor/ntUL4U1dl1pOfROg1FCa8qecZ1bLXHFStZrpOIKcxYF7VWALw4qQNPB
+	bJiQ9m1RLiDpk1UM3EmhzKDdaJuf7rFNqqRTYFMcMRrex64hw==
+X-Received: by 2002:a17:907:a0c9:b0:c1c:4a80:30c4 with SMTP id
+ a640c23a62f3a-c46bddf651cmr6811166b.11.1792788425687; Fri, 23 Oct 2026
+ 13:47:05 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,147 +105,40 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261023204706.3112215-1-hramamurthy@google.com>
-X-Mailer: git-send-email 2.56.0.257.gf7497c7d27-goog
-Message-ID: <20261023204706.3112215-5-hramamurthy@google.com>
-Subject: [PATCH net v3 4/4] gve: Fix link flap after ethtool ops
-From: Harshitha Ramamurthy <hramamurthy@google.com>
-To: netdev@vger.kernel.org
-Cc: joshwash@google.com, hramamurthy@google.com, andrew+netdev@lunn.ch, 
-	davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, 
-	jordanrhee@google.com, willemb@google.com, przemyslaw.kitszel@intel.com, 
-	nktgrg@google.com, maolson@google.com, jacob.e.keller@intel.com, 
-	pkaligineedi@google.com, yangchun@google.com, patricion@google.com, 
-	awogbemila@google.com, stable@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Pin-yen Lin <treapking@google.com>
+MIME-Version: 1.0
+References: <20261023005313.3946390-1-rosenp@gmail.com> <179271707120.3327.4775409276963055481@kernel.org>
+ <CAKxU2N-_Th-ksPst_1KR3W1nYWoZpWR2Sjfo=RWroot5A1RR8w@mail.gmail.com>
+ <20261023123637.1aba3995@kernel.org> <bbc66ce1-8d8d-4d35-9314-98fe14082690@broadcom.com>
+In-Reply-To: <bbc66ce1-8d8d-4d35-9314-98fe14082690@broadcom.com>
+From: Rosen Penev <rosenp@gmail.com>
+Date: Fri, 23 Oct 2026 13:46:54 -0700
+X-Gm-Features: AclHuK-ivruJl9X9jCViXiK5EZAfSDg6147raVZhkKBY9-G9io85x7I6pMGwWMo
+Message-ID: <CAKxU2N-aNWtZUc0bkkc5H9mFWUn7RDti_ZzX4UHXhNyPPq3s8g@mail.gmail.com>
+Subject: Re: [PATCH net] net: bgmac: fix oversized RX frame check
+To: Florian Fainelli <florian.fainelli@broadcom.com>
+Cc: Jakub Kicinski <kuba@kernel.org>, netdev-bot+sinfo@kernel.org, netdev@vger.kernel.org, 
+	=?UTF-8?B?UmFmYcWCIE1pxYJlY2tp?= <rafal@milecki.pl>, 
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, Andrew Lunn <andrew+netdev@lunn.ch>, 
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+	Paolo Abeni <pabeni@redhat.com>, Felix Fietkau <nbd@openwrt.org>, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Pin-yen Lin <treapking@google.com>
-
-When modifying device features via ethtool, GVE causes a short link-down
-after the ethtool command completes, which can break scripts that use
-the network interface right after the ethtool command.
-
-This issue was discovered and actually triggered by the
-drivers/net/ping.py selftest. Modifying checksum offload features via
-ethtool caused a transient carrier drop ("Lost carrier", DHCP lease lost),
-causing the immediate ping invocation to fail.
-
-Fix it by calling gve_turnup_and_check_status() in gve_queues_start()
-instead of deferring the link status update to the service task, so the
-carrier status is updated synchronously before returning to userspace.
-
-This change was tested using the DQO RDA queue format.
-
-Cc: stable@vger.kernel.org
-Fixes: 3b7cc73628ff ("gve: Use link status register to report link status")
-Signed-off-by: Pin-yen Lin <treapking@google.com>
-Reviewed-by: Joshua Washington <joshwash@google.com>
-Signed-off-by: Harshitha Ramamurthy <hramamurthy@google.com>
----
-
-Changes in v3:
-- Retitled from "gve: Make ethtool config changes synchronous"
-- Fix the Fixes tag
-- Refined the commit message
-
- drivers/net/ethernet/google/gve/gve_main.c | 61 +++++++++++-----------
- 1 file changed, 30 insertions(+), 31 deletions(-)
-
-diff --git a/drivers/net/ethernet/google/gve/gve_main.c b/drivers/net/ethernet/google/gve/gve_main.c
-index 52c152a986eb..e2a016f4430a 100644
---- a/drivers/net/ethernet/google/gve/gve_main.c
-+++ b/drivers/net/ethernet/google/gve/gve_main.c
-@@ -1423,6 +1423,35 @@ static void gve_queues_stop(struct gve_priv *priv)
- 	gve_rx_stop_rings(priv, priv->rx_cfg.num_queues);
- }
- 
-+static void gve_handle_link_status(struct gve_priv *priv)
-+{
-+	bool link_up;
-+
-+	if (!gve_get_napi_enabled(priv))
-+		return;
-+
-+	link_up = READ_ONCE(priv->link_up);
-+	if (link_up == netif_carrier_ok(priv->dev))
-+		return;
-+
-+	if (link_up) {
-+		netdev_info(priv->dev, "Device link is up.\n");
-+		netif_carrier_on(priv->dev);
-+	} else {
-+		netdev_info(priv->dev, "Device link is down.\n");
-+		netif_carrier_off(priv->dev);
-+	}
-+}
-+
-+static void gve_turnup_and_check_status(struct gve_priv *priv)
-+{
-+	const struct gve_ctrl_ops *ops = priv->ctrl_ops;
-+
-+	gve_turnup(priv);
-+	ops->report_link_status(priv);
-+	gve_handle_link_status(priv);
-+}
-+
- /* The passed-in queue memory is stored into priv and the queues are made live.
-  * No memory is allocated. Passed-in memory is freed on errors.
-  */
-@@ -1486,8 +1515,7 @@ static int gve_queues_start(struct gve_priv *priv,
- 			  round_jiffies(jiffies +
- 				msecs_to_jiffies(priv->stats_report_timer_period)));
- 
--	gve_turnup(priv);
--	queue_work(priv->gve_wq, &priv->service_task);
-+	gve_turnup_and_check_status(priv);
- 	priv->interface_up_cnt++;
- 	return 0;
- 
-@@ -1562,26 +1590,6 @@ static int gve_close(struct net_device *dev)
- 	return err;
- }
- 
--static void gve_handle_link_status(struct gve_priv *priv)
--{
--	bool link_up;
--
--	if (!gve_get_napi_enabled(priv))
--		return;
--
--	link_up = READ_ONCE(priv->link_up);
--	if (link_up == netif_carrier_ok(priv->dev))
--		return;
--
--	if (link_up) {
--		netdev_info(priv->dev, "Device link is up.\n");
--		netif_carrier_on(priv->dev);
--	} else {
--		netdev_info(priv->dev, "Device link is down.\n");
--		netif_carrier_off(priv->dev);
--	}
--}
--
- static int gve_configure_rings_xdp(struct gve_priv *priv,
- 				   u16 num_xdp_rings)
- {
-@@ -2056,15 +2064,6 @@ static void gve_turnup(struct gve_priv *priv)
- 	gve_set_napi_enabled(priv);
- }
- 
--static void gve_turnup_and_check_status(struct gve_priv *priv)
--{
--	const struct gve_ctrl_ops *ops = priv->ctrl_ops;
--
--	gve_turnup(priv);
--	ops->report_link_status(priv);
--	gve_handle_link_status(priv);
--}
--
- static struct gve_notify_block *gve_get_tx_notify_block(struct gve_priv *priv,
- 							unsigned int txqueue)
- {
--- 
-2.56.0.257.gf7497c7d27-goog
-
+On Fri, Oct 23, 2026 at 1:08=E2=80=AFPM Florian Fainelli
+<florian.fainelli@broadcom.com> wrote:
+>
+> On 10/23/26 12:36, 'Jakub Kicinski' via BCM-KERNEL-FEEDBACK-LIST,PDL wrot=
+e:
+> > On Thu, 22 Oct 2026 18:00:53 -0700 Rosen Penev wrote:
+> >>>   - How the issue was discovered, e.g. hit in production, hit during
+> >>>     development, syzbot report, manual code inspection, LLM or static
+> >>>     analysis tool scan.
+> >> I added Suggested-by in the commit. LLM only used for the description.
+> >
+> > Suggested by is for suggestion of how to write the code,
+> > if Florian reported it appropriate tag is Reported-by
+>
+> This was a suggestion, so I think it is appropriately being used here.
+So do I apply both tags?
+> --
+> Florian
