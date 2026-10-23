@@ -1,79 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.44.114
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792747831;
-	b=r+6moLfKDD6UvIPPYrqbFH62R0dnoO46LFxr57BkvaHoCH6UHzJ29kiNo4Kpl8gr+EqM
-	 AfLgSOp4nsdGvdt6dAFlWRRji5YoTo9XnBtvitmgLlwa9iRKoF9wRAj2mHUQmmNO4Ioms
-	 dNlbXHjpFw6jgUUpXwG6RFHvyb/N1aINqkrtIqzwIO5wPZP8HFWdp5vg8+mX8CALmNOgS
-	 ohnu/5t2ITIHTcMwvmKxrprq2Lkqz0pK9oR2Ul6YoKVnGyb3JvQB0G6kDKIkyIVxodQ/x
-	 FMILWaKA4YBkapqEyZHGE501JbjVxB60CfU0zMS+b+y6Ot79jeHisQrsZ3SYT8Qm6fQ==
+	t=1792747838;
+	b=kt9Pi2fE8VrqjrC4M5yeE2jag1tmYw6Jh5nnuVWdR/xheyGXXHk6v1j2esA6bee8h/cu
+	 6mfoPTqbL+Qf31Anzk2eCJybB/b5Val2fd+al/vdBLBqUR8+xoorBs/yQ9oat2aq6uE2H
+	 +b3KFJsJ/mw2GF5dC/9cNTA0YM34PgyAOhLB68FUw7h44WMJVOKJLNW9M6FK3XFUYDVxS
+	 qKioRM9t4im0s2xptuZyTjzxsFzhxnce1h8SFZsfFFO7GtIbJTqLaCxiNB/K+0Myiz99p
+	 oNvoPT4M85wCTJuyDfukqMGYvoKVgyoFPJTBSb99636EccvMP7+FwRk0TUEyoODFHQw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792747831;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=VnWonFKCnGuCLyPuz+nEaDV397ceW0847/QSykKmLo4=;
-	b=Qi8XE49cg9gQXmULYp0P2Kp6xshLviRCNjI3oVVjrgXTQgAZgt6SKwTVYQPjd7SNhY49
-	 SadIivyj5+jEO3c1fenTaHE9RpvpmajtwjTGyo1ABVqHcrmHul3j6lDzes5eU7WwYqOGH
-	 pr+T+wXHXtzCAdYKe7sOxJ47Hoy0WidYQIsU0F/89AWbJhBzOEAg2Ygw7XewR9hR9j7Gz
-	 SRJsUh8qCc3ArZ/c9LliIbzNdXJnwYA3zTmU58/+SR/Gg6a2H5Id0aSPj8MwwdBduHgfd
-	 5i1zVzL1Wfkhe370KhQx0OYoPrHqz5NFOYe2w3XOsP09D2Tk3/PJNsBugGoONGb2KHw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792747838;
+	h=DMARC-Filter:Received:Received:X-MS-Exchange-Authentication-Results:
+	 Received-SPF:Received:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-EOPAttributedMessage:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:Content-Type:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=5kT35Bjp8KFl1jAvONfEoe8gxZ4yawr7KoB1wi+MoAo=;
+	b=FpdnGRiR+KYyPyXvEJFVJtOzpTR58yrK9ulz4BbzXa+x4R7rJ0IKmWD/9+V57Yc+r3Ea
+	 wVEAHtV2oePescPZahrtOHdPdP05Ka5aRwqPALudVgopsyHEY4WghWsNhQJmnh/U9Vefd
+	 6fH1e/eG3codx41+oefelnUiwUTjPKuKsSqvUiCnW6fePVvHU8SxQ7Lm1v8jV+lXFdeMJ
+	 Ky6zYHx0FzWWWbHoUx7pgp2iNQQCHG9NAYNU0maATb+sL89K6oCUdp8E9inZ4HkFWt8WP
+	 /rvJaLraFsdFdSoDumEJrwc2/yhHo08h0/fFru8hxEc1SzmR4EFLlGU64zBm99p0U9Q==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Nqyrs+bC;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=cixtech.com;
+	spf=pass smtp.mailfrom=cixtech.com;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.44.114
+Received: from SEYPR02CU001.outbound.protection.outlook.com (mail-koreacentralazon11023114.outbound.protection.outlook.com [40.107.44.114])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C437060A263F;
-	Fri, 23 Oct 2026 09:30:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Nqyrs+bC
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1792747825;
-	b=iThgoCnk15onlt1ke6F7rjRdvr7xdGIZGYQ5V+ma3+dTatrOGX4T0g2sK/297zaZaovr
-	 nDhRxxicOdRVV9axjKuRypSnH2c6q0gPUkZFteLEnSOjzWtvf/2XRipsp08AjYBAFTNSn
-	 vBLWsbXU4qBufq4bV2UNODSCMMoPQ9zmrHDJAkCoL9ajRp+HW3qVKXfBVnVptHwLchNIw
-	 Rp/zwFJPjI97ysHB1vmO+uVhiMLtOQQyeS6h8rHXOjBZjkUGcoieQ6j+I1Jvrq3lvlpey
-	 FKx883gRh6fJ3GuOgay57u3T5v1Q3awP43t+6OyV8m7nBsHAhIhI9jFHi8MGxUo1xvA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1792747825;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=VnWonFKCnGuCLyPuz+nEaDV397ceW0847/QSykKmLo4=;
-	b=UrMVR/7146fjzRg4T9sQv5M24M3FMOH1cDDtnId8AQDZeUfjGzWit0ReSopYXf3MY+IY
-	 gTgCWVhb++mbhjirPvuYGEfD5W5ZxEnFkCW6swiRowEFG9tVkhGVIylaxOJ6rNBK/wVRk
-	 dpSGwB0pt8dM891PplUxCT9nD3M2+nPw6PXrNknstmrDBy3SXrzeKQOpKIacatdzl50NA
-	 nRgOnwOnhMKXGdXXusfeBKZNsUrsTpdupMHFBF7gFAFZgV91viqZzjT1+sRQg9jQ9BOlv
-	 X0ZUC5evvVOWSwSUbjhfB2dd6OcBIvcLrw1EwQWcF8fReJrWEOp4zVfyIYhFTureioQ==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 091D51F031E4;
-	Fri, 23 Oct 2026 09:30:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792747825;
-	bh=VnWonFKCnGuCLyPuz+nEaDV397ceW0847/QSykKmLo4=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=Nqyrs+bCFpmag1FHmq5zoyEfmNmWz0W1wS5xRCMF9jzL14Eb9VFceSI5oPLJq+6qI
-	 xCdywNta+y3Vn4fP/KnkUmdgQwMeNHOVkBy1vAZq7coWEdyHDwGNtU1nSENjvvqWUm
-	 z0NNBmAlxACdu3KqUr1lC0Z/cVehdAD+R+pJODuxg7YSsO4t5HR161Ttfv7najtj9e
-	 zbIMlV/fMkIWLcwbRQbTZg3AxT4t7MgK2VfQdd6n8tHhH0c+WbxaXTJNRS8EVwyZjM
-	 RLe3pamIkp1TSTaUBeKTiSbq5b6sI4WwwGWxhA7HtvMLZAHsLom8x1uhBv/6X0iIxQ
-	 NnY8OV71cdqjg==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 7396C4446C;
-	Fri, 23 Oct 2026 09:30:21 +0000 (UTC)
-From: Radu Sabau via B4 Relay <devnull+radu.sabau.analog.com@kernel.org>
-Date: Fri, 23 Oct 2026 12:30:23 +0300
-Subject: [PATCH v4 6/8] iio: imu: adis16607: Add FIFO-based
- buffered/triggered capture
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39E3460A261C;
+	Fri, 23 Oct 2026 09:30:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 39E3460A261C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cixtech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=sfD9/Qlm6PFtBkYlScDn4vQQ1jM15EAUhI2GEi2nyJQxgVFpp7+BwsSykZK8TRBn+9/he7OspBfg4CQllAAscS5OEYkeTYbYeQSxM4g01hfMtPkQMvUMakTJwA5ncbK6E0fH7KoIGfJC2vCNwyTHprm5Moph1zXki6d52oZETAHmbZkMJhGSBWlDRdHfAqNJmR8jZMRpVbnK7ACooxuv8uOWPqPs3xrW1I/U7XxeEWWnrmpBoNxkRIrUApSgAFjLftAI7ZhqEDFfGm7wDAy5RQNnc1y5zJSghhnHesKzRrDoU5oqprQO6EwODJeHoPBqW/v+WSsSAwaqiWsyMCqTVw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=5kT35Bjp8KFl1jAvONfEoe8gxZ4yawr7KoB1wi+MoAo=;
+ b=tzPFuOCryIRvSODyxVQsiP7oY4RUana+DymxfHUlDjjSnXzRo6BeFZtWJEI+rJ/wgz3QVStFc+7pY8k5OtgqLgsD1cqZpVEBjD0e/h2CoZhCn+goBJXcWg4bLOire0L0Wa+6yPOTifkNkI96QDG4ZwBoE6viSLzd5UNmsEnjJ7TibtjT5Z6iCvdEFpDMxxGrolwzI+J8tBSg+/q2WsIcNSiwDVjGMhidAYW9F4taspEgdGqnMW1n3mkTYdSj4dFqZpoZiXVuFM2inxqfbP/UfqIyv52Rwl5nXURG8bgcrPIcz6+eZCb2aHRwJvbsxAbIkEZQns6tIm+ixQHAuhxbXw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 222.71.101.198) smtp.rcpttodomain=arm.com smtp.mailfrom=cixtech.com;
+ dmarc=bestguesspass action=none header.from=cixtech.com; dkim=none (message
+ not signed); arc=none (0)
+Received: from SI1PR02CA0058.apcprd02.prod.outlook.com (2603:1096:4:1f5::9) by
+ PUZPR06MB5851.apcprd06.prod.outlook.com (2603:1096:301:f9::8) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.569.2; Fri, 23 Oct 2026 09:30:21 +0000
+Received: from SG1PEPF000082E3.apcprd02.prod.outlook.com
+ (2603:1096:4:1f5:cafe::5f) by SI1PR02CA0058.outlook.office365.com
+ (2603:1096:4:1f5::9) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.546.18 via Frontend Transport; Fri,
+ 23 Oct 2026 09:30:19 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 222.71.101.198) smtp.mailfrom=cixtech.com; dkim=none (message not signed)
+ header.d=none;dmarc=bestguesspass action=none header.from=cixtech.com;
+Received-SPF: Pass (protection.outlook.com: domain of cixtech.com designates
+ 222.71.101.198 as permitted sender) receiver=protection.outlook.com;
+ client-ip=222.71.101.198; helo=smtprelay.cixcomputing.com; pr=C
+Received: from smtprelay.cixcomputing.com (222.71.101.198) by
+ SG1PEPF000082E3.mail.protection.outlook.com (10.167.240.6) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.569.4 via Frontend Transport; Fri, 23 Oct 2026 09:30:19 +0000
+Received: from ubuntu (unknown [172.20.64.99])
+	by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id 7A3BC40920E1;
+	Fri, 23 Oct 2026 17:30:18 +0800 (CST)
+From: Jelly Jia <Jelly.Jia@cixtech.com>
+To: vkoul@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	robin.murphy@arm.com
+Cc: devicetree@vger.kernel.org,
+	Frank.Li@kernel.org,
+	cix-kernel-upstream@cixtech.com,
+	dmaengine@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Jelly.Jia@cixtech.com
+Subject: [PATCH v4 2/5] dmaengine: arm-dma350: Add slave and cyclic transfer support
+Date: Fri, 23 Oct 2026 17:30:14 +0800
+Message-ID: <20261023093017.3248454-3-Jelly.Jia@cixtech.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261023093017.3248454-1-Jelly.Jia@cixtech.com>
+References: <20261023093017.3248454-1-Jelly.Jia@cixtech.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,496 +105,1042 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261023-adis16607-v4-6-a4d541ebfd13@analog.com>
-References: <20261023-adis16607-v4-0-a4d541ebfd13@analog.com>
-In-Reply-To: <20261023-adis16607-v4-0-a4d541ebfd13@analog.com>
-To: Lars-Peter Clausen <lars@metafoo.de>, 
- Michael Hennerich <Michael.Hennerich@analog.com>, 
- Nuno Sa <nuno.sa@analog.com>, Jonathan Cameron <jic23@kernel.org>, 
- David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>, 
- Alexandru Ardelean <alexandru.ardelean@analog.com>, 
- Radu Sabau <radu.sabau@analog.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org, linux@analog.com, 
- Jonathan Cameron <jic23@kernel.org>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792747820; l=15727;
- i=radu.sabau@analog.com; s=20261001; h=from:subject:message-id;
- bh=5bO9M+VBZnN3vwynF1gmWkEcYXe12va6iYcUbOFuYgg=;
- b=supR8dMS0dZxUlRkSLOJfscXI18fnrcoGXRrthdDMkkccMuIVkvmlnk66wIM+6/iEE0lIwf1B
- CigAnrg+U8aAZxqj7jXdqe7SxrZgjbTMN2N7LcTtQEAMI1q68Hjrkiq
-X-Developer-Key: i=radu.sabau@analog.com; a=ed25519;
- pk=XOZSO/Ut8qfYw7khL8lUF65Pgl+VLihISyS+Iy9jY8c=
-X-Endpoint-Received: by B4 Relay for radu.sabau@analog.com/20261001 with
- auth_id=1094
-X-Original-From: Radu Sabau <radu.sabau@analog.com>
-Reply-To: radu.sabau@analog.com
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SG1PEPF000082E3:EE_|PUZPR06MB5851:EE_
+Content-Type: text/plain
+X-MS-Office365-Filtering-Correlation-Id: b2ece2ec-8449-4220-7749-08df30e84152
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|1800799024|36860700016|82310400026|7416014|376014|6133799003|18002099003|22082099003|261022105027099003|3023799007|261022075727099003|261021135927099003|5023799004|261021133027099003|261009223027099003|261021123027099003|261021130227099003|10067099003|261021121427099003|261022115727099003|261022113327099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	O6+0Oklhgn1HsG9o2ivdEGSrGv4UXsajf3TUcVcT6utD+Z27gGBXrFvDEQEK+NsshuZm4C5Nsou16EP1QZrQ5l1TJUqox6egPLYXLM4kAG3/Iqjohib0Hu8YDmMc9JiITDpB82w4uAhANHKqtsvH+m2hbq6hhcOQU78ugJgCmN7xc2YF7HfigTa6cHNUnV4shof7Rd9oABs0gkHfW90xnhz54Q0ZB4+wvo6Bgl+GW9xBOGvWc9WG8xxFioc1DUHEchq+/Eu21jDuw7bRiDdQfGx96FxGYgaUHkCsRa4srafyplY30JhY/kUWwbufcX1JeBf2F727uuFRqRsXxHryIjvcrliGZxHMSmrZT9lD8TP53aH/JXn+hYQ+r5JZalVBC4nwzJXdHCKxlg+BHz/dadxZbG3p9czXacSEmGpQlr9yWV/1Md2kyo0Ig2CeUuPzE3fxagd6XmDno3K+GtcfGEaueMEH9sy4nNNSe937AZIz3LG1c4ujzJSqLLNZ3VeFzp57ZGUClYRzycdYWsnfhC8Ac26ylKeIKESMjg2YpwZXChIfdpNH9YikCMyFOlcsEAwYwAiROS8bTKwbXSDR3XG6gWNlHhAkzgf/nj51nZS8kwQefJGSGU8M4xERPj/k0wGm2gXdoLGS03bW5NiTaNXE5Ebu5/t/pTi2CXdlTMNIxkmTQVfcaY6NXA023dgqdMNYGNHwHZSxe4SBtkSIAQ==
+X-Forefront-Antispam-Report:
+	CIP:222.71.101.198;CTRY:CN;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtprelay.cixcomputing.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(36860700016)(82310400026)(7416014)(376014)(6133799003)(18002099003)(22082099003)(261022105027099003)(3023799007)(261022075727099003)(261021135927099003)(5023799004)(261021133027099003)(261009223027099003)(261021123027099003)(261021130227099003)(10067099003)(261021121427099003)(261022115727099003)(261022113327099003)(56012099006);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	pae6y70GrOQOQjGLNqiQ4YxCAqtzqq7WXRDxDHj357h/2ft1eWwJJHOC/+SuyitmFa5BFoZ0n51Iz7cCup8jDXO1njbvgP9EYsbllw3YBgHhPCIIEElNmNnt9qUKpuY0oWzmsbpQAUFp5z+vH0oYjStyJfj913g3jIsdU9gf76goJdR7iYdI/jHqTy53mjFV/zSH+J1gUoJi/ViZgxQDvkXtTgXaYNFYBWWlY3Lf0c7mZ/VDloYejzaR3YU6zFqeS0s5Bs0jPAD6uYZqmowPhAffHiPdTaVdZ/FV8YlAEqv8gztS4CZeRAK3kl8QjFwXaHAfYyO2u4ZzcbWr0dy4jJtT8FMCb4iER1gNP21FflD7aIWD1KnDXOL3jHwg1FGdOwQ9NFD6caHwyLtw94sJycptP3cBSgsCGRfefe0/PAU0eLgpx85N3e5xJ1eizUgQ
+X-OriginatorOrg: cixtech.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Oct 2026 09:30:19.3765
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b2ece2ec-8449-4220-7749-08df30e84152
+X-MS-Exchange-CrossTenant-Id: 0409f77a-e53d-4d23-943e-ccade7cb4811
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0409f77a-e53d-4d23-943e-ccade7cb4811;Ip=[222.71.101.198];Helo=[smtprelay.cixcomputing.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SG1PEPF000082E3.apcprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PUZPR06MB5851
 
-From: Radu Sabau <radu.sabau@analog.com>
+The driver currently supports memory-to-memory transfers only. Add
+peripheral scatter-gather and cyclic transfers in both directions, with
+trigger configuration, period callbacks and residue reporting.
 
-Add buffered capture via the device's hardware FIFO - the only
-capture mode this driver supports. Popping the FIFO uses a dedicated
-command and payload format (FIFO_DATA_CMD, 52 bytes, no checksum),
-handled directly rather than through adislib's generic burst-read
-helpers, which assume one fixed-shape read per trigger rather than a
-variable-count drain loop.
+Keep each peripheral DMA mapping for the lifetime of its descriptor so
+preparing another transfer cannot invalidate a queued mapping. Allocate
+linked commands from a coherent DMA pool to respect the controller's DMA
+ranges and permit freeing them from the virt-dma tasklet. Store commands
+in little-endian format and order writes before publishing them.
 
-The watermark-met condition is signaled via DEV_NOK on the device's
-one interrupt pin, which stays asserted (level-triggered) until
-DIAG_STAT is read and cleared - matching adislib's has_fifo contract.
-DEV_NOK fires on any DIAG_STAT flag, not just FIFO_THRESH_MET, so the
-trigger handler checks that specific bit before popping anything.
-DR_GPIO_MASK stays enabled unconditionally: DR pulses drive the FIFO
-controller's internal sample enqueue, independent of pin routing.
+Set the trigger block size from maxburst in both directions. Sample the
+link pointer around the hardware residue counters and retain the cached
+residue if the channel advances during sampling. Include submitted
+descriptors in status queries and protect slave configuration updates
+with the channel lock.
 
-Watermark is configurable via the standard hwfifo_set_watermark
-callback and the usual hwfifo_* sysfs attributes.
+Check DMA mask setup and register the OF DMA provider only for OF-backed
+devices. During teardown, request channel stop and poll STOPCMD with a
+bounded timeout. Warn on timeout but continue IRQ and virt-dma cleanup;
+this is best-effort teardown, not confirmation that hardware has stopped.
 
-Signed-off-by: Radu Sabau <radu.sabau@analog.com>
+Signed-off-by: Jelly Jia <Jelly.Jia@cixtech.com>
 ---
- drivers/iio/imu/adis16607.c | 349 +++++++++++++++++++++++++++++++++++++++++++-
- 1 file changed, 346 insertions(+), 3 deletions(-)
+ drivers/dma/arm-dma350.c | 755 +++++++++++++++++++++++++++++++++++++--
+ 1 file changed, 726 insertions(+), 29 deletions(-)
 
-diff --git a/drivers/iio/imu/adis16607.c b/drivers/iio/imu/adis16607.c
-index 2dda306d7b54..b1f3667d8ce3 100644
---- a/drivers/iio/imu/adis16607.c
-+++ b/drivers/iio/imu/adis16607.c
-@@ -12,6 +12,9 @@
- #include <linux/iio/buffer.h>
- #include <linux/iio/iio.h>
- #include <linux/iio/imu/adis.h>
-+#include <linux/iio/sysfs.h>
-+#include <linux/iio/trigger_consumer.h>
-+#include <linux/interrupt.h>
- #include <linux/math.h>
- #include <linux/minmax.h>
+diff --git a/drivers/dma/arm-dma350.c b/drivers/dma/arm-dma350.c
+index 4e17130de6c8..f62ff6a9f490 100644
+--- a/drivers/dma/arm-dma350.c
++++ b/drivers/dma/arm-dma350.c
+@@ -3,12 +3,19 @@
+ // Arm DMA-350 driver
+ 
+ #include <linux/bitfield.h>
++#include <linux/bitops.h>
+ #include <linux/dmaengine.h>
+ #include <linux/dma-mapping.h>
++#include <linux/dmapool.h>
+ #include <linux/io.h>
++#include <linux/iopoll.h>
+ #include <linux/of.h>
++#include <linux/of_dma.h>
  #include <linux/module.h>
-@@ -42,8 +45,11 @@
- #define ADIS16607_REG_Y_DELTANG		0x1A
- #define ADIS16607_REG_Z_DELTANG		0x1C
- #define ADIS16607_REG_TEMP		0x20
-+#define ADIS16607_REG_FIFO_WORD_CNT	0x2B
- #define ADIS16607_REG_USER_GPIO_CFG	0x2F
- #define ADIS16607_REG_SPI_HALFDUPLEX	0x32
-+#define ADIS16607_REG_USER_DATA_CFG	0x34
-+#define ADIS16607_REG_USER_FIFO_CFG	0x35
- #define ADIS16607_REG_SOFT_RESET	0x36
- #define ADIS16607_REG_SELF_TEST		0x39
- #define ADIS16607_REG_DEC_RATE		0x3A
-@@ -54,8 +60,26 @@
++#include <linux/overflow.h>
+ #include <linux/platform_device.h>
++#include <linux/scatterlist.h>
++#include <linux/slab.h>
  
- /* Masks */
- #define ADIS16607_RESET_GPIO_MASK	GENMASK(2, 0)
-+#define ADIS16607_DR_GPIO_MASK		GENMASK(11, 9)
-+#define ADIS16607_DEV_NOK_MASK		GENMASK(14, 12)
-+#define ADIS16607_DATA_CNTR_EN_MASK	BIT(14)
-+#define ADIS16607_BURST32_MASK		BIT(15)
- #define ADIS16607_BOOTLOADER_BUSY_MASK	BIT(0)
+ #include "dmaengine.h"
+ #include "virt-dma.h"
+@@ -47,6 +54,8 @@
+ #define CH_CMD_CLEAR		BIT(1)
+ #define CH_CMD_ENABLE		BIT(0)
  
-+/* FIFO masks */
-+#define ADIS16607_FIFO_THR_MASK		GENMASK(10, 0)
-+#define ADIS16607_FIFO_FLUSH_MASK	BIT(15)
-+#define ADIS16607_FIFO_THR_MET_MASK	BIT(0)
-+#define ADIS16607_FIFO_DATA_CMD		0xA9
++#define D350_STOP_TIMEOUT_US	10000
 +
-+/* FIFO limits */
-+#define ADIS16607_MAX_FIFO_WM		38
-+#define ADIS16607_FIFO_WORDS_PER_SAMPLE	26
-+#define ADIS16607_FIFO_DATA_LEN		52
-+
-+/* Burst read - Half-Duplex mode (DATA_CNTR enabled) */
-+#define ADIS16607_BURST_CMD_SIZE	4
-+
- /* Self-test registers and masks */
- #define ADIS16607_REG_SELF_TEST_DATA(x)	((x) + 0x23)
- #define ADIS16607_SNSR_SELF_TEST_MASK	BIT(6)
-@@ -86,6 +110,11 @@ struct adis16607 {
- 	const struct adis16607_chip_info *info;
- 	unsigned long clk_freq_mhz;
- 	u64 sample_period_ns;
-+	u16 fifo_watermark;
-+	/* Scratch buffer used for FIFO pop operations, see adis16607_fifo_pop() */
-+	u8 fifo_buf[ADIS16607_BURST_CMD_SIZE + ADIS16607_FIFO_DATA_LEN] __aligned(IIO_DMA_MINALIGN);
-+	/* IIO buffer for reordered data - sized for max channels */
-+	u8 data[64] __aligned(IIO_DMA_MINALIGN);
+ #define CH_STATUS		0x04
+ #define CH_STAT_RESUMEWAIT	BIT(21)
+ #define CH_STAT_PAUSED		BIT(20)
+@@ -102,6 +111,10 @@
+ #define CH_FILLVAL		0x38
+ #define CH_SRCTRIGINCFG		0x4c
+ #define CH_DESTRIGINCFG		0x50
++#define CH_TRIGINCFG_BLKSIZE	GENMASK(23, 16)
++#define CH_TRIGINCFG_MODE	GENMASK(11, 10)
++#define CH_TRIGINCFG_TYPE	GENMASK(9, 8)
++#define CH_TRIGINCFG_SEL	GENMASK(7, 0)
+ #define CH_LINKATTR		0x70
+ #define CH_LINK_SHAREATTR	GENMASK(9, 8)
+ #define CH_LINK_MEMATTR		GENMASK(7, 0)
+@@ -147,6 +160,7 @@
+ #define LINK_LINKADDR		BIT(30)
+ #define LINK_LINKADDRHI		BIT(31)
+ 
++#define D350_SLAVE_CMD_WORDS	14
+ 
+ enum ch_ctrl_donetype {
+ 	CH_CTRL_DONETYPE_NONE = 0,
+@@ -161,6 +175,18 @@ enum ch_ctrl_xtype {
+ 	CH_CTRL_XTYPE_FILL = 3
  };
  
- enum {
-@@ -215,6 +244,286 @@ static const struct adis_ops adis16607_ops = {
- 	.reset = adis16607_reset,
- };
- 
-+/*
-+ * FIFO/burst data offsets for each channel (in bytes from the data start,
-+ * i.e. after the 4-byte command prefix).
-+ * Each 32-bit inertial channel occupies 4 bytes (MSW + LSW), TEMP is 2 bytes.
-+ *
-+ * FIFO data layout (52 bytes, DATA_CNTR enabled, no checksum):
-+ *   Offset 0-3:   ACCEL_X  (32-bit: MSW, LSW)
-+ *   Offset 4-7:   ACCEL_Y
-+ *   Offset 8-11:  ACCEL_Z
-+ *   Offset 12-15: GYRO_X
-+ *   Offset 16-19: GYRO_Y
-+ *   Offset 20-23: GYRO_Z
-+ *   Offset 24-27: DELTVEL_X
-+ *   Offset 28-31: DELTVEL_Y
-+ *   Offset 32-35: DELTVEL_Z
-+ *   Offset 36-39: DELTANG_X
-+ *   Offset 40-43: DELTANG_Y
-+ *   Offset 44-47: DELTANG_Z
-+ *   Offset 48-49: TEMP (16-bit)
-+ *   Offset 50-51: DATA_CNTR (16-bit)
-+ *
-+ * Each 32-bit value encodes 24-bit sensor data as:
-+ *   value_24bit = (MSW << 8) | (LSW >> 8)
-+ */
-+static const u8 adis16607_burst_offsets[] = {
-+	[ADIS16607_SCAN_ACCEL_X] = 0,
-+	[ADIS16607_SCAN_ACCEL_Y] = 4,
-+	[ADIS16607_SCAN_ACCEL_Z] = 8,
-+	[ADIS16607_SCAN_GYRO_X] = 12,
-+	[ADIS16607_SCAN_GYRO_Y] = 16,
-+	[ADIS16607_SCAN_GYRO_Z] = 20,
-+	[ADIS16607_SCAN_DELTVEL_X] = 24,
-+	[ADIS16607_SCAN_DELTVEL_Y] = 28,
-+	[ADIS16607_SCAN_DELTVEL_Z] = 32,
-+	[ADIS16607_SCAN_DELTANG_X] = 36,
-+	[ADIS16607_SCAN_DELTANG_Y] = 40,
-+	[ADIS16607_SCAN_DELTANG_Z] = 44,
-+	[ADIS16607_SCAN_TEMP] = 48,
++enum ch_trigincfg_mode {
++	CH_TRIGINCFG_MODE_COMMAND = 0,
++	CH_TRIGINCFG_MODE_DMA_FC = 2,
++	CH_TRIGINCFG_MODE_PERIPH_FC = 3
 +};
 +
-+/*
-+ * Pop a single sample from FIFO using FIFO_DATA command (0xA9).
-+ * Returns the raw FIFO data in the provided buffer.
-+ */
-+static int adis16607_fifo_pop(struct adis16607 *st, u8 *data)
++enum ch_trigincfg_type {
++	CH_TRIGINCFG_TYPE_SW = 0,
++	CH_TRIGINCFG_TYPE_HW = 2,
++	CH_TRIGINCFG_TYPE_INTERNAL = 3
++};
++
+ enum ch_cfg_shareattr {
+ 	SHAREATTR_NSH = 0,
+ 	SHAREATTR_OSH = 2,
+@@ -173,12 +199,29 @@ enum ch_cfg_memattr {
+ 	MEMATTR_WB = 0xff
+ };
+ 
++struct d350_hw_cmd {
++	__le32 *words;
++	dma_addr_t dma;
++};
++
+ struct d350_desc {
+ 	struct virt_dma_desc vd;
+ 	u32 command[16];
+ 	u16 xsize;
+ 	u16 xsizehi;
++	dma_addr_t resource_dma;
++	size_t resource_size;
++	enum dma_data_direction resource_dir;
++	bool resource_mapped;
++	struct d350_hw_cmd *cmds;
++	u32 *cmd_len;
++	size_t ncmds;
++	size_t bytes;
++	size_t period_len;
++	size_t periods;
++	size_t period;
+ 	u8 tsz;
++	bool cyclic;
+ };
+ 
+ struct d350_chan {
+@@ -189,14 +232,18 @@ struct d350_chan {
+ 	enum dma_status status;
+ 	dma_cookie_t cookie;
+ 	u32 residue;
++	u32 req;
+ 	u8 tsz;
+ 	bool has_trig;
+ 	bool has_wrap;
+ 	bool coherent;
++	bool stopping;
++	struct dma_slave_config sconfig;
+ };
+ 
+ struct d350 {
+ 	struct dma_device dma;
++	struct dma_pool *cmd_pool;
+ 	int nchan;
+ 	int nreq;
+ 	struct d350_chan channels[] __counted_by(nchan);
+@@ -207,14 +254,452 @@ static inline struct d350_chan *to_d350_chan(struct dma_chan *chan)
+ 	return container_of(chan, struct d350_chan, vc.chan);
+ }
+ 
++static inline struct d350 *d350_chan_to_dmac(struct d350_chan *dch)
 +{
-+	struct spi_message msg;
-+	struct spi_transfer xfer = {
-+		.tx_buf = st->fifo_buf,
-+		.rx_buf = st->fifo_buf,
-+		.len = ADIS16607_BURST_CMD_SIZE + ADIS16607_FIFO_DATA_LEN,
-+		.bits_per_word = 8,
-+	};
-+	int ret;
-+
-+	/* FIFO data command */
-+	st->fifo_buf[0] = ADIS16607_FIFO_DATA_CMD;
-+	st->fifo_buf[1] = 0;
-+	st->fifo_buf[2] = 0;
-+	st->fifo_buf[3] = 0;
-+
-+	spi_message_init(&msg);
-+	spi_message_add_tail(&xfer, &msg);
-+
-+	ret = spi_sync(st->adis.spi, &msg);
-+	if (ret)
-+		return ret;
-+
-+	/* Copy data starting after command bytes */
-+	memcpy(data, st->fifo_buf + ADIS16607_BURST_CMD_SIZE, ADIS16607_FIFO_DATA_LEN);
-+	return 0;
++	return container_of(dch->vc.chan.device, struct d350, dma);
 +}
 +
-+/*
-+ * Process a single FIFO sample and push to IIO buffer.
-+ * FIFO data format differs from regular burst - no DIAG_STAT, data starts immediately.
-+ *
-+ * FIFO data layout (52 bytes):
-+ *   Offset 0-3:   ACCEL_X (32-bit)
-+ *   Offset 4-7:   ACCEL_Y (32-bit)
-+ *   Offset 8-11:  ACCEL_Z (32-bit)
-+ *   Offset 12-15: GYRO_X (32-bit)
-+ *   Offset 16-19: GYRO_Y (32-bit)
-+ *   Offset 20-23: GYRO_Z (32-bit)
-+ *   Offset 24-27: DELTVEL_X (32-bit)
-+ *   Offset 28-31: DELTVEL_Y (32-bit)
-+ *   Offset 32-35: DELTVEL_Z (32-bit)
-+ *   Offset 36-39: DELTANG_X (32-bit)
-+ *   Offset 40-43: DELTANG_Y (32-bit)
-+ *   Offset 44-47: DELTANG_Z (32-bit)
-+ *   Offset 48-49: TEMP (16-bit)
-+ *   Offset 50-51: DATA_CNTR (16-bit)
-+ */
-+static void adis16607_fifo_push_sample(struct iio_dev *indio_dev,
-+				       u8 *fifo_data, s64 timestamp)
+ static inline struct d350_desc *to_d350_desc(struct virt_dma_desc *vd)
+ {
+ 	return container_of(vd, struct d350_desc, vd);
+ }
+ 
++static void d350_unmap_resource(struct device *dev, struct d350_desc *desc)
 +{
-+	struct adis16607 *st = iio_priv(indio_dev);
-+	u16 msw, lsw;
-+	s32 val24;
-+	int bit, offset = 0;
++	if (!desc->resource_mapped)
++		return;
 +
-+	memset(st->data, 0, sizeof(st->data));
++	dma_unmap_resource(dev, desc->resource_dma, desc->resource_size,
++			   desc->resource_dir, 0);
++	desc->resource_mapped = false;
++}
 +
-+	for_each_set_bit(bit, indio_dev->active_scan_mask, indio_dev->masklength) {
-+		u8 burst_off;
++static void d350_free_cmds(struct d350 *dmac, struct d350_desc *desc)
++{
++	size_t i;
 +
-+		/* Skip the soft timestamp channel - it has no burst offset */
-+		if (bit >= ARRAY_SIZE(adis16607_burst_offsets))
-+			continue;
++	for (i = 0; i < desc->ncmds; i++) {
++		if (desc->cmds[i].words)
++			dma_pool_free(dmac->cmd_pool, desc->cmds[i].words,
++				      desc->cmds[i].dma);
++	}
 +
-+		burst_off = adis16607_burst_offsets[bit];
++	kfree(desc->cmds);
++	kfree(desc->cmd_len);
++}
 +
-+		if (bit == ADIS16607_SCAN_TEMP) {
-+			/* TEMP is 16-bit */
-+			put_unaligned_be16(get_unaligned_be16(&fifo_data[burst_off]),
-+					   &st->data[offset]);
-+			offset += 2;
-+		} else {
-+			/* All other channels are 24-bit stored as 32-bit */
-+			msw = get_unaligned_be16(&fifo_data[burst_off]);
-+			lsw = get_unaligned_be16(&fifo_data[burst_off + 2]);
-+			val24 = sign_extend32(((u32)msw << 8) | (lsw >> 8), 23);
-+			put_unaligned_be32(val24, &st->data[offset]);
-+			offset += 4;
+ static void d350_desc_free(struct virt_dma_desc *vd)
+ {
+-	kfree(to_d350_desc(vd));
++	struct d350_desc *desc = to_d350_desc(vd);
++	struct device *dev = vd->tx.chan->device->dev;
++	struct d350 *dmac = d350_chan_to_dmac(to_d350_chan(vd->tx.chan));
++
++	d350_unmap_resource(dev, desc);
++	d350_free_cmds(dmac, desc);
++	kfree(desc);
++}
++
++static int d350_alloc_cmds(struct dma_chan *dchan, struct d350_desc *desc,
++			   size_t ncmds)
++{
++	struct d350 *dmac = d350_chan_to_dmac(to_d350_chan(dchan));
++	size_t i;
++
++	desc->cmds = kcalloc(ncmds, sizeof(*desc->cmds), GFP_NOWAIT);
++	if (!desc->cmds)
++		return -ENOMEM;
++
++	desc->ncmds = ncmds;
++	for (i = 0; i < ncmds; i++) {
++		desc->cmds[i].words = dma_pool_alloc(dmac->cmd_pool, GFP_NOWAIT,
++						     &desc->cmds[i].dma);
++		if (!desc->cmds[i].words) {
++			d350_free_cmds(dmac, desc);
++			desc->cmds = NULL;
++			desc->ncmds = 0;
++			return -ENOMEM;
 +		}
 +	}
 +
-+	iio_push_to_buffers_with_timestamp(indio_dev, st->data, timestamp);
++	return 0;
 +}
 +
 +/*
-+ * Trigger handler - reads samples from the device FIFO. Triggered by the
-+ * DEV_NOK interrupt, which fires on any DIAG_STAT flag, not just
-+ * FIFO_THRESH_MET - the DIAG_STAT read below both checks which flag(s)
-+ * raised the interrupt and clears the latched status, and must happen
-+ * before any FIFO pop, or we'd pop for nothing on an unrelated flag.
++ * The command pool is coherent, but order the command writes before the
++ * descriptor can be submitted and started by another CPU.
 + */
-+static irqreturn_t adis16607_trigger_handler(int irq, void *p)
++static void d350_sync_cmds(struct d350_desc *desc)
 +{
-+	struct iio_poll_func *pf = p;
-+	struct iio_dev *indio_dev = pf->indio_dev;
-+	struct adis16607 *st = iio_priv(indio_dev);
-+	u8 fifo_sample[ADIS16607_FIFO_DATA_LEN];
-+	u16 diag_stat, word_cnt, sample_cnt;
-+	s64 timestamp;
-+	int ret, i;
++	if (!desc->cmds)
++		return;
 +
-+	mutex_lock(&st->adis.state_lock);
++	dma_wmb();
++}
 +
-+	/* Check if FIFO threshold is met */
-+	ret = __adis_read_reg_16(&st->adis, ADIS16607_REG_DIAG_STAT, &diag_stat);
-+	if (ret)
-+		goto unlock;
++static dma_addr_t d350_map_resource(struct dma_chan *dchan,
++				    struct d350_desc *desc,
++				    phys_addr_t cpu_addr, size_t size,
++				    enum dma_data_direction dir)
++{
++	struct device *dev = dchan->device->dev;
++	dma_addr_t dma_addr;
 +
-+	if (!(diag_stat & ADIS16607_FIFO_THR_MET_MASK))
-+		goto unlock;
-+
-+	/* Read FIFO word count */
-+	ret = __adis_read_reg_16(&st->adis, ADIS16607_REG_FIFO_WORD_CNT, &word_cnt);
-+	if (ret)
-+		goto unlock;
-+
-+	/* Calculate number of complete samples */
-+	sample_cnt = word_cnt / ADIS16607_FIFO_WORDS_PER_SAMPLE;
-+	if (!sample_cnt)
-+		goto unlock;
-+
-+	/*
-+	 * pf->timestamp is the IRQ-fire time, i.e. when the newest (last
-+	 * enqueued) sample tipped the FIFO over watermark. The FIFO pops
-+	 * oldest-first, so back-date the first popped sample's timestamp by
-+	 * the batch duration - the loop then counts back up to pf->timestamp
-+	 * for the newest sample, instead of projecting past it.
-+	 */
-+	timestamp = pf->timestamp - (s64)(sample_cnt - 1) * st->sample_period_ns;
-+
-+	/* Pop and process each sample */
-+	for (i = 0; i < sample_cnt; i++) {
-+		ret = adis16607_fifo_pop(st, fifo_sample);
-+		if (ret)
-+			goto unlock;
-+
-+		adis16607_fifo_push_sample(indio_dev, fifo_sample, timestamp);
-+		timestamp += st->sample_period_ns;
++	dma_addr = dma_map_resource(dev, cpu_addr, size, dir, 0);
++	if (dma_mapping_error(dev, dma_addr)) {
++		dev_err(dev, "map slave failed ch%u phys=%pa size=%zu dir=%d\n",
++			dchan->chan_id, &cpu_addr, size, dir);
++		return DMA_MAPPING_ERROR;
 +	}
 +
-+unlock:
-+	mutex_unlock(&st->adis.state_lock);
-+	iio_trigger_notify_done(indio_dev->trig);
-+	return IRQ_HANDLED;
++	desc->resource_dma = dma_addr;
++	desc->resource_size = size;
++	desc->resource_dir = dir;
++	desc->resource_mapped = true;
++
++	return dma_addr;
 +}
 +
-+/* FIFO sysfs attributes */
-+IIO_STATIC_CONST_DEVICE_ATTR(hwfifo_watermark_min, "1");
-+IIO_STATIC_CONST_DEVICE_ATTR(hwfifo_watermark_max, __stringify(ADIS16607_MAX_FIFO_WM));
-+
-+static ssize_t hwfifo_watermark_show(struct device *dev,
-+				     struct device_attribute *attr,
-+				     char *buf)
++static bool d350_buswidth_supported(u32 widths, enum dma_slave_buswidth width)
 +{
-+	struct iio_dev *indio_dev = dev_to_iio_dev(dev);
-+	struct adis16607 *st = iio_priv(indio_dev);
-+
-+	return sysfs_emit(buf, "%u\n", st->fifo_watermark);
++	return width < BITS_PER_TYPE(widths) && (widths & BIT(width));
 +}
 +
-+static ssize_t hwfifo_enabled_show(struct device *dev,
-+				   struct device_attribute *attr,
-+				   char *buf)
++static int d350_check_slave_config(struct dma_device *dma,
++				   struct dma_slave_config *config)
 +{
-+	struct iio_dev *indio_dev = dev_to_iio_dev(dev);
-+	struct adis16607 *st = iio_priv(indio_dev);
-+	u16 val;
-+	int ret;
++	u32 maxburst = FIELD_MAX(CH_CFG_MAXBURSTLEN) + 1;
++	u32 widths = dma->src_addr_widths | dma->dst_addr_widths;
 +
-+	ret = adis_read_reg_16(&st->adis, ADIS16607_REG_USER_FIFO_CFG, &val);
-+	if (ret)
-+		return ret;
++	if (!d350_buswidth_supported(widths, config->src_addr_width) ||
++	    !d350_buswidth_supported(widths, config->dst_addr_width))
++		return -EINVAL;
 +
-+	return sysfs_emit(buf, "%d\n", (val & ADIS16607_FIFO_THR_MASK) ? 1 : 0);
-+}
-+
-+static IIO_DEVICE_ATTR_RO(hwfifo_watermark, 0);
-+static IIO_DEVICE_ATTR_RO(hwfifo_enabled, 0);
-+
-+static const struct iio_dev_attr *adis16607_fifo_attributes[] = {
-+	&iio_dev_attr_hwfifo_watermark_min,
-+	&iio_dev_attr_hwfifo_watermark_max,
-+	&iio_dev_attr_hwfifo_watermark,
-+	&iio_dev_attr_hwfifo_enabled,
-+	NULL
-+};
-+
-+static int adis16607_buffer_postenable(struct iio_dev *indio_dev)
-+{
-+	struct adis16607 *st = iio_priv(indio_dev);
-+	struct adis *adis = &st->adis;
-+	u16 threshold;
-+	int ret;
-+
-+	adis_dev_auto_lock(adis);
-+
-+	/* Flush FIFO to start clean */
-+	ret = __adis_write_reg_16(adis, ADIS16607_REG_USER_FIFO_CFG,
-+				  ADIS16607_FIFO_FLUSH_MASK);
-+	if (ret)
-+		return ret;
-+
-+	/* Enable FIFO with watermark threshold (in word count) */
-+	threshold = st->fifo_watermark * ADIS16607_FIFO_WORDS_PER_SAMPLE;
-+	return __adis_write_reg_16(adis, ADIS16607_REG_USER_FIFO_CFG,
-+				   threshold & ADIS16607_FIFO_THR_MASK);
-+}
-+
-+static int adis16607_buffer_postdisable(struct iio_dev *indio_dev)
-+{
-+	struct adis16607 *st = iio_priv(indio_dev);
-+	struct adis *adis = &st->adis;
-+
-+	adis_dev_auto_lock(adis);
-+
-+	/* Disable FIFO */
-+	return __adis_write_reg_16(adis, ADIS16607_REG_USER_FIFO_CFG, 0);
-+}
-+
-+static const struct iio_buffer_setup_ops adis16607_buffer_ops = {
-+	.postenable = adis16607_buffer_postenable,
-+	.postdisable = adis16607_buffer_postdisable,
-+};
-+
-+static int adis16607_set_watermark(struct iio_dev *indio_dev, unsigned int val)
-+{
-+	struct adis16607 *st = iio_priv(indio_dev);
-+
-+	val = clamp(val, 1, ADIS16607_MAX_FIFO_WM);
-+	st->fifo_watermark = val;
++	if (config->src_maxburst > maxburst ||
++	    config->dst_maxburst > maxburst)
++		return -EINVAL;
 +
 +	return 0;
 +}
 +
- /*
-  * Check if the delta between two values is within specified range.
-  */
-@@ -306,8 +615,9 @@ static int adis16607_sensor_self_test(struct adis16607 *st)
-  * has handled reset (hardware GPIO or SW reset, adislib's own job) and
-  * before self-test - no mutex is taken here either, matching that
-  * convention. Does the device-specific startup steps adislib has no
-- * concept of: SPI Half-Duplex locking, dev_id verification, and the
-- * bootloader-busy check.
-+ * concept of: SPI Half-Duplex locking, dev_id verification, the
-+ * bootloader-busy check, enabling 32-bit burst mode + DATA_CNTR, and
-+ * the DR/DEV_NOK pin routing.
-  */
- static int adis16607_post_reset_setup(struct adis *adis)
- {
-@@ -355,7 +665,29 @@ static int adis16607_post_reset_setup(struct adis *adis)
- 		return -EBUSY;
- 	}
- 
--	return 0;
-+	/* Enable 32-bit burst mode and DATA_CNTR - one-time, used by FIFO pops */
-+	ret = __adis_update_bits_base(adis, ADIS16607_REG_USER_DATA_CFG,
-+				      ADIS16607_BURST32_MASK | ADIS16607_DATA_CNTR_EN_MASK,
-+				      ADIS16607_BURST32_MASK | ADIS16607_DATA_CNTR_EN_MASK, 2);
-+	if (ret)
-+		return ret;
++static int d350_config(struct dma_chan *chan, struct dma_slave_config *config)
++{
++	struct d350_chan *dch = to_d350_chan(chan);
++	struct dma_device *dma = chan->device;
++	unsigned long flags;
++	int ret;
 +
-+	/*
-+	 * DR_GPIO_MASK and DEV_NOK_MASK are updated here rather than written
-+	 * blind, so this doesn't clobber the RESET_GPIO_MASK bit already
-+	 * configured earlier in probe(). Per datasheet, DR pulses are what
-+	 * drive the FIFO controller's internal enqueue logic. DR and
-+	 * DEV_NOK are separate physical pins, so enabling DR_GPIO_MASK here
-+	 * does not put DR's full-sample-rate pulses onto the interrupt line
-+	 * - DEV_NOK_MASK routes the aggregate "any DIAG_STAT flag asserted"
-+	 * signal onto the one physically-wired interrupt pin, which is what
-+	 * actually fires on FIFO_THRESH_MET, at the (much lower) watermark
-+	 * rate, not the sample rate.
-+	 */
-+	return __adis_update_bits_base(adis, ADIS16607_REG_USER_GPIO_CFG,
-+				       ADIS16607_DR_GPIO_MASK | ADIS16607_DEV_NOK_MASK,
-+				       FIELD_PREP(ADIS16607_DR_GPIO_MASK, 1) |
-+				       FIELD_PREP(ADIS16607_DEV_NOK_MASK, 1), 2);
++	ret = d350_check_slave_config(dma, config);
++	if (ret) {
++		dev_err(dma->dev, "invalid slave configuration\n");
++		return ret;
++	}
++
++	spin_lock_irqsave(&dch->vc.lock, flags);
++	if (dch->desc || !list_empty(&dch->vc.desc_allocated) ||
++	    !list_empty(&dch->vc.desc_submitted) ||
++	    !list_empty(&dch->vc.desc_issued)) {
++		spin_unlock_irqrestore(&dch->vc.lock, flags);
++		return -EBUSY;
++	}
++	memcpy(&dch->sconfig, config, sizeof(dch->sconfig));
++	spin_unlock_irqrestore(&dch->vc.lock, flags);
++
++	return 0;
++}
++
++static struct dma_chan *d350_of_xlate(struct of_phandle_args *dma_spec,
++				      struct of_dma *ofdma)
++{
++	struct d350 *dmac = ofdma->of_dma_data;
++	struct d350_chan *dch;
++	struct dma_chan *chan;
++	u32 req;
++	int i;
++
++	if (dma_spec->args_count != 1) {
++		dev_err(dmac->dma.dev, "dma phandle must have one argument\n");
++		return NULL;
++	}
++
++	req = dma_spec->args[0];
++	if (req >= dmac->nreq) {
++		dev_err(dmac->dma.dev, "invalid DMA request %u, have %d\n",
++			req, dmac->nreq);
++		return NULL;
++	}
++
++	for (i = 0; i < dmac->nchan; i++) {
++		dch = &dmac->channels[i];
++		if (!dch->has_trig)
++			continue;
++
++		chan = dma_get_slave_channel(&dch->vc.chan);
++		if (chan) {
++			dch->req = req;
++			return chan;
++		}
++	}
++
++	dev_err(dmac->dma.dev, "no free channel with trigger support\n");
++
++	return NULL;
++}
++
++static u32 d350_device_transcfg(u32 maxburst)
++{
++	return FIELD_PREP(CH_CFG_MAXBURSTLEN, maxburst - 1) |
++	       FIELD_PREP(CH_CFG_SHAREATTR, SHAREATTR_OSH) |
++	       FIELD_PREP(CH_CFG_MEMATTR, MEMATTR_DEVICE);
++}
++
++static int d350_slave_params(struct d350_chan *dch,
++			     enum dma_transfer_direction direction,
++			     phys_addr_t *dev_cpu_addr,
++			     enum dma_data_direction *dev_dir,
++			     enum dma_slave_buswidth *width, u32 *maxburst)
++{
++	struct dma_slave_config *config = &dch->sconfig;
++
++	if (direction == DMA_MEM_TO_DEV) {
++		*dev_cpu_addr = config->dst_addr;
++		*dev_dir = DMA_FROM_DEVICE;
++		*width = config->dst_addr_width;
++		*maxburst = config->dst_maxburst;
++	} else if (direction == DMA_DEV_TO_MEM) {
++		*dev_cpu_addr = config->src_addr;
++		*dev_dir = DMA_TO_DEVICE;
++		*width = config->src_addr_width;
++		*maxburst = config->src_maxburst;
++	} else {
++		return -EINVAL;
++	}
++
++	return *width && *maxburst ? 0 : -EINVAL;
++}
++
++static void d350_fill_slave_cmd(struct d350_chan *dch, struct d350_desc *desc,
++				u32 *cmd, dma_addr_t mem, dma_addr_t dev_dma_addr,
++				size_t len, bool link, dma_addr_t link_addr,
++				enum dma_transfer_direction direction,
++				enum dma_slave_buswidth width, u32 maxburst,
++				enum ch_ctrl_donetype donetype)
++{
++	bool mem_to_dev = direction == DMA_MEM_TO_DEV;
++	u16 xsize;
++	u16 xsizehi;
++	u32 devcfg;
++	u32 memcfg;
++	u32 trigcfg;
++
++	desc->tsz = __ffs(width);
++	xsize = lower_16_bits(len >> desc->tsz);
++	xsizehi = upper_16_bits(len >> desc->tsz);
++	devcfg = d350_device_transcfg(maxburst);
++	memcfg = dch->coherent ? TRANSCFG_WB : TRANSCFG_NC;
++
++	trigcfg = FIELD_PREP(CH_TRIGINCFG_BLKSIZE, maxburst - 1) |
++		  FIELD_PREP(CH_TRIGINCFG_MODE, CH_TRIGINCFG_MODE_PERIPH_FC) |
++		  FIELD_PREP(CH_TRIGINCFG_TYPE, CH_TRIGINCFG_TYPE_HW) |
++		  FIELD_PREP(CH_TRIGINCFG_SEL, dch->req);
++
++	cmd[0] = LINK_CTRL | LINK_SRCADDR | LINK_SRCADDRHI | LINK_DESADDR |
++		 LINK_DESADDRHI | LINK_XSIZE | LINK_XSIZEHI | LINK_SRCTRANSCFG |
++		 LINK_DESTRANSCFG | LINK_XADDRINC | LINK_LINKADDR |
++		 LINK_LINKADDRHI |
++		 (mem_to_dev ? LINK_DESTRIGINCFG : LINK_SRCTRIGINCFG);
++	cmd[1] = (mem_to_dev ? CH_CTRL_USEDESTRIGIN : CH_CTRL_USESRCTRIGIN) |
++		 FIELD_PREP(CH_CTRL_TRANSIZE, desc->tsz) |
++		 FIELD_PREP(CH_CTRL_XTYPE, CH_CTRL_XTYPE_CONTINUE) |
++		 FIELD_PREP(CH_CTRL_DONETYPE, donetype);
++	cmd[2] = lower_32_bits(mem_to_dev ? mem : dev_dma_addr);
++	cmd[3] = upper_32_bits(mem_to_dev ? mem : dev_dma_addr);
++	cmd[4] = lower_32_bits(mem_to_dev ? dev_dma_addr : mem);
++	cmd[5] = upper_32_bits(mem_to_dev ? dev_dma_addr : mem);
++	cmd[6] = FIELD_PREP(CH_XY_SRC, xsize) |
++		 FIELD_PREP(CH_XY_DES, xsize);
++	cmd[7] = FIELD_PREP(CH_XY_SRC, xsizehi) |
++		 FIELD_PREP(CH_XY_DES, xsizehi);
++	cmd[8] = mem_to_dev ? memcfg : devcfg;
++	cmd[9] = mem_to_dev ? devcfg : memcfg;
++	cmd[10] = mem_to_dev ? FIELD_PREP(CH_XY_SRC, 1) :
++				FIELD_PREP(CH_XY_DES, 1);
++	cmd[11] = trigcfg;
++	cmd[12] = lower_32_bits(link_addr) | (link ? CH_LINKADDR_EN : 0);
++	cmd[13] = upper_32_bits(link_addr);
++}
++
++static void d350_store_slave_cmd(__le32 *dst, const u32 *src)
++{
++	int i;
++
++	for (i = 0; i < D350_SLAVE_CMD_WORDS; i++)
++		dst[i] = cpu_to_le32(src[i]);
++}
++
++static struct dma_async_tx_descriptor *
++d350_prep_slave_sg(struct dma_chan *dchan, struct scatterlist *sgl,
++		   unsigned int sg_len,
++		   enum dma_transfer_direction direction,
++		   unsigned long flags, void *context)
++{
++	struct d350_chan *dch = to_d350_chan(dchan);
++	size_t cmd_size = D350_SLAVE_CMD_WORDS * sizeof(u32);
++	enum dma_data_direction dev_dir;
++	enum dma_slave_buswidth width;
++	struct d350_desc *desc;
++	phys_addr_t dev_cpu_addr;
++	dma_addr_t dev_dma_addr;
++	dma_addr_t mem;
++	struct scatterlist *sg;
++	u32 maxburst;
++	size_t len;
++	int i;
++
++	if (unlikely(!is_slave_direction(direction) || !sg_len))
++		return NULL;
++
++	if (d350_slave_params(dch, direction, &dev_cpu_addr, &dev_dir, &width,
++			      &maxburst))
++		return NULL;
++
++	desc = kzalloc_obj(*desc, GFP_NOWAIT);
++	if (!desc)
++		return NULL;
++
++	dev_dma_addr = d350_map_resource(dchan, desc, dev_cpu_addr, width,
++					 dev_dir);
++	if (dma_mapping_error(dchan->device->dev, dev_dma_addr))
++		goto err_free_desc;
++
++	if (sg_len > 1) {
++		if (d350_alloc_cmds(dchan, desc, sg_len))
++			goto err_free_desc;
++
++		desc->cmd_len = kcalloc(sg_len, sizeof(*desc->cmd_len),
++					GFP_NOWAIT);
++		if (!desc->cmd_len)
++			goto err_free_cmds;
++	}
++
++	for_each_sg(sgl, sg, sg_len, i) {
++		enum ch_ctrl_donetype donetype = CH_CTRL_DONETYPE_CMD;
++		u32 command[D350_SLAVE_CMD_WORDS];
++		dma_addr_t link_addr = 0;
++		bool link = false;
++		u32 *cmd = desc->command;
++
++		mem = sg_dma_address(sg);
++		len = sg_dma_len(sg);
++		if (!len || (len >> __ffs(width)) > U32_MAX ||
++		    !IS_ALIGNED(len | mem | dev_dma_addr, width))
++			goto err_free_cmds;
++
++		if (sg_len > 1) {
++			cmd = command;
++			if (i < sg_len - 1) {
++				link = true;
++				link_addr = desc->cmds[i + 1].dma;
++				donetype = CH_CTRL_DONETYPE_NONE;
++			}
++			desc->cmd_len[i] = len;
++		}
++
++		if (check_add_overflow(desc->bytes, len, &desc->bytes) ||
++		    desc->bytes > U32_MAX)
++			goto err_free_cmds;
++
++		d350_fill_slave_cmd(dch, desc, cmd, mem, dev_dma_addr, len,
++				    link, link_addr, direction, width, maxburst,
++				    donetype);
++		if (sg_len > 1) {
++			d350_store_slave_cmd(desc->cmds[i].words, cmd);
++			if (!i)
++				memcpy(desc->command, cmd, cmd_size);
++		}
++	}
++
++	d350_sync_cmds(desc);
++
++	return vchan_tx_prep(&dch->vc, &desc->vd, flags);
++
++err_free_cmds:
++	d350_free_cmds(d350_chan_to_dmac(dch), desc);
++err_free_desc:
++	d350_unmap_resource(dchan->device->dev, desc);
++	kfree(desc);
++
++	return NULL;
++}
++
++static struct dma_async_tx_descriptor *
++d350_prep_dma_cyclic(struct dma_chan *dchan, dma_addr_t buf_addr,
++		     size_t buf_len, size_t period_len,
++		     enum dma_transfer_direction direction, unsigned long flags)
++{
++	struct d350_chan *dch = to_d350_chan(dchan);
++	struct d350_desc *desc;
++	phys_addr_t dev_cpu_addr;
++	dma_addr_t dev_dma_addr;
++	enum dma_data_direction dev_dir;
++	enum dma_slave_buswidth width;
++	size_t period;
++	size_t cmd_size;
++	u32 maxburst;
++	int ret;
++
++	if (!buf_len || !period_len || buf_len % period_len ||
++	    buf_len > U32_MAX || !is_slave_direction(direction))
++		return NULL;
++
++	ret = d350_slave_params(dch, direction, &dev_cpu_addr, &dev_dir, &width,
++				&maxburst);
++	if (ret)
++		return NULL;
++
++	desc = kzalloc_obj(*desc, GFP_NOWAIT);
++	if (!desc)
++		return NULL;
++
++	dev_dma_addr = d350_map_resource(dchan, desc, dev_cpu_addr, width,
++					 dev_dir);
++	if (dma_mapping_error(dchan->device->dev, dev_dma_addr))
++		goto err_free_desc;
++
++	if (!IS_ALIGNED(buf_addr | dev_dma_addr | period_len, width))
++		goto err_free_desc;
++
++	desc->bytes = buf_len;
++	desc->period_len = period_len;
++	desc->periods = buf_len / period_len;
++	desc->cyclic = true;
++
++	if (d350_alloc_cmds(dchan, desc, desc->periods))
++		goto err_free_desc;
++
++	cmd_size = D350_SLAVE_CMD_WORDS * sizeof(u32);
++
++	for (period = 0; period < desc->periods; period++) {
++		u32 command[D350_SLAVE_CMD_WORDS];
++		dma_addr_t mem = buf_addr + period * period_len;
++		dma_addr_t next = desc->cmds[(period + 1) % desc->periods].dma;
++
++		d350_fill_slave_cmd(dch, desc, command, mem, dev_dma_addr,
++				    period_len, true, next, direction, width,
++				    maxburst, CH_CTRL_DONETYPE_CMD);
++		d350_store_slave_cmd(desc->cmds[period].words, command);
++		if (!period)
++			memcpy(desc->command, command, cmd_size);
++	}
++
++	d350_sync_cmds(desc);
++
++	return vchan_tx_prep(&dch->vc, &desc->vd, flags);
++
++err_free_desc:
++	d350_unmap_resource(dchan->device->dev, desc);
++	kfree(desc);
++
++	return NULL;
  }
  
- /*
-@@ -669,6 +1001,7 @@ static const struct iio_info adis16607_info = {
- 	.read_raw = adis16607_read_raw,
- 	.write_raw = adis16607_write_raw,
- 	.debugfs_reg_access = adis_debugfs_reg_access,
-+	.hwfifo_set_watermark = adis16607_set_watermark,
- };
+ static struct dma_async_tx_descriptor *d350_prep_memcpy(struct dma_chan *chan,
+@@ -228,6 +713,7 @@ static struct dma_async_tx_descriptor *d350_prep_memcpy(struct dma_chan *chan,
+ 	if (!desc)
+ 		return NULL;
  
- static const char * const adis16607_status_error_msgs[] = {
-@@ -690,6 +1023,7 @@ static const struct adis_data adis16607_data = {
- 	.prod_id_reg = ADIS16607_REG_DEV_ID,
- 	.prod_id = 0x6000,
- 	.unmasked_drdy = true,
-+	.has_fifo = true,
- 	.post_reset_setup = adis16607_post_reset_setup,
- 	.self_test = adis16607_self_test,
- 	.status_error_msgs = adis16607_status_error_msgs,
-@@ -765,6 +1099,8 @@ static int adis16607_probe(struct spi_device *spi)
- 	indio_dev->info = &adis16607_info;
- 	indio_dev->modes = INDIO_DIRECT_MODE;
++	desc->bytes = len;
+ 	desc->tsz = __ffs(len | dest | src | (1 << dch->tsz));
+ 	desc->xsize = lower_16_bits(len >> desc->tsz);
+ 	desc->xsizehi = upper_16_bits(len >> desc->tsz);
+@@ -266,6 +752,7 @@ static struct dma_async_tx_descriptor *d350_prep_memset(struct dma_chan *chan,
+ 	if (!desc)
+ 		return NULL;
  
-+	st->fifo_watermark = ADIS16607_MAX_FIFO_WM;
++	desc->bytes = len;
+ 	desc->tsz = __ffs(len | dest | (1 << dch->tsz));
+ 	desc->xsize = lower_16_bits(len >> desc->tsz);
+ 	desc->xsizehi = upper_16_bits(len >> desc->tsz);
+@@ -339,6 +826,69 @@ static u32 d350_get_residue(struct d350_chan *dch)
+ 	return res << dch->desc->tsz;
+ }
+ 
++static u32 d350_get_sg_residue(struct d350_chan *dch)
++{
++	struct d350_desc *desc = dch->desc;
++	size_t cmd = 0;
++	size_t i;
++	u32 linkaddr;
++	u32 linkaddrhi;
++	u32 hi_new;
++	u32 lo_new;
++	u32 residue;
++	u64 next_cmd;
++	int retries = 3;
 +
- 	st->adis.ops = &adis16607_ops;
++	if (!desc->cmd_len)
++		return d350_get_residue(dch);
++
++	/*
++	 * CH_LINKADDR points at the next command. Match it against the command
++	 * array to find the command currently executing, then add every later
++	 * command which has not started yet.
++	 */
++	/* The channel may step the link pointer between the two reads */
++	hi_new = readl_relaxed(dch->base + CH_LINKADDRHI);
++	do {
++		linkaddrhi = hi_new;
++		linkaddr = readl_relaxed(dch->base + CH_LINKADDR);
++		hi_new = readl_relaxed(dch->base + CH_LINKADDRHI);
++	} while (linkaddrhi != hi_new && --retries);
++
++	next_cmd = (linkaddr & ~CH_LINKADDR_EN) | ((u64)linkaddrhi << 32);
++
++	if (!next_cmd) {
++		cmd = desc->ncmds - 1;
++	} else {
++		for (i = 1; i < desc->ncmds; i++) {
++			if (next_cmd == desc->cmds[i].dma) {
++				cmd = i - 1;
++				break;
++			}
++		}
++		if (i == desc->ncmds)
++			return dch->residue;
++	}
++
++	residue = d350_get_residue(dch);
++
++	/*
++	 * If the channel stepped to the next command while CH_XSIZE was read,
++	 * the size belongs to the command which just finished and the sum below
++	 * would count the bytes left in it twice. Keep the residue from the last
++	 * completion in that case.
++	 */
++	hi_new = readl_relaxed(dch->base + CH_LINKADDRHI);
++	lo_new = readl_relaxed(dch->base + CH_LINKADDR);
++	if (hi_new != linkaddrhi || lo_new != linkaddr)
++		return dch->residue;
++
++	for (i = cmd + 1; i < desc->ncmds; i++)
++		residue += desc->cmd_len[i];
++
++	return residue;
++}
++
+ static int d350_terminate_all(struct dma_chan *chan)
+ {
+ 	struct d350_chan *dch = to_d350_chan(chan);
+@@ -347,6 +897,7 @@ static int d350_terminate_all(struct dma_chan *chan)
  
- 	ret = devm_regulator_get_enable(dev, "vdd");
-@@ -803,6 +1139,13 @@ static int adis16607_probe(struct spi_device *spi)
- 	if (ret)
- 		return ret;
+ 	spin_lock_irqsave(&dch->vc.lock, flags);
+ 	writel_relaxed(CH_CMD_STOP, dch->base + CH_CMD);
++	dch->stopping = true;
+ 	if (dch->desc) {
+ 		if (dch->status != DMA_ERROR)
+ 			vchan_terminate_vdesc(&dch->desc->vd);
+@@ -360,16 +911,105 @@ static int d350_terminate_all(struct dma_chan *chan)
+ 	return 0;
+ }
  
-+	ret = devm_adis_setup_buffer_and_trigger_with_attrs(&st->adis, indio_dev,
-+							    adis16607_trigger_handler,
-+							    &adis16607_buffer_ops,
-+							    adis16607_fifo_attributes);
++static int d350_wait_for_stop(struct d350_chan *dch)
++{
++	u32 cmd;
++	int ret;
++
++	if (!READ_ONCE(dch->stopping))
++		return 0;
++
++	/* STOPCMD clears only after the channel has stopped using commands. */
++	ret = readl_poll_timeout(dch->base + CH_CMD, cmd,
++				 !(cmd & CH_CMD_STOP), 10,
++				 D350_STOP_TIMEOUT_US);
 +	if (ret)
-+		return ret;
++		dev_warn(dch->vc.chan.device->dev,
++			 "channel %d failed to stop\n", dch->vc.chan.chan_id);
++	else
++		WRITE_ONCE(dch->stopping, false);
 +
- 	ret = devm_iio_device_register(dev, indio_dev);
++	return ret;
++}
++
+ static void d350_synchronize(struct dma_chan *chan)
+ {
+ 	struct d350_chan *dch = to_d350_chan(chan);
+ 
++	/* A stop timeout must not skip callback synchronization. */
++	d350_wait_for_stop(dch);
+ 	vchan_synchronize(&dch->vc);
+ }
+ 
+ static u32 d350_desc_bytes(struct d350_desc *desc)
+ {
+-	return ((u32)desc->xsizehi << 16 | desc->xsize) << desc->tsz;
++	return desc->bytes;
++}
++
++static u32 d350_get_cyclic_residue(struct d350_chan *dch)
++{
++	struct d350_desc *desc = dch->desc;
++	u32 period_residue = desc->bytes - desc->period * desc->period_len;
++	u32 linkaddr;
++	u32 linkaddrhi;
++	u32 hi_new;
++	u32 lo_new;
++	u64 next_cmd;
++	int retries = 3;
++
++	/*
++	 * desc->period counts the completed periods, so period_residue is the
++	 * residue at the last period boundary. Subtract the progress made in
++	 * the running period, read from CH_XSIZE: CH_LINKADDR points at the
++	 * command after the one executing, so while the channel is still on the
++	 * command of the running period it names the first command of the next
++	 * period.
++	 */
++	hi_new = readl_relaxed(dch->base + CH_LINKADDRHI);
++	do {
++		linkaddrhi = hi_new;
++		linkaddr = readl_relaxed(dch->base + CH_LINKADDR);
++		hi_new = readl_relaxed(dch->base + CH_LINKADDRHI);
++	} while (linkaddrhi != hi_new && --retries);
++
++	next_cmd = (linkaddr & ~CH_LINKADDR_EN) | ((u64)linkaddrhi << 32);
++	if (next_cmd != desc->cmds[(desc->period + 1) % desc->periods].dma)
++		return dch->residue;
++
++	period_residue -= desc->period_len - d350_get_residue(dch);
++
++	/*
++	 * If the channel stepped to the next period while CH_XSIZE was read,
++	 * the size belongs to a command of the next period and mixing it with
++	 * the current one would overstate the residue: keep the last reported
++	 * value instead.
++	 */
++	hi_new = readl_relaxed(dch->base + CH_LINKADDRHI);
++	lo_new = readl_relaxed(dch->base + CH_LINKADDR);
++	if (hi_new != linkaddrhi || lo_new != linkaddr)
++		return dch->residue;
++
++	return period_residue;
++}
++
++static u32 d350_get_active_residue(struct d350_chan *dch)
++{
++	if (dch->desc->cyclic)
++		return d350_get_cyclic_residue(dch);
++
++	return d350_get_sg_residue(dch);
++}
++
++static struct virt_dma_desc *d350_find_queued_desc(struct d350_chan *dch,
++						   dma_cookie_t cookie)
++{
++	struct virt_dma_desc *vd;
++
++	list_for_each_entry(vd, &dch->vc.desc_submitted, node)
++		if (vd->tx.cookie == cookie)
++			return vd;
++
++	return vchan_find_desc(&dch->vc, cookie);
+ }
+ 
+ static enum dma_status d350_tx_status(struct dma_chan *chan, dma_cookie_t cookie,
+@@ -387,13 +1027,16 @@ static enum dma_status d350_tx_status(struct dma_chan *chan, dma_cookie_t cookie
+ 	if (cookie == dch->cookie) {
+ 		status = dch->status;
+ 		if (status == DMA_IN_PROGRESS || status == DMA_PAUSED)
+-			dch->residue = d350_get_residue(dch);
++			dch->residue = d350_get_active_residue(dch);
+ 		residue = dch->residue;
+-	} else if ((vd = vchan_find_desc(&dch->vc, cookie))) {
+-		residue = d350_desc_bytes(to_d350_desc(vd));
+-	} else if (status == DMA_IN_PROGRESS) {
+-		/* Somebody else terminated it? */
+-		status = DMA_ERROR;
++	} else {
++		vd = d350_find_queued_desc(dch, cookie);
++		if (vd) {
++			residue = d350_desc_bytes(to_d350_desc(vd));
++		} else if (status == DMA_IN_PROGRESS) {
++			/* Somebody else terminated it? */
++			status = DMA_ERROR;
++		}
+ 	}
+ 	spin_unlock_irqrestore(&dch->vc.lock, flags);
+ 
+@@ -469,17 +1112,32 @@ static void d350_issue_pending(struct dma_chan *chan)
+ static irqreturn_t d350_irq(int irq, void *data)
+ {
+ 	struct d350_chan *dch = data;
+-	struct device *dev = dch->vc.chan.device->dev;
+-	struct virt_dma_desc *vd = &dch->desc->vd;
++	struct virt_dma_desc *vd;
++	struct d350_desc *desc;
++	u32 residue = 0;
+ 	u32 ch_status;
++	u32 irq_status;
++	u32 errinfo = 0;
+ 
+ 	ch_status = readl(dch->base + CH_STATUS);
+-	if (!ch_status)
++	irq_status = ch_status & (CH_STAT_INTR_DONE | CH_STAT_INTR_ERR);
++	if (!irq_status)
+ 		return IRQ_NONE;
+ 
+-	if (ch_status & CH_STAT_INTR_ERR) {
+-		u32 errinfo = readl_relaxed(dch->base + CH_ERRINFO);
++	if (irq_status & CH_STAT_INTR_ERR)
++		errinfo = readl_relaxed(dch->base + CH_ERRINFO);
++
++	writel_relaxed(ch_status, dch->base + CH_STATUS);
++
++	spin_lock(&dch->vc.lock);
++	desc = dch->desc;
++	if (!desc) {
++		spin_unlock(&dch->vc.lock);
++		return IRQ_HANDLED;
++	}
+ 
++	vd = &desc->vd;
++	if (irq_status & CH_STAT_INTR_ERR) {
+ 		if (errinfo & (CH_ERRINFO_AXIRDPOISERR | CH_ERRINFO_AXIRDRESPERR))
+ 			vd->tx_result.result = DMA_TRANS_READ_FAILED;
+ 		else if (errinfo & CH_ERRINFO_AXIWRRESPERR)
+@@ -487,21 +1145,27 @@ static irqreturn_t d350_irq(int irq, void *data)
+ 		else
+ 			vd->tx_result.result = DMA_TRANS_ABORTED;
+ 
+-		vd->tx_result.residue = d350_get_residue(dch);
+-	} else if (!(ch_status & CH_STAT_INTR_DONE)) {
+-		dev_warn(dev, "Unexpected IRQ source? 0x%08x\n", ch_status);
+-	}
+-	writel_relaxed(ch_status, dch->base + CH_STATUS);
+-
+-	spin_lock(&dch->vc.lock);
+-	vchan_cookie_complete(vd);
+-	if (ch_status & CH_STAT_INTR_DONE) {
+-		dch->status = DMA_COMPLETE;
+-		dch->residue = 0;
+-		d350_start_next(dch);
+-	} else {
++		residue = d350_get_active_residue(dch);
++		vd->tx_result.residue = residue;
+ 		dch->status = DMA_ERROR;
+-		dch->residue = vd->tx_result.residue;
++		dch->residue = residue;
++		dch->desc = NULL;
++		if (desc->cyclic)
++			vchan_terminate_vdesc(vd);
++		else
++			vchan_cookie_complete(vd);
++	} else {
++		if (desc->cyclic) {
++			desc->period = (desc->period + 1) % desc->periods;
++			dch->residue = d350_get_cyclic_residue(dch);
++			vchan_cyclic_callback(vd);
++		} else {
++			dch->status = DMA_COMPLETE;
++			dch->residue = 0;
++			dch->desc = NULL;
++			vchan_cookie_complete(vd);
++			d350_start_next(dch);
++		}
+ 	}
+ 	spin_unlock(&dch->vc.lock);
+ 
+@@ -524,7 +1188,11 @@ static void d350_free_chan_resources(struct dma_chan *chan)
+ 	struct d350_chan *dch = to_d350_chan(chan);
+ 
+ 	writel_relaxed(0, dch->base + CH_INTREN);
++	d350_terminate_all(chan);
++	d350_wait_for_stop(dch);
++
+ 	free_irq(dch->irq, dch);
++	vchan_synchronize(&dch->vc);
+ 	vchan_free_chan_resources(&dch->vc);
+ }
+ 
+@@ -553,7 +1221,9 @@ static int d350_probe(struct platform_device *pdev)
+ 	dw = 1 << FIELD_GET(DMA_CFG_DATA_WIDTH, reg);
+ 	aw = FIELD_GET(DMA_CFG_ADDR_WIDTH, reg) + 1;
+ 
+-	dma_set_mask_and_coherent(dev, DMA_BIT_MASK(aw));
++	ret = dma_set_mask_and_coherent(dev, DMA_BIT_MASK(aw));
++	if (ret)
++		return dev_err_probe(dev, ret, "failed to set DMA mask\n");
+ 	coherent = device_get_dma_attr(dev) == DEV_DMA_COHERENT;
+ 
+ 	dmac = devm_kzalloc(dev, struct_size(dmac, channels, nchan), GFP_KERNEL);
+@@ -561,6 +1231,11 @@ static int d350_probe(struct platform_device *pdev)
+ 		return -ENOMEM;
+ 
+ 	dmac->nchan = nchan;
++	dmac->cmd_pool = dmam_pool_create("dma350-cmd", dev,
++					  D350_SLAVE_CMD_WORDS * sizeof(u32),
++					  sizeof(u64), 0);
++	if (!dmac->cmd_pool)
++		return -ENOMEM;
+ 
+ 	reg = readl_relaxed(base + DMAINFO + DMA_BUILDCFG1);
+ 	dmac->nreq = FIELD_GET(DMA_CFG_NUM_TRIGGER_IN, reg);
+@@ -568,23 +1243,32 @@ static int d350_probe(struct platform_device *pdev)
+ 	dev_dbg(dev, "DMA-350 r%dp%d with %d channels, %d requests\n", r, p, dmac->nchan, dmac->nreq);
+ 
+ 	dmac->dma.dev = dev;
++	dmac->dma.src_addr_widths = BIT(DMA_SLAVE_BUSWIDTH_UNDEFINED);
++	dmac->dma.dst_addr_widths = BIT(DMA_SLAVE_BUSWIDTH_UNDEFINED);
+ 	for (int i = min(dw, 16); i > 0; i /= 2) {
+ 		dmac->dma.src_addr_widths |= BIT(i);
+ 		dmac->dma.dst_addr_widths |= BIT(i);
+ 	}
+-	dmac->dma.directions = BIT(DMA_MEM_TO_MEM);
++	dmac->dma.directions = BIT(DMA_MEM_TO_MEM) |
++			BIT(DMA_MEM_TO_DEV) |
++			BIT(DMA_DEV_TO_MEM);
+ 	dmac->dma.descriptor_reuse = true;
+ 	dmac->dma.residue_granularity = DMA_RESIDUE_GRANULARITY_BURST;
+ 	dmac->dma.device_alloc_chan_resources = d350_alloc_chan_resources;
+ 	dmac->dma.device_free_chan_resources = d350_free_chan_resources;
+ 	dma_cap_set(DMA_MEMCPY, dmac->dma.cap_mask);
++	dma_cap_set(DMA_SLAVE, dmac->dma.cap_mask);
++	dma_cap_set(DMA_CYCLIC, dmac->dma.cap_mask);
+ 	dmac->dma.device_prep_dma_memcpy = d350_prep_memcpy;
++	dmac->dma.device_prep_slave_sg = d350_prep_slave_sg;
++	dmac->dma.device_prep_dma_cyclic = d350_prep_dma_cyclic;
+ 	dmac->dma.device_pause = d350_pause;
+ 	dmac->dma.device_resume = d350_resume;
+ 	dmac->dma.device_terminate_all = d350_terminate_all;
+ 	dmac->dma.device_synchronize = d350_synchronize;
+ 	dmac->dma.device_tx_status = d350_tx_status;
+ 	dmac->dma.device_issue_pending = d350_issue_pending;
++	dmac->dma.device_config = d350_config;
+ 	INIT_LIST_HEAD(&dmac->dma.channels);
+ 
+ 	reg = readl_relaxed(base + DMANSECCTRL + NSEC_CTRL);
+@@ -623,6 +1307,7 @@ static int d350_probe(struct platform_device *pdev)
+ 		reg |= FIELD_PREP(CH_LINK_MEMATTR, coherent ? MEMATTR_WB : MEMATTR_NC);
+ 		writel_relaxed(reg, dch->base + CH_LINKATTR);
+ 
++		dch->coherent = coherent;
+ 		dch->vc.desc_free = d350_desc_free;
+ 		vchan_init(&dch->vc, &dmac->dma);
+ 	}
+@@ -638,6 +1323,16 @@ static int d350_probe(struct platform_device *pdev)
  	if (ret)
- 		return ret;
-
+ 		return dev_err_probe(dev, ret, "Failed to register DMA device\n");
+ 
++	if (dev->of_node) {
++		ret = of_dma_controller_register(dev->of_node, d350_of_xlate,
++						 dmac);
++		if (ret) {
++			dma_async_device_unregister(&dmac->dma);
++			return dev_err_probe(dev, ret,
++					     "Failed to register OF DMA controller\n");
++		}
++	}
++
+ 	return 0;
+ }
+ 
+@@ -645,6 +1340,8 @@ static void d350_remove(struct platform_device *pdev)
+ {
+ 	struct d350 *dmac = platform_get_drvdata(pdev);
+ 
++	if (pdev->dev.of_node)
++		of_dma_controller_free(pdev->dev.of_node);
+ 	dma_async_device_unregister(&dmac->dma);
+ }
+ 
 -- 
-2.43.0
-
+2.54.0
 
