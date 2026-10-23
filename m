@@ -1,48 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792750905;
-	b=Y7QZtHU6i5+1jdobpisabxBujHxyOG4a83At5zjFBNewhBIKyl4nEKVYWQg8EnDXmcnk
-	 28zkzgUvuxjM0fJaDTa6zYYAvmnc+8H6b1J1x3NU3zlatQ2j1uMRxU6mHNYo1LoUPjWcY
-	 ZuMm4vweBtP8n6YPQjPO+o0jihpfVn4/zmhtiyvPSmXkV3lALPNekrMFpxPQNeExiPCtd
-	 S6nMjEV2B4lZVBZZHWCbCq4amsF2WDVaZVG0PX8WIGxLSzdB+MENWntWmeIVoX0A3M3R4
-	 JRpj7Fl3dlf2PeVL85uJHPZpedthBs3Pfi6omH5GrD3V0Xi6Ea44ilg61VosHJQrRRw==
+	t=1792750939;
+	b=m9IVm+Opbq5FH5IpS3sNfMpWrsbC+3XEAv3YfUjX1lEeo0IxnMurK7xzIWA+Fc7zZJzv
+	 Kx4bSz78pUZXNlmZUYERvN8Yhpt7CUNWcdcxXo/ucG3JQIb+/bvpoasyuNZcFCDhW2t6F
+	 5achiyUg+NsOEfyMqP/ZCKkGo13ZeP5HthVEMi6eac6k4w+DDOudOnJSrs2e8GLnW61jy
+	 W31ZdbZWjHX5NiFgM6OJlzoV+o1LrGV0rpTvfJGRw51hRJzkaWMIdMgxhubJLlMcOSqot
+	 ODujt3sUzrrl3jo3J49OgARGeXVhQShQjOfyZpkd0MVVQ0ninTtcB7qC1xfplO2URVw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792750905;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=sYRuHapo9W9wmZIPuuqoJgF5i8UHavCm+9OHunlMqfk=;
-	b=o4wXFn5zX2t++Iu+PUbDb6ct6mHoqtiZI1NO81qdpvf2Eluyzn69y8j/y0tLiwZM+DwL
-	 3lY3wl8PIi5XPjxbQhVUBnx41O0pbEdRKaEcG+/TrAB2etyTNpMnxZEeZRnptFWlt5j3q
-	 QPXp3OKUP/XAhbTsPTdgaFMmw7T+FXX8IGPo5SNccVB91cPnr60PWjOTp9nQvTZdvDvee
-	 tsc/XLMLDh4U0czF+cK2ywdZi2nk83loIauLFzMP1w4+R12bJScVBJjzIG7R8K4nrCSQl
-	 n4eUV8vsv3J61ElXzdiyEVT31zpcHmUUTe4UpRZzaH1jx0iF+IZG+ljcpTIKBeHLqUA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792750939;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
+	bh=WWj8cJaFKWW/3VUfB0olF9gXuECfuO0KdXvS2+pAZ6g=;
+	b=KrrpdZ4c71Nikj5RhPPfgQVWtRUUPjlNdd5FXZuruN36R9VXeDoWU9PUmH3irIy72QmR
+	 1fq4eRvCpyKtMQTKOpRZN6glRI0zFQJtTI56ntxiFQyF4Qwi45nFqS3Iy99NaytR2qG0P
+	 VFUR5IZ9QqbFIyH0ZrmCNV7t/rzgBHxqICw5DWYHcAn2L3Xdrdjdp/IICPf/8tKFeb9/T
+	 O1kxHMCB8/sMk+otXuhlwbSg6tYSLOtV4uMd2uibbWtu4QvEPZPWaQdT1dJfcFuf31z60
+	 GUGIdJSFZnvuYZiNipv2VHDtDb+/dy5WDdBLq9gvRPaMsfZfEuL7mdko0wrYbAnkHCg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Try0UpDq;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D7A2606A31B;
-	Fri, 23 Oct 2026 10:21:45 +0000 (UTC)
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=nzChOU5N;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 65173606A31B
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 10:22:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 65173606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Try0UpDq
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D6EAD1F031E0;
-	Fri, 23 Oct 2026 10:21:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792750905;
-	bh=sYRuHapo9W9wmZIPuuqoJgF5i8UHavCm+9OHunlMqfk=;
-	h=From:Date:Subject:To:Cc;
-	b=Try0UpDqk13dUQv8kNuuSByobmY1fv+iclYkBIhj56IHmpUTI8tuRlRsH16FD3C4j
-	 zlRVStaEGZsGe4E+yRPuIHMQ4+GCJnlUCLFsvw2nUUP/dVbCKcobPj4Bh1rarhPd1+
-	 WhFNy1vksDUeHtjnnGksLcd+NVnrZvnjxckZ1g+fHk0ZduQ3zzuC5CR3zYoyksbrOe
-	 B21ZbmW2ng6gNc7qt2Pb5ZltyDn4aRsyi0YvfArfp/7Emn9PsJL1L6+2n7IHbnww9V
-	 c+FVcJJVQ+SaumXh3oNCS9OCKVrnEZcM3bIhhtnQ22np4lLR5rnNuTi1xLyLUq8VEE
-	 9BR2NjC9H2n3Q==
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Fri, 23 Oct 2026 11:21:31 +0100
-Subject: [PATCH] ALSA: us122l: mark hwdep mappings VM_MIXEDMAP
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=nzChOU5N
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 6F30B302F
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 03:22:14 -0700 (PDT)
+Received: from [192.168.0.1] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 6F05F3F7B4
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 03:22:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1792750937; bh=VnaOaoCbZWtRveOiSDtrRS+aRrEZTeoetU0oSSXUGhU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=nzChOU5NS4gIPzxLmLBt9GD3WfCP7xTX35O1qXEa3wCBao6+xhaEV/Uu25VBLwhVU
+	 NyZVjDEu+FLB7pVSpvj1WkxbvpohFbEtH81/sUgfEbg53ABVtFUDrq6fDdTnXAYVl5
+	 kBFQTZqIIJooc9o/Id4Qtq0RKO8dQjWxunglV8h8=
+Date: Fri, 23 Oct 2026 11:21:48 +0100
+From: Liviu Dudau <liviu.dudau@arm.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	John Harrison <John.Harrison@igalia.com>,
+	Harry Wentland <harry.wentland@amd.com>,
+	Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
+	Alex Deucher <alexander.deucher@amd.com>,
+	Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+	Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
+	Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
+	Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Dave Stevenson <dave.stevenson@raspberrypi.com>,
+	=?utf-8?B?TWHDrXJh?= Canal <mcanal@igalia.com>,
+	Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+	Louis Chauvet <louis.chauvet@bootlin.com>,
+	Mihail Atanassov <mihail.atanassov@arm.com>,
+	Eric Anholt <eric@anholt.net>,
+	Rob Clark <robin.clark@oss.qualcomm.com>,
+	Brian Starkey <brian.starkey@arm.com>,
+	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+	amd-gfx@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org,
+	Suraj Kandpal <suraj.kandpal@intel.com>
+Subject: Re: [PATCH v7 0/9] drm: writeback: clean up writeback connector
+ initialization
+Message-ID: <ats1PJqVhNR-RXAX@e142607>
+References: <20261019-wb-drop-encoder-v7-0-d4288a26eb54@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,91 +83,150 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261023-fix-us122l-mixedmap-v1-1-e7bdd053850f@kernel.org>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x2MQQqAIBAAvxJ7bkE369BXooPlVgtlohRC9Pek4
- 8DMPJA4Cifoqwci35Lk9AV0XcG8Wb8yiisMpKjTihpcJOOVNNGOh2R2hw1IztCiWjsZ0lDKELl
- o/3UY3/cDviw63GUAAAA=
-X-Change-ID: 20261023-fix-us122l-mixedmap-2d42f05ab421
-To: Andrew Morton <akpm@linux-foundation.org>, 
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
- Kazuki Hanai <hnkz.64@gmail.com>
-Cc: Takashi Iwai <tiwai@suse.de>, linux-sound@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-mm@kvack.org, ljs@kernel.org, 
- David Carlier <devnexen@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2436; i=ljs@kernel.org;
- h=from:subject:message-id; bh=lNhw2btcFfOxweCD1NL36wEg9RyU1oHp6QFW0PYzg9k=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLJum5o5/ivQ58jn8zv2RHuxzi4vhWen7D8p6M6etdBfY
- 5r3okNzO0pZGMS4GGTFFFmefxHfHyQSNq/zgr8bzBxWJpAhDFycAjCR62kM/yM+mvMtYtvx6ciM
- uftbnaPzCq2FbISl57UbXspvlcp99IuRYVPi7DJ1jvJy103L3t3cOpn5Eh/jpN/FLDZ1Z82T+FP
- +MQIA
-X-Developer-Key: i=ljs@kernel.org; a=openpgp;
- fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261019-wb-drop-encoder-v7-0-d4288a26eb54@oss.qualcomm.com>
 
-mm has recently moved to a strict model which requires any driver which
-clears VMA_MAYWRITE_BIT to be mapping non-mm-managed memory
-(VMA_PFNMAP_BIT or VMA_MIXEDMAP_BIT), failing any such mmap() with an
-error and a kernel warning - see "mm/vma: only allow mmap to clear
-VMA_MAYWRITE_BIT if not mm-managed".
+On Mon, Oct 19, 2026 at 04:12:26PM +0300, Dmitry Baryshkov wrote:
+> Drivers using drm_writeback_connector_init() / _with_encoder() don't
+> perform cleanup in a manner similar to drmm_writeback_connector_init()
+> (see drm_writeback_connector_cleanup()). Enough of the drivers don't use
+> the encoder embedded into the drm_writeback connector.  In preparation
+> to further rework of the WB connectors (as planned to enable WB for i915
+> / xe drivers, which would move drm_writeback_connector to be a field
+> inside drm_connector instead of subclassing it) remove the drm_encoder
+> wrapped in struct drm_writeback_connector. Rename the
+> drm_writeback_connector_init_with_encoder() to
+> drm_writeback_connector_init()
+> and copy drmm_writeback_connector_init() interface. Then, with the
+> encoder being gone, handle proper cleanup of writeback data in
+> drm_connector_cleanup().
+> 
+> ---
+> Changes in v7:
+> - Significantly reworked series, no longer insisting on using drmm.
+> - Link to v6: https://patch.msgid.link/20260612-wb-drop-encoder-v6-0-9f3a54f81310@oss.qualcomm.com
+> 
+> Changes in v6:
+> - Dropped applied patch
+> - Implemented suggestion by Alex to use drmm allocation for the
+>   writeback connector.
+> - Link to v5: https://patch.msgid.link/20260505-wb-drop-encoder-v5-0-42567b7c7af2@oss.qualcomm.com
+> 
+> Changes in v5:
+> - Rebased on top of drm-misc-next
+> - Expanded commit message for msm patch, describing devm vs drmm issues (Laurent)
+> - Expanded commit messages, describing why the drivers are converted to
+>   drmm_writeback_connector_init() (Laurent)
+> - Link to v4: https://lore.kernel.org/r/20251228-wb-drop-encoder-v4-0-58d28e668901@oss.qualcomm.com
+> 
+> Changes in v4:
+> - Rebase on top of drm-misc-next, dropping applied patch.
+> - Added a note regarding memory leak in the AMDGPU driver.
+> - Fixed a devm vs drmm issue in the msm/dpu driver.
+> - Link to v3: https://lore.kernel.org/r/20250819-wb-drop-encoder-v3-0-b48a6af7903b@oss.qualcomm.com
+> 
+> Changes in v3:
+> - Fixed subject prefix for the rcar-du patch (Jessica Zhang)
+> - Link to v2: https://lore.kernel.org/r/20250816-wb-drop-encoder-v2-0-f951de04f4f9@oss.qualcomm.com
+> 
+> Changes in v2:
+> - Switched to drm_crtc_mask() where applicable (Louis Chauvet)
+> - Link to v1: https://lore.kernel.org/r/20250801-wb-drop-encoder-v1-0-824646042f7d@oss.qualcomm.com
+> 
+> To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+> To: Maxime Ripard <mripard@kernel.org>
+> To: Thomas Zimmermann <tzimmermann@suse.de>
+> To: David Airlie <airlied@gmail.com>
+> To: Simona Vetter <simona@ffwll.ch>
+> To: John Harrison <John.Harrison@igalia.com>
+> To: Harry Wentland <harry.wentland@amd.com>
+> To: Leo Li <sunpeng.li@amd.com>
+> To: Rodrigo Siqueira <siqueira@igalia.com>
+> To: Alex Deucher <alexander.deucher@amd.com>
+> To: Christian König <christian.koenig@amd.com>
+> To: Liviu Dudau <liviu.dudau@arm.com>
+> To: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+> To: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
+> To: Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>
+> To: Geert Uytterhoeven <geert+renesas@glider.be>
+> To: Magnus Damm <magnus.damm@gmail.com>
+> To: Dave Stevenson <dave.stevenson@raspberrypi.com>
+> To: Maíra Canal <mcanal@igalia.com>
+> To: Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
+> To: Louis Chauvet <louis.chauvet@bootlin.com>
+> To: Mihail Atanassov <mihail.atanassov@arm.com>
+> To: Eric Anholt <eric@anholt.net>
+> To: Rob Clark <robin.clark@oss.qualcomm.com>
+> To: Brian Starkey <brian.starkey@arm.com>
+> Cc: dri-devel@lists.freedesktop.org
+> Cc: linux-kernel@vger.kernel.org
+> Cc: amd-gfx@lists.freedesktop.org
+> Cc: linux-renesas-soc@vger.kernel.org
+> 
+> ---
+> Dmitry Baryshkov (9):
+>       drm/amd/display: embed the writeback encoder in amdgpu_dm_wb_connector
+>       drm/komeda: embed the writeback encoder in komeda_wb_connector
+>       drm/mali: embed the writeback encoder in malidp_drm
+>       drm: renesas: rcar-du: embed the writeback encoder in rcar_du_crtc
+>       drm: writeback: drop excess connector initialization functions
+>       drm: writeback: rename drm_writeback_connector_init_with_encoder()
+>       drm: writeback: don't destroy the shared writeback properties
+>       drm: writeback: clean up writeback connectors in drm_connector_cleanup()
+>       drm: writeback: drop the drmm writeback cleanup action
+> 
+>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |   2 +-
+>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h  |   1 +
+>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c   |  27 +++-
+>  .../amd/display/amdgpu_dm/tests/amdgpu_dm_test.c   |   4 +-
+>  .../display/amdgpu_dm/tests/amdgpu_dm_wb_test.c    |   4 +-
+>  drivers/gpu/drm/arm/display/komeda/komeda_kms.h    |   3 +
+>  .../drm/arm/display/komeda/komeda_wb_connector.c   |  24 +++-
+>  drivers/gpu/drm/arm/malidp_drv.h                   |   1 +
+>  drivers/gpu/drm/arm/malidp_mw.c                    |  25 +++-
+>  drivers/gpu/drm/drm_connector.c                    |   3 +
+>  drivers/gpu/drm/drm_crtc_internal.h                |   3 +
+>  drivers/gpu/drm/drm_writeback.c                    | 147 +++++----------------
+>  drivers/gpu/drm/renesas/rcar-du/rcar_du_crtc.h     |   2 +
+>  .../gpu/drm/renesas/rcar-du/rcar_du_writeback.c    |  29 +++-
+>  drivers/gpu/drm/vc4/vc4_txp.c                      |   8 +-
+>  include/drm/drm_writeback.h                        |  22 +--
+>  16 files changed, 140 insertions(+), 165 deletions(-)
 
-However, simultaneous to this, commit 71c610aeb177 ("ALSA: us122l: Prevent
-write upgrades for read mappings") updated us122l to clear
-VMA_MAYWRITE_BIT without marking the region with either VMA_PFNMAP_BIT or
-VMA_MIXEDMAP_BIT.
+I still personally dislike the whole idea of removing a framework feature that was beneficial
+to a lot of drivers in order to help one driver, but that is just my stance. The stats kind of
+show that and if it wasn't for the massive delete in drm_writeback.c (partly of comments) you
+would add more code with this change. The cleanup and fixes patches in this series also points
+out that there are still issues with the concept and John and sashiko are also raising issues.
 
-vm_insert_pages() and friends set this automatically, however this driver
-maps its pre-allocated pages from a fault handler, so never calls these.
+Anyway, as far as komeda and malidp drivers changes are concerned, I'm OK with them being applied
+as long as the framework or the patch series solves any cleanup issues. So for those two patches
+you can have my
 
-Simply set the flag in usb_stream_hwdep_mmap() to resolve the issue. This
-correctly marks the mapping as one whose pages core mm does not manage,
-which has no meaningful impact for this driver beyond preventing the mmap()
-from failing.
+Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
 
-Fixes: 71c610aeb177 ("ALSA: us122l: Prevent write upgrades for read mappings")
-Reported-by: David Carlier <devnexen@gmail.com>
-Closes: https://lore.kernel.org/20261018025905.201296-1-devnexen@gmail.com
-Cc: Kazuki Hanai <hnkz.64@gmail.com>
-Cc: Takashi Iwai <tiwai@suse.com>
-Cc: Jaroslav Kysela <perex@perex.cz>
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
----
-Andrew - I think easiest for you to take this.
+Best regards,
+Liviu
 
-It should go in before my series ideally to avoid bisection hazard, I think
-while it's a fix for the driver, that'll be the safest way.
 
-It should be prioritised to be part of the 2nd batch of patches for this merge
-window.
+> ---
+> base-commit: 725953d4da85cfb97a4c309fad6346b72f8529e7
+> change-id: 20250801-wb-drop-encoder-97a0c75bd5d7
+> 
+> Best regards,
+> --  
+> With best wishes
+> Dmitry
+> 
 
-The commit it fixes is cc: stable but this does NOT need to be backported, it's
-for 7.4 only.
-
-Thanks!
----
- sound/usb/usx2y/us122l.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/sound/usb/usx2y/us122l.c b/sound/usb/usx2y/us122l.c
-index a5db0d044ef9..2986a90ea335 100644
---- a/sound/usb/usx2y/us122l.c
-+++ b/sound/usb/usx2y/us122l.c
-@@ -193,7 +193,7 @@ static int usb_stream_hwdep_mmap(struct snd_hwdep *hw,
- 	}
- 
- 	area->vm_ops = &usb_stream_hwdep_vm_ops;
--	vm_flags_set(area, VM_DONTDUMP);
-+	vm_flags_set(area, VM_MIXEDMAP | VM_DONTDUMP);
- 	if (!read)
- 		vm_flags_set(area, VM_DONTEXPAND);
- 	area->vm_private_data = us122l;
-
----
-base-commit: 2bba28e98578de622ef307d00875aa8f8bca3d10
-change-id: 20261023-fix-us122l-mixedmap-2d42f05ab421
-
-Cheers,
 -- 
-Lorenzo Stoakes (ARM) <ljs@kernel.org>
-
+====================
+| I would like to |
+| fix the world,  |
+| but they're not |
+| giving me the   |
+ \ source code!  /
+  ---------------
+    ¯\_(ツ)_/¯
