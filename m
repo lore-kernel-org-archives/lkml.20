@@ -1,102 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.136
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.38.64.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792741992;
-	b=k6Wunb28kYdO1v5imK12tfzJ8JbhQmeKhm/vGyE4GQRCV6SdnAQvRspCv952sVbgevhL
-	 CbidAT4v7BnF81ouwExdd9BYGcu26CEoJX4+m3UFIqs2vNEdXR32I3o9x7OSBxViia9p8
-	 xsVfLN27tE8j8d2PhJoPlDZr2p93jqZGAoprv+A0OmD5XPvdI+8qEQNXT3CWZ/zzGEPyn
-	 KjG0+J0kVXxTzbayv8Ae7UphfZhemXXeHUgjT+mjz+rlUZPBcp/uCw2QjiGRlHEPMf0Fc
-	 bRHk/DWqxz++P+mWW/HWty58msFLVT2SiXnqswCP/hN7uALSW/dlCntI4Syh8HFSh9w==
+	t=1792741983;
+	b=orDaiFS4rKFRoDt1jzRCiajS53pg8aft6PLFOZSp5S0eJjj1X3UUv02TOPI2bWxDW/2F
+	 /6wtkvymMhJxkMFc9ZtlNxpdVGoBVP0lbiQ+BvZLkK6KmtqmD/6L0qHD7cDrqDxrxngHa
+	 rHKJcagNp0/cRnDQqJECD6nzXYLLZRLphrMr0YvwXqSlQMByb//kzBblPa5sgMgnjmDBv
+	 aEvGpRrqF5847rJjTKB/WyfN/88vwTCowOP9sjJQ6xSL1gYnpDMZnRjRbetppzd00cyCY
+	 0f3ro7ehi4t4EZveJQqvsQbnJsHq2fiB6Wx0MdZzm58YQooXfghHd0+o3+1DtRVv6tA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792741992;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=oKDGcISKRXyb1sB9uqlDY+pTllRaTOFvJWwaXJaklRE=;
-	b=rMsw7cwGMTmET/sC6TUIY7m1AiFpY2cGISC0cBdBZuEhr2f/3JjcYodN+w3h82oLRPo7
-	 hAV1w06mwmrocjwC7vJjR3Zf0VMIb9VKsLqUSBLcy3aarVQ/EHSN6MSj+dNCqk1HKnGsH
-	 Uhs0h8GWqN5gbo55F3xvdrq+4Yi1/qbXmgcso6SN4Sy2ogVyws0BDM5q1hKysSw0gHynk
-	 oTOhwrsQ1HgzCd7eA+2buzDt9JuPDCDVVRrXLBHxnAEI83uj5U2GdzqrKsYCK9uxY6rYB
-	 mLPkiezTcIBpNrT5xnAom7LCsWwdhKBH1qvAeF6zad/3bh1rj3IC5iQhJsZ6uWZhxNw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792741983;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:In-Reply-To:References:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version:X-CM-TRANSID:
+	 X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=8LgOUeTMMRF3Y947VZR22krx9mydMz81qMhIU08ogsE=;
+	b=2R9bHUKbHB+6HTCCK8ETFLHN7BsGtd2Yt0w3QEhG1kfdVRyPjO8g4I+C+48SdxoMjcNc
+	 /kiXmSUndDWIZzpJPHqEl6ckKGGZuVGTeQsPTjKRA2moSNMiO02u5F/yF2O6w48fib5i6
+	 s1Hjrq1IVOhp0G9DWQDZAm7U8iUVRTck3Crb+Er/b9XI8eqZIuj+XO4QKHB4H+iAjPkfg
+	 bLioaKaMYur2iGKEmcgNCjqhGX0u0mqY+i0mvohAT/twDjyXckMdf079VzPEUCPuprpNj
+	 qZd4dJx9Dvq3TFpEb6o3hFod6oBwJ16o0XYbp5Qj0/I1vT6r1I/IdWknFKEqOIY/DTA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=eiOS3Opq;
-	arc=none smtp.remote-ip=74.125.229.136
-Received: from mail-dl2-f8.google.com (mail-dl2-f8.google.com [74.125.229.136])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF7B9606A320
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 07:53:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DF7B9606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	dmarc=pass header.from=mail.ustc.edu.cn;
+	spf=pass smtp.mailfrom=mail.ustc.edu.cn;
+	dkim=pass header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=OZMBfFn8;
+	arc=none smtp.remote-ip=202.38.64.46
+Received: from ustc.edu.cn (smtp.ustc.edu.cn [202.38.64.46])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 36C8D606A336;
+	Fri, 23 Oct 2026 07:52:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 36C8D606A336
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.ustc.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.ustc.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=eiOS3Opq
-Received: by mail-dl2-f8.google.com with SMTP id a92af1059eb24-15965232451so11222c88.0
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 00:53:11 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=OZMBfFn8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792741991; x=1793346791; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=oKDGcISKRXyb1sB9uqlDY+pTllRaTOFvJWwaXJaklRE=;
-        b=eiOS3OpqahCkc2IWWON/xelWyX4TPHoReJ28ISX+sQhBpCwrMIc6mPlvZRiBn8vvvL
-         0QGmy6UNMBp+cwKIgTcHduqgWZNsD+75bVsJ8LwWnepmdHPxwkf3QHFboHpB6/uluIbY
-         vZ6geobCl5/VQ04nodhtLqypj8NDEOHMJaopbIOA35Lou0fIqCLKD+TDv9hOLvfuPU2U
-         G9dEc3+/bnU/mpAC7hyCkioI2g+Tr1z26urE+J4hO+JhETrc8PCMoPsx7o47y19vDHfi
-         Tm9k0axGaB1h9s1Cu7GDvk0DGS5UK/7eHj2bbxe6PMlIjn8e6s9xwZVsS8lg008okPtw
-         QZ2A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792741991; x=1793346791;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=oKDGcISKRXyb1sB9uqlDY+pTllRaTOFvJWwaXJaklRE=;
-        b=guzVhbozAHco+8Kcazk3pHKbqf4rzcc4Avtz3GgbtxudS/7Nzk6cvJjAeHeNpejMHP
-         7m1hJKlc9OQnDcnC5z1eRCg+zxhqw/vNZL57IqwvJwIWYcew5B84qz+/aq1wXIKkXsqT
-         lZoBtdtv8vDGje2XoTi+aaOdW4N5xDVERHnwyMe2pLXGtMvpo7+jmJ8tzw1f20iCzJ0A
-         CaKFeX/12hj0uIk6U86FpjYNJa5JaisxYic7qFBdHriG5TOrlc3+wsL0B7T44RZxwtgH
-         Gl6XX/n/YLtj11VzB0v72uf+dzRuZ1cto7ljfI4QmGRXCcT45egrAEkxHwShJkyHSIId
-         B1Wg==
-X-Forwarded-Encrypted: i=1; AKwUvBx4+N9bDfpHcanZZEohwntwVs9R2gUEIFsU2QMzW1kDrttCPy/H9CzSdRZD8UN5uWhq4azdnNnmeB78u0k=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLL+VB6Dt2fxdFGTAu0qjqoo9wF1lfyLw5/YBetJpPu3BQfXOyy
-	V2HTYlT4Uuq7uI8GPc54S0nueynkT4JsPxfZ4pQbzvzhj4CYxC9WzGMaLokId8QhQ8s=
-X-Gm-Gg: AYBFou1QMdnQg0GfBOAqHU4iEKlsFHHvFuyonwuy5WjRNBWV68W1sOFYF4yAUHFKstO
-	c55ANqIYsg7YbqUVXkxAWogKUAyT70tkoYiuNC8fXYaD6+I1+9LQYBPo+2sbT7JKfDJ0Ls/ch2p
-	J0FRXRPSQGL/I1HhgBYU8o8wDLx9yxUcyL29HrJpi2orFlGHhoVY4gbEKP5CqayfVzl8AAz9XJH
-	9Gw6hU++bkJysCWsWqIfFfJkvxm58ngYb3qjIdh/UI2OFmIo5c+APkqg9uma/n8ccjNQzAbKcFZ
-	MbAp0zK//hdPUkQ9szUw+qmZlrq0vwVpTelLxNsvDR7j8fYeoBoUN+QfgOv/aWey3B/Wce9EQjd
-	9e8lb9y6sATuAi0bVT5Wyc25vd+1Abd+qy34x0T/tY+fRsZ0o6f9BknXVSsFzbD/czaSIuJkAc4
-	7DGpC10SjX63TaEPFfRFUVWE/VnRzeI4vg9SrUi7VnCRHvkYdq9+VtkpEj1HUjyEZ0RmXPsPder
-	nAQQlAQO7Pte56fQbtA59OwFSir8gzPrDi/dVnW0acQMFRtc6HFcu8=
-X-Received: by 2002:a05:7022:3b89:b0:196:b805:9546 with SMTP id a92af1059eb24-196b814d873mr867259c88.10.1792741990964;
-        Fri, 23 Oct 2026 00:53:10 -0700 (PDT)
-Received: from server.lan ([168.138.199.194])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-195eae0e830sm4122132c88.10.2026.10.23.00.53.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 23 Oct 2026 00:53:10 -0700 (PDT)
-From: Coia Prant <coiaprant@gmail.com>
-To: Andrew Lunn <andrew@lunn.ch>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	"David S . Miller" <davem@davemloft.net>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>
-Cc: Eric Dumazet <edumazet@kernel.org>,
-	Heiko Stuebner <heiko@sntech.de>,
-	Coia Prant <coiaprant@gmail.com>,
-	netdev@vger.kernel.org,
-	linux-rockchip@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net v2 3/4] net: pcs: xpcs-rk: fix cleanup action error message
-Date: Fri, 23 Oct 2026 15:52:14 +0800
-Message-ID: <20261023075214.1793922-5-coiaprant@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261023075214.1793922-2-coiaprant@gmail.com>
-References: <20261023075214.1793922-2-coiaprant@gmail.com>
+	d=mail.ustc.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-ID:In-Reply-To:References:Content-Type:
+	Content-Transfer-Encoding:MIME-Version; bh=8LgOUeTMMRF3Y947VZR22
+	krx9mydMz81qMhIU08ogsE=; b=OZMBfFn8oOZmEyX/1v2k/krXTq8Yx02eSo8CK
+	Bi3AwK+z6+RW6wvaDKDap5Ihsqc+rJFY0JB/Or6oQs8noLMRkulnsTXbERdVNXLo
+	sNScF7LiPZm3dK5d378/Ol4roBwkmv1NaF9kujGpXwIDdnCibhE50YUsPHkHPIO9
+	Oc8NLk=
+Received: from [127.0.1.1] (unknown [114.214.178.200])
+	by mailimap2024 (Coremail) with SMTP id 3pYKCgCXFjtTEttqfVwzAA--.576S2;
+	Fri, 23 Oct 2026 15:52:51 +0800 (CST)
+From: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, linux-pm@vger.kernel.org
+Cc: Sebastian Reichel <sre@kernel.org>, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject:
+ Re: [PATCH] power: supply: qcom_battmgr: do not report power_now on SM8750
+Date: Fri, 23 Oct 2026 15:52:51 +0800
+Message-ID: <179274197125.1374502.18211548118625978753@mail.ustc.edu.cn>
+In-Reply-To: <52fc4222-508d-4acf-b38a-7b4e5aeff3cb@oss.qualcomm.com>
+References: <20261013002124.332111-1-xiaqinghuan@mail.ustc.edu.cn>
+ <5bf3636d-be7a-4800-9914-808d2fc5ebd9@oss.qualcomm.com>
+ <179259054168.209323.8102186130128474174@mail.ustc.edu.cn>
+ <52fc4222-508d-4acf-b38a-7b4e5aeff3cb@oss.qualcomm.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,31 +66,80 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:3pYKCgCXFjtTEttqfVwzAA--.576S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxCr18XrWkGF4DtFy3Zw4xZwb_yoW5Gw1Dpa
+	9Yg3yqk3WDKrWrA34fZF429a4kZws3Jay5tFyDCwnIva15KwnIqryxtryYqryxCFn2qw1Y
+	yrWYqr98Ca1UC3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUkIb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwV
+	C2z280aVCY1x0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC
+	0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUGVWUXwAv7VC2z280aVAFwI0_Jr0_Gr
+	1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JMxkF7I0En4kS14v26r126r1DMxAI
+	w28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr
+	4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxG
+	rwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJw
+	CI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2
+	z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU5kxhtUUUUU==
+X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiAREJB2raZFU0sAAis5
 
-The devm action registered by xpcs_rk_init_clk() force-suspends the
-device and disables the EEE clock, but the current error message only
-mentions the EEE clock. Point at the cleanup action by name instead,
-so the message covers both parts of what the action does.
+Hi Konrad,
 
-Signed-off-by: Coia Prant <coiaprant@gmail.com>
----
- drivers/net/pcs/pcs-xpcs-rk.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Answering the three questions directly, then what I can offer instead.
 
-diff --git a/drivers/net/pcs/pcs-xpcs-rk.c b/drivers/net/pcs/pcs-xpcs-rk.c
-index 698a43b75334..6f0a110e32d2 100644
---- a/drivers/net/pcs/pcs-xpcs-rk.c
-+++ b/drivers/net/pcs/pcs-xpcs-rk.c
-@@ -365,7 +365,7 @@ static int xpcs_rk_init_clk(struct dw_xpcs_rk *pxpcs)
- 
- 	ret = devm_add_action_or_reset(dev, xpcs_rk_exit_clk, pxpcs);
- 	if (ret) {
--		dev_err(dev, "Failed to register devm for EEE clock: %d\n", ret);
-+		dev_err(dev, "Failed to register devm for xpcs_rk_exit_clk: %d\n", ret);
- 		return ret;
- 	}
- 
--- 
-2.47.3
+(i) Downstream kernel sources
+
+No. I have no downstream kernel source for this device. What I have is
+the prebuilt Android boot image from the vendor plus its extracted
+config, so I cannot statically check how their QBG/PMIC GLINK client
+populates the battery property buffer. Anything I said about the
+downstream side would be a guess, so I am not going to make one.
+
+(ii) Are the properties remapped?
+
+I cannot prove it either way from the kernel side. There is indirect
+evidence that we are not the only ones seeing something odd with that
+slot on this SoC: the elden port that another group maintains carries a
+battmgr patch for SM8750 that also stops advertising POWER_NOW, adapted
+from h0cheung/tb322fc-linux-kernel (see
+reference/upstream-armadaos-freedom/patches/0149-power-supply-qcom-battmgr-sm8750-reporting.patch,
+derived from that tree at 6f97250ead15). Their comment says SM8750
+reports a maximum-load value instead of live power, which is the same
+observation I made. That is two independent ports of the same board
+family, not two independent SoCs, so it argues against "my unit only"
+and says nothing about SM8750 in general.
+
+(iii) Does the downstream read return garbage?
+
+Unknown. I have no observability channel into the stock Android kernel on
+this unit -- no serial console, no bootloader-level kernel log handoff I
+can rely on. The only comparison I can produce is kernel side: what the
+driver reports versus what current_now * voltage_now says in the same
+sample.
+
+What I can do instead
+
+A concrete, cheap criterion: print the raw 32-bit value the driver reads
+for BATT_POWER_NOW together with current_now and voltage_now in the same
+read, either from debugfs or one printk in
+qcom_battmgr_bat_get_property(). If the raw slot is stable across load
+changes while current_now * voltage_now tracks the load, the slot is not
+a present-power measurement regardless of what it is. I am happy to
+collect that and post it as a reply with the numbers.
+
+A question for you
+
+Would you accept the conservative version for now: add the SM8750
+variant but do not register POWER_NOW at all, without claiming anything
+about what the slot means? That removes the wrong values from userspace
+without guessing at register semantics, and it is what my patch already
+does. If you would rather see the property kept and only the commit
+message fixed, say so and I will do that instead.
+
+Depending on your answer I will either send v4 along those lines or drop
+the property change and withdraw that part of the series.
+
+Thanks,
+Qianhui Xu
 
