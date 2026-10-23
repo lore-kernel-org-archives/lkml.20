@@ -1,53 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.198
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792760224;
-	b=yUio5nXx0M/jDxYcNapehBLs1QwwS5IYcMjvg+XkBcpfgJz+aTLmQ0wzNRR2uz49KIpA
-	 SwkDxUtbSIWhOF1y9yDpMmC64VbBa50NJ1Cjt4/CHDYpD5I2nJe4m6grhtmqxOWeiJf+Z
-	 iwGcNWmcCpz+yUeCMurzP+KBukh8yDjEZUVSKaf8OGgHsS/lH4VnCU+SyIUTle3lha4+T
-	 /OqeqR4feKwIUPSZdZzPXf7Nc4mduK4JcHM0n0zjyw88tSQPlFDgTPJb7CWEi0rgEvRjg
-	 rU3zrEGo1qGXrqVK2hDO9sGfR+aWfGUcMkB9FLePm5/IfpxVGtfNmQpVJpf5fjIHCxg==
+	t=1792760324;
+	b=CIi74rEuHZWD+I5mdXXtEDdCyc+RTwVb9NIStpeHK1S7YWY6Q+fbqw628CCLZzRauifc
+	 YvE4hN5glN/5QqWjWbrBUqyMeErW7c1rA9HQ97xy74/4Fq8YLrFSTLQHBFP8/hI5DFo4e
+	 mRx9833f5iTKvxv8IWI34HHh2nr05753OvaFOJxzApfp5eUvVzHpHN6jqNva1oa1AVWMa
+	 7BsguMZRc3l/S/+UUBptVF/Yn69I8D+BIrL38xylKTjZS37ecAQRn2dXrZJjGWvLorAlB
+	 5ydcdWScm8lSm4Bl4fbHPNR7IXWCYUOkN3bPf4XogJ8atUrcS65ZBfd5KHzh7nF7HuQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792760224;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Gm-Message-State:
-	 MIME-Version:X-Received:Date:In-Reply-To:X-Google-Appengine-App-Id:
-	 X-Google-Appengine-App-Id-Alias:Message-ID:Subject:From:To:
-	 Content-Type;
-	bh=fz+1skj7d+hP9vXTXZqqbbKhmbwuqSEHvfIbcWFLyMc=;
-	b=1A789NJZObURiDo20jbUj6CXBGGIzcicBRYZjw3Jk2hsvDwPkgQ/mLiPScRcPA9ZhiEW
-	 msnvXKZk9sTdB+Mf1qO+b2hTotoKokRlOdjx4tcEPxy7PUrBar6ePIxL4b88OWP/RafWC
-	 uM00WtMJjiRUNIuY6ahKym0W9JfXEnVYHiqKUl/yoKQk4PK27pk20X5X6iH5vCuSYlJa0
-	 IpaBrs7wJol7OdC8LgvmoO89XoEA46LnibXUg35LnvioThXwB74td50AYwNvjF+BOzF5v
-	 VE/q7Pjfqb61YFO5ksAeKxmkS33SgP5oso9E3dIJ6gNZ+X5ATUQp84T/K9l4UN7Wg/g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792760324;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=JG9x0NIXD32q8WVFYmOnLtFpuKdZNQP6WxoLonwFFAw=;
+	b=IG2qEf6af/murBFVCGfjfoGXNWcoXNZb8EoHOO+hCp270szKg7gbrxcFVL0YMNbaLeML
+	 b681xX/ll++d7aifJUWhzwCDISE5g4pvlY4oz28pT1GDmboAnBi0Oo1bY36GtF+aiWFY+
+	 B6trDMZir5mobMigE3gyT7FMEFv3+NxbSQCNP5XbFZB4+WFSuf/xsElJAXNVYsnGWewvb
+	 naCMgjLqWOW2WKatzQJqdBXgXmfZJPLvKL8Az/MDtlZfeSGmgL1nuWwb+Tt3VMqmXSuQY
+	 RyOaMM4DQQyjK5F171h31ZV5rX0ID6ydbdY1tMz5cp66LZubQtVvUVwgdn5AcBftI6g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.167.198
-Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
+	dmarc=pass header.from=resnulli.us;
+	spf=pass smtp.mailfrom=resnulli.us;
+	dkim=pass header.d=resnulli.us header.i=@resnulli.us header.a=rsa-sha256 header.s=google header.b=CifPPNfY;
+	arc=none smtp.remote-ip=209.85.128.54
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F19F9606A31D
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 12:57:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F19F9606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-54dbbf252cdso1320581b6e.2
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 05:57:03 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 002FD606A31E
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 12:58:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 002FD606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=resnulli.us
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=resnulli.us
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=resnulli.us header.i=@resnulli.us header.a=rsa-sha256 header.s=google header.b=CifPPNfY
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a1fbd52ab6so5422475e9.0
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 05:58:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=resnulli.us; s=google; t=1792760317; x=1793365117; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=JG9x0NIXD32q8WVFYmOnLtFpuKdZNQP6WxoLonwFFAw=;
+        b=CifPPNfYtcVHaaC8q7fD+mJLpWcf2lwFcAnphQYlgJ18Vg/dA+iTn7mr4wRjCEMiaI
+         mgduAr34636erZ1R/64KnaYi5fADZn9qcEng8y+95LgfxS3aPQ54AutC8VUbwRckHWxD
+         i27ixlz4zvhlZN9Kdx6UORIqOGB0jw7o0taaJ2LjE/6/Sf8lhRr51gt1kzYAWLSgy7cb
+         Dvl1JmY2CZ8b0K5PFt+8MeL1NMdfxkWpR3z03E8hhroCOcmscpF93a9rOK08MMniIyPr
+         nZnqs4BjJpMUJRWOtoXbn3AbFTcS1LlCvlbkbQcqgrF6qtgRcB3G7Uus2dhpV7mXNQlN
+         tQhA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792760223; x=1793365023;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=fz+1skj7d+hP9vXTXZqqbbKhmbwuqSEHvfIbcWFLyMc=;
-        b=lKrfiTjkMGWNvmyaM/yzP1CFS5I0eAAy8S4VrruVWDRBSROUOuVtEVNOCwxCHGxcxa
-         pF2zWWKsTSuH0UkDofr9qhdlXOyJ2XnlmjLZesJoaaDY74K4L3P5NxlzcqYsLEbG1dAH
-         TxmdtXcY5pZRRbtMxtLiVvCQ6KqqesFOcRTzjdk+rLQzWhbO+NXTgQr7gxIQzPX6cNzJ
-         qNcHnO8I6pDP35b1amtU6F2RRwFN+Jv9lpSWTNfdQ1O+RKPrqfJIQn8Z0GhWublnKNPI
-         B5aCe5SnVEx3Y8e1PwZ0AiZGa31yd5cvvfb3PHXwhfAyzl1UwLkA4rQ8DK8StNfXckNC
-         0JFg==
-X-Gm-Message-State: AFq9FYKx1eHrbxN5p9c2iM3ncffpQ/+0USPvAitO8ztpf1M2K/Z3O1hr
-	YTC+fRTQ6wvHmam1n7pucZQCvhpnVVAJ6cfR4QZRe3mUaFuzCylsC3H2UUQCcHOtB5MA+TgiyoB
-	RXU372ZfEMbGoaNqU8qV7ro6sr6sqvZ+SMWHiPxo8m3V79HODJm866TWRYKA=
+        d=1e100.net; s=20260707; t=1792760317; x=1793365117;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=JG9x0NIXD32q8WVFYmOnLtFpuKdZNQP6WxoLonwFFAw=;
+        b=S2OtxDtO6ylu1WzbUz6x5S8Obg7G+Rmg3Dr4ZZFXFlsTRDrrQkQzJm8hLK/9kxATJD
+         /wEofgKJViDhguxy6EIn9GQpmbeAh1qrw80uP+5A6F0fkJARYXIXQxGm85bWKZXy8ng/
+         FTNCI3c0jBuCmaizJ+EIxhx6kYtj6UgNodb0wmMik19+Li1CU9/H7uXOa06EvPieLAcD
+         zF7JZXFyx/6mbqhsTEXRTA6bkOUq3tieXrievUeGIf8yo/PkKQ5eQazZ36+E0JT/AQ0D
+         xldWvlly857BRsz5dablMQGF0LsXy/2pg2sFkS5ETVth7wl0x7AjWB1l9SKZfFh01Ygk
+         OHrw==
+X-Forwarded-Encrypted: i=1; AKwUvByEHJy0mcQBptCaCXj4Zeeqnwz2x95f/P1rdXuePQAOXUeW/KJn7waSbfry0UCHabzxBfYayeG6eXfXOug=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKmrfIGhzrmnkJQdnOrPIjVF92pvrP4Nka90Y3li7vRdtS0y2xw
+	ZoR7qgUT9COSx/GJqdXAYy9eDrgrAjnK0yFpK0DgPLL2+mThlR6Y+4MERzPfkwk0GIM=
+X-Gm-Gg: AYBFou1TQEzo5uxEvCRAS/f0B3R5gWqM8TAn8+P7mPxYkoE5ai3bZu2n5/sZ8SX1Vui
+	WvCFSMmchjxNt15coqgClDy4fB3Uwmgz/DkBJxv44xSQZ0pjOqeVMbjnc1mrtk0R9WGuqVrx4iR
+	3PbQE6CaCQL3LPBxTF6jSu8AATRPF3Hri//Bbn/bLDB22Lok0jjG7TXAHSJEgUt4oq+GgGedfHT
+	9j+IZsn7KkAyzuSwIEpbCdM9Sf2yGGOyD+hz8xcyGcS5F1nJSW7Y9TuQEzyzZCyLgNvteQ+O2CQ
+	7wItWIzknz6JSmHFxlwyHOecwn+pFiN+voOcF8gXw7nfr+oVxOhmP2kcMMFjLHwjlSJ681J1xiO
+	rDBRRGqINIUhte4iSSidiMDpGbER6OZKgvC8arNd8Bz51HVqCfWYJroqItBAp/lGGCWvnYAWpF5
+	emmG24Yzu82TZpLdrQvJXz/jqNndnLdDzUtnxhipvDFgtHE5akjoIaAmIPAR4yezhoCiYBmMCOB
+	RNfBhW6lc7KC1c8uWk8XCY8TBHTUNom9zX7VLI8il//554sjra6Ip9gKRPMucBKqmc=
+X-Received: by 2002:a05:600c:3508:b0:4a1:e774:370c with SMTP id 5b1f17b1804b1-4a211edd5c6mr37509065e9.30.1792760317227;
+        Fri, 23 Oct 2026 05:58:37 -0700 (PDT)
+Received: from localhost ([140.209.217.211])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a2153c14c6sm28069895e9.1.2026.10.23.05.58.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 23 Oct 2026 05:58:36 -0700 (PDT)
+Date: Fri, 23 Oct 2026 14:58:33 +0200
+From: Jiri Pirko <jiri@resnulli.us>
+To: Jason Gunthorpe <jgg@ziepe.ca>
+Cc: Jonathan Cameron <jic23@kernel.org>, linux-coco@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, linux-api@vger.kernel.org, x86@kernel.org, kvm@vger.kernel.org, 
+	linux-doc@vger.kernel.org, david.quigley@intel.com, lukas@wunner.de, ksinyuk@kernel.org, 
+	rodrigo.vivi@intel.com, cedric.xing@intel.com, sameo@meta.com, drdeeglaze@gmail.com, 
+	James.Bottomley@hansenpartnership.com, aik@amd.com, jpiotrowski@nvidia.com, qinkun@google.com, 
+	pgonda@google.com, alistair.francis@wdc.com, ankita@nvidia.com, 
+	suzuki.poulose@arm.com, kas@kernel.org, rick.p.edgecombe@intel.com, 
+	elena.reshetova@intel.com, dave.hansen@linux.intel.com, 
+	sathyanarayanan.kuppuswamy@linux.intel.com, peter.fang@intel.com
+Subject: Re: [PATCH RFC 12/20] ctlv: Add device and operation dispatch
+Message-ID: <attZl_0TNMDLgi4U@FV6GYCPJ69>
+References: <20261015145053.3664509-1-jiri@resnulli.us>
+ <20261015145053.3664509-13-jiri@resnulli.us>
+ <20261021022505.6fe1b1bb@jic23-hlaptop>
+ <20261022184313.GD3381610@ziepe.ca>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,35 +105,123 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:f90:b0:4dd:18c7:5448 with SMTP id
- 5614622812f47-55be87275e7mr1295031b6e.56.1792760222964; Fri, 23 Oct 2026
- 05:57:02 -0700 (PDT)
-Date: Fri, 23 Oct 2026 05:57:02 -0700
-In-Reply-To: <CAO+rqLjx9RqNs4kjyeko4zYqWyH0VZhNtT4jFKmkjESv3v178Q@mail.gmail.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6adb599e.3f6e6ada.1e998b.0027.GAE@google.com>
-Subject: Re: [syzbot] [netfilter?] WARNING in nf_flow_table_extend_ct_timeout
-From: syzbot <syzbot+521f7e7e2b974abde99a@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, mike.michalo@gmail.com, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261022184313.GD3381610@ziepe.ca>
 
-Hello,
+Thu, Oct 22, 2026 at 08:43:13PM +0200, jgg@ziepe.ca wrote:
+>On Wed, Oct 21, 2026 at 02:25:05AM +0100, Jonathan Cameron wrote:
+>> > +struct ctlv_device *ctlv_create(struct device *parent_dev, const struct ctlv_family *family,
+>> > +				const void *init_info)
+>> > +{
+>> > +	struct ctlv_device *ctlvdev;
+>> > +	int devnum, ret;
+>> > +
+>> > +	if (!parent_dev || !family)
+>> > +		return ERR_PTR(-EINVAL);
+>> > +
+>> > +	ctlvdev = kzalloc_obj(*ctlvdev, GFP_KERNEL);
+>> > +	if (!ctlvdev)
+>> > +		return ERR_PTR(-ENOMEM);
+>> > +	ctlvdev->family = family;
+>> > +	init_rwsem(&ctlvdev->registration_lock);
+>> > +	spin_lock_init(&ctlvdev->transition_lock);
+>> > +	ctlv_event_device_init(ctlvdev);
+>> > +
+>> > +	/* Before anything reads the schema through this device. */
+>> > +	ret = ctlv_op_resolution_init(ctlvdev, family);
+>> > +	if (ret)
+>> > +		goto err_free;
+>> > +	/* What this family's events need of every queue opened on it. */
+>> > +	ret = ctlv_event_sizes(ctlvdev);
+>> > +	if (ret)
+>> > +		goto err_free;
+>> > +	/* Before a minor is spent on a device that could not be announced. */
+>> > +	ret = ctlv_device_uevent_check(family);
+>> > +	if (ret)
+>> > +		goto err_free;
+>> > +	if (ctlvdev->dynamic_ops_count) {
+>> > +		ctlvdev->disabled = bitmap_zalloc(ctlvdev->dynamic_ops_count, GFP_KERNEL);
+>> > +		if (!ctlvdev->disabled) {
+>> > +			ret = -ENOMEM;
+>> > +			goto err_free;
+>> > +		}
+>> > +	}
+>> > +	devnum = ida_alloc_max(&ctlv_device_ids, CTLV_MAX_DEVICES - 1, GFP_KERNEL);
+>> > +	if (devnum < 0) {
+>> > +		ret = devnum;
+>> > +		goto err_free;
+>> > +	}
+>> > +
+>> > +	ctlvdev->dev.devt = ctlv_device_number + devnum;
+>> > +	ctlvdev->dev.class = &ctlv_device_class;
+>> > +	ctlvdev->dev.parent = parent_dev;
+>> > +	device_initialize(&ctlvdev->dev);
+>> > +	/*
+>> > +	 * The core owns the file operations, so an open holds the core module
+>> > +	 * and not the family's, which may unload while readers remain.
+>> > +	 */
+>> > +	cdev_init(&ctlvdev->cdev, &ctlv_file_operations);
+>> > +	ctlvdev->cdev.owner = THIS_MODULE;
+>> > +
+>> > +	ret = dev_set_name(&ctlvdev->dev, "ctlv%d", devnum);
+>> > +	if (ret)
+>> > +		goto err_put;
+>> > +	ret = ctlv_family_claim_add(family->schema);
+>> > +	if (ret)
+>> > +		goto err_put;
+>> > +	ret = ctlv_family_privs_pre_init(ctlvdev, init_info);
+>> > +	if (ret)
+>> > +		goto err_put;
+>> > +	ret = ctlv_family_privs_init(ctlvdev);
+>> > +	if (ret)
+>> > +		goto err_put;
+>> > +	ctlv_op_publish_all(ctlvdev);
+>> > +	ctlv_event_contexts_start(ctlvdev);
+>> > +	ret = ctlv_family_privs_post_init(ctlvdev);
+>> > +	if (ret)
+>> > +		goto err_fini;
+>> > +	scoped_guard(rwsem_write, &ctlvdev->registration_lock) {
+>> > +		ret = ctlv_device_add(ctlvdev);
+>> > +		if (!ret)
+>> > +			ctlvdev->registered = true;
+>> > +	}
+>> > +	if (ret)
+>> > +		goto err_fini;
+>> > +	return ctlvdev;
+>> > +
+>> > +err_fini:
+>> > +	ctlv_device_fini(ctlvdev);
+>> > +err_put:
+>> > +	put_device(&ctlvdev->dev);
+>> > +	return ERR_PTR(ret);
+>> 
+>> Jason did some nice handling in the fwctl stuff for
+>> device alloc and hand over after device_initialize()
+>> (I've copied it into a few places recently :)
+>> 
+>> I'd like to see something similar here as it made
+>> it easier to follow lifetimes etc.
+>
+>This is really at the wrong layer.. Attestation subsystem is the lead
+>subsystem, it should be allocating the struct device memory and the
+>driver should see the typical
+>
+>  struct attestation_dev *adev;
+>
+>  adev = attestation_alloc()
+>  [..]
+>  attestation_register(adev)
 
-syzbot has tested the proposed patch and the reproducer did not trigger any issue:
+Er, the driver would call attestation_create() which will be a wrapper
+of ctvl_create. The reason is inheritance chain and each parent being
+passed info to and doing its own init()
 
-Reported-by: syzbot+521f7e7e2b974abde99a@syzkaller.appspotmail.com
-Tested-by: syzbot+521f7e7e2b974abde99a@syzkaller.appspotmail.com
 
-Tested on:
-
-commit:         734bef54 Merge tag 'net-next-7.4' of git://git.kernel...
-git tree:       https://kernel.googlesource.com/pub/scm/linux/kernel/git/netdev/net main
-console output: https://syzkaller.appspot.com/x/log.txt?x=15c66d21580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=68bf488210f470aa
-dashboard link: https://syzkaller.appspot.com/bug?extid=521f7e7e2b974abde99a
-compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
-patch:          https://syzkaller.appspot.com/x/patch.diff?x=11b2b93e580000
-
-Note: testing is done by a robot and is best-effort only.
+>
+>Sequence in its probe function
+>
+>We need the subsystem refcounted memory to exist if we are ever going
+>to create a kapi and common functions
+>
+>Jason
