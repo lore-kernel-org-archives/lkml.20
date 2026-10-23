@@ -1,78 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792741656;
-	b=1XD63uHGEXu6ZyU76osp04pe+eEFHXy5Jykb6p/CiyDeFtT0fLoQ4CzdtMCuY0rEuygk
-	 hTm7KgALbgfB6Y9Tm80kz0rpGGmlGSWJUcA4kY/gLT8Gvf/R+U2lHie7QMVDljCjbJ7UW
-	 rRC0gUDRkUl5ex6t4H4HcqVG//f7R+oxoVNDhQTgZI3GytWXBQeS61STPZQrLzplRVo9j
-	 jJK/x3MbNFlV/CEZFCWh66RhSTXb2jE0aHse0hFiLVd+NF+38Q+20LY0NSGWDvbMTM6MX
-	 s6+ESXt+Vj8gjPe+m8/4hddi9hilz9eG+zMvzzzykz7QXum4GsklyLbcUMskY15+E7w==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792741656;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=V65awey7PH+EaVz0Z/qFwHRAyR1mJpUy4VAJ3/5UO5Y=;
-	b=zToqf1SH/a8xMROKcVYYwT0QPs4kSwxXwML6KKdvGz35ywbeARTuXq5tBqV2/mbjSjKp
-	 VbV1R58r6DPuUAk6KqPFxBq6+yARYm0Xap6JT69jUPdLuC/myFZuRIYG+CLe20H3srOuE
-	 8VxgL0y/XixRngyprn15rXV2e5ZDjfnOtPaJ/oD0L6IMIBCTUl6hnw3gFTUBGYHiQu2eP
-	 MhflXTLer5q2q9MkrqMrGwQhiy48vszHVx+Bd45VbHnwj34hzSVj/DeM117KESCzmT6Ni
-	 jamooJ6Kb2jAf+3HQBwnbfIiV+apQ31kVvjXnjGG1zZuO44fJ5s1VTcHVzi9yzwqFmw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e92g5dyt;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792741679;
+	b=ebcLKLrqlA0F58G3q3YajBYcZep/tAyabZ/PCyfFXbzegCQGb1OwZr2Ew1QBAaCeBtnx
+	 /fNXQsM3POvfkO2hdKhMGmhKYGhC/evdr7kmrmtId9/MGNulDSvXbSYDEFhGpoXSHf7Po
+	 WPAvoPvug5ygLPds2qN7hBx52stX4YSQLHIOYBv2a9dlJkeINvkwgnDqkhp0GA9UdAr0t
+	 MAnrWJ0+iP2Krpt3goFPT8lGHimRZ6h+RkgA/Gur+seDZvAvoAstF8xW+3/vSYvQdBvBJ
+	 TPNDOxP/PG/LEC3iRObvVtr094EMPgGYI2taBE2doc+vTj2F4Tr/L0kOtBGdE2x+bSg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792741679;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=T9GOpQK5rtPMBaO9wf0cS2V+Dw+B5rak2UcuAS403G4=;
+	b=lSBYyoucZ8pVQHMVJBIzCPhZDZuOYvNFUMmdCIwVcg8EL1wkroay6SqfPNTZztSl5PZd
+	 2ySAIpjWDk4U2GEm5+nsRg9h47RHU55knbzqaffLdE9DI3SIhwTPrSi0V3iT73K44DhB5
+	 RgBLTS6nX0lwRtMSNPDYzrmEkmtKEt0eyq2kaRwxk4CNJHANshIddApzrOFbEbKRq6jt0
+	 VeGiqMMsMCYp7S2s8g7KFmjRee/2Fxp6DQchwXdtqMdTouDm13RvtUiuCCl/1QVoYpwel
+	 8CABGH5wWj3k60mjicmVdLUO/gT6jC5JDH1Nm2kKhtrLB9kOJ/Ki+3jperOCs94YWCw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XgQ2SsC8;
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBBFD606A320;
-	Fri, 23 Oct 2026 07:47:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8540D606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 07:47:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e92g5dyt
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1792741655;
-	b=1nNas0DairAlD7QaQuVf2HQp1m9hB5eOe+MeHTTLuSXT8U0MtrGObV33453lRA8UO9yS
-	 68V7N6GoKw0JxwXjo8VpiIJAozgGGcjcvoNu52TCcRSLnRlQNeSio0Wkl68uZ6s5Epaqq
-	 6O9eh8/yK8XffLDW1vJzbQiri0vXepH/+/1evnHQlYsKrQ4PXj1ICb7+yTT/CrICvqgG1
-	 REA0Qhd6r4U2GmmCaHsY70NsApg+l/U4MCbdInS+E/usM//B/k7viux5cooUF8PVrJUxm
-	 6CsT4Wj4qoOiQUhE0aUe1I3C5NKCpDPXS5infA9ApvlwxGjXaLTeo/XA8mU8jTxk1+w==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1792741655;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=V65awey7PH+EaVz0Z/qFwHRAyR1mJpUy4VAJ3/5UO5Y=;
-	b=qFXrPEJaq9JzjGfSrTb0C2XIot18Vi/+OZP3tPP1FWjalfOZFxLq5Lps8M0bKjoS8+D+
-	 198Z3UKQd8AN48JBT7+ShajUJQx1CoDNhPEkU+tGLgF9ojsCwT1hMbHVPNid/vx186RiO
-	 FFDMDdyHUn7I53ufk1iLk84KzmMLJHhgOKuknTJDqp8PRZFoUJpEqur9Mvjc3cG0F+oNT
-	 dF7GZ+tIVMe1+TLVn3tQOKhmwZAZdPNyU3LcCj1ewNBKMOZ9ZkbOZrZK9ayNsIh8edOlj
-	 kJeuS5AF45D59q9MdI+akBbcKDg6EdC57HWBgOQJ5Weww8oPNbnPZNHmb8V6b/0l8Wg==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id AF5E11F01825;
-	Fri, 23 Oct 2026 07:47:34 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XgQ2SsC8
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E5571F01825;
+	Fri, 23 Oct 2026 07:47:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792741655;
-	bh=V65awey7PH+EaVz0Z/qFwHRAyR1mJpUy4VAJ3/5UO5Y=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=e92g5dytaHr+WzCny7lr4KtmtpWdBcMb7dXQe9DNNfeO8Vb0rXvweQ9EBPZqtBaOR
-	 o4FQSujBsNgQkH/vUAdwn1VYH4YvhC6wW7Lg0sB2BGzyzgYX0dEP4tBo0v+mBoGaqQ
-	 VVz59ZXGWvZm+qtQ9ylKzuRuAtQzWhr98RRkxUdGgMR6EiwsLXCAWUz0rBxqJWEW/c
-	 7YJTJ70IrQUDIAOu8FX7ZKONULoT+GAm0VJXK+GpWBnJRRvGGSbcg5JdS1Z84uNJMx
-	 vE1pg5UCySpzE7YiP15MpUJmEOfob/OPRQDU3YsyX2PQ2easy9s1u7axivJmizxiYs
-	 /Ki+us5Trxefw==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 22ABD44400;
-	Fri, 23 Oct 2026 07:47:34 +0000 (UTC)
-From: Daan De Meyer via B4 Relay <devnull+daan.amutable.com@kernel.org>
-Date: Fri, 23 Oct 2026 09:47:21 +0200
-Subject: [PATCH v4 2/2] nbd: drop stale partitions on NBD_CLEAR_SOCK
+	s=k20260515; t=1792741679;
+	bh=T9GOpQK5rtPMBaO9wf0cS2V+Dw+B5rak2UcuAS403G4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=XgQ2SsC8b8yiqOgy9mwZFEMdx94JQR57m/DV/APKtOmBQPB7iIgX2nMCFLj1sPUgm
+	 iy6vVuC8zH47hTZNe8th/7TLB+7fG5VK5LDeK9qK69ocZQ3xPCrO+BoEzdZD9JOAw+
+	 SMeM8H1/zoS4vRaqTamiQ/NJZL+pwIGEV2fuRQwdLGd9/39axR0nxPllhg7Y9sOPCc
+	 e1b2tKRavFN9kje4/YC45FYkpyrB2GdwGCltiTuKpU4Ti29yvoW5JEAZPUvxbH26oY
+	 1sgfSuX3F4td6N5GMDsvZZ+k7O15lTVry0i5zmdoRmvJVeUpnQTO4fpAbJ+j7jjrKO
+	 WlWUT9ZSZJ7CA==
+Date: Fri, 23 Oct 2026 08:47:55 +0100
+From: Sudeep Holla <sudeep.holla@kernel.org>
+To: Thomas Gleixner <tglx@kernel.org>
+Cc: Marc Zyngier <maz@kernel.org>, Julian Braha <julianbraha@gmail.com>,
+	Sudeep Holla <sudeep.holla@kernel.org>, mark.rutland@arm.com,
+	lpieralisi@kernel.org, radu@rendec.net, vsethi@nvidia.com,
+	sdonthineni@nvidia.com, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 0/2] irqchip: gic-v3: fix unmet dependency on
+ ARM_PSCI_FW
+Message-ID: <20261023-interesting-wandering-velociraptor-2a7e8d@sudeepholla>
+References: <20261020222817.1231643-1-julianbraha@gmail.com>
+ <86se1zzcet.wl-maz@kernel.org>
+ <20261021-rampant-fabulous-ant-cafccb@sudeepholla>
+ <877bj91k2z.ffs@fw13>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,85 +63,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261023-b4-loop-nbd-stale-partitions-v4-2-2baf05e4b2cb@amutable.com>
-References: <20261023-b4-loop-nbd-stale-partitions-v4-0-2baf05e4b2cb@amutable.com>
-In-Reply-To: <20261023-b4-loop-nbd-stale-partitions-v4-0-2baf05e4b2cb@amutable.com>
-To: Jens Axboe <axboe@kernel.dk>, Christian Brauner <brauner@kernel.org>, 
- Josef Bacik <josef@toxicpanda.com>, 
- Daan De Meyer <daan.j.demeyer@gmail.com>
-Cc: linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, 
- nbd@other.debian.org, Christoph Hellwig <hch@infradead.org>, 
- Bart Van Assche <bvanassche@acm.org>, 
- Shin'ichiro Kawasaki <shinichiro.kawasaki@wdc.com>, 
- Daan De Meyer <daan@amutable.com>, stable@vger.kernel.org
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792741645; l=2448;
- i=daan@amutable.com; s=20260712; h=from:subject:message-id;
- bh=Xsf7lw9CzriaYcZ7LSWs2dUmnLL/EkAep1GawGfe3ic=;
- b=Gk00yNSAxP0BGLLgZfO+zaDaxRJD3UmvXzA2USAiHH8ymQf38em9AeTOaEeJgTv7csveCg6OV
- S+Ui/WVp2pFB7LgAZP1DCBYHO4ZjfizxVy2yFlSfoOzrfWpY9IWgabW
-X-Developer-Key: i=daan@amutable.com; a=ed25519;
- pk=I1l+WwrtmzRgofA5SQ1wTuJi18fjh91w+f5uRkFeZEA=
-X-Endpoint-Received: by B4 Relay for daan@amutable.com/20260712 with
- auth_id=868
-X-Original-From: Daan De Meyer <daan@amutable.com>
-Reply-To: daan@amutable.com
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <877bj91k2z.ffs@fw13>
 
-From: Daan De Meyer <daan@amutable.com>
+On Thu, Oct 22, 2026 at 11:50:12PM +0200, Thomas Gleixner wrote:
+> On Wed, Oct 21 2026 at 15:49, Sudeep Holla wrote:
+> 
+> > On Wed, Oct 21, 2026 at 09:27:22AM +0100, Marc Zyngier wrote:
+> >> On Tue, 20 Oct 2026 23:28:15 +0100,
+> >> Julian Braha <julianbraha@gmail.com> wrote:
+> >> > 
+> >> > ARM_GIC_V3 currently selects HAVE_ARM_SMCCC_DISCOVERY without ensuring its
+> >> > dependency, ARM_PSCI_FW, is met.
+> >> > 
+> >> > Patch 1 of this series adds stubs for arm32 so that patch 2 can make the
+> >> > select conditional on arm64.
+> >> >
+> >> > ---
+> >> > Julian Braha (2):
+> >> >   firmware: smccc: provide stubs when discovery is disabled
+> >> >   irqchip: gic-v3: only select HAVE_ARM_SMCCC_DISCOVERY on arm64
+> >> > 
+> >> >  drivers/irqchip/Kconfig   | 2 +-
+> >> >  include/linux/arm-smccc.h | 7 +++++++
+> >> >  2 files changed, 8 insertions(+), 1 deletion(-)
+> >> 
+> >> This probably needs to go via Sudeep's tree.
+> >> 
+> >
+> > Sure will queue it soon and send it as fixes at -rc1 or later.
+> 
+> Please change the subsystem prefix to "irqchip/gic-v3:" then.
+> 
 
-Commit 267ec4d7223a ("loop: fix partition scan race between udev and
-loop_reread_partitions()") stopped disk_force_media_change() from
-setting GD_NEED_PART_SCAN. Besides requesting a rescan, that bit was what
-removed stale partitions on the next open, as bdev_disk_changed() drops
-all partitions before it consults disk_has_partscan().
+Yes I did that already.
 
-nbd_clear_sock_ioctl() relied on that. It zeroes the capacity through
-nbd_bdev_reset(), but nothing removes the partitions of the disconnected
-device anymore. With the default max_part=16 they linger until the next
-connect sets GD_NEED_PART_SCAN again. With max_part=0 nothing ever sets
-it, so they are never removed at all, even though nbd does not set
-GENHD_FL_NO_PART and partitions can therefore still be added with BLKPG.
+> Acked-by: Thomas Gleixner <tglx@kernel.org>
 
-Set GD_NEED_PART_SCAN in nbd_clear_sock_ioctl() so the partitions are
-dropped on the next open. Calling bdev_disk_changed() directly is not an
-option as it needs open_mutex. nbd_open() acquires config_lock under
-open_mutex, and nbd_clear_sock_ioctl() runs with config_lock held.
-Taking open_mutex in nbd_clear_sock_ioctl() would invert that lock order.
-
-Fixes: 267ec4d7223a ("loop: fix partition scan race between udev and loop_reread_partitions()")
-Cc: stable@vger.kernel.org
-Reviewed-by: Christian Brauner (Amutable) <brauner@kernel.org>
-Reviewed-by: Bart Van Assche <bvanassche@acm.org>
-Tested-by: Shin'ichiro Kawasaki <shinichiro.kawasaki@wdc.com>
-Signed-off-by: Daan De Meyer <daan@amutable.com>
----
- drivers/block/nbd.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
-
-diff --git a/drivers/block/nbd.c b/drivers/block/nbd.c
-index ffce519bf008..322dbd16dc93 100644
---- a/drivers/block/nbd.c
-+++ b/drivers/block/nbd.c
-@@ -1616,6 +1616,15 @@ static void nbd_clear_sock_ioctl(struct nbd_device *nbd)
- 	nbd_clear_sock(nbd);
- 	disk_force_media_change(nbd->disk);
- 	nbd_bdev_reset(nbd);
-+	/*
-+	 * Drop the partitions of the disconnected device on the next open.
-+	 * They can exist even with max_part zero as they may have been added
-+	 * manually with BLKPG. Dropping them here would need open_mutex.
-+	 * nbd_open() acquires config_lock under open_mutex, and we hold
-+	 * config_lock here. Taking open_mutex here can deadlock against
-+	 * nbd_open().
-+	 */
-+	set_bit(GD_NEED_PART_SCAN, &nbd->disk->state);
- 	if (test_and_clear_bit(NBD_RT_HAS_CONFIG_REF,
- 			       &nbd->config->runtime_flags))
- 		nbd_config_put(nbd);
+Thanks!
 
 -- 
-2.54.0
-
-
+Regards,
+Sudeep
