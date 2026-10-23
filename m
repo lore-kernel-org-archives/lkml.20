@@ -1,65 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792765512;
-	b=Qsn5L94Ksfoslhfu/fgLw7xNc58gM2B+31MgtSS0YK3AX25l0GeQ7TsLXj0IIFVkiGKO
-	 xPDLeMh3GbTQ16yMPp7QE+HQdMGmKPB/T2NMfn9oVUKFAoHx/0rLoPBqcVML9mmOEmSZR
-	 TLzQ6DZNBz28Y6F/b2iLc8U6csA5KXoyJgmvEgw/YYVw9X3gA0TMrqOvyVLrEGNl4QfyQ
-	 AlK7aji6lr1HXqMo3NymwbHexBPY1zUgPj5JdQT6yrIW5R1/dWzdkCVgzRDVgP6WhdeOk
-	 sUlAfxE1PYHe8p3oNHT4joT87W56odN6oxOBeY8EGjcAu5CgZsogEZ3ID3k2f2ZOtFQ==
+	t=1792765560;
+	b=lA7wW0r1NTnhDeJoHMWLED7fSz9SpFDyY9kMJR776l271yUtLRPODQlAQes3mI8lKIgT
+	 MNafjDq5OOD7Wc3CflydHXehVWprRzj/SqGhS6PjidiRxgNC+jFXJrHkDJUStWl1JzINb
+	 y0xQxj5f0A0547O/WmjaWhwv6n8AhWxH3k4Vlh0BB29CR49jWnOAdMe0eh7O/+YnHt+A/
+	 9HdInZDkebVOxIqj8nkiiLGWhKaQevmXwDCL9flc5jQfidYYCCgKTxnDz9Zw6J8QX3jsI
+	 UdEKMcwXKtd3EkJl0IFSNoUh4sbdX5ZtwnrXUFL5Rtp092SltGAU5+e9TKO+NnZDpvw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792765512;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
-	bh=UZcVThium2LGFji8ng2uqdSQ2+bPn1mc9wEP1nLWPVY=;
-	b=FWwuSyIH8+5CFhwWG359j312ufkWTFRl9Lu4cds/BdfpR5J/+2WWQdHIwQ0UUX4RjWk2
-	 id0gYnklSo9/hRR3vAZropPYK6KblHC0ZYPhROmSZYwpSK9fQGRI7Gy9GgQgkZwy1ime5
-	 Z8i4Z0K6INacPTbvD0Qkqv3OUPZQFaQr8blu0m47OjzBpLdA8DEFxE5A2GMcXeqraJpGR
-	 BNFkaOd5AQhN9yOc+ng0HvtGEpoQpNp8NDambGnaQArTuh99mpsMxkzX9/m6OgLxxqebc
-	 SZafbV9CxIMTtHEXGTh7nGfEBr9t8S6GcF70QiAEeVfxECUfPSPOOAQLmAiKHskWbgg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792765560;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=8/9qb/C5YzBF9wNJ+pPwlOlLNA/YL7ODqh7qU0jpbbg=;
+	b=kaCx4kfx/nXWLL2l72BVZGEACMZNtW8qzLnWSBgwAqClie13OFCO9WjqKnPplr9EkqZJ
+	 7tMdcbMYWlYk52GM2juo0zB/zubY8sfXrY0byHxk3S7lNewV67Z7Q49XLs2kyrNZjbRX1
+	 UpYBWZL3L1owMtmHhsHTgS7bdXkCymIZOyPcBm8uGo5BwjHTX1HdEIyxBX63dvRQFb6gA
+	 XduktdtQDxi+C452VGvHTAkARjPszxw92afGxwpk8y+ifUNC/k9XJusugXGTFWt6SQz7T
+	 qkYLFy0KlRGIFd3szMtxbyUokXZo/rIxf0shkEyUFBR2RwYbhpUX34s8mGD6RglYQgQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=fc9aXu4s;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id B45DC606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 14:25:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B45DC606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=A3LTY91N;
+	arc=none smtp.remote-ip=209.85.221.44
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18D39606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 14:26:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 18D39606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=fc9aXu4s
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D53731C14
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 07:25:06 -0700 (PDT)
-Received: from [192.168.0.1] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 9F2C43F673
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 07:25:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1792765510; bh=8wgBzMmQmgcwDMA3gMHG9NeDs1p81gRg9NRdmxL5KZQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=fc9aXu4sSk/AOrZ2b2mkTc+OL3qhGbLc2PYR/pBwV3snmh97FsoPQEMQDmGqCAbCf
-	 a9X7xZPFsCpypEE6w0GjrorYB9xXl5sR+9m4lzCiCydS5nswwnNpbG1nHMsaUCdo6h
-	 nXWzFUSDcwoIkHnYjAstdlwUkocihi5YOPlwra3U=
-Date: Fri, 23 Oct 2026 15:24:55 +0100
-From: Liviu Dudau <liviu.dudau@arm.com>
-To: Lukas Zapolskas <lukas.zapolskas@arm.com>
-Cc: Daniel Almeida <daniel.almeida@collabora.com>,
-	Alice Ryhl <aliceryhl@google.com>,
-	Boris Brezillon <boris.brezillon@collabora.com>,
-	Steven Price <steven.price@arm.com>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
-	nd@arm.com
-Subject: Re: [PATCH v7 5/8] drm/panthor: Introduce sampling sessions to
- handle userspace clients
-Message-ID: <attuN9c169vUGVm0@e142607>
-References: <20261011-panthor-performance-counters-v7-0-12c32495062f@arm.com>
- <20261011-panthor-performance-counters-v7-5-12c32495062f@arm.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=A3LTY91N
+Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-48df4e9d2d4so568185f8f.3
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 07:25:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792765558; x=1793370358; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=8/9qb/C5YzBF9wNJ+pPwlOlLNA/YL7ODqh7qU0jpbbg=;
+        b=A3LTY91NwU+VPE8N5ptIfZ+7ph4Ktt/Gyv9zUgd5609W+Ti1SN0oLPBwfrg/iwYbWt
+         H4IfSsrYoayHKTTcSKI2PKNjFEHsPWzuDHVRGsEG0Xm7+5ZfgXrN+ORf+HoGXtl/qxhv
+         dngOQoA7UGdJKMp4jSR3EWd4X8hJtP8z2afeL6No4DzAg9j/T+e0KKg+uMSkpQi6/aun
+         UaDinFCiJzDhGr1An5wg2/yB6lTjvCHuQGWkk7O21LXIv3INNt/J9DEo9aKb6SeJ8euW
+         cHbvsVsOlFdGBE3WBQIRlmBBZDLNgAkoZmwoDJt1SepEgW6bMzvBkswaLS8XUgEmNy7F
+         TWFQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792765558; x=1793370358;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=8/9qb/C5YzBF9wNJ+pPwlOlLNA/YL7ODqh7qU0jpbbg=;
+        b=FUPbdyMjUhmLgs/w+ZmE2Jpw81TbyHwAi1k6grVx/FZqYAJ6o5kDnNH02K2HwY159/
+         +6ADqjUwquXwrZxyLCBVYeBC6qai7CbUPPCWppQYrlP9Is16u8OtmPgx2qouqD/3jpUZ
+         ebIqM1oESmmb+pWaORazspOkZI3BjzQHx8ORco1db/CpI5gSBw8CwBckg3hlHK4C4eWF
+         STf/8CiKt1URN9VkEDDigbV31o/ECgZcc3Zz559HK4H1SqMqM08o0hiyzLDadHyZB4Eu
+         NHQ2K/jb6vLrIuinI0o2kGY9zVhqP+YGwkaCRhMkS1hO2Fh2AhMospGoy4CnYjV1TrK0
+         BBLg==
+X-Forwarded-Encrypted: i=1; AKwUvByddh//3rcy+nMmyj3cU4J68E+cvo6TPjfBbUTj/6J2x0PkHz1IlfF9Grr1SXd9tn6f9lNlGBVu2gVNPmA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLKy0h7UaUTWLjqKZ7pQlcv9jRY95NdfYpePTVxRBt2rFx5V0A7
+	APzCIoRYdQ6Css5XNFZhkwTgNId//yAmotIAgR5S7mF0UXc6SLGxglP1
+X-Gm-Gg: AYBFou3DsZez/r2VIaz1iAfZigQhxAEILuPzgXCe/WuFsupDlSsHe6hs7cMs9qVaFR+
+	dV9fIJrTH25ecUSBONgmOU48Rp9htVZOnSxjgTn+0Xqh0c0+T587e2DiZSI9Sq5/H9lmyEUmmGx
+	VOFDtAj2+J6DsEbSkpFpwqTJMVZddncI4YOScl7dlWaxydYZYFq3LS7kGhS804DtnhIBKqRkThN
+	Cbd9HnOGvZVGo0cjYcfdxIuhxvht+gNNqH1HqDp46MumEpzWwEji/p4EuDNerEsm9h0Znr9a1pI
+	vUGbuqSAgRVesBS1EXYpR2Tv3gUHiEABdLmoXIw1HhLU+rytWHGGjIhzYXILDesKpw4JDqwyaUi
+	RxSSMtH8awn8nhszNbsuRdPUc6gZSlCnycV7TBHUKHZMAYSjPORdYUlsINtXAtUpGQmRjEqXER5
+	rm1DdradR4WOxC4A6V3d14+jQC2/wKLKqIiT1CGmj6lUUST6y5iwBvklQk1QmNq+E03f8Azu4Ym
+	auWm84pIVkvxGtpvtDGKx+ETYCPvMv2S1X0zLrUODRUz2mJlSyXyRTehi8XZJaDE2r6JdqweFIG
+	tY1raSy74f8lIITgx2s=
+X-Received: by 2002:a05:600c:34c5:b0:4a2:148b:c88c with SMTP id 5b1f17b1804b1-4a2148bced7mr33045025e9.8.1792765558311;
+        Fri, 23 Oct 2026 07:25:58 -0700 (PDT)
+Received: from fedora (user-109-243-67-71.play-internet.pl. [109.243.67.71])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a2b064fc72sm7917965e9.11.2026.10.23.07.25.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 23 Oct 2026 07:25:57 -0700 (PDT)
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+To: Anup Patel <anup@brainfault.org>
+Cc: Atish Patra <atish.patra@linux.dev>,
+	Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	kvm@vger.kernel.org,
+	kvm-riscv@lists.infradead.org,
+	linux-riscv@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Subject: [PATCH] RISC-V: KVM: Order IMSIC VS-file write before releasing vsfile_lock
+Date: Fri, 23 Oct 2026 16:25:50 +0200
+Message-ID: <20261023142550.148604-1-oleksii.kurochko@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,836 +102,80 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261011-panthor-performance-counters-v7-5-12c32495062f@arm.com>
 
-On Sun, Oct 11, 2026 at 06:36:52PM +0100, Lukas Zapolskas wrote:
-> To allow for combining the requests from multiple userspace clients,
-> an intermediary layer between the HW/FW interfaces and userspace is
-> created, containing the information for the counter requests and
-> tracking of insert and extract indices. Each session starts inactive
-> and must be explicitly activated via PERF_SESSION_START and
-> explicitly stopped via PERF_SESSION_STOP. Userspace identifies a
-> single client with its session ID and the panthor file it is
-> associated with.
-> 
-> The SAMPLE and STOP commands both produce a single sample when called,
-> and these samples can be disambiguated via the opaque user data field
-> passed in the PERF_SESSION uAPI. If this functionality is not desired,
-> these fields can be kept as zero, as the kernel copies this value into
-> the corresponding sample without attempting to interpret it.
-> 
-> Currently, only manual sampling sessions are supported, providing
-> samples when userspace calls PERF_CONTROL_SAMPLE, and only a single
-> session is allowed at a time. Multiple sessions and periodic sampling
-> will be enabled in following patches.
-> 
-> No protection is provided against the 32-bit hardware counter
-> overflows, so for the moment it is up to userspace to ensure that
-> the counters are sampled at a reasonable frequency.
-> 
-> Signed-off-by: Lukas Zapolskas <lukas.zapolskas@arm.com>
-> ---
->  drivers/gpu/drm/panthor/panthor_perf.c | 657 ++++++++++++++++++++++++++++++++-
->  drivers/gpu/drm/panthor/panthor_perf.h |  11 +
->  2 files changed, 664 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/panthor/panthor_perf.c b/drivers/gpu/drm/panthor/panthor_perf.c
-> index ba466e22c50d..76c346981150 100644
-> --- a/drivers/gpu/drm/panthor/panthor_perf.c
-> +++ b/drivers/gpu/drm/panthor/panthor_perf.c
-> @@ -2,10 +2,12 @@
->  /* Copyright 2023 Collabora Ltd */
->  /* Copyright 2025 Arm ltd. */
->  
-> -#include <linux/bitops.h>
-> +#include <drm/drm_file.h>
-> +#include <drm/drm_gem.h>
->  #include <drm/drm_managed.h>
->  #include <drm/panthor_drm.h>
->  #include <drm/drm_print.h>
-> +#include <linux/bitops.h>
->  
->  #include "panthor_device.h"
->  #include "panthor_fw.h"
-> @@ -27,14 +29,130 @@
->  
->  #define MAX_SESSIONS_PER_FILE 1
->  
-> +/**
-> + * PANTHOR_PERF_EM_BITS - Number of bits in a user-facing enable mask. This must correspond
-> + *                        to the maximum number of counters available for selection on the newest
-> + *                        Mali GPUs (128 as of the Mali-Gx15).
-> + */
-> +#define PANTHOR_PERF_EM_BITS (BITS_PER_TYPE(u64) * 2)
-> +
-> +enum panthor_perf_session_state {
-> +	/** @PANTHOR_PERF_SESSION_STOPPED: The session cannot sample. It starts out stopped. */
-> +	PANTHOR_PERF_SESSION_STOPPED = 0,
-> +
-> +	/** @PANTHOR_PERF_SESSION_STARTING: The session has not yet been started and is in the
-> +	 *				    process of handling the clearing sample.
-> +	 */
-> +	PANTHOR_PERF_SESSION_STARTING,
-> +
-> +	/** @PANTHOR_PERF_SESSION_ACTIVE: The session is active and can be used for sampling. */
-> +	PANTHOR_PERF_SESSION_ACTIVE,
-> +
-> +	/** @PANTHOR_PERF_SESSION_STOPPING: The session is currently stopping. After emitting the
-> +	 *				    next sample, it will transition to inactive.
-> +	 */
-> +	PANTHOR_PERF_SESSION_STOPPING,
-> +};
-> +
-> +struct panthor_perf_enable_masks {
-> +	/**
-> +	 * @mask: Array of bitmasks indicating the counters userspace requested, where
-> +	 *        one bit represents a single counter. Used to build the firmware configuration
-> +	 *        and ensure that userspace clients obtain only the counters they requested.
-> +	 */
-> +	unsigned long mask[DRM_PANTHOR_PERF_BLOCK_MAX][BITS_TO_LONGS(PANTHOR_PERF_EM_BITS)];
-> +};
+kvm_riscv_vcpu_aia_imsic_inject() writes the interrupt identity to the
+SETIPNUM register of the vCPU's IMSIC VS-file while holding vsfile_lock
+for reading. The lock keeps the VS-file from being switched under the
+injector: kvm_riscv_vcpu_aia_imsic_update() and
+kvm_riscv_vcpu_aia_imsic_release() take it for writing to move the vCPU
+to a new VS-file or to the SW-file, then read and clear the old VS-file
+and free its HGEI line.
 
-Is the array properly sized here? If one bit is a single counter and we can have up to
-PANTHOR_PERF_EM_BITS number of counters in each block up to DRM_PANTHOR_PERF_BLOCK_MAX blocks,
-then what's the sizeof(unsigned long) doing here?
+On RISC-V, writel() is followed only by mmiowb_set_pending(). The
+trailing "fence o,w" is deferred to spin_unlock() by the mmiowb()
+tracking, and rwlocks don't take part in that tracking:
+queued_read_unlock() issues just "fence rw,w" before the AMO, which
+doesn't order device output. So the SETIPNUM write can still be in
+flight after another hart has observed vsfile_lock being released. If
+the old VS-file is read and cleared before the write lands, the
+interrupt is lost. If the HGEI line has already been handed out
+again, the interrupt ends up in another vCPU's VS-file.
 
-Could we use the bitmap.h API instead? Also, use u64 kernel type instead of 'unsigned long'.
+Add an explicit RISCV_FENCE(o, w) after the write to the VS-file, which
+is what spin_unlock() would issue via mmiowb().
 
-> +
->  struct panthor_perf_counter_block {
->  	struct drm_panthor_perf_block_header header;
->  	u64 counters[];
->  };
->  
-> +struct panthor_perf_bo {
-> +	struct drm_gem_object *obj;
-> +	void *vaddr;
-> +};
-> +
-> +struct panthor_perf_session {
-> +	/** @state_lock: Used to protect session state information and overflow bit. */
-> +	struct mutex state_lock;
-> +
-> +	/** @state: The current state of the session. */
-> +	enum panthor_perf_session_state state;
-> +
-> +	/** @overflow: The session is affected by a FW ring buffer overflow. */
-> +	bool overflow;
-> +
-> +	/**  @insert_idx: The insert index in the user-visible buffer for the current session. */
-> +	u64 insert_idx;
-> +
-> +	/**
-> +	 * @accum_idx: Insert index of the populated slot. When this matches @insert_idx,
-> +	 *             accumulate into that slot; otherwise populate a new slot.
-> +	 */
-> +	u64 accum_idx;
-> +
-> +	/** @sample_start_ns: Sample request time, obtained from a monotonic raw clock. */
-> +	u64 sample_start_ns;
-> +
-> +	/**
-> +	 * @user_data: Opaque handle passed in when starting a session, requesting a sample (for
-> +	 *             manual sampling sessions only) and when stopping a session. This handle
-> +	 *             allows the disambiguation of a sample in the ringbuffer.
-> +	 */
-> +	u64 user_data;
-> +
-> +	/**
-> +	 * @eventfd: Event file descriptor context used to signal userspace of a new sample
-> +	 *           being emitted.
-> +	 */
-> +	struct eventfd_ctx *eventfd;
-> +
-> +	/**
-> +	 * @enabled_counters: This session's requested counters. Note that these cannot change
-> +	 *                    for the lifetime of the session.
-> +	 */
-> +	struct panthor_perf_enable_masks *enabled_counters;
-> +
-> +	/** @ringbuf_slots: Slots in the user-facing ringbuffer. */
-> +	size_t ringbuf_slots;
-> +
-> +	/** @ring_buf: BO and mapping for the userspace ringbuffer. */
-> +	struct panthor_perf_bo ring_buf;
-> +
-> +	/**
-> +	 * @control_buf: BO and mapping for the insert and extract indices.
-> +	 */
-> +	struct panthor_perf_bo control_buf;
-> +
-> +	/** @control: The mapped insert and extract indices. */
-> +	struct drm_panthor_perf_ringbuf_control *control;
-> +
-> +	/** @samples: The mapping of the @ring_buf into the kernel's VA space. */
-> +	u8 *samples;
-> +
-> +	/**
-> +	 * @sessions: The list node tracking all registered sessions.
-> +	 */
-> +	struct list_head sessions;
-> +
-> +	/**
-> +	 * @ref: Session reference count. The sample delivery to userspace is asynchronous, meaning
-> +	 *       the lifetime of the session must extend at least until the sample is exposed to
-> +	 *       userspace.
-> +	 */
-> +	struct kref ref;
-> +};
-> +
->  struct panthor_perf {
->  	/** @info: Pointer to the previously initialized perf info. */
->  	struct drm_panthor_perf_info *info;
-> +
-> +	/**
-> +	 * @op_lock: Serializes session operations. Acquire before looking up session
-> +	 *           handles and before a session's state_lock.
-> +	 */
-> +	struct mutex op_lock;
->  };
->  
->  struct panthor_perf_pool {
-> @@ -43,6 +161,9 @@ struct panthor_perf_pool {
->  
->  	/** @xa: Xarray used to manage session handles. */
->  	struct xarray xa;
-> +
-> +	/** @next: Next handle to allocate. */
-> +	u32 next;
->  };
->  
->  static size_t get_annotated_block_size(size_t counters_per_block)
-> @@ -87,6 +208,163 @@ static void panthor_perf_info_init(struct panthor_device *const ptdev)
->  	perf_info->sample_size = session_get_sample_size(perf_info);
->  }
->  
-> +static struct panthor_perf_enable_masks *
-> +panthor_perf_create_em(struct drm_panthor_perf_session_create *const create_args)
-> +{
-> +	struct panthor_perf_enable_masks *const em = kmalloc(sizeof(*em), GFP_KERNEL);
-> +
-> +	if (IS_ERR_OR_NULL(em))
-> +		return em;
-> +
-> +	bitmap_from_arr64(em->mask[DRM_PANTHOR_PERF_BLOCK_FW],
-> +			  create_args->fw_enable_mask, PANTHOR_PERF_EM_BITS);
+Fixes: db8b7e97d613 ("RISC-V: KVM: Add in-kernel virtualization of AIA IMSIC")
+Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+---
+Why RISCV_FENCE(o, w) and not mmiowb():
 
-I think you should move PANTHOR_PERF_EM_BITS into panthor_drm.h and use it to define
-the drm_panthor_perf_session_create structure, otherwise things will get out of sync.
+- Since the mmiowb() rework in v5.2 (e.g. commit 60ca1e5a200c
+  ("mmiowb: Hook up mmiowb helpers to spinlocks and generic I/O
+  accessors")), mmiowb() is an implementation detail of the spinlock
+  code. Explicit invocations were removed from drivers by commit
+  fb24ea52f78e ("drivers: Remove explicit invocations of mmiowb()") and
+  from the documentation by commit 915530396c78 ("Documentation: Kill
+  all references to mmiowb()"), so adding a new direct caller would go
+  against that.
 
-> +	bitmap_from_arr64(em->mask[DRM_PANTHOR_PERF_BLOCK_CSHW],
-> +			  create_args->cshw_enable_mask, PANTHOR_PERF_EM_BITS);
-> +	bitmap_from_arr64(em->mask[DRM_PANTHOR_PERF_BLOCK_TILER],
-> +			  create_args->tiler_enable_mask, PANTHOR_PERF_EM_BITS);
-> +	bitmap_from_arr64(em->mask[DRM_PANTHOR_PERF_BLOCK_MEMSYS],
-> +			  create_args->memsys_enable_mask, PANTHOR_PERF_EM_BITS);
-> +	bitmap_from_arr64(em->mask[DRM_PANTHOR_PERF_BLOCK_SHADER],
-> +			  create_args->shader_enable_mask, PANTHOR_PERF_EM_BITS);
-> +
-> +	return em;
-> +}
-> +
-> +static struct panthor_perf_session *
-> +session_get(struct panthor_perf_session *session)
-> +{
-> +	if (session)
-> +		kref_get(&session->ref);
-> +
-> +	return session;
-> +}
-> +
-> +static int
-> +panthor_perf_bo_get(struct drm_file *file, u32 handle, size_t expected_size,
-> +		    struct panthor_perf_bo *bo)
-> +{
-> +	struct drm_device *ddev = file->minor->dev;
-> +	struct drm_gem_object *obj;
-> +	struct iosys_map map;
-> +	int ret;
-> +
-> +	if (WARN_ON_ONCE(!bo))
-> +		return -EINVAL;
-> +
-> +	obj = drm_gem_object_lookup(file, handle);
-> +	if (!obj) {
-> +		drm_err(ddev, "Could not find handle %d!\n", handle);
-> +		return -EINVAL;
-> +	}
-> +
-> +	if (expected_size && obj->size != PFN_ALIGN(expected_size)) {
-> +		drm_err(ddev,
-> +			"Incorrect BO size from userspace: user %zu vs kernel %lu\n",
-> +			obj->size, PFN_ALIGN(expected_size));
-> +		ret = -ENOMEM;
-> +		goto err_put;
-> +	}
-> +
-> +	ret = drm_gem_vmap(obj, &map);
-> +	if (ret)
-> +		goto err_put;
-> +
-> +	bo->obj = obj;
-> +	bo->vaddr = map.vaddr;
-> +
-> +	return 0;
-> +
-> +err_put:
-> +	drm_gem_object_put(obj);
-> +	return ret;
-> +}
-> +
-> +static void panthor_perf_bo_put(struct panthor_perf_bo *bo)
-> +{
-> +	if (!bo->obj)
-> +		return;
-> +
-> +	if (bo->vaddr) {
-> +		struct iosys_map map = IOSYS_MAP_INIT_VADDR(bo->vaddr);
-> +
-> +		drm_gem_vunmap(bo->obj, &map);
-> +	}
-> +
-> +	drm_gem_object_put(bo->obj);
-> +
-> +	memset(bo, 0, sizeof(*bo));
-> +}
-> +
-> +static void session_free(struct kref *ref)
-> +{
-> +	struct panthor_perf_session *session = container_of(ref, typeof(*session), ref);
-> +
-> +	panthor_perf_bo_put(&session->ring_buf);
-> +	panthor_perf_bo_put(&session->control_buf);
-> +
-> +	kfree(session->enabled_counters);
-> +
-> +	eventfd_ctx_put(session->eventfd);
-> +
-> +	kfree(session);
-> +}
-> +
-> +static void session_put(struct panthor_perf_session *session)
-> +{
-> +	kref_put(&session->ref, session_free);
-> +}
-> +
-> +/**
-> + * session_from_handle - Find a session associated with the pool and session_handle.
-> + *
-> + * @pool: Per-file pool.
-> + * @handle: Session handle.
-> + *
-> + * The reference count of a valid session is increased to ensure it does not disappear
-> + * in the window between the XA lock being dropped and the internal session functions
-> + * being called.
-> + *
-> + * Return: valid session pointer or NULL.
-> + */
-> +static struct panthor_perf_session *
-> +session_from_handle(struct panthor_perf_pool *pool, unsigned long handle)
-> +{
-> +	struct panthor_perf_session *session;
-> +
-> +	xa_lock(&pool->xa);
-> +	session = session_get(xa_load(&pool->xa, handle));
-> +	xa_unlock(&pool->xa);
-> +
-> +	return session;
-> +}
-> +
-> +#define DEFINE_SESSION_STATE_CHECK(name, _state)			     \
-> +	static bool session_is_## name(struct panthor_perf_session *session) \
-> +	{								     \
-> +		lockdep_assert_held(&session->state_lock);		     \
-> +									     \
-> +		return session->state == (_state);			    \
-> +	}
-> +
-> +DEFINE_SESSION_STATE_CHECK(active, PANTHOR_PERF_SESSION_ACTIVE);
-> +DEFINE_SESSION_STATE_CHECK(starting, PANTHOR_PERF_SESSION_STARTING);
-> +DEFINE_SESSION_STATE_CHECK(stopping, PANTHOR_PERF_SESSION_STOPPING);
-> +
-> +static bool session_has_overflow(struct panthor_perf_session *session)
-> +{
-> +	lockdep_assert_held(&session->state_lock);
-> +
-> +	return session->overflow;
-> +}
-> +
-> +static void session_set_state(struct panthor_perf_session *session,
-> +			      enum panthor_perf_session_state state)
-> +{
-> +	lockdep_assert_held(&session->state_lock);
-> +
-> +	session->state = state;
-> +}
-> +
->  /**
->   * panthor_perf_init - Initialize the performance counter subsystem.
->   * @ptdev: Panthor device
-> @@ -110,6 +388,10 @@ int panthor_perf_init(struct panthor_device *ptdev)
->  	if (!perf)
->  		return -ENOMEM;
->  
-> +	ret = drmm_mutex_init(&ptdev->base, &perf->op_lock);
-> +	if (ret)
-> +		return ret;
-> +
->  	drm_info(&ptdev->base, "Performance counter subsystem initialized");
->  
->  	perf->info = &ptdev->perf_info;
-> @@ -118,6 +400,371 @@ int panthor_perf_init(struct panthor_device *ptdev)
->  	return ret;
->  }
->  
-> +/**
-> + * panthor_perf_session_create - Create a user-visible session.
-> + *
-> + * @file: DRM file associated with the request.
-> + * @create_args: Creation arguments passed in via ioctl.
-> + * @sid: Session identifier output.
-> + *
-> + * Creates a new session associated with the session ID returned. When initialized, the
-> + * session must explicitly request sampling to start with a successive call to PERF_SESSION_START.
-> + *
-> + * Return: 0 on success, negative error code on failure.
-> + */
-> +int panthor_perf_session_create(struct drm_file *file,
-> +				struct drm_panthor_perf_session_create *create_args,
-> +				unsigned long *sid)
-> +{
-> +	struct panthor_file *pfile = file->driver_priv;
-> +	struct panthor_device *ptdev = pfile->ptdev;
-> +	struct panthor_perf_bo ringbuffer = {}, control = {};
-> +	const size_t slots = create_args->sample_slots;
-> +	struct panthor_perf_pool *pool = pfile->sessions;
-> +	struct panthor_perf_session *session;
-> +	struct panthor_perf_enable_masks *em;
-> +	size_t user_sample_size;
-> +	u32 session_id;
-> +	int ret;
-> +
-> +	if (!ptdev->perf)
-> +		return -EOPNOTSUPP;
-> +
-> +	if (!pool)
-> +		return -EINVAL;
-> +
-> +	if (!perfmon_capable())
-> +		return -EACCES;
-> +
-> +	session = kzalloc_obj(*session);
-> +	if (ZERO_OR_NULL_PTR(session))
-> +		return -ENOMEM;
-> +
-> +	if (!is_power_of_2(slots)) {
-> +		drm_err(&ptdev->base,
-> +			"Number of slots is not power-of-2 aligned\n");
-> +		ret = -EINVAL;
-> +		goto cleanup_session;
-> +	}
-> +
-> +	user_sample_size = ptdev->perf_info.sample_size * slots;
-> +
-> +	ret = panthor_perf_bo_get(file, create_args->ringbuf_handle,
-> +				  user_sample_size, &ringbuffer);
-> +	if (ret)
-> +		goto cleanup_session;
-> +
-> +	ret = panthor_perf_bo_get(file, create_args->control_handle, 0, &control);
-> +	if (ret)
-> +		goto cleanup_ringbuf;
-> +
-> +	session->eventfd = eventfd_ctx_fdget(create_args->fd);
-> +	if (IS_ERR(session->eventfd)) {
-> +		drm_err(&ptdev->base, "Invalid eventfd %d!\n", create_args->fd);
-> +		ret = PTR_ERR_OR_ZERO(session->eventfd) ?: -EINVAL;
-> +		goto cleanup_control;
-> +	}
-> +
-> +	em = panthor_perf_create_em(create_args);
-> +	if (IS_ERR_OR_NULL(em)) {
-> +		ret = -ENOMEM;
-> +		goto cleanup_eventfd;
-> +	}
-> +
-> +	kref_init(&session->ref);
-> +	INIT_LIST_HEAD(&session->sessions);
-> +	mutex_init(&session->state_lock);
-> +	session->control = control.vaddr;
-> +	*session->control = (struct drm_panthor_perf_ringbuf_control) { 0 };
-> +	session->samples = ringbuffer.vaddr;
-> +	session->enabled_counters = em;
-> +	session->ring_buf = ringbuffer;
-> +	session->ringbuf_slots = slots;
-> +	session->control_buf = control;
-> +	session->accum_idx = U32_MAX;
-> +
-> +	ret = xa_alloc_cyclic(&pfile->sessions->xa, &session_id, session,
-> +			      pfile->sessions->session_range,
-> +			      &pfile->sessions->next, GFP_KERNEL);
-> +	if (ret < 0) {
-> +		drm_err(&ptdev->base, "File session limit exceeded.\n");
-> +		ret = -EBUSY;
-> +		goto cleanup_obj;
-> +	}
-> +
-> +	*sid = session_id;
-> +	return 0;
-> +
-> +cleanup_obj:
-> +	session_put(session);
-> +	return ret;
-> +
-> +cleanup_eventfd:
-> +	eventfd_ctx_put(session->eventfd);
-> +
-> +cleanup_control:
-> +	panthor_perf_bo_put(&control);
-> +
-> +cleanup_ringbuf:
-> +	panthor_perf_bo_put(&ringbuffer);
-> +
-> +cleanup_session:
-> +	kfree(session);
-> +
-> +	return ret;
+- RISCV_FENCE(o, w) states exactly the ordering needed here (device
+  output before the store that releases the lock), which is fine for
+  arch-specific code, and it is the same instruction mmiowb() expands to
+  on RISC-V. wmb() ("fence ow,ow") would also work but is stronger than
+  required.
 
-It's a bit hard to tell what the right answer is here, as there is no user of this function yet,
-but shouldn't sid be cleared even if we return an error?
+Scope: this only orders the write before the lock release. Whether a
+write that is already in global memory order is guaranteed to have
+taken effect in the old VS-file before kvm_riscv_vcpu_aia_imsic_update()
+or kvm_riscv_vcpu_aia_imsic_release() reads and clears it is a separate
+question, see https://github.com/riscv/riscv-aia/issues/172. If it
+isn't, these paths will also need to drain the old VS-file, and such a
+drain depends on the ordering added here.
+---
+ arch/riscv/kvm/aia_imsic.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
+diff --git a/arch/riscv/kvm/aia_imsic.c b/arch/riscv/kvm/aia_imsic.c
+index f17dc559a709..807bb73a129a 100644
+--- a/arch/riscv/kvm/aia_imsic.c
++++ b/arch/riscv/kvm/aia_imsic.c
+@@ -1056,6 +1056,13 @@ int kvm_riscv_vcpu_aia_imsic_inject(struct kvm_vcpu *vcpu,
+ 
+ 	if (imsic->vsfile_cpu >= 0) {
+ 		writel(iid, imsic->vsfile_va + IMSIC_MMIO_SETIPNUM_LE);
++		/*
++		 * rwlocks don't participate in mmiowb() tracking, so order
++		 * the write to the VS-file before releasing vsfile_lock,
++		 * i.e. before the vCPU can be moved off this VS-file and
++		 * the VS-file read and cleared.
++		 */
++		RISCV_FENCE(o, w);
+ 	} else {
+ 		eix = &imsic->swfile->eix[iid / BITS_PER_TYPE(u64)];
+ 		set_bit(iid & (BITS_PER_TYPE(u64) - 1), eix->eip);
 
-> +}
-> +
-> +static int session_try_stop(struct panthor_perf_session *session, u64 user_data)
-> +{
-> +	guard(mutex)(&session->state_lock);
-> +
-> +	if (!session_is_active(session))
-> +		return 0;
-> +
-> +	if (session_is_starting(session))
-> +		return -EBUSY;
-> +
-> +	if (session_is_stopping(session))
-> +		return 1;
-> +
-> +	session_set_state(session, PANTHOR_PERF_SESSION_STOPPING);
-> +	session->user_data = user_data;
-> +
-> +	return 1;
-> +}
-> +
-> +static int session_stop(struct panthor_perf *perf, struct panthor_perf_session *session,
-> +			u64 user_data)
-> +{
-> +	int ret;
-> +
-> +	ret = session_try_stop(session, user_data);
-> +	if (ret <= 0)
-> +		return ret;
-> +
-> +	/* TODO Calls to the FW interface will go here in later patches. */
-> +	return 0;
-> +}
-> +
-> +static int session_try_start(struct panthor_perf_session *session, u64 user_data)
-> +{
-> +	guard(mutex)(&session->state_lock);
-> +
-> +	if (session_is_active(session))
-> +		return 0;
-
-This can be removed as it is checked later?
-
-> +
-> +	if (session_is_stopping(session))
-> +		return -EBUSY;
-> +
-> +	if (session_is_active(session) || session_is_starting(session))
-> +		return 0;
-
-session_try_stop() returns 1 if session_is_stopping(), but here session_try_start() is
-returning 0 if session_is_starting(). Is that intentional? Can we document the meaning
-of the return values as we can't see yet how they are going to be used?
-
-> +
-> +	session_set_state(session, PANTHOR_PERF_SESSION_STARTING);
-> +	session->user_data = user_data;
-> +
-> +	return 1;
-> +}
-> +
-> +static int session_start(struct panthor_perf *perf, struct panthor_perf_session *session,
-> +			 u64 user_data)
-> +{
-> +	int ret;
-> +
-> +	ret = session_try_start(session, user_data);
-> +	if (ret <= 0)
-> +		return ret;
-> +
-> +	/* TODO Calls to the FW interface will go here in later patches. */
-> +	return 0;
-> +}
-> +
-> +static int session_try_sample(struct panthor_perf_session *session, u64 user_data)
-> +{
-> +	guard(mutex)(&session->state_lock);
-> +
-> +	if (!session_is_active(session))
-> +		return -EINVAL;
-> +
-> +	if (session_is_stopping(session))
-> +		return -EBUSY;
-> +
-> +	if (session_has_overflow(session))
-> +		return -EACCES;
-> +
-> +	session->user_data = user_data;
-> +
-> +	return 1;
-> +}
-> +
-> +static int session_sample(struct panthor_perf *perf, struct panthor_perf_session *session,
-> +			  u64 user_data)
-> +{
-> +
-> +	int ret;
-> +
-> +	ret = session_try_sample(session, user_data);
-> +	if (ret <= 0)
-> +		return ret;
-> +
-> +	/* TODO Calls to the FW interface will go here in later patches. */
-> +	return 0;
-> +}
-> +
-> +static int session_try_destroy(struct panthor_perf_session *session)
-> +{
-> +	guard(mutex)(&session->state_lock);
-> +
-> +	if (session_is_active(session))
-> +		return -EINVAL;
-> +
-> +	if (session_is_starting(session) || session_is_stopping(session))
-> +		return -EBUSY;
-> +
-> +	return 0;
-> +}
-> +
-> +/**
-> + * panthor_perf_session_destroy - Destroy the session associated with @handle.
-> + * @pfile: Open panthor file.
-> + * @handle: Session identifier.
-> + *
-> + * Only stopped sessions can be destroyed. Other session states return an error.
-> + *
-> + * Return: 0 on success, negative error code on failure.
-> + */
-> +int panthor_perf_session_destroy(struct panthor_file *pfile, u32 handle)
-> +{
-> +	struct panthor_perf_session *session;
-> +	struct panthor_perf *perf = pfile->ptdev->perf;
-> +	int ret;
-> +
-> +	if (!perf)
-> +		return -EOPNOTSUPP;
-> +
-> +	scoped_guard(mutex, &perf->op_lock) {
-> +		session = xa_load(&pfile->sessions->xa, handle);
-> +		if (!session)
-> +			return -EINVAL;
-> +
-> +		ret = session_try_destroy(session);
-> +		if (ret)
-> +			return ret;
-> +
-> +		xa_erase(&pfile->sessions->xa, handle);
-> +	}
-> +
-> +	session_put(session);
-> +
-> +	return ret;
-> +}
-> +
-> +/**
-> + * panthor_perf_session_start - Start sampling on a stopped session.
-> + * @pfile: Open panthor file.
-> + * @handle: Session identifier for the desired session.
-> + * @user_data: Opaque value passed in from userspace.
-> + *
-> + * A session counts as stopped when it is created or when it is explicitly stopped after being
-> + * started. Starting an active session is treated as a no-op.
-> + *
-> + * Return: 0 on success, negative error code on failure.
-> + */
-> +int panthor_perf_session_start(struct panthor_file *pfile, u32 handle, u64 user_data)
-> +{
-> +	struct panthor_perf_session *session;
-> +	struct panthor_perf *perf = pfile->ptdev->perf;
-> +	int err;
-> +
-> +	if (!perf)
-> +		return -EOPNOTSUPP;
-> +
-> +	guard(mutex)(&perf->op_lock);
-> +
-> +	session = session_from_handle(pfile->sessions, handle);
-> +	if (IS_ERR_OR_NULL(session))
-> +		return IS_ERR(session) ? PTR_ERR(session) : -EINVAL;
-> +
-> +	err = session_start(perf, session, user_data);
-> +
-> +	session_put(session);
-> +
-> +	return err;
-> +}
-> +
-> +/**
-> + * panthor_perf_session_stop - Stop sampling on an active session.
-> + * @pfile: Open panthor file.
-> + * @handle: Session identifier for the desired session.
-> + * @user_data: An opaque value passed in from userspace.
-> + *
-> + * A session counts as active when it has been explicitly started via the PERF_SESSION_START
-> + * ioctl. Stopping a stopped session is treated as a no-op.
-> + *
-> + * To ensure data is not lost when sampling is stopping, there must always be at least one slot
-> + * available for the final automatic sample, and the stop command will be rejected if there is not.
-> + *
-> + * The @user_data will always be associated with the final sample.
-> + *
-> + * Return: 0 on success, negative error code on failure.
-> + */
-> +int panthor_perf_session_stop(struct panthor_file *pfile, unsigned int handle, u64 user_data)
-> +{
-> +	struct panthor_perf_session *session;
-> +	struct panthor_perf *perf = pfile->ptdev->perf;
-> +	int err;
-> +
-> +	if (!perf)
-> +		return -EOPNOTSUPP;
-> +
-> +	guard(mutex)(&perf->op_lock);
-> +
-> +	session = session_from_handle(pfile->sessions, handle);
-> +	if (IS_ERR_OR_NULL(session))
-> +		return IS_ERR(session) ? PTR_ERR(session) : -EINVAL;
-> +
-> +	err = session_stop(perf, session, user_data);
-> +
-> +	session_put(session);
-> +
-> +	return err;
-> +}
-> +
-> +/**
-> + * panthor_perf_session_sample - Request a sample on a manual sampling session.
-> + * @pfile: Open panthor file.
-> + * @handle: Session identifier for the desired session.
-> + * @user_data: An opaque value passed in from userspace.
-> + *
-> + * Only an active manual sampler is permitted to request samples directly. Failing to meet either
-> + * of these conditions will cause the sampling request to be rejected. Requesting a manual sample
-> + * with a full ringbuffer will see the request being rejected.
-> + *
-> + * The @user_data will always be unambiguously associated one-to-one with the resultant sample.
-> + *
-> + * Return: 0 on success, negative error code on failure.
-> + */
-> +int panthor_perf_session_sample(struct panthor_file *pfile, u32 handle, u64 user_data)
-> +{
-> +	struct panthor_perf_session *session;
-> +	struct panthor_perf *perf = pfile->ptdev->perf;
-> +	int err;
-> +
-> +	if (!perf)
-> +		return -EOPNOTSUPP;
-> +
-> +	guard(mutex)(&perf->op_lock);
-> +
-> +	session = session_from_handle(pfile->sessions, handle);
-> +	if (IS_ERR_OR_NULL(session))
-> +		return IS_ERR(session) ? PTR_ERR(session) : -EINVAL;
-> +
-> +	err = session_sample(perf, session, user_data);
-> +
-> +	session_put(session);
-> +
-> +	return err;
-> +}
-> +
->  /**
->   * panthor_perf_unplug - Terminate the performance counter subsystem.
->   * @ptdev: Panthor device.
-> @@ -156,13 +803,15 @@ int panthor_perf_pool_create(struct panthor_file *pfile)
->  void panthor_perf_pool_destroy(struct panthor_file *pfile)
->  {
->  	struct panthor_perf_pool *pool = pfile->sessions;
-> +	unsigned long handle;
-> +	struct panthor_perf_session *session;
->  
->  	if (IS_ERR_OR_NULL(pool))
->  		return;
->  
-> -	if (!xa_empty(&pool->xa)) {
-> -		drm_err(&pfile->ptdev->base,
-> -			"Performance counter sessions active when unplugging the driver!");
-> +	xa_for_each(&pool->xa, handle, session) {
-> +		xa_erase(&pool->xa, handle);
-> +		session_put(session);
->  	}
->  
->  	xa_destroy(&pool->xa);
-> diff --git a/drivers/gpu/drm/panthor/panthor_perf.h b/drivers/gpu/drm/panthor/panthor_perf.h
-> index ad01fc88f18f..641a88edd75a 100644
-> --- a/drivers/gpu/drm/panthor/panthor_perf.h
-> +++ b/drivers/gpu/drm/panthor/panthor_perf.h
-> @@ -7,8 +7,11 @@
->  
->  #include <linux/types.h>
->  
-> +struct drm_file;
-> +struct drm_panthor_perf_session_create;
->  struct panthor_device;
->  struct panthor_file;
-> +struct panthor_perf;
->  struct panthor_perf_pool;
->  
->  int panthor_perf_pool_create(struct panthor_file *pfile);
-> @@ -17,5 +20,13 @@ void panthor_perf_pool_destroy(struct panthor_file *pfile);
->  int panthor_perf_init(struct panthor_device *ptdev);
->  void panthor_perf_unplug(struct panthor_device *ptdev);
->  
-> +int panthor_perf_session_create(struct drm_file *file,
-> +				struct drm_panthor_perf_session_create *setup_args,
-> +				unsigned long *sid);
-> +int panthor_perf_session_destroy(struct panthor_file *pfile, unsigned int handle);
-> +int panthor_perf_session_start(struct panthor_file *pfile, u32 handle, u64 user_data);
-> +int panthor_perf_session_stop(struct panthor_file *pfile, unsigned int sid, u64 user_data);
-> +int panthor_perf_session_sample(struct panthor_file *pfile, unsigned int handle, u64 user_data);
-> +
->  #endif /* __PANTHOR_PERF_H__ */
->  
-> 
-> -- 
-> 2.43.0
-> 
-
-Best regards,
-Liviu
-
-
+base-commit: 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e
 -- 
-====================
-| I would like to |
-| fix the world,  |
-| but they're not |
-| giving me the   |
- \ source code!  /
-  ---------------
-    ¯\_(ツ)_/¯
+2.56.0
+
