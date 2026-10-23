@@ -1,92 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.227
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792775021;
-	b=H/VWDz9YmLiIvThHwxWebusBHbf+V6Rqgdpw3OO7LE+TaFXlQFKfNb9c6eIIsAoiXNVz
-	 nza77QKaRTnpCLtE/4MHPMFnNwmOFF5Ytzu1iaRJKdQE7SLmQo6QIYrH8z2CQKuBsCh8X
-	 qdldIiJvRhT/LHrR1gFARZ+8cFzgdFCYFv1kQt1g/OO4MOvs0wgSXKqA0GDDyJErAaM+d
-	 jLEPQ751ZVjDj4le731khZNfcBEwsPjOjeZKnaqy7X1Z4K2411JBNwgvqVLR5yE48ptEF
-	 qIHb8kzVNFDHGsLePRincJ+DolFJQjl8IqWAcxWV2/xsToc+K8T3Xqwa/4bMuVc3reQ==
+	t=1792775137;
+	b=TtlSh30TuwawyR/B7nP2bNE6xFrPCXBKHA732Pt0EsrGMLetVt28/Yzt3C0XfsW+i03q
+	 2ePFQNB64lJqeGtHkxYenopg68tq1iuSp2GcrZ+pmulB4HPsXibQw0BmqdG8AzUItvxeX
+	 aMHhs4lj1ucZh94ZV5ahdmwIzdjWyv8AYDwEEz7BUvAVsBZa+entXDAyEEG0ebfelUK0u
+	 HpR1f/f2F9WR6IoOyZTIZNidl/u6bi0PK0XGQDn1jfGUKUbtEe0j9rnP6Xeq1xt6+wFWP
+	 WFMW2K9kdB51a9sIbF4n3ZB9AbjTDmP0RIYqCJuEYTUxHv1a71UY+bRqf7gAISciOjQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792775021;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=polE6Ne+EArcPG4oMwjyWJWJOuFChVzLTjy+aFTaauE=;
-	b=VbtB4L28UqktAGKt5yFXazwpgbJXCvythS1OI/u3pj8hZzmmPDo0lVJPlzLh50nqcleE
-	 Z6tw1Nv7FgPWFI4WB88Vq8x7c/fNJiC4j3nueSB4542L+QxBjpnY79U36QHvtohPvd5wa
-	 JvnPJHdiFI3VSbSIcdGcCEiyM5XTiX5OSs+Jarii9iZnwrzazEQ7DMgN7dlN58BmMorX1
-	 7FMEvnAqA7kp6O1Q/EfrynBqjI9KfAbbuprxnEl7IQPtdQIIgN1tw+kxaiHvbv6Gvj4cu
-	 rOyKR9dmD3LJ6O4zzfhGLziLefsweDArQuR5x9gE0xlN1IV0aa0TwwnMQQvCnuW3l2A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792775137;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
+	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Received:X-Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 X-DetectorID-Processed;
+	bh=vQ88d76TUq4k99QsUORpvk5GOBTjh2+OybJMDVnHW0U=;
+	b=2ThWinEjzQB60Zo6NWN4bk7nTi0Y5cPSASSrabYoOCBOkFWEAHoKGS26nXoiy+luyyKR
+	 SvZolFlzsOT8ZsIV0eA6KW6xyaxd2nxujcK7cT3L8+ytZgdNbIfFI5f4STPoA3ulw60RV
+	 FGM1ofsr6GeAORQxsRNJfw0Ce+IwKdD2FGGrqCrj07QBO9HaYPRpfC8zzXqOOF3X2vQ43
+	 AfNbmpZKl3Y2/7FLhvckeE54rBhBVWGUXB/ziJNDETKRQ+sJoBOPkzSAToOrOzb2mrv34
+	 Rr5/CQ8TIcTYoSe89E7/kBQQBTMqC691Sph4mxxNWDRaRIgXZ/byF5zpMBLXQrcutfw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=p7QlVoSx;
-	arc=none smtp.remote-ip=74.125.82.54
-Received: from mail-dl1-f54.google.com (mail-dl1-f54.google.com [74.125.82.54])
+	dmarc=pass header.from=broadcom.com;
+	spf=fail smtp.mailfrom=broadcom.com;
+	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=TONotFIc;
+	arc=none smtp.remote-ip=209.85.215.227
+Received: from mail-pg1-f227.google.com (mail-pg1-f227.google.com [209.85.215.227])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E774606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 17:03:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9E774606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C328606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 17:05:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9C328606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=p7QlVoSx
-Received: by mail-dl1-f54.google.com with SMTP id a92af1059eb24-185fd3a4ca3so994585c88.0
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 10:03:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792775020; x=1793379820; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=polE6Ne+EArcPG4oMwjyWJWJOuFChVzLTjy+aFTaauE=;
-        b=p7QlVoSxrvi72JoxHcA015BxNnYC5AtEDDNId5wRlZRDWzk8mNTwIeOQwus+HmpCII
-         Fva4MAUWU8i9iB/vDIcng0Z0vwwHp1cArmT1wwgE7DeTpvNRQdKwkKYw/sVDZWIQGd4n
-         Gag552fY6ZNbv2gXF7K3R7ZfT2qL7hY35gtVy/9UjMzmgDSX6Z98o4NTLaMBDdmxWeqg
-         osyoTOBoSnfJrKCj+ymLpC+L3xPaw9T7SFE0250lMgwUIGQTsdsU+iIs20FECa6O/dEU
-         viT4C53qcjIMGPEKFRsoa98os4xjwSQuiupJP2w2PB6BTgER2WT/gWYkYfQOnhn/1E2D
-         JZxQ==
+	dkim=pass (1024-bit key, unprotected) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=TONotFIc
+Received: by mail-pg1-f227.google.com with SMTP id 41be03b00d2f7-cd6acc50b8dso477025a12.3
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 10:05:36 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792775020; x=1793379820;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=polE6Ne+EArcPG4oMwjyWJWJOuFChVzLTjy+aFTaauE=;
-        b=JEG1nRTB3qjMHewkHNNZHtzot/FdoQkgYir1H790JjV+JvaWFVjma9uPkj2jcXBgp7
-         8Rfp2VXQesEP1d96Lk7Sn66QE0KmWvXvQTJZ4wqN6FZIZZwmrdSUsYP1YJ6rpdnYR0UC
-         sBSulGnZO6Av9S2TDClY9LSu4euwkidwuB91boPezm9TWAPlvUZtmFAVDMAa0VV5lsrU
-         VOa7hNVBzT0Y+hMOrU1aJ8/rPWISPEEoNkZCcqXoBSMR1tjuNGSsSzMbnmuU90BCB3nd
-         OyyIRQkt7C76VrknMT3X9fXW/JIiRX9AmS3f8QxYVH0Ij7u7CO/z1Q5Fq4L7mh6XShW1
-         t3KQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxkjKZRKRjzf74AKR8sXAXaw1zvzjc3gppl7uG+yv5jjh2QDd7MkHm2yYm2SlMc6xLVE/8ZiOXx2oraDCo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJYOCylgmfgfim1tHxFgDvRVQENYPJS5RzHtSqyWAnvAYTjv+BV
-	F+Mf+WUtjoj4AN1e6yVXikHZUdGCpwJhF9TJxfNIdmfBPBg4q9Job8lXbVGzV1bW
-X-Gm-Gg: AYBFou36vFe55RMwuHKRKW3zlKLgLmYws2ZIsiLqHkHr48FCs8WTDDoiZXw58fGdQvO
-	0lXz5i3YXcbAf3grb1lhVIlJTrR0YOwlYGHNanQXaqdV9Cg1KZ2GcNQ7bACPkqlsvysB4vRyL3a
-	UTg7BRRKvmBDx9/3yfTN5HapN6eaqh7mF+YirXZ7o5GAax+12JbPnFIk/JTtEhmAQxqaZpz9b5V
-	B1GxTqxmJ+ziAmM0N6s/IKNOL6E3y2ryGr2wG+8EVzcbkFblxHYY6Gnh0f0MhYjHK1fypOToVep
-	ecjBl0jpnSxYLJfNtP3YBxSXPs2iwjQAucDeXkkzMLUj3ruV3549I9vWBII2LJXVs6uBSC3MCGg
-	wJpR5U+g8pWrkIg7PydvnvgyLLLH/0TEEC+T34xrDbynjwpeMibbj0HwQ5cZaie2nV/dMYBUau2
-	YOEtlgDJ3Goop9XWULGARGPz2iPEXwIKyig4l2Tn4IkDgshHYJGXSBFRmPeRu4tk41OZlTWxctX
-	AG+py5lH/zPihFMNOx6YDKYO2zQ4V2scXoc0fFe3jtyLWAB4wdvHX9Pw4+68q8uCoqHRQ==
-X-Received: by 2002:a05:701b:2713:b0:14a:51c8:ea06 with SMTP id a92af1059eb24-195c5bc7828mr3380353c88.29.1792775019432;
-        Fri, 23 Oct 2026 10:03:39 -0700 (PDT)
-Received: from Alienware-m16.lan ([45.153.102.184])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-197ed12c43asm1308673c88.21.2026.10.23.10.03.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 23 Oct 2026 10:03:38 -0700 (PDT)
-From: Andrew Luebke <andrew.luebke@gmail.com>
-To: Hannes Reinecke <hare@suse.com>
-Cc: "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
-	"Martin K. Petersen" <mkp@kernel.org>,
-	linux-scsi@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Andrew Luebke <andrew.luebke@gmail.com>
-Subject: [PATCH v2] scsi: aic79xx: Fix NULL pointer dereference in device reset
-Date: Fri, 23 Oct 2026 10:03:30 -0700
-Message-ID: <20261023170330.269844-1-andrew.luebke@gmail.com>
-X-Mailer: git-send-email 2.56.0
+        d=1e100.net; s=20260707; t=1792775136; x=1793379936;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:dkim-signature:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=vQ88d76TUq4k99QsUORpvk5GOBTjh2+OybJMDVnHW0U=;
+        b=RSqe+3QtLMRVp0CWumDpkoHXvqES/TGxruSX7PXySNlmnzTPlrZhY7S+f/Vf7YgEm9
+         SBOA8j4jfWotbEXRNGYJIbMegcKh1DDWnAJFVnC2U0lnPBKrLaQp4gc+z1Xn9ZtVsulS
+         MxP/YTP9/AQur0H0QyM1sDM8XdXOxkRNlVaDahYzpQ4v0crRNo3Kftou8YMcP4H1+vwC
+         XVthLoOPYUysws6g4a8CcI/i79c+QimZzAr06mScQsCZmFYpeeCI+qIYAhYxKoDOIqMt
+         f74Q1JsEBbwQ9EHypDM76doZhp2VivUVt1kQRfgdvuB13tOspxmTsX9za/6+Dj91jl3O
+         JNPw==
+X-Forwarded-Encrypted: i=1; AKwUvBwdV0eTVfzRASBC8RWAQq1SX4KX5oPFEh3W0UKXMhPXWiqEOI2eMdZQaa0qw7rNyN89A9TEH2v1EdMOXPM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJM4gyoVFbUeBRWFfbB2B6c8rD1O0HDm4CGKJCaOEujPLZkNMSp
+	nGFCGxhNOi3Rfz4S8hhZOl8jKo6YIiUVjQkTqfNrhyNHWcIzrTA81evw17B/AR8dgjm+yRUFUY1
+	D5obE9vF6+okBpuVH520s3a+VSKVKEZ13TgQ+kUv70VixwqIqL9a/3Ty/e7g6Bol/MnRsSRBa6V
+	nPVXYBs1OIon8GznQfxcpbRFDEr3eE/xBhEDSz5i7ZXc6UhmOFRkw3hLFtm+UZFpivaHDP2aPmX
+	iVhg31P2y5K0DFV3DPilbWVXmI=
+X-Gm-Gg: AYBFou1+TpYSdpBisuYIqHt24yDRD2/4BsFiZTqSRlrr81YVcoaLgOYtZqnre0/eQ3W
+	8y5CSXIMxqSCsX61ln75d28QFdY5NOCRtW/kuPAD2cPFbOk+ObgmjFWz8d++2coRNMutzIk35W/
+	VB/5MUNyKjuS63mxeQNs8kv0iURQML4L/30IDF24fEMFlqnXMnP4rqX6wM02KM1PpxysA2Bh0e2
+	rFNnqogd5aLL3OvcDbiKX0uJQlZV0N73OrgQSIlQ/GEJ3WZ+5kLoTpYJq7axUT1J+zfyJATDH7n
+	ReajbQtT0//idO2t760jv132BqtMdKLPdM2hdrutD02LedBvtMp5R1N86WdUUHjH1roGot1DsuZ
+	joeRjcCSM+0U9qcB2rxDvBMeLMgRkN2dC3AUWN86TbtqkGC18bwL8txeh7tgT8tJljc+Ghz76UH
+	g6w61C7VwXEEKGo4qWOAAIwuxvurf5yb7laQr8Jt0zv8M=
+X-Received: by 2002:a17:90b:50c7:b0:3ab:ab5a:ef06 with SMTP id 98e67ed59e1d1-3adcdfdb8cfmr2413079a91.12.1792775135800;
+        Fri, 23 Oct 2026 10:05:35 -0700 (PDT)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-125.dlp.protect.broadcom.com. [144.49.247.125])
+        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3adde71a4a6sm465167a91.5.2026.10.23.10.05.35
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Fri, 23 Oct 2026 10:05:35 -0700 (PDT)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-pf1-f197.google.com with SMTP id d2e1a72fcca58-8a0688a43d3so873571b3a.0
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 10:05:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=broadcom.com; s=google; t=1792775134; x=1793379934; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=vQ88d76TUq4k99QsUORpvk5GOBTjh2+OybJMDVnHW0U=;
+        b=TONotFIcEsjwC3NGfPbqU7Ok9em+Wu74s0siedit3WQXY6kk0ZwD51vkgDWiHSY1Kg
+         1FN8LDserUAkaZcSiUSoP3kAz8ZyVwANuhdjO5yxOmNK4B1NkX2Tb4aCqWEfg/C4hMpo
+         xaUJyvcjXOTfWeWx7dB0z1PmTmPmkPPInqoII=
+X-Forwarded-Encrypted: i=1; AKwUvByyPjcY5bE3JYmpS/2AZZ7gLC0yrg9b2Pr72Sf/KCcBVOsrSypSIHhEc4dJDkyQabZ/Y+rXyxSY59xEn5A=@vger.kernel.org
+X-Received: by 2002:a05:6a00:2e95:b0:851:8bde:7873 with SMTP id d2e1a72fcca58-8a2c6279b96mr2405856b3a.8.1792775133726;
+        Fri, 23 Oct 2026 10:05:33 -0700 (PDT)
+X-Received: by 2002:a05:6a00:2e95:b0:851:8bde:7873 with SMTP id d2e1a72fcca58-8a2c6279b96mr2405838b3a.8.1792775133310;
+        Fri, 23 Oct 2026 10:05:33 -0700 (PDT)
+Received: from [10.67.48.245] ([192.19.223.252])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8a3395cedc6sm209312b3a.38.2026.10.23.10.05.31
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 23 Oct 2026 10:05:32 -0700 (PDT)
+Message-ID: <1f1260db-09df-4d42-bfc7-34f9a787176a@broadcom.com>
+Date: Fri, 23 Oct 2026 10:05:30 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,213 +106,79 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH 49/49] ARM: mm: Move CPUHP_AP_ARM_CACHE_B15_RAC_DYING
+ post stop_machine()
+To: Frederic Weisbecker <frederic@kernel.org>,
+ LKML <linux-kernel@vger.kernel.org>
+Cc: Broadcom internal kernel review list
+ <bcm-kernel-feedback-list@broadcom.com>,
+ Marco Crivellari <marco.crivellari@suse.com>,
+ Peter Zijlstra <peterz@infradead.org>, Phil Auld <pauld@redhat.com>,
+ Russell King <linux@armlinux.org.uk>, Thomas Gleixner <tglx@kernel.org>,
+ Waiman Long <longman@redhat.com>, linux-arm-kernel@lists.infradead.org
+References: <20261019130856.49711-1-frederic@kernel.org>
+ <20261019130856.49711-50-frederic@kernel.org>
+Content-Language: en-US, fr-FR
+From: Florian Fainelli <florian.fainelli@broadcom.com>
+Autocrypt: addr=florian.fainelli@broadcom.com; keydata=
+ xsBNBFPAG8ABCAC3EO02urEwipgbUNJ1r6oI2Vr/+uE389lSEShN2PmL3MVnzhViSAtrYxeT
+ M0Txqn1tOWoIc4QUl6Ggqf5KP6FoRkCrgMMTnUAINsINYXK+3OLe7HjP10h2jDRX4Ajs4Ghs
+ JrZOBru6rH0YrgAhr6O5gG7NE1jhly+EsOa2MpwOiXO4DE/YKZGuVe6Bh87WqmILs9KvnNrQ
+ PcycQnYKTVpqE95d4M824M5cuRB6D1GrYovCsjA9uxo22kPdOoQRAu5gBBn3AdtALFyQj9DQ
+ KQuc39/i/Kt6XLZ/RsBc6qLs+p+JnEuPJngTSfWvzGjpx0nkwCMi4yBb+xk7Hki4kEslABEB
+ AAHNMEZsb3JpYW4gRmFpbmVsbGkgPGZsb3JpYW4uZmFpbmVsbGlAYnJvYWRjb20uY29tPsLB
+ IQQQAQgAywUCZWl41AUJI+Jo+hcKAAG/SMv+fS3xUQWa0NryPuoRGjsA3SAUAAAAAAAWAAFr
+ ZXktdXNhZ2UtbWFza0BwZ3AuY29tjDAUgAAAAAAgAAdwcmVmZXJyZWQtZW1haWwtZW5jb2Rp
+ bmdAcGdwLmNvbXBncG1pbWUICwkIBwMCAQoFF4AAAAAZGGxkYXA6Ly9rZXlzLmJyb2FkY29t
+ Lm5ldAUbAwAAAAMWAgEFHgEAAAAEFQgJChYhBNXZKpfnkVze1+R8aIExtcQpvGagAAoJEIEx
+ tcQpvGagWPEH/2l0DNr9QkTwJUxOoP9wgHfmVhqc0ZlDsBFv91I3BbhGKI5UATbipKNqG13Z
+ TsBrJHcrnCqnTRS+8n9/myOF0ng2A4YT0EJnayzHugXm+hrkO5O9UEPJ8a+0553VqyoFhHqA
+ zjxj8fUu1px5cbb4R9G4UAySqyeLLeqnYLCKb4+GklGSBGsLMYvLmIDNYlkhMdnnzsSUAS61
+ WJYW6jjnzMwuKJ0ZHv7xZvSHyhIsFRiYiEs44kiYjbUUMcXor/uLEuTIazGrE3MahuGdjpT2
+ IOjoMiTsbMc0yfhHp6G/2E769oDXMVxCCbMVpA+LUtVIQEA+8Zr6mX0Yk4nDS7OiBlvOwE0E
+ U8AbwQEIAKxr71oqe+0+MYCc7WafWEcpQHFUwvYLcdBoOnmJPxDwDRpvU5LhqSPvk/yJdh9k
+ 4xUDQu3rm1qIW2I9Puk5n/Jz/lZsqGw8T13DKyu8eMcvaA/irm9lX9El27DPHy/0qsxmxVmU
+ pu9y9S+BmaMb2CM9IuyxMWEl9ruWFS2jAWh/R8CrdnL6+zLk60R7XGzmSJqF09vYNlJ6Bdbs
+ MWDXkYWWP5Ub1ZJGNJQ4qT7g8IN0qXxzLQsmz6tbgLMEHYBGx80bBF8AkdThd6SLhreCN7Uh
+ IR/5NXGqotAZao2xlDpJLuOMQtoH9WVNuuxQQZHVd8if+yp6yRJ5DAmIUt5CCPcAEQEAAcLB
+ gQQYAQIBKwUCU8AbwgUbDAAAAMBdIAQZAQgABgUCU8AbwQAKCRCTYAaomC8PVQ0VCACWk3n+
+ obFABEp5Rg6Qvspi9kWXcwCcfZV41OIYWhXMoc57ssjCand5noZi8bKg0bxw4qsg+9cNgZ3P
+ N/DFWcNKcAT3Z2/4fTnJqdJS//YcEhlr8uGs+ZWFcqAPbteFCM4dGDRruo69IrHfyyQGx16s
+ CcFlrN8vD066RKevFepb/ml7eYEdN5SRALyEdQMKeCSf3mectdoECEqdF/MWpfWIYQ1hEfdm
+ C2Kztm+h3Nkt9ZQLqc3wsPJZmbD9T0c9Rphfypgw/SfTf2/CHoYVkKqwUIzI59itl5Lze+R5
+ wDByhWHx2Ud2R7SudmT9XK1e0x7W7a5z11Q6vrzuED5nQvkhAAoJEIExtcQpvGagugcIAJd5
+ EYe6KM6Y6RvI6TvHp+QgbU5dxvjqSiSvam0Ms3QrLidCtantcGT2Wz/2PlbZqkoJxMQc40rb
+ fXa4xQSvJYj0GWpadrDJUvUu3LEsunDCxdWrmbmwGRKqZraV2oG7YEddmDqOe0Xm/NxeSobc
+ MIlnaE6V0U8f5zNHB7Y46yJjjYT/Ds1TJo3pvwevDWPvv6rdBeV07D9s43frUS6xYd1uFxHC
+ 7dZYWJjZmyUf5evr1W1gCgwLXG0PEi9n3qmz1lelQ8lSocmvxBKtMbX/OKhAfuP/iIwnTsww
+ 95A2SaPiQZA51NywV8OFgsN0ITl2PlZ4Tp9hHERDe6nQCsNI/Us=
+In-Reply-To: <20261019130856.49711-50-frederic@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
-Commit c67e63800446 ("scsi: aic79xx: Do not reference SCSI command when
-resetting device") makes ahd_linux_dev_reset() build its TARGET RESET
-SCB with io_ctx set to NULL, but the function still calls
-ahd_set_residual(reset_scb, 0) a few lines later, which is
-scsi_set_resid() on the NULL command. Every call of the device reset
-handler therefore oopses and kills the SCSI error handler thread; all
-further I/O on that host hangs until the machine is power cycled.
+On 10/19/26 06:08, Frederic Weisbecker wrote:
+> Between CPUHP_TEARDOWN_CPU and CPUHP_AP_OFFLINE, stop_machine executes
+> all the teardown callbacks while stopping all CPUs in the system. This
+> doesn't mix-up well with running RT or isolated tasks.
+> 
+> In order to transition smoothly from global stop_machine to finer
+> grained synchronization between teardown callbacks and the other CPUs,
+> a new stop machine post function has been introduced to be executed
+> after the main one with IRQs still disabled while other CPUs can exit
+> stop_machine().
+> 
+> It *looks ok* to disable the cache readahead globally while the other
+> CPUs are running.
 
-Hit on an Intel SE7501WV2S board (on-board AIC-7902, i686, v7.2.9) when
-a failing Ultra320 disk made the error handler escalate to a device
-reset. Both disks on that channel then stayed in D state:
+Yes I think it is safe given that b15_rac_dying_cpu() will run on the 
+dying CPU and any CPU that is left will basically re-enable the RAC 
+afterwards if necessary in b15_rac_dead_cpu().
 
-  sd 1:0:0:0: [sda] tag#287 Attempting to queue a TARGET RESET message:
-  BUG: kernel NULL pointer dereference, address: 0000009c
-  #PF: supervisor write access in kernel mode
-  EIP: ahd_linux_dev_reset.cold+0xee/0x26e
-  Call Trace:
-   scsi_eh_ready_devs+0x538/0x8d0
-   scsi_error_handler+0x3a2/0x3b0
-   kthread+0xd2/0x120
-  note: scsi_eh_1[78] exited with irqs disabled
+The hardware to test this is quite ancient, but if you give me a test 
+case to exercise, I can give it a spin.
 
-(0x9c is resid_len in struct scsi_cmnd on i386.)
-
-Making that call safe is not enough on its own. When the target accepts
-the reset, ahd_handle_nonpkt_busfree() (or, in packetized mode, the task
-management completion) calls ahd_handle_devreset(), and its
-ahd_abort_scbs() walks the target's pending SCBs - the reset SCB
-included - reading and setting their transaction status and freezing
-them through the wrappers in aic79xx_osm.h, which dereference io_ctx.
-The same walk runs if the reset times out and the error handler
-escalates to a bus reset.
-
-Commit c7f4c5dec651 ("scsi: aic79xx: Fix up NULL command in ahd_done()")
-taught ahd_done() about the NULL command, but not these wrappers.
-
-Let every accessor that dereferences the command accept an SCB without
-one. The ahd_cmd_*() helpers for the transaction status and the SCSI
-status check for a NULL command: the transaction status then reads as
-CAM_REQ_INPROG and the SCSI status as SAM_STAT_GOOD, and setting either
-does nothing. ahd_get_transfer_dir(), ahd_get_residual(),
-ahd_set_residual() and ahd_freeze_scb() have no such helper underneath,
-so they check scb->io_ctx themselves: the transfer direction reads as
-DMA_NONE and the residual as 0, while setting the residual and freezing
-the SCB do nothing. The ahd_set_residual(reset_scb, 0) call in
-ahd_linux_dev_reset() is then harmless, and the reset SCB completes
-through ahd_done() as that commit intended. The SCSI status, residual
-and transfer direction accessors get the check so that none of them can
-be handed the reset SCB and crash; the only path from the reset SCB to
-them that is apparent is ahd_handle_scsi_status(), should a packetized
-LUN RESET end in a status error.
-
-ahd_perform_autosense() also declines autosense for an SCB without a
-command. Otherwise a target that answered the reset with CHECK
-CONDITION would have the reset SCB requeued for REQUEST SENSE, and with
-negotiation pending ahd_handle_scsi_status() clears SCB_DEVICE_RESET on
-the way, so ahd_done() would later dereference the missing command.
-Declining leaves such a reset SCB to the reset timeout and the error
-handler's escalation, which completes it through ahd_abort_scbs().
-
-Tested on the SE7501WV2S with this patch applied to v7.2.11 (i686), on
-the disks of its second AIC-7902 channel (160 MB/s DT, not packetized).
-Device resets sent with SG_SCSI_RESET_DEVICE to a Seagate ST373453LW log
-"Bus Device Reset Message Sent" and "Device reset returning 0x2002"
-(SUCCESS), three of them while the disk was being read; the reads
-complete, scsi_eh_1 survives and the disk keeps working. scsi_eh_1 also
-survives a device reset of the channel's other disk - the one behind the
-crash above, which accepts the reset but no longer spins up - and a bus
-reset sent with SG_SCSI_RESET_BUS, after which the first disk still
-works. The device resets go through ahd_handle_devreset() and
-ahd_abort_scbs(), so they exercise the transaction status and freeze
-accessors on the reset SCB. Not tested: the packetized (IU) LUN RESET
-path, a device reset that times out and escalates to a bus reset, and
-the autosense change, since a target here answers TARGET RESET with a
-bus free as SCSI requires. The oops was not reproduced on purpose on an
-unpatched kernel; the crash above came from the failing disk.
-
-Fixes: c67e63800446 ("scsi: aic79xx: Do not reference SCSI command when resetting device")
-Cc: stable@vger.kernel.org
-Signed-off-by: Andrew Luebke <andrew.luebke@gmail.com>
-Assisted-by: LLM
----
-
-Notes:
-    v2:
-     - Keep ahd_set_residual(reset_scb, 0) in ahd_linux_dev_reset(): with
-       the check in ahd_set_residual() the call is safe, and the patch now
-       touches only aic79xx_osm.h (Hannes).
-     - Move the NULL checks for the transaction status and the SCSI status
-       into ahd_cmd_set_transaction_status(), ahd_cmd_set_scsi_status() and
-       the two ahd_cmd_get_*() helpers (Hannes). ahd_set_residual() keeps
-       its check in the SCB wrapper: it calls the midlayer's
-       scsi_set_resid() directly, with no ahd_cmd_*() helper underneath.
-       The same goes for ahd_get_residual(), ahd_get_transfer_dir() and
-       ahd_freeze_scb().
-     - ahd_perform_autosense() returns 0 for an SCB without a command, so a
-       device reset that ends in CHECK CONDITION is not requeued for REQUEST
-       SENSE with SCB_DEVICE_RESET cleared (found by the Sashiko AI review of
-       v1).
-    v1: https://patchwork.kernel.org/project/linux-scsi/patch/20261020221530.2606178-1-andrew.luebke@gmail.com/
-    
-    This analysis, the patch and this changelog were prepared with an LLM coding
-    assistant (Claude Opus 5.5, Anthropic) at my direction; I reviewed them and
-    ran the hardware tests described above. Build-tested with W=1 for
-    x86_64 and i386 on mkp/scsi.git for-next (db8b4d2bf2d3): no new warnings;
-    checkpatch clean. sparse and smatch were not run.
-
- drivers/scsi/aic7xxx/aic79xx_osm.h | 26 +++++++++++++++++++++-----
- 1 file changed, 21 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/scsi/aic7xxx/aic79xx_osm.h b/drivers/scsi/aic7xxx/aic79xx_osm.h
-index c6eb2b97e..1facfd238 100644
---- a/drivers/scsi/aic7xxx/aic79xx_osm.h
-+++ b/drivers/scsi/aic7xxx/aic79xx_osm.h
-@@ -501,6 +501,8 @@ int	ahd_linux_show_info(struct seq_file *,struct Scsi_Host *);
- static inline
- void ahd_cmd_set_transaction_status(struct scsi_cmnd *cmd, uint32_t status)
- {
-+	if (!cmd)
-+		return;
- 	cmd->result &= ~(CAM_STATUS_MASK << 16);
- 	cmd->result |= status << 16;
- }
-@@ -514,6 +516,8 @@ void ahd_set_transaction_status(struct scb *scb, uint32_t status)
- static inline
- void ahd_cmd_set_scsi_status(struct scsi_cmnd *cmd, uint32_t status)
- {
-+	if (!cmd)
-+		return;
- 	cmd->result &= ~0xFFFF;
- 	cmd->result |= status;
- }
-@@ -527,6 +531,8 @@ void ahd_set_scsi_status(struct scb *scb, uint32_t status)
- static inline
- uint32_t ahd_cmd_get_transaction_status(struct scsi_cmnd *cmd)
- {
-+	if (!cmd)
-+		return CAM_REQ_INPROG;
- 	return ((cmd->result >> 16) & CAM_STATUS_MASK);
- }
- 
-@@ -539,6 +545,8 @@ uint32_t ahd_get_transaction_status(struct scb *scb)
- static inline
- uint32_t ahd_cmd_get_scsi_status(struct scsi_cmnd *cmd)
- {
-+	if (!cmd)
-+		return SAM_STAT_GOOD;
- 	return (cmd->result & 0xFFFF);
- }
- 
-@@ -566,13 +574,16 @@ u_long ahd_get_transfer_length(struct scb *scb)
- static inline
- int ahd_get_transfer_dir(struct scb *scb)
- {
-+	if (!scb->io_ctx)
-+		return DMA_NONE;
- 	return (scb->io_ctx->sc_data_direction);
- }
- 
- static inline
- void ahd_set_residual(struct scb *scb, u_long resid)
- {
--	scsi_set_resid(scb->io_ctx, resid);
-+	if (scb->io_ctx)
-+		scsi_set_resid(scb->io_ctx, resid);
- }
- 
- static inline
-@@ -584,6 +595,8 @@ void ahd_set_sense_residual(struct scb *scb, u_long resid)
- static inline
- u_long ahd_get_residual(struct scb *scb)
- {
-+	if (!scb->io_ctx)
-+		return 0;
- 	return scsi_get_resid(scb->io_ctx);
- }
- 
-@@ -597,11 +610,12 @@ static inline
- int ahd_perform_autosense(struct scb *scb)
- {
- 	/*
--	 * We always perform autosense in Linux.
--	 * On other platforms this is set on a
--	 * per-transaction basis.
-+	 * We always perform autosense in Linux, except for the device
-+	 * reset SCB, which has no command to return sense data to.
- 	 */
--	return (1);
-+	if (!scb->io_ctx)
-+		return 0;
-+	return 1;
- }
- 
- static inline uint32_t
-@@ -631,6 +645,8 @@ void	ahd_platform_freeze_devq(struct ahd_softc *ahd, struct scb *scb);
- static inline void
- ahd_freeze_scb(struct scb *scb)
- {
-+	if (!scb->io_ctx)
-+		return;
- 	if ((scb->io_ctx->result & (CAM_DEV_QFRZN << 16)) == 0) {
- 		scb->io_ctx->result |= CAM_DEV_QFRZN << 16;
- 		scb->platform_data->dev->qfrozen++;
-
-base-commit: db8b4d2bf2d3e02b4ff78bbf69d00e11795840de
+Thank you Frederic!
 -- 
-2.47.3
-
+Florian
