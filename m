@@ -1,47 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.15
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792724561;
-	b=MEFPIyGnvbLg7YshK8lnW4a4DdY10NTik1k7SLCc+119dzPFKDIveSvUjnn7CVIv6T+4
-	 GV6pbFPfxpjdg/gwWYX6cRLJ7ZkiDJNi1T1qfKCnasL2cnE/WgzYjEjr7Zv/D7XYplb07
-	 jiyfLIA6LhZHMNl5YHZ8UvSf2GToPB0WhSjMr3nWhGvoFgSWLm2sFhzv+mOUIQpS2F6+g
-	 btemO5S8JTliDQeZw0fDZKtDB0+NS2Ps6WYBSluBHpzdtNUr5bQ1C+tWBtw+VfdnfVqFH
-	 r2LlE380pRYPqnpwekVnEKvxR4pV/WwySptccMlT3kb9qzAtLlii8dMO5takriuYDRQ==
+	t=1792724725;
+	b=DWYyCeeQcV/f4zgQn/PXf0BodUgjAury2tFpw6XA3WMjaohUh54MWiXNR4IUGMVyR+3V
+	 xTv35GHAAYQPfpsV2edGY6zC/il+Ttv2nOAgmbV3QZ6kIKw6rTyITrRhPKL1rSV+8kHzG
+	 fi5XzZFHCRtxfY0ZMiZDpL8tOukWCD9KCJP8zwNUwofAtraqhUg8xJzGJm91ELzPDxCEz
+	 VbzC+y02WX2QfziuRBP9ubueCjOxdtXc/yFVJgcOk1p0RiHGdZGr0Fhn85/uwcQ6Z0EHK
+	 wNgWkKNGCdX9YCw+00nf1yuAhj/wSNZjy/ur/P+pEplnHs1n/LGWUdv+jVnoKEDpfWw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792724561;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:Cc:
-	 Subject:To:References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=i2LKfdGda6ZY97Aypzo1toCAh7ibNeXqCUursQfhIhw=;
-	b=Md6Pd2wKlvUEoZ/Nzk6VDUCDYSbnS0MxB8EZO4atXvA+fa1u+/WZk2j4HjNRgQ7qMdvx
-	 g0aO3fc7eBIHM60AcizMMrhoPqr79+LEE7AWtX5vVtxKXeJCUs+6BfB3zn/zXPd73Ve1y
-	 RMXMhY1ww9OSzfLJxD7CNT2kuoqBO8EVZiJ02qRtCEyOW1C8LhDacZ1I1qKtq8LF9OBza
-	 dbm9N8gtJ22Z2PUQKmANw5ISedbH9e9rGSQwhj57rb57fGtDiEoVexYh5GFhr9Oqbt7SG
-	 2Kh0j62+8rNa1D/JBrsV1h1MWBnLxo+v35MA/sIBtBrSo9YG0/fHzc5RRI/Pfj193Ug==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792724725;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=dhMnfcK1OZCkXS3jlKG9FO2BzWzDeHFEAl52uVGMzYQ=;
+	b=WJaMFYEN1GnvJlzN1TFVMbqW/vFw6lePSKgXL1iNUKWanXQJ9V2u9HwI3Qfe69ipkHH4
+	 BeAQVPLA20mlocWM7weT3Fi0xwEhrLWqAJCXvhY07fwYaBPpKYWKQg/I/0PCf1bIPuXi6
+	 FHmKDpUUeN0H+M8qhKUgURd/gC9BQisdYY8Gsffeo4SnMHddSmik+TAp3VZqgQ2gxjHf3
+	 P1pL9NAl6CmPA8Bkv5WHJBrTVcf9cL2KBBxIlTSJbNOeXKP6f1H0RmTN5Uy7io/OQzdY7
+	 SoUQj5lo861/9Y0pYKKDoNDnX1xxbdCCwJ0ayEobTTee1KYI4DFhbWe41p/GJTYTCRA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jowNzdSy;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=hfrTCGXX;
+	arc=none smtp.remote-ip=198.175.65.15
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FBD5606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 03:02:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 825FF606A31A;
+	Fri, 23 Oct 2026 03:05:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 825FF606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jowNzdSy
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 92E811F01825;
-	Fri, 23 Oct 2026 03:02:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792724560;
-	bh=i2LKfdGda6ZY97Aypzo1toCAh7ibNeXqCUursQfhIhw=;
-	h=Date:Cc:Subject:To:References:From:In-Reply-To;
-	b=jowNzdSyxndERVt3YJ7D6GzpVNlFX/p45KKMps2uugPEUzG96kLDmFjSK9bivdZvL
-	 jmWGU5uzCy121SKbZgoE4NZ2uaf9oO0GVgf7FoDKjNGCZZloL0JaFlH5L5eawfi+Tb
-	 HWgF5gYrPadDlavikJIiofBcpGDOKe7mntnuWYSk538KbFofwabrfNz8qE0t2ft9eA
-	 YyClTCWY79DVS8TGXOn/8c3PSxV1nDGlvT2wMRgysUuvSna9iJ7G5UyR5NYud5bz9W
-	 TmCDj04qOUGkAcvar7WsaM+6zjvMpvT6L9Ltq/jHCshpGBymXusbW35yfMUwkk1WuN
-	 nS4OSdlaYC0WA==
-Message-ID: <3617b48e-513f-418f-be0a-bf9d08d4ac60@kernel.org>
-Date: Fri, 23 Oct 2026 11:02:37 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=hfrTCGXX
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792724725; x=1824260725;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=m6kBOfHooZ1cfrqoSGRtQrUdWdak3kJ0IQfEZasphkQ=;
+  b=hfrTCGXXO4qALU3MDtZeOD8Gckjslq4PUCeweGPEh3941FD8SiBH+ig2
+   w5RcqRLMh5OoZtQmujnVDHeOJ+8XWAwqZu99zlBImpXP3t70olDKDQHSK
+   h/+GXwOn6VbZTj/Ih2lvPDSwrGBzzlxk5b++ExvVhtROIxobV0EGo8lqU
+   bz0iZzi1QgW6/XHq6iWn6dy3P/5LkxKzVmkghwnwhNj7w7VAC8oTZGFYA
+   1aFJFdFcmoAXn529uvSfxMX5Ba7WlvPtWkwHCfI+Aa7/0kQMWPyVxRaaz
+   faO0O79XK1uRbvf4oW7yXVMr29nE7VPfbDo8XONPs5B41e8xiw6I1/UFq
+   Q==;
+X-CSE-ConnectionGUID: 2jeqCt5wQqaUumTlCwDtIg==
+X-CSE-MsgGUID: BK+hi7ExSqmdarmRl6DrYQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11943"; a="1486351"
+X-IronPort-AV: E=Sophos;i="6.27,173,1787036400"; 
+   d="scan'208";a="1486351"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Oct 2026 20:05:24 -0700
+X-CSE-ConnectionGUID: VwG2/CpzQjGR2tAV6iiDaA==
+X-CSE-MsgGUID: myojr/oLQWupJT3IFQPovg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,173,1787036400"; 
+   d="scan'208";a="3403331"
+Received: from binbinwu-mobl.ccr.corp.intel.com (HELO [10.124.245.162]) ([10.124.245.162])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Oct 2026 20:05:21 -0700
+Message-ID: <88de514b-8f83-4b04-82c8-caa6bd5ac976@linux.intel.com>
+Date: Fri, 23 Oct 2026 11:05:16 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,137 +73,88 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Cc: chao@kernel.org, Daeho Jeong <daehojeong@google.com>
-Subject: Re: [f2fs-dev] [PATCH] f2fs: flush devices when a sync checkpoint is
- skipped
-To: Daeho Jeong <daeho43@gmail.com>, linux-kernel@vger.kernel.org,
- linux-f2fs-devel@lists.sourceforge.net, kernel-team@android.com
-References: <20261023023118.3460118-1-daeho43@gmail.com>
+Subject: Re: [PATCH v2 3/3] KVM: TDX: Reject KVM_TDX_INIT_VM if indexed CPUID
+ functions don't match
+To: Sean Christopherson <seanjc@google.com>
+Cc: Paolo Bonzini <pbonzini@redhat.com>, Thomas Gleixner <tglx@kernel.org>,
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+ Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+ Kiryl Shutsemau <kas@kernel.org>, Rick Edgecombe
+ <rick.p.edgecombe@intel.com>, "H. Peter Anvin" <hpa@zytor.com>,
+ kvm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-coco@lists.linux.dev, Changyuan Lyu <changyuanl@google.com>,
+ Sashiko <sashiko-bot@kernel.org>
+References: <20261022210134.612848-1-seanjc@google.com>
+ <20261022210134.612848-4-seanjc@google.com>
+From: Binbin Wu <binbin.wu@linux.intel.com>
 Content-Language: en-US
-From: Chao Yu <chao@kernel.org>
-In-Reply-To: <20261023023118.3460118-1-daeho43@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+In-Reply-To: <20261022210134.612848-4-seanjc@google.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 10/23/26 10:31, Daeho Jeong wrote:
-> From: Daeho Jeong <daehojeong@google.com>
+On 10/23/2026 5:01 AM, Sean Christopherson wrote:
+> Reject KVM_TDX_INIT_VM if userspace doesn't configure the canonical CPUID
+> entries correctly with respect to KVM_CPUID_FLAG_SIGNIFCANT_INDEX to fix a
+> bug where userspace could bypass the TSX and WAITPKG checks by simply not
+> marking a CPUID.0x7 entry as being indexed.  This also sets the stage for
+> more in-depth validation of the incoming CPUID configuration.
 > 
-> When fsync needs a checkpoint, f2fs_do_sync_file() writes and waits for
-> the file data and then relies on the checkpoint to flush the device
-> write caches. syncfs works the same way through f2fs_sync_fs(). But
-> f2fs_write_checkpoint() skips a CP_SYNC or CP_FASTBOOT checkpoint
-> without any flush when SBI_IS_DIRTY is clear.
+> This is obviously an ABI change and diverges from KVM's general approach of
+> "let userspace do what it wants".  In practice, no "real" VMM that supports
+> TDX misconfigures a TD's CPUID entries in this way, i.e. the probability of
+> actually breaking userspace is basically nil.  And unlike normal VMs, where
+> KVM has full control and thus can deal with bizarre CPUID input without too
+> much fuss, TDX VMs require extra care due to the TDX Module also reacting
+> to the CPUID configuration, i.e. KVM_TDX_INIT_VM needs to be more strict
+> than KVM_SET_CPUID{,2} to avoid creating potentially dangerous-to-the-host
+> setups.
 > 
-> That can happen even though the data was just written. A checkpoint
-> does not wait for F2FS_WB_DATA writes, so another checkpoint can commit
-> the new block addresses of the file while its data writes are still in
-> flight, flush the devices before they complete, and clear SBI_IS_DIRTY.
-> The checkpoint requested by fsync is then skipped, and fsync returns
-> while the data may still be in a volatile write cache. After a power
-> cut, the file points to blocks that were never persisted.
+> Opportunistically rename the helper to make it more obvious that it's
+> checking if the passed in @entry is unsupported, as opposed to returning a
+> set of unsupported entries or something.
 > 
-> Flush the write caches of all devices when a sync checkpoint is skipped.
-> 
-> This was found by generic/455 with compression enabled for all files,
-> where every fsync goes through a checkpoint. On a 4KB page kernel, 3 of
-> 100 runs lost fsynced blocks without this patch and none of 100 runs did
-> with it.
-
-Seems we only find this issue on compressed file, can we fix compression
-case only? If compression is disable, it will issue unnecessary preflush
-during syncfs?
-
-Maybe we can add a reference count to track writebacked compressed page.
-
-- increase it during writeback
-- decrease it in write_end_io
-- in f2fs_write_checkpoint
-  - skip if it's zero
-  - otherwise, wait it to be zero & issue flush
-
-Thoughts?
-
-> 
-> Signed-off-by: Daeho Jeong <daehojeong@google.com>
+> Fixes: 6d415778f106 ("KVM: TDX: Disable support for TSX and WAITPKG")
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Closes: https://lore.kernel.org/kvm/20260604024927.E22311F00893@smtp.kernel.org
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Sean Christopherson <seanjc@google.com>
 > ---
->   fs/f2fs/checkpoint.c | 18 ++++++++++++++----
->   fs/f2fs/f2fs.h       |  1 +
->   fs/f2fs/segment.c    | 17 +++++++++++++++++
->   3 files changed, 32 insertions(+), 4 deletions(-)
+>  arch/x86/kvm/vmx/tdx.c | 8 ++++++--
+>  1 file changed, 6 insertions(+), 2 deletions(-)
 > 
-> diff --git a/fs/f2fs/checkpoint.c b/fs/f2fs/checkpoint.c
-> index 1ed38c668fc..158d97fc349 100644
-> --- a/fs/f2fs/checkpoint.c
-> +++ b/fs/f2fs/checkpoint.c
-> @@ -1973,10 +1973,20 @@ int f2fs_write_checkpoint(struct f2fs_sb_info *sbi, struct cp_control *cpc)
->   
->   	stat_cp_time(cpc, CP_TIME_LOCK);
->   
-> -	if (!is_sbi_flag_set(sbi, SBI_IS_DIRTY) &&
-> -		((cpc->reason & CP_FASTBOOT) || (cpc->reason & CP_SYNC) ||
-> -		((cpc->reason & CP_DISCARD) && !sbi->discard_blks)))
-> -		goto out;
-> +	if (!is_sbi_flag_set(sbi, SBI_IS_DIRTY)) {
-> +		if (cpc->reason & (CP_FASTBOOT | CP_SYNC)) {
-> +			/*
-> +			 * The data that fsync or syncfs waited for may have
-> +			 * completed after the last checkpoint flushed the
-> +			 * devices, and that checkpoint may already point to
-> +			 * it, so flush the devices.
-> +			 */
-> +			err = f2fs_flush_all_devices(sbi);
-> +			goto out;
-> +		}
-> +		if ((cpc->reason & CP_DISCARD) && !sbi->discard_blks)
-> +			goto out;
-> +	}
->   	if (unlikely(f2fs_cp_error(sbi))) {
->   		err = -EIO;
->   		goto out;
-> diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
-> index 1f9bd8e3b52..a4a38818988 100644
-> --- a/fs/f2fs/f2fs.h
-> +++ b/fs/f2fs/f2fs.h
-> @@ -4265,6 +4265,7 @@ void f2fs_balance_fs_bg(struct f2fs_sb_info *sbi, bool from_bg);
->   int f2fs_issue_flush(struct f2fs_sb_info *sbi, nid_t ino);
->   int f2fs_create_flush_cmd_control(struct f2fs_sb_info *sbi);
->   int f2fs_flush_device_cache(struct f2fs_sb_info *sbi);
-> +int f2fs_flush_all_devices(struct f2fs_sb_info *sbi);
->   void f2fs_destroy_flush_cmd_control(struct f2fs_sb_info *sbi, bool free);
->   void f2fs_invalidate_blocks(struct f2fs_sb_info *sbi, block_t addr,
->   						unsigned int len);
-> diff --git a/fs/f2fs/segment.c b/fs/f2fs/segment.c
-> index 06fb92fc847..5b015cf9071 100644
-> --- a/fs/f2fs/segment.c
-> +++ b/fs/f2fs/segment.c
-> @@ -822,6 +822,23 @@ int f2fs_flush_device_cache(struct f2fs_sb_info *sbi)
->   	return ret;
->   }
->   
-> +/*
-> + * Flush the write caches of all devices, regardless of which ones received
-> + * writes since the last checkpoint.
-> + */
-> +int f2fs_flush_all_devices(struct f2fs_sb_info *sbi)
+> diff --git a/arch/x86/kvm/vmx/tdx.c b/arch/x86/kvm/vmx/tdx.c
+> index 37d088f6f7a8..6abf92ffec24 100644
+> --- a/arch/x86/kvm/vmx/tdx.c
+> +++ b/arch/x86/kvm/vmx/tdx.c
+> @@ -151,8 +151,12 @@ static void tdx_clear_unsupported_cpuid(struct kvm_cpuid_entry2 *entry)
+>  		clear_waitpkg(entry);
+>  }
+>  
+> -static bool tdx_unsupported_cpuid(const struct kvm_cpuid_entry2 *entry)
+> +static bool tdx_is_unsupported_cpuid_entry(const struct kvm_cpuid_entry2 *entry)
+>  {
+> +	if (cpuid_function_is_indexed(entry->function) !=
+> +	    !!(entry->flags & KVM_CPUID_FLAG_SIGNIFCANT_INDEX))
+> +		return true;
 
-I guess there is an existing function f2fs_flush_device_cache(), I feel we'd
-better reuse it to avoid missing any functionality inside it, right?
+Similar to patch 2, if cpuid_function_is_indexed(entry->function) misses some function,
+the value of cpuid_function_is_indexed(entry->function) is not accurate.
 
-Thanks,
-
-> +{
-> +	int ret, i;
+For current code, it's OK, since all unsupported bits are in leaf 7.
+In the future, with the TDX CPUID validation patch set
+https://lore.kernel.org/all/20261016091422.3182216-6-binbin.wu@linux.intel.com/
+It still allow userspace to by pass some check in theory.
 > +
-> +	if (test_opt(sbi, NOBARRIER))
-> +		return 0;
-> +
-> +	ret = __submit_flush_wait(sbi, sbi->sb->s_bdev);
-> +	for (i = 1; !ret && i < sbi->s_ndevs; i++)
-> +		ret = __submit_flush_wait(sbi, FDEV(i).bdev);
-> +	return ret;
-> +}
-> +
->   static void __locate_dirty_segment(struct f2fs_sb_info *sbi, unsigned int segno,
->   		enum dirty_type dirty_type)
->   {
+>  	return has_tsx(entry) || has_waitpkg(entry);
+>  }
+>  
+> @@ -2393,7 +2397,7 @@ static int setup_tdparams_cpuids(struct kvm_cpuid2 *cpuid,
+>  		if (!entry)
+>  			continue;
+>  
+> -		if (tdx_unsupported_cpuid(entry))
+> +		if (tdx_is_unsupported_cpuid_entry(entry))
+>  			return -EINVAL;
+>  
+>  		copy_cnt++;
 
