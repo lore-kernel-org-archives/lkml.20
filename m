@@ -1,79 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792740799;
-	b=EExSkivrwAzzo1gUgb8ZAyUmyg3GHt/dlE0B8e/VDXDOvpfRcT4jxeqID0Sdlbmz+URO
-	 R2bXWWkeVW4/nJvBM2cpyo1mwNkyDera+EM4RVZj/u9NkTY40q4PFLpW9+SCtzWu/gFP0
-	 MVn90SJejeNhkgsV4GOXTirUqVloXWHBm38+iXWvlG21zLTRrVs0YNJnn/UjPhwSOj6mU
-	 t8TGrwwQacA5x9a49mrEZQoH0Z7SYvKNyi2FFr/ZvpJY1qIbBBUMFi6rxlFbrNZYdxWGe
-	 BgK2ZdSPHzAXcvirI65aBF8jPbO8cA31xBymke9m3p7pj3ANWMCuSX/kBlBZJWghj4A==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792740799;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=DXlkibDr0eUyUlFexrKUMNsRMFOBJ97mIZORHlS7eX0=;
-	b=KTCmJkYtwZF2P3p7i8Coiq5dSYlS1SAhdFnRfq2OWMlyXkE46+P7deWqlU3I7YbtN527
-	 r+E52CIn2P2hHNB6R5/OGNVO11hjRh9/RunkbHW7WmjnrzfgYjkdpYJPOM7xvtwdRjckH
-	 eCVCbLW8Y/UpMyrij2bDKQYUB/J4Mhd5gyURyrX2IvLF5KiIWEKPQA/Osjp4+NmWO4YUM
-	 vyNTLRCqag57eVk5ZHcnpirHJncs1quLWgbvUqyiVAx/BWnA1u3XqrEYUe53cNQ6MFNxB
-	 LObyKQ1fJBfpGi1PohulMeIFSLkK36lx6OUy7cXr0ybHynaqAu1VcoT73PGitLrnLSg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZNfQvBY2;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.171.160.6
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792740814;
+	b=L0ikiMCm0ZvRIktoOO7oba3qTzawtt/QGZ20+upvVdsxzHNWGmcV5iPf8iMzRacNITwc
+	 0rs7mlLoF8/l/HywlqfLQdLy3nxpKEEe9CKCK72tY80TuyP4j6B8XCa0B5Nbvznwaj6Gv
+	 LzQFTnpIGIgUk6mNS8jqal2a4mXdRMHQ3lyn4iCujkCipJafbOvuaOIpG3pd5Bj2AzIvQ
+	 qUp64XomFTQAz3XsAX7Cq0R0h4iw1TB5+6ZUl6F850UZsg4EIBM8pHi04dByugDw70jI1
+	 tAbxrq3S3gdkzYXAa6Av875rIPbW4mgBCNKeTOYRP9O4BN6cncqBebDxVyjLnWFDsLg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792740814;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:Received:
+	 Received:From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 User-Agent:MIME-Version:Content-Type;
+	bh=1/NRRK81574aL6qQ/dopup5TpwruAbTpWIAIiVBAlxw=;
+	b=OcJrNQMSlFyObJaTKzIkO2iT8T1qYmYfZTU3QSoCn1VvvyuHiFX46MkL3PTEfgeesVf2
+	 MEZ5VjdAuzcZ8mlhFBrdcikAcZyBYVPN6LKpQxTZ915q9KDfWesXVPYZdDnWO8W+3mMMx
+	 +hGSsDxIoe/o4y9i9HaD+P7xe0pjuWU3UhmSPH5jKL9KGZX4+Bcd/9i1PkgFkvy3AH7EW
+	 1ErAFdL4zXNndh2KIc/b7kRHjE/VT26rVig32EE26UOFkBF6rvTPDlwH1bdxFssTzRPuN
+	 ihaUlQ0Xo7H1yOMpjYw5GjRS7tOm6lDwvB16YnYjzg3r7+TEmTB1/megsHWZ+iSVJug==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=mail.parknet.co.jp;
+	spf=pass smtp.mailfrom=parknet.co.jp;
+	dkim=pass header.d=parknet.co.jp header.i=@parknet.co.jp header.a=rsa-sha256 header.s=20250114 header.b=QTn4KsBP;
+	dkim=pass header.d=parknet.co.jp header.i=@parknet.co.jp header.a=ed25519-sha256 header.s=20250114-ed25519 header.b=+BEsDf3C;
+	arc=none smtp.remote-ip=210.171.160.6
+Received: from mail.parknet.co.jp (mail.parknet.co.jp [210.171.160.6])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A79E606A324;
-	Fri, 23 Oct 2026 07:33:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B309C606A31F;
+	Fri, 23 Oct 2026 07:33:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B309C606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mail.parknet.co.jp
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=parknet.co.jp
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZNfQvBY2
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1792740799;
-	b=rd7ue05xxdSpH4/mCZSXwKw66p1zO4BLOzmEWnMfSZkBKTVSdDoZxM0owAnUmhJy9gZc
-	 +t2gALfQ5IY6uiVFWgogQyvvMf97UHQVvtOutfs2csrwsxivmaenpJMHzwOJ2rLJkYifA
-	 WvfA+IFE+byaUYj39I/VoeFyn+V5PiBDbSpoURVrn/8AlNg7HicKo0sTdnH6F7UcDi6LA
-	 Yh7F3DjVH1+r3aNM3ynfUCRHTYJzWc/c2/07R7vMXvJ3/NK0lhxYY7UZru7NadmPJ7u09
-	 iZdOK00fhVnqF0hRzNmcazSZgltsWZXVbqxarFy0zicjA4URs0FjC1Ap6Z4qrcTmXjA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1792740799;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=DXlkibDr0eUyUlFexrKUMNsRMFOBJ97mIZORHlS7eX0=;
-	b=MIo5Bm1knn8mQVToCCMd4Jn3pzQxoPhOWW29I9ErcfFKlcLWM+hm63lF1+MeKEva1Qd6
-	 NCzS4qBqAWGxe5c20Ri2wx6My9peuNvxUOGlah4VXZDXa8JJzpJ9oB8TVRgv8juL+QZCG
-	 68sqlFA8oAszWLYc8MO5rC67HN94oqZPtEenoSm2nz+SST4U8UPZdsgDPS5Eb7roOVWQw
-	 APV6sUe9kh5IFgBh9a8lkzfxyiwjiX2QubNlT4N75taFTvDyDUufMEChEXcczGs50Khhv
-	 Z4ISzpJWImX5QCqtyJ+m5l15KDEqyYX1osgG+tZuBuYjsccqWk4vzfN1dryos0UlSmw==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id DF2971F031E2;
-	Fri, 23 Oct 2026 07:33:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792740799;
-	bh=DXlkibDr0eUyUlFexrKUMNsRMFOBJ97mIZORHlS7eX0=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=ZNfQvBY2vmAQxxDMUzg3DBouLY9zqbB9yRtJuBS913YQL7RJZ8HKzQyrDDZM+72Pu
-	 ujvLKC7nkfPZUrLE2hpWBpUB0aNy1oVsyetC1Bo5OfhGumjbldEDv8a1JH3eqE1A2v
-	 buTwZ4TtFqvfmU1wFsiLXUbK6tC07yJRA7yzqUCjf1a/R8Lm6ttPHl00Emuyab9EPE
-	 v3ok1tvJapb3dRtG1PTdtpy733a3xI4RAluumV0vmQj2moqfNh7dxX8EVcNBctCd0J
-	 ypCnbMddeEXK6gh1C/znp9o0CD+grXlOuIPJTGLZrfx0O1ZZ0hNfQpHSHh/tCPOfWT
-	 kb/1MFbLb6+XQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 5AC29443EE;
-	Fri, 23 Oct 2026 07:33:17 +0000 (UTC)
-From: Han Gao via B4 Relay <devnull+gaohan.iscas.ac.cn@kernel.org>
-Date: Fri, 23 Oct 2026 15:33:16 +0800
-Subject: [PATCH 3/5] kexec_file: Honor the segment alignment for CMA
- allocations
+	dkim=pass (2048-bit key, unprotected) header.d=parknet.co.jp header.i=@parknet.co.jp header.a=rsa-sha256 header.s=20250114 header.b=QTn4KsBP;
+	dkim=pass header.d=parknet.co.jp header.i=@parknet.co.jp header.a=ed25519-sha256 header.s=20250114-ed25519 header.b=+BEsDf3C
+Received: from ibmpc.myhome.or.jp (server.parknet.ne.jp [210.171.168.39])
+	by mail.parknet.co.jp (Postfix) with ESMTPSA id 2DAE326F765F;
+	Fri, 23 Oct 2026 16:33:24 +0900 (JST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=parknet.co.jp;
+	s=20250114; t=1792740804;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=1/NRRK81574aL6qQ/dopup5TpwruAbTpWIAIiVBAlxw=;
+	b=QTn4KsBP0on5ZmKclXA31zOlDbIaUFt32mA0Hn6xuVA/7f1MJv33PbMLnzgzzbxgyLAB/5
+	p1p6wpZ3s5M9y33Nmnv8WrqXSj0NZPpgv0DXfb9eNMVU0pTxYxW8HO2huXYJwKsNZeg3u8
+	bWza2p83yjG5lC5qvGovsweGKpI4cVohIOSfigDEHVBfpNT3O7x7R6ExaNgHFVUbL68sim
+	I/GvJdNYKMQe/IPl4r0tGfzKM7B0X0DPK063MmuwYAl9Y6FYBEnvBKfo/Ty2aPiC1CqC8B
+	+FSY/NBLLiQmNWmTRBG64zOKBbIXUIm3SXu/DiEBF+l4SQCLXOzWOht0dCPtlg==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=parknet.co.jp;
+	s=20250114-ed25519; t=1792740804;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=1/NRRK81574aL6qQ/dopup5TpwruAbTpWIAIiVBAlxw=;
+	b=+BEsDf3CxruFE2gABrGnjCp+h/7//gawp/3mJzAT91QbjN9tOy1AW97VQaDBQV90QY3wsy
+	dacZxMb4M4Z5ZhDw==
+Received: from devron.myhome.or.jp (devron.myhome.or.jp [192.168.0.3])
+	by ibmpc.myhome.or.jp (Postfix) with ESMTPS id A781CE00A37;
+	Fri, 23 Oct 2026 16:33:23 +0900 (JST)
+Received: by devron.myhome.or.jp (Postfix, from userid 1000)
+	id 9FCBF2200179; Fri, 23 Oct 2026 16:33:23 +0900 (JST)
+From: OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
+To: Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
+Cc: linux-fsdevel@vger.kernel.org,  linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] fat: preallocate space before expanding in
+ fat_cont_expand()
+In-Reply-To: <20261021154024.56868-1-matheus.aalmeida@inf.ufrgs.br>
+References: <20261021154024.56868-1-matheus.aalmeida@inf.ufrgs.br>
+Date: Fri, 23 Oct 2026 16:33:23 +0900
+Message-ID: <87wlr8j2gs.fsf@mail.parknet.co.jp>
+User-Agent: Gnus/5.13 (Gnus v5.13)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,74 +80,159 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261023-riscv-kexec-cma-fixes-v1-3-825b90ea23c4@iscas.ac.cn>
-References: <20261023-riscv-kexec-cma-fixes-v1-0-825b90ea23c4@iscas.ac.cn>
-In-Reply-To: <20261023-riscv-kexec-cma-fixes-v1-0-825b90ea23c4@iscas.ac.cn>
-To: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
- Nathan Chancellor <nathan@kernel.org>, 
- Nick Desaulniers <ndesaulniers@google.com>, 
- Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
- Andrew Morton <akpm@linux-foundation.org>, 
- Baoquan He <baoquan.he@linux.dev>, Mike Rapoport <rppt@kernel.org>, 
- Pasha Tatashin <pasha.tatashin@soleen.com>, 
- Pratyush Yadav <pratyush@kernel.org>, Yao Zi <me@ziyao.cc>
-Cc: Han Gao <rabenda.cn@gmail.com>, Han Gao <gaohan@iscas.ac.cn>, 
- linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org, 
- llvm@lists.linux.dev, kexec@lists.infradead.org
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792740795; l=1480;
- i=gaohan@iscas.ac.cn; s=20261021; h=from:subject:message-id;
- bh=qJEDPA0ppewD/2akK6SOlKkXPbYM3Y6vYk6RoryMxR0=;
- b=k2WWS6RTJ6LmCg0h1zKhwYN75d0Cz5RFyTNujkDVbhWiDu1L84xl9pr9j0UyBeqXCXktEAl1S
- b8+pMaOPh4vB3By4HbvwIG+rIw9MQ2jqBYyRbEonik0/PRAt8W4WIsi
-X-Developer-Key: i=gaohan@iscas.ac.cn; a=ed25519;
- pk=J8WHEK3filS86QaCaIHDGafqhxKyQ4K7+vFgRirTIiY=
-X-Endpoint-Received: by B4 Relay for gaohan@iscas.ac.cn/20261021 with
- auth_id=1262
-X-Original-From: Han Gao <gaohan@iscas.ac.cn>
-Reply-To: gaohan@iscas.ac.cn
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain
 
-From: Han Gao <gaohan@iscas.ac.cn>
+Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br> writes:
 
-dma_alloc_from_contiguous() limits the requested alignment to
-CONFIG_CMA_ALIGNMENT without reporting it. kexec_alloc_contig() can
-therefore place a segment at a less aligned address than buf_align. On
-RISC-V with 4 KiB pages, the default 1 MiB limit is below the 2 MiB
-kernel alignment, and the new kernel stops at the setup_vm() BUG_ON for
-a misaligned physical address.
+> The fat_cont_expand() implementation leaves allocation of new clusters
+> to generic_cont_expand_simple(). This path does many small cluster
+> allocations, harming performance.
+>
+> Preallocate cluster space in fat_cont_expand(). Move preallocation to
+> a new fat_preallocate() helper used by both fat_cont_expand() and
+> fat_fallocate(FALLOC_FL_KEEP_SIZE).
+>
+> Benchmarking was done under QEMU/KVM with a virtio-blk device using
+> cache=none. Each result is the arithmetic mean of the listed samples.
+>
+> start = now_ns();
+> for (unsigned i = 0; i < count; i++) {
+>     if (truncate_mode)
+>         ftruncate(fds[i], bytes);
+>     else
+>         fallocate(fds[i], 0, 0, bytes);
+> }
+> elapsed = now_ns() - start;
+>
+> 16 files, 512-byte clusters:
+> length    mode      sync?    before    after    improvement    samples
+> 256MiB    ftruncate no       9.576s    5.345s   1.79x          10
+> 256MiB    fallocate no       9.634s    5.640s   1.71x          10
+> 1MiB      ftruncate yes      58.66s    0.362s   162.15x        5
+> 1MiB      fallocate yes      61.36s    0.390s   157.15x        5
+>
+> 128 files, 512-byte clusters:
+> length    mode      sync?    before    after    improvement    samples
+> 512KiB    ftruncate no       0.433s    0.352s   1.23x          10
+> 512KiB    fallocate no       0.446s    0.393s   1.13x          10
+> 64KiB     ftruncate yes      31.32s    0.429s   73.00x         10
+> 64KiB     fallocate yes      29.59s    0.410s   72.42x         10
+>
+> 16 files, 4096-byte clusters:
+> length    mode      sync?    before    after    improvement    samples
+> 256MiB    ftruncate no       5.181s    4.417s   1.17x          10
+> 256MiB    fallocate no       5.166s    4.442s   1.16x          10
+> 1MiB      ftruncate yes      9.294s    0.111s   84.06x         10
+> 1MiB      fallocate yes      8.710s    0.110s   79.36x         10
+>
+> The biggest improvement is on filesystems with a small cluster size and
+> on synchronous mounts.
+>
+> Signed-off-by: Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
+> ---
+>
+> Changes in v2:
+> - fat_cont_expand(): Hold truncate_lock around fat_truncate_blocks().
+>
+> This patch depends on:
+> https://lore.kernel.org/linux-fsdevel/20261012171106.146243-1-matheus.aalmeida@inf.ufrgs.br/T/#t
+>
+>  fs/fat/file.c | 56 ++++++++++++++++++++++++++++++++++-----------------
+>  1 file changed, 37 insertions(+), 19 deletions(-)
+>
+> diff --git a/fs/fat/file.c b/fs/fat/file.c
+> index 3aa541c6b127..dd0ae795dc14 100644
+> --- a/fs/fat/file.c
+> +++ b/fs/fat/file.c
+> @@ -217,15 +217,50 @@ const struct file_operations fat_file_operations = {
+>  	.setlease	= generic_setlease,
+>  };
+>  
+> +static int fat_preallocate(struct inode *inode, loff_t new_size)
+> +{
+> +	int nr_cluster; /* Number of clusters to be allocated */
+> +	loff_t mm_bytes; /* Number of bytes to be allocated for file */
+> +	loff_t ondisksize; /* block aligned on-disk size in bytes*/
+> +	struct super_block *sb = inode->i_sb;
+> +	struct msdos_sb_info *sbi = MSDOS_SB(sb);
+> +
+> +	ondisksize = inode->i_blocks << 9;
+> +	if (new_size <= ondisksize)
+> +		return 0;
+> +
+> +	/* First compute the number of clusters to be allocated */
+> +	mm_bytes = new_size - ondisksize;
+> +	nr_cluster = (mm_bytes + (sbi->cluster_size - 1)) >>
+> +		     sbi->cluster_bits;
+> +
+> +	/* Allocate the clusters. We are not zeroing them out */
+> +	return fat_add_clusters(inode, nr_cluster);
+> +}
+> +
+>  static int fat_cont_expand(struct inode *inode, loff_t size)
+>  {
+>  	struct address_space *mapping = inode->i_mapping;
+>  	loff_t start = inode->i_size, count = size - inode->i_size;
+>  	int err;
+>  
+> -	err = generic_cont_expand_simple(inode, size);
+> +	/*
+> +	 * Preallocating space here is more efficient than during
+> +	 * generic_cont_expand_simple() because of batching.
+> +	 */
+> +	err = inode_newsize_ok(inode, size);
+>  	if (err)
+>  		goto out;
+> +	err = fat_preallocate(inode, size);
+> +	if (err)
+> +		goto out;
+> +	err = generic_cont_expand_simple(inode, size);
+> +	if (err) {
+> +		down_write(&MSDOS_I(inode)->truncate_lock);
+> +		fat_truncate_blocks(inode, inode->i_size);
+> +		up_write(&MSDOS_I(inode)->truncate_lock);
 
-Release such a block and fall back to the regular memory hole search,
-which honors the alignment.
+Is this fat_truncate_blocks() really required?
 
-Fixes: 07d24902977e ("kexec: enable CMA based contiguous allocation")
-Signed-off-by: Han Gao <gaohan@iscas.ac.cn>
----
- kernel/kexec_file.c | 7 +++++++
- 1 file changed, 7 insertions(+)
-
-diff --git a/kernel/kexec_file.c b/kernel/kexec_file.c
-index 59fb9d71e9d8..6ce10e01414e 100644
---- a/kernel/kexec_file.c
-+++ b/kernel/kexec_file.c
-@@ -690,6 +690,13 @@ static int kexec_alloc_contig(struct kexec_buf *kbuf)
- 
- 	mem = page_to_boot_pfn(p) << PAGE_SHIFT;
- 
-+	/* dma_alloc_from_contiguous() caps the alignment at CONFIG_CMA_ALIGNMENT. */
-+	if (!IS_ALIGNED(mem, kbuf->buf_align)) {
-+		pr_debug("CMA block 0x%lx is not aligned to 0x%lx\n", mem, kbuf->buf_align);
-+		dma_release_from_contiguous(NULL, p, nr_pages);
-+		return -EINVAL;
-+	}
-+
- 	if (kimage_is_destination_range(kbuf->image, mem, mem + kbuf->memsz)) {
- 		/* Our region is already in use by a statically defined one. Bail out. */
- 		pr_debug("CMA overlaps existing mem: 0x%lx+0x%lx\n", mem, kbuf->memsz);
+> +		goto out;
+> +	}
+>  
+>  	fat_truncate_time(inode, NULL, FAT_UPDATE_CMTIME);
+>  	mark_inode_dirty(inode);
+> @@ -263,12 +298,7 @@ static int fat_cont_expand(struct inode *inode, loff_t size)
+>  static long fat_fallocate(struct file *file, int mode,
+>  			  loff_t offset, loff_t len)
+>  {
+> -	int nr_cluster; /* Number of clusters to be allocated */
+> -	loff_t mm_bytes; /* Number of bytes to be allocated for file */
+> -	loff_t ondisksize; /* block aligned on-disk size in bytes*/
+>  	struct inode *inode = file->f_mapping->host;
+> -	struct super_block *sb = inode->i_sb;
+> -	struct msdos_sb_info *sbi = MSDOS_SB(sb);
+>  	int err = 0;
+>  
+>  	/* No support for hole punch or other fallocate flags. */
+> @@ -281,19 +311,7 @@ static long fat_fallocate(struct file *file, int mode,
+>  
+>  	inode_lock(inode);
+>  	if (mode & FALLOC_FL_KEEP_SIZE) {
+> -		ondisksize = inode->i_blocks << 9;
+> -		if ((offset + len) <= ondisksize)
+> -			goto error;
+> -
+> -		/* First compute the number of clusters to be allocated */
+> -		mm_bytes = offset + len - ondisksize;
+> -		nr_cluster = (mm_bytes + (sbi->cluster_size - 1)) >>
+> -			sbi->cluster_bits;
+> -
+> -		/* Allocate the clusters. We are not zeroing them out */
+> -		err = fat_add_clusters(inode, nr_cluster);
+> -		if (err)
+> -			goto error;
+> +		err = fat_preallocate(inode, offset + len);
+>  	} else {
+>  		if ((offset + len) <= i_size_read(inode))
+>  			goto error;
 
 -- 
-2.55.0
-
-
+OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
