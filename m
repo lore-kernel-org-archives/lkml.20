@@ -1,114 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.175
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792782058;
-	b=X9YUcj2Gk6Ot6bbVpZmG4OBCrEsb68lFnLWPt1+CRDjUUMTnJqMcXd7mTPvh9zLmEEc3
-	 W3aM/GECXem8osuYt5VruKR2PFdQqO5sE6BGVWWpf0gOCcpMtryWwwx2VjzdV14d0Ys8H
-	 d8JbN0YJDyxSw6NuTUwzlzxYf9vGuFpv+hUILfGVlcVtz59hdDRAtk56dpRF0R2Qdmzn5
-	 9zkATeWKHogct+MW+ba/qMwYz+ZTVGg8VsosrMl5z/3sQrrcVYhMerhTlOYTv2iSHhE+U
-	 JOcFdGqNNEzFrukPJQ5nJmTI2qOI0TZeM3SCuuRIhf3aITDlK4y3PU4qgPEqKCAJKsg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792782058;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=5tf4s8d8+MZT/ng3kYJALwtT1EAbBRaxelT7QvlTQng=;
-	b=wFRpl+VsCfUEcjnLU5+VIE2flNNpUcpi+vANw8SA4oroZbd0SdiSR6tKMZjHpGnO9zqo
-	 D02p7uirply5+fmOtDLbuk1KBSRHkEgkpF6bgW4Qw3949QqHZ5ifV9EDto4GqErd/bz10
-	 RfUYt3TQRnTRGrenw6hCjuKkwb4MLnAiOfaEWg+uOwt4NEl/ZYScTWC4sUgapHAiKLIgn
-	 HnWl1YXOhRu4rubJx4Vc0WcnrQxbklMqu+N0Y2C/V4oN+fxVC/Ao2dgmqUR9GJaR5r82f
-	 wPOBldWsvM9C7L0nRL1KEkeug8YDlHdzOIBg+fdH3tE+Ic7wsvHlIlc5vc/YTKpHBdA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=ziepe.ca;
-	spf=pass smtp.mailfrom=ziepe.ca;
-	dkim=pass header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=bzc4Cg9j;
-	arc=none smtp.remote-ip=209.85.160.175
-Received: from mail-qt1-f175.google.com (mail-qt1-f175.google.com [209.85.160.175])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792782075;
+	b=jm2V7Vs+fFlsArjswCqpWGuJuFfhcYsLNN1xp/iypthK6EnM2W0KtoZ20SGAS/hbsyHe
+	 S4D5tysbTK2V5Qu1plKOaCQnVvZtFu3W2icQJGaTOeYTU/Al4UppfZiSE9QPGporJ3D2y
+	 iFT7XM1HV+7eFEh5QN+mWi3Q+n1uPVZOwV21pF3/jgm18Az74jUcQsW3/qkH+unt4HOTd
+	 4kexelSaD7PwKePeoMGPiK7dPH0qplK2OqUY/qlp4akGhTN6ydppq4aVA9LyVkpZl8YhZ
+	 NipKPXeBgTOydCLn7Ggm78sMM25ZF/gjO0WZpccMsc9p/dIGgMu/AXshOzQTXY9rdTw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792782075;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=nGYCPsfcbMly9Cdl3agj4uCtl9UA26S8HQ99NyRIlkY=;
+	b=41c8IO0lBLF5YmWuP7VazTcKdeFYy99zkfxotTXj+Jd8xp3uV9lF2wIzCVKYIhMWE/5v
+	 uIs181J+AfAU2ZE42KxTZ0MXOmKDVXTKzYVm5INSwEs9OhGGHnIvF5bgiuVknwoF8V6SE
+	 FAenKqunvcTXs04ojjlLgB5UIYCwmMfcn4+yoKGyvenBaYxOwsl4pxjFlBs2hyNVFmvam
+	 9y/Abn6i9ybxIXju466iGAErLR7TD1yfGEQhqUT+4sPLafdkmP07n/3eA+hlZuwMShAcS
+	 l/pwguKqWub/68oZ46Ya4F2c/28GLUieMLGYehbxGYPyTuiTYPKzCsHVPzpJE3oYbEw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QGu+ek8H;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F335606A321;
+	Fri, 23 Oct 2026 19:01:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QGu+ek8H
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1792782075;
+	b=fbnMe8BK/37wfiniUgE1niUR2tjqonK/Q659z12p5W0HT5MVKiZ1JcsaAD6ng0V6XejT
+	 xFAlWDRsc3KUh9eGsySS6Ai8Qm8NOTpCZQzxjeYOxxPXv7lvdkBlPYgmHa4RFe13M7u5h
+	 NkfCqmTeJsR1zClkW1ZbqnjZk4F3qZptRNho4/pY/MofiIRIvxSkPGu9VqmJeP4F4MQOZ
+	 EGFT0D1U4oKDqCd8VxM5MaKUbuitBtKhCmcHAZIVBWYNckND4QiKSKFA19AXGuRRkEzZH
+	 zakQS+DdsFRGHJthG96Q+0b1SvzZrFY4k+qdMlnozb5lkJi2oZfXMpRsK/JaILEG1KQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1792782075;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=nGYCPsfcbMly9Cdl3agj4uCtl9UA26S8HQ99NyRIlkY=;
+	b=Qj1kt1krx3H7Wt6vjgZl7WHxHqytrkNPEN8IPnwCkRvq3L8569PeMwQtREqOPfta7lN3
+	 4CB+iwLnmht9eRMN04uC5isrevjF3weU5rD3I06UmCpofPu3ZYfYsWNWzk1aRcAfDApg2
+	 u8QxMmEO56dEktvZzgh6oAoL02W6qrMOrVyp6IbQulIm9C6GaUASz1G/VISKYxtM6POpm
+	 zmlkK1ejifii1CheWtjulj7MAvdp4/Tntc81lviyCAvNmthg4tngci/QHupyVwfjpTiM5
+	 Rp1BDuxn+hIO4YUZjX52Z5vckRoO56OjrNUvm1Aao36oeUf33WiUJJsHMruDwpnCjGQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5F35606A322
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 19:00:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E5F35606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=bzc4Cg9j
-Received: by mail-qt1-f175.google.com with SMTP id d75a77b69052e-53397554beaso12640381cf.3
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 12:00:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ziepe.ca; s=google; t=1792782039; x=1793386839; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=5tf4s8d8+MZT/ng3kYJALwtT1EAbBRaxelT7QvlTQng=;
-        b=bzc4Cg9jHc+EwZ+EF2GHA00SaE7XNzyRJ2jPm8VaHgqzKDLrehIHY+5e8wqB1yH17y
-         sndSYk22aMmceP9P1fMLTu0Z4V8EzlM2RGsFmTw4gK3j741dLn2NCvrwBRx9Zs2Y9Nrl
-         IH1Flz0MwkfAlUgvicHD3GXb1HCVFF/PCxVAEn/OVSguv9eR9Zs++ljRZWXpHTqI+xAr
-         rfcFCA7qmIwN9IxX9GeYG2HRZ3YRwMSM0MH1BmgGZbTGcamONR+rAGI29PTmp5avInXD
-         sAUAnL9pEXhpYTml9nJyCuJ6EjWQTeYXwbhCn5SvYnMgGcHEU9aguEL9UamXbiSuNSk7
-         hQSA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792782039; x=1793386839;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=5tf4s8d8+MZT/ng3kYJALwtT1EAbBRaxelT7QvlTQng=;
-        b=CJL2GBhcTMgHFrR5FbeNAPCN+qPeMH6RRzaR3PwB9qxQAlm/jxFxavS+mlnOgMaIg7
-         +tNtCZ3j+FADwdGtsyhpH2iNHTckpzk6swe8erTR26t0Kt0DdpNjVB6zF2zm66v9Redw
-         eaoOIQ+m+aNsXGfhuwtxUh7ILai7Mr8Jl76vk6VyavmGc7jllxzyxmu4NRhj3aOWLI3g
-         kSUwZM08MtxpBW60njMOm1nBYrTulMBoZPipPOm3P38dNfpkiFYSNxtGXzas8IdZUNOG
-         bWngo4yv3yGWAiD+5ZjvcknBXH2q9sn9pfxU/3ENFYA3yOKfvPNeukZWozw5J10HyyGt
-         LNPQ==
-X-Forwarded-Encrypted: i=1; AKwUvBywBkF/QUqSbqu5+bWjS3QL/ITg98a0Tj+DW48RaVpuoChIDfAhyIk8Rj6TqTHrZ2JsnTx79zNSFjVxkLY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJWeKUm6hT9lKNE6X6Z63VVzPx/KfY4Vw7ViSN1RK9RpjXOtSgT
-	ycPQQllI0yBCyIpeGorB5XkQT0YWQD1Pu1ckyYrS01tPsCLX8jyo6httggKgQt1Stpg=
-X-Gm-Gg: AYBFou0pdG0meZpGmplQs9t4ssebSME5A51Ku03MgBqzYEERqpK1CQyBrIZEZfmkPSu
-	KmTc7cAmKDlEKA6tbnNiyEMyKDbkJ28peY0SiX20jUvFYdZvyuXuH67u9t3AgTatbcOQvDRdOvg
-	If1/aXhbaGqvPhpTSaokGB4pMGHPdP2nS+pOdTK7GvW2tbCh/WXPQZfsY/j4P+LxQA/6mxGqf43
-	U/fpL3C/8UiBd+SNKk14eSLlryR6j4biEzA8zE1b+MSOk9F5hEIO7Bi6rh+nXwIAPaCe7Q0oYdM
-	VFNw7792cTEe9fom0rsJMIJks8ltGDspoDxQ0xaRRE+Hj9F2V7a+w03s/SFn/8mWKpICZQQ9va+
-	HXlQrHROIAmp14unMj9EfwAEj93X0aPTVtJPaeFQAm5bN3xczgsW+OMPShkmIcP44WU2ME7vQ7D
-	4BX067G6VDFl6q2vW0VrIbzaQvpEtgpDc1SYKPWqT8mFr7enEtrANrpT4rL3/Seex6uCbWMls9a
-	RDDbIAigM4Zo7R0hagEgwfwnBUAMGtuMXAh/SDs9og2qNSZtCUCCT1RLwcuWC21BRqcEiyn9Te5
-	3K7VfqWxv/5LDUatM8xNSl3UrCM6yq5TP6yYkg==
-X-Received: by 2002:ac8:5d8e:0:b0:535:a5f9:7520 with SMTP id d75a77b69052e-536c26e2168mr47897061cf.63.1792782038589;
-        Fri, 23 Oct 2026 12:00:38 -0700 (PDT)
-Received: from ziepe.ca (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net. [159.2.239.150])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-53839709ed6sm1185741cf.16.2026.10.23.12.00.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 23 Oct 2026 12:00:37 -0700 (PDT)
-Received: from jgg by wakko with local (Exim 4.97)
-	(envelope-from <jgg@ziepe.ca>)
-	id 1xKKVI-0000000GxzN-4BG5;
-	Fri, 23 Oct 2026 16:00:36 -0300
-Date: Fri, 23 Oct 2026 16:00:36 -0300
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: Bjorn Helgaas <helgaas@kernel.org>
-Cc: Leon Romanovsky <leon@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
-	Logan Gunthorpe <logang@deltatee.com>,
-	"Joerg Roedel (AMD)" <joro@8bytes.org>,
-	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
-	Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
-	Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
-	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org, iommu@lists.linux.dev,
-	Tushar Dave <tdave@nvidia.com>, linux-media@vger.kernel.org,
-	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
-	linux-rdma@vger.kernel.org, kvm@vger.kernel.org,
-	Chaitanya Kulkarni <kch@nvidia.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jens Axboe <axboe@kernel.dk>, Alex Williamson <alex@shazbot.org>,
-	Ankit Agrawal <ankita@nvidia.com>, Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Sumit Semwal <sumit.semwal@linaro.org>
-Subject: Re: [PATCH v9 02/18] PCI/P2PDMA: Derive routing from directional ACS
- controls
-Message-ID: <20261023190036.GL3977851@ziepe.ca>
-References: <20261023155914.GK3977851@ziepe.ca>
- <20261023182715.GA2798722@bhelgaas>
+	by smtp.kernel.org (Postfix) with ESMTPS id 78F0E1F01825;
+	Fri, 23 Oct 2026 19:01:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792782075;
+	bh=nGYCPsfcbMly9Cdl3agj4uCtl9UA26S8HQ99NyRIlkY=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=QGu+ek8HTZyJPrCcSM57xS/678ni00NxRMfPIIo4gZ+NT3pbRCfHQO8kXM2N67yGd
+	 BKWaBFjEEoeY4WZSYfZiAb3zAnqcPsgBVvzCWWTCRQzJjiJBx4HNHKuuHgV0l1aTyX
+	 P0ZvvLS8FEH2GDDl+cejPQdwDs7ceiEjmU9oS/iJgMyJE/74hOsOvUs01I62RTn26h
+	 FMzpxP9weA3jFDqo3KRisDEOHr3BcCyG68cJeS+yYNFvdwkhV/5tRw455AU795a4OW
+	 rkUlQ05hECGZO0qmdC3gmsghtK0VcrDtvYvToGcq5YoOdf2dQBeFiWGnR5JhOiVMMM
+	 oSkRx9jaCVuVA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id F1694445C4;
+	Fri, 23 Oct 2026 19:01:13 +0000 (UTC)
+From: In-Ho Yi via B4 Relay <devnull+chajath.gmail.com@kernel.org>
+Date: Fri, 23 Oct 2026 12:01:14 -0700
+Subject: [PATCH] ceph: drop local lock records on unlock when the inode is
+ shut down
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -118,34 +83,189 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261023182715.GA2798722@bhelgaas>
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261023-b4-ceph-lock-shutdown-v1-1-f9b1fd9ec026@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAPmu22oC/yXMQQ6CMBBA0auQWTsJHYiiVzEsShnoqGlJB5SEc
+ HerLN/i/w2Uk7DCrdgg8VtUYsgwpwKct2FklD4bqKSzKanCrkbHk8dXdE9Uv8x9/AQkso1tqsF
+ cLwS5nRIPsv6/9/awLt2D3fybwb5/AVnniR95AAAA
+X-Change-ID: 20261023-b4-ceph-lock-shutdown-22a8a83f1972
+To: Ilya Dryomov <idryomov@gmail.com>, Alex Markuze <amarkuze@redhat.com>, 
+ Viacheslav Dubeyko <slava@dubeyko.com>
+Cc: Jeff Layton <jlayton@kernel.org>, Chuck Lever <cel@kernel.org>, 
+ ceph-devel@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+ In-Ho Yi <chajath@gmail.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792782073; l=7346;
+ i=chajath@gmail.com; s=20261023; h=from:subject:message-id;
+ bh=+pvZYq2uetz94bDu77OTApmOEKJmxic7xGUKyuCGZsU=;
+ b=Rqo6VGr6IO5+tAuvi9T5578N78QGo8tFgPEsuDl7JtEauaFcqQtha9MP9taxnpE4knYG/8vC9
+ rG5H1YuhaT+DIH6Nii0T9ateBSVKSomKTY2UWhzvqJUxh8bRP0EUg3F
+X-Developer-Key: i=chajath@gmail.com; a=ed25519;
+ pk=4pEtHrGeq+cVNkwaKkqXc/36aMjHqHRtQSsE85awtG0=
+X-Endpoint-Received: by B4 Relay for chajath@gmail.com/20261023 with
+ auth_id=1295
+X-Original-From: In-Ho Yi <chajath@gmail.com>
+Reply-To: chajath@gmail.com
+Content-Transfer-Encoding: 7bit
 
-On Fri, Oct 23, 2026 at 01:27:15PM -0500, Bjorn Helgaas wrote:
+From: In-Ho Yi <chajath@gmail.com>
 
-> > Yes, the ACS combination is selected to avoid ordering issues
-> 
-> Does a user have any way to know whether the configuration is safe?
+ceph_lock() and ceph_flock() return -ESTALE as soon as
+ceph_inode_is_shutdown() is true. That refuses unlocks too, so the lock
+record the VFS keeps for the inode is never removed.
 
-No, unfortunately in PCIe so much is really difficult when it comes to
-deployment :(
+On close, locks_remove_posix() and locks_remove_flock() send an F_UNLCK
+through ->lock and ->flock and ignore the result: the filesystem has to
+drop its local records whether or not the server can be told. nfs and
+cifs do so, and ceph itself does when CEPH_I_ERROR_FILELOCK is set. On a
+shut-down inode, __fput() only warns "Leaked POSIX lock" or "Leaked
+FLOCK lock" and frees the file. The record stays on the inode's lock
+list and on the global file_lock_list with flc_file pointing at the
+freed file. It also keeps the inode reference taken by
+ceph_fl_copy_lock(), so the final unmount reports "VFS: Busy inodes
+after unmount of ceph", and nothing ever frees the record.
 
-> I'm wondering whether users might use "pci=config_acs=" to configure
-> ACS so things appear to work as they prefer but may not provide the
-> ordering guarantees drivers depend on.
+The next read of /proc/locks follows the stale flc_file. Once the
+file's memory has been reused, lock_get_status() faults on the inode
+pointer it reads from it, with file_rwsem held for write and
+blocked_lock_lock held by locks_start(). After that oops every flock(),
+fcntl() lock and /proc/locks read on the machine hangs:
 
-I imagine that could happen, but on most practical systems the root
-complex will blow up if you do asymmetric routing so there is an early
-indication.
+  BUG: unable to handle page fault for address: 0000006600667248
+  RIP: 0010:lock_get_status+0x124/0x340
+  Call Trace:
+   locks_show+0xaa/0x140
+   seq_read_iter+0x2ce/0x4a0
+   proc_reg_read_iter+0x5c/0xb0
+   vfs_read+0x270/0x3a0
 
-I know this because I've help debug such configurations at
-customers. Some servers helpfully MCE if you do this. Lovely.
+A mount is shut down by umount -f (ceph_umount_begin() runs even when
+the unmount then fails with EBUSY), while a recover_session=clean
+reconnect runs, and on CEPH_MOUNT_FENCE_IO; a single inode is shut down
+when its async create fails. We hit this after the MDS blocklisted a
+client: recovery ran umount -f on the dead mount while processes still
+held flock() locks on it, and they closed their files later. The kernel
+logged six "Leaked FLOCK lock" warnings after three such remounts.
 
-> If that's a possibility, do we have any notes in dmesg that we are
-> depending on fabric behavior that the OS can't discover and verify?
+Drop the local record for unlock requests before returning -ESTALE, as
+the CEPH_I_ERROR_FILELOCK path already does.
 
-Maybe, it could be interesting if the P2P logic found asymetric paths
-it refuses to permit it.
+Fixes: 5d6451b1489a ("ceph: shut down access to inode when async create fails")
+Cc: stable@vger.kernel.org
+Signed-off-by: In-Ho Yi <chajath@gmail.com>
+---
+We hit this on a CephFS kernel client running Ubuntu's 7.0.0-38 kernel,
+whose fs/ceph/locks.c and fs/locks.c are identical to v7.0.
 
-Jason
+The MDS evicted and blocklisted the client. Our recovery ran umount -f
+on the dead mount (it was busy, so it fell back to umount -l) while
+processes on it still held flock() locks: the kernel logged "Leaked
+FLOCK lock" six times, 25 to 45 minutes after each of three such
+remounts (Oct 14, 15 and 16), on the three remounted superblocks
+(dev 0x0:0x3c, 0x42, 0x43). Six days later the old
+superblock's last user exited: "umount timed out", then "VFS: Busy
+inodes after unmount of ceph". Seven hours after that, an awk reading
+/proc/locks oopsed in lock_get_status() while holding file_rwsem and
+blocked_lock_lock, and every file lock operation on the machine hung
+until a power cycle.
+
+In that build, lock_get_status+0x124 loads inode->i_sb, with inode =
+flc->flc_file->f_inode read from freed and reused memory: a lock record
+was still on file_lock_list after its file had been freed. The commit
+message explains how ceph leaves it there. Since 5d6451b1489a,
+ceph_lock() and ceph_flock() refuse unlocks with -ESTALE once the mount
+is shut down, and the VFS ignores the result on close. The fix does
+what the CEPH_I_ERROR_FILELOCK branch already does: drop the local
+record, then return the error.
+
+Testing: reproduced and verified in an arm64 VM on Ubuntu's
+7.0.0-38-generic kernel (fs/ceph/locks.c and fs/locks.c as in v7.0),
+with the kernel client on a single-node Ceph 19.2.3 (squid) cluster.
+The steps were: take an flock() and an fcntl() write lock on CephFS,
+run umount -f (it fails with EBUSY), kill the holders, run umount -l,
+then read /proc/locks.
+
+Without the patch (both the stock ceph.ko and a rebuild from the same
+source), unlocks after umount -f fail with ESTALE. Each close logs
+"Leaked FLOCK lock" or "Leaked POSIX lock", and the records stay in
+/proc/locks under the dead owners' pids. Once their struct file slots
+are reused, the records report other files' dev:ino. umount -l then
+warns "VFS: Busy inodes after unmount of ceph". The next /proc/locks
+read oopsed in lock_get_status(). Before the file memory was reused,
+it faulted on the poisoned i_sb (dead000000000105). After churning the
+filp slab, it faulted loading i_sb through a garbage f_inode, as in
+our crash. Each time file locking then hung machine-wide. On a
+KASAN + SLUB_RCU_DEBUG build of the same source, the first /proc/locks
+read after the holders exited reported "slab-use-after-free in
+lock_get_status": an 8-byte read of f_inode from a filp object freed
+by the holder's __fput().
+
+With the patch, the unlocks still return ESTALE but drop the records.
+Nothing is leaked, /proc/locks stays clean under the same churn,
+umount -l gives no busy inodes, and ceph.ko unloads cleanly (four
+runs, plus one on the KASAN build with no report). Lock contention,
+F_GETLK, unlock and close on a normal mount behave the same with and
+without the patch. It also builds without warnings (W=1) for x86_64
+on mainline 734bef548a96, but has not been run on x86_64.
+
+The patch is against mainline 734bef548a96. It conflicts trivially with
+the ceph_blog_exit() calls in ceph-client's testing branch; I have a
+version against testing if that is easier to apply.
+
+Jeff, Chuck: Cc'd for file locking, and Jeff as the author of
+5d6451b1489a. locks_remove_file() already finds such leftover records
+(that is what prints "Leaked ... lock") but leaves them linked to a
+file that is about to be freed. Would you want it to unlink them as a
+safety net? I can send that separately.
+---
+ fs/ceph/locks.c | 17 +++++++++++++++--
+ 1 file changed, 15 insertions(+), 2 deletions(-)
+
+diff --git a/fs/ceph/locks.c b/fs/ceph/locks.c
+index 677221bd64e..a4c1e3e5112 100644
+--- a/fs/ceph/locks.c
++++ b/fs/ceph/locks.c
+@@ -259,8 +259,17 @@ int ceph_lock(struct file *file, int cmd, struct file_lock *fl)
+ 	if (!(fl->c.flc_flags & FL_POSIX))
+ 		return -ENOLCK;
+ 
+-	if (ceph_inode_is_shutdown(inode))
++	if (ceph_inode_is_shutdown(inode)) {
++		/*
++		 * The MDS can't be told any more, but an unlock must still
++		 * drop the local lock record: on close the VFS ignores our
++		 * return value and frees the file, and a record left behind
++		 * would keep pointing at it from the global lock list.
++		 */
++		if (!IS_GETLK(cmd) && lock_is_unlock(fl))
++			posix_lock_file(file, fl, NULL);
+ 		return -ESTALE;
++	}
+ 
+ 	doutc(cl, "fl_owner: %p\n", fl->c.flc_owner);
+ 
+@@ -328,8 +337,12 @@ int ceph_flock(struct file *file, int cmd, struct file_lock *fl)
+ 	if (!(fl->c.flc_flags & FL_FLOCK))
+ 		return -ENOLCK;
+ 
+-	if (ceph_inode_is_shutdown(inode))
++	if (ceph_inode_is_shutdown(inode)) {
++		/* See ceph_lock(): an unlock must drop the local record. */
++		if (lock_is_unlock(fl))
++			locks_lock_file_wait(file, fl);
+ 		return -ESTALE;
++	}
+ 
+ 	doutc(cl, "fl_file: %p\n", fl->c.flc_file);
+ 
+
+---
+base-commit: 734bef548a96e8774d6eef5dfa2026c6edc4e80b
+change-id: 20261023-b4-ceph-lock-shutdown-22a8a83f1972
+
+Best regards,
+--  
+In-Ho Yi <chajath@gmail.com>
+
+
