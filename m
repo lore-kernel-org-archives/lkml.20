@@ -1,75 +1,73 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=51.250.56.165
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792761046;
-	b=ZVOuyAS8RPjG88tKyLXCImexro6+vAT3vs2TTfQFoOl8Q8P7yEhS/u3LZ27A75IjxuoZ
-	 WP3a5MbEvnnUUqfyaJyfrKxa+EeRI+QG7DOw4hUNSqEqZKb0+lzPBs/ILezkC/Dii8mHw
-	 FZOLME2FnqruGy1APCatHkaz5UNSBxQ/38KxxJ5Ehm0RBQqDsR5vC7R3Cy2v3UP+T6GeK
-	 eGvmC4Q60GofNMqEZ4cLFFzjOamUHQxHgVfyDBp0qjgKfnk3QZKgb+nMyMSLooNHA+/16
-	 WxQ1Dg4waM38AGOshv8NfjXWXUZL81qWdfZHvtHi9PqAKIhb7BZ44dI/9UwWzZPW9Wg==
+	t=1792761123;
+	b=Wbx2z5oFkN3bD4buMSChIY1+cxGm3pLBnpFKbftkqofw9xONGzCrKKiE9QmolXyl+KJv
+	 DfI+Lek+dB03qbwAHeFSBGFNndf9w2ZBSWLMbEckSEjtRr7r+uRV0R9bNxueUAV169oBv
+	 E5r/7tnHRwHKUdSSBGlBJdXuw5THbBl+d/NwR2vLAcx2Fl2r/vYnp4KEQ1DBs8Gk/UCpO
+	 bnbDXm8pviAqXfkfVJlqIS+phaNgl0be9WXMHqNka+mfAwCUeAG4vdJRFJqAUzAQ0yljZ
+	 OJ9513QWn3sNaM0bn13dQPXhju6Qfc7OJgNYUIeoBK/7CD1xMIhHVJBAOS5zHv+6/VA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792761046;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792761123;
 	h=DMARC-Filter:Received:Received:DKIM-Filter:DKIM-Signature:From:To:Cc:
 	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=59Qyk3aglIjIhg/npMzy4QhrcqLa7AMEvlddf8zJtOQ=;
-	b=lPpY3qXKY/AkG57tYoCa9d5CFKiGQALtGHOPVjZb+PvSblZ7hqBF87s0o7U6KG++eC6v
-	 xj0wS2xqh9vLjSBEWARtEcXjVvRvKJOyvqLualOLrMcwhlR0yqv2M3wS+FE3jHafWozlO
-	 4YcEARicI/lehLDYbnJtou3UmBDWfT3DqOB8CGf+ZlYKqykKlECt3MIbkxm71aJT6DO/k
-	 ftpT+X2zO2u7+s0OuZROgiqLrBbryZT4yqrYqxmmhqqRVDfmlHWWGLqtTXuzIzIMaSrEc
-	 kFRABvPCPwE0w6DSRMuta2bcJ38HmdXjaxBS/dIECoK4RqBBFGYRrCVPbzhTk3eitPw==
+	bh=HQWUps+5kGPlDRDdYL+5SLCYhu4ASo3c0932u+Z6XFI=;
+	b=anVBXnc9Riqm0SbCSibWt+PtLS92NXupYmlijI6gsG87Jfvaxutyzx0qzuL9orG09vXO
+	 Cskc6TN10dVBnltknk03eCusKlgIpu34qSYar3sddLutzonR/ofqFNxIAsoleb2nkS2pc
+	 rjLr4AXap4NbbCUvNpA3iJqyN5LhW8iGNEPuKinDnrk5rJCt0Gcm15cdjDwAMfaiVWyvk
+	 F0ZPg++j1HC7d2qnVXodikK1x8UOivwZ7LQ+73wKPKtKLGKQYKWdXEpnqd3g9/uvdjFCa
+	 cjTz/8PJv11icdnPT/pfr2g1QNnwYfs/24rqVuQwQKjSMy6MfMmh8jjwYSL4vvN165g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=ideco.ru;
 	spf=pass smtp.mailfrom=ideco.ru;
-	dkim=pass header.d=ideco.ru header.i=@ideco.ru header.a=rsa-sha256 header.s=ics header.b=TFqeyXW9;
+	dkim=pass header.d=ideco.ru header.i=@ideco.ru header.a=rsa-sha256 header.s=ics header.b=LOCDYGvM;
 	arc=none smtp.remote-ip=51.250.56.165
 Received: from smtp.ideco.ru (smtp.ideco.ru [51.250.56.165])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A99B5606A31A;
-	Fri, 23 Oct 2026 13:10:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A99B5606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49520606A31A;
+	Fri, 23 Oct 2026 13:12:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 49520606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideco.ru
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideco.ru
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ideco.ru header.i=@ideco.ru header.a=rsa-sha256 header.s=ics header.b=TFqeyXW9
+	dkim=pass (2048-bit key, unprotected) header.d=ideco.ru header.i=@ideco.ru header.a=rsa-sha256 header.s=ics header.b=LOCDYGvM
 Received: from [169.254.254.254] (localhost [127.0.0.1])
-	by smtp.ideco.ru (Postfix) with ESMTP id 4BE75231AA;
-	Fri, 23 Oct 2026 18:10:35 +0500 (+05)
+	by smtp.ideco.ru (Postfix) with ESMTP id 1E9771B30E;
+	Fri, 23 Oct 2026 18:12:00 +0500 (+05)
 Received: from fedora (5cfcac1b.dynamic.mv.ru [92.252.172.27])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.ideco.ru (Postfix) with ESMTPSA id E169B18A2E;
-	Fri, 23 Oct 2026 18:09:52 +0500 (+05)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp.ideco.ru E169B18A2E
+	by smtp.ideco.ru (Postfix) with ESMTPSA id 98226188C4;
+	Fri, 23 Oct 2026 18:11:33 +0500 (+05)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp.ideco.ru 98226188C4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ideco.ru; s=ics;
-	t=1792761031; bh=59Qyk3aglIjIhg/npMzy4QhrcqLa7AMEvlddf8zJtOQ=;
+	t=1792761119; bh=HQWUps+5kGPlDRDdYL+5SLCYhu4ASo3c0932u+Z6XFI=;
 	h=From:To:Cc:Subject:Date;
-	b=TFqeyXW9dHZ6eOKDKaD4Qj1nIiBzdz+sfOVgSyA+ANKcWOWCfF7obxsYLWhQEYXLl
-	 Q6YLaYL9NiV6VNUyyGlmHyEU4eM62iR5ieWIDCVutEE4VhJpST/sqUiCXXV1jowwfo
-	 WtaBPbclnURf46sMZ2f40beC75zuU2+cAyBRalbwL5WPlLx2QTRAQnl4EiRjEtqtfT
-	 BT3CH5BYI8SiTrPzz17dhIwM1glr7GNCZmUUIiHlx48m4+326Rg7YZnVAtoGToPwhp
-	 H9W0XgrY/1U0GpLG55z2P6K0BF4HSxD45HsaylLkWUyIBkpAsaWdROq6dghRct7LY4
-	 jJ6AWtF2i+JPQ==
+	b=LOCDYGvMH2T1EYSXUj8+Jhd7/9MUdXnSbmfCgmh1TJbwxmkwiC4ysXNDxj330ZDbt
+	 pIt14aDyMHzWyy00dsCWljytfFm7LjytP80ZZ/+UiWtaxnhISkbMaWNwDyGH/EbPQA
+	 s5Q4RXJ/PUyk/yxpxENa19wUgCYmRJV2YlvevbRcWQ5zII81fUBHQqe98NmuNwXTZn
+	 yNYIla1lpTrjI0zBl3Vq5iXhpJQ9joolnBG9c+V0znDfwCpg5xEg2HPXgYzz34w5uB
+	 R1oO8TDlpSLrvFHE9u7k+ggATm0SJT5dbhjG86ni1wHHvNjVgbO68DEOVBjurQxQFY
+	 h2NysqG6w4B8A==
 From: Alex Kazinsky <a.kazinsky@ideco.ru>
-To: Shenghao Ding <shenghao-ding@ti.com>
+To: Detlev Casanova <detlev.casanova@collabora.com>
 Cc: Alex Kazinsky <a.kazinsky@ideco.ru>,
-	Kevin Lu <kevin-lu@ti.com>,
-	Baojun Xu <baojun.xu@ti.com>,
-	Sen Wang <sen@ti.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Annaliese McDermond <nh6z@nh6z.net>,
-	linux-sound@vger.kernel.org,
+	Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Heiko Stuebner <heiko@sntech.de>,
+	Nicolas Dufresne <nicolas.dufresne@collabora.com>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
+	linux-media@vger.kernel.org,
+	linux-rockchip@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	lvc-project@linuxtesting.org,
-	stable@vger.kernel.org
-Subject: [PATCH] ASoC: tlv320aic32x4: Prevent division by zero in divider callbacks
-Date: Fri, 23 Oct 2026 17:08:52 +0400
-Message-ID: <20261023130854.93639-1-a.kazinsky@ideco.ru>
+	lvc-project@linuxtesting.org
+Subject: [PATCH] media: rkvdec: Handle interrupts without a current context
+Date: Fri, 23 Oct 2026 17:11:20 +0400
+Message-ID: <20261023131124.94116-1-a.kazinsky@ideco.ru>
 X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -82,66 +80,124 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-A zero rate requested through clk_set_rate() or clk_round_rate() reaches
-clk_aic32x4_div_determine_rate() when the minimum rate is zero. Clamping
-the requested rate to the allowed range leaves it unchanged, causing
-division by zero when calculating the divisor.
+The watchdog can finish the current job before the threaded IRQ handler
+retrieves its context. In that case, v4l2_m2m_get_curr_priv() returns NULL,
+but the variant IRQ handlers unconditionally dereference ctx->dev.
 
-A zero parent rate can also cause division by zero in determine_rate().
-For example, if reading a parent divider's register fails,
-clk_aic32x4_div_recalc_rate() returns zero, which the clock framework
-caches as the parent's rate. A subsequent rate request for a child
-divider receives this value in best_parent_rate. With a nonzero requested
-rate, the calculated divisor is zero. It passes the existing upper-bound
-check and causes division by zero in the resulting rate calculation.
-
-The set_rate callback can receive a zero rate when an ancestor's rate
-changes. clk_calc_subtree() calculates descendant rates through
-recalc_rate() without calling their determine_rate callbacks. If reading
-a descendant divider's register fails, clk_aic32x4_div_recalc_rate()
-returns zero. This becomes the descendant's new_rate, which
-clk_change_rate() passes to clk_aic32x4_div_set_rate(), causing division
-by zero.
-
-Reject zero rates in both callbacks and reject a zero divisor in
-clk_aic32x4_div_determine_rate().
+Pass the device pointer to the variant IRQ handlers independently of the
+context. Clear the interrupt status and, for VDPU383, disable interrupts
+before returning if no current context exists. This avoids dereferencing
+NULL while still acknowledging the interrupt.
 
 Found by Linux Verification Center (linuxtesting.org) with SVACE.
 
-Fixes: a51b50062091 ("ASoC: tlv320aic32x4: Model DAC/ADC dividers in CCF")
-Cc: stable@vger.kernel.org
+Fixes: f9c7b7deeffd ("media: rkvdec: Support per-variant interrupt handler")
 Signed-off-by: Alex Kazinsky <a.kazinsky@ideco.ru>
 ---
- sound/soc/codecs/tlv320aic32x4-clk.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+ .../media/platform/rockchip/rkvdec/rkvdec.c   | 23 +++++++++++++------
+ .../media/platform/rockchip/rkvdec/rkvdec.h   |  4 +++-
+ 2 files changed, 19 insertions(+), 8 deletions(-)
 
-diff --git a/sound/soc/codecs/tlv320aic32x4-clk.c b/sound/soc/codecs/tlv320aic32x4-clk.c
-index deed61650e09..8fa8e69f1f72 100644
---- a/sound/soc/codecs/tlv320aic32x4-clk.c
-+++ b/sound/soc/codecs/tlv320aic32x4-clk.c
-@@ -318,6 +318,9 @@ static int clk_aic32x4_div_set_rate(struct clk_hw *hw, unsigned long rate,
- 	struct clk_aic32x4 *div = to_clk_aic32x4(hw);
- 	u8 divisor;
+diff --git a/drivers/media/platform/rockchip/rkvdec/rkvdec.c b/drivers/media/platform/rockchip/rkvdec/rkvdec.c
+index 061281f903f3..02f6a574a8eb 100644
+--- a/drivers/media/platform/rockchip/rkvdec/rkvdec.c
++++ b/drivers/media/platform/rockchip/rkvdec/rkvdec.c
+@@ -1434,15 +1434,18 @@ static void rkvdec_iommu_restore(struct rkvdec_dev *rkvdec)
+ 	}
+ }
  
-+	if (!rate)
-+		return -EINVAL;
-+
- 	divisor = DIV_ROUND_UP(parent_rate, rate);
- 	if (divisor > AIC32X4_DIV_MAX)
- 		return -EINVAL;
-@@ -331,8 +334,11 @@ static int clk_aic32x4_div_determine_rate(struct clk_hw *hw,
+-static irqreturn_t rk3399_irq_handler(struct rkvdec_ctx *ctx)
++static irqreturn_t rk3399_irq_handler(struct rkvdec_dev *rkvdec,
++				    struct rkvdec_ctx *ctx)
  {
- 	unsigned long divisor;
+-	struct rkvdec_dev *rkvdec = ctx->dev;
+ 	enum vb2_buffer_state state;
+ 	u32 status;
  
-+	if (!req->rate)
-+		return -EINVAL;
+ 	status = readl(rkvdec->regs + RKVDEC_REG_INTERRUPT);
+ 	writel(0, rkvdec->regs + RKVDEC_REG_INTERRUPT);
+ 
++	if (!ctx)
++		return IRQ_HANDLED;
 +
- 	divisor = DIV_ROUND_UP(req->best_parent_rate, req->rate);
--	if (divisor > AIC32X4_DIV_MAX)
-+	if (!divisor || divisor > AIC32X4_DIV_MAX)
- 		return -EINVAL;
+ 	if (status & RKVDEC_RDY_STA) {
+ 		state = VB2_BUF_STATE_DONE;
+ 	} else {
+@@ -1457,9 +1460,9 @@ static irqreturn_t rk3399_irq_handler(struct rkvdec_ctx *ctx)
+ 	return IRQ_HANDLED;
+ }
  
- 	req->rate = DIV_ROUND_UP(req->best_parent_rate, divisor);
+-static irqreturn_t vdpu381_irq_handler(struct rkvdec_ctx *ctx)
++static irqreturn_t vdpu381_irq_handler(struct rkvdec_dev *rkvdec,
++				    struct rkvdec_ctx *ctx)
+ {
+-	struct rkvdec_dev *rkvdec = ctx->dev;
+ 	enum vb2_buffer_state state;
+ 	bool need_reset = 0;
+ 	u32 status;
+@@ -1467,6 +1470,9 @@ static irqreturn_t vdpu381_irq_handler(struct rkvdec_ctx *ctx)
+ 	status = readl(rkvdec->regs + VDPU381_REG_STA_INT);
+ 	writel(0, rkvdec->regs + VDPU381_REG_STA_INT);
+ 
++	if (!ctx)
++		return IRQ_HANDLED;
++
+ 	if (status & VDPU381_STA_INT_DEC_RDY_STA) {
+ 		state = VB2_BUF_STATE_DONE;
+ 	} else {
+@@ -1486,9 +1492,9 @@ static irqreturn_t vdpu381_irq_handler(struct rkvdec_ctx *ctx)
+ 	return IRQ_HANDLED;
+ }
+ 
+-static irqreturn_t vdpu383_irq_handler(struct rkvdec_ctx *ctx)
++static irqreturn_t vdpu383_irq_handler(struct rkvdec_dev *rkvdec,
++				    struct rkvdec_ctx *ctx)
+ {
+-	struct rkvdec_dev *rkvdec = ctx->dev;
+ 	enum vb2_buffer_state state;
+ 	bool need_reset = 0;
+ 	u32 status;
+@@ -1499,6 +1505,9 @@ static irqreturn_t vdpu383_irq_handler(struct rkvdec_ctx *ctx)
+ 	writel(FIELD_PREP_WM16(VDPU383_INT_EN_IRQ | VDPU383_INT_EN_LINE_IRQ, 0),
+ 	       rkvdec->link + VDPU383_LINK_INT_EN);
+ 
++	if (!ctx)
++		return IRQ_HANDLED;
++
+ 	if (status & VDPU383_STA_INT_DEC_RDY_STA) {
+ 		state = VB2_BUF_STATE_DONE;
+ 	} else {
+@@ -1521,7 +1530,7 @@ static irqreturn_t rkvdec_irq_handler(int irq, void *priv)
+ 	struct rkvdec_ctx *ctx = v4l2_m2m_get_curr_priv(rkvdec->m2m_dev);
+ 	const struct rkvdec_variant *variant = rkvdec->variant;
+ 
+-	return variant->ops->irq_handler(ctx);
++	return variant->ops->irq_handler(rkvdec, ctx);
+ }
+ 
+ /*
+diff --git a/drivers/media/platform/rockchip/rkvdec/rkvdec.h b/drivers/media/platform/rockchip/rkvdec/rkvdec.h
+index a24be6638b6b..2e03ff6e33d7 100644
+--- a/drivers/media/platform/rockchip/rkvdec/rkvdec.h
++++ b/drivers/media/platform/rockchip/rkvdec/rkvdec.h
+@@ -30,6 +30,7 @@
+ #define RKVDEC_8K_PIXELS		(7680 * 4320)
+ 
+ struct rkvdec_ctx;
++struct rkvdec_dev;
+ struct rkvdec_rcb_config;
+ 
+ struct rkvdec_ctrl_desc {
+@@ -72,7 +73,8 @@ vb2_to_rkvdec_decoded_buf(struct vb2_buffer *buf)
+ }
+ 
+ struct rkvdec_variant_ops {
+-	irqreturn_t (*irq_handler)(struct rkvdec_ctx *ctx);
++	irqreturn_t (*irq_handler)(struct rkvdec_dev *rkvdec,
++			   struct rkvdec_ctx *ctx);
+ 	u32 (*colmv_size)(u16 width, u16 height);
+ 	void (*flatten_matrices)(u8 *output, const u8 *input, int matrices, int row_length);
+ };
 -- 
 2.56.0
 
