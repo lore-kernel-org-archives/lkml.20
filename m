@@ -1,59 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1792757817;
-	b=hdTdkaiGPfx0aH/AZfrO+NO6Z0BqCnnSsLvffRBHwDXna4Q6ba0loqhOa4Je9E4n3b4F
-	 fEIE0N1eNCusW3QDelG/l8s+pJ1l7MTQcQwXKyHon2exrJfYr/eeTS+blaaE4zkzxXqrv
-	 JPR0jEX5G8KPhHX3xX1M3LBKAFnbjLhfFkZAmeO7pF7pqf6Fu2bPuFsvfUlyooIkl2Ugi
-	 FJAwTwwSkQMz7Gnyb6c4cR2Mut8axigBj/kAM7P4m754vo+KOXYbEUFDuqyvqfHmCLDbX
-	 OoANeRCM75/nM4s8aNbGWiRRAIxaYIlFFOtB8qyZ7+TRTQg35H3kiTRrfsvEhx2/OEQ==
+	b=QBZx3WfAHj+V2aMJDLKiLCxrvEMUbb3LL5HOAiTaD/FsARtk2CF0bZT4OWvsRGOfq/Qw
+	 p+un1yo7tG2QP2r+Vjn/J+/o+wdTTZUUUM22NpYDgsG0ZSJ/qrdywnU1xRcWsspGQYFnr
+	 ZdDeoDuPqfQ2aqPiiTlW7Bau+5rM8SRTIhsNvII6ARpYpbQggH4PZaUYR8dgOUG3FeV9A
+	 lR+z/o7hguX9cgthSMa04bK8v35Eoj8glQ3ZvAMRCKM3q9rtj4eCCrPdmb2XhUutxASwL
+	 YNbEQ4PhL0A9rL6PSm/yGPjbDAo7ClNaUqPkC6vGTYKOvzyTnkCQ5nKKGpQ/YUEABPw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1792757817;
 	h=Received:DKIM-Signature:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=e+zY45yCcB9TTmMJtrjf6fRL4sM6D1hUjx7d3l7pAuQ=;
-	b=w0QG7tEfqyfSPRAKNjShxw0wdmj1wRIzd/ACLL8u14yTWcxYFdx8b2IWWqF1z0Y1s1Y2
-	 O3EAhsQSbAbDqZQR9T3TXlgLRf7SDtxsbnzqmiQvrt8+QEUIztBEWfqTrLyfptNiJQJOx
-	 uKGeT3n0WCznbpiM+pUGPwJ9PQOyWaCHXU9rU93aJ57sKh24M0UaeTeXh+bqu/U4HlDWE
-	 m2+HwQCFicLW9D2846YS7rtoPGdiU5X1Au9j1+UcIJWxOnCtQTqqRRz4kiXm+rPjuqgYz
-	 v5FdFpmqPteBETcNKj6ZZA2+CwUnbMty0wzTqTOpVlfqUllgmlJ3iQeDwP+GVtiUz1w==
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=/XmCjE4OX0loj66PC5ea7hhz5FfDYotP2jId9vPq7DU=;
+	b=Q3iLWlQHJYAD0sjyc5jc4fUxuklFofUv22DuWCAPT8IP3lXCHjhTzNHrIcPLg9kI+2Df
+	 HjqHHfCR1aipCJZj56iNW1OXy8vCS8ooiCjXo4LpxreHovAbjcyqjTMbNWLqDrQO6qo1u
+	 k+I8oJTtme78e/Qdcv7G7KFNXqvd4XxZ/YCEiZ+VRdxcxtw1EOPlkNPP1yNh5xWSkhquN
+	 YOl8NgCY+icJn6tFTF7cGh6FCjd64r1MuQDn8Yd/x1VRzURve7hkEQnKZD8QepcQTlbU2
+	 n2dOMkKZ21y/cOHdOE+jAaET6bzu5AXVD4NRhc/RM0MmOD3ICU7aodoI5xeqCV57OTQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=or1qzbDk;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fU+NfYA+;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 804BB606A32F;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE94F606A338;
 	Fri, 23 Oct 2026 12:16:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=or1qzbDk
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6889A1F031E6;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fU+NfYA+
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E9771F031F2;
 	Fri, 23 Oct 2026 12:16:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1792757815;
-	bh=e+zY45yCcB9TTmMJtrjf6fRL4sM6D1hUjx7d3l7pAuQ=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=or1qzbDk53e1+jhAY16o3Tre5fwPl5yNH6ShFsZLVzFQJ0H4wGkD76wZiM2RS0uOh
-	 gF0NO67WxOJ4VGDAETO2S+F+97JwvnXi4ZhjuiFZT1Xs0S7bBUF+AHs0Q764IrjsHr
-	 cEOjwz50j53Jc4wvSAwgCphx3wWEAxWjLJeX5/L7pKMCJ5Fyp4jAHeOFtJbsd//Ydu
-	 lGLg72XbTyO9Y0D4VpNxo4QR3AWoVwYipeUk7ux0rshR61r9QOyMiw8f9qovQ5pewo
-	 oEPVQXiixZVkpkqCaEpxYeO86cILk9xyVNBftfUyXvxev79HdCHZrWAUobZFg6ppie
-	 XFUge0N72/qig==
+	bh=/XmCjE4OX0loj66PC5ea7hhz5FfDYotP2jId9vPq7DU=;
+	h=From:To:Cc:Subject:Date;
+	b=fU+NfYA+9cgitBxqDPU9KcJ1rD43LEDww56QBZN/jNNeUyK58UsJPUoTTabH2s42V
+	 Q1PXqXDosmMDcWBC6CHCWZ9r1WkBU9Pwipvl6WyisNxEPS9HEA5FzBFeUfQlVu1iha
+	 cVfgrEajY1ye68vQXGRbrNlpnfSDnGQNkmYe0BsZotgl0Ke7S+9AxkQJp5K9f4t+Nl
+	 W+pqqfV2NF/YxlM5lIstitoeWBaFaAhaK3337uVDPmCS3kdw9ftB6trijTKEzcU/8Z
+	 MRPcugHWUnxm0JDNRmiXKTfubuCto+OqFT57aBEmLJ3MBocmgigyBOtp9TKRVnVHTI
+	 N1gVbu6O8L/BQ==
 Received: from johan by xi.lan with local (Exim 4.99.5)
 	(envelope-from <johan@kernel.org>)
-	id 1xKECb-00000000mZk-0mnT;
+	id 1xKECb-00000000mZM-0BIA;
 	Fri, 23 Oct 2026 14:16:53 +0200
 From: Johan Hovold <johan@kernel.org>
 To: Johan Hovold <johan@kernel.org>
 Cc: linux-usb@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 10/12] USB: serial: io_edgeport: deassert DTR/RTS on close() and B0
-Date: Fri, 23 Oct 2026 14:15:28 +0200
-Message-ID: <20261023121530.186541-11-johan@kernel.org>
+Subject: [PATCH v2 00/12] USB: serial: io_edgeport: fixes and sync commands
+Date: Fri, 23 Oct 2026 14:15:18 +0200
+Message-ID: <20261023121530.186541-1-johan@kernel.org>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261023121530.186541-1-johan@kernel.org>
-References: <20261023121530.186541-1-johan@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,94 +62,46 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The modem control signals DTR and RTS should be dropped on close() and
-hangup if HUPCL is set and also when requesting B0, but the driver is
-currently only asserting the signals on open().
+This series fixes a NULL-deref triggered by syzbot, a memory corruption
+and a UAF flagged by Sashiko, and a NULL-deref and a UAF found through
+inspection.
 
-Implement the missing dtr_rts() callback to handle open(), close() and
-hangup while letting set_termios() handle B0 transitions.
+Also add the missing serialisation for MCR, drop the modem lines on
+hangup and close, and switch to synchronous commands so that operations
+are serialised as expected.
 
-Signed-off-by: Johan Hovold <johan@kernel.org>
----
- drivers/usb/serial/io_edgeport.c | 30 +++++++++++++++++++++++++++---
- 1 file changed, 27 insertions(+), 3 deletions(-)
+Johan
 
-diff --git a/drivers/usb/serial/io_edgeport.c b/drivers/usb/serial/io_edgeport.c
-index 566f0f1a1632..ebbe8c5370cd 100644
---- a/drivers/usb/serial/io_edgeport.c
-+++ b/drivers/usb/serial/io_edgeport.c
-@@ -1566,6 +1566,23 @@ static int edge_break(struct tty_struct *tty, int break_state)
- }
- 
- 
-+static void edge_dtr_rts(struct usb_serial_port *port, int on)
-+{
-+	struct edgeport_port *edge_port = usb_get_serial_port_data(port);
-+
-+	mutex_lock(&edge_port->mutex);
-+
-+	if (on)
-+		edge_port->shadowMCR |= MCR_DTR | MCR_RTS;
-+	else
-+		edge_port->shadowMCR &= ~(MCR_DTR | MCR_RTS);
-+
-+	send_cmd_write_uart_register(edge_port, MCR, edge_port->shadowMCR);
-+
-+	mutex_unlock(&edge_port->mutex);
-+}
-+
-+
- /*****************************************************************************
-  * process_rcvd_data
-  *	this function handles the data received on the bulk in pipe.
-@@ -2412,9 +2429,12 @@ static void edge_set_termios(struct tty_struct *tty, struct usb_serial_port *por
- 
- 	/* set up the MCR register and send it to the EdgePort */
- 	mutex_lock(&edge_port->mutex);
--	edge_port->shadowMCR = MCR_MASTER_IE;
--	if (cflag & CBAUD)
--		edge_port->shadowMCR |= (MCR_DTR | MCR_RTS);
-+	if (cflag & CBAUD) {
-+		if (old_termios && (old_termios->c_cflag & CBAUD) == B0)
-+			edge_port->shadowMCR |= MCR_DTR | MCR_RTS;
-+	} else {
-+		edge_port->shadowMCR &= ~(MCR_DTR | MCR_RTS);
-+	}
- 
- 	status = send_cmd_write_uart_register(edge_port, MCR,
- 						edge_port->shadowMCR);
-@@ -2959,6 +2979,7 @@ static struct usb_serial_driver edgeport_2port_device = {
- 	.tiocmset		= edge_tiocmset,
- 	.tiocmiwait		= usb_serial_generic_tiocmiwait,
- 	.get_icount		= usb_serial_generic_get_icount,
-+	.dtr_rts		= edge_dtr_rts,
- 	.write			= edge_write,
- 	.write_room		= edge_write_room,
- 	.chars_in_buffer	= edge_chars_in_buffer,
-@@ -2993,6 +3014,7 @@ static struct usb_serial_driver edgeport_4port_device = {
- 	.tiocmset		= edge_tiocmset,
- 	.tiocmiwait		= usb_serial_generic_tiocmiwait,
- 	.get_icount		= usb_serial_generic_get_icount,
-+	.dtr_rts		= edge_dtr_rts,
- 	.write			= edge_write,
- 	.write_room		= edge_write_room,
- 	.chars_in_buffer	= edge_chars_in_buffer,
-@@ -3027,6 +3049,7 @@ static struct usb_serial_driver edgeport_8port_device = {
- 	.tiocmset		= edge_tiocmset,
- 	.tiocmiwait		= usb_serial_generic_tiocmiwait,
- 	.get_icount		= usb_serial_generic_get_icount,
-+	.dtr_rts		= edge_dtr_rts,
- 	.write			= edge_write,
- 	.write_room		= edge_write_room,
- 	.chars_in_buffer	= edge_chars_in_buffer,
-@@ -3061,6 +3084,7 @@ static struct usb_serial_driver epic_device = {
- 	.tiocmset		= edge_tiocmset,
- 	.tiocmiwait		= usb_serial_generic_tiocmiwait,
- 	.get_icount		= usb_serial_generic_get_icount,
-+	.dtr_rts		= edge_dtr_rts,
- 	.write			= edge_write,
- 	.write_room		= edge_write_room,
- 	.chars_in_buffer	= edge_chars_in_buffer,
+
+Changes in v2:
+ - reorder fixes
+ - add open check to edge_write() to handle tty_wakeup() racing with close()
+ - use openPending flag to detect stray open responses and move termios
+   change before fifo corruption fix to allow extending critical section
+ - fix command URB UAF separately from switch to synchronous commands (new
+   patch)
+ - move MCR change after termios change to avoid taking mutex in atomic context
+ - free command buffers also on successful submission
+ - specify command timeout in milliseconds rather than jiffies
+
+
+Johan Hovold (12):
+  USB: serial: io_edgeport: fix NULL-deref on early status
+  USB: serial: io_edgeport: fix potential close() use-after-free
+  USB: serial: io_edgeport: fix potential NULL-deref at open
+  USB: serial: io_edgeport: move initial termios update to open()
+  USB: serial: io_edgeport: fix potential fifo corruption
+  USB: serial: io_edgeport: fix potential use-after-free on disconnect
+  USB: serial: io_edgeport: serialise MCR accesses
+  USB: serial: io_edgeport: drop redundant sanity checks
+  USB: serial: io_edgeport: drop redundant open sanity checks
+  USB: serial: io_edgeport: deassert DTR/RTS on close() and B0
+  USB: serial: io_edgeport: replace atomic command allocations
+  USB: serial: io_edgeport: switch to synchronous commands
+
+ drivers/usb/serial/io_edgeport.c | 302 +++++++++++--------------------
+ 1 file changed, 105 insertions(+), 197 deletions(-)
+
 -- 
 2.55.0
 
