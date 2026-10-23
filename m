@@ -1,67 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792752355;
-	b=zB+ZzCK4IKjrmJ5ZFL4AJGnBiEFx5/+OesQQZFhJbmw7+12BNv36Zuk/i84tcAz6/f/U
-	 zO9Z214o25EGjwVn36M/+3Tdvk9YYh6jGAaC8bx8bbC7kIDmKfsOqqRrjfQZCWUEkRPSd
-	 KACL6IIfDVjPu8xHvLEQGDCC/5+uIRBYV/xdT7cxaVK+QVkMS0ljXsOmri/2E9yeu/Uev
-	 QnbX64jiOG3SEatH1yLg8ZG9m5TRwMtBHo9es+rFKQi+rwsGPXo1jdmQ5Z336FggLw4q3
-	 L2TtnKqsVJeLbfCrt7P35I0b25q6+iDFxgE5XS9If5uMDVdjnWnKdXVgmB89qIQKJxQ==
+	t=1792752453;
+	b=PKQd7MrICDNTa86/3thYLVmBhXy3BMyra4/fMQeoF6GMpbxonL8WH09vuAQMsC9mZw8s
+	 +LaCNuC3rJx90LS/KUYpQIsMfW+e+5Ybe9lJ9D/cUqg7gyQqj2g/sFyRUh+IfHLRYRyRM
+	 4d6COPwWv5zl/msngrGanfQqmpo/9A5SMXjuY1XePr4GuLmtE37+p1Bz8whkdkHcKJ1Ly
+	 3WP8jIIHsl65BCb0bdXcY6IEeM6zaLEd3Pjb5BGLDFZBpzAUcaIn7DkR7xIyhyi41U2vY
+	 JbUN/yLccSA4tKnlSP4sFLgIgwlXhMYqo4cp87tPIY0IyK5AdSPApQmg7uSHG2f2MrQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792752355;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=/QICUucPpXxojYxCmq3sRU8Eaip6NUcM3x+3QrmGv+8=;
-	b=pYoELjSZxaemK/STwJnRQip5QOatbg3fb8bMyEHjwToqtM60QlC4AjGECLnnBg9C5P5+
-	 GhnfeN5EQSyqfDIyUGPmlRFdHmshHuviNFoq46HdcyRfaEtQ4jX08P5giFXPENMX/bRdI
-	 gpUnfBLkvko3zw9e3sm5iE84JYiaZw+Z/L+vybLZOqZXCqNpzrMkNMMG9iD7VGIrVL+9H
-	 8spnrQaT4n0zd5yijau1pWib4rzIwDVTTIzlBCixkuHn5KAgEKPmeZzxvrqxzunR/Bk2F
-	 FyEVwSXAv+Hv3WkLWQWefpJuAuhHlleTS6qzaizv+BL40NE/j6PpSogjoiCFt4Mp+Ig==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792752453;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
+	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=VwgGM5/F73Jt9T9hXLJk5Fbp36axcuLPsz019Bv+rQE=;
+	b=NX4b8EuCn+ejGQ73WFpSb2GBNXY8FH4A3MiinPyUzB7rLYwiJuubXeUEGa7ip9no1oeu
+	 TAxqXXYBiVcXfi+xcOxw/l+KB0N+yA6X6u1Y42jpTfPSfiw2iTrmDnfQMhWc5oFAjHRj4
+	 ZDdDzCWRuZTp0KZB1wGv+q54FdIDGpCbAGly8z8vkK2NDpcwdLPRzNs+t65Lkgl/TB61L
+	 WlmDTu/H83jObLW+E+FcsDLU79CpVhAutCx3G0P0HYPvG96DXq/fSCZqzXfmI9PTtelqo
+	 xLUgdEicXIRIEZ1hIh6sOyrsn4/agGuJ3lv4RiKZjBDBiZ4+qoyu48LWHFxIYyLhXOA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=V+NcyIHQ;
-	arc=none smtp.remote-ip=91.218.175.130
-Received: from mta0.migadu.com (out-130.mta0.migadu.com [91.218.175.130])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=L9ucrPfx;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=EEavBmXT;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EDBF606A320
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 10:45:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4EDBF606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF6F8606A31F
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 10:47:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BF6F8606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=V+NcyIHQ
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=e0Cethm8EB8vXNdwt1eCOrxjlbHI4XfqJVujITYWMIw=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792752352; v=1; x=1793357152;
- b=V+NcyIHQGNlL4ANkXw2+HmP2z0N+fTkRRMsljxjqoAnz6HRPRMzojaDIawHsi8JQN5Ba/UqV
- p120TJq6xgbYpuT35AI4qcvRyTtifsukGs7fc2kDTzyOneBEwN6kk+amjAEdN7+ezkDw5YVNN44
- Lpu67SyKCVeXhJ/IVtLIBT7s=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 536d72eef6148e6b;
-	Fri, 23 Oct 2026 10:45:38 +0000
-X-Mizu-Trace-ID: 536d72eef6148e6b
-X-Migadu-Flow: FLOW_OUT
-From: Jiayuan Chen <jiayuan.chen@linux.dev>
-To: netdev@vger.kernel.org
-Cc: Jiayuan Chen <jiayuan.chen@linux.dev>,
-	stable@vger.kernel.org,
-	Jay Vosburgh <jv@jvosburgh.net>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Nikolay Aleksandrov <razor@blackwall.org>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net] bonding: fix out-of-bounds read of arp_ip_target
-Date: Fri, 23 Oct 2026 18:45:27 +0800
-Message-ID: <20261023104528.232427-1-jiayuan.chen@linux.dev>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=L9ucrPfx;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=EEavBmXT
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69NAATpU3560822
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 10:47:32 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	VwgGM5/F73Jt9T9hXLJk5Fbp36axcuLPsz019Bv+rQE=; b=L9ucrPfxb+ZmgyDX
+	JnKX8tcV1GHhhYAKhc3WdADnxaKaZLrXCfDfjuay70SEQyeaJ6tghMMoDV2jrkjs
+	4aT+esgc+dDbOVGlNcddFWxMitVgeB4XAvc96bAwxTu/hD6w3oFqde/5g9CDcZCz
+	/wkQlp+q5LxTo8fcBfFLFA6HDLmGdgErhPm9Icjvz83GvJuDSdc+yfH4saui8fZx
+	FfQXXjGTKybISchmo3BAcU3JQ8qEVVRGs3w2WakqZKPrxR/9+vxKfR9vKPfMJ+6B
+	iECMvH8QmCl+A950phbB5vw++e4DXf/WhAoz4chRh4CGC+ZqfcCKD02PQQWOGT0K
+	bGU9aA==
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hfqmpb97p-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 10:47:31 +0000 (GMT)
+Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-536540909e5so2216361cf.2
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 03:47:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1792752451; x=1793357251; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=VwgGM5/F73Jt9T9hXLJk5Fbp36axcuLPsz019Bv+rQE=;
+        b=EEavBmXThk8aPanid1uL9e/glsYLVCcWokQHSVeoQEQyKOTShC1IUzBEnjdVd4UR7d
+         fO3PwEGjTDXGdO5LfGpxnLteVHbtXz8CFZSufMQw9Uev8f7jp63WAI8j7QWXmcFhDx6T
+         zSkfoeYFIQk/8H9H6kPXWSrKvU9h0JtLQtY9nQFDZ/eHzFbkADnlbj+xrJmboTzFF+um
+         1Hhy5+31z/Ro26qAJW6cBvdDW9570A+48l27wrxMIhHz5mEXxEwgs09b051lsIvTzWjK
+         R+bRKukrco/y5pNje7E1mIldsbPYwo4mNW59JmGIXwGQ7jzqf6YvSD2Aao2NwWYtmhNb
+         vR6Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792752451; x=1793357251;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=VwgGM5/F73Jt9T9hXLJk5Fbp36axcuLPsz019Bv+rQE=;
+        b=wJ6BylvFwkRnTkHL7RQ0Kmm8JkwqhhTCLOJ7fHbg/rosUsOXTnhNm20op0EpHfNKxZ
+         huDgZ7EpXmVlMEaTt9TQC3mOj5v9Pi5sKDF3IUKfuW0kpBYXcs/DC8n4EwvSIYOHYAuX
+         eu+tCrTF3SBQzRZI17/bKJlcNyQyRAHuLHew5KrA2Qnzl9M33h+p1Zjw+6oyeD8CAN12
+         QEFRZVJLEvtyjgO2koOLTyuDHHoBB1xMEQLXaPZDHce//C2KHhvPlA4ANoTYvjg/VE2M
+         wCyecWHwhMz8EPqxsuG6FObyaPV1DORYTJlP881PSWjcgOqO4E001qyDvKDk7QH/6z5E
+         28MQ==
+X-Forwarded-Encrypted: i=1; AKwUvBykOVcFkGZsJbkA9pPydJKf9nDRBAiODE9/gbOJX8wE7GFm4nk5mKwhHFBrI8rujOdDfV4Zn2+hn70SLAA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ3535POB8CabEMo5E8O7ILwJvePEKM2QJb8eQnLz4lIpxSifdW
+	mWuZuZNwpowV23BY/MvtCa3H52iZ/byOLLJ/D3AvaRs8bj1oAHz4NHV2qkFXsgIgDthP3U4JZi/
+	nCP+66aakI4VRubE3sZZYuuhK2HNItzI8rC+etWE9navLNpZLIFjtMIo7sz0muRJAb/Y=
+X-Gm-Gg: AYBFou1bdZ5RzHSFFdhH7YiY7sKbUXdZD1wdJOe3GW1ecfxO4Urs/s5vMeSwj/9i1ra
+	/esPTiq4aOopWYNL0kl+b3S8V6WVTgoUbbhNRM7odw8ZIT82PjZcOK69SGlMmbK9/btHbULooZk
+	q9pUbNTnw3pvzANdJXVXuXTGrH4tMJr4snQGMhFXsctg+svLKgGQbw46YXrLuVSJzu3ZouKDl01
+	/QBC7sQWrl0w8XuOVl1Xn+lw3l90+1AEIM+gcnVV1BteAKdWaSzRJaZaUwNiSQGAljHPUSV/gIW
+	2cRxVLziFo86gkWG6QVPlik9KCnoVIvy8Wd45mNMYQ0JCFIiknTNQvdReAQ3aDfHClYW+/rLxiw
+	qo8s/NYlvUsjRjexWGU0Dxw==
+X-Received: by 2002:a05:620a:564a:b0:93f:43a4:a48f with SMTP id af79cd13be357-93f6f96d3a2mr366200285a.5.1792752450710;
+        Fri, 23 Oct 2026 03:47:30 -0700 (PDT)
+X-Received: by 2002:a05:620a:564a:b0:93f:43a4:a48f with SMTP id af79cd13be357-93f6f96d3a2mr366197885a.5.1792752450313;
+        Fri, 23 Oct 2026 03:47:30 -0700 (PDT)
+Received: from [192.168.226.26] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c46a5c84370sm88657166b.42.2026.10.23.03.47.27
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 23 Oct 2026 03:47:28 -0700 (PDT)
+Message-ID: <6ebd380c-1f32-4ec6-86be-99631db4958b@oss.qualcomm.com>
+Date: Fri, 23 Oct 2026 12:47:26 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,58 +115,78 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4] arm64: dts: qcom: x1e78100-thinkpad-t14s: Add thermal
+ zones for PMICs
+To: Stephan Gerhold <stephan.gerhold@linaro.org>,
+        Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
+Cc: andersson@kernel.org, konradybcio@kernel.org, robh@kernel.org,
+        krzk+dt@kernel.org, johannes.goede@oss.qualcomm.com,
+        conor+dt@kernel.org, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Mark Pearson <mpearson-lenovo@squebb.ca>
+References: <20261023083827.7648-1-daniel.lezcano@oss.qualcomm.com>
+ <atsmQqSOuqp1LKw8@linaro.org>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <atsmQqSOuqp1LKw8@linaro.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIzMDA0MSBTYWx0ZWRfX8+agSKZRHT/c
+ X8Sr9gHI+AK4r8yWHdw0Dr4Opg1hv9rJU1lbcuO5lQviiqB66lKLFydhFj6Eeasc3zyAUYqoJQS
+ 6Ng9ar37L77I2L/HFiqsrmW7NIpFM10=
+X-Proofpoint-GUID: l26UKfGzOig60opjfBjAiKoHY5tf1V3m
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIzMDA0MSBTYWx0ZWRfX7+MRTl+/nBYO
+ hEEYIuKtTLYMMziL6SKctE+h65rNpleC6n+7ltDb10Cvv6pSjgBTMXt5gWIT5RKXS0xZG0gQG6J
+ p8wD9/LkEv14X1G+Q1yHwCjfjmC1qt6DMFEJP88BamgoGKsW+HyIQVOQnv+o5FQu6BM5H2XwMAj
+ +O1RPuvOYIG4nJFAHFxQ+LaSdPKs5a5M7UVnfTNsMGTho4GQQejuCt2M/ElWAmcO8vswgLhredU
+ 05F/2UCnnZQ1PvYrJYfCmP8y4kS8YVIXWSUDT6GC2T64+GhIh6AUlPmCwECVyl7AmT0uPBukNvP
+ oyrhOFgvTIRRn8CFOErLWQhe+ZVu+kbLjwk0FFUHldzd2OaUW0LFMEnwkPQUov26uSq1PVPQYAN
+ lhv5WbToc+uwu7M3SpJnTniP63nU1meHx6Qh/eNPapW22ZtWJiVyKkAJ+zRr+kFp9FeKwo2IXpN
+ Dt3d+6zjp8v4/tNIH/A==
+X-Proofpoint-ORIG-GUID: l26UKfGzOig60opjfBjAiKoHY5tf1V3m
+X-Authority-Analysis: v=2.4 cv=BdBNQbt2 c=1 sm=1 tr=0 ts=6adb3b43 cx=c_pps
+ a=JbAStetqSzwMeJznSMzCyw==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=EUspDBNiAAAA:8 a=rrZNFMavuSw8objGGgIA:9 a=QEXdDO2ut3YA:10
+ a=uxP6HrT_eTzRwkO_Te1X:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-23_03,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 priorityscore=1501 malwarescore=0 phishscore=0 impostorscore=0
+ lowpriorityscore=0 suspectscore=0 adultscore=0 bulkscore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610230041
 
-arp_ip_target is a module parameter array with BOND_MAX_ARP_TARGETS
-entries. In the loop parsing it in bond_check_params(), arp_ip_count is
-the number of accepted targets, while i is the index into
-arp_ip_target. Invalid and duplicate entries are skipped without
-bumping arp_ip_count, so bounding the loop with arp_ip_count lets i run
-past the end of arp_ip_target, e.g. 16 targets with one duplicate:
+On 10/23/26 11:17 AM, Stephan Gerhold wrote:
+> On Fri, Oct 23, 2026 at 10:38:27AM +0200, Daniel Lezcano wrote:
+>> The ThinkPad T14s needs thermal mitigation under sustained workloads to
+>> limit temperature rise before thermal shutdown. EC interrupt-driven thermal
+>> monitoring is not yet supported, so use the board temperature sensors
+>> exposed through the PMK8550 VADC to provide mitigation now.
 
-  BUG: KASAN: global-out-of-bounds in bond_check_params.constprop.0+0x1148/0x1440
-  Read of size 8 at addr ffffffff96e9ee00 by task swapper/0/1
-  Call Trace:
-   <TASK>
-   dump_stack_lvl+0x91/0xf0
-   print_report+0xd1/0x630
-   kasan_report+0xf3/0x130
-   __asan_report_load8_noabort+0x14/0x30
-   bond_check_params.constprop.0+0x1148/0x1440
-   bonding_init+0x13/0xe0
-   do_one_initcall+0xe7/0x5b0
-   kernel_init_freeable+0xa91/0x1120
-   kernel_init+0x24/0x220
-   ret_from_fork+0x5b3/0x820
-   ret_from_fork_asm+0x1a/0x30
-   </TASK>
+[...]
 
-  The buggy address belongs to the variable:
-   arp_ip_target+0x80/0xa0
+>> +		/* Sensor near the CPU PMICs. */
+>> +		cpu-pmic-thermal {
+> 
+> I'm a bit confused by the node order here. It's not ordered by the
+> thermal sensor (SYS_THERMx) like in x1e80100-crd.dts, but it's not
+> ordered alphabetically either. Or is it still the old order from the
+> previous revision?
+> 
+> I think I'd personally prefer ordering by SYS_THERMx, but alphabetical
+> order would be our typical rule.
 
-Bound the loop with i instead. arp_ip_count never exceeds i, so it
-stays within BOND_MAX_ARP_TARGETS too.
+Thermistor index is what I'd prefer to go by, I think it makes the
+mostsense 
 
-Fixes: 5a5c5fd48e3b ("bonding: arp_ip_count and arp_targets can be wrong")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
----
- drivers/net/bonding/bond_main.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+in any case
 
-diff --git a/drivers/net/bonding/bond_main.c b/drivers/net/bonding/bond_main.c
-index 09aa45d71fab..7019e5d8fdc8 100644
---- a/drivers/net/bonding/bond_main.c
-+++ b/drivers/net/bonding/bond_main.c
-@@ -6273,7 +6273,7 @@ static int __init bond_check_params(struct bond_params *params)
- 	}
- 
- 	for (arp_ip_count = 0, i = 0;
--	     (arp_ip_count < BOND_MAX_ARP_TARGETS) && arp_ip_target[i]; i++) {
-+	     (i < BOND_MAX_ARP_TARGETS) && arp_ip_target[i]; i++) {
- 		__be32 ip;
- 
- 		/* not a complete check, but good enough to catch mistakes */
--- 
-2.43.0
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
+thanks!
+
+Konrad
