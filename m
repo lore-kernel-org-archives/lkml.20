@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792778176;
-	b=ZQ/FXRDOD8QjV8vs0nbuy42NAke5wmoMxqRIEpb6foeB1PuMq/MfD+x+NakofuSIkXsG
-	 pref9sbK93w7L+o9JcbllJsIQwJ6swMbSzv/beCwghJtpG9SmQsoqjetZ6slWYe8nLgVH
-	 klxQo7Hke71uHHZnGudq90D2ugWwYTc1Vm5ciI/nbhPitvSTenBlTAO0aj40XfAh07NHF
-	 mgihhferpxK/bgXFd2x1DEpyOcYCLumSVrztS/BHU7o/ApbeHOXM0toafnt16hw7yPLMV
-	 Tu8G3V+0mPRlk1tqG1+RLCbPMwyEcgjqOLu6fVcKnkmSkYx+0UlpCKk2T7rbcmYe+Jg==
+	t=1792778181;
+	b=c8OzUFmdadJ1WRCou1Rtw4dfTm6ux2Xwquk1vaTwZDKo7MTtupOq68VXFg35vJyn/4Ma
+	 oCEkbV8jJk4z+C169wb7pSiCjjFb7LVk+ZnL3KRyiVfpZlsUusUbAH1vNRtiBEdRLtqZ/
+	 FpQuuJmhRCJsgVH89QIee7etk8XJbR8ETTM+nv/DHNzg2+on4yrio5kOUsRLvujJ2dae3
+	 1t0TLwfTxa//8kJHnD6lw3kVrKc/KXBdFAidvGfpRK+PehalubDI/txl/vsRM0qsSLjKq
+	 vBgGLSCI6dmxCyWvKZXKKRuq2L9grk3qz39WEAeAg1pP4kNAW0fkWoeIonkm8ZzQ8ag==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792778176;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792778181;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=TrnHyjwghxoHH/7ZIa6c/atV7JqUeXQradytyyHUl5E=;
-	b=NRA2ahyhHcYMVxSG4/l+h9lN95epaKYob4pDoXtE9uasDxOteGqmZiU571JkqQIOANW6
-	 7WG74Dj5XJymdJD0L0GwxD7FoHdFRC8MLT7xfXcPnI9d4f4WIAQQYNqcOvHT8JSuQpoXP
-	 imSxQ7Z5VmT74inKghYVE7CVI4dx7j7lgIUz9DyYJ8WveBrOrHN946Atppa2lVj0LhYoN
-	 m1+GjAO7dpukKOwWBhNrOOU+Nb8a7ntohFj/zu5fmtn26uoz4RQepefAugRmVvoo8y5KA
-	 NWVlMxZx9VP4EhtuCUc7JVTufp1rulwkV3j7x9U9MvgEshUTe94DFZfukypDReS3CzQ==
+	bh=z23/XZo8aASqoi1ZJmd8LuMb2eYM/u4/cl3lSNwkFDI=;
+	b=gg034Icp2vqKaTpLg+n01oLZ/oWHUyKKufQnatv3BjyvldQcp+al/kxVF2UdTe9mNUkY
+	 ciYA8758DiZ29u9hGnxHSo6fJSRE9GWS8oCsd54/JECtZ47jOMq9QqpaSzwoQMsOAU4Kx
+	 IIRFDqSB/XvvWhzKqt372CAwv9i3M1/eZFDRoaDPAj+aRFhlw8UeuSNcKSC/7RWjrQKy4
+	 BeA2MJVuNZE9R41TLCuKfVtsnxdfnSztAxLxyxcRIB4+KfPas6CJqCUlMKtyyJzC3eJDr
+	 6azk00AwirpVxVbvNlI9FfhjzUrQeSY5sWu/s3+7VFfUZI15FctEifaPmoRtCJlh0pQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="muIaeUY/";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=o1F5Gwge;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA1A960A2603;
-	Fri, 23 Oct 2026 17:56:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2663160A3821;
+	Fri, 23 Oct 2026 17:56:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=muIaeUY/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B0D71F031E6;
-	Fri, 23 Oct 2026 17:56:15 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=o1F5Gwge
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C80771F031EA;
+	Fri, 23 Oct 2026 17:56:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792778175;
-	bh=TrnHyjwghxoHH/7ZIa6c/atV7JqUeXQradytyyHUl5E=;
+	s=k20260515; t=1792778181;
+	bh=z23/XZo8aASqoi1ZJmd8LuMb2eYM/u4/cl3lSNwkFDI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=muIaeUY/4c2V4HYqDZTrhcah566CAKzt7m0chf/CvpV32B7c1DtOI4dXBoeO9brcO
-	 6+xH9RkqoX0ELgPV93njqrLJf4ggE8ZqNoNwIn9trRcdjSvbiv1y28xsUZpCO2Y6ir
-	 ZMW4ggj4q4k5xhwqK23x6n5o9L4AMMLhh9tbmDt/tNsK0ELPqVqpKWtSCHU7LCmDP/
-	 0w8laurlKNS2eLvQzBlsMRhS8E4fdcHJXJWbh2tWQ6f0qmiHRYtPJrBTDb9TDyYGJ5
-	 CAIvs6DfDE5WUf41Y3V9aL23CuDAkQBLfn8XEMrg4Vah0YelyFx//S8V/TRtmfVheG
-	 TYdtV7PRqku/A==
+	b=o1F5GwgeE7oW/JLFL9C5cY03PF1vRie9ftY0jC4Jzz252iITlvtpwZA4b+xKGKJYL
+	 gYzuuOzfkVfCBAZu+bLVnDvAvnRrf5Ww74YHmFoMFlU9aHso+CcEqvyO4BEe6FUDwU
+	 beGm9TP/YnVUKaQPboBVji8+X10+BRShBYwUaPg4O+/ukJJfa1zDQOcWZIXzC5iPjT
+	 02gwG/8UNIO9fJ3WbbzBvFxpdafEKRo3mkScNPwYHkTiDlLsRbmnBQB+scQDZTLrAj
+	 dLvZuZ2XZHdTosg+h1kBLOBOMVqN0pJtbLe0FVlCXLdYMI6Z2u0eInWBQniqsYOyCQ
+	 sIyYZxMGRFF/w==
 From: Tejun Heo <tj@kernel.org>
 To: sched-ext@lists.linux.dev
 Cc: David Vernet <void@manifault.com>,
@@ -47,11 +47,10 @@ Cc: David Vernet <void@manifault.com>,
 	Emil Tsalapatis <emil@etsalapatis.com>,
 	David Dai <david.dai@linux.dev>,
 	linux-kernel@vger.kernel.org,
-	Tejun Heo <tj@kernel.org>,
-	Sashiko <sashiko-bot@kernel.org>
-Subject: [PATCH 06/17] sched_ext: Fix rescue served time disagreeing with the slice under proxy execution
-Date: Fri, 23 Oct 2026 07:55:57 -1000
-Message-ID: <20261023175608.4120910-7-tj@kernel.org>
+	Tejun Heo <tj@kernel.org>
+Subject: [PATCH 11/17] sched_ext: Fix a cpu idling after put_prev_task_scx() queues its task on the local DSQ
+Date: Fri, 23 Oct 2026 07:56:02 -1000
+Message-ID: <20261023175608.4120910-12-tj@kernel.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261023175608.4120910-1-tj@kernel.org>
 References: <20261023175608.4120910-1-tj@kernel.org>
@@ -66,129 +65,85 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Rescue measures served time as the rescuee's sum_exec_runtime minus a
-snapshot taken at admission. Under proxy execution that measure follows the
-wrong task. update_se() credits sum_exec_runtime to rq->curr, the mutex
-owner that executes, while update_curr_scx() drains the slice of rq->donor
-and charges its rescue. A rescuee can be either, so its served time and its
-slice disagree in both directions.
+put_prev_task_scx() enqueues a still-runnable task when the pick has settled
+on idle. The insert can land the task on the cpu's own local DSQ, and then
+the cpu must not go idle over it. 7a9df7667963 ("sched_ext: Fix stall when a
+task enqueued with SCX_ENQ_LAST lands back on its CPU's local DSQ")
+reschedules the idle task in that case, but only after the SCX_ENQ_LAST
+insert.
 
-As the owner running for another donor, the rescuee accrues served time that
-drained no slice and charged no budget, and its rescue ends early. As the
-donor, its rescue runs long:
+The plain insert, taken when the task can't stay on the cpu, can land on the
+local DSQ too: rescue can admit a task there when its scheduler lacks
+SCX_CAP_BASE on the cpu. Without the resched the cpu idles with the task
+queued until an unrelated wakeup or the rescue timer's escalation.
 
- 1. the rescuee blocks on a mutex and the owner runs in its place
- 2. the owner's run drains the rescuee's slice and the budget, but not the
-    served time
- 3. the slice runs out with the rescue still open, and scx_rescue_keep()
-    restores a remainder that the owner's run didn't reduce
- 4. the owner keeps running on the rescue until it releases the mutex, past
-    the admitted slice and overdrawing the budget
+Reschedule after either insert. In the following patches, the plain insert
+becomes the common path for bypassed tasks under rescue.
 
-Count served time in scx_rescue_charge() from the delta that drains the
-slice. Charging the owner's run to the donor's rescue matches proxy
-execution, which drains the donor's slice and accounts the cgroup time to
-the donor for the owner's run.
-
-scx_rescue_keep() also ignored the return of scx_set_task_slice(). The call
-refuses the restore on a rescuee that escalation marked SCX_TASK_PROTECTED,
-and the rescuee was kept with a zero slice and its protection set.
-
-That refusal is now unreachable. Escalation sets the slice to the unserved
-remainder before it protects the task. From then on every slice write a
-scheduler can reach is refused. Only a sub-scheduler's task is rescued, and
-sub-schedulers are cid-form, which rejects direct slice writes.
-
-The slice then moves only by what update_curr_scx() drains, and that drain
-charges the rescue by the same amount, so the slice runs out exactly when
-the charge ends the rescue. WARN and end the rescue if the restore is
-refused anyway.
+v2: The description's forward reference to the plain insert becoming the
+common path no longer names the following patch.
 
 Fixes: 5fd501744b10 ("sched_ext: Add bandwidth-limited rescue execution for stranded tasks")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
 Signed-off-by: Tejun Heo <tj@kernel.org>
 ---
- kernel/sched/ext/sub.c | 25 ++++++++++++++++---------
- kernel/sched/sched.h   |  2 +-
- 2 files changed, 17 insertions(+), 10 deletions(-)
+ kernel/sched/ext/ext.c | 31 ++++++++++++++++++-------------
+ 1 file changed, 18 insertions(+), 13 deletions(-)
 
-diff --git a/kernel/sched/ext/sub.c b/kernel/sched/ext/sub.c
-index d3db1277118e..d3f89ec4e4fa 100644
---- a/kernel/sched/ext/sub.c
-+++ b/kernel/sched/ext/sub.c
-@@ -401,9 +401,7 @@ void scx_init_root_caps(struct scx_sched *sch)
- /* unserved remainder of @rq's rescuee's admitted slice, 0 once fully served */
- static s64 scx_rescue_slice_remaining(struct rq *rq)
- {
--	s64 served = rq->scx.rescue.curr->se.sum_exec_runtime - rq->scx.rescue.exec_snap;
+diff --git a/kernel/sched/ext/ext.c b/kernel/sched/ext/ext.c
+index 46f956594448..072153416256 100644
+--- a/kernel/sched/ext/ext.c
++++ b/kernel/sched/ext/ext.c
+@@ -3606,6 +3606,8 @@ static void put_prev_task_scx(struct rq *rq, struct task_struct *p,
+ 			 (rq->scx.flags & SCX_RQ_PROXY_PENDING);
+ 	bool proxy_block = rq->scx.flags & SCX_RQ_PROXY_BLOCKING;
+ 	bool rescue_keep = false;
++	bool going_idle = !proxy_put && next &&
++			  sched_class_above(&ext_sched_class, next->sched_class);
+ 
+ 	rq->scx.flags &= ~SCX_RQ_PROXY_PENDING;
+ 
+@@ -3711,25 +3713,28 @@ static void put_prev_task_scx(struct rq *rq, struct task_struct *p,
+ 		 * locally runnable and can legitimately go idle with @p still
+ 		 * runnable (see do_pick_task_scx()).
+ 		 */
+-		if (!proxy_put && next &&
+-		    sched_class_above(&ext_sched_class, next->sched_class) &&
+-		    scx_task_can_stay_on_cpu(rq, p)) {
++		if (going_idle && scx_task_can_stay_on_cpu(rq, p)) {
+ 			WARN_ON_ONCE(!sched_core_enabled(rq) &&
+ 				     !(sch->ops.flags & SCX_OPS_ENQ_LAST));
+ 			scx_do_enqueue_task(rq, p, SCX_ENQ_LAST, -1);
 -
--	return max(rq->scx.rescue.slice - served, 0);
-+	return max(rq->scx.rescue.slice - rq->scx.rescue.served, 0);
- }
- 
- /*
-@@ -438,6 +436,14 @@ void scx_rescue_charge(struct rq *rq, s64 delta_exec)
- 
- 	lockdep_assert_rq_held(rq);
- 
-+	/*
-+	 * Count @delta_exec as served before the clamp below, which bounds only
-+	 * the budget charge. update_curr_scx() took the same delta off the
-+	 * slice, so a slice set to the unserved remainder, as escalation does,
-+	 * reaches zero when the remainder does, see scx_rescue_keep().
-+	 */
-+	rq->scx.rescue.served += delta_exec;
+-			/*
+-			 * A task put on the local DSQ runs, as anywhere else.
+-			 * Here the insert can't reschedule on its own: the pick
+-			 * has settled on @next and @p is still curr, so
+-			 * resched_curr() would flag @p and __schedule() clears
+-			 * that right after the pick. Flag @next instead.
+-			 */
+-			if (p->scx.dsq == &rq->scx.local_dsq)
+-				set_tsk_need_resched(next);
+ 		} else {
+ 			scx_do_enqueue_task(rq, p, 0, -1);
+ 		}
 +
- 	/*
- 	 * A rescue slice is bounded by one quantum and tick-driven expiry can
- 	 * overshoot by up to a tick. Clamp to avoid wild over-charges on VMs.
-@@ -498,7 +504,9 @@ bool scx_rescue_keep(struct rq *rq, struct task_struct *p)
- 	    scx_bypassing(scx_task_sched(p), cpu_of(rq)))
- 		return false;
++		/*
++		 * @p may be on the local DSQ now. With %SCX_ENQ_LAST the
++		 * scheduler can put the last runnable task there. The plain
++		 * insert runs when @p cannot stay on this cpu, and rescue can
++		 * still admit it here.
++		 *
++		 * The cpu must not go idle with @p queued on its local DSQ. The
++		 * usual resched doesn't work: the pick has settled on @next and
++		 * @p is still curr, so resched_curr() would set need_resched on
++		 * @p, which __schedule() clears right after the pick. Set it on
++		 * @next instead.
++		 */
++		if (going_idle && p->scx.dsq == &rq->scx.local_dsq)
++			set_tsk_need_resched(next);
+ 	}
  
--	scx_set_task_slice(p, remaining);
-+	/* never called on a protected rescuee, so the write can't be refused */
-+	if (WARN_ON_ONCE(!scx_set_task_slice(p, remaining)))
-+		return false;
- 	return true;
- }
- 
-@@ -581,10 +589,9 @@ static void scx_rescue_timer_arm(struct rq *rq)
-  * @slice: CPU time to grant
-  *
-  * The schedulers keep their normal control over @p and may preempt or reslice
-- * it. @slice is measured on served CPU time against the snapshot taken here, so
-- * neither shortens the rescue, see scx_rescue_charge() and scx_rescue_keep().
-- * Prolonged denial escalates into protected execution, see
-- * scx_rescue_timerfn().
-+ * it. @slice is measured on served CPU time, so neither shortens the rescue,
-+ * see scx_rescue_charge() and scx_rescue_keep(). Prolonged denial escalates
-+ * into protected execution, see scx_rescue_timerfn().
-  */
- static void scx_rescue_admit(struct rq *rq, struct task_struct *p, s64 slice)
- {
-@@ -593,7 +600,7 @@ static void scx_rescue_admit(struct rq *rq, struct task_struct *p, s64 slice)
- 
- 	rq->scx.rescue.curr = p;
- 	rq->scx.rescue.slice = slice;
--	rq->scx.rescue.exec_snap = p->se.sum_exec_runtime;
-+	rq->scx.rescue.served = 0;
- 	scx_set_task_slice(p, slice);
- 	scx_rescue_timer_arm(rq);
- }
-diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
-index 37d4808d7f19..6fed367feda4 100644
---- a/kernel/sched/sched.h
-+++ b/kernel/sched/sched.h
-@@ -807,7 +807,7 @@ struct scx_rq_rescue {
- 	u64			clock;			/* last budget accrual timestamp */
- 	struct task_struct	*curr;			/* task being rescued, one at a time */
- 	s64			slice;			/* curr's admitted slice */
--	u64			exec_snap;		/* sum_exec_runtime at admission */
-+	s64			served;			/* curr's served time */
- 	struct timer_list	timer;			/* paces admission and escalation */
- 	u64			kill_at;		/* last ejection, init before any */
- };
+ switch_class:
 -- 
 2.56.0
 
