@@ -1,105 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.178
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792722693;
-	b=T0vUJMBzbzCpe0KAYlEje7c58774/Z1YR/XQNaQVR+Kw14pizSNZj33z9SS60nj9kgg4
-	 JuYa3wDrdJqdjLNdNkgEAgFNsV26IZtugmJtiCsV2QnlzCbC6AG9seUT4vKF90KIIxLB6
-	 xfMoScxHgDCMrr7HfQqzxpNjmRhA6BXXul/6enh0fw7P7va01fh9qcGp5KtwT15xpc0v+
-	 Nu0L2528bbhZU73qBvQ2RSHv/M6ay99IQG/nvBHYKW6T8imOS+I2CtDdfRQuoAxktZ4N/
-	 0N9FUH4dFZM3BwBbWzpHKlicbd6ameX8GRPtbzaEvNwiy2l/g0Y1gYAQLPY5igozMlw==
+	t=1792722696;
+	b=zPStoDV1sEEis2HAHxj7A8nehi8o7ljFN4FQVvNMmcHm0i2xsKZyHhSqqPFXPNEedE6e
+	 gHEq7ymENCYEG8dDHOjWyjlHINv0IfZIsn3OjYLsABj4WT7M3oTRMhYRNY9x0sV5uQRKv
+	 sPKlaO+Y11l7xfoOhSkmx4Px+RT8qJgx4HCuHBN1dcOPW1b/kqGYoiNsPyxLIQsMFiEIa
+	 E7ofXvmAPbIVCsQUtrhxTS2bUl27uf/Nsk1SXhIeM86of2UGOgma/BSksMEkcO4chwKle
+	 JyxOhGh1kn823pPzQuMz79CN2+f0KdaBIgSw1Ogb6PVHIRpqP5k9a0cKH0jdI/CgXhQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792722693;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792722696;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=vFsDRt0lNhWFHZQTXpeKzbrFyQk7dRmTZwu6sQNhBXU=;
-	b=FckmaeqDVLrwAvP7/iyAzEhgXXWQMXn4Wap53jaazhU7mzCXO2xhP5AEd4o5K3UlcGyV
-	 In87V1bTCJ6phULfgp9rbGl3Ll9Sjl3vnD8rzy99APyzRafjpFKihvwizXQDXlLmfh9oR
-	 8awtfD/NDC9rpOGy41kZxQl+lkii8hk64XOu7bRvZw5WPzzPv1Drh/1dC/BGhgAOMMrAJ
-	 IT/9y09yqjbR1O8zrtnDBU724XqmftKOfJyyyNT6/E7I6v87Rvln6mlsQ611A3KbzFftm
-	 yk8jS102J3e81yj8vBQn2/pYyzEwEjT8sK91b0ElrGmGiZP3mLR99P83T17n4rwiV+A==
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=ksAqQEt7wgRnrEwMkGEYt7VjPYd0SKMXbelAnKdTXYE=;
+	b=YMCDzWYZGESX12i/sG9H28TIk+tFPuYvoCb/h1WqxmQOI7fF198qy0tuQe3opi+EFax7
+	 nyCOWjuVwkOY5N2LYneL36DfFSwKXARNcLWtkuTDBkPLBT64f/M/d1NmRUyBi6tBWlEVR
+	 KSg1syGsbnashIXnR8pEmUTopwOYwNgBeQHG0IUaJHpr7E9Udn0wf1dSEF445dVCaNL1v
+	 uDN168uyGFIRmusd41i5ki5TB7LUBV4DpJCWPm3jn+D1MCBln9egUPjZmI6P5zaClkgr0
+	 p5J2KomdtwTnubhGdTURFkxowQfBobtsBRLCMpI86R16DHRq8NR4ARMdNTZKtUypSWA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=CxndZ7Qa;
-	arc=none smtp.remote-ip=209.85.210.172
-Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com [209.85.210.172])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Oe1CMZ7t;
+	arc=none smtp.remote-ip=209.85.210.178
+Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com [209.85.210.178])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 486DD606A31B
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 02:31:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 486DD606A31B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B033606A321
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 02:31:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2B033606A321
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=CxndZ7Qa
-Received: by mail-pf1-f172.google.com with SMTP id d2e1a72fcca58-89f85edd210so147751b3a.2
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 19:31:33 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Oe1CMZ7t
+Received: by mail-pf1-f178.google.com with SMTP id d2e1a72fcca58-8a06c60065fso352308b3a.1
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 19:31:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792722692; x=1793327492; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=vFsDRt0lNhWFHZQTXpeKzbrFyQk7dRmTZwu6sQNhBXU=;
-        b=CxndZ7QaDwRyJ69KpmJUIl5OO5i0QYm1TWc4EqX/gHOag+9SSqnnyq4En1k+nj7LXI
-         zcSPoR9U4zqNpAs9YDAM3b2rkYoPSItPRiE21qUx1no28u6/sTyFxnRxQMjSB5lzQFtf
-         jjpEJ6wmyqaGjW6qPWGDPa0EtLKZmT8buCD+NDKARHNceo8CdcMIMGiaqqQpWpUQ89kW
-         ajExs4efzDrAEHV2shpktzprUWj8r3zCVJgCCvpzyvPfGAy7PbSR2uQvtZWMNhi5hpd+
-         UnAeUL82gdrtMa3H4G1SMJDPNYUTImB1uv+e7kHpIyaLYPIMqYMiKN1rLNkrsJtRbgFr
-         gwUQ==
+        d=gmail.com; s=20251104; t=1792722695; x=1793327495; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ksAqQEt7wgRnrEwMkGEYt7VjPYd0SKMXbelAnKdTXYE=;
+        b=Oe1CMZ7tYNcoLHe0eavLG7OIHLIneB0XD2SCB089Kpg8J8yPNL3XT3E0rxHLjsaih0
+         49vXA5u7G0vI1b97RDBMuX8l3jMA9y6ZqBZUd1VZdBA46EEtzgjWJR45ni6gVVCob6ZN
+         ii7LDdjkY30+qxFY3t/YWUXCvtmzea3WZRKsfC+PgRA0j0fL46ybpEI2jYZchTEA9EIR
+         FrcXCpLbf+OuCrDZTR56oBoXHy4sOyhRbLvVue8g0wgb06LLwxJK+gf7KKxX28oU8yK/
+         FYrH9k8kqw3CTV/RAIFvBWhIkVhpV0jxzUOjAIsqkkmgGuvFTha9+qrOFmeW1b33jFOA
+         rP5g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792722692; x=1793327492;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=vFsDRt0lNhWFHZQTXpeKzbrFyQk7dRmTZwu6sQNhBXU=;
-        b=yb7aHaoUfWBownhIdRx+05rX9pr6Au2VvZhpdo289pSE2JfjqBXKFwIXwJxYwivxHb
-         LO86yO1HWryYYlvGh4H5xJ3v4/vjhhhdHm6aTGsxPzEKoRffhT/3OX6ZWXwCOcivBHsp
-         ei5k/kvCKUlhVxQn/ftHScJPKj0CuWfCD5pLc8p2d004SQN5YC1UsYPgQ4c9uintctV+
-         3KehXDUWz0mgFaSiH+Bk4vDWHCcogTgglv1umeNExaJUBuYuFI6ycOB/IHQT7VKfPk8b
-         IQ2ILOYrOeCyv4Ad3fDrTkwFT3Qb4FQVF9Qsb3cXfil8GCamySRWaGPzebtYhja3vuv8
-         ynig==
-X-Gm-Message-State: AFq9FYIpBZx01WhbKAL96MN2+BBHgmjw/W/jOyew3GrhvMxm+JsUo1/p
-	y713x/vLP6c6EEYd62YW00Be0aiEYPvKtr++8r0fedsJ7yfDiHtdkW71
-X-Gm-Gg: AYBFou1TV4geULWqjQfX+SHB7CHOzAyr5O+R85iWsS4Bxc0cw45zLWsSqkWCDYNJsxG
-	oHI6QU12GYb36JafjvflE6rcOG+zXC65MiXYhHZMu1nMwqbxbbnDYrujerf/50P1cJRzox2iNVG
-	uZXb/KjV+4taMGHIb3jpxpD++L23eRqaR3LMvJIUJYCn2aFiSVD/ZDvyuFKZJYZ2YWNZzGobhok
-	UF4Oq80OySghV2AVdX/81EiXzQMloZ19crPY+EW0qjcPj20HF+kvjrHdBO/p9sUffK0Dw+uOr2k
-	wOS9QmNGjf0UvrcBiuAuzq51/WBmDQhLdKlHLFiFdX4rZ+34UhbGVf346zl27vrAImTWhKQIKpu
-	H9LD3DqTZ6huQFK1j4tuMu9Qu3V8M1JbegM0y4We3fxkJunpBTeL3+KPdPVRNDf8DOFGqDMkvkw
-	Ix4vt++X1mBz0TCz2LoqCZsXdlJvWl7MHPjAmRIdAsa4Y/1ZN2p/beq5G+CnpvaCNs9Sm7Fu39U
-	BKpCl30cIC2+yQSiyULNOut398bdc6l+8UffaXuMfp2kjSDIpKkBh6ySy+ijK8Zmiw4aaWQj/Vu
-	i6qETx5SK8/NVg7gzAVeZPlG5UEMvralN2BKk1hRHcCbUfXWNhyD9FoPwk+BKKc1bLTsa1Nc
-X-Received: by 2002:a05:6a20:9c8e:b0:3de:4a1c:a95 with SMTP id adf61e73a8af0-3e376783287mr592947637.91.1792722692511;
-        Thu, 22 Oct 2026 19:31:32 -0700 (PDT)
-Received: from localhost.localdomain ([240e:46c:1d00:19d6:7438:ad54:9ef4:bc36])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd8ba89a40fsm279852a12.14.2026.10.22.19.31.25
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 22 Oct 2026 19:31:31 -0700 (PDT)
-From: Yafang Shao <laoar.shao@gmail.com>
-To: mingo@redhat.com,
-	peterz@infradead.org,
-	juri.lelli@redhat.com,
-	vincent.guittot@linaro.org,
-	dietmar.eggemann@arm.com,
-	rostedt@goodmis.org,
-	bsegall@google.com,
-	mgorman@suse.de,
-	vschneid@redhat.com,
-	kprateek.nayak@amd.com,
-	gourry@gourry.net,
-	david@kernel.org,
-	tim.c.chen@linux.intel.com,
-	yu.c.chen@intel.com
-Cc: linux-kernel@vger.kernel.org,
-	Yafang Shao <laoar.shao@gmail.com>
-Subject: [PATCH 2/2] sched: use static_branch_likely() for the NUMA balancing tick check
-Date: Fri, 23 Oct 2026 10:31:05 +0800
-Message-ID: <20261023023105.28829-3-laoar.shao@gmail.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20261023023105.28829-1-laoar.shao@gmail.com>
-References: <20261023023105.28829-1-laoar.shao@gmail.com>
+        d=1e100.net; s=20260707; t=1792722695; x=1793327495;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ksAqQEt7wgRnrEwMkGEYt7VjPYd0SKMXbelAnKdTXYE=;
+        b=GLQqgMMirMxRY421eRmyLYYoMLMe35ntRBOvxCZ72xVtigZjIit+TPF5n9hdIt6X8q
+         u3XJ/AT8SCTGy/dFpgFsy5zkLpl36z9KkeUMyAUWgMT35sI9oaD2kmjEqIWmy2KCjPCX
+         MgozLFvcFVFnSy3JwgtiD5/VnLhU+yeiNxp1FiRFMbd7MUw530OlrQHi4JMQ6IxjTrkw
+         CzsSKjXhFqKung8TShcTWf9WjEiLAAb0iYlnxdRUZtQbqYf+7J95Q49fpgX34OLRLjP2
+         kuK0WiU/UmN1ENqry6hfo0BueZ39nGZTiwPnNdggFTXx129gk1VRgfsabQoLUltKAgpK
+         yuyA==
+X-Gm-Message-State: AFq9FYIrbi2rTe1WF88x+247RzzmN6lO5HY/UPooRwNJqjHuk9lPbzZG
+	AkvpLn+zrcG8hk9jTL6j7cl/6ZafDgtLJMUbqKDdyWROnckG+SFGaXDyhJZRKg==
+X-Gm-Gg: AYBFou31MTyFg+Dbn+ozmoiCQ87+Z83DBeSJkDnmbGt1IEcBUW+8WFuxPaH0gB80V8p
+	b41MKfllxpucv9d9kaTq0VU03j+DW5gK3AFTaBPTx9lX5JoBxr+GUxeJnPdhM3GVAFWsuMS4tPp
+	HkQSHVe028uq8HguHVPDkzEiwKEXmuMnfJjAlI4WQQxiqHR//8uMyQBsM8D1ALpaQVpR2kKnk3D
+	4SEcJt/c/RJWGiXaRf+Siy5VcymEg45xiTIWfMHRVUf4SwhE9yDGIWMsv6zUP1goh19LW9rpuMf
+	wm8uROHpG4QTOOl5hfPpx+pXq83OEJ77O9R7Ff5c8ph4iLzZED25LC+o0G4OuuHTF+5b+U4mANR
+	qREh2PvlaqNUYPrkuFHxKGXgpE8HIzmyVtAEMy2P/PhXsWDXElzut26uPAIIphbyM+7jXxSExon
+	ywOkoq1xLEKp627dLeFkF5JnAvqXKA+LGobPt+5JmQ5RlIozlb1E9a9WlYUZB7NXAYu+ovqE+KF
+	exVccdhx2yJysI4Bm+XdKJOIMnSGdtvDZ2NHoYKScX7rSlSWtd7Wav2LD9kUAUa9QRhU8BjC4K2
+	7BhN90K//RydpKTCuc/shIKwBmn+OyQgwxL2E6ecVFDV6z24hiItZGTp9b8w/8JviRVT2O4WLw=
+	=
+X-Received: by 2002:a05:6a20:a10b:b0:3e0:e400:3fd with SMTP id adf61e73a8af0-3e37665ccbamr644534637.43.1792722695158;
+        Thu, 22 Oct 2026 19:31:35 -0700 (PDT)
+Received: from f2fs-test.c.googlers.com.com (225.134.16.34.bc.googleusercontent.com. [34.16.134.225])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8a2c90f9397sm193403b3a.42.2026.10.22.19.31.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 22 Oct 2026 19:31:33 -0700 (PDT)
+From: Daeho Jeong <daeho43@gmail.com>
+To: linux-kernel@vger.kernel.org,
+	linux-f2fs-devel@lists.sourceforge.net,
+	kernel-team@android.com
+Cc: Daeho Jeong <daehojeong@google.com>
+Subject: [PATCH] f2fs: flush devices when a sync checkpoint is skipped
+Date: Fri, 23 Oct 2026 02:31:18 +0000
+Message-ID: <20261023023118.3460118-1-daeho43@gmail.com>
+X-Mailer: git-send-email 2.56.0.257.gf7497c7d27-goog
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -111,31 +96,105 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-task_tick_fair() checks sched_numa_balancing on every tick. The
-static_branch_unlikely() annotation reserves the nop for the disabled case,
-so the default configuration (NUMA_BALANCING_DEFAULT_ENABLED=y) pays a
-taken jump per tick. Flip the polarity to static_branch_likely() so that
-the fast path matches the default.
+From: Daeho Jeong <daehojeong@google.com>
 
-Signed-off-by: Yafang Shao <laoar.shao@gmail.com>
-Acked-by: Gregory Price (Meta) <gourry@gourry.net>
+When fsync needs a checkpoint, f2fs_do_sync_file() writes and waits for
+the file data and then relies on the checkpoint to flush the device
+write caches. syncfs works the same way through f2fs_sync_fs(). But
+f2fs_write_checkpoint() skips a CP_SYNC or CP_FASTBOOT checkpoint
+without any flush when SBI_IS_DIRTY is clear.
+
+That can happen even though the data was just written. A checkpoint
+does not wait for F2FS_WB_DATA writes, so another checkpoint can commit
+the new block addresses of the file while its data writes are still in
+flight, flush the devices before they complete, and clear SBI_IS_DIRTY.
+The checkpoint requested by fsync is then skipped, and fsync returns
+while the data may still be in a volatile write cache. After a power
+cut, the file points to blocks that were never persisted.
+
+Flush the write caches of all devices when a sync checkpoint is skipped.
+
+This was found by generic/455 with compression enabled for all files,
+where every fsync goes through a checkpoint. On a 4KB page kernel, 3 of
+100 runs lost fsynced blocks without this patch and none of 100 runs did
+with it.
+
+Signed-off-by: Daeho Jeong <daehojeong@google.com>
 ---
- kernel/sched/fair.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ fs/f2fs/checkpoint.c | 18 ++++++++++++++----
+ fs/f2fs/f2fs.h       |  1 +
+ fs/f2fs/segment.c    | 17 +++++++++++++++++
+ 3 files changed, 32 insertions(+), 4 deletions(-)
 
-diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-index 973647ad6c2d..71dc47d6114d 100644
---- a/kernel/sched/fair.c
-+++ b/kernel/sched/fair.c
-@@ -15351,7 +15351,7 @@ static void task_tick_fair(struct rq *rq, struct task_struct *curr, int queued)
- 	if (queued)
- 		return;
+diff --git a/fs/f2fs/checkpoint.c b/fs/f2fs/checkpoint.c
+index 1ed38c668fc..158d97fc349 100644
+--- a/fs/f2fs/checkpoint.c
++++ b/fs/f2fs/checkpoint.c
+@@ -1973,10 +1973,20 @@ int f2fs_write_checkpoint(struct f2fs_sb_info *sbi, struct cp_control *cpc)
  
--	if (static_branch_unlikely(&sched_numa_balancing))
-+	if (static_branch_likely(&sched_numa_balancing))
- 		task_tick_numa(rq, curr);
+ 	stat_cp_time(cpc, CP_TIME_LOCK);
  
- 	task_tick_cache(rq, curr);
+-	if (!is_sbi_flag_set(sbi, SBI_IS_DIRTY) &&
+-		((cpc->reason & CP_FASTBOOT) || (cpc->reason & CP_SYNC) ||
+-		((cpc->reason & CP_DISCARD) && !sbi->discard_blks)))
+-		goto out;
++	if (!is_sbi_flag_set(sbi, SBI_IS_DIRTY)) {
++		if (cpc->reason & (CP_FASTBOOT | CP_SYNC)) {
++			/*
++			 * The data that fsync or syncfs waited for may have
++			 * completed after the last checkpoint flushed the
++			 * devices, and that checkpoint may already point to
++			 * it, so flush the devices.
++			 */
++			err = f2fs_flush_all_devices(sbi);
++			goto out;
++		}
++		if ((cpc->reason & CP_DISCARD) && !sbi->discard_blks)
++			goto out;
++	}
+ 	if (unlikely(f2fs_cp_error(sbi))) {
+ 		err = -EIO;
+ 		goto out;
+diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
+index 1f9bd8e3b52..a4a38818988 100644
+--- a/fs/f2fs/f2fs.h
++++ b/fs/f2fs/f2fs.h
+@@ -4265,6 +4265,7 @@ void f2fs_balance_fs_bg(struct f2fs_sb_info *sbi, bool from_bg);
+ int f2fs_issue_flush(struct f2fs_sb_info *sbi, nid_t ino);
+ int f2fs_create_flush_cmd_control(struct f2fs_sb_info *sbi);
+ int f2fs_flush_device_cache(struct f2fs_sb_info *sbi);
++int f2fs_flush_all_devices(struct f2fs_sb_info *sbi);
+ void f2fs_destroy_flush_cmd_control(struct f2fs_sb_info *sbi, bool free);
+ void f2fs_invalidate_blocks(struct f2fs_sb_info *sbi, block_t addr,
+ 						unsigned int len);
+diff --git a/fs/f2fs/segment.c b/fs/f2fs/segment.c
+index 06fb92fc847..5b015cf9071 100644
+--- a/fs/f2fs/segment.c
++++ b/fs/f2fs/segment.c
+@@ -822,6 +822,23 @@ int f2fs_flush_device_cache(struct f2fs_sb_info *sbi)
+ 	return ret;
+ }
+ 
++/*
++ * Flush the write caches of all devices, regardless of which ones received
++ * writes since the last checkpoint.
++ */
++int f2fs_flush_all_devices(struct f2fs_sb_info *sbi)
++{
++	int ret, i;
++
++	if (test_opt(sbi, NOBARRIER))
++		return 0;
++
++	ret = __submit_flush_wait(sbi, sbi->sb->s_bdev);
++	for (i = 1; !ret && i < sbi->s_ndevs; i++)
++		ret = __submit_flush_wait(sbi, FDEV(i).bdev);
++	return ret;
++}
++
+ static void __locate_dirty_segment(struct f2fs_sb_info *sbi, unsigned int segno,
+ 		enum dirty_type dirty_type)
+ {
 -- 
-2.52.0
+2.56.0.218.g1ec904b173-goog
 
