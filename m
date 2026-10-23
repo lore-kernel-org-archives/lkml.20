@@ -1,53 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792787213;
-	b=cMjsIXeXcEdhfU4Pq5bxqdMgV8BcN/bp4zokPsvXJHEj6FjAK1EZWxly4aNwELGb3ogd
-	 WhlU5zyLGv+Mmpn1hJv/hlE5OyVQKoudnM0uVsDsLPDAw6KImhxGvelVzGMnHxzn84fqH
-	 nfJmRSdr7bnjtBC2S50VD8tTF8yVP1pMukW01fyDXEVbv2C8/jctkkkPKhKesF4FuERp+
-	 3bAZ1D3x898mvfl57ib3XYpheVyBC3oupDkpSqSA8K56shU/hy13uXBq+7C9zW0qZc2DB
-	 LzZB8mRSAFJoMjTtnOcyp5F4pVEl2pSOtc8szG2J2E2lFt4lLhUmRsLwg0M/camzRNQ==
+	t=1792787219;
+	b=05kisLx72j44REmPVIJpsmuWKFlr2QF0KEbGyWT/GqaoVz3OJu0wV5xax+BId8b82s3G
+	 Wof15TCmmzx8GBLYEGkXTalPnva0O50ZY493LoAhpJ+Y1xFx8geFx9TjAzdUXZWdTZjV2
+	 4jGOG0sCpJT5V3eYYNQUCikEMQiKEVGl3tzirtGZnSuHcO2dQiBef685Ydvx5E6Wz4Yif
+	 QM3DZxJhtJnO/a81V325fTOt1rpLcbBOfDg4Xkq1UkvddKJLZf7JAqS0WPLQ7EpU88ZHJ
+	 O1M9yQWKHSuySG+13Xxe8PE4l9bBFBhniv0cfy7aFWJcPR2BXGIPvEvlI5HcP/VUz3A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792787213;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792787219;
 	h=Received:DKIM-Signature:Date:Message-ID:From:To:Cc:Subject:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=2iKkxq+UqNqHyLV+THXMg5WkUFKVICQa0CuIV+OZXMg=;
-	b=nxe5BkpuaIIEmqkeMOWRcDlD0Z1/UQ2OR9rWtxLzcYqg8dimTIhbnH75ui4otaX3IxCr
-	 ptC4Sk5HAfkGlqxkwJiV2yjqDp4z5QD8efZ3PFnuB6yIKEYCeKqK8DROpFYa/Niney7N0
-	 Vqpm6DdEI9Ea0KgsN71h2kZVrYt5q3WxYN+C6qhoYWbA16wJSySu1YpCvI3wMomjphZ0+
-	 J+AhFsR5ZXGSXv0CTmUdR+jQIu1DjtfQDN7E+ctbCt6BakC/DOpU1kDHNFoduAJdoYm88
-	 6QMPFuHZkaxwXjpARodzVaRmyLXbS8a76EydJTML8eMRdHUo5wp2FFMgaEPPx159dLQ==
+	 In-Reply-To:References;
+	bh=sxyno1UwroxK9nFCSSP6D2QpXVK+BfG/kAuvqMrlWFg=;
+	b=hXuUnp6fhu6mseXABarafBZuToAMs9/1zDMpqaqkQQPNk4xtV1fIoX9RhjIajxpqBy9P
+	 DeLTn+reg82u7NX4ollH2zIa/ZPxsHmIri9sPDn9g2aQs7J+2Qm7ZoOOcO+G+nt43XOtI
+	 bJp/S9gTOt/H6/npm68NR/fPK7mUjGstkvpwpV/NZI9jCNmSJwsal/Dv7MpLpVK+8fU6i
+	 f5OvDEo29XqBGBDzEecApCbB90SCJYLSBemXbTfaR0lOPEOv4r/J3yQj8HJr0mFynizlL
+	 NAxFqGsmQRSbSd331ZfaGXOB/PqFpArTTewXO3XGqJ0vG8SwucyptNcqWOlGeIoY2uw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZWVCDR5c;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gT1itghq;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FC2E606A31B;
-	Fri, 23 Oct 2026 20:26:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0D3B606A323;
+	Fri, 23 Oct 2026 20:26:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZWVCDR5c
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C7C671F01825;
-	Fri, 23 Oct 2026 20:26:52 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gT1itghq
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 897101F031E2;
+	Fri, 23 Oct 2026 20:26:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792787213;
-	bh=2iKkxq+UqNqHyLV+THXMg5WkUFKVICQa0CuIV+OZXMg=;
+	s=k20260515; t=1792787218;
+	bh=sxyno1UwroxK9nFCSSP6D2QpXVK+BfG/kAuvqMrlWFg=;
 	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=ZWVCDR5cy/lndYOyGOhplC6Lx+7RDonEGRapmpGv60UxxsNruAEycqp5I9F3SqZDO
-	 FGrEeZw/IJRn6KSQVPjCjoEfdQVewjB4itxUJkAIo3lPysogcN/Q0o9TyS7pBvcsBR
-	 Tu72O8VA7FgnPPrqXoOFbS/cGBBrCLgGBlTfoN5aOEfp1+m8mO7pcKIBa9u/A4Tb17
-	 pT/p6z7dOen2/8CpNfsHGUrNPePOf0F2NeM2bK6iAZ3VmSf6yE4NkSwEE+8Ia3Cu76
-	 CahK7B1Ddu+z6EqtfkR74A7L3+3uFtXVSLYSGbBbKm9oGr8MzXvjaRiQo39eHzc3zy
-	 x+bJbkH+VymQg==
-Date: Fri, 23 Oct 2026 10:26:52 -1000
-Message-ID: <340edb95789c7c6803f50bb1ac2fb5fc@kernel.org>
+	b=gT1itghqfxIuFtox5VDHq+6lQxakKq2boy2ikIm8heOEyjqu4ivNElv5+bu4GHQOW
+	 fVN9uu6jBOM7pNNt9gJgp/xpmorNU8A4fbZC51V/UoHhSQHuOxAPthapb5bukLo9Sg
+	 Dq2ceSGo/zB3RXRX9icwy4JIQlD1XwMzPvsG5BtZYhlwIr6omMLJQ4BQjap/+L4H4E
+	 5lih8gAqsXHVW7JQomSBbAM21/ngrhEpu89Jbv8NiHQL9+vZONQvV46pb2y4F79F34
+	 AuAUYYrPn3wLZLpeUW20XY5Up2cM17tXQ36Xleor2vUH+24L3g01LwcQn0TZczozjf
+	 doUzk33m8IrrQ==
+Date: Fri, 23 Oct 2026 10:26:57 -1000
+Message-ID: <4aa1f2d3a43d67ffcbba4eff0719e963@kernel.org>
 From: Tejun Heo <tj@kernel.org>
-To: Sasha Levin <sashal@kernel.org>
-Cc: Kir Kolyshkin <kolyshkin@gmail.com>, Oleg Nesterov <oleg@redhat.com>, Johannes Weiner <hannes@cmpxchg.org>, =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, cgroups@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] cgroup: don't kill migrated processes through their exiting threads
-In-Reply-To: <20261023194623.3566511-1-sashal@kernel.org>
-References: <6cfe7cba3720e25400118d43643e55a6@kernel.org> <20261023194623.3566511-1-sashal@kernel.org>
+To: sched-ext@lists.linux.dev
+Cc: David Vernet <void@manifault.com>, Andrea Righi <arighi@nvidia.com>,
+	Changwoo Min <changwoo@igalia.com>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	David Dai <david.dai@linux.dev>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCHSET sched_ext/for-7.5] sched_ext: Regenerate the enum tables and drop scx_qmap's last compat lookup
+In-Reply-To: <20261023000348.2726436-1-tj@kernel.org>
+References: <20261023000348.2726436-1-tj@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -56,13 +58,13 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
 
-Applied to cgroup/for-7.4-fixes with the following tag added:
+>  0001 sched_ext: Regenerate tools autogen enum headers
+>  0002 sched_ext: scx_qmap: Read SCX_RESCUE_DISABLE through the enum lookup tables
 
-    Cc: stable@vger.kernel.org # v5.14+
+Applied 1-2 to sched_ext/for-7.5 with the following tags added:
+
+  Reviewed-by: Andrea Righi <arighi@nvidia.com>
 
 Thanks.
 
