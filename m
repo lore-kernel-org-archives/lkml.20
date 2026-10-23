@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792717899;
-	b=vQ5tQnBXODqtKXcN6+fuC8NsxVbMCsyv3wSidheVtVzqGkXmuy17UTscOaT8y08GhP8M
-	 jk7aqn7fdXsQqSc7betTW5JyDb0upWXiQHjZYrhVm23QS1jX6oycddUnfrrf0QLZ+6TC+
-	 nvEmNqv+xN4y1LizpP5E/vjRPs8qezEZ1lLO6Sx6c9wk+y471VTmtKvv1zkQ2Hoqfj18m
-	 8wWRTCA1PDpXxxFA8gURxWnnYAvUJQ1K2ThrZDvSwFU0z+t1O+Bo0DUFZXDBuYJ+MAIEc
-	 v1OSJcRkNxXKG4sLetp4Ao02+rSyQ4bcFFYPb8ILbvyv4FWootmZQgEXWKFcRrXQ53w==
+	t=1792717909;
+	b=IIWm07YVRPWpMQYj3JUNu/pYbFmY3p/MO9XVZMf3lTq3Mly/BxP6X3NhQDT6E2DtNkXr
+	 NjYP+TTkQgGJ++eet+Il5oivg0QxwDfbH+FGMG6eQ49f3m0ZCiBPtTNJo5GhksJQh7Obm
+	 YDmBBQHvcBUXGa6jnf2r7MNxMSZkWOJPUdsRpt26E8sM8XTex48f0psPAXGTCwFh9Mq2/
+	 AayFUkGwnpTFrA3tMwvJ6MvKiFOlc6xzV+FgFj2rqs4cUWAElCBaa7Npjx944XTFyuLIq
+	 kcLMKBpTOYjWr1wys0pat6MBxcANG3Rl5Ol2c2Su0a0TMWRIF5igMDbW2iOw6o1iYQw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792717899;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792717909;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=tAB/PqyAB03MK42AfnxBxy/J6Gi92VHh4GhJDpFJkA4=;
-	b=XYGvvrbsQlAtaPL025RQqotAgAT9ELFOiUeowSilDIFZs7Zi54uxaAe00V9yWy64P7CE
-	 1ZbCaigJ+FuOEo7i5X4J9ZtYI3sQwweBXIysRiOv6iHbwqi/+GzCF7psnHqqtbFAODVxN
-	 OjTPDMdUUsO6wdvXLe0i3aQUZ5SGrqoFIIZeYgNWURjJWnXABIBgrmdIzeYgyP1St9G9C
-	 UDL/a/d9kILFkg9Yolg6Nv9OCelPSF08Q3o+6EKiZTHyr7kediu6VuYkmJuuE9XOrNb21
-	 R9qDNUB28m/2gy396B+sydOKQBokSH6ojlr+8SPHrFvBRwMJzswXWXIw2sOY+793+Sg==
+	bh=Uaspmp2ODihoXk6Ju3FruQFD2ZGMXaBy20k2Z2P+1K8=;
+	b=WzNoH+2zjoId2TUUHGXDTy2SFBMzMpv/GLlH5HVqMdZCNiOftw5AmvHth7TVoTE4mZvN
+	 +0lVkKnVntk0quay+dynZPN7ZUKFnq3z1XeFn52MZsMYw4vj2TNrJdhaeFVxac6VCv/IU
+	 FzkjpAwc45DJmFi0N42EuBOCfu1xl2bEwW9jgR1h6OZ/bm7Qx/tTUedwOPcHvxLTjWsnl
+	 GD1XKEbTC/dX9SZfc8KbgOjh6OCf3YDJJOisd2jH5EY6xqK8a9QnkyKcxC5eziC8SYMcS
+	 9PMEzJQ+qimjYZWjfiECVXs2qiIL8T9ytX6A9mSRReGgLVGog1kLEzuWTaMv2sS0OTA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FIv6nzFl;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G8RTWf8F;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07252606A332;
-	Fri, 23 Oct 2026 01:11:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8802F606A321;
+	Fri, 23 Oct 2026 01:11:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FIv6nzFl
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C25691F01825;
-	Fri, 23 Oct 2026 01:11:37 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G8RTWf8F
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E7881F031E6;
+	Fri, 23 Oct 2026 01:11:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792717898;
-	bh=tAB/PqyAB03MK42AfnxBxy/J6Gi92VHh4GhJDpFJkA4=;
+	s=k20260515; t=1792717909;
+	bh=Uaspmp2ODihoXk6Ju3FruQFD2ZGMXaBy20k2Z2P+1K8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=FIv6nzFl2MOintYM8ykrR9yRoVRfHfZR0bZ4XHZEV5DSxniIjsVWuQ+adbXU5gm3d
-	 J31SfC6VhH/AcTqedOjilPA2s+biTLe8TPcqO/6SK0hZn+ywpbYRoSFWELtWWwTjLs
-	 nYpJbl7Y39+UiYAAV633WGipgksYlxj83k0YghEFGOwTE6f27RcZfOwC9c7Tq2HUlR
-	 oC+LzGmjAnCLtTOdLQM8nuKDHC4GKNlutyEc21Lz5dR91cWOeSbMtuGFi/ekHFPye8
-	 skEjyfR7SEwPDbpNyu4h1c+XEtUMYCtlL31ePCM0ZQPdov/RfKKNweKWvNwRhjJfNh
-	 sa0Wed6DY9I+w==
+	b=G8RTWf8FIie9HXKs+Or5w9rGKm/Vb9NO10HQCK/2MtD/yVCMdqM/KfcL1B961Y57v
+	 H7OHi7GxvNKtwJXimRVZIrk6Bd5pOWApMsGpC+4v9/H4H7WjgIVzNLzirQ4VZT24Gq
+	 lZRSC1OWLTs+kwCAGGVQTIIhrNbTQ2uU6ntj+3aLIWZZUjYr04wg9PfGlMD/fe07NU
+	 jTUQeT219gbITxpAj3ux6KZaKrE8He9y/raajeRpipE4DajJz2ZcJQxLkwJNapHBGY
+	 t4CIl27U2Lab0GZ2u3MLHc7r297lqaZP3nm+qOJvgPNfhFjoh0CsHiASz+PbqIMQOj
+	 71m5cINzjI0dA==
 From: Song Liu <song@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	linux-trace-kernel@vger.kernel.org,
@@ -48,9 +48,9 @@ Cc: rostedt@goodmis.org,
 	mark.rutland@arm.com,
 	kernel-team@meta.com,
 	Song Liu <song@kernel.org>
-Subject: [PATCH v2 08/16] srcu: Mark the fast notrace read-side helpers notrace
-Date: Thu, 22 Oct 2026 18:10:41 -0700
-Message-ID: <20261023011049.1164625-9-song@kernel.org>
+Subject: [PATCH v2 10/16] powerpc, csky, mips, sh: Mark the accessors behind current notrace
+Date: Thu, 22 Oct 2026 18:10:43 -0700
+Message-ID: <20261023011049.1164625-11-song@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261023011049.1164625-1-song@kernel.org>
 References: <20261023011049.1164625-1-song@kernel.org>
@@ -65,85 +65,79 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-srcu_read_lock_fast_notrace() and srcu_read_unlock_fast_notrace() are
-used by tracepoints, and their comments say they cannot be traced. They
-are plain inline functions, as are srcu_check_read_flavor() and the
-Tiny SRCU versions of __srcu_read_lock_fast() and
-__srcu_read_unlock_fast() that they call. An out-of-line copy of any of
-them is untraced only because inline implies notrace.
+ftrace_test_recursion_trylock() reads current->trace_recursion before
+it knows whether it is safe to trace, so reading current must never be
+a traced call. On powerpc, get_current() is a plain inline function. On
+csky, mips and sh, current comes from the generic get_current(), which
+calls current_thread_info(), and current_thread_info() is a plain inline
+function. An out-of-line copy of any of these is untraced only because
+inline implies notrace.
 
-Mark them notrace explicitly, as srcu_read_lock_notrace() and the Tree
-SRCU __srcu_read_lock_fast() and __srcu_read_unlock_fast() already are.
-No functional change.
+Mark them notrace explicitly. On the other architectures that support
+the function tracer, get_current() is already __always_inline. No
+functional change.
 
 Assisted-by: Claude:claude-opus-5
 Signed-off-by: Song Liu <song@kernel.org>
 ---
- include/linux/srcu.h     | 8 +++++---
- include/linux/srcutiny.h | 5 +++--
- include/linux/srcutree.h | 2 +-
- 3 files changed, 9 insertions(+), 6 deletions(-)
+ arch/csky/include/asm/thread_info.h | 2 +-
+ arch/mips/include/asm/thread_info.h | 2 +-
+ arch/powerpc/include/asm/current.h  | 2 +-
+ arch/sh/include/asm/thread_info.h   | 2 +-
+ 4 files changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/include/linux/srcu.h b/include/linux/srcu.h
-index bce8cac45474..1ed3fc50b77f 100644
---- a/include/linux/srcu.h
-+++ b/include/linux/srcu.h
-@@ -377,7 +377,8 @@ static inline struct srcu_ctr __percpu *srcu_read_lock_fast_updown(struct srcu_s
-  * Used by tracing, cannot be traced and cannot call lockdep.
-  * See srcu_read_lock_fast() for more information.
-  */
--static inline struct srcu_ctr __percpu *srcu_read_lock_fast_notrace(struct srcu_struct *ssp)
-+static inline struct srcu_ctr __percpu notrace *
-+srcu_read_lock_fast_notrace(struct srcu_struct *ssp)
- 	__acquires_shared(ssp)
+diff --git a/arch/csky/include/asm/thread_info.h b/arch/csky/include/asm/thread_info.h
+index fdd4f8ad45ac..d39498883c9a 100644
+--- a/arch/csky/include/asm/thread_info.h
++++ b/arch/csky/include/asm/thread_info.h
+@@ -42,7 +42,7 @@ struct thread_info {
+ #define thread_saved_lr(tsk) \
+ 	((unsigned long)(((struct switch_stack *)(tsk->thread.sp))->r15))
+ 
+-static inline struct thread_info *current_thread_info(void)
++static inline notrace struct thread_info *current_thread_info(void)
  {
- 	struct srcu_ctr __percpu *retval;
-@@ -524,8 +525,9 @@ srcu_read_unlock_fast_updown(struct srcu_struct *ssp, struct srcu_ctr __percpu *
-  * Used by tracing, cannot be traced and cannot call lockdep.
-  * See srcu_read_unlock_fast() for more information.
-  */
--static inline void srcu_read_unlock_fast_notrace(struct srcu_struct *ssp,
--						 struct srcu_ctr __percpu *scp) __releases_shared(ssp)
-+static inline void notrace
-+srcu_read_unlock_fast_notrace(struct srcu_struct *ssp,
-+			      struct srcu_ctr __percpu *scp) __releases_shared(ssp)
+ 	unsigned long sp;
+ 
+diff --git a/arch/mips/include/asm/thread_info.h b/arch/mips/include/asm/thread_info.h
+index 2707dad260dd..4d531efd89ec 100644
+--- a/arch/mips/include/asm/thread_info.h
++++ b/arch/mips/include/asm/thread_info.h
+@@ -64,7 +64,7 @@ extern struct thread_info *__current_thread_info;
+ register struct thread_info *__current_thread_info __asm__("$28");
+ #endif
+ 
+-static inline struct thread_info *current_thread_info(void)
++static inline notrace struct thread_info *current_thread_info(void)
  {
- 	srcu_check_read_flavor(ssp, SRCU_READ_FLAVOR_FAST);
- 	__srcu_read_unlock_fast(ssp, scp);
-diff --git a/include/linux/srcutiny.h b/include/linux/srcutiny.h
-index 905b629e8fa3..fdb988d41167 100644
---- a/include/linux/srcutiny.h
-+++ b/include/linux/srcutiny.h
-@@ -101,13 +101,14 @@ static inline struct srcu_ctr __percpu *__srcu_ctr_to_ptr(struct srcu_struct *ss
- 	return (struct srcu_ctr __percpu *)(intptr_t)idx;
+ 	return __current_thread_info;
  }
+diff --git a/arch/powerpc/include/asm/current.h b/arch/powerpc/include/asm/current.h
+index bbfb94800415..9663d3737d5c 100644
+--- a/arch/powerpc/include/asm/current.h
++++ b/arch/powerpc/include/asm/current.h
+@@ -12,7 +12,7 @@ struct task_struct;
+ #include <linux/stddef.h>
+ #include <asm/paca.h>
  
--static inline struct srcu_ctr __percpu *__srcu_read_lock_fast(struct srcu_struct *ssp)
-+static inline struct srcu_ctr __percpu notrace *__srcu_read_lock_fast(struct srcu_struct *ssp)
- 	__acquires_shared(ssp)
+-static inline struct task_struct *get_current(void)
++static inline notrace struct task_struct *get_current(void)
  {
- 	return __srcu_ctr_to_ptr(ssp, __srcu_read_lock(ssp));
- }
+ 	struct task_struct *task;
  
--static inline void __srcu_read_unlock_fast(struct srcu_struct *ssp, struct srcu_ctr __percpu *scp)
-+static inline void notrace
-+__srcu_read_unlock_fast(struct srcu_struct *ssp, struct srcu_ctr __percpu *scp)
- 	__releases_shared(ssp)
- {
- 	__srcu_read_unlock(ssp, __srcu_ptr_to_ctr(ssp, scp));
-diff --git a/include/linux/srcutree.h b/include/linux/srcutree.h
-index fd1a9270cb9a..8328218a34fa 100644
---- a/include/linux/srcutree.h
-+++ b/include/linux/srcutree.h
-@@ -368,7 +368,7 @@ __srcu_read_unlock_fast_updown(struct srcu_struct *ssp, struct srcu_ctr __percpu
- void __srcu_check_read_flavor(struct srcu_struct *ssp, int read_flavor);
+diff --git a/arch/sh/include/asm/thread_info.h b/arch/sh/include/asm/thread_info.h
+index 471db5173036..9e1ccdd70a7d 100644
+--- a/arch/sh/include/asm/thread_info.h
++++ b/arch/sh/include/asm/thread_info.h
+@@ -63,7 +63,7 @@ struct thread_info {
+ register unsigned long current_stack_pointer asm("r15") __used;
  
- // Record SRCU-reader usage type only for CONFIG_PROVE_RCU=y kernels.
--static inline void srcu_check_read_flavor(struct srcu_struct *ssp, int read_flavor)
-+static inline void notrace srcu_check_read_flavor(struct srcu_struct *ssp, int read_flavor)
+ /* how to get the thread information struct from C */
+-static inline struct thread_info *current_thread_info(void)
++static inline notrace struct thread_info *current_thread_info(void)
  {
- 	if (IS_ENABLED(CONFIG_PROVE_RCU))
- 		__srcu_check_read_flavor(ssp, read_flavor);
+ 	struct thread_info *ti;
+ #if defined(CONFIG_CPU_HAS_SR_RB)
 -- 
 2.53.0-Meta
 
