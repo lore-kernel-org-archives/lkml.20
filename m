@@ -1,88 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792787989;
-	b=jUZrZV6pvPckSkZDDMeEOqyPm9jULapRB1nb/h+tFlAdHRvzWKb+c8Rf1paS7Q5RlCog
-	 80ig5TNxHB6x47M2ahJm1kklpgMQrudKq6gEZz5Kb9mvyfVmt/2VFqFog8IwbsfznzEzl
-	 xA+eF7krjudDiMs+el6Bz4JPmtuzhHMYVAyT+MicBJmxVbU+VLR+1CpZqbzYQjz+ynnL3
-	 LL5bwXpl4HjHa1dtRbBvKk++4uw7b9XIR8E5y37m5R9QbCWO/mmtY4/PmSq+hAhFENd/4
-	 qf4HBX20wohtzeNGslKUIXtmM5KeCCg46M8BNYe1OC+LMN9mso7pCVHL5IRbHyShvLQ==
+	t=1792787986;
+	b=LMfH6HZFbgDcCejdx9NMVHSgmu+lBWRXZkbNUoc6bCUBHpAaCSykmlEO3sFwACv3xAuh
+	 uZPzlgCZ8j8LUuig0wdKSM6+OFnMmnWZIgj4lntBL0AEN5Gtc6gCc0HP+HjwHWFYF8rAJ
+	 D4KFHLAMtlESv5dyz/j91VsNWxTVTaKqusDOEtX7tbOdw3T/t39rQCG/g5FF4GNMbNkDq
+	 SJgE25V+KXB2UenSZBG0kSebbvBk3FQ/DMvt2V/DqhrCKvKNGyFtwYALLXJqxZ6o8gKAU
+	 6lSMSXJV4z+ATxAsG72dd2quSRw3MD16AWDjSi79wpm/X0KjOi2GzLvSztLgRk8cofA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792787989;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792787986;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key;
-	bh=joBq8zZQZw7xm5XS5EnT5tSj+OH2u98OsmcyfjTP7BI=;
-	b=D58EThwAIj/2SYFYdFvN3LcOoO/y13UyOLdL9Sklm41n9mv5UEZz5suMHRpwL3Kpolsj
-	 qypexfTlqZSzkdjYTypA8JBCYrDQfIt6CYj+m5E8pJyuUQr7GPYqNNQoSopCOn8T6OIgw
-	 doyedR8Mw48BhJ6jFdTUa09Maz2Aq9Ci37ojdQYUzvJvpV70sHSbpU+AjUkR+l+5tWB/z
-	 Gi3+S+U4U82XSmEFzcbq4O2Ux3xku2hUS/bWDZN+NQ7L7WQJxwZHUGd2f+PzrcoycevbF
-	 BTDqq2cxvw2FbncM+IX+2dB0sFXcjJHn98qu6+vuHR63e01Zt3+Gr4ev2YO4Wo32h2g==
+	bh=V7bVxjxfNJMJ9ikA6qreYHkI8rZ5PEd2tPNtK+tsbm4=;
+	b=po4G5De2Xme9q9r8cof6Odd3FDrl90RAmhsCtcANA+q9QQhUHSIcLaOu1LigItxdve4V
+	 mGE5FSuY5cUtcDFkCy+BB13GLZN6pWv/+bOlHqaXKtctbYmP4Bx4+5xdtaudxWDr9MMU7
+	 TxwSKLLw6tJpiekQaarxzR+l8L/KuB9ypB4Vb6pRQGo7YCvL083JCl0EnTPawAXs+mHSw
+	 PK1/VLF+iyNYjHwZvsaNslEtoES2gz6bMRWlYhmWpcHYsZE5We3yNQoSV+MlI10ndJjgR
+	 WI3xPiazX7V55CL91EggBfl8LMxzw8crLlKZpX2j+NkpRpjBdv4jp1f3ZYj1hhbwmqQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=toxicpanda.com;
 	spf=pass smtp.mailfrom=toxicpanda.com;
-	dkim=pass header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b=rnZUsKJN;
-	arc=none smtp.remote-ip=209.85.219.45
-Received: from mail-qv1-f45.google.com (mail-qv1-f45.google.com [209.85.219.45])
+	dkim=pass header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b=Pi1jAnCQ;
+	arc=none smtp.remote-ip=209.85.219.43
+Received: from mail-qv1-f43.google.com (mail-qv1-f43.google.com [209.85.219.43])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17E05606A324
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 20:39:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 17E05606A324
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4BB7606A31F
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 20:39:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D4BB7606A31F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toxicpanda.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b=rnZUsKJN
-Received: by mail-qv1-f45.google.com with SMTP id 6a1803df08f44-91ba8fcc684so12954556d6.3
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 13:39:48 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b=Pi1jAnCQ
+Received: by mail-qv1-f43.google.com with SMTP id 6a1803df08f44-91c2fc03880so19480086d6.1
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 13:39:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=toxicpanda.com; s=google; t=1792787988; x=1793392788; darn=vger.kernel.org;
+        d=toxicpanda.com; s=google; t=1792787985; x=1793392785; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=joBq8zZQZw7xm5XS5EnT5tSj+OH2u98OsmcyfjTP7BI=;
-        b=rnZUsKJNsKN8ucr/+81v9CEZC7uULbAvGGsKrLc11qT6ZCrbx34Z1SoC2VoYh+uiQh
-         9hz1QS3IrsPjhHfOr1Yu/VA9QQd7tyz3CNO3bEfy8FPOwqj99HfNs/Q8jK7vQX+Jhen/
-         ekrWV2wxzMKU0CG5XYHqlgiyECDzVCEhzjIfaJddqHaKbgKetQRFiJNvj+/B8/aaJsPA
-         ctIRuSa87WyAjXLVHgE2vty+HLxBXuMFaQs3OfOAnCOI6idjhz/OML429QpGxp2/cRqM
-         +Cwb/91fgGMYO653ljI6WHCl72mpndmNZNLzkiNmyBuD2OxyNDZzdSrS35mT+4wp/ie3
-         Q2qw==
+        bh=V7bVxjxfNJMJ9ikA6qreYHkI8rZ5PEd2tPNtK+tsbm4=;
+        b=Pi1jAnCQp/bNBCDhhH8yUcJx9fE5XrYU4vuPxRlJv9rxDppk0ltamiAzl7JDuUiIX1
+         qkFAin9hMxWGsUEafR3iZkWYwKQdvogopSv09S8uZiu3di0UOv5I23nt9xI/kK7jm4rN
+         hYTulHmunI4CtSdYI34rbrz3h6Bz+gt8Lku52dr517dvo+PwWb940nPI7q2/vR9EPusV
+         sGxUnE4OM1H1c1+YZpCyOxANrxfy4/hSjSQeGjHErrth4P/dgdou0vubBAPGQ7KBuPSX
+         o6hWFSz+nFCoy2q86y13p32RlrmqCKTZhqUexO5eavtrUteqotE2iIelqbY8rSIXfICq
+         2O4Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792787988; x=1793392788;
+        d=1e100.net; s=20260707; t=1792787985; x=1793392785;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=joBq8zZQZw7xm5XS5EnT5tSj+OH2u98OsmcyfjTP7BI=;
-        b=Cyz9/u0ivG2zNhoCDuEf9Ca2s/Dcha+/LN02C0SJ5DvTlWU4xVc78aYS+95lI9i6y2
-         jSHxSLdFHn8lRSnmP+eq19D8YY2AsFdlwCwL8xz24+fbMAJxiZKAKx1oledIzjXx3p5P
-         +/QcxcX9BAZ+kQWemKlrQJKrcZ+4Aadv5C10E6i/3v3sTNZ2ERyVsUT/jUTJaOZ65lih
-         ZQ/x0wS6daYIKm0VngTBQS7lCy7HvrYNIhuYVNVWmmVdzKdE824ZFzewRP0X+LNExIYA
-         wYPViohpDBIVkhUPgwX07OqO/ukElOd5wWB7xss0AOxcQ9iMFJ+AjuhbN4cc1AwKQfMv
-         XG5w==
-X-Forwarded-Encrypted: i=1; AKwUvByr5agIMCHPilJ9UFKUOuGdcPR5eFnR23qCVfTtgrRRprG5db4frnjFGnn1RznBvMyN9F+79SIU2VQaNJQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ5yQGOW+gJFWUnKpwg/qLfdjQAa+GvGm6snLdgNCvgsTRAflOJ
-	ax77nSnfG8JDP43ILEtpuAWPXAY58yhKal2lbPxo/9ss52BbpDLc+Z0Lsu/mxnwkPR4x9+RddvW
-	dgBkdsec=
-X-Gm-Gg: AYBFou2GDX+Tkf23MHMxb9VB70dV/CNjsJS2ahpvNCa7VSydZ9PXof7ziAGgJX8g/m4
-	448/RyItHmOf8m/zG+QOF2c3B/Xcp3XZrB8KIaeXduYXi4hhCkBpOkfm/UOae27nMd3s4ccjJTL
-	TbKJatX/EUXYTfIYlOqU3TH+vKzNUWpOBR8mFmZQLCS6v9oxvrJ3CzHy+5SEIx/DHQtaR0mgPb7
-	IQ4MufHNqz4g91qt2DhipTeky+r9gCSMvo6ysOcQZWRk9IWiziEJL/ss4lYJ38dHPzJxe+lKtBC
-	9OdZMA/Fv3lChmsT/hgDGt+ER0oSpE+sAxyx22kzl9boXdS7dKImKrhuj7PqsgvMOu2g0L9fFaP
-	kv7caH3NIdeoiZzrFPyIzfyMtbChPgZfV8BBjy1y2/Wv87jY65JW1bpEUyaC1w7PHhb2hqpSlKK
-	b9jIiLSbAKMpO13I6/WrsbgMRJ+G4pIpceEuAY3BHgYVwd0WoWyEYJOzif/7+q7E5ALPOSbhFQm
-	PuYoJL6o6rOE58bo2XZ1OuIfmDtaqQgLN1yz1v+z4FOKhDRlIQ1E1qxg0UozImzUH7vSo7R
-X-Received: by 2002:a05:620a:2b82:b0:93f:5f83:2ca4 with SMTP id af79cd13be357-940ef97bd9cmr26198285a.51.1792787988058;
-        Fri, 23 Oct 2026 13:39:48 -0700 (PDT)
-Received: from toxicpanda.com ([153.61.196.242])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-940f068328dsm3074785a.23.2026.10.23.13.39.47
+        bh=V7bVxjxfNJMJ9ikA6qreYHkI8rZ5PEd2tPNtK+tsbm4=;
+        b=qa7Q0chWYIwVZxoCgNEBsNqRJl7xcqTY4TSCISkvRNm1TOpy7jDEVn4qtjKHyyn/U4
+         CO5tmpMMpU/JtIBVT6oKlx+Wl+UTBxGbfZ4gS7x/lnq/TkS1/fAMu5zPCPXpxwFLJCPn
+         Jqw49eZ5AxmLCJuX635rPm02LeIiLwOwtGby+aZ7nyo2wyqQ2PoMTbT6Z+GnRYB9lVgV
+         TX7PRJCdVZ/IKECx50KXiLt51OfZjOxiha4bV41u5ptCm8ahBm9COsYo1v9kXAn4+1zQ
+         7Nh3Nlpu6DlOwTPkzMLkywrcXxmMkMyShrchrmpOfi+M7vOa2psOf2pshfd9WfHZRyxP
+         MKhg==
+X-Forwarded-Encrypted: i=1; AKwUvBySANCY0S9X0rA3AvAwiOkY8e0RgLFjH5LBgvCfnr9JPTkN14OZYiJV5HIwGPdZC61AmelJMmUs4gw78qw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKNcttLYD/qtTAZVRzpO8TSnR3W8BNaNPlKYQn1ZsMafdpVkBU1
+	+G8NxxQgtnOmgVzKNnuFrtHMS7u7bidLkIiv/RP0TY1giBkN8NJxj17z51/DU4w7fsS8G4eACNb
+	rjP10CR4=
+X-Gm-Gg: AYBFou29xGEBoWdurOQRaDuz2swtZeavnTEuQVuRmb7xloyadrvfCnEhKLg/KACKwJb
+	0zfLh12sPsivSsPCS+N8wE5/q5CVvFzT+RqdtQfbcutyYNhNtXKrYiLPJzK8ul1+SE1gYp+ytLd
+	gMZBaXeJfsEVGbyJQPmJx/j3maJ/L7LfCmKA8p8pDzwyVytrj/XMPIPB1tinCLvGjp3R+hiNn6P
+	Sxm9gwoDfE27ZBkmaHQB81IZRNFGrLCt90wqg24+93hmUOG1Q9z601aJIv64/dA89fxy30HgKkW
+	GEd+1kUcfXH1mlwpZw8xD9vevZRWAOxEC4LicXsCqW5RqZT9ASMYQ2gFdFed9O+PFJRazJeBQNP
+	G0sLfiIGeFXOx8Wz+DZ4VRpzyuI0iqcG/MAU1AIHIs1Lu7GaWgmptQBo+Fvo0MN8bllFXmwlOAX
+	truRqQgkIf3uywxbsEpmbS8+xBH+pOQDsN7p4hGfql3kJoTTGk2UHzIjb3G2vgf5wIas3tbN80V
+	cKpSX6LSOXHZ+q71tyTuKky/H+8EtDpB3VwR3jbrfKLrkTo0aP8FQ/z4MmZotbJj0xkPJFP
+X-Received: by 2002:a05:620a:2b83:b0:93f:1600:481a with SMTP id af79cd13be357-940efa11fefmr22310885a.5.1792787984882;
+        Fri, 23 Oct 2026 13:39:44 -0700 (PDT)
+Received: from toxicpanda.com ([153.61.196.250])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-940f0a912d5sm2143785a.40.2026.10.23.13.39.44
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 23 Oct 2026 13:39:47 -0700 (PDT)
+        Fri, 23 Oct 2026 13:39:44 -0700 (PDT)
 From: Josef Bacik <josef@toxicpanda.com>
-Date: Fri, 23 Oct 2026 20:39:32 +0000
-Subject: [PATCH 3/5] fs: make mount(2) remounts killable on s_umount
+Date: Fri, 23 Oct 2026 20:39:30 +0000
+Subject: [PATCH 1/5] fs: make syncfs(2) killable on s_umount
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,7 +94,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261023-b4-s-umount-killable-v1-3-844a341ff1df@toxicpanda.com>
+Message-Id: <20261023-b4-s-umount-killable-v1-1-844a341ff1df@toxicpanda.com>
 References: <20261023-b4-s-umount-killable-v1-0-844a341ff1df@toxicpanda.com>
 In-Reply-To: <20261023-b4-s-umount-killable-v1-0-844a341ff1df@toxicpanda.com>
 To: Alexander Viro <viro@zeniv.linux.org.uk>, 
@@ -103,60 +103,51 @@ To: Alexander Viro <viro@zeniv.linux.org.uk>,
 Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
  Josef Bacik <josef@toxicpanda.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openssh-sha256; t=1792787980; l=1659;
+X-Developer-Signature: v=1; a=openssh-sha256; t=1792787980; l=1241;
  i=josef@toxicpanda.com; h=from:subject:message-id;
- bh=21ycwsFWqOYt//g+Upk3NygtveQIX34cXPdaquwsbgE=;
+ bh=9tTHvzdIGkeCZRT40x/w5oXKIY3j5URO5x0Y7DuGFv0=;
  b=U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgUBr36M/n0nWN0DNbnxwzIiCZez6MG
  JiruuNaSCI/zXsAAAAGcGF0YXR0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAA
- QLi90bNtWIHcr4hcJzZXDJpXYEl9y0XtUaowC+Y7MMp6NDdPpa4E/8ne+HjjJfs4J6MAM6uXHhw
- 9fa17oKSsqw8=
+ QDNM2h9XGKfC52ZUUVpGP87Zjrw09KIERumqmEPJ8TNlGZLvunsB/mC+Y3PnmmAU9T443/8lscB
+ 46rwKu2/DRQY=
 X-Developer-Key: i=josef@toxicpanda.com; a=openssh;
  fpr=SHA256:C8kOX2QUJCMqnCX+KEeoqRAjLo9L+ELOSH2NSAJHqGA
 
-mount(2) with MS_REMOUNT takes s_umount exclusively, with MS_BIND as well
-it takes it shared.  If the lock is held for a long time, by a syncfs(2) on
-a device which doesn't answer say, the remount sits in D state and can't be
-killed.
+A syncfs(2) which has to wait for s_umount sits in D state and can't be
+killed, for as long as whoever has the lock takes.
 
-The one which wants the lock exclusively makes matters worse for everybody
-else: while it is queued, every new reader of s_umount queues up behind it.
-Killing it gets it out of the way, the rwsem wakes those behind a waiter
-which gives up.
+That can be very long.  Another syncfs(2) holds s_umount shared while it
+writes the filesystem out, which on a slow or dead device takes forever.
+That alone doesn't keep other readers out, but as soon as somebody wants
+the lock exclusively, a remount say, that writer queues up, and every
+reader which comes after it queues up behind the writer.
 
-Nothing has been changed yet when the lock is taken, and both can fail.
-Use the killable variants.
+Taking the lock is the first thing syncfs(2) does and it can return an
+error, so use down_read_killable().
+
+This only covers the wait for the lock.  Once syncfs(2) has it, it still
+waits for the writeback uninterruptibly.
 
 Signed-off-by: Josef Bacik <josef@toxicpanda.com>
 ---
- fs/namespace.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+ fs/sync.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/fs/namespace.c b/fs/namespace.c
-index e5feb4e48290..837f531e494b 100644
---- a/fs/namespace.c
-+++ b/fs/namespace.c
-@@ -3485,7 +3485,9 @@ static int do_reconfigure_mnt(const struct path *path, unsigned int mnt_flags)
- 	 * We're only checking whether the superblock is read-only not
- 	 * changing it, so only take down_read(&sb->s_umount).
- 	 */
+diff --git a/fs/sync.c b/fs/sync.c
+index 0681bfcb2da6..ea54af59cf4a 100644
+--- a/fs/sync.c
++++ b/fs/sync.c
+@@ -156,7 +156,9 @@ SYSCALL_DEFINE1(syncfs, int, fd)
+ 		return -EBADF;
+ 	sb = fd_file(f)->f_path.dentry->d_sb;
+ 
 -	down_read(&sb->s_umount);
 +	ret = down_read_killable(&sb->s_umount);
 +	if (ret)
 +		return ret;
- 	lock_mount_hash();
- 	ret = change_mount_ro_state(mnt, mnt_flags);
- 	if (ret == 0)
-@@ -3531,8 +3533,9 @@ static int do_remount(const struct path *path, int sb_flags,
- 	fc->oldapi = true;
+ 	ret = sync_filesystem(sb);
+ 	up_read(&sb->s_umount);
  
- 	err = parse_monolithic_mount_data(fc, data);
-+	if (!err)
-+		err = down_write_killable(&sb->s_umount);
- 	if (!err) {
--		down_write(&sb->s_umount);
- 		err = -EPERM;
- 		if (ns_capable(sb->s_user_ns, CAP_SYS_ADMIN)) {
- 			err = reconfigure_super(fc);
 
 -- 
 2.55.0
