@@ -1,85 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792738230;
-	b=GYiqRc1HIuWMkg+eFUxmgPKqHZS0DnWSoGwZjD+8mJKkGw5bERfMTYqnT/q/4k4h0lVw
-	 4MU0eMfWWRN4721BtBnpjatyRjT6CJvNYFCfDCqIPZR3gIAQN6TdmzJZqMykZXTLKSUsT
-	 rrEQsi/RuWdFk94xOy0tTIUnld/J32VOY+PjdPR+M6XHQOkISUzDb5MsIzA5pmoUOODPs
-	 m1xOXoqNRrXWHvrnPMH7Ru1CLOibn8ZALvODmmDex9bl7gx5Twv/j92+FEXt4bHOW1ncF
-	 P+xokD+IoiLW7/tY7kqH1xHP6e/JP3LrqHU/skUOxhjBBaejeT/x+SkNIfqDAJ+tkLg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792738230;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:Cc:Subject:Date:
-	 Message-ID:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Scanned-By;
-	bh=ZcmG/UCEVfdbqO5wIMJXD5ZNV1GWne6PASuXh9pLInc=;
-	b=LxW7vmeNIfBVZGHrrJqsvPHXvgmhayfb7yTeK2RHGKZhMuZ7VR+WVTl3knEAjNJHQNm5
-	 TGmHxjh3uKV7KrONBLx1KGkvYTaOofOqap8XStQLmuFXTz/QefKfKEkvULKgn3FUOBGJz
-	 OPDk83zFB9AmYL/826PoeQ+2czpMVn0y7iwM8Soxw8AiSKC0+QYfWDda6qafNTfsizU5/
-	 nULjLGoq17vRGbLB5e5D2ejOPzqOq9PQT9znnhrzKRYXvJMl0fdbMggmWKLHtkI+OkaWO
-	 wrxT2E6jL28PcYod5hELZyOileGrUeKHRf+PYlyRI7gqlMmc1SLkpAVNPwicxMV6xhw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=VDBXh2Oh;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.84.55
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792738231;
+	b=plsDchmF4Wzi2kQNEDoAZl2e3yCUVYR8MOByLRVT26kEyPaU8Efe2emxtNWI9ufyD4Gs
+	 GsiWh/PQ+0H202ja50ISohNSbKQfvPW8Hnj1xShIuLXFGzHMEy+wtIHmiaHEsyUPsoqnQ
+	 O12YakwAt2jRF79VYdTC3c/EW+laDDX/CkJm1DJMBHU8xbtjDavHEIQtBFMtTrvFvopqL
+	 pPKoij1xB4nuR9vceUtTSX9eGbC1BHco6IcbZ/BVg/winx5mdRo4R2hsWUezvAZdpSMlX
+	 RhWATbBy8Uw/fz0bWPRaLq5vx7l7RXNxDKoUmyF/lMEgNw1a4XLhC2wn8BN1rxbolKg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792738231;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-ID:X-B4-Tracking:To:CC:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Originating-IP:
+	 X-ClientProxiedBy:X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=LfiU4EaGH2mzKnUAqT1yCPBUuJRXe4MmrmSz1Hb5dfc=;
+	b=BrjsMacwWdD/XJ1FhvgUlsRobJ0BA2CwlmHCWNOfn07yuibYG0xNvXMHUaQGwTiX4GcQ
+	 x2qIbKcJ4UxTuT6do6BAOlX24hXW5HNDunSexa+LgSa0PmoLFhh4ZtYqySEkNrUt7Rnxb
+	 2db0ig+4v35ULKHQLChAUgYTGb7SHWuoGFwT77P4eZOdbrOfLJoXf5s7Bn6HYY/SYkSRQ
+	 G7CMtgDnZdVicHPHoJeftciT3lUl04yyTccQ7pctHIHUVw346wf1KWTCs7DJikMZFLQTZ
+	 Gzr3thZyG0GcA0bydAAkrFMCXzqXMhaeqNAuz3ts34BSIycodWbQ3cN6iuA6t8o+iog==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=foss.st.com;
+	spf=pass smtp.mailfrom=foss.st.com;
+	dkim=pass header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256 header.s=selector2 header.b=D1d4j1y1;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.84.55
+Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010055.outbound.protection.outlook.com [52.101.84.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D4CC606A31D
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 06:50:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8D4CC606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5677A606A321;
+	Fri, 23 Oct 2026 06:50:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5677A606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=VDBXh2Oh
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1792738228;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ZcmG/UCEVfdbqO5wIMJXD5ZNV1GWne6PASuXh9pLInc=;
-	b=VDBXh2OhfBkPJE8/8wER+/lQAP5xQ0cTW8POC7cQ+HLf2KEiUaxY2G9y9OZz2UgTBp4dZ7
-	7mCyuFS189JgtSOUaONdQYIJkN5MEMGXc/+4p2r0vJnRaNDpzuuZUlhlYR6Q2NWjAqa41S
-	ddZnE/iT5nLVI4Gs8Thzn/iYLo1VOF8=
-Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-38-v9zop0riM5q8kBQyX7ObYQ-1; Fri,
- 23 Oct 2026 02:50:26 -0400
-X-MC-Unique: v9zop0riM5q8kBQyX7ObYQ-1
-X-Mimecast-MFC-AGG-ID: v9zop0riM5q8kBQyX7ObYQ_1792738224
-Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 34DC41955F18;
-	Fri, 23 Oct 2026 06:50:24 +0000 (UTC)
-Received: from thuth-p1g4.redhat.com (unknown [10.44.48.42])
-	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id D92611956095;
-	Fri, 23 Oct 2026 06:50:19 +0000 (UTC)
-From: Thomas Huth <thuth@redhat.com>
-To: Arnd Bergmann <arnd@arndb.de>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Nicolas Schier <nsc@kernel.org>,
-	Russell King <linux@armlinux.org.uk>,
-	Chris Li <sparse@chrisli.org>
-Cc: soc@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-kbuild@vger.kernel.org,
-	=?UTF-8?q?Thomas=20Wei=C3=9Fschuh?= <linux@weissschuh.net>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	Bill Wendling <morbo@google.com>,
-	Justin Stitt <justinstitt@google.com>,
-	linux-sparse@vger.kernel.org,
-	llvm@lists.linux.dev
-Subject: [PATCH v5 12/13] include: Replace __ASSEMBLY__ with __ASSEMBLER__ in non-uapi headers
-Date: Fri, 23 Oct 2026 08:48:49 +0200
-Message-ID: <20261023064908.66707-13-thuth@redhat.com>
-In-Reply-To: <20261023064908.66707-1-thuth@redhat.com>
-References: <20261023064908.66707-1-thuth@redhat.com>
+	dkim=pass (2048-bit key, unprotected) header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256 header.s=selector2 header.b=D1d4j1y1
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=zNh26LC/d9AyXdc61qdv3HEX3hPivass9brdassYGD7Kcx+xAG5sEiFQF5j5VW/XTxdzjuYC0q1AnhNn8TYVdvnET13i/M0oQqC9rpPV5LD/7Mxk19mBle9dNb/hqP+fmnrnr/whVA8G1EUzZ9Aq0E1JHNep4XlfJ3+NAUkxm0PwUQ2T3oHq4KMvz9Kje6EA4zFZNxn7/NY97hXidOiBM/Hku1T+p4z3L6rSF2tlHP5KXxqZ3FWowDYDhUeQYuZUNuAbFqOYsvoIZLA5mFUnu4PtUUUwADFvdQA9JdLUzyQuswaLS1TJEqUuSyjqm2/9rT0pDHCUqRu/IhaMT26WPQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=LfiU4EaGH2mzKnUAqT1yCPBUuJRXe4MmrmSz1Hb5dfc=;
+ b=PSAbx6F1j9ivngkUMHV4Zwhzf3XxvaI99OwMVELIh5VRvc4PGEQaOVWegEsPEjtCsVBXXiT0Ggl4/YWBnf8VB02BaRB6KTL4QNZnjiVfqA3R4u59beR9YvibuCIjX/gVpsfCw2BN7Vi0v+BkXMLJGnCaadPqD412JNpY6C2BkpkfeIWQMLNXwaXp5PQCxoGGlYBDXl172SA/UzIJbR1YC6ahDW+HzB0JFP1FCItPVA/cs375vl6ZVvoEA9+QJLdWXZvDSdT2dQ6IvnYtDZCPRGrKx9cMiDdkZqnXYW/TyZywEj1iJhzcW4CmFs9yxL9aJNe+ePCm5zRBVVrUQ4P0jA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
+ 164.130.1.59) smtp.rcpttodomain=gmail.com smtp.mailfrom=foss.st.com;
+ dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=LfiU4EaGH2mzKnUAqT1yCPBUuJRXe4MmrmSz1Hb5dfc=;
+ b=D1d4j1y1JeIxPkFmaBmbxHCexQJJqht3wCU5CUi5P4pQAHejVnZPp+MES9LjVFu8m9meXB8QhBMKvi7FmrTgNqVkErN674ANF1/IJvn4GIID8PzkjjO6zSUP7GIm+Ia6OJva1pQA0TpUFPSqw/aIU1EpjQTY1927pbQVNepvtpnFgMfImNkcUMTB6imVxo+nwUC9/gMKJ+LjlRnXoLIYZBO+fB9bfIn66F3jVZYlzFs88lkhG2fI1p3fdyAI/ybjhCBorOvE+P7u1XqXRga9Cawo2PcO8kmTb80hdLW0wTVAA3tbKwurKhUToQeMGHkmlDi2uwg4MlP6Ble6JRyJcQ==
+Received: from BE1P281CA0273.DEUP281.PROD.OUTLOOK.COM (2603:10a6:b10:84::17)
+ by DB4PR10MB7064.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:10:3f0::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.3; Fri, 23 Oct
+ 2026 06:50:26 +0000
+Received: from WA1PEPF00009B38.eurprd05.prod.outlook.com
+ (2603:10a6:b10:84:cafe::4d) by BE1P281CA0273.outlook.office365.com
+ (2603:10a6:b10:84::17) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.569.3 via Frontend Transport; Fri, 23
+ Oct 2026 06:50:25 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=fail (sender IP
+ is 164.130.1.59) smtp.mailfrom=foss.st.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=none header.from=foss.st.com;
+Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
+ designate 164.130.1.59 as permitted sender) receiver=protection.outlook.com;
+ client-ip=164.130.1.59; helo=smtpO365.st.com;
+Received: from smtpO365.st.com (164.130.1.59) by
+ WA1PEPF00009B38.mail.protection.outlook.com (10.167.242.37) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.546.15 via Frontend Transport; Fri, 23 Oct 2026 06:50:25 +0000
+Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpo365.st.com
+ (10.250.44.71) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Fri, 23 Oct
+ 2026 08:50:45 +0200
+Received: from localhost (10.252.16.117) by STKDAG1NODE2.st.com
+ (10.75.128.133) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Fri, 23 Oct
+ 2026 08:50:24 +0200
+From: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
+Date: Fri, 23 Oct 2026 08:50:23 +0200
+Subject: [PATCH] clk: stm32mp25: allow MDF kernel clock rate changes to
+ propagate to parent
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,524 +106,90 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-ID: <20261023-ups_mp25_clk_mdf-v1-1-3043b3fd4bc9@foss.st.com>
+X-B4-Tracking: v=1; b=H4sIAK4D22oC/x3MTQqAIBBA4avErBNsKMGuEiFiYw39iVIE0t2Tl
+ t/ivQyJIlOCvsoQ6ebE51HQ1BW4xR4zCZ6KASWqRiKKKySzB+yM21azT15o7WzXem2dVlCyEMn
+ z8y+H8X0/hI8nNmIAAAA=
+To: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>, Maxime Coquelin
+	<mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>
+CC: <linux-clk@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+	Olivier Moysan <olivier.moysan@foss.st.com>, Gabriel Fernandez
+	<gabriel.fernandez@foss.st.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792738223; l=1247;
+ i=gabriel.fernandez@foss.st.com; s=20261013; h=from:subject:message-id;
+ bh=UYJe92XofvwW9024M6MvYoAscbsOueX8CFhCXRbov3k=;
+ b=kzM4V5eYaJYY3DiUDiNaeot5DRVy4DMrdBKkjQUT7WEa97Wh5MoAlaVXqE75m5yHn8dxsswR6
+ Kaurs+VedX+CZbVzDHtJQHgrn6F1Bj3B8knDv015MmW5qDuCje8uAyo
+X-Developer-Key: i=gabriel.fernandez@foss.st.com; a=ed25519;
+ pk=BVZE1QjIfcrviw9RyyOGQGGsg9CNbaxyjYn9pAlkNyQ=
+X-ClientProxiedBy: STKCAS1NODE1.st.com (10.75.128.134) To STKDAG1NODE2.st.com
+ (10.75.128.133)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: WA1PEPF00009B38:EE_|DB4PR10MB7064:EE_
+X-MS-Office365-Filtering-Correlation-Id: e8ceafd7-b1a8-4f39-eb2b-08df30d1eab1
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|23010399003|376014|36860700016|82310400026|56012099006|11063799006|261021123027099003|261021121427099003|261009223027099003|10067099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	Dh0D5FMNn8/qOp4Zyt93cIwadN0C7OsLDnDQ6UspeA6G75YjpjOlic5Dr/Yjp5BLgwGfA4UyldPohTBxN152KdBh1KnEvY71mNcK5Tn7xRiOLBR92lqxOSNt9NG78ijURX8fwYgscVg7Ekk/kP1scybZJrKnxC9TknaKAysmyJG/1pwQtHJnEHKyhdO91ti+3mlucgM/xOVXxKG0LSHEXQrWfdKrLcHMAPOsEfVgyfKXp8eqBUimpyShkavK926gUYlfc3heO2E3u/7w2QqdAKHGX8/oQ+d0oMjVi9HemdaJNRSe7j4mv8OZl3BSwGTGAjlc1NR89nUujqrDeaIAmEYWkHqTKwNLFhDuNuFy21klIw2wOry+dgM3xSWgiH8iIYDUPszkuyV0OZdTcT08AtJivKKW0nMH+uWksFVQ0ywV8njanPylvXQxwH0x48111EXIienBs1sdPBq4mfl18p5ZM0L8sg9kUXkKXFusbgPWxxpMSJ9fHhWJAkPQwl0auLz1aKGrcrc7muIK/3TvXHYMCOwqjoHp2OmmtMv5JNHOVN4t/+pau2OaktXxfJNU23O/8930RdlaCrHA6pCoiREsgzAeB9yJ/x49ruaesjnI0vkUb6NKu0w4MkA1bTZs21iY3W8/dPD3eZqNrCIUZdYGGr93d5NLkYxqgz8iSO4uZF3mkqRhNGO7FDkeBnCboVLQivLJr7BvEYUDnrVpuw==
+X-Forefront-Antispam-Report:
+	CIP:164.130.1.59;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(376014)(36860700016)(82310400026)(56012099006)(11063799006)(261021123027099003)(261021121427099003)(261009223027099003)(10067099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	g7NtxhIDu44z3Z2Uq+RiJ/Qc8GZfV4u5bjHs7Q9yNrxQerktwcUeIGc+CWGtw2163rpGqUuQztgPWB+6zdH1+tyyHXud7jK4BXxsmPRW0otsrCbzTwo2c9/e/bDcKNcOojdgjPlpoXcQ6qPLXpoCnmLj6QsDrog898L+fRpMxIDt13ldQxvPPMcs/4yaVE7MjPtWO6KfUwMsHyhINROE0mzE11vgexnkShFigNwBmN1DDouOThNxgtKknRGS3TGP/4ckEshOcYuLM18lU6xYKI5H/oLJptwBW4btd2NnZ6Sg5Av6uS730Wcm6fcDN2CSNUFNiR6uAtBOZ/OvK4jkh16sOf17cuow3N4g6xqg16HYvjVkgA777KjNXuBG+aybSzppsjTgQav6cOQXXTloWtQ66h934y8OBq/5/GKAxWK/1NYWsMLhkoQXUGI06ohf
+X-OriginatorOrg: foss.st.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Oct 2026 06:50:25.2751
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e8ceafd7-b1a8-4f39-eb2b-08df30d1eab1
+X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.59];Helo=[smtpO365.st.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	WA1PEPF00009B38.eurprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB4PR10MB7064
 
-While the GCC and Clang compilers already define __ASSEMBLER__
-automatically when compiling assembly code, __ASSEMBLY__ is a
-macro that only gets defined by the Makefiles in the kernel.
-This can be very confusing when switching between userspace
-and kernelspace coding, or when dealing with uapi headers that
-rather should use __ASSEMBLER__ instead. So let's standardize now
-on the __ASSEMBLER__ macro that is provided by the compilers.
+From: Olivier Moysan <olivier.moysan@foss.st.com>
 
-This is a completely mechanical patch (done with a simple "sed -i"
-statement).
+Add CLK_SET_RATE_PARENT to ck_ker_mdf1 to allow rate requests on the
+MDF kernel clock to propagate to its parent clock, FLEXGEN_23.
 
-Signed-off-by: Thomas Huth <thuth@redhat.com>
+Signed-off-by: Olivier Moysan <olivier.moysan@foss.st.com>
+Signed-off-by: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
 ---
- include/linux/amba/serial.h             |  4 ++--
- include/linux/annotate.h                | 18 +++++++++---------
- include/linux/cfi_types.h               |  6 +++---
- include/linux/compiler.h                |  4 ++--
- include/linux/compiler_types.h          |  8 ++++----
- include/linux/edd.h                     |  4 ++--
- include/linux/err.h                     |  2 +-
- include/linux/export.h                  |  2 +-
- include/linux/init.h                    |  6 +++---
- include/linux/ioport.h                  |  4 ++--
- include/linux/linkage.h                 |  6 +++---
- include/linux/mem_encrypt.h             |  4 ++--
- include/linux/pe.h                      |  4 ++--
- include/linux/platform_data/emif_plat.h |  4 ++--
- include/linux/ti-emif-sram.h            |  2 +-
- include/linux/types.h                   |  4 ++--
- tools/include/asm-generic/barrier.h     |  4 ++--
- tools/include/asm/alternative.h         |  2 +-
- tools/include/linux/cfi_types.h         |  6 +++---
- tools/include/linux/compiler.h          |  4 ++--
- 20 files changed, 49 insertions(+), 49 deletions(-)
+This patch is independent from the other STM32MP25 RCC changes that I
+am sending separately, and can be applied on its own.
+---
+ drivers/clk/stm32/clk-stm32mp25.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/include/linux/amba/serial.h b/include/linux/amba/serial.h
-index 9120de05ead08..b9129c0d6304f 100644
---- a/include/linux/amba/serial.h
-+++ b/include/linux/amba/serial.h
-@@ -10,7 +10,7 @@
- #ifndef ASM_ARM_HARDWARE_SERIAL_AMBA_H
- #define ASM_ARM_HARDWARE_SERIAL_AMBA_H
+diff --git a/drivers/clk/stm32/clk-stm32mp25.c b/drivers/clk/stm32/clk-stm32mp25.c
+index eb0bc918ecee..8f6fe30b19ca 100644
+--- a/drivers/clk/stm32/clk-stm32mp25.c
++++ b/drivers/clk/stm32/clk-stm32mp25.c
+@@ -999,7 +999,8 @@ static struct clk_stm32_gate ck_icn_p_mdf1 = {
  
--#ifndef __ASSEMBLY__
-+#ifndef __ASSEMBLER__
- #include <linux/bitfield.h>
- #include <linux/bits.h>
- #endif
-@@ -215,7 +215,7 @@
- #define UART01x_RSR_ANY		(UART01x_RSR_OE | UART01x_RSR_BE | UART01x_RSR_PE | UART01x_RSR_FE)
- #define UART01x_FR_MODEM_ANY	(UART01x_FR_DCD | UART01x_FR_DSR | UART01x_FR_CTS)
- 
--#ifndef __ASSEMBLY__
-+#ifndef __ASSEMBLER__
- struct amba_device; /* in uncompress this is included but amba/bus.h is not */
- struct amba_pl010_data {
- 	void (*set_mctrl)(struct amba_device *dev, void __iomem *base, unsigned int mctrl);
-diff --git a/include/linux/annotate.h b/include/linux/annotate.h
-index 2f1599c9e5732..de8fdcb04f44d 100644
---- a/include/linux/annotate.h
-+++ b/include/linux/annotate.h
-@@ -11,7 +11,7 @@
- 	.long label - ., type;						\
- 	.popsection
- 
--#ifndef __ASSEMBLY__
-+#ifndef __ASSEMBLER__
- 
- #define ASM_ANNOTATE_LABEL(label, type)					\
- 	__stringify(__ASM_ANNOTATE(.discard.annotate_insn, label, type))
-@@ -24,7 +24,7 @@
- 	"912: "								\
- 	__stringify(__ASM_ANNOTATE(.discard.annotate_data, 912b, type))
- 
--#else /* __ASSEMBLY__ */
-+#else /* __ASSEMBLER__ */
- 
- .macro ANNOTATE type
- .Lhere_\@:
-@@ -36,22 +36,22 @@
- 	__ASM_ANNOTATE(.discard.annotate_data, .Lhere_\@, \type)
- .endm
- 
--#endif /* __ASSEMBLY__ */
-+#endif /* __ASSEMBLER__ */
- 
- #else /* !CONFIG_OBJTOOL */
--#ifndef __ASSEMBLY__
-+#ifndef __ASSEMBLER__
- #define ASM_ANNOTATE_LABEL(label, type) ""
- #define ASM_ANNOTATE(type)
- #define ASM_ANNOTATE_DATA(type)
--#else /* __ASSEMBLY__ */
-+#else /* __ASSEMBLER__ */
- .macro ANNOTATE type
- .endm
- .macro ANNOTATE_DATA type
- .endm
--#endif /* __ASSEMBLY__ */
-+#endif /* __ASSEMBLER__ */
- #endif /* !CONFIG_OBJTOOL */
- 
--#ifndef __ASSEMBLY__
-+#ifndef __ASSEMBLER__
- 
- /*
-  * Annotate away the various 'relocation to !ENDBR` complaints; knowing that
-@@ -111,7 +111,7 @@
-  */
- #define ANNOTATE_DATA_SPECIAL		ASM_ANNOTATE_DATA(ANNOTYPE_DATA_SPECIAL)
- 
--#else /* __ASSEMBLY__ */
-+#else /* __ASSEMBLER__ */
- #define ANNOTATE_NOENDBR		ANNOTATE type=ANNOTYPE_NOENDBR
- #define ANNOTATE_RETPOLINE_SAFE		ANNOTATE type=ANNOTYPE_RETPOLINE_SAFE
- /*	ANNOTATE_INSTR_BEGIN		ANNOTATE type=ANNOTYPE_INSTR_BEGIN */
-@@ -122,6 +122,6 @@
- #define ANNOTATE_REACHABLE		ANNOTATE type=ANNOTYPE_REACHABLE
- #define ANNOTATE_NOCFI_SYM		ANNOTATE type=ANNOTYPE_NOCFI
- #define ANNOTATE_DATA_SPECIAL		ANNOTATE_DATA type=ANNOTYPE_DATA_SPECIAL
--#endif /* __ASSEMBLY__ */
-+#endif /* __ASSEMBLER__ */
- 
- #endif /* _LINUX_ANNOTATE_H */
-diff --git a/include/linux/cfi_types.h b/include/linux/cfi_types.h
-index a86af9bc8bdc4..b17614c493e4c 100644
---- a/include/linux/cfi_types.h
-+++ b/include/linux/cfi_types.h
-@@ -5,7 +5,7 @@
- #ifndef _LINUX_CFI_TYPES_H
- #define _LINUX_CFI_TYPES_H
- 
--#ifdef __ASSEMBLY__
-+#ifdef __ASSEMBLER__
- #include <linux/linkage.h>
- 
- #ifdef CONFIG_CFI
-@@ -41,7 +41,7 @@
- 	SYM_TYPED_START(name, SYM_L_GLOBAL, SYM_A_ALIGN)
- #endif
- 
--#else /* __ASSEMBLY__ */
-+#else /* __ASSEMBLER__ */
- 
- #ifdef CONFIG_CFI
- #define DEFINE_CFI_TYPE(name, func)						\
-@@ -64,5 +64,5 @@
- 	);
- #endif
- 
--#endif /* __ASSEMBLY__ */
-+#endif /* __ASSEMBLER__ */
- #endif /* _LINUX_CFI_TYPES_H */
-diff --git a/include/linux/compiler.h b/include/linux/compiler.h
-index 70cb31d605384..bb602ab527c88 100644
---- a/include/linux/compiler.h
-+++ b/include/linux/compiler.h
-@@ -4,7 +4,7 @@
- 
- #include <linux/compiler_types.h>
- 
--#ifndef __ASSEMBLY__
-+#ifndef __ASSEMBLER__
- 
- #ifdef __KERNEL__
- 
-@@ -277,7 +277,7 @@ static inline void *offset_to_ptr(const int *off)
- 	return (void *)((unsigned long)off + *off);
- }
- 
--#endif /* __ASSEMBLY__ */
-+#endif /* __ASSEMBLER__ */
- 
- /*
-  * Force the compiler to emit 'sym' as a symbol, so that we can reference
-diff --git a/include/linux/compiler_types.h b/include/linux/compiler_types.h
-index c5921f1390079..7c2432987105b 100644
---- a/include/linux/compiler_types.h
-+++ b/include/linux/compiler_types.h
-@@ -15,7 +15,7 @@
- #define ___PASTE(a, b) a##b
- #define __PASTE(a, b) ___PASTE(a, b)
- 
--#ifndef __ASSEMBLY__
-+#ifndef __ASSEMBLER__
- 
- /*
-  * C23 introduces "auto" as a standard way to define type-inferred
-@@ -454,7 +454,7 @@ struct ftrace_likely_data {
- 
- #endif /* __KERNEL__ */
- 
--#endif /* __ASSEMBLY__ */
-+#endif /* __ASSEMBLER__ */
- 
- /*
-  * The below symbols may be defined for one or more, but not ALL, of the above
-@@ -598,7 +598,7 @@ struct ftrace_likely_data {
- #define asm_inline asm
- #endif
- 
--#ifndef __ASSEMBLY__
-+#ifndef __ASSEMBLER__
- /*
-  * Use __typeof_unqual__() when available.
-  */
-@@ -637,7 +637,7 @@ struct ftrace_likely_data {
- 
- #include <asm/percpu_types.h>
- 
--#endif /* !__ASSEMBLY__ */
-+#endif /* !__ASSEMBLER__ */
- 
- /*
-  * __signed_scalar_typeof(x) - Declare a signed scalar type, leaving
-diff --git a/include/linux/edd.h b/include/linux/edd.h
-index 1c16fbcb81c06..32517f283f044 100644
---- a/include/linux/edd.h
-+++ b/include/linux/edd.h
-@@ -23,7 +23,7 @@
- 
- #include <uapi/linux/edd.h>
- 
--#ifndef __ASSEMBLY__
-+#ifndef __ASSEMBLER__
- extern struct edd edd;
--#endif				/*!__ASSEMBLY__ */
-+#endif				/*!__ASSEMBLER__ */
- #endif				/* _LINUX_EDD_H */
-diff --git a/include/linux/err.h b/include/linux/err.h
-index d3e38d5b3a985..033faa80be885 100644
---- a/include/linux/err.h
-+++ b/include/linux/err.h
-@@ -17,7 +17,7 @@
-  */
- #define MAX_ERRNO	4095
- 
--#ifndef __ASSEMBLY__
-+#ifndef __ASSEMBLER__
- 
- /**
-  * IS_ERR_VALUE - Detect an error pointer.
-diff --git a/include/linux/export.h b/include/linux/export.h
-index a686fd0ba4065..432e980140f2b 100644
---- a/include/linux/export.h
-+++ b/include/linux/export.h
-@@ -51,7 +51,7 @@
- 
- #define __EXPORT_SYMBOL(sym, license, ns)	__GENKSYMS_EXPORT_SYMBOL(sym)
- 
--#elif defined(__ASSEMBLY__)
-+#elif defined(__ASSEMBLER__)
- 
- #define __EXPORT_SYMBOL(sym, license, ns) \
- 	___EXPORT_SYMBOL(sym, license, ns)
-diff --git a/include/linux/init.h b/include/linux/init.h
-index 6326c61e2332d..cf43f1765eb2e 100644
---- a/include/linux/init.h
-+++ b/include/linux/init.h
-@@ -102,7 +102,7 @@
- #define __REFDATA        .section       ".ref.data", "aw"
- #define __REFCONST       .section       ".ref.rodata", "a"
- 
--#ifndef __ASSEMBLY__
-+#ifndef __ASSEMBLER__
- /*
-  * Used for initialization calls..
-  */
-@@ -180,7 +180,7 @@ extern struct module __this_module;
-   
- #ifndef MODULE
- 
--#ifndef __ASSEMBLY__
-+#ifndef __ASSEMBLER__
- 
- /*
-  * initcalls are now grouped by functionality into separate
-@@ -375,7 +375,7 @@ extern const struct obs_kernel_param __setup_start[], __setup_end[];
- /* Relies on boot_command_line being set */
- void __init parse_early_param(void);
- void __init parse_early_options(char *cmdline);
--#endif /* __ASSEMBLY__ */
-+#endif /* __ASSEMBLER__ */
- 
- #else /* MODULE */
- 
-diff --git a/include/linux/ioport.h b/include/linux/ioport.h
-index f7930b3dfd0a5..4728386ce65ca 100644
---- a/include/linux/ioport.h
-+++ b/include/linux/ioport.h
-@@ -9,7 +9,7 @@
- #ifndef _LINUX_IOPORT_H
- #define _LINUX_IOPORT_H
- 
--#ifndef __ASSEMBLY__
-+#ifndef __ASSEMBLER__
- #include <linux/args.h>
- #include <linux/bits.h>
- #include <linux/compiler.h>
-@@ -461,5 +461,5 @@ static inline void irqresource_disabled(struct resource *res, u32 irq)
- 
- extern struct address_space *iomem_get_mapping(void);
- 
--#endif /* __ASSEMBLY__ */
-+#endif /* __ASSEMBLER__ */
- #endif	/* _LINUX_IOPORT_H */
-diff --git a/include/linux/linkage.h b/include/linux/linkage.h
-index 53fe1f48fd28d..303e74cf4ead6 100644
---- a/include/linux/linkage.h
-+++ b/include/linux/linkage.h
-@@ -66,7 +66,7 @@
-  * end up needing stack temporaries for).
-  */
- /* Assembly files may be compiled with -traditional .. */
--#ifndef __ASSEMBLY__
-+#ifndef __ASSEMBLER__
- #ifndef asmlinkage_protect
- # define asmlinkage_protect(n, ret, args...)	do { } while (0)
- #endif
-@@ -77,7 +77,7 @@
- #define __ALIGN_STR		__stringify(__ALIGN)
- #endif
- 
--#ifdef __ASSEMBLY__
-+#ifdef __ASSEMBLER__
- 
- /* SYM_T_FUNC -- type used by assembler to mark functions */
- #ifndef SYM_T_FUNC
-@@ -355,6 +355,6 @@
- 	SYM_DATA_END(name)
- #endif
- 
--#endif /* __ASSEMBLY__ */
-+#endif /* __ASSEMBLER__ */
- 
- #endif /* _LINUX_LINKAGE_H */
-diff --git a/include/linux/mem_encrypt.h b/include/linux/mem_encrypt.h
-index 07584c5e36fb4..463090c4f9517 100644
---- a/include/linux/mem_encrypt.h
-+++ b/include/linux/mem_encrypt.h
-@@ -10,7 +10,7 @@
- #ifndef __MEM_ENCRYPT_H__
- #define __MEM_ENCRYPT_H__
- 
--#ifndef __ASSEMBLY__
-+#ifndef __ASSEMBLER__
- 
- #ifdef CONFIG_ARCH_HAS_MEM_ENCRYPT
- 
-@@ -54,6 +54,6 @@
- #define dma_addr_canonical(x)		(x)
- #endif
- 
--#endif	/* __ASSEMBLY__ */
-+#endif	/* __ASSEMBLER__ */
- 
- #endif	/* __MEM_ENCRYPT_H__ */
-diff --git a/include/linux/pe.h b/include/linux/pe.h
-index cd2b7275385f3..ab45bba90ce82 100644
---- a/include/linux/pe.h
-+++ b/include/linux/pe.h
-@@ -240,7 +240,7 @@
- #define IMAGE_DEBUG_TYPE_EX_DLLCHARACTERISTICS	20 /* Extended DLL characteristics bits */
- #define IMAGE_DEBUG_TYPE_PERFMAP		21 /* Location of associated Ready To Run PerfMap file */
- 
--#ifndef __ASSEMBLY__
-+#ifndef __ASSEMBLER__
- 
- struct mz_hdr {
- 	uint16_t magic;		/* MZ_MAGIC */
-@@ -546,6 +546,6 @@ struct win_certificate {
- 	uint16_t cert_type;
+ static struct clk_stm32_gate ck_ker_mdf1 = {
+ 	.gate_id = GATE_MDF1,
+-	.hw.init = CLK_HW_INIT_INDEX("ck_ker_mdf1", FLEXGEN_23, &clk_stm32_gate_ops, 0),
++	.hw.init = CLK_HW_INIT_INDEX("ck_ker_mdf1", FLEXGEN_23, &clk_stm32_gate_ops,
++				     CLK_SET_RATE_PARENT),
  };
  
--#endif /* !__ASSEMBLY__ */
-+#endif /* !__ASSEMBLER__ */
- 
- #endif /* __LINUX_PE_H */
-diff --git a/include/linux/platform_data/emif_plat.h b/include/linux/platform_data/emif_plat.h
-index b93feef5d586f..ad7f706c124e3 100644
---- a/include/linux/platform_data/emif_plat.h
-+++ b/include/linux/platform_data/emif_plat.h
-@@ -39,7 +39,7 @@
- #define EMIF_CUSTOM_CONFIG_TEMP_ALERT_POLL_INTERVAL	0x00000002
- #define EMIF_CUSTOM_CONFIG_EXTENDED_TEMP_PART		0x00000004
- 
--#ifndef __ASSEMBLY__
-+#ifndef __ASSEMBLER__
- /**
-  * struct ddr_device_info - All information about the DDR device except AC
-  *		timing parameters
-@@ -121,6 +121,6 @@ struct emif_platform_data {
- 	u32 ip_rev;
- 	u32 phy_type;
- };
--#endif /* __ASSEMBLY__ */
-+#endif /* __ASSEMBLER__ */
- 
- #endif /* __LINUX_EMIF_H */
-diff --git a/include/linux/ti-emif-sram.h b/include/linux/ti-emif-sram.h
-index 441b2988e66a5..b256a9b4ef053 100644
---- a/include/linux/ti-emif-sram.h
-+++ b/include/linux/ti-emif-sram.h
-@@ -10,7 +10,7 @@
- 
- #include <linux/kbuild.h>
- #include <linux/types.h>
--#ifndef __ASSEMBLY__
-+#ifndef __ASSEMBLER__
- 
- struct emif_regs_amx3 {
- 	u32 emif_sdcfg_val;
-diff --git a/include/linux/types.h b/include/linux/types.h
-index 53e0adca4b9fb..c4aa8cc4b1cd6 100644
---- a/include/linux/types.h
-+++ b/include/linux/types.h
-@@ -4,7 +4,7 @@
- 
- #include <uapi/linux/types.h>
- 
--#ifndef __ASSEMBLY__
-+#ifndef __ASSEMBLER__
- 
- #define DECLARE_BITMAP(name,bits) \
- 	unsigned long name[BITS_TO_LONGS(bits)]
-@@ -288,5 +288,5 @@ struct rcuwait {
- 	struct task_struct __rcu *task;
- };
- 
--#endif /*  __ASSEMBLY__ */
-+#endif /*  __ASSEMBLER__ */
- #endif /* _LINUX_TYPES_H */
-diff --git a/tools/include/asm-generic/barrier.h b/tools/include/asm-generic/barrier.h
-index 6ef36e920ea8a..b61c3bde0447e 100644
---- a/tools/include/asm-generic/barrier.h
-+++ b/tools/include/asm-generic/barrier.h
-@@ -13,7 +13,7 @@
- #ifndef __TOOLS_LINUX_ASM_GENERIC_BARRIER_H
- #define __TOOLS_LINUX_ASM_GENERIC_BARRIER_H
- 
--#ifndef __ASSEMBLY__
-+#ifndef __ASSEMBLER__
- 
- #include <linux/compiler.h>
- 
-@@ -36,5 +36,5 @@
- #define wmb()	mb()
- #endif
- 
--#endif /* !__ASSEMBLY__ */
-+#endif /* !__ASSEMBLER__ */
- #endif /* __TOOLS_LINUX_ASM_GENERIC_BARRIER_H */
-diff --git a/tools/include/asm/alternative.h b/tools/include/asm/alternative.h
-index 8e548ac8f740c..85db65074a714 100644
---- a/tools/include/asm/alternative.h
-+++ b/tools/include/asm/alternative.h
-@@ -3,7 +3,7 @@
- #define _TOOLS_ASM_ALTERNATIVE_ASM_H
- 
- #if defined(__s390x__)
--#ifdef __ASSEMBLY__
-+#ifdef __ASSEMBLER__
- .macro ALTERNATIVE oldinstr, newinstr, feature
- 	\oldinstr
- .endm
-diff --git a/tools/include/linux/cfi_types.h b/tools/include/linux/cfi_types.h
-index a86af9bc8bdc4..b17614c493e4c 100644
---- a/tools/include/linux/cfi_types.h
-+++ b/tools/include/linux/cfi_types.h
-@@ -5,7 +5,7 @@
- #ifndef _LINUX_CFI_TYPES_H
- #define _LINUX_CFI_TYPES_H
- 
--#ifdef __ASSEMBLY__
-+#ifdef __ASSEMBLER__
- #include <linux/linkage.h>
- 
- #ifdef CONFIG_CFI
-@@ -41,7 +41,7 @@
- 	SYM_TYPED_START(name, SYM_L_GLOBAL, SYM_A_ALIGN)
- #endif
- 
--#else /* __ASSEMBLY__ */
-+#else /* __ASSEMBLER__ */
- 
- #ifdef CONFIG_CFI
- #define DEFINE_CFI_TYPE(name, func)						\
-@@ -64,5 +64,5 @@
- 	);
- #endif
- 
--#endif /* __ASSEMBLY__ */
-+#endif /* __ASSEMBLER__ */
- #endif /* _LINUX_CFI_TYPES_H */
-diff --git a/tools/include/linux/compiler.h b/tools/include/linux/compiler.h
-index f2f54b0381680..0e08ad7e9a386 100644
---- a/tools/include/linux/compiler.h
-+++ b/tools/include/linux/compiler.h
-@@ -2,7 +2,7 @@
- #ifndef _TOOLS_LINUX_COMPILER_H_
- #define _TOOLS_LINUX_COMPILER_H_
- 
--#ifndef __ASSEMBLY__
-+#ifndef __ASSEMBLER__
- 
- #include <linux/compiler_types.h>
- 
-@@ -256,6 +256,6 @@ static __always_inline void __write_once_size(volatile void *p, void *res, int s
- #endif
- #endif
- 
--#endif /* __ASSEMBLY__ */
-+#endif /* __ASSEMBLER__ */
- 
- #endif /* _TOOLS_LINUX_COMPILER_H */
+ /* OSPI */
+
+---
+base-commit: a90ee4305c4a5df72c11b31dacfdc76e00fcf78a
+change-id: 20261022-ups_mp25_clk_mdf-99ca54f9ac96
+
+Best regards,
 -- 
-2.56.0
+Gabriel Fernandez <gabriel.fernandez@foss.st.com>
 
