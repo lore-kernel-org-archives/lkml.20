@@ -1,89 +1,115 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.150
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792798735;
-	b=YVSmQrPDdNZtzZ8I3OglJY/r3t8kKKMnQyPwU8b5oY/Ws6iVCUpSCSpgQvDLrHDwB9OL
-	 V6ycA7OjQPVmi2aT/J54xSGyTU9YGEf/t8wBg+Btc2zj1xDNDQlrx4pJd2KU9d3FjlyaC
-	 dnfaDXUQhmM89XSMG3dfKR2c3pzZv+SdWfh1iN78Bz/cGOzebKzNe2/cF49ugmpjoehEo
-	 /f945BSASK5ZL33fVRbyaKyP0iK2N+NDj6a2Dgc18mB0/64HxnoNlo5LTG+M+8GeyxvlR
-	 q95ot8YGDVr8lF3b3JaO9f13b83wL0uH3b5pz6umCPUw2Att8FRp0GJTDGKiq6Ct+vA==
+	t=1792798980;
+	b=MqKmvUpfuQRbjmT+z7PtQjEwVQDYa2QHGKaPI0AmEkN4RCRG4aQRdWytTGP89iCvNStX
+	 D5pAcViYC0autir6OIPakUyV+z6uC7jxiik4/1UR7bR5UOdXFJtsBHAJawB0Pcxw2MEYP
+	 E+ajm0UpNQ7VouhvjpPJC7PBaTcIZOoHz2Gq7S2YH2xZx10IDZfCng/xI9p/L+BoOZMbv
+	 qV06xr6xFtHSuv483m+8JBvPgOafs/nP0zbCFucDJrN91yU8O8+c34NjMHIpB4gBjIbfJ
+	 a5ciU7Tb9mh2gyb3kDm5kbtj2dbljR7W3K7xRfXorICgj9i/S3WFAVfmotCX/F6coRQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792798735;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=sH7DjWiwuin5EerT2/8LAxO0bCdrNvcuXjPgNrPzpko=;
-	b=2FKM4lwK+7TxM0CADGlYF+xV2qdtZA76+Q+kNBqM4hSvGuQs6clWMPckJ8j2iHkuuX0+
-	 /K7R+5xJ0FxeXMMZsdiIu1Ms47nM+88xwEgNO6XrnmysfZFsjJirDLsG3xQ26hC5drPvE
-	 VvH8kMz7MApqWewqGmO4xie6mzyXgK/2GfiObQJiJo4q/r5lqp5nFY3C3ok5ZGbytF5sa
-	 OVnWXVn5BYAniLsuIpcdN+LjGQKeibWzLVMZZXx5g0m5uwyi81l6ZjKGYNlxYMEoiX9r8
-	 4SxSMh61AXjO0+qxZPevbo8gWecQ57ArNws8hmYFEJfNN0hawerd9AtfCMkaCaHi4BQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792798980;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=Z9P74CI0r1RddvuUNcaySIOSlWLt4+nM23rKxRc7/y4=;
+	b=xbj6KQKpeyVj39nbDcwazM5N6rljEq8pfVbO611j2QAxi2uj+l6ST1bB3kR9hM9oIBY0
+	 nFdlzUedlaSaruIVj+LmTVnGROZYNOP1n1FsiEldjpnmBaulUmvfZRQpas/koa6JuWFEh
+	 AeCf7r6fdbgwdm/JqcKm1cjl+NeWlO0xRv6V5rg+my32ejT2oM7yNnXGXvFJfjX4HAzFW
+	 G16KxWaboULXtdqhLy0hoP+Mfi4SlN+jSwKNFJXvnRqQpY55SoTyce8zqg32vUCIxbEsN
+	 5nyIB2K3B6V6O4sr+zxHhC6OHhpE84Ix8cHB6aYG5hyuKxCI1nRZ0H48dsBHYewRI5Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=JNrA3kEi;
-	arc=none smtp.remote-ip=209.85.160.41
-Received: from mail-oa1-f41.google.com (mail-oa1-f41.google.com [209.85.160.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=pobox.com;
+	spf=pass smtp.mailfrom=pobox.com;
+	dkim=pass header.d=pobox.com header.i=@pobox.com header.a=rsa-sha256 header.s=fm1 header.b=awbqjPaQ;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=pkPNel4q;
+	arc=none smtp.remote-ip=202.12.124.150
+Received: from fout-b7-smtp.messagingengine.com (fout-b7-smtp.messagingengine.com [202.12.124.150])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73FB760A2622
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 23:38:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 73FB760A2622
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AD98606A31D
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 23:42:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2AD98606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=JNrA3kEi
-Received: by mail-oa1-f41.google.com with SMTP id 586e51a60fabf-46556b9e02cso877555fac.1
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 16:38:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792798722; x=1793403522; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=sH7DjWiwuin5EerT2/8LAxO0bCdrNvcuXjPgNrPzpko=;
-        b=JNrA3kEiX4EkQjmfJIcV9WFDw7oWJaC0VBjpGVzMfJbDuKFZ5ebpV8zXJ4NAV/12WA
-         lMrSpVdknPEdtI/s4IXKyguG2pJ8HIQ81AvvwsXr5nwpSVP38JmwW51Vkvcn9HY8Ovq6
-         NwNgqmtkE0J9fuzX5XpN+P/xeMazBbxjkp2mYNE33yarQxZSjkEEX6v/JkwJEImBtnu0
-         DFVasoaVZxS/dkCHSz5aq4ZuehBJxelc+IupNw1L9fTbIDg6W6u7Vov9Qj/wHUzS4Uwg
-         XV3PaQuCLi4mALJk07ORV0/IwvCHXKaUvGQbPZBKEfdaNey0CfsMzPXGnKAlASETinuM
-         Uy0w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792798722; x=1793403522;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=sH7DjWiwuin5EerT2/8LAxO0bCdrNvcuXjPgNrPzpko=;
-        b=dz8M1SgfcsAMmTWvjtDRbU+zCsCc2hN0OrnscpALgAyheu8ViW5/AHfufWmTQR3B5z
-         wgYm3H/YLnGG0gYZ6FR9qVJS+RFRdDSubpfHBfUTYtx8XhD2NFkttzUFPIiJYWHfl4yD
-         a2R6jmahFhntoysZ6jkB7CVqHfP2kTrqIAx4UP4GPhrGVfy+h84aesjw7xCnIWcU1e5z
-         Rsakn8lGtj8hcSkjHxXJf3dSWzLT1mZfpPRsOKdf++rnH0UJZ7d55T2LXt1KaYgdBnoe
-         wi/uJbCUBqhjLTs4PlU+Y18Wl65XEbZNnQ8HITux02FKxvGelkqUGFnrb/gOW4uwMmTV
-         qMVw==
-X-Forwarded-Encrypted: i=1; AKwUvBzyNgCup4VIxuKKdFvleuv20ssNIm0J8pMeqAHjmclpLbUQfb9eZl9C3dh/YeC7Y69QnVSnC9NxBF41nEo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKWhNWMqEh3Ge7aIJsEtMU8D6ibaLtLHGkdIj+it/ENXNlaC4LK
-	oh6VMoF+wPOH8HJgiQib0mrQZx3gFSYJamzX57FB9TiUTsM8OLpkSsdO
-X-Gm-Gg: AYBFou2jTPCHkrEfT5gO9ia/opMci7K/k2h9tBynX2duTiBEttfQ6Clm5wT4AyUyKNC
-	DLYMiKcRM2ZAnW2tFSPbfE6QYwg4FCvUgyhjAYNYFa1nkO5C1SvUtBbwwBimBbt1SVt43Yz3039
-	/EqWVGUp+KeC7XkTkEuc/IaxrsOvdUSkEJ2N4FIMGFqdPCHDksQV5ofZriaM0EURBB3wKEqTgnC
-	1vUpCA53hJI19/U5ZZZnP9Ti+ir1TNA1zg3xk+F1tgVIe0XU6NnN+fXMxm7a32tK+y9RRHbS6KN
-	dPgxQayRQKq/+vmMrNBgBwt4+2ybGqbv8iowrCOo5brtJYTjZuzT6NHADM/yD8Vr1Z7KcmWkU+j
-	G/XgBDXUzsWj7fmb0t4ASAgZrVYWp0FrflbluvBVYdk89GlgtUfASHmbxG11wf93uROzadfNs7r
-	sQxfcDIgHsyCM2C6xN7DQFiZIZ2P+r+V3gPqQ6V600shQuOEeYKsV2EkVHshuwUuPdoMCmjxXxT
-	VS/74zuBU1lD3HLOGw14x75BuNcDKB/qXHJezVrEnXZOgHM2OMP2aHe8QlViaiOS4b8ecXlNfh4
-	//uhRFSxdZovmIGJ4UzWpP5oilqc6Onbrqj1/oXRidiWEGiyJfHpTLONr1dDblb2HpxDau9yV4v
-	ldeky9K3vLg8pFxXEN7F1wB4SiBptVgG9Ne0exVCtEW3ijVw/maDPKR/q7l8lMkpTbKVmAT/+DY
-	MPjm5T0vOtiUwQYydHj/neNP233Q==
-X-Received: by 2002:a05:6870:d61f:b0:4a7:2baa:8701 with SMTP id 586e51a60fabf-4a83f9aab83mr427138fac.15.1792798722385;
-        Fri, 23 Oct 2026 16:38:42 -0700 (PDT)
-Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4a843225d69sm284345fac.15.2026.10.23.16.38.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 23 Oct 2026 16:38:41 -0700 (PDT)
-From: James Hilliard <james.hilliard1@gmail.com>
-Date: Fri, 23 Oct 2026 17:38:26 -0600
-Subject: [PATCH v3 7/9] dmaengine: sun6i: track paused virtual channels
+	dkim=pass (2048-bit key, unprotected) header.d=pobox.com header.i=@pobox.com header.a=rsa-sha256 header.s=fm1 header.b=awbqjPaQ;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=pkPNel4q
+Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
+	by mailfout.stl.internal (Postfix) with ESMTP id 8E26F1D000D7
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 19:42:54 -0400 (EDT)
+Received: from phl-frontend-02 ([10.202.2.161])
+  by phl-compute-02.internal (MEProxy); Fri, 23 Oct 2026 19:42:54 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1792798973;
+	 x=1792885373; bh=Z9P74CI0r1RddvuUNcaySIOSlWLt4+nM23rKxRc7/y4=; b=
+	awbqjPaQGh/daYR/oAq1DC5obfU5HxsZX81vOJ9w7sTVphlGdvYOzLWUl9dm/o4x
+	uFiYAcgzkaCJP9Z6QZTLCoiPtCJuA/ug8/7ePfbBWmi+ixpDAHGLQB4/7h+T9NAW
+	woBBBRfzEWasy1lnzFk/ewKGfNjepVVByjhSbnOv5sGitJozRIeG1TVfitljx2wt
+	ihpyXNGFNUfbf2k+CXTSGf4A/XNnbEWL1YEtXk9T16X6xw5LfNPjfCuS4VG4weby
+	E0OGPIYCe3R4RalkRpdRXoObJeXvqLpfpRScThR6h5+kEBFDyFMnGWtK3gSWRI4u
+	BDTuMxDEP5HQKD2PbQFbkQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1792798973; x=
+	1792885373; bh=Z9P74CI0r1RddvuUNcaySIOSlWLt4+nM23rKxRc7/y4=; b=p
+	kPNel4q0CxPPk7dRjjYaBpGex+SeTRCS+TNmF7byY8wu8RFeNGP05TKThbt+8lS8
+	PAvjPV7NXdIGDftAO+Bp4DrkFaK4bHiS742LPcwwTz88t61Wc120qv7YAHSAPLO5
+	sOA2cCzbEff52Di2G9f61J1dXoBKe0wAEEIFQZGeRf+J8t7ksC9BIaWkO3PJmT6D
+	CnLC0aIOuyz+uAz0DgC5r3tenO6O+W+vOB+b2Qt5Cb/gTKXWq2pIAo2TzpWzadOu
+	+ms+AYTXlC33SIyanx2JDxoCnWAJY9NlIt1QOrVuL6govXRFo3XBt4hpDCdiwC0S
+	MYikdEQgTvYzMTljcPsmQ==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
+	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
+	action=sign d=pobox.com a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1792798973; d=pobox.com;
+	mf=PGJhcnJ5bkBwb2JveC5jb20+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm1:rsa-sha256:Atm4b1FnBdbSPv2nH2F2X6l35UpdpagQVm4Reqwc8Es5Ri3
+	F12G+qVTiq1cJ8ccFwTxpSleFwQA5VxGvbDpP/1c7fhtjtGjcdt2cGfGCsTeWjJm
+	u5p6VZ8PMORsl3QZrRFSiW5kLA/kB3M/UA+1AkfvB0vtcLMGfdTDRuzc08tQSE7W
+	5lKLjgVVbXc3Rk6Lja7OWk+66u3AEgtNHhXEMj2QuABWwpft+cgJ9V9393BjYrrB
+	n6ZykRIE6ztg4FoxettGPStSPJE2nQ4kNWeaf4nHOG+5jdp7epBf8wXX2hfBuuBt
+	fJHoHZqSetu02806ZsmJthy4Vb8C5Ti85aPyV4Q==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
+	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
+	action=mi-m=1; hc=14;
+	hn=cc,content-language,content-transfer-encoding,content-type,
+	date,feedback-id,from,in-reply-to,message-id,mime-version,
+	references,subject,to,user-agent;
+Message-Instance: m=1; h=sha256:mpENlhJDLcrNLVWhxJQ8LMFCJakxNviL377s+zp5Th4=:B0xxg13vNGYZtNVdLB67EwJoOy1l46HtwNizRlqqpmI=;
+X-ME-Sender: <xms:_PDbahJx67bZrz4t9bbI8joUjd8Pe9196gzv8gwutnerzTXSwYBu4w>
+    <xme:_PDbatgEfAyv947-SkVsojdPC__su8NfBPz7C7zd4kz33zrNHuzLtpuXoUIAnKsNi
+    P6I3YX_qWhG3P5wEFsNgEJL43sJzL23Xej33rzn5FkhlWX2euKbKZcmug>
+X-ME-Received: <xmr:_PDbaq0tAgNV-JdolvtfjKVJl0AFrNQ-WYZrq5ubuJ9dJuWr9zcZ1hgSazc8BXDYUhpp8izoMUi1ARyuDTZHEWagSOLfBh5I>
+X-ME-Proxy-Cause: dmFkZTGAMV6ryyi2zzDAeZTalQoh5YlTGHDdses31aRzp3bRBC9dX4FojypI65ul7r4nN9
+    Zy/TyM76E6h3Rkowszr56d8pAmGb7qtMcSOxYpUWBn9mTm0ChqC/8S6Ci/gj/5r2HSiHK9
+    69D0gSEGWqwYDPofdDpHbF+tSnltfZzV8Y8l70RnWBM7kDPCUym7J+Eep0wxVLs5LpTPDg
+    oX46IjqvbFgu7VpNeStGxy3wU4OR9qkDQFyn7e85AxRvnjy3pfmXUogDzpdWenMQycERjw
+    tzfD8CnrOOCnvwiLQb3em2YLiQh5zBsd1ZuV0Oo/0UGuchDyOHotYzMAaAHOQ80Pvhy6PC
+    Lu6UthHbKHcYxCyUP2vZD+FDQShN3INDY0qVi/N8w5tI9RGRaHdSPNEWr853DnuWAnUOvh
+    AxlKwYNTlqHFXLR4IOlu8IRqB2T8PodKAmgyhGWTV1dTxOQuIKAIKT4oaJyOLmml/ubwg6
+    PhYZvmYy1ypx3+Tys/lNZvWxgNAVqYloURt0yDoC2EwOWqCwuzel+oNU6ZCDLw24k1vpAx
+    lma/sm0mhvyZczDSYK8Hy3i7PivkADW0qhaqp26657D5jlCW8f42ITF5qAtDey7roml9np
+    zlMqNJ/a6ETE+LQNAiUTb2388VX7wVWS9W3SN5+XX7FXmL55pcEbZTBVoQ8g
+X-ME-Proxy: <xmx:_PDbauaRRPwVUmVEpXKgOJQeqIZUoESDIkzDohWt6cqYVUe_GJ9wCQ>
+    <xmx:_PDbanjHfZP8_GPkGLwuebioiFsSSbzLEmoIX9SsQlVLMzmco00ijQ>
+    <xmx:_PDbauhlH2tOsNmHoGD2MNjCMEZiI9y-zAKtZVcOYm87Pz0EgEBuSw>
+    <xmx:_PDbakBx8jkwJGyVKGrb0us7k7PNoByACPjWEQMdFw0LwjTacbu_aQ>
+    <xmx:_fDbair8B7bsgMCQEfZ55FFH4FDyTAEggOwDJLOyruv0fqDywRPtHQTI>
+Feedback-ID: i6289494f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 23 Oct 2026 19:42:50 -0400 (EDT)
+Message-ID: <d2810142-fd45-485d-b325-f6d494690747@pobox.com>
+Date: Fri, 23 Oct 2026 16:42:49 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,139 +119,33 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 7.2 000/242] 7.2.13-rc1 review
+To: Florian Fainelli <f.fainelli@gmail.com>,
+ Salvatore Bonaccorso <carnil@debian.org>, Pavel Machek <pavel@nabladev.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "stable # v4 . 9+" <stable@vger.kernel.org>
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, jonathanh@nvidia.com,
+ sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
+ hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+ sr@sladewatkins.com
+References: <20261023163713.816071858@linuxfoundation.org>
+ <atvHKoRHHjKV4l8A@duo.ucw.cz> <atvS68GhCvmAphrQ@eldamar.lan>
+ <7540e723-054e-43a2-859d-616010fc7bea@gmail.com>
+Content-Language: en-US
+From: "Barry K. Nathan" <barryn@pobox.com>
+In-Reply-To: <7540e723-054e-43a2-859d-616010fc7bea@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261023-submit-sun6i-dma-lifetime-next-v1-v3-7-ef1acb0be768@gmail.com>
-References: <20261023-submit-sun6i-dma-lifetime-next-v1-v3-0-ef1acb0be768@gmail.com>
-In-Reply-To: <20261023-submit-sun6i-dma-lifetime-next-v1-v3-0-ef1acb0be768@gmail.com>
-To: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>, 
- Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Samuel Holland <samuel@sholland.org>, Arnd Bergmann <arnd@arndb.de>, 
- Maxime Ripard <mripard@kernel.org>, Jens Kuske <jenskuske@gmail.com>, 
- Jean-Francois Moine <moinejf@free.fr>
-Cc: Hongling Zeng <zenghongling@kylinos.cn>, 
- Chengfeng Ye <cyeaa@connect.ust.hk>, 
- Nguyen Minh Tien <tien.nguyenminh@embeddedlinux.blog>, 
- dmaengine@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org, 
- James Hilliard <james.hilliard1@gmail.com>
-X-Mailer: b4 0.15.2
 
-sun6i_dma_tx_status() only returns the cookie state, so a paused but
-incomplete transfer is reported as DMA_IN_PROGRESS. The 8250 RX flush
-path pauses the channel and calls its completion helper before terminating
-it. That helper ignores an in-progress transfer to avoid consuming a new
-RX operation. With sun6i it consequently drops the partial buffer and
-leaves rx_running set, preventing another receive from being submitted.
+On 10/23/26 3:44 PM, Florian Fainelli wrote:
+> Same here as well, bisected down to: a0c935bd1f76 ("fs: add umh argument to struct kernel_clone_args"), it looks like we need to cherry-pick 14adbd5341aa ("fs: stop sharing fs_struct between init_task and pid 1"), with that I can boot a kernel.
 
-Track pause state under the channel-assignment lock and report DMA_PAUSED
-for incomplete cookies, including status queries without a residue output.
-Flush the hardware pause request before returning. Completed cookies
-remain DMA_COMPLETE.
-
-Keep paused channels out of the pending queue and do not start a queued
-descriptor when a paused channel's previous descriptor completes. Release
-the completed physical channel so other virtual channels can use it, and
-clear its hardware pause request before reassignment. The paused virtual
-channel retains its queued descriptors until resume.
-
-Resume requeues an unassigned channel only once and schedules the
-allocator, so an idle controller does not require an unrelated completion
-to resume it. Clear the pause state when terminating the channel.
-
-Fixes: 555859308723 ("dmaengine: sun6i: Add driver for the Allwinner A31 DMA controller")
-Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
----
- drivers/dma/sun6i-dma.c | 18 +++++++++++++++---
- 1 file changed, 15 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/dma/sun6i-dma.c b/drivers/dma/sun6i-dma.c
-index dab17b3863fc..25987f550707 100644
---- a/drivers/dma/sun6i-dma.c
-+++ b/drivers/dma/sun6i-dma.c
-@@ -208,6 +208,7 @@ struct sun6i_vchan {
- 	u8			port;
- 	u8			irq_type;
- 	bool			cyclic;
-+	bool			paused;
- };
- 
- struct sun6i_dma_dev {
-@@ -537,13 +538,17 @@ static void sun6i_dma_tasklet(struct tasklet_struct *t)
- 		pchan = vchan->phy;
- 
- 		if (pchan && !pchan->desc) {
--			if (sun6i_dma_start_desc(vchan)) {
-+			if (vchan->paused || sun6i_dma_start_desc(vchan)) {
- 				/*
- 				 * No current txd associated with this channel
- 				 */
- 				dev_dbg(sdev->slave.dev, "pchan %u: free\n",
- 					pchan->idx);
- 
-+				/* The next owner must not inherit the pause request. */
-+				writel(DMA_CHAN_PAUSE_RESUME,
-+				       pchan->base + DMA_CHAN_PAUSE);
-+
- 				/* Mark this channel free */
- 				vchan->phy = NULL;
- 				pchan->vchan = NULL;
-@@ -935,10 +940,12 @@ static int sun6i_dma_pause(struct dma_chan *chan)
- 	dev_dbg(dmaengine_chan_dev(chan), "vchan %p: pause\n", &vchan->vc);
- 
- 	spin_lock_irqsave(&sdev->lock, flags);
-+	vchan->paused = true;
- 	pchan = vchan->phy;
- 	if (pchan) {
- 		writel(DMA_CHAN_PAUSE_PAUSE,
- 		       pchan->base + DMA_CHAN_PAUSE);
-+		readl(pchan->base + DMA_CHAN_PAUSE);
- 	} else {
- 		list_del_init(&vchan->node);
- 	}
-@@ -960,12 +967,14 @@ static int sun6i_dma_resume(struct dma_chan *chan)
- 	spin_lock(&vchan->vc.lock);
- 	pchan = vchan->phy;
- 
-+	vchan->paused = false;
- 	if (pchan) {
- 		writel(DMA_CHAN_PAUSE_RESUME,
- 		       pchan->base + DMA_CHAN_PAUSE);
--	} else if (!list_empty(&vchan->vc.desc_issued)) {
-+	} else if (!list_empty(&vchan->vc.desc_issued) && list_empty(&vchan->node)) {
- 		list_add_tail(&vchan->node, &sdev->pending);
- 	}
-+	tasklet_schedule(&sdev->task);
- 
- 	spin_unlock(&vchan->vc.lock);
- 	spin_unlock_irqrestore(&sdev->lock, flags);
-@@ -994,6 +1003,7 @@ static int sun6i_dma_terminate_all(struct dma_chan *chan)
- 	}
- 
- 	vchan->cyclic = false;
-+	vchan->paused = false;
- 	vchan_get_all_descriptors(&vchan->vc, &head);
- 
- 	if (pchan) {
-@@ -1040,6 +1050,8 @@ static enum dma_status sun6i_dma_tx_status(struct dma_chan *chan,
- 	spin_lock_irqsave(&sdev->lock, flags);
- 	spin_lock(&vchan->vc.lock);
- 	ret = dma_cookie_status(chan, cookie, state);
-+	if (ret == DMA_IN_PROGRESS && vchan->paused)
-+		ret = DMA_PAUSED;
- 	if (ret == DMA_COMPLETE || !state)
- 		goto out;
- 	pchan = vchan->phy;
-@@ -1074,7 +1086,7 @@ static void sun6i_dma_issue_pending(struct dma_chan *chan)
- 	spin_lock(&vchan->vc.lock);
- 
- 	if (vchan_issue_pending(&vchan->vc)) {
--		if (!vchan->phy && list_empty(&vchan->node)) {
-+		if (!vchan->paused && !vchan->phy && list_empty(&vchan->node)) {
- 			list_add_tail(&vchan->node, &sdev->pending);
- 			tasklet_schedule(&sdev->task);
- 			dev_dbg(dmaengine_chan_dev(chan), "vchan %p: issued\n",
-
+I'm experiencing the same problem as everyone else on 7.2.13-rc1, and
+I can confirm that cherry-picking 14adbd5341aa fixes booting for me too
+(tested on both amd64 and arm64).
 -- 
-2.53.0
-
+-Barry K. Nathan  <barryn@pobox.com>
