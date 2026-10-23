@@ -1,89 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.57.252
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792755393;
-	b=IElQWxTIDSBKeI0yHQ7RjjXwkYdn0KLbdN5Z0hZU/AurUGMQRPQ9B2f4NxXtf/eFL9f/
-	 WSLnoz+MoeZg6WzkUETf69ZMci04fo47O2jlA2hLr6/tWH42qtW/2WNMCJozPZMZ0W3a4
-	 2Uwgj598S54ZyMBqYiRdLHiVSTonBnj0IUe6MJwI5/4xqyMrj3IAyKmtTz+RAn1SZgXJC
-	 uWI3OjSkzbfYk5V9anmNEzD/8Kor8+OTHeanQqTHGpSyuHXSp8UENjkBVbhfpMrYTFreq
-	 smhNaE36QIJNkthIavpuQdK14QfxlilDEF2NEcbAKs/XXQIwqYsXOe0Ww9J/As/ETZA==
+	t=1792755450;
+	b=wvlduGfTRMlQTIFtrRgmDVdKGDtQ+VSkEBn+CUH3Uq5BGakqBm8fEVnY0HO8RwYbY/ft
+	 K7wMCio9sBhPlOrn1JesrrAnpHlmPb2YwZIBIokNtHX3EBR5G8LiFQ5LhNyKn5Z8EXB2C
+	 BR6eHkH782iyhBgJsZf7yflIQDmKURqCDV+NIzqWcI0hkb71y6vTOqcs1P41hYJNPojdp
+	 rvvPlc/7ZSQSH5xLhn1ZlZbJ0VHRTO0h3Lkt8bIH/LT16bRKOz6KKuLPPCD8T2LRqWIbt
+	 nZt7Y1O2aqxwUqEpUP+32G9tSGjDKdOs5n6JwTRF/K7cTwefixfQx4Q5m4t0v+Q1aSg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792755393;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=IuDvY+GZo871EJkCLit2ojV8/CoV5VnvDfBzzstEvUM=;
-	b=mQae2DndV9xQtYB1w5RSngizudR6HZ4Y2QFtpFsk79CU65wInwNmmItTJ8GmpAtLB/dd
-	 2aBa3t+HaoOpHryptQVaeq2bQTYV1w+v3KePTyJIQIKsvNjg/rTtriFQSXE2E4BV1JifC
-	 irA05dRJxu/GJ10m/aVBxLCzh87FOYCDT1GHVZvzIsQ7TiQhR0utf4g2yf5IIMOujzFNX
-	 DqBQyiKveYcdi1kI6cnoxxm4xJyDP9qwIuSsHnuQWbSjp32WRSoUjCgS7DOLsfZmE1JGT
-	 hTqL3O7EXpqHYBWKuL8EIBcA8MbjROfgvQ6TqnDYZlt3q3g/Teqfmnhpz4ag2McExng==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792755450;
+	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=XLlV9O6j8cojHKstWOoQP9wgp5SmAko7Hyc+l00NrYs=;
+	b=RGv3G/FHFGgaDSRx20//gHgrxBNzfJ8PA5FQaaa6dU+DClCFDiXo1c3HSxMEMWf8nYiB
+	 3ONF7TZnEBW6zjzR8ff07/15Vk9JELe8fDd7MDiOqku8ZJjUgPYmNvkPG8NnM9yFAAaL3
+	 j1WHhYbLjnwUTYoCLuTerICic5vUYjRIYG/+H8EPiz0irS2Kmw6DjBpABlyyQjiI/pAQW
+	 2v+/xDlTMuS2mhpDDkPH5lrMgepvWX2U8jiKDdU70l0D+vYSJSiR+0xkZeHsmo5we/Zk4
+	 B3BMK/YXlY+Sa63DVedHADL3QCVl14iNRBxes1HPlvJsQXmpjpdRtWvw1rtTrJe6ueg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="R/tYzWXI";
-	arc=none smtp.remote-ip=209.85.216.44
-Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=qq.com;
+	spf=pass smtp.mailfrom=qq.com;
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=e7BYo4bN;
+	arc=none smtp.remote-ip=162.62.57.252
+Received: from out162-62-57-252.mail.qq.com (out162-62-57-252.mail.qq.com [162.62.57.252])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD4C0606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 11:36:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DD4C0606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 387F6606A31A;
+	Fri, 23 Oct 2026 11:37:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 387F6606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=R/tYzWXI
-Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-3ad2b3b1c02so421427a91.1
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 04:36:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792755392; x=1793360192; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=IuDvY+GZo871EJkCLit2ojV8/CoV5VnvDfBzzstEvUM=;
-        b=R/tYzWXIqBi/mMXMG9otxXeUrL7bqf9tXa/RG1I9szUdiTGk6+4DGLvs4D070Cqvp5
-         hRIy5CGj6kem7oD8fJ3dMrZRTRMi/g0q22l5g1SGO//ApLOjqMNZoF7thduIEgbWoJmg
-         BAUNxWzmDO7QNg4k9vSJRG/4yKvOQyxARWweiouJNSJN8w0DKHWsDA7B45Ly+iU4rAP4
-         vjTrewt2T4byZbC2r3pCNzIG01rDuVKO6WUgxReLjrUDMLKlEOUwKy9qZgh/63ebEi7q
-         c8oQZc9VGS/CnMjRqduhp2Lk/TXqDpZPWwDdIBUq2/nL45nj5l1X1QnDks+XvcR5B7il
-         Nl0g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792755392; x=1793360192;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=IuDvY+GZo871EJkCLit2ojV8/CoV5VnvDfBzzstEvUM=;
-        b=LI/UJnf6s/mhtySn6jJ6QgZsPkGiqJd42AxXJZ7BiSCiksZGOgb5G8qwV/z1eMmneo
-         dVwFqdFZhAUuQn8D8799pvuHqg7sC8Cvj95NQUMwVx+GvPZw5A4fdEqSPkALMh6hRII3
-         /xKsaaR8TgKRlLzilWuLEHiKFvtwkEy/ECPOpZcDHJmFEpfXDAk0GQ6KzopuzjvWA1/z
-         eAPGFURiWiWxL9Kc7aaGKLnSyYGrnIGwiM4Hi5VoxN1o3HFVmF5HUdCr6OImoXGhK0X5
-         g28wCkq+NiH9vDhJEHgKZdbBjAP0jdj86YM+yoqg5U7dxwGdNliK4pBVuZ4ROV5vooU5
-         Qghw==
-X-Forwarded-Encrypted: i=1; AKwUvBxSsXqSnMbCBSa0cxdnLysGGmIE7MR/8LTWTelKZT0f9cQcn4dzdlI+czhEMmXb4qFz2Bq61ijA5l700Ac=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIOOrRtQ4oPz7PoJJkXfS+PcNelHDvs5UweSPSXgib2e34J6lQf
-	I7HJHdT3BRGftE21MAvU9OGLw6CsmNL3C+JbWikTK7RvzpRoFOAyqM5p
-X-Gm-Gg: AYBFou2wgn0ozfXXgpkMg/LskOOSX1achS1Ns9meThvVaQI+MwRnnq1ywU0cdrBfzrQ
-	uByMBIWIBknBKNukyHGljYHvajr+k+99kujL6ROfhen3ff/sWZVhtz9Qwxkg/5FiqZy51HYscNB
-	PxK/rrVW74aqB1PV6cbbrM9OfJlpTC0aKYgB58FnsN/JfrumlLQ+x8y7i80A4JvYxHSG8FEcezw
-	MnJ3QG/n5uER3Syji6GEeVhNrb557fzCqab/VABxBNeqHTfSv5KrcN8q6Ro3Xr35A/LOe7ALLU1
-	Ccjl+f634pc/UNeUkdkLHLV7utnaY3cgGEGtivSlhFfuM738VwZKgfySg3CsndF4kaVzHZDeSge
-	kqiXBcPmFQQyJJyh7pwF/oKl08Sn1o8ejGlqq2f/0c3pkgXPtKYPYezwJ5cXSt3UDkGG6/7UjRp
-	LRcFS3g6AjylwMfBR8OQ86BAobycrLT8cXERhg+Es4AVvCSrAnMwyCzD4XYIiOFsQyRIAk/IPu7
-	u2B8hJ6M1IwXOi+JU6A+bOO6s85wkGZktOUuT0RcCFYCkQdVkdz619kXSiha20=
-X-Received: by 2002:a17:90a:d40f:b0:3ac:9a5e:9cde with SMTP id 98e67ed59e1d1-3adce02f85dmr1515815a91.30.1792755392224;
-        Fri, 23 Oct 2026 04:36:32 -0700 (PDT)
-Received: from [127.0.0.1] ([152.136.45.109])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ea7b3dc41dsm9276295ad.59.2026.10.23.04.36.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 23 Oct 2026 04:36:31 -0700 (PDT)
-From: Qing Zhang <diasyzhangqing@gmail.com>
-To: linux-nvme@lists.infradead.org
-Cc: hch@lst.de, sagi@grimberg.me, kch@nvidia.com, linux-kernel@vger.kernel.org
-Subject: [PATCH] nvmet: protect nvmet_ports_list with nvmet_config_sem
-Date: Fri, 23 Oct 2026 19:36:28 +0800
-Message-ID: <179275538809.275862.8334230595898232727@tencent.com>
-X-Mailer: git-send-email 2.43.7
+	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=e7BYo4bN
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1792755444; bh=XLlV9O6j8cojHKstWOoQP9wgp5SmAko7Hyc+l00NrYs=;
+	h=From:To:Cc:Subject:Date;
+	b=e7BYo4bNDl1P+pXOJHoF1uMV78YoOV4PWzR1FzMsepUr11xgoerjSPYS5cIrv+fYY
+	 C+afxrmr6WmUDlSYwqEsPuXgcAqSDK5dOzB5j/paveUZqXDWW/i2lBjJyKuKAYDUYi
+	 iapkjEM1CCIigUD/MxbqTKOgpD93orpVNFVCCwlo=
+Received: from [172.18.4.77] ([111.31.227.58])
+	by newxmesmtplogicsvrszb51-1.qq.com (NewEsmtp) with SMTP
+	id 9559A08E; Fri, 23 Oct 2026 19:37:21 +0800
+X-QQ-mid: xmsmtpt1792755441tkuckw11p
+Message-ID: <tencent_803981983647D9F9444561A4227F138C600A@qq.com>
+X-QQ-XMAILINFO: OV65e10zTgieRLB/ISjk57I3I/ACNqrV9ETr8cRtQhEGIMkbue3N1uA9CWsDL6
+	 gxXXR0JzHir1WmRwzcMYeoRgEc1AD+GsZFoBGNBhy3ych4dOmoviNqNIOHOZqLHDUX1Ve3R54jmb
+	 vKqvUcYSFrsIkbH72Xf3tkMFuRVPEOvo0f8aD8XD0fqTfxW5kq2oH/YoH7JbgDm3Iz+7WzwkCfpr
+	 VZWNKKpW7GnhRiK4F+wafNQHDHDWn789DmgMXpUwjX4CXTWD/bmIpFi3GcjeJEp1hE5vAX21se6A
+	 2xAfnF35bWILeF6x5NMsi6oK+siXcQYq09Ip+JzohXtKXfWRjNaioODjBnPVlhmDgyYtOkApIzKw
+	 TdWAGJMBEpCjX9ZF5SQAWbmVe9iQRTh268iFVWej7//Lw5onR3YFv6HuQ3RgQx1yBRPGrXKcSW18
+	 cGLWKnFoVeclDhq5G2NeeZGxnU3avoC4Jn4c2zZBccRYAA2zR0Tca4m8bxS1ujA4f1nA4+2VUUCJ
+	 MDyWqCMFq8b+VDRt5tNbjTR9IQ0u3oGTjd3RQJgySPW2luu0p3HdQ6cEDvoi83uqrm1+li4YL62z
+	 Z336c2uxDhsO9SoZgu9E+Fbmd7IFHXP4YvSPtXchNFwc0+NHcTuT5v4nRqI93lD/G6MV/1Ufhto3
+	 5zx2y4W87AuwxKgond+xSTG2DdVF7aflUNYQwlj9mko0wV2ThWFlTzjwANN51Lg5PJqpO4w3VrDs
+	 yP49B3lmvZjmFp3uDjjLtni/70fs49q8ZL5ZSCluI06Sn+FID6mNOR5b/eZqYRBHWas3aHbzom4Y
+	 ciIQj9rhYLpOX2TmNp75XsiGQUBA2K+5zU/q6RMCiE/YC6iy9fBAYlOlopSaDHphTarudOdBKJbG
+	 Xlvteow+vM7V3+5iB5i0mgfPkOEqWd59OkTO5scMV/W9XCR8yJPacIh+9jnNezz/Rtgq7lJk1e6P
+	 bMVC6weZNzr3f39D1CdoP0x7DtkUw7UxruNkup0oXxTZm6kTh/JY5uefhAm9vcTFlCo7pvVfUsEJ
+	 7bie9zybauGEXBCluj+Tm7aIIUoEbbcfRepWNfUQfJeTeokXpk
+X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
+From: Guikun Yang <yangguikun19@qq.com>
+To: Michael S. Tsirkin <mst@redhat.com>,
+ Jason Wang <jasowang@redhat.com>,
+ Eugenio Perez <eperezma@redhat.com>
+Cc: kvm@vger.kernel.org, virtualization@lists.linux.dev, netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH] vhost/net: initialize the whole negotiated RX vnet header
+Date: Fri, 23 Oct 2026 19:37:20 +0800
+X-OQ-MSGID: <20261023193720.39712-vhost-yangguikun19@qq.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,70 +77,93 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
->From 554233f4165842a0a104896c30ed4d2e89c11931 Mon Sep 17 00:00:00 2001
-From: Qing Zhang <diasyzhang@tencent.com>
-Date: Fri, 23 Oct 2026 19:29:28 +0800
-Subject: [PATCH] nvmet: protect nvmet_ports_list with nvmet_config_sem
+When VHOST_NET_F_VIRTIO_NET_HDR is negotiated, handle_rx() builds the
+virtio-net header itself and writes it into the guest buffer.  Since
+commit bbca931fce26 ("vhost/net: enable gso over UDP tunnel support.")
+vhost_net_set_features() raises vhost_hlen to
+sizeof(struct virtio_net_hdr_v1_hash_tunnel) as soon as one of the UDP
+tunnel GSO features is enabled, but handle_rx() still copies only
+sizeof(struct virtio_net_hdr) (10 bytes) and then writes num_buffers at
+offset 10.
 
-Readers of nvmet_ports_list (e.g. nvmet_subsys_disc_changed()) hold
-nvmet_config_sem and assert it via lockdep.  The writers --
-nvmet_ports_make() and nvmet_port_release() -- do not take the lock;
-they rely on the parent directory's VFS inode lock for serialization,
-which is an implementation detail of configfs and not a guaranteed
-contract.  Align the writers with the lock the readers already require.
+The remaining 12 bytes of the 24 byte header (hash_value_lo,
+hash_value_hi, hash_report, padding, outer_th_offset and
+inner_nh_offset) are therefore never initialized, and the guest sees
+whatever its RX buffer contained before in fields whose layout the
+negotiated feature set defines.
 
-Also move list_add() in nvmet_ports_make() to after the port is fully
-initialized: the old position published the port on the global list
-before INIT_LIST_HEAD(&port->subsystems), so a concurrent reader
-could traverse uninitialized list heads.
+Reproduced on 7.3.0-rc7 with a userspace vhost-net "guest" that fills its
+RX buffer with 0xaa and negotiates VHOST_NET_F_VIRTIO_NET_HDR,
+VIRTIO_F_VERSION_1 and VIRTIO_NET_F_GUEST_UDP_TUNNEL_GSO: offsets 0..9
+hold the vnet header, num_buffers is at 10..11, the payload correctly
+starts at offset 24, and offsets 12..23 still contain 0xaa.  Without the
+tunnel features the payload starts at offset 12 and nothing is left
+uninitialized.
 
-flush_workqueue() in nvmet_port_release() stays outside the semaphore
-to avoid a lock dependency on nvmet_wq.
+Copy the whole vhost_hlen out of a zero initialized header of the
+largest layout, and rewind the iterator so that num_buffers keeps its
+position right after the legacy header.
 
-Fixes: b662a078576e ("nvmet: enable Discovery Controller AENs")
-Signed-off-by: Qing Zhang <diasyzhang@tencent.com>
+Fixes: bbca931fce26 ("vhost/net: enable gso over UDP tunnel support.")
+Signed-off-by: Guikun Yang <yangguikun19@qq.com>
 ---
- drivers/nvme/target/configfs.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+ drivers/vhost/net.c | 24 ++++++++++++++++++------
+ 1 file changed, 18 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/nvme/target/configfs.c b/drivers/nvme/target/configfs.c
-index b03b5d1c2dc3..75cb9e63025f 100644
---- a/drivers/nvme/target/configfs.c
-+++ b/drivers/nvme/target/configfs.c
-@@ -2009,7 +2009,9 @@ static void nvmet_port_release(struct config_item *item)
-=20
- 	/* Let inflight controllers teardown complete */
- 	flush_workqueue(nvmet_wq);
-+	down_write(&nvmet_config_sem);
- 	list_del(&port->global_entry);
-+	up_write(&nvmet_config_sem);
-=20
- 	key_put(port->keyring);
- 	kfree(port);
-@@ -2070,8 +2072,6 @@ static struct config_group *nvmet_ports_make(struct con=
-fig_group *group,
- 			port->ana_state[i] =3D NVME_ANA_INACCESSIBLE;
- 	}
-=20
--	list_add(&port->global_entry, &nvmet_ports_list);
--
- 	INIT_LIST_HEAD(&port->entry);
- 	INIT_LIST_HEAD(&port->subsystems);
- 	INIT_LIST_HEAD(&port->referrals);
-@@ -2105,6 +2105,10 @@ static struct config_group *nvmet_ports_make(struct co=
-nfig_group *group,
- 	configfs_add_default_group(&port->ana_default_group.group,
- 			&port->ana_groups_group);
-=20
-+	down_write(&nvmet_config_sem);
-+	list_add(&port->global_entry, &nvmet_ports_list);
-+	up_write(&nvmet_config_sem);
-+
- 	return &port->group;
- }
-=20
---=20
-2.43.7
+diff --git a/drivers/vhost/net.c b/drivers/vhost/net.c
+--- a/drivers/vhost/net.c
++++ b/drivers/vhost/net.c
+@@ -1161,9 +1161,15 @@ static void handle_rx(struct vhost_net *net)
+ 		.msg_controllen = 0,
+ 		.msg_flags = MSG_DONTWAIT,
+ 	};
+-	struct virtio_net_hdr hdr = {
+-		.flags = 0,
+-		.gso_type = VIRTIO_NET_HDR_GSO_NONE
++	/*
++	 * The negotiated header is struct virtio_net_hdr when only the legacy
++	 * layout is used, but struct virtio_net_hdr_v1_hash_tunnel (or the
++	 * v1/v1_hash layouts) when the corresponding features are enabled:
++	 * size it for the largest layout and let vhost_hlen select how much
++	 * of it is sent.
++	 */
++	struct virtio_net_hdr_v1_hash_tunnel hdr = {
++		.hash_hdr.hdr.gso_type = VIRTIO_NET_HDR_GSO_NONE,
+ 	};
+ 	size_t total_len = 0;
+ 	int err, mergeable;
+@@ -1260,17 +1266,26 @@ static void handle_rx(struct vhost_net *net)
+ 		}
+ 		/* Supply virtio_net_hdr if VHOST_NET_F_VIRTIO_NET_HDR */
+ 		if (unlikely(vhost_hlen)) {
+-			if (copy_to_iter(&hdr, sizeof(hdr),
+-					 &fixup) != sizeof(hdr)) {
++			/*
++			 * vhost_hlen is never larger than the header above.
++			 * Copy all of it: the fields vhost does not provide
++			 * (hash and UDP tunnel information) have to be zeroed
++			 * instead of being left with the previous content of
++			 * the guest buffer.
++			 */
++			if (copy_to_iter(&hdr, vhost_hlen, &fixup) != vhost_hlen) {
+ 				vq_err(vq, "Unable to write vnet_hdr "
+ 				       "at addr %p\n", vq->iov->iov_base);
+ 				goto out;
+ 			}
++			/* num_buffers follows the legacy header */
++			iov_iter_revert(&fixup,
++					vhost_hlen - sizeof(struct virtio_net_hdr));
+ 		} else {
+ 			/* Header came from socket; we'll need to patch
+ 			 * ->num_buffers over if VIRTIO_NET_F_MRG_RXBUF
+ 			 */
+-			iov_iter_advance(&fixup, sizeof(hdr));
++			iov_iter_advance(&fixup, sizeof(struct virtio_net_hdr));
+ 		}
+ 		/* TODO: Should check and handle checksum. */
+ 
+--
+2.39.5
 
