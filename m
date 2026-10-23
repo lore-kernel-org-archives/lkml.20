@@ -1,99 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.42
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792758969;
-	b=Y5xAkak6FGPdLFZItbjLfUGVqZLUQvuF9vC8x3Vukw7n40tfndH3fSObQARF6TqnTAnE
-	 PStIUGEPPthFNzyroRJGt9e7VYmctiZh1e+31lqH+Ksb59DZRYBFmHY6sSHchR5PtMgRx
-	 q9NujtLZnnXmlGOqmpvhLlaZpr7OUfuAVgYNaOw9pmxnPMHmNJ1DAuAFRWXJBrzOBQ29H
-	 EDsjP24nAV01+hpmNRuMgMy7tkHwAtJLBnH6r4JfcEp18YygjVAs18Td60XufoQOMtbcb
-	 zLbizXd4VPEEMah8yzfVKbLlK4PwEfYl0n8dJwuWpG5PsOA9yj+i2+5phwYGtE0F2qQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792758969;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.169
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792758976;
+	b=gGEhsDrihnFaocszqTShYbBO73Zk+xbKfWCg3Is0W/iuD63DjU8d7pHFZkaDspbeWA32
+	 PfEFuDDzVDTd3bAqOIJ1PLDXb9bfpbByjID1+FvVrKJOyLaIjJ2MEFvoTz6/ERe99Ej4G
+	 OZiMz425EM3R1voq5RVK8fAp/x5iAdC1NuI+WhIRndIhMxI8MYWlDuwhDJtupxpaC93Yx
+	 R54eCnr94x4wtM1F9JJ3aKBtJQoMusmfBDEtDXXpaIf9RkIZRha9rpLVeMLLrtdZdJggw
+	 OCa4mTFJdokZ6vtYHeutEzfYM5CmEpYOMcKvTck/BT6w1W4eeCZmoUfbNLF7+bCzI3w==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792758976;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=jCwLz7Yk0IunCGqCLB2zmrV7N72LGMZmnoJIAewTS7s=;
-	b=MJKTwo+PWfQTJF526XhA4fjdB8RyWMvy7izOlRPmJlmFyKvYkp4U22opUEc9WIwVCFYx
-	 2n+mZIJ10TbDEE8CKKZzLvR8WuSqO55QFM+X1kJ8Vwxc4WamtzilyVBKL8qlkgXcQNlMj
-	 yuZ3+hOJjtDN0hV0VKocWGtCCODuBLS+FNjQT1n9pM8/xI6Da09Wb0x0GhyAGN6BxhUPw
-	 rCaEIeXFjOALh1fsYpYQpOg/3mQoqO/xSQjk/6EMd5YAik1SojqKDin8HUmQzePd+Z1SN
-	 F1xUiBsbs+q5axqAuGu2wtc756mswNs8ROq7XvuWobNfou9J7uWYDgtOk4p7aX1i3kg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=LMgH1io6WU/pzu5HjdNUdRFrI+odqUQmdBMW7cqqEK4=;
+	b=dp2oIQctlisO5ruo5cJmG8PEMj4OooJp2WtQ9b/5OkPLEUo5XiApUe99GoaXqL4G8skZ
+	 BPLQjB4/qzZTo4B7a4P4eXu0nXtRdLxXExw+5VDWfvC1baqNCiD1vp0iZHvWz2IB4kA2X
+	 Vq+YqNbxf5E5hcJeFIsGCBiovnOyvXBl9xz3UUPkereTTQsT/DaUj8rE3xQvXfEiBTh1P
+	 xeK44GVL4TLYINldVjLMMHbTkXCKdb0k4ZCPeG5uNLvtFKrWLGaAK2dbpJD7CEHY99EaC
+	 pUrKY8QnVsBQtkUTcHvGLSZ4scUAB7Ccvhp6cJJ71XCYq9ARA2XqISt8VaaPoBEheOQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=rxRnDqd8;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.42
-Received: from mail-dl1-f42.google.com (mail-dl1-f42.google.com [74.125.82.42])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=YrZ37yop;
+	arc=none smtp.remote-ip=209.85.215.169
+Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com [209.85.215.169])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 509EE606A330
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 12:36:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 509EE606A330
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAAF3606A31E
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 12:36:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AAAF3606A31E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=rxRnDqd8
-Received: by mail-dl1-f42.google.com with SMTP id a92af1059eb24-156cbe59524so606691c88.1
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 05:36:09 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792758968; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Z9foJtIGvE1+7ieef6PSiHeIJO4UsQ/AnM7jwLn8Ln5t0ApikQQKZq4+11WgFP1ZpK
-         6+y9PE3v1xoaBAYLP3UMM5OS65E4uf3a4GNVLxb9aNBtyz+k/ViFWned4HPnsOsjeThD
-         E2Goj81a/+5hI8UmEQX1VOS9Djb4c5UzwcJE9bJ662qnllu1+dzo2phL0sHSewI9V1Cd
-         +D2SnlE4VOWFg36UZ/mU1Ctdt9SbYG7ERg5Y9XuAnDgyPiY+Ko5r0za+aNiY5EIOnNMH
-         s4AbrRMIRPbhL7K+5e24RDswMgqa3L7KmzUzPD1KlHCV+vfxe/UiAssSfHjGdmDDJJ7W
-         9GHQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=jCwLz7Yk0IunCGqCLB2zmrV7N72LGMZmnoJIAewTS7s=;
-        fh=DAG4E5tp2vUGvP5TcnQ7V5AUlcpFg2OtdecHMl30rDA=;
-        b=ZGsDs3sfnaKYZikourApmm7RiCxBWe5vRaFre7XYhJGkxqYILPZlXxn0DZRc8BIiuy
-         KXz8yY6zqCc0QaAFJg5pQ1gKGnL4qoNZIlX33AdZ6wiXafZJZDA7nrXUvuqNU9U1LHeK
-         FbLODlVsiNo9UxI9Gi1nJsKjgKkUvyETpjuOHpwT/LiXoaIjI5kh3jrRX9LtTr1Ql6Vf
-         r1tTgmov2AY41WlTfCYd/ehGcfR5mUIITclbpYN0YzjP+V30YNwnhpKJgGWhKME/iId8
-         yLir6D1YUe79TWtli4A3ZwP0DV0fuVA0VzWsVYwgKFGZB1DjPSA2aD8dRmxQspNdTxll
-         Omhg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=YrZ37yop
+Received: by mail-pg1-f169.google.com with SMTP id 41be03b00d2f7-cc4be0e5351so337315a12.0
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 05:36:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792758968; x=1793363768; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=jCwLz7Yk0IunCGqCLB2zmrV7N72LGMZmnoJIAewTS7s=;
-        b=rxRnDqd8C/nJQVDxN2mKhpw32NCW8yj08XxXHq93H/0wb9JtoXPLAEFd0XYy6irypW
-         S5POhuIIrdyTfiviMIm3KTbH6mVmk+0gQISkPj2ytwKfun5qutMEWCXZQ69lJzp7585A
-         DmkQg0GAt8JxOadZ3XfRN4MDmUb6/ghkJWmX5ABAtF3Xx+8jLsOq45rqJItEP5dFR4Xz
-         hMNxueSCHNqT4TYTQ4yY+WccWBXrA4QeJdVCWovfVtIRoWEtEjlbJ7WwA/jhhQLkyPFF
-         TdLomC6z1Xh3Wfihe52eETrhDdn94/WzF6fjCkbcKYa0wyy4J/E9E7MHRrVCqtZWy3FU
-         juLQ==
+        d=gmail.com; s=20251104; t=1792758975; x=1793363775; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=LMgH1io6WU/pzu5HjdNUdRFrI+odqUQmdBMW7cqqEK4=;
+        b=YrZ37yopR6buoDLR8xhAC2kJLeRxgK/Bw5O7IZ7cSwFcn79xaLW9/ZD3IUA2OOxTFQ
+         zNtHtK+YiRbw+KaKMDrRyh6JH9M74KLOYAFW5M5umKpwDdiqVA7sA16177sd4e7QJmdB
+         Emcu7bb7T6U7F/V9h7Y2bkP1BZrPkZFqusLhezxPG187oYJ139sehAihDmpVFww/kQzu
+         PA4euzbIP21Yb4VcCor96kjeCiq2k7rEpqd6UymEvtJIbLuSqhfLLqY/D7LrjS49tH0r
+         DJopDgh2PKX+ccfDNPxJw5z6gjz4i+yvxW3o4v/ceF748QpUEErYS2T/YF5+dRDN7stJ
+         3a7Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792758968; x=1793363768;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=jCwLz7Yk0IunCGqCLB2zmrV7N72LGMZmnoJIAewTS7s=;
-        b=bbtTroqXzN4gu39fZCipoEt7d3XbhFD3eu/k4PXZJBKhEVC6SeZartj0L9MYlo05nm
-         SfDXfDR3eoAj9viNE/MqosgQ5juGvPtC7xcArbXmUYmZ/7mX7MsZ1va+X5yoOt63yruL
-         iGX4Rb7qRJNK0A6Bqu7Wr1E8eU9fYI6DOkslH9bMlrMWjgCDOMLOK6Troy59HobPcRyE
-         +KrhuYoRqRrdftKuOcDrrGLyyyEjUu2E7PYXw11+x0v5R38RgTn+I9u4QGsOwAT15xHq
-         oteNoLaFXbwT3z3AcpzTRndRvxbkv+tmhpM1f0zZAoJp0uQTAxzewOunyE58bnEGz0hr
-         KQMg==
-X-Forwarded-Encrypted: i=1; AKwUvBxD+23YmmeTGBSeyQ/dLKcfnl2YwM8IABOqVbl1tbhtwmB9RN6cef7Qj4maQFX4xf75U7OhyVZalvfDf2M=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLwBbU+LrWCiUVc9TcaLdimdfSRXBu0lVCiJDmYgxhe+jXrOwV8
-	8B+bNo/9XVQUx3aRPH7WX5f46yPTIS9ir3JCsWu8rceqcgyj9nfWItOjvT1XMpWVC+cXmZVykOw
-	0u518CrUksbELxdVczYs+yFCUxeR0wrc=
-X-Gm-Gg: AYBFou21Vf6c7gE6s/9GjGWWubSnBW/opu6vcCxmTYqrlgUqXMLvb1PREutSjBId/YY
-	hthdXsZEf8fT7h79TFdKXhp5Z6yBOLJJtGsQJhGiwKXVOyRrrBrdJT9d8PRwwNSIvI95X8vw1Bd
-	MAjiO6R7cFjz77rVQGuGSJ2beTOcNW/vHMIJK2034D2SyglvS8/S1kYs6cYQTbBllGsqGmNLVX0
-	1wRErPIfokrJ4a/hCAEttl/isdZ2diH2+s9NoUzHCiRePoiE8+GyXDI3pIFWXYJZzqTWiacrCL8
-	MqIbu7IKZxoGS2wLu323PjSZuFXX3jRG76o0Ugw2LZybwKSxIZt877N6wPnC6Kgy5D3K2X5JVk3
-	zAX0e6zg26e/uki3dU/2mBC7845anFkhS8C9c
-X-Received: by 2002:a05:7022:4388:b0:185:fd0c:4585 with SMTP id
- a92af1059eb24-195c7b7c1cemr4224639c88.33.1792758968220; Fri, 23 Oct 2026
- 05:36:08 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1792758975; x=1793363775;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=LMgH1io6WU/pzu5HjdNUdRFrI+odqUQmdBMW7cqqEK4=;
+        b=iHqwkzPdgeEmd9T34VfFGYJtmimRemFjIeP6+KrKh2IUTjALJt6VfIGi2RwhsgaTJ7
+         095SquZWb0hXiIzzu4A+CE2VJGWOk9cl9MpG3/pGnZ+f9086iqppBlhCTG2xbPQFT3Kv
+         +tVwahaZdrgU7/PAj2kZV7t3aZYzv93KtGRvrNn+r6hvuOcqmh79sVXX2YgVGinUHyKh
+         6DIrqtzsi3vgtMMcKPxEiaeniTA7oH9FFTH5TBZKEDDIy8mWslo5n+WXSQPE1l3ISp5u
+         In9ySjnWFzqyPYFSuKfE1hOB0EH9FKh28Vmg2VrBT3e5Ahaf2BxoDkXVTKEmSNtNNDpA
+         PPMw==
+X-Forwarded-Encrypted: i=1; AKwUvBy1Yv/wkslXv/T+jH6MzKgI6LqPTr2P/P5316x3ZmRUPi9KzviOAOXWbk3mepmJVFZeubn+YpAAM0iTtyc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLMxBBaojhr/92ECOJ1krHpbDyKzhJDRSka4CSWvboGcbdTeW7x
+	HVIWza5rrT3vB/2rKci349DOaDZI9EG7yyv63cKL6Kn8Ktzk+jehxHPC
+X-Gm-Gg: AYBFou2yXBTy3Kh1LW86Ypz5+Z98zGtcuFjwAnKzY7VWVaN3XhfNyWQvsaAH+aK0GRJ
+	OydHULDjUxvt9U/Dc6xDpfFV40b+tLO9eUSVdG8IfaUyn+7hQy0HxRbqTIUng7iLGq+s/IlD6t+
+	vIEHeX+OetJl/lZW6Ondns4VMNJDF4COWSDw+vNLU8N6z0xDP2ob3cNpJWkawUGvVRHjNNiowOi
+	nx22b3GoV/WN82tncFVrsodRE1owZu/f3wMlB+RaIsTQLb84usYKXu7AEp3dv3i5ECyCG8seoEn
+	rX8wmn4B2NdL6yQHMXo9F7KtwYbbfTZ0Z86isBUMJkCukFLLX4xdBAt55loCMTp7nEcI3hQLgqr
+	zgHSoJTfoOv6C6089gEUsinG0m0F7utiLETc5fEr62VExKTodLdTvMscQEdyhSxjT6U0x+5fH+A
+	NR64w4Y9RpuMxnutlitPAHwKTpia0gVBLNNdK44YttfOLkbuYHulX8gJ8JoRfIzQ4PN8jhEp0Wt
+	U34crnv1UFxv120qXl/EoC9qf81B7S0Ezs03u5PdZSvQamN6Q7r1oyz3sEPjVenXrrRj7M=
+X-Received: by 2002:a17:90b:3dc5:b0:3ac:9176:e837 with SMTP id 98e67ed59e1d1-3adce0cda5bmr1898483a91.50.1792758974782;
+        Fri, 23 Oct 2026 05:36:14 -0700 (PDT)
+Received: from DESKTOP-NM9EKIA ([125.134.240.130])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3addd7fc6b9sm132020a91.9.2026.10.23.05.36.11
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 23 Oct 2026 05:36:14 -0700 (PDT)
+From: Joonhoe Kim <26rote@gmail.com>
+To: Val Packett <val@packett.cool>,
+	vkoul@kernel.org
+Cc: neil.armstrong@linaro.org,
+	mani@kernel.org,
+	konrad.dybcio@oss.qualcomm.com,
+	dmitry.baryshkov@oss.qualcomm.com,
+	wesley.cheng@oss.qualcomm.com,
+	linux-arm-msm@vger.kernel.org,
+	linux-phy@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] phy: qcom: qmp-combo: Leave the USB PCS alone in DP-only mode
+Date: Fri, 23 Oct 2026 21:36:08 +0900
+Message-ID: <20261023123609.390-1-26rote@gmail.com>
+X-Mailer: git-send-email 2.55.0.windows.5
+In-Reply-To: <f8a9d12b-c859-4d3f-82f6-d22b9eaee472@packett.cool>
+References: <20261022165219.1368-1-26rote@gmail.com> <f8a9d12b-c859-4d3f-82f6-d22b9eaee472@packett.cool>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,50 +104,53 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261022103821.89552-1-timur.stukan.linux@gmail.com> <atsRW-aYHeB-cEgi@fedora>
-In-Reply-To: <atsRW-aYHeB-cEgi@fedora>
-From: Timur Stukan <timur.stukan.linux@gmail.com>
-Date: Fri, 23 Oct 2026 15:35:57 +0300
-X-Gm-Features: AclHuK91YxWcztNtNuUxM5uyMh5PXCAtkXygIGDSBa7Vzza5lJegEMqSt0BPPko
-Message-ID: <CAF+_u5Byu9BccKQpZ9VcXAb-fMEhpKAD9A65LktLDJ77ng+KfQ@mail.gmail.com>
-Subject: Re: [PATCH net] bonding: fix missing down path on speed/duplex
- failure after FAIL->UP
-To: Hangbin Liu <hangbin.liu@linux.dev>
-Cc: netdev@vger.kernel.org, Hangbin Liu <liuhangbin@gmail.com>, 
-	Fernando Fernandez Mancera <fmancera@suse.de>, Jay Vosburgh <jv@jvosburgh.net>, Andrew Lunn <andrew+netdev@lunn.ch>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
-	Nikolay Aleksandrov <razor@blackwall.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Simon Horman <horms@kernel.org>, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Fri, 23 Oct 2026 at 10:48, Hangbin Liu <hangbin.liu@linux.dev> wrote:
+On 10/22/26 9:14 PM, Val Packett wrote:
+> Good catch. I don't think I've seen system hangs from this on Hamoa, but
+> I've had USB stop working on the ports where 4xDP+USB2 was left
+> connected during suspend..
 
-> >  static void bond_miimon_commit(struct bonding *bond)
-> >  {
-> >       struct slave *slave, *primary, *active;
-> > @@ -2807,10 +2828,21 @@ static void bond_miimon_commit(struct bonding *bond)
-> >                       err = bond_update_speed_duplex(slave);
-> >                       netdev_unlock_ops(slave->dev);
-> >                       if (err && bond_needs_speed_duplex(bond)) {
-> > -                             slave->link = BOND_LINK_DOWN;
+That may be the same path: on resume the USB PHY init programs the USB
+tables over the DisplayPort configuration and times out. On the Y700
+the xHCI resume that followed hung; a USB port that stays dead
+afterwards would fit as well. A "phy initialization timed-out" from the
+QMP PHY on resume would confirm it.
+
+> The USB4 chunk above (juuuust before the start of this diff's context)
+> does a similar thing in a different style: it increments both init_count
+> and usb_init_count and early-returns, skipping over qmp_combo_com_init
+> as well.
 >
-> Hmm, this issue only happens when link_state is on
+> I think both USB4 and DP should be written similarly but should
+> qmp_combo_com_init be skipped here? No in both cases or does USB4 skip
+> it for a good reason?
 >
->         netif_running(slave->dev) && netif_carrier_ok(slave->dev);
->
-> while !netif_device_present. Should we set the link up when device detached?
+> (I'm especially wondering about the impact of that on the USB HS PHY
+> clock, since it's actually sourced from here without a properly modeled
+> dependency right now…)
 
+DP-only needs it, and USB4 does not really skip it: the bare
+init_count++ is exactly what qmp_combo_com_init(qmp, false) does when
+the count is already non-zero, and qmp_combo_usb4_init() holds that
+first reference. In DP-only mode nothing guarantees another holder: on
+resume the USB controller can init its PHY before DisplayPort does, and
+then qmp_combo_com_init() is what turns the clocks, resets and
+regulators on.
 
-Hi Hangbin,
+So I kept the two branches different: the USB4 one is a separate early
+return because it must not reprogram the PHY at all, while DP-only only
+leaves the USB PCS alone. The mux path already keeps the USB PCS
+powered down in DP-only mode; v2 makes usb_init/usb_exit match it, and
+the common block stays on while USB holds a reference, which looks like
+the safer side for the HS PHY clock.
 
-Thanks for the review and the suggestion.
+v2 also skips the USB PCS in qmp_combo_typec_switch_set() and
+qmp_combo_reconfigure_phy() in DP-only mode, as Sashiko pointed out on
+v1:
 
-A detached device is one way to get there, but it does not cover all
-the ways to hit this bug. In particular, it does not cover the case i
-reproduced: during inspect both link_state and netif_device_present()
-are true, but the carrier is lost after inspect and before commit, so
-reading speed/duplex fails in commit.
-
+https://lore.kernel.org/all/20261023123512.1912-1-26rote@gmail.com/
 
 Thanks,
-Timur
+Joonhoe Kim
