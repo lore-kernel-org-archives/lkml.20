@@ -1,57 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792764835;
-	b=aVy7dTijgQR1+HWLxVnc8RGnkGiKj33Mhunso1EUAj/MA5dUKeXPnRCjvf+OUO1AfXik
-	 G6fBdVF77LnbbcE6SfR4yYASA9jaRutCv3eP1DeE/rBkCMQPROv1Ni1iNVZo0HrrcRubX
-	 4OTlL9CfxfrSm2U+qFSGvm+kaTIc5fkTnmNOO8MJqiMVO+w/E0B+M4ofpvxlfSGzpwzRZ
-	 WM3E5vCfveje1D+kQ6F0jdDFh4c7P+1/IWedl1IAcswN9kGoi//YuCk8znfBFN8QFYJu2
-	 q6N7aWH1UuGGGEphKLfcrbqRiG27xfdvRcPFpQDvTJaA4ZhKYnypR5lR/lX5VoBRUrA==
+	t=1792764856;
+	b=KsNwEzCE2+pQvz6Yug3QsumEnHSZCdDiqMfn33gHCQc91bTNmBbU/mzkGgQOa/G++Hoi
+	 TLnlFVdrgVN+IV0r2GXjcqJ6abYwyZgmsdPkwLe3lsIyzPMrD6B2fuc+WSscp9TEIirM5
+	 sbIwTKWeEAeztL5FcIy9WyWNbF3+FGyzLQ4YHyfcIocRxE0nsNkYUIJU8Ttqjpryl3vc2
+	 EEZbSHLT+zn9pkfs45cWlFmAvL54Dj5f7zm1ZD/F0aEnkFj52qobX0voV2MtbUfJrtdik
+	 IHboTpPkQtsiqqd4KcmiDqAdEmHXcx0lziF+GK3YzDdp4csq6qnxzQWvnnAYMigPbJQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792764835;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=J1uVLXrP2VUfLCBDBnXOa4nyynN6pF7eavsl/v/DnRE=;
-	b=tnJStH5MH8VgwFDA9215S7w3Lkr1/xj/I3oA9ePZB46QfOgoaqXMePaUpy6XTOVSKEqD
-	 T7vhWjTuqVKQ0cEkVwgqa0msxYbI9Z+YbQZ8b9vwQso7YaGKbyPFgt0FJ28tbCy7Wy05q
-	 vcpjkwuEdz7E+oh8atNRqdwjq9jLNwYHw174ZFrYke1l2RtUqV4Q3yW1VomSCpGI5gqpF
-	 9vaHLiQQZsnIcURnkMZBYEPnl1RSp086V+MlIxaAy9y0cYYBs8ILTK6eCEWXbeiH2gwiL
-	 3fEwT/eUgl3Im2/TA3ZhQz6k8ByN7YiQzFida9Jm841NvB03P3cVv6hxqZwjIaeAJjw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792764856;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=mxfbM5uXXYDvn4Zj+C0RyPp0z3BfwUkSmef6HRjVrq0=;
+	b=AaCYnYSWHZR6Cc4U8yrxKVCYykMz3lM/FFURRFXEXZIlOdr7+NFUWsE5kp9PtBuw8O2Q
+	 ZBgjX60WAAAS8fNZinwrjNDN8A7ZixruSQvLjRXH+IlpH8XQU+oh77wXHhsFhc3DbED0D
+	 KIiuUnB84wKDCAzmmRyEXbZPw5qywyCllQwlYYPIZRHRZ75upNimAJc784mrgKmiIX34O
+	 6ZCX/JGC0+HuO9dgxBYLW2/JJwzrfHJPwa8sg8k61iM0wmfWSqZRAHrdMf2rVplo7J8cD
+	 1IK+RSAJb1OAmHtKso7Sbeazc+utCXZrVyVwdKKdoVP6COEDWyoLiDnQhr0JPrKILUA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=1g4.org;
-	spf=pass smtp.mailfrom=1g4.org;
-	dkim=pass header.d=1g4.org header.i=@1g4.org header.a=rsa-sha256 header.s=protonmail header.b=qVPRVx2K;
-	arc=none smtp.remote-ip=185.70.43.18
-Received: from mail-4318.protonmail.ch (mail-4318.protonmail.ch [185.70.43.18])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d1N+yMW3;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90F83606A31A;
-	Fri, 23 Oct 2026 14:13:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 90F83606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=1g4.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=1g4.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55292606A31D;
+	Fri, 23 Oct 2026 14:14:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=1g4.org header.i=@1g4.org header.a=rsa-sha256 header.s=protonmail header.b=qVPRVx2K
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=1g4.org;
-	s=protonmail; t=1792764832; x=1793024032;
-	bh=J1uVLXrP2VUfLCBDBnXOa4nyynN6pF7eavsl/v/DnRE=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=qVPRVx2KJkZqgOoqwCznUE/sIAqy40GAvv2BXne7a6FOwy/56svtqOm9ImLSjAv/y
-	 EAOsuS/qfOortQd770yPKCNa6PAPsr70i99AxFWyrn74gFYOtXmf1xrM9InmPe5XEj
-	 H6o3nf215g9rCjB253xkI7bOZW1isqXveguCK+5qRQqQy3ZVfQVLxBUlS2b1ecK0Yw
-	 NGcy3TBr0HeRwoIHVRA01YonRSyzMykOCG6rO0/SZfL8LWq9qvnnxlvLvaTqAmBZPP
-	 Sj0k/5BirM4GL1vmfEpayLjLh0UyHAxzAql2LsPDOygfKnk2g4ZC0l3zLH/636zEO5
-	 y26YegaRSz0kA==
-Date: Fri, 23 Oct 2026 14:13:42 +0000
-To: anthony.l.nguyen@intel.com, przemyslaw.kitszel@intel.com
-From: Paul Moses <p@1g4.org>
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, ast@kernel.org, daniel@iogearbox.net, hawk@kernel.org, john.fastabend@gmail.com, sdf@fomichev.me, intel-wired-lan@lists.osuosl.org, netdev@vger.kernel.org, bpf@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH net] igc: return XSK frame copies on XDP_TX failure
-Message-ID: <20261023141317.3904442-1-p@1g4.org>
-Feedback-ID: 8253658:user:proton
-X-Pm-Message-ID: 459190e83447046727bfe621ed78266b52582fb8
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d1N+yMW3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 723531F01825;
+	Fri, 23 Oct 2026 14:14:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792764855;
+	bh=mxfbM5uXXYDvn4Zj+C0RyPp0z3BfwUkSmef6HRjVrq0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=d1N+yMW3JxJe2NayiHusP++T+g+2+bTMUekHCtussLn9q6Dc5lmHhX1GcAnLlAv9W
+	 BaVuhFZUJ45GEziM52PTXY0yLZA03ZvAnI+OFvMzS8koXkqhGAzwUsPK2LNwuqjh7E
+	 SHax9+T3Kal+sOYZjkfoQQswuuz2DNG5/aoU31LAqWoC0rjH5l5k5zVOjgU2yMn6cc
+	 7K+K3mMFwQVFMRwGNVaJY4/LUJrL2tYnmC8V0fHyj0ik+EW0tfxM7CQC7tnfG66gAA
+	 wvOW9nCM1gSlrCvsiD7bQ3HlFjehtARozEm+Y7clSPJwvIg74ogKOZWfTfoYcjMA93
+	 NE9ZzvEPyAutA==
+Date: Fri, 23 Oct 2026 10:14:13 -0400
+From: Konstantin Ryabitsev <mricon@kernel.org>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: keys@linux.kernel.org, 
+	Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
+Subject: Re: Commits in keyring without trackable emails
+Message-ID: <20261023-venomous-bird-of-agility-c6e1c1@meerkat>
+References: <26137926-0e7d-4429-99ac-7ca51d4fe8bd@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,56 +57,28 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Disposition: inline
+In-Reply-To: <26137926-0e7d-4429-99ac-7ca51d4fe8bd@kernel.org>
 
-Converting an XSK buffer to an XDP frame allocates a page and returns
-the original buffer to its pool. If the TX ring is full or DMA mapping
-fails, igc_xdp_xmit_back() returns an error without freeing the copy.
-The RX cleaner cannot release it, so the page leaks.
+On Fri, Oct 23, 2026 at 09:21:05AM +0200, Krzysztof Kozlowski wrote:
+> A few recent commits like bbecf3f1a77b ("Add AE1C2FBEA7DB42E1 (Troy
+> Mitchell)") have message Id which points nowhere.
+> 
+> Last three commits:
+> 
+> https://lore.kernel.org/r/7ia41p9k58ci.fsf@castle.c.googlers.com/
+> https://lore.kernel.org/r/010001a153609a07-82ca770b-3c4e-41e2-922a-92aa9475eee8-000000@email.amazonses.com
+> 
+> https://lore.kernel.org/r/20261015152222.000053c6@gmail.com/
+> 
+> How were these updates received? Why aren't they on keys@ mailing list?
 
-Return the copied frame on TX failure. Save the RX memory type before
-conversion so native frames remain RX-owned on failure.
+It was never a requirement that all key updates must be sent via the keys@
+mailing list. Some of them are sent as part of kernel.org account request to
+the non-public helpdesk address. They are tracked using the Message-Id as
+opposed to a Link trailer.
 
-Fixes: fc9df2a0b520 ("igc: Enable RX via AF_XDP zero-copy")
-Cc: stable@vger.kernel.org
-Signed-off-by: Paul Moses <p@1g4.org>
----
-Tested on Intel I225-V with baseline and patched kernels. Physical
-pause-frame backpressure caused 46 leaked copies on the baseline.
-With the fix, all 72 rejected copies were returned once and freed,
-and all 192 copies were accounted for.=20
+Many key updates land on the keyring list via routine keyserver updates --
+they carry no provenance indicators at all.
 
- drivers/net/ethernet/intel/igc/igc_main.c | 5 +++++
- 1 file changed, 5 insertions(+)
-
-diff --git a/drivers/net/ethernet/intel/igc/igc_main.c b/drivers/net/ethern=
-et/intel/igc/igc_main.c
-index 1fb5f3cbe93c..39263fd04aa9 100644
---- a/drivers/net/ethernet/intel/igc/igc_main.c
-+++ b/drivers/net/ethernet/intel/igc/igc_main.c
-@@ -2487,6 +2487,7 @@ struct igc_ring *igc_get_tx_ring(struct igc_adapter *=
-adapter, int cpu)
-=20
- static int igc_xdp_xmit_back(struct igc_adapter *adapter, struct xdp_buff =
-*xdp)
- {
-+=09enum xdp_mem_type mem_type =3D xdp->rxq->mem.type;
- =09struct xdp_frame *xdpf =3D xdp_convert_buff_to_frame(xdp);
- =09int cpu =3D smp_processor_id();
- =09struct netdev_queue *nq;
-@@ -2504,6 +2505,10 @@ static int igc_xdp_xmit_back(struct igc_adapter *ada=
-pter, struct xdp_buff *xdp)
- =09txq_trans_cond_update(nq);
- =09res =3D igc_xdp_init_tx_descriptor(ring, xdpf);
- =09__netif_tx_unlock(nq);
-+
-+=09if (res && mem_type =3D=3D MEM_TYPE_XSK_BUFF_POOL)
-+=09=09xdp_return_frame(xdpf);
-+
- =09return res;
- }
-=20
---=20
-2.56.GIT
-
-
+-K
