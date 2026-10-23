@@ -1,49 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=46.14.198.178
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792747810;
-	b=FdbKYL/vr4HQ3uhf82OpGaa8AZ7tuLLzJSKNTtGZ4QGMEvUGrSZMXPvWu7XdzGCTHZkm
-	 RO8j6A2rAudtzump5RZeJHrnl0yo4GVcLRY78y/WVvuaxiosOS2+sU4VpzGTr88iQPGyy
-	 N/c0nd620Egi6boylEW0MsoASTe1AZh7TBaqeES7IGymUs3KZxfb0ijLRpC8Krk+KT8vZ
-	 BgoBid4Ylhs6PnJ1KItDOEaUTOHMwfP6NyrsCr+MmTVoeM+e8Vn7XsEC8pXWcndKtJ/sA
-	 Ec5TRIEiJH2h7c5JhzK5DKILLVyDIFUrsQeUwUFwYZ0embZynSqp8Ml0xeUMKenvdJA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792747810;
-	h=DMARC-Filter:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding:Received:DKIM-Signature;
-	bh=SAN9x3ekDFh3dDV1s/JTsWUi3o0RzXXkeiuG0T7yyWQ=;
-	b=MLfNjOzHjRLmhudsuhSxXbcE0bs4s8GWHm2H9UAePskboL0jy2z/LCtC2JHTrYjA9Nf1
-	 cSAQVxVzYnBnELuHPQVGao3vmcUzY3yzR/DodLzfyvGxKpAH2NzkCcq5e07g4GnW0NlNx
-	 8IjHlmbAUQNyM/+9IOBDvXWbfHdp43XKoj3B+3AV9zqmRgItSUCDOaeYchGlNQEz1YN9+
-	 Bgl9/bfk4CYXdDbvnJ0cE5aERbRERftrwMFiyfDbn/KscSjIrEIhInb5aNPSEiyuxjVCD
-	 mg8aLT51n61ubLIubDBBH2cebXKJVWdJoj9ZkVQsGLOLalsluX0HIlSuCzA5GefNSkg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=rimpianto.com;
-	spf=pass smtp.mailfrom=rimpianto.com;
-	dkim=pass header.d=rimpianto.com header.i=@rimpianto.com header.a=rsa-sha256 header.s=s20260314391 header.b=WzA1Mrbn;
-	arc=none smtp.remote-ip=46.14.198.178
-Received: from mail.rimpianto.com (mail.rimpianto.com [46.14.198.178])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.44.139
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792747827;
+	b=Qizi9uGbFd8ivnpbKbTU1NMsdtUnfbje50mX9d2VHAMtcQkVtoX+rG+6AV2rObeBJWz4
+	 3W+6v1/epecZb9LhZw7/pc6qsESv5FEWZDrM9q/tFmU0AyE/Yx4xBWQgs4VcvJkitN8vf
+	 orVCUrUb+ueqrSPICSFvrfoREtuI6dfejG1ntX6l9tiX4TK/9TME3hubNZnLVjMowbYw5
+	 70L7H7AkIHEe7qxz5pGIzkAXk4QDjGzgWglL2hlqIcgahgIk9SfK3k6aiCVyJPQ0R03+f
+	 5TOSqw1Ph8e3yVIWqNuBbGJpuGLymtYP4xV8KoE4ssvuMOLG0YA9oN+R3q19ofyYscA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792747827;
+	h=DMARC-Filter:Received:Received:X-MS-Exchange-Authentication-Results:
+	 Received-SPF:Received:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-EOPAttributedMessage:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:Content-Type:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=pYCkqby7ZYFlZsTaRBTg/gKKYgtsIri+QbxQt94r4ig=;
+	b=FAXiz/kbD1aTagwbYy2TByh4vRrHEoWb6Py2JcD9qH94Su3JgSd7tnfEsRpITe80yegE
+	 zaqlNYaUgjSVctH0+40rgVsNbZeg+c0xBRCzS6uHmF1qnxFxOOahQSWD6dwuoCWdmtphM
+	 dR5t2NQ9khzDgOkPTtWKu7YnpvMYV30YrFU++Gq9Y3rYRVi5JYt7UUmjjzm9jkLTKLEEU
+	 9veZTc9jGODthnvmHYeo6p1d1PzG01ssqmLaPVx7QjdmHlJNvX/iD2S4M9uVob76gS/2j
+	 COyc6dUpppDpFFL2jCl83DaKzu9/RAblFauGui9+5sWfv1WVkmGKJewIbKlV9RgO2Cw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=cixtech.com;
+	spf=pass smtp.mailfrom=cixtech.com;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.44.139
+Received: from SEYPR02CU001.outbound.protection.outlook.com (mail-koreacentralazon11023139.outbound.protection.outlook.com [40.107.44.139])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 329C2606A325;
-	Fri, 23 Oct 2026 09:30:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 329C2606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rimpianto.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rimpianto.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=rimpianto.com header.i=@rimpianto.com header.a=rsa-sha256 header.s=s20260314391 header.b=WzA1Mrbn
-Authentication-Results: mail.rimpianto.com;
-	auth=pass (plain)
-From: Federico Musto <federico@rimpianto.com>
-To: Chris Snook <chris.snook@gmail.com>,
-	netdev@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	Federico Musto <federico@rimpianto.com>,
-	stable@vger.kernel.org
-Subject: [PATCH net] net: atl1c: drop oversized RX frames instead of panicking
-Date: Fri, 23 Oct 2026 11:30:00 +0200
-Message-ID: <20261023093000.73535-1-federico@rimpianto.com>
-X-Mailer: git-send-email 2.54.0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A28E606A32E;
+	Fri, 23 Oct 2026 09:30:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3A28E606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cixtech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=nplaYi5oPT3IQxAPX8Sknm9eGwFo37EyvA6sdmbTxoZsiDtgiUdK7Sakb7oXuLWe4VoVU1mA+hAnRTS8h8jzD0QcfwAA6mDQd9JVGH6J0D1n+KCCEdnd5An0Bxxs6xFLfAqjJwtnuKh07i2+ZX8UfFwqTE/9Llh+aVtR8AOikvXY9Az0AFxswEQMz+1bX0zpOumTCBjVjkYgp7KarJnvcv4567RGix4zEYOvZXraU35zt3PDUDPSv+8J5KwBo7bsKav8Fpidtx1ft3j0uDOaBDF5xHXEQBCnIAFcRMGqPri0fN+ebr3X9jT4BSRoSESWSp88YbkSpkwM5MYISx3S6A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=pYCkqby7ZYFlZsTaRBTg/gKKYgtsIri+QbxQt94r4ig=;
+ b=cqejeOgnz/j8ZH5FOkebrJEI9jqdmmz0nih5khWw6/DeLPmd/nXihpvSRxdr1dn/wVLW9MBvCo0HuBEw9dySgRI2TQcM81eyauLqggBpvzYIdI+ekiRcenbS1u5dqFRzQLKQXzzFuK6yC7M4WtRZDM57DhuJXuNbC/jv4QaC8Zuv/jVSA2AWLdvLRgNInsVPpoCBs7vKCfmh3Gl1bf0LgrFEof8Dc2+VbhB7rShDj4jP4xoRUkazIrYaIG9xO91rB+hXCB9U3LqxZm2/g7Q4BfQdftq4UM17uO48dt55//cBcw3jsB/H9y1G+xfW95M4CoWkWHLVpK97TTcKaApB6w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 222.71.101.198) smtp.rcpttodomain=arm.com smtp.mailfrom=cixtech.com;
+ dmarc=bestguesspass action=none header.from=cixtech.com; dkim=none (message
+ not signed); arc=none (0)
+Received: from OS3PR01CA0080.jpnprd01.prod.outlook.com (2603:1096:604:da::13)
+ by TYUPR06MB6078.apcprd06.prod.outlook.com (2603:1096:400:355::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Fri, 23 Oct
+ 2026 09:30:20 +0000
+Received: from SG1PEPF000082E1.apcprd02.prod.outlook.com
+ (2603:1096:604:da:cafe::82) by OS3PR01CA0080.outlook.office365.com
+ (2603:1096:604:da::13) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.20 via Frontend Transport; Fri,
+ 23 Oct 2026 09:30:19 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 222.71.101.198) smtp.mailfrom=cixtech.com; dkim=none (message not signed)
+ header.d=none;dmarc=bestguesspass action=none header.from=cixtech.com;
+Received-SPF: Pass (protection.outlook.com: domain of cixtech.com designates
+ 222.71.101.198 as permitted sender) receiver=protection.outlook.com;
+ client-ip=222.71.101.198; helo=smtprelay.cixcomputing.com; pr=C
+Received: from smtprelay.cixcomputing.com (222.71.101.198) by
+ SG1PEPF000082E1.mail.protection.outlook.com (10.167.240.10) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.546.15 via Frontend Transport; Fri, 23 Oct 2026 09:30:19 +0000
+Received: from ubuntu (unknown [172.20.64.99])
+	by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id CD5D440920E2;
+	Fri, 23 Oct 2026 17:30:18 +0800 (CST)
+From: Jelly Jia <Jelly.Jia@cixtech.com>
+To: vkoul@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	robin.murphy@arm.com
+Cc: devicetree@vger.kernel.org,
+	Frank.Li@kernel.org,
+	cix-kernel-upstream@cixtech.com,
+	dmaengine@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Jelly.Jia@cixtech.com
+Subject: [PATCH v4 3/5] dt-bindings: dma: arm,dma-350: Document optional clocks and resets
+Date: Fri, 23 Oct 2026 17:30:15 +0800
+Message-ID: <20261023093017.3248454-4-Jelly.Jia@cixtech.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261023093017.3248454-1-Jelly.Jia@cixtech.com>
+References: <20261023093017.3248454-1-Jelly.Jia@cixtech.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -54,96 +107,83 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Received: from localhost (Unknown [127.0.0.1])
-	by mail.rimpianto.com (Haraka) with ESMTPSA id 82A81DC2-D8CA-4B74-884B-87864EDA0078.1
-	envelope-from <federico@rimpianto.com>
-	tls TLS_AES_256_GCM_SHA384 (authenticated bits=0);
-	Fri, 23 Oct 2026 11:30:00 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=rimpianto.com;
- h=Content-Transfer-Encoding: MIME-Version: Message-ID: Date: Subject: Cc:
- To: From; q=dns/txt; s=s20260314391; t=1792747800;
- bh=SAN9x3ekDFh3dDV1s/JTsWUi3o0RzXXkeiuG0T7yyWQ=;
- b=WzA1Mrbnk6w57cxp4x57C2b7HExNTzm6NxZkOeVjl+v5mcitOClFYas7OD1mWqIDu8FbH1gj4
- 8iBEVIloRvAdQprS/1AmUK4N1P2iJWlEmz/4ExWEv4j/ldiOo5Lt31Y1qs9C7e1GBuJo06HQdum
- MG7wG9LkbaVrVgC96D85CFGYdwccCQN2cof1VX/rM0A/fI1lfbEu4aK/j69Zkznftayps+MRZ43
- eGxUl3N+vOzataGHVlI+iSSCd6W2Pzb93jNHheIFuWnYaKSGpdq7rWSX76a2TxaZWQLcWv161r8
- 3+3MnCFbNmxJN9kTZ0xTU9QDzlZjdOghhVDRt3Eu91YQ==
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SG1PEPF000082E1:EE_|TYUPR06MB6078:EE_
+Content-Type: text/plain
+X-MS-Office365-Filtering-Correlation-Id: dddd38c7-a459-47a5-1c23-08df30e84169
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|82310400026|7416014|23010399003|376014|1800799024|6133799003|22082099003|10067099003|261021123027099003|261022105027099003|18002099003|56012099006|261021121427099003|261009223027099003;
+X-Microsoft-Antispam-Message-Info:
+	NCFCSX4X90kbO2S/C9vbB5YQaGUJvPMf/eZLyaQJvq9mhouWj92T2auGaXx5qK81m0MI/BmPluw9Xpfq/2hk9ev7SRXxunb4ilS+HvAkNn0KS+5SHY9tgDW66a2Mjkmv8oh4bFE9+aYRItOTK6YsN+RrnlAJM36a+g3F18h5x1L9j32fDAGqKHGisPIZf45MwT5IZsMORH6QioD0y9qjdE5dXLiYkb3MLDfP0uMMZGvBL2+hs/u8eYIh6kVxAJKwFjx6ARmlZxPDajhWHIHHwpGEpd2z0BOb7zfelvZurJ25Qin+/5oVtq85vlezlyqFgESIk0zA0lrs6ctSd9eHZoX4C5ESBxoNJ3Jbc7gbtoRXo3VsuKEsuucnZn7k77+58q/s1FId4A3YtKO39e4zLVMUwf1QNt83KZRFTxCyvzJFhwhzFrATqAxoIBu1TMXPYGsJByTtJYu4p1MM86oHjHPXT49lfA9rqLCSyXPsAdQmY7p4OEjxDDpXULMhJRBIyxbrCooHXrqWT53k02073uB1IdnVU82ZnlIi9F7VCeLNorbtiWY1VivKbDX80SbghygRIlFG2maUsmvwGLT9f+13lRRWcuDUlsKvo1ayq4VY58p0OsLbf5K9OZJJ3mF6vbAMFX3mg6FeN+iEu+5tXO293B2rOxv2jBuvt1I2jF+yisNv7yG4MVocA+dy5okH5fk6BH41w18Q1Aqn7HVCuQ==
+X-Forefront-Antispam-Report:
+	CIP:222.71.101.198;CTRY:CN;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtprelay.cixcomputing.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(82310400026)(7416014)(23010399003)(376014)(1800799024)(6133799003)(22082099003)(10067099003)(261021123027099003)(261022105027099003)(18002099003)(56012099006)(261021121427099003)(261009223027099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	+JKhoMr6FzWAgLRjfWlJUx1kcWlIyNehVgisebA5YbXMNC3zkAahGPGLjthovROqnaFzcETiQ9ZYRaEie5HHp6QB/WQY2cff2whqcRCdmPlIKxFATaFRnAUmE1Iq2YuQ1rmFzjY3bC8ZWB9MXeltJRhd2BKeovOXJ7KSAl97BMFha8g6nxNFZ+DnG21j4Ho6KuQCD4caFtj2eBCfmPJalkk1u8r8PTLfHtm5/MhcqGij5RsNYlgif+JqItXmNjyNOYrnDzogopXpekY38UMei0T30f74WZ3RgpkbeiDKrVKUZaH9AXte8TDLXcLpvSDfNLrjUK/6LDCf82T5KeoZcJtwpnHnv2zs9ghb+sD75tyY1CeAg5I7kZC+2rR24+nxSVPA5axY6+qy0YtFHK453w15noa4/l70OEwccmGB/dirEtB0NLvWOKASfnBLzgKY
+X-OriginatorOrg: cixtech.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Oct 2026 09:30:19.6134
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: dddd38c7-a459-47a5-1c23-08df30e84169
+X-MS-Exchange-CrossTenant-Id: 0409f77a-e53d-4d23-943e-ccade7cb4811
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0409f77a-e53d-4d23-943e-ccade7cb4811;Ip=[222.71.101.198];Helo=[smtprelay.cixcomputing.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SG1PEPF000082E1.apcprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYUPR06MB6078
 
-atl1c sizes its receive buffers from the netdev MTU plus a fixed set of
-L2 overheads, which comes to 1522 bytes at the default MTU.  A link
-partner that sends a longer frame - in practice a MikroTik
-CCR2004-1G-2XS-PCIe, whose RouterOS side defaults to l2mtu 1600 while
-the host stays at MTU 1500 - makes the length reported by the RX return
-descriptor exceed skb_tailroom(), and skb_put() then trips
-skb_over_panic and takes the host down.
+Some integrations gate the DMA-350 controller with a bus clock or hold it
+in reset. Sky1 provides a clock for both its FCH and AUDSS instances, and
+a reset for the AUDSS instance. Document these standard resources on the
+DMA controller node.
 
-Validate the descriptor length against skb_tailroom() before calling
-skb_put() and drop, counting it in rx_length_errors/rx_dropped, any
-frame that does not fit.  Such a frame cannot be delivered with the
-current MTU anyway - the buffers were sized for it - but losing the
-frame is preferable to losing the host.
+Neither property is required, so existing device trees are unchanged.
 
-Tested on a MikroTik CCR2004-1G-2XS-PCIe (4x AR8151) in a Proxmox VE
-host, with atl1c built from a DKMS tree carrying this change: the
-l2mtu-1600 traffic that panics the stock driver is dropped and counted
-with the patch applied, and received normally once the host MTU is
-raised to match.
-
-This complements 36c2009d90f2 ("net: atl1c: fix soft lockup on
-out-of-range tpd_cons read"), which fixed the TX side of the same
-"host dies while the card resets" problem.
-
-Fixes: 43250ddd75a3 ("atl1c: Atheros L1C Gigabit Ethernet driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Federico Musto <federico@rimpianto.com>
+Signed-off-by: Jelly Jia <Jelly.Jia@cixtech.com>
 ---
-Notes for reviewers (not part of the commit message):
+ .../devicetree/bindings/dma/arm,dma-350.yaml     | 16 +++++++++++++---
+ 1 file changed, 13 insertions(+), 3 deletions(-)
 
-This is my first kernel patch, so process nitpicks are as welcome as
-technical ones.
-
-Scope: this is the minimal version of the change - only the descriptor
-bounds check.  My local patch also touched atl1c_set_rxbufsize() and
-atl1c_change_mtu(); both are independent of the panic and I can send
-them separately if there is interest (raising the host MTU to 1600 is
-what actually lets such frames through, and the driver handles that
-today without changes).
-
-Reproduction data, kernel logs and the DKMS package used for testing:
-https://github.com/rimpianto/mikrotik.CCR2004-1G-2XS-PCIe
----
- .../net/ethernet/atheros/atl1c/atl1c_main.c    | 18 ++++++++++++++++++
- 1 file changed, 18 insertions(+)
-
-diff --git a/drivers/net/ethernet/atheros/atl1c/atl1c_main.c b/drivers/net/ethernet/atheros/atl1c/atl1c_main.c
-index e58f1d2..11de643 100644
---- a/drivers/net/ethernet/atheros/atl1c/atl1c_main.c
-+++ b/drivers/net/ethernet/atheros/atl1c/atl1c_main.c
-@@ -1934,6 +1934,24 @@ rrs_checked:
- 			break;
- 		}
- 		atl1c_clean_rfd(rfd_ring, rrs, rfd_num);
+diff --git a/Documentation/devicetree/bindings/dma/arm,dma-350.yaml b/Documentation/devicetree/bindings/dma/arm,dma-350.yaml
+index 429f682f15d8..43279878207c 100644
+--- a/Documentation/devicetree/bindings/dma/arm,dma-350.yaml
++++ b/Documentation/devicetree/bindings/dma/arm,dma-350.yaml
+@@ -9,9 +9,6 @@ title: Arm CoreLink DMA-350 Controller
+ maintainers:
+   - Robin Murphy <robin.murphy@arm.com>
+ 
+-allOf:
+-  - $ref: dma-controller.yaml#
+-
+ properties:
+   compatible:
+     const: arm,dma-350
+@@ -36,9 +33,22 @@ properties:
+     const: 1
+     description: The cell is the trigger input number
+ 
++  clocks:
++    maxItems: 1
++    description:
++      Optional bus clock, where the integration gates the controller clock.
 +
-+		/* A peer with a larger L2 MTU than ours can hand us a frame
-+		 * that does not fit the buffer allocated for this MTU.  The
-+		 * driver used to skb_put() it anyway, which trips
-+		 * skb_over_panic and takes the host down; drop it instead.
-+		 */
-+		if (unlikely(length < ETH_HLEN + ETH_FCS_LEN) ||
-+		    unlikely(length - ETH_FCS_LEN > skb_tailroom(skb))) {
-+			netdev->stats.rx_length_errors++;
-+			netdev->stats.rx_dropped++;
-+			if (netif_msg_rx_err(adapter))
-+				dev_warn_ratelimited(&pdev->dev,
-+						     "bad rx frame: len %u tailroom %d\n",
-+						     length, skb_tailroom(skb));
-+			dev_kfree_skb(skb);
-+			continue;
-+		}
++  resets:
++    maxItems: 1
++    description:
++      Optional reset line, where the integration exposes one.
 +
- 		skb_put(skb, length - ETH_FCS_LEN);
- 		skb->protocol = eth_type_trans(skb, netdev);
- 		atl1c_rx_checksum(adapter, skb, rrs);
+ required:
+   - compatible
+   - reg
+   - interrupts
+ 
++allOf:
++  - $ref: dma-controller.yaml#
++
+ unevaluatedProperties: false
 -- 
-2.54.0 (Apple Git-157)
+2.54.0
 
