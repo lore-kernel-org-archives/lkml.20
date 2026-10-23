@@ -1,83 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.21
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.170
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792746488;
-	b=I0nUu0Bv6Y5p/vYx4eYH/t/zxLAUE4A+aE5eYqoN3dkcBCokzDm6zZp6daU0GHkyhnH1
-	 VBaTZvqMRVPw1vfeHvnWUpn6hnj0T9oPKCh1PhRxt1LaKIApOkOaaxd9/lArKKG6Q84zE
-	 bglNgGliEVVUtxgvEWLfIy0DVHtrcdCctJOwMAcREawLcMKnlUl6f/7MnJA6brGggqYgS
-	 5d8PmjQe+8AJGg0SML4HrN3NRjvUS7/TGtWJnBD9yNilIXDoEbzDKYV0WwJbGDUU5Pv0T
-	 0lSanadUw8YE538WIQHcyN0mBPRlqJWXmMKG/i/dXFaimyGcD+Xvf9GGVDLk8hEmjgQ==
+	t=1792746532;
+	b=BS0p/rNwsNACUkU8mNyZ1Eb4GSVl8U47s5CRQ9mXDYfYw+cFXYkB55meBFIOU2tZjBu7
+	 8jAoycqD+o39uOVO8RxaxqQ8Q+DeR3WldjoFl1kQY2pjAEm6UScR2ECpUhiVGvrbygRVc
+	 LzfJgL7uGjCOUfpuXsqiEKfnfctqmeNMlyS4gC627Fob8ZYbG1eXcBao2CF1AvgtF0tZh
+	 foRJeX5Otu9kIfjU5acapVS4TpaSggMTHsz84eeFz78jx7R52Ovp4mVOOGjMn9NXEdZe6
+	 XuK1MhG67LObrsdL+7JJ75b8gc7dzJCMTKlq4/hpKEiptwLN/9b0OmdlyWVgN8MMDgw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792746488;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=oj5plAiDhvkLrgl/yO16Ihe/4KJIUvPcCw3wCr0eQ18=;
-	b=Fu3wrMxtjD2vJ2AhjA+MWhc+mwgLg5uEKAefyaPLiGgRACuJLGoDhc+oXgxiYWpQcgcJ
-	 SKdqT8hXYNiPbrKiwzYb1nz728PVrhZpMtVJ6Vk5hupsiKIAjn+mnZZzOlH2Jo61zNje6
-	 3DraLfYkF02Eg07gGSJiXk6pZj1ZeITfMUrwxz+qTRCI6aeVvWjrquA4iVSTaNY1Zns2l
-	 BIJbo+ndTGDLIanu8Q6FsG3eBy+dNF+bZWm5LgfasnK32CyYLr2bxLnIm38QVbA92yXo3
-	 23Ez19PJJYS3dJ+ewezepDLx9D7iuFFEStjpImJzuRfQkNTqaSDVutOIC1KH21gDY0w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792746532;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type;
+	bh=aHdZ+oKwe6OINwv5V856+JzJxIwxr2tU0lqEBlQhC6Y=;
+	b=EeuBqUc//g2ZiZDmMbkEWMYB32qPDLuHdpZ1LnhMoGwpIPLntpKHcCMeHTa73VhOBmDs
+	 GPaOrkimFz+0AyiOll4ZRyExJxVOZr14jE2JT5JWsHQh0pbnaUhQiHdep3fshYy+yBMLF
+	 FSNbqYYV//EOheFvTYT0MAjRbn96QT3L2kecTiH6xa/k6dco0KPpsOlwh7+yEVKPk5Q5+
+	 vQdMdHawHXVuTIhTK/quWgOu7oIiahA45ziPcj6WR2zIUkegPqfMpL5FG98V9lxjGhWAo
+	 j1ZwByLCFe3IgA0J782flvy0rSRwiTTPcU6zNlCCXlRtfjVju3ElhIjrP/IA9aMtClg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=cBPdpRzi;
-	arc=none smtp.remote-ip=198.175.65.21
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=U3qlEApq;
+	arc=none smtp.remote-ip=95.215.58.170
+Received: from mta1.migadu.com (out-170.mta1.migadu.com [95.215.58.170])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 523EE606A31D;
-	Fri, 23 Oct 2026 09:08:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 523EE606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40AB3606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 09:08:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 40AB3606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=cBPdpRzi
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792746488; x=1824282488;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=82KH3JHj6m6tzFsEqM7OoWpk3yXnB9iS/kKLxps8Vzc=;
-  b=cBPdpRzi8tTzSsjpeo38NJcMS17JnVNw2ReU9ZyABNSQxGpzJ3DGbPPA
-   OsyiELRbQ+Vh2fZD63f/m9X3D2qYNwy2+nUpwmQexmoGFApexEiGaaKC+
-   iq7kSdeme4sLKZ/G+pZKGPt8VGN5fcXzyEZewG/p+u8/V4tcKB36MUoFq
-   kz6CZRSb1fg1uRX1QZUl347n8EnQccjxF6qqdFGv3qNdGVRkkMtMjBAnD
-   HcHCFpAIYWfvyL9TF9t1fK6VKFsKKw4E8jiE0NHjEAJ+SjhnQbjmL1+eR
-   OYNsjuAIw8rb8fv+sHFfLftP+5P5X7FDoXG69M7EM8zWAidT1ks7cVEFK
-   A==;
-X-CSE-ConnectionGUID: id3Ig3kyShiwOS76jN5jmw==
-X-CSE-MsgGUID: JWaj1CnGS5KKX1CHSsJPXA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11943"; a="1598952"
-X-IronPort-AV: E=Sophos;i="6.27,174,1787036400"; 
-   d="scan'208";a="1598952"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Oct 2026 02:08:08 -0700
-X-CSE-ConnectionGUID: zj4pkPBAQx+QbxsvM2nOcA==
-X-CSE-MsgGUID: 0ZLSprJOTruewRk5hc6MzQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,174,1787036400"; 
-   d="scan'208";a="3505471"
-Received: from black.igk.intel.com ([10.91.253.5])
-  by orviesa003.jf.intel.com with ESMTP; 23 Oct 2026 02:08:06 -0700
-Received: by black.igk.intel.com (Postfix, from userid 1003)
-	id DA17D99; Fri, 23 Oct 2026 11:08:04 +0200 (CEST)
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
-	Nikhil Gautam <nikhilgtr@gmail.com>,
-	linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Jesper X Nilsson <jesper.x.nilsson@axis.com>
-Subject: [PATCH v1 1/1] iio: light: opt4001: Re-use generic struct s32_fract
-Date: Fri, 23 Oct 2026 11:08:02 +0200
-Message-ID: <20261023090802.1957593-1-andriy.shevchenko@linux.intel.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=U3qlEApq
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=aHdZ+oKwe6OINwv5V856+JzJxIwxr2tU0lqEBlQhC6Y=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792746529; v=1; x=1793351329;
+ b=U3qlEApqUFeFlgq+MT9YrAvkgmuKrevpIXSxFRoURhJHzcjFvr7YOM/FY1tnJ6+rhclCTokZ
+ Yq2z9teKlE6Z1na/6dKFF5mZm+N/SurlIcxs4WLDd1FNHsP7MGPVUI8Edlt/2paKLch3CLuKUAH
+ LiYItzkN2x8B5tFqOHHKMirc=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id f6ff7b1a76b1490f;
+	Fri, 23 Oct 2026 09:08:49 +0000
+X-Mizu-Trace-ID: f6ff7b1a76b1490f
+X-Migadu-Flow: FLOW_OUT
+Received: by mail-lf1-f47.google.com with SMTP id 2adb3069b0e04-5be58ad9600so6444e87.0
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 02:08:48 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByoKIhmLO1nC6i/oAX14DebjJLvHpovOrhfx5l0qQ0WCQrj1L2vvvp5x3CakuMi9QGdSFAlYYpLJIE3hPw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKQ8P/Lvb0UOQ844UUjyfhihSPG7UGQpCzXybkEZbl9IKjhOXm9
+	GP2GhcODwGInoJvGCn/sa+AgIoQBcbnNgA9BxsHo/7Ptcc6mkuGOodFYqNFk1bDbX7biG8B/6yA
+	IdDjqHIsRNP0IFhi2weABvMfjbfpWGUR6U14qPM6E
+X-Received: by 2002:a05:6512:3f03:b0:5bf:a49c:ddde with SMTP id
+ 2adb3069b0e04-5bfb06b5140mr90492e87.10.1792746528071; Fri, 23 Oct 2026
+ 02:08:48 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -87,58 +66,49 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261023070110.1833446-1-fuad.tabba@linux.dev>
+ <20261023070110.1833446-2-fuad.tabba@linux.dev> <86fqxwzul7.wl-maz@kernel.org>
+In-Reply-To: <86fqxwzul7.wl-maz@kernel.org>
+From: Fuad Tabba <fuad.tabba@linux.dev>
+Date: Fri, 23 Oct 2026 10:08:11 +0100
+X-Gmail-Original-Message-ID: <CA+EHjTw08SZC_3Uodt6ew6vXVH-doW-8G41fVCF-rmaKsv+0fQ@mail.gmail.com>
+X-Gm-Features: AclHuK8By_xwbQyrvckEGFfA4cAUoxoiGOv41Z9xRvku379045c1KVkkaVcFF80
+Message-ID: <CA+EHjTw08SZC_3Uodt6ew6vXVH-doW-8G41fVCF-rmaKsv+0fQ@mail.gmail.com>
+Subject: Re: [PATCH 1/2] KVM: arm64: Hide FEAT_LS64_ACCDATA from guests
+To: Marc Zyngier <maz@kernel.org>
+Cc: Oliver Upton <oupton@kernel.org>, kvmarm@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org, Joey Gouly <joey.gouly@arm.com>, 
+	Suzuki K Poulose <suzuki.poulose@arm.com>, Zenghui Yu <yuzenghui@huawei.com>, 
+	Steffen Eiden <seiden@linux.ibm.com>, Catalin Marinas <catalin.marinas@arm.com>, 
+	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+	Yicong Yang <yangyicong@hisilicon.com>, Zhou Wang <wangzhou1@hisilicon.com>, 
+	Arnd Bergmann <arnd@arndb.de>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Instead of custom data type re-use generic struct s32_fract.
-No functional changes intended.
+Hi Marc,
 
-Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
----
- drivers/iio/light/opt4001.c | 13 +++++--------
- 1 file changed, 5 insertions(+), 8 deletions(-)
+On Fri, 23 Oct 2026 09:31:32 +0100, Marc Zyngier <maz@kernel.org> wrote:
+[...]
+> Why settle for the least capable option? Context switching ACCDATA_EL1
+> is easy enough, can be gated on guest features, and avoid the
+> userspace horror story.
+>
+> I'd rather see that.
 
-diff --git a/drivers/iio/light/opt4001.c b/drivers/iio/light/opt4001.c
-index aa3d87995b7c..b2e7abc22434 100644
---- a/drivers/iio/light/opt4001.c
-+++ b/drivers/iio/light/opt4001.c
-@@ -75,8 +75,7 @@
-  * lux values.
-  */
- struct opt4001_chip_info {
--	int mul;
--	int div;
-+	struct s32_fract ratio;
- 	const char *name;
- };
- 
-@@ -88,14 +87,12 @@ struct opt4001_chip {
- };
- 
- static const struct opt4001_chip_info opt4001_sot_5x3_info = {
--	.mul = 4375,
--	.div = 10000000,
-+	,ratio = { .numerator = 4375, .denominator = 10000000 },
- 	.name = "opt4001-sot-5x3"
- };
- 
- static const struct opt4001_chip_info opt4001_picostar_info = {
--	.mul = 3125,
--	.div = 10000000,
-+	,ratio = { .numerator = 3125, .denominator = 10000000 },
- 	.name = "opt4001-picostar"
- };
- 
-@@ -199,8 +196,8 @@ static int opt4001_read_lux_value(struct iio_dev *indio_dev,
- 		return -EIO;
- 
- 	lux_raw = lux_raw << exp;
--	lux_raw = lux_raw * chip->chip_info->mul;
--	*val = div_u64_rem(lux_raw, chip->chip_info->div, &rem);
-+	lux_raw = lux_raw * chip->chip_info->ratio.numerator;
-+	*val = div_u64_rem(lux_raw, chip->chip_info->ratio.denominator, &rem);
- 	*val2 = rem * 100;
- 
- 	return IIO_VAL_INT_PLUS_NANO;
--- 
-2.50.1
+Context switching it means accessing ACCDATA_EL1 at EL2, which traps
+to EL3 unless SCR_EL3.ADEn is set. booting.rst doesn't require ADEn
+today, and TF-A only sets it when built with ENABLE_FEAT_LS64_ACCDATA,
+which defaults to off. On such a host, KVM traps to EL3 the first time
+it switches ACCDATA_EL1 for a VM, and every VM has LS64_ACCDATA by
+default. The cap leaves the register alone, and the fine-grained trap
+takes priority over ADEn, so it works whatever ADEn is set to.
 
+Should we keep the cap as the fix for stable, and post ACCDATA support
+on top? If you agree, I'd rebase your patches 3, 4 and 8 from [1], add
+a booting.rst requirement for ADEn and EnAS0, and lift the cap and the
+compat.
+
+Cheers,
+/fuad
+
+[1] https://lore.kernel.org/all/20240815125959.2097734-1-maz@kernel.org/
