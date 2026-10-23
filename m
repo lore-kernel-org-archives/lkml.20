@@ -1,68 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792789771;
-	b=s79f6wPBtoP2ZTjU+I/b080nQTLo2rxMpepISnI3wjmX7wJX2ckbPCFI53YV0nok9mF9
-	 BdfKoj+K43KQ03JhGdMx3u11ljWW7WRDG125HsNcacrH2AqdqyQlEQWJSViwjhto16ZJu
-	 DgcF1Y8km7oUUvI7/nG2Lb3gyACdx7NoG1j3Ya873kA9dMnhbIMmPcsR1VfJDm2iMzvU4
-	 hOPxx08sWU9p+VdviVaZhcBF/IUjlZHOhPsMyKLq8uvYgu3tNTZbTvvxM1Vz4QoCYKLLQ
-	 Qyu773sKVT0/BkdmNBEi3dHx+KX8kLpu9+fCKB4iguIK3TlPf3edVgLkD9ZfHS7kJ2g==
+	t=1792789792;
+	b=J7oq0JkPWXL0TMkYokIzcnYuViVrNQln1cYGlGt7iWx8R1mHHMeiLugF0kqfp23f/SBS
+	 fbJfvw4XBoE954/K/JaS6nTm9fQ6fD2jpQrBcQzjRWWADqHacOxK7YLHNkDbxBhMIKQQ2
+	 bm1wCtqCImdNEYp7kr0tz2zFcCsU+RpZ1RYWLDDyW+ZkPiPG15ESbrCDpxPBVzLPohSLE
+	 bIsy519A2DDSDEDB6bocsyaIYVqK6V8n8lxHMjbmdlVz8hGZ5nFwbKIQb6VYLigr3Fshj
+	 4fJ1e2bAeNLu3iGLNMt6/kIeHtnj/d5ApNVnaSL61JT4GVifg4NOd0BOVmsPekK6fMA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792789771;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792789792;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=fS/pPTQHJuueEinFzIzT1Dd4kSXtnBmxPEmCZ9VXz+U=;
-	b=R5c0hm35xCJ8TsLFUuJS3b3C7cG+Dg09GHQU24fQnj3uow69QPNu8tCYBfl8O0i/bH+w
-	 FJPMkrkGN2G1RIQDXCPgf4iAQ00oGBfVb70UriHK6R4G8//5jNkJxEUSVeAZueUPZbx4B
-	 FeT9+wXRgLgyofes9LlnWKrDLBca08tVzDPOj8G6ZbaOhnqthxH+SyWQ7SUSVR6lO0THn
-	 YiiRbMSdsCxxdmc0+ZSXojt56zk3EtfDr30RlFQzOnfCwBvxI+77das6jg0kQ3rIZ7hh4
-	 5xn6SFnrL7dnaEQzpI2PwFLQ9nJDOUAIB3F67ulVlsb3EpGBTYj3ACn18Kdw7dS4a6w==
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=L9ueMUWnDux2nt+/nfTz+Ix7qemPLUygViRTEGpdFBU=;
+	b=YxTEvZMFH9IUMBHAEh2ppav+zHwwYeZKTIbpulYnif9zo5lJUFdxOTK2IU09uZM3VOai
+	 YhPAS2F6S9hrUEK/rIE7lcFoiWjvRn3BBUq9bT6Z+u4mnTHlRFKQGBb0AlbSlel5h73aP
+	 voEkqcHZEwLkWIkiiJFe6J72oH0y62algF7vvHLSQ7Ty16Ixu3GWpDa56E569M7YrXcnl
+	 cAo5C/o9kRWpmRB1Vxud5/Ik9nuQLTLZ4hzCkQQh+qmuiyE2eMiGAk6sHZFFItg9OUJgD
+	 d6wVZNW8QmHk1WanXVJJ8lLYFg6/LcwVzZFwf1fL1F33mo8auW03bWGT7wclcJNE+Yw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="io/0S5TW";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hXliCkz1;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9969E606A31A;
-	Fri, 23 Oct 2026 21:09:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CD19606A31A;
+	Fri, 23 Oct 2026 21:09:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=io/0S5TW
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE00C1F01825;
-	Fri, 23 Oct 2026 21:09:29 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hXliCkz1
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ADDF51F01825;
+	Fri, 23 Oct 2026 21:09:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792789770;
-	bh=fS/pPTQHJuueEinFzIzT1Dd4kSXtnBmxPEmCZ9VXz+U=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=io/0S5TWf9ihwG2cDTXygBCxMICgD6333oWFamc8RD/aL5EUH4etZEiIEm6Awspfr
-	 +pIlwdPM91Sbges4mT16sJGL+ve8h8vbfIRoUxC2+ZUp2mx1z69AIk4GNC+C9jmP1X
-	 1OkaOmNqzDRacwKMo48ChuE12bGXq8ECO/YsK2B98JWupwnKPeJh44PSEO1SAb1xIm
-	 l44W4O5QVbRQgootmmUzBnOJ8ETjvj2U9kfUsFPeuM3Y9wZgG4HzbAMSc33ZL8vOKu
-	 AzIrtlWYROLNPp0pJhqMEoZu358reRB3IhVpvQtdXrM97Ft49dMUdSGgEL1MUL5eiZ
-	 owZNgUqWoiMZA==
-Date: Fri, 23 Oct 2026 16:09:26 -0500
-From: Rob Herring <robh@kernel.org>
-To: Ishu Brar <patches@brar.si>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
-	Dmitry Baryshkov <lumag@kernel.org>,
-	Abhinav Kumar <abhinav.kumar@linux.dev>,
-	Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
-	Marijn Suijten <marijn.suijten@somainline.org>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Akhil P Oommen <akhilpo@oss.qualcomm.com>,
-	linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
-	freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 1/4] dt-bindings: display: msm: Document Adreno 620
- and its GMU
-Message-ID: <20261023210926.GA6026-robh@kernel.org>
-References: <20261023-adreno-a620-v3-0-2d1d566e5e13@brar.si>
- <20261023-adreno-a620-v3-1-2d1d566e5e13@brar.si>
+	s=k20260515; t=1792789792;
+	bh=L9ueMUWnDux2nt+/nfTz+Ix7qemPLUygViRTEGpdFBU=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=hXliCkz1nfBk+W2FUvNxUgD9XEU43opXx8prAfMelLZ++wDCrJP/cg+mpo26B5JWn
+	 e44FgVbdW9i/9YDDU6cv4cHrwhomoSKor/DQfp7LIDz2TyDTH9HuaL7KGrD08jA4Vi
+	 cEfHYC2ChrueR7pqxgPZnCsyLR2FribkfiXcCKiR0h/m9n8LXvBZPKr3j/9XErVVZ/
+	 8KNgATqVmZFtSzjD3MpkL5P9G12c/7PVJzXfRuKcI5yaTQmbg1oj02UPOdN7V4op/z
+	 zQPm1y/4cYhzBdQwm+kLTvTxnHoPiGz6IuwSbMmUx6MSSJjgck8W9xFvwDTtP/ftgc
+	 zvJDp1GtX5/wA==
+Date: Fri, 23 Oct 2026 14:09:51 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: Jiayuan Chen <jiayuan.chen@linux.dev>
+Cc: netdev@vger.kernel.org, sd@queasysnail.net, John Fastabend
+ <john.fastabend@gmail.com>, "David S. Miller" <davem@davemloft.net>, Eric
+ Dumazet <edumazet@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon
+ Horman <horms@kernel.org>, Wilfred Mallawa <wilfred.mallawa@wdc.com>,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net v3] tls: fix the open record check in the max
+ payload size setsockopt
+Message-ID: <20261023140951.5ce950eb@kernel.org>
+In-Reply-To: <20261020121240.29082-1-jiayuan.chen@linux.dev>
+References: <20261020121240.29082-1-jiayuan.chen@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,18 +62,12 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261023-adreno-a620-v3-1-2d1d566e5e13@brar.si>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Fri, Oct 23, 2026 at 03:23:31PM +0530, Ishu Brar wrote:
-> Add the Adreno 620 found in the Qualcomm SM7250 and its GMU. The GMU
-> has the same registers, clocks, interrupts and power domains as the
-> 650.2 one. As on the other A6xx parts, the GPU clocks are defined in
-> the GMU node, so the GPU node has none.
-> 
-> Signed-off-by: Ishu Brar <patches@brar.si>
+On Tue, 20 Oct 2026 20:12:39 +0800 Jiayuan Chen wrote:
+>   - no code change, explain why tx_lock is taken interruptible, in the
+>     commit message and the comment (Paolo)
 
-Missing Krzysztof's Reviewed-by.
-
-Rob
+I dropped the other comments and retained only that part
+The remaining comments looked obvious (please try to avoid that)
