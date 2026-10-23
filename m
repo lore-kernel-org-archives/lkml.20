@@ -1,90 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.181
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792789888;
-	b=kUd7l6Ek+orKAxS/w35uD3LS4OjMYq+bgucRwWUw0zr+TGJtWGZe1Qz6Q/FuKT64ZyW5
-	 Sns+CpRZzcOOkUcdcZB0x3oXATsotR0zNWrawNTFwFLEEA07ECx4dBkJvVlsETEL/va4t
-	 uPxf3S5K0cacBDZp83MUOgIXXE/U1h4hhs7dd+24UML/O/NmJK1FLmgna6e/d3WFFvfBp
-	 lI6mzKSZF4M9kO2Ubp/QiDOnkoinm+kxqkWwZ0Kq3deo1WVaRAVtoybSBHqR7UxuV6CrC
-	 JpbdK+2p1n/m+EBqNzyvNihyIHXog1ifUNfdhxvo4sdbT2TEkn5OVJkxfcmQrDea+UQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792789888;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.173
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792790019;
+	b=vQJetawKAQI3JyxWLyHlOANmrNgutW+wY7aCh72Jp0HRXHRXs35lZW+JQpTc6+d9DMzT
+	 djCUfyTPZP0+hyhZO0MlBATRsqGJkSl8TANDqEIskzNMcNPpFwo7JGaewSOzDzGqxtgDX
+	 /ltVGTK9gq1LXaTW/tIPsNmny12fP7t+ctCWaqqeXi9xN91hGZEQ1V936fEqygXQ1xRr4
+	 ea2/HglQShL6tAXTsJZxpPDfH2ffXWTMfwrT6ccLELyK2t1e9QyJSzp4we+T7ka2t2rmm
+	 Dj7yf7d6O6ZBi3xAliMmWrItP3PmR0zSpvCpmnP+1ji8nQofZ0o3vfA8kdM1R2w8h/Q==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792790019;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=4Z5W3YqAiuEHHNgCmWNPu2h0CpdPIOg8Syx8Os9bGaY=;
-	b=ffDNBvKb50Xm+Y8jjFgEIjElwapz4OLYXGnvmXUn5YeOiH7X1PHKIymOYkUDXyH+wTry
-	 suJaEELdSavvDt1cRCT5BJcYBsLARKNWmhujj1XN6hQBBqZ885oZhbCICb0/CUanr2ANe
-	 Z/rYUWVcfCO6MQ74Y9tTIUqvAyKjadHL6Bpr/xbJUSp+8UGlkGLGvutpkPOsJ+zM9fr9l
-	 Y7VpqT7UpvVp7Zn2qVwfWgjLiesLeY9yLiSdpnCKEa0Z7L5bBT8vET680J52U+j0rgbOl
-	 y6DTko00lYX61kmyjz+YPjez6pt6wwe+XmntMnz7lsUlGAEK7lK3j4q3G0g0H/MT03A==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=JUnmhWE/6nuKeVluLworAnQepkBWhUtRWFlIO5F95AY=;
+	b=Uz9iLNgsoi5kxC6+owuXzIbpklV2osJXflI2bGnplYYsqsIWJdYzkWZUh6CejfHgcTxl
+	 qirGIIQumOpWIyU0+CUz3X2PGpqXluMIlvNOFf0G4ro+CnLbWasFVvb+KUr+4WdPkdlz6
+	 L/qHcwyMAuVmUEJkw0HUcWpXvNxe0tmctYbxlcvIh65DgsD2//uQ+j25fWjWdnCJPs/lD
+	 +tMP/vS2wC9KSsNHmYpH2O2lAxoVe+npVUY0+VJ0+2J0BIfwy7G9FDCLKJjW5kyMqH5uF
+	 IikyrGmvVCPQb7P47IGhst6tS0XjEWAKIwp2Zl6GaOKqY5ZykY98l4t2uVv3I0mcmUw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="dp37n/MZ";
-	arc=none smtp.remote-ip=209.85.222.181
-Received: from mail-qk1-f181.google.com (mail-qk1-f181.google.com [209.85.222.181])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=AklALPXD;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.173
+Received: from mail-lj1-f173.google.com (mail-lj1-f173.google.com [209.85.208.173])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAF8C606A31B
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 21:11:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BAF8C606A31B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A679606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 21:13:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5A679606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=dp37n/MZ
-Received: by mail-qk1-f181.google.com with SMTP id af79cd13be357-93f1cf92c9eso147204385a.0
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 14:11:27 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=AklALPXD
+Received: by mail-lj1-f173.google.com with SMTP id 38308e7fff4ca-3ac65e845a8so11680731fa.1
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 14:13:39 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792790017; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Zj2gP+7/t7whs8etP418oijhV4e/nJEkNNEf5eUgHOZh12SexS9Z2sOCnY1ct50JAc
+         q2UEsL646JDk+SWe3RIj8dy8iKtMpYUzDD2Cw8ghJfarLqAixIUfx+EO7KlYP0EIMfEP
+         MoHLAEKT3qBFGOsv8Sqq0LAPO0h0d7HPsTTxplC1HI+pMT3wwbWbA6NxOTJoX5pCur6p
+         8zsIl4atpY48VWtXkCxMHZxrC+ecK6UmzV0dWz/QVoKBDxxmS3ie79FZqkqM34Nvb1Jr
+         LJII51wS36Euo8LatLAgnyOrOQnkhior8DYWgbXZSnK8S3fmFv8ZxawT/oNEY+gJtDI4
+         GsDQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=JUnmhWE/6nuKeVluLworAnQepkBWhUtRWFlIO5F95AY=;
+        fh=gYqaaNZzJPc7jGUkfAEYMgIQ+OHWjLoKOIiJyn3pDQ0=;
+        b=U5+Ct3CfkBTSWYaVfNwLUkzmLDieCEA5YwqpldZJ6Xrk++2XzU0yIrlia8iJrEfZFA
+         BR3A2ZqsAssohloIWoD+XW5Nfhm38DKkKba3K2uX/gIYL6qpmNLmQYawTB05XGhQ4ATu
+         6MP83Wpj8ncoPwThdN4iIgTvj5IgOjxd6P49y0py05NN7XCr4nbI/U6Ii3ZFQwY1wZPO
+         ak4M2I12T94RTSFkXcsXiUk6XCa7oQralgt12ugjWIemowIV3WOW1F8pf4EaxIIF7d7x
+         /RkOrpN57ZSkOcDxldVxwvhOi8V1cH3ARMTp7GdSXbgxVG1Cfd9bW0bFemmfFLzIpTb5
+         k5BA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792789887; x=1793394687; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=4Z5W3YqAiuEHHNgCmWNPu2h0CpdPIOg8Syx8Os9bGaY=;
-        b=dp37n/MZgj7A1eeYByBqhUWFPzQVyoQz7k+DAfUetz91bczKXNyjxgvWpvAlqTDCUj
-         oBXFal/JZ1YDquCo56cFjSsP73VW0umXjhc4+SIHy9VrknZfDySfws9bZ3erVuwxQkey
-         4obB9o66pgZAidNHx32EWJnPi91pSrEvzWs2NMr5pkUyoOzIJIl++cXcjMBo38vQFpPe
-         aMOHthTNhDDXpYUaJiLjjUYwgo/XWb5O+QbAFrSUBJBPyKNtXo9oV5eofeXu7lXp0JoQ
-         41twTQhWrfGOZXVyH/4sNOnwVq+xxQT/schkKtT1URM/Msg2hIT8KFSFdqHa6vY31Kf/
-         kJOg==
+        d=gmail.com; s=20251104; t=1792790017; x=1793394817; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=JUnmhWE/6nuKeVluLworAnQepkBWhUtRWFlIO5F95AY=;
+        b=AklALPXDFPf7gElKBnhIZiddVz3GosiH/Uj9/xNiBK/w2EZEB4yJ86hkgGXd9TAhem
+         7+vrZmCHnVEWAcdfVgWs1NB4J0aXjHSJE8HnSRoh1oiM9jeihvdAd2JQ5SsLZDyY0UFt
+         fvt9Et+iR9gB9joPMwHIYb/+JvsL9LFbrAKr6OGcSPIGWL6cLEsCKork61vNLgHzA4Ih
+         T17pVTrkjYBbmtGv2axgY9QOwJnAL3pnd7t5+pYSCac6qXMm4/2n6ERmladQLJZPsBP4
+         fwMsXSy9Jw2RIEAR5tWxafd5WNNvcPzEnTqlj3s6P6KaL4P0+csnqrFpVS5hjajI0Jq2
+         0Gmw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792789887; x=1793394687;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=4Z5W3YqAiuEHHNgCmWNPu2h0CpdPIOg8Syx8Os9bGaY=;
-        b=UgRvfT8P6YEqICgOvVZ7mjqhXjRfhVfS6MXuTmo3kwAiEamUybuMdoqIh/YK2K6zI8
-         NxdFOJeA4XPajuBVg5uKHHJ6t1YjndLq6XAyba7tQ5rL/YTxDi3EfaBZB8+sWx9595bU
-         aMqA9gCEj3vWtEUO99lQlYj51Jy7IheQBGIoSQKVXkt2s49bzJg41OO8BzIizzIUJQHv
-         nBPy9WJkbL7yfzJJFg0L79aP+fyvg6aOzPyRIhLy0Os5lSi8LZhOj43oRwAUoi4Auma2
-         DUneS4m+/1+WIc1o7KXKYlVYJYd+y0XcKBDjzfSaBx1seUpMhcqcyqMSZtK0J41Had26
-         fsgA==
-X-Forwarded-Encrypted: i=1; AKwUvBye6fWsRaDOW83dUTIPwbE8zc8Sngeam33wW3JonBwqeNV7dww/YBrZrEvZebFkvC/435Txh9SHFWVTpRg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL5bKaHms9tFqS9Dai50rXUUvmL+KLucH/LC33zC008gRBa1MqY
-	lkDGVoOxx/F9Euz8iZvpq69YPkzYMyBjXIVxeoGQrGBI20lXJRY4ceIRCePDke78
-X-Gm-Gg: AYBFou3/+R04LQlaijnYTw+1invtcZvUmBUWQ5UewoVk/yJ6k90o6JKDQownod0OPp/
-	jfFXsnXRQbmRxywHgT5iTsXux2nIpEl1vCpY1EPbGiZnyuGcB2J1L6rY5oi4WqyMuH42OPSAF4J
-	7YrX3tUwd68pu7VwqgMuRSasgOyzKaRhEIetvFrPWwYWiC6owVV7erylhkBtTYUkY1GcrQXinf0
-	Tzjn8Mxpty0NQPMAoceQ5AJgN/3NE/p0pzTO01rs7qdMj+dt+zf2xRuryM29C9OAQzNr9FoYKuW
-	qlBcGPxH8dr7NeYK5u7y5NOlGEocH8SsyJ7PK3l4+KVcB+QFf/vv9EN7mumDN0/L32mGLkp+ArJ
-	Hbq0bagzg7xeIsBM6r7ngcmos6bRR8OXs3Aq8BL9yWyVK1tU25iasEITpUc7l7q4kxP9pTSdJX8
-	SDMA4Ob6JeLLd6x6HX1mBEbu0kkuXbBxp95XpC1vRRPMcC9Nxgpu7qfQZuEpiGpOSiqw8r2AvbG
-	q8l4/O5GztH6BxpnzEieVbNO9258vgoJmeoyDATVn5Uzk3cwMV5La1FDOYvstuk7A==
-X-Received: by 2002:a05:620a:4556:b0:93f:12d4:67cb with SMTP id af79cd13be357-940ef9c4921mr36665885a.80.1792789886653;
-        Fri, 23 Oct 2026 14:11:26 -0700 (PDT)
-Received: from linux.. ([8.34.174.240])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-940f066958csm9222085a.15.2026.10.23.14.11.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 23 Oct 2026 14:11:26 -0700 (PDT)
-From: Changyul Lee <lcy8047@gmail.com>
-To: Srinivas Kandagatla <srini@kernel.org>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2] slimbus: messaging: hold lock until transaction is completed
-Date: Fri, 23 Oct 2026 17:11:25 -0400
-Message-ID: <20261023211125.2738290-1-lcy8047@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        d=1e100.net; s=20260707; t=1792790017; x=1793394817;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=JUnmhWE/6nuKeVluLworAnQepkBWhUtRWFlIO5F95AY=;
+        b=ULLeoDruBH6Wmme1pr8LF2bZwvzqIKZ3L1OgBpA/UE2EzJguNDRDKxr9dnuALPpijF
+         RNAR0zUtSGNpI9NkC/yNY1SRqnKP4rdYnx846BqrKiBzqKbY7GTPiayz3fPK2ZGlMmI+
+         rltPoSrZVT4k+/JVgs9phlzojE0WRHpNUuZM4gF3ctZJ3ELnD7ZqJb0+If98vLcV/kIK
+         6TGHKguYGiMCQIh8AAyFk8wTjfNnZEQV5uufXhoKr6H26WGiE95oYLGa5YHRrb927MQz
+         Mzr3Buj9+jZNEAqL3hDK0Xf2a9rbh9lyryazCq4iAHSXufQa5FgzX3m8L3BjFJ3892P3
+         A21A==
+X-Forwarded-Encrypted: i=1; AKwUvBypFQSqKOeCSV3iCJiamNTDR5xypwxmo0F0PEZIYN0rDYwXlz3fRRVNpuzaUvHQXyblKmHwCY9KSBSI4n4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL0nnzHyhzHLQ/zcHbEcl7oyJIHxpcxKqViiBjd8yQrGfPImTms
+	2pw9KbHeVzBytIzMEWSi4qkD4k168cWgGdiM7cqoSdIpf6nn7hJMK9Vpd1igOe00IsgkYT5LTNE
+	AGZ9VtMXSLhXYlyC6TV5F1LPdtV2Lp7A=
+X-Gm-Gg: AYBFou2r9Sp4xx3Y9rnqzQa+x7VrUT02oyizBs9cGRY1kKVzZVs5eNInqkdZsr9cFy8
+	oyOGOlTf4X0ztwFapJ/pr02jtKbBBUxPFF4+YuSizl99qjfkprqnVdmJ6U6lgG7Wf17EzfTM9Dw
+	66yFFcZBBfTEv5/FARe9cwkOuiyTS3I8MB3A0E8423zfbLp/76UtupMFBbEwskHS8F3s7riRrj8
+	ucERd2DHPg3wNa4QOHP3op8NMbn3m+3GHOsii8F3TThIKdkTWtcvcHXRBgIqwbHwdnW91aVWqkU
+	9k0S8OxFJZAnZWA7Ytw66g05+VgX6DnX7MxOdOd8rUtOlmHyan6MTQwzVYjhMbaNfMfWh7dbe/Y
+	TJ3vUcFpa5cSul8ITH97T/A8fdtQisG8N2IA=
+X-Received: by 2002:a05:651c:31c2:b0:3ab:1dcd:934c with SMTP id
+ 38308e7fff4ca-3ac6fde7f59mr807181fa.1.1792790017198; Fri, 23 Oct 2026
+ 14:13:37 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,73 +103,34 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261020053435.1179054-4-oss.patchbox@gmail.com>
+ <20261020053435.1179054-5-oss.patchbox@gmail.com> <20261023133546.GK3381610@ziepe.ca>
+In-Reply-To: <20261023133546.GK3381610@ziepe.ca>
+From: Yuho Choi <oss.patchbox@gmail.com>
+Date: Fri, 23 Oct 2026 17:13:25 -0400
+X-Gm-Features: AclHuK-BL1qI8bRaWELf_dQ7T0J3FzJ5N6gMRBUwAUZwcBedJJGHcJxZ4v19rv8
+Message-ID: <CAGG=RgB9QziCsSXxqY0ZLYGyWhDhoqhOzxRx-W8Jomw=kCrb9Q@mail.gmail.com>
+Subject: Re: [PATCH v1 1/2] iommu/riscv: Keep page table pages when IOTLB
+ invalidation fails
+To: Jason Gunthorpe <jgg@ziepe.ca>
+Cc: Tomasz Jeznach <tomasz.jeznach@linux.dev>, Joerg Roedel <joro@8bytes.org>, 
+	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, 
+	Fangyu Yu <fangyu.yu@linux.alibaba.com>, Zong Li <zong.li@sifive.com>, 
+	Lu Baolu <baolu.lu@linux.intel.com>, Paul Walmsley <pjw@kernel.org>, 
+	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+	Alexandre Ghiti <alex@ghiti.fr>, iommu@lists.linux.dev, linux-riscv@lists.infradead.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-slim_msg_response() releases ctrl->txn_lock right after idr_find()
-and then uses txn. If the request times out in the meantime, it
-returns, and txn is no longer valid.
+On Fri, 23 Oct 2026 at 09:35, Jason Gunthorpe <jgg@ziepe.ca> wrote:
+>
+> Invalidation is not allowed to fail. Drivers always have to free the
+> pages.
+>
+> The system is irrecoverably broken if the iommu driver blows up so
+> much it cannot invalidate.
 
-Keep ctrl->txn_lock held until complete() returns, so the timeout
-path in slim_free_txn_tid() waits until slim_msg_response() is done
-with txn. Call idr_remove() directly, since slim_free_txn_tid() takes
-the same lock.
+Thank you for explaining this, Jason. I'll drop this series.
 
-Tested on v7.3 with a delay after idr_find(), in QEMU with KASAN
-and on a DragonBoard 845c. Without this patch, both reproduced the
-use-after-free in slim_msg_response(). With this patch, neither did.
-
-Fixes: afbdcc7c384b ("slimbus: Add messaging APIs to slimbus framework")
-Assisted-by: LLM
-Signed-off-by: Changyul Lee <lcy8047@gmail.com>
----
-Changes in v2:
- - Add a summary of the test results to the commit message
- - Remove the blank line between Fixes: and Signed-off-by:
- - Add Assisted-by: tag
-
-Detailed test results (QEMU and DragonBoard 845c):
-https://lore.kernel.org/all/CAKefsHuMzUr6LForJnx4ZQiBUMLQm60_iNEKmjxnGDTVxr88Cg@mail.gmail.com/
-
-v1: https://lore.kernel.org/all/20260911045911.1327413-1-lcy8047@gmail.com/
-
- drivers/slimbus/messaging.c | 10 ++++++----
- 1 file changed, 6 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/slimbus/messaging.c b/drivers/slimbus/messaging.c
-index e2dbe4a66b70..aa98f5480ba4 100644
---- a/drivers/slimbus/messaging.c
-+++ b/drivers/slimbus/messaging.c
-@@ -29,22 +29,24 @@ void slim_msg_response(struct slim_controller *ctrl, u8 *reply, u8 tid, u8 len)
- 
- 	spin_lock_irqsave(&ctrl->txn_lock, flags);
- 	txn = idr_find(&ctrl->tid_idr, tid);
--	spin_unlock_irqrestore(&ctrl->txn_lock, flags);
--
--	if (txn == NULL)
-+	if (txn == NULL) {
-+		spin_unlock_irqrestore(&ctrl->txn_lock, flags);
- 		return;
-+	}
- 
- 	msg = txn->msg;
- 	if (msg == NULL || msg->rbuf == NULL) {
-+		spin_unlock_irqrestore(&ctrl->txn_lock, flags);
- 		dev_err(ctrl->dev, "Got response to invalid TID:%d, len:%d\n",
- 				tid, len);
- 		return;
- 	}
- 
--	slim_free_txn_tid(ctrl, txn);
-+	idr_remove(&ctrl->tid_idr, txn->tid);
- 	memcpy(msg->rbuf, reply, len);
- 	if (txn->comp)
- 		complete(txn->comp);
-+	spin_unlock_irqrestore(&ctrl->txn_lock, flags);
- 
- 	/* Remove runtime-pm vote now that response was received for TID txn */
- 	pm_runtime_mark_last_busy(ctrl->dev);
-
-base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
--- 
-2.43.0
-
+Thanks,
+Yuho
