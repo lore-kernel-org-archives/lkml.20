@@ -1,13 +1,13 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.52.38
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.194.2
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792738440;
-	b=lD0yCfGR4Z+aFCUeqFWyRnmIETuQMD0vHzWmJHum2CAEVKzDM5PZAw2aiXHxGin/ZQ+Y
-	 Yr0yykLahJo3thsnk3RnUImytnYtP99nxb3hsubfBooDNW0ur9ZZNA+3aB7/tenX01VVc
-	 /RFkpVcFnfGC4wsq2DV7DsNNmSa+oXWYf/vdKo7eScA/T8yw+6ocSNLGzhPJ6wViRu7jw
-	 ua6WngKSPTeINPtQshP/eXb+X0YX4aiLQuhqBzMIHT/7ydNJ41PpyiF/w5JudOBEBQ83V
-	 sBvgsMd9TqB7/HVCdB2oRNxQ+bKPQqCSqzBl5VlaLkdkxmg8OdijI0sQAaCBhfNRTRw==
+	t=1792738450;
+	b=J0L6wCV7B5RIGjuW17ZEN9EMQZ5XJMNnAWvvmV84Gw2kcZJIhwfGEzSYVqQbnWuk5Kol
+	 2osD2jGaMe7ZUrOhISkuhgf7PHQftwLx8fowI3NTosSgiE2/0PXPcQd9xk3XfKla67iW0
+	 MmnwTMyhsj3RK/ifVRlDOPqWm+Wb57OATLMx7US+9x90JQdoDf4Pvne+WepIe5exVbCqh
+	 ca5kEtmGBV+BxDGOf1xW0q857/KqeWZwL7dFpI4NMykcznVLYEiZB30L1s6+WkgABLBTU
+	 fH5fwiSqAcqwfvwLNP8pVSZEk9DcKNBNoWgAosmx54rzmw7CIOcST7d+O45dN8AYdFQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792738440;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792738450;
 	h=DMARC-Filter:DKIM-Signature:Received:Received:
 	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
 	 Received:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
@@ -26,53 +26,53 @@ ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
 	 X-MS-Exchange-CrossTenant-FromEntityHeader:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=rm2oHs3R37U9m1HKAKqrWSD2hAO1v+w7FNAXcaZwOWc=;
-	b=uEoGZh5mLzjDsbeyP4cPlJueloKgxfMMIYiWA5rSHbzZ6OT4lO3gGlxO1CHAGZhQzA0b
-	 21eqmXUrrx850oDqcO2lMCJqRHVkIiIp08Qm6pgRLwlZhG3PUB5fuu/8WcncOGnWvjgXb
-	 hsyjkMiWxzb2Y5kddnLv8rObUzuvjeqIogCILF6/Ny/j4GTC2YwnPjE+QXE8gfAA3zLZj
-	 pRMCYe1FFOeDP+bYKDQ17guzSZb7J6ibPLs7/SOtgi2blF0Qn3//NlCqFtylbH16YlhR5
-	 YlGORvIc5ZBJ2ziUcq6wRpiPRJmzXE/QHaWivvV4SC/8TkPG61M+2yHnslw7nRCJAig==
+	bh=Ezbw+oaa6Ywv1WiM6dkTEVCVoAVF+Kq0hGQ1DzymAak=;
+	b=zTKvruYLyz/f7wjf1GUK2giwOpNDqb2cvJ9S3OUEVKfHOr6aAYHLMq9+oj3LgXAyVIUW
+	 BljYCZqB2te+i6igdfFq2fUbyTGGMrPi20/rloXQvMCYDW0f/9362wIBnQ+toPMsSBDQ2
+	 E5fMbzrntyAi9DIZAzxkIsPK9cWU+52vc1jTtdDGkicNkzJfLiDqPwMltnizAzR6aUKjW
+	 6Z28DTD+W1n3gfHgnSJkA3DWyPmBTjFMdsFj9bdw6LH6zlQxT1/zdzBnoV7/8D7KJ8TB9
+	 0oXZUsGEWnRawjimxpM650ujsVQEz65zX0HE6tVulhzteb164PQn1G3HkuZMOUApl8A==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=amd.com;
 	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=UkmAsb7W;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.52.38
-Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011038.outbound.protection.outlook.com [52.101.52.38])
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=vjEEp2tM;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.194.2
+Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011002.outbound.protection.outlook.com [40.93.194.2])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A467B606A31A;
-	Fri, 23 Oct 2026 06:53:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A467B606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28C3D606A31D;
+	Fri, 23 Oct 2026 06:54:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 28C3D606A31D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=UkmAsb7W
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=vjEEp2tM
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=GyLSzvfR8k+tR12VJdPPLz3CtVV4XNlvLuoCHaerStpXTAeRe/rlqOUaiAZ7zjc9gKrnO/yysLwf58AnkW2p7slkNlUF4agwEyov1N+tr8nBE5xuCLQoNA+ws5ABB0oStayfhT4sv04/KSOwjri4qJhwmMjtVF9GV4SpGSi100bsl4vWoCVPGBFn7qByyhQqg2YdhoARVtbVciJ1wnSay+cyiANqPDYzyU4xz1sbYfOxlSGMToG9IZcNBXGCgoIeksrQw5V78fTtj4CpVvAbv+iTmiWEWH00SDAjkKs5/96TCSwtadrdHffsjp1T60/7SC/5XDpL6Nd4I3io+0jMhw==
+ b=omfBgZ70M50lZs3G2dh4+jWBk7LKVYIIDPKk5mB8cXI96ciVEgIcdt8h6ALEYtoBfoubivRshcLNN6Cm3itqn+PAZtTWoMqyB2SGHIKzcjYtFVbfO6Wr6ETKn2PD0/1a/zxrCrTm3Tawfcb1TCaSddnBQmHGJmVshYJ5mzQi0VYIVl18fPO5KBiArtm/q0yZ+IBiw4XHCUxWZMg6GDKFTxTTirH7eUplf+wjAtQnBD2XmAD88BtG2dn5xHNgd+S3hCqSMJ/oBMRqw+AohKsuh8VR1csauZY/PeMvKeXjTN8lttgRR+dCSONUzZWH7lHFJJNCP1H9IF8CxYmJWcGxcQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=rm2oHs3R37U9m1HKAKqrWSD2hAO1v+w7FNAXcaZwOWc=;
- b=Ud/wF/NqR9EliCP307qmCfUeCbKd63b8oQMj2vrBwUVY/Ggiz7d9GqzfsVAvjfpsDppPwx5qLPujRnH9cjAAy1XQP1I7IObIFD5d7WOpHoFd5539c1ey6+kQVcF/x6C51cG/orNdGjNd9SMOsobcwev+PuECMx6wzwnxKQiZejZv222Qnnpx15CuKHoNQbXeZccx3zuyYhIcpr/gXer+AqC3V042D5fgXFTEdVXyx2XqA/2b+1RBQdi99JClpMIc5TjEM7ty2rTZ7vs53YcHLXKFqE0Q9DI83BMbDZmB0v6gH0fhAWVxwn0dqfMeiv2HGdVpR/K2tYYPMfUmmQwwRA==
+ bh=Ezbw+oaa6Ywv1WiM6dkTEVCVoAVF+Kq0hGQ1DzymAak=;
+ b=TjImOVtSLPk8kwKthBIg/8k0pdkLCrc323W8WZybR/XCoIIIUmPVqs6RHpUpavatPSSWD2GqFR4RVMKjaNte54SZ02K3SjPW7uTFXeq8qVftEQmvaQi5Je8OG1WEp+szsL7S++dpyMJVnqp/Y5DTpKp7ZAT8EKjFEQZgDYtTcV9F5m71ucP14wenLPgqo1Adk5oSGO/Di1f/Szw/xVkmA2tH/FkUgp90lh2pFt2ZtDWcOzjoXR+1BcAUpeZ9Kuk6pRaUZE7Nm0bwlX5eBePGDzM3WKjpydjlQqC/CudfOKfRXiF4udjQwh2UEQN8qU5wgNoar1xhROBe4VcS8zlMwA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
  (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rm2oHs3R37U9m1HKAKqrWSD2hAO1v+w7FNAXcaZwOWc=;
- b=UkmAsb7WKSU0lUpbgYF6qcJQk2CRZVX0twnZJq/juaO4A5Z3x4U/NfgB1feXWp28INoF1JZbIFD2tHnSLfkoyNrq+FIt4WvIA34c+kTPRpkgaFPQ29YR2M0e/b2S/XXakisVVnrf61yecmuThOQigixw9sjZyBztn1KD2PVGNjo=
-Received: from BN9PR03CA0219.namprd03.prod.outlook.com (2603:10b6:408:f8::14)
- by CH2PR12MB9517.namprd12.prod.outlook.com (2603:10b6:610:27f::13) with
+ bh=Ezbw+oaa6Ywv1WiM6dkTEVCVoAVF+Kq0hGQ1DzymAak=;
+ b=vjEEp2tMNZr/r8+kk+vxaKMBFStKK6dPSCpy3lZmOQfD3eMfy/EwxJabYcwsW52tudJLoKZQKN9lqJZkwi2LU8Qff+L/gURyC1ZUQzAKTOBqIs1IZsZRxGQ92kFpGd9rPlG7TzPas70V1qFGVWK0DH9yWvjHvtIJuE2bAAacq/4=
+Received: from BL1PR13CA0271.namprd13.prod.outlook.com (2603:10b6:208:2bc::6)
+ by CY8PR12MB8339.namprd12.prod.outlook.com (2603:10b6:930:7e::17) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.13; Fri, 23 Oct
- 2026 06:53:53 +0000
-Received: from MN7PEPF0000014E.namprd04.prod.outlook.com
- (2603:10b6:408:f8:cafe::20) by BN9PR03CA0219.outlook.office365.com
- (2603:10b6:408:f8::14) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.19 via Frontend Transport; Fri,
- 23 Oct 2026 06:53:53 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Fri, 23 Oct
+ 2026 06:54:04 +0000
+Received: from MN7PEPF0000014F.namprd04.prod.outlook.com
+ (2603:10b6:208:2bc:cafe::1) by BL1PR13CA0271.outlook.office365.com
+ (2603:10b6:208:2bc::6) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.569.3 via Frontend Transport; Fri, 23
+ Oct 2026 06:54:03 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -80,20 +80,20 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- MN7PEPF0000014E.mail.protection.outlook.com (10.167.254.40) with Microsoft
+ MN7PEPF0000014F.mail.protection.outlook.com (10.167.254.41) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.546.15 via Frontend Transport; Fri, 23 Oct 2026 06:53:53 +0000
+ 15.21.546.15 via Frontend Transport; Fri, 23 Oct 2026 06:54:03 +0000
 Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Fri, 23 Oct
- 2026 01:53:53 -0500
+ 2026 01:54:02 -0500
 Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb09.amd.com
  (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Fri, 23 Oct
- 2026 01:53:52 -0500
+ 2026 01:54:02 -0500
 Received: from amd-System-Product-Name.amd.com (10.180.168.240) by
  satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.53
- via Frontend Transport; Fri, 23 Oct 2026 01:53:48 -0500
+ via Frontend Transport; Fri, 23 Oct 2026 01:53:58 -0500
 From: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
 To: <broonie@kernel.org>
 CC: <alsa-devel@alsa-project.org>, <lgirdwood@gmail.com>, <perex@perex.cz>,
@@ -104,9 +104,9 @@ CC: <alsa-devel@alsa-project.org>, <lgirdwood@gmail.com>, <perex@perex.cz>,
 	<Richard.Gong@amd.com>, <Vijendar.Mukunda@amd.com>, <Poojitha.N@amd.com>,
 	<linux-sound@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
 	<sound-open-firmware@alsa-project.org>
-Subject: [PATCH v3 06/13] ASoC: amd: acp: move ignore_internal_dmic gate to DMIC enable condition
-Date: Fri, 23 Oct 2026 12:20:42 +0530
-Message-ID: <20261023065216.3473883-7-Vijendar.Mukunda@amd.com>
+Subject: [PATCH v3 08/13] ASoC: amd: acp: set PCI subsystem ID for SOF SoundWire machine driver
+Date: Fri, 23 Oct 2026 12:20:44 +0530
+Message-ID: <20261023065216.3473883-9-Vijendar.Mukunda@amd.com>
 X-Mailer: git-send-email 2.48.1
 In-Reply-To: <20261023065216.3473883-1-Vijendar.Mukunda@amd.com>
 References: <20261023065216.3473883-1-Vijendar.Mukunda@amd.com>
@@ -123,81 +123,57 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN7PEPF0000014E:EE_|CH2PR12MB9517:EE_
-X-MS-Office365-Filtering-Correlation-Id: 086828aa-11cf-4907-e85e-08df30d266c1
+X-MS-TrafficTypeDiagnostic: MN7PEPF0000014F:EE_|CY8PR12MB8339:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2457b301-fa1b-4896-208a-08df30d26c99
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|36860700016|1800799024|23010399003|376014|7416014|22082099003|18002099003|261022105027099003|56012099006|11063799006|261009223027099003|261021121427099003|261021123027099003|10067099003;
+	BCL:0;ARA:13230040|7416014|376014|82310400026|23010399003|36860700016|1800799024|261009223027099003|56012099006|11063799006|10067099003|22082099003|18002099003|261021121427099003|3023799007;
 X-Microsoft-Antispam-Message-Info:
-	iiopq+AbUObXel6UWGs/AJonxbqVB54M5c19zqevtvOjHlVm2TP7gMYWTLy3M3NOnA1cL4Tp+IWDms9qjy5WzB0zIgqoaQEuQAaXZi0v8XhXshN9Yp9szM5yVBb6+O+FjJNxCa68qQGO4fV8Ov20i2BCn0rsl6fizvEDsPiNMHQFsKPq0V+7SKfGr325xJj3cIbBWeUTf4GPCJuGKvim3/BC+A6KB5d+Q1k2H0zbmGojSQN7t9D4RlRIqtEfS8iiXkfOr6B3gvIdxyT62IQI4J+z7Qo9pz3z0Gnxe3wp9PIP84yQf5Yn4Kq002ZVf5oEfX+i2dXYYkJDxWgrlW6zgdpuBlsKu0AitcWJgyaBzaM+eXG/FFUUOExV+HAT+DjzdXv6tk3RO2eAEWT3I2voq9Y2n2bx5ZA2aMyZkIQSWkdiOpxF0/Bu2Wdmp5sJnQZlKrECVm7vR1DsQBiPmJK2ed+3fii/NDcuCujMjvk3kzfseRzC5sjopzWQ3hrolr/rPNn9Wb3CSI97tp9V37RIRhGNUm1grJpfXuw4CUMkvMETapUAYATUnv9l95iz+TP5CSEj5zNCDfGYV71mLHmmn3BVzzJpgvtg6P50W9nk5o+nMW2FJBcnDWXorvc06+bgBXC2ZAR/UxQQDBpyFgJdl/gAtzlwFYhbt0F9JmWXCdFdPefXeDerXuIM0dsumpUp8q9CdaE+ZeGdK1aWBYd7sA==
+	04Xc8Hw/XZ9iSDgykYj7fONvEi+FKf1/ZYpcgnAnfVNpWAJq0rlhZkL5pcDMV5JAPDwSKYFeX1iU/ldsl4DDTFmGFs2moNNdSH23hTWz/MBS142m+Usak8eNJ0z4FeyH77oncseMLr4PFMyzeHtFXvwxjQUCkmg1AabEWbOS4MFouBWdrWc6Fq8L07OBF8mV89JySKnV8bVmwteklcfAs0vB4iZeJxCkW26WAeyIgeMCmvf5UCMNeWx5GviJxfkDOutPQFaQegfZW2ebGlBTGpeN+7Dw1wWLsEbQGCWttdfyhJLyOtFAG8QleGAGLiu8MU1eFnG3+PY5k393IdC7GvXAUoxICFvwWjX1q/B/qe9mo/hfhCgXo+5DNpskwYTMEq4NcJ3LviZPNL745HJER40FQ8S+VrfaWipmYo2LVLCISG57yy7G1L03zTdmrmGSdKyX87F7LcMZcSL7Nh2Q23+E8TdmCiBlIYPpksB8ohbQidY/MISDyB8pEQA4p6wvdKX6oib1BUjWZbFv4yUwYC3Si9rpkThaU4BJwUqeMVUGVcZsLDwWxut1DHW7NLUIACYXAT4VO4vTQBaOOUaDPcxTnEzKPuM3QVNllqPpYIrGKSb04d56yWYMS82MIKwbKdKdylSew4JzD8whBGptpg4BBpxJxV+eXKhTNZR8x2kHAiwV/vLRDwDFW200cCb9QWrGd+XCmXJindSHvBDgLw==
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(1800799024)(23010399003)(376014)(7416014)(22082099003)(18002099003)(261022105027099003)(56012099006)(11063799006)(261009223027099003)(261021121427099003)(261021123027099003)(10067099003);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(7416014)(376014)(82310400026)(23010399003)(36860700016)(1800799024)(261009223027099003)(56012099006)(11063799006)(10067099003)(22082099003)(18002099003)(261021121427099003)(3023799007);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	PPz1m6kdkDbXbLe1616roXoRAG7v2zzFmP1dq/GLgatdyIbuwhjHvRrGSko48LoxUumq6KDM4nYPc1C0cPCCqpBZCuVn5TIEUi5AMRhV+xCHhN+GevSVoIc6/2hEbvjhDGgW5v3QfiqgwOimVbhSMiC8gXpTbFNh40i/mILXWt4Y5a1FITkAJd4cWRiI9Fz1SgKIudha0X4yOWQru0X1hzkMr4m6zUhs0fuSi8EgLIbBXVJ+594rHaCcMLpQ/11K0V4cwWUplUPZhaEYGBsMRNa0Z8Xqiw+0Y58tDiIyb2Kvy1wiCAJ12M9difmhPZ8utaxGDmaCnrntQldz8PA0Az6ESusBFvVfgf5V1XMeDqK3ARlU+aOt9/Jgba8fP0aRASOS0cMnfEYNsUQhWBq6lhtQaps8JY240Z17TffSnD3iPUpO9hC8VD4QLC/emJen
+	N/QOBjoUn2VHtfuOWvhTAac0Ch68PTKvJg9P2bu7p2HEA73UdzpykBHTPHdw8+cJey6tpgkurN94/IDkRB4HPNP0L9R9Y6arp/oxHyDY3cc/l1mh7XvtNEn5cAh4FZnverztor50T5ITQHFXdxUYVvwCMNfw/WACaxyGaKpEio2yd/wEuFl+ia4zPgOWqvbVcxkPq2vQOhnpuRRt0V2fZScTE60mUpl1Z28fS5p88YvfE7BTUS15+aTjIgHQ3hPPYpnyF/2IfxtKLcIKqWZ/wqQAXfLT2wUcBD/CirD6HjJuVqLih7dhZqXav8XyVtBB+EcVy6DYUHAJYzCivOfEKRh9l8rE02l0SHeviVCLEf3jweVKfCHNG1fw+obQKwqf/DMzi8e1gBXFRXRDMGS1r3ruHMaooZtdTWR6BO1BKah25EhSJlKtQss2D30NO5h2
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Oct 2026 06:53:53.4708
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Oct 2026 06:54:03.2701
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 086828aa-11cf-4907-e85e-08df30d266c1
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2457b301-fa1b-4896-208a-08df30d26c99
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	MN7PEPF0000014E.namprd04.prod.outlook.com
+	MN7PEPF0000014F.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB9517
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB8339
 
-Move the ignore_internal_dmic check from inside the dmic_num > 0 block
-to the DMIC enable condition itself. This eliminates the dead if/else
-inside the dmic_num > 0 block - when dmic_num is set,
-create_dmic_dailinks() is always called. Demote the suppression message
-from dev_warn to dev_dbg since ignoring the ACP DMIC in favour of a
-SoundWire DMIC codec is expected behaviour, not a warning condition.
-
-No functional change for platforms without a SoundWire DMIC codec.
+Call snd_soc_card_set_pci_ssid() when subsystem_id_set is indicated
+in the machine params, propagating the PCI subsystem vendor and device
+IDs to the ALSA card for correct device identification on ACP
+SoundWire platforms.
 
 Signed-off-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
 ---
- sound/soc/amd/acp/acp-sdw-sof-mach.c | 18 +++++++++---------
- 1 file changed, 9 insertions(+), 9 deletions(-)
+ sound/soc/amd/acp/acp-sdw-sof-mach.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
 diff --git a/sound/soc/amd/acp/acp-sdw-sof-mach.c b/sound/soc/amd/acp/acp-sdw-sof-mach.c
-index 6848b966c6eb4..5c201d0b3bef9 100644
+index 4c171e52410a6..1013f60b2818a 100644
 --- a/sound/soc/amd/acp/acp-sdw-sof-mach.c
 +++ b/sound/soc/amd/acp/acp-sdw-sof-mach.c
-@@ -352,8 +352,12 @@ static int sof_card_dai_links_create(struct snd_soc_card *card)
+@@ -440,6 +440,11 @@ static int mc_probe(struct platform_device *pdev)
  
- 	/* enable dmic */
- 	if (sof_sdw_quirk & ASOC_SDW_ACP_DMIC || mach_params->dmic_num ||
--	    amd_ctx->pdm_sel)
--		dmic_num = 1;
-+	    amd_ctx->pdm_sel) {
-+		if (ctx->ignore_internal_dmic)
-+			dev_dbg(dev, "ACP DMIC suppressed by SoundWire DMIC\n");
-+		else
-+			dmic_num = 1;
-+	}
+ 	snd_soc_card_set_drvdata(card, ctx);
  
- 	dev_dbg(dev, "sdw %d, dmic %d", sdw_be_num, dmic_num);
++	if (mach->mach_params.subsystem_id_set)
++		snd_soc_card_set_pci_ssid(card,
++					  mach->mach_params.subsystem_vendor,
++					  mach->mach_params.subsystem_device);
++
+ 	dmi_check_system(sof_sdw_quirk_table);
  
-@@ -384,13 +388,9 @@ static int sof_card_dai_links_create(struct snd_soc_card *card)
- 
- 	/* dmic */
- 	if (dmic_num > 0) {
--		if (ctx->ignore_internal_dmic) {
--			dev_warn(dev, "Ignoring ACP DMIC\n");
--		} else {
--			ret = create_dmic_dailinks(card, &dai_links, &be_id, 1);
--			if (ret)
--				return ret;
--		}
-+		ret = create_dmic_dailinks(card, &dai_links, &be_id, 1);
-+		if (ret)
-+			return ret;
- 	}
- 
- 	WARN_ON(codec_conf != card->codec_conf + card->num_configs);
+ 	if (quirk_override != -1) {
 -- 
 2.48.1
 
