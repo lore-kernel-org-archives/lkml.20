@@ -1,55 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792776664;
-	b=p9CGUpRlJBUSSpld8L2un2jpiHE2jr+rSUjBhNfGubKrIVRKE/7wCSd5vbiox5GBSEsY
-	 8+NbGEgCuB5I5J7qmazV3uzj+LPAQfq881Jy5JSrV2ZfA0/87amDBzKnY0msarEjN3sAW
-	 5Bxy6yfMz9xuS2MuanF2p9/LdkOqpejvGPUdeMN1On98uLu3MerQ7xztKk+2GF8E1ZrFp
-	 k41s1MUamDd9R8RqE8IMNO62fryMWMyhAyOQiNeq4j9Oi8x+E+oxUGfaO3iF7FNQaXzNb
-	 /WHizb3n1QC9iSi4pp+nhBd/KeWlpfP5higQ1YW4h5Cn8Fx5SfunWCrgFF7+WD089uw==
+	t=1792776740;
+	b=S/jaHTZzaKSPrRM6ImgcTxGyCEoV1pIJdG8nqMebGHUxh2SkIj8nkA1f/bQRHX3/RQro
+	 haD3zhK9BL5ZlE+mkyaq9kJB8xb9ZS7ZE5ZML47Dr6CPAOIS5tMX8cv0xX8JY0oWAoT9z
+	 HNGDJ2jMoBdcxmZkex+jNGsYNgeq8GLbwbBYA+3YZNWNdGHrgfACgG4CzZ0SzeN7zMMjb
+	 2LfcXSkCFkeIjc5PDzlztJkW0u8vUYnGHIZXDfFuPrME9Ma6JTWcC2/8nuSXtLreRE0qs
+	 zx22K8D9rdV/wFlAQN3jmv/fxswQpkDvSsJhBICV1Qzf+xwXoqLybLxVBYLU0ni9hcQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792776664;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=vCuyheP3hRwaXPnVY11qKs5HWYXsCMG1K1Wdmf7PfIM=;
-	b=0Cj8tP7Lr15wneWlBsr8trylo3v1zzgJ3DE/oeONL91b3etRY8ysoNgdQHTRSzv5mdTY
-	 q6qTiOep39AkR17DgRgEg9+3HhNblL3y0O0XWaamXWs8sxbo5F/212B/+GQzlZQDqqKG6
-	 UHLLrg0yZNXxr0Ucj+0eZv3KMYfrjWzqy1RyvvHsRJ2bwflEDkbTRJmFK1hkTPbYhIGeq
-	 nlOnXaEeHhI6Oe/KxUXb44vrnM+hRwdDX9QOTt5rL1zKfzzvNenPQjrKiuOyCU6688MMT
-	 UyJyLqytsAIydHAJruUwwwMEK9/J/1h/b4cO7AcLmgr+hJyw8ke5CGxwoGCp3tUNbXA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792776740;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=HGSOaAz+44Wh/SqIDKWUDm4wYs2aLD85zRQZSl074kU=;
+	b=PJsuFY3NvzXg/Mi3zeXT8GbYKwy5iUFX3OckcZ3t95MkkSa0zl+8q6KjhRTC0m+tndGu
+	 oc/VZ5lQf6BGccgRbkolAd3csJGy+U1psgTDaawuxWB17XeECJSsKHJQNbm2/6ASSNXDG
+	 q2d+6DkbMl3ARrqUyM9HSd44iu3psY90lwWtmqSiTTUFZMMy0mZs61WPbdR9zw3r2ksJa
+	 baEmxFX+W+TzMD+gbTaxHbYMcpnKroO2ukT/uX24wUgAoRYuKH+CF9iIFRrcHu1VZKgqF
+	 3seSe9I01xUBzYMMHhNpigMDGY+9ivpcJCLsgGLle1FYfH1LHisLITDLn19t8+j8mvw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OLMBpdxF;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=VuC2JSsD;
+	arc=none smtp.remote-ip=209.85.128.42
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BB9C606A31B;
-	Fri, 23 Oct 2026 17:31:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2158C606A334
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 17:32:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2158C606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OLMBpdxF
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 73A1E1F01825;
-	Fri, 23 Oct 2026 17:31:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792776664;
-	bh=vCuyheP3hRwaXPnVY11qKs5HWYXsCMG1K1Wdmf7PfIM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=OLMBpdxFOpWykEJlNQFOsL+hIYiRkoWdxHGC6hU3w6aU/G93yMFipAiwJkR2JVW3J
-	 Z9nkLRTa+kgdaHLTGwrK1URPwqMkcBs+6aGag+eRSf7XqsmFtY7kABsazSKHt1Vo3u
-	 B6KrXksB6gg4FJFSfUn81ykSx/YbnJJSmJ1fhCuB9q3Z1BFQEU7T6KPUtvjh0SHi6C
-	 e92vTigW79GPVx5PUlt1bTunKrpmngrvfM8eA7DqEVFgX+bh+F/R0MGCaRoQv/gOJ8
-	 RG3yZvY+EDZNCjh3i71ASo6pFThoSjcWk0n1DRsrmzMxaSu7fCfau9cYLXKJar3QVD
-	 FHG1Nl54mNwUg==
-Date: Fri, 23 Oct 2026 18:30:58 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
-	Jakub =?utf-8?Q?Mat=C4=9Bna?= <matenajakub@gmail.com>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	Luiz Capitulino <luizcap@redhat.com>, stable@vger.kernel.org
-Subject: Re: [PATCH] mm/vma: fix expansion of VMA_MIXEDMAP_BIT VMAs
-Message-ID: <atuY-n02IWHY7SOT@gremlin>
-References: <20261023-vma-expansion-fix-v1-1-6142baf1f46b@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=VuC2JSsD
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a1df146015so8211855e9.0
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 10:32:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792776737; x=1793381537; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=HGSOaAz+44Wh/SqIDKWUDm4wYs2aLD85zRQZSl074kU=;
+        b=VuC2JSsD/jDmIHJ21T3hUcmM8cbSpaEBO3LxxuAnaET9z1oXlWFd52EyJy5rQv/KJb
+         IrnE5Wm+yWQljI1wDwO5q+8OpSsojUR+Be+YQMDcxrH/smQN/BGFnw3zz97glzCmo40P
+         arZsrvJUFHjSmOp25gU3U2XDU92kW0lHG2kM4454+tnXoKuM5m3AkSXDr5VesnopRf29
+         T/leHPFSI/H7dihSezImKHKMdDUVT4vIpjWL2zpIgrrojRFtqE3O2Tcz1fqdI8v2PfxQ
+         v9A8jPSFbnict0JEzBOSoUpX30xpn+6m0Jb7JHbRZwsOVNjqTpXtMwpOT3ZZVkrtgiQB
+         z57g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792776737; x=1793381537;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=HGSOaAz+44Wh/SqIDKWUDm4wYs2aLD85zRQZSl074kU=;
+        b=Jkd9Gf0Ulc7AZDh3Teu9RGWkcJ9nNBNlT/NqfiB4Rk9sPkshmglkS9tXiQW5j7Sfwq
+         5t8nwYmhHvVC96F6GJ0aZ+BUtDIOeFqi+QBYwKr5an6ylreuTvU3mv3/3bubeIM56yqx
+         xL/xXMBFp6saX7Q3nGfcsEmMQLMIi1+e9gjguVrwAX6zCVyxdVB/zAACw62JMhwqRX2b
+         64z/kK5txNOZES63jtPnSeCiF/HZ3jcW4Ua2E3EKwEy2FsNSP8lLKlXQPpY+2MO5RM8c
+         VoDdOkmu144JhhUfJUUalAZmQSxQ2rn9QADzhnLufrl+Lq4uIF8uuAHoG3merwa8rlBB
+         nccw==
+X-Forwarded-Encrypted: i=1; AKwUvBwB/+vgGPLME4Tfj0zlX4PIh0oXwCcazVAxYknFEP/1Lahfq4Y14Lk/k67Sb1mP3bQ0ZE2UZ9lLVJDKYBU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIMWjG+x2SX47wml0ViZRb9hBGUUiX6bbzkuzzsW0tmOSY0XDcp
+	AlJi/DUjDpD6eek1ABNbVZXLfL1u00oPc6dVFY/MxMd8aTdAxl6vmWbF
+X-Gm-Gg: AYBFou0s3OsCNfxqEAPi0uhZT7ZITEs3UB8DUXuB/uIMvJ2I44aI5I4MSQZYlk9GItD
+	Tn88tLDUg7JyLKr0ErF7m20ARM1J88fg9j/rd6h4u1/m4CJXeEztNm7mF2UF5INWt0ikN7M1dyA
+	kt3ruyht6KKxep6LWxbhUQweh5QIwznGDAh4uvfQ5v9/tAy9+eg47QIxEtq2peA4WRQqRpyRfU4
+	aV0JctT6gujcTVMzalh5WopAOb+Ug36f/TFdw0IWomS6lLgIRnMk8+tWmUiPtV+1t/06R3oX0vC
+	90ML5eeWgnJBlDq9Ljsvz70c91xjqAS/J1MYMylgcDqQE/TpRdKGSaIiEUnWvl7P8HnT7854AoY
+	i1CthbYtNr2Jk9FAh0i3dqR/BUdCWipFlL0rPuHa8uKrvjVY/JZTgPc856r/MCyh7s3OuFcl0wr
+	VepCQpunqEnU4wgEm3a3iTqB9seGzAmeXzV3CdZHmQdC9gXrbKak4rWDXEBUwLj3G8JScmdotes
+	R4e7QyOUL07bCHSEwxJNKLNYwrC8RkyhJgSD2z1b9C/zfB3KFcZB+FbppgOS36pikM1e4MZBhi3
+	CEtKPGNkQS/JMkoTbdmKFGoT+ezYC/JhK3HVxXgAR7nA42spZQq7PTnCmObfmhqmb/w7
+X-Received: by 2002:a05:600c:1d1c:b0:4a2:191f:7ca6 with SMTP id 5b1f17b1804b1-4a2191f7d70mr26099425e9.16.1792776737380;
+        Fri, 23 Oct 2026 10:32:17 -0700 (PDT)
+Received: from hermes-agent.lan (228.red-80-29-82.staticip.rima-tde.net. [80.29.82.228])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a2b0637460sm18913995e9.8.2026.10.23.10.32.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 23 Oct 2026 10:32:17 -0700 (PDT)
+From: =?UTF-8?q?Ram=C3=B3n=20Jes=C3=BAs=20Miranda?= <ramonjesusmiranda@gmail.com>
+To: Srinivas Kandagatla <srini@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>
+Cc: Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	linux-sound@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	=?UTF-8?q?Ram=C3=B3n=20Jes=C3=BAs=20Miranda?= <ramonjesusmiranda@gmail.com>
+Subject: [PATCH] ASoC: codecs: lpass-macro: release macro and dcodec clocks in runtime suspend
+Date: Fri, 23 Oct 2026 17:32:16 +0000
+Message-ID: <20261023173216.6245-1-ramonjesusmiranda@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,65 +101,305 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261023-vma-expansion-fix-v1-1-6142baf1f46b@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Fri, Oct 23, 2026 at 04:17:31PM +0100, Lorenzo Stoakes (ARM) wrote:
-> Commit ca3d76b0aa80 ("mm: add merging after mremap resize") combined
-> merging with expansion of mremap()'d VMAs, however it also unintentionally
-> disallowed the expansion of unmergeable VMAs.
->
-> Previously it was possible to expand a mixed mapping which mremap() had
-> already ensured was a legal expansion.
->
-> This is clearly seen in the mremap() logic, as it checks
-> vma_is_fixed_mapping() to determine legality of an expansion rather than
-> vma_can_merge().
->
-> Additionally, copy_vma() allows for a failed merge to result in a new VMA
-> being instantiated if MREMAP_MAYMOVE is specified.
->
-> However, this is not attempted, as a failure in vma_merge_extend() is
-> assumed to be an -ENOMEM failure.
+The LPASS rx, tx, wsa, and va macro codec drivers prepare and enable their
+"macro" and "dcodec" clocks (which correspond to q6prm LPASS_HW_MACRO and
+LPASS_HW_DCODEC clock votes to the ADSP) in probe() and only release them
+in remove(). Their runtime PM callbacks only toggle mclk, npl, and fsgen.
 
-Just to note that VMA_MIXEDMAP_BIT VMAs can _currently_ be expanded if not
-attempted to be expanded in-place (e.g. MREMAP_FIXED, or if not enough space to
-expand into).
+On Qualcomm X1E80100 systems where the ADSP is booted by Linux (such as
+running at EL2 on the Microsoft Surface Pro 11), keeping the LPASS_HW_MACRO
+and LPASS_HW_DCODEC votes active while audio is idle prevents the ADSP from
+entering low-power sleep during s2idle, which in turn blocks the SoC from
+reaching CX collapse (CXSD) and AOSS sleep (AOSD) (both counters remain at
+0). Also, calling clk_disable_unprepare() unconditionally in remove() on
+clocks already disabled by runtime_suspend() causes clock enable count
+underflows if the driver is unloaded while runtime-suspended.
 
-So this patch doesn't re-add the ability to do that per se, it just fixes one
-specific means of doing what is already a valid operation.
+Disable "dcodec" and "macro" in runtime_suspend(), re-enable them in
+runtime_resume(), and guard the clock teardown in remove() with
+!pm_runtime_status_suspended(). With this change, ADSP, CXSD, and AOSD
+reach >99.9% residency during s2idle (~0.20 W system sleep power on a
+Microsoft Surface Pro 11 OLED).
 
-VMA_MIXEDMAP _expanding_ isn't really a problem - if no fault handler is
-installed, faults in the expanded region will SIGBUS, and if one exists it'll be
-invoked correctly.
+Assisted-by: Claude:claude-opus-5-5
+Assisted-by: Antigravity:gemini-2.5-pro
+Signed-off-by: Ramón Jesús Miranda <ramonjesusmiranda@gmail.com>
+---
+ sound/soc/codecs/lpass-rx-macro.c  | 28 +++++++++++++++++++-----
+ sound/soc/codecs/lpass-tx-macro.c  | 28 +++++++++++++++++++-----
+ sound/soc/codecs/lpass-va-macro.c  | 35 +++++++++++++++++++++++-------
+ sound/soc/codecs/lpass-wsa-macro.c | 28 +++++++++++++++++++-----
+ 4 files changed, 93 insertions(+), 26 deletions(-)
 
-This doesn't work for VMA_PFNMAP_BIT because the page offset might be co-opted
-for CoW (!) and thus is unreliable.
+diff --git a/sound/soc/codecs/lpass-rx-macro.c b/sound/soc/codecs/lpass-rx-macro.c
+index 6233aa9..9afebf6 100644
+--- a/sound/soc/codecs/lpass-rx-macro.c
++++ b/sound/soc/codecs/lpass-rx-macro.c
+@@ -3935,11 +3935,13 @@ static void rx_macro_remove(struct platform_device *pdev)
+ {
+ 	struct rx_macro *rx = dev_get_drvdata(&pdev->dev);
+ 
+-	clk_disable_unprepare(rx->mclk);
+-	clk_disable_unprepare(rx->npl);
+-	clk_disable_unprepare(rx->fsgen);
+-	clk_disable_unprepare(rx->macro);
+-	clk_disable_unprepare(rx->dcodec);
++	if (!pm_runtime_status_suspended(&pdev->dev)) {
++		clk_disable_unprepare(rx->mclk);
++		clk_disable_unprepare(rx->npl);
++		clk_disable_unprepare(rx->fsgen);
++		clk_disable_unprepare(rx->macro);
++		clk_disable_unprepare(rx->dcodec);
++	}
+ }
+ 
+ static const struct of_device_id rx_macro_dt_match[] = {
+@@ -3976,6 +3978,8 @@ static int rx_macro_runtime_suspend(struct device *dev)
+ 	clk_disable_unprepare(rx->fsgen);
+ 	clk_disable_unprepare(rx->npl);
+ 	clk_disable_unprepare(rx->mclk);
++	clk_disable_unprepare(rx->dcodec);
++	clk_disable_unprepare(rx->macro);
+ 
+ 	return 0;
+ }
+@@ -3985,10 +3989,18 @@ static int rx_macro_runtime_resume(struct device *dev)
+ 	struct rx_macro *rx = dev_get_drvdata(dev);
+ 	int ret;
+ 
++	ret = clk_prepare_enable(rx->macro);
++	if (ret)
++		return ret;
++
++	ret = clk_prepare_enable(rx->dcodec);
++	if (ret)
++		goto err_dcodec;
++
+ 	ret = clk_prepare_enable(rx->mclk);
+ 	if (ret) {
+ 		dev_err(dev, "unable to prepare mclk\n");
+-		return ret;
++		goto err_mclk;
+ 	}
+ 
+ 	ret = clk_prepare_enable(rx->npl);
+@@ -4010,6 +4022,10 @@ err_fsgen:
+ 	clk_disable_unprepare(rx->npl);
+ err_npl:
+ 	clk_disable_unprepare(rx->mclk);
++err_mclk:
++	clk_disable_unprepare(rx->dcodec);
++err_dcodec:
++	clk_disable_unprepare(rx->macro);
+ 
+ 	return ret;
+ }
+diff --git a/sound/soc/codecs/lpass-tx-macro.c b/sound/soc/codecs/lpass-tx-macro.c
+index 0cbf506..fc4630c 100644
+--- a/sound/soc/codecs/lpass-tx-macro.c
++++ b/sound/soc/codecs/lpass-tx-macro.c
+@@ -2390,11 +2390,13 @@ static void tx_macro_remove(struct platform_device *pdev)
+ {
+ 	struct tx_macro *tx = dev_get_drvdata(&pdev->dev);
+ 
+-	clk_disable_unprepare(tx->macro);
+-	clk_disable_unprepare(tx->dcodec);
+-	clk_disable_unprepare(tx->mclk);
+-	clk_disable_unprepare(tx->npl);
+-	clk_disable_unprepare(tx->fsgen);
++	if (!pm_runtime_status_suspended(&pdev->dev)) {
++		clk_disable_unprepare(tx->macro);
++		clk_disable_unprepare(tx->dcodec);
++		clk_disable_unprepare(tx->mclk);
++		clk_disable_unprepare(tx->npl);
++		clk_disable_unprepare(tx->fsgen);
++	}
+ 
+ 	lpass_macro_pds_exit(tx->pds);
+ }
+@@ -2409,6 +2411,8 @@ static int tx_macro_runtime_suspend(struct device *dev)
+ 	clk_disable_unprepare(tx->fsgen);
+ 	clk_disable_unprepare(tx->npl);
+ 	clk_disable_unprepare(tx->mclk);
++	clk_disable_unprepare(tx->dcodec);
++	clk_disable_unprepare(tx->macro);
+ 
+ 	return 0;
+ }
+@@ -2418,10 +2422,18 @@ static int tx_macro_runtime_resume(struct device *dev)
+ 	struct tx_macro *tx = dev_get_drvdata(dev);
+ 	int ret;
+ 
++	ret = clk_prepare_enable(tx->macro);
++	if (ret)
++		return ret;
++
++	ret = clk_prepare_enable(tx->dcodec);
++	if (ret)
++		goto err_dcodec;
++
+ 	ret = clk_prepare_enable(tx->mclk);
+ 	if (ret) {
+ 		dev_err(dev, "unable to prepare mclk\n");
+-		return ret;
++		goto err_mclk;
+ 	}
+ 
+ 	ret = clk_prepare_enable(tx->npl);
+@@ -2444,6 +2456,10 @@ err_fsgen:
+ 	clk_disable_unprepare(tx->npl);
+ err_npl:
+ 	clk_disable_unprepare(tx->mclk);
++err_mclk:
++	clk_disable_unprepare(tx->dcodec);
++err_dcodec:
++	clk_disable_unprepare(tx->macro);
+ 
+ 	return ret;
+ }
+diff --git a/sound/soc/codecs/lpass-va-macro.c b/sound/soc/codecs/lpass-va-macro.c
+index 58a5798..16f0d44 100644
+--- a/sound/soc/codecs/lpass-va-macro.c
++++ b/sound/soc/codecs/lpass-va-macro.c
+@@ -1703,12 +1703,14 @@ static void va_macro_remove(struct platform_device *pdev)
+ {
+ 	struct va_macro *va = dev_get_drvdata(&pdev->dev);
+ 
+-	if (va->has_npl_clk)
+-		clk_disable_unprepare(va->npl);
++	if (!pm_runtime_status_suspended(&pdev->dev)) {
++		if (va->has_npl_clk)
++			clk_disable_unprepare(va->npl);
+ 
+-	clk_disable_unprepare(va->mclk);
+-	clk_disable_unprepare(va->dcodec);
+-	clk_disable_unprepare(va->macro);
++		clk_disable_unprepare(va->mclk);
++		clk_disable_unprepare(va->dcodec);
++		clk_disable_unprepare(va->macro);
++	}
+ 
+ 	lpass_macro_pds_exit(va->pds);
+ }
+@@ -1725,6 +1727,8 @@ static int va_macro_runtime_suspend(struct device *dev)
+ 
+ 	clk_disable_unprepare(va->mclk);
+ 
++	clk_disable_unprepare(va->dcodec);
++	clk_disable_unprepare(va->macro);
+ 	return 0;
+ }
+ 
+@@ -1733,18 +1737,25 @@ static int va_macro_runtime_resume(struct device *dev)
+ 	struct va_macro *va = dev_get_drvdata(dev);
+ 	int ret;
+ 
++	ret = clk_prepare_enable(va->macro);
++	if (ret)
++		return ret;
++
++	ret = clk_prepare_enable(va->dcodec);
++	if (ret)
++		goto err_dcodec;
++
+ 	ret = clk_prepare_enable(va->mclk);
+ 	if (ret) {
+ 		dev_err(va->dev, "unable to prepare mclk\n");
+-		return ret;
++		goto err_mclk;
+ 	}
+ 
+ 	if (va->has_npl_clk) {
+ 		ret = clk_prepare_enable(va->npl);
+ 		if (ret) {
+-			clk_disable_unprepare(va->mclk);
+ 			dev_err(va->dev, "unable to prepare npl\n");
+-			return ret;
++			goto err_npl;
+ 		}
+ 	}
+ 
+@@ -1752,6 +1763,14 @@ static int va_macro_runtime_resume(struct device *dev)
+ 	regcache_sync(va->regmap);
+ 
+ 	return 0;
++err_npl:
++	clk_disable_unprepare(va->mclk);
++err_mclk:
++	clk_disable_unprepare(va->dcodec);
++err_dcodec:
++	clk_disable_unprepare(va->macro);
++
++	return ret;
+ }
+ 
+ 
+diff --git a/sound/soc/codecs/lpass-wsa-macro.c b/sound/soc/codecs/lpass-wsa-macro.c
+index af521e0..7579eab 100644
+--- a/sound/soc/codecs/lpass-wsa-macro.c
++++ b/sound/soc/codecs/lpass-wsa-macro.c
+@@ -2842,11 +2842,13 @@ static void wsa_macro_remove(struct platform_device *pdev)
+ {
+ 	struct wsa_macro *wsa = dev_get_drvdata(&pdev->dev);
+ 
+-	clk_disable_unprepare(wsa->macro);
+-	clk_disable_unprepare(wsa->dcodec);
+-	clk_disable_unprepare(wsa->mclk);
+-	clk_disable_unprepare(wsa->npl);
+-	clk_disable_unprepare(wsa->fsgen);
++	if (!pm_runtime_status_suspended(&pdev->dev)) {
++		clk_disable_unprepare(wsa->macro);
++		clk_disable_unprepare(wsa->dcodec);
++		clk_disable_unprepare(wsa->mclk);
++		clk_disable_unprepare(wsa->npl);
++		clk_disable_unprepare(wsa->fsgen);
++	}
+ }
+ 
+ static int wsa_macro_runtime_suspend(struct device *dev)
+@@ -2860,6 +2862,8 @@ static int wsa_macro_runtime_suspend(struct device *dev)
+ 	clk_disable_unprepare(wsa->npl);
+ 	clk_disable_unprepare(wsa->mclk);
+ 
++	clk_disable_unprepare(wsa->dcodec);
++	clk_disable_unprepare(wsa->macro);
+ 	return 0;
+ }
+ 
+@@ -2868,10 +2872,18 @@ static int wsa_macro_runtime_resume(struct device *dev)
+ 	struct wsa_macro *wsa = dev_get_drvdata(dev);
+ 	int ret;
+ 
++	ret = clk_prepare_enable(wsa->macro);
++	if (ret)
++		return ret;
++
++	ret = clk_prepare_enable(wsa->dcodec);
++	if (ret)
++		goto err_dcodec;
++
+ 	ret = clk_prepare_enable(wsa->mclk);
+ 	if (ret) {
+ 		dev_err(dev, "unable to prepare mclk\n");
+-		return ret;
++		goto err_mclk;
+ 	}
+ 
+ 	ret = clk_prepare_enable(wsa->npl);
+@@ -2894,6 +2906,10 @@ err_fsgen:
+ 	clk_disable_unprepare(wsa->npl);
+ err_npl:
+ 	clk_disable_unprepare(wsa->mclk);
++err_mclk:
++	clk_disable_unprepare(wsa->dcodec);
++err_dcodec:
++	clk_disable_unprepare(wsa->macro);
+ 
+ 	return ret;
+ }
+-- 
+2.56.0
 
-And it seems some users do, at least in theory, require it, even if they are
-using older kernel revisions :)
-
-> Since vma_merge_extend() is used exclusively by mremap() to perform a merge
-> and/or expansion, resolve the issue by invoking vma_expand() for
-> unmergeable VMAs there.
->
-> Explicitly assert that the VMA is both non-fixed and a mixed mapping.
-> This provides double insurance against broken changes in future.
->
-> Note that khugepaged_enter_vma() (which vma_merge_new_range() runs) is
-> redundant in this case, as a mixed mapping is not subject to khugepaged.
->
-> Also update the VMA userland tests to add a required predicate.
->
-> Reported-by: Luiz Capitulino <luizcap@redhat.com>
-> Closes: https://lore.kernel.org/all/20261023023106.515365-1-luizcap@redhat.com/
-> Fixes: ca3d76b0aa80 ("mm: add merging after mremap resize")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> ---
-> Confirmed that this fixes the repro and passes mm selftests and the VMA
-> userland tests.
-
---
-Cheers, Lorenzo
