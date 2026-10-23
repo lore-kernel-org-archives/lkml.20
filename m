@@ -1,89 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792740835;
-	b=dIbJd2cTbIpr0oj8VkPwUjNUBe422Js5BRbc0h20PqoAbzWC0/TqD599GZiD4yvcCzNY
-	 Uve4QcHHuxlJc0LkgQzoR/eIkXiZkfXdmgEtk/Fkf9kYgRDASuaT2GLY2+nbZ/0R67wjJ
-	 3O0RzXJrxUvP5ld/XuvFgmBpWNkSpHuW1w3LhNjipfZMoSK5SBvFsdwU4mHcO5uEX73KV
-	 RicJ90X5qc2h4caeOU00QB1bVRKhelQTkvXx3O01WqBRiowCd18RlJuFlL4aW0yspaOz2
-	 2sFCNEYgFa6k9PrDYQtVLfWxSsOl6OUbe6am+TGXBmzeZCiS6FiJdSL/yidrPTMhCsQ==
+	t=1792740841;
+	b=QlMe299WMWip3Mcfrj6Om0vWxBu6saLGi910Nyr+yHfr+J5e6lR2gZABoUinHw39Tgwg
+	 tYaIoTXg1CkTXmjwmS0deVxIVaNXxo5Nx8lSW4kc49ayOlYCBXeHk8xF83wObaVQ6WPro
+	 iHSbEzXe9DtTuNhNhX1lq2Z+yviT7KilfWvHPgwFknzpq6t2QTpqcYsPBtcNgJnhiwEO7
+	 ZRIE917UsOuwGd9QYJhPjZa1Oa+sdUOIIq0JGkWciBLDbST/XH69OL2qUR18c3uEqElgE
+	 mFI+FF/HlTQqWSGR7t81vBHgct3MdDPsXbbamIsd5DW/u8ztUuSDPzSjs2TixHeO7kw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792740835;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792740841;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:Subject:Date:
-	 Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
-	bh=45to1KyNca3iZWz1ynFCrLebqSO0Gkuz8FnFEnoX6Vo=;
-	b=ugV8nSW6uV3L6hKR+D6CUiDU6Mzm+PddRvCh4ap9iOULNh+yXFWgsEcjDZf39WKACznc
-	 Pawm9nYdHtKsQeiTQAFwWPk3Ae9Yd6/ZbaLG0lo4A8MSR7S4qrVKVBbzxjYXm9TNfTLnO
-	 /G95jH3J9wcax5fx3arxvbJ++Ps8BmfwnRokKTdHoEkpTuFbKtLpa98XWEWrf3cN5T5j2
-	 Eh1N1O9sqruesUnYLHeJVVbd1sASCU/CyB8SiXY6llpc7VBdDxoGon/Knr2XYlbqiwVMX
-	 QG9ePrUu0U7NHOmdd29GFxnehWY5U8la/QzLdRxVlLn4awSCKkQnLioaU+fiwPRyHXg==
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:Date:Subject:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
+	 References:In-Reply-To:To:Cc:X-Mailer;
+	bh=me6u6Bbs0ItISJiR06k4tVQKPfQkaZ0ZoYAv0UWBdnk=;
+	b=CmPr39lCWy9YUSJm2Gf+evguU7tEmolFdvGFR1+iJIW0BhVoPWQxJkAB+5wHiu4C7uRW
+	 DlYzaCfXVlYOAvweOOCGjQBgEGOaO3abBDwRAvHSIJ0ITFNSjAUN/Nla9Y4XcYRAk6VVW
+	 LxDUniEMcMYDQMN7e4BW2UgD0S9LLd02Y3xdRWbf5npMtcgtuH63rqsf612nGVYeLkFeM
+	 CwhDCG9vJZH7e0MFS1bpFZsqwf6sFjwlnNjnI0rgODo+RoX0IZO+oVNptYulZIsR0XvMD
+	 8J32Y6wdZTfs65wR6Q/zVjzXSmZpvg3V3jmwGk/ZttAlLEhNmx6RckqzSPhLMmB8Utg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=dyqpZWIE;
-	arc=none smtp.remote-ip=209.85.167.171
-Received: from mail-oi1-f171.google.com (mail-oi1-f171.google.com [209.85.167.171])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=EnhbhvY2;
+	arc=none smtp.remote-ip=209.85.210.51
+Received: from mail-ot1-f51.google.com (mail-ot1-f51.google.com [209.85.210.51])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4192606A320
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 07:33:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B4192606A320
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C151606A323
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 07:34:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7C151606A323
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=dyqpZWIE
-Received: by mail-oi1-f171.google.com with SMTP id 5614622812f47-53dbe9b8d6eso363523b6e.1
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 00:33:54 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=EnhbhvY2
+Received: by mail-ot1-f51.google.com with SMTP id 46e09a7af769-81ae6aefdceso531731a34.0
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 00:34:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792740833; x=1793345633; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=45to1KyNca3iZWz1ynFCrLebqSO0Gkuz8FnFEnoX6Vo=;
-        b=dyqpZWIELTK+QcpV07HE242SRzF85f2oO51gb8podc5WECcr/7BZ178up+12bEBo4Y
-         xohK4fPpdON5O+wqd8wi3UoNQ5dalpgpxjHbZZin5mUTOLZbgzg0jovJpN4ICukRhfJu
-         mwskBgX6s6uZTFoT7QGOsYdxyK2pQp/AdtwYI/2b9rUUeXwPtRj3BfuJDWr9QugYSIDu
-         pUdAxUxcbU+8wwg4vipnVLJOFUrryX4M2HQ/RsyexRiUwMejsd1DwPDukEJjPsiRx2gx
-         t1a9o5HJsBnyiplh7sWeC/L+ZKzah8Li84wQ+q3ewBNIWOv4F518JA5WUMciYLFVocre
-         2Ahg==
+        d=gmail.com; s=20251104; t=1792740839; x=1793345639; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=me6u6Bbs0ItISJiR06k4tVQKPfQkaZ0ZoYAv0UWBdnk=;
+        b=EnhbhvY2XbYfTl7qeP9r6CgcCUsceSgFL9mfHJXMPEig/UsejZrlWzzKmLih8QUoAJ
+         NxcLvphld28+mFu9sTIfbP7CHWA2F9AXJmwxAMHc0RXKfwQ3SWuI+ApEN77IAsIS//v8
+         r6OfeABoDDEzRsOTV2ksscTv6KTL14Ov/o7S//qIFTsQf1iyiOoBwWFiBlDJ30cgFeW4
+         STFDE6e6HNiOlOFVuuQlnrz8oZPDR28v+N9VjF0oCR27xjOLSqMXBVw8HhDZf2lpfyAn
+         njfXd+RnM3y3A3DxS4KcF9SE2jHztvKs3ZgdnBSSLAbnoaWzn5ic06yD/hnpB4CRqEGY
+         Jpdg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792740833; x=1793345633;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=45to1KyNca3iZWz1ynFCrLebqSO0Gkuz8FnFEnoX6Vo=;
-        b=BVmtDd7pFCvd8KqX4LtmFKTGX8eK9vGKRf5aFJERTah5zHy+HwIgyL2ABLXn0dSWXJ
-         Ne6fL25FXvyn8+34T215jRfifsrymQtWaVwtn2HJa4Q+e6xGSEbek/pA13w0JOdnS4Oq
-         XDaWWjkPRdl/OSMIBuTNQm1vtY3wBn+jCidKHH6aBZZ40585gDNp64G7Dptc8NenCjEj
-         mdKaRqaCYGaq8zeRirxSPz+Uv1zS4yu/ddQSK+deLWeViMGOB+TYh8GAUJJSZ8/chs0r
-         rneZ7fOvbN6l74KTh180DDzfs4JoIXbbjS1I2JM+7vOXkF6xzDb/xqs+ZZhg1kA+w2rb
-         fHxA==
-X-Gm-Message-State: AFq9FYLZkoStavYeDmf1hkqzrD8q1C39f8OHGmuo6NEU0rWzDWuSPTup
-	bJhph0iLCv9GT9j2kpWllzhLJjibh06VFuz2JGSL/tmcuEy6Q6TVRqNM
-X-Gm-Gg: AYBFou28Olkl9o57abhkb2zHudoX6zRmok8PcpRwjkfDJJ53S8R+5Q7slrJbBwOV/vX
-	1mhUXq3VadG5KeERFMcuZBi4Naiv+6WSDBDUtnyPNR7Vf7lwdiEnhxgE32tf5ZdzUuA+dy0uvIF
-	tjX9nk5lQaCKiX6FgVee+QWMKYJtfa2KQe2ZTfV4fHPzFErRtjEGYlb59XLbfKw2Zxrd8b7bW8I
-	Xpvw/jay0kH6P4ToVvqd7Wi+zhu36A6obHUkhX3qXRL+5W0fYyOZhcsxfTFQeYPDGa52UZiwp7H
-	ZP5MB5KjxZG1bthhCj6weqkIIonarESZdoQF5wfbwXM6Xg4jDqMorQDXPjGWnGYA1Of5GDCNFo7
-	bUo4JP/vgd84uczHJvhOWEu83zpIxNyIDsAZBFO9NLdDroUGTt9Qn/wt5szZCb4kiq84HbgNZ9a
-	1e6gNfYTX1d0Suy6AZdTa89CguvTaWb41SMGS10mDVQn7J/Cc3jy7cxF1DKRfrtUK6fqns/pmja
-	WD5vmhQV94eWQniA8HJc0ql+IQW4UB0IeibGglo+R0A2I1UUmaucDkSveMsjzTvctLpf7cKvIaz
-	6/aTrgu3yRSFUsp2jMQmhb2U6I2T1p9B65LNnkLIk8bDP5m3ESd+IdS0izgkOmRGS6A1F1xkbvj
-	PtR/Rv+sOmdhoBYOwcSr64wSij4TVe7T/6GbshSTqWzASTHg42u/0NXxOM18NSEzRJ28akW3yJO
-	PiFJ4=
-X-Received: by 2002:a05:6808:c1b6:b0:4f5:1b84:8cd3 with SMTP id 5614622812f47-557eb4799f4mr2769761b6e.24.1792740833602;
-        Fri, 23 Oct 2026 00:33:53 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1792740839; x=1793345639;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=me6u6Bbs0ItISJiR06k4tVQKPfQkaZ0ZoYAv0UWBdnk=;
+        b=B8T72gIq9Xwd059lceDnZ4Tkvu+WQQcVx+6gUE6EHL4O8Hn/1EauDb67Rdsq5WgS58
+         z6VLCeIgeSMFZG/aL0lAGhcXBaaXCXyyC+F4+MluT3yGjGmwQK17Zf7ia/UANLOoDgYO
+         HbE8Ssj9whfLXnIpWFuzZbhlN54ARDFv43xoyYVWDZnuXfxah81tW8b1fmuV59FR3nyq
+         rCMLFB82PFzExIwJYqve8wFaJL/rYGLNQ8sFiaHDqOp8GsdWU1unt1MfUmCRDDU7OJ9b
+         8UOBPcvFXKmRKKrROgMxyP94XuLPQoqY1XXI4rUnSGmKbx1FFMvTzcKWsPTiM6Z5oy1B
+         lctA==
+X-Gm-Message-State: AFq9FYIs2q8b1RzZnzcPOGVPexAmvaf79SKd0BGEV3DhIJ1mzAiDpwkE
+	mGL8ols6vpproopW5Ut4/awz7HJ7GAyGbhY/4bOVq5FCyg8j7MImoP/Bpr8Ywl7u
+X-Gm-Gg: AYBFou2Ae8XL5cJBUCHZ12EEcTCVv3dKDUbFLpi/L+s/r9zuKBs0Q0uBsTVrtwSCJ3h
+	KywPKd4Yw43+hGLYl5I3x1oxsu6JqEz8r3OHpPYh8LpFANEKOdjxwR4Kw0Z5OjwD0pHemqp+oNB
+	YnBAn5gHNCPjxYWzGFOAOqxDjoD35JF4KZosdjt0VpJsZ3qqGxwWzS9qQu/Br1+DInwrIbMgxnb
+	j3pNjlZXa8evP7jrQ4NqliqG85UL+Tv7uMQ2qrp1LFjs3XMbvZd636s0/pYnPyOqlDKjeDfQAsB
+	ZCwKSsdtLbmKpmhWEQue9Prdw71RF7C1l29mLi8AyIh7y26lIZCyfeSioAZ83Iro9xRiy75X8PM
+	7KZ6HdQ20px5LjzPILevRsI12D3PyU8c27TnHXQXQTtJCoCWP6fTYqCZyrMFiet2DifF7MxkWvq
+	scRW9y31Wojzchgms2UK7zSpHg2vInqXJgmFxi20ZXEJQ0Yjjnk0IzeXuVT49n0pEfEW0a+5XqY
+	jTLY/7cVy+wi2k+xSv0/TYMyFSli57QubbbkgRLqRd+ofp79C86NZJtyuBGPc33ETcS8ugluhXP
+	dBEZkmkbrNt43plHTs6dK/6eLJgTG/iwX4Ds9UaRXOWTIN0UwZ8R/slFlgY/jt9dXA8OjErJCcG
+	uhwQVI7fWx3ZuxNaWBA4KroOX38dIWnZ7RVtmqoxnZ6M/AH63ShVcf5GjZWPNBE1kkYwZ7XYdBI
+	jguRU=
+X-Received: by 2002:a05:6808:16a8:b0:4d5:27da:a496 with SMTP id 5614622812f47-55be873584emr874475b6e.48.1792740839404;
+        Fri, 23 Oct 2026 00:33:59 -0700 (PDT)
 Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-55be9880a99sm909562b6e.14.2026.10.23.00.33.51
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-55be9880a99sm909562b6e.14.2026.10.23.00.33.53
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 23 Oct 2026 00:33:51 -0700 (PDT)
+        Fri, 23 Oct 2026 00:33:54 -0700 (PDT)
 From: James Hilliard <james.hilliard1@gmail.com>
-Subject: [PATCH 0/3] serial: 8250_dw: describe the Allwinner H616 UART
- configuration
-Date: Fri, 23 Oct 2026 01:33:48 -0600
-Message-Id: <20261023-submit-h616-uart-fifo-v1-v1-0-e4a3bae2eba8@gmail.com>
+Date: Fri, 23 Oct 2026 01:33:49 -0600
+Subject: [PATCH 1/3] dt-bindings: serial: snps-dw-apb-uart: add Allwinner
+ H616
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,10 +95,9 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQqEMAxA0atI1gbagl14FXFRY6IZGJW2iiDe3
- TqzfIv/L0gclRO01QWRD026LgW2roDmsEyMOhaDM85b4xymffhqxtlbj3uIGUVlxcMiNUFoFG5
- oMFDyLbLo+Vt3/d+l/TDl9wf3/QBuxM/gfAAAAA==
-X-Change-ID: 20261022-submit-h616-uart-fifo-v1-c5afcdfe5cb0
+Message-Id: <20261023-submit-h616-uart-fifo-v1-v1-1-e4a3bae2eba8@gmail.com>
+References: <20261023-submit-h616-uart-fifo-v1-v1-0-e4a3bae2eba8@gmail.com>
+In-Reply-To: <20261023-submit-h616-uart-fifo-v1-v1-0-e4a3bae2eba8@gmail.com>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
  Jiri Slaby <jirislaby@kernel.org>, Rob Herring <robh@kernel.org>, 
  Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -112,39 +111,30 @@ Cc: linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org,
  linux-sunxi@lists.linux.dev, James Hilliard <james.hilliard1@gmail.com>
 X-Mailer: b4 0.15.2
 
-H616 has 256-byte UART FIFOs, but lacks the DesignWare component parameter
-register used to discover their capacity. Its debug-divisor and RS485
-registers also overlap offsets used to probe optional DesignWare features.
+The Allwinner H616 UART has 256-byte FIFOs but does not implement the
+DesignWare component parameter register used to discover their size.
 
-Add an H616 compatible and select a fixed port configuration with the
-documented FIFO capacity and receive trigger levels. Preserve the
-BUSY-safe integer divisor path and keep the UART gate enabled during
-termios changes. Attach the existing 8250 DMA path using single-byte
-peripheral bursts, with channel acquisition and PIO fallback handled
-by the normal startup path.
+Add a compatible to identify this integration and its fixed FIFO
+configuration. Retain snps,dw-apb-uart as a fallback.
 
-The patches add the binding, driver configuration and SoC DTS compatible
-in that order. Based on tty-next at 1184f87e2790.
-
-Assisted-by: Codex:gpt-6-astra
 Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
 ---
-James Hilliard (3):
-      dt-bindings: serial: snps-dw-apb-uart: add Allwinner H616
-      serial: 8250_dw: configure the Allwinner H616 UART
-      arm64: dts: allwinner: h616: identify the UART integration
+ Documentation/devicetree/bindings/serial/snps-dw-apb-uart.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
- .../bindings/serial/snps-dw-apb-uart.yaml          |  1 +
- arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi     | 12 +++---
- drivers/tty/serial/8250/8250.h                     |  1 +
- drivers/tty/serial/8250/8250_dw.c                  | 45 ++++++++++++++++++----
- drivers/tty/serial/8250/8250_port.c                |  8 ++++
- 5 files changed, 54 insertions(+), 13 deletions(-)
----
-base-commit: 1184f87e2790e8af9be3116f608d2e86b4792d7d
-change-id: 20261022-submit-h616-uart-fifo-v1-c5afcdfe5cb0
+diff --git a/Documentation/devicetree/bindings/serial/snps-dw-apb-uart.yaml b/Documentation/devicetree/bindings/serial/snps-dw-apb-uart.yaml
+index e2ca126d58ba..fc1289073241 100644
+--- a/Documentation/devicetree/bindings/serial/snps-dw-apb-uart.yaml
++++ b/Documentation/devicetree/bindings/serial/snps-dw-apb-uart.yaml
+@@ -60,6 +60,7 @@ properties:
+           - const: renesas,rzn1-uart
+       - items:
+           - enum:
++              - allwinner,sun50i-h616-uart
+               - anlogic,dr1v90-uart
+               - brcm,bcm11351-dw-apb-uart
+               - brcm,bcm21664-dw-apb-uart
 
-Best regards,
---  
-James Hilliard <james.hilliard1@gmail.com>
+-- 
+2.53.0
 
