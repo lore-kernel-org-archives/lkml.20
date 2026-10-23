@@ -1,79 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792782075;
-	b=jm2V7Vs+fFlsArjswCqpWGuJuFfhcYsLNN1xp/iypthK6EnM2W0KtoZ20SGAS/hbsyHe
-	 S4D5tysbTK2V5Qu1plKOaCQnVvZtFu3W2icQJGaTOeYTU/Al4UppfZiSE9QPGporJ3D2y
-	 iFT7XM1HV+7eFEh5QN+mWi3Q+n1uPVZOwV21pF3/jgm18Az74jUcQsW3/qkH+unt4HOTd
-	 4kexelSaD7PwKePeoMGPiK7dPH0qplK2OqUY/qlp4akGhTN6ydppq4aVA9LyVkpZl8YhZ
-	 NipKPXeBgTOydCLn7Ggm78sMM25ZF/gjO0WZpccMsc9p/dIGgMu/AXshOzQTXY9rdTw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792782075;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=nGYCPsfcbMly9Cdl3agj4uCtl9UA26S8HQ99NyRIlkY=;
-	b=41c8IO0lBLF5YmWuP7VazTcKdeFYy99zkfxotTXj+Jd8xp3uV9lF2wIzCVKYIhMWE/5v
-	 uIs181J+AfAU2ZE42KxTZ0MXOmKDVXTKzYVm5INSwEs9OhGGHnIvF5bgiuVknwoF8V6SE
-	 FAenKqunvcTXs04ojjlLgB5UIYCwmMfcn4+yoKGyvenBaYxOwsl4pxjFlBs2hyNVFmvam
-	 9y/Abn6i9ybxIXju466iGAErLR7TD1yfGEQhqUT+4sPLafdkmP07n/3eA+hlZuwMShAcS
-	 l/pwguKqWub/68oZ46Ya4F2c/28GLUieMLGYehbxGYPyTuiTYPKzCsHVPzpJE3oYbEw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QGu+ek8H;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.12
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792782226;
+	b=p0lSIQQwUx26YQFFnrjUvU3ufBhMkDEE4uRNw5iUHYAgL8m6jOvaeWlfKC7iugmyr4hk
+	 57EG1DzSWNw+w285IGKwF+XVC8J7fDe4oU7UzFwWPJjYRiiUQNxVHxvONr7jV5fBP2GqL
+	 VgorTLQhW+fDvEkscAWJeoH3r6YEwz+H941QQllR3BxzuWyaM/mGy6D9bojDLsAqakL46
+	 P4kUknuRN/SHGzxg2YSw9ZRiszfhed+G/VsjIcEiVT7iAGOncrLI5ifQa5GWWMhaVNdpt
+	 Z8t/BQJDiMyYe+zdvM/Q7fqSIsleQC3kLjjFb44qpc488JDB4DLEA5Hkwu/50AILqLg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792782226;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:From:Content-Language:To:Subject:Autocrypt:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=rNWPRBvHW4GWXMBuyyIQh64Bw8Q74fH6mWDNw5ByBy0=;
+	b=frT6aUNIv8bLOz3vS1KmPA5snxVNbupb/vVcu10aUfeVIRjBy77VuW2ZFxhr5/NPPldE
+	 p6vcwnk+l0hqEtk7BuojqmvaqOHeFbs5RrJ4f6P8lx+g7BvMHy0JVB1fmHNpEJZZbekv8
+	 1D1Q+FBY9bHr2xsuWMDZewJaxe0EF16wxcSBlJkln7BYoabCYa2SIfdtlyAdu67KZIkRp
+	 FfX+bOv0wBRrIi9zCiNIWlefQlMJpnVKco491Lfi65BKtEx/tQWMfPMLlLSv1OjQ1cDKM
+	 yldSdi4YGrj7dFSYUYdil7+owEa1UGFzRSQ6UrYsHi2g+VIcClOnc18Kvp52Bw60Itw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=QjuG51oE;
+	arc=none smtp.remote-ip=198.175.65.12
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F335606A321;
-	Fri, 23 Oct 2026 19:01:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 728A9606A31B;
+	Fri, 23 Oct 2026 19:03:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 728A9606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QGu+ek8H
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1792782075;
-	b=fbnMe8BK/37wfiniUgE1niUR2tjqonK/Q659z12p5W0HT5MVKiZ1JcsaAD6ng0V6XejT
-	 xFAlWDRsc3KUh9eGsySS6Ai8Qm8NOTpCZQzxjeYOxxPXv7lvdkBlPYgmHa4RFe13M7u5h
-	 NkfCqmTeJsR1zClkW1ZbqnjZk4F3qZptRNho4/pY/MofiIRIvxSkPGu9VqmJeP4F4MQOZ
-	 EGFT0D1U4oKDqCd8VxM5MaKUbuitBtKhCmcHAZIVBWYNckND4QiKSKFA19AXGuRRkEzZH
-	 zakQS+DdsFRGHJthG96Q+0b1SvzZrFY4k+qdMlnozb5lkJi2oZfXMpRsK/JaILEG1KQ==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1792782075;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=nGYCPsfcbMly9Cdl3agj4uCtl9UA26S8HQ99NyRIlkY=;
-	b=Qj1kt1krx3H7Wt6vjgZl7WHxHqytrkNPEN8IPnwCkRvq3L8569PeMwQtREqOPfta7lN3
-	 4CB+iwLnmht9eRMN04uC5isrevjF3weU5rD3I06UmCpofPu3ZYfYsWNWzk1aRcAfDApg2
-	 u8QxMmEO56dEktvZzgh6oAoL02W6qrMOrVyp6IbQulIm9C6GaUASz1G/VISKYxtM6POpm
-	 zmlkK1ejifii1CheWtjulj7MAvdp4/Tntc81lviyCAvNmthg4tngci/QHupyVwfjpTiM5
-	 Rp1BDuxn+hIO4YUZjX52Z5vckRoO56OjrNUvm1Aao36oeUf33WiUJJsHMruDwpnCjGQ==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 78F0E1F01825;
-	Fri, 23 Oct 2026 19:01:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792782075;
-	bh=nGYCPsfcbMly9Cdl3agj4uCtl9UA26S8HQ99NyRIlkY=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=QGu+ek8HTZyJPrCcSM57xS/678ni00NxRMfPIIo4gZ+NT3pbRCfHQO8kXM2N67yGd
-	 BKWaBFjEEoeY4WZSYfZiAb3zAnqcPsgBVvzCWWTCRQzJjiJBx4HNHKuuHgV0l1aTyX
-	 P0ZvvLS8FEH2GDDl+cejPQdwDs7ceiEjmU9oS/iJgMyJE/74hOsOvUs01I62RTn26h
-	 FMzpxP9weA3jFDqo3KRisDEOHr3BcCyG68cJeS+yYNFvdwkhV/5tRw455AU795a4OW
-	 rkUlQ05hECGZO0qmdC3gmsghtK0VcrDtvYvToGcq5YoOdf2dQBeFiWGnR5JhOiVMMM
-	 oSkRx9jaCVuVA==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id F1694445C4;
-	Fri, 23 Oct 2026 19:01:13 +0000 (UTC)
-From: In-Ho Yi via B4 Relay <devnull+chajath.gmail.com@kernel.org>
-Date: Fri, 23 Oct 2026 12:01:14 -0700
-Subject: [PATCH] ceph: drop local lock records on unlock when the inode is
- shut down
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=QjuG51oE
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792782226; x=1824318226;
+  h=message-id:date:mime-version:from:to:subject:
+   content-transfer-encoding;
+  bh=Ik3Tv57+LpiVdT2vVzm4qW8OYFyfXnFLCSBNq2HUF5E=;
+  b=QjuG51oEkEhMEQ1puGq2HYwHjqDVD1ZvyT2LBSsuZHgwIcsvCnfbVw1t
+   u67dOKDZvY6kn3kgYgXUNXdGEMmFKbLMR4fKYLJGVHbikXrqaC3uJ7mL2
+   e8GFEGb+nBOMJEoO7lxGjeslFwMqn23dSGd6l+ybiUiWQPMbeBXwfJYmJ
+   m0dA9ahzSdWv+1AFgrw2fLQ+pZ9hlY6flKTjWiynOxxq2BxCDtzmJReH4
+   Hx4AE2BvzbBBs8U1pIWC8YrpMlxITguuxIiXqaDiJMkseM7NWlRa0gjCc
+   5gFg0BS4pqbGqEUF0DevixVEFS8kZDSlbnE8Wb5ctgV3qbN4xM1dlMbEl
+   w==;
+X-CSE-ConnectionGUID: zEyGGuK6QJW/qyX03vAY8Q==
+X-CSE-MsgGUID: /cWNB2MxSYGY3T+o0G7zjQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11944"; a="1434360"
+X-IronPort-AV: E=Sophos;i="6.27,174,1787036400"; 
+   d="scan'208";a="1434360"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Oct 2026 12:03:45 -0700
+X-CSE-ConnectionGUID: oX7vb1O2RQeFm/AueZ1Bkw==
+X-CSE-MsgGUID: 2XgCkoB0RpaEQnPNVhs9Ew==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,174,1787036400"; 
+   d="scan'208";a="3601112"
+Received: from vverma7-desk1.amr.corp.intel.com (HELO [10.125.108.4]) ([10.125.108.4])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Oct 2026 12:03:44 -0700
+Message-ID: <2f0560df-69fc-4fc1-81fa-447e289ec2df@intel.com>
+Date: Fri, 23 Oct 2026 12:03:43 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,189 +72,113 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261023-b4-ceph-lock-shutdown-v1-1-f9b1fd9ec026@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAPmu22oC/yXMQQ6CMBBA0auQWTsJHYiiVzEsShnoqGlJB5SEc
- HerLN/i/w2Uk7DCrdgg8VtUYsgwpwKct2FklD4bqKSzKanCrkbHk8dXdE9Uv8x9/AQkso1tqsF
- cLwS5nRIPsv6/9/awLt2D3fybwb5/AVnniR95AAAA
-X-Change-ID: 20261023-b4-ceph-lock-shutdown-22a8a83f1972
-To: Ilya Dryomov <idryomov@gmail.com>, Alex Markuze <amarkuze@redhat.com>, 
- Viacheslav Dubeyko <slava@dubeyko.com>
-Cc: Jeff Layton <jlayton@kernel.org>, Chuck Lever <cel@kernel.org>, 
- ceph-devel@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
- In-Ho Yi <chajath@gmail.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792782073; l=7346;
- i=chajath@gmail.com; s=20261023; h=from:subject:message-id;
- bh=+pvZYq2uetz94bDu77OTApmOEKJmxic7xGUKyuCGZsU=;
- b=Rqo6VGr6IO5+tAuvi9T5578N78QGo8tFgPEsuDl7JtEauaFcqQtha9MP9taxnpE4knYG/8vC9
- rG5H1YuhaT+DIH6Nii0T9ateBSVKSomKTY2UWhzvqJUxh8bRP0EUg3F
-X-Developer-Key: i=chajath@gmail.com; a=ed25519;
- pk=4pEtHrGeq+cVNkwaKkqXc/36aMjHqHRtQSsE85awtG0=
-X-Endpoint-Received: by B4 Relay for chajath@gmail.com/20261023 with
- auth_id=1295
-X-Original-From: In-Ho Yi <chajath@gmail.com>
-Reply-To: chajath@gmail.com
+User-Agent: Mozilla Thunderbird
+From: Dave Hansen <dave.hansen@intel.com>
+Content-Language: en-US
+To: Yang Weijiang <weijiang.yang@intel.com>, "Gao, Chao"
+ <chao.gao@intel.com>, "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>,
+ Maxim Levitsky <mlevitsk@redhat.com>, John Allen <john.allen@amd.com>,
+ LKML <linux-kernel@vger.kernel.org>, pbonzini@redhat.com,
+ peterz@infradead.org, john.allen@amd.com, kvm@vger.kernel.org,
+ binbin.wu@linux.intel.com, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Thomas Gleixner <tglx@linutronix.de>,
+ "Bae, Chang Seok" <chang.seok.bae@intel.com>,
+ "Mehta, Sohil" <sohil.mehta@intel.com>
+Subject: Kernel Shadow Stacks Versus XFEATURE_MASK_GUEST_SUPERVISOR
+Autocrypt: addr=dave.hansen@intel.com; keydata=
+ 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
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-From: In-Ho Yi <chajath@gmail.com>
+So, I'm working on kernel shadow stacks. I have some nice optimization
+code like fred_update_rsp0() for SSP0. It avoids WRMSR's on exits to
+userspace if FRED_SSP0 hasn't changed, just like FRED_RSP0.
 
-ceph_lock() and ceph_flock() return -ESTALE as soon as
-ceph_inode_is_shutdown() is true. That refuses unlocks too, so the lock
-record the VFS keeps for the inode is never removed.
+Well, turns out that FRED_SSP0 isn't like FRED_RSP0 in one very
+important way: it is an alias for PL0_SSP, which is managed via
+XFEATURE_CET_KERNEL which is in:
 
-On close, locks_remove_posix() and locks_remove_flock() send an F_UNLCK
-through ->lock and ->flock and ignore the result: the filesystem has to
-drop its local records whether or not the server can be told. nfs and
-cifs do so, and ceph itself does when CEPH_I_ERROR_FILELOCK is set. On a
-shut-down inode, __fput() only warns "Leaked POSIX lock" or "Leaked
-FLOCK lock" and frees the file. The record stays on the inode's lock
-list and on the global file_lock_list with flc_file pointing at the
-freed file. It also keeps the inode reference taken by
-ceph_fl_copy_lock(), so the final unmount reports "VFS: Busy inodes
-after unmount of ceph", and nothing ever frees the record.
+	/* Supervisor features which are enabled only in guest FPUs */
+	#define XFEATURE_MASK_GUEST_SUPERVISOR  XFEATURE_MASK_CET_KERNEL
 
-The next read of /proc/locks follows the stale flc_file. Once the
-file's memory has been reused, lock_get_status() faults on the inode
-pointer it reads from it, with file_rwsem held for write and
-blocked_lock_lock held by locks_start(). After that oops every flock(),
-fcntl() lock and /proc/locks read on the machine hangs:
+So, I was running along just fine in my nice shadow stack kernel going
+in and out of the kernel just fine. But the first time I did an XRSTOR,
+the XFEATURE_CET_KERNEL feature got set to its init state. My SSP0 cache
+didn't notice and I tried to run userspace with SSP0=0. Much hilarity
+ensued on the next kernel entry.
 
-  BUG: unable to handle page fault for address: 0000006600667248
-  RIP: 0010:lock_get_status+0x124/0x340
-  Call Trace:
-   locks_show+0xaa/0x140
-   seq_read_iter+0x2ce/0x4a0
-   proc_reg_read_iter+0x5c/0xb0
-   vfs_read+0x270/0x3a0
+The most adorable part of all this is that I have KVM compiled
+completely out on my config. The "only in guest FPUs" code is biting me
+on a kernel that can't even run guests.
 
-A mount is shut down by umount -f (ceph_umount_begin() runs even when
-the unmount then fails with EBUSY), while a recover_session=clean
-reconnect runs, and on CEPH_MOUNT_FENCE_IO; a single inode is shut down
-when its async create fails. We hit this after the MDS blocklisted a
-client: recovery ran umount -f on the dead mount while processes still
-held flock() locks on it, and they closed their files later. The kernel
-logged six "Leaked FLOCK lock" warnings after three such remounts.
+I think this all started because of 8b05b3c98816 ("x86/fpu/xstate: Add
+CET supervisor xfeature support as a guest-only feature"), which seems
+like mostly my doing. So I have mostly myself to blame.
 
-Drop the local record for unlock requests before returning -ESTALE, as
-the CEPH_I_ERROR_FILELOCK path already does.
+Any thoughts on what we should do?
 
-Fixes: 5d6451b1489a ("ceph: shut down access to inode when async create fails")
-Cc: stable@vger.kernel.org
-Signed-off-by: In-Ho Yi <chajath@gmail.com>
----
-We hit this on a CephFS kernel client running Ubuntu's 7.0.0-38 kernel,
-whose fs/ceph/locks.c and fs/locks.c are identical to v7.0.
+Actually context switching XFEATURE_CET_KERNEL seems kinda silly in a
+lot of ways. PL0_SSP can always be derived _and_ it isn't actually even
+needed at context switch time, only when running userspace.
 
-The MDS evicted and blocklisted the client. Our recovery ran umount -f
-on the dead mount (it was busy, so it fell back to umount -l) while
-processes on it still held flock() locks: the kernel logged "Leaked
-FLOCK lock" six times, 25 to 45 minutes after each of three such
-remounts (Oct 14, 15 and 16), on the three remounted superblocks
-(dev 0x0:0x3c, 0x42, 0x43). Six days later the old
-superblock's last user exited: "umount timed out", then "VFS: Busy
-inodes after unmount of ceph". Seven hours after that, an awk reading
-/proc/locks oopsed in lock_get_status() while holding file_rwsem and
-blocked_lock_lock, and every file lock operation on the machine hung
-until a power cycle.
+I could just aggressively blow away my SSP0 cache any time an XRSTOR
+touches XFEATURE_CET_KERNEL. That would be easy. But it also seems silly
+that XFEATURE_CET_KERNEL is being blown away at _all_ during normal
+context switches. Heck, it goes further than that because:
 
-In that build, lock_get_status+0x124 loads inode->i_sb, with inode =
-flc->flc_file->f_inode read from freed and reused memory: a lock record
-was still on file_lock_list after its file had been freed. The commit
-message explains how ceph leaves it there. Since 5d6451b1489a,
-ceph_lock() and ceph_flock() refuse unlocks with -ESTALE once the mount
-is shut down, and the VFS ignores the result on close. The fix does
-what the CEPH_I_ERROR_FILELOCK branch already does: drop the local
-record, then return the error.
+fpregs_restore_userregs() does:
 
-Testing: reproduced and verified in an arm64 VM on Ubuntu's
-7.0.0-38-generic kernel (fs/ceph/locks.c and fs/locks.c as in v7.0),
-with the kernel client on a single-node Ceph 19.2.3 (squid) cluster.
-The steps were: take an flock() and an fcntl() write lock on CephFS,
-run umount -f (it fails with EBUSY), kill the holders, run umount -l,
-then read /proc/locks.
+	restore_fpregs_from_fpstate(fpu->fpstate,
+				    XFEATURE_MASK_FPSTATE);
 
-Without the patch (both the stock ceph.ko and a rebuild from the same
-source), unlocks after umount -f fail with ESTALE. Each close logs
-"Leaked FLOCK lock" or "Leaked POSIX lock", and the records stay in
-/proc/locks under the dead owners' pids. Once their struct file slots
-are reused, the records report other files' dev:ino. umount -l then
-warns "VFS: Busy inodes after unmount of ceph". The next /proc/locks
-read oopsed in lock_get_status(). Before the file memory was reused,
-it faulted on the poisoned i_sb (dead000000000105). After churning the
-filp slab, it faulted loading i_sb through a garbage f_inode, as in
-our crash. Each time file locking then hung machine-wide. On a
-KASAN + SLUB_RCU_DEBUG build of the same source, the first /proc/locks
-read after the holders exited reported "slab-use-after-free in
-lock_get_status": an 8-byte read of f_inode from a filp object freed
-by the holder's __fput().
+Where XFEATURE_MASK_FPSTATE contains XFEATURE_MASK_SUPERVISOR_SUPPORTED.
 
-With the patch, the unlocks still return ESTALE but drop the records.
-Nothing is leaked, /proc/locks stays clean under the same churn,
-umount -l gives no busy inodes, and ceph.ko unloads cleanly (four
-runs, plus one on the KASAN build with no report). Lock contention,
-F_GETLK, unlock and close on a normal mount behave the same with and
-without the patch. It also builds without warnings (W=1) for x86_64
-on mainline 734bef548a96, but has not been run on x86_64.
+So a "restore_userregs" function is blowing away supervisor state.
 
-The patch is against mainline 734bef548a96. It conflicts trivially with
-the ceph_blog_exit() calls in ceph-client's testing branch; I have a
-version against testing if that is easier to apply.
+IOW, I think we're using XFEATURE_MASK_FPSTATE a bit too broadly.
 
-Jeff, Chuck: Cc'd for file locking, and Jeff as the author of
-5d6451b1489a. locks_remove_file() already finds such leftover records
-(that is what prints "Leaked ... lock") but leaves them linked to a
-file that is about to be freed. Would you want it to unlink them as a
-safety net? I can send that separately.
----
- fs/ceph/locks.c | 17 +++++++++++++++--
- 1 file changed, 15 insertions(+), 2 deletions(-)
+I'd like to get to a place where only the KVM code even has
+XFEATURE_CET_KERNEL in its RFBM.
 
-diff --git a/fs/ceph/locks.c b/fs/ceph/locks.c
-index 677221bd64e..a4c1e3e5112 100644
---- a/fs/ceph/locks.c
-+++ b/fs/ceph/locks.c
-@@ -259,8 +259,17 @@ int ceph_lock(struct file *file, int cmd, struct file_lock *fl)
- 	if (!(fl->c.flc_flags & FL_POSIX))
- 		return -ENOLCK;
- 
--	if (ceph_inode_is_shutdown(inode))
-+	if (ceph_inode_is_shutdown(inode)) {
-+		/*
-+		 * The MDS can't be told any more, but an unlock must still
-+		 * drop the local lock record: on close the VFS ignores our
-+		 * return value and frees the file, and a record left behind
-+		 * would keep pointing at it from the global lock list.
-+		 */
-+		if (!IS_GETLK(cmd) && lock_is_unlock(fl))
-+			posix_lock_file(file, fl, NULL);
- 		return -ESTALE;
-+	}
- 
- 	doutc(cl, "fl_owner: %p\n", fl->c.flc_owner);
- 
-@@ -328,8 +337,12 @@ int ceph_flock(struct file *file, int cmd, struct file_lock *fl)
- 	if (!(fl->c.flc_flags & FL_FLOCK))
- 		return -ENOLCK;
- 
--	if (ceph_inode_is_shutdown(inode))
-+	if (ceph_inode_is_shutdown(inode)) {
-+		/* See ceph_lock(): an unlock must drop the local record. */
-+		if (lock_is_unlock(fl))
-+			locks_lock_file_wait(file, fl);
- 		return -ESTALE;
-+	}
- 
- 	doutc(cl, "fl_file: %p\n", fl->c.flc_file);
- 
-
----
-base-commit: 734bef548a96e8774d6eef5dfa2026c6edc4e80b
-change-id: 20261023-b4-ceph-lock-shutdown-22a8a83f1972
-
-Best regards,
---  
-In-Ho Yi <chajath@gmail.com>
-
-
+Anybody have any bright ideas?
