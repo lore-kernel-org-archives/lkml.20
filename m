@@ -1,58 +1,193 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.227
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792718627;
-	b=ItsBE2K5wNMvE1/nXTNamh4VP19fUbEMoVPMPAuzB6xxB6wp68fF1gqLlDvq+N4xCjIG
-	 e4KmJLVhILmf9TrMkLTAP71saKVWCYL9GmX+XCy/rJAtweY+TncBv4zLxvV0e6ZpLkkUZ
-	 Acpg1H2KZ7Ft9DbDMdJftUARrLab17Yp7DhtvGIYlIo3vVXug+E0Z9U5IUCltyUuQv/He
-	 FKXIx+eUIxG4zFsmF1Oi9+4lrksh+ThIOH6heASeK3cHSlKkkexz0SJuienVLvWOShYPN
-	 ALxOlf0x4oivhu4CXYOW84n+YIqAq/bzrkX2X/f6hFHR6w31Zbv01USYYLkAv+2UkbQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792718627;
-	h=DMARC-Filter:dkim-signature:Received:Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=K5yLonYWgOmg+PAeVcPBoGQLdK4Hwc1Y9SMwne6Zl2c=;
-	b=iyOFiCZ7Xb2R0Hdm0f64hy+PKInJgovjm7vUaNGCKw9xTQxAcr1FKpIr5sSDwelFtuoM
-	 cdC6SNeBTlhplHC7rmAm9cA5R6dc3JexFP7Eq5SrrTttvB5w+aMwhwubYGgChy+eWXrtr
-	 p2X8bLyEKAUHngyoYxyxFsz2O/ekOt7I6Thsbp+j1dVIvrgPKhJRiHRtWo5Ahwv3zG6i2
-	 haw/gtoPGbK/69wDGjrooQEQLJ6SDQoyYYxw6qvglUlj+sNbM9+2m+H5Ur1KvG7kVWoMx
-	 Fbtc2dxGe5JnNS2OQHmrnd19slmQz0kT/aVJA/3YA6Q8ZpAw8bWIe50TOSLGxyJXpnA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=huawei.com;
-	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=dwh3SgbJ;
-	arc=none smtp.remote-ip=113.46.200.227
-Received: from canpmsgout12.his.huawei.com (canpmsgout12.his.huawei.com [113.46.200.227])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=198.175.65.11
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792718725;
+	b=kOSg3k0CpQiOgq+Y0pS3rEin+cx7XOUsSzCZxbac5Nxwv5C+9PA1+gbLc1kqR3D3G6RT
+	 aBu4Bc1G+PJjUmEnHYmLRN7vXQsw53tCCt5j8W4gMupTEjlzb8TXMF/20vNTn+EcWf/+X
+	 blM5ESUdta2Alragq282CH1neK4lv1d/VqvcAdVCXZewRBapqlUSbSfXGcNfYRFJgZCxb
+	 R0OGQmOsWvbbA1KpCjNkfs6TCNnZlkhaiLDzxnspAlWNd7N2sq8WLxeW3ktXs8lQKuW81
+	 tpk7DhXKBRSCmYMTZ2gkFUvZTtN1UxzZAvvUdZtAplsLANPtaqm6rkfNa4SeGDqqTUA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792718725;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
+	 Received:Received:Received:From:To:CC:Subject:Thread-Topic:
+	 Thread-Index:Date:Message-ID:References:In-Reply-To:Accept-Language:
+	 Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:user-agent:
+	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
+	 x-ms-office365-filtering-correlation-id:x-ms-exchange-senderadcheck:
+	 x-ms-exchange-antispam-relay:x-microsoft-antispam:
+	 x-microsoft-antispam-message-info:x-forefront-antispam-report:
+	 x-ms-exchange-antispam-messagedata-chunkcount:
+	 x-ms-exchange-antispam-messagedata-0:Content-Type:Content-ID:
+	 Content-Transfer-Encoding:MIME-Version:
+	 X-Exchange-RoutingPolicyChecked:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-AuthSource:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-originalarrivaltime:
+	 X-MS-Exchange-CrossTenant-fromentityheader:
+	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
+	 X-MS-Exchange-CrossTenant-userprincipalname:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
+	bh=wS/Pa4QuV3WGy2u//KsecjSVLH0PW3HlvfHVAlC+WWM=;
+	b=qsKJUlJVboIKnA36veS1r3/qLJyXAtVbZSV7OPYwyWxVi50tOubRlW38v6Xn+0F5PXIP
+	 H/RtVFCGfdU+f2Tq9+EyfG3jtoGGZiIXEVS1cxPSmpOpUACeOvFjv5knUewWT2qoYX7pn
+	 vhuBnizuvOlE2RSaAB67mi7+NGrICWamWC+zqF0KBlQN6ISFQF4on4PvB3bbSbjjHCbpL
+	 3vv5pVog0EGknYyU0lpjewTc73eX67a3fqpLev02Knc7JbJvKLkmhO6WKUiMMdqOKMUn4
+	 ud0ux7OI/tsNab32elkYeYMKlmDQOYpGXnsKNGiQKqw3tP9JXqnpQ6MEHkuSfCS4fGw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=OV0Cs3ew;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=198.175.65.11
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B979606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 01:23:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7B979606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34C12606A31B;
+	Fri, 23 Oct 2026 01:25:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 34C12606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=dwh3SgbJ
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=K5yLonYWgOmg+PAeVcPBoGQLdK4Hwc1Y9SMwne6Zl2c=;
-	b=dwh3SgbJaone+LjT5mlfaGi7Hp3dPFflo8BQwUpDoglDz1qKtQrN6R+w78Mx/d+y1Q1Y8lB3s
-	sfeHGhfpbt5uzMAWWC0nCIg5WZKeeIBvqgAVzTsTkQCEs9DifavLARx2uJ4TzGA58g12CWHej9r
-	TNE34V734uL5Opc+Wj9bI5c=
-Received: from mail.maildlp.com (unknown [172.19.163.15])
-	by canpmsgout12.his.huawei.com (SkyGuard) with ESMTPS id 4j9ldy6hKPznTwB;
-	Fri, 23 Oct 2026 09:23:34 +0800 (CST)
-Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
-	by mail.maildlp.com (Postfix) with ESMTPS id 4CD9040578;
-	Fri, 23 Oct 2026 09:23:32 +0800 (CST)
-Received: from [10.67.110.68] (10.67.110.68) by kwepemk200008.china.huawei.com
- (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 23 Oct
- 2026 09:23:31 +0800
-Message-ID: <87ecba5b-e396-45db-bab0-4eff0f30cb25@huawei.com>
-Date: Fri, 23 Oct 2026 09:23:30 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=OV0Cs3ew
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792718725; x=1824254725;
+  h=from:to:cc:subject:date:message-id:references:
+   in-reply-to:content-id:content-transfer-encoding:
+   mime-version;
+  bh=wS/Pa4QuV3WGy2u//KsecjSVLH0PW3HlvfHVAlC+WWM=;
+  b=OV0Cs3ewvJsPaWw/cwueG313ExON7QhXVLRBxXAxcy3G3Zqmdck31b5b
+   SI/AKXbFr57uxILHAO/VM/3vYYFBFDyohlAgqmhDb0wHfu31Vdg5ZYKVx
+   l95r97haFrOLwjrDDd3JUDVDuHq2x8iv39WolF8+8iFiFJnUEAzIiWlGw
+   0TKe9uowRNxzjA4wPyklkLPFcWd+EV/EZWBgDsIqTJ0mC2KsC7kKg9yJy
+   Jrg+c2p0LBWokv4UcAfXK8BQGbN4W7q7Z4pt45PogZjWZjqdTGVrcRidC
+   vQ39XMsxAUo9Nh5qUsykbY3o/0jfhngOhkSNMql3d0rytoh2yOdtqhvIS
+   w==;
+X-CSE-ConnectionGUID: J00DJIByQnS/BtBAUX07yw==
+X-CSE-MsgGUID: dfz5h/FnR2C0ITLwKF7FpA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11943"; a="1365623"
+X-IronPort-AV: E=Sophos;i="6.27,173,1787036400"; 
+   d="scan'208";a="1365623"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Oct 2026 18:25:24 -0700
+X-CSE-ConnectionGUID: N35rFGKKQUidUi1PNi3ecQ==
+X-CSE-MsgGUID: qZXEZbgpQ6ytiUiL3ZlWog==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,173,1787036400"; 
+   d="scan'208";a="3505162"
+Received: from fmsmsx901.amr.corp.intel.com ([10.18.126.90])
+  by orviesa004.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Oct 2026 18:25:24 -0700
+Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
+ fmsmsx901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Thu, 22 Oct 2026 18:25:22 -0700
+Received: from fmsedg902.ED.cps.intel.com (10.1.192.144) by
+ FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49 via Frontend Transport; Thu, 22 Oct 2026 18:25:22 -0700
+Received: from SN4PR2101CU001.outbound.protection.outlook.com (40.93.195.41)
+ by edgegateway.intel.com (192.55.55.82) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Thu, 22 Oct 2026 18:25:22 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=aq+Cli3S2VoENu/Db1cCw7VJKAJtsxyNLYCL+FceYoNrEGNdHrmQh+9AfZc4sV2CgNaz62TDAJT8mWVmWMLqIAxxM2rVBBM4y80nYH9iF6SFPFRUJtoG71oxKV6Ur5eaT8iSkTxrUFYG7lRh4Jp1NiQKwQyTH7gQDdm3lSMr9lMlgl2Wrq8vgu1ZyKsdVkn0kySZH+KzBBnJDtA2Bqv9uCVadsEBua01uGx0wiXiLJZP6uFq5Vdr/sGBsFubv6IXZbX5uT9LfX/ep4+PL1bSgxlbEC0Mamd1sgLWzvF4p2rekcbgT97lI7SEq0rrrE6fk4jayrLIkHFlOcfzebrTOg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=wS/Pa4QuV3WGy2u//KsecjSVLH0PW3HlvfHVAlC+WWM=;
+ b=myhGWf4nJPwiPMw85JReKbtCzyNGC9MildeKPI9c16oSAOpEqks4rP9C/4aFviOkJeerQD9qwDKqJDyol5QDZrv0veTbAxGCLhch2NTGz6ZdpVzIyNlmDX9EelRlZzDWOPKydsx1vEKViP64UhoDy2FINBWvDCuLHVqZVVMMXRYaKhxbe3qfuzqPHI0UCzGlrK2+OxA8N1FiC+8u0MpRsRCBp+tM4an/2ll8gIO3+UzkIdF87Uc01tAWhC/+ghcBWQrw0TqnQKFvECIYV8X1GMwv3s3Qr3PY+yUOpHn2d9ISxzdhU33K0cW9Ze0IV9j/zR5vYsp7PTI7B4N8oXK8OQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Received: from IA3PR11MB634048.namprd11.prod.outlook.com
+ (2603:10b6:208:549::23) by LV3PR11MB8741.namprd11.prod.outlook.com
+ (2603:10b6:408:21d::15) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Fri, 23 Oct
+ 2026 01:25:20 +0000
+Received: from IA3PR11MB634048.namprd11.prod.outlook.com
+ ([fe80::760f:f0a4:7417:6e57]) by IA3PR11MB634048.namprd11.prod.outlook.com
+ ([fe80::760f:f0a4:7417:6e57%5]) with mapi id 15.21.0546.012; Fri, 23 Oct 2026
+ 01:25:19 +0000
+From: "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>
+To: "seanjc@google.com" <seanjc@google.com>, "x86@kernel.org"
+	<x86@kernel.org>, "kas@kernel.org" <kas@kernel.org>,
+	"dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>,
+	"mingo@redhat.com" <mingo@redhat.com>, "bp@alien8.de" <bp@alien8.de>,
+	"pbonzini@redhat.com" <pbonzini@redhat.com>, "tglx@kernel.org"
+	<tglx@kernel.org>
+CC: "hpa@zytor.com" <hpa@zytor.com>, "kvm@vger.kernel.org"
+	<kvm@vger.kernel.org>, "linux-coco@lists.linux.dev"
+	<linux-coco@lists.linux.dev>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "binbin.wu@linux.intel.com"
+	<binbin.wu@linux.intel.com>, "sashiko-bot@kernel.org"
+	<sashiko-bot@kernel.org>, "changyuanl@google.com" <changyuanl@google.com>
+Subject: Re: [PATCH v2 0/3] x86/cpuid: KVM: TDX CPUID fixes
+Thread-Topic: [PATCH v2 0/3] x86/cpuid: KVM: TDX CPUID fixes
+Thread-Index: AQHdYmiRF0WilxtwJEaPaKwHY3ykwLcKVemA
+Date: Fri, 23 Oct 2026 01:25:19 +0000
+Message-ID: <16fe7eac87e2b29fbf353b05916c4a92033f8079.camel@intel.com>
+References: <20261022210134.612848-1-seanjc@google.com>
+In-Reply-To: <20261022210134.612848-1-seanjc@google.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+user-agent: Evolution 3.44.4-0ubuntu2.1 
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: IA3PR11MB634048:EE_|LV3PR11MB8741:EE_
+x-ms-office365-filtering-correlation-id: d2c65fcc-99bc-4bcb-956b-08df30a48079
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;ARA:13230040|1800799024|366016|376014|7416014|23010399003|56012099006|38070700021|11063799006|10067099003|18002099003|22082099003|261021121427099003|6133799003;
+x-microsoft-antispam-message-info: Ekr0HWrJQETBvzAhEG1h75xTyu29fsWp+V+7V65J+iYkzv4UfH5svYPq9w812Z/1XmfIzkR4SxuuHQYnjrmXT6Gs7306LaEfBvXvA+lad+NOYV0ys0zVNd+j8K1Y5FCdNIkcnNe3S4KWELMEdwVcXxf89XNjUetA7Iyx1Pp9F1COdHvvAEvaX+6B/dBTM0BfgM3BJKcRvWdJftEyRIBvCzQGdeo4/CnUlW5Ozt7E2ScRAtiqKQ7+lss3Oppdg4l5Aum4i/Up3sOfjzFxqyyNWyGkXmRRiwKtF8Eoa0Kg+QDf5QCZ8myu+/fj8M6I4ITOPEE0tTi/kHeCmQSSKNRv7NhOvCUFHV+8IVDm1kaKImBFDkgt3cNREbuZ4gStNN4SJVISgUtgxZGlg6EsISvHS+nxrcRAZhaIbohHO/3q/mn6T2FqKZfLIB9Ch0LRV+vKGBRrVZ4vMzu4ztc9nzeSYEXUUz9eihkYrJSsSV+7dDVKkjOwpDv2YKw0bueFKYtTKa8hmhOgjFLovR9m5uWrRI3UvDLIcS7n1pMJ09GO7c3eKs8E9I+Fj4KXvDv0Irbmngs7KmyMHVD3zl0SMNsdkuZWod4pj7Yjj62yY5vqypgrMBo3wEQsGm4RGYlOglP6vCXXQxDxTRPE19Iau+wOpZSFNDUNy3re4qxO+pq65TSqI0PUev5SYqMBiutGOfltAKtHRLPTWRLscOVnI/mEtJQJM1uE1EfSe+mMkKFdSgk=
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA3PR11MB634048.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(7416014)(23010399003)(56012099006)(38070700021)(11063799006)(10067099003)(18002099003)(22082099003)(261021121427099003)(6133799003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?WnQrbmlEU1gxS3FpU3hMRXFMd2FzanIvSzNNNCtVWVpPOHBVUlV0K2RyMWlH?=
+ =?utf-8?B?QXo2Qi9iZHFkczcyUzd0OGRhKzJKYmQrWjhnaGlPQ2d6YTk2b2hLZUdTUnBl?=
+ =?utf-8?B?NHA5MU5BSWtTa2prMkVBdE1xdWJaMXJ1NVNPLzJsNVM4cEVldWhNRXJjNmdt?=
+ =?utf-8?B?MWJwdHNqd1VNa1didzl5cmkrQ0EzMnpxYlEyWTg1b0hybU9SZ0hSZlRsQkhM?=
+ =?utf-8?B?QU5mQ2RGdUlndXdISGJpb2k1a3ZoSFpCdHMzTUo4aHJtalZPS2pYZU8zeEdW?=
+ =?utf-8?B?TXVjSWVHMGRtV0Jub2x6dGU5bnFXU2xVcFQxS1R3UnVZTGdBbERQdmN5WitD?=
+ =?utf-8?B?KzV6N0c3Y0hmaGNZNjZpUWwzOVAvZ3BuYklvUDhtc0sxNHlldCtJMnpDNDdx?=
+ =?utf-8?B?aTVFWFY1V3pNamdWdlBHRm1oTWJXMzhDZE4waFpOWHpvMzliWThIN1ZxNXdV?=
+ =?utf-8?B?cVI4MjBZaTFnRHFCU0dBa1NzRWpSd0JmaW5weHVGVzZQK3VES3o3Ti9oTnNQ?=
+ =?utf-8?B?aTUxK3NZbjZ1MElmN1dUc3FqTXl6WFNUUUlIWnBscnJ6TktMcWJkQ25Yc1k3?=
+ =?utf-8?B?aUtHU1paeU1jN254SXhSVUNpbDROQ0FRM3hjSU4yQncyTXZJTzNsQ2dhU0pq?=
+ =?utf-8?B?RDdZWGE5TzJpZVkwcDJ1akFJWFp3MGlSM1YzaitEVlI2cm1LOE5DbEthRmk5?=
+ =?utf-8?B?dU1EQVRXK2JmTGMxZ3BQNnF2bEtITUp1QW9sdmxZeHRCeHhtNU1RbEJBeWFj?=
+ =?utf-8?B?N3ZrK3d5NTJEQjhwK1kvOWYweTQ0YWNxdDNOaVo1WFdmZWs2eHY2VG1MUU9B?=
+ =?utf-8?B?dlRBUm1OUFU1RnZFVUY4OTI1a3BQMDNiaERkNXU5MTJZelZ0KzE3RU9idnJU?=
+ =?utf-8?B?TzdySHhpYjBZV1p0dElvSmVqcmY0YlpKWklHL1g5T1A3VzNmNXFUQk1UN1Bu?=
+ =?utf-8?B?S01qWm5lQnVxOWhIVnZPQzRoRVNFL2Nsb2Rkd0pwYnFHRHR3WGt5TFZjZmZF?=
+ =?utf-8?B?ZTRYbDZ1STBSQWJ6a3NJL1ZPVitHdTZnaGdFL0lhRFRYN05lMWE1SHBOWmRJ?=
+ =?utf-8?B?b3lGUGJtR3E5dHVBdkh5enRLQkFMWStxMGZxWEVybVJQWG0vcDRmT3FXZDBu?=
+ =?utf-8?B?OHlmZUtNMnVoTWhyL2lEL2ZyN2dVb0h1TG95SitXT20yK053YmhoWFRUbmh4?=
+ =?utf-8?B?dU5kbHVqdEk5Y3cvbVJPKzhNR3hpaUp0bkp2cVFDaEMrR2dNS2NCcExFZTBj?=
+ =?utf-8?B?bXpETzQyZExkejZBYUYzbU5UWmptQW03bm1OK05WeVdYOE1VSnFmdUZHRUdm?=
+ =?utf-8?B?UG1tSWJCYmNrZ0d1aFp6N00wZkZwVWhEREF4bExMRW1STWZ2MDkvU2l4dkhS?=
+ =?utf-8?B?QU1pcXFPSkFvakpRMGJiMmpOem9DZ1V4KzJCb3pZVVplbTVnd1VUQU00SmEx?=
+ =?utf-8?B?YmVsclZKamp0TDlLNG9TdlNYQU5UVFhZRUtGQTBrb2srYm9hd1BRTmhuZTd1?=
+ =?utf-8?B?ajd1bWZwMXRHdERTOHVIRmdzZUpwMDhwMVRoclBiNVFiNW0zdW8vdlppV2dI?=
+ =?utf-8?B?V3JnRFo1TXpxSmFtNzdIcHJWTE5xU0NkSkRWMW00OTRjSnEvc3VBemZFNXJk?=
+ =?utf-8?B?bWlGM3NmNktPaDdKTjE2UGZPdXBqOHlOaCtzdFE5UkptbDBPaS96K2pFMGJI?=
+ =?utf-8?B?TTRGeDArM2VIbHl6ZGc3NU1Lbk12TUNwU2dmOHViTkNhWkNvRk1yWkIwemRU?=
+ =?utf-8?B?OW90NitDQ3dQZCs5MUc0S3Jud0ZpZlBBQ1FTRnF0NjFCaGJRQ0tidm1GZENP?=
+ =?utf-8?B?czBIQk5uaFlZTFRqMmdCVjlJaVZDa3dDTm5vSFd0S1FURmhzUVFZNWFaSlQ3?=
+ =?utf-8?B?aHk2QUFSVG9jVmEzOWlsejNSaTBsczdjTXpNb25iOG5UNVZTbS85TUVrSFYr?=
+ =?utf-8?B?SENJRC9PWUtmandaTTE2ZHZFVDc5Q3NVOFlLNVBEUHliektXOU1WeThRTndY?=
+ =?utf-8?B?dmtFUHorMXZ2cE1ISEhiR2Y5ZXN3L2IySFB3M01vWW5XMzl4bXZqdWtDZG9q?=
+ =?utf-8?B?K2QxWHNEbE9XcXh0ZHBEVHE0azFYbzkrUXIyd2I1UEYwUVhlc2cxbHlyUjcz?=
+ =?utf-8?B?OWNZT3N6VFB2MDlyMDZORm9RcHpKMFd5TGt1UmpqYVdobXZQdXdjQUJ4VjI4?=
+ =?utf-8?B?MTd2dno3MUxUQ01hMDVKY1U3ZTh0eStuNFlUa1VYL0wvdWtHeG8zclRMYTVu?=
+ =?utf-8?B?dWc2WCttMzFkZzJFbVBPNDBJN0V2KzBNaDdNWU13MkxYdzdSV1l0dVNNRXg0?=
+ =?utf-8?B?Ylp5NlRHcmc1ZkhUeVdGMjQ4c1FYaGhkYjltNUNvdjBKNU1oY0pCNTRHYnhk?=
+ =?utf-8?Q?RipCJQEn/OcvOQj8=3D?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <84799AB1D943E14D8ACA36E80723F4FB@namprd11.prod.outlook.com>
+Content-Transfer-Encoding: base64
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,240 +197,24 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC v2 00/19] arm,fs/resctrl: ARM MPAM MB_NODE support
-To: Fenghua Yu <fenghuay@nvidia.com>, Reinette Chatre
-	<reinette.chatre@intel.com>, Tony Luck <tony.luck@intel.com>, Ben Horgan
-	<ben.horgan@arm.com>, James Morse <james.morse@arm.com>, Dave Martin
-	<Dave.Martin@arm.com>, Will Deacon <will@kernel.org>, Catalin Marinas
-	<catalin.marinas@arm.com>, Shaopeng Tan <tan.shaopeng@fujitsu.com>, Chen Yu
-	<yu.c.chen@intel.com>, Babu Moger <babu.moger@amd.com>, Drew Fustini
-	<fustini@kernel.org>, Vikram Sethi <vsethi@nvidia.com>, Shanker Donthineni
-	<sdonthineni@nvidia.com>, Newton Liu <newtonl@nvidia.com>, Richard Cheng
-	<icheng@nvidia.com>
-CC: <linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>
-References: <20260831172245.42253-1-fenghuay@nvidia.com>
-From: Jinjie Ruan <ruanjinjie@huawei.com>
-In-Reply-To: <20260831172245.42253-1-fenghuay@nvidia.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
- kwepemk200008.china.huawei.com (7.202.194.74)
+X-Exchange-RoutingPolicyChecked: 1+pD+tNg8qBgtXR5ZivraFdKw8o7kGstXQk1tbFdh76XYjllt05CwivC5VwmoLUT9jatbw/m2D5SdeUeUAit2p7us5jgrZ8FQm6jhewmWmKtLESATQIv0dYQsaNKgQHOAdahiS20qWP3PcGPfxrgzzXX1BaQzbIWL3XnEgtJmHavQsFRn6lImQTApeSdHt7BNbjVdAtfQq/CIaq40SMYmChrMLfsARCllGs8HiYpzzz7LCLOgJ87KLogTQVW7qcnJ78sCWt2ljFbapRufbYsdAk6MovsNL+iD/WRgAuugL6DTrHT5bdSr4SYMcdG87Lm5on+c+BXbjoebfFIkJxugA==
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: IA3PR11MB634048.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d2c65fcc-99bc-4bcb-956b-08df30a48079
+X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Oct 2026 01:25:19.7507
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: /e1HYLAJquE+Tgu9ovfjl+zOcT7auh4ez3re/hAeai7U94qi3kbUd5OskRgIf7L+P0CZpYvnB4GVlEHNSdFbsmjRDoZWUZRjEsZloGr0QbE=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR11MB8741
+X-OriginatorOrg: intel.com
 
-
-
-在 2026/9/1 1:22, Fenghua Yu 写道:
-> This series enables MBA bandwidth control emulation on ARM MPAM when the
-> default MB control is disabled, using a node-scoped MB_NODE control as
-> the native backend.  It extends memory-bandwidth monitoring and
-
-Hi everyone,
-
-We also have the requirement for the MPAM node-scoped MB_NODE control.
-Are there any follow-up plans for this feature?
-
-Is there anything I can help with?
-
-> control to memory-level MSCs or CPU-less NUMA nodes, and adds
-> documentation and tests.
-> 
-> Background
-> 
-> On x86, MBA bandwidth control is typically associated with the L3 cache:
-> schemata lines use L3 cache ids and monitor domains appear as mon_L3_XX.
-> On some ARM MPAM systems the MBA control is backed by a memory-level MSC
-> rather than the L3 cache MSC.  A memory-level MSC is represented as a
-> NUMA node, and that node commonly has no CPUs of its own (a memory-only
-> node that still participates in bandwidth control).  For such a resource
-> the control scope is NODE, schemata identifiers are NUMA node ids,
-> monitor domains are named mon_NODE_XX, and a node-scoped MB_NODE control
-> may be the only control with usable bandwidth hardware.
-> 
-> Because the memory-level MSC lives on a CPU-less NUMA node, the driver
-> must handle nodes with no local CPUs.  mpam_ris_get_affinity() derives
-> affinity from the component's NUMA node id, so a memory-only node would
-> otherwise end up with an empty CPU mask and never be registered.  When
-> the derived mask is empty, the driver falls back to cpu_possible_mask
-> (masked by MSC accessibility) so the node still gets a resctrl domain.
-> The borrowed affinity is kept out of class->affinity: those CPUs already
-> contribute through CPU-ful nodes in the class, and subtracting the
-> borrowed mask on teardown would remove CPUs that other live nodes still
-> depend on.  Domain setup iterates all MSC components per CPU (keyed by
-> component), so each component — including these CPU-less memory nodes —
-> gets its own control and monitor domain.
-> 
-> Examples of NODE and emulation interfaces on MPAM.
-> 
-> ** On platform with CPU-less nodes, by default, control_mode is legacy.
-> 1. By default, MB is emulated by MB_NODE in schemata.
-> info/
-> ├── MB
-> │   ├── bandwidth_gran
-> │   ├── control_mode        # [legacy] native
-> │   └── schemata
-> │       └── MB
-> │           ├── MB_NODE     # emulated by "MB_NODE"
-> 
-> schemata: Only show MB, which is emulated by MB_NODE. domain id is numa
-> id
-> MB:0=100;1=100;2=100;10=100;18=100;26=100;34=100;35=100
-> L3:1=ffff;2=ffff
-> 
-> 2. root can switch to native by writing "native" to "control_mode":
-> info/
-> ├── MB
-> │   ├── bandwidth_gran
-> │   ├── control_mode        # legacy [native]
-> │   └── schemata
-> │       └── MB
-> │           ├── MB_NODE     # no emulation, native mode
-> 
-> schemata: Only show MB_NODE. No "MB:" is emulated.
-> MB_NODE:0=100;1=100;2=100;10=100;18=100;26=100;34=100;35=100
->      L3:1=ffff;2=ffff
-> 
-> 3. llc_occupancy in mon_L3_x where x is cache id
->    mbm_total_bytes in mon_NODE_y where y is numa id
-> mon_data/
-> mon_L3_01  mon_NODE_00  mon_NODE_02  mon_NODE_18  mon_NODE_34
-> mon_L3_02  mon_NODE_01  mon_NODE_10  mon_NODE_26  mon_NODE_35
-> 
-> mon_data/mon_L3_01/llc_occupancy
-> mon_data/mon_NODE_01/mbm_total_bytes
-> 
-> ** On legacy machine which only has L3 MSCs. No NODE scope in schemata
->    or mon_data
-> schemata: MB's domain id is cache id, not numa node id
-> MB:1=100;2=100
-> L3:1=ffff;2=ffff
-> 
-> mon_data/
-> mon_L3_01 mon_L3_02
-> 
-> mon_data/mon_L3_01/llc_occupancy
-> mon_data/mon_L3_01/mbm_total_bytes
-> mon_data/mon_L3_02/llc_occupancy
-> mon_data/mon_L3_02/mbm_total_bytes
-> 
-> The patches can be compiled but not tested on x86 yet.
-> 
-> The 19 patches are grouped as follows:
-> 
-> 1. Memory bandwidth monitoring and control on memory-level MSCs
->    (patches 1–10, 12)
-> 
->    Generalise the monitor infrastructure beyond hard-wired L3 paths:
->    de-hardcode L3 monitor plumbing, expose MBA MBM counter assignment,
->    name node-scoped monitor domains mon_NODE_<id>, add a node-scope MBM
->    total event, and make MBM handling resource-aware.
-> 
->    On the ARM MPAM side, add memory-level MSC and ABMC support, refine
->    L3 topology and class selection, refactor domain setup to iterate all
->    MSC components per CPU (keyed by component), and handle CPU-less NUMA
->    memory nodes that have no local CPUs but still participate in MPAM
->    bandwidth control. Memory hotplug locking and notifier are added.
-> 
-> 4. MB_NODE emulates MB (patch 11) [1]
-> 
->    Wire MB_NODE as the native backend that emulates a MB control
->    in the ARM MPAM driver.
-> 
->    If emulation is unnecessary, this patch can be removed.
-> 
-> 5. Documentation (patches 14–17)
-> 
->    Document memory-level MB control and NUMA nodes in the arm64 MPAM
->    guide (patch 19), NODE-scoped MBA domains and mon_NODE_* monitoring
->    in the resctrl documentation (patch 20), and an MB_NODE emulation
->    example on ARM MPAM (patch 21).
-> 
-> 6. Tests (patches 18–19)
-> 
->    Add a KUnit test for CPU-less NUMA node affinity handling and a
->    kselftest that exercises MB emulation mode switching,
->    resource_schemata hierarchy, and schemata mirroring on ARM MPAM.
-> 
-> Apply the patches on top of [2].
-> 
-> Testing
-> 
->   # KUnit (CPU-less affinity)
->   sudo cat /sys/kernel/debug/kunit/mpam_devices_test_suite/results
-> 
-> 
->   # kselftest (MB emulation; requires ARM MPAM with disabled MB control)
->   cd tools/testing/selftests/resctrl
->   sudo ./resctrl_tests -t mb_emulation
-> 
-> This series is in https://github.com/fyu1/linux/  cpu_less.rfc.v2/
-> which is on top of [2].
-> 
-> Change Log:
-> RFC v2:
-> - Remove fix patches 1-2 which are implemented in [2]
-> - Remove the emulation patches 3-8 which are implemented in [2]
-> - Update emulated_by to *emulated_by in patch 11. Ben seems
->   doesn't like to emulate MB by MB_NODE. If that's case, I can
->   remove this patch. But for now, I keep this patch for further
->   discussion.
-> - Add patch 13 to implemente legacy and native modes to emulate
->   "mbm_L3_assignments" by "mbm_NODE_assignments" in patch 13.
-> - Add patch 9 for memory hotplug locking (Ben)
-> - Add patch 12 for memory hotplug notifier (Ben)
-> 
-> RFC v1:
-> https://lore.kernel.org/lkml/cover.1784217438.git.fenghuay@nvidia.com/
-> 
-> [1] [RFC v2] mpam,x86,fs/resctrl: Generic schema description Proof of Concept https://lore.kernel.org/lkml/d258a32f-12d5-464d-abe9-4720fb3e44b3@intel.com/
-> [2] Reinette's resctrl control branch RFC v2: git://git.kernel.org/pub/scm/linux/kernel/git/reinette/linux.git branch resctrl/controls_rfc_v2.4
-> 
-> Fenghua Yu (17):
->   resctrl: De-hardcode L3 monitor infrastructure
->   resctrl: Expose MBA MBM counter assignment sysfs
->   resctrl: name node-scoped monitor domains mon_NODE_<id>
->   resctrl: Add node-scope MBM total event
->   resctrl: Make MBM paths resource-aware
->   arm_mpam: Support memory-level MSCs and ABMC per class
->   arm_mpam: Refine L3 topology and class selection
->   arm_mpam: Include all MSC components during domain setup
->   arm_mpam: Handle CPU-less numa nodes
->   arm_mpam: Emulate MB control with node-scoped MB_NODE control
->   resctrl: Add mbm_assign_scope_mode for native assignment file names
->   Documentation: resctrl: document mbm_assign_scope_mode
->   Documentation: arm64: mpam: document memory-level MB control and NUMA
->     nodes
->   Documentation: resctrl: document NODE-scoped MBA domains and mon_NODE
->     monitoring
->   Documentation: resctrl: document MB_NODE emulation example on ARM MPAM
->   arm_mpam: Add KUnit test for CPU-less NUMA node affinity
->   selftests/resctrl: Add MB emulation test for ARM MPAM
-> 
-> James Morse (2):
->   fs/resctrl: Take memory hotplug lock whenever taking CPU hotplug lock
->   arm_mpam: resctrl: Add NUMA node notifier for domain online/offline
-> 
->  Documentation/arch/arm64/mpam.rst             | 105 ++-
->  Documentation/filesystems/resctrl.rst         | 135 ++-
->  drivers/resctrl/mpam_devices.c                |  59 +-
->  drivers/resctrl/mpam_internal.h               |   8 +
->  drivers/resctrl/mpam_resctrl.c                | 879 +++++++++++++++---
->  drivers/resctrl/test_mpam_devices.c           |  67 ++
->  fs/resctrl/ctrlmondata.c                      |   6 +-
->  fs/resctrl/internal.h                         |  18 +-
->  fs/resctrl/monitor.c                          | 355 +++++--
->  fs/resctrl/pseudo_lock.c                      |   3 +
->  fs/resctrl/rdtgroup.c                         | 157 +++-
->  include/linux/memory.h                        |   1 +
->  include/linux/resctrl.h                       |  36 +-
->  include/linux/resctrl_types.h                 |  15 +-
->  .../selftests/resctrl/mb_emulation_test.c     | 314 +++++++
->  tools/testing/selftests/resctrl/resctrl.h     |   1 +
->  .../testing/selftests/resctrl/resctrl_tests.c |   1 +
->  17 files changed, 1827 insertions(+), 333 deletions(-)
->  create mode 100644 tools/testing/selftests/resctrl/mb_emulation_test.c
-> 
-
--- 
-Best regards,
-Jinjie
-
+T24gVGh1LCAyMDI2LTEwLTIyIGF0IDE0OjAxIC0wNzAwLCBTZWFuIENocmlzdG9waGVyc29uIHdy
+b3RlOg0KPiBDaGFuZ3l1YW4gTHl1ICgxKToNCj4gwqAgS1ZNOiBURFg6IFNldCBTSUdOSUZDQU5U
+X0lOREVYIGZsYWcgYXMgYXBwcm9wcmlhdGUgd2hlbiBmaWxsaW5nIENQVUlEDQo+IMKgwqDCoCBl
+bnRyaWVzDQo+IA0KPiBTZWFuIENocmlzdG9waGVyc29uICgyKToNCj4gwqAgeDg2L2NwdWlkOiBN
+YXJrIENQVUlEIGZ1bmN0aW9uIDB4MjMgYXMgYmVpbmcgaW5kZXhlZA0KPiDCoCBLVk06IFREWDog
+UmVqZWN0IEtWTV9URFhfSU5JVF9WTSBpZiBpbmRleGVkIENQVUlEIGZ1bmN0aW9ucyBkb24ndA0K
+PiDCoMKgwqAgbWF0Y2gNCg0KUmFuIGl0IHRocm91Z2ggb3VyIGF1dG9tYXRlZCB0ZXN0czoNCg0K
+VGVzdGVkLWJ5OiBSaWNrIEVkZ2Vjb21iZSA8cmljay5wLmVkZ2Vjb21iZUBpbnRlbC5jb20+DQo=
