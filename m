@@ -1,79 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792750939;
-	b=m9IVm+Opbq5FH5IpS3sNfMpWrsbC+3XEAv3YfUjX1lEeo0IxnMurK7xzIWA+Fc7zZJzv
-	 Kx4bSz78pUZXNlmZUYERvN8Yhpt7CUNWcdcxXo/ucG3JQIb+/bvpoasyuNZcFCDhW2t6F
-	 5achiyUg+NsOEfyMqP/ZCKkGo13ZeP5HthVEMi6eac6k4w+DDOudOnJSrs2e8GLnW61jy
-	 W31ZdbZWjHX5NiFgM6OJlzoV+o1LrGV0rpTvfJGRw51hRJzkaWMIdMgxhubJLlMcOSqot
-	 ODujt3sUzrrl3jo3J49OgARGeXVhQShQjOfyZpkd0MVVQ0ninTtcB7qC1xfplO2URVw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792750939;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
-	bh=WWj8cJaFKWW/3VUfB0olF9gXuECfuO0KdXvS2+pAZ6g=;
-	b=KrrpdZ4c71Nikj5RhPPfgQVWtRUUPjlNdd5FXZuruN36R9VXeDoWU9PUmH3irIy72QmR
-	 1fq4eRvCpyKtMQTKOpRZN6glRI0zFQJtTI56ntxiFQyF4Qwi45nFqS3Iy99NaytR2qG0P
-	 VFUR5IZ9QqbFIyH0ZrmCNV7t/rzgBHxqICw5DWYHcAn2L3Xdrdjdp/IICPf/8tKFeb9/T
-	 O1kxHMCB8/sMk+otXuhlwbSg6tYSLOtV4uMd2uibbWtu4QvEPZPWaQdT1dJfcFuf31z60
-	 GUGIdJSFZnvuYZiNipv2VHDtDb+/dy5WDdBLq9gvRPaMsfZfEuL7mdko0wrYbAnkHCg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=nzChOU5N;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 65173606A31B
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 10:22:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 65173606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.72.53
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792750981;
+	b=lfCtWdbtwOTpRlQpbEWpPO9RQ7MfBm7uZ2JfjAxp4kbYTeTpxStCbfoUcG6ID35ocjNT
+	 Z+8Cnr9ZCWgFeNEoWbRjmiL8fJsA86V6Njx7Io5KlwosvMGDhMAyjNMduxqmzIy4Q4Tfx
+	 vKb0eM/sZg2r0PTaT5Y2WqHYSyVhWmXLosbV4c12oE0WyVxrLeYvoTRooHM7F4cVaPRcM
+	 +Er1G3jNG1dTSyZLRF99iHt66JF1/sNqkZ9GFxkkOGT7ltr3f2jY0JNm+FcRTCY9W9aNm
+	 646ktpMjyl0eFx7Pa14MVzUaXPMaelMCjUpIaHuEaZNfTfCQDviurJDQ0wDAeoCU2RQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792750981;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=huKpjUao8sUU9Vdzts03Yu14+NDHtcOaYek251AsiuM=;
+	b=LZd8zX1yj2ySUj2VNE2t1Kxx5iOCuWfdkJWzZyBgFBxVadsTqW6Vnqws4UB0+lQRqL/K
+	 s9sKhqLuaMVvoWP0NADnMLA74D5GMgEINAafYPUSDPV3jyDDRYrG5r3OUvAAQXGn9OQyh
+	 /fHmSRahCQDmpHg/49i4GyOK8ictKShoqm/u175az/kr8OSg6AeiCod37Nl0CnJe56Tp7
+	 aMzHa9dWE6GPlo2gmXzLiqFmeCebhGaro3lNFrpYLumbP2H1dNOWaJIAagWYsuvRVsdyc
+	 ZfnU9GfyBOW+wHwPKcOqYbOQq8WWyufxSTa9VZYBX502eVColMJpmxauRfARR4sJHUA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=axis.com;
+	spf=pass smtp.mailfrom=axis.com;
+	dkim=pass header.d=axis.com header.i=@axis.com header.a=rsa-sha256 header.s=selector1 header.b=Tvu5eu2J;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.72.53
+Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11013053.outbound.protection.outlook.com [52.101.72.53])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9ED6B606A31B;
+	Fri, 23 Oct 2026 10:23:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9ED6B606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=axis.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=axis.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=nzChOU5N
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 6F30B302F
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 03:22:14 -0700 (PDT)
-Received: from [192.168.0.1] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 6F05F3F7B4
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 03:22:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1792750937; bh=VnaOaoCbZWtRveOiSDtrRS+aRrEZTeoetU0oSSXUGhU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=nzChOU5NS4gIPzxLmLBt9GD3WfCP7xTX35O1qXEa3wCBao6+xhaEV/Uu25VBLwhVU
-	 NyZVjDEu+FLB7pVSpvj1WkxbvpohFbEtH81/sUgfEbg53ABVtFUDrq6fDdTnXAYVl5
-	 kBFQTZqIIJooc9o/Id4Qtq0RKO8dQjWxunglV8h8=
-Date: Fri, 23 Oct 2026 11:21:48 +0100
-From: Liviu Dudau <liviu.dudau@arm.com>
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	John Harrison <John.Harrison@igalia.com>,
-	Harry Wentland <harry.wentland@amd.com>,
-	Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
-	Alex Deucher <alexander.deucher@amd.com>,
-	Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
-	Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
-	Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
-	Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Dave Stevenson <dave.stevenson@raspberrypi.com>,
-	=?utf-8?B?TWHDrXJh?= Canal <mcanal@igalia.com>,
-	Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
-	Louis Chauvet <louis.chauvet@bootlin.com>,
-	Mihail Atanassov <mihail.atanassov@arm.com>,
-	Eric Anholt <eric@anholt.net>,
-	Rob Clark <robin.clark@oss.qualcomm.com>,
-	Brian Starkey <brian.starkey@arm.com>,
-	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
-	amd-gfx@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org,
-	Suraj Kandpal <suraj.kandpal@intel.com>
-Subject: Re: [PATCH v7 0/9] drm: writeback: clean up writeback connector
- initialization
-Message-ID: <ats1PJqVhNR-RXAX@e142607>
-References: <20261019-wb-drop-encoder-v7-0-d4288a26eb54@oss.qualcomm.com>
+	dkim=pass (1024-bit key, unprotected) header.d=axis.com header.i=@axis.com header.a=rsa-sha256 header.s=selector1 header.b=Tvu5eu2J
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=GTDSJm80AfOJDfO1mveGECS4ynjMvMef5yjbuJU5ag8in5ZGAuVe/ge34rqbzKVX+YHMZ4fXIgZW0H5gJSTBg4bqR7XuUWUxIQhOzq7RBblqjGXNTgOGvl9XiCXAglZWFuZtiF1SgUhMeI6PZMkHZ2bJasb1I+PITR4xa9aGQYoOGfz0lngZNMwn2QOYkiVBRo7PMAwHIR739ZLFEyynhsgFga2z1dKreUthoGp4LbDepWLR4EkZAe7KZZHcnE72Nbf5GaUxXzoKeIWA6iD5ayMAT6BY5jDm7ZgQlrvPOCEeBoXeS9UKCIL7mv2lgCAJBE09AlbBCYk2hW1ZFNwW4g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=huKpjUao8sUU9Vdzts03Yu14+NDHtcOaYek251AsiuM=;
+ b=yHLcszIAEimoN+BlM+9gkZjIDBLyQ1NttYCj0GOhwI06J2zi1PS28feiRcroF1JwTpTaaHN3hlJNCXpnxuT6Rvgi2cg2Ozyv6URZb1jMpoNk1tGzGcajwCWgEv0HDMsxhMb6XHXVOwVduMSXyXzX0ZMiSFVc/kUeGseS9PjoE87MunfVtdl5X/xk5Iegclp9xGAt7pUdepXS/Wws+mlfbyXkpAcRaJododLZynh6V5h+BkBy/fCh2OzGANjFB8Kf/Qbqrba9RCuyYQ+T2hm78WQRWG1fJ5AG7et/mI6Dw/DSgilNJvF6NaH5U2QL3HNHMKkK3V/DFZKkd46CnxqG2w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=axis.com; dmarc=pass action=none header.from=axis.com;
+ dkim=pass header.d=axis.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=axis.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=huKpjUao8sUU9Vdzts03Yu14+NDHtcOaYek251AsiuM=;
+ b=Tvu5eu2JUj6lGQhc0U2ma4wNqMX+pFmcrK7JQjXe2ClrgwaKLPu8/54FuJb2/KUQpZ3HOdsycwNgPU5L8b2VJ3giDmOuDzW9E8YnYqtMVYYH7JyQO8EQlLhA3blreTVh32WiECQ4o5BlTjfZrP5VaCvenGtljFzpxMEcOu6Qmh0=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=axis.com;
+Received: from DU4PR02MB12006.eurprd02.prod.outlook.com (2603:10a6:10:62a::23)
+ by GVXPR02MB10833.eurprd02.prod.outlook.com (2603:10a6:150:14a::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Fri, 23 Oct
+ 2026 10:22:57 +0000
+Received: from DU4PR02MB12006.eurprd02.prod.outlook.com
+ ([fe80::7584:3ff:da11:e6b3]) by DU4PR02MB12006.eurprd02.prod.outlook.com
+ ([fe80::7584:3ff:da11:e6b3%5]) with mapi id 15.21.0546.017; Fri, 23 Oct 2026
+ 10:22:57 +0000
+Message-ID: <8d0158bc-c35f-4507-822a-2420a89ce6e2@axis.com>
+Date: Fri, 23 Oct 2026 12:22:56 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/3] iio: light: opt4001: refactor driver to prepare to
+ support more devices
+To: Joshua Crofts <joshua.crofts1@gmail.com>,
+ Jesper X Nilsson <jesper.x.nilsson@axis.com>
+Cc: Jonathan Cameron <jic23@kernel.org>, David Lechner
+ <dlechner@baylibre.com>, =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
+ Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>,
+ Stefan Windfeldt-Prytz <stefan.windfeldt-prytz@axis.com>,
+ linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, kernel@axis.com
+References: <20261023-opt4041-v1-0-45227f82d05c@axis.com>
+ <20261023-opt4041-v1-2-45227f82d05c@axis.com>
+ <20261023111032.0000019b@gmail.com> <20261023111643.00007823@gmail.com>
+Content-Language: en-US
+From: Jesper X Nilsson <jesperni@axis.com>
+In-Reply-To: <20261023111643.00007823@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MM0P280CA0041.SWEP280.PROD.OUTLOOK.COM
+ (2603:10a6:190:b::16) To DU4PR02MB12006.eurprd02.prod.outlook.com
+ (2603:10a6:10:62a::23)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,150 +106,103 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261019-wb-drop-encoder-v7-0-d4288a26eb54@oss.qualcomm.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DU4PR02MB12006:EE_|GVXPR02MB10833:EE_
+X-MS-Office365-Filtering-Correlation-Id: bbe3d656-6f0a-4c64-b449-08df30ef9b6b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|23010399003|376014|7416014|366016|22082099003|18002099003|4143699003|11063799006|10067099003|261022105027099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	bwtoaPqGdUSorAKEgwn2lALDJwLmVy9kBbeUgrAn0fzcSzLWwI1wYfNuySNHysLegtfzKn8CdRU/WzERxa3HMc/u+ZuE9j6ClZ9/hceq4AkGppiQXBkA0E5e+WWJAPVk5MoLpLfSR4AoTjjFCoXuuKNDRPezFWsRaveqkv4IyrjZc0eEkRaDozc7KuZ6zhgPr+pyDIfRoR09qrpBT37S1Fm2O0vaJf67RqEOfYF7qjxSUfjDbV2LpyuSVUJ6nJdg7mbGNe0buD+Cc92c4Odj61H1UElZaDh6DCVEipp+8ByPXkWRrwNDJfxLkXF6XQuY7mHp0pX/d81Bv9iWHpwBb8yGrzLFd8NXNq7rKeaWvnVbadNcFDgXeP/T2G/ZMq5R/fsmkuxdPcXu3NSm+hu4kqubjlnHgVek/9ODBfVDEvLwv+Ep60Uak8fF7AbfxDi4Wkb8FhM2SLNaO8/DoSuCcjG7MmZ6SEp93+ImNbnF87TEnLFhMCmznThYNCg5QIatFrdZOoTOzhkqwM/6M6EobYCUBh2BeB/GQAf/iOHlyS96cw3tI/PNj9Cl5YRNJ9id+2Lvd4oIwBMyXcT3WuyEZ8Fg4eem733jL0wUet3vyGy76uky4dX07dFaNgdfXT4zZFvvU5FuW22ihwvwm5+nDIN7Ey+KTwYJlZTiFHLDtYY=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU4PR02MB12006.eurprd02.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(376014)(7416014)(366016)(22082099003)(18002099003)(4143699003)(11063799006)(10067099003)(261022105027099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?czhYMENyaHhhdzRGaHVNLzJrU3l4dDhVYldxNEhZYTErSWFwOWR4KzZhRXps?=
+ =?utf-8?B?dGJheGhhaXhwMEZxQ1NsUkd1WnV0dklpSlpVUUhvSk1SMlhKU1l0Q2dmTWxw?=
+ =?utf-8?B?Tk05L1FsTFJNK2FSRFhnTDdmU0c0aDE5OFJLTWFqdWJ1SGF0UVRwemZYb0tP?=
+ =?utf-8?B?S1Q1R0lKcUd6dHdkOGhXc2NWbzkxUDE3eXRTV1l3N2ZVeXRxdUhJTEU4MU5C?=
+ =?utf-8?B?UnlUZXBnVTFUdDE3cFhMZlc5Qmw3OUVKRlU4U3RqeFZqY3VSc2l2ZVVoYkY1?=
+ =?utf-8?B?ZFRsZC9mN2J5bGZ3N0ZIaytaV0tqZjVLUDdXT0pqVUxFRmVpREYyWlJJUXJz?=
+ =?utf-8?B?TlBqbkxGNkMxdWsza1JuVFlPMmhOa3pDU1RJRmcyeHNCM0JELy83MkxmYjAw?=
+ =?utf-8?B?YUx5azVHa2xwbEhTbTl2WDJzV2VBZHowTU1LRDU0NWJoc3Z3R25HMTZRa2pn?=
+ =?utf-8?B?Z1RrbGs0OUJEU0hSUllxWkV0THIwVnpsdzdaV3lUakNVdWhYanVJTllva0xD?=
+ =?utf-8?B?Z0ppamxTNW1DTjA5VHR4dVppU2c4bWYzZ1I1d3E2RElUdzc3WExyczdlNjVw?=
+ =?utf-8?B?V21KRmpjVzFPOFVMOGcwQlBlNmRETWI0cE8xM296K3hjQUlCVjZBUzZRdkJW?=
+ =?utf-8?B?dFAyaDFia1l0Sm40ckdYMlRJaVIyYThoRjJ3eGZYbmZ4d25JOWNDSVNaVk9V?=
+ =?utf-8?B?NWhXRk1KcVJydjd2MXllWWxHS3M4Z0phTHpGam5QNmYzcVh0d09MMGxjREwz?=
+ =?utf-8?B?MVZxVkpnTTdyQUZUUnRSbVNEWkNqM0FyMmk1MHAwZXM5b2NwUVY3dWhtRE5Y?=
+ =?utf-8?B?Z1FNK1JyQSswS0owQVVZbVZJdEQ4OGN5ZStZNzFwMnVmNEErT1RwU2ZIL2FO?=
+ =?utf-8?B?ZHBSVXJHTnJWcm5CbDdNZlhUYTA5RXdZZ3FrNzI4YS8vaDh1MnFLNXN2SVdn?=
+ =?utf-8?B?eWxaWDBMYTcvYU8vUithbk8xQml6Z1hCa01JOHdaQjVPZjJPdHB2NmFIaDFL?=
+ =?utf-8?B?L2R2RVAwbXJreUFidWMwN0U2QjFIa0l0KzhWL1RJWnEyZW9MMWdyM0YrUmpO?=
+ =?utf-8?B?aXE5YWdJamR6VTNyck9IQ1k3N0xESkV6SEYwamJnWGU1YmpMdGczTnBHdC9y?=
+ =?utf-8?B?NE1DbytkREdtVld1azdROERVMnNrdGlyK3Rxc2E3N2JuU0pKc3N2dEdaQmJn?=
+ =?utf-8?B?QVpVZ2N5Y0N0eWJrMFJTM1N5QmtTRWdRK0pkK2cxR0xxQzArZGZjL2Z4ZVlP?=
+ =?utf-8?B?Mmtxa0dVSUVYOEs1TndtdGFPSTc5YVhSNjBpdGdhZ0F3ZDN6T1I1SVgxMkFM?=
+ =?utf-8?B?TlRPMXhnVHJUeTRBWEJna2tqbTJkdTk4WGtRZmJucnFUbTBpUlpKSlNURFk0?=
+ =?utf-8?B?aWdXSStGS2hmUVBLT3hJMGlCcnA1UGRRM3BDT25KUlZ4YThsWGQyZUYzUDVu?=
+ =?utf-8?B?TGZHM1RQaTEwTWd0VnpqRUYzVi95Qk55MTBPYkdOS3R5ZnFpU3p6c1RRakZ0?=
+ =?utf-8?B?cHVCWWpDVnNmeDdYZnRQQWxoQStJbzFhZnh4a28raE9Nc2o1a3BUWjd4MnJ5?=
+ =?utf-8?B?ZFJYTjZtZnNKSmtHdXJRYUJZTS81dlJ5TEN1V0ZoU1VBVnFMTldyamhDYUc1?=
+ =?utf-8?B?YXRRbWh5YlpvNkFEV0FCSmF1WGtnaUFLY0Y2R2Fhdk9aSmlWQzR4SWRVMDA3?=
+ =?utf-8?B?UkFEWURSLzhSSkY5NWgycVZyNTRRWDM3Q2FWaEVuRHVqdHBXUHliSHM4ZHRo?=
+ =?utf-8?B?OGI2TEJuTEhIQWZqL0J6OVRGVFpqbDMrdHVrQnBsdnJacEw2SUdWYTd5b0J5?=
+ =?utf-8?B?NnNobDJuWkRIS1U3QmNtdTlwVENUQ2N5bDlxMUVIMVRSa2VLdUNka0piNkl3?=
+ =?utf-8?B?bndEdVVNUHdoUWFBZ3JxRHZMSzhrbi9lZFVpYUw0ZDhPNGpVZDFFWjNQUHVW?=
+ =?utf-8?B?WE5HMCtjbTd6azk3cmVFVGVxK2R4cWpmUVRBaEhQM3BjREl6SlZNRnVPcnZ1?=
+ =?utf-8?B?VzF4OWplaGI5Rjhod2MrNm1Lcy9IOWl4VHIzbE1xUmhpMmQ5SndBb3h5OTJ0?=
+ =?utf-8?B?VlJaWFZISkdodmlTOGlqdnJPRmJNbW00Rjd0SjhTVWJiVGprdDVXNlBKcEt3?=
+ =?utf-8?B?dVo4N0hGcktKSDE2WEs4VGdMcUVwU05tbUNUSGxNWHR5VlEzQlRKM3hldmt6?=
+ =?utf-8?B?OHZwdXFpTEpZN2M5N3pQbFFnR2F1M0kzTFA5ZnJiZ2Rpbkk5TElpNFZwWGhX?=
+ =?utf-8?B?ZGxHM3VBT0txN1JQYmFjZVk5V3VYZVIyNjcxbWxoeXZ3TEY5NDdjc3dhZ3VG?=
+ =?utf-8?Q?4FhajVLl16g5Y/mvq+?=
+X-OriginatorOrg: axis.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: bbe3d656-6f0a-4c64-b449-08df30ef9b6b
+X-MS-Exchange-CrossTenant-AuthSource: DU4PR02MB12006.eurprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Oct 2026 10:22:57.4038
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 78703d3c-b907-432f-b066-88f7af9ca3af
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 8JAorOQNburwfNhnYLnQ+u0/DooMrT8iKn7YkjGMRXBisiZysx7GSrqI9dRSPApkWwj/jVSyXBjYHLyq/42ONg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR02MB10833
 
-On Mon, Oct 19, 2026 at 04:12:26PM +0300, Dmitry Baryshkov wrote:
-> Drivers using drm_writeback_connector_init() / _with_encoder() don't
-> perform cleanup in a manner similar to drmm_writeback_connector_init()
-> (see drm_writeback_connector_cleanup()). Enough of the drivers don't use
-> the encoder embedded into the drm_writeback connector.  In preparation
-> to further rework of the WB connectors (as planned to enable WB for i915
-> / xe drivers, which would move drm_writeback_connector to be a field
-> inside drm_connector instead of subclassing it) remove the drm_encoder
-> wrapped in struct drm_writeback_connector. Rename the
-> drm_writeback_connector_init_with_encoder() to
-> drm_writeback_connector_init()
-> and copy drmm_writeback_connector_init() interface. Then, with the
-> encoder being gone, handle proper cleanup of writeback data in
-> drm_connector_cleanup().
+On 10/23/26 11:16, Joshua Crofts wrote:
+> On Fri, 23 Oct 2026 11:10:32 +0200
+> Joshua Crofts <joshua.crofts1@gmail.com> wrote:
 > 
-> ---
-> Changes in v7:
-> - Significantly reworked series, no longer insisting on using drmm.
-> - Link to v6: https://patch.msgid.link/20260612-wb-drop-encoder-v6-0-9f3a54f81310@oss.qualcomm.com
+>> On Fri, 23 Oct 2026 09:48:14 +0200
+>> Jesper X Nilsson <jesper.x.nilsson@axis.com> wrote:
+>>
+>>> Prepare opt4001 driver to be able to support OPT4041. Extend struct
+>>> opt4001_chip_info with fields channels and device_id because OPT4041 has
+>>> two channels and another device id.
+>>>
+>>> Datasheet: https://www.ti.com/lit/gpn/opt4041
+>>> Assisted-by: LLM
+>>
+>> This tag has been deprecated.
+>>
+>>> Signed-off-by: Jesper X Nilsson <jesper.x.nilsson@axis.com>
+>>
+>> ...
+>>
+>>> @@ -388,19 +411,19 @@ static int opt4001_probe(struct i2c_client *client)
+>>>   		return dev_err_probe(&client->dev, ret,
+>>>   				     "failed to reinit regmap cache\n");
+>>>   
+>>> +	chip->chip_info = i2c_get_match_data(client);
+>>
+>> + null check and return -ENODATA on failure.
+>>
 > 
-> Changes in v6:
-> - Dropped applied patch
-> - Implemented suggestion by Alex to use drmm allocation for the
->   writeback connector.
-> - Link to v5: https://patch.msgid.link/20260505-wb-drop-encoder-v5-0-42567b7c7af2@oss.qualcomm.com
+> Just noticed that Andy was faster :)
 > 
-> Changes in v5:
-> - Rebased on top of drm-misc-next
-> - Expanded commit message for msm patch, describing devm vs drmm issues (Laurent)
-> - Expanded commit messages, describing why the drivers are converted to
->   drmm_writeback_connector_init() (Laurent)
-> - Link to v4: https://lore.kernel.org/r/20251228-wb-drop-encoder-v4-0-58d28e668901@oss.qualcomm.com
-> 
-> Changes in v4:
-> - Rebase on top of drm-misc-next, dropping applied patch.
-> - Added a note regarding memory leak in the AMDGPU driver.
-> - Fixed a devm vs drmm issue in the msm/dpu driver.
-> - Link to v3: https://lore.kernel.org/r/20250819-wb-drop-encoder-v3-0-b48a6af7903b@oss.qualcomm.com
-> 
-> Changes in v3:
-> - Fixed subject prefix for the rcar-du patch (Jessica Zhang)
-> - Link to v2: https://lore.kernel.org/r/20250816-wb-drop-encoder-v2-0-f951de04f4f9@oss.qualcomm.com
-> 
-> Changes in v2:
-> - Switched to drm_crtc_mask() where applicable (Louis Chauvet)
-> - Link to v1: https://lore.kernel.org/r/20250801-wb-drop-encoder-v1-0-824646042f7d@oss.qualcomm.com
-> 
-> To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-> To: Maxime Ripard <mripard@kernel.org>
-> To: Thomas Zimmermann <tzimmermann@suse.de>
-> To: David Airlie <airlied@gmail.com>
-> To: Simona Vetter <simona@ffwll.ch>
-> To: John Harrison <John.Harrison@igalia.com>
-> To: Harry Wentland <harry.wentland@amd.com>
-> To: Leo Li <sunpeng.li@amd.com>
-> To: Rodrigo Siqueira <siqueira@igalia.com>
-> To: Alex Deucher <alexander.deucher@amd.com>
-> To: Christian König <christian.koenig@amd.com>
-> To: Liviu Dudau <liviu.dudau@arm.com>
-> To: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
-> To: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
-> To: Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>
-> To: Geert Uytterhoeven <geert+renesas@glider.be>
-> To: Magnus Damm <magnus.damm@gmail.com>
-> To: Dave Stevenson <dave.stevenson@raspberrypi.com>
-> To: Maíra Canal <mcanal@igalia.com>
-> To: Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
-> To: Louis Chauvet <louis.chauvet@bootlin.com>
-> To: Mihail Atanassov <mihail.atanassov@arm.com>
-> To: Eric Anholt <eric@anholt.net>
-> To: Rob Clark <robin.clark@oss.qualcomm.com>
-> To: Brian Starkey <brian.starkey@arm.com>
-> Cc: dri-devel@lists.freedesktop.org
-> Cc: linux-kernel@vger.kernel.org
-> Cc: amd-gfx@lists.freedesktop.org
-> Cc: linux-renesas-soc@vger.kernel.org
-> 
-> ---
-> Dmitry Baryshkov (9):
->       drm/amd/display: embed the writeback encoder in amdgpu_dm_wb_connector
->       drm/komeda: embed the writeback encoder in komeda_wb_connector
->       drm/mali: embed the writeback encoder in malidp_drm
->       drm: renesas: rcar-du: embed the writeback encoder in rcar_du_crtc
->       drm: writeback: drop excess connector initialization functions
->       drm: writeback: rename drm_writeback_connector_init_with_encoder()
->       drm: writeback: don't destroy the shared writeback properties
->       drm: writeback: clean up writeback connectors in drm_connector_cleanup()
->       drm: writeback: drop the drmm writeback cleanup action
-> 
->  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |   2 +-
->  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h  |   1 +
->  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c   |  27 +++-
->  .../amd/display/amdgpu_dm/tests/amdgpu_dm_test.c   |   4 +-
->  .../display/amdgpu_dm/tests/amdgpu_dm_wb_test.c    |   4 +-
->  drivers/gpu/drm/arm/display/komeda/komeda_kms.h    |   3 +
->  .../drm/arm/display/komeda/komeda_wb_connector.c   |  24 +++-
->  drivers/gpu/drm/arm/malidp_drv.h                   |   1 +
->  drivers/gpu/drm/arm/malidp_mw.c                    |  25 +++-
->  drivers/gpu/drm/drm_connector.c                    |   3 +
->  drivers/gpu/drm/drm_crtc_internal.h                |   3 +
->  drivers/gpu/drm/drm_writeback.c                    | 147 +++++----------------
->  drivers/gpu/drm/renesas/rcar-du/rcar_du_crtc.h     |   2 +
->  .../gpu/drm/renesas/rcar-du/rcar_du_writeback.c    |  29 +++-
->  drivers/gpu/drm/vc4/vc4_txp.c                      |   8 +-
->  include/drm/drm_writeback.h                        |  22 +--
->  16 files changed, 140 insertions(+), 165 deletions(-)
-
-I still personally dislike the whole idea of removing a framework feature that was beneficial
-to a lot of drivers in order to help one driver, but that is just my stance. The stats kind of
-show that and if it wasn't for the massive delete in drm_writeback.c (partly of comments) you
-would add more code with this change. The cleanup and fixes patches in this series also points
-out that there are still issues with the concept and John and sashiko are also raising issues.
-
-Anyway, as far as komeda and malidp drivers changes are concerned, I'm OK with them being applied
-as long as the framework or the patch series solves any cleanup issues. So for those two patches
-you can have my
-
-Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
+Yes, you were both fast :)
+Thanks for the review!
 
 Best regards,
-Liviu
-
-
-> ---
-> base-commit: 725953d4da85cfb97a4c309fad6346b72f8529e7
-> change-id: 20250801-wb-drop-encoder-97a0c75bd5d7
-> 
-> Best regards,
-> --  
-> With best wishes
-> Dmitry
-> 
-
--- 
-====================
-| I would like to |
-| fix the world,  |
-| but they're not |
-| giving me the   |
- \ source code!  /
-  ---------------
-    ¯\_(ツ)_/¯
+Jesper
