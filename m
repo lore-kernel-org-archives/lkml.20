@@ -1,86 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=62.72.0.81
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792721753;
-	b=LcytByyYXUgRWB/6xfEaWfaWRhI7VuJrXQ7Sxm4eyf6BsrQ/+puFMCLWYI0cHw2Qh3Iz
-	 hZSKFeNsnW4uWx5vFeGPTa/UQh8xr7Lh0+/mgu8MwI/2fmfC0sFcAQp9F+Xdv7Pd3yFsw
-	 VUAPixdMQKV35wfG/a65HuBO75C1RXQqpGD8JFvuZ77ynoXUMEA7YS7iQIX/mZx91LjoI
-	 W8bPjSeMD00skBSQ40Sn8hc3NA5KkCuGFz0NV8UCfmN+uXp4kOWMYeJEUU0RK2fCVwugs
-	 NCkk3Wg3IrHz6CGOtcEz4flGud95RnixdBMkGihR8ueL1xUDFubs4EamnVN3Yag5F1Q==
+	t=1792721813;
+	b=AntooN8UmECUoouRPMQ1Izv9r3ysQ486R1z8N3qb9maF9W3Qi7gQok/Tjo2CpO7rnh8U
+	 UpGKKl3CiHPfCIDhIWXX18Lp8iI++H1NjXsmARybPDGVWfBAcL8eQF7vkcrSU23YeyWvK
+	 TjZ1v1AhQMtarQw66lj2N4vUyuV3nTPp11mC595lRPxEbUXE4Zr6azMDUx1k/1OnuWEIA
+	 TizQODm0mulnJ+9LGhI0YqvmWA0X94PjzuXNkZa3u2GPhBBwCc9VONGoY9MvTtsI4bxIL
+	 96akbmW5zsp8exX3QrrQkI1JUzvR20JWDNLQDJh6LTchTNTYecfk0gzXaArJbVZs0qw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792721753;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=AJyEzxnFilSuKrupjSrd3QaNv2TToCy8Tn714k4Frwo=;
-	b=4lOLLJYn8JKNrjeyA1oGobI/2UAwIwWkbjnvkOCOOPEE15rBkZjUAQcrdfCxtarP35C3
-	 YQxDsGN07U7NDpyH+9cY4mmmJsehuwPn7yBo3Q8gOYaCoarIxQkwJ97ZdIf38btFY4bWp
-	 5QgU/mPuA/MuAjI9PlEKLg5ln/HzodNfMAUJTe19R7rWMhPaMp6+IpsTxEFfZ4XLodadV
-	 aECoBkbtCw6h+Ni0Z3gmVvpBzYEWJ2oJBvl/cWD/EyYirmnnouxYHhEUPIF/6RlVNPXzZ
-	 +41/iN9ux8sggkk1EBpuEkzHwybxJJR0JsK3KfRa5Nw0IB/3htWQYbxga5VY5oXpTBQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792721813;
+	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=j5w3UaJh42S33xuxvox41IYKnoykSVPS5LfBwIOC1Bo=;
+	b=PblWv9jAUyvXx+BLm8VvwKKolAmR5U4dIwjSqsceWROrFRNBLrmCrIEA/ftwwKTTkQW8
+	 Ujp8C9JBwihIxDhpoXL51EWXdWwchS7W9IwvtfFa4vvKhYe2CEXGytJ6+D+sudPbAGFt4
+	 eq6d5rQ++clTUYqQ850lmcj2lqUpXtP1vskNa1hbsSJwxugA+3+cQbfzXR+ecmCO5vx7d
+	 JjgGNe3+lR3IRi5pdeaFdVAv7q8c4ERKETWiLgHgDzIqVdhdoFnk/36miI9oJ/QTkjQ/H
+	 YGoxlg2xn7R/dhT1m5Parz8JhaVTQ2yH33uskOsHaFtrkB62DTqHLmEXWyzAo/JCFgw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=N6bPXlOe;
-	arc=none smtp.remote-ip=209.85.128.49
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=gentwo.org;
+	spf=pass smtp.mailfrom=gentwo.org;
+	dkim=pass header.d=gentwo.org header.i=@gentwo.org header.a=rsa-sha256 header.s=default header.b=OMZce5Iu;
+	arc=none smtp.remote-ip=62.72.0.81
+Received: from gentwo.org (gentwo.org [62.72.0.81])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89F2A606A319
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 02:15:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 89F2A606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EABB606A319;
+	Fri, 23 Oct 2026 02:16:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4EABB606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=gentwo.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gentwo.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=N6bPXlOe
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a1ec92f655so3072675e9.0
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 19:15:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1792721751; x=1793326551; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=AJyEzxnFilSuKrupjSrd3QaNv2TToCy8Tn714k4Frwo=;
-        b=N6bPXlOeCto0Xw2q8GWbXShiK73KSeIs2hmlz4VTfcv3cAbpYobZAt88gMpOm2lBHw
-         M2WfJeRF6ZYKReLfipIpDUfAnbhsUsv8J2oQW7l1iK/5BFKX5UR9US08NB2EImhYxU01
-         2LYE468fIOMwkAgcUbeK18A0/ZLhnrOFo2PLaGYrpw2YgPiNsFcqPE7KgYGeV83cPrxD
-         FpIW5fQs9yEITiLjip/HEMToKsJMw1h4sWvnRhwc4bj0nGYObUyUW9BKyBpxz/jbhbZQ
-         KB5f10X3NGyq3jXPSCbI6gkZJLGk3MRSi/OUtQCBoCmZigi6eBIaVazUcUv/Q2qG5inq
-         g0ow==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792721751; x=1793326551;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=AJyEzxnFilSuKrupjSrd3QaNv2TToCy8Tn714k4Frwo=;
-        b=bhyiQfG6APm8W+aNoEAgm0alSHcwSQOrNa9pPtUubKSSFpiaP/wu0dJ9lrpVHit6yU
-         940g/t88qRhe51UDyPcoNhzeZPgnfLPdjQho+YF+3WusUYA3pcJlTPC5YdHNgWT3LAZe
-         0GWRcfrH6aDvi+Zgv/QVsOXuApiOrzQ7Egj4GQIU76F58aH9/IBwlIEe3+th/1mpQxhH
-         h0APBUt6Hy40Vb5EIn3Qz03CYwtI0jpKjsp3edMNOKxTX27K0n7W1bEIM+dVSzfJojQ4
-         ST6Ok7U1hjkkgBC7pmI8+BetdgN5cChVbu1KfD5dIuH8qUYCN9kOSiVIifoaIDg7Iavu
-         tImQ==
-X-Forwarded-Encrypted: i=1; AKwUvByvSGn9zE6twGqq1/CLhe+IvdZ2Z6GGOtVddTlhpI/mdlS41sF/HuSm45vKlC/JJLeJgYvk3W+ZuwgTZUI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIMMwApw4MR414FF4/wlUgfMagRfMVGPP3MiBMz9CBBb45DVW9L
-	D31Opcs0WmJXObYcb0I5AEbq67xPY0tolJgIw76C71QV8RAWWWa8jn010OZFrAL37w4=
-X-Gm-Gg: AYBFou1hW6E+PSe81mkRQhDmC3aXazpD/TK7wNrGEZ/Ah905BatRGVrzt1R3iBftaNE
-	+c8bgjCK2FyCOWfv4xXMp+GqZi5fhTJGy/gnWF4rGDKjJfT/ynUSQRfjA/5KkdMHxVA9KLGOLHz
-	n3pMTAvgcPcEAYaVzvKWEvr7eeqyzEMspelJcwnaDduKELAwCtjNjbSUIeumjJL8g88gLq6gYcH
-	hEaA8ReRPqUL0ushfOMOZQzuj7zF2/VZAx55M3wPAXQij2plTFiD36UKGUkGIG7pHLnxQk8Fn6u
-	IN6krzHeVy6bWauhVMy9qmhjEdzdF8KE8ABe5jD742YYD6GtSAdfk79uKOsZ907hhgw0+ZosPOb
-	lf8GmBEzXjdcIANSrp1DPIBL1yl9FZvSy6MXzVDzMOmlfyMHb9ecCXMDpWTs1FXMG/1yeofDZW8
-	UbS69lR2p38mO3kco8wxDQ/FvE3qLJcvXK39iWcu7qBAV7d52HFUgST3n6lDR8dPaA8952Oc0Yg
-	SRriyFAEj9NdBv6vHnLDIfEHy+MH1mLIVUdswwlI2ajU3udNgdeeX98wEUTIc7sII9qYtOCAlHd
-	b2c5HSQ1OMWR
-X-Received: by 2002:a05:600c:19ca:b0:4a1:c27d:e1a8 with SMTP id 5b1f17b1804b1-4a211c65f14mr11839735e9.10.1792721750941;
-        Thu, 22 Oct 2026 19:15:50 -0700 (PDT)
-Received: from [192.168.0.167] ([51.37.82.204])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a21034b3d0sm47718525e9.3.2026.10.22.19.15.49
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 22 Oct 2026 19:15:50 -0700 (PDT)
-Message-ID: <e3d322a0-43d5-4369-bd09-128152f4b233@linaro.org>
-Date: Fri, 23 Oct 2026 03:15:48 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=gentwo.org header.i=@gentwo.org header.a=rsa-sha256 header.s=default header.b=OMZce5Iu
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gentwo.org;
+	s=default; t=1792721163;
+	bh=JfHhmz/ZMAseVLQWvLkDHdFajTFk05d8JaKdubprIbQ=;
+	h=From:Date:Subject:To:Cc:From;
+	b=OMZce5IuJveys/8MSa0quA2+2eqnIy9I+Xqwj7/0Ea9triWKXgJDt4eCydpAuu8Cx
+	 +Pug+3qWN0Ks2iStZx432jDj1aXjgd2DtnuGSXcXRTpdQ/TehClYJaIly9sTAPpHO+
+	 bkRXNGACyCyG7jhkYyh7pHwilkgpww0QXtKwKoTU=
+Received: from sut02sys-r112.scc-lab.amperecomputing.com (localhost [127.0.0.1])
+	by gentwo.org (Postfix) with ESMTPS id 89898401A2;
+	Thu, 22 Oct 2026 19:06:03 -0700 (PDT)
+From: "Shubhang Kaushik (Ampere)" <sh@gentwo.org>
+Date: Thu, 22 Oct 2026 19:06:02 -0700
+Subject: [PATCH] futex: Canonicalize arm64 tagged user addresses
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -90,93 +55,166 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] phy: core: add generic MIPI C-PHY configuration API
-To: Anusha Arun Nandi <anusha.nandi@oss.qualcomm.com>, david@ixit.cz,
- andersson@kernel.org, konradybcio@kernel.org, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, bod@kernel.org,
- vladimir.zapolskiy@linaro.org, loic.poulain@oss.qualcomm.com,
- mchehab@kernel.org
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, gjorgji.rosikopulos@oss.qualcomm.com,
- jigarkumar.zala@oss.qualcomm.com, hariram.purushothaman@oss.qualcomm.com,
- akapatra@quicinc.com, linux-media@vger.kernel.org,
- krzysztof.kozlowski@oss.qualcomm.com, daniel@quora.org,
- konrad.dybcio@oss.qualcomm.com, christopher.obbard@linaro.org,
- alex.vinarskis@gmail.com
-References: <20261017041733.3946816-1-anusha.nandi@oss.qualcomm.com>
- <20261017041733.3946816-2-anusha.nandi@oss.qualcomm.com>
- <a6d8514b-269c-441d-b280-4895b5f21fac@linaro.org>
- <f689ccfe-4adb-41f6-b492-97a48090413d@oss.qualcomm.com>
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Content-Language: en-GB
-In-Reply-To: <f689ccfe-4adb-41f6-b492-97a48090413d@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261022-futex-arm64-tagged-uaddr-v1-1-84d8afbe7668@gentwo.org>
+X-B4-Tracking: v=1; b=H4sIAAnB2moC/x3MMQ6DMAxA0asgz1hKLJqhV0EdTOKkHpoiByokx
+ N2JOr7h/xOamEqD53CCyU+bfmuHHweIb65FUFM3kKPgHRHmfZMD2T5hwo1LkYQ7p2ToY34Enmi
+ h6KHnq0nW47+eX9d1A5QcMNhqAAAA
+X-Change-ID: 20261022-futex-arm64-tagged-uaddr-1cf56a42b2c1
+To: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
+ Peter Zijlstra <peterz@infradead.org>, Darren Hart <dvhart@infradead.org>, 
+ Davidlohr Bueso <dave@stgolabs.net>, 
+ =?utf-8?q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>, 
+ Shuah Khan <shuah@kernel.org>, Will Deacon <will@kernel.org>, 
+ Kees Cook <kees@kernel.org>, Andrey Konovalov <andreyknvl@gmail.com>, 
+ Catalin Marinas <catalin.marinas@arm.com>, 
+ Shubhang Kaushik <shubhang@os.amperecomputing.com>, 
+ "Christoph Lameter (Ampere)" <cl@gentwo.org>
+Cc: linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+ stable@vger.kernel.org, "Shubhang Kaushik (Ampere)" <sh@gentwo.org>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792721163; l=4933;
+ i=sh@gentwo.org; s=20251010; h=from:subject:message-id;
+ bh=JfHhmz/ZMAseVLQWvLkDHdFajTFk05d8JaKdubprIbQ=;
+ b=ihJS3fv6DSvzSVkQrRn7u6eFELOA/yllpW5WbyiWKLt6x3hRf04vWABxymhM2mgEyO6Px983p
+ 68b7W/dIaQkDjuGLy66jM10sCQyXOcKA+IK+zCG9sHihTTd8VlKYnDz
+X-Developer-Key: i=sh@gentwo.org; a=ed25519;
+ pk=jc8YIRvxPSyJaBRe5y+a4N0RXKBUEcAh8+OFhlROXPY=
 
-On 23/10/2026 01:33, Anusha Arun Nandi wrote:
->>> +    if (!cfg || !lanes)
->>> +        return -EINVAL;
->> Lanes must be a multiple of three to be valid, at least for your three
->> submissions to be logically consistent, this statement must be so.
->>
-> I will update the name of lanes to data_lanes in
-> phy_configure_opts_mipi_cphy struct.
-> I will add more sanity checks for data_lanes > 3, as C-PHY supports 3
-> data lanes only.
+On arm64, a thread that enables the tagged address ABI can pass valid
+top-byte-tagged user pointers to futex syscalls. Such a pointer must
+have the same syscall behaviour as its untagged form.
 
-Sorry the only thing weirder than arguing with other people on the 
-internet is arguing with yourself.
+get_futex_key() validates the user address with access_ok(), but uses
+the raw address when constructing private and shared-anonymous futex
+keys. A waiter using a tagged address and a waker using the untagged
+form can therefore access the same futex word while hashing to distinct
+keys, causing FUTEX_WAKE to miss the waiter.
 
-I argued myself down from this.
+Keep access_ok() on the original pointer so that arm64 retains its
+per-thread tagged-address ABI enforcement. Canonicalize the address
+afterwards, before it is used for futex key construction and shared
+mapping lookup.
 
-=>
+Add an arm64 64-bit selftest for a tagged private waiter woken through
+the corresponding untagged address.
 
-One CPHY lane is 3 three wires. So data-lanes = <1> means three wire 
-that only the PHY driver understands.
+Fixes: 63f0c6037965 ("arm64: Introduce prctl() options to control the tagged user addresses ABI")
+Cc: stable@vger.kernel.org
+Signed-off-by: Shubhang Kaushik (Ampere) <sh@gentwo.org>
+---
+Testing:
+  - futex_tagged_addr: PASS
+  - Standard futex functional tests: PASS, except RT PI tests when run
+    without real-time scheduling permission
+  - sudo ./futex_requeue_pi: PASS (24/24)
+  - sudo ./futex_requeue_pi_signal_restart: PASS
+---
+ kernel/futex/core.c                                |  2 +
+ tools/testing/selftests/futex/functional/Makefile  |  1 +
+ .../selftests/futex/functional/futex_tagged_addr.c | 47 ++++++++++++++++++++++
+ tools/testing/selftests/futex/functional/run.sh    |  3 ++
+ 4 files changed, 53 insertions(+)
 
-We communicate in lanes not in pads. There is no meaningful way to 
-specify pads in DT - only lanes.
-
-Which means lanes - I think we should follow what struct phy_mipi_dphy 
-already models for us:
-
-/**
-  * struct phy_configure_opts_mipi_dphy - MIPI D-PHY configuration set
-  *
-  * This structure is used to represent the configuration state of a
-  * MIPI D-PHY phy.
-  */
-struct phy_configure_opts_mipi_dphy {
-
-         /**
-          * @lanes:
-          *
-          * Number of active, consecutive, data lanes, starting from
-          * lane 0, used for the transmissions.
-          */
-         unsigned char           lanes;
-};
-
-For example in DPHY lane == "two pads on the SoC" so for us in CPHY mode 
-lane == "three pads on the SoC", there's no need to deviate from that.
-
-The CSID needs to know the symbol rate - so that it can vote on the 
-appropriate NOC/CamNOC clocks/rails but... does the PHY driver itself 
-need to know that ? It does not, symbol_rate is not required in this 
-struct no more than it is in DPHY.
-
-Sample principle.
-
-So _really_ thinking about this I suggest
-
-- Following the DPHY example
-- Including all of the CPHY specific timings
-   The ones you posted, plus the few I found missing
-   Any other relevant CPHY timings we may have missed
-- Include the helper functions in drivers/phy/phy-core-mipi-cphy.c
-   IMO we should use defines not hard-coded constants for the
-   specification of the timings here, unlike the DPHY code
+diff --git a/kernel/futex/core.c b/kernel/futex/core.c
+index a240638f69e5c65bd036434a15f3df680efb4638..dcc8ffca38595a5ea69f3672375ffb9f9c6766f9 100644
+--- a/kernel/futex/core.c
++++ b/kernel/futex/core.c
+@@ -539,6 +539,8 @@ int get_futex_key(u32 __user *uaddr, unsigned int flags, union futex_key *key,
+ 	if (unlikely(!access_ok(uaddr, size)))
+ 		return -EFAULT;
+ 
++	address = untagged_addr(address);
++
+ 	if (unlikely(should_fail_futex(fshared)))
+ 		return -EFAULT;
+ 
+diff --git a/tools/testing/selftests/futex/functional/Makefile b/tools/testing/selftests/futex/functional/Makefile
+index a03bd5acba50319f08b04ff0904ef155c000fee3..8f7f6730285b725b483787362db4626c459d65c9 100644
+--- a/tools/testing/selftests/futex/functional/Makefile
++++ b/tools/testing/selftests/futex/functional/Makefile
+@@ -19,6 +19,7 @@ TEST_GEN_PROGS := \
+ 	futex_requeue_pi \
+ 	futex_requeue_pi_signal_restart \
+ 	futex_requeue_pi_mismatched_ops \
++	futex_tagged_addr \
+ 	futex_wait_uninitialized_heap \
+ 	futex_wait_private_mapped_file \
+ 	futex_wait \
+diff --git a/tools/testing/selftests/futex/functional/futex_tagged_addr.c b/tools/testing/selftests/futex/functional/futex_tagged_addr.c
+new file mode 100644
+index 0000000000000000000000000000000000000000..81224f024a375d08e1dd4fd12ccf548f23126f27
+--- /dev/null
++++ b/tools/testing/selftests/futex/functional/futex_tagged_addr.c
+@@ -0,0 +1,47 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++
++#include <stdint.h>
++#include <sys/prctl.h>
++
++#include <linux/prctl.h>
++
++#include "futextest.h"
++#include "futex_thread.h"
++#include "kselftest_harness.h"
++
++static futex_t futex;
++static futex_t *tagged_futex;
++
++static int waiterfn(void *arg)
++{
++	struct timespec timeout = { .tv_sec = 1 };
++
++	return futex_wait(tagged_futex, 0, &timeout, FUTEX_PRIVATE_FLAG);
++}
++
++TEST(tagged_addr)
++{
++	struct futex_thread waiter;
++	int ret;
++
++#if !defined(__aarch64__) || __SIZEOF_POINTER__ != 8
++	SKIP(return, "arm64 64-bit tagged address ABI not available");
++#endif
++
++	ret = prctl(PR_SET_TAGGED_ADDR_CTRL, PR_TAGGED_ADDR_ENABLE, 0, 0, 0);
++	if (ret && errno == EINVAL)
++		SKIP(return, "tagged address ABI not available");
++	ASSERT_EQ(ret, 0)
++		TH_LOG("PR_SET_TAGGED_ADDR_CTRL failed: %s", strerror(errno));
++
++	tagged_futex = (futex_t *)((uintptr_t)&futex | (0x42ULL << 56));
++	ASSERT_EQ(futex_thread_create(&waiter, waiterfn, NULL), 0)
++		TH_LOG("pthread_create failed");
++	ASSERT_EQ(futex_wait_for_thread(&waiter, _metadata), 0)
++		TH_LOG("waiter did not enter futex wait");
++
++	EXPECT_EQ(futex_wake(&futex, 1, FUTEX_PRIVATE_FLAG), 1);
++	EXPECT_EQ(futex_thread_destroy(&waiter), 0);
++}
++
++TEST_HARNESS_MAIN
+diff --git a/tools/testing/selftests/futex/functional/run.sh b/tools/testing/selftests/futex/functional/run.sh
+index d1a681b798bd385570710e7c5f9bb28cca64de3e..620d13ee7171e7cc6061053750c9ff4cf525ff72 100755
+--- a/tools/testing/selftests/futex/functional/run.sh
++++ b/tools/testing/selftests/futex/functional/run.sh
+@@ -46,6 +46,9 @@ echo
+ echo
+ ./futex_waitv
+ 
++echo
++./futex_tagged_addr
++
+ echo
+ ./futex_priv_hash
+ 
 
 ---
-bod
+base-commit: 3ac032ef6ca8e47bb06d1e189dfcf88fa0a09c75
+change-id: 20261022-futex-arm64-tagged-uaddr-1cf56a42b2c1
+
+Best regards,
+-- 
+Shubhang Kaushik (Ampere) <sh@gentwo.org>
+
