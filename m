@@ -1,121 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.57.62
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792770068;
-	b=G8B8HGGzQvK6dW3AeKRIlojBiHwMMWMy7NheCotlIcXr/VsmeIbjUjOazQrUKFauhxAb
-	 WxU9sdPHW3oOuAVjTGH+7ev6CAtfDBhUQai/XGqB3cDYqK4uu832X5vedWejl+f0a4lQp
-	 nlp5EBPLYfj3e/o7H8NaoJ9+yA2KUPeLoS+JejgVDqlv5/a5Fj9a6B5zd55yMTAw/MLXX
-	 VrF02VnTGNYsUtnwATghCbTDEnc4CBZktZQ+S72rUJc17dvZlUc809m206D1Yup0hV7yf
-	 jzWjEo3bvrTOBcD9cDm+hN2A/0R2IpDzj7AWjH9ugNsFugOs0zLgZzfxt+i7XcWzlww==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792770068;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
-	 References:MIME-Version:Content-Transfer-Encoding:Content-Type:
-	 X-Originating-IP:X-ClientProxiedBy:X-EOPAttributedMessage:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=WE5LYdR9xmj0w1zxqcIWKfA8YAuzOMob61V6KgXDplw=;
-	b=06QB2VIifK1H2EIgDzwzQm60S+9MN/h9AvqRniM5DP0xsVbjVEGOnqU/J89bxWGP88nq
-	 dIXpKMRIzFlmAK7Px4w5mqsM4lhEsrfiZuiaohpE2ThM7Kh4kNA8fisW5CjxLrlJ+V16t
-	 GG+A0jruLgd6xnJIQQi7pGXc3CeSl2XRW5hi4+nH5TG1cHArTAzOm7y3tCkNmzIoT3SVF
-	 pkinoGk+OLj0xblZEEDXwJOrdHT6H85xysRsaWC0zvMy5EbUdAV3JNLKoy5+Kclx3wFRg
-	 HQb2lvP/phAH4+0TMtJw6fSorVDdN8OXPM9JJTcX908w/wBY9srJo1MVgzvoe2rhX9w==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=rEhCzlPe;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.57.62
-Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011062.outbound.protection.outlook.com [52.101.57.62])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.42
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792770058;
+	b=UKGY60Y8ng88ZZ5mklzaaBvp3nr1GN747DGApDpKa8mCHiLNag88YR/fHxIyYs37zcd9
+	 NISL3AMNvwtm0pbPe2eO90uMG2q62qngbtgCb5L8XEEYAaCKFiyaWAU2Jn3g2genPmogm
+	 WCBkyQup895h08zXID4s0QWRuzT9xqp+pZtajyAyDcugdRxTymX5YVauLxOe43jrUKuQ9
+	 Jk0DC5S4fRGYCrH9SCzSFk/VGWy1mmVBJuez14O5ZI3lhvwXSZMO24VIEFMhHMfJDUjJ+
+	 FkbXc80g8cP1XLq1BfIyqzrdqrmPZsKWyFxwGBdHQe7CZkcWKyJRztjf0HLljn7+t0Q==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792770058;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:Date:Subject:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
+	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
+	bh=o1wKXpk8uaU69f7z5em398pZg3Sc//6UJ87r/eL+V6g=;
+	b=RndB1zSAToR4q5X/vi2cfH2A4nTkZ9lj4qifrn2+bErWOMw4RCz46dnTN1t9CbxfbmGw
+	 wduQHogHmlriZygXdBJulEYws4jbZJmQtwwo/sWVaeyUCXRjYgxV8cBZ17K1tmLuoPe/I
+	 +/Gd6Psh0C0XC2h81tWtdWEErRLqd0wBJD6F72Ib5flOktrCngnAHwNw5VtZJ44b6vCyV
+	 9TsskBObLeO5jBwytYSWo2svvq+Be9TPAv6aE865K6XRF6fQLr+CrY7cQa6MZvxSZ3CKl
+	 hzmeZNmJKB2T5YC3++sL5IX+Vbc8UbYNr4Nay9IHz4Bpyi4oRFDbp4QpgaCQgjHL/ow==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=DAJ9Z8yE;
+	arc=none smtp.remote-ip=209.85.160.42
+Received: from mail-oa1-f42.google.com (mail-oa1-f42.google.com [209.85.160.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7378E606A323;
-	Fri, 23 Oct 2026 15:41:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7378E606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 486BF606A31D
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 15:40:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 486BF606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=rEhCzlPe
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=mx6sNVGdFD/ztZQ+QSAEsHCAn0V1CdgjIPTDIoo/ISJL3irZ7e8e/iGEWfeUzGp73Hn/ZpVam9TwRMBm6Ta0lzdiQTf4v/C8e2RBcPkIzAA6IMiivZxcLqSTSDWNzunC8TUoTENwYDe8ZmvS65SqKLzO0cqx4etqeMYRNrhIgP2KGM9oCJcVsMZ/yegAUw3W7EvTRxiRDqnXWAiBcAW2dM6h8RHFJ2aC4xpdOEFIYGN6VsWeFg8+0ZTCZ6YpdV9b6yYgQ+n6f/rI2UNIqYMSD19Q8CUqi5dIqD4e31GVag6OlJGfU0cStcIjaeexF+4VU7MNk314Y6h8HogZSojijQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=WE5LYdR9xmj0w1zxqcIWKfA8YAuzOMob61V6KgXDplw=;
- b=JGtE62bpv6o+FfSjjLhBDZFptuPmItexet4TgTKHUC+JhrnkkT40wsNSuj7vANYUb1nMsIrddTyutvOnq2c8qMtw3f5weT3X7AA0b0kNlWKOCQWQ5ww+uUEmoxlW8AdL3TAZ5dovf8aRUG2T2dmL59PL24aCy2PD083qmO8Gx0ynWzk0uVbe1eZJmrDEBUoXyS3GncekpGjDKwePWnEQd2iMjyaiUJyvaNsIjqFkZRaEGOQcYC/UXM78dKo0UYpitAikxWDeDEykf8mL+o3UqVJB24Gets8WPBmsvXlgX3duSt7yaK933an7ndx50jvVZsG9AKjtB1G2u7upbXyitA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.160) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WE5LYdR9xmj0w1zxqcIWKfA8YAuzOMob61V6KgXDplw=;
- b=rEhCzlPeEbzr9//xeYRzu8Cx1LrVsn+5Ca4DTFiAZASA26nTQmIsp5Ceo+aRPM39Us9nIdkWqDfWvP37PjJ0K6agz8O4ptv8owRlV+hOSzPi3sg2AtKMl4S+UMvpuRtx9LQyyrYgiUtcFqlyohoUaC3bEoNGI0Hz++umGXBesR3dXoiwMRj1ZYQIt23+2iLUwCihF5nko3TmIlXJviLTjR+/ViDz+pBXe5nx/rlhF8YJtXmuXeCZQ/W6T1RNw/FI9w7X6j0qm8yAeG+xmD7m/IgxXmp8zzStjqoYEHgEfwM8LtDVqSPcDuruZ+ZhauzSzjrw7mi3fZQVRAbzVSe9Dw==
-Received: from SJ0PR03CA0134.namprd03.prod.outlook.com (2603:10b6:a03:33c::19)
- by DS6PR12MB140904.namprd12.prod.outlook.com (2603:10b6:8:4f4::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Fri, 23 Oct
- 2026 15:41:01 +0000
-Received: from CO1PEPF00018860.namprd02.prod.outlook.com
- (2603:10b6:a03:33c:cafe::45) by SJ0PR03CA0134.outlook.office365.com
- (2603:10b6:a03:33c::19) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.18 via Frontend Transport; Fri,
- 23 Oct 2026 15:41:01 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 216.228.117.160) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.160) by
- CO1PEPF00018860.mail.protection.outlook.com (10.167.249.249) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.546.15 via Frontend Transport; Fri, 23 Oct 2026 15:41:00 +0000
-Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
- (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Fri, 23 Oct
- 2026 08:40:36 -0700
-Received: from xinmengs-dev-vm-linux.nvidia.com (10.126.231.37) by
- rnnvmail201.nvidia.com (10.129.68.8) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Fri, 23 Oct 2026 08:40:34 -0700
-From: Simon Song <xinmengs@nvidia.com>
-To: <dakr@kernel.org>, <acourbot@nvidia.com>, <kvm@vger.kernel.org>,
-	<rust-for-linux@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
-	<linux-pci@vger.kernel.org>
-CC: <alex@shazbot.org>, <jgg@nvidia.com>, <yishaih@nvidia.com>,
-	<skolothumtho@nvidia.com>, <kevin.tian@intel.com>, <airlied@gmail.com>,
-	<simona@ffwll.ch>, <ojeda@kernel.org>, <alex.gaynor@gmail.com>,
-	<boqun.feng@gmail.com>, <gary@garyguo.net>, <bjorn3_gh@protonmail.com>,
-	<lossin@kernel.org>, <a.hindborg@kernel.org>, <aliceryhl@google.com>,
-	<tmgross@umich.edu>, <jhubbard@nvidia.com>, <ecourtney@nvidia.com>,
-	<cjia@nvidia.com>, <smitra@nvidia.com>, <kjaju@nvidia.com>,
-	<alkumar@nvidia.com>, <ankita@nvidia.com>, <aniketa@nvidia.com>,
-	<kwankhede@nvidia.com>, <targupta@nvidia.com>,
-	<linux-kernel@vger.kernel.org>, <zhiwang@kernel.org>, <zhiw@nvidia.com>,
-	<boqun@kernel.org>, <daniel.almeida@collabora.com>, <tamird@kernel.org>,
-	<work@onurozkan.dev>, <jgg@ziepe.ca>, <bhelgaas@google.com>,
-	<kwilczynski@kernel.org>, <dri-devel@lists.freedesktop.org>,
-	<peter@colberg.org>, <xinmengs@nvidia.com>
-Subject: [PATCH v2 03/12] rust: pci: allow drivers to manage DMA ownership
-Date: Fri, 23 Oct 2026 08:39:58 -0700
-Message-ID: <20261023154009.2246627-4-xinmengs@nvidia.com>
-X-Mailer: git-send-email 2.43.7
-In-Reply-To: <20261023154009.2246627-1-xinmengs@nvidia.com>
-References: <20261023154009.2246627-1-xinmengs@nvidia.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=DAJ9Z8yE
+Received: by mail-oa1-f42.google.com with SMTP id 586e51a60fabf-499f20c7054so591665fac.0
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 08:40:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792770057; x=1793374857; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=o1wKXpk8uaU69f7z5em398pZg3Sc//6UJ87r/eL+V6g=;
+        b=DAJ9Z8yEtaq0BPZ6unE64Trh3XDNZCSYilPyb3X4iAKNyWcJRRd4jOi0kTpAbdiJf8
+         rM2C4u5iS1IUBNC62tP98vNNvakBq6qpiXXTKaHygQGJnQID9feSq4MQr4KCrZPYRd07
+         4ck8s6H3X8SyoulVTL2hzltRMX0S03aA+H78SfP4hKkVTQsc7+4DgovqJ32IPmQYiKAZ
+         U5Cgz8ovqSllQjjLTGBDCdpPNg2y6fYbsrff67RjK+dWI22hZhIGnFgrO8c/9W13PGzd
+         9KkXnejOWBcyX3dpGAK5Hxc/NMHP9kd6xQzAtlb5Ex83jNwOMjAnrjmSA+5qNeRTlK/u
+         Kd9Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792770057; x=1793374857;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=o1wKXpk8uaU69f7z5em398pZg3Sc//6UJ87r/eL+V6g=;
+        b=BL7gadAmuHJkuRSnrJUU53rlzlM+C7v9iboy6nJhV2PhSFz0lwrZMROAPG9T8+FIq3
+         RusYn+gLHtECeTJjy/y0xdBXXtAinOXmkt/t1iBXrSIUyDaequ2zul8xm2G+8oiT2qzX
+         j4kg99ZCbLMdSYpJUvOlLXw9dJ7d7X43Hip7VmsCnU3rNj+22SsnmLmpoVKyPO79czqO
+         fZI1FMQPZv3IxEVYh6dYG4c4kbNOj3xYngVZaJSxovQaEblje8gCZw1dnSkQ51UbLDTT
+         opBckarjX3t6EDXB46I3Y7OP/B1RFNHzWw58mpk3D+PVNhcYBq8vHOVCemZgyuml838a
+         DaCA==
+X-Gm-Message-State: AFq9FYI9en7xXl6phY0Oo4MkdftWutTjQnf/dN68qaKnJFitsNcpvtw+
+	vM7sBkWqmctQkKs11UuAslGsPL+tYulatyr4IJrA8qyATH1RZP0jxn2D
+X-Gm-Gg: AYBFou0cA8OC+dyqCTiv1VYeFzGDjynhuD2x6JbH0of4VSGtItiKCZZVOTo0PZhH4zA
+	o853y0Qz8OgeNvM1N6r9Rz03OclRorQLeLJVjoHwh+0b6zn9RGVfS8zdCHyACOu/EqfdMB+ESr7
+	6pWO+Fnka3PunujrqXkwoAX0+c264L1QWb91NyvDlkfSpb91GCKRnkwXziWS2/K1eM5CNjBKwy/
+	X7+Rt4LKKB3xj8lcsn4vcfSDBgteyD04AgUULXfpcWFH+h9wTO+TExhB5BiAsS76gdP6yoHRXbk
+	HjlNLB6NbP+yG6VmCfZCTLgkh6JdW15f61vvcbG9bNQ3kwLa+hi4hc379nH3LZQT8m6IJyXK/ZM
+	4X0ZFWBygfVHmdj00FM2bLVEBXQfptuHgE97aKmdU6T/CzLF+Jy6Q5lfh+Pdp31Q5XUgzACnfEg
+	18H47qhI/97ituw21zeEbGHFENFTWrfBht7SZpCSp8iyH1m6JJiVJYPAYjQfDi1W0wUW165jCNG
+	pKKPmCcTwgtDWKuZhEqlc6mHknpzbCZo3sPN6ZzK72YljFpPJ1ezBAkU/TK1P/pwfSdA86fokx0
+	DLIUt2VoGuAC64JJSRPVk9SmDXMukCHah6269DEgAagwHAiELHAaL9P7RQbkoSeZXoVAB1jMOQm
+	iJClk2+tfmNoXdhw5/pCHchkVq7493F/jDjhwCArjrLQrytteeZVO6xly1FYIGHJeZ6D6zZX3Bo
+	uw0RN2V5IwvX9PqX/kWiLb6KDP
+X-Received: by 2002:a05:6870:252:b0:4a7:41a2:c208 with SMTP id 586e51a60fabf-4a821efc9e5mr1621601fac.8.1792770057105;
+        Fri, 23 Oct 2026 08:40:57 -0700 (PDT)
+Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4a838287e9csm351794fac.7.2026.10.23.08.40.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 23 Oct 2026 08:40:56 -0700 (PDT)
+From: James Hilliard <james.hilliard1@gmail.com>
+Date: Fri, 23 Oct 2026 09:40:50 -0600
+Subject: [PATCH v2] serial: 8250: calculate TX length before preparing DMA
+ flow control
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -125,74 +92,73 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: rnnvmail201.nvidia.com (10.129.68.8) To
- rnnvmail201.nvidia.com (10.129.68.8)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF00018860:EE_|DS6PR12MB140904:EE_
-X-MS-Office365-Filtering-Correlation-Id: 424304c6-555c-4f80-955a-08df311c0a0f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|23010399003|7416014|376014|36860700016|82310400026|261021121427099003|56012099006|11063799006|261009223027099003|10067099003|18002099003|22082099003|261022105027099003;
-X-Microsoft-Antispam-Message-Info:
-	T4h3fNZOLgbfLwZ+SPBROaUrpgfXCTi22YdPCL2Pwrh65IFm8jAsVXOre0e6h+rvcYPOuIDi3aScdcgQ1+/+Uhk+AcaSVNx8gKk6MofThIEV188Gx5nlLDzPyXwOKMZ55AmIDgNo9lj/WCItFdFZNjxGyzUns/xVjCudut4P0uD5lFuof8jTE1HPYhSCNHR7Wf6oxCp6E7tsy2t2DdM+hZCsT72VOVJ3UEYrUDLLnsgc4pPpHY0JpqBqRJRLntZSajE9YlKX564xTEUKTcZHcJbIJBAW4BBQwYPcfV1XqYh3vb4EiRkryiNfT4Gl4c3fvkTIMfqBfQLM/lUtdOiCBp1FKJ05iXuo1DSldRi+BkvuevqR4udhvGQ1EN9e/IUsVintuIlCaBsHeieF5XYBEkcql259uKbrf9oZj6X4KhGVJRq0nToVxCp2r/Ab+PljhiujErH88tLdTckCOMrN1fBAAtgRpTVyDHjZ6UwJ9N8pBqMBecJdAvuqmecN7iGsNrFlr14Ln2JIne9avim5neuVJsVRjSFJkMn4esTH+b+VwJji3X0FLm6XJt3SHXzn6YJ/OXCchZMWCAOPJEnYaBBogUS4Ml6uzEeOZRIebk/NUz4qssV8Po7m5Vz4n/SRNF2s0h2RXbj3OQrV/DAfbm4h4VZOEX2JqCrE17yKkbWHcxiR5+nDt74aZMhzwcU3s9YLMQJtyTDVEhIGDeui0Q==
-X-Forefront-Antispam-Report:
-	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(7416014)(376014)(36860700016)(82310400026)(261021121427099003)(56012099006)(11063799006)(261009223027099003)(10067099003)(18002099003)(22082099003)(261022105027099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	d7lepq/zECbr4FZrOIRPOTlR3OVgVtcGQuQZ7CU5Silf8RLkGUy3D8v7i6PXCdUrtJu0L1E4Ym07/0ByOllD7Rvyp/xZijNELjGyxRwV5pa6Ue6qTLvdkaOOcTOyzpwxe4s0LCyN+JL8Au4GwleXDWm2BOyVlJV7yE6lQRGED6l9WW6Eez0IR5uZiOAS4LYkLPwm+5XNCC9QVjgs2zhxvIX9oyyEvBqOt6fsI6re90sJUFO42Lex7ACC2Blb7WkZvXVxd7zDAhMavgzYwjjp2IIWdf2RKpp/mtriysES0555E03F853HgrmtSLqY4hJwrOeDM/yCrwVJ6bPzXnoQRu7U8ztC/F2pp7NW3V6lCuEYwA5Cqtg3PypUlGGJL6OhDpujwrXgXcos1d9Ltu9KcZvy9h0x0agJ1bkjW+Austsh776MIgdbz0RJqkEtFgfw
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Oct 2026 15:41:00.6872
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 424304c6-555c-4f80-955a-08df311c0a0f
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CO1PEPF00018860.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS6PR12MB140904
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261023-submit-serial-8250-dma-tx-length-v1-v2-1-c3106ef4d2df@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/5WO2w6CMAyGX4Xs2iprIgevfA/DxRiVzcAwWyUQw
+ ru74ROYthd/D1//TQTyloK4ZZvwNNtgJxcFnjKhjXI9ge2iFphjIXNECJ92tAzpTA1Q4TWHblT
+ ACwzkejYwS2ifBZZYVhJrJSLp7elpl+PLo/npiHmR5oROG60KBK1XTpvUYl4vscDRwmlsbODJr
+ 4fLWSbMf4Zixqg0aV3VKq/rez8qO5z1NIpm3/cv81FP/gcBAAA=
+X-Change-ID: 20261022-submit-serial-8250-dma-tx-length-v1-bf627278129a
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Jiri Slaby <jirislaby@kernel.org>, Raul E Rangel <rrangel@chromium.org>, 
+ =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+ Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
+ Miquel Raynal <miquel.raynal@bootlin.com>
+Cc: linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org, 
+ stable@vger.kernel.org, James Hilliard <james.hilliard1@gmail.com>
+X-Mailer: b4 0.15.2
 
-From: Danilo Krummrich <dakr@kernel.org>
+The Renesas RZ/N1 preparation hook programs the UART DMA block size from
+dma->tx_size. The generic TX path calls that hook before calculating the
+length of the new transfer, so it programs zero on the first transfer and
+the previous length on subsequent transfers.
 
-VFIO manages DMA ownership through the userspace IOMMU interface. Its
-PCI variant drivers must opt out of the driver's default DMA domain.
+Calculate the scatterlist length before calling the preparation hook so
+the UART flow controller and DMA descriptor use the same transfer size.
 
-Add Driver::DRIVER_MANAGED_DMA and pass it to the PCI core. Existing
-Rust PCI drivers keep the default setting.
-
-Signed-off-by: Danilo Krummrich <dakr@kernel.org>
-Signed-off-by: Zhi Wang <zhiw@nvidia.com>
-Signed-off-by: Simon Song <xinmengs@nvidia.com>
+Fixes: 1788cf6a91d9 ("tty: serial: switch from circ_buf to kfifo")
+Cc: stable@vger.kernel.org
+Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
 ---
- rust/kernel/pci.rs | 4 ++++
- 1 file changed, 4 insertions(+)
+Changes in v2:
+- Correct the Fixes tag to the kfifo conversion, as pointed out by
+  Miquel Raynal.
+- Add Cc: stable@vger.kernel.org.
+- Link to v1: https://patch.msgid.link/20261022-submit-serial-8250-dma-tx-length-v1-v1-1-18cecc89a099@gmail.com
+---
+ drivers/tty/serial/8250/8250_dma.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/rust/kernel/pci.rs b/rust/kernel/pci.rs
-index 10864ffda4e..a156927e23d 100644
---- a/rust/kernel/pci.rs
-+++ b/rust/kernel/pci.rs
-@@ -108,6 +108,7 @@ unsafe fn register(
-             (*pdrv.get()).probe = Some(Self::probe_callback);
-             (*pdrv.get()).remove = Some(Self::remove_callback);
-             (*pdrv.get()).id_table = T::ID_TABLE.as_ptr();
-+            (*pdrv.get()).driver_managed_dma = T::DRIVER_MANAGED_DMA;
-             #[cfg(CONFIG_PCI_IOV)]
-             if T::HAS_SRIOV_ENABLE {
-                 (*pdrv.get()).sriov_configure = Some(Self::sriov_configure_callback);
-@@ -345,6 +346,9 @@ pub trait Driver {
-     /// The table of device ids supported by the driver.
-     const ID_TABLE: IdTable<Self::IdInfo>;
+diff --git a/drivers/tty/serial/8250/8250_dma.c b/drivers/tty/serial/8250/8250_dma.c
+index 1da605cc8601..2dc47adafec0 100644
+--- a/drivers/tty/serial/8250/8250_dma.c
++++ b/drivers/tty/serial/8250/8250_dma.c
+@@ -110,8 +110,6 @@ int serial8250_tx_dma(struct uart_8250_port *p)
+ 		return 0;
+ 	}
  
-+    /// Whether the driver manages DMA ownership instead of using the default DMA domain.
-+    const DRIVER_MANAGED_DMA: bool = false;
+-	serial8250_do_prepare_tx_dma(p);
+-
+ 	sg_init_table(sgl, ARRAY_SIZE(sgl));
+ 
+ 	ret = kfifo_dma_out_prepare_mapped(&tport->xmit_fifo, sgl, ARRAY_SIZE(sgl),
+@@ -122,6 +120,8 @@ int serial8250_tx_dma(struct uart_8250_port *p)
+ 	for_each_sg(sgl, sg, ret, i)
+ 		dma->tx_size += sg_dma_len(sg);
+ 
++	serial8250_do_prepare_tx_dma(p);
 +
-     /// PCI driver probe.
-     ///
-     /// Called when a new pci device is added or discovered. Implementers should
--- 
-2.43.7
+ 	desc = dmaengine_prep_slave_sg(dma->txchan, sgl, ret,
+ 				       DMA_MEM_TO_DEV,
+ 				       DMA_PREP_INTERRUPT | DMA_CTRL_ACK);
+
+---
+base-commit: 1184f87e2790e8af9be3116f608d2e86b4792d7d
+change-id: 20261022-submit-serial-8250-dma-tx-length-v1-bf627278129a
+
+Best regards,
+--  
+James Hilliard <james.hilliard1@gmail.com>
 
