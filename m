@@ -1,98 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.99
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792798664;
-	b=gyPaiStRob7/IrpnQwQxHjvmoU2TApRASQZUGiZqv2ALXfO7MfTFHzB086nSIg6d0IXX
-	 wx2LhULAIBi5jNLkr86+Rq/7bYFl3dFnfi7epyPDBp1nwAQKf3zu8vtbW7wqF2av9uIiL
-	 BUw44rb9r+XZ7Bv9OOToO5kKS5z5v8ukLLUjkegpOM6svQVRfwrusFNLQC1S5PhR+eBrV
-	 GztKotly9WpI4DHn8E5MXwHGFnl54ULxmANUFoQynzNMcBMBymxhYsRSlGomTzPWRFczy
-	 Aa+l0BS53VtFHn9W4vI+u/umK9HrUFRUqJnHAs0rsjPKmqL9XTJP24XplBoBiBhvEDg==
+	t=1792798712;
+	b=PzBkGpm43ucO5Awq4iHfTjvTc8KZe28Nw/B1ivZhbR6uqf8hK4dEWHyMVFMqMGWsmAPl
+	 OR1HBHB752OLql6Fr4/qFIQvJQ38UFMzCjQZVtYTlUOPQc27O7f7hWSsD3M3HbbSUnro8
+	 7wvEJAgAXkl12o5buQnHNV7Szn9Rn8/9I0stY8gAKXc+e+O8WuCHSbBbs6qzHH4mbiPCv
+	 53iiPc/ua4KgUE5ya4r1S70E6dz2pj0dlD0beVDtqKwEeW2reJbd4Dz/RbohMzQCrW8+b
+	 gCrcydEuKr/2/Ew3wqFymXOeO3naP4eYQ4hl0XM9eQyHJfb+NI63Ra+0M7lWIr3SlLQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792798664;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
-	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Received:X-Received:Received:Mime-Version:Content-Transfer-Encoding:
-	 Content-Type:Date:Message-Id:To:Cc:Subject:From:X-Mailer:References:
-	 In-Reply-To:X-DetectorID-Processed;
-	bh=iS0JVD+4MBOlIwUianlhvazrunPmJQvwkktgIZspJ6U=;
-	b=aUXyeJxueUYgPNHoBfnJiQpnFhVsgm9NXMNxNswkiaNlKzd2w6oIEqTEsIzvLbEcoqgJ
-	 aMuER0HXi18buG51rV0b8BpoOerNU+OsQk/4Vq2WTH7EcHVRdOFKraX8l1NP0e4g7QHpe
-	 a9rrUh8g4G9h29uym1XsyYPlD5P0M5Rrkc0D9mP083DuOiOYZDOA8bI4fG9TKqfvKQZP0
-	 konb01O/t9wLnkklhG14Ddd+T7TtgT4C3HgVI7TU/QhzpWlSa0okaxzvgvBGJZsEyJacc
-	 yWIPR5fIn3y3CPlRrkekdHO6XvgOikizD1ttn11SQv0zCBd9v9CqaLYUyuTjOpdC8yw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792798712;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
+	bh=5TT2qKFHVhSy1i/+TLyLe7Zn0Ot6zl7si4UQtRA1syU=;
+	b=QOXA47TA2S+KQiAnRS9u6TLWzA/3Qs97xhh+ASNKE3ORKdXG/OvzRdVWXimQDEABiFer
+	 7UaCLpkmqMUzocuZ69OiMPJA2J/r8twNn0BIT/WA8Y8D22x0mM2b8Vfuwv/fm8MiOOe6B
+	 rY6kvq3sI4deTKbHCB4z1tpzv1e/Q+hau2M03Bll+eE4fUF/lcdUBDIeE5LLFYKcFjKs5
+	 dW0XlR500/+FoxmW+SX2Q09+Gbn6Iv3IEdTgO5R2o9bv4h0b/vp17I/+ZOCdOYTR/l1gb
+	 WlRsqouWiajmB0v0dp5nt3oK0j2XQfTnQKdLul2d9WYrEPz48t4JDsb5F6XsOgUQKIA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=broadcom.com;
-	spf=fail smtp.mailfrom=broadcom.com;
-	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=EirT0IiE;
-	arc=none smtp.remote-ip=209.85.216.99
-Received: from mail-pj1-f99.google.com (mail-pj1-f99.google.com [209.85.216.99])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=pr78gAlz;
+	arc=none smtp.remote-ip=209.85.160.46
+Received: from mail-oa1-f46.google.com (mail-oa1-f46.google.com [209.85.160.46])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B187606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 23:37:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7B187606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24023606A31B
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 23:38:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 24023606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=EirT0IiE
-Received: by mail-pj1-f99.google.com with SMTP id 98e67ed59e1d1-3ac677668a9so1644416a91.2
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 16:37:43 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792798663; x=1793403463;
-        h=in-reply-to:references:from:subject:cc:to:message-id:date
-         :content-type:content-transfer-encoding:mime-version:dkim-signature
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=iS0JVD+4MBOlIwUianlhvazrunPmJQvwkktgIZspJ6U=;
-        b=Tv/6ZqV5OiRwOXdY4dcWN/aR+GcQBt9erNgg4VkdzMy6fchaEad9BHGtvzR+Nteg1J
-         Eeo6bvC6UNWVIxijaOsAA+N1bjT2IRiFwhJlE1wppBXZOQndnOFKLcv+l0bR+kHJo68J
-         UkDxIZvNtuh8lNeYLvGSy9W+JHc56iH9R/3yzw6K0eCTD7U+tOvWqAWwUW0Ko/Jrj0Aw
-         qdfaQ3YHfGDZwXkLmsjcb0XVsCoJZ+TcIdd55vzs0gsOQ3qOWTMsbQ8xEAsIFGPCsNzb
-         rtARjzJvOGtS2K8vGSjf7ce5UfhBGHvtF6aFs12+lpg82DoL2lQWtKjMHGcr0fqPl9ON
-         Uepw==
-X-Forwarded-Encrypted: i=1; AKwUvBxFDtiZLJYDBDEF8/YJVNePRvdkQJp5xqGIETEeaLxqZEEsh1fWw3gq5Hx/fCGb2QGD5ACv5wEhaYzOQwk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKLQlsZzz9zWwmeIakhfHPRdvCLxAKu04GzSl8Mw09W7HMrpHF7
-	yrAnhr/bD4sYDei9K9eo0LEGseh9GbjVWYx5KL8/QZZI77MeBpCBEsDwF8ELRspJ0+A7thQiHFU
-	SfRYiIkLZwFjAJihmREV+dWplGhICzZgTywFqNbE7jz3rdvf5lcmwxH/T4z7w+1FdOzN7I4YXR/
-	T/e1XVO228FQAYrua18xMDEBN3KnhoGfsBrfRgQbVNZ4oLD4sWJnR0kHpm7MPXQE9jHCrjr96LK
-	CxIbypUfNYAiGL10ccxRF+9
-X-Gm-Gg: AYBFou2K5IuHUI+W20KC6+G3dZG7f2c0if2ugJTTUGsEoZE331DfcRqy49fU4KHhnOT
-	C69JIzD4RA1v+77DvEfZ3ob0TvG8Z9vPU1/mNN13xnTMuL64lL3oF0GLwSY1v/GuG9PO36alm28
-	BU5xaH5qBQlMhMO527VZ/MZHre/K8I1G6ykl8bsZco+qx45Q80EqtDYmjuLu2WYpUpV03+z1xZn
-	WD+0rK+kxa01FaBiznx5q433QwMdBq5vXGUt+i8ktcDhikEAziJlny2t0+3ZOs9vFfnSB1wl8oP
-	/Mck9bvzZbi1QtWVPPsCW4DMrUa+AgCSVEy5eYFJ4DsYwwguf5wy8XExVxk4G227Bx+lZ5J66D2
-	esVndPYcxotmzGQE6etxXJ3fEnkHr+/JB3BdH+gsqEEjOJw/1tHdyPhMtDPSYb/X7SsLIFa+J7q
-	F0UT47c/338UySA3ycSPs6iWv+kyObtEpHGJhElq7Y
-X-Received: by 2002:a17:90b:5210:b0:3ac:83c1:2c0 with SMTP id 98e67ed59e1d1-3adeafaeabdmr540109a91.64.1792798662651;
-        Fri, 23 Oct 2026 16:37:42 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-23.dlp.protect.broadcom.com. [144.49.247.23])
-        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3adebaddeddsm222791a91.2.2026.10.23.16.37.42
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Fri, 23 Oct 2026 16:37:42 -0700 (PDT)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93c5ab5c136so226765985a.3
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 16:37:41 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=pr78gAlz
+Received: by mail-oa1-f46.google.com with SMTP id 586e51a60fabf-475920b9ca2so551922fac.1
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 16:38:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1792798661; x=1793403461; darn=vger.kernel.org;
-        h=in-reply-to:references:from:subject:cc:to:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
+        d=gmail.com; s=20251104; t=1792798711; x=1793403511; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=5TT2qKFHVhSy1i/+TLyLe7Zn0Ot6zl7si4UQtRA1syU=;
+        b=pr78gAlzIXC2FbL8sNXrCmDIy6hbfD5+knzM2ksncadeYNbBT+mbUxTIsKetSu2pkp
+         nm+3OiY2AXnrd1DBeSuwR2KtTDvgbnY/0xOlSdXDYnvi2lw3YQvjbD+lJkrR4s9ILHIS
+         F3ZhBMjLk8pMlfASxX2R7+HF8Vhub2/7/x8jQwaREFdoPw0ftZ2ohtdy+72lR81qU6Tq
+         lc5GxvxDeUPBFYGMcnNtoijA6+zEL02Y/VmMKokouG48V5/jqSZYKyU0oAOvi1BBgx7z
+         AKFCp3yKeiRZcw3k9wHkst5PZ8i7fMbcCqZvfHLTwz51ft+/6MtFjK0X0rAA5FMImT+F
+         j9yw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792798711; x=1793403511;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=iS0JVD+4MBOlIwUianlhvazrunPmJQvwkktgIZspJ6U=;
-        b=EirT0IiEb9ca6mDzEasUdI6t+xRROVZPkoGA1OuomFKgvOhdQ+uHWd+5kuXbEfU91P
-         XqPWQdDwZfJgY9E5fpsrvprEtuwVWWz6ekjAUk+4ltPhJvifMfGrG3eoU6be04Trmsh4
-         caAoWMD7qKN0rw4fquiEFnN9KnI68WNqINfbo=
-X-Forwarded-Encrypted: i=1; AKwUvBwj/5MiY9xSuJrKYmqxU80kfYs2+Mtn9IlVcZkVsEbu+Z9wGLQwcfNiwmbXbuGyq+ySaeacEF0kBCGZgc0=@vger.kernel.org
-X-Received: by 2002:a05:620a:4441:b0:93e:e1fd:b87f with SMTP id af79cd13be357-940ef9c9453mr86401085a.83.1792798661323;
-        Fri, 23 Oct 2026 16:37:41 -0700 (PDT)
-X-Received: by 2002:a05:620a:4441:b0:93e:e1fd:b87f with SMTP id af79cd13be357-940ef9c9453mr86399185a.83.1792798660844;
-        Fri, 23 Oct 2026 16:37:40 -0700 (PDT)
-Received: from localhost ([192.19.50.250])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-940f066a5bcsm37558085a.13.2026.10.23.16.37.39
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 23 Oct 2026 16:37:40 -0700 (PDT)
+        bh=5TT2qKFHVhSy1i/+TLyLe7Zn0Ot6zl7si4UQtRA1syU=;
+        b=NEGeaCEWJSj4eieVnoLCnkMg97bbILrcgpoT4f2MdA+OnWmjyNuPq7LuIbVwP2S5Qd
+         fzZcxRndEP5qxifZhSCuaw5ODGpSKc7Jh1S6e8C1Id/uuxJ+GPWol2LB368IiqeLLegk
+         hJT7kAcUaxFnjHruvqV2BG0uwbuTJn5C8XEec9LMovEBByNAgCbcRaBKWQOSdmke+VJ5
+         WS+v0gUiQ5DfhPLQpdDapmNnwgBqfmFDdv9e2k7xxGQqA5O70FPAJSXST5PqNspBL7Qh
+         lZUxxvZwv80QvTIOxmL7HXb4ogOrNrIBmKdgOiYjZD9x0CuEefn5pj+7xh26FXc/GK5x
+         /BsQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwrLm246+PI7W4LpjX7NqiMmqsR4gjzVvsGaRwyp+PevJ11/hwTaztwqSbeeoVRWUTvxOhflTkb+WLmW1E=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIhHzX2BsBK2EO9RnAtvHkVK7SUKgNUq1CV+5oQbmsXkIi5VIjg
+	9Qo1VEA3Gar1Ui78YUmKNVIRZDs+0SNCdoq0+ZXCsMWcIL47NKKjtt/FxHnI0B5+
+X-Gm-Gg: AYBFou29zyAXF1mUGn7zJscY/FC7Va88IYHo2AotfjMI5NTXIuWZPd6gcCXYzBqRWIJ
+	2I7UDqHwDrVQTe4eoReKzlQP6YqNc9XO/nMh4ptC+BDCUBQ+kGNtb+pedOd2O9CdwU8UHLzpLDn
+	SRJM+fnnv3QVZ8ULqJrAgzvRXXawIPX0twNxXqvgWNDtJd8D7GMgmK1pjCsh88HIjsdoZLfGEsf
+	69tekM1uQdkqU2Cv03CTlfyi1moynIeWjbEFYlwGNk726UwR2Ro7YhB3gADJtGEbaDX117VvNzU
+	bfHVL4cQAXfZySCZW2n+rDS9DRv7LxOt3WfxRVL+1PJ7cRYq4dBuQs+rLCWZEqzBD2wRPYjY/gr
+	M0owzB4CnwHvBnlMKGwWbE1Vbzqb3DmI4EktuoKmkcLfQQVYOLDlZsATefsRjdRM6Hhwr9YRMhI
+	ZoaptpGssSJp/AmbwNojkK1/zKxyG9M2TKHLBiQt1MoxXuX2a5J70ExSpJO/ZVOURiASBr9CF/u
+	/3yOWxbX2B/iUE7AcOvGQFhniJTRq3P2M5X9SDBwPJzdBlrb2I30TD62cAchqnqzInYwzuhs6AH
+	XzOF3TBrSvCcrhxfoeePesZlz0dCpJGxOvBZl0eJjDjTIBRsBFfbBmV6Tg+2yJ5ZecalDpD1u9e
+	goxU1CVasoCJX60/gNM7QgC0XzAqWFFaPIIcO/4W60mNCdMTqKTO+o5hrBgm58YjBrW4B1AKB11
+	4g06kJ
+X-Received: by 2002:a05:6870:71c5:b0:494:a88e:3ec7 with SMTP id 586e51a60fabf-4a83f5ecc73mr613357fac.39.1792798711052;
+        Fri, 23 Oct 2026 16:38:31 -0700 (PDT)
+Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4a843225d69sm284345fac.15.2026.10.23.16.38.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 23 Oct 2026 16:38:30 -0700 (PDT)
+From: James Hilliard <james.hilliard1@gmail.com>
+Subject: [PATCH v3 0/9] dmaengine: sun6i: fix interrupt routing and channel
+ lifetime
+Date: Fri, 23 Oct 2026 17:38:19 -0600
+Message-Id: <20261023-submit-sun6i-dma-lifetime-next-v1-v3-0-ef1acb0be768@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,33 +93,96 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 23 Oct 2026 16:39:02 -0700
-Message-Id: <DMCM449DWDHV.1U5UYOS65HWUW@broadcom.com>
-To: "fausten" <yunfeng.li.nb@gmail.com>, "Zack Rusin"
- <zack.rusin@broadcom.com>
-Cc: <dri-devel@lists.freedesktop.org>,
- <bcm-kernel-feedback-list@broadcom.com>,
- <maarten.lankhorst@linux.intel.com>, <mripard@kernel.org>,
- <tzimmermann@suse.de>, <airlied@gmail.com>, <simona@ffwll.ch>,
- <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v4] drm/vmwgfx: Treat zero SVGA_REG_CURSOR_MAX_DIMENSION
- as unset
-From: "Maaz Mombasawala <maaz.mombasawala@broadcom.com>"
- <maaz.mombasawala@broadcom.com>
-X-Mailer: aerc 0.17.0
-References: <e84774ae-b49d-4df5-923d-ae2cde480aaf@broadcom.com>
- <20261023090121.5031-1-fausten@ebizmis.com>
-In-Reply-To: <20261023090121.5031-1-fausten@ebizmis.com>
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/5WQzW4CMQyEXwXtuany4zhZTn2PqofEsSFVd2l3F
+ 0SFePcG6AFurRQpGsn+xjOnbuap8tytV6du4kOd625swj2tOtqmccOqlqY7qy0aba2a93moS/t
+ GrKoMSX1U4aUOrEY+LupglHfkjI8CEUzXOJ8TSz1ePV7fbrpB3pmWC/h3YuKvfTNfbmNdTjMr2
+ g3Nar1KIp4xhSCEfQoEvbaAgL4HXUwEa0sgdDeztNC23bxeFXR9BAgIISVdctba58YphDn1yAi
+ WJUV83BIMZCSWWHrWBojQa7HiGiYiWnCaXA4hP25Fb20MsQgwFZBmFUiKa5UZ53tGzj4mw9Jd8
+ m/rvOym72vlB3ON+49229NKGx29YATq5WUzpPrx3Mq60g/2nuj+QrSNSC1uIALIEu+J5/P5ByH
+ 21fMkAgAA
+X-Change-ID: 20261022-submit-sun6i-dma-lifetime-next-v1-53c3158f4841
+To: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>, 
+ Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Samuel Holland <samuel@sholland.org>, Arnd Bergmann <arnd@arndb.de>, 
+ Maxime Ripard <mripard@kernel.org>, Jens Kuske <jenskuske@gmail.com>, 
+ Jean-Francois Moine <moinejf@free.fr>
+Cc: Hongling Zeng <zenghongling@kylinos.cn>, 
+ Chengfeng Ye <cyeaa@connect.ust.hk>, 
+ Nguyen Minh Tien <tien.nguyenminh@embeddedlinux.blog>, 
+ dmaengine@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org, 
+ James Hilliard <james.hilliard1@gmail.com>, stable@vger.kernel.org, 
+ Frank Li <Frank.Li@nxp.com>, Sashiko <sashiko-bot@kernel.org>
+X-Mailer: b4 0.15.2
 
-Hi fausten,
+Correct interrupt routing and serialize physical-channel ownership across
+allocation, completion, pause and termination. Keep paused virtual channels
+off the allocator, drain completion callbacks before releasing resources,
+and associate cyclic state with the descriptor that owns it.
 
-Sorry for not following up on this patch, I did not get time to do so.
-Will get back to it shortly.
+The first patch carries Hongling Zeng's physical-channel indexing fix [0],
+adapted to the configurable interrupt-bank size introduced for A733. The
+second handles partially populated banks, including H3's twelve channels.
+The ownership work is split into lock ordering, physical-channel locking,
+completed-descriptor retirement and interrupt cleanup. Pause bookkeeping,
+callback synchronization and per-descriptor cyclic state follow separately.
 
---=20
-Maaz Mombasawala <maaz.mombasawala@broadcom.com>=20
+Based on DMAengine next at aff5e6a77fc6, which includes A733 support, with
+the posted IRQ-safe locking fix [1], channel pause-bit fix [2], and the
+virt-dma synchronization helper from [3] applied first. The synchronization
+patch uses that shared helper for the sun6i device_synchronize callback.
+
+[0] https://lore.kernel.org/r/20260706064123.66035-1-zenghongling@kylinos.cn
+[1] https://lore.kernel.org/r/20260926171049.841335-1-tien.nguyenminh@embeddedlinux.blog
+[2] https://lore.kernel.org/r/20261021-submit-sun6i-dma-pause-bit-v1-v1-1-38d286b69dab@gmail.com
+[3] https://lore.kernel.org/r/20261022-submit-mtk-uart-dma-synchronize-v1-v2-1-fdaef0e2edd6@gmail.com
+
+Assisted-by: Codex:gpt-6-astra
+Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+---
+Changes in v3:
+- Split the ownership patch into four commits covering lock ordering,
+  physical-channel locking, completed-descriptor retirement and interrupt
+  cleanup, following Frank Li's review.
+- Document why virt-dma still takes vc.lock independently of sdev->lock.
+- Check pending interrupt status first in the per-bank loop condition.
+- Link to v2: https://lore.kernel.org/r/20261023-submit-sun6i-dma-lifetime-next-v1-v2-0-c9e07cc44bf8@gmail.com
+
+Changes in v2:
+- Clear the active descriptor pointer before handing finite completion to
+  virt-dma, replacing the completed-descriptor pointer.
+- Release completed physical channels while their virtual channels remain
+  paused, and clear the hardware pause request before reassignment.
+- Keep the ownership changes in patch 3 and the pause policy in patch 4.
+- Link to v1: https://lore.kernel.org/r/20261022-submit-sun6i-dma-lifetime-next-v1-v1-0-01085f684c9f@gmail.com
+
+---
+Hongling Zeng (1):
+      dmaengine: sun6i: fix physical channel index in interrupt handler
+
+James Hilliard (8):
+      dmaengine: sun6i: handle the last partial interrupt bank
+      dmaengine: sun6i: take the device lock before the virtual channel lock
+      dmaengine: sun6i: serialize physical channel ownership
+      dmaengine: sun6i: detach completed descriptors before invoking callbacks
+      dmaengine: sun6i: retire interrupt state before reusing physical channels
+      dmaengine: sun6i: track paused virtual channels
+      dmaengine: sun6i: synchronize callbacks before releasing channel resources
+      dmaengine: sun6i: keep cyclic state with the prepared descriptor
+
+ drivers/dma/sun6i-dma.c | 183 ++++++++++++++++++++++++++++--------------------
+ 1 file changed, 106 insertions(+), 77 deletions(-)
+---
+base-commit: aff5e6a77fc69a7c490246465940d18422d7c631
+change-id: 20261022-submit-sun6i-dma-lifetime-next-v1-53c3158f4841
+prerequisite-patch-id: d6398447647aa0dbb005b5e6dc6ba96e642efa86
+prerequisite-patch-id: f67c1f8d8d9e014cc650f2f37648662430c3b77b
+prerequisite-patch-id: 8522878df4ecd4fb007cfd32611359e6eb58a1ef
+
+Best regards,
+--  
+James Hilliard <james.hilliard1@gmail.com>
 
