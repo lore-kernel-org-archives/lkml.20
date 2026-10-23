@@ -1,126 +1,114 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.177
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.175
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792792837;
-	b=xHYOtBOINkNpYkMeaw1GeZbCV4rJ5uZJL+SAR2HVdn2ohgxyjtYpTF+Ii1NumHHbs3Vj
-	 YWxJFIife/yVwA+bZ8L4O3S9//tMz4iPR3HPUvDlvgseFnWe1KQVjWKR6eQh2y742ZI5w
-	 V50Zc9z4oCpB4he5hd6KeNEd3w+je47P7EM3gGfOudUho51KyNVGojJltOA/rNX8ZznOu
-	 9rwc2x1AgGaqlDCnsjnwv0NiIL8qPmK8D3VF64phfwVR7TOHWH7sJNguRwSL8HgAd0B5B
-	 ePWiy5SFTq5ZCTbpxOJerJPTqKfG6HwEaCB1a47mRkfNP/AEJ7Rdlnz/ZVxrXuD5gyw==
+	t=1792792912;
+	b=qhTxposxdz+xMQ+GEjaI1zlwJZC8tOwG0Tb33YxiPzUAtFIc/yfIVZ2mp1RdEfCEBqWs
+	 CtrIX50QSoAj/c7oznZ0OWEC+jlGJDcwHBS8nVc4cEwWkgQJKL9BVV5y6drrrDGT7KU4Y
+	 u3vijBlnU14gTBDtvtG8KYx+gxtIwfUtAwMBafBM3ivTSerBv9IpplnOFc2xGol++vVxU
+	 jVWrLItBgO3gHbJekWT659ypZ3zEYNJzBmzEM6+jUQxC6f3Q7cWUrX/zHHL62CVr90QYs
+	 JfK0oToM6Oc1UFZtYkJJ5h53A5FfdSE8qRWdJ+liSXIbuTNb/XX+GCEFxkgOXnZ7o4Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792792837;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792792912;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
 	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=cEebfXd9IhliqLZGZPa/idiUUw956gBCSaHIyOjWMY4=;
-	b=yxcAg0CNzMsSKgl1aqKMoJDKM2TSQOCirLjYygPC0FMCgpk4g4W6+z5mChzhDICKdkEk
-	 xFEr34glYYUh47s4eKbsdR1jSyuf2cY4uwTY+2uatLU//m56E5LC7xKqNn8ZnLcCqqIn1
-	 ruOEM6pz9/RD7fExAscrNboynfLRqMwXXkAwvY/+DJjHqX3+0U/dlCgNDi1u7jOkZ9Tlj
-	 DjFD8LuGYetfGwou2tfiqGayOHFc45n5d1lKKteLJXa8v076lQTFEFo+2+0UwG5oX98mS
-	 lMdIFclttK8HCx+I67DGquPdzpO4g6VwKCfA5+G9PZsWAmpWJOj1cKoNM5/hAt6sZzg==
+	bh=7bRloCtYRc/1CN8Q7Hs9aasGSanwrF1DkhN4CIO4rT0=;
+	b=I5xNSMz8oYk1RO78iTunaV4k0cvVd/tIDWc7tdIoH5MZUxz5Z8x+6sZKZghFl14/mnKn
+	 VgL5L3QjkO9oUqX0cL5hnmz+hk0vxlu6pXg9CHgAzS0UNdUJ1YCr6spPlQLnn0XYPzOtY
+	 /M7x6biuKlVH1HpCtG0H1LXTOowvslUSl9QTQEHEPI6WykURQVYaeO5SMY8lZcFoCE1tC
+	 hrsUJPcTky8K2KDX/vecZqJsUg47bSiRAuYbcaoTH1L3GMF7P5qpVQoU8owdpxeCxZ+fu
+	 oncDpdSWnqqC8G9173pnT6Ku4LlGxaWkeQxsnorGH4I8SB2JZYw1B9reuuAPBEbNNvA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=ziepe.ca;
 	spf=pass smtp.mailfrom=ziepe.ca;
-	dkim=pass header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=DebmaaEh;
-	arc=none smtp.remote-ip=209.85.222.177
-Received: from mail-qk1-f177.google.com (mail-qk1-f177.google.com [209.85.222.177])
+	dkim=pass header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=H2Nk80SC;
+	arc=none smtp.remote-ip=209.85.222.175
+Received: from mail-qk1-f175.google.com (mail-qk1-f175.google.com [209.85.222.175])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F1E8606A31F
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 22:00:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8F1E8606A31F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE6EB606A320
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 22:01:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EE6EB606A320
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=DebmaaEh
-Received: by mail-qk1-f177.google.com with SMTP id af79cd13be357-93f3c89594cso88842885a.2
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 15:00:37 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=H2Nk80SC
+Received: by mail-qk1-f175.google.com with SMTP id af79cd13be357-93e4c00d71aso123549385a.3
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 15:01:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ziepe.ca; s=google; t=1792792836; x=1793397636; darn=vger.kernel.org;
+        d=ziepe.ca; s=google; t=1792792911; x=1793397711; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=cEebfXd9IhliqLZGZPa/idiUUw956gBCSaHIyOjWMY4=;
-        b=DebmaaEhn8gc7B/+10I4BtWRX84GcUFfvN5cW1HZ+OwUnRbsGGZ8GdvHKnd2CwBFva
-         C6DIyAs+cWbC99C6G+CqQksKdNGMW6Qo46dAlCd6aGq29InEfhijtxEzi+W0MxMzxVvt
-         srO914H0mQbUQi6/avNhXkcjH23PSbRWbZeZn7/nmwZHGsJ5xjklruBxszF/zdJpW/UN
-         44Xu5CqG/W7hA5QRInFCu1F31XmZq7TSOiFYu+KJ+se9R55UXjNPASWET8+0phlYqY16
-         FvK5vhjQPKKH2X+I7M8Qq2FtycaHtWvixnKOuplnLOELi+SjpB1kLXmD2vtJ3Q9S5UBA
-         LhcQ==
+        bh=7bRloCtYRc/1CN8Q7Hs9aasGSanwrF1DkhN4CIO4rT0=;
+        b=H2Nk80SC0IE0suPURnYr9e6hZbC4LBCNbP2UbticIu/vM5Zx8lZxl1WF9oIVeOGweJ
+         W19x63RIXk3jCkb/8AZ9w0/6q6ZaY29bsZqX8VJh3ACjKIAi6gixXOH39qqPhJV0UGZD
+         h9hrX7AQMBlOV6X6RgQiCpuKPLs0LqoIe0SH9hdfWiIr6eNHUZFFbT0I/kCisS92xxMY
+         Ucn1ZlEpvxoCWlvTmp2e0dWk4YFXYfROdABgbIgP0F4SF8jcDI2aMT5TzMY19oaj7RhQ
+         ktu/3+o+78VzxnRBhNe+IMPeqMjRjTTMOSsOLuA26L6BAOJT0HaC4+T4MRB1PHDXmGMo
+         Ignw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792792836; x=1793397636;
+        d=1e100.net; s=20260707; t=1792792911; x=1793397711;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=cEebfXd9IhliqLZGZPa/idiUUw956gBCSaHIyOjWMY4=;
-        b=JVuap5Z40PE2SGQJC2T3oU/H0oeJXh565QzRZyuoVHHR+VJoejZrfHZAy7KAcJafIK
-         m4v/jenlQSN1B4nObBqrx4DZPV2h0Z82YQeUqGtMfCQcpHAGE6FJSP/4XU0CrveRt3bG
-         Qk0+40gf0ODsAzKvTlsG4z/3Gotm9psoMrRo1lepknGqLfKUpAvsVqW3yZd1zwqhWyZD
-         D36GgyOkq9nAhTGPmTYTs5rjzeMQtkfOBcG8tLPK6wBBdxR2xMo1lJ8bwwmgDoaBwdA8
-         BsTLsIxBBQUcRhh59uBYEQ68gezwOEhlsLGOBVS2DiuxPimxyGuFt9n5GIQjVNmxsTCZ
-         orqw==
-X-Forwarded-Encrypted: i=1; AKwUvBxiPHHZqgQXaxcEf9wIN81oeCDnmex2rXoNO2PHgcdvgwqwTtknrc5+jUIJt0eKARiCCtBf52QNLk75+b8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJjBIvYFqZ7n75PLG2YJXGmHhjlfy0pYi+6+dxNxwr6lhiAYVFh
-	OPxlzehGGz0aW/oRCa1mvRKYrC8Amk5CWKG/MiMBeT/yfDz6XjD8tKEek4wf+JekjrM=
-X-Gm-Gg: AYBFou2tvdOs50LVP0NtJYie6M9xbLaaoUtlTRkFirsGhQ+0ClGwLKiB3lo8wBhE3OH
-	fnjiymTocpHuP1yHDW8aafRsZ/iLp/r5JzSMjTM9bR32+w7DgbJVSFNTu2EMbblJ7hgwE23TS4B
-	9DYFkKXfGpIVf/Bwzh9DIBG9g5BkKZWhaRqmJ/vLO7kcRV3vnmR0foOhr7qIE4QGr+SWJO9BobB
-	J8VWUKuUEe2DJ2hkiiJg4hr5EG+Pe27IShb1Hd8SqihhTrzszc7X7cwk0/N4REQ3yI5fpqXI0aa
-	haA5R/WVwP1Qonb6DdWZTn0fw1s34Yg2a1wy3ARNdI5U3T5OXQ7I3WyYU1JPC9mCRfIywUPImUM
-	Es8XG0NuRy0ng2xf8fSmVRZv4OS/Ov5VySH0VZpUgYMGk2SFc4krR09+i1dnm6Ta4BMhrO0mTGk
-	/KO9bRK/K69OeowR1aYHwaiefMws6HhjrbGb6w6Dv5d64UOdzpPF3IOt+Ed5Thx3JPNSOFBibB0
-	mIVBkwGeZwSIcSwAN38/jw7TRw0+3JNcPUvKNg1M9nuFmlDzxqbnI7/QqumraH4021u+2yCm1bt
-	ezLWi7++9RM90AXg1G7kva2nBrKBTUGsTHoS24/+xCteqVxs2Ia5/UdqrtkB
-X-Received: by 2002:a05:620a:27d6:b0:93f:57a3:71ab with SMTP id af79cd13be357-940ef93d248mr49492685a.32.1792792832337;
-        Fri, 23 Oct 2026 15:00:32 -0700 (PDT)
+        bh=7bRloCtYRc/1CN8Q7Hs9aasGSanwrF1DkhN4CIO4rT0=;
+        b=J0eU/UR9oiGjzlyzspsrHU0kHPFPTCzCopzxQJfOsZC+tN6zKzO1KMT/Urt5sMSCo/
+         hoSH6gI4BauFQt2WF6PIhrkj5HNcy4R5v/UJ6ehPkeAfYC8Spmd1IxvC4EUu0+9kc/Os
+         8g081Ecj1jF8wgWLM9yBT9dQBKMblkuH2+HPqIrP4rsNFB1Ps+99+k+xPSqNc7H8OqZy
+         zmX29N9fa5h6c82CdLasZb2eN10DWdWBFIQqQmui3lQS38P4AMn1Q83DD7spmQPv6t8N
+         8iTGO6XcVdnGsCizvpZE0aoQ148KGIqz+VlbQBF0eA72MSndicv3xW16oZXgHMJoJmAB
+         pklw==
+X-Forwarded-Encrypted: i=1; AKwUvBx0bwhuXwIpimHi7eKG1drQGqkzc+Y1M2HRUU4ZQmpM7B3MO7fxp+W7/QEY/JrMsWB5bHIwTTlXEmKZ6LA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJlpBTXVk845fDEim1/fXgKMVvGupGNNkPC3jGkmuOISU2U/2Me
+	dAH4SqIxV7BOzSGyiWBRt+8rTJD3tmNN2xttRaowJEXxKKpieEpCO81PFbhY5EjRbkY=
+X-Gm-Gg: AYBFou3Q5JS7+mr0sOWmbboOHLfRNW5KXQ8eJpzhhePHGyftd9Wu8CaQSxOcjKZmz9E
+	9N1wYLfohg5k0+1TCMTA26RPB9dX4NZYU3oZEtPex+F2OdYQNndpfzzap0rqs/l+umyn+m0JQJf
+	PHWuN84f1GifIZtr5sZC0h30gUfXxzzZIdqfS0USYup36SYoVr9GuvDR8YVWEjGFcyavfGFxyf5
+	by/4r4ZEzHU7RvESh6TB01lnxYJiC0ZB7cdCwVlD2mU7CRWzSacCh+keJB0IhHgDLLkMvo6Ev8M
+	si1bpq5tjcLWjCp/yPxTX6W6VaRLow+dwKYq4jTuIFSPnsSFVx/dF16jBvdISUZjCfMgq03F5aC
+	/l/Vi101o04JCVD7qfH1Om0jlmpTytCugN715A3LwL9IFGBXdYYvGDFEQheVWT0q0db/AVgbSfO
+	70KkkpcMB//ki8v8E05M1oF5D6gM2t0t8HKPNZtqSZwHE749olR27KHXhlOqGWVq/btanyJ7cRg
+	qSQCDmD3I36M2wHVAEhEm+fvprcH4hSnd+e5OI/NtMK2tc6V34o4LZXmJUMyag/6JgB/SqlaKvz
+	WHGyuGktKD38OC+s/Jmmdd9/WMPbNzn4+gy45Q==
+X-Received: by 2002:a05:620a:4441:b0:93e:c12c:f137 with SMTP id af79cd13be357-940ef9c87e0mr54142985a.82.1792792910841;
+        Fri, 23 Oct 2026 15:01:50 -0700 (PDT)
 Received: from ziepe.ca (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net. [159.2.239.150])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-940f0a78c06sm17716585a.35.2026.10.23.15.00.31
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-940f078a762sm18520585a.30.2026.10.23.15.01.49
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 23 Oct 2026 15:00:31 -0700 (PDT)
+        Fri, 23 Oct 2026 15:01:49 -0700 (PDT)
 Received: from jgg by wakko with local (Exim 4.97)
 	(envelope-from <jgg@ziepe.ca>)
-	id 1xKNJO-0000000H7Rz-2dan;
-	Fri, 23 Oct 2026 19:00:30 -0300
-Date: Fri, 23 Oct 2026 19:00:30 -0300
+	id 1xKNKe-0000000H7Vk-3jIV;
+	Fri, 23 Oct 2026 19:01:48 -0300
+Date: Fri, 23 Oct 2026 19:01:48 -0300
 From: Jason Gunthorpe <jgg@ziepe.ca>
-To: "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>
-Cc: "kvm@vger.kernel.org" <kvm@vger.kernel.org>,
-	"linux-coco@lists.linux.dev" <linux-coco@lists.linux.dev>,
-	"Fang, Peter" <peter.fang@intel.com>,
-	"drdeeglaze@gmail.com" <drdeeglaze@gmail.com>,
-	"James.Bottomley@hansenpartnership.com" <James.Bottomley@hansenpartnership.com>,
-	"sameo@meta.com" <sameo@meta.com>,
-	"linux-api@vger.kernel.org" <linux-api@vger.kernel.org>,
-	"dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>,
-	"alistair.francis@wdc.com" <alistair.francis@wdc.com>,
-	"Reshetova, Elena" <elena.reshetova@intel.com>,
-	"ankita@nvidia.com" <ankita@nvidia.com>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"jiri@resnulli.us" <jiri@resnulli.us>,
-	"kas@kernel.org" <kas@kernel.org>,
-	"Jiang, Dave" <dave.jiang@intel.com>,
-	"Xing, Cedric" <cedric.xing@intel.com>,
-	"Quigley, David" <david.quigley@intel.com>,
-	"linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
-	"jpiotrowski@nvidia.com" <jpiotrowski@nvidia.com>,
-	"Vivi, Rodrigo" <rodrigo.vivi@intel.com>,
-	"lukas@wunner.de" <lukas@wunner.de>, "aik@amd.com" <aik@amd.com>,
-	"jic23@kernel.org" <jic23@kernel.org>,
-	"ksinyuk@kernel.org" <ksinyuk@kernel.org>,
-	"qinkun@google.com" <qinkun@google.com>,
-	"suzuki.poulose@arm.com" <suzuki.poulose@arm.com>,
-	"sathyanarayanan.kuppuswamy@linux.intel.com" <sathyanarayanan.kuppuswamy@linux.intel.com>,
-	"pgonda@google.com" <pgonda@google.com>,
-	"x86@kernel.org" <x86@kernel.org>
-Subject: Re: [PATCH RFC 20/20] attestation: Add the TDX family implementation
-Message-ID: <20261023220030.GM3977851@ziepe.ca>
-References: <20261015145053.3664509-1-jiri@resnulli.us>
- <20261015145053.3664509-21-jiri@resnulli.us>
- <ed52bb6d48c87ab8023bf2165cadffa259e21725.camel@intel.com>
- <20261023141218.GD3977851@ziepe.ca>
- <343e4a12f2fdbb4e9a19c4afe49cf2b8908d6739.camel@intel.com>
+To: Bjorn Helgaas <helgaas@kernel.org>
+Cc: Leon Romanovsky <leon@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
+	Logan Gunthorpe <logang@deltatee.com>,
+	"Joerg Roedel (AMD)" <joro@8bytes.org>,
+	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+	Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+	Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-doc@vger.kernel.org, iommu@lists.linux.dev,
+	Tushar Dave <tdave@nvidia.com>, linux-media@vger.kernel.org,
+	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+	linux-rdma@vger.kernel.org, kvm@vger.kernel.org,
+	Chaitanya Kulkarni <kch@nvidia.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jens Axboe <axboe@kernel.dk>, Alex Williamson <alex@shazbot.org>,
+	Ankit Agrawal <ankita@nvidia.com>, Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Sumit Semwal <sumit.semwal@linaro.org>
+Subject: Re: [PATCH v9 02/18] PCI/P2PDMA: Derive routing from directional ACS
+ controls
+Message-ID: <20261023220148.GN3977851@ziepe.ca>
+References: <20261023190036.GL3977851@ziepe.ca>
+ <20261023201531.GA2805244@bhelgaas>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -132,145 +120,42 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <343e4a12f2fdbb4e9a19c4afe49cf2b8908d6739.camel@intel.com>
+In-Reply-To: <20261023201531.GA2805244@bhelgaas>
 
-On Fri, Oct 23, 2026 at 07:40:58PM +0000, Edgecombe, Rick P wrote:
-> On Fri, 2026-10-23 at 11:12 -0300, Jason Gunthorpe wrote:
-> > I think in the way this stuff ended up being used the userspace isn't
-> > actually aware. It just wants the VM's ROT to sign a challenge and
-> > forward the resulting blobs to a remote verifier. The verifier needs
-> > to be aware of the format, but the collection agent should not need
-> > special knowledge.
-> 
-> So the verifier is a standardized endpoint of some kind...? That makes sense
-> then. But I think we don't need the report in here then. Just the quote. More
-> below...
-
-There is a direction that the collection agent would be standardized,
-systemd-report already exists now, and so the verifier would accept
-the data blob defined by systemd-report and process it. I think how
-the systemd-report output is convayed to the verifier is somewhat more
-open.
-
-> > ie from the perspective of systemd-report it doesn't make alot of
-> > sense to have it know every single special configfs path and protocol
-> > for each CC vendor just to get a 'sign my challenge' operation.
+On Fri, Oct 23, 2026 at 03:15:31PM -0500, Bjorn Helgaas wrote:
+> On Fri, Oct 23, 2026 at 04:00:36PM -0300, Jason Gunthorpe wrote:
+> > On Fri, Oct 23, 2026 at 01:27:15PM -0500, Bjorn Helgaas wrote:
 > > 
-> > That's the general north star here. We'd like all the vendors to be
-> > able to do collection without having to change systemd for every new
-> > innovation. Again I'm looking at 5-10 ROTs in our platforms, it is not
-> > desirable to go and teach systemd about each of them.
+> > > > Yes, the ACS combination is selected to avoid ordering issues
+> > > 
+> > > Does a user have any way to know whether the configuration is safe?
 > > 
-> > So broadly, this requires a challenge to go in, a signed blob to come
-> > out, possibly some suppelmentary blob[s] (like certificates), and then
-> > labels for what is inside each.
+> > No, unfortunately in PCIe so much is really difficult when it comes to
+> > deployment :(
 > > 
-> > Userspace would collect all the blobs and the labels then ship them to
-> > the verifier which has to understand how the data described by the
-> > label is organized.
+> > > I'm wondering whether users might use "pci=config_acs=" to configure
+> > > ACS so things appear to work as they prefer but may not provide the
+> > > ordering guarantees drivers depend on.
 > > 
-> > I don't know what "nonce transport blob" means in the future, nonce
-> > without signature sounds like a strange thing.
+> > I imagine that could happen, but on most practical systems the root
+> > complex will blow up if you do asymmetric routing so there is an early
+> > indication.
+> > 
+> > I know this because I've help debug such configurations at
+> > customers. Some servers helpfully MCE if you do this. Lovely.
 > 
-> Yea, it's strange.
+> I'm still confused about this because earlier in this thread, I
+> thought Leon said you do asymmetric routing:
 > 
-> The initial TDX attestation navigated some platform limitations. It involved an
-> SGX enclave on the host. The enclave was the thing that did the signing, but it
-> did not have any of the TD details. Only the TDX module did.
+>   Bjorn> And I guess asymmetric fabrics must mean fabrics where
+>   Bjorn> Request Redirect and Completion Redirect are not set the same
+>   Bjorn> way?
 > 
-> So the process to get a quote starts with getting a nonce from the remote
-> attester. Then the TDX module took the nonce and formed it into a MACed "report"
-> that included all the TD details it knows about. Then this report is shuffled
-> out to host userspace, which gives it to the enclave. The enclave just checks it
-> and does the signing. Then the resulting quote makes its way back to the guest.
-> 
-> In the new attestation, the signing happens through the TDX module instead of in
-> an SGX enclave. Since the module already has the TD details, it can just add
-> them itself to the quote. So all it needs is the nonce. For legacy reasons the
-> original TD report is being used for the nonce delivery to host userspace. New
-> TD details are not going to be in the report.
+>   Leon> Yes, in some of our systems, deviceA to deviceB is going
+>   Leon> through different route than deviceB to deviceA.
 
-Sounds like stuff the kernel should be hiding right? Userspace gives a
-nonce and gets back a report, it doesn't care about these details?
-
-If there is a v1 and v2 report because of this then fine, they can be
-labeled that way.
-
-> So I'm still not following why we would provide the TD report through the
-> standardized interface. Maybe we don't want it?
-
-My biggest motivator is to get the measurement register stuff brought
-together so we can multiplex it intside the kernel. In that world I
-think it is pretty important that the signature covering the
-measurements be clearly affiliated with the measurement registers
-themselves so there is some hope of userspace figuring it all out.
-
-attestation subsystem will describe it as one coherent whole, you get
-a single TDX /dev/XX that can do extend and generate a signed quote of
-those registers together. With the same interface as every other ROT.
-
-IMHO it makes no sense to pull in measurement register and leave
-behind the quote in configfs.
-
-I grant you there will not be a huge amount of value in moving the
-quote over besides this consistency and ease of use for userspace.
-
-Though I am planning/hoping to have a sane admin tool here as we agree
-to things, so admin can do like:
-
-$ attest report
-   TDX Report:
-     Xyz 
-     Abc
-   TPM Report:
-     124
-     435
-
-> > So from a TDX perspective, what would you want to have as labeled
-> > blobs for this kind of operation, now and later and maybe someday with
-> > DICE?
-> 
-> On the TDX side we would have to work through how to ask for a
-> specific type of quote. In the initial set we have planned, the host
-> will decide.
-
-That's fine. Broadly the "default" report format should be set by the
-VM's instance type, eg defined by the CSP. It should not change
-launch to launch of the same VM.
-
-If you also want to have a way to query specific types, like AMD's
-guid thing, then that's fine too. But I think integrating into systemd
-report might be a bit tricky so I'm not sure it is a great idea.
-
-In all cases the format of the report is labled, passed to userspace
-and given to the verifier. I see Intel already defined DICE format as
-'larger than 8k'. We'd probably want to give that a dedicated label in
-CTLV land.
-
-Thus, if you boot instance type V1 you always get the same
-systemd-report format and a stable ABI there for your verifier. When
-you upgrade to instance type V2, the report format ABI can change and
-you have to have a V2 aware verifier to process it. Since everything
-is nicely labeled the error reporting should be better 'verifier
-failed because Intel DICE not support' is way better than 'signature
-failure'.
-
-One of the things I'm quite adament about on the data labeling is that
-if something sees Blob type A then it should at least be able to
-verify the signature. Further format variation should be self
-describing data within the signed payload. If it is so different that
-you can't verify the signature then you have to give it a different
-label too.
-
-> Do we think there could ever be a usage for the coco guest to
-> process the quote itself? If the only use is shuffling a blob to the
-> verifier then maybe we don't need this either.
-
-Probably not, but if you wanted to, then same process applies the
-verifier, you get the label and the blobs and you do the math.
-
-None of thes concepts are really changing from configfs-tsm-report, it
-is just wrapped into CTLV instead of the creative use of configfs with
-hopefully a bit more robustness on the data labeling.
+Yeah, that's what I clarifed, it isn't quite accurate. The asymetric
+routing is between Strict Order and Relaxed Order TLPs, not
+request/response.
 
 Jason
