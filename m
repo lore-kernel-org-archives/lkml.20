@@ -1,89 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.169
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.169
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1792740843;
-	b=eAzUeVrQbgpjrX6rUOfHBPehyCN9pRr+yu1iyinT2Fn2tEf4igKZ3czIPnY4QrLzU3NM
-	 116uxS8YVgKiNvTjpR2CB2+I+ZJp4vpWsUIeATkCVpZD2vtbtquR3B609JW9rbg+kgLaG
-	 Ws1foPQRwD6VEFL/vz4XOABmhQCarpBUvflG75sIn4XZK9afG6Vjf9LHuokSDIdmvopNF
-	 WkEL6VzaxZVmpXYs+J9sSoCWjdfkrhh4o2iFXypMioGEolc55aiYgu47rZ5wBTvnawsTt
-	 0kj9u+0PFTq0XfdYttvTQ11sUikgyFHZ1zr6v5mvpiSkmGij4pDZqBw5SGYW6kMcMOw==
+	b=Hx7g8IJZ43mcNcxKmqllG+y4brx9RSpFKdOATy5H/eBUPhxLljtlqDTiHWETLa071LJy
+	 5qVoO9ofzGuHZEX4pV1ftLAZfJs6uZHymbBem/cT3vwB+LYEeX7Tb5EdO3IfkrtCNRoK3
+	 LEUdQV01cInpUuhSUKJa4LIhsUt3Kzl+R7FQo+DkHroiqFmDa5RYNacRuz1IaPPTXCF3z
+	 gybnyou2BN5wi/NXHII/f+6ySkGHH7kmxE/zgieBu/EfwZ4gjJghXyF023dZFG8e9YCrB
+	 QcsDwTGCgY3rUPaw+mbxmCNEg/xmHzqVSw3880WTegv/avp9KmsYYBtvBX4BXS/iiXQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1792740843;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:Date:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
-	 References:In-Reply-To:To:Cc:X-Mailer;
-	bh=hMLYY/97Uq9CVtG7QdmP7izisduGXF/upTM7pDvQJmw=;
-	b=5ibapH804bhTU0ZXELtopXMyigI2suFFs8bX4ghCBibu0gL39mdJwTPq9koCMCD7Sxk3
-	 tNPbInVas5oVY3350k2qwSSfrqMOXVFf3X1d+AuWDXQyoztyVMhYVVGaz1rKbwgednO4d
-	 7s6b4+drCo31k27P1YpXprHoKR4oCwAdBYwsgwkECycwb0pTSx3UsYBJw2M8pnjQ1Fujz
-	 P5+cd9nfWuaihVzdpS/rGIPZUOQp0Glmadfir70kzmDhY6r0VGoqeO5lNpABb32N8xo9W
-	 KeV5Z/iXN7NLwqxoa9lq9Z+7CtEsE9uXbr1Wk6o+WjkdjfAxDY2nDenTLSqPxtiAe2g==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=wePc/O0tHr8BHU6IBxL6zf+pKtKd8GbWsfcZZFn+Mdw=;
+	b=awNUze+Kzc6nfRjHC/z6KvXVElM0ogM0L5ssnXLw0hUQbRrFXyAHeG5nJr56P5klJCn3
+	 KRjnyJgHhXTaZIN0eMozqW6wBabIQNV44nDH6wXlx2yFjVISaxJSNRagODpz/BY3HyDdn
+	 6yf2RxN8tTO5+OzorhGewPCDJBVjPjDcMj8ID/4B77b15aWf+rGhxUp4UCq+BD1P9pYS1
+	 nxgoDfyA45moI2Kxb3MMT+fDXHQEdU5LFa+JZ+cW7uS6V9nkGCOgxFkHu7HIh3jgwbrgT
+	 DeZgyf2ffb72PQJRqrQYRqQ2XryizG3Ry/2KhLEJ/LLsL1ONNU5BZoNZGQnU2xTgVAg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=AE+5UgD5;
-	arc=none smtp.remote-ip=209.85.167.169
-Received: from mail-oi1-f169.google.com (mail-oi1-f169.google.com [209.85.167.169])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=aMgzEWvD;
+	arc=none smtp.remote-ip=209.85.215.169
+Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com [209.85.215.169])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CFB1606A33B
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 07:34:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1CFB1606A33B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFA9C606A335
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 07:34:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EFA9C606A335
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=AE+5UgD5
-Received: by mail-oi1-f169.google.com with SMTP id 5614622812f47-4f14642adb4so312345b6e.1
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=aMgzEWvD
+Received: by mail-pg1-f169.google.com with SMTP id 41be03b00d2f7-cd6a7e1f4e4so244422a12.2
         for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 00:34:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20251104; t=1792740842; x=1793345642; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=hMLYY/97Uq9CVtG7QdmP7izisduGXF/upTM7pDvQJmw=;
-        b=AE+5UgD5XLmund89M9O1VO1HJzardo2DXQUzwyptN++zcMGy12TXIXqAxCCwIvBzzJ
-         Dp3S2aCqBjIDQhLAMjRR1ulBCzqKMiiAt5eTeaAvU3ky6iB4k+8lR5T3wQmcdUTzuu8D
-         AIwf/du+/mq1+p53YUS7iHJSK2hPdd5Yj0ZJnjTvx+hxwSv39IsVwJYS+B9Rf0zZ7I+u
-         nV9eL8e3upF+441sry0/P9AN8XRaJFlsoL7dnKjLnMerhUHWSPwErL2YRlNSJUscRnE9
-         FP8KDdo4TpKlvJBj83bJgD33SXd9c/LH8lhMYe4U9b0njue1S9fvNQZjSEUJhqxTsKZ5
-         zUng==
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=wePc/O0tHr8BHU6IBxL6zf+pKtKd8GbWsfcZZFn+Mdw=;
+        b=aMgzEWvD2KbUmzBpjHhxSUbstZIzFhX83oWfEe1OnpyYqMs6Tr63ZFibCuUkdRF07X
+         P7iTauibVzXFGDVIAHwFE0HhTD+UjT/stHetZ/Hzs7LT5oIgDzLR82l4f15uspK3qVn2
+         RwqbmMSw3Qkfl8c3gs/Dm4ktlg9HoCYj8YDJxVnxCl1Yp1HdgqeW7DNsPInyqHMOMdAR
+         UOd3UV3Y3S086YOeWRj8jHKtdBZn5WBu090h/1t+ZaOzFl2VgNp2tExzAv6ec3f3MtEp
+         1d5KjYU+etdMf0v2EQywYTdlOBWaQL7BGiENDhRQEejd0GR7eKpnhYZpZ2BBObVZQR/x
+         SpDw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20260707; t=1792740842; x=1793345642;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=hMLYY/97Uq9CVtG7QdmP7izisduGXF/upTM7pDvQJmw=;
-        b=Yr5swEtcfWWFYfWzjxbOWdWnJ/yu/LCltqA8E+iovbVEGlT+GycI5/YPq/cw4n7+fL
-         q7pkJXWiHXDV8T8Bj/dm9EIGgrt4XkUzpulWm+3gLHUD7BtvspyQ92UhUJsZy7wjuNj0
-         uKwWr6Lwbn/Z4Ty9XiFYEIZUvej5SwYByoh3fxh6Ei65MGB6DVx/X41Ik3VPCuzOh/kK
-         MK/a6PAhT6JNBTc5tk+1F/IIpTzyd63gvOB1wWP78LACGAlWJZpE8se68dWd27pkee4J
-         WIgnt81HOIS7ncbBopvbn35xqAyobqzdfjV1HOONqS2+O4S282CWuVqugeNDyWkqBmIs
-         7LXg==
-X-Gm-Message-State: AFq9FYJTZxXGvJGJsXLWunaxJ0izC836VNBKBGbwvMPalMsThbQ7q3QQ
-	vRaJW9KCpLTOPbW0x1A/mAJpnsSzWXvSip+mCecgJ5Wk3N8t/pgArgn/
-X-Gm-Gg: AYBFou2B0l13u9A6ozPWe8za8cs4Mgo7CZDV/CgORAVcEpsOQycd4K6LYOtWCEFkZfQ
-	hMjVYiQbLpUkuJSFjYmKBcV7g4F3LHoIWFqPvPcVE+oIRs5Gat5CjD7VylbBoFGpoVcYTYPiOYV
-	fX2cP7TzhueVrp70wGTS4iBM16DR7jdhcqnW+SL5sxIX1DDCfjSymM9QxUz8YKoubRtEgciR/sD
-	2VHbOAjf5FXCSI8jDCTQYCwIwtQsIR1BGN5NVe0vhheOk+Awdl+vIbL0hRbuTQAj5jVXtNtBIAo
-	PbavcY7sMxtk9vfGWqDrgWWaW7JtRUs6EXCjom/1ZQf2cJKG5X7zjWPbpnO9oK8Cl/wE59c+fZV
-	Gi5x9VfmEHlkNQhcx9+Ber3AKgj8MmbdGvNWb5WzkgLtZ/a/hHWOE3PhsoxjRcV1fnEqaVEKP1N
-	yT6E3flg1MDqmVrwRGBHEjJ1vHvBfypRf6U5WNKTsvD4p8DAby4L1CdRIZTq6cXR2QROdzkQBHT
-	SL1OYkSgMfjooTHiR4oTia1E0BbVTJ0h4dSNpyyrqpFkQAL1+zGgaWcboB8+vB90tlRruBTNJdO
-	j+4YSGHjTEGRK17j27jGn/qsvgrM45ZEnC76R8R3sEYHlwxMnF6xonGUYUdc2Smi4X91nG4+BDV
-	E5lXfgVe0zg88Md7Ea5kejHVc1UZdeu1OPeKHV74SABo0CsHOTznnqngQtCFb9TxHcUHd7LIVNX
-	hXRKA=
-X-Received: by 2002:a05:6808:5092:b0:4e8:3707:d4cf with SMTP id 5614622812f47-55be7a45f4cmr859576b6e.0.1792740842142;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=wePc/O0tHr8BHU6IBxL6zf+pKtKd8GbWsfcZZFn+Mdw=;
+        b=iC5tCn9sF+kRzAAA66u58DgKfv6XwOFLYewyhQoBlTxDDXPsXfJJD/BvbIui8zYvk2
+         azmKsm0LCs2ulPRlzeUFx0+OU2gazkQGKEl0HIJ/7cnx3OE+iB6W5n95yNF/f9/PXyGw
+         +ZXo9iuDHebj2eUG6f5OhVVo21CoS1RbFBWEPPAkiJo9kVtmdv/KzE4Ewxh5TOXjFLEk
+         mh2xvBCmduPRNORfzNJHFv2r9sF66LMRY0tWMs3ZpMNKGyH5Ivni2WtnAQgc7JWrbhq9
+         6PM75RwgYOtauXg9F/dO+nIwUj44w6IlFXxoOXUUi04AOG/+AuH0mVtH1Ur6EguSPCIs
+         ns8A==
+X-Forwarded-Encrypted: i=1; AKwUvBxYNH3owNh/+nIRoYqOUzBHKO79+L8bJZThs4Hp42QcvXWvmMLuh+dJaFTrfMYtwDnMEPEf516Azf9Qu54=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKLe3esrzL7QhEp2e4xtEgzbSM3rTOMScVHTfTXtPkcRcagtADR
+	GFgZvdBzHhvQ8BzMoNDkVrpTANSgC+NtFNxWDmS6F3eEbJCLt0sGcMso
+X-Gm-Gg: AYBFou2OhrZ13qfkxTL7rtP2i5fizoxULx0ugMcVByyKBtEkDX39AW5TNtIaOOwANw6
+	yjbyT0/oW6LjmG2L0Km6STEjap4B02LCDLKi242r1S8ClvtVjmPulB6Nah0ImmtyFzm+pDWd17T
+	6tuV4+n3R7/8yx/OY3es8uKsurU6V9v8/wFPFvDFiGsolQHwn7m04BZ8mb+Med+EMSKRYg5a0Jq
+	M9mVb/GXKd/P3KIdnrR7CLMl6c/4qv8itL6cjdxuw/65//9hQANzsI0G0EKNTiPmqptSPxJaoTh
+	LGJJfI7Sz5lDM5yvQuU6T/+obMdRiYsOoxQLEtUYHfOCnHWHy/0vPvo1sujzsMIoT7dYkibxmeS
+	ir+8hnmY2T16yw4ivYFOez97PmaDr9ah8WsQVkVMGvmuiftQrdnHbna3uehTGdVStEMy9G09CDF
+	ub9V9olk0bytcF5O3bwOcJNncnpO0auhDT5GRex6ojjLekmt5SrS/ECN4hoevz9hNU/0laLYui7
+	yi7YPxFyiiGDgrb/5HBu5Fs9uGph6QNXh+4/nGbLFS7O8jDkM3YLmG/3/Avrs8u2MCPDlzmU+o=
+X-Received: by 2002:a17:90b:35cd:b0:3a7:f4d:b23d with SMTP id 98e67ed59e1d1-3adce7c855amr1172820a91.52.1792740842077;
         Fri, 23 Oct 2026 00:34:02 -0700 (PDT)
-Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-55be9880a99sm909562b6e.14.2026.10.23.00.34.00
+Received: from spiderman.taila3fd8c.ts.net ([202.112.47.77])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3adcb1b256csm2298742a91.10.2026.10.23.00.33.57
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 23 Oct 2026 00:34:01 -0700 (PDT)
-From: James Hilliard <james.hilliard1@gmail.com>
-Date: Fri, 23 Oct 2026 01:33:51 -0600
-Subject: [PATCH 3/3] arm64: dts: allwinner: h616: identify the UART
- integration
+        Fri, 23 Oct 2026 00:34:00 -0700 (PDT)
+From: Li Ximo <lixicaicai@gmail.com>
+To: Nelson Escobar <neescoba@cisco.com>,
+	Satish Kharat <satishkh@cisco.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	Leon Romanovsky <leon@kernel.org>
+Cc: linux-rdma@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Wang Haoran <haoranwangsec@gmail.com>,
+	Li Ximo <lixicaicai@gmail.com>
+Subject: [PATCH] IB/usnic: fix wild pointer dereference in usnic_ib_qp_grp_dump_rows()
+Date: Fri, 23 Oct 2026 15:33:49 +0800
+Message-Id: <20261023073349.1287022-1-lixicaicai@gmail.com>
+X-Mailer: git-send-email 2.25.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,92 +98,70 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261023-submit-h616-uart-fifo-v1-v1-3-e4a3bae2eba8@gmail.com>
-References: <20261023-submit-h616-uart-fifo-v1-v1-0-e4a3bae2eba8@gmail.com>
-In-Reply-To: <20261023-submit-h616-uart-fifo-v1-v1-0-e4a3bae2eba8@gmail.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Jiri Slaby <jirislaby@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
- =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
- Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Samuel Holland <samuel@sholland.org>
-Cc: linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-sunxi@lists.linux.dev, James Hilliard <james.hilliard1@gmail.com>
-X-Mailer: b4 0.15.2
+Content-Transfer-Encoding: 8bit
 
-Use the H616 UART compatible for all six controllers so the driver can
-select their fixed 256-byte FIFO configuration and register layout.
-Retain the generic DesignWare compatible as a fallback for older kernels.
+From: Wang Haoran <haoranwangsec@gmail.com>
 
-Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+While auditing list_first_entry() users we found that
+usnic_ib_qp_grp_dump_rows() calls list_first_entry() on
+qp_grp->flows_lst without checking whether the list is empty.
+list_first_entry() never returns NULL: on an empty list head->next ==
+head, so container_of() yields a bogus non-NULL pointer derived from
+the list head address. The function then dereferences it twice through
+"default_flow->flow->flow_id", which reads a garbage pointer out of
+the enclosing structure and dereferences that in turn, almost
+certainly causing a kernel oops.
+
+The empty-list state is reachable on a normal path: transitioning a QP
+group to IB_QPS_RESET via usnic_ib_qp_grp_modify() calls
+release_and_remove_all_flows(), which empties flows_lst, while
+disable_qp_grp() only disables the hardware queues and does not
+release the VNIC resources, so res->owner still points at the qp_grp.
+A later usnic_ib_create_qp() on the same VF unconditionally dumps the
+whole VF via usnic_ib_log_vf() -> usnic_vnic_dump(), which invokes
+this callback for every res->owner != NULL - including the reset
+qp_grp with an empty flows_lst. The existing "if (obj)" guard does not
+help because obj (the qp_grp itself) is non-NULL; nothing checks the
+flow list.
+
+Fix it by switching to list_first_entry_or_null() and printing "N/A"
+for the flow ID column when the qp_grp has no flow, mirroring the
+existing all-"N/A" formatting used for a NULL obj. This was found by
+code audit; we do not have Cisco usNIC hardware to reproduce it, but
+the triggering sequence (create QP, modify to RESET, create another QP
+on the same VF) is a plain libibverbs flow.
+
+Reported-by: Wang Haoran <haoranwangsec@gmail.com>
+Reported-by: Li Ximo <lixicaicai@gmail.com>
+Signed-off-by: Wang Haoran <haoranwangsec@gmail.com>
 ---
- arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+ drivers/infiniband/hw/usnic/usnic_ib_qp_grp.c | 13 +++++++++++--
+ 1 file changed, 11 insertions(+), 2 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi b/arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi
-index 1598e86259ab..6905c9eaa249 100644
---- a/arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi
-+++ b/arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi
-@@ -538,7 +538,7 @@ mmc2: mmc@4022000 {
- 		};
- 
- 		uart0: serial@5000000 {
--			compatible = "snps,dw-apb-uart";
-+			compatible = "allwinner,sun50i-h616-uart", "snps,dw-apb-uart";
- 			reg = <0x05000000 0x400>;
- 			interrupts = <GIC_SPI 0 IRQ_TYPE_LEVEL_HIGH>;
- 			reg-shift = <2>;
-@@ -551,7 +551,7 @@ uart0: serial@5000000 {
- 		};
- 
- 		uart1: serial@5000400 {
--			compatible = "snps,dw-apb-uart";
-+			compatible = "allwinner,sun50i-h616-uart", "snps,dw-apb-uart";
- 			reg = <0x05000400 0x400>;
- 			interrupts = <GIC_SPI 1 IRQ_TYPE_LEVEL_HIGH>;
- 			reg-shift = <2>;
-@@ -564,7 +564,7 @@ uart1: serial@5000400 {
- 		};
- 
- 		uart2: serial@5000800 {
--			compatible = "snps,dw-apb-uart";
-+			compatible = "allwinner,sun50i-h616-uart", "snps,dw-apb-uart";
- 			reg = <0x05000800 0x400>;
- 			interrupts = <GIC_SPI 2 IRQ_TYPE_LEVEL_HIGH>;
- 			reg-shift = <2>;
-@@ -577,7 +577,7 @@ uart2: serial@5000800 {
- 		};
- 
- 		uart3: serial@5000c00 {
--			compatible = "snps,dw-apb-uart";
-+			compatible = "allwinner,sun50i-h616-uart", "snps,dw-apb-uart";
- 			reg = <0x05000c00 0x400>;
- 			interrupts = <GIC_SPI 3 IRQ_TYPE_LEVEL_HIGH>;
- 			reg-shift = <2>;
-@@ -590,7 +590,7 @@ uart3: serial@5000c00 {
- 		};
- 
- 		uart4: serial@5001000 {
--			compatible = "snps,dw-apb-uart";
-+			compatible = "allwinner,sun50i-h616-uart", "snps,dw-apb-uart";
- 			reg = <0x05001000 0x400>;
- 			interrupts = <GIC_SPI 4 IRQ_TYPE_LEVEL_HIGH>;
- 			reg-shift = <2>;
-@@ -603,7 +603,7 @@ uart4: serial@5001000 {
- 		};
- 
- 		uart5: serial@5001400 {
--			compatible = "snps,dw-apb-uart";
-+			compatible = "allwinner,sun50i-h616-uart", "snps,dw-apb-uart";
- 			reg = <0x05001400 0x400>;
- 			interrupts = <GIC_SPI 5 IRQ_TYPE_LEVEL_HIGH>;
- 			reg-shift = <2>;
-
+diff --git a/drivers/infiniband/hw/usnic/usnic_ib_qp_grp.c b/drivers/infiniband/hw/usnic/usnic_ib_qp_grp.c
+index a7327c7a7..6f6aaea06 100644
+--- a/drivers/infiniband/hw/usnic/usnic_ib_qp_grp.c
++++ b/drivers/infiniband/hw/usnic/usnic_ib_qp_grp.c
+@@ -78,8 +78,17 @@ int usnic_ib_qp_grp_dump_rows(void *obj, char *buf, int buf_sz)
+ 	struct usnic_ib_qp_grp *qp_grp = obj;
+ 	struct usnic_ib_qp_grp_flow *default_flow;
+ 	if (obj) {
+-		default_flow = list_first_entry(&qp_grp->flows_lst,
+-					struct usnic_ib_qp_grp_flow, link);
++		default_flow = list_first_entry_or_null(&qp_grp->flows_lst,
++							struct usnic_ib_qp_grp_flow,
++							link);
++		if (!default_flow)
++			return scnprintf(buf, buf_sz,
++					"|%d\t|%s\t|%d\t|%hu\t|N/A",
++					qp_grp->ibqp.qp_num,
++					usnic_ib_qp_grp_state_to_string(
++							qp_grp->state),
++					qp_grp->owner_pid,
++					usnic_vnic_get_index(qp_grp->vf->vnic));
+ 		return scnprintf(buf, buf_sz, "|%d\t|%s\t|%d\t|%hu\t|%d",
+ 					qp_grp->ibqp.qp_num,
+ 					usnic_ib_qp_grp_state_to_string(
 -- 
-2.53.0
+2.30.2
 
