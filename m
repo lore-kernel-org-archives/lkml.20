@@ -1,54 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792776368;
-	b=k8KyWEWaKp5YYVkt9HMLkQvdwuQy043gw8D03qhtzApl9M7fnY5CA6/kS0hN04XSpijP
-	 PYdtVfV890+zQf0V6Aeztr4lrk89V3PGhFKpWpME0UgcHn8gnLeiEnkEoRqJnycAML8SC
-	 irNSBL8ONs+4ZdHv04t4OF63Yt5tYz78LBCs6DB+9YUrn7f5LdA+ulXAP+FMJeHXlV6+G
-	 2ILPY2tgnPL3sGVJ2jOxYngJcbaXVNPCu83k6pZEPt6mxFW/qzN3j2v6IeLjjR06oy21v
-	 kMeITJJU03ip5kTpYn/rptRZUU2PXjLQYNeuM/g8ABfSi1jMqc7YgAWuRiJJw0uPsig==
+	t=1792776412;
+	b=X2DJpdjrO2iJ1f/7SXk5w2aYbA9T/OaR71Is52/22jkXEh2iCpuSFZTXyfQiK15dnqTm
+	 XpZDpLlC2OG6JxMtvlHn8H6nHEQHi9UfJTLptQhSy1gOpdWTfBOxQ6QFxqF1MmmUqvYRa
+	 caOkW2LyGcVWm8hrnGJzYTUnVNA9Qi+brYd03IG6LD3VdDT4HcEPN094jHhpm/BUhWI5C
+	 eTWCB90BRvhnCxhfs3QM+z63U7IG2g+Kf0HjE0Z+8sQPzHps5H9/uDyhrESijfdeKU0Zj
+	 7Vse/V4TFRBI6LnjmAH2uVEwHAz/OcK07s1RB+YKTFdKC5KkradHvEyehPgS597f2Eg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792776368;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-Id:
-	 In-Reply-To:References:X-Mailer:Mime-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=XSow9JMNcB3KaezVYp2YCCd7nh/RjIrlw4N2iZye4G0=;
-	b=A2Y6xWGzgPx51EHzoOfzkbtttwbiDj9cKfFg/qSVpgsUD8bpg1LSgRyDHCrwr+YxbxlM
-	 l+4LGfduqpRpJ4TOD4Avy5uxlCc9rWxdCz9T8t9N74GQrcFM9ioHH/n0V76sfVeKERU2J
-	 ktGQ8TT0y3KDnuGZ1PgWoIijScJf3VJj264Niy4CatUchFcG2miyDJ1CroVAMeZzjlVIG
-	 4ti4P/lUWxd7XERR5oB/Jo4d1ctfGh3np8Sj/7Zwnafl97DAgmF7s2PLNMlVk2HhYvSjz
-	 S/UrHlGfAhJx7B7jCTZhgRe6+c8HiY+1J162vj/rcTEm1o1Zc12P0maLQAFvFGctkrQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792776412;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=9ZyTJ6M7vxJWtT79VQHcMTD5/XB5Or36Qop0komMpnk=;
+	b=tvtNlyNME02sZ00GRSE7HM5hGeY+KkaCjdhVeEoYzKspNBtKh20mQEjgP4Hcnd9saeSP
+	 TMm1GqbaUgi2QrKQVkGkXEzH5mjmyq7eVp6jVUfVOUZCuZdj9a7fT5udvqxTpMbj+dp/U
+	 SsBIXPmt8RGNZ3vuygNPeKal2jxAKnk27QfEnjTwweNERxISWRsCzhZM+gSok3QTuv+Eb
+	 Ild09NjXKdr9eMi83FE3iziRIFDDlXvcrA4zUy1MO2dAe8SInbKTAsZFrE9RkQRGt2nyp
+	 wJLZdXAVaKhlvqcvWtf/9eJLGa3y2rfqVNIoAEgmqqSStvqsLUqa0hUmiIyyqbPs3RA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=kZzeyvJo;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MSUY2dgT;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18CBD606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 17:26:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54600606A31B;
+	Fri, 23 Oct 2026 17:26:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=kZzeyvJo
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 705031F01825;
-	Fri, 23 Oct 2026 17:26:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1792776367;
-	bh=XSow9JMNcB3KaezVYp2YCCd7nh/RjIrlw4N2iZye4G0=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=kZzeyvJoosy+DyY4nymYopIcOBr0VaSKdfDrpMhVmfJGEJ2SbGb/ivCBsMdOgD0c7
-	 XqCaO1wpHXX4Q6ERUFtBIWUUyMgo6P0CKjYYiurs8ynjMTmbq+cLXy1aK3/gQmdfTy
-	 HaZyIDtFwKciOD3g8uKAJusaOOX7DxGyFUBaU77s=
-Date: Fri, 23 Oct 2026 10:26:07 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Suseendran Bhaskaran <suseendranb@google.com>
-Cc: Johannes Weiner <hannes@cmpxchg.org>, Yosry Ahmed <yosry@kernel.org>,
- Nhat Pham <nphamcs@gmail.com>, Chengming Zhou <chengming.zhou@linux.dev>,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] mm/zswap: validate dlen and normalize comp_ret on
- compression success
-Message-Id: <20261023102607.7635885be12b0b6e7a5971aa@linux-foundation.org>
-In-Reply-To: <20261022232734.496064-1-suseendranb@google.com>
-References: <20261022232734.496064-1-suseendranb@google.com>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MSUY2dgT
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B2A841F01825;
+	Fri, 23 Oct 2026 17:26:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792776411;
+	bh=9ZyTJ6M7vxJWtT79VQHcMTD5/XB5Or36Qop0komMpnk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=MSUY2dgT2SjWI/SgGOFLET07IDk/Na/Zzqj01/q71Fc+rLDWj4RhWd8k7kf1hbxPg
+	 z+0JoLxc/QuZFycJDBw4GaEN6823K4OiSAktlNwb/29LvNYo2FTuiHRynb0KGX1wFg
+	 keqCp0sVv5duKyNs7rq/ruS657ZkaXrqeY8sIyAa0MKy5yP6AKxJGpfwaTx63msvu4
+	 F0+qOn01SFUwYBfP8PdYsgIifFpK9SycZmKdvhYLT2zVvdTIP4pDoBX0xZdzAez9hx
+	 PKeB7v8ePOokIId118WCdCQaMXaJi8T+nLg4PGV6ABnmCfGRLtLFBedk62uOXfe0E+
+	 TVJlJhvyddCpQ==
+Date: Fri, 23 Oct 2026 18:26:44 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Ian Rogers <irogers@google.com>
+Cc: acme@kernel.org, namhyung@kernel.org, adrian.hunter@intel.com, 
+	elver@google.com, james.clark@linaro.org, jolsa@kernel.org, justinstitt@google.com, 
+	linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org, llvm@lists.linux.dev, 
+	mingo@redhat.com, morbo@google.com, nathan@kernel.org, ndesaulniers@google.com, 
+	peterz@infradead.org
+Subject: Re: [PATCH v8 00/19] tools/perf: Adopt kernel
+ compiler-context-analysis.h annotations
+Message-ID: <atuV4Yye85LQG9uU@gremlin>
+References: <20261021223905.715051-1-irogers@google.com>
+ <20261022201453.1717523-1-irogers@google.com>
+ <att_boYgsUyMVBQQ@gremlin>
+ <CAP-5=fX2+o1CCV7pEx9=CbAftRse1m5uTLmrTxQ4NWrxd_SnTQ@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,85 +62,34 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAP-5=fX2+o1CCV7pEx9=CbAftRse1m5uTLmrTxQ4NWrxd_SnTQ@mail.gmail.com>
 
-On Thu, 22 Oct 2026 23:27:33 +0000 Suseendran Bhaskaran <suseendranb@google.com> wrote:
+On Fri, Oct 23, 2026 at 09:36:09AM -0700, Ian Rogers wrote:
+> get_maintainers added you presumably due to the kernel header change,
+> I'm happy to drop you and stop the noise - sorry for this. Fwiw, the
+> different versions are addressing locking issues the annotations are
+> throwing up when adopted more widely in the perf tool. Whilst I'm
+> using clang and internal AI to minimize this, the stochastic nature of
+> AI means that new things pop up from Sashiko.
 
-> In zswap_compress(), dlen is only meaningful when compression succeeds
-> (!comp_ret), as compressors do not consistently set req->dlen on error
-> (e.g. zstd, 842, and qat set dlen = 0; lz4, lz4hc, lzo, lzo-rle,
-> deflate, and iaa leave dlen at PAGE_SIZE; hisi_zip sets dlen to the
-> hardware-reported produced bytes).
-> 
-> When !comp_ret and dlen == PAGE_SIZE with zswap writeback disabled,
-> zswap_compress() sets comp_ret to -EINVAL instead of -ENOSPC,
-> miscounting the page under reject_compress_fail instead of
-> reject_compress_poor.
-> 
-> When !comp_ret, set comp_ret = -ENOSPC if dlen == PAGE_SIZE, or
-> comp_ret = -EINVAL if WARN_ON_ONCE(!dlen || dlen > PAGE_SIZE). This
-> allows simplifying the failure check to 'if (comp_ret)' and dropping
-> the ternary assignment in the writeback-disabled path.
+Thanks :) I did suspect sashiko or AI review, In general useful to put that in
+the changelog so people don't wonder about it being some 'oh hang on' dev ;)
 
-Sounds like we're complexicating core code in order to accommodate
-inconsistent compressor behavior.  Would it be better to
+I would say it's best to wait longer between revisions, however. [0] says:
 
-a) design the compressor interface(!)
-b) document it
-c) ensure that all compressors comply with it?
+"Wait for a minimum of one week before resubmitting or pinging reviewers -
+possibly longer during busy times like merge windows."
 
-Maintainers may choose to go ahead with this as a backportable
-quickfix, but it all seems to be a bit of a mess in there.
+Perf not my area though, just conscious of how busy all of us are these
+days!
 
+Appreciate you taking the mildly cheeky comments in good humour regardless!
+:)
 
-Wht you forgot to tell us (please never forget this) is the
-userspace-visible runtime effects of the bug.  Autobot says:
+--
+Cheers, Lorenzo
 
-: The userspace-visible effects are limited to corrected zswap
-: statistics and a new warning for invalid compressor results.
-: 
-: When compression succeeds but produces exactly PAGE_SIZE bytes, and
-: zswap writeback is disabled, the page is rejected as before. However,
-: reject_compress_poor now increments instead of reject_compress_fail.
-: This makes the debugfs statistics distinguish incompressible pages
-: from actual compressor failures more accurately.
-: 
-: A compressor which reports success with a zero or oversized output
-: length will now trigger WARN_ON_ONCE(). Previously, zswap handled
-: these results without a warning. On systems with panic_on_warn
-: enabled, this could cause a kernel panic.
-: 
-: There is no intended change to which pages zswap accepts, rejects
-: or stores uncompressed, nor to normal application behavior.
-: 
-: I think these runtime effects should be described more prominently
-: in the changelog, particularly the new warning.
-
-
-
-My autobot is all worried about the HiSilicon ZIP compressor.
-
-: I think the zswap-side fix is reasonable. On success, dlen should
-: contain the actual output length, and zswap should validate it. On
-: failure, dlen isn't necessarily meaningful, so we should rely on the
-: compressor's error code.
-: 
-: Separately, I think we should make the compressors consistently return
-: -ENOSPC when the output buffer is too small. Some currently return
-: -EINVAL, which means reject_compress_fail versus reject_compress_poor
-: will remain inaccurate even with this patch.
-: 
-: A compressor which successfully produces exactly PAGE_SIZE bytes
-: should still report success. Deciding that the result isn't worth
-: storing belongs in zswap.
-: 
-: One thing worth checking is HiSilicon ZIP's negative-compression
-: status. It is treated as success, with dlen taken from the hardware.
-: Could that produce zero or more than PAGE_SIZE bytes? If so, the new
-: WARN_ON_ONCE() might trigger on ordinary incompressible data.
-: 
-: I'd take this fix independently of the compressor cleanup, assuming
-: that last case is safe.
-
+[0]:https://docs.kernel.org/process/submitting-patches.html#don-t-get-discouraged-or-impatient
