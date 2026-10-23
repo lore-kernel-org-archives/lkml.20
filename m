@@ -1,64 +1,65 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792785788;
-	b=T+Fy7m3x0GjED7uQoqP2irHksMfL0gzzIItzDPzYqwdU1HcZDkXYMd0Nrg8FwHxpPxPt
-	 DcRi+PRRHob0Eei+Rsg2njqlaUyoKgf55ZkdKbqNUgt1NxUjLquaX9u5FMVbY+M6jXAMI
-	 brAwBIXvt5YhokrhGyCEQ9x7xuqwGJFnooXgy1+y04pf7+ouCx9RxbuR5Ij7WG/xheC3B
-	 UIyaFZdAWkXs4T9X+EVuXgiJshU5PfsrbPGXv0RwRECbcRKpLc1KUhR1AMNuhTw7PvNF2
-	 8pCCVQ3Jpa4ripBF3n4yKD17s9CHSte9KKRUed+zO/mc/FpPTpwHVePGLqCNE46sFFw==
+	t=1792785792;
+	b=0uMl9tKUYZ8Iyft+x4+Hd2hGs2dJI7gVBfkgZSR1W0tHawRhnQi+0o0AbRch2C6+rKVw
+	 lnvHGp67QqhtFxIGhkLwZyN5MMVQM4elHaByApYczCw6MRL2pvO2QxRl+paHpubpqSdHS
+	 cjyK3mCscMP0lO9NKoVzGx1cv1no2JeGnYHuUFa+W7ai9uREJ6Das8BzD1b3BbgKyxqqj
+	 iMpDEJOr//KDlU3J7q6/eLpOsZGXcVaxP/xVrsemG7G0B+42a2rIwrMafcOA3Afj2VGAu
+	 pdhQ5cxXkLnT/z5p2a8zT4sMOAEAwFR+5fBwvaOJBM3g72B8FXng8iTtZCvtbFOyMAA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792785788;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792785792;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=VwsTNUIWgPGNrUvwHU2JTnkVF1TKtK53W++DxYs7jXE=;
-	b=QJ6dOMg5Nu9hd6zZnlrw+aCoVOMjIopZygYeiHYw04Iuad0X15MF65fUEUrlcRM/vQp1
-	 /Jtuk9fuNv/N5UIjCOde4xPtqRd9iZSeNz0xiPbBifgrAV7/j4FrFb1hnxQcsnSh4LJ1u
-	 DEriEhR8m3D38Illiegkga6uLI/IuLvANdkxdx6z0TnVPKpSDW3aq06aRwo1JF4wdtZBe
-	 WJsOZVPiFUJRE9Rb7uRvUGhHSROfr+J0LMBUnaAbifCByu4ST3tNfyM/sGU08mzqMTPzq
-	 qCkOQas4n/SmfU/aYQNjPpPep0dmtpGi7SRusg3og2MC+rK+yiYUKp9MywTKx2jQhYg==
+	bh=KAS0wy/i0clkfxFIn/srR3uONpIvsKGVrttrQi0V7rA=;
+	b=gH5Wr0jZtr5WKhdrbU5RSdWeygdc8qXYN2scxsafZpR6IczcEi+Ku1W9P5EFzvTYd5cF
+	 4C1B9OQbpJX/VMMx5rUWCQ+u46EKTAqM2QViur+ND3tGsgzchABXwFmZTb4a4j1imabex
+	 HHiV+C+iEJjXq0t3IucOsuSqnBV7Vq8ikAk+MAjHFT74MD8i04VehjC+xUWj/OcfKx+/b
+	 ThYqVek4y+P7iNhdXbe0cZEYAeISJNwXOIUQntsPSK2NWkX0Dtj79kRo9N7DlW3ey7O0K
+	 vRZmqbuFVHR0seOzaOa8OsC5i4UPrLnDbpCThuuQCopgPBa8iugXqZqAnsbacWA/M3g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Blr3eB+j;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="T/R0dNr0";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27A35606A330;
-	Fri, 23 Oct 2026 20:03:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC2CD606A32A;
+	Fri, 23 Oct 2026 20:03:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Blr3eB+j
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 416311F01825;
-	Fri, 23 Oct 2026 20:03:06 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T/R0dNr0
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3D5E1F01825;
+	Fri, 23 Oct 2026 20:03:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792785787;
-	bh=VwsTNUIWgPGNrUvwHU2JTnkVF1TKtK53W++DxYs7jXE=;
+	s=k20260515; t=1792785791;
+	bh=KAS0wy/i0clkfxFIn/srR3uONpIvsKGVrttrQi0V7rA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Blr3eB+jadRq8XnnDJI5LiUGJYjybneYXqIdZ10tcNU5k09Uus1d2wZWZgI9Qm+io
-	 lk1LGvRT9AouoNEAHgaMcgOjZxEgBYhTXNmKosueDRi8QiL4Wbhlj+5oe9JnPBeCcN
-	 PTTzQGOpkHzUXbfG9uV79Fcbfc70Ktpu24KXjX7t7+mNM4dK5M/gzyo1yCb0PqXSns
-	 p0KgBluNj2HqiDwwcQ5XTqDHvW/i6KHKm54yJ4NM0iTNvsZAjK1p3C9QVbTTIEtqC+
-	 XICQv/+OUFBTZcj8A0JC2Zxqv5dm5U31HLsDy93W8uDcGhN1gvPBKAZVuMb2bTBRRp
-	 u+e364Q3fQLcw==
+	b=T/R0dNr0LbtSXiXvXUJ24g0WTY/w5eU8Z7qh0qPRCVO0ww2DaLHWFknE2f2j525YS
+	 09FGWnXIDBhQMzbL/c0xAESNxjKsoMiWgyCYMuhtmbGgn/Oq7DaMiTlIkA1FenRqdT
+	 bWWeGAEybhfcrZfApkPo0nN0fREEAkTq9xvyitkstUmpWTvqLDEPRCfM8flXkFd9X3
+	 U8uGlGzgZM1dsgDf612bqViOjrO/jsFq6UDBh61tU6O5T1NVzPkklFd2I1x9VAkA02
+	 Zj+sfPfhwIiwL+uIqWXXEaxTl2QhmAUUsYc1gmvg0Hkv6yOoSzs07FsLkk7EM0HJga
+	 YOYSOInifxybA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	maz@kernel.org,
-	oupton@kernel.org,
-	joey.gouly@arm.com,
-	seiden@linux.ibm.com,
-	suzuki.poulose@arm.com,
-	yuzenghui@huawei.com,
-	fuad.tabba@linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	kvmarm@lists.linux.dev,
+	gregkh@linuxfoundation.org,
+	Daniil Stas <daniil.stas@posteo.net>,
+	Guenter Roeck <linux@roeck-us.net>,
+	Chris Healy <cphealy@gmail.com>,
+	Linus Walleij <linus.walleij@linaro.org>,
+	"Martin K . Petersen" <martin.petersen@oracle.com>,
+	Bart Van Assche <bvanassche@acm.org>,
 	linux-kernel@vger.kernel.org,
-	Aaron Ahmed <aarnahmd@amazon.com>
-Subject: Re: [PATCH 5.10.y] KVM: arm64: vgic-its: Don't dereference a NULL collection on ITT save
-Date: Fri, 23 Oct 2026 16:02:47 -0400
-Message-ID: <2026-10-23-1-daily-reply-0011-vgic-its-null-collection-5-10@kernel.org>
+	linux-scsi@vger.kernel.org,
+	linux-ide@vger.kernel.org,
+	linux-hwmon@vger.kernel.org,
+	Nobuhiro Iwamatsu <nobuhiro.iwamatsu.x90@mail.toshiba>
+Subject: Re: [PATCH 5.10, 5.15, 6.1] hwmon: (drivetemp) Fix driver producing garbage data when SCSI errors occur
+Date: Fri, 23 Oct 2026 16:02:49 -0400
+Message-ID: <2026-10-23-1-daily-reply-0013-drivetemp-scsi-errors-6-1-5-15-5-10@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261022174537.2767-1-aarnahmd@amazon.com>
-References: <20261022174537.2767-1-aarnahmd@amazon.com>
+In-Reply-To: <1792730299-21490-1-git-send-email-nobuhiro.iwamatsu.x90@mail.toshiba>
+References: <1792730299-21490-1-git-send-email-nobuhiro.iwamatsu.x90@mail.toshiba>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,12 +71,11 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> MAPC with V=0 drops ite->collection but leaves the ITE on the device's
-> ITT list, and vgic_its_save_ite() dereferences it unconditionally. A
-> guest that issues MAPD, MAPTI and then MAPC(V=0) therefore oopses the
-> host when the VMM issues KVM_DEV_ARM_ITS_SAVE_TABLES to migrate it.
+> Currently the driver just passes error codes of scsi_execute_cmd() to
+> hwmon core, which is incorrect because hwmon only checks for negative
+> error codes.
 
-Queued for 5.10, thanks.
+Queued for 6.1, 5.15 and 5.10, thanks.
 
 -- 
 Thanks,
