@@ -1,81 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792785671;
-	b=o6BDdDs58fEzV8czPfo53yxg6BKp1AbAn9NFWoKSIxMvI7ZTzYsE5j5p/P5qgRjXCt/6
-	 9CvU8vd40hby5CFQ4PiIQgZqM0AwFcq5b+yQugu3hORY2NuD7lCh/Fl7HlrbZ5kmssuY6
-	 gBpw4FXcpI30a2d/70OWzmrSZEMfrKI2uh0jscTk7aeQbjPRJ+Q28s5W3zm/C8iuSyzBQ
-	 uwrWXTWb7yWvgke5yuecMd60X1X9esnR1Lnvj+ZwVSC9mtVcq+I9TSzKH8ZFm4QBm6aXq
-	 VyFo29/71zASCifWZV2cL7iQyBc6hOR8+K4O6IMC6abW4zdDxFF3Rz5C3p/Q6jSGs6g==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792785671;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:Cc:Subject:Date:
-	 Message-ID:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Scanned-By;
-	bh=btTo4cKc94u0oRw37QCCUn4M+j1PS/C6NkYNR+wUTCM=;
-	b=JKVojzppSOpUCTtwcAPCLCaFTktSVYR0rRlQKJERChVlaASUN6pvf0kPYUa87a0ut1dc
-	 wesEpO0TCzb6LUbvGI3RvpVtSP5vMnB4j7luEr//f8qTZFIFlps76yd26N1p//qwhAbag
-	 lHltcU0lyudtDWotI+JgL7Rd1lkGF9zX7WvAkrBSIiUSTYdJTT0ikEDoQiz2UA7iFvMUF
-	 An4YmI+CL5QAR8BZiAyVzdn6HoJaZBCDCV0rwK+7ni+ru0BwcM0Zd0NHrERXXxA4hML3s
-	 VDaTi35Ken8B4Hr1IkSzOCnYvmzofxHFGjIyugFba8DMt2Huaa9IZe/Lrs4Cy/EItXQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b="c/RjBK7y";
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.47
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792785681;
+	b=tCWv9uGGehyKszvRRaH3u2NpacssovCAdGt2K2AHm6GZW6AV3px7ABWS3Ba0EAaufUfP
+	 AkziQ+RvsKggAvzDNIPd7CUiFQEvp53NUkQVDoB/K08Q6FmDNQ2rTIDnkDsO4pHlBzPLZ
+	 NDTAyj9PGUZs6tjYa1mVrwxk5y6f7cHOYMtc+ogdwn6qQ1FvwZbYK8D0nfjmQ+aeUeGbI
+	 WU0p/w30OQ418m0RozL2Z+px+n1ne9vWTKIx0fuZyrltyuZG1u3cncfnS1CyeYePvLTut
+	 42sqipd2WbbtBVqerXkAo2jnq3LhY9Thx68zKxA8XPVR1PiAik6xhAsNhhLRs8ptS/Q==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792785681;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=R6P232PvLRYTH0fZdfO+3AJcU5WVHpT1tzKpJhoLyzQ=;
+	b=TyjafTZIBjqJZ5UlaU9MJB35EKKL0LHbxF0/yrVvTQDby6MHhnfQFm16PNdyLgYrF28q
+	 PZPC6fO3wD2hHw0ov34Mzz6LvslxCN/ypbYSIc+zKqm23IsQSRTb0sBEHxVJUA1gMx07Y
+	 ScZExjASqxXdsihGo25u/83S1m4FpgIAYeKbK8/v0XAfknf6GClyDsyGRDqicpYkO4dCb
+	 oRpX1GpG3Tf4IGqqxLuINEUBfXBtHGZjv+8NmHVNlNlxkncBIrYfdbA0UrOHXf4A51vSX
+	 JIGOQnVFATO8sGpoKuJ1PhjbtcizKfTpti3LbSmhjNO897+iXT1ww3XsSEjnKuJZqPw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=NhRUecM0;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.47
+Received: from mail-dl1-f47.google.com (mail-dl1-f47.google.com [74.125.82.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5228C60A2605
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 20:01:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5228C60A2605
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11FA360A2639
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 20:01:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 11FA360A2639
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=c/RjBK7y
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1792785670;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=btTo4cKc94u0oRw37QCCUn4M+j1PS/C6NkYNR+wUTCM=;
-	b=c/RjBK7yA7fH9I6Ng4o5+1okJ9eD76n2VR33yLfhXJWbKSFq4vUfqk99jP8uY/tjzHjo3k
-	bJ95iH97XWaXykf04JPZLoJQmikLGGQ06k7BBJm5zM2/JMQnG8d6ePxEJZvJ/SoGPmePIB
-	qQvUGBivFbqB31+P7VDYLMmyjux+MVY=
-Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-77-SfXWifFpNhiOB_NcUlH8sg-1; Fri,
- 23 Oct 2026 16:01:06 -0400
-X-MC-Unique: SfXWifFpNhiOB_NcUlH8sg-1
-X-Mimecast-MFC-AGG-ID: SfXWifFpNhiOB_NcUlH8sg_1792785665
-Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 0E6DC19560A5;
-	Fri, 23 Oct 2026 20:01:05 +0000 (UTC)
-Received: from llong-thinkpadp16vgen1.redhat.corp (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 7D24B1956088;
-	Fri, 23 Oct 2026 20:01:03 +0000 (UTC)
-From: Waiman Long <longman@redhat.com>
-To: Ridong Chen <ridong.chen@linux.dev>,
-	Tejun Heo <tj@kernel.org>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	=?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>,
-	Shuah Khan <shuah@kernel.org>
-Cc: cgroups@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	Guopeng Zhang <guopeng.zhang@linux.dev>,
-	Waiman Long <longman@redhat.com>
-Subject: [PATCH-next v2 09/10] cgroup/cpuset: Relocate compute_*effective_cpumask() and compute_effective_nodemask()
-Date: Fri, 23 Oct 2026 16:00:35 -0400
-Message-ID: <20261023200036.60560-10-longman@redhat.com>
-In-Reply-To: <20261023200036.60560-1-longman@redhat.com>
-References: <20261023200036.60560-1-longman@redhat.com>
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=NhRUecM0
+Received: by mail-dl1-f47.google.com with SMTP id a92af1059eb24-194d0c31715so2285c88.0
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 13:01:20 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792785680; cv=none;
+        d=google.com; s=arc-20260327;
+        b=kjKLhZQ0ifcgHPMveYaAa2xD+WcetKYKuaLzbHrkn2jNrph3h/ohAARot+Npc+xO43
+         4V8c2fAlNNKWG0K2ydtqbGMc5kFa31P/hvqA+53yEj7JDMZJeSNK4uN2TdA4fLtaAIyf
+         +2ZnIz7qEcAtHpJhGGEhS07q5KQWRtphcOPN3niciTQIblslDR2FBlnALW5LUZVBnj2G
+         4OUtqPURsX1bKWBndQzVdpysgDZ+jrc1bwYLJMcSLZr+Mgt0qCPs2GvO1KY/UvQ24631
+         ZqlSjSlUYPhYGK8tIZ1ymaOE4XRMnb7hIUAhweXszE3g+rJdf4SZUMASE/2dFzaU3+oX
+         6etA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=R6P232PvLRYTH0fZdfO+3AJcU5WVHpT1tzKpJhoLyzQ=;
+        fh=p8UsocBDw36BgHrZ7qdJDUh8kx0uZ+GPt26S7CK/91s=;
+        b=R043HoiFvOpN54GJZ81n2hAvpGfRPPje25eYn0t5Ik+fgpfDqMURA79B/wVyMQcw1N
+         hZeMXm6ebYk+qGo05ejlf9lznVTFqjH6B2QXPF6BBRhJOhYNpofMnKhGw9eEUD/DzcuR
+         HCCJgg7U14Pxwku9C6USAc9/JCFzHa5mKRghZRSVfMEJHtM4+VHqoqGaWknoS8S8W+e+
+         iMfX5k1EnAVOkYEBMa7WQfI85tD65Eoj6FT00nL61mQf8eU7jXFM8eZ0m1cnsIBUnwUI
+         FyPf1wRHBVXygYwau4jbSNPPjQ7NKsAr6MbYaPY52U/yVstqUUrLZjQ4/BQilNro/c3m
+         fgDw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1792785680; x=1793390480; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=R6P232PvLRYTH0fZdfO+3AJcU5WVHpT1tzKpJhoLyzQ=;
+        b=NhRUecM0MaSyL188/UhVkiKrlBbJzWi/BNVMU7d5YPBuZ4iNj3orcUODsTyxrukgQ0
+         sshE9V3b3hpWy4yz5rTLrpU/3T/i7yiZemoOjtjAulVcVzmeu/+uUKXmFKRrbGV8DWhI
+         ikhmpS8Z9Mn7sdgQlSNsC0RxuXXxhwIwObzqNeKh07tyr+63U8OQgBmFE4mockOozkgA
+         PAdYIBVKieKprNJuM1Pvbqcymrtd+kJp6cXgA8iSY9nDhe9RlfG2ie2TZtH0ORW8F6sT
+         xplVtIhXO2sZNExMdYq02R2Ax6WZmI4WYtHnZTJHSjY1I86x9aF4mAg70ShzvwGFSOk3
+         yU2A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792785680; x=1793390480;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=R6P232PvLRYTH0fZdfO+3AJcU5WVHpT1tzKpJhoLyzQ=;
+        b=I82RZekoPPHfB/X2TjnTEQgB9aZiGc8f9QDQpCldSuiNMDueOmgBPppFq02BZSzbxg
+         Cg0YeEYMgHijI1AdOIPgIWjaLQXRslVC6mlIbmSBgA4neK96Xvn2NNr6l1MGY9Zc4m8t
+         wcU0dc0B/WJtnua8XiKOw2+IcGLHsH7lFwo8lMUaq0vpBefBE6vJOJm42xi63FWCBJz6
+         be8/jBWCI53gTS7W8usfIKSYNnNkY2vh/Jqs1kHJO2boEutsqaoI7dw/VKdVloQLMme3
+         m2o///rXuLUbK7bqyYiTQZtNnXA6DKR2UM/mvl7HUC6txqzqAoFZ4o1q3Lc75B5rHLSL
+         vsHA==
+X-Forwarded-Encrypted: i=1; AKwUvBy3P4fUhJUINBoGqIZMvQQk1Pl7Hgl4HyeuseEZ0YYgY//z+G7wyuWnkuRJhlEa4pF+mlNcHe7DjJeSiMk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKmsUiTQX6sMRkTXESMXZ3dcGetUxjw+ig9CdEpbSgzLVgcVa3Q
+	Dmuz4792vAIQNctbKjmx/zM8MfjHFokv39YoMNxf9tHZi6/GcM87z7CflruLb7dKtJUZr8KFg8b
+	ut2d7Ov9CRWP543Jpr0WvEIMhAEcRuhOZ30QrkHYA
+X-Gm-Gg: AYBFou1wRbYGMKl5hc0dieJQjmDcO/yg/IbQoZYRRBGNd0QBLuy8ifW4Vp1BB2qlYcj
+	Pcx0bq6ZI/yQARVPzUXlzWODgJSleHmL3nWqWmQ/tVA8S51Bqxhoxuy/NZpmZ6NrQJmMjKkIjXo
+	TSTE9a6tnUn1KOTGIeBRJTK8kUdpzjAkWlt8DibxEn0UtRye4F/IM3IT6KZk892hsmzJVM8ZLAj
+	0j0tvru5XUKlyV6JK0+/1Io5aO9BLvXkBi59MbC8gzQycVH8DDWdvIfS2loK4bkvhsluhORsttp
+	fblwaYKzAdOB6+Og5xOyKqlgoVYv+ECVkzgL5JPgxSLViR3wbSdCIvq3jSXUHpBGvnj3O8gl+sI
+	m+xm7HKogwWOsXOi2hGyY+YukHyHKfJ18ntQT
+X-Received: by 2002:a05:7022:4587:b0:184:6afb:b26c with SMTP id
+ a92af1059eb24-1993fe82542mr15165c88.18.1792785679160; Fri, 23 Oct 2026
+ 13:01:19 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,256 +104,79 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
+References: <20261015163915.1166043-1-almasrymina@google.com>
+ <20261015163915.1166043-4-almasrymina@google.com> <20261020121858.3b9107c5@kernel.org>
+ <CAHS8izPwWT+vbgAe49m5vXsRxT3unbfjLTkVZBScgAPdQTo2dQ@mail.gmail.com>
+ <20261021132304.23e0a4e7@kernel.org> <CAHS8izN_N25mm9vALax+P+W45gyxVoMbZoTXW3r6nPC2Z0A7JQ@mail.gmail.com>
+ <20261022181911.5d19ff13@kernel.org>
+In-Reply-To: <20261022181911.5d19ff13@kernel.org>
+From: Mina Almasry <almasrymina@google.com>
+Date: Fri, 23 Oct 2026 13:01:04 -0700
+X-Gm-Features: AclHuK-uP7Gir6yY-QN4sOQ103425f3gALMoJmdo_Tw66r7N7gb2W22rdmAKl0w
+Message-ID: <CAHS8izOTLYU=5sfJvpwB57Bp3tJ=xt7Gwws5xCVqABFw4T3WUA@mail.gmail.com>
+Subject: Re: [PATCH net v4 3/4] netdevsim: support devmem RX and TX bindings
+To: Jakub Kicinski <kuba@kernel.org>
+Cc: Pavel Begunkov <asml.silence@gmail.com>, David Wei <dw@davidwei.uk>, 
+	Stanislav Fomichev <sdf@fomichev.me>, Taehee Yoo <ap420073@gmail.com>, Paolo Abeni <pabeni@redhat.com>, 
+	Kaiyuan Zhang <kaiyuanz@google.com>, Bobby Eshleman <bobbyeshleman@meta.com>, netdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+	linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+	Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@kernel.org>, Jesper Dangaard Brouer <hawk@kernel.org>, 
+	Ilias Apalodimas <ilias.apalodimas@linaro.org>, Simon Horman <horms@kernel.org>, 
+	Shuah Khan <shuah@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>, 
+	=?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+	Dragos Tatulea <dtatulea@nvidia.com>, Nikolay Aleksandrov <razor@blackwall.org>, 
+	Daniel Borkmann <daniel@iogearbox.net>, Tariq Toukan <tariqt@nvidia.com>, 
+	Kaifeng Wang <kaifengw@google.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Relocate compute_partition_effective_cpumask(),
-compute_effective_cpumask(), and compute_effective_nodemask() together so
-that compute_effective_cpumask() and compute_partition_effective_cpumask()
-can be further integrated together. There is no functional change.
+On Thu, Oct 22, 2026 at 6:19=E2=80=AFPM Jakub Kicinski <kuba@kernel.org> wr=
+ote:
+>
+> On Thu, 22 Oct 2026 08:41:43 -0700 Mina Almasry wrote:
+> > On Wed, Oct 21, 2026 at 1:23=E2=80=AFPM Jakub Kicinski <kuba@kernel.org=
+> wrote:
+> > > On Tue, 20 Oct 2026 23:17:34 -0700 Mina Almasry wrote:
+> > > > But on the other hand the test coverage is nice, and maybe one day =
+if
+> > > > we add enough devmem support in netdevsim we'll be able to fuzz the
+> > > > data path or something. Is there a way to get the best of both worl=
+ds?
+> > > > Like put a comment on top of netdevsim that this is test simulator
+> > > > device and any missing functionality and/or bugs in it should be
+> > > > medium criticality max or something? Or is it too much trouble and =
+I
+> > > > should drop the netdevsim support and tests?
+> > >
+> > > I already strip Fixes tags and apply the patches to net-next.
+> > > But it's still a burden. If you're signing up to fix the issues /
+> > > review the slop we can try.
+> >
+> > I'm more than happy to help but I'm not sure what you have
+> > specifically in mind. What I was going to do is put a comment/readme
+> > in drivers/net/netdevsim with a note to sashiko and LLMs, "this is a
+> > netdev simulator, used for testing; do not call out missing or
+> > incomplete functionality as bugs." And then hope that the LLMs and
+> > sashiko pick the directive. If not, I can tell patch submitters to
+> > ignore sashiko code review bug findings in netdevsim. Is that
+> > sufficient, or do you need something else from me?
+>
+> No, the fact that it's a test harness only impacts whether fixes
+> got to net & stable, not whether bugs need to be fixed.
 
-Signed-off-by: Waiman Long <longman@redhat.com>
----
- kernel/cgroup/cpuset.c | 212 ++++++++++++++++++++---------------------
- 1 file changed, 106 insertions(+), 106 deletions(-)
+Ack, I meant like if the bots start to consider missing/incomplete
+functionality as 'bugs' when it's actually missing from netdevsim on
+purpose because we don't need it for testing.
 
-diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
-index 03c666f658e4..f9ba711e1e1a 100644
---- a/kernel/cgroup/cpuset.c
-+++ b/kernel/cgroup/cpuset.c
-@@ -1135,43 +1135,6 @@ void cpuset_update_tasks_cpumask(struct cpuset *cs, struct cpumask *new_cpus)
- 	css_task_iter_end(&it);
- }
- 
--/**
-- * compute_effective_cpumask - Compute the effective cpumask of the cpuset
-- * @new_cpus: the temp variable for the new effective_cpus mask
-- * @cs: the cpuset the need to recompute the new effective_cpus mask
-- * @parent: the parent cpuset
-- *
-- * For v2, the parent's effective_cpus is inherited if cpumask is empty.
-- * The result is valid only if the given cpuset isn't a partition root.
-- */
--static void compute_effective_cpumask(struct cpumask *new_cpus,
--				      struct cpuset *cs, struct cpuset *parent)
--{
--	bool has_cpus;
--
--	has_cpus = cpumask_and(new_cpus, cs->cpus_allowed, parent->effective_cpus);
--	if (!has_cpus && is_in_v2_mode())
--		cpumask_copy(new_cpus, parent->effective_cpus);
--}
--
--/**
-- * compute_effective_nodemask - Compute the effective nodemask of the cpuset
-- * @new_mems: the temp variable for the new effective_mems mask
-- * @cs: the cpuset the need to recompute the new effective_mems mask
-- * @parent: the parent cpuset
-- *
-- * For v2, the parent's effective_mems is inherited if nodemask is empty.
-- */
--static void compute_effective_nodemask(nodemask_t *new_mems,
--				       struct cpuset *cs, struct cpuset *parent)
--{
--	bool has_mems;
--
--	has_mems = nodes_and(*new_mems, cs->mems_allowed, parent->effective_mems);
--	if (!has_mems && is_in_v2_mode())
--		nodes_copy(*new_mems, parent->effective_mems);
--}
--
- /*
-  * Commands for update_parent_effective_cpumask
-  */
-@@ -1583,6 +1546,112 @@ static inline bool is_local_partition(struct cpuset *cs)
- 	return is_partition_valid(cs) && !is_remote_partition(cs);
- }
- 
-+/**
-+ * compute_partition_effective_cpumask - compute effective_cpus for partition
-+ * @cs: partition root cpuset
-+ * @new_ecpus: previously computed effective_cpus to be updated
-+ *
-+ * Compute the effective_cpus of a partition root by scanning effective_xcpus
-+ * of child partition roots and excluding their effective_xcpus.
-+ *
-+ * This has the side effect of invalidating valid child partition roots,
-+ * if necessary. Since it is called from either cpuset_hotplug_update_tasks()
-+ * or update_cpumasks_hier() where parent and children are modified
-+ * successively, we don't need to call update_parent_effective_cpumask()
-+ * and the child's effective_cpus will be updated in later iterations.
-+ */
-+static void compute_partition_effective_cpumask(struct cpuset *cs,
-+						struct cpumask *new_ecpus)
-+{
-+	struct cgroup_subsys_state *css;
-+	struct cpuset *child;
-+	bool populated = partition_is_populated(cs, NULL);
-+
-+	WARN_ON_ONCE(!is_partition_valid(cs));
-+
-+	/*
-+	 * Check child partition roots to see if they should be invalidated
-+	 * when all the effective_cpus will be used up and cs is populated.
-+	 * It is better to sacrifice a child partition root than invalidating
-+	 * the whole subtree.
-+	 *
-+	 * Return early if the effective_cpus is already empty.
-+	 */
-+	compute_excpus(cs, new_ecpus);
-+	if (!cpumask_and(new_ecpus, new_ecpus, cpu_active_mask))
-+		return;
-+
-+	rcu_read_lock();
-+	cpuset_for_each_child(child, css, cs) {
-+		if (!is_partition_valid(child))
-+			continue;
-+
-+		/*
-+		 * There shouldn't be a remote partition underneath another
-+		 * partition root.
-+		 */
-+		WARN_ON_ONCE(is_remote_partition(child));
-+		if (populated && cpumask_subset(new_ecpus, child->effective_xcpus)) {
-+			int old_prs = child->partition_root_state;
-+			int parent_prs = cs->partition_root_state;
-+
-+			/*
-+			 * Invalidate child partition and update isolated_cpus
-+			 * if necessary.
-+			 */
-+			spin_lock_irq(&callback_lock);
-+			WRITE_ONCE(child->prs_err, PERR_NOCPUS);
-+			if ((old_prs == PRS_ISOLATED) && (parent_prs == PRS_ROOT))
-+				isolated_cpus_update(old_prs, parent_prs,
-+						     child->effective_xcpus);
-+			child->partition_root_state = -old_prs;
-+			spin_unlock_irq(&callback_lock);
-+			notify_partition_change(child, old_prs);
-+			continue;
-+		}
-+		cpumask_andnot(new_ecpus, new_ecpus,
-+			       child->effective_xcpus);
-+	}
-+	rcu_read_unlock();
-+}
-+
-+/**
-+ * compute_effective_cpumask - Compute the effective cpumask of the cpuset
-+ * @new_cpus: the temp variable for the new effective_cpus mask
-+ * @cs: the cpuset the need to recompute the new effective_cpus mask
-+ * @parent: the parent cpuset
-+ *
-+ * For v2, the parent's effective_cpus is inherited if cpumask is empty.
-+ * The result is valid only if the given cpuset isn't a partition root.
-+ */
-+static void compute_effective_cpumask(struct cpumask *new_cpus,
-+				      struct cpuset *cs, struct cpuset *parent)
-+{
-+	bool has_cpus;
-+
-+	has_cpus = cpumask_and(new_cpus, cs->cpus_allowed, parent->effective_cpus);
-+	if (!has_cpus && is_in_v2_mode())
-+		cpumask_copy(new_cpus, parent->effective_cpus);
-+}
-+
-+/**
-+ * compute_effective_nodemask - Compute the effective nodemask of the cpuset
-+ * @new_mems: the temp variable for the new effective_mems mask
-+ * @cs: the cpuset the need to recompute the new effective_mems mask
-+ * @parent: the parent cpuset
-+ *
-+ * For v2, the parent's effective_mems is inherited if nodemask is empty.
-+ */
-+static void compute_effective_nodemask(nodemask_t *new_mems,
-+				       struct cpuset *cs, struct cpuset *parent)
-+{
-+	bool has_mems;
-+
-+	has_mems = nodes_and(*new_mems, cs->mems_allowed, parent->effective_mems);
-+	if (!has_mems && is_in_v2_mode())
-+		nodes_copy(*new_mems, parent->effective_mems);
-+}
-+
- /*
-  * remote_partition_enable - Enable current cpuset as a remote partition root
-  * @cs: the cpuset to update
-@@ -2084,75 +2153,6 @@ static int update_parent_effective_cpumask(struct cpuset *cs, int cmd,
- 	return 0;
- }
- 
--/**
-- * compute_partition_effective_cpumask - compute effective_cpus for partition
-- * @cs: partition root cpuset
-- * @new_ecpus: previously computed effective_cpus to be updated
-- *
-- * Compute the effective_cpus of a partition root by scanning effective_xcpus
-- * of child partition roots and excluding their effective_xcpus.
-- *
-- * This has the side effect of invalidating valid child partition roots,
-- * if necessary. Since it is called from either cpuset_hotplug_update_tasks()
-- * or update_cpumasks_hier() where parent and children are modified
-- * successively, we don't need to call update_parent_effective_cpumask()
-- * and the child's effective_cpus will be updated in later iterations.
-- */
--static void compute_partition_effective_cpumask(struct cpuset *cs,
--						struct cpumask *new_ecpus)
--{
--	struct cgroup_subsys_state *css;
--	struct cpuset *child;
--	bool populated = partition_is_populated(cs, NULL);
--
--	WARN_ON_ONCE(!is_partition_valid(cs));
--
--	/*
--	 * Check child partition roots to see if they should be invalidated
--	 * when all the effective_cpus will be used up and cs is populated.
--	 * It is better to sacrifice a child partition root than invalidating
--	 * the whole subtree.
--	 *
--	 * Return early if the effective_cpus is already empty.
--	 */
--	compute_excpus(cs, new_ecpus);
--	if (!cpumask_and(new_ecpus, new_ecpus, cpu_active_mask))
--		return;
--
--	rcu_read_lock();
--	cpuset_for_each_child(child, css, cs) {
--		if (!is_partition_valid(child))
--			continue;
--
--		/*
--		 * There shouldn't be a remote partition underneath another
--		 * partition root.
--		 */
--		WARN_ON_ONCE(is_remote_partition(child));
--		if (populated && cpumask_subset(new_ecpus, child->effective_xcpus)) {
--			int old_prs = child->partition_root_state;
--			int parent_prs = cs->partition_root_state;
--
--			/*
--			 * Invalidate child partition and update isolated_cpus
--			 * if necessary.
--			 */
--			spin_lock_irq(&callback_lock);
--			WRITE_ONCE(child->prs_err, PERR_NOCPUS);
--			if ((old_prs == PRS_ISOLATED) && (parent_prs == PRS_ROOT))
--				isolated_cpus_update(old_prs, parent_prs,
--						     child->effective_xcpus);
--			child->partition_root_state = -old_prs;
--			spin_unlock_irq(&callback_lock);
--			notify_partition_change(child, old_prs);
--			continue;
--		}
--		cpumask_andnot(new_ecpus, new_ecpus,
--			       child->effective_xcpus);
--	}
--	rcu_read_unlock();
--}
--
- /*
-  * furthest isolated_ancestor - Return furthest isolated partition root ancestor available
-  * @cs: the current cpuset
--- 
-2.56.0
+> I was expecting you to keep an eye on the list and review any fixes
+> that come, basically.
+>
 
+OK, I'll add netdevsim to my email filters for patches to review and
+see how it goes.
+
+--=20
+Thanks,
+Mina
