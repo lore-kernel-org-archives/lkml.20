@@ -1,100 +1,115 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.177
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792738400;
-	b=qZR7tNx8KbasQGZOJHPdh8SELCBD3fPaaOwso/CIpzh6dVf9/0B4fXF7Uf/I+o0sDajc
-	 Q5Ch+LO5q6ArR9zKD7Cmd92HRh08n7eCapXREsKZlUrAUqsc9QlgQzqpKgKQd/MQZJcYl
-	 5wV37GJBcuHPqIGDzeGq6a09eSEXmjMjC0oraeimka776q7X7l3KGRc7gGlwhH5QVgbh1
-	 L4XL7nhdb8+woTNVxEsi9AWL/GeXwWn2Q7El0M1lPmOSZUQgJQ3XD/LAzTl3v/tdq1BxR
-	 ffUx0hMduKdM15tpiLCTXa2wsqww46hd0bRJugcprwpUG/VFhQDMbnweGCGKx0Im+DQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792738400;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=rVRNnDLDDIW+sRfhuCbABetubfb2eyFKmWznRnHIsoc=;
-	b=M1vBccTPagfPJK9bs635P0+C4KENuuBE9OlRzMH0tc8Lo3yaw3cBfzQWwI7ub2yoSY+f
-	 b21Wku78c+rtY6FWY8VyLpsn6iTIyFFxWbwq1z33xJaR5bgGKOWgtqsxZFBNSkHmlZrjh
-	 Z8duh+1hG6V67sasfwFLOBmzGX08th835KX9tVaeh5WunNU0SSNcUQyAAA/rCCdJMnd//
-	 EwWXUYGTflDAW589rrCxePRoeBC1LV/LwDn2lUa6l9FxMbVAkEr4qwroYpb0xb1hDUzaz
-	 4bKgBftREyf5urErjzO7pKBk0EUm/yng6aVEmV17ONc46WzGoect4C55WksI/GzYY3w==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="U/EOK7fA";
-	arc=none smtp.remote-ip=209.85.214.177
-Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.85.25
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792738414;
+	b=yHCJNbVScwluaeGit4PEco9xfs9H2TDcLVvZScDI1KewejdalC8XrJm5K+lAcyurNOEM
+	 MiFgg61WhquqmIeXIAt0QGc3CVawnrgLE92yFrNJ4zr7gOnbukbJahDRgr/naZEG7d3Ph
+	 ikQLldFNvsB2ZcwERHxxBL56cXOfm6J7m16uFTWnW8IirCJFW9VWQ80oVvRUf40pR08bM
+	 8fu41vLsE4CvfhpL0UvU9uqKoMtOojNK1aQzg+5t3iL4VfyJ4YS4sOMm84BTtjpFjJZxW
+	 wugz/tx5EC+MvFtiMwQSti21fg47H0SRpZB8lqSHDBb+MA6SgrFuBG8i+zZixX7Nlcg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792738414;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
+	 Content-Type:X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=0LRNJpbQ+fV3P8N+iK+VOukEtIWc5Awe0abppaetwas=;
+	b=m2dZNdnZkTG29dLclzgyixDfSPb5EZrdP/HwhUd5V9Sl/N0imVHRbZ/iuaG9lnB0wHmA
+	 U9jZlzi6Xg1jfG3CDZY9Bwi9800weXRBQZ3uuZkhsdRFTYyUO3t5wmXvM6RtTwoHAO3NS
+	 Dxbg805Qtph4oNwuJ//io+PMKMNHo0ASxwVmyYFvmYqJ8Mj1CO3y1CD+vzUOQWxfWyJ1N
+	 lwLXCqeQFg/MUCZ+wuTEWEjToUx8faVDkZ8dy+z2Eege54URkiJ3FxlwIAoJJNsApZ+s4
+	 WioyVHgNqsVDfwlajfh29cfbb/cHDhmMypfUBgCFB9Kd09JZjOwNihFiJFnMV4X1w/Q==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=TbrNQALH;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.85.25
+Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010025.outbound.protection.outlook.com [52.101.85.25])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFD95606A31D
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 06:53:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AFD95606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 137C1606A31E;
+	Fri, 23 Oct 2026 06:53:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 137C1606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=U/EOK7fA
-Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-2e5fb79ce82so2822495ad.0
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 23:53:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792738399; x=1793343199; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=rVRNnDLDDIW+sRfhuCbABetubfb2eyFKmWznRnHIsoc=;
-        b=U/EOK7fAC66nKGMcSF6e7r3Hz7zvk1fQrc/o+kdyEjDojVsyNAft4iQXkXF8NY8WZJ
-         IJv5ioTxgYXHL1vYgTITBcaVDczXsGhNgs5IYuhXcY+8D7bfuw/qhSqoTtwu1t3WOzv3
-         WaOdBEO+QbNnAAJTIxtFTBLKaqa1RY53q/sohUEW0MDv+kxY6HcwTQeo1uGXrMnLRzvH
-         hCCEe8mMYLUfiJUGbPo4WGYoEEwq6VWKR/DmG2hr/D/t/SfenYYyMAQUC+coUbYnulwr
-         8f8dESYeUSlTnqdkg9F2phM5nKYIgBeR3O1Gy/Uyl8c1LSbFAaHifxfkdWXXLA+6g8IO
-         DHeQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792738399; x=1793343199;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=rVRNnDLDDIW+sRfhuCbABetubfb2eyFKmWznRnHIsoc=;
-        b=bdT7FM7SgctaxLyvbCym+h03AbmSFJbNl0r7Jmbsin9Xlh7BSEnswFJZC4WQaJ21eB
-         ba8jTGjjjDmEGuVCz3omn6DJFwI+2UUfbXLg8HTws+bX2s+tA9gVncXmZ+JL1+k8cviF
-         2zW5BoobuAe3nQ7pdxlvMvICQjo/dl3mNoTTQPz7s/8RbDHl53VPgrkYyX76r9mW/j+o
-         3vmDqICSO80NkuJwypObeN5TnHdyKGCj5vSH7xv0ii/foefOfTn0iFmkZeR4FAuNqVYH
-         CzvPMT0an7BIZlSpS3yKTKYMMcdH8ZaWgITyC+okeb07bb2lctmjUPrha+T6iuyBhcCb
-         Kl8g==
-X-Forwarded-Encrypted: i=1; AKwUvBy+z1frH4M3AjnBJs6n3fxsgBAgXume8FA3NN6R8u5lNhZ2ps5UOXU5viASdOx5trTBOfgwS9nGajA2Juk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJPoB3FNG1WQT7jguxdxOlemi6OTjGdyGYoqY0kg43iffMjRLBW
-	jfiNf1gvTgXJXCPl1WY6X4MQcA8amEujqcal+zomy9wazuwBfVSOvVoG
-X-Gm-Gg: AYBFou3Dl9UQo987XqbrGuVfpjwJP6Z15oq/56FTNIMP3kCjJJ9CdPAF4FAJ/0SRzUl
-	pyU6tXr/40V+dS/6lGUiNtsICbXzyoOAgZdyWgXKl1Sg+wwHaanuDd1s68g0GBPP4yiEhpns4GF
-	M68Bh8ftXlY+BqEEssr8vdRY6g9yTZ+czj+TiuHCMiRrc2lrILjVNTanDgfeEv132OO/GErHDtX
-	yfWHKSR66jty5Pin9B3UeAEirqMyIiskCjY64D2jS72RMxDoh6y6arz1ENocm+K4bWf6wEMAx8F
-	yTgootVIFgI4fHXeg2uOu6JJJ8nLs5DxXAy95mzq8Sl5lOdDXCItDE/BOdOsIUrvN4Kohj08oyr
-	R9pqBbup4tyfsaf2Ol1XjlSRjmWpP/K3EX9APoyqJT7yjikX3mJt5c15JgEQWUaF9kTBMkzQvRK
-	3Vqv+XTcUIHJu7E+uwCpWBnJLwPqsfoHF0px7JE4FLQwDkync6o/RHTrXb37HFr9XWb8pe5iS9h
-	UAWvBzFEizjVTbLpSamZCbn3hn1i655V30/x4S6jlk3uJ+rT+JrcQewaL7bVVliFFshej9OqP0r
-	60zaOOBu2wr1+ZRpWVCo53ROLzvbeOQYyZqYxuZwESZomg==
-X-Received: by 2002:a17:902:ce82:b0:2e8:486d:fa00 with SMTP id d9443c01a7336-2ea7c153a0fmr16407985ad.29.1792738398990;
-        Thu, 22 Oct 2026 23:53:18 -0700 (PDT)
-Received: from localhost.localdomain (ip67.244-167-222.hkg.ten111.net. [222.167.244.67])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ea7b3dd597sm6164065ad.62.2026.10.22.23.53.14
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 22 Oct 2026 23:53:18 -0700 (PDT)
-From: Guoshuai Yang <yangguoshuai@gmail.com>
-To: Steffen Klassert <steffen.klassert@secunet.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	Sabrina Dubroca <sd@queasysnail.net>
-Cc: "David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	David Ahern <dsahern@kernel.org>,
-	Guoshuai Yang <yangguoshuai@gmail.com>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH net v3] xfrm: esp: reset outer TCP GSO metadata on espintcp input
-Date: Fri, 23 Oct 2026 14:53:11 +0800
-Message-ID: <20261023065311.65031-1-yangguoshuai@gmail.com>
-X-Mailer: git-send-email 2.54.0
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=TbrNQALH
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=DW63vq6lKxXn3fbZtQ6BLig/RRqlCiHfIkiENztPcV8TwD1ESmZSBENV9hoXpbFaFaX3p25Yl1ST3lN2EohZdhmQ4xU418ciO5IfJYUF97QJTmsXYSd7XBhdDdGV63t/pxJb2i8jykfSVZxmfVnEUajo8wDstmLVFCx/KZhBkdEv9AHBU11Dr0lwE+t5ZeERvyNUXyLBsm7S7iLjSd5kHLrEbI4IOJ84HxcZ2rbqbzmvXDA5sh3pMBf4jLdG8XqWPCZsF42bTkc9xfCMiv9tlfKdg3LREFP0NM980QudpJUZRTuQoPDM2b8nETGI9mw1B880bOOY/DZpkG/t50BgBQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=0LRNJpbQ+fV3P8N+iK+VOukEtIWc5Awe0abppaetwas=;
+ b=VdLE8PZumT9gL9fKJWzx6oVSXK+IDz/C2mUsQ+Oz9czATVzceLhC+njrsmQdAOqjq7K+LxBHtjUXMxsVIiPCmvnkXR4Bm2LDgJaPbPFLkQ2SDqVY7HtQ3eR1gTWTY3U8UwXScbZxCu26BftX0y5pBf7n919wtVrP9ijSPUHf4YuvGA8p85c5N2z1qn3cpWrtX0csOsGcVzWYeFqB2jKnM5YovnyZxE5ks2tbjtSbBencijX08XTeK58neGxh6fu9NWgrHAB3HdMlvUIKamt3zELwd/vuPYStqTWVblzZCU7iqH30xT4VPIKeSU+dqUlWIFV5liB36HbVJcc+cmogfQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=0LRNJpbQ+fV3P8N+iK+VOukEtIWc5Awe0abppaetwas=;
+ b=TbrNQALHqun5tf0ZcRBkxWR/0qxuN5eABl7lYM+WbAWB5KlzRBpEZuZpUPnODY28VClLP6Ejq0B1NlWjnl7dHAZ/E4uO56FfLXZuzMav8F+GbaYCESx0du5Ip6KEVI6ml4HRmngkZfr6XwhujTCjQtShYQsK8+rnLI5DWY+8Rnk=
+Received: from MW4PR03CA0034.namprd03.prod.outlook.com (2603:10b6:303:8e::9)
+ by PH7PR12MB7938.namprd12.prod.outlook.com (2603:10b6:510:276::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Fri, 23 Oct
+ 2026 06:53:29 +0000
+Received: from CO1PEPF00012E66.namprd05.prod.outlook.com
+ (2603:10b6:303:8e:cafe::5b) by MW4PR03CA0034.outlook.office365.com
+ (2603:10b6:303:8e::9) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.546.17 via Frontend Transport; Fri,
+ 23 Oct 2026 06:53:29 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ CO1PEPF00012E66.mail.protection.outlook.com (10.167.249.75) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.546.15 via Frontend Transport; Fri, 23 Oct 2026 06:53:29 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Fri, 23 Oct
+ 2026 01:53:28 -0500
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Fri, 23 Oct
+ 2026 01:53:28 -0500
+Received: from amd-System-Product-Name.amd.com (10.180.168.240) by
+ satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.53
+ via Frontend Transport; Fri, 23 Oct 2026 01:53:24 -0500
+From: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
+To: <broonie@kernel.org>
+CC: <alsa-devel@alsa-project.org>, <lgirdwood@gmail.com>, <perex@perex.cz>,
+	<tiwai@suse.com>, <pierre-louis.bossart@linux.dev>,
+	<yung-chuan.liao@linux.intel.com>, <Basavaraj.Hiregoudar@amd.com>,
+	<Sunil-kumar.Dommati@amd.com>, <venkataprasad.potturu@amd.com>,
+	<Syed.SabaKareem@amd.com>, <Mario.Limonciello@amd.com>,
+	<Richard.Gong@amd.com>, <Vijendar.Mukunda@amd.com>, <Poojitha.N@amd.com>,
+	<linux-sound@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<sound-open-firmware@alsa-project.org>
+Subject: [PATCH v3 01/13] ASoC: amd: acp: add ACP7.B/7.F SoundWire link count for machine driver
+Date: Fri, 23 Oct 2026 12:20:37 +0530
+Message-ID: <20261023065216.3473883-2-Vijendar.Mukunda@amd.com>
+X-Mailer: git-send-email 2.48.1
+In-Reply-To: <20261023065216.3473883-1-Vijendar.Mukunda@amd.com>
+References: <20261023065216.3473883-1-Vijendar.Mukunda@amd.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,216 +120,87 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1PEPF00012E66:EE_|PH7PR12MB7938:EE_
+X-MS-Office365-Filtering-Correlation-Id: d21bf89d-b044-4f40-f652-08df30d25891
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|23010399003|36860700016|82310400026|1800799024|7416014|6133799003|18002099003|10067099003|261021123027099003|261022105027099003|22082099003|11063799006|261009223027099003|261021121427099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	3SfXMHBuo3N/FImQ4KnuVXmt8Vkxn0TuR7KORK+4DuWBJLB//JsGMAlF1oy1hSk5xG96XgKq0oYwRhH1o9uIgECpOMjyDWYyY0oHo3VzppD9X819OLYXFonEVEZMeciE3NN9/ukIbBYvdDSn5ymqeSAUKVNLD8ledLk2X19f9UIov+s4PZb7LjEpQXbPSlua/s+Ga77g4F7m80W/urll+aE/CPPqmRDijWW7GdEtH4yWzC4em/frvcP2UiUswHlrWmORVOpWtQ88C6l8MyIIVg05XmgIBJMTCNgJUIWvere37oW01WKdEvLkTRigvOEHa9B5/DIqZt3JgD2HhrAt4WM0+D5wADCDz6hpDxfGPcwi/6/sHhKbtTvflmMZEVWylncfn7FeN/UZGsvXnw3+YbIQ39tEdV9t0uCKXFraQ74bFyvbdm8EUMv7rqy3bZ2giljCstpPnTevqgbIkLpXRtszE1Fl2Lgv2zC7JM2iQnY2Gsqpasqq1Ut6brH+GrDn0N5aXIsOrDdGI6vufYW7qarDVdhkY0fqeYbmDqFnlIWXAVRBTH+jT8VGShS+mA5kqc0gBgAwHy56NmjLlbwYTWMmlEUZnxF5eusbEVzuZEpZYI7sgL2A4ymxb/spGZCY+qi+Ye4NhGmmnv9/ogSR1Jv8rNMmuefEbpYMbwzXERiO8/+qjrVbICpVMkcTvbJs
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(23010399003)(36860700016)(82310400026)(1800799024)(7416014)(6133799003)(18002099003)(10067099003)(261021123027099003)(261022105027099003)(22082099003)(11063799006)(261009223027099003)(261021121427099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	tsTO3m3NpYi1iWgWp3Wv0vQvu6E3RghnF5XNp1N+KM8a422MMmwZ5X4MSmHvvvnAiJSAtQM1OOCe/kB2/cg7Nw+xPdyxzvrA8Ia7yTHL3QVj76icNtWZf0BSd+UmW3AZlolU90y1v/NoREsHBHns6Ah8bY15A6EMnoHzxCNXBPCPfYF2gvM3eor0Q6rxDLGQTt3egoUDyNRJTwe+fIm3wKUNTPfeFTBffHlnMD4VYtB7EoKhDowj2eIUuCJ/nY8uXH9tX3oFY9+sXlpkg2fVn8nKUvGLbaKSorpAGP7v94nJWUcX/+XlKCm4LXseBl4SC3k27eZTF+npTUyRLWEhwLLJ+C8b9RoIRLsGQXI5mhCJ8inMfLDD3/xQgl/xXE3o/EWBP+M8buS7AUePk15nMfuT8QS/lARaLbKBfOoiID1rJxbYw9T+7MAGe30NkS7i
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Oct 2026 06:53:29.5769
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d21bf89d-b044-4f40-f652-08df30d25891
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CO1PEPF00012E66.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7938
 
-When ESP packets are received over TCP (RFC 8229 espintcp), strparser
-slices individual length-prefixed ESP records from the outer TCP stream by
-cloning the incoming TCP skb(s) in __strp_recv().
+ACP7.B/7.F platforms expose four SoundWire managers, whereas earlier
+platforms use two. Add PCI revision constants and ACP7X_SDW_MAX_LINKS
+to soc_amd_sdw_common.h, and set max_sdw_links in mc_probe() based on
+PCI revision so the machine driver validates DAI links against the
+correct manager count.
 
-If the outer TCP skb was GRO-coalesced before reaching strparser, its
-skb_shinfo carries the outer TCP stream's GSO metadata (gso_size, gso_segs,
-and gso_type). When an ESP record spans two outer TCP segments, strparser
-chains the spillover clone onto skb_shinfo(head)->frag_list.
-
-Subsequently in esp_input() and esp6_input(), skb_cow_data() unshares the
-head skb via pskb_expand_head() (preserving the outer TCP gso_size and
-gso_type in the new private skb_shinfo) and calls skb_copy() on each cloned
-frag_list member, which copies the outer TCP GSO fields via
-skb_copy_header() onto a linear frag_list child skb allocated from slab
-with head_frag == 0.
-
-Furthermore, if an outer TCP GRO aggregate carried SKB_GSO_FRAGLIST (e.g.,
-when rx-gro-list is enabled) and was chained onto
-skb_shinfo(head)->frag_list by __strp_recv(), skb_cow_data() invokes
-skb_copy() / skb_copy_expand() on that frag_list member and hits
-WARN_ON_ONCE(skb_shinfo(skb)->gso_type & SKB_GSO_FRAGLIST), failing with
--ENOMEM before decryption even begins.
-
-After ESP decryption and header removal, the resulting single inner packet
-still has skb_is_gso(skb) == true with the stale outer TCP gso_size, while
-skb_headlen(head_skb) is now smaller than that gso_size due to stripping
-the outer framing and ESP header. When this packet passes through
-gro_cells_receive() (which flushes frag_list packets via GRO_NORMAL
-without resetting gso_size) and is forwarded, validate_xmit_skb() invokes
-tcp_gso_segment() -> skb_segment(). Because head_skb is shorter than the
-stale gso_size and SKB_GSO_DODGY is not set, skb_segment() attempts to map
-the slab-backed frag_list member as a scatter-gather page fragment and hits
-BUG_ON(!list_skb->head_frag):
-
-  Internal error: Oops - undefined instruction: 0 [#1] SMP ARM
-  PC is at skb_segment+0x574/0xd20
-  LR is at skb_segment+0x884/0xd20
-  Call trace:
-   skb_segment from tcp_gso_segment
-   tcp_gso_segment from inet_gso_segment
-   inet_gso_segment from skb_mac_gso_segment
-   skb_mac_gso_segment from __skb_gso_segment
-   __skb_gso_segment from validate_xmit_skb
-   validate_xmit_skb from __dev_queue_xmit
-   __dev_queue_xmit from ip_finish_output2
-   ip_finish_output2 from ip_output
-   ip_output from ip_sublist_rcv_finish
-   ip_sublist_rcv_finish from ip_sublist_rcv
-   ip_list_rcv from __netif_receive_skb_list_core
-   __netif_receive_skb_list_core from __netif_receive_skb_list
-   __netif_receive_skb_list from gro_normal_list
-   gro_normal_list from gro_cell_poll
-
-Similarly, if a decrypted inner packet with a frag_list later takes the
-ip_do_fragment() frag_list fast path, each detached frag_list member is
-transmitted as a standalone IP fragment and would still carry the stale
-outer TCP GSO state when reaching validate_xmit_skb(). And even when an
-ESP record does not have a frag_list, leaving the stale outer TCP gso_size
-on the decrypted inner skb prevents dev_gro_receive() from initializing
-gso_size to the inner packet's skb_gro_len().
-
-We cannot reset GSO state earlier in espintcp_rcv() / handle_esp() because
-the skb may still be a clone sharing skb_shinfo with the outer TCP skb held
-by strparser. Instead, in esp_input() and esp6_input():
-1. Prior to skb_cow_data(), unshare/unclone and reset GSO metadata on any
-   frag_list member carrying SKB_GSO_FRAGLIST so skb_copy() /
-   skb_copy_expand() inside skb_cow_data() does not hit WARN_ON_ONCE() and
-   drop the packet.
-2. At skip_cow, where the head skb and all frag_list members are guaranteed
-   to be uncloned with private skb_shinfo, call skb_gso_reset() on both the
-   head skb and each skb_walk_frags() member.
-
-Fixes: e27cca96cd68 ("xfrm: add espintcp (RFC 8229)")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guoshuai Yang <yangguoshuai@gmail.com>
+Signed-off-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
 ---
-v3:
-  - Unshare/unclone and reset GSO metadata on any frag_list member carrying
-    SKB_GSO_FRAGLIST before skb_cow_data() so skb_copy() / skb_copy_expand()
-    does not hit WARN_ON_ONCE(SKB_GSO_FRAGLIST) and return -ENOMEM.
-  - Move the shared espintcp GSO reset helpers into include/net/esp.h.
-  - Link to v2: https://lore.kernel.org/netdev/20261020030450.7170-1-yangguoshuai@gmail.com/
-v2:
-  - Also call skb_gso_reset() on each skb_walk_frags() member at skip_cow
-    in esp_input() and esp6_input() so detached frag_list members on the
-    ip_do_fragment() fast path do not retain stale outer TCP GSO state.
-  - Specify target tree 'net' in subject prefix.
-  - Link to v1: https://lore.kernel.org/netdev/20261018005218.53267-1-yangguoshuai@gmail.com/
- include/net/esp.h | 51 +++++++++++++++++++++++++++++++++++++++++++++++
- net/ipv4/esp4.c   |  9 +++++++++
- net/ipv6/esp6.c   |  9 +++++++++
- 3 files changed, 69 insertions(+)
+ sound/soc/amd/acp/acp-sdw-sof-mach.c   | 10 +++++++++-
+ sound/soc/amd/acp/soc_amd_sdw_common.h |  3 +++
+ 2 files changed, 12 insertions(+), 1 deletion(-)
 
-diff --git a/include/net/esp.h b/include/net/esp.h
-index 3229507..09ed682 100644
---- a/include/net/esp.h
-+++ b/include/net/esp.h
-@@ -28,6 +28,57 @@ static inline void esp_output_fill_trailer(u8 *tail, int tfclen, int plen, __u8
- 	tail[plen - 1] = proto;
- }
+diff --git a/sound/soc/amd/acp/acp-sdw-sof-mach.c b/sound/soc/amd/acp/acp-sdw-sof-mach.c
+index ec3e1f5f1052c..ad8a024321dfa 100644
+--- a/sound/soc/amd/acp/acp-sdw-sof-mach.c
++++ b/sound/soc/amd/acp/acp-sdw-sof-mach.c
+@@ -382,7 +382,15 @@ static int mc_probe(struct platform_device *pdev)
+ 		return -ENOMEM;
  
-+static inline int esp_reset_espintcp_fraglist_gso(struct sk_buff *skb)
-+{
-+	struct sk_buff **fragp;
-+	struct sk_buff *frag;
-+
-+	skb_walk_frags(skb, frag) {
-+		if (skb_shinfo(frag)->gso_type & SKB_GSO_FRAGLIST)
-+			break;
+ 	amd_ctx->acp_rev = mach->mach_params.subsystem_rev;
+-	amd_ctx->max_sdw_links = ACP63_SDW_MAX_LINKS;
++	switch (amd_ctx->acp_rev) {
++	case ACP7B_PCI_REV:
++	case ACP7F_PCI_REV:
++		amd_ctx->max_sdw_links = ACP7X_SDW_MAX_LINKS;
++		break;
++	default:
++		amd_ctx->max_sdw_links = ACP63_SDW_MAX_LINKS;
++		break;
 +	}
-+	if (!frag)
-+		return 0;
-+
-+	if (skb_unclone(skb, GFP_ATOMIC))
-+		return -ENOMEM;
-+
-+	for (fragp = &skb_shinfo(skb)->frag_list; (frag = *fragp);
-+	     fragp = &frag->next) {
-+		if (!(skb_shinfo(frag)->gso_type & SKB_GSO_FRAGLIST))
-+			continue;
-+
-+		if (skb_shared(frag)) {
-+			struct sk_buff *nfrag;
-+
-+			nfrag = skb_clone(frag, GFP_ATOMIC);
-+			if (!nfrag)
-+				return -ENOMEM;
-+
-+			nfrag->next = frag->next;
-+			consume_skb(frag);
-+			frag = nfrag;
-+			*fragp = frag;
-+		}
-+
-+		if (skb_unclone(frag, GFP_ATOMIC))
-+			return -ENOMEM;
-+
-+		skb_gso_reset(frag);
-+	}
-+
-+	return 0;
-+}
-+
-+static inline void esp_reset_espintcp_gso(struct sk_buff *skb)
-+{
-+	struct sk_buff *iter;
-+
-+	skb_gso_reset(skb);
-+	skb_walk_frags(skb, iter)
-+		skb_gso_reset(iter);
-+}
-+
- struct esp_info {
- 	struct	ip_esp_hdr *esph;
- 	__be64	seqno;
-diff --git a/net/ipv4/esp4.c b/net/ipv4/esp4.c
-index e76db58..92980cd 100644
---- a/net/ipv4/esp4.c
-+++ b/net/ipv4/esp4.c
-@@ -893,6 +893,12 @@ static int esp_input(struct xfrm_state *x, struct sk_buff *skb)
- 		}
- 	}
+ 	ctx = devm_kzalloc(&pdev->dev, sizeof(*ctx), GFP_KERNEL);
+ 	if (!ctx)
+ 		return -ENOMEM;
+diff --git a/sound/soc/amd/acp/soc_amd_sdw_common.h b/sound/soc/amd/acp/soc_amd_sdw_common.h
+index 034c9ab6e4ea6..5b9410eff56eb 100644
+--- a/sound/soc/amd/acp/soc_amd_sdw_common.h
++++ b/sound/soc/amd/acp/soc_amd_sdw_common.h
+@@ -17,12 +17,15 @@
  
-+	if (x->encap && x->encap->encap_type == TCP_ENCAP_ESPINTCP) {
-+		err = esp_reset_espintcp_fraglist_gso(skb);
-+		if (err)
-+			goto out;
-+	}
-+
- 	err = skb_cow_data(skb, 0, &trailer);
- 	if (err < 0)
- 		goto out;
-@@ -900,6 +906,9 @@ static int esp_input(struct xfrm_state *x, struct sk_buff *skb)
- 	nfrags = err;
+ #define ACP63_SDW_MAX_CPU_DAIS		8
+ #define ACP63_SDW_MAX_LINKS		2
++#define ACP7X_SDW_MAX_LINKS		4
  
- skip_cow:
-+	if (x->encap && x->encap->encap_type == TCP_ENCAP_ESPINTCP)
-+		esp_reset_espintcp_gso(skb);
-+
- 	err = -ENOMEM;
- 	tmp = esp_alloc_tmp(aead, nfrags, seqhilen);
- 	if (!tmp)
-diff --git a/net/ipv6/esp6.c b/net/ipv6/esp6.c
-index b1c9b36..65470d3 100644
---- a/net/ipv6/esp6.c
-+++ b/net/ipv6/esp6.c
-@@ -936,6 +936,12 @@ static int esp6_input(struct xfrm_state *x, struct sk_buff *skb)
- 		}
- 	}
+ #define AMD_SDW_MAX_GROUPS		9
+ #define ACP63_PCI_REV			0x63
+ #define ACP70_PCI_REV			0x70
+ #define ACP71_PCI_REV			0x71
+ #define ACP72_PCI_REV			0x72
++#define ACP7B_PCI_REV			0x7b
++#define ACP7F_PCI_REV			0x7f
  
-+	if (x->encap && x->encap->encap_type == TCP_ENCAP_ESPINTCP) {
-+		ret = esp_reset_espintcp_fraglist_gso(skb);
-+		if (ret)
-+			goto out;
-+	}
-+
- 	nfrags = skb_cow_data(skb, 0, &trailer);
- 	if (nfrags < 0) {
- 		ret = -EINVAL;
-@@ -943,6 +949,9 @@ static int esp6_input(struct xfrm_state *x, struct sk_buff *skb)
- 	}
- 
- skip_cow:
-+	if (x->encap && x->encap->encap_type == TCP_ENCAP_ESPINTCP)
-+		esp_reset_espintcp_gso(skb);
-+
- 	ret = -ENOMEM;
- 	tmp = esp_alloc_tmp(aead, nfrags, seqhilen);
- 	if (!tmp)
+ #define SOC_JACK_JDSRC(quirk)		((quirk) & GENMASK(3, 0))
+ #define ASOC_SDW_FOUR_SPK		BIT(4)
 -- 
-2.54.0 (Apple Git-157)
+2.48.1
 
