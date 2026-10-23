@@ -1,67 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.5
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792747873;
-	b=kqDbHt74S9cES6rHKrfvyqyP7JcXLLShsWB0tzD/4QP/yrL07mAmXfYb9yQx9yzD4MbD
-	 no6l9emxGP3r8jfKwVWztMLMM/lVEkIjHikWK8gXLr5HnsuWf0TlBJTEK7wfw73zOjJUM
-	 0pVDxbqbfnuvUSIBkGkQBltPU/h8xs0gkmMxbeF4Y4uGjDA1FHQSWyTKkHz0uOZoIdPsE
-	 5txYUa4t0UdxrxdNV3vm4UD03TBZIf2X4qjkq+qpIyPDG+2b6L5GWH3vPGCSCzO0Qgp+V
-	 SOb8SajhKXzzIjb8Iy5824+8UCk966Wq0mULuaNUb2NbbgWLsTRQ0iM22g1Uha3yIAw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792747873;
-	h=DMARC-Filter:DKIM-Signature:Date:From:To:Cc:Subject:X-Priority:
-	 X-Mailer:In-Reply-To:References:X-NTES-SC:Content-Transfer-Encoding:
-	 Content-Type:MIME-Version:Message-ID:X-Coremail-Locale:X-CM-TRANSID:
-	 X-CM-SenderInfo:X-Coremail-Antispam;
-	bh=5WACCORrcNc8D+XCzdIPPvKs60Gm54TeeYNUbsOPMK8=;
-	b=0VRuJjo/6Z4vaZXV0Zw035LwPLttCt5e5DkHdkP9Bw+RfH7qHI6xCZtNwkykwifTTO17
-	 Wg5x5Ufpzx9BVEtr3T5UXk4HTpxIpeWIZwrofA1C42LJBf1R2GJ5z1dBj3B5MVgmjWp5r
-	 7pCilXAuvF6xys+zruL8+Ng4aY9u4Bc6vh4Y+SwqWCxpTpVzuY4akNvjktTMLoqb+rytu
-	 POaLuBjZjluNp0tPS1nKZHD7NyeFebx0BTfvE0aEfxCWcbCc/S7sNBJMYuLzDp7L3qGo0
-	 PFqS6fNnEbd0LxgfP8TK1mcwO2Jip3xv31awfOR+3yCyQwysW3EqtJNdSjPhRyjhTbg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=qLtRo+Ma;
-	arc=none smtp.remote-ip=220.197.31.5
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=85.215.255.80
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792747872;
+	b=MH5TuMgTugB8Zvf8W42EC51R05xJP3dSaWf+wx41md0SPZWbIVyrPjZ3lW/vrow0lyZ6
+	 PRz90F+tBmyiW6tb/OnTMvLewRqLGAo5xsussn2PWAU21yu8uNfCchGdadHsNE65SU3PB
+	 eNV04z59CnXMyYE5sKmilAJ8fVg2kYh/60zCyheFSNgOLAYYdfTPEfSvZqbYmyj1iWWXu
+	 zqB0RTFTp7Ru1w7v9aSnAAJ44aJMvHquh43/ToXebAWoW2oOqnPk2Iv9TBTly4B6w3rfq
+	 xvqZ0O18/SA8LQYw7m3CsMna5HZ79ueRBDzPt9EyUMTVJ0GayIbHjDtVv+7NuV+4QuA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792747872;
+	h=DMARC-Filter:X-RZG-CLASS-ID:DKIM-Signature:DKIM-Signature:X-RZG-AUTH:
+	 Received:Content-Type:Content-Transfer-Encoding:From:Mime-Version:
+	 Subject:Date:Message-Id:References:Cc:In-Reply-To:To:X-Mailer;
+	bh=4/JtPZxwY0peCYqrhbe/GP2Ebv+7Kymqi3t9iz/6G8w=;
+	b=BaTUmXhY8EvyM5ztSpu/L7LTmWVhP2nW6viW1sW5jep3ae5UgaHvNC23zmaQAxJhhbIa
+	 Ks5hYEqL89zsgdB0vIxtHPb6x16DVAYF73nR3HGPYVAL/lAuzBr9i2B0L0UwDC0QYmZBO
+	 3OB+UoVOqil5lZIHo5J5pu36QMNgl4+dCq8dRuwfUOQg5fBIo4KCLLtLPwTajG2E4ITyg
+	 I9BiasIvWPhL6zXFyutTz2kU0NmtwTcb+bF53cCCNUH5WEUrb/60bOgluIPVJzxdn7Pln
+	 vHm6aK6Tf20nRcAxqZRXZZJQNHxp5AhW/LbAZpJA409cwjvLVf7glUjbrzHrfq/m2QA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=xenosoft.de;
+	spf=none smtp.mailfrom=xenosoft.de;
+	dkim=pass header.d=xenosoft.de header.i=@xenosoft.de header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=AgZuoWkd;
+	dkim=pass header.d=xenosoft.de header.i=@xenosoft.de header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=eoDTpKVd;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=85.215.255.80
+Received: from mo4-p02-ob.smtp.rzone.de (mo4-p02-ob.smtp.rzone.de [85.215.255.80])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E84AA606AD05;
-	Fri, 23 Oct 2026 09:31:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E84AA606AD05
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9737B606C91A
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 09:31:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9737B606C91A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=xenosoft.de
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=xenosoft.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=qLtRo+Ma
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
-	Message-ID; bh=5WACCORrcNc8D+XCzdIPPvKs60Gm54TeeYNUbsOPMK8=; b=q
-	LtRo+MamLf7MJn+F3SvUF2SbLx1QEjRaiT0zIsp/5lDsi+Unw76lgrfpJjh8QhyJ
-	G+Jiy6YBNOiXbTY9vxJa40Dyo/ebqraG8EQIcIVZYKWSuNr3KVUUXrWYLObj7sBF
-	P2jEb6ATFJ3yEz6fm7y91T7YTE3LTK7anvxX6EkxKY=
-Date: Fri, 23 Oct 2026 17:30:48 +0800 (CST)
-From: "jiale yao" <19888972804@163.com>
-To: "Brandon Brnich" <b-brnich@ti.com>
-Cc: "Nas Chung" <nas.chung@chipsnmedia.com>,
-	"Jackson Lee" <jackson.lee@chipsnmedia.com>,
-	"Mauro Carvalho Chehab" <mchehab@kernel.org>,
-	"Nicolas Dufresne" <nicolas.dufresne@collabora.com>,
-	"Hans Verkuil" <hverkuil@kernel.org>,
-	"Sebastian Fricke" <sebastian.fricke@collabora.com>,
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re:Re: [PATCH v3 1/4] media: wave5: handle remaining decoder
- runtime resume failures
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
- 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
-In-Reply-To: <5be7bd39-c5f5-4906-ba2e-55908bc5cee5@ti.com>
-References: <20261021151552.428590-1-yaojiale02@163.com>
- <20261021151552.428590-2-yaojiale02@163.com>
- <5be7bd39-c5f5-4906-ba2e-55908bc5cee5@ti.com>
-X-NTES-SC: AL_Qu2SAPufuEAv7imYZukcn08ShO49XMOyvfoi2YFTc8wEpyXixB0NU1p7LEDowtydLAKTmQelYAN08clCeqVbWAl94tLvxomfKRLer9T82w==
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=GBK
+	dkim=pass (2048-bit key, unprotected) header.d=xenosoft.de header.i=@xenosoft.de header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=AgZuoWkd;
+	dkim=pass header.d=xenosoft.de header.i=@xenosoft.de header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=eoDTpKVd
+ARC-Seal: i=1; a=rsa-sha256; t=1792747868; cv=none;
+    d=strato.com; s=strato-dkim-0002;
+    b=fXeXrPJYKiuSw1hm3b30uNLko62Rs3Mow6QbRxTkmfsfe6jSGCiNv7UmxeMSe7y+MJ
+    mHgyJQPuYNdSdw9WsV7W9NTIbsOBe5No9JN4DwtTdW95yKAorhP/+vGq6K1/dCEEgR/j
+    ccxG8R9DPnmCb1J+YY+Iye4Aa1xjFumBlA5jQ6wAsdviLNUD+Q17WG9LORodvnUxQ1V1
+    sS1fPSTPfn14lMQjRK/FL//Q2CCazlqD2JsF3SkxsuNKELdsKvcsOxJ0kJvqLrDFFiaD
+    qNFbHFOqfApyWs1GmYKSSAM20OE4/kX7PqpLkHxSA56PM4EAWnweRYgvA7qHs/+JTf5N
+    86TA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1792747868;
+    s=strato-dkim-0002; d=strato.com;
+    h=To:In-Reply-To:Cc:References:Message-Id:Date:Subject:From:Cc:Date:
+    From:Subject:Sender;
+    bh=4/JtPZxwY0peCYqrhbe/GP2Ebv+7Kymqi3t9iz/6G8w=;
+    b=QffDn1YTEbNg7SnRJku8p4HCoxduZnyv71ThNMYvkAfRwUGMPBLFR80xB3X/b9KQNf
+    JEULUlbkoqzkbekCStiDkl6LMGZS/fYcNLN1QkFa02mOWKw3zubb4xVKXnkSbvEUfucA
+    RugXGVBf9PHBapRNKsxbICTiHLi9y1ZZrYFlxb0QoSRKu3qBGi/9Iw+xDEIh5ROc2wql
+    d5+/xFwWOQp8gKWPRPITt1wjsFnNPYgbEfPKqWovsHduY7m35nXSV+pZ4HGGxPsmirpz
+    eLDcfVnHuf6Xj9drUbWOyAvv1B6W5CO4PaUtZdAX9K0ZOAtQ0cxDS3O9WE2W41VhdAP1
+    E/3w==
+ARC-Authentication-Results: i=1; strato.com;
+    arc=none;
+    dkim=none
+X-RZG-CLASS-ID: mo02
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1792747868;
+    s=strato-dkim-0002; d=xenosoft.de;
+    h=To:In-Reply-To:Cc:References:Message-Id:Date:Subject:From:Cc:Date:
+    From:Subject:Sender;
+    bh=4/JtPZxwY0peCYqrhbe/GP2Ebv+7Kymqi3t9iz/6G8w=;
+    b=AgZuoWkd6mfiyPn8N80BIxTtkPKYKBSV27z6Z28aqM5QOEkKNa2hbvfJVd73Jb5iOQ
+    +htQhToZvhhsMWtCo+eqa8Bf7i3/vamiT70bTAuBqwq85fIMBcGZJh4KMYGiMVhwrsYy
+    eBrrJ+l2FA9YI59Ne2/rq4vxH8S4p1nuvSwxVo5wrOqwAoZn5ZVHdX3BTekojF8+wCfH
+    8/VInynblFdmVzcmDc6IAv8BQbQZDwfsYHZPofoaucumRpOTETNwfNkmshOjaB+/HVae
+    9E138FoLKyTXYn6yRmYA8W4KkpRn+TCsyiaUpu1zKRWLtxqdBESe86QHnAg0fyaH0iXX
+    RE/Q==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1792747868;
+    s=strato-dkim-0003; d=xenosoft.de;
+    h=To:In-Reply-To:Cc:References:Message-Id:Date:Subject:From:Cc:Date:
+    From:Subject:Sender;
+    bh=4/JtPZxwY0peCYqrhbe/GP2Ebv+7Kymqi3t9iz/6G8w=;
+    b=eoDTpKVdXHDOQZS8bgHTc5i+sb4pLXyPvJhWOKtjimL5hcPwO+miCSQxPVNv9qeAsQ
+    yu4AO8GX98LlOw1b3+Dg==
+X-RZG-AUTH: ":L2QefEenb+UdBJSdRCXu93KJ1bmSGnhMdmOod1DhGN0rBVhd9dFr6KxrfO5Oh7V7X5q1sy7MWioscGEbW2z9QYPf5P1ugQGy1cNYzA=="
+Received: from smtpclient.apple
+    by smtp.strato.de (RZmta 55.6.3 AUTH)
+    with ESMTPSA id e825d929N9V8ZO3
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+	(Client did not present a certificate);
+    Fri, 23 Oct 2026 11:31:08 +0200 (CEST)
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: quoted-printable
+From: Christian Zigotzky <chzigotzky@xenosoft.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,101 +94,37 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Message-ID: <47cfeaca.858f.1a1681944ce.Coremail.19888972804@163.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:figvCgD3P25JKdtqj25fAA--.3004W
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbC8AntKGrbKUliHQAA3S
-X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
+Mime-Version: 1.0 (1.0)
+Subject: Re: [PATCH] Connecting the SB600's i8259 controller rather in pasemi's pci.c than in pasemi's setup.c.
+Date: Fri, 23 Oct 2026 11:30:57 +0200
+Message-Id: <7C0659AC-D012-4E98-BC4C-C3BC2ABF6A4F@xenosoft.de>
+References: <ce442cc1-5820-40fa-beab-e9c0d6a0df3b@kernel.org>
+Cc: Philip Li <philip.li@intel.com>, kernel test robot <lkp@intel.com>,
+ Madhavan Srinivasan <maddy@linux.ibm.com>,
+ Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
+ Christophe Leroy <chleroy@kernel.org>, linuxppc-dev@lists.ozlabs.org,
+ linux-kernel@vger.kernel.org, oe-kbuild-all@lists.linux.dev,
+ "R.T.Dickinson" <rtd2@xtra.co.nz>,
+ Darren Stevens <darren@stevens-zone.net>,
+ Damien Stewart <hypexed@yahoo.com.au>,
+ Christian Zigotzky <info@xenosoft.de>
+In-Reply-To: <ce442cc1-5820-40fa-beab-e9c0d6a0df3b@kernel.org>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+X-Mailer: iPhone Mail (24A446)
 
-SGkgQnJhbmRvbiwKCkF0IDIwMjYtMTAtMjIgMjM6Mjk6MjMsICJCcmFuZG9uIEJybmljaCIgPGIt
-YnJuaWNoQHRpLmNvbT4gd3JvdGU6Cj5IaSBKaWFsZQo+Cj5UaGFua3MgZm9yIHRoZSBwYXRjaC4K
-Pgo+T24gMTAvMjEvMjYgMTA6MTUsIEppYWxlIFlhbyB3cm90ZToKPj4gU2V2ZXJhbCBkZWNvZGVy
-IGNhbGxiYWNrcyBjb250aW51ZSBpbnRvIGZpcm13YXJlIGNvbW1hbmRzIGFmdGVyCj4+IHBtX3J1
-bnRpbWVfcmVzdW1lX2FuZF9nZXQoKSBmYWlscy4gVGhlIHJ1bnRpbWUgcmVzdW1lIGNhbGxiYWNr
-IGNhbiBmYWlsCj4+IHdoaWxlIGVuYWJsaW5nIHRoZSBWUFUgY2xvY2tzLCBzbyB0aG9zZSBjb21t
-YW5kcyBtYXkgYWNjZXNzIHJlZ2lzdGVycwo+PiB3aGlsZSB0aGUgZGV2aWNlIGlzIHVuYXZhaWxh
-YmxlLiBUaGUgbWF0Y2hpbmcgcnVudGltZSBQTSBwdXRzIGNhbiBhbHNvCj4+IGJlIGlzc3VlZCB3
-aXRob3V0IGEgcmVmZXJlbmNlLgo+PiAKPj4gQ2hlY2sgdGhlIHJlbWFpbmluZyByZXN1bWUgcmVz
-dWx0cy4gUHJvcGFnYXRlIGVycm9ycyBmcm9tIGNhbGxiYWNrcyB0aGF0Cj4+IGNhbiByZXR1cm4g
-dGhlbSwgY29tcGxldGUgYnVmZmVycyBvciBqb2JzIGZyb20gdm9pZCBjYWxsYmFja3MsIGFuZCBh
-dm9pZAo+PiBmaXJtd2FyZSBhY2Nlc3MgYW5kIHVubWF0Y2hlZCBwdXRzIG9uIGZhaWx1cmUuCj4+
-IAo+PiBGaXhlczogMjA5MmIzODMzNDg3ICgibWVkaWE6IGNoaXBzLW1lZGlhOiB3YXZlNTogU3Vw
-cG9ydCBydW50aW1lIHN1c3BlbmQvcmVzdW1lIikKPj4gRml4ZXM6IGNiYjljMGQ1MGU0NyAoIm1l
-ZGlhOiBjaGlwcy1tZWRpYTogd2F2ZTU6IEZpeCBTRXJyb3Igb2Yga2VybmVsIHBhbmljIHdoZW4g
-Y2xvc2VkIikKPj4gRml4ZXM6IGE1MmU2Zjc5MjNjMSAoIm1lZGlhOiBjaGlwcy1tZWRpYTogd2F2
-ZTU6IFJlc3VtZSBkZXZpY2UgYmVmb3JlIHNldHRpbmcgRU9TIGZsYWciKQo+PiBTaWduZWQtb2Zm
-LWJ5OiBKaWFsZSBZYW8gPHlhb2ppYWxlMDJAMTYzLmNvbT4KPj4gLS0tCj4+ICAgLi4uL2NoaXBz
-LW1lZGlhL3dhdmU1L3dhdmU1LXZwdS1kZWMuYyAgICAgICAgIHwgNDcgKysrKysrKysrKysrKysr
-KystLQo+PiAgIDEgZmlsZSBjaGFuZ2VkLCA0MiBpbnNlcnRpb25zKCspLCA1IGRlbGV0aW9ucygt
-KQo+PiAKPj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvbWVkaWEvcGxhdGZvcm0vY2hpcHMtbWVkaWEv
-d2F2ZTUvd2F2ZTUtdnB1LWRlYy5jIGIvZHJpdmVycy9tZWRpYS9wbGF0Zm9ybS9jaGlwcy1tZWRp
-YS93YXZlNS93YXZlNS12cHUtZGVjLmMKPj4gaW5kZXggODZiYzM2ZWUxNy4uMzIwYjQwNTgxYiAx
-MDA2NDQKPj4gLS0tIGEvZHJpdmVycy9tZWRpYS9wbGF0Zm9ybS9jaGlwcy1tZWRpYS93YXZlNS93
-YXZlNS12cHUtZGVjLmMKPj4gKysrIGIvZHJpdmVycy9tZWRpYS9wbGF0Zm9ybS9jaGlwcy1tZWRp
-YS93YXZlNS93YXZlNS12cHUtZGVjLmMKPj4gQEAgLTgyOSw3ICs4MjksMTAgQEAgc3RhdGljIGlu
-dCB3YXZlNV92cHVfZGVjX3N0b3Aoc3RydWN0IHZwdV9pbnN0YW5jZSAqaW5zdCkKPj4gICAJCSAq
-IGFjY2Vzc2VzIFZQVSByZWdpc3RlcnMgdmlhIHNlbmRfZmlybXdhcmVfY29tbWFuZCgpLCBzbyB0
-aGUKPj4gICAJCSAqIGRldmljZSBtdXN0IGJlIHJlc3VtZWQgZmlyc3QgdG8gYXZvaWQgYW4gYXN5
-bmNocm9ub3VzIFNFcnJvci4KPj4gICAJCSAqLwo+PiAtCQlwbV9ydW50aW1lX3Jlc3VtZV9hbmRf
-Z2V0KGluc3QtPmRldi0+ZGV2KTsKPj4gKwkJcmV0ID0gcG1fcnVudGltZV9yZXN1bWVfYW5kX2dl
-dChpbnN0LT5kZXYtPmRldik7Cj4+ICsJCWlmIChyZXQgPCAwKQo+PiArCQkJcmV0dXJuIHJldDsK
-Pj4gKwo+PiAgIAkJcmV0ID0gd2F2ZTVfdnB1X2RlY19zZXRfZW9zX29uX2Zpcm13YXJlKGluc3Qp
-Owo+PiAgIAkJcG1fcnVudGltZV9wdXRfYXV0b3N1c3BlbmQoaW5zdC0+ZGV2LT5kZXYpOwo+PiAg
-IAkJaWYgKHJldCkKPj4gQEAgLTEzOTIsNyArMTM5NSwxMSBAQCBzdGF0aWMgaW50IHdhdmU1X3Zw
-dV9kZWNfc3RhcnRfc3RyZWFtaW5nKHN0cnVjdCB2YjJfcXVldWUgKnEsIHVuc2lnbmVkIGludCBj
-b3VudAo+PiAgIAlpbnQgcmV0ID0gMDsKPj4gICAKPj4gICAJZGV2X2RiZyhpbnN0LT5kZXYtPmRl
-diwgIiVzOiB0eXBlOiAldVxuIiwgX19mdW5jX18sIHEtPnR5cGUpOwo+PiAtCXBtX3J1bnRpbWVf
-cmVzdW1lX2FuZF9nZXQoaW5zdC0+ZGV2LT5kZXYpOwo+PiArCXJldCA9IHBtX3J1bnRpbWVfcmVz
-dW1lX2FuZF9nZXQoaW5zdC0+ZGV2LT5kZXYpOwo+PiArCWlmIChyZXQgPCAwKSB7Cj4+ICsJCXdh
-dmU1X3JldHVybl9idWZzKHEsIFZCMl9CVUZfU1RBVEVfUVVFVUVEKTsKPj4gKwkJcmV0dXJuIHJl
-dDsKPj4gKwl9Cj4+ICAgCj4+ICAgCXY0bDJfbTJtX3VwZGF0ZV9zdGFydF9zdHJlYW1pbmdfc3Rh
-dGUobTJtX2N0eCwgcSk7Cj4+ICAgCj4+IEBAIC0xNTU2LDkgKzE1NjMsMjggQEAgc3RhdGljIHZv
-aWQgd2F2ZTVfdnB1X2RlY19zdG9wX3N0cmVhbWluZyhzdHJ1Y3QgdmIyX3F1ZXVlICpxKQo+PiAg
-IAlzdHJ1Y3QgdnB1X2luc3RhbmNlICppbnN0ID0gdmIyX2dldF9kcnZfcHJpdihxKTsKPj4gICAJ
-c3RydWN0IHY0bDJfbTJtX2N0eCAqbTJtX2N0eCA9IGluc3QtPnY0bDJfZmgubTJtX2N0eDsKPj4g
-ICAJdW5zaWduZWQgbG9uZyB0aW1lb3V0Owo+PiArCWludCByZXQ7Cj4+ICAgCj4+ICAgCWRldl9k
-YmcoaW5zdC0+ZGV2LT5kZXYsICIlczogdHlwZTogJXVcbiIsIF9fZnVuY19fLCBxLT50eXBlKTsK
-Pj4gLQlwbV9ydW50aW1lX3Jlc3VtZV9hbmRfZ2V0KGluc3QtPmRldi0+ZGV2KTsKPj4gKwlyZXQg
-PSBwbV9ydW50aW1lX3Jlc3VtZV9hbmRfZ2V0KGluc3QtPmRldi0+ZGV2KTsKPj4gKwlpZiAocmV0
-IDwgMCkgewo+PiArCQlpZiAocS0+dHlwZSA9PSBWNEwyX0JVRl9UWVBFX1ZJREVPX09VVFBVVF9N
-UExBTkUpIHsKPj4gKwkJCXN0cnVjdCB2cHVfc3JjX2J1ZmZlciAqdnB1X2J1ZjsKPj4gKwo+PiAr
-CQkJaW5zdC0+cmV0cnkgPSBmYWxzZTsKPj4gKwkJCWluc3QtPnF1ZXVpbmdfbnVtID0gMDsKPj4g
-KwkJCXdoaWxlICgodnB1X2J1ZiA9IGluc3Rfc3JjX2J1Zl9yZW1vdmUoaW5zdCkpICE9IE5VTEwp
-Cj4+ICsJCQkJOwo+PiArCQkJaW5zdC0+ZW9zID0gZmFsc2U7Cj4+ICsJCX0KPj4gKwo+PiArCQl2
-NGwyX20ybV91cGRhdGVfc3RvcF9zdHJlYW1pbmdfc3RhdGUobTJtX2N0eCwgcSk7Cj4+ICsJCXdh
-dmU1X3JldHVybl9idWZzKHEsIFZCMl9CVUZfU1RBVEVfRVJST1IpOwo+PiArCQlpbnN0LT5lbXB0
-eV9xdWV1ZSA9IGZhbHNlOwo+PiArCQlpbnN0LT5zZW50X2VvcyA9IGZhbHNlOwo+PiArCQlyZXR1
-cm47Cj4+ICsJfQo+PiArCj4+ICAgCWluc3QtPmVtcHR5X3F1ZXVlID0gdHJ1ZTsKPj4gICAKPj4g
-ICAJdGltZW91dCA9IGppZmZpZXMgKyBtc2Vjc190b19qaWZmaWVzKFZQVV9ERUNfU1RPUF9USU1F
-T1VUKTsKPj4gQEAgLTE2NzUsNyArMTcwMSwxMyBAQCBzdGF0aWMgdm9pZCB3YXZlNV92cHVfZGVj
-X2RldmljZV9ydW4odm9pZCAqcHJpdikKPj4gICAJYm9vbCBjbWRfaXNzdWVkID0gZmFsc2U7Cj4+
-ICAgCj4+ICAgCWRldl9kYmcoaW5zdC0+ZGV2LT5kZXYsICIlczogRmlsbCB0aGUgcmluZyBidWZm
-ZXIgd2l0aCBuZXcgYml0c3RyZWFtIGRhdGEiLCBfX2Z1bmNfXyk7Cj4+IC0JcG1fcnVudGltZV9y
-ZXN1bWVfYW5kX2dldChpbnN0LT5kZXYtPmRldik7Cj4+ICsJcmV0ID0gcG1fcnVudGltZV9yZXN1
-bWVfYW5kX2dldChpbnN0LT5kZXYtPmRldik7Cj4+ICsJaWYgKHJldCA8IDApIHsKPj4gKwkJZGV2
-X2VycihpbnN0LT5kZXYtPmRldiwgIkZhaWxlZCB0byByZXN1bWUgVlBVOiAlZFxuIiwgcmV0KTsK
-Pj4gKwkJdjRsMl9tMm1fam9iX2ZpbmlzaChpbnN0LT52NGwyX20ybV9kZXYsIG0ybV9jdHgpOwo+
-PiArCQlyZXR1cm47Cj4+ICsJfQo+PiArCj4KPldvdWxkbid0IHRoaXMgbGVhZCB0byBhbiBpbmZp
-bml0ZSBsb29wIGluIHRoZSBtMm0gc2NoZWR1bGVyPyBsb29raW5nIAo+YXJvdW5kIG90aGVyIGRy
-aXZlcnMgKHJvY2tjaGlwIGFuZCBoYW50cm8pIHRoZXkgaGFuZGxlIHRoaXMgY2FzZSB3aXRoIAo+
-ZmFpbGluZyB0aGUgYnVmZmVycyBhbmQgdGhlbiBtYXJraW5nIHRoZSBqb2IgYXMgZmluaXNoZWQu
-IFNpbWlsYXIgdG8gCj53aGF0IHlvdSBkaWQgaW4gdGhlIGVuY29kZXIgcGF0aC4gTWF5YmUgeW91
-IGNhbiBtYWtlIGEgaGVscGVyIHNvIGJvdGggCj5kZXZpY2UgcnVucyBjYW4gdXNlPwoKVGhhbmtz
-IGZvciB5b3VyIHJldmlldywgaG93IGFib3V0IHRoaXMgb25lCgpodHRwczovL2xvcmUua2VybmVs
-Lm9yZy9hbGwvMjAyNjEwMjMwOTI4MDQuNjczOTgwLTEteWFvamlhbGUwMkAxNjMuY29tLwoKPgo+
-QmVzdCwKPkJyYW5kb24KPgo+PiAgIAlpZiAoIWluc3QtPnJldHJ5KSB7Cj4+ICAgCQlyZXQgPSBm
-aWxsX3JpbmdidWZmZXIoaW5zdCk7Cj4+ICAgCQlpZiAocmV0IDwgMCkgewo+PiBAQCAtMTgxOCw3
-ICsxODUwLDExIEBAIHN0YXRpYyB2b2lkIHdhdmU1X3ZwdV9kZWNfam9iX2Fib3J0KHZvaWQgKnBy
-aXYpCj4+ICAgCSAqIGRldmljZSBtdXN0IGJlIHJlc3VtZWQgZmlyc3Q7IG90aGVyd2lzZSB0aGUg
-cmVnaXN0ZXIgYWNjZXNzIGZhdWx0cwo+PiAgIAkgKiB3aXRoIGFuIGFzeW5jaHJvbm91cyBTRXJy
-b3IuCj4+ICAgCSAqLwo+PiAtCXBtX3J1bnRpbWVfcmVzdW1lX2FuZF9nZXQoaW5zdC0+ZGV2LT5k
-ZXYpOwo+PiArCXJldCA9IHBtX3J1bnRpbWVfcmVzdW1lX2FuZF9nZXQoaW5zdC0+ZGV2LT5kZXYp
-Owo+PiArCWlmIChyZXQgPCAwKSB7Cj4+ICsJCWRldl93YXJuKGluc3QtPmRldi0+ZGV2LCAiRmFp
-bGVkIHRvIHJlc3VtZSBWUFU6ICVkXG4iLCByZXQpOwo+PiArCQlnb3RvIGZpbmlzaF9qb2I7Cj4+
-ICsJfQo+PiAgIAo+PiAgIAlyZXQgPSB3YXZlNV92cHVfZGVjX3NldF9lb3Nfb25fZmlybXdhcmUo
-aW5zdCk7Cj4+ICAgCWlmIChyZXQpCj4+IEBAIC0xODI3LDYgKzE4NjMsNyBAQCBzdGF0aWMgdm9p
-ZCB3YXZlNV92cHVfZGVjX2pvYl9hYm9ydCh2b2lkICpwcml2KQo+PiAgIAo+PiAgIAlwbV9ydW50
-aW1lX3B1dF9hdXRvc3VzcGVuZChpbnN0LT5kZXYtPmRldik7Cj4+ICAgCj4+ICtmaW5pc2hfam9i
-Ogo+PiAgIAl2NGwyX20ybV9qb2JfZmluaXNoKGluc3QtPnY0bDJfbTJtX2RldiwgbTJtX2N0eCk7
-Cj4+ICAgfQo+PiAgIAoKSmlhbGUK
+On 23 October 2026 at 11:12 am Krzysztof Kozlowski <krzk@kernel.org> wrote:
+
+You are referring to some other patch but replied about this one.
+
+Best regards,
+Krzysztof
+
+- - -
+
+Is the following patch OK or not?
+
+https://patchwork.ozlabs.org/project/linuxppc-dev/patch/20260801043458.12500=
+-1-chzigotzky@xenosoft.de/
+
+Sorry to bother you.=
+
