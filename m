@@ -1,51 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792779445;
-	b=yGvp/c2DcLf9C4mnnBjmGwt70kVMFgPDGGLa0YrMkfKNyb3oQ97Bel2rwSzgpEE4IAOs
-	 +1411bVl3ZZxBDQqTT+LmolKt4IF0vhVHkMq0+yIhCZN8DI+k/mdn5DqnEKLjOVxawdwU
-	 sfY+MtKPseauKADUfCP6nPLBwwLeI2FfubH8OgDVzqLApP3fmVeusYm+PJpfF2aAS6U/5
-	 z9Bfhq1hu0hBxfIi5y3XF1RJtxw4BdItnq2R/hFNOeXzrl+1dfEH25o/iyixYenThUAzv
-	 hFhll85W/6s4Bfj8UvWNbWFHS8cEhLsS3t8aV1iSfbdGJExGJuOITWu+q5kOSJwUUYg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792779445;
-	h=DMARC-Filter:Received:DKIM-Signature:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=Vzut8sLVkheSZYrHGFzChh3dGqwYU7Wnq/4r98pxc2w=;
-	b=bF7JNpYGVf06tlGNT7M3uuGNqHSBHq24dH/KyBDI1yffcn+9vOAH6sIdYLnAH2GY0qZ1
-	 X0mJY8NOVEAFxqTYj82OVvVUXhZhgsrqgXGxVzdYgmjo6xYKoOuNtXVgSB5/bQNEDxCJI
-	 UGthXJl+hl3Kj8Qi/Av5VXSGV6GrQhlidpNudqMiWXrtcg3OuBIkDiiZSTXxQ3UTNDhge
-	 f5t6jOGDyEeDR7c4FG4MYn5Bq8ADWPkeY1UhfsOmkGHGWXStx3Veo5E2C0qqbUIax8Rc4
-	 XLojlVHT1fn3owsFGJeh2fCNODWXxgjsFb4LSmpBgfNPh1mBUD/a9XrhE0YtQgrwZlA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ideasonboard.com;
-	spf=pass smtp.mailfrom=ideasonboard.com;
-	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=I+KCUmfU;
-	arc=none smtp.remote-ip=213.167.242.64
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.44
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792779562;
+	b=D8imjeDHrPuDuFhO23m6WZ3MD8gv548Hy2oSLPJ3FHebfgXE4yudsUbShw4QRXLMDDUe
+	 J2nG2AfJHkvlP+2O9/QZ86oyt+gDviMU26VzPwR8oAeBq8QPX2j1m0UmGxAjCIvkSQzLs
+	 iX5n//vNVhSBhRK9cdq2cnxe+kxQw9YtY8+ToE9sVmSEmnYMn2gQWIqDDFcY+H9orwuiH
+	 +gAPwdkdvv+9psBfj13mHAw46cuxDbf58L4SsdQjCJ01zFWlbn2MmN6FnNZ4322+D/FBW
+	 i3hQga4tOtLDF6nH4vBo0ZyyCUgQ+a8qxEWDAPa0reTRntAF176esTIpEL76vV5eflQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792779562;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=Sf63KFDDNNQERzVahv0eOgq9vdaVcq8l5ll+ubDdbTA=;
+	b=Bj3+bn5yL4RYkjag2jDJD7FN1dw6Fh4qRWI2GA883qq4u+gWK8IPnfgShXJ+4G61y5FS
+	 4+MSBRykuszQbajlqLVhsFoLs6u5srwH3uj6otJ86sGX3NXN/5tLApxuOusRawV3+5pLE
+	 xJgIub5g6l1ld2BIBx53C86PBLRDI3wnxU8AKMh7+AFznD90NyghP5X9H6rZYWIEKIGEa
+	 beHm0mOF1tlLz9dGSFMgRMt8h7Y5Tu0Yn1nGyvtEB2Oh0VbVpTkgTZ7JJG9ETn5sJCK7Q
+	 ATmnPkrweGjUPXXX1oNxXLm3cLKvgPahBVpEEkyCZSZ9d44YInAcUy55M1pNpknnvyw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=BBDe59so;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.44
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25488606A327;
-	Fri, 23 Oct 2026 18:17:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 25488606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FE4F606A31E
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 18:19:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9FE4F606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=I+KCUmfU
-Received: from [127.0.1.1] (91-158-153-178.elisa-laajakaista.fi [91.158.153.178])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 54B8D1CF5;
-	Fri, 23 Oct 2026 20:15:06 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1792779306;
-	bh=VM4SmKYXyPST01Ns008m2FL/eAsDF5GFaUJ3P+guqGY=;
-	h=From:Date:Subject:To:Cc:From;
-	b=I+KCUmfU3tUxNobBdbpZHtwcmGjQSdbYu/k1FNurI20En5uE3XcPZQgH36/PqzV0l
-	 YeEP8U/PTbcmCx8/SBnl2ZtDh6lf2W4omEo0IjHfPEGoDbWDUpOVEA337jDQy7veGd
-	 90ZX+GLWx0yhzS/cG+NPjtPBDWQtwr06oPGMDJ48=
-From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Date: Fri, 23 Oct 2026 21:16:23 +0300
-Subject: [PATCH] pmdomain: core: Add genpd_dev_pm_attach_by_node()
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=BBDe59so
+Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-48e10a70540so727552f8f.1
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 11:19:21 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792779560; cv=none;
+        d=google.com; s=arc-20260327;
+        b=K8oDMuRQOd77yLz2K2NZWQX5Lf9SI8SI++iVxLJYHWfbiZDs46RcSwCLqifCfhB6yq
+         RyO58yvVF6BcbWHSd7bGBYkVo92YgWIJE2ZskSwhSyTYn9/P1Xp/0Z20x3V24NZ6gNoY
+         PQb32CA4/daKwvZ1hQkwyfIspgFw8w6xPVp7+sNZ/KaMRZnWOUKS6MP/zj9qBdc1jHLO
+         ma+/4Vg2a7ruc/bYD+yOgoqEyjCaf3DLBmX/44Jh1YCnFQYC2GFjhGmgd67up9OgXq+a
+         RgG85NgEjGxCuUsg6ZtBFYJawsMkZ8GIfMT5BHyEHvrJTGLYf4b4JmgRB41bP94uSJnE
+         u1uQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Sf63KFDDNNQERzVahv0eOgq9vdaVcq8l5ll+ubDdbTA=;
+        fh=iImqOGjBMNB9XZheqNEl/1YjWfXNxGCBWUWoKUeSYqE=;
+        b=a2PO4zpRLu+47QweTsJVn8mn2BJpleeuJPYCO8xdpfGzRhwV+TxdnWXiHqB2MayKrv
+         cPltCYsDMqAOpxSAywsG0CbnPRKlT5JZUj9ApvhTy4/alm4/kljYCrDJiivGYBmISj92
+         NXNJPqs04eHU1CNsBdrirhGMzQ83sU/2oED6/X69O2WNugtbOaV97aqsBHLES/SJYpfc
+         wpscRo0Esv+EbeDS2JqxC9KYEeZcAFQ0AcIWvbWPfFgO/WiMOyXs3BsYKacGDp5JR38Y
+         m5FeWAO6meY9NzxjTzFx7hmZ8UHPcJ3Uzl5cqlncjdgvEnGXL8Lpt28z7QnGaq35EzZ1
+         BG9w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792779560; x=1793384360; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Sf63KFDDNNQERzVahv0eOgq9vdaVcq8l5ll+ubDdbTA=;
+        b=BBDe59sorH3ey9ncvQ8jxLzMaypcvb9JmpozFNmxG+0UhPkZxLLRrMEJP20fzxpkGD
+         qZoKsXRemYlyRqaHAHur/TLtEsnaYJs3FQH9/dFlpU49ktIUx2el7C0xwTlKfA/HbwpQ
+         1yfH8XqLvKpnH/zNGjvyTaSQcAWCdy+NoPdFI/vttof0uje/KCUqhmJr1Pm8a0Pq8P+Q
+         4Llr5QB5O4hx+q5fLA+Rmws34llicN8FlbeCu3vU8CqsNkU+NPGF5GIHhGjOulcEoJQG
+         dCu1xjV2umDDfNfM0w4DHSh4WdMK1ljoaeDCGprHns+5WGMymEqCDl4AuqQfCPdIqXYB
+         G1MA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792779560; x=1793384360;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Sf63KFDDNNQERzVahv0eOgq9vdaVcq8l5ll+ubDdbTA=;
+        b=cI5ktkK+AainsENwfPIn+t19eCbyfKJACy7vLCqZ2Q9brQEfgybcBoIvWVT4rl3KkE
+         Mmy5BJSxxkBw5B+tJFeIpoa4NvL2xJtnN4Xaieb7pbKJuzvIrlO1kE0M5fEvKBZ0OWas
+         g3xaRKICEXpTUbYP7MRJZODyCy0ABMxamCa4qsbyzJO3GGGuK5dTpvEr+lDrl8l8oYpp
+         68+Aovsqi+VYpc7bA93TtrSO+DyeAttjz7ZYaV9kirT7Z3Rz5C8H3b4A07V1EBuMEdwM
+         5Wi8e5V6K3IHBrjbZWZDC652/oKPzFm/FT9Tx2MuPb+aaf9WuNLFpCxaynVWW3zsBR/9
+         WULQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzGKyZHupTrDFjI3pLCyxTNGzju+oFqkydUvQFAvaDfOyUotenI4jYy+3qYoLQ8oIKM57bFUMnlVoAnuNA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKpjU0OWu5VnAhS/9Uivam3fd1tGgfqka6SfxOU2vRUKrGCqSbI
+	tYvdiXgvH6VdJY6V8dCp7162XEZnnV593oRIRDbg0QZYEZhVkE1lw2JDVDGcymRAZ+G8/H3Frbs
+	qgtyN/B/YQAbDqdblQgSP6Wwbp57hw0M=
+X-Gm-Gg: AYBFou1ZSnxvD5G1hqT41C90XPx7UQCOLPuRU3hXHCDxe0/+RYDoqRXlAnDXqqLtxeQ
+	6xEjrTJ71uysfMPa5wFK18qQGhMPmsatNYfxoM9OOyw2/ZB1bDclh2FcSmD336aFZ9/KWHC7pPd
+	Kq1jmvSiAaAYhd5pPyL/ADK/BC8YWx20JdZXSWUVDlJxNkg3Q7MvlDxSRq8yGGpj2Kh9nRDAbDM
+	+V6D+Dmzl9RlhlrYEcCOT+v5lmnKa7gk6CWZ467VRW5qsTirrEIH3/ftdN34l7Jo6UR5COYsHTZ
+	LGroG512wnSqZTvHo+R9jB80tEqFgxEDJkuABBLLtK3w+KBDs6d/RFYoy+f4ERLiwEvfL5BaeWn
+	ZinZZybyXMpOgzFoUiBbYkFGru4SC/SeYz215kWhl+TGkfDc60PlPfUn9M+QmuX3nBsVrspogFM
+	+rURKiN+p6mgw8CN4wQE24yqDrGQeAqKf5K9vyan4BxlGf1FA11gBp
+X-Received: by 2002:a05:6000:26d1:b0:48c:4444:f0a2 with SMTP id
+ ffacd0b85a97d-48e38546c63mr4724859f8f.7.1792779559823; Fri, 23 Oct 2026
+ 11:19:19 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -55,330 +105,77 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261023-pm_attach_by_node-v1-1-4dbaccdf8b0e@ideasonboard.com>
-X-B4-Tracking: v=1; b=H4sIAHak22oC/yXMUQqFIBBA0a3EfCekgkVbiRCzqSbIQn2PItp7V
- p/n494TAnrCAHV2gsc/BVpdAs8zsJNxIzLqk0EUQvFCSLYt2sRo7KS7Q7u1R8ZlWVVKiUEaDqn
- bPA60v8+m/Rx+3Yw2PiO4rhsLOCPpdQAAAA==
-X-Change-ID: 20261023-pm_attach_by_node-13788662f3a1
-To: "Rafael J. Wysocki" <rafael@kernel.org>, 
- Pavel Machek <pavel@kernel.org>, Len Brown <lenb@kernel.org>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Danilo Krummrich <dakr@kernel.org>, Ulf Hansson <ulfh@kernel.org>
-Cc: Devarsh Thakkar <devarsht@ti.com>, linux-pm@vger.kernel.org, 
- driver-core@lists.linux.dev, linux-kernel@vger.kernel.org, 
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=11431;
- i=tomi.valkeinen@ideasonboard.com; h=from:subject:message-id;
- bh=VM4SmKYXyPST01Ns008m2FL/eAsDF5GFaUJ3P+guqGY=;
- b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBq26SqNHqUuwmINAa64L0wcZqJ3ATRH/XatZM2O
- hW4Eii+fqiJAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCatukqgAKCRD6PaqMvJYe
- 9bOFEACrKJ6TpkE0a5FrjuOdKXfPZF01v4XuR7I3ITZ3Fkr8IA8Fs2TZ+k8NFxRUIq2MarminmS
- 7+qZomkFilaDmG6ux1MmjYhJvhObE2vJ1p92CAJYEWuvLIooY3BvOVVmCDe5Q3iRlnU+NHOkruw
- UlX1l9a4S+q8tpDqjzcYIDixv9szOf/zQ3R2i1Do2reqZ9tcoGi5EEvh9v63Cw9pitiFV3MYvFN
- 56tC1WQuXexhWNerjJjePRP09ClDGmJ6U5OQkSqX3OUlTczorEOcygmM+4jiZiDS2BwnvQc/DVE
- IzQ/qxALduFt5i9cgfgwDtgRGDzoCPTmBc7fe4/DkwGJwU6CjLoJfLn1IOUKMkhtayj9dzrNtvu
- bzMm61cItw6tA5jrufEv9PcBHqp2j36i98t4NVnS6IyIu9RThQi649QuaMffdiWiVxwID/58b1I
- r8CUpRv0Z/QXVLwCQVcRjoviuUT+KFXJQknqBjQ5hbkulAv58E3uMFIhyEE0x0pGWqeNGN3gO6Y
- qYwaveOT6DD39A+xiq5WyX4V1K6hXNH9mYXZqCYs9TaPs74bsADFT/rMG07sTmMv96WGBDV7UB4
- /Gxnr8QEY2SjR45vq7BcD9iT/z1dSq+K8HZcD6/u3byXAS2mTVIS8Kg9E7eYOcQYFFmRUHDPLQ5
- j6Psn2GvSHO6Mmw==
-X-Developer-Key: i=tomi.valkeinen@ideasonboard.com; a=openpgp;
- fpr=C4380C3E965EFD81079FF3A7FA3DAA8CBC961EF5
+References: <20261016120927.3191690-1-hongfengchen@xiaomi.com>
+ <CAKEwX=ONniSwdiZAe_8NT5XwVj=Mmc-WJs_rWE4Y5snjFg2=Eg@mail.gmail.com> <20261023123736.1542117-1-chenhongfeng0212@163.com>
+In-Reply-To: <20261023123736.1542117-1-chenhongfeng0212@163.com>
+From: Nhat Pham <nphamcs@gmail.com>
+Date: Fri, 23 Oct 2026 11:19:08 -0700
+X-Gm-Features: AclHuK8IXUKXOT1G5BawvIMJ1TanzNZCOYP2ZLn7pIObqIp0SWbrNFngRQ39xBY
+Message-ID: <CAKEwX=M4jTnxmq6cj115Gw4u5jdY7Ex65jPtVTEopW70jGzfuQ@mail.gmail.com>
+Subject: Re: [RFC PATCH v4 0/2] mm/zsmalloc: defer object free to per-cpu batches
+To: Hongfeng Chen <chenhongfeng0212@163.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, Barry Song <baohua@kernel.org>, 
+	Chengming Zhou <chengming.zhou@linux.dev>, Jens Axboe <axboe@kernel.dk>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Minchan Kim <minchan@kernel.org>, 
+	Sergey Senozhatsky <senozhatsky@chromium.org>, Yosry Ahmed <yosry@kernel.org>, 
+	Wenchao Hao <haowenchao@xiaomi.com>, Wenchao Hao <haowenchao22@gmail.com>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, linux-block@vger.kernel.org, 
+	Hongfeng Chen <hongfengchen@xiaomi.com>, Hongfeng Chen <chenhongfeng0212@gmail.com>, 
+	Shakeel Butt <shakeel.butt@linux.dev>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-genpd_dev_pm_attach_by_id() and genpd_dev_pm_attach_by_name() attach a
-virtual device to a PM domain listed in the OF node of the passed
-device.
+On Fri, Oct 23, 2026 at 5:39=E2=80=AFAM Hongfeng Chen <chenhongfeng0212@163=
+.com> wrote:
+>
+> Hi Nhat,
+>
+> On Fri, Oct 16, 2026 at 9:09 AM Nhat Pham <nphamcs@gmail.com> wrote:
+> > 1. Would memory freeing be slowed down?
+>
+> I sampled pool->pages_allocated every 1 ms, and measured the time from
+> the start of munmap() until the zspages are freed. Three cases are
+> tested: 1 process x 256MB, 1 process x 1024MB, and 4 processes x
+> 256MB. The results are as follows:
+>
+>   workload                  base      with-patch
+>   1 process, 256 MB         14 ms     9 ms
+>   1 process, 1024 MB        51 ms     31 ms
+>   4 processes, 256 MB       45 ms     24 ms
+>
+> Memory freeing didn't get slower and it actually got faster.
 
-Some hardware blocks are described in a child node of a main device.
-They have no device of their own, but they do have a PM domain of their
-own. Neither function can attach that domain, as both parse only the OF
-node of the device.
+Neat! Thanks for double checking! I assume this is because we're doing
+memory reclamation in parallel with the extra kworker thread?
 
-An example case is TI's display subsystem and its OLDI (LVDS)
-transmitters:
+Which brings me to the next point:
 
-dss@30200000 {
-    power-domains = <...>;
+>
+> > 2. Would this introduce isolation issues, especially when this work is
+> > not properly accounted?
+>
+> Yes. The drain runs in an unbound kworker in the root cgroup, so its
+> cost is not charged to the killed tenant, and it may take CPU time
+> from other tenants. I'd appreciate any suggestions on a clean way to
+> handle this.
 
-    oldi-transmitters {
-        oldi@0 {
-            power-domains = <...>;
-        };
+I don't have a good solution either... This has been a blocker for
+other work offloading idea too.
 
-        oldi@1 {
-            power-domains = <...>;
-        };
-    };
-};
++Shakeel, who might have some ideas on this.
 
-The OLDI TX blocks are not part of the DSS IP, but they are not quite
-real devices either as they don't have registers of their own, and are
-instead controlled via DSS registers.
+But before we do this:
 
-Add genpd_dev_pm_attach_by_node(), which is similar to
-genpd_dev_pm_attach_by_id() but instead of looking for the power-domains
-from the passed device's DT node, the DT node is passed explicitly. Also
-add a matching wrapper function dev_pm_domain_attach_by_node().
+>
+> > Another thing I wonder is, how much of this slowed down is because of
+> > zsmalloc's own inefficiency, and how much is because we just have a
+> > larger logical footprint
+>
+> Mostly zsmalloc. I kept the footprint the same (1 GB paged out to zram,
+> then munmap()) and only made zs_free() do nothing:
 
-Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
----
-This is a new try for managing the OLDI power domains. Previously I
-tried using auxiliary device/driver for OLDIs, and handling the PDs the
-normal way:
+Is there any more juice we can squeeze from zsmalloc in that case?
 
-https://lore.kernel.org/all/20260529-beagley-ai-display-v3-12-7fefdc5d1adf%40ideasonboard.com/
-
-Then I realized an issue, mentioned in
-Documentation/driver-api/driver-model/driver.rst: "-EPROBE_DEFER must
-not be returned if probe() has already created child devices".
-
-The PD virtual devices used in this patch's approach do not hit the
-issue as they don't get a driver, so they are not probed. The tidss
-driver's OLDI part can then use normal pm_runtime_get/put functions to
-manage the OLDI PDs.
----
- drivers/base/power/common.c | 27 +++++++++++++
- drivers/pmdomain/core.c     | 97 +++++++++++++++++++++++++++++++++------------
- include/linux/pm_domain.h   | 19 +++++++++
- 3 files changed, 117 insertions(+), 26 deletions(-)
-
-diff --git a/drivers/base/power/common.c b/drivers/base/power/common.c
-index 9bef9248a705..a873541f9350 100644
---- a/drivers/base/power/common.c
-+++ b/drivers/base/power/common.c
-@@ -171,6 +171,33 @@ struct device *dev_pm_domain_attach_by_name(struct device *dev,
- }
- EXPORT_SYMBOL_GPL(dev_pm_domain_attach_by_name);
- 
-+/**
-+ * dev_pm_domain_attach_by_node - Associate a device with a PM domain of a DT
-+ *				  node.
-+ * @dev: The device that uses the PM domain.
-+ * @np: The DT node with the PM domain.
-+ * @index: The index of the PM domain in @np.
-+ *
-+ * Like dev_pm_domain_attach_by_id(), but the PM domain is looked up
-+ * in @np instead of the OF node of @dev.
-+ *
-+ * Unlike dev_pm_domain_attach_by_id(), @dev may already be attached to a PM
-+ * domain of its own. The driver controls the power to the PM domain through
-+ * runtime PM of the returned virtual device, or through a device link to it.
-+ *
-+ * Returns the virtual created device when successfully attached to its PM
-+ * domain, NULL in case @np has no PM domain at @index, else an ERR_PTR().
-+ * Note that, to detach the returned virtual device, the driver shall call
-+ * dev_pm_domain_detach() on it, typically during the remove phase.
-+ */
-+struct device *dev_pm_domain_attach_by_node(struct device *dev,
-+					    struct device_node *np,
-+					    unsigned int index)
-+{
-+	return genpd_dev_pm_attach_by_node(dev, np, index);
-+}
-+EXPORT_SYMBOL_GPL(dev_pm_domain_attach_by_node);
-+
- /**
-  * dev_pm_domain_attach_list - Associate a device with its PM domains.
-  * @dev: The device used to lookup the PM domains for.
-diff --git a/drivers/pmdomain/core.c b/drivers/pmdomain/core.c
-index 052ec478dfcc..327fbd40c854 100644
---- a/drivers/pmdomain/core.c
-+++ b/drivers/pmdomain/core.c
-@@ -3462,34 +3462,16 @@ int genpd_dev_pm_attach(struct device *dev)
- }
- EXPORT_SYMBOL_GPL(genpd_dev_pm_attach);
- 
--/**
-- * genpd_dev_pm_attach_by_id - Associate a device with one of its PM domains.
-- * @dev: The device used to lookup the PM domain.
-- * @index: The index of the PM domain.
-- *
-- * Parse device's OF node to find a PM domain specifier at the provided @index.
-- * If such is found, creates a virtual device and attaches it to the retrieved
-- * pm_domain ops. To deal with detaching of the virtual device, the ->detach()
-- * callback in the struct dev_pm_domain are assigned to genpd_dev_pm_detach().
-- *
-- * Returns the created virtual device if successfully attached PM domain, NULL
-- * when the device don't need a PM domain, else an ERR_PTR() in case of
-- * failures. If a power-domain exists for the device, but cannot be found or
-- * turned on, then ERR_PTR(-EPROBE_DEFER) is returned to ensure that the device
-- * is not probed and to re-try again later.
-- */
--struct device *genpd_dev_pm_attach_by_id(struct device *dev,
--					 unsigned int index)
-+static struct device *genpd_dev_pm_attach_virt(struct device *dev,
-+					       struct device_node *np,
-+					       unsigned int index)
- {
- 	struct device *virt_dev;
- 	int num_domains;
- 	int ret;
- 
--	if (!dev->of_node)
--		return NULL;
--
- 	/* Verify that the index is within a valid range. */
--	num_domains = of_count_phandle_with_args(dev->of_node, "power-domains",
-+	num_domains = of_count_phandle_with_args(np, "power-domains",
- 						 "#power-domain-cells");
- 	if (num_domains < 0 || index >= num_domains)
- 		return NULL;
-@@ -3502,10 +3484,14 @@ struct device *genpd_dev_pm_attach_by_id(struct device *dev,
- 	if (!virt_dev)
- 		return ERR_PTR(-ENOMEM);
- 
--	dev_set_name(virt_dev, "genpd:%u:%s", index, dev_name(dev));
-+	if (np == dev->of_node)
-+		dev_set_name(virt_dev, "genpd:%u:%s", index, dev_name(dev));
-+	else
-+		dev_set_name(virt_dev, "genpd:%u:%s:%pOFP", index,
-+			     dev_name(dev), np);
- 	virt_dev->bus = &genpd_bus_type;
- 	virt_dev->release = genpd_release_dev;
--	virt_dev->of_node = of_node_get(dev->of_node);
-+	virt_dev->of_node = of_node_get(np);
- 
- 	ret = device_register(virt_dev);
- 	if (ret) {
-@@ -3513,8 +3499,13 @@ struct device *genpd_dev_pm_attach_by_id(struct device *dev,
- 		return ERR_PTR(ret);
- 	}
- 
--	/* Try to attach the device to the PM domain at the specified index. */
--	ret = __genpd_dev_pm_attach(virt_dev, dev, index, num_domains, false);
-+	/*
-+	 * Try to attach the device to the PM domain at the specified index.
-+	 * Pass 0 as the num_domains when np != dev->of_node, so that the dev's
-+	 * required OPPs are not used for the PD.
-+	 */
-+	ret = __genpd_dev_pm_attach(virt_dev, dev, index,
-+				    np == dev->of_node ? num_domains : 0, false);
- 	if (ret < 1) {
- 		device_unregister(virt_dev);
- 		return ret ? ERR_PTR(ret) : NULL;
-@@ -3525,8 +3516,62 @@ struct device *genpd_dev_pm_attach_by_id(struct device *dev,
- 
- 	return virt_dev;
- }
-+
-+/**
-+ * genpd_dev_pm_attach_by_id - Associate a device with one of its PM domains.
-+ * @dev: The device used to lookup the PM domain.
-+ * @index: The index of the PM domain.
-+ *
-+ * Parse device's OF node to find a PM domain specifier at the provided @index.
-+ * If such is found, creates a virtual device and attaches it to the retrieved
-+ * pm_domain ops. To deal with detaching of the virtual device, the ->detach()
-+ * callback in the struct dev_pm_domain are assigned to genpd_dev_pm_detach().
-+ *
-+ * Returns the created virtual device if successfully attached PM domain, NULL
-+ * when the device don't need a PM domain, else an ERR_PTR() in case of
-+ * failures. If a power-domain exists for the device, but cannot be found or
-+ * turned on, then ERR_PTR(-EPROBE_DEFER) is returned to ensure that the device
-+ * is not probed and to re-try again later.
-+ */
-+struct device *genpd_dev_pm_attach_by_id(struct device *dev,
-+					 unsigned int index)
-+{
-+	if (!dev->of_node)
-+		return NULL;
-+
-+	return genpd_dev_pm_attach_virt(dev, dev->of_node, index);
-+}
- EXPORT_SYMBOL_GPL(genpd_dev_pm_attach_by_id);
- 
-+/**
-+ * genpd_dev_pm_attach_by_node - Associate a device with a PM domain of a DT
-+ *				 node.
-+ * @dev: The device that uses the PM domain.
-+ * @np: The DT node with the PM domain.
-+ * @index: The index of the PM domain in @np.
-+ *
-+ * Like genpd_dev_pm_attach_by_id(), but the PM domain is looked up in
-+ * @np instead of the OF node of @dev.
-+ *
-+ * The virtual device is named after @dev and @np. The required OPPs of @dev are
-+ * not linked to the PM domain.
-+ *
-+ * Returns the created virtual device if successfully attached PM domain, NULL
-+ * when @np has no PM domain at @index, else an ERR_PTR() in case of failures.
-+ * If the PM domain exists, but cannot be found or turned on, then
-+ * ERR_PTR(-EPROBE_DEFER) is returned.
-+ */
-+struct device *genpd_dev_pm_attach_by_node(struct device *dev,
-+					   struct device_node *np,
-+					   unsigned int index)
-+{
-+	if (!np)
-+		return NULL;
-+
-+	return genpd_dev_pm_attach_virt(dev, np, index);
-+}
-+EXPORT_SYMBOL_GPL(genpd_dev_pm_attach_by_node);
-+
- /**
-  * genpd_dev_pm_attach_by_name - Associate a device with one of its PM domains.
-  * @dev: The device used to lookup the PM domain.
-diff --git a/include/linux/pm_domain.h b/include/linux/pm_domain.h
-index f925614aebdb..c38c90d63c02 100644
---- a/include/linux/pm_domain.h
-+++ b/include/linux/pm_domain.h
-@@ -477,6 +477,9 @@ struct device *genpd_dev_pm_attach_by_id(struct device *dev,
- 					 unsigned int index);
- struct device *genpd_dev_pm_attach_by_name(struct device *dev,
- 					   const char *name);
-+struct device *genpd_dev_pm_attach_by_node(struct device *dev,
-+					   struct device_node *np,
-+					   unsigned int index);
- #else /* !CONFIG_PM_GENERIC_DOMAINS_OF */
- static inline int of_genpd_add_provider_simple(struct device_node *np,
- 					struct generic_pm_domain *genpd)
-@@ -535,6 +538,13 @@ static inline struct device *genpd_dev_pm_attach_by_name(struct device *dev,
- 	return NULL;
- }
- 
-+static inline struct device *genpd_dev_pm_attach_by_node(struct device *dev,
-+							 struct device_node *np,
-+							 unsigned int index)
-+{
-+	return NULL;
-+}
-+
- static inline
- struct generic_pm_domain *of_genpd_remove_last(struct device_node *np)
- {
-@@ -560,6 +570,9 @@ struct device *dev_pm_domain_attach_by_id(struct device *dev,
- 					  unsigned int index);
- struct device *dev_pm_domain_attach_by_name(struct device *dev,
- 					    const char *name);
-+struct device *dev_pm_domain_attach_by_node(struct device *dev,
-+					    struct device_node *np,
-+					    unsigned int index);
- int dev_pm_domain_attach_list(struct device *dev,
- 			      const struct dev_pm_domain_attach_data *data,
- 			      struct dev_pm_domain_list **list);
-@@ -586,6 +599,12 @@ static inline struct device *dev_pm_domain_attach_by_name(struct device *dev,
- {
- 	return NULL;
- }
-+static inline struct device *dev_pm_domain_attach_by_node(struct device *dev,
-+							  struct device_node *np,
-+							  unsigned int index)
-+{
-+	return NULL;
-+}
- static inline int dev_pm_domain_attach_list(struct device *dev,
- 				const struct dev_pm_domain_attach_data *data,
- 				struct dev_pm_domain_list **list)
-
----
-base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
-change-id: 20261023-pm_attach_by_node-13788662f3a1
-
-Best regards,
---  
-Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-
+It would be nice if you can perf zsmalloc freeing. And yeah, maybe we
+can't optimize any further, but let's eliminate that first before we
+rely on offloading.
