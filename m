@@ -1,57 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.69.126.157
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.178
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792776786;
-	b=mbfR28jOezHId/3RDypv5iNlItQreMvB8gwxfmq/VR7mFUBvfKYfNC6DEOYGbEPMQRoc
-	 ntGHvPQouzmZOrxfr+xq0THNMIXY4TIkPsTK4FxumpT7zrjINUeDddjOLSTkUomodYmxY
-	 B9e5UpFV5gjVquaPXoSQELgYBbtsyTxkY5JNijIh5It2mK8lkCYsnnEBnoVz3OcJYQMj1
-	 X3dTQxMhZ3Um8XHDjOH20VARI/Q1+ozy1X81PCtUEEHkzasTSvENJ4T9xy8auT1WT3QiH
-	 eTawXC+P3PIZOnI4PMxTRqObsHfwBc15v/I729/Zyw/UEwJSlL4nJs2eF7uCwBrGVRA==
+	t=1792776785;
+	b=ddIBVIdJoEQnsuH/+hGPXNT16nU0p/cOLfbgDEABaD0izxSSW+hp8MAxAwuoQQmwfsfK
+	 TaQAGf+yrTvXZmMNoZeaav6yrQv8uaY8SAAYvtoYZk00o6JUfKYDVs4JoHj7XLWMzsz3Z
+	 xUIXSfrRPGyO4Q9caFPx5/1BjcuYc+mkUiVhe6MlcdLp71Q3I7v50lVlKvfXZT+ZRpHV6
+	 cWHnhkDwrzb0A6/cq950pkTyJ/IJOB1mOIrn1otyRuuh3KxwWF3EUqOmuzJHeEcMp8LHK
+	 Z0jQnwSbHg163j6hzvTtdK3EEU30k4MadsEmEF6X3jA524nvxykovAIP5oaPJUKWZNg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792776786;
-	h=DMARC-Filter:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=OwQuD11aowvN59Yp8GTn1jvcoj+Fq2ATG5T1g4tSa/0=;
-	b=K7dsDUDIIdXTBKuq4hLIpxLw0/IPoi+AnYP2T02JfxKWYPPCGh6sBa0J2Tm8K91FEy6b
-	 1IcwxQx1w5brZ16ikCQf+Y+Q/RgHCyisbX9pzmPoeFiJc7wlkealVTEUjuG3k8nJFHrAW
-	 9AweDVN23BQrwTXtt6c0rwwTVTMMvVRS2Swk9YhSLcfMD9+kbcYHqOCWbArNRtAcu/QoB
-	 9wkUPn7JFWGm/euj9ZWLrt2xV+gn4ltDl0VLD7ML4aX7gD1w0bq66kmhmVl8czqIS+XMS
-	 TdHd4/VsDkUO07+QLuZVXgETwAjru/56KqH58B4N6CePhPaeZ9PJfUZSUXPnKRudw/A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792776785;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=cfFhlHkKVrFXSmeZYo5gvz1zhcXjNjoycIItBCRV3ic=;
+	b=lcsAFuVR2de/wOsOz9SHjVe1RH3hB5eeP+P1ehTYgp46jmEVnvyEvmmjlQyUan2oIA4u
+	 Hph7vuIes9RNduwwHlppxJyoV9Qnh6YuvyK6z49umwMIm5NlMiw/yUnahSSLDyDwIseuj
+	 hHzaEmT8HCymNb2voc9+tI02dU134QXjx+I8edHG45NbGj1SHPeroOyJ1Ub9JypYSMBue
+	 LNQD8FgO1iGk+MLCQSUtXCuzFq0toDFYceB0NV/LVtUGdC+6Hb8s1rPeZJFnZU9au2DeH
+	 q7veWcqgWJHwqU9XqIGK8IhM13vjpUFywV3SMxEegGFJVaj1Lt63gA0THg4ldqMW62A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=weissschuh.net;
-	spf=pass smtp.mailfrom=weissschuh.net;
-	dkim=pass header.d=weissschuh.net header.i=@weissschuh.net header.a=rsa-sha256 header.s=mail header.b=Cm73qzHT;
-	arc=none smtp.remote-ip=159.69.126.157
-Received: from todd.t-8ch.de (todd.t-8ch.de [159.69.126.157])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=cs.unc.edu;
+	spf=pass smtp.mailfrom=cs.unc.edu;
+	dkim=pass header.d=cs.unc.edu header.i=@cs.unc.edu header.a=rsa-sha256 header.s=google header.b=VaUL86p9;
+	arc=none smtp.remote-ip=209.85.128.178
+Received: from mail-yw1-f178.google.com (mail-yw1-f178.google.com [209.85.128.178])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04F9D606A31D;
-	Fri, 23 Oct 2026 17:33:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 04F9D606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=weissschuh.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=weissschuh.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 344BA606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 17:33:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 344BA606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cs.unc.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cs.unc.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=weissschuh.net header.i=@weissschuh.net header.a=rsa-sha256 header.s=mail header.b=Cm73qzHT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=weissschuh.net;
-	s=mail; t=1792776776;
-	bh=vmPziPk2l4fvIsjWAFymEOIM1e+BT3WMm9SVEF/asOU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Cm73qzHTD4d5wdgAh74ZKXYQTuTlBSYQe4mvETKmBqVBbKXXnLHssCeVy3mFGX/7I
-	 Em/AIQY33b+gNl1q3XpDF66OXtIahGj2VpBOBAnoptoKDILEp1dIKtSqH5rHC3WPGU
-	 vI2MH0YNNn+TUTbj1F7Mp+saQbwztA91yzhx6ZDs=
-Date: Fri, 23 Oct 2026 19:32:55 +0200
-From: Thomas =?utf-8?Q?Wei=C3=9Fschuh?= <linux@weissschuh.net>
-To: Willy Tarreau <w@1wt.eu>
-Cc: Daniel Palmer <daniel@0x0f.com>, linux-kernel@vger.kernel.org, 
-	linux-sh@vger.kernel.org
-Subject: Re: [PATCH] tools/nolibc: sh: enter _start_c with jsr instead of bsr
-Message-ID: <5a82da39-1f60-41b6-9359-f08e6fefdb6d@t-8ch.de>
-References: <20261022100159.525910-1-daniel@0x0f.com>
- <cd8fcccd-aa70-46f9-b497-ec3070b5f8db@t-8ch.de>
- <atrsI4aaq9t4BVra@1wt.eu>
- <81607eb0-596c-4943-a8fe-d272fcd258c4@t-8ch.de>
- <atuJZwT7LIzceQ2c@1wt.eu>
+	dkim=pass (2048-bit key, unprotected) header.d=cs.unc.edu header.i=@cs.unc.edu header.a=rsa-sha256 header.s=google header.b=VaUL86p9
+Received: by mail-yw1-f178.google.com with SMTP id 00721157ae682-8b05bf699easo11682037b3.2
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 10:33:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cs.unc.edu; s=google; t=1792776784; x=1793381584; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=cfFhlHkKVrFXSmeZYo5gvz1zhcXjNjoycIItBCRV3ic=;
+        b=VaUL86p9W8Ij7nYadvTnLVjLIfxoXTnftnSupztuaXFLBc6HgsqzB7Ud1HU3voaBfV
+         c2YTLHbQHqYx2hkLgch0SU0B3lGA/gmKMIPW9VNGGCnHWFAFLxwS484qhvmHUJtoyB4U
+         q2lFWjW0nq/2sf7CYgxkhuwWcEw43EF6y5znee2MjSsvzNxINWEHc4ljORwkMTsmrvPo
+         s7HWAHb3HuI+5eNje7YQ2qyjU6I+vqiE7JDVD+pvU5F1MR6onOkC7wwX8GdI8yxmvUws
+         5v5BFI9yt3KWaO3GLPyjmFYDh/LS0ZqzRrqFuwIXL7nRitjGWEBgml9N7vpBtdPzWlzv
+         teXA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792776784; x=1793381584;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=cfFhlHkKVrFXSmeZYo5gvz1zhcXjNjoycIItBCRV3ic=;
+        b=NGmRsT0lvlXX3s4Z4BzDRcx2r9MVLaXYWYuED1p2/bfKqxjzu+MGa/s7rRSXg53h68
+         OjBIYta1/+zT/eEKpNdiOZczDjxawTRLyGd/aV+7QwL0x1n3NRvTUiwGNqLSiyF3Rxer
+         9+lK6SZbwp+4fNW3ScyEhwVsEZQDl8zbbhrEn3ifphbvMoHojn9qBt2ZE/SVxdoC7/Fc
+         7yp5hiFjTtSLxUpLdpKKV+KIEj48p98YiX6YRhZM+OfxSDv8NEwFaxmV2Ovqf+3X63lg
+         7DbRSdl7tNPGAGwR5idBhbuJDZproBMvshkm5Uux6px426Nmgv3hhb6mYHUJYPru9Xpt
+         Oe2Q==
+X-Forwarded-Encrypted: i=1; AKwUvBwk6LZTwgpGBYP2LNB4Mhz2BE3ClTRw3EFg3JMU+VAr2v8u9aW0rQqGvY9FJ17F3vv1VMcMLqObkA4mZoE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJHqpozb7938GLaLt2EtLglbLQpgmSOhVsJ5COEGc63K4UshsKv
+	9Dwa7dFjIjJ9EBNCcFgcBbpb6T47yQMHrJS+GvZED8dVElgc4fGFCIi+WOSFtJo7Ng==
+X-Gm-Gg: AYBFou2KHVJW4cboV1dVqZqDeu1WMWYcOEQ1ZigqTO+7cypvihk2tbuI46WnHatowus
+	DOlYwN5UYNd8q66o8zHuNv0mwWYbzgvtV2nfx6dUhymgGEWK90rDAOQUK+cFSliFTOlzEa2xGAb
+	dt9da7C8ABaDvOodswA0qUP28XbGydxGWbjL5FNVCYiBLR64eR6TqgYPgd4eT+gKtJ1NGSy9J1G
+	JUUKqdC+rmvTSJAwtRT2I1P00NqQq3NCfF/x0iRQYFIIPrmWxqi67/4hLlAZ+PrpxqTSrEPLypl
+	9tYihjUH0FsxhXam51hffponCxop5H92o6Db3vdKxS1hacw0Mr49xO2tdNySuFZwCZwKhbxzPRN
+	rbvlXb2hn+pdwpWPoqoBt09rtzRVxrTjnTmOpRjMXGw9PF0oLOGWjda/6C6ju14h0pidvdWJxTA
+	7SR5lRxiOQHVRvo84V36zYwzy7XF2MS47ldX6m32rWLmKYF4aVXM5U4CNgaz6XNiEtGIyBroV3X
+	jZhx5hk/lGBUH6VbBuXABDF+oYyB3zsnc/CaVv/+9StMr3sMubGXwZyjZEwQcdaQBTSvaxohipg
+	QpJ6nRntyM+lzTLIdhssZO0=
+X-Received: by 2002:a05:690c:4f81:10b0:8ac:d999:c588 with SMTP id 00721157ae682-8b157ebbd25mr16750107b3.69.1792776783879;
+        Fri, 23 Oct 2026 10:33:03 -0700 (PDT)
+Received: from cobra01.cs.unc.edu (cobra01.cs.unc.edu. [152.2.130.143])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b163d54053sm2770937b3.20.2026.10.23.10.33.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 23 Oct 2026 10:33:03 -0700 (PDT)
+From: Hengyu Liang <hengyul@cs.unc.edu>
+To: slava@dubeyko.com
+Cc: glaubitz@physik.fu-berlin.de,
+	frank.li@vivo.com,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] hfs: avoid reusing occupied CNIDs after deletion
+Date: Fri, 23 Oct 2026 13:32:59 -0400
+Message-ID: <20261023173259.3275078-1-hengyul@cs.unc.edu>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <cd6cc32dd2aae90b88b4c3d19e1fb35a5be6f4ac.camel@dubeyko.com>
+References: <20261015110114.1649059-1-hengyul@cs.unc.edu> <b6f1cb66778d09015ad5862ff273edc37c44ef28.camel@dubeyko.com> <20261021153141.311425-1-hengyul@cs.unc.edu> <1797b66dee80c9553748d4a961470894c917bf5f.camel@dubeyko.com> <20261022120658.1328124-1-hengyul@cs.unc.edu> <cd6cc32dd2aae90b88b4c3d19e1fb35a5be6f4ac.camel@dubeyko.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,110 +101,56 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <atuJZwT7LIzceQ2c@1wt.eu>
 
-On 2026-10-23 18:20:55+0200, Willy Tarreau wrote:
-> On Fri, Oct 23, 2026 at 05:53:51PM +0200, Thomas Weißschuh wrote:
-> > On 2026-10-23 07:09:55+0200, Willy Tarreau wrote:
-> > (...)
-> > > > > Replace bsr with a calculation of the effective address of
-> > > > > _start_c and jsr.
-> > > > > 
-> > > > > Tested on QEMU and real SH4 and SH4a machines.
-> > > > > 
-> > > > > Signed-off-by: Daniel Palmer <daniel@0x0f.com>
-> > > > > ---
-> > > > > 
-> > > > > I'm no SuperH asm expert but this works for me. :)
-> > > > > Maybe there is a way in C to get _start and _start_c to always
-> > > > > be close together that would avoid this entirely?
-> > > > 
-> > > > That would be my preference, too.
-> > > > 
-> > > > Maybe one of these works:
-> > > > 
-> > > > 1) Put both _start() and _start_c() in a dedicated .text subsection.
-> > > > 
-> > > > Apparently the default GNU ld linkerscript contains '*(SORT(.text.sorted.*))'.
-> > > > So if we use .text.sorted.nolibc_start for both functions they should
-> > > > end up next to each other.
-> > > > See https://sourceware.org/binutils/docs/ld/Input-Section-Wildcards.html.
-> > > > 
-> > > > 2) Put _start() *into* _start_c:
-> > > > 
-> > > > diff --git a/tools/include/nolibc/crt.h b/tools/include/nolibc/crt.h
-> > > > index 714256228914..ebcd0ea2b9f2 100644
-> > > > --- a/tools/include/nolibc/crt.h
-> > > > +++ b/tools/include/nolibc/crt.h
-> > > > @@ -115,6 +115,19 @@ void _start_c(long *sp)
-> > > >                 (*--dtor_func)();
-> > > > 
-> > > >         exit(exitcode);
-> > > > +
-> > > > +       __asm__ volatile (
-> > > > +               ".global _start\n"           /* The C function will have a prologue,         */
-> > > > +               ".type _start, @function\n"  /* corrupting "sp"                              */
-> > > > +               ".weak _start\n"
-> > > > +               "_start:\n"
-> > > > +
-> > > > +               "mov sp, r4\n"               /* save argc pointer to r4, as arg1 of _start_c */
-> > > > +               "bsr _start_c\n"             /* transfer to c runtime                        */
-> > > > +               "nop\n"                      /* delay slot                                   */
-> > > > +
-> > > > +               ".size _start, .-_start\n"
-> > > > +       );
-> > > >  }
-> > > > 
-> > > >  #endif /* NOLIBC_NO_RUNTIME */
-> > > > 
-> > > > But that for all architectures, using macros etc.
-> > > > 
-> > > > If the .text.sorted. solution works, I'd prefer that.
-> > > 
-> > > Do be honest, I think that Daniel's proposal remains the most maintainable
-> > > one. We rarely touch the start code, and having only a few do arch-
-> > > specific tricks is likely less of a burden for the long term than
-> > > relying on linker's ordering of sections, or starting to play macro
-> > > games. And it gets a chance that someone more familiar with that arch
-> > > improves it later if needed. But I'm not opiniated on this at all :-)
-> > 
-> > I fear that we will have the same problems in other architectures.
-> > And for those we'll also need custom assembly. While the mechanisms
-> > above would not need that.
-> 
-> But all archs support indirect calls one way or another. Normally we
-> should be able to do the equivalent of placing an absolute value in a
-> storage area, load it in a register and branch to it at least.
+Hi Slava,
 
-Of course it is possible to do. But it differs between architectures and
-somebody will have to write and maintain that assembly code.
+On Thu, 2026-10-22 at 15:40 -0700, Viacheslav Dubeyko wrote:
+> (1) Check that deleted CNID is the previous to the next CNID. If it is
+> not, then do nothing.
+> (2) Oppositely, we need to execute standard b-tree search in the loop
+> by decrementing the CNID.
 
-> For me, sorted sections are most likely meant to be used to group code by
-> locality, not to guarantee that branch offsets will always remain
-> small enough for all architectures.
+I tried this loop in KVM on a804c5742bff. It fixes the first two cases
+from my last mail, but not the third one. There a (CNID 17) has no
+thread, so the search for 17 fails, next_id goes back to 17, and the
+next file c gets CNID 17 too. a and c then share one inode, and
+fsck.hfs -fn reports nothing:
 
-Exactly this locality should provide small enough branch offsets.
-The section ".text.sorted.nolibc_crt" should only ever have two functions:
-Our _start() and _start_c().
-While there won't be a formal guarantee that the architecture's branch
-offsets will be able to handle those, I find it hard to imagine that
-they won't.
+    echo AAA > a; rm b; echo CCC > c
 
-> An indirect call on the other hand is well defined, standard and can
-> be adopted where needed at the cost of only 4 or 8 bytes in the
-> startup code.
+                          unpatched or loop    patch
+    CNIDs of a and c      17, 17               17, 18
+    cat a, cat c          CCC, CCC             AAA, CCC
 
-Its a few more bytes, not that it really matters.
-* 3 additional instructions -> 6 bytes
-* The embedded offset -> 4 bytes
-* Up to 3 bytes of alignment
+A search by CNID only finds threads, so it can show that a CNID is in
+use, but not that it is free. A file without a thread has its CNID
+only in its file record, which is keyed by parent and name. That is
+why the patch walks the leaf records when cnid - 1 is not found. Its
+first check, do nothing unless the deleted CNID is next_id - 1, is
+your step (1).
 
-The adoption will require additional fiddling with assembly.
+> Potentially, we can consider to have a small bitmap of allocated CNID
+> in every b-tree's node. Any other optimization ideas?
 
-Maybe we let Daniel break the tie? :-)
+A bitmap in the nodes would change the on-disk format.
 
+Deleting 8000 files (KASAN kernel):
 
-Thomas
+                                   unpatched   loop     patch
+    newest first                   13.1 s      0.40 s   0.44 s
+    odd ones, then even ones
+    newest first                   3.6 s       0.26 s   9.3 s
+
+The patch is slow in the second case, because cnid - 1 is free on
+every delete there and each delete walks the catalog. One idea:
+next_id only has to stay above all CNIDs in use, and fsck.hfs accepts
+drNxtCNID up to 4096 above the largest CNID. So a delete could leave
+next_id alone when cnid - 1 is not found, and the walk could run once
+at unmount.
+
+Would you prefer that, or the walk on delete as in the patch?
+
+Thanks,
+Hengyu
