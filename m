@@ -1,115 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.46.26
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792738471;
-	b=OI0qHvBAZIHPwLaNUdeEMu/sd4Pv8OTCJVyrwXvrmB+p1lAHe+4a3l6HMn5n6xGb/6TP
-	 Fk5VKp4IorAz1tJ3NWDzQgQF1B73TZmCd8/+gyCLT6vn64eV2GRjVuNmR58P1P2/1JrKi
-	 fypj8CaWnFBiNwqDkOuAmYRWTEZb03ZVymBL/sKXXiQ0l2ZWZ7pW5l6yHqjcOVYy4V/sA
-	 2/n3WiPVaKbKWTurXVygCQ+RReSVEjXbYlcMWk65wlhUegJ/lP18lvrZy1l5NOQhPfgQT
-	 Lj4VEgMC9DSKK9ZlNn/FItS1k5+aRrPNCVzC3QBpymJQBTL7qrnfu36+3q2tjvvl4jQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792738471;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
-	 Content-Type:X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=WC3+dgMuAPV0dVD+o9GkZOO0UoofpWeKaE+7sVTyIlk=;
-	b=Zmt7Rbjo8VHWBuTP8RyQ/UKzWJ2wjVmqSBSdMEWR66KIXPr6dN9CZzupsjkdl1PV0Isk
-	 B27RifT63u8tLftJxjnkW1t0wNgdlM/Hgmmd7737ao/ZUbhRkD4osu1a6JIsok4uUn3S9
-	 YuTawkRUXFOQ249Sfe9OkUVrtRBcI5+uSiTR5qNGM/4xP/BJ2MA+cCssJQy+flO34bpSC
-	 szY6Vb8uyGUrh833rOI7gkwvu0gMEb1wygBuHMgYZr1l3ZyuyWKxtCIxm0X45bEgyKM1X
-	 NV4/BfgopdV64PWzThGrcHSNbqlIhpFRE0+IxHP4baV4DEmSmidq4we6F2EZnmsEgaA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=em8Akcl2;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.46.26
-Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010026.outbound.protection.outlook.com [52.101.46.26])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.14
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792738481;
+	b=kNmqVg5e+zJGQvilgtE3iaVGVJY94a4KISwkQAD23ALZQY+yjNujHdWjYerlaQk38mu/
+	 T+gzkN8+yY382wdIKQWPwGJ1uFSu3TQWi4PJq0Y2XCglInaiBJiL3ZPMMX1QrVJdxegl3
+	 Xxv5B+GzUqbXlUSEo1JkhL7QtOCyxWysW8xw7XXsMveyCx4aXIv4c6hLX4URrCStI76rq
+	 PMAB8/h5rvp955dISSWaEj78CGW5rTMxrZVMbj+7gxCMoKQ3bmu0eFMhtjNxoOuQH8f85
+	 zg9PXI+fEn1QjS4ksO7Legfb2MPzEKv0+Kq4sRDB/dwnXCtsYe9palc9j5/mWi7EoWQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792738481;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=8hvAczPVxFHsHRebSf3Lol2Zt9I+a7FbbQSRQrC7VAk=;
+	b=l1NmMt4br90aqUomxM2GnjYuyL0Z6ZhTPkr94e065TiUeAUPjfTkq6bzskGO9jXiDQyg
+	 22HA4lTNdUqsF6TDzETsPda5ZpjEP6GDnAArAL8I2seieskE5irQN7vnF1zIcBpb4n/rj
+	 vmJhq/9dx9/A6C74T3vaV//GiXbcM+DeNKHDlBiOOLnyjcUiqlWiX6/yN7Kto6Q2KJ0Em
+	 atjI5GpzmguDeOvj/86DWNb2vVK1+NYCXxdGT8kbsCkQu6Zd9EudVT2xylwBfNbUPGlYb
+	 W+wtrBuPFVpQYHrBSA30WYtg6dSmtRSD6TJnQ197q3NfsiL+86hPITA4qDt/vadAurA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=UwFlGWyW;
+	arc=none smtp.remote-ip=198.175.65.14
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA04E606A320;
-	Fri, 23 Oct 2026 06:54:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CA04E606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BC63606A31B;
+	Fri, 23 Oct 2026 06:54:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8BC63606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=em8Akcl2
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=bWZhF2G6nZqFWeW4M8KFvh3ntCqKPO/y0RTIe6AU3joz4HTdzVH88tDQX8PPUmMuTPMKbECBUqJOeV3pibhnY2sPx5RCaBFeyTEYKVg3zKHIeYxmJ1cnRddDHwiAszdxJO6xjgb4+2U75ObcIeEk9xz0xaGjDCidKjgMqfQlEcBz4rVa3Ke7vsZJK6oxYJNBIk4b07Am5138Hla5sGIem8vs7i3Ie5xipst1QBH9gWv50mKPtSbtBhw+gzkgeID4zST/AYC7hpA/tuBLL+OJK+3DW8HqPdERT6jqHb1ZJNcjnYxtujDSoXUgxabazBPc8xxJIfHkifNDAms/7w1OAg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=WC3+dgMuAPV0dVD+o9GkZOO0UoofpWeKaE+7sVTyIlk=;
- b=L4oYvpXs321t1+m3Lh6TYlVaPF4E2TXAGEUIcNZULGnnMCxyhk47hq5gMHFUydwubAo56F9lQE9ieWwKg/nXdqJVOTnxn5XCgbi1WwuNunaTsFXRzKjejYv2SuqADZPOZ/oORAdp7CN+Om37/HmXcjok2HFe1xe3LxwCEyTTF5TsAi0/I1+nGGpgxQeMa2Civ0IL5OxUA9smdbM5GmiD4CmeeiRJKcLqyT/iVO+iFfecsYnhGBNEqufaNXM/1fqvpi6OzXuE2PtVDJdNBObdje9Ym+jMUSNhP+k6mEOdHCcw+g5KRXGGEzOm9i5wGMc04zEHYe9e1P3FzfWS1L5GmA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WC3+dgMuAPV0dVD+o9GkZOO0UoofpWeKaE+7sVTyIlk=;
- b=em8Akcl2CJf8inqUbBUD2aJBdsQOU9EUjzaR0tK65z82DGU6QeTBwhhhkgBi0fc7QvdktLl+B++fketv+bukZUWPWUaJP67zI3nMx+vOvfIKKKqSy9g9FNzHmc6gzLifQhRWFWUjDo/D7IBSU4sqKHl4+gKYoAOyNMA++l3C7T4=
-Received: from MN0P222CA0012.NAMP222.PROD.OUTLOOK.COM (2603:10b6:208:531::20)
- by CH3PR12MB9024.namprd12.prod.outlook.com (2603:10b6:610:176::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.17; Fri, 23 Oct
- 2026 06:54:27 +0000
-Received: from MN7PEPF0000014A.namprd04.prod.outlook.com
- (2603:10b6:208:531:cafe::33) by MN0P222CA0012.outlook.office365.com
- (2603:10b6:208:531::20) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.546.19 via Frontend Transport; Fri,
- 23 Oct 2026 06:54:27 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- MN7PEPF0000014A.mail.protection.outlook.com (10.167.254.36) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.546.15 via Frontend Transport; Fri, 23 Oct 2026 06:54:27 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Fri, 23 Oct
- 2026 01:54:27 -0500
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Fri, 23 Oct
- 2026 01:54:26 -0500
-Received: from amd-System-Product-Name.amd.com (10.180.168.240) by
- satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.53
- via Frontend Transport; Fri, 23 Oct 2026 01:54:22 -0500
-From: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
-To: <broonie@kernel.org>
-CC: <alsa-devel@alsa-project.org>, <lgirdwood@gmail.com>, <perex@perex.cz>,
-	<tiwai@suse.com>, <pierre-louis.bossart@linux.dev>,
-	<yung-chuan.liao@linux.intel.com>, <Basavaraj.Hiregoudar@amd.com>,
-	<Sunil-kumar.Dommati@amd.com>, <venkataprasad.potturu@amd.com>,
-	<Syed.SabaKareem@amd.com>, <Mario.Limonciello@amd.com>,
-	<Richard.Gong@amd.com>, <Vijendar.Mukunda@amd.com>, <Poojitha.N@amd.com>,
-	<linux-sound@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<sound-open-firmware@alsa-project.org>
-Subject: [PATCH v3 13/13] ASoC: SOF: amd: register SoundWire alt_machines for ACP7.B
-Date: Fri, 23 Oct 2026 12:20:49 +0530
-Message-ID: <20261023065216.3473883-14-Vijendar.Mukunda@amd.com>
-X-Mailer: git-send-email 2.48.1
-In-Reply-To: <20261023065216.3473883-1-Vijendar.Mukunda@amd.com>
-References: <20261023065216.3473883-1-Vijendar.Mukunda@amd.com>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=UwFlGWyW
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792738481; x=1824274481;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=4fYFw8sybPANT0pmg6TRi7WCeCgWOOdKQ2cph3BSk4U=;
+  b=UwFlGWyWTZuzw1xgYVwdyDmvVofNJihelI6JM0B0SGMwNYA6wRUUMCMm
+   pbnEwviCrjp+ajODAxuBi0Agg0PWrVeN1Zt/+iA+4Rbbi05fZGV4zJsL8
+   uTbVua4Quz2Z0Egtn+G1pBOvuJIVGeeFNmSaE6Uz4429Alh2kL0V4VKWU
+   orvz4lZ7o654nITPl4IdkAvHIV9mYc2rcRuG6RRJtUXKkX7439RkeU2C8
+   KYxuMV0ixdAKgnfGnYThaJIKa+zNjZ/ssxs/jHORsPMN4ARyv4ARLxzUL
+   bhsxo+Wi21Q5FnUqeL3IwOtGWTR4y9/dF2EtyxeSyGMLC0iD2F7Sj+wFo
+   Q==;
+X-CSE-ConnectionGUID: oqmRNvRwQg+Spjxky65obA==
+X-CSE-MsgGUID: X/PiFiOZTG60WasN068DIg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11943"; a="1370695"
+X-IronPort-AV: E=Sophos;i="6.27,173,1787036400"; 
+   d="scan'208";a="1370695"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Oct 2026 23:54:40 -0700
+X-CSE-ConnectionGUID: hTN0BJUnQ1yiGOW5M4cBhg==
+X-CSE-MsgGUID: 6xhOWRCTTpOIfvZjuZBk5Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,173,1787036400"; 
+   d="scan'208";a="3556295"
+Received: from kniemiec-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.100])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Oct 2026 23:54:37 -0700
+Date: Fri, 23 Oct 2026 09:54:34 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Brian Norris <briannorris@chromium.org>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Ulf Hansson <ulfh@kernel.org>, linux-pm@vger.kernel.org,
+	Andy Shevchenko <andy@kernel.org>,
+	David Lechner <dlechner@baylibre.com>, linux-iio@vger.kernel.org,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Marek Vasut <marek.vasut+renesas@mailbox.org>,
+	Rui Miguel Silva <rmfrfs@gmail.com>, linux-kernel@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org
+Subject: Re: [PATCH v2 00/17] iio: Stop looking at
+ pm_runtime_put_autosuspend() return codes
+Message-ID: <atsEql7X20hGytXv@ashevche-desk.local>
+References: <20261021235818.3059519-1-briannorris@chromium.org>
+ <atm0umwtxZlQSAhy@ashevche-desk.local>
+ <atpMNk6ymCpC5BL_@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -119,57 +90,54 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN7PEPF0000014A:EE_|CH3PR12MB9024:EE_
-X-MS-Office365-Filtering-Correlation-Id: 66807626-ea79-4bc8-9f95-08df30d27af9
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|1800799024|376014|23010399003|7416014|82310400026|261009223027099003|261021121427099003|10067099003|56012099006|22082099003|18002099003|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	U8OzuQLwj/Ru12TW4ad7rBBDZVhP+Cf/5WEA66HF4LAW3T/MF844pyKC1GL7pB3rU/N/8/AEZ8NFFBklvk8lPfO0RQ8s4LGINYGu2KhSrBVcPGiQeDPfyo0khzY8RfDBBadUJVDz2UiJNDgmB8DQVV8V+eSMHjW5Lz5pcFmg/hksCfxCFe5YxnhTd1ZDPWpTssdxxSM+v1KdDpAia6uYg6Lgu/qcWa3EbntvVAeueTHfjLSB3hTtPcBHCqdsXqPpc91/DcdJ9pvxp3Oq5JiuNswlqhxk0DMHbnELcnaT+Cle9I3m2iw3amXJ2k4yGcCITk8J6ZI4RBSiXzf5dEd1L6GvORDOUy6icXd13KA3gnT6K6qZT3/SH1mNx9JZoXTbTC5fITC0BSElRcr7A7GT+ILIxFKaZp/wkbzuQSPiYMLR7esLpDZd40KOERXUm/BX6XItrrYO8ewTa4qvnFQtOlVL5F1j/AXQ82Q9o/nWAWSbIHRRGi7axPLyoR1GR5/z8Hvcuy5pSDMcKKYLI+Bc+THbDKWTdmdyJFRHHg13a5NzyR0omUeYmcd0k8fqh44GQFMNA9haHRt+rzo6nCKlylcuDWEp9mDV0yBOSssSEiZjl8WWJO9AWEcgWDSQXPM3h8o71JjgRM/aPAKooybIbLNY9T0o/QsSauDb/7iicl7S+o5p0w06c5HG82kEved77CY6eq8l+fjpgUVECW8mDA==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(1800799024)(376014)(23010399003)(7416014)(82310400026)(261009223027099003)(261021121427099003)(10067099003)(56012099006)(22082099003)(18002099003)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	4OIKkYELkzp8yrxW+pppwXXVJH2HX2LaFCkwFCFqdAtgQeTPSmGD/Zce0YmwqfqdApU0dDbG9QrQDHit7ZC4M8u91ZmZiXpj/ZsQrTSJIg5UAd1r3XVRXuvymvsymJ5FFoBOAb8vLTMCVizCRLAoZ547i9CentJ0cEtX5llEweOjI1w8y35obn05m7IFfbUQd1PxVCoKlp1dx545pTyL/H0YlFA+w7+ufje3beFOr7ipcAoNZe3qYNsr3qbAPQDUqYUMxEFQMKD1x6ahQq3NRzNamKZS09o0QQEj4E7Qme1xIEnwuwIu8tlhvBdGYshmKyTmJkXXNSU2CdfVvDXq4NI/mIUH/o768g7IyIp+lxMH5NwZ9kzSJfpxFFliCiL7N1RAzXBRSPvGk9LmbSY8Sk+8A0AmRNTRmoiVG/JgWTCPeIscKIdcnw1tqw1kgaPK
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Oct 2026 06:54:27.3905
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 66807626-ea79-4bc8-9f95-08df30d27af9
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	MN7PEPF0000014A.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9024
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <atpMNk6ymCpC5BL_@google.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Register snd_soc_acpi_amd_acp7b_sof_sdw_machines as alt_machines in
-the ACP7.B SOF device descriptor so that the SOF core selects the
-SoundWire machine driver when ADR devices are detected on ACP7.B
-platforms.
+On Thu, Oct 22, 2026 at 10:47:34AM -0700, Brian Norris wrote:
+> On Thu, Oct 22, 2026 at 10:01:14AM +0300, Andy Shevchenko wrote:
+> > After three patches I stopped because it seems more works needs in each of
+> > the individual drivers. Yes, the series can be applied as is in exchange for
+> > a bigger additional churn in the future. My preference is to see everything
+> > settled down in a single step.
+> 
+> There are limits in how much work I'm willing to do on a bunch of
+> drivers I don't use, can't test, and frankly have no actual interest in.
+> I'm sure if I spent a few more minutes on each driver, I could find
+> another dozen things to try to improve.
+> 
+> I can go back to the v1 approach (fix only what I came to do) if you'd
+> prefer.
+> 
+> Or, I'd prefer to stick with the sentiment Jonathan expressed in
+> optionally requesting additional refactoring:
+> https://lore.kernel.org/all/20261018211807.66bfea0d@jic23-hlaptop/
+> that most of these changes are optional, and that fixing 1 thing is not
+> a subscription to fixing everything.
 
-Signed-off-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
----
- sound/soc/sof/amd/pci-acp7x.c | 1 +
- 1 file changed, 1 insertion(+)
+Right, but my concerns is that in (some) cases you can do one step further and
+use PM_RUNTIME_ACQUIRE*() instead of putting first the explicit calls in this
+series and makes someone to basically do the same again. To me it sounds like
+a double effort. Yes, that is_active thing perhaps to much to follow, but even
+there it can be refactored to something like
 
-diff --git a/sound/soc/sof/amd/pci-acp7x.c b/sound/soc/sof/amd/pci-acp7x.c
-index 2999dc6d72a63..6aa16d1a12b95 100644
---- a/sound/soc/sof/amd/pci-acp7x.c
-+++ b/sound/soc/sof/amd/pci-acp7x.c
-@@ -47,6 +47,7 @@ static const struct sof_amd_acp_desc acp7b_chip_info = {
- 
- static const struct sof_dev_desc acp7b_desc = {
- 	.machines		= snd_soc_acpi_amd_acp7b_sof_machines,
-+	.alt_machines		= snd_soc_acpi_amd_acp7b_sof_sdw_machines,
- 	.resindex_lpe_base	= 0,
- 	.resindex_pcicfg_base	= -1,
- 	.resindex_imr_base	= -1,
+	if (is_active) {
+		ret = regmap...
+	} else {
+		PM_RUNTIME_ACQUIRE*();
+		...
+		ret = regmap...
+	}
+
+without changing the driver logic.
+
+Whatever, I am not a maintainer here, so if Jonathan is okay with this churn,
+then it's fine.
+
 -- 
-2.48.1
+With Best Regards,
+Andy Shevchenko
+
 
