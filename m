@@ -1,88 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792790909;
-	b=Zlj2WLoaQFbNZFI1ULuv9Fk/CbTqkRhjmfgwztGO4C1mTbvsIud1mOgSBOi1pvWJZgk+
-	 CqoUlCIqV71P3XLX7AayfAwSNRIJ7sCmDqA+BYxWvEgaBcpqv+VZi9IsDcfjap0Bf2Bju
-	 yUb6sojGSUQhyVo8vrQlJKxWKozJRIVMs02qvmUQ9sVAd/bL3i7j1N7FT/Xm+wnITK3U6
-	 hX1NxsTxghjOSP7spyRpWucgnGnwQU5u19XEhMrjdtf4CsnHXjoNDZ9VbzgnOcrJgjaPV
-	 NtfiCdrwATBWzlT6K8sxWG/Qz3DuanaDCYIBUb4xS3alULiGDjuzQva9ZwpkUc/e9Dw==
+	t=1792790942;
+	b=RxD0xfqRipDZ9tv6hTwCxgCbYkSMHe6npERgHFjCkLSKogGkx8NzT8tFKdlzjgxTSeyz
+	 VXNyuHtAVcc04kq5wOk//6DIEdWNM/QXbRO+sKfUG3uIsZ046d1gVr01DsdgtWBzPcMtP
+	 8uLlLgoAmpqfoXBWn5U4AGCmRqz+ud1Z5ohhOEbamdUKGNQ9PLmLhQfRvwjv/BGPnT+ZI
+	 GuSTcplT8Fk+W1JvHsG2dsjOKJV9E/amahgJutkyzkjwryH6Lg7mp0Ec3PMHwejBF8EE9
+	 ppjjrKdZ9vTY+vRvB7HSrTuFGOytlEg/v8HImv8gciW+cM2PHoDO7F9HVtXOASIhIDw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792790909;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=exTyhi+p6FLosAtSIlBuccnoi48symIvLRodBYfafn8=;
-	b=bpifGKhohE0A4JxpC9df3mFOl7MQtGbThSjBgcbLgD8WHzu3zVEH0YjNFzi0k4I+L7v5
-	 qkzDMvc9mtVgTJA36apqgmmUsTS9GX9VSaa0vtZCOLi5cBOHS4e+yb1UVqndR0mldUtu+
-	 97js99F0yN1l3yGN0oK30T+886ljLcE6WTiCA17sD3TLJOGryN+6zc+gsW4iA4RnJX7kw
-	 b7zc54zI9TcvIudFHTlNeCl/d/1Dny5EsMxdLyD2clYC1s1RcrezEXxsBxtBLHE6nx0uf
-	 QKDVz5Sc8lJ0UTm2KfdqO10QjRWcM45+N2Nq8CES6qUvTIDkJ87gIwhQUsrx8/twrpA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792790942;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=SPo5JT16y1DaEMxqlX2cvPgpbj/FzZJAHhXrqtgHuJA=;
+	b=PisjVic8YS8iEIisWSmqUjEbp9gikH3RzcuiL/BtRndytX4UKFAfsCw+kBJz613ognN7
+	 0JC9NLf7hNdcOYyKcQK7JpIMHd23ynFagz8VRk7BNeetp3lW3Ls1HcXlp19QhzPL6sXNd
+	 aDOSwk4nGeAbdOHhOR/REzmTcxcccceb2nAARRLd2XajIZuzNRtUmZMJVHh0npSdhpkIH
+	 F4Rbd+48AkKdwWZjhvhyjYUCyVEdzMpelm9Zb7DHVtDpqxAh/fA2tSwDmZ4453lU49vms
+	 EA8AH2KVFKDIwvoC9ZiP9BEdRLLa7Df0ntP/+TparkHOUq7Zlx+7TIOnTL3uPEC9VqQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=RIZz1Qjm;
-	arc=none smtp.remote-ip=209.85.160.172
-Received: from mail-qt1-f172.google.com (mail-qt1-f172.google.com [209.85.160.172])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HrDUDY5a;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7C32606A31D
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 21:28:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A7C32606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D950606A31B;
+	Fri, 23 Oct 2026 21:29:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=RIZz1Qjm
-Received: by mail-qt1-f172.google.com with SMTP id d75a77b69052e-530e75d1ba1so10337341cf.2
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 14:28:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792790907; x=1793395707; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=exTyhi+p6FLosAtSIlBuccnoi48symIvLRodBYfafn8=;
-        b=RIZz1Qjmk10fIdkgzwkJRcomIo7yExgzdo6BsvW3muJbljRQjRgZkiEIPIWJScqNWu
-         U5AKvYzVz9GZiYZh7NM/oYDfIor4zjwW98JNlD73HKIcUp2isUiNMeuySrZwQzCF+g6J
-         C/7q03P9eC6lYQD0eOFIP3ttbzK+mjTpZsnpFB72Oc5PFWuUwl6KEMPtDdaCdsyty+1l
-         NUNOrhSqNibqKLxVPa0lH3L+GmGgxFTSN5Z0zGMIM7PgwYIys3F8jMN3hrRtejlKZRUb
-         1VmJlnHyxeJ+lOYESROIXa+LifC/iceRliizXUibV/jAqStWfp4z3yVY4r+td1uB/Xt6
-         3BIg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792790907; x=1793395707;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=exTyhi+p6FLosAtSIlBuccnoi48symIvLRodBYfafn8=;
-        b=PwHTjUN1/RE0yiu7gyzb4PYmMI3hhL6G0yRkh/FELMe3jntggLjzClxa0cGMFeFbr8
-         bmhA+i1sqPHSn1RrrOjyS/gqysq8YI6/F8ECmgxYO2DzAAPQeMsEW597ptKDWkQpcx3O
-         7tLkvDnkA3QDAQ04S5HbU/aTKuQs1k+CglkE5KX4dDXNlVFFvpZ/EkYTifdDuRoIo7nW
-         3jFDKQ+NaLyZ+9i6zgcor9PAYKj7nAq4JnhHrUJsXY1L6s8rTk7II9pOdovjrUw8BSK9
-         ZYHdu2HNrhPlue8FClhpQzfI8qQiVfxYuXiAQUbF5UKHiwueqkXino2jAiNZyO8N4EdU
-         D4dg==
-X-Forwarded-Encrypted: i=1; AKwUvBzsxXoZJhN5uWEnTnp9NaLRYnmRx1/VKBFXDmMvfMtAkQkWzdprdALz1KmwSLHi+26DY96+S1yUGHmpimc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLC4Jl2Qjg/Dm/TrmOTZWHnsnqvNjRIDxQHg0O4Rpv2pvQkaGBc
-	P5Lmvq2uuV4x5ru0bUub60Kkg0NmCa3QwJU4wp/tf1+yMfeZhLy42AGg
-X-Gm-Gg: AYBFou1R5bQAXIHrHBNBLjHh5Rbxvr+VMhOSD6ZHnfAfI6fLQSHOMUdn9hB3qjt8kBB
-	LSQBwYzPLJBdwYQ1zjX2i4nbyYspLSv3cR6sVaUHYBAHq3sabJ0OHlRI38JTUI8I/QteJi3KVic
-	P7FEjgHzWn6NZdMsgRS0c/wJdNhApSReEDk25KxEKREZkPVvuylnnWygwzUt+RIshIYkHLqzmOD
-	EnX1Sl+zmLAzAMOO4gpDqWmDIH4Pdzn5q54Hf+fyNJAQHDcPPHgwDqp6OFhL+b4zhxnOMty24PB
-	jpdvv8U5fuRdt3vHLTXm75d7hSN3pTIztCFY6AKJvCvNj6W9B1p39Xt/0CqubttXYe1ndReoVj+
-	LNnFtK00nRyjnMlcceAzmUkFd9OvWr5tJNO5PLvTYUElT4ZKYULK1ZJMRmzDvEIoenFDEz4kI0H
-	vh3J4b4rdkTSH/ZK41KSl/TWK1cbl900cgiM54ah6v6ObGLTXbjR6widK95+V+bG+VSs6fYe6CF
-	1ugaAhhdjvqwZEp9dDZrUeINOOsBk4qncZORGerIc65wnW7hP9h4+k1H87A5OIbdKBHlXpWOFff
-	3NdcpTg=
-X-Received: by 2002:ac8:5a44:0:b0:536:6c87:ebd7 with SMTP id d75a77b69052e-5383b741db3mr1986071cf.69.1792790907516;
-        Fri, 23 Oct 2026 14:28:27 -0700 (PDT)
-Received: from [10.67.48.245] ([192.19.223.252])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91c47cb85f3sm4781676d6.36.2026.10.23.14.28.23
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 23 Oct 2026 14:28:26 -0700 (PDT)
-Message-ID: <b79c26ec-5da6-4292-a72d-6ea3298ab7df@gmail.com>
-Date: Fri, 23 Oct 2026 14:28:22 -0700
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HrDUDY5a
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D8B5F1F01825;
+	Fri, 23 Oct 2026 21:29:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792790942;
+	bh=SPo5JT16y1DaEMxqlX2cvPgpbj/FzZJAHhXrqtgHuJA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=HrDUDY5aj9SM0a/3NOaJ9YsHk3+5IGEa3m+Rkvwx2rIa4v+OTTJKCbh7fH6yIMBED
+	 0toEaHtWlwbgnUf3NXP7gfEHFC4DaM11EBB0NiwfGeoCl15YWcN0Au1w/b0vy27AQl
+	 85J8EtK5nCXBZvuBeZrkB2HwTmmr7qPGHjBpaTRIN/O/SFQsitCMzU++05bW0wOO+7
+	 ZecSyPBhN8g/Diq+Q1UFTK4zTZYJY/7XODqI0GFs/qAleIp9oQNC/KCs7OBZIs/KGS
+	 1IZu6EfJog8RdMlQsyRBFe3zT93NISPFqkC4n4hYvjeUscEDQp4vd3nk+d5zRqH2Gm
+	 v3HiBSuV757xw==
+Date: Fri, 23 Oct 2026 18:28:59 -0300
+From: Arnaldo Carvalho de Melo <acme@kernel.org>
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: Antoine HURET <antoine.huret@bull.com>, Ingo Molnar <mingo@redhat.com>,
+	Namhyung Kim <namhyung@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	James Clark <james.clark@linaro.org>,
+	Ravi Bangoria <ravi.bangoria@amd.com>,
+	"linux-perf-users@vger.kernel.org" <linux-perf-users@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"regressions@lists.linux.dev" <regressions@lists.linux.dev>
+Subject: Re: [REGRESSION] perf: Rewrite core context handling breaks
+ multiplexed cgroup events
+Message-ID: <atvRmz_uGKpiYfMv@phoenix2>
+References: <PR3PR07MB69223331EED5BEBE150375B7849C2@PR3PR07MB6922.eurprd07.prod.outlook.com>
+ <20261015111316.GJ4121339@noisy.programming.kicks-ass.net>
+ <PR3PR07MB692235BC98DAB96E30E4AB8D849C2@PR3PR07MB6922.eurprd07.prod.outlook.com>
+ <20261015132135.GK4121339@noisy.programming.kicks-ass.net>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,45 +69,81 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.18 000/193] 6.18.59-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
- hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
- sr@sladewatkins.com
-References: <20261023163714.201276352@linuxfoundation.org>
-Content-Language: en-US, fr-FR
-From: Florian Fainelli <f.fainelli@gmail.com>
-In-Reply-To: <20261023163714.201276352@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261015132135.GK4121339@noisy.programming.kicks-ass.net>
 
-On 10/23/26 09:34, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 6.18.59 release.
-> There are 193 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> 
-> Responses should be made by Sun, 25 Oct 2026 16:36:50 +0000.
-> Anything received after that time might be too late.
-> 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.18.59-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.18.y
-> and the diffstat can be found below.
-> 
-> thanks,
-> 
-> greg k-h
+On Thu, Oct 15, 2026 at 03:21:35PM +0200, Peter Zijlstra wrote:
+> On Thu, Oct 15, 2026 at 12:30:55PM +0000, Antoine HURET wrote:
+> > On Thu, Oct 15, 2026 at 11:13 UTC, Peter Zijlstra wrote:
+> > > /me mutters something about having to go install and learn docker and
+> > > what's wrong with simple shells scripts that poke about in /cgroup
+> > > filesystems :-)
 
-On ARCH_BRCMSTB using 32-bit and 64-bit ARM kernels, build tested on 
-BMIPS_GENERIC:
+> > Fair enough, sorry about that! Next time I'll do plain cgroupfs,
+> > promised :-)
+ 
+> FWIW, it might be useful to extend perf-test with a bunch of cgroup
+> tests - this one included. AFAICT we have nothing there atm.
 
-Tested-by: Florian Fainelli <florian.fainelli@broadcom.com>
--- 
-Florian
+The more the merrier, so far:
+
+acme@phoenix2:~/git/perf-tools-next$ grep -rw cgroup tools/perf/tests/
+tools/perf/tests/expand-cgroup.c:#include "cgroup.h"
+tools/perf/tests/expand-cgroup.c:			pr_debug("cgroup name doesn't match:\n");
+tools/perf/tests/shell/lib/perf_json_output_lint.py:      'cgroup': lambda x: True,
+tools/perf/tests/shell/lock_contention.sh:	echo "Testing perf lock contention --lock-cgroup"
+tools/perf/tests/shell/lock_contention.sh:	perf lock con -a -b --lock-cgroup -E 1 -q -- ${msg_workload} > /dev/null 2> ${result}
+tools/perf/tests/shell/lock_contention.sh:	echo "Testing perf lock contention --cgroup-filter"
+tools/perf/tests/shell/lock_contention.sh:	perf lock con -a -b --lock-cgroup -E 1 -F wait_total -q \
+tools/perf/tests/shell/lock_contention.sh:		echo "[Fail] BPF result should have a cgroup result:" "$(cat "${result}")"
+tools/perf/tests/shell/lock_contention.sh:	cgroup=$(cat "${result}" | awk '{ print $3 }')
+tools/perf/tests/shell/lock_contention.sh:	perf lock con -a -b --lock-cgroup -E 1 -G "${cgroup}" -q \
+tools/perf/tests/shell/lock_contention.sh:		echo "[Fail] BPF result should have a result with cgroup filter:" "$(cat "${cgroup}")"
+tools/perf/tests/shell/record_bpf_filter.sh:  if ! perf record -e task-clock --filter 'cgroup == /' \
+tools/perf/tests/shell/record_bpf_filter.sh:       -a --all-cgroups --synth=cgroup -o "${perfdata}" true 2> /dev/null
+tools/perf/tests/shell/record_bpf_filter.sh:    echo "Cgroup bpf-filter test [Skipped cgroup not supported]"
+tools/perf/tests/shell/record_bpf_filter.sh:  # 'cgroup' requires PERF_SAMPLE_CGROUP flag
+tools/perf/tests/shell/record_bpf_filter.sh:  if ! perf record -e task-clock --filter 'cgroup == /' \
+tools/perf/tests/shell/record_bpf_filter.sh:  if ! perf report -i "${perfdata}" -s cgroup -q | grep -q -F '100.00%'
+tools/perf/tests/shell/record_bpf_filter.sh:    echo "Cgroup bpf-filter test [Failed root cgroup does not have 100%]"
+tools/perf/tests/shell/record.sh:  perf script -i "${perfdata}" -F cgroup 2>/dev/null | grep -q -v "unknown"
+tools/perf/tests/shell/record.sh:    -aB --synth=cgroup --all-cgroups || ret=$?
+tools/perf/tests/shell/trace_summary.sh:# summary only for system wide - cgroup summary mode with BPF
+tools/perf/tests/shell/trace_summary.sh:test_perf_trace "-as --summary-mode=cgroup --bpf-summary"
+tools/perf/tests/shell/trace_summary.sh:# summary with normal output for system wide - cgroup summary mode with BPF
+tools/perf/tests/shell/trace_summary.sh:test_perf_trace "-aS --summary-mode=cgroup --bpf-summary"
+tools/perf/tests/shell/stat_bpf_counters_cgrp.sh:# perf stat --bpf-counters --for-each-cgroup test (no_mlock)
+tools/perf/tests/shell/stat_bpf_counters_cgrp.sh:# skip if --bpf-counters --for-each-cgroup is not supported
+tools/perf/tests/shell/stat_bpf_counters_cgrp.sh:	if ! perf stat -a --bpf-counters --for-each-cgroup / true > /dev/null 2>&1; then
+tools/perf/tests/shell/stat_bpf_counters_cgrp.sh:			echo "Skipping: --bpf-counters --for-each-cgroup not supported"
+tools/perf/tests/shell/stat_bpf_counters_cgrp.sh:			perf --no-pager stat -a --bpf-counters --for-each-cgroup / true || true
+tools/perf/tests/shell/stat_bpf_counters_cgrp.sh:	if [ -d /sys/fs/cgroup/system.slice ] && [ -d /sys/fs/cgroup/user.slice ]; then
+tools/perf/tests/shell/stat_bpf_counters_cgrp.sh:	find_cgroups_self_cgrp=$(grep perf_event /proc/self/cgroup | cut -d: -f3)
+tools/perf/tests/shell/stat_bpf_counters_cgrp.sh:		# cgroup v2 doesn't specify perf_event
+tools/perf/tests/shell/stat_bpf_counters_cgrp.sh:		find_cgroups_self_cgrp=$(grep ^0: /proc/self/cgroup | cut -d: -f3)
+tools/perf/tests/shell/stat_bpf_counters_cgrp.sh:# As cgroup events are cpu-wide, we cannot simply compare the result.
+tools/perf/tests/shell/stat_bpf_counters_cgrp.sh:	check_system_wide_counted_output=$(perf stat -a --bpf-counters --for-each-cgroup ${test_cgroups} -e cpu-clock -x, sleep 1  2>&1)
+tools/perf/tests/shell/stat_bpf_counters_cgrp.sh:	expand_output=$(perf stat -a -x, --bpf-counters --for-each-cgroup / true 2>&1 | wc -l)
+tools/perf/tests/shell/stat_metrics_cgrp.sh:# perf stat metrics --for-each-cgroup test (no_mlock)
+tools/perf/tests/shell/stat_metrics_cgrp.sh:	if [ -d /sys/fs/cgroup/system.slice ] && [ -d /sys/fs/cgroup/user.slice ]
+tools/perf/tests/shell/stat_metrics_cgrp.sh:	find_cgroups_self_cgrp=$(grep perf_event /proc/self/cgroup | cut -d: -f3)
+tools/perf/tests/shell/stat_metrics_cgrp.sh:		# cgroup v2 doesn't specify perf_event
+tools/perf/tests/shell/stat_metrics_cgrp.sh:		find_cgroups_self_cgrp=$(grep ^0: /proc/self/cgroup | cut -d: -f3)
+tools/perf/tests/shell/stat_metrics_cgrp.sh:# Check if metric is reported for each cgroup
+tools/perf/tests/shell/stat_metrics_cgrp.sh:			--for-each-cgroup "${test_cgroups}" \
+tools/perf/tests/shell/stat_metrics_cgrp.sh:		# Find metric lines for this cgroup
+tools/perf/tests/shell/stat_metrics_cgrp.sh:			/)  # The root cgroup, leave unchanged.
+tools/perf/tests/shell/stat_metrics_cgrp.sh:		# We use exact cgroup match with surrounding commas
+tools/perf/tests/shell/stat_metrics_cgrp.sh:			echo "FAIL: No metric lines found for cgroup '${cgrp}'"
+tools/perf/tests/shell/stat_metrics_cgrp.sh:				log_verbose "Enforcing metric check for cgroup '${cgrp}' \
+tools/perf/tests/shell/stat_metrics_cgrp.sh:for cgroup '${cgrp}'"
+tools/perf/tests/shell/stat_metrics_cgrp.sh:					echo "FAIL: Empty metric value for cgroup '${cgrp}'"
+tools/perf/tests/shell/stat_metrics_cgrp.sh:				log_verbose "Skipping metric check for cgroup '${cgrp}' \
+tools/perf/tests/shell/stat_metrics_cgrp.sh:if perf stat -a --bpf-counters --for-each-cgroup / true > /dev/null 2>&1
+tools/perf/tests/sample-parsing.c:		COMP(cgroup);
+tools/perf/tests/sample-parsing.c:		.cgroup		= 114,
+tools/perf/tests/Build:perf-test-y += expand-cgroup.o
+acme@phoenix2:~/git/perf-tools-next$
+
+- Arnaldo
