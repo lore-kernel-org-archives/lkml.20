@@ -1,91 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=85.215.255.51
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1792746582;
-	b=wEcuKsH4ONhzI+l/WCXGIZdoMe1TKV8k2oVrG1F3xRmnhIFxXhsbXpuKo8Fv5uAeZ7ZU
-	 LicOY1wRYdQBxtMTmu4nGPDGxfIpbISq+lo/AEfXP/TcEz6+B8x2P2I0dTj0Z79piSw1+
-	 qmre/zNyOWs38Wwj+cWiltkoZywcYUU0i25J3Nti0aNrSOI0b+CTz0HEuSF5xwvxv4t50
-	 arfXkuQWItyimrGKnbkSyG/e7m4+8mC94J09ya4gXedrhCKcLFZEw6V0oIYaCbklwcwPe
-	 +ayud+STsokBhbN+N6FynGrnU9SlxbzD3a9Zc/fV9m+BHHq6Acxc9pwH+wgBLWeodFQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792746582;
-	h=DMARC-Filter:X-RZG-CLASS-ID:DKIM-Signature:DKIM-Signature:X-RZG-AUTH:
-	 Received:Content-Type:Content-Transfer-Encoding:From:Mime-Version:
-	 Subject:Date:Message-Id:References:Cc:In-Reply-To:To:X-Mailer;
-	bh=/YMpiyHb/oOoVAqYaniKbsFsgRAlHMfRbUn7Sd2BORY=;
-	b=UKqrlaw3TxyoMU05gLuAMOFWjPNaCAD0gpNPebFT1lNwfGjHhunsHtKZh7WtjBumnNZJ
-	 zv18Qgb5Lnggt26lLBzjfUCOzQ87750zLBs4QZn30yl8fAmqAhhM67LUtPAzu5Z3J0nOY
-	 HghiZdfSnMq1Q1sKfG0G7kLTt/vWr0DviBMNWli38+NqBnMUdfjJW1i+Eslxs3FnCWeyb
-	 5I4Ka2VsQ6TnxBaU34PkP63tYVnbzPSFiHOmrxOak9e4z01YhCnJgbvER59bRVoekktQ0
-	 Qg0gZ1SOe83J+qAAO4xBEbbu2TwUYPuKQyZUIeFivUqy3JmvDcMJPxAsk6ErWBUfRPQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=xenosoft.de;
-	spf=none smtp.mailfrom=xenosoft.de;
-	dkim=pass header.d=xenosoft.de header.i=@xenosoft.de header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=EItz6hEu;
-	dkim=pass header.d=xenosoft.de header.i=@xenosoft.de header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=C64gwSyJ;
-	arc=fail smtp.remote-ip=85.215.255.51
-Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de [85.215.255.51])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.41
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792746650;
+	b=w8aW/N/GQrL3OsyE0fV/ylpMhOJCuwVSvHGr4Q/9VZOmayMyJQDW2q4fUQnvxmv95zJO
+	 Hj+EYgC2tZuNkAaWsq5aM1HE3BSnXELaRXYvwHRhEPCCNc++ObItUq4i375q0jtApkk6M
+	 nqjqYZrAjwFlaehCHhunHloiPvmlyJR8uc3QkX+3QctS90BLJ+hSY0y9wJVJzw+L+ulkk
+	 N8A1oaS5q3GhXOGo6/u1eRUFOtUiX+WZHBZTlA8+cXHhKR493GU2SgLeq/ybfzFCMbpwZ
+	 wloBhGkqV1Jd573sUCY5Y0M0YOgDGFi/tl2VBwMU/71mjwdxWjYUaE7c5WD5i2KmvHg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792746650;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:X-Mailer:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=iks0aFSHOkkGNM3nhF8ovnYM+3HT6MOjrI6VZAWf4VM=;
+	b=vgVT6EIuBp03DNxzJEkmQb4VT500ihhsxEPTuzXIrgQQO4MqB65MpAW5KsLQXgVDs8TU
+	 Np3oVYmBv7KqLQs1mxGZ2v5d+EYffBIlaQV0IdAfXLE2bboUJUXoLFxs+BFFXF0b93R7P
+	 eZnGMY31pjv3OgnKvx/hxcshEN7urx3bJQ0xTPRDYcAERsjL8U0E2UL1Tte95dQXuWMcy
+	 BXYOyIWDvr3gTaY3e/YC2dmkJgKSxHc9nid0Y4X+2J7LCyMlBxhKLTpt1w/JL3I0+Cppp
+	 OxsYanUz9zpksWh08MycIa1MXJArgaBLDsnInA6ktH6FJIGBkklprZ4zEnDS+RKyqRQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Pbn2YXEG;
+	arc=none smtp.remote-ip=209.85.221.41
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E6D5606A320
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 09:09:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8E6D5606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=xenosoft.de
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=xenosoft.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94B5F606A31D
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 09:10:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 94B5F606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=xenosoft.de header.i=@xenosoft.de header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=EItz6hEu;
-	dkim=pass header.d=xenosoft.de header.i=@xenosoft.de header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=C64gwSyJ
-ARC-Seal: i=1; a=rsa-sha256; t=1792746577; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=LCLkUGG2bI9r5dSw2cyB4v57wJat8ND+fHrm9Z/iA9RQ5lDCZ5HUno0MvEyIOpcL0V
-    AkePAAK4zSwb42UpkRkzB9d1yPHj6y0aQaUFDMoOivJQplF2vjQiY1+49ErTzTa21Fhr
-    Tpfkba0Bw/lIEw9OSXzxCgQ3sTs++I1ZHjesgW+/V8FSGSjt5wio38FOUwQ64pk3R2bv
-    IgLSZRC40oX0duePLzdfHHHbQKHgZCKp+FPU30mYLkTLzGfHXZLz5iIIueaqWtrW8l8f
-    9lHb1nO/Xy9SL2EvscdhvbMRNekJ5hJvJcOoi6FcT9ZPN0XPu7OIjYvhrZjjMV7Y2ivd
-    7pGA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1792746577;
-    s=strato-dkim-0002; d=strato.com;
-    h=To:In-Reply-To:Cc:References:Message-Id:Date:Subject:From:Cc:Date:
-    From:Subject:Sender;
-    bh=/YMpiyHb/oOoVAqYaniKbsFsgRAlHMfRbUn7Sd2BORY=;
-    b=BToN0AXvGKzaaTc9M+Yc0lhrIOXD49X0Bwa4+9FfMHsW+1ZnIg0AfIdJnDiaZ+mVas
-    VTcu5T28xMOBvW1Qp1VTlMFWHA6OpB00GGcNoT/1HiHtN1TV/yOutRVa/onq7kaDpSRg
-    k1VsMVT2qQit77gJ2beD4xgbOntAoxAQJZuMBc1nD04o+U9srBXVk1PJZEStWm6m+szV
-    9v/382uejNNdJnFZXvU6JFIzAxi0xc28eCxCITVDIiVcVQTBgcnmTDhAfJ9KwGe1jcZH
-    B9Mp6+HdLpOMYwSdu41/jaWFwrs5hHvn57JK4VXvnlCxk3TT4Qhhj6ZqnetQ43hSnepM
-    WfDw==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo01
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1792746577;
-    s=strato-dkim-0002; d=xenosoft.de;
-    h=To:In-Reply-To:Cc:References:Message-Id:Date:Subject:From:Cc:Date:
-    From:Subject:Sender;
-    bh=/YMpiyHb/oOoVAqYaniKbsFsgRAlHMfRbUn7Sd2BORY=;
-    b=EItz6hEuI/LDAPJvLWeasBlJVMkDyFS63irOauhUYRb4BoLE+tulerRJhEJ/UKWEwH
-    nhffManP8L8+m7Q6Sau++Hd7m6kBC/jcxLCenYZ1PwQzAFkryclksaSDqAFBi0qfqXmb
-    OeZVSFYY3wjBLn7IKkWC85iGMQzmidACpaThPDB2a/LFwT9VoCgjd1LJhQ9YSExANktw
-    SQIFsYXxAVM03W3eViIt7MOpqDceB5769/U6x04BNwrlv9rW8pr1PJCq8VZrDQe7Vnju
-    P5N3NAzzQ6ob11GpdBQP62kSSHi4199K1EnujZYxth4stj5MbKWHoIlh88uuyHnftBT2
-    0QGA==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1792746577;
-    s=strato-dkim-0003; d=xenosoft.de;
-    h=To:In-Reply-To:Cc:References:Message-Id:Date:Subject:From:Cc:Date:
-    From:Subject:Sender;
-    bh=/YMpiyHb/oOoVAqYaniKbsFsgRAlHMfRbUn7Sd2BORY=;
-    b=C64gwSyJHeO6P/nykKZpgCvhbOw2GziBTdD0Xk5d2Bnn+ZvUTv/s4Kni5ITz2AWPcz
-    Y+KmN6He9IC5szLvilDw==
-X-RZG-AUTH: ":L2QefEenb+UdBJSdRCXu93KJ1bmSGnhMdmOod1DhGN0rBVhd9dFr6KxrfO5Oh7V7X5q1sy7MWioscGEbW2z9QYPf5P1ugQGy1cNYzA=="
-Received: from smtpclient.apple
-    by smtp.strato.de (RZmta 55.6.3 AUTH)
-    with ESMTPSA id e825d929N99aZHN
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
-	(Client did not present a certificate);
-    Fri, 23 Oct 2026 11:09:36 +0200 (CEST)
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: quoted-printable
-From: Christian Zigotzky <chzigotzky@xenosoft.de>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Pbn2YXEG
+Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-48e1d0e5dafso1212989f8f.1
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 02:10:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792746648; x=1793351448; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=iks0aFSHOkkGNM3nhF8ovnYM+3HT6MOjrI6VZAWf4VM=;
+        b=Pbn2YXEG/rXrfUeBygvLj0POXdzY0Tnwaufs6IOfsyh+72cx6EU0qZmQ6wPL+QL6Tz
+         rlAu7ZbVJekIeLLzIVX6D7UNR33vy96PR43DS0LqjT4HM9b4YQn7oHzchOijnf11FpS4
+         EnZOCUYWilwSKVDKgZFe+sVWlBDTVrNfHFYFnRxBmd1xhKfTAASYnT3CP0BdJjKTW00Q
+         NHZOWTS5p9fZFwmi+b9Ok8ChNKELCdXBnNAh0ixKiFIqQCK+VOATwZNYn/njd86KTwTq
+         RRSyY87JuOScGciBuE/F9YUfAXKIXhBpeYN/kJf8APs8X2Eoq6t75dHMEU0VBRKdQtnw
+         oA9w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792746648; x=1793351448;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=iks0aFSHOkkGNM3nhF8ovnYM+3HT6MOjrI6VZAWf4VM=;
+        b=BFmMzMOU+5XmM/OjBiPleVcCWL3XBR45+6D5xr9TCIgVnMqcJK2bVzgaoefMygLCwG
+         KnkslYA8PHElYOmxapJGXSl0Non7QL7DMuG18PTt4Lp1P2n7O1dNLcw/qeNpRkw1NRsM
+         ikapYumCQ8VTUyQyv7HXJbJP47uloOySjsEChc27TfMppiavz9zQkizTfzyeEr29ZfXB
+         Ojqx3tYF2lmRSWgC/ApVzwWLh6eg89IoOhuM0I5iatRF+ffNQ2WKdgWwcjVhyljMmELA
+         ypcgMWBGVJ3vA8/ZFvqnqNN6jeJY7FXQl5m7qeGhOeH3z1zz3u+4yHwZzl8PRi01QBhJ
+         nmGQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzcgAkInCvYNq5URkMkLxPmc+zF2c2wvz+xBAAoAMWgypmtstmk3zpzgAOqjkes9komjRCzGZadpVQHiFg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIBnKZuNOQnBOdtidkZBKocHUmjr15LFoKXWwmkSWrEYS4zOO2L
+	MBwIBMD2is/TR7AHLh9bU/hTVSA+py/cDtLnrr0hbPp8m22176QqTqv5
+X-Gm-Gg: AYBFou3lf0Bgm0jCmqIWb72hSs+6XZLjl0jBuKs1jDu/a36WqNjz6X3OocxSwfoLc3B
+	TKZWR1fmW/Cl9ay9N0bt/KxSxDgeBAz6hQiHCuf6MYGt2Cma/NCZoFq3G1EleCk0l4jTAEmSfC+
+	fkJTNtFO53kqeDEj6CeqrK403RphZTlP8TcHgdlLKsdgQWxJTv1Vm4McKg1Q9yNUTcxr2AYxNn/
+	sr0GePDUmk6irJmySiYCvGSyQXR7G82N0bfEpiSxdqZjiIqe75fyNO55utYK1eX9u76X/q3qkho
+	SlmpjaStWLa48YCc3J8QOYbtu0czaWatHBGmjJ/Y/tK3DbyrF6BoGzMe2pvDlNqhbU3N0o+f34z
+	uANhFWQ2NiQnmBU8k1FKccf4p3BwK5GED8w9yJth04k2SyZ2m/eNhRHu4DguImcEZdIYPw55Qnp
+	4I+gqazZ/jMRVCYAkgveoiUhG6/HOXm9py2Y6ODQqCPQRKBR09XHQAC8WYLYu+wI5iNNvilJvVv
+	m1s5+pWD7XqNL8KKRVLUXZuXWq9QVCr/gaia+mY2u8ctgPlNLKMldUSaww1B3q0ZAUkAiiw6txj
+	z0HAR8iXjdkXiZaE19CMQq3HisZmDX7t/TZuj4dYAiClj1sELjx064GI1aTEQedm7b4vobwdc/N
+	GAGBvZFAGlZAcFwmbGcF9fJhRHXAUxqjC7BA4Mxe1THO5fM81lcyKNIbRkqkxGhTQNQZ4FJu77F
+	35CxUxq/KDNWBZf/nXwZ4ih6ILZvnAzumbjyNPqE9qUgrBgBYWwxPq0ZdWtSlqVw==
+X-Received: by 2002:a05:6000:1a88:b0:48e:884:affb with SMTP id ffacd0b85a97d-48e2d273444mr10748908f8f.24.1792746643235;
+        Fri, 23 Oct 2026 02:10:43 -0700 (PDT)
+Received: from localhost (90-182-112-124.rcp.o2.cz. [90.182.112.124])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3803360asm3931375f8f.29.2026.10.23.02.10.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 23 Oct 2026 02:10:43 -0700 (PDT)
+Date: Fri, 23 Oct 2026 11:10:32 +0200
+From: Joshua Crofts <joshua.crofts1@gmail.com>
+To: Jesper X Nilsson <jesper.x.nilsson@axis.com>
+Cc: Jonathan Cameron <jic23@kernel.org>, David Lechner
+ <dlechner@baylibre.com>, Nuno =?ISO-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+ "Andy Shevchenko" <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+ "Krzysztof Kozlowski" <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, "Stefan Windfeldt-Prytz"
+ <stefan.windfeldt-prytz@axis.com>, <linux-iio@vger.kernel.org>,
+ <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <kernel@axis.com>
+Subject: Re: [PATCH 2/3] iio: light: opt4001: refactor driver to prepare to
+ support more devices
+Message-ID: <20261023111032.0000019b@gmail.com>
+In-Reply-To: <20261023-opt4041-v1-2-45227f82d05c@axis.com>
+References: <20261023-opt4041-v1-0-45227f82d05c@axis.com>
+	<20261023-opt4041-v1-2-45227f82d05c@axis.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,48 +107,34 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0 (1.0)
-Subject: Re: [PATCH] Connecting the SB600's i8259 controller rather in pasemi's pci.c than in pasemi's setup.c.
-Date: Fri, 23 Oct 2026 11:09:26 +0200
-Message-Id: <B4E8FA8C-86CC-45A2-8A61-8A265BF02114@xenosoft.de>
-References: <d14e954f-d7ed-493e-bbbd-8a4bd780332d@kernel.org>
-Cc: Philip Li <philip.li@intel.com>, kernel test robot <lkp@intel.com>,
- Madhavan Srinivasan <maddy@linux.ibm.com>,
- Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
- Christophe Leroy <chleroy@kernel.org>, linuxppc-dev@lists.ozlabs.org,
- linux-kernel@vger.kernel.org, oe-kbuild-all@lists.linux.dev,
- "R.T.Dickinson" <rtd2@xtra.co.nz>,
- Darren Stevens <darren@stevens-zone.net>,
- Damien Stewart <hypexed@yahoo.com.au>,
- Christian Zigotzky <info@xenosoft.de>
-In-Reply-To: <d14e954f-d7ed-493e-bbbd-8a4bd780332d@kernel.org>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-X-Mailer: iPhone Mail (24A446)
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
+On Fri, 23 Oct 2026 09:48:14 +0200
+Jesper X Nilsson <jesper.x.nilsson@axis.com> wrote:
 
+> Prepare opt4001 driver to be able to support OPT4041. Extend struct
+> opt4001_chip_info with fields channels and device_id because OPT4041 has
+> two channels and another device id.
+> 
+> Datasheet: https://www.ti.com/lit/gpn/opt4041
+> Assisted-by: LLM
 
-On 23 October 2026 at 08:48 am, Krzysztof Kozlowski <krzk@kernel.org> wrote:=
+This tag has been deprecated.
 
+> Signed-off-by: Jesper X Nilsson <jesper.x.nilsson@axis.com>
 
-This patch received reports which basically rejected the patch for
-inclusion and we wait for proper, fixed version, as explained in
-submitting patches document.
+...
 
-Patch also did not follow standard naming rules of commits, so again,
-please read the docs (submitting patches) how to properly describe and
-send your contribution.
+> @@ -388,19 +411,19 @@ static int opt4001_probe(struct i2c_client *client)
+>  		return dev_err_probe(&client->dev, ret,
+>  				     "failed to reinit regmap cache\n");
+>  
+> +	chip->chip_info = i2c_get_match_data(client);
 
-Best regards,
-Krzysztof
++ null check and return -ENODATA on failure.
 
-- - -=20
-
-Hi Krzysztof,
-
-But the patch has been ready for a long time; it has also been tested and is=
- already in the right place: https://patchwork.ozlabs.org/project/linuxppc-d=
-ev/patch/20260801043458.12500-1-chzigotzky@xenosoft.de/
-
-Thanks,
-Christian=
-
+-- 
+Kind regards,
+Joshua Crofts
