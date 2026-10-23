@@ -1,85 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.240
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792738182;
-	b=jjbF7s/bfLwaG5po1wokl1LOBuoKsW50yQ8b/kPqeIJHNnKMYHaZDJWnspXKFv8nR7ka
-	 eQMyqDNX+4e6lzMAnoN18y08lkcksc5RuLq3EskaDkYeCsVpNT9gkfcKNYsCGoGbymr/J
-	 IsDKwGbnCayWdEBcEUpGezniHmbKbF3ouWYyjdk5Cn+0RzktmWEkjPSHQJVcnboLjr5qT
-	 kRu01xUb37SQLxYoxI/W3CYymFRWlx6PHT6d+V65TJt6hRyV+Ejeh1XqiEzjA6E5Dn/31
-	 0uVPbxHBLNaqDKJ+rXWGSCiKZz1iUhRoMw6fYGCLOPWP1bjceXSBUXOL67koU020X/g==
+	t=1792738184;
+	b=ZB0Ke+q9QDtXTuqpDz9s+gfCz76vGJJOGAGPfa77lGuyPFdJm9wmKAYIIXmsXiuEkGtd
+	 AwFPlSHw+p6NUm1Q6FRxy87ZA88Fq4+AAg7bo4guog2zE1RjYbf8aTgkgMl+qmH980Xeo
+	 eOW49QGATqDETR3xJDUaSyUVwLJVKKbR2dwO2MRvShcbu4AsDw0eW/1K+wzyqIFlulUJW
+	 8qJI0iMqOXut98V9oPAikwGj3GAyKf0r1+Dwrr3p9hnV72Hth/w8OV47/bxUOIIRqmkIi
+	 se0c9sGL8oREZGkLmfck0IaZlYN5a27sCa8/pN4MbsyGq1X4wAl1FGD4ASpC02f0U9w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792738182;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:Cc:Subject:Date:
-	 Message-ID:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Scanned-By;
-	bh=NTq5B2Hm0FOnw+vWb0Xc3ff/4P/VqEFyOk2WyaUnR5I=;
-	b=jnadj3d274VxqPpSSzj9aM/JiPczbrdoHTSKZbucizEKWX+NiwAyxe9T1k6D6e9XUIrG
-	 byY5eo7b9Aq22FJuRrDDQ8Dm7WS92Ddc3xVFpNO1eMgc0YX6yGsHPoiUPxVWexFf2YySN
-	 kK+2HoS/IO8ZdsycTaleqNB+FU155ZdozIBqZix7j4TbDBZTPwJbsAqPezJAnC9CHayNa
-	 lX2xIZjYZVYAuOt6LXw1YsEG2sdNzcJd79Zma3zBPHZNyPJ2tAIbzgkpyN+7eBUm5xeXm
-	 0CniMZCe6OUgPBuwOxBXQ6mErEzYsdJYMHAW0VFdibs8YUaufQlyKvGZ/2FMgKheyfg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792738184;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=F1jkepJV6D4IYWzKMRYLwEfXjsMVqYiT+GqybV1cN0A=;
+	b=v1TGR/cSpXmyZUuRvHmEyXfsZKaupRJFmAMwwHPKsOp3KvNcbMijOfAJwSeirYhqYIVh
+	 oKMLCzLeSSQSt0xOqPfivXEA2e+Hr8eiMSkDdTjoujaDWJIWC5EP7M36OozMg0ctjfnik
+	 qbH+v/mm37Rd3PKWavIU9GtK4iegj7ECXZVwxA5jCpGiNLKJlZuVbygn/yrFE/BiiqI+x
+	 lHnNxAg73r2tic+4FqNiTWYyV392xczmUUEmAdG0Ap7qIjdJsoKoO4+pZ7WD0Oim6yXrL
+	 H6kHwPHbH1UobyXLMIJAAxydZsZfJdCz18TscY+Ak0PeE5DCIok4easOC5GX0mqaMpA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=BTmF3BTk;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=A43wxlSO;
+	arc=none smtp.remote-ip=91.218.175.240
+Received: from mta0.migadu.com (out-240.mta0.migadu.com [91.218.175.240])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41C80606A32A
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 06:49:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 41C80606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 768C960A2601
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 06:49:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 768C960A2601
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=BTmF3BTk
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1792738180;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=NTq5B2Hm0FOnw+vWb0Xc3ff/4P/VqEFyOk2WyaUnR5I=;
-	b=BTmF3BTkhksy9U6Cr1orQlHq1FPEEpixNV5qNwDq4Tn4eaIXxEY8apcKEcFxvQYBC8U3h+
-	35DhyTw6e13z6ONV4u/Xb8tqq34zU6It9W6YH+JIpxbxyO5SVWME7t23ndtvJrEufVfeN1
-	JoKuBV4pfItIkwrCPcDVJENEYPw7eZc=
-Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-462-Tk87mULwMgur0MjOnfTSaw-1; Fri,
- 23 Oct 2026 02:49:33 -0400
-X-MC-Unique: Tk87mULwMgur0MjOnfTSaw-1
-X-Mimecast-MFC-AGG-ID: Tk87mULwMgur0MjOnfTSaw_1792738160
-Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 1A65F1955F05;
-	Fri, 23 Oct 2026 06:49:20 +0000 (UTC)
-Received: from thuth-p1g4.redhat.com (unknown [10.44.48.42])
-	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 0B2AD19540C2;
-	Fri, 23 Oct 2026 06:49:15 +0000 (UTC)
-From: Thomas Huth <thuth@redhat.com>
-To: Arnd Bergmann <arnd@arndb.de>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Nicolas Schier <nsc@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Saravana Kannan <saravanak@kernel.org>
-Cc: soc@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-kbuild@vger.kernel.org,
-	=?UTF-8?q?Thomas=20Wei=C3=9Fschuh?= <linux@weissschuh.net>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	Bill Wendling <morbo@google.com>,
-	Justin Stitt <justinstitt@google.com>,
-	devicetree@vger.kernel.org,
-	llvm@lists.linux.dev
-Subject: [PATCH v5 01/13] of: fdt: Replace __ASSEMBLY__ with __ASSEMBLER__ in of_fdt.h header file
-Date: Fri, 23 Oct 2026 08:48:38 +0200
-Message-ID: <20261023064908.66707-2-thuth@redhat.com>
-In-Reply-To: <20261023064908.66707-1-thuth@redhat.com>
-References: <20261023064908.66707-1-thuth@redhat.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=A43wxlSO
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=VAjNykZjTT6gqwES7Mcu47qQNEpm4JBfERhNe76LP/k=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792738181; v=1; x=1793342981;
+ b=A43wxlSOSUWm8lOPLk/AepmkQCGS98GJ5w+cygYDWqU7pgR3ojILjHpNB8cpO8i9Au+f7yZt
+ jOsqoVtviI9xTjA0jcBy/Z54jg+HV5jOVJU769pAkohrG2GRNQt170o+jPMHpm/6CtfRiugvyUv
+ tWt+R7Mucm41b0XKYCOTBYic=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 0961cd37f23c6ab0;
+	Fri, 23 Oct 2026 06:49:41 +0000
+X-Mizu-Trace-ID: 0961cd37f23c6ab0
+X-Migadu-Flow: FLOW_OUT
+From: Jiayuan Chen <jiayuan.chen@linux.dev>
+To: netdev@vger.kernel.org
+Cc: Jiayuan Chen <jiayuan.chen@linux.dev>,
+	stable@vger.kernel.org,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Neal Cardwell <ncardwell@google.com>,
+	Kuniyuki Iwashima <kuniyu@google.com>,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net 2/2] tcp: fix shift-out-of-bounds in inet_csk_rto_backoff()
+Date: Fri, 23 Oct 2026 14:49:11 +0800
+Message-ID: <20261023064915.401112-2-jiayuan.chen@linux.dev>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261023064915.401112-1-jiayuan.chen@linux.dev>
+References: <20261023064915.401112-1-jiayuan.chen@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -90,41 +79,76 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
 
-While the GCC and Clang compilers already define __ASSEMBLER__
-automatically when compiling assembly code, __ASSEMBLY__ is a
-macro that only gets defined by the Makefiles in the kernel.
-This can be very confusing when switching between userspace
-and kernelspace coding, or when dealing with uapi headers that
-rather should use __ASSEMBLER__ instead. So let's standardize now
-on the __ASSEMBLER__ macro that is provided by the compilers.
+icsk_backoff is bumped on every RTO and zero window probe, and the only
+thing bounding it is tcp_retries2 (a u8 sysctl, 0..255).
+inet_csk_rto_backoff() then uses it as a shift amount:
 
-Signed-off-by: Thomas Huth <thuth@redhat.com>
+	u64 when = (u64)icsk->icsk_rto << icsk->icsk_backoff;
+
+Set tcp_retries2 to 64 or more and keep the peer silent, icsk_backoff
+climbs past 63 and the shift is UB. For example an ICMP host unreachable
+arriving on such a socket goes through tcp_ld_RTO_revert():
+
+  UBSAN: shift-out-of-bounds in ./include/net/inet_connection_sock.h:258:40
+  shift exponent 73 is too large for 64-bit type 'long long unsigned int'
+  Call Trace:
+   <IRQ>
+   dump_stack_lvl+0xc1/0xf0
+   dump_stack+0x10/0x20
+   __ubsan_handle_shift_out_of_bounds+0x1d1/0x390
+   tcp_ld_RTO_revert.cold+0x16/0x92
+   tcp_v4_err+0xdb3/0x13e0
+   icmp_socket_deliver+0x1a7/0x390
+   icmp_unreach+0x2dd/0xe50
+   icmp_rcv+0x93e/0xe30
+   ip_protocol_deliver_rcu+0x36b/0x3e0
+   ip_local_deliver_finish+0x37d/0x620
+   ip_local_deliver+0x165/0x1d0
+   ip_rcv+0x284/0x320
+   __netif_receive_skb_one_core+0x16b/0x1c0
+   __netif_receive_skb+0x21/0x150
+   process_backlog+0x37e/0x1200
+   __napi_poll.constprop.0+0xa5/0x5e0
+   net_rx_action+0x4c0/0xf70
+   handle_softirqs+0x204/0x9b0
+   __irq_exit_rcu+0x13c/0x220
+   irq_exit_rcu+0xe/0x20
+   sysvec_apic_timer_interrupt+0x92/0xd0
+   </IRQ>
+
+The orphan check in tcp_probe_timer() calls the same helper.
+
+tcp_probe0_when() got a similar clamp in 2020, but this helper was left
+as is. Cap the shift at 32 like it was suggested back then: icsk_rto is
+at least 1 jiffy, so 1 << 32 jiffies is already far above any max_when,
+and the min_t() result is unchanged. Unlike an ilog2(RTO_MAX/RTO_MIN)
+bound, 32 still holds when tcp_rto_min_us is lowered.
+
+Fixes: fcdd1cf4dd63 ("tcp: avoid possible arithmetic overflows")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
 ---
- include/linux/of_fdt.h | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ include/net/inet_connection_sock.h | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/include/linux/of_fdt.h b/include/linux/of_fdt.h
-index 51dadbaa3d63a..72b452e388eeb 100644
---- a/include/linux/of_fdt.h
-+++ b/include/linux/of_fdt.h
-@@ -16,7 +16,7 @@
- /* Definitions used by the flattened device tree */
- #define OF_DT_HEADER		0xd00dfeed	/* marker */
+diff --git a/include/net/inet_connection_sock.h b/include/net/inet_connection_sock.h
+index 903499581db7..562e12033a5d 100644
+--- a/include/net/inet_connection_sock.h
++++ b/include/net/inet_connection_sock.h
+@@ -255,9 +255,10 @@ static inline unsigned long
+ inet_csk_rto_backoff(const struct inet_connection_sock *icsk,
+ 		     unsigned long max_when)
+ {
+-        u64 when = (u64)icsk->icsk_rto << icsk->icsk_backoff;
++	u8 backoff = min_t(u8, 32U, icsk->icsk_backoff);
++	u64 when = (u64)icsk->icsk_rto << backoff;
  
--#ifndef __ASSEMBLY__
-+#ifndef __ASSEMBLER__
+-        return (unsigned long)min_t(u64, when, max_when);
++	return (unsigned long)min_t(u64, when, max_when);
+ }
  
- #if defined(CONFIG_OF_FLATTREE)
- 
-@@ -103,5 +103,5 @@ static inline void unflatten_device_tree(void) {}
- static inline void unflatten_and_copy_device_tree(void) {}
- #endif /* CONFIG_OF_EARLY_FLATTREE */
- 
--#endif /* __ASSEMBLY__ */
-+#endif /* __ASSEMBLER__ */
- #endif /* _LINUX_OF_FDT_H */
+ struct sock *inet_csk_accept(struct sock *sk, struct proto_accept_arg *arg);
 -- 
-2.56.0
+2.43.0
 
