@@ -1,75 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.70
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.71
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792729109;
-	b=BvW1sHH9gw+7Nx6ovy1RZ9HrzBfdbLGGYRSsDRHxSwO0M5IHqjNQ6wTJwteAy3pLpq1o
-	 bLmjxAusKOLva6gul61Zu/Pq+MHHVtKSm4rSSWQ+INGMoijytDt6ACbuUX4zAMZmWazUh
-	 fCsQ+5EJGrZAo52z7F5DenSIACp8FjHoM3EeivUZ9zW9JuC1aFoX+ssTLkhNHsKQkq0fk
-	 WdJtT/C20eLHQMq8ylLT+s9lVz2jhWEe0vbisXy6hFf8SauoJoGGviRKTrgtNRmEcRKV1
-	 avzekXVChUVZ6JLySPxAZLMKS0O/cu3bEOFguLEfIVrqEUNo7Aj8joJwE8ZAPSqYyVQ==
+	t=1792729113;
+	b=P8/2hZHnEB3qTbhTYiwznjlpdep0/r41KuwJxCa1oC1lFcWas0akNavS2M249QRI1IIW
+	 T/JDmtPGvtjaYYjx68pYg8IkosBR+TMFadn3MTXa1Umw0fLc4dCFjiqmun5rC2FJRM9TM
+	 ydPLe2mFpPB547xr07lWfTUQafNNxZXlGML13aEsjcuER8sPzYC33d/8ExfLF1iLs39Kl
+	 Bw3/cRoSHA+7kenDkgBm7R+rN6yXxqX0+3/Lgu3obnFSXPhKzWmnYdZ5bE1LNOmzWH9Nh
+	 w3d/6r3DQ5EKHc82SUohzxn/XEpGQRwDmej50hAiRoN57Jamw/k0LdReV5zOSsPET4g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792729109;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792729113;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
 	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
 	 Content-Type;
-	bh=iIJmKLrzvxIg0OJqVcSfaYZDqKZjcxSxZP7eownyawg=;
-	b=Jy8nisc//k/7keaHY/xnYlQRW1YuRglPG2T2vfrTY7YcvwrK/avVCMRbOfKi7DZnqFAn
-	 r2OTvUg1WT9P/AvmHsjv2ncVy8VyFkuhOmaRWS1N9+YAzmXULsqFycaofKzo+xvQwuZiq
-	 k23iQudgk31lCrXN+wGDwpxZq8ohuP2sJLBEAVn1tA3oYEjFrvK3o5weUs2mDPEVgJ0qe
-	 NtS/TWmDwnMB6DPnCbmF4dBkKHOt5iBkl+bcZkT5g6/dF/FpslAWEi/fXZOf5tUDWNa+C
-	 eK3SuaErSrUlaCmKjZmUp6XY+Jm5WLQjpCMHNxwhBBeBkF6pceO1yI/N45dJxrAGUoQ==
+	bh=i7yrqBmIwGdCdD9HjTuGH/XlJqTadF+sB28v2Rnjz00=;
+	b=OFHCzhs0GU24ZLryXgkcog7czXbW2RgkwiVAI6LNh/lL8glXV6dA5rBr2I9mXLZ5OkwA
+	 pGbj/PouezHc2fdOUXuWJo+NIpkpPpylFVoiEFFJHcGDEDbj0bIFnBVUacwbOQGGwiJxU
+	 /ZvaPw8AB5PczWLE6PEdeEAAN7180fnlFDvgINfvf0IqPDHfSs1dFJUEPo7xw9EuTe2ps
+	 Q8vRE6nLcyBLbc4to2A6DgOqTRfKNuv2oHRxJv3XTpxfLdD93FWNoOq3pPtU8riiHZZ3i
+	 FnCeLVAxjQoBG2QlmyQ92E6ixLqTpvF54evqJdeshW0gKtuYjLF2/Ioo9PkdE+DzNUQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--irogers.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=Qns2m14L;
-	arc=none smtp.remote-ip=74.125.82.70
-Received: from mail-dl1-f70.google.com (mail-dl1-f70.google.com [74.125.82.70])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=AqsXI8O5;
+	arc=none smtp.remote-ip=74.125.82.71
+Received: from mail-dl1-f71.google.com (mail-dl1-f71.google.com [74.125.82.71])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40A7F606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 04:18:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 40A7F606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58C92606A324
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 04:18:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 58C92606A324
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=Qns2m14L
-Received: by mail-dl1-f70.google.com with SMTP id a92af1059eb24-154e9d2d94fso990380c88.0
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 21:18:29 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=AqsXI8O5
+Received: by mail-dl1-f71.google.com with SMTP id a92af1059eb24-147be78cd56so1898732c88.1
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 21:18:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792729108; x=1793333908; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1792729112; x=1793333912; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=iIJmKLrzvxIg0OJqVcSfaYZDqKZjcxSxZP7eownyawg=;
-        b=Qns2m14LZlV4dszoi0utHSgyJhPq8uJq3cyA2ZM/9RLpZR70PNyZoRzuaVwle/oZfJ
-         54YApc3biT+Sr0nPtPhOR3uiQpx+ANsVg0f/aUfeX7Q0o9O9z+T1sCJGzhDow9l9OjE+
-         nsqWdju2MRR0extVUzWJOLzH8nLhPJKwQR6P/UXJPFERmqqCNNZv1EuYkQtDgKi01DN2
-         LQrYrmU4NXpSdmm4Wxix/EZh4o/c43+XngAyZN0Jl0YZW1/gp0UlkkmBTXO0JlBRSg+/
-         hwUMoyHa/m2UCCsnI/8zjN21+PAyeRo2swWnufHT46YIuL79XjLw7q2a50gejnzJ+qgy
-         N6nA==
+        bh=i7yrqBmIwGdCdD9HjTuGH/XlJqTadF+sB28v2Rnjz00=;
+        b=AqsXI8O5r95jkdb2iymjXkTTrCXrmgV2kHcK6cQjTPaVKEAi4W5SeVMWEDDatIVapk
+         HXC2NoDFx8lnlYiPYeP2HsKsFwFiErJBvyVvbIKPKfS7VaOnFT6qrnulZka83yZRBkA0
+         o14UCj6P3V0XTDjllLKojPeT0j03QIZ7cp/EMuq9GYxoC0rknFrmFv51bf1q7OfmbUVl
+         /p4qlGVsdnWtXpTI/iswlMsW8JR7K25VRQSm+4ggEjHv3vZoqqt3K8gpeUnevYOBSAgY
+         tBXxTJex83r7XkH/oEJKyP7hJanHkq5tZ4QjKh78d2duXROJX7/lkT2BXaRM9M/uBPSz
+         ucGw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792729108; x=1793333908;
+        d=1e100.net; s=20260707; t=1792729112; x=1793333912;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=iIJmKLrzvxIg0OJqVcSfaYZDqKZjcxSxZP7eownyawg=;
-        b=W6K1HUjqIFYLdDSHjQvgLj+f5h8pVBnI2wXvbhBPeJgR79ejRbsh/k8lWOPoqImU+V
-         a7qcFzw5ZWaXID0caN0kylrBabIieep2AquHlETTKv6Cou6dcp5eJCa2cphbA5B/Xzvn
-         IlumQmaxHa7ZWR7GRVioyT/KXtaMThKZd6XnSMvs3c/9bJIrSP33PA3GMFOBwliAHY84
-         NTQgt5xN4gzMOxVeYZ3BKDnlV+DWbXxwZpdF2kaBtOBcfFW4bImYocLIJ1IdyHE47/C9
-         B9lHappZFfIm3sBKzAtVKt5vxPQrfDBBZxXpWMaPYFLLZJvuYpRNF1KhPXiH3BYgKZoj
-         5RbA==
-X-Forwarded-Encrypted: i=1; AKwUvBxo/0kcemdjKbdMO6AO+YacHoOblLFIK1eNZpyUXZNuRN/ymRyMQZ3kVVkQgdGAJEEfKiVv3vqww0/xozs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKGaUlVJnIF9TWn9+tNkwG9UkEsBegi/YRMGwTA5FrQnWmvdqoN
-	3RJyAIOt2mOUoi3R+XKS05ggbix/596b8Hvb0FbjSRzt8djUqkTDr3pc+3J8PJy1FnJULqSa3rj
-	FrKFSW5/Z0w==
-X-Received: from dldz19-n2.prod.google.com ([2002:a05:701b:4193:20b0:163:a42e:b837])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:701b:2053:b0:13b:2f26:6881
- with SMTP id a92af1059eb24-1959a9454dcmr1700375c88.4.1792729107542; Thu, 22
- Oct 2026 21:18:27 -0700 (PDT)
-Date: Thu, 22 Oct 2026 21:18:15 -0700
-In-Reply-To: <20261014042249.2379829-1-irogers@google.com>
+        bh=i7yrqBmIwGdCdD9HjTuGH/XlJqTadF+sB28v2Rnjz00=;
+        b=AcYW7OkGhAfb4DeDrcSgOz248Td4qIXDTvSkRqfauzbe+tEPkyzt5gIVDsx56icbrb
+         G1p3JEjurQwJKTZ7ecEPN2yH7XlmZHB1ShGhHkTh98DssKsHaUDNcA+Qp5Hx3FLGi5lo
+         fCwMtM2QBjySGvdLhiSHljLroFjXjvtnPvUFDs22F8LIttS7Aq5uXE4BpdzTs9gzcqPw
+         DnLHSB0VpMr/Ek34yGk/sqU1QUuBfJQY08tn9/Rt0cnKHq504yVphEKlDqoxDsL1Z/sk
+         kWBAX2yG2abEHJVFqHfd9N+Mp/O554+Vx7xfBdoivrQEibjtB73fmhA/0hjWL2Du5+fS
+         VHsA==
+X-Forwarded-Encrypted: i=1; AKwUvBydkvau9atBWIZhCSJZ/K06CwurgGDryPRkhrzx8soq14MWoXFI6MKw9dR/eTuY5hy8ySg1x/wM52p2JmM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIjvQpBwbXd9wCOs7YH9AJ/oQ3SRkB5spa8NMHCH9Emp9bK0Fjv
+	VLW6ipr+FwF/omQh/5MbgG/f5YTvM8uAqalRZtVv0GM98jlqcqDm5y1yfpS0NDNn6yzPlGWdIh8
+	NXeH/Cf71lA==
+X-Received: from dlag2.prod.google.com ([2002:a05:701b:2502:b0:181:8ab0:15a4])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:701b:4212:20b0:163:a197:722d
+ with SMTP id a92af1059eb24-195bfcb2992mr1758542c88.4.1792729111822; Thu, 22
+ Oct 2026 21:18:31 -0700 (PDT)
+Date: Thu, 22 Oct 2026 21:18:17 -0700
+In-Reply-To: <20261023041819.2361900-1-irogers@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,10 +79,10 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 Mime-Version: 1.0
-References: <20261014042249.2379829-1-irogers@google.com>
+References: <20261014042249.2379829-1-irogers@google.com> <20261023041819.2361900-1-irogers@google.com>
 X-Mailer: git-send-email 2.56.0.307.g5fe7bd680c-goog
-Message-ID: <20261023041819.2361900-1-irogers@google.com>
-Subject: [PATCH v3 0/2] perf timechart: Add --live mode to the TUI and test
+Message-ID: <20261023041819.2361900-3-irogers@google.com>
+Subject: [PATCH v3 2/2] perf test: Test perf timechart --live
 From: Ian Rogers <irogers@google.com>
 To: irogers@google.com, acme@kernel.org, alice.mei.rogers@gmail.com, 
 	namhyung@kernel.org
@@ -93,36 +93,359 @@ Cc: adrian.hunter@intel.com, atrajeev@linux.ibm.com, changbin.du@huawei.com,
 	thomas.falcon@intel.com, wutengda@huaweicloud.com
 Content-Type: text/plain; charset="UTF-8"
 
-Add a '--live' option to 'perf timechart' and 'ttimechart.py' that streams
-live scheduler, power, or I/O (-I/--io-only) events from a 'perf record'
-subprocess over a pipe and displays them in the Textual TUI with a rolling
-time window (--window, default 10s), pause/resume via the control pipe, an
-optional workload after '--', and optional output recording (-o), along
-with headless shell tests in test_ttimechart_python.sh.
+From: Alice Rogers <alice.mei.rogers@gmail.com>
 
-v3: Address Sashiko review feedback:
-    - Patch 1: Explicitly include <string.h> in builtin-timechart.c.
-    - Patch 1: Reject non-finite --window values (e.g. 'inf') that
-      overflowed converting to nanoseconds.
-    - Patch 2: Stop the fake recorder in a try/finally in the synthetic
-      live UI test so a failed check can't leave its background thread
-      running and hang the test.
-    Rebase onto the latest perf-tools-next.
-    v2: https://lore.kernel.org/linux-perf-users/20261014042249.2379829-1-irogers@google.com/
+Extend test_ttimechart_python.sh to cover --live option validation,
+LiveRecorder's perf record subprocess, control pipe and -o output file,
+a synthetic live UI test exercising the rolling window, pruning,
+pause/resume and zoom following, and a live workload recording test when
+scheduler tracepoints are accessible.
 
-v2: Rebase the remaining 2 patches onto perf-tools-next after patches 1-11
-    of v1 were merged.
+Assisted-by: Antigravity:gemini-3.1-pro
+Signed-off-by: Alice Rogers <alice.mei.rogers@gmail.com>
+Co-developed-by: Ian Rogers <irogers@google.com>
+Signed-off-by: Ian Rogers <irogers@google.com>
+---
+ .../tests/shell/test_ttimechart_python.sh     | 303 ++++++++++++++++++
+ 1 file changed, 303 insertions(+)
 
-Alice Rogers (2):
-  perf timechart: Add a --live mode to the TUI
-  perf test: Test perf timechart --live
-
- tools/perf/Documentation/perf-timechart.txt   |  20 +-
- tools/perf/builtin-timechart.c                |  81 +-
- tools/perf/python/ttimechart.py               | 786 ++++++++++++++++--
- .../tests/shell/test_ttimechart_python.sh     | 303 +++++++
- 4 files changed, 1115 insertions(+), 75 deletions(-)
-
+diff --git a/tools/perf/tests/shell/test_ttimechart_python.sh b/tools/perf/tests/shell/test_ttimechart_python.sh
+index 87b91ed8fc16..733e9edfd976 100755
+--- a/tools/perf/tests/shell/test_ttimechart_python.sh
++++ b/tools/perf/tests/shell/test_ttimechart_python.sh
+@@ -82,6 +82,34 @@ test_plumbing() {
+ 		err=1
+ 		return
+ 	fi
++	if perf timechart --live -i "${perfdata}" > "${output}" 2>&1 ||
++	   ! grep -q -- "--live can't be used with -i" "${output}"; then
++		echo "perf timechart --tui plumbing test [Failed: --live with -i not rejected]"
++		cat "${output}"
++		err=1
++		return
++	fi
++	if perf timechart --live --window 0 < /dev/null > "${output}" 2>&1 ||
++	   ! grep -q -- "--window must be a positive" "${output}"; then
++		echo "perf timechart --tui plumbing test [Failed: --window 0 not rejected]"
++		cat "${output}"
++		err=1
++		return
++	fi
++	if perf timechart --tui --window 5 < /dev/null > "${output}" 2>&1 ||
++	   ! grep -q -- "require --live" "${output}"; then
++		echo "perf timechart --tui plumbing test [Failed: --window without --live]"
++		cat "${output}"
++		err=1
++		return
++	fi
++	if perf timechart --live -I -P < /dev/null > "${output}" 2>&1 ||
++	   ! grep -q -- "-I cannot be used with -P or -T" "${output}"; then
++		echo "perf timechart --tui plumbing test [Failed: -I with -P not rejected]"
++		cat "${output}"
++		err=1
++		return
++	fi
+ 	echo "perf timechart --tui plumbing test [Success]"
+ }
+ 
+@@ -115,6 +143,43 @@ test_no_events() {
+ 		err=1
+ 		return
+ 	fi
++	# Exercise LiveRecorder's perf record subprocess, control pipe and
++	# -o output file using task-clock when tracepoints may be unavailable.
++	rm -f "${clockdata}"
++	if ! "$PYTHON" - "${PERF_BIN:-perf}" "${clockdata}" \
++		"$(declare -f workload); workload" > "${output}" 2>&1 <<'EOF'
++import asyncio
++import os
++import sys
++import ttimechart as tc
++
++async def run() -> None:
++    rec = tc.LiveRecorder(sys.argv[1], False, False, ["bash", "-c", sys.argv[3]], sys.argv[2])
++    rec.events = lambda: ["task-clock"]
++    rec.start()
++    app = tc.TimechartApp("live", False, False, [], live=rec, window=5.0)
++    try:
++        async with app.run_test(size=(120, 40)) as pilot:
++            await pilot.press("space")
++            await pilot.pause(0.1)
++            await pilot.press("space")
++            for _ in range(300):
++                if app.return_code is not None:
++                    break
++                await pilot.pause(0.05)
++    finally:
++        rec.stop()
++    if app.return_code != 1 or not app.data.nr_samples or not os.path.getsize(sys.argv[2]):
++        raise RuntimeError(f"Unexpected result: rc={app.return_code} samples={app.data.nr_samples}")
++
++asyncio.run(run())
++EOF
++	then
++		echo "ttimechart no events test [Failed: LiveRecorder task-clock test]"
++		cat "${output}"
++		err=1
++		return
++	fi
+ 	echo "ttimechart no events test [Success]"
+ }
+ 
+@@ -218,8 +283,245 @@ EOF
+ 	echo "ttimechart headless UI test [Success]"
+ }
+ 
++test_live_synthetic() {
++	echo "ttimechart live UI test (synthetic)"
++	# Exercise live mode's rolling window, pruning, pause/resume and
++	# following with a fake recorder, which doesn't need tracepoint
++	# permissions.
++	if ! "$PYTHON" - > "${output}" 2>&1 <<'EOF'
++import asyncio
++import threading
++import time
++from time import monotonic_ns
++import ttimechart as tc
++
++SEC = 1_000_000_000
++
++class Ev:
++    def __init__(self, name):
++        self.name = name
++    def __str__(self):
++        return f"evsel({self.name})"
++
++class Sample:
++    def __init__(self, name, t, cpu, tid, **kw):
++        self.evsel = Ev(name)
++        self.sample_time = t
++        self.sample_cpu = cpu
++        self.sample_tid = tid
++        self.sample_pid = tid
++        self.sample_id = hash(name)
++        for k, v in kw.items():
++            setattr(self, k, v)
++
++class FakeRecorder:
++    def __init__(self):
++        self.origin = monotonic_ns()
++        self.data_fd = -1
++        self.flush_interval = 0.05
++        self.paused = False
++        self.pause_calls = []
++        self.stopped = threading.Event()
++        self.finish = False
++
++    def backlog(self):
++        return 0.0
++
++    def set_paused(self, paused):
++        self.paused = paused
++        self.pause_calls.append(paused)
++
++    def stop(self):
++        self.stopped.set()
++
++    def error_text(self):
++        return ""
++
++async def run() -> None:
++    rec = FakeRecorder()
++
++    def fake_read(data, _fd):
++        t0 = rec.origin
++        # Task 300 only runs at the start so pruning should drop it once the
++        # 1s window advances past t0 + 3000.
++        data.process_event(Sample("sched:sched_wakeup", t0 + 1000, 0, 1,
++                                  pid=300, comm="early", common_pid=1, common_flags=0))
++        data.process_event(Sample("sched:sched_switch", t0 + 2000, 0, 0,
++                                  prev_pid=0, prev_comm="swapper", prev_state=1,
++                                  next_pid=300, next_comm="early"))
++        data.process_event(Sample("sched:sched_switch", t0 + 3000, 0, 300,
++                                  prev_pid=300, prev_comm="early", prev_state=1,
++                                  next_pid=0, next_comm="swapper"))
++        cur = 0
++        while not rec.stopped.is_set() and not rec.finish:
++            now = monotonic_ns()
++            if rec.paused:
++                time.sleep(0.01)
++                continue
++            nxt = 100 if cur == 0 else 0
++            comm = "worker" if nxt == 100 else "swapper"
++            prev_comm = "worker" if cur == 100 else "swapper"
++            if nxt:
++                data.process_event(Sample("sched:sched_wakeup", now, 0, cur or 1,
++                                          pid=nxt, comm=comm, common_pid=cur or 1,
++                                          common_flags=0))
++            data.process_event(Sample("sched:sched_switch", now, 0, cur,
++                                      prev_pid=cur, prev_comm=prev_comm, prev_state=1,
++                                      next_pid=nxt, next_comm=comm))
++            cur = nxt
++            time.sleep(0.005)
++
++    tc.read_events = fake_read
++    app = tc.TimechartApp("live", False, False, [], live=rec, window=1.0)
++    try:
++        async with app.run_test(size=(120, 40)) as pilot:
++            for _ in range(300):
++                with app.data.lock:
++                    if app.data.pruned_to > rec.origin + 3000:
++                        break
++                await pilot.pause(0.05)
++            with app.data.lock:
++                if app.data.pruned_to <= rec.origin + 3000 or 300 in app.data.tasks:
++                    raise RuntimeError("Task outside the window was not pruned")
++                starts = [t.segs.starts[0] for t in app.data.tasks.values() if len(t.segs)]
++                if not starts or min(starts) < app.data.pruned_to:
++                    raise RuntimeError(f"Unpruned segments: {starts} < {app.data.pruned_to}")
++            if app.window.last - app.window.first != SEC:
++                raise RuntimeError(f"Unexpected window span: {app.window}")
++
++            await pilot.press("space")
++            await pilot.pause(0.2)
++            if rec.pause_calls != [True] or "Paused" not in app.sub_title:
++                raise RuntimeError(f"Did not pause: {rec.pause_calls} {app.sub_title}")
++            frozen = app.window.last
++            await pilot.pause(0.4)
++            if app.window.last != frozen:
++                raise RuntimeError("Window moved while paused")
++            await pilot.press("space")
++            await pilot.pause(0.3)
++            if rec.pause_calls != [True, False] or not app.following:
++                raise RuntimeError("Did not resume")
++
++            await pilot.press("plus")
++            await pilot.pause(0.2)
++            if app.following:
++                raise RuntimeError("Zooming did not stop following")
++            await pilot.press("0")
++            await pilot.pause(0.2)
++            if not app.following:
++                raise RuntimeError("Resetting zoom did not resume following")
++
++            rec.finish = True
++            for _ in range(100):
++                if not app.recording:
++                    break
++                await pilot.pause(0.05)
++            if app.recording or "Finished" not in app.sub_title:
++                raise RuntimeError(f"Did not finish: {app.sub_title}")
++    finally:
++        rec.stop()
++
++    # Also test live I/O-only mode (-I).
++    io_events = tc.LiveRecorder("perf", False, False, [], None, io_only=True).events()
++    if not io_events or not all(e.startswith("syscalls:sys_") for e in io_events):
++        raise RuntimeError(f"Unexpected I/O events: {io_events}")
++    io_rec = FakeRecorder()
++
++    def fake_io_read(data, _fd):
++        now = monotonic_ns()
++        # Self I/O should be ignored in live mode.
++        own = tc.os.getpid()
++        data.process_event(Sample("syscalls:sys_enter_read", now, 0, own, fd=3))
++        data.process_event(Sample("syscalls:sys_exit_read", now + 1000, 0, own, ret=64))
++        # Workload I/O should be recorded.
++        data.process_event(Sample("syscalls:sys_enter_read", now + 2000, 0, 4242, fd=4))
++        data.process_event(Sample("syscalls:sys_exit_read", now + 5000, 0, 4242, ret=4096))
++        data.process_event(Sample("syscalls:sys_enter_write", now + 6000, 0, 4242, fd=5))
++        data.process_event(Sample("syscalls:sys_exit_write", now + 9000, 0, 4242, ret=2048))
++
++    tc.read_events = fake_io_read
++    io_app = tc.TimechartApp("live", False, False, [], live=io_rec, window=1.0, io_only=True)
++    async with io_app.run_test(size=(120, 40)) as pilot:
++        for _ in range(100):
++            if not io_app.recording:
++                break
++            await pilot.pause(0.05)
++        await pilot.pause()
++        tabs = io_app.query_one(tc.TabbedContent)
++        if tabs.active != "io" or not io_app.io_tasks or io_app.data.io_events != 4:
++            raise RuntimeError(f"Unexpected I/O state: active={tabs.active} "
++                               f"tasks={len(io_app.io_tasks)} events={io_app.data.io_events}")
++        tabs.active = "summary"
++        await pilot.pause()
++        await pilot.press("enter")
++        await pilot.pause()
++        if tabs.active != "io":
++            raise RuntimeError(f"Summary enter did not activate I/O tab: {tabs.active}")
++        print("live synthetic ok")
++
++asyncio.run(run())
++EOF
++	then
++		echo "ttimechart live UI test (synthetic) [Failed: exception]"
++		cat "${output}"
++		err=1
++		return
++	fi
++	if ! grep -q "live synthetic ok" "${output}"; then
++		echo "ttimechart live UI test (synthetic) [Failed: unexpected output]"
++		cat "${output}"
++		err=1
++		return
++	fi
++	echo "ttimechart live UI test (synthetic) [Success]"
++}
++
++test_live_record() {
++	echo "ttimechart live record test"
++	rm -f "${perfdata}.live"
++	if ! "$PYTHON" - "${PERF_BIN:-perf}" "${perfdata}.live" \
++		"$(declare -f workload); workload" > "${output}" 2>&1 <<'EOF'
++import asyncio
++import sys
++import ttimechart as tc
++
++async def run() -> None:
++    rec = tc.LiveRecorder(sys.argv[1], False, False, ["bash", "-c", sys.argv[3]], sys.argv[2])
++    rec.start()
++    app = tc.TimechartApp("live", False, False, [], live=rec, window=5.0)
++    try:
++        async with app.run_test(size=(120, 40)) as pilot:
++            for _ in range(600):
++                if not app.recording:
++                    break
++                await pilot.pause(0.1)
++            if app.recording or not app.data.has_events():
++                raise RuntimeError("Live recording of workload did not complete")
++            print("live record ok")
++    finally:
++        rec.stop()
++
++asyncio.run(run())
++EOF
++	then
++		echo "ttimechart live record test [Failed: exception]"
++		cat "${output}"
++		err=1
++		return
++	fi
++	if ! perf script ttimechart -i "${perfdata}.live" --dump > "${output}" 2>&1 ||
++	   ! grep -q "^Duration: .*sched events: [1-9]" "${output}"; then
++		echo "ttimechart live record test [Failed: saved perf.data unreadable]"
++		cat "${output}"
++		err=1
++		return
++	fi
++	echo "ttimechart live record test [Success]"
++}
++
+ test_plumbing
+ test_no_events
++test_live_synthetic
+ 
+ if ! record; then
+ 	echo "Skipping remaining tests, failed to record scheduler events (permissions?)"
+@@ -232,6 +534,7 @@ fi
+ 
+ test_dump
+ test_headless_ui
++test_live_record
+ 
+ cleanup
+ exit $err
 -- 
 2.56.0.307.g5fe7bd680c-goog
 
