@@ -1,55 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792772393;
-	b=hiTOugCzGMGlN2+GJrDA+g/uek8ZRx4eMiHoOAFFX32WFb7Jt+1pZI3HCpE7qM2D9oh3
-	 8E6UkRw9s9vvdkb72jPXdGJukqhzzm7bsKFBquyn0rbEfy0I/CAVS5pWF/aareuHmg76n
-	 jsW2taT+PRYFGQ7k7tBYcdDTIbdr22O1S5u8A2m0YwJ7+0r5wL5sQdLf8n6/eCzhXtKWq
-	 EHyNGTVeCfdIR59aONIRY7NTilT5ZGLKBhedamIDOA4T89oVbekrpW9S0pGNlRiW4NdZl
-	 9yaHUbLxGPEbt/AbIxzUUinHh84XGfhQVaBmEtlWWp4rdLru5giWCbgDtLCy6uD/1FA==
+	t=1792772398;
+	b=nWuSiyWKng1zeFK4yAtJEs9rF6gt9IS6spxu4pCkcauvQD8ZRLlVTouEJCAuMfWFSaij
+	 XBSBteaTFOi+qSJPPuQ/MtwjpjIdOgA8GNCWldADuFrmXSnntlzAtTyrbKlZhCag2zeZH
+	 emXxRHBrNYvmcc8iO1ZqWea9f9O401sDOTF1/5FnKY/2yoV9GMjzndhGgwH2P7uaM3xzz
+	 VrlDZyo7xKd6WoS4JaqVZ+fDexFsNq7PmKAKERYeU47iVAN6FMGOd+C0K+MCciaotqOxR
+	 Rn7hbR5pRWg6I6IufIcKyau5zRdKgiA0dZgGTfiyOEoBEdgNISx7uqrVswVKAPHPruA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792772393;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=gaEKPTZSxoXAnYK1y13tSuJiEjwopeJd6eksrQwtbXU=;
-	b=CjmxOJL20KatWvDNYo1uuFMmgtXR+OrHebzluzvvJ6Oow7qFv3k6C4IYr7s9J7U+sbBj
-	 WOkp9rksSb+HzfR0w7Pm0QEsqV+bq1l9ARjEyoJaANJ6ZwFZRT4Y868Eb/JURdhqm5sxy
-	 zKOLQoqJXYRdsaEuEz4RXUdluvP0aFfzaaLh3oX7SueJdGvewR3xpkS68EdJTtnHoclJb
-	 HV3YG21QrnDEVzBtZRy1Ei2S/h7eyd/koVSZX5kCg+fa3dhRZ0Fdn3uvVcIpJTEydHjwQ
-	 MVH2O1tjFdBN4cAX13lFb/ZpQQ8bQMMIiahFbaRgFS6+8wF8WQmE4SUBr+qnubK7huA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792772398;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=JwF30sKeSWshZnOg+Mo+E0Jy9f5TcKQZda9OIaG5oAU=;
+	b=Z0vQ+UU/eDrrQW/CcgzStQ40o0ajFbCReQqrG9zIM4MQPylhsGbGtwMZJfUPfNnn0NUU
+	 wSlZ5LL+MdswLgiOtN70NnYE1BpPnrhilQZy/IXu08JT8qE5Y+YRBif+7ATx0dOmrd6mZ
+	 84kymllU2k4W1F6gk0LvGqS5E0rUo676cclU8v/NMWNu/A3vN1/LA0Tywjsh8mV4V04h4
+	 M4f5ybgZIlMdl1V+sDrBw+3TSxufrfoZxx5hhapHAMEweXcxavc1s2q1tse2coA9uHj1p
+	 LXdSxu5Teta9tmKtq8dT+CqS9rKKKRtM51x83+EwzL2LoIcmRKLiZWsemg+9e01vXkg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IdbHZPAQ;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D30EB606A31B;
-	Fri, 23 Oct 2026 16:19:52 +0000 (UTC)
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=HUJ+ki0y;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id ED5D2606A31B;
+	Fri, 23 Oct 2026 16:19:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ED5D2606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IdbHZPAQ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 74CD01F01825;
-	Fri, 23 Oct 2026 16:19:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792772392;
-	bh=gaEKPTZSxoXAnYK1y13tSuJiEjwopeJd6eksrQwtbXU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=IdbHZPAQBZWH71S9hbs6ylhLMUtGY4vTZ93/sWmj+tMvqAGPq21YaAKvHD475TaCu
-	 JZ1OAuVlRNxVrVVOT7gFuMiypSnpYlc16R2rD4x5xtY5/2wF5r0AhVxzqvvRRcPtYa
-	 d0YQYouzVvqhyhvHP8gt5T0m/3S6pI1pIuF4K7fprd1PTeOHLDBWaRaIlUDiJWU4W/
-	 eECNjRbCPXHGb7IqS9UeNwnNCqz81ruJjdFAfim6D3J94Lvpw2X8rXKVoXsOPIBLEB
-	 5JmioOeabyTaXC7gFB5VaT412rAV1wFENFzPIJUOis8z1QrjqqNmU1OLL06Gq3CytC
-	 wfMQNhw+p4cOg==
-Date: Fri, 23 Oct 2026 18:19:41 +0200
-From: Andi Shyti <andi.shyti@kernel.org>
-To: Christian Marangi <ansuelsmth@gmail.com>
-Cc: Stefan Roese <sr@denx.de>, Matthias Brugger <matthias.bgg@gmail.com>, 
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Wolfram Sang <wsa@kernel.org>, linux-i2c@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-mediatek@lists.infradead.org
-Subject: Re: [PATCH RESEND] i2c: mt7621: fix copying uninitialized kernel
- stack with reduced page_len
-Message-ID: <atuI-J9c7PXTqdCN@zenone.zhora.eu>
-References: <20261022193853.670625-1-ansuelsmth@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=HUJ+ki0y
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 0CC641BA8;
+	Fri, 23 Oct 2026 09:19:54 -0700 (PDT)
+Received: from localhost (unknown [10.2.196.114])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id C44E53F673;
+	Fri, 23 Oct 2026 09:19:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1792772397; bh=JwF30sKeSWshZnOg+Mo+E0Jy9f5TcKQZda9OIaG5oAU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=HUJ+ki0y1DGTe3OAQuJWJM7Be/JlxrwSwrDWEo/lnY3LUCkHXwU9DunS8JugvmJoz
+	 H4r/fxAPAo2G96uuXVflHOBIxQUoDQUzqG51ln/bag0OUtY1Dxb7ti0Gr5uqaZGPKw
+	 gZZYuWN4fhw/qodXgpUlRnlxCVK/ufzytY45s0jM=
+Date: Fri, 23 Oct 2026 17:19:54 +0100
+From: Leo Yan <leo.yan@arm.com>
+To: "Johnny.Fan" <johnny.fan@cixtech.com>
+Cc: will@kernel.org, mark.rutland@arm.com,
+	linux-arm-kernel@lists.infradead.org,
+	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org,
+	coresight@lists.linaro.org, suzuki.poulose@arm.com,
+	mike.leach@arm.com, james.clark@linaro.org, maz@kernel.org,
+	jeremy.linton@arm.com, cix-kernel-upstream@cixtech.com,
+	bob.zhang@cixtech.com, jie.fu@cixtech.com,
+	Fugang Duan <fugang.duan@cixtech.com>
+Subject: Re: [PATCH v2] perf: arm_spe: Support heterogeneous ACPI systems
+Message-ID: <20261023161954.GL26205@e132581.arm.com>
+References: <20261021020322.3015121-1-johnny.fan@cixtech.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,22 +67,29 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261022193853.670625-1-ansuelsmth@gmail.com>
+In-Reply-To: <20261021020322.3015121-1-johnny.fan@cixtech.com>
 
-Hi Christian,
+On Wed, Oct 21, 2026 at 10:03:22AM +0800, Johnny.Fan wrote:
 
-On Thu, Oct 22, 2026 at 09:38:51PM +0200, Christian Marangi wrote:
-> When a page_len is less than 5 bytes in mtk_i2c_xfer, uninitialized kernel
-> stack data is copied and written to REG_SM0D1_REG. Equally on the read
-> part, an unnecessary read is done.
-> 
-> Guard these extra copy/write and read for the page_len to fix leaking
-> uninitialized stack memory.
-> 
-> Fixes: d04913ec5f89 ("i2c: mt7621: Add MediaTek MT7621/7628/7688 I2C driver")
-> Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
+> These synthetic devices have no fwnode, so the firmware-described
+> IRQ affinity cannot tell which CPUs implement the feature. Pass the
+> CPU mask as platform data and have the drivers prefer it over the
+> IRQ affinity when present.
 
-pushed to i2c/i2c.
+Could the MADT-derived CPU masks be exposed through
+platform_get_irq_affinity(), so SPE and TRBE can continue using the
+common interface without fetching ACPI-specific data?
+
+TBC, I don't know ACPI or GIC. I just thought it might be a neat
+approach.
+
+> Apply the same treatment to TRBE, which shares this registration
+> code. TRBE must also pass a stable copy of the mask to
+> request_percpu_irq_affinity(), since supported_cpus is pruned as
+> CPUs are probed.
+
+I wouldn't expect any changes to the SPE or TRBE drivers if
+platform_get_irq_affinity() can return the correct CPU mask.
 
 Thanks,
-Andi
+Leo
