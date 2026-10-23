@@ -1,92 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792761464;
-	b=pXmLAUcmAiQv442sDTIM5/+sXEZGxrzpK2V/qKlRxBYiiZZs80xgucNoWg7C8WzQUvHF
-	 ++nWqOgPv7lQivBhF6w9HYBky8XUB1wKmQXiN0jEWqWRB2LmvO36Bbq+k8JMpl8EqTMj9
-	 H90ssYpL3PwRhV3WrcKGaCz88tGHSO//X4DesYfm1SS/WILait2lUHce+njxXHa75UBAM
-	 I/7KsD2tOyMQJ7hfKmiMexDXEzIRWUuBkEooRMHiYHO6+U6FSjeu+W9nGkb2ZgYeGqfDH
-	 MKpgOT2kbFTNqO3m7NyzC9ErbmLM36AmK4gzRwYsSK9vKhMy2i5Tud+rmZsDVuk4/tw==
+	t=1792761488;
+	b=zwZQ9ztaD44uIJFB+V5EeBIeYASoRlrCq1O/eyNc9+pFSTrNvWJbrhc6347/xZ2YNsmt
+	 0hgj5vUjTWKy5fLB/KY9eEQgQmtqDsM62BigUNQyY4o59JKaEJiqUuIj+OpkcUNlW+491
+	 tO0dU1Gr18FBzMsnpWjE6U3+DaXBYh51QFcs+qwS+Oz6eNx9OdAeBQriFgL0Xrv1E2TAF
+	 ja02X3U5Y+q5y79Vg41ZNxgumsbJlxNDg1zWDn7xwK1kovWkUw81Quy+vW+X9x0n7en24
+	 RXWD3SsHAPITDPBTk+5BzFSY2TVsCAK+ZzgkoLwS3QIInsa+n802TWwDhW/hKqyNRiw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792761464;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:Received:Received:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-TM-AS-GCONF:X-Proofpoint-Reinject:
-	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=4INMN6jfyiWPWNdUFOTQaGKc6GvuhZz5CWDkHfXlFIw=;
-	b=U2hbmCx8+Ap4u0ZAmlfJ2lR9xyd/94rUg4ep1+6jbpxGBYmoBcQ/2fjXFHzbZeJYZZm7
-	 ymaeNr+be/TDQJxlDp4vm9P0uVPx8kIHzEY2jSFEMB2BUzdVNQpbqvUyoHruzvDLMIvnS
-	 YY7aPLFJqfgKBBmpV9Vy6OySfUCU2x7ycfiarIjJSq8cjYeNCT9Q4rCUtqp4ezMbTlGbo
-	 jGrTRoSeHrV2M6OLA+7OoClLU/bIXSl7UGsSgL3CerxYkCek4gn6+0q0X6LG4ISmRxsJY
-	 u/78b9MfXYC6mFEHuY3S3OSUNvTn9Dw2KiNtF5ydxBJ4ST8/SFrhckXA567KngBAFGQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792761488;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=ZO18/VDYKQ9K6+z12qbV2AuMLMhBQkemvCDskvO0ydg=;
+	b=jRODHaT/c9XiE6b5bqw4utoSSH4GaEiNJTBw/R7BNRrlNofBfgGQhHvK7mLprDH+hcbO
+	 1Gxy29SS0F9HhhrZWov4lPohhop6zgy7C8T35afd2UDS8i4IL+i3/pJe0yxAtGcKWEwe3
+	 NT0xoBeQcOxKndk6RN6L3rFIfO3o8v6WeMmuHAplEznFjeeuTOIMvGXneSGI8bEKPewbj
+	 WX9zoGS3z2yWKt8yCrGpkSVfdz8he4mpPmcVfL6vtLo5bfHvJGV37giEAV+mkEzj56ot0
+	 ip8UiVdH49gGBHSvOtLQA4wp36fqpwTmq/JiBOJ5U/zDNZBqa2n2OpNgWTReF0kw/Sw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.ibm.com;
-	spf=pass smtp.mailfrom=linux.ibm.com;
-	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=rkbUZE6b;
-	arc=none smtp.remote-ip=148.163.156.1
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=riscstar.com;
+	spf=pass smtp.mailfrom=riscstar.com;
+	dkim=pass header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=n0rWQwXy;
+	arc=none smtp.remote-ip=209.85.210.51
+Received: from mail-ot1-f51.google.com (mail-ot1-f51.google.com [209.85.210.51])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB10D606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 13:17:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EB10D606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB878606A31E
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 13:18:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB878606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=rkbUZE6b
-Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69NAF1ci947964;
-	Fri, 23 Oct 2026 13:17:18 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=pp1; bh=4INMN6jfyiWPWNdUF
-	OTQaGKc6GvuhZz5CWDkHfXlFIw=; b=rkbUZE6bZY3Q/lQEvrwpWrNXK3tYnthGX
-	x8GJQMbd/8KduO9BGcpRVRLbOCzjTHSvf92NDTIvF4vcJKUcdLfHmdmaDfO3lTHo
-	6vSi7nIke56GFiOR5lvU2Y5nI2Ga+9+CGc5XrntIhPRGM0g9HboPrqcKeqy13JcE
-	yGifjlMsnjyryCPWWEqG/vMllfB86QA090eeJconOYkN0ZV97Hq0hjgQ/4Lk/DhU
-	JRdnK74yBw9CIX5zWj575kjXfoLSVcUMioqAVl0bJjIbBCIrKrJU90aPH5wuginZ
-	kUsPpScFbwILAiZUEM/UPGqL0z7lC2jbsxM0ez7fftTuuI/QtbjDA==
-Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hdw5bweqy-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Fri, 23 Oct 2026 13:17:17 +0000 (GMT)
-Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma23.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69NAJwqb2010122;
-	Fri, 23 Oct 2026 13:17:17 GMT
-Received: from smtprelay03.fra02v.mail.ibm.com ([9.218.2.224])
-	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4hfgck5khq-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 23 Oct 2026 13:17:16 +0000 (GMT)
-Received: from smtpav04.fra02v.mail.ibm.com (smtpav04.fra02v.mail.ibm.com [10.20.54.103])
-	by smtprelay03.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69NDHDSH32440632
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Fri, 23 Oct 2026 13:17:13 GMT
-Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id EFAF620043;
-	Fri, 23 Oct 2026 13:17:12 +0000 (GMT)
-Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 8D9852004D;
-	Fri, 23 Oct 2026 13:17:08 +0000 (GMT)
-Received: from li-7bb28a4c-2dab-11b2-a85c-887b5c60d769.ibm.com.com (unknown [9.39.19.68])
-	by smtpav04.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Fri, 23 Oct 2026 13:17:08 +0000 (GMT)
-From: Shrikanth Hegde <sshegde@linux.ibm.com>
-To: maddy@linux.ibm.com, linuxppc-dev@lists.ozlabs.org, peterz@infradead.org,
-        tim.c.chen@linux.intel.com
-Cc: sshegde@linux.ibm.com, christophe.leroy@csgroup.eu,
-        linux-kernel@vger.kernel.org, ritesh.list@gmail.com,
-        kprateek.nayak@amd.com, yu.c.chen@intel.com, vineethr@linux.ibm.com,
-        vincent.guittot@linaro.org, srikar@linux.ibm.com, npiggin@gmail.com,
-        mpe@ellerman.id.au
-Subject: [PATCH v2 4/4] Documentation/powerpc: Add details about llc_override
-Date: Fri, 23 Oct 2026 18:46:46 +0530
-Message-ID: <20261023131646.2907938-5-sshegde@linux.ibm.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261023131646.2907938-1-sshegde@linux.ibm.com>
-References: <20261023131646.2907938-1-sshegde@linux.ibm.com>
+	dkim=pass (2048-bit key, unprotected) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=n0rWQwXy
+Received: by mail-ot1-f51.google.com with SMTP id 46e09a7af769-8490a7d6696so461842a34.3
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 06:18:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1792761486; x=1793366286; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ZO18/VDYKQ9K6+z12qbV2AuMLMhBQkemvCDskvO0ydg=;
+        b=n0rWQwXyIV/EIUQujoilUdowokticzbV4wcb8j3mOhEPTuEJh/IvJPf6BafOM4nnTj
+         /JZ21xQhWrNbnAlw46vrfVXGKf2o8vS1mPE5TkZgHpUp2hpOA/bZqWNXDEyTPMXA6via
+         Dl6hEi/vjLBipabZhZA9DLV+vlgM0eH3pqBMuYd2NXES5sW99mufVMJzXeCXc6cs7EWe
+         RFvi73goDtwvepcVThgzMSJ6mug4TAkEvGXKaUYSEgUTpVV1B/tMkgyQbn5G2B+YtNYo
+         5aVQdsn9dohqG2DidTMvvTQtDmao5DrhgTW5RfZ6tSSO8Z3idC6ixiIhMg9niB80iIQT
+         eb6g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792761486; x=1793366286;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ZO18/VDYKQ9K6+z12qbV2AuMLMhBQkemvCDskvO0ydg=;
+        b=Mjj9rCmDq/Shf2cNQNEk+3fPHy8YtMP8jAIEAFIksD2VbtCuwdmI5cTRWeklOxj8f8
+         CEPSCwvoUgLCw5kuo0ZQnn5+Pf+2Xn+nJebzYv9kjH8sq4xn9HRvQn1BQwPAsH7EuCaw
+         83H8VXFDFKpmuUmypS1ubS940BxywugBNvwc93fQZHFNEE3VRXpq/J16DQ2y11wu4LFI
+         WMizJg7xZatT7l32wbFopJvdvf7KHHD5EdNysLjARC8Xx+y4dpoVKQeIfRaUAVwRupFo
+         NXy829c6VySt2kuduKZwmyd5P/Jarg7h3kme5Y32IGps09gEvPYjBm0MZmFwtzPkd50V
+         grzw==
+X-Forwarded-Encrypted: i=1; AKwUvBxsgIn8zFGHFk/RVrCV3KqOnJfXqAwOz6NwFC9grgERwj0W0yU8MkF9JJ2T2SvXODlWu/vteiT5jii66XQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKvBremn9LIWoAymuQ4NK6q+lTrKDrvmvyT6AITa3vggWf00j93
+	cvoadFQzbkTe7ZGH+ndbCbREyWKfoyYhamvpZeP4KGOoPadkRNyNojcwPnlOSmsUit0=
+X-Gm-Gg: AYBFou2FNWHaw7WBnRMPHRZehNYVpGZrv5/O96jt5aUhhw0YFYD5RmZ7SiecEuoXhYI
+	T1C577ig6J6QTrIGHTTZM+y0Kaez8VHIZ+wB4UMwv/uBvMcX1ir0GBQqOov8QDY6VmV4dqMlQSp
+	XzTnlqF1J4WNkp7MJETaxLkbEhf/9sRro455PGqOT1aMjxmLjn647Vr4gBcZerZcdh9A15rge/Y
+	D/h5CT4XzRn5kTAeCivDp2lRN/7LoW+4DGgZFhc80SCH7k6pXmVnkAqQHWbs8kx129Qq7oZx2Eo
+	P9Dt+8Qo2ETdNqQvsJKGnuzEtP7IfuMc52unX5Ntla6BrP8I/L6vZ1hp+xcDdDnDB/9qUYhgYnt
+	bTZwthfssVQud2BdlKmD7oocDGPU9bRUQ7IG9kH8hFfuWxqaTCrKxHlM1H5un2IRntkcHWdu3vZ
+	XculLslC2OC5n4Wlpl22uMcFhwjRSwJr2XkvE00WMyucnP6tNvu/c99j8HkAqP6nwc/PlazTd5B
+	nUN4AA5ztXmmMrrnJAfGkzEwOImce+QN4anxU1gokQzT3/LwWSLXNBR
+X-Received: by 2002:a05:6820:498e:b0:700:da68:7398 with SMTP id 006d021491bc7-70b88a4894dmr1285740eaf.43.1792761486541;
+        Fri, 23 Oct 2026 06:18:06 -0700 (PDT)
+Received: from [172.22.22.28] ([73.62.185.64])
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-70b9ae63d9asm8548eaf.8.2026.10.23.06.18.04
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 23 Oct 2026 06:18:06 -0700 (PDT)
+Message-ID: <fc3a1fb9-181d-4994-9bf2-45272dafc86e@riscstar.com>
+Date: Fri, 23 Oct 2026 08:18:04 -0500
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,73 +91,76 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-GUID: mYiWZWp3FE02QV-FPj1QhIanFZo5R5fE
-X-Proofpoint-ORIG-GUID: EfNZofRMjBi8XQjEi0XnUdb7SCIFw-Uo
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIzMDA1MSBTYWx0ZWRfX/f3r3u0+F5PE
- jVxVTyf3siq6HDkkOFgfANlVwk7exnQJfmR8gbpcLs+izJ8uLkI8veV7s9tPZpjJNd+7yXeKGUU
- KWmdfCnGkX2Qe3i5RdDuGKP5vzP5mlA=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIzMDA1MSBTYWx0ZWRfXywBv6kLsNHRN
- 3w4T8UY153BKIUzdzSdLrahFVf2oMMi1OLJLtW3qDQHD2tuJZUgB5MNhRClWhhh/7s926UFlJeL
- sq2Nayn6JdD7Ul5xs7A1Tn5o9y6UI6S3JoR7U5XZkndqD8AHx9Gug2FxUgodayURfVw7ITHNIee
- mpMJV+ot53UPbwObNGd63CF9/kaucg2X13PaQ2edh5AsoMeAmy/xRX7TtyxyAhc6e5BFqXrrFHq
- pe2tauvjzuWXsAz8DdsQrYtvZavCA0O+m1Ip60j68Q/vCowPWp38xtVkeXBtznYj+k8wHhYY/j6
- SSR0ZjJ5dF5iOed4EQP2CkZ+fqF81sh1TKj+jaTRxbnwMUQgHFxdaX1u1Um3JYZKKwZRZEi0DS5
- vd+13Iggt7LNdAL3WfITv3pMBgDhn0R6xszHaeHYEcvzd0uSG1OaGLUIMXeamuG6bEDpWhxusfL
- NntgxzW2LADX85h2ptA==
-X-Authority-Analysis: v=2.4 cv=Gb2CDgXL c=1 sm=1 tr=0 ts=6adb5e5e cx=c_pps
- a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
- a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=uAbxVGIbfxUO_5tXvNgY:22 a=VnNF1IyMAAAA:8 a=EDzFc5kV9KizNyu6t7gA:9
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-23_03,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 adultscore=0 malwarescore=0 spamscore=0 phishscore=0
- clxscore=1015 bulkscore=0 impostorscore=0 lowpriorityscore=0
- priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
- definitions=main-2610230051
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] staging: greybus: loopback: Use fsleep() for delay
+To: Greg KH <gregkh@linuxfoundation.org>
+Cc: pavankumaryalagada@gmail.com, greybus-dev@lists.linaro.org,
+ outreachy@lists.linux.dev, pure.logic@nexus-software.ie, johan@kernel.org,
+ elder@kernel.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
+References: <20261022202455.104142-1-pavankumaryalagada@gmail.com>
+ <a411ee0e-22c4-4797-9fdc-3ac11fa20d60@riscstar.com>
+ <2026102338-rack-garland-2a29@gregkh>
+Content-Language: en-US
+From: Alex Elder <elder@riscstar.com>
+In-Reply-To: <2026102338-rack-garland-2a29@gregkh>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Provide documentation for the newly introduced llc_override kernel
-parameter.
+On 10/23/26 8:04 AM, Greg KH wrote:
+> On Fri, Oct 23, 2026 at 07:48:54AM -0500, Alex Elder wrote:
+>> On 10/22/26 3:24 PM, pavankumaryalagada@gmail.com wrote:
+>>> From: Yalagada Pavan Kumar <pavankumaryalagada@gmail.com>
+>>>
+>>> In the loopback function, usleep_range() is used for short delays
+>>> and msleep() for longer delays. This requires choosing the delay
+>>> function based on the requested time and converting microseconds
+>>> to milliseconds when using msleep().
+>>>
+>>> Replace both functions with fsleep(), which chooses a delay
+>>> delay method based on the requested time. For short delays,
+>>
+>> s/delay delay/delay/
+>>
+>> I think "checkpatch.pl" would have caught this.
+>>
+>> Maybe Greg can fix this up.
+> 
+> Nope, not for staging patches, this is for "learning" :)
 
-This may help one if they want to experiment with cache aware
-scheduling on powerpc.
+Sounds good.
 
-Signed-off-by: Shrikanth Hegde <sshegde@linux.ibm.com>
----
- Documentation/admin-guide/kernel-parameters.txt | 15 +++++++++++++++
- 1 file changed, 15 insertions(+)
+Please provide version 3.  And given that, I'll add one more
+suggestion.
 
-diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
-index fbee7b544903..e13514076c18 100644
---- a/Documentation/admin-guide/kernel-parameters.txt
-+++ b/Documentation/admin-guide/kernel-parameters.txt
-@@ -3568,6 +3568,21 @@ Kernel parameters
- 			Enable Live Update Orchestrator (LUO).
- 			Default: off.
- 
-+	llc_override=	[PPC] Override the scheduler-visible LLC domain.
-+			Format: { mc | pkg }
-+
-+			Use the specified topology domain as the LLC domain
-+			for scheduler decisions. This is intended for
-+			experimenting with Cache Aware Scheduling.
-+
-+			mc	Use the MC domain as the LLC domain.
-+			pkg	Use the package domain as the LLC domain.
-+
-+			If unset, use the platform-provided LLC topology.
-+
-+			This is a debug option only. It does not change the
-+			hardware cache topology.
-+
- 	lockd.nlm_grace_period=P  [NFS] Assign grace period.
- 			Format: <integer>
- 
--- 
-2.52.0
+You don't provide the *reason* for making this change in your
+description.  You say that fsleep() does roughly the same thing
+as the existing code.  But... why make the change?
+
+The answer is roughly that fsleep() is a common or "standard"
+function, and it's better to use those where available.  I can
+think of at least three reasons:
+- It's better to use a well-known common function where available,
+   because reviewers will already be familiar with what it does
+- A common function might get optimizations and improvements that
+   your code would otherwise not benefit from
+- It might (slightly) reduce code size
+
+I am not suggesting you include all that, but you should
+understand it.  My point is that you should be clear on
+the reason for the suggested change in your patch header.
+
+Even something like:
+   Replace this block of code with a simple call to fsleep(),
+   which does the same thing.
+is enough to explain *why*.
+
+Also, before sending *any* patch for review, please *always*
+re-run checkpatch.pl so it can find trivial problems for you.
+
+					-Alex
+
+> 
+> thanks.
+> 
+> greg k-h
 
