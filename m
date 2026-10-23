@@ -1,81 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.178
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792799684;
-	b=2HgORKLIbbpemxjfhLV0/KfWPaL/YzKG+ldi8bx/S6bM3rl1vwyqwzZjYcDQOVov9ESe
-	 qBZsd7QM3N7gVA+xmDMwpegAgQ5tLlbyvqHN2BkuQ+ivGey7o30YJdB6PmqrT0+2cqTOw
-	 1JikYn/4kMutEqY+mmU0rXaglm/0N8ghvGyyD6H9XAkyL/9WKrWbyLY98bmYZNO+VTBvt
-	 wlKLC2U/wq9/C0mQNwSl97XWPgifsA8xIVy7pzcxS3dbGlQ4eW5SkjxHMysuMIAuP0d8E
-	 tT7EHitfNwwo4XYysEOR0iJ2OV1uH3cywIDN0MnniKq/nSe9YemDjKzecIrKJE/oypg==
+	t=1792799689;
+	b=RYXm5WCJng/VRASH0ONO7Kg7CJ8ROLTpJhkmvKqLnOW/LIVb2Rvqn9P+xdT7jkfiXIo9
+	 J6uxzj9dJ6vL8FBgu+uzDlkbcRGFylW3l82+U+RJb+aOFJEadzECZ9A9MGdP71bzVkxwb
+	 tNU2vXp2CUHPg5fIxhwcllDtz9rF+N3a2MbT4E6c01Fyl3lgG0u+1HYmCJdhNkbG9JBOk
+	 VA/JGHSwlyUjDKa7/q4RfB56vidgmdutAbt3XC5LbIFsyrhbm7BXKhbg+3Cm1Fw9TEvwM
+	 BPXQL8Ye28wNx+LQGIaxsNKcvliDTYRZ+jYT/S7OGxE2uAg07nH3/f3Yq7/hVl+i0wA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792799684;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792799689;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=WO1k3TgV0Bh76n9QH9sErT/UKtvZr0Io2i7uE9+6nI8=;
-	b=eserrkCdXM6Pck3kpSMppqVe9LiIOVS5f2hiAZ2YIwM3dK6UlhrGwH1ZCu0BlQHs2HUn
-	 PdxrPiKUOuzOwC5yCOAzMzjhgaQTC0j30EiaNx/v5csl/AFpyTuyY5piOm7PP5X016LHm
-	 Yun1YqbMmxFCqE28yACGr6CObgO60gnY6pjtfpJrE9dZDADN6r8B9JRzdET+h//FF0ttX
-	 Hl/GQ6lzzH1iPHoUAGxuceNKG8B3L2KfKStlw7Lx2PXiONDKctC6MIT7kwfpa8Q5w5VPF
-	 aqJZDDaXnBx6xTfDHzYzttyX+f7saYIm1SjnGzCEhKUA0OC+SSbxka0FX/Zqiq8cFPQ==
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=otAHiqG/cQjuYELHcy0jOidxAXbxufQWbVV3FM523C0=;
+	b=3eNoL03VTa1D64vita91Zknh0Samqm4Z8iSYOQkN8oSiWEC6Dte6d/LnfJ3lNtQqDaHr
+	 46S93Sv4CBFF4xaUxI5/a5KVd9zYVe8GZcgXKmHgAkZHM45p7IhEbUy7u4j+HrI9cp2Xf
+	 M9o8oTrtOtMGfWFkTHUwOgvZuxA0nC3PQeDf8Um89dgY1sNSUpOwEQ90N1fdP+Ps5fNw1
+	 yF5Cwh8WUiCl1IBzur3kChUz0K6VPYgBoSiT83ajzG7AleS3EWPE7xehY3aomXYeacOLJ
+	 wilBZZ/GTb9AIZqwOD6wYGuenweyBh8hhXGXFpx5hHNKDmQVKWAbeswSmiTE9evtA8w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=chromium.org;
 	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=F3Z7ASAC;
-	arc=none smtp.remote-ip=74.125.82.174
-Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=QsIbCZ7A;
+	arc=none smtp.remote-ip=74.125.82.178
+Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEE8B606A321
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 23:54:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AEE8B606A321
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76A34606A328
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 23:54:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 76A34606A328
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=F3Z7ASAC
-Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-35b2c599f43so3187083eec.0
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 16:54:43 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=QsIbCZ7A
+Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-35f036b17easo2412186eec.1
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 16:54:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1792799683; x=1793404483; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=WO1k3TgV0Bh76n9QH9sErT/UKtvZr0Io2i7uE9+6nI8=;
-        b=F3Z7ASACUGhMy6ADDKXvY93UU9xIRwjIyXSNIzj/jOUyXTLuBrRcyVtSmiy5nGGaBV
-         jUSivCDtXUMGwYFOyN35e3l/Af8C8NYu9qU9sfbO7W3O6sUS6o2FgDXua4xXSivEvKhe
-         uo8T4Z3/UMZkWr+M1RQvjGMzha1nYhKSlHZhI=
+        d=chromium.org; s=google; t=1792799687; x=1793404487; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=otAHiqG/cQjuYELHcy0jOidxAXbxufQWbVV3FM523C0=;
+        b=QsIbCZ7Ag2ElkJTiKUcpchmJePQLf6/SKYZ+2pwwvzuAooUsbcWCgJEFXvuyQ49UqF
+         pB2Lhfb84o3/4u2Y5SGDqqI3C7qd2w7gfzPH8i0Fce3zxjHsE7Crz746cMrcQL8w2UGl
+         p4HAZp+p3sTwtyUUbUkdT8p/YCdiey3a7AT80=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792799683; x=1793404483;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=WO1k3TgV0Bh76n9QH9sErT/UKtvZr0Io2i7uE9+6nI8=;
-        b=wZFK4tMHspHDxMiHZgyFQMLF9gpauTtt1rN7hHOgU/w9xO03bPZHTzH7w3PpX9lwcx
-         5yv9vf2Otdsd0NJN2TdBDbFgRg4FIAYZGZW8ANX65QVMu+s8hVUSEtrblyyqykC3fB37
-         cFFsVvGYR88iBJaK8CBBsP4YwQ68O3o19a03zL2LTny3uuaW1osHE4ZlbqxMubF5JgsE
-         ftE+5Kv3wHtg6u5r23bL4a1xri2/sU6n21fZz4ni4OSneWM4N6BwEj+RljhlRfoESV7c
-         3GOuM1zTSrz5D3lApuHvQhFLhGvnlpvzpzwdSbPXoHuVMZOqp68ksgCIYEoYZYJ6aDbn
-         IWhw==
-X-Forwarded-Encrypted: i=1; AKwUvBwfRddwarv9kegyYZE5ewThiTjpPKmTo4fOWx/jRSLRjISD9qgGEEzzeaOGe+eZ00N45qkaJQDn2lxKSiE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK55VHRFqtplZBf7zTgoNXwkua7cZymND9yr8S9YO5YUywHD+FS
-	a66E3E0fciRZt8KrbGO7PBrrv92Snc08UAYfPKbxP7cpMimCm4V8qwJQIniRn5qqgZdon11oYgy
-	D19xmhQ==
-X-Gm-Gg: AYBFou1kasMdpxNnn6h2H6LdS23PPy8fT48VnpOU0sWpzYRPiz6AArgwCHEQkvKEEsG
-	6VSxpvQwVlrN+Bv1cy3+8BgtAgGS7K055U7xzUCh1TJ7GhC5HN5n9lHM6rKUdH/irTN0p1cL8y4
-	0aJ9lrQNEOvwjozPJg/RVHauDAIwWX0Tqs4m+GcEFYLVP/63oTqlq6ea6zZWXwsMgL+wVG+owUI
-	XyiIu/rqxdVGFbUY3l1DE5+WZjrz/PuKX4a/pO+8e2UybkbQmCzZRhPJzumGgiuTW5hq7hIDGM6
-	OK6xWr7hQVUhNsbQGCmY2uWbBpkoZUlvZ89L4LdpMwk2dASwKIQZkrkdGM7rnItC1+NBXyg4jT+
-	rcDPmry+PV3kdB3wmfHatiX4T1OJERHWonetCcP77fOgOMrK7ZHxgB45TjBhjEm83JN87b7l2Ak
-	piyK/MEu+vHVF1c5QDq+A4oxK1LrubkESaYWNTwM1eV+9ZolttC5n5qyDS8d5NA1EoRn9uw2TKr
-	ROPRj5twmXuR4eXz1pV8PF/ZjuZSAGyCbm2B2vora2hbpbPeX38Dvy7NUYFKg8/942AsUxx5yXj
-	BHTgCG1ze7CT2h4h/WYleQgsBOnWUBR3BGgRaEIfKA==
-X-Received: by 2002:a05:693c:8814:10b0:361:7ab9:479d with SMTP id 5a478bee46e88-369e84a69bcmr1121351eec.27.1792799682676;
-        Fri, 23 Oct 2026 16:54:42 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1792799687; x=1793404487;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=otAHiqG/cQjuYELHcy0jOidxAXbxufQWbVV3FM523C0=;
+        b=kT+xFls/A96h6zZBNJvg8XoYEB4L98MduXK04779lY266EwXIT4kgvkcHIV01sVDK3
+         dX1mkPydTIsZo1o984+UV3I+5Ia3z39iam0cHyP6xLwsZMPmL0gcs0/AbIZDwAtfUtZE
+         exmdf+v2rAYhGWTqSs1LuJy6QK9FzXKhBzSbmZTWi1mQMQ6zZefZpxcWDHpFhohTTIUO
+         3lJxvQg5J6KrbAE1WXIHmlqyRDes+jUrm0HymNNwC5NxFTkSWPQB26WkcxmYrdA8kZKO
+         JPWhtxko8cWJFYuyCFBgDfhXbT24eHazVnayrJR81RCzLX4rjxMMI6+B6auM1Oyep4AC
+         r/eg==
+X-Forwarded-Encrypted: i=1; AKwUvBzLHyCQFR1YwVXNkz8QX/W8Kbyxc9ESBdedQS2iTfXdPuGmqd52u7d1l+9xBeXOdYjybf2Xk/58xHxnLfA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJUM9SxYI4Ws6zB0abesMlq8j9qkVeux7G0JAkPjH6xrd2JpB4s
+	/Wv6xdbyQ7g2LB8FXd6GDQ2ELvAw675qZWS2XVAO2+ZFhPH+mrLWuEaYR33YoRoSsg==
+X-Gm-Gg: AYBFou0T52DBrkfUdC/U6aKuxH+53hgCZVIM3aP/k2Gyei40uzTYkza2r/IQS2HA6Qf
+	kU5YjbmheoimaHYWmErOMI7MILAsKp83GLl3cQxTb+9XnADdmfgWLYp/QoePMFF/cWr125gXV6K
+	OhG2a4MpHtCe0ysaD3DpnJa+swyCEQvIuc936qIWx2mTHCYwQSbyBgfgWDXEN/rqeR5+l4od12g
+	ZXQ3wCsubIT5SAfwioANXcuFfAE5GUy0nhrkwdlHt5/7WHHFYrusfF9+fOJQ/YGx6eG8jM1EPQU
+	WxNeC/ER+eBu61hPl7U34BBxD+9aKoLBTBkQyGIVvutIGRRRFQk3XkAQoFmrssb3qESXWl+5WRD
+	lUTCJxXkfTuXGGN2ljzd7ZL2BETvaPUyhNqu10gQAWJTBdbea4qwXtnqL65ZA5kO3yY/U54Gjd4
+	rQKBLb1QVZcWYm0cgw6X6yVxWD0ZBesS4W6VP3sDoulh0cdGbIAZ2/zW5JAbo+78KX4EFnhZBgM
+	Nn1ukZWk5ygzkDb5z291Ib4jflIvaQ+2ZHCw4NUjNzvef8kBLDbhPPhfu7larDtskwIHJ3RSIgK
+	qU14bjOHJATWGbgsXt2UldSnEuaGpfzo+TKpoz0b
+X-Received: by 2002:a05:693c:60d1:b0:366:ae22:a565 with SMTP id 5a478bee46e88-369e8483657mr1064497eec.9.1792799687187;
+        Fri, 23 Oct 2026 16:54:47 -0700 (PDT)
 Received: from dianders.sjc.corp.google.com ([2a00:79e0:2e7c:8:f8c2:b3aa:f878:2faa])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369e8daf444sm1460608eec.18.2026.10.23.16.54.40
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369e8daf444sm1460608eec.18.2026.10.23.16.54.45
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 23 Oct 2026 16:54:40 -0700 (PDT)
+        Fri, 23 Oct 2026 16:54:46 -0700 (PDT)
 From: Douglas Anderson <dianders@chromium.org>
 To: Jassi Brar <jassisinghbrar@gmail.com>
 Cc: Joonwon Kang <joonwonkang@google.com>,
@@ -87,10 +87,15 @@ Cc: Joonwon Kang <joonwonkang@google.com>,
 	Krzysztof Kozlowski <krzk@kernel.org>,
 	Brian Norris <briannorris@chromium.org>,
 	Douglas Anderson <dianders@chromium.org>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 2/4] mailbox: Find a matching mailbox by fwnode rather than device
-Date: Fri, 23 Oct 2026 16:52:19 -0700
-Message-ID: <20261023165211.v2.2.I23f9ba38d31789f37c02843132172236b96caa6c@changeid>
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
+	Kees Cook <kees@kernel.org>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-hardening@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-samsung-soc@vger.kernel.org
+Subject: [PATCH v2 4/4] mailbox: goog-mba: Introduce the goog-mba mailbox driver
+Date: Fri, 23 Oct 2026 16:52:21 -0700
+Message-ID: <20261023165211.v2.4.I5cef580a62c86ba6c3465ad336fa509afbdf1476@changeid>
 X-Mailer: git-send-email 2.56.0.257.gf7497c7d27-goog
 In-Reply-To: <20261023235408.3063350-1-dianders@chromium.org>
 References: <20261023235408.3063350-1-dianders@chromium.org>
@@ -103,115 +108,1107 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Sometimes, instead of registering one mailbox with a number of
-channels, it makes for a cleaner design to register more than one
-mailbox. To make it concrete, you might want a device to look like
-this when represented in device tree:
+Add a driver for the MailBox Array IP block present in Laguna SoCs
+(AKA "lga", AKA "Google Tensor G5"). The mailbox hardware and theory
+of operation is described in detail in the devicetree bindings.
 
-  mailbox@abc {
-    compatible = "my,mailbox";
-    reg = <abc ...>;
+This driver uses two improvements to the mailbox core in order to
+function cleanly. Notably:
+* mailbox: Allow #mbox-cells = <0> without specifying a custom xlate
+* mailbox: Find a matching mailbox by fwnode rather than device
 
-    north_mailbox: mailbox-north {
-      #mbox-cells = <0>;
-    };
-    south_mailbox: mailbox-south {
-      #mbox-cells = <0>;
-    };
-  }
+The goog-mba hardware and conventions used to communicate to remote
+processors is described in detail in the bindings file. See the
+bindings patch ("dt-bindings: mailbox: goog-mba: Add goog-mba mailbox
+bindings").
 
-  mailbox-client@xyz {
-    compatible = "my,mailbox-client";
-    reg = <xyz ...>;
-    mboxes = <&north_mailbox>;
-  };
-
-You might want a design like the above for a few reasons, including
-(but not limited to):
-* There may not be an obvious numbering of mailboxes. In the above
-  example, it's not clear which of the "north" or "south" mailbox
-  should be ID 0 vs ID 1. While an arbitrary mapping could be created,
-  it's cleaner not to introduce an arbitrary mapping.
-* A single device could have mailboxes with very different properties
-  from each other. A mailbox with "channels" implies that all the
-  channels are fairly homogeneous. A design with sub-nodes and no
-  "channels" allows each sub-node to be independent.
-
-At the moment a device tree design like the above doesn't work
-because, when searching the mailbox list in mbox_request_channel() we
-check against the main `fwnode` of a device.
-
-Extend the mailbox interface to allow a `mbox_controller` to specify a
-`fwnode` to use. If this `fwnode` is NULL then keep using the `fwnode`
-from the `mbox_controller`'s `struct device` so that existing code
-will keep working with no changes.
+The most unique thing about this mailbox controller is that some
+instances of it are designed with a hardware queue, so multiple
+mailbox messages can be in flight at once. For RX, this works
+seamlessly. For TX, in order to fit into the Linux mailbox framework
+we expose a single mailbox as several channels (one per queue slot) so
+the mailbox client can effectively use the queue. A custom `fw_xlate`
+callback returns the next unclaimed channel when `#mbox-cells = <0>`.
 
 Signed-off-by: Douglas Anderson <dianders@chromium.org>
 ---
+This driver is a rewrite from the downstream driver used in Pixel
+phones, which jumped through some awkward hoops because of the way it
+got queuing to work.
 
-(no changes since v1)
+Changes in v2:
+- Expose a mailbox channel per TX queue slot instead of adding
+  `has_queue` to the mailbox core.
+- For queue mode, read `google,tx-payload-words` from DT instead of
+  detecting TX payload size on the first transfer.
+- Match "google,lga-mailbox-array" instead of "google,mailbox-array".
+- Move MAINTAINERS entries under GOOGLE TENSOR SoC SUPPORT.
+- Use guard(spinlock_irqsave) and scoped_guard(spinlock).
 
- drivers/mailbox/mailbox.c          | 8 +++++++-
- include/linux/mailbox_controller.h | 4 ++++
- 2 files changed, 11 insertions(+), 1 deletion(-)
+ MAINTAINERS                              |   3 +
+ drivers/mailbox/Kconfig                  |   8 +
+ drivers/mailbox/Makefile                 |   2 +
+ drivers/mailbox/goog-mba-priv.h          | 130 +++++
+ drivers/mailbox/goog-mba-trace.h         | 183 +++++++
+ drivers/mailbox/goog-mba.c               | 621 +++++++++++++++++++++++
+ include/linux/mailbox/goog-mba-message.h |  38 ++
+ 7 files changed, 985 insertions(+)
+ create mode 100644 drivers/mailbox/goog-mba-priv.h
+ create mode 100644 drivers/mailbox/goog-mba-trace.h
+ create mode 100644 drivers/mailbox/goog-mba.c
+ create mode 100644 include/linux/mailbox/goog-mba-message.h
 
-diff --git a/drivers/mailbox/mailbox.c b/drivers/mailbox/mailbox.c
-index 6c9d426f4e58..692087d461a5 100644
---- a/drivers/mailbox/mailbox.c
-+++ b/drivers/mailbox/mailbox.c
-@@ -463,7 +463,7 @@ struct mbox_chan *mbox_request_channel(struct mbox_client *cl, int index)
- 	scoped_guard(mutex, &con_mutex) {
- 		chan = ERR_PTR(-EPROBE_DEFER);
- 		list_for_each_entry(mbox, &mbox_cons, node) {
--			if (device_match_fwnode(mbox->dev, fwspec.fwnode)) {
-+			if (mbox->fwnode == fwspec.fwnode) {
- 				if (mbox->fw_xlate) {
- 					chan = mbox->fw_xlate(mbox, &fwspec);
- 					if (!IS_ERR(chan))
-@@ -580,6 +580,10 @@ int mbox_controller_register(struct mbox_controller *mbox)
- 	if (!mbox->fw_xlate && !mbox->of_xlate)
- 		mbox->fw_xlate = fw_mbox_index_xlate;
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 9388da2a2737..6c0eaff9ca4b 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -11219,17 +11219,20 @@ S:	Maintained
+ P:	Documentation/process/maintainer-soc-clean-dts.rst
+ C:	irc://irc.oftc.net/pixel6-kernel-dev
+ F:	Documentation/devicetree/bindings/clock/google,gs101-clock.yaml
++F:	Documentation/devicetree/bindings/mailbox/google,lga-mailbox-array.yaml
+ F:	Documentation/devicetree/bindings/phy/google,lga-usb-phy.yaml
+ F:	Documentation/devicetree/bindings/soc/google/google,gs101-pmu-intr-gen.yaml
+ F:	Documentation/devicetree/bindings/usb/google,lga-dwc3.yaml
+ F:	arch/arm64/boot/dts/exynos/google/
+ F:	arch/arm64/boot/dts/google/
+ F:	drivers/clk/samsung/clk-gs101.c
++F:	drivers/mailbox/goog-mba*
+ F:	drivers/phy/phy-google-usb.c
+ F:	drivers/soc/samsung/gs101-pmu.c
+ F:	drivers/phy/samsung/phy-gs101-ufs.c
+ F:	drivers/usb/dwc3/dwc3-google.c
+ F:	include/dt-bindings/clock/google,gs101*
++F:	include/linux/mailbox/goog-mba-message.h
+ K:	[gG]oogle.?[tT]ensor
  
-+	if (!mbox->fwnode)
-+		mbox->fwnode = dev_fwnode(mbox->dev);
-+	mbox->fwnode = fwnode_handle_get(mbox->fwnode);
+ GPD FAN DRIVER
+diff --git a/drivers/mailbox/Kconfig b/drivers/mailbox/Kconfig
+index ab869769e278..c0ea73446a73 100644
+--- a/drivers/mailbox/Kconfig
++++ b/drivers/mailbox/Kconfig
+@@ -409,4 +409,12 @@ config AXIADO_MAILBOX
+ 	  Axiado SoCs.
+ 	  If unsure, say N.
+ 
++config GOOG_MBA_MBOX
++	tristate "Google Tensor MBA Mailbox"
++	help
++	  An implementation of the Google MailBox Array (MBA) driver present in
++	  Google Tensor SoCs starting with Laguna (G5). It is used for
++	  inter-processor communication between the application processor and
++	  co-processors.
 +
- 	scoped_guard(mutex, &con_mutex)
- 		list_add_tail(&mbox->node, &mbox_cons);
+ endif
+diff --git a/drivers/mailbox/Makefile b/drivers/mailbox/Makefile
+index 45dc59bb3e7f..8c3baac92424 100644
+--- a/drivers/mailbox/Makefile
++++ b/drivers/mailbox/Makefile
+@@ -86,3 +86,5 @@ obj-$(CONFIG_BCM74110_MAILBOX)	+= bcm74110-mailbox.o
+ obj-$(CONFIG_RISCV_SBI_MPXY_MBOX)	+= riscv-sbi-mpxy-mbox.o
  
-@@ -607,6 +611,8 @@ void mbox_controller_unregister(struct mbox_controller *mbox)
- 		if (mbox->txdone_poll)
- 			hrtimer_cancel(&mbox->poll_hrt);
- 	}
+ obj-$(CONFIG_AXIADO_MAILBOX)	+= axiado-mailbox.o
 +
-+	fwnode_handle_put(mbox->fwnode);
- }
- EXPORT_SYMBOL_GPL(mbox_controller_unregister);
- 
-diff --git a/include/linux/mailbox_controller.h b/include/linux/mailbox_controller.h
-index 26a238a6f941..591ccce3de3a 100644
---- a/include/linux/mailbox_controller.h
-+++ b/include/linux/mailbox_controller.h
-@@ -63,6 +63,9 @@ struct mbox_chan_ops {
- /**
-  * struct mbox_controller - Controller of a class of communication channels
-  * @dev:		Device backing this controller. Required.
-+ * @fwnode:		Firmware node related to this controller. If NULL
-+ *			the firmware node of `dev` will be used. Register
-+ *			will grab a refcount and unregister will drop it.
-  * @ops:		Operators that work on each communication chan. Required.
-  * @chans:		Array of channels. Required.
-  * @num_chans:		Number of channels in the 'chans' array. Required.
-@@ -83,6 +86,7 @@ struct mbox_chan_ops {
-  */
- struct mbox_controller {
- 	struct device *dev;
-+	struct fwnode_handle *fwnode;
- 	const struct mbox_chan_ops *ops;
- 	struct mbox_chan *chans;
- 	int num_chans;
++obj-$(CONFIG_GOOG_MBA_MBOX)	+= goog-mba.o
+diff --git a/drivers/mailbox/goog-mba-priv.h b/drivers/mailbox/goog-mba-priv.h
+new file mode 100644
+index 000000000000..79ddf32ef5ba
+--- /dev/null
++++ b/drivers/mailbox/goog-mba-priv.h
+@@ -0,0 +1,130 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++/*
++ * Copyright (c) 2025 Google LLC
++ */
++
++#ifndef _GOOG_MBA_PRIV_H_
++#define _GOOG_MBA_PRIV_H_
++
++#include <linux/mailbox_controller.h>
++#include <linux/mutex.h>
++
++struct goog_mbox_info {
++	/** @mbox: Mailbox controller structure. */
++	struct mbox_controller mbox;
++
++	/** @np: Device tree node */
++	struct device_node *np;
++
++	/** @mba: Pointer to the mailbox array containing this mailbox. */
++	struct goog_mba_info *mba;
++
++	/** @iomem: IO memory associated with this mailbox. */
++	void __iomem *iomem;
++
++	/** @irq: Linux IRQ associated with this mailbox. */
++	int irq;
++
++	/** @startup_lock: Protects active_chans during startup/shutdown. */
++	struct mutex startup_lock;
++
++	/** @active_chans: Number of channels currently started up. */
++	unsigned int active_chans;
++
++	/** @msg_buffer_words: Number of 32-bit words present in hardware. */
++	unsigned int msg_buffer_words;
++
++	/** @rx_payload_words: Number of 32-bit words in a rx mailbox message. */
++	unsigned int rx_payload_words;
++
++	/**
++	 * @rx_buffer: Memory storage for payload when receiving
++	 *
++	 * When we get a message from the other side we copy it here before
++	 * acknowledging the message and passing it to the client. Buffer
++	 * is `payload_words * 4` bytes big.
++	 */
++	u32 *rx_buffer;
++
++	/**
++	 * @queue_mode: If true, the other side uses the "queue mode" protocol.
++	 *
++	 * In the "queue mode" protocol, we can send more than one message at
++	 * once and we treat the message buffer like a circular queue, with
++	 * each entry being `payload_words` big.
++	 */
++	bool queue_mode;
++
++
++	/* QUEUE MODE ONLY BELOW */
++
++	/** @tx_payload_words: For queue mode, number of 32-bit words in a tx mailbox message. */
++	unsigned int tx_payload_words;
++
++	/**
++	 * @tx_idx: For queue mode, index into msg buffer to write the next msg.
++	 *
++	 * Always between 0 and msg_buffer_words - 1. Increments by payload_words
++	 * after each transmission and wraps to 0 if it's == msg_buffer_words.
++	 */
++	unsigned int tx_idx;
++
++	/**
++	 * @rx_idx: For queue mode, index into msg buffer to read the next msg.
++	 *
++	 * Always between 0 and msg_buffer_words - 1. Increments by rx_payload_words
++	 * after each reception and wraps to 0 if it's == msg_buffer_words.
++	 */
++	unsigned int rx_idx;
++
++	/**
++	 * @lock: For queue mode, protects TX queue state and hardware writes.
++	 */
++	spinlock_t lock;
++
++	/**
++	 * @tx_fifo: Dynamically allocated circular FIFO of channels with
++	 *	     outstanding TX messages (sized to @mbox.num_chans).
++	 */
++	struct mbox_chan **tx_fifo;
++
++	/**
++	 * @tx_fifo_wr_idx: Write index into @tx_fifo for the next TX message.
++	 */
++	unsigned int tx_fifo_wr_idx;
++
++	/**
++	 * @tx_fifo_rd_idx: Read index into @tx_fifo for the next TX completion.
++	 */
++	unsigned int tx_fifo_rd_idx;
++
++	/**
++	 * @outstanding_msgs: For queue mode, num msgs we've written but not acked
++	 *
++	 * After we start each transmission we grab the `lock` and increment
++	 * this by 1. In the interrupt handler when we see that some messages
++	 * were transferred we decrease this and send out the proper number
++	 * of acks.
++	 */
++	unsigned int outstanding_msgs;
++
++	/**
++	 * @num_chans: Number of channels in @chans (1 for non-queue/RX queue
++	 *	       mode, or msg_buffer_words / tx_payload_words for TX
++	 *	       queue mode).
++	 */
++	unsigned int num_chans;
++
++	/** @chans: Mailbox channels for this mailbox. */
++	struct mbox_chan chans[] __counted_by(num_chans);
++};
++
++struct goog_mba_info {
++	/** @dev: Pointer to the `struct device` */
++	struct device *dev;
++
++	/** @global_iomem: Pointer to global IO memory, or NULL */
++	void __iomem *global_iomem;
++};
++
++#endif /* _GOOG_MBA_PRIV_H_ */
+diff --git a/drivers/mailbox/goog-mba-trace.h b/drivers/mailbox/goog-mba-trace.h
+new file mode 100644
+index 000000000000..02be79757fcb
+--- /dev/null
++++ b/drivers/mailbox/goog-mba-trace.h
+@@ -0,0 +1,183 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++#undef TRACE_SYSTEM
++#define TRACE_SYSTEM goog_mba
++
++#if !defined(_GOOG_MBA_TRACE_H) || defined(TRACE_HEADER_MULTI_READ)
++#define _GOOG_MBA_TRACE_H
++
++#include <linux/tracepoint.h>
++
++#include "goog-mba-priv.h"
++
++TRACE_EVENT(
++	goog_mba_process_nq_txdone,
++
++	TP_PROTO(const struct goog_mbox_info *goog_mbox),
++
++	TP_ARGS(goog_mbox),
++
++	TP_STRUCT__entry(
++		__string(dev_name, dev_name(goog_mbox->mba->dev))
++		__string(name, goog_mbox->np->full_name)
++	),
++
++	TP_fast_assign(
++		__assign_str(dev_name);
++		__assign_str(name);
++	),
++
++	TP_printk("%s %s", __get_str(dev_name), __get_str(name))
++);
++
++TRACE_EVENT(
++	goog_mba_process_q_txdone,
++
++	TP_PROTO(const struct goog_mbox_info *goog_mbox, u32 reqs_completed, u32 outstanding_msgs),
++
++	TP_ARGS(goog_mbox, reqs_completed, outstanding_msgs),
++
++	TP_STRUCT__entry(
++		__string(dev_name, dev_name(goog_mbox->mba->dev))
++		__string(name, goog_mbox->np->full_name)
++		__field(u32, outstanding_msgs)
++		__field(u32, reqs_completed)
++	),
++
++	TP_fast_assign(
++		__assign_str(dev_name);
++		__assign_str(name);
++		__entry->outstanding_msgs = outstanding_msgs;
++		__entry->reqs_completed = reqs_completed;
++	),
++
++	TP_printk("%s %s: reqs_completed=%u outstanding_msgs=%u",
++		  __get_str(dev_name), __get_str(name), __entry->reqs_completed,
++		  __entry->outstanding_msgs)
++);
++
++TRACE_EVENT(
++	goog_mba_send_data_nq,
++
++	TP_PROTO(const struct goog_mbox_info *goog_mbox, const u32 *payload,
++		 unsigned int payload_words),
++
++	TP_ARGS(goog_mbox, payload, payload_words),
++
++	TP_STRUCT__entry(
++		__string(dev_name, dev_name(goog_mbox->mba->dev))
++		__string(name, goog_mbox->np->full_name)
++		__field(u32, payload_words)
++		__dynamic_array(u32, payload, payload_words)
++	),
++
++	TP_fast_assign(
++		__assign_str(dev_name);
++		__assign_str(name);
++		__entry->payload_words = payload_words;
++		memcpy(__get_dynamic_array(payload), payload,
++		       payload_words * sizeof(u32));
++	),
++
++	TP_printk("%s %s: data=%s",
++		  __get_str(dev_name), __get_str(name),
++		  __print_array(__get_dynamic_array(payload),
++				__entry->payload_words, sizeof(u32)))
++);
++
++TRACE_EVENT(
++	goog_mba_send_data_q,
++
++	TP_PROTO(const struct goog_mbox_info *goog_mbox, const u32 *payload,
++		 unsigned int payload_words),
++
++	TP_ARGS(goog_mbox, payload, payload_words),
++
++	TP_STRUCT__entry(
++		__string(dev_name, dev_name(goog_mbox->mba->dev))
++		__string(name, goog_mbox->np->full_name)
++		__field(u32, tx_idx)
++		__field(u32, payload_words)
++		__dynamic_array(u32, payload, payload_words)
++	),
++
++	TP_fast_assign(
++		__assign_str(dev_name);
++		__assign_str(name);
++		__entry->tx_idx = goog_mbox->tx_idx;
++		__entry->payload_words = payload_words;
++		memcpy(__get_dynamic_array(payload), payload,
++		       payload_words * sizeof(u32));
++	),
++
++	TP_printk("%s %s: tx_idx=%u data=%s",
++		  __get_str(dev_name), __get_str(name), __entry->tx_idx,
++		  __print_array(__get_dynamic_array(payload),
++				__entry->payload_words, sizeof(u32)))
++);
++
++TRACE_EVENT(
++	goog_mba_process_nq_rx,
++
++	TP_PROTO(const struct goog_mbox_info *goog_mbox),
++
++	TP_ARGS(goog_mbox),
++
++	TP_STRUCT__entry(
++		__string(dev_name, dev_name(goog_mbox->mba->dev))
++		__string(name, goog_mbox->np->full_name)
++		__field(u32, rx_payload_words)
++		__dynamic_array(u32, payload, goog_mbox->rx_payload_words)
++	),
++
++	TP_fast_assign(
++		__assign_str(dev_name);
++		__assign_str(name);
++		__entry->rx_payload_words = goog_mbox->rx_payload_words;
++		memcpy(__get_dynamic_array(payload), goog_mbox->rx_buffer,
++		       goog_mbox->rx_payload_words * sizeof(u32));
++	),
++
++	TP_printk("%s %s: data=%s",
++		  __get_str(dev_name), __get_str(name),
++		  __print_array(__get_dynamic_array(payload),
++				__entry->rx_payload_words, sizeof(u32)))
++);
++
++TRACE_EVENT(
++	goog_mba_process_q_rx,
++
++	TP_PROTO(const struct goog_mbox_info *goog_mbox),
++
++	TP_ARGS(goog_mbox),
++
++	TP_STRUCT__entry(
++		__string(dev_name, dev_name(goog_mbox->mba->dev))
++		__string(name, goog_mbox->np->full_name)
++		__field(u32, rx_idx)
++		__field(u32, rx_payload_words)
++		__dynamic_array(u32, payload, goog_mbox->rx_payload_words)
++	),
++
++	TP_fast_assign(
++		__assign_str(dev_name);
++		__assign_str(name);
++		__entry->rx_idx = goog_mbox->rx_idx;
++		__entry->rx_payload_words = goog_mbox->rx_payload_words;
++		memcpy(__get_dynamic_array(payload), goog_mbox->rx_buffer,
++		       goog_mbox->rx_payload_words * sizeof(u32));
++	),
++
++	TP_printk("%s %s: rx_idx=%u data=%s",
++		  __get_str(dev_name), __get_str(name), __entry->rx_idx,
++		  __print_array(__get_dynamic_array(payload),
++				__entry->rx_payload_words, sizeof(u32)))
++);
++
++#endif /* _GOOG_MBA_TRACE_H */
++
++/* This part must be outside protection */
++#undef TRACE_INCLUDE_PATH
++#define TRACE_INCLUDE_PATH ../drivers/mailbox
++#undef TRACE_INCLUDE_FILE
++#define TRACE_INCLUDE_FILE goog-mba-trace
++#include <trace/define_trace.h>
+diff --git a/drivers/mailbox/goog-mba.c b/drivers/mailbox/goog-mba.c
+new file mode 100644
+index 000000000000..b7ed27912503
+--- /dev/null
++++ b/drivers/mailbox/goog-mba.c
+@@ -0,0 +1,621 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * Google MailBox Array (MBA) Driver
++ *
++ * Copyright (c) 2025 Google LLC
++ */
++
++#include <linux/cleanup.h>
++#include <linux/interrupt.h>
++#include <linux/io.h>
++#include <linux/kernel.h>
++#include <linux/mailbox_controller.h>
++#include <linux/mailbox/goog-mba-message.h>
++#include <linux/mfd/syscon.h>
++#include <linux/module.h>
++#include <linux/mutex.h>
++#include <linux/of_address.h>
++#include <linux/of_irq.h>
++#include <linux/platform_device.h>
++#include <linux/regmap.h>
++#include <linux/slab.h>
++#include <linux/spinlock.h>
++
++#include "goog-mba-priv.h"
++
++#define CREATE_TRACE_POINTS
++#include "goog-mba-trace.h"
++
++#define CLIENT_IRQ_TRIG_OFFSET		0x0
++#define SET_HOST_IRQ			0x1
++
++#define CLIENT_IRQ_CONFIG_OFFSET	0x4
++#define ENABLE_HOST_AUTO_ACK		BIT(8)
++#define CLIENT_IRQ_MASK_MSG_INT		BIT(16)
++#define CLIENT_IRQ_MASK_ACK_INT		BIT(24)
++
++#define CLIENT_IRQ_STATUS_OFFSET	0x8
++#define CLIENT_IRQ_STATUS_MSG_INT	0x1
++#define CLIENT_IRQ_STATUS_ACK_INT	0x100
++
++#define CLIENT_MBA_IP_VER		0x30
++#define CLIENT_NUM_MSG_REG		0x34
++#define CLIENT_OUTSTANDING_MSG		0x10
++
++#define GLOBAL_NUM_MSG_REG_OFFSET(x)	(0x10 + ((x) * 4))
++#define GLOBAL_MBA_IP_VER_OFFSET	4
++
++#define CLIENT_CLIENT_DOORBELL_TRIG	0x20
++#define CLIENT_DOORBELL_MASK_OFFSET	0x24
++#define CLIENT_DOORBELL_STATUS_OFFSET	0x28
++#define CLIENT_HOST_DOORBELL_OFFSET	0x38
++#define CLIENT_CLIENT_DOORBELL_OFFSET	0x3c
++
++#define MSG_OFFSET(i)			(0x100 + (i) * sizeof(u32))
++
++#define MBA_IP_MAJOR_VER_1		0x1
++#define MBA_IP_MAJOR_VER_3		0x3
++
++#define MBA_IP_MAJOR_VER_SHIFT		24
++#define MBA_IP_MAJOR_VER_MASK		0xff
++#define MBA_IP_MINOR_VER_SHIFT		16
++#define MBA_IP_MINOR_VER_MASK		0xff
++#define MBA_IP_INCREMENTAL_VER_SHIFT	0
++#define MBA_IP_INCREMENTAL_VER_MASK	0xffff
++
++/**
++ * goog_mba_handle_tx_interrupt() - Handle interrupt that remote Acked our msg.
++ * @goog_mbox: The mailbox info.
++ */
++static void goog_mba_handle_tx_interrupt(struct goog_mbox_info *goog_mbox)
++{
++	unsigned int num_chans = goog_mbox->num_chans;
++	unsigned int reqs_completed;
++	u32 outstanding_msgs;
++	int i;
++
++	/*
++	 * ACK interrupt needs to be cleared before reading CLIENT_OUTSTANDING_MSG.
++	 * Then if a "race" happens and another message gets Acked after we clear
++	 * but before we read CLIENT_OUTSTANDING_MSG then the worst that will
++	 * happen is we'll get a followup interrupt that will show 0 reqs_completed.
++	 */
++	writel(CLIENT_IRQ_STATUS_ACK_INT, goog_mbox->iomem + CLIENT_IRQ_STATUS_OFFSET);
++
++	if (!goog_mbox->queue_mode) {
++		trace_goog_mba_process_nq_txdone(goog_mbox);
++		mbox_chan_txdone(&goog_mbox->chans[0], 0);
++		return;
++	}
++
++	scoped_guard(spinlock, &goog_mbox->lock) {
++		outstanding_msgs = readl(goog_mbox->iomem + CLIENT_OUTSTANDING_MSG);
++
++		if (goog_mbox->outstanding_msgs >= outstanding_msgs) {
++			reqs_completed = goog_mbox->outstanding_msgs - outstanding_msgs;
++		} else {
++			/*
++			 * The hardware's track of outstanding messages should always
++			 * be less than or equal to the number of messages we queued.
++			 * If it thinks there are more messages outstanding than we
++			 * queued, something is wrong. Assume nothing was completed.
++			 */
++			dev_warn_ratelimited(goog_mbox->mba->dev,
++					     "%pOFP: unexpected outstanding msgs: %u -> %u\n",
++					     goog_mbox->np, goog_mbox->outstanding_msgs,
++					     outstanding_msgs);
++			reqs_completed = 0;
++		}
++		goog_mbox->outstanding_msgs = outstanding_msgs;
++	}
++
++	trace_goog_mba_process_q_txdone(goog_mbox, reqs_completed, outstanding_msgs);
++
++	for (i = 0; i < reqs_completed; i++) {
++		struct mbox_chan *chan;
++
++		scoped_guard(spinlock, &goog_mbox->lock) {
++			chan = goog_mbox->tx_fifo[goog_mbox->tx_fifo_rd_idx];
++			goog_mbox->tx_fifo_rd_idx =
++				(goog_mbox->tx_fifo_rd_idx + 1) % num_chans;
++		}
++
++		mbox_chan_txdone(chan, 0);
++	}
++}
++
++/**
++ * goog_mba_handle_rx_interrupt() - Handle interrupt that remote send a msg.
++ * @goog_mbox: The mailbox info.
++ */
++static void goog_mba_handle_rx_interrupt(struct goog_mbox_info *goog_mbox)
++{
++	struct goog_mba_rx_msg msg = {
++		.payload = goog_mbox->rx_buffer,
++		.payload_words = goog_mbox->rx_payload_words,
++	};
++	int i;
++
++	for (i = 0; i < goog_mbox->rx_payload_words; i++)
++		goog_mbox->rx_buffer[i] = readl(goog_mbox->iomem +
++						MSG_OFFSET(goog_mbox->rx_idx + i));
++
++	if (goog_mbox->queue_mode) {
++		goog_mbox->rx_idx = (goog_mbox->rx_idx + goog_mbox->rx_payload_words) %
++				    goog_mbox->msg_buffer_words;
++		trace_goog_mba_process_q_rx(goog_mbox);
++	} else {
++		trace_goog_mba_process_nq_rx(goog_mbox);
++	}
++
++	/*
++	 * Ack the interrupt after we've read the message to local memory but
++	 * before passing it to the client. This frees up space for the remote
++	 * processor to send another message as the client is processing this one.
++	 */
++	writel(CLIENT_IRQ_STATUS_MSG_INT, goog_mbox->iomem + CLIENT_IRQ_STATUS_OFFSET);
++
++	mbox_chan_received_data(&goog_mbox->chans[0], &msg);
++}
++
++/**
++ * goog_mba_isr() - Main interrupt routine
++ * @irq: The IRQ number.
++ * @data: Data passed when registering (the goog_mbox_info for this IRQ).
++ *
++ * Return: IRQ_HANDLED if IRQ was handled; IRQ_NONE if no interrupt was found.
++ */
++static irqreturn_t goog_mba_isr(int irq, void *data)
++{
++	struct goog_mbox_info *goog_mbox = data;
++	u32 irq_status;
++
++	irq_status = readl(goog_mbox->iomem + CLIENT_IRQ_STATUS_OFFSET);
++	if (!irq_status)
++		return IRQ_NONE;
++
++	while (true) {
++		if (irq_status & CLIENT_IRQ_STATUS_ACK_INT)
++			goog_mba_handle_tx_interrupt(goog_mbox);
++
++		if (irq_status & CLIENT_IRQ_STATUS_MSG_INT) {
++			goog_mba_handle_rx_interrupt(goog_mbox);
++
++			/*
++			 * In queue mode the RX interrupt will re-assert itself
++			 * right after we clear it if there is more than one
++			 * message waiting. As an optimization to avoid returning
++			 * and immediately re-triggering our interrupt, re-check.
++			 *
++			 * NOTE: we don't need to loop for the TX (Ack) case
++			 * since TX interrupts aren't counted in the same way.
++			 */
++			if (goog_mbox->queue_mode)
++				irq_status = readl(goog_mbox->iomem + CLIENT_IRQ_STATUS_OFFSET);
++			else
++				break;
++		} else {
++			break;
++		}
++	}
++
++	return IRQ_HANDLED;
++}
++
++/**
++ * goog_mba_send_data() - Mailbox op for send_data.
++ * @chan: The Linux mbox_chan structure associated with the mailbox.
++ * @msg: The mailbox message, expected to be of type `struct goog_mba_tx_msg`.
++ *	 If NULL, we'll assume a 0-byte doorbell-only message.
++ *
++ * Return: 0 if the data was sent; -EBUSY if the queue was full; other
++ *	   negative error values for other problems.
++ */
++static int goog_mba_send_data(struct mbox_chan *chan, void *msg)
++{
++	struct goog_mbox_info *goog_mbox = chan->con_priv;
++	struct device *dev = goog_mbox->mba->dev;
++	bool queue_mode = goog_mbox->queue_mode;
++	unsigned int payload_words = 0;
++	const u32 *payload = NULL;
++	bool is_init = false;
++	unsigned int tx_idx;
++	unsigned int i;
++
++	if (msg) {
++		struct goog_mba_tx_msg *mba_msg = msg;
++
++		payload_words = mba_msg->payload_words;
++		payload = mba_msg->payload;
++		is_init = mba_msg->init;
++	}
++
++	if (payload_words > goog_mbox->msg_buffer_words) {
++		dev_err(dev, "%pOFP: Payload too big: %u > %u\n",
++			goog_mbox->np, payload_words, goog_mbox->msg_buffer_words);
++		return -EINVAL;
++	}
++
++	if (queue_mode && !goog_mbox->tx_payload_words) {
++		dev_err(dev, "%pOFP: Can't TX on RX-only queued mailbox\n", goog_mbox->np);
++		return -EINVAL;
++	}
++
++	/*
++	 * In non-queue mode, allow the caller to send any amount of data.
++	 * In queue mode the amount needs to be pre-specified so we know
++	 * how many slots are available in our message buffer.
++	 */
++	if (queue_mode && payload_words != goog_mbox->tx_payload_words) {
++		dev_err(dev, "%pOFP: Payload size mismatch: %u vs %u\n",
++			goog_mbox->np, payload_words, goog_mbox->tx_payload_words);
++		return -EINVAL;
++	}
++
++	/*
++	 * Serialize across all channels of this mailbox so two concurrent
++	 * sends on different channels cannot interleave their payload writes
++	 * and ring SET_HOST_IRQ before an earlier slot has finished being
++	 * written.
++	 */
++	guard(spinlock_irqsave)(&goog_mbox->lock);
++
++	if (queue_mode) {
++		if (goog_mbox->outstanding_msgs >= goog_mbox->num_chans)
++			return -EBUSY;
++
++		tx_idx = goog_mbox->tx_idx;
++		trace_goog_mba_send_data_q(goog_mbox, payload, payload_words);
++	} else {
++		tx_idx = 0;
++		trace_goog_mba_send_data_nq(goog_mbox, payload, payload_words);
++	}
++
++	for (i = 0; i < payload_words; i++)
++		writel(payload[i], goog_mbox->iomem + MSG_OFFSET(tx_idx + i));
++
++	/*
++	 * We need to be careful on how we deal with `outstanding_msgs`.
++	 * The hardware will give us an interrupt every time it transfers
++	 * a message, but if it transfers two messages before our interrupt
++	 * handler fires then we'll still only get one interrupt. We have
++	 * to look at the difference between the hardware's idea of
++	 * `outstanding_msgs` and ours to figure out how many messages were
++	 * actually transferred.
++	 *
++	 * We also keep a local FIFO (`tx_fifo`) mapping each outstanding
++	 * message slot to the `struct mbox_chan` it was submitted on so the
++	 * interrupt handler can complete the corresponding channels in order.
++	 */
++	if (queue_mode) {
++		if (is_init)
++			goog_mbox->tx_idx = 0;
++		else
++			goog_mbox->tx_idx = (goog_mbox->tx_idx + payload_words) %
++					    goog_mbox->msg_buffer_words;
++
++		goog_mbox->tx_fifo[goog_mbox->tx_fifo_wr_idx] = chan;
++		goog_mbox->tx_fifo_wr_idx = (goog_mbox->tx_fifo_wr_idx + 1) %
++					    goog_mbox->num_chans;
++		goog_mbox->outstanding_msgs++;
++	}
++
++	writel(SET_HOST_IRQ, goog_mbox->iomem + CLIENT_IRQ_TRIG_OFFSET);
++
++	return 0;
++}
++
++/**
++ * goog_mba_startup() - Mailbox op for startup.
++ * @chan: The Linux mbox_chan structure associated with the mailbox.
++ *
++ * Return: 0 for OK; negative error code if problems.
++ */
++static int goog_mba_startup(struct mbox_chan *chan)
++{
++	struct goog_mbox_info *goog_mbox = chan->con_priv;
++
++	guard(mutex)(&goog_mbox->startup_lock);
++	if (goog_mbox->active_chans++ == 0) {
++		writel(ENABLE_HOST_AUTO_ACK | CLIENT_IRQ_MASK_MSG_INT | CLIENT_IRQ_MASK_ACK_INT,
++		       goog_mbox->iomem + CLIENT_IRQ_CONFIG_OFFSET);
++		enable_irq(goog_mbox->irq);
++	}
++
++	return 0;
++}
++
++/**
++ * goog_mba_shutdown() - Mailbox op for shutdown.
++ * @chan: The Linux mbox_chan structure associated with the mailbox.
++ */
++static void goog_mba_shutdown(struct mbox_chan *chan)
++{
++	struct goog_mbox_info *goog_mbox = chan->con_priv;
++
++	guard(mutex)(&goog_mbox->startup_lock);
++	if (--goog_mbox->active_chans == 0) {
++		disable_irq(goog_mbox->irq);
++		writel(0x0, goog_mbox->iomem + CLIENT_IRQ_CONFIG_OFFSET);
++	}
++}
++
++static const struct mbox_chan_ops goog_mba_chan_ops = {
++	.send_data = goog_mba_send_data,
++	.startup = goog_mba_startup,
++	.shutdown = goog_mba_shutdown,
++};
++
++/**
++ * goog_mba_fw_xlate() - Translate fwnode reference args to an unbound channel.
++ * @mbox: The mailbox controller.
++ * @sp: The fwnode reference arguments.
++ *
++ * Return: The next free mbox_chan, or an ERR_PTR() on failure.
++ */
++static struct mbox_chan *goog_mba_fw_xlate(struct mbox_controller *mbox,
++					   const struct fwnode_reference_args *sp)
++{
++	int i;
++
++	if (sp->nargs)
++		return ERR_PTR(-EINVAL);
++
++	/*
++	 * In TX queue mode, each hardware queue slot is exposed as a virtual
++	 * channel while the DT binding uses #mbox-cells = <0>. Return the next
++	 * unclaimed channel so clients can request all queue slots.
++	 */
++	for (i = 0; i < mbox->num_chans; i++) {
++		if (!mbox->chans[i].cl)
++			return &mbox->chans[i];
++	}
++
++	return ERR_PTR(-EBUSY);
++}
++
++/**
++ * goog_mba_get_msg_buf_words() - Return # msg buffer words in HW for this mailbox.
++ * @mba: The mailbox array info.
++ * @iomem: The IO memory for this mailbox.
++ * @np: The device tree node associated with this mailbox.
++ *
++ * Return: The number of 32-bit words in the hardware message buffer.
++ */
++static unsigned int goog_mba_get_msg_buf_words(struct goog_mba_info *mba,
++					       void __iomem *iomem,
++					       struct device_node *np)
++{
++	struct resource res;
++	unsigned int index;
++
++	/*
++	 * On newer IP there's no global space and the register moved to the
++	 * client address space.
++	 */
++	if (!mba->global_iomem)
++		return readl(iomem + CLIENT_NUM_MSG_REG);
++
++	/*
++	 * On older IP we need to find the index so we can look up the value
++	 * in the global memory. Our index is based on the physical address
++	 * of the mbox since on older hardware mailboxes are 4K apart.
++	 */
++	if (of_address_to_resource(np, 0, &res)) {
++		dev_err(mba->dev, "%pOFP: Failed to find physical address\n", np);
++		return 0;
++	}
++	index = (res.start & 0x1ffff) / 0x1000;
++
++	return readl(mba->global_iomem + GLOBAL_NUM_MSG_REG_OFFSET(index));
++}
++
++/**
++ * of_node_put_void() - of_node_put() for passing to devm_add_action_or_reset().
++ * @data: Our struct device_node pointer.
++ */
++static void of_node_put_void(void *data)
++{
++	of_node_put(data);
++}
++
++/**
++ * goog_mba_mbox_init() - Initialize one single mailbox.
++ * @mba: The array containing this mailbox.
++ * @np: The device tree node associated with this mailbox.
++ *
++ * Return: 0 or a negative error code. If an error is returned, the error has
++ *	   already been logged.
++ */
++static int goog_mba_mbox_init(struct goog_mba_info *mba, struct device_node *np)
++{
++	struct device *dev = mba->dev;
++	struct goog_mbox_info *goog_mbox;
++	struct mbox_controller *mbox;
++	unsigned int msg_buffer_words;
++	unsigned int num_chans = 1;
++	u32 tx_payload_words = 0;
++	u32 rx_payload_words = 0;
++	void __iomem *iomem;
++	bool queue_mode;
++	int i, ret;
++
++	iomem = devm_of_iomap(dev, np, 0, NULL);
++	if (IS_ERR(iomem))
++		return dev_err_probe(dev, PTR_ERR(iomem),
++				     "%pOFP: Failed to map memory\n", np);
++
++	queue_mode = of_property_read_bool(np, "google,mba-queue-mode");
++	of_property_read_u32(np, "google,rx-payload-words", &rx_payload_words);
++	of_property_read_u32(np, "google,tx-payload-words", &tx_payload_words);
++
++	msg_buffer_words = goog_mba_get_msg_buf_words(mba, iomem, np);
++
++	if (queue_mode && !msg_buffer_words)
++		return dev_err_probe(dev, -EINVAL,
++				     "%pOFP: Queue mode requires non-zero buffer\n", np);
++
++	if (tx_payload_words && !queue_mode)
++		return dev_err_probe(dev, -EINVAL,
++				     "%pOFP: Don't specify TX payload (%u) unless queue-mode\n",
++				     np, tx_payload_words);
++
++	/*
++	 * HW can handle full duplex but there is no current scheme for dividing
++	 * up the message buffer between TX and RX portions. Non-queue mode
++	 * could work half-duplex, but that doesn't make sense in queue mode.
++	 * Thus queue mode requires either RX or TX payload words, not both.
++	 */
++	if (queue_mode && ((!rx_payload_words && !tx_payload_words) ||
++			   (rx_payload_words && tx_payload_words)))
++		return dev_err_probe(dev, -EINVAL,
++				     "%pOFP: Queue mode requires either RX or TX payload words\n",
++				     np);
++
++	if (msg_buffer_words < rx_payload_words)
++		return dev_err_probe(dev, -EINVAL,
++				     "%pOFP: Buffer (%u) < RX Payload (%u)\n",
++				     np, msg_buffer_words, rx_payload_words);
++	if (queue_mode && rx_payload_words && msg_buffer_words % rx_payload_words != 0)
++		return dev_err_probe(dev, -EINVAL,
++				     "%pOFP: Queue buffer (%u) must be multiple of RX payload (%u)\n",
++				     np, msg_buffer_words, rx_payload_words);
++
++	if (tx_payload_words && msg_buffer_words % tx_payload_words != 0)
++		return dev_err_probe(dev, -EINVAL,
++				     "%pOFP: Queue buffer (%u) must be multiple of TX payload (%u)\n",
++				     np, msg_buffer_words, tx_payload_words);
++
++	if (tx_payload_words)
++		num_chans = msg_buffer_words / tx_payload_words;
++
++	goog_mbox = devm_kzalloc(dev, struct_size(goog_mbox, chans, num_chans), GFP_KERNEL);
++	if (!goog_mbox)
++		return -ENOMEM;
++
++	goog_mbox->num_chans = num_chans;
++	goog_mbox->mba = mba;
++	goog_mbox->iomem = iomem;
++	goog_mbox->queue_mode = queue_mode;
++	goog_mbox->rx_payload_words = rx_payload_words;
++	goog_mbox->tx_payload_words = tx_payload_words;
++	goog_mbox->msg_buffer_words = msg_buffer_words;
++
++	of_node_get(np);
++	ret = devm_add_action_or_reset(dev, of_node_put_void, np);
++	if (ret)
++		return ret;
++	goog_mbox->np = np;
++
++	/* Start with all interrupts disabled and cleared */
++	writel(0x0, goog_mbox->iomem + CLIENT_IRQ_CONFIG_OFFSET);
++	writel(CLIENT_IRQ_STATUS_MSG_INT | CLIENT_IRQ_STATUS_ACK_INT,
++	       goog_mbox->iomem + CLIENT_IRQ_STATUS_OFFSET);
++
++	goog_mbox->irq = of_irq_get(np, 0);
++	if (goog_mbox->irq <= 0) {
++		if (goog_mbox->irq == 0)
++			goog_mbox->irq = -EINVAL;
++		return dev_err_probe(dev, goog_mbox->irq, "%pOFP: Failed to get IRQ\n", np);
++	}
++	ret = devm_request_irq(dev, goog_mbox->irq, goog_mba_isr,
++			       IRQF_NO_SUSPEND | IRQF_NO_AUTOEN,
++			       NULL, goog_mbox);
++	if (ret)
++		return dev_err_probe(dev, ret, "%pOFP: Failed to request interrupt\n", np);
++
++	if (rx_payload_words) {
++		goog_mbox->rx_buffer = devm_kcalloc(dev, rx_payload_words,
++						    sizeof(*goog_mbox->rx_buffer), GFP_KERNEL);
++		if (!goog_mbox->rx_buffer)
++			return -ENOMEM;
++	}
++
++	mbox = &goog_mbox->mbox;
++	if (queue_mode && tx_payload_words) {
++		goog_mbox->tx_fifo = devm_kcalloc(dev, num_chans, sizeof(*goog_mbox->tx_fifo),
++						  GFP_KERNEL);
++		if (!goog_mbox->tx_fifo)
++			return -ENOMEM;
++
++		mbox->fw_xlate = goog_mba_fw_xlate;
++	}
++
++	mbox->fwnode = of_fwnode_handle(np);
++	mbox->dev = dev;
++	mbox->ops = &goog_mba_chan_ops;
++	mbox->chans = goog_mbox->chans;
++	mbox->num_chans = num_chans;
++	mbox->txdone_irq = true;
++	spin_lock_init(&goog_mbox->lock);
++	mutex_init(&goog_mbox->startup_lock);
++
++	for (i = 0; i < num_chans; i++)
++		goog_mbox->chans[i].con_priv = goog_mbox;
++
++	ret = devm_mbox_controller_register(dev, mbox);
++	if (ret)
++		return dev_err_probe(dev, ret,
++				     "%pOFP: Failed to register mailbox controller\n", np);
++
++	return 0;
++}
++
++/**
++ * goog_mba_probe() - MBA probe routine.
++ * @pdev: Our platform device.
++ *
++ * Return: 0 or a negative error code.
++ */
++static int goog_mba_probe(struct platform_device *pdev)
++{
++	struct device *dev = &pdev->dev;
++	struct goog_mba_info *mba;
++	int ret;
++
++	mba = devm_kzalloc(dev, sizeof(*mba), GFP_KERNEL);
++	if (!mba)
++		return -ENOMEM;
++	mba->dev = dev;
++
++	/*
++	 * The first memory range is the memory range that the other side
++	 * of the mailbox uses. The second memory range is the shared/global
++	 * range. Note that newer versions of the IP don't have the global
++	 * range, so mba->global_iomem is left NULL on newer IP.
++	 */
++	if (platform_get_resource(pdev, IORESOURCE_MEM, 1)) {
++		mba->global_iomem = devm_platform_ioremap_resource(pdev, 1);
++		if (IS_ERR(mba->global_iomem))
++			return dev_err_probe(dev, PTR_ERR(mba->global_iomem),
++					     "Failed to iomap global region\n");
++	}
++
++	for_each_available_child_of_node_scoped(dev->of_node, child_np) {
++		ret = goog_mba_mbox_init(mba, child_np);
++		if (ret)
++			return ret;
++	}
++
++	return 0;
++}
++
++static const struct of_device_id goog_mba_match[] = {
++	{ .compatible = "google,lga-mailbox-array" },
++	{ /* Sentinel */ }
++};
++MODULE_DEVICE_TABLE(of, goog_mba_match);
++
++static struct platform_driver mba = {
++	.driver = {
++		.name = "goog-mba",
++		.of_match_table = goog_mba_match,
++	},
++	.probe = goog_mba_probe,
++};
++
++module_platform_driver(mba);
++
++MODULE_DESCRIPTION("Google MailBox Array (MBA) Driver");
++MODULE_AUTHOR("Douglas Anderson <dianders@chromium.org>");
++MODULE_LICENSE("GPL");
+diff --git a/include/linux/mailbox/goog-mba-message.h b/include/linux/mailbox/goog-mba-message.h
+new file mode 100644
+index 000000000000..5c3d47e3ded3
+--- /dev/null
++++ b/include/linux/mailbox/goog-mba-message.h
+@@ -0,0 +1,38 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++/*
++ * Google MailBox Array (MBA) Mailbox Message
++ *
++ * Copyright (c) 2025 Google LLC
++ */
++
++#ifndef _LINUX_MAILBOX_GOOG_MBA_MESSAGE_H_
++#define _LINUX_MAILBOX_GOOG_MBA_MESSAGE_H_
++
++#include <linux/types.h>
++
++struct goog_mba_tx_msg {
++	/** @payload: The contents of the message to send. */
++	const u32 *payload;
++
++	/** @payload_words: The number of 32-bit words in the payload. */
++	u8 payload_words;
++
++	/**
++	 * @init: Initialize queue settings after sending.
++	 *
++	 * Tell the mailbox driver that this is a special "initialize"
++	 * message for a queue-based mailbox. This allows the mailbox driver
++	 * to keep its state synced with the remote side of the mailbox.
++	 */
++	bool init;
++};
++
++struct goog_mba_rx_msg {
++	/** @payload: The contents of the message received. */
++	const u32 *payload;
++
++	/** @payload_words: The number of 32-bit words in the payload. */
++	u8 payload_words;
++};
++
++#endif /* _LINUX_MAILBOX_GOOG_MBA_MESSAGE_H_ */
 -- 
 2.56.0.257.gf7497c7d27-goog
 
