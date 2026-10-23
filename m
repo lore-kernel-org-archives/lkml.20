@@ -1,55 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.170
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792770535;
-	b=e/2BjUtaWkR9VQzoFCrUZJilLzAoNb5lp+GXPxgyDwI2LF9jz3o538kzFnmCmS4rAfq0
-	 /ofUluy9be2kVa1rRymndB4bloBPbATKuXT1v6KOUT8MibcXbv/nEqrKfHc2J6W4RQSy1
-	 FiQrEaB4rCmfMC1o3/RmB0PG2jxP6/XHUHAR3XcD3a7WmunCWqpziH37MQZS/4ekpFh4x
-	 8TOt1LNltskor/ddOVpfTJGC8+cIWDj9F7V4uhCzbGnS8almfmTddLsYCurWuirW2wUD7
-	 j9SVZqp9MAP4DIztRZqZOZXCRnMmu8bNCNey1JBC5SWYF0fmjzKAYj5XrDUsQLdN9gQ==
+	t=1792770543;
+	b=T6MqW/8INQ5vl+yUeUjx5XIz4mpHHPa0PTumy6lJTc00Y3ZYbattNIq4ltsZwf2gqIzO
+	 loFUcncwN5rTwoaEuTgNxIGD6Y1TIEHcktmxj1+X/OGWqC/HDvcm5zrRGcvSvQcizf6Nv
+	 2Rmnan53f5ny6Vmp0RXuen8rdqLqySg1RCHnT4wOo5ruaU4RCADdltSukfEGagyieBGww
+	 lYU72+rIVBDpoq5pyCJq4aRn/13udhD8aRB7n7WqCmraMmog0ljdMhrtgoVGsPWi+/7kw
+	 RHoPK+OODNk9LJ/+EBix2bKs6MHMlRIC2FVfCAfCdUkZIDzU0gK4hGuIa/p3x5c/QOQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792770535;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=JF3UN1kRxJtn08yiPLt98scNIxRJBp+OMlmCkWuMdjw=;
-	b=VLrltmeF0CNsI1kO4JjaPUe0Uy3GsvU0earqrsXNjpN37vjBk2kXW55qg90ZKywvznf8
-	 0smnowgh0sJXjnHSJs/mB0AkjSkCPYtqYoNaAJBUoKTfL0yGKhO8erqMGmQwcbmHDkB9F
-	 6LOM+YF4MMvjUoAxVnlQfD01EYpWVqoM5WQW+3mcpF9yiwEklythvCrH85C97kVRdF2Sh
-	 ZDINbaB5CmkSh+8dWHDCKIAqu2KYAAJApNDT/Xkm/l0Sk8qIe5/CAB4kWLAPMKijDNwsW
-	 SdUTPXq32nZQemB/SB8jsXtAl0JO9/6qvmFaM1wXSzOl6VYSQ3iLfyzrXXFKXrB9O4w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792770543;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=60Xs15W9jQQ2oWcJEMPCLV3YnsgNH1/hIQ/HS3LOjiI=;
+	b=sxDt1H5rekd6l14JjcTbOh++07ZV88XTKO2wCR8Xb3RsCvZfUW5jaeI387iHIiDVoGIl
+	 M15CueeIlGXd8JvaoVRWRdcZBVjPTP1xD/8opvQ7/oUw/aMtCgn3vVRSo0/0tbvdrugED
+	 5ltDt8nDysz9i/9tlDR1DqUyuJAP8UtXaodKzLCNZHS/yMiXAQRwY/+tfNBFd0XeVQuuW
+	 ibFvphzuUUA6LDAXKccPlR/XoT9xTsLLnbDszeeVr3VXjG6NaAa2fZ/IQ+eqQl30MTyvr
+	 Y9Fcl0Rq7bbOVWNrcoD9ItHm1Mlj+K/yXVxjXTfayAohzj7rVoW8CszZ0CcvtY4uAKw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KP86md6N;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=XGD6UvWX;
+	arc=none smtp.remote-ip=209.85.210.170
+Received: from mail-pf1-f170.google.com (mail-pf1-f170.google.com [209.85.210.170])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EE89606A31B;
-	Fri, 23 Oct 2026 15:48:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6A16606A338
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 15:49:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A6A16606A338
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KP86md6N
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A95641F01825;
-	Fri, 23 Oct 2026 15:48:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792770534;
-	bh=JF3UN1kRxJtn08yiPLt98scNIxRJBp+OMlmCkWuMdjw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=KP86md6NaScZuCl6YTCgY0Xr8v5vABqnQaOAc+izbq2+s17gkmTEfSsTkjRN2xSol
-	 wpzEObz3dV2PY5pLntGv2zBZIpJtw2AZti6+hjsmJiaqpLzMVWgeUj5OHdNcb9IzHC
-	 W+Ke96PJmCmFs8qsMCdt6bDm+zfpcieuEcrVNaQwJ5PMWfKn7XSr5fX9ZnSgEfAIqj
-	 wuX69hSYx9tCwrMs7MkqxrUHQC9XWCyvj9kcnO8dlLe+T8L2JxK6KCdmXZCd/pf4XQ
-	 adzMcOPSxvDq6aYKBDU8YP8+pAPwJtbH9mFGta2zR+S2XMesX61O9q0rcfrLZbl/rX
-	 iI8kwvaQdZb8Q==
-Date: Fri, 23 Oct 2026 15:48:53 +0000
-From: Yosry Ahmed <yosry@kernel.org>
-To: Amirmohammad Eftekhar <amirmohammad.eftekhar@cispa.de>
-Cc: seanjc@google.com, pbonzini@redhat.com, kvm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, jmattson@google.com
-Subject: Re: [PATCH] KVM: nSVM: Reset the virtual VMLOAD/VMSAVE bit in vmcb02
- on every nested VMRUN
-Message-ID: <att-Epjatf5sw-ba@google.com>
-References: <atpGGKVAL3bAnmnk@google.com>
- <atqdBFgoztW0nhoC@google.com>
- <20261023090924.9685-1-amirmohammad.eftekhar@cispa.de>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=XGD6UvWX
+Received: by mail-pf1-f170.google.com with SMTP id d2e1a72fcca58-8a05b210703so532630b3a.0
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 08:49:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792770542; x=1793375342; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=60Xs15W9jQQ2oWcJEMPCLV3YnsgNH1/hIQ/HS3LOjiI=;
+        b=XGD6UvWXxifq9S1XOEE05GyMGXg4B3IUDQzD7to/TAOkeLd4rCov112YIO2g9IHwaY
+         9Ppbqaa3EDp0qaDBTjWj0qDxFK//F3JPLHhCqNCvguu8rDs1PZd0zHB8vzenMBwaDoW/
+         X3jaVLUB7R6JK9l++9xRNnvjI+T9yn1QyYBD1K4pJRgfUMfBNmmtm4OnqRrYTr+Pwzhg
+         Wrk9g4gymtEF5SQMBbQP8pa2KkCw/oExRPtb0lfaa6G3EW9Md/5JMR5FtM4RmHzFR8jL
+         HJr7VIIKlb+E/h3qjD1YKqkjyXmzZ3pPf111/3DhzTSc61SGNLqC41n8Uxq4W0LIWd4w
+         34dw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792770542; x=1793375342;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=60Xs15W9jQQ2oWcJEMPCLV3YnsgNH1/hIQ/HS3LOjiI=;
+        b=zLbWAMYX1iG/1dxeYk3Ze8rb1/SAnXn4q5a9Hsrm9RpNhLLunYf9uuwoF+vFYXE1VZ
+         9+BPCWr5c+s8DWt3FZGIog1DS4m2Ri1cNJMXV6sna6j4hSuKXpjrPob2Wdt+Y2jROmIr
+         5fHqVew629kgUXPzC2ulFYCIbINJNZ0Sf687p6WNNdukso8xGQK92lCBDvgifhcRtsiz
+         bNrkS5HFUHFDi1SBKVEMDKZXk7clquaEPjQ7LV6dYrdG4rirtRS5IqwFrNKCvAUB9+pJ
+         orWY3O5FEVMKg+o950gIPnioZfzFITkR4KvHO4pOXPiNOj1YqLO7XDk6IaT0LDeVStWo
+         C/IA==
+X-Forwarded-Encrypted: i=1; AKwUvBwxAIHvKy04Lx3UXeoLukybhMZs4yTWdNyQX0YBgwt2pN8uBxEFOvEIoDsD2I66wdVeTQhsUlU0sn7Rg3o=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKQzin9nWeUC2Q1U3GDYdJJx4Mte1zOwIPEImLu9lpjbunyd9jU
+	HjmxZemTW1YeHJiC3w5kHRVyQUtp8g5ZRoxSomuuBLviJ57OpfwvkvOt
+X-Gm-Gg: AYBFou2NJsH/AXWRcDsmxhbQQew0lWC7zvtjYCCYNWUXwF+U62iWSeF7k6MHuE50iBm
+	NymIsePUumPZkXCXc95aMWDRQjR+MOQ/DMt75jnrVBUEWsFVYosMJ7tXSMFmfaI4W+0L6A7WQXj
+	d9s4W80vu3RkrcCOrUkGT/pP3tZPL8f668YrSH5xYj2+LfSoriMHFfbdp6ll8GAs+we46f5/OTg
+	UmFs5v5NYZiLdYHCgOvW2nwgjDtyVNDVgnrYBltZQvrr/Gs4cG6z3cGHXHc5l+scQW8Eo69Q6jO
+	aLHKn+x4GnEGNKgfaODOm3It+WXNEDcsBgWlYfO1hlcmWOYVl7ND1vEnSiKvoXB/KSRXOJ2K/49
+	HkbwJBXkPtK7srBkjXVDwWB1Tnu8XeKc/Xp/ZdA1clVTEWt+2pnGCY5uu7MX+s+J8zm2mWy+nCT
+	iMJlOh/kp7a8lRvh6EzimszJmkMbaK/Qdc89zu6qGxHQHIgWjadt/YJo6squfG8PjhYvPyTBqmO
+	+9VUdZS+BuFhjA/3rNWDIhI2i01GVpWs9hgBU9MeqK8D+sdkqHvZhpD7RISG5lpM1VNz+WooOBE
+	OmVen9X39MSemezhlA==
+X-Received: by 2002:a05:6a00:3e23:b0:8a0:5dd9:7983 with SMTP id d2e1a72fcca58-8a2c626dc87mr2265345b3a.12.1792770541818;
+        Fri, 23 Oct 2026 08:49:01 -0700 (PDT)
+Received: from gmail.com (deskosmtp.auranext.com. [195.134.167.217])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8a338ef4903sm149223b3a.26.2026.10.23.08.48.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 23 Oct 2026 08:49:01 -0700 (PDT)
+Date: Fri, 23 Oct 2026 17:48:48 +0200
+From: Mahe Tardy <mahe.tardy@gmail.com>
+To: Feng Yang <yangfeng59949@163.com>
+Cc: ast@kernel.org, daniel@iogearbox.net, andrii@kernel.org,
+	eddyz87@gmail.com, memxor@gmail.com, martin.lau@linux.dev,
+	song@kernel.org, yonghong.song@linux.dev, jolsa@kernel.org,
+	emil@etsalapatis.com, ihor.solodrai@linux.dev, bpf@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH bpf-next] bpf: Fix out-of-bounds btf->types write for
+ split BTF
+Message-ID: <atuB4OmqU8CsyDDq@gmail.com>
+References: <20261023063133.563998-1-yangfeng59949@163.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,236 +102,88 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261023090924.9685-1-amirmohammad.eftekhar@cispa.de>
+In-Reply-To: <20261023063133.563998-1-yangfeng59949@163.com>
 
-On Fri, Oct 23, 2026 at 11:09:24AM +0200, Amirmohammad Eftekhar wrote:
-> On Wed, Oct 22, 2026, Yosry Ahmed wrote:
-> > So this test case passing should be confirming my allegation that
-> > intercepts take precedence over VLS.
+On Fri, Oct 23, 2026 at 02:31:33PM +0800, Feng Yang wrote:
+> From: Feng Yang <yangfeng@kylinos.cn>
 > 
-> I could be missing something, but a hardware repro points the other way,
-> at least on this part (Zen 4, Ryzen 5 PRO 8500GE, mainline 7.3-rc3). The
-> L2 runs "vmload; cpuid", so the exit code says whether VMLOAD was
-> intercepted (SVM_EXIT_VMLOAD, 0x82) or virtualized and run on to the
-> cpuid (SVM_EXIT_CPUID, 0x72):
+> btf_add_type() bounds the btf->types array by BTF_MAX_TYPE, but for a
+> split BTF the type ids it registers are start_id .. start_id +
+> nr_types - 1, so what is actually left of the id space is
+> BTF_MAX_TYPE - start_id.  Two things follow from that:
 > 
->   - Single VMRUN, vmcb12 VLS off, L1 intercepting VMLOAD: 0x82. The
->     intercept is honored, as expected.
->   - VMRUN #1 enables VLS legitimately (0x72), then VMRUN #2 with vmcb12
->     VLS=0 and L1 intercepting VMLOAD: still 0x72. 3/3.
+>  - the limit check is an equality test,
+>    'start_id + btf->types_size == BTF_MAX_TYPE'.  It is evaluated only
+>    when the array has to grow, with btf->types_size == btf->nr_types,
+>    and the growth (T' = min(BTF_MAX_TYPE, T + max(T / 4, 16)), starting
+>    from 0) is clamped to BTF_MAX_TYPE, which it lands on exactly (...,
+>    928143, then min(BTF_MAX_TYPE, 1160178)).  So unless
+>    BTF_MAX_TYPE - start_id is one of the 48 sizes that sequence hits,
+>    the check does not fire for a split BTF at all;
 > 
-> The difference from nested_vmsave_vmload_test.c is that the test only
-> looks at a single VMRUN. On VMRUN #2 vmcb12 has VLS off, so
-> nested_vmcb_needs_vls_intercept() returns true and
-> nested_vmcb02_recalc_intercepts() sets INTERCEPT_VMLOAD/VMSAVE in vmcb02.
-
-I am not sure if "the test" refers to your repro or the selftest, a
-standalone. A standalone repro would help.
-
-> But vmcb02->control.misc_ctl2 still has the VLS enable bit from VMRUN #1,
-> since it is only ever OR-set and never cleared, so vmcb02 enters VMRUN #2
-> with both INTERCEPT_VMLOAD and VLS set and the CPU virtualizes VMLOAD
-> anyway. That is the dropped intercept.
+>  - new_size is clamped to BTF_MAX_TYPE instead of
+>    BTF_MAX_TYPE - start_id, so the array can still grow to
+>    BTF_MAX_TYPE entries even though only BTF_MAX_TYPE - start_id type
+>    ids exist.
 > 
-> So with both bits live in the same vmcb02, VLS wins over the intercept on
-> this hardware, which is why I think the stale bit is an actual
-> intercept-drop (an L1 that intercepts VMLOAD/VMSAVE for its own L2 loses
-> that intercept after it has used VLS even once) rather than only untidy
-> state.
-
-I tried this on 4 EPYC processors (Zen 2,3,4,5), I basically ran the
-selftest with the bpftrace script below, and here are the results I got
-tracing L0's svm_vcpu_run() and kvm_exit() only with guest mode on real
-hardware. On all 4 microarchitectures, you will see rows with VLS and
-the intercepts enabled, with SVM_EXIT_VMSAVE and SVM_EXIT_VMLOAD exit
-codes:
-
-================================================================================
-Zen 5 (Turin)
-CPU: AMD EPYC 9B45 128-Core Processor
-================================================================================
-Attached 3 probes
-Random seed: 0x703a00c6
-is_guest_mode=1 vls=0 vmload_icpt=1 vmsave_icpt=1 entry_rip=0x23f970 exit_code=0x400 exit_rip=0x23f970
-is_guest_mode=1 vls=0 vmload_icpt=1 vmsave_icpt=1 entry_rip=0x23f970 exit_code=0x400 exit_rip=0x23f970
-is_guest_mode=1 vls=0 vmload_icpt=1 vmsave_icpt=1 entry_rip=0x23f970 exit_code=0x400 exit_rip=0x23f970
-is_guest_mode=1 vls=0 vmload_icpt=1 vmsave_icpt=1 entry_rip=0x23f970 exit_code=0x400 exit_rip=0x23f970
-is_guest_mode=1 vls=0 vmload_icpt=1 vmsave_icpt=1 entry_rip=0x23f970 exit_code=0x400 exit_rip=0x23f970
-is_guest_mode=1 vls=0 vmload_icpt=1 vmsave_icpt=1 entry_rip=0x23f970 exit_code=0x400 exit_rip=0x23f970
-is_guest_mode=1 vls=0 vmload_icpt=1 vmsave_icpt=1 entry_rip=0x23f970 exit_code=0x83 exit_rip=0x23f975
-is_guest_mode=1 vls=0 vmload_icpt=1 vmsave_icpt=1 entry_rip=0x23f980 exit_code=0x82 exit_rip=0x23f985
-is_guest_mode=1 vls=1 vmload_icpt=1 vmsave_icpt=1 entry_rip=0x23f970 exit_code=0x83 exit_rip=0x23f975
-is_guest_mode=1 vls=1 vmload_icpt=1 vmsave_icpt=1 entry_rip=0x23f980 exit_code=0x82 exit_rip=0x23f985
-is_guest_mode=1 vls=1 vmload_icpt=1 vmsave_icpt=1 entry_rip=0x23f990 exit_code=0x400 exit_rip=0x23f990
-is_guest_mode=1 vls=1 vmload_icpt=1 vmsave_icpt=1 entry_rip=0x23f990 exit_code=0x400 exit_rip=0x23f990
-is_guest_mode=1 vls=1 vmload_icpt=1 vmsave_icpt=1 entry_rip=0x23f990 exit_code=0x83 exit_rip=0x23f9ac
-is_guest_mode=1 vls=1 vmload_icpt=1 vmsave_icpt=1 entry_rip=0x23f9ac exit_code=0x400 exit_rip=0x24d2f0
-is_guest_mode=1 vls=1 vmload_icpt=1 vmsave_icpt=1 entry_rip=0x24d2f0 exit_code=0x400 exit_rip=0x24d350
-is_guest_mode=1 vls=1 vmload_icpt=1 vmsave_icpt=1 entry_rip=0x24d350 exit_code=0x400 exit_rip=0x24d363
-is_guest_mode=1 vls=1 vmload_icpt=1 vmsave_icpt=1 entry_rip=0x24d363 exit_code=0x400 exit_rip=0x24d363
-is_guest_mode=1 vls=1 vmload_icpt=1 vmsave_icpt=1 entry_rip=0x24d363 exit_code=0x400 exit_rip=0x25be50
-is_guest_mode=1 vls=1 vmload_icpt=1 vmsave_icpt=1 entry_rip=0x25be50 exit_code=0x400 exit_rip=0x256850
-is_guest_mode=1 vls=1 vmload_icpt=1 vmsave_icpt=1 entry_rip=0x256850 exit_code=0x7b exit_rip=0x256854
-is_guest_mode=1 vls=1 vmload_icpt=1 vmsave_icpt=1 entry_rip=0x256854 exit_code=0x82 exit_rip=0x23f9cc
-is_guest_mode=1 vls=1 vmload_icpt=1 vmsave_icpt=1 entry_rip=0x23f9cc exit_code=0x83 exit_rip=0x23fa33
-is_guest_mode=1 vls=1 vmload_icpt=1 vmsave_icpt=1 entry_rip=0x23fa33 exit_code=0x81 exit_rip=0x23fa41
-is_guest_mode=1 vls=1 vmload_icpt=0 vmsave_icpt=0 entry_rip=0x23fa50 exit_code=0x400 exit_rip=0x23fa6c
-is_guest_mode=1 vls=1 vmload_icpt=0 vmsave_icpt=0 entry_rip=0x23fa6c exit_code=0x400 exit_rip=0x23fa6c
-is_guest_mode=1 vls=1 vmload_icpt=0 vmsave_icpt=0 entry_rip=0x23fa6c exit_code=0x7b exit_rip=0x256854
-is_guest_mode=1 vls=1 vmload_icpt=0 vmsave_icpt=0 entry_rip=0x256854 exit_code=0x81 exit_rip=0x23fb04
-
-
-================================================================================
-Zen 4 (Genoa)
-CPU: AMD EPYC 9B14 96-Core Processor
-================================================================================
-Attached 3 probes
-Random seed: 0x7eb8e37c
-is_guest_mode=1 vls=0 vmload_icpt=1 vmsave_icpt=1 entry_rip=0x23f970 exit_code=0x400 exit_rip=0x23f970
-is_guest_mode=1 vls=0 vmload_icpt=1 vmsave_icpt=1 entry_rip=0x23f970 exit_code=0x400 exit_rip=0x23f970
-is_guest_mode=1 vls=0 vmload_icpt=1 vmsave_icpt=1 entry_rip=0x23f970 exit_code=0x400 exit_rip=0x23f970
-is_guest_mode=1 vls=0 vmload_icpt=1 vmsave_icpt=1 entry_rip=0x23f970 exit_code=0x400 exit_rip=0x23f970
-is_guest_mode=1 vls=0 vmload_icpt=1 vmsave_icpt=1 entry_rip=0x23f970 exit_code=0x400 exit_rip=0x23f970
-is_guest_mode=1 vls=0 vmload_icpt=1 vmsave_icpt=1 entry_rip=0x23f970 exit_code=0x400 exit_rip=0x23f970
-is_guest_mode=1 vls=0 vmload_icpt=1 vmsave_icpt=1 entry_rip=0x23f970 exit_code=0x83 exit_rip=0x23f975
-is_guest_mode=1 vls=0 vmload_icpt=1 vmsave_icpt=1 entry_rip=0x23f980 exit_code=0x82 exit_rip=0x23f985
-is_guest_mode=1 vls=1 vmload_icpt=1 vmsave_icpt=1 entry_rip=0x23f970 exit_code=0x83 exit_rip=0x23f975
-is_guest_mode=1 vls=1 vmload_icpt=1 vmsave_icpt=1 entry_rip=0x23f980 exit_code=0x82 exit_rip=0x23f985
-is_guest_mode=1 vls=1 vmload_icpt=1 vmsave_icpt=1 entry_rip=0x23f990 exit_code=0x400 exit_rip=0x23f990
-is_guest_mode=1 vls=1 vmload_icpt=1 vmsave_icpt=1 entry_rip=0x23f990 exit_code=0x400 exit_rip=0x23f990
-is_guest_mode=1 vls=1 vmload_icpt=1 vmsave_icpt=1 entry_rip=0x23f990 exit_code=0x83 exit_rip=0x23f9ac
-is_guest_mode=1 vls=1 vmload_icpt=1 vmsave_icpt=1 entry_rip=0x23f9ac exit_code=0x400 exit_rip=0x24d2f0
-is_guest_mode=1 vls=1 vmload_icpt=1 vmsave_icpt=1 entry_rip=0x24d2f0 exit_code=0x400 exit_rip=0x24d350
-is_guest_mode=1 vls=1 vmload_icpt=1 vmsave_icpt=1 entry_rip=0x24d350 exit_code=0x400 exit_rip=0x24d363
-is_guest_mode=1 vls=1 vmload_icpt=1 vmsave_icpt=1 entry_rip=0x24d363 exit_code=0x400 exit_rip=0x24d363
-is_guest_mode=1 vls=1 vmload_icpt=1 vmsave_icpt=1 entry_rip=0x24d363 exit_code=0x400 exit_rip=0x25be50
-is_guest_mode=1 vls=1 vmload_icpt=1 vmsave_icpt=1 entry_rip=0x25be50 exit_code=0x400 exit_rip=0x256850
-is_guest_mode=1 vls=1 vmload_icpt=1 vmsave_icpt=1 entry_rip=0x256850 exit_code=0x7b exit_rip=0x256854
-is_guest_mode=1 vls=1 vmload_icpt=1 vmsave_icpt=1 entry_rip=0x256854 exit_code=0x82 exit_rip=0x23f9cc
-is_guest_mode=1 vls=1 vmload_icpt=1 vmsave_icpt=1 entry_rip=0x23f9cc exit_code=0x83 exit_rip=0x23fa33
-is_guest_mode=1 vls=1 vmload_icpt=1 vmsave_icpt=1 entry_rip=0x23fa33 exit_code=0x81 exit_rip=0x23fa41
-is_guest_mode=1 vls=1 vmload_icpt=0 vmsave_icpt=0 entry_rip=0x23fa50 exit_code=0x400 exit_rip=0x23fa6c
-is_guest_mode=1 vls=1 vmload_icpt=0 vmsave_icpt=0 entry_rip=0x23fa6c exit_code=0x400 exit_rip=0x23fa6c
-is_guest_mode=1 vls=1 vmload_icpt=0 vmsave_icpt=0 entry_rip=0x23fa6c exit_code=0x7b exit_rip=0x256854
-is_guest_mode=1 vls=1 vmload_icpt=0 vmsave_icpt=0 entry_rip=0x256854 exit_code=0x81 exit_rip=0x23fb04
-
-
-================================================================================
-Zen 3 (Milan)
-CPU: AMD EPYC 7B13 64-Core Processor
-================================================================================
-Attached 3 probes
-Random seed: 0x5ea27b94
-is_guest_mode=1 vls=0 vmload_icpt=1 vmsave_icpt=1 entry_rip=0x23f970 exit_code=0x400 exit_rip=0x23f970
-is_guest_mode=1 vls=0 vmload_icpt=1 vmsave_icpt=1 entry_rip=0x23f970 exit_code=0x400 exit_rip=0x23f970
-is_guest_mode=1 vls=0 vmload_icpt=1 vmsave_icpt=1 entry_rip=0x23f970 exit_code=0x400 exit_rip=0x23f970
-is_guest_mode=1 vls=0 vmload_icpt=1 vmsave_icpt=1 entry_rip=0x23f970 exit_code=0x400 exit_rip=0x23f970
-is_guest_mode=1 vls=0 vmload_icpt=1 vmsave_icpt=1 entry_rip=0x23f970 exit_code=0x400 exit_rip=0x23f970
-is_guest_mode=1 vls=0 vmload_icpt=1 vmsave_icpt=1 entry_rip=0x23f970 exit_code=0x83 exit_rip=0x23f975
-is_guest_mode=1 vls=0 vmload_icpt=1 vmsave_icpt=1 entry_rip=0x23f980 exit_code=0x82 exit_rip=0x23f985
-is_guest_mode=1 vls=1 vmload_icpt=1 vmsave_icpt=1 entry_rip=0x23f970 exit_code=0x83 exit_rip=0x23f975
-is_guest_mode=1 vls=1 vmload_icpt=1 vmsave_icpt=1 entry_rip=0x23f980 exit_code=0x82 exit_rip=0x23f985
-is_guest_mode=1 vls=1 vmload_icpt=1 vmsave_icpt=1 entry_rip=0x23f990 exit_code=0x400 exit_rip=0x23f990
-is_guest_mode=1 vls=1 vmload_icpt=1 vmsave_icpt=1 entry_rip=0x23f990 exit_code=0x400 exit_rip=0x23f990
-is_guest_mode=1 vls=1 vmload_icpt=1 vmsave_icpt=1 entry_rip=0x23f990 exit_code=0x83 exit_rip=0x23f9ac
-is_guest_mode=1 vls=1 vmload_icpt=1 vmsave_icpt=1 entry_rip=0x23f9ac exit_code=0x400 exit_rip=0x24d2f0
-is_guest_mode=1 vls=1 vmload_icpt=1 vmsave_icpt=1 entry_rip=0x24d2f0 exit_code=0x400 exit_rip=0x24d350
-is_guest_mode=1 vls=1 vmload_icpt=1 vmsave_icpt=1 entry_rip=0x24d350 exit_code=0x400 exit_rip=0x24d363
-is_guest_mode=1 vls=1 vmload_icpt=1 vmsave_icpt=1 entry_rip=0x24d363 exit_code=0x400 exit_rip=0x24d363
-is_guest_mode=1 vls=1 vmload_icpt=1 vmsave_icpt=1 entry_rip=0x24d363 exit_code=0x400 exit_rip=0x25be50
-is_guest_mode=1 vls=1 vmload_icpt=1 vmsave_icpt=1 entry_rip=0x25be50 exit_code=0x400 exit_rip=0x256850
-is_guest_mode=1 vls=1 vmload_icpt=1 vmsave_icpt=1 entry_rip=0x256850 exit_code=0x7b exit_rip=0x256854
-is_guest_mode=1 vls=1 vmload_icpt=1 vmsave_icpt=1 entry_rip=0x256854 exit_code=0x82 exit_rip=0x23f9cc
-is_guest_mode=1 vls=1 vmload_icpt=1 vmsave_icpt=1 entry_rip=0x23f9cc exit_code=0x83 exit_rip=0x23fa33
-is_guest_mode=1 vls=1 vmload_icpt=1 vmsave_icpt=1 entry_rip=0x23fa33 exit_code=0x81 exit_rip=0x23fa41
-is_guest_mode=1 vls=1 vmload_icpt=0 vmsave_icpt=0 entry_rip=0x23fa50 exit_code=0x400 exit_rip=0x23fa6c
-is_guest_mode=1 vls=1 vmload_icpt=0 vmsave_icpt=0 entry_rip=0x23fa6c exit_code=0x400 exit_rip=0x23fa6c
-is_guest_mode=1 vls=1 vmload_icpt=0 vmsave_icpt=0 entry_rip=0x23fa6c exit_code=0x7b exit_rip=0x256854
-is_guest_mode=1 vls=1 vmload_icpt=0 vmsave_icpt=0 entry_rip=0x256854 exit_code=0x81 exit_rip=0x23fb04
-
-
-================================================================================
-Zen 2 (Rome)
-CPU: AMD EPYC 7B12 64-Core Processor
-================================================================================
-Attached 3 probes
-Random seed: 0x3c17b702
-is_guest_mode=1 vls=0 vmload_icpt=1 vmsave_icpt=1 entry_rip=0x23f970 exit_code=0x400 exit_rip=0x23f970
-is_guest_mode=1 vls=0 vmload_icpt=1 vmsave_icpt=1 entry_rip=0x23f970 exit_code=0x400 exit_rip=0x23f970
-is_guest_mode=1 vls=0 vmload_icpt=1 vmsave_icpt=1 entry_rip=0x23f970 exit_code=0x400 exit_rip=0x23f970
-is_guest_mode=1 vls=0 vmload_icpt=1 vmsave_icpt=1 entry_rip=0x23f970 exit_code=0x400 exit_rip=0x23f970
-is_guest_mode=1 vls=0 vmload_icpt=1 vmsave_icpt=1 entry_rip=0x23f970 exit_code=0x400 exit_rip=0x23f970
-is_guest_mode=1 vls=0 vmload_icpt=1 vmsave_icpt=1 entry_rip=0x23f970 exit_code=0x83 exit_rip=0x23f975
-is_guest_mode=1 vls=0 vmload_icpt=1 vmsave_icpt=1 entry_rip=0x23f980 exit_code=0x82 exit_rip=0x23f985
-is_guest_mode=1 vls=1 vmload_icpt=1 vmsave_icpt=1 entry_rip=0x23f970 exit_code=0x83 exit_rip=0x23f975
-is_guest_mode=1 vls=1 vmload_icpt=1 vmsave_icpt=1 entry_rip=0x23f980 exit_code=0x82 exit_rip=0x23f985
-is_guest_mode=1 vls=1 vmload_icpt=1 vmsave_icpt=1 entry_rip=0x23f990 exit_code=0x400 exit_rip=0x23f990
-is_guest_mode=1 vls=1 vmload_icpt=1 vmsave_icpt=1 entry_rip=0x23f990 exit_code=0x400 exit_rip=0x23f990
-is_guest_mode=1 vls=1 vmload_icpt=1 vmsave_icpt=1 entry_rip=0x23f990 exit_code=0x83 exit_rip=0x23f9ac
-is_guest_mode=1 vls=1 vmload_icpt=1 vmsave_icpt=1 entry_rip=0x23f9ac exit_code=0x400 exit_rip=0x24d2f0
-is_guest_mode=1 vls=1 vmload_icpt=1 vmsave_icpt=1 entry_rip=0x24d2f0 exit_code=0x400 exit_rip=0x24d350
-is_guest_mode=1 vls=1 vmload_icpt=1 vmsave_icpt=1 entry_rip=0x24d350 exit_code=0x400 exit_rip=0x24d363
-is_guest_mode=1 vls=1 vmload_icpt=1 vmsave_icpt=1 entry_rip=0x24d363 exit_code=0x400 exit_rip=0x24d363
-is_guest_mode=1 vls=1 vmload_icpt=1 vmsave_icpt=1 entry_rip=0x24d363 exit_code=0x400 exit_rip=0x25be50
-is_guest_mode=1 vls=1 vmload_icpt=1 vmsave_icpt=1 entry_rip=0x25be50 exit_code=0x400 exit_rip=0x256850
-is_guest_mode=1 vls=1 vmload_icpt=1 vmsave_icpt=1 entry_rip=0x256850 exit_code=0x7b exit_rip=0x256854
-is_guest_mode=1 vls=1 vmload_icpt=1 vmsave_icpt=1 entry_rip=0x256854 exit_code=0x82 exit_rip=0x23f9cc
-is_guest_mode=1 vls=1 vmload_icpt=1 vmsave_icpt=1 entry_rip=0x23f9cc exit_code=0x83 exit_rip=0x23fa33
-is_guest_mode=1 vls=1 vmload_icpt=1 vmsave_icpt=1 entry_rip=0x23fa33 exit_code=0x81 exit_rip=0x23fa41
-is_guest_mode=1 vls=1 vmload_icpt=0 vmsave_icpt=0 entry_rip=0x23fa50 exit_code=0x400 exit_rip=0x23fa6c
-is_guest_mode=1 vls=1 vmload_icpt=0 vmsave_icpt=0 entry_rip=0x23fa6c exit_code=0x400 exit_rip=0x23fa6c
-is_guest_mode=1 vls=1 vmload_icpt=0 vmsave_icpt=0 entry_rip=0x23fa6c exit_code=0x7b exit_rip=0x256854
-is_guest_mode=1 vls=1 vmload_icpt=0 vmsave_icpt=0 entry_rip=0x256854 exit_code=0x81 exit_rip=0x23fb04
-
+> As a result nr_types can reach BTF_MAX_TYPE for a split BTF while its
+> type ids have already gone past BTF_MAX_TYPE; a type never validates its
+> own id, only the ids it references (btf_ref_type_check_meta()).  At that
+> point btf->types_size == btf->nr_types == BTF_MAX_TYPE and the growth
+> branch computes the same size again: it allocates a fresh BTF_MAX_TYPE
+> entry array, copies the entries, and the loop is left with
+> btf->types_size != btf->nr_types, so that branch is not taken anymore.
+> Every type after this writes btf->types[btf->nr_types++] past the end of
+> the array: BTF_MAX_TYPE * 8 == 8388600 bytes are requested, so the first
+> such write lands in the 8 byte rounding slack of the 8MB allocation, and
+> each further type writes another 8 bytes beyond it.
 > 
-> I haven't managed to square that with your reading of the test, so it is
-> entirely possible I am wrong about the precedence. If it helps I can send
-> the reproducer, or dump vmcb02->control (the intercept bitmap plus
-> misc_ctl2) right before the VMRUN #2 that virtualizes VMLOAD, so we can
-> confirm both bits are set going in.
+> Fix both by bounding the array with BTF_MAX_TYPE - start_id and by
+> turning the equality check into a '>=' one, so that the array stops
+> exactly where the id space ends. Base BTF behavior (start_id ==
+> 0) is unchanged.
+> 
+> Fixes: 951bb64621b8 ("bpf: Add in-kernel split BTF support")
+> Signed-off-by: Feng Yang <yangfeng@kylinos.cn>
 
-My bpftrace script is below, if you want to reuse it. You can just run
-it while you run the selftest:
+Reviewed-by: Mahe Tardy <mahe.tardy@gmail.com>
 
-fentry:kvm_amd:svm_vcpu_run {
-    $svm = (struct vcpu_svm *)args.vcpu;
-    $vcpu = args.vcpu;
-    $vmcb = $svm->vmcb;
+Indeed taking toy BTF_MAX_TYPE = 10 and start_id = 2 we can see the
+array can grow from 0 to 10 directly, get filled, enter the growth
+branch then the condition is for E2BIG is 2 + 10 which is already beyond
+10 and thus never match: we re-allocate the array, copy and write out of
+bounds. Fix looks reasonable to me (but disclaimer I just read that code
+for the first time).
 
-    /* is_guest_mode(vcpu) == (vcpu->arch.hflags & HF_GUEST_MASK) */
-    $is_guest_mode = ($vcpu->arch.hflags & 1) ? 1 : 0;
-
-    @in_guest_mode[tid] = $is_guest_mode;
-    if ($is_guest_mode) {
-        $vls = ($vmcb->control.misc_ctl2 >> 1) & 1;
-        $word4 = $vmcb->control.intercepts[4];
-        $vmload_icpt = ($word4 >> 2) & 1;
-        $vmsave_icpt = ($word4 >> 3) & 1;
-
-        @cur_vls[tid] = $vls;
-        @cur_vmload[tid] = $vmload_icpt;
-        @cur_vmsave[tid] = $vmsave_icpt;
-        @cur_rip[tid] = $vmcb->save.rip;
-    }
-}
-
-tracepoint:kvm:kvm_exit {
-    if (@in_guest_mode[tid]) {
-        $vls = @cur_vls[tid];
-        $vmload_icpt = @cur_vmload[tid];
-        $vmsave_icpt = @cur_vmsave[tid];
-        $entry_rip = @cur_rip[tid];
-
-        printf("is_guest_mode=1 vls=%d vmload_icpt=%d vmsave_icpt=%d entry_rip=0x%lx exit_code=0x%x exit_rip=0x%lx\n",
-               $vls, $vmload_icpt, $vmsave_icpt, $entry_rip, args.exit_reason, args.guest_rip);
-        @in_guest_mode[tid] = 0;
-    }
-}
-
-END {
-    clear(@cur_vls);
-    clear(@cur_vmload);
-    clear(@cur_vmsave);
-    clear(@cur_rip);
-    clear(@in_guest_mode);
-}
+> ---
+>  kernel/bpf/btf.c | 8 +++++---
+>  1 file changed, 5 insertions(+), 3 deletions(-)
+> 
+> diff --git a/kernel/bpf/btf.c b/kernel/bpf/btf.c
+> index 80b6f96263f1..6e54cd6c2eb5 100644
+> --- a/kernel/bpf/btf.c
+> +++ b/kernel/bpf/btf.c
+> @@ -1724,15 +1724,17 @@ static int btf_add_type(struct btf_verifier_env *env, struct btf_type *t)
+>  		/* Expand 'types' array */
+>  
+>  		struct btf_type **new_types;
+> -		u32 expand_by, new_size;
+> +		u32 expand_by, new_size, max_size;
+>  
+> -		if (btf->start_id + btf->types_size == BTF_MAX_TYPE) {
+> +		if (btf->start_id >= BTF_MAX_TYPE ||
+> +		    btf->start_id + btf->types_size >= BTF_MAX_TYPE) {
+>  			btf_verifier_log(env, "Exceeded max num of types");
+>  			return -E2BIG;
+>  		}
+>  
+> +		max_size = BTF_MAX_TYPE - btf->start_id;
+>  		expand_by = max_t(u32, btf->types_size >> 2, 16);
+> -		new_size = min_t(u32, BTF_MAX_TYPE,
+> +		new_size = min_t(u32, max_size,
+>  				 btf->types_size + expand_by);
+>  
+>  		new_types = kvzalloc_objs(*new_types, new_size,
+> -- 
+> 2.25.1
+> 
