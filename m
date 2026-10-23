@@ -1,132 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=192.198.163.15
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1792725925;
-	b=2mpZkuj0zII3VTJnxAuqIjQSfBXKr40tRgZR2SqX/uaZeH8NArSyYlbEM9N2D8s5MsWu
-	 NGIbHaJh+hAQ3kj9M7Fg2k0SlWP7dBoHqE+N08Cr3WrnTYVS65WuwyXfw6DfHUqm/Jwld
-	 xbfLRDODM/loYeujgGQ1K+7RUvntpjtPltQJW8W+f0CfBTH7hZAiseo8Bqmc8TOtYd5OZ
-	 /YkMRE2h1FkHf2aaFFBcVMlIuERhwT6GLe+yloUR6GAZFTWnMP6EnIWCSr1s1m5OVZXek
-	 +/Sp+FZA7fHf6vQogZjKYp74dX6tA/8CCqy1w9bJnr5bClFXSRcUw4AACsD2yBklXgQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792725925;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
-	 Received:Received:Received:Date:From:To:CC:Subject:Message-ID:
-	 References:Content-Type:Content-Disposition:In-Reply-To:
-	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-LD-Processed:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
-	bh=DfUacEkvembd7nOUjZxEcOvW8vT53T3Nr2UPql+gqbM=;
-	b=RKhAqvZV3aUiys/sRntw6l21+aSXbtutQPVgsUKiHXYkriHwe+YpeDVL70B+QxJqxyKx
-	 tJjJJX6lEIqd3/UTdY8VZM9u1vNu3T6Q4hlazi1AmO9uPH4bFrGlGulpq4IcjD4HmVuFw
-	 Ez09IzxOHOa/dZIFqwNoE1WcqFMmfGqZn2Gi29taKadKpZZCqyuHp6uLYbxvWm63cSoUZ
-	 bDAERyf04Y9OnugkGFMqOIStCJAYSz+jqrEfUV8G5w0Ywh5PoEidl0/TusnnKLJpXRMmQ
-	 L/zDdps6QDxQYJTVjUNN9H1ULFqqEBagi2m7k5K3e9UJLHMKgY5DIIAnFS7H5Qislag==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=URYHez3c;
-	arc=fail smtp.remote-ip=192.198.163.15
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=150.107.74.76
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792725946;
+	b=Qkyd/HTGCEbLHiI/6ZF3oHF6K+yAVDFrNIv5woNpJGxTS73Dfn6A9LvbawfyuQtEJTHM
+	 rF8/EVanbynMKsFtKMIK349Q2H9+/y9vxtUEyl2elpetnU2ZL3B3edhqoSUXpFjCWtz98
+	 IZ+PKI4eQKbvDNAxARXj8Q/CJuhYFm8L0xNtDA3M3xOTC6YQA4wyKoqNldn8wT0cQK4Io
+	 I+kZlTug41CvvlqeGwfYOXYUG0WZOlQkq73LuAru/3zbaFYTY9YM7nxeETZUEi8NxUSX9
+	 XzkmKtHVokISpMyRP5uccIEBfCOmOvQi5oKvoZqggIE6Db0qVZxZKUPjUs5WA+LaJWg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792725946;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=8aGeedHzUEF0b4HOKqY8QqZNQHGftmFLkNiMFc+pgKM=;
+	b=HI4Pva7zp2Mo0ws01feeo6R74Xo8n2RvK4Qf7Fz47B6eeRWRncdSM6moTW9pr6Vn4G2S
+	 a6r+84U31dlV4vv6Re8gt1pPxOf/mpx+XwyqlLoMuNsEHZpOFZbwevV1pzS4Y0Vq2/B6T
+	 cHOp0+tV11b7FmG2fuzlF5JMsTZOSIBw6D3jpGNU9wWzr49vEycRZcn1sdkZnIk5KBo4X
+	 s4WOrNP8bMzdLGiF5E2fCOIaIT2Z+U7g9YSbVxxsBPcP+eoJc2KZ6Z1hF+NZSi02AKgL6
+	 Ldu5+NRnPxYJetTwMEE/zPPXYkeMzyag51xMtmYiBMaIkRHQNqJI6T4qUzWo7/zwgdg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=gibson.dropbear.id.au;
+	spf=pass smtp.mailfrom=gandalf.ozlabs.org;
+	dkim=pass header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.a=rsa-sha256 header.s=202610 header.b=YNHpzND+;
+	arc=none smtp.remote-ip=150.107.74.76
+Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78CE1606A31D;
-	Fri, 23 Oct 2026 03:25:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 78CE1606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA390606A326;
+	Fri, 23 Oct 2026 03:25:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BA390606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.dropbear.id.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gandalf.ozlabs.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=URYHez3c
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792725923; x=1824261923;
-  h=date:from:to:cc:subject:message-id:references:
-   in-reply-to:mime-version;
-  bh=uE5Kni8aRpj1jN+dIIEHGJLq+itmDkEKIINv6cMIav8=;
-  b=URYHez3cOJdYwA+yiPB+6fttBjkTet0bITATj+9bsUNlx7JgGdU80FGH
-   8gqk5DryUYdfciOZJ/+72vbyCAm6I9Wi8/2wpqdx2yYVr1rceDDRA5jh5
-   f9w0SECJnsVhT/r0/oiSYWxxhy0ab3oq985SrHY6Rr0XL7fptU5dHPm0L
-   lwzxW/yJ86xCT4ucMQgu0PloXle71HcUmizffWfwZaGniT14ilXyzqc3u
-   9+NR7iqCo7PPfmjEYXur3uoHFO4PXSxkLUDi2vctzNgDQrDeganFMs1qP
-   qGJaaRNe8FMVy3V3FknRBY0wisLyvRISpSE8OqCW0Vdnu0hnfUG6gch7b
-   g==;
-X-CSE-ConnectionGUID: NbbsBzXaToazNsBiRgp4kQ==
-X-CSE-MsgGUID: wMrEhq+PQM+Euog6qWdyMg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11943"; a="1494771"
-X-IronPort-AV: E=Sophos;i="6.27,173,1787036400"; 
-   d="scan'208";a="1494771"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
-  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Oct 2026 20:25:23 -0700
-X-CSE-ConnectionGUID: 5+5UggE6R2eL+WcF/VqfOA==
-X-CSE-MsgGUID: bgbBMhtMSmeOvPCWfL+TAg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,173,1787036400"; 
-   d="scan'208";a="4003828"
-Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
-  by fmviesa010.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Oct 2026 20:25:22 -0700
-Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
- fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Thu, 22 Oct 2026 20:25:22 -0700
-Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
- FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49 via Frontend Transport; Thu, 22 Oct 2026 20:25:22 -0700
-Received: from BN1PR04CU002.outbound.protection.outlook.com (52.101.56.57) by
- edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Thu, 22 Oct 2026 20:25:22 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=VElNXdkhbm1woC1SOH9BMrhF2sU+UPg7K2/vZpDZh2mV8egbzTubognpgMUXgNZfivQ4vxB4zxLgNlEIwHDq3sJkvxugxK6sy+743KxGZdiy4VWiOUUg4jUq8q+Trou3cDDJufwCbsif9mhpCAReup7a7sLHV2NmRJrQteOVI7hNxjFEV7hqaRqSjJ1s3lFUkCw88fOfAGC6IFb14Ih3G3DVxQ+5xck40HJ6BNN7tRI+SxdP1b1ktzoxSpI7iwxp5T04x08emQlRv33xkQ9X4X77OG6fidq1bcTrMRwnRIRhMlgNkJL3vI64KKr8BjjuDBdal4v444ts9DUt5s1I+A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=DfUacEkvembd7nOUjZxEcOvW8vT53T3Nr2UPql+gqbM=;
- b=gInanqAvYJjuEsgUgL3/bi8nIhtN3e33iM2e1q7WKxQ7WLuVYTOWukWzDjdw2SknCtmSg1RnKYj0Zzhicj8HPG9/pxHT/j9mmfuAthAaET63OiBit+yZggRFYjyThpIsC0LCeGZONmEdSs4nxAR39jZxbO3hNuRadqc7eGOiwakMyzXzs/3fl6u40T4v1ovidY+fELWUlb+8akEMSV1kWQPdRA+ztyLN95yWbyonLfq9lyT6VQtSa6BoxrI/Bkkiu7d8n1FOhVCmT+4DSwOEgoFRWleT1E370LJpFJAuVSPeCc0ZvDjgifWP2ZQNYhy6xRWFxPkTO+YNPYi/Q4e2iQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from IA0PR11MB8380.namprd11.prod.outlook.com (2603:10b6:208:485::21)
- by SJ5PPF20F246184.namprd11.prod.outlook.com (2603:10b6:a0f:fc02::819) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Fri, 23 Oct
- 2026 03:25:13 +0000
-Received: from IA0PR11MB8380.namprd11.prod.outlook.com
- ([fe80::ea8e:eec4:f8d3:f95d]) by IA0PR11MB8380.namprd11.prod.outlook.com
- ([fe80::ea8e:eec4:f8d3:f95d%5]) with mapi id 15.21.0546.012; Fri, 23 Oct 2026
- 03:25:13 +0000
-Date: Fri, 23 Oct 2026 11:25:02 +0800
-From: Chao Gao <chao.gao@intel.com>
-To: Binbin Wu <binbin.wu@linux.intel.com>
-CC: <linux-kernel@vger.kernel.org>, <kvm@vger.kernel.org>,
-	<seanjc@google.com>, <pbonzini@redhat.com>, <dave.hansen@linux.intel.com>,
-	<andrew.cooper3@citrix.com>, <nik.borisov@suse.com>, <kas@kernel.org>,
-	<rick.p.edgecombe@intel.com>, <xiaoyao.li@intel.com>,
-	<tony.lindgren@linux.intel.com>, <kishen.maloor@intel.com>,
-	<dedekind1@gmail.com>, <adrian.hunter@intel.com>
-Subject: Re: [PATCH v5 3/5] KVM: TDX: Add CORE_CAPABILITIES to the allowlist
-Message-ID: <atrTjltXoQ6EAyTO@intel.com>
-References: <20261016091422.3182216-1-binbin.wu@linux.intel.com>
- <20261016091422.3182216-4-binbin.wu@linux.intel.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20261016091422.3182216-4-binbin.wu@linux.intel.com>
-X-ClientProxiedBy: SI1PR02CA0033.apcprd02.prod.outlook.com
- (2603:1096:4:1f6::14) To IA0PR11MB8380.namprd11.prod.outlook.com
- (2603:10b6:208:485::21)
+	dkim=pass (2048-bit key, unprotected) header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.a=rsa-sha256 header.s=202610 header.b=YNHpzND+
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=gibson.dropbear.id.au; s=202610; t=1792725937;
+	bh=8aGeedHzUEF0b4HOKqY8QqZNQHGftmFLkNiMFc+pgKM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=YNHpzND+apnMh9YvHi+xVUFThwqsZUYls8nM3oWScVJiE8dDAEXC68jji5LrBbvtT
+	 AV0FjgIL8rvzeb4lyK/jPVfo8rOYwvo/e2lgsnk0tDgD5ZrvXR8gK3ewOKXlsF02I6
+	 uJVdaoN4AZk+G22449/Cv8aRhlicifE0BrLPIu442t883ZhD3bmvg1uu2TqwanynjI
+	 BG1MidmaXOstNWK+B9JHuFjm+6Sp5LyEKEVoidmh52SWSYmYSllQlL5MId7eM1DTci
+	 p59baXTH+Ti8Z1WOJvF0yaM3OnCNcTOIykN9kJXpndWhfH5rLFpSbkmBULimi86Y1s
+	 NYrtk0IiNNZ3A==
+Received: by gandalf.ozlabs.org (Postfix, from userid 1007)
+	id 4j9pLn4ZXGz4wBB; Fri, 23 Oct 2026 14:25:37 +1100 (AEDT)
+Date: Fri, 23 Oct 2026 14:25:29 +1100
+From: David Gibson <david@gibson.dropbear.id.au>
+To: Herve Codina <herve.codina@bootlin.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	David Lechner <dlechner@baylibre.com>,
+	Ayush Singh <ayush@beagleboard.org>,
+	Geert Uytterhoeven <geert@linux-m68k.org>,
+	devicetree-compiler@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, devicetree-spec@vger.kernel.org,
+	Hui Pu <hui.pu@gehealthcare.com>,
+	Ian Ray <ian.ray@gehealthcare.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+Subject: Re: [RFC PATCH v2 08/74] livetree: Improve get_node_by_phandle()
+Message-ID: <atrTn_I_8O6q9QUW@gractus.seuss>
+References: <20260826094950.1088288-1-herve.codina@bootlin.com>
+ <20260826094950.1088288-9-herve.codina@bootlin.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -136,85 +73,157 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA0PR11MB8380:EE_|SJ5PPF20F246184:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4a6ef60f-bc87-4c7d-8f46-08df30b54014
-X-LD-Processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|23010399003|366016|376014|7416014|1800799024|6133799003|22082099003|18002099003|261022075727099003|4143699003|11063799006|261021121427099003|10067099003|56012099006;
-X-Microsoft-Antispam-Message-Info: wh4clCHIbrQiqxF35adUZyXGwbeX79WucXOnbINbnF/QtQF1iWeI5Tqa67f6wCpEsTnfo3q/S5ze+CmwUT2DS6RnzHNZy/37pFa+Q//SNX/QzPbuscJMaoMRaP0gThgUNUZTcKhdEDhBNXF2MGYcgyyXtPjSwh85bR+44gzZG/D9RxgdVGo0lYbjxwm16QUlljzdS5dtrRgx1S8sBWKk8XXfxS4e52sraInqBefYiUoG8j3UAV1JSu+ieScc3riedcADsPSt8YWwrKNXILhE5hYXFn8yqqX/28ZG2rWJs8A7Dmw5lj81oH+rujT8AOwMl5D7of58j0y47c++futmGypI12RtzdmJdHj2zuRT0SbqfPrffIz9pQhBDdPN4hMwBLS83EwqunA1e4gEDF+0jKLsR2STCxkm+WfPA86nKFqDYXZ6pEHf1HiS6Sm7huwnek3nWIun7U498ztHC+IJmbWy/g94OFsuzLMca/WDmU5PA1qahL7my0UFehlFRUtfO2PNZIIJ+GDzhtMXMRqGEwT7lzDeX7SYht2IP8phOpX+4qQ+DAhp5qohIfB1MIovSChzat7f7r/R5TOUKoTIbaabT4rH83IpRC0Wzp1hp6mJlKtL3CN1dgKG1jSvidBNdATCxQBl/cq4hFnDJlB229lziaC6BTsciXT13ixhtus=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR11MB8380.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(376014)(7416014)(1800799024)(6133799003)(22082099003)(18002099003)(261022075727099003)(4143699003)(11063799006)(261021121427099003)(10067099003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?3vLUnl5qOxnM+HGZp4rsUvSctldXFgslUu3Vgkg1ghIZkU/cpbijkFj+cYbt?=
- =?us-ascii?Q?Ok6djoqTJCWT2yM1UvSZjrgBNhZGYpy1or1HWs7gMxfYmdaOUau1td43ba2x?=
- =?us-ascii?Q?rbiSi/z/TFn5OejLSCRFByuis3D533cITIYkoYb3bcyYNHYXa9u6ibB5jx/U?=
- =?us-ascii?Q?koSVTS0sKvN/0OOV3kI1s298fNK5DDZjwQKNiMqYDfM75Ed7fxyCwM3iMdAQ?=
- =?us-ascii?Q?+qxyTuFCk5JItTbqtc9edAhJ6r6CZU2+7/QAXaw3lVAkIpksSFRNtZi0CZxe?=
- =?us-ascii?Q?POCQxFh+EMMuVDBaxK34Hv/gVuwDgTB4oc9cA7VwFmpZFVr1GOqJ0j6V74Wy?=
- =?us-ascii?Q?3z3wqG1T/lY6BO7SN+nrhCsIZdC9Q7a41XLhJbZUrYDUhYQs+Bf5RS95CLjD?=
- =?us-ascii?Q?yHHxzsT3Bi+eCcC0XG2Vk5lQRs6CzKSwmolYDHsgnxAPU8bkY6A0kCV3cRsS?=
- =?us-ascii?Q?FFH7QLBopSpvQM9MBwM7Ebsz5kHFzQQAo5bLNdvlriXcl04vHqAOBonW6eUD?=
- =?us-ascii?Q?bArxcjSTyYZ9DoS71/4U2VpiNP0Ed34mvwklf2/T+wSybghr9iRX2Iwp/nhL?=
- =?us-ascii?Q?HR8eTMV1OfnN6Qkke8Dh1y4ohQTMNmuY7cZ097FhZmky9wlVSCS44XoxImKS?=
- =?us-ascii?Q?Ho6NaXnNjkjA1cnA5LlY69BCv/KsV3rU8FW6wSFdyeZc71aBSfzwBM5nVbRc?=
- =?us-ascii?Q?HWmbfqrgRPX9EdcrSfMvkHnVkj44TReBPuZdyHAl3Vrqfwc0KuAG1ihGrRXn?=
- =?us-ascii?Q?RMRAJdkceNwL8sf/Q+8F/JszKzmGYw38S1apDIvNwnBvw1PdNixqHqeX4FM1?=
- =?us-ascii?Q?5er57EgZMOZ6AZdU+oamkfTdohbgWlkBBaXSs/q9Z/CR6v8vz7IB9bqrLiYT?=
- =?us-ascii?Q?QvQwGtNa0vEOAf5XU/jy44mU1UUNOVrRecSAAGlSMcQTqJV0ehNa1Y86yrgl?=
- =?us-ascii?Q?A5gGH7xh2zi9aDlOIQVDZ7kUMIfg+RWObKUhRimc/gDFaDR97XAg5ykY7sa9?=
- =?us-ascii?Q?Jcjqd6x/lJFSr9CSTOgB98QUofcvDzMeIfoS/oY5Hm2VbKE1x3jUkKJHGtqF?=
- =?us-ascii?Q?yHRSTE274iOYoJSxigRWocNEh70ydssHwfav4YvJYO3AkDJQi9+504HUgpsn?=
- =?us-ascii?Q?cGfvVrKtsHL1+J+z9UC5jMeyJTGERgzBjZVMndB5wbyeESwLp/RwMDD+t5vQ?=
- =?us-ascii?Q?hLIjw5rVU8dvDGgpOjbH/WeEA4EGvDH2tWkf2b8DfaLVD/Odri88sCXvmDdZ?=
- =?us-ascii?Q?F+pbzvbuVPXVxwhJIbkwd2GY7R3j9MOT/cvB3A7jNCeRQwcG1Lhmzr7LPxpV?=
- =?us-ascii?Q?SDcCXbEuk5bOMx2KU01SKzLjOMpr8NhUkD7yoE3fsRSVzOo1hQoJTVSlrztG?=
- =?us-ascii?Q?XcCJS8Mp146T1NGAe7AsJzK5guVNRa+12K0JU36JALXzIK92RKrGb2Kt9jdK?=
- =?us-ascii?Q?dUzPjqPT2lOw0WaWr4Ukvf9ixTffNJ5TPBxH5whzHatQeEBV85K8olU0Zot9?=
- =?us-ascii?Q?aKfY26ejBXcaVNGW/Pd/NUPJFODKY3ZgM1asHjvJuFOvF1Gw7rr007PwN7yK?=
- =?us-ascii?Q?tGQnf91G+3UdkGibfW8aUjkQUtIOvk1KQuI8wje6h0UTgDMJLcM7pPKg5Xq/?=
- =?us-ascii?Q?u3wH50D6d/8g8xltZVNPlEZUyVXBZ+D6ASOfyLWhibhUw1T+aRSEloseR3+6?=
- =?us-ascii?Q?yY3oCa9CNJ/MqVEYXd6YOQ1SKEs4Ptfcja+Psenb3NwT2QnzRLROXJdvPdi0?=
- =?us-ascii?Q?L9RZzRt7/w=3D=3D?=
-X-Exchange-RoutingPolicyChecked: uFOeVWSOAFEikoik+5czsfxSu1lafXjkaRtoljqMiACut35y2ZR/ItqQPzv7MxBHiASDegwHUn1YzY10M28uQrerBv4VRN2gg/UK6OmN8NhgL1JCbaGO48R71KTYE9yFNJJr3USYfJYNPb/BxYjRSxDlF6Q25tQB3KUELew7HwEpw5BKyFGN0KhG5X51iHDGHEjBsU5XbGLR96hVN1RRgFvUrK3uHNg9J5h/ZmO8nRGj+/xpf3OIU6qpzNyHShYhKuSSLuTSBEt9b9PvoMe5dwXSc4zb0aHWBRGZtt35xfp3oaueImzDFeumSQ/JHYDANY+CyOG2M+JcOOW7nLuJYw==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4a6ef60f-bc87-4c7d-8f46-08df30b54014
-X-MS-Exchange-CrossTenant-AuthSource: IA0PR11MB8380.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Oct 2026 03:25:13.5209
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: DAUrrre/wzba4VKMNxgaoyvgLJdCu9HYUgiLuBySvevPTbT1lkOmEx4jal6Nt/eUABxv3/DlsAJAPHHEdiJqhw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ5PPF20F246184
-X-OriginatorOrg: intel.com
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="lz/gZO3uSfdIiUAi"
+Content-Disposition: inline
+In-Reply-To: <20260826094950.1088288-9-herve.codina@bootlin.com>
 
-On Fri, Oct 16, 2026 at 05:14:20PM +0800, Binbin Wu wrote:
->Add CORE_CAPABILITIES (CPUID.0x7.0.EDX[30]) to KVM's allowlist of TDX
->directly configurable CPUID feature bits to accommodate the legacy TDX
->module definition of the bit, even though KVM doesn't support
->MSR_IA32_CORE_CAPS for TDs.
->
->Older TDX module specs define CORE_CAPABILITIES as fixed-1, so userspace
->may expect the bit to be set for TDs.  The bit is redefined as directly
->configurable due to #VE reduction.  Leaving it out of the allowlist would
->prevent userspace from setting it once KVM starts validating the CPUID
->input to KVM_TDX_INIT_VM, which would be an unexpected behavior change for
->such userspace.
->
->Reporting CORE_CAPABILITIES as directly configurable also lets userspace
->detect that the bit is no longer fixed-1, and thus update its stale
->knowledge.
->
->Keep MSR_IA32_CORE_CAPS unsupported for TDs, as no existing TDX user needs
->guest access to the MSR.
->
->Note, CORE_CAPABILITIES is the only bit that is both unsupported by KVM
->*and* redefined from fixed-1 to directly configurable due to #VE
->reduction, and no further #VE reductions are expected.
->
->Signed-off-by: Binbin Wu <binbin.wu@linux.intel.com>
->Reviewed-by: Tony Lindgren <tony.lindgren@linux.intel.com>
->Reviewed-by: Xiaoyao Li <xiaoyao.li@intel.com>
+--lz/gZO3uSfdIiUAi
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Reviewed-by: Chao Gao <chao.gao@intel.com>
+On Wed, Aug 26, 2026 at 11:48:37AM +0200, Herve Codina wrote:
+> get_node_by_phandle() allows to get a node based on its phandle value.
+> It checks the phandle value against value available in internal node
+> structure.
+>=20
+> This internal phandle value is updated during process_check() and so,
+> get_node_by_phandle() cannot give correct results before the
+> process_check() call.
+>=20
+> Improve get_node_by_phandle() to look at node phandle properties when
+> the internal phandle value is not valid.
+>=20
+> This allows to return a correct matching node even if process_check()
+> was not called yet.
+
+The idea is sound - it's always been kind of clunky that we need the
+process_checks() pass to fill the phandles before we can use them.
+But, there's at least one significant catch:
+
+[Aside: you might notice the way it's done violates the principle I
+ stated elsewhere of avoiding structures where you must know where you
+ are in the flow to know which parts are populated.  My type
+ discipline has improved since I first wrote this code :)]
+
+We need to gracefully handle the case of malformed phandle /
+linux,phandle properties; that's actually the reason for the weird
+placement of this in checks.c.  By treating it as a "check" we handle
+this case by failing the check.  Other checks that rely on phandles
+then have the 'explicit_phandles' check as a prereq so they don't need
+to verify this again.  We can still report errors for other checks
+that don't rely on that (which is the whole point of the checks
+mechanism).
+
+That's not the only way to do it, of course, but we need something to
+check for that error case.  Further notes on the code.
+
+> With the recently introduced FDT_PROPDATA_HANDLE dtb tag, this will be
+> needed to update internal phandle references before the call to
+> process_check(). Indeed, this tag allows to identify phandles and
+> internal references need to be updated based on the phandle value before
+> the process_check() call.
+>=20
+> Signed-off-by: Herve Codina <herve.codina@bootlin.com>
+> ---
+>  livetree.c | 21 ++++++++++++++++++++-
+>  1 file changed, 20 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/livetree.c b/livetree.c
+> index abe73de1..a9f8c5d2 100644
+> --- a/livetree.c
+> +++ b/livetree.c
+> @@ -628,16 +628,35 @@ struct node *get_node_by_label(struct node *tree, c=
+onst char *label)
+>  	return NULL;
+>  }
+> =20
+> +static cell_t get_node_phandle_existing(struct node *node)
+> +{
+> +	struct property *prop;
+> +
+> +	if (phandle_is_valid(node->phandle))
+> +		return node->phandle;
+> +
+> +	prop =3D get_property(node, "phandle");
+> +	if (!prop) {
+> +		prop =3D get_property(node, "linux,phandle");
+> +		if (!prop)
+> +			return 0;
+> +	}
+> +
+> +	return propval_cell(prop);
+
+In the case of a malformed property, this could SEGV.
+
+> +}
+> +
+>  struct node *get_node_by_phandle(struct node *tree, cell_t phandle)
+>  {
+>  	struct node *child, *node;
+> +	cell_t tree_phandle;
+> =20
+>  	if (!phandle_is_valid(phandle)) {
+>  		assert(generate_fixups);
+>  		return NULL;
+>  	}
+> =20
+> -	if (tree->phandle =3D=3D phandle) {
+> +	tree_phandle =3D get_node_phandle_existing(tree);
+
+This means that every time we search for a phandle, for every node
+scanned before the destination with no phandle, we do a full property
+scan to check that no, it still doesn't have a phandle.
+
+I don't care that much about dtc performance, but that's still a bit
+much to swallow.  I think we need to cache negative lookups to avoid
+that.  Happily, since there are two invalid phandle values this
+shouldn't be too hard.  We could, say, use tree->phandle =3D=3D 0 to mean
+we don't know if there's a phandle, and tree->phandle =3D=3D -1 to mean
+we've scanned the properties and we know there isn't one.
+
+In fact, caching property lookups might be the better way to do this.
+Rather than having an explicit pass where tree->phandle is populated,
+we could have get_node_by_phandle() cache its property scan (success
+or failure) in tree->phandle.
+
+I think that's a more elegant approach than the current one, but we do
+still need to handle the malformed property case.
+
+> +	if (phandle_is_valid(tree_phandle) && tree_phandle =3D=3D phandle) {
+>  		if (tree->deleted)
+>  			return NULL;
+>  		return tree;
+> --=20
+> 2.55.0
+>=20
+>=20
+
+--=20
+David Gibson (he or they)	| I'll have my music baroque, and my code
+david AT gibson.dropbear.id.au	| minimalist, thank you, not the other way
+				| around.
+http://www.ozlabs.org/~dgibson
+
+--lz/gZO3uSfdIiUAi
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEO+dNsU4E3yXUXRK2zQJF27ox2GcFAmra058ACgkQzQJF27ox
+2GcVGxAAqVsqw74rGD8w0m9ospZ0NsC5yBuq2l2/26gjHs4tL6qdl7Op1Ibxv6b2
+NA87Sll7xzM2pS5YOgQiU02aVB3otmNsS5bd9M8xhXbLrK8amvSf0evWU/bMgQok
+E8WwqkRtXMWfbl0xNXsqSLahtXdTPhFi4/eBiOywcBqLQ2Nzs9/SFG3L+Uc57TA6
+c2/yzxEMHhpJz8nIh2qyWwSCIDX4cocH0QhIUEMv4IDju7Qwdx/S4y1KbLUUIWmF
+f0AbbVyB6G/lEZp6BMXD/82mZazmwtFIDSH+stPDqbN6i8VS+OsFqYz0tG2+xW/2
+F83MjCB+WIyGFriEnnBEsNNkRWRu3gY84xWTIYGwwMdDYw3NkmkHOnJkODmqYayv
+JwOrfO9YE/s9UFXaESG3ZWvP9gtHSyhL2mSl+EY6KV4UkCkjAoZzk0cJIiqaE2GT
+yvwWXXtDPXbCpvx59Pmce+LPzcM9FY8OpmwO3Gu78zYzS43YxVFXpxqxHXoie0NO
+WBtOA79prvPTJebdCl67YzWGjKrhvucum71Ry+wQnAc27494VYMJtL+eEZvqdY5q
+B6rxkFzKjwsl7xyRY6/DW3vyLvEZdQyvoiJK2IZynnhtOjk9cc47Uiyn7V+envl2
+f6NycJ7ymQ4PNmwSVHbvJOZNdLO6qpejG14waebE261wxSYIdAE=
+=+sPE
+-----END PGP SIGNATURE-----
+
+--lz/gZO3uSfdIiUAi--
