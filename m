@@ -1,102 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.52
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792788298;
-	b=VPmlevge7q0wP8kDaDhvk0ZQWqekjX4amuVK/qBB7HcWuHnAVCSMUJdIPCDguLSASZX0
-	 YXHecL04UdJvqt6hm+iKxDMIQTeruYs3/pod5RvkUAnVwmQNu3r29LtPDQteQQ2eQ86sN
-	 kfPnLjHF1lU8yZuJgJFDDsOYTeRUehocp2ouQXMLDMi24cJrcBcldZ8bA02+GZF3Q4GsD
-	 GnpQuPVK8suapCG+w5t1R5a7H947TW6qSsjwCY20LRblSphe8ze9/YYdKz5FieNvlnB4P
-	 5u/oKjO7x0I/X7nrk/7JcXlfB4OFn6djS121l4A0dm99MLR7qTAOqcYsaTA9JG1/MDA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792788298;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=v7+u3dOadIrUbFkNlr6wXd/ZKqCuBSYy4INtLRXYGUA=;
-	b=RcJjSivOXVdbmOUByRMMTEn3nHxJDRoJ+2pEBdi4Da1YApEFMhiIASuknJ4ZhRcx94AX
-	 ca0bqV7eS+fpAmm26PAKvKhA487CX/1+jTZz+XBSb4RioTpT65rPMbqT11M2MLcXRzlqA
-	 hQCmYBT+s8w/5moH0yzlTUf3JfwLM4e2gmZ+WBXpWIYX3khtLwUUH/T4Tk6wGziv8s00H
-	 4OAvCmqR0/GnnBSBXiSBk++qyDceSjOyo/fEpf/+VmdH9To/EbkkTpirJxBw3tQ0nepHE
-	 I3UTG5wY0qNwtncfc5X42PCiL3dAI95KgzzRouVHw+GKv39sBwtgzR3WVkPW44nGeog==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=q+Z1RtH6;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.52
-Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com [209.85.208.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792788352;
+	b=xTIt8z+m4RwRL30UVgO07cUJwakisAUfsKYZmprkZTp+I43n7MuIJCnJl4ShpQPdTCpZ
+	 PjWFmd2COclkaQpUl9NZaowROO4aHsgDm9vXvbvtqWoAkwP/DipGu+VHJEk239rswHGiD
+	 gKLmfnJ2dobb3vijGz/m6m8gfBc6P+ReCB/igSGt8Q4OxWmKtEgmaLuWsAidqNKYwfbG1
+	 tOxyATuRUEky3hawronDj8vwulU/gPHKMMn8dCj9KcPtPmONUdehV9SeDt0XX/SCZUZtQ
+	 d5jgnCh2EkM1L62XRhagYTFrUkHE8teK80/GsuOBKu3nNRNF/arzmophpPLcSSWe6Ag==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792788352;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Scanned-By;
+	bh=bFFffzUvgnJue3yyaiYiiCh8qM+TcfI9WgeY9k8g54M=;
+	b=RcWZ2PmqF9O8rSs5H7R0aboKU4uJXdxhjz6jg8z/X6wXopEwwMyOPlwr4tXSZUdf72IT
+	 yejHav9KZsu9ot1UemYxqs8zxzOThn9NSaOjrSe+IzTKiTMWZN3n6oaLyWWqajyuIxf9D
+	 TXpkumVxEGFXLIVUJrGvW7RTYH1N1yqbVPpySV8aSzYJVEhAJaM+Vt2ZkA8YuPhtX3T2V
+	 BbmocYZKakgUPYn9CtOY9SfPUj1r4GA1DvCaowLDnRePxGQkgeYf88pkRBak29/nzryLM
+	 hJmI/bUArsZuPy02/3eCPmwjyWJbCe/EO6Gf+DOLVWChMi9c31U9iYXXbgnmyPApYbA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=AlAT+vVV;
+	arc=none smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF208606A31B
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 20:44:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DF208606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A34CD606A328
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 20:45:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A34CD606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=q+Z1RtH6
-Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-6b1ec41d8e9so1365039a12.0
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 13:44:57 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792788296; cv=none;
-        d=google.com; s=arc-20260327;
-        b=mixH2Vo+6T7K/KEgdBmuNR8Jkj62/ia74wt4fKCmveSSfdy+7OmtRsL8YYA4weMDnE
-         DhfXNYueSrEWa82+8wovcm5xdmZzJ5l+5sZO+FOYS/D0Y1AMFTG4OKHET/5eKc8G+auv
-         KdNXqcQPZ4B8FJgCwjXn/LtaflToEqKjvpPokQRgK4vUgDp+F4o4iRRFI4O6JakeNHV3
-         +NWwACCGLuiwDs8SfotFIgH7SCRj4vzjZhIN5aodYWj8kArwRQIOLHtj4TSLVRBLofcC
-         AJpeWhiXIRPKTgjZCZ2Wx1/TUVWFmlT1ajkYXkdgvcnAgN/YKgtSNLqgLI9dGzwa2wYS
-         RfVQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=v7+u3dOadIrUbFkNlr6wXd/ZKqCuBSYy4INtLRXYGUA=;
-        fh=r9lNobcof0zBEOB7CgUQOSK4+Y+gtdyG5wnqO5E95Nc=;
-        b=rhcxOt2C/y7aGzn0l/gZ/i5F0R0AHqj0lu6TsgNag5xDSU3dhVCQ1c+fwenaii4O2G
-         rGjxGeGUvhIXL5XdlcApef2efaaigGXJddp84MLBdky6Gi+xlVENMwcCciJyDLGDFpnZ
-         FbCf4GVk5d+5RaJbQqtw3ZHZhg4JNOngA6iXPJX5SPE/Jfnw378aB7H1VeeSWu6ZmBs9
-         QcMpOh7t5sIj7ZF3XHWNpl2802j3n+xoqr+/enhKS8VF/PSqRZJNHabCTWExkNevE57O
-         A5CVApVWtG1kZh1beakdLgMwDQ1Alm0b2n0sV3JRVl9Z6waBj/cA606JYWe2RKxa7Qib
-         A/0A==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792788296; x=1793393096; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=v7+u3dOadIrUbFkNlr6wXd/ZKqCuBSYy4INtLRXYGUA=;
-        b=q+Z1RtH6uNQdMh0T4PtQO/WO7RCPyc3vSbx0tWFh7pu70R8Zby0afO/WZQMBQh3sYB
-         DcarO+aJd+zkxJ9GpTZbjy0mKQifGR+kUWtTGxqE/pbZAgBhlK5VFalCIIbbsOI/vVlg
-         hivuGBHWnK+z91xnbGNx5o2HLCxIM7OIWt4Rg+9Nu+Rb/j1A2RLoN0Y703Mhl/1Sa4qZ
-         82UA8Un3QoJShNJWge1vF4HBcT0ny2obOC1X8glP0NbCh0XsLbDtqsjOipNKUN7WT3w6
-         9YRVUYrjDM9070B1D+sccTLv05a1CQ5axYsuRjO3ZEaEnlkLnHaw1hd5SBq8N7t0nMrH
-         4aOg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792788296; x=1793393096;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=v7+u3dOadIrUbFkNlr6wXd/ZKqCuBSYy4INtLRXYGUA=;
-        b=o4t/2gkg71ODM1xDXeg3JBJlSywYF3CSqhqM3eSj/7uk6J1MdrDdyRqT2Ug3lQhWDt
-         boWeW2TDcKET01Vt1FtVSXTJp4peidWXtBeas2gRsCNihdYnCCg/SOOK8oQxAqaxh5lF
-         CeIQzEZ2Z0nIv7lsQ5J3AznQx8I/M7ODfziktUNMH/9OUT5wkCCnJu5Ei6Ve/bXEIi2j
-         XIlSMdMWRX9Su2eXXhHwDmKYSbAiwHE2SYNT9UcUq7RxlrjPoq2OgPs/OCC4UOuyYWCs
-         e0v+OIgHGfhEMb87VLNYXJ9HRZDlqusEaOhUeVmvsfFnfUaEY9RlgTUUVtarAQJrA3fg
-         U2ZQ==
-X-Forwarded-Encrypted: i=1; AKwUvBz/vsxsTXGg7dq3/XfdS+7fUJvyc8pGV/kg3iLndDExIrLMjS2wTyIqoOXr3ZYPA1bpZ/6E6B7jeTq3spM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKzPQfX93CUpjOSv/GhqPJpSzqhui+cVtfohuL0Iof4u8uuDQ1U
-	YtpiFNbwzIZG9KTGQX4FJW+j8NtMFfi+oQDy4ktX+XNjijSnJ0S6XwAGhc+lHmpwwlYHTX15D7e
-	xmlhzDhpWGvSg3sLTIZjbvXrSmV0mIZU=
-X-Gm-Gg: AYBFou0dAOjNea0Ruj6DgMHJo48j4kjLesDiFpxOOsKxHY5tHI9ddHGF+oROYopNy19
-	ncuia1CkgQKSdkBCFgPy00jtpQwY2Rl3G1TRG5op7ZRhj+3b7nZNdmpmgsbgUnUsosvf1kARHY5
-	AeUxOxQf6ehcrrdY6hLX0ATJsjwgFMWpJkucTsTCeqENJ3fZhwTAWnpDT3AsVxhciqb6c9fD6tt
-	+eBEnLJAd3nS8mwqa4A6Z+DpW3hGhW7kbuMBPRtnz6Jxu4bToyK7cdUxepmKZSxLuTdsK7URpDg
-	QHVOyMPznv/sSo06DVQtJsL7SmklvSlNlZXY/hxzlr4HCtV5m9fYTSV66xhiM03LQi/Zd1vVlHc
-	qD2Y4QxEv2l7ENhPwjcB8dz2A0oWgYT+KqdiDvOxtrYAckAfZO82Ve9o8GI0/VYNkBZSpWFFAqZ
-	YBgYr9rPtWi/a6IDBWVaCZ0qz6McAHD5p4dM5WEX6mFxXik69/QE6ZEaIzsFEsZlgG5X9YA3OSS
-	NhJfiRPWYN/AlNl3lALlz1wbxNoSw2uniPuVm+avbkaTaIk+w==
-X-Received: by 2002:a05:6402:238d:b0:6ac:8761:17a1 with SMTP id
- 4fb4d7f45d1cf-6b44300f683mr269474a12.36.1792788295986; Fri, 23 Oct 2026
- 13:44:55 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=AlAT+vVV
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1792788350;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=bFFffzUvgnJue3yyaiYiiCh8qM+TcfI9WgeY9k8g54M=;
+	b=AlAT+vVVMK+sP7gD7pUZgBpOL9q7XWA/iWVXl0pJAk4QWileHRIIEX4KfyqbvX6qGBYx+6
+	WIp5JvATDqNYe6Y+e+Epl3CRB8MTwD5KOT0/b/gaUBDYi/o9Gau0lOEx4cfZ4A6EXyEVBM
+	HS+UE0sO3IT0pZUGaqFAO1wq+yIEhwA=
+Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-55-75Gnvlz7Pc20nvVELP8pTA-1; Fri,
+ 23 Oct 2026 16:45:45 -0400
+X-MC-Unique: 75Gnvlz7Pc20nvVELP8pTA-1
+X-Mimecast-MFC-AGG-ID: 75Gnvlz7Pc20nvVELP8pTA_1792788343
+Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 8F2AD1800841;
+	Fri, 23 Oct 2026 20:45:43 +0000 (UTC)
+Received: from [100.91.18.181] (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 060071800446;
+	Fri, 23 Oct 2026 20:45:41 +0000 (UTC)
+Message-ID: <8c8f27eb-26af-406e-9766-537dbe9c173a@redhat.com>
+Date: Fri, 23 Oct 2026 16:45:41 -0400
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,54 +71,95 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261023190653.70741-1-rosenp@gmail.com> <20261023221424.2722795e@barney>
- <20261023224140.465903eb@barney>
-In-Reply-To: <20261023224140.465903eb@barney>
-From: Rosen Penev <rosenp@gmail.com>
-Date: Fri, 23 Oct 2026 13:44:44 -0700
-X-Gm-Features: AclHuK_iEVqXQQc71AZ8oDUrqZy15oWTBltW_n805CdkIBNoTMIbMWBdIoDHNgo
-Message-ID: <CAKxU2N_1XgjVPdSrCMYzZx4Rb6yjgEe7kBZYyG4RASyBv5BtMw@mail.gmail.com>
-Subject: Re: [PATCH wireless] wifi: b43: map the RX buffers DMA_BIDIRECTIONAL
-To: =?UTF-8?Q?Michael_B=C3=BCsch?= <m@bues.ch>
-Cc: linux-wireless@vger.kernel.org, 
-	"open list:B43 WIRELESS DRIVER" <b43-dev@lists.infradead.org>, open list <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH-next 2/6] cgroup/cpuset: Properly compute effective xcpus
+ in update_parent_effective_cpumask()
+To: Guopeng Zhang <guopeng.zhang@linux.dev>,
+ Ridong Chen <ridong.chen@linux.dev>, Tejun Heo <tj@kernel.org>,
+ Johannes Weiner <hannes@cmpxchg.org>, =?UTF-8?Q?Michal_Koutn=C3=BD?=
+ <mkoutny@suse.com>, Shuah Khan <shuah@kernel.org>
+Cc: cgroups@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-kselftest@vger.kernel.org
+References: <20261022031643.1351877-1-longman@redhat.com>
+ <20261022031643.1351877-3-longman@redhat.com>
+ <c65208d9-aba6-4e9a-affa-4f7cd8794a0c@linux.dev>
+ <a3caf0f6-da89-4b5c-b80f-3baf6c82a2c4@redhat.com>
+ <776306f8-2200-486b-8c43-2b5fd9b5eeb5@linux.dev>
+Content-Language: en-US
+From: Waiman Long <longman@redhat.com>
+In-Reply-To: <776306f8-2200-486b-8c43-2b5fd9b5eeb5@linux.dev>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
 
-On Fri, Oct 23, 2026 at 1:42=E2=80=AFPM Michael B=C3=BCsch <m@bues.ch> wrot=
-e:
+On 10/22/26 9:53 PM, Guopeng Zhang wrote:
 >
-> To explain this further:
->
-> - I might be wrong, but this patch looks completely bogus to me.
->   Why would this be bi-directional?
->   If this is accessed bi-directionally, there must be a bug somewhere els=
-e.
-> - Please provide a HUMAN WRITTEN patch description.
->   This is really important.
->
-> I am all for using AI for development.
-> Especially for such old and legacy code.
-> HOWEVER, there must be a human present and understanding what is being do=
-ne.
->
-> Please slow down your submissions.
-> Think about your patches before submission.
-> TEST your code before submission and send evidence of your tests.
-All code is tested on an Asus RT-N16. It runs on non-coherent MIPS.
-> Untested code is to be rejected.
->
-> --
-> Michael B=C3=BCsch
-> https://bues.ch/
->
->
-> On Fri, 23 Oct 2026 22:14:24 +0200
-> Michael B=C3=BCsch <m@bues.ch> wrote:
->
-> > Quite honestly, to me this looks like a lot of AI slop is sent to b43 t=
-hese days.
-> > Can you please slow down your submissions so that actual people get a c=
-hance to review the stuff?
-> > Thanks!
-> >
+> 在 2026/10/22 23:00, Waiman Long 写道:
+>> On 10/22/26 9:45 AM, Guopeng Zhang wrote:
+>>> Hi Longman,
+>>>
+>>> 在 2026/10/22 11:16, Waiman Long 写道:
+>>>> Since the introduction of cpuset.cpus.exclusive in commit
+>>>> e2ffe502ba45 ("cgroup/cpuset: Add cpuset.cpus.exclusive for v2"), a
+>>>> compute_effective_exclusive_cpumask() helper which is later renamed to
+>>>> compute_excpus() is added to compute the effective xcpus of a partition
+>>>> root. However update_parent_effective_cpumask() is not updated in all
+>>>> proper places to use the new helper to check if a given cpuset should
+>>>> remain a valid partition root. This can cause a cpuset to incorrectly
+>>>> remain a valid partition root even if no effective xcpus is left.
+>>>>
+>>>> Fix that problem by using compute_excpus() to compute the effective xcpus
+>>>> into delmask in all cases except partcmd_disable and partcmd_invalidate
+>>>> and use it for tasks_nocpu_error() check as well as checking its
+>>>> emptiness. This enables us to catch invalid partition root more
+>>>> accurately in update_parent_effective_cpumask().
+>>>>
+>>> I re-tested the repro from the link below on top of this series
+>>> (applied on cgroup/for-7.4-fixes), and it still fails:
+>>>
+>>>     https://lore.kernel.org/all/20261010075947.333549-3-guopeng.zhang@linux.dev/
+>>>
+>>>     cd /sys/fs/cgroup
+>>>     echo +cpuset > cgroup.subtree_control
+>>>     mkdir A
+>>>     echo 0-7 > A/cpuset.cpus
+>>>     echo 0-7 > A/cpuset.cpus.exclusive
+>>>     echo root > A/cpuset.cpus.partition
+>>>     cat A/cpuset.cpus.partition
+>>>     echo 1 > A/cpuset.cpus.exclusive
+>>>     cat A/cpuset.cpus.partition
+>>>
+>>> The last command still shows "root invalid (Parent unable to distribute
+>>> cpu downstream)".
+>>>
+>>> In this case compute_excpus() returns the stale user mask unchanged.
+>>> user_xcpus() is gone from update_parent_effective_cpumask(), but the
+>>> dependency just moved one level down: the new code calls
+>>> compute_excpus(cs, tmp->delmask), and its first line is
+>>>
+>>>     cpumask_and(excpus, user_xcpus(cs), parent->effective_xcpus)
+>>>
+>>> Here user_xcpus(cs) is cs->exclusive_cpus, which still holds the old
+>>> 0-7 when compute_excpus() runs: update_exclusive_cpumask() publishes
+>>> cs->exclusive_cpus only after partition_cpus_change(). Nothing corrects
+>>> it either - the sibling trim is skipped as exclusive_cpus is non-empty,
+>>> and for a direct child of the root cpuset the intersection with
+>>> parent->effective_xcpus is a no-op. So the stale 0-7 mask still reaches
+>>> tasks_nocpu_error() and PERR_NOCPUS is set again. Please point it out
+>>> if I got the analysis wrong.
+>>>
+>>> I have rebased my fix on top of this series and the partition recovers
+>>> correctly with it applied. Should the fix be folded into this patch,
+>>> or is there a better way to fix it? Happy to hear your thoughts.
+>> You are right. My patch series won't fix this particular issue. However, converting an invalid partition back to a valid one is done on a best effort basis. There is no guarantee that it will always happen. Just echo "root" to "cpuset.cpus.partition" again will make it valid again. So it is not a real bug from my point of view. It is just a nice to have feature.
+>>
+> Thanks for the explanation. This helps me better understand the
+> intended behavior of partition recovery.
+
+I did find the reason why your test case isn't working. I have made some 
+adjustment in patch 2 which should make your test case work now with the 
+v2 series.
+
+Cheers,
+Longman
+
