@@ -1,82 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.14
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792764759;
-	b=EoF6W0PR8pYA9vmMJqBwePgO64r2+8A/WxMwFJAhlG+oaM3YskaW9gTX3eViEtaRcWHT
-	 U5nBu/98v1nawqdQ7Q0mgxuKEmArDc/v1df522gJKumahBPE1dNFPhB1hP+TkYxAsck1T
-	 vGfoOhnVNaWGq10Tpxhw4JbRc1vUDDOuZBQ/wQFGVn0knJhi78UP6ox1IsTnz7Q9QoH4R
-	 AYcTgITftLZSfd1Ricull5pDBhvKrZmUI2vDhran6K2h1jVLfKMlODYloiwMZpDOnVWCj
-	 2tMZgQXU0Fhy9e59y1rk7PbDLAsMq3d8AgkhxZtqTtMlvL/HkbAF4Hmru8B6BLM0CSA==
+	t=1792764782;
+	b=bKjdDM+80pChfnno2dkm6ZjMgPbNytawDRBldhUxdSklMnnDs1fmywrHEDF+CWxoWlMu
+	 8oIdArVJoCnRJMRe/1Ox6LFQqGMhDgcRnzg49MNeEcldsdEkqvps3Q533+KzDre4AMOCy
+	 ZyiRoc03FqUvwC5Ky8q/lDECtpu3u96KCYEDcmKDzGl9Yl4jYv6E+R0QhBdIBhAHnFmyy
+	 w85AdqA21yoTOAq42mkjkgTGjHNxDdNR1n5xE/kZa7nkZl305ESq3BO4d1LE5Ejz0G6F/
+	 WSzsC32NLKGgJWCFdMnrPot1d2NJPcCyo41aYiocQaI2+fFYcAcLtcjQPcs426uItfg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792764759;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To:
-	 Organization;
-	bh=Ab8RHstOOGsiaRRPvys5lJ6PezymvXrBWNKqeo/lvPM=;
-	b=SAUwE5G1ycsccwSdNPGcqgaB1gOpqb2WCsBSoFHdetNdU2gwd8TIGRhPABBuJphvSGQS
-	 BGGRed8rGLQP4vdfyDKiMDK37N9WrNMcPKEzySNTAJr+7I5waUeYF0chPYb1hCEgfUXK/
-	 OnguxkKxYyIOGhkHpO6wzTHzKliU9SzU6BOruApyshGv4+zb6Y8rXxkPph4VusOZj7Hnp
-	 Pa+bxGSY9rmrSBRCiWTxXlNPnYOVM8mmE9fexL8NxVi/7k3Z+l7vB3AVPrX7DX/X0maWN
-	 LQA3M6v7GPyiwdA2sKJZV9PH0B0DNZcwjcZgYx2sVlbh/hZBcHP3NgLGSNh4mMzQ5EQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792764782;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=9cFpvU8rjQOsVqgPNZEW5UiYjM8XcyLp4rMG1r738y4=;
+	b=m5dDeFUmse4UxVThMZerMmxqfQL/ewPpifKfcdCuhK3jr9ayYD30zqOdP1tD29uR93xg
+	 99vJMYQ47yKCtbnAv+vpwOcQTvNmrQvb3Rpy89XToSPX6e7zH5REfmUmxmChWHSRracx/
+	 J06eInbDPL74IRFGjD5/1QshkL3Cyi33T5rnpCVLuifxkmwuxVUoHHNu5UqhzR/AWdBnk
+	 CTSAnrsG+nR7RZIZBAoexpv9iGf3L88sU6ddkcOtrcWr1R1VNDt3HQHKrfftGHeslKmVT
+	 vSdjUYSKcMgFPig2hvz1CzS3nBNiJluCtUdeNWWPmv05isBp7v4rPJwU5l8QNUMRRjw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=aEvvqQY4;
-	arc=none smtp.remote-ip=198.175.65.14
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 555C4606A324;
-	Fri, 23 Oct 2026 14:12:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 555C4606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=uO1JOGeJ;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 400EB606A329
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 14:13:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 400EB606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=aEvvqQY4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792764758; x=1824300758;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=KqznkMmYbL6qu9UlIb3UJC6Y5I0wTV0+qWfGZcx0rlU=;
-  b=aEvvqQY4S4xkfxuYdCu1FggD0ix86Ua3iGW+WiOjElM3bbqVCESpt+7x
-   hHlBwisf8ZEwRURuJvllEivE1ynZ8KMae7AukSSfy59m0YtiKskJOot9Z
-   mQv3y0cnfILTHxzLJui9ejogE8jN6qUfw1JOtyxLEJvT8FQx0kEyDo1Id
-   IKp4NL+LwgAEchBTPm5uZPjRyXo8NGpDbraT3Y0DuSXbGTkI9CKd5xWGx
-   1Fw63IL7RGc7zJt4xyj6KWXc4mGt0tY1Uhd49e/RIl3Z8CQwlRBP5SqfA
-   X+0LcLcUHFoyd9X73SCb6IqQFA8lEazpkesys4Rx95q+svuYZMIza/3v8
-   A==;
-X-CSE-ConnectionGUID: zLmoX2ClTCiYg6NinnIrLQ==
-X-CSE-MsgGUID: C++4a1TvToatmQE00kBmkg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11943"; a="1399879"
-X-IronPort-AV: E=Sophos;i="6.27,174,1787036400"; 
-   d="scan'208";a="1399879"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
-  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Oct 2026 07:12:37 -0700
-X-CSE-ConnectionGUID: ZTLF/PFATMOEfFXfHp7sUg==
-X-CSE-MsgGUID: ErS4g7JXQcCIbTofzgeKww==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,174,1787036400"; 
-   d="scan'208";a="4142845"
-Received: from kniemiec-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.100])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Oct 2026 07:12:35 -0700
-Date: Fri, 23 Oct 2026 17:12:32 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: =?utf-8?Q?Rare=C8=99-Mihai?= Vladu <vladurares@gmail.com>
-Cc: Hans de Goede <hansg@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-media@vger.kernel.org, linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/4] media: atomisp: queue: remove unused local queue
- support
-Message-ID: <attrUN_9ilg9W8ah@ashevche-desk.local>
-References: <20261014111213.1967452-1-vladurares@gmail.com>
- <20261014111213.1967452-3-vladurares@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=uO1JOGeJ
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 332821C00;
+	Fri, 23 Oct 2026 07:12:57 -0700 (PDT)
+Received: from [10.2.212.23] (e121345-lin.cambridge.arm.com [10.2.212.23])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 805ED3F673;
+	Fri, 23 Oct 2026 07:12:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1792764780; bh=sROtlMFSXp8uwtrjh7+47j+s9WQZKDsosHFNWnr1FVc=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=uO1JOGeJSJYNIbzJmFHsfepKZP6AX2zPVZE1kT3D//zfaqIfdvtvda8w2tRoZgWlQ
+	 SErgyDg5O590mBUXaVfW3D6861ml7bejUJcTEeu9PjsF7XgMt7HmBFlaujXBv0nsay
+	 5xPT8YX/1c9+tonQ8JOKmBHNuG2e9gaRtY+jWbhc=
+Message-ID: <242e6922-2f40-4afc-ab8f-3405da5ad445@arm.com>
+Date: Fri, 23 Oct 2026 15:12:56 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,82 +53,75 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261014111213.1967452-3-vladurares@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH 0/3] iommu/arm-smmu-v3: Add support for hitless
+ replace of CD entries
+To: Jason Gunthorpe <jgg@ziepe.ca>
+Cc: Samiullah Khawaja <skhawaja@google.com>, Joerg Roedel <joro@8bytes.org>,
+ Will Deacon <will@kernel.org>, Kevin Tian <kevin.tian@intel.com>,
+ Alex Williamson <alex@shazbot.org>, iommu@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ Pasha Tatashin <pasha.tatashin@soleen.com>,
+ David Matlack <dmatlack@google.com>, Lu Baolu <baolu.lu@linux.intel.com>,
+ Pranjal Shrivastava <praan@google.com>
+References: <20260925011308.3381953-1-skhawaja@google.com>
+ <40a2e1a2-138b-42bf-94ea-a42fda128c22@arm.com>
+ <20261023134630.GA3977851@ziepe.ca>
+From: Robin Murphy <robin.murphy@arm.com>
+Content-Language: en-GB
+In-Reply-To: <20261023134630.GA3977851@ziepe.ca>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Wed, Oct 14, 2026 at 11:12:11AM +0000, Rareș-Mihai Vladu wrote:
-> ia_css_queue_local_init() has no callers, so no queue is ever created
-> as local. ia_css_queue_uninit() only handles local queues and has no
-> callers either.
+On 23/10/2026 2:46 pm, Jason Gunthorpe wrote:
+> On Fri, Oct 23, 2026 at 01:10:56PM +0100, Robin Murphy wrote:
+>> On 25/09/2026 2:13 am, Samiullah Khawaja wrote:
+>>> This patch series adds support for replacing IOMMU domains with S1 page
+>>> tables hitlessly, that is without disrupting the ongoing DMAs. This is
+>>> one of the dependencies of the Liveupdate IOMMU support for Arm SMMUv3.
+>>>
+>>> S1 domains are programmed by CD entries in the CD table. During a new
+>>> domain attach these are updated using arm_smmu_write_cd_entry(). Since
+>>> ASID and TTB0 are in different 64-bit words, arm_smmu_write_cd_entry()
+>>> considers it a non-hitless update and sets V=0. This means such an
+>>> update is disruptive and would generate translation faults if there are
+>>> ongoing DMAs.
+>>>
+>>> Replace the CD entries by using an unused temporary ASID in the
+>>> following sequence to allow hitless replacement of CD entry,
+>>>
+>>> - Update the CD entry with temporary ASID.
+>>> - Update the CD entry with the target TTB0.
+>>> - Invalidate the temporary ASID.
+>>> - Update the CD entry with target ASID.
+>>> - Invalidate and release the temporary ASID.
+>>
+>> Why bother transitioning through a 3rd ASID? The old and new pagetables must
+>> contain the same translations anyway, so why not just: switch ASID, switch
+>> TTB, invalidate old ASID?
 > 
-> All queue handles are in the static css_queues in bufq.c, and
-> ia_css_bufq_init() sets up each of them with ia_css_queue_remote_init().
-> This happens in ia_css_start_sp(), before the host sets
-> host_sp_queues_initialized for the firmware, and css_queues is not
-> cleared afterwards. Before that, the old code would have taken the local
-> path with a NULL cb_local.desc and hit OP___assert(), so the handles do
-> not seem to be used before initialization.
+> The target ASID may be in use by another CD someplace else. Doing it
+> without the temporary could contaminate it with wrong translations
+> from the original TTB0.
 > 
-> With only remote queues left, the queue type no longer serves a purpose.
-> Remove the local queue code together with IA_CSS_QUEUE_TYPE_REMOTE, the
-> type field and the type checks.
-> 
-> struct ia_css_queue appears to be host-only: it is not copied to SP or
-> ISP memory, and the firmware uses struct host_sp_queues, whose addresses
-> the handle stores. Removing the union member keeps the struct size on
-> 32-bit and reduces it on 64-bit, where cb_local held two pointers.
+>  From a driver perspective we don't know why the domain replace
+> operation was triggered. iommufd can trigger it for domains that are
+> not identical. Corrupting the target ASID when we don't know for sure
+> what is happening is not safe.
 
+If there can be "wrong translations" then the whole thing is 
+fundamentally not safe to begin with.
 
-I'm wondering if you use --histogram diff algo when preparing patches.
-If not, use it next time.
+> Obviously Samiullah's use case is hitless between the same translation
+> so it doesn't need the extra ASID, but the driver can't know this.
 
-...
+Huh? If it doesn't need to be "hitless" then there is no need to do this 
+at all; break-before-make via an invalid CD is fine. If it does, then 
+the translations must be identical. Doesn't matter how many intermediate 
+ASIDs you go through, any time *one* of them could have fetched from two 
+different pagetables, you can't say for sure that an amalgamation of TLB 
+entries won't create something which ends up looking like a global 
+translation, that then "corrupts" *all* ASIDs.
 
-> -int ia_css_queue_uninit(ia_css_queue_t *qhandle)
-> +int ia_css_queue_enqueue(ia_css_queue_t *qhandle, uint32_t item)
-
-This change is hard to read. Can you make an intermediate patch to just move
-the "remote" branches to the helper functions first and in this patch actually
-kill the local case altogether? Try to make it so that the ± statistics is
-minimum for the changed lines. It means that create new helpers as they should
-appear after this patch alone (just with different names). Example (ideal case):
-
-// AFTER the mentioned intermediate change
-
-static ia_css_queue_enqueue_remote()
-{
-	...
-}
-
-// in old function
-static ia_css_queue_enqueue()
-{
-	if (LOCAL) {
-		...
-		return ...
-	}
-
-	ia_css_queue_enqueue_remote()
-}
-
-// In THIS change
-
--static ia_css_queue_enqueue_remote()
-+static ia_css_queue_enqueue()
-...
--static ia_css_queue_enqueue()
--{
--...
--}
-
-Repeat the same for all affected functions.
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+Thanks,
+Robin.
