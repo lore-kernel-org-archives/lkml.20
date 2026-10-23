@@ -1,59 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792717940;
-	b=v31L9B2v2GpKJ/uGdRF2jjdSeKFrKybV0E9YfE/Ss3zZMpswtqO1C/cTIQd2vQxgJlTX
-	 ucOlmwwiOT8kThSzoYb7B/yG1BwXhVlRckylMl0VyMebHNPj+SwqtRXh4Nh5g9nUVr3Li
-	 wyYto2N346tPjxAaRSTvOt7AIqQ/P0Dy/EvxgS9j3fVjwxQSvpeRyzfd8SeLflNU3UEod
-	 lKKxX6x74LzK+WRP0O4K7a+nubOuW1fgAATCXLZDvbDoOn3B2+HwaNtTfWAEHSzlBIzrc
-	 cc2x1Yrk3sCrBIi171VllnKrir55dCEy9FjVgt1WOPctZVOvUImAZSYS+z54/wuKXDQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792717940;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=MDDy5jQJyoanTUkPzB5s4coGDvxcwLKDeaa23LDEAdk=;
-	b=BHjUkUloKBWregW7pmqNLGQv4QkMsuoHjAaAZYawVwsatA+3ZXMQvvnZc6m3u+C0MQdw
-	 qwC2RvdZfydoDxZxyP+nsDWSkw38JK2i0ftfaIn8LvR7rot3jbUtg+TeN2FpSQGBWY/sg
-	 tLi/MOF7JFlHdd24ICCKVKsBZCFWtMpkydFIIi1VVFzEb+vE5TidsWLVhKhncmFVNJBLn
-	 OEAUuJscoBwKKg895F4VGbbTTPcPVlrU4F8sk4pY2JqKs2YXWErAW/N4dXV5mM9sHOPXU
-	 x9/QQ4yc4+6sxx/HvxQ4opu2QUUTe4OQovpWXVbPzvoNgbi37eD2sRvSw3p4wlLnrXw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hwyQG3co;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.42
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792718027;
+	b=HLx3FqFoajQz5+wCAOiZdicB9SmOwHx8VvyyqrmXBZPpxq0GHV2Uah0RiSg3F1AzR4fX
+	 98i3nOrh93RPtaCxqyrM2QXVMoRIPN42s36bbfSIrqiqzbPTBnId0d8Al6ghdVPF/rdVr
+	 p3diSjkampwBG+DkFBqxHKQKvmJfzFD1VLn61QpoGjwhVIX3VQC2BCPZxHW50/wcvYQO2
+	 vE57CHDyRvUZq+qPS8b/sbESoCKRAu9cPKKG4YLmdV8YtkGQz6UOFSf0hlkJuvC61u5T5
+	 Z5CzP6zyWpJmnUc89fOAHm/pDZkkBWHLnHNDjyYhF4216M2Dgzdj59n5q+0U9iZ4ydA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792718027;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=tG1huFZNxVbEJ8XFnOVD6N3fEf7gVxHcg8lll9mK/BQ=;
+	b=iVkO4FkBs2skuxHhpBx6Z4nw2nV4Pbf4IGwxjTuNfKHWU5F5I8VIH//WHDvSq1xvmOkU
+	 EeGGdiuMV7V9K4KoduYAgKeazHc/R1AZ6LTT3FNf5qOukCfMUzVFrCX9lQCoz6xMJYOzq
+	 W+Twzr6vz56TdI5z6e8XBuUT+FYv5xNhw4zXbR0hwijcNqIEwcIv6LH6+Tpeuy9wcI+zB
+	 kdt1ADlPudp0NAzUBy5rFSSPo6x1TpRR0ZgB7MSEBr8OQBNdZ5i8rgOXG9NRBGZ8J8ak3
+	 6ezOB7WfrFASbV9zTaARxfqD/ghnNcOpQyBOi2e6BlhqGPsYJDCTQ/5mKaCHR3i7Q5A==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=jddypwW7;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.42
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 874E9606A319;
-	Fri, 23 Oct 2026 01:12:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A1ED606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 01:13:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1A1ED606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hwyQG3co
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 451AE1F01828;
-	Fri, 23 Oct 2026 01:12:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792717940;
-	bh=MDDy5jQJyoanTUkPzB5s4coGDvxcwLKDeaa23LDEAdk=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=hwyQG3coNC3/7Xsc1dP0EFscFSXxePXc5x5Roym/NOuhIeo1w3KX+/ExmPqdFeeXf
-	 YDFiXKOniUAOJSUk9fZvSsC9RllES3+ZZzvr9wXpZ2IyBxK2mULn2x1cjEhUQBQKxY
-	 RbB+xE/SkDUhok2B5iaj9/9Bz6/FcGjBV8qcC5op2Pkzx7CN868Q+ZP8OQiGTpAgu4
-	 UBtN7O2cSQ7mOu1/Is9tCQqwrSXBox2IZusUDpdz/ymoM464G/eYBtLRsS8NnXIw87
-	 b4rGvkQ+p8DH7l5oId2/9csrTTIio3oHMfy5rjrgZOW0jnizm7qvUJCIwRm+2UeDWT
-	 bwikXXp8fRnAA==
-From: Song Liu <song@kernel.org>
-To: linux-kernel@vger.kernel.org,
-	linux-trace-kernel@vger.kernel.org,
-	live-patching@vger.kernel.org
-Cc: rostedt@goodmis.org,
-	mhiramat@kernel.org,
-	mark.rutland@arm.com,
-	kernel-team@meta.com,
-	Song Liu <song@kernel.org>
-Subject: [PATCH v2 16/16] compiler_types: Move notrace from inline to __always_inline
-Date: Thu, 22 Oct 2026 18:10:49 -0700
-Message-ID: <20261023011049.1164625-17-song@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261023011049.1164625-1-song@kernel.org>
-References: <20261023011049.1164625-1-song@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=jddypwW7
+Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-48bbb06e746so145059f8f.3
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 18:13:46 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792718025; cv=none;
+        d=google.com; s=arc-20260327;
+        b=CkbcdFCsZnJqPXacXBvnzWFEHBRdrqnBx18NJ/TZd0hg3jJKi7dj5hrxcdkWNV/jG0
+         XLBRXv5uNSwZOkkbVr3tR4ybcKZRwHmReBB0CcS9KeUPXaPYpacKVVMWBkrzhb92BP9I
+         orBgxGjgHYm8YRqNVv39JPQwjRT+5Jieqz49+qYVxpRz4WN44ITrlEfXTEIdsZQjtxL7
+         XTroqOtyFqh2XMRCkCUV3cpQQLmFE2ZH8RVajeEPC+hQ6i9KZS6RdBWVVaMWjm5RIx9J
+         3I0Ymg8FE4jMv69FeOVi5KE2CxqeIFTui672d2b2u4C3fZ2xWbXgSKeaqkf1NaZBXzyX
+         UPSA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=tG1huFZNxVbEJ8XFnOVD6N3fEf7gVxHcg8lll9mK/BQ=;
+        fh=R64Q25v++ebj6amVcnjJQU9hnup4SaLzI1iLRGQnuh4=;
+        b=jDSS7V6izqT/8N8czTmCrPbTAxqUbN74vFglVIz7218ja6jRNIWdZzCmxuPHvCo5cH
+         t+Qkf5WS7TOjL8ibaTy4Hi9ddh4A3uaWqmHGMQkk9R8I7GvjJAIZqGd5Xbfonyl//4q/
+         VVDufYMBWijDU6DWRdB39g5e2b2Np4FJXCLDb/eGQQmJRGA6e8Ix9HW7khK7X1Ua/DPp
+         ICwEVC8+xBzNLDjgkfk9hW00hOXYGis9yJWcpnTLVHKUII5Lndt4CxB2TrEvuWYp4hN5
+         6zMUWqe07KhSJkuVlNUS24c2BBZlcH6eYhfavUh3fepv6cbdy1mTGvZGwrDfH/P63T9B
+         WoRg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792718025; x=1793322825; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=tG1huFZNxVbEJ8XFnOVD6N3fEf7gVxHcg8lll9mK/BQ=;
+        b=jddypwW7JUppD2JCsVIJJhFrqBIKxP5XvFnlAq43nR1XVfMHjgZMwn/lLuua44C1ey
+         Qban6YbojUdjUd3LZfTfgiJsiEaEqxPMbpnFR0EdlASZvyUxv2VWoJm5hSwLWBb/pNW6
+         WvcDvmfZ1Ph80Z6riulc3F21Tqj/QaiqQcPNLDwSuK8TsA1ZB4sSvi1qFoPOIvpW+xPz
+         R5/7+YuVUE3HvQaMaPuEHs3nFv1rI+G0Sd8Ppnmnjc1wdTWcLJavNXwBCMqeAILgyld7
+         xvDipUVyeRx/PEypeHCX+zrnjXxg7CqWtm9O+oGhHG64bLKLdpBfvCkCKfF3qY+/bNf9
+         58qA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792718025; x=1793322825;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=tG1huFZNxVbEJ8XFnOVD6N3fEf7gVxHcg8lll9mK/BQ=;
+        b=gSYiTCLSiWc3Vi5bb+uCBUcPEoW+dJ8LoTMdXeaQqMfb+Vi4jjRR2+9IzuQTuZqFEN
+         E3LmbOl+WMtQ13rB6VgKCoktY5gwH/lOcotKXJYkGmbC/sq5Shi9QPzixmQ+QOi4vDb6
+         3QiMO8VauTon3KMZaQMsu0BgJZ4+iMgv5INv1TOrlJewNHJQXDnU82LDTK9xOENvQEZ0
+         eoOk0FgcpJ5IKO72n/fecX4WAukPSzV0Dr+6djmXBm2MQjVJ6t3EuX7zP7ao5dDnbb6c
+         7qiFurvpDaihMSx9QvNl5AxsNcMGLV1ajU+lU4jJnZtD6uCMKLZPLbn/A2HCUnw8wi9x
+         MKXg==
+X-Forwarded-Encrypted: i=1; AKwUvByUUAbkenGm/QYeXSKJJ5GC+5DFGUOlx6KWv3UNOuARenVtJmzTBiJXzrIggHr6ZAjVcdycruEOVriZz70=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJxUD1vB7x2XxGHIsVm8KGm8lHjEp+QKDkBFTnnep8vsqoAdjw2
+	OROJ6VVWaX7/Lk50UXFTel3CrcgFj3jJbyaI89JcUofizY0RIE+cjXQ8Vzo0CSGM+HZ0r/hxvmC
+	xN4xeX5Bqo1Wkt2jVr8qWAn/BVP559ITviSH5
+X-Gm-Gg: AYBFou2SSRmv/YW+xXcbMpdTVbRt+09dbxWWTyhAVmdBh7XIA73Gh0J4FcgdXa79Xvw
+	yJhJY0aV/Pzscc4jVo4ULbWWHnapyDU8bjd1pXLFLn90/EqZ2P0lIOLENkEi+KTeTznl0XOMAkP
+	SJeb3vitXOXv1SalwNu3rAV+RxpX0NKBLenZfuaj/JMSSHNO9vHp8x7+YOLXzlb2GJXGDzCXjxR
+	euKc+TbLWoRDi/V8Lg7znB0kwuq9KNJh5cS1V2qgBemYW3qEiKbf+KKm1pHbyL0NGksd3++dJIK
+	mPzlDQ1vSqmxErPcvhO4IVBUJH5jak5d6adwozW8e8HlG+ORq6/oXdJVPCMq5e8x6tjgM+OKC1Q
+	O7CwewWbWlErsUIl/9SugrtnOPmGPx6ArD+GD2A==
+X-Received: by 2002:a5d:5e8b:0:b0:48a:f404:695e with SMTP id
+ ffacd0b85a97d-48e385bd508mr813127f8f.50.1792718025240; Thu, 22 Oct 2026
+ 18:13:45 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,85 +104,92 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261022220637.89697-1-breno3011alves@gmail.com>
+In-Reply-To: <20261022220637.89697-1-breno3011alves@gmail.com>
+From: Ryusuke Konishi <konishi.ryusuke@gmail.com>
+Date: Fri, 23 Oct 2026 10:13:28 +0900
+X-Gm-Features: AclHuK-pRUO26_pnOdG0dntPiPDuOPrxpOIYxFOQTtHB_TJBkclZoTcflgnjzSY
+Message-ID: <CAKFNMomoPV87KM94eYMHNz9WG9CuAHOWVEgPbsEBUZi55jhHpg@mail.gmail.com>
+Subject: Re: [PATCH] nilfs2: remove two dead '#if 0' blocks
+To: Breno Rodrigues Alves <breno3011alves@gmail.com>
+Cc: Viacheslav Dubeyko <slava@dubeyko.com>, linux-nilfs@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Commit 45959ee7aa64 ("ftrace: Do not function trace inlined functions")
-added notrace to the inline macro. At the time, inline was only a hint
-with CONFIG_OPTIMIZE_INLINING, and whether a given inline function got
-an mcount call depended on the gcc version. Some functions that must
-not be traced, such as the paravirt native_*() helpers, were marked
-inline and relied on being inlined, so a different gcc could silently
-break the function tracer. Making all inline functions notrace removed
-that dependency on the compiler.
+On Fri, Oct 23, 2026 at 7:06=E2=80=AFAM Breno Rodrigues Alves wrote:
+>
+> Remove two blocks of code that have been disabled with '#if 0' since
+> the initial nilfs2 import:
+>
+>   - inode.c: the code that would have read i_file_acl and i_dir_acl
+>     from the on-disk inode.  nilfs2 has never implemented ACLs, and
+>     the i_file_acl/i_dir_acl fields do not exist in struct
+>     nilfs_inode_info, so this block has never been compiled.
+>
+>   - super.c: the classic ext2 "maximal mount count reached" check.
+>     nilfs2 reads and rewrites s_max_mnt_count for on-disk
+>     compatibility, but the check itself was never enabled.  Removing
+>     the disabled branch does not change the on-disk format or the
+>     behaviour of the driver.
+>
+> No functional changes.
+>
+> Signed-off-by: Breno Rodrigues Alves <breno3011alves@gmail.com>
+> ---
 
-That trade-off no longer makes sense. CONFIG_OPTIMIZE_INLINING was made
-always on by commit ac7c3e4ff401 ("compiler: enable
-CONFIG_OPTIMIZE_INLINING forcibly") and removed by commit 889b3c1245de
-("compiler: remove CONFIG_OPTIMIZE_INLINING entirely"). The compiler
-also inlines static functions that are not marked inline, and creates
-.constprop, .isra and .part clones, so the set of traceable functions
-already depends on the compiler. notrace on inline does not make it
-consistent. It only hides the inline functions that the compiler chose
-not to inline. Hidden functions cannot be traced with ftrace or used
-as BPF fentry/fexit targets. They also cannot be livepatched, because
-livepatch redirects functions through ftrace, so a fix to one of them
-has to be shipped by livepatching its callers instead.
+Hi Breno,
 
-A function that must not be traced should say so. The previous patches
-mark notrace the inline helpers that relied on inline implying notrace:
-the paravirt native helpers, the helpers used by resume and kexec, the
-helpers used by bpf_spin_lock, the BPF trampoline and bpf_mem_alloc,
-and the helpers used by ftrace recursion protection, tracepoints, SRCU,
-the trace clocks, core_kernel_text() and the nofault accessors.
+The same patch proposal was previously made and the changes have already
+been merged into mainline in the current merge window:
 
-Keep notrace on __always_inline. Such functions are meant to be inlined
-into their callers. An out-of-line copy exists only when the address of
-the function is taken or when it has external linkage, and those copies
-are mostly low-level helpers used by entry, context switch and tracing
-code.
+https://lore.kernel.org/all/20260907-nilfs2-dead-code-cleanup-v2-1-fa1ab5b0=
+abd6@gmail.com/
 
-Assisted-by: Claude:claude-opus-5
-Signed-off-by: Song Liu <song@kernel.org>
----
- include/linux/compiler_attributes.h | 6 +++++-
- include/linux/compiler_types.h      | 3 +--
- 2 files changed, 6 insertions(+), 3 deletions(-)
+Before submitting a patch, please make sure to check the latest mainline
+master branch, the linux-next tree, and mailing list history.
 
-diff --git a/include/linux/compiler_attributes.h b/include/linux/compiler_attributes.h
-index 476c4c560d17..5fdc07b3e380 100644
---- a/include/linux/compiler_attributes.h
-+++ b/include/linux/compiler_attributes.h
-@@ -49,10 +49,14 @@
-  * to its docs (and also "warning: always_inline function might not be
-  * inlinable [-Wattributes]" is emitted).
-  *
-+ * The compiler still emits an out-of-line copy of an __always_inline function
-+ * when its address is taken or when it has external linkage. These functions
-+ * are often used by code that must not be traced, so mark them notrace.
-+ *
-  *   gcc: https://gcc.gnu.org/onlinedocs/gcc/Common-Function-Attributes.html#index-always_005finline-function-attribute
-  * clang: mentioned
-  */
--#define __always_inline                 inline __attribute__((__always_inline__))
-+#define __always_inline                 inline __attribute__((__always_inline__)) notrace
- 
- /*
-  * The second argument is optional (default 0), so we use a variadic macro
-diff --git a/include/linux/compiler_types.h b/include/linux/compiler_types.h
-index c5921f139007..ea7f2a928b4d 100644
---- a/include/linux/compiler_types.h
-+++ b/include/linux/compiler_types.h
-@@ -230,9 +230,8 @@ struct ftrace_likely_data {
-  * externally visible function. This makes extern inline behave as per gnu89
-  * semantics rather than c99. This prevents multiple symbol definition errors
-  * of extern inline functions at link time.
-- * A lot of inline functions can cause havoc with function tracing.
-  */
--#define inline inline __gnu_inline __inline_maybe_unused notrace
-+#define inline inline __gnu_inline __inline_maybe_unused
- 
- /*
-  * gcc provides both __inline__ and __inline as alternate spellings of
--- 
-2.53.0-Meta
+Thanks,
+Ryusuke Konishi
 
+>  fs/nilfs2/inode.c | 5 -----
+>  fs/nilfs2/super.c | 4 ----
+>  2 files changed, 9 deletions(-)
+>
+> diff --git a/fs/nilfs2/inode.c b/fs/nilfs2/inode.c
+> index 34e609606..c5b0e9f27 100644
+> --- a/fs/nilfs2/inode.c
+> +++ b/fs/nilfs2/inode.c
+> @@ -422,11 +422,6 @@ int nilfs_read_inode_common(struct inode *inode,
+>
+>         inode->i_blocks =3D le64_to_cpu(raw_inode->i_blocks);
+>         ii->i_flags =3D le32_to_cpu(raw_inode->i_flags);
+> -#if 0
+> -       ii->i_file_acl =3D le32_to_cpu(raw_inode->i_file_acl);
+> -       ii->i_dir_acl =3D S_ISREG(inode->i_mode) ?
+> -               0 : le32_to_cpu(raw_inode->i_dir_acl);
+> -#endif
+>         ii->i_dir_start_lookup =3D 0;
+>         inode->i_generation =3D le32_to_cpu(raw_inode->i_generation);
+>
+> diff --git a/fs/nilfs2/super.c b/fs/nilfs2/super.c
+> index 893a504cb..d0faae49c 100644
+> --- a/fs/nilfs2/super.c
+> +++ b/fs/nilfs2/super.c
+> @@ -826,10 +826,6 @@ static int nilfs_setup_super(struct super_block *sb,=
+ int is_mount)
+>
+>         if (nilfs->ns_mount_state & NILFS_ERROR_FS) {
+>                 nilfs_warn(sb, "mounting fs with errors");
+> -#if 0
+> -       } else if (max_mnt_count >=3D 0 && mnt_count >=3D max_mnt_count) =
+{
+> -               nilfs_warn(sb, "maximal mount count reached");
+> -#endif
+>         }
+>         if (!max_mnt_count)
+>                 sbp[0]->s_max_mnt_count =3D cpu_to_le16(NILFS_DFL_MAX_MNT=
+_COUNT);
+> --
+> 2.56.0
+>
