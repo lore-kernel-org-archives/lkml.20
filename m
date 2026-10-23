@@ -1,97 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=52.59.177.22
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792785207;
-	b=HZIOutYSZg0W0237KUp3lC6dUH1GHPiYgcZkpXTPW0j2knWCjiunHPvmPyiImfjICWbC
-	 EQlwt/Y5kfUI5GQrMGPlWTJ51r4BAl5G3rtALqEBJGV9Om+V/xI6iY4ax+QbT4i+mRUpd
-	 3U+eNPCG4Fs6lJfJExfNNeT9KfhgagwyblaIPdy3V3PqtMc0NJPg7AklWDYIHmG9PZEQV
-	 1QdhGQFkQDexkWZHDyfdJ/DZe/CJwPtX58PXSIu9q43BKvUBCw6gAfZupGn7K29YU+hk4
-	 qTUr+42jmRmtBYEwfOke7j5kN1COTerYLNKiv41ut8AaUAUY+Pc1M6PNDrGV4xOd83g==
+	t=1792785227;
+	b=09cUKjV6Mf8+Z9tkDcCenTc18q/HDozGctFRTcHVIRGAtSDE9LuCLmZ05AMQ8VckreeV
+	 KInRPIe5i2maCmBGFmItUSnHozNi2+D8OseLu4upr4qrFYxC26zppjEsM29DEmLP+q07/
+	 TCM90BoIps/UywtKR+7lxmngZjJC+CqVg5CHdB76lzJaP5vbzqnjX6I48TZkGDG+oq172
+	 otJXM/YUHZjTefTE3RHSIHnFcWqpuV2RrVOFPUQwPtMAi1EMIr2L8fqcz6ywvWPeA/Qcg
+	 Yq7I4tyEVE1plMesrvLo5ik9H5mAG8yckp040kausquxqcd0UD9jSDwOuA+AMR1oMzQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792785207;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=WhO3eiwpVjlpu/pA/NW1sjxZDrXxSK1K3FnCPXrmtt4=;
-	b=E75hz55Z5D2V8gfvS3UikT1KTuYWSIFeMMtgCVr9coT4CMmfpFIeKHqcZzj1dQlptDj6
-	 23yde9wNRtTduCLojgfx56b68v5W4oPNrBJiR0YLvdoUn3CxMCzEwDmatj7EvGOgKFqmK
-	 2/KAXhv+iQElHXTRQr3UgvrETcYvMX2G+RvNAbUQfIW2oZN82QahMWAkitYScbP887QdG
-	 /P8ZW0SMI5xKWFUgxFTohZKAI+sh4CwKUr97c6oWSFSPqOADagOH7phGWP2FIwFIbZ6jL
-	 kRvv6UyEHP2W66HsgOj/uP+OsO6X15RTPcSH+Ui++DX8grqP9g2kZHulYhe8GsFVe/w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792785227;
+	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
+	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:From:To:Cc:
+	 Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:
+	 X-QQ-XMRINFO:X-QQ-RECHKSPAM;
+	bh=rnlgBlJdoi/Lf0uvy9ypW1BedLBEO284FqI2+C9pzoI=;
+	b=3m5jxHgjzkr1oox0as8Ho9hG0U5SSCUdjoy2TfRj0mye1oJ1ma0a73Q4jGlZqd4InsTq
+	 EyzYQWVBFH3cYc0fFuf/2GlpOoNswsTHEv6VO58ETQsS3OxtMYt+QuLxXz9a92PYGimEs
+	 u/C6nHsjUum13CsUIB4kuuch3zzbDf/GYFTcCWJBMatEIIQZbPldB7QmSz658hAdpxXUo
+	 qgxPXO8OE2XpCUuAz5nRN83GQbpSARbi4A+OS8CFfyZMvO37rNIAWmIx6GeMCblTf/b+G
+	 oJMbZm4oCAOXVtBkNC7X0YaV01XiQPGjOFpSc3HY/ld2XA+UHAfFhqpDL6VAfnL0JYQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=LyMNcric;
-	arc=none smtp.remote-ip=209.85.221.48
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=uniontech.com;
+	spf=pass smtp.mailfrom=uniontech.com;
+	dkim=pass header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=XbDcnUce;
+	arc=none smtp.remote-ip=52.59.177.22
+Received: from smtpbgeu1.qq.com (smtpbgeu1.qq.com [52.59.177.22])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8DB3606A32A
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 19:53:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E8DB3606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2E10606A31A;
+	Fri, 23 Oct 2026 19:53:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D2E10606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=LyMNcric
-Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-48df4e9d2d4so759411f8f.3
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 12:53:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792785205; x=1793390005; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=WhO3eiwpVjlpu/pA/NW1sjxZDrXxSK1K3FnCPXrmtt4=;
-        b=LyMNcrichdsAfJMln78ddsIOmImAHXNWLeOIXtCVEUuIF9LazYd+tN/CYghvWTCrm/
-         NuBmZQrhQMzU7BIdPm04SXCUUJUMuBc1KMKYJeluLgffxQnPSlqsdhD8RfPpEXvrvzTq
-         vYaK58Wkbbuk4h8XQgud5V+0UJa9Qo9pFUhVLu6TAIIGdXvhnoz76lE/K07/2SGOXW+g
-         W/kFt4YXAVdWJBHqteKlDFGn1zL4dXjgvDxCAmNScrbCwvTerOHy3AvO0IZQw5+3GZ6n
-         xE7YHrpkRdyEMixIi+pDOCWYZ+kGHxSyJ45b/mN2/EySiIjQPsj1IBisP8VOkfa8bU5L
-         AJEg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792785205; x=1793390005;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=WhO3eiwpVjlpu/pA/NW1sjxZDrXxSK1K3FnCPXrmtt4=;
-        b=Db4j6RErfU3Du2e1GpRV9d2i78+VrxBFe4Rbr1QdeJl9mNjOIcVIgNJr+B7638pYNq
-         gkYkHb0zEc85K/KKPW5qZZv0Snrjx/n2WO7+F8zTfR6iK6G0J7ctVFPQgQrPnQkUveml
-         ysxo6KJXjark8Hk6HmYtgepYR77lsShZ5Twl/RKy2/dSKzy0lwyVRdkfO/KLQTj8MxRI
-         8k0jxq7gSA9TmNSwoiCoDEfqRn/o/kmcWYoINlUtWPvF7Uy+lCXc6RyMl4LNXk5Vgyjh
-         pov7Boc7Ba+CfwXuwkV8vcq1115DW2p7aydeStJVEHpmcBUh0/2WYMuL69oZk246Ttpc
-         nmgA==
-X-Forwarded-Encrypted: i=1; AKwUvBx1OuIyE5KTVBw8hrAHUXnpSaAFUtVcitUtd3wiLoOZUhh5/Q1xAx35iOxRMmz+3NGcZKpI2GpGSCZO+vY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJprChH5vHi3zj73DaVW8odIqb/MkKAMLFuMd6lLioZGdloyyg3
-	B4NxUdtHseojUYf3czNcEub3JMZt55OBVDYmmf+W7YnDcoRvRv8strw=
-X-Gm-Gg: AYBFou02IiLJPThCLo6TOT4iH2AaAQYIwEX+YWB0a9iy6JUZXfEjNXcICm4mLmRP4AD
-	ACZo0GE4KnTq9Re1B+3qlgcmjSkfVIB2bGSXsIc5VLPLy5TMLkP3x+/hB9oqRdu5ZMt3RUA2rzY
-	dS+ZZgzpach1GWCQ7+T5pv5hCA9qaStCQ4l4zNY1Y7H4I/RhbMi6TSJgLhB+uH/X9146c+Lb8fx
-	c/JRMh0E1PeDdiqcpdLXi+w7i6zA68tqh86wvzNF19Mc0mpvTVfRE3vddivyXEg8R3wYgfnUcLQ
-	/3lJCuIRcOijsQWRn3e6lwBM8SCrChdvffSEP4APdD7nsBti3ZzY5ptNnYFl6+8O+brr/fkTNWk
-	1zPcUC1HKXVnafi8mSPZHQw4Vq+opodtazIBUzbbTVwKlmPqFmL3jLuu1PBuUhoqaekCkne8KCI
-	23APGvvSn+U+nu7w+eMtW0LOJvEx0wpGw2uhfSJajVEkp0nhMz5BYAWskSbSQZWYirM3v4L1hee
-	4B/y28PGwuc3GgOOlyOZYII
-X-Received: by 2002:a05:600c:e555:10b0:4a1:d992:9476 with SMTP id 5b1f17b1804b1-4a211ee0060mr36703095e9.23.1792785205270;
-        Fri, 23 Oct 2026 12:53:25 -0700 (PDT)
-Received: from debian.. ([2001:41d0:303:db6b::])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a06da5fsm3299225e9.3.2026.10.23.12.53.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 23 Oct 2026 12:53:24 -0700 (PDT)
-From: Tristan Madani <tristmd@gmail.com>
-To: Steffen Klassert <steffen.klassert@secunet.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	"David S . Miller" <davem@davemloft.net>
-Cc: Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	netdev@vger.kernel.org,
+	dkim=pass (1024-bit key, unprotected) header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=XbDcnUce
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
+	s=onoh2408; t=1792785151;
+	bh=rnlgBlJdoi/Lf0uvy9ypW1BedLBEO284FqI2+C9pzoI=;
+	h=From:To:Subject:Date:Message-Id:MIME-Version;
+	b=XbDcnUceBoAQP1KHH8wibcgH1sDQ3RigQ0Ck73XChpFbEf6MirL4B59Qa96iC8wve
+	 tS5iC1v1uPlAZh3sPfKLwpg7o7jMdE/PlZIjJRvhtLWlgrJWuHbJpQITuE03+lSfj9
+	 /FIoRcMmZ3gmrTX7o4+uAEq2x94WinaqcU0vq51s=
+X-QQ-mid: zesmtpip2t1792785146t50c22cbb
+X-QQ-Originating-IP: Lzp/JTaI8sacwT/+K1muiCHUFVO0LZJkGvRkb4kJo3s=
+Received: from localhost.localdomain ( [localhost])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Sat, 24 Oct 2026 03:52:21 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 6745179872912661611
+EX-QQ-RecipientCnt: 21
+From: Wentao Guan <guanwentao@uniontech.com>
+To: gregkh@linuxfoundation.org
+Cc: achill@achill.org,
+	akpm@linux-foundation.org,
+	broonie@kernel.org,
+	conor@kernel.org,
+	f.fainelli@gmail.com,
+	hargar@microsoft.com,
+	jonathanh@nvidia.com,
 	linux-kernel@vger.kernel.org,
+	linux@roeck-us.net,
+	lkft-triage@lists.linaro.org,
+	patches@kernelci.org,
+	patches@lists.linux.dev,
+	pavel@nabladev.com,
+	rwarsow@gmx.de,
+	shuah@kernel.org,
+	sr@sladewatkins.com,
 	stable@vger.kernel.org,
-	Tristan Madani <tristan@talencesecurity.com>
-Subject: [PATCH ipsec] xfrm: fix output state cache TOCTOU in xfrm_state_find()
-Date: Fri, 23 Oct 2026 19:53:23 +0000
-Message-ID: <20261023195323.3528192-1-tristmd@gmail.com>
-X-Mailer: git-send-email 2.47.3
+	sudipm.mukherjee@gmail.com,
+	torvalds@linux-foundation.org,
+	Wentao Guan <guanwentao@uniontech.com>
+Subject: Re: [PATCH 6.18 000/193] 6.18.59-rc1 review
+Date: Sat, 24 Oct 2026 03:52:16 +0800
+Message-Id: <20261023195216.2314828-1-guanwentao@uniontech.com>
+X-Mailer: git-send-email 2.39.5
+In-Reply-To: <20261023163714.201276352@linuxfoundation.org>
+References: <20261023163714.201276352@linuxfoundation.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,49 +88,38 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpip:uniontech.com:qybglogicsvrgz:qybglogicsvrgz3a-0
+X-QQ-XMAILINFO: OYKM/pSuXZktyvI1Cr5T0vK7A81fatkvCXAaT2CFal49HL0LG3qJztlq
+	npdXTcO7WqRfg/BLn7z5mRZRj4MkH9teFiv/wIq+nJFEYHUOMUBYqeUAlABKdRZ7Xl1umR7
+	qSnIaPLIgsZcSQ1rrD3ncWx+P3T7dC3QiQMc/yO410qzQHdc9eOsy+r0I7wqeFQtCwbbD+S
+	apyAaLAjwqfTi0kWdjDRCdPHpSbLGSGTxw9G2NTNZbjNzaVFvtn7z9IDcdqIAwH/qCylCGY
+	tdnzT0C2O+hfdoUJUIU3+eBydjaZyCEE//rlIJ33uXX68Z5v1xHwDfn4p4RDn/zMbDF2f0s
+	O3867mvJOVkHP1OEJ9m4DSiWN7Ex/0K73s4bkBK9sztsqDvbVShcMNjfNsnQ48nTrFiewrC
+	RZxmNBMkSuNJcgYjayp1dnOua+JJN1SFHsTFIqB3VDSzfKJHQZlnB9ejUeiZLv8AsVkfqzT
+	vM2Y6k2yfNkIV7rQ+VNhs1xIW4vzQgZ04LED1BbwqDOZcheDio1CrBzpde/urrCY2rV3ATG
+	383INlrHLsVsY1ecTFepQJodWDFRo9reHUprhrQ+W8YjD/NbwljU9xmRjAiKXV7Fi9sWVn0
+	2QBVstT/fOJPdaKJcUYC7rgFHv+HGa2QgScB4kG9cEdWQWL/pyy7LV1htemPYXevMEZYv0h
+	k59pzCMlVE+8cf0McM1XoPQaGl6Yijdg5jGC+obmnxBnWdN03h2Mym9+OxGxGSIMPj43r9Z
+	m0AMitv9ZXA7Rc28BUbv7p6uNULyEWRAAxvMb7cLN2DX/zP1kVZ+YV+cxyBKpwuSgNQ8EZ+
+	unHoE9+sGg6OJb1lw2r65G7treGDuRLTjDU14mkdHbbtR9sikP3cF+kEWpXxM7+lwW1NVY6
+	cYYdaZSZtFnZyb3y8ucRq4SQPPEompE2E85SrEJ0gUFd9/gmG/l7qoacF7cQt3lXug5ZU3a
+	M9b46JPNE/6B7v9Ml4SxkOnNuhpQe7A3vm3BVtx8dLu+ifJ063wn5cFh6/dH4KBHjiNst5q
+	CXyGVgvFlRAf1n1fnIU+z3MczrOHuybXKVAq+TUK1pm5/3GGT2WIDl6NrIo+JG+UcxXDmi5
+	w==
+X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
+X-QQ-RECHKSPAM: 0
 
-From: Tristan Madani <tristan@talencesecurity.com>
+Build tested in our x86,arm64,loongarch,riscv config successfully without error.
 
-xfrm_state_find() checks x->km.state outside the xfrm_state_lock before
-inserting the state into the policy output state cache. Between the check
-and the lock acquisition, __xfrm_state_delete() can transition the state
-to XFRM_STATE_DEAD. The dead state is then inserted into the cache
-because the stale validity result is trusted after the lock is acquired.
+Tested-by: Wentao Guan <guanwentao@uniontech.com>
 
-A subsequent call traversing the cache can then access a freed state,
-since xfrm_state_gc_destroy() does not unlink from state_cache_list.
+Best Regards
+Wentao Guan
 
-This is the output state cache counterpart of the input cache race
-fixed by commit ddd3d01329203 ("xfrm: Fix xfrm state cache insertion
-race"). Apply the same pattern: move the km.state validity check inside
-the lock so the check and the insertion are atomic with respect to
-__xfrm_state_delete().
-
-Fixes: 0045e3d80613 ("xfrm: Cache used outbound xfrm states at the policy.")
-Cc: stable@vger.kernel.org
-Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
----
- net/xfrm/xfrm_state.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
-
-diff --git a/net/xfrm/xfrm_state.c b/net/xfrm/xfrm_state.c
-index e45aa1ed5b965..03baa50f0df7c 100644
---- a/net/xfrm/xfrm_state.c
-+++ b/net/xfrm/xfrm_state.c
-@@ -1632,10 +1632,11 @@ xfrm_state_find(const xfrm_address_t *daddr, const xfrm_address_t *saddr,
- 		*err = acquire_in_progress ? -EAGAIN : error;
- 	}
- 
--	if (x && x->km.state == XFRM_STATE_VALID && !cached &&
-+	if (x && !cached &&
- 	    (!(pol->flags & XFRM_POLICY_CPU_ACQUIRE) || x->pcpu_num == pcpu_id)) {
- 		spin_lock_bh(&net->xfrm.xfrm_state_lock);
--		if (hlist_unhashed(&x->state_cache))
-+		if (x->km.state == XFRM_STATE_VALID &&
-+		    hlist_unhashed(&x->state_cache))
- 			hlist_add_head_rcu(&x->state_cache, &pol->state_cache_list);
- 		spin_unlock_bh(&net->xfrm.xfrm_state_lock);
- 	}
--- 
-2.47.3
+Log:
+Linux version 6.18.59-rc1-gbd77a04827b6 (guanwentao@uos-PC) (aarch64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #2 SMP PREEMPT_DYNAMIC Sat Oct 24 02:16:34 CST 2026
+Linux version 6.18.59-rc1-gbd77a04827b6 (guanwentao@uos-PC) (loongarch64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #3 SMP PREEMPT_DYNAMIC Sat Oct 24 02:36:59 CST 2026
+Linux version 6.18.59-rc1+ (guanwentao@uos-PC) (riscv64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #4 SMP PREEMPT Sat Oct 24 02:55:47 CST 2026
+Linux version 6.18.59-rc1-gbd77a04827b6 (guanwentao@uos-PC) (gcc (Deepin 12.3.0-17deepin18) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #1 SMP PREEMPT_DYNAMIC Sat Oct 24 01:55:04 CST 2026
 
