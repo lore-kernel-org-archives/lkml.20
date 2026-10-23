@@ -1,101 +1,104 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792746147;
-	b=vC3qRloO8x10iaKtQlZl6o72sNLZSRkAnZ/fQwuULaSWnuhnHPKUQ9ivhs8dwrJYOxtS
-	 6jB3omthG6gQ4A437wqgMxjRIZpFV53TTofTKFehSRtJZddtHE9VSV0guoGHeV0j02UMf
-	 T852m/RAVby27mbB3uS3sPF8YwrkUqUQMMCHP0/3fx0vumbQeqJJUepOoGd6gnaTPMf4e
-	 ddwwsPo+hHjQHHX9elxAMk8H+IOEME2jrzC61PmkjFZrot5+hg5eTXRqWv+kA3ft/7FXg
-	 sr/lW3DRCo5M0xUQ8ThIYg2qvJ7CjASUPltQJ+4trbVV3SWZoYFJVOU9TnsK98M9wdA==
+	t=1792746152;
+	b=20zjFF+5nZdaL7OaQTuBRKftL8PJv0bUUM6B69/wajHrqIfOz+KRCqUQ8t6hdsI0W3jF
+	 VfT1H7W5F5bRljMVq38zP77rnoTCnJVOFk42Q++XN6NH8+FBXyK6QNDsT5R9KJIR1Swqq
+	 s8Iht3SjFJ+LkcpKE8V+Hvz0CpEnDdDhYEKgvsJVnjohaEmHN6846NzapshMloM2bdqPK
+	 L3NdObkJWcIihwG5AivHjm7Q8wpLGzmZXEMtlla8ztMCon5kxHF8+FwKWeu3vLTwvCmZ7
+	 Ij6xXUbL+tv9Y2OPGvg4Dn4Tz7rku6PptLqadUssZzVJac5IZep/YeOkFnmH7shbh3A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792746147;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792746152;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=LErop/DGERkB7CZZF2w1mWsEqhlGZfF07HpoQtKJxU0=;
-	b=Wd/TaZWxKXkXVEN7KFJgsDJWKXHKu8eZvvg/jlI2XwRh97oRas+re2+w+K96pBAjNesF
-	 vGLZBWzNonC/9Do8L7P9u98fu5yj1TlE0JBU1G/59IKMISYwayZa9QyR2ts7fvlT98wKU
-	 alWAge0Kw0d4xcD4D8Wlw9O5bCWIQq6SrfodDQaxY0fXKkdcZFnvkyoTVnvZj6LiRprWL
-	 nK6B99Mw+gPRlLItl8XlFni+kTG5VQ6ACYJp95Stjfvs5EMg2VeBEDwhSSaOK2WpMEHbr
-	 jb2l24AT93ZOJPpgB/xcobSn+9ohl5mhZJn2aSrCUakV58OLjXOclYsVfKp1aoPF3JQ==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=bVzW7zMSPHXaHTeckBv60Q9h77UETS/F7zSc1JaInmc=;
+	b=lUzrY1lEHI610jRZ/KEap5UrnSO4hUWMmvZgaKBn2sadKah8oCqo5gjET8gmfDOFs03H
+	 4YxbnM4gaGDp+kdCtJbGwgQmlZ3bTa4pEut0NV905BnDWAOKksu1HQysaNghh3MQA4T4B
+	 +tHP8HP258kB212+GfHjzNZZM1jxeVTdtezKGinJp8jVwb16Dhclg3pvtLpFDcL+1k/8x
+	 oBP+Vblhlqixghj3POeyyive+obhM12I8dHzAfMTHxcU/+ZfTHW/vI4EsC7iZUvTlj14a
+	 EjA+Q9B3OrP6SN57guU/VyYQ69ODcH9eZdXCaifIg9o6E+EjNYKqJf+wvpm6XfQjXMQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=l2CWUfq1;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=PrvQw4yJ;
 	arc=none smtp.remote-ip=209.85.216.54
 Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C86BF606A324
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 09:02:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C86BF606A324
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89A0F606A31D
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 09:02:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 89A0F606A31D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=l2CWUfq1
-Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-3ad2b3b1c02so354423a91.1
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 02:02:26 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=PrvQw4yJ
+Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-3ad787e0593so323181a91.3
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 02:02:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792746146; x=1793350946; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792746152; x=1793350952; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=LErop/DGERkB7CZZF2w1mWsEqhlGZfF07HpoQtKJxU0=;
-        b=l2CWUfq1fk1jutMPZY0NtIMBO0oj/buWV8SNHZt7MQ/pCBMu4YTGb+zhf8S2YiU+bS
-         fBxTsGXULrYIhzXds+FxxzFomQpXha4yYpt7RuXeVJl7KXP/9wadaTEJ3WWYFvEmpoGf
-         9ab7yJncXv1PEs636+dW4NSc8lRMBIKjwksSo5L5Ho62yLIjEX9Ykh9rK/pqQgeHXHYf
-         FuAY/3SdxZZY9tCbRQjIdnpYoiW+RBxi1TxeA2mVu6iivNlq2Oc9ofyj5CyG0yMcA6gC
-         opX3FiAiAj0o+4foBB6tR3Ljn4DUNBpVn4lQr7brmwjSkbh56yiO1tca2dHr4OEckaBF
-         x5ww==
+        bh=bVzW7zMSPHXaHTeckBv60Q9h77UETS/F7zSc1JaInmc=;
+        b=PrvQw4yJzcrEcUpIH2yGDATjupfz0mfO4kdnoptPrhzPF2ChL5mjYKmWKMutbBa0gz
+         NY/cSW5SxB+49afcl4wEvs3GuM/ZmssSGNqE0enWZPyGxvPaOvyZ1Lwkz7arPHfutgUv
+         Gv1/j7UwHEcc/QT3tNm1X8579frKp1Fy3+HnOTruUpw7W4AFYovUVeyDTbYmLkMVj9oK
+         d6cRU9FvgmXVzxhpKwCHNVKBOYFXKaoOMvEwrQyl6ji0jmfQn9DWPbPJAV5ohhQyXn5g
+         4/XuhvbiHl6LPHuvQ4rxiNEewcEHOdRMD5sAIjtTj3sAOxde/WJ2BTf6ll+TFujQvT99
+         A4dw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792746146; x=1793350946;
+        d=1e100.net; s=20260707; t=1792746152; x=1793350952;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=LErop/DGERkB7CZZF2w1mWsEqhlGZfF07HpoQtKJxU0=;
-        b=v8l5K3Yjbdyc8plSAU29ZalUOSiXfj7x1Pequ/obuWOY75Md+Ee2xVfOQgdzGF7ZRa
-         jtAEpUIZ0z3tbycKBKHZuCe16jJlpEwXFhHNrZwCgJQmtof0pLVE278SBu+Br8AyuPxL
-         muej8euuasWnAhkVbqCD042lkaVd02ZM9aATcaOlujXFWeFCrBDoZi64wHTO4/xWUCsr
-         Z3iap2iYLAy2A8GACP4QelyOgiaGHsJcOxHjFRgBaFBAkweWoH90hWVoI5RvNa76lEPp
-         +h34Y5QYFCPNCZiCeJGXL/aZ8p1FYQoYy1E4AQ19H1qrphemOzgOH+lpWu7Jf14hXlWM
-         sUGg==
-X-Forwarded-Encrypted: i=1; AKwUvBxMI7q+OS537KOUJ5NyUUnE3eZfDukZSsXjRkyvHiGr35dsUsVstdSYuaOIvS4dBt1NyDJWvnsii/PgrfI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKGDwfu19hRyopJxS0/PvA5lY4Qi53nyDgQB06kcO9D0JHSDvUr
-	eXqWxFrFZnhIF5oLeVo0maxKjacYo+fHsaOz8S7/mRjyIXby/BpPsOtw
-X-Gm-Gg: AYBFou0MHd5rtnEjz0u+8UA8DY8bcxhofB77w05Vr7WjdZ4nIodYioRa+a5Cue8SV78
-	PACU+ucDCX4QI/Grztc1Ywi18g9d4ENEf4y2Lm/0jaGLoqdDU1S5WoTcSQG1Wl/eXcMnrxACs00
-	EM6Gqn/+85/LUGWx0f8zTYKcGU0mfR3vM+fx//wiO/1Gipfg2pTrkNWpRayd4DPaFOc8p0inde3
-	Kq/d8ivHXRqj0f35sHz462eaPgiXHzLCA/L9EoOJdxRpuGAq2tRRtYsN+d7dzLsLHHuZQc9oX0n
-	f8mdZKj998xXFnMQ5it8QvGiM6E57uAUM091dFHs4Eg9GVEkQbddoATFgjjP4ksv0hNGMVUlYEZ
-	0YqIsIMoaR8dimvPV1OLQ5ET2ODDjoVXQSEtDTPHD0Y6nJTsug8YXhnvfyu9RpNwFfB37vuYk5j
-	XoVXVIujpls6GBxc5piwTzaoosN3A4F5kceC5VBKTWyzECkXymGUZ4J1ma0MFMGtUHroPVMXTKV
-	4OgeKkMt5TRLqLOEKRrSd3D9k411r3BgNeOd2GtsirAta1bb9m/H/ZjJ1F/dHIPJMM=
-X-Received: by 2002:a17:90b:5108:b0:3aa:fc22:8aac with SMTP id 98e67ed59e1d1-3adce0cda23mr1334868a91.51.1792746145878;
-        Fri, 23 Oct 2026 02:02:25 -0700 (PDT)
-Received: from LYF-imac ([120.235.89.223])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ada49314besm7842720a91.11.2026.10.23.02.02.18
+        bh=bVzW7zMSPHXaHTeckBv60Q9h77UETS/F7zSc1JaInmc=;
+        b=fVnntPnflR1eM6Nj3Lr03PaN/zWDrQTmN3097OjcpZsogIediB8y5BIBentAvxf5mA
+         REgzsya1S5k/aKGoUIRPa6DPcN6aeDUFwAP46DQVVj+8dZjdZd9ZxmJvJwUxxNa9viwC
+         JYvBFwZT8ZANGOb/+o1Yos8+KL2WFy6MKvGo0WGb05J9R9o/3KtwM9Q+i/ffzf8s8Ffo
+         ahh6dRKZ+MkHAXgUJKwDfa0GLvvjxoq9oluOvOgszf6TczTWtxYWvoYVvCnT1GGwUxq3
+         Olp3/zJqhVokoiu5KdsiVts5b7ueA0BYSXBRn1XLXwrQXOnQtW8Ri5z4FMXaK+9V16f4
+         /wcw==
+X-Forwarded-Encrypted: i=1; AKwUvBwn7OSZ1xgjnrDM83kiH1kV1hNiS7N6K7U+e7t+xQ/PjhaO324+G4poFP89vUnaWgPEjIyPWICWMVuCUMY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIabfwb/B5P8FW+X7la8ez1ncGiiJfAZlBOFXCXx/vHuIhl5vGy
+	d2o5m8JZh8ZygVCjjKuq6ESyjxTCn3HqhAzazFq1y5hr1jGicM2Q7NBx
+X-Gm-Gg: AYBFou1eXCV2vHP02gjU2fmRUBBI5TqaAzBkrEHNQeHaLDksMjz3Nc3RSFWKi+tVIw0
+	XQqgugrdeZwJSnlYh+SqnX4FpPqTRiGL9AP74nET7xAm9QDlKH++bCa80ZsnjDjYcHYuDesO6Cj
+	5wJVG/mL41HKI8aaSfRnxvNIxqpk/czOfs+ZyBtXPFc5bU07/CnIOb92UF08kEFtMcUu5Xfv9wL
+	iWysyuuQkjQoGDUCeh5aAx2L2dV5kmIQvN33xNPsCwQHQNo518eLNTFgvJ9GtLLg+8tHmP/3Cou
+	XeM921jrmSd9ABJfyRk+OGjBMu4kBUKDsfgN3FAkH026vIA6Ed77OpBvLNfRZnilajc3pBjBaiB
+	d+jXbl94fIWjkC6NpYYgP/hAkU0gVasp5D3UOmwqLSD70OxuvpVJDWpQTa2y5/hAkQGgiBjVqMo
+	JIeqwZDyUhJsiIeV23NXZ/bYsVRlekcj23mw5ZbE3i5bT9Y59sUtdf+Pij4I/ILTb0CudT+Jlms
+	W0DoYE3SdPNyH0m6563fucvAyfrceGbkTWHgGOckcJ3QFdP0wDJRg6gbrt3Kb4gVvccvsg7fsiu
+	CtuBClNHOe8rMuq2aJhoR4YY3L8qj9UHX91S4KMiZjSxHL13+4JJMMAQbR9CDrOAKChlFzM=
+X-Received: by 2002:a17:90b:2785:b0:3ac:d39d:ee4f with SMTP id 98e67ed59e1d1-3adce45d4b2mr1018251a91.44.1792746151727;
+        Fri, 23 Oct 2026 02:02:31 -0700 (PDT)
+Received: from phuc-desktop.. ([183.91.15.56])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3adca62e477sm2718306a91.2.2026.10.23.02.02.27
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 23 Oct 2026 02:02:25 -0700 (PDT)
-From: fausten <yunfeng.li.nb@gmail.com>
-X-Google-Original-From: fausten <fausten@ebizmis.com>
-To: Zack Rusin <zack.rusin@broadcom.com>,
-	Maaz Mombasawala <maaz.mombasawala@broadcom.com>
-Cc: fausten <yunfeng.li.nb@gmail.com>,
-	dri-devel@lists.freedesktop.org,
-	bcm-kernel-feedback-list@broadcom.com,
-	maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org,
-	tzimmermann@suse.de,
-	airlied@gmail.com,
-	simona@ffwll.ch,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4] drm/vmwgfx: Treat zero SVGA_REG_CURSOR_MAX_DIMENSION as unset
-Date: Fri, 23 Oct 2026 17:01:20 +0800
-Message-ID: <20261023090121.5031-1-fausten@ebizmis.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <e84774ae-b49d-4df5-923d-ae2cde480aaf@broadcom.com>
-References: <e84774ae-b49d-4df5-923d-ae2cde480aaf@broadcom.com>
+        Fri, 23 Oct 2026 02:02:31 -0700 (PDT)
+From: phucduc.bui@gmail.com
+To: David Rhodes <david.rhodes@cirrus.com>,
+	Mark Brown <broonie@kernel.org>,
+	Richard Fitzgerald <rf@opensource.cirrus.com>,
+	Stephan Gerhold <stephan@gerhold.net>
+Cc: Liam Girdwood <lgirdwood@gmail.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+	Charles Keepax <ckeepax@opensource.cirrus.com>,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	HyeongJun An <sammiee5311@gmail.com>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	bui duc phuc <phucduc.bui@gmail.com>
+Subject: [PATCH 2/4] ASoC: codecs: si476x: Handle hw_params return value
+Date: Fri, 23 Oct 2026 16:01:55 +0700
+Message-ID: <20261023090157.518032-3-phucduc.bui@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261023090157.518032-1-phucduc.bui@gmail.com>
+References: <20261023090157.518032-1-phucduc.bui@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,37 +110,36 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: fausten <yunfeng.li.nb@gmail.com>
+From: bui duc phuc <phucduc.bui@gmail.com>
 
-On Tue, Sep 2, 2026 at 8:44 PM, Maaz Mombasawala
-<maaz.mombasawala@broadcom.com> wrote:
-> This patch bricked my testing VM, investigating..
+snd_soc_component_update_bits() may return 1 when the register value
+changes, but ASoC only marks the DAI hw_params as done when .hw_params()
+returns 0.
 
-Hi Maaz, hi Zack,
+Propagate negative errors and return 0 on success.
 
-Just a gentle ping on this one. Maaz, did the investigation into your
-bricked testing VM turn up anything in the meantime?
+Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
+---
+ sound/soc/codecs/si476x.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-Meanwhile I've done more testing on my side. I applied this fix on
-top of mainline 7.3 and the cursor works correctly again:
+diff --git a/sound/soc/codecs/si476x.c b/sound/soc/codecs/si476x.c
+index 9b904450ab8a..1738377d7d7c 100644
+--- a/sound/soc/codecs/si476x.c
++++ b/sound/soc/codecs/si476x.c
+@@ -193,6 +193,12 @@ static int si476x_codec_hw_params(struct snd_pcm_substream *substream,
+ 		goto out;
+ 	}
+ 
++	/*
++	 * ASoC only marks the DAI hw_params as done when .hw_params() returns 0.
++	 * Since snd_soc_component_update_bits() may return 1, explicitly
++	 * return 0 to ensure the DAI is correctly marked.
++	 */
++	err = 0;
+ out:
+ 	si476x_core_unlock(core);
+ 
+-- 
+2.43.0
 
-  Host:   VMware Fusion 26.0.1 on macOS 26.7.1 (x86_64)
-  Guest:  Kylin Linux Advanced Server V10 (Halberd)
-  Kernel: 7.3 + this patch
-
-Before the patch, every cursor update was rejected with -EINVAL
-because SVGA_REG_CURSOR_MAX_DIMENSION reads back 0 on this setup;
-with the patch applied, cursor updates go through normally again.
-3D acceleration is disabled in the VM settings.
-
-So far I haven't been able to reproduce the failure you reported.
-If you can share your test environment (hypervisor product and
-version, host OS, guest kernel, 3D acceleration on/off) and the
-failure symptoms (boot hang vs. cursor path only), I'd like to
-narrow down what's different between our setups.
-
-And if the conclusion is that treating 0 as "unset" with the current
-fallback isn't the right fix, I'm happy to rework it as a v5.
-
-Thanks,
-fausten
