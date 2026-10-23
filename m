@@ -1,64 +1,64 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792714155;
-	b=GJZfW+NIstKhnyiEYpACQ8lOG8v8uZ5Jgbiw+Jl2+UroiQ4CTWZJPfbzsKf7P8RA8GPn
-	 jOTA6LEhiVZNhaBT/ejnY9Tnpsx709Z9Db6xr50BcpMCrHaJg4hrGr1KG7w7I65D/Nuhl
-	 CPmco2LRl94lQKOvlrGS1rF4iRQBC0Rm8fJiP7jZTeNiHSXbhdpoRs1M41EsgTJDkkr3y
-	 8gf25I1Up/IKCaHMPDM5xH+HtDrTfvV3gQMRLr8qupR7mp7JlF2J9+5CKlwcajNqyx4gQ
-	 2NiogGYlIGc0KfIwuAcwRCE4M2CkOSgODpcrg8dWRSSR4FLtD2s5A/9KW/E6HzViT+A==
+	t=1792714173;
+	b=jlOFJ//NJGD2MOA/KqSt5wo/UDqUIe9/wHqWV7RJaBR04hVEGkBC2NkRFow3ANhUAVzx
+	 KRpiluHOMIyQrxUdPbWQgRDDFqQ9Y4MO7Fj6ea3wmubV5UfiILTNPmIwWOVFGX+qXlvS3
+	 WmrKFw+VXJCtZY7tPkA3j+F4NfgGWRAyYDp1GPxoga29gCIIFj70mwW9rkGWhhx6MJzgg
+	 24siEPM1Ic89jkqsMH1Nw4sxWPB8gnM9wC0TFtFyIcGk9NxWCFb1J5LwbtwK78UPehDid
+	 +L1Soz4IVev4MqjR1rABIQQlQYHMou/EZxbmL9SBHD7kYdatDGrxlqB+o3j9pxsW05g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792714155;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792714173;
 	h=Received:DKIM-Signature:Received:Subject:From:In-Reply-To:References:
 	 X-PR-Tracked-List-Id:X-PR-Tracked-Message-Id:X-PR-Tracked-Remote:
 	 X-PR-Tracked-Commit-Id:X-PR-Merge-Tree:X-PR-Merge-Refname:
 	 X-PR-Merge-Commit-Id:Message-Id:Date:To:Cc;
-	bh=QnoKK2jzD8Hwonqf2WpRFs+Sz+/+mD0PXb3boPhR/7I=;
-	b=5sBxR9Cw02G6KKnyuhme04VK8cSR3PT2j6YDFLtSOh4qSr/N83m12JDiSraPzVGw3RHP
-	 0xUqfdeRg4PaE1KpJsbk0OpZWYvUyYUo8008djGPwTsczHgQFseQvijZXKtT1ZlabPNWy
-	 2y1cwn++dQWd9w5emPpNYlp6BUGRO7XZkly9PmcpmCkZeliQacA7+nSDRWFgUAYysYt8v
-	 muWRKrq4JvA7PcLgkvWcGjWsZwsRr7AMhguE3zlLXlEX40DkG6QIQGjTG+vSZj855WbYJ
-	 KHQJ+EsXt4+ATpTUgvcwpCgQ1tsxz6LA1Aayzzc9BpWW+gwgGLLLJRUMYMXOYWdS4NA==
+	bh=u3pWT9Dm2E/AE7Ukvgc6YgoDvQyfUGCmdxDhCpXBDPs=;
+	b=gtzndlgRj3EtT3wkZINfh/95C8P9IVP+VF+ypmQGeg8MNJyEYT82QMriYEve004fBFaa
+	 6OABI3RFlhK0lQJ3bUi8b9dZUARACPIyBMyaYcUodCsdM8GM52nPZzaN4CE7IC4FSF9TZ
+	 IUFUQY6g1dXvatg3Iyg05QYrcWxbo78P6yLKvw40jKNWytCOeJwj/55wHppoe7weFxxlB
+	 bzvgSLWx5jSQ6B4LShgzBK9uq9GMlHhtlUPa/V8ouIpq+O+nhYi/cD1unO0nq1r3do4sh
+	 nu/sSDeB8/xiPBE0kOayfvAY/4apl5cPAb1to75ujO7tyoOgJubLJgjYGOYmnADWK2A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KSjl3TXx;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BFLEqXk9;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89196606A319;
-	Fri, 23 Oct 2026 00:09:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA10A606A321;
+	Fri, 23 Oct 2026 00:09:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KSjl3TXx
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 122021F01825;
-	Fri, 23 Oct 2026 00:09:15 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BFLEqXk9
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A1AE1F01828;
+	Fri, 23 Oct 2026 00:09:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792714155;
-	bh=QnoKK2jzD8Hwonqf2WpRFs+Sz+/+mD0PXb3boPhR/7I=;
+	s=k20260515; t=1792714172;
+	bh=u3pWT9Dm2E/AE7Ukvgc6YgoDvQyfUGCmdxDhCpXBDPs=;
 	h=Subject:From:In-Reply-To:References:Date:To:Cc;
-	b=KSjl3TXxpemEg+lPzV8iOzg2dVVYOFiTGSpTUJwxiExPlDgRx0D4XnnE1qVVcAJ9R
-	 GtJ92hVC7XZh0X23J5iMoG4ddpcsEWMUkJ0XlFnpPqjQSE0cjvFb/Zfz5FOaUn2Mvy
-	 KUwfzumRQ6hrVp6gbmXHID8O5+j2/FdYyZX+oWow6Hgo7i341VfYNUN2++yy5fsMU8
-	 6z/aN0sekQ+Cbf7Hz1LJng/m4NLpEr58LHxhLz46kT3ipZOvLtc0TZJwRMav9QniUR
-	 +vXE3ahLmL/xAgrJjTrdey8hIBIGVbYMsipbMAmSbpof9ruRVn/D7xPX5kZyvDEvju
-	 fnlGhRYCfGMDg==
+	b=BFLEqXk9L/V89hnROiksc7D0GfoxtPEIrXQ/dGLaOatIRA3476GPEdoa8wpQOYGMN
+	 vvXZENnN3DbbxJ/6wAwQQatWCaGnFX3HqTwt5Q7yfuPbqF0rO43t2J+evGquI4Qjfk
+	 lI1cuWUFkg8SsAEyNJ0DCO+m+zfxBFglEtaAWrFHTilZmk5rPDEYBIC7Z750MXYXKr
+	 1Y3uxEtJmMM1F+MS4qVCj5cKJDTQZFNBSgGLVoy1YYyUrz3qjfd/6XVVRaBGE6oWx1
+	 un0cyHdkfzgU1p0yay7tPOZ62J43dkTaiI06ho8KuZnLIjSwdeC89JYNDNBtt+5vGc
+	 NV9eO/LVY44XA==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 075F7380822E;
-	Fri, 23 Oct 2026 00:09:15 +0000 (UTC)
-Subject: Re: [GIT PULL] Please pull IOMMUFD subsystem changes
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 814E7380822E;
+	Fri, 23 Oct 2026 00:09:32 +0000 (UTC)
+Subject: Re: [GIT PULL] Please pull FWCTL subsystem changes
 From: pr-tracker-bot@kernel.org
-In-Reply-To: <20261022165151.GA3692244@nvidia.com>
-References: <20261022165151.GA3692244@nvidia.com>
-X-PR-Tracked-List-Id: <iommu.lists.linux.dev>
-X-PR-Tracked-Message-Id: <20261022165151.GA3692244@nvidia.com>
-X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/jgg/iommufd.git tags/for-linus-iommufd
-X-PR-Tracked-Commit-Id: 04bcf84613346b973a8cc0c59238b6b5bc902688
+In-Reply-To: <20261022192726.GA3758618@nvidia.com>
+References: <20261022192726.GA3758618@nvidia.com>
+X-PR-Tracked-List-Id: <linux-rdma.vger.kernel.org>
+X-PR-Tracked-Message-Id: <20261022192726.GA3758618@nvidia.com>
+X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/fwctl/fwctl.git tags/for-linus-fwctl
+X-PR-Tracked-Commit-Id: bc6f2a284c63313e789d8cd294531e1cc2dc8c99
 X-PR-Merge-Tree: torvalds/linux.git
 X-PR-Merge-Refname: refs/heads/master
-X-PR-Merge-Commit-Id: 1021679bed5acc46e1b2dac78bdd006bd50970f4
-Message-Id: <179271415357.261177.7511031788658662320.pr-tracker-bot@kernel.org>
-Date: Fri, 23 Oct 2026 00:09:13 +0000
+X-PR-Merge-Commit-Id: 3ac032ef6ca8e47bb06d1e189dfcf88fa0a09c75
+Message-Id: <179271417115.261177.11379581765354994499.pr-tracker-bot@kernel.org>
+Date: Fri, 23 Oct 2026 00:09:31 +0000
 To: Jason Gunthorpe <jgg@nvidia.com>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>, iommu@lists.linux.dev, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, Kevin Tian <kevin.tian@intel.com>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>, linux-rdma@vger.kernel.org, linux-cxl@vger.kernel.org, linux-kernel@vger.kernel.org, Dave Jiang <dave.jiang@intel.com>, Saeed Mahameed <saeedm@nvidia.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,12 +68,12 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 
-The pull request you sent on Thu, 22 Oct 2026 13:51:51 -0300:
+The pull request you sent on Thu, 22 Oct 2026 16:27:26 -0300:
 
-> git://git.kernel.org/pub/scm/linux/kernel/git/jgg/iommufd.git tags/for-linus-iommufd
+> git://git.kernel.org/pub/scm/linux/kernel/git/fwctl/fwctl.git tags/for-linus-fwctl
 
 has been merged into torvalds/linux.git:
-https://git.kernel.org/torvalds/c/1021679bed5acc46e1b2dac78bdd006bd50970f4
+https://git.kernel.org/torvalds/c/3ac032ef6ca8e47bb06d1e189dfcf88fa0a09c75
 
 Thank you!
 
