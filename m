@@ -1,59 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.12.242.13
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792771881;
-	b=SJh51WWC7MUHHsa4cs2BRNUpvn39lqLVYqIAx37OJH2NGYC52xx99P0qhHsT93Iq2Z1i
-	 RgmWHERbM4sbNFVGL+RF9g5iqFniBFbdFJN/pwZwtaXtIB7qgV9xMYmYK7fhZkVInM8oH
-	 bo3z4ovEM9vvtOtFtbw6vS9eANbJSrtoeAbdoij7raqzP+yfy74pWSYYNyh0hXC36hCE2
-	 P3FBEiTVYaoD8D5xfv8X3QZYOdNd7JB706MqdF5Gm9D1aqmM9gJexlfb7ozD1ljJZOOOH
-	 u9I9wRjAt3qxcXOWMO4GfgiXG0M0ZTuWTHCmBtIT5KK58mczOCAp7JMQ18EvCyghnKw==
+	t=1792771947;
+	b=mgUSg9XQOG5IIa6Yky4we9q9fYnLV+q1j2n8eNbvDagZJMo+CmruZR1esJamrvklSEvg
+	 Be3pgyh36Hfrrmgioy+hTvWq4wI75ZRE/WFAH9TbugCuDjpekSBnZ7IA4OmXzPxJpOM77
+	 ZwBta7/zDWIypxrg291tyu6YP7TPo9rwWwFnP1BR/V6RkVsXmXjioNgD+Ve02ijrX02b8
+	 7bO0o6wnZKmbcilzo3qBt9oxKwr0WIHGXFbrw8ad9K/VEQH7NB3b05xnaVOk84aUDXNEN
+	 mWeAIA3jw7HwI1Lfmn1x9uJKFcXY/OG06+Y0Twa5sQk45+r4ujpuX/huwfroHqHsSyQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792771881;
-	h=DMARC-Filter:Received:DKIM-Signature:X-ME-Helo:X-ME-Auth:X-ME-Date:
-	 X-ME-IP:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:From:Content-Language:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=WBe70HsD3zVS/yVaDYpbFIbwCditSt9sU+JUxVK4o8g=;
-	b=nq/Jcv/PM4GD1XzXP8GryqHQw4LrvzhFj7sXAM/VbCUF+UhZ2R4ee+H4VSKIJ22lyEJE
-	 gzLPnh/fLOu8MEjwPYLFH0nG9/DLTbxeVALkBkEuz+z0VjcE06tdtRLKLvV/Z4cCLC2mL
-	 fRTanejeVl/zgeGBmIinh77tCAEkaVF23AT4yz85cC9fWc3a35V2bPjZihCHs+bMB4rSa
-	 SlF6wVSeGaKuPc8KVv6r3nUP/na+PavjriMRDadX/adQMkkuMjBXHav+c2RHGkgoMfjwk
-	 3pdsudHk8iKFGj3ht51/Gu/418AULH0x7My6rlbPZ2F2Iq9Fz406b348cy6mLGKtt0Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792771947;
+	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
+	 Reply-To:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=Rgsi4sURnS/c5LhGcbQD/DuNP5k1Wm4ZhKEi7rj0iyM=;
+	b=Md2xAft8Z4/FWI9W0KDaHVFtldRNiSm4M+WGm63DpsfENblxcXsT7KXVL71gYd5c+JRL
+	 nBwEWirD267Dv7cFpAleYFlJpJ9F9JliL/cas3n9V6XLyok+TKFqI8ELZBxiULfXTIyK2
+	 AfYq999vKJK6c2gJafekam1vergUA/csNpgZgv05VTI8W7sk4eAdm9xP/DXFLf5wtvbau
+	 jmC6w7VEtRSWMOw4LVMOsls8qGNpwbYgRGIkqIukKbGolWvQlwEqtK/Q4uuDpqvKCHrr3
+	 wZO313yL5LgzYrF9gz4YWGKKWDxSfJwpjhC7HfunnHWMhwJdhxzdCgcyb7Kf1tPSWKQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=wanadoo.fr;
-	spf=pass smtp.mailfrom=wanadoo.fr;
-	dkim=pass header.d=wanadoo.fr header.i=@wanadoo.fr header.a=rsa-sha256 header.s=t20230301 header.b=K+G5DT5T;
-	arc=none smtp.remote-ip=80.12.242.13
-Received: from smtp.smtpout.orange.fr (smtp-13.smtpout.orange.fr [80.12.242.13])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V+MJjMwt;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF9F0606A31E
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 16:11:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DF9F0606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=wanadoo.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wanadoo.fr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3BC4606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 16:12:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=wanadoo.fr header.i=@wanadoo.fr header.a=rsa-sha256 header.s=t20230301 header.b=K+G5DT5T
-Received: from [IPV6:2a01:cb10:785:b00:26fb:aefb:6cd2:db0e]
- ([IPv6:2a01:cb10:785:b00:26fb:aefb:6cd2:db0e])
-	by smtp.orange.fr with ESMTPSA
-	id KHrKxpx1518sBKHrKxppOM; Fri, 23 Oct 2026 18:11:11 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wanadoo.fr;
-	s=t20230301; t=1792771871;
-	bh=WBe70HsD3zVS/yVaDYpbFIbwCditSt9sU+JUxVK4o8g=;
-	h=Message-ID:Date:MIME-Version:Subject:To:From;
-	b=K+G5DT5TqC5mq8NoM0TMmPC2VgDtayOjZlkxNqa4JNb9xM3SiayxHJTAX0xtiOy3i
-	 uFuZj/88jrh+EXaewX3QKzrXYM9IQoqKYxv1KC7pP/3efkA/6PJ7HbvIQitefNzuGf
-	 TW/83xRhwdykGjl4Ptxgq4Rd+U+OztKoFTpgtzyBzZdPhRCUKbFzLM8LVsHDvY/Xjg
-	 Artip5DvxE5cjc8d+Hx2wCKd/cHw9+wmPAZNkegnSxkE8Jnjq5u/kKjzf/t+I9BDo2
-	 w4m31Qkf4wHVPT0DxffR2SWR7cVNFZR0E9A36oiNXHWyGqId5Nm6B543R57xPFgoC9
-	 DMPtvuVH148Jg==
-X-ME-Helo: [IPV6:2a01:cb10:785:b00:26fb:aefb:6cd2:db0e]
-X-ME-Auth: Y2hyaXN0b3BoZS5qYWlsbGV0QHdhbmFkb28uZnI=
-X-ME-Date: Fri, 23 Oct 2026 18:11:11 +0200
-X-ME-IP: 2a01:cb10:785:b00:26fb:aefb:6cd2:db0e
-Message-ID: <1fea2b63-b1aa-4b2e-992e-9dc0c973a1ac@wanadoo.fr>
-Date: Fri, 23 Oct 2026 18:11:09 +0200
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V+MJjMwt
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 247101F01825;
+	Fri, 23 Oct 2026 16:12:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792771947;
+	bh=Rgsi4sURnS/c5LhGcbQD/DuNP5k1Wm4ZhKEi7rj0iyM=;
+	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
+	b=V+MJjMwtQ6LB7JyboxACaXIk5bZTQcb4IUPaiYyAGnYan38+o9KnBdZSknlN9n3ij
+	 sf4dQOJ36FRUr3CYzmqKWJqwXND7DEcto3cyTe5kW1AuaEG8GQnYKL30eEjhIxn4zR
+	 nbKi6arzhj9pmc+6pM4TlVjLAt51i5dEQVl1GT/NWiR2+2j8RbbUyafmROujvbSHyn
+	 m6ddGy/O63IDaHXz2unOpq3O0e4c0iAgVUyFQiTPthm/eSSenvI/NV4j+/HwaMn5As
+	 0SUIKkQRZSup+GdalfcLOw5rulkaPhrToegT/YsHf4UyTTklEd+TLvfGFa1PlBxLHQ
+	 bZKZtYBS7Yqug==
+Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
+	id D1B7FCE0540; Fri, 23 Oct 2026 09:12:26 -0700 (PDT)
+Date: Fri, 23 Oct 2026 09:12:26 -0700
+From: "Paul E. McKenney" <paulmck@kernel.org>
+To: Jan Engelhardt <ej@inai.de>
+Cc: torvalds@linux-foundation.org, linux-kernel@vger.kernel.org,
+	kernel-team@meta.com, Bradley Morgan <brads@mainlining.org>,
+	Arnd Bergmann <arnd@kernel.org>
+Subject: Re: [GIT PULL] Add two-byte cmpxchg emulation function for v7.4
+Message-ID: <6f24126a-7f84-40f8-a297-095b470beb8b@paulmck-laptop>
+Reply-To: paulmck@kernel.org
+References: <fca9b4b9-75e1-4837-9c73-6f28cb8237e0@paulmck-laptop>
+ <4p5316or-75o2-s068-74s3-6q5011o75672@vanv.qr>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,56 +62,36 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] nvdimm/pmem: Release gendisk on probe failure
-To: Alison Schofield <alison.schofield@intel.com>,
- Hemanth Selam <hemanth.selam@gmail.com>
-Cc: Dan Williams <djbw@kernel.org>, Vishal Verma <vishal.l.verma@intel.com>,
- Dave Jiang <dave.jiang@intel.com>, Ira Weiny <ira.weiny@intel.com>,
- nvdimm@lists.linux.dev, linux-kernel@vger.kernel.org
-References: <20260911082543.473670-1-hemanth.selam@gmail.com>
- <ar8Lc1-griI_TwS4@aschofie-mobl2.lan>
-From: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-Content-Language: en-US, fr-FR
-In-Reply-To: <ar8Lc1-griI_TwS4@aschofie-mobl2.lan>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <4p5316or-75o2-s068-74s3-6q5011o75672@vanv.qr>
 
-Le 02/10/2026 à 03:40, Alison Schofield a écrit :
-> On Fri, Sep 11, 2026 at 01:55:43PM +0530, Hemanth Selam wrote:
->> pmem_attach_disk() allocates the gendisk with blk_alloc_disk() and hands
->> it to devres only once device_add_disk() has succeeded.  Until that
->> point the probe path owns the disk itself, which is why every failure
->> after the allocation jumps to the out: label and puts it there.
->>
->> The devm_init_badblocks() failure returns directly instead, so the disk
->> allocated a few lines earlier is never released.  Nothing releases it
->> afterwards either: the devres action that would have done so has not
->> been registered yet, so unbinding the namespace or destroying it does
->> not reach the disk, and it stays allocated along with its queue and its
->> bdev inode until the machine is rebooted.
->>
->> devm_init_badblocks() only fails when a single page allocation fails, so
->> reaching this at all needs memory exhaustion during namespace probe, and
->> because device_add_disk() has not run there is nothing user visible left
->> behind: no device node, no sysfs entry, only the leaked memory.
->>
->> Release the gendisk through the existing cleanup path on this failure.
->>
->> Fixes: 3dd60fb9d95d ("nvdimm/pmem: stop using q_usage_count as external pgmap refcount")
->> Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
+On Fri, Oct 23, 2026 at 01:26:25PM +0200, Jan Engelhardt wrote:
 > 
+> On Saturday 2026-10-17 05:51, Paul E. McKenney wrote:
+> >
+> >Add emulation of two-byte cmpxchg()
+> >
+> >These commits add a cmpxchg_emu_u16() function that emulates two-byte
+> >cmpxchg() in terms of four-byte cmpxchg() [...] 
+> >namely sh, arc, csky, and xtensa.
+> >
+> >There is reason to believe that these systems will soon no longer be
+> >supported by Linux.
 > 
-> Applied to libnvdimm-for-next:
-> https://git.kernel.org/nvdimm/nvdimm/c/855a46681e0b
+> riscv64 also only has two exchange operations 
+> (lr.w.aqrl/lr.d.aqrl/sc.w.rl/sc.d.rl). 
+> (atomic_compare_exchange_strong with uint8/16_t, in userspace, gets 
+> replaced by the compiler to a lot more instructions thanks to 
+> implied -finline-atomics.)
+> 
+> Are you saying riscv64 is going to go unsupported too? ;-)
 
-Hi,
+Given that the compiler can make it work in userspace, then the riscv64
+architecture-specific code should be able to make it work in the Linux
+kernel.  At which point there is absolutely no reason that Linux-kernel
+support for riscv64 should be dropped.
 
-For the records and if it sounds better patch, see [1] which propagates 
-the error code from devm_init_badblocks() instead of hard-coding a -ENOMEM;
+Or am I missing something here?
 
-CJ
-
-[1]: 
-https://lore.kernel.org/lkml/f1933a01d9cefe24970ee93d741babb8fe9c1b32.1636219557.git.christophe.jaillet@wanadoo.fr/ 
-
+							Thanx, Paul
