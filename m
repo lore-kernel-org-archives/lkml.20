@@ -1,120 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792783911;
-	b=dn7HYm/I63i65SepjWQcplePpd7mJZOWznr238uT+WdO79VNK8iOydFwhkZZ4+G0ZZ6E
-	 TpyhBrJzD+SeCtSjtMCzU0vkSKZFnoncRTmZVX0wOlk4Id7jXrHFUCi7AN99TSjh7OUfz
-	 11oG6Sn9RtaL6OVtTn/lzxxJmSTFPL1E58gy+IeHPC/JbcHApvcy4tsj6JZYeeMAhsKNc
-	 vc8ww+KjpEzpEnPJZbS3sEGCugT4oX9bSzdzGDaK9VI4ktdxar3bYulwrT8UIxJ88GeaY
-	 zp+Hrl7trJPipgtowtg+rg6C90Kc3lysWTnTOocWUXh9fWHvicNktGqVmsTMXqNl+Eg==
+	t=1792783914;
+	b=SPSczcoEgGQnKyw4BlO3EzALOlwNYzIAVVR7HcCCU2a08kAjGaZVAEZOgOXleUfp5R2A
+	 p2yW/4THrRRv+wYDzMr0TvRIrDTT/mABWv9/NzJK1rn0hV4dXT9gVMHFGq4tZWzP/NBrQ
+	 5Rqj0rBd0Mtb1Hfe7FZK8KLo0U8walU9MWCos6mi8xyaIzOFdoQ6DVLoPlhAigbw9QdTx
+	 ekI6dyAtV49unexSCbCls3hDOy0hGFbioKQ0QjXXFfM6F6QzDa0OBrmiJYvT1K3Xm260X
+	 JggBjnHwf0EmYPIvQWfQjgkFP0ztFTsLAx4eii4JmeWREO1KdKBoBQHgQmcod55Y8+Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792783911;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Subject:From:To:Cc:Date:In-Reply-To:References:Content-Type:
-	 Content-Transfer-Encoding:User-Agent:MIME-Version;
-	bh=eildQREft99H7v88HxbeXxFVawAYtvAnxQSW518LNL0=;
-	b=N03CrXMSH7GZBn5cy4mt82TOaJF4H12xJY9q3KDV15G2xB4/FY4wYtPCnjqWm3U1dmiP
-	 I6y0dzWNafo7ZT6R9JFwQ3yFJB0mbt9Z5LMtNDdH7/0P2y/UNWfSoN0v6YtKCJ7tQ+2du
-	 nNyBc5mZ1bM7CDQupAjjcEKNCw4J73p5FCbO7PKvlI3Kz64MQcQ1W0BOP9c3LPuaPp2PJ
-	 fml+aPfNGIXXwHO1ptgstBaF2EnCvM80Dxj0+pKJJH/yMIx7TvWk6rPz1CtjGqWpQRRam
-	 tfHB93d7jwyLPV4BYO4n70zEQfdjyARRRHujXkyufafMfR/lUMlXS7AxTPqRxHH09yA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792783914;
+	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
+	 Reply-To:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=3CryQ98FB0zsKVMP+f0NQWUVWZUEey+knWpwTLfFEdQ=;
+	b=3TOgjpCSkHb8z38haAn3dI/AhnAxJugAGxVUyJEUxv9JDRGDL9vh6GqOP9A838anDCC3
+	 7AG2qFlbC81sdXHoI7lHofvH/0E4ARosGMU0oB4DyDMA59kfBSNbd6dnThPoJUFEXZNua
+	 E6me37T6m+Hg3FkTC+eL35bkKqbW+vTWgNSAITOlh66pY/Yl/0BkXWG3kfqllYmopXYee
+	 /dPGWLr04FomJ2cxfhdE3yKJ00qs/MiJV+QZjOQotgewsq0o/eJUowq4tlsjAKAXJmZsw
+	 jqThZx4Mk0iJs0XU1SmhwjGeQ6E0LQNE8k7hBtwzQUDQV4pv7snOHBntFAUbkIWcr2w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=GAYSLIdx;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=p+35AeLl;
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Mvezgo1Z;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD7E4606A31D
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 19:31:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CD7E4606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70099606A32C;
+	Fri, 23 Oct 2026 19:31:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=GAYSLIdx;
-	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=p+35AeLl
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1792783909;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=eildQREft99H7v88HxbeXxFVawAYtvAnxQSW518LNL0=;
-	b=GAYSLIdxoGvHpj373NZwI1t07H8cNAYhcRIBSiFq8VAZcb18BXx2WwIbElFaSV/uRLqBxx
-	d7o/VuC8o9UR6IzUDl4Qypxp/tv5TdUxZH6D/Uz5ltDIgT8xOmK0lWdM7PvbrNUNRoP4eA
-	oD48u80EWGR9veIx/xrkay5w8ajPBsY=
-Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com
- [209.85.219.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-447-0joiRUZbNe-bWW-e2nZUUw-1; Fri, 23 Oct 2026 15:31:48 -0400
-X-MC-Unique: 0joiRUZbNe-bWW-e2nZUUw-1
-X-Mimecast-MFC-AGG-ID: 0joiRUZbNe-bWW-e2nZUUw_1792783908
-Received: by mail-qv1-f69.google.com with SMTP id 6a1803df08f44-91bb074ed1aso4025126d6.2
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 12:31:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1792783908; x=1793388708; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=eildQREft99H7v88HxbeXxFVawAYtvAnxQSW518LNL0=;
-        b=p+35AeLlgNAqNi9x+18F0tAyNAmiiGttF9rnI2Y3NVonjF+xfMwhAzFyDOpqgZzJNi
-         FcuoWP4kTW7QYRoIOEpsJWWAuOYebvgsn8C4SJx+/fkC643+rMnRenTcILyQtq0ocDaE
-         JO85iY+NVdQ7cYT0CnnmXvedS9/pOvZM10LZg+dfEoBj9SMSI9tE8Cv4IixdumPm/xE5
-         yVyDzY/R5dYq2Bp5+wtf5QJXA6E9DtAHg8K9OLqDEy3Si7tIMpaAoWDr8RGuSNDC+wxx
-         HuQdJMGstemtgNy7j/9ljWYU3WewYnIimqElDJ6fI0cxm9dvGsI53kt5Xe7/NXP/qF3M
-         IOvw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792783908; x=1793388708;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=eildQREft99H7v88HxbeXxFVawAYtvAnxQSW518LNL0=;
-        b=PhKEnedYJGS3VWJYrogprJinr4sUUhFmnKIUbncXELDWYNzF285KIflrZ1fpDElYBW
-         /L1yBp23CCB61P/hSmBRFogR2z55lI77myXv0NWLE0V0EqeoCqGYeLtusE0lfwhbKxGP
-         yRLwbKsfuPaW4fSdYG9A9vHpKt5ziY9akvplSWN+ysokfqjgKMdOQC2w3p1ffFzD5BfV
-         0ebHpFttbXo+LQO4pgT9A5K5I0NzQppmZ2Ye7TH2njw0VGg6ZigI/WAFiTRM4YWaPg03
-         bB3xch/0tYkJrs5bt7coJJklPhV8oBS2p6qKxi0D7KCIb24g0VUVfg1/RnN8XeQaSXpA
-         UxDw==
-X-Gm-Message-State: AFq9FYJURayHEwOXFe+3PmhFV5e5LPDEOjdYMdjZth3lhQT2vaZSGLnQ
-	DujlvCIsxZUjxQkgCIEbVA9L4RkCtYRa/IdbFvqTqahaRBt0vPmQganrz8vvN38XWfTaOhNMA4I
-	tZdW7h7pT3qi0Jor2BnJAOKZYcb8FlFZEJWk8fLZdJP91YqxHT/qNZHU5sj95p5m57ozHIWFOq0
-	6ZyxtJeNMq33Dkn9dqysVbAGfZLLBXoeTYuiEqkAo3wvfKUA==
-X-Gm-Gg: AYBFou2FPmfpgHSSuqCZQctabEaP0iZCZMarp3CZeL6HL/3h2ArJw4Xe+sIPito+qud
-	v/R5EsDyT+TIWpr1OxeDtKDntPV0RuKfNoW1VAsxRJZkptfjtpeqGkXY2r4LiZ87IlGMy+dF2SX
-	LqSjXqhXU+gkHxvbjCUNWE28/wK6jwFRp0tl9ow/pBIVGtpgzW+S/yBfUvQLT2amqIu5hdhcMwl
-	kteDb0LZh/7GjGNd28RsPx8cVkuWmnm58rH3KaET4+xuIc9bsyTQpHgG2EM3zQkAoQAjpZQrx7O
-	UU6TnupmmzD7nwcgu6uIusxkygXjU0rtKT+a6XVm9Efo5+35d336y2kRoKt9CKWnYqBw5dY=
-X-Received: by 2002:a05:620a:2909:b0:93c:3d7e:6e90 with SMTP id af79cd13be357-940ef8d90admr5920785a.32.1792783907574;
-        Fri, 23 Oct 2026 12:31:47 -0700 (PDT)
-X-Received: by 2002:a05:620a:2909:b0:93c:3d7e:6e90 with SMTP id af79cd13be357-940ef8d90admr5914485a.32.1792783906961;
-        Fri, 23 Oct 2026 12:31:46 -0700 (PDT)
-Received: from [192.168.8.4] ([100.0.180.93])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-94047b12ed6sm95633485a.25.2026.10.23.12.31.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 23 Oct 2026 12:31:46 -0700 (PDT)
-Message-ID: <8b131d2c06adfaf9ce1d6e8cf6c09c749d0e4d1c.camel@redhat.com>
-Subject: Re: [PATCH v2] usb: core: Add quirk for Gigabyte Aorus Waterforce X
- II AIO coolers
-From: lyude@redhat.com
-To: linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org
-Cc: A1RM4X <dev@a1rm4x.com>, Alan Stern <stern@rowland.harvard.edu>, 
- Christoffer Sandberg	 <cs@tuxedo.de>, Kees Cook <kees@kernel.org>, Rodrigo
- Lugathe da =?ISO-8859-1?Q?Concei=E7=E3o?= Alves	 <lugathe2@gmail.com>, Jie
- Deng <dengjie03@kylinos.cn>, Werner Sembach	 <wse@tuxedocomputers.com>,
- "Stephen J. Fuhry" <fuhrysteve@gmail.com>, Nikhil Solanke
- <nikhilsolanke5@gmail.com>, Vyacheslav Vahnenko <vahnenko2003@gmail.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Date: Fri, 23 Oct 2026 15:31:45 -0400
-In-Reply-To: <20260824195419.234898-1-lyude@redhat.com>
-References: <20260824195419.234898-1-lyude@redhat.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-2.fc43) 
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Mvezgo1Z
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 175421F031E3;
+	Fri, 23 Oct 2026 19:31:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792783914;
+	bh=3CryQ98FB0zsKVMP+f0NQWUVWZUEey+knWpwTLfFEdQ=;
+	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
+	b=Mvezgo1Z4cWBEQEsp9xJH35d6mS+RxC/g8BpjJnqyizGKU0SiSVC52CwC2XQ70k1e
+	 4QCP7Z8PtsGdf/nuJY4sxRCrGiQkmfcT9rdHmBBR+a6YLkxbNLO//p6C5qTcC7IjZ9
+	 ClAWZgF6rOo8nZKtk6JnPADItxmsz5gJF4nbkDaSJzL8rgelNldP5UYQjlN7Qm8drI
+	 otmNBUHdRd+d6C4Si41QJ35EqYroH9uk2kDlVg0uX/rZTGgT4Hs0YlN3x9jlJyGC1J
+	 kCze+X5VBA/yStoF3N61kSb6NiNODf/Ro195Q8UDPbKqbP8h7tN9EXXT+QwwDOxLi0
+	 keOd2Vspk9Czg==
+Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
+	id D7C0CCE0811; Fri, 23 Oct 2026 12:31:53 -0700 (PDT)
+Date: Fri, 23 Oct 2026 12:31:53 -0700
+From: "Paul E. McKenney" <paulmck@kernel.org>
+To: Kunwu Chan <kunwu.chan@gmail.com>
+Cc: jiangshanlai@gmail.com, josh@joshtriplett.org, work@onurozkan.dev,
+	frederic@kernel.org, neeraj.upadhyay@kernel.org,
+	joelagnelf@nvidia.com, boqun@kernel.org, urezki@gmail.com,
+	rostedt@goodmis.org, mathieu.desnoyers@efficios.com,
+	qiang.zhang@linux.dev, rcu@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Kunwu Chan <chentao@kylinos.cn>
+Subject: Re: [PATCH 9/9] rcu-tasks: Detect duplicate callback enqueue
+Message-ID: <cdd3f35d-9e9a-4b87-bea7-59ff3e1a7390@paulmck-laptop>
+Reply-To: paulmck@kernel.org
+References: <20261023101841.2910719-1-kunwu.chan@gmail.com>
+ <20261023101841.2910719-10-kunwu.chan@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -124,87 +65,74 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261023101841.2910719-10-kunwu.chan@gmail.com>
 
-Friendly poke
+On Fri, Oct 23, 2026 at 06:18:41PM +0800, Kunwu Chan wrote:
+> Detect duplicate callback enqueue attempts in the generic
+> RCU Tasks callback registration path.
+> 
+> Signed-off-by: Kunwu Chan <chentao@kylinos.cn>
 
-On Mon, 2026-08-24 at 15:53 -0400, Lyude Paul wrote:
-> The "Aorus Waterforce" is one of those fancy gaming water coolers that
-> comes with fun LEDs and an entire dedicated LCD screen. A minor issue I'v=
-e
-> noticed with this cooler on Linux, is that we fail to actually
-> reset the device when coming out of standby, ish:
->=20
-> =C2=A0 [=C2=A0 281.652184] usb 7-10.4: reset high-speed USB device number=
- 7 using xhci_hcd
-> =C2=A0 [=C2=A0 287.179843] usb 7-10.4: PM: dpm_run_callback(): usb_dev_re=
-sume returns -5
-> =C2=A0 [=C2=A0 287.179854] usb 7-10.4: PM: failed to resume async: error =
--5
->=20
-> Generally this isn't fatal, as even when the water cooler doesn't resume =
-it
-> will still reconnect itself moments later:
->=20
-> =C2=A0 15:48:12 GoldenWind kernel: usb 7-10.4: USB disconnect, device num=
-ber 14
-> =C2=A0 15:48:12 GoldenWind kernel: usb 7-10.4: new high-speed USB device =
-number
-> =C2=A0=C2=A0=C2=A0=C2=A0 15 using xhci_hcd
-> =C2=A0 15:48:14 GoldenWind kernel: usb 7-10.4: New USB device found,
-> =C2=A0=C2=A0=C2=A0=C2=A0 idVendor=3D0414, idProduct=3D7a5e, bcdDevice=3D =
-2.00
-> =C2=A0 15:48:14 GoldenWind kernel: usb 7-10.4: New USB device strings: Mf=
-r=3D1,
-> =C2=A0=C2=A0=C2=A0=C2=A0 Product=3D2, SerialNumber=3D0
-> =C2=A0 15:48:14 GoldenWind kernel: usb 7-10.4: Product: Castor3
-> =C2=A0 15:48:14 GoldenWind kernel: usb 7-10.4: Manufacturer: ITE Tech.
-> =C2=A0 15:48:14 GoldenWind kernel: hid-generic 0003:0414:7A5E.000D:
-> =C2=A0=C2=A0=C2=A0=C2=A0 hiddev98,hidraw2: USB HID v1.01 Device [ITE Tech=
-. Castor3] on
-> =C2=A0=C2=A0=C2=A0=C2=A0 usb-0000:74:00.0-10.4/input0
->=20
-> My guess here is that the device simply doesn't support resets properly -
-> since that seems to be the only quirk I've found that actually works. Not=
-e
-> that the device still ends up disconnecting and reconnecting after resume=
-,
-> but this seems to be normal behavior.
->=20
-> So, let's fix this by adding the USB_QUIRK_RESET quirk for this USB devic=
-e.
-> This seems to work perfectly fine and prevents us from getting the
-> aforementioned errors on resume.
->=20
-> Signed-off-by: Lyude Paul <lyude@redhat.com>
->=20
+And the same questions for this patch as well.  ;-)
+
+							Thanx, Paul
+
 > ---
-> Totally forgot about this patch until now :).
->=20
-> Previous version:
-> 	https://lore.kernel.org/all/20260203221452.198682-2-lyude@redhat.com/
->=20
-> V2:
-> * Don't forget to sort quirk by vendor ID
->=20
-> =C2=A0drivers/usb/core/quirks.c | 3 +++
-> =C2=A01 file changed, 3 insertions(+)
->=20
-> diff --git a/drivers/usb/core/quirks.c b/drivers/usb/core/quirks.c
-> index b5b577f0b931c..6c4a52a693c05 100644
-> --- a/drivers/usb/core/quirks.c
-> +++ b/drivers/usb/core/quirks.c
-> @@ -217,6 +217,9 @@ static const struct usb_device_id usb_quirk_list[] =
-=3D {
-> =C2=A0	{ USB_DEVICE(0x03f0, 0xa31d), .driver_info =3D
-> =C2=A0			USB_QUIRK_DISCONNECT_SUSPEND },
-> =C2=A0
-> +	/* Gigabyte ITE Tech. Castor3 (Aorus Waterforce X II AIO coolers) */
-> +	{ USB_DEVICE(0x0414, 0x7a5e), .driver_info =3D USB_QUIRK_RESET },
+>  kernel/rcu/tasks.h | 15 +++++++++++++++
+>  1 file changed, 15 insertions(+)
+> 
+> diff --git a/kernel/rcu/tasks.h b/kernel/rcu/tasks.h
+> index 5d7f234795b4..49b716feb31d 100644
+> --- a/kernel/rcu/tasks.h
+> +++ b/kernel/rcu/tasks.h
+> @@ -6,6 +6,7 @@
+>   */
+>  
+>  #ifdef CONFIG_TASKS_RCU_GENERIC
+> +#include <linux/mm.h>
+>  #include "rcu_segcblist.h"
+>  
+>  ////////////////////////////////////////////////////////////////////////
+> @@ -339,9 +340,12 @@ static void call_rcu_tasks_iw_wakeup(struct irq_work *iwp)
+>  }
+>  
+>  // Enqueue a callback for the specified flavor of Tasks RCU.
+> +static void rcu_tasks_leak_callback(struct rcu_head *rhp) { }
 > +
-> =C2=A0	/* Creative SB Audigy 2 NX */
-> =C2=A0	{ USB_DEVICE(0x041e, 0x3020), .driver_info =3D USB_QUIRK_RESET_RES=
-UME },
-> =C2=A0
->=20
-> base-commit: 66498c75b4f8017f62d720d9b59675bdf3abce91
-
+>  static void call_rcu_tasks_generic(struct rcu_head *rhp, rcu_callback_t func,
+>  				   struct rcu_tasks *rtp)
+>  {
+> +	static atomic_t doublefrees;
+>  	int chosen_cpu;
+>  	unsigned long flags;
+>  	bool havekthread = smp_load_acquire(&rtp->kthread_ptr);
+> @@ -358,6 +362,16 @@ static void call_rcu_tasks_generic(struct rcu_head *rhp, rcu_callback_t func,
+>  	if (WARN_ON_ONCE(!func))
+>  		return;
+>  
+> +	if (debug_rcu_head_queue(rhp)) {
+> +		if (atomic_inc_return(&doublefrees) < 4) {
+> +			pr_err("%s(): Duplicate call_rcu_%s() CB %p->%pS()\n",
+> +			       __func__, rtp->name, rhp, rhp->func);
+> +			mem_dump_obj(rhp);
+> +		}
+> +		WRITE_ONCE(rhp->func, rcu_tasks_leak_callback);
+> +		return;
+> +	}
+> +
+>  	rhp->next = NULL;
+>  	rhp->func = func;
+>  	local_irq_save(flags);
+> @@ -586,6 +600,7 @@ static void rcu_tasks_invoke_cbs(struct rcu_tasks *rtp, struct rcu_tasks_percpu
+>  	raw_spin_unlock_irqrestore_rcu_node(rtpcp, flags);
+>  	len = rcl.len;
+>  	for (rhp = rcu_cblist_dequeue(&rcl); rhp; rhp = rcu_cblist_dequeue(&rcl)) {
+> +		debug_rcu_head_unqueue(rhp);
+>  		debug_rcu_head_callback(rhp);
+>  		local_bh_disable();
+>  		rhp->func(rhp);
+> -- 
+> 2.43.0
+> 
