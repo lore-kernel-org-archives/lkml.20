@@ -1,76 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.171.160.6
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792740814;
-	b=L0ikiMCm0ZvRIktoOO7oba3qTzawtt/QGZ20+upvVdsxzHNWGmcV5iPf8iMzRacNITwc
-	 0rs7mlLoF8/l/HywlqfLQdLy3nxpKEEe9CKCK72tY80TuyP4j6B8XCa0B5Nbvznwaj6Gv
-	 LzQFTnpIGIgUk6mNS8jqal2a4mXdRMHQ3lyn4iCujkCipJafbOvuaOIpG3pd5Bj2AzIvQ
-	 qUp64XomFTQAz3XsAX7Cq0R0h4iw1TB5+6ZUl6F850UZsg4EIBM8pHi04dByugDw70jI1
-	 tAbxrq3S3gdkzYXAa6Av875rIPbW4mgBCNKeTOYRP9O4BN6cncqBebDxVyjLnWFDsLg==
+	t=1792740835;
+	b=dIbJd2cTbIpr0oj8VkPwUjNUBe422Js5BRbc0h20PqoAbzWC0/TqD599GZiD4yvcCzNY
+	 Uve4QcHHuxlJc0LkgQzoR/eIkXiZkfXdmgEtk/Fkf9kYgRDASuaT2GLY2+nbZ/0R67wjJ
+	 3O0RzXJrxUvP5ld/XuvFgmBpWNkSpHuW1w3LhNjipfZMoSK5SBvFsdwU4mHcO5uEX73KV
+	 RicJ90X5qc2h4caeOU00QB1bVRKhelQTkvXx3O01WqBRiowCd18RlJuFlL4aW0yspaOz2
+	 2sFCNEYgFa6k9PrDYQtVLfWxSsOl6OUbe6am+TGXBmzeZCiS6FiJdSL/yidrPTMhCsQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792740814;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:Received:
-	 Received:From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 User-Agent:MIME-Version:Content-Type;
-	bh=1/NRRK81574aL6qQ/dopup5TpwruAbTpWIAIiVBAlxw=;
-	b=OcJrNQMSlFyObJaTKzIkO2iT8T1qYmYfZTU3QSoCn1VvvyuHiFX46MkL3PTEfgeesVf2
-	 MEZ5VjdAuzcZ8mlhFBrdcikAcZyBYVPN6LKpQxTZ915q9KDfWesXVPYZdDnWO8W+3mMMx
-	 +hGSsDxIoe/o4y9i9HaD+P7xe0pjuWU3UhmSPH5jKL9KGZX4+Bcd/9i1PkgFkvy3AH7EW
-	 1ErAFdL4zXNndh2KIc/b7kRHjE/VT26rVig32EE26UOFkBF6rvTPDlwH1bdxFssTzRPuN
-	 ihaUlQ0Xo7H1yOMpjYw5GjRS7tOm6lDwvB16YnYjzg3r7+TEmTB1/megsHWZ+iSVJug==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792740835;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:Subject:Date:
+	 Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
+	bh=45to1KyNca3iZWz1ynFCrLebqSO0Gkuz8FnFEnoX6Vo=;
+	b=ugV8nSW6uV3L6hKR+D6CUiDU6Mzm+PddRvCh4ap9iOULNh+yXFWgsEcjDZf39WKACznc
+	 Pawm9nYdHtKsQeiTQAFwWPk3Ae9Yd6/ZbaLG0lo4A8MSR7S4qrVKVBbzxjYXm9TNfTLnO
+	 /G95jH3J9wcax5fx3arxvbJ++Ps8BmfwnRokKTdHoEkpTuFbKtLpa98XWEWrf3cN5T5j2
+	 Eh1N1O9sqruesUnYLHeJVVbd1sASCU/CyB8SiXY6llpc7VBdDxoGon/Knr2XYlbqiwVMX
+	 QG9ePrUu0U7NHOmdd29GFxnehWY5U8la/QzLdRxVlLn4awSCKkQnLioaU+fiwPRyHXg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mail.parknet.co.jp;
-	spf=pass smtp.mailfrom=parknet.co.jp;
-	dkim=pass header.d=parknet.co.jp header.i=@parknet.co.jp header.a=rsa-sha256 header.s=20250114 header.b=QTn4KsBP;
-	dkim=pass header.d=parknet.co.jp header.i=@parknet.co.jp header.a=ed25519-sha256 header.s=20250114-ed25519 header.b=+BEsDf3C;
-	arc=none smtp.remote-ip=210.171.160.6
-Received: from mail.parknet.co.jp (mail.parknet.co.jp [210.171.160.6])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=dyqpZWIE;
+	arc=none smtp.remote-ip=209.85.167.171
+Received: from mail-oi1-f171.google.com (mail-oi1-f171.google.com [209.85.167.171])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B309C606A31F;
-	Fri, 23 Oct 2026 07:33:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B309C606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mail.parknet.co.jp
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=parknet.co.jp
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4192606A320
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 07:33:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B4192606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=parknet.co.jp header.i=@parknet.co.jp header.a=rsa-sha256 header.s=20250114 header.b=QTn4KsBP;
-	dkim=pass header.d=parknet.co.jp header.i=@parknet.co.jp header.a=ed25519-sha256 header.s=20250114-ed25519 header.b=+BEsDf3C
-Received: from ibmpc.myhome.or.jp (server.parknet.ne.jp [210.171.168.39])
-	by mail.parknet.co.jp (Postfix) with ESMTPSA id 2DAE326F765F;
-	Fri, 23 Oct 2026 16:33:24 +0900 (JST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=parknet.co.jp;
-	s=20250114; t=1792740804;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=1/NRRK81574aL6qQ/dopup5TpwruAbTpWIAIiVBAlxw=;
-	b=QTn4KsBP0on5ZmKclXA31zOlDbIaUFt32mA0Hn6xuVA/7f1MJv33PbMLnzgzzbxgyLAB/5
-	p1p6wpZ3s5M9y33Nmnv8WrqXSj0NZPpgv0DXfb9eNMVU0pTxYxW8HO2huXYJwKsNZeg3u8
-	bWza2p83yjG5lC5qvGovsweGKpI4cVohIOSfigDEHVBfpNT3O7x7R6ExaNgHFVUbL68sim
-	I/GvJdNYKMQe/IPl4r0tGfzKM7B0X0DPK063MmuwYAl9Y6FYBEnvBKfo/Ty2aPiC1CqC8B
-	+FSY/NBLLiQmNWmTRBG64zOKBbIXUIm3SXu/DiEBF+l4SQCLXOzWOht0dCPtlg==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=parknet.co.jp;
-	s=20250114-ed25519; t=1792740804;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=1/NRRK81574aL6qQ/dopup5TpwruAbTpWIAIiVBAlxw=;
-	b=+BEsDf3CxruFE2gABrGnjCp+h/7//gawp/3mJzAT91QbjN9tOy1AW97VQaDBQV90QY3wsy
-	dacZxMb4M4Z5ZhDw==
-Received: from devron.myhome.or.jp (devron.myhome.or.jp [192.168.0.3])
-	by ibmpc.myhome.or.jp (Postfix) with ESMTPS id A781CE00A37;
-	Fri, 23 Oct 2026 16:33:23 +0900 (JST)
-Received: by devron.myhome.or.jp (Postfix, from userid 1000)
-	id 9FCBF2200179; Fri, 23 Oct 2026 16:33:23 +0900 (JST)
-From: OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
-To: Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
-Cc: linux-fsdevel@vger.kernel.org,  linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] fat: preallocate space before expanding in
- fat_cont_expand()
-In-Reply-To: <20261021154024.56868-1-matheus.aalmeida@inf.ufrgs.br>
-References: <20261021154024.56868-1-matheus.aalmeida@inf.ufrgs.br>
-Date: Fri, 23 Oct 2026 16:33:23 +0900
-Message-ID: <87wlr8j2gs.fsf@mail.parknet.co.jp>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=dyqpZWIE
+Received: by mail-oi1-f171.google.com with SMTP id 5614622812f47-53dbe9b8d6eso363523b6e.1
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 00:33:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792740833; x=1793345633; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=45to1KyNca3iZWz1ynFCrLebqSO0Gkuz8FnFEnoX6Vo=;
+        b=dyqpZWIELTK+QcpV07HE242SRzF85f2oO51gb8podc5WECcr/7BZ178up+12bEBo4Y
+         xohK4fPpdON5O+wqd8wi3UoNQ5dalpgpxjHbZZin5mUTOLZbgzg0jovJpN4ICukRhfJu
+         mwskBgX6s6uZTFoT7QGOsYdxyK2pQp/AdtwYI/2b9rUUeXwPtRj3BfuJDWr9QugYSIDu
+         pUdAxUxcbU+8wwg4vipnVLJOFUrryX4M2HQ/RsyexRiUwMejsd1DwPDukEJjPsiRx2gx
+         t1a9o5HJsBnyiplh7sWeC/L+ZKzah8Li84wQ+q3ewBNIWOv4F518JA5WUMciYLFVocre
+         2Ahg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792740833; x=1793345633;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=45to1KyNca3iZWz1ynFCrLebqSO0Gkuz8FnFEnoX6Vo=;
+        b=BVmtDd7pFCvd8KqX4LtmFKTGX8eK9vGKRf5aFJERTah5zHy+HwIgyL2ABLXn0dSWXJ
+         Ne6fL25FXvyn8+34T215jRfifsrymQtWaVwtn2HJa4Q+e6xGSEbek/pA13w0JOdnS4Oq
+         XDaWWjkPRdl/OSMIBuTNQm1vtY3wBn+jCidKHH6aBZZ40585gDNp64G7Dptc8NenCjEj
+         mdKaRqaCYGaq8zeRirxSPz+Uv1zS4yu/ddQSK+deLWeViMGOB+TYh8GAUJJSZ8/chs0r
+         rneZ7fOvbN6l74KTh180DDzfs4JoIXbbjS1I2JM+7vOXkF6xzDb/xqs+ZZhg1kA+w2rb
+         fHxA==
+X-Gm-Message-State: AFq9FYLZkoStavYeDmf1hkqzrD8q1C39f8OHGmuo6NEU0rWzDWuSPTup
+	bJhph0iLCv9GT9j2kpWllzhLJjibh06VFuz2JGSL/tmcuEy6Q6TVRqNM
+X-Gm-Gg: AYBFou28Olkl9o57abhkb2zHudoX6zRmok8PcpRwjkfDJJ53S8R+5Q7slrJbBwOV/vX
+	1mhUXq3VadG5KeERFMcuZBi4Naiv+6WSDBDUtnyPNR7Vf7lwdiEnhxgE32tf5ZdzUuA+dy0uvIF
+	tjX9nk5lQaCKiX6FgVee+QWMKYJtfa2KQe2ZTfV4fHPzFErRtjEGYlb59XLbfKw2Zxrd8b7bW8I
+	Xpvw/jay0kH6P4ToVvqd7Wi+zhu36A6obHUkhX3qXRL+5W0fYyOZhcsxfTFQeYPDGa52UZiwp7H
+	ZP5MB5KjxZG1bthhCj6weqkIIonarESZdoQF5wfbwXM6Xg4jDqMorQDXPjGWnGYA1Of5GDCNFo7
+	bUo4JP/vgd84uczHJvhOWEu83zpIxNyIDsAZBFO9NLdDroUGTt9Qn/wt5szZCb4kiq84HbgNZ9a
+	1e6gNfYTX1d0Suy6AZdTa89CguvTaWb41SMGS10mDVQn7J/Cc3jy7cxF1DKRfrtUK6fqns/pmja
+	WD5vmhQV94eWQniA8HJc0ql+IQW4UB0IeibGglo+R0A2I1UUmaucDkSveMsjzTvctLpf7cKvIaz
+	6/aTrgu3yRSFUsp2jMQmhb2U6I2T1p9B65LNnkLIk8bDP5m3ESd+IdS0izgkOmRGS6A1F1xkbvj
+	PtR/Rv+sOmdhoBYOwcSr64wSij4TVe7T/6GbshSTqWzASTHg42u/0NXxOM18NSEzRJ28akW3yJO
+	PiFJ4=
+X-Received: by 2002:a05:6808:c1b6:b0:4f5:1b84:8cd3 with SMTP id 5614622812f47-557eb4799f4mr2769761b6e.24.1792740833602;
+        Fri, 23 Oct 2026 00:33:53 -0700 (PDT)
+Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-55be9880a99sm909562b6e.14.2026.10.23.00.33.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 23 Oct 2026 00:33:51 -0700 (PDT)
+From: James Hilliard <james.hilliard1@gmail.com>
+Subject: [PATCH 0/3] serial: 8250_dw: describe the Allwinner H616 UART
+ configuration
+Date: Fri, 23 Oct 2026 01:33:48 -0600
+Message-Id: <20261023-submit-h616-uart-fifo-v1-v1-0-e4a3bae2eba8@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,159 +93,58 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQqEMAxA0atI1gbagl14FXFRY6IZGJW2iiDe3
+ TqzfIv/L0gclRO01QWRD026LgW2roDmsEyMOhaDM85b4xymffhqxtlbj3uIGUVlxcMiNUFoFG5
+ oMFDyLbLo+Vt3/d+l/TDl9wf3/QBuxM/gfAAAAA==
+X-Change-ID: 20261022-submit-h616-uart-fifo-v1-c5afcdfe5cb0
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Jiri Slaby <jirislaby@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+ =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+ Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Samuel Holland <samuel@sholland.org>
+Cc: linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-sunxi@lists.linux.dev, James Hilliard <james.hilliard1@gmail.com>
+X-Mailer: b4 0.15.2
 
-Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br> writes:
+H616 has 256-byte UART FIFOs, but lacks the DesignWare component parameter
+register used to discover their capacity. Its debug-divisor and RS485
+registers also overlap offsets used to probe optional DesignWare features.
 
-> The fat_cont_expand() implementation leaves allocation of new clusters
-> to generic_cont_expand_simple(). This path does many small cluster
-> allocations, harming performance.
->
-> Preallocate cluster space in fat_cont_expand(). Move preallocation to
-> a new fat_preallocate() helper used by both fat_cont_expand() and
-> fat_fallocate(FALLOC_FL_KEEP_SIZE).
->
-> Benchmarking was done under QEMU/KVM with a virtio-blk device using
-> cache=none. Each result is the arithmetic mean of the listed samples.
->
-> start = now_ns();
-> for (unsigned i = 0; i < count; i++) {
->     if (truncate_mode)
->         ftruncate(fds[i], bytes);
->     else
->         fallocate(fds[i], 0, 0, bytes);
-> }
-> elapsed = now_ns() - start;
->
-> 16 files, 512-byte clusters:
-> length    mode      sync?    before    after    improvement    samples
-> 256MiB    ftruncate no       9.576s    5.345s   1.79x          10
-> 256MiB    fallocate no       9.634s    5.640s   1.71x          10
-> 1MiB      ftruncate yes      58.66s    0.362s   162.15x        5
-> 1MiB      fallocate yes      61.36s    0.390s   157.15x        5
->
-> 128 files, 512-byte clusters:
-> length    mode      sync?    before    after    improvement    samples
-> 512KiB    ftruncate no       0.433s    0.352s   1.23x          10
-> 512KiB    fallocate no       0.446s    0.393s   1.13x          10
-> 64KiB     ftruncate yes      31.32s    0.429s   73.00x         10
-> 64KiB     fallocate yes      29.59s    0.410s   72.42x         10
->
-> 16 files, 4096-byte clusters:
-> length    mode      sync?    before    after    improvement    samples
-> 256MiB    ftruncate no       5.181s    4.417s   1.17x          10
-> 256MiB    fallocate no       5.166s    4.442s   1.16x          10
-> 1MiB      ftruncate yes      9.294s    0.111s   84.06x         10
-> 1MiB      fallocate yes      8.710s    0.110s   79.36x         10
->
-> The biggest improvement is on filesystems with a small cluster size and
-> on synchronous mounts.
->
-> Signed-off-by: Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
-> ---
->
-> Changes in v2:
-> - fat_cont_expand(): Hold truncate_lock around fat_truncate_blocks().
->
-> This patch depends on:
-> https://lore.kernel.org/linux-fsdevel/20261012171106.146243-1-matheus.aalmeida@inf.ufrgs.br/T/#t
->
->  fs/fat/file.c | 56 ++++++++++++++++++++++++++++++++++-----------------
->  1 file changed, 37 insertions(+), 19 deletions(-)
->
-> diff --git a/fs/fat/file.c b/fs/fat/file.c
-> index 3aa541c6b127..dd0ae795dc14 100644
-> --- a/fs/fat/file.c
-> +++ b/fs/fat/file.c
-> @@ -217,15 +217,50 @@ const struct file_operations fat_file_operations = {
->  	.setlease	= generic_setlease,
->  };
->  
-> +static int fat_preallocate(struct inode *inode, loff_t new_size)
-> +{
-> +	int nr_cluster; /* Number of clusters to be allocated */
-> +	loff_t mm_bytes; /* Number of bytes to be allocated for file */
-> +	loff_t ondisksize; /* block aligned on-disk size in bytes*/
-> +	struct super_block *sb = inode->i_sb;
-> +	struct msdos_sb_info *sbi = MSDOS_SB(sb);
-> +
-> +	ondisksize = inode->i_blocks << 9;
-> +	if (new_size <= ondisksize)
-> +		return 0;
-> +
-> +	/* First compute the number of clusters to be allocated */
-> +	mm_bytes = new_size - ondisksize;
-> +	nr_cluster = (mm_bytes + (sbi->cluster_size - 1)) >>
-> +		     sbi->cluster_bits;
-> +
-> +	/* Allocate the clusters. We are not zeroing them out */
-> +	return fat_add_clusters(inode, nr_cluster);
-> +}
-> +
->  static int fat_cont_expand(struct inode *inode, loff_t size)
->  {
->  	struct address_space *mapping = inode->i_mapping;
->  	loff_t start = inode->i_size, count = size - inode->i_size;
->  	int err;
->  
-> -	err = generic_cont_expand_simple(inode, size);
-> +	/*
-> +	 * Preallocating space here is more efficient than during
-> +	 * generic_cont_expand_simple() because of batching.
-> +	 */
-> +	err = inode_newsize_ok(inode, size);
->  	if (err)
->  		goto out;
-> +	err = fat_preallocate(inode, size);
-> +	if (err)
-> +		goto out;
-> +	err = generic_cont_expand_simple(inode, size);
-> +	if (err) {
-> +		down_write(&MSDOS_I(inode)->truncate_lock);
-> +		fat_truncate_blocks(inode, inode->i_size);
-> +		up_write(&MSDOS_I(inode)->truncate_lock);
+Add an H616 compatible and select a fixed port configuration with the
+documented FIFO capacity and receive trigger levels. Preserve the
+BUSY-safe integer divisor path and keep the UART gate enabled during
+termios changes. Attach the existing 8250 DMA path using single-byte
+peripheral bursts, with channel acquisition and PIO fallback handled
+by the normal startup path.
 
-Is this fat_truncate_blocks() really required?
+The patches add the binding, driver configuration and SoC DTS compatible
+in that order. Based on tty-next at 1184f87e2790.
 
-> +		goto out;
-> +	}
->  
->  	fat_truncate_time(inode, NULL, FAT_UPDATE_CMTIME);
->  	mark_inode_dirty(inode);
-> @@ -263,12 +298,7 @@ static int fat_cont_expand(struct inode *inode, loff_t size)
->  static long fat_fallocate(struct file *file, int mode,
->  			  loff_t offset, loff_t len)
->  {
-> -	int nr_cluster; /* Number of clusters to be allocated */
-> -	loff_t mm_bytes; /* Number of bytes to be allocated for file */
-> -	loff_t ondisksize; /* block aligned on-disk size in bytes*/
->  	struct inode *inode = file->f_mapping->host;
-> -	struct super_block *sb = inode->i_sb;
-> -	struct msdos_sb_info *sbi = MSDOS_SB(sb);
->  	int err = 0;
->  
->  	/* No support for hole punch or other fallocate flags. */
-> @@ -281,19 +311,7 @@ static long fat_fallocate(struct file *file, int mode,
->  
->  	inode_lock(inode);
->  	if (mode & FALLOC_FL_KEEP_SIZE) {
-> -		ondisksize = inode->i_blocks << 9;
-> -		if ((offset + len) <= ondisksize)
-> -			goto error;
-> -
-> -		/* First compute the number of clusters to be allocated */
-> -		mm_bytes = offset + len - ondisksize;
-> -		nr_cluster = (mm_bytes + (sbi->cluster_size - 1)) >>
-> -			sbi->cluster_bits;
-> -
-> -		/* Allocate the clusters. We are not zeroing them out */
-> -		err = fat_add_clusters(inode, nr_cluster);
-> -		if (err)
-> -			goto error;
-> +		err = fat_preallocate(inode, offset + len);
->  	} else {
->  		if ((offset + len) <= i_size_read(inode))
->  			goto error;
+Assisted-by: Codex:gpt-6-astra
+Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+---
+James Hilliard (3):
+      dt-bindings: serial: snps-dw-apb-uart: add Allwinner H616
+      serial: 8250_dw: configure the Allwinner H616 UART
+      arm64: dts: allwinner: h616: identify the UART integration
 
--- 
-OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
+ .../bindings/serial/snps-dw-apb-uart.yaml          |  1 +
+ arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi     | 12 +++---
+ drivers/tty/serial/8250/8250.h                     |  1 +
+ drivers/tty/serial/8250/8250_dw.c                  | 45 ++++++++++++++++++----
+ drivers/tty/serial/8250/8250_port.c                |  8 ++++
+ 5 files changed, 54 insertions(+), 13 deletions(-)
+---
+base-commit: 1184f87e2790e8af9be3116f608d2e86b4792d7d
+change-id: 20261022-submit-h616-uart-fifo-v1-c5afcdfe5cb0
+
+Best regards,
+--  
+James Hilliard <james.hilliard1@gmail.com>
+
