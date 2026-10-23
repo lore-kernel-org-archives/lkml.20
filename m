@@ -1,82 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.13
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792744224;
-	b=2i4jQQA0TF06q6F2T8DFwqHn65VSxOQ3XJD85bIf+sQ8r9IR+GR/Ac/VW/77RUvLXOjK
-	 NFqlvjTEAdZLJ/1NzrziGrhFYyHS+a5U7bzujeRIKb0J+xIq4gi+PLvFRlzlHD1mrbj2C
-	 qo/nag1i/E6CX3diYUm1VkN5deQDJQ+Y0cKNes2issHcvvZSlm2es4NGU7JXfLgQ1btyu
-	 z+HJc6XPl8dqcJt+I1npncnpUyiU7ihoy5uCDxJgXwmZIeCvyI0Z69lWrq9YwglAikPyg
-	 KtQkV6H1pwdhnrFhfclrMkF2vJL0O7t/hjCboPe7THRf/nXCpHF1ZfxCb9t9a/+md+g==
+	t=1792744295;
+	b=dw/0/KDJt4fAnSN6dcZsQZ32ZPeoxDlPJEPrsi/BgqWMxRY3pqCCTx2qAQLXpNJ9zv4O
+	 tWGzYPtAc0HQ++haihTKt1QYH4TVbYfaCQqZQ863o2fXe/DEobw+Ci6my10zy4+7rQLpI
+	 DiDAxdA3LyAJtPa+MxjTjrFdVY3uXie1UgUKFPNkOiC01fddwVQ/SmVIHJTLa/cJ3i9tO
+	 E/Ajs884xPlZGSxVHGpHOUokZn8PhuFapSP5U4IIicr0VEFaIdvnwBSSgFRDUn6V1He1m
+	 SVUnLHFY1YJnWKsWHIULYHM9Gwql2P6i6jQXZveS0Y2uJkNda3Ky7b0VSVPHayYfSZQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792744224;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=z5IPgDqf7jUjjODA6c6LE1gEhhziE2w3Mn5N3wHqzSg=;
-	b=LOO1+oy83zNnu7Ac5Hy2pn2F6YLay9bBuu97/GZwo2CQ+Dh9utkhzAAg5Gatx9xgyTF5
-	 qlu+axixBrov5r9LgCIx9/ZYWB0joN1Q6bVmr4dfzKy6MS0o2ETW4bv+W8xeG8ZK0fRte
-	 eMSzhVXx2wqCs8BRjtkndo0Eq8Nlb8TpImAdbHZGo+GAaePFjgrTZhaFgELxgeFLKFT4G
-	 lTf3+R8+GEgKXD+0mJteN4Sv6/Udghx9aVCT2RUOVkubYaMcviv/1FMUYVx/UnBD/iytK
-	 eUTWXqew7PsQbn/oa5YxbhlIKCXwyyW62zpyQuxt4tIPVlHmVMSsIPtxVE1VvxdMkQw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792744295;
+	h=Received:DKIM-Signature:Received:Date:Message-ID:From:To:Cc:Subject:
+	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
+	 X-SA-Exim-Connect-IP:X-SA-Exim-Rcpt-To:X-SA-Exim-Mail-From:
+	 X-SA-Exim-Scanned;
+	bh=NShwj3uySdZgYCjF4f6Gih+68kU6l/C0njQVpdn1AzA=;
+	b=RHUIrnFxs0L4Kk+Y8OtfqXXX+pXISHWM8bbjSwJiLf4U61lGIs3KBAjJGX7JHkBvh2sl
+	 qDx9UqArz3wj1q6l52QDd/DcXVtXLaMtz0d2BonBVGF9yx1V81Ladts1h7/YngtSOy0Wz
+	 qXywMB6PRbddTDIqBQF1PExUja/furfHZWRae8Pnk4JdHfn8iTHyT70O5jUQts4tfwYi9
+	 z6JRloft71EVv0WeqdlDk643MAtAJzys2D2eq0PLD8WdWJxjPzvArfOfvKCUIDT2zo0vv
+	 g7redBD4gg6M/dGP/da8BtRNF83B2Xv6pG2ZLnClh1kCFIOYarXDuSdXGN6iuAms34A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=EI9fFaQJ;
-	arc=none smtp.remote-ip=192.198.163.13
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SVHaoBAL;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 174D8606A321;
-	Fri, 23 Oct 2026 08:30:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 174D8606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D737606A31A;
+	Fri, 23 Oct 2026 08:31:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=EI9fFaQJ
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792744224; x=1824280224;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=GVuHiTfC997jKZJNm5aUJ9dMWAWuuozkGSFX9KoaFgI=;
-  b=EI9fFaQJHBrxeRufx2WKPRmHrveGdKMRD2W76Mnq/TkjJ/yyoA52swnn
-   96csJHGaRWp3jPp0sieVvcfG3osgwIvoMJ06X4KxQRzemjL1zHx/CK0aM
-   fyMWWprtAWRUOvOBUb5N+tGv0nxORh6uHBUJSTT0drWmDUzWBA14M6dV2
-   O0YzmJSMWt5Reodn24uLd4UbCZZgx7SlWJQw1SO599O1LB6BLj+BCT1xZ
-   ZXJyJHrqyxGt7d/JtlwFw5DpEXFSQTtBuxwCPcw1wyRrMC7LVPnUvOTZa
-   3ATMFEpr1hzj3Kgk8S47hqIzxcRVfZ532miZdNk3n731tbXB1e/dQcGpd
-   w==;
-X-CSE-ConnectionGUID: SvdEMz8OTuiWb7GInoe/pw==
-X-CSE-MsgGUID: fZUEmXyjR9uc0aUOMntuvw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11943"; a="1491785"
-X-IronPort-AV: E=Sophos;i="6.27,173,1787036400"; 
-   d="scan'208";a="1491785"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Oct 2026 01:30:23 -0700
-X-CSE-ConnectionGUID: TLjUhQJ8SHWhx4WJx/pIZw==
-X-CSE-MsgGUID: Rx+u4oceTV+XIiFKmYdqTQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,173,1787036400"; 
-   d="scan'208";a="3650407"
-Received: from kniemiec-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.100])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Oct 2026 01:30:21 -0700
-Date: Fri, 23 Oct 2026 11:30:18 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: James Hilliard <james.hilliard1@gmail.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>,
-	Raul E Rangel <rrangel@chromium.org>,
-	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	Tony Lindgren <tony@atomide.com>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org
-Subject: Re: [PATCH v2 4/4] serial: 8250: retire canceled RX DMA before
- reusing the receive buffer
-Message-ID: <atsbGvUUeDYHT_md@ashevche-desk.local>
-References: <20261022-submit-serial-8250-dma-cancel-v1-v2-0-088ea51e3891@gmail.com>
- <20261022-submit-serial-8250-dma-cancel-v1-v2-4-088ea51e3891@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SVHaoBAL
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ECECF1F01825;
+	Fri, 23 Oct 2026 08:31:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792744295;
+	bh=NShwj3uySdZgYCjF4f6Gih+68kU6l/C0njQVpdn1AzA=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=SVHaoBALR7WJ71D1liXzObFE+vCHKRrdo3c5LpI+6iVskBn02BK/NlEMU4dxHSTbT
+	 eUvJnwQnFMYfOQJ9CXtpGs7sScqi38Dj4CBHZc6Cr11rf/x9uks0Pu6VteITazLQEX
+	 Pqa3bcJ2nweoJarZTzWpyrLy4uhH9MdZIQEX26nN6be9wuMtTtICUzToiY2qDin5dR
+	 bu52nrKzoUMNX7stcph1UIvAmwda1E7V2E5hPkydNkGAv1hlbTZW4jPQh3rHmJle9d
+	 SdOlY3O7f6dmcnueb2RxBBmQBlxwANA4rT/WMl733fj//RUC8l8sTYbWYYrTuGpo9U
+	 4eDXUFodChlNQ==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1xKAgW-00000006NxD-3HaW;
+	Fri, 23 Oct 2026 08:31:32 +0000
+Date: Fri, 23 Oct 2026 09:31:32 +0100
+Message-ID: <86fqxwzul7.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Fuad Tabba <fuad.tabba@linux.dev>
+Cc: Oliver Upton <oupton@kernel.org>,
+	kvmarm@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	Joey Gouly <joey.gouly@arm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Yicong Yang <yangyicong@hisilicon.com>,
+	Zhou Wang <wangzhou1@hisilicon.com>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Fuad Tabba <tabba@google.com>,
+	kvm@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] KVM: arm64: Hide FEAT_LS64_ACCDATA from guests
+In-Reply-To: <20261023070110.1833446-2-fuad.tabba@linux.dev>
+References: <20261023070110.1833446-1-fuad.tabba@linux.dev>
+	<20261023070110.1833446-2-fuad.tabba@linux.dev>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,172 +82,35 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261022-submit-serial-8250-dma-cancel-v1-v2-4-088ea51e3891@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: fuad.tabba@linux.dev, oupton@kernel.org, kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org, joey.gouly@arm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, seiden@linux.ibm.com, catalin.marinas@arm.com, will@kernel.org, mark.rutland@arm.com, yangyicong@hisilicon.com, wangzhou1@hisilicon.com, arnd@arndb.de, tabba@google.com, kvm@vger.kernel.org, linux-kernel@vger.kernel.org
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-On Thu, Oct 22, 2026 at 06:34:05PM -0600, James Hilliard wrote:
-> The RX timeout path pauses a transfer, copies its data and terminates it
-> asynchronously. Clearing rx_running at that point lets another receive
-> reuse the buffer and cookie while the old callback is still waiting for
-> the port lock. Inspecting the new cookie cannot distinguish that callback
-> from the completion of a new transfer.
+On Fri, 23 Oct 2026 08:01:09 +0100,
+Fuad Tabba <fuad.tabba@linux.dev> wrote:
 > 
-> Reserve the receive buffer until a worker has drained the canceled
-> callbacks. Deliver the paused data before allowing the interrupt handler
-> to drain the FIFO through PIO. Normal retirement only releases ownership;
-> leave subsequent receive handling to the UART interrupt instead of reading
-> LSR and restarting DMA from the worker.
+> Since commit 58ce78667a641 ("arm64: Add support for FEAT_{LS64,
+> LS64_V}"), a guest sees the host's ID_AA64ISAR1_EL1.LS64, but KVM only
+> enables the FEAT_LS64 and FEAT_LS64_V instructions in HCRX_EL2. On a
+> host with FEAT_LS64_ACCDATA, a guest's ST64BV0 therefore traps and hits
+> the WARN_ON_ONCE() in handle_other(). ACCDATA_EL1 isn't trapped or
+> context-switched either, so every guest on that CPU shares it.
 > 
-> Reject new flush work during shutdown, including late Intel MID DMA
-> timeouts. Serialize those timeout callers with the port lock. Stop and
-> drain retirement work before freeing the channels and buffer.
-> 
-> Check pause failures before accessing the buffer. A successful pause is
-> the quiescence guarantee, even when a provider still reports IN_PROGRESS.
-> On pause, status or termination failure, mask receive interrupts and let
-> the worker stop DMA before handing the FIFO to PIO. Preserve stop_rx() and
-> shutdown while restoring deferred interrupts, and hold a runtime PM
-> reference around worker register accesses. Keep RX on PIO until reopen.
-> 
-> Abort the DesignWare idle sequence when RX cannot be stopped. Preserve its
-> empty-FIFO timeout workaround during PIO recovery. If the provider still
-> cannot terminate the channel in process context, retain its buffer and
-> leave receive interrupts masked.
+> Rather than support FEAT_LS64_ACCDATA, which requires ACCDATA_EL1 to be
+> context-switched, cap the field at LS64_V. The guest's ACCDATA_EL1
+> accesses then UNDEF. This hides FEAT_LS64WB too, as it implies
+> FEAT_LS64_ACCDATA.
 
-...
+Why settle for the least capable option? Context switching ACCDATA_EL1
+is easy enough, can be gated on guest features, and avoid the
+userspace horror story.
 
-> struct uart_8250_dma {
+I'd rather see that.
 
->  	bool			shutting_down;
->  	bool			tx_terminating;
->  	bool			tx_flushed;
-> +	bool			rx_terminating;
-> +	bool			rx_err;
-
-If they are protected by the same lock, we may actually move to bitfields.
-Example:
-
-	unsigned int		rx_err:1;
-
-> +	/* Receive interrupt enables deferred during RX DMA recovery. */
-> +	u8			rx_ier;
->  };
-
-...
-
->  static void dma_rx_complete(void *param)
->  {
->  	struct uart_8250_port *p = param;
->  	struct uart_8250_dma *dma = p->dma;
-> +	struct dma_tx_state state;
-> +	enum dma_status status;
->  	unsigned long flags;
->  
->  	uart_port_lock_irqsave(&p->port, &flags);
-> -	if (dma->shutting_down)
-> +	if (dma->shutting_down || dma->rx_terminating)
->  		goto out;
-
-Again repeating the same idiom you have in previous patch.
-
-> -	if (dma->rx_running)
-> -		__dma_rx_complete(p);
-> +	if (dma->rx_running) {
-> +		status = dmaengine_tx_status(dma->rxchan, dma->rx_cookie, &state);
-> +		if (status == DMA_ERROR) {
-> +			serial8250_rx_dma_recover(p);
-> +			goto out;
-> +		}
-> +		if (status != DMA_COMPLETE)
-> +			goto out;
-> +		serial8250_rx_dma_copy(p, &state);
-> +		dma->rx_running = 0;
-> +	}
->  
->  	/*
-> -	 * Cannot be combined with the previous check because __dma_rx_complete()
-> -	 * changes dma->rx_running.
-> +	 * The completed transfer no longer owns the receive buffer.
->  	 */
-> -	if (!dma->rx_running && (serial_lsr_in(p) & UART_LSR_DR))
-> +	if (!dma->rx_running && (p->ier & UART_IER_RDI) &&
-> +	    (serial_lsr_in(p) & UART_LSR_DR))
-
-This has a side-effect. Earlier we do read LSR_DR, but now only if _RDI is set.
-Would it be problematic?
-
->  		p->dma->rx_dma(p);
->  out:
->  	uart_port_unlock_irqrestore(&p->port, flags);
->  }
-
-...
-
-> +	dma->rx_terminating = false;
-> +	dma->rx_running = 0;
-> +	if (dma->shutting_down)
-> +		return;
-
-> +	if (dma->rx_err) {
-
-Perhaps
-
-	if (!dma->rx_err)
-		return;
-
-?
-
-> +		/* PIO may now drain the FIFO; stop_rx() can cancel these enables. */
-> +		p->ier |= dma->rx_ier;
-> +		dma->rx_ier = 0;
-> +		serial_port_out(&p->port, UART_IER, p->ier);
-> +		dev_warn(p->port.dev, "RX DMA failed, using PIO\n");
-> +	}
-> +}
-
-...
-
-> +	/* Some providers still report IN_PROGRESS after a successful pause. */
-
-Yeah, we need to address that. (I used to have some patches locally,
-but they were rebased uncountable number of times without looking at
-the result of those rebases, so it's probably rotten enough and may
-not be used anymore.)
-
-...
-
-> -	 * This problem has only been observed so far when not in DMA mode
-> -	 * so we limit the workaround only to non-DMA mode.
-> +	 * Only read the FIFO when DMA no longer owns it, including PIO fallback
-> +	 * after a DMA error.
-
-> -	if (!(quirks & DW_UART_QUIRK_SKIP_EMPTY_FIFO_READ) && !up->dma && rx_timeout) {
-> +	if (!(quirks & DW_UART_QUIRK_SKIP_EMPTY_FIFO_READ) &&
-> +	    (!up->dma || !up->dma->rx_running) && rx_timeout) {
->  		status = serial_lsr_in(up);
-
-This is a good question. We need to have this be tested on the affected
-platforms.
-
-...
-
->  	guard(serial8250_rpm)(up);
->  
-> +	if (up->dma)
-> +		up->dma->rx_ier = 0;
-
-Now we have a copy of IER in UART port and in DMA structure. Why do we need
-both?
-
->  	up->ier &= ~(UART_IER_RLSI | UART_IER_RDI);
->  	serial_port_out(port, UART_IER, up->ier);
+	M.
 
 -- 
-With Best Regards,
-Andy Shevchenko
-
-
+Without deviation from the norm, progress is not possible.
