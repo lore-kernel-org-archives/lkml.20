@@ -1,77 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792740373;
-	b=Bn6THlf/mNTNcgIRH8g5DmyghJoZoY0bw8OsD1Nyi5/Kvag6x0J2AKgtIt0YGZkXPNnf
-	 E55jOEW+MhQnKr5IvmUkx4xGpKKgCYrEh32owdK7CB6oKxdJ+RNNc56UNTvXA9W3bp5nC
-	 16uaHV8zVKEZsDUONNxG5yBAP06EUq+OPiIS1LwiL46uIWNzLEe3zYZqq4+QgjhSVT0j9
-	 aRGBqQAwGh4lClBCxpqC94iQS2MMfPABAGfhMh3yC4DBjn2n8ssC+Vi6lV7/ftyLKbha3
-	 0rvcdVULPHo37iY/UqDNdEdrpPATOCKSExG38i4IWT0IQPDcZ18NsmPMUeMfiWvJb/A==
+	t=1792740461;
+	b=So7I5F0UEC5zcD2VQqmBEfleEHlLsZzvcXPw+ZRInPyM+IBsE1BVc5hWZh+QVKix3DEm
+	 L1R5PT2iW7v2+mSwRVa814aZElsKIU4h0yfbVj+UlOCDMOvMGkOL/MHctbI4ylMxg80R+
+	 4VKOR3jiO7fmtP+lb9JFvel2aeSnbVSIrJOmaqj/KyQ3zYLSBwW+UYxcGvUxDRmTkemxk
+	 FDB2vVRQex05xMRqw3cFQCAV8uybZjINcjFfg9zbaDlpZ661UK769EpBfQbI81Y5Lu1th
+	 9FxKPjiDBPO7LmdeLAeOGXQ0akiMw05rcdknnyCXyKkba9PCWFwk9huasGPMYG03Isw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792740373;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Date:From:To:
-	 Cc:Subject:Message-ID:In-Reply-To:References:Organization:X-Mailer:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Last-TLS-Session-Version;
-	bh=EWh775ixuDkqq5/XMz+/SNNIBOmyxiAfk8vpWlaY5xk=;
-	b=JuF7ePX0VCwUJigMYG3MCOAxILAv/iP1uESJAYyvfsij8JZ90Djuh0vY6+E8XHbqtjAL
-	 ljLdo8Z1zWUU4Wsy2X1Jq0/7k27wgrScA4TMxYu54XES6PwLI75v49sx35ILp1I/s21M1
-	 bm051Np0jvLqW73t7f3Op+3w6I1fTEmSYg8MFgqg7Evqb57WB7uG/Crgb3+AZeAbNjCks
-	 HLaLAP+/W56/x6rGqqPqpRwZ/RyorQf8Ni3VTr8qiC1AJldCSFU9BMBtvzvDbCsaiimK3
-	 MObZL+vjztW8jITKeJFmmi6VC5WT1tlOz/M8dXd85vecMPCaoz+XftLpFADBNZGi+8Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792740461;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=Bt3g7cG/T+dUsUClX1/GlTBepGeumJSA4Ti6aIN23uo=;
+	b=EH1H+xSx7fHy/MTJsYIB5s2TwZGR/Bkcg966SbRIUEAbnAaAgE4b/ClxIsAWXtqE3NkP
+	 kKnxn18Xl9BF8/MM5rytZad9mNmS43XN8jmHFgfbXt9CEAOT08fchNgxWIc8Mdyquc+ct
+	 dKp6R0dJC++aIqWn/iKqKtwrvBASVyJfWG2WrI2kscWRdBPqjRMHMcbK8sUuR0hln0mHj
+	 CyQkshFT1fpt0UJM4bsPmOHfZusW//OO2fxLEuVSCGCbdirh5VC4kq3eVmXmh+/6+oh1W
+	 IQogHC+0wE6SLPOdkfHHxlthW2mpUk/YaToadYWCzVDdkdXqRrhopekXo59xbZItlsA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=LvL4Glmz;
-	arc=none smtp.remote-ip=185.246.85.4
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WFM7byuF;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3912606A31B
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 07:26:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D3912606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 302DA606A31A;
+	Fri, 23 Oct 2026 07:27:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=LvL4Glmz
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 4682E4E412CD;
-	Fri, 23 Oct 2026 07:26:10 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 0868260398;
-	Fri, 23 Oct 2026 07:26:10 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id AAEA110328EBA;
-	Fri, 23 Oct 2026 09:26:00 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1792740368; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=EWh775ixuDkqq5/XMz+/SNNIBOmyxiAfk8vpWlaY5xk=;
-	b=LvL4GlmzkNyIqK9Ep7eVn/sWbm8nFqvbiMAvbSgriU1nrEoLwh+8NqTWQMVt8OF8EmcBEa
-	RZ/pCV7eAcV6Oz9VvSuGxYC9jPgbSQCQLjvqP5gpDrBEYJXw3FLXBIG9HOLs80RK4UCzrO
-	BA8Ioe7RydKo4yFxtHoR+2qWiiIUzzJ+SUmTh9WPLLNhLH3dJCIsoomAeC/7VT7j2uttK+
-	utt7YU8Rz+S9uDicPBBqFYKcMqhp94c8+jvPwfrRDEdcSWP4ESQjvK9mIXY88Wj2l8Hh58
-	h+JU9O9uWyruKAxpNKqL0BUej1svH9q0VCdU4x9YA8F4HLsDizyhOfdTVgGXZA==
-Date: Fri, 23 Oct 2026 09:25:59 +0200
-From: Herve Codina <herve.codina@bootlin.com>
-To: David Gibson <david@gibson.dropbear.id.au>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Laurent Pinchart
- <laurent.pinchart@ideasonboard.com>, David Lechner <dlechner@baylibre.com>,
- Ayush Singh <ayush@beagleboard.org>, Geert Uytterhoeven
- <geert@linux-m68k.org>, devicetree-compiler@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- devicetree-spec@vger.kernel.org, Hui Pu <hui.pu@gehealthcare.com>, Ian Ray
- <ian.ray@gehealthcare.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>
-Subject: Re: [PATCH v3 12/15] libfdt: Introduce fdt_getprop_offset_namelen()
-Message-ID: <20261023092559.7608ff25@bootlin.com>
-In-Reply-To: <20260922182547.6cc7475c@bootlin.com>
-References: <20260826083146.304291-1-herve.codina@bootlin.com>
-	<20260826083146.304291-13-herve.codina@bootlin.com>
-	<arDJmHPwgvwwmITG@gractus.seuss>
-	<20260922182547.6cc7475c@bootlin.com>
-Organization: Bootlin
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WFM7byuF
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 431B21F01825;
+	Fri, 23 Oct 2026 07:27:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792740460;
+	bh=Bt3g7cG/T+dUsUClX1/GlTBepGeumJSA4Ti6aIN23uo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=WFM7byuFQdos23jYHwQymyRwbRbvu75+SI/zKK8InCuKcALgXefCam3Za1Y07BB6U
+	 hfjcZn2WFoeiPIASjFpKdRRJs+pN9vCM5FO0F7iSI0MxXzzuQZJ6CDAH75XMWqGuE6
+	 TS1ZpsNdBzCZa6cQgbHeHsmefjZjPZgK4LTiqnRlwY1vNTa/ZdJR9LVZmxiN4KgQnt
+	 fyANJ2q9zjO8IjNlUzyPigxGxn777U28odFuRL88K4pGWBPtpYdjI112Meu7iyluLE
+	 OY7ikHMpBdvVG/zGUkcSVJuRizhgtD1IT1MKrjitJzZWI4VPThgMuvyoXZz1wjQH0j
+	 rC+7m5c659BRQ==
+Date: Fri, 23 Oct 2026 10:27:33 +0300
+From: Mike Rapoport <rppt@kernel.org>
+To: Pasha Tatashin <pasha.tatashin@soleen.com>
+Cc: linux-kselftest@vger.kernel.org, shuah@kernel.org,
+	akpm@linux-foundation.org, linux-mm@kvack.org, vipinsh@google.com,
+	linux-kernel@vger.kernel.org, dmatlack@google.com,
+	kexec@lists.infradead.org, pratyush@kernel.org, graf@amazon.com
+Subject: Re: [PATCH v2 1/2] liveupdate: Add LIVEUPDATE_SESSION_FREEZE ioctl
+ to freeze sessions early
+Message-ID: <atsMZW4ChOWj7Lqv@kernel.org>
+References: <20261020144710.4154339-1-pasha.tatashin@soleen.com>
+ <20261020144710.4154339-2-pasha.tatashin@soleen.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,101 +61,292 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+In-Reply-To: <20261020144710.4154339-2-pasha.tatashin@soleen.com>
 
-Hi David,
-
-On Tue, 22 Sep 2026 18:25:47 +0200
-Herve Codina <herve.codina@bootlin.com> wrote:
-
-> On Mon, 21 Sep 2026 16:07:21 +1000
-> David Gibson <david@gibson.dropbear.id.au> wrote:
+On Tue, Oct 20, 2026 at 10:47:03AM -0400, Pasha Tatashin wrote:
+> Currently, LUO sessions are frozen automatically only inside the
+> reboot(LINUX_REBOOT_CMD_KEXEC) pathway, where luo_session_serialize()
+> iterates through all outgoing sessions under global write locks and
+> freezes them serially during shutdown. Allowing userspace to decide when
+> to freeze a session once it is done with it (and to freeze multiple
+> sessions in parallel, since luo_session_freeze() only acquires the
+> per-session mutex) avoids postponing this work to kexec shutdown and
+> reduces blackout time.
 > 
-> > On Wed, Aug 26, 2026 at 10:31:43AM +0200, Herve Codina wrote:  
-> > > Future operations, such as handling unknown tags on dtb modifications,
-> > > need to get an offset to a property based on the node offset and the
-> > > property name.
-> > > 
-> > > Several function exists to get a property based on the node offset
-> > > and the property name but none of them allows to get the property
-> > > offset.
-> > > 
-> > > Fill the lack and introduce fdt_getprop_offset_namelen() and its
-> > > simple variant fdt_getprop_offset().
-> > > 
-> > > Signed-off-by: Herve Codina <herve.codina@bootlin.com>    
-> > 
-> > This seems redundant with fdt_ptr_offset_(), which can trivially get
-> > this information when combined with fdt_get_property().  
+> Introduce LIVEUPDATE_SESSION_FREEZE on session file descriptors to freeze
+> a session early. The ioctl runs .freeze() across all preserved files in the
+> session and serializes their metadata. Once frozen, no additional files can
+> be added to the session, and subsequent freeze calls return -EBUSY. Freeze
+> is only valid on outgoing sessions and returns -EINVAL on incoming ones.
 > 
-> Indeed, It should be ok using both functions you pointed out.
+> During kexec, sessions that were already frozen early are skipped, while
+> sessions that did not invoke this ioctl auto-freeze as before. If an
+> early-frozen session is released before kexec, its files are rolled back
+> via .unfreeze() before being unpreserved.
 > 
-> I will remove fdt_getprop_offset_namelen() introduced here and use directly 
-> functions mentionned in the next iteration without wrapping those calls in
-> a new function. 
+> Signed-off-by: Pasha Tatashin <pasha.tatashin@soleen.com>
+> ---
+>  include/linux/liveupdate.h       |  3 +-
+>  include/uapi/linux/liveupdate.h  | 25 ++++++++++
+>  kernel/liveupdate/luo_file.c     | 73 +++++++++++++---------------
+>  kernel/liveupdate/luo_internal.h |  9 ++--
+>  kernel/liveupdate/luo_session.c  | 82 +++++++++++++++++++++++++-------
+>  mm/memfd_luo.c                   |  5 +-
+>  6 files changed, 134 insertions(+), 63 deletions(-)
+> 
+> diff --git a/include/linux/liveupdate.h b/include/linux/liveupdate.h
+> index 6051abc0612c..851692571e13 100644
+> --- a/include/linux/liveupdate.h
+> +++ b/include/linux/liveupdate.h
+> @@ -59,7 +59,8 @@ struct liveupdate_file_op_args {
+>   *                compatible with the given file.
+>   * @preserve:     Required. Performs state-saving for the file.
+>   * @unpreserve:   Required. Cleans up any resources allocated by @preserve.
+> - * @freeze:       Optional. Final actions just before kernel transition.
+> + * @freeze:       Optional. Prepares final state before kexec (via
+> + *                LIVEUPDATE_SESSION_FREEZE or during reboot).
+>   * @unfreeze:     Optional. Undo freeze operations.
+>   * @retrieve:     Required. Restores the file in the new kernel.
+>   * @can_finish:   Optional. Check if this FD can finish, i.e. all restoration
+> diff --git a/include/uapi/linux/liveupdate.h b/include/uapi/linux/liveupdate.h
+> index 4043d4038712..1644c502521e 100644
+> --- a/include/uapi/linux/liveupdate.h
+> +++ b/include/uapi/linux/liveupdate.h
+> @@ -60,6 +60,7 @@ enum {
+>  	LIVEUPDATE_CMD_SESSION_RETRIEVE_FD = 0x41,
+>  	LIVEUPDATE_CMD_SESSION_FINISH = 0x42,
+>  	LIVEUPDATE_CMD_SESSION_GET_NAME = 0x43,
+> +	LIVEUPDATE_CMD_SESSION_FREEZE = 0x44,
+>  };
+>  
+>  /**
+> @@ -236,4 +237,28 @@ struct liveupdate_session_get_name {
+>  #define LIVEUPDATE_SESSION_GET_NAME					\
+>  	_IO(LIVEUPDATE_IOCTL_TYPE, LIVEUPDATE_CMD_SESSION_GET_NAME)
+>  
+> +/**
+> + * struct liveupdate_session_freeze - ioctl(LIVEUPDATE_SESSION_FREEZE)
+> + * @size:     Input; sizeof(struct liveupdate_session_freeze)
+> + * @reserved: Input; Must be zero. Reserved for future use.
+> + *
+> + * Freezes the session early from userspace before the reboot kexec phase.
+> + *
+> + * When this ioctl is called, the kernel executes the .freeze() callback on all
+> + * preserved files in the session and serializes their metadata. Once frozen,
+> + * no further files can be preserved in the session.
+> + *
+> + * During the subsequent reboot kexec, this session is recognized as already
 
-I've started to replace fdt_getprop_offset_namelen() by the combination
-of fdt_ptr_offset_() and fdt_get_property_namelen().
+Nit: kexec reboot
 
-As a reminder fdt_getprop_offset_namelen() I proposed was the following:
---- 8< ---
-> +int fdt_getprop_offset_namelen(const void *fdt, int nodeoffset,
-> +			       const char *name, int namelen)
-> +{
-> +	const struct fdt_property *prop;
-> +	int lenp, offset;
+> + * frozen and is skipped from the late auto freeze.
+> + *
+> + * Return: 0 on success, negative error code on failure.
+> + */
+> +struct liveupdate_session_freeze {
+> +	__u32		size;
+> +	__u32		reserved;
+> +};
 > +
-> +	prop = fdt_get_property_namelen_(fdt, nodeoffset, name, namelen,
-> +					 &lenp, &offset);
-> +	if (!prop)
-> +		return lenp;
-> +	return offset;
-> +}
---- 8< ---
+> +#define LIVEUPDATE_SESSION_FREEZE					\
+> +	_IO(LIVEUPDATE_IOCTL_TYPE, LIVEUPDATE_CMD_SESSION_FREEZE)
+> +
+>  #endif /* _UAPI_LIVEUPDATE_H */
+> diff --git a/kernel/liveupdate/luo_file.c b/kernel/liveupdate/luo_file.c
+> index a39992da504f..7f79890beb31 100644
+> --- a/kernel/liveupdate/luo_file.c
+> +++ b/kernel/liveupdate/luo_file.c
+> @@ -31,9 +31,9 @@
+>   *   - unpreserve(): Cleans up any resources allocated by .preserve(), called
+>   *     if the preservation process is aborted before the reboot (i.e. session is
+>   *     closed).
+> - *   - freeze(): A final pre-reboot opportunity to prepare the state for kexec.
+> - *     We are already in reboot syscall, and therefore userspace cannot mutate
+> - *     the file anymore.
+> + *   - freeze(): Prepares the final state for kexec. Invoked either early via
 
-fdt_get_property_namelen_() was called.
+Nit: I'd drop "early", it seems relevant only to the current change, but
+will be more confusing than useful later.
 
-Switching to fdt_get_property_namelen() introduces a regression.
+> + *     the LIVEUPDATE_SESSION_FREEZE ioctl once userspace is done modifying
+> + *     the session's files, or during the reboot() syscall.
+>   *   - unfreeze(): Undoes the actions of .freeze(), called if the live update
+>   *     is aborted after the freeze phase.
+>   *   - retrieve(): Reconstructs the file in the new kernel from the preserved
+> @@ -48,7 +48,8 @@
+>   *    handler, calls its .preserve() operation, and creates an internal &struct
+>   *    luo_file to track the live state.
+>   *
+> - * 2. Freeze (Pre-Reboot): Just before the kexec, luo_file_freeze() is called.
+> + * 2. Freeze (Pre-Reboot): Either explicitly via LIVEUPDATE_SESSION_FREEZE or
+> + *    just before the kexec during reboot(), luo_file_freeze() is called.
+>   *    It iterates through all preserved files, calls their respective .freeze()
+>   *    operation, and serializes their final metadata (compatible string, token,
+>   *    and data handle) into a contiguous memory block for KHO.
+> @@ -74,15 +75,16 @@
+>   *
+>   * 1. Abort Before Reboot: If the userspace agent aborts the live update
+>   *    process before calling reboot (e.g., by closing the session file
+> - *    descriptor), the session's release handler calls
+> - *    luo_file_unpreserve_files(). This invokes the .unpreserve() callback on
+> - *    all preserved files, ensuring all allocated resources are cleaned up and
+> - *    returning the system to a clean state.
+> + *    descriptor), the session's release handler unfreezes the files if the
+> + *    session was already frozen and calls luo_file_unpreserve_files(). This
+> + *    invokes the .unpreserve() callback on all preserved files, ensuring all
+> + *    allocated resources are cleaned up and returning the system to a clean
+> + *    state.
+>   *
+> - * 2. Freeze Failure: During the reboot() syscall, if any handler's .freeze()
+> - *    op fails, the .unfreeze() op is invoked on all previously *successful*
+> - *    freezes to roll back their state. The reboot() syscall then returns an
+> - *    error to userspace, canceling the live update.
+> + * 2. Freeze Failure: During LIVEUPDATE_SESSION_FREEZE or the reboot() syscall,
+> + *    if any handler's .freeze() op fails, the .unfreeze() op is invoked on all
+> + *    previously *successful* freezes to roll back their state, and an error is
+> + *    returned to userspace.
 
-fdt_get_property_namelen() calls fdt_get_property_namelen() and this function
-(without the '_' suffix) performs a check on fdt_version() returning an error
-on version < 16.
+I think we still want to say that freeze failure at reboot cancels live
+update.
 
-Using it to replace my fdt_getprop_offset_namelen() function will break
-write-in-place setprop() for dtb version < 16. Indeed, it is used in [1]
+>   *
+>   * 3. Finish Failure: In the new kernel, if a handler's .finish() op fails,
+>   *    the luo_file_finish() operation is aborted. LUO retains ownership of
+> @@ -440,12 +442,11 @@ static void __luo_file_unfreeze(struct luo_file_set *file_set,
+>  
+>  /**
+>   * luo_file_freeze - Freezes all preserved files and serializes their metadata.
+> - * @file_set:     The file_set whose files are to be frozen.
+> - * @file_set_ser: Where to put the serialized file_set.
+> + * @file_set: The file_set whose files are to be frozen.
+>   *
+> - * This function is called from the reboot() syscall path, just before the
+> - * kernel transitions to the new image via kexec. Its purpose is to perform the
+> - * final preparation and serialization of all preserved files in the file_set.
+> + * This function is called from LIVEUPDATE_SESSION_FREEZE or from the reboot()
+> + * syscall path. Its purpose is to perform the preparation and serialization of
 
-[1]: https://lore.kernel.org/devicetree-compiler/20260826083146.304291-15-herve.codina@bootlin.com/#Z31libfdt:fdt_wip.c
+Nit:                                          ^ final?
 
-Now, several options:
+> + * all preserved files in the file_set.
+>   *
+>   * It iterates through each preserved file in FIFO order (the order of
+>   * preservation) and performs two main actions:
+> @@ -457,22 +458,20 @@ static void __luo_file_unfreeze(struct luo_file_set *file_set,
+>   *
+>   * 2. Serializes Metadata: After a successful freeze, it copies the final file
+>   *    metadata—the handler's compatible string, the user token, and the final
+> - *    private data handle—into the pre-allocated contiguous memory buffer
+> - *    (file_set->files) that will be handed over to the next kernel via KHO.
+> + *    private data handle—into the pre-allocated serialization blocks
+> + *    (file_set->block_set) that will be handed over to the next kernel via KHO.
+>   *
+>   * Error Handling (Rollback):
+>   * This function is atomic. If any handler's .freeze() operation fails, the
+> - * entire live update is aborted. The __luo_file_unfreeze() helper is
+> - * immediately called to invoke the .unfreeze() op on all files that were
+> - * successfully frozen before the point of failure, rolling them back to a
+> - * running state. The function then returns an error, causing the reboot()
+> - * syscall to fail.
+> + * __luo_file_unfreeze() helper is immediately called to invoke the .unfreeze()
+> + * op on all files that were successfully frozen before the point of failure,
+> + * rolling them back to an unfrozen state, and an error is returned to the
+> + * caller.
 
-a) No problem if we break dtb version < 16
-   Ok, I will use directly fdt_get_property_namelen() + fdt_ptr_offset_() to
-   get an offset and remove my fdt_getprop_offset_namelen() wrapper.
+Don't you want to say that reboot is canceled here too?
 
-b) Keep my fdt_getprop_offset_namelen() function without any modification
-   We support version < 16, problem solved.
+>   *
+> - * Context: Called only from the liveupdate_reboot() path.
+> + * Context: Called from LIVEUPDATE_SESSION_FREEZE or the liveupdate_reboot() path.
+>   * Return: 0 on success, or a negative errno on failure.
+>   */
+> -int luo_file_freeze(struct luo_file_set *file_set,
+> -		    struct luo_file_set_ser *file_set_ser)
+> +int luo_file_freeze(struct luo_file_set *file_set)
+>  {
+>  	struct luo_file *luo_file;
+>  	struct kho_block_set_it it;
+> @@ -506,9 +505,6 @@ int luo_file_freeze(struct luo_file_set *file_set,
+>  		file_ser->token = luo_file->token;
+>  	}
+>  
+> -	file_set_ser->count = file_set->count;
+> -	file_set_ser->files = kho_block_set_head_pa(&file_set->block_set);
+> -
+>  	return 0;
+>  
+>  err_unfreeze:
+> @@ -519,28 +515,25 @@ int luo_file_freeze(struct luo_file_set *file_set,
+>  
+>  /**
+>   * luo_file_unfreeze - Unfreezes all files in a file_set and clear serialization
+> - * @file_set:     The file_set whose files are to be unfrozen.
+> - * @file_set_ser: Serialized file_set.
+> + * @file_set: The file_set whose files are to be unfrozen.
+>   *
+>   * This function rolls back the state of all files in a file_set after the
+> - * freeze phase has begun but must be aborted. It is the counterpart to
+> - * luo_file_freeze().
+> + * freeze phase has begun. It is the counterpart to luo_file_freeze().
+>   *
+>   * It invokes the __luo_file_unfreeze() helper with a NULL argument, which
+> - * signals the helper to iterate through all files in the file_set and call
+> - * their respective .unfreeze() handler callbacks.
+> + * signals the helper to iterate through all files in the file_set, call their
+> + * respective .unfreeze() handler callbacks, and clear the serialized blocks.
+>   *
+>   * Context: This is called when the live update is aborted during
+> - *          the reboot() syscall, after luo_file_freeze() has been called.
+> + *          the reboot() syscall, after luo_file_freeze() has been called,
+> + *          or when an early-frozen session is released before kexec.
+>   */
+> -void luo_file_unfreeze(struct luo_file_set *file_set,
+> -		       struct luo_file_set_ser *file_set_ser)
+> +void luo_file_unfreeze(struct luo_file_set *file_set)
 
-c) Keep my fdt_getprop_offset_namelen() but static inline in libfdt_internal.h
-   Export fdt_get_property_namelen_() in libfdt_internal.h and use it in the
-   static inline fdt_getprop_offset_namelen().
-   This implies that fdt_get_property_namelen_() will be no more static and
-   usable internally out of fdt_ro.c but only the fdt_getprop_offset_namelen()
-   wrapper should be used.
+I went several time back and forth trying to understand why we remove
+*file_set_ser here.
 
-d) Use directly fdt_get_property_namelen_()
-   Export fdt_get_property_namelen_() in libfdt_internal.h and use it
-   directly to get the offset.
-   I don't really like this solution. I would prefer to have a wrapper to
-   explicitly return the offset instead of exposing and using directly
-   fdt_get_property_namelen_().
+Maybe add a preparation patch that does the renames and moves file_set_ser
+handling?
 
-On my side, I would prefer b) as it support version < 16 without the need
-to expose fdt_get_property_namelen_() out of fdt_ro.c.
+>  {
+>  	if (!file_set->count)
+>  		return;
+>  
+>  	__luo_file_unfreeze(file_set, NULL);
+> -	memset(file_set_ser, 0, sizeof(*file_set_ser));
+>  }
+>  
+>  /**
+> diff --git a/kernel/liveupdate/luo_internal.h b/kernel/liveupdate/luo_internal.h
+> index dac6644bfb18..b3fc3dcf5f36 100644
+> --- a/kernel/liveupdate/luo_internal.h
+> +++ b/kernel/liveupdate/luo_internal.h
+> @@ -64,6 +64,8 @@ struct luo_file_set {
+>   *              previous kernel) sessions.
+>   * @retrieved:  A boolean flag indicating whether this session has been
+>   *              retrieved by a consumer in the new kernel.
+> + * @frozen:     A boolean flag indicating whether this session has been
+> + *              frozen early from userspace.
 
-I would like to have your opinion on this point.
-Is also option b) ok on your side ?
+s/early/explicitly
 
-Best regards,
-Hervé
+>   * @file_set:   A set of files that belong to this session.
+>   * @mutex:      protects fields in the luo_session.
+>   */
+> @@ -71,6 +73,7 @@ struct luo_session {
+>  	char name[LIVEUPDATE_SESSION_NAME_LENGTH];
+>  	struct list_head list;
+>  	bool retrieved;
+> +	bool frozen;
+>  	struct luo_file_set file_set;
+>  	struct mutex mutex;
+>  };
+
+-- 
+Sincerely yours,
+Mike.
