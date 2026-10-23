@@ -1,97 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792749852;
-	b=3fCQS1Cn2L1Fks2HtCOsjn9w8dtjm+EJTPOvF0yxW7qrFC5MhdNZlZhXMTTM+JYPGg5T
-	 J3FOyJ3OA3CCLKhGiajTcIBcjGgLCG3JvTAO50C7GazrEeTclK/jqZJAsOxa1AxSY06FS
-	 Ha3Pdsq/w5/2FZNM3E6GFBUrh2iM/thBTvLakpb+lk6QL5mfc8cwpfkl/ELDKPe5wrTse
-	 nmgz2QAgcLajQVJ5C+0E2FFP2SmmdWG/rgLai8u1lI2S5VIVSTlw/9aT66Z/MKQXkSSM5
-	 Hu5bG6VfXagPno/JzGK2j1cqnMhfTGLy4sZ950u90qgGw+IZlrB4Jvhp07HjTWMaQfA==
+	t=1792749853;
+	b=AgT40OT71Lev3q6ptrxjfCt7Ojd4lc+cqMwYaUjMlP7r7enMFpHc5r6B6dvecU6TulP1
+	 N0aiCD2AwZvjtsejw64aq1bpjDXn1SL554LTNPYOUNTsEASEo+ep5UKoWiCS90g/I7j66
+	 ruATYIZzDeTlktVYHdOd9MElJCh3PXrqC9sN7KuEtQSxSnDcgo3EDxQ5RfNVNZKUcjnwD
+	 h1/WhIo+T95Mc08O4rzzJ6N1qUHNK+K54xSOkRJKxQdtzMOaDLYQZA+CpgknPGknDsURL
+	 qIISrJcT1vS53pSqFYrvgGSnv+5dL0a3kXzdTHuWz+9lEggywM1UpC+Vwmg9h4GJ3Gg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792749852;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792749853;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=WLd0lU2fh/YAFZVVEuZA4CYWlgeDeL+IcAlXVNkPVKw=;
-	b=t3MW6d32dntr3rGShM/qu3PS9v+gGeClW8Rf1SkCY2ZSfFQCj3OashtphQ1bMojxYLyB
-	 4a4n3qn6ZpVHxQRx6N0cTFztEnJdoFQNrrDloJ+bMjEaYxbUkdgOhH93Oay++tVWZLTOX
-	 R9Y8CedF7ZtJaxKqT/OrV5NUGllV6S461jdQrKpb/l/y8AfLlNunOuolTpsQNgl+dN1Kc
-	 Dg9IcsPcTCkuasp1yA1IEDoas1aBakPDHB6wMuInnrvXBIY22ahlg6Jij/FWK6nObGp+a
-	 X3K42aMCxeRwzpSwWMJ8tqggD+UxsNyZGAGjETPvlmqkWUKpP65deOmRXoxboQHzs+w==
+	bh=BFJi21nGBQW1GClHu4/H7QoMZnTybBGVTarQRFp+2DE=;
+	b=V4OhEKM8jU/n8CX+dijLWWpjDPUNfufrC0i01iKNHT99NtuqsWBtUWUEN+RYhEhtEH4j
+	 PN4DM+TxX8br4uJnTeq1LxgdrjNMUgE6fE/6ePtnyhGqhbyxO/s65s011C5P67sppw1iN
+	 +uR9eAEih/0G0OUVb374pzuoUNxOu1CdW3srBGfsWfDBEwHe7vZ86vs6YkQ6vJOBTcIBG
+	 08XI7oJB6pVoJ7PcbCCbc1Zir2W3UtqNaESUnOqCaZFTShemOC0LmPU47L8tPEub/Umo0
+	 djNWvhTsQf79/POg8loYhSL9tsnVDLbK7bKULseUCouO6O5jnm+2+Vk2PSaFQTJJZdw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=fail header.from=mgcrea.io;
 	spf=pass smtp.mailfrom=mg-crea.com;
-	dkim=pass header.d=mg-crea-com.20251104.gappssmtp.com header.i=@mg-crea-com.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=Bp+v017q;
-	arc=none smtp.remote-ip=209.85.221.47
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
+	dkim=pass header.d=mg-crea-com.20251104.gappssmtp.com header.i=@mg-crea-com.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=dViWy7Qr;
+	arc=none smtp.remote-ip=209.85.128.43
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB7BF60A2608
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 10:04:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EB7BF60A2608
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A1A460A2626
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 10:04:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9A1A460A2626
 Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=mgcrea.io
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mg-crea.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mg-crea-com.20251104.gappssmtp.com header.i=@mg-crea-com.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=Bp+v017q
-Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-48afbd2c386so367542f8f.3
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 03:04:11 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=mg-crea-com.20251104.gappssmtp.com header.i=@mg-crea-com.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=dViWy7Qr
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a1df4c0966so3721455e9.1
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 03:04:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=mg-crea-com.20251104.gappssmtp.com; s=20251104; t=1792749850; x=1793354650; darn=vger.kernel.org;
+        d=mg-crea-com.20251104.gappssmtp.com; s=20251104; t=1792749851; x=1793354651; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=WLd0lU2fh/YAFZVVEuZA4CYWlgeDeL+IcAlXVNkPVKw=;
-        b=Bp+v017qOOHv+fGEFbZyhDKPjmjPM8N2554dXu8wqilzQL6POiidZKPC1fT+9/0i9P
-         YckpdzDhRv3e2fKa5BRVBplXrHGZYq8xnpQjU42AEftxpLEDDC8tr5y3LrXNzzUt3b9r
-         Wg+X5V5Do4ofmadBzat4R8plYNZaPnMZwdf5Gh3jwNkCwF1lil9halJlpZ3QQbGfNgR7
-         R5+Sg+SASg71mQYF4OcJ24EadKUCsu0e+w2TF8AMoEZZ/gjhKSVWMYvbOLmK0e1VlA16
-         DI8c1AS3HUtb+sVrFAjKHKnqZuJcvNtQHcBVBkB4eQwEA2NHzDRi0k+haz+IxoW3Ph5m
-         +waw==
+        bh=BFJi21nGBQW1GClHu4/H7QoMZnTybBGVTarQRFp+2DE=;
+        b=dViWy7QrutayxL7c/RcPn7bdE/t2t9WvGMlmrHVD3Itn2TjiwT7dCu73oYCD1cr+Az
+         NSZGx0xOB5EzC6acLMGIZBL1LNvUmzHYZB369f/rNmCegdG5TcrCFS+HkFhL6ByvfgX+
+         xuKNeOR6z7szbZFci2VBdIGHjn+aVPs354/sntcvJl+Y0Hb2DeDggb4RvBuzxhqOdqYh
+         gb/Ms/WqIhJ6nOSub03QAzu0GtRl4mDvWMu3eiZe25kJgYT+efOn3moS3mqYlI22jDx+
+         pmAnvFHYLCAcTkLjKBovVYEaOGsHTeGTN6W3oGHDw4wPI/TO8XrN5GnAY/fCAVK85F2j
+         PMRg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792749850; x=1793354650;
+        d=1e100.net; s=20260707; t=1792749851; x=1793354651;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=WLd0lU2fh/YAFZVVEuZA4CYWlgeDeL+IcAlXVNkPVKw=;
-        b=JXoLGp0fb33AZJe0jonjtdgDJ5G7QU0G4Syd7GNZKU7INCyxt7S/sMGurZc+hjieFd
-         b8X+JQhXVc3NDl+LCb5dfH7Cb6WawJF85/OwpviZa+V/vl3lFuNNFiOpK+AflR8MxQft
-         KWn5Yq8PhHR1qXmjTU9+n3SFecEhW2Hyi73d+2jNzI8KW8ysZBGpOhODc8flAoR7aqbK
-         hPLmSCWgXcI+hesVOurJWd5pUM+8+4tGBtAb9z7sGCDUFDrh+EpuWpk3tQHdlSThyLY1
-         qI63a72on+Q/yIAPd4s+Kak/Eg4nO7b35epkYdNyluztak1PGpE8KSppKKHxJnister0
-         rayg==
-X-Forwarded-Encrypted: i=1; AKwUvBzSi13jJeGiu4wN5MR1f0eDPCyF7+4z9gC7lvEAfnze0QIBQo4wt2+4ymSouqhNZ3/vx9NwOOrLzN6A68w=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKNg4vW5AcXp6vGPvPzfYo5+G3PSgN36yzJEUw92CL4BByrgF0U
-	h4mhfZWCMrUKjpJ8XFPWM/niLPQOQ24E/GP1Cx4WEwPvz+Mv7juKIN2ZDDDe4G6kwSs=
-X-Gm-Gg: AYBFou2BWVjXyEn5UwkNca4Qm5JpFw/RXRXsRX6nSvY1fm4ywMlXJFIAwpi/EWU+jF7
-	JMRd3Ye+M1RTiwXZDqxnth6FLcOeSJLL50J88yyPn/pvux3Gen1Lxbwh16aYP3Wkt+kuIQGypnI
-	nqKYCZ/ZDQ1apoOefOHHSR9wp1B4a4DPOSQhHMDE46n6tURGeIV8Plg7np0I/Y9B9ve6isQyt76
-	Fn7f2Y4Ve1MbtCxlx0pyfadPbRhZC8V55fUrKUzUMtlLppe0jzV+Ou7x28j4lD1Hmx0Wo3MdT8e
-	aix2nhP8S7wKgCkgTPBzeXK0wZ+SxNvAArZ0oxQ9ekpKl63KlhmbXIr+Ps33WGNsaZ5po6fazrO
-	Ewr+YXVXWd6iXH3csSdN+yUr66sEJq5Sh03PmyuvlJ8gAeIeG4TmeiVI14yujnjEqz64GsRjeob
-	zOl7l2MGwx6hM+TEbZXGqvbPKm2Mr2gERQ/EUoC/23CFd5eMP/5h2x+i9eRsZfwV/2xywS0hGFp
-	g0oy03rDfuqMmbSWJcDTxhjo1B4DDkcDFjBe1W9HcIjO9J34i6lVT7uF/ttVqfWxR8e7HBB5FZZ
-	lCb91m7dEqdJhd+Ie/YKMLr7W0XwIJnu1g==
-X-Received: by 2002:a05:600c:8882:b0:4a2:47:b79c with SMTP id 5b1f17b1804b1-4a211f29fb8mr20172565e9.32.1792749848816;
-        Fri, 23 Oct 2026 03:04:08 -0700 (PDT)
+        bh=BFJi21nGBQW1GClHu4/H7QoMZnTybBGVTarQRFp+2DE=;
+        b=cQOn0XGI7Lxwx378vKA7fZFcwLlW+pxpmet7PLZ5EdadBLAAlUeo95xwnxu2FlhZkU
+         jaP/sT8K2PtRY420HziM+oQAjbVpc4i0nLy96Sc7vIlvru0xwTXvlUtRPLc7ijYEG0XU
+         +hgTk/vCtAnMVsL8C9Eb1SFC/4F0+5miWw20teK7PIfSqu3JR3cuHeTcMkJiCjuJGksg
+         SOpMeASg+B866STvoxTq23tdekhVwdfLmaVIwm/6717XpLPurO5pFTiHz0WE4NTdl3lJ
+         mwo95rp3y03YuKgnfMEo/+M2cyf54GIGssrJzjmCfrllbmflEQKcf3lDecDwXqFS0xmb
+         Vfqg==
+X-Forwarded-Encrypted: i=1; AKwUvByIcfGUM8fFgciQFutdWKdrdXnIupBweb0g10qdtcLJexaH3RMYE5UvTwXbNTsPryrZ/pE2qDwrMbq8DDY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIyjH9oZ7idOh3jiCV2EPn95MjmRyRejlSguolTAD28v3SlW4rK
+	MTwtPBQnVgWXWqLj/NaRk/t9vIu8LLQlPXmcJU11F07sb/3JCdUjLGvGJHZe0nGzei8=
+X-Gm-Gg: AYBFou0X4TF0vl7g3l7TvLR4pyPCxa6BJrRrtGhgvkeyHyn4dYxy4CPYPPg1p6MQMrv
+	tFRYf1urcPOwZr5uSaG3/AcCxU2Rf8SIZSBeEYwB0tBmjuVPNFN/iaqQditLJXGJwO+EmiVvT9P
+	zk3Sh7J1S6CuqFFV95NDvwghr7ngujnIchwevFDyxVYuhKa+YTW5DpjXjNIOojbzQlJlio/vPWb
+	6TdF15ytDhgQ536DX2+ipLgrYC6U3W/eqU6anLIqayQLSb+U4wj53huu/nWSQTz1UosKa+zS0Hr
+	CRnZwNlMT06bFzoNIVloA5C+BMgm04FLbga+pa+3Amtg2KHi25tHYySFYsgK3tvauQAsFuCwq1p
+	IM4D1xu7QwoAhdkQt38Tp0yKHjxyQceHNoMkpLYYNN3CC1oX1rwBxdyDDDmVk6Ri/snm/QvG+pK
+	VwpJ1RI3gnCX6nut32UdYqmKHNzswghs8e3zBytTRcw+sVjTpvsRq+oQlR1qE3toV+WDmRojse8
+	pJ81ByVhVUruPBXcxItJfK5r7Zo7HQna1S8h+8BZ9SGPLKQ5CT/DbY5ptYjg+KpPUYByI9UVeiZ
+	aNtSyhJWElD5
+X-Received: by 2002:a05:600c:3b0a:b0:4a0:20b4:ba93 with SMTP id 5b1f17b1804b1-4a211c869d9mr27147775e9.16.1792749849627;
+        Fri, 23 Oct 2026 03:04:09 -0700 (PDT)
 Received: from localhost.localdomain ([2a01:e0a:9c3:9990:6877:44a0:5297:9502])
         by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a21045df9dsm75761435e9.8.2026.10.23.03.04.08
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Fri, 23 Oct 2026 03:04:08 -0700 (PDT)
+        Fri, 23 Oct 2026 03:04:09 -0700 (PDT)
 From: Olivier Louvignes <olivier@mgcrea.io>
 To: Lee Jones <lee@kernel.org>,
 	Chen-Yu Tsai <wens@kernel.org>
 Cc: Olivier Louvignes <olivier@mgcrea.io>,
 	Sebastian Reichel <sre@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
 	linux-pm@vger.kernel.org,
-	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 6/7] dt-bindings: power: supply: axp20x-battery: Add the AXP2101
-Date: Fri, 23 Oct 2026 12:04:00 +0200
-Message-ID: <20261023100401.67592-7-olivier@mgcrea.io>
+Subject: [PATCH 7/7] power: supply: axp20x_battery: Add support for the AXP2101
+Date: Fri, 23 Oct 2026 12:04:01 +0200
+Message-ID: <20261023100401.67592-8-olivier@mgcrea.io>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20261023100401.67592-1-olivier@mgcrea.io>
 References: <20261023100401.67592-1-olivier@mgcrea.io>
@@ -106,26 +102,307 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The AXP2101's charger is programmed from the monitored battery and its
-registers differ from the other models', so it gets its own compatible.
+Program the AXP2101's charger from the monitored battery: the end of
+charge voltage (CV_CHG_SET, 4.0 to 4.4 V), the constant charge current
+(ICC_CHG_SET, 25 mA steps to 200 mA then 100 mA steps to 1 A), and the
+termination and precharge currents (25 mA steps). Report whether the
+battery is present, the charge state (precharge, constant current or
+constant voltage charging, done, or by the current direction) and the
+settings.
+
+The supply is read-only and reports no capacity: the AXP2101's own fuel
+gauge needs a battery model, and the HiBy R1 uses a CW2015 for that.
+
+Tested on a HiBy R1: the charger registers read back as the stock
+firmware's values after boot, and the status is Full on USB,
+Discharging unplugged and Charging after a replug.
 
 Signed-off-by: Olivier Louvignes <olivier@mgcrea.io>
 ---
- .../power/supply/x-powers,axp20x-battery-power-supply.yaml       | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/power/supply/axp20x_battery.c | 221 ++++++++++++++++++++++++++
+ 1 file changed, 221 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/power/supply/x-powers,axp20x-battery-power-supply.yaml b/Documentation/devicetree/bindings/power/supply/x-powers,axp20x-battery-power-supply.yaml
-index a90d558e7f86..6a0a0c3f052b 100644
---- a/Documentation/devicetree/bindings/power/supply/x-powers,axp20x-battery-power-supply.yaml
-+++ b/Documentation/devicetree/bindings/power/supply/x-powers,axp20x-battery-power-supply.yaml
-@@ -21,6 +21,7 @@ properties:
-       - const: x-powers,axp209-battery-power-supply
-       - const: x-powers,axp221-battery-power-supply
-       - const: x-powers,axp717-battery-power-supply
-+      - const: x-powers,axp2101-battery-power-supply
-       - items:
-           - const: x-powers,axp803-battery-power-supply
-           - const: x-powers,axp813-battery-power-supply
+diff --git a/drivers/power/supply/axp20x_battery.c b/drivers/power/supply/axp20x_battery.c
+index ee8701a6e907..a653ad923144 100644
+--- a/drivers/power/supply/axp20x_battery.c
++++ b/drivers/power/supply/axp20x_battery.c
+@@ -91,6 +91,26 @@
+ 
+ #define AXP717_TS_PIN_DISABLE		BIT(4)
+ 
++#define AXP2101_PWR_OP_BATT_PRESENT	BIT(3)
++#define AXP2101_PWR_STATUS_MASK		GENMASK(6, 5)
++#define AXP2101_PWR_STATUS_BAT_STANDBY	0
++#define AXP2101_PWR_STATUS_BAT_CHRG	1
++#define AXP2101_PWR_STATUS_BAT_DISCHRG	2
++#define AXP2101_CHRG_STATE_MASK		GENMASK(2, 0)
++#define AXP2101_CHRG_STATE_TRICKLE	0
++#define AXP2101_CHRG_STATE_PRECHARGE	1
++#define AXP2101_CHRG_STATE_CC		2
++#define AXP2101_CHRG_STATE_CV		3
++#define AXP2101_CHRG_STATE_DONE		4
++/* CV_CHG_SET: end of charge voltage selector, 1 to 5 for 4.0 to 4.4 V. */
++#define AXP2101_CHRG_CV_VOLT_MASK	GENMASK(2, 0)
++#define AXP2101_ICC_MASK		GENMASK(4, 0)
++#define AXP2101_ICC_MAX_SEL		16	/* 1 A; 17 to 31 are reserved */
++#define AXP2101_ITERM_MASK		GENMASK(3, 0)
++#define AXP2101_ITERM_ENABLE		BIT(4)
++#define AXP2101_IPRECHG_MASK		GENMASK(3, 0)
++#define AXP2101_CURRENT_STEP		25000
++
+ struct axp20x_batt_ps;
+ 
+ struct axp_data {
+@@ -213,6 +233,44 @@ static int axp717_battery_get_max_voltage(struct axp20x_batt_ps *axp20x_batt,
+ 	}
+ }
+ 
++/* End of charge voltages of CV_CHG_SET selectors 0 to 7; 0, 6 and 7 are reserved. */
++static const int axp2101_cv_uv[] = {
++	0, 4000000, 4100000, 4200000, 4350000, 4400000, 0, 0,
++};
++
++static int axp2101_battery_get_max_voltage(struct axp20x_batt_ps *axp20x_batt,
++					   int *val)
++{
++	int ret, reg;
++
++	ret = regmap_read(axp20x_batt->regmap, AXP2101_CV_CHG_SET, &reg);
++	if (ret)
++		return ret;
++
++	*val = axp2101_cv_uv[reg & AXP2101_CHRG_CV_VOLT_MASK];
++	return *val ? 0 : -EINVAL;
++}
++
++static int axp2101_battery_set_max_voltage(struct axp20x_batt_ps *axp20x_batt,
++					   int val)
++{
++	int sel;
++
++	for (sel = 0; sel < ARRAY_SIZE(axp2101_cv_uv); sel++)
++		if (axp2101_cv_uv[sel] && axp2101_cv_uv[sel] == val)
++			return regmap_update_bits(axp20x_batt->regmap,
++						  AXP2101_CV_CHG_SET,
++						  AXP2101_CHRG_CV_VOLT_MASK, sel);
++
++	return -EINVAL;
++}
++
++/* CONSTANT_CHARGE_CURRENT: 25 mA steps up to 200 mA, then 100 mA steps. */
++static int axp2101_ccc_from_sel(unsigned int sel)
++{
++	return sel <= 8 ? sel * 25000 : 200000 + (sel - 8) * 100000;
++}
++
+ static int axp813_battery_get_max_voltage(struct axp20x_batt_ps *axp20x_batt,
+ 					  int *val)
+ {
+@@ -425,6 +483,89 @@ static int axp20x_battery_get_prop(struct power_supply *psy,
+ 	return 0;
+ }
+ 
++static int axp2101_battery_get_prop(struct power_supply *psy,
++				    enum power_supply_property psp,
++				    union power_supply_propval *val)
++{
++	struct axp20x_batt_ps *axp20x_batt = power_supply_get_drvdata(psy);
++	int ret, reg;
++
++	switch (psp) {
++	case POWER_SUPPLY_PROP_PRESENT:
++	case POWER_SUPPLY_PROP_ONLINE:
++		ret = regmap_read(axp20x_batt->regmap, AXP2101_PMU_STATUS_1,
++				  &reg);
++		if (ret)
++			return ret;
++
++		val->intval = !!(reg & AXP2101_PWR_OP_BATT_PRESENT);
++		return 0;
++
++	case POWER_SUPPLY_PROP_STATUS:
++		ret = regmap_read(axp20x_batt->regmap, AXP2101_PMU_STATUS_2,
++				  &reg);
++		if (ret)
++			return ret;
++
++		switch (FIELD_GET(AXP2101_CHRG_STATE_MASK, reg)) {
++		case AXP2101_CHRG_STATE_PRECHARGE:
++		case AXP2101_CHRG_STATE_CC:
++		case AXP2101_CHRG_STATE_CV:
++			val->intval = POWER_SUPPLY_STATUS_CHARGING;
++			return 0;
++		case AXP2101_CHRG_STATE_DONE:
++			val->intval = POWER_SUPPLY_STATUS_FULL;
++			return 0;
++		}
++
++		/* Trickle charging or not charging: by the current direction. */
++		switch (FIELD_GET(AXP2101_PWR_STATUS_MASK, reg)) {
++		case AXP2101_PWR_STATUS_BAT_STANDBY:
++			val->intval = POWER_SUPPLY_STATUS_NOT_CHARGING;
++			return 0;
++		case AXP2101_PWR_STATUS_BAT_CHRG:
++			val->intval = POWER_SUPPLY_STATUS_CHARGING;
++			return 0;
++		case AXP2101_PWR_STATUS_BAT_DISCHRG:
++			val->intval = POWER_SUPPLY_STATUS_DISCHARGING;
++			return 0;
++		default:
++			val->intval = POWER_SUPPLY_STATUS_UNKNOWN;
++			return 0;
++		}
++
++	case POWER_SUPPLY_PROP_CONSTANT_CHARGE_CURRENT_MAX:
++		ret = regmap_read(axp20x_batt->regmap, AXP2101_ICC_CHG_SET,
++				  &reg);
++		if (ret)
++			return ret;
++
++		val->intval = axp2101_ccc_from_sel(FIELD_GET(AXP2101_ICC_MASK,
++							     reg));
++		return 0;
++
++	case POWER_SUPPLY_PROP_VOLTAGE_MAX:
++		return axp2101_battery_get_max_voltage(axp20x_batt,
++						       &val->intval);
++
++	case POWER_SUPPLY_PROP_CHARGE_TERM_CURRENT:
++		ret = regmap_read(axp20x_batt->regmap, AXP2101_ITERM_CHG_SET,
++				  &reg);
++		if (ret)
++			return ret;
++
++		if (!(reg & AXP2101_ITERM_ENABLE))
++			val->intval = 0;
++		else
++			val->intval = FIELD_GET(AXP2101_ITERM_MASK, reg) *
++				      AXP2101_CURRENT_STEP;
++		return 0;
++
++	default:
++		return -EINVAL;
++	}
++}
++
+ static int axp717_battery_get_prop(struct power_supply *psy,
+ 				   enum power_supply_property psp,
+ 				   union power_supply_propval *val)
+@@ -852,6 +993,15 @@ static enum power_supply_property axp20x_battery_props[] = {
+ 	POWER_SUPPLY_PROP_CAPACITY,
+ };
+ 
++static enum power_supply_property axp2101_battery_props[] = {
++	POWER_SUPPLY_PROP_PRESENT,
++	POWER_SUPPLY_PROP_ONLINE,
++	POWER_SUPPLY_PROP_STATUS,
++	POWER_SUPPLY_PROP_CONSTANT_CHARGE_CURRENT_MAX,
++	POWER_SUPPLY_PROP_VOLTAGE_MAX,
++	POWER_SUPPLY_PROP_CHARGE_TERM_CURRENT,
++};
++
+ static enum power_supply_property axp717_battery_props[] = {
+ 	POWER_SUPPLY_PROP_PRESENT,
+ 	POWER_SUPPLY_PROP_ONLINE,
+@@ -895,6 +1045,15 @@ static const struct power_supply_desc axp209_batt_ps_desc = {
+ 	.set_property = axp20x_battery_set_prop,
+ };
+ 
++/* Read-only: the charge settings come from the monitored battery. */
++static const struct power_supply_desc axp2101_batt_ps_desc = {
++	.name = "axp20x-battery",
++	.type = POWER_SUPPLY_TYPE_BATTERY,
++	.properties = axp2101_battery_props,
++	.num_properties = ARRAY_SIZE(axp2101_battery_props),
++	.get_property = axp2101_battery_get_prop,
++};
++
+ static const struct power_supply_desc axp717_batt_ps_desc = {
+ 	.name = "axp20x-battery",
+ 	.type = POWER_SUPPLY_TYPE_BATTERY,
+@@ -978,6 +1137,57 @@ static void axp209_set_battery_info(struct platform_device *pdev,
+ 	}
+ }
+ 
++static int axp2101_bat_cfg_iio_channels(struct platform_device *pdev,
++					struct axp20x_batt_ps *axp_batt)
++{
++	return 0;
++}
++
++/*
++ * Programs the charger from the monitored battery: end of charge voltage,
++ * constant charge current, termination and precharge currents. What the
++ * battery doesn't give is left as it is.
++ */
++static void axp2101_set_battery_info(struct platform_device *pdev,
++				     struct axp20x_batt_ps *axp_batt,
++				     struct power_supply_battery_info *info)
++{
++	int cv = info->constant_charge_voltage_max_uv;
++	int ccc = info->constant_charge_current_max_ua;
++	int iterm = info->charge_term_current_ua;
++	int iprechg = info->precharge_current_ua;
++	unsigned int sel;
++
++	if (cv > 0 && axp2101_battery_set_max_voltage(axp_batt, cv))
++		dev_err(&pdev->dev, "unsupported charge voltage %d uV\n", cv);
++
++	if (ccc > 0) {
++		if (ccc <= 200000)
++			sel = ccc / AXP2101_CURRENT_STEP;
++		else
++			sel = min((ccc - 200000) / 100000 + 8,
++				  AXP2101_ICC_MAX_SEL);
++		axp_batt->max_ccc = axp2101_ccc_from_sel(sel);
++		regmap_update_bits(axp_batt->regmap, AXP2101_ICC_CHG_SET,
++				   AXP2101_ICC_MASK, sel);
++	}
++
++	if (iterm > 0) {
++		sel = min(iterm / AXP2101_CURRENT_STEP,
++			  (int)FIELD_MAX(AXP2101_ITERM_MASK));
++		regmap_update_bits(axp_batt->regmap, AXP2101_ITERM_CHG_SET,
++				   AXP2101_ITERM_MASK | AXP2101_ITERM_ENABLE,
++				   sel | AXP2101_ITERM_ENABLE);
++	}
++
++	if (iprechg > 0) {
++		sel = min(iprechg / AXP2101_CURRENT_STEP,
++			  (int)FIELD_MAX(AXP2101_IPRECHG_MASK));
++		regmap_update_bits(axp_batt->regmap, AXP2101_IPRECHG_SET,
++				   AXP2101_IPRECHG_MASK, sel);
++	}
++}
++
+ static void axp717_set_battery_info(struct platform_device *pdev,
+ 				    struct axp20x_batt_ps *axp_batt,
+ 				    struct power_supply_battery_info *info)
+@@ -1047,6 +1257,14 @@ static const struct axp_data axp221_data = {
+ 	.set_bat_info = axp209_set_battery_info,
+ };
+ 
++static const struct axp_data axp2101_data = {
++	.bat_ps_desc = &axp2101_batt_ps_desc,
++	.get_max_voltage = axp2101_battery_get_max_voltage,
++	.set_max_voltage = axp2101_battery_set_max_voltage,
++	.cfg_iio_chan = axp2101_bat_cfg_iio_channels,
++	.set_bat_info = axp2101_set_battery_info,
++};
++
+ static const struct axp_data axp717_data = {
+ 	.ccc_scale = 64000,
+ 	.ccc_offset = 0,
+@@ -1082,6 +1300,9 @@ static const struct of_device_id axp20x_battery_ps_id[] = {
+ 	}, {
+ 		.compatible = "x-powers,axp717-battery-power-supply",
+ 		.data = (void *)&axp717_data,
++	}, {
++		.compatible = "x-powers,axp2101-battery-power-supply",
++		.data = (void *)&axp2101_data,
+ 	}, {
+ 		.compatible = "x-powers,axp813-battery-power-supply",
+ 		.data = (void *)&axp813_data,
 -- 
 2.39.5
 
