@@ -1,98 +1,114 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.135.77
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.146
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792795102;
-	b=kfnZlqN0d/nWrKpH5hjJ1djasWXRuUldbxOslPTEbx2yGmHeoe+/5j1iB2WSdKN0tTCE
-	 YOLajuMJxq4vsJl7T89gMcfGdOlv4QeGhe7vYTgmQdadco7rYPNRyr726pZasrnIUsb9i
-	 a4DnWAHRegCXorIUlMv7vHrHRVIbfj6ZHUsHHDKv9+Fm+7ygjbUE1rd7saec3cRsBTHcn
-	 UtB2AtXY7uWk4qUVQh5yuhO4IM663oEUGEyyUI6M6MIzrds8IA3ihEVvcORHEcy5510Nk
-	 rFQNfDqyImwuaE6kDZW1PjPtqdcIdhEJuVlrFF5mwkK6IeAnQjPZm8OoFXEYFr3sg+A==
+	t=1792795108;
+	b=Op32qSCuGs1J5b0dPW+xdbm6nsarMNxO34W7RLL5Hk2YW7p1oxUgLJ/QDXxUYSdhYiP9
+	 jB/Q+q4HpXkc7CDPePVDM2AvcnXAtVlPGDR8IecsD34JFf4nP9g75sa0/NQwqFxfJaNuK
+	 nzJgDkAcTdUAUk7jDoqgDVsyt8Vjv2bNwHKHvjmqc/IgDPTU0MEDSbEf0IcVxDDlx12xt
+	 HLNc++cr/sVKoHOi++dRl6xN6UrJnJuzJjJ8ojfQ6tZ4RLbAe8+o9j4NPi9Jnx38j8NB0
+	 TBZ1B0DiHurW/OTCQxdH65pBseB5CfgAdFIg7mm1fRxDJpuRnk1TvQ6bAGbNTNzClOQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792795102;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:Received:
-	 Received:Received:Received:Received:From:To:CC:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-ADIRuleOP-NewSCL:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Info:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=UOZ6WSueaHCJ9DyUcKOnlyq8dCc+epWLmpmO/pZb0C0=;
-	b=XTSrPfDCYQpreJwmH7l4awyooNnitc4f6fWiZ74Kv92tkhXSt8RxCfBiXXc0V9FVuiqu
-	 ma27WXn6t2zFe2tLDySMWYczgiBwrsE4d0ZfjOydjSQtT3melpqR9ZVj1qU5t+JpQyLen
-	 rJm5Ot/0vjfTHiWnlzZcNcLBcu942Ko9pagk0QPrAC9t75irVp/EupwrBO5lwTGQ1tF2D
-	 7ISzcn65GowjpHU9Q5ZJKYnNgAqN9zp/jXxkcrfF70bIu65Cki/paLWyQa4cuCy9Q0Pza
-	 BYey2+Bs/UKflFve70+osH6+ZkXPl+9SGxb4fM+TWRo3vmr91q57ig7Lqaqk5ybYt1A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792795108;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:Content-Type:Content-Transfer-Encoding:MIME-Version:From:To:
+	 Cc:Subject:In-reply-to:References:Date:Message-id:Reply-To;
+	bh=CXpjL5aV+fL/tQYDIsd7gu8pYrT13G45saJG84Sqomw=;
+	b=y9d8y9KrY7v+O2jpgyml1i6hvi49HQ03BF0xAQV8Hfx1VoeWVHaJNrNt7Vn8OoA9Y1og
+	 Sp63VQSemo6+P90oAyRctoQhtg1ToTK6vcbuQKV5gAl5tTt5xjt5M9tYX3rg0wa2p0dEx
+	 HUBpSnTY1lm5wux9RXUszdzXvuYs4xOn08nja/rOyaeW5Xh6KaH70LGXs46lOmWf22/vM
+	 wIqp4dwajt4HmUwLcuf2rb1QJ9pwOvmsge8lieXW2E7tdX0c843HdKyDl/BhVXvtm/lx6
+	 nDoxRdFxPDiAhqm0bj2X7WxlGci4t28cOGI1s1ST7uXyTqBc1drfw23yxbAPZYXWdwA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=analog.com;
-	spf=pass smtp.mailfrom=analog.com;
-	dkim=pass header.d=vtelectron.com header.i=@vtelectron.com header.a=rsa-sha256 header.s=DKIM header.b=sFoJeMOj;
-	dkim=pass header.d=analog.com header.i=@analog.com header.a=rsa-sha256 header.s=DKIM header.b=Ghh71+GK;
-	arc=none smtp.remote-ip=148.163.135.77
-Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
+	dmarc=pass header.from=ownmail.net;
+	spf=pass smtp.mailfrom=ownmail.net;
+	dkim=pass header.d=ownmail.net header.i=@ownmail.net header.a=rsa-sha256 header.s=fm2 header.b=k9NO7nUw;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b="Y7J+9/EW";
+	arc=none smtp.remote-ip=103.168.172.146
+Received: from fout-a3-smtp.messagingengine.com (fout-a3-smtp.messagingengine.com [103.168.172.146])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD174606A31A;
-	Fri, 23 Oct 2026 22:38:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CD174606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61B13606A320
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 22:38:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 61B13606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ownmail.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ownmail.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=vtelectron.com header.i=@vtelectron.com header.a=rsa-sha256 header.s=DKIM header.b=sFoJeMOj;
-	dkim=pass (2048-bit key, unprotected) header.d=analog.com header.i=@analog.com header.a=rsa-sha256 header.s=DKIM header.b=Ghh71+GK
-Received: from pps.filterd (m0167089.ppops.net [127.0.0.1])
-	by mx0a-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69NLwaOZ1784476;
-	Fri, 23 Oct 2026 18:38:17 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vtelectron.com;
-	 h=cc:content-transfer-encoding:content-type:date:from
-	:in-reply-to:message-id:mime-version:references:subject:to; s=
-	DKIM; bh=UOZ6WSueaHCJ9DyUcKOnlyq8dCc+epWLmpmO/pZb0C0=; b=sFoJeMO
-	jSVVyT5k4zqG7aQ/MGDWcegY+rTUarEZU3I3jS21CLgMy251Es3IXT5ibyvwoZpr
-	hV9dXrppfzMzj5pNfjB41Q8gNcr6Cq4GptlMSGoSk+in9vS+R8UHncyFdt3MbnuG
-	8YjjzY8BLLF6yALt23n/Sx7RsGW1xacYQyBWgXndZ+MpM5RXmHlMnR1dl1Sd3SY+
-	e082SijXW7GFl+ru2BGMF66JaXp+c7/ZYbpxzcuJvcNkcL/+gEOfCXcZ6cFj+h3Y
-	D9ZnRDJfhwPxRxQ2EzQ+QS1Wbd4Zko77yS+y9aVSM2s3xIlKTCZAwXfnXQDBf36h
-	xS/IumMccoxUxjA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=DKIM; bh=UOZ6W
-	SueaHCJ9DyUcKOnlyq8dCc+epWLmpmO/pZb0C0=; b=Ghh71+GKAC+hoMAV3zu9y
-	NY+Nk8is/xsgYByY8uyR1TfLL5bhjXv/Dhm5bHHK0ZmLSa3OvXVl/oOhAkLonTYX
-	QO+HEPD9RAMox6XCfi8wGntHYSNj207kpDKmlQuhWJA0Uom54oLYFVULFeYESz7F
-	/eGXZDz9k9Ze0WfsQOthskgaTN8dk93Ei452O93CBvneV4fWjTtRoMOR0CrpO2Y5
-	PmtEvYVMlq6VlcrHLnC70nv5QbtiW2PVJrfn4r+EapzhdF+Et3rdH0UMa3zNc/QS
-	4C7Kqr2+wQ9lHntu/hXDZep4Skalz+a78C/nhhOxorxRv13zs34geUsZYhPduJnS
-	Q==
-Received: from nwd2mta4.analog.com ([137.71.173.58])
-	by mx0a-00128a01.pphosted.com (PPS) with ESMTPS id 4hg2mvmcq8-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 23 Oct 2026 18:38:16 -0400 (EDT)
-Received: from ASHBMBX9.ad.analog.com (ASHBMBX9.ad.analog.com [10.64.17.10])
-	by nwd2mta4.analog.com (8.14.7/8.14.7) with ESMTP id 69NMcFwP027073
-	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Fri, 23 Oct 2026 18:38:15 -0400
-Received: from ASHBMBX9.ad.analog.com (10.64.17.10) by ASHBMBX9.ad.analog.com
- (10.64.17.10) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.37; Fri, 23 Oct
- 2026 18:38:15 -0400
-Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx9.ad.analog.com
- (10.64.17.10) with Microsoft SMTP Server id 15.2.1748.37 via Frontend
- Transport; Fri, 23 Oct 2026 18:38:15 -0400
-Received: from work.maxim-ic.internal ([10.66.6.191])
-	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 69NMbxLd005932;
-	Fri, 23 Oct 2026 18:38:02 -0400
-From: Marcelo Schmitt <marcelo.schmitt@analog.com>
-To: <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>, <linux@analog.com>
-CC: <jic23@kernel.org>, <nuno.sa@analog.com>, <dlechner@baylibre.com>,
-        <andy@kernel.org>, <Michael.Hennerich@analog.com>, <robh@kernel.org>,
-        <krzk+dt@kernel.org>, <conor+dt@kernel.org>, <corbet@lwn.net>,
-        <skhan@linuxfoundation.org>, <marcelo.schmitt1@gmail.com>
-Subject: [PATCH v6 16/16] Docs: iio: Add AD4134
-Date: Fri, 23 Oct 2026 19:37:54 -0300
-Message-ID: <9d06595a505406598d1585d883226561e2a1c739.1792792325.git.marcelo.schmitt@analog.com>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <cover.1792792325.git.marcelo.schmitt@analog.com>
-References: <cover.1792792325.git.marcelo.schmitt@analog.com>
+	dkim=pass (2048-bit key, unprotected) header.d=ownmail.net header.i=@ownmail.net header.a=rsa-sha256 header.s=fm2 header.b=k9NO7nUw;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=Y7J+9/EW
+Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
+	by mailfout.phl.internal (Postfix) with ESMTP id 8A7F9EC0192
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 18:38:26 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-01.internal (MEProxy); Fri, 23 Oct 2026 18:38:26 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ownmail.net; h=
+	cc:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:reply-to:subject:subject:to:to; s=fm2; t=
+	1792795106; x=1792881506; bh=CXpjL5aV+fL/tQYDIsd7gu8pYrT13G45saJ
+	G84Sqomw=; b=k9NO7nUwus6pgom+xJ3Prj6B7WYKUU6iuNkvaMBD4fEtpk5/Tyl
+	+nITaTlHB+oLEhndk/KHP8Dt6B/+XbLy1+qZfUa+hTkpV75NAHRK7ud14lokFSJM
+	0ZHmL3XQSHT+LCp3031Ju1pFelvJOLUXWrC+zHGHwuYD/BiD34vMi2Sw1wwh9boy
+	5Ar1R03kPEn+OXIFlRAM5WZ4xOSvYtksf/caK9sGPD+F9/kbbbBB0FATprhLYFD9
+	KBEcSUPYE06e6i5S1Nh9Qm1Bcm0Ammz3hDNtDkqRURgMrGC8tGjbneeNpND65Fnq
+	DBd5heCpHPzJNEeg+luBU85MGhSHySANDig==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1792795106; x=
+	1792881506; bh=CXpjL5aV+fL/tQYDIsd7gu8pYrT13G45saJG84Sqomw=; b=Y
+	7J+9/EWOXaB0LzEx5mgwKelbGgi89TUuSfSSKznxAuR7DNlDhCe+F10bXsHoTi6d
+	S08Lvz+/9ihvDuCRl+DDVGVNGMhi06Q3KAI1qs0xFkchU1/C0CjH0HzcZwchFbu1
+	DsV52aHkXYeRdcA22Pg8ThUxJIDtCFyXmNm6ri3l9q6PEHNSF1TSQpqac4ZYwoci
+	irtZPU2zirm3pv3M4kc0+4Hfb3ML567EoKqYi2l6gEq4YJs7mLhH0x836hBT9BTv
+	oJTxq6Q+b99kBFxsbVLzAYTJbXlqRaHaU0Odnb9Rcob2XW4tvWufp3Q+Fd6grqZo
+	hUVPqef1AH2llpB3K7ZXQ==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
+	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
+	action=sign d=ownmail.net a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1792795106; d=ownmail.net;
+	mf=PG5laWxiQG93bm1haWwubmV0Pg==;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm2:rsa-sha256:buCRIqYNd18z8t2C7tjFoCvTyHM/qVrgrAuOEUurpAxuXU2
+	DijqMgj1n5BrRS3/4zqiHbuaqjFvxfIvq+ZfJZX1bFlEkmmtq4DsSWboivX6S/AF
+	gdJS7Yfb/KiAgAzzP+MEE1YovYzUhjMSi28M6T5CuiVlCzkD2hkaV43cw8zG2Lr3
+	pqWJasqDhr/E/hXINq31kpx5mU/qgkF2DOc04FbJiJ2VEri48kGpDgyij6TLax6h
+	Bf5vC3mEDpSeZYYOgxGyFqXZCOzsTwn+hmwUTmpBwX+8+e24JtXYZgmIe0077kZG
+	v3pw9Tdq49fUSLGotPmGhvmNa4Bop9LayM7VS5w==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
+	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
+	action=mi-m=1; hc=13;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,reply-to,
+	subject,to;
+Message-Instance: m=1; h=sha256:KmLnJKZDRE19PAX56rvC54Ee6o1ap2dCE9utRFVjjL0=:wEUenmc4EYB8ur+IAcaeJAPVN3w/PSx3oXhanP+XV3c=;
+X-ME-Sender: <xms:4uHbagj4QnAUlrcQZct5Cbs--ItFzGvlkiKsie4pFfwxInLm0Bt54g>
+    <xme:4uHbanRRM_H6eAsin1dYZv6--GGXkDplmBKmBCeJ1oPPik87i5SHq_3Sn86hPr3zp
+    GX-0dPhYL3DcC53edx7vnatP3VvfdJR6glD8hGIQzQjWMyI3BY>
+X-ME-Received: <xmr:4uHbahYqRnSzPGk0LwAw7gpA5LX39nDoszXFiZ36shL4DWZcscgJzDuCeNCz1U0oFqz9IlSeXablvRe39zUTSrCNtIQRhK4>
+X-ME-Proxy-Cause: dmFkZTG3Q/70zTOldkKwQ/nRgy4pIRffckwi2d0zpsPIWfS8PNEp1RPAIJQ+x4vQcGat3g
+    qzQdPStc3TCac79qZLXbXiD3sTtVOHHv5cqUO1Wd+MwnhD0WzDnwjLyE8D1QBMRZ7Q3PXG
+    zjxO1rKtu2atByIb/LLvCdY896C8BgpqdgbIwmsyP3bfg8lLjtyy1K1KC97OCP8Li3II3v
+    BfY9tHc/0LsAp61D4lhkbW0+R9rbMeDd+9etu8BTxzXXVbxKxJxRdiFACgx4/sL3n/EIde
+    4TPcJjZ/Ri7DlwgnKPWVVOP8jqSk37nWVK5cfE0Q8ZpFFKxpP5+CKFxupBfedjqGeHqaAY
+    Ps5NSPTyhLbgfZd84yro+dup3JiuMW6kKtCgerFIyzbKVHBAUOjUIldRsPIRmJ+igIp3fy
+    PtR9hqheMmajfBBchViUWLWyviR6XtD2Hz7ijxcFALDL9qkqVZ2elQnrYfrlfJuoxrSOrF
+    v7lw4XZmc9Ffv3wqSSftRZSUCu+Yc+9NmuFvzB/L1xaeKvuf4oUsHDrW/fV82GMN9ueRDN
+    eue/iSTcuaqJzYD0iWtxDmiNH2GfKDxc/7yhPj8sw610ii4+5lilSf1/buThdElax9LfgJ
+    Y4YkzjykyTuzKmRY9rGkBhvu/+2DS4HX4hgbv/i0lbwVSBR+weE8EP5l+Pag
+X-ME-Proxy: <xmx:4uHbakSC3GKcUcsT3aQ3WTEn1GdBsYRvZNtVYa7VCKMjI_CTUEyuyg>
+    <xmx:4uHbag-qZxOfqU5eNfQ8tYsyt_Je-LSBSer_6MgfIZuui0Hle2BJ2Q>
+    <xmx:4uHbakhN8urUjjOdSgzTyxskPC0P0OxBqN_fSZIt-VK2GjoklUbdbg>
+    <xmx:4uHbahbRSjFaFCYIoNzBQG6nNzukQO_PmNXmusvcsyERO649tkhe9A>
+    <xmx:4uHbasFkA85Uc_YspYqqeG3u4x7oct4lPV_fPyRLidJNztOtYYmhHag0>
+Feedback-ID: i9d664b8f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 23 Oct 2026 18:38:22 -0400 (EDT)
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,206 +118,115 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-ADIRuleOP-NewSCL: Rule Triggered
-X-Proofpoint-ORIG-GUID: rnfggMxlM9UkoGQNXcGSdM-2536i_eRD
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIzMDA4OSBTYWx0ZWRfX+xWqp+1zM/iI
- 9+rAHHFc5UyvrkzOxsd60Ql6nuAJ+KP9coHmFKzMpAXfEEQrXdGdikwSCREXva/Gb3TPSpY9n9b
- UOYt5zz/0JCWEt9TDnUlSZyz/LECMVFwNQmAwybGBS1QYbZxvMHY
-X-Authority-Analysis: v=2.4 cv=YJoKWhGx c=1 sm=1 tr=0 ts=6adbe1d8 cx=c_pps
- a=3WNzaoukacrqR9RwcOSAdA==:117 a=3WNzaoukacrqR9RwcOSAdA==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
- a=0sLvza09kfJOxVLZPwjg:22 a=Z0pTeXoby7EwIRygza74:22 a=gAnH3GRIAAAA:8
- a=wI1k2SEZAAAA:8 a=VwQbUJbxAAAA:8 a=5WHrTUun5MBT5U1ic48A:9
- a=qcg49hLlgF0N60+LroqrWnV/Vu4=:19 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=6HWbV-4b7c7AdzY24d_u:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIzMDA4OSBTYWx0ZWRfX+zXFkUt9X0xB
- jJTEo/lx9cH00bAaw+FZiK0QBnlOsnZ+dkJxlevyjQmpTnCPANHqyPqFln6Ub3FQs5mxarWZpaD
- PKhTMCDwmLkmzZV6L+dst7CW995pRnsRn0TZeDNxm8MleCGV4IOVrws7Z6gb/07yVGV6JBWwoVH
- gFXz3ktGMDI59Fk4rZLA2fiOA3gXB1N3a1H8ilMW2lKsVjspX5tyDZpZKjMwlheZvHfeptsajeA
- hdfOAi8wdwkIltVLTu7o4/8VrVCHUVzHvUKRrlBa/5tCooNRFh9k/uHNcRthy0w7QuB7IVdB+h5
- i8sbdWsEUeKDuAvGMBViLdIu0eQDyfgQeYxU82jxwbn/KsRfE4gGSNVsRb90TLBWOdkhCNO9poy
- GSifa8ZdSKiG8/9gU/VMSlI3pjWZi/nDUSIuDcXOsFvPp6e/eAMXkSs2+4SaAmGqyWRbR+jQ2Pv
- GOkVMuEnxpqtVsdE5sw==
-X-Proofpoint-GUID: rnfggMxlM9UkoGQNXcGSdM-2536i_eRD
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-23_06,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 lowpriorityscore=0 priorityscore=1501 impostorscore=0
- clxscore=1015 phishscore=0 bulkscore=0 spamscore=0 adultscore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
- definitions=main-2610230089
+From: NeilBrown <neilb@ownmail.net>
+To: "Jonathan Flynn" <jonathan.flynn@hammerspace.com>
+Cc: "Trond Myklebust" <trondmy@kernel.org>, "Anna Schumaker" <anna@kernel.org>,
+ "Alexander Viro" <viro@zeniv.linux.org.uk>,
+ "Christian Brauner" <brauner@kernel.org>, "Jeff Layton" <jlayton@kernel.org>,
+ "Jan Kara" <jack@suse.cz>, linux-fsdevel@vger.kernel.org,
+ linux-nfs@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] nfs: set NFS_FSDATA_BLOCKED before invalidating d_seq
+In-reply-to: <20261023192215.1795577-1-jonathan.flynn@hammerspace.com>
+References: <20261023015239.2163480-2-neilb@ownmail.net>
+  <20261023192215.1795577-1-jonathan.flynn@hammerspace.com>
+Date: Sat, 24 Oct 2026 09:38:18 +1100
+Message-id: <179279509880.1157394.17104184170834248641@noble.neil.brown.name>
+Reply-To: NeilBrown <neil@brown.name>
 
-Add initial documentation for the ad4134 IIO driver.
+On Sat, 24 Oct 2026, Jonathan Flynn wrote:
+> block_revalidate() calls write_seqcount_invalidate(&dentry->d_seq) and
+> only then sets dentry->d_fsdata to NFS_FSDATA_BLOCKED.  Because ->d_seq
+> is invalidated before NFS_FSDATA_BLOCKED is set, an RCU-walk open can
+> get past an unlink that is in progress.
+> 
+> The barrier in write_seqcount_invalidate() is issued before the
+> increment, so it orders only the stores made before the call.  An
+> RCU-walk lookup that samples ->d_seq after the increment can still read
+> the old ->d_fsdata, and so ->d_revalidate() accepts the dentry.  The
+> walker then waits for ->d_lock in lockref_get_not_dead(), takes its
+> reference, and passes the ->d_seq recheck in __legitimize_path(),
+> because ->d_seq still holds the value the walker sampled.  By then
+> nfs_unlink() has seen d_count() == 1 and sends the REMOVE instead of
+> silly-renaming, so the open proceeds on a file the server is removing.
+> 
+> Set NFS_FSDATA_BLOCKED first, then call write_seqcount_invalidate().  A
+> walker that samples the new ->d_seq then also sees NFS_FSDATA_BLOCKED
+> and returns -ECHILD.  A walker that sampled the old ->d_seq fails the
+> recheck and retries in ref-walk, which waits for the unlink to finish.
+> __d_drop() follows the same order: unhash the dentry, then invalidate
+> ->d_seq.
+> 
+> Also correct the comment in block_revalidate(): the ->d_seq recheck is
+> in __legitimize_path() and try_to_unlazy_next(), not in
+> legitimize_mnt().
+> 
+> Signed-off-by: Jonathan Flynn <jonathan.flynn@hammerspace.com>
+> ---
+> Neil, this answers Sashiko's second point on 1/9: v3 still calls
+> write_seqcount_invalidate() before it sets NFS_FSDATA_BLOCKED.  This
+> patch applies on top of v3; fold it into 1/9 if you prefer.
+> 
+> The window with the v3 order:
+> 
+>   CPU0: nfs_unlink(), ->d_lock held     CPU1: RCU-walk open, same name
+>   d_count() == 1, no silly-rename
+>   write_seqcount_invalidate(&d_seq)
+>                                         __d_lookup_rcu() samples the
+>                                           new ->d_seq
+>                                         ->d_revalidate() reads ->d_fsdata,
+>                                           not yet NFS_FSDATA_BLOCKED
+>   d_fsdata = NFS_FSDATA_BLOCKED
+>   spin_unlock(&dentry->d_lock)
+>   REMOVE sent                           lockref_get_not_dead() takes a ref
+>                                         read_seqcount_retry() passes
+>                                         the open proceeds
 
-Signed-off-by: Marcelo Schmitt <marcelo.schmitt@analog.com>
----
- Documentation/iio/ad4134.rst | 127 +++++++++++++++++++++++++++++++++++
- Documentation/iio/index.rst  |   1 +
- MAINTAINERS                  |   1 +
- 3 files changed, 129 insertions(+)
- create mode 100644 Documentation/iio/ad4134.rst
+Thanks. This diagram is really helpful.
 
-diff --git a/Documentation/iio/ad4134.rst b/Documentation/iio/ad4134.rst
-new file mode 100644
-index 000000000000..c0889a21cd77
---- /dev/null
-+++ b/Documentation/iio/ad4134.rst
-@@ -0,0 +1,127 @@
-+.. SPDX-License-Identifier: GPL-2.0-only
-+
-+=============
-+AD4134 driver
-+=============
-+
-+Device driver for Analog Devices Inc. AD4134 and similar ADCs.
-+
-+Supported devices
-+=================
-+
-+* `AD4134 <https://www.analog.com/AD4134>`_
-+* `AD7134 <https://www.analog.com/AD7134>`_
-+
-+Wiring connections
-+------------------
-+
-+AD4134 and similar ADCs can operate in a few different wiring configurations.
-+Because AD4134 also supports control modes other than through SPI protocol,
-+the following pins must be statically set for all of the wiring modes described
-+below.
-+
-++----------------------------+----------------------+--------------------+
-+| Pin Function               |         Level        | Description        |
-++============================+======================+====================+
-+| PIN/SPI                    |         High         | SPI control mode   |
-++----------------------------+----------------------+--------------------+
-+| MODE                       |         Low          | ASRC slave mode    |
-++----------------------------+----------------------+--------------------+
-+| DEC0/DCLKI                 |         Low          | DCLK input         |
-++----------------------------+----------------------+--------------------+
-+| DEC1/DCLKMODE              |         Low          | Gated DCLK         |
-++----------------------------+----------------------+--------------------+
-+
-+Minimum I/O mode
-+^^^^^^^^^^^^^^^^
-+
-+The minimum I/O mode wiring allows AD4134 register and data access with the
-+conventional set of SPI bus lines. In this mode, the peripheral CS pin must be
-+tied to GND. A possible connection schema that sets AD4134 digital interface for
-+minimum I/O mode is::
-+
-+      +------------+         +-------------+
-+      |  AD4134    |         | SPI         |
-+      |            |         | Controller  |
-+      |       DCLK |<--+     |             |
-+      |       SCLK |<--+---- | SCLK        |
-+      |        SDI |<--------| SDO         |
-+      |        SDO |-------->| SDI         |
-+      |        ODR |<--------| GPIO        |
-+      |         CS |----+    |             |
-+      +------------+    |    +-------------+
-+                        V
-+                       GND
-+
-+Set ``adi,spi-mode = "no-cs"`` in device tree to indicate the device is
-+connected in minimum I/O wiring configuration.
-+
-+SPI 4-wire mode - single lane
-+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-+
-+The conventional SPI 4-wire configuration except a multiplexer is used to
-+select between SDO (for register data) and DOUT0 (for ADC sample data).::
-+
-+  +-----------------------+                         +-----------------+
-+  |         AD4134        |                         | SPI Controller  |
-+  |                       |                         |                 |
-+  | SPI interface    SCLK |<------------------------| SCLK            |
-+  | for register       CS |<------------------------| CS              |
-+  | access            SDI |<------------------------| SDO             |
-+  |                   SDO |------->|¯¯¯¯\           |                 |
-+  |                       |        |MUX  >--------->| SDI             |
-+  | Data interface DOUT0  |------->|____/           |                 |
-+  | for ADC sample        |          ^              |                 |
-+  | data read             |          |              |                 |
-+  |                  DCLK |<------------------------| DCLK            |
-+  |                   ODR |<----------------+    +->| Offload Trigger |
-+  +-----------------------+          |      |    |  +-----------------+
-+                                     |      |    +--| PWM1            |
-+                                     |      +-------| PWM0            |
-+                                     +--------------| GPIO            |
-+                                                    +-----------------+
-+
-+Set ``adi,spi-mode = "4-wire"`` in device tree to indicate the device is
-+connected in SPI 4-wire configuration.
-+
-+For SPI offload operation, a PWM is connected to the ADC ODR pin. The ``pwms``
-+firmware property specifies the PWM that is connected to the ADC. The SPI
-+offload will have a ``trigger-sources`` property to indicate the SPI offload
-+(PWM) trigger source.
-+
-+To achieve high sample rates while meeting ADC timing requirements, an offset
-+must be added between the rising edges of PWM0 and PWM1 to delay the SPI
-+transfer until ADC sample data is available. This requires a specialized PWM
-+controller that can provide such an offset.  The `AD4134-FMC HDL project`_, for
-+example, can be configured to sample AD4134 at high speed sample rates.
-+
-+.. _AD4134-FMC HDL project: https://analogdevicesinc.github.io/hdl/projects/ad4134_fmc/index.html
-+
-+SPI 4-wire mode - multi-lane
-+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-+
-+Maximum throughput rate can be achieved by reading 4 input lines simultaneously.::
-+
-+  +-----------------------+                         +-----------------+
-+  |         AD4134        |                         | SPI Controller  |
-+  |                       |                         |                 |
-+  | SPI interface    SCLK |<------------------------| SCLK            |
-+  | for register       CS |<------------------------| CS              |
-+  | access            SDI |<------------------------| SDO             |
-+  |                   SDO |------->|¯¯¯¯\           |                 |
-+  |                       |        |MUX  >--------->| SDI0            |
-+  | Data interface  DOUT0 |------->|____/           |                 |
-+  | for ADC sample        |          ^              |                 |
-+  | data read       DOUT1 |------------------------>| SDI1            |
-+  |                 DOUT2 |------------------------>| SDI2            |
-+  |                 DOUT3 |------------------------>| SDI3            |
-+  |                  DCLK |<------------------------| DCLK            |
-+  |                   ODR |<----------------+    +->| Offload Trigger |
-+  +-----------------------+          |      |    |  +-----------------+
-+                                     |      |    +--| PWM1            |
-+                                     |      +-------| PWM0            |
-+                                     +--------------| GPIO            |
-+                                                    +-----------------+
-+
-+Each of SDI0 to SDI3 connect to a different SPI controller deserializer
-+(``spi-rx-bus-width = <1>, <1>, <1>, <1>``).
-diff --git a/Documentation/iio/index.rst b/Documentation/iio/index.rst
-index 571ee7e5dc8e..8376c73c29f1 100644
---- a/Documentation/iio/index.rst
-+++ b/Documentation/iio/index.rst
-@@ -23,6 +23,7 @@ Industrial I/O Kernel Drivers
-    ad4000
-    ad4030
-    ad4062
-+   ad4134
-    ad4691
-    ad4695
-    ad7191
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 02426f316faa..800eaff4176d 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -1533,6 +1533,7 @@ L:	linux-iio@vger.kernel.org
- S:	Supported
- W:	https://ez.analog.com/linux-software-drivers
- F:	Documentation/devicetree/bindings/iio/adc/adi,ad4134.yaml
-+F:	Documentation/iio/ad4134.rst
- F:	drivers/iio/adc/ad4134.c
- 
- ANALOG DEVICES INC AD4170-4 DRIVER
--- 
-2.53.0
+I think I will move the d_fsdata = NFS_FSDATA_BLOCKED assignment before
+the comment and maybe add a bit of explanation.
+
+Thanks for helping me understand this problem.
+
+NeilBrown
+
+
+> 
+> Your afs 1/5 also sets DCACHE_BLOCKED after write_seqcount_invalidate().
+> 
+>  fs/nfs/dir.c | 11 ++++++++---
+>  1 file changed, 8 insertions(+), 3 deletions(-)
+> 
+> diff --git a/fs/nfs/dir.c b/fs/nfs/dir.c
+> index 53cd3adf3ffe..79331e0fa044 100644
+> --- a/fs/nfs/dir.c
+> +++ b/fs/nfs/dir.c
+> @@ -1879,15 +1879,20 @@ static void block_revalidate(struct dentry *dentry)
+>  	/* Any new reference that could lead to an open
+>  	 * will either:
+>  	 *  - take ->d_lock in lookup_open() -> d_lookup() or
+> -	 *  - will check d_seq in legitimize_mnt()
+> +	 *  - will check d_seq in __legitimize_path() or try_to_unlazy_next()
+>  	 *
+>  	 * Holding this lock and invalidating ->d_seq ensures we cannot
+>  	 * race with __nfs_lookup_revalidate().
+>  	 */
+>  	lockdep_assert_held(&dentry->d_lock);
+> -	write_seqcount_invalidate(&dentry->d_seq);
+> -
+>  	dentry->d_fsdata = NFS_FSDATA_BLOCKED;
+> +
+> +	/*
+> +	 * Set NFS_FSDATA_BLOCKED before invalidating ->d_seq: the barrier in
+> +	 * write_seqcount_invalidate() orders only earlier stores, so an
+> +	 * RCU-walk that samples the new ->d_seq also sees NFS_FSDATA_BLOCKED.
+> +	 */
+> +	write_seqcount_invalidate(&dentry->d_seq);
+>  }
+>  
+>  static void unblock_revalidate(struct dentry *dentry)
+> -- 
+> 2.43.0
+> 
+> 
 
