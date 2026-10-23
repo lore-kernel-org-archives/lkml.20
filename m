@@ -1,63 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=46.14.198.178
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792747779;
-	b=CkhEEJk1swKK88iwHU5tHddVcrFeN/GbJlalC6+/XM5/9Rlt2YUApE3cZ6/8zGybobiu
-	 boUiQDsPzYXLdJPOw/X2jLQ+e89VDDtEGzQJz7Q64pFKvk/whE/87iFzq3J0c/QIYTYXt
-	 Qt4IVQnYurl7fnYOxQbjp/8O9D/R9UlkneB60t4lcbJtkaFsKwO5fove03rm3EbgBqRiR
-	 sMd9GRJk41YKI1n7JgYOm423S85zf7HS7p7czjMAsF0COjwoYps4enDROyGcqUgEjvb0i
-	 vGD+kU/eOjBPbvW4djBC9VF+fhCLaDBsyUdie7b9kpNkatGVPvPIOtfO99S7/0pWF7Q==
+	t=1792747810;
+	b=FdbKYL/vr4HQ3uhf82OpGaa8AZ7tuLLzJSKNTtGZ4QGMEvUGrSZMXPvWu7XdzGCTHZkm
+	 RO8j6A2rAudtzump5RZeJHrnl0yo4GVcLRY78y/WVvuaxiosOS2+sU4VpzGTr88iQPGyy
+	 N/c0nd620Egi6boylEW0MsoASTe1AZh7TBaqeES7IGymUs3KZxfb0ijLRpC8Krk+KT8vZ
+	 BgoBid4Ylhs6PnJ1KItDOEaUTOHMwfP6NyrsCr+MmTVoeM+e8Vn7XsEC8pXWcndKtJ/sA
+	 Ec5TRIEiJH2h7c5JhzK5DKILLVyDIFUrsQeUwUFwYZ0embZynSqp8Ml0xeUMKenvdJA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792747779;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=WH6ppsWJmNp7XsRvR8E8E9xrLV/H91K1v+S1jWsOr98=;
-	b=2dSrF9l6xvKoKk7W0PXpFzmG3UJWOF26riYKMfCiyLAsHESN8PII5ZIShDYki8hh7ZAC
-	 Y+v8WwJdBM+JIM1E+0WB1H6iqGEQT4E2Y6d6y+fs+eYAEiGp3oybzKi+MDsmEK/rB+NeY
-	 QIc0y42I1qJVkDGvoJUJMfQzcueSkaHsS3M0+I3AR5AdENvI0RCahuYdMN6RzjQg+5JJR
-	 8K8s8cAsxJLojTsS2a98bJZ+cnAL2DQWqQhk+bZ4YX+aMC8MIo4uwjsriGE7Y64yG7w+8
-	 UCNaYE+9cfal2tCMtk4NpxipZ1C0fxoaSx7kuctFZrRNRk07hoGthrzQxgSou6J8vqQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792747810;
+	h=DMARC-Filter:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding:Received:DKIM-Signature;
+	bh=SAN9x3ekDFh3dDV1s/JTsWUi3o0RzXXkeiuG0T7yyWQ=;
+	b=MLfNjOzHjRLmhudsuhSxXbcE0bs4s8GWHm2H9UAePskboL0jy2z/LCtC2JHTrYjA9Nf1
+	 cSAQVxVzYnBnELuHPQVGao3vmcUzY3yzR/DodLzfyvGxKpAH2NzkCcq5e07g4GnW0NlNx
+	 8IjHlmbAUQNyM/+9IOBDvXWbfHdp43XKoj3B+3AV9zqmRgItSUCDOaeYchGlNQEz1YN9+
+	 Bgl9/bfk4CYXdDbvnJ0cE5aERbRERftrwMFiyfDbn/KscSjIrEIhInb5aNPSEiyuxjVCD
+	 mg8aLT51n61ubLIubDBBH2cebXKJVWdJoj9ZkVQsGLOLalsluX0HIlSuCzA5GefNSkg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FU8TCa39;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=rimpianto.com;
+	spf=pass smtp.mailfrom=rimpianto.com;
+	dkim=pass header.d=rimpianto.com header.i=@rimpianto.com header.a=rsa-sha256 header.s=s20260314391 header.b=WzA1Mrbn;
+	arc=none smtp.remote-ip=46.14.198.178
+Received: from mail.rimpianto.com (mail.rimpianto.com [46.14.198.178])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36A8E606A31A;
-	Fri, 23 Oct 2026 09:29:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 329C2606A325;
+	Fri, 23 Oct 2026 09:30:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 329C2606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rimpianto.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rimpianto.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FU8TCa39
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A82B1F031E2;
-	Fri, 23 Oct 2026 09:29:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792747778;
-	bh=WH6ppsWJmNp7XsRvR8E8E9xrLV/H91K1v+S1jWsOr98=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=FU8TCa39PytfbnkRY4DJctKSSCC37mFhtmkpTw/Q94ZEsGIoe0POJ9U45KcVMVCmA
-	 X93457lPUGQNQhbMzjXZi9TtOhLLJEEnns5i04OVWAR5ItVlUMr8IBGUf1yh2/z22r
-	 rKMGp6BOFV5sKqpCWzTup7fm3xngwwuN/4UF1FI0X99Fmm00H/fg5h4dOOIdUFlSCe
-	 BOOaHM99eoXMiHFuQ54EgmIB2LRNPgrrOVrxbfDorOvOjn/6+4I8U3cJNbwOKsk9j8
-	 xEKFYMbNIVB5SqBM/YLYBAj82ZRmlVeqGjGFk3hBn1s6sE4NT3nOhIZKltMUMaw0MN
-	 yU9Jcki0kExtw==
-Date: Fri, 23 Oct 2026 11:29:36 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Frank.Li@oss.nxp.com
-Cc: Marek Vasut <marex@denx.de>, Stefan Agner <stefan@agner.ch>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
-	Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Jessica Zhang <jesszhan0024@gmail.com>, 
-	Thierry Reding <thierry.reding@gmail.com>, Sam Ravnborg <sam@ravnborg.org>, 
-	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
-	Fabio Estevam <festevam@gmail.com>, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
-	Robert Chiras <robert.chiras@nxp.com>, Liu Ying <victor.liu@nxp.com>, Frank Li <Frank.Li@nxp.com>
-Subject: Re: [PATCH v3 2/7] dt-bindings: display: simple: Add
- waiken,101wx001-wct
-Message-ID: <20261023-apricot-hawk-of-spirit-267aed@quoll>
-References: <20261020-dxl_lcdif-v3-0-adc944659e14@nxp.com>
- <20261020-dxl_lcdif-v3-2-adc944659e14@nxp.com>
+	dkim=pass (2048-bit key, unprotected) header.d=rimpianto.com header.i=@rimpianto.com header.a=rsa-sha256 header.s=s20260314391 header.b=WzA1Mrbn
+Authentication-Results: mail.rimpianto.com;
+	auth=pass (plain)
+From: Federico Musto <federico@rimpianto.com>
+To: Chris Snook <chris.snook@gmail.com>,
+	netdev@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	Federico Musto <federico@rimpianto.com>,
+	stable@vger.kernel.org
+Subject: [PATCH net] net: atl1c: drop oversized RX frames instead of panicking
+Date: Fri, 23 Oct 2026 11:30:00 +0200
+Message-ID: <20261023093000.73535-1-federico@rimpianto.com>
+X-Mailer: git-send-email 2.54.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,25 +53,97 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261020-dxl_lcdif-v3-2-adc944659e14@nxp.com>
+Content-Transfer-Encoding: 8bit
+Received: from localhost (Unknown [127.0.0.1])
+	by mail.rimpianto.com (Haraka) with ESMTPSA id 82A81DC2-D8CA-4B74-884B-87864EDA0078.1
+	envelope-from <federico@rimpianto.com>
+	tls TLS_AES_256_GCM_SHA384 (authenticated bits=0);
+	Fri, 23 Oct 2026 11:30:00 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=rimpianto.com;
+ h=Content-Transfer-Encoding: MIME-Version: Message-ID: Date: Subject: Cc:
+ To: From; q=dns/txt; s=s20260314391; t=1792747800;
+ bh=SAN9x3ekDFh3dDV1s/JTsWUi3o0RzXXkeiuG0T7yyWQ=;
+ b=WzA1Mrbnk6w57cxp4x57C2b7HExNTzm6NxZkOeVjl+v5mcitOClFYas7OD1mWqIDu8FbH1gj4
+ 8iBEVIloRvAdQprS/1AmUK4N1P2iJWlEmz/4ExWEv4j/ldiOo5Lt31Y1qs9C7e1GBuJo06HQdum
+ MG7wG9LkbaVrVgC96D85CFGYdwccCQN2cof1VX/rM0A/fI1lfbEu4aK/j69Zkznftayps+MRZ43
+ eGxUl3N+vOzataGHVlI+iSSCd6W2Pzb93jNHheIFuWnYaKSGpdq7rWSX76a2TxaZWQLcWv161r8
+ 3+3MnCFbNmxJN9kTZ0xTU9QDzlZjdOghhVDRt3Eu91YQ==
 
-On Tue, Oct 20, 2026 at 04:12:52PM -0400, Frank.Li@oss.nxp.com wrote:
-> From: Frank Li <Frank.Li@nxp.com>
-> 
-> Add WKS101WX001-WCT panel, which is an industrial-grade 10.1-inch IPS TFT
-> LCD capacitive touch screen display module.
-> 
-> Signed-off-by: Frank Li <Frank.Li@nxp.com>
-> ---
-> change in v3
-> - Use Waiken Technology Limited in description
-> - Use 10.1" at comments
-> - Use waiken,101wx001-wct
+atl1c sizes its receive buffers from the netdev MTU plus a fixed set of
+L2 overheads, which comes to 1522 bytes at the default MTU.  A link
+partner that sends a longer frame - in practice a MikroTik
+CCR2004-1G-2XS-PCIe, whose RouterOS side defaults to l2mtu 1600 while
+the host stays at MTU 1500 - makes the length reported by the RX return
+descriptor exceed skb_tailroom(), and skb_put() then trips
+skb_over_panic and takes the host down.
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Validate the descriptor length against skb_tailroom() before calling
+skb_put() and drop, counting it in rx_length_errors/rx_dropped, any
+frame that does not fit.  Such a frame cannot be delivered with the
+current MTU anyway - the buffers were sized for it - but losing the
+frame is preferable to losing the host.
 
-Best regards,
-Krzysztof
+Tested on a MikroTik CCR2004-1G-2XS-PCIe (4x AR8151) in a Proxmox VE
+host, with atl1c built from a DKMS tree carrying this change: the
+l2mtu-1600 traffic that panics the stock driver is dropped and counted
+with the patch applied, and received normally once the host MTU is
+raised to match.
+
+This complements 36c2009d90f2 ("net: atl1c: fix soft lockup on
+out-of-range tpd_cons read"), which fixed the TX side of the same
+"host dies while the card resets" problem.
+
+Fixes: 43250ddd75a3 ("atl1c: Atheros L1C Gigabit Ethernet driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Federico Musto <federico@rimpianto.com>
+---
+Notes for reviewers (not part of the commit message):
+
+This is my first kernel patch, so process nitpicks are as welcome as
+technical ones.
+
+Scope: this is the minimal version of the change - only the descriptor
+bounds check.  My local patch also touched atl1c_set_rxbufsize() and
+atl1c_change_mtu(); both are independent of the panic and I can send
+them separately if there is interest (raising the host MTU to 1600 is
+what actually lets such frames through, and the driver handles that
+today without changes).
+
+Reproduction data, kernel logs and the DKMS package used for testing:
+https://github.com/rimpianto/mikrotik.CCR2004-1G-2XS-PCIe
+---
+ .../net/ethernet/atheros/atl1c/atl1c_main.c    | 18 ++++++++++++++++++
+ 1 file changed, 18 insertions(+)
+
+diff --git a/drivers/net/ethernet/atheros/atl1c/atl1c_main.c b/drivers/net/ethernet/atheros/atl1c/atl1c_main.c
+index e58f1d2..11de643 100644
+--- a/drivers/net/ethernet/atheros/atl1c/atl1c_main.c
++++ b/drivers/net/ethernet/atheros/atl1c/atl1c_main.c
+@@ -1934,6 +1934,24 @@ rrs_checked:
+ 			break;
+ 		}
+ 		atl1c_clean_rfd(rfd_ring, rrs, rfd_num);
++
++		/* A peer with a larger L2 MTU than ours can hand us a frame
++		 * that does not fit the buffer allocated for this MTU.  The
++		 * driver used to skb_put() it anyway, which trips
++		 * skb_over_panic and takes the host down; drop it instead.
++		 */
++		if (unlikely(length < ETH_HLEN + ETH_FCS_LEN) ||
++		    unlikely(length - ETH_FCS_LEN > skb_tailroom(skb))) {
++			netdev->stats.rx_length_errors++;
++			netdev->stats.rx_dropped++;
++			if (netif_msg_rx_err(adapter))
++				dev_warn_ratelimited(&pdev->dev,
++						     "bad rx frame: len %u tailroom %d\n",
++						     length, skb_tailroom(skb));
++			dev_kfree_skb(skb);
++			continue;
++		}
++
+ 		skb_put(skb, length - ETH_FCS_LEN);
+ 		skb->protocol = eth_type_trans(skb, netdev);
+ 		atl1c_rx_checksum(adapter, skb, rrs);
+-- 
+2.54.0 (Apple Git-157)
 
