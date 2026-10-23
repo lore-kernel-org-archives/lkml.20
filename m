@@ -1,101 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.47
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792763688;
-	b=JcKxnHs5esKdZVMrzyAJaRSSG2cPxdJa2ZPFONfImE4KJz5u+mrcoEXTPlzcejdxu5zd
-	 S2KeZT6vpoO2FeNgYeate6Hb1af5PwkbJVzhcRb1SnjGHUg+CaIXPcDPITCnzUJdc9BxA
-	 5xRm4YeNFEg7SUiECTEjucFUImTVaU6NswG5BdHxg/XoA+ghFQlWlHMXZ3ybqdDHfNPPj
-	 rwJl/9mOMYhx9+Wda4ymDHg0Z9oJFoD/aFs0IJih1juTSrnKmmJ96uqF1bj1YfzeTUZr2
-	 Q2uaqxp7NFffkm76+Yz8z7wF1O2PZ7kuxtEigpA0D4stMV0FyK1x7OhTI67YYvXQyzA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792763688;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=2+AhzJ7L8tQJlY/aZD4qLJRxC1d8AyZMihzE03ThXFg=;
-	b=a/u/tZyUtt1dS4/gPUvyJlOA5+3ObPhJVXZEEBIsQ0JqgnaadO/j9fp8S1qXDu+jMpBb
-	 TUMjxvBP4IWqLAM0aIdNisPONlXFEdIACJwkiA2gTiRiRPyqxwVw4bvsrEPYgFp0+sKpF
-	 xNVBAZ4M1fGdkwKlqbjrfQiTdBtX0E4QeKyqpUMIbcUx85tjC+mA1PkmtkaEv3OTNHP+F
-	 5+ofKmpHBaw9uPYo3zOmxbuwZMl/3aoVGgRl9mwGcCnndQAr0eT2QYgLUnXkfEjFT7ipA
-	 jZbhaQGCgkcc7EOST2jSR8mvlVbDQSEWKCSzatfIRrzzKK5S73OE+Bf0FgV1Z3bcw7g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=toxicpanda.com;
-	spf=pass smtp.mailfrom=toxicpanda.com;
-	dkim=pass header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b=r2Zn7V1M;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.47
-Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com [209.85.208.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4C6E606A31E
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 13:54:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D4C6E606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toxicpanda.com
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792763703;
+	b=2ViKy1LrGI/x4bMBD8/y9jWSszkN7y7m72WzUDOxilJhDu881lZ9ndK5HyPkXl6Dyk2G
+	 mPCnVzG0Iql0Oc+FsHEBETyT7dbsH7sR1/a7kqdfeggsG0Pi4e+hn7yoLjrkYms2HrraQ
+	 vsX3YhZRC6M7fn8Bgw/NAprvZ+17aO3QzHldzNkQENGMkfbrpBn3yzxNVBbZIRuxG85dc
+	 yOpNrKzTBpqiWyVV84Bkxo156q8VoT4aWRaf8OPwizUVvnucB6GeEQ0IVbrhgeFhJ0G9I
+	 wRwBBGruQKAY9jr1levcB8M62Lj5GWyh+VvnyZ3cn4eGrkIyUQXf81R3JvU9Qn/dbnw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792763703;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
+	bh=xoo0lQVi7D+LDy6SMQY6MCNGt5PY3AwS8e+cRnahJfQ=;
+	b=l05zLczHlyStSyxnFtC7BeN4IJ9sUahpPRCeRoe/cIQBf/EvEoUZe3XGgPw/QLHbuzq4
+	 cFqZxAh0jCKcgRwaN8JnDXTLGwXLk/8wR3mJbXIJzcnunOdlvEZCk/wHLr4xNxQdVKX5/
+	 JjGikT8K/zxZfiQPRUPMdWJUD+C7NY9fnYyVF6yExXD1rsj0yIaW0zhrQvBLEY1x53+9J
+	 tHrnw4kGkJJs3Xsi5Kb1Ny8xmd1eVh2dQCa9Dom9VcVFGv1UO52ABrpPDS6Y3sSjVZudJ
+	 YQkenzgwaKzeQFEsLXW6c6fiuPIPtBGeX3jdqXMIwDQrFpKfJLqOf9EMLAH/2dG8AtQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=FYOtbvak;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 64C3D606A31F
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 13:55:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 64C3D606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b=r2Zn7V1M
-Received: by mail-ed1-f47.google.com with SMTP id 4fb4d7f45d1cf-6b1b13e09ffso1164479a12.3
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 06:54:47 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792763686; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Q9Zm2nOt0a0RKSb+9Hq2KsRb7Yl0++zyCh0M/Lq/jI7QH6k9U1EISQHangsC7frPdm
-         kNCRat7j+neRHuNkxrfIm19p24+rV2yx81CowLO1eKJmZc3YQ8YR2YLx82ecVuJ+z8Vb
-         CSYpUfqX9hD3bWQNpCxYVxAfvSRdij3+LaZXdLyurlydpG98VedMDDNX0h2p/51uHPA1
-         sa+/rvKpoRfdYXR124nHg8T5E+zDwC8KW/DFksA3OtJFcby0ybtqZ1VDI0XjHeT8R4j9
-         YGNBXgkgGHC9GQM0l2eMhgiX9fYk5Wxy7pSXWUApdngsMkbMu5b6FQ9N3U5oqftbjeS4
-         Rndg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=2+AhzJ7L8tQJlY/aZD4qLJRxC1d8AyZMihzE03ThXFg=;
-        fh=hg+BzW9hfcx9HPusN30KnqYFSTP7NBWBBdA6AD4ye28=;
-        b=Et96bEZfZKBkBzaOC+osYBH0i03fmL03rcd8Nl/eeIkpvcfBwfn3jxI5ACf90iva+s
-         SAFo23/a2dZUFY8cL37IXKByMvemzgoP5HVU91hnjV+2GzVpQoqaX2bbr802hTAXhVDb
-         Pz0KAgyMRsS2vHsaINwYIk0XW29ZneXzYi0MdYU/LtIq7FaHvD8gddbALPxxMgZBMRhV
-         KJl53J5ROgILt6AFKwzX9iH1aiWCKNSa8TPutp7mUh72LU1700GMVudQNdtQSZvFchxX
-         NHY4N45y+MQR1A1VxIQwuf/vm/3Q54VadjiXrhUVLQA6CIzTmy37dS7U4+pQVpjol6uq
-         A69A==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=toxicpanda.com; s=google; t=1792763686; x=1793368486; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=2+AhzJ7L8tQJlY/aZD4qLJRxC1d8AyZMihzE03ThXFg=;
-        b=r2Zn7V1MeWwdfM/XmXgX9Sb84phDtlFGMHpyF7f9b9hCLBBS/fiDx3QC3JKDSFP5MD
-         LWQ0mvzZR2ib0k5Sh/fltlQ0/NnyUUVx9ZzWYyzdbJiDuDizFcQdztFRtnyvrG6Yu+Cn
-         dvlCigenjv8rIBI/nDd/Tx9ovJlyN4m0YM5sxFEF19gvlPGiYeJRAhqohMyZb1roVg/C
-         qdD8SuipZCYMOJetG8RiUa1eJCvCukyHsZ9U/TL5XxFMe5MibuLwLOcB8om7U2NNAWKw
-         bzGhi3rE0IuDTA677sgSXJrswpj5FaoBdyAz0AEfJsArOSE8Irdz4hc7IqLBw0eFAEHK
-         eizw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792763686; x=1793368486;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=2+AhzJ7L8tQJlY/aZD4qLJRxC1d8AyZMihzE03ThXFg=;
-        b=TllfXseavtALCctI4tKCdfBGc6vSjkA9BEZi43zLNPBg8wWZQJK9+TpYSWo784WI+c
-         z8WxKU8JWao/nWZ0QtPhY3MHFCNazHrunfjTHWmKrsQivVNz8cHAIDUTDoqx4CS4/y7M
-         F7FlSwYC/kBvelTNeAq3747ozFUbgPQGGyL27koCu0qJHYCMfhzDawu4YM4O+p/JPzmG
-         PjIXELzP1f9ejwmczTdSnLN76K8hGj52XmTAuN/W0T+DRIv1XYwJvc9mA6xIhSue/1u6
-         PRabHyI6eqETWgnvD55sl0cZfoQZMllliuIFMHYu4yIxugQShlIoeAqn+oCjAma7JDq0
-         D9sQ==
-X-Forwarded-Encrypted: i=1; AKwUvBz5gguW2Iw6qUObYB6y1DUpBVVRsAx98qE23A5q858J8XSxkLxOWL8CN8Volk+6yBij+CbHx2K9Dk9e5BI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLAuTIhgEyv4DTGXtR5a0/Xi/aEHdILy/ocHcVsRD3qgprsigad
-	WtuKoLFdTgdDLY6USTDLCim5EKC0lfDYj76IYNQhvWnoN7G8lyScKZGPS+TN/DizqwQJYh/Ebcn
-	LeHyFK1EgFZTNBD0ZTqMgl7ybHj4EBzJLy1VR8CSPVxRbC5PNoxhB
-X-Gm-Gg: AYBFou1KN2lDTixJL5iA8l5I5lN5cryoWZM7kHATcJeNd4P/UJfbM3jDQWv4XOyruKP
-	YNZ2uxSt+hlZQefMmbwr2uzay7BA7IlatH5py8l6TYlzmXrQO41YwwbqYVFqQVaMy0weEUAnbQG
-	jBRZhOOjf+ftOJicJ+R3/yo1xjLm/xXklNbVdatjrPHY0cT1NskYoHoUv+HKujTghSEheWnfoqy
-	nNi5Oyh+2Wdgn1IerbBZcGVU7P9fbX07RruvmggOBZdp+k+LA0p1XbXzKdXQcZLLIYDLXBQhHkn
-	DO98syAsWjvbQWQa+iWPdRmTnDwee8iyRyg1tQJecCt1OFck0o5gGyupC7ezQAuw9+LQ2w9VFzZ
-	UUD1M8S1ZrODqL8NdS3LYmohfvnez7+qhGgtqPJNKkxwKtU1By2af3oylaJWL+ZmAqogPOuks9N
-	TzXAg3klyeUJWnwbOA
-X-Received: by 2002:a05:6402:1492:b0:6b4:2aa6:2bf7 with SMTP id
- 4fb4d7f45d1cf-6b432bf16e8mr2720618a12.17.1792763685720; Fri, 23 Oct 2026
- 06:54:45 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=FYOtbvak
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 8CBFE328E
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 06:54:58 -0700 (PDT)
+Received: from [192.168.0.1] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 887A23F673
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 06:55:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1792763701; bh=CBAd3D2nS0pV5DyJNQc3hXRDVv+Z6NVGzTQtyO8Q/is=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=FYOtbvakpectj5foClqqn+npOx8zrTX2xH63W8cND9stz8wRaZHPyaI1PN3T6KKuy
+	 AWINjhBzkNnNCFMIw7zOBQ/kyFv4GThBzaavxGBzey9Zaecjx11bSta39OUcyGplOw
+	 EOLvfsBTl4eBTLE0vLHydYORok66amuFBaCOrSK4=
+Date: Fri, 23 Oct 2026 14:54:49 +0100
+From: Liviu Dudau <liviu.dudau@arm.com>
+To: Lukas Zapolskas <lukas.zapolskas@arm.com>
+Cc: Daniel Almeida <daniel.almeida@collabora.com>,
+	Alice Ryhl <aliceryhl@google.com>,
+	Boris Brezillon <boris.brezillon@collabora.com>,
+	Steven Price <steven.price@arm.com>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+	nd@arm.com
+Subject: Re: [PATCH v7 3/8] drm/panthor: Add DEV_QUERY.PERF_INFO handling
+Message-ID: <attnKY2jJvfF6X6q@e142607>
+References: <20261011-panthor-performance-counters-v7-0-12c32495062f@arm.com>
+ <20261011-panthor-performance-counters-v7-3-12c32495062f@arm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,56 +68,302 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261023-work-super-lock_helpers-v1-0-d0fcb3f2f275@kernel.org>
-In-Reply-To: <20261023-work-super-lock_helpers-v1-0-d0fcb3f2f275@kernel.org>
-From: Josef Bacik <josef@toxicpanda.com>
-Date: Fri, 23 Oct 2026 09:54:33 -0400
-X-Gm-Features: AclHuK9zlK4tzMFGd7noBnaTxOTknDoJhgjCCtyLPmJXdPLrb9-AWs7tjRyMZTo
-Message-ID: <CAEzrpqd6bW5tDMox92VJEMVJb6ohzg55KFzZAXCiQNGxvecWaw@mail.gmail.com>
-Subject: Re: [PATCH 0/5] super: rework super_lock()
-To: Christian Brauner <brauner@kernel.org>
-Cc: Jan Kara <jack@suse.cz>, Alexander Viro <viro@zeniv.linux.org.uk>, linux-fsdevel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261011-panthor-performance-counters-v7-3-12c32495062f@arm.com>
 
-On Fri, Oct 23, 2026 at 5:42=E2=80=AFAM Christian Brauner <brauner@kernel.o=
-rg> wrote:
->
-> Josef's two series (cf. [1], [2]) left us with four ways to lock a
-> superblock and two ways to wait for one that's being shut down.
-> super_lock(), super_lock_shared() and super_lock_excl() return true on
-> success while super_lock_killable() returns 0. And callers that need an
-> unmount to be over pair super_lock() with super_wait_shutdown() or
-> super_wait_shutdown_killable() and have to pick the one that matches
-> the lock they took. Jan pointed out the bool vs int mess (cf. [3]).
->
-> So fold it all into a single super_lock() that takes SUPER_LOCK_EXCL,
-> SUPER_LOCK_KILLABLE and SUPER_LOCK_WAIT_SHUTDOWN and returns 0 with
-> s_umount held or a negative error code. The first three patches don't
-> change behavior.
->
-> The fourth patch makes sync(2) killable while it waits for s_umount of
-> a live superblock. Right now a freeze or remount that's stuck under
-> s_umount hangs every sync(2) on the machine and nobody can kill it.
-> fs_bdev_sync() already works that way.
->
-> The last patch adds a guard for super_lock() for the callers that take
-> and drop s_umount in the same scope.
->
-> This sits on top of vfs-7.5.super which carries Josef's series.
->
-> [1]: https://lore.kernel.org/20261021-b4-super-lock-dying-v1-0-2b35e86706=
-ff@toxicpanda.com
-> [2]: https://lore.kernel.org/20261021-b4-super-lock-unborn-v1-0-0265eddb6=
-dee@toxicpanda.com
-> [3]: https://lore.kernel.org/tmw22jj2hn6g6lklme2j3rsfjvmstzpoicvibvmmv6si=
-vd66oj@nhc4lng25gti
->
-> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+On Sun, Oct 11, 2026 at 06:36:50PM +0100, Lukas Zapolskas wrote:
+> This change adds the IOCTL to query data about the performance counter
+> setup. Some of this data was available via previous DEV_QUERY calls,
+> for instance for GPU info, but exposing it via PERF_INFO
+> minimizes the overhead of creating a single session to just the one
+> aggregate IOCTL, and removes the dependence on architectural details of
+> the counter layout.
+> 
+> This required reading one of the GPU registers, which is exposed via
+> a new helper in the gpu header.
+> 
+> The current handling covers GPUs from the Mali-Gx10 up to and including
+> the Mali-G1.
+> 
+> Signed-off-by: Lukas Zapolskas <lukas.zapolskas@arm.com>
 
-Reviewed-by: Josef Bacik <josef@toxicpanda.com>
+Hi,
 
-Thanks,
+I can't find a best place to put my thoughts in so I'm going to use this patch to
+say how I think I would like the series to look like. The general idea is that
+while a series introduces new functionality, each patch should ideally
+stand on its own and be able to be committed individually without breaking the
+previous version or end up confusing user space.
 
-Josef
+Therefore, I would merge patch 1/8 and 3/8 into a single bigger patch that at least offers
+support for some of the exposed uAPI. Whether that means we should bump the driver's
+minor version twice it's up for debate, but at least we don't end up having uAPI
+headers with no implementation in case only the first commit in the series is merged.
+
+> ---
+>  drivers/gpu/drm/panthor/Makefile         |  1 +
+>  drivers/gpu/drm/panthor/panthor_device.c |  7 +++
+>  drivers/gpu/drm/panthor/panthor_device.h |  3 ++
+>  drivers/gpu/drm/panthor/panthor_drv.c    | 10 +++-
+>  drivers/gpu/drm/panthor/panthor_gpu.c    |  5 ++
+>  drivers/gpu/drm/panthor/panthor_gpu.h    |  2 +
+>  drivers/gpu/drm/panthor/panthor_perf.c   | 87 ++++++++++++++++++++++++++++++++
+>  drivers/gpu/drm/panthor/panthor_perf.h   | 15 ++++++
+>  8 files changed, 129 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/panthor/Makefile b/drivers/gpu/drm/panthor/Makefile
+> index dd15d52a88ba..c65fff290720 100644
+> --- a/drivers/gpu/drm/panthor/Makefile
+> +++ b/drivers/gpu/drm/panthor/Makefile
+> @@ -10,6 +10,7 @@ panthor-y := \
+>  	panthor_heap.o \
+>  	panthor_hw.o \
+>  	panthor_mmu.o \
+> +	panthor_perf.o \
+>  	panthor_pwr.o \
+>  	panthor_sched.o
+>  
+> diff --git a/drivers/gpu/drm/panthor/panthor_device.c b/drivers/gpu/drm/panthor/panthor_device.c
+> index 9687c59de350..2877d47c6717 100644
+> --- a/drivers/gpu/drm/panthor/panthor_device.c
+> +++ b/drivers/gpu/drm/panthor/panthor_device.c
+> @@ -24,6 +24,7 @@
+>  #include "panthor_gpu.h"
+>  #include "panthor_hw.h"
+>  #include "panthor_mmu.h"
+> +#include "panthor_perf.h"
+>  #include "panthor_pwr.h"
+>  #include "panthor_sched.h"
+>  
+> @@ -287,6 +288,10 @@ int panthor_device_init(struct panthor_device *ptdev)
+>  	if (ret)
+>  		goto err_unplug_fw;
+>  
+> +	ret = panthor_perf_init(ptdev);
+> +	if (ret)
+> +		goto err_unplug_sched;
+> +
+>  	panthor_gem_init(ptdev);
+>  
+>  	/* Now that everything is initialized, we can enable the reset work. */
+> @@ -305,6 +310,8 @@ int panthor_device_init(struct panthor_device *ptdev)
+>  
+>  err_disable_autosuspend:
+>  	pm_runtime_dont_use_autosuspend(ptdev->base.dev);
+> +
+> +err_unplug_sched:
+>  	panthor_sched_unplug(ptdev);
+>  
+>  err_unplug_fw:
+> diff --git a/drivers/gpu/drm/panthor/panthor_device.h b/drivers/gpu/drm/panthor/panthor_device.h
+> index b55a3f9edd41..d93b182a3d9b 100644
+> --- a/drivers/gpu/drm/panthor/panthor_device.h
+> +++ b/drivers/gpu/drm/panthor/panthor_device.h
+> @@ -174,6 +174,9 @@ struct panthor_device {
+>  	/** @pwr: Power control management data. */
+>  	struct panthor_pwr *pwr;
+>  
+> +	/** @perf_info: Performance counter interface information. */
+> +	struct drm_panthor_perf_info perf_info;
+> +
+>  	/** @gpu: GPU management data. */
+>  	struct panthor_gpu *gpu;
+>  
+> diff --git a/drivers/gpu/drm/panthor/panthor_drv.c b/drivers/gpu/drm/panthor/panthor_drv.c
+> index 8cdba0c1a14b..b6b55b0f2ff5 100644
+> --- a/drivers/gpu/drm/panthor/panthor_drv.c
+> +++ b/drivers/gpu/drm/panthor/panthor_drv.c
+> @@ -182,7 +182,8 @@ panthor_get_uobj_array(const struct drm_panthor_obj_array *in, u32 min_stride,
+>  		 PANTHOR_UOBJ_DECL(struct drm_panthor_queue_submit, syncs), \
+>  		 PANTHOR_UOBJ_DECL(struct drm_panthor_queue_create, ringbuf_size), \
+>  		 PANTHOR_UOBJ_DECL(struct drm_panthor_vm_bind_op, syncs), \
+> -		 PANTHOR_UOBJ_DECL(struct drm_panthor_bo_sync_op, size))
+> +		 PANTHOR_UOBJ_DECL(struct drm_panthor_bo_sync_op, size), \
+> +		 PANTHOR_UOBJ_DECL(struct drm_panthor_perf_info, shader_blocks))
+>  
+>  /**
+>   * PANTHOR_UOBJ_SET() - Copy a kernel object to a user object.
+> @@ -959,6 +960,10 @@ static int panthor_ioctl_dev_query(struct drm_device *ddev, void *data, struct d
+>  			args->size = sizeof(ptdev->mmu_info);
+>  			return 0;
+>  
+> +		case DRM_PANTHOR_DEV_QUERY_PERF_INFO:
+> +			args->size = sizeof(ptdev->perf_info);
+> +			return 0;
+> +
+>  		default:
+>  			return -EINVAL;
+>  		}
+> @@ -992,6 +997,9 @@ static int panthor_ioctl_dev_query(struct drm_device *ddev, void *data, struct d
+>  	case DRM_PANTHOR_DEV_QUERY_MMU_INFO:
+>  		return PANTHOR_UOBJ_SET(args->pointer, args->size, ptdev->mmu_info);
+>  
+> +	case DRM_PANTHOR_DEV_QUERY_PERF_INFO:
+> +		return PANTHOR_UOBJ_SET(args->pointer, args->size, ptdev->perf_info);
+> +
+>  	default:
+>  		return -EINVAL;
+>  	}
+> diff --git a/drivers/gpu/drm/panthor/panthor_gpu.c b/drivers/gpu/drm/panthor/panthor_gpu.c
+> index a383b04f101e..726a70b74346 100644
+> --- a/drivers/gpu/drm/panthor/panthor_gpu.c
+> +++ b/drivers/gpu/drm/panthor/panthor_gpu.c
+> @@ -508,3 +508,8 @@ int panthor_gpu_coherency_init(struct panthor_device *ptdev)
+>  	drm_err(&ptdev->base, "Coherency not supported by the device");
+>  	return -ENOTSUPP;
+>  }
+> +
+> +u32 panthor_gpu_get_prfcnt_features(struct panthor_device *ptdev)
+> +{
+> +	return gpu_read(ptdev->gpu->iomem, GPU_PRFCNT_FEATURES);
+> +}
+> diff --git a/drivers/gpu/drm/panthor/panthor_gpu.h b/drivers/gpu/drm/panthor/panthor_gpu.h
+> index f615feb05609..46a6ca98cbb1 100644
+> --- a/drivers/gpu/drm/panthor/panthor_gpu.h
+> +++ b/drivers/gpu/drm/panthor/panthor_gpu.h
+> @@ -60,4 +60,6 @@ u64 panthor_gpu_get_cycle_count(struct panthor_device *ptdev);
+>  
+>  int panthor_gpu_coherency_init(struct panthor_device *ptdev);
+>  
+> +u32 panthor_gpu_get_prfcnt_features(struct panthor_device *ptdev);
+> +
+>  #endif
+> diff --git a/drivers/gpu/drm/panthor/panthor_perf.c b/drivers/gpu/drm/panthor/panthor_perf.c
+> new file mode 100644
+> index 000000000000..cbfe1ca5872d
+> --- /dev/null
+> +++ b/drivers/gpu/drm/panthor/panthor_perf.c
+> @@ -0,0 +1,87 @@
+> +// SPDX-License-Identifier: GPL-2.0 or MIT
+> +/* Copyright 2023 Collabora Ltd */
+> +/* Copyright 2025 Arm ltd. */
+> +
+> +#include <linux/bitops.h>
+> +#include <drm/panthor_drm.h>
+> +
+> +#include "panthor_device.h"
+> +#include "panthor_fw.h"
+> +#include "panthor_gpu.h"
+> +#include "panthor_gpu_regs.h"
+> +#include "panthor_perf.h"
+> +
+> +/**
+> + * PANTHOR_PERF_COUNTERS_PER_BLOCK - On CSF architectures pre-11.x, the number of counters
+> + * per block was hardcoded to be 64. Arch 11.0 onwards supports the PRFCNT_FEATURES GPU register,
+> + * which indicates the same information.
+> + */
+> +#define PANTHOR_PERF_COUNTERS_PER_BLOCK (64)
+> +
+> +/**
+> + * PANTHOR_HW_COUNTER_SIZE - The size of a hardware counter in the FW ring buffer.
+> + */
+> +#define PANTHOR_HW_COUNTER_SIZE (sizeof(u32))
+> +
+> +struct panthor_perf_counter_block {
+> +	struct drm_panthor_perf_block_header header;
+> +	u64 counters[];
+> +};
+> +
+> +static size_t get_annotated_block_size(size_t counters_per_block)
+> +{
+> +	return struct_size_t(struct panthor_perf_counter_block, counters, counters_per_block);
+> +}
+> +
+> +static size_t session_get_sample_size(const struct drm_panthor_perf_info *const info)
+> +{
+> +	const size_t block_size = get_annotated_block_size(info->counters_per_block);
+> +	const size_t block_nr = info->cshw_blocks + info->fw_blocks +
+> +		info->tiler_blocks + info->memsys_blocks + info->shader_blocks;
+> +
+> +	return info->sample_header_size + (block_size * block_nr);
+> +}
+> +
+> +static void panthor_perf_info_init(struct panthor_device *const ptdev)
+> +{
+> +	struct panthor_fw_global_iface *glb_iface = panthor_fw_get_glb_iface(ptdev);
+> +	struct drm_panthor_perf_info *const perf_info = &ptdev->perf_info;
+> +
+> +	if (GPU_ARCH_MAJOR(ptdev->gpu_info.gpu_id) < 11) {
+> +		perf_info->counters_per_block = PANTHOR_PERF_COUNTERS_PER_BLOCK;
+> +	} else {
+> +		u32 features = panthor_gpu_get_prfcnt_features(ptdev);
+> +
+> +		perf_info->counters_per_block = PRFCNT_FEATURES_COUNTER_BLOCK_SIZE(features) /
+> +			PANTHOR_HW_COUNTER_SIZE;
+> +	}
+> +
+> +	perf_info->sample_header_size = sizeof(struct drm_panthor_perf_sample_header);
+> +	perf_info->block_header_size = sizeof(struct drm_panthor_perf_block_header);
+> +
+> +	if (GLB_PERFCNT_FW_SIZE(glb_iface->control->perfcnt_size))
+> +		perf_info->fw_blocks = 1;
+> +
+> +	perf_info->cshw_blocks = 1;
+> +	perf_info->tiler_blocks = 1;
+> +	perf_info->memsys_blocks = GPU_MEM_FEATURES_L2_SLICES(ptdev->gpu_info.mem_features);
+> +	perf_info->shader_blocks = hweight64(ptdev->gpu_info.shader_present);
+> +
+> +	perf_info->sample_size = session_get_sample_size(perf_info);
+> +}
+> +
+> +/**
+> + * panthor_perf_init - Initialize the performance counter subsystem.
+> + * @ptdev: Panthor device
+> + *
+> + * Return: 0 on success, negative error code on failure.
+> + */
+> +int panthor_perf_init(struct panthor_device *ptdev)
+> +{
+> +	if (!ptdev)
+> +		return -EINVAL;
+> +
+> +	panthor_perf_info_init(ptdev);
+> +
+> +	return 0;
+> +}
+> diff --git a/drivers/gpu/drm/panthor/panthor_perf.h b/drivers/gpu/drm/panthor/panthor_perf.h
+> new file mode 100644
+> index 000000000000..3c32c24c164c
+> --- /dev/null
+> +++ b/drivers/gpu/drm/panthor/panthor_perf.h
+> @@ -0,0 +1,15 @@
+> +/* SPDX-License-Identifier: GPL-2.0 or MIT */
+> +/* Copyright 2025 Collabora Ltd */
+> +/* Copyright 2025 Arm ltd. */
+> +
+> +#ifndef __PANTHOR_PERF_H__
+> +#define __PANTHOR_PERF_H__
+> +
+> +#include <linux/types.h>
+> +
+> +struct panthor_device;
+> +
+> +int panthor_perf_init(struct panthor_device *ptdev);
+
+You could add the declaration in panthor_device.h and drop the creation of the new header file.
+
+Otherwise, the content of the patch looks good to me.
+
+Best regards,
+Liviu
+
+
+> +
+> +#endif /* __PANTHOR_PERF_H__ */
+> +
+> 
+> -- 
+> 2.43.0
+> 
+
+-- 
+====================
+| I would like to |
+| fix the world,  |
+| but they're not |
+| giving me the   |
+ \ source code!  /
+  ---------------
+    ¯\_(ツ)_/¯
