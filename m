@@ -1,112 +1,125 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792775878;
-	b=FRndZAd2vlOdcz+m+aOmV6mQ01sz1cxzDqrjuB7gRKOSiv9lvcvCVc0LKgmjOZW3QggE
-	 CdAmmkzwWCA7wGHpozHOqNRpSzum+/8qosj7nuYTBR1a1uEd0JWbNVV47f5HLGLmXnVgA
-	 M4Pdo0TzqaupqC5Z9KNyzZx2Bc779ltbt75TefYk0JOwL3PZmmb9J+kN0e2/U4ACTAJ3o
-	 HSWlL3XEBZsa757zB80cSQ5tp0N6P2BgXhgMVtaZgMcIQM65SGUnxS3pkRwTu9WDJJo/T
-	 rWyHmOj6UWx9Ds28JEH8TVNWpe7NtsVpLkeicR2DWfXDfg6lSlnEpqYQ5UQJ+cgRlVQ==
+	t=1792775902;
+	b=kiuxFNdzVochvjLjCdsLWRzpXQ+ep1jtDojKs2XBdxH27TLQXXocVh+H/gn0rnyPPyH7
+	 dnLpxPyoTXpHg24DqLo9BzfgXGhQ9KQFkZjphVpxxu+TZW8cdGFUmJmr/UJzlHVDz7vAS
+	 qPZCrboq1P5GYhI/7HABISELTYLkxVnWbt/DbibXVHo8Wui+Y8+76bWeXzXS1ibT9CpNA
+	 iuws7Hdf0+1dpLuuDjHqC1VYqYcZxnywI7fjMex13INxQk6A/LZ8iy3YcZHlxmxiq2a/n
+	 9CUwP+WEb5s2bvqH9UnGWqRQPqKIqO42rcnc0bCGC6Gh4i930sz83hjW9lS3hmA6fLw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792775878;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-Rspamd-Queue-Id:X-Spam-Level:X-Rspamd-Server:X-Rspamd-Action:
-	 X-Spam-Flag:X-Spamd-Result:X-Spam-Score;
-	bh=XukA89Q9BDkd0XtBh2gSl1FnwMloWguuCBheAa68ykw=;
-	b=3l6zSzdiTegeE2RzyOKJ4MiAgU4FoG1u5o4KyN+4rquwYjaa+hLN8by11sYxr9tU9qBo
-	 2FHlmG0uafPQTzfCaZTQ1IyWd7z/WzgI4IWsfYf8KvnXIlMJhavP+P+uEXVWTWGSKo0hf
-	 6rQgsBNib2qPFfeCdms+s/EIQeLDxzMXLEVdO2OHJDFFjc/8Q7yzRujhYO/hzBEJYeAzE
-	 xBot9J2siParxutz8Z2nq803z7D4r0escSMnkYUW2Q1ZcYe0+7EqDTQWwqQoV8tZjJaAa
-	 LOlYUApE46wNmhN/65rm7pI/OJ+IOZEx+HwZURbHKRO6NIzANBrDnYDp8XQp9qr9Ang==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792775902;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-Authority-Analysis:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=IwyToYvHi1Bz1hiwX/Vbh3aizuwmjoh9pZ0oQh56Bzg=;
+	b=vaUCTX8VuODqiE3FcKVumvq3WZbK8fd4DfQ7VXn8w91SBRUPOCr/A2HF6MIa4Ds350ML
+	 0/OxB4fgHFHjOPliDvhItmwpZRoEA3YR+EJ++qk5ebDhh1tqhdkzkXNSs30ncsoWqnNtQ
+	 f1LRLzBSdPfakx98ckoCuUJXzlr/kY3RzrGPh2NyiUb35Q3A26ZKR/PW5XKcdSOWjoB0x
+	 hfscy7HFIWBWv1ISFUKoAYB4nhPbKRTLZAcHfETbzb9r3q2lrqYLBoelKZDn9bTphhK6V
+	 WzI5m8eZ0D6vdJVwUAUrX1dKW1nUzQr3pCxiVBefDszwUDN0hfobAuVYbCrzSngKmuA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=vCdHe2g2;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=+jvISlXK;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=vCdHe2g2;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=+jvISlXK;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=mT1oskss;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=AiHNwOuN;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B16160A261D;
-	Fri, 23 Oct 2026 17:17:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5B16160A261D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07B42606AA37
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 17:18:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 07B42606AA37
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=vCdHe2g2;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=+jvISlXK;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=vCdHe2g2;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=+jvISlXK
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 215DA1F76C;
-	Fri, 23 Oct 2026 17:17:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1792775870; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=XukA89Q9BDkd0XtBh2gSl1FnwMloWguuCBheAa68ykw=;
-	b=vCdHe2g20uTYZTpiEzNLppFWchd8VyMkM1DHEGXwMrpeg4DbRGsEhQ630nUcaQIy7s3eya
-	KEa6Fw7SfXIZLqNVqYWr7vP9+b6ka8t8DnDO+6q/utbkH2D5hI01sM2j8niDsxM30n2ruo
-	pdMnkBXhZtmBiyTfIgUtuoIYWD1Dt8E=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1792775870;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=XukA89Q9BDkd0XtBh2gSl1FnwMloWguuCBheAa68ykw=;
-	b=+jvISlXK3WIo6Q5Pi1FehViuMkWMKuJFt8x02SWULTXNth4JhX10w56wAyJ4JA2cpH+FNf
-	LHoSA4avmdjqvJDg==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=vCdHe2g2;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=+jvISlXK
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1792775870; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=XukA89Q9BDkd0XtBh2gSl1FnwMloWguuCBheAa68ykw=;
-	b=vCdHe2g20uTYZTpiEzNLppFWchd8VyMkM1DHEGXwMrpeg4DbRGsEhQ630nUcaQIy7s3eya
-	KEa6Fw7SfXIZLqNVqYWr7vP9+b6ka8t8DnDO+6q/utbkH2D5hI01sM2j8niDsxM30n2ruo
-	pdMnkBXhZtmBiyTfIgUtuoIYWD1Dt8E=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1792775870;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=XukA89Q9BDkd0XtBh2gSl1FnwMloWguuCBheAa68ykw=;
-	b=+jvISlXK3WIo6Q5Pi1FehViuMkWMKuJFt8x02SWULTXNth4JhX10w56wAyJ4JA2cpH+FNf
-	LHoSA4avmdjqvJDg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id ABEF8133F6;
-	Fri, 23 Oct 2026 17:17:48 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id XCS7FryW22opPAAAD6G6ig
-	(envelope-from <pfalcato@suse.de>); Fri, 23 Oct 2026 17:17:48 +0000
-Date: Fri, 23 Oct 2026 18:17:42 +0100
-From: Pedro Falcato <pfalcato@suse.de>
-To: Imre Kaloz <kaloz@kernel.org>
-Cc: "David S. Miller" <davem@davemloft.net>, 
-	Andreas Larsson <andreas@gaisler.com>, "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
-	"Mike Rapoport (IBM)" <rppt@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
-	David Hildenbrand <david@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
-	Lorenzo Stoakes <ljs@kernel.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Jann Horn <jannh@google.com>, Suren Baghdasaryan <surenb@google.com>, 
-	Michal Hocko <mhocko@suse.com>, sparclinux@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-mm@kvack.org
-Subject: Re: [PATCH v3 4/4] mm: pass the number of PTEs to move_pte()
-Message-ID: <atuU4Ig51wvNt2eD@pedro-suse.tail5790ac.ts.net>
-References: <cover.1792609488.git.kaloz@kernel.org>
- <2bc50d2a6829b49ee909e5bb943244859661a40b.1792609488.git.kaloz@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=mT1oskss;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=AiHNwOuN
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69NE6C0i2462551
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 17:18:21 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=qcppdkim1; bh=IwyToYvHi1B
+	z1hiwX/Vbh3aizuwmjoh9pZ0oQh56Bzg=; b=mT1oskssTjY7dBGpzuiuOrktApn
+	bhOZBSmGiZAmLju25udAAhAtKjb2/Sc35c3cRJLQ8DOi5pupSe9RkmcW3iDZuTWP
+	KF5Ip2MH2RSWl6IslStlV+B8HDFjWbN52Gw9RFY9CLDOsGdjTX+qSkmDI4sGofzU
+	DkBDrbno5csT/wro47uPViLDBUtaWsY0qp7/u7Chm77VbI5Vy8BtdqrGm0XOJutX
+	q257b1ojOWmcLkZ7U3ngKVI3oaPOwYfQCh/rJagofXOAfaVVcLuhG+achAcLGD7z
+	XZmLsUYiOz3I1f1akBYLy3dtdmfStvu11mC1YVKlElerV4xRJfi6RKUWzaQ==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hfqmtvskn-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 17:18:21 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93f5844cb60so203786285a.0
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 10:18:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1792775900; x=1793380700; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=IwyToYvHi1Bz1hiwX/Vbh3aizuwmjoh9pZ0oQh56Bzg=;
+        b=AiHNwOuNOaUC3/bX2eQvupYiaKojtMMQIbzy9lW6svvpPd5CszS1ijqVgQwjWYiRnt
+         hj0cHpuYgjAMz4tSePlPTQs4iuPT/iBfsDxu1k/3tgAtaNr5dM40TLSf/B1xOJneGefM
+         0E32YKeQ6oyLljAqoZzAw9tX2H1EwYSf9HstNmvrLMn4EIK/Gs4JmHgbg1Z/ULBoHaWG
+         tMpc8zWhDnf6UXESKS7e6BW+p8t3FoE1WKGkde0XwE5ts386jHiZI1LqIaw9qNMqE3wC
+         CMaoLhW211p2qnr8zeEfuqumLH7qRKE+9YPzLviTsmIqDJRhIXAI5S7Od7ll3pvTUlWd
+         CViw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792775900; x=1793380700;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=IwyToYvHi1Bz1hiwX/Vbh3aizuwmjoh9pZ0oQh56Bzg=;
+        b=kigl99KPs2s9SBIO+3QLnPNTygXLr8Jdb3chWDhX6ZU9dKIB1pgKr0zJEyOxe84jis
+         UQfgiMcuRQJKtDks85XSRfl0i3A5ixMchCfkJoUQWIXcS1AhAGRUh1CyPJhqghdD/Il+
+         t4wgj+vW5cOEQLNojiJFq9ogUkbeT83H50saySI6bOSCbiRMP9hwR/qdD45gSFGSxXjv
+         DoRx/dnoV0CQx1vz6eNz73TGCOOI5WSY0wBnfGLTMlLN8MPve2iMceY2qmzYO5r85Llp
+         /WTRSDcIh/IANzcTfJ07AQnveQg8vS/7vJ0HII6IPas98RqqO8N1jcxG5vDi1mOQ8yfZ
+         OEeQ==
+X-Forwarded-Encrypted: i=1; AKwUvBypNhE00IGAQZsg1cf0+KwAbkDufnjt9VAJN6oY3GcLFj3nDhfVTxeK3FhR2xkwAe9WW8tl3ZJHXDmhQJw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLP7ak2cxk50YuWPBmr+mCLcybCA/WU9WMd0dWgo+56j7+Y8yZs
+	Zz2JpWGop/GfRomdZim1JHcuu7CTQYlXBwEFIPokeI0dYfpn/E61x05MgoUjQCg11uHQQ3Cszvh
+	4BmKtmdxkSWqsruUYVhMqhP1J10r99ujLPM535xoKb45Ixks/O7Xvb8NtQCX0Lenh1dg=
+X-Gm-Gg: AYBFou2FMHFIgN+rHYbfqqJsgXI2ZHNcAiRvJgCL/6VVd1FS9IUZUx061kP7qRleMUX
+	REbRlyl/D7hejpmX8X9XJQtfdYb0uxrP9Faox0ZzMno8wPyOUGVQUigSORzKPRJBrX5LuP40vsr
+	X514ZWwxgFgTD65cifHK78Nlqkhr5/fmZUD+AdSYgXeEXHAaBULwuaswLmgz3LrwOU27JmI6fcC
+	vB0TZgR/6U3Rm1AqOpYCebZk44ce3AZgwQf2wT8jyF1Hga+t/Q+0uWfTCPuP4zHfShRII9oOVc3
+	QbDurBXZm9N82Lr4uw1HWw8y66hb/M2t7Dt6Fxj1R2m979GK9YHUtRpsxX0yuAGAy01kybU+I1j
+	TqeZ47ECU0SEY
+X-Received: by 2002:a05:620a:3704:b0:93f:8f9:7a83 with SMTP id af79cd13be357-93f627dabaemr1009220985a.43.1792775900161;
+        Fri, 23 Oct 2026 10:18:20 -0700 (PDT)
+X-Received: by 2002:a05:620a:3704:b0:93f:8f9:7a83 with SMTP id af79cd13be357-93f627dabaemr1009217285a.43.1792775899700;
+        Fri, 23 Oct 2026 10:18:19 -0700 (PDT)
+Received: from debian ([5.133.47.210])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3d41e0fesm937475f8f.46.2026.10.23.10.18.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 23 Oct 2026 10:18:18 -0700 (PDT)
+From: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+To: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>
+Cc: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Jonathan Corbet <corbet@lwn.net>,
+        Alexey Klimov <alexey.klimov@linaro.org>,
+        Ravi Hothi <ravi.hothi@oss.qualcomm.com>, linux-sound@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+Subject: [RFC PATCH 18/23] ASoC: qcom: audioreach: add speaker protection calibration state control
+Date: Fri, 23 Oct 2026 18:14:28 +0100
+Message-ID: <20261023171433.820092-19-srinivas.kandagatla@oss.qualcomm.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261023171433.820092-1-srinivas.kandagatla@oss.qualcomm.com>
+References: <20261023171433.820092-1-srinivas.kandagatla@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -116,106 +129,233 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <2bc50d2a6829b49ee909e5bb943244859661a40b.1792609488.git.kaloz@kernel.org>
-X-Rspamd-Queue-Id: 215DA1F76C
-X-Spam-Level: 
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-13.51 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	ARC_NA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[16];
-	MIME_TRACE(0.00)[0:+];
-	MISSING_XM_UA(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.de:dkim,suse.de:email];
-	DKIM_TRACE(0.00)[suse.de:+]
-X-Spam-Score: -13.51
+Content-Transfer-Encoding: 8bit
+X-Authority-Analysis: v=2.4 cv=Gt3XaU1C c=1 sm=1 tr=0 ts=6adb96dd cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=ZsC4DHZuhs/kKio7QBcDoQ==:17
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=EUspDBNiAAAA:8
+ a=kkz25WANwqfBvfs1KZUA:9 a=PEH46H7Ffwr30OY-TuGO:22
+X-Proofpoint-GUID: QpyIqtwyYQwSDiUkUQYRf196HmmbF0dB
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIzMDA2NyBTYWx0ZWRfX0D657o2z9Wq0
+ JIg79yEyBuDY6DyuDv0ZnxWnDJhE1QYLnOahSQb00RcsEgHdqezdGuSA8/StDDWgiljjTdGBg//
+ bfoDnbTVjOq6LIkROyMWpipobHTpMQn0UC1AqFQg0gWNFywEzKpZ4dVfsEWZj8ckEEwa1V6zoPr
+ aDXSUHSAYgn90HzLWz0+RP3adKobRC0IHzI+btDlKe3T62ioe8nq6Krc8HeLAcAdtSYcP71PzuS
+ 91QsxG3ZTnJbXixWlf3ieijysx7oQd31UVs2hmjS84ZEPt4Tygyl7ryHHb9J2Nx9uDOjH9yHtQ2
+ OkjtMxa+UPF+5ubvEIDwalFPN2IjPZbr4TftSDbqN9Rl4O+p95V70jYhpfP/0cMb5m12SSdRSlz
+ lBGwK0wG1TfYLpg81sKkGaQV4b9xsqehsJzoXe8wr+bi56YEkNY7UzuuthpfP3vYW6krRgnYx4j
+ PyCZCnFrt+K6sF0vLtA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIzMDA2NyBTYWx0ZWRfX9MQv6R/wFxOT
+ 2f6Wc1YaYCdlVTk+P6lMU8/NJABFGXbKKpWxUvuLW0xs+UzjTna8g0eAaA1IoqvPzpi2f4WWFub
+ 40H4/IBgu/T5yXsv8Awu4KsarGkf7ps=
+X-Proofpoint-ORIG-GUID: QpyIqtwyYQwSDiUkUQYRf196HmmbF0dB
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-23_04,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 spamscore=0 suspectscore=0 malwarescore=0 adultscore=0
+ clxscore=1015 priorityscore=1501 impostorscore=0 phishscore=0
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
+ definitions=main-2610230067
 
-On Thu, Oct 22, 2026 at 01:33:40AM +0200, Imre Kaloz wrote:
-> Since commit f822a9a81a31 ("mm: optimize mremap() by PTE batching"),
-> move_ptes() moves a batch of PTEs mapping consecutive pages of a folio
-> at a time, but calls move_pte() once per batch with the first PTE
-> only. sparc64, the only architecture that overrides move_pte(), flushes
-> from the D-cache the page that PTE maps when the move changes its
-> colour, so the other pages of a batch would keep lines of the old
-> colour. This cannot happen today only because sparc64 has no
-> pte_batch_hint(), and mremap_folio_pte_batch() then never batches.
-> 
-> Pass nr_ptes to move_pte(), as get_and_clear_ptes() takes it. The
-> generic version ignores it, and sparc64 flushes every page of the
-> batch.
-> 
-> Signed-off-by: Imre Kaloz <kaloz@kernel.org>
-> ---
->  arch/sparc/include/asm/pgtable_64.h | 16 +++++++++-------
->  include/linux/pgtable.h             |  2 +-
->  mm/mremap.c                         |  2 +-
->  3 files changed, 11 insertions(+), 9 deletions(-)
-> 
-> diff --git a/arch/sparc/include/asm/pgtable_64.h b/arch/sparc/include/asm/pgtable_64.h
-> index 1430489b9ac5..9ca787b3cbfe 100644
-> --- a/arch/sparc/include/asm/pgtable_64.h
-> +++ b/arch/sparc/include/asm/pgtable_64.h
-> @@ -946,21 +946,23 @@ static inline void set_ptes(struct mm_struct *mm, unsigned long addr,
->  	set_pte_at((mm), (addr), (ptep), __pte(0UL))
->  
->  #ifdef DCACHE_ALIASING_POSSIBLE
-> -/* This flushes only the page the PTE maps, so it relies on move_ptes()
-> - * calling it for one PTE at a time, which the default pte_batch_hint()
-> - * guarantees.
-> +/* The nr PTEs map consecutive pages of one folio and all move by the
-> + * same offset, so either every page of the batch aliases or none does.
->   */
->  #define __HAVE_ARCH_MOVE_PTE
-> -#define move_pte(pte, old_addr, new_addr)				\
-> +#define move_pte(pte, old_addr, new_addr, nr)				\
+Add a read-only "Speaker Protection Calibration State" control with
+each speaker's last calibration state, so userspace can follow a run.
 
-The \ is now misaligned (at least according to my email client), perhaps you
-can fix it up :)
+Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+---
+ sound/soc/qcom/qdsp6/audioreach.c | 51 +++++++++++++++++++++++++++++++
+ sound/soc/qcom/qdsp6/audioreach.h |  2 ++
+ sound/soc/qcom/qdsp6/q6apm.c      | 15 ++++++++-
+ sound/soc/qcom/qdsp6/topology.c   | 18 +++++++++++
+ 4 files changed, 85 insertions(+), 1 deletion(-)
 
-The only nit I have is regarding the function's name.  move_pte with a nr is
-no longer really move_pte, move_ptes() is the calling function's name... Yuck.
-
-Also it seems a bit overengineered at this point, move_pte() returns a pte
-that sparc never modifies.
-
->  ({									\
->  	pte_t newpte = (pte);						\
->  	if (tlb_type != hypervisor && pte_present(pte)) {		\
->  		unsigned long this_pfn = pte_pfn(pte);			\
-> +		unsigned int i;						\
->  									\
->  		if (pfn_valid(this_pfn) &&				\
-> -		    (((old_addr) ^ (new_addr)) & (1 << 13)))		\
-> -			flush_dcache_page_all(current->mm,		\
-> -					      pfn_to_page(this_pfn));	\
-> +		    (((old_addr) ^ (new_addr)) & (1 << 13))) {		\
-> +			for (i = 0; i < (nr); i++)			\
-> +				flush_dcache_page_all(current->mm,	\
-> +					pfn_to_page(this_pfn + i));	\
-
-Is there no way to pass nr_ptes directly to flushing code?
-
-Anyway,
-
-Reviewed-by: Pedro Falcato <pfalcato@suse.de> 
-
+diff --git a/sound/soc/qcom/qdsp6/audioreach.c b/sound/soc/qcom/qdsp6/audioreach.c
+index f05033cc3f7d..3eba0a9a0372 100644
+--- a/sound/soc/qcom/qdsp6/audioreach.c
++++ b/sound/soc/qcom/qdsp6/audioreach.c
+@@ -21,6 +21,7 @@ enum sp_vi_cali_state {
+ 	SP_VI_CALI_RUNNING,	/* Events arriving, none decisive yet */
+ 	SP_VI_CALI_FAILED,	/* Run finished, no usable R0 */
+ 	SP_VI_CALI_SUCCESS,	/* Run finished, @r0_cali_q24 valid */
++	SP_VI_CALI_ABORTED,	/* Graph stopped before the run finished */
+ };
+ 
+ struct sp_vi_r0_result {
+@@ -28,6 +29,8 @@ struct sp_vi_r0_result {
+ 	u32 num_ch;
+ 	s32 r0_cali_q24[MAX_SP_VI_SPEAKERS];
+ 	u32 seen_states[MAX_SP_VI_SPEAKERS];
++	/* Last calibration state per speaker (enum vi_calibration_state) */
++	u32 last_state[MAX_SP_VI_SPEAKERS];
+ };
+ 
+ static struct sp_vi_r0_result sp_vi_r0;
+@@ -1616,6 +1619,21 @@ int audioreach_get_sp_vi_t0(long *vals, unsigned int count)
+ }
+ EXPORT_SYMBOL_GPL(audioreach_get_sp_vi_t0);
+ 
++/* Latest calibration state per speaker, 0 before any event */
++int audioreach_get_sp_vi_cal_state(long *vals, unsigned int count)
++{
++	unsigned int i;
++
++	guard(mutex)(&sp_vi_r0_lock);
++
++	count = min(count, MAX_SP_VI_SPEAKERS);
++	for (i = 0; i < count; i++)
++		vals[i] = sp_vi_r0.last_state[i];
++
++	return count;
++}
++EXPORT_SYMBOL_GPL(audioreach_get_sp_vi_cal_state);
++
+ int audioreach_set_sp_vi_r0t0(struct device *dev, const long *vals, unsigned int count)
+ {
+ 	struct sp_vi_r0t0_cfg new = {};
+@@ -1695,6 +1713,8 @@ void audioreach_vi_calibration_event(struct device *dev,
+ 	for (i = 0; i < num_ch; i++) {
+ 		u32 state = cali->cali_param[i].state;
+ 
++		sp_vi_r0.last_state[i] = state;
++
+ 		if (sp_vi_cali_state_is_failure(state))
+ 			success = false;
+ 		else if (!sp_vi_cali_state_is_terminal(state))
+@@ -1753,6 +1773,37 @@ void audioreach_vi_calibration_event(struct device *dev,
+ 	dev_info(dev, "VI calibration complete: %s\n", success ? "success" : "failed");
+ }
+ 
++/* A run cut short never reports a final state, close it out */
++void audioreach_vi_calibration_abort(struct device *dev)
++{
++	unsigned int i;
++
++	guard(mutex)(&sp_vi_r0_lock);
++
++	if (sp_vi_r0.state != SP_VI_CALI_RUNNING)
++		return;
++
++	sp_vi_r0.state = SP_VI_CALI_ABORTED;
++
++	for (i = 0; i < MAX_SP_VI_SPEAKERS; i++) {
++		u32 state = sp_vi_r0.last_state[i];
++
++		/* Slot never reported: not part of this run */
++		if (!sp_vi_r0.seen_states[i])
++			continue;
++
++		if (sp_vi_cali_state_is_terminal(state))
++			continue;
++
++		dev_info(dev, "VI calibration channel %u: aborted while %s\n",
++			 i, sp_vi_cali_state_name(state));
++		sp_vi_r0.last_state[i] = VI_CALIBRATION_STATE_INACTIVE;
++	}
++
++	dev_info(dev, "VI calibration aborted: graph stopped before the DSP finished\n");
++}
++EXPORT_SYMBOL_GPL(audioreach_vi_calibration_abort);
++
+ static int audioreach_speaker_protection(struct q6apm_graph *graph,
+ 					 const struct audioreach_module *module)
+ {
+diff --git a/sound/soc/qcom/qdsp6/audioreach.h b/sound/soc/qcom/qdsp6/audioreach.h
+index 7345b6d15f58..6a08f52b7786 100644
+--- a/sound/soc/qcom/qdsp6/audioreach.h
++++ b/sound/soc/qcom/qdsp6/audioreach.h
+@@ -1141,10 +1141,12 @@ int audioreach_set_sp_vi_r0t0(struct device *dev, const long *vals, unsigned int
+ int audioreach_sp_register_speaker_map(struct thermal_zone_device * const *tzs,
+ 				       unsigned int num);
+ int audioreach_get_sp_vi_t0(long *vals, unsigned int count);
++int audioreach_get_sp_vi_cal_state(long *vals, unsigned int count);
+ int audioreach_add_sp_telemetry_controls(struct snd_soc_component *component);
+ void audioreach_vi_calibration_event(struct device *dev,
+ 				     const struct event_id_vi_per_spkr_calibration *cali,
+ 				     u32 num_ch);
++void audioreach_vi_calibration_abort(struct device *dev);
+ int audioreach_compr_set_param(struct q6apm_graph *graph,
+ 			       const struct audioreach_module_config *mcfg);
+ int audioreach_setup_push_pull(struct q6apm_graph *graph, phys_addr_t bphys,
+diff --git a/sound/soc/qcom/qdsp6/q6apm.c b/sound/soc/qcom/qdsp6/q6apm.c
+index a4502741d87f..41daa02febf4 100644
+--- a/sound/soc/qcom/qdsp6/q6apm.c
++++ b/sound/soc/qcom/qdsp6/q6apm.c
+@@ -813,10 +813,19 @@ struct q6apm_graph *q6apm_graph_open(struct device *dev, q6apm_cb cb,
+ }
+ EXPORT_SYMBOL_GPL(q6apm_graph_open);
+ 
++static void q6apm_graph_abort_vi_calibration(struct q6apm_graph *graph)
++{
++	if (q6apm_find_module_by_mid(graph, MODULE_ID_SPEAKER_PROTECTION_VI))
++		audioreach_vi_calibration_abort(graph->dev);
++}
++
+ int q6apm_graph_close(struct q6apm_graph *graph)
+ {
+ 	struct audioreach_graph *ar_graph = graph->ar_graph;
+ 
++	/* Covers a graph closed without ever being started, e.g. on prepare failure */
++	q6apm_graph_abort_vi_calibration(graph);
++
+ 	graph->ar_graph = NULL;
+ 	kref_put(&ar_graph->refcount, q6apm_put_audioreach_graph);
+ 	gpr_free_port(graph->port);
+@@ -852,6 +861,7 @@ EXPORT_SYMBOL_GPL(q6apm_graph_start);
+ int q6apm_graph_stop(struct q6apm_graph *graph)
+ {
+ 	struct audioreach_graph *ar_graph = graph->ar_graph;
++	int ret;
+ 
+ 	if (ar_graph->start_count == 0)
+ 		return 0;
+@@ -859,7 +869,10 @@ int q6apm_graph_stop(struct q6apm_graph *graph)
+ 	if (--ar_graph->start_count > 0)
+ 		return 0;
+ 
+-	return audioreach_graph_mgmt_cmd(ar_graph, APM_CMD_GRAPH_STOP);
++	ret = audioreach_graph_mgmt_cmd(ar_graph, APM_CMD_GRAPH_STOP);
++	q6apm_graph_abort_vi_calibration(graph);
++
++	return ret;
+ }
+ EXPORT_SYMBOL_GPL(q6apm_graph_stop);
+ 
+diff --git a/sound/soc/qcom/qdsp6/topology.c b/sound/soc/qcom/qdsp6/topology.c
+index 8bc681a633d8..75381d9a1435 100644
+--- a/sound/soc/qcom/qdsp6/topology.c
++++ b/sound/soc/qcom/qdsp6/topology.c
+@@ -1551,6 +1551,15 @@ static int audioreach_get_sp_t0(struct snd_kcontrol *kcontrol,
+ 	return 0;
+ }
+ 
++static int audioreach_get_sp_cal_state(struct snd_kcontrol *kcontrol,
++				       struct snd_ctl_elem_value *ucontrol)
++{
++	audioreach_get_sp_vi_cal_state(ucontrol->value.integer.value,
++				       MAX_SP_VI_SPEAKERS);
++
++	return 0;
++}
++
+ static const struct snd_kcontrol_new audioreach_sp_telemetry_controls[] = {
+ 	{
+ 		.iface	= SNDRV_CTL_ELEM_IFACE_MIXER,
+@@ -1560,6 +1569,15 @@ static const struct snd_kcontrol_new audioreach_sp_telemetry_controls[] = {
+ 		.info	= audioreach_info_sp_t0,
+ 		.get	= audioreach_get_sp_t0,
+ 	},
++	{
++		.iface	= SNDRV_CTL_ELEM_IFACE_MIXER,
++		.name	= "Speaker Protection Calibration State",
++		.access	= SNDRV_CTL_ELEM_ACCESS_READ |
++			  SNDRV_CTL_ELEM_ACCESS_VOLATILE,
++		/* Last calibration state per speaker (enum vi_calibration_state) */
++		.info	= audioreach_info_sp_t0,
++		.get	= audioreach_get_sp_cal_state,
++	},
+ };
+ 
+ /* Kept apart from the topology SP controls, so FEs have them without it */
 -- 
-Pedro
+2.47.3
+
