@@ -1,65 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792785965;
-	b=H8RTgqtHhcRQ7ZHULt/B/qfkQeAtcnpc5gvwJwyGkG8nxNgrGXQ3k5d+7FSwyWl8fQ1f
-	 utdg/c5PJUTGDEJlmng8fTw7mR8KIoxFWEWzD25vGngpphMT8iKblEuXAvLpudih2ppvz
-	 FiXfr5+tK+S/v1qe1XEfTHvOmcKA8zovgeNpsRw2ovXAe2dlHUGejodzqeeYQFx81cmmt
-	 EQidYU5wBesUPLucPVChHqURkhwhbJVJSyDZUKkx26O/RGGVq+A9pj8qM7wDDsik7sfeq
-	 Oz9DtwMhPZEKJpc4Cp3z7uIHBhRSXmEM7Zeh4xjbBeIGgaS4ijLZteemy9fGE2a7G1g==
+	t=1792786001;
+	b=P4QOaNGH0/fHQPatv1FCP+jZVEdOrb2RWkddQjtkEtt72cnMjSRIOsHx0mf62d2KEH+I
+	 +S/o+U3QpXiPfZHvffu2oeiVR/5n29HW2EKI4REVM4VC23Y7f/YbdBHK33Xv5y3yxW5SO
+	 tWw2UDJOkPtcn4PDqDOvPbyMQwBtary5g891wGEbYCRJ1vNiO3ZyKW2NGJBPFRmej2hUs
+	 hJYVfoFdsYt2uylLndhes+yfNB2JhdBw2Z0Q4ssM9jfGIyljqsx+X5CrQZEgQjE7GPvnb
+	 89r2nOwpMHPYms5zMaHwetrhL0nwF2RlwbsYYL69XggFPQxZo+aiKKfkJsjxz+v2jNA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792785965;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=/O0sZKTmVZ38poySSnSx6Ltu35wYmyj+OIfx4ivV2Qo=;
-	b=fZ6KaNiehBcDWjHF1v/6CVOs5KlvFQKRGjVPkZziXVpGlHAzoIArnwU78crJFjoF4ZUH
-	 1YHMD9eY4pIm7lgEjWM4EWjobVbRnkRZoKVKqfgcJj9eYooA0dQqtS10wZSvOfXaltkh8
-	 GebvJPy0HZUsyMXn4rOP5F7g4hlydoG8z4JibTD5phe6hrBbhkRkhPg3snwcafNDTc5LZ
-	 vGEiXXEhodtzEFV+mBjbjbq6OHVsfvXtK+M173bU1iJIq2SS9DsmaMt6ko8r3IMDfiGvL
-	 avCdUUvbhL+Fx8iiy8i485k+jxzuOnQK3a7TZdhSz5FI218tnoBA0wkxdWw2Djhbi6Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792786001;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=JfHAwnpgWVWiUOZzQpJe7RI0KYVwO1R7KV/LtNs7c4M=;
+	b=sEmxySrXm5URtDAiIRTtnyA0elor/MMKg0lmtCbdEdDL/vdSxmMc3Rkq0o9ivhKGykRP
+	 CJ1Hai/o07OFO3V8UZSrX+5Gjxrr8j0LQbrw6Fcq5jn66/zuSD5at7/ry0izxjc2auZUB
+	 yA5DQ9oGMbOUn+mhiVKznHxhf7on6R2oZMshmextYEM1haJfvgW5CWuF/vnzC5Ul1FQne
+	 +IwOvx4hwiowHXpbPy++N11tfLK+lKLOCWkeQS7MTQHshiydvqi+v5BYP3yoU/r/61XVs
+	 Nu/3M47SOA/m3i6UifEAgeIpIm0nBuF9NLbq7HwGlTgl22OjCn/mH9zyEYDXodQPXuA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mWSCygvH;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LMJhGTh5;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E56CB606A31A;
-	Fri, 23 Oct 2026 20:06:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51B6C606A31B;
+	Fri, 23 Oct 2026 20:06:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mWSCygvH
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 544D71F01825;
-	Fri, 23 Oct 2026 20:06:04 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LMJhGTh5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB4771F01825;
+	Fri, 23 Oct 2026 20:06:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792785964;
-	bh=/O0sZKTmVZ38poySSnSx6Ltu35wYmyj+OIfx4ivV2Qo=;
-	h=Date:From:To:Cc:Subject:In-Reply-To;
-	b=mWSCygvHqO2WyMvE0JSZL2L74ZcdvIqzapTk0tZrTGO+p1JsQtXrslUdPMgLJ1x5k
-	 httC6LSsE+IzE2q04YnWeAjJgZ1Gm7geAKXAsO/xY6u7TGxnCAFFVMHhlgNVqUbd7X
-	 yhGPDn0fKMlNnM+/5xA5bDmHHRY2I0Otl3DdNMNrwGrADE54PYMWnEKPG3b/chpBWk
-	 pG/5Es8SuLuIyNZvAob1u83Ngu9BaYydorH5jnno0QVEvQSsYon3nj/1Owxd5yRhHM
-	 vcZmDpFx7/UfayiK/ogL8qdJfPhJl9AyEvgePzC6UJidLShlxCRXAVIcaM0PlE7Ek8
-	 7rqbJSNXMtjew==
-Date: Fri, 23 Oct 2026 15:06:03 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Tariq Toukan <tariqt@nvidia.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, netdev@vger.kernel.org,
-	Paolo Abeni <pabeni@redhat.com>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Carolina Jubran <cjubran@nvidia.com>,
-	Cosmin Ratiu <cratiu@nvidia.com>,
-	Edward Srouji <edwards@nvidia.com>, Gal Pressman <gal@nvidia.com>,
-	Jason Gunthorpe <jgg@ziepe.ca>, Kees Cook <kees@kernel.org>,
-	Leon Romanovsky <leon@kernel.org>,
-	open list <linux-kernel@vger.kernel.org>, linux-pci@vger.kernel.org,
-	linux-rdma@vger.kernel.org, Maher Sanalla <msanalla@nvidia.com>,
-	Mark Bloch <mbloch@nvidia.com>, Or Har-Toov <ohartoov@nvidia.com>,
-	Saeed Mahameed <saeedm@nvidia.com>, Shay Drori <shayd@nvidia.com>
-Subject: Re: [PATCH net V2 2/4] net/mlx5: Lag, limit aggregated TX speed by
- PCIe bandwidth
-Message-ID: <20261023200603.GA2734761@bhelgaas>
+	s=k20260515; t=1792786000;
+	bh=JfHAwnpgWVWiUOZzQpJe7RI0KYVwO1R7KV/LtNs7c4M=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=LMJhGTh5YgA4ABT99IIuEqqm3njpjAQhdHT2ZhD+Yzkat00V4HVVGccUV05k+6D1D
+	 1zEONlKsGNrTLuj0St+gIhoRsvn4o61Six4/tgZaxgXHk7T5f4fv9AsbIYad7kLrfo
+	 rRAviz6E8l856tfOX35e51ZeJI46EiGZLwtQq5qngbcYEiNl5qKnDWZWR4TT07jVGN
+	 4/Es+bM4VYi4BoyqhfXGMiemxDiilezQeFN1fl87yT7odLMdzdsvkYXUKpIZC5vQt5
+	 aFGPbfvlJP6W8sr58hLT1VAW0B8aJf8LnZfwCacsin5zf9Z8rbo7hALI37938sF3ms
+	 JTMzJ1hu9Wg8w==
+From: Tejun Heo <tj@kernel.org>
+To: sched-ext@lists.linux.dev
+Cc: David Vernet <void@manifault.com>,
+	Andrea Righi <arighi@nvidia.com>,
+	Changwoo Min <changwoo@igalia.com>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	David Dai <david.dai@linux.dev>,
+	linux-kernel@vger.kernel.org,
+	Tejun Heo <tj@kernel.org>,
+	Sashiko <sashiko-bot@kernel.org>
+Subject: [PATCH 18/17] sched_ext: Fix use-after-free of a NONE rescuee leaving sched_ext
+Date: Fri, 23 Oct 2026 10:06:39 -1000
+Message-ID: <20261023200640.272834-1-tj@kernel.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261023175608.4120910-1-tj@kernel.org>
+References: <20261023175608.4120910-1-tj@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,96 +64,55 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261022193053.3815866-3-tariqt@nvidia.com>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Oct 22, 2026 at 10:30:51PM +0300, Tariq Toukan wrote:
-> From: Or Har-Toov <ohartoov@nvidia.com>
-> 
-> FW initializes max_tx_speed to the minimum of the port speed and the
-> PCI bandwidth. Modifying it with a value computed by different rules
-> changes the meaning of the field rather than updating it.
-> 
-> Limit the aggregated LAG TX speed by the PCIe bandwidth. Clamping each
-> uplink separately and then summing could let the aggregate reach a
-> multiple of the link's real bandwidth, so clamp the sum once instead,
-> counting only the ports that contribute to it.
-> 
-> This assumes the bonded PFs share a single PCIe link, which holds when
-> they are functions of the same device. In Socket Direct, each port spans
-> multiple mdevs on separate PCIe links, so the PCIe budget for that port
-> is the sum of its mdevs' PCIe bandwidths. Where Socket Direct ports do
-> not have equal PCIe budgets, the aggregate is clamped to the narrowest
-> port, which under-reports rather than over-reports the available
-> bandwidth.
-> 
-> pcie_bandwidth_mbps() reads the endpoint link only, without traversing
-> upstream bridges, and uses the nominal per-lane transfer rate times the
-> link width, without encoding overhead. FW initializes max_tx_speed from
-> the same endpoint-only link status, so using the same calculation keeps
-> the clamp consistent with the value FW programs before LAG. Ethernet
-> speeds and max_tx_speed are likewise nominal rates, so the comparison is
-> like for like. A more accurate bandwidth estimate would make the
-> aggregate differ from the per-vport value FW sets up for the same link.
-> 
-> If the PCIe bandwidth of a contributing port cannot be read, the speed
-> calculation fails instead of returning an unclamped or partial result.
-> A device that has no Link Status register, an RC integrated endpoint,
-> has no PCIe budget to apply and is not clamped.
-> 
-> Fixes: 50f1d188c580 ("net/mlx5: Propagate LAG effective max_tx_speed to vports")
-> Signed-off-by: Or Har-Toov <ohartoov@nvidia.com>
-> Reviewed-by: Mark Bloch <mbloch@nvidia.com>
-> Reviewed-by: Shay Drori <shayd@nvidia.com>
-> Signed-off-by: Tariq Toukan <tariqt@nvidia.com>
-> ...
+An earlier patch, "sched_ext: Fix bypassed tasks stalling when the host
+lacks SCX_CAP_BASE", sends a bypassed task to rescue when its host lacks
+BASE on the cpu. That reaches a task scx_fail_parent() punted to its
+bypassing parent at NONE, so such a task can be a rescuee.
 
-> diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
-> index 8cc6a89130b5..064eef237d6f 100644
-> --- a/drivers/pci/pci.c
-> +++ b/drivers/pci/pci.c
-> @@ -6006,6 +6006,22 @@ int pcie_link_speed_mbps(struct pci_dev *pdev)
->  }
->  EXPORT_SYMBOL(pcie_link_speed_mbps);
->  
-> +u32 pcie_bandwidth_mbps(struct pci_dev *pdev)
-> +{
-> +	u16 lnksta;
-> +	u32 width;
-> +	int speed;
-> +
-> +	if (pcie_capability_read_word(pdev, PCI_EXP_LNKSTA, &lnksta))
-> +		return 0;
-> +	speed = pcie_dev_speed_mbps(to_pcie_link_speed(lnksta));
-> +	if (speed <= 0)
-> +		return 0;
-> +	width = FIELD_GET(PCI_EXP_LNKSTA_NLW, lnksta);
-> +	return speed * width;
-> +}
-> +EXPORT_SYMBOL_GPL(pcie_bandwidth_mbps);
+switched_from_scx() returned early for a NONE task and skipped the slice end
+scx_disable_task() does for the other states. A NONE rescuee leaving
+sched_ext while running, through a setscheduler or a priority boost with
+slice left, left rq->scx.rescue.curr pointing at it, a use-after-free once
+the task exits.
 
-Can you split this into its own patch?
+End the slice for a NONE task there, which ends the rescue with it.
 
-It looks like cxl_pci_get_bandwidth() and maybe even
-pcie_bandwidth_available() could be refactored to use this.
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Signed-off-by: Tejun Heo <tj@kernel.org>
+---
+ kernel/sched/ext/ext.c | 15 +++++++--------
+ 1 file changed, 7 insertions(+), 8 deletions(-)
 
->  /**
->   * pcie_bandwidth_available - determine minimum link settings of a PCIe
->   *			      device and its bandwidth limitation
-> diff --git a/include/linux/pci.h b/include/linux/pci.h
-> index 5ffcf5ce8c96..202bc8680601 100644
-> --- a/include/linux/pci.h
-> +++ b/include/linux/pci.h
-> @@ -1479,6 +1479,8 @@ u32 pcie_bandwidth_available(struct pci_dev *dev, struct pci_dev **limiting_dev,
->  			     enum pci_bus_speed *speed,
->  			     enum pcie_link_width *width);
->  int pcie_link_speed_mbps(struct pci_dev *pdev);
-> +u32 pcie_bandwidth_mbps(struct pci_dev *pdev);
-> +
->  void pcie_print_link_status(struct pci_dev *dev);
->  int pcie_reset_flr(struct pci_dev *dev, bool probe);
->  int pcie_flr(struct pci_dev *dev);
-> -- 
-> 2.44.0
-> 
+diff --git a/kernel/sched/ext/ext.c b/kernel/sched/ext/ext.c
+index a274210007fa..8241cf374ef9 100644
+--- a/kernel/sched/ext/ext.c
++++ b/kernel/sched/ext/ext.c
+@@ -4960,16 +4960,15 @@ static void switched_from_scx(struct rq *rq, struct task_struct *p)
+ 		return;
+ 
+ 	/*
+-	 * %NONE means SCX is no longer tracking @p at the task level (e.g.
+-	 * scx_fail_parent() handed @p back to the parent at NONE pending the
+-	 * parent's own teardown). There is nothing to disable; calling
+-	 * scx_disable_task() would WARN on the non-%ENABLED state and trigger a
+-	 * NONE -> READY validation failure.
++	 * A %NONE task, one scx_fail_parent() punted to its bypassing parent,
++	 * has nothing to disable and scx_disable_task() would WARN on it. It
++	 * can still be a rescuee under the parent, so end its slice here as
++	 * scx_disable_task() does for the other states.
+ 	 */
+ 	if (scx_get_task_state(p) == SCX_TASK_NONE)
+-		return;
+-
+-	scx_disable_task(scx_task_sched(p), p);
++		scx_task_slice_ended(rq, p);
++	else
++		scx_disable_task(scx_task_sched(p), p);
+ }
+ 
+ static void switched_to_scx(struct rq *rq, struct task_struct *p) {}
+-- 
+2.56.0
+
