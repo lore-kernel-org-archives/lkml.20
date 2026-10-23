@@ -1,79 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792770942;
-	b=FxA7MWdrDMIF5y9EBmUpuKW42o02c9t68GuTybvU9E4gBqX1fZkgQJrRSN9QoRPyDzIi
-	 aoCeIYRJmpkGEbrLEQILcnHRXTzYAp90+PNd5dlt36MU+xLB0XzEXD2YCLt5GPK66ssN3
-	 X50kLDuNcjR9D+IEwKfB3x4PmMRdSjwnrWw0kYiq8rKXUyC+qgmn3A2Q6Skw0XGHqoApw
-	 BIc2uzK1gW40aIx67o3lfYU9SygWI9Nwn92ABmQ/alDLlsc7iDmWiM4qPsGAxlLCXFPv4
-	 P6XdALYiG6gORWUC694X6yfIp9uC6KK0lPN4U/YZp8IUqUgWW/1JMS37N5FykRLuriQ==
+	t=1792770976;
+	b=QEPZyfOUg6/I34faheQ1uQ3kj5WpMp0l5V22Ztd9Ve/qQkDzDP6TS1jewbfIZ7HznyI9
+	 cujt8Idk26fUf9ZLSMaOQTf+45rK5xvPARHuXtOtRvBqX3HxP9p0xbtZa5ilI295Nm0De
+	 CbYf2ANpcctRxEtbo9ZjKryjOP2WBVA3HXVP9dq1yrCobXmkA3RdYN1Bhfy8n981gi2nO
+	 JvDsj7oKGwh/kI8FKyAQKo/eE67AYJk2sM4I2PmAoI1K/fxWtcTLIOnhi0ItZyz6RblTl
+	 yug7OdqvvZJkIFkHj2ZvSKKAqbLQ44Y/ZmMaD8FR3NIaFHvT6q/xSTqXCTQt5whM0QA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792770942;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:Cc:Subject:Date:
-	 Message-ID:MIME-Version:Content-Transfer-Encoding:X-Scanned-By;
-	bh=ynnFsRlov1ettI6tdNTmf0TbH0h7G/oa8q2L/bW+DQ8=;
-	b=CKDjUPzkxTB90AwgabZLUFmT5j/eXAJKwqyzAlgaNTUSF+3B1UbYjzemmdpI4hvBYPNN
-	 DC3KtV1TVpBiZ1m4g2XxEmMienSvX+MQYkzy6UzdoZnSBCZSvDjmMyE0yjS2CMA42Afbd
-	 ISnz0esIzyHTQRbHgNIziebYzfLWoekOPkpZpRHU1tgi+rsJwPms3/3nVoSncR/g8Ut7d
-	 rs+f3Xj/muKblHvg+dn689PlL3Y4mpKrijOtjmqZj7sV1TSQkH1oWjSiwjY/Ei5DOIfEl
-	 TvDGXRDQRp/tJLaS8MXfeaJYy9xlHLcnEsuyFlTKxUtUhtL9v4bKffsZdSiDUhC2wxg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792770976;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=XuZgvrBWboI3rpW18QcCXiO5LrzdiM17tAi+GoKtDEc=;
+	b=MBy1HxSDtkODCPMOvwRleC4w2Y2GIwHoff4EKDx5V2SfvYSAKfT+BHVLxkW+F2YGRrMk
+	 VZKB+x1XPvz4/DM4wgdJ7SmypZgjB6SpRNodpi3bBeoYeUokFThn8y/g3FK+aiSeGfuB3
+	 P/KcbCIfsDoHha1H1SkRVxC+7OVJG+raNiw4fjAWSOOg2uduakmL120tfBvNduaoSWzdK
+	 k4KY8zDUJ0HT9PyLGsHinSEkC6Hu5h9/IujfnRp54Y81y5gUSs9OqU/EnBljN3bixf8Gn
+	 jfVJ0mYAGJitOzL3v2rmLnEnZ2qZCcay/STQ6R2T8KXt1arjoS7McuS6MV3sHzYVYrw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=YeqVggOP;
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TWB7iaoU;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4FDF606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 15:55:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D4FDF606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B965606A31B;
+	Fri, 23 Oct 2026 15:56:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=YeqVggOP
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1792770940;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=ynnFsRlov1ettI6tdNTmf0TbH0h7G/oa8q2L/bW+DQ8=;
-	b=YeqVggOPF7MtY45syd+t842rl4Q+dAXgV0SDAoDNSKfd3qpOseKZ6KVh13vtIGP3oDNGK7
-	4qtuOqXChdB33ewPyzsaBc+DUvNpgfnc4TO7phzLCqdaTnJTw9hObdXtNFULMVPZQ355lR
-	HAwGUi5iwJH11BPUVCeQXl75qBvZsTw=
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-661-BgUftQijMgmoYf_ioMrlPQ-1; Fri,
- 23 Oct 2026 11:55:37 -0400
-X-MC-Unique: BgUftQijMgmoYf_ioMrlPQ-1
-X-Mimecast-MFC-AGG-ID: BgUftQijMgmoYf_ioMrlPQ_1792770936
-Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id F21A818005B1;
-	Fri, 23 Oct 2026 15:55:34 +0000 (UTC)
-Received: from jmarchan-thinkpadx1carbongen9.tpbc.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 632451956089;
-	Fri, 23 Oct 2026 15:55:31 +0000 (UTC)
-From: Jerome Marchand <jmarchan@redhat.com>
-To: Michael Ellerman <mpe@ellerman.id.au>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	Christophe Leroy <chleroy@kernel.org>,
-	Ritesh Harjani <ritesh.list@gmail.com>,
-	Shrikanth Hegde <sshegde@linux.ibm.com>,
-	Madhavan Srinivasan <maddy@linux.vnet.ibm.com>
-Cc: Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	linuxppc-dev@lists.ozlabs.org,
-	linux-kernel@vger.kernel.org,
-	Jerome Marchand <jmarchan@redhat.com>
-Subject: [PATCH] powerpc: Use raw_local_irq_pmu_save/restore() in local_t functions
-Date: Fri, 23 Oct 2026 17:55:29 +0200
-Message-ID: <20261023155529.3895393-1-jmarchan@redhat.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TWB7iaoU
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0351C1F01825;
+	Fri, 23 Oct 2026 15:56:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792770975;
+	bh=XuZgvrBWboI3rpW18QcCXiO5LrzdiM17tAi+GoKtDEc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=TWB7iaoU0mqHu7XMC6qJKeP6ShXGY/fvZ0moZp8oYAhvj+Erh31gPg6uk5N+YkGUv
+	 fjw5vIBRdELK/grhuh/8ykk2bF6Seq3+J8EWPILmphRz6hDQrGbQbX3MKbXys7xHpY
+	 6GnGgVrvMOwypfqqPOjVkoduLfcBH3Xmi7WNa5Uu7nsJQK+VeHK3vQvuQsDcfNQyIu
+	 Rv7D7qvQflAOj/K1U6rmyTTwNMrweW6RjE4yNMpWwP6SdPpD3vD/glpmuhlHaMQBV1
+	 /UQv8RJgj6+nvx1zFN+uhYPfGBLVL1u7t8Abgejl7E6cXlzdBIhlcUeIGwCtbSpY4r
+	 JVHRY2AsStYZg==
+Date: Fri, 23 Oct 2026 16:56:46 +0100
+From: Jean-Philippe Brucker <jpb@kernel.org>
+To: Marc Zyngier <maz@kernel.org>
+Cc: Ryan Roberts <ryan.roberts@arm.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+	Oliver Upton <oupton@kernel.org>,
+	Alex Williamson <alex@shazbot.org>,
+	Jason Gunthorpe <jgg@nvidia.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Oded Gabbay <ogabbay@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	kvmarm@lists.linux.dev, kvm@vger.kernel.org,
+	devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
+	linux-doc@vger.kernel.org
+Subject: Re: [RFC PATCH v2 11/15] KVM: arm64: Export stage-2 MMU config
+Message-ID: <20261023155646.GA52056@myrica>
+References: <20261015142552.4128028-1-ryan.roberts@arm.com>
+ <20261015142552.4128028-12-ryan.roberts@arm.com>
+ <86h5idzqow.wl-maz@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,105 +71,78 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <86h5idzqow.wl-maz@kernel.org>
 
-On ppc64 with CONFIG_TRACE_IRQFLAGS enabled, the ring buffer code can
-enter in an infinite recursion loop.
+On Thu, Oct 22, 2026 at 04:43:27PM +0100, Marc Zyngier wrote:
+> > +struct kvm_arch_guest_mmu *kvm_arch_get_guest_mmu(struct kvm *kvm)
+> > +{
+> > +	int ret;
+> > +	struct kvm_arch_guest_mmu *mmu;
+> > +
+> > +	guard(mutex)(&kvm->arch.config_lock);
+> > +
+> > +	if (is_protected_kvm_enabled())
+> > +		return ERR_PTR(-EOPNOTSUPP);
+> 
+> How does this compose with CCA?
 
-The problem occurs because some PowerPC's local_t operations
-(local_inc/dec in particular) use powerpc_local_irq_pmu_save/restore()
-which call trace_hardirqs_on/off() to generate trace events. This
-creates a recursion loop:
+This function would reject realm VMs once they're supported. If we
+wanted to assign a CLA device to a realm VM, I think it would be managed
+entirely outside the host:
 
-  ring_buffer_unlock_commit()
-    rb_commit()
-      local_inc(&cpu_buffer->entries)
-        powerpc_local_irq_pmu_save()
-          trace_hardirqs_off()
-            trace event => ring_buffer_unlock_commit()
-              [INFINITE RECURSION]
+* EL3 driver reconfigures the device's accesses to
+  physical memory (security state, memory encryption etc),
+* RMM driver owns the PL2 registers to program the stage 2 MTC,
+* the VM owns the rest of the device.
 
-Use raw_local_irq_pmu_save/restore() instead of their
-powerpc_local_* counterparts.
+Lack of interrupts should make this assignment relatively simple.
 
-Fixes: 6cd74d2b61749 ("powerpc/64s: Implement local_t using irq soft masking")
-Signed-off-by: Jerome Marchand <jmarchan@redhat.com>
----
- arch/powerpc/include/asm/local.h | 22 +++++++++++-----------
- 1 file changed, 11 insertions(+), 11 deletions(-)
+> Can it be restricted to exclusively running VHE rather than also
+> dealing with the lesser configurations?
 
-diff --git a/arch/powerpc/include/asm/local.h b/arch/powerpc/include/asm/local.h
-index ec6ced6d7cedf..4c033526bfb0d 100644
---- a/arch/powerpc/include/asm/local.h
-+++ b/arch/powerpc/include/asm/local.h
-@@ -32,9 +32,9 @@ static __inline__ void local_##op(long i, local_t *l)			\
- {									\
- 	unsigned long flags;						\
- 									\
--	powerpc_local_irq_pmu_save(flags);				\
--	l->v c_op i;						\
--	powerpc_local_irq_pmu_restore(flags);				\
-+	raw_local_irq_pmu_save(flags);					\
-+	l->v c_op i;							\
-+	raw_local_irq_pmu_restore(flags);				\
- }
- 
- #define LOCAL_OP_RETURN(op, c_op)					\
-@@ -43,9 +43,9 @@ static __inline__ long local_##op##_return(long a, local_t *l)		\
- 	long t;								\
- 	unsigned long flags;						\
- 									\
--	powerpc_local_irq_pmu_save(flags);				\
-+	raw_local_irq_pmu_save(flags);					\
- 	t = (l->v c_op a);						\
--	powerpc_local_irq_pmu_restore(flags);				\
-+	raw_local_irq_pmu_restore(flags);				\
- 									\
- 	return t;							\
- }
-@@ -81,11 +81,11 @@ static __inline__ long local_cmpxchg(local_t *l, long o, long n)
- 	long t;
- 	unsigned long flags;
- 
--	powerpc_local_irq_pmu_save(flags);
-+	raw_local_irq_pmu_save(flags);
- 	t = l->v;
- 	if (t == o)
- 		l->v = n;
--	powerpc_local_irq_pmu_restore(flags);
-+	raw_local_irq_pmu_restore(flags);
- 
- 	return t;
- }
-@@ -106,10 +106,10 @@ static __inline__ long local_xchg(local_t *l, long n)
- 	long t;
- 	unsigned long flags;
- 
--	powerpc_local_irq_pmu_save(flags);
-+	raw_local_irq_pmu_save(flags);
- 	t = l->v;
- 	l->v = n;
--	powerpc_local_irq_pmu_restore(flags);
-+	raw_local_irq_pmu_restore(flags);
- 
- 	return t;
- }
-@@ -128,12 +128,12 @@ static __inline__ bool local_add_unless(local_t *l, long a, long u)
- 	unsigned long flags;
- 	bool ret = false;
- 
--	powerpc_local_irq_pmu_save(flags);
-+	raw_local_irq_pmu_save(flags);
- 	if (l->v != u) {
- 		l->v += a;
- 		ret = true;
- 	}
--	powerpc_local_irq_pmu_restore(flags);
-+	raw_local_irq_pmu_restore(flags);
- 
- 	return ret;
- }
--- 
-2.56.0
+Yes, I don't think we want to support any nVHE config at this point.
 
+
+> > +	mmu->vtcr = kvm->arch.mmu.vtcr;
+> > +	mmu->vttbr = kvm_get_vttbr(&kvm->arch.mmu);
+> > +	mmu->hcr = kvm_mmu_get_hcr(kvm, 0);
+> 
+> How about the hcrx field in the structure?
+
+It's 0 because HCRX doesn't seem to have bits relevant to MMU
+translation, except maybe EnSDERR and EnSNERR that KVM doesn't set.
+But it's not entirely clear which bits are relevant to this function,
+because other possible users may access memory differently (eg. no
+instruction fetch or CMO from a CLA device). Your suggestion below
+should simplify this.
+
+> > +
+> > +	return mmu;
+> > +
+> > +err_unpin_vmid:
+> > +	kvm_arm_pinned_vmid_put(kvm);
+> > +	return ERR_PTR(ret);
+> > +}
+> > +EXPORT_SYMBOL_GPL(kvm_arch_get_guest_mmu);
+> 
+> It really feels like this is a bit upside down. Since you are actively
+> pinning the S2 MMU context, it should only be a matter of taking a
+> reference on the kvm struct (just like KVM devices do), and handing
+> off the kvm_s2_mmu structure, rather than copying things. When you're
+> done with it, drop the reference.
+
+OK, I'll update this. The reason for this copy was to keep a clear
+separation between KVM and the CLA driver, so the driver wouldn't have
+to use KVM internals like kvm_get_vttbr() and kvm_has_mte(). I think
+those are the only ones at the moment.
+
+> If there is a need to deal with a different value for HCR_EL2 (or
+> anything else), it can be done in the code that makes use of it,
+> rather than being in the KVM code.
+
+Makes sense
+
+Thanks,
+Jean
