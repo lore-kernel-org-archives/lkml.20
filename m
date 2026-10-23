@@ -1,101 +1,120 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.173
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792783899;
-	b=nD1ala3PoFDzH0TWLLPU0TMKJn1WFzev+mvTUr+r9XRqWIwd0uM9UGCe1xIUJoiKQuC7
-	 3ExRu87jOei1zI/Z5PWfeIoADb1dHqmAZgMmPSHa4yFT+tCePk0NtEUS8woI4gcnHXACi
-	 fnrUhVxPg8mZD7SUil3S04A/dhsOjIxlz8HiSsWdl7oNjNJBVgDHnBBqd/JWTHCspmIXf
-	 8tz0yLkkNp/gSY7fCZffzyOxt3NJnnApXEH9oSkkKXIOfN+q15uTEBQ9hALUok2wilPM6
-	 ex3z9qhVn2ZRndIOoHmT/5DVj95lpigASwtIOkLyhnksvhe3En8iG+TbOuzebH+AZCw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792783899;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=ssiACCz8iQhHfav075HToQsQkWyrJS6OaxDAqF1b0sE=;
-	b=anSJkTtehRazVwQfguJ6CSDkQEPgcQCSCyGSq822pGeKtSKazn6tTsmoSYdWymvrlBGk
-	 WhbGhPZrDXN+5BQPNYI0DiF6vG+OoBdn1EzYhVvwUnNU8X1n69xjOZEKt2YhOUyx5OP+9
-	 FW60Y/4FMgTqrMmsFx3rK5G7hEKOYeg48mQFF7R9BbAEaTQ7/89B0h0gCKgd52kR1Qfvv
-	 JhviRsoYBkQi5+qoG8mPLvhkm1Od8maxQovEDFSE1gu5Sf8McYYJ3TXAecPEVAmhJCGqF
-	 dFAyVeOeAq+fXUMlNKRHWDg/WvJddCC2Yg1Ix0LBPHlVT2tsqzEL6YhLoGIG7vVmPjA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=fM4pp+17;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.173
-Received: from mail-lj1-f173.google.com (mail-lj1-f173.google.com [209.85.208.173])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792783911;
+	b=dn7HYm/I63i65SepjWQcplePpd7mJZOWznr238uT+WdO79VNK8iOydFwhkZZ4+G0ZZ6E
+	 TpyhBrJzD+SeCtSjtMCzU0vkSKZFnoncRTmZVX0wOlk4Id7jXrHFUCi7AN99TSjh7OUfz
+	 11oG6Sn9RtaL6OVtTn/lzxxJmSTFPL1E58gy+IeHPC/JbcHApvcy4tsj6JZYeeMAhsKNc
+	 vc8ww+KjpEzpEnPJZbS3sEGCugT4oX9bSzdzGDaK9VI4ktdxar3bYulwrT8UIxJ88GeaY
+	 zp+Hrl7trJPipgtowtg+rg6C90Kc3lysWTnTOocWUXh9fWHvicNktGqVmsTMXqNl+Eg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792783911;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Subject:From:To:Cc:Date:In-Reply-To:References:Content-Type:
+	 Content-Transfer-Encoding:User-Agent:MIME-Version;
+	bh=eildQREft99H7v88HxbeXxFVawAYtvAnxQSW518LNL0=;
+	b=N03CrXMSH7GZBn5cy4mt82TOaJF4H12xJY9q3KDV15G2xB4/FY4wYtPCnjqWm3U1dmiP
+	 I6y0dzWNafo7ZT6R9JFwQ3yFJB0mbt9Z5LMtNDdH7/0P2y/UNWfSoN0v6YtKCJ7tQ+2du
+	 nNyBc5mZ1bM7CDQupAjjcEKNCw4J73p5FCbO7PKvlI3Kz64MQcQ1W0BOP9c3LPuaPp2PJ
+	 fml+aPfNGIXXwHO1ptgstBaF2EnCvM80Dxj0+pKJJH/yMIx7TvWk6rPz1CtjGqWpQRRam
+	 tfHB93d7jwyLPV4BYO4n70zEQfdjyARRRHujXkyufafMfR/lUMlXS7AxTPqRxHH09yA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=GAYSLIdx;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=p+35AeLl;
+	arc=none smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6634C606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 19:31:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6634C606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD7E4606A31D
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 19:31:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CD7E4606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=fM4pp+17
-Received: by mail-lj1-f173.google.com with SMTP id 38308e7fff4ca-3ab3b29a210so11617021fa.0
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 12:31:39 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792783897; cv=none;
-        d=google.com; s=arc-20260327;
-        b=SIOAD9GDktsww/jQWpIZJqXOUAUsDjZe4+Rmj//jtYjAes8XYRxp5imLgvV2Syzwum
-         S08QK2e1JoFHN0HLVplrgNQ25EXazbaHJLlNdfj0uo0fvA2rXwJzPDWXP/aB65llyIWp
-         DtdXqgIhRSN17z3/SSWNi0Qp3wPApsNJg4qr508q5O06WAGmotXZrExR6vmj0kmDLRa8
-         3pyjtzxnB4FyxQubW3POZif8s7lynTNs/WXrKPesbAAZk+NIPB7MXIoY6cpEC3Cg0VWQ
-         AbgaZTzH+FBqYdaVNAeWslWVDWoIB+jmfvrRkzGU680ujVJFu9YZOIqyxBj4cqlSa9+v
-         3v+A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=ssiACCz8iQhHfav075HToQsQkWyrJS6OaxDAqF1b0sE=;
-        fh=QzmGg7oL/pUMQOVbK58PlhYeRO2apoxXKAYYK+1J0+A=;
-        b=bRtguWk/TvwP/4fVR2ZGdGSmTqxy2Swrt3E7P3y8KRoCIJLmdllcuBAEa624SecfvW
-         oeUrSxJm40OH/aok3PWGW/80kxxNzceyhu3Y4ZSmWwEfjdPZiCIR8LLWHwhRnebXw/ut
-         UcUqbuDnCSQjhe0AlJpHlYFhEzx9Z1mDGc5yzfWpD+8D/37edhca3nPbaAUQEt9lp1fA
-         akJtOaNSxP1HwEKmoZFvAuyQL8r+gItJ1+Om0/0IbyUXg09oUFkPrKfidAHDcDVGd7oo
-         AUi9cyjFK/cE44wmZ6piC9dScrhD/cJURfpWv55ib3k3Zn6Xl1St4vFHnfiOSO3+64IY
-         dMzw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=GAYSLIdx;
+	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=p+35AeLl
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1792783909;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=eildQREft99H7v88HxbeXxFVawAYtvAnxQSW518LNL0=;
+	b=GAYSLIdxoGvHpj373NZwI1t07H8cNAYhcRIBSiFq8VAZcb18BXx2WwIbElFaSV/uRLqBxx
+	d7o/VuC8o9UR6IzUDl4Qypxp/tv5TdUxZH6D/Uz5ltDIgT8xOmK0lWdM7PvbrNUNRoP4eA
+	oD48u80EWGR9veIx/xrkay5w8ajPBsY=
+Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com
+ [209.85.219.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-447-0joiRUZbNe-bWW-e2nZUUw-1; Fri, 23 Oct 2026 15:31:48 -0400
+X-MC-Unique: 0joiRUZbNe-bWW-e2nZUUw-1
+X-Mimecast-MFC-AGG-ID: 0joiRUZbNe-bWW-e2nZUUw_1792783908
+Received: by mail-qv1-f69.google.com with SMTP id 6a1803df08f44-91bb074ed1aso4025126d6.2
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 12:31:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792783897; x=1793388697; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ssiACCz8iQhHfav075HToQsQkWyrJS6OaxDAqF1b0sE=;
-        b=fM4pp+17mA2W5prd1gKXs4asXj+KvPItU/RBUMEhZBpKcMtyDq5558E6+66GTgP1fG
-         yPKZv9p894NBLrzFa+5RYs4AFfJXQb/o7xpkKp32dvCtr97FsbmkihOmGUCCLhtxuu1r
-         GOGGXG96BmHYxArM9K4Fp//exMojM+ADNW4fYADcQBAlhhRKIiP/l9p7o5PkEyYXoz7m
-         qHoycI7yEMC3U6Gxb1Tx/tM5ah1iu1duxm7tAK9BOKyejnzdQSUs7CjT1DAzuiaeHvMo
-         R9tUcZKEYc8478yFiI0J5VyfsrV2pe3l7c8HGdX6rJqgo9USGvkieX6t5SEIUHqNk4Yl
-         DTeA==
+        d=redhat.com; s=google; t=1792783908; x=1793388708; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=eildQREft99H7v88HxbeXxFVawAYtvAnxQSW518LNL0=;
+        b=p+35AeLlgNAqNi9x+18F0tAyNAmiiGttF9rnI2Y3NVonjF+xfMwhAzFyDOpqgZzJNi
+         FcuoWP4kTW7QYRoIOEpsJWWAuOYebvgsn8C4SJx+/fkC643+rMnRenTcILyQtq0ocDaE
+         JO85iY+NVdQ7cYT0CnnmXvedS9/pOvZM10LZg+dfEoBj9SMSI9tE8Cv4IixdumPm/xE5
+         yVyDzY/R5dYq2Bp5+wtf5QJXA6E9DtAHg8K9OLqDEy3Si7tIMpaAoWDr8RGuSNDC+wxx
+         HuQdJMGstemtgNy7j/9ljWYU3WewYnIimqElDJ6fI0cxm9dvGsI53kt5Xe7/NXP/qF3M
+         IOvw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792783897; x=1793388697;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1792783908; x=1793388708;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=ssiACCz8iQhHfav075HToQsQkWyrJS6OaxDAqF1b0sE=;
-        b=lv8j495ZjWeN3WMJ/ARIcxM+Jr7JfAh+hZy7OQ5MZTpUAsqTzK49q+ZgW3+nS5gwTW
-         wl19PqwYQZUQuqSQeutX29VBpMgz5vy2N5ZnHLPjnc+phN7/lXRExXigSuBblo9fZT1f
-         Y/6BROyzaBRxGmfnV7T2iAiXCXTuSKpff6Ex9cpDT09bMkt/n1glrYO61vxh5P+afo/0
-         uJvokfc12HaWUBjXA50T8O6DzOHsrlUBAIFU7k+QZSIPSdwBDpwNy9mUx0JVQvmS0Wkv
-         BsNGP16eidsaNuv2IERjO+U93pDCV2zZeBeN8XNhFMDNYmdP+QeSiw2vstURm1bqL31n
-         Hwkg==
-X-Forwarded-Encrypted: i=1; AKwUvByHAnq4ERhJGrPk/VpUbR6wuC3SY1e42CGq1rMd58ojdlFEIjRptnglzMrEJxy2hBiVps1GYR26Bxg0EFI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJkF8RnMxN9nMyh8LtrOjECuZWbjsELzb8ksVQwZMp1UAgrlAcB
-	hyHr3M05Hh5y7Sc4D5utPmA1KTNr4A+S73xSpMzEFqTys4XpURFWnTAs0z8+x13I4Z8lmEvzp/B
-	qyWV9USkB4GDllYFXPmpw4O3K8UoNn4Wuy3zlPaX2+LZq
-X-Gm-Gg: AYBFou1L09uoUI8iRw+r6nPXWbKcH/PBMNsi6oJIL3UXQH/1E8hylQKpYQj+B7AOAw8
-	muNdBcQw8gD3R5CjycxHCDvPdolQE32e0We1WboUUIpicrlVcVnT1p2vV+EhJZ5ffXrgy27TJ/V
-	WfLlS4MU8bcLRogaDIaZi5PlwIZqJA8JB9bplVNmPWInSqC80hjDIHlRIB76zoty0pEjLwV46ot
-	KTrst4aCnKbjgDRTCvikn5JYigRu57ZBtIKruLGn1MdzBtf9HJwnF+gLkjmtihSiVlGTtL6+bde
-	W+W2Zi3ET01h4K4fykTkUWNTVBWhXHpOj6BnavjOs3IR3DyO1Wq4i4DFz+3+1XNv1y84VHUspTI
-	Kv8GCDCspcG7O8HFtL8KKiDUTsqP9OKgGNC3V0nwE7KcmKbwjCUb0g3RG0LbeMs86L7K4azzlIc
-	VhJ/o7T+jReki74A==
-X-Received: by 2002:a05:651c:31c2:b0:3ab:1dcd:934c with SMTP id
- 38308e7fff4ca-3ac6fde7f59mr484421fa.1.1792783897356; Fri, 23 Oct 2026
- 12:31:37 -0700 (PDT)
+        bh=eildQREft99H7v88HxbeXxFVawAYtvAnxQSW518LNL0=;
+        b=PhKEnedYJGS3VWJYrogprJinr4sUUhFmnKIUbncXELDWYNzF285KIflrZ1fpDElYBW
+         /L1yBp23CCB61P/hSmBRFogR2z55lI77myXv0NWLE0V0EqeoCqGYeLtusE0lfwhbKxGP
+         yRLwbKsfuPaW4fSdYG9A9vHpKt5ziY9akvplSWN+ysokfqjgKMdOQC2w3p1ffFzD5BfV
+         0ebHpFttbXo+LQO4pgT9A5K5I0NzQppmZ2Ye7TH2njw0VGg6ZigI/WAFiTRM4YWaPg03
+         bB3xch/0tYkJrs5bt7coJJklPhV8oBS2p6qKxi0D7KCIb24g0VUVfg1/RnN8XeQaSXpA
+         UxDw==
+X-Gm-Message-State: AFq9FYJURayHEwOXFe+3PmhFV5e5LPDEOjdYMdjZth3lhQT2vaZSGLnQ
+	DujlvCIsxZUjxQkgCIEbVA9L4RkCtYRa/IdbFvqTqahaRBt0vPmQganrz8vvN38XWfTaOhNMA4I
+	tZdW7h7pT3qi0Jor2BnJAOKZYcb8FlFZEJWk8fLZdJP91YqxHT/qNZHU5sj95p5m57ozHIWFOq0
+	6ZyxtJeNMq33Dkn9dqysVbAGfZLLBXoeTYuiEqkAo3wvfKUA==
+X-Gm-Gg: AYBFou2FPmfpgHSSuqCZQctabEaP0iZCZMarp3CZeL6HL/3h2ArJw4Xe+sIPito+qud
+	v/R5EsDyT+TIWpr1OxeDtKDntPV0RuKfNoW1VAsxRJZkptfjtpeqGkXY2r4LiZ87IlGMy+dF2SX
+	LqSjXqhXU+gkHxvbjCUNWE28/wK6jwFRp0tl9ow/pBIVGtpgzW+S/yBfUvQLT2amqIu5hdhcMwl
+	kteDb0LZh/7GjGNd28RsPx8cVkuWmnm58rH3KaET4+xuIc9bsyTQpHgG2EM3zQkAoQAjpZQrx7O
+	UU6TnupmmzD7nwcgu6uIusxkygXjU0rtKT+a6XVm9Efo5+35d336y2kRoKt9CKWnYqBw5dY=
+X-Received: by 2002:a05:620a:2909:b0:93c:3d7e:6e90 with SMTP id af79cd13be357-940ef8d90admr5920785a.32.1792783907574;
+        Fri, 23 Oct 2026 12:31:47 -0700 (PDT)
+X-Received: by 2002:a05:620a:2909:b0:93c:3d7e:6e90 with SMTP id af79cd13be357-940ef8d90admr5914485a.32.1792783906961;
+        Fri, 23 Oct 2026 12:31:46 -0700 (PDT)
+Received: from [192.168.8.4] ([100.0.180.93])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-94047b12ed6sm95633485a.25.2026.10.23.12.31.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 23 Oct 2026 12:31:46 -0700 (PDT)
+Message-ID: <8b131d2c06adfaf9ce1d6e8cf6c09c749d0e4d1c.camel@redhat.com>
+Subject: Re: [PATCH v2] usb: core: Add quirk for Gigabyte Aorus Waterforce X
+ II AIO coolers
+From: lyude@redhat.com
+To: linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org
+Cc: A1RM4X <dev@a1rm4x.com>, Alan Stern <stern@rowland.harvard.edu>, 
+ Christoffer Sandberg	 <cs@tuxedo.de>, Kees Cook <kees@kernel.org>, Rodrigo
+ Lugathe da =?ISO-8859-1?Q?Concei=E7=E3o?= Alves	 <lugathe2@gmail.com>, Jie
+ Deng <dengjie03@kylinos.cn>, Werner Sembach	 <wse@tuxedocomputers.com>,
+ "Stephen J. Fuhry" <fuhrysteve@gmail.com>, Nikhil Solanke
+ <nikhilsolanke5@gmail.com>, Vyacheslav Vahnenko <vahnenko2003@gmail.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Date: Fri, 23 Oct 2026 15:31:45 -0400
+In-Reply-To: <20260824195419.234898-1-lyude@redhat.com>
+References: <20260824195419.234898-1-lyude@redhat.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 (3.58.3-2.fc43) 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,70 +124,87 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261023174015.54793-1-igorpetindev@gmail.com> <e16930d5-375d-4d61-9e37-94dc9a83ba64@rowland.harvard.edu>
-In-Reply-To: <e16930d5-375d-4d61-9e37-94dc9a83ba64@rowland.harvard.edu>
-From: IgorpetinDev <igorpetindev@gmail.com>
-Date: Fri, 23 Oct 2026 22:31:27 +0300
-X-Gm-Features: AclHuK-4Gcg0KL1Ua0F-idU5uezV--PxQTbQwTM_ejfi3csX_24NMPyMrJpzCac
-Message-ID: <CAG21Q80vg9LdTRmFMC4aq7j=uEPWpEFNr3+1MLLUw_UU_cjd1Q@mail.gmail.com>
-Subject: Re: [PATCH] usb: core: hcd: cancel giveback work synchronously on stop
-To: Alan Stern <stern@rowland.harvard.edu>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Tejun Heo <tj@kernel.org>, 
-	Oliver Neukum <oneukum@suse.com>, linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org, syzbot+a5b220cacb0618384d5a@syzkaller.appspotmail.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-Hi Alan,
+Friendly poke
 
-Thanks for looking at the patch.
+On Mon, 2026-08-24 at 15:53 -0400, Lyude Paul wrote:
+> The "Aorus Waterforce" is one of those fancy gaming water coolers that
+> comes with fun LEDs and an entire dedicated LCD screen. A minor issue I'v=
+e
+> noticed with this cooler on Linux, is that we fail to actually
+> reset the device when coming out of standby, ish:
+>=20
+> =C2=A0 [=C2=A0 281.652184] usb 7-10.4: reset high-speed USB device number=
+ 7 using xhci_hcd
+> =C2=A0 [=C2=A0 287.179843] usb 7-10.4: PM: dpm_run_callback(): usb_dev_re=
+sume returns -5
+> =C2=A0 [=C2=A0 287.179854] usb 7-10.4: PM: failed to resume async: error =
+-5
+>=20
+> Generally this isn't fatal, as even when the water cooler doesn't resume =
+it
+> will still reconnect itself moments later:
+>=20
+> =C2=A0 15:48:12 GoldenWind kernel: usb 7-10.4: USB disconnect, device num=
+ber 14
+> =C2=A0 15:48:12 GoldenWind kernel: usb 7-10.4: new high-speed USB device =
+number
+> =C2=A0=C2=A0=C2=A0=C2=A0 15 using xhci_hcd
+> =C2=A0 15:48:14 GoldenWind kernel: usb 7-10.4: New USB device found,
+> =C2=A0=C2=A0=C2=A0=C2=A0 idVendor=3D0414, idProduct=3D7a5e, bcdDevice=3D =
+2.00
+> =C2=A0 15:48:14 GoldenWind kernel: usb 7-10.4: New USB device strings: Mf=
+r=3D1,
+> =C2=A0=C2=A0=C2=A0=C2=A0 Product=3D2, SerialNumber=3D0
+> =C2=A0 15:48:14 GoldenWind kernel: usb 7-10.4: Product: Castor3
+> =C2=A0 15:48:14 GoldenWind kernel: usb 7-10.4: Manufacturer: ITE Tech.
+> =C2=A0 15:48:14 GoldenWind kernel: hid-generic 0003:0414:7A5E.000D:
+> =C2=A0=C2=A0=C2=A0=C2=A0 hiddev98,hidraw2: USB HID v1.01 Device [ITE Tech=
+. Castor3] on
+> =C2=A0=C2=A0=C2=A0=C2=A0 usb-0000:74:00.0-10.4/input0
+>=20
+> My guess here is that the device simply doesn't support resets properly -
+> since that seems to be the only quirk I've found that actually works. Not=
+e
+> that the device still ends up disconnecting and reconnecting after resume=
+,
+> but this seems to be normal behavior.
+>=20
+> So, let's fix this by adding the USB_QUIRK_RESET quirk for this USB devic=
+e.
+> This seems to work perfectly fine and prevents us from getting the
+> aforementioned errors on resume.
+>=20
+> Signed-off-by: Lyude Paul <lyude@redhat.com>
+>=20
+> ---
+> Totally forgot about this patch until now :).
+>=20
+> Previous version:
+> 	https://lore.kernel.org/all/20260203221452.198682-2-lyude@redhat.com/
+>=20
+> V2:
+> * Don't forget to sort quirk by vendor ID
+>=20
+> =C2=A0drivers/usb/core/quirks.c | 3 +++
+> =C2=A01 file changed, 3 insertions(+)
+>=20
+> diff --git a/drivers/usb/core/quirks.c b/drivers/usb/core/quirks.c
+> index b5b577f0b931c..6c4a52a693c05 100644
+> --- a/drivers/usb/core/quirks.c
+> +++ b/drivers/usb/core/quirks.c
+> @@ -217,6 +217,9 @@ static const struct usb_device_id usb_quirk_list[] =
+=3D {
+> =C2=A0	{ USB_DEVICE(0x03f0, 0xa31d), .driver_info =3D
+> =C2=A0			USB_QUIRK_DISCONNECT_SUSPEND },
+> =C2=A0
+> +	/* Gigabyte ITE Tech. Castor3 (Aorus Waterforce X II AIO coolers) */
+> +	{ USB_DEVICE(0x0414, 0x7a5e), .driver_info =3D USB_QUIRK_RESET },
+> +
+> =C2=A0	/* Creative SB Audigy 2 NX */
+> =C2=A0	{ USB_DEVICE(0x041e, 0x3020), .driver_info =3D USB_QUIRK_RESET_RES=
+UME },
+> =C2=A0
+>=20
+> base-commit: 66498c75b4f8017f62d720d9b59675bdf3abce91
 
-I think the bot caused some confusion by talking about stranded URBs.
-There are actually no pending URBs left on the list at all. The driver
-properly killed all of them.
-The issue is a race inside usb_giveback_urb_bh itself. The function
-usb_kill_urb() unblocks as soon as __usb_hcd_giveback_urb() drops
-use_count and wakes the waitqueue. The caller immediately wakes up,
-finishes removal, and frees struct usb_hcd via usb_put_hcd().
-
-Meanwhile, the worker thread on the other CPU is still running the
-tail of usb_giveback_urb_bh(). Right after __usb_hcd_giveback_urb()
-returns, it tries to access bh->completing_ep, bh->lock, and
-bh->running. Because bh is embedded directly inside struct usb_hcd,
-this access hits already freed memory.
-So all URBs are already completed and bh->head is empty, but the
-teardown path still needs to wait for the worker thread to fully exit
-before the HCD structure gets freed.
-Would calling flush_work() on both BH work items be the better way to
-synchronize this without the concern raised by the bot?
-
-Thanks,
-Igor
-
-On Fri, Oct 23, 2026 at 10:15=E2=80=AFPM Alan Stern <stern@rowland.harvard.=
-edu> wrote:
->
-> On Fri, Oct 23, 2026 at 08:40:15PM +0300, Igor Putko wrote:
-> > When an HCD is stopped/removed (either during module unload, driver
-> > unbind, or an error path in probe), pending URBs are unlinked and
-> > completed. However, for root hubs or HCDs with giveback done in BH
-> > context, the work function usb_giveback_urb_bh() may still be executing
-> > on another CPU after __usb_hcd_giveback_urb() finishes.
-> >
-> > Since the caller may immediately free the struct usb_hcd via usb_put_hc=
-d()
-> > after usb_stop_hcd() or usb_remove_hcd(), the running worker accesses
-> > the embedded giveback_urb_bh structure after it has been freed,
-> > triggering a slab-use-after-free write detected by KASAN.
-> >
-> > Ensure all giveback work is fully flushed and cancelled in usb_stop_hcd=
-()
-> > by calling cancel_work_sync() on both high and low priority BHs.
->
-> Sashiko's criticism has a point.  If there are any URBs still pending on
-> either of the BH lists when usb_stop_hcd() returns, something is already
-> badly wrong -- that's never supposed to happen.  Whatever it is, it
-> needs to be fixed in the driver that submitted the pending URB, not here
-> in usb_stop_hcd().
->
-> Alan Stern
