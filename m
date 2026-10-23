@@ -1,67 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.225.75
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792783390;
-	b=z2wSu2OvWgKLaYJWF61cxpB3sHQYza5U3EXmKClccg3aYeEixIzF6QUnKifxaPLQvRT7
-	 GHHnH6u2ha5fp/SbPg0jS8YsqMWQPESbpdubJhdl/WFFf/piDVuFT3ZGlfj99rsdJMoJH
-	 SHhjHHiz+NZ3ExQ5eoeMn02LXH4ie8yj2kA1dVMb3THCcZRIq2FDEKkFUYR/17EhulqUC
-	 2axDtbXhKdyJP1zSMHHWmmTvXV7FjbycRxfal0a9pfYrF4Obv+AXd9Dji8qL8riKLklTX
-	 aHMAapEhHrNs7HVneLChHRO6IDBUR+XQOOWicFVAdpEsVsbg1bXkX26KGTAOvLuDpvw==
+	t=1792783516;
+	b=lDGU1Ce8TRDGkJgo3630Ay8A3GNZ92tO7c0YJm70kphZyKCMFBzDqb7z8TszuccZp4Q5
+	 zqO+jzJf5qsLeYhm3nYpk59RJL5fW2FIvxFp0mbAcwltSSiKox0ni/BdSH7y8iy3eLfyz
+	 yatd0kOXuRd5tFsDa/VjcWvueqB0YldsnymXRGNppmntcgdHDvBvdYhhu1X8A9QaYvnE5
+	 mZgcuJE77Sum21b77m0Lr64NeqKw4RMVTc3RIFHic0WXFbBZiKDQL541fMZPIg8/a9MeI
+	 2PlVPgwYxPKnlZV5Oz/jXvzgGi/BxsA+NjQ1f5Ie1LLJKFGFDd/pecIe0Fqi4MMtaFA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792783390;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1792783516;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=Dd1SiQToxpbgH+zCRYMh63AZHeiiSvMwcrYKR3uwlwM=;
-	b=WRYkKBU49MsPo9ygm+pBam2oeZOM0nYAIk8dTyPq9QyvKLunguhy9WKJXq82TlS28vDH
-	 H+JrKGtv98Oc8+zSxJLqEBTxnJoVQwWnNDm7FUxSvYXm2Vl+OhEshEzYKqCJWkQ5lXvk5
-	 r6ybslzUaaMDmD6DYVhqpaz8ECvTyE8kUNcAWNUb95+1pZM9GrMQ+6NL0TnEygOFinE1U
-	 A3NiWWmyKuvxo1Yc1LQnryxYLINj8flqS4ejpXYQVxRv1DBNTHf+IoMOifBovdkEnrYGx
-	 jMSsvlx5rc9GUohqvfoHs4HoY9t0xpJnROl22X1XsRVDdFHEb6kXXP5Nap+CV3msYNw==
+	bh=oGW63mO5SvhKxHF/FfNpWKu1NPhp9bwy3WqXJsLfK7o=;
+	b=QpRdhSNQ/Yd/huxlklLy8ho8TdYKfvxDw67LhBlDSODRFXf9Bh3ccNlKo/dgTQ169KpR
+	 Ll/hO5TXBQeeh+Sv7Hefh0ZWMctlyNMQ66KcEYdMknuGaPYeq7jK0WeT9SL7MyG8y+908
+	 DxCZmaY8Q/Vdns+1Rx2NSgrh1frfAe6j85NojJ+zMF2TBlb8nsFKgygmUychdpObAXtqf
+	 RL2daJGbzHQe39tblubtaTJ6mfYRqF28TjsA6sbQFdMI4RQ+PS2LIcnfIw8Q6vIhKeO9t
+	 njZPA8he9rg092J+gEtJmaHLrFv+TwLaoM90C2oLemFhKF7HPHH/94SWRHTXMWCEzmA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=o3MFnpI4;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=bCPSuJt8;
+	arc=none smtp.remote-ip=74.125.225.75
+Received: from mail-wr2-f11.google.com (mail-wr2-f11.google.com [74.125.225.75])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A91D5606A31A;
-	Fri, 23 Oct 2026 19:23:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6C7C606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 19:25:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B6C7C606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=o3MFnpI4
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C5DA1F01825;
-	Fri, 23 Oct 2026 19:23:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792783389;
-	bh=Dd1SiQToxpbgH+zCRYMh63AZHeiiSvMwcrYKR3uwlwM=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=o3MFnpI43a/ChdWrEQZMYDEkWLk3bzVOSByK9b0wUXXSZYXK+Qbi5/vkqEw76H3jN
-	 yZIfjdKVBqV/Gb0441p+NZsargr/VZwcUv5hxAu6Xe5oVbDm48qjx6VIB6JcthPR4Q
-	 PjUiUrZJ4OesqnXHOKt4VfKaqbPl9XWebAz0GP2L2Rg8bdijs7oWUcs27W/19N93IA
-	 Tibuc5kG/Me3sR1MS4BA1QKrkx/pTvYpZdKXBadSrARHDtFXQKe52/WPIyUW7FPyNw
-	 GR7/tUs0OYLPodK1aVl0lBrBBeOiQwcugP/nYACuus0nn8MlQlaQfMPpjGv39UqSmm
-	 s+9GZrHBcmU/w==
-Date: Fri, 23 Oct 2026 20:23:07 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Jiri Pirko <jiri@resnulli.us>
-Cc: linux-coco@lists.linux.dev, linux-kernel@vger.kernel.org,
- linux-api@vger.kernel.org, x86@kernel.org, kvm@vger.kernel.org,
- linux-doc@vger.kernel.org, jgg@ziepe.ca, david.quigley@intel.com,
- lukas@wunner.de, ksinyuk@kernel.org, rodrigo.vivi@intel.com,
- cedric.xing@intel.com, sameo@meta.com, drdeeglaze@gmail.com,
- James.Bottomley@hansenpartnership.com, aik@amd.com, jpiotrowski@nvidia.com,
- qinkun@google.com, pgonda@google.com, alistair.francis@wdc.com,
- ankita@nvidia.com, suzuki.poulose@arm.com, kas@kernel.org,
- rick.p.edgecombe@intel.com, elena.reshetova@intel.com,
- dave.hansen@linux.intel.com, sathyanarayanan.kuppuswamy@linux.intel.com,
- peter.fang@intel.com
-Subject: Re: [PATCH RFC 04/20] Documentation: ctlv: Add userspace ABI
-Message-ID: <20261023202307.62694a50@jic23-hlaptop>
-In-Reply-To: <atnJUfh0_Y3BRKx3@FV6GYCPJ69>
-References: <20261015145053.3664509-1-jiri@resnulli.us>
-	<20261015145053.3664509-5-jiri@resnulli.us>
-	<20261021011122.2cd96901@jic23-hlaptop>
-	<atnJUfh0_Y3BRKx3@FV6GYCPJ69>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=bCPSuJt8
+Received: by mail-wr2-f11.google.com with SMTP id ffacd0b85a97d-48b0a195dbcso128787f8f.0
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 12:25:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792783514; x=1793388314; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=oGW63mO5SvhKxHF/FfNpWKu1NPhp9bwy3WqXJsLfK7o=;
+        b=bCPSuJt8o7R3/iFQ8u1K/2H091zqiwd6etYriejb2OE3nLVFjN7PWBCbErrdJh5DpM
+         IFXrUgAJKVOp3eKoI61FP3JV0HHGAJuzlqphz9IOxKVQ/DuREA7m09SWrG4sbkRqluzY
+         M6QQw40fPN/UbFsN9ML1iQtqJFWo8HczLgWACvcdJLMD9F9BEjwxfkMMG6SR139fkCiT
+         oFp6jIjph8Ipue0WkkTu8pmlcqEUv+urVWnWq0ByBYauJu0XMz8mh6mydZTbcZHIXH5e
+         6586wBPdPkWNXUcUVkDeenf6nkyjMLs5mLqK0UbkKqovfvjcN7VF10Gbgetivimk5qZ+
+         8dWw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792783514; x=1793388314;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=oGW63mO5SvhKxHF/FfNpWKu1NPhp9bwy3WqXJsLfK7o=;
+        b=pM9mrvQdjH9eDQezSgpKTc+NMXRF2Eu5OwPXnYYS3wSJ9CPTODCOMzbA8AnSAUPKi8
+         GDsaJBMhL3jec6pjA6IO5fHVUQXLBI4YzjTLL2HI+sF5XN3vNFbN0jkCqo9MahTxJbE7
+         dEV0Kish2wqBgRP50hitGzDI25GZCK9h9W/tL3PTH6xSnaj/+AihTL9IIe+zT+pRY0Bc
+         jcC4NpcROh1mA8RKH1gtVprmq0FMbo8NO4uspuI1arz/5fT6mG4SHd3Cq+t9mZ9jhmwL
+         kOm5iF/CT0si+nJX2lYs6aTR9jSahzQvtgqY/Z1ciZyoV+8UZWnvQm9pdiJitAovPUwP
+         e3Zg==
+X-Forwarded-Encrypted: i=1; AKwUvBwr1mola0M0CHEpPABHAsug7BEmy7h9tgiaJjS3kF2gUyjIE4a2HsDwPEm8e4ElQ/hiBJwN/4rX3kAkI00=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKo2UOTVITas0MvUBR8X2tH76gILPn8oyT6DEGCk5/xccXt+Opv
+	0wzRrjblClZo5e4dKCnvMuEv4EL0FV9Xv9emoofYcuIvLmAMewAxKAr9
+X-Gm-Gg: AYBFou0wDhBQZUSLRCUonftqDZ9BMEjctYX4avyS/sEKMST0M5y4oEe9Aun/f1DVI+m
+	EL2LiPbLRMqRJqHAlyacLbPyC4QV+N9Vq52HsNE1l8Z4uX+5VxkmDCYk5MNzvLOLIqumLkNw7q4
+	9QV39IREU3Hv8kr/xPCdUyGeQWxSlN9MBCBPq+i1TJ1qd1yG6DoAfNm5eiDwxWv0rP06dwrJoKU
+	hnk5IdSjG696zu3z1KQAegszvCT+HRU7unsVcu9ccMbgWufIpm28DH9DUq53Bb9fxlIhZqaWL77
+	RmVzcgFH8dvyrAnquLR9jqjzJP3Yc/EQ63ktit0MNvG6vOLdq6T429JVuH51e2U7m4zn+8AmbNm
+	mzQbb/FFI6nNicBBMJ3HLHWazeLLYZY6fH2Qf3anYtLnnqHTBZw0mGzccpSsMhycKt745O8ym59
+	19+qqLfOKIWTce3Ox3NYtJIQKEExkrpzP2CcusptKtRv9KULfBOwUgQ1MK78wlIY0uI68cZuz4y
+	bRAq677QrbAK8AZeMkjxQ0/ERxJjl/C3+gN+KeCMid+TQtGPayj1DOXAeX9aR0TWIFcuMs=
+X-Received: by 2002:a05:600c:1389:b0:4a1:c6f5:2450 with SMTP id 5b1f17b1804b1-4a211cac456mr52662775e9.17.1792783513937;
+        Fri, 23 Oct 2026 12:25:13 -0700 (PDT)
+Received: from serhat-ubuntu.home ([212.253.207.33])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a0aa097sm3720225e9.3.2026.10.23.12.25.11
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 23 Oct 2026 12:25:13 -0700 (PDT)
+From: Serhat Kumral <serhatkumral1@gmail.com>
+To: jgg@ziepe.ca,
+	leon@kernel.org
+Cc: linux-rdma@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Serhat Kumral <serhatkumral1@gmail.com>
+Subject: [PATCH] RDMA/mthca: Fix off-by-one in mthca_map_user_db()
+Date: Fri, 23 Oct 2026 22:23:48 +0300
+Message-ID: <20261023192348.11070-1-serhatkumral1@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,48 +95,32 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-> >>``reply_len`` is never
-> >> +overwritten; the length written is the reply root's ``len``. The pointers are
-> >> +fixed-width so a 32-bit and a 64-bit process pass the same structure, and in
-> >> +place of a size field the ioctl number encodes the size and ``reserved``, which
-> >> +must be zero, covers compatible growth.
-> >> +
-> >> +Every action and query carries a physical request root, including an empty
-> >> +request. ``request_len`` is therefore at least one attr header and at most the
-> >> +1 MiB transport limit.  
-> >
-> >Why this particular limit?  Any thought to making that discoverable rather
-> >than fixed? (with a minimum to allow the operation for the length to be discovered).  
-> 
-> OPS_DUMP exposes max size per op already. This limit serves different
-> purpose. It is a safeguard againt insane family yaml author. If he would
-> try to fit in ridiculously long binary attr, it would provide a clue to
-> use blob attr instead. I think that 1M is too big. I would perhaps go
-> with 64k initially. As it is kernel internal limit, could be changed in
-> any time. Makes sense?
+db_tab->page[] has uarc_size / MTHCA_ICM_PAGE_SIZE elements, so valid
+doorbell indices are in the range [0, uarc_size / 8 - 1]. Allowing
+index == uarc_size / 8 results in an out-of-bounds access at
+db_tab->page[npages]. Use '>=' instead of '>' in the bounds check.
 
-Yes. Small is better as as starting point I think. 64K should be enough
-for anyone, right?
+Fixes: 56483ec1b702 ("[PATCH] IB uverbs: add mthca user doorbell record support")
+Signed-off-by: Serhat Kumral <serhatkumral1@gmail.com>
+---
+ drivers/infiniband/hw/mthca/mthca_memfree.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-> 
-> 
-> >
-> >Maybe it is better to just have fixed size.  I wonder if ultimately we
-> >may end up with cases where the tlv is just passed on to firmware / device
-> >(because it is nice and convenient!) and having to split or marshall
-> >multiple messages would be a pain.  
-> 
-> hmm. tlvs passed to device would work, you would just have to take care
-> of the blobs inside.
+diff --git a/drivers/infiniband/hw/mthca/mthca_memfree.c b/drivers/infiniband/hw/mthca/mthca_memfree.c
+index 9c5eb03f354d..39d82dc73807 100644
+--- a/drivers/infiniband/hw/mthca/mthca_memfree.c
++++ b/drivers/infiniband/hw/mthca/mthca_memfree.c
+@@ -453,7 +453,7 @@ int mthca_map_user_db(struct mthca_dev *dev, struct mthca_uar *uar,
+ 	if (!mthca_is_memfree(dev))
+ 		return 0;
+ 
+-	if (index < 0 || index > dev->uar_table.uarc_size / 8)
++	if (index < 0 || index >= dev->uar_table.uarc_size / 8)
+ 		return -EINVAL;
+ 
+ 	mutex_lock(&db_tab->mutex);
+-- 
+2.53.0
 
-You'll know you succeeded when someone decides the device should
-do the work ;)  Of course that's also the day when design decisions
-are stuck even more in stone than they are for kernel /userspace ABI.
-
-
-Thanks,
-
-Jonathan
