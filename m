@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792739508;
-	b=szjUnEc/+rBlFCkyK5C6OUWhvf6kroPRLyyV0qyKmYbadX+SVjbBRb+R9IfT7R7bHQu3
-	 dO5fL+Rf7D8lz3xtoMQm9BX59kkZtiGmW75OIiZcIiNWkSfsQ7zK0m02ssOSerPNYviKN
-	 iX+qqui4L1O+/4KkBRvgFTXnNdAxRduZoNBeLTh6MWDqKjTWcq3ea4O2OXGdbDeoK49xY
-	 kji8iQkhfIoWqSz3Enz4Nl7AKzVK9H6uMyG/+MWsRxtIMBlivXLhwMn7XOZBZv4C5Wnno
-	 8U7+g8R8Maqo8UzEQYo38bPbhegDAw+jEy/t5ve/atq9eto4IPdE1UXejyKtaF/Z+pg==
+	t=1792739506;
+	b=0yVmVW35r/Y8orgVUXCxhTtOi2XRVvy22buzcK1uC5HdJxvCTdWJ/Cki/fCXMWHkd966
+	 SWIYNoHfDt6IsgEJt3s7jMpWE91MIcf6DvhtqBKesS7P887Eexumcs/VHqnemI78eSvWE
+	 mdiCVIE47U7nQrNuWJeqJMp+Zj+xDkUjtbAsEl/HiP0gaccQch23Pg3GTYchqr25XOfYM
+	 tTAWBxej2h0J6nWHJJiitAUmdEmRlt2rlzhdgnjQn7fURKJk40JdGVoXMpu+IXt3lTJJo
+	 9QyUMotHDD6Eq74o0CqK6IrIthMW1YpzV1gma52ruwiKK1q45Gy/eJvB+svmq0FwJIQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792739508;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792739506;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=rukPIb1vV+y9r8NjTzbAfolzc4+3CZtBg94H8UeyaOw=;
-	b=yjD1vwwoeQdLB2zSdOf4dZAJKDWM6Ot9gto3tcCsIe9FuNmz9EU+KwAfJ0ArQOb26key
-	 6x+2C5hqGGOWZtwJXMeE4sYkN+GSVvAfe6/Odo/xaT8UOdOrkipRj5BMkjhCnIT/xnXlQ
-	 Ga1ZgiMVJ0yjDlI0FBswZnWQELX4btEClvcbfOgiQa/+bl1g/D/G8TAWctwqBf0pLLd7c
-	 Y7MkTVabu2caCrg0RZDTApj282uJ+SBsfFB6UEanf9/KBKD8jwGocBfIrq8VGfWi2dwHK
-	 Xdor9YFW+ufjuv/qUiF4aw0EtHa9FNRig4goHHhbzsrbfMZtecppuDwNRjyIrDx4rsg==
+	bh=cDVcu+su1cmp5GFQhFKax1T5uN00V10eq9vAYrC0zjk=;
+	b=cCCxgrT50e9oksG5PUPWepyn4gD6EeLCtvtNKLGZx3zsOyEA+3vs3cesxJOOF1tzLc6E
+	 OV7X+RKeW02jDO0EpBcv6D7kXSF726TOMJiRKN/kxPlbNz5ogX4h8nWhD6ND+UMEQYag3
+	 HWunh6Sk/1tGLncTrGS1CPbc9E7IlPkeGplx1VuO7EJ6vjAAmB6BmpVJt3i3n3o0istvl
+	 +uJ0lvJbMiVkA0NdUjAtzmlimCXk/CLzg5v0pkjzZQCc2IrDNpvsLHdzHSB9zabCnlJvU
+	 068AyUIdN44OLIk/rc98ftcMUrlA8qZLM8kQpS9KZcn1k/Y5ZXkVN/Hmg34JXOPHkKA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EqSOP80X;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="R/PvBhfG";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C3B960A2608;
-	Fri, 23 Oct 2026 07:11:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35787606A33A;
+	Fri, 23 Oct 2026 07:11:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EqSOP80X
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B2E951F01829;
-	Fri, 23 Oct 2026 07:11:47 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R/PvBhfG
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB7F91F031E0;
+	Fri, 23 Oct 2026 07:11:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792739508;
-	bh=rukPIb1vV+y9r8NjTzbAfolzc4+3CZtBg94H8UeyaOw=;
+	s=k20260515; t=1792739506;
+	bh=cDVcu+su1cmp5GFQhFKax1T5uN00V10eq9vAYrC0zjk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=EqSOP80XW0yJDz3XXfHdr4JpYl+entJ8flLDcJ5/YGs8XTC1fvH7SFvpKMvtNY+qT
-	 qM43B5V8xhtpROULYAG/51NGKqp/XaYzRWfTa55cKiobmgRx0Bzi0ffOsiKLyMOPiV
-	 9vm9C503eYn+IGqPuiXqQO7J9K//w53dUUbV4r1clWFDOxpzY9SfKf4lE8wNX/nDhK
-	 8wysHqTEAmHB8XX/Jp7RgXKjdedfQ18s11Mbtopf3dsLA+TAeAumvsGl0IVfLNtnUj
-	 p1E/pYBr8C+Sefa9GZy71rVnCE4KpKILjlnPxdX0dA6FYNilePyKG11bbZSOWyX9AI
-	 u1EqeNfMW6RNA==
+	b=R/PvBhfGMB1JCyFrPY/8eFmkqz7NrAhoclZyzHyhFVbTVEVtxyYCKiuS/H66Ay/Ih
+	 6lIUhH+g28Y7+Wb/xhPVdQYs+HfOYP/AFNk9vk/j7/1X/hrlDbwcg/M9CWZz73jyRx
+	 g4HWTmqrUDWjQaTzFrPuNxSBFpHkn4tCWNnPee8utxBTaNrOHpekAj7ni2TvxipKjo
+	 7HmZAJX6pMo7p262eieJYEqfVtBUEMWMajgXN7p6UV5lcPRG+tdrE4DBV8pRjHh7Ve
+	 23+IOdqA5jleRmpV/9hc4AhZRpcwfYM5bmJwKRZezB2JpRHaBM2KH3nWMozcXJtYxk
+	 +fgtL3M9ihEIA==
 From: Namhyung Kim <namhyung@kernel.org>
 To: Arnaldo Carvalho de Melo <acme@kernel.org>
 Cc: Ian Rogers <irogers@google.com>,
@@ -49,9 +49,9 @@ Cc: Ian Rogers <irogers@google.com>,
 	Ingo Molnar <mingo@kernel.org>,
 	LKML <linux-kernel@vger.kernel.org>,
 	linux-perf-users@vger.kernel.org
-Subject: [PATCH v1 11/11] perf tools: Scope mount namespace entry in dso__load()
-Date: Fri, 23 Oct 2026 00:11:41 -0700
-Message-ID: <20261023071141.134149-12-namhyung@kernel.org>
+Subject: [PATCH v1 06/11] perf tools: Check thread liveness when accessing /proc
+Date: Fri, 23 Oct 2026 00:11:36 -0700
+Message-ID: <20261023071141.134149-7-namhyung@kernel.org>
 X-Mailer: git-send-email 2.56.0.257.gf7497c7d27-goog
 In-Reply-To: <20261023071141.134149-1-namhyung@kernel.org>
 References: <20261023071141.134149-1-namhyung@kernel.org>
@@ -66,116 +66,154 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Enter the target mount namespace only for the specific binary types
-that need it.
+Add thread__exited() and thread__is_alive(), and mark threads as exited
+on PERF_RECORD_EXIT and replaced threads on PERF_RECORD_FORK.
+
+Propagate thread exit and boot ID mismatch to thread->nsinfo, and guard
+/proc accesses with thread__is_alive().
 
 Assisted-by: LLM
 Signed-off-by: Namhyung Kim <namhyung@kernel.org>
 ---
- tools/perf/util/symbol.c | 43 +++++++++++++++++++---------------------
- 1 file changed, 20 insertions(+), 23 deletions(-)
+ tools/perf/builtin-trace.c |  2 +-
+ tools/perf/util/machine.c  |  9 ++++++---
+ tools/perf/util/thread.c   | 33 ++++++++++++++++++++++++++++++++-
+ tools/perf/util/thread.h   |  7 +++++--
+ 4 files changed, 44 insertions(+), 7 deletions(-)
 
-diff --git a/tools/perf/util/symbol.c b/tools/perf/util/symbol.c
-index 807e433c770812a4..063e9da0878e93bc 100644
---- a/tools/perf/util/symbol.c
-+++ b/tools/perf/util/symbol.c
-@@ -1811,17 +1811,6 @@ int dso__load(struct dso *dso, struct map *map)
- 	const char *map_path = dso__long_name(dso);
+diff --git a/tools/perf/builtin-trace.c b/tools/perf/builtin-trace.c
+index 4094141461f91c32..a21bbf5926617633 100644
+--- a/tools/perf/builtin-trace.c
++++ b/tools/perf/builtin-trace.c
+@@ -1858,7 +1858,7 @@ static const char *thread__fd_path(struct thread *thread, int fd,
+ 		return NULL;
  
- 	mutex_lock(dso__lock(dso));
--	perfmap = is_perf_pid_map_name(map_path);
--
--	if (perfmap) {
--		if (dso__nsinfo(dso) &&
--		    (dso__find_perf_map(newmapname, sizeof(newmapname),
--					dso__nsinfo_ptr(dso)) == 0)) {
--			map_path = newmapname;
--		}
--	}
--
--	nsinfo__mountns_enter(dso__nsinfo(dso), &nsc);
+ 	if ((fd > ttrace->files.max || ttrace->files.table[fd].pathname == NULL)) {
+-		if (!trace->live)
++		if (!trace->live || !thread__is_alive(thread))
+ 			return NULL;
+ 		++trace->stats.proc_getname;
+ 		if (thread__read_fd_path(thread, fd))
+diff --git a/tools/perf/util/machine.c b/tools/perf/util/machine.c
+index 14f52234d4d99fb6..8f6298aff681f3fc 100644
+--- a/tools/perf/util/machine.c
++++ b/tools/perf/util/machine.c
+@@ -498,6 +498,9 @@ static void machine__update_thread_pid(struct machine *machine,
+ 	thread__set_pid(th, pid);
+ 	nsinfo__zput(RC_CHK_ACCESS(th)->nsinfo);
+ 	RC_CHK_ACCESS(th)->nsinfo = nsinfo__new_thread(pid, thread__tid(th));
++	if (thread__exited(th) || !machine__is_host(machine) ||
++	    !perf_env__is_same_boot(machine->env))
++		nsinfo__set_exited(thread__nsinfo(th));
  
- 	/* check again under the dso->lock */
- 	if (dso__loaded(dso)) {
-@@ -1845,8 +1834,16 @@ int dso__load(struct dso *dso, struct map *map)
+ 	if (thread__pid(th) == thread__tid(th))
+ 		return;
+@@ -1954,6 +1957,7 @@ int machine__process_fork_event(struct machine *machine, union perf_event *event
  
- 	dso__set_adjust_symbols(dso, false);
- 
-+	perfmap = is_perf_pid_map_name(map_path);
- 	if (perfmap) {
-+		if (dso__nsinfo(dso) &&
-+		    (dso__find_perf_map(newmapname, sizeof(newmapname),
-+					dso__nsinfo_ptr(dso)) == 0)) {
-+			map_path = newmapname;
-+		}
-+		nsinfo__mountns_enter(dso__nsinfo(dso), &nsc);
- 		ret = dso__load_perf_map(map_path, dso);
-+		nsinfo__mountns_exit(&nsc);
- 		dso__set_binary_type(dso, DSO_BINARY_TYPE__JAVA_JIT);
- 		dso__set_symtab_type(dso, ret > 0
- 				? DSO_BINARY_TYPE__JAVA_JIT
-@@ -1869,7 +1866,7 @@ int dso__load(struct dso *dso, struct map *map)
- 		struct build_id bid = { .size = 0, };
- 
- 		__symbol__join_symfs(name, PATH_MAX, dso__long_name(dso));
--		if (filename__read_build_id(name, &bid) > 0)
-+		if (filename__read_build_id_ns(name, &bid, dso__nsinfo(dso)) > 0)
- 			dso__set_build_id(dso, &bid);
+ 	/* if a thread currently exists for the thread id remove it */
+ 	if (thread != NULL) {
++		thread__set_exited(thread, /*exited=*/true);
+ 		machine__remove_thread(machine, thread);
+ 		thread__put(thread);
+ 	}
+@@ -2001,9 +2005,8 @@ int machine__process_exit_event(struct machine *machine, union perf_event *event
+ 	/* There is no context switch out before exit, so we decrement here. */
+ 	machine->parallelism--;
+ 	if (thread != NULL) {
+-		if (symbol_conf.keep_exited_threads)
+-			thread__set_exited(thread, /*exited=*/true);
+-		else
++		thread__set_exited(thread, /*exited=*/true);
++		if (!symbol_conf.keep_exited_threads)
+ 			machine__remove_thread(machine, thread);
+ 	}
+ 	thread__put(thread);
+diff --git a/tools/perf/util/thread.c b/tools/perf/util/thread.c
+index 377c39ec624bb7bb..f75eafb25bfc06cd 100644
+--- a/tools/perf/util/thread.c
++++ b/tools/perf/util/thread.c
+@@ -37,6 +37,10 @@ int thread__init_maps(struct thread *thread, struct machine *machine)
+ 		}
  	}
  
-@@ -1882,24 +1879,25 @@ int dso__load(struct dso *dso, struct map *map)
- 		struct symsrc *ss = &ss_[ss_pos];
- 		bool next_slot = false;
- 		bool is_reg;
--		bool nsexit;
-+		bool nsenter;
- 		int bfdrc = -1;
- 		int sirc = -1;
- 
- 		enum dso_binary_type symtab_type = binary_type_symtab[i];
- 
--		nsexit = (symtab_type == DSO_BINARY_TYPE__BUILD_ID_CACHE ||
--		    symtab_type == DSO_BINARY_TYPE__BUILD_ID_CACHE_DEBUGINFO);
--
- 		if (!dso__is_compatible_symtab_type(dso, kmod, symtab_type))
- 			continue;
- 
-+		nsenter = dso_binary_type__needs_ns(symtab_type);
-+		if (nsenter)
-+			nsinfo__mountns_enter(dso__nsinfo(dso), &nsc);
++	if (!machine || !machine__is_host(machine) ||
++	    !perf_env__is_same_boot(machine->env))
++		nsinfo__set_exited(thread__nsinfo(thread));
 +
- 		if (dso__read_binary_type_filename(dso, symtab_type,
--						   root_dir, name, PATH_MAX))
-+						   root_dir, name, PATH_MAX)) {
-+			if (nsenter)
-+				nsinfo__mountns_exit(&nsc);
- 			continue;
--
--		if (nsexit)
--			nsinfo__mountns_exit(&nsc);
-+		}
+ 	return thread__maps(thread) ? 0 : -1;
+ }
  
- 		is_reg = is_regular_file(name);
- 
-@@ -1910,8 +1908,8 @@ int dso__load(struct dso *dso, struct map *map)
- 		if (is_reg && bfdrc < 0)
- 			sirc = symsrc__init(ss, dso, name, symtab_type);
- 
--		if (nsexit)
--			nsinfo__mountns_enter(dso__nsinfo(dso), &nsc);
-+		if (nsenter)
-+			nsinfo__mountns_exit(&nsc);
- 
- 		if (bfdrc > 0) {
- 			dso__set_symtab_type(dso, symtab_type);
-@@ -1978,7 +1976,6 @@ int dso__load(struct dso *dso, struct map *map)
- out:
- 	dso__set_loaded(dso);
- 	mutex_unlock(dso__lock(dso));
--	nsinfo__mountns_exit(&nsc);
- 
+@@ -289,6 +293,30 @@ int __thread__set_comm(struct thread *thread, const char *str, u64 timestamp,
  	return ret;
  }
+ 
++void thread__set_exited(struct thread *thread, bool exited)
++{
++	RC_CHK_ACCESS(thread)->exited = exited;
++	if (exited)
++		nsinfo__set_exited(thread__nsinfo(thread));
++}
++
++bool thread__is_alive(struct thread *thread)
++{
++	struct maps *maps;
++	struct machine *machine;
++
++	if (!thread || thread__exited(thread))
++		return false;
++
++	maps = thread__maps(thread);
++	machine = maps ? maps__machine(maps) : NULL;
++	if (machine && (!machine__is_host(machine) ||
++			!perf_env__is_same_boot(machine->env)))
++		return false;
++
++	return nsinfo__check_proc(thread__nsinfo(thread));
++}
++
+ int thread__set_comm_from_proc(struct thread *thread)
+ {
+ 	char path[64];
+@@ -296,6 +324,9 @@ int thread__set_comm_from_proc(struct thread *thread)
+ 	size_t sz;
+ 	int err = -1;
+ 
++	if (!thread__is_alive(thread))
++		return -1;
++
+ 	if (!(snprintf(path, sizeof(path), "%d/task/%d/comm",
+ 		       thread__pid(thread), thread__tid(thread)) >= (int)sizeof(path)) &&
+ 	    procfs__read_str(path, &comm, &sz) == 0) {
+@@ -541,7 +572,7 @@ uint16_t thread__e_machine_endian(struct thread *thread, struct machine *machine
+ 			is_live = !session || !session->data;
+ 		}
+ 		/* Read from /proc/pid/exe if live. */
+-		if (is_live) {
++		if (is_live && thread__is_alive(thread)) {
+ 			e_machine = read_proc_e_machine_for_pid(pid, &local_e_flags,
+ 								&args.is_big_endian);
+ 		} else if (machine && machine->env) {
+diff --git a/tools/perf/util/thread.h b/tools/perf/util/thread.h
+index d82fce8173aefedc..d6edbe9a840454f1 100644
+--- a/tools/perf/util/thread.h
++++ b/tools/perf/util/thread.h
+@@ -205,11 +205,14 @@ static inline refcount_t *thread__refcnt(struct thread *thread)
+ 	return &RC_CHK_ACCESS(thread)->refcnt;
+ }
+ 
+-static inline void thread__set_exited(struct thread *thread, bool exited)
++static inline bool thread__exited(const struct thread *thread)
+ {
+-	RC_CHK_ACCESS(thread)->exited = exited;
++	return RC_CHK_ACCESS(thread)->exited;
+ }
+ 
++void thread__set_exited(struct thread *thread, bool exited);
++bool thread__is_alive(struct thread *thread);
++
+ static inline bool thread__comm_set(const struct thread *thread)
+ {
+ 	return RC_CHK_ACCESS(thread)->comm_set;
 -- 
 2.56.0.257.gf7497c7d27-goog
 
