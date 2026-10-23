@@ -1,58 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792784786;
-	b=JkN6jpgkOl0QgDGdnp5nz/CquRspA4b/nAl7FNHERMKBelHL5QbSIlReduOwz1lW4iIF
-	 cneiYLUAuBFiJ2/gqbFu+Oja834jtiHd6zwE26aIbU1RRzmGRulvle99BTtZy4qGPdU9I
-	 7hc0HLHUAOr5U9XWAU0dnn3Vjx5hq5UtJMFlQH8zxBkii6pbboRpn6gHoyscqxK4tX8kU
-	 KDyw8e+KlcTvUF5XCwsdW5hf76ErKKvt/j87g9Oy+0OUOuOPaaPxJoaGq2v9hSD5+Mzvg
-	 jlu97FdIdFp7X2EEJwCAwaEDwW0DCc98536nBChBeRC9RJu9+8IxYzi+AH6+FZ2UBVA==
+	t=1792784941;
+	b=Z+zCs8SMxiuQ0S1fQ0AUTP6fUC++TOHeN+BN8vknq1xz2P0C4t8L4/yh1ZKl9SBDbYkf
+	 TtZ5l4RL5Iw6xQez3k4qz/DD+m+G0PI8+ePqQikW/nsBhHA73duUuTGvZzAVuoXjoxwai
+	 Qp/ZNOb/Drs8tkdcN+OnO8YGH8yVqS2Vi2SgvDEK89FWz5ljgz9/mHCOCWgWy9cEt+ePI
+	 OJdghqHoQPq+MvUeDyYSKTMLw/2j0F7epl3FHCgoM1UFjBUnEZ0DjZ7eABOg7Z2UQ1URD
+	 CgXsAFWlWs5aqAVvrQyRWgu20gtePM7bcF52QvRn9THMT3HZO8OPJADT5o8Wruu9GPg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792784786;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=X4WY9OI7pRLoxyt5aowUMYA8CAEnFmKkD4+RrPyHHWM=;
-	b=Hb6DjtcqOK+ZBwA2AUHAKLcLCjuK4TEyJM4HRfloNWdEesTESS59LM+B60aNLbaQtv/I
-	 p6uYa0L2OmkybeTcG0LWl1BdXg9pIGQnJR6l3LsTp8IQfxCH71P6gKlswhfIovHVB1mEp
-	 qLyF72zAKaDcfMvQLU90verrx7h2B1QwXcFBHkHzi/qK2QNlkg9ycj6zj1l/ZH26skO8i
-	 FENT4CJJ5TcrSOew/ajX7bli9gabjVi/vMdzYhqbVb8s2jpCIcFBADHTGUpbVh/w1RL69
-	 fk+zwNLiq8BUVFCFA4s5i+f5R/h//KcZfy564K3Sp5+XYf1ztdV7O+F5n/rAOMCy4Yw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792784941;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:In-Reply-To:References:
+	 Date:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=d27XOpNk91yrL5vN3Uipj5z8IFpcwdHS9KxcP/NHLhc=;
+	b=GGxsKo/vcZzjemTXH/gsGcbxgd9s8i5QP0ddtIrYlazvp/h4AwMSLnv7dVlTJtwW2sj9
+	 bodilt1enJJY6W07dSOltARcVcyQu072ePJLR56SYhHRioOO4iRT8zRlHLVKQg2B75gQQ
+	 JPSX5SYufoDHAuh5cRJvSctEau5MAdpWhme6JNBoTKLadEPSuxKZVphCm6TCaxHkNHNE9
+	 0Pshg99cXbz14oVf7oGdlUFUoGrXtqqG6s2lleKaZXrd11vW25hZ9hcxk9yWob+D68eQX
+	 Tf0InzlbYv+diPReUGPvzBz3dpCp4h2fYQSg6RepqWwg4q7a6PvgipSZS7rrJ9qs0Qw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fvvumnG3;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dOrxg9x2;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A235606A31A;
-	Fri, 23 Oct 2026 19:46:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7A89606A31B;
+	Fri, 23 Oct 2026 19:49:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fvvumnG3
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C7271F01825;
-	Fri, 23 Oct 2026 19:46:24 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dOrxg9x2
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 763651F01825;
+	Fri, 23 Oct 2026 19:48:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792784785;
-	bh=X4WY9OI7pRLoxyt5aowUMYA8CAEnFmKkD4+RrPyHHWM=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=fvvumnG3ZleVbIEXiRoKq9E8XZ+Ju9N+0l9GfK9cflJ1igDFyib5MgjenSPuthEHv
-	 G8M0yNiQE5w4QvYSvtZrcAEfLKEQOKRzaMVH1a/LzrhzfqQxEnsTjUnavcMPIbI1hR
-	 YkoijNECkZVMrj7GKaDmkQMtpmnHa+D+GZy2TDSYp7nl9rrym8Wnnd9d9a1EudjNSW
-	 MHDQ6VBdgHaLvC/PwQ0SIny9JMJrmXq5gZ/soSVsCw72buySXJ0xt+Cfs3/LWVt27j
-	 My7UtniMVmolRg5MxAr3vrGyggYEjl67nVz6vp0g+jgmRtei1oiN97ItbQ4dakJBt4
-	 MBTOzDt9I6CYg==
-From: Sasha Levin <sashal@kernel.org>
-To: Tejun Heo <tj@kernel.org>,
-	Kir Kolyshkin <kolyshkin@gmail.com>,
-	Oleg Nesterov <oleg@redhat.com>
-Cc: Johannes Weiner <hannes@cmpxchg.org>,
-	=?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>,
-	cgroups@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] cgroup: don't kill migrated processes through their exiting threads
-Date: Fri, 23 Oct 2026 15:46:23 -0400
-Message-ID: <20261023194623.3566511-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <6cfe7cba3720e25400118d43643e55a6@kernel.org>
-References: <6cfe7cba3720e25400118d43643e55a6@kernel.org>
+	s=k20260515; t=1792784940;
+	bh=d27XOpNk91yrL5vN3Uipj5z8IFpcwdHS9KxcP/NHLhc=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=dOrxg9x2fpN1ckn5qPPkaz7iYkTk50EX4LkmLA5ci/uVZUZar1EWqAbbkbcanXWFy
+	 xWNAI0OfawuEGFJvJ3QWVUOiIfu0XWNhjWm/pYbPInNdXtWgxeAnRSqQJg88vRYRsg
+	 4lxbUSv11Kj4hLAarlYxTrFXgKEWes7DgvWujMqSKVV4i+gSy71Co8U9jQkdfJx4GZ
+	 l4k6TZ86R3TolL4RrQPUDWY0SVOToIZvXmW23Gtb9Eu/OL8YcsUpae9ri139uXhIxl
+	 y3bekVA6rtJJln8kPp8MExzV5plUHocwH0RM7dlEU2DiklSV4gGqu7sp50KVfWZCee
+	 oaqu0ZCgSmCkw==
+From: Thomas Gleixner <tglx@kernel.org>
+To: John Stultz <jstultz@google.com>, Daehyeon Ko <4ncienth@gmail.com>
+Cc: Stephen Boyd <sboyd@kernel.org>, Miroslav Lichvar <mlichvar@redhat.com>,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] timekeeping: Require permission to set auxiliary clocks
+In-Reply-To: <CANDhNCrZbw-JnmC6DLWp6FHe6Vait=q_0uwRE1HqdbDYjL0Zwg@mail.gmail.com>
+References: <20261019080324.4147815-1-4ncienth@gmail.com>
+ <CANDhNCrZbw-JnmC6DLWp6FHe6Vait=q_0uwRE1HqdbDYjL0Zwg@mail.gmail.com>
+Date: Fri, 23 Oct 2026 21:48:56 +0200
+Message-ID: <87v76syz87.ffs@fw13>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,69 +58,24 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Since commit da13e0e72a73 ("cgroup: fix cgroup.kill for exited thread
-group leader"), __cgroup_kill() visits every thread in the cgroup and
-sends SIGKILL with PIDTYPE_TGID, so each visited thread takes down its
-whole thread group.
+On Wed, Oct 21 2026 at 11:29, John Stultz wrote:
+> On Mon, Oct 19, 2026 at 1:03=E2=80=AFAM Daehyeon Ko <4ncienth@gmail.com> =
+wrote:
+>> +       ret =3D security_settime64(tnew, NULL);
+>> +       if (ret)
+>> +               return ret;
+>>
+>>         aux_tks =3D &aux_tkd->shadow_timekeeper;
+>
+> This looked a little odd adding the security_settime64() check in the
+> core timekeeping.c where as is usually called closer to the syscall in
+> time.c, but given the clock_aux k_clock is defined in timekeeping.c, I
+> guess this makes it the best place to add the check.
 
-A thread that has started exiting can stay in a cgroup after its process
-has been moved out of it. cgroup_migrate_add_task() skips PF_EXITING
-tasks, and the thread is only unlinked by cgroup_task_dead() after its
-final context switch. mm_release() clears the thread's clear_child_tid
-word and wakes the joiner well before that, so pthread_join() can return
-while the thread is still in the old cgroup.
-
-If cgroup.kill is written in that window, __cgroup_kill() finds the
-exiting thread and complete_signal() passes the group-wide SIGKILL on to
-a live thread, killing a process that already left the cgroup. The cgroup
-selftest test_stress.sh runs into this: test_cgcore_proc_migration()
-joins its threads, moves itself back to the root cgroup, and cg_destroy()
-falls back to cgroup.kill on the old cgroup when rmdir() fails with
-EBUSY, so test_core kills itself. KernelCI has been reporting
-"with_stress.sh: line 94: ... Killed" on several arm64 boards since the
-commit reached linux-next.
-
-Keep visiting every thread, but go back to sending SIGKILL to the thread
-that was found. A SIGKILL sent to a live thread still kills its whole
-thread group, so both cases fixed by that commit stay fixed, and
-task_can_queue_signal() drops one sent to a thread that is already
-exiting.
-
-Fixes: da13e0e72a73 ("cgroup: fix cgroup.kill for exited thread group leader")
-Link: https://lore.kernel.org/all/179272264722.329188.4773475583351189022@6e52bff8000c/
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
-
-da13e0e72a73 is in cgroup/for-7.4-fixes and not in mainline yet, so this
-can also be folded into it. Skipping PF_EXITING tasks in the loop also
-fixes it, if keeping PIDTYPE_TGID is preferred.
-
-To reproduce without waiting for the race in test_stress.sh, fork a child
-that moves itself into a cgroup, creates and joins a dozen threads, moves
-back to the root cgroup and writes 1 to the old cgroup's cgroup.kill. A
-thread doing mmap()/munmap() in a loop widens the window. In a 2 CPU KVM
-guest running next-20261022, 436 of 20000 children killed themselves this
-way, and none did with this patch. test_kill passes with and without it,
-including the two tests added with da13e0e72a73.
-
- kernel/cgroup/cgroup.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/kernel/cgroup/cgroup.c b/kernel/cgroup/cgroup.c
-index faccc793325e5..a284225f8dc95 100644
---- a/kernel/cgroup/cgroup.c
-+++ b/kernel/cgroup/cgroup.c
-@@ -4313,7 +4313,7 @@ static void __cgroup_kill(struct cgroup *cgrp)
- 		if (__fatal_signal_pending(task))
- 			continue;
- 
--		do_send_sig_info(SIGKILL, SEND_SIG_NOINFO, task, PIDTYPE_TGID);
-+		send_sig(SIGKILL, task, 0);
- 	}
- 	css_task_iter_end(&it);
- }
--- 
-2.53.0
+The reason why it's not in the syscall is that posix clocks have a
+different permission scheme than system time, so the check ends up in
+the clock_set() callback of the individial clocks.
 
