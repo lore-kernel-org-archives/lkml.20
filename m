@@ -1,95 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.180
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792777911;
-	b=32Pcb76W5kUpLD658Ihsb37sMatcgXw3ZONOzomC56kazT/ketAxtnYicXncSWFfvi78
-	 GJDiNVo+ORJTs4o7oG6acT9c1GT3BHMi3V0rBIDBYxd6/MJ6zljPe1ee7LEQlAczlvUpH
-	 8CUX72OWFwiw0q/IZj/54zdxcWtskvXMCmr5t8vR2cLhEGOajjsb3Dq+ctm2AOfQV2y0d
-	 bdRJ0sLw2XBkk+nSoaUWo2QX8pGWfWM7Tv3CM6g0RZKMp8Sqbu7T+VWXjRjt4OW3yY3xO
-	 3d97AZB4/1fDlTogZZIDwIV4upNiw98BC5fir37X22vRgxg2e2cK0lQBKKZNOxYcZAw==
+	t=1792777986;
+	b=0IW5M1e/+RIXYVaodYV6Q/2MJ1p8UzMJN4JB/s4s9is+Ev3CNJ/JWr4CUkLsP/EENr1W
+	 oYYvB04t71ppi8eqjF4KuQ79qnjcXSaVDNTJxs/I0OVqmVPW15lsxJGxSns6oBXLZs9ak
+	 cRIaGmnFxaMafW8t4KWeT8ez3ISKsEExAEs2j2nDy4LUPsc9wohlv8V3Uw2nhwqvkqDpX
+	 bvvOfBN7gLBcqpllGL4nfuMMIac35vIq0vKnWWIZujoLxx+c3Z/egKfW1zFoJioc273JO
+	 9ajCiaHsM3r+2/BYIymheacCg5NyDXZRkPrmNXKmp00mUflBWKDdXvMhvCcLKifwSRw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792777911;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792777986;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=7wwANjuDtZeTrIYJO8YoDGwetOTDKqWw0CaiXm+A6RE=;
-	b=e0b8x7ocAkcmk5iGpYZLVrc3R5GYoLY2uiL37mwXU6xLWXWxSoDthIA48U+liOO1tENu
-	 efSg2eCEoK/RcGYnZmh+A3czTsePfyhBYi9SyAK6dHvGUZ0+I4SpsN3TWmenYaLEcnd6+
-	 fa1rMjjPCxoD0qmVECFycnytP1f21ftkXtusLsP5Y+h4Kr0F6EVVGIW49q7TG5OeBCGtb
-	 MVptFjx/3TP5oAD1MYRk2FiUxqgkVjqOgalArRERFcizyqSnmUW7MKTQN3zQMmkVrTN52
-	 6L+JoTbYOx1qrEqrBQp0M2kOMxRIxNp0QBPN/YH0i09gy6T1nRBr/324RKrDPyrTlww==
+	bh=YQS+tCL9sVo9f7fH8XlWP/aawkwSF9CY9qYv7xaHfik=;
+	b=xzPLDiEVe0KADL4Kxy+nh9hxSJig3UvjGuemYG0GqGPXjvacmnsfbX18Lz3vJNaJDttS
+	 6zlwVQUEO0c4g1ZGCKtFZtbYJiAHPEBFqY3UwqOI33yuu84l9dH7BnsvuK4DdKFoQ3OuP
+	 lmUJ2BQqHyZzfMBr+TcGLv72Ah2FO0k/eUgIlRjOg6bDRUDiSYK7Q6tfZLlGgoqrWgIKg
+	 udyf0/naSa+ZKHmRRgMNpI3RckM09D8r5k5r5aeGqGVvFrWfMrACs7LSqOmA+jnhzqKQ3
+	 HLcpqaD9UpicCA/759FL+rkVCRQLWSFzZ/fAehoJwKOq0pm4vGiaHQ+x/2ItDWyiRJA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=KeN1mHlU;
-	arc=none smtp.remote-ip=74.125.82.180
-Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=C2Up8foU;
+	arc=none smtp.remote-ip=209.85.221.54
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 400E1606A321
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 17:51:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 400E1606A321
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E9BE606A331
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 17:53:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7E9BE606A331
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=KeN1mHlU
-Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-36661f953e4so1965637eec.1
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 10:51:51 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=C2Up8foU
+Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-487049569b6so688803f8f.1
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 10:53:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792777910; x=1793382710; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792777985; x=1793382785; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=7wwANjuDtZeTrIYJO8YoDGwetOTDKqWw0CaiXm+A6RE=;
-        b=KeN1mHlUE8H65mhqBFxPDjAG6SEA3nwST8Mc8fzc+ILmzrxXNLUzhLHAeC85poJFLa
-         quV0YF5rE55k4WkIsNGxOT1aHSkPGtL7zMVPeGsh0zwDayyAHWAyFTuA+ZzJ1qr7CaJ8
-         bLsmdSsXV1D0RZY8B7iZiajKfokJcj9zkcexZk2DPVANmTwQ44bePkUtlAvEsUbLktJ9
-         omgOjWUQ5BKQMXONQtpD3K1BeatmQSTPtWeu5eIwfk+mUYyYOuEUzEId8oqciiXKRUXb
-         U0uQL0eX667yZjF9NsuSsqRGjfCgMSHYrGdRznQRK2SiMMDXKi59nWjLV0BntKQP+79w
-         NhkQ==
+        bh=YQS+tCL9sVo9f7fH8XlWP/aawkwSF9CY9qYv7xaHfik=;
+        b=C2Up8foUIFI3L+OewOv3xFtrcYwpDGTVenQDRJSx1OhEgx2xC7KUtYzRqaqyPu0o79
+         xvKiL2Em4ScCMnyESqmKuV+r3yyFmhcUY9D/E782tV+HhM78lubUWkOUeEqD1xunwT27
+         rvfppYP4LbmWl0ptc3Uvi2Nw6bbsThSwMaPwqzgUhvMc+HkIPmCahDl9MTc3+cyNIN9I
+         21nqOYFYHk/wgzDCqiUw/opev0aXcFjp8Fq+w9EAtT2LperNHiNREwlVQIKfT6YvqrkT
+         yjlAuuqHwLr0YyukOGOQ5p9DpCyZWCkX2mRgQN8uYzxGekeI5c47JkFNgZtWUPTzmrHE
+         rTQA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792777910; x=1793382710;
+        d=1e100.net; s=20260707; t=1792777985; x=1793382785;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=7wwANjuDtZeTrIYJO8YoDGwetOTDKqWw0CaiXm+A6RE=;
-        b=tQL3FJO0nPIPAJG+VaocIlgqLzpTG8LzrdVheYXwg/3BT7SnoMAChpG8Gu9Zu/iqX1
-         xSAmVjBJLlXQ369yjU2iLPwWQMb7Qc1ZW4lX2KgkHio+rYfbJkB4w5FQG8LKxdf2rZx0
-         /cXwBrQ4OjcT6DYdgG5E48uScowz/o/mg+DbGUpQmdVXWcIzECXFKHaeuDZNwOf2sOwU
-         cUs/ZszMXHrEJ3jsPQYJlTWIWjgnR1NNnnwu8OX9rsoY8vPEmDFwdF6X7A9Q5tr3Et3D
-         i7XW6XwkbSSA8mOZ63o1ZnfV33qekAJWwqpqq91ZTF/r2Z0ZL6Rw/If+0X4+Qvl8uxnl
-         XfuA==
-X-Forwarded-Encrypted: i=1; AKwUvBz0p0alBv0g+9NHYeTfuT77Rp71ZrzWm1e7dQo/CeXm4NXjMpwd8xufYQRMyg7vpVcnlSh1jqv+b69iKao=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL3+U0b/fDxc20eFXv7Q2/I4dqUAlCNT163P8uzVa9e5j+lj707
-	J1DEUNL9KS6dfsPK0Qt3bYv2kpRUBAswW5h5a8rQo4STvJ7GOtFyp6L7
-X-Gm-Gg: AYBFou0jGia1zh1zj22tzo5MuBqSQp55V7zwS3UQ83iFFYe6BtK7K9KOW1SQQr7xsgn
-	F38JYJ/9w2kMcSaJnTUllIARA8brXpRnmZ3zRjchPiD834ECMBpTvbx15MBgl1aOnhpSL5eJs72
-	CpQuNU4akWP+eIttJBltsv5vI7wpQ486DgyyYj5ZvAiit3j/W5JsSFbPqw6Bm0OGOM2+ktZFkgy
-	YIShrtu7X77q6HqOJRCROyml8FRKES9f39oPu9uzd99tdRLFaZFZACzb980PjIO/XX0njRMqbrF
-	ISWIxUFCq9aKnMWvZ4vAYijUKwEEZQ1lGVaI9IoAua0Z1gFqbvfeltGIT1CQ9N1+dEQR1zdNlp1
-	wjGcjQprLdnZCk2JnjcozYFB1dQMzok+9PXWKljtX3LLoGOJN456iaeWVmVZBeA93rXDOnYInqg
-	NPSB0TORf2vu7hb3MKuaWqvIQ1veRDfC0p79R13xe7V84KUaHqJkePeyQ1lXXXZK8YitDGR5E/N
-	l9ykuLAwuW6vrckdY4Ces1yCV0Y3U9sm7WrkC6m7Gphtu6AauOYIaUfArH+aM886fmLoSs9uk4p
-	AEsZXSJxSVLbWyu35BTN+9jJNd47
-X-Received: by 2002:a05:7022:3b85:b0:187:efba:9ba2 with SMTP id a92af1059eb24-195c6f00fa6mr4412390c88.44.1792777910049;
-        Fri, 23 Oct 2026 10:51:50 -0700 (PDT)
-Received: from Terra.tail0ac356.ts.net ([198.176.50.208])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1989ff2ea25sm132988c88.5.2026.10.23.10.51.46
+        bh=YQS+tCL9sVo9f7fH8XlWP/aawkwSF9CY9qYv7xaHfik=;
+        b=JtQLrWBJsGSHSqhU+ip/3VJqJUof7o2hsJ5zFP6sAyUjoi88DrOqaDy0tzJsvQQTra
+         Af8IVOAwiIuUwXSx4ffRMHRcOAJXXK4G2B/bbMKRYmXYmRTJg56sHvDJmsaMJLhHz7WP
+         gy1KLOHLE0j9zRieXxO0Pyiw8Ets0i1ZfbG4ESDh8vF2XZ3REcNEJvwwk6F2EPtJa17C
+         TxYEXQdc385pSo8tJcagHxRgKF1DBWRBtANH8LWYaGqBxfhhnytxCqJtBqPvPs813NfI
+         H9rmI0M5hHPqFRxYWpWL0M/qMG5597CClRn4puMNtzM2RwqWdGS/m/UBqZcyQ4v/TxJs
+         MKsA==
+X-Forwarded-Encrypted: i=1; AKwUvByCFGQay5d3XnnHzI/qYm6zjZDxMpaLluxF/G/EVCC4w0ihakuOwoZOmrIUmnhCJHOa0rsMGreEUnn7sHo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJH6eXkeNCdUqjx744N1YdFvZRGWRzaMAPWcKYmT85SIL/zFJJk
+	3ickw2hhKoc7WggGAKEHJWunp7kir6LkVqDnbl3+2KqRk++VAPL2HtQe
+X-Gm-Gg: AYBFou3Tjx25y0EC8yJzROYBZABCZSDPnsnXjZ54Ctim9LEhiyFl+7bg428lDqySy7c
+	YYYa7bQo7BaQ4kzbYU/mDYtaoAMcezK+BE1YyXY8JdL8IYKC7DVLqBy6RTGdawXey+2qOh+Cxpm
+	lyhJaU6ROK0RaoiEjX/LDVLR2rCMrWXjulQIrVIBDd+QIY4IlbBNZEzRmADRLEv6UR2jv0sWIZW
+	FRPUwLSx0E90YSzjCfP68ab8NqG9rwyTKKKoBaiYz2w6ykQGxpIU2fKXUYdfGI3t67Vb+aWdBly
+	aEiDp5Ep7bscvNtN9Ss3GyQYQSKm5z+Se4RcEab6/PprwYIGqKiTCblOgnuZdLVwO5W6tf+BDHn
+	VqAqwgZMgGTGL06thZqkZ0q1qW+3gk1NVu2bJ9kIOzXqKJyE7JQCkVoVo8sb5g2EUUYRbxdKEVI
+	Up61Glhg6N27up08XdjyVcjHkT9vre4vL6YktpttFZOM2fcF09UC/eprm9e7c3V97SxbOmhMg0M
+	kNcISijJT/OmIk6vtx5y61DZy9FT81Bnqa78SjimcNKg6xdQSngpnGbWEpujj2jXyeH
+X-Received: by 2002:a05:6000:184e:b0:48d:f855:d1e0 with SMTP id ffacd0b85a97d-48e385bf552mr4544912f8f.57.1792777984621;
+        Fri, 23 Oct 2026 10:53:04 -0700 (PDT)
+Received: from mikytux.basilicata.nnxx ([195.32.70.193])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3d3ee6bdsm1135313f8f.15.2026.10.23.10.53.03
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 23 Oct 2026 10:51:48 -0700 (PDT)
-From: Weiming Shi <bestswngs@gmail.com>
-To: Helge Deller <deller@gmx.de>
-Cc: linux-fbdev@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
+        Fri, 23 Oct 2026 10:53:04 -0700 (PDT)
+From: Michele Salerno <mikysal78@gmail.com>
+To: Andrew Lunn <andrew@lunn.ch>,
+	Gregory Clement <gregory.clement@bootlin.com>,
+	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>
+Cc: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	linux-arm-kernel@lists.infradead.org,
+	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	co+b0df61d49532b2ee@bugs.sh,
-	Xiang Mei <xmei5@asu.edu>,
-	Weiming Shi <bestswngs@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] fbdev: vfb: Validate framebuffer geometry and memory size
-Date: Fri, 23 Oct 2026 10:51:29 -0700
-Message-ID: <20261023175128.4127122-2-bestswngs@gmail.com>
-X-Mailer: git-send-email 2.56.0
+	Michele Salerno <mikysal78@gmail.com>
+Subject: [PATCH] ARM: dts: marvell: armada-385-linksys-rango: fix wifi card resets described as LEDs
+Date: Fri, 23 Oct 2026 19:53:02 +0200
+Message-ID: <20261023175302.2102555-1-mikysal78@gmail.com>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,128 +102,71 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-get_line_length() multiplies two int operands before assigning the
-result to u_long. Setting xres_virtual to 0x8000000 at 32 bpp therefore
-wraps the product to zero and bypasses vfb_check_var()'s video-memory
-limit. fbcon can then clear margins with a zero line stride and write
-past the vmalloc'ed framebuffer.
+On the WRT3200ACM, mpp45 (gpio1 13) and mpp46 (gpio1 14) are described as
+the "wlan_2g" and "wlan_5g" LEDs, but they are the PERST# lines of the
+2.4GHz and 5GHz 88W8964 cards: driving them low holds the card in reset.
+With a LED trigger on them (e.g. netdev on the wifi interface, or
+phyXradio) the card disappears from the bus, its config space reads
+0xffffffff, and mwlwifi logs "adapter does not exist", "buffer is NULL for
+tx done ring" and "can't get hw specs" until the next reboot.
 
-The xoffset + xres and yoffset + yres calculations can likewise wrap,
-leaving an invalid offset in info->var after fb_pan_display() rejects
-it. Subsequent fbcon drawing can then access far beyond the framebuffer.
+Drop the two LEDs and describe the lines as the reset GPIOs of the PCIe
+ports they belong to (pcie1: 5GHz card, pcie2: 2.4GHz card).
 
-Finally, PAGE_ALIGN(videomemorysize) was narrowed from unsigned long to
-unsigned int. Values near or above 4 GiB could therefore allocate a much
-smaller buffer than the size used for mode validation.
-
-KASAN reports:
-
-  BUG: KASAN: vmalloc-out-of-bounds in sys_fillrect
-    drivers/video/fbdev/core/sysfillrect.c:24
-  Write of size 8 at addr ffa0000001671000 by task poc/198
-  sys_fillrect
-    drivers/video/fbdev/core/sysfillrect.c:24
-  bit_clear_margins
-    drivers/video/fbdev/core/bitblit.c:247
-  fbcon_clear_margins.constprop.0
-    drivers/video/fbdev/core/fbcon.c:1410
-  fbcon_switch
-    drivers/video/fbdev/core/fbcon.c:2261
-  redraw_screen
-    drivers/tty/vt/vt.c:994
-  fbcon_modechanged
-    drivers/video/fbdev/core/fbcon.c:2693
-  fbcon_update_vcs
-    drivers/video/fbdev/core/fbcon.c:2732
-
-Reject video-memory sizes whose aligned value is not representable by
-the fbdev metadata. Check the offset additions for overflow. Compute the
-line length and framebuffer size in u64, reject unrepresentable line
-lengths, and check the total-size multiplication before comparing it
-with the allocated video-memory size.
-
-Cc: stable@vger.kernel.org
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Reported-by: <co+b0df61d49532b2ee@bugs.sh>
-Assisted-by: LLM
-Signed-off-by: Weiming Shi <bestswngs@gmail.com>
+Link: https://github.com/openwrt/openwrt/issues/9517
+Fixes: 41c865209626 ("ARM: dts: mvebu: add support for Linksys WRT3200ACM (Rango)")
+Signed-off-by: Michele Salerno <mikysal78@gmail.com>
 ---
- drivers/video/fbdev/vfb.c | 31 +++++++++++++++++++++----------
- 1 file changed, 21 insertions(+), 10 deletions(-)
+ .../dts/marvell/armada-385-linksys-rango.dts  | 31 +++++++++++++------
+ 1 file changed, 22 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/video/fbdev/vfb.c b/drivers/video/fbdev/vfb.c
-index de137b2bd..84b0a937c 100644
---- a/drivers/video/fbdev/vfb.c
-+++ b/drivers/video/fbdev/vfb.c
-@@ -101,11 +101,11 @@ static const struct fb_ops vfb_ops = {
-      *  Internal routines
-      */
+diff --git a/arch/arm/boot/dts/marvell/armada-385-linksys-rango.dts b/arch/arm/boot/dts/marvell/armada-385-linksys-rango.dts
+index 4ab45f2..5209e06 100644
+--- a/arch/arm/boot/dts/marvell/armada-385-linksys-rango.dts
++++ b/arch/arm/boot/dts/marvell/armada-385-linksys-rango.dts
+@@ -63,20 +63,33 @@
+ 		gpios = <&gpio0 21 GPIO_ACTIVE_LOW>;
+ 		label = "rango:white:sata";
+ 	};
++};
  
--static u_long get_line_length(int xres_virtual, int bpp)
-+static u64 get_line_length(u32 xres_virtual, u32 bpp)
- {
--	u_long length;
-+	u64 length;
+-	led-wlan_2g {
+-		gpios = <&gpio1 13 GPIO_ACTIVE_LOW>;
+-		label = "rango:white:wlan_2g";
+-	};
++&gpio_leds_pins {
++	marvell,pins = "mpp21", "mpp56";
++};
  
--	length = xres_virtual * bpp;
-+	length = (u64)xres_virtual * bpp;
- 	length = (length + 31) & ~31;
- 	length >>= 3;
- 	return (length);
-@@ -122,7 +122,8 @@ static u_long get_line_length(int xres_virtual, int bpp)
- static int vfb_check_var(struct fb_var_screeninfo *var,
- 			 struct fb_info *info)
- {
--	u_long line_length;
-+	u64 line_length, size;
-+	u32 xres, yres;
+-	led-wlan_5g {
+-		gpios = <&gpio1 14 GPIO_ACTIVE_LOW>;
+-		label = "rango:white:wlan_5g";
++&pinctrl {
++	pcie_reset_pins: pcie-reset-pins {
++		/* mpp45: 2.4GHz card reset, mpp46: 5GHz card reset */
++		marvell,pins = "mpp45", "mpp46";
++		marvell,function = "gpio";
+ 	};
+ };
  
- 	/*
- 	 *  FB_VMODE_CONUPDATE and FB_VMODE_SMOOTH_XPAN are equal!
-@@ -159,17 +160,23 @@ static int vfb_check_var(struct fb_var_screeninfo *var,
- 	else
- 		return -EINVAL;
- 
--	if (var->xres_virtual < var->xoffset + var->xres)
--		var->xres_virtual = var->xoffset + var->xres;
--	if (var->yres_virtual < var->yoffset + var->yres)
--		var->yres_virtual = var->yoffset + var->yres;
-+	if (check_add_overflow(var->xoffset, var->xres, &xres) ||
-+	    check_add_overflow(var->yoffset, var->yres, &yres))
-+		return -EINVAL;
+-&gpio_leds_pins {
+-	marvell,pins = "mpp21", "mpp45", "mpp46", "mpp56";
++&pciec {
++	pinctrl-names = "default";
++	pinctrl-0 = <&pcie_reset_pins>;
++};
 +
-+	if (var->xres_virtual < xres)
-+		var->xres_virtual = xres;
-+	if (var->yres_virtual < yres)
-+		var->yres_virtual = yres;
- 
- 	/*
- 	 *  Memory limit
- 	 */
- 	line_length =
- 	    get_line_length(var->xres_virtual, var->bits_per_pixel);
--	if (line_length * var->yres_virtual > videomemorysize)
-+	if (line_length > U32_MAX ||
-+	    check_mul_overflow(line_length, (u64)var->yres_virtual, &size) ||
-+	    size > videomemorysize)
- 		return -ENOMEM;
- 
- 	/*
-@@ -434,9 +441,13 @@ static int __init vfb_setup(char *options)
- static int vfb_probe(struct platform_device *dev)
- {
- 	struct fb_info *info;
--	unsigned int size = PAGE_ALIGN(videomemorysize);
-+	unsigned int size;
- 	int retval = -ENOMEM;
- 
-+	if (videomemorysize > U32_MAX - (PAGE_SIZE - 1))
-+		return -EINVAL;
-+	size = PAGE_ALIGN(videomemorysize);
++&pcie1 {
++	/* 5GHz card */
++	reset-gpios = <&gpio1 14 GPIO_ACTIVE_LOW>;
++};
 +
- 	/*
- 	 * For real video cards we use ioremap.
- 	 */
++&pcie2 {
++	/* 2.4GHz card */
++	reset-gpios = <&gpio1 13 GPIO_ACTIVE_LOW>;
+ };
+ 
+ &nand {
 -- 
-2.56.0
+2.47.3
 
