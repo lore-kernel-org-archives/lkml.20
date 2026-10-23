@@ -1,99 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.53
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792758239;
-	b=GVxDlY0nT0Da5bd+kgObk1SoLelmGGE9CTbPiGrCM/WfKwb7ZqeLXr1A1D3pV/5b/08s
-	 OlvDh1xwftDGSRFzkl7/0b2khUJmFGollcqFnEXm8TWU/Sfix0OYn9sknlmBQEjdLgFQc
-	 QnZGtJL+NKD1qMLYPIQCeS0UTCiHHCWl2P3RrIJmuNgRO/XswGM4yKPs+LhipNhreg0WN
-	 BAE7aB8x4xEZKOxMJ4W/QEi58p8WAn68enahh3606lPD/ZOXbQQZT8d5UxXTO3GMInrC9
-	 cmgM++M5b3kc7w1e67Ev7Ko1NDcXFUfI1RHj99eiyuQmldRLHTl9W/prYnCeQrWwgCA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792758239;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=F9zgbDfrwWa22334dnT+OLDYZsgLuPVUuaK9HxX9/Rg=;
-	b=MbOulVucwOBt8pDxWjv2JXEjsDSg2GtYIOsvJoZahtlPswoNgXLwesASe4D5Xt5qfQCm
-	 gXlZPHiJTA/TMfzlcZVUJwtUDBjdkvVnDhoi0ltNsqw1vpC8B3vOJe/KZVS90UMQdENlN
-	 nkG7ED/MCfNnqjOJOPLPUEvidDsB1SNjh0HtIex+IfHRBXFxzHOP44YL39SvA8p3z58BQ
-	 AgId2Jn7oN7iWzQFjwk59w+rbbcfTBM8p5Tn//HQybjuf+NCiTkyHEYRJ+lh9BZ6cKVS3
-	 9LczlVw/g1XYlVrakZLuSSSc7zbJ/xGhnkSwihI2EMF7dzKquM/Kr01pxgyMKr8FDGA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=GOR9fJsh;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.53
-Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com [209.85.218.53])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792758247;
+	b=kT90awot2W3JMHQiYbtzx63RKAi5N3KELqeTrYfzQte4FqNZR+wv4Fr+chZtrZt004Ks
+	 Xx0Mw5Wg7pk/NLEZXuSzJlJWTZRb/5XhjqAyhognDZJCMlCjcTXI3GxAthjOg5lyD/zpI
+	 2nHd7QudNiGPk/8xH7Q7PugpTSUa5pWTJb0ImO7tQqH5DBUEt19I/thhdw4X04jaWoUiY
+	 8lXhkSqHGTfsu1WeAwzDjpy3O7jJrarZa77Ym8q3UNENJtFBZaaRwFbZnFtBpsmKVVO5H
+	 AB91QIhcAIfuQaCLvYAjnvAlR1MY2m1rXjyH3pv3zZG5+BP8LXv43bOurLWSHPGO2Ng==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792758247;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:Cc:Subject:Date:
+	 Message-ID:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-Scanned-By;
+	bh=x4CmADp2ir7n+E8mOlnp3JESSQ5fFcEi+jbhhp5rGtk=;
+	b=EwC9lFtLPmfEBvNplqO0bMRa18P9jBVFqpXK3HCszbeuRqDatmbTWe6INo/OZceOMIAZ
+	 Xt0Z/W1WXkBE64nvXAHJuKY0R0yaZA9qfVdDSrWkR/y4lTrKG+f7bXCp+s0Se392isxJD
+	 UTPLoUYS7OuejmecxQJVpGe3MXpQklN4aR6D5D2iDcZBhwCeHFWje+pm0JGYinq19AUbC
+	 VNZZVVlpPTV7a5LRnLrqzlH+u/S3WmigyeIq2iX7pJ6wEDyVq5t4XybwfCdXgO59Fa4w7
+	 oNDNyyRcvSmToIgo0TkOZ4KjXrtdv6IsLr8auwzHnDGb8udoBizPr9z+itSS2J9hHXA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=cqV74MOB;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3087606A31F
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 12:23:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D3087606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0CDD606A337
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 12:24:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A0CDD606A337
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=GOR9fJsh
-Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c423b145922so108559466b.3
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 05:23:58 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792758237; cv=none;
-        d=google.com; s=arc-20260327;
-        b=YfrmUOwo8oN4bVCI8vLorHgebd/dxz2G4lCKDGG1jhxSBGOW3jsx4KlPmcoqcV6pXV
-         2Gzhba+M5iNtUmnG0r9FhuPeBAg7U5zk/q3r4j2mAZaBO8Q9CqFbZtZY84G5E0i/jBKl
-         Wys8oYoam5DqM3Yt3s4Qp13k6EkEkpdJaN6neHeNa6c9T8c8pLAyYpVhsCU9+iMFnRMK
-         3rAk9vS0wGa9bL5Zk83WOvgwE6k2e/4Z0nArQiZG569kLOc2xLWc+sWfpxdK5Vw3bdQQ
-         jD+YATFD7EKZau9teH0Rzvt9VwrWX0QxRVybCghfgHWz+HNPpzOPZvmYxisXgNp6V08G
-         3kLA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=F9zgbDfrwWa22334dnT+OLDYZsgLuPVUuaK9HxX9/Rg=;
-        fh=QStLUB0+LmAiv6IOaPzwWLVORW/cOXmjpk7gE6dHSZg=;
-        b=J+XF3QSrn7zur/GqI4Dis0fMAM5rXJCwSs3c8DxDhPKmxIamsJ2P8z0TOkwmjv2L7E
-         Dbr3DMmQXLe5pTXjmeWjCcOZTuQc5E7UwO+p40MFjOJEpZFvo9Xj0+CQIi44iXF/xbwG
-         6Gn3Y3RWZqIZAgEpjeSx5AO8aEGFkrm00rXFA6GlJkRC9Nzrluzdo7JbMTVLzqcqvv7e
-         vgKyif6YC3IWEhkCHv69k/t7xkdyOSwVLaq2LFbvDSOu1j62H8+pUO/VkWG2tZMdYGBe
-         oAt0GkQ9tzzYdxpCcAqls/SteqB4XEBZKpUO+sSD7AS+4nLbKytipA6KTZmM+XHsX1wG
-         eAeA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1792758237; x=1793363037; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=F9zgbDfrwWa22334dnT+OLDYZsgLuPVUuaK9HxX9/Rg=;
-        b=GOR9fJshWgBp2gDkyx1vblB9FKJLmILHDnYFIr80KYt1cFR7X5gxeUyGArfYaof87n
-         6GrDQSGjuKlPM/0tl2vZO47f6vhiOoOTW42TFAushZQZB+rV7utpQQKO6cFiRj7M6dxD
-         20GcAPW2YBuHo672S/o1ABA7BW5Y4HLPC3yXVI7yb7WwMlmoGZ+H0rGfGfmB/uGFdqiB
-         iqTz+Wqi6Tnm6cU3aNtqHVRuzzFxBbd67oNZWJJCv/AInMiTHVLtkdF7tDtn2GgNWuv+
-         aZWQx6NNS9PRqZ8Atv90BNjjXL8Nh4HfKpiiG24EPMgGmQR1ykoGqU2Nnm/b5Z/ZxLtR
-         PqYA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792758237; x=1793363037;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=F9zgbDfrwWa22334dnT+OLDYZsgLuPVUuaK9HxX9/Rg=;
-        b=c9+1Z0D8TTn4Wt+ww9a6zwTaa2sHzl+KEcuu70ydFwhnCGvQjRLRr0RYuDu+DhekXZ
-         wgVEWO5GiIeAOOJe96+hSgo92F/JHPlnD59gULwGIkV3+Vi0GYc1TVt/4xe2oEQwrtwF
-         8Pd4MF88QJX10SlaVlle8cXbR+G2RZi7yKYPmzjKefAuxFRV9hPWsceFnhfi8FMHz0fi
-         lap9SvhxhHntC/xUAsCvAnmspayig52IQ9EDkKzd0kXtf1f0WGdM5xvEUAHSxI2z3sWg
-         2arasOrLLmPEjDP0pKX1pVtU6tXYbVCSAHzbT31YjijM9heyYPbxcZKx12aSop1Jhu3H
-         M0+A==
-X-Forwarded-Encrypted: i=1; AKwUvBx5oEnY9VBwAK3BxhENqV1MPb5uMqdF6Zj98T2GjWDN/r5ciyrD9RMPeErWPilfY9smjOI8C69jAvf973I=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIWZlZN+NuMDWZp+wzjlK9ervQoNunCvB/65KbcIrKbPsUuga9g
-	tQnvHVBx15v2fghXj1XFTgQiVunh98snzMZ48EoVETEognBkn8H+ag+PCG6/kDFPY95xZrbAhZl
-	UmL1EjiCQGfKQdlpre0dUvqXQSOsvByW5RfW07GgjxA==
-X-Gm-Gg: AYBFou370Gi4SVWa2J8F334GcSD93aCvgiRkXMUEzfdyTNiEqy+Nnpw9eI7rkPuiDxU
-	7npWAHjuztw7v2dccoLVARB3r799UjNkw689Sr78bOxEye8WX5S/INyaciwlEjjvwWBbo+T/k2y
-	9QiMYGoyTKWNywujiFB1sNBqcf4zCAnuroJbRaRMqrlKmKD0e7IvaHoPWsDUZPnsDTAbQHnOZ4K
-	qmft+KVOCkVH2jKJr+mDbZaG0YmM55g3sdj1z4pdSLFcb6909ciyTLECqq2zw/oaRHyYrEfmFSm
-	vNuh3Ny8um2kUhZHY84Y1m4Bc0ZjDfGRTFKhdx4i2Euosp9UBqqLPinMJES1jiOcDxxjC1Ftudu
-	dWuUFV4vN2KFuxlMQDowo/sZghkNI5y8Q0pvocnQoZl6Vph05SIUCyXhkvpivBiFYcLxtDw==
-X-Received: by 2002:a17:906:d54f:b0:c46:9d50:8af0 with SMTP id
- a640c23a62f3a-c46a92903b3mr308017966b.36.1792758237155; Fri, 23 Oct 2026
- 05:23:57 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=cqV74MOB
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1792758245;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=x4CmADp2ir7n+E8mOlnp3JESSQ5fFcEi+jbhhp5rGtk=;
+	b=cqV74MOB8uTBCBFOBj/fROJt/IunnBf/0ox9glQvLQkyF5JOJ8ZHd6Rx2fTscqLhK0pUDJ
+	cSDPl3OhdNEJvQlh44ecZcbuFUnyh7lHHIJTSPnuoOXxs4yjQnsJjJA8a1pM921vyPZUTY
+	Fq599eTF2IbZ+P5fxKJwR692NivKqJI=
+Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-608-CHJDW6xEMZqCQT8L7LpFbw-1; Fri,
+ 23 Oct 2026 08:24:02 -0400
+X-MC-Unique: CHJDW6xEMZqCQT8L7LpFbw-1
+X-Mimecast-MFC-AGG-ID: CHJDW6xEMZqCQT8L7LpFbw_1792758240
+Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 47B6E1944D26;
+	Fri, 23 Oct 2026 12:24:00 +0000 (UTC)
+Received: from snishika-thinkpadp16vgen1.tokyo.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id C9E881800444;
+	Fri, 23 Oct 2026 12:23:55 +0000 (UTC)
+From: Seiji Nishikawa <snishika@redhat.com>
+To: Hannes Reinecke <hare@suse.de>
+Cc: Seiji Nishikawa <snishika@redhat.com>,
+	Keith Busch <kbusch@kernel.org>,
+	Jens Axboe <axboe@kernel.dk>,
+	Christoph Hellwig <hch@lst.de>,
+	Sagi Grimberg <sagi@grimberg.me>,
+	Chris Leech <cleech@redhat.com>,
+	linux-nvme@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] nvme-tcp: fix io_work priority inversion when send_mutex is held
+Date: Fri, 23 Oct 2026 21:23:51 +0900
+Message-ID: <20261023122351.977034-1-snishika@redhat.com>
+In-Reply-To: <526673b4-a090-47a4-9181-e30813a8cbe5@suse.de>
+References: <20261014064524.4015025-1-snishika@redhat.com> <526673b4-a090-47a4-9181-e30813a8cbe5@suse.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,56 +85,134 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261023023105.28829-1-laoar.shao@gmail.com> <20261023023105.28829-3-laoar.shao@gmail.com>
-In-Reply-To: <20261023023105.28829-3-laoar.shao@gmail.com>
-From: Vincent Guittot <vincent.guittot@linaro.org>
-Date: Fri, 23 Oct 2026 14:23:45 +0200
-X-Gm-Features: AclHuK83xC9Dk9rIpdRfEr2RoxnTQV5t5rgB8NaBI1MJG6Oz4J-kxNNMBQqk-vI
-Message-ID: <CAKfTPtD7UsFkH=YPp9Faf0LX8ppNDw6hkVgFd-0Y30oSBYdgfg@mail.gmail.com>
-Subject: Re: [PATCH 2/2] sched: use static_branch_likely() for the NUMA
- balancing tick check
-To: Yafang Shao <laoar.shao@gmail.com>
-Cc: mingo@redhat.com, peterz@infradead.org, juri.lelli@redhat.com, 
-	dietmar.eggemann@arm.com, rostedt@goodmis.org, bsegall@google.com, 
-	mgorman@suse.de, vschneid@redhat.com, kprateek.nayak@amd.com, 
-	gourry@gourry.net, david@kernel.org, tim.c.chen@linux.intel.com, 
-	yu.c.chen@intel.com, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
 
-On Fri, 23 Oct 2026 at 04:31, Yafang Shao <laoar.shao@gmail.com> wrote:
->
-> task_tick_fair() checks sched_numa_balancing on every tick. The
-> static_branch_unlikely() annotation reserves the nop for the disabled case,
-> so the default configuration (NUMA_BALANCING_DEFAULT_ENABLED=y) pays a
-> taken jump per tick. Flip the polarity to static_branch_likely() so that
-> the fast path matches the default.
->
-> Signed-off-by: Yafang Shao <laoar.shao@gmail.com>
-> Acked-by: Gregory Price (Meta) <gourry@gourry.net>
-> ---
->  kernel/sched/fair.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-> index 973647ad6c2d..71dc47d6114d 100644
-> --- a/kernel/sched/fair.c
-> +++ b/kernel/sched/fair.c
-> @@ -15351,7 +15351,7 @@ static void task_tick_fair(struct rq *rq, struct task_struct *curr, int queued)
->         if (queued)
->                 return;
->
-> -       if (static_branch_unlikely(&sched_numa_balancing))
-> +       if (static_branch_likely(&sched_numa_balancing))
+Thank you for the review.
 
-static_branch_unlikely is used by default for other static keys too
-like  sched_cluster_active, sched_cache_active, __sched_core_enabled
-sched_asym_cpucapacity and others ...
-So systems which don't enable them don't pay a jump when not using it.
-I don't see why numa should be different
+On 10/21/26 12:10 PM, Hannes Reinecke wrote:
+> On 10/14/26 8:45 AM, Seiji Nishikawa wrote:
+>> We hit this on a 6 CPU VM running a database on nvme-tcp storage. In
+>> the vmcore, 2 tasks held send_mutex of 2 queues and were runnable in
+>> lock_sock_nested() for 103 seconds, while the kworkers for those queues
+>> kept running io_work on their CPUs. All database tasks were in one
+>> cgroup, which got only about 0.3% of the CPU against the nice -20
+>> kworker. Requests timed out, and blk_mq_timeout_work() waited in
+>> synchronize_srcu() for the tasks still in .queue_rq.
+>>
+> How very interesting. I don't think you could craft a blktest for this?
+>
 
->                 task_tick_numa(rq, curr);
+I do not have a reliable reproducer in my lab. Reproducing the hang
+requires a particular sequence of scheduling events. The task holding
+send_mutex is preempted inside lock_sock_nested(), a higher priority
+(nice -20) kworker looping in io_work, waiting for send_mutex to be
+released, takes that CPU, and then starves the task holding send_mutex
+of CPU time indefinitely. The kworker keeps looping because
+mutex_trylock() keeps failing, since the preempted task still holds
+send_mutex, and the pending check (f42d4796ee10) keeps the kworker
+running instead of letting it return. It happened on a 6 CPU VM with a
+database under heavy load. So far I have only seen it on the customer
+system, but there it reproduced every time.
+
+>> Only do the pending check if io_work could take send_mutex. If it could
+>> not, the task holding send_mutex sends what it can in
+>> nvme_tcp_send_all(), and queues io_work again after it releases the
+>> mutex if requests are still pending, so no request is left behind.
+>>
 >
->         task_tick_cache(rq, curr);
-> --
-> 2.52.0
+> The direct send path again. I really wonder if we need it at all, or
+> whether we cannot simply delete it.
 >
+> Can you try if you see a regression with this patch?
+>
+> diff --git a/drivers/nvme/host/tcp.c b/drivers/nvme/host/tcp.c
+> index ba5c7b3e2a7c..2c59b550e13f 100644
+> --- a/drivers/nvme/host/tcp.c
+> +++ b/drivers/nvme/host/tcp.c
+> @@ -405,17 +405,6 @@ static inline void nvme_tcp_queue_request(struct
+> nvme_tcp_request *req,
+>          empty = llist_add(&req->lentry, &queue->req_list) &&
+>                  list_empty(&queue->send_list) && !queue->request;
+>
+> -       /*
+> -        * if we're the first on the send_list and we can try to send
+> -        * directly, otherwise queue io_work. Also, only do that if we
+> -        * are on the same cpu, so we don't introduce contention.
+> -        */
+> -       if (queue->io_cpu == raw_smp_processor_id() &&
+> -           empty && mutex_trylock(&queue->send_mutex)) {
+> -               nvme_tcp_send_all(queue);
+> -               mutex_unlock(&queue->send_mutex);
+> -       }
+> -
+>          if (last && nvme_tcp_queue_has_pending(queue))
+>                  queue_work_on(queue->io_cpu, nvme_tcp_wq, &queue->io_work);
+>   }
+>
+
+I cannot try it where the hang reproduced. That is a customer production
+system, and I have no reproducer outside of it. On the kernel with the
+regression, that system hung within 12 to about 50 minutes after boot, 5
+times in 2 days, under its normal database load. It has been running a
+kernel with my patch since October 15 under the same load, and the hang
+has not come back. With your patch this hang cannot happen, since
+io_work becomes the only sender and the trylock in io_work never fails.
+
+What I could do is a sanity check. On a 4 CPU VM with an nvmet tcp
+loopback target I ran
+
+  # NVMET_TRTYPES=tcp ./check nvme
+
+on 3 kernels: v7.3 (base), v7.3 with my patch (seiji), and v7.3 with
+your patch (hannes).
+
+base    passed=49 failed=0 not_run=12
+seiji   passed=49 failed=0 not_run=12
+hannes  passed=49 failed=0 not_run=12
+per-test results identical
+
+The 12 not run are the same on all 3 kernels, skipped for reasons
+unrelated to the patches:
+
+      6     nvme_trtype=tcp is not supported in this test
+      1     command tlshd is not available
+      1     driver scsi_debug is not available
+      1     kernel option KASAN has not been enabled
+      1     kernel option NVME_TARGET_DEBUGFS has not been enabled
+      1     libnvme version is older than 1.11.0
+      1     Remote target required but NVME_TARGET_CONTROL is not set
+
+This is only a functional check. It says nothing about latency.
+
+To apply your patch on v7.3 I had to drop the !nvme_tcp_queue_tls()
+line as well, since 08acb54b063a ("nvme-tcp: defer TLS inline send to
+io_work") is in v7.3. That commit already skips the direct send for
+TLS queues, so the io_work only path is already in use there. Two
+small things in the patch. empty is set but no longer used, which
+warns with W=1, and nvme_tcp_send_all() loses its only caller. I
+dropped both in the version I built.
+
+I agree the direct send path is the source of this family of bugs,
+5c11f7d9f843, a0fdd1418007, 70f437fb4395 and this one, and I am fine
+with removing it. But I think the two should be kept apart. This
+regression is in v6.16 and later, so it is in every current stable tree
+and in the distro kernels based on them, and people are hitting it in
+production now. What stable and the distros need is a small fix that
+only changes behavior for those who hit the problem, and that is what
+this patch is. Removing the direct send path changes performance for
+everyone using nvme-tcp and requires a performance review before it is
+introduced. Also, it belongs in the next merge window rather than in
+stable.
+
+So I would prefer to take this minimal fix now for v7.4 and stable, and
+do the removal as a separate patch for-next. If you agree, I can write
+and send that patch with your Suggested-by. For the performance side I
+can only test on VMs, so latency numbers from a real nvme-tcp setup
+would be needed from someone else. If later performance measurements
+reveal that the direct send is unnecessary, the check added here goes
+away with it, which is fine.
+
+Thanks,
+Seiji
+
