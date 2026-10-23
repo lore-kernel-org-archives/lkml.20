@@ -1,100 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=209.85.208.176
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1792786717;
-	b=ULT7LXZCGKxwf0SMGeWQ1Fq+BLDXabG3UXoPN2GkUJgvePYRmDv8/WjMrNf0HN9eSg+z
-	 S+1Y9CZxaJfWOZ3O70U7dmEaOU7VH+7Had04rd5y6+XiG9MRowGeMJbvK9CBRxbe5rQr+
-	 +SE2Ti1LaucfWv2Ivx2fYaisaZD6i40OitqEbHnzBtz2nsjP28uILuJ3HGLkI1JFNJi/F
-	 qZeXll+KfP0Iyl++YV1BkVozXqEYzZT+Z+GoFbzhbvvE5IxiTRhHLtwGJ1aUP4bnl0ZeV
-	 YdFKW5QA6w3L9cn2oB3Lm19k65KBg52EnoKHyghwuwYiDhA1aoxggHz8YmphN1zCTlg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792786717;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=XhM9OcXLuX0xqWWgIEsWYnSsV/Ip1IVt2dJP6Z55uh8=;
-	b=v7OKa6LuBfYBLbp20XH/50A1788mARInNuH2I738Lhc7+RXhf4acRF1ni7LSk+7VhCEu
-	 QANHSaUb0TLNYsYkYMD8uTYPJXJJHap1xOVPpUmkOdQxWsAo800EI0Lki2mD2aWM9zw2O
-	 LgBJ0BweZtC0yI569a1Yyi6tni9N4lbgfYUikU9ulNVnRqvM3Q1rRsF7n8F6ep5/rrFhy
-	 CD2eFf9jVo77CBGuhO0iIbVOMuQr1+MsdP6EZTevEzvsmeMawQXOjzwUhn2Cgk+JMrguY
-	 Yqu3E/f0SbJUL2B2JOFs1qB8vXhPrYE61W9thY4eG1XvgFAPi8cu1C6FTEJ86Wy7QsQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="d/zzjHPJ";
-	arc=fail smtp.remote-ip=209.85.208.176
-Received: from mail-lj1-f176.google.com (mail-lj1-f176.google.com [209.85.208.176])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=45.79.88.28
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792786881;
+	b=DBwSJrUDy8nb5gHOQDmjg/UfPDRjJHCRoLFU3pxLjYbBtBwP6KT7++5+81bhRvQphdG1
+	 ZgvqsnTk+rJJC7MEG5nt/E1jTpbcI0v2LkOobJ00jIRkGCC1LO1hJpDgGRznSxLo5GAhq
+	 oEMLgUI7d1ullCjR7YuR5byNNoS7zqcDGtOY08/VeIJOzYLLTMGqZqHw0/BESIpnwgDOO
+	 OeiKtxkFPWN1qggzlG/vtUwOqRVGRlzvXXOsq9vwE8YkNiheo3po5QuyRgxM1KxgiRkhv
+	 fU2V2ZBRh3r/fviFy0U9EExmcRn0iovNAsKAuQUKzryLAW7QeCUI7OIkk+vvoJw1OLw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792786881;
+	h=DMARC-Filter:DKIM-Filter:DKIM-Signature:Received:From:To:Cc:Subject:
+	 Date:Message-ID:MIME-Version:Content-Type;
+	bh=KiicLmvcEJTvj4IUoFShe1zCkXcPbAaG1PST3Sy3hOY=;
+	b=RV9gtMAaGsJmEGdTIefmy80R82b7GNw+UYcBWCmQNcuP2KWE2taKYNYpnnpnffTpjtLQ
+	 rnvX7/vZFJ13UJ4EgqTp+Xwf6LJRQ2WQ5Q0z0z4AG/dv8YvhIWDzMiLQ3iodT7At1M3cB
+	 4oiqnVODiYw373OTmhvWVLhVb74CUcN2KvbJHGGq3V6JyNSMzK6s7+cuQAuBfGbRY/Aq6
+	 DfG18BTdx4UmfOEXPymcuQFYO6/D3X00oAz4UAnbcVnxcsgqHlJzugpBDgoBED8evOi1O
+	 wx7RYAp7d7onbXuZ56vaxqX2gdPKROaPnQGHUP6vGeEvoZvQ3SMPPdM8sWY6RwsEtng==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=lwn.net;
+	spf=pass smtp.mailfrom=lwn.net;
+	dkim=pass header.d=lwn.net header.i=@lwn.net header.a=rsa-sha256 header.s=20201203 header.b=VWy0WdGa;
+	arc=none smtp.remote-ip=45.79.88.28
+Received: from ms.lwn.net (ms.lwn.net [45.79.88.28])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA360606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 20:18:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AA360606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6628F606A31A;
+	Fri, 23 Oct 2026 20:21:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6628F606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lwn.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lwn.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=d/zzjHPJ
-Received: by mail-lj1-f176.google.com with SMTP id 38308e7fff4ca-3ab35a9d9ceso1056251fa.3
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 13:18:36 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792786715; cv=none;
-        d=google.com; s=arc-20260327;
-        b=kjIrfg8jPTK5ayZdptF4lDcF/je9Suyq77W1/T2ze7yBZDsnh/9s6BCJJHJh/jP/EA
-         9LVCYuhUQm+RhuElMzECBLYgjbTOQvEqcs03tTFSCTmFL5RkOicy5+mopsELupFty1iK
-         ZBs9op2OwoqhQo/QeQv7rrV11Ce7McIgjYtC1gKlmfts5paLDV1WsYeRPfkHKwmrGmHK
-         NTey3vg6rTCfhZTS1BLbjJ7ZRHrUEgfxtAgbhXvR5Hy2xq7taxOKvATuay5oadzz0vHQ
-         FcSrMcZQafvimx40gqofgksep5zginZkH7Xm/G4d3eZ7xO7gLd1A8OSKguKhbhiNLYL4
-         VToQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=XhM9OcXLuX0xqWWgIEsWYnSsV/Ip1IVt2dJP6Z55uh8=;
-        fh=z8MThzKy4/bm5UOn3W4szIX1+E64KcfrooLPV18kBMw=;
-        b=VCQaLe3PkDNfSsthuU3MsWA7INJxTdZ4ZsWZtHT7v9SKKYI8vn8Ura2vAZEvB2jAWf
-         /2Jptj47RDA+BLsyS0/XV/maw8WxpDhxwjM2QfRLCEw5iYS7DsEIhyAR1mqEPEAH0SzU
-         YEE8neWQ69PiihJddYZI23soUu7JlZ2VHufnJODV+JQMnfxkZncI5Gc0sMXRHUwE2LJH
-         9ck9sSBResmPjrnP6upqWezZlTKu9V7l+ZDRcfiqduiwyhCBgaXHAoIwrYuVT2z1ACjN
-         nzux1Wc/O7gc25MGduWQEvLudaQPIFAm2vF2Uc6c4UuginxDzoz6fMUfrx/qc/d/GkRz
-         2aeA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792786715; x=1793391515; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=XhM9OcXLuX0xqWWgIEsWYnSsV/Ip1IVt2dJP6Z55uh8=;
-        b=d/zzjHPJZCnZvk7av+z0zRW59lLKwO4DiTPTKuI47UN1SbTg54KgiiYZEsvN8n+xug
-         jI77yt2Ulm7AtYiY9lLtBRyJh9+NL7HFrEv4hMxAbQJUivuVhLure9tCxqsoROZzEp+A
-         h+/r7Yj6+//z5ed5EOO9Z4SzyB4jZ4Cno5qoyZepEbeONdbW36JyxAWH1hytWZc5goNR
-         7qZWsyi+X3MuwvopViDGRxfrQOYjZU9DJUoI1uK2zhctKdlUgoA4vlpMwJseXryxyxda
-         FDjgeJtlKcDP4TsfNzWTGhykkl4M8U+4VkbTL+YkBodBShoyFb2e8A6v2UMt5vqcvYAS
-         aeHQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792786715; x=1793391515;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=XhM9OcXLuX0xqWWgIEsWYnSsV/Ip1IVt2dJP6Z55uh8=;
-        b=chS2x0GJNIcXLrLLkuTYTqjht3LXraFkkTChPraCwh+aV9fxMSJG8NSUpl2qhE3zlN
-         spfVnt4A8y2diKwzs1vpBpR0NdtNfeNM7jK7XH/U74jJq/1lx+8r2rJ8lNhgZjaYEQ2S
-         aZUfrgm4p/62FwGxbiCYMEmLffepuDrEVMGXxPJZSMJYdCFBRxMiTiVKDeek01mAgVVV
-         Bt5wVBzN3/p/kKx7g9sEAhuD14brADeS2epClQjyFbCjqAo9Yojee7NM8dyi5o05DXVm
-         bVAKEFONC0RAEEnrI2XfV0ctXMnopHI9RVdXxCwyik84001vrvNQU+4IYJL/PmLeCL5n
-         UHFQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzlpemc2qKdJEBAsv1kdNjugOpS1lIZnn8rr1UCPYmlPMVjBImfSIMWeSggRF1jRsqhCGWzK7RwB6WRIQ0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKQsnNsh5SeGOcHlwwmOcLYB4yK4VMbuEyCmJEpoILufXhGUKSb
-	E3b8z3+jY8omQV2ds8dOId1QDMdLt3NO7u4LFtiwiIYBVLK9owXx3Eg/5P0HfGbBT1aoY3TCYb2
-	8Y1IxMegMwQp3A5kmGrIHkmcPODbkkO0A4D3m474=
-X-Gm-Gg: AYBFou36XuvgNXDQVekf3n81MTTaUG0QO3X0h5qvDq6RVoNg8V29h3I7f791fgwdSMb
-	HyIy1MtcPDmk0+fGnkxZFVKKtJMim9v22SzunSz3DHDb6SE0QJP2tY3s/6l2UDqIKb07ccVlLpU
-	3IW/zyaH996Mm5OJk4OkjS+G/jGRPfvQ2oIfvM2ToawYRu4xZbpE4dYamqHbGL89wG6EgTGfj3g
-	IcE8Jjv+y7QQSM/WvG4uz7PvGWUDG6VirMdxI+Lm8MScv0KVrOpfLGyJP26+t5PtkORbn5Lx6H3
-	JoAk6bHie/dwRBgLujUYpjZPM3zaWRHw59VySWD3bHdsidVFKaZOCD2fS9FuN2JotwO3BdaKnr2
-	l2QHEdAPddYjHV9L0cf0yvqwrsX58389YxPC6heKmUBmtHtiqNDFu2LEx3ec5TO1qvalN16Dri0
-	qtA2xSG1+YzuOwAfnuIF0=
-X-Received: by 2002:a05:651c:a38d:20b0:3ab:1864:5004 with SMTP id
- 38308e7fff4ca-3ac6f9f52damr659021fa.0.1792786714401; Fri, 23 Oct 2026
- 13:18:34 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=lwn.net header.i=@lwn.net header.a=rsa-sha256 header.s=20201203 header.b=VWy0WdGa
+DKIM-Filter: OpenDKIM Filter v2.11.0 ms.lwn.net A6E5F40915
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lwn.net; s=20201203;
+	t=1792786879; bh=KiicLmvcEJTvj4IUoFShe1zCkXcPbAaG1PST3Sy3hOY=;
+	h=From:To:Cc:Subject:Date:From;
+	b=VWy0WdGaMI6K/kRrPLKn78UmBR8zOSjJwB8vv9MWdZGXjlfLNvRlrf7SD7dU7XBLN
+	 RCTWtUjoMokps474J2EvS+ElcKfubghxKiKPjE+hqlUco1ptsyAo4E/9YHa2KTzWNK
+	 DXK/m2NCS3L3BTfhXvJ7orczYvGPiaRua9S22FoNNcfMSfqvPUikx5quvHIxXom9un
+	 52dfk1OJySJyvqUMBb/EZXOD3vYdZCnnSEyFEsetmwKe4i5RnRiIbTO4J51KZ13i87
+	 XC8Unn58azGD2CAmBAoj/nPpgkHeCl4ar4tdv+H7uz2LQCJo3jH9Raeck50/oFAm8P
+	 0wuhMjQG8NigQ==
+Received: from localhost (unknown [IPv6:2601:280:4600:814::1fe])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by ms.lwn.net (Postfix) with ESMTPSA id A6E5F40915;
+	Fri, 23 Oct 2026 20:21:19 +0000 (UTC)
+From: Jonathan Corbet <corbet@lwn.net>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: linux-mm@kvack.org, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH] uaccess: fix some erroneous kerneldoc comments
+Date: Fri, 23 Oct 2026 14:21:18 -0600
+Message-ID: <87se1ww4ld.fsf@trenco.lwn.net>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,44 +63,72 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261015125644.12908-1-danielmaraboo@gmail.com>
- <20261015125644.12908-2-danielmaraboo@gmail.com> <atQ_mXYNqs4tnDpW@wyuan.org>
- <79dd90f0.11f3f.1a15272eff3.Coremail.dzm91@hust.edu.cn> <CAMAsx6eb3X7GLheOaVoumORnvKftFYkU0VHynZYyx9m74+CTTw@mail.gmail.com>
- <40aeaf0a-6e04-461c-a507-52f791b45541@hust.edu.cn>
-In-Reply-To: <40aeaf0a-6e04-461c-a507-52f791b45541@hust.edu.cn>
-From: =?UTF-8?B?6JGJ5a645L2R?= <chenyou910331@gmail.com>
-Date: Sat, 24 Oct 2026 04:18:22 +0800
-X-Gm-Features: AclHuK_EAQno5gp97BTsUaFw5xbfmoJyDrYbxbG_JGUedumrttOcvXcOiHkHcgo
-Message-ID: <CAKspUh+c2ZStWkBU6CnhRXEMzqpW81MrbRaTtJtHBDvEfwJ6Sg@mail.gmail.com>
-Subject: Re: [PATCH v2 1/2] docs: doc-guide: add a guide for translators
-To: Dongliang Mu <dzm91@hust.edu.cn>
-Cc: Daniel Pereira <danielmaraboo@gmail.com>, wy@wyuan.org, jani.nikula@linux.intel.com, 
-	alexs@kernel.org, corbet@lwn.net, skhan@linuxfoundation.org, 
-	rdunlap@infradead.org, si.yanteng@linux.dev, federico.vaga@vaga.pv.it, 
-	akiyks@gmail.com, carlos.bilbao@kernel.org, linux-doc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain
 
-On Fri, Oct 23, 2026 at 10:10 +0800, Dongliang Mu wrote:
-> I agree with this proposal. Ask maintainers of each translation to
-> solves these issues first.
+Several of the comments in include/linux/uaccess.h generate kerneldoc
+warnings due to the use of "/**" markers on non-kerneldoc comments and
+unmarked literal blocks.  Bring these digressions into form and eliminate a
+number of docs-build warnings.  No changes to code or documentation
+content.
 
-For zh_TW, the three moved documents (security-bugs, magic-number,
-gdb-kernel-debugging) are already relocated in the series below, which
-Weijie has applied to the zh_TW tree and which is waiting to go upstream:
+Signed-off-by: Jonathan Corbet <corbet@lwn.net>
+---
+Naturally bringing this file into the docs build turned up some
+warnings; this fixes them.  Happy to ship it with my other patch or let
+it go through -mm, whatever works.
 
-  https://lore.kernel.org/linux-doc/20260929131020.266120-1-chenyou910331@gmail.com/
+ include/linux/uaccess.h | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
-So no need for a separate move on our side, Daniel, but thanks for
-offering. One file is missing from the list: filesystems/sysfs.txt,
-whose original is now filesystems/sysfs.rst (zh_CN has the same file).
-I will send a fix for zh_TW.
+diff --git a/include/linux/uaccess.h b/include/linux/uaccess.h
+index eddbbb65ccc4..67cdb0a4f583 100644
+--- a/include/linux/uaccess.h
++++ b/include/linux/uaccess.h
+@@ -357,7 +357,7 @@ extern __must_check int check_zeroed_user(const void __user *from, size_t size);
+  * struct).
+  *
+  * @ksize is just sizeof(*dst), and @usize should've been passed by userspace.
+- * The recommended usage is something like the following:
++ * The recommended usage is something like the following::
+  *
+  *   SYSCALL_DEFINE2(foobar, const struct foo __user *, uarg, size_t, usize)
+  *   {
+@@ -447,7 +447,7 @@ copy_struct_from_user(void *dst, size_t ksize, const void __user *src,
+  * about data it does not.
+  *
+  * @ksize is just sizeof(*src), and @usize should've been passed by userspace.
+- * The recommended usage is something like the following:
++ * The recommended usage is something like the following::
+  *
+  *   SYSCALL_DEFINE2(foobar, struct foo __user *, uarg, size_t, usize)
+  *   {
+@@ -529,7 +529,7 @@ __copy_struct_generic_bounce_buffer(void *dst, size_t dstsize,
+ 	memcpy(dst, src, size);
+ }
+ 
+-/**
++/*
+  * This is like copy_struct_from_user(), but the
+  * src buffer was already copied into a kernel
+  * bounce buffer, so it will never return -EFAULT.
+@@ -553,7 +553,7 @@ copy_struct_from_bounce_buffer(void *dst, size_t dstsize,
+ 	return 0;
+ }
+ 
+-/**
++/*
+  * This is like copy_struct_to_user(), but the
+  * dst buffer is a kernel bounce buffer instead
+  * of a direct userspace buffer, so it will never return -EFAULT.
+@@ -770,7 +770,7 @@ static __always_inline void __scoped_user_rw_access_end(const void *p)
+  * If the user access function inside the scope requires a fault label, it
+  * can use @elbl or a different label outside the scope, which requires
+  * that user access which is implemented with ASM GOTO has been properly
+- * wrapped. See unsafe_get_user() for reference.
++ * wrapped. See unsafe_get_user() for reference::
+  *
+  *	scoped_user_rw_access(ptr, efault) {
+  *		unsafe_get_user(rval, &ptr->rval, efault);
+-- 
+2.55.0
 
-glossary.rst exists only in the translation by design, so the rule in
-the guide may want to allow for files like that and how-to.rst.
-
-Once these have landed, I will drop the ":Original:" fields from zh_TW
-in a separate series.
-
-Thanks,
-Chen-Yu
