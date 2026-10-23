@@ -1,58 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=51.159.59.229
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792772465;
-	b=5eK4UM9TE6/8RfU0XZRa71UPozYM4ok02B649R/pMzCieBHhO4fZ1HzPGm6N7+KTzl/N
-	 rs1Pp/mefxyOddikRA/ZmykvAjT4Cgr3ZC3j4hTWDG9w2sZZzLpsWUlosI8EqL5eLQpCR
-	 3RJLL7d2GXTIpW3RRueuvxfmnwEEWgdhIvi79zdCTx+gB+MrnZeI9TD7mJQ8g878Amdkm
-	 lQ6VlTJM4qRG56dLgBPYqFc0yYvnw060OXtr66G6IWnKDAr9AnHRv5/Vcx5tuu8kFSspm
-	 KM3gebSyGDzT1lGsPJz31lMgYHA8DCbrK8J0FvMIpwT3f6t4zuNjBkSw2hGdkabjatA==
+	t=1792772504;
+	b=kO5j6D3+QMqX693Ixr+DxGgeuhaqLzZqvQaadvSN8Bunzq1DD7Y819QiqvfQCFVlzYIl
+	 Ky+3ItBfL4hUTVdnpjJzdO5IyhayRN//BPDgA0f4XVSJuJomBTRAibCWfT/6DbFvNtN56
+	 2lJg8RzNR35Cl4ViVUTtV1V/knxACTo0bOJ+ocSmJ2AMDSTgHFHdOaNrLuWAlUPcjVgCp
+	 OXosf9z9qn2gJtsihpH5/gVJp8MSKqf4AIDCzo4TmCPVxFoLCrRuk1EQrawrq0tViSuOT
+	 3FRISOnSHS9jgxhWF8be/7qgyMdDcxiT2UHHQG5B+eeMrBhktvPi9bwm6/EpT/Ugi/Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792772465;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=lyLeZAF20jIp1lqB2FYqBLHVimbjVkZy3uUtpYqauec=;
-	b=UI2ezhgjDNjsh8Iuoq2SoLlzQRgFktgUhwGbaKsG1uR0dVi0BHA6+dvKWaPlMHpmBtMK
-	 TNbSwTToGctJR7plcMKtp/0qCE5pbfMg+5hbGNN1v1zDH8R0vnK676DNYaMb22BBYukcP
-	 prkGMTLl10kgI/DAO61IfNeSZsWSeKQtdjqpai6p0KY3ZCqSSUA0zbOfHMZlw3LSOQzkM
-	 3XOPQQ7e6ZPDa8JAKD0yPV557XylDejHIKPH1djZUjY3qgPc9ZjydmGk1+7I4Wy9lnMN7
-	 pTRY56bs5L8VxIWxNIMNMARF0hcY6FTlwf7id1roXSWAhLSgX9vX/2qeWR66IgKKtWA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792772504;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=ObpDvAOX1klXfqsSNdhdP4hJ47WYvmcb7PIfyXC1CRw=;
+	b=npbKlbKgjuZbxDZB6sBrrp1A0yXLxrdhgvrWs5UHNppJQaamKPElkyY6ANO3hw4sKGFA
+	 CP3nEw1K6WD0Gn6Zi/SDJspwdFOqx273R2mNoPc15qKwoWemEXehfFnkQulZTMCo3u1LI
+	 T/n94mo1TEFkcx6sjxMJleFjNAH2PlQ4nGMwPbUCDn+0U5TEoPvDSOSCo4WDjBZopuwSj
+	 8veSmmGaVxjLsw5C5f+Wkfc2DC/j4OIJyHeCb+PYh/ekz704wAHetC3p5LOROvS5EbMIR
+	 LiT1JHuboFymN59nWbtjdm8RLYHsmlM48+bafoznKUkQKisDNh2bZJCwFR0LTznDPyA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=1wt.eu;
-	spf=pass smtp.mailfrom=1wt.eu;
-	dkim=pass header.d=1wt.eu header.i=@1wt.eu header.a=rsa-sha256 header.s=mail header.b=rTUPrbpU;
-	arc=none smtp.remote-ip=51.159.59.229
-Received: from mta1.formilux.org (mta1.formilux.org [51.159.59.229])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=qhBIX0dc;
+	arc=none smtp.remote-ip=209.85.221.43
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B46C2606A31A;
-	Fri, 23 Oct 2026 16:21:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B46C2606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=1wt.eu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=1wt.eu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0851606A31F
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 16:21:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B0851606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=1wt.eu header.i=@1wt.eu header.a=rsa-sha256 header.s=mail header.b=rTUPrbpU
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=1wt.eu; s=mail;
-	t=1792772456; bh=lyLeZAF20jIp1lqB2FYqBLHVimbjVkZy3uUtpYqauec=;
-	h=From:Message-ID:From;
-	b=rTUPrbpUNIbT7N5M7A87YK2q3VBrsCSAIX5kHh2IypIyCZnf24G7XMY6bGdWFRRZX
-	 Co8JQ7mlq+pI9wFrxRDgyEsicuOMq5iLEp/M9XXjb7Y+zNMNGs7RsCdUw+G5n+DdAk
-	 o+a58MDxerJ/cPXRItRcBefLawsjOmgj0s9fr7nk=
-Received: from 1wt.eu (ded1.1wt.eu [163.172.96.212])
-	by mta1.formilux.org (Postfix) with ESMTP id F1A71C0943;
-	Fri, 23 Oct 2026 18:20:55 +0200 (CEST)
-Date: Fri, 23 Oct 2026 18:20:55 +0200
-From: Willy Tarreau <w@1wt.eu>
-To: Thomas =?iso-8859-1?Q?Wei=DFschuh?= <linux@weissschuh.net>
-Cc: Daniel Palmer <daniel@0x0f.com>, linux-kernel@vger.kernel.org,
-        linux-sh@vger.kernel.org
-Subject: Re: [PATCH] tools/nolibc: sh: enter _start_c with jsr instead of bsr
-Message-ID: <atuJZwT7LIzceQ2c@1wt.eu>
-References: <20261022100159.525910-1-daniel@0x0f.com>
- <cd8fcccd-aa70-46f9-b497-ec3070b5f8db@t-8ch.de>
- <atrsI4aaq9t4BVra@1wt.eu>
- <81607eb0-596c-4943-a8fe-d272fcd258c4@t-8ch.de>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=qhBIX0dc
+Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-487049569b6so643254f8f.1
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 09:21:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792772502; x=1793377302; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ObpDvAOX1klXfqsSNdhdP4hJ47WYvmcb7PIfyXC1CRw=;
+        b=qhBIX0dcQktnNgcuhUOneFmHnNHKpxg+fYyk/FDPz3ae3Xmty8XA9sE9NJ4+d8lNC2
+         ubukkbO61AOfg50nn/TawWQ22v/v/uhgB/q79lB1085dthU9oFX8QUCkem7s53SLDra7
+         9xNt6zmk+iS6vIgX33fVpkylI56664RooxqhLUp4Ljcxz5ZjikQeNCpwBr0J7y+R7cy6
+         OvPIKf3vkIdMe+0ldpc8O5maz3nEGV/qAq0q5KOT+x5x7Bed3TeV3b6OHgC1KzgkmP+H
+         QzUjSQyigkx3VCU5aDPu0ZliEEO4CjZHH2OBBURVgloB6/+5apqO/Qu++l+c85QlZZxZ
+         gfLw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792772502; x=1793377302;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ObpDvAOX1klXfqsSNdhdP4hJ47WYvmcb7PIfyXC1CRw=;
+        b=G3NepBkRGySaWfHwVUx+07jdJWEBHUT4KAFRA0SbLqLrOFqTQWpBpaNv0KcHxqGSKb
+         vjRGtp+9hrprWhsb30oxeDeGCDjXx19uLC/pRRmNQckBKXyjsZfIWO/sBxjD7MquPXjM
+         TCfs1O+LTzSYVpR0xioDb457tQvRPXuZZZK2TKsutQW14mPsJS1Kw+wpcxOMUT7l6TiC
+         oIbChKUtkKNCkrornS7dy4fc3odOGwhCqBjafF1RmHobwGdFEGKXtj58Gc6CclBhxHTJ
+         0S0FYZicTGb4I1wWAOvVzCM4A/rTEz/CZwLmcJBGksS63FFoKXVfK9s/SeHsm9ZKziSk
+         EqDQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxHcYP6qUwVxm4wTjZztNi9yqDxB1gjcIi+Wog8PPc5IEyfkZEEZSvxQGttPIQIbSJKng38pviEqDKXtWk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI0TLMewZrGBKZp5U28XKcGI5GavcAlQUYtz14cUzcXcC7Sc1yX
+	zv1o2Sf/Jj+lYWan4bkEFV97aCjkenoY8dHLLJzNqHrUL3eNC+3dhBrI
+X-Gm-Gg: AYBFou3j7NBUa5VpwgJL/azW7nO1bnXNBxGCTCM/QZ0JlwsJamj4ez87eKcYSmHfJpS
+	yg2SNKjc+lTpsgkxDkDx6rTXrzH+x6SSsgqsH71Aej5z2TDJgOg1wiDusWGyC64X0g1i+ItpDWW
+	3NJQhCJKJJg7AHMCV/Z67hILTyTZ8IQwV6xvl7Im+DLF6qYdR6e7EYH5F8iHQkv+EIfOLXiHFZn
+	yjQyARFdhZ7a0BtHdteEc0lf2gbpgXK3x3CcEAyGVGPqUbP7fIJTLODCbQGNM4n9BIiL/XHG1Bc
+	meIJaBgnC3JEE6QyFNyVMuOcSnLhVeXeqENSzaia3xV/VcCrfb+CHAJUkQeTQ5rOHkZefFSBs1C
+	K5W5BrlZJcg/cE7DOIBtJp+yoQT1Mm1pXqoXZQq8XCAfE3FZYUu5i1ZU635uxMIkyM60E4NtrV7
+	QHW0dUXN8KbRgPg+Si7KeT7O4DfrYBmGuj8Lt084R+v2L9W1dH9dY5+TD9JkCWY6aTP37Ev1zQd
+	8bgtn+NY2h6hGo5Pti0WkaS023jI+NjoH3bebnU2CK62J+kkYhLvvvpTJxgpw==
+X-Received: by 2002:a5d:64e3:0:b0:487:106f:ee31 with SMTP id ffacd0b85a97d-48e385a6690mr4354135f8f.27.1792772501780;
+        Fri, 23 Oct 2026 09:21:41 -0700 (PDT)
+Received: from deb05.proceq.com ([213.160.61.66])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3d37ca2asm901583f8f.8.2026.10.23.09.21.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 23 Oct 2026 09:21:41 -0700 (PDT)
+From: Mehmet Fide <mehmet.fide@gmail.com>
+To: Krystian Kaniewski <krystianmkaniewski@gmail.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Neill Kapron <nkapron@google.com>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	linux-usb@vger.kernel.org,
+	Brian Ellis <brianellis@gotenna.com>,
+	Johan Hovold <johan@kernel.org>,
+	Jiri Slaby <jirislaby@kernel.org>,
+	linux-serial@vger.kernel.org,
+	syzkaller-bugs@googlegroups.com,
+	aichao@kylinos.cn,
+	kees@kernel.org,
+	linux-kernel@vger.kernel.org,
+	syzbot@lists.linux.dev,
+	stable@kernel.org,
+	mehmet.fide@screeningeagle.com
+Subject: Re: [PATCH v2] usb: gadget: u_serial: pin ports while TTYs are installed
+Date: Fri, 23 Oct 2026 18:21:39 +0200
+Message-ID: <20261023162139.3308-1-mehmet.fide@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261022091359.1187468-1-krystianmkaniewski@gmail.com>
+References: 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,86 +109,22 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <81607eb0-596c-4943-a8fe-d272fcd258c4@t-8ch.de>
 
-On Fri, Oct 23, 2026 at 05:53:51PM +0200, Thomas Weißschuh wrote:
-> On 2026-10-23 07:09:55+0200, Willy Tarreau wrote:
-> (...)
-> > > > Replace bsr with a calculation of the effective address of
-> > > > _start_c and jsr.
-> > > > 
-> > > > Tested on QEMU and real SH4 and SH4a machines.
-> > > > 
-> > > > Signed-off-by: Daniel Palmer <daniel@0x0f.com>
-> > > > ---
-> > > > 
-> > > > I'm no SuperH asm expert but this works for me. :)
-> > > > Maybe there is a way in C to get _start and _start_c to always
-> > > > be close together that would avoid this entirely?
-> > > 
-> > > That would be my preference, too.
-> > > 
-> > > Maybe one of these works:
-> > > 
-> > > 1) Put both _start() and _start_c() in a dedicated .text subsection.
-> > > 
-> > > Apparently the default GNU ld linkerscript contains '*(SORT(.text.sorted.*))'.
-> > > So if we use .text.sorted.nolibc_start for both functions they should
-> > > end up next to each other.
-> > > See https://sourceware.org/binutils/docs/ld/Input-Section-Wildcards.html.
-> > > 
-> > > 2) Put _start() *into* _start_c:
-> > > 
-> > > diff --git a/tools/include/nolibc/crt.h b/tools/include/nolibc/crt.h
-> > > index 714256228914..ebcd0ea2b9f2 100644
-> > > --- a/tools/include/nolibc/crt.h
-> > > +++ b/tools/include/nolibc/crt.h
-> > > @@ -115,6 +115,19 @@ void _start_c(long *sp)
-> > >                 (*--dtor_func)();
-> > > 
-> > >         exit(exitcode);
-> > > +
-> > > +       __asm__ volatile (
-> > > +               ".global _start\n"           /* The C function will have a prologue,         */
-> > > +               ".type _start, @function\n"  /* corrupting "sp"                              */
-> > > +               ".weak _start\n"
-> > > +               "_start:\n"
-> > > +
-> > > +               "mov sp, r4\n"               /* save argc pointer to r4, as arg1 of _start_c */
-> > > +               "bsr _start_c\n"             /* transfer to c runtime                        */
-> > > +               "nop\n"                      /* delay slot                                   */
-> > > +
-> > > +               ".size _start, .-_start\n"
-> > > +       );
-> > >  }
-> > > 
-> > >  #endif /* NOLIBC_NO_RUNTIME */
-> > > 
-> > > But that for all architectures, using macros etc.
-> > > 
-> > > If the .text.sorted. solution works, I'd prefer that.
-> > 
-> > Do be honest, I think that Daniel's proposal remains the most maintainable
-> > one. We rarely touch the start code, and having only a few do arch-
-> > specific tricks is likely less of a burden for the long term than
-> > relying on linker's ordering of sections, or starting to play macro
-> > games. And it gets a chance that someone more familiar with that arch
-> > improves it later if needed. But I'm not opiniated on this at all :-)
-> 
-> I fear that we will have the same problems in other architectures.
-> And for those we'll also need custom assembly. While the mechanisms
-> above would not need that.
+Hi Krystian,
 
-But all archs support indirect calls one way or another. Normally we
-should be able to do the equivalent of placing an absolute value in a
-storage area, load it in a register and branch to it at least. For me,
-sorted sections are most likely meant to be used to group code by
-locality, not to guarantee that branch offsets will always remain
-small enough for all architectures. An indirect call on the other
-hand is well defined, standard and can be adopted where needed at the
-cost of only 4 or 8 bytes in the startup code.
+On 2026-10-22, Krystian Kaniewski wrote:
+> - Do not carry Mehmet's Tested-by tag because the registration ordering
+>   changed after his test.
 
-Willy
+Retested v2 on a Colibri VF50 (7.2-rc1, ACM next to NCM) with a 3 s
+delay in gs_close(): freeing the line during a close, opens of the
+retired line, re-creating it and 4 add/remove cycles with the port held
+open behave as with v1, every port is destroyed once and there are no
+new kernel warnings. 3000 opens racing 30 creations of the function all
+succeeded.
+
+Tested-by: Mehmet Fide <mehmet.fide@screeningeagle.com>
+
+Thanks,
+Mehmet
