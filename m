@@ -1,114 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792763419;
-	b=e4WUQd/d0PhAsc9pv/KHVBAmZSImS9pi/5P+UhMhCw9L94dRyDdvRKq6HVEWLoV94jYw
-	 X6xzO/mLHhi8k/hBW4rQcuv1hcOi7PsSeOORwF53+L77Fe6f801/4HGVyZCXM7ZrxtfLW
-	 SHjzm38b+1TdZcSlFSuk0Wwz2RPcz93hLJbTkYkcpMHprYKISwhpwUm1fFfSn0BSFwwOV
-	 D4L8Pm2kvO8PX7WeciW5TXA6V23u5PASjzJmqCH2Jsj1ejRRydXXd7z+yR4/J87RZ2oWr
-	 oZVUzDXRLI1laIvB0QoAaQzmAo6CqLAN/W0mUYvDU4JF+0orJAHM+Bv0rKJcTm7vJeQ==
+	t=1792763481;
+	b=RkTYVnPilVi7LZHfuix3KPgfH3nAnhcPDKkXkCduY/D2HqveMZZmSOPqyjySRXLmGPTL
+	 43ubPFYq+5v2teibfBdFhNTtxdzqFxhxjtwzMUGEhokK+EukluXGe4Cb41CydzyqXMx09
+	 /97C4JbO/YGvj57wpCptXrmJx5W5NwchI8siH2AeDbWzfKI8wRmmbaRKIKYMANkWO8xeg
+	 ISulXtcayoo+j4iUHt0YDjkI5lVagt94i0QvMzez/m2tEYK/iIjssh0KIoteDLcvKYgpc
+	 x+paUZn1lp17WztREaGsJPbcUc5qW790CccEkyvrJitAHZQQe5eTmW8QYtPHaKcfeGw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792763419;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792763481;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
-	 In-Reply-To;
-	bh=8FyuJnnll3uJwbR+wT99CVBO9fzREsmjzeqnUECMRTY=;
-	b=W4US+Kt978NSC7r/CqkOF7lr6lRUPRl0901J2UoUCjEzN6dPbKNz8ByehPwXy85EEhec
-	 AwVuMcrA3TKhoYij8jnHWKxVsWK3dFk581nqukBWKbjTLpMwGXWWz0siHxwkCV7yNtWFr
-	 uuMEg+VBfBTFTPPAmmPiEPhLv+U34KW74MTPNLWcw7jQ9g1EC3VO7IiRM81iySc9F5iQ4
-	 I8+ZkXB9zAG0vVK/2rZGtphu1c6vAaRcipsg2Zpn3f3vAiRIedkH//w+jE1FxkDb0wqjf
-	 ivjW3vbqDq+EKYQiyETujAfjmIEK/BuiYKrSg+pNv7tCO4hiHStbzYqDrULu212+uPQ==
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=wLlMw0tkVCijJdHRbK9nVgzTmO5b6r27lqMQqqKuArg=;
+	b=jENNQiJ6+61bGZkmV6X8FQAeMoZj1lL8WfBZYGEFE1d7Wjpzum3RGf4tgJahlp/x9L9x
+	 SLggPzsisxJNgseMROfGU/SnJlDo30KRkh07tta4wQnuTCKsaCMcNjXdpqYEdmLHvBjD7
+	 puRWK2sXyq2Ku6lWQ2/+eM/qCAdEhHXJi678CqE0pe9J7GSmp+DIwmSl1XohoKNYD0KNc
+	 iG9ogReqes29PAu2lxsTb1oT/bq742fDkfMY97Egjfb5OHfh81NwaT11ZLX5G4oKChuWz
+	 bCAFCLBYlHnj1n8k5+02uj9PKOQSbU3AAvpBrkZIegSQVStVNURSkWNI9LexJjwhKQw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=tePYhySp;
-	arc=none smtp.remote-ip=209.85.215.171
-Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com [209.85.215.171])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=s0JrTTqI;
+	arc=none smtp.remote-ip=209.85.221.43
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09A61606A31F
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 13:50:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 09A61606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D44C606A31D
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 13:51:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1D44C606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=tePYhySp
-Received: by mail-pg1-f171.google.com with SMTP id 41be03b00d2f7-cd5c9e52398so361493a12.1
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 06:50:18 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=s0JrTTqI
+Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-48df0fa43c5so571932f8f.0
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 06:51:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792763418; x=1793368218; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=8FyuJnnll3uJwbR+wT99CVBO9fzREsmjzeqnUECMRTY=;
-        b=tePYhySpUVOPmNC7qMFCyUKUchitL2PPRJngdPKMZb+6YMlbzUwgcreLJ2yA42AZnA
-         v8cLSMIlGA3u4RIUYVaES5a8/BGQAUiCR1RaqgsSgZkWKdBE/ZcATVE5Tll8cS9l1X0y
-         jUG+yVquGbWgcvm/8MxxycOg/mddw+0l+MplyEJOYfUmLmzlCXrzhSBgacFZkAq8wkob
-         Pj6RrEf69ya9zTjuBsqnaaINqezSaQsmRkyRLV8jGDNSGGxqoJhr6jeq4my7fpYC7dyj
-         qOmm9rddJ6UF9PtTp9Nx897N1k7lGSJXyujgP0EVLYI9Voi13+8/ttJ+pRcICMcmmMTc
-         3lJw==
+        d=gmail.com; s=20251104; t=1792763479; x=1793368279; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=wLlMw0tkVCijJdHRbK9nVgzTmO5b6r27lqMQqqKuArg=;
+        b=s0JrTTqId1Thjd23iKIcCer9vAWQqO29zSHJFmzVIlcS3td5Smq27zDqDudRMU1B+5
+         BRxPmaNtu3WgLmqtGNu/NcUNq4BT1BYywzIN8AmiumwJrsoBHM5H/3SHWVivQJb2t55X
+         A17w347Dx0WcOqiOGu4txLR6Fgi6cwEUU2IUYoRcize7YmSWEApxbpGrn/ImfyP0fZpH
+         Wz/V9PVmuD6w3yhe3Axs0mn3KI4cdH0DJwYe6vrgaEZ4arJbE4HEh814XJMVCsbJA0Ya
+         l9NR8zhYxp8yATtsrplpJTqPbLSH1Z83trWQNizrIuUeVcmCfSXWUZu3TUVZAYylQXM4
+         mAKg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792763418; x=1793368218;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=8FyuJnnll3uJwbR+wT99CVBO9fzREsmjzeqnUECMRTY=;
-        b=VkHm0tnJbOvsFyx6j+G3Tb/Fzf3pGx/ELfDayrzcNKnDSnF+oZsrF6noCT2CFg3eCN
-         2ovIF2uHz7JYPE5J5BQw2xUjOmDNzdPH717rdqp64nCTr2nqgn2iYxc0eQ+dvLu5og98
-         Rd+Scwxtcz9cuHflaLOPnI2uzqyEcUO9pDeFEVtYCbYU7y8P9IyZW+p1WEE/91iyLE/X
-         Dotim+kCCe1jOTpwEyq8mcfzJsMnFTwWwsDPtTDonR8Ogp4M1VEDNJ/lI+1CrJaSU96Z
-         2i1qlnhkSbbwI/0hdXzmFBnmui8Ymk4ZFxELz8gFAzLK1ahCsocuV0ygNOAeogNQBCul
-         nY+w==
-X-Forwarded-Encrypted: i=1; AKwUvBwhCHIMN2ujUjkPD7VjLsiYwqiQTVj5ffmBK84j4+Eo+fOi0i2A4he7f4Lsk2hgiCeG2pqEvnv0KlgFvA8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLG2rKAtRSnsnCEmuoCha4yM7lT+oAVmwWaPE/JXoigjN920SjC
-	YQsxuJ9k1cwmIvFxKRJ/oBLZg3fGskidnSwwXfeZtWvlDmzdWkHv7TxJvLh/1u+wKg==
-X-Gm-Gg: AYBFou1p6aEDXk66eBTdWzoujpQTrCSppko639GjLHPAT0LnxGroRu58QwmceQmtX5G
-	IDvIVVTYoU2z4uJeiuPS9uwIzKhiAy1Wvn4S7+Vx5KrrmyUSnytpUeejK+rTOAs+9WaJcU33EX3
-	y6wdqTnMPMuxSnQsCQQICUEwBVXr7DmoRAUwdD6HFWdy2VlqnwOJxPBmmgEKsUqzdZWXQO+m938
-	L7jaJRNJrE971YOTkkylACwH8IleylTXd4+EOFVvArmGANo1kr8VS+WT3SuNI6NNb/mvO3S52FC
-	8j/2LeTfLGIm1Z5Boplfx2OLZ+CoCMKXbJW8yCgmTYZxw1ydAm+bIebP2r+4hKCdHBS6H0X2WTg
-	ft/Qfp0cDTuZLiKKWHEFDPeWwzsrux8L6S1nxp3TJrbNwoXDjtmHiak1xnUGbG1fZBGDZzyLfBP
-	A1EWUd/RzGQHGn7zXsuEBKghCOd/WZjiCNFWQHEYjy3FZEn515eS5Mhrko5nhP28mMtFl9EqHoB
-	dYmlYHHGnH+0U+u3RtXvd+lbYUw2y4q7Rh1BVhaZOyq948FJovBFbJYywUzVski7diUvz9zHUtu
-	8vFNDz0VM6HRXeilzTAvcZoJllR8bfVL5pUZKA==
-X-Received: by 2002:a17:90b:5906:b0:3ab:3437:554f with SMTP id 98e67ed59e1d1-3adce0073a2mr1983207a91.29.1792763417701;
-        Fri, 23 Oct 2026 06:50:17 -0700 (PDT)
-Received: from google.com (64.75.127.34.bc.googleusercontent.com. [34.127.75.64])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ea94677c91sm545015ad.4.2026.10.23.06.50.16
+        d=1e100.net; s=20260707; t=1792763479; x=1793368279;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=wLlMw0tkVCijJdHRbK9nVgzTmO5b6r27lqMQqqKuArg=;
+        b=crofVQxaxT/S2CQwlMP3DlXJY2gPkD/Swq4d7ED+SsrjbfM37t48Lt8Xs8XYMrTLA4
+         ZJcfu/RF8KYNaof5ZClvi+r1g+zUKZ5H32Iu9fHRAJOWK/02n4ku/zy6gSLWVZUdQOmO
+         zJdYrT7/ddkyWt5CDmXgiDUutfv6dv+QTKCIvBLId7bhV0Z64T5pZbuJyt5Zde4R6Zpf
+         R/Ej2VxAgWAuYuHUQDWZMQ0Kf2qXEftKG/7jJVrPCs+Vji2znU5WPFkB1iOkybUcpYJR
+         MJj1cGkUCraNyShBedG6i3hNmygvxV6e1uhMbMCMkVxAJB3drkaInB/NOjZhZ2tvkE66
+         Wyfg==
+X-Forwarded-Encrypted: i=1; AKwUvByvCoBjl1teREb/CnV0BwNMywdo3bF/fCCGTb0dsERL/l8pTSSIKMcyVyNzPmifLwo6u2s8kE9zWgoJAXw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYISexKwz1/1MS1pl7WyHKZCNH5TPRmcjv3PlQTF+4emITUjrcEE
+	o7QKbT+mJJKDvZFU72jEQqc3NNhxtTIvuuzztIvPl6nNA7V5iQjJXy28
+X-Gm-Gg: AYBFou0c+eii0CwSolqQEX+JOPh/ScKOS6EQOUO1WW+mmRoVp7XT7phyPQK0ET/koHk
+	a8uyLdSIhnmabpaFYZcP6Ib8AqYE84F/ePa6alJc2ykk8V1uIc8CVqPXuWncguqJllagPExCmUK
+	UpdellS27j0uEosY+Zf7En6zncZrWUPz3ApeW/pBIksLCqkC73x3tlqpBEyo/xIN1nxkDtU+t1C
+	VzNI28uozPvI0dTM3jD2I5NmsgTHAAMEatYi5rfBC8Odm/wpSHTm6Sxdj3s7u6BYB8kNY6FSDaQ
+	BjcgotZnsf+/iR4OhZDD8MsrzLGZs4IfbLkCZXKG1BCiIe9FSVKJLsRDb6cUeX/JAFuqMHKw//t
+	y3+edPGM/HBH5dA62H2ojpj0WbU1+0f5/HhEGxLjyPbK5YI1wSinbzPyd5A7+3U0fLaYx68bB45
+	quVwKUSrfw50LNTyD8xoAwCHP9le5Rbdcqpy9CHghPAlDZPsTGPdK7rsMFXqh3dO5vL+KGo2dfQ
+	HgHtEKrZ+e6dApEqxAIp+2vHbDfNePFO80fRfdYz+BjBNH7yhU93Y/GyfUkLF/oVEvU7i3TN8q1
+	VGnIIfIzDflgh15DtuzqbKOLXWwZZtPlEQUEvnqw/p6ix7bpdJ2XodM=
+X-Received: by 2002:a05:6000:46c8:b0:48d:f3ec:e818 with SMTP id ffacd0b85a97d-48e2d1430d7mr7952493f8f.7.1792763479100;
+        Fri, 23 Oct 2026 06:51:19 -0700 (PDT)
+Received: from ernest.hoecke-nb (248.201.173.83.static.wline.lns.sme.cust.swisscom.ch. [83.173.201.248])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e380314a3sm4401217f8f.27.2026.10.23.06.51.17
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 23 Oct 2026 06:50:16 -0700 (PDT)
-Date: Fri, 23 Oct 2026 13:50:13 +0000
-From: David Matlack <dmatlack@google.com>
-To: Pasha Tatashin <pasha.tatashin@soleen.com>
-Cc: tarunsahu@google.com, Andrew Morton <akpm@linux-foundation.org>,
-	joro@8bytes.org, Mike Rapoport <rppt@kernel.org>,
-	Pratyush Yadav <pratyush@kernel.org>, maz@kernel.org, arnd@arndb.de,
-	jgg@nvidia.com, robin.murphy@arm.com, loganodell@google.com,
-	oupton@kernel.org, kevin.tian@intel.com, alex@shazbot.org,
-	dwmw2@infradead.org, pbonzini@redhat.com, seanjc@google.com,
-	will@kernel.org, Alexander Graf <graf@amazon.com>,
-	Bjorn Helgaas <bhelgaas@google.com>, baolu.lu@linux.intel.com,
-	linux-arm-kernel@lists.infradead.org, linux-arch@vger.kernel.org,
-	sagis@google.com, linux-mm@kvack.org, kvmarm@lists.linux.dev,
-	iommu@lists.linux.dev, linux-pci@vger.kernel.org,
-	kexec@lists.infradead.org, skhawaja@google.com, kvm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH v2 3/4] liveupdate: Replace compatibility string with
- a 2-bit pair feature header
-Message-ID: <attmFVIFU_mS0Y7p@google.com>
-References: <CALzav=dLdJoVy=B1pv0FAurD9OhAzLSTjJNbtjTdJRmSqaB0yw@mail.gmail.com>
- <CA+CK2bAQRMAEXZyHTEuUN0_Fo59Sn0hBmYbme_J9ewjx6gPyJQ@mail.gmail.com>
- <atlKsD-aJB3mJr2j@google.com>
- <CA+CK2bABt4OZO31TenVF2+uBUWVwViWbvfE00=0xbAw=f7K9SA@mail.gmail.com>
- <atl7peoVHdP5hz7z@google.com>
- <CA+CK2bBFXnJA1kddbLKGq0DAHDgjYhsTSQQay-xeX7jJC1V_UQ@mail.gmail.com>
- <CALzav=e=ho2gVrn+7KpZ3ZyasvH2u15-pC-RSRSS7KcMfKqUJQ@mail.gmail.com>
- <CA+CK2bAJo8dnTOyKMgnnMnk-SCXbTsv+JCLEOWkjyj-wqtEkHg@mail.gmail.com>
- <atpNFEFIlqAoYIwH@google.com>
- <CA+CK2bB2C3Am5ssRuzYpfiU7_vB81vxMGc19HQLq7N=_7YrbTg@mail.gmail.com>
+        Fri, 23 Oct 2026 06:51:18 -0700 (PDT)
+Date: Fri, 23 Oct 2026 15:51:17 +0200
+From: Ernest Van Hoecke <ernestvanhoecke@gmail.com>
+To: Frank Li <Frank.li@oss.nxp.com>
+Cc: Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
+	Fabio Estevam <festevam@gmail.com>, Kieran Bingham <kieran.bingham@ideasonboard.com>, 
+	Francesco Dolcini <francesco.dolcini@toradex.com>, Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+	devicetree@vger.kernel.org, imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+Subject: Re: [PATCH v3 4/4] arm64: dts: freescale: imx8mp-verdin: Add
+ mezzanine OV5640 overlays
+Message-ID: <zv4gir4qrx62cwyl47cypuk57q7ci4l2piml5cgchhiys2hyli@ubzeh3nw4itu>
+References: <20261022-verdin-imx8mp-hmp-camera-ready-v3-0-90a30b0b0d55@toradex.com>
+ <20261022-verdin-imx8mp-hmp-camera-ready-v3-4-90a30b0b0d55@toradex.com>
+ <atp-MEqHMT7F75qn@lizhi-Precision-Tower-5810>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -118,154 +104,63 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CA+CK2bB2C3Am5ssRuzYpfiU7_vB81vxMGc19HQLq7N=_7YrbTg@mail.gmail.com>
+In-Reply-To: <atp-MEqHMT7F75qn@lizhi-Precision-Tower-5810>
 
-On 2026-10-22 04:53 PM, Pasha Tatashin wrote:
-> On Thu, Oct 22, 2026 at 1:51 PM David Matlack <dmatlack@google.com> wrote:
-> > On 2026-10-22 12:11 AM, Pasha Tatashin wrote:
-
-> > > Lets drop the fourth macro argument and generate the combined struct name:
-> > >
-> > > #define DECLARE_LUO_SER(name, expected_size, ext_flags_count)              \
-> > >     struct name##_hdr {                                                    \
-> > >         __u32 size;                                                        \
-> > >         __u32 flags;                                                       \
-> > >         __u64 ext_flags[ext_flags_count];                                  \
-> > >         struct name payload;                                               \
-> > >     };                                                                     \
-> > >     static_assert(sizeof(struct name##_hdr) == (expected_size),            \
-> > >                   "LUO struct " #name " size mismatch!")
-> > >
-> > > For example:
-> > >
-> > > struct luo_memfd_ser {
-> > >     __u64 pos;
-> > >     __u64 size;
-> > > };
-> > >
-> > > DECLARE_LUO_SER_HDR(luo_memfd_ser, 24, 0);
+On Thu, Oct 22, 2026 at 05:20:48PM -0400, Frank Li wrote:
+> On Thu, Oct 22, 2026 at 04:31:28PM +0200, Ernest Van Hoecke wrote:
+> > From: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
 > >
-> > I think we are getting close, bu I have two remaining concerns:
+> > The Verdin iMX8M Plus exposes its second MIPI CSI-2 interface through the
+> > Verdin iMX8M Plus Mezzanine. Add overlays for using a Toradex OV5640 camera
+> > on this interface.
 > >
-> >  * Reserving bits in each flags word for continuation leaves gaps
-> >    in the flag space that users have to know to skip.
+> > The mezzanine can route the camera control signals through two jumper
+> > configurations. Describe each configuration as a GPIO nexus mapping so the
+> > camera description remains independent of the physical routing.
+> >
+> > The default positions share the native CSI_1 GPIOs and are intended for a
+> > single camera. The alternate positions permit simultaneous native and
+> > mezzanine cameras, but conflict with the Atmel MXT touchscreen GPIO.
+> >
+> > The current camera set uses a 27 MHz on-board oscillator. The legacy camera
+> > module uses 24 MHz, so provide variants for both.
+> >
+> > Link: https://developer.toradex.com/hardware/verdin-som-family/add-ons/verdin-imx8m-plus-mezzanine/
+> > Link: https://developer.toradex.com/hardware/accessories/cameras/csi-camera-module-5mp-ov5640-arducam
+> > Link: https://developer.toradex.com/hardware/legacy-products/other/csi-camera-module-5mp-ov5640/
+> > Signed-off-by: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+> > ---
+> >  arch/arm64/boot/dts/freescale/Makefile             | 19 ++++++
+> >  ...-verdin-mezzanine-ov5640-24mhz-alt-jumpers.dtso | 19 ++++++
+> >  ...din-mezzanine-ov5640-24mhz-default-jumpers.dtso | 18 +++++
+> >  ...imx8mp-verdin-mezzanine-ov5640-alt-jumpers.dtso | 38 +++++++++++
+> >  ...mp-verdin-mezzanine-ov5640-default-jumpers.dtso | 42 ++++++++++++
+> >  .../freescale/imx8mp-verdin-mezzanine-ov5640.dtsi  | 78 ++++++++++++++++++++++
 > 
-> Yes, but callers should never manipulate the raw flag words directly,
-> and we can provide simple accessor macros or inlines that take a
-> contiguous feature ID (0, 1, 2, ...)
+> why not share with imx8m-verdin-ov5640.dtsi, which is almost the same.
 > 
-> enum luo_memfd_feats {
->     LUO_MEMFD_FEAT_HUGETLB = 0,
->     LUO_MEMFD_FEAT_SEALS   = 1,
->     /* ... */
->     LUO_MEMFD_FEAT_FOO     = 15, /* Automatically lands in
-> ext_flags[0] bits 0:1 */
->     LUO_MEMFD_NR_FEATS
-> };
-> 
-> if (luo_ser_get_feat(hdr, LUO_MEMFD_FEAT_HUGETLB)) {
->     /* handle hugetlb */
-> }
+> Frank
 
-Sure but why deal with all the complexity just to save 8 bytes? All of
-these structs are allocated on folios and there are kilobytes of unused
-space to fit this header. And even if we optimize that we are talking
-about 8 bytes per FH/FLB... or 16 bytes for structs with arch-specific
-sub-structs like the KVM ones.
+Hi Frank,
 
-> >  * struct name##_hdr only matches structs written by the current kernel
-> >    (in terms of length of array and offset of payload).
-> 
-> This is not an issue on the incoming path, we never cast incoming data
-> to struct name##_hdr or access ->payload directly. Instead, we parse
-> the incoming buffer, dynamically compute the header size from the
-> continuation bits, and cast the payload offset to "struct name *"
-> based on the negotiated feature flags.
+Both camera modules have their own oscillator, and the native and
+Mezzanine connectors have their own supply, so each overlay describes its
+own clock and regulator nodes. They also use a different I2C bus, CSI
+receiver and connector. Both overlays are applied together for two
+cameras (imx8mp-verdin-wifi-dev-dual-ov5640), so their node names and
+labels must be unique, and a single .dtsi cannot be included twice.
 
-How?
+The connector nexus makes the GPIOs independent of the routing, but an
+overlay still has to name the connector, bus and receiver it uses. One
+overlay for either connector would need the target to be chosen when it
+is applied, which is what the DT connector/addon work is about, so sadly
+we have to wait for that to make things more generic.
 
-This is the only data structure that describes the header. Are you
-saying the incoming path will parse the header purely with a void *? Or
-use this header but just be careful not to access payload?
+What is left in common is a few constant sensor properties, so I would
+like to keep the two files.
 
-We should have one header structure that can be used on the incoming and
-outgoing path. We should not have one header data structure that can be
-used on the outgoing path and one that can be used on the incoming
-path.
+Thanks for your input and best regards,
+Ernest
 
-Also we need a standard header that can be shared across all structs,
-not a per struct header. Otherwise you will need to do weird casting and
-overlays to implement the shared helper routines that parse it.
-
-> > How about this instead:
-> >
-> > struct luo_ser_hdr {
-> >     __u32 size;        /* Size of header + payload in bytes */
-> >     __u32 nr_flags;    /* Number of features encoded in flags[] */
-> >     __u64 flags[];
-> > };
-> >
-> > Each feature occupies 2 bits of flags[], so feature N is always bits
-> > [2N+1:2N] of flags[N / 32], with no gaps:
-> >
-> >   00: Feature not present
-> >   01: Feature present, safe to ignore if not supported
-> >   11: Feature present, must be supported by the next kernel
-> >   10: Invalid
-> >
-> > The length of flags[] and the header size are computed directly rather
-> > than by walking continuation bits:
-> >
-> > static inline u32 luo_ser_nr_flag_words(const struct luo_ser_hdr *hdr)
-> > {
-> >     return DIV_ROUND_UP(hdr->nr_flags, 32);
-> > }
-> >
-> > static inline size_t luo_ser_hdr_size(const struct luo_ser_hdr *hdr)
-> > {
-> >     return struct_size(hdr, flags, luo_ser_nr_flag_words(hdr));
-> > }
-> >
-> > static inline void *luo_ser_payload(const struct luo_ser_hdr *hdr)
-> > {
-> >     return (void *)hdr + luo_ser_hdr_size(hdr);
-> > }
-> >
-> > and bounds checking is just luo_ser_hdr_size(hdr) <= hdr->size. The
-> > payload is always 8-byte aligned.
-> >
-> > Payload structs are then declared on their own, with no header:
-> >
-> > struct luo_memfd_ser {
-> >     __u64 pos;
-> >     __u64 size;
-> > };
-> > LUO_SER_ASSERT_SIZE(luo_memfd_ser, 16);
-> >
-> > The static_assert covers the payload to catch embedded structs changing
-> > size.  Asserting the header doesn't add anything since its size varies
-> > by kernel. And because flags[] is a flexible array, the header can't be
-> > embedded in front of a payload in a combined struct; it can only be
-> > reached through luo_ser_payload().
-> >
-> > I think the only downside is that the header increases to 16-bytes when
-> > there is at least 1 flag. But I don't think we need to be so concerned
-> > about an 8 byte difference...
-> 
-> I would prefer to keep the default header at 8 bytes. With 15 features
-> fitting directly inside the base __u32 flags word, adding the first 15
-> features to a struct keeps the header at 8 bytes and does not shift
-> the payload.
-> 
-> Computation-wise it is also very similar: for the 99% of structs that
-> have <= 15 features, LUO_FLAGS_CONT is 0, so computing the header size
-> is just a single bit test with no loop. Even if a struct ever needs
-> ext_flags, the loop will walk at most one or two extra words.
-
-Please explain why it is so important to keep the header 8 bytes that we
-have to jump through all these hoops to map a contiguous flag space
-onto a u32 + u64[] array structure where certain bits are reserved and
-have to be skipped.
