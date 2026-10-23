@@ -1,65 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.227
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.219
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792723728;
-	b=NFUGIuLKqfPPMa44qFaaPZ6NVQMIAy/yRt4kVfROXhN6gi+m+QG0dnFT3aKxnmGrm9Hu
-	 KyZqeQkpvZYeMgdtQE1ADuPYz7kvYwWEvClUNRJWO1Pc09Y39rbstx3bKn0VrR8EsrVgK
-	 h94DTzgKY4jzrwFBkMpMz+14yktIqA565MqG+muO9a/c3aHfK8Nr5hKzqNX5mTU3okDD9
-	 C1IpaF3FcrJUUZebfmCiMd+aDfSD5sLuEGwb7Jx5KaqYIjgFk82NSG87lwIF1zAZ67g1n
-	 rO/y8N2b7nRWro++6gRfSXiTu3E+5WmQsVxy3rBv8yo5F33c+qAISCiOvPErY01YSKQ==
+	t=1792723731;
+	b=U57ra9Q8mzdwVHYMtKwZjwaEOxiXNYB40MRwU/KiqC3YpAp1Uv3+VuvWuzW+WjgzCvr0
+	 kMK3qH2zC3FZLkp+gAm8AtLWd04+XDBmVJQFoYTClbGQHfbJ73En1qtE5LltUfgLCTvij
+	 LwJ4t4Y9yYxxH5xvlmzHeNepYu4MSTcslraxVrslfKQBF5wX/rq9sVmh6APL2TgS2pfjO
+	 ZsbW0IGac9WtMkXC4zOUAHyBDnfT7k5fWkO3NxEUP4UZ9IOPZoxjlb232pF4Hp61J/cgA
+	 3F+1j6UBi+4ZSXb2d5SRnWL1lcXdhIbVbO+gaiHRdaluDbp2AFTBVehXqJSG30GUMzg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792723728;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792723731;
 	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:CC:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
 	 X-ClientProxiedBy;
-	bh=m/IkO3f1LZN2+n6Xiaw/jAnFUfPFs7puhs4R49Ji5Go=;
-	b=Sn0EAx+RqBGI1Sn9qa0NZu/KNpmZlHr3jDIG0+NJlSJpQwkcj6bf2EJ2yYDXLPJY/Z07
-	 WUSvp9WHsJjeL2XiJpBo1l5yDp+vAr0guhFY2AHO0oppWOsurgq+k3FEfKERqTeCTo2r1
-	 X9nK2REZKv8i9Izu0tsDq7C4WHfIAlWXM8ulBbUKrpY2DltSM9ZqxBYsr5zBCEU8nr/wA
-	 5Zuep6CLyGk2x/U7UrbmxDWOd421mjzYeFys3q1+d0Dnb8rAqdRzF6pi3cZWvti5rX/im
-	 tI3dlR9q9MMrG60k9E4RXhyvYOjj+tTAzQuGrvngZjUV+syMJ7wP9Y3n4EALCBQioHQ==
+	bh=APiUMyMMIhK6N3JrpNxfmnUxNRyO6x/pOI+8+NKn8mg=;
+	b=ZTJli8PcgjLNUb5RapGA9T1/1cvo+UlEWVPTxMuX2s8+erGc6Yc9/I8my7f9PU/sVikk
+	 wLkbcgiITzAz6YIv17S8hH1jUPlL/pSyG2ml8UrR+LpDPvhfEhYvQeh00Fan9k7cnkrK9
+	 JOxcFlOtIfPOTqu9INpxiUamUgP3Jzv275583PjjrxClvzP0WFhGodGrMtUFMXDSMv3yP
+	 krboAIHdvL+SQrZ6FoQm7OE3pJ+YSnWgp/FIAjc4BICRwlVMeeZYmuyzo4Vqco5yVXqJ0
+	 47yXPt5HarJop7HZLw8BOt30ZjkS+u4MdiLLl/hV7JwBfL3TIrg1l0FsuEIF3BvAkPg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=huawei.com;
 	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=tsqyZiq7;
-	arc=none smtp.remote-ip=113.46.200.227
-Received: from canpmsgout12.his.huawei.com (canpmsgout12.his.huawei.com [113.46.200.227])
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=qOsUuCwC;
+	arc=none smtp.remote-ip=113.46.200.219
+Received: from canpmsgout04.his.huawei.com (canpmsgout04.his.huawei.com [113.46.200.219])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86078606A31E
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 02:48:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 86078606A31E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DD1F606A32C
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 02:48:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7DD1F606A32C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=tsqyZiq7
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=qOsUuCwC
 dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
 	c=relaxed/relaxed; q=dns/txt;
 	h=From;
-	bh=m/IkO3f1LZN2+n6Xiaw/jAnFUfPFs7puhs4R49Ji5Go=;
-	b=tsqyZiq7V9oAcpYSNj9IJ0am+GiXkzYb/LZPlwU9C3h/RBY8xfbwwX7fSE+dZLQcbT9tPDHxO
-	5MuTjcUesLwT0GE+RzouWLSPnXA0kNyYMTid/mftVg3YnLFBS324Q8VPYn4Q+9a8r6Wq9/ztiz6
-	j0ybQBWw+OdNRGkrww2zAAg=
-Received: from mail.maildlp.com (unknown [172.19.163.15])
-	by canpmsgout12.his.huawei.com (SkyGuard) with ESMTPS id 4j9nXF2LSyznTXp;
-	Fri, 23 Oct 2026 10:48:45 +0800 (CST)
-Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
-	by mail.maildlp.com (Postfix) with ESMTPS id A5C9940578;
+	bh=APiUMyMMIhK6N3JrpNxfmnUxNRyO6x/pOI+8+NKn8mg=;
+	b=qOsUuCwClZ4uGJQN9ovIvidCR5MeOdK8m6IjxbwdPcv/QM+DA1VURRLl5ZnulsYfsqtCQDIP0
+	XOe3boJWA4ooCxPI7Q5BWZ22r1L8tK+v2vsq03ZfsMl9vsWFUd6qFzpgLrTTZu5HThVXVq8+w7o
+	Iif3XMSt7TUB/W80rS9HMeU=
+Received: from mail.maildlp.com (unknown [172.19.163.104])
+	by canpmsgout04.his.huawei.com (SkyGuard) with ESMTPS id 4j9nXB28HMz1prMR;
 	Fri, 23 Oct 2026 10:48:42 +0800 (CST)
+Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
+	by mail.maildlp.com (Postfix) with ESMTPS id 451F64056E;
+	Fri, 23 Oct 2026 10:48:47 +0800 (CST)
 Received: from huawei.com (10.90.53.73) by kwepemk200008.china.huawei.com
  (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 23 Oct
- 2026 10:48:42 +0800
+ 2026 10:48:46 +0800
 From: Jinjie Ruan <ruanjinjie@huawei.com>
 To: <james.morse@arm.com>, <ben.horgan@arm.com>, <reinette.chatre@intel.com>,
 	<fenghuay@nvidia.com>, <tony.luck@intel.com>, <Dave.Martin@arm.com>,
 	<babu.moger@amd.com>, <x86@kernel.org>, <linux-kernel@vger.kernel.org>
 CC: <ruanjinjie@huawei.com>
-Subject: [RFC PATCH 00/10] arm_mpam: Add extra MPAM controls in resctrl
-Date: Fri, 23 Oct 2026 10:48:02 +0800
-Message-ID: <20261023024812.232820-1-ruanjinjie@huawei.com>
+Subject: [RFC PATCH 10/10] arm_mpam: resctrl: Expose the bandwidth minimum and limit as pseudo resources
+Date: Fri, 23 Oct 2026 10:48:12 +0800
+Message-ID: <20261023024812.232820-11-ruanjinjie@huawei.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261023024812.232820-1-ruanjinjie@huawei.com>
+References: <20261023024812.232820-1-ruanjinjie@huawei.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,91 +76,143 @@ Content-Type: text/plain
 X-ClientProxiedBy: kwepems100002.china.huawei.com (7.221.188.206) To
  kwepemk200008.china.huawei.com (7.202.194.74)
 
-Hi all,
+Expose MBMIN, MBHDL and MBOPT, re-using the class picked for MBA.
 
-Resctrl today only exposes CBM and the MBA bandwidth percentage.
-But MPAM MSCs also have per-PARTID fields for internal priority, capacity
-limits, a bandwidth minimum and the MBW_MAX hard-limit bit. The driver
-already writes these fields, but resctrl has no schemata line for them,
-so userspace can't choose the values.
+MBMIN carries the bandwidth minimum as a percentage; MBHDL toggles the
+MBW_MAX hard-limit bit; MBOPT exposes the raw MBW_MAX fraction without
+the percentage scaling.
 
-So this series adds those schemata lines:
+control_init() describes them as RESCTRL_SCHEMA_RANGE, with the ranges
+derived from bwa_wd. update_one() and get_config() carry the values
+through the mpam_config fields added earlier.
 
-- Patch 1 fixes maybe_update_config(): a feature set with value zero
-  counts as no change, so the register is not written again.
-  The controls below can be zero, so this comes first.
+Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
+---
+ drivers/resctrl/mpam_resctrl.c | 73 ++++++++++++++++++++++++++++++++++
+ 1 file changed, 73 insertions(+)
 
-- Patches 2-4 add mbw_min/max_limit, cmax/cmin and intpri to
-  mpam_config and write them from mpam_reprogram_ris_partid().
-
-- Patch 5 adds the resource levels, selects the range path by schema_fmt
-  instead of the MBA/SMBA rid, skips the new resources in info/, and sets
-  their default value when a group is created.
-
-- Patches 6-7 adjust the fixed-point helpers and clamp cmax_wd.
-
-- Patches 8-10 add the schemata lines:
-
-  L2MAX/L3MAX       CMAX, percent
-  L2MIN/L3MIN       CMIN, percent
-  MBMIN             MBW_MIN, percent
-  L2PRI/L3PRI/MBPRI INTPRI, raw value
-  MBHDL             HARDLIM, 0 or 1
-  MBOPT             MBW_MAX, raw fraction
-
-The new resources reuse the class, domains and components of L2/L3/MB; only
-the mpam_config field written differs. MBOPT and MBA both write MBW_MAX.
-
-So before this series userspace can only set CBM and the MBA percentage.
-After it, you can do:
-
-  # echo "L3MAX:33751040=50" > schemata
-  # echo "MBHDL:33751040=1" > schemata
-
-A new group starts from each resource's default value, so the new controls
-stay out of the way until schemata is written.
-
-Tested this with a QEMU that has one L2 MSC, one L3 MSC and one
-memory-controller MSC (CMAX_WD 4, INTPRI_WD 2, BWA_WD 16). The guest writes
-every new line and reads it back, for example:
-
-  WRITE-OK   [L3MAX:33751040=50]
-  SCHEMATA: L3MAX:33751040=50
-
-Then reads the MSC registers:
-
-  L3 MSC  partid0: PRI(IN)=2  CMIN=0x3000  CMAX=0x7000
-  mem MSC partid0: PRI(IN)=1  MBW_MIN=0x3fff  MBW_MAX=0x1fff  HARDLIM=Y
-
-CMIN/CMAX are 4-bit fractions (3/16 for 25%, 7/16 for 50%); MBW_MIN is a
-16-bit fraction (0x3fff for 25%); MBOPT writes the raw fraction (8191).
-
-QEMU branch: https://github.com/ruanjinjie-eng/qemu/tree/mpam
-Test cases: https://github.com/ruanjinjie-eng/mpam_testcase
-
-This series is also available at:
-	https://github.com/ruanjinjie-eng/linux/tree/mpam-extra-controls
-
-Jinjie Ruan (10):
-  arm_mpam: Treat adopting a config feature as a change
-  arm_mpam: Carry mbw_min and the hard limit in mpam_config
-  arm_mpam: Carry cmax and cmin in mpam_config
-  arm_mpam: Carry intpri in mpam_config
-  fs/resctrl: Prepare for range-format pseudo resources
-  arm_mpam: Clamp cmax_wd to 16
-  arm_mpam: Generalize the fixed-point conversion helpers
-  arm_mpam: resctrl: Expose the capacity controls as pseudo resources
-  arm_mpam: resctrl: Expose the priority controls as pseudo resources
-  arm_mpam: resctrl: Expose the bandwidth minimum and limit as pseudo
-    resources
-
- drivers/resctrl/mpam_devices.c  |  59 +++++++--
- drivers/resctrl/mpam_internal.h |   8 ++
- drivers/resctrl/mpam_resctrl.c  | 215 +++++++++++++++++++++++++++++++-
- fs/resctrl/rdtgroup.c           |  15 ++-
- include/linux/resctrl.h         |  33 ++++-
- 5 files changed, 307 insertions(+), 23 deletions(-)
-
+diff --git a/drivers/resctrl/mpam_resctrl.c b/drivers/resctrl/mpam_resctrl.c
+index 008db81e734b..346ee3729ddf 100644
+--- a/drivers/resctrl/mpam_resctrl.c
++++ b/drivers/resctrl/mpam_resctrl.c
+@@ -1064,8 +1064,14 @@ static void mpam_resctrl_pick_mba(void)
+ 		res->class = candidate_class;
+ 
+ 		/* As with the caches, re-use the class for the pseudo resources */
++		if (mpam_has_feature(mpam_feat_mbw_min, cprops))
++			mpam_resctrl_controls[RDT_RESOURCE_MB_MIN].class = candidate_class;
+ 		if (mpam_has_feature(mpam_feat_intpri_part, cprops))
+ 			mpam_resctrl_controls[RDT_RESOURCE_MB_PRI].class = candidate_class;
++		if (mpam_has_feature(mpam_feat_max_limit, cprops))
++			mpam_resctrl_controls[RDT_RESOURCE_MB_HDL].class = candidate_class;
++		if (mba_class_use_mbw_max(cprops))
++			mpam_resctrl_controls[RDT_RESOURCE_MB_OPT].class = candidate_class;
+ 	}
+ }
+ 
+@@ -1317,6 +1323,19 @@ static int mpam_resctrl_control_init(struct mpam_resctrl_res *res)
+ 		r->name = (r->rid == RDT_RESOURCE_L2_MIN) ? "L2MIN" : "L3MIN";
+ 		r->alloc_capable = true;
+ 		break;
++	case RDT_RESOURCE_MB_MIN:
++		r->schema_fmt = RESCTRL_SCHEMA_RANGE;
++		r->ctrl_scope = RESCTRL_L3_CACHE;
++
++		r->membw.delay_linear = true;
++		r->membw.throttle_mode = THREAD_THROTTLE_UNDEFINED;
++		r->membw.min_bw = 0;
++		r->membw.max_bw = MAX_MBA_BW;
++		r->membw.bw_gran = 1;
++
++		r->name = "MBMIN";
++		r->alloc_capable = true;
++		break;
+ 	case RDT_RESOURCE_L3_PRI:
+ 	case RDT_RESOURCE_L2_PRI:
+ 	case RDT_RESOURCE_MB_PRI:
+@@ -1334,6 +1353,32 @@ static int mpam_resctrl_control_init(struct mpam_resctrl_res *res)
+ 			((r->rid == RDT_RESOURCE_L2_PRI) ? "L2PRI" : "L3PRI");
+ 		r->alloc_capable = true;
+ 		break;
++	case RDT_RESOURCE_MB_HDL:
++		r->schema_fmt = RESCTRL_SCHEMA_RANGE;
++		r->ctrl_scope = RESCTRL_L3_CACHE;
++
++		r->membw.delay_linear = true;
++		r->membw.throttle_mode = THREAD_THROTTLE_UNDEFINED;
++		r->membw.min_bw = 0;
++		r->membw.max_bw = 1;
++		r->membw.bw_gran = 1;
++
++		r->name = "MBHDL";
++		r->alloc_capable = true;
++		break;
++	case RDT_RESOURCE_MB_OPT:
++		r->schema_fmt = RESCTRL_SCHEMA_RANGE;
++		r->ctrl_scope = RESCTRL_L3_CACHE;
++
++		r->membw.delay_linear = true;
++		r->membw.throttle_mode = THREAD_THROTTLE_UNDEFINED;
++		r->membw.min_bw = 1;
++		r->membw.max_bw = GENMASK(cprops->bwa_wd - 1, 0);
++		r->membw.bw_gran = 1;
++
++		r->name = "MBOPT";
++		r->alloc_capable = true;
++		break;
+ 	default:
+ 		return -EINVAL;
+ 	}
+@@ -1511,6 +1556,15 @@ u32 resctrl_arch_get_config(struct rdt_resource *r, struct rdt_ctrl_domain *d,
+ 	case RDT_RESOURCE_MB_PRI:
+ 		configured_by = mpam_feat_intpri_part;
+ 		break;
++	case RDT_RESOURCE_MB_MIN:
++		configured_by = mpam_feat_mbw_min;
++		break;
++	case RDT_RESOURCE_MB_HDL:
++		configured_by = mpam_feat_max_limit;
++		break;
++	case RDT_RESOURCE_MB_OPT:
++		configured_by = mpam_feat_mbw_max;
++		break;
+ 	case RDT_RESOURCE_MBA:
+ 		if (mpam_has_feature(mpam_feat_mbw_max, cprops)) {
+ 			configured_by = mpam_feat_mbw_max;
+@@ -1534,7 +1588,14 @@ u32 resctrl_arch_get_config(struct rdt_resource *r, struct rdt_ctrl_domain *d,
+ 		return ca_max_to_percent(cfg->cmin, cprops);
+ 	case mpam_feat_intpri_part:
+ 		return cfg->intpri;
++	case mpam_feat_mbw_min:
++		return mbw_max_to_percent(cfg->mbw_min, cprops);
++	case mpam_feat_max_limit:
++		return cfg->max_limit;
+ 	case mpam_feat_mbw_max:
++		/* MB_OPT exposes the raw fraction, without the percent scaling */
++		if (r->rid == RDT_RESOURCE_MB_OPT)
++			return cfg->mbw_max >> (16 - cprops->bwa_wd);
+ 		return mbw_max_to_percent(cfg->mbw_max, cprops);
+ 	default:
+ 		return resctrl_get_default_ctrl(r);
+@@ -1602,6 +1663,18 @@ int resctrl_arch_update_one(struct rdt_resource *r, struct rdt_ctrl_domain *d,
+ 		cfg.intpri = cfg_val;
+ 		mpam_set_feature(mpam_feat_intpri_part, &cfg);
+ 		break;
++	case RDT_RESOURCE_MB_MIN:
++		cfg.mbw_min = percent_to_mbw_max(cfg_val, cprops);
++		mpam_set_feature(mpam_feat_mbw_min, &cfg);
++		break;
++	case RDT_RESOURCE_MB_HDL:
++		cfg.max_limit = !!cfg_val;
++		mpam_set_feature(mpam_feat_max_limit, &cfg);
++		break;
++	case RDT_RESOURCE_MB_OPT:
++		cfg.mbw_max = cfg_val << (16 - cprops->bwa_wd);
++		mpam_set_feature(mpam_feat_mbw_max, &cfg);
++		break;
+ 	case RDT_RESOURCE_MBA:
+ 		if (mpam_has_feature(mpam_feat_mbw_max, cprops)) {
+ 			cfg.mbw_max = percent_to_mbw_max(cfg_val, cprops);
 -- 
 2.34.1
 
