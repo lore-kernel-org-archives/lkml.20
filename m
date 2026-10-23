@@ -1,53 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.200
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792778686;
-	b=aER8ik4a1hK4Fcn59HhgJjtK1uvqYIYZv02tf0blk3lwaxkPvls7JbNR3HL4lZHwIfwv
-	 cGGUZo++Nl9ZoUmPIN4BFz6KYihzPu6uAv9yLqD6pD9nTwXctCzhPYQ46p4bMyW3lXqCO
-	 oIjBdZIC5KxLCdhwqRCQe/vMD0jYYRHf6eosFFgTowAc948i+H0DF0U7gBw8/vgQuKs1E
-	 Bcxqvy/jsIm9Q42gngR2N8CrAuktrTRwYkPaFaZ02cEC4GKJng5q/w9ImZrBDX4aMom7g
-	 huYz4+4zKYvdq1oPD/fRtTbJxKOKIDd1gr69W37r46iWojsE1EzJxnamw2q3aRQa27w==
+	t=1792778690;
+	b=SAdWngX+SAxCkTbRUdiUL2J1ZiZenv3RO1MrGzD6TjoJoeWWPiPhGed4rv5B3z+IhRh5
+	 FGc6ek9hmOVTkkpiGZsNYrpGOQMGnoqmOeMhfXaVg1D3qKYS2C7Xyw7EOx1ncOsTwQQ6I
+	 ABCUnDmBP69hjQkB1OblaR15RNZGNZ7w4fhU9Sqte/1ZrxDxu0AhiWBc++Wome1lwgnrQ
+	 uemKByr63h3/srP2IEnmhRL3fFYrH9zOcLOQYpaEXAIFPNDqrFrwGm6wIXJiluTKPjuLj
+	 D0UCNFBO9J7l6l2xL3/EfkXbAnSG6pUXlv7b6B1DPr3omAGgWtl4bofOaFI+Go/32eQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792778686;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Gm-Message-State:
-	 MIME-Version:X-Received:Date:In-Reply-To:X-Google-Appengine-App-Id:
-	 X-Google-Appengine-App-Id-Alias:Message-ID:Subject:From:To:
-	 Content-Type;
-	bh=YRu/RxQ5e2cFdQgSe6t8vIyiqi0YMq2HuIJRVZsHX2k=;
-	b=cm9nyVnMt1pwAtXOcST6vpIpNI7cV/IfSd/YuRdsEYgkCt8ZUxQVCWxwG68ngkpX/PhM
-	 WYdJQrAXntVZDYHDAk6i5SI/sLwxmtFZpY/iU5pyTQboeTtsCsLhBzql85jYPxRevYr2n
-	 b+T8RT4a4u77WbALv/NvzszjzTHGLxfHKkPVoCqB4G6qfJz+zLtjhkHsjQAY3wYqmF5iq
-	 khYoPfsLG9AiPZAQxZquCL4+Sey0ayZ+kBCpuImAhYtktrs5kJbIXb/XhH/xGmhLtLrc6
-	 hE8lAQsthDBNiLWrmSBvNRUQj8p/STGM2nB6EaXbumqgMJn9o46k9DJMe/fxChkRbzQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792778690;
+	h=Received:DKIM-Signature:Received:X-Gm-Message-State:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:
+	 X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:Subject:To:Cc:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=ChdNpfFMmfSeiMhhgq9rOjsI8hm4xzlZkNy7PE+mUqw=;
+	b=0SQOAyiJY5h38jHEj77YKoDow58Ff29hlhQVOOgnYpwcTPeu+NiY9i+0xep4A/8zLPnF
+	 Hp15rfX5lAuUJHUJcergTxiJrqjq/lWmGmpNkO8dgrXj55Uqr88lSFg85qegZhlJ18Sir
+	 vsNoFS/OxGTr5gWA/tRFxAqb+nQXQJaXmhzf2zZLgAIZk7Hk/bFVMsm/I+Vu4KTQ+dtSx
+	 +VqBecHYDI2HT1L+DtTXF72X/ja+SaW/HDv31xtbYEb6GgpAJ4tw51lxOUouq2TEH3thj
+	 55KwZRppBHKrQpjYuBgQYWOcvCLWVTpL+IJTrrKuEAzHAhNFVDC+XfH66+Zs81hQoJg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.167.200
-Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oOq9mBSo;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA594606A31D
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 18:04:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AA594606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-5587351d419so992498b6e.1
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 11:04:45 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792778684; x=1793383484;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=YRu/RxQ5e2cFdQgSe6t8vIyiqi0YMq2HuIJRVZsHX2k=;
-        b=UD9XfqQpP4fCUvj+pdBOfXgozscK4DS8sKI4HN6cKrsHpTJReu6anSlI4Fhu7FvI3D
-         nGyp2Yeiny/6C6Xc+3xS3IPl+0GPRBXAxpskiQGeTfU8DvikF6YBnVcVOnp6FGVtAlNz
-         NZW6/vvFFLWQshMEFmw7uwCl59rjCxjRmkqzHZRycZfxG3d+LJ5CmohWX/eNlWNfsYTC
-         mltdyeNJD0I7J7lefWnyx4GXNLC0E4mESYwVwx1i+PqytzgnzkvUh2+8H3FAsBIH4PxQ
-         JyACJ0xGLSPARgBAq15p8/6qjOT8UyDQNPpa8vtLOv/45U30KlvMFi6IQQ2UqWTWpuZK
-         hU9A==
-X-Gm-Message-State: AFq9FYIEoz1yjrZN7w/miPYGikdmK2A6jYuFJtbe10hpQPZATjxV9JLk
-	Og9c+C07Wdgx6AAQCRwHSF8iij/eowmC/v6VEj/GuqX8tOwl/sKqXKUVTbcpAqXQVp4rj9CFHeU
-	ZWtAd84RTDyhtFYcn1PS7XEx+FYP7RMkyHb+lxHEqA7wsdA+iIa588//ehV4=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B74CB606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 18:04:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oOq9mBSo
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 651C81F031E0
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 18:04:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792778689;
+	bh=ChdNpfFMmfSeiMhhgq9rOjsI8hm4xzlZkNy7PE+mUqw=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=oOq9mBSogEELRUXKdb8J6x2Fr8brsYoQrFkTwYC+3qVOEkdIyhvQAHtMITZGVv7ED
+	 d73ZmMMU7knCNrQUmetRG/hD3VAqZXnslhaEOh9RxbNigf0z85T9nl+uDy0UzJ1Pa8
+	 wAWPKvDVXxqu3cmswLZjhyGIpaYhVah3ouCz1Sp3WJ8hm9NXQ8gb1dGiDDOVC5k0sz
+	 EfEwsNmgjT+MpKCzfLeM1E7toi3SS0qQeRxeSkN7SyoEOLXKphSLJLW6rqKslIxza0
+	 kXaUTZdMX/srHRKT683vhGm2HEaqf9FnbFIBSM/ErxHzm2CMHahNxl/TmSk8rhgWoV
+	 ULhoF2gbX+v8Q==
+Received: by mail-qk1-f181.google.com with SMTP id af79cd13be357-93f3c89594cso78349385a.2
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 11:04:49 -0700 (PDT)
+X-Gm-Message-State: AFq9FYL9hE+2w20ipdbnA9jYOb8ieTMbBuDSlX98iJe7pcEU3xMBlQWe
+	2hl9LkKiRT3IsZLpqsOyasszlWGPber2pfOzVdOiIRYcYNMfvx87PVwzlzP/Bw4FnXVwkyp0bea
+	VzXa74xlApZngMj9TscKr9P2r+nJzPkU=
+X-Received: by 2002:a05:620a:1793:b0:936:df48:d507 with SMTP id
+ af79cd13be357-93f6f91b90bmr544428885a.18.1792778688699; Fri, 23 Oct 2026
+ 11:04:48 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,66 +58,45 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:11d0:b0:4c3:db9b:3ead with SMTP id
- 5614622812f47-55bfffdb0afmr10983b6e.3.1792778684729; Fri, 23 Oct 2026
- 11:04:44 -0700 (PDT)
-Date: Fri, 23 Oct 2026 11:04:44 -0700
-In-Reply-To: <6ad2a01a.6814cce4.34c49f.0013.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6adba1bc.5b36369a.12654e.000b.GAE@google.com>
-Subject: Forwarded: [PATCH v2] configfs: fix slab-UAF Write in config_item_put
-From: syzbot <syzbot+63336d70e1af377d7388@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org
+References: <20261023011049.1164625-1-song@kernel.org> <20261023011049.1164625-8-song@kernel.org>
+ <20261023093256.20d3e300@gandalf.local.home>
+In-Reply-To: <20261023093256.20d3e300@gandalf.local.home>
+From: Song Liu <song@kernel.org>
+Date: Fri, 23 Oct 2026 11:04:33 -0700
+X-Gmail-Original-Message-ID: <CAPhsuW7wgXmQ7QKf06z1kiR+-5VbbrZx8ByLPCUXZtw2-SAHsQ@mail.gmail.com>
+X-Gm-Features: AclHuK_J5P47a14LkpdtNyyppX1AvylBaLgmpgm_44519CpkozMkFuPGPPAAYzg
+Message-ID: <CAPhsuW7wgXmQ7QKf06z1kiR+-5VbbrZx8ByLPCUXZtw2-SAHsQ@mail.gmail.com>
+Subject: Re: [PATCH v2 07/16] tracepoint: Mark __do_trace_##name() notrace
+To: Steven Rostedt <rostedt@goodmis.org>
+Cc: linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org, 
+	live-patching@vger.kernel.org, mhiramat@kernel.org, mark.rutland@arm.com, 
+	kernel-team@meta.com
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-For archival purposes, forwarding an incoming command email to
-linux-kernel@vger.kernel.org.
+On Fri, Oct 23, 2026 at 6:33=E2=80=AFAM Steven Rostedt <rostedt@goodmis.org=
+> wrote:
+>
+> On Thu, 22 Oct 2026 18:10:40 -0700
+> Song Liu <song@kernel.org> wrote:
+>
+> > __do_trace_##name() takes the tracepoint SRCU read lock and calls the
+> > probes. It is called from trace_##name(), trace_call__##name(), and the
+> > notrace rust_do_trace_##name(). It is a plain inline function, so if
+> > the compiler emits it out of line, that copy is untraced only because
+> > inline implies notrace.
+> >
+> > Mark it notrace explicitly. No functional change.
+> >
+> > Assisted-by: Claude:claude-opus-5
+> > Signed-off-by: Song Liu <song@kernel.org>
+>
+> Acked-by: Steven Rostedt <rostedt@goodmis.org>
+>
+> -- Steve
 
-***
+Thanks Steven!
 
-Subject: [PATCH v2] configfs: fix slab-UAF Write in config_item_put
-Author: drifabdelmalekmohamedsaid@gmail.com
+How should we proceed from here? Will you take this via the trace tree?
 
-#syz test
-
-diff --git a/fs/configfs/symlink.c b/fs/configfs/symlink.c
-index 89178f5d371a..7d746a10c369 100644
---- a/fs/configfs/symlink.c
-+++ b/fs/configfs/symlink.c
-@@ -196,11 +196,26 @@ int configfs_symlink(const struct mnt_idmap *idmap, struct inode *dir,
- 	 *
- 	 *  AV, a thoroughly annoyed bastard.
- 	 */
-+
-+	/* Put the reference back, retake and check after relocking*/
-+	config_item_put(parent_item);
-+	parent_item = NULL;
- 	inode_unlock(dir);
- 	ret = get_target(symname, &target_item, &target_sd, dentry->d_sb);
- 	inode_lock(dir);
- 	if (ret)
--		goto out_put;
-+		goto out_put; /* config_item_put on NULL, no problem */
-+
-+	if (IS_DEADDIR(dir)) {
-+		ret = -ENOENT;
-+		goto out_put_target;
-+	}
-+
-+	parent_item = configfs_get_config_item(dentry->d_parent);
-+	if (!parent_item) {
-+		ret = -ENOENT;
-+		goto out_put_target;
-+	}
- 
- 	if (dentry->d_inode || d_unhashed(dentry))
- 		ret = -EEXIST;
-@@ -218,6 +233,7 @@ int configfs_symlink(const struct mnt_idmap *idmap, struct inode *dir,
- 						     target_item);
- 	}
- 
-+out_put_target:
- 	configfs_put(target_sd);
- 	config_item_put(target_item);
- 
+Song
