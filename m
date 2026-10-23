@@ -1,79 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792776151;
-	b=LPT6rtp/WyDy+57egCNY0CZPrpJ7grbbJoXfn5GmeT8DapBIrhWAE8xDNH7IKOFIAU6b
-	 BjpfZ/gexqMuHs76xciKCqAQDVQZPvGrIbjCl9pEvrypoI9bWKLPJYbEoLsOznTXFbrIw
-	 d++VE936shohTwMADB2s2t6J9EH+msp6kXVpJMkif/kt43c4ZbwdWQHek6LMLG+vq4heT
-	 oHk9ImE/Uc+NcTUijc4yro2EvqUawUNo8yviIg/4XOSNThBkUebnTVVafjvvN6o4uonfi
-	 y15LLcq4NdzyhJJpD/k/bWvs6efTEgd0ASnGuCn743C8djejOLR50or86MoPvNB7tGA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792776151;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=OqIzqzKA47bvFdvWSzkbJtTIaw3nSYA/gtwEAEp+wpE=;
-	b=NfHEJXmXhlkCDeHx7KcpWudMdoPpvM/jjSSUReQuxRc0n6yO3I/VtrzE3RfIddX8FTwT
-	 zcD1oDrkmR49Sk+G8UKxjQwniktD+uVUn29x2PCwT2TDqFbtKMrd4SeYoCrqOnvOdG+D3
-	 pi3VdZAPVWl5XeSATrlWMHY1WJGIq+Ty7swFb6dkWTwD/RGkxeUXTx7wpJ9Ffu7yyAGOM
-	 TXsxfFGCrT1Z/kZM+5s+H9YsR8mSbZPpkU9r+1YHZQxEuc+TYXpDiPyH4/sAUhdeDYnat
-	 dLBGPUb8gfNVYPVqhRYZb6ltnQ8z5NLFS8TyuBT5KESD7nepCqSfB6tY9gCGZR4TsIw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y2sHzF+a;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792776194;
+	b=05yZ3p+FVj9xnG4BGEXGNbSNZZCz7F+eyDHFZzq/OlZzrxBhKhJ1//owPkdwjofqCE3z
+	 6KW8q1JoNufynbRj0vJXCBVJV90sJTRIGal+NjXgQe2IyLX1yRbVyndQKaoCNhQ1smTxr
+	 P7kHujr8OcUrjUys+NHiAtkMYqNKajQ/rvNMRS+v43A1EeKA0+uqzikxzS5NAbFjPWGq2
+	 HfzoQso3gERy2xvQ2KGxu/FO5EFELJBfWSEhwuAzDJ0RpAICiIRjomwrrAPUfnl1X7lPH
+	 bBjPWownwPl+FikiIGBCYm1+1viBXz/QXYtJu/xzVZ86qHGF/AZL8jiHhl9DHSK0pcQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792776194;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=e9CHgVUiuUr9z0N9kziykHeUFdcQZLlPHyMU3G/0OGQ=;
+	b=DJ29wBC6rdfFnKwB0E7kaguPp3FZatzB9iBxoKV5V0/WtDYBj6smgRl37lHQ1znzi2kT
+	 wdcs2z1hWgmxIjPXqHz1+QATFM+FcdSvL30rdVUISHqLJsDZiKVEwolRCESS47XgsX55e
+	 iFV25HCG7OhVUEaKebks5niiLQ+E9kN1GqCBnqIRqWyI/V8WgP50ob7M2SvqrJlSJxrx3
+	 KSPAeUlN8+RpcpU2azkUwLy3xsHCTR+Tt/NSjuZsQMmEn7czdceYKlWLM0afhyeHFkVSH
+	 +wbvWtKzQo3kvdTxjgXjFyxl5ZDf6z+6REXxzyw+0psurpceC1aJD7LnjryUSFak2Pw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Lf47zUJY;
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C12A606A31A;
-	Fri, 23 Oct 2026 17:22:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F398606A31A;
+	Fri, 23 Oct 2026 17:23:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y2sHzF+a
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1792776150;
-	b=NtuDqXc7z1APAbebS4r3ew5gmhkvZqdLLaEVauQnuOizF1VzM9XRutkPMKEkwV2Hz9CT
-	 7U65MTL7rHnjcctPWGasSiN5oMvn9x9koOMN2nRn+APTr5ds9FC4VSqZXQrb72Lqqd0Bx
-	 0PupVIHmG3Ec/ATXLpP+1mNge3ewz6nBxxHm2fJnoCGGC9Q+1WyqWmgETjWjP37GFn+pP
-	 nu/ZCL0CdvpVVZcgL/dR1Gz9t+Bk7Is1jLa2WFRRlJOonL5kbmNhu/DDyh4TCVDDnWp2k
-	 Zlgy17h7SoGh0Ok8kQhc8af4YaVAyMCCUOkwQ7GtaK5qJrz+nCDOM/WAgI8a6PXyxZQ==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1792776150;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=OqIzqzKA47bvFdvWSzkbJtTIaw3nSYA/gtwEAEp+wpE=;
-	b=CCFLHawaVfi3PdcA3BFynlDOY1ulumCjWTXizYtPp9gO4mV+zkzxJBNWTUZk4aizU5Nw
-	 60mdF4d2AMTPof+Wmsh7euyx8bwBhpJjxA6aY6OTOResnzMf4dAtbpf8HyHV+ytUj30Ya
-	 Bt5xBKTxoHeEW7XdR3d2Ieh4K8VpDflWwPhQpaO1vFSqkufFLcRDnnGt3kpnms7Op/nkv
-	 ntrm0puUyb7NryliWQZJ6Z0vMGQbE9TIxjf3UOgCctJdM5RggniNQ/L+q0xOaKyGTssmJ
-	 c5ya1uv1crBbR6x4Je2QYGanAHj3E2eWk3kqfdd77wf8eNqlBJn6lugArpjNl3AFdEQ==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 73CFA1F01825;
-	Fri, 23 Oct 2026 17:22:30 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Lf47zUJY
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB4441F01825;
+	Fri, 23 Oct 2026 17:23:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792776150;
-	bh=OqIzqzKA47bvFdvWSzkbJtTIaw3nSYA/gtwEAEp+wpE=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=Y2sHzF+aquMXEf4Rv7oIEnmuebyIb/wbWTG9IZwI7bcDFQ/SPRPFmCM4F7s0qqGpP
-	 D9wBpRiSm2micgzIq4fXmgP34m/zsH6lJ63C9ZwBaNFgJHtC6WPE7xCE+vC+K1xPH7
-	 lWzMPGm4gWnMhQUsE599A6pYILOLHx/FSY+RnnotPbV87+feTnnHGiW0jVBPl1DKXC
-	 ppcbPYT6mtnI+vb3p7JibF/BsIM2e7bKc8ckE5BQ7MxsLhiBkDuBCmPEAIj0BcTtTL
-	 lK296BwfAjXzSBKByE7tU6ilrKfB5ZmokuFcuJ2+IQQkBYsdZAit6FTLhtfwy7W5wH
-	 RSDyhAmuiKNXA==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id F13E2445A0;
-	Fri, 23 Oct 2026 17:22:29 +0000 (UTC)
-From: =?utf-8?q?Lo=C3=AFc_Kassel_via_B4_Relay?= <devnull+loic.kassel.gmail.com@kernel.org>
-Date: Fri, 23 Oct 2026 19:21:54 +0200
-Subject: [PATCH wireless] wifi: mac80211_hwsim: use CLOCK_BOOTTIME for the
- beacon timer
+	s=k20260515; t=1792776194;
+	bh=e9CHgVUiuUr9z0N9kziykHeUFdcQZLlPHyMU3G/0OGQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Lf47zUJY+b8Bje9PmDyS9i4Yc8Cek+co4EKCjYbZdpzfOTGDTk0E819ITQgyQPCEK
+	 Gp67JgfrWhN5UOM+6B0GRm4Sz01NAbGpYEqRWjeshmcygRg7AsWpYmrU3LgCzeLSvK
+	 hYUSiJXYoIc+PJfrrlBkqeo08CQpKxJpQA/FXSVr9nf8mMEUPrbLObZDZ7OWK2QTNB
+	 wdt9lg7gC+ArwBFseNv/svO2YbDqY3uqlNsF7NmQ1Pzb0GdhieySORaNVcGLiqrvIv
+	 UkOBGnixkH+OCKXAS0eY29y/1i4FRnwHtJ7u6Ae9lc1+or5zyuA8rdEpEXwQbzbBRO
+	 6L0H0EhazrSGw==
+Date: Fri, 23 Oct 2026 18:23:09 +0100
+From: Simon Horman <horms@kernel.org>
+To: netdev-bot+sashiko@kernel.org
+Cc: mhun512@gmail.com, netdev@vger.kernel.org, andrew+netdev@lunn.ch,
+	davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
+	pabeni@redhat.com, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org, ae878000@gmail.com,
+	daniel.machon@microchip.com
+Subject: Re: [PATCH net v3 2/2] net: nixge: wait for DMA reset before
+ releasing buffers
+Message-ID: <20261023172309.GC888721@horms.kernel.org>
+References: <20261018020840.3851552-3-mhun512@gmail.com>
+ <179237585255.3135.18388695192416186276@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,86 +62,42 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261023-hwsim-beacon-clock-v1-1-9b3f3ffc099b@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MQQrCMBBG4auUWTuQRJC2VxEXcfrXDraJZKARS
- u9ucPkt3jvIUBRGY3dQwa6mOTX4S0eyxPQC69RMwYWbd+HKSzXd+IkoObGsWd6M2M/wk5Nh6Km
- Fn4JZv//pnaoWrDCjx3n+AGkPCAZuAAAA
-X-Change-ID: 20261023-hwsim-beacon-clock-ea8fe1d0c998
-To: Johannes Berg <johannes@sipsolutions.net>, 
- Benjamin Berg <benjamin.berg@intel.com>, 
- Miri Korenblit <miriam.rachel.korenblit@intel.com>
-Cc: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org, 
- =?utf-8?q?Lo=C3=AFc_Kassel?= <loic.kassel@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792776149; l=2489;
- i=loic.kassel@gmail.com; s=20261023; h=from:subject:message-id;
- bh=pcL4DXeSmeZCNbu0odCOcRBBfSJ6zAv3ONG4ux6DNnE=;
- b=U3rRFkEZroe2nHeMsYy0UB62+omfo4r4pYx8C4+PAvwcAnH4Oakmla/sLkFzEO8wb33TzCkbo
- /Lu/O+6TjsUBW9ZoFFUPEZBRF3gEUDpgJnfExmkIgfK7JMrXM31YAps
-X-Developer-Key: i=loic.kassel@gmail.com; a=ed25519;
- pk=8MjN6l7+bGFfW7/nYXQfpGkxGFb6lH8T7uhKv5XLruA=
-X-Endpoint-Received: by B4 Relay for loic.kassel@gmail.com/20261023 with
- auth_id=1290
-X-Original-From: =?utf-8?q?Lo=C3=AFc_Kassel?= <loic.kassel@gmail.com>
-Reply-To: loic.kassel@gmail.com
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <179237585255.3135.18388695192416186276@kernel.org>
 
-From: Loïc Kassel <loic.kassel@gmail.com>
+Hi Myeonghun,
 
-The simulated TSF is based on boottime, and the beacon timer is re-armed
-with an absolute expiry derived from the TSF through
-mac80211_hwsim_tsf_to_boottime(). The timer itself is however still set
-up with CLOCK_MONOTONIC.
+On Mon, Oct 19, 2026 at 02:10:52AM +0000, netdev-bot+sashiko@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 3 potential
+> issue(s) to consider.
+> 
+> Critical: 0 · High: 1 (3) · Medium: 1 (2) · Low: 1
+> 
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let patchwork
+> know by including "pw-bot: cr" as a separate line at the end of your reply
+> (one such reply per series is enough).
+> 
+> - [High] The patch only partly closes the hole it describes.
 
-Boottime keeps running while the system is suspended, monotonic does
-not. After the host has been suspended once, every beacon is therefore
-scheduled too late by the total time spent in suspend, and APs
-practically stop sending beacons.
+I believe the issue above was covered in your response to the AI-generated
+review of v1.
 
-Set the beacon timer up with CLOCK_BOOTTIME so that it is consistent
-with the TSF.
+https://lore.kernel.org/netdev/179108725013.434549.7036380491047031962@kernel.org/
 
-The bug was analysed, and this change and commit message drafted, with
-the help of an AI assistant (Claude, Opus 5.5). I reviewed the change
-and tested it on v7.2.11 (Fedora 44), applying the same one-line change
-to that kernel's mac80211_hwsim and loading it as an out-of-tree module.
-With hostapd started after a suspend (boottime 61 s ahead of monotonic),
-an associated station received about 10 beacons per second with no
-beacon loss, and scans found all APs. With the unmodified module, in the
-same situation, beacons practically stopped and APs without associated
-stations were not found by scans.
+> - [Medium] One reset timeout in nixge_stop() now disables the port for
+>   good, and nothing in the driver can recover it.
 
-Fixes: 933f5bec98a1 ("wifi: mac80211_hwsim: register beacon timer by calculating TBTT")
-Closes: https://lore.kernel.org/linux-wireless/CAAzpgGdksHZjx4jc20zqnAG_PQ2e1ggANQjt2eiycUiWc+vPHg@mail.gmail.com/
-Signed-off-by: Loïc Kassel <loic.kassel@gmail.com>
----
-Benjamin confirmed the analysis in the report thread and suggested that
-I send the fix myself. This is my first kernel patch.
----
- drivers/net/wireless/virtual/mac80211_hwsim_main.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/net/wireless/virtual/mac80211_hwsim_main.c b/drivers/net/wireless/virtual/mac80211_hwsim_main.c
-index b9446577ff..203bf9a4b9 100644
---- a/drivers/net/wireless/virtual/mac80211_hwsim_main.c
-+++ b/drivers/net/wireless/virtual/mac80211_hwsim_main.c
-@@ -6136,7 +6136,7 @@ static int mac80211_hwsim_new_radio(struct genl_info *info,
- 
- 	for (i = 0; i < ARRAY_SIZE(data->link_data); i++) {
- 		hrtimer_setup(&data->link_data[i].beacon_timer, mac80211_hwsim_beacon,
--			      CLOCK_MONOTONIC, HRTIMER_MODE_ABS_SOFT);
-+			      CLOCK_BOOTTIME, HRTIMER_MODE_ABS_SOFT);
- 		data->link_data[i].link_id = i;
- 	}
- 
-
----
-base-commit: 9d8ec0b5b5295bd23d979d1b2b905de25c36fff2
-change-id: 20261023-hwsim-beacon-clock-ea8fe1d0c998
-
-Best regards,
--- 
-Loïc Kassel <loic.kassel@gmail.com>
+And I tend to think the above is an intentional implementation trade-off.
+But could you comment on it?
 
 
+> - [Low] On reset timeout, nixge_stop() now returns the error from
+>   ndo_stop (line 959).
+> 
+> Pre-existing issues:
+
+...
