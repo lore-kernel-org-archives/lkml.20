@@ -1,49 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.181
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792763286;
-	b=XD+h3NBL9uP/ERDnkiLrz8EVm/i2aRN0BsrlCFpRjMAzZnVTpfLGngjsbhMv7gOODbYk
-	 bcfsprffg0Zies7cgxruSS1fR5P8laJj5dSSlW1XCKQy1J94c9xeWQirubEJsy3r4t0Mn
-	 eKfkff662y/OI8A/GtrxP7fduYAocFrR4nFZhCITKSlP7nPXnJVfqMW66JVC6+bnyGyPs
-	 mE5RfFoVqarBXcjb7TwuanquMRTl66jaZTmEc9S6t3kMPwTaTMJdOhLJ8mO/qanrYY6NF
-	 u9GD0r8UA7a4uzr2L+dCSTAiklNBnt5Cm+ZkNbYeRJX8UVAwjjkJmASLhxjTxLP1QCQ==
+	t=1792763288;
+	b=vQ/PVmY0/qW9SW9MwsKWNkZgsBbNBRcRK2waVwc6yC/1OBhM0u4S+qEm4hvqR9d+wq6E
+	 xnU0pBnQYUJf9RNklVnTwzjtai/Gfd6gR/4vyt5N2YNC0mz6LOGSXGQARqDD5cJ3WQAqn
+	 uA2bsZdp1uHb1bmDeWS+83C1EGXTBH8PfKPJZAOrUttQGVtJLXzEHpeUMqnBz0mre7cRW
+	 z09hyEfdkyCeilDArf325D8DIa+zUcjuvMQeKardCcayjZ8wvv9YWOGPJ8ZktrdeY0Eot
+	 RPjZdQ+GMSJHbpVyYyzAgnnV36NjG+Om5qH9fIyhKWpc04AK1T4TY6BCPIyRLVUmHyA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792763286;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=7Ij0mwfZKNK/iHnKQbkQjE2lD9tsPVCKzLil0h8xoKc=;
-	b=5sTkRw3FqZf2nkPJfclBYG+KDr9VTKzbsnLlNIKsXh4ehqe9UpbF9mnDy8fcC6ZklhKR
-	 tnbd89s85Eh+t70wHvXqz574Zecw+yyNnS4gJN81XTEcR2EiOT7UAL5lmhwv2lQ51Zuv2
-	 7DSFjVT3jCNhydS+KHDw+IkOHK3mQTaaxAWpwtXTz1P/eRiQpsmk11A5Bv5VIErK1GiMi
-	 h3P7raPzVXSKKFUewKRaX67EH59bAB13O2L9l4jKi/DU7taYAfBJC6BXZlNmf8JRbnn5B
-	 esCsi+xdtuD9cgxe1CCd5K3sBxG5MHG9SpQd198sFMx2IGKZyulCs4NhwPUy+hXUP7g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792763288;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=aTuh+D7Cip1uCxKjxcVHv7QGaADbK8cS88J8p1XYOCs=;
+	b=vcO198K0KD/mY0/LPYORsu9jsdbAwKvgMFMtohBsroG0PD3SVMbr0uxcVAHRNwm4JR6M
+	 zqPH+1RJa15OYDcCWFbvtoCujZXn645endNuggVuVjteHPL/3gSn3qbe+odjr8EExkC4i
+	 o+GxrzeR3bCq8K9TO0g4o2ysMtSeuesFSjIUs8xb91Lrf9GZZve21jvAyVyMS8nd2MV51
+	 /OduGcWK+xb9S/tgo3dwxVxVuhswjhRZXgDHfwK3JvzaUxxAZ/57tqVfssX1fnYJ8J7xH
+	 0x3leoMSDQXldsV+xxw6vb5cnec152mx5fHrYXwgvbAjZbzKhAdOaxH7ALO1CcDeLyA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oFGtCt+G;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="Y1d/PBQp";
+	arc=none smtp.remote-ip=209.85.215.181
+Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com [209.85.215.181])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CD6A60A2607;
-	Fri, 23 Oct 2026 13:48:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53232606A31B
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 13:48:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 53232606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oFGtCt+G
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 43FA41F031E7;
-	Fri, 23 Oct 2026 13:48:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792763286;
-	bh=7Ij0mwfZKNK/iHnKQbkQjE2lD9tsPVCKzLil0h8xoKc=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=oFGtCt+GgQFOTdE3OqLHpv+WzwpO5SENfJKSSmxHTpxpGG5JcsA5xd3k8tqDqM6Uw
-	 NMEOQVo5FMVjp92q6GCu5MZlOe6jB3mu6EbmeOd9LpLoFpyfEBGf8WLsmkk/dYRjMA
-	 c5NjKIGX00hxSbXe79Mf/T/SW7frhQUnnXUl1V7V0rkBEBYtNd8A/aPLcuPJinwViU
-	 /SIbwMBGpk9rx6TrnEAHmqm7vkOy9/c+2LthUqpseIf2GwJZLIuFBwGCqWhsWAXBby
-	 2LvN/rEYWxcnEECFSUWBbY6Dw7bI8LM8CrEp3f329IUAcCc3XC/nSeqvW1dNbr0CrS
-	 JsH2s8daLPerg==
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Fri, 23 Oct 2026 14:47:29 +0100
-Subject: [PATCH 3/4] mm/madvise: preserve VMA_SOFTDIRTY_BIT when changing
- anonymous names
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Y1d/PBQp
+Received: by mail-pg1-f181.google.com with SMTP id 41be03b00d2f7-cd5cd8d89a7so332084a12.1
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 06:48:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792763287; x=1793368087; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=aTuh+D7Cip1uCxKjxcVHv7QGaADbK8cS88J8p1XYOCs=;
+        b=Y1d/PBQpYKY6/A/y71lA65P779UqaI8jgvAt/xfUqzJ47TuTdD/TgWgrzFAERp4DgD
+         1rovMaCMal5+BfirxwrV+nyvBf29jE8f4OP8Bm5ybJVOuVfc4mIdxD06ygbJRbd945e2
+         mpp/+y02xSsEHvyQPh4WwI02BfxmO/rW9Lgd+EivWxhu6VSztRAt8W71aAQjlGnlPqUD
+         oXU7PHPGItaP6U789LSd/Ovm3Zwb+8J5cCA0bYIZAulenW6WWn5uXFtZzdoqg2nG5hvA
+         prOq+66GfNJ1wRr/zYdLRrIwCtEHpinh9POKCj215i5TSXOIf+nY2dJFuU5fMPmGQQ3f
+         60ZQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792763287; x=1793368087;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=aTuh+D7Cip1uCxKjxcVHv7QGaADbK8cS88J8p1XYOCs=;
+        b=Qo9kA2+o6nFXeo608rXP1011471iga26lh98QMn1Uq+qA3vGQ5i+CLDumiGSk6jf9u
+         v06YZ3mH7OGzH6lXpy6jUX8A8wHtFxwQzArkkYVN9rOvGOEHovm7sWHYre9KtsdEy7rw
+         ldA85mDkQsZZck9jqq5IXDQpv0s8o/LSRFdD8ClhPEEXvbUeM0qfh7v2fuOnh40Np52P
+         jkLSf0gAbBMPV3dWrJ1I6NcsuUIL9ZN+SoPEfSvF1v3TfJEALLHkaawzvTWG3g9DPeOo
+         HAaP1g4BrVz8Hn24hWCB88jDUwKhCdbBFGGLlGDpCgdgcnQtx97HkQT9/DQlztnT5opi
+         qOnQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwacyOkSzMFzbkldtGuDRLzmP8trkxJc/Ph+wE/jYJgEbo/LMSI4oSUc+CC2QcX+M2ATtqtmUvmzbh59e4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ6+gxNaKJFtnypnu0iMNdqSEjTFJ5W/Q26Zuf/cz1SJI/kQd6B
+	zU6V7JA7xjlUaj9TKcKvHsud2H/7nwYKAzqnR5JgQqI/gGNh+Xcfw1PrgMqAD6hf
+X-Gm-Gg: AYBFou0MeB2Qdywke4gnnQLYgpsNDYvD8UsT0D2dNw6mWwYnAZUBhOqDwFE8ZnBq9CV
+	NV+G9B0nilKp+PjCpEq3WJIUNpEM5jdLWTJIwg0yKzHjTTrbRGJmhS9XhyxjZeIb7KYP54kxOPc
+	XFPRbV9/rA8vaspWewwyrK0SE1MxZY5iPSbp/2Te7aK67Ky9ZegRSfEVesRWhkBYWPZAOfIlUgl
+	tDfLWRMXiSkr+G9pMQR3cFlz6fX/FeG7Ke7N0aY5nJL9c9CZdMYWw9JZ1l2yvn4PhGh6xvOWPRa
+	pR0LQjsA+BHk9SX9a8DiKS/3ke3fZqhPcN01Dg5DWdFy/c1D61lliOHqK4rT5mP02Py7r4687kO
+	9N/+aY1rnN1F44Nh8VgJeHhispMBU/JV6bj+zcRqzpmoblaNIsgK/IvYFJqA7eE/lsue43utW3E
+	gDLEYVSk7O772vl+i5moBNuVlrybp9f6h6YKjS1hcJFMNL3Gwjb/L8y7txFv6kLUVRlC3hQubS0
+	agoiQED5OMDx7xxUrk9ssOpYwFlR9/3zsiBWRABhVInfKCLRUlH97UY
+X-Received: by 2002:a17:902:cf0b:b0:2e9:9524:b004 with SMTP id d9443c01a7336-2ea7d07bdf0mr21009825ad.59.1792763286653;
+        Fri, 23 Oct 2026 06:48:06 -0700 (PDT)
+Received: from dev.local ([163.43.243.221])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ea946778ccsm521295ad.9.2026.10.23.06.48.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 23 Oct 2026 06:48:06 -0700 (PDT)
+From: Yuya Kusakabe <yuya.kusakabe@gmail.com>
+Date: Fri, 23 Oct 2026 22:47:57 +0900
+Subject: [PATCH net-next v4 2/2] seg6: skip the route refcount in seg6local
+ IPv4 lookups
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -55,78 +94,93 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261023-fix-vma-atomic-v1-3-8ff4fae1fc85@kernel.org>
-References: <20261023-fix-vma-atomic-v1-0-8ff4fae1fc85@kernel.org>
-In-Reply-To: <20261023-fix-vma-atomic-v1-0-8ff4fae1fc85@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>, 
- David Hildenbrand <david@kernel.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, Jann Horn <jannh@google.com>, 
- Pedro Falcato <pfalcato@suse.de>, Davidlohr Bueso <dave@stgolabs.net>, 
- SJ Park <sj@kernel.org>, Kees Cook <kees@kernel.org>, 
- Colin Cross <ccross@google.com>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, stable@vger.kernel.org
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1763; i=ljs@kernel.org;
- h=from:subject:message-id; bh=+8zMzgPcLWkBMrp2HQCx5OthBGMujXI4JiuFV5MjM6k=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLJup7asPWgxuTRpFeeuyyEmfqXRK7qPdC+fXBrvdpvZi
- kOaZfWkjlIWBjEuBlkxRZbnX8T3B4mEzeu84O8GM4eVCWQIAxenAEwkh5OR4R7vItZTfy9nbBXN
- m7N+7kbrC9MfMfJJTSotaLjv2Dxd4yXD/9pLn/efZpO/nnLmX4vZnldH9Za6LT0qsTHLVbtX+tc
- 1YW4A
-X-Developer-Key: i=ljs@kernel.org; a=openpgp;
- fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
+Message-Id: <20261023-seg6-lookup-noref-v4-2-0ad0a83960ef@gmail.com>
+References: <20261023-seg6-lookup-noref-v4-0-0ad0a83960ef@gmail.com>
+In-Reply-To: <20261023-seg6-lookup-noref-v4-0-0ad0a83960ef@gmail.com>
+To: Andrea Mayer <andrea.mayer@uniroma2.it>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Simon Horman <horms@kernel.org>
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Gabriel Goller <g.goller@proxmox.com>, 
+ Yuya Kusakabe <yuya.kusakabe@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2336;
+ i=yuya.kusakabe@gmail.com; h=from:subject:message-id;
+ bh=dRDW/7at3wyNN9uALP8BS6Z0fSc8Nk/01osTUNBgfr4=;
+ b=owEBbQKS/ZANAwAIASrX0XUqXRtNAcsmYgBq22WNPxnrDPhFO8axQuCzhqgzOhWydCaY329WX
+ j1Ei2p6tgKJAjMEAAEIAB0WIQTaB7usAfxNKMeqa6Yq19F1Kl0bTQUCattljQAKCRAq19F1Kl0b
+ TR8RD/4lGPTKbC9FNWBsj8NkZsNtj43e1D8FfzYa9V6UIWyJ2fkqVvoes07yH8beA2ofnin1nzd
+ kcHJqbXHHV6lr5cQ96Zogc6bNrwzcKSOu/tCGZGjcewJrGfe5ECdOrHLaTiMBBjbNX2aKzz0x4P
+ EZmZtyioDL+cZBMI9hnRgLAznqJi2sNcpeyz8JXxYN4r1Wpkzm9+/uZ/REoIziwJ+9msA6pOFad
+ 7Sse6sbbLtjH5wtczdUMzvRbjlVcXz9RkzGN0LNw14R2EjHo8fPYmMOqEWmfRv08NHaI2BCFwGH
+ lBMQoXJJXhOHv3o2HkKqLeIjLceFYv9LZzUXNRW5PHfsF7S38dPPTlDs4fWMsHwPBkPPgMniqZR
+ 6fP4YRQux1DvJDXurBrQgor43DEZSqx5xCOaw0DEIDayptZTp2GGxgkMxy+9mOSq24ERIPG83AD
+ XTRTPKU09yEjhd9OxaXBZ/9v9tvjM8LAqRGCFgC2V/MUaZShrQ6MrkWR6kZaT/9EzXwV2sXiP6I
+ CHaYIEV2XnNu35llLD/RDZBURAQXfKofXCcIlPcw8NtU4/0slgEAUPNDrIxu/VsYrR5tLVLKUej
+ uFNlgaLe00MBnq7wB8rwl/AoO3oxrTVttMQKxcv/FljU+9wVvaKqHTU+J/KP0A3NwPeMnK2moaw
+ Je6LVzpHISBH1kw==
+X-Developer-Key: i=yuya.kusakabe@gmail.com; a=openpgp;
+ fpr=DA07BBAC01FC4D28C7AA6BA62AD7D1752A5D1B4D
 
-From: "David Hildenbrand (Arm)" <david@kernel.org>
+ip_route_input() looks the input route up with ip_route_input_noref()
+and then forces a reference on it, which is dropped again when the
+packet is transmitted.  End.DX4 and End.DT4 call it and hand the skb
+to dst_input() within one RCU read-side section: the one of the
+receive path, or that of the nfnetlink verdict handler for a packet
+reinjected from NFQUEUE.
 
-When changing the anonymous VMA name, madvise_update_vma() calls
-vma_modify_name() to possibly merge with adjacent VMAs. We don't call
-vma_modify_flags() and consequently don't obtain the new VMA flags.
+Use ip_route_input_noref(), as ip_rcv_finish() does.
 
-Later in the function we update the VMA flags to the stale new_vma_flags
-we obtained before. This can result in us losing the VMA_SOFTDIRTY_BIT
-flag set on a VMA we just merged with.
+Throughput at 0.5% packet loss of 82-byte IPv4-in-IPv6 UDP packets
+(no SRH), spread by RSS on an ixgbe 82599ES across two 10-core Xeon
+E5-2650 v3, offered by TRex over 10 runs of 10 s, in Mpps:
 
-There is no need to update the VMA flags at all, so just exit early. This
-skips calling khugepaged_enter_vma(), but since the flags didn't change
-this is fine.
+  End.DX4
+  queues  cores                   before   after
+  1       1                        0.791   0.811  (+2.5%)
+  10      10 on the NIC's socket   6.118   7.394  (+20.9%)
+  16      10 + 6 on two sockets    3.305  10.205  (+208.8%)
 
-Fixes: 9a10064f5625 ("mm: add a field to store names for private anonymous memory")
-Cc: <stable@vger.kernel.org>
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-[ ljs - Minor edit of commit message, rebased ]
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+  End.DT4
+  queues  cores                   before   after
+  1       1                        0.481   0.489  (+1.6%)
+  10      10 on the NIC's socket   4.328   4.588  (+6.0%)
+  16      10 + 6 on two sockets    3.351   7.153  (+113.5%)
+
+Every CPU takes and drops a reference on the same input route, the
+one cached on the nexthop.  At 16 queues that cache line bounces
+between the sockets, and skb_dst_force() and dst_release() together
+take more than half of the cycles for End.DX4 and over 40% for End.DT4.
+
+Signed-off-by: Yuya Kusakabe <yuya.kusakabe@gmail.com>
 ---
- mm/madvise.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ net/ipv6/seg6_local.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/mm/madvise.c b/mm/madvise.c
-index b2e00efcaa54..e9fa4f71efea 100644
---- a/mm/madvise.c
-+++ b/mm/madvise.c
-@@ -177,6 +177,9 @@ static int madvise_update_vma(vm_flags_t new_flags,
+diff --git a/net/ipv6/seg6_local.c b/net/ipv6/seg6_local.c
+index 7fbcf590297d..209e31c21e33 100644
+--- a/net/ipv6/seg6_local.c
++++ b/net/ipv6/seg6_local.c
+@@ -1096,7 +1096,7 @@ static int input_action_end_dx4_finish(struct net *net, struct sock *sk,
  
- 	/* vm_flags is protected by the mmap_lock held in write mode. */
- 	vma_start_write(vma);
-+	if (set_new_anon_name)
-+		return replace_anon_vma_name(vma, anon_name);
-+
- 	vma_overwrite_flags(vma, new_vma_flags);
- 	/*
- 	 * If the vma become good for khugepaged to scan,
-@@ -186,9 +189,6 @@ static int madvise_update_vma(vm_flags_t new_flags,
- 	if (vma_flags_test(&new_vma_flags, VMA_HUGEPAGE_BIT))
- 		khugepaged_enter_vma(vma, vma_flags_to_legacy(new_vma_flags));
+ 	skb_dst_drop(skb);
  
--	if (set_new_anon_name)
--		return replace_anon_vma_name(vma, anon_name);
--
- 	return 0;
- }
+-	reason = ip_route_input(skb, nhaddr, iph->saddr, 0, skb->dev);
++	reason = ip_route_input_noref(skb, nhaddr, iph->saddr, 0, skb->dev);
+ 	if (reason) {
+ 		kfree_skb_reason(skb, reason);
+ 		return -EINVAL;
+@@ -1322,7 +1322,7 @@ static int input_action_end_dt4(struct sk_buff *skb,
+ 
+ 	iph = ip_hdr(skb);
+ 
+-	reason = ip_route_input(skb, iph->daddr, iph->saddr, 0, skb->dev);
++	reason = ip_route_input_noref(skb, iph->daddr, iph->saddr, 0, skb->dev);
+ 	if (unlikely(reason))
+ 		goto drop;
  
 
 -- 
-2.56.0
+2.50.1
 
