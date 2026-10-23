@@ -1,76 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.57.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792743382;
-	b=ANGXvSg2zPWiF43wjkrU3CY50sOFXvCnyQGmkvCDUjxKY5umUnksTchlcov/J2mflFNV
-	 N8wXwPoTKe6riPCOjizPVx2U4k/uuOpGdQ6GTV4uFSH9P/IOYYcv39ce+EgtGyFsA31e6
-	 mnt+kG9f+U4o2focKwxwwd1EICNoyR+hqENYIYYmTJFf7K+wx2NNAd3aFDb+Y1AWMRZkK
-	 59s11MqOJaWsp5n3pf2ehIcyAu18AKNWEddYQVUgHw1Pvn2+Ysu8yUEyAuxUxWqujQdaX
-	 VwaHlEG2ka8CRfOCR3Zce3gTS9Y/qpDVAEi2Tjrl5SVtAIJ3vXcQC8igG+uhmcOUzqw==
+	t=1792743380;
+	b=i1px9Gi5MrMhAaQS559Hvfy+adKQJjVZtmqwvW/8p9ski00bc9F35gLLQuggi6ppLbvb
+	 eInqc2zt2KwFROk0Ebe0FOXPY4r+86feS3iv4cfZjLrJdfX05sh74RjJtxHyshSGRKfPr
+	 ARe990Qdw7/2x6WjWblTBZoeAi854RqW9DYBgA8aOqByn1ADWzGtDE+5mImmK9fxMI930
+	 CmNzXIIbsMWUZ+RG0fu/Z2V/MoZ1U9o0lnk5pKrb6cu7YLm2LocarA+gowtXEraPTmWJf
+	 k/tFtGu6tuKvfKsPaaGm2/G+OtFgpiO407gdty3JTHGsFK4a9onJNtAYgw9+xIZxd7w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792743382;
-	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=OJBm0kdro8PQFC/77dWApGE9VNnnb7mDYElFO9G+ddk=;
-	b=IsZQMjLj+ypYWcypjuyg3qof/G4V/BhN0EEN2ljfZklXufJItfUKUuYTBgOKYwFSCPcX
-	 THTv3eGbSODm+FXNSHb+31LqrqLxswbNLP1amReH0dttSwgbk/5mbAFp4zav43yMIKlb1
-	 YhFm180/7cojPNo1EmWI2AhBf+TOH5Zns3UxtOgReFMHMohFKJFBL7rxG+QmnB9GVM1QN
-	 jBoaVPIhttemFoX+bbHznle8XL5bfghRzDN2KbCF7ezUwhGysqvg+c/JbXWhBPG+Bzfi5
-	 gfiFArNom1MOSDi5aCWOPHfsfPaV+YH6TzRPirRUYWERfJ4jOLswzVKAVnl86fzNWhQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792743380;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Rspamd-Queue-Id:X-Spam-Level:X-Rspamd-Server:
+	 X-Rspamd-Action:X-Spam-Flag:X-Spamd-Result:X-Spam-Score;
+	bh=Own+XDkrcsa0rAqcKruFpM5LMPUrTaQ78MTF+e2vtIw=;
+	b=ckhFsKow0G8wzPDi1pB0n0NX3NXYqZ8VFgfSqDxboxzKifL3GTdMz4Y56hLbYvkOQ5Ck
+	 H0nLCaacCb/ZfwDGsuupl5eYHaWFqK4PkDyV+ZG0GBmFeZEaNyN9/6Pf1VHnhq1yfKWz+
+	 SsIvsT9yAtcUTDWNMLioUFbtWmpaD+15lrkSjhvoJ56v5WcPwpJ4SY0vnSe8tHdIAO5Ny
+	 x0913t2XWZP3/dtTS2tPcygBzS1l88qxn7O+/eJ/FHQUY0mKI/3KQ9qTY3nTTOMNKP1to
+	 /WP2JtZQ+qikNsVYf9sxPVk+s4ieNcUvmHwK7I/tB/QJO6ro2cxu5km9wVMnqiqgAjQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=qq.com;
-	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b="qUnPm/q8";
-	arc=none smtp.remote-ip=162.62.57.49
-Received: from out162-62-57-49.mail.qq.com (out162-62-57-49.mail.qq.com [162.62.57.49])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=none header.from=suse.cz;
+	spf=pass smtp.mailfrom=suse.cz;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=rLG79M9C;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=LU4qWsqy;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=rLG79M9C;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=LU4qWsqy;
+	arc=none smtp.remote-ip=195.135.223.131
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A9B9606A322
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 08:16:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9A9B9606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5BE8606A31B;
+	Fri, 23 Oct 2026 08:16:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A5BE8606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=qUnPm/q8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1792743370; bh=OJBm0kdro8PQFC/77dWApGE9VNnnb7mDYElFO9G+ddk=;
-	h=From:To:Cc:Subject:Date;
-	b=qUnPm/q8qUPaV6/qRUL+o+LQDrnnv1sJYe2v5sCY3Nkn7aZdB+wRCbh7N3bKZMqNX
-	 rQuWInbhm/kIGZwoC0RMsAmb9UHDyeVtTqqGTjsbuoFuWwAHYFbl2z9eL+RTbLZIze
-	 Ns8yJ/kUKygnoFWdwLmu890BTYSv4PCDt15fNDfA=
-Received: from shuai-VMware-Virtual-Platform.. ([218.28.192.28])
-	by newxmesmtplogicsvrsza63-0.qq.com (NewEsmtp) with SMTP
-	id 407AE242; Fri, 23 Oct 2026 16:16:07 +0800
-X-QQ-mid: xmsmtpt1792743367t24639m9l
-Message-ID: <tencent_90082E9C18DB04917B9F74368BBAFC695306@qq.com>
-X-QQ-XMAILINFO: M1rD3f8svNznrOjiZ53lu7yt9BFmB+lFO5xkRRJHXifRU9rhP18oTP8RL7gHc8
-	 /lGAbQ10QIPd7UsMOmMwGJ5qCKTcllNec1PPzVwN9Mj5zThzWqnfKc+/3I74f6jhhiMtmBnBhc0Y
-	 +/+iap4FXURogXI/P64OecQnm40FtIWnfdpgHITraJw89gtaUQWdEM62vJL4QghYnXbFXt4JvU8o
-	 iSOYhQckXjXUTzH+zvtVVtYFQnK4Eg6AuJS8ZnC0baf1i9rIEK7uyqiEQCaUzU3iZo9AuTt4sd+a
-	 MVFP2ZtI5opaeMMBCKZ57Dl/BrmfenNHT9V7FVon2mxySxiVMv/H1aws0Aw36ZAJu3D8lcLlYrtm
-	 hM5JvbledUIwTsMlJAQ7wyJOcovI/UrOuCgCmSZyrtStwBZouLmp/SgkkMs+45ZRYBxxuawMMTb7
-	 g6YGEjrBg7eHgBpAd4fYiv2DqnldPYkVOlAZ0z2RU3+hIa8RlDGeoTlqc4L2mfqkgPPByH4wBtjN
-	 bSZYaX4zQxXhCgqiWNbKnM/e5T3pCUNWO+TR+CYjfMkEpzQjtFU/nSUuMnBMmG4fkgXdiIf1NVKZ
-	 E1/wAnMzfLz+hJAhb8VqkdoGh+BzdP5hxNjhn+SJOA60fKPpBHxvKeQdrLpccJxLKpZYtz34lq1b
-	 E0SrYwIg0lqDDJPAJNF1yb1KQHso8aqjA/wYQFwnsFdKZs8uLZ5Oq/1LYUzKWeqIwiW783OjLJgU
-	 hpt3mDbi2g/9rxRk4En6grf+AGGHSZRqPthyvnlfX5YwVox4pl+efaOc9u3pPDt7TOS00/knIZqt
-	 7Uq4q1Rp5Hqwi+cF5nEhKBKy4rz6CGlgfZ7HGch3k5q7Lgk1i2W1wq2yUwyQPja7zuecq6APH8rb
-	 J2ILuIs55rnTGoMSArWVD8/UX1bkNxFFoYqsM7X7NJtu+iOzfqNd1K5eo4U0XmDbFQHOAlEEWeJj
-	 nxUinSIFEeJXYlunAonyez2daAjsx2zDfUHm4TJP+OnlY+IPneeeeCwdwwtC0BsLraU8A57uZ2qQ
-	 fMTVKm2R/T5Af1UC5m/G7osllcNnCx+Hlj1ws7Trb2B/ulRTdX6WekF2ErMAUCeCR+c5afEG+7G3
-	 1KBGxh
-X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
-From: Shuai Liu <847807867@qq.com>
-To: linux-mtd@lists.infradead.org
-Cc: miquel.raynal@bootlin.com,
-	richard@nod.at,
-	vigneshr@ti.com,
-	linux-kernel@vger.kernel.org,
-	kevinshq@163.com
-Subject: [PATCH] mtd: rawnand: samsung: fix pages_per_eraseblock calculation
-Date: Fri, 23 Oct 2026 16:16:07 +0800
-X-OQ-MSGID: <20261023081607.3836052-1-847807867@qq.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key, unprotected) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=rLG79M9C;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=LU4qWsqy;
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=rLG79M9C;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=LU4qWsqy
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 2C6471F385;
+	Fri, 23 Oct 2026 08:16:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1792743376; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Own+XDkrcsa0rAqcKruFpM5LMPUrTaQ78MTF+e2vtIw=;
+	b=rLG79M9CiCwVLyOXNkk5o0ii2Lm4C3Z8/sXrxAWuOkOtiuCpiJO8Ceq6wXH7P4AS09pNPD
+	VsRZirmu/VYnwdg7Nc7op+FdjGJ2xvDqRiYL9ExEPV8mOvAFLO6y5lzfuZgLXKwoJGmVbP
+	NAklCfPvM9WSnbLSbDXEcgLi4eG0rc0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1792743376;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Own+XDkrcsa0rAqcKruFpM5LMPUrTaQ78MTF+e2vtIw=;
+	b=LU4qWsqy9gqPGbxIi+P8F9q2yfefzBzWfU3JS8J+09I3WPaaVUBcV/hDG5klyOahQirQGH
+	5jP57FV+chjar3CA==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=rLG79M9C;
+	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=LU4qWsqy
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1792743376; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Own+XDkrcsa0rAqcKruFpM5LMPUrTaQ78MTF+e2vtIw=;
+	b=rLG79M9CiCwVLyOXNkk5o0ii2Lm4C3Z8/sXrxAWuOkOtiuCpiJO8Ceq6wXH7P4AS09pNPD
+	VsRZirmu/VYnwdg7Nc7op+FdjGJ2xvDqRiYL9ExEPV8mOvAFLO6y5lzfuZgLXKwoJGmVbP
+	NAklCfPvM9WSnbLSbDXEcgLi4eG0rc0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1792743376;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Own+XDkrcsa0rAqcKruFpM5LMPUrTaQ78MTF+e2vtIw=;
+	b=LU4qWsqy9gqPGbxIi+P8F9q2yfefzBzWfU3JS8J+09I3WPaaVUBcV/hDG5klyOahQirQGH
+	5jP57FV+chjar3CA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id D2964133F6;
+	Fri, 23 Oct 2026 08:16:15 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id g09uKs8X22p7eAAAD6G6ig
+	(envelope-from <jack@suse.cz>); Fri, 23 Oct 2026 08:16:15 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+	id 55361A1415; Fri, 23 Oct 2026 10:16:11 +0200 (CEST)
+Date: Fri, 23 Oct 2026 10:16:11 +0200
+From: Jan Kara <jack@suse.cz>
+To: Hengyu Liang <hengyul@cs.unc.edu>
+Cc: jack@suse.cz, tytso@mit.edu, linux-ext4@vger.kernel.org, 
+	adilger.kernel@dilger.ca, libaokun@linux.alibaba.com, ojaswin@linux.ibm.com, 
+	ritesh.list@gmail.com, yi.zhang@huawei.com, dave.hansen@linux.intel.com, 
+	akpm@linux-foundation.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] ext4: do not advance i_size on a buffered write that
+ copied nothing
+Message-ID: <yicmd2fqtfqfl7fmyvkrwwnewk7ahbzzvtceeowa7k5w6v3hbn@lmuqp4a2ojmb>
+References: <20261009044656.1993196-1-hengyul@cs.unc.edu>
+ <34dtkdstf5yxg2ulinnh4hocc53gz35ij6k62egi2ykgpyc3a5@zuxt6doiajwq>
+ <20261022142911.1490979-1-hengyul@cs.unc.edu>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,53 +116,100 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261022142911.1490979-1-hengyul@cs.unc.edu>
+X-Rspamd-Queue-Id: 2C6471F385
+X-Spam-Level: 
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Flag: NO
+X-Spamd-Result: default: False [-11.51 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	RCVD_TLS_LAST(0.00)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	RCVD_COUNT_THREE(0.00)[3];
+	RCPT_COUNT_TWELVE(0.00)[13];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	FREEMAIL_CC(0.00)[suse.cz,mit.edu,vger.kernel.org,dilger.ca,linux.alibaba.com,linux.ibm.com,gmail.com,huawei.com,linux.intel.com,linux-foundation.org];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from,2a07:de40:b281:106:10:150:64:167:received];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[];
+	DKIM_TRACE(0.00)[suse.cz:+];
+	MISSING_XM_UA(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.cz:dkim,suse.com:email]
+X-Spam-Score: -11.51
 
-In samsung_nand_decode_id(), the division by memorg->pagesize binds
-tighter than the left shift due to C operator precedence, so the
-expression is evaluated as:
+On Thu 22-10-26 10:29:11, Hengyu Liang wrote:
+> Hi Jan,
+> 
+> On Thu 22-10-26 11:48:35, Jan Kara wrote:
+> > I agree with the problem but first, Ted has merged rewrite of ext4
+> > buffered IO path to iomap your fix would very likely need rebasing, and
+> > second:
+> 
+> Thanks for the review.
+> 
+> In the ext4 dev branch, the iomap buffered path is only used with the
+> new buffered_iomap mount option, and it faults the source in before
+> ->write_begin(), so it does not have this problem. The default
+> buffer_head path still does: on 8c4f6e337634, a 100-byte file still
+> has a size of 1048586 after a failed pwrite() at 1 MiB + 10, sync and
+> remount. The patch applies to the dev branch without changes, and I
+> will base v2 on it.
+> 
+> > this is wrong and would leak delayed allocation reservations AFAICT. You
+> > should just use ext4_truncate_failed_write() like e.g.
+> > ext4_da_write_begin() does on failure.
+> 
+> I don't think it leaks. ext4_es_remove_extent() gives back the
+> reservation of the delayed blocks it removes through
+> ext4_da_release_space(), which ext4_iomap_punch_delalloc() also relies
+> on in the iomap path.
 
-    (128 * 1024) << (shift / pagesize)
+You are right. I'm sorry for my confusion.
 
-The shift amount is at most 7 while pagesize is at least 2048, so the
-integer division always yields 0 and pages_per_eraseblock ends up
-being 131072 regardless of the actual chip geometry.
+> To check this, I ran my earlier tests on the dev branch with the patch
+> as sent and with the helper replaced by ext4_truncate_failed_write(),
+> plus a test on an image with the quota feature that reads the user's
+> quota usage (which includes reserved space) and the free block count.
+> After a failed write past EOF, both versions bring both numbers back
+> to their values before the write, and nothing is logged at umount.
+> Without the patch, the same case keeps 64 KiB reserved until the inode
+> is evicted.
+> 
+> I did not use ext4_truncate_failed_write() because since 665575cff098
+> this path is also taken by ordinary writes. When the source page is
+> not faulted in yet, the first copy fails, ->write_end() sees
+> copied == 0, and generic_perform_write() faults the page in and tries
+> again. ext4_truncate_failed_write() would then run ext4_truncate() for
+> each such write that starts past EOF, and that frees blocks
+> preallocated past EOF with FALLOC_FL_KEEP_SIZE, even though the write
+> succeeds right after. In my test, a 64 KiB write from untouched
+> anonymous memory into a file with 1 MiB preallocated past EOF leaves
+> st_blocks at 2056 with the helper, but drops it to 136 with
+> ext4_truncate_failed_write().
 
-nanddev_init() later computes mtd->erasesize as
-pagesize * pages_per_eraseblock, overwriting the correct value set in
-this function with an astronomic value (e.g. 0x20000000, 512 MiB, for
-a chip with 4096-byte pages).  MTD then rejects partitions not
-starting on such an eraseblock boundary and forces them read-only,
-breaking the rootfs on affected boards.
+OK, that's a good observation. Let's keep your special function then.
+Thanks!
 
-Add parentheses around the shift expression so that the eraseblock
-size is computed before being divided by the page size.
-
-Reported-by: kevinshq <kevinshq@163.com>
-Closes: https://bugzilla.kernel.org/show_bug.cgi?id=222140
-Fixes: 629a442cad5f ("mtd: rawnand: Fill memorg during detection")
-Signed-off-by: Shuai Liu <847807867@qq.com>
----
- drivers/mtd/nand/raw/nand_samsung.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/mtd/nand/raw/nand_samsung.c b/drivers/mtd/nand/raw/nand_samsung.c
-index 0be6b7563..765c0a7d8 100644
---- a/drivers/mtd/nand/raw/nand_samsung.c
-+++ b/drivers/mtd/nand/raw/nand_samsung.c
-@@ -63,9 +63,9 @@ static void samsung_nand_decode_id(struct nand_chip *chip)
- 
- 		/* Get blocksize */
- 		extid >>= 2;
--		memorg->pages_per_eraseblock = (128 * 1024) <<
--					       (((extid >> 1) & 0x04) |
--						(extid & 0x03)) /
-+		memorg->pages_per_eraseblock = ((128 * 1024) <<
-+						(((extid >> 1) & 0x04) |
-+						 (extid & 0x03))) /
- 					       memorg->pagesize;
- 		mtd->erasesize = (128 * 1024) <<
- 				 (((extid >> 1) & 0x04) | (extid & 0x03));
+								Honza
 -- 
-2.43.0
-
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
