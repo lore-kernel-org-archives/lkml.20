@@ -1,107 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792749206;
-	b=SY21WSlrD1FyIpYncOQ+XVi11PspNA4hF7ruYv8wk/F7W3IiBv3clwPP3i9Tr+XriBa/
-	 vF+pdzMIyAif9g60OBl3LB9Y3n67ZuvKp3C6nLSYLDbG4ichkR9nagxXQBw7xnSKRsF1y
-	 RwQQjeTcVlcb8lTVK8z6r4xmzobJLTmkzGNJMFepspefcrlnsGrQOXnMSbVa4mYtO6E9y
-	 x6FAT8OF4gXuHEL6f6C73UwVKaf5xQM9x/wHDZfTfMYFGdIuAQEdLsGvboVR28u5ldfac
-	 Gzjqdy31gbQSQExFWJ0VVgiLzCvb8wraVRs0KHg68D4eTzxhxsOpcPdBKs66KczQ7kg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792749206;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Gm-Message-State:X-Gm-Gg:
-	 X-Received:X-Received:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:X-Authority-Analysis:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=gBnG5sU+tJaFKPLImFYZENIYfRQYVEBnIoFPUn9xwEc=;
-	b=UM1zjtutloJD417n1PB5LjJfcOyxeLLRzz7M42LjDLc3h52c9ryddcf7pnpX1uQAPTO7
-	 1J4a6t6w3icCb3PhBemUp/Nm+6GzGwBx9nd9zZECXFuOKr5kEeAKV+IBRZwBffnCI60Iu
-	 PsqK8Lsx2vQneGpzd4VC1C/VHJz/eggYTKqh2M0oZhOtlRUBbZpjFTyQnazpwYPmQaTv+
-	 buFT25nwVV0DUVyg/FCYAVP6KuM+wBNOrE2Mm67EwR9KwQYqOdzHvHMXWLlKnmYREiZgB
-	 HB9kH99rxfULe4YWQZUXTybtW2CrO0UoM33hlXf2r3JxIk8SKmRuPQU7lvUDkaeLVDQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=D0gcWcrH;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=MK0ksp6J;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792749216;
+	b=G86/2dA+JmbQq+WkCNPh+F8ZiudMbcNu6uuwWMjyjPxxiV/ND1SbCaCG2fBbX9CZbain
+	 RGnLrkvVmUJVBvKld12Gp6VOXsA+mNOLJYFG/A52uZ4euc/MG/7nB0Tp1sQ6WkSQoNbr3
+	 W74IIPMdoylVErYFHWYENsKeSyRV5fVAVvVVbTvnEm5a/3lTae08C4IYHfRsytWZUzVwH
+	 kdr5mr/6T8k9dgUolJMeLUPiERvmYKF+l8LbcHEEAezIS9r2z+4TIPy7+U3Y67cvv8a7B
+	 HTONbOVzIcefkPr4fRlhLAVFVX6ozXp84GzZuqMZSJ6xwW5mYMo1zo7P7dc89aOSwVw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792749216;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=k76C28WvueFM3AIT14tJaOsYhV8LFBqv5UIAtJ5c2mw=;
+	b=JHikT7QDFkE7TFFvyxzHzQaSYL9T3N61IH7XZrY8pQAiaVTFLg6kulGh8wunrS2SYPT/
+	 WCYYtmn9eCh1jJrgT5JIYyKhW2l0d9AfZUizvXh+440y4s45PWfO+ZAQjY5Uwrd4gHDQ9
+	 jQsID7++iKE8PvoocTLhxPGN92bfS9IzP+akR9LcpPpjdADt8ba0uflZaxU8uiHkfVPVr
+	 bcSt2SCfjlNj+X358JFsuINQeSp43t4oOPMsFJAaohjEjIbXirnWU66VWGf1YuaA4vZmG
+	 WB5m7IdPqqUXqjuqFVgHkm3yVwDl6jd5ivcyBsWeAwuK0f8YoqDFH1pj0ifSpxgf5eQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XnR8pc3y;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7FA6606A325;
+	Fri, 23 Oct 2026 09:53:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XnR8pc3y
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1792749215;
+	b=Tx3uvSzest1qIBFf6vY/9GFxkAjCuTLhbPnim0vIHYu3NlHrg2XaB+hOPuKixy1pIANX
+	 p7ExvLQOCvk46uEIyzkYLJ3RIV5ZQpWeVBXm2wnDnY4dbfd8jcpX3JUWr7TPOvD93JP/e
+	 lTORJX1rQMInbddHC+nwfmJNtmV8ad3Be5gCobSLIu1wsaOE0NKBgjdCFZ1v0Y36Zaa/n
+	 jH0S9MKJ84hSZ59CUAcXkMTzc4GRtUcrrSILP0tdBXRCyu31thRzT1ZtoUMgJEVXVbFCX
+	 1G4Km9K7Z1luWmTh7u+DhVa/MRC38bAsq9XTH2qI9DHav3q/cH771xUzih1VXS+Pw6w==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1792749215;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=k76C28WvueFM3AIT14tJaOsYhV8LFBqv5UIAtJ5c2mw=;
+	b=DTiTZt/g1CwmetdluZ5mF7Lc+SxSuN4JoGgJhfqX0w52nUiHBSWcFd1KeAVy/5PLAnBj
+	 IgUl+ZDPgboe6jkYJlZVg34ZUstjCzE7dREL/Ug5NtehpeztmRhL4OhIp14JDnv53aQLn
+	 b9WeaxkavDO3QErz0v38hFxiPGWkOSpHDQwCxR9t1wJo6mgQm9MRCeP9gpJnT6Asn1SeC
+	 2hvxGe6/BMrIUwlJy8kXu9a+hw6Y9Mzl+40ueZW7TyjvpdlC0GlerRvVXV0uevnjcZJbX
+	 zKtXq3Z8c/epVtdfHhwkC6lq0uNSSpj5FzO1Smu0d1q0B1qBgBAWxBqR2bhVZySykNQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77CCE606A31D
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 09:53:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 77CCE606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=D0gcWcrH;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=MK0ksp6J
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69N7F9WQ2112143
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 09:53:25 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=gBnG5sU+tJaFKPLImFYZEN
-	IYfRQYVEBnIoFPUn9xwEc=; b=D0gcWcrHCr+nA9If+gl3dcqNMUZKqEMIuREqeo
-	g59lqJN7htaqTGEAVxRIC89yIvHjf5zfO/OfZZDwlbrNSys8laCKTot63mzCn1XQ
-	6sHAeB3LvdyjUi5uUGMs5qCLrtII7ZiWMCnYieRAS+V5//zyymMXaiMsnQ2H+hiM
-	75yNfOYLatpmkTnmXedrNKGfP4+6iIlI/GYtOHJNMgnVA89a5XZqn5EAD4g05juE
-	B0ivBhqXo8YchiMeB8d6aJxJwX2lSzZzHcPYE8Bg4FSM/MnepVEj+23N8GEapsau
-	Zw6SYGwodhYAZ9K0ECzw5hlo+FkdWL7dAIxi3FvvzFbV+NiA==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hfsykagud-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 09:53:25 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93f33438950so155956985a.1
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 02:53:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792749205; x=1793354005; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=gBnG5sU+tJaFKPLImFYZENIYfRQYVEBnIoFPUn9xwEc=;
-        b=MK0ksp6JoL2ufkstH2tGy8XORYau38huBMBppAGeV2OPxwHpKo3ZdXsaEhGRckHecj
-         DO7uvY9wDrDHpoHTa4XIn7tlPaZ3fVvIzG9i47+HlW53DCnRJKuSo8egkMnXNhQ6NZw/
-         onNOVAhcViEJGgq852p85pC/caPFT70+wspqp8R48YvgzCytM7ecJOdTjta0ve/kGYrB
-         wpxCfKhtegApnueL5ZXlxLqUPQGNzSJBXC/+7M3Iif13BKBe+b25GHxd2P5dvFh+dpS6
-         5CEjp/u8gpPKEEob1mfy2vN9JSnLHCG73+V3uNhIpxfL4rSfVvmNNa5M4IyJ25yfeBA+
-         Ohrw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792749205; x=1793354005;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=gBnG5sU+tJaFKPLImFYZENIYfRQYVEBnIoFPUn9xwEc=;
-        b=s7hx/qRakCA6RRVWdmPYk4Md1sEKmAcmegcWImDRNiYLd0iO9l5FNiFDeV7wlrpfiy
-         HkN9t77Pws4538DZVmQ9cr80RIOQlN03zjmV3MuQmo6UV5NBOFpe9nCUA8fHb76lEVfA
-         RtgybS7c0UCTtu/9Dyq3z5/lgzoFTdoeO5izE9GTFVEM4Pt65df5lCj45ODaIeoA+UDU
-         P6QJEYRUYd6r09QF3AN4UepE/fM7iXK/KgbmoxoD+1sEQs/AzckOyAL2qFfH09bgNcKk
-         qfBOXWQrypZR9XgEEUNZfFFwF+OZ/s1fHCrZOdajHaqfSOGBVGf5UvAHqcNfGc6PolMB
-         vYAw==
-X-Gm-Message-State: AFq9FYKmM6V2YJzFHBZgP1W7B3q3waPReQ6nVD+5t2F/j9OGB9y0dVHM
-	3jAIRDs7vzN7JrmMd3j09HI9Y8T5SdzFg433Om1NlrHv6hAlKFp9vL88oKH2ewlPYLusd+GK9U2
-	DJQfoggYLt2zNnbIp6uI1cykT43m7p5hZsj03VyGtd6EOauL5lQ8cqqUqcKvulAukVHg=
-X-Gm-Gg: AYBFou0Mf9b2dHQoRbSFxTPNQSyV9jvGv1qnBSM2yvjiwFnXEl7+gbvt0q6aB/OvHTq
-	mdGiksGIhCW3uIayCNETLpdR55P/EeZFEh73ywKyytKhRCXB0CUOoNW404Xz2sqb5p0PMOGSXSA
-	AS53akYw4KscalA3muHoapxQixbMOCEQd5k4VyLSH97eHzsycZS6fCTUq/5wrYeeWCAs/IHa6IS
-	/M6U3LDbQcPbK9rK2t6TxnpLj+KzEbqGHeHlqk4ZOWL1hrycx+eVG7hn85mwoeuBI5vfxsYb8Ch
-	MrUAbKuTK1QX3x3sk4Pxey1dV3l47LR8XYBrwe72b3KpoleNednOqHir2Une2WWV7HM55gwiwcr
-	PgnZKIB/QOh2846WcD3zJrJFsoJMe
-X-Received: by 2002:a05:620a:4443:b0:93e:95ce:53c7 with SMTP id af79cd13be357-93f6f54b7bcmr304297285a.4.1792749204711;
-        Fri, 23 Oct 2026 02:53:24 -0700 (PDT)
-X-Received: by 2002:a05:620a:4443:b0:93e:95ce:53c7 with SMTP id af79cd13be357-93f6f54b7bcmr304295885a.4.1792749204126;
-        Fri, 23 Oct 2026 02:53:24 -0700 (PDT)
-Received: from brgl-qcom.local ([2a01:cb1d:dc:7e00:8916:7b9b:97a2:6c96])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a2104627e0sm63057895e9.9.2026.10.23.02.53.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 23 Oct 2026 02:53:23 -0700 (PDT)
-From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Date: Fri, 23 Oct 2026 11:53:16 +0200
-Subject: [PATCH] gpio: kunit: add .kunitconfig
+	by smtp.kernel.org (Postfix) with ESMTPS id 470261F031E1;
+	Fri, 23 Oct 2026 09:53:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792749215;
+	bh=k76C28WvueFM3AIT14tJaOsYhV8LFBqv5UIAtJ5c2mw=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=XnR8pc3y9GJkkSkf5/6soXcqZMwCrmVODwL58jX0IxCFd4760M4K2e+1NEGDtZbBD
+	 qqNzqwsa6OI3e59OUJFDuLOfcw/xbGaGFU5DcDvtr1hk+NXNVJ3BsdYeW6VjrofZLO
+	 CFmc7GR5Jjv/pXok+x5VnDpXehChaWOkB3vi58yukJHV+gSWu39F9XsdSvUSW4Vij8
+	 5Hch0HulOP4ds44WyEq0UCXg/e1q6RHjLBtkzn9k6upKYctl6NN/EtX2pHCQH4+dTf
+	 hAn5PpkDJsKasMIvO2AoBdGgKEEKIC95XRpZdND2YiH5OAizk7ykQ+fK9R54Tzt7Xc
+	 f1P06LqlQuVJw==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id C1E9A44489;
+	Fri, 23 Oct 2026 09:53:33 +0000 (UTC)
+From: Ishu Brar via B4 Relay <devnull+patches.brar.si@kernel.org>
+Date: Fri, 23 Oct 2026 15:23:32 +0530
+Subject: [PATCH v3 2/4] drm/msm/a6xx: Program the PDC sequencer on Adreno
+ 620
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -112,82 +84,156 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261023-adreno-a620-v3-2-2d1d566e5e13@brar.si>
+References: <20261023-adreno-a620-v3-0-2d1d566e5e13@brar.si>
+In-Reply-To: <20261023-adreno-a620-v3-0-2d1d566e5e13@brar.si>
+To: Rob Clark <robin.clark@oss.qualcomm.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Ishu Brar <patches@brar.si>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792749211; l=5355;
+ i=patches@brar.si; h=from:subject:message-id;
+ bh=Obs8CON0X6HWKVk8YPJT/kXnMrbnAoIHP9bqVC978ec=;
+ b=jyX1ZvF9oDj+esowCc1UUn9to4UyZo7aYH8B7Ut0tLXoAz5FLwMW/xx0JGLyDxJmySDapmjij
+ r5fnK+yXTDxAFwnq58wNnjeJGBGUgahrZxeOV8qJyYABOTKinZyhuok
+X-Developer-Key: i=patches@brar.si; a=ed25519;
+ pk=Ds+E23E3ntzjPzuBDyVRkOouclcNI5k75R+N42yJtCk=
+X-Endpoint-Received: by B4 Relay for patches@brar.si/default with
+ auth_id=1189
+X-Original-From: Ishu Brar <patches@brar.si>
+Reply-To: patches@brar.si
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261023-gpio-kunitconfig-v1-1-0dde8d430f20@oss.qualcomm.com>
-X-B4-Tracking: v=1; b=H4sIAIsu22oC/x3MQQqAIBBA0avErBPGEQq6SrQoG20INLQikO6et
- HyL/wtkTsIZhqZA4luyxFCh2wbsNgfPStZqIKROIxnlD4lqv4KcNgYnXpHBBQk1suuhZkdiJ8+
- /HKf3/QDWuB+hYgAAAA==
-X-Change-ID: 20261023-gpio-kunitconfig-230b02010ef7
-To: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>
-Cc: linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
-        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=726;
- i=bartosz.golaszewski@oss.qualcomm.com; h=from:subject:message-id;
- bh=zjxLTlDB1bmGq/ndSdl5co6qUjXdqFMK2uUuWfMZJlI=;
- b=owEBbQKS/ZANAwAKAQWdLsv/NoTDAcsmYgBq2y6PcJBrvhGVu47PchKoX03yZiusUOp1xM6p/
- bAIq3UYKxqJAjMEAAEKAB0WIQSR5RMt5bVGHXuiZfwFnS7L/zaEwwUCatsujwAKCRAFnS7L/zaE
- w0jNEACdTCfQPbDGWrsB3vrhrkBKS9tiXuCZkr3mTXAjdkxAeBniW9conXif1JxPt5nukNYbSsU
- pAfFM4XePrwmcJ4H1+ov+qk9reWYF1B6TsFjtNiwSO6rXCy413n7dP2fogY3EJTT07EaexLJFy0
- aIPQslI6OX3LZIHIqutmsYZerR4AURKuAEUomlkQvaekU35pvQTb5rlq2cnio/RJa5n5dYhbpfc
- MNlE8dyzqAt7dj9dHvBiLBPRHwDwSELh1iqu4lkHOlflr+VaJbtGR1+QmwJ3Wb6VIAhwtijFIPS
- HYMq1NkvrJ8i/ntR3xbsuDBu4GHBOcViv/ZMygKijUzNXisbkrVFkzArL+lDH2rupcrc1dSsjTk
- wi3d7JQHh/sCuaJNywRdKvlUKHc4UTue4AI7DVvvAuFH+erVST0nCscvG7ASN4UUT5r6Fa74P74
- WEzffKcbQgSrMHwtKuGDyKxZRlWtaG9t8SJUmzciQAT2t8EhPEv3bMXnNwqblI4+O81AUqfkZPh
- MvL4/YTthWGk5UbW5wZUlMNxt6GuyL3UF7o0RKPlJ/PbFQyyC5rn7Fo49quPjOuU+2i75Dr/zl4
- HQ4u9YzYW3PWcHJo3yT6l7aI5htkkNA9xmAvxOC+8VucrZeclXzpndrmkHXDUYvo2CpDc3FJmoc
- +Pg8Oa4UY4wMV2w==
-X-Developer-Key: i=bartosz.golaszewski@oss.qualcomm.com; a=openpgp;
- fpr=169DEB6C0BC3C46013D2C79F11A72EA01471D772
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIzMDAzOSBTYWx0ZWRfX08x4+PtW3Kab
- MpuKainfhaXMASEIZBOTr/YBOzrCaq17g18gkbAKPoOPjcHyHK6yjEh5cOrPbj90dWuZJZ7TxV1
- 2dWGwqRi63HZQw9DY3tRm/o+gWtLWVVY3Ds82QnO/8OUbAXLMufP+usGwy2WsQB2TgTYik+ymeb
- wVl/RHcr8nGOYUe7ogcV/7HszNQlA1J9CI6zvUmfUXZKxHinMhBzg4M+gvzpt6M0obD35mjPVOq
- Lhx3Oq9gZUkE70FLmpr6h3arzsZQrcqS090i7gqbfv8oekl1wJ/tcK9jllsCRQ8W08PEPsmbo4F
- eyYF4TC8HaOqZa4wv5WgWyQ2LebY5B8PF3+S0rCdMOSKJXeIbZKuGcGi7zDcRoKoA3QPDio9nE5
- EaxZBxse4t2ITPFlARATmvNzh711gCP7E+k+0bZrjoaJN3sHr6X8KWBxPVY7buvSyT4A5EQUY17
- QgQBGX6sLjVdx/a4/uw==
-X-Proofpoint-ORIG-GUID: niikph7yahM2H9xkPLdA87340Bz0HWHX
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIzMDAzOSBTYWx0ZWRfXylT6NmorXoyQ
- GrmKRjE4LBuJAp9QyTf6ZionPm7a6sUuJpTJMSLaD8txa37znvoqcYgrHmME2uKbZXYYB2U3B7q
- ijKMeivnn3yBchuWDdSIlWOEzfariRc=
-X-Proofpoint-GUID: niikph7yahM2H9xkPLdA87340Bz0HWHX
-X-Authority-Analysis: v=2.4 cv=GLKdgeNK c=1 sm=1 tr=0 ts=6adb2e95 cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22 a=EUspDBNiAAAA:8
- a=NeeZg8exDCvkGIFbdGoA:9 a=QEXdDO2ut3YA:10 a=bTQJ7kPSJx9SKPbeHEYW:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-23_02,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 impostorscore=0 bulkscore=0 spamscore=0 lowpriorityscore=0
- clxscore=1015 priorityscore=1501 suspectscore=0 malwarescore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610230039
 
-Add the Kconfig fragment allowing to run GPIO kunit tests with kunit.py.
+From: Ishu Brar <patches@brar.si>
 
-Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Unlike the rest of the A650 family, the A620 does not get its PDC set up
+by AOP (the downstream devicetree has no pdc_in_aop for it). Without the
+sequence, the RSC never acks the second power-up ("Unable to power on
+the GPU RSC") and the device hangs.
+
+Program the sequence from the driver, taking the xo, mx and cx resource
+addresses from cmd-db instead of the hardcoded ones. Like the downstream
+driver, also program the VRM command when cmd-db has a vrm.soc resource.
+Add adreno_is_a620() for the selection.
+
+Assisted-by: Claude
+Signed-off-by: Ishu Brar <patches@brar.si>
 ---
- drivers/gpio/.kunitconfig | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.c   | 35 +++++++++++++++++++++++++++------
+ drivers/gpu/drm/msm/adreno/adreno_gpu.h |  5 +++++
+ 2 files changed, 34 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpio/.kunitconfig b/drivers/gpio/.kunitconfig
-new file mode 100644
-index 0000000000000000000000000000000000000000..2855ce948b608425b121020478b506d9cb94b649
---- /dev/null
-+++ b/drivers/gpio/.kunitconfig
-@@ -0,0 +1,3 @@
-+CONFIG_KUNIT=y
-+CONFIG_GPIOLIB=y
-+CONFIG_GPIO_KUNIT=y
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+index 662f09bec..8d426f1f1 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
++++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+@@ -686,6 +686,7 @@ static void a6xx_gmu_rpmh_init(struct a6xx_gmu *gmu)
+ 	u32 seqmem0_drv0_reg = REG_A6XX_RSCC_SEQ_MEM_0_DRV0;
+ 	void __iomem *seqptr = NULL;
+ 	uint32_t pdc_address_offset;
++	u32 mx_addr = 0x30010, cx_addr = 0x30000, vrm_addr = 0;
+ 	void __iomem *pdcptr;
+ 	bool pdc_in_aop = false;
+ 
+@@ -697,8 +698,18 @@ static void a6xx_gmu_rpmh_init(struct a6xx_gmu *gmu)
+ 	if (IS_ERR(pdcptr))
+ 		return;
+ 
+-	if (adreno_is_a650_family(adreno_gpu) ||
+-	    adreno_is_a7xx(adreno_gpu))
++	/* Unlike the rest of the A650 family, A620 has no PDC setup from AOP */
++	if (adreno_is_a620(adreno_gpu)) {
++		pdc_address_offset = cmd_db_read_addr("xo.lvl");
++		mx_addr = cmd_db_read_addr("mx.lvl");
++		cx_addr = cmd_db_read_addr("cx.lvl");
++		vrm_addr = cmd_db_read_addr("vrm.soc");
++		if (!pdc_address_offset || !mx_addr || !cx_addr) {
++			DRM_DEV_ERROR(gmu->dev, "No PDC resource addresses in cmd-db\n");
++			return;
++		}
++	} else if (adreno_is_a650_family(adreno_gpu) ||
++		 adreno_is_a7xx(adreno_gpu))
+ 		pdc_in_aop = true;
+ 	else if (adreno_is_a618(adreno_gpu) || adreno_is_a640_family(adreno_gpu))
+ 		pdc_address_offset = 0x30090;
+@@ -766,25 +777,31 @@ static void a6xx_gmu_rpmh_init(struct a6xx_gmu *gmu)
+ 	pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS1_CMD_WAIT_FOR_CMPL_BANK, 0);
+ 	pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS1_CONTROL, 0);
+ 	pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS1_CMD0_MSGID, 0x10108);
+-	pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS1_CMD0_ADDR, 0x30010);
++	pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS1_CMD0_ADDR, mx_addr);
+ 	pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS1_CMD0_DATA, 1);
+ 	pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS1_CMD0_MSGID + 4, 0x10108);
+-	pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS1_CMD0_ADDR + 4, 0x30000);
++	pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS1_CMD0_ADDR + 4, cx_addr);
+ 	pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS1_CMD0_DATA + 4, 0x0);
+ 
+ 	pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS1_CMD0_MSGID + 8, 0x10108);
+ 	pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS1_CMD0_ADDR + 8, pdc_address_offset);
+ 	pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS1_CMD0_DATA + 8, 0x0);
+ 
++	if (vrm_addr) {
++		pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS1_CMD0_MSGID + 12, 0x10108);
++		pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS1_CMD0_ADDR + 12, vrm_addr + 0x4);
++		pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS1_CMD0_DATA + 12, 0x0);
++	}
++
+ 	pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS3_CMD_ENABLE_BANK, 7);
+ 	pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS3_CMD_WAIT_FOR_CMPL_BANK, 0);
+ 	pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS3_CONTROL, 0);
+ 	pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS3_CMD0_MSGID, 0x10108);
+-	pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS3_CMD0_ADDR, 0x30010);
++	pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS3_CMD0_ADDR, mx_addr);
+ 	pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS3_CMD0_DATA, 2);
+ 
+ 	pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS3_CMD0_MSGID + 4, 0x10108);
+-	pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS3_CMD0_ADDR + 4, 0x30000);
++	pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS3_CMD0_ADDR + 4, cx_addr);
+ 	if (adreno_is_a618(adreno_gpu) || adreno_is_a619(adreno_gpu) ||
+ 			adreno_is_a650_family(adreno_gpu))
+ 		pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS3_CMD0_DATA + 4, 0x2);
+@@ -794,6 +811,12 @@ static void a6xx_gmu_rpmh_init(struct a6xx_gmu *gmu)
+ 	pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS3_CMD0_ADDR + 8, pdc_address_offset);
+ 	pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS3_CMD0_DATA + 8, 0x3);
+ 
++	if (vrm_addr) {
++		pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS3_CMD0_MSGID + 12, 0x10108);
++		pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS3_CMD0_ADDR + 12, vrm_addr + 0x4);
++		pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS3_CMD0_DATA + 12, 0x1);
++	}
++
+ 	/* Setup GPU PDC */
+ setup_pdc:
+ 	pdc_write(pdcptr, REG_A6XX_PDC_GPU_SEQ_START_ADDR, 0);
+diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.h b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+index 4b2156825..b77502446 100644
+--- a/drivers/gpu/drm/msm/adreno/adreno_gpu.h
++++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+@@ -443,6 +443,11 @@ static inline int adreno_is_a619_holi(const struct adreno_gpu *gpu)
+ 	return adreno_is_a619(gpu) && adreno_has_gmu_wrapper(gpu);
+ }
+ 
++static inline int adreno_is_a620(const struct adreno_gpu *gpu)
++{
++	return gpu->info->chip_ids[0] == 0x06020000;
++}
++
+ static inline int adreno_is_a621(const struct adreno_gpu *gpu)
+ {
+ 	return gpu->info->chip_ids[0] == 0x06020100;
 
----
-base-commit: bd1ecbb61afefc6a8b876ccbc31e9228b44e9eab
-change-id: 20261023-gpio-kunitconfig-230b02010ef7
-
-Best regards,
 -- 
-Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+2.56.0
+
 
