@@ -1,113 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.62.77
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.49
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792777388;
-	b=HRffP9C3TFuv9n6pYeLR7EDaq1GR5qQZx+OuIxOOqTbPvYQ4Qfu6vm73gLbudO/TYVF6
-	 VjeFgl4S+25T2uK04NZsKv4g8ze2vtXAVhD4ucsYjvr+DsCAUPBTRCKfhw1SYwTFtbrWr
-	 JZkXoyArJAVMufJQZKE1vd+yPC0YV/ALa6/QfgLcoQNglEl+Z6nrIZHD4IPHXMgQx3hua
-	 JNeROggGG/j2TMzm94uM3JOTC+ynbC98CyZsF8EFq2Dude7hAUgf9ZggA3NUAMCKo3ccg
-	 KG2qn2m540LWa/BzloU8QlEHBM4lXeCgENcuRg1Hdhk3RXiz/APoysYnt7Tpf1KFpcw==
+	t=1792777423;
+	b=d5Eva/3ztYVUVqbArVDrlqSVBCFEqDNN+3Ng/hT4A6NvsWcUZHpb3itgg41eGtZ6sIy+
+	 Ys+kIRcNx/E7lBmb0LNU0OgkKTLcJL8oLr2UMvsEMBHYWIBXIdn7WvzkUh7pMrZdziWdJ
+	 0BKKW1INGVglkz2NvSxbYbgfTW306TFgYv+GDlQRLKguZi/h/2J+JXRmVB8gxMIDDDSmN
+	 BZkRmCS4NBjhZrZ2VyDBD46E2IkhrUKhnf0ALhY6evfu4KUiuhWXr2RMZGgfqkxC+u6m8
+	 6y0bNxUzowv2Lbzf4Ps29ajTsCU86b/HgpReOLanpx+77+mprxzqpabny/dE6pxrXwQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792777388;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding:X-EOPAttributedMessage:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:Content-Type:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=YpSWxGqlaON6SsxX50rA1fE6BWx2GlQI3J8EzelVy0M=;
-	b=4oHirJCl5NQKajpDn7+iXYd1q61ykbfgN0sNFLwvL4wmVzPfS3lfxZPo7yJCNODFuUni
-	 oU1WJY1lW6N4q63G2gyPeMe+BiIJTvmWqeEqLyYza23Owk07jgC/WKJxfv4PpbpNFbFmH
-	 zkxXgMG41/C8FxZlq+9IOXh4drDZ+N1ZNkp8aolYCU8x9qQAQS243sGaqOv9YH4Z6MsoY
-	 ODDiv2t820ApTcaVcdTOQCNrrQ7ZLdK1SMWovpkFayRY8sVYzECW8FBOiChnKtcKAswaW
-	 bgsLksRIYB5fe9rlUfetojUrbIGeM0S20yVy0MhudI6N/CGOC1IyKz9VYigiaQrXQ6A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792777423;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=4XsDqjSi39IRDHB7eg96Rq4rbGW6QYB8mDa8oKwzEPo=;
+	b=SAWI8Z4efAq8nKIbFqxNs82OUMdOnmo836KTH6DZ8g5/gB+UfpJ5GtA8iRSpBrarezmb
+	 El3OC9lJYQ3xh7TfHwd2OLvnxtVTjvxhxyRG8RfEU9hyj5jKi9kW69847cgCnQnLpWjTK
+	 0YrJM5HiNfsaGVX8uBAv5f9xFqyQbUrEioD3uhZqKQ9rvHjR00KcHDlGV8THTkgJi8tBK
+	 Y63AFaoRsWixgDMMKHKEN0uo15ly+2zATE15TT68piBiZcRw0mLHijTTnuNQHwyS10dUN
+	 aupAa6vSOy4x5Ydu9/FXzhRX8Q3yfPF+6phFVLPaPz87QODrfDEmrnSU8DwLdQRUi+A==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=rambus.com;
-	spf=fail smtp.mailfrom=rambus.com;
-	dkim=pass header.d=rambus.com header.i=@rambus.com header.a=rsa-sha256 header.s=selector1 header.b=STmuhjBP;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.62.77
-Received: from DM5PR21CU001.outbound.protection.outlook.com (mail-centralusazon11021077.outbound.protection.outlook.com [52.101.62.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=MMnRpd2A;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.49
+Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com [209.85.218.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED248606A31D;
-	Fri, 23 Oct 2026 17:43:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ED248606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=rambus.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=rambus.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DD62606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 17:43:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0DD62606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=rambus.com header.i=@rambus.com header.a=rsa-sha256 header.s=selector1 header.b=STmuhjBP
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=wPDQD8wua5IXogbf2E7M5IUPgdHrioGYZ5CljDlQsibJuexCAHTeiQSezIUQfHS6gqN/en+tHafnBZnYQOxPUi47Wn0fIkYSOGCOWjUou71L1e+xE3U/rTIKdXtWxEG4L+CZZ2S2ZrxlO1YBhuVnMQFAGBO7iHyR9EhikGcL9ofOm8DtewJz5+I0j9xEcuUm6RkPtJN895ORcCp3dAvU0zVi545HtA3FzcwBU66Ug++0K9YS8suUz0fAe2EJy5ty8LpELH6Xzvynhl2n6epi/RV7MJVCo0Nce556a5m3gcvEqg0RZpw5svFelo53Oo1kFSriLS00zhxI130OF/2yfQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=YpSWxGqlaON6SsxX50rA1fE6BWx2GlQI3J8EzelVy0M=;
- b=qo7wv5Pk/0oyL7jiEb8GrWTDmo7tauEpZyYYpM+HUJ52vsHrJCKSQnFI8Th4M99/Ftw+M2fnejL6O6nGSQbXbXt6DenK2FX9x73dYwxi4vNr6N/ka1JAK8681Q6FMvlDvQrMgTe2Okp45nJXOru9FawCUpCzwAEKx3JEfkQCBSeQ6Xq4VbpYHWE4idCLhOmNDAzM0UtOHiAm7nZO0Vbp83Zly6VqpsNC4ga8ieXkVhqw353525j9ISjxXYsPicDV3veqJtN2cnY01QgBWf3qzLhZBWh18H20el7X2lSTx0WmiudQdTHdmbPFM37liImh1q1HOEa1MapZiE//yKd0NA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 192.86.86.210) smtp.rcpttodomain=cryptography.com smtp.mailfrom=rambus.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=rambus.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=rambus.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=YpSWxGqlaON6SsxX50rA1fE6BWx2GlQI3J8EzelVy0M=;
- b=STmuhjBPao3rTueK2+ZP6JQqp63FfUETMhvM0J/aa3OM7OJCmLpA2AZNkTgee5ak6xOnPUYBeZFCORbYus0V7lmYRPe/a9YOkEdi755G7qsdOTj9EYePc4E2O7wc9d5H58vM47mJEus1mTyZr7+lDB9yFymXCrsdsvGtiEPAQiQkQIyHaf8v2hSdckngIp/B0uJB6NMF3OlZA5XhaubItGXjDt2mDDi8ZCr80AFivRZHnW2oHBCqGzKfvKuOSXEIuSmLdunYLX7Ql1EJTASIKtaaKay004Cl5c0PnuMx/5AYgEuJpRyoGQNmpzPOzMvYgexw5ZxhREbWW2TMVwEuag==
-Received: from MW4PR03CA0135.namprd03.prod.outlook.com (2603:10b6:303:8c::20)
- by DS3PR04MB993994.namprd04.prod.outlook.com (2603:10b6:8:603::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Fri, 23 Oct
- 2026 17:42:39 +0000
-Received: from CO1PEPF00018868.namprd03.prod.outlook.com
- (2603:10b6:303:8c:cafe::44) by MW4PR03CA0135.outlook.office365.com
- (2603:10b6:303:8c::20) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.546.19 via Frontend Transport; Fri,
- 23 Oct 2026 17:42:39 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 192.86.86.210) smtp.mailfrom=rambus.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=rambus.com;
-Received-SPF: Pass (protection.outlook.com: domain of rambus.com designates
- 192.86.86.210 as permitted sender) receiver=protection.outlook.com;
- client-ip=192.86.86.210; helo=hqxsv-psmtppxy02.rambus.com; pr=C
-Received: from hqxsv-psmtppxy02.rambus.com (192.86.86.210) by
- CO1PEPF00018868.mail.protection.outlook.com (10.167.249.153) with Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.569.4
- via Frontend Transport; Fri, 23 Oct 2026 17:42:38 +0000
-Received: from hqxsv-cmdev3-aousherovitch.rambus.com (hqn-lb-int-float.rambus.com [10.12.20.20])
-	by hqxsv-psmtppxy02.rambus.com (Postfix) with ESMTP id 82F62180174C;
-	Fri, 23 Oct 2026 17:42:38 +0000 (UTC)
-From: Alex Ousherovitch <aousherovitch@rambus.com>
-To: Alex Ousherovitch <aousherovitch@rambus.com>,
-	Conor Dooley <conor+dt@kernel.org>,
-	"David S. Miller" <davem@davemloft.net>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Saravanakrishnan Krishnamoorthy <skrishnamoorthy@rambus.com>
-Cc: devicetree@vger.kernel.org,
-	Joel Wittenauer <Joel.Wittenauer@cryptography.com>,
-	linux-crypto@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Thi Nguyen <thin@rambus.com>
-Subject: [PATCH v7 1/5] dt-bindings: crypto: add Rambus CryptoManager Hub
-Date: Fri, 23 Oct 2026 10:42:31 -0700
-Message-ID: <20261023174235.3366294-2-aousherovitch@rambus.com>
-X-Mailer: git-send-email 2.43.7
-In-Reply-To: <20261023174235.3366294-1-aousherovitch@rambus.com>
-References: <20261023174235.3366294-1-aousherovitch@rambus.com>
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=MMnRpd2A
+Received: by mail-ej1-f49.google.com with SMTP id a640c23a62f3a-c169ae1cb26so363057766b.1
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 10:43:41 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792777420; cv=none;
+        d=google.com; s=arc-20260327;
+        b=nTD8H96L8zAp1PswIIRgKrCflCwFtF/+kJeP68UagwBianTRVKsaAHl8rYdxY4Q8rJ
+         esfKed0vWEfY2yIbzZABJuZujGw/CZFaYkdtXCVf9by/4st6zveiIx7DuAYpRNggnWf2
+         ZNnqKeJp9MBzwKpwS9gp5tDxoskprKSpqp3RhOZD7Qz705fPAO6fWn93UtSAvNaqFOaZ
+         vP1Kwpde8Zui3sEvePXIVY54aYQMEBipRS5mJZVSYPZC+8UpzAIB6aah6dzNITeG2zZF
+         5/e+iSzX+406lJ7aQxNeNJHDwol+J6xUlIgRk9V3UQe4MbznYbTvfmHCfWANJXOiGCnT
+         tlzA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=4XsDqjSi39IRDHB7eg96Rq4rbGW6QYB8mDa8oKwzEPo=;
+        fh=aR9owVOaGTGaU8a6mvDrPMSxV9jrSwyzGa4Tn374f+c=;
+        b=ZEQR8vj/jh3M8JG8NEdg+sIfoABfE0sdYdGt3KXM+068ZBQpjOCTwJpRYi/Ef0fo3U
+         vY+sKtgc87CczhAd8dbIhGqn7m8F8KyVSTZ7aOvyCKjnDhKnNsEUHIVd7ZKbqvavxnqs
+         qNPdBFbP7KGhopOhf3+bNbtUmZ1XNdu3MX+JtgarsVjMBiqY6nbAxkW8465J4hgLEQM/
+         myViypEDZdCz7rEqzckOSIyJa4HT0oeg9nt4NrQVwE7DI+WMpKlocknJXo6nvLFQZVKH
+         hDIcb8jSA/3Y7eD0U4LXvv6rF/KkP7m0BCYqlR5mRkhj/BSxuP5qTUrG5zpms+zYW0LM
+         Te/Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1792777420; x=1793382220; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=4XsDqjSi39IRDHB7eg96Rq4rbGW6QYB8mDa8oKwzEPo=;
+        b=MMnRpd2A4yFr+e/JjuNzVSYMzljETE4zqa2+tO2C8AO85QAAyOCLwRpGlquQmnF8LP
+         alGk5N9zQcbwMje3B2d34fa0piFMD+KlK08gZJvkih5rr9JMhJ5MviChya2TglRefY0g
+         FBOIvFmfVE2rFZimWT61ZlvvfV/inEESCayTwb3yH0Yh2pH8Su++updBYnxingpIHj1g
+         K9s+vCsc2oj39PszIkwpMsWZsjLra1QUd6juY6h3w+aD6ZjdN6cKiVtI13kHxUnsZylz
+         mDr8okqs1jmlHvdkv0Kj8YdtHdC/wmY2xHAyM0c0LCSzPfF4Ax570l4IRbdhkMNrsH47
+         IvNg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792777420; x=1793382220;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=4XsDqjSi39IRDHB7eg96Rq4rbGW6QYB8mDa8oKwzEPo=;
+        b=uD+rbqnlGG+fmtAvOYQ3BZkm27un/54xaQ/0hu2Vas/IdTI7njuBCsyVXYFq321qPe
+         h6z1l3CMXmmjPcLBV2GJ0R55gWxj79Ao0t9fp3hOZcFPoSQKElIPc1/cpAx26yNHxoPo
+         K6QxX1WxISoUPQ/xCSoxa7y81Wdz5z7ImRP4Jbn5qtEd7MwKYEaiie+8u5AgO+GT5aB+
+         hgzXFmg4HcQx3YBuYtaRkr8hBC67ZjDlA5OT8Rsk2ORR9Ms5AFgXSQUGSqhDnwgNHO0b
+         dJn7sLt03KiTMHHeeDwjYmcVksJOTiH+CeQfV4CsDkKx3WCSV/Vmx/L2wSzFWAAi95+g
+         sdvA==
+X-Forwarded-Encrypted: i=1; AKwUvBz8BKZivGRrIeUiICubjyjXNNRHy8pua0NW4K9E+D8//ONqSc6QdK3gKI2aIIx8BRgrxVzaM6ILNtdDbkI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKOj60Y0T83W40PHbpiHLSQw4rii8nwnwHB2wAoN+nNiYtIF+WX
+	SqrDX09dGOWZRWA2hcLjcDDX79KJN4/Zri6GrZQ5Ox2OqdBgfIYVRiqnT2pLzDvMf5CEbm0rekC
+	oNlFlQqxR2t6108zlamN0a7TegIY+KtiQzgcYEMb4uQ==
+X-Gm-Gg: AYBFou1/fgL3WBGy9zDiZadV3C33zJjRFDWpoqIXRKP159OXJvgRUhj5tig7vLkz8zO
+	67jFlIYDf+ElzBhw2wyXpZAmWK2g8Ym6KZxiq94rQ+c7sNWEUGpyoyamGEUZJUrWA7h4qjDEpuz
+	dIompJR2EeMl1xpMaK9J1tgE9lh49keVPz19pEClkjAV91z2muo4S808J6fnnsU1NqFFZZMWkkP
+	e/3p+lchFWp+V0c/s8zUEmjcDN3EfVUw61iH+BimbvYDeV+P/iO+tLGDRv5bbIWGMiRixH4D2Bn
+	gIhF1VxB2rm2LHWb7iOEuDqIYAmhqwzZwMCsjM5Av2GK1YQu6AqgggO9EGFO5zG8ylkwN/P7SR0
+	JvgpgK/483ht4NzYVU4buJiE6bxcDBD2V9x5IGwqX2NoGHu2VRgKh00gCI9OJopBl1cKWvZ0=
+X-Received: by 2002:a17:907:d643:b0:c2e:204d:9490 with SMTP id
+ a640c23a62f3a-c468d80cc8amr956867466b.17.1792777420259; Fri, 23 Oct 2026
+ 10:43:40 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -117,218 +103,249 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF00018868:EE_|DS3PR04MB993994:EE_
-Content-Type: text/plain
-X-MS-Office365-Filtering-Correlation-Id: 4fcb5789-8010-410c-0aaf-08df312d0830
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|23010399003|7416014|82310400026|376014|36860700016|261022105027099003|261022075727099003|56012099006|260925022911599003|11063799006|260925021911599003|260925021311599003|261009221227099003|261009223027099003|10067099003|22082099003|18002099003|6133799003|261021121427099003|261021135927099003|13003099007|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	qo40YF7PEbtFxvL3R5NkQwmCgErEpkJr7o0DtC7LsNHupgd9A80x3gph74pj4iUrKSeswQrnR+gVS3rLqSWr8kNOxAZ/liD8HUZmwR1kFOXnMMrL9XZnnnQpmJGwN4R7JDILEEgnZqiDfUpbDBb5uQhaW/PkEpBC6lLm92FjvalII4ngchGkTgIJaXR8wN6E8Xw0w4J/4t6ZOPK8hWjEdKxKmR3PiMf53M943s/8Rx/rtDsXcXn4vm1MYqtQ857aZCHaGXxcOqZfmdk/cJqXBpPb/OavswpfSGkO8HSwg4Z2+phZqSVmdIy6f7AKUi2izDqv07jZWcgSx70Bqx6RPiNn9jxNI5eH1bYEv8dhzGQakFotlh+cnSnRmLzRrwZG/RhgOVuDeLDPH7HVFOXlej95n3EgNChUNDxDX1ByZn9//SMuGftku/DcMgMAqc91EBZ4xwHMoTfwC5AG6QLFznfheXQvCxEWy5WBprT3cg+CaLqswxVVHaJHURggXwIBOqaRN8P5olpLsAcaih2YIP4Qg9wPciuDVYjnm6ZHiOaDRsQz4suy6ycDVL41xZ0tD7mWHzWJBSi1FpKPxHM1nYxcLDQBj1TkRK+GU0F6gGYmwCFxX2B88JVBj/aLTwYsrtBP+tzRoWuI+F2TDXxvdw==
-X-Forefront-Antispam-Report:
-	CIP:192.86.86.210;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:hqxsv-psmtppxy02.rambus.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(7416014)(82310400026)(376014)(36860700016)(261022105027099003)(261022075727099003)(56012099006)(260925022911599003)(11063799006)(260925021911599003)(260925021311599003)(261009221227099003)(261009223027099003)(10067099003)(22082099003)(18002099003)(6133799003)(261021121427099003)(261021135927099003)(13003099007)(3023799007);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	5GZNBHTcN6o8xklvQqIPeIF+fo+2pX+HdQ0WjCGe108NgfQ2CCrNRU9SZQwohmjsaDBOMiggZxEquNSAWR4bDTrjNJPOpzM/yEDYXpAVSYzFjWJSsMUgr7MboB5EMzT6bHAkTyW23wVKbKzN1mUffdPRt4xWbsV/VQMwYqFLZ9iyiwoxY0wL2PsExT/9vOUEx6bp6Han53IlqhJDpRBSNaGANS9mKx24G1SwWL90TA2zs7IXZBQedK6XdmkgKafUghNeXA/XT9kZh25dD8Ad+EWlhaEEhjawk8MUd1Yppm0GIok38bDAAyJ3UGqWLUehxUbakOYbqyW3CvMDmoP6YsNUB/iD3EKi++64JtRuuuoeQhZEM2cvCCKRhuUSve4tbn9c24mdjUD+l1sszxGb4XQpc0XC27442LQFpBstda320QMUhiBp45C++GrkIRBg
-X-OriginatorOrg: rambus.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Oct 2026 17:42:38.9659
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4fcb5789-8010-410c-0aaf-08df312d0830
-X-MS-Exchange-CrossTenant-Id: bd0ba799-c2b9-413c-9c56-5d1731c4827c
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=bd0ba799-c2b9-413c-9c56-5d1731c4827c;Ip=[192.86.86.210];Helo=[hqxsv-psmtppxy02.rambus.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CO1PEPF00018868.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS3PR04MB993994
+References: <20260929075453.2324597-1-hyz3367@gmail.com> <20260929075453.2324597-4-hyz3367@gmail.com>
+ <atZQEuXMwMpvmoBz@p14s> <20261022021953.ydvirxrtv3dxsiqz@gmail.com>
+In-Reply-To: <20261022021953.ydvirxrtv3dxsiqz@gmail.com>
+From: Mathieu Poirier <mathieu.poirier@linaro.org>
+Date: Fri, 23 Oct 2026 11:43:29 -0600
+X-Gm-Features: AclHuK_x5LPEoM2dLLZ64KhwCr8107V0LuixxSfsC5kKuS5_FUcoXXnkiBoTlWE
+Message-ID: <CANLsYkzdetrDtRY02Eb=1mq6Y1MjX=Ub+GHF3bqks0FgVmz4sA@mail.gmail.com>
+Subject: Re: [PATCH 3/4] remoteproc: core: Roll a failed attach back with
+ detach() when available
+To: Yonghao Zhang <hyz3367@gmail.com>
+Cc: arnaud.pouliquen@foss.st.com, andersson@kernel.org, 
+	linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Add device tree binding schema for the Rambus CryptoManager Hub (CMH)
-hardware crypto accelerator.  The binding describes the parent
-SoC-level node with its SIC register region and one queue@N child
-node per mailbox the host owns, each carrying a reg (mailbox instance
-index), an optional interrupt, VCQ ring geometry (rambus,num-slots /
-rambus,slot-stride-bytes) and a rambus,cores affinity list.  Which
-crypto cores are present is discovered from the SIC CORE_ENABLE
-register at probe, not described in the device tree.
+On Wed, 21 Oct 2026 at 20:20, Yonghao Zhang <hyz3367@gmail.com> wrote:
+>
+> On Mon, Oct 19, 2026 at 11:14:58AM -0600, Mathieu Poirier wrote:
+> > @Arnaud Pouliquen - please review this patch to make sure it doesn't break
+> > STM32.
+> >
+> > On Tue, Sep 29, 2026 at 03:54:52PM +0800, Yonghao Zhang wrote:
+> > > When the subdevice registration that follows ops->attach() fails,
+> > > __rproc_attach() rolls back with an unconditional ops->stop() call.
+> > > That is wrong on three counts.
+> > >
+> >
+> > It isn't wrong, simply implemented during a time where any kind of fault in the
+> > attach()/detach() scenario called for a stop().  I would certainly appreciate a
+> > less reproachful tone.
+> >
+> >
+> > > An attach-only implementation, one without stop() such as
+> > > commit 1168af40b1ad ("remoteproc: k3-r5: Add support for IPC-only
+> > > mode for all R5Fs"), dereferences NULL right there.  A processor that
+> > > is being attached to was started by another entity and is not ours to
+> > > power off: detach() is the matching undo of attach(), and stop()
+> > > should only be used as a last resort, when there is no detach() or
+> > > it fails.  This is reachable today: when the re-attach of an
+> > > RPROC_FEAT_ATTACH_ON_RECOVERY processor fails (imx_rproc and
+> > > xlnx_r5 use the feature), the unwind stops a processor which,
+> > > per the feature's own contract, "does not need help from Linux to
+> > > recover... Linux just needs to attach".  And the unwind leaves
+> > > the accounting inconsistent -- no resource table bookkeeping
+> > > is done, unlike on the rproc_stop() and __rproc_detach() paths,
+> > > and a processor powered off through the fallback keeps its
+> > > RPROC_DETACHED state, so the next rproc_boot() tries to attach to a
+> > > core that is no longer running.
+> > >
+> >
+> > Remove the above paragraph.
+> >
+> > > Roll the attach back with detach() first, along with the same
+> > > rproc_reset_rsc_table_on_detach() bookkeeping __rproc_detach() does,
+> > > and fall back to stop() only when detach() is unavailable or failed.
+> > > A failed resource table reset does not abort the unwind: this is an
+> > > error path, and detaching from the remote processor, or powering it
+> > > off as the last resort, takes precedence over the bookkeeping.  A
+> > > successful fallback moves the processor to RPROC_OFFLINE so the next
+> > > boot reloads firmware instead of attaching to a dead core;
+> > > implementations with neither handler keep the processor running and
+> > > untouched, which is all an attach-only core needs.  The rollback is
+> > > factored into rproc_unwind_attach().
+> > >
+> > > The unwind runs the same resource table resets as the detach and
+> > > stop paths, which free clean_table and leave a cached copy of the
+> > > installed table in rproc->cached_table.  Make rproc_attach()'s error
+> > > cleanup, which runs right after, null clean_table after freeing it
+> > > and release that copy along with table_ptr, or a failed attach
+> > > double-frees clean_table and leaks the copy.
+> > >
+> > > Fixes: d848a4819d85 ("remoteproc: Introducing function rproc_attach()")
+> > > Signed-off-by: Yonghao Zhang <hyz3367@gmail.com>
+> > > ---
+> > >  drivers/remoteproc/remoteproc_core.c | 65 ++++++++++++++++++++++++++--
+> > >  1 file changed, 62 insertions(+), 3 deletions(-)
+> > >
+> > > diff --git a/drivers/remoteproc/remoteproc_core.c b/drivers/remoteproc/remoteproc_core.c
+> > > index 19e0ea3e7240..c52212a1d180 100644
+> > > --- a/drivers/remoteproc/remoteproc_core.c
+> > > +++ b/drivers/remoteproc/remoteproc_core.c
+> > > @@ -1348,6 +1348,59 @@ static int rproc_start(struct rproc *rproc, const struct firmware *fw)
+> > >     return ret;
+> > >  }
+> > >
+> > > +static int rproc_reset_rsc_table_on_detach(struct rproc *rproc);
+> > > +static int rproc_reset_rsc_table_on_stop(struct rproc *rproc);
+> > > +
+> > > +/*
+> > > + * Undo an attach whose subdevice registration failed.  The remote
+> > > + * processor was started by another entity and is not ours to power
+> > > + * off, so roll back with detach() when available and fall back to
+> > > + * stop() when there is no detach() or when it failed.  stop() is
+> > > + * the only rollback that does not rely on the remote side.  A
+> > > + * processor powered off through the fallback is marked RPROC_OFFLINE,
+> > > + * so the next boot reloads firmware instead of attaching to a dead
+> > > + * core; with neither handler there is nothing to roll back with and
+> > > + * the processor is left running.
+> > > + *
+> > > + * The resource table resets are best-effort: when one fails, the
+> > > + * unwind carries on with detach()/stop() anyway.  Unlike
+> > > + * __rproc_detach() and rproc_stop(), which bail out before touching
+> > > + * the processor when their reset fails, this is already an error
+> > > + * path, and detaching the remote processor -- or, failing that,
+> > > + * powering it off -- is the minimum it must still deliver.
+> > > + */
+> > > +static void rproc_unwind_attach(struct rproc *rproc)
+> > > +{
+> > > +   struct device *dev = &rproc->dev;
+> > > +   int ret;
+> > > +
+> > > +   if (rproc->ops->detach) {
+> > > +           ret = rproc_reset_rsc_table_on_detach(rproc);
+> > > +           if (ret)
+> > > +                   dev_err(dev, "can't reset rsc table on detach: %d\n",
+> > > +                           ret);
+> > > +
+> > > +           ret = rproc->ops->detach(rproc);
+> > > +           if (!ret)
+> > > +                   return;
+> > > +
+> > > +           dev_err(dev, "can't detach from rproc %s: %d\n",
+> > > +                   rproc->name, ret);
+> > > +   }
+> > > +
+> > > +   if (rproc->ops->stop) {
+> > > +           ret = rproc_reset_rsc_table_on_stop(rproc);
+> > > +           if (ret)
+> > > +                   dev_err(dev, "can't reset rsc table on stop: %d\n",
+> > > +                           ret);
+> > > +
+> > > +           if (rproc->ops->stop(rproc))
+> > > +                   dev_err(dev, "can't stop rproc %s\n", rproc->name);
+> > > +           else
+> > > +                   rproc->state = RPROC_OFFLINE;
+> > > +   }
+> > > +}
+> >
+> >
+> > Please remove all the dev_err() above.  An error messages are already generate
+> > in __rproc_attach() when something goes wrong.
+> >
+> > > +
+> > >  static int __rproc_attach(struct rproc *rproc)
+> > >  {
+> > >     struct device *dev = &rproc->dev;
+> > > @@ -1373,7 +1426,7 @@ static int __rproc_attach(struct rproc *rproc)
+> > >     if (ret) {
+> > >             dev_err(dev, "failed to probe subdevices for %s: %d\n",
+> > >                     rproc->name, ret);
+> > > -           goto stop_rproc;
+> > > +           goto unwind_attach;
+> > >     }
+> > >
+> > >     rproc->state = RPROC_ATTACHED;
+> > > @@ -1382,8 +1435,8 @@ static int __rproc_attach(struct rproc *rproc)
+> > >
+> > >     return 0;
+> > >
+> > > -stop_rproc:
+> > > -   rproc->ops->stop(rproc);
+> > > +unwind_attach:
+> > > +   rproc_unwind_attach(rproc);
+> > >  unprepare_subdevices:
+> > >     rproc_unprepare_subdevices(rproc);
+> > >  out:
+> > > @@ -1562,6 +1615,7 @@ static int rproc_reset_rsc_table_on_detach(struct rproc *rproc)
+> > >      * rproc_set_rsc_table().
+> > >      */
+> > >     kfree(rproc->clean_table);
+> > > +   rproc->clean_table = NULL;
+> >
+> > This change is not needed.
+> >
+>
+> Hi Mathieu,
+>
+> Thanks for the review.  I'll adjust the changelog, drop the dev_err()
+> calls and remove the table_ptr assignments.
+>
+> I traced both assignments again and I'd like to keep them.  The one in
+> rproc_reset_rsc_table_on_detach() is what keeps the pointer from being
+> freed twice:
+>
+>   __rproc_attach() -> rproc_unwind_attach() ->
+>   rproc_reset_rsc_table_on_detach() -> kfree(clean_table)
+>
+> Then __rproc_attach() returns, rproc_attach() jumps to
+> clean_up_resources, which does kfree(rproc->clean_table) again on the
+> same pointer. This holds whether detach() succeeds or fails: On
+> failure, rproc_reset_rsc_table_on_stop() takes the cached_table early
+> exit and leaves clean_table alone.
+>
 
-Register the 'rambus' vendor prefix for Rambus Inc.
+Ok
 
-Co-developed-by: Saravanakrishnan Krishnamoorthy <skrishnamoorthy@rambus.com>
-Signed-off-by: Saravanakrishnan Krishnamoorthy <skrishnamoorthy@rambus.com>
-Signed-off-by: Alex Ousherovitch <aousherovitch@rambus.com>
----
- .../bindings/crypto/rambus,cmh-v1030.yaml     | 144 ++++++++++++++++++
- .../devicetree/bindings/vendor-prefixes.yaml  |   2 +
- 2 files changed, 146 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/crypto/rambus,cmh-v1030.yaml
+> The assignments in rproc_reset_rsc_table_on_stop() matters when
+> rproc_reset_rsc_table_on_detach() bails out at its kmemdup() with
+> -ENOMEM, before freeing clean_table, and detach() then fails. The
+> stop() fallback can then make its own copy and be the one taht frees
+> clean_table, and clean_up_resources() would free it again. With no
+> detach() at all, clean_table is already NULL, so these two paths are
+> the only ones that matter.
+>
 
-diff --git a/Documentation/devicetree/bindings/crypto/rambus,cmh-v1030.yaml b/Documentation/devicetree/bindings/crypto/rambus,cmh-v1030.yaml
-new file mode 100644
-index 000000000000..fb05cc636df6
---- /dev/null
-+++ b/Documentation/devicetree/bindings/crypto/rambus,cmh-v1030.yaml
-@@ -0,0 +1,144 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/crypto/rambus,cmh-v1030.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Rambus CryptoManager Hub (CMH) Hardware Crypto Accelerator
-+
-+maintainers:
-+  - Alex Ousherovitch <aousherovitch@rambus.com>
-+  - Saravanakrishnan Krishnamoorthy <skrishnamoorthy@rambus.com>
-+  - Joel Wittenauer <Joel.Wittenauer@cryptography.com>
-+
-+description: |
-+  The Rambus CryptoManager Hub (CMH) is a hardware cryptographic accelerator
-+  accessed via a mailbox-based VCQ (Virtual Command Queue) interface.  The
-+  host writes VCQ command sequences into per-mailbox DMA queue buffers and
-+  rings a doorbell; the CMH eSW processes them and signals completion via
-+  interrupt.
-+
-+  The management host statically partitions the hardware mailboxes across
-+  the SoC's host interfaces at integration time; the set of mailboxes a
-+  given host owns is therefore fixed and not runtime-discoverable (a
-+  mailbox locked to a host reads as unavailable in the SIC availability
-+  register).  Each owned mailbox is described by a child node.  Which
-+  crypto cores are present is a fixed silicon-build property indicated by
-+  the SIC CORE_ENABLE register, so cores are not described in the device
-+  tree.  Clock and reset are owned by the management host; a node
-+  describing a non-management host has no clock or reset provider of its
-+  own, so clocks and reset-gpios are optional.
-+
-+  CMH gates access to a locked mailbox by a hardware HOST ID presented on
-+  the bus with every access, permitting only the owning host's ID.  An
-+  integration must present a single, stable HOST ID for all accesses to a
-+  given mailbox, independent of the issuing CPU (relevant on SMP hosts
-+  whose interconnect encodes the issuing CPU in the HOST ID).
-+
-+properties:
-+  compatible:
-+    items:
-+      - not: {}
-+        description: SoC-specific compatible, e.g. vendor,soc-cmh
-+      - const: rambus,cmh-v1030
-+
-+  reg:
-+    maxItems: 1
-+    description:
-+      SIC (System Interface Controller) MMIO region.  The registers of
-+      mailbox instance N are at offset N * 0x1000 within this region.
-+
-+  clocks:
-+    minItems: 1
-+    maxItems: 3
-+    description:
-+      The "core" functional clock, and optionally the half-rate "core-div2"
-+      clock (present only on configurations with side-channel-protected
-+      cores) and/or the "rt" real-time tick clock.  See clock-names for the
-+      valid combinations.
-+
-+  clock-names:
-+    minItems: 1
-+    items:
-+      - const: core
-+      - enum: [core-div2, rt]
-+      - const: rt
-+
-+  reset-gpios:
-+    maxItems: 1
-+    description:
-+      Host-controlled reset for the CryptoManager Hub.  The hub has two
-+      external, active-low reset inputs -- a power-on reset and a hard
-+      reset; where a board routes one of them to a host GPIO, that line is
-+      described here.
-+
-+  "#address-cells":
-+    const: 1
-+
-+  "#size-cells":
-+    const: 0
-+
-+patternProperties:
-+  "^queue@[0-9a-f]+$":
-+    type: object
-+    description:
-+      One node per hardware mailbox (VCQ command queue) this host owns.
-+      The set of owned mailboxes is fixed by the management host at
-+      integration time and enumerated here.
-+    properties:
-+      reg:
-+        items:
-+          - maximum: 63
-+        description:
-+          0-based mailbox instance index (0..63).  The instance's
-+          registers are at reg * 0x1000 within the SIC region.
-+
-+      interrupts:
-+        maxItems: 1
-+        description: Completion/error interrupt for this mailbox.
-+
-+      rambus,num-slots:
-+        $ref: /schemas/types.yaml#/definitions/uint32
-+        enum: [2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192,
-+               16384, 32768]
-+        default: 64
-+        description:
-+          Number of VCQ ring slots for this mailbox's command queue in
-+          host DMA memory.  This is a per-board, per-mailbox host-memory
-+          ring geometry -- boards built around the same SoC (hence the
-+          same compatible) may use different ring sizes, so it is
-+          described per mailbox rather than derived from the compatible.
-+
-+      rambus,slot-stride-bytes:
-+        $ref: /schemas/types.yaml#/definitions/uint32
-+        enum: [128, 256, 512, 1024]
-+        default: 512
-+        description:
-+          Stride in bytes between consecutive VCQ ring slots for this
-+          mailbox's command queue.  Like rambus,num-slots this is a
-+          per-board host-memory ring geometry, not derived from the
-+          compatible.
-+
-+      rambus,cores:
-+        $ref: /schemas/types.yaml#/definitions/string-array
-+        items:
-+          enum: [hc, aes, sm4, sm3, hcq, qse, pke, ccp]
-+        description: |
-+          Core-affinity list: the crypto cores whose work is dispatched to
-+          this mailbox.  A core may appear on at most one mailbox.  Cores
-+          not listed on any mailbox are load-balanced across all mailboxes.
-+          Optional (default: none -- the mailbox only serves the
-+          load-balanced pool).
-+
-+    required:
-+      - reg
-+
-+    additionalProperties: false
-+
-+required:
-+  - compatible
-+  - reg
-+  - "#address-cells"
-+  - "#size-cells"
-+
-+additionalProperties: false
-diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-index ba2002969373..364e53c31045 100644
---- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
-+++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-@@ -1397,6 +1397,8 @@ patternProperties:
-     description: RaidSonic Technology GmbH
-   "^ralink,.*":
-     description: Mediatek/Ralink Technology Corp.
-+  "^rambus,.*":
-+    description: Rambus Inc.
-   "^ramtron,.*":
-     description: Ramtron International
-   "^raspberrypi,.*":
--- 
-2.43.7
+Ok
 
+> I'll wait for Arnaud's feedback on STM32 before sending the v2.
+>
+> Thanks,
+> Yonghao
+>
+> > >
+> > >     return 0;
+> > >  }
+> > > @@ -1597,6 +1651,7 @@ static int rproc_reset_rsc_table_on_stop(struct rproc *rproc)
+> > >      * won't be needed.  Allocated in rproc_set_rsc_table().
+> > >      */
+> > >     kfree(rproc->clean_table);
+> > > +   rproc->clean_table = NULL;
+> >
+> >
+> > This change is not needed.
+> >
+> > >
+> > >  out:
+> > >     /*
+> > > @@ -1675,6 +1730,10 @@ static int rproc_attach(struct rproc *rproc)
+> > >     /* release HW resources if needed */
+> > >     rproc_unprepare_device(rproc);
+> > >     kfree(rproc->clean_table);
+> > > +   rproc->clean_table = NULL;
+> > > +   kfree(rproc->cached_table);
+> > > +   rproc->cached_table = NULL;
+> > > +   rproc->table_ptr = NULL;
+> >
+> > ->table_ptr doesn't need to be set to NULL.
+> >
+> > Thanks,
+> > Mathieu
+> >
+> > >  disable_iommu:
+> > >     rproc_disable_iommu(rproc);
+> > >     return ret;
+> > > --
+> > > 2.34.1
+> > >
