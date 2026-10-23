@@ -1,151 +1,137 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.229.59
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792762518;
-	b=h6GHjJpzFTxOcOLY4eU4jw4BI1w5JhhAI9TRxkKOIC3HCrdwhJBaWqraN+/HV9l4Q2+R
-	 EZqy5W9KQIXvO6YwXr4iFw6P3Y2n7Jn+cU4F2AsF5JJ7bPbOMoVFBFzcrm/WAKcxu6Win
-	 BkBCHL5vV6DgwvomRjlvQ8kGo4thZH4WQ/pRNzb3re2CKnM5XFsIQKXpBtjOTU7vybMgP
-	 /10lmC7ZByhXvXNe39aRdL2ch0s/Qv+lYZ9Ir8k13NBvvy3/FZs9CXS0t2JKD1CyFoglT
-	 zyNvfKLohpKir2jxDcQbsKE70j1CzTyWjpL1iCt7SCdYavnsWr+KjbpsCBY+WrrvjXw==
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=198.175.65.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1792762522;
+	b=r9w+lQ2e2sxOaM6P0cE4NoyEaisxTuJz6Legy85/j483hrkqVltJ2itY9nKDcEmWiczo
+	 x9FTIFXTKFfbCJa14YZOqXZSg9S9ol8IcIBOaMXFTas/eXcC+NhgPvmLLVvztorZAnxwQ
+	 ux/QazHPt+q1HQjL7IRZXmZw7eGdbpsMtvekS+xzYtooe90ozB4NPi9BWEaLySpw8GIaP
+	 +KN89pAS7PzlV8WPYq02dJDGSwnavs2jfDeFYXsRNuABKOwNUZZMRv1yMSKoJTUA2ZaQC
+	 s88ouW/Bk7NYwCO2JdxbSWruLv2UizgVbkxqDsgx6u6tx+4lNLa0bo8GjNcOylOnvpg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792762518;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:CC:Subject:
-	 Thread-Topic:Thread-Index:Date:Message-ID:References:In-Reply-To:
-	 Accept-Language:Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
-	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
-	 x-ms-office365-filtering-correlation-id:x-ld-processed:
-	 x-ms-exchange-senderadcheck:x-ms-exchange-antispam-relay:
-	 x-microsoft-antispam:x-microsoft-antispam-message-info:
-	 x-forefront-antispam-report:
-	 x-ms-exchange-antispam-messagedata-chunkcount:
-	 x-ms-exchange-antispam-messagedata-0:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
+	a=rsa-sha256; c=relaxed/relaxed; t=1792762522;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
+	 Received:Received:Received:Message-ID:Date:User-Agent:Subject:To:CC:
+	 References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
 	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-originalarrivaltime:
-	 X-MS-Exchange-CrossTenant-fromentityheader:
-	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
-	 X-MS-Exchange-CrossTenant-userprincipalname:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=JcgD1qoYeF/KbMxm+EOnv6U7yG7IehbET585K2IQDLg=;
-	b=LHgtYERqaU3YXgozMSF+noClHY7Y8fdTrqRTg2o9kTTyqABAXB91SGRoaAt+P7QRypAw
-	 bzkxFHgbcmcux4shjdlQ6tT4gOq72A/DJ8tjo3UgXxykZc1wer8n3aydhca6RdNDjxFfN
-	 M9sMO7w/+gmI5mO9bg3Z6xvemlI4AJAuNEFynB4zkMPnY01ilhVoAYjbmS+JT0NU+IMO6
-	 InfwEKDhEdkIAXd45ao0F95Nyp9EW2IbHbOlWJ6G0uk8danm9SBKre1onhNXYxRSTL2FU
-	 fDngOztyqRjDMA634dbiYPLBwwcecr0+FuAT87zUyj1zHzUOr23eOgDhjg0tGG4vp3Q==
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
+	bh=8pmESVchCac0VravW0cWmY+ltZJOKQJUh0MHe+I9Elk=;
+	b=WDJcKOg4LlFlRcYu6UYGZ3nZ0C64pXS3L606fIzgr02s12LWwoWZtxfuAPbnOePVh4Iy
+	 g0Xnn47HyAdwaCqosNxSWarZBCV9e209GlK0B7fXkXV5ZD0ygLDIMLUYPcx9up6dslX6v
+	 Yp4SVmqdywjo2TsemWuFum3WIeox0t0WldhVeYBT8Hk8yFvYoiUNRNKmxaSxNwWx7bGOi
+	 LVadjsguLNo+465hZrAMb9KjrK1TE+wWdVlEG9bOfmnCBytT2jjvtBg8CGqS9RBYYRySq
+	 3+Vo9GUg1Vn6oIDB1acO/A5jLBsIpFaLsyEkVQv0rr4b4vQX185xcjQDppJWB88Edyg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bp.renesas.com;
-	spf=pass smtp.mailfrom=bp.renesas.com;
-	dkim=pass header.d=bp.renesas.com header.i=@bp.renesas.com header.a=rsa-sha256 header.s=selector1 header.b=boiLpFzF;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.229.59
-Received: from TY3P286CU002.outbound.protection.outlook.com (mail-japaneastazon11010059.outbound.protection.outlook.com [52.101.229.59])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=a5GnIpc2;
+	arc=fail smtp.remote-ip=198.175.65.18
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FD14606A31F;
-	Fri, 23 Oct 2026 13:35:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3FD14606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12C9E606A335;
+	Fri, 23 Oct 2026 13:35:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 12C9E606A335
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=bp.renesas.com header.i=@bp.renesas.com header.a=rsa-sha256 header.s=selector1 header.b=boiLpFzF
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=a5GnIpc2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792762521; x=1824298521;
+  h=message-id:date:subject:to:cc:references:from:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=kIc0MYycd5dFZwjESRlQj9NdauWMCWG3Oo53zxGkO48=;
+  b=a5GnIpc2YZHlb6Ju86IZVEgYN4EanbNjqRLgffwQXY8rRQU4djtSNnWq
+   w/txLSKRd4CP5xDIQxG1DB99W3a37qhL+SoeOT/GCY7XeOrF8un7GciHO
+   ZJQa25VaSftEXxqiDHtI3b5BL48jcqh8sYkUyXOymcuTEhQBGRj0aEI2y
+   CPHqU5HxN2jBt/8CzsrfF7SG84hcYLWvGqcDt6O+sM69QnYo2rqx5s5gG
+   DPpRdvnP3hr9xCC98eC/X1AwLAzJdNMtdz7g9RZvPYg/MduWiThZ7UY//
+   Ngpt2gM918Sktg7GSMqUmu20dv2Mg6WThj5rigDbOZsAmAk+8xa8i8V/I
+   g==;
+X-CSE-ConnectionGUID: GqledcW6QbGuFkZrOtUdJA==
+X-CSE-MsgGUID: rhiYN60TRvi9NpfSjARMxQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11943"; a="1527959"
+X-IronPort-AV: E=Sophos;i="6.27,174,1787036400"; 
+   d="scan'208";a="1527959"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Oct 2026 06:35:13 -0700
+X-CSE-ConnectionGUID: 0V7S4hofTHCiptm8/GPliA==
+X-CSE-MsgGUID: Rg7HNR3OSSeT5nSewlfaWw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,174,1787036400"; 
+   d="scan'208";a="3758841"
+Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
+  by fmviesa002.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Oct 2026 06:35:08 -0700
+Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
+ fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Fri, 23 Oct 2026 06:35:04 -0700
+Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
+ FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49 via Frontend Transport; Fri, 23 Oct 2026 06:35:04 -0700
+Received: from PH0PR06CU001.outbound.protection.outlook.com (40.107.208.1) by
+ edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Fri, 23 Oct 2026 06:35:03 -0700
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=VDbFW4udcaiLrkWx4jLKMIplr0ux5dN3bH4GKZJlPYtiZSZTL570iR9beum3QaflZnfZQERRpG4h4aF4o3YQKKfG3SH6xIrj6pQEcDU28cmlzwdaZhA2k9QZPtu3ZqLJ7/ePgWRfGK0Vbu89sbBA048WBm894+EoIC8Lg3CzPnbAQSeYjZgRauaqAr8sfR6KFx16ttJFt8S1TT6fk/uuQw3wF3jxnG7TMRMqqAlIwtr7qYEr1wWMBBQTEdMqc9Xch/tMjLqPC1iNguBFOD/qevlueKlHbc4cj3RrTyOkt0S39Yoh01f6F0hES7wV6WF0RYsHc/NlzP6+n0lUGRpwKA==
+ b=XY04rsz8aMHvvWXndiAqM0/4Ywe6i+Pkbe9XQ5pqwYSL6apAUM3MXX0M4/PCK+7DwYvqoIeipxamMI1psxgSN1JVjWgI9/ASMO4fXjk1NyP0swWzSrY5hKuhgdykkrifKst/XhIkFFFawfmLZKfWuj+I5qxIOB4AgRMUclHZw0fRiIlPuF4iN3MRyTosH2J2UByzWqx8kpIloO68nOZNIMWOrGJ7AWqZudY5FLreYkTtB07OsdVT1GkKq6S4IBqaqVeSEEXOEHnaRsYAw3/NLJ1l4LF8CUXJwbBYu0jj1FrT3ym3Y0uiism1srXytRKzzz+wH3NajV51+Ig1vK6mjQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=JcgD1qoYeF/KbMxm+EOnv6U7yG7IehbET585K2IQDLg=;
- b=F9zizBK5sx8tNXuML2YNwj5OrBIPDeOj4k7nyTZAh0ft4AAty2yckIFM9A+jwAWzGxedzivEmYpeYYsayJBwL5kgsVZ9TmHQLTjHWZ5Wkd05VKhqnZ6w3GfaI88W4FW6Advbn4LNfd9CNvL92EsjP1XGj8OUEMw5LWbPlUUonLptOR1nERFVx8E8/bknLinBqRKk4SGKR6fybKdZflLMsKz/2j4UFVezm3Kz4x3cwC0r+6h6V0bcLvCmQMVauRXez9MT3neFzUxo3HIboh6Ydoo5eURBMWux/tqb0CNbmH1lBYNsxF/C6kZmK2fXjTOUnsa6b57vlnNeORWqvN/e4A==
+ bh=8pmESVchCac0VravW0cWmY+ltZJOKQJUh0MHe+I9Elk=;
+ b=rc/w0mh+wcdh/VqMh2EqrgXDqaJM2Ay0FX6ac7JqP5rxr9qah0pFbxYxnVAQ/fMkOZtw9tZ/iVDP661p2osB7vN1t2kUlM3KT7qHz3NsMBPdFAYE/wamKixe4uhqTCs/XErT4I/Vp65vKPw3FZojKZRZB+Wou8miNz3AHoXGeryfNjnZ7Kp6NYvJtn8XC+3CC3ukcyBt+XCzULOx49aOc8D8xdCkjqivyhv9brEekI9p3Nbb8mdAQuFVQj7XfDHFPEJGuDj5MjhxX/hHB9FkVoxhqyHhRQ4/a5JsWsguHMdAXbHPJ0AJYsqR00/qMFselESnIhPwbXtwiPLIkuYbKg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
- header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=JcgD1qoYeF/KbMxm+EOnv6U7yG7IehbET585K2IQDLg=;
- b=boiLpFzFCy6BPQtS1k/5dkK/ripdb5MjoP9V3GR4yIzUipRDR1VloJDZvOlVq2Vs2em/7a9HWrYEKjIbR8gre0B28nWQ6ChVRtx1iuuMMA8BIvG2aBwr3KqU/CX0tTAvgQVog1gY0F0xKB2juFqJ8zwfcju39+9SfNwC7Jp6R/w=
-Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com (2603:1096:400:3d0::7)
- by TYYPR01MB12403.jpnprd01.prod.outlook.com (2603:1096:405:fa::8) with
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from DS0PR11MB8718.namprd11.prod.outlook.com (2603:10b6:8:1b9::20)
+ by BL1PR11MB6002.namprd11.prod.outlook.com (2603:10b6:208:386::12) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.19; Fri, 23 Oct
- 2026 13:35:14 +0000
-Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com
- ([fe80::87d1:4928:d55:97de]) by TY3PR01MB11346.jpnprd01.prod.outlook.com
- ([fe80::87d1:4928:d55:97de%6]) with mapi id 15.21.0496.021; Fri, 23 Oct 2026
- 13:35:14 +0000
-From: Biju Das <biju.das.jz@bp.renesas.com>
-To: wsa+renesas <wsa+renesas@sang-engineering.com>
-CC: "biju.das.au" <biju.das.au@gmail.com>, Ulf Hansson <ulfh@kernel.org>,
-	"linux-mmc@vger.kernel.org" <linux-mmc@vger.kernel.org>,
-	"linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, Geert
- Uytterhoeven <geert+renesas@glider.be>, Prabhakar Mahadev Lad
-	<prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: RE: [PATCH v24 08/15] mmc: renesas_sdhi: Add
- TMIO_MMC_INTERNAL_DIVIDER flag
-Thread-Topic: [PATCH v24 08/15] mmc: renesas_sdhi: Add
- TMIO_MMC_INTERNAL_DIVIDER flag
-Thread-Index: AQHdMMe+SeXRDHnYx0S0S9Te31Iesba8r9cAgAYcQRCARuJrgIAB1J4w
-Date: Fri, 23 Oct 2026 13:35:14 +0000
-Message-ID:
- <TY3PR01MB11346D961A1F5ACA688B78E3886642@TY3PR01MB11346.jpnprd01.prod.outlook.com>
-References: <20260820171657.62815-1-biju.das.jz@bp.renesas.com>
- <20260820171657.62815-9-biju.das.jz@bp.renesas.com>
- <aplBTMnnF1V71BDL@shikoro>
- <TY3PR01MB1134610EEF7D300BA8890357A86B22@TY3PR01MB11346.jpnprd01.prod.outlook.com>
- <atnXz00Hci6R-7Ux@shikoro>
-In-Reply-To: <atnXz00Hci6R-7Ux@shikoro>
-Accept-Language: en-GB, en-US
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Fri, 23 Oct
+ 2026 13:35:01 +0000
+Received: from DS0PR11MB8718.namprd11.prod.outlook.com
+ ([fe80::6aa:411d:4bfa:619c]) by DS0PR11MB8718.namprd11.prod.outlook.com
+ ([fe80::6aa:411d:4bfa:619c%4]) with mapi id 15.21.0496.021; Fri, 23 Oct 2026
+ 13:35:01 +0000
+Message-ID: <90e0df20-126a-4429-83a7-77f95234cdd1@intel.com>
+Date: Fri, 23 Oct 2026 15:34:54 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH iwl-next v2 1/2] libeth: add libeth_rx_alloc_gfp() to
+ specify allocation flags
+To: Luigi Rizzo <lrizzo@google.com>
+CC: <intel-wired-lan@lists.osuosl.org>, <netdev@vger.kernel.org>, Tony Nguyen
+	<anthony.l.nguyen@intel.com>, Przemek Kitszel <przemyslaw.kitszel@intel.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>, "David S . Miller"
+	<davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, Luigi Rizzo
+	<rizzo.unipi@gmail.com>, Brian Vazquez <brianvv@google.com>, Joshua Hay
+	<joshua.a.hay@intel.com>, Larysa Zaremba <larysa.zaremba@intel.com>, "Jakub
+ Kicinski" <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman
+	<horms@kernel.org>, <linux-kernel@vger.kernel.org>
+References: <20261019210604.2433620-1-lrizzo@google.com>
+ <20261019210604.2433620-2-lrizzo@google.com>
 Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=bp.renesas.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: TY3PR01MB11346:EE_|TYYPR01MB12403:EE_
-x-ms-office365-filtering-correlation-id: cfaf6209-c4af-44ab-8178-08df310a7836
-x-ld-processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|376014|366016|1800799024|23010399003|38070700021|4143699003|11063799006|56012099006|261022105027099003|261009223027099003|10067099003|18002099003|22082099003;
-x-microsoft-antispam-message-info:
- sKBMYRJNlK4fk9IBsHJ+lArdFxpC6p23yGRL03Bu91f+DUDerS3peBZ6gAs0u2VdObtTrSAu8j9yWTwvF6JJqf/aGP7RH43a7x8NYmUlms0aUzL5wkouuuUUZONei+CS72FJx4EXQJGE9IkyrFN7DNy3pxmippQD3s6LJ8NoPlA4b0wspsBkrBuMkc6b7hHzVQHcFcYJQ23J+MLCl235B1Bmuo7hgPA+mZrAEt58pVDrVlLmxlkdgY4RK/Nh/IrSHyKnKKw2TAbLaenxZMpYzfG0GbKT1xWuPlb9WuMcoVxNZNE8jv9FL8zIrdyhEB+usEm9fxy0vnko4mx0vzfwmy27GoIqBvxhXQOw8kgxRMcPhIjZfPcsT0xuHcPOdGrYvYCoKILbiq8AfVpfZgEqz7lihzdydpchxnVB1HB4/T829RqMM3gk+bgb8qsbiiRU+84NwVVQoSSl2muAL7qMW2wSEgwrCuQMqXGDK22U3E/ACA7fg73cHv9nFAIs2OkEJd8Tku/gFYL+EbxKl6HkLaVMX5Rc+8HtCAr3EYOOPPQoYAKYeAxVHTqh2/wHeyHzrudvRniCQD2mwonwacnyoEIFIn2b5IhUD7q9k2D+Mxcn+dWWTLlsSAUSwwmYsXCVxnwDJgu43ggMnizg/yK5VKrDHH16v87JxwMEUR//Fm/NeGm6PD66IaB2TD3oH0E7
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY3PR01MB11346.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(23010399003)(38070700021)(4143699003)(11063799006)(56012099006)(261022105027099003)(261009223027099003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?QtfRACd1ukmZIzG5wsvLqG9agTimTdoJ10k1hmSaAe688FXlIBzotsPBaVX9?=
- =?us-ascii?Q?ZpTa/1p8Ezk2WDBjziPK5M+wPC5VpQ2TyShDd0XXTLyO4so6U4kFmpwiuuaD?=
- =?us-ascii?Q?Be+hNqXlmxAuZxK4lblYTOSDEZ/mrSE4GuSR6Q7BYqz5ERlbo9EJPx/zOtNF?=
- =?us-ascii?Q?JRFCUQ1ZNqK/GWbD2PCynZMsiiSGZ9xS+W7opVsSh3OJA/vGe1V2PxJBzxhE?=
- =?us-ascii?Q?qMGCC204wdc810TqHdf72rpKxL54LVdehHWctLd1iQpKaeXXNTZVgPyrZWhO?=
- =?us-ascii?Q?11Y+XusxSryVmtNAPkxVmiqb1NgZCgl0Ktvm4RwucIx5SUOiGDPUeyMYyJ9W?=
- =?us-ascii?Q?sBxqKD1N34gaUkziFmEoqI2sCKXqA2JwsMi0dqd7wI4MYDug3g3DOh/Xj9U3?=
- =?us-ascii?Q?au+9uXUJXJvK6Lh29F63JFx0WJlNs90FIjMuuRg7tEOD58zURDI9Llh5VJDw?=
- =?us-ascii?Q?JndmIdLABvxPvJeXYxhh97xr+d2RVh4qiwNnl2vBBVCl7RfDRLkhOw7W+CGY?=
- =?us-ascii?Q?hsNUBKw8xLka8d1EJZyP+H1U0bFhhc6m7nb1KWDipnfSGyYBQTHc+sXS0/ns?=
- =?us-ascii?Q?mTGrtjjatdXZowirnph/fP4mtybo/rnvwZY5s6bizgo9mLPoWiYqt1oMVPvb?=
- =?us-ascii?Q?pYYUJvt8CAGkCFsoZ7GAAzarBYflbV83Nr0TvbUtqOtbV9WVDwhnpXpOcCN5?=
- =?us-ascii?Q?eegg1guD2VLeT/mTldjuWqb29MMoN3Uww6uWQTDhrqWLvhK0zeFElOggQ2kF?=
- =?us-ascii?Q?exS/xapPEz9DJOaX6PS4iN6/pdCxeu/URH71cF9B0588D8bw+et4o4guY+jk?=
- =?us-ascii?Q?dFHNdqhKHHVQhiTA68HHf6RpMY8WQT8UAANslW3fhM+ufwtesN0si5O3WfcT?=
- =?us-ascii?Q?2djN8ObzkPSv4fQxSy0Nwhfu2Vcp2FfWJT4lbsNsfXDjmgJ1/+AiBJY5icwl?=
- =?us-ascii?Q?HgYGJYCs23yZGOuzeZBvvnrRO+Ag3klhXIkD1RUrUExeTBPwNXxga8/x9aY9?=
- =?us-ascii?Q?ggIKRhfeyByubT/8SACvFnkH3A4zUQ4xamJT/iHA4kAWL8sbK7TxAIOU/jgA?=
- =?us-ascii?Q?wFj2/mQBH4ccX18j8+yKAmHb6GBSyd/12E4gxc//nMPFzag5BPUhaCWhxsGR?=
- =?us-ascii?Q?zpJZh0Vzn99EboV1fWlpHUjN/aY/+lZJYjISDnBDM/Q/cF3zRXLD/PNY6NgR?=
- =?us-ascii?Q?b27Db4ZnwQIpuUN+Egwk8E99u8YOqVEj4xiKm4FEafdbGvlfot7hjPMxFzPu?=
- =?us-ascii?Q?Zq8bdA4ucnnKNjJ3KhKb5eEUbWOfrFz65R5g7Bh4Q5hVMwLrPjXhgS3jATOU?=
- =?us-ascii?Q?WDTa7VT0LvduXEZ/tHpw6fkQDU5QF+TzePKtOScu4/HPKrBwjyDhSGWJRZUK?=
- =?us-ascii?Q?qS2ty+n+mRUm3ldpPQSlOyvqdWMBPV1vItF+ArKhX/i/b4C+IeD5k42DzcXY?=
- =?us-ascii?Q?YCIsdyv5rD175zxSSnCnxavuPalC/PFYHsEMvylWKN9f60GGy2c2yA54J2n3?=
- =?us-ascii?Q?pS7gNwS5JDc+2LRYxsWV6Oc7kKo+s8erLDp8Eyn/tmdiFkI2mPv+cm5o9jhK?=
- =?us-ascii?Q?sm2wB2jUMtnjXnWPGnTr8mASdFW5fp4F+Si9NMD38jId/g5Ww8ApDdHoKtaP?=
- =?us-ascii?Q?zkhhQLJ+zJdVMlH7zR3IT/GBp3rC9AqgjsfsiDU2S4IxJdAlQHrxXrfYVzAg?=
- =?us-ascii?Q?N5UAuE6PVhciDupEo2oaRiCezhT6LJMOMEcWuz22WGyPz1ydDciurv33bDIS?=
- =?us-ascii?Q?YIQ2//FFEQ=3D=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+From: Alexander Lobakin <aleksander.lobakin@intel.com>
+In-Reply-To: <20261019210604.2433620-2-lrizzo@google.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: DB9PR01CA0003.eurprd01.prod.exchangelabs.com
+ (2603:10a6:10:1d8::8) To DS0PR11MB8718.namprd11.prod.outlook.com
+ (2603:10b6:8:1b9::20)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -155,143 +141,150 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-OriginatorOrg: bp.renesas.com
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR11MB8718:EE_|BL1PR11MB6002:EE_
+X-MS-Office365-Filtering-Correlation-Id: 02832984-a7cd-4608-ad0a-08df310a7002
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|7416014|23010399003|1800799024|376014|366016|261021121427099003|6133799003|10067099003|22082099003|18002099003|261021123027099003|11063799006|261009223027099003|4143699003|261022105027099003|56012099006|261022075727099003;
+X-Microsoft-Antispam-Message-Info: kXrVHF32OncGlZ0C3Q+Hk9qTELQm8G4g4UtrAIztHZta1QOqG6nBbfAejARjuIvCW3G70FVfR+wDkMZdYpFQpOB1zfVVwD3ngrQAWcIBXtQOMMn39MORlgWRKRNpnMBQ7ocIa8QEc6XYU203jpzL8FsG7Uxp/fSJsm5RUCbdohb/mVihlQhAuhGg/X/9SjHqmmHTMueclT/eatCh58ncBztIF7hVuOwPgkAMUvSPwg8M7MQv0C08EYffqt+ieF8iqejoOJzEBYFfFu2YHZmNIypmC1kDMoPr24ShLQdDKs+hLJe4CGuEMmeUljgypzOP6Mpgzbyvkg9UoqhqJUjyJ35saJ4ZOnC5twPbGjSazQ99ApCDSPGoHmgQtrNxvSltVo/5fxqxq98hEjNUia4YCtS63zS7jJz8vqbN5UIcRpNJsGM+ak4nvPs9kLBO3KJcVA0PGJKJXnEll2ywZLArBSVknYfYwwJWgTRq6oLm3mQyaLJIO+nGAWqM/eZxVz4DG9BlImchj/ELyT2zZAjv7bBZY8Y1/YEANUbd1HApmaGXB6dgVmTheYVVqyoG37+382KB/OzYCwm/WVRINUShzc5wskRfyYZLNJMFRxhkIJ7c1HpAAW1yrr25VbluB7VADAmnq1cE5TZR/wDWQWF+yiXH46+aUXZ9YKr8Xv0KFNI=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR11MB8718.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(23010399003)(1800799024)(376014)(366016)(261021121427099003)(6133799003)(10067099003)(22082099003)(18002099003)(261021123027099003)(11063799006)(261009223027099003)(4143699003)(261022105027099003)(56012099006)(261022075727099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MGoxblowUWF4dXFFSGxwZy81MW5TazdTM3UwM3NGR3NVWjA5SSsyRFhRTnJo?=
+ =?utf-8?B?MWtWT1ZDWnA4SEhMK1pGeGtyZU9FQ0kxMkFEQjljaUJFSU9xQkZuNHV6dFZu?=
+ =?utf-8?B?Uml0R1J1c2FCY0p1dE9tOEg2ZDBXVzdPeHFzWlhZd0s3VFlLTHdVbVB0aGta?=
+ =?utf-8?B?RW0xakE3VWswVTRqNHBpcjNaSlh4TSs4Ty9PTDFxZ1V5U3ZnUEFEU1EwVUlF?=
+ =?utf-8?B?bFJ1Uld3Ym5uZTF4RnN2YXN1TDN1TGNGRVppT1RVVEgrc0dJQ1kwZ1NxTzZG?=
+ =?utf-8?B?Nks1NisrVGo5L1dLK3ZBZUR2cXhwcWh5RG5Mc3doNlVrL3B6cHNVazFBeDBM?=
+ =?utf-8?B?bldvTVpzVWFHZ2NabmdWOVc4NXQwK09MZ09oSjducFdwWFpZbFV3NVMxVmdj?=
+ =?utf-8?B?SjRjcWl0Y1R6bDFBWDlaRmljTWc2cHlOQnA5NHhqYnRvYTZLZU42TU1Nb1Ix?=
+ =?utf-8?B?Q2pKQ2ZBQ3BMNG93am5sTnVRczJUcHV4Q3AwTGxNdGRFQ3AxOS90SlVYWXVU?=
+ =?utf-8?B?UlNGOHpjN0JjKzhHVDhjd3UwYWorNXVPRXh0WUl1M1NBOHU1cWFKNzc2VlI5?=
+ =?utf-8?B?cGFlY0NPRGRWNWo5Q25CbnV3aUVmeHUzMlE2WXZST3Z5aXZydzl4bmpYUU1I?=
+ =?utf-8?B?WWk0Tnh2Vml0czJudm1oVkJwNG5qcEcrMUdxWTFmZ1Bnekk3dXdsN1hGb2Y3?=
+ =?utf-8?B?OFBldnhFYTV0bVFLNWxFRUN0cjZESWo0Y08zVFE4amR0ZXBuYmxtdkNQU2Q5?=
+ =?utf-8?B?MlMxM2x2a2tCcDdXdTdrYk9EbUxiTlE4a1l2NHBBS2RLQkRmaDA0WnJ4bXVl?=
+ =?utf-8?B?MXRLbUpDbW1YWDA2MW5LY01mL3Q2NnVCUWE4eXVnY0JlR0RUWFF5bTNNTEFT?=
+ =?utf-8?B?R2dRQ2RpalNwVFNsa016S1BnNlpsTGtsTHpGYnRRc2hUSFB5WnlsdVZERDZM?=
+ =?utf-8?B?M2drSkdpbmdBejUreGpyWEx4R1BYNVZxMTRUWWQ2dnhCeEFGelFoVVhVRnlo?=
+ =?utf-8?B?b3Z5ZkRrb2FvWEhoS0xYOHRJcExHcTdQRm5STmpYdGVqZWk1dTBPRGExNWJi?=
+ =?utf-8?B?SFNCVnR1Tm56NTJwM0FwQmZnaG00Ry8raUltTTRuSVV4aTJYcTZOenNSYTBT?=
+ =?utf-8?B?OUZvQUtkUE5Fa2FqRWxMMWdPR3FjZExVdWdDbDI4Ykw2SVFCMXh2YUVBWVpv?=
+ =?utf-8?B?UG95SlBwUUdwRTUwZzJxTjdSSVhCRTRhanVoY091bk9XeDBBcEJlSlg0L2RP?=
+ =?utf-8?B?UGRSUmRkbk9TbkZTM3kvSWVVZ1JVMWt6RzNVZ0J5Vk5lVEJzVE9ZVTBlVEVr?=
+ =?utf-8?B?UlpsTGtTL0lFRkNMcm9SaXJoY1AwcDRwT0w3azR2YjdjdlB3YWQxR3hKVXVr?=
+ =?utf-8?B?WjI3K0tiQUJybkxyaUdSbHIvV2t0UFJVSThZQUtOSkRVVCtwNFJZckIrT2Zv?=
+ =?utf-8?B?U3Mza3BiMVgrUFViYTlVOXZpcU1YbERjZXpyRitmUTZvNEQySXBxdy9HMHNY?=
+ =?utf-8?B?am1KS3lLMnl6L1dMaFMwUjVQRmd5SVZsWmQ3V0lEUnBSUDNSY1g5ZEphQS8z?=
+ =?utf-8?B?SnZHSkpBOThzUFRZTnRNOEVNcDl5WVNydjNPVkEzT1J0VzZkeEZMbU0rOWxL?=
+ =?utf-8?B?OVJHdFJGdnY2WkNHOUdqcGpmc0JkTml2QzdvRlRtRzM4TzBZRWIybTl4dnFK?=
+ =?utf-8?B?ay8rT2g5aFpQSlZHNlFWeldhSzFRSllFY1NsQjQrb0xCUkllL2w2OHJudm4x?=
+ =?utf-8?B?OVdRN2VJVEh0QXA3WTVUNE5LUVlnNHRheEJJSGp4UWxMMFdrZ3hLSFZ0ZzBz?=
+ =?utf-8?B?S0ZCZmpSaWptRElFK0Vuclc1VHNYZDF5eU42bTRxc0hvcElQTkU2Uk14QXkz?=
+ =?utf-8?B?UzAvZlg0ZFVVaGJLQlUybXVrZ2paQUxSU0tPd0E2N1pScWFSV20xOEJwckhm?=
+ =?utf-8?B?cEhvZHVUTHRNRkszcXpVaW54MzVKVlBlVTNSMkJ3M0RJS0FFUm9SUmdRRnhx?=
+ =?utf-8?B?a29YSU10aTVlZHNCdzYxdEF5a2tPaVlDaGRDTWtoRWplLzdBKzRjcmpucVJB?=
+ =?utf-8?B?UU1PR3VHUDF0dTFWZ0VaOHpDc0E3WXJkaEdSNXNWUDIxUXByV0tTV3dPUXA0?=
+ =?utf-8?B?NzB2WFg2VDBSR0V0VHJtZ011VDlnT1orZUVhb0Q0UzdCYUdYWDBUWjRqc1pM?=
+ =?utf-8?B?ajNkUVNpdVhDOGVtN0hlWER0YWQ5WGdLcjhpYXR0NStsODFzR2lTUXFyQlJO?=
+ =?utf-8?B?bXNpUGdXcUZCaWkzb3pJU2Z5VWh6VGxZYityWERDaVRraXhJcU1FQjh6QlJq?=
+ =?utf-8?B?d3FLeSs1aU5VV25YcThjQjJmakxJVThJTDRaU09PRmMxSy9MRUR2U0tCbThZ?=
+ =?utf-8?Q?y6qkqufEuZv4i9C4=3D?=
+X-Exchange-RoutingPolicyChecked: dg5UVUqQU9hGrv+zSP2Wptq1xiYAZpnkPLvU8NIqgoGnEzEPH09CtVCamNJwgdNsR/PCwXnfSdvdrq/6aViLlv7+k2VFIiwKZDiHPbDkn/Tn7igamuvchIW0puhZogrme/KO1bBI0xj//dxjSjE2acJQlx/Ro+qj90nTsAY0PYFkWC3AoD490Rl6dVe10oFy7dV0HlpcaKLNTVIa1fzqD61BByA5fwhqdZtLqsFr0nYiZ1rJufr783mFhDWmvZGHPBSMULRsxwW05jYgVLOGdhpTEaeTx9tjmfSTb+/oD4BXg1PvnS1CEQW3WspZ4eaUU92RoiThxmDAdPXYeope0A==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 02832984-a7cd-4608-ad0a-08df310a7002
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR11MB8718.namprd11.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TY3PR01MB11346.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cfaf6209-c4af-44ab-8178-08df310a7836
-X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Oct 2026 13:35:14.5367
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Oct 2026 13:35:01.0983
  (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: Hmgv/iEHhTLxfGBIJcRaU/ImBxLa2PFRp38ztXaBaRlKgUzRQJL1DNjjXhhD9Q7bNSycnTNY2cO7TXcYx1Ioxx12Q6bjM6DJ0/cujENu4TU=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYYPR01MB12403
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: jdXZqQ7oWxb8YkNQBTEqqwloIiR6QlDqnsE9YVRFNzDMbWbBGuyjaIS4a5bMu92qDRYemS6fFrAvw77G9xO4mlgXFHdedVcOEj5IeGqgQw4=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR11MB6002
+X-OriginatorOrg: intel.com
 
-Hi Wolfram,
+From: Luigi Rizzo <lrizzo@google.com>
+Date: Mon, 19 Oct 2026 21:06:03 +0000
 
-> -----Original Message-----
-> From: wsa+renesas <wsa+renesas@sang-engineering.com>
-> Sent: 22 October 2026 10:31
-> Subject: Re: [PATCH v24 08/15] mmc: renesas_sdhi: Add TMIO_MMC_INTERNAL_D=
-IVIDER flag
->=20
-> Hi Biju,
->=20
-> > > static unsigned int renesas_sdhi_clk_get_rate(struct tmio_mmc_host *h=
-ost,
-> > > 					      struct clk *clk)
-> > > {
-> > > 	unsigned int freq =3D clk_get_rate(clk);
-> > >
-> > > 	return host->pdata->flags & TMIO_MMC_INTERNAL_DIVIDER ? freq / 2 :
-> > > freq; }
-> > >
-> > > Was this AI generated?
-> >
-> > I kept 2 function as renesas_sdhi_is_internal_divider_enabled() is
-> > reused in renesas_sdhi_set_clock()while adding support for HS400 mode.
-> >
-> > Currently, we decided to focus only for basic RZ/G3L support. So I can
-> > merge it into Single function as you suggested.
->=20
-> Please do. And if the flag is checked later again, I think we can just ch=
-eck the flag. We don't need a
-> helper for checking each flag, or?
+> libeth_rx_alloc() calls page_pool_dev_alloc_netmem(), which always
+> allocates with GFP_ATOMIC | __GFP_NOWARN. Drivers also use it to fill
+> their Rx rings at open or on queue reconfiguration, which runs in
+> process context before the queues' NAPI is enabled. There, the caller
+> may sleep and GFP_ATOMIC is needlessly restrictive: it can neither
+> reclaim nor compact, while the initial fill can allocate tens of
+> thousands of buffers across all queues.
+> 
+> Add libeth_rx_alloc_gfp(), which takes a gfp_t parameter and passes
+> gfp | __GFP_NOWARN to page_pool_alloc_netmem(), and make
+> libeth_rx_alloc() its GFP_ATOMIC wrapper.
 
-OK.
+If you'd really like to go ahead (I'm still not really convinced, even
+with "O(100k)" which is not that realistic), here's a couple style
+wishes from me:
 
->=20
-> >
-> > >
-> > > > @@ -184,10 +205,14 @@ static unsigned int
-> > > > renesas_sdhi_clk_update(struct tmio_mmc_host *host,
-> > > >
-> > > >  	clk_set_rate(ref_clk, best_freq);
-> > > >
-> > > > -	if (priv->clkh)
-> > > > +	if (priv->clkh) {
-> > > > +		if (host->pdata->flags & TMIO_MMC_INTERNAL_DIVIDER)
-> > > > +			clkh_shift =3D 1;
-> > >
-> > > No, this needs to be handled a bit above where clkh_shift is
-> > > initially set up, so we have it all in one block.
-> >
-> > There is a difference here.
-> >
-> > SDx_Clock (HS clk) Figure 4.4-8 Block Diagram of the Deformed Clock
-> > System (7) IMCLK =3D SDx_Clock/2
-> >
-> > SD_Clock  Figure 6.2-2 Functional Diagram of Clock Divider for SD_CLK
-> >
-> > Currently framework request a clk to set, we set HS clk first,
-> > followed by SD_CLK.
-> >
-> > On RZ/G3L, SD_CLK value is based on internal divider.
-> >
-> > For HS400 mode, SD_CLK =3D SDx_Clock(HS clk)/2
-> >
-> > For Non-HS400 mode, SD_CLK =3D SDx_Clock(HS clk)/4
-> >
-> > I don't find an easy way to move this logic to the above.
->=20
-> I get an idea what is the problem here, but I am still confused about one=
- thing. I'll summarize what I
-> understood:
->=20
-> * as of this patch, HS400 is not supported on G3L
-> * so, in renesas_sdhi_clk_update(), 'clk_shift' value is 2 before clock
->   calculation
-> * as HS400 is not supported yet, the internal divider is always active
-> * so, you need to decrease the 'clk_shift' value from 2 to 1 after clock
->   calculation
->=20
-> So far, so good. My expectation is now that when you add HS400 mode, you =
-would need some extra code
-> keeping 'clk_shift' at 2 because the internal divider is disabled then. B=
-ut I don't find such code in
-> later patches.
->=20
-> What am I missing?
+> 
+> Signed-off-by: Luigi Rizzo <lrizzo@google.com>
+> ---
+>  include/net/libeth/rx.h | 23 +++++++++++++++++++----
+>  1 file changed, 19 insertions(+), 4 deletions(-)
+> 
+> diff --git a/include/net/libeth/rx.h b/include/net/libeth/rx.h
+> index 0e736846c5e8a..14a528ea8a075 100644
+> --- a/include/net/libeth/rx.h
+> +++ b/include/net/libeth/rx.h
+> @@ -96,20 +96,23 @@ int libeth_rx_fq_create(struct libeth_fq *fq, void *napi_dev);
+>  void libeth_rx_fq_destroy(struct libeth_fq *fq);
+>  
+>  /**
+> - * libeth_rx_alloc - allocate a new Rx buffer
+> + * libeth_rx_alloc_gfp - allocate a new Rx buffer
+>   * @fq: fill queue to allocate for
+>   * @i: index of the buffer within the queue
+> + * @gfp: allocation flags: GFP_KERNEL where the caller may sleep (e.g. the
+> + *	 initial fill of the ring), GFP_ATOMIC from NAPI
+>   *
+>   * Return: DMA address to be passed to HW for Rx on successful allocation,
+>   * ```DMA_MAPPING_ERROR``` otherwise.
+>   */
+> -static inline dma_addr_t libeth_rx_alloc(const struct libeth_fq_fp *fq, u32 i)
+> +static inline dma_addr_t libeth_rx_alloc_gfp(const struct libeth_fq_fp *fq,
+> +					     u32 i, gfp_t gfp)
 
-See patch[1] has relevant changes.
+Mayb just __libeth_rx_alloc()?
 
-<snippet>
-diff --git a/drivers/mmc/host/renesas_sdhi_core.c b/drivers/mmc/host/renesa=
-s_sdhi_core.c
-index 23332539ac65..5d9d3c7dedf9 100644
---- a/drivers/mmc/host/renesas_sdhi_core.c
-+++ b/drivers/mmc/host/renesas_sdhi_core.c
-@@ -135,7 +135,8 @@  static bool renesas_sdhi_is_internal_divider_enabled(s=
-truct tmio_mmc_host *host)
- {
- 	bool enable =3D false;
-=20
--	if (host->pdata->flags & TMIO_MMC_INTERNAL_DIVIDER)
-+	if ((host->pdata->flags & TMIO_MMC_INTERNAL_DIVIDER) &&
-+	    host->mmc->ios.timing !=3D MMC_TIMING_MMC_HS400)
- 		enable =3D true;
+>  {
+>  	struct libeth_fqe *buf = &fq->fqes[i];
+>  
+>  	buf->truesize = fq->truesize;
+> -	buf->netmem = page_pool_dev_alloc_netmem(fq->pp, &buf->offset,
+> -						 &buf->truesize);
+> +	buf->netmem = page_pool_alloc_netmem(fq->pp, &buf->offset,
+> +					     &buf->truesize, gfp | __GFP_NOWARN);
 
-"This will make sure /2 for HS400 and /4 for non-HS400"
-=20
- 	return enable;
-@@ -255,6 +256,14 @@  static void renesas_sdhi_set_clock(struct tmio_mmc_ho=
-st *host,
- 			clk &=3D ~SDHI_SD_CLK_CTL_DIV1;
- 	}
-=20
-+	/*
-+	 * RZ/G3L SoC HS400 mode has only 1 divider value.
-+	 * Other divider values are prohibited
-+	 */
-+	if ((host->pdata->flags & TMIO_MMC_HS400MODE2) &&
-+	    !renesas_sdhi_is_internal_divider_enabled(host))
-+		clk =3D 0;
-+
-</snippet>
+And here I'd also place the gfp argument on a separate line.
 
-[1] https://patchwork.kernel.org/project/linux-renesas-soc/patch/2026082017=
-1657.62815-15-biju.das.jz@bp.renesas.com/
+>  	if (unlikely(!buf->netmem))
+>  		return DMA_MAPPING_ERROR;
+>  
+> @@ -117,6 +120,18 @@ static inline dma_addr_t libeth_rx_alloc(const struct libeth_fq_fp *fq, u32 i)
+>  	       fq->pp->p.offset;
+>  }
+>  
+> +/**
+> + * libeth_rx_alloc - allocate a new Rx buffer from NAPI context
+> + * @fq: fill queue to allocate for
+> + * @i: index of the buffer within the queue
+> + *
+> + * Return: as libeth_rx_alloc_gfp().
+> + */
+> +static inline dma_addr_t libeth_rx_alloc(const struct libeth_fq_fp *fq, u32 i)
+> +{
+> +	return libeth_rx_alloc_gfp(fq, i, GFP_ATOMIC);
+> +}
+> +
+>  void libeth_rx_recycle_slow(netmem_ref netmem);
+>  
+>  /**
 
-Cheers,
-Biju
-
+Thanks,
+Olek
