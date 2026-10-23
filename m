@@ -1,96 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.180
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792779795;
-	b=Fo6aKmz1t6S+/nx0NzFQ7BF1jphL3/bNjA5bYPqKm3NO5dU8E/pmE/2Ng4yWvJvPNQIw
-	 XpnAp8U5EhhT0XaC322cLjxWzMKYjMJvSCBAtyQHCKM/qeg1FwhD49FUoqm5kw5bsnkX5
-	 Khu5Nx0s+z53fRnLNW+rVM3Xy83oDEwst0kapFWreluY2u9GselkQEKoPZ9M3dYCxecQK
-	 2J3la9gVnvBiQaU6IOmoez//zcauJiqYb7jbY5F3dgRyPZd/pQKT/ZBEOAJs5LxuNt2LT
-	 iURWEkU/+WdfkPjkPT4dzwge4a1LQaLoV06HkmZCK1GLvjvFX2aE0aU7IDWZ/2SKCJg==
+	t=1792779869;
+	b=zkUvMR5zjndO+lj4TGKiPnp2QwoSeJF6Tvfn5Xna/0y/Wp/3RJUTdopAyMB5E+y5sl9T
+	 H5sPpT+l9XEAmsOeG9I/W/ICPD6UY4JeHWSWgUI1iexeia2ANBsW3ANa53lSUa+dPpVmQ
+	 hXmokmgVdNCx/hPZlvk46+IFjEve3j2dd1zKgR+AEfet8UufjzzNECBZAhvRtY+twJBIX
+	 xMktal7bsrQcZLvFcb8olGxWYBCeKPgi6/NFlEcsO8snlQBbyMnCozcD08GlJdRuyJwSe
+	 Sivb4Y5rT9AJosII0c4jyjTPykY7vuSk4tGrtR/HbpIUfo+2+hRFxiONc7hzyMJvOcA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792779795;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=S8Q9NS04qLtTkf7TWNPkkhniIW2aieZgQ7tV7biAQBg=;
-	b=hIsMeM60h98B41VlrebzBpMwm7IJZtFuDiISycFXMSo8oLrdCyYUb83sGuDbTZjDIprc
-	 D8gRMpbNnUZGzn+NQq8pXjNJYCqGOCoIfQABuoMYB4RrBZPOi5iw6er0Z17MELFcdncgW
-	 rbpLiWeHPS1nUW4IEn8/9FLOVQgGJMS3awNFIP5E3pTbzkLYIJniWjpOydgXxhL2Vlz9L
-	 nGi4z6BsR3uJZk+SM+2lo8UuxjbCrX4F/l+8GxYcc5uVR5SQpSQpPn+LQ6SaW0FADQMMu
-	 4UMi2OyBFJfZ05fqmJqOn4TzjjHLIrEyUjarg6sPuBGN8uTiUzp0cQidx4rAi/BYqmA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792779869;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-Id:
+	 In-Reply-To:References:X-Mailer:Mime-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=no8c1akp7ulgV2WRnZedT63d3z/z/BLscoYXpWIfqEU=;
+	b=CA5jBSDDlcrJeutvmrQQITgh8chNElHcEUgiZbciVDiwL0vlxZsrebQ8mwiZWG5sm7Oa
+	 bWn7jZcFSBYgDL4vlzIDjSjznID9QOKYVyhrMoHwGQRjMqr1UfAX1wvPYXbiBAMQh/F93
+	 lemuMdPwkRV/RlGi5oOi7oaoYNFyWgeOOwPa4of/SDQVFqYVoy9RDyon5Szi1cZbuBK0J
+	 dgGrh0cd3ti6+w1u5oJfRqHC+OTp9b+0BvuO3/YR/qWZHk52WlLU/ZkXIP3Ck62iwteRA
+	 iCuwj1n9Ze2mJ5auOX3qH92sRiIdunaVKCshE3+hDjqx93LbrzY6Ez2o24gAEVJVYxg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=oDsXml7g;
-	arc=none smtp.remote-ip=209.85.210.180
-Received: from mail-pf1-f180.google.com (mail-pf1-f180.google.com [209.85.210.180])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=mjELGUmC;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A678606A31D
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 18:23:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4A678606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61390606A31A;
+	Fri, 23 Oct 2026 18:24:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=oDsXml7g
-Received: by mail-pf1-f180.google.com with SMTP id d2e1a72fcca58-8a06454116eso607139b3a.1
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 11:23:15 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=mjELGUmC
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A5E9B1F01828;
+	Fri, 23 Oct 2026 18:24:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792779795; x=1793384595; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=S8Q9NS04qLtTkf7TWNPkkhniIW2aieZgQ7tV7biAQBg=;
-        b=oDsXml7gRp2+vSS0/21Q5Sw/yLVrE5wzoLLT7o2krA1jGTjYXJlKnRplCcBbBnIOVB
-         n0muoR5cMu3ZQcELwYSmLDK6fXLptD6vcKxkJqC5qCqJIv3Y9rfhMHQv4uoGVXaz5b9f
-         cEcGPhoUQ4jxdbJEsBYvkUB/9OhKhv4TQextncJ8ZUvpIREQ30BIqu2pgpJt8DO4gqJA
-         /FK8Px/jRt7QkqwU6g/cxSJzws2HSNJ8/c0Gq0mpYT7hcw9/rqyFYASBB1pqIhjV2PWX
-         b0ell+oUDX//i7T6u/QK7WS3szAMbRO0azw312089U783MT9HuSFE/56ebtqg6pm8KCo
-         oQKg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792779795; x=1793384595;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=S8Q9NS04qLtTkf7TWNPkkhniIW2aieZgQ7tV7biAQBg=;
-        b=hlG2PGUGRFw45J50KuH2CncQGJdloZOcnibedg8zZFRZ+jMfQg7CIRz3/1KdPZLB3j
-         esTVPkO81AOw1+xP82j0dF0kGM82vX6/xM4fcDNjvotqh2szGfps5UQ624XSPvayASx/
-         vnJo+FRtMQ1OaFzjPodYn9oobCa+4y4YXANjnyAy+GUhFc08UBRGi9k9XNyc7DVbg1qp
-         JhNRd2yezVeXzCYq5Sb3ZtE+X6IAAp25m/G3hQRGZyjiJNd5VvhJiM1vBDpRI35tFVnQ
-         hoK5s/b8yJVhCFt9evGGIEHkZ+6GCdZzxXLcLn620LHCTM/cwnkyQuvqo9IR2XNrLXMA
-         DoMA==
-X-Forwarded-Encrypted: i=1; AKwUvBw/tU7Tq3bNOoWRm1oEhBMtvgiolH5/qqjsE5b9A8eeA0g4i1hWUIP787YvJMKq+vdbAv5gJdoOn2r3168=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJX/n61FMYT68rzZxz86vCnxY7KUqyJbJgivsHuU9mfgwjBneRM
-	fyUmm0IO59ffjxBpilVVMNu8k5Kk2UqFTLNYgCecxXC7TJqvEtPRVYGof7HvYg==
-X-Gm-Gg: AYBFou3P0P8mjpNqUIetn943PFqyJAdOOOG36Mpt2To36WhbLeUPX5TM2rHPN5DuyQX
-	SBQDnreDW8RX8Veoec0qeC5sx225HoGouq8VS7+QbLDZEWwMW3UNpFOW5jc4EL/NSj6cdTMsB8F
-	9r163+uMy9O7Hyibh5IsgQdIL1pdTEov+2ZbJAurDNO+5Mz9gCIbJTNKaTpWtCbdMNcv4SUvzrD
-	gthFkOqvoOKmX+uWarBmemlBliolxSiBX93iIKV/GbrDeJHG8E8VwIUAyCdH/Rucx0F+1QFb5nu
-	NvACdAqdiVo3OrM9/Z4qFidMfH5hUKVzUGkClgakAcjlAruwUBB5jzccvAwbGiOL0ib/HPUFh4t
-	hjXy32uzSrlCgW9W+3YZ3c6fn6JA7guVHOqoRhDlTS6nFscl+8bd5y3Wl9d2LvnM4hMrDY57bdx
-	gwt9IkJD8Z3u/0YSsX7UObO8IKsPEMUjZf8QdDiXh+ZuLsYs27DkxTHDR8UcL7vSeDqQ08XyvzF
-	pv24eSLrN4qDTcA33BHUI4369WiA7sA+t5WHQSsQZXujkZQ+uZejptRPmrsjquAAxnJ6GeawCHl
-	5KyQOYZ3XUH6lZgQYsq0AkGh6Z/SobV4FsGXBpKysEenHg7DTkhhzrCsG9cGveTXGbHL4OuQtqI
-	W6EHsDgDmzO85y6sKQTDBVhEo6E48cQvw
-X-Received: by 2002:a05:6a00:b4c:b0:882:2b16:c314 with SMTP id d2e1a72fcca58-8a367a2f8famr67193b3a.52.1792779794464;
-        Fri, 23 Oct 2026 11:23:14 -0700 (PDT)
-Received: from mitchelllevy.localdomain ([131.107.1.234])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8a36c0fefa3sm32030b3a.51.2026.10.23.11.23.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 23 Oct 2026 11:23:14 -0700 (PDT)
-Date: Fri, 23 Oct 2026 11:23:12 -0700
-From: Mitchell Levy <levymitchell0@gmail.com>
-To: Kameron Carr <kameroncarr@linux.microsoft.com>
-Cc: Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>,
-	Dexuan Cui <decui@microsoft.com>,
-	Michael Kelley <mhklinux@outlook.com>, linux-hyperv@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 0/5] Drivers: hv: vmbus: Harden the ring buffer
- against a malicious host
-Message-ID: <20261023182312.2znaexe6rspsonod@mitchelllevy.localdomain>
-References: <20261019230950.1573677-1-kameroncarr@linux.microsoft.com>
+	d=linux-foundation.org; s=korg; t=1792779869;
+	bh=no8c1akp7ulgV2WRnZedT63d3z/z/BLscoYXpWIfqEU=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=mjELGUmCidvCP5m5Pcw9owT1y+bk/0RqFxk+cTyF0zMqtdEYxzQjFUj6mz8yVLr08
+	 /wdKz7PBXBIwaKMES+empFipHDE6CzTiguLZOfSO/UXz7v6d1yYcxXbWnom8DfNCZD
+	 6wMg+JYi+R3DChrjRi3mJ99AI+t2dzu5mIpOZEns=
+Date: Fri, 23 Oct 2026 11:24:28 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Hengyu Liang <hengyul@cs.unc.edu>
+Cc: linux-mm@kvack.org, liam@infradead.org, ljs@kernel.org,
+ vbabka@kernel.org, jannh@google.com, pfalcato@suse.de, usama.anjum@arm.com,
+ avagin@gmail.com, mirq-linux@rere.qmqm.pl, arnd@arndb.de,
+ linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Subject: Re: [PATCH] fs/proc/task_mmu: return -ENOTTY for unknown pagemap
+ ioctls
+Message-Id: <20261023112428.c7a84bfb2d9005e5070da38d@linux-foundation.org>
+In-Reply-To: <20261023181300.3366487-1-hengyul@cs.unc.edu>
+References: <20261023181300.3366487-1-hengyul@cs.unc.edu>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,38 +59,70 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261019230950.1573677-1-kameroncarr@linux.microsoft.com>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Mon, Oct 19, 2026 at 04:09:45PM -0700, Kameron Carr wrote:
-> In a CoCo VM the host is untrusted. Since the VMBus ring buffer read and
-> write indices live in shared memory, the guest has to treat both as
-> potentially malicious and as changing at any time. This patch series
-> adds bounds checking and reuses the validated indices instead of
-> re-accessing them.
-> 
-> Patch 1 contains the minimum security fix, and is the only patch in the
-> series intended to be backported. hv_ringbuffer_write() copies into the
-> ring at the write index, so a malicious host can make the guest write to
-> memory outside the ring buffer. This is reachable on any channel a CoCo
-> VM accepts.
-> 
-> Patches 2 and 3 add READ/WRITE_ONCE annotations and refactor the helper
-> functions to allow the caller to work with a consistent snapshot of the
-> ring buffer indices.
-> 
-> Patch 4 adds the rest of the bounds checking. The memcopy() in
-> hv_pkt_iter_avail() can only result in an out-of-bounds read if
-> rbi->pkt_buffer_size exceeds the ring's data size. KVP is the only
-> in-tree channel whose max_pkt_size exceeds its ring's data size (16K vs
-> 12K on a 4K page guest). CoCo VMs reject the KVP channel, so this bug is
-> currently unreachable on CoCo VMs. The other paths patch 4 checks can't
-> cause a bad access, only a nonsense byte count or a wrong signaling
-> decision.
+On Fri, 23 Oct 2026 14:13:00 -0400 Hengyu Liang <hengyul@cs.unc.edu> wrote:
 
-Thanks for the fix! For the series,
+> Commit 52526ca7fdb9 ("fs/proc/task_mmu: implement IOCTL to get and
+> optionally clear info about PTEs") made do_pagemap_cmd() the ioctl
+> handler of /proc/<pid>/pagemap.
+> 
+> However, do_pagemap_cmd() returns -EINVAL for every command other than
+> PAGEMAP_SCAN. Before that commit, pagemap had no ioctl handler, and
+> the VFS returned -ENOTTY for these commands. As of now, they fail with
+> EINVAL, so tcgetattr() and isatty() on pagemap report EINVAL instead
+> of ENOTTY.
+> 
+> The issue can be reproduced with a simple C program:
+> 
+>     #include <fcntl.h>
+>     #include <stdio.h>
+>     #include <termios.h>
+> 
+>     int main(void)
+>     {
+>             struct termios t;
+>             int fd = open("/proc/self/pagemap", O_RDONLY);
+> 
+>             if (tcgetattr(fd, &t) < 0)
+>                     perror("tcgetattr");
+>             return 0;
+>     }
+> 
+> Before that commit, the result is:
+> 
+>     tcgetattr: Inappropriate ioctl for device
+> 
+> After that commit, the result is:
+> 
+>     tcgetattr: Invalid argument
+> 
+> This patch will return -ENOIOCTLCMD for unknown commands, as
+> procfs_procmap_ioctl() in the same file does, so that the VFS turns it
+> into -ENOTTY.
 
-Reviewed-by: Mitchell Levy (Microsoft) <levymitchell0@gmail.com>
+OK, thanks, annoying.
+
+> Fixes: 52526ca7fdb9 ("fs/proc/task_mmu: implement IOCTL to get and optionally clear info about PTEs")
+
+Three years ago.  So if anyone had to update their userspace code
+because we altered this, they will now need to unupdate it.  It's hard
+to believe that this will cause significant harm - perhaps there are
+correctness test suites which will be surprised (again).
+
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Hengyu Liang <hengyul@cs.unc.edu>
+> ---
+> Unknown commands should fail with ENOTTY: Documentation/driver-api/
+> ioctl.rst says so and calls -EINVAL wrong, and POSIX requires
+> tcgetattr() to fail with ENOTTY on a file that is not a terminal.
+> 
+> I found no user space that relies on EINVAL here: Wine and the mm and
+> kvm selftests only use PAGEMAP_SCAN on pagemap, whose results do not
+> change, and CRIU and LTP only read the file.
+
+Good info, thanks.
+
 
