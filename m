@@ -1,113 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792774483;
-	b=vgIJn5Tghrwb4JIay72m0jhAyis7djvkqPBIT/2ONbyTl8GXaYNPpnVf5ysQ5MGqLyc8
-	 f7Q+iZr1lM2ab6s1kR/AezDhrnt3Pr9ntitWx5hSUJ7CUWROdvUvnK2kbAnQnbsxdQFev
-	 jsGMBIu/xEbDpiJQp4Ocify+4rATlBVw8aP9VNU+T5KThkj6Hyd8RJ2IdnQm0YOe/kB4R
-	 a8IeEgTs3OZj9xP4eLi5ykZbo3RqGBbWR1QAg/QV9ylWAJwtfIVfe2Gfd9BkqXbkO1sKD
-	 Ux0thNChDqTW1UmZYvqsX+dfEAZCp7Z3ohxT4Au2UVgBOllgZhm/U3UQEd4xRUMX8Mw==
+	t=1792774630;
+	b=4+ABUFG44e1eHaoR+h5LqqnulmwfoLwblEpT4d16xvNHYtcZlLOcOs9tgJF3YuV2GLkx
+	 irmgfNaonjUkZWvhhOxvJfkrO5zd7h9O2Wcj9XnOwXfGwTkL3Byx9y8OMTcbmdwpfY+qi
+	 0K6OsVmoU7+yoFoC61Sr0G6jAQ7+bJGi9VZP4uS1YxUvgB4eS/a1hxr77JjxdYb9ilMWu
+	 cf14K4raWCbFZE+LD0BTeSz2xtF6MW42RAxjF0g+HCzAdKjf4hQDDRIo9w90cmwLpkre0
+	 o09bbsHqqs1BPTxe0i+QhQfMfUCTsqdtPZy56QCo5lM+HMBZecNarUg5Zy13u1Ac5aQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792774483;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
-	bh=pcT1nqswGvhjhJ6QI4zO5XNTRfIOEZo9dTuCxwHmQEQ=;
-	b=OG39Qiy9ejhiOTmaTm1vAySlWGvOotiKJ1LYDBvd7444I+NkWqPsJGmrIcI4k4oTQOB2
-	 ENUxZp/T7motJ2BAYxG6OSq0MfRwUzxKp8WXv7xwQjDlsgbQ8nizSfBvfk1m9rOl00nOs
-	 befvo30KNOMh/ePf9ED37VxCu2LfvoL7j5wYfdhtVKuiS9JQY3v8Z/o8xbG0ZMJkQ7q55
-	 Yjwbs1mbb46P0LjWlMb6ovXNUhQm8EoHcil+ojU3rZ81cTNAGTOYtuRLRYfz1Uki8fBN5
-	 xmHcQzfo6rwynmn1qdBfb1fVQNRqnjpEqPPbTbiQpuYlfa233HTqnYbS6eV3QkV8elg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792774630;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Scanned-By;
+	bh=VNW6u+2D4YHZ7igxJ6xR3IWLm3wxx7zC4IY7nBuwiEQ=;
+	b=lx7uEYNlEhtIWWORcf82RnBrNxMcQFWy+NrjGXK+eeLBRE8P6cFJJaPMD/LBCBstdcqq
+	 4UfreSBg6E4F16aXgi0TaTeeiSQreylhVp4wpWTd0oy3fimWd6oNzRbrfLZXXpwKSIhdE
+	 qJEMdPnT37ey90rHwT92TDR0HML8hmT2XT3AhZ01H5uTQN+OOQbtBnic6ylWq6emfqogt
+	 RwiFZ0FjSelsEyas8tt4DbMcdKXYwrEEtzO2WpW1pWidk5J0v7UbjV/MZkfAqWDy0+lea
+	 3kpZFAe/9dUwI50owKKDFBuX+SrOJRK97qeSJmfAc1VPq/kJ7d1e3lOtXyHO8tfT/Kg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=pass smtp.mailfrom=infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=UnEe6EVt;
-	arc=none smtp.remote-ip=90.155.50.34
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b="E9/9K98T";
+	arc=none smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF2DE606A31B;
-	Fri, 23 Oct 2026 16:54:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AF2DE606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44953606A31E
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 16:57:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 44953606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=UnEe6EVt
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Transfer-Encoding:
-	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:
-	Sender:Reply-To:Content-ID:Content-Description;
-	bh=pcT1nqswGvhjhJ6QI4zO5XNTRfIOEZo9dTuCxwHmQEQ=; b=UnEe6EVtKxffwjLF3eLQvD/QRC
-	OYHwnUhoA9RikyKoyBO5MwHg3XpiNroyzCQJdB/spBGBilu3N+Adl6S/hZPWU6J3PfKjOhBk2bct0
-	s01jfhZ66XungAM18MXMRSM9WQZf6LF2a5pvPTL2iQ490BqfCfH7WORfLWLc/8YTuMvdBgDKSrRvK
-	d7ILi4kGsfbYrXIuZ2E8t1XAAGex7QEE9yXuVJ3P3CWFPrC71nqhqyv73WwzT1Y87Ca9oNsst114q
-	tLdpzcwZnREAABLBGjx8ed1rOygIB2WJaL6MRiZ0URMwTtZHSD6kUAXIWYjLVirLrAo631SAM75VA
-	LAXRk/dQ==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by casper.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xKIXL-0000000Cz7M-3hud;
-	Fri, 23 Oct 2026 16:54:35 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id E4C55300720; Fri, 23 Oct 2026 18:54:34 +0200 (CEST)
-Date: Fri, 23 Oct 2026 18:54:34 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: Frederic Weisbecker <frederic@kernel.org>
-Cc: Srikar Dronamraju <srikar@linux.ibm.com>,
-	Ingo Molnar <mingo@kernel.org>,
-	Russell King <linux@armlinux.org.uk>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, Guo Ren <guoren@kernel.org>,
-	Huacai Chen <chenhuacai@kernel.org>,
-	WANG Xuerui <kernel@xen0n.name>,
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
-	Florian Fainelli <florian.fainelli@broadcom.com>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Jiaxun Yang <jiaxun.yang@flygoat.com>,
-	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
-	Helge Deller <deller@gmx.de>, Scott Wood <oss@buserror.net>,
-	Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Heiko Carstens <hca@linux.ibm.com>,
-	Vasily Gorbik <gor@linux.ibm.com>,
-	Alexander Gordeev <agordeev@linux.ibm.com>,
-	Christian Borntraeger <borntraeger@linux.ibm.com>,
-	Sven Schnelle <svens@linux.ibm.com>,
-	Yoshinori Sato <ysato@users.sourceforge.jp>,
-	Rich Felker <dalias@libc.org>,
-	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
-	"David S. Miller" <davem@davemloft.net>,
-	Andreas Larsson <andreas@gaisler.com>,
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>, Chris Zankel <chris@zankel.net>,
-	Max Filippov <jcmvbkbc@gmail.com>,
-	LKML <linux-kernel@vger.kernel.org>,
-	Srikar Dronamraju <srikar@linux.vnet.ibm.com>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Kees Cook <kees@kernel.org>, Jinjie Ruan <ruanjinjie@huawei.com>,
-	mrigendrachaubey <mrigendra.chaubey@gmail.com>,
-	Marc Zyngier <maz@kernel.org>,
-	Pengjie Zhang <zhangpengjie2@huawei.com>,
-	Thierry Reding <treding@nvidia.com>, Xi Ruoyao <xry111@xry111.site>,
-	"Rafael J. Wysocki (Intel)" <rafael@kernel.org>,
-	Tiezhu Yang <yangtiezhu@loongson.cn>,
-	Rong Bao <rong.bao@csmantle.top>, Hui Wang <hui.wang@canonical.com>,
-	Thorsten Blum <thorsten.blum@linux.dev>,
-	Josh Poimboeuf <jpoimboe@kernel.org>,
-	linux-arm-kernel@lists.infradead.org, linux-csky@vger.kernel.org,
-	loongarch@lists.linux.dev, linux-mips@vger.kernel.org,
-	linux-parisc@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
-	linux-riscv@lists.infradead.org, linux-s390@vger.kernel.org,
-	linux-sh@vger.kernel.org, sparclinux@vger.kernel.org
-Subject: Re: [PATCH] sched/hotplug: Remove unused idle_task_exit
-Message-ID: <20261023165434.GX2823843@noisy.programming.kicks-ass.net>
-References: <20261016095711.1364609-1-srikar@linux.ibm.com>
- <attjv8zOftf9Hlqe@localhost.localdomain>
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=E9/9K98T
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1792774629;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=VNW6u+2D4YHZ7igxJ6xR3IWLm3wxx7zC4IY7nBuwiEQ=;
+	b=E9/9K98TTMfkQU6UFDNe+pXe+wYDbcANM6AQzpuSVUAtNWDMlAxt9Ao30Z5nCzy9aYLjYK
+	ng4KbsKkR7d7tnyQYNJLuXYqXyhdn+fA5RWSyeO/irw28WLA1xJRz2lQ0i1isLHE7ytBiM
+	lWQ1jndoZ/04Jz9krrqhlwHl+jRiNeQ=
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-49-kpdgEFPGO1OWciwIGZSOzw-1; Fri,
+ 23 Oct 2026 12:57:03 -0400
+X-MC-Unique: kpdgEFPGO1OWciwIGZSOzw-1
+X-Mimecast-MFC-AGG-ID: kpdgEFPGO1OWciwIGZSOzw_1792774622
+Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id B3151180063D;
+	Fri, 23 Oct 2026 16:57:01 +0000 (UTC)
+Received: from [100.91.18.181] (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 1F5DE195608B;
+	Fri, 23 Oct 2026 16:57:00 +0000 (UTC)
+Message-ID: <057b3c65-430c-42eb-adfe-02579fdd7360@redhat.com>
+Date: Fri, 23 Oct 2026 12:56:59 -0400
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -117,26 +71,119 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH-next 2/6] cgroup/cpuset: Properly compute effective xcpus
+ in update_parent_effective_cpumask()
+To: Ridong Chen <ridong.chen@linux.dev>, Tejun Heo <tj@kernel.org>,
+ Johannes Weiner <hannes@cmpxchg.org>, =?UTF-8?Q?Michal_Koutn=C3=BD?=
+ <mkoutny@suse.com>, Shuah Khan <shuah@kernel.org>
+Cc: cgroups@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-kselftest@vger.kernel.org, Guopeng Zhang <guopeng.zhang@linux.dev>
+References: <20261022031643.1351877-1-longman@redhat.com>
+ <20261022031643.1351877-3-longman@redhat.com>
+ <d4ce3eba-b48a-4e63-af0f-87cd27d04e4c@linux.dev>
+Content-Language: en-US
+From: Waiman Long <longman@redhat.com>
+In-Reply-To: <d4ce3eba-b48a-4e63-af0f-87cd27d04e4c@linux.dev>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <attjv8zOftf9Hlqe@localhost.localdomain>
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
 
-On Fri, Oct 23, 2026 at 03:40:15PM +0200, Frederic Weisbecker wrote:
-> Le Fri, Oct 16, 2026 at 03:26:40PM +0530, Srikar Dronamraju a �crit :
-> > Commit 21641bd9a7a7 ("lazy tlb: fix hotplug exit race with
-> > MMU_LAZY_TLB_SHOOTDOWN") moved the handling previously performed by
-> > idle_task_exit() into the scheduler CPU hotplug path using
-> > sched_force_init_mm().
-> > 
-> > As a result, idle_task_exit() is now an empty stub and the remaining
-> > architecture call sites have no effect.
-> > 
-> > Remove the calls to idle_task_exit() and the now unused stub.
-> > 
-> > Signed-off-by: Srikar Dronamraju <srikar@linux.ibm.com>
-> 
-> Reviewed-by: Frederic Weisbecker <frederic@kernel.org>
+On 10/23/26 2:45 AM, Ridong Chen wrote:
+>
+>
+> On 10/22/2026 11:16 AM, Waiman Long wrote:
+>> Since the introduction of cpuset.cpus.exclusive in commit
+>> e2ffe502ba45 ("cgroup/cpuset: Add cpuset.cpus.exclusive for v2"), a
+>> compute_effective_exclusive_cpumask() helper which is later renamed to
+>> compute_excpus() is added to compute the effective xcpus of a partition
+>> root. However update_parent_effective_cpumask() is not updated in all
+>> proper places to use the new helper to check if a given cpuset should
+>> remain a valid partition root. This can cause a cpuset to incorrectly
+>> remain a valid partition root even if no effective xcpus is left.
+>>
+>> Fix that problem by using compute_excpus() to compute the effective 
+>> xcpus
+>> into delmask in all cases except partcmd_disable and partcmd_invalidate
+>> and use it for tasks_nocpu_error() check as well as checking its
+>> emptiness. This enables us to catch invalid partition root more
+>> accurately in update_parent_effective_cpumask().
+>>
+>> Some test case are added to test_cpuset_prs.sh for invalidating a
+>> partition root due to its effective xcpus becoming empty as well as
+>> making sure that an invalid partition can only be revived when exclusive
+>> CPUs are available agin.
+>>
+>> Fixes: e2ffe502ba45 ("cgroup/cpuset: Add cpuset.cpus.exclusive for v2")
+>> Signed-off-by: Waiman Long <longman@redhat.com>
+>> ---
+>>   kernel/cgroup/cpuset.c                        | 36 +++++++++----------
+>>   .../selftests/cgroup/test_cpuset_prs.sh       |  6 ++++
+>>   2 files changed, 22 insertions(+), 20 deletions(-)
+>>
+>> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
+>> index 7ead8c3b7974..db6e4663f4be 100644
+>> --- a/kernel/cgroup/cpuset.c
+>> +++ b/kernel/cgroup/cpuset.c
+>> @@ -1798,7 +1798,6 @@ static int 
+>> update_parent_effective_cpumask(struct cpuset *cs, int cmd,
+>>       int deleting;    /* Deleting cpus from parent's 
+>> effective_cpus    */
+>>       int old_prs, new_prs;
+>>       int part_error = PERR_NONE;    /* Partition error? */
+>> -    struct cpumask *xcpus = user_xcpus(cs);
+>>       int parent_prs = parent->partition_root_state;
+>>       bool nocpu;
+>>   @@ -1841,30 +1840,29 @@ static int 
+>> update_parent_effective_cpumask(struct cpuset *cs, int cmd,
+>>       if (!newmask && xcpus_empty(cs))
+>>           return PERR_CPUSEMPTY;
+>>   -    nocpu = tasks_nocpu_error(parent, cs, xcpus);
+>> +    /*
+>> +     * Except for partcmd_disable, use delmask to compute the current
+>> +     * effective xcpus value and use it for tasks_nocpu_error check.
+>> +     */
+>> +    if (cmd != partcmd_disable) {
+>> +        compute_excpus(cs, tmp->delmask);
+>> +        nocpu = tasks_nocpu_error(parent, cs, tmp->delmask);
+>> +    }
+>>         if ((cmd == partcmd_enable) || (cmd == partcmd_enablei)) {
+>> -        /*
+>> -         * Need to call compute_excpus() in case
+>> -         * exclusive_cpus not set. Sibling conflict should only happen
+>> -         * if exclusive_cpus isn't set.
+>> -         */
+>> -        xcpus = tmp->delmask;
+>> -        if (compute_excpus(cs, xcpus))
+>> - WARN_ON_ONCE(!cpumask_empty(cs->exclusive_cpus));
+>>           new_prs = (cmd == partcmd_enable) ? PRS_ROOT : PRS_ISOLATED;
+>>             /*
+>>            * Enabling partition root is not allowed if its
+>>            * effective_xcpus is empty.
+>>            */
+>> -        if (cpumask_empty(xcpus))
+>> +        if (cpumask_empty(tmp->delmask))
+>>               return PERR_INVCPUS;
+>>   -        if (prstate_housekeeping_conflict(new_prs, parent_prs, 
+>> xcpus, NULL))
+>> +        if (prstate_housekeeping_conflict(new_prs, parent_prs, 
+>> tmp->delmask, NULL))
+>>               return PERR_HKEEPING;
+>>   -        if (tasks_nocpu_error(parent, cs, xcpus))
+>> +        if (nocpu)
+>>               return PERR_NOCPUS;
+>
+> update_parent_effective_cpumask is only used for the local partition. 
+> So I'd suggest adding a local_partition_validate helper, which can be 
+> used for both partition enable and update. For now this logic is 
+> spread out, and many corner cases would easily be missed.
 
-Excellent; less is more and all that. Shall I take this through the
-scheduler tree?
+I am thinking about breaking up update_parent_effective_cpumask() to be 
+more like what we are doing with remote partition to share as much 
+common part as possible. This cleanup work will be in a later patch 
+series. Since this is a fix patch, I don't want to make too many changes 
+to make it hard to backport to earlier releases.
+
+Cheers,
+Longman
+
