@@ -1,54 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.40
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.157
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792739294;
-	b=Ctya/ahmQiOWMXLUa8yg3K39B3NWdCJ006PKr8O9FoIoPWwXqIZOnguAfIZ11eBztigL
-	 3SToJNUcPwh5c53AcAPOw8+/Vs8n80X95KbxDzydwvvLN6avNxnrfb1wkFkbP7aS8C/Me
-	 sTDLEqvigoi4tJsLU+5UmjXCXdxGCw3a/3qWeZ0baOjAVQA3JPJJ1CkfSNo2saiwXm2L0
-	 EopCBrnLc0VUGjCXmKlhn0ydtw0xjYWpCFG2jHWbOJUMvrVtQ33HOz+YlFA+cJVxYe9nD
-	 j7r2nL5D4rEP1CBRUd94rNM3KLYlAOpT7LeRVd1+lXexE9OxRHyXbK6Olm6+KZX9P0w==
+	t=1792739306;
+	b=DLSAnhDjrv467w2hNZU5rOwud11xWyf1mGTQ6UdSJGzA2kDvFKSCI2iZK8htFS1CKxt4
+	 XM3LMlGpkkY4fweQT8Ig5qA77+F44/JWjrR9IJyCSLoXf4UisGjCpPFcfqrZ2JNJoJN6E
+	 qmZc9DWL0+YM98DPYvERTcUzMgRXfEl9Inxq3NAaIJ0kX594EGe1sEqzalJTueOfshLAZ
+	 +sT35wfrcsIzW2Ln7qUPkaq7A7vN7FIsby39AIKlmh/IrH+z07hR4QCOJNAYsYEzvmpGN
+	 FruVgyWIjBrRycT5cBVUCbWzb7kLP4lUA5MYLyNCZC4lRGR3aEMiAy24nrT2R6bX+FA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792739294;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=7Bi9zppZM2yD7mKvBKUrbEl0+w7X4vbpIcDv6FIEg8c=;
-	b=elAGYIIG9m7TS9RlQlkXDoCEarc+e3dxEnLYCFeisHu8bIksum8iOrx3go7dItHoFD+j
-	 9pqYIfpThSmvf60GcN8gxQfbFDR0nNyzz87ykBbtllMCQquPhxlsqA8p6zeJkUii8AjRB
-	 EW3f4TVHFOsZSWzV/4DbdXbVHe9zY+2ukVMf7vd8652x9iP5ibvHjM9ai5NvueiUN8+hu
-	 0NPyrmVRN8QAikX2hEfksgty6Fi1asLwKSzdW2I5KRNsuCzS8CbvRpJk9PT/SH+mBWgku
-	 Nfnczjyqo7iy1oIeZOvjEsV3emIhy9klHG1PV2rJo4Uv7kwECV4ZgQecq7YOE3+D+UQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792739306;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
+	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
+	 References:Subject:Content-Type:Content-Transfer-Encoding;
+	bh=82Wx7AX++5oKqGU7LtU3ThMwJm2RmYtBbwXGfMG0TKk=;
+	b=Mp2Ds820QwqCZhM12wNNjrGeLLXSCbP0Cvj3Bdc/Hk8dP5tM8PRMXoLc/eSXjgYMYpCS
+	 I/RThg45huk+JAi08wb8iN1sY39EqI2nhsmEt849xfW1+72xNRbyrNCUaOGSJOH2yHBxv
+	 IkTMEYO/2FHWpAGzMaB/LBy9ezjYTS1e/pv8t373W9h9JdvyKcPfaLKa8+Rqzn5I5BpHD
+	 dXUmssKtukl6H5RERHwWs1/YepmOGdibYCBJUVwmRHrtCcIfuYAnRC6MSxjLmng9bTs8Q
+	 2bxShAwewRh3kFTwGLd4ZYVR4nJoUB0q532hOeiIqUJScM3M7kmqRD8Ipkd85IQ7XrQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=BfVmx2X2;
-	arc=none smtp.remote-ip=91.218.175.40
-Received: from mta0.migadu.com (out-40.mta0.migadu.com [91.218.175.40])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=arndb.de;
+	spf=pass smtp.mailfrom=arndb.de;
+	dkim=pass header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm1 header.b=c19a0Zg+;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=IzH7f6Aq;
+	arc=none smtp.remote-ip=103.168.172.157
+Received: from fhigh-a6-smtp.messagingengine.com (fhigh-a6-smtp.messagingengine.com [103.168.172.157])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B27B606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 07:08:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4B27B606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 367E4606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 07:08:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 367E4606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=BfVmx2X2
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=pAq3+l4oQM0fA1DixnIYuWfCLcca2gf22KdWyl5gugU=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792739290; v=1; x=1793344090;
- b=BfVmx2X2no0q+x03VvQeQWxeu/iN3eilcKjpyVvq5L7XlcnMpxGwGQIJGBfq+Ig7qU0GbB47
- 8nfym7Pvpz79jCjRzm51rP395RH38wgMeyQmwTivmfgPwJk1KTq88LjG4x6xoCzkcLs2wvHkjH5
- 49dfSBzBwmLCHr72bFyHTg2c=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id f7e879e1153112cc;
-	Fri, 23 Oct 2026 07:08:10 +0000
-X-Mizu-Trace-ID: f7e879e1153112cc
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <fda68203-1626-4118-9664-79064aad4548@linux.dev>
-Date: Fri, 23 Oct 2026 15:07:59 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm1 header.b=c19a0Zg+;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=IzH7f6Aq
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id 226171400141
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 03:08:24 -0400 (EDT)
+Received: from ams-imap-03 ([10.64.2.23])
+  by ams-compute-02.internal (MEProxy); Fri, 23 Oct 2026 03:08:24 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1792739301;
+	 x=1792825701; bh=82Wx7AX++5oKqGU7LtU3ThMwJm2RmYtBbwXGfMG0TKk=; b=
+	c19a0Zg+QIb2Dbuwv6n4IvjO5KfIy/sxA4HSfKDAn6rECQ/Byrr1Pyh44Nq5MDdj
+	iwqULif5RsC3BS1w6XFP9n4dRNgB5nenXQPKuSCfENHhGU5yczBCDpEEux/Aibi/
+	LKZK/rO4uCLsFmy4lgP3eHsVI1Gz8eqE2TcqkHX3CUHkIP+3EUJBrv8+zyGuegjT
+	c+esDiasbtWVd5/weCbuItM/wNT7dXinhoQ5X7vFuQs4uxfQTMZtqdADUHuiKp5Z
+	TxvefglbYAfArQjtmM4Xt5cpjwnCuuMbiiQvQXoiW6o74rAcqKEaStGLXfBX7SiH
+	AAd8YFBZO8jpbyLg8wu+Wg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1792739301; x=
+	1792825701; bh=82Wx7AX++5oKqGU7LtU3ThMwJm2RmYtBbwXGfMG0TKk=; b=I
+	zH7f6AqSdBND90jz/5bLpcjnO1PPDBhuZE4OpkBx1vaAY8yD9rqtwIy6witS5U1+
+	S1lS/ylH9mGtdgv6yKCiVD3A9yu+/648VkU5v2/eRdRA1cYdt7Bd3oiWhaSUNS4V
+	3dzph5Gf4jboGvFknvocCLLJyNOSgBbFiI7Lw/ICNO0hdD4y0FCqzZ+n9bugYOr2
+	YbWg58f08uQQ7wx3J5Qs9Hk7ec0zsGYY08CZ+9/TJmvkVMQ43yO6IUBRG3xUCU88
+	ue8AGOS7aZULQkk6dOY41G/CJ20jl3T9OMz2vsr+f1Pv+xIomRY+R5VziZgbLoao
+	LGyD35QsFLCjdl3VdmN5Q==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
+	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
+	action=sign d=arndb.de a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1792739301; d=arndb.de;
+	mf=PGFybmRAYXJuZGIuZGU+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm1:rsa-sha256:KoN3xNCEdNbfyvnYJ+e1PDf9gFnEE2qtmQV+gRuobcKW4Bv
+	PXy3DARqnspQ6CmVj4S0NvjuRvjZTdr2WxKdHI/89ZLQLr35SZO2aVlp+LEB7X5B
+	t+HJOHhYkkc4KuXWHGMLOigUpkq3lEeV039TA0ufPknJ14LI50U7sXHYBkKOZLL/
+	WKNzetMfwU14qSU5WWpKrgevd3jZD8qrYym9gvcAYTMHC84kBO2bPdIU+xKBHQL3
+	5eAiLexkRGIchQOcXbb+gZaDFaAYbs8iBPCLHETG0wN6Bh0tNm6mzMN8uyR7m9Zn
+	Dt35Hw8d/ifow3+chTPEG9MqZuPSrdSOHo9OcLA==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
+	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:eYicQZ4ZI09WKrUrzJ0vPIeuBu1/hfNmh/I/rUWrrPk=:+RJtS8dO2Obx2wQVHsui0+l0ARPaU3Cr9jdggohi87o=;
+X-ME-Sender: <xms:4gfbahUuKH9ZFY5KUt2iBe70UwKsmprjmKsGsGtWhFiqTNTmKfXzFA>
+    <xme:4gfbasZQbcpiHysVj_uISbnoD1UerQN-OyjtXXa8JuPI9yLF9GOtGPcATxF4jU_dm
+    RpM_Qofbv1hR6juVWtsnGsLy1_Z0ce639xf8rmmFnKhqhdvsC8OiA>
+X-ME-Proxy-Cause: dmFkZTFb9RAUOZ6dUYOBxlsQW6+NOLcFOtIqKejPOpG//e5EOnn73Jow7cHdL9QLax9Vl4
+    mQIG9ImqNAGu2AOcI+PMHEYaRAKaoYQmJe7EicQwC+zm+CfjWQEUMSQSUEWutUtMV/K64S
+    7NGqAup3qVnHlKkxv2vOySnM8AiEed5GpMq/CBjyvQJooi1Qgaq9igJ24H58IGGl/6Hs/X
+    WgvclVdyQXrPhNOotNeI91YZMhViuWzGC/5ZUHXqafqBXL5kQvdcq+vWxIDXPCCcku5puJ
+    vwcnY4JPjjCjK+LC+Ci6JJS53MwVvwlG9lMzBlC1C5tBgLW/vDMVLWcEaFnga+9aB+T1rE
+    qzT7ZwfNA8B0lggFMqhnKL9a6YkWAWcJm9vZVLG3My/pNQdAlF8HouzD7upJANuVRRQSM8
+    4AlFrD4Fg25fI2DHus1/Zlivl0PmZuWxwEQi/QGXvTONaD4nBliL2N+aGDOkYWu159YaaT
+    h+PJ6CDMYG2RRGsMbZ8sFqKKDgbIO00ZMk+0od43T1O4KyfbZLAvLYAgKSwcgVNtuYFZLs
+    sMSNBKzzTt1Q10tUs76oc7XsZGUWS4G9wAvdyBZiVNELcN8XtkNwU3JTwPyQVc32XtWG8i
+    TdOnTnSllV+hE9ztqM9/bDp9vSEr3fdNUA+7F9nt1GFLvkV8o/DQpyKl5xsQ
+X-ME-Proxy: <xmx:4wfbakJDruj2EROYUzs_RBReiWpgVVkuiJzjpAtbLo7gPFJBaFq2Dg>
+    <xmx:4wfbahvLu8po85o_dUQyT7b2crNr5JO5cyZd34ojtGdBdaPzNuSpvw>
+    <xmx:4wfbarIqA0DIFcQjRVUJPTBZcHhBFPD5Io3_fJmK4XF50_n1o5xklw>
+    <xmx:4wfbai_ugRnzpQwGdUHdhovaYc2erGP5Ep-O0FQTW-PP_kqd_UkUrQ>
+    <xmx:5Qfbas9Upsv89iheNnSmX3PtUNzbBvOtC4Wwfou4vhKTUr8ryP1Q41Li>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id 0684032A0093; Fri, 23 Oct 2026 03:08:18 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,106 +115,58 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH-next 3/6] cgroup/cpuset: Fix incorrect effective_cpus bug
- in update_cpumasks_hier()
-To: Waiman Long <longman@redhat.com>, Tejun Heo <tj@kernel.org>,
- Johannes Weiner <hannes@cmpxchg.org>, =?UTF-8?Q?Michal_Koutn=C3=BD?=
- <mkoutny@suse.com>, Shuah Khan <shuah@kernel.org>
-Cc: cgroups@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-kselftest@vger.kernel.org, Guopeng Zhang <guopeng.zhang@linux.dev>
-References: <20261022031643.1351877-1-longman@redhat.com>
- <20261022031643.1351877-4-longman@redhat.com>
-From: Ridong Chen <ridong.chen@linux.dev>
-In-Reply-To: <20261022031643.1351877-4-longman@redhat.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+X-ThreadId: AJ6RlB2RkjcF
+Date: Fri, 23 Oct 2026 09:07:57 +0200
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: "Florian Fuchs" <fuchsfl@gmail.com>, linux-sh@vger.kernel.org,
+ "Yoshinori Sato" <yoshinori.sato@nifty.com>, "Rich Felker" <dalias@libc.org>,
+ "John Paul Adrian Glaubitz" <glaubitz@physik.fu-berlin.de>
+Cc: linux-kernel@vger.kernel.org
+Message-Id: <04cfcbc2-0021-4ba2-b3bf-0da3cc82d046@app.fastmail.com>
+In-Reply-To: <20261022233410.2959823-1-fuchsfl@gmail.com>
+References: <20261022233410.2959823-1-fuchsfl@gmail.com>
+Subject: Re: [PATCH] sh: traps: Fix kernel unaligned access fixup in branch delay slots
+Content-Type: text/plain
 Content-Transfer-Encoding: 7bit
 
+On Fri, Oct 23, 2026, at 01:34, Florian Fuchs wrote:
+> Commit 75d4d29549e5 ("sh: remove CONFIG_SET_FS support") converted the
+> callers' set_fs(KERNEL_DS) sections, but missed copy_from_user() in
+> handle_delayslot() which relied on the caller's address limit. This also
+> broke delay slot instruction fetching through handle_trapped_io().
+>
+> Since the removal of set_fs(), access_ok() rejects kernel addresses, so
+> the fetch always fails for kernel code and the kernel dies with:
+>
+>   delay-slot-insn faulting in handle_unaligned_delayslot: 0000 [#1]
+>
+> The initial instruction fetch in do_address_error() already uses
+> copy_from_kernel_nofault() for kernel mode. So choose the matching
+> instruction-fetch accessor from user_mode(regs) and fetch the
+> instruction.
+>
+> Fixes: 75d4d29549e5 ("sh: remove CONFIG_SET_FS support")
+> Signed-off-by: Florian Fuchs <fuchsfl@gmail.com>
 
+Hi Florian,
 
-On 10/22/2026 11:16 AM, Waiman Long wrote:
-> With the introduction of cpuset.cpus.exclusive, the computation of
-> effective_cpus differs depending on if a cpuset is a valid partition
-> root or not.
+The patch looks correct to me, but I find it a little confusing:
+
+> @@ -287,8 +287,10 @@ static inline int handle_delayslot(struct pt_regs *regs,
+>  	insn_size_t instruction;
+>  	void __user *addr = (void __user *)(regs->pc +
+>  		instruction_size(old_instruction));
+> +	struct mem_access *insn_ma = user_mode(regs) ?
+> +		&user_mem_access : &kernel_mem_access;
 > 
-> In update_cpumasks_hier(), effective_cpus is computed early
-> to check if the current subtree can be skipped. Later on
-> update_parent_effective_cpumask() may be called which can change the
-> partition state from valid to invalid or vice versa. If the partition
-> state changes, the previously computed effective_cpus may no longer be
-> valid. Fix that by recomputing effective_cpus again when that happens.
-> 
-> Also add a new test case into test_cpuset_prs.sh to verify this change.
-> 
-> Fixes: e2ffe502ba45 ("cgroup/cpuset: Add cpuset.cpus.exclusive for v2")
-> Signed-off-by: Waiman Long <longman@redhat.com>
-> ---
->   kernel/cgroup/cpuset.c                            | 10 ++++++++--
->   tools/testing/selftests/cgroup/test_cpuset_prs.sh |  3 +++
->   2 files changed, 11 insertions(+), 2 deletions(-)
-> 
-> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
-> index db6e4663f4be..7b9062326f35 100644
-> --- a/kernel/cgroup/cpuset.c
-> +++ b/kernel/cgroup/cpuset.c
-> @@ -2316,10 +2316,16 @@ static void update_cpumasks_hier(struct cpuset *cs, struct tmpmasks *tmp,
->   		if (update_parent) {
->   			update_parent_effective_cpumask(cp, partcmd_update, NULL, tmp);
->   			/*
-> -			 * The cpuset partition_root_state may become
-> -			 * invalid. Capture it.
-> +			 * Capture current partition_root_state as it may have
-> +			 * changed. Recompute effective cpumask if changed.
->   			 */
->   			new_prs = cp->partition_root_state;
-> +			if (new_prs != old_prs) {
-> +				if (new_prs > 0)
-> +					compute_partition_effective_cpumask(cp, tmp->new_cpus);
-> +				else
-> +					compute_effective_cpumask(tmp->new_cpus, cp, parent);
-> +			}
->   		}
->   
+> -	if (copy_from_user(&instruction, addr, sizeof(instruction))) {
+> +	if (insn_ma->from(&instruction, addr, sizeof(instruction))) {
+>  		/* the instruction-fetch faulted */
+>  		if (user_mode(regs))
+>  			return -EFAULT;
 
-If cs is a partition (remote or local), we call 
-compute_partition_effective_cpumask to compute the effective cpumask; otherwise 
-we should call compute_effective_cpumask. Wouldn't it be better to call 
-compute_partition_effective_cpumask whenever cs is a valid partition, so we can 
-eliminate the branch outside?
+The "insn_ma" pointer is always the same as the 'ma' argument
+you already pass, as both are set based on 'user_mode(regs)'.
+Why not just use the pointer you already have?
 
-```
-static void compute_effective_cpumask(struct cpumask *new_cpus,
-				      struct cpuset *cs, struct cpuset *parent)
-{
-	bool has_cpus;
-
-	if (is_remote_partition (cs) ||
-	    (is_partition_valid(cs) && is_partition_valid(parent)))
-		return compute_partition_effective_cpumask(cs, &new_cpus);
-
-	has_cpus = cpumask_and(new_cpus, cs->cpus_allowed, parent->effective_cpus);
-	if (!has_cpus && is_in_v2_mode())
-		cpumask_copy(new_cpus, parent->effective_cpus);
-}
-```
-
->   		spin_lock_irq(&callback_lock);
-> diff --git a/tools/testing/selftests/cgroup/test_cpuset_prs.sh b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
-> index 47791591002f..8595b6b4b7bf 100755
-> --- a/tools/testing/selftests/cgroup/test_cpuset_prs.sh
-> +++ b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
-> @@ -364,6 +364,9 @@ TEST_MATRIX=(
->   	" C1-4:X2-4 C2-4:X3-4:P1 C3-4:X4:P2 \
->   				   .      .      X5      .      .    0 A1:1-4|A2:2-4|A3:3-4 \
->   								       A1:P0|A2:P-1|A3:P-2 ."
-> +	" C1-5:X3-5:P2 C3-5:X4-5:P2 C4-5:X5:P2 \
-> +				   .    X1-4     .       .      .    0 A1:1-3|A2:4|A3:4 \
-> +								       A1:P2|A2:P2|A3:P-2 1-4"
->   	" C1-4:X2-4 C1-4:X3-4:P1 C3-4:X4:P2 \
->   				   .      .      .      X1      .    0 A1:1-2|A2:3-4|A3:3-4 \
->   								       A1:P0|A2:P1|A3:P-2 ."
-
--- 
-Best regards
-Ridong
-
+       Arnd
