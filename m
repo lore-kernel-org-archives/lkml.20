@@ -1,65 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.85.9.111
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792785792;
-	b=0uMl9tKUYZ8Iyft+x4+Hd2hGs2dJI7gVBfkgZSR1W0tHawRhnQi+0o0AbRch2C6+rKVw
-	 lnvHGp67QqhtFxIGhkLwZyN5MMVQM4elHaByApYczCw6MRL2pvO2QxRl+paHpubpqSdHS
-	 cjyK3mCscMP0lO9NKoVzGx1cv1no2JeGnYHuUFa+W7ai9uREJ6Das8BzD1b3BbgKyxqqj
-	 iMpDEJOr//KDlU3J7q6/eLpOsZGXcVaxP/xVrsemG7G0B+42a2rIwrMafcOA3Afj2VGAu
-	 pdhQ5cxXkLnT/z5p2a8zT4sMOAEAwFR+5fBwvaOJBM3g72B8FXng8iTtZCvtbFOyMAA==
+	t=1792785844;
+	b=OXcVn9CgnLbeAmFgV0JRxmCfa0bRUA4w08iQSXpHGvJ2csiE7H4L1VCCPsLYtpheIsFO
+	 wHZIrHzN2M2n8sIOIOigwvhAVPxGf5vzi05RR7+Ga5ZnttWo4Gwu3/ZkgEV84VzEZfW/A
+	 EJtou+TPzGZofL0zDd65WQ/bUMf3qKRWUmvnXeZxuOejSTeIWeWp+zHSkXo3u/ybXyvja
+	 SlerbAIypGZ4fpMbrpz+Sr1uLbfz9hNjo8JPdF8r5PVjYH696ZsQkTi4eWjZxPDa+Temc
+	 xV8zd8WzfFOWof9qt5Spea9hdMdpn91Psf01N6XBeXxXeJfsJPdHLFFpKCuB+Pg3nrA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792785792;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=KAS0wy/i0clkfxFIn/srR3uONpIvsKGVrttrQi0V7rA=;
-	b=gH5Wr0jZtr5WKhdrbU5RSdWeygdc8qXYN2scxsafZpR6IczcEi+Ku1W9P5EFzvTYd5cF
-	 4C1B9OQbpJX/VMMx5rUWCQ+u46EKTAqM2QViur+ND3tGsgzchABXwFmZTb4a4j1imabex
-	 HHiV+C+iEJjXq0t3IucOsuSqnBV7Vq8ikAk+MAjHFT74MD8i04VehjC+xUWj/OcfKx+/b
-	 ThYqVek4y+P7iNhdXbe0cZEYAeISJNwXOIUQntsPSK2NWkX0Dtj79kRo9N7DlW3ey7O0K
-	 vRZmqbuFVHR0seOzaOa8OsC5i4UPrLnDbpCThuuQCopgPBa8iugXqZqAnsbacWA/M3g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792785844;
+	h=DMARC-Filter:Received:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:
+	 References:Content-Type:Content-Transfer-Encoding:User-Agent:
+	 MIME-Version;
+	bh=Ud1j69Ws9rZuXftRz6SAeeTmqiu1ez39auQ4V2rt1+U=;
+	b=Dp3I8lqMtqthpMe4w1ZB7PenrY177PbusTVF386Q9mSUJSARK8QRhTWNwFG4LRdkM0u/
+	 dYJITn7lhwlAWIjP+1XOrRLg/dkGxdUYB4Ndux0jcI6uYIqAdVVdAEWeUX4PwkYg3hWwv
+	 0/xk2hPlv0a34jcdXBoTBUO4QzSF8YVJdg+Y7T0fI5ck8P2nQfawq2Lc7mPX5qQmGPxPH
+	 o4ajqm3y8/UadXB8pcAlttj+vWMrdkywfMKOfXlBV32Gttw5OO21FMV4Yl0NsM3CuWyFh
+	 5b3+N0O5zwsL9N2m3GXyI1DX9l1IB8V5L8sxnsry31Xxa0not55UGl/cCHC0jtvn2Nw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="T/R0dNr0";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=irl.hu;
+	spf=pass smtp.mailfrom=irl.hu;
+	arc=none smtp.remote-ip=95.85.9.111
+Received: from irl.hu (irl.hu [95.85.9.111])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC2CD606A32A;
-	Fri, 23 Oct 2026 20:03:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T/R0dNr0
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3D5E1F01825;
-	Fri, 23 Oct 2026 20:03:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792785791;
-	bh=KAS0wy/i0clkfxFIn/srR3uONpIvsKGVrttrQi0V7rA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=T/R0dNr0LbtSXiXvXUJ24g0WTY/w5eU8Z7qh0qPRCVO0ww2DaLHWFknE2f2j525YS
-	 09FGWnXIDBhQMzbL/c0xAESNxjKsoMiWgyCYMuhtmbGgn/Oq7DaMiTlIkA1FenRqdT
-	 bWWeGAEybhfcrZfApkPo0nN0fREEAkTq9xvyitkstUmpWTvqLDEPRCfM8flXkFd9X3
-	 U8uGlGzgZM1dsgDf612bqViOjrO/jsFq6UDBh61tU6O5T1NVzPkklFd2I1x9VAkA02
-	 Zj+sfPfhwIiwL+uIqWXXEaxTl2QhmAUUsYc1gmvg0Hkv6yOoSzs07FsLkk7EM0HJga
-	 YOYSOInifxybA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Sasha Levin <sashal@kernel.org>,
-	gregkh@linuxfoundation.org,
-	Daniil Stas <daniil.stas@posteo.net>,
-	Guenter Roeck <linux@roeck-us.net>,
-	Chris Healy <cphealy@gmail.com>,
-	Linus Walleij <linus.walleij@linaro.org>,
-	"Martin K . Petersen" <martin.petersen@oracle.com>,
-	Bart Van Assche <bvanassche@acm.org>,
-	linux-kernel@vger.kernel.org,
-	linux-scsi@vger.kernel.org,
-	linux-ide@vger.kernel.org,
-	linux-hwmon@vger.kernel.org,
-	Nobuhiro Iwamatsu <nobuhiro.iwamatsu.x90@mail.toshiba>
-Subject: Re: [PATCH 5.10, 5.15, 6.1] hwmon: (drivetemp) Fix driver producing garbage data when SCSI errors occur
-Date: Fri, 23 Oct 2026 16:02:49 -0400
-Message-ID: <2026-10-23-1-daily-reply-0013-drivetemp-scsi-errors-6-1-5-15-5-10@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <1792730299-21490-1-git-send-email-nobuhiro.iwamatsu.x90@mail.toshiba>
-References: <1792730299-21490-1-git-send-email-nobuhiro.iwamatsu.x90@mail.toshiba>
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id A018E606A31A;
+	Fri, 23 Oct 2026 20:04:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A018E606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=irl.hu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=irl.hu
+Received: from [192.168.2.4] (51b68114.dsl.pool.telekom.hu [::ffff:81.182.129.20])
+  (AUTH: CRAM-MD5 soyer@irl.hu, SSL: TLS1.3,256bits,ECDHE_RSA_AES_256_GCM_SHA384)
+  by irl.hu with ESMTPSA
+  id 00000000000807A4.000000006ADBBDAB.00022697; Fri, 23 Oct 2026 22:03:55 +0200
+Message-ID: <8075e4d5ed4b5523a088840c5574d4c0e49307ff.camel@irl.hu>
+Subject: Re: [PATCH] ALSA: usb-audio: Avoid applying boot quirk for
+ Behringer UMC204HD
+From: Gergo Koteles <soyer@irl.hu>
+To: Takashi Iwai <tiwai@suse.de>, linux-sound@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org, Will Bush <will@willbush.dev>
+Date: Fri, 23 Oct 2026 22:04:02 +0200
+In-Reply-To: <20261019102347.2425406-1-tiwai@suse.de>
+References: <20261019102347.2425406-1-tiwai@suse.de>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,14 +55,50 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-> Currently the driver just passes error codes of scsi_execute_cmd() to
-> hwmon core, which is incorrect because hwmon only checks for negative
-> error codes.
+Hi Takashi,
 
-Queued for 6.1, 5.15 and 5.10, thanks.
+On Mon, 2026-10-19 at 12:23 +0200, Takashi Iwai wrote:
+> There have been reports about a regression with the recent boot quirk
+> for Behringer devices; it broke UMC204HD models(1397:0508 and
+> 1397:0509).  The quirk was to just run usb_get_descriptor(), so I
+> expected it rather harmful, but in this case, it doesn't look so,
+> resulting in an error like 'failed to read device descriptor: -110'
+> that leads to a fatal probe error.
+>=20
+> As a quick workaround, skip the quirk for those UMC204HD models.
+>=20
+> Fixes: b5c4823cf3e4 ("ALSA: usb-audio: Apply boot quirk for Behringer mod=
+els generically")
+> Reported-by: Will Bush <will@willbush.dev>
+> Closes: https://lore.kernel.org/45162613-2802-401c-84c9-742f9c8c68e6@app.=
+fastmail.com
+> Closes: https://bugzilla.suse.com/show_bug.cgi?id=3D1285896
+> Signed-off-by: Takashi Iwai <tiwai@suse.de>
+> ---
+>  sound/usb/quirks.c | 9 ++++++++-
+>  1 file changed, 8 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/sound/usb/quirks.c b/sound/usb/quirks.c
+> index 4fadb1fdcdea..4ac4aef47dd7 100644
+> --- a/sound/usb/quirks.c
+> +++ b/sound/usb/quirks.c
+> @@ -1790,8 +1790,15 @@ int snd_usb_apply_boot_quirk_once(struct usb_devic=
+e *dev,
+>  	}
+> =20
+>  	/* Behringer devices may need explicit device descriptor read at boot *=
+/
+> -	if (USB_ID_VENDOR(id) =3D=3D 0x1397)
+> +	if (USB_ID_VENDOR(id) =3D=3D 0x1397) {
+> +		/* the quirk seems breaking on some Behringer devices */
+> +		switch (id) {
+> +		case USB_ID(0x1397, 0x0508): /* UMC204HD */
+> +		case USB_ID(0x1397, 0x0509): /* UMC204HD */
 
--- 
-Thanks,
-Sasha
+0x0509 is the UMC404HD
+
+https://linux-hardware.org/?id=3Dusb:1397-0509
+
+Best regards,
+Gergo
