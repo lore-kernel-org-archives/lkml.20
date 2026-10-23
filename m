@@ -1,54 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.205
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792737346;
-	b=QJU+8NEoea3xt2ZKbNIvO9RY1T0nfTBYFzHXP9S+/Uhrw9gVbkijKOc9YEbvMd8ugRlb
-	 jdApYbcosUK1UBbPaBbypKHFdtf3DU0uSqLvPIa3ruNodYbvt9BUYYM+/tgMQT1iDTrgz
-	 Iif7zu51K19qAs50gRbdNLnnr62ia+6MJE5BS9/35//JMiT8NFgVanDt8hqrDpYNuzoQx
-	 ZRnnQ+1cdI2unwgUgkFyNF+QhMiuLRLsnyjz0Kso6HzoZQPh4umRh5JMN3vqy21PLbiuH
-	 gbkMoqwAuS3eOg9xjO6bmTdP3dZok1jk8+GPi2Og8tyxX5hSWxX3bZ0QSZ+ENcXv2GA==
+	t=1792737358;
+	b=mbB58a+nK5z4jhSUMisD1mQRQ4wp9Okipk3ZQbP4RfUMdsBocNoGzcAMYpDWMIMi62eQ
+	 QZk0pylSE2pKeZORvlUK1w6NVbVxzLfRzvcggYITbaGnyz7rYj4P58p2q+mXnW1BLkxVx
+	 b4A8h6t04jF+0VT7TYYUOBdR+pxihtJpzQwsS7YqUrtYZEAFkWcHCupljh7QM9w1+Oihw
+	 IpfOoPNQ0mndSCWlYTD54mz5R1zhnHPq+5SmzmRv4DstUw/U4KK5AMQ1o1Gokm8a1zeBp
+	 L8bol8HREO9o3PZJw5g0nI3668XAuzfdg7j7k/3u0CwU98bsZKEvbsuUyoQ9z4n/AFg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792737346;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=U7Uc7KLujk3CY+SPJTo1fA6oz5Z7g3SGHtp1atdmdyk=;
-	b=VGrifzlctVZiNlDTiqyPrxRTlvakpvpwkWeC4fb6Y8najFpZJYQTd8OSwMTSEvDCnlGF
-	 /FhtI6RqAYB5u/yt/d/7WhZE/Mcik7HEbMf6e5EdpN/CjZpeI70q5XbwAQOnEEr+DtmLj
-	 udfvkq0t7uEG/LD7VoOBSvJsfBdLRlov1F/JKLsJRSAbtXswFQfST648Urg+nddjtIu+c
-	 oU+wel9H4GgjihERJyfq5ZavgA8p2d/5DxGLv++9duF3gYljMYcwZYf+bYHGULg/VFd23
-	 M0H6/Fkr8O7phzaEh753qr9ovEW9gub5mVFjxH3ckWVVty+K7ExOigYL5EiHmWTkDVQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792737358;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Authority-Analysis:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=nQR08uFswNG3btoxWUtA3xdkWmg6sVlnAnw71YgawmQ=;
+	b=pQVC4Kw3Lp/FM1p/7VgZT8DAn/mVEoct7syhzI0LrOsyA1aSCcX3n449EvDMXj7q5QYw
+	 HsqRWInpT1j5L3S9iwX8n98FfGVGpOm93tm7WQgZRZMMQ6WXx25a70vXeL2EQVth6YNVx
+	 nWIwnCe05cRzh+miPQy0jBGLyjrKrifYtO5OFrIc8BOm3johlsCQygLyFvMmNx2bR1IZI
+	 4gMoc3D73IIRhBv+cEJJb790+b5wPH8JwLZW3qo7uIgENAOxMruhVi8RHrvzVhcvEvX4T
+	 kGQgePgOQUq7WMJ7rCge8xYnz9cPHdB8JQPMyojiFEcDdcEEClJYP/ecXJ9/amlXfqw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=OR42d2uL;
-	arc=none smtp.remote-ip=95.215.58.205
-Received: from mta1.migadu.com (out-205.mta1.migadu.com [95.215.58.205])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=aSfuX03Y;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Ggc4TNH8;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B80F606A31B
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 06:35:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4B80F606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 413DF606A31E
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 06:35:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 413DF606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=OR42d2uL
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=L+/w4l1UaI8JhzbDpxHi/t0Cn5jVCxDZQ2Ylg930CxU=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792737342; v=1; x=1793342142;
- b=OR42d2uLWGJLZRCs726zAqFyyMFp3tYK0n75iS80c5zhs3w9NX4Lv2jy7tBEQ/r9A2GXAu7w
- BwpCAJ/e5lM6XSod2p8E+cMq0LVY8KfO3iK27VVTbm434Gm219zo2hP2PdfKZmVimg1NZYUoFuH
- G3EWfjLhrg7N32sfKcoLZtwc=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id bb2e9cd96eec740b;
-	Fri, 23 Oct 2026 06:35:37 +0000
-X-Mizu-Trace-ID: bb2e9cd96eec740b
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <b37a33e2-7dfb-4401-847e-919f0bd61271@linux.dev>
-Date: Fri, 23 Oct 2026 14:35:33 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=aSfuX03Y;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Ggc4TNH8
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69N1EtT7772889
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 06:35:57 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	nQR08uFswNG3btoxWUtA3xdkWmg6sVlnAnw71YgawmQ=; b=aSfuX03YfS+94pFv
+	7plch/SN3ozY0zca1mXWGPSdS3DaJmoA1JcxwoAjTeqEilifoP+0UMqWYms5L/5I
+	jEfZw/bSM+bto/WuOO4pLtU4erDqhrHw/3Fgt/u6tseicUkIIYM1lK4hcLG2fupW
+	nL1ZUtv7mrFzGSpywQSImgTozvUv9WFf4bFPaGpZQ/ghpa+wtmi+YZaZLLETO+JQ
+	3XOzidkr68huM+J7biySdI4ZK4/MLMwiA+/cZTAYi8xMPmv+aliXo4WLqt93C9sa
+	YlWhXgt551LC/VfgAcSsBAME/8fwaugdlWCyPUepAu8LytVA6mBpk1bT1/Cidpd0
+	3LF6fg==
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hfqmtt8np-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 06:35:57 +0000 (GMT)
+Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2df375fb9b2so5765595ad.2
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 23:35:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1792737356; x=1793342156; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=nQR08uFswNG3btoxWUtA3xdkWmg6sVlnAnw71YgawmQ=;
+        b=Ggc4TNH82qvF/YCx707qgFQuOLIfWJ+AQUY71FbBZRC6DgRdvoGzx+IOUHHDEzVEhP
+         Xgzr2wJ739x/x6Y16ta4tyMb1VeR4uMBeO/Slc/fP33idWeQMCz4g5hhkBpaI9smgbzI
+         iiCs6kNxKUilOEtYMQ5QdLypdYoxG7NlvAE1HtzYzIPo9sUO7eTdWMJueR2J563jGv1Q
+         cLvQtMAmY99FMiMt0D2A4dBTgSsYx3khLFgAbscq6eszoBbYE/gyqvOya00LG/Md4O/a
+         l4+2+A+GrokhN7hlCvaGiGr0nNWl6wOIYNHw4vm7bobKc2dyCgUUgh4YkZ28KFdJ7wkm
+         RItg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792737356; x=1793342156;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=nQR08uFswNG3btoxWUtA3xdkWmg6sVlnAnw71YgawmQ=;
+        b=twpD/Bv4Z7CIP2r+7QNwAQrVRyNCSccTncKaYlBGIoLqy7y1Lh8hWFg+vC24801dPN
+         y1Uh3HIk8zwTofZHLp57V3nNz64mJ9ASP61MOG4/lRISuATh1UqbXOlL2dcH4zMwfpK+
+         37ZK9rIU+LSNZCQ51oEMB0Seat8VPCG7ThfjTEzL8ZNllKp/8D0jxDTdzGlEyOF6cP/d
+         HXD9Adhj5a3PERmUANCzk/c7J1c0o032ekGQ0o3bgxOXOCn12nRqSkPMb1uLnbeclsbJ
+         15fYDQu2Ac31WLof8xvEZ5IH/2tssNY7fPyEyUB8ydfckxm74P4qTS/mDgM1t26euvxx
+         gOOg==
+X-Forwarded-Encrypted: i=1; AKwUvBzOjoFv5VH2zY8gIcd1IsDSDwVLpUvXhrjTSVim4dP93+4cZ4EHxslB1jXlqgl9JoFp5JnK3KPRzZN3S3k=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKf7JwvF9hL5lBsztnf22vuCUYu52/8/nfFCYjGhxmDbcTKaTMi
+	A7IWazPQEobcbymedIT3bTzxgN6WoF7uDXz7KcKV+7x7OPRpAsyI3bBWW33sk0AnNNIIXVR42du
+	p7ftYrisMX64O0aU/mV69RUcBZ/byqJDY7AkJH9gVjYZkl1RSsQMBBp8Ub/pQUVRkdhs=
+X-Gm-Gg: AYBFou31DrWoWVlZThDx/jh5vkGQdSBxSHTS4Ted2+GhLmpvYpWy1+Sfe4jZxnO/1+Y
+	Kto8D0yOAL8J6wXjcsGdAforEkHX4RrMhme0fSL9YXmhtYyIirn5OO+ZYVgHB9m+JXfLolh71cQ
+	aC0jGyzUA8mk2b13EHEyI3bwdwN7QNI9Ad19rVdk9jyY+7awBEe8cEcXTtD4GPaeVQON0vNY4g1
+	sE0A5dA3Pbt7lSb+04tJihWT5k2v/lk+IoB9Iff4nL7OnTW79V5zNL9nMO+1waxGvqBgmwlw4i1
+	mNyg3FZUXR8+efD54UlgQUelL+438uFXCbQ+6wfIGegJJK8sgQcoJeMNwYSOF5vgW2HQkTWWM6W
+	WTTcK+p31cPYzVwPeKaaElGX6dhBS8oKo
+X-Received: by 2002:a17:903:4b47:b0:2df:afe5:56ab with SMTP id d9443c01a7336-2ea7c2e93b8mr13960725ad.29.1792737356540;
+        Thu, 22 Oct 2026 23:35:56 -0700 (PDT)
+X-Received: by 2002:a17:903:4b47:b0:2df:afe5:56ab with SMTP id d9443c01a7336-2ea7c2e93b8mr13960525ad.29.1792737356123;
+        Thu, 22 Oct 2026 23:35:56 -0700 (PDT)
+Received: from [10.218.31.237] ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ea7b343d1esm6107115ad.23.2026.10.22.23.35.51
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 22 Oct 2026 23:35:55 -0700 (PDT)
+Message-ID: <adffece9-165b-4576-b111-6aa40a443734@oss.qualcomm.com>
+Date: Fri, 23 Oct 2026 12:05:50 +0530
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,476 +116,90 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/5] mm: hugetlb: track CMA reservations by pool
-To: Muchun Song <muchun.song@linux.dev>, Qi Zheng <zhengqi.arch@bytedance.com>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, david@kernel.org,
- osalvador@suse.de, akpm@linux-foundation.org, azpijr@gmail.com
-References: <cover.1792651104.git.zhengqi.arch@bytedance.com>
- <29b35f7221c30f1dfa320a933f6095f37b612a37.1792651104.git.zhengqi.arch@bytedance.com>
- <b5745b31-adec-4158-bba4-2c21dbfe2566@linux.dev>
-From: Qi Zheng <qi.zheng@linux.dev>
-In-Reply-To: <b5745b31-adec-4158-bba4-2c21dbfe2566@linux.dev>
+Subject: Re: [PATCH v3] dt-bindings: dma: qcom,bam-dma: Allow memory-region
+ property
+To: Rob Herring <robh@kernel.org>
+Cc: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>, Andy Gross <agross@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>, linux-arm-msm@vger.kernel.org,
+        dmaengine@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>
+References: <20261021-qcom-bam-dma-vmid-ext-v3-1-299355e8dd3b@oss.qualcomm.com>
+ <20261022140139.GA952798-robh@kernel.org>
+Content-Language: en-US
+From: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
+In-Reply-To: <20261022140139.GA952798-robh@kernel.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=Gt3XaU1C c=1 sm=1 tr=0 ts=6adb004d cx=c_pps
+ a=JL+w9abYAAE89/QcEU+0QA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=P-IC7800AAAA:8 a=07d9gI8wAAAA:8 a=VwQbUJbxAAAA:8 a=KKAkSRfTAAAA:8
+ a=9ErL3UT9lRrTfhtYDI4A:9 a=QEXdDO2ut3YA:10 a=324X-CrmTo6CU4MGRt3R:22
+ a=d3PnA9EDa4IxuAV0gXij:22 a=e2CUPOnPG4QKp8I52DXD:22 a=cvBusfyB2V15izCimMoJ:22
+X-Proofpoint-GUID: A2Xm8VUN-R41V1D-QTimqDPOkEP8VF5E
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIzMDAyNiBTYWx0ZWRfX1MkJJlioSGNt
+ 1pdsFVCNNz1pkNKiDL7YtN/5P5NpJCgXYny0jtnSQJQYxYkG/G309sDpMpVC2a6uGFdXx9if1Zw
+ HDbZ8aoKNT3yMGOPCgGmgjkKCixC+0/mm2sPpU1hs7hjl6wf6pUdNhReg6TZ0tfF/XGGTjts60N
+ LehUIXWs3mmIQ73XKiZf7bK3/fYZvvAG5fGuwPA8mRUZtENHLb0Y1W0MU2XO7uC0QKdx2HtPXDE
+ 19d86+bfdx6LrtceAbuevnePGuJkNw4GdbzMjwtvC+6o5rAcNsgD30l9WUB73/zNBtT0dKzsoO8
+ A2zKq4cAvFcN6f+cE962MQFN2Jq9reWlGy04W3Duh4VoIP/26Zddl3EAN443loeQgw5Wn+m2BfE
+ w9d6eDDV2vMWep0GSLwOREksk4lNA5QBCbfc/yL/8uWCWha30Tl/IkTmwUoHC5+k02ad585z0+r
+ mZkq5YHlwqRjgWX1d/w==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIzMDAyNiBTYWx0ZWRfXyxc/kxWUfAI9
+ 3N27jQ9le+QZEBf0PTidxIB1hKNcvA+9DVaiagFj3zkR0izuMIEIWRx6Ao2hfQG+QVG2Djb7Xt+
+ /lOTEk0rzfKgZC8PImznV2OylBJdhM0=
+X-Proofpoint-ORIG-GUID: A2Xm8VUN-R41V1D-QTimqDPOkEP8VF5E
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-23_01,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 spamscore=0 suspectscore=0 malwarescore=0 adultscore=0
+ clxscore=1015 priorityscore=1501 impostorscore=0 phishscore=0
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
+ definitions=main-2610230026
 
-Hi Muchun,
 
-On 10/22/26 7:21 PM, Muchun Song wrote:
-> 
-> 
-> On 2026/10/22 15:31, Qi Zheng wrote:
->> From: Qi Zheng <zhengqi.arch@bytedance.com>
+On 22-10-2026 07:31 pm, Rob Herring wrote:
+> On Wed, Oct 21, 2026 at 11:22:35AM +0530, Vishnu Santhosh wrote:
+>> Some Qualcomm SoCs, such as Shikra, run the modem in a separate security
+>> domain, preventing it from accessing BAM descriptor FIFOs allocated from
+>> arbitrary host memory.
 >>
->> Introduce fixed default and PMD pool slots in preparation for PMD-sized
->> HugeTLB CMA support. Continue accepting only the architecture's existing
->> CMA page size and keep all gigantic sizes sharing the default pool.
->> PMD-sized pool support will be added in a subsequent patch.
->>
->> Select the pool for allocation, CMA-only checks and boot-time accounting.
->> Release folios through the CMA area that owns their physical memory,
->> including after demotion.
->>
->> Record each pool's successfully reserved capacity and remove
->> hugetlb_cma_validate_params(), since the per-pool CMA-only check handles
->> missing or empty reservations.
->>
->> Assisted-by: LLM
->> Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
->> ---
->>   mm/hugetlb.c     |   6 +-
->>   mm/hugetlb_cma.c | 154 ++++++++++++++++++++++++++++++++---------------
->>   mm/hugetlb_cma.h |  11 ++--
->>   3 files changed, 112 insertions(+), 59 deletions(-)
->>
->> diff --git a/mm/hugetlb.c b/mm/hugetlb.c
->> index b37d7d0db7fc9..6b08074d11f52 100644
->> --- a/mm/hugetlb.c
->> +++ b/mm/hugetlb.c
->> @@ -1368,7 +1368,7 @@ static struct folio 
->> *alloc_gigantic_frozen_folio(int order, gfp_t gfp_mask,
->>       if (folio)
->>           return folio;
->> -    if (hugetlb_cma_exclusive_alloc())
->> +    if (hugetlb_cma_exclusive_alloc(order))
->>           return NULL;
->>       folio = (struct folio *)alloc_contig_frozen_pages(1 << order, 
->> gfp_mask,
->> @@ -3635,7 +3635,7 @@ static void __init 
->> hugetlb_hstate_alloc_pages(struct hstate *h)
->>        * Skip gigantic hugepages allocation if early CMA
->>        * reservations are not available.
->>        */
->> -    if (hstate_is_gigantic(h) && hugetlb_cma_total_size() &&
->> +    if (hstate_is_gigantic(h) && hugetlb_cma_size(h) &&
->>           !hugetlb_early_cma(h)) {
->>           pr_warn_once("hugetlb_cma is enabled, skip boot time 
->> allocation\n");
->>           return;
->> @@ -4338,8 +4338,6 @@ static __init void hugetlb_parse_params(void)
->>           hcp->setup(hcp->val);
->>       }
->> -
->> -    hugetlb_cma_validate_params();
->>   }
->>   /*
->> diff --git a/mm/hugetlb_cma.c b/mm/hugetlb_cma.c
->> index 4f27eb242dc3b..c279c3f548705 100644
->> --- a/mm/hugetlb_cma.c
->> +++ b/mm/hugetlb_cma.c
->> @@ -19,6 +19,7 @@
->>   struct hugetlb_cma_pool {
->>       struct cma *cma[MAX_NUMNODES];
->>       unsigned long size;
->> +    unsigned int order;
->>   };
->>   struct hugetlb_cma_config {
->> @@ -27,14 +28,34 @@ struct hugetlb_cma_config {
->>       unsigned int percent_in_node[MAX_NUMNODES];
->>   };
->> -static struct hugetlb_cma_pool hugetlb_cma __ro_after_init;
->> -static struct hugetlb_cma_config hugetlb_cma_config __initdata;
->> +enum {
->> +    HUGETLB_CMA_DEFAULT,
->> +    HUGETLB_CMA_PMD,
->> +    HUGETLB_CMA_POOLS,
->> +};
-> 
-> Since there are exactly two pool roles, could we make that explicit with
-> a typed enum, for example:
-> 
->        enum hugetlb_cma_pool_id {
->              HUGETLB_CMA_POOL_DEFAULT,
->              HUGETLB_CMA_POOL_PMD,
->              HUGETLB_CMA_NR_POOLS,
->        };
-> 
-> and name the array hugetlb_cma_pools[]?
+>> Add an optional memory-region property to constrain DMA allocations made
+>> by the BAM DMA controller to a restricted DMA pool. Access permissions
+>> for the remote execution environment are managed separately.
+> dma-ranges is normally how address restrictions for a device are
+> defined. Why can't that be used here?
+>
+> Rob
 
-Make sense, will do.
+The constraint here is access permission, not addressing. The modem can
+only access a carve-out that is assigned to it through SCM.
 
-> 
->> +
->> +static struct hugetlb_cma_pool hugetlb_cma[HUGETLB_CMA_POOLS] 
->> __ro_after_init;
->> +static struct hugetlb_cma_config 
->> hugetlb_cma_config[HUGETLB_CMA_POOLS] __initdata;
->>   static bool hugetlb_cma_only __ro_after_init;
->>   static char hugetlb_cma_cmdline[COMMAND_LINE_SIZE] __initdata;
->>   static unsigned int hugetlb_cma_cmdline_len __initdata;
->> +static struct hugetlb_cma_pool *hugetlb_cma_pool(unsigned int order)
-> 
-> How about order_to_cma_pool()?
+The soc bus on Shikra already has an identity dma-ranges covering
+64GB [1], so there is no addressing limitation to describe. dma-ranges
+does not reserve memory, so allocations would still come from the
+general page allocator, outside the assigned carve-out, and modem
+accesses to them trigger an XPU violation. It also applies to every
+device on the bus.
 
-will do.
+The A2 BAM on Shikra is not behind an IOMMU. restricted-dma-pool
+provides a dedicated, per-device region, which is the setup it was
+introduced for no IOMMU, with firmware restricting device accesses to
+specific regions [2]. Stephan suggested this approach on v1 of the
+BAM-DMUX series [3]. The BAM DMA controller and BAM-DMUX reference the
+same pool, so a single assignment covers both the descriptor FIFOs and
+the data buffers.
 
-> 
->> +{
->> +    struct hugetlb_cma_pool *pmd_pool = &hugetlb_cma[HUGETLB_CMA_PMD];
->> +
->> +    if (order == PMD_SHIFT - PAGE_SHIFT && pmd_pool->size)
-> 
-> PMD_ORDER is better.
+[1] https://elixir.bootlin.com/linux/v7.3-rc7/source/arch/arm64/boot/dts/qcom/shikra.dtsi#L508
+[2] https://lwn.net/Articles/841916/
+[3] https://lore.kernel.org/all/an27PVxkCpD09xSR@linaro.org/
 
-OK.
-
-> 
-> There's another question here: why does PMD-based page allocation
-> need to check the pool->size, but gigantic pages don't?
-
-The PMD size pool needs to be checked here. The check for gigantic pool,
-is deferred to the caller.
-
-> 
->> +        return pmd_pool;
->> +
->> +    /* Preserve the default pool's use by gigantic sizes. */
->> +    if (order_is_gigantic(order))
->> +        return &hugetlb_cma[HUGETLB_CMA_DEFAULT];
-> 
-> If we also check size for gigantic pages here, would the code be simpler
-> that way for callers?
-
-Yes, will do.
-
-> 
->> +
->> +    return NULL;
->> +}
->> +
->>   #ifdef CONFIG_NUMA
->>   static phys_addr_t __init memblock_node_memory_size(int nid)
->>   {
->> @@ -56,10 +77,16 @@ static phys_addr_t __init 
->> memblock_node_memory_size(int nid)
->>   void hugetlb_cma_free_frozen_folio(struct folio *folio)
->>   {
->> -    struct hugetlb_cma_pool *pool = &hugetlb_cma;
->> +    unsigned int i;
->> +    int nid = folio_nid(folio);
->> +    unsigned long nr_pages = folio_nr_pages(folio);
->> +
-> 
-> Please add a short comment here explaining why all pools must be searched:
-> after demotion, the folio order does not identify the CMA pool that 
-> originally
-> owns the physical range.
-
-How about the following comment:
-
-      /*
-       * Demotion can change the folio order, so search all pools for the
-       * CMA area that owns the physical range.
-       */
-
-Thanks,
-Qi
-
-> 
-> Thanks,
-> Muchun
-> 
->> +    for (i = 0; i < HUGETLB_CMA_POOLS; i++) {
->> +        if (cma_release_frozen(hugetlb_cma[i].cma[nid], &folio->page, 
->> nr_pages))
->> +            return;
->> +    }
->> -    WARN_ON_ONCE(!cma_release_frozen(pool->cma[folio_nid(folio)],
->> -                     &folio->page, folio_nr_pages(folio)));
->> +    WARN_ON_ONCE(1);
->>   }
->>   struct folio *hugetlb_cma_alloc_frozen_folio(int order, gfp_t gfp_mask,
->> @@ -70,9 +97,9 @@ struct folio *hugetlb_cma_alloc_frozen_folio(int 
->> order, gfp_t gfp_mask,
->>       struct page *page = NULL;
->>       const nodemask_t *nmask;
->>       unsigned int cpuset_mems_cookie;
->> -    struct hugetlb_cma_pool *pool = &hugetlb_cma;
->> +    struct hugetlb_cma_pool *pool = hugetlb_cma_pool(order);
->> -    if (!pool->size)
->> +    if (!pool || !pool->size)
->>           return NULL;
->>   retry_cpuset:
->> @@ -111,7 +138,7 @@ struct folio *hugetlb_cma_alloc_frozen_folio(int 
->> order, gfp_t gfp_mask,
->>   void * __init hugetlb_cma_alloc_bootmem(struct hstate *h, int nid, 
->> bool node_exact)
->>   {
->> -    struct hugetlb_cma_pool *pool = &hugetlb_cma;
->> +    struct hugetlb_cma_pool *pool = 
->> hugetlb_cma_pool(huge_page_order(h));
->>       struct cma *cma;
->>       void *m;
->>       int node;
->> @@ -135,15 +162,16 @@ void * __init hugetlb_cma_alloc_bootmem(struct 
->> hstate *h, int nid, bool node_exa
->>   static int __init hugetlb_cma_parse(char *p)
->>   {
->> -    struct hugetlb_cma_pool *pool = &hugetlb_cma;
->> -    struct hugetlb_cma_config *config = &hugetlb_cma_config;
->> +    struct hugetlb_cma_pool *pool;
->> +    struct hugetlb_cma_config *config;
->> +    unsigned int order = hugetlb_cma[HUGETLB_CMA_DEFAULT].order;
->> +    unsigned int i;
->>       int nid, count = 0;
->>       unsigned long tmp;
->>       char *s = p;
->>       char *suffix = strchr(p, '@');
->>       if (suffix) {
->> -        unsigned int order = arch_hugetlb_cma_order();
->>           unsigned long long page_size;
->>           char *end;
->> @@ -159,6 +187,22 @@ static int __init hugetlb_cma_parse(char *p)
->>           }
->>       }
->> +    if (!order) {
->> +        pr_warn("hugetlb_cma: the option isn't supported by current 
->> arch\n");
->> +        return -EINVAL;
->> +    }
->> +
->> +    for (i = 0; i < HUGETLB_CMA_POOLS; i++) {
->> +        if (hugetlb_cma[i].order == order)
->> +            break;
->> +    }
->> +
->> +    if (i == HUGETLB_CMA_POOLS)
->> +        return -EINVAL;
->> +
->> +    pool = &hugetlb_cma[i];
->> +    config = &hugetlb_cma_config[i];
->> +
->>       while (*s) {
->>           if (sscanf(s, "%lu%n", &tmp, &count) != 1)
->>               break;
->> @@ -256,20 +300,14 @@ unsigned int __weak arch_hugetlb_cma_order(void)
->>       return 0;
->>   }
->> -void __init hugetlb_cma_reserve(void)
->> +static void __init hugetlb_cma_reserve_pool(struct hugetlb_cma_pool 
->> *pool,
->> +                        struct hugetlb_cma_config *config)
->>   {
->> -    struct hugetlb_cma_pool *pool = &hugetlb_cma;
->> -    struct hugetlb_cma_config *config = &hugetlb_cma_config;
->> -    unsigned long size, reserved, per_node, order, gigantic_page_size;
->> +    unsigned long size, reserved, per_node, hugepage_size;
->> +    unsigned int order = pool->order;
->>       bool node_specific_cma_alloc = false;
->>       bool has_node_specific_param = false;
->>       int nid;
->> -    char *p;
->> -
->> -    for (p = hugetlb_cma_cmdline;
->> -         p < hugetlb_cma_cmdline + hugetlb_cma_cmdline_len;
->> -         p += strlen(p) + 1)
->> -        hugetlb_cma_parse(p);
->>       for (nid = 0; nid < MAX_NUMNODES; nid++) {
->>           if (config->size_in_node[nid] || config- 
->> >percent_in_node[nid]) {
->> @@ -301,12 +339,6 @@ void __init hugetlb_cma_reserve(void)
->>       if (!pool->size)
->>           return;
->> -    order = arch_hugetlb_cma_order();
->> -    if (!order) {
->> -        pr_warn("hugetlb_cma: the option isn't supported by current 
->> arch\n");
->> -        return;
->> -    }
->> -
->>       /*
->>        * HugeTLB CMA reservation is required for gigantic
->>        * huge pages which could not be allocated via the
->> @@ -314,12 +346,12 @@ void __init hugetlb_cma_reserve(void)
->>        * breaking this assumption.
->>        */
->>       VM_WARN_ON(order <= MAX_PAGE_ORDER);
->> -    gigantic_page_size = PAGE_SIZE << order;
->> +    hugepage_size = PAGE_SIZE << order;
->>       if (config->percent) {
->>           unsigned long orig_size = pool->size;
->> -        pool->size = ALIGN_DOWN(pool->size, PAGE_SIZE << order);
->> +        pool->size = ALIGN_DOWN(pool->size, hugepage_size);
->>           if (orig_size && !pool->size)
->>               pr_warn("hugetlb_cma: reservation size rounded down to 0 
->> from %lu MiB (%u%%)\n",
->>                   orig_size / SZ_1M, config->percent);
->> @@ -331,7 +363,7 @@ void __init hugetlb_cma_reserve(void)
->>                   config->size_in_node[nid] =
->>                       ALIGN_DOWN(config->size_in_node[nid],
->> -                           PAGE_SIZE << order);
->> +                           hugepage_size);
->>                   if (orig_size && !config->size_in_node[nid])
->>                       pr_warn("hugetlb_cma: reservation size rounded 
->> down to 0 from %lu MiB (%u%%) on node %d\n",
->>                           orig_size / SZ_1M,
->> @@ -351,9 +383,9 @@ void __init hugetlb_cma_reserve(void)
->>           if (!node_isset(nid, hugetlb_bootmem_nodes)) {
->>               pr_warn("hugetlb_cma: invalid node %d specified\n", nid);
->> -        } else if (!IS_ALIGNED(size, gigantic_page_size)) {
->> +        } else if (!IS_ALIGNED(size, hugepage_size)) {
->>               pr_warn("hugetlb_cma: cma area of node %d must be a 
->> multiple of %lu MiB\n",
->> -                nid, gigantic_page_size / SZ_1M);
->> +                nid, hugepage_size / SZ_1M);
->>           } else {
->>               node_specific_cma_alloc = true;
->>               continue;
->> @@ -367,9 +399,9 @@ void __init hugetlb_cma_reserve(void)
->>       if (!pool->size)
->>           return;
->> -    if (!IS_ALIGNED(pool->size, gigantic_page_size)) {
->> +    if (!IS_ALIGNED(pool->size, hugepage_size)) {
->>           pr_warn("hugetlb_cma: cma area must be a multiple of %lu 
->> MiB\n",
->> -            gigantic_page_size / SZ_1M);
->> +            hugepage_size / SZ_1M);
->>           pool->size = 0;
->>           return;
->>       }
->> @@ -381,7 +413,7 @@ void __init hugetlb_cma_reserve(void)
->>            */
->>           per_node = DIV_ROUND_UP(pool->size,
->>                       nodes_weight(hugetlb_bootmem_nodes));
->> -        per_node = round_up(per_node, gigantic_page_size);
->> +        per_node = round_up(per_node, hugepage_size);
->>           if (config->percent)
->>               pr_info("hugetlb_cma: reserve %lu MiB (%u%%), up to %lu 
->> MiB per node\n",
->>                   pool->size / SZ_1M, config->percent,
->> @@ -411,7 +443,7 @@ void __init hugetlb_cma_reserve(void)
->>            * may be returned to CMA allocator in the case of
->>            * huge page demotion.
->>            */
->> -        res = cma_declare_contiguous_multi(size, gigantic_page_size,
->> +        res = cma_declare_contiguous_multi(size, hugepage_size,
->>                       HUGETLB_PAGE_ORDER, name,
->>                       &pool->cma[nid], nid);
->>           if (res || !cma_validate_zones(pool->cma[nid])) {
->> @@ -434,28 +466,50 @@ void __init hugetlb_cma_reserve(void)
->>               break;
->>       }
->> -    if (!reserved)
->> -        /*
->> -         * pool->size is used to determine if allocations from
->> -         * cma are possible.  Set to zero if no cma regions are set up.
->> -         */
->> -        pool->size = 0;
->> +    /* Only successfully reserved areas enable CMA allocation for 
->> this size. */
->> +    pool->size = reserved;
->> +}
->> +
->> +void __init hugetlb_cma_reserve(void)
->> +{
->> +    unsigned int i;
->> +    char *p;
->> +
->> +    hugetlb_cma[HUGETLB_CMA_DEFAULT].order = arch_hugetlb_cma_order();
->> +    hugetlb_cma[HUGETLB_CMA_PMD].order = PMD_SHIFT - PAGE_SHIFT;
->> +
->> +    for (p = hugetlb_cma_cmdline;
->> +         p < hugetlb_cma_cmdline + hugetlb_cma_cmdline_len;
->> +         p += strlen(p) + 1)
->> +        hugetlb_cma_parse(p);
->> +
->> +    for (i = 0; i < HUGETLB_CMA_POOLS; i++)
->> +        hugetlb_cma_reserve_pool(&hugetlb_cma[i], 
->> &hugetlb_cma_config[i]);
->>   }
->> -bool hugetlb_cma_exclusive_alloc(void)
->> +bool hugetlb_cma_exclusive_alloc(unsigned int order)
->>   {
->> -    return hugetlb_cma_only;
->> +    struct hugetlb_cma_pool *pool = hugetlb_cma_pool(order);
->> +
->> +    return hugetlb_cma_only && pool && pool->size;
->>   }
->> -unsigned long __init hugetlb_cma_total_size(void)
->> +unsigned long __init hugetlb_cma_size(struct hstate *h)
->>   {
->> -    return hugetlb_cma.size;
->> +    struct hugetlb_cma_pool *pool = 
->> hugetlb_cma_pool(huge_page_order(h));
->> +
->> +    return pool ? pool->size : 0;
->>   }
->> -void __init hugetlb_cma_validate_params(void)
->> +unsigned long __init hugetlb_cma_total_size(void)
->>   {
->> -    if (!hugetlb_cma.size)
->> -        hugetlb_cma_only = false;
->> +    unsigned long size = 0;
->> +    unsigned int i;
->> +
->> +    for (i = 0; i < HUGETLB_CMA_POOLS; i++)
->> +        size += hugetlb_cma[i].size;
->> +
->> +    return size;
->>   }
->>   bool __init hugetlb_early_cma(struct hstate *h)
->> @@ -463,5 +517,5 @@ bool __init hugetlb_early_cma(struct hstate *h)
->>       if (arch_has_huge_bootmem_alloc())
->>           return false;
->> -    return hstate_is_gigantic(h) && hugetlb_cma_only;
->> +    return hstate_is_gigantic(h) && 
->> hugetlb_cma_exclusive_alloc(huge_page_order(h));
->>   }
->> diff --git a/mm/hugetlb_cma.h b/mm/hugetlb_cma.h
->> index 730b2b4965b64..3d829258f6728 100644
->> --- a/mm/hugetlb_cma.h
->> +++ b/mm/hugetlb_cma.h
->> @@ -9,9 +9,9 @@ void hugetlb_cma_free_frozen_folio(struct folio *folio);
->>   struct folio *hugetlb_cma_alloc_frozen_folio(int order, gfp_t gfp_mask,
->>                         int nid, nodemask_t *nodemask);
->>   void *hugetlb_cma_alloc_bootmem(struct hstate *h, int nid, bool 
->> node_exact);
->> -bool hugetlb_cma_exclusive_alloc(void);
->> +bool hugetlb_cma_exclusive_alloc(unsigned int order);
->> +unsigned long hugetlb_cma_size(struct hstate *h);
->>   unsigned long hugetlb_cma_total_size(void);
->> -void hugetlb_cma_validate_params(void);
->>   bool hugetlb_early_cma(struct hstate *h);
->>   #else
->>   static inline void hugetlb_cma_free_frozen_folio(struct folio *folio)
->> @@ -30,18 +30,19 @@ static inline void 
->> *hugetlb_cma_alloc_bootmem(struct hstate *h, int nid,
->>       return NULL;
->>   }
->> -static inline bool hugetlb_cma_exclusive_alloc(void)
->> +static inline bool hugetlb_cma_exclusive_alloc(unsigned int order)
->>   {
->>       return false;
->>   }
->> -static inline unsigned long hugetlb_cma_total_size(void)
->> +static inline unsigned long hugetlb_cma_size(struct hstate *h)
->>   {
->>       return 0;
->>   }
->> -static inline void hugetlb_cma_validate_params(void)
->> +static inline unsigned long hugetlb_cma_total_size(void)
->>   {
->> +    return 0;
->>   }
->>   static inline bool hugetlb_early_cma(struct hstate *h)
-> 
+Vishnu
 
