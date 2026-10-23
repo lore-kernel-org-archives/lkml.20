@@ -1,64 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.181
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792789858;
-	b=U5m+C+N8W6G9NWkkE/N+UYRuiqN2GeafBszrCHynnGP0IBDyAFn7OM8xgdmpLdb+pJws
-	 7P2fT9pr5E7Jgp/0O9paiE2bmQVIyoiPLN3pirZhxB6e+eUsAVkC7ELIBGOZaEMjYuiWm
-	 97UEe7Xa4rQXVa3twINBlVKJKoL6f5wU2jcY1e+TVkqVzSM/a2/v84RF68VfznmHaH3A+
-	 zhjBN5evs4iL+5T0zo0EwsAj3RykyKzVmJpULcoNnng3VsdALjXgGh5PQA/v79NqHN5b/
-	 TnQe8SNCX0bEPjEw8R5eeMey6ZNoIqyI6Bly0ASAOZqGpvYXx3JZmvX95l0FD3/p81g==
+	t=1792789888;
+	b=kUd7l6Ek+orKAxS/w35uD3LS4OjMYq+bgucRwWUw0zr+TGJtWGZe1Qz6Q/FuKT64ZyW5
+	 Sns+CpRZzcOOkUcdcZB0x3oXATsotR0zNWrawNTFwFLEEA07ECx4dBkJvVlsETEL/va4t
+	 uPxf3S5K0cacBDZp83MUOgIXXE/U1h4hhs7dd+24UML/O/NmJK1FLmgna6e/d3WFFvfBp
+	 lI6mzKSZF4M9kO2Ubp/QiDOnkoinm+kxqkWwZ0Kq3deo1WVaRAVtoybSBHqR7UxuV6CrC
+	 JpbdK+2p1n/m+EBqNzyvNihyIHXog1ifUNfdhxvo4sdbT2TEkn5OVJkxfcmQrDea+UQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792789858;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=/Ear0TtjhlAiqS6CrqG+r0TTFWuCTgvxoaHllRwPv7Y=;
-	b=2wP092kcdtIr0UTqV/wrkND0DHaP0lqcCth8pTfApqehtd+iHGXAmAqh3RU03shs2iAH
-	 ckLvNfRJyyBytHonUu6tFu2f7AmWpz0Fj11S0KBjkUq1+YJqzyayMLh77S1sXZqKgrmZU
-	 ePgc2gNzkp4MKQnJlXapnOpJF90Po/MnQb6UnMOsGJMTEyc2IOOXlnGB1MNWgosC4ew5c
-	 JoU7cx0CuyaMH/rHkWqc36P3sP/A1J/S8SH5w2vcxKq9O184xN7/Lk2zZtPcUFzu0hWAt
-	 9aaceU7crLYx4fSKCCl+aIWReo4Vmhwlj1FssVP/IogVgmFdhiSuW/rdT0zZ4/OTqEg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792789888;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=4Z5W3YqAiuEHHNgCmWNPu2h0CpdPIOg8Syx8Os9bGaY=;
+	b=ffDNBvKb50Xm+Y8jjFgEIjElwapz4OLYXGnvmXUn5YeOiH7X1PHKIymOYkUDXyH+wTry
+	 suJaEELdSavvDt1cRCT5BJcYBsLARKNWmhujj1XN6hQBBqZ885oZhbCICb0/CUanr2ANe
+	 Z/rYUWVcfCO6MQ74Y9tTIUqvAyKjadHL6Bpr/xbJUSp+8UGlkGLGvutpkPOsJ+zM9fr9l
+	 Y7VpqT7UpvVp7Zn2qVwfWgjLiesLeY9yLiSdpnCKEa0Z7L5bBT8vET680J52U+j0rgbOl
+	 y6DTko00lYX61kmyjz+YPjez6pt6wwe+XmntMnz7lsUlGAEK7lK3j4q3G0g0H/MT03A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nMQlj24t;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="dp37n/MZ";
+	arc=none smtp.remote-ip=209.85.222.181
+Received: from mail-qk1-f181.google.com (mail-qk1-f181.google.com [209.85.222.181])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31E35606A31A;
-	Fri, 23 Oct 2026 21:10:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAF8C606A31B
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 21:11:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BAF8C606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nMQlj24t
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 924671F01825;
-	Fri, 23 Oct 2026 21:10:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792789858;
-	bh=/Ear0TtjhlAiqS6CrqG+r0TTFWuCTgvxoaHllRwPv7Y=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=nMQlj24t2G/JJHM133MVIE/WBHt/3jffoG0pURfV2wduSnEh9LpfciTqHpSQzgStq
-	 W6Vud3ipt5HSfLLWtFVs+txhLCIgEyp+tqaSrUaVkPAVe4zjXyDrEJKSebhx2evvWE
-	 RsIdg2nUbCW1+pmRa0W0q+4jSxJmAHHmNLN2NugASuVdaKiebXwQhIAOTOl5qngXGG
-	 Sgi1QHF6DIMhNiVUhioECgY57pfW4j4XcgktKlS59Nity32VENkBK6Q+8x1OfVtfON
-	 tb2UWePfnSwkgDCwfiDdgxSFxDVPyCxmNRZ3wMhcQiwFOk9C+E/L16TyqVrKlIyoXf
-	 I/PkC+Xo3pHNg==
-Date: Fri, 23 Oct 2026 18:10:54 -0300
-From: Arnaldo Carvalho de Melo <acme@kernel.org>
-To: Tengda Wu <wutengda@huaweicloud.com>
-Cc: Namhyung Kim <namhyung@kernel.org>, james.clark@linaro.org,
-	xueshuai@linux.alibaba.com, Peter Zijlstra <peterz@infradead.org>,
-	leo.yan@linux.dev, Li Huafei <lihuafei1@huawei.com>,
-	Ian Rogers <irogers@google.com>,
-	Kim Phillips <kim.phillips@arm.com>,
-	Mark Rutland <mark.rutland@arm.com>, Ingo Molnar <mingo@redhat.com>,
-	Bill Wendling <morbo@google.com>,
-	Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	Zecheng Li <zli94@ncsu.edu>, linux-perf-users@vger.kernel.org,
-	linux-kernel@vger.kernel.org, llvm@lists.linux.dev
-Subject: Re: [PATCH v8 00/15] perf annotate arm64: Support instruction
- tracking for data type profiling
-Message-ID: <atvNXkeWyJCGMrbF@phoenix2>
-References: <cover.1792411435.git.wutengda@huaweicloud.com>
- <18de9e8f-3709-4bc9-b11b-3813e1ba98b7@huaweicloud.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=dp37n/MZ
+Received: by mail-qk1-f181.google.com with SMTP id af79cd13be357-93f1cf92c9eso147204385a.0
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 14:11:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792789887; x=1793394687; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=4Z5W3YqAiuEHHNgCmWNPu2h0CpdPIOg8Syx8Os9bGaY=;
+        b=dp37n/MZgj7A1eeYByBqhUWFPzQVyoQz7k+DAfUetz91bczKXNyjxgvWpvAlqTDCUj
+         oBXFal/JZ1YDquCo56cFjSsP73VW0umXjhc4+SIHy9VrknZfDySfws9bZ3erVuwxQkey
+         4obB9o66pgZAidNHx32EWJnPi91pSrEvzWs2NMr5pkUyoOzIJIl++cXcjMBo38vQFpPe
+         aMOHthTNhDDXpYUaJiLjjUYwgo/XWb5O+QbAFrSUBJBPyKNtXo9oV5eofeXu7lXp0JoQ
+         41twTQhWrfGOZXVyH/4sNOnwVq+xxQT/schkKtT1URM/Msg2hIT8KFSFdqHa6vY31Kf/
+         kJOg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792789887; x=1793394687;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=4Z5W3YqAiuEHHNgCmWNPu2h0CpdPIOg8Syx8Os9bGaY=;
+        b=UgRvfT8P6YEqICgOvVZ7mjqhXjRfhVfS6MXuTmo3kwAiEamUybuMdoqIh/YK2K6zI8
+         NxdFOJeA4XPajuBVg5uKHHJ6t1YjndLq6XAyba7tQ5rL/YTxDi3EfaBZB8+sWx9595bU
+         aMqA9gCEj3vWtEUO99lQlYj51Jy7IheQBGIoSQKVXkt2s49bzJg41OO8BzIizzIUJQHv
+         nBPy9WJkbL7yfzJJFg0L79aP+fyvg6aOzPyRIhLy0Os5lSi8LZhOj43oRwAUoi4Auma2
+         DUneS4m+/1+WIc1o7KXKYlVYJYd+y0XcKBDjzfSaBx1seUpMhcqcyqMSZtK0J41Had26
+         fsgA==
+X-Forwarded-Encrypted: i=1; AKwUvBye6fWsRaDOW83dUTIPwbE8zc8Sngeam33wW3JonBwqeNV7dww/YBrZrEvZebFkvC/435Txh9SHFWVTpRg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL5bKaHms9tFqS9Dai50rXUUvmL+KLucH/LC33zC008gRBa1MqY
+	lkDGVoOxx/F9Euz8iZvpq69YPkzYMyBjXIVxeoGQrGBI20lXJRY4ceIRCePDke78
+X-Gm-Gg: AYBFou3/+R04LQlaijnYTw+1invtcZvUmBUWQ5UewoVk/yJ6k90o6JKDQownod0OPp/
+	jfFXsnXRQbmRxywHgT5iTsXux2nIpEl1vCpY1EPbGiZnyuGcB2J1L6rY5oi4WqyMuH42OPSAF4J
+	7YrX3tUwd68pu7VwqgMuRSasgOyzKaRhEIetvFrPWwYWiC6owVV7erylhkBtTYUkY1GcrQXinf0
+	Tzjn8Mxpty0NQPMAoceQ5AJgN/3NE/p0pzTO01rs7qdMj+dt+zf2xRuryM29C9OAQzNr9FoYKuW
+	qlBcGPxH8dr7NeYK5u7y5NOlGEocH8SsyJ7PK3l4+KVcB+QFf/vv9EN7mumDN0/L32mGLkp+ArJ
+	Hbq0bagzg7xeIsBM6r7ngcmos6bRR8OXs3Aq8BL9yWyVK1tU25iasEITpUc7l7q4kxP9pTSdJX8
+	SDMA4Ob6JeLLd6x6HX1mBEbu0kkuXbBxp95XpC1vRRPMcC9Nxgpu7qfQZuEpiGpOSiqw8r2AvbG
+	q8l4/O5GztH6BxpnzEieVbNO9258vgoJmeoyDATVn5Uzk3cwMV5La1FDOYvstuk7A==
+X-Received: by 2002:a05:620a:4556:b0:93f:12d4:67cb with SMTP id af79cd13be357-940ef9c4921mr36665885a.80.1792789886653;
+        Fri, 23 Oct 2026 14:11:26 -0700 (PDT)
+Received: from linux.. ([8.34.174.240])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-940f066958csm9222085a.15.2026.10.23.14.11.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 23 Oct 2026 14:11:26 -0700 (PDT)
+From: Changyul Lee <lcy8047@gmail.com>
+To: Srinivas Kandagatla <srini@kernel.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2] slimbus: messaging: hold lock until transaction is completed
+Date: Fri, 23 Oct 2026 17:11:25 -0400
+Message-ID: <20261023211125.2738290-1-lcy8047@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,70 +94,73 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <18de9e8f-3709-4bc9-b11b-3813e1ba98b7@huaweicloud.com>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Oct 21, 2026 at 10:25:40AM +0800, Tengda Wu wrote:
-> Hi,
-> 
-> On 2026/10/20 21:44, Tengda Wu wrote:
-> > This series adds arm64 support to perf's data type profiling by
-> > implementing instruction tracking for the arm64 architecture.
-> > 
-> > The main changes since v7 include:
-> > v7: https://lore.kernel.org/all/cover.1791629326.git.wutengda@huaweicloud.com/
-> > 
-> >   * Patch 02: Minor optimizations to update_insn_state_arm64 to facilitate
-> >     future extension, including:
-> >     - Encapsulating call instruction handling into update_call_insn_state()
-> >     - Encapsulating invalidate dst regs handling into invalidate_unhandled_insn_regs()
-> >     - Renaming is_readonly_branch_or_cmp() to is_readonly_insn()
-> >     No functional changes.
-> > 
-> >   * Fix issues raised by Sashiko:
-> >     - Patch 06: Complete the status register invalidation logic for
-> >       exclusive stores.
-> >     - Patch 13 & 15: Complete the lifetime invalidation logic for adrp
-> >       and mrs instructions.
-> >     Regarding the status register invalidation issue for instructions
-> >     such as cas/swp as well, we plan to support this incrementally
-> >     after the relevant instructions are refined; this patch temporarily
-> >     ignores and does not handle it (a TODO marker has already been
-> >     reserved in patch 02)
-> > 
-> > Patch organization
-> > ==================
-> > 
-> >   Patches 1-3:   Shared infrastructure. Extract invalidate_reg_state() as
-> >                  a common helper, add the arch_get_reg_offset() helper for
-> >                  computing operand base offsets, and wire up the arm64
-> >                  entry points (arch_supports_insn_tracking(),
-> >                  init_type_state(), and update_insn_state_arm64()).
-> > 
-> >   Patches 4-6:   Core instruction tracking for arm64: function return
-> >                  types after calls, load instructions (ldr/ldp and their
-> >                  addressing modes), and store instructions (str/stp).
-> > 
-> >   Patches 7-9:   Shared data structure improvements and an x86 fix.
-> >                  Expand type_state_reg.imm_value to u64 so 64-bit
-> >                  addresses can be tracked, preserve imm_value for stack
-> >                  variables, and delete stale stack state on store of an
-> >                  untracked register on x86.
-> > 
-> >   Patches 10-15: Remaining arm64 patterns: stack variable tracking,
-> >                  'mov' (register and immediate forms), 'add' member
-> >                  address calculation, 'adrp' global variable tracking,
-> >                  per-cpu variable access, and 'mrs sp_el0' to resolve the
-> >                  'current' pointer.
-> > 
-> 
-> Just a quick note that this version of the patch series has addressed or
-> clarified all the Sashiko review comments. I would appreciate it if you
-> could take a look when you get a chance.
+slim_msg_response() releases ctrl->txn_lock right after idr_find()
+and then uses txn. If the request times out in the meantime, it
+returns, and txn is no longer valid.
 
-Merged now, test built and pushed to perf-tools-next/perf-tools-next for
-further build testing with linux-next, early next week I intend to push
-it out to Linus for 7.4.
+Keep ctrl->txn_lock held until complete() returns, so the timeout
+path in slim_free_txn_tid() waits until slim_msg_response() is done
+with txn. Call idr_remove() directly, since slim_free_txn_tid() takes
+the same lock.
 
-- Arnaldo
+Tested on v7.3 with a delay after idr_find(), in QEMU with KASAN
+and on a DragonBoard 845c. Without this patch, both reproduced the
+use-after-free in slim_msg_response(). With this patch, neither did.
+
+Fixes: afbdcc7c384b ("slimbus: Add messaging APIs to slimbus framework")
+Assisted-by: LLM
+Signed-off-by: Changyul Lee <lcy8047@gmail.com>
+---
+Changes in v2:
+ - Add a summary of the test results to the commit message
+ - Remove the blank line between Fixes: and Signed-off-by:
+ - Add Assisted-by: tag
+
+Detailed test results (QEMU and DragonBoard 845c):
+https://lore.kernel.org/all/CAKefsHuMzUr6LForJnx4ZQiBUMLQm60_iNEKmjxnGDTVxr88Cg@mail.gmail.com/
+
+v1: https://lore.kernel.org/all/20260911045911.1327413-1-lcy8047@gmail.com/
+
+ drivers/slimbus/messaging.c | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/slimbus/messaging.c b/drivers/slimbus/messaging.c
+index e2dbe4a66b70..aa98f5480ba4 100644
+--- a/drivers/slimbus/messaging.c
++++ b/drivers/slimbus/messaging.c
+@@ -29,22 +29,24 @@ void slim_msg_response(struct slim_controller *ctrl, u8 *reply, u8 tid, u8 len)
+ 
+ 	spin_lock_irqsave(&ctrl->txn_lock, flags);
+ 	txn = idr_find(&ctrl->tid_idr, tid);
+-	spin_unlock_irqrestore(&ctrl->txn_lock, flags);
+-
+-	if (txn == NULL)
++	if (txn == NULL) {
++		spin_unlock_irqrestore(&ctrl->txn_lock, flags);
+ 		return;
++	}
+ 
+ 	msg = txn->msg;
+ 	if (msg == NULL || msg->rbuf == NULL) {
++		spin_unlock_irqrestore(&ctrl->txn_lock, flags);
+ 		dev_err(ctrl->dev, "Got response to invalid TID:%d, len:%d\n",
+ 				tid, len);
+ 		return;
+ 	}
+ 
+-	slim_free_txn_tid(ctrl, txn);
++	idr_remove(&ctrl->tid_idr, txn->tid);
+ 	memcpy(msg->rbuf, reply, len);
+ 	if (txn->comp)
+ 		complete(txn->comp);
++	spin_unlock_irqrestore(&ctrl->txn_lock, flags);
+ 
+ 	/* Remove runtime-pm vote now that response was received for TID txn */
+ 	pm_runtime_mark_last_busy(ctrl->dev);
+
+base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
+-- 
+2.43.0
+
