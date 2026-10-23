@@ -1,107 +1,98 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.170
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792796705;
-	b=LVYw53nm7CGfFj5xmD6JH+0EgeoRTJoSkRVEUkiMNugVb88WudRXHkrIoa8M9d+FUbA7
-	 mbAsUCJSsGjeeqpKd8Tijr9pJ1iQ9qYiY9FdaBDfpMaqoREMRuGAkF8MYwClk/YekWwfs
-	 ZR+AP+DgRHTjVVHDpiLbAxM3w6xeb7nztO0L97tW3WIywnNfvaEyaWIJDlWPwyhj/zNwV
-	 mn3JmlWPWjYzjBEStNn7mOmOobyOfq4xkLH6BdbzLJwg86YteQ855GxL8K7ObZrV2XaXR
-	 Z1ppMU8b64YmEg5fJD/OA/lJGEAQWbvkBTngpgPfQGlrhneOVxA7KoYWtvbhYokVb6g==
+	t=1792796722;
+	b=pq5KViUcOhHnn/GlwDtZEL903NlrroOkZnIM3IsXjTow7llLyT1oAUZWhBS1FBfSOdJb
+	 Sphbe/vRjVwU4VuFqKOEiHzaxRGPfbZxWjF+xGfYfqxAu2YdFKBS1SnnPYWeTdUjACIaH
+	 oxpZoEljvwMXGUaPRuwtDeUhuucs+VEMP1ufbJUGgG6SBcfeu+sH4BxYNX+GTv6xJNzTI
+	 sbbH+WqiDAGL6n7wknZm4M64arXzrn9An0v+VEdh+jF5ZgUC3PZdaq7/8a5zuhmyAAfqV
+	 LelAzK4yF1Y8sL04d/Zf4KmsaOcQEn2cLEX4NQThUpby/i6Lr1A7FEwIa3NlVyGMKZA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792796705;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792796722;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=ZswvTd/s2fcGyqpmQVd7BMQTG9xDsl0OyrHTOIwhPu8=;
-	b=K4/6siKpd2Gyx4Bu/ngjsjwEwm7WuxRzTE571RKFqSwiYi/o7/OSltpPZGL124ZEet6v
-	 FyDbSFTfFWTD/CY6pZyPCFpY9d2aKQrfmsn6ieM6cHHZNYIVK+Blpq1i6ByfzYzwIbM05
-	 JmFwq+BWd7iqOFN93l1Sy8/3+B422kVTL1PlyOUVJATbOgDVlO/pmkcmDythHxmgVnWWN
-	 vVj1CWk1/mrEWO8npm1AEt5hc4k1Zbk6c+oFfaEvXIpuKk8VaJzR/cJOTUiaUFw5P202Q
-	 t/7tvrVoGgt+7RT+CdH58nnsjxVEnOjtm00vnPsd/9WdwvgRxYpw23fwsbQ6vM/+VGw==
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=uCF2jlxxO/nA/5NS9hqh6uNWENCdEyROzaeBge0wfpI=;
+	b=OhcgHLw2CzJGn+IV6MGem5WKSIF1BIVXZMqkE9DzRxWunjALhfKG9fMpCBPv9/yjIb1X
+	 H5S6vG84pmYtbRr+67GXtnq/x50BDLzRHclgcCIxVuE46zR/RgLtGVwSQkf99d7y7hitK
+	 gmnoqVZf2AGRErQ+VYcnkACJNFWRhAstU5BAD37iBA9mfcJpy5IHitB5tYxW7CcAaRdda
+	 4AXj2c+sU2XlcetV0iTDMiM5gRWNDBnaxg3T9a2yDSTuQnOtUEGV2R3LrAUC0V3Q5uwJA
+	 DdDrRBfi4SDjHnvU48pwz4Au7fz2Cp0VTyYfenK4ppEXxbYgJSLJppnq3/KGPcNApmg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=crusoe.ai;
-	spf=pass smtp.mailfrom=crusoe.ai;
-	dkim=pass header.d=crusoe.ai header.i=@crusoe.ai header.a=rsa-sha256 header.s=google header.b=K9UxL2YA;
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=jUTcaJhV;
 	arc=none smtp.remote-ip=74.125.82.170
 Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40D3B606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 23:05:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 40D3B606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=crusoe.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=crusoe.ai
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DEEB606A321
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 23:05:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1DEEB606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=crusoe.ai header.i=@crusoe.ai header.a=rsa-sha256 header.s=google header.b=K9UxL2YA
-Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-354ba08cfd1so2379910eec.1
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 16:05:04 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=jUTcaJhV
+Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-33fb4680717so1556292eec.1
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 16:05:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=crusoe.ai; s=google; t=1792796704; x=1793401504; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ZswvTd/s2fcGyqpmQVd7BMQTG9xDsl0OyrHTOIwhPu8=;
-        b=K9UxL2YAa4FRogatSYOjjbiyYKIGPhzzEWC2yTjPF00i/VPoaXvJihsZRIrsKqZapG
-         tNBS+sbdUOwMh61YOQ6RXH2Z5UkskrC4WvvTnA1s6l0EOo5pQl8HNgJ8Dpc0w0tJis3B
-         QqLzp/Su7kyZ+39BJDavzp6PNQVOIi6M3PQUn35qkEMlxxmFR3Ww0Za1ryxC+rOt9wLx
-         XNJJQOCUjsVI/lQ0vJdaISfsocL25smqzwUs119oY/07OAADeRxiBIdMIcpY4aUjvxpA
-         8LFa22GfJHKEMo15orcVxmkAYO1ENvhTYzmie9Q3hp/BPKgyUp1B035R/HuB/HA4NItJ
-         9oCg==
+        d=gmail.com; s=20251104; t=1792796721; x=1793401521; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=uCF2jlxxO/nA/5NS9hqh6uNWENCdEyROzaeBge0wfpI=;
+        b=jUTcaJhVMppiWpSVMnilazd4eMWMezQc/gLwfc50q0QqH3iX5JHRO8ENikv4H9yDyd
+         LGG2Hml556XPLz8fLR9FwYwVjUh5Hpbda8eID0A8/aTh44Rbvs1AUWu9DQ2TqHsWANdU
+         bs/444ddqLY8m7wVvngxnmjbOEf27pe1S5HmJP9BH0pGE+w1dvPo6zrBGf336uOo8Zdu
+         tIRpp30247C1+WDjzZzi7OdFNKQrDfdZNFfp92TZ2CIbEvUs0BWDWoqIKYcozDm2Zvgs
+         a7ETpVrkxOdOKqVh/EPK5JS6tD4FugCx3Jh6zOjUapZO4GtE/yVtPELUngLACgXhovBe
+         pUmw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792796704; x=1793401504;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ZswvTd/s2fcGyqpmQVd7BMQTG9xDsl0OyrHTOIwhPu8=;
-        b=D7EzbYRDUHfH501Hotpuvkvh9T5k1pWLxK451uhVYmUxqn6Hw4N3uOUK5IiujGGtte
-         cl32ZPKf6mIKiTGO+icKcAcajufBJXvxB78eZxhhDiIt+ERnt60df2auJSD8DjdYOn6O
-         puuUzbSbG+5tu2LiS9REdJCcvl7yg592zfyHZDOcIQjSDR+VQlUkrTU97f4Yd2WUxpmU
-         sbhxQFN65L9+BIgXdnB30+OAGXeY5OJcO4+F10umklHtK+rtyfjFt8WmziL8u4QiWX2M
-         U9UAaSg4uQfJjtibUIovNs46FKJ/YP/XIkE4cqf8KkB/kof2ul0HtMstGr2JBbU60fU2
-         tmow==
-X-Forwarded-Encrypted: i=1; AKwUvBwK0fwxGZK/moPnKmx+4gX7DOzx664KRDbI9nkBI0VdW7fLS75IS3ILymkDn+u8r9EPBWZm/HOZnVXv7aU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKxnp1CNDvY/uizuY456OBCG9YidVy04EvuQwk2AOCtzTNTELs6
-	YMD15NPXDNZ91NK3GdOXUHAiTciYSeFTwgATy7AGowDvkDrEoyuAFVZG1uqENiM5HGw=
-X-Gm-Gg: AYBFou0dPqkB/+G+18cJpB33ueTRalL03bPHOYAlbDQOAyErWEUd/AdY0cFw68M40Oj
-	aq00o1nYBJRvVor8mQaHO+OfHYvF/aGmPIZRTwPmqXrY6V75bm1HSl+J9cFCdx+99tAjT6JJRC3
-	gh3zg79RBoUnzJjqUBVhePllS1xD0U1ceJyi+Zols3KWT0y9wCJbR8TjoTxQa+syO0/JOZyf41D
-	FykRJZXx7ZohP78SdQdkN2RD46w+ecZlVWRS2OJbk6ho/QMx7CHP1ZrXvaaxMF05vhrbqQfIeha
-	/QT3n7ES9+er9Dkzxy0Ew4kBixfLGSRpcV1Jo1Z0Rs2o3ukfV2L0uUtw27ELfA8C+9SZMyVDJxJ
-	/Rn8AaiVVLIlxNn1PshXbbVqHWSe7kJRTVmIjM8BbimwoDrTtYeoQGqaqqnC00zLCGfPP0rimlj
-	VdmdWiJnTXar/jjwHvrdzY0gFc7QVrPev8a/ReHiJicOF39BCxztP6xERXqb3VhnRt8UxG3GMrg
-	VyHCW+0CTOs/lexY0qKTHju8XSh7LlUAjgozYw2WrRSYu2svS5szLDVQEQTUqyouK6qdKUCCeej
-	9N1NX+zxcS63HSkdn96lDHsj9A==
-X-Received: by 2002:a05:7301:1a87:b0:369:a63c:83f4 with SMTP id 5a478bee46e88-369e8354e3cmr941075eec.5.1792796704036;
-        Fri, 23 Oct 2026 16:05:04 -0700 (PDT)
-Received: from MBP-Saravanan-D.civet-hops.ts.net ([67.208.231.220])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369e8ecf087sm1356203eec.27.2026.10.23.16.05.02
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Fri, 23 Oct 2026 16:05:03 -0700 (PDT)
-From: Saravanan D <saravanand@crusoe.ai>
-To: linux-nvme@lists.infradead.org
-Cc: kbusch@kernel.org,
-	hch@lst.de,
-	sagi@grimberg.me,
-	axboe@kernel.dk,
-	nilay@linux.ibm.com,
-	dwagner@suse.de,
-	sgogte@purestorage.com,
-	hare@kernel.org,
-	hare@suse.de,
-	linux-kernel@vger.kernel.org,
-	iyamahata@crusoe.ai,
-	kiyer@crusoe.ai,
-	ganbalagane@crusoe.ai,
-	sjpark@crusoe.ai,
-	bchen@crusoe.ai,
-	Saravanan D <saravanand@crusoe.ai>
-Subject: [PATCH v6 2/2] nvme-tcp: allow setting per-queue io_cpu through sysfs
-Date: Fri, 23 Oct 2026 16:04:26 -0700
-Message-ID: <20261023230426.6425-3-saravanand@crusoe.ai>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261023230426.6425-1-saravanand@crusoe.ai>
-References: <20261023230426.6425-1-saravanand@crusoe.ai>
+        d=1e100.net; s=20260707; t=1792796721; x=1793401521;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=uCF2jlxxO/nA/5NS9hqh6uNWENCdEyROzaeBge0wfpI=;
+        b=pwGI9RiQjuMC0/ad/G+nz9/+7LmyXBcFPknrrG2boVV2pjgPP4F8YrfmSBDh51ahRn
+         qzEGhe7vPe3PqROOx5ruHjUMzdZ/eZ6DhxUQ576i4IBx7Nb5/tUYCcw5KMTLZaQ0klnE
+         lOIFpaQNmow8P6NMyqe5gLuS+8pL0kC1E6O80ea6zym3TrBlcV+nNVAgx0EuyHWHH/RY
+         C6YKleqlS8vcIJKlbgIkMJqcCiXm/SuDDXbWPosI1fymXfce3iWQ/O59fuRXn2G/cNxf
+         O2ItsJ5p0zBbqqqJIDVg3hkX0bg12tpmdfjFnFkm2maPkAoKHabkKTvs5t0B71/aTgkg
+         o0yQ==
+X-Forwarded-Encrypted: i=1; AKwUvByuyXxeL0mgq5ND60JOyqCc3TAchRP0PfC65RfqzjyoCjICBYsaVdWlpB8Pfe04E5m4UgJtd5ptka4vBZ0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLpiohug9BqjBdyEX6j9ViaDDGHrqLaDUaYRvwUo4D837B+5Sib
+	5GCTuWtXMNxJC2td9DnYrTfrkCzlw2AotKrG18aMCTvrNk8vVUrtZ57u
+X-Gm-Gg: AYBFou1rOD7fLWs7gPUp1PH6nlPvW2FgiBohB81oNAlCxcsWKy1kuD1D0cis7GHtGu0
+	E1Jq8SFDKniE82kJor6s1NZMbODUSbflPzMCPx4BgXwvaWCnXIEq94MU/+bz8nbO+HXiEaN0vp4
+	x14IzYmsfr8HgasQCZYzqwPGoLJSXi5vKkRJeq3arGj/AFv0Y9KBQAyTAVjhslNVlFVWSn3j7E4
+	t9RVgJrEQ5SLlCKyyspl0KapBFFsgqeD4U6ebWCT46s68bJk1WTSHTCT+X0lMgvcq30YiEeJDum
+	KjxqjEiIUzRWkVq4OSQZsusuEDgUUrLhVQUKCorGzLvwFwTToz+PBqMY85TJoTzCNCbMEprsQnZ
+	wtHzfBthxMaQ52+Ol+wt2FF+07uVkrP0/UJ8grygInAS3dpwU4G3WJIdSWBm9QJMHBTFelI3ma9
+	1O/JrHjygyNbZkyZdzpafA8bs5fnpT/l7P+6lqNBr1nplwGkKWv8yrOQhE4MMFWgUXsj2vCQSro
+	NxVStd8LEANYj5t+KPM8nrPPuGZX7rseOQJayX/knGJH1u63bC53KrwdS5h2KIiOf9jXQWQAQuR
+	Xk6V+9K637li4QrbY02l
+X-Received: by 2002:a05:7301:dd84:b0:35d:5a2c:2321 with SMTP id 5a478bee46e88-369e84bc176mr963754eec.20.1792796720121;
+        Fri, 23 Oct 2026 16:05:20 -0700 (PDT)
+Received: from google.com ([2a00:79e0:2ebe:8:493:cd31:1e31:5982])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369e8ec864fsm1461802eec.24.2026.10.23.16.05.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 23 Oct 2026 16:05:19 -0700 (PDT)
+Date: Fri, 23 Oct 2026 16:05:16 -0700
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: Alice Mikityanska <alice.kernel@fastmail.im>
+Cc: Mark Pearson <mpearson-lenovo@squebb.ca>, 
+	Ike Panhc <ikepanhc@gmail.com>, platform-driver-x86@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, "Derek J. Clark" <derekjohn.clark@gmail.com>, 
+	Hans de Goede <hansg@kernel.org>, Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>, 
+	Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>, Maxim Mikityanskiy <maxtram95@gmail.com>
+Subject: Re: [PATCH v3] platform/x86: ideapad-laptop: do not poke keyboard
+ controller
+Message-ID: <atvn7F8XoS4FgO6-@google.com>
+References: <4b2f60a7ceac543bd8b889b9c0772b2c@gmail.com>
+ <9250be99-ce79-4d86-a5eb-c7640fb7c421@app.fastmail.com>
+ <f7bc115a-647e-4db1-9a36-659bafcb2d5d@app.fastmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -111,413 +102,288 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <f7bc115a-647e-4db1-9a36-659bafcb2d5d@app.fastmail.com>
 
-nvme_tcp_set_queue_io_cpu() picks each queue's io_cpu at connect time
-as the least loaded CPU in the queue's blk-mq map group, and all socket
-work runs there for the connection's lifetime. This decision falls
-short when the host partitions its CPUs after connect time. On a 384
-cpu multi tenant host with 128 queue controllers, blk-mq folds three
-CPUs into every map group, some groups straddle two tenants' cpusets,
-and 9% of nvme_tcp_io_work executions ran outside the submitting VM's
-cpuset, seen by the neighbor as steal time.
+On Fri, Oct 23, 2026 at 07:37:34PM +0300, Alice Mikityanska wrote:
+> On Fri, Oct 23, 2026, at 19:04, Alice Mikityanska wrote:
+> > On Thu, Oct 22, 2026, at 07:50, Dmitry Torokhov wrote:
+> >> On Ideapad Z570 the driver tries to disable and re-enable data coming
+> >> from the touchpad by poking directly into 8042 keyboard controller.
+> >> This may coincide with the controller resuming and leads to spews in
+> >> dmesg and potentially other instabilities.
+> >>
+> >> Instead of using i8042_command() to control the touchpad state create
+> >> an input handler that serves as a filter and drop events coming from
+> >> the touchpad when it is supposed to be off.
+> >>
+> >> Reviewed-by: Mark Pearson <mpearson-lenovo@squebb.ca>
+> >> Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+> >> ---
+> >>
+> >> v3:
+> >> - add missing header includes (compiler.h, container_of.h, errno.h,
+> >>   mod_devicetable.h, slab.h, spinlock.h)
+> >> - drop stray blank line in ideapad_tpswitch_filter()
+> >> - collect Reviewed-by from Mark Pearson
+> >>
+> >> v2:
+> >> - fix inverted condition in ideapad_tpswitch_filter()
+> >> - mark the handler as passive_observer so that touchpad is not activated
+> >>   until there are real users
+> >> - use READ_ONCE()/WRITE_ONCE() to access shared state flag
+> >> - drop stray semicolon in to_tpswitch_handle()
+> >> - update comments
+> >>
+> >>  drivers/platform/x86/lenovo/ideapad-laptop.c | 189 ++++++++++++++++++-
+> >>  1 file changed, 180 insertions(+), 9 deletions(-)
+> >>
+> >> diff --git a/drivers/platform/x86/lenovo/ideapad-laptop.c 
+> >> b/drivers/platform/x86/lenovo/ideapad-laptop.c
+> >> index 8213524504ee..be890e82b9ef 100644
+> >> --- a/drivers/platform/x86/lenovo/ideapad-laptop.c
+> >> +++ b/drivers/platform/x86/lenovo/ideapad-laptop.c
+> >> @@ -14,23 +14,28 @@
+> >>  #include <linux/bitops.h>
+> >>  #include <linux/bug.h>
+> >>  #include <linux/cleanup.h>
+> >> +#include <linux/compiler.h>
+> >> +#include <linux/container_of.h>
+> >>  #include <linux/debugfs.h>
+> >>  #include <linux/delay.h>
+> >>  #include <linux/device.h>
+> >>  #include <linux/dmi.h>
+> >> -#include <linux/i8042.h>
+> >> +#include <linux/errno.h>
+> >>  #include <linux/init.h>
+> >>  #include <linux/input.h>
+> >>  #include <linux/input/sparse-keymap.h>
+> >>  #include <linux/jiffies.h>
+> >>  #include <linux/kernel.h>
+> >>  #include <linux/leds.h>
+> >> +#include <linux/mod_devicetable.h>
+> >>  #include <linux/module.h>
+> >>  #include <linux/platform_device.h>
+> >>  #include <linux/platform_profile.h>
+> >>  #include <linux/power_supply.h>
+> >>  #include <linux/rfkill.h>
+> >>  #include <linux/seq_file.h>
+> >> +#include <linux/slab.h>
+> >> +#include <linux/spinlock.h>
+> >>  #include <linux/string_choices.h>
+> >>  #include <linux/sysfs.h>
+> >>  #include <linux/types.h>
+> >> @@ -210,6 +215,13 @@ struct ideapad_private {
+> >>  		struct led_classdev led;
+> >>  		unsigned int last_brightness;
+> >>  	} fn_lock;
+> >> +	struct {
+> >> +		bool initialized;
+> >> +		bool active; /* true means touchpad is enabled */
+> >> +		struct input_handler handler;
+> >> +		struct input_dev *tp_dev;
+> >> +		spinlock_t lock;
+> >> +	} tp_switch;
+> >>  };
+> >> 
+> >>  static bool no_bt_rfkill;
+> >> @@ -234,7 +246,7 @@ MODULE_PARM_DESC(set_fn_lock_led,
+> >>  static bool ctrl_ps2_aux_port;
+> >>  module_param(ctrl_ps2_aux_port, bool, 0444);
+> >>  MODULE_PARM_DESC(ctrl_ps2_aux_port,
+> >> -		 "Enable driver based PS/2 aux port en-/dis-abling on touchpad 
+> >> on/off toggle. If you need this please report this to: 
+> >> platform-driver-x86@vger.kernel.org");
+> >> +		 "Enable driver based suppression of touchpad events on touchpad 
+> >> on/off toggle. If you need this please report this to: 
+> >> platform-driver-x86@vger.kernel.org");
+> >> 
+> >>  static bool touchpad_ctrl_via_ec;
+> >>  module_param(touchpad_ctrl_via_ec, bool, 0444);
+> >> @@ -1462,6 +1474,159 @@ static void 
+> >> ideapad_check_special_buttons(struct ideapad_private *priv)
+> >>  	}
+> >>  }
+> >> 
+> >> +struct ideapad_tpswitch_handle {
+> >> +	struct input_handle handle;
+> >> +	struct ideapad_private *priv;
+> >> +};
+> >> +
+> >> +#define to_tpswitch_handle(h) \
+> >> +	container_of(h, struct ideapad_tpswitch_handle, handle)
+> >> +
+> >> +static int ideapad_tpswitch_connect(struct input_handler *handler,
+> >> +				    struct input_dev *dev,
+> >> +				    const struct input_device_id *id)
+> >> +{
+> >> +	struct ideapad_private *priv =
+> >> +		container_of(handler, struct ideapad_private, tp_switch.handler);
+> >> +	struct ideapad_tpswitch_handle *h;
+> >> +	int error;
+> >> +
+> >> +	h = kzalloc_obj(*h);
+> >> +	if (!h)
+> >> +		return -ENOMEM;
+> >> +
+> >> +	h->priv = priv;
+> >> +	h->handle.dev = dev;
+> >> +	h->handle.handler = handler;
+> >> +	h->handle.name = "ideapad-tpswitch";
+> >> +
+> >> +	error = input_register_handle(&h->handle);
+> >> +	if (error)
+> >> +		goto err_free_handle;
+> >> +
+> >> +	/*
+> >> +	 * We need to open the input handle so the input core invokes our
+> >> +	 * filter, but since we mark our handler as passive observer, this
+> >> +	 * will not cause the underlying touchpad hardware to be started
+> >> +	 * if there are no other users.
+> >> +	 */
+> >> +	error = input_open_device(&h->handle);
+> >> +	if (error)
+> >> +		goto err_unregister_handle;
+> >> +
+> >> +	scoped_guard(spinlock_irq, &priv->tp_switch.lock)
+> >> +		priv->tp_switch.tp_dev = dev;
+> >> +
+> >> +	return 0;
+> >> +
+> >> +err_unregister_handle:
+> >> +	input_unregister_handle(&h->handle);
+> >> +err_free_handle:
+> >> +	kfree(h);
+> >> +	return error;
+> >> +}
+> >> +
+> >> +static void ideapad_tpswitch_disconnect(struct input_handle *handle)
+> >> +{
+> >> +	struct ideapad_tpswitch_handle *h = to_tpswitch_handle(handle);
+> >> +	struct ideapad_private *priv = h->priv;
+> >> +
+> >> +	scoped_guard(spinlock_irq, &priv->tp_switch.lock)
+> >> +		priv->tp_switch.tp_dev = NULL;
+> >> +
+> >> +	input_close_device(handle);
+> >> +	input_unregister_handle(handle);
+> >> +	kfree(h);
+> >> +}
+> >> +
+> >> +static bool ideapad_tpswitch_filter(struct input_handle *handle,
+> >> +				    unsigned int type, unsigned int code,
+> >> +				    int value)
+> >> +{
+> >> +	struct ideapad_tpswitch_handle *h = to_tpswitch_handle(handle);
+> >> +	struct ideapad_private *priv = h->priv;
+> >> +
+> >> +	if (READ_ONCE(priv->tp_switch.active))
+> >> +		return false;
+> >> +
+> >> +	/* Allow passing button release events, drop everything else */
+> >> +	return !(type == EV_KEY && value == 0) &&
+> >> +	       !(type == EV_SYN && code == SYN_REPORT);
+> >> +}
+> >> +
+> >> +static const struct input_device_id ideapad_tpswitch_ids[] = {
+> >> +	{
+> >> +		.flags = INPUT_DEVICE_ID_MATCH_EVBIT |
+> >> +				INPUT_DEVICE_ID_MATCH_KEYBIT |
+> >> +				INPUT_DEVICE_ID_MATCH_ABSBIT,
+> >> +		.bustype = BUS_I8042,
+> >> +		.vendor = 0x0002,
+> >> +		.evbit = { BIT_MASK(EV_KEY) | BIT_MASK(EV_ABS) },
+> >> +		.keybit = { [BIT_WORD(BTN_TOOL_FINGER)] =
+> >> +				BIT_MASK(BTN_TOOL_FINGER) },
+> >> +		.absbit = { BIT_MASK(ABS_X) | BIT_MASK(ABS_Y) |
+> >> +				BIT_MASK(ABS_PRESSURE) |
+> >> +				BIT_MASK(ABS_TOOL_WIDTH) },
+> >> +	},
+> >> +	{ }
+> >> +};
+> >> +
+> >> +static int ideapad_tpswitch_init(struct ideapad_private *priv)
+> >> +{
+> >> +	int error;
+> >> +
+> >> +	if (!priv->features.ctrl_ps2_aux_port)
+> >> +		return 0;
+> >> +
+> >> +	spin_lock_init(&priv->tp_switch.lock);
+> >> +
+> >> +	priv->tp_switch.handler.name = "ideapad-tpswitch";
+> >> +	priv->tp_switch.handler.id_table = ideapad_tpswitch_ids;
+> >> +	priv->tp_switch.handler.filter = ideapad_tpswitch_filter;
+> >> +	priv->tp_switch.handler.connect = ideapad_tpswitch_connect;
+> >> +	priv->tp_switch.handler.disconnect = ideapad_tpswitch_disconnect;
+> >> +	priv->tp_switch.handler.passive_observer = true;
+> >> +
+> >> +	error = input_register_handler(&priv->tp_switch.handler);
+> >> +	if (error) {
+> >> +		dev_err(&priv->platform_device->dev,
+> >> +			"failed to register touchpad switch handler: %d",
+> >> +			error);
+> >> +		return error;
+> >> +	}
+> >> +
+> >> +	priv->tp_switch.initialized = true;
+> >> +	return 0;
+> >> +}
+> >> +
+> >> +static void ideapad_tpswitch_exit(struct ideapad_private *priv)
+> >> +{
+> >> +	if (priv->tp_switch.initialized) {
+> >> +		input_unregister_handler(&priv->tp_switch.handler);
+> >> +		priv->tp_switch.initialized = false;
+> >> +	}
+> >> +}
+> >> +
+> >> +static void ideapad_tpswitch_toggle(struct ideapad_private *priv, bool 
+> >> on)
+> >> +{
+> >> +	guard(spinlock_irq)(&priv->tp_switch.lock);
+> >> +
+> >> +	WRITE_ONCE(priv->tp_switch.active, on);
+> >> +	if (!on) {
+> >> +		struct input_dev *tp_dev = priv->tp_switch.tp_dev;
+> >> +		if (tp_dev) {
+> >> +			input_report_key(tp_dev, BTN_TOUCH, 0);
+> >> +			input_report_key(tp_dev, BTN_TOOL_FINGER, 0);
+> >> +			input_report_key(tp_dev, BTN_TOOL_DOUBLETAP, 0);
+> >> +			input_report_key(tp_dev, BTN_TOOL_TRIPLETAP, 0);
+> >> +			input_report_key(tp_dev, BTN_LEFT, 0);
+> >> +			input_report_key(tp_dev, BTN_RIGHT, 0);
+> >> +			input_report_key(tp_dev, BTN_MIDDLE, 0);
+> >
+> > Hello!
+> >
+> > Tested-by: Alice Mikityanska <alice.kernel@fastmail.im>
+> >
+> > Seems to work well, without any "lost synchronization" messages in
+> > dmesg. There is a new effect, caused by the above lines: if the finger
+> > stays on the surface the entire time, and the user disables and enables
+> > the touchpad, the pointer won't move until the user lifts the finger and
+> > puts it back. Although it's unlikely to break anyone's workflow, I need
+> > to double-check that the evdev doesn't emit some invalid sequence of
+> > events, e.g., touch 0 followed by some movements, or touch 0 followed by
+> > another touch 0.
+> 
+> Yes, I see that BTN_TOUCH 0 can be followed by another BTN_TOUCH 0,
+> either in the event of lifting the finger after reenabling the touchpad,
+> or if disabling-enabling-disabling touchpad all while holding the
+> finger. Not sure if it's valid semantics, maybe it is.
+> 
+> In the scenario I'm describing (put the finger, disable, enable,
+> move the finger), EV_ABS events start being generated after enabling
+> the touchpad, without the preceding BTN_TOUCH 1, so the pointer
+> doesn't move.
 
-Expose the io_cpu in each I/O queue's directory
+I think this is acceptable. But if someone cares enough they can add
+tracking of true state and re-issue BTN_* events when touchpad is
+enabled again.
 
-  /sys/class/nvme/nvmeX/queues/<qid>/io_cpu
+Thanks.
 
-so a control plane that owns CPU placement can set it directly instead
-of relying on the driver's heuristic. The attribute accepts a decimal
-cpu number, -1 or "unbound". A user assignment, unbound included, is
-marked in the queue flags, persists across reconnects and is never
-reselected by the driver. The read-only managed attribute reports 1
-while io_cpu is driver managed and 0 once the user assigned it. The
-accounting of nvme_tcp_cpu_queues applies regardless of who set the
-io_cpu.
-
-A queue's directory is added once the connect time selection has set its
-io_cpu, so readers never see a placement that is about to change, and
-removed when the queue is freed, before it is torn down, so a sysfs
-store never runs on a freed queue. The queues directory is created
-before the I/O queues are set up in parallel. All io_cpu writes, from
-sysfs and from the driver, serialize with the accounting under
-nvme_tcp_cpu_queues_lock, while the I/O paths read io_cpu locklessly.
-The queue stop now clears NVME_TCP_Q_IO_CPU_SET under that lock, since a
-sysfs store may move io_cpu in between.
-
-nvme_tcp_free_queue() now clears NVME_TCP_Q_IO_CPU_SET and drops its
-count, because a queue can still be counted when it is freed. A sysfs
-store may have run after the queue stop, or the connect may have
-failed, and the setup error path frees such a queue without calling
-nvme_tcp_stop_queue(), where the count is normally dropped.
-
-Suggested-by: Sagi Grimberg <sagi@grimberg.me>
-Link: https://lore.kernel.org/linux-nvme/13c160d0-0657-47ce-9a16-58d348267ab0@grimberg.me/
-Assisted-by: Claude:claude-opus-5-5 [Claude Code]
-Signed-off-by: Saravanan D <saravanand@crusoe.ai>
----
- Documentation/ABI/stable/sysfs-nvme |  31 +++++
- drivers/nvme/host/tcp.c             | 172 ++++++++++++++++++++++++----
- 2 files changed, 183 insertions(+), 20 deletions(-)
-
-diff --git a/Documentation/ABI/stable/sysfs-nvme b/Documentation/ABI/stable/sysfs-nvme
-index 9291595f8102..aec327cf507a 100644
---- a/Documentation/ABI/stable/sysfs-nvme
-+++ b/Documentation/ABI/stable/sysfs-nvme
-@@ -503,3 +503,34 @@ Contact:	Hannes Reinecke <hare@suse.de>
- Description:
- 		Shows the subsystem type. Possible values: "discovery",
- 		"nvm", "reserved".
-+
-+What:		/sys/class/nvme/nvmeX/queues/<qid>/io_cpu
-+What:		/sys/class/nvme/nvmeX/queues/<qid>/managed
-+Date:		October 2026
-+KernelVersion:	7.5
-+Contact:	Saravanan D <saravanand@crusoe.ai>
-+Description:
-+		Per I/O queue directories, populated by the transport
-+		backing the controller. A directory appears once the
-+		driver has selected the queue's CPU at connect time and
-+		is removed when the queue is torn down, so the
-+		directories follow the queue count and are absent while
-+		the controller reconnects.
-+		NVMe over TCP exposes:
-+
-+		io_cpu: (RW) The CPU that runs the socket work for I/O
-+		queue <qid>, selected by the driver at connect time.
-+		Writing a decimal online CPU number overrides the
-+		selection, and writing -1 or "unbound" leaves the socket
-+		work unbound. A written value persists across reconnects
-+		for the life of the controller, also when its CPU goes
-+		offline. Unbound socket work runs on the CPU that queued
-+		it. When the nvme_tcp module is loaded with wq_unbound
-+		set, the socket work runs on an unbound workqueue and
-+		how closely it follows io_cpu depends on the affinity
-+		scope of the nvme_tcp_wq workqueue. Reads return the
-+		current CPU, or -1 when the queue is unbound.
-+
-+		managed: (RO) Shows who owns the CPU placement. 1 while
-+		io_cpu is driver managed, 0 once the user assigned it,
-+		for the life of the controller.
-diff --git a/drivers/nvme/host/tcp.c b/drivers/nvme/host/tcp.c
-index f876375dffd2..cf92626b4971 100644
---- a/drivers/nvme/host/tcp.c
-+++ b/drivers/nvme/host/tcp.c
-@@ -95,6 +95,7 @@ enum nvme_tcp_queue_flags {
- 	NVME_TCP_Q_LIVE		= 1,
- 	NVME_TCP_Q_POLLING	= 2,
- 	NVME_TCP_Q_IO_CPU_SET	= 3,
-+	NVME_TCP_Q_IO_CPU_USER	= 4,
- };
- 
- enum nvme_tcp_recv_state {
-@@ -142,6 +143,7 @@ struct nvme_tcp_queue {
- 	struct completion       tls_complete;
- 	int                     tls_err;
- 	struct page_frag_cache	pf_cache;
-+	struct nvme_queue_info	*qinfo;
- 
- 	void (*state_change)(struct sock *);
- 	void (*data_ready)(struct sock *);
-@@ -230,6 +232,19 @@ static inline int nvme_tcp_queue_id(struct nvme_tcp_queue *queue)
- 	return queue - queue->ctrl->queues;
- }
- 
-+/* the I/O paths read io_cpu locklessly, writers hold the accounting lock */
-+static inline int nvme_tcp_queue_io_cpu(struct nvme_tcp_queue *queue)
-+{
-+	return READ_ONCE(queue->io_cpu);
-+}
-+
-+static inline void nvme_tcp_queue_change_io_cpu(struct nvme_tcp_queue *queue,
-+						int cpu)
-+	__must_hold(&nvme_tcp_cpu_queues_lock)
-+{
-+	WRITE_ONCE(queue->io_cpu, cpu);
-+}
-+
- static inline bool nvme_tcp_recv_pdu_supported(enum nvme_tcp_pdu_type type)
- {
- 	switch (type) {
-@@ -427,7 +442,7 @@ static inline void nvme_tcp_queue_request(struct nvme_tcp_request *req,
- 	 * lockdep reports circular locking via elevator_lock.  Defer TLS
- 	 * sends to the io workqueue instead of inline from this path.
- 	 */
--	if (queue->io_cpu == raw_smp_processor_id() &&
-+	if (nvme_tcp_queue_io_cpu(queue) == raw_smp_processor_id() &&
- 	    !nvme_tcp_queue_tls(queue) &&
- 	    empty && mutex_trylock(&queue->send_mutex)) {
- 		nvme_tcp_send_all(queue);
-@@ -435,7 +450,8 @@ static inline void nvme_tcp_queue_request(struct nvme_tcp_request *req,
- 	}
- 
- 	if (last && nvme_tcp_queue_has_pending(queue))
--		queue_work_on(queue->io_cpu, nvme_tcp_wq, &queue->io_work);
-+		queue_work_on(nvme_tcp_queue_io_cpu(queue), nvme_tcp_wq,
-+			      &queue->io_work);
- }
- 
- static void nvme_tcp_process_req_list(struct nvme_tcp_queue *queue)
-@@ -844,7 +860,8 @@ static int nvme_tcp_handle_r2t(struct nvme_tcp_queue *queue,
- 	nvme_tcp_setup_h2c_data_pdu(req);
- 
- 	llist_add(&req->lentry, &queue->req_list);
--	queue_work_on(queue->io_cpu, nvme_tcp_wq, &queue->io_work);
-+	queue_work_on(nvme_tcp_queue_io_cpu(queue), nvme_tcp_wq,
-+		      &queue->io_work);
- 
- 	return 0;
- }
-@@ -1131,7 +1148,8 @@ static void nvme_tcp_data_ready(struct sock *sk)
- 	queue = sk->sk_user_data;
- 	if (likely(queue && queue->rd_enabled) &&
- 	    !test_bit(NVME_TCP_Q_POLLING, &queue->flags))
--		queue_work_on(queue->io_cpu, nvme_tcp_wq, &queue->io_work);
-+		queue_work_on(nvme_tcp_queue_io_cpu(queue), nvme_tcp_wq,
-+			      &queue->io_work);
- 	read_unlock_bh(&sk->sk_callback_lock);
- }
- 
-@@ -1146,7 +1164,8 @@ static void nvme_tcp_write_space(struct sock *sk)
- 		/* Ensure pending TLS partial records are retried */
- 		if (nvme_tcp_queue_tls(queue))
- 			queue->write_space(sk);
--		queue_work_on(queue->io_cpu, nvme_tcp_wq, &queue->io_work);
-+		queue_work_on(nvme_tcp_queue_io_cpu(queue), nvme_tcp_wq,
-+			      &queue->io_work);
- 	}
- 	read_unlock_bh(&sk->sk_callback_lock);
- }
-@@ -1469,7 +1488,8 @@ static void nvme_tcp_io_work(struct work_struct *w)
- 
- 	} while (!time_after(jiffies, deadline)); /* quota is exhausted */
- 
--	queue_work_on(queue->io_cpu, nvme_tcp_wq, &queue->io_work);
-+	queue_work_on(nvme_tcp_queue_io_cpu(queue), nvme_tcp_wq,
-+		      &queue->io_work);
- }
- 
- static void nvme_tcp_free_async_req(struct nvme_tcp_ctrl *ctrl)
-@@ -1503,9 +1523,22 @@ static void nvme_tcp_free_queue(struct nvme_ctrl *nctrl, int qid)
- 	struct nvme_tcp_queue *queue = &ctrl->queues[qid];
- 	unsigned int noio_flag;
- 
--	if (!test_and_clear_bit(NVME_TCP_Q_ALLOCATED, &queue->flags))
-+	if (!test_bit(NVME_TCP_Q_ALLOCATED, &queue->flags))
- 		return;
- 
-+	/* no io_cpu store runs once the directory is removed */
-+	if (queue->qinfo) {
-+		nvme_remove_queue_info(queue->qinfo);
-+		queue->qinfo = NULL;
-+	}
-+	clear_bit(NVME_TCP_Q_ALLOCATED, &queue->flags);
-+
-+	/* a failed connect or a store after the stop left it counted */
-+	spin_lock(&nvme_tcp_cpu_queues_lock);
-+	if (test_and_clear_bit(NVME_TCP_Q_IO_CPU_SET, &queue->flags))
-+		nvme_tcp_cpu_queues[nvme_tcp_queue_io_cpu(queue)]--;
-+	spin_unlock(&nvme_tcp_cpu_queues_lock);
-+
- 	page_frag_cache_drain(&queue->pf_cache);
- 
- 	/**
-@@ -1724,8 +1757,18 @@ static void nvme_tcp_set_queue_io_cpu(struct nvme_tcp_queue *queue)
- 	unsigned int *mq_map = NULL;
- 	int cpu, min_queues = INT_MAX, io_cpu;
- 
-+	spin_lock(&nvme_tcp_cpu_queues_lock);
-+	/* a user assigned io_cpu is kept across reconnects */
-+	if (test_bit(NVME_TCP_Q_IO_CPU_USER, &queue->flags)) {
-+		io_cpu = nvme_tcp_queue_io_cpu(queue);
-+		if (io_cpu != WORK_CPU_UNBOUND &&
-+		    !test_and_set_bit(NVME_TCP_Q_IO_CPU_SET, &queue->flags))
-+			nvme_tcp_cpu_queues[io_cpu]++;
-+		goto out_unlock;
-+	}
-+
- 	if (wq_unbound)
--		goto out;
-+		goto out_unlock;
- 
- 	if (nvme_tcp_default_queue(queue))
- 		mq_map = set->map[HCTX_TYPE_DEFAULT].mq_map;
-@@ -1735,10 +1778,9 @@ static void nvme_tcp_set_queue_io_cpu(struct nvme_tcp_queue *queue)
- 		mq_map = set->map[HCTX_TYPE_POLL].mq_map;
- 
- 	if (WARN_ON(!mq_map))
--		goto out;
-+		goto out_unlock;
- 
- 	/* Search for the least used cpu from the mq_map */
--	spin_lock(&nvme_tcp_cpu_queues_lock);
- 	io_cpu = WORK_CPU_UNBOUND;
- 	for_each_online_cpu(cpu) {
- 		int num_queues = nvme_tcp_cpu_queues[cpu];
-@@ -1751,14 +1793,14 @@ static void nvme_tcp_set_queue_io_cpu(struct nvme_tcp_queue *queue)
- 		}
- 	}
- 	if (io_cpu != WORK_CPU_UNBOUND) {
--		queue->io_cpu = io_cpu;
-+		nvme_tcp_queue_change_io_cpu(queue, io_cpu);
- 		nvme_tcp_cpu_queues[io_cpu]++;
- 		set_bit(NVME_TCP_Q_IO_CPU_SET, &queue->flags);
- 	}
-+out_unlock:
- 	spin_unlock(&nvme_tcp_cpu_queues_lock);
--out:
- 	dev_dbg(ctrl->ctrl.device, "queue %d: using cpu %d\n",
--		qid, queue->io_cpu);
-+		qid, nvme_tcp_queue_io_cpu(queue));
- }
- 
- static void nvme_tcp_tls_done(void *data, int status, key_serial_t pskid)
-@@ -1846,6 +1888,85 @@ static int nvme_tcp_start_tls(struct nvme_ctrl *nctrl,
- 	return ret;
- }
- 
-+static ssize_t io_cpu_show(struct kobject *kobj, struct kobj_attribute *attr,
-+			   char *buf)
-+{
-+	struct nvme_tcp_queue *queue = nvme_queue_info_data(kobj);
-+	int io_cpu = nvme_tcp_queue_io_cpu(queue);
-+
-+	return sysfs_emit(buf, "%d\n",
-+			  io_cpu == WORK_CPU_UNBOUND ? -1 : io_cpu);
-+}
-+
-+static ssize_t io_cpu_store(struct kobject *kobj, struct kobj_attribute *attr,
-+			    const char *buf, size_t count)
-+{
-+	struct nvme_tcp_queue *queue = nvme_queue_info_data(kobj);
-+	int cpu, old, ret;
-+
-+	if (sysfs_streq(buf, "unbound")) {
-+		cpu = WORK_CPU_UNBOUND;
-+	} else {
-+		ret = kstrtoint(buf, 10, &cpu);
-+		if (ret)
-+			return ret;
-+		if (cpu == -1)
-+			cpu = WORK_CPU_UNBOUND;
-+		else if ((unsigned int)cpu >= nr_cpu_ids || !cpu_online(cpu))
-+			return -EINVAL;
-+	}
-+
-+	spin_lock(&nvme_tcp_cpu_queues_lock);
-+	old = nvme_tcp_queue_io_cpu(queue);
-+	nvme_tcp_queue_change_io_cpu(queue, cpu);
-+	set_bit(NVME_TCP_Q_IO_CPU_USER, &queue->flags);
-+	if (test_and_clear_bit(NVME_TCP_Q_IO_CPU_SET, &queue->flags))
-+		nvme_tcp_cpu_queues[old]--;
-+	if (cpu != WORK_CPU_UNBOUND) {
-+		nvme_tcp_cpu_queues[cpu]++;
-+		set_bit(NVME_TCP_Q_IO_CPU_SET, &queue->flags);
-+	}
-+	spin_unlock(&nvme_tcp_cpu_queues_lock);
-+
-+	return count;
-+}
-+
-+static ssize_t managed_show(struct kobject *kobj, struct kobj_attribute *attr,
-+			    char *buf)
-+{
-+	struct nvme_tcp_queue *queue = nvme_queue_info_data(kobj);
-+
-+	return sysfs_emit(buf, "%d\n",
-+			  !test_bit(NVME_TCP_Q_IO_CPU_USER, &queue->flags));
-+}
-+
-+static struct kobj_attribute nvme_tcp_io_cpu_attr =
-+	__ATTR(io_cpu, 0644, io_cpu_show, io_cpu_store);
-+static struct kobj_attribute nvme_tcp_managed_attr =
-+	__ATTR_RO(managed);
-+
-+static struct attribute *nvme_tcp_queue_attrs[] = {
-+	&nvme_tcp_io_cpu_attr.attr,
-+	&nvme_tcp_managed_attr.attr,
-+	NULL,
-+};
-+ATTRIBUTE_GROUPS(nvme_tcp_queue);
-+
-+static void nvme_tcp_add_queue_sysfs(struct nvme_tcp_queue *queue)
-+{
-+	struct nvme_ctrl *nctrl = &queue->ctrl->ctrl;
-+	struct nvme_queue_info *qinfo;
-+
-+	qinfo = nvme_add_queue_info(nctrl, nvme_tcp_queue_id(queue),
-+				    nvme_tcp_queue_groups, queue);
-+	if (IS_ERR(qinfo)) {
-+		dev_warn(nctrl->device, "queue %d: no sysfs directory: %ld\n",
-+			 nvme_tcp_queue_id(queue), PTR_ERR(qinfo));
-+		return;
-+	}
-+	queue->qinfo = qinfo;
-+}
-+
- static int nvme_tcp_alloc_queue(struct nvme_ctrl *nctrl, int qid,
- 				key_serial_t pskid)
- {
-@@ -1915,7 +2036,11 @@ static int nvme_tcp_alloc_queue(struct nvme_ctrl *nctrl, int qid,
- 
- 	queue->sock->sk->sk_allocation = GFP_ATOMIC;
- 	queue->sock->sk->sk_use_task_frag = false;
--	queue->io_cpu = WORK_CPU_UNBOUND;
-+	/* no store races here, the lock is for the write helper */
-+	spin_lock(&nvme_tcp_cpu_queues_lock);
-+	if (!test_bit(NVME_TCP_Q_IO_CPU_USER, &queue->flags))
-+		nvme_tcp_queue_change_io_cpu(queue, WORK_CPU_UNBOUND);
-+	spin_unlock(&nvme_tcp_cpu_queues_lock);
- 	queue->request = NULL;
- 	queue->data_remaining = 0;
- 	queue->ddgst_remaining = 0;
-@@ -2030,11 +2155,10 @@ static void nvme_tcp_stop_queue_nowait(struct nvme_ctrl *nctrl, int qid)
- 	if (!test_bit(NVME_TCP_Q_ALLOCATED, &queue->flags))
- 		return;
- 
--	if (test_and_clear_bit(NVME_TCP_Q_IO_CPU_SET, &queue->flags)) {
--		spin_lock(&nvme_tcp_cpu_queues_lock);
--		nvme_tcp_cpu_queues[queue->io_cpu]--;
--		spin_unlock(&nvme_tcp_cpu_queues_lock);
--	}
-+	spin_lock(&nvme_tcp_cpu_queues_lock);
-+	if (test_and_clear_bit(NVME_TCP_Q_IO_CPU_SET, &queue->flags))
-+		nvme_tcp_cpu_queues[nvme_tcp_queue_io_cpu(queue)]--;
-+	spin_unlock(&nvme_tcp_cpu_queues_lock);
- 
- 	mutex_lock(&queue->queue_lock);
- 	if (test_and_clear_bit(NVME_TCP_Q_LIVE, &queue->flags))
-@@ -2097,6 +2221,8 @@ static int nvme_tcp_start_queue(struct nvme_ctrl *nctrl, int idx)
- 
- 	if (idx) {
- 		nvme_tcp_set_queue_io_cpu(queue);
-+		/* expose io_cpu only once the driver has selected it */
-+		nvme_tcp_add_queue_sysfs(queue);
- 		ret = nvmf_connect_io_queue(nctrl, idx);
- 	} else
- 		ret = nvmf_connect_admin_queue(nctrl);
-@@ -2303,6 +2429,11 @@ static int nvme_tcp_configure_io_queues(struct nvme_ctrl *ctrl, bool new)
- 	if (ret)
- 		return ret;
- 
-+	/* the parallel queue setup below adds the queue directories */
-+	ret = nvme_queue_dir_create(ctrl);
-+	if (ret)
-+		return ret;
-+
- 	if (new) {
- 		ret = nvme_alloc_io_tag_set(ctrl, &to_tcp_ctrl(ctrl)->tag_set,
- 				&nvme_tcp_mq_ops,
-@@ -2890,7 +3021,8 @@ static void nvme_tcp_commit_rqs(struct blk_mq_hw_ctx *hctx)
- 	struct nvme_tcp_queue *queue = hctx->driver_data;
- 
- 	if (!llist_empty(&queue->req_list))
--		queue_work_on(queue->io_cpu, nvme_tcp_wq, &queue->io_work);
-+		queue_work_on(nvme_tcp_queue_io_cpu(queue), nvme_tcp_wq,
-+			      &queue->io_work);
- }
- 
- static blk_status_t nvme_tcp_queue_rq(struct blk_mq_hw_ctx *hctx,
 -- 
-2.55.0
-
+Dmitry
