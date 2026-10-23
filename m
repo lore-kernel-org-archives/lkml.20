@@ -1,111 +1,137 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.155
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792771517;
-	b=kDWvh6kVsdC55reY8JywhEWElxFPJVkDAmSgG0YyBSa4EpYIaer+y3gpCa6Bh+oW9Dv+
-	 80cy6W7HITME48WDlAzmLUAZnhGsgOyv88RD5PHNorEy3hhDtt5wJgkSM9giO26I3kkgi
-	 FUVad3TtS+YvPARCWtZzL3Z0AQFonXqk9wWVJQDPfdJJdDfBM8eqI0cGp/vDB4neo4dIC
-	 0Puz+RCPVALaCYKmAgp3JEqSoXUUBTJ8NKXd2vrG11UqyqJDkRldgOZ+Qg+ea3LIz04ss
-	 dwE9dK+tLCsUpIDZVJHkfdPFGKX37TsWCSf6uCl//l5k9HXCYYj0B9Y6tktr2DgmfWg==
+	t=1792771539;
+	b=X6SAICXpAoY4oWtQqvEahoYIcRot3zvsguJPq2XVFLGfgLr1O1GHixPVqlQg+GsAtrVZ
+	 l9roZOstP8eY9R/Zt3VpHI86eRDM+xerqmvLXxJ7c3MVj+J7phs3KaJxnjnGEZ/M5hiJ4
+	 C2R3QmdfG/JmmpHwjPgz7w3w4w5qYsAJUfRW0bH2KuQmoUQm/RXK24ncguZpf+Wvd0ft4
+	 Wm81NpCvZJn9KgeEsrmxjHbksLgLp+KUAjoExJ8lHa6GYBTBamtcRTixsxmbhX2SP24GG
+	 D+g422yS2djsTXSOHMoYq/Xaigv4tEPGMs7SDr2nBcAe6moePsaK0EVtpA+AUHDLIvg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792771517;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
-	 MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type:Content-Transfer-Encoding;
-	bh=PJF8dOxcKdoo4LPQNy4POGZqpVXU0l7de5E8tpWUurs=;
-	b=NaUSKG9h+5bbNgrL16uyOYuPSp6tsmhC31voFOUlOwe17QAr16bLlHpJ52AGGm5RQdWx
-	 MiS3UrraHxFoFiz9lymyQyFmDdqatC9CxSN7jHRUS0OyIxZoUU3T9LH1036Sr0fV/EVeK
-	 EvMU1UMx8y1I4ck94JQ7a7X1FEuZ6qHwm8GjC5c4HpTPB8qlZudee/U2jvryql7HxW8SZ
-	 rBNM/S9ZXqW8LhZzxW28JMrGIuKRVIsh/qmVdyiUW0yPmt13NaR9oJ/rKZEM0/b6yYgp7
-	 g/oiQYxLLBnvkhdlLm9Um55ufvvOstRFcoos17d4j9IQLnSjsfjBnXtgY56yiUTJVWQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792771539;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:Received:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:
+	 References:Autocrypt:Content-Type:Content-Transfer-Encoding:
+	 User-Agent:MIME-Version;
+	bh=K14cnwecKDZXuHS20WMKxtkA3ZjcXzFbG9A0UfcDyZs=;
+	b=EOkIlGOvxYVtU7FIAeo8Dnsa+80qnwAp6FikJUaWzMLX6TjC3Qoy3AvzmB36G4QzV8lI
+	 W47hRQOWJAnr2+XBWUHCS4rPcrMfK9qE3bRN+QnJR2LtgRgLGvKSWrsJznrhYwRKTWQ/V
+	 GGrlj5oG7CsStc53h1LQfvz34SBEnYA7OxGIeir0Kqn6vyaNYAA/FxXpvragjVbdcmkcv
+	 Z0xBfEQjaFDgBex9bC775V4mpR91ZX9uSYeYXJkUkMG5mO4Th5wrbilRhHy0KYofoeoo0
+	 xqsZGwtGFUqSiEB832vPbtWa/7FC7Oo8YkjchIQeeMfrNvdNH0K9JB6d6WYEG0brVBw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=fastmail.im;
-	spf=pass smtp.mailfrom=fastmail.im;
-	dkim=pass header.d=fastmail.im header.i=@fastmail.im header.a=rsa-sha256 header.s=fm2 header.b=nTRmedeV;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=lLsn3ika;
-	arc=none smtp.remote-ip=103.168.172.155
-Received: from fhigh-a4-smtp.messagingengine.com (fhigh-a4-smtp.messagingengine.com [103.168.172.155])
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=TIaEpein;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=B6mwEf9S;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B459E606A31D
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 16:05:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B459E606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fastmail.im
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fastmail.im
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12D05606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 16:05:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 12D05606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=fastmail.im header.i=@fastmail.im header.a=rsa-sha256 header.s=fm2 header.b=nTRmedeV;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=lLsn3ika
-Received: from ams-compute-01.internal (ams-compute-01.internal [10.64.2.61])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id C1257140005D
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 12:05:15 -0400 (EDT)
-Received: from ams-imap-19 ([10.64.2.39])
-  by ams-compute-01.internal (MEProxy); Fri, 23 Oct 2026 12:05:15 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fastmail.im; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1792771511;
-	 x=1792857911; bh=PJF8dOxcKdoo4LPQNy4POGZqpVXU0l7de5E8tpWUurs=; b=
-	nTRmedeVsVzlMVPME1WY2sS1IOhzcNda1NKtWIbzh48/niRDJpv4djPbbfLjFvGu
-	1XLK9IZChkMxa1t6I8WgRefFXLRfHKHQ+rCgNNRD6/NTuJ2m6dw3QId3ayMek0xE
-	gruICQD+sgbMc0fj6cdKv7To5/Ke5po2NOWKQDr4epbhDsOF3jQh8jf+sIwL09fv
-	7J80YLssss96IldosfXpdK1oQI9Jvs/i79wJB9e2EQSbyzeC4h/EHa6YjzFmV+up
-	o3D1Tva2N6a/XNfDQj7b73TgYqqbYKuwY2Cvtuef0dv28UtnRY7CEyVHQWmHqRaw
-	kv3is+LEQxzPbdDyQLiujw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1792771511; x=
-	1792857911; bh=PJF8dOxcKdoo4LPQNy4POGZqpVXU0l7de5E8tpWUurs=; b=l
-	Lsn3ikaIEWpcmk8HRO0uLRWmehqm8rTbs6IDmLg1JnYy/4vq6LlB/3+YL8jKACzU
-	/j/RagD71tPW1vHACMVU3gzzHzGXy/5uoK6SdXCIKtYdnVB6LO0yZVp61s1+hyCR
-	qYrxJ1WWB/5w8HdgpKLwJkS07R2SD87cjBudzDt/Yzeid5Wn8vgb6pwb7eHIg3lE
-	WGO37nJbcL01UMH9k8NUvsVfMBvl2fWiJ/zT4T2nb+gIfxzKOK+f4Q7BTRuXSHry
-	KAm8N3WuwKLeFFymtTh1UoM/Q/Bab83hhAQB8TETxDiOrATefaIru8yHFOOAk0JJ
-	rAnk4R5RtDga/RofHo2CQ==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
-	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
-	action=sign d=fastmail.im a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1792771511; d=fastmail.im;
-	mf=PGFsaWNlLmtlcm5lbEBmYXN0bWFpbC5pbT4=;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:ScfbYDKppqYDR2H4eO/pDLVNTbFrNakAiEw49x2AWXyW2yZ
-	GU6dIW8oR46+f0etKBK8QktQBUNxeD1HHvsqX9ooEDq2vqQGMDzviHqr/Zq0e+V4
-	RVQhpSaozPQ7wRJhay9Fj5JpaZYCqJrETvZVvWXekIUIBKXbgXm56ZSsbcECk2wn
-	2Tdkg9MPYVBpsiIEsc5aN8knp1JspKykTyEHGcZkqu/hEV8tTAwgHQpvMAlpXSMX
-	Qjs37TShjWVgZZK016w82VTSehL0wGjA3ygjhXEh1uyhUxpmWJYmaK6X6WKq4IM6
-	cCKReakYG0EBo6DLrTFmczxzLCLnde4IPCSCILw==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
-	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:oZME11fcZ2ZgdXeht+WREmzpaikrkCtqk9QzuOF7c0w=:M0rHMYFoUd1OKTevL5Z9y+am5kGfK/uX0IByGeL1fkc=;
-X-ME-Sender: <xms:soXbajL8IPFbjjn38GiPPJ9-YOlxiEqBu3AtBWs_AW7cS_oHox6P9g>
-    <xme:soXbah8hRwOMFsW-SJTDfDMWlaxowYG_YsUjsWMIudLgFArLvnJ8yloIkr98b1LfS
-    FYVmuRmunuQH2crYCbxxOJvineJtmrxmXJcjr2JBi93XBiSH8dE7A8>
-X-ME-Proxy-Cause: dmFkZTFHtP6MbAtgLQqcO0WMConwut/qdN8SDie4k2H/aim847BXx6jJmC2o+VxXtwehxw
-    7rC2YEbwzA/t+upbHmjW1t377udsibhOxVYFKP/SJCoeonoBz1nqrNqJlJG7sAlYafJvKX
-    hde26pRbico9nHsCC4hcqSs30tZ5rX+kQ61Av71lSE0hvc4ZwWsgVbGxC8LC/wr5PpXA3f
-    PRgxBLJn8frA9qfrajRkgF8L/+PMlMUK9Pr69eHffQYq7GTsS9LZN5YHwvx0QBFKCWjlWO
-    4a0/ZHASCFz4NCpWa7T8aWtvaOqx5GXr0WLxsYO8aXOqUgruZUnRpXFvzwyM3aLixYrXiS
-    fToCjFM/ZW0l7lfQz9uPapX99WObuShEgSHLIP7YUvMMUfDCj5MEqge0WrEBskXHWdEg1l
-    +YQipOPCXLC5BneQnQsrPyRf04AT/x+aMpUAD5xN4+3YOF6FiWBtSIOazV/xMLQspyIDkv
-    DN+tcZo8omti0Uqmr8ADvAkvy9W4PwrRhzHGHSutdFS1KB8E1Z8Enj6p6vnW+e1vxGYTYm
-    5TO5lVpjK8VKMxTMOESjOsrIr0Z66c78VzZKzh0x3CDHyErifKUal3TzYkEf+qw5yKspoJ
-    rX+iKNegQW4KtyPHeM2U4LXiBrb1ARf18sAIKNL4uEto1K6oVIxfMh/3trKQ
-X-ME-Proxy: <xmx:tIXbaouv1lnloepSeA53SWsWjW5arw_Qm5R8GED0SoJTx6XDtjxCVw>
-    <xmx:tIXbatqwtUKZT4BKKwnQW1kNwydmbLprxe3MrMYp_j7MY5sIscSocw>
-    <xmx:tIXbavXqskJi5ynioDsrpM61mX8wqSC9db6zaVJ3J7Ty9oMQodJnTw>
-    <xmx:tIXbal2umpddhvMq4s84gRURWVL4x5CRB5SLG_Exu-qfft3E_TPO-A>
-    <xmx:t4Xbap9YEQcamZTg6POUrwOSql10z7HCMuWoEoCs1cHcvsPOzCctcJhO>
-Feedback-ID: i559e4809:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id 90C0B2F8005D; Fri, 23 Oct 2026 12:05:06 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=TIaEpein;
+	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=B6mwEf9S
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1792771537;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=K14cnwecKDZXuHS20WMKxtkA3ZjcXzFbG9A0UfcDyZs=;
+	b=TIaEpeinT0hkuxLwg+T/x0Y5B8WHRx4Ch+UbmG6Wj6fBM0BFhML5LSN1rsY2ZbUYkBjis2
+	35r+XOkF6RZ62de2RXVef7jxbTJokuh0ep8B68WfHML9KdYfekfrJU5Q1S5KnnlO8K7Tch
+	0QbR8R8xxh4YTjB00xP1XPcszHqCXbU=
+Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
+ [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-282-KOLM_HY5NLG6k4CBivVvPA-1; Fri, 23 Oct 2026 12:05:35 -0400
+X-MC-Unique: KOLM_HY5NLG6k4CBivVvPA-1
+X-Mimecast-MFC-AGG-ID: KOLM_HY5NLG6k4CBivVvPA_1792771534
+Received: by mail-wm1-f71.google.com with SMTP id 5b1f17b1804b1-4a2063be141so9043435e9.1
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 09:05:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1792771534; x=1793376334; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=K14cnwecKDZXuHS20WMKxtkA3ZjcXzFbG9A0UfcDyZs=;
+        b=B6mwEf9Sv/GsYuUxUhKr5HORLIhg7DRspoRFfOdxlKZtuGuALuweq2DqRPmAvR9oFo
+         cLUPkoINhN7W+RyX0rCfBqmtV561EAvMAuZ+qcbSVyiSe+CQ2tHsbpzsyUFcgzGFTtLL
+         KTLxfJfLjdU1Hzb9HeSZYWkYGFaS384eDxlscaVwCh+ds3lw2UrJ63BJqbiFaSobIVPj
+         nDhuR3afELdvf1qkDp0R4i1WxgSk1HTxef5AVI/TvDRJxJWM80jQgIExv0OhU45Iup1K
+         9Cdo4W7bxF8PE52b7vNnETZrtwoRum6QWpMRsqEp25wE4AIv2oCfeKYl5nkD+m3Z+xmu
+         gqOA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792771534; x=1793376334;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=K14cnwecKDZXuHS20WMKxtkA3ZjcXzFbG9A0UfcDyZs=;
+        b=DoPKqtN+79tU9zV0FfQ1rNO5ixAK0+pDuLGCEc0z7uLpPHxFwG+hWavocKaqHQJjSh
+         mTFgXIpZGTDe/mX33F4N6cs8yUA2F/Xg5ajzJnRCpIkw/LxubtPH01LoaDRkLuZFyHwj
+         JHMudUFKJNU1+8GQF0yWww/FE8a4YnVIcpvAfw6ZJIi2P2yoezh65Ge5DNrtjMJSULIF
+         N2kxCnvA0Rf84ZbHIkOpQLb+4sZYL6td4cODS+DwpsFRbzpEPi2d3C1am9DnTAAEjcwJ
+         FcYpDuZse3EKE9lu83XpvxAdSkh0XCymygOV3mwYXlsewSdm2CQRpb0Km02ib6U5V4nU
+         Pffg==
+X-Forwarded-Encrypted: i=1; AKwUvBwPl05baaFD6P4Zw88WFXqLUsJ1xH4gGYaAgHISpYF5KYEhC6rbH/rK4xSPqAr2GksROMqBNRTPbX3y0Uw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJEGBMJAXVP+r9eMZU483Vt3846eVdazdV0GKDoiwpF28i5h/Zr
+	QxCLWAvfH68ySDOtQ0CMv30Ledt5fEyWzi3+CCXy64PjpsFZ+T83+/d963P7YjJ59l8AcZE6SG7
+	gUk6XYKRl6g1IH+Ya76IMpUWBM54UlBN8HN+OmEF+5SRh4pLQjHsVouZddKRTJg+Z9w==
+X-Gm-Gg: AYBFou1ZRujzOLhi9OerVHeTMEMo0855oM2HowZsQyrAMfKWNaPPJbLx1s6udTjgrXj
+	G6Lq0rP1LrSH5OFPm0sUaFJdQlCOM5L5rEyGllWaTs7IqqUBCF8doXIknNqaZAlBO7iuNAyarw2
+	qmGhGeYGYdFPaH50Y3Yw5Z/nY/ufTNWtmF9QUPVl3ICC1ZZqhw+o/A9d8sAzKLSH4dul5PR1RLs
+	plu/BtVpV5M+SB23O3UxAe9eJCOQhy9ZAes+OF9Z82/d6fAp64XhSj+qJvzSGej2RinO4NVXwVx
+	QKb5/b3Sq+0P/CLeA++G7lqJIjPb+OSSVVqT12N0Dx1wgEOp2rQFYy7wCH2etXtRw6D/wM7fd8l
+	DHOEPiQzJSPDR7ymoarfsl/crp1bl
+X-Received: by 2002:a05:600c:3514:b0:49d:1fa8:b266 with SMTP id 5b1f17b1804b1-4a211ed7602mr43987755e9.26.1792771534003;
+        Fri, 23 Oct 2026 09:05:34 -0700 (PDT)
+X-Received: by 2002:a05:600c:3514:b0:49d:1fa8:b266 with SMTP id 5b1f17b1804b1-4a211ed7602mr43987145e9.26.1792771533585;
+        Fri, 23 Oct 2026 09:05:33 -0700 (PDT)
+Received: from gmonaco-thinkpadt14gen3.rmtit.csb ([195.174.133.173])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a312ea914esm4004515e9.2.2026.10.23.09.05.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 23 Oct 2026 09:05:32 -0700 (PDT)
+Message-ID: <5b3ff014bf2f571b935f9519f422966a1c665c32.camel@redhat.com>
+Subject: Re: [RFC PATCH 0/9] rv: Verify generic IRQ context transitions
+From: Gabriele Monaco <gmonaco@redhat.com>
+To: Karl Mehltretter <kmehltretter@gmail.com>, Steven Rostedt
+	 <rostedt@goodmis.org>
+Cc: Masami Hiramatsu <mhiramat@kernel.org>, Mathieu Desnoyers	
+ <mathieu.desnoyers@efficios.com>, Thomas Gleixner <tglx@kernel.org>, 
+ Sebastian Andrzej Siewior	 <bigeasy@linutronix.de>, Clark Williams
+ <clrkwllms@kernel.org>, Ingo Molnar	 <mingo@redhat.com>, Peter Zijlstra
+ <peterz@infradead.org>, Andy Lutomirski	 <luto@kernel.org>, Juri Lelli
+ <juri.lelli@redhat.com>, Vincent Guittot	 <vincent.guittot@linaro.org>,
+ Dietmar Eggemann <dietmar.eggemann@arm.com>,  Ben Segall
+ <bsegall@google.com>, Mel Gorman <mgorman@suse.de>, Valentin Schneider
+ <vschneid@redhat.com>,  K Prateek Nayak <kprateek.nayak@amd.com>, Jonathan
+ Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,  Randy
+ Dunlap <rdunlap@infradead.org>, linux-trace-kernel@vger.kernel.org,
+ linux-rt-devel@lists.linux.dev, 	linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Date: Fri, 23 Oct 2026 18:05:30 +0200
+In-Reply-To: <20261022050712.75035-1-kmehltretter@gmail.com>
+References: <20261022050712.75035-1-kmehltretter@gmail.com>
+Autocrypt: addr=gmonaco@redhat.com; prefer-encrypt=mutual;
+ keydata=mDMEZuK5YxYJKwYBBAHaRw8BAQdAmJ3dM9Sz6/Hodu33Qrf8QH2bNeNbOikqYtxWFLVm0
+ 1a0JEdhYnJpZWxlIE1vbmFjbyA8Z21vbmFjb0BrZXJuZWwub3JnPoiZBBMWCgBBFiEEysoR+AuB3R
+ Zwp6j270psSVh4TfIFAmjKX2MCGwMFCQWjmoAFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgk
+ Q70psSVh4TfIQuAD+JulczTN6l7oJjyroySU55Fbjdvo52xiYYlMjPG7dCTsBAMFI7dSL5zg98I+8
+ cXY1J7kyNsY6/dcipqBM4RMaxXsOtCRHYWJyaWVsZSBNb25hY28gPGdtb25hY29AcmVkaGF0LmNvb
+ T6InAQTFgoARAIbAwUJBaOagAULCQgHAgIiAgYVCgkICwIEFgIDAQIeBwIXgBYhBMrKEfgLgd0WcK
+ eo9u9KbElYeE3yBQJoymCyAhkBAAoJEO9KbElYeE3yjX4BAJ/ETNnlHn8OjZPT77xGmal9kbT1bC1
+ 7DfrYVISWV2Y1AP9HdAMhWNAvtCtN2S1beYjNybuK6IzWYcFfeOV+OBWRDQ==
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,360 +141,188 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Date: Fri, 23 Oct 2026 19:04:29 +0300
-From: "Alice Mikityanska" <alice.kernel@fastmail.im>
-To: "Dmitry Torokhov" <dmitry.torokhov@gmail.com>,
- "Mark Pearson" <mpearson-lenovo@squebb.ca>, "Ike Panhc" <ikepanhc@gmail.com>
-Cc: platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org,
- "Derek J. Clark" <derekjohn.clark@gmail.com>,
- "Hans de Goede" <hansg@kernel.org>,
- =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
- "Maxim Mikityanskiy" <maxtram95@gmail.com>
-Message-Id: <9250be99-ce79-4d86-a5eb-c7640fb7c421@app.fastmail.com>
-In-Reply-To: <4b2f60a7ceac543bd8b889b9c0772b2c@gmail.com>
-References: <4b2f60a7ceac543bd8b889b9c0772b2c@gmail.com>
-Subject: Re: [PATCH v3] platform/x86: ideapad-laptop: do not poke keyboard controller
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
 
-On Thu, Oct 22, 2026, at 07:50, Dmitry Torokhov wrote:
-> On Ideapad Z570 the driver tries to disable and re-enable data coming
-> from the touchpad by poking directly into 8042 keyboard controller.
-> This may coincide with the controller resuming and leads to spews in
-> dmesg and potentially other instabilities.
->
-> Instead of using i8042_command() to control the touchpad state create
-> an input handler that serves as a filter and drop events coming from
-> the touchpad when it is supposed to be off.
->
-> Reviewed-by: Mark Pearson <mpearson-lenovo@squebb.ca>
-> Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-> ---
->
-> v3:
-> - add missing header includes (compiler.h, container_of.h, errno.h,
->   mod_devicetable.h, slab.h, spinlock.h)
-> - drop stray blank line in ideapad_tpswitch_filter()
-> - collect Reviewed-by from Mark Pearson
->
-> v2:
-> - fix inverted condition in ideapad_tpswitch_filter()
-> - mark the handler as passive_observer so that touchpad is not activated
->   until there are real users
-> - use READ_ONCE()/WRITE_ONCE() to access shared state flag
-> - drop stray semicolon in to_tpswitch_handle()
-> - update comments
->
->  drivers/platform/x86/lenovo/ideapad-laptop.c | 189 ++++++++++++++++++-
->  1 file changed, 180 insertions(+), 9 deletions(-)
->
-> diff --git a/drivers/platform/x86/lenovo/ideapad-laptop.c 
-> b/drivers/platform/x86/lenovo/ideapad-laptop.c
-> index 8213524504ee..be890e82b9ef 100644
-> --- a/drivers/platform/x86/lenovo/ideapad-laptop.c
-> +++ b/drivers/platform/x86/lenovo/ideapad-laptop.c
-> @@ -14,23 +14,28 @@
->  #include <linux/bitops.h>
->  #include <linux/bug.h>
->  #include <linux/cleanup.h>
-> +#include <linux/compiler.h>
-> +#include <linux/container_of.h>
->  #include <linux/debugfs.h>
->  #include <linux/delay.h>
->  #include <linux/device.h>
->  #include <linux/dmi.h>
-> -#include <linux/i8042.h>
-> +#include <linux/errno.h>
->  #include <linux/init.h>
->  #include <linux/input.h>
->  #include <linux/input/sparse-keymap.h>
->  #include <linux/jiffies.h>
->  #include <linux/kernel.h>
->  #include <linux/leds.h>
-> +#include <linux/mod_devicetable.h>
->  #include <linux/module.h>
->  #include <linux/platform_device.h>
->  #include <linux/platform_profile.h>
->  #include <linux/power_supply.h>
->  #include <linux/rfkill.h>
->  #include <linux/seq_file.h>
-> +#include <linux/slab.h>
-> +#include <linux/spinlock.h>
->  #include <linux/string_choices.h>
->  #include <linux/sysfs.h>
->  #include <linux/types.h>
-> @@ -210,6 +215,13 @@ struct ideapad_private {
->  		struct led_classdev led;
->  		unsigned int last_brightness;
->  	} fn_lock;
-> +	struct {
-> +		bool initialized;
-> +		bool active; /* true means touchpad is enabled */
-> +		struct input_handler handler;
-> +		struct input_dev *tp_dev;
-> +		spinlock_t lock;
-> +	} tp_switch;
->  };
-> 
->  static bool no_bt_rfkill;
-> @@ -234,7 +246,7 @@ MODULE_PARM_DESC(set_fn_lock_led,
->  static bool ctrl_ps2_aux_port;
->  module_param(ctrl_ps2_aux_port, bool, 0444);
->  MODULE_PARM_DESC(ctrl_ps2_aux_port,
-> -		 "Enable driver based PS/2 aux port en-/dis-abling on touchpad 
-> on/off toggle. If you need this please report this to: 
-> platform-driver-x86@vger.kernel.org");
-> +		 "Enable driver based suppression of touchpad events on touchpad 
-> on/off toggle. If you need this please report this to: 
-> platform-driver-x86@vger.kernel.org");
-> 
->  static bool touchpad_ctrl_via_ec;
->  module_param(touchpad_ctrl_via_ec, bool, 0444);
-> @@ -1462,6 +1474,159 @@ static void 
-> ideapad_check_special_buttons(struct ideapad_private *priv)
->  	}
->  }
-> 
-> +struct ideapad_tpswitch_handle {
-> +	struct input_handle handle;
-> +	struct ideapad_private *priv;
-> +};
-> +
-> +#define to_tpswitch_handle(h) \
-> +	container_of(h, struct ideapad_tpswitch_handle, handle)
-> +
-> +static int ideapad_tpswitch_connect(struct input_handler *handler,
-> +				    struct input_dev *dev,
-> +				    const struct input_device_id *id)
-> +{
-> +	struct ideapad_private *priv =
-> +		container_of(handler, struct ideapad_private, tp_switch.handler);
-> +	struct ideapad_tpswitch_handle *h;
-> +	int error;
-> +
-> +	h = kzalloc_obj(*h);
-> +	if (!h)
-> +		return -ENOMEM;
-> +
-> +	h->priv = priv;
-> +	h->handle.dev = dev;
-> +	h->handle.handler = handler;
-> +	h->handle.name = "ideapad-tpswitch";
-> +
-> +	error = input_register_handle(&h->handle);
-> +	if (error)
-> +		goto err_free_handle;
-> +
-> +	/*
-> +	 * We need to open the input handle so the input core invokes our
-> +	 * filter, but since we mark our handler as passive observer, this
-> +	 * will not cause the underlying touchpad hardware to be started
-> +	 * if there are no other users.
-> +	 */
-> +	error = input_open_device(&h->handle);
-> +	if (error)
-> +		goto err_unregister_handle;
-> +
-> +	scoped_guard(spinlock_irq, &priv->tp_switch.lock)
-> +		priv->tp_switch.tp_dev = dev;
-> +
-> +	return 0;
-> +
-> +err_unregister_handle:
-> +	input_unregister_handle(&h->handle);
-> +err_free_handle:
-> +	kfree(h);
-> +	return error;
-> +}
-> +
-> +static void ideapad_tpswitch_disconnect(struct input_handle *handle)
-> +{
-> +	struct ideapad_tpswitch_handle *h = to_tpswitch_handle(handle);
-> +	struct ideapad_private *priv = h->priv;
-> +
-> +	scoped_guard(spinlock_irq, &priv->tp_switch.lock)
-> +		priv->tp_switch.tp_dev = NULL;
-> +
-> +	input_close_device(handle);
-> +	input_unregister_handle(handle);
-> +	kfree(h);
-> +}
-> +
-> +static bool ideapad_tpswitch_filter(struct input_handle *handle,
-> +				    unsigned int type, unsigned int code,
-> +				    int value)
-> +{
-> +	struct ideapad_tpswitch_handle *h = to_tpswitch_handle(handle);
-> +	struct ideapad_private *priv = h->priv;
-> +
-> +	if (READ_ONCE(priv->tp_switch.active))
-> +		return false;
-> +
-> +	/* Allow passing button release events, drop everything else */
-> +	return !(type == EV_KEY && value == 0) &&
-> +	       !(type == EV_SYN && code == SYN_REPORT);
-> +}
-> +
-> +static const struct input_device_id ideapad_tpswitch_ids[] = {
-> +	{
-> +		.flags = INPUT_DEVICE_ID_MATCH_EVBIT |
-> +				INPUT_DEVICE_ID_MATCH_KEYBIT |
-> +				INPUT_DEVICE_ID_MATCH_ABSBIT,
-> +		.bustype = BUS_I8042,
-> +		.vendor = 0x0002,
-> +		.evbit = { BIT_MASK(EV_KEY) | BIT_MASK(EV_ABS) },
-> +		.keybit = { [BIT_WORD(BTN_TOOL_FINGER)] =
-> +				BIT_MASK(BTN_TOOL_FINGER) },
-> +		.absbit = { BIT_MASK(ABS_X) | BIT_MASK(ABS_Y) |
-> +				BIT_MASK(ABS_PRESSURE) |
-> +				BIT_MASK(ABS_TOOL_WIDTH) },
-> +	},
-> +	{ }
-> +};
-> +
-> +static int ideapad_tpswitch_init(struct ideapad_private *priv)
-> +{
-> +	int error;
-> +
-> +	if (!priv->features.ctrl_ps2_aux_port)
-> +		return 0;
-> +
-> +	spin_lock_init(&priv->tp_switch.lock);
-> +
-> +	priv->tp_switch.handler.name = "ideapad-tpswitch";
-> +	priv->tp_switch.handler.id_table = ideapad_tpswitch_ids;
-> +	priv->tp_switch.handler.filter = ideapad_tpswitch_filter;
-> +	priv->tp_switch.handler.connect = ideapad_tpswitch_connect;
-> +	priv->tp_switch.handler.disconnect = ideapad_tpswitch_disconnect;
-> +	priv->tp_switch.handler.passive_observer = true;
-> +
-> +	error = input_register_handler(&priv->tp_switch.handler);
-> +	if (error) {
-> +		dev_err(&priv->platform_device->dev,
-> +			"failed to register touchpad switch handler: %d",
-> +			error);
-> +		return error;
-> +	}
-> +
-> +	priv->tp_switch.initialized = true;
-> +	return 0;
-> +}
-> +
-> +static void ideapad_tpswitch_exit(struct ideapad_private *priv)
-> +{
-> +	if (priv->tp_switch.initialized) {
-> +		input_unregister_handler(&priv->tp_switch.handler);
-> +		priv->tp_switch.initialized = false;
-> +	}
-> +}
-> +
-> +static void ideapad_tpswitch_toggle(struct ideapad_private *priv, bool 
-> on)
-> +{
-> +	guard(spinlock_irq)(&priv->tp_switch.lock);
-> +
-> +	WRITE_ONCE(priv->tp_switch.active, on);
-> +	if (!on) {
-> +		struct input_dev *tp_dev = priv->tp_switch.tp_dev;
-> +		if (tp_dev) {
-> +			input_report_key(tp_dev, BTN_TOUCH, 0);
-> +			input_report_key(tp_dev, BTN_TOOL_FINGER, 0);
-> +			input_report_key(tp_dev, BTN_TOOL_DOUBLETAP, 0);
-> +			input_report_key(tp_dev, BTN_TOOL_TRIPLETAP, 0);
-> +			input_report_key(tp_dev, BTN_LEFT, 0);
-> +			input_report_key(tp_dev, BTN_RIGHT, 0);
-> +			input_report_key(tp_dev, BTN_MIDDLE, 0);
+On Thu, 2026-10-22 at 07:07 +0200, Karl Mehltretter wrote:
+> IRQ action tracepoints describe handlers, but not the lifetime of the
+> enclosing IRQ context. One context may run several actions, and an action
+> may be dispatched outside hardirq context. PREEMPT_RT may also enter
+> serving-softirq state without invoking an action. This leaves no generic
+> event stream from which an RV monitor can check IRQ-context transitions.
+>=20
+> This RFC adds events at the generic hardirq and serving-softirq
+> boundaries. The irqstate RV monitor checks their order and agreement with
+> live kernel state. irqexit follows the owner of a preempt_schedule_irq()
+> invocation across task switches and CPU migration.
+>=20
+> The hardirq events cover paths through irq_enter() or irq_enter_rcu() and
+> their matching exits. They do not cover direct __irq_enter() and
+> __irq_exit() users, raw paths, or architecture-specific entry and return
+> intervals. irqexit covers preempt_schedule_irq(), not the complete
+> interrupt-return path.
+>=20
+> Boundary callbacks can raise softirq work after the pending-work check.
+> The series wakes ksoftirqd or ktimerd for remaining work. KUnit covers
+> nesting, monitor synchronization, PREEMPT_RT worker intervals, provenance
+> and late-work handoff.
 
-Hello!
+Hi Karl,
 
-Tested-by: Alice Mikityanska <alice.kernel@fastmail.im>
+thanks for your contribution!
+I'm probably not going to have much time to look at this soon as I have a f=
+ew
+holidays planned and other series to review first. But it looks interesting=
+.
 
-Seems to work well, without any "lost synchronization" messages in
-dmesg. There is a new effect, caused by the above lines: if the finger
-stays on the surface the entire time, and the user disables and enables
-the touchpad, the pointer won't move until the user lifts the finger and
-puts it back. Although it's unlikely to break anyone's workflow, I need
-to double-check that the evdev doesn't emit some invalid sequence of
-events, e.g., touch 0 followed by some movements, or touch 0 followed by
-another touch 0.
+What points my eyes is that you didn't include any schematic graph in the
+documentation.
+Some folks don't like RST, but I find having a textual representation of th=
+e
+model there easy to understand what you're trying to do without having to b=
+uild
+the models.
+We use graph-easy for that (and adapt things if the model is too complex).
 
-> +			input_sync(tp_dev);
-> +		}
-> +	}
-> +}
-> +
->  /*
->   * backlight
->   */
-> @@ -1799,7 +1964,6 @@ static void ideapad_fn_lock_led_exit(struct 
-> ideapad_private *priv)
->  static void ideapad_sync_touchpad_state(struct ideapad_private *priv, 
-> bool send_events)
->  {
->  	unsigned long value;
-> -	unsigned char param;
->  	int ret;
-> 
->  	/* Without reading from EC touchpad LED doesn't switch state */
-> @@ -1810,12 +1974,11 @@ static void ideapad_sync_touchpad_state(struct 
-> ideapad_private *priv, bool send_
-> 
->  	/*
->  	 * Some IdeaPads don't really turn off touchpad - they only
-> -	 * switch the LED state. We (de)activate KBC AUX port to turn
-> -	 * touchpad off and on. We send KEY_TOUCHPAD_OFF and
-> -	 * KEY_TOUCHPAD_ON to not to get out of sync with LED
-> +	 * switch the LED state. On such devices we use an input filter to
-> +	 * suppress events from the touchpad.
->  	 */
->  	if (priv->features.ctrl_ps2_aux_port)
-> -		i8042_command(&param, value ? I8042_CMD_AUX_ENABLE : I8042_CMD_AUX_DISABLE);
-> +		ideapad_tpswitch_toggle(priv, value);
-> 
->  	/*
->  	 * On older models the EC controls the touchpad and toggles it on/off
-> @@ -2018,8 +2181,8 @@ static const struct dmi_system_id hw_rfkill_list[] = {
->  /*
->   * On some models the EC toggles the touchpad muted LED on touchpad toggle
->   * hotkey presses, but the EC does not actually disable the touchpad itself.
-> - * On these models the driver needs to explicitly enable/disable the i8042
-> - * (PS/2) aux port.
-> + * On these models the driver needs to explicitly suppress data coming from
-> + * the touchpad.
->   */
->  static const struct dmi_system_id ctrl_ps2_aux_port_list[] = {
->  	{
-> @@ -2402,6 +2565,10 @@ static int ideapad_acpi_add(struct platform_device *pdev)
->  	if (err)
->  		goto input_failed;
-> 
-> +	err = ideapad_tpswitch_init(priv);
-> +	if (err)
-> +		goto tpswitch_failed;
-> +
->  	err = ideapad_kbd_bl_init(priv);
->  	if (err) {
->  		if (err != -ENODEV)
-> @@ -2478,6 +2645,9 @@ static int ideapad_acpi_add(struct platform_device *pdev)
-> 
->  	ideapad_fn_lock_led_exit(priv);
->  	ideapad_kbd_bl_exit(priv);
-> +	ideapad_tpswitch_exit(priv);
-> +
-> +tpswitch_failed:
->  	ideapad_input_exit(priv);
-> 
->  input_failed:
-> @@ -2507,6 +2677,7 @@ static void ideapad_acpi_remove(struct 
-> platform_device *pdev)
-> 
->  	ideapad_fn_lock_led_exit(priv);
->  	ideapad_kbd_bl_exit(priv);
-> +	ideapad_tpswitch_exit(priv);
->  	ideapad_input_exit(priv);
->  	ideapad_debugfs_exit(priv);
->  }
->
-> -- 
-> Dmitry
+Do not send a V2 just for this, but please keep that in mind for next time.
+
+Thanks,
+Gabriele
+
+>=20
+> Cross-architecture RV KUnit testing also exposed an Arm-specific opid bug=
+:
+>=20
+> =C2=A0 https://lore.kernel.org/r/20261020035158.90190-1-kmehltretter@gmai=
+l.com
+>=20
+> I would especially appreciate feedback on:
+>=20
+> =C2=A0 1. Should the context boundaries be trace events or private RV
+> =C2=A0=C2=A0=C2=A0=C2=A0 instrumentation?
+> =C2=A0 2. Are dedicated scheduler events the right way to follow
+> =C2=A0=C2=A0=C2=A0=C2=A0 preempt_schedule_irq() across task switches and =
+migration?
+> =C2=A0 3. Should irqstate and irqexit remain separate monitors?
+> =C2=A0 4. Is the KUnit-only hook for an empty ksoftirqd invocation accept=
+able?
+> =C2=A0=C2=A0=C2=A0=C2=A0 Outside a KUnit run, its worker checks take a di=
+sabled static-key
+> =C2=A0=C2=A0=C2=A0=C2=A0 path.
+>=20
+> Patches 1-5 add the events, monitors, and documentation. Patches 6-9 add
+> KUnit coverage.
+>=20
+> This series is based on v7.3 (c03c1a14507d) and depends on the following
+> accepted change, which is not included:
+>=20
+> =C2=A0 softirq: Preserve interrupt context on return from interrupt
+> =C2=A0 https://lore.kernel.org/r/20261011060742.30584-1-kmehltretter@gmai=
+l.com
+>=20
+> A pre-existing issue can make rv_test_dummy intermittently report a
+> false-positive invalid-wait-context warning under lockdep. Wen Yang has
+> posted a fix:
+>=20
+> =C2=A0
+> https://lore.kernel.org/lkml/5586dd00789a0f904cc299cd8889744b8c6f8dc9.178=
+9412799.git.wen.yang@linux.dev/
+>=20
+> This series does not include that fix.
+>=20
+> Karl Mehltretter (9):
+> =C2=A0 tracing/irq: Add generic IRQ context boundary events
+> =C2=A0 tracing/sched: Add IRQ preemption lifecycle events
+> =C2=A0 rv: Add a monitor for generic IRQ context transitions
+> =C2=A0 rv: Add a monitor for IRQ-exit scheduling ownership
+> =C2=A0 docs/rv: Document the IRQ-entry monitors
+> =C2=A0 rv: Add KUnit coverage for IRQ context transitions
+> =C2=A0 rv: Add KUnit coverage for IRQ-exit scheduling
+> =C2=A0 rv: Test empty PREEMPT_RT softirq worker intervals
+> =C2=A0 rv: Test IRQ-exit softirq provenance and handoff
+>=20
+> =C2=A0Documentation/trace/rv/index.rst=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0=C2=A0 1 +
+> =C2=A0Documentation/trace/rv/monitor_irqentry.rst=C2=A0=C2=A0 |=C2=A0 398=
+ ++++
+> =C2=A0include/linux/interrupt.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0 |=C2=A0=C2=A0=C2=A0 7 +
+> =C2=A0include/rv/kunit.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 34 +-
+> =C2=A0include/trace/events/irq.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+ |=C2=A0=C2=A0 70 +
+> =C2=A0include/trace/events/sched.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=
+=A0 51 +
+> =C2=A0kernel/sched/core.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0=C2=A0 6 +
+> =C2=A0kernel/softirq.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 308 ++-
+> =C2=A0kernel/trace/rv/Kconfig=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0 |=C2=A0=C2=A0=C2=A0 5 +
+> =C2=A0kernel/trace/rv/Makefile=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0 |=C2=A0=C2=A0=C2=A0 3 +
+> =C2=A0kernel/trace/rv/monitors/irqentry/Kconfig=C2=A0=C2=A0=C2=A0=C2=A0 |=
+=C2=A0=C2=A0 13 +
+> =C2=A0kernel/trace/rv/monitors/irqentry/irqentry.c=C2=A0 |=C2=A0=C2=A0 35=
+ +
+> =C2=A0kernel/trace/rv/monitors/irqentry/irqentry.h=C2=A0 |=C2=A0=C2=A0=C2=
+=A0 3 +
+> =C2=A0kernel/trace/rv/monitors/irqexit/Kconfig=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0 |=C2=A0=C2=A0 14 +
+> =C2=A0kernel/trace/rv/monitors/irqexit/irqexit.c=C2=A0=C2=A0=C2=A0 |=C2=
+=A0 172 ++
+> =C2=A0kernel/trace/rv/monitors/irqexit/irqexit.h=C2=A0=C2=A0=C2=A0 |=C2=
+=A0=C2=A0 85 +
+> =C2=A0.../trace/rv/monitors/irqexit/irqexit_kunit.c |=C2=A0 537 +++++
+> =C2=A0.../trace/rv/monitors/irqexit/irqexit_kunit.h |=C2=A0=C2=A0 21 +
+> =C2=A0.../trace/rv/monitors/irqexit/irqexit_trace.h |=C2=A0=C2=A0 19 +
+> =C2=A0kernel/trace/rv/monitors/irqstate/Kconfig=C2=A0=C2=A0=C2=A0=C2=A0 |=
+=C2=A0=C2=A0 14 +
+> =C2=A0kernel/trace/rv/monitors/irqstate/irqstate.c=C2=A0 |=C2=A0 289 +++
+> =C2=A0kernel/trace/rv/monitors/irqstate/irqstate.h=C2=A0 |=C2=A0 139 ++
+> =C2=A0.../rv/monitors/irqstate/irqstate_kunit.c=C2=A0=C2=A0=C2=A0=C2=A0 |=
+ 2062 +++++++++++++++++
+> =C2=A0.../rv/monitors/irqstate/irqstate_kunit.h=C2=A0=C2=A0=C2=A0=C2=A0 |=
+=C2=A0=C2=A0 25 +
+> =C2=A0.../rv/monitors/irqstate/irqstate_trace.h=C2=A0=C2=A0=C2=A0=C2=A0 |=
+=C2=A0=C2=A0 15 +
+> =C2=A0kernel/trace/rv/rv_monitors_test.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 29 +
+> =C2=A0kernel/trace/rv/rv_trace.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+ |=C2=A0=C2=A0=C2=A0 2 +
+> =C2=A0.../verification/models/irqentry/irqexit.dot=C2=A0 |=C2=A0=C2=A0 21=
+ +
+> =C2=A0.../verification/models/irqentry/irqstate.dot |=C2=A0=C2=A0 32 +
+> =C2=A029 files changed, 4397 insertions(+), 13 deletions(-)
+> =C2=A0create mode 100644 Documentation/trace/rv/monitor_irqentry.rst
+> =C2=A0create mode 100644 kernel/trace/rv/monitors/irqentry/Kconfig
+> =C2=A0create mode 100644 kernel/trace/rv/monitors/irqentry/irqentry.c
+> =C2=A0create mode 100644 kernel/trace/rv/monitors/irqentry/irqentry.h
+> =C2=A0create mode 100644 kernel/trace/rv/monitors/irqexit/Kconfig
+> =C2=A0create mode 100644 kernel/trace/rv/monitors/irqexit/irqexit.c
+> =C2=A0create mode 100644 kernel/trace/rv/monitors/irqexit/irqexit.h
+> =C2=A0create mode 100644 kernel/trace/rv/monitors/irqexit/irqexit_kunit.c
+> =C2=A0create mode 100644 kernel/trace/rv/monitors/irqexit/irqexit_kunit.h
+> =C2=A0create mode 100644 kernel/trace/rv/monitors/irqexit/irqexit_trace.h
+> =C2=A0create mode 100644 kernel/trace/rv/monitors/irqstate/Kconfig
+> =C2=A0create mode 100644 kernel/trace/rv/monitors/irqstate/irqstate.c
+> =C2=A0create mode 100644 kernel/trace/rv/monitors/irqstate/irqstate.h
+> =C2=A0create mode 100644 kernel/trace/rv/monitors/irqstate/irqstate_kunit=
+.c
+> =C2=A0create mode 100644 kernel/trace/rv/monitors/irqstate/irqstate_kunit=
+.h
+> =C2=A0create mode 100644 kernel/trace/rv/monitors/irqstate/irqstate_trace=
+.h
+> =C2=A0create mode 100644 tools/verification/models/irqentry/irqexit.dot
+> =C2=A0create mode 100644 tools/verification/models/irqentry/irqstate.dot
+>=20
+> base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
+> prerequisite-patch-id: 6ac7167f0aa7c5319dac78bf5b06a989fd7dfac5
+
