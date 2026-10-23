@@ -1,111 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.153
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792738882;
-	b=topcrB9hxrRR/G7R5Idm35UwkiS/EqMaWuZNhwp760Jb+Q8UCUsxjaWF1b+VY0nE36yb
-	 UVtlAdj2MXTkhR8U1yQyCAZ7wrlhFomV+TGMGLb3dNwKxtA6OuOylDMZ9BINqQ0KgPkym
-	 mvaeW8IqZ+OWZCoBCRot8nQJoOao4pYIh8oDPaWWVXrQb9uxvdyxT2mWq7I9GzAcLDe8V
-	 hoEeVKMfUnSne8n3SxHGTKN1RnMPvNFkSh+4LXl0qsR9PoaDYVc1ndrW9v3sf/2glh1yQ
-	 LEsnFq3mrDBVXOtpzSrRL1kV0mWaWIrBLXyPc4Vg+a/Br+xH+OrA31FTG545S0i7cRw==
+	t=1792738883;
+	b=mXkN168nDoLebFcOoylV9rsS22u+IKgsDXoFi4xKRqXMWv9SM1Nhsysgv4Y3PqqfYk6o
+	 w1LLF9/BYhg31BWBfjzngu3PhZtkg6i1TRVcK1X6mIV7bEUd/0LC9YrMpvdz91L3uv0Xd
+	 YYviMGP34ZKJgF4+fITjrjeFtn1ljNPgLVL3RQJkyPj71lF0YOWhrDlStPbq7/VOb0Unm
+	 YIAHrm3NPichVvGIisrNSq1g3EaAxuFD7lWEL7RjSMy9PYzJ3agaJTf1CmXUVM/ECgm6M
+	 GTTsNLcBma8RwLlpuMkOIN+U78XfYFPNDKd9A88VSpvSNnY3a/eo6PdH9pQCCPrRWhg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792738882;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:X-Proofpoint-GUID:
-	 X-Authority-Analysis:X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=AACcgwhYkC3KUc2WR3EDrO9YGPVQuZ9/nNSNkiIADP0=;
-	b=mTKCShn+mROf+hqJTTFQ/TpznkdZD2SC1pS8crxovq+oCjHfzo6C7TO7EuEZ5lBW3Zno
-	 LnwAEOf0D8JvgQQZWNQHbNzXEDxVzpcfo96+XIx3ad6FkG54ynbx3YJFbR85XeHbIjZJD
-	 twd/Xl7uCqK8JBMMPxLz+Kp1bFuxhWEO9SJeHCjqMxI6x8Pxoz5Su89rQZtlDt4dAqvqg
-	 4B9gOckf85xvA7PjBdTnzBMz6lYKkXfwOKfzb9kvtGvKFdzLeRkUxve45wUu4hoJ2/Rx2
-	 vtMakryIZqpo7bojiIdjEOK0Geir3k7lkF/1+yvYB0gMmSxPn5MkX4KRqU9kY8nTduQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792738883;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=rUCmr5KNsTqdAFtykuTtOHLJ0k3Z9x+lHOLfB29fVwI=;
+	b=HcJPwkAs1RmvZedkwBfI/j0WCEDxo1udzAsI7ayEsY4j84wOVj9waNxCb6pLtJeDG3ff
+	 rciuwbPRjoWKvQxGVKERvu5YyZ60vKNDMlCgSNFYpNj52JxwGg/x22WO9rhky7AALyz9N
+	 ZQHmPBnby2orveZsgEoRY0SjcoQelnBmCJmF8Jalb5TGpXGtO0U0S8zXa6VujWKAFIEv+
+	 BZ5rt6JG8QDtfsniODhO2ahbZnEzkz/pYhiERwklCRZV1IREnh5EFWCQES7faqPaR6fox
+	 6tSfzKJeGFID8g6XJOHh+FUO+/hhaI+P5dkLhjd8A+/VeuAtkZzcUGZq2sI52ntU0uA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=C6Pg3Mau;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=bLuSimw4;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=PoDPze0g;
+	arc=none smtp.remote-ip=91.218.175.153
+Received: from mta0.migadu.com (out-153.mta0.migadu.com [91.218.175.153])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 517C5606A31F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89FFB606A32F
 	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 07:01:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 517C5606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 89FFB606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=C6Pg3Mau;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=bLuSimw4
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69N1F3lL1869056
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 07:01:21 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	AACcgwhYkC3KUc2WR3EDrO9YGPVQuZ9/nNSNkiIADP0=; b=C6Pg3MauuJR9m3Rg
-	nM7VfMaqEJnktOK9ECURmTXmZwy1qnTPK/9EPKAV1PD13LVVc/Phq8BW8a6P1z79
-	1uqInJF79LacbA+H0OqSa1r2RlRE34e0ZYyUPNcvnE4cIBo/Rpmu4urJhiu+eHBV
-	Uw2GQvx5DdasfZmtwgDWEOI53T1yOO5b/nE656qItGg45sfQsCu+JDIsRg8h0pnP
-	qe00nF7XqO9EM1Q7LmpO2QAYnpoaJRYIKuFbb+rpD4Xf+iBLEvi+TbNXobD2hv5K
-	74Bh78hlIxnofyin7/AUFPbRX1GzPBTGTR/PCrM/81eIFsRV18TSbC7rpVRasjHc
-	j9bxpg==
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hfqmjad5h-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 07:01:20 +0000 (GMT)
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-3adc5b185bfso662037a91.3
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 00:01:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792738879; x=1793343679; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=AACcgwhYkC3KUc2WR3EDrO9YGPVQuZ9/nNSNkiIADP0=;
-        b=bLuSimw4nC+VEE7IPyYlu9ZY9BMQuI3/knPhUU3kHqhivZCHfCkXfD73Z+LE6a836t
-         y/PKsVy4JI1xc3q10O5bAFxvoAx0AkibCsMKyypSvU1ei41iaMhK68p7HAUA+43FuJVS
-         s8uv3oA4e/FUYH6tQphWrWkzWl6Bf5zoIcBYWhT1XQssTb1eCuUBe0GREYu6gzQYZwFx
-         p/+pQAU2W9x9SanqlKPfRDa79NLxXwhkqxBKLYuCu4gnwRsoQbW2TmNmFxWMe52ccXB5
-         CifOXe0L++JyP77uvRWgeDBFdSghh9VulNr8p49TGlk4PhWKZXNYFjVQC3qHN9xjLECp
-         uxYw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792738879; x=1793343679;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=AACcgwhYkC3KUc2WR3EDrO9YGPVQuZ9/nNSNkiIADP0=;
-        b=tml0gvC3ClMgowzrmM2+N5HMu5xSF4Cc+Zh7B7YsMkBWR3NOG0zX5IQ98AzKsaUUwR
-         Cz2hok3iO5xHwmiz/7OdRwBQ/8HiPrcYsZ0Ou6BGXpmOElLdiqU6YUtEY2b1uT52c3mL
-         GTBMvTFDPHE7p92kUYggrqTmtdpgKn92gCnwKTpK2kIrOSSzL5YKAPiVaoWz+Cm43Wjv
-         /L16bA++lcZyToHPOvFJH3p/XFHlSIefVnU7vb080KkyId+ikp3xfZ9ELEBjc75rYPje
-         MNiC3X18uzRCgQc7UTo+ZabZ0xSldOpb/rRdIiZPtFjeQCUGVzTURa4Q5Jofd8yXavJ8
-         ja2A==
-X-Forwarded-Encrypted: i=1; AKwUvBzTXyh58e5SKDHxasjwFyFX9sTCYWjjYmgPupy7NgG+Del20Gw+aT8AVLMb3v58ACD9GLnuLtc5aRdSf1o=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKiX99qB16l+29RHgfJSFfem+vtykW0v73M8UDaRNd9J1DNYQVc
-	saCvcLLD4g7nlAbFgJifjjtLIfYNXjo/vaSVEBn/KcHWaEfWnZ92yK/eoZ37tuZ7td4YY7GzQ6C
-	TXSudFl/Fwc7/0BicllK+tVsMmJD9aUIKDv8VlATpW757d+lmfGJmcYt33xACDk6oAv8=
-X-Gm-Gg: AYBFou1+2UTas2TJR+CDdsaHXroLCDUen4wJMg9Bruo4rj/lqYox/+JZHDpoYt9Xh0D
-	R3OOI0ppR6Jd/iLgTRvWUkHqPmHYm8JfHwQLIwUzsphJX2f9QZ3jj6C2CBESL+y4QBnTmEDtb+2
-	XU6yKneZ8QNE6UcbArCSOck2fi5wDF3X5Rn9qtFmCQ3d8N7qFQHfK72kcgUjP6BK+xdraSrnQW9
-	HU88yimdc4lvDt5442OA1ByWRRzsfhlCjSz50SYoCEKrkOS/loOz0LEUKQT+pQ+biuAw1uTTAwq
-	QhDa7zrzIGU44HjyrW0cgjMIukVKBWG0L3RmoJQC3G0owqK8j0pC80AAmGjgAjxRvurecXJmdF9
-	+rMhk3kvP0CV8/yav5TPxxWi0mxTGtrgCIq1Sd5dZJ1WItOlWP0k3VsRT/w9NY6LJuL+e9+LGVQ
-	Z6ojGo5IghhvvfLfhgudT2dA==
-X-Received: by 2002:a17:90b:17c5:b0:3ac:86a0:5766 with SMTP id 98e67ed59e1d1-3adce0cfd32mr1195295a91.63.1792738879354;
-        Fri, 23 Oct 2026 00:01:19 -0700 (PDT)
-X-Received: by 2002:a17:90b:17c5:b0:3ac:86a0:5766 with SMTP id 98e67ed59e1d1-3adce0cfd32mr1195233a91.63.1792738878394;
-        Fri, 23 Oct 2026 00:01:18 -0700 (PDT)
-Received: from hu-aarasahu-blr.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd8ba8a6dcdsm399751a12.18.2026.10.23.00.01.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 23 Oct 2026 00:01:17 -0700 (PDT)
-From: Aaradhana Sahu <aaradhana.sahu@oss.qualcomm.com>
-Date: Fri, 23 Oct 2026 12:31:04 +0530
-Subject: [PATCH ath-next v3 01/17] dt-bindings: net: wireless: Add QCN6432
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=PoDPze0g
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=eS/K4doPXluNCr1/hI+pokpdsQChHXvBQQzirTFG9AU=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792738880; v=1; x=1793343680;
+ b=PoDPze0g8zldcDV/HwCZOP7leQ1N5HWH/s4sa6iVzVsq4qFzdk2aPNQUhUxkM9T2jSP/0sqF
+ DFp0VlHtBj4Dmf6VS4BdkTlwGHc311NBy3LTU8q6fIhdEiPptBUulsjv6Rph9wgj1DItDStsN4Z
+ 1brxc9aLY/X/yxiwXDmAsyTY=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 2ac626447dabcc43;
+	Fri, 23 Oct 2026 07:01:20 +0000
+X-Mizu-Trace-ID: 2ac626447dabcc43
+X-Migadu-Flow: FLOW_OUT
+From: Fuad Tabba <fuad.tabba@linux.dev>
+To: Marc Zyngier <maz@kernel.org>,
+	Oliver Upton <oupton@kernel.org>,
+	kvmarm@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org
+Cc: Joey Gouly <joey.gouly@arm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Yicong Yang <yangyicong@hisilicon.com>,
+	Zhou Wang <wangzhou1@hisilicon.com>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Fuad Tabba <tabba@google.com>,
+	kvm@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 2/2] KVM: arm64: selftests: Test ID_AA64ISAR1_EL1.LS64 on its own
+Date: Fri, 23 Oct 2026 08:01:10 +0100
+Message-ID: <20261023070110.1833446-3-fuad.tabba@linux.dev>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261023070110.1833446-1-fuad.tabba@linux.dev>
+References: <20261023070110.1833446-1-fuad.tabba@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,215 +80,105 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261023-mpp-bringup-v3-1-19f3fcbf7b5f@oss.qualcomm.com>
-References: <20261023-mpp-bringup-v3-0-19f3fcbf7b5f@oss.qualcomm.com>
-In-Reply-To: <20261023-mpp-bringup-v3-0-19f3fcbf7b5f@oss.qualcomm.com>
-To: Johannes Berg <johannes@sipsolutions.net>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Jeff Johnson <jjohnson@kernel.org>
-Cc: linux-wireless@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, ath12k@lists.infradead.org,
-        Aaradhana Sahu <aaradhana.sahu@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Proofpoint-GUID: MTnddnjg1cpyta0Xlgydmb2MV-KWNFyM
-X-Authority-Analysis: v=2.4 cv=cPR1IVeN c=1 sm=1 tr=0 ts=6adb0640 cx=c_pps
- a=0uOsjrqzRL749jD1oC5vDA==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=gEfo2CItAAAA:8 a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8 a=Zbx1xPUqErz4vskW_SEA:9
- a=QEXdDO2ut3YA:10 a=mQ_c8vxmzFEMiUWkPHU9:22 a=sptkURWiP4Gy88Gu7hUp:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIzMDAyNyBTYWx0ZWRfX873/UahZYZ8+
- emymPE61H2M3nXZKWzjlm60Cfjc4khoMcRmsjEW4SA2pKHNvGRJVf4W7pq5tu3gwjRiNz3DAEVh
- KvzzwpWyRbacaL6l9BcRBieu3Jv5PoQ=
-X-Proofpoint-ORIG-GUID: MTnddnjg1cpyta0Xlgydmb2MV-KWNFyM
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIzMDAyNyBTYWx0ZWRfX46MMqA/xX9xm
- bq/9mqawrTYInGECkqhUIo4pnZvNfohLmHgJIi8iAljuu+AXlsJuaDoWq7tyu7vF9X71EptTGWz
- Szx+o7BiuYuT2fZTu2wl2ioNay9pktVad1VV0baGTst9EZ3HNL2vnk3+Uc9gPh68M8/xQuXO3I7
- PYwE9yS27eOwFYvPurBnhwJlqpl/lMYuUuOnPUrHPxBoRkilqtqtX6H2AiOj+ioeRuNsdHFOjJg
- uZz78isQKK3AOnCb9d2curgDyFPBLM7rqL38CKKgeItvpxdIg9sHIb6GeWlczmmwtJdUaRMzEQf
- di0QkHVPPlyuXJO6j5NJ7DebbNAVL0TlyzYSUgUmU3dZSYSqV4loISYc+HlHl+LRlSe5L+2mvgS
- Z/QkrTTw5aF0HuZL3xgu/M+iRVWCLRfcp/y0R25Solb8EiAIyNxooC4js3o2XxV3DmJTbTwPtyx
- NGHujch703zQpSqVvHQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-23_01,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 lowpriorityscore=0 bulkscore=0 spamscore=0 suspectscore=0
- impostorscore=0 priorityscore=1501 malwarescore=0 clxscore=1015 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610230027
+Content-Transfer-Encoding: 8bit
 
-Add Devicetree binding documentation for the Qualcomm QCN6432 IEEE 802.11be
-wireless device.
+KVM caps ID_AA64ISAR1_EL1.LS64 at LS64_V, but accepts a write of any
+level up to the host's and caps it. On a host at LS64_ACCDATA or above,
+the generic test writes the level above KVM's value and expects it to
+be rejected, but KVM accepts it.
 
-QCN6432 is attached to the WCSS Q6 subsystem and is represented as an AHB
-platform device, even though the Wi-Fi hardware interfaces over PCIe.
-Document the compatible string and the resources, including the Q6 remote
-processor phandle, MSI interrupts, SMEM states and memory regions.
+Move LS64 out of the generic table into its own test. It checks that the
+field reads as the host's level capped at LS64_V, that a write of 0 is
+kept and one of the host's level is capped, and that a level above the
+host's is rejected.
 
-Signed-off-by: Aaradhana Sahu <aaradhana.sahu@oss.qualcomm.com>
+Cc: stable@vger.kernel.org
+Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
 ---
- .../bindings/net/wireless/qcom,qcn6432.yaml        | 149 +++++++++++++++++++++
- 1 file changed, 149 insertions(+)
+ .../testing/selftests/kvm/arm64/set_id_regs.c | 49 ++++++++++++++++++-
+ 1 file changed, 47 insertions(+), 2 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/net/wireless/qcom,qcn6432.yaml b/Documentation/devicetree/bindings/net/wireless/qcom,qcn6432.yaml
-new file mode 100644
-index 000000000000..96e164620574
---- /dev/null
-+++ b/Documentation/devicetree/bindings/net/wireless/qcom,qcn6432.yaml
-@@ -0,0 +1,149 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+# Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/net/wireless/qcom,qcn6432.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
+diff --git a/tools/testing/selftests/kvm/arm64/set_id_regs.c b/tools/testing/selftests/kvm/arm64/set_id_regs.c
+index 7429a1055df56..60b96f7608dc3 100644
+--- a/tools/testing/selftests/kvm/arm64/set_id_regs.c
++++ b/tools/testing/selftests/kvm/arm64/set_id_regs.c
+@@ -108,7 +108,6 @@ static const struct reg_ftr_bits ftr_id_aa64isar0_el1[] = {
+ };
+ 
+ static const struct reg_ftr_bits ftr_id_aa64isar1_el1[] = {
+-	REG_FTR_BITS(FTR_LOWER_SAFE, ID_AA64ISAR1_EL1, LS64, 0),
+ 	REG_FTR_BITS(FTR_LOWER_SAFE, ID_AA64ISAR1_EL1, XS, 0),
+ 	REG_FTR_BITS(FTR_LOWER_SAFE, ID_AA64ISAR1_EL1, I8MM, 0),
+ 	REG_FTR_BITS(FTR_LOWER_SAFE, ID_AA64ISAR1_EL1, DGH, 0),
+@@ -644,6 +643,51 @@ static void test_user_set_mte_reg(struct kvm_vcpu *vcpu)
+ 		ksft_test_result_pass("ID_AA64PFR1_EL1.MTE_frac no longer 0xF\n");
+ }
+ 
++#define LS64_IDREG_TEST 4
++static void test_user_set_ls64_reg(struct kvm_vcpu *vcpu)
++{
++	u64 reg = KVM_ARM64_SYS_REG(SYS_ID_AA64ISAR1_EL1);
++	u64 val, ls64, host, limit;
++	int err;
 +
-+title: Qualcomm Technologies QCN6432 wireless device
++	/* LS64 is visible to EL0, so this reads the host's sanitised level */
++	host = FIELD_GET(ID_AA64ISAR1_EL1_LS64, read_sysreg(id_aa64isar1_el1));
++	limit = min(host, ID_AA64ISAR1_EL1_LS64_LS64_V);
 +
-+maintainers:
-+  - Jeff Johnson <jjohnson@kernel.org>
++	val = vcpu_get_reg(vcpu, reg);
++	ls64 = FIELD_GET(ID_AA64ISAR1_EL1_LS64, val);
++	if (ls64 == limit)
++		ksft_test_result_pass("ID_AA64ISAR1_EL1.LS64=%lu, host at %lu\n", ls64, host);
++	else
++		ksft_test_result_fail("ID_AA64ISAR1_EL1.LS64=%lu, host at %lu\n", ls64, host);
 +
-+description:
-+  Qualcomm Technologies QCN6432 is an IEEE 802.11be Wi-Fi device
-+  associated with the WCSS Q6 subsystem. The device is represented
-+  as a platform device and uses MSI interrupts for its Copy Engine
-+  (CE) and Data Path (DP) rings.
++	val &= ~ID_AA64ISAR1_EL1_LS64_MASK;
++	err = __vcpu_set_reg(vcpu, reg, val);
++	ls64 = FIELD_GET(ID_AA64ISAR1_EL1_LS64, vcpu_get_reg(vcpu, reg));
++	if (!err && !ls64)
++		ksft_test_result_pass("ID_AA64ISAR1_EL1.LS64=0 accepted\n");
++	else
++		ksft_test_result_fail("ID_AA64ISAR1_EL1.LS64=0: err %d, reads %lu\n", err, ls64);
 +
-+properties:
-+  compatible:
-+    enum:
-+      - qcom,qcn6432
++	/*
++	 * A VM saved on an older kernel carries the host's level, which KVM
++	 * must accept from the VMM but keep at the limit.
++	 */
++	err = __vcpu_set_reg(vcpu, reg, val | FIELD_PREP(ID_AA64ISAR1_EL1_LS64_MASK, host));
++	ls64 = FIELD_GET(ID_AA64ISAR1_EL1_LS64, vcpu_get_reg(vcpu, reg));
++	if (!err && ls64 == limit)
++		ksft_test_result_pass("ID_AA64ISAR1_EL1.LS64=%lu accepted as %lu\n", host, ls64);
++	else
++		ksft_test_result_fail("ID_AA64ISAR1_EL1.LS64=%lu: err %d, reads %lu\n",
++				      host, err, ls64);
 +
-+  reg:
-+    maxItems: 1
++	err = __vcpu_set_reg(vcpu, reg, val | FIELD_PREP(ID_AA64ISAR1_EL1_LS64_MASK, host + 1));
++	if (err && errno == EINVAL)
++		ksft_test_result_pass("ID_AA64ISAR1_EL1.LS64=%lu rejected\n", host + 1);
++	else
++		ksft_test_result_fail("ID_AA64ISAR1_EL1.LS64=%lu not rejected\n", host + 1);
++}
 +
-+  interrupts:
-+    items:
-+      - description: Fatal interrupt
-+      - description: Ready interrupt
-+      - description: Spawn acknowledge interrupt
-+      - description: Stop acknowledge interrupt
-+      - description: UMAC reset interrupt
-+
-+  interrupt-names:
-+    items:
-+      - const: fatal
-+      - const: ready
-+      - const: spawn
-+      - const: stop-ack
-+      - const: umac-reset
-+
-+  memory-region:
-+    items:
-+      - description: Q6 memory region
-+      - description: Combined firmware data memory region
-+      - description: Multi Link Operation (MLO) Global memory region
-+
-+  memory-region-names:
-+    items:
-+      - const: q6-region
-+      - const: data-region
-+      - const: mlo-global-mem
-+
-+  msi-parent:
-+    description: Phandle to the MSI controller.
-+    maxItems: 1
-+
-+  qcom,calibration-variant:
-+    $ref: /schemas/types.yaml#/definitions/string
-+    description:
-+      String to uniquely identify variant of the calibration data for designs
-+      with colliding bus and device ids
-+
-+  qcom,rproc:
-+    $ref: /schemas/types.yaml#/definitions/phandle
-+    description:
-+      Phandle to the Qualcomm Hexagon DSP (Q6 remote processor), which is
-+      utilized for offloading Wi-Fi processing tasks. This Q6 remote processor
-+      operates in conjunction with Wi-Fi.
-+
-+  qcom,smem-states:
-+    $ref: /schemas/types.yaml#/definitions/phandle-array
-+    description: States used by the AP to signal the remote processor
-+    items:
-+      - description: Shutdown WCSS PD
-+        items:
-+          - description: Phandle to the Shared Memory Point 2 Point device
-+              handling the communication with a remote processor
-+          - description: Single bit index to toggle in the value sent to
-+              the remote processor
-+            maximum: 31
-+      - description: Stop WCSS PD
-+        items:
-+          - description: Phandle to the Shared Memory Point 2 Point device
-+              handling the communication with a remote processor
-+          - description: Single bit index to toggle in the value sent to
-+              the remote processor
-+            maximum: 31
-+      - description: Spawn WCSS PD
-+        items:
-+          - description: Phandle to the Shared Memory Point 2 Point device
-+              handling the communication with a remote processor
-+          - description: Single bit index to toggle in the value sent to
-+              the remote processor
-+            maximum: 31
-+
-+  qcom,smem-state-names:
-+    description:
-+      Names of the states used by the AP to signal the remote processor
-+    items:
-+      - const: shutdown
-+      - const: stop
-+      - const: spawn
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+  - interrupt-names
-+  - memory-region
-+  - memory-region-names
-+  - msi-parent
-+  - qcom,rproc
-+  - qcom,smem-states
-+  - qcom,smem-state-names
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+    #include <dt-bindings/interrupt-controller/irq.h>
-+
-+    wifi@21e00000 {
-+        compatible = "qcom,qcn6432";
-+        reg = <0x21e00000 0x200000>;
-+        interrupts-extended = <&smp2p_wcss_in 16 IRQ_TYPE_NONE>,
-+                              <&smp2p_wcss_in 17 IRQ_TYPE_NONE>,
-+                              <&smp2p_wcss_in 20 IRQ_TYPE_NONE>,
-+                              <&smp2p_wcss_in 19 IRQ_TYPE_NONE>,
-+                              <&intc GIC_SPI 33 IRQ_TYPE_EDGE_RISING>;
-+        interrupt-names = "fatal",
-+                          "ready",
-+                          "spawn",
-+                          "stop-ack",
-+                          "umac-reset";
-+        memory-region = <&q6_region>, <&data_region>, <&mlo_mem>;
-+        memory-region-names = "q6-region", "data-region", "mlo-global-mem";
-+        msi-parent = <&v2m0>;
-+        qcom,calibration-variant = "RDP442_1";
-+        qcom,rproc = <&q6v5_wcss>;
-+        qcom,smem-states = <&smp2p_wcss_out 16>,
-+                           <&smp2p_wcss_out 17>,
-+                           <&smp2p_wcss_out 18>;
-+        qcom,smem-state-names = "shutdown",
-+                                "stop",
-+                                "spawn";
-+    };
-
+ static u64 reset_mutable_bits(u32 id, u64 val)
+ {
+ 	struct test_feature_reg *reg = NULL;
+@@ -828,7 +872,7 @@ int main(void)
+ 
+ 	ksft_print_header();
+ 
+-	test_cnt = 3 + MPAM_IDREG_TEST + MTE_IDREG_TEST;
++	test_cnt = 3 + MPAM_IDREG_TEST + MTE_IDREG_TEST + LS64_IDREG_TEST;
+ 	for (i = 0; i < ARRAY_SIZE(test_regs); i++)
+ 		for (j = 0; test_regs[i].ftr_bits[j].type != FTR_END; j++)
+ 			test_cnt++;
+@@ -840,6 +884,7 @@ int main(void)
+ 	test_vcpu_non_ftr_id_regs(vcpu);
+ 	test_user_set_mpam_reg(vcpu);
+ 	test_user_set_mte_reg(vcpu);
++	test_user_set_ls64_reg(vcpu);
+ 
+ 	test_guest_reg_read(vcpu);
+ 
 -- 
-2.34.1
+2.47.3
 
