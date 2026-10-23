@@ -1,67 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.225
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792723745;
-	b=cL9QruvsC8RgCk8Uk0UswIfVHygkIOT9GAI8mqdoueZt0Vdr6VzLtGLF0iyHEu20BVwa
-	 Y5cVMD3WCNUyXDYixttF/VDjRqU7GbQk0xCf7jXme+hRqxUkg6mUXbM5EXNvfSoY2Omdr
-	 BT/EWz36gtQPLOE3f4MtffjljiBgYq6HrVK42q0toDTrFsy4OvlsIjdpTxZ/BZZnb3ZL4
-	 38kCX5ScUV5rWIY+NyMwiupl/2BPeyqFlVfgFWQtLRxJAMWP20kLtzQytg/g3i16NJ2os
-	 re8rJW/YRw0aF0vsFD92IWYMjjx/CM76ibj8qDO0ZaIcN1kbwwc8gwsTpMi7ZsyoMww==
+	t=1792723795;
+	b=c2fQ0NzTWdhjUCwEU6LsmiMinxrAy7SzgG7+qz5L/fyJ0seSwFjcr3N1N5y5NFVSAyah
+	 NrwR+WRS8gpUA78ofm0gq9bBl+7lcM2qGl/5e5d8UUpTCkyqjl3JOJULV1cv4lAnRTKqI
+	 U8dtiA8+w9SC+jCSDSHPa0Tse5ZeFTCrMyeIAxgGbLN/TyxjYGpb87kDqyT5x/wxG6/4h
+	 0JMVUDV9D7GIGPb/hMaX7SfXewskaGuD3qexPxmU9aRuJeMQd4Ah6ByD7bn/eBHsHAuBS
+	 CQ23TKb0P5rbVf/mdFaA+acgJpyB4Eui+YmgOA7ku8jwa55j0PkhEM40LJIvDXMLcmg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792723745;
-	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:CC:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=0qFDQ3tEInvMhyk9XxwD/YTmxwpLWoDpx40G0AiO8Ng=;
-	b=wPTGRUjRTciqSzcSN/0ZPdSOy0W7kuVhZQcP5+WNeGvO1Pp5SZNih2KbExfZcaa+sbws
-	 zR1Onr9Ve7PGcZSUPhbWFB3NJeOsYGj6fPRkuIWYv/xp3nIeODd+AUsfSXakL/t3B+c75
-	 hp1Xfwp/yZRNCXYgdv5mpoZcg11plT8WDHXREUnN/Z2lquJV2Qr3c6usUb1xHeZcggklw
-	 /53pxN+C+SaNwwIFRAZw58b9Bg0hJSE656TIXGvMHjRl9tzs9YEF6hKaMZAAo/2q4QCsp
-	 Nx4PKURoURWeKHetfGDWzsILYPGAEYeGRZNsEMWzMdRCWhoCsXquZLDRQ5LetyiqECA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792723795;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=iSaVGh0/J9R2PsEBRnNcSpf6/T9iBif0unUe3V+FZCk=;
+	b=oGD8VF/fIRuo+yMhKfUpAFZAQSxWoAnZCVR4hautplyTl9h83r+nJjtmoWbjOu4b+5Hy
+	 yYKIiEBtML3pWjLIBREs67TmVjuqnhN3mSx4nyEhInWbyJEkfqfG3pi1J//vD3XkKbiiD
+	 7718302ITuYgSI9duWgaNnDzWCFEZMyeR1fILdi3vDYANRfhJegS3EBO0XU7vng+aii8h
+	 mse5S6g6gryiuLtzmM5sUkcgrS9Z1/K+UIfWf282Wr15hnEphACPLQkHCAlsSPYLKFucn
+	 cPjCuMaD+ZQxSmfjJg1LNvz/Jh0dQlAyss6SeSYMYv4dKCjp8V4pZD28+9RgTdcfvbw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=huawei.com;
-	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=jMqZH4Vr;
-	arc=none smtp.remote-ip=113.46.200.225
-Received: from canpmsgout10.his.huawei.com (canpmsgout10.his.huawei.com [113.46.200.225])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ChP9+g1Z;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E02360A2604
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 02:48:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4E02360A2604
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10CAA606A31A;
+	Fri, 23 Oct 2026 02:49:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=jMqZH4Vr
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=0qFDQ3tEInvMhyk9XxwD/YTmxwpLWoDpx40G0AiO8Ng=;
-	b=jMqZH4VrvXuf8Y2C3AaurWan9rxK+XmvSXeqcsars9DhyXj7cMfnWvtCKOLlVk+WHPQc+44zl
-	arhpbkgf06NzW59gAy+4+KDn3Q0FL96+laxjG7BkMDIX/1a+phXooGm+VqfvunphtoZeKzrxRF+
-	D9t5fA1rz2in3s6C02U+ihg=
-Received: from mail.maildlp.com (unknown [172.19.163.200])
-	by canpmsgout10.his.huawei.com (SkyGuard) with ESMTPS id 4j9nX76XRFz1K9Zk;
-	Fri, 23 Oct 2026 10:48:39 +0800 (CST)
-Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
-	by mail.maildlp.com (Postfix) with ESMTPS id 037394055B;
-	Fri, 23 Oct 2026 10:48:45 +0800 (CST)
-Received: from huawei.com (10.90.53.73) by kwepemk200008.china.huawei.com
- (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 23 Oct
- 2026 10:48:44 +0800
-From: Jinjie Ruan <ruanjinjie@huawei.com>
-To: <james.morse@arm.com>, <ben.horgan@arm.com>, <reinette.chatre@intel.com>,
-	<fenghuay@nvidia.com>, <tony.luck@intel.com>, <Dave.Martin@arm.com>,
-	<babu.moger@amd.com>, <x86@kernel.org>, <linux-kernel@vger.kernel.org>
-CC: <ruanjinjie@huawei.com>
-Subject: [RFC PATCH 05/10] fs/resctrl: Prepare for range-format pseudo resources
-Date: Fri, 23 Oct 2026 10:48:07 +0800
-Message-ID: <20261023024812.232820-6-ruanjinjie@huawei.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261023024812.232820-1-ruanjinjie@huawei.com>
-References: <20261023024812.232820-1-ruanjinjie@huawei.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ChP9+g1Z
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 248241F01825;
+	Fri, 23 Oct 2026 02:49:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792723794;
+	bh=iSaVGh0/J9R2PsEBRnNcSpf6/T9iBif0unUe3V+FZCk=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=ChP9+g1ZrWe3ctWkfJxodczNnZ3pJkzdJi4XGzoV69sRxI5cyJjVUIhE4qfbQ06iK
+	 VnaNOuNkvvX6OjJJseWrLH2VAZS4EuwiJ9sEhpAzZnue1VtDciQd29dz8vqXDirs47
+	 YKxVqOYg0curHKuVjjH3ndcnILsOMsOySdmJTMWatJrFQIiK1oFmyWbuMQnkrAE3qo
+	 VPrHBuSU8F3OcDsRVabcM81BNaDku85ZjIPYJjWDgbV7dLrc/uUiHBUp4TASZa4efM
+	 lAsgOQ13DEsiRF1DWhqlfEOS5w6+ltLkXt86II9/Lu1tCFEgQbFwasuZ+36vVtyIAP
+	 IKpYmtDWrTFvA==
+Subject: Re: [PATCH net v3] seg6: Fix unset mac header in SRv6 End.DT VRF
+ decapsulation
+From: netdev-bot+sashiko@kernel.org
+To: yymhvert@gmail.com
+Cc: andrea.mayer@uniroma2.it, dsahern@kernel.org, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+ willemdebruijn.kernel@gmail.com, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, co+98d7de09cd94fec5@bugs.sh
+Date: Fri, 23 Oct 2026 02:49:53 +0000
+Message-ID: <179272379368.3134.2964815137936170194@kernel.org>
+In-Reply-To: <20261021024738.17266-1-yymhvert@gmail.com>
+References: <20261021024738.17266-1-yymhvert@gmail.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,140 +64,166 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: kwepems100002.china.huawei.com (7.221.188.206) To
- kwepemk200008.china.huawei.com (7.202.194.74)
 
-arm_mpam exposes the MPAM priority, capacity and limit controls as
-extra resources that reuse the schema machinery but have no resource
-of their own: they share the base resource's class, domains and
-components, and only the mpam_config field written differs.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-Prepare the resctrl core for them:
-- Add RDT_RESOURCE_L{2,3}_{MAX,MIN,PRI} and RDT_RESOURCE_MB_{MIN,PRI,
-  HDL,OPT} slots after PERF_PKG. The entries are unconditional; an
-  architecture only gets dead slots it never initialises.
-- Dispatch rdtgroup_init_alloc(), rdtgroup_size_show() and
-  rdtgroup_mode_test_exclusive() on schema_fmt instead of the MBA/SMBA
-  rids, so every RESCTRL_SCHEMA_RANGE resource takes the percentage path.
-- Skip the pseudo rids in fflags_from_resource() and
-  rdtgroup_create_info_dir(): they are only reachable through schemata.
-- resctrl_get_default_ctrl() returns the defaults for the pseudo rids.
+Critical: 0 · High: 1 · Medium: 0 · Low: 0 (1)
 
-No behaviour change until an architecture populates the slots.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
----
- fs/resctrl/rdtgroup.c   | 15 ++++++++++-----
- include/linux/resctrl.h | 33 +++++++++++++++++++++++++++++++--
- 2 files changed, 41 insertions(+), 7 deletions(-)
+- [High] The patch restores the mac header only after the VRF
+  l3mdev_l3_rcv handler returns.
 
-diff --git a/fs/resctrl/rdtgroup.c b/fs/resctrl/rdtgroup.c
-index 5dcbb0a964e8..bdc568bb13d6 100644
---- a/fs/resctrl/rdtgroup.c
-+++ b/fs/resctrl/rdtgroup.c
-@@ -1491,7 +1491,8 @@ static bool rdtgroup_mode_test_exclusive(struct rdtgroup *rdtgrp)
- 
- 	list_for_each_entry(s, &resctrl_schema_all, list) {
- 		r = s->res;
--		if (r->rid == RDT_RESOURCE_MBA || r->rid == RDT_RESOURCE_SMBA)
-+		/* Only the bitmap resources are caches with CBM semantics */
-+		if (r->schema_fmt == RESCTRL_SCHEMA_RANGE)
- 			continue;
- 		has_cache = true;
- 		list_for_each_entry_rcu(d, &r->ctrl_domains, hdr.list, lockdep_is_cpus_held()) {
-@@ -1696,8 +1697,7 @@ static int rdtgroup_size_show(struct kernfs_open_file *of,
- 					ctrl = resctrl_arch_get_config(r, d,
- 								       closid,
- 								       type);
--				if (r->rid == RDT_RESOURCE_MBA ||
--				    r->rid == RDT_RESOURCE_SMBA)
-+				if (r->schema_fmt == RESCTRL_SCHEMA_RANGE)
- 					size = ctrl;
- 				else
- 					size = rdtgroup_cbm_to_size(r, d, ctrl);
-@@ -2497,6 +2497,9 @@ static unsigned long fflags_from_resource(struct rdt_resource *r)
- 		return RFTYPE_RES_MB;
- 	case RDT_RESOURCE_PERF_PKG:
- 		return RFTYPE_RES_PERF_PKG;
-+	default:
-+		/* The pseudo resources have no info directory of their own */
-+		break;
- 	}
- 
- 	return WARN_ON_ONCE(1);
-@@ -2522,6 +2525,9 @@ static int rdtgroup_create_info_dir(struct kernfs_node *parent_kn)
- 	/* loop over enabled controls, these are all alloc_capable */
- 	list_for_each_entry(s, &resctrl_schema_all, list) {
- 		r = s->res;
-+		/* The pseudo resources are only reachable through schemata */
-+		if (r->rid >= RDT_RESOURCE_L3_MAX)
-+			continue;
- 		fflags = fflags_from_resource(r) | RFTYPE_CTRL_INFO;
- 		ret = rdtgroup_mkdir_info_resdir(s, s->name, fflags);
- 		if (ret)
-@@ -3859,8 +3865,7 @@ static int rdtgroup_init_alloc(struct rdtgroup *rdtgrp)
- 
- 	list_for_each_entry(s, &resctrl_schema_all, list) {
- 		r = s->res;
--		if (r->rid == RDT_RESOURCE_MBA ||
--		    r->rid == RDT_RESOURCE_SMBA) {
-+		if (r->schema_fmt == RESCTRL_SCHEMA_RANGE) {
- 			rdtgroup_init_mba(r, rdtgrp->closid);
- 			if (is_mba_sc(r))
- 				continue;
-diff --git a/include/linux/resctrl.h b/include/linux/resctrl.h
-index dd09c2ce9a0f..33af56f953c0 100644
---- a/include/linux/resctrl.h
-+++ b/include/linux/resctrl.h
-@@ -54,7 +54,23 @@ enum resctrl_res_level {
- 	RDT_RESOURCE_MBA,
- 	RDT_RESOURCE_SMBA,
- 	RDT_RESOURCE_PERF_PKG,
--	RDT_RESOURCE_LAST = RDT_RESOURCE_PERF_PKG
-+	/*
-+	 * Pseudo resources re-using the class picked for the resource above
-+	 * to expose the MPAM priority/capacity/limit controls. They have no
-+	 * class of their own, share the base resource's domains, and never
-+	 * appear in info/.
-+	 */
-+	RDT_RESOURCE_L3_MAX,
-+	RDT_RESOURCE_L2_MAX,
-+	RDT_RESOURCE_L3_MIN,
-+	RDT_RESOURCE_L2_MIN,
-+	RDT_RESOURCE_MB_MIN,
-+	RDT_RESOURCE_L3_PRI,
-+	RDT_RESOURCE_L2_PRI,
-+	RDT_RESOURCE_MB_PRI,
-+	RDT_RESOURCE_MB_HDL,
-+	RDT_RESOURCE_MB_OPT,
-+	RDT_RESOURCE_LAST = RDT_RESOURCE_MB_OPT
- };
- 
- #define RDT_NUM_RESOURCES (RDT_RESOURCE_LAST + 1)
-@@ -408,7 +424,20 @@ static inline u32 resctrl_get_default_ctrl(struct rdt_resource *r)
- 	case RESCTRL_SCHEMA_BITMAP:
- 		return BIT_MASK(r->cache.cbm_len) - 1;
- 	case RESCTRL_SCHEMA_RANGE:
--		return r->membw.max_bw;
-+		switch (r->rid) {
-+		case RDT_RESOURCE_L3_MIN:
-+		case RDT_RESOURCE_L2_MIN:
-+		case RDT_RESOURCE_MB_MIN:
-+		case RDT_RESOURCE_L3_PRI:
-+		case RDT_RESOURCE_L2_PRI:
-+			return 0;
-+		case RDT_RESOURCE_MB_PRI:
-+			return 3;
-+		case RDT_RESOURCE_MB_HDL:
-+			return 1;
-+		default:
-+			return r->membw.max_bw;
-+		}
- 	}
- 
- 	return WARN_ON_ONCE(1);
+Pre-existing issues:
+- [Low] Concern: the other SRv6 decap behaviours (End.DX4/DX6, End.DT6
+  legacy, End.DT46 non-VRF) leave mac_header and mac_len pointing at the…
+
+--
+
+seg6: Fix unset mac header in SRv6 End.DT VRF decapsulation
+
+After the VRF l3mdev_l3_rcv handler returns, this commit restores a valid
+mac header in end_dt_vrf_rcv() if the handler did not rebuild one. It
+points the mac header at the network header and resets mac_len. With
+that, UDP GSO re-segmentation no longer does a huge __skb_push() from an
+unset mac header.
+
+> Every other receive path delivers packets with a valid mac header:
+> NIC drivers set it in eth_type_trans(), and tunnels without an L2
+> header (ipip, sit, gre, tun) reset it to the network header after
+> decapsulation.
+
+[Severity: Low]
+This isn't a bug introduced by this patch, but is this description
+accurate for ipip, sit and gre?
+
+In ip_tunnel_rcv() in net/ipv4/ip_tunnel.c, only the ARPHRD_ETHER case
+touches the mac header:
+
+	if (tunnel->dev->type == ARPHRD_ETHER) {
+		skb->protocol = eth_type_trans(skb, tunnel->dev);
+		skb_postpull_rcsum(skb, eth_hdr(skb), ETH_HLEN);
+	} else {
+		skb->dev = tunnel->dev;
+	}
+
+In the L3 tunnel case the outer mac header stays set. It is not reset to
+the network header.
+
+The non-VRF SRv6 decap behaviours (End.DX4/DX6, legacy End.DT6, non-VRF
+End.DT46) end up in the same state after decap_and_validate(), which only
+resets the network and transport headers.
+
+That stale but set state looks harmless at runtime. __skb_gso_segment()
+calls skb_reset_mac_header() and skb_reset_mac_len() before
+skb_mac_gso_segment(), and the outer mac header is still inside the
+buffer.
+
+Could the commit message wording be adjusted, though?
+
+> diff --git a/net/ipv6/seg6_local.c b/net/ipv6/seg6_local.c
+> index 53f7b24525759..45d0aabc58152 100644
+> --- a/net/ipv6/seg6_local.c
+> +++ b/net/ipv6/seg6_local.c
+> @@ -1200,6 +1200,16 @@ static struct sk_buff *end_dt_vrf_rcv(struct sk_buff *skb, u16 family,
+>  		/* the skb buffer was consumed by the handler */
+>  		return NULL;
+>  
+> +	/* the VRF device had its chance to rebuild the mac header for
+> +	 * sniffers; restore a valid one pointing at the network header,
+> +	 * like any L3 device without an L2 header, before the packet
+> +	 * continues up the stack.
+> +	 */
+> +	if (!skb_mac_header_was_set(skb)) {
+> +		skb_reset_mac_header(skb);
+> +		skb_reset_mac_len(skb);
+> +	}
+
+[Severity: High]
+Does this restore happen early enough? end_dt_vrf_rcv() calls
+skb_unset_mac_header() before l3mdev_l3_rcv(). If no sniffer is attached
+to the VRF device, the header is still unset when the PRE_ROUTING hook
+runs inside the handler:
+
+drivers/net/vrf.c:vrf_ip_rcv() {
+    ...
+	if (!list_empty(&vrf_dev->ptype_all)) {
+		...
+		err = vrf_add_mac_header_if_unset(skb, vrf_dev, ETH_P_IP,
+						  orig_dev);
+		...
+	}
+
+	skb = vrf_rcv_nfhook(NFPROTO_IPV4, NF_INET_PRE_ROUTING, skb, vrf_dev);
+    ...
+}
+
+vrf_ip6_rcv() is structured the same way.
+
+Suppose an NFQUEUE rule queues a GSO packet at that hook, either on a
+queue without NFQA_CFG_F_GSO or as an SCTP GSO packet.
+nfqnl_enqueue_packet() then does:
+
+	nf_bridge_adjust_skb_data(skb);
+	segs = skb_gso_segment(skb, 0);
+
+and nf_bridge_adjust_skb_data() does:
+
+	if (nf_bridge_info_get(skb))
+		__skb_push(skb, skb_mac_header_len(skb));
+
+With mac_header == 0xffff, skb_mac_header_len() is network_header - 0xffff,
+which is roughly 4G as a u32.
+
+Can that move skb->data far outside the buffer and corrupt skb->len before
+skb_gso_segment() reads through it?
+
+The bridge netfilter extension can still be attached at this point. An
+IPv6+SRH packet that arrives on a bridge port with br_netfilter and
+call-ip6tables enabled gets it from nf_bridge_alloc() in
+br_nf_pre_routing_ipv6().
+
+Nothing on this path drops it. br_pass_frame_up(), decap_and_validate(),
+iptunnel_pull_offloads() and nf_reset_ct() all leave it in place.
+nf_bridge_info_free() is only called on the bridge xmit paths.
+
+ip_sabotage_in() also lets the packet through PRE_ROUTING on the VRF
+device. sabotage_in_done was already set during the first PRE_ROUTING
+pass on the bridge device:
+
+	if (nf_bridge) {
+		if (nf_bridge->sabotage_in_done)
+			return NF_ACCEPT;
+
+		if (!nf_bridge->in_prerouting &&
+		    !netif_is_l3_master(skb->dev) &&
+		    !netif_is_l3_slave(skb->dev)) {
+
+The call chain would be:
+
+ipv6_rcv()
+  seg6_local_input_core()
+    end_dt_vrf_rcv()
+      skb_unset_mac_header()
+      vrf_ip_rcv()
+        vrf_rcv_nfhook(NF_INET_PRE_ROUTING)
+          nfqnl_enqueue_packet()
+            nf_bridge_adjust_skb_data()
+              __skb_push(skb, huge)
+            skb_gso_segment()
+
+This looks like the same problem: an unset End.DT VRF mac header becomes a
+huge unsigned __skb_push() before GSO. The difference is that it happens
+inside the handler rather than after it returns.
+
+Would it make sense to set a valid mac header before calling
+l3mdev_l3_rcv()? Alternatively, the consumers inside the handler could be
+made to handle the unset state.
+
 -- 
-2.34.1
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261021024738.17266-1-yymhvert%40gmail.com
