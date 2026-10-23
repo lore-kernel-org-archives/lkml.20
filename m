@@ -1,54 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.197
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792782053;
-	b=FwJ4h1EXvH8mTXL0Q2rlknzA74VJH9DZseqOunLAxCAPUTd9AEaZHDzZE6iGvFlXvdJu
-	 rsKoSp7gog+sVsz4g8DeW+b05vDrPGk/9IEoJM7F8CMm02vcsDCfnCB2vglvGB/TDY/tN
-	 YGg2pVZW3RN01LPjnkw5cVIvLHPZ2aY3iQYFAK+cuJ5OY8CrGid9PHePZ89AyE5jlrRRj
-	 NlGAo0zYypmMHHhI3tt3fJqu4PvdFSlnNU0EDbCrl02IPbUJDS7GXkWjeXhPnvzo+yIOn
-	 MEuSkDkpKUFVK9+gIUyiCp1q2t87PtPYgxiwDZAOjb/T2B7cvGtZERyYOqeGuxgeFjg==
+	t=1792782057;
+	b=4i/I6k77Mq0pEGOSqSG/yyDd5N0A76GdjjnG7rNXiY4+d22fwiGlWB5GNrh0ErVay0vQ
+	 YKueZbm8ES8hzJKsH80tWwZNbJa0E2rqYFITH54bEPGl32QRmGpTqdf/FiwOIMzA+sX8r
+	 uwNnxF5QDoTa5N0+xvQABdWjXUEX1s49NP968zp7R8sGsn7F/7lTdzwoAP/2fzbM88Xnc
+	 Pt2akYy3QaGnxs/Kwh3E2ElqS5Xyetx9Bboty2fs8JFBFKnUmjIsS8femUYkpiOEKxP9d
+	 hF18LNd7GDpkx+g5dDmkMVuFi6zJdK9cJhhT9Ok6xEhLAxcSa4v8JfUF3yR4rQv20eQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792782053;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:MIME-Version:X-Received:Date:
-	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
-	 Subject:From:To:Content-Type;
-	bh=ypskTyf/rTFIdElsne8kBI5ZkSZ1ilBW16848j0mABI=;
-	b=nKIzxkIglKxcC9v5dPJmqQmjctQIlyyTdCEVH8r8MrIDLFKe/B62a9ArOLS6Ra6qyh3C
-	 OEucylp5/cpAZ/CE9DZy+cQDxUCwqRALzZDIijU+RYsG5l9rW8EkIxDmGokHWaZzOEtts
-	 Y8SBmCBnw0Ib+nJ9l6eZvXR43HPOswOGDi2rhu9xq47y9o/YfBIb+W/i71jcClueBzVD5
-	 s+tbK+qOMyKqDmSX5BTVuK//lPF2NNNld8Y4KVHQvA8vivehhBJ7s27HrKKvTo1PbZvaJ
-	 aICa/dp283rBRU1CW/QkJKHDW/x8zwXkGCCnlJ/9JagCqjfZEeGoMmytT8fNk279p5A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792782057;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=CXL4R8sulkGCQUPMGPuMacTqy3n9g+qVj+Ldz7ej5tM=;
+	b=PQg8WvrrfXdhe/z55yt1BBhA3K58NVxMQ9lYIDsh4jq/YekD508J0XbguPikKbmw6iA3
+	 jjae+xanQTs3grJbSJAB37ZNYx+oPZbEEngRP+s7raRg8HIoglhX9qYXeHmyvGAgvKHe8
+	 BM2S2uKZrOybb+4QjmHsK6EUC8jxhfPwpz1tiOOyuO3mepViuAX7Uk3hwxBUSb4uJgqeH
+	 1ESXM0Fux3ibN4VAW3uM5EKiXw+CAyqGpeB6U1+ABJbE9CHC0uvPAH8OTMFR1XJ3Lm04N
+	 5kjDiV/ZwS9Mt6L01xm1v9wEKYG+l7CJyI+sIpoQaobmsP/myeijN39OFNdgKi7+6zw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.167.197
-Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
+	dmarc=pass header.from=cs.unc.edu;
+	spf=pass smtp.mailfrom=cs.unc.edu;
+	dkim=pass header.d=cs.unc.edu header.i=@cs.unc.edu header.a=rsa-sha256 header.s=google header.b=b6JCFlL0;
+	arc=none smtp.remote-ip=209.85.128.172
+Received: from mail-yw1-f172.google.com (mail-yw1-f172.google.com [209.85.128.172])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 577DC606A320
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 19:00:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 577DC606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-4dc57e2a3f2so1914134b6e.0
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 12:00:39 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7A25606A31B
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 19:00:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C7A25606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cs.unc.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cs.unc.edu
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=cs.unc.edu header.i=@cs.unc.edu header.a=rsa-sha256 header.s=google header.b=b6JCFlL0
+Received: by mail-yw1-f172.google.com with SMTP id 00721157ae682-8ab37e44643so8504537b3.0
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 12:00:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cs.unc.edu; s=google; t=1792782056; x=1793386856; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=CXL4R8sulkGCQUPMGPuMacTqy3n9g+qVj+Ldz7ej5tM=;
+        b=b6JCFlL0SqdwCfjEMHJtF0lS8SiRH5kMW/iLsLFnlq19RLPRXJXGacCrgH44nUjwvK
+         xNE8P3jRERVqMS4cOAJy94fjmARxVZyIu1dJ9uLNO3abZ8+1ySKW9OXbndYzoNZO9owx
+         bjmoRNJoMBEMkqNxwshtIO9rrp/9MxJTRAL03j6XiDTELA4rjTUyHgGRuaie/RmEXSh8
+         x0Tv2oFSw2Eg/2p3MuFqPc5BfFnF9AUGsArYJcmgcAXeCzXqwqbo2WRANYL5rKYVGhes
+         cRBX7wEXTkmQgQ/iz2RIZfaPqK5tuG6atk1ipRjM4LeF4rmGFSAKyRj4jgb/XzXkWDh/
+         q62g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792782038; x=1793386838;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ypskTyf/rTFIdElsne8kBI5ZkSZ1ilBW16848j0mABI=;
-        b=ODvD4GVK0PqzsQI5Cm4sUKahuUfDE6MTN2zucn78FiQG1rl9udytZ1pq8G3VquBFNW
-         gFuoJXVemSncdXAaBlFG/aLtY06kQlsF00X7EeYyjhvS8grGwU6lM0DibCjEft37Kwq3
-         vKcEMN9A1DxFNiKVmk7qvOHQmzQ6ZRDoxlqAvT6kowX/HZLNYgRlaYCmv0b9WF9TfgSK
-         AbcdLKOHKRCBcqYFVAsWcaASJfrHeiThXaHicLfU3XdZ8In+J027KrkPfgQJDlAQZ82P
-         CRQRqur34VCvc1FLdX22FUEDBMKV8K361Kd7Oh9FoYMwvZf9HcHICpu5wzv8Pwi74A/h
-         BFEA==
-X-Forwarded-Encrypted: i=1; AKwUvByz+bGyW3Kx+DXEtMFHC2JZr01mTfsFy6qIsbJY8gCb2/+RolRMGxISP/ej1c5xzj8ZklUW+hlpqG0iXpk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJIIyMDa97lT9o94XbGJ064/UY7sGJ4xf7/ZOnvOPk/hMZwhliK
-	7rTZN+dH9hcDoM5y8qOdhcFEFH+dF18MGxST7usS12RGxXrtW11W9GNZuoFhkjGyRGEiB4qBAr/
-	0Wd1F6/01SiE0XmxgYjo1qfXwzf5j8I33ELLRlDsANj4uhMmjetjJPwiPI/k=
+        d=1e100.net; s=20260707; t=1792782056; x=1793386856;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=CXL4R8sulkGCQUPMGPuMacTqy3n9g+qVj+Ldz7ej5tM=;
+        b=xQaUY+9hUu8oUbdyy4Z+hU2jfHE+r8SwzdbTk5soQ64gXgeGVv8RE0w13U5yI8LRj4
+         pM/liFgnFS4Jg3XNDhB0qygG0qpnLm+17YyMnHaPhaFSCnw+GMhCXBHBy/5CsBMGRhGk
+         npMB6BsjFyerNYNcyZ8rvo5OKrCkWYg8Y6YNUqHlhUCKo6x3eCjKu4fuvz7xzuWmS5Bm
+         hFu3LITas22fGt5p5pVcP3LIXY6NK0y33m7SdJyPkFOtG+MovY5teuabjexxj6vIzm2u
+         MNuZ1nsg//dWdm5bSA4Z7+2xVn67cV0L/dMp1FnmwhJOlDHv59MoEb7loFTb4YurfRQi
+         Trkg==
+X-Forwarded-Encrypted: i=1; AKwUvBzs2PhsN3FAOw9U2SGF3Jh3ZRmXHRDVooLX7FxMWSuRwmjq/dCw5VHNVMB1AlvuhIts0JnIGH6qcGG40Ow=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKIQO0qRXMgXgIhcJEIsp8Ri9ksQnKhTyT0TdgLPVPYS+Zm215f
+	ScN6IEYA2Uo99CA5WKPOx9wg3ZLlWww2BVDS8/fSvZKPHTnp0evxLdA7Ji9pKLQz6Q==
+X-Gm-Gg: AYBFou2uZnUD0S48ivEibmsXRUh/Hkz1KcxbRy53lSi1UDOj8v1EVSmbirJMkuZO1Tj
+	9OZG7/Mx3gvbqsaGTs56MTXLNC1fxTzpV7V1mJzHhHklpAqgIwB0yQO8Szc6pI0+bAqc5Cf3+nZ
+	dZb1PR/BZqXpAFsWkiSSLXuDCSnYr0qTXWyZ/6duPBf3rXZAQvT7JQvsI6LLN/QsuC3cweOtWFZ
+	n4E0XdDnFFkWO3+/lfhewXClZijudcNdpAgHh3UVbOOqJCTDkXKQeyK5EJV3UWvvzUyBQDdCSzt
+	6hrRksZ7a9NOCfWhO+NoJQLNE4np7gX3PW5zN5KKBiXDbyY4iblJEVsmkA+UizuwvafkNXuUQUK
+	GV+w6ty2pkPxt2HXcaj+gf4bASSnmn5ODGOlD4ReSW1n8eczmn1tZLB1Ne5WbuoNlLFvXRpgUVr
+	EO1al1GBPBjn2ljUCLgk32cr5hU0AxpKiGy1CdWf4e9lG7ajKiZ+cepC1hE+VfWH5AH21yExRm6
+	uYiP837C5lyMs83SKeo5onV/c5qWujQDoYmh0EJL0oUBeKswCevO1Br7h2YlPgAM+g1+Y+0LIBF
+	hQ==
+X-Received: by 2002:a05:690c:e0d4:10b0:8b0:cf3d:7b35 with SMTP id 00721157ae682-8b1669bc5a3mr634117b3.15.1792782055599;
+        Fri, 23 Oct 2026 12:00:55 -0700 (PDT)
+Received: from cobra01.cs.unc.edu (cobra01.cs.unc.edu. [152.2.130.143])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67a42f046f3sm368994d50.16.2026.10.23.12.00.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 23 Oct 2026 12:00:54 -0700 (PDT)
+From: Hengyu Liang <hengyul@cs.unc.edu>
+To: xiang@kernel.org
+Cc: chao@kernel.org,
+	zbestahu@gmail.com,
+	jefflexu@163.com,
+	dhavale@google.com,
+	hongbohbli@tencent.com,
+	guochunhai@vivo.com,
+	linux-erofs@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH v2] erofs: fix metadata reads at the end of file-backed images
+Date: Fri, 23 Oct 2026 15:00:51 -0400
+Message-ID: <20261023190051.3457491-1-hengyul@cs.unc.edu>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,120 +101,92 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:1521:b0:4c3:9892:96c3 with SMTP id
- 5614622812f47-55c00261ca8mr87453b6e.22.1792782038333; Fri, 23 Oct 2026
- 12:00:38 -0700 (PDT)
-Date: Fri, 23 Oct 2026 12:00:38 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6adbaed6.67317f00.38c4bc.001b.GAE@google.com>
-Subject: [syzbot] [net?] WARNING in nsim_fib_event_nb (2)
-From: syzbot <syzbot+751b587577d0ebca10f2@syzkaller.appspotmail.com>
-To: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org, 
-	kuba@kernel.org, linux-kernel@vger.kernel.org, netdev@vger.kernel.org, 
-	pabeni@redhat.com, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Hello,
+Commit e587a984d332 ("erofs: use dedicated meta inodes for file-backed
+mounts") made erofs_read_meta_folio() read the metadata of a
+file-backed mount one whole folio at a time.
 
-syzbot found the following issue on:
+However, an image only has to be a multiple of its block size. With a
+block size below the page size, it can end in the middle of a page. The
+read of that last page is then short, and erofs_fileio_ki_complete()
+fails it with -EIO. As of now, inodes in the last page of such an image
+cannot be read, and an image smaller than a page cannot be mounted.
 
-HEAD commit:    d8674294aefe Merge git://git.kernel.org/pub/scm/linux/kern..
-git tree:       net-next
-console output: https://syzkaller.appspot.com/x/log.txt?x=14b756d1580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=97c5d7b57925a2ec
-dashboard link: https://syzkaller.appspot.com/bug?extid=751b587577d0ebca10f2
-compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=12b756d1580000
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=11828f15580000
+The issue can be reproduced with util-linux 2.41, whose mount uses the
+image file directly:
 
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/4b49acf0cec9/disk-d8674294.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/2d7502d8747e/vmlinux-d8674294.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/706ef88ff29f/bzImage-d8674294.xz
+    mkdir src
+    for i in $(seq 50); do echo $i > src/$i; done
+    mkfs.erofs -b512 test.erofs src
+    mount -t erofs test.erofs /mnt
+    ls -l /mnt
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+751b587577d0ebca10f2@syzkaller.appspotmail.com
+Before that commit, ls -l lists all 50 files. After it, ls -l reports
+"Input/output error" for 24 of them.
 
-------------[ cut here ]------------
-i != fen6_info->nsiblings
-WARNING: drivers/net/netdevsim/fib.c:831 at nsim_fib6_event_init drivers/net/netdevsim/fib.c:831 [inline], CPU#0: syz.0.157/6279
-WARNING: drivers/net/netdevsim/fib.c:831 at nsim_fib6_prepare_event drivers/net/netdevsim/fib.c:947 [inline], CPU#0: syz.0.157/6279
-WARNING: drivers/net/netdevsim/fib.c:831 at nsim_fib_event_schedule_work drivers/net/netdevsim/fib.c:1003 [inline], CPU#0: syz.0.157/6279
-WARNING: drivers/net/netdevsim/fib.c:831 at nsim_fib_event_nb+0x1029/0x11d0 drivers/net/netdevsim/fib.c:1043, CPU#0: syz.0.157/6279
-Modules linked in:
-CPU: 0 UID: 0 PID: 6279 Comm: syz.0.157 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/24/2026
-RIP: 0010:nsim_fib6_event_init drivers/net/netdevsim/fib.c:831 [inline]
-RIP: 0010:nsim_fib6_prepare_event drivers/net/netdevsim/fib.c:947 [inline]
-RIP: 0010:nsim_fib_event_schedule_work drivers/net/netdevsim/fib.c:1003 [inline]
-RIP: 0010:nsim_fib_event_nb+0x1029/0x11d0 drivers/net/netdevsim/fib.c:1043
-Code: eb 0d 4d 89 fd e8 b7 c5 6c fa be 01 00 00 00 48 89 df e8 5a 38 85 fd 4d 89 ef 4c 8b 6c 24 20 e9 4a f3 ff ff e8 98 c5 6c fa 90 <0f> 0b 90 e9 db fa ff ff 89 e9 80 e1 07 80 c1 03 38 c1 0f 8c df f0
-RSP: 0018:ffffc900047bef10 EFLAGS: 00010293
-RAX: ffffffff875b59a8 RBX: 0000000000000002 RCX: ffff888079770000
-RDX: 0000000000000000 RSI: 0000000000000002 RDI: 0000000000000001
-RBP: ffffc900047bf0a0 R08: ffff88805c0bb02f R09: 1ffff1100b817605
-R10: dffffc0000000000 R11: ffffed100b817606 R12: dffffc0000000000
-R13: 0000000000000000 R14: 0000000000000001 R15: ffff88802c792000
-FS:  00007f334ba076c0(0000) GS:ffff888123ad0000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00007f334ba06ff8 CR3: 000000007a5b2000 CR4: 00000000003526f0
-Call Trace:
- <TASK>
- notifier_call_chain+0x1a5/0x3d0 kernel/notifier.c:85
- atomic_notifier_call_chain+0xda/0x180 kernel/notifier.c:223
- call_fib_notifiers+0x31/0x60 net/core/fib_notifier.c:36
- call_fib6_multipath_entry_notifiers+0xf5/0x160 net/ipv6/ip6_fib.c:428
- ip6_route_multipath_add net/ipv6/route.c:5542 [inline]
- inet6_rtm_newroute+0x14f5/0x1a30 net/ipv6/route.c:5664
- rtnetlink_rcv_msg+0x802/0xc00 net/core/rtnetlink.c:7163
- netlink_rcv_skb+0x226/0x4a0 net/netlink/af_netlink.c:2572
- netlink_unicast_kernel net/netlink/af_netlink.c:1335 [inline]
- netlink_unicast+0x7bd/0x940 net/netlink/af_netlink.c:1361
- netlink_sendmsg+0x813/0xb40 net/netlink/af_netlink.c:1916
- sock_sendmsg_nosec+0x14e/0x190 net/socket.c:800
- __sock_sendmsg net/socket.c:818 [inline]
- ____sys_sendmsg+0x54e/0x850 net/socket.c:2715
- ___sys_sendmsg+0x2a5/0x360 net/socket.c:2769
- __sys_sendmmsg+0x273/0x4d0 net/socket.c:2858
- __do_sys_sendmmsg net/socket.c:2885 [inline]
- __se_sys_sendmmsg net/socket.c:2882 [inline]
- __x64_sys_sendmmsg+0xa0/0xc0 net/socket.c:2882
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7f334ab9e1d9
-Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
-RSP: 002b:00007f334ba07028 EFLAGS: 00000246 ORIG_RAX: 0000000000000133
-RAX: ffffffffffffffda RBX: 00007f334ae26090 RCX: 00007f334ab9e1d9
-RDX: 04000000000001f2 RSI: 0000200000000000 RDI: 0000000000000004
-RBP: 00007f334ac35888 R08: 0000000000000000 R09: 0000000000000000
-R10: 00000000000000fc R11: 0000000000000246 R12: 0000000000000000
-R13: 00007f334ae26128 R14: 00007f334ae26090 R15: 00007ffd96688aa8
- </TASK>
+This patch reads the folio only up to the end of the backing file and
+zeroes the rest, as the page cache of the backing file did before. A
+folio that lies wholly past the end is zeroed without a read.
 
-
+Fixes: e587a984d332 ("erofs: use dedicated meta inodes for file-backed mounts")
+Cc: stable@vger.kernel.org
+Signed-off-by: Hengyu Liang <hengyul@cs.unc.edu>
 ---
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
+Changes in v2:
+- Also zero a folio that lies wholly past the end of the backing file,
+  without a read, as suggested by Gao Xiang.
+- v1: https://lore.kernel.org/r/20261023174232.3282900-1-hengyul@cs.unc.edu
 
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+Tested in KVM with KASAN on 734bef548a96: the images used for v1, plus
+three images cut so that whole folios lie past the end. With this
+patch every complete image reads back correctly, and the cut images
+give the same results as v7.2 (EFSCORRUPTED instead of EIO for the
+inodes past the end).
 
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
+ fs/erofs/fileio.c | 19 ++++++++++++++++---
+ 1 file changed, 16 insertions(+), 3 deletions(-)
 
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
+diff --git a/fs/erofs/fileio.c b/fs/erofs/fileio.c
+index c36a90a1a4cb..a77af604479f 100644
+--- a/fs/erofs/fileio.c
++++ b/fs/erofs/fileio.c
+@@ -142,17 +142,30 @@ int erofs_read_meta_folio(struct file *file, struct folio *folio)
+ 		.dev = { .m_pa = folio_pos(folio), },
+ 	};
+ 	struct inode *inode = folio_inode(folio);
++	size_t len = folio_size(folio);
++	loff_t pos, isize;
+ 	int err;
+ 
+ 	err = erofs_map_dev(inode->i_sb, &io.dev);
+ 	if (err)
+ 		return err;
+ 
++	pos = io.dev.m_dif->fsoff + io.dev.m_pa;
++	isize = i_size_read(file_inode(io.dev.m_dif->file));
++	/* the image may end before the end of the folio, zero the rest */
++	if (pos + folio_size(folio) > isize) {
++		len = isize > pos ? isize - pos : 0;
++		folio_zero_segment(folio, len, folio_size(folio));
++		if (!len) {
++			folio_end_read(folio, true);
++			return 0;
++		}
++	}
++
+ 	io.rq = erofs_fileio_rq_alloc(inode->i_sb, io.dev.m_dif->file);
+ 	io.rq->bio.bi_end_io = erofs_fileio_meta_endio;
+-	io.rq->bio.bi_iter.bi_sector =
+-		(io.dev.m_dif->fsoff + io.dev.m_pa) >> 9;
+-	bio_add_folio_nofail(&io.rq->bio, folio, folio_size(folio), 0);
++	io.rq->bio.bi_iter.bi_sector = pos >> 9;
++	bio_add_folio_nofail(&io.rq->bio, folio, len, 0);
+ 	erofs_fileio_rq_submit(io.rq);
+ 	return 0;
+ }
 
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
+base-commit: 734bef548a96e8774d6eef5dfa2026c6edc4e80b
+-- 
+2.53.0
 
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
