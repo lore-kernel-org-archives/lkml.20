@@ -1,58 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.234
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792724776;
-	b=NjZDoxfjP6so8gNvn061jEYsp4GhqXmugD4tetKPd6Nff7RV+S7xnY+Q7L6nOtU5yIvg
-	 4NU0C/cL2r2+KUacv66bQ4ki4fn3x5IysQjD3xOPPO3fnhr/hpcQVRhbaQ1Sq33Tbzow5
-	 ZJ/PKIpys11G+wpJ1xfYoq8ZOI6v/BocJAbtK1/Jz9sSnvQvQEiSujDXFTLb8mJJYePwL
-	 RHYll9flikDGXiVQgVUz17vfD7RhsNhT6bcbnzHFUAJk20dAaIor7yZt0Du+YkHBNElZS
-	 mjapGeRhR9NgYAtVSzcYxKfKQ/omz8nAvdQxX6JeTMhn3KmmGrvxb8BHQB4boJWeB8w==
+	t=1792724831;
+	b=KL66R8qLiJwMiIX2yvpq64MzlFcG+zOPvcAh9WXlBEZUhW3io0ZEUR0wxPoQjhda++U/
+	 dMVxbwb4pKsn9Ah+YaDfcEcB4qlfwMDTkJLk5QoQlcKxP/sxkRxXcNEzY26TolF52kZEp
+	 xwJmS4arKoMt7e6dtmO7nHY5cwZS8nTQpIvYxDCBtudCc+N9SMtMGLmspvli1L/TrrC6P
+	 3u1/wFiQ8HNQS+y74V7uCMRJ2imVJqwnzD3+lBxWf1tukTZaEsjbsdcBGc+OR5gAbqrKT
+	 ALHwd5SOLph9lmdAQx9MGbB4g8g6VOBdI92/jHNx7FVWqhiBXya0dy8FVOrOlOzSbag==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792724776;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=frwXj1z8hv8l/RpQIFEREFwbvpkIu3oS45o4hbxpnuk=;
-	b=4w6DPKxp8AlFsBNCNtPsTnh57t100zyEW991ml+tdoV5zhOBqXKgcUimgGd5tEkDCGtq
-	 JEGuf9uhpAhXS2KYfgHq6YzYJDojcraIqQeN1ipi8FUqRrc2SUxMP+scS7vRaM50ur23I
-	 YSTsPlA5T1uctgWZvuMwQStES8zmfMqebyvMWn87lZRWf6jcX7cV4l3FRYU86nt3KywZT
-	 qddeb73YyCkbCjlzVh7InTv5O2RmnmrPFPjax5yFmTzo36QrkoXyjtU998+V1H8bo7w1L
-	 yvuQUYS2GwYT1BrhIl4K3cjxTbSiUatK5rHICHsy0Yt3v4HytSeawHSP6cb7fKcTQHA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792724831;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=OnaK5kbThapjGVWcJhLkCw2nwI2aKy4NlMeDCe0tH1E=;
+	b=zsPG+vhFljcRA6tm6eUBGix/7y6Qic3J7Ewl2QDZcrfP78TBZdE+2mZAwJG73Q0vumbG
+	 BYzZwWdpeu/8yBFewAA4UIVCo/kqEnU/NTfnD2rUCp1fm/No//VW++Kd9Tk8SDKERgWPr
+	 IV428wy0q+Y09kQ4n9c/70MAAw9gkmqrNAOJW2kbAYPlVUpOL985MjnzMviLUsVN++lj9
+	 italIUIIzvde9XYtAn7w/73ooMU1WIDpW7gDa1LbOLPJIrAxIXREoKqP5g8EPZlNaJUB8
+	 TBVXjRZQQ/hsvsDUQW2U9DINRoPihaGMS2DnJJDTviIQr4KsOJ3fyLJpE70HUSxciDQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Q9cBoyuM;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=MnBQGBjR;
+	arc=none smtp.remote-ip=95.215.58.234
+Received: from mta1.migadu.com (out-234.mta1.migadu.com [95.215.58.234])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 859F2606A319;
-	Fri, 23 Oct 2026 03:06:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55B37606A31B
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 03:07:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 55B37606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Q9cBoyuM
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD64E1F01825;
-	Fri, 23 Oct 2026 03:06:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792724776;
-	bh=frwXj1z8hv8l/RpQIFEREFwbvpkIu3oS45o4hbxpnuk=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=Q9cBoyuMF/TmV/iMnSwiD1MEVhEQxn/l8qxVjf+aL66LinbL59PDvpvvYDasJ94UJ
-	 /dVFxE6zXdW08H5TbpZN+xzn44R99XGh6RWQwYYh4q8XwcVeGCRQ4tNNqwszjk/2LW
-	 snjEuZ/qCihF12VEzTKPgQYDuHkgC1sq1Q4r9LcxyGJvPBBEfEDOx4opYklBLqD7Tg
-	 YEqtsQPr6QAHZilBUUJtLVxKIjX7JC02rffjmfB0iMSwiULU01ROHYAYDOxSJ87p2D
-	 A28/h3Kmezyc+HJLLeLOMMzR4HASw6Q1LnFa7zm/KDWQKAzeGAxg8kL5VdwaEDvwB7
-	 VxMkAVNF4MuzQ==
-Date: Fri, 23 Oct 2026 04:06:07 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Victor Chernyakin <chernyakin.victor.j@outlook.com>
-Cc: David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
- linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/3] iio: add IIO_VAL_DECIMAL64_{ATTO,ZEPTO,YOCTO}
- formats
-Message-ID: <20261023040607.400f8420@jic23-hlaptop>
-In-Reply-To: <SN1PR12MB25287F63D68E82759D3A0FF5A5652@SN1PR12MB2528.namprd12.prod.outlook.com>
-References: <SN1PR12MB25286BE4E1EA3B75F8E563A9A5652@SN1PR12MB2528.namprd12.prod.outlook.com>
-	<SN1PR12MB25287F63D68E82759D3A0FF5A5652@SN1PR12MB2528.namprd12.prod.outlook.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=MnBQGBjR
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=pd2I5oM/BwmyoWBqQfZA7OoTc66uRFuXEF4QDOOUqVY=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792724828; v=1; x=1793329628;
+ b=MnBQGBjRguopHlbIL3KeN0Sjj/xWS8xEyjjGls3YBwPzGa0X0pfe26WKP4LuJ2ncogD3oFvY
+ kXavbAnz2BWJSs1IwJn5IXUuD/MQIlmH3HRlMR8hfg9P9c+X/fGo07KooFLUMud6qLTD3eJT4KV
+ j3EJO8Aqn+DP9a8NYn+p3GVg=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta11.migadu.com with ESMTPS id 98355a6fe4b1d75d;
+	Fri, 23 Oct 2026 03:07:07 +0000
+X-Mizu-Trace-ID: 98355a6fe4b1d75d
+X-Migadu-Flow: FLOW_OUT
+Date: Fri, 23 Oct 2026 11:06:57 +0800
+From: Hangbin Liu <hangbin.liu@linux.dev>
+To: Xia Yan <yanxia@cmss.chinamobile.com>
+Cc: netdev@vger.kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
+	edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+	horms@kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org, yana06070@163.com
+Subject: Re: [PATCH net] macvlan: fix passthru promiscuity accounting while
+ down
+Message-ID: <atrKdb1atGzCYka4@fedora>
+References: <20261022090809.12019-1-yanxia@cmss.chinamobile.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,66 +66,64 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261022090809.12019-1-yanxia@cmss.chinamobile.com>
 
-On Thu, 22 Oct 2026 18:40:30 -0500
-Victor Chernyakin <chernyakin.victor.j@outlook.com> wrote:
-
-> The highest-precision format IIO has right now is IIO_VAL_DECIMAL64_FEMTO,
-> which gives 15 decimal digits of precision after the decimal point. This
-> is not enough for the upcoming TI FDC1004 driver, which needs 22 digits
-> of precision to exactly express its scale value. This patch adds higher-
-> precision formats, up to IIO_VAL_DECIMAL64_YOCTO (24 digits of precision).
+Hi Yan Xia,
+On Thu, Oct 22, 2026 at 05:08:09PM +0800, Xia Yan wrote:
+> macvlan_changelink() adjusts the lower device's promiscuity count when
+> NOPROMISC changes, even if the passthru macvlan is down. The reference
+> is acquired in macvlan_open() and released in macvlan_stop(), so a down
+> interface has no reference to change.
 > 
-> Signed-off-by: Victor Chernyakin <chernyakin.victor.j@outlook.com>
-Some discussion of whether these are perhaps overkill in the driver
-patch given device precision doesn't seem to be nearly that good.
+> Clearing NOPROMISC while down leaves an extra reference after the next
+> open/stop cycle. Setting it while down can remove a reference held by
+> another user of the lower device.
+> 
+> Guard the count adjustment with netif_running(dev). Keep storing the
+> requested flags while down so the next open uses the new setting.
+> 
+> Comparing changelink with open/stop exposed the unmatched count changes;
+> the same issue was also described in earlier macvlan reviews. A netlink
+> test on UML reproduced both DOWN cases before the fix and verified the
+> expected counts afterwards. Repeated flag updates, two open/stop cycles,
+> deletion and bidirectional small-frame delivery were also checked.
+> 
+> Full x86_64 builds completed with WERROR disabled for allmodconfig, and
+> WERROR and KASAN disabled for allyesconfig, including the resulting
+> dependency changes. Neither comparison showed new diagnostics.
+> 
+> Fixes: df8ef8f3aaa6 ("macvlan: add FDB bridge ops and macvlan flags")
+> Link: https://lore.kernel.org/netdev/179170088566.434549.4699134797461783473@kernel.org/
+> Link: https://lore.kernel.org/netdev/20261016003009.2692872-1-kuba@kernel.org/
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Xia Yan <yanxia@cmss.chinamobile.com>
 > ---
->  drivers/iio/industrialio-core.c | 6 ++++++
->  include/linux/iio/types.h       | 3 +++
->  2 files changed, 9 insertions(+)
+>  drivers/net/macvlan.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
 > 
-> diff --git a/drivers/iio/industrialio-core.c b/drivers/iio/industrialio-core.c
-> index 767a7794624a..008387efe96b 100644
-> --- a/drivers/iio/industrialio-core.c
-> +++ b/drivers/iio/industrialio-core.c
-> @@ -716,6 +716,9 @@ static ssize_t __iio_format_value(char *buf, size_t offset, unsigned int type,
->  	case IIO_VAL_DECIMAL64_NANO:
->  	case IIO_VAL_DECIMAL64_PICO:
->  	case IIO_VAL_DECIMAL64_FEMTO:
-
-Seems we failed to update the test in drivers/iio/tests/iio-test-format.c for
-FEMTO. Please add that and a similar test for your new units.
-
-> +	case IIO_VAL_DECIMAL64_ATTO:
-> +	case IIO_VAL_DECIMAL64_ZEPTO:
-> +	case IIO_VAL_DECIMAL64_YOCTO:
->  	{
->  		int scale = type - IIO_VAL_DECIMAL64_BASE;
->  		s64 frac;
-> @@ -1034,6 +1037,9 @@ static ssize_t iio_write_channel_info(struct device *dev,
->  		case IIO_VAL_DECIMAL64_NANO:
->  		case IIO_VAL_DECIMAL64_PICO:
->  		case IIO_VAL_DECIMAL64_FEMTO:
-> +		case IIO_VAL_DECIMAL64_ATTO:
-> +		case IIO_VAL_DECIMAL64_ZEPTO:
-> +		case IIO_VAL_DECIMAL64_YOCTO:
->  			dec_scale = type - IIO_VAL_DECIMAL64_BASE;
->  			fallthrough;
->  		case IIO_VAL_INT_64:
-> diff --git a/include/linux/iio/types.h b/include/linux/iio/types.h
-> index d8944c9e5e90..2ef9b2a8b119 100644
-> --- a/include/linux/iio/types.h
-> +++ b/include/linux/iio/types.h
-> @@ -43,6 +43,9 @@ enum iio_event_info {
->  #define IIO_VAL_DECIMAL64_NANO		(IIO_VAL_DECIMAL64_BASE + 9)
->  #define IIO_VAL_DECIMAL64_PICO		(IIO_VAL_DECIMAL64_BASE + 12)
->  #define IIO_VAL_DECIMAL64_FEMTO		(IIO_VAL_DECIMAL64_BASE + 15)
-> +#define IIO_VAL_DECIMAL64_ATTO		(IIO_VAL_DECIMAL64_BASE + 18)
-> +#define IIO_VAL_DECIMAL64_ZEPTO		(IIO_VAL_DECIMAL64_BASE + 21)
-> +#define IIO_VAL_DECIMAL64_YOCTO		(IIO_VAL_DECIMAL64_BASE + 24)
+> diff --git a/drivers/net/macvlan.c b/drivers/net/macvlan.c
+> index afad90b..a48c9e6 100644
+> --- a/drivers/net/macvlan.c
+> +++ b/drivers/net/macvlan.c
+> @@ -1664,7 +1664,8 @@ static int macvlan_changelink(struct net_device *dev,
+>  	if (data && data[IFLA_MACVLAN_FLAGS]) {
+>  		__u16 flags = nla_get_u16(data[IFLA_MACVLAN_FLAGS]);
+>  		bool promisc = (flags ^ vlan->flags) & MACVLAN_FLAG_NOPROMISC;
+> -		if (macvlan_passthru(vlan->port) && promisc) {
+> +		if (macvlan_passthru(vlan->port) && promisc &&
+> +		    netif_running(dev)) {
+>  			int err;
 >  
->  static inline s64 iio_val_s64_compose(s32 val0, s32 val1)
->  {
+>  			if (flags & MACVLAN_FLAG_NOPROMISC)
+> 
+> 
 
+If we discard the MACVLAN_FLAG_NOPROMISC change, should we remove the bit
+before calling WRITE_ONCE(vlan->flags, flags)?
+
+Or set extack and tell user that setting this flag with link down is forbidden.
+
+Thanks
+Hangbin
