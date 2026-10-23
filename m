@@ -1,60 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.137.202.133
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792777980;
-	b=xGtBGZ1Uwe2qw27p6ZTDnitjsIUpLA1cL7FCe1O8x8PiNm4G6X1M18uRmyxyv+3Gp+yt
-	 h3XG3S52TFCiovvqQiVCQBMmlHtYw8FuHKXtciSqxXXvmyjAdjX9h3k3rxmXx2kYwvGE8
-	 wZmVpebII8SRR0LrR8Hj68lkRHIa8Q8QF2gxfUvXNtUljFrswz2aCM48VbLasFQbLx8Go
-	 r9vjotAL7oveY8hD0RjNKP5eGCgHwn2oEiFSKs2Ugqvw5nENV6BpFVoZ/twnuuHc4cwnc
-	 xFaJvswKC6usu4sleffPh+vy/75W+ptCXsYdnNEg4YOawcgEhjo40JIlk0HyDAs7KVA==
+	t=1792778135;
+	b=iSDLHhGBqi/8WvoUJ1BwzlId3oPUO/5pGFv2J4vrl9ZfaZ7I25Kj+HzXYiwE852IBKFF
+	 JnMGkncYdv+dVsb/w9BBjgCxSm0QuZlYAcvBkaFkIK0bol2hwUPDq7EYYoGWltJj328NH
+	 u6Yo9OtM9MCEADbzfyHu93YRPYWTqfAt2IS73dA8MAwQIvwCCYEt6LLDrTJkVLk4Eskc3
+	 tys3cqHbsV9jwy/iUvs4wkH/qSqTwxLrlyyErKbGhYetYP7sU9obv6CvdEH0tfH3unCaC
+	 fLt9WzpC01GCgkNCZPxeU87RnsWCqW+MzDak3HXl97RplUKdACpY6pgEXK98mwwQZvA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792777980;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=zfbSS3RV3vTYd7uVbgoNjRsvAB3uNZqAW+R3s+y6inM=;
-	b=r1VkZ3vz3bs3lk3w5A/fbSpOVUwz2Dagl6sYRssKUUktp9fxOP2WFJHsY9F/K2V4bqqM
-	 r8UB5Dixqj1wMwo6QZQhQHZami1JnX2cqHvtfj0EnreAcqTx7Mwv3fEQ+g0QNF8oiAIFm
-	 yhQ7au4kr13ndAqRe/dXVhJ/wa5akR+fKD39CDaSn6qIBH8AZlAho8I1gYlrnUNyeu/5G
-	 nhFq4CG1x+N2vkeKh+lGwm3+9OIpM5PoIwQagu5y1nWlOeWIg11dQn7wlehsCmNHyBCUk
-	 aezw09DWqIwqy4GxeWAOjR6QmE3HW7nSO0GKfJqD5Ix4skKR8uNs58tf8UVCPMuultw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792778135;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=uYTTF5jDNkxMCVJ9mrlfykfmfKah1Cd8hTMk87yFHBg=;
+	b=fKSY/B3reTYktrycqv48D2jn1GTKxP3Fp9oqr/hDWe2EnkVQgVEDQt26d5CiRgsVzfjA
+	 NR0TJ8mSyn6hmGFrkT7vDZI07hA1YuCavws3vQSFxkC+Qw8cfJzOVT1zzOlMnHPm1jBjK
+	 JDXYBZouobE6o9d+/cIXRJ4PAIwbf66ApOH5BwT3D1taRRwdwq/cwjHqk9kmVukX8R4yW
+	 8UMbO7cFdPQOSCK4zjMqJKRCbeG6Mlnd8O7wuQnISbBrIID0ctTyKPkccNkeXEqWblBOK
+	 lcHOXdxQsMaLWAEwNvkwQMYN2ikmHp/4v++igZA8+FZ+XuXEjirmd3Ui8ifLusq636Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PKny6dER;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=infradead.org;
+	spf=pass smtp.mailfrom=infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=FFx+HjPs;
+	arc=none smtp.remote-ip=198.137.202.133
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24E66606A31A;
-	Fri, 23 Oct 2026 17:52:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D236D606A31B;
+	Fri, 23 Oct 2026 17:55:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D236D606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PKny6dER
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B0491F01829;
-	Fri, 23 Oct 2026 17:52:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792777979;
-	bh=zfbSS3RV3vTYd7uVbgoNjRsvAB3uNZqAW+R3s+y6inM=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=PKny6dER+6L/Mjcok1LxNLmAR9TlSETIeARYYC8lZz/POezFlqcvt6LtFRk2DgP9M
-	 PjTOKdDvRSdM2o4kD9CFl9weMLBIppzuchXQP9RO+iP23ESPmXwfjed3nxEEqtFrei
-	 ZCxUHgO+GJ4zfcDajn118QmnT8WLlfsM/O5BisvPFKOtRAsy2llaD6L/TE5HbdfGuv
-	 Qde6CcjDa7qtaNkoiLW+g3o/LVcRjrkRRVFqUxf9zqeorPub02nNy9I53CHSP838OS
-	 bRtk+9NRgc59eYsaj0eiETH0YJEHAxmvMO9FvCb9qvcAQbZM40E4bSmWSTNFGrmd+Z
-	 ejyycknZ4S5hA==
-Date: Fri, 23 Oct 2026 10:52:58 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: Maxime Chevallier <maxime.chevallier@bootlin.com>
-Cc: Andrew Lunn <andrew@lunn.ch>, davem@davemloft.net, Eric Dumazet
- <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>, Simon Horman
- <horms@kernel.org>, Russell King <linux@armlinux.org.uk>, Shuah Khan
- <skhan@linuxfoundation.org>, Bobby Eshleman <bobbyeshleman@meta.com>,
- Stanislav Fomichev <sdf@fomichev.me>, Breno Leitao <leitao@debian.org>,
- thomas.petazzoni@bootlin.com, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org
-Subject: Re: [PATCH net] selftests: drv-net: devmem: Skip when hugetlbfs
- isn't supported
-Message-ID: <20261023105258.2a6349f9@kernel.org>
-In-Reply-To: <20261021090852.996899-1-maxime.chevallier@bootlin.com>
-References: <20261021090852.996899-1-maxime.chevallier@bootlin.com>
+	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=FFx+HjPs
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
+	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
+	bh=uYTTF5jDNkxMCVJ9mrlfykfmfKah1Cd8hTMk87yFHBg=; b=FFx+HjPsKWG+EePtFOBKnIR9Hs
+	GiPfrM6SAXY2vTtQro2pSZDw/MGSKa/4imbtPz8BzVcylikXV2VXIuNwXOoVNMkufpXfFQbD/4Ah3
+	fSKZ0uUV8cUm7TXyZ7RLnpCVkY8tTajyQXzjilHkO4Y0EkuEzhAiaz+11DIDHgPbTuG3/fTtQRJVy
+	s1T02id+dNFvi99iSrYWeRc8QXq+I+yf4Fnffy7Tck+NG1U+X5eq4MT9cyJDUvnkNOaZZy1lbqJTe
+	rBnqniYL30xcHkkDHQElLV8g+PQYcUDj7+YrHkYhlz6nCrB4Kts94DwZ3Q1UdNPoLhS4aLmzYZN5K
+	WmduT+gQ==;
+Received: from [50.53.43.113] (helo=[192.168.254.34])
+	by bombadil.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xKJUG-0000000Glen-1HOa;
+	Fri, 23 Oct 2026 17:55:28 +0000
+Message-ID: <26adbb3d-bbd8-442c-aed6-80cf091888b0@infradead.org>
+Date: Fri, 23 Oct 2026 10:55:26 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,22 +58,54 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] binfmt_misc: fix typo in "auxiliary vector"
+To: atanaskunchev@proton.me, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, Kees Cook <kees@kernel.org>
+Cc: linux-doc@vger.kernel.org, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org
+References: <20261023-binfmt-typo-v1-1-459d4ae4c15f@proton.me>
+Content-Language: en-US
+From: Randy Dunlap <rdunlap@infradead.org>
+In-Reply-To: <20261023-binfmt-typo-v1-1-459d4ae4c15f@proton.me>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On Wed, 21 Oct 2026 11:08:51 +0200 Maxime Chevallier wrote:
-> The devmem selftest requires accessing /proc/sys/vm/nr_hugepages,
-> which is only available when hugetlbfs is supported. This isn't the
-> case on all CPU architectures, for example it isn't supported on ARM
-> 32-bits on cores that don't support LPAE.
+
+On 10/23/26 10:50 AM, Atanas Kunchev via B4 Relay wrote:
+> From: Atanas Kunchev <atanaskunchev@proton.me>
 > 
-> On these devices, the devmem kselftest doesn't skip gracefully
+> Fix "auxilary" -> "auxiliary".
+> 
+> Signed-off-by: Atanas Kunchev <atanaskunchev@proton.me>
 
-We don't require graceful skipping. If anything IMO hiding the stack
-traces isn't great.
+Acked-by: Randy Dunlap <rdunlap@infradead.org>
 
-If the check is extraneous and makes us fail some tests which don't
-actually require huge pages please make that clear in the commit
-message. Otherwise the net benefit of the changes is unclear.
+> ---
+> Fix a spelling mistake in the binfmt_misc documentation.
+> ---
+>  Documentation/admin-guide/binfmt-misc.rst | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/Documentation/admin-guide/binfmt-misc.rst b/Documentation/admin-guide/binfmt-misc.rst
+> index 9e84b877d06d..e37668371453 100644
+> --- a/Documentation/admin-guide/binfmt-misc.rst
+> +++ b/Documentation/admin-guide/binfmt-misc.rst
+> @@ -73,7 +73,7 @@ Here is what the fields mean:
+>  	    Legacy behavior of binfmt_misc is to pass the full path
+>              of the binary to the interpreter as an argument. When this flag is
+>              included, binfmt_misc will open the file for reading and pass its
+> -            descriptor into the auxilary vector with the key "AT_EXECFD", thus
+> +            descriptor into the auxiliary vector with the key "AT_EXECFD", thus
+>              allowing the interpreter to execute non-readable binaries. This
+>              feature should be used with care - the interpreter has to be trusted
+>              not to emit the contents of the non-readable binary.
+> 
+> ---
+> base-commit: 734bef548a96e8774d6eef5dfa2026c6edc4e80b
+> change-id: 20261023-binfmt-typo-bf80308e23a0
+> 
+> Best regards,
+
 -- 
-pw-bot: cr
+~Randy
