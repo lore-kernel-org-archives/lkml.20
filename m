@@ -1,73 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.197
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.198
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792793075;
-	b=HMMU8dplfEB1KE2dZCQ/faR+/qoxej92n1qfmB1YaoZWRaStoB0PrZnoAmN/V/+/71X3
-	 c8Bm3KU0yTFSNfJ9jmXq0W79vyXW/NeISEiIwlOnRZUhzu6WnIS+NXfSMCz0NYaUiAdjv
-	 htUS09C56mJcTtl6o6/kFn0qgWutT74Ze1RZB5oLDKZ+X0VcFZY3Qsex+Piw4LYmoxa01
-	 tD7R9EvQchHoHwZZOMg/ymYZlrxs7nWJIpxkwlTYpX36xSdnJ666ko/5g0GVMBIPbN68y
-	 CXYKe7zwPm0axanC6ArgJFteSzqm/ddje9fHK9Sc4LPIfnJdEAEKq6Ka+BVOVUU2Gzw==
+	t=1792793076;
+	b=DS8na5KrXabfWk++AgCp7NLFtC0+jfuK9HgazGuwjX16dUJCzUETM0Dy5/Flu/TBmzcO
+	 K9jPycRW8+Yh+YTxTQLE4Ikxa5u5vS2LQm4kwSnd8jxQ8QOdtdKSB/N9hXlUlOjGfVPo5
+	 /7PdddF4k85EvAWgNpEiCPBtmCeNkJcpKZmbW/rAzvtn+4V0revvJVhdcL2ZWsu34bXpR
+	 w9Nc+sHKHUdVMjNMVI6BpfLHzuCTl4yqGjDILbb0Nfm6unAnTLaWEXXwMHWGJbMxficWx
+	 iUL+BJJyRTf6Ki0wgsvuCKBzmb3JQKL8HOXjjNY/MFoJC/st2EtdZ0PGPsfvcnVbACw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792793075;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792793076;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Received:Date:Mime-Version:X-Mailer:Message-ID:
-	 Subject:From:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=dWXsdAIvttM4Irbv7azFKSCXxkx+zrn963XG77q/2/Q=;
-	b=m/eRWDGDyegnWNRAxKwnyLQaa4k0xF5Q/9Xh1uafQzi1u06lg/mZa8g9Zf+piyFMrfTa
-	 dCSnvfo3QKf/B2xg6ELMV/W/bJHeC1ZxdhQ8xIvhqfeaZ3NqGawUabb2Drx+Kyxkix2Fy
-	 heZwCc7/XE5CQqNv6aqcaI8xNvm/VnJixtPm3pjtqn6HO7L/d+L0D0s95Y90mUaqAdUVx
-	 IN5OzR/KeT5s45YK+X2bcF0nBtjsHeHg1ATepFZcOnHRjj8SjTuNvlSUMAPv7peP00B4v
-	 CYoKjb3Pdf3NI/jSqHiKttZ8JKf2MkvoYeYV7rRuQ9Tu4spHLtAUwptj50ivdOgkruA==
+	 X-Gm-Message-State:X-Received:Date:In-Reply-To:Mime-Version:
+	 References:X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=3uVMsLhfk2XJy6YqTbr1kVtIpeH0kYg0y+/E4mSSf84=;
+	b=2h6iNhlywVQgAHS7aqRtpcz3F7IVQZ0trqQfNwSM6dKsj/JqEVkawEJpXxlfA8rlOuna
+	 U1Yf8UXqGUZK4cJT95CWyEDYUw0/i9FK21aHv4BLBV2kpyWBLAwUBtRFh3vyxCdfumzAZ
+	 4GTheiFAiaxahqpd3bBJ5+etk64e+4IqEXgEt9Yft+AaRBLu0yPDo6S2y35m39TLpZ/No
+	 6Uscayjz0zwMOtOpQQli9+R6duVu9DPqD5u10qI6c2gcms4Y48+j5ACJpgwlOgwZgZQfx
+	 7BuNhG9icoTlw6Cq2ApMV9JveKuU42QnjruLVp+fAaSImZ4FqohFsUEw7moTca03quA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--jstultz.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=nsp2qZRr;
-	arc=none smtp.remote-ip=209.85.215.197
-Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=eZzVkI2r;
+	arc=none smtp.remote-ip=209.85.215.198
+Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA75B606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 22:04:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DA75B606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE36C606A31E
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 22:04:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AE36C606A31E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--jstultz.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=nsp2qZRr
-Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-cc7e0321ec1so1597205a12.0
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 15:04:34 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=eZzVkI2r
+Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-cc7361c62b9so726715a12.3
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 15:04:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792793074; x=1793397874; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:mime-version:date:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=dWXsdAIvttM4Irbv7azFKSCXxkx+zrn963XG77q/2/Q=;
-        b=nsp2qZRrl4d1antHqdLTjsa+8uHUx2qQzFjxiDEVLSLlAAPqiMq9QCeWy+kqoJKT7h
-         87B7c8Xin+AZiug3Vic1xnQ7kVfMbdThuVUMGlU1N71wkuue8CIGR528KdcnoEzS+gSn
-         Ures4nyOMV/KkkzDXCdHnBRZUeWdVHWWWr75YPssZRmbMhIXB6aaQkVP4VwCPSpmOG/F
-         aCgz5zpGsNnhXWf9StHGIHY1fzzK3MSDmAjt0f3x6P+9QyrpkUhda9v45dTCONJ/0T4L
-         kZKLQJHExWTw/BbbtISCdRFoRKZGjEZVB51VIEi1iW73VTFagY/zlabakqfzb94/OxXj
-         alcQ==
+        d=google.com; s=20251104; t=1792793075; x=1793397875; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=3uVMsLhfk2XJy6YqTbr1kVtIpeH0kYg0y+/E4mSSf84=;
+        b=eZzVkI2rvDHymGoKlQxkr2gsQResGrodmfP5tCsDnIjeUSiKW/q3bXzp/cNVn4QUbu
+         bZSQEaEcj69rvbrH92YCAT0aQJoNez9s6GGaR8bGaO72Op7pRP+MpESnc04oU1LueAau
+         SoCCY9yfoG0IZQhF6iEpZf6mDPsgwS30HCFcPo8S2QIb9/VOS19QgQL5DsX5orlXzI4q
+         C4EABITHbeoAb5Ef7Nh1dTOEKX4ZePCS5nSq4wTi618e4cFGLRgAv4lbT9HGpA3g7vyw
+         A1NSKTS4fQ+fYKRSCgl76pB2tQvB9hORU831z8hIjbtvRvNe2HPjPKNRi5WrG7Ra2VXS
+         lP4g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792793074; x=1793397874;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:mime-version:date:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=dWXsdAIvttM4Irbv7azFKSCXxkx+zrn963XG77q/2/Q=;
-        b=BrC2sg4/83bTK38sWelq6aL/xpJQUHxWN6BagzzKRTJlGETlhGpsnwTmUdSnb2prX4
-         auOVtN/u0Tzo22ARpCc+g/7F7pRE1CuSqqI1GXC6Rro6Z6h7Xe9STfQXMYMhne+wpgCd
-         PuxjZ0F0Jmw4B80BBg7aTLoFuuiLdtum4vjS2ADi4nDi71J0ts2pmaLE2gsJ4trg+LUd
-         Ec0mXDMBgPc6arvZi7fkYHtex2llrAISeJfN58d0QcN4kMeYcRPS1Jyv3JEpggMa+8IK
-         Ok6YzpPo3KsVlX77YxtvWgOR87fYilgCP9muilcXgvr5ZXL4+o1DUPqBXMQA/qjEOosy
-         EOiQ==
-X-Gm-Message-State: AFq9FYKQwhM6WDnzJvkm7aeHI0arM5hCRRCW3Tsw0dLFkcxKMHCqR9XQ
-	+bLhAQjNgE4+OIEuRsYaYQ93CyxF40MTaJav5/5d491ipNC5jpo8wrspOloqn8KlatAbjPi9EAQ
-	H7dkl/yYJkBLoPl1MbpmxBrawqmwYK7FsIQWOnYUQOWyvQyn3ygHyPERQEbUeogPpMlgxjCsAWb
-	1eiF4BPhnXDXOA27AVPZ3nikPkGmWARmPwkZRWWW8r8C7H1kKe
-X-Received: from pgp10-n1.prod.google.com ([2002:a05:6a02:62ca:10b0:cd6:1e1f:43b])
- (user=jstultz job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:3d47:b0:3ac:b2e6:317d
- with SMTP id 98e67ed59e1d1-3adeaf9f24cmr392468a91.35.1792793073838; Fri, 23
- Oct 2026 15:04:33 -0700 (PDT)
-Date: Fri, 23 Oct 2026 22:04:11 +0000
+        d=1e100.net; s=20260707; t=1792793075; x=1793397875;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=3uVMsLhfk2XJy6YqTbr1kVtIpeH0kYg0y+/E4mSSf84=;
+        b=aochdnuhXtuoqEieEpWzYsfR3ykkCc/xv0VJy3VnJ+JDb7borrOFpTDHnYtZVef0bz
+         yhad4OnPmltKGa/572CMgEfLI+dPc0TiTkhVublkKbotO6gOqZRJq+3u5OW1TR9+Yh9m
+         BrsPYlIBJ78Wcpc6elcRgo1z9lQU3bevy2sXlZLmFt2k7U8QtqNO9AjtwKJhWVJb6EL0
+         mExxuLou6vu4cS4AqkmruJDi6Yd+Il6LLqz7htJ9d7AHjZ0ITMjNV6Kthayl84DnOVKO
+         K6IMcNgf9eN5GiwxqRGCEBacupcc7BkT6HB7ZfwncVAKEbXIZGkBTNnKuudQ0t9kuwtD
+         Tqeg==
+X-Gm-Message-State: AFq9FYIvyiwQt+CFMiTKt61pbTzaM4xXJQCSEHRis8d/JeBHMugtla2n
+	oTK3DFzYoF4QH10UEzH3OgXsKfbkYyOBoko3GA/9w8xXHPIAljZc6tL1abCoKYznQr8QA2Zt/g5
+	K0Il0Qb8VA5w1CNut/Amko/cP7qtQa7ctIa+nWQFZSaqz+hAtwDQehvEefkgsAz+UDzSlWIezoT
+	7wenbJwtlL2plp9qjvadLHEc2CqG+CT4lN4n0h2nTZARmtOiBX
+X-Received: from pgbj17-n2.prod.google.com ([2002:a05:6a02:61d1:20b0:cd5:f7a5:5490])
+ (user=jstultz job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a21:730c:b0:3e2:a1aa:aaa1
+ with SMTP id adf61e73a8af0-3e7cd5078f3mr244225637.67.1792793074615; Fri, 23
+ Oct 2026 15:04:34 -0700 (PDT)
+Date: Fri, 23 Oct 2026 22:04:12 +0000
+In-Reply-To: <20261023220431.1106611-1-jstultz@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,16 +78,19 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 Mime-Version: 1.0
+References: <20261023220431.1106611-1-jstultz@google.com>
 X-Mailer: git-send-email 2.56.0.257.gf7497c7d27-goog
-Message-ID: <20261023220431.1106611-1-jstultz@google.com>
-Subject: [PATCH v33 0/7] Sleeping Owner Handling for Proxy Execution (v33)
+Message-ID: <20261023220431.1106611-2-jstultz@google.com>
+Subject: [PATCH v33 1/7] sched/psi: Preserve sleep-persistent PSI flags on
+ off-CPU sleeping dequeues
 From: John Stultz <jstultz@google.com>
 To: LKML <linux-kernel@vger.kernel.org>
-Cc: John Stultz <jstultz@google.com>, Peter Zijlstra <peterz@infradead.org>, 
-	Ingo Molnar <mingo@redhat.com>, K Prateek Nayak <kprateek.nayak@amd.com>, 
-	Thomas Gleixner <tglx@linutronix.de>, Juri Lelli <juri.lelli@redhat.com>, 
-	Vincent Guittot <vincent.guittot@linaro.org>, Valentin Schneider <vschneid@redhat.com>, 
-	Suleiman Souhlal <suleiman@google.com>, Andrea Righi <arighi@nvidia.com>, Metin Kaya <Metin.Kaya@arm.com>, 
+Cc: John Stultz <jstultz@google.com>, David Stevens <stevensd@google.com>, 
+	Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+	K Prateek Nayak <kprateek.nayak@amd.com>, Thomas Gleixner <tglx@linutronix.de>, 
+	Juri Lelli <juri.lelli@redhat.com>, Vincent Guittot <vincent.guittot@linaro.org>, 
+	Valentin Schneider <vschneid@redhat.com>, Suleiman Souhlal <suleiman@google.com>, 
+	Andrea Righi <arighi@nvidia.com>, Metin Kaya <Metin.Kaya@arm.com>, 
 	Dietmar Eggemann <dietmar.eggemann@arm.com>, Steven Rostedt <rostedt@goodmis.org>, 
 	Zimuzo Ezeozue <zezeozue@google.com>, Waiman Long <longman@redhat.com>, 
 	Boqun Feng <boqun.feng@gmail.com>, "Paul E. McKenney" <paulmck@kernel.org>, 
@@ -96,150 +100,46 @@ Cc: John Stultz <jstultz@google.com>, Peter Zijlstra <peterz@infradead.org>,
 	"zhidao su (Xiaomi)" <soolaugust@gmail.com>, Hui Su <sh_def@163.com>, 
 	"Shubhang Kaushik (Ampere)" <sh@gentwo.org>, kernel-team@android.com
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-Hey All,
-  Just wanted to send out this next iteration of Proxy
-Execution: Sleeping Owner Handling.
+Normally, when a task goes to sleep (DEQUEUE_SLEEP),
+psi_dequeue() does nothing because psi_sched_switch() ->
+psi_task_switch() immediately follows and handles the
+runnable-to-sleeping PSI transition (clearing TSK_ONCPU,
+TSK_RUNNING, and TSK_MEMSTALL_RUNNING, setting TSK_IOWAIT, and
+leaving sleep-persistent TSK_MEMSTALL set).
 
-As always, I=E2=80=99m trying to submit this larger work in smallish
-digestible pieces. A quick overview of the journey so far:
- 1) Prep patches
- 2) Single rq proxying
- 3) Simple donor migration
- 4) Optimized donor migration
- 5) Sleeping owner handling  <---- We are here!
- 6) K Prateek=E2=80=99s core-sched fixes
- 7) Connor's chain level balancing
- 8) Suleiman=E2=80=99s proxy rwsems
- 9) Suleiman=E2=80=99s proxy futexes
-10) ...
+With Proxy Execution, mutex-blocked tasks stay on the runqueue
+across context switches, so psi_sched_switch() runs with
+sleep=false and only clears TSK_ONCPU. If the blocked donor task
+is later deactivated via block_task(), psi_dequeue() is called
+with DEQUEUE_SLEEP while TSK_ONCPU is already cleared.
 
-The main feature in this series is the sleeping owner handling
-patch, which addresses what to do when a task is blocked on a
-mutex whose owner is sleeping. Since there is nothing we can do
-to boost the sleeping owner at that point, we instead deactivate
-and queue the waiter on a list attached to the owner. Then when
-the owner wakes up, we will activate the waiters on the same
-runqueue, so they can then boost the owner to run.
+Commit c2ae8b0df2d1 ("sched/core: Fix psi_dequeue() for Proxy
+Execution") checked for (flags & DEQUEUE_SLEEP) && (p->psi_flags
+& TSK_ONCPU), falling through to
+psi_task_change(p, p->psi_flags, 0) when TSK_ONCPU was not set.
+However, clearing all of p->psi_flags treats the sleeping
+dequeue as a migration and wipes sleep-persistent flags like
+TSK_MEMSTALL (and fails to set TSK_IOWAIT).
 
-But since the simple sounding things hide subtlety, this ends up
-being a pretty complex bit of logic. You can effectively get
-trees of waiters, and it's possible to have tasks in the middle
-of the tree be woken up. Then handling wakeups as they cascade
-down the tree properly is also a bit complex, as there are extra
-lists to manage the recursive style work without actually
-recursing.
+When the task later wakes up on the same cpu without
+ENQUEUE_MIGRATED, psi_enqueue() assumes TSK_MEMSTALL is still
+set from when the task went to sleep and only sets TSK_RUNNING |
+TSK_MEMSTALL_RUNNING. This leaves things in an inconsistent
+state (TSK_MEMSTALL_RUNNING set without TSK_MEMSTALL), causing
+psi.mem.full to exceed psi.mem.some, delta underflows in
+get_recent_times(), and spurious psi.mem.full events.
 
-K Prateek sent an interesting alternative approach:
-  https://lore.kernel.org/lkml/20260826062901.2137-1-kprateek.nayak@amd.com=
-/
+So fix psi_dequeue() such that when DEQUEUE_SLEEP is set and
+TSK_ONCPU is not set, we do the same runnable-to-sleeping flag
+transition as psi_task_switch() (clearing TSK_RUNNING and
+TSK_MEMSTALL_RUNNING, setting TSK_IOWAIT, and preserving
+TSK_MEMSTALL).
 
-But after talking with Peter on this at LPC, we agreed to start
-with the =E2=80=9Crelatively simpler=E2=80=9D(ha!) approach first, and then=
- take
-a later swing at using K Prateek=E2=80=99s approach to optimize it.
-
-In this series (against linus' HEAD) I=E2=80=99ve also aggregated fixes
-from K Prateek, Shubhang Kaushik, as well as included some
-initial proxy-chain cycle detection logic combining parallel
-efforts from Zhidao Su and Hui Su. Additionally there have been
-issues fixed in the sleeping-owner-enqueuing change, reported
-by David Stevens as well as other partners.
-
-Thank you to everyone for contributing bug reports, fixes and
-improvements! I really appreciate it!
-
-New in v32 of this set:
- * Fixes to PSI flag handling logic that proxy-exec could break.
-
- * Fix from Shubhang to use rq->donor for sched_tick_remote().
-
- * Extended K Prateek=E2=80=99s optimization to activate on NULL owner
-   to do the same for null mutex/blocked_on.
-
- * Fix to set TASK_RUNNING when we shortcut return-migration to
-   immediately run a task.
-
- * Fixed chain depth limit for find_proxy_task() to avoid
-   deadlocks if there were a lock cycle, from Zhidao Su.
-
- * Further chain cycle-detection logic, using Brent=E2=80=99s algorithm
-   to catch cycles faster from Hui Su.
-
- * Additional fixes to activate_blocked_waiters() to avoid PSI
-   state problems
-
- * Fix for a potential crasher caused when the call to
-   do_activate_blocked_waiter() is significantly delayed, which
-   could cause proxy activations to the previous owner=E2=80=99s cpu,
-   even if the task had been otherwise woken and then went back
-   to sleep - potentially allowing execution outside of the smp
-   affinity mask.
-
-Additionally I=E2=80=99d appreciate any testing or comments that folks
-have with the full Proxy Execution series! You can find the full
-Proxy Exec series here:
-  https://github.com/johnstultz-work/linux-dev/commits/proxy-exec-v33-7.4-p=
-re-rc1/
-  https://github.com/johnstultz-work/linux-dev.git proxy-exec-v33-7.4-pre-r=
-c1
-
-New changes to the full patch series in this revision include:
- * Small fix for Suleiman=E2=80=99s FUTEX_LOCK_PING logic
-
-Issues still to address with the full series:
- * Address and integrate feedback from v1 RFC of Proxy enabled
-   futexes
-
- * Maria Yu raised a subtle difference in how the nr_iowait
-   counting might be attributed with proxy-exec: potentially
-   proxy-migrated donors that become blocked on sleeping owners
-   could increment/decrement the value on the owners cpu rq,
-   instead of on the donor=E2=80=99s original cpu rq. It=E2=80=99s unclear =
-to
-   me what the impact of this would be, if at all, but it is
-   potentially an observable difference with proxy-exec, so
-   I=E2=80=99m going to take a swing at addressing it.
-
- * Reevaluate performance regression K Prateek Nayak found with
-   the full series earlier.
-
- * The chain migration functionality needs further iterations
-   and better validation to ensure it truly maintains the RT/DL
-   load balancing invariants (despite this being broken in
-   vanilla upstream with RT_PUSH_IPI currently)
-
-Future work:
- * Expand to more locking primitives: Binder PI is something
-   else we=E2=80=99re exploring.
-
- * Eventually: Work to replace rt_mutexes and get things happy
-   with PREEMPT_RT
-
-
-Credit/Disclaimer:
-=E2=80=94--------------------
-As always, this Proxy Execution series has a long history with
-lots of developers that deserve credit:=20
-
-First described in a paper[1] by Watkins, Straub, Niehaus, then
-from patches from Peter Zijlstra, extended with lots of work by
-Juri Lelli, Valentin Schneider, and Connor O'Brien. (and thank
-you to Steven Rostedt for providing additional details here!).
-Thanks also to Joel Fernandes, Dietmar Eggemann, Metin Kaya,
-K Prateek Nayak, Suleiman Souhlal, Christian Loehle, and
-Andrea Righi for their substantial review, suggestion, and patch
-contributions.
-
-So again, many thanks to those above, as all the credit for this
-series really is due to them - while the mistakes are surely mine.
-
-Thanks so much!
--john
-
-[1] https://static.lwn.net/images/conf/rtlws11/papers/proc/p38.pdf
-
+Fixes: c2ae8b0df2d1 ("sched/core: Fix psi_dequeue() for Proxy Execution")
+Reported-by: David Stevens <stevensd@google.com>
+Signed-off-by: John Stultz <jstultz@google.com>
+---
 Cc: Peter Zijlstra <peterz@infradead.org>
 Cc: Ingo Molnar <mingo@redhat.com>
 Cc: K Prateek Nayak <kprateek.nayak@amd.com>
@@ -266,37 +166,47 @@ Cc: zhidao su (Xiaomi) <soolaugust@gmail.com>
 Cc: Hui Su <sh_def@163.com>
 Cc: Shubhang Kaushik (Ampere) <sh@gentwo.org>
 Cc: kernel-team@android.com
+---
+ kernel/sched/stats.h | 24 ++++++++++++++++++++----
+ 1 file changed, 20 insertions(+), 4 deletions(-)
 
-
-Hui Su (1):
-  sched/proxy: Detect cycles in proxy walks earlier
-
-John Stultz (2):
-  sched/psi: Preserve sleep-persistent PSI flags on off-CPU sleeping
-    dequeues
-  sched/proxy: Set TASK_RUNNING when shortcuting return migration
-
-K Prateek Nayak (1):
-  sched/core: Activate blocked donor when no owner is found
-
-Peter Zijlstra (1):
-  sched/proxy: Add deactivated (sleeping) owner handling to
-    find_proxy_task()
-
-Shubhang Kaushik (Ampere) (1):
-  sched/core: Use the scheduling context for remote ticks
-
-zhidao su (Xiaomi) (1):
-  sched/proxy: Break cyclic proxy chains by deactivating blocked tasks
-
- include/linux/sched.h      |   7 +
- include/linux/sched/task.h |   1 +
- init/init_task.c           |   6 +
- kernel/fork.c              |   6 +
- kernel/sched/core.c        | 404 +++++++++++++++++++++++++++++++++----
- kernel/sched/stats.h       |  24 ++-
- 6 files changed, 407 insertions(+), 41 deletions(-)
-
---=20
+diff --git a/kernel/sched/stats.h b/kernel/sched/stats.h
+index ebe0a7765f98e..20820fe1021a1 100644
+--- a/kernel/sched/stats.h
++++ b/kernel/sched/stats.h
+@@ -175,12 +175,28 @@ static inline void psi_dequeue(struct task_struct *p, int flags)
+ 	 * Do nothing here.
+ 	 *
+ 	 * In the SCHED_PROXY_EXECUTION case we may do sleeping
+-	 * dequeues that are not followed by a task switch, so check
+-	 * TSK_ONCPU is set to ensure the task switch is imminent.
+-	 * Otherwise clear the flags as usual.
++	 * dequeues that are not followed by a task switch. If TSK_ONCPU
++	 * is not set (meaning we already switched away while the task
++	 * stayed on the rq as a blocked donor), handle the sleeping
++	 * state transition here so sleep-persistent states (TSK_MEMSTALL,
++	 * TSK_IOWAIT) are preserved.
+ 	 */
+-	if ((flags & DEQUEUE_SLEEP) && (p->psi_flags & TSK_ONCPU))
++	if (flags & DEQUEUE_SLEEP) {
++		int clear = TSK_RUNNING, set = 0;
++
++		if (p->psi_flags & TSK_ONCPU)
++			return;
++		if (p->se.sched_delayed)
++			return;
++
++		if (p->in_memstall)
++			clear |= TSK_MEMSTALL_RUNNING;
++		if (p->in_iowait)
++			set |= TSK_IOWAIT;
++
++		psi_task_change(p, clear, set);
+ 		return;
++	}
+ 
+ 	/*
+ 	 * When migrating a task to another CPU, clear all psi
+-- 
 2.56.0.257.gf7497c7d27-goog
 
