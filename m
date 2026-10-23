@@ -1,102 +1,115 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.179
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792771104;
-	b=ipaVHYGOhzahi5D1BZoxg1BOwtWg/dYdH+PYmZZQBM5YwsRe+vvck2Ds//WndJ6o5Vcu
-	 ++WWwSO8I/UlrPWGk47uUJTOMaqgbgdj6Kjyr7rll25G/Ac72J5baKt0RIChvAsObeGhJ
-	 DQ9C84NYIZr5qOuav3H2/y8c/60F8t2jB/69S1cwb2rsVU/kzYK/CizzN6ZQaF83vhWwa
-	 DW771hxywyNet2OTEeRfv7zvJjFmz5AJwVhNrpmRI+N3swvyUrDsTyU2pDKPa6AyQ5egn
-	 XqsaIZa3m2NtsT66XX6P0O0C9i4fbXmVY2aqpAPqn6usdMU3LP17uTY6hkRe68vp0eA==
+	t=1792771157;
+	b=26K7RcA0SusKSK/U3eATEfFW886iNFjVz9KWRG6q7HN5shpY968is6P1oUk9UF5HZZYF
+	 /YGzCQTT5cc+XIrQZQXiXXXGYSr4rPbmIRM6YKssj4ggWYV8ti0myi6eTLB3HLTQlLDXR
+	 VH5jMSGxG1OrobtnELX+J10OjNCEp13cHX4GHJ36CRC4MU+ZMS1tWRWkwPGEjy97kwMsh
+	 F7t3HGpXYTkzC9Hg4f7+RjN2u58mau6q9Y76MVCKgBKMvSsy2hwijq81p8CHnqF6thLX1
+	 8QwJGxLSoOW8DWfJvjyI1f+dcHlu5rfdLahQe8jdEnj9I/awe33e/yIoTc5youeUxBA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792771104;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792771157;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Content-Type:Date:Message-Id:Cc:Subject:From:To:In-Reply-To:
-	 References:X-Mailer:Content-Transfer-Encoding:MIME-Version;
-	bh=oR8WsW0STYE/yZ/T3jtIUfWqW3IPmySlmYoCN5YBLrk=;
-	b=l/H/gJPVnTgFou7dRze6eiGUVgeZ5iBbrqMWm0Mx6ihtmE2dmx+7xRlZItjTtr/er3/8
-	 v2dmgOLBhMy9ByzqEplyO7SJxy2TW/QJzLqr1cmq9rk68UFLES6Vtj1az2J339ara1xCc
-	 pJ7O+fkFx9aqB3iwoxp6OLSAeF+YULrHtoMfq6DnqKGQP2GBQnDKRBsB33s2SFsaoTzkf
-	 vL2++95oxXiusql9T1BdnZ6smksbzxkKfnTU8/xWOPcoW7yHtyM9mvQT5oS0DApaICMDj
-	 +3LJWWTNcQJVcezoQYlpYC4kxJGJ2jEx+V8f89gqEogP+hFu33u2jleON0oi/QcdcZg==
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=qfip9nPMyQ6NKHGpF7rQvQFL04olz8IZl5yoz+w1jok=;
+	b=h9W3rZ+nxLzYZ7i7okictwclriTIc/k8N7nUz2DNnTOcrr7nhNYnHQyvnQmzfDpogwwZ
+	 AFOcNN012+HKq6d/F4zoN2r1ph7KGj6umc7mKZq/VZNXDzFe2jKVTMeR8PEwMr6E5jYWO
+	 fTi8C1VT/IHCX/Z2nu9/bx4y9qc8fwTu2rcsaeb0XCYI4lRH+wI8F5ZcHOJXdnrjjBZR7
+	 T8vTOg3I4FdLxOoCa+8WMAJ3gEcyqRbt11j8uvKIffQDorROA5Q6K/5VbQs5khB0Q4NCY
+	 TsKiVhvvOuqQBtwCqDaSB53OBYUApGdS/riIYPuEDx1+8HFcIfylFbCURUUxJ96QRaQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=PTx3+SOh;
-	arc=none smtp.remote-ip=209.85.215.179
-Received: from mail-pg1-f179.google.com (mail-pg1-f179.google.com [209.85.215.179])
+	dmarc=none header.from=ziepe.ca;
+	spf=pass smtp.mailfrom=ziepe.ca;
+	dkim=pass header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=pOV9sna9;
+	arc=none smtp.remote-ip=209.85.160.172
+Received: from mail-qt1-f172.google.com (mail-qt1-f172.google.com [209.85.160.172])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DE50606A31E
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 15:58:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5DE50606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76989606A322
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 15:59:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 76989606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=PTx3+SOh
-Received: by mail-pg1-f179.google.com with SMTP id 41be03b00d2f7-cd8ca57ef64so65827a12.0
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 08:58:24 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=pOV9sna9
+Received: by mail-qt1-f172.google.com with SMTP id d75a77b69052e-53644b28706so13933741cf.3
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 08:59:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792771104; x=1793375904; darn=vger.kernel.org;
-        h=mime-version:content-transfer-encoding:references:in-reply-to:to
-         :from:subject:cc:message-id:date:content-type:from:to:cc:subject
+        d=ziepe.ca; s=google; t=1792771155; x=1793375955; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=oR8WsW0STYE/yZ/T3jtIUfWqW3IPmySlmYoCN5YBLrk=;
-        b=PTx3+SOhTdnUC4l9QD39mzvDBiRvCJt5QG2Znwe0srIuIEhUJHRM3FUgALlOCZC4gu
-         qpjaRZxY+Guwr4ugPHVqYeuGevQv2QafXFhobLSduTUFHskSQzQ2hlSFUDxJ+eptKuF4
-         YDTaHS7NriA0WBIKczxLaKmqwZbbT87SHmNHaynZsHX6Abe8Cce1Ql2PMn9xh8fb8Jtn
-         0auAl2nnXl1i5R+mQBN9JENdebgSsgGyZNa3VoSLY7iGHKd650/imzOW4DjDdAX+VwLK
-         SeNV0+1330zbD00mA7a9LhynPip0JZpa/XPPChke4zCXYZZGlJPAAmwUhP9X5BtyHBi8
-         kx9Q==
+        bh=qfip9nPMyQ6NKHGpF7rQvQFL04olz8IZl5yoz+w1jok=;
+        b=pOV9sna9TZaCqywtdDI8h+mSGdu3kY7TvcG6DQSaz/wzZ4RWxvzzkBqqhU+wauIVz0
+         y7gqDg4Pv98+G/EoG0dUf5Bpk4Cl0e0UZ7LUISdotu9Tsw4EOlJNa9g21e1C+Zf9KMZH
+         gYHQI9+v1MeGOmU6kjTdceiCLbZqOiGD/vZZ2gPbf7Lfpg+R46vh7tpjBVmQ5GGunmYC
+         VtuXQ6ZEps4zStuYQLp7cEl/vePQpZ5aYQvoiujxoHTHp/fCRUKvmNk27XK19PLiHYCI
+         JYluupC4j0EMlwXjgXHC4TBCzVFNeQ1eRj7qeCWp0ln6/w6oJwD1gZkKqq5ddT+khVyu
+         ejmA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792771104; x=1793375904;
-        h=mime-version:content-transfer-encoding:references:in-reply-to:to
-         :from:subject:cc:message-id:date:content-type:x-gm-gg
+        d=1e100.net; s=20260707; t=1792771155; x=1793375955;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=oR8WsW0STYE/yZ/T3jtIUfWqW3IPmySlmYoCN5YBLrk=;
-        b=xKbN2i2WrmF3Xe3x2PvERGKZeAHqA9YLX15xRzvyZiFS0hdJ2YF2kTw5e3lGtza3rI
-         xjTW55E0Oai9/mQy0F7Oc2mx47U0AbD03nh8N4fhOPpJ78xbDX5ar/24b6C43yUq9Q+9
-         rz2fh8JRmcXdhqLb4YJWv//fcxs43JORDFA5kYyTwtktMMUI634MFk+0suVv8J6/zliX
-         PK0BZ0Xm5fdSKM5+6u0hOaXf44aFaFOHN3WMCm/zkAO7bNv0LomCG3Fn14jDpw7EFoIo
-         5rmxLgUEULt4hr4xGPczvchZ22wJQpedcc0bqE9k8ZeMjZmrVSTg/CGknnBrLjfTubJg
-         jWgg==
-X-Forwarded-Encrypted: i=1; AKwUvByIKKu9Lp+CnmokKXYXX33iylr+e3NBmz2rH2e9jDeuRa7hhfwTcMxccS0QuHDfPZaNoURdAw40j0J0M84=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ18jWw5C+eEW7LIEWoxyLpkbbBbJTJRu+6GP+pu5AeiRvZ3Xtr
-	lZS6/ZAzHesz9w8ziVHavU+9KWcC0zNyCEW2jo+GH8AzkgMIZvI0MkDK
-X-Gm-Gg: AYBFou0osv7oRhRj8nuq837vzdV7bhS8f1kjoF6E761q2RpTQz06TIM7uPaWsm1Doty
-	gl8B0YoM/F0M7hFMPoo3OY1O8qDv44a0NNcOUYy0hC9uuHkX0y5FjRanv/suklVOV2IKpGBwzao
-	sxKF11hGtUaUJQDovOUP7YojypbKMtY2h3Tfg6LFHjz/U4fGuLVkpsocuZMcPKnOIu/QVLEBFGB
-	19GcOSK4AFNz+rwIXo0WFI21H+2WubnX9d84FZY5+eGEkdX7aqDIgbN5vSjD5qvJ4zq7f7N9k8P
-	DaNq79p3u9JAdCAgSxLOcTES4AAC0VQBH3gIPU/iFBRgndsTbReR/Bd9o21Nz/fdqPxJSTwvwH7
-	wKazyHOLe3EZ79JxKbe+EFnkzM9MWXqhqgkvdEmyYA8D4MtOdKO0pk7YeC5bCZAi09d/aFrYDbL
-	eUEXIHdJDxHxyFunQDtY6WAr5CiTG9mR6YsK7PdlS+DZ6Hf/5TLMaiqR0/XWH6R+lYcMUrMbeVG
-	VaQGmjnEVYuJj527LFYGw1oHRWQ82KBGqdLWeOqP5sRtNxIPxOkHuSoyCoHd2Pe1Jw6vMn41pT1
-	qU5XLnabTovLJs5xNVUDUDMIyBb4UtAFEbuq5DkwufBHrUE9a3G6+11HcecL
-X-Received: by 2002:a17:90b:3e48:b0:3ab:8288:b8ce with SMTP id 98e67ed59e1d1-3adce7398c5mr1635912a91.24.1792771103440;
-        Fri, 23 Oct 2026 08:58:23 -0700 (PDT)
-Received: from localhost ([153.61.198.248])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3addd84b1basm707058a91.14.2026.10.23.08.58.22
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 23 Oct 2026 08:58:23 -0700 (PDT)
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 23 Oct 2026 15:58:22 +0000
-Message-Id: <DMCCBEPCIWH0.2JEDKE64WPJRQ@gmail.com>
-Cc: <bpf@vger.kernel.org>, <linux-mm@kvack.org>,
- <linux-kselftest@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v3 0/7] mm/page_owner: add bpf_iter and kfuncs
-From: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
-To: "zhen.ni" <zhen.ni@easystack.cn>, <daniel@iogearbox.net>,
- <andrii@kernel.org>, <eddyz87@gmail.com>, <memxor@gmail.com>,
- <martin.lau@linux.dev>, <song@kernel.org>, <yonghong.song@linux.dev>,
- <jolsa@kernel.org>, <emil@etsalapatis.com>, <ihor.solodrai@linux.dev>,
- <akpm@linux-foundation.org>, <vbabka@kernel.org>, <surenb@google.com>,
- <mhocko@suse.com>, <brendan.jackman@linux.dev>, <hannes@cmpxchg.org>,
- <ziy@nvidia.com>, <shuah@kernel.org>
-In-Reply-To: <d39db4fb-e511-440e-9065-72c34a1a295a@easystack.cn>
-References: <20261021112437.1799213-1-zhen.ni@easystack.cn> <DMAURQCKK6CG.10CZ7MFXGJO3V@gmail.com> <d39db4fb-e511-440e-9065-72c34a1a295a@easystack.cn>
-X-Mailer: mkdraft (claude review draft; edit before sending)
-Content-Transfer-Encoding: 8bit
+        bh=qfip9nPMyQ6NKHGpF7rQvQFL04olz8IZl5yoz+w1jok=;
+        b=zV40Ni3Q8Vf1sJpUVzUOnvSpTeEYur5+50ttA/yBH0hgMDJNQ2wcR5HFOQR8/iJQQx
+         /2r5XEbA22RqUM+N0PXQkVTSRlo4zwi4qWoIhMMKvGN2r5sVQ+abxjwycE6H6kZqbCFA
+         0DxUKT6iMmUPNC3pdah/Np8sxnXKFjgJwjMqEss43UO9RLsAjJMrA7QwV7eqFETFs3wj
+         Boaa/roAUua184fli3Rh/zRjj4OHnAxh0EI5dldp1piJ5DJdDbHG6nzEFQYfHLtqeHG7
+         7ZLcK+6Ag2RjvEBceaTlcLEdblW6QJi42QBouVjPug3OJhNQYFIwKYyy+6CmmRo2HiZw
+         1BYA==
+X-Forwarded-Encrypted: i=1; AKwUvBw/GoNxgiyNHHblcXGXTSDYAJiyA7UzQMIDxvX3no8bHmT7r2s7bgDg3b3JjMZCHp7dSZr8k+2fhbFYZeQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLAJNtpAlpqCeGCpbWXQ8fHgEmvfUDt/9ShBgU936zINAH1FcmF
+	nycn/5lRHxK9peOXu7ys6wo7A3rdzkYf8eLlD2pH7QSipFttHENjwSJa4k/6mt7YX4Y=
+X-Gm-Gg: AYBFou14sDygrlFqovhyL548Nj4Npe7efQou2+d9o2IZxF2xLrG9n+GDjpopgRFiyO3
+	tZJaNHiY9sVQE+6rS1hO9nELpAiuSm1iQgfvFDcMmxTQzIVfKvLhcZQAB0/qznmJDw5A4ea1RAB
+	us+o0ABc5fKjh2mu3PUYprzaXbnhhKQ+rdU4lWk3lGtB4wAEgcJzPrdH87cCW6QFSXMEs6rLPTh
+	9bmScOXyIp90hfEAuNhK/x8oThEQ89ZmF/XmqQ7s2soqWV/WNHz5gVMpuipmCHPTOCzCX/tgQOg
+	9s8/Efcjo0pKA52ctktpM5gAujG89kA63AoTfMMth98ljQKA3qK8g4HUlE3yvYmvWY/unxYgkHy
+	OoGQXkFsHsMhG1pYwmOHM93gkWjWHb4FepK5/hXSHJpxAU1e2Ku6ra+vfiVaI4EGxMfCWW9h4fv
+	vPTPr+i/jbVrJd1I7q8QNEaVD1eDFZW5y3NYmfPmFejlorTdu7OsKvIiXTWlriYrDTwek07axXG
+	BvM/lmulfDldlaoCeqYhS449yzEWaDWxISI9A5FF1XEqru5KNIrX2F+8gozEjcG3PU2hWkngBcA
+	yZ5MqhHvd//fMLf8uLLIBp1IFpUL2iu816Yh0w==
+X-Received: by 2002:a05:622a:a0e:b0:535:859c:b6ff with SMTP id d75a77b69052e-536c24e2452mr39136051cf.20.1792771155235;
+        Fri, 23 Oct 2026 08:59:15 -0700 (PDT)
+Received: from ziepe.ca (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net. [159.2.239.150])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-53836c78f67sm656181cf.27.2026.10.23.08.59.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 23 Oct 2026 08:59:14 -0700 (PDT)
+Received: from jgg by wakko with local (Exim 4.97)
+	(envelope-from <jgg@ziepe.ca>)
+	id 1xKHfm-0000000Go19-0EMi;
+	Fri, 23 Oct 2026 12:59:14 -0300
+Date: Fri, 23 Oct 2026 12:59:14 -0300
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: Leon Romanovsky <leon@kernel.org>
+Cc: Bjorn Helgaas <helgaas@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
+	Logan Gunthorpe <logang@deltatee.com>,
+	"Joerg Roedel (AMD)" <joro@8bytes.org>,
+	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+	Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+	Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-doc@vger.kernel.org, iommu@lists.linux.dev,
+	Tushar Dave <tdave@nvidia.com>, linux-media@vger.kernel.org,
+	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+	linux-rdma@vger.kernel.org, kvm@vger.kernel.org,
+	Chaitanya Kulkarni <kch@nvidia.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jens Axboe <axboe@kernel.dk>, Alex Williamson <alex@shazbot.org>,
+	Ankit Agrawal <ankita@nvidia.com>, Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Sumit Semwal <sumit.semwal@linaro.org>
+Subject: Re: [PATCH v9 02/18] PCI/P2PDMA: Derive routing from directional ACS
+ controls
+Message-ID: <20261023155914.GK3977851@ziepe.ca>
+References: <20261007063227.GC7822@unreal>
+ <20261007204045.GA783967@bhelgaas>
+ <20261009174301.GC11438@unreal>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,71 +119,51 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261009174301.GC11438@unreal>
 
-On Fri, Oct 23, 2026 at 07:51 AM zhen.ni <zhen.ni@easystack.cn> wrote:
+On Fri, Oct 09, 2026 at 08:43:01PM +0300, Leon Romanovsky wrote:
+> On Wed, Oct 07, 2026 at 03:40:45PM -0500, Bjorn Helgaas wrote:
+> > On Wed, Oct 07, 2026 at 09:32:27AM +0300, Leon Romanovsky wrote:
+> > > On Tue, Oct 06, 2026 at 03:49:47PM -0500, Bjorn Helgaas wrote:
+> > > > On Thu, Oct 01, 2026 at 02:55:10PM +0300, Leon Romanovsky wrote:
+> > > > > From: Leon Romanovsky <leonro@nvidia.com>
+> > > > > 
+> > > > > pci_bridge_has_acs_redir() treats Request and Completion Redirect as
+> > > > > interchangeable. On asymmetric fabrics, a control for only the reverse TLP
+> > > > > direction can unnecessarily force P2PDMA through the host bridge.
+> > > > 
+> > > > Does "the reverse TLP direction" refer to Completions?
+> > > 
+> > > In general, the P2P code treats TLPs flowing from device A to device B the
+> > > same as TLPs flowing from device B to device A.
+> > > 
+> > > However, in the context of this commit message, yes: completions flow in the
+> > > opposite direction from the device's perspective.
+> > 
+> > And I guess asymmetric fabrics must mean fabrics where Request
+> > Redirect and Completion Redirect are not set the same way?
+> 
+> Yes, in some of our systems, deviceA to deviceB is going through
+> different route than deviceB to deviceA.
 
-tldr: it's still nack
+It is a little more subtle, I think practical systems try very hard to
+avoid that since many host bridges do not like seeing only half of an
+exchange.
 
-> underlying iteration logic. This shape is also what Documentation/bpf/
-> bpf_iterators.rst prescribes:
->
-> When adding a new BPF iterator program, it is expected that similar
-> functionality will be added as open-coded iterator for maximum
-> flexibility.
+What we end up with is Relaxed Ordering and Strict Ordering take
+different flows in the fabric.
 
-It says what to do when an iterator is added. It doesn't say that
-one is needed.
-Iterators are for kernel data structures that a prog cannot walk
-on its own: tasks, cgroups, kmem_caches.
-pfn is a number. bpf_for() is the iterator.
+> > But I asked about ordering because it sounds like this patch expects
+> > to encounter asymmetric fabrics where Request Redirect and Completion
+> > Redirect may not be set the same way, and the spec implies that
+> > asymmetry may result in ordering violations.
+> 
+> My guess is that the hardware and system architects have ensured this
+> doesn't happen. At least, I haven't received any complaints about this
+> series during internal testing.
 
-> 1. What range to scan. Where do ctx->start and ctx->nr come from? No
-> in-tree iterator context provides them, and a prog cannot derive them:
-> min_low_pfn..max_pfn, memblock holes, and offline sections are all
-> kernel state. The loop bounds alone require either another kfunc or a
-> kernel-side walk — which is exactly what the iter target already is.
+Yes, the ACS combination is selected to avoid ordering issues
 
-From user space. It's a syscall prog, like scan_open_coded() in your
-patch 7. Its ctx is what user space passes in ctx_in.
-/proc/zoneinfo has start_pfn and spanned for every zone.
-In holes and offline sections pfn_to_online_page() returns NULL
-and bpf_page_owner_read() returns -ENOENT.
-
-> 2. What makes a page eligible. The alignment test in the sketch is the
-> only part the kernel agrees is expressible in a prog. Everything before
-> it reads state a prog doesn’t have a handle to: pfn_valid() over
-> MAX_ORDER_NR_PAGES areas, pfn_to_online_page() under get_online_mems(),
-> skip_buddy_pages(), the PAGE_EXT_OWNER / PAGE_EXT_OWNER_ALLOCATED flags
-> in page_ext, and taking the record snapshot inside the RCU window so the
-> checked value and the reported value are the same copy.
-
-bpf_page_owner_read() in the diff does all of that:
-pfn_to_online_page(), page_ext_get(), PAGE_EXT_OWNER_ALLOCATED check
-and the copy of the record before page_ext_put().
-PAGE_EXT_OWNER is set together with PAGE_EXT_OWNER_ALLOCATED and it's
-never cleared. No need to check both.
-__reset_page_owner() clears PAGE_EXT_OWNER_ALLOCATED, so
-skip_buddy_pages() and MAX_ORDER_NR_PAGES steps only make the walk
-faster. They don't change what is eligible.
-
-> 3. The walk is deliberately lockless, so exposing struct page to the
-> prog is not safe. The pfn validity check and the page_ext dereference
-> must happen under the same kernel-controlled RCU window. Otherwise the
-
-The prog doesn't see struct page or page_ext. It passes a pfn and gets
-a copy of the record. The lookup, the check and the copy are in one RCU
-section inside the kfunc. offline_page_ext() does synchronize_rcu()
-before freeing page_ext.
-page_ext_from_phys() does the same lookup from any context.
-
-> 4. One record doesn’t give the prog the useful data. The record holds
-> only opaque handle/free_handle tokens; stack-depot resolution exists
-> solely in the kernel. The memcg is neither in the record nor trivially
-> reachable — the path is built by cgroup_path() walking the kernfs parent
-> chain. The NUMA node comes from page_owner_get_nid(), which bypasses
-> page_to_nid()’s poison check. And so on.
-
-The handle is the key to filter and aggregate by.
-page_owner_stacks/show_stacks_handles maps handles to stacks.
-Same for memcg. bpf_page_cgroup_ino() in the diff returns the id.
-st_ino of the cgroup directory is that id.
+Jason
