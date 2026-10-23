@@ -1,49 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792764273;
-	b=rz9RjxZOiLTRuwe4/EOSTWmiGiFLRMwvaBGJyNrABdOdcP9lHv731Il9FTtVRLsW5VzF
-	 iSdZHWFN8AsDOrZOEpjGkkJ40PjyK2UuLwgHCPhhGsrOXPoDE5JjqKiHx7+/DV+0ZN3/r
-	 m+Q+2RK3PdLx0qnOUIm7nT9JyCjg26wH25HQ5r0bw8/H7CHR6urfkcW73SlsvRiDiKqq8
-	 Zump+0onJwMuq+502hyqHaANu5P8g+/QYH9IGYpfPLoxr4MQW/KferzK8tUBR4dKQp96K
-	 z6/VekN92tLb7k1wpYeucFPmHXJQPxCBn3e/E91auI0hsucarD1OqjhCMu0URxW0lfg==
+	t=1792764317;
+	b=wW3MvcrUPQWDrBLnDV1Tbjr3nWRF/v3bE+TMd9BU6E9T5m6iMmF6NSagGizOM8FysNjI
+	 PWGvmAMWBzRu8jZaxhmfGxBCtzelLtc41uYAIaYt9rKq23zOX2jZ+/sKzDZSOyXMSsu29
+	 H0YnpW6CtVrXukNz8FJyIS5qjn4rt4IvNGB+Gl9G615Imkdisr0qhcu6l7VGPlrbV99x/
+	 +QAh7qE/krZ3eTsjbU5KSwXElVpOb5lYPvR3DOT/VcPJVCyNuEF0uBgp5EGBFwfPw8wcu
+	 QF+TC4yYfeA37Hmzw0D87PhnhBjdwQUWv59WZVkGjaLAzp2C0KYOzLcKy2+ByUoq56A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792764273;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=n36re4R3i8nXuM6/wGbiNDosDIqVkvFnDzUX2RMRlk0=;
-	b=SXYdAT1EHgGpn7ZpVpj5HPn9dzFZRXz8A7TjTSslr2W9GyiKSD/BN6g03vyS0MIibbDO
-	 TSndW6fXlauzYjN9s6MZimA4RBetOC/tDHZBUTI6PnFDXI72A//0cvxK+LmPv5zSnQ5nz
-	 fCPUtV0d3L3zsl5f+6nfAy2x0vy0sLWM6JKcO66xwmzR3NilJvzacHub3IjMeWtzHUYnf
-	 w4wprzgQqJmjqnvGPgZhgk+VoC2mC/6iBelkuKy7v+PlaDMXkZd5sWleQbsIMhiXdLZxM
-	 ZpiDkvMQWrJgBQc8p6mNTJjwlkgZAO/wMFo95E89g/kE99bi0O0r+MwkAnZyOolLOwQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792764317;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=SwYBO9Kk2wO9Ecr7r+S2LJi21hL4Jf1QQvneYBvL52w=;
+	b=brsHFZZxskEiSREoPHIkB4g4w/dI6HSB9lAnzoUK6bhwCRynMrDOPfKvoFcBIvV0eFEU
+	 qN2vby2MBJ8QuiRuSxXNLHazBpPDHCSrsl0AXGS2gFm7AbESrI+VpoyVQ2z+K8VyEIHy7
+	 q4KSg5yuWbV0lNCWz+XjErtyu3JIAn7Z055blO9RKiEZFSdm5TT1sJwpTbZtIxnkusBMP
+	 dPCEBaI1CvZvpLuGC+2xTv/OEnE7HhVqbSj81hox+1KvDOjhCpXNQIpgtQdQcostnH67L
+	 1VfItKyNe/q9T8RDudKPKsI+PEpo+8gMGVQh8vumM148/P2rPJcyatBkDJ5g/1G/EiQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=MNdayn29;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3BB2C606A31D
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 14:04:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3BB2C606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=eTKGlzYR;
+	arc=none smtp.remote-ip=209.85.128.41
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92F7B606A320
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 14:05:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 92F7B606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=MNdayn29
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 4BE731C00;
-	Fri, 23 Oct 2026 07:04:28 -0700 (PDT)
-Received: from [10.2.212.23] (e121345-lin.cambridge.arm.com [10.2.212.23])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id AAEFB3F673;
-	Fri, 23 Oct 2026 07:04:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1792764271; bh=5LUMkx86sW2CCaNHvIGxIW+K+1BbJjEkbPwVzal5v8s=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=MNdayn29iT3ViLmPTZMzRluVsO7PfHn4zcOiCsLLTysTzD3Cs6MS/MP6pzsZOeyIa
-	 i8F1Y57RsdzBNTeLzkb4acyVsYrD+fVBCmNLNS+yasI6jOzTLjW3d0QIGG2glwXWi0
-	 PECjFLAvvaYmEV+lv2hDunZXOn2GftZHeKRfHFBc=
-Message-ID: <d4570e2d-5b92-4f05-a8b3-34d5d5b299bd@arm.com>
-Date: Fri, 23 Oct 2026 15:04:23 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=eTKGlzYR
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a2d6d01ecbso548265e9.0
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 07:05:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792764316; x=1793369116; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=SwYBO9Kk2wO9Ecr7r+S2LJi21hL4Jf1QQvneYBvL52w=;
+        b=eTKGlzYRsidVuBlaW02wcQVFmAWhVBC1ONBBHD4iLoOYCCGCP9Azg+vZ03oluhIEbu
+         EVfduVnauWkbmsR0ENVvhjMma6X0yOPEzQO5+NmlZcTUFxh/BfMWXqWRIgR0orWI51mq
+         bUtP8Z1ZDsoA7SxH90mI6ROT5S/nonOJWovI2iIk4tLewDg6luGk6crvw1/LyuJBucwC
+         IUQFCGSK9ee5GjpPDwj/l3bHhHZO5Eg8uqHC56/sW7l6BroW3kWs1pTvg3aTylXU8C5Y
+         bXXwI9+d0AJDWyc/BlVSDuqs4cUtbmFjH/3vFMK35m4IBRZ8+VS2auBxMs6h49hgwq4M
+         723g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792764316; x=1793369116;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=SwYBO9Kk2wO9Ecr7r+S2LJi21hL4Jf1QQvneYBvL52w=;
+        b=EWREZjCenLBPWqA9+vzlybedVU1pb1TzK10qskrStK47C83JUiQ2/M/TYmO1n+RBnR
+         Rd7TIL1nUcuHujblYh/wkp1KtbaN5s6ewnScpyOgNoYw0Z0iKYPF3W86DkwRq015dsrs
+         ttEfmOPmji6uWtsFs+4Q005g3fGnKK/ZzFsxlWCugfifj2+jLf8RhVa+T/xXD/TjEcrq
+         NRK2+ZTen6D5e3Y8KjyVg2n8RJ5HS/RyIOg9F6nHDnjpD3Dz90iL7W+kaDjWTGCNqb8x
+         FDLx4Lr5MmIWmFlifc4b+PGMuSCrJK/vne6cYM3JlBtsQfbeKlv1tHxiI0N6wfAhnDg/
+         1izw==
+X-Forwarded-Encrypted: i=1; AKwUvBw8hG1iVNr9IZoKtmSIeFzHs94Mp+TWWeGWuZKRRbhgT6aD6VTbtTETRAfNK2F/qHD1Jhk/roH+IEN3XKE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJgqRpcaKCEM2BU+wFpq4YnCq1mkegZkL74LFBbh5FWxcwQm6Pr
+	3Jws65aPP8vM7KDPXg+kloRfU1MDwVbtNh1r48/byvd82TJadAMGlhye
+X-Gm-Gg: AYBFou0obDzPlEFpaZoDTP4v3R+BSAimlemuMdpZQ7xIvNarj0VXAEYg/aiiMRvCycZ
+	NFlltVtmrve0or2Jfc/nMF9bQu1keb+V4yXBcE7sHsS0YVg92EslgLgiL2+PNQmOEqAF/0Mq0ZA
+	arRsmbTSys5O+oOFujk3SLIfqMwmFZ1i2xjtXDnGJYOwEElF8HHPf+m6zOEg7QjrMLpL5oag7VH
+	sT9LW28Au07LFqtxFfBmGrDhOeHaz2B2Dp7qT5xGI51v6wFLZwcWNj7tIyWBXuhgSK9exEt8xoF
+	PSXIydCSYqL2XZ7EaophdpJNi4Zdp0sd6wqbvqkQVOQ0CbINYotCD3d6RKIaPnrlSjf4rCE3bbZ
+	B8+0Rkd1C1284eaONjU84nHja/nwg2ZrAO27r5rj+FA5RlmO77F0nR/rWiiGvGu7OQOhi9m6qde
+	W4YEpKD/8EPEE3jowEeuHUsUw4N9CG6bh/ujKs7jEKqXDCj8ii5R5oNlTIhZi3gkb305ZBsr/l7
+	9/H8VkYLDW8gWw9SK4fmx0ADoUNb02Wbxg4Kkgfws9gJ2rnAKzEFqqxStsW4+tl4Y+UeYzt/ev3
+	AqEe6qaeePDlETJhblEFW7JgJZkiWCnAaRx91WBFSkozJANDrowVpsW+
+X-Received: by 2002:a05:600c:34c7:b0:4a1:f99e:f22d with SMTP id 5b1f17b1804b1-4a211c9de3bmr42927825e9.6.1792764315768;
+        Fri, 23 Oct 2026 07:05:15 -0700 (PDT)
+Received: from ernest.hoecke-nb (248.201.173.83.static.wline.lns.sme.cust.swisscom.ch. [83.173.201.248])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a21545973csm31765235e9.4.2026.10.23.07.05.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 23 Oct 2026 07:05:14 -0700 (PDT)
+Date: Fri, 23 Oct 2026 16:05:13 +0200
+From: Ernest Van Hoecke <ernestvanhoecke@gmail.com>
+To: Frank Li <Frank.li@oss.nxp.com>
+Cc: Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
+	Fabio Estevam <festevam@gmail.com>, Kieran Bingham <kieran.bingham@ideasonboard.com>, 
+	Francesco Dolcini <francesco.dolcini@toradex.com>, Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+	devicetree@vger.kernel.org, imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+Subject: Re: [PATCH v3 2/4] arm64: dts: freescale: imx8m{m,p}-verdin: Add
+ camera connector nexus
+Message-ID: <stl2ybj3psmedmjdjbvzj6sstzte6dqwxywa5eph634qcyuydf@6byf4ay5vqau>
+References: <20261022-verdin-imx8mp-hmp-camera-ready-v3-0-90a30b0b0d55@toradex.com>
+ <20261022-verdin-imx8mp-hmp-camera-ready-v3-2-90a30b0b0d55@toradex.com>
+ <atp7I9fBUXhK7b4F@lizhi-Precision-Tower-5810>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,50 +104,74 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 3/3] iommu/arm-smmu-v3: Add support for hitless
- replace of S1 domains
-To: Jason Gunthorpe <jgg@ziepe.ca>
-Cc: Samiullah Khawaja <skhawaja@google.com>, Joerg Roedel <joro@8bytes.org>,
- Will Deacon <will@kernel.org>, Kevin Tian <kevin.tian@intel.com>,
- Alex Williamson <alex@shazbot.org>, iommu@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- Pasha Tatashin <pasha.tatashin@soleen.com>,
- David Matlack <dmatlack@google.com>, Lu Baolu <baolu.lu@linux.intel.com>,
- Pranjal Shrivastava <praan@google.com>
-References: <20260925011308.3381953-1-skhawaja@google.com>
- <20260925011308.3381953-4-skhawaja@google.com>
- <3d1eb92f-3447-49f0-a210-fd4fa015304b@arm.com>
- <20261023134900.GB3977851@ziepe.ca>
-From: Robin Murphy <robin.murphy@arm.com>
-Content-Language: en-GB
-In-Reply-To: <20261023134900.GB3977851@ziepe.ca>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <atp7I9fBUXhK7b4F@lizhi-Precision-Tower-5810>
 
-On 23/10/2026 2:49 pm, Jason Gunthorpe wrote:
-> On Fri, Oct 23, 2026 at 02:43:28PM +0100, Robin Murphy wrote:
->>> @@ -3664,8 +3726,8 @@ static int arm_smmu_attach_dev(struct iommu_domain *domain, struct device *dev,
->>>    		struct arm_smmu_cd target_cd;
->>>    		arm_smmu_make_s1_cd(&target_cd, master, smmu_domain);
->>> -		arm_smmu_write_cd_entry(master, IOMMU_NO_PASID, cdptr,
->>> -					&target_cd);
->>> +		arm_smmu_replace_cd_entry(master, IOMMU_NO_PASID, cdptr,
->>> +					  &target_cd);
->>
->> No, we cannot blindly do this for arbitrary ->attach_dev calls - the
->> majority of S1->S1 transitions are going to be moving back and forth between
->> the default domain and user domains, where there is zero expectation, let
->> alone guarantee, that the translations would be equivalent and thus not
->> liable to lead to TLB conflict aborts or amalgamation hell.
+On Thu, Oct 22, 2026 at 05:07:47PM -0400, Frank Li wrote:
+> On Thu, Oct 22, 2026 at 04:31:26PM +0200, Ernest Van Hoecke wrote:
+> > From: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+> >
+> > The Verdin Development Board, Dahlia and Mallow expose the same 24-pin CSI
+> > camera connector, while Verdin iMX8M Mini and Verdin iMX8M Plus route its
+> > sideband signals and media pipeline through different SoC resources.
+> >
+> > Add a GPIO nexus to each carrier description and stable Verdin-level labels
+> > for each module's CSI_1 I2C bus, receiver and capture engine. Keeping the
+> > nexus in the carrier files avoids describing the physical connector on
+> > carriers which do not provide it.
+> >
+> > This gives accessory overlays a stable connector and media interface
+> > without embedding either module's wiring in the accessory description.
+> >
+> > Signed-off-by: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+> > ---
+> ...
+> Thank you for good progress.
 > 
-> Heh, yeah this probably only works properly with BBML2 or something so
-> the temporary ASID doesn't explode.
+> >
+> > +/* Verdin CSI_1 */
+> > +verdin_csi_capture: &csi {};
+> > +
+> >  &ddrc {
+> >  	operating-points-v2 = <&ddrc_opp_table>;
+> >
+> > @@ -596,7 +599,7 @@ &i2c2 {
+> >  /* Verdin I2C_3_HDMI N/A */
+> >
+> >  /* Verdin I2C_4_CSI */
+> > -&i2c3 {
+> > +verdin_csi_i2c: &i2c3 {
+> >  	clock-frequency = <400000>;
+> >  	pinctrl-names = "default", "gpio";
+> >  	pinctrl-0 = <&pinctrl_i2c3>;
+> > @@ -695,6 +698,9 @@ eeprom_carrier_board: eeprom@57 {
+> >  	};
+> >  };
+> >
+> > +/* Verdin CSI_1 */
+> > +verdin_csi_rx: &mipi_csi {};
+> > +
+> 
+> Can you refer to port?
+> 
+> &mipi_csi {
+> 	ports {
+> 		verdin_csi_rx_port: port@0 {
+> 		^^^^
+> 		}
+> 	}
+> }
+> 
+> because difference mipi controller may use difference port index. If
+> define point to port,
+> 
+> ov5460 can reuse if port@0 change to port@1.
+> 
+> Frank
 
-This is fundamental VMSA behaviour - see R_FVQCK in the Arm ARM. BBML 
-only applies to the one specific case of identical VA->PA translations 
-with identical attributes _only_ differing in the leaf level at which 
-they are described.
+Hi Frank,
 
-Thanks,
-Robin.
+Good point. In v4, I can refer to ports.
+
+Ernest
