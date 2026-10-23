@@ -1,68 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.158.5
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792745973;
-	b=rLVm7VRZtrmKi/8khPgcc1VQrdvzPJhdwd7YUne+QsKXSGqVrKjGQlrhIbSTdbyTwhPd
-	 VYspqRoZNmFPiNJas+rOmuqi5C8a/Ck+i32XD2qc0R87NVYYrDRorEyPB+tli10j9e0DJ
-	 sHzZrmcxhQHZ0Yc9A2CMwwec7k+4p3mWU+mJE5ev1m8/JtnIKDuhPeXQQanW7DoHISTOi
-	 T5godaguIQsPAzYBQ1CXCmeTp9DRN8omnk6KxIMYTf25KT8ZLI9uW62tn+vYwYMsUMmxM
-	 Oy5aJnjA1t2TzLdjgyoysxfBStDz+cXswYWH6R3+mgPAEa3Y5TcCXuwTvJTFwZj8jTQ==
+	t=1792746006;
+	b=Kxael7u+37ev8ABc7VPc/qYQdi3qoUMOkN0pMwD4t/HC7r5E0O9vmyrwbPM32Dysfbp3
+	 n6i8muthesX6GV48ZiSV+srotVeqQekfWoqFY0FRnclpCtN8iFmxXg+oNxJZPXiesumKi
+	 aGF7M7xoEESF9/t16cjYh972n5UbQ2kTP5U8ZiiYy5rF07VeJBb3aW/7u3Ifeq55TqvkE
+	 3sh0miRjCzpknulBWjczgmvZ6qBGPiWM539E3MpikvhJWiIp1cyCtG12tQvxmjPMwyWWz
+	 XJwfKoFFe0/lT8kW9pF+DWcasqr7JGSKtcLwG6sVdZLKGdi3fw1yej3LlPSxEWlhsQQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792745973;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=p+CZWrgFfkHo8tPZ0mXySilU+u9oXL3M5JdKwfFfvv8=;
-	b=t14zmXvJzySD7QlBA8UL6gQkNshhZ8FnCNwmSxgZBCPP/RLmwkDDBIQueQ5bJCh3xvf6
-	 RBCJqyhuQkiA4CWUVwNis5iZY7d2lUdoi08qMnI56WB1cSDQS200l0y2XJAlqqOWRqsEL
-	 TYqy1D/0YATwBywE+ikLpQr57Y1u9VcEHMpS6pGgI90wFSjYT9uO30dAsUIEdGqjU0F8d
-	 MZMvtZjHI9fEY+k0S7zRrV6HZoZbqVcAl1Q6SJmw8gxrOVFn5Nw5/q4ozNuMV48eUolvC
-	 PT97HJKpYLE5xIYt46RMRB2JAMhZKrz1y5rw75VDiO9XOrIaMPJmwXyVtYkPoPjaFLw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792746006;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:Received:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-TM-AS-GCONF:
+	 X-Proofpoint-Reinject:X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=yCzLlhXTi1kXrYQJEEUdQmgNADRXaefQpeykOcaQ8U4=;
+	b=vOtsODlMouhI+b/iOv4u07OYRlwaTREb8WPSGpvc6t8Ju7sB0s6gcPT4d8kqxmW+1/cp
+	 G7x4MLrLhia6ffSXaXyzhIv2s0C6OPebPU1gnyikP9jaMs4I3YqFtmvVsPYKpLzpqVu+x
+	 PWiJvi8usv9BgrLcy4r27jFjHnIB/gDedLjXztfKzOKIMjFMnNexzg6jKHCQ9Nfe+KvlA
+	 1AvZAcSYAZvCj5sVtGbfgST/ugpsMyBzW+tFj9JrF826tZ4iRaFd33BYApDICTVgD0un2
+	 xmQaAkWTER03teqcJEt4i2RSJbZZjAVX8zGqzPVNvcssr/kxQYc4FAJu73JXmey3KaA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="iIo82/U3";
-	arc=none smtp.remote-ip=192.198.163.11
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=linux.ibm.com;
+	spf=pass smtp.mailfrom=linux.ibm.com;
+	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=mlAdMQRs;
+	arc=none smtp.remote-ip=148.163.158.5
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DB7A606A32C;
-	Fri, 23 Oct 2026 08:59:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8DB7A606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7815606A31E
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 09:00:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D7815606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=iIo82/U3
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792745973; x=1824281973;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=NkRv8z1fvcjDDzk6L4DTc04fc1cw9emCL6L4ICuk5DM=;
-  b=iIo82/U3TIb/VpYasGdp9Ne7HmmKXAW1Bodrc+MQ0v5Qr3yHbbV1HQrY
-   kkTF7UFZRJ2Gs4T0JWf7WY56II1PVJnB5W2lqg2Y31dzibqn1tdp0zmpM
-   ZM97KcRaARQdYKQUCcDWGmFEzMALlb7/F2/yKqXZNx4OR3v1RTIUVkub9
-   54kL0b/bcqRSMJs/HdIJtPThuJCU6bcxnIU4FhO+2PUK3wh1FyFcW0oED
-   XiqSyG4gmt6DOninQkS0b5CR0ufKmm78llM7zvFCpLOhCHoreZbszweit
-   9jXtL3UXBP9jD+ji3PaX1yoZT35JmoEfZi3eSRLodqezkPm/4b4+ODjRQ
-   Q==;
-X-CSE-ConnectionGUID: zilVgmVmTqW/ux67oHL2mg==
-X-CSE-MsgGUID: iVcVsNkBSfacEOPyuhtqmA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11943"; a="1406343"
-X-IronPort-AV: E=Sophos;i="6.27,174,1787036400"; 
-   d="scan'208";a="1406343"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Oct 2026 01:59:32 -0700
-X-CSE-ConnectionGUID: RjghvquPTNSn/VJSTo1ghA==
-X-CSE-MsgGUID: BOZpR02HRBeDHo18NCIVKA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,174,1787036400"; 
-   d="scan'208";a="3656910"
-Received: from binbinwu-mobl.ccr.corp.intel.com (HELO [10.124.245.162]) ([10.124.245.162])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Oct 2026 01:59:25 -0700
-Message-ID: <9ef4e795-1222-49bb-a6a5-0823c57afce1@linux.intel.com>
-Date: Fri, 23 Oct 2026 16:59:23 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=mlAdMQRs
+Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69N7EfPY2174860;
+	Fri, 23 Oct 2026 08:58:18 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=yCzLlh
+	XTi1kXrYQJEEUdQmgNADRXaefQpeykOcaQ8U4=; b=mlAdMQRsLSjWdhvRW9oGPW
+	/mUllwYVG/wsfJzEqj8LoZCyIJ94NFdOcgiqDirOGKwLF5dnJFMkZ1R8HDrJTJUG
+	jbTG6PUQOhq7T4aKrUE9YtVPXgVOqD/LS+v2PkmT546xaOsTpn90LET6SPpOxNZA
+	oCge7lEXF4poRhYTx8LgWXYiwHkFqfqwHEv1ZFaBEFfikiuAPX5LNnEYuPamfcjA
+	DHcs909gpEA8f/Dye9idxcZpkxgoE2oFxrjtdmd3gDfEPnbgQZ+tgL9kxU7rIFBs
+	la56P0rLkYPFHGuCmD6f9X7jq526OOcz0x/fjpTTiSB96S8JP6sFqE/UZODgpJIQ
+	==
+Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hdw5b3n7s-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Fri, 23 Oct 2026 08:58:17 +0000 (GMT)
+Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma11.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69N7JsTw1800643;
+	Fri, 23 Oct 2026 08:58:16 GMT
+Received: from smtprelay05.dal12v.mail.ibm.com ([172.16.1.7])
+	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4hfmpn3qs6-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 23 Oct 2026 08:58:16 +0000 (GMT)
+Received: from smtpav05.dal12v.mail.ibm.com (smtpav05.dal12v.mail.ibm.com [10.241.53.104])
+	by smtprelay05.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69N8wGLe25559722
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Fri, 23 Oct 2026 08:58:16 GMT
+Received: from smtpav05.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id F06BE58065;
+	Fri, 23 Oct 2026 08:58:15 +0000 (GMT)
+Received: from smtpav05.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 3B4D25805D;
+	Fri, 23 Oct 2026 08:58:11 +0000 (GMT)
+Received: from [9.43.58.215] (unknown [9.43.58.215])
+	by smtpav05.dal12v.mail.ibm.com (Postfix) with ESMTP;
+	Fri, 23 Oct 2026 08:58:10 +0000 (GMT)
+Message-ID: <49f43f66-f516-413a-9842-bf6d8cef5fb1@linux.ibm.com>
+Date: Fri, 23 Oct 2026 14:28:09 +0530
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,82 +87,213 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v10 10/28] KVM: VMX: Add support for saving and restoring
- FRED MSRs
-To: Sohil Mehta <sohil.mehta@intel.com>, kvm@vger.kernel.org, x86@kernel.org
-Cc: Paolo Bonzini <pbonzini@redhat.com>,
- Sean Christopherson <seanjc@google.com>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>, Thomas Gleixner <tglx@kernel.org>,
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
- Dave Hansen <dave.hansen@linux.intel.com>, "H . Peter Anvin"
- <hpa@zytor.com>, Xin Li <xin@zytor.com>, Andy Lutomirski <luto@kernel.org>,
- Peter Zijlstra <peterz@infradead.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Tom Lendacky <thomas.lendacky@amd.com>, Nikunj A Dadhania <nikunj@amd.com>,
- Shivansh Dhiman <shivansh.dhiman@amd.com>,
- David Woodhouse <dwmw@amazon.co.uk>, Chao Gao <chao.gao@intel.com>,
- Zhao Liu <zhao1.liu@intel.com>, Yosry Ahmed <yosry@kernel.org>,
- David Matlack <dmatlack@google.com>, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org
-References: <20260911213659.2025974-1-sohil.mehta@intel.com>
- <20260911213659.2025974-11-sohil.mehta@intel.com>
-From: Binbin Wu <binbin.wu@linux.intel.com>
+Subject: Re: [PATCH] powerpc/syscall: Return the preset value of skipped
+ syscalls
+To: Renzo Davoli <renzo@cs.unibo.it>,
+        Madhavan Srinivasan <maddy@linux.ibm.com>,
+        Michael Ellerman <mpe@ellerman.id.au>
+Cc: Davide Berardi <berardi.dav@gmail.com>,
+        Nicholas Piggin <npiggin@gmail.com>,
+        Christophe Leroy <chleroy@kernel.org>,
+        =?UTF-8?Q?Michal_Such=C3=A1nek?= <msuchanek@suse.de>,
+        Mukesh Kumar Chaurasiya <mkchauras@gmail.com>,
+        Shrikanth Hegde <sshegde@linux.ibm.com>,
+        Thomas Gleixner <tglx@kernel.org>, linuxppc-dev@lists.ozlabs.org,
+        linux-kernel@vger.kernel.org, Oleg Nesterov <oleg@redhat.com>,
+        "Dmitry V . Levin" <ldv@strace.io>,
+        Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+        Andrew Morton <akpm@linux-foundation.org>
+References: <20261018151539.440213-1-renzo@cs.unibo.it>
 Content-Language: en-US
-In-Reply-To: <20260911213659.2025974-11-sohil.mehta@intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+From: samir <samir@linux.ibm.com>
+In-Reply-To: <20261018151539.440213-1-renzo@cs.unibo.it>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Authority-Analysis: v=2.4 cv=X63Hu2Te c=1 sm=1 tr=0 ts=6adb21aa cx=c_pps
+ a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=Y2IxJ9c9Rs8Kov3niI8_:22 a=pGLkceISAAAA:8
+ a=VnNF1IyMAAAA:8 a=VwQbUJbxAAAA:8 a=eEX7pEfrkeBYrpkNWPQA:9 a=3ZKOabzyN94A:10
+ a=QEXdDO2ut3YA:10 a=O8hF6Hzn-FEA:10
+X-Proofpoint-ORIG-GUID: 7c_KEsfJRvV2RRbWgSUimDVVLGvDcsDV
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIzMDAzNCBTYWx0ZWRfX82UqnYTX5H/L
+ deJHTQX2t/n0Y3LnF8Oq5Leo1pjTEmGBCCJunlf4q62yKuGb3louajZNq1ie0x9PDPbAFrdFGY5
+ fsYWAyCuM902kl5iDTdTwD6PQ/Q3JwIkQHVozByhhqLSZQF962URulOMrGxqsgtdLpIMFNm7+Ij
+ qDQWWCTmuwPKbvSvkuFjo5bGn9Sdg96gnODoczyggcR8t6C1EwsRES62zvmbV/BYhVgcOETQsBJ
+ R5kGaSfsXVgpvKjEeW215WFpquC31eSRz8aka/17drd1Zf+9jYssQcNl0TcpZJz6Tu2t5nB+go2
+ HoDR842sakrLUWKaKQYhZ5+24HzhShat8aPa/ncFJmcNV34GSwRYCFg+jwsEYbbzewpl8usKLdh
+ T07uCRNV3rpPqhzOD+t/go53FWCRgFOmqxlXZmW3WDWJHmgpNdriQqhLWMtQrtaZry87k8mrqou
+ psc2ujNrvy8JF/7impg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIzMDAzNCBTYWx0ZWRfX7M4ga6yqIN+m
+ TqzEpIJCrvrEFfl4K1EBY1hdM7w2v3Myif5lbGlbm/Q8FeDEOKjinkO2hJdlu/pdFAc866MgB0Y
+ fKPrmCDmnT91iKZ9dVX8LNIHV+lqo2I=
+X-Proofpoint-GUID: LXuJuGUpdlreGuneYA4noi_09wS9zyNg
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-23_02,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 phishscore=0 bulkscore=0 adultscore=0 malwarescore=0
+ clxscore=1011 spamscore=0 impostorscore=0 lowpriorityscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610230034
 
-On 9/12/2026 5:36 AM, Sohil Mehta wrote:
-> From: "Xin Li (Intel)" <xin@zytor.com>
-> 
-> Introduce support for handling FRED MSR access requests, enabling both
-> host and guest to read and write FRED MSRs, which is essential for VM
-> save/restore and live migration, and allows userspace tools such as QEMU
-> to access the relevant MSRs.
-> 
-> Specially, intercept accesses to the FRED SSP0 MSR (IA32_PL0_SSP), which
-> remains accessible when FRED is enumerated even if CET is not. 
 
-Nit:
-It sounds like the patch adds interception. But the patch emulates the access
-of the MSR. 
-
-> This
-> ensures the guest value is fully virtual and does not alter the hardware
-> FRED SSP0 MSR.
-> 
-> Signed-off-by: Xin Li (Intel) <xin@zytor.com>
-> Signed-off-by: Sohil Mehta <sohil.mehta@intel.com>
-> Reviewed-by: Chao Gao <chao.gao@intel.com>
+On 18/10/26 8:45 pm, Renzo Davoli wrote:
+> From: Davide Berardi <berardi.dav@gmail.com>
+>
+> When ptrace or seccomp skip a system call, the return value they set in
+> regs->gpr[3] gets lost or the tracer is affected, since two recent
+> changes:
+>
+> 1. Commit 05c033db7e9a ("entry, treewide: Make
+>     syscall_enter_from_user_mode[_work]() indicate syscall execution")
+>     made system_call_exception() return syscall_get_error() for a skipped
+>     system call.  syscall_get_error() is 0 for any non-error value, so a
+>     success value set by a tracer at a PTRACE_EVENT_SECCOMP stop (e.g.
+>     with PTRACE_POKEUSER), or by a SECCOMP_RET_USER_NOTIF listener, is
+>     replaced with 0.
+>
+> 2. Commit 69cb2be898be ("powerpc/syscall: Fix syscall skip handling for
+>     seccomp and ptrace") made syscall_set_return_value() set
+>     TIF_SYSCALL_RET with set_thread_flag(), i.e. on current rather than on
+>     the task passed in.  When the caller is a tracer, as in
+>     PTRACE_SET_SYSCALL_INFO with op == PTRACE_SYSCALL_INFO_EXIT, the flag
+>     ends up on the tracer, and the next system call of the tracer is
+>     silently not executed.  Setting it on the right task would not be
+>     enough either: at a syscall-exit stop the flag would then skip the
+>     next system call of the tracee.
+>
+> TIF_SYSCALL_RET is not needed anymore: after the change described in 1.
+> the generic entry code tells whether ptrace or seccomp skipped the
+> system call, and every in-kernel caller of syscall_set_return_value() on
+> the syscall entry path (SECCOMP_RET_ERRNO, SECCOMP_RET_TRACE without a
+> tracer, SECCOMP_RET_USER_NOTIF) also makes it return false.  A user
+> calling syscall(-1) without tracer or seccomp still gets -ENOSYS.
+>
+> Remove the flag and return regs->gpr[3] for a skipped system call, as
+> done before the conversion to GENERIC_ENTRY.  The syscall exit path
+> already converts a negative error value to the "sc" ABI, and
+> syscall_set_return_value() keeps CR0.SO in sync for positive error
+> values.
+>
+> Fixes: 69cb2be898be ("powerpc/syscall: Fix syscall skip handling for seccomp and ptrace")
+> Fixes: 05c033db7e9a ("entry, treewide: Make syscall_enter_from_user_mode[_work]() indicate syscall execution")
+> Cc: Michal Suchánek <msuchanek@suse.de>
+> Cc: Mukesh Kumar Chaurasiya (IBM) <mkchauras@gmail.com>
+> Cc: Shrikanth Hegde <sshegde@linux.ibm.com>
+> Cc: Thomas Gleixner <tglx@kernel.org>
+> Assisted-by: claude-opus-5-5
+> Signed-off-by: Renzo Davoli <renzo@cs.unibo.it>
 > ---
-> v10:
->  - Fix a corner case identified by Chao Gao.
-> ---
->  arch/x86/include/asm/kvm_host.h  |  5 ++
->  arch/x86/include/asm/msr-index.h |  2 +
->  arch/x86/kvm/msrs.c              | 89 ++++++++++++++++++++++++++++++--
->  arch/x86/kvm/vmx/vmx.c           | 45 ++++++++++++++++
->  4 files changed, 138 insertions(+), 3 deletions(-)
-> 
-> diff --git a/arch/x86/include/asm/kvm_host.h b/arch/x86/include/asm/kvm_host.h
-> index 8d3999772ac2..0fd5d4edeebb 100644
-> --- a/arch/x86/include/asm/kvm_host.h
-> +++ b/arch/x86/include/asm/kvm_host.h
-> @@ -1032,6 +1032,11 @@ struct kvm_vcpu_arch {
->  #if IS_ENABLED(CONFIG_HYPERV)
->  	hpa_t hv_root_tdp;
->  #endif
+> How this was found and tested: QEMU pseries (TCG, -cpu power9), ppc64le
+> guest config, v7.3-rc6 (7b63ef2d55f2), with a small reproducer
+> (ppc_skip_repro.c, available on request) which
+>
+>   - sets the getpid() return value at a syscall-exit stop with
+>     PTRACE_SET_SYSCALL_INFO, then makes a syscall in the tracer;
+>   - skips getpid() at a PTRACE_EVENT_SECCOMP stop with PTRACE_POKEUSER
+>     (r0 = -1, r3/CR0.SO = return value), with both "sc" and "scv 0".
+>
+>                                               v7.3-rc6      with this patch
+>    tracer syscall after SET_SYSCALL_INFO      returns 0     correct
+>    skipped syscall, success value, sc/scv     returns 0     correct
+>    skipped syscall, error value, sc/scv       correct       correct
+>    selftests/ptrace set_syscall_info test    FAIL          pass
+>    selftests/seccomp/seccomp_bpf              11 failures   all pass (*)
+>
+>    failing in v7.3-rc6: user_notification_{basic,child_pid_ns,
+>    sibling_pid_ns,fault_recv,addfd,addfd_rlimit,sync,fifo,wait_killable},
+>    TRACE_syscall.seccomp.syscall_faked, plus the timing-only one below.
+>
+> (*) user_notification_wait_killable_after_reply (100000 notifications
+>      with a 1 ms itimer) can hit the 30 s harness timeout under emulation,
+>      with and without this patch.
+>
+> Build-tested with W=1: ppc64le guest config, ppc64_defconfig (BE),
+> pmac32_defconfig.
+>
+>   arch/powerpc/include/asm/syscall.h     |  6 ------
+>   arch/powerpc/include/asm/thread_info.h |  1 -
+>   arch/powerpc/kernel/syscall.c          | 15 ++++++++-------
+>   3 files changed, 8 insertions(+), 14 deletions(-)
+>
+> diff --git a/arch/powerpc/include/asm/syscall.h b/arch/powerpc/include/asm/syscall.h
+> index 32be22b995cc..4b3c52ed6e9d 100644
+> --- a/arch/powerpc/include/asm/syscall.h
+> +++ b/arch/powerpc/include/asm/syscall.h
+> @@ -98,12 +98,6 @@ static inline void syscall_set_return_value(struct task_struct *task,
+>   			regs->gpr[3] = val;
+>   		}
+>   	}
+> -	/*
+> -	 * Mark that a return value has been explicitly set by seccomp or
+> -	 * ptrace so that system_call_exception() can skip the syscall
+> -	 * unconditionally, even when the user requested syscall(-1).
+> -	 */
+> -	set_thread_flag(TIF_SYSCALL_RET);
+>   }
+>   
+>   static inline void syscall_get_arguments(struct task_struct *task,
+> diff --git a/arch/powerpc/include/asm/thread_info.h b/arch/powerpc/include/asm/thread_info.h
+> index 1e069a2e7ce8..0487e94d3416 100644
+> --- a/arch/powerpc/include/asm/thread_info.h
+> +++ b/arch/powerpc/include/asm/thread_info.h
+> @@ -120,7 +120,6 @@ void arch_setup_new_exec(void);
+>   #endif
+>   #define TIF_POLLING_NRFLAG	19	/* true if poll_idle() is polling TIF_NEED_RESCHED */
+>   #define TIF_32BIT		20	/* 32 bit binary */
+> -#define TIF_SYSCALL_RET		21	/* syscall error value set */
+>   
+>   /* as above, but as bit values */
+>   #define _TIF_SYSCALL_TRACE	(1<<TIF_SYSCALL_TRACE)
+> diff --git a/arch/powerpc/kernel/syscall.c b/arch/powerpc/kernel/syscall.c
+> index fbefe1927b10..52ceff4ef41b 100644
+> --- a/arch/powerpc/kernel/syscall.c
+> +++ b/arch/powerpc/kernel/syscall.c
+> @@ -18,13 +18,14 @@ notrace long system_call_exception(struct pt_regs *regs, unsigned long r0)
+>   	long ret;
+>   	syscall_fn f;
+>   
+> -	if (unlikely(!syscall_enter_from_user_mode_randomize_stack(regs, &r0))) {
+> -		clear_thread_flag(TIF_SYSCALL_RET);
+> -		return syscall_get_error(current, regs);
+> -	}
+> -
+> -	if (unlikely(test_and_clear_thread_flag(TIF_SYSCALL_RET)))
+> -		return syscall_get_error(current, regs);
 > +	/*
-> +	 * Stores the FRED SSP0 MSR when CET is not supported, prompting KVM
-Nit:
-CET could be more specific, i.e. SHSTK. I am not sure if there is a situation
-that one is supported, but the other is not.
-
-"prompting KVM to intercept its accesses" is confusing to me.
-> +	 * to intercept its accesses.
+> +	 * If ptrace or seccomp decided to skip the syscall, regs->gpr[3] holds
+> +	 * the return value they set (or the unmodified first argument, e.g.
+> +	 * for PTRACE_SYSEMU). Return it as is, the exit path takes care of
+> +	 * the error encoding for the "sc" ABI.
 > +	 */
-> +	u64 fred_ssp0_fallback;
->  };
+> +	if (unlikely(!syscall_enter_from_user_mode_randomize_stack(regs, &r0)))
+> +		return regs->gpr[3];
+>   
+>   	if (unlikely(r0 >= NR_syscalls)) {
+>   		if (unlikely(trap_is_unsupported_scv(regs))) {
+Hi Renzo,
 
-[...]
 
+I tried applying the patches to the latest upstream kernel (master 
+branch), but the patch fails to apply with the following errors:
+
+error: patch failed: arch/powerpc/include/asm/syscall.h:98
+error: arch/powerpc/include/asm/syscall.h: patch does not apply
+error: patch failed: arch/powerpc/kernel/syscall.c:18
+error: arch/powerpc/kernel/syscall.c: patch does not apply
+
+The latest commit on the master branch:
+commit 734bef548a96e8774d6eef5dfa2026c6edc4e80b
+(HEAD -> master, origin/master, origin/HEAD)
+
+
+Could you please take a look and suggest how to resolve these conflicts? 
+Does the patch need to be rebased against the latest upstream kernel?
+
+Thanks for your help.
+
+Best regards,
+Samir
