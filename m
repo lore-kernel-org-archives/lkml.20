@@ -1,92 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792757723;
-	b=YWbxL5i7YdrNNFE1vRvS5Z1A9x54fetXIJQNFQyYIG0vyL06EhTUVZsclRrN3/jZWQ3X
-	 N7d48+1DXid8h/OKzHpzvHPLxlBhbhteyN2hdR17XfHOj4E07kvjH7EbFkdaipQgh3liY
-	 vGONLVxy2+fxHqlczpQaZ99WlgWnHVr9LQKBg4TI0J/ZN8RjlyivLNt0+R7+pcQlQMG+q
-	 eLBp/xqmEMPX89cg2x1HvALb2NolMPcauQh3Vi7AP9+NYNiM9RWayEzuXQL9h0OXb5L/a
-	 7KsJXr/pQiI8qn+ME0tGNBqZFodLNr01+LfBT2BuPfnM+EJknVWeHPJ9torMLFwGipQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792757723;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:Message-ID:Date:MIME-Version:User-Agent:Subject:
-	 To:Cc:References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=/O8ddyO0QswDNW9VAk+G7Y04FERK5OlichYw7LW0Zos=;
-	b=xrgY2BK4aueyTIwtcWmNt9s/XvLqqfNj+fph/BCy2MItfBWNJEvqwJZdTZhJ88AA32zx
-	 CoHnNXa5xduHvug0fFIs7njeM8I2wgW0ZRV/k4k/dEfGsAJeVadMci4dGesZGqFetMJ27
-	 Q7eIOUg9ho3kCvjvQG9GDLFhthjPXV22mVSIw9V4woyYdFsVIaSg0an54Zu/LOeIDamra
-	 Kz8b95TbqiCK/w/enFOaMrgAl5gP3QujFexX3CxvwquHUStlYuEs7pCk/R4Rv1agv/SJ/
-	 q8+TRFjVJYarlWAEfoIXlzhG285AF6R0XTixDkglWdjBfM3dbr4bKRjxOqx13zSHRiw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Zn9i+8vQ;
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792757762;
+	b=oLDJWBTrF2MzMOod+EpGQnOR9Lf/vPZ7/Fk7znozftkYwf58JDYdlGc8DhBH8ZVKecKq
+	 /DJx9PruToic7FpM13BYlmh+oz0ns47aynn7llMWhNNHSUQ64wcBwhQPmYmBU1foNC2SG
+	 ZombBaV1UNxVtM/0c+T+KbeNHdsrDEXdr8uOZsjMJ/3cz5KJtXZjzG77RVEKomI8wQS4+
+	 GohmpKIxFOonbsnTVuB3B/0H59oeJrnx3OhU1Xi7OwMfXzOLYzC7WWUuk8sEKhE1nguCT
+	 VULHJT5scAwyv5tq3nbgydTcYItGWuo3VPb6R9dH1g2ZoqR59Fmrdsl85KqnV275AdA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792757762;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=g80y+eFc7rKK116yfLJoMLDJKZv+YbwbA6mbST3B4ds=;
+	b=No1rmiQNN7IwJuP26BzOlIuSiVIf3g4XQtcX+e3Y6N3aWeZVfLQPcmqAV7Ny2iisgq18
+	 /hBCQH0dgfN3dXdTGmZ//gIKc5yZ1XQHfCnjmOBgds+8WWV93CUxkgJ/7PxLnGAjv/ws4
+	 ChdMJXgiipedTBvtKAlYQcsDUcrNZIshGNmS6OWkWJzoRpgg7pUYRi3rBWolK312EY4/B
+	 LzWu7WH3Mmj+NNNkvVqN8GmT6ANT5SfYmyjM1hGMMKWXnphGUP2PKPFh1iDw3CR0X/6HJ
+	 3R/fyOQL9BwpPPsV6J7b2dO8hUTgqWb5cuNVCPvrr0697vxhW9dDQxgdIZ02LdKuPfw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jelouoH1;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 342CF606A31B;
+	Fri, 23 Oct 2026 12:16:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jelouoH1
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1792757761;
+	b=cior3BQ1CrOlSHSXnpWN7hKJV2tJEMccynuibKKeCIaLfWhavuVa1YaL1aT82UVqzWbz
+	 fyV6cdzG9qg/zW+lEtmYNocUxiTzEfjCiZNwxgyAg8KUhOyiMTsDec7PeI6+EXhqobA2J
+	 6gTKZmiK9GbVa+Tw8CIe80Gu0GahLxZr77sNWnKLYhPMT0gIX4CnhTVYATUvJ3Wiv0lOL
+	 SykO7xOoS2mRv97GgdeGZTzFPzMuNejpVdN63Qt5D8Toc3z8D3eQ34DJDTnl5syn+PEiA
+	 NNY45DFoNaAQfqkjZk9fwwXjQnwMTzPo/ecxOvuHwphGnmhgzuU9duC9t0+nB9G1g9g==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1792757761;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=g80y+eFc7rKK116yfLJoMLDJKZv+YbwbA6mbST3B4ds=;
+	b=Q3y0iHcaXrMhjLm45wxHN/+loKXsQuEb0hhpchtCGDDratb92YBLpTNbapPbeXmCo3P+
+	 Gxp3fho+zYsmHhWVvdZfIyNXM6feFi1GDd449I1hUAhOBOdwGzmcwGxcgznkQ179bHsiS
+	 YCmNOVemqIieTq5TIOKDOWssvXoz1A3hUs0BJDtcYwVnfKfiekrn+vpccI4xmdGMumVuG
+	 sqtewvIXkhWPQpwB0hJnJztU63IWQ4Cye5v3j1BAfieNgDUsDLdA5TDNHyGXM3t/VJci5
+	 0Ejv88nvfYvvKxygGpSG5YvOhkvHsMyU92wnAWUBETjg30akdYioX627L31lZj7NJuA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84823606A31B
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 12:15:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 84823606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Zn9i+8vQ
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1792757721;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=/O8ddyO0QswDNW9VAk+G7Y04FERK5OlichYw7LW0Zos=;
-	b=Zn9i+8vQrGhhwQNPzTCsu65h34SGbY+9yzVTCMc5q0HLaOCYfBpTW/nZF8OTxmC4IYe7Ap
-	YA4uByuiqrnNcIcpjYouOXI8fSLISL66BnQGJidYxrKWXzI72kbvz/W4/1WsSEBLgzt+Mq
-	Cyluclp2BAuT6Esl4J1Cv0ddn2YkI9g=
-Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com
- [209.85.219.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-147-Krqh3D2BMUSrNLYiQmbPFA-1; Fri, 23 Oct 2026 08:15:20 -0400
-X-MC-Unique: Krqh3D2BMUSrNLYiQmbPFA-1
-X-Mimecast-MFC-AGG-ID: Krqh3D2BMUSrNLYiQmbPFA_1792757720
-Received: by mail-qv1-f71.google.com with SMTP id 6a1803df08f44-91bb074ed1aso29176706d6.2
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 05:15:20 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792757720; x=1793362520;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=/O8ddyO0QswDNW9VAk+G7Y04FERK5OlichYw7LW0Zos=;
-        b=x6Vcik3uOHtoS0mSHzt2cdU1f4XgQRJiobylWCOJ2sFBd7TgJDsoELhvkjSokqdixX
-         Owammk9csI0mlRPjOub1BFF3IySVqWk/QnZFzU5FUrYcC1AZqasN91VvuKggmzRNB8al
-         qAlEYhkveAImco80w+9tqZ96xQGr55YqrDl9V/QpOl4eJkG3GrWLKlADVdIXN0ld+fWC
-         DpmRBExF2A9B391+eZji2bX5HvW4Ta0grteb094HPZi9iosWAwneGtsXX+lr6DLUFMqb
-         vNCb2VYhoHMOExA/WCtMb9jfLacfKEDEA3V3e6nOnC2bbNnzX89xNcYCaoTSCbAUtlXK
-         iLYQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzFsqP+9hEVTyNjZE0wtPVeCv/1fUGR5PJ6/HU0+6Rx4qrRMLDGLrSH4nMQiDhBir1bEi5BNgogG/xt04o=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJt/tnRPHY7ui/IQNPlN2EnOVocb8OIo+8USYmC4U07/TE8FvQ0
-	i5lu4TlHbawPNScboeFfVsMiXh1X4f/yeu8W83Ec20AueRiySjjVaJo8BmVWTDychA/zR9GuTBC
-	YgoOaoLqdftTjkuIUICrIi0wVM7n1qtWUfhAZiiAW00jGSpcJhFDin5z8rWjAcqEy0A==
-X-Gm-Gg: AYBFou1biRBz6TuBemua5X0fO/MA6YGDmTolfm5Jo5sCzhiSP2Y7lIJc3aYpd6cjgjB
-	fTmRy5j/8+C6UgghefN5i76ciYM/Kg22Bft1neHgc5frwrYEi988FlskVzPpD19OTm7xY/tTaTw
-	p3Cn0CON3Zjy7RUXxzcF5aV0Xz7x8YgsiLMQ64BtCv7tFGG5hfAs3USk8xk43wqMMj+RZd5Es/X
-	KCyoKuG/PWq3/9vTRqsKwtuVA0fmr6SA/4okXDPUNL3XG2Ja37/wRuwh5MtOHU+6hWgEiiw0gkt
-	D9DpBCdR6t7oS83D3m5sGm3G3N/CdSWxh82nBAr5a2OeBcRWvkx4aGrJLQOgOgyIpAjzlreARrS
-	lAxE=
-X-Received: by 2002:a05:6214:5702:b0:912:517b:40f6 with SMTP id 6a1803df08f44-91c3ab11b46mr27423946d6.40.1792757719490;
-        Fri, 23 Oct 2026 05:15:19 -0700 (PDT)
-X-Received: by 2002:a05:6214:5702:b0:912:517b:40f6 with SMTP id 6a1803df08f44-91c3ab11b46mr27423096d6.40.1792757718665;
-        Fri, 23 Oct 2026 05:15:18 -0700 (PDT)
-Received: from [192.168.2.110] ([142.172.30.162])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91c45252a59sm19956d6.23.2026.10.23.05.15.17
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 23 Oct 2026 05:15:18 -0700 (PDT)
-Message-ID: <538f7c6f-3e16-4ab9-9b79-232b34fb4d3e@redhat.com>
-Date: Fri, 23 Oct 2026 08:15:17 -0400
+	by smtp.kernel.org (Postfix) with ESMTPS id 5030C1F01828;
+	Fri, 23 Oct 2026 12:16:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792757761;
+	bh=g80y+eFc7rKK116yfLJoMLDJKZv+YbwbA6mbST3B4ds=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=jelouoH1rQJmLdg8YJBtb3BhNCfiio4avy48tswkSa5RUSatehJ1ehnUslPIagCRx
+	 mZ4Sqmi7LIipzcPb02LeQ4WDoz3fPDyOc3GAyQM9B56ySsTexA8LaJcIeQJwNaiBxv
+	 wHD3zosLq7iXyhft3DHQ4kLrZWHqI6zggSoetyA5uorXTYfhG/fkh98XYMQ4lX1mq3
+	 TeaaPdTaok4KcufBhUfS7qzxarxPZRjr+oAvlszcBQtHCPzQMHgKAEks5gzP0QGa2d
+	 +IyLPYG/YBcYJZxOP/WvKgLSKp0agT+S3LRmV6uJc9+tGpZxMVQUE7ZCnKBiCj3rJ5
+	 cxXOv63xguUrQ==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id B94EF4450F;
+	Fri, 23 Oct 2026 12:16:00 +0000 (UTC)
+From: Massimo Toscanelli via B4 Relay <devnull+massimo.toscanelli.leica-geosystems.com@kernel.org>
+Date: Fri, 23 Oct 2026 12:15:28 +0000
+Subject: [PATCH 2/2] usb: gadget: f_ecm: do not notify from ecm_set_alt()
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,63 +82,76 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [REGRESSION] mremap() fails VMA expansion when VM_MIXEDMAP is set
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>,
- David Hildenbrand <david@kernel.org>, Jakub Matena <matenajakub@gmail.com>,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org
-References: <20261023023106.515365-1-luizcap@redhat.com>
- <atsWop95CHj6oTSU@gremlin>
-Content-Language: en-US
-From: Luiz Capitulino <luizcap@redhat.com>
-In-Reply-To: <atsWop95CHj6oTSU@gremlin>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261023-ncm-ecm-lpm-v1-2-d01e81fbf460@leica-geosystems.com>
+References: <20261023-ncm-ecm-lpm-v1-0-d01e81fbf460@leica-geosystems.com>
+In-Reply-To: <20261023-ncm-ecm-lpm-v1-0-d01e81fbf460@leica-geosystems.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Neill Kapron <nkapron@google.com>, Kuen-Han Tsai <khtsai@google.com>, 
+ linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Massimo Toscanelli <massimo.toscanelli@leica-geosystems.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1818;
+ i=massimo.toscanelli@leica-geosystems.com; h=from:subject:message-id;
+ bh=1yFrqwzUswmQN5891X/izJlFIQr+YSlAI0VR6/27q08=;
+ b=owGbwMvMwCVmIB2leGXyl1LG02pJDFm3/f/Pydxz17jQRNTtduXz3IyTfUeOfP59eevrLd6vf
+ 1fNDz3U31HKwiDGxSArpshybUv49wjb3LAdWV2rYOawMoEMYeDiFICJvH/NyLCy6dZu0dfezYLc
+ J00Tf71ce7M1/P2ueXd/Wm79tvliS8Y2hv9JXBHvSpS5ghvvyO87+2XjDCXRFnO5tbI1gcG7TlW
+ tecEHAA==
+X-Developer-Key: i=massimo.toscanelli@leica-geosystems.com; a=openpgp;
+ fpr=D6B457F7583D6D56B86A8AAA301B5A21D493F475
+X-Endpoint-Received: by B4 Relay for
+ massimo.toscanelli@leica-geosystems.com/default with auth_id=1289
+X-Original-From: Massimo Toscanelli <massimo.toscanelli@leica-geosystems.com>
+Reply-To: massimo.toscanelli@leica-geosystems.com
 Content-Transfer-Encoding: 7bit
 
+From: Massimo Toscanelli <massimo.toscanelli@leica-geosystems.com>
 
+ecm_set_alt() calls ecm_notify() for both altsettings of the data
+interface. So a notification is already queued at SET_CONFIGURATION,
+when altsetting 0 is selected, and it waits until the host reads the
+interrupt endpoint.
 
-On 10/23/26 4:18 AM, Lorenzo Stoakes (ARM) wrote:
-> I'll look into this but obviously we won't make mixed map regions mergeable (nor
-> were they ever), that's completely broken.
-> 
-> The most recent version of the mm code (which is going to be send to Linus soon
-> in this merge window) documents why:
-> 
-> /**
->   * vma_flags_can_merge() - Do the specified VMA flags permit the VMA to be
->   * merged with another?
->   * @flags: The VMA flags to test.
->   * Returns: true if the flags permit merging, false otherwise.
->   */
-> static inline bool vma_flags_can_merge(const vma_flags_t *flags)
-> {
-> 	/*
-> 	 * VMA merging assumes that a VMA's flags and fields completely describe
-> 	 * its state, which is only the case for mm-backed mappings.
-> 	 *
-> 	 * Mappings which are not mm-managed may have established state upon
-> 	 * mapping not embodied in any attribute of the VMA.
-> 	 *
-> 	 * Additionally, private (CoW) PFN maps encode the source PFN of the
-> 	 * range in vma->vm_pgoff, which may otherwise cause spurious merges.
-> 	 */
-> 	if (!vma_flags_is_mm_backed(flags))
-> 		return false;
-> 	/*
-> 	 * hugetlb mappings contain per-VMA state, so their flags and fields do
-> 	 * not completely describe them.
-> 	 */
-> 	return !vma_flags_is_hugetlb(flags);
-> }
-> 
-> I'll dig in + get back to you.
+The USB 2.0 LPM ECN (section 2.2.2) lets a device answer NYET to an LPM
+request when it has data pending for the host, and DWC3 does so. So
+when the host loads no class driver, the device never enters L1.
 
-Thanks Lorenzo, I really appreciate it.
+For altsetting 1 the call is not needed: gether_connect() already
+calls ecm_open() or ecm_close(), and both notify. The extra call only
+restarts the sequence while the first notification is in flight, so
+the host gets two connection notifications before the speed one. The
+removed comment calls this a minor disagreement with the ECM spec.
 
-> 
-> --
-> Cheers, Lorenzo
+Remove the call and the comment.
+
+Fixes: da741b8c56d6 ("usb ethernet gadget: split CDC Ethernet function")
+Signed-off-by: Massimo Toscanelli <massimo.toscanelli@leica-geosystems.com>
+---
+ drivers/usb/gadget/function/f_ecm.c | 8 --------
+ 1 file changed, 8 deletions(-)
+
+diff --git a/drivers/usb/gadget/function/f_ecm.c b/drivers/usb/gadget/function/f_ecm.c
+index e495bac4efe..c8c3a7d1c80 100644
+--- a/drivers/usb/gadget/function/f_ecm.c
++++ b/drivers/usb/gadget/function/f_ecm.c
+@@ -581,14 +581,6 @@ static int ecm_set_alt(struct usb_function *f, unsigned intf, unsigned alt)
+ 			if (IS_ERR(net))
+ 				return PTR_ERR(net);
+ 		}
+-
+-		/* NOTE this can be a minor disagreement with the ECM spec,
+-		 * which says speed notifications will "always" follow
+-		 * connection notifications.  But we allow one connect to
+-		 * follow another (if the first is in flight), and instead
+-		 * just guarantee that a speed notification is always sent.
+-		 */
+-		ecm_notify(ecm);
+ 	} else
+ 		goto fail;
+ 
+
+-- 
+2.43.0
+
 
