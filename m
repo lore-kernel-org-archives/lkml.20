@@ -1,54 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792771698;
-	b=aV28ee8Bl5gfkMtFIn7SRIqFoyq1v9NNTRPLtH5y+hG/M7AA5tFDbdkWjIMUNxXGPHY4
-	 ji5PW5JTMa/4hpK5N4TloS8l1E+5ed7KUjlXrt77Y+O2txq0efcUiwUI4fn2NCBoIGstx
-	 /7kol1dpAt4JHNLms6fKOyUZxNJJAjacK86mvXx0srhayV0ieWbjU0aLw1YAGjSwCK8W5
-	 ugMJz0o67aSA8cpun9bSSt///HpoUCmBqFv1FRd8D/glEeQ+MjjXmlUYiw6DUUXPvV3Uy
-	 iBu10+z6zdap5oKaU9zWimdBYTf96xpLmPICdftu/1Td6ncfRtNJH6xkAVw5wjQPqfQ==
+	t=1792771819;
+	b=fOqOUFAMQue4GcSG5Wl/qk3OGBIzz+FMO2wONVG1/8ScBv2JwYQ1ZkPxqczvr1aLObyM
+	 QOdYUd3CtW78ngXNjs/P08aaBgB528fzYy1/2DxtTcxdTx51sjxcjovws2BAXf3rjRSpu
+	 UpJAnuse0VLcN53a8gf3JrfCqLyyvTi9R+j4Wtp1YKPCsVg6Sli8O90Wd4mQEzpASoNqC
+	 aFz/PgPD7yNuaTHCtmdRmZuvVbFsKcfMvWNBE0HsJ5G+GJRbaISLgyOJELlncKES+VLbT
+	 ZjePIlcg4W+h6+132ZtRqrjWO9++qLXmyyCAw3V2UVmCThbEPN5nu2/KsKUDwPtuDUw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792771698;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=TmhafjD6XNoUqXmShAafFQ+tXkd+0JlWrZOP6ljtztU=;
-	b=EWQL/i1VbbE763cYmOpvpBdALBLKLf3d6gRew8RbSej5CUmtW1b4m6jy0cfCkgdTWCHa
-	 xUW/6ogcgTft9R2L9IVxLUcvEoPFQJU/cyusiGIQJwUOlZ+qpu37cSXsBFxHjrJvxhWtX
-	 jlrlkOUas46sy9UW4utJrvX49d6IhIjyUzC4A4Fsc0xEyWRynMd05Jx0WTCdiElr3dfAM
-	 mhPB9ymEI4sc5h43h8KHnvhPdO4CQhZW8OMfBBAKGrIFkXegfFZIyNR7jmqmrImz1pOnv
-	 yAktzNe+ftN+/iDdng0V86P7xF0RqOTZbPrZCRkJEwUBe8BesmznQoulaEI/wyYglaQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792771819;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=pcQjs8ioOVkLcmotAGouT1i8KfpRT9OJ9Yjm+nNsKg8=;
+	b=4uPLuZSvurcZVgWOlattKxJMyk9Ky4P9Le+6jKOa9pynA1twHhONnbwUnLWje/LKc1ly
+	 cTx4Oza7kaTZi8DDnuvzOJxVxvoFzrNfl/bL1EvZg5pq2AJTtLuI/mj7LqoCkA3kg7MWk
+	 R5ZyZQHFdUieho2F1diaGT/C/zKH5LAtl+yx9aQUKrsCX5fMQJI3iOXtFB+esC08Z+7wp
+	 moQh5obYVzOBH7fFvhxpWPsaYUMOFtKpdzU+ppDWH7Cz4+kg21VMORZ4DVEoZwYZAzco+
+	 K6ZAB7UBLtw5vBjExfnB6DLIZJufwtAnvguwW7zNzsyeWindujPkSsf9h5NSnGI1qDQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JAV0ueGa;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=SinNUfne;
+	arc=none smtp.remote-ip=209.85.216.42
+Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 6D8F4606A31B;
-	Fri, 23 Oct 2026 16:08:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F19DC606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 16:10:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F19DC606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JAV0ueGa
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 82CAA1F01828;
-	Fri, 23 Oct 2026 16:08:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792771698;
-	bh=TmhafjD6XNoUqXmShAafFQ+tXkd+0JlWrZOP6ljtztU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=JAV0ueGa3gNMEFHhMfVpX/62RQSLvQG1JT5+7E3SsptzCOVWz0KQmuhNGLopo0LLI
-	 UZXg7BeklmQHJ2Hli6d8DWxg+4moGbiEFZKMYKMIKWV9v/ECFeErl93KkHOe08HVTD
-	 7LOSQ+a55OArj/XDWsDABd7eQ00HJBA9rS0reTYc7ahi+XeXroh2HtgRyRNLi/ukP7
-	 Sub/8Sy1M1aY8QZemS9MmbejS5InFDn5O+cqeYeZY0gznK78rSoPSKOV6/2/w5/pmq
-	 499edhbDzaOkC5gF8a4Qp9qwwDVhMvHqbXjjOXgSQwd6zuBpsKceCuXLwUQ0Ddy22h
-	 OTN6qFn/OJ+OQ==
-Date: Fri, 23 Oct 2026 19:08:13 +0300
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: Peter Huewe <peterhuewe@gmx.de>, Jason Gunthorpe <jgg@ziepe.ca>,
-	David Howells <dhowells@redhat.com>, keyrings@vger.kernel.org,
-	linux-integrity@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [GIT PULL] TPM DEVICE DRIVER changes for v7.4-rc1
-Message-ID: <atuGbbblynpR3lEW@kernel.org>
-References: <att3oe9CYJjuykq0@kernel.org>
- <att5AavVNVhfD5qd@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=SinNUfne
+Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-3acdcfa2bd3so838762a91.3
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 09:10:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792771818; x=1793376618; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=pcQjs8ioOVkLcmotAGouT1i8KfpRT9OJ9Yjm+nNsKg8=;
+        b=SinNUfne8fOCHSVmIh5Xx2dPH7pb8k+mllUokPaf17/CKj0YT6zwNec9LTC5spQdI6
+         l4sMZLSFp6VhQOB9NLC1avoFx/W1E6YOktOqIjOwXCqdlI8OW0I7qFPc7JblUI3k/Cru
+         Mcl9covsSLFc7vl5VqhstuQtu+TVS45PdhuH35VBPjwg7fYYu1O4WGxRt986hnE7eK2t
+         SUjUA+ekFpls+XE+GihtkvwC5sA4mJkN4EsMIfir4Lj2+qFzw7602Qd1W4JWHxTz/gwc
+         illMDhU8t6eGwi6ydscJYGeLpSi8qR+jFKNFs0PulaBcConEgxHksSZS9tLOgPTh+jY4
+         OF0A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792771818; x=1793376618;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=pcQjs8ioOVkLcmotAGouT1i8KfpRT9OJ9Yjm+nNsKg8=;
+        b=qZ04ptwl9cYGdRMq1anzsZ/qKzIomw10K9FauFX5H6AzitswsGX44IRAA6j5hskNCh
+         QYGvJd9ZxN/I5iYFXS1ETt3+CT2+HY0d9DsXjL0cR7kZd+ImEhhtla5RYzfi1owtcwvK
+         ntaOHByzV/QVYujoNearh00YUHqaGzymMnlcpe1bh1Dlk9bTchWAter5nIzmCR7XePXt
+         Vli18XtMeV1WlO4858dhv8beB6w8M8PS1lVlL9+RcbItPBOq7Oz9hFtyMQzJlb1F+pv4
+         /JqKYOnG5OTeIMNYhETQjpNCVqtvjmuDh9Btsgk6JeWUXBJt2JYpSzgKy+obqdSBHTXk
+         y6fw==
+X-Forwarded-Encrypted: i=1; AKwUvBzEF23qbjn2HtNcdFK6qjBczi850ECZPrb3mUusnxUIONV8zLfcPbEBV0nnOSV7tfCIfXbCMPRY4B7968I=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKcRfF6EzagNSYV/ltPQR2HkzWFLWq33tcI9TPRGZ0rdcDd5YEa
+	LNOXv9wXbVYi3hw+NjoLR0co3LoruMyc9cjvPu6VSId/Pa9lmtgZ4frU
+X-Gm-Gg: AYBFou2QPbzSRPBdZR/V4MaJIS82TLs5rTDxuGN3hTAFcS/XLbAlcdDydHAG92cgvzG
+	RF3sa+oapM2lhpVX1xeVA3XEH/EF5L5QMyJAfqltkbGGV++kgBM7aLaWDWUolz8DfThRuRmLNfx
+	S6dU9eb0MnqDXnBX5caQgw1l69YD7Scn/HaiPsTU1It+CbAFEGRFwA+gfpqK+f3daUN4Vp4Noes
+	phyax0gn9VsjrupbHcukGxA+0CHmFZTPD2K3r4E9TpGUXaGMcUs8Bwe7J6kccAtc1cqpF+qeJ9Z
+	uVg/BsHVZA3MgA9f/V6mVgdJ7nx0892F0F5G4d/4bw9QDarX3TxeXpYWr+bh9f+/YU0+Ag5QiXE
+	JepXdFWV4IUMaV3V8kzRxFuOv9WYeE/CQUgtHQOXJiwq1O2OFbQ/c3dc9ZSP9SQIpyvFJCcE4Tj
+	1e2umkIpJtwkuKwRizyf/bPfY8fEhKN5DM2Sb4qqD5QQZLcftHgbt5+xLwgqnqcOUNSmhzpPVIk
+	8BqDQY32+kgrQuAgvgF9nwqbbmCrc/9rBsfR0Is223ZzaWbrF2WmHl/2QKKPGhGXxkkdkfyDaLG
+	poDOiw==
+X-Received: by 2002:a17:90b:4b84:b0:3ab:884b:65b4 with SMTP id 98e67ed59e1d1-3adce154993mr2197303a91.59.1792771818170;
+        Fri, 23 Oct 2026 09:10:18 -0700 (PDT)
+Received: from ubuntu.. ([110.9.142.4])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ade31ff0c9sm258584a91.1.2026.10.23.09.10.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 23 Oct 2026 09:10:17 -0700 (PDT)
+From: Sang-Heon Jeon <ekffu200098@gmail.com>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>,
+	Gregory Price <gourry@gourry.net>
+Cc: Joshua Hahn <joshua.hahnjy@gmail.com>,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org,
+	Rakie Kim <rakie.kim@sk.com>,
+	Ying Huang <ying.huang@linux.alibaba.com>,
+	Zi Yan <ziy@nvidia.com>
+Subject: [PATCH] mm/mempolicy: remove unused mpol_is_preferred_many()
+Date: Sat, 24 Oct 2026 01:10:01 +0900
+Message-ID: <20261023161003.59086-1-ekffu200098@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,112 +100,49 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <att5AavVNVhfD5qd@kernel.org>
+Content-Transfer-Encoding: 8bit
 
-On Fri, Oct 23, 2026 at 06:11:03PM +0300, Jarkko Sakkinen wrote:
-> On Fri, Oct 23, 2026 at 06:05:05PM +0300, Jarkko Sakkinen wrote:
-> > The following changes since commit 722658cac48a6ba49f5506fd74d010ad9dbb2f05:
-> > 
-> >   keys/trusted_keys: reuse TPM version in option handling (2026-10-20 18:15:40 +0300)
-> > 
-> > are available in the Git repository at:
-> > 
-> >   git://git.kernel.org/pub/scm/linux/kernel/git/jarkko/linux-tpmdd.git tags/tpm-v7.4-rc1
-> > 
-> > for you to fetch changes up to 836952696d0260cca1de6d3300cd8fcd5687fe67:
-> > 
-> >   tpm: reject duplicate PCR banks in tpm2_get_pcr_allocation (2026-10-21 13:20:58 +0300)
-> > 
-> > ----------------------------------------------------------------
-> > tpm: changes for v7.4-rc1
-> > 
-> > FEATURES AND IMPROVEMENTS
-> > =========================
-> > 
-> > - tpm_crb behaviour was improved by putting the chip into an idle state for
-> >   each transmission. This improves firmware behavior as the kernel now
-> >   better cancels its state as if it had never touched it in the first
-> >   place.
-> > - One spurious (but harmless) wmb() was dropped from tpm_pm_resume().
-> > - tpm_tis_i2c now requests the optional reset control and deasserts it
-> >   before communicating with the TPM.
-> > - SIMPLE_DEV_PM_OPS was replaced with DEFINE_SIMPLE_DEV_PM_OPS across the
-> >   whole driver stack.
-> > 
-> > BUGS
-> > ====
-> > 
-> > - tpm2_probe() misinterpreted a transport error on TPM2_GetCapability
-> >   as the chip not being probed, and the chip was detected as a TPM 1 chip.
-> >   This can happen in reality only in the extremely rare case of bus
-> >   corruption. Despite the odds, a fix was landed, as it is still
-> >   technically a legit bug fix.
-> > - It is not really worth the time and energy to go into details as tpm_nsc
-> >   is a somewhat legacy driver, but one null pointer dereference bug and
-> >   another causing use-after-free were fixed.
-> > - read() of /dev/tpm{,rm}0 with zero size caused a pending response to be
-> >   consumed. This was fixed simply by an immediate return.
-> > 
-> > Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
-> > 
-> > ----------------------------------------------------------------
-> > Alexander Sverdlin (1):
-> >       tpm: tpm2_probe: propagate transport errors
-> > 
-> > Li Jun (2):
-> >       char: tpm: Use SIMPLE_DEV_PM_OPS for ibmvtpm power management
-> >       tpm: use DEFINE_SIMPLE_DEV_PM_OPS and pm_sleep_ptr()
-> > 
-> > Mario Limonciello (1):
-> >       tpm: Call cmd_ready/go_idle for each command transmission
-> > 
-> > Pei Xiao (3):
-> >       tpm: tpm_nsc: fix NULL pointer dereference on init failure
-> >       tpm: tpm_nsc: stop using the cleanup callback as dev.release
-> >       tpm: fix zero-length read discarding the pending response
-> > 
-> > Richard Lyu (1):
-> >       tpm: Remove ineffective wmb() from tpm_pm_resume()
-> > 
-> > Stefano Radaelli (1):
-> >       tpm: tis_i2c: Deassert optional reset line before probing
-> > 
-> > Yuqi Xu (1):
-> >       tpm: reject duplicate PCR banks in tpm2_get_pcr_allocation
-> > 
-> >  drivers/char/tpm/tpm-chip.c          | 24 ------------------------
-> >  drivers/char/tpm/tpm-dev-common.c    |  3 +++
-> >  drivers/char/tpm/tpm-interface.c     | 28 ++++++++++++++++++++++------
-> >  drivers/char/tpm/tpm2-cmd.c          | 21 ++++++++++++++++++++-
-> >  drivers/char/tpm/tpm_atmel.c         |  4 ++--
-> >  drivers/char/tpm/tpm_i2c_atmel.c     |  4 ++--
-> >  drivers/char/tpm/tpm_i2c_infineon.c  |  4 ++--
-> >  drivers/char/tpm/tpm_i2c_nuvoton.c   |  4 ++--
-> >  drivers/char/tpm/tpm_ibmvtpm.c       |  5 +----
-> >  drivers/char/tpm/tpm_infineon.c      |  7 +++----
-> >  drivers/char/tpm/tpm_nsc.c           | 12 ++++++++----
-> >  drivers/char/tpm/tpm_tis.c           |  4 ++--
-> >  drivers/char/tpm/tpm_tis_core.h      |  2 --
-> >  drivers/char/tpm/tpm_tis_i2c.c       | 16 ++++++++++++++--
-> >  drivers/char/tpm/tpm_tis_i2c_cr50.c  |  4 ++--
-> >  drivers/char/tpm/tpm_tis_spi_main.c  |  4 ++--
-> >  drivers/char/tpm/tpm_tis_synquacer.c |  4 ++--
-> >  17 files changed, 87 insertions(+), 63 deletions(-)
-> > 
-> 
-> My templates are a bit out-of-sync, thus the divergence in subject
-> lines. I'm working on my pull request scripts, and address this while at
-> it so that subjects, tags etc. have same stuff in the same format. Just
-> started distract me when I realized this after looking at what went to
-> lore so though to mention.
-> 
-> Br, Jarkko
+Since commit a492abe28bec ("mm: hugetlb: move mpol interpretation out of
+dequeue_hugetlb_folio_vma()"), mpol_is_preferred_many() has no callers.
 
-I need to redo this PR mishap happened with linux-next so please ignore.
-I had my own tree in wrong state.
+So remove it.
 
-For tags and subject I'll use MAINTAINERS defined subsystem name.
+No functional change.
 
-Br, Jarkko
+Signed-off-by: Sang-Heon Jeon <ekffu200098@gmail.com>
+---
+ include/linux/mempolicy.h | 10 ----------
+ 1 file changed, 10 deletions(-)
+
+diff --git a/include/linux/mempolicy.h b/include/linux/mempolicy.h
+index 65c732d440d2..cd8f944209ca 100644
+--- a/include/linux/mempolicy.h
++++ b/include/linux/mempolicy.h
+@@ -173,11 +173,6 @@ int mpol_misplaced(struct folio *folio, struct vm_fault *vmf,
+ 					unsigned long addr);
+ extern void mpol_put_task_policy(struct task_struct *);
+ 
+-static inline bool mpol_is_preferred_many(struct mempolicy *pol)
+-{
+-	return  (pol->mode == MPOL_PREFERRED_MANY);
+-}
+-
+ extern bool apply_policy_zone(struct mempolicy *policy, enum zone_type zone);
+ 
+ extern int mempolicy_set_node_perf(unsigned int node,
+@@ -298,10 +293,5 @@ static inline void mpol_put_task_policy(struct task_struct *task)
+ {
+ }
+ 
+-static inline bool mpol_is_preferred_many(struct mempolicy *pol)
+-{
+-	return  false;
+-}
+-
+ #endif /* CONFIG_NUMA */
+ #endif
+
+base-commit: fcec4f4bcc1101dbd7e3aff267856b3bbfe128c6
+-- 
+2.43.0
+
