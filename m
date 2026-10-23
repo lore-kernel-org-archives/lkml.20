@@ -1,93 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792785245;
-	b=uUh/QyxJfTqut9Di8rikKdFzOlpMq7TBPLYdw36MkWPC1ov9YHN4aM6pcfzvrtx7QIv3
-	 1knLuqvNuLmVTh4PvpiIIeB71nX8LluHcF4hku7hRh7jTWW1iiu270+pXr5KvrgOweyth
-	 pj5lIPmVOW7e1O4AT17CUf1egFmv4x5Saqlh8T/hBXJJJbFO/gN0FBVG8azZZvTFtvN0c
-	 3nWit3tuQBQb3FsXyiHe8FvPfUemYk3NQZasy69NIR8UVkJgoL2XSkhy0M43DjnDLLQgf
-	 Vuhd/n5divHW+BubbFwMNRTt7puNLZuLCbo0KZVnZ3+ETbwtIjkYbHkzqrLRJG7boWg==
+	t=1792785253;
+	b=akWTvVAaNxM+wlmEZXuz04JI7wAfOv63UtViC8r8oaPRz/dWfVqH3GsBQvAjZbkTHgqE
+	 7xLJnxOqb2/wlbEjgusfqKgQ12hpkLS48pXNZUSMHSnwFch0xo5eElX+41fHrSg+orw+x
+	 010FNTq7hbcFIsfFbCAO4CADQ3SQPC/RnySP8ZvFOQpnoHgM6IMtd8RxlQozucscZmVDD
+	 Ah+KrmAe96bemyajGkha2mbFn2i49CbcijDp1t3M7EilkeLOXeBGzWzZu/ap1e8LraHhR
+	 xzT3f1iWmMASTb883d393UMKbS17DoheUhhkr/UJfhRtcgdAMMPBcX+cbCJNONk1E+A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792785245;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792785253;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=y/sybD6YF8pEOR4iuvpSchqYgceX2IuNdq94snnQsys=;
-	b=ZDPVtSoczmNQlOgLXw7Aucr2T9VSqreSJrZiUwehBAZHz3zuDH022FHWE/Oh72ELM6Mm
-	 mzLRvWMJbfcRqxpIr6q/JJAKpP/RcagHm8CCPhrQDo6zE2oL4UvrIjQykrpKJml1N1fD8
-	 V94o5xLMQBYUsD8MR1uKX+acNGAj2L0y+LCHOpiiUIkFa5rZmWy7dtiA7e5IpnnYVTg1e
-	 +J+pBE6kacERDMkwWqqTlTKean7cw0ru3xzj330xl1CRR+J0hx870t5WqJaOkCsVVqi2u
-	 bxqLYDtS4B+kXJmCfxOQvsUSYV61w1Xs16tvjE6bCXKDgvY6Aqgt1Q48cHsGQms+G+Q==
+	bh=OXHww7JRwC5sR22/HTGUO5MsP2p4PTlezupZRsfe/2E=;
+	b=S3hyMgm1fc+Muutw2YMJQFLDscFmLHTOsZ5/AFfAzfdR7hUUnIIMCowzXgil4wv3G9AS
+	 nu9AtrWHMyvGvbKOmC6muZ+bG1K6r2sVj/DMLa3oBZCCYV/ngO9HjVssAXtOjiq1RdyWy
+	 WNKdvk0PjTejqxYc3PKAX8n9ZQ2q6j2Ft7i9VdQrSdh4UrQCTX95BbEOfG+hfi/S7bJDR
+	 coo7Nsq61dJb4f2j37uwMKCEpk6aycW9kOUl4VinYIydMwL272vMMZpfy1KcjN6PWHUet
+	 USYy+onXvRyYNLh5jXFz+SdrgzmEMjid6Tzc3ZCpnHSXulXRg6j9yIJRMSeBjXraBVQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=kDO2j2Uw;
-	arc=none smtp.remote-ip=209.85.221.53
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=kI+bwye9;
+	arc=none smtp.remote-ip=209.85.128.43
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13C78606A31F
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 19:54:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 13C78606A31F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7F27606A323
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 19:54:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B7F27606A323
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=kDO2j2Uw
-Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-48c4d99c32bso842570f8f.1
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 12:54:04 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=kI+bwye9
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a20bdaf39cso13359855e9.1
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 12:54:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792785243; x=1793390043; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792785251; x=1793390051; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=y/sybD6YF8pEOR4iuvpSchqYgceX2IuNdq94snnQsys=;
-        b=kDO2j2UwWFwvGWxii+D/B2dwST5vOkMFB6995qrsjTpInhR0p6cgLFf4Lf2aWKB/8X
-         f+EKWq/GcAckmE/XvZ2gRMPLfLy1i6JWD8Jvp5GDw+SO4PRkMdymfp5W1J4iMwjoKCTA
-         XHmuL6M7JJrIbNM6LD+GNe/+i81Lj0UuFBb74ghiyyYdlix8Hnb8Wv9Xh/GGp6ZWaxVX
-         2p2eUhWIDjE1AeEUdNk2e2i2Cvm+fUdWgkJF2dinLCopnrFwe6X7vxwRlfw4NX7HPsjt
-         ImP2VGg/vPvAJhmJaNrznreRs1+/6m/sXheKiTH8giYFD7Yf59FNO2bB7fbDqY2C1KFf
-         1iig==
+        bh=OXHww7JRwC5sR22/HTGUO5MsP2p4PTlezupZRsfe/2E=;
+        b=kI+bwye9oXV5c/UPK9Si+6GyiMnjIXPLtvfyZzQpz+Q939kTlUyL6rL86QL5pmt6oi
+         g9m+6TZJjPi2qYdf7LSBRW6UXARhfL2QavUv6VLzn9wHYYxiqBwY8gIaHkYQLfoETy4r
+         oQFCFX5kOWGs69DQCo5P71VZ0rYS+Z4ZjPjvSpI/+DYMYfpCVfFUjJNkyB0EvZqRU2m9
+         m6twM5210z5v4HpDvUk+gsgw/Y42Rs0lGzjcuMxzNniIkVQVZ+pkQLEEiRXMoaKiDBkl
+         yiTYjOO69N+Z209H4JgtxK8W8Cz8M4Vqk+hyhjo3SoQ0dmSiD+XuIkjROsQuhQuPmK7X
+         P55w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792785243; x=1793390043;
+        d=1e100.net; s=20260707; t=1792785251; x=1793390051;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=y/sybD6YF8pEOR4iuvpSchqYgceX2IuNdq94snnQsys=;
-        b=nyskTowPoseF9LP4k/LP79VorKWWdlCAQ3m9fVu2uZbTousy4ryTF2WIsg3YqNZrj/
-         h2xIq4jCWf8Ut2JMCPHb3kApi9NAVAapQS4X7AtQ/FIRXtyGHNoFOtyLxvzI55UH0UDf
-         5vYhytEB1YlILKM7sOfW6TXh+KBqmZkcugpEbQslmin6RMRVhqfea+4KtOwi2NP+Tdro
-         T3H50tj4Ab4cE+VxUmF9nwAdQ2401UpLcxSPD5/YtoBw7b2lU9Xvols92jCfOdn+rL1Y
-         DuvPRPPcIlitAFEoiBrIoyvTPrLQKsjzYwWwBKjL6gGVD1UtUevG+cNjNoUn8+3DgCW+
-         K8DA==
-X-Forwarded-Encrypted: i=1; AKwUvBwV5ZDFYBAQ9ZK/bHaSxz+hOpjZYShQlVvMHXAW2bRNIooClxiKjE3IeRDEsSce0c+dHjwcVO1VHM+b/+A=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIAE4OQl2w07LQDRKgZ0wIYOnba3dwXaNxQ4Gso3Un8zQV6Qf0F
-	t54mjHPMoBkv4S0wnpK59s7co3ceojS+dSMxuo0a4Whg6iut5uA+rOg=
-X-Gm-Gg: AYBFou2gGjJcYlUUFOEI2L2qJeM1y2z1CFGo4tiLoNsD7RZQqqOkxvM2WxZSq9hb5qO
-	YNPdHsyZZvr3OEPhQCPfYwHeSgiK7ZRuC7lMj5OWml7JhRq6nDvSbfK662wFedJ+hWHCB+GhHZn
-	WWCq3Z58azhWDKAyO0L0BMuftqka8rnF1Qf/uZAmIp+QVVAD/k0xSTMS223Ynx4IM+gK5QFxUrX
-	7WiegALs9ojRtFbMkSGpZ/rTnkvE+MsjP4LcjO3Y1s+gq8I+G0Cm+rpHiibgzeLMlZuJYisMQ4R
-	FlaTLRPEqTlnYeHvbCWCy3Bg33t5gwvci34H9C3PrWmSJL3dBGCYMHnyhgGIFOnjEpBUXuhIKvS
-	Kc8wnOMDL319kLu4PWlFzDZNX8BAw+GXGzLp4448ESlcZZKj5kjoulVW5XPuyVQWX96pPsrqnVF
-	PDo0jVsjJ7xpiJCtL2gg2saab4/SZCfLenTmvtfPLcBZmWAZ7/8Nvky88TQgrTWsilP5dFkd7lj
-	fpts/Y0ICR+hScYc1mV1lCK
-X-Received: by 2002:a05:6000:4011:b0:48d:c29e:40c3 with SMTP id ffacd0b85a97d-48e3eba80b2mr57511f8f.33.1792785243224;
-        Fri, 23 Oct 2026 12:54:03 -0700 (PDT)
+        bh=OXHww7JRwC5sR22/HTGUO5MsP2p4PTlezupZRsfe/2E=;
+        b=jdrJbXtiI4UQM5nnXtQY5Gsr0QcohSGwWSshW899blzl/IeIQ6+Ay/+DJo/dyfLmPx
+         1t0D6y6bLmLp7gJmay4w05jwqrcRO7xES6uMc3drhtAiOwL3g4iuBaQH9GAVJ4rswFoV
+         HvvXDHXycPIS0WMWOKlBBAmMzX/7+Y5KPPnEoan2NGsJxB45PKz2KfR0feCWBWlSre31
+         1N9qKlVndyCTwAzY1n++L4Q/K9iog+KAsdURAbtPHphXWll1VrhiLRgqbUNyFgk5pjNs
+         ah9pPldsdfpcikJKKrt+mp3LqnZTiKJkgYsBKyvFY3c6ML1g21YtAYbyN53dJt2etfYK
+         wp0g==
+X-Forwarded-Encrypted: i=1; AKwUvByKPIzq+zElxGZNZ6oB3bltKe/457u7cRkbTSYUoCigHKrEieg9vGTJTMBAsgZHP8/RePY7VBiGluvjkX8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLj+qQujhip1yivsBoN1v3RW6nItQxXAih5+UW/dyGoCgqxY2F3
+	OT4kwIbFIPK3IxcOGvWtLp2VhV5nA6dHp7Lq/YP+ZWOuRCK74trvuT8=
+X-Gm-Gg: AYBFou3fRtbjdqlnUSXKuRGWDlBOnovBGNx6MpBAjWS0AimGIvk/HrpMCec8UO/y30x
+	tdaFrAe+b6We3MwgdCHiD1XusDNMte472AVchobZpdAIod9MpXaiaZKAIMa7UkbY8gmR0BN1Muy
+	q/mxYxkRFyiv/GtPdLMTYZWdzLH+lFahmRFUpooqvFR3Smy8/+Oeu1U9nk8wsAU2jHNeH2izG2p
+	R/hlfQ/gp06pdmlEhJiGja3WXcCpijfmpmpkJiXdr8uqYY9p9yxuyYnVNWKi2IjjOOYlfbcI6Px
+	8X1mLWsdhBm8UCQxFoK9DngCJFgMEwjhPvLpMdXmTJn6ntEG6RvhzCdm7XpBtvamysNF8fx4dH1
+	zrtR5pk0qkVre6ZLe9iwSlK3PXFnm2BvhmYIRyrBGyCad8C7h9CgPiTcJbBzCWQYVwaP6P955TU
+	meqgJ6N/APNVb5cySl5tzNFt7lqhL0b6iOZX/eWObPIFC6ezpj49IR2BA8nXwuTVEe0jNxf9aUf
+	Fx2OQxHe9R248GVUpq2ageV
+X-Received: by 2002:a05:600c:c170:b0:4a2:190f:cf6a with SMTP id 5b1f17b1804b1-4a2190fd130mr29520455e9.35.1792785251101;
+        Fri, 23 Oct 2026 12:54:11 -0700 (PDT)
 Received: from debian.. ([2001:41d0:303:db6b::])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ece13aasm32783f8f.58.2026.10.23.12.54.01
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a574088sm3346915e9.9.2026.10.23.12.54.09
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 23 Oct 2026 12:54:01 -0700 (PDT)
+        Fri, 23 Oct 2026 12:54:09 -0700 (PDT)
 From: Tristan Madani <tristmd@gmail.com>
-To: Marc Kleine-Budde <mkl@pengutronix.de>,
-	Vincent Mailhol <mailhol@kernel.org>
-Cc: =?UTF-8?q?St=C3=A9phane=20Grosjean?= <s.grosjean@peak-system.fr>,
-	Wolfgang Grandegger <wg@grandegger.com>,
-	linux-can@vger.kernel.org,
+To: David Heidelberg <david@ixit.cz>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>
+Cc: Simon Horman <horms@kernel.org>,
+	"John W . Linville" <linville@tuxdriver.com>,
+	Samuel Ortiz <sameo@linux.intel.com>,
+	oe-linux-nfc@lists.linux.dev,
+	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org,
 	Tristan Madani <tristan@talencesecurity.com>
-Subject: [PATCH net] can: peak_usb: add missing dev_free callback to cancel restart_timer
-Date: Fri, 23 Oct 2026 19:54:00 +0000
-Message-ID: <20261023195400.3531721-1-tristmd@gmail.com>
+Subject: [PATCH net] nfc: llcp: use timer_shutdown_sync to prevent timer rearm
+Date: Fri, 23 Oct 2026 19:54:09 +0000
+Message-ID: <20261023195409.3532540-1-tristmd@gmail.com>
 X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -102,50 +107,45 @@ Content-Transfer-Encoding: 8bit
 
 From: Tristan Madani <tristan@talencesecurity.com>
 
-The PCAN-USB adapter uses a restart_timer for bus error recovery
-but does not define a dev_free callback.  When the device is
-unplugged, peak_usb_disconnect() calls free_candev() without
-cancelling the timer.  If a bus error armed the timer via
-mod_timer() and USB disconnect races with it, the timer fires on
-freed memory.
+local_cleanup() uses timer_delete_sync() on link_timer and
+sdreq_timer, followed by cancel_work_sync() on their associated
+work items.  However, tx_work unconditionally re-arms link_timer
+via mod_timer() when it runs, and sdreq_timeout_work conditionally
+re-arms sdreq_timer.  If a work callback executes during
+cancel_work_sync and re-arms the timer, the timer fires after
+kfree(local), producing a crash via schedule_work on freed memory.
 
-Add a pcan_usb_free() callback that cancels the restart_timer,
-and register it as the adapter dev_free handler.
+Use timer_shutdown_sync() instead, which prevents subsequent
+mod_timer() calls from re-arming the timers.
 
-Fixes: 46be265d3388 ("can: usb: PEAK-System Technik PCAN-USB specific part")
+Fixes: d646960f7986 ("NFC: Initial LLCP support")
 Cc: stable@vger.kernel.org
 Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
 ---
- drivers/net/can/usb/peak_usb/pcan_usb.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+ net/nfc/llcp_core.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/net/can/usb/peak_usb/pcan_usb.c b/drivers/net/can/usb/peak_usb/pcan_usb.c
-index 8fd058c328564..b0b3c76b2ccb8 100644
---- a/drivers/net/can/usb/peak_usb/pcan_usb.c
-+++ b/drivers/net/can/usb/peak_usb/pcan_usb.c
-@@ -882,6 +882,14 @@ static int pcan_usb_start(struct peak_usb_device *dev)
- 	return pcan_usb_set_ext_vcc(dev, 0);
- }
- 
-+static void pcan_usb_free(struct peak_usb_device *dev)
-+{
-+	struct pcan_usb *pdev =
-+		container_of(dev, struct pcan_usb, dev);
-+
-+	timer_shutdown_sync(&pdev->restart_timer);
-+}
-+
- static int pcan_usb_init(struct peak_usb_device *dev)
+diff --git a/net/nfc/llcp_core.c b/net/nfc/llcp_core.c
+index 74bf817007cf2..a098d72a15ba8 100644
+--- a/net/nfc/llcp_core.c
++++ b/net/nfc/llcp_core.c
+@@ -173,14 +173,14 @@ static struct nfc_llcp_local *nfc_llcp_local_get(struct nfc_llcp_local *local)
+ static void local_cleanup(struct nfc_llcp_local *local)
  {
- 	struct pcan_usb *pdev = container_of(dev, struct pcan_usb, dev);
-@@ -1051,6 +1059,7 @@ const struct peak_usb_adapter pcan_usb = {
- 	.dev_decode_buf = pcan_usb_decode_buf,
- 	.dev_encode_msg = pcan_usb_encode_msg,
- 	.dev_start = pcan_usb_start,
-+	.dev_free = pcan_usb_free,
- 	.dev_restart_async = pcan_usb_restart_async,
- 	.do_get_berr_counter = pcan_usb_get_berr_counter,
- };
+ 	nfc_llcp_socket_release(local, false, ENXIO);
+-	timer_delete_sync(&local->link_timer);
++	timer_shutdown_sync(&local->link_timer);
+ 	skb_queue_purge(&local->tx_queue);
+ 	cancel_work_sync(&local->tx_work);
+ 	cancel_work_sync(&local->rx_work);
+ 	cancel_work_sync(&local->timeout_work);
+ 	kfree_skb(local->rx_pending);
+ 	local->rx_pending = NULL;
+-	timer_delete_sync(&local->sdreq_timer);
++	timer_shutdown_sync(&local->sdreq_timer);
+ 	cancel_work_sync(&local->sdreq_timeout_work);
+ 	nfc_llcp_free_sdp_tlv_list(&local->pending_sdreqs);
+ }
 -- 
 2.47.3
 
