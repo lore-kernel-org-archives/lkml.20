@@ -1,49 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.118
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.14
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792739350;
-	b=vSG23Mkr8lJ8tfT9nvO6/tXW09rmV+Y0QQjlrNMR5ED7aC8PwjQxWDi4tpxJRsL0Bwu/
-	 DVRoyGAjCzXh0wqBdH1IGooXS70N8YIJ0kilwiAl6e9W/vELczPGJ2id0papJLU/mkAT7
-	 AtakOx/qKZuoLE6vZdEKjzjdfFoYLdK8dJIKANz9ODmHWdjVGkaJzTsACbLv/Ec8Gh835
-	 iJyVqdwOqq8BgiTKuFN0cy10pNQPIhilLmaYdRr+ocQUmaBsqGjfSR8iF/Vf6BbI1TyEs
-	 0IviAKxMa18xODhOi3ljZCtI7DDlotO9QywYgdD6oJH/kPIhx6c6gJs0rSdB3x+AUkA==
+	t=1792739359;
+	b=G0nofefmw/cQcPHUNfq5/Ec63J6JGWDP1CN9BdvT2HtRDzijOCWYgd2VxE0vKGwZ2Mx9
+	 elgmmF7q1DPBf+ewc6fTfm0rwLCEXxvbtOVuFG5ZIeqi+J6bRVxDBuvzyifXP/1YkgS2+
+	 HwOXuVtg/xp058hNEFVXgFrJPAJTv7j6ZNky25qJImAWCTyz0HGRtNkXWhs01zoPyfDT+
+	 KOQmHNn0hNzOtGxSJyDzgdhs/X/wQaJt3FqGc8gLtbnDSBAf7KMa7UXMXYT8JyTxwv7h5
+	 M0jJHV1HqQT7Hb78E7mZQmk4W2qf5BgYE5FDvHqUYr6z0gmYKTnXfaJFN1TBlIAJ3ow==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792739350;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=gvgYpLS83V3S26ukRbON8rhR0vUKj9WSZRuvm289hrM=;
-	b=DZG3DCcH4UQlKp+pgVtoUlyLwIQ20MR7FwJNcBc9vTNP/henRvGENfTfEHFDpezbZo2k
-	 OMSbp7sWrX6IkXNUoshAiWs+ejWqcQlcnFzO4Tly5pV1Xcm3Nkog470UvZ5Y6nQ7kxSWW
-	 vRy4IFCI4YGikbCDBVF/eOvKNWLVf8ZS2lUVk489Go6i5AHxW1IEWedB+OBrSyTa+xXsx
-	 09OUyyf8ZwzYuUr+6TozVyU9rkYCwCHYvU79QWXGBCuEOfWfQdUdBObhzMBOtQUggDGpG
-	 z7WbHl9EAMu5bdorj11NNPUnPhjQ8awcM5xqIa9HgM9V6z7jL4Iz9xdURZpJh0jaeHA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792739359;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=fryR7TShWyRGfmcbGBMnCv1zdg1vaXZ91wtZko9wv+M=;
+	b=I3Eb6K9zdN9+UCKUIPSomioarxK7d+0+ga/vknN3SPoPPBoSb15uZmTDdd5kz6tItF4W
+	 a5Sc7OzFIfyeeF4/3zdVpY2aytuOkPht00UbbDXCsgBD2ReDhm0uFzsFJI0pqAbiMf6bN
+	 PnrZ+iIwE7YQ5/lpTrLe8BcWWSEkmkiGM8GZ2GsOB1Ly6fCTRj66GIIsXdjoYJE9uDA+I
+	 2w30iInOTroXtNdUftn0gkX3Yrv3mkY+kQ5i6YANW9uoiAQugmIhGlniubHm/54Ce0Yik
+	 +lUcObwC8E3f8/9+dnIqVhmMAJLvle6/pmTeE32Z3Jh3gzNaUHoca1opRgG0VOX0nmg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.alibaba.com;
-	spf=pass smtp.mailfrom=linux.alibaba.com;
-	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=XALZvYdj;
-	arc=none smtp.remote-ip=115.124.30.118
-Received: from out30-118.freemail.mail.aliyun.com (out30-118.freemail.mail.aliyun.com [115.124.30.118])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=LUGH1ITp;
+	arc=none smtp.remote-ip=198.175.65.14
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEAA0606A31D;
-	Fri, 23 Oct 2026 07:09:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CEAA0606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F0E7606A31D;
+	Fri, 23 Oct 2026 07:09:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7F0E7606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=XALZvYdj
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1792739345; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=gvgYpLS83V3S26ukRbON8rhR0vUKj9WSZRuvm289hrM=;
-	b=XALZvYdj42xFmcm0u1rx/iNObZBLVDEkt294DpkJwSsVwC2mOKXmBWGRFTRfGllsaBU2aOoBxjEyVt5zt/VfrG7fSJasO91tWRkjQaOcrps3l/kxQ95LcOIoUpO8XY1xBKCRRm/izf4XtW5F50wV1JNcZpUUswnvK8KKfCC/IzM=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R101e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033032089153;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=9;SR=0;TI=SMTPD_---0XDLMPQI_1792739344;
-Received: from 30.221.129.69(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XDLMPQI_1792739344 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Fri, 23 Oct 2026 15:09:05 +0800
-Message-ID: <31b48648-c157-49f1-94d5-d1b927bae1c9@linux.alibaba.com>
-Date: Fri, 23 Oct 2026 15:09:04 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=LUGH1ITp
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792739358; x=1824275358;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=9NnRZS6LEK7Silm5AD22OSuoubgtxOudaP6IRQWO+I8=;
+  b=LUGH1ITp9nFu5gxxCWgR2oqt+wTD1dlfTCA0UcqaoinoJNKqs3WT6yct
+   5pq+Cqmws0AedEHbYoYHQCVejw73rYRHA6klucDAnVLlWsq+UZpGmsFHA
+   THpdRyhWHkH3WzwhPjOuCakoqOsfblxF3Lbmca9mbzeVOoL2zGL4bmlST
+   DqVr2A1Or+cqGP0Pq/YX+izOYBODpF910ySInmDsBn3f1uSjQCeV0v20s
+   RaWkQ7+IBVmera+DhLa9WXRVYLbP9VdNGH2jXrBjFR1CMzPW5FyP4eZOf
+   0kU5IeVm/R1PKI35f3NPOA8H7PVbcTCfMZ8cF8S0DFZs/4CgHllqwYGKu
+   A==;
+X-CSE-ConnectionGUID: 2ABj6mMxRn+mI09JKslT8w==
+X-CSE-MsgGUID: 0J3u+2YjRQqSKcco9pPmFg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11943"; a="1372154"
+X-IronPort-AV: E=Sophos;i="6.27,173,1787036400"; 
+   d="scan'208";a="1372154"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Oct 2026 00:09:17 -0700
+X-CSE-ConnectionGUID: rnwaRayNTMWN5EXfaqvHPg==
+X-CSE-MsgGUID: GzaK/VyNRtuDXp4AzSJRfA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,173,1787036400"; 
+   d="scan'208";a="3513444"
+Received: from kniemiec-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.100])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Oct 2026 00:09:16 -0700
+Date: Fri, 23 Oct 2026 10:09:13 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Victor Chernyakin <chernyakin.victor.j@outlook.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/3] iio: cdc: add Texas Instruments FDC1004 driver
+Message-ID: <atsIGZswWCjXlNSX@ashevche-desk.local>
+References: <SN1PR12MB25286BE4E1EA3B75F8E563A9A5652@SN1PR12MB2528.namprd12.prod.outlook.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,169 +81,26 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4] ocfs2: cache the mount context for dentry lock
- callbacks
-To: Cen Zhang <zzzccc427@gmail.com>
-Cc: mark@fasheh.com, jlbec@evilplan.org, heming.zhao@suse.com,
- ocfs2-devel@lists.linux.dev, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, baijiaju1990@gmail.com, jjzuming@gmail.com
-References: <pm-ocfs2-objects-candidate-0012-v9-eeb9084fb29577971229@gmail.com>
-From: Joseph Qi <joseph.qi@linux.alibaba.com>
-In-Reply-To: <pm-ocfs2-objects-candidate-0012-v9-eeb9084fb29577971229@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <SN1PR12MB25286BE4E1EA3B75F8E563A9A5652@SN1PR12MB2528.namprd12.prod.outlook.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
+On Thu, Oct 22, 2026 at 06:40:29PM -0500, Victor Chernyakin wrote:
+> This series adds support for the FDC1004 I2C capacitive sensor.
 
+Tell us more. Why do we need a brand new driver?
 
-On 10/20/26 10:25 PM, Cen Zhang wrote:
-> ocfs2_drop_dentry_lock() drops the inode reference before releasing the
-> DENTRY lock. This lets inode eviction release the local inode and open
-> locks before a remote unlink can proceed past the DENTRY lock.
+> Patch 1 adds higher-precision IIO_VAL_DECIMAL64_* formats,
+>         needed for the driver.
+> Patch 2 adds the devicetree bindings.
+> Patch 3 adds the driver itself.
 > 
-> A DLM callback can still arrive before the DENTRY lock has been dropped.
-> ocfs2_get_dentry_osb() obtains the mount context through dl_inode->i_sb,
-> which can access a freed inode when the downconvert thread drops the
-> last inode reference in its post-unlock callback:
-> 
->   Downconvert thread                     DLM callback thread
->   ------------------                     -------------------
->   ocfs2_process_blocked_lock()
->     ocfs2_dentry_post_unlock()
->       ocfs2_dentry_lock_put()
->         ocfs2_drop_dentry_lock()
->           iput(dl->dl_inode)
->           [inode reclaimed after RCU]
->                                          ocfs2_blocking_ast()
->                                            ocfs2_get_dentry_osb()
->                                              dl->dl_inode->i_sb
->           ocfs2_simple_drop_lockres()
-> 
-> Store the mount context in the DENTRY lock resource's l_priv field and
-> use the default mount-context lookup. Recover the containing dentry
-> lock with container_of(), as already done for refcount locks, and remove
-> ocfs2_get_dentry_osb(). ocfs2_dismount_volume() shuts down the DLM before
-> freeing the mount context, so callbacks can use it without accessing the
-> inode. Preserve the existing iput-before-unlock order to avoid delaying
-> local inode and open lock release until after the DENTRY lock is released.
-> 
-> Fixes: 8ed6b23709b3 ("ocfs2: revert iput deferring code in ocfs2_drop_dentry_lock")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Suggested-by: Joseph Qi <joseph.qi@linux.alibaba.com>
-> Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
-> ---
-> Changes in v4:
-> - Drop the convert-worker change from v3. Keep MAYBE_ORPHANED marking before
->   the extra-reference check, including the dl_count == 0 path needed for
->   local orphan cleanup.
-> - Retain the osb cache from v2 and the original iput-before-unlock order;
->   remove the incorrect worker-lifetime claims from the commit message.
-> 
-> Changes in v3:
-> - Move the inode lookup and MAYBE_ORPHANED update after the existing
->   FREEING/dl_count guard and successful extra-reference acquisition,
->   addressing Joseph Qi's review.
-> - Keep the osb cache from v2 and preserve iput-before-unlock ordering.
-> 
-> Changes in v2:
-> - Preserve the existing iput-before-unlock order and cache the mount context
->   in the lock resource's existing l_priv field instead.
-> - Recover the containing dentry lock with container_of() and remove the
->   inode-dependent mount-context lookup.
-> - Correct the comment describing the dentry lock's inode reference.
-> 
-> Link to v1: https://lore.kernel.org/r/pm-ocfs2-objects-candidate-0012-v5-a0413a339b72c02fc885@gmail.com
-> Link to v2: https://lore.kernel.org/r/pm-ocfs2-objects-candidate-0012-v6-17b58652a3505eeecb0c@gmail.com
-> Link to v3: https://lore.kernel.org/r/pm-ocfs2-objects-candidate-0012-v8-d01e30cb3f465e294c0a@gmail.com
-> 
->  fs/ocfs2/dcache.h  |  5 ++---
->  fs/ocfs2/dlmglue.c | 16 ++++------------
->  2 files changed, 6 insertions(+), 15 deletions(-)
-> 
-> diff --git a/fs/ocfs2/dcache.h b/fs/ocfs2/dcache.h
-> index 7f246c5692d8..046ab9a80769 100644
-> --- a/fs/ocfs2/dcache.h
-> +++ b/fs/ocfs2/dcache.h
-> @@ -17,9 +17,8 @@ struct ocfs2_dentry_lock {
->  	u64			dl_parent_blkno;
->  
->  	/*
-> -	 * The ocfs2_dentry_lock keeps an inode reference until
-> -	 * dl_lockres has been destroyed. This is usually done in
-> -	 * ->d_iput() anyway, so there should be minimal impact.
-> +	 * The inode reference is dropped before dl_lockres is unlocked.
-> +	 * Callbacks must not use it to find the mount context during teardown.
->  	 */
->  	struct inode		*dl_inode;
->  	struct ocfs2_lock_res	dl_lockres;
-> diff --git a/fs/ocfs2/dlmglue.c b/fs/ocfs2/dlmglue.c
-> index 88d946466083..437a726834c8 100644
-> --- a/fs/ocfs2/dlmglue.c
-> +++ b/fs/ocfs2/dlmglue.c
-> @@ -58,7 +58,6 @@ struct ocfs2_mask_waiter {
->  #endif
->  };
->  
-> -static struct ocfs2_super *ocfs2_get_dentry_osb(struct ocfs2_lock_res *lockres);
->  static struct ocfs2_super *ocfs2_get_inode_osb(struct ocfs2_lock_res *lockres);
->  static struct ocfs2_super *ocfs2_get_file_osb(struct ocfs2_lock_res *lockres);
->  static struct ocfs2_super *ocfs2_get_qinfo_osb(struct ocfs2_lock_res *lockres);
-> @@ -258,7 +257,6 @@ static const struct ocfs2_lock_res_ops ocfs2_orphan_scan_lops = {
->  };
->  
->  static const struct ocfs2_lock_res_ops ocfs2_dentry_lops = {
-> -	.get_osb	= ocfs2_get_dentry_osb,
->  	.post_unlock	= ocfs2_dentry_post_unlock,
->  	.downconvert_worker = ocfs2_dentry_convert_worker,
->  	.flags		= 0,
-> @@ -309,7 +307,7 @@ static inline struct ocfs2_dentry_lock *ocfs2_lock_res_dl(struct ocfs2_lock_res
->  {
->  	BUG_ON(lockres->l_type != OCFS2_LOCK_TYPE_DENTRY);
->  
-> -	return (struct ocfs2_dentry_lock *)lockres->l_priv;
-> +	return container_of(lockres, struct ocfs2_dentry_lock, dl_lockres);
->  }
->  
->  static inline struct ocfs2_mem_dqinfo *ocfs2_lock_res_qinfo(struct ocfs2_lock_res *lockres)
-> @@ -610,13 +608,6 @@ static __u64 ocfs2_get_dentry_lock_ino(struct ocfs2_lock_res *lockres)
->  	return be64_to_cpu(inode_blkno_be);
->  }
->  
-> -static struct ocfs2_super *ocfs2_get_dentry_osb(struct ocfs2_lock_res *lockres)
-> -{
-> -	struct ocfs2_dentry_lock *dl = lockres->l_priv;
-> -
-> -	return OCFS2_SB(dl->dl_inode->i_sb);
-> -}
-> -
->  void ocfs2_dentry_lock_res_init(struct ocfs2_dentry_lock *dl,
->  				u64 parent, struct inode *inode)
->  {
-> @@ -624,6 +615,7 @@ void ocfs2_dentry_lock_res_init(struct ocfs2_dentry_lock *dl,
->  	u64 inode_blkno = OCFS2_I(inode)->ip_blkno;
->  	__be64 inode_blkno_be = cpu_to_be64(inode_blkno);
->  	struct ocfs2_lock_res *lockres = &dl->dl_lockres;
-> +	struct ocfs2_super *osb = OCFS2_SB(inode->i_sb);
->  
->  	ocfs2_lock_res_init_once(lockres);
->  
-> @@ -652,9 +644,9 @@ void ocfs2_dentry_lock_res_init(struct ocfs2_dentry_lock *dl,
->  	memcpy(&lockres->l_name[OCFS2_DENTRY_LOCK_INO_START], &inode_blkno_be,
->  	       sizeof(__be64));
->  
-> -	ocfs2_lock_res_init_common(OCFS2_SB(inode->i_sb), lockres,
-> +	ocfs2_lock_res_init_common(osb, lockres,
->  				   OCFS2_LOCK_TYPE_DENTRY, &ocfs2_dentry_lops,
-> -				   dl);
-> +				   osb);
->  }
->  
->  static void ocfs2_super_lock_res_init(struct ocfs2_lock_res *res,
+> Tested with the sensor connected over an i2c-tiny-usb adapter.
 
-Don't see any difference between your v2 sent before.
-BTW, it seems v3 is also missing.
+-- 
+With Best Regards,
+Andy Shevchenko
 
-Thanks,
-Joseph
 
