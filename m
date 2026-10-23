@@ -1,57 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=68.232.153.233
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792754537;
-	b=Tsxq4SICankfc1DAwxQckLQtEDIRX5F3Jj1Rdi8qhnxpIAQjbtC3Raza1pBuAVOQxD1T
-	 Mj3qsDvJQ4nAZwR7GmBhKiqFN41UPUKTB3DWp25FivNS2P971KFJwB1FhuykjxlxsY3Sh
-	 OizVsGIbcAonk8TtnTZgLwfHiMlVi56m61l1c09GRBrZX87ErBHgEDchg8NgiWLOesiqR
-	 9dU1W2/n3OvlJXPqMQ4YZjTc+P8a/L/YCK1jsw4PBZhXd4pVyGBBOAjWfAmDSaTBS/NCK
-	 l+Bx+SH4mMrJjOM6TnJXG0OfQ3BBr9d3HLZoVWCXq/qg2MLUDsaa67w3M9KO5Be1msw==
+	t=1792754546;
+	b=bk0Zw0E1gGhcGmBx+OK+x19/9WIhkdyYXT38o3waEsrK7UyFQND/NVcUEAuqNn/vfYvW
+	 sY/gq46EVMTr2yXA24yKhRBzo+J9WWNwSrMMxuz9lXkzNDKl+zH+tEOSuoO5hd6grrl6Z
+	 LUsRDV+UwB9Fr5OA7710GImMB8J/2sWSUuqRIe3Nb1dkXBRDvSUtZx4xhnAOil8VgWvb/
+	 W7HLLwlvp/niRSfKhQInMidAx99+qR2opRSwbVEOO5WWc990FyUkog29ADLe+n1LkgItV
+	 tL6YOq0rkw3eLDoIWWNbx0aNWzRhwPCiRFIkfWeJq6yLIpEX2iDr336qADEoP5WmRXw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792754537;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
+	a=rsa-sha256; c=relaxed/relaxed; t=1792754546;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-Amp-Result:Received:Received:Received:Date:From:To:CC:
 	 Subject:Message-ID:References:MIME-Version:Content-Type:
 	 Content-Disposition:In-Reply-To;
-	bh=2JIr32shhDAdFV4wsdsTH1dxV1roHF7U6GHSm//gPNQ=;
-	b=V55c7fnSesw5IUzf60AOkywoelP1mMKk0AK503374juNhopL8JQBwqqTnUAaCKqV3FzW
-	 t1vJnDYv7xSUi2nwOrLRRPpYjF+HoFJAd9Ep8JDdcgRf4tY3sbwV7EEhgVN+6RIjguC/F
-	 1OqfQ4wAJRZ/CizmJitEXjxWDZ/pDb9GfL7ezMN/5SVHKf2Nzcwk0QIX/ZLIPZuGWmNwh
-	 GbM611jeOaFAs3kvrT9LW04E/GZ0B9KAxlkxQBTL86BIic0kRUfTMEv9HSc4xpQJUyaXl
-	 oRcVEACMhrqBtbUkEua3/fzfjZDjsb5j4ElE86d8zGbdvYaGyWPQ/vItfjhJNIVKb1A==
+	bh=p0TlihYYQqoSl/ttb9fRh6qgpKKXc6u8KsO4l12hhhQ=;
+	b=OvXiW8fan8rs38OnIFNJklO1XNHYqOXDVnt69arbhneY8VFEgIN7uVUBT9dNQAuRVkfz
+	 aQEwvQi1oK6jU/Y7ixwIL9uoMwsktjY0mMb3qq+ra7LJDILRAorHxCFieib6OZ2IMmBNv
+	 6J5KQY8kaMtIu/JqrFvj7hCkmFb0Gr/t3hhz5bHXOzU/Y2CYtt5qIFu6gNfKEJ7T1U3jA
+	 o1e/R6+WMrc9V+ns3GBD9YOLXOelO/NqYsDO1o1PfHA3wr0Mk9BbtmotEGvO3SfUZlh7+
+	 pdnnIcsXHU/YwjR9TIBE2lmkPBvjBv+l9Cb3trnnoAvlE7hMLEvSsRqe8wgX9bOCOSA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=ixSxhJ1+;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id E670C606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 11:22:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E670C606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=microchip.com;
+	spf=pass smtp.mailfrom=microchip.com;
+	dkim=pass header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=gvQXlc0q;
+	arc=none smtp.remote-ip=68.232.153.233
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7C31606A31A;
+	Fri, 23 Oct 2026 11:22:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D7C31606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=ixSxhJ1+
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id ED3F11691;
-	Fri, 23 Oct 2026 04:22:12 -0700 (PDT)
-Received: from localhost (a085714.arm.com [10.164.19.28])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 6BE893F7B4;
-	Fri, 23 Oct 2026 04:22:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1792754536; bh=pEs3PZgwiPiqg6sjwJKr14el93Iv6edM6dGsgzxNJl0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=ixSxhJ1+Dmcvys/GZodc/+Jt78DSK1F+KDsahqOP1t17iU5/s1dFp6AHOvHfZ0RX8
-	 zUkOa7zeXfylmXrT6WH7q1TN9ptVS9xK92BqBWue/SJ7NrlKTjjUFLhfanIEp3hAJg
-	 F59g27ySewmTyN0ZYl4/69ocRJLGqL+8SEJBX6HY=
-Date: Fri, 23 Oct 2026 16:52:12 +0530
-From: Anshuman Khandual <anshuman.khandual@arm.com>
-To: "Shubhang Kaushik (Ampere)" <sh@gentwo.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	Uladzislau Rezki <urezki@gmail.com>, Nicholas Piggin <npiggin@gmail.com>, 
-	Shubhang Kaushik <shubhang@os.amperecomputing.com>, "Christoph Lameter (Ampere)" <cl@gentwo.org>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] mm/vmalloc: reject overflowing vm_map_ram page counts
-Message-ID: <y5yuwnmvq5nouoitqj6lloz6hepha6cf6vmh42rer2zhgv32au@vbvr3ohn24tf>
-References: <20261022-vmalloc-reject-overflow-v1-1-5fde0042ffb9@gentwo.org>
+	dkim=pass (2048-bit key, unprotected) header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=gvQXlc0q
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1792754546; x=1824290546;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=bf1jKkqSPO64+JjX7Tm+y62ZjvX2n1Tqkctim9DDrvs=;
+  b=gvQXlc0qWVXH9Hkf4r/UF2Tai+1jnnkR0rCa+PfOmQ/I/pnTu2BVVct0
+   IJzqFzgMf6NjpJJjvZrqKhk7krwa0EhKaXvZ0dG1xchO1NB7Nwj7DCCc5
+   ue8nO8Xmm6F4c38dxgIeAePAzTesjPrJuL4nzi1SYwGTYIy0nOL2GPBpQ
+   CJ1RVHccSZ2y4t0igOvjiAHyB4T4u1WFsOyx4vL+n6rR1PkxECnoJC6s5
+   6TK5RWnZoeYpvFIjM6xDfDsl2TdNIKaQKfKWLEKoXWJYapfqteINKdZEG
+   Po3GSR1ezJJFHvh7pYCQwhiO1Ym5Vn1FefKZRidRZcX7JUwV7UM7otyi1
+   Q==;
+X-CSE-ConnectionGUID: EPZTHebzRjWrJwg6QVAQtQ==
+X-CSE-MsgGUID: Ll5NRThAStOJaameua4CTQ==
+X-IronPort-AV: E=Sophos;i="6.27,174,1787036400"; 
+   d="scan'208";a="65461676"
+X-Amp-Result: SKIPPED(no attachment in message)
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa3.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 23 Oct 2026 04:22:25 -0700
+Received: from chn-vm-ex01.mchp-main.com (10.10.85.143) by
+ chn-vm-ex04.mchp-main.com (10.10.85.152) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.58; Fri, 23 Oct 2026 04:22:24 -0700
+Received: from DEN-DL-M70577 (10.10.85.11) by chn-vm-ex01.mchp-main.com
+ (10.10.85.143) with Microsoft SMTP Server id 15.1.2507.58 via Frontend
+ Transport; Fri, 23 Oct 2026 04:22:21 -0700
+Date: Fri, 23 Oct 2026 13:22:21 +0200
+From: Daniel Machon <daniel.machon@microchip.com>
+To: Dimitri Daskalakis <dimitri.daskalakis1@gmail.com>
+CC: "David S. Miller" <davem@davemloft.net>, Alexander Duyck
+	<alexanderduyck@fb.com>, Jakub Kicinski <kuba@kernel.org>,
+	<kernel-team@meta.com>, Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet
+	<edumazet@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman
+	<horms@kernel.org>, =?utf-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>,
+	Mohsin Bashir <mohsin.bashr@gmail.com>, Bobby Eshleman
+	<bobbyeshleman@meta.com>, <netdev@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, Dimitri Daskalakis <daskald@meta.com>
+Subject: Re: [PATCH net] eth: fbnic: Correct packet header prefetch
+Message-ID: <20261023112221.cqjcgqtano75hlkn@DEN-DL-M70577>
+References: <20261020172706.1090951-1-dimitri.daskalakis1@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,60 +84,24 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset="us-ascii"
 Content-Disposition: inline
-In-Reply-To: <20261022-vmalloc-reject-overflow-v1-1-5fde0042ffb9@gentwo.org>
+In-Reply-To: <20261020172706.1090951-1-dimitri.daskalakis1@gmail.com>
 
-On Thu, Oct 22, 2026 at 04:35:20PM -0700, Shubhang Kaushik (Ampere) wrote:
-> vm_map_ram() converts its unsigned int page count to an unsigned long
-> byte size without checking for overflow.
+> From: Dimitri Daskalakis <daskald@meta.com>
 > 
-> On 32-bit kernels, a count greater than ULONG_MAX >> PAGE_SHIFT wraps
-> the byte size.  vm_map_ram() passes that size to both alloc_vmap_area()
-> and vmap_pages_range(), so it can allocate and map only the wrapped
-> number of pages while returning success for the original larger request.
+> The existing call to net_prefetch() fetched a stale address. The data
+> pointer is not initialized until after the call to xdp_prepare_buff().
+> Thus, making the prefetch ineffective.
 > 
-> For example, with 4 KiB pages, a count of 1048577 produces a
-> PAGE_SIZE byte size after wrapping, allowing a one-page mapping.
+> Open code the address calcuation to give the prefetch as much time
+> as possible.
 > 
-> Reject page counts whose byte size cannot be represented.
+> This was found by manual code inspection. No issues have been observed
+> from this.
 > 
-> Fixes: db64fe02258f ("mm: rewrite vmap layer")
-> Signed-off-by: Shubhang Kaushik (Ampere) <sh@gentwo.org>
-> ---
->  mm/vmalloc.c | 7 ++++++-
->  1 file changed, 6 insertions(+), 1 deletion(-)
-> 
-> diff --git a/mm/vmalloc.c b/mm/vmalloc.c
-> index bea9f76ed7e74247d4ce919250c2f02dd5c36483..e98d3aa551fe205ebd9826daad9ad6bd578b91ea 100644
-> --- a/mm/vmalloc.c
-> +++ b/mm/vmalloc.c
-> @@ -3083,10 +3083,15 @@ EXPORT_SYMBOL(vm_unmap_ram);
->   */
->  void *vm_map_ram(struct page **pages, unsigned int count, int node)
->  {
-> -	unsigned long size = (unsigned long)count << PAGE_SHIFT;
-> +	unsigned long size;
->  	unsigned long addr;
->  	void *mem;
->  
-> +	if (count > ULONG_MAX >> PAGE_SHIFT)
-> +		return NULL;
+> Fixes: 9064ab485f04 ("eth: fbnic: Prefetch packet headers on Rx")
+> Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+> Signed-off-by: Dimitri Daskalakis <daskald@meta.com>
 
-Could vm_map_ram() ever be called with such a large number as count ?
-
-> +
-> +	size = (unsigned long)count << PAGE_SHIFT;
-> +
->  	if (likely(count <= VMAP_MAX_ALLOC)) {
->  		mem = vb_alloc(size, GFP_KERNEL);
->  		if (IS_ERR(mem))
-> 
-> ---
-> base-commit: 7be4bc52fd9e0e55dc9a2e0232b89427d2c4b614
-> change-id: 20261022-vmalloc-reject-overflow-e532c556f3fa
-> 
-> Best regards,
-> -- 
-> Shubhang Kaushik (Ampere) <sh@gentwo.org>
-> 
+Reviewed-by: Daniel Machon <daniel.machon@microchip.com>
