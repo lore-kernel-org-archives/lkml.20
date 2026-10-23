@@ -1,47 +1,124 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792739777;
-	b=NhFXbseEf3sfC070/noIpEq5UE6Q0gkvCWwJL19P51dleU3ohStV0mJGvlJS68v2Vs5h
-	 3+XGrhxSVCLVWjeweFXwdqg0ErT1cNyR7VxUWEm4TxlIxi2rhQ42PzXvPkUFTCK/64BG/
-	 yobLY7YJeyOiMhvWNmMytYjUYNB0x1YREU6XnBR3uZG6/86u7FUiUR+J5DVPLvbhUljkn
-	 WxYfQ42cu+ZiIDqIgLzmuVM6o9RHvtOWdUx8j9ASjRzEn+DO6RWlnwW8dAIN4yxVJHPbD
-	 YyLdywoizliGATChsXx5RlImWfZuldQu01fWyVsoBFADCCCMKPqfal8gFjwZNQGGmRQ==
+	t=1792739792;
+	b=gUixTptPZcXCKdf1A0QtNpwlKMKYQlR3nvjcZzpRHPPXvkyXW8agFrZNJBSMf/oBgaYt
+	 oDa9EjGG8eq4SsTgYRQo7xzAEnk7iXwS8EpetNgts8nLzhZwj3qxoRnNP7ra0AyD5JG1W
+	 ohY+/linxPLSjGjdeKCHUu6wspzEtTbnG5zC7RP8GQHQo4+dm8xoTgmCt6b2wolDbTu7h
+	 xF70JR127DAQe5yAGoDIjeqPGnFt/gEjr853jOb4pFgKLDMrNwhPT2rNaCstnuQvddX/t
+	 uuwp1QADj/4z1EccoydJH9U8KGmv6ClR9hIqUN5WyB9SPkULpGomPdd+6Mv05EbcsmA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792739777;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=pkqrD//fnGQ72hjouszMioilp+NszrPnGIYWVd5G9RA=;
-	b=pSGxoNQQgXU/zfTmHL1M/4tOjPjAEhlTbF4ErMQ84W2igM/w8wUzXl8s/pD+OP4b30AM
-	 ABNmJ0sbFNQs1Dhqb4ICm0KTGvEEHIJ17v/OInOvo2YnncCy7ieLa91eSYLEfoXvbSdNe
-	 aWV2jW8MCcSSUCLqFH3pCh/LCaF0E0zXp8k8p4PW/FDrRo2Q7l5phBEbd2InfUCEYa8/t
-	 OWGqMX48/LMwfcIlWbAuaG4NmnF+3wwxGzby4yDziVSrSkhh98Ryi0SKwZhmt5Bo627Kf
-	 29A4G10I89qW55nNiqKkRelpA3NM0RZbW1VbD2mTYVQWtNGklJ961mtUyxMZqzLmohQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792739792;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
+	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=fnCHzkMl/tRSoOoOmfGusYJwL1UrHp+aabajQ/sL5Js=;
+	b=tZYkX4EgXV9CuK/Fn/d+VzeVxNJzGjVYCU2S6r0YWSuDL6JjLh5tifHhM1RvJPFaF95D
+	 BpxbULvFtyUkUzGFCs66J6NZlMkvAlBo8hk9GNyGKuJ33h2LofZt+Cenff21RB0GAQUA7
+	 Aer3wb6mRyLwvzj8khGKJxzoISENz9PBxh9BDrlVcOZZeH22XXfgvD5sGxj43u4YNkfDv
+	 N5obju1HDdNm+tVp2cubLdA+GNVFrStP6yXLKDX7f8/a41VZ2avcPtnRwLRCYDuS/UNjl
+	 bJQnCq8vwrJSEaVrRSiD3GbN4XjRiixfZjjEZGBHJ2bU8NWbQMYSZxeJI3PFjy7pqcw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G285uqat;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=dBLk4Ho4;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=UvCbbhFz;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07453606A31E
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 07:16:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E41B7606A321
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 07:16:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E41B7606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G285uqat
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A7F771F01825;
-	Fri, 23 Oct 2026 07:16:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792739776;
-	bh=pkqrD//fnGQ72hjouszMioilp+NszrPnGIYWVd5G9RA=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=G285uqatlfpZ6ocauqOB0OLsQ70I1Dgw7gK2NxUGwd/MJRYS7Y6vqNl+H7gQbGOcK
-	 ftTeh0DVX4xAqez6LW/Vht3wP+DRN48+3dv2nf50i8NnbwNXWGOp2NWv7uMAtIwl/B
-	 wn131MQ1wIWH1p4Fxfow5ose0tQU+YmBccoXuePJXI4+LieWBCayhLnw/BIreTaCcf
-	 SGriwCo3bcjVU9kJmUHE7nBCVWx0ouoPkS0fHzvpWNGjMVD5RsT83KGen5F+L1fzOA
-	 Skf1aCe4gwU8hoEyy1eTHSXTX0MTUtX/eDuHaHy8C+I0b8AklN7DahVTc92e5aUbi5
-	 tIKR+bgmltb0w==
-Message-ID: <8c53e58c-f7d2-4e98-8d03-7ff1163c1159@kernel.org>
-Date: Fri, 23 Oct 2026 09:16:12 +0200
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=dBLk4Ho4;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=UvCbbhFz
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69N7FLPj3167844
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 07:16:31 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=fnCHzkMl/tRSoOoOmfGusYJw
+	L1UrHp+aabajQ/sL5Js=; b=dBLk4Ho4qkQhKjoVeSI5pWWyd5Oabiv1lWIm31KY
+	XBcPtBr2vVtev6+fGdo4vrPDrsdXKHkYkE0KHMDJmc/Uijd92O4rCHkLwt6Vl0kG
+	JcRP6P31K5zAP8WYNKKLS34Tpf/0XOnZD0Xxke7t+9MnxG/7hhHh48aobgtZsFf3
+	xajKoBWDLqT8LxGT+2hAqjNB6hGg8BVoP+M26KVbUzAwfxki0wSf+KPrD0k6XjIj
+	NsdJhcdsuuTIxZJSxJRe0+Rz9olSM+HpvP4I+fpDbJVe0RUhtF5PlQfLtgNpNC+0
+	zrJtVtaJGpkQ3FnDwKvCBgXwLXUm+LJQ0T2U9LUIzV/j9A==
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hfqmpae2s-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 07:16:31 +0000 (GMT)
+Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93f5844cb60so114386285a.0
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 00:16:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1792739790; x=1793344590; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=fnCHzkMl/tRSoOoOmfGusYJwL1UrHp+aabajQ/sL5Js=;
+        b=UvCbbhFzvXWqDloFrgUx1A3Am0vw5Z0gBizbaxxJZUWaoyZiajHAts/hrRNE/WVo28
+         LMhk0YeP5MsUuAWLjxCMnZaEfGplFn1uwSkEiQSZRIl9xGZZyNbxZ9FiDQY2JTLNdZl2
+         cgKrL/tzp4oZAfB5ZYlNWSn2mVO2AM5YEg2iN6qBvl9QOOIIdiNc3//A10DBFW135kak
+         r+DyOrc7eDZIJ+sDfJFb+ylmVJISuUTMr+3mpEi6//cOpgE01L/9Nn6DOQ3wCff0Ca76
+         bEXHvwIKHb8xZwyTCEuZJPB6e3qcrIPWZQa0/VexkmgdXnUmh0+bhB+SNXkgPuzX0wjy
+         p6yQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792739790; x=1793344590;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=fnCHzkMl/tRSoOoOmfGusYJwL1UrHp+aabajQ/sL5Js=;
+        b=u6mIw8BRuERJAWdzetXks6KkMEygGP76R88RYxZJ63P3+h+89G0bFQRkN+XhDf+KnK
+         hRLmLFz3qHYOH6sOrzJ0fE3KsS8w+m8unll18Kz30GcBWYeVLN7zepCldVQPb7wkQIfh
+         Xo760N41EKBqAUsHcg582yebDPnTQuQNho+HcUTiI3lpTDn5R8G1QIwjpw1T4gCsA0Fi
+         fALn0pUslhTBsmoREXdjz/uBzRSveMgBf7WpXuI+SHSn4vzxODfjv7lhXljzXa34dCnl
+         dDRN0aMv3+DLCT8Id0EayuQvAY4jusHx0JDYpIWzJ7nhmwH7uh1FI9iDhCUydAwpST97
+         1cVQ==
+X-Forwarded-Encrypted: i=1; AKwUvBz3253PceqYO0kB8pYLW1X7So7UKAQ09suJApOkM9tCWHgwMRg44B5FvMJt/uOsbLZgV8ROZGBUTMy4AmI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKcJJwzK2F9kVImJxM4gAcGZ8W97Z8Xukd3alqgfg6gJ0LbNheq
+	kEOKMAaT28ARX2AmGJUON8yPth49bF0hFpDhOkAvJzH1mH4V1794inATBOHkTmyyMTCX/Jdo+66
+	ZmBneeUJh3iraodi3q2KkoBhGFNaRdLwzvzyg/XxKJUUrn0y5xHcSq9p6n50WV6wTW1Q=
+X-Gm-Gg: AYBFou06BD3dBMncx5hwwtCCIMnz4uEak6umiTvsJtglsUasGiFT1bVNmdkIIbww0In
+	wuQhrToq6U0Cqg9Cq94zorVQ0zqT1Ab0Hi4q+pYUepbeVTr13z2qgNcgjTYSJu1pEP01p3f8jgm
+	jr8nQbo3z428mlRDVJgRtaUImQs/xEoVfLhtYzH+BsZPDuf/p+Cj0k9hn+SydzNnsN1EwXYRaV2
+	0LsDudFExgGn3W3aq+KHdUknsuW8j+70UQDETRSBmI7fy2YGYV2/ux/gaHyBnjAMmHB7XX/YgNF
+	z+EVI7MR6Ob4UVe1gz6FJwxcPdTDwn13A+RjkKoSqnE0EbbWLLdKx3um9WqfQL+QzhMTirCpumJ
+	wPnCrUocdWcglUs36
+X-Received: by 2002:a05:620a:270d:b0:939:5d22:d1f0 with SMTP id af79cd13be357-93f624b1fa5mr751725985a.2.1792739790127;
+        Fri, 23 Oct 2026 00:16:30 -0700 (PDT)
+X-Received: by 2002:a05:620a:270d:b0:939:5d22:d1f0 with SMTP id af79cd13be357-93f624b1fa5mr751723385a.2.1792739789532;
+        Fri, 23 Oct 2026 00:16:29 -0700 (PDT)
+Received: from oss.qualcomm.com ([188.27.161.187])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e38048ad9sm3287521f8f.35.2026.10.23.00.16.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 23 Oct 2026 00:16:28 -0700 (PDT)
+Date: Fri, 23 Oct 2026 10:16:27 +0300
+From: Abel Vesa <abel.vesa@oss.qualcomm.com>
+To: Harshal Dev <harshal.dev@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>,
+        Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>,
+        Neeraj Soni <neeraj.soni@oss.qualcomm.com>,
+        Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
+        Sumit Garg <sumit.garg@oss.qualcomm.com>,
+        Selvam Sathappan Periakaruppan <selvam.periakaruppan@oss.qualcomm.com>,
+        Basant Kumar <basantk@qti.qualcomm.com>, linux-kernel@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, linux-crypto@vger.kernel.org
+Subject: Re: [PATCH 5/5] firmware: qcom: scm: Drop exported ICE wrapper
+ functions
+Message-ID: <hwjwaxabshws26kx7xa5qfdxnj3zomkvetpbp73vnl5ugdmvae@vckrsfkyptbp>
+References: <20261021-ice-migrate-tee-svc-v1-0-b035be7aab0a@oss.qualcomm.com>
+ <20261021-ice-migrate-tee-svc-v1-5-b035be7aab0a@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,216 +128,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [REGRESSION] mremap() fails VMA expansion when VM_MIXEDMAP is set
-To: Luiz Capitulino <luizcap@redhat.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- "Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>
-Cc: Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>,
- David Hildenbrand <david@kernel.org>, Jakub Matena <matenajakub@gmail.com>,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org
-References: <20261023023106.515365-1-luizcap@redhat.com>
-From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=vbabka@kernel.org; keydata=
- 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
-In-Reply-To: <20261023023106.515365-1-luizcap@redhat.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261021-ice-migrate-tee-svc-v1-5-b035be7aab0a@oss.qualcomm.com>
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIzMDAyOCBTYWx0ZWRfXyUVglNL4sQpQ
+ ON9JmHGdVyFsHIBLU2qyynJKivXAfIHuv5WStIXEgsAj825HzIB72Mf4egw+N1lWBy56uX4E5QF
+ CYVETzhLIAU9vm6+/ThxGxoHhrYl5UY=
+X-Proofpoint-GUID: 0rpNyJXAisFC7g656sXPYvmsUAxUKQZ9
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIzMDAyOCBTYWx0ZWRfX4tl429Kpw/BE
+ KG5FQxbyQRfkAMulXJJXQAYk2FDqfZldR/pRgZ9/3xLYE/ffXoeNG4D1OINKTm+Ff6oLKK+tiwa
+ Gtv0vQvb7ZjV6DNOywkdaUcs5ODBd4wPpxfeVwWUKdWvQTYZD/KxZP74pIvEDFjfADz52Kw4p4L
+ dQvzCAiJiCdY+eh10daRpjg1RJNPr1mCw3H8SX1UgwEBQXDdHbpBEtyOwDG5MVEkVQxi7lC8gXH
+ zjWM7XZWZ7d9vnBQ9Q057bcQNGbQBSo8IafjmhkC1uZIEvhhjsVF3Pwz8i8642+U3J9Eh9OggVi
+ 1ha0w29niR91IjYkylJW4fYLYukfhBcFtwwNe2KSKtqL+VpLHCFmjoH8kK6m0l2FcIBvi7RthPD
+ TlB1LMpdGhG8ML+w7rYpD5I1aFuvSNdjq0x/yEMkOwBbSycIUvm1YWoZaCsQ5t/vSd4+OZ66VsF
+ zKkIm07/OzvFh0oh+ig==
+X-Proofpoint-ORIG-GUID: 0rpNyJXAisFC7g656sXPYvmsUAxUKQZ9
+X-Authority-Analysis: v=2.4 cv=BdBNQbt2 c=1 sm=1 tr=0 ts=6adb09cf cx=c_pps
+ a=qKBjSQ1v91RyAK45QCPf5w==:117 a=Qvngrl3H0rQgGg+94q4QgA==:17
+ a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=EUspDBNiAAAA:8 a=-aaPCLjwiM6LKh8ESrQA:9 a=CjuIK1q_8ugA:10
+ a=NFOGd7dJGGMPyQGDc5-O:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-23_02,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 priorityscore=1501 malwarescore=0 phishscore=0 impostorscore=0
+ lowpriorityscore=0 suspectscore=0 adultscore=0 bulkscore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610230028
 
-On 10/23/26 04:31, Luiz Capitulino wrote:
-> Growing a VM_MIXEDMAP VMA with mremap(), with or without MREMAP_MAYMOVE, fails
-> with -ENOMEM when the address range after the VMA is free.
+On 26-10-21 21:13:11, Harshal Dev wrote:
+> Drop the exported ICE wrapper functions from the SCM driver since the ICE
+> driver has now migrated to generic ICE service which allows re-direction of
+> of ICE secure service calls to the appropriate TEE (QTEE or OPTEE) at
+> runtime.
 > 
-> This regression was introduced in v6.1 by commit ca3d76b0aa80 ("mm: add merging
-> after mremap resize"). This commit changed mremap() to use vma_merge() instead
-> of vma_adjust() for the expansion case. However, vma_merge() returns NULL for
-> a VMA that has any of the VM_SPECIAL flags set.
+> Signed-off-by: Harshal Dev <harshal.dev@oss.qualcomm.com>
 
-Hi,
-
-6.1 was a rather long time ago. How was it discovered just now? I.e. what
-use case broke by the change and prompted creating the reproducer?
-
-Thanks,
-Vlastimil
-
-> The issue is also present in latest Linus tree, except that the code has been
-> refactored. In the current tree, the path now is expand_vma_in_place() ->
-> vma_merge_extend() -> vma_merge_new_range(), which performs the check:
-> 
-> 	/* Special VMAs are unmergeable, also if no prev/next. */
-> 	if (vma_flags_test_any_mask(&vmg->vma_flags, VMA_SPECIAL_FLAGS) ||
-> 	    (!prev && !next))
-> 		return NULL;
-> 
-> This issue was originally reproduced with an external module that sets
-> VM_MIXEDMAP on a VMA because it wants to insert pages with vm_insert_page().
-> However, there's at least one in-tree reproducer: tcp_mmap().
-> 
-> Note that commit ca3d76b0aa80 introduced other VMA expansion regressions,
-> but they were caught and fixed early:
-> 
-> - 6f12be792fde ("mm, mremap: fix mremap() expanding vma with addr inside vma")
-> - d014cd7c1c35 ("mm, mremap: fix mremap() expanding for vma's with vm_ops->close()")
-> 
-> Below you'll find a reproducer and an attempted fix.
-> 
-> Reproducer
-> ==========
-> 
-> This reproducer was written by an LLM and uses tcp_mmap(). It reproduces
-> against v6.1 and latest Linus tree (2a08195e4db5). The issue is not
-> reproduced on v6.0.
-> 
-> #define _GNU_SOURCE
-> #include <stdio.h>
-> #include <unistd.h>
-> #include <errno.h>
-> #include <sys/mman.h>
-> #include <sys/socket.h>
-> 
-> int main(void)
-> {
->         int fd, pagesize;
->         void *p, *ret;
-> 
->         fd = socket(AF_INET, SOCK_STREAM, 0);
->         if (fd < 0) {
->                 perror("socket");
->                 return 1;
->         }
-> 
->         pagesize = getpagesize();
-> 
->         /* tcp_mmap() sets VM_MIXEDMAP on this vma. */
->         p = mmap(NULL, 2 * pagesize, PROT_READ, MAP_SHARED, fd, 0);
->         if (p == MAP_FAILED) {
->                 perror("mmap");
->                 return 1;
->         }
-> 
->         /* Drop the upper half, so growing back into it can happen in place. */
->         if (munmap((char *)p + pagesize, pagesize)) {
->                 perror("munmap");
->                 return 1;
->         }
-> 
->         errno = 0;
->         ret = mremap(p, pagesize, 2 * pagesize, MREMAP_MAYMOVE);
->         if (ret == MAP_FAILED) {
->                 printf("BUG REPRODUCED errno=%d\n", errno);
->                 return 1;
->         }
-> 
->         printf("NOT REPRODUCED\n");
-> 
->         return 0;
-> }
-> 
-> Sketch fix
-> ==========
-> 
-> In the fix below, I started with the same idea as d014cd7c1c35: on v6.1 I
-> made mremap() expand VM_MIXEDMAP VMAs the same way that commit did for 
-> VMAs with vm_ops->close(). Then I adapted it to the current tree. It fixes
-> the reproducer and I didn't get regressions in MM kselftests nor the
-> tools/testing/vma test.
-> 
-> However, I'm not posting this as a fix because I'm unfamiliar with the VMA
-> code so I'm not confident this is the right approach.
-> 
-> I really don't mind someone more familiar with the code taking this over.
-> 
-> diff --git a/mm/vma.c b/mm/vma.c
-> index 6c35f0d775ab..ac9a0a8a4be9 100644
-> --- a/mm/vma.c
-> +++ b/mm/vma.c
-> @@ -851,9 +851,15 @@ static int commit_merge(struct vma_merge_struct *vmg)
->  	return 0;
->  }
->  
-> -/* We can only remove VMAs when merging if they do not have a close hook. */
->  static bool can_merge_remove_vma(struct vm_area_struct *vma)
->  {
-> +	if (vma_flags_test(&vma->flags, VMA_MIXEDMAP_BIT))
-> +		return false;
-> +
-> +	/*
-> +	 * We can only remove VMAs when merging if they do not have a
-> +	 * close hook.
-> +	 */
->  	return !vma->vm_ops || !vma->vm_ops->close;
->  }
->  
-> @@ -1093,6 +1099,20 @@ static __must_check struct vm_area_struct *vma_merge_existing_range(
->  	return NULL;
->  }
->  
-> +static bool can_merge_vma(const struct vma_merge_struct *vmg)
-> +{
-> +	/* VMAs without prev/next are unmergeable */
-> +	if (!vmg->prev && !vmg->next)
-> +		return false;
-> +
-> +	/* We can't merge VMA_IO, VMA_DONTEXPAND or VMA_PFNMAP */
-> +	if (vma_flags_test_any(&vmg->vma_flags, VMA_IO_BIT, VMA_DONTEXPAND_BIT,
-> +			       VMA_PFNMAP_BIT))
-> +		return false;
-> +
-> +	return true;
-> +}
-> +
->  /*
->   * vma_merge_new_range - Attempt to merge a new VMA into address space
->   *
-> @@ -1152,9 +1172,7 @@ struct vm_area_struct *vma_merge_new_range(struct vma_merge_struct *vmg)
->  
->  	vmg->state = VMA_MERGE_NOMERGE;
->  
-> -	/* Special VMAs are unmergeable, also if no prev/next. */
-> -	if (vma_flags_test_any_mask(&vmg->vma_flags, VMA_SPECIAL_FLAGS) ||
-> -	    (!prev && !next))
-> +	if (!can_merge_vma(vmg))
->  		return NULL;
->  
->  	can_merge_left = can_vma_merge_left(vmg);
-> 
-
+Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
