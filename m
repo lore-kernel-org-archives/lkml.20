@@ -1,114 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792745299;
-	b=wPZv5Nf5KBMkYzvf/rpWJrMByfhBPuURWzK51MLBvo91L8x4hbHnGfUcg3iE1TSO945J
-	 yFEDjv6c1lpdfUCW01WvcEv3GVa+XX7QcCqgeX+TIRLSidOrSRs1Cp9hqMKUNmWfXA0+5
-	 ZwXp06LAFuJ5nr0K18G10dAteg+0oTZI0MdxH0olSrYy/Rl1jPZcxm/iMR50b8X+xKXUr
-	 X7unMgAUty0ETWQBcVfKNCKMDpm62N4FPXzbNxKArqITuMOPAlzF802DNLCQU0Sa060YV
-	 1SJEdMH51oStak0FK6xVbt87ZfLRp5Y754+pg4vT+Kw5yBVKXAjXh3Z3sl/5fT3dfig==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792745299;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
-	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=Bwe/E29eocvMs6PrU+4lRpB3hQIBZS+88pkiXKYtJOs=;
-	b=eTuEBpW7Ge4PrwmXhP+PM9XSc0+eGgJLJNiyuhncNmF5ShfFDrTGQ4zEzXHNWOzowcLy
-	 xB1I1YXmcRY0NXLaF8qwsMHRg0xi/8YQmTlWdhIhP55AGKStuk6I8x6IvilK+qXrWyBOv
-	 u4dmEkSr9vEdZh8ARDRHJlFLxcQ0tFSqSzSKZMuekWJPjwpCVnTKP+ImYOnIov7ICi2Tz
-	 DNazocUrXv6eV3PgBghKLbWHKqxkWtI+8B0+4GRimyMVHwUDnB1Mi//HbRQyfImhGez9A
-	 ZkYLJApE442u0BBKzmKz0dOnGPCNxh+YFv++NXS4yhfxtmCKq3B9v8/093MEZpVU7/Q==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=jkov9LPB;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=gikcI5zQ;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792745344;
+	b=tBdP+d7x0sV6Hwtbe8Tlx4GYNrHvDsPzaaee7SGkBwFZ+0VWv10B4kS9HBDdZsGBV6Iv
+	 MBp6VgaAc7vLZQslu8G7EdOHRtS5wUXZAxyrSU7zebxuh7Rf5qbay32WwZrKIkO89Qdm3
+	 nzo8HJj0tg3ldziHEh1Fb1m+hqhVMQAW4ykGLUzKpla9mW/JUbAJX3Q/ZQiKEBwTivA+h
+	 UsbU94CvjOmIgfvpoBZrWvfUspOOSnUmyuiPcXwwD00/2sX5bhOiP8e8C13vw8LjyDsvR
+	 MAiIYq2uJ8hAHsZ/WdDc+p8jb6KkNJqH64IXI8FW7LFI1KGHC7wE+4UlobS7+NlXJFw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792745344;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=VC9nYWlngLoo0ikksJdWqMZri11D3jtQull+TR9q83U=;
+	b=N7tNQkIN9SDSs7i4mAprl8Bst+Ufcy1S8VwYKDRqqM/a7NljUbwtKAVd6SF1wR0bVtPL
+	 wGY1zneNoS+64nDAqRLzl9z52+FtfMliC6EKZa/vXFHtjhSqbED8vL+5Nu5tdc8nWIURk
+	 DNp4ByfJ+5HVPqCFf+x9HBS1os0+H/+mMbIWpZJU2iDPg8WJqnFCttFULS872HAtj21nF
+	 lQrtnlN1f5ovXqAlnTIT/z9RNplWPED+Dgy4CbOgWo33ecKN9XQSj2iJZ8czv1cEJQGRu
+	 Fk1do53GasOz3vtLC8E5RBQ/FZVNFRIDLo6obYGY+ADq5aq4O1Iz7pJuHDYzl+BzrhA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bOP3W1+X;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B3D3606A31B;
+	Fri, 23 Oct 2026 08:49:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bOP3W1+X
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1792745344;
+	b=OJG96vslcaSapPFMWpTNRnHGO8ozHQLeSZQZcR0lsPkFU24qhY64LEUUAu0cQZ0Nfi0t
+	 dmA6T3p2e1Yy2GdDAuWcNUAxJs2XMOL/Ezjz6z65XLmoCV5iBLx7qUX7OnhfK8zlO8Uns
+	 NRuLWJOihitwva7n0cVHTFbVf/4mM82p+M0G9E9lpu38ZgH5eyPJOuA+zcuUJVrpEqmYr
+	 z/DmuZY5mhydbQgTdsEtTxBdp55DgPib+xFNq2IwIyFvzuZZRhwxFQeSVBUqsY7R/35Ug
+	 5adrjqHCmjcKnmhnox+HFkzlwlFHRj/6fsAj4GrPEXkvlh6kfX+ecGyXOdQoBQNIYyw==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1792745344;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=VC9nYWlngLoo0ikksJdWqMZri11D3jtQull+TR9q83U=;
+	b=UuQAYlS5Ky75kAWpbFyyTt1wuctTPrgFQ1WN1E+cmECVhp7NTL9C1O/bizo3bRRrp/A8
+	 U0XyatAJbpPDw4Vtn+7R7WIHpXOG6aW4HUpV5aqCi3Cahz13Uw2dKK2CcBu1jhvR1TLNO
+	 F1h04cBP26nxHNksILIme9AmF652pqXarZQyUdZp0+/indeBrwe3pAPm65uJpWe4vX67v
+	 W5X6JIuVyP0PnFY7q5we0o9k0CRZ2XaPDAPopEtZM9zafHeL4ZN43X2nVb5ebbt3dmX10
+	 3tg91XeaFJSgaTKXBv2jEdDuAfo09NtvQRvf+psfjAWmCFCwJjbu+G9h1WtYhsIl3Hg==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 326C4606A31B
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 08:48:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 326C4606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=jkov9LPB;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=gikcI5zQ
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69N7F9GF2112124
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 08:48:18 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=qcppdkim1; bh=Bwe/E29eocvMs6PrU+4lRpB3hQIBZS+88pk
-	iXKYtJOs=; b=jkov9LPBxYXCcS7rrWsIZzm1VUSxll4br185ktXpzEA1C4C7rp/
-	gQc68v9NSM+dlUEsyGn3n6cM+O3RkBCYmZpuZ20AjegkDCx+eWNrGZMmrF1/UGh2
-	UE5smgUz1M6gI9CCUugPCPC9TUvr6u0L4fKwmZzEcGVtiIdEmK1AVLq5/9x04iFK
-	QT6YntkFT2CYloF04okennf0+6qGw2cTZJS4DrFM4Vmpk4W8TqxOwpUG9Mfk5bOX
-	E0h6zcZ2hABP9hMGYSSDeVO1U0aRCCEn8ej/SnPRUxlLcZkR/gLwLQF5lfeUwDZH
-	zaxDJ2eK4uY6kgfUNCoc06dL+FKq07L2yMw==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hfsyka813-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 08:48:18 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93cb93c874bso314511485a.0
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 01:48:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792745297; x=1793350097; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Bwe/E29eocvMs6PrU+4lRpB3hQIBZS+88pkiXKYtJOs=;
-        b=gikcI5zQL91d/nfM0qTSC76B5QpwQ7gCR5TRyW9iGW0xjnH4IOl0EsmUUSx1tXokMa
-         t9D+GMexkWki3RY7d9zxICwCMTSekgiXQJ3ou18bMBxcb0VMdLjdX3R+KBvrr6C3yLyB
-         BpJHamrE3ik5N23tUIMVNw+t/5gWPlK9oQWSduKjjQGWRHFEYGpahE89k3ELQZeQOBYq
-         2islp7sFNJFDnLZNx1XSOKRejkd7CiPRqit7hmyxz85aRflSE8qindBrVPWeNfOMdGYp
-         gOTd8gD4P/CSO06HBzKPwnoU4nBc+lxE3tgNrAoIoPvwwnC5PyhdTII8Tn97h6Qp2nOJ
-         +D6Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792745297; x=1793350097;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Bwe/E29eocvMs6PrU+4lRpB3hQIBZS+88pkiXKYtJOs=;
-        b=i/giUZCTO9sJTck3lVyxktj4RrDSy1cJqJUGrEB/fGY1k/nccHmHqzge3jlAbmVKGl
-         gbop31P3zwhfTqLZ5jabNtYnFe91XRQOM0R4LJcplwnGdtqyQ1pHDrP+Zlgz8eL0Emjf
-         ghEJ4+gN3xTuH9I8CoaLCvE8JMZeutcs5VTysTqfcHeP50MztKrjrtqP+Q9U6hCvCdSE
-         r5VBNXURHp7kbXmZyojfv/lU9L1DUwE3tK8wSes6yHymKp2X0gQJow1xDfN2hpLVFdHo
-         k+vJEXem3c4AA7jEo6WYiTD+fWEl/72wwdvTKEY71rs+Io81dhxycvhI81xAkigjQwxB
-         4ODg==
-X-Forwarded-Encrypted: i=1; AKwUvBwYs77xu7aQDZ5D+bToufheivU9/Iibc3Mbqyz1Qhjq4/+U70RfnJCkC4NCcUfzZHDUK3KBeTRVSp51POI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKS7Kn/FyjgnND2J8L2wBuoXL3Qed5TK8VznYjoJ6G2AchSat8G
-	ERQH4ld/o6lz99LPpy8klBBydON2co7V7U5kNNsaFMPlLRpWkpe0Ql1IEY8wVgFpaCdYllCdofH
-	/2TDebyxqsSBaOA/mD905nXXQj8OVR9fsM14FcencdaB7HxKebQ2xdlcK+BJaT3kgv9q7l1Wwvw
-	c=
-X-Gm-Gg: AYBFou0R8TPh9oKP0ZmbBdP7g0PW6/c/dl8UVmBtNBqTZpnAePwaI1jmCJgtTv2hAiS
-	NtHu0rbxpEOJ3VMkEAvcATVf8nUft/v40XsPe5Jdv3vEMXH0Iu7oVc4pehhgCdGZd+Lq00ADCm5
-	Ijsc6qv1C3CIC/ytqMllR7Z0AYtBgZbrbaf63WtKXlG3+G2PoX0j8yzoMC/fcXWUu7Ixsr5nfo4
-	H1k9+MarqhvriZZFAcYfC5Qf7fpLsbNNVCc5KgclkH55cmgQA15ZcNeJYZ8k/qctihhUJ9Mo2ue
-	UlpFacNVWPuG8Wb7FApl7CHPG3QhAU8RfOYFgfiY5HV+M9XFEDzB469EhwxJsSNojYitZqxoS01
-	Z/65Gw6qW29fXgmhwdccjlMxOOFE=
-X-Received: by 2002:a05:620a:198f:b0:93e:7ddb:4ee1 with SMTP id af79cd13be357-93f6f8585bfmr315579085a.31.1792745297134;
-        Fri, 23 Oct 2026 01:48:17 -0700 (PDT)
-X-Received: by 2002:a05:620a:2702:b0:93e:c12d:4ec7 with SMTP id af79cd13be357-93f627bd91amr718296885a.39.1792744895234;
-        Fri, 23 Oct 2026 01:41:35 -0700 (PDT)
-Received: from brgl-qcom.home ([2a01:cb1d:dc:7e00:8916:7b9b:97a2:6c96])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a211bba03esm40720575e9.9.2026.10.23.01.41.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 23 Oct 2026 01:41:34 -0700 (PDT)
-From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: Linus Walleij <linusw@kernel.org>, linux-gpio@vger.kernel.org,
-        linux-kernel@vger.kernel.org, brgl@kernel.org,
-        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Subject: [GIT PULL] gpio fixes for v7.4-rc1
-Date: Fri, 23 Oct 2026 10:41:31 +0200
-Message-ID: <20261023084131.49264-1-bartosz.golaszewski@oss.qualcomm.com>
-X-Mailer: git-send-email 2.47.3
+	by smtp.kernel.org (Postfix) with ESMTPS id F2ACC1F031E1;
+	Fri, 23 Oct 2026 08:49:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792745344;
+	bh=VC9nYWlngLoo0ikksJdWqMZri11D3jtQull+TR9q83U=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=bOP3W1+XtnZULebPv1WwtFfZ6Yc2QQ9zHsdnxF85OnAK6ivTSPKojZ4zbPfzuVAkx
+	 0bKqaf4N9bER+deu8V1pMUW+xoCI4N4iVvqZKDSAsGutYquWtSVB74PLkzKo6Pj3Dv
+	 h6eQERK7mhiMhgttEhMHU0pB7V5PUSOCRrT4YNVuJYz8AzF5Mgl4Kx82Y+KVY+bYGZ
+	 KkW8qk/RU13lzC/27FqtR+hDW4efYto9P3J8TMdGWfEGWsGZK4o3nv7ImYAxvGzuq0
+	 ouBztNBYxhf4boaAongYUPdEFaAaKrIzFgf4mgvSiEIbPMbiC2XZscQVhX6/zNSvtn
+	 M8LE41GvKCfww==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 8313F44445;
+	Fri, 23 Oct 2026 08:49:02 +0000 (UTC)
+From: Ishu Brar via B4 Relay <devnull+patches.brar.si@kernel.org>
+Date: Fri, 23 Oct 2026 14:19:02 +0530
+Subject: [PATCH v2 4/4] drm/msm/adreno: Add Adreno 620
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -118,107 +82,109 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIzMDAzNCBTYWx0ZWRfX7W9ZO7DN4XLX
- Uoq1ggYgT1OVJfP1/1SAd8qfUihFby9aADlQITOLSmgaJGsg/EbVuEJsA2X37pKbjFl8IsqGPNR
- jBFzhDTQZHrZ6VDw3UDiMQNDEURdIbkSHhUslzrb5GBxiBzWzCRX3127tGOjoHCy0SfJJVmWNut
- cizjN9JXY+AIqXO+l3xqZMRhfBw28gawyu8cQTKR5HkVuCx/t4mlZGLHZStXe2+0v3erf1JezkH
- lY/JbFXhuVJASauStbRl8ThutPzD7DVmCJxJEYHxq52Qbu50Go2uFtUdK5bJ3Bxtc39VDjJ74ns
- Zs6uFJZuHYmYqgtNe7VFCA/PQE9BQ/AXGHbmVILeQ6ubYyBZw3LlD47gnitCCVk53vGMacmuXtH
- EzrPaIWyFwbR3UZIopAGt61+Mal46JrBxYMRoiIi13nhCEE67GlmBz6nAN7v1gKUIM6EG9+IQdS
- pWg3CxNibLwpc4Z1+gw==
-X-Proofpoint-ORIG-GUID: w31SlzuiMgNVJTt5i2408Q9CJy1gl7W6
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIzMDAzNCBTYWx0ZWRfX3OS/H9l27wbK
- xYkPdbPcLCK8OffTTmR7tEvSu7XveKHOiN3xHUxyKM5kMn0O/+bV/UqOHN6mJ2pTyccb7cdQinr
- Hpc+h3hPmjDj7ZOlaSVpmd80BkyhMqw=
-X-Proofpoint-GUID: w31SlzuiMgNVJTt5i2408Q9CJy1gl7W6
-X-Authority-Analysis: v=2.4 cv=GLKdgeNK c=1 sm=1 tr=0 ts=6adb1f52 cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=xqWC_Br6kY4A:10 a=660iZSQnnn4A:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=yOCtJkima9RkubShWh1s:22 a=VwQbUJbxAAAA:8 a=y2QhiVGmr7caz0bHyxYA:9
- a=PEH46H7Ffwr30OY-TuGO:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-23_02,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 impostorscore=0 bulkscore=0 spamscore=0 lowpriorityscore=0
- clxscore=1015 priorityscore=1501 suspectscore=0 malwarescore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610230034
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261023-adreno-a620-v2-4-1d654c3f52d5@brar.si>
+References: <20261023-adreno-a620-v2-0-1d654c3f52d5@brar.si>
+In-Reply-To: <20261023-adreno-a620-v2-0-1d654c3f52d5@brar.si>
+To: Rob Clark <robin.clark@oss.qualcomm.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Ishu Brar <patches@brar.si>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792745340; l=2351;
+ i=patches@brar.si; h=from:subject:message-id;
+ bh=tU61s/7XnImqnoXanHZtlX9L/8bbUJ87V/QXf+2mrqI=;
+ b=OG6UaA9YwE3jmVOZ0IRBLIxk82gnLtPxhTtMjMEkVUhl1vSTVzrmwhVpXvvAMrBh2xa1Wwae1
+ XDeSEWgm/KKBtxQn9doZl9UHBq9NAeGvqTYqEgHU/fsinYx/+kRMyH8
+X-Developer-Key: i=patches@brar.si; a=ed25519;
+ pk=Ds+E23E3ntzjPzuBDyVRkOouclcNI5k75R+N42yJtCk=
+X-Endpoint-Received: by B4 Relay for patches@brar.si/default with
+ auth_id=1189
+X-Original-From: Ishu Brar <patches@brar.si>
+Reply-To: patches@brar.si
+Content-Transfer-Encoding: 7bit
 
-Linus,
+From: Ishu Brar <patches@brar.si>
 
-Please pull the following set of fixes for the GPIO subsystem. These
-mostly came in late into the cycle and didn't make the cut for the main
-v7.4 PR and some more were posted early this week. Details are in the
-signed tag.
+Add the catalog entry for the Adreno 620 (chip id 0x06020000) found in
+the Snapdragon 765/765G/768G (SM7250). It is an A650 derivative and
+uses its SQE and GMU firmware and protect table, together with the A620
+zap shader.
 
-Thanks,
-Bartosz
+The speed-bin fuse values map to the OPP bins as in the downstream
+"lito" devicetree: fuse 0 is the default bin and fuse 132 and 115 are
+the two alternate ones.
 
-The following changes since commit c03c1a14507dfaf8b856c2608f9ac216021fc222:
+The GMU clock gating mode is 0x00020202, which is what the downstream
+driver programs on every A6xx except the A612 and A615 family. List the
+SH0/MC0/ACV bus clock managers like the other A6xx and A7xx parts do, so
+the bandwidth table is generated from the OPP table once it carries
+bandwidth votes; until then the table added earlier in this series is
+used. The bus widths are the ones the other parts use.
 
-  Linux 7.3 (2026-10-18 13:14:58 -1000)
+Signed-off-by: Ishu Brar <patches@brar.si>
+---
+ drivers/gpu/drm/msm/adreno/a6xx_catalog.c | 35 +++++++++++++++++++++++++++++++
+ 1 file changed, 35 insertions(+)
 
-are available in the Git repository at:
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
+index 4ef2bd6e7..bea11ba6c 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
++++ b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
+@@ -943,6 +943,41 @@ static const struct adreno_info a6xx_gpus[] = {
+ 			{ 169, 2 },
+ 			{ 180, 1 },
+ 		),
++	}, {
++		.chip_ids = ADRENO_CHIP_IDS(0x06020000),
++		.family = ADRENO_6XX_GEN3,
++		.fw = {
++			[ADRENO_FW_SQE] = "a650_sqe.fw",
++			[ADRENO_FW_GMU] = "a650_gmu.bin",
++		},
++		.gmem = SZ_512K,
++		.inactive_period = DRM_MSM_INACTIVE_PERIOD,
++		.quirks = ADRENO_QUIRK_HAS_CACHED_COHERENT |
++			  ADRENO_QUIRK_HAS_HW_APRIV,
++		.funcs = &a6xx_gpu_funcs,
++		.zapfw = "a620_zap.mbn",
++		.a6xx = &(const struct a6xx_info) {
++			.hwcg = a620_hwcg,
++			.protect = &a650_protect,
++			.gbif_cx = a640_gbif,
++			.gmu_cgc_mode = 0x00020202,
++			.prim_fifo_threshold = 0x00010000,
++			.bcms = (const struct a6xx_bcm[]) {
++				{ .name = "SH0", .buswidth = 16 },
++				{ .name = "MC0", .buswidth = 4 },
++				{
++					.name = "ACV",
++					.fixed = true,
++					.perfmode = BIT(3),
++				},
++				{ /* sentinel */ },
++			},
++		},
++		.speedbins = ADRENO_SPEEDBINS(
++			{ 0,   0 },
++			{ 132, 1 },
++			{ 115, 3 },
++		),
+ 	}, {
+ 		.chip_ids = ADRENO_CHIP_IDS(0x06020100),
+ 		.family = ADRENO_6XX_GEN3,
 
-  git://git.kernel.org/pub/scm/linux/kernel/git/brgl/linux.git tags/gpio-fixes-for-v7.4-rc1
+-- 
+2.56.0
 
-for you to fetch changes up to dae739137441667d67fbfcc4d303a0ecc6618662:
 
-  gpiolib: don't report -ENOMEM for a requested line without a label (2026-10-23 09:48:36 +0200)
-
-----------------------------------------------------------------
-gpio fixes for v7.4-rc1
-
-- add ACPI quirks for Thinkpad L13 Gen 2a and Acer Nitro 16S AI to
-  ignore a wrong GPIO interrupt declaration
-- add missing return value check of devm_gpiochip_add_data() to
-  gpio-lpc32xx
-- don't set GPIOD_FLAG_IS_OUT from character device code as GPIO core
-  already does it where needed and it can lead to providing invalid info
-  to user-space on request errors
-- don't report a bogus -ENOMEM for a line requested without a label
-- propagate errors occurring when setting line values for pins for which
-  we emulate open-drain or open-source drive settings
-- fix interrupt handling bugs in gpio-pca953x and gpio-davinci
-- fix more memory leaks in GPIO core
-- clear event clock flags from pins on GPIO release
-
-----------------------------------------------------------------
-Abduvaliy Abdulazizov (1):
-      gpiolib: acpi: Ignore GPIO 11 interrupt on Acer Nitro 16S AI
-
-Adrian Ambrozewicz (3):
-      gpiolib: clear the event clock flags when a line is released
-      gpiolib: cdev: don't set GPIOD_FLAG_IS_OUT
-      gpiolib: don't report -ENOMEM for a requested line without a label
-
-Baek Kyu, Kim (2):
-      gpiolib: Free chip resources when allocating the label fails
-      gpiolib: Propagate emulated drive errors when setting arrays
-
-Bartosz Golaszewski (1):
-      Merge tag 'v7.3' of git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux into gpio/for-current
-
-Jayaraj Devaraj (1):
-      gpio: lpc32xx: check devm_gpiochip_add_data() return value
-
-Kent Gibson (1):
-      gpiolib: fix memory leak in gpiod_set_array_value_complex() EPERM error path
-
-Mario Limonciello (1):
-      gpiolib: acpi: Ignore GPIO 11 interrupt on ThinkPad L13 Gen 2a
-
-Sahaj Chaudhari (3):
-      gpio: davinci: Clear interrupt status in every bank on suspend
-      gpio: pca953x: Preserve wakeup accounting on parent IRQ failure
-      gpio: pca953x: Handle direction register read errors in IRQ paths
-
- drivers/gpio/gpio-davinci.c        |  6 +++---
- drivers/gpio/gpio-lpc32xx.c        |  9 ++++++---
- drivers/gpio/gpio-pca953x.c        | 21 +++++++++++++++++----
- drivers/gpio/gpiolib-acpi-quirks.c | 31 +++++++++++++++++++++++++++++++
- drivers/gpio/gpiolib-cdev.c        |  5 -----
- drivers/gpio/gpiolib.c             | 32 ++++++++++++++++++++++++--------
- 6 files changed, 81 insertions(+), 23 deletions(-)
