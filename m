@@ -1,74 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.57.252
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792747497;
-	b=Ui+96GtURGtdlWTpi4RLP99i1JDFRtkvOZ3pVmddp8ODpKlQTpp1GjWXcTfBDXSgxlK1
-	 RAOCLyy/tfcqFMUOeSJJZRzOw/Jb3OKiZmo7/cs4vYKXKjI1LNOpvhkDwkHmpps9TC1Uq
-	 +cfqQBroCvoqV9WuBh9w3COWAJNNj5cNR5FTdefnA8dvr27eoY1VR1RqG7Vaj1kk0afA5
-	 XoRhIKR2907tePqlK4IdBDs07QbtUmB43JuzUVVz/hG9WNRDf+4Uw7gypygHCriF81AA7
-	 bf2gRGW9wFQm1RJpV7gaXyY6NswAZqcW1uvTV6I5sJ8IR+6Z+M2pt3D6XoLKxTHan6Q==
+	t=1792747521;
+	b=k2p4GTcl7tUDe4bZ4bEc+ChQKdcaTXcgAFjrBaxpB3E8aucXemONbAykCiWqW/DxeTHH
+	 UdyOgici+Dqqmsp7c4DfstysSeoxmNWpmoUZUjLMsfCY/+mjAztuds8OfbA2XbRu2Nh/w
+	 DUEZPNfqMOEKt1VnhlG0ihyydKxXQWSIm3Do0bGVZaves7F4MOb5GK4oW3hYMBC0BnjSV
+	 kiI+wNmjVdgtTVUjkDvstgXrYtrIIsy+JufqEeWn10F4N7Ca9oH1/AzK7Zs9nVnuXXNl7
+	 tQ4Vs9C+a6gJiuoW0iTKgRj4zNml+Y4R03qBBtPFjA9JvTnLGYwAFo9Ubm364EOH2vA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792747497;
-	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=3f6imDR2vRKyLye/bDJFbSuE21+KoRdI2+Zivaf+5T0=;
-	b=avv2FwnvqnFJ6g6Hi8y4X5rzCBz2x7fv4DgR5laxLWrRJgTdaqPMxszXEvkEB0DY1QUU
-	 oiMMrPWbfvBKCHDRpeix/jbDu+GC5hI3xG8lbIoF55fyCnjSI4NO94PTEmWLSXLjbvdII
-	 BhlO0sQYHXwS0pK/oXtPiRzSDhbbXbq+Zn6hhAR8mjIlbgFHtxCf5VJgRvgqiL7WTupx9
-	 x6jjGm05NBjR7caiutXWgy1cYHGbuAFdJUeUAay5y6gKRopbAPFR+nnncbrbMPaZ5lSLB
-	 dHIBsB9xOp5DJfL9EFjxMYYmkbX6ms7Zv4wqnAlhc/fBdy8cReKa4108UgbZ53KwRxA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792747521;
+	h=DMARC-Filter:DKIM-Signature:Date:From:To:Cc:Subject:X-Priority:
+	 X-Mailer:In-Reply-To:References:X-NTES-SC:Content-Transfer-Encoding:
+	 Content-Type:MIME-Version:Message-ID:X-Coremail-Locale:X-CM-TRANSID:
+	 X-CM-SenderInfo:X-Coremail-Antispam;
+	bh=oIEbkwx7ah2+2ffXZyS1J4CXUgMzouvAvJm5LIiJGDA=;
+	b=OgbcSw3KklJdMnWfF2IAJRC/0IMRLecgQajxZGBcMM9IIvkQqfpX6UBHXZ673iBJclnu
+	 yEWOyytZ2qd1U+0FbQYobln+rgDc22tvcbMcBKbfIjdeyiKYd7c3OQzHqqsiEbx/Asa60
+	 ic3Gn54AjwgapgKlSSXKLni9S1SPPkwQOfvQx9FvNpcX9WY9xxasbPpEO1RhY8S0Mm+2y
+	 FIP//5LjGoicv/zk/Fbug/u+NqH4KGwm1AI8A6XfVpO0JkzaFEpKJJkJKRuKoIR/j1ZEd
+	 mBvE/zeg55BNKZmyqEC4iDEO6fhTLERoGGT7iwEzN9UWLxn3PMkgh5w3BQp5dWTs5OQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=qq.com;
-	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b="Fj6L85/D";
-	arc=none smtp.remote-ip=162.62.57.252
-Received: from out162-62-57-252.mail.qq.com (out162-62-57-252.mail.qq.com [162.62.57.252])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=mVvaStjU;
+	arc=none smtp.remote-ip=117.135.210.4
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12A4E606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 09:24:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 12A4E606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E10A606A31D;
+	Fri, 23 Oct 2026 09:25:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9E10A606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=Fj6L85/D
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1792747486; bh=3f6imDR2vRKyLye/bDJFbSuE21+KoRdI2+Zivaf+5T0=;
-	h=From:To:Cc:Subject:Date;
-	b=Fj6L85/DqB0c2HilkcQviv6/uYkj3wdCPBdCnGOfCYFe6yz+rrfiLZH93kAQCNAv+
-	 p/valHBxku08aeDpm/nFE38dCk3V4BxBUvE6hERm5kyBTKUzq9P7gvcmy9sKu4hcBL
-	 qb9xEV2LhMct+t83w7wFmmOnMYS2bWtIi/ZOzXCE=
-Received: from shuai-VMware-Virtual-Platform.. ([218.28.192.28])
-	by newxmesmtplogicsvrsza73-0.qq.com (NewEsmtp) with SMTP
-	id 62C976F9; Fri, 23 Oct 2026 17:24:44 +0800
-X-QQ-mid: xmsmtpt1792747484tqz3no2eq
-Message-ID: <tencent_760494FBADB4184B967C5A93312EB198F506@qq.com>
-X-QQ-XMAILINFO: MMq8nqC7jH0Be+Q4kCeE5YewTFo/Q+KySvYfoDEq585+InnVtKGJg+wBVHPKH8
-	 VWgoEQ6I23ziCP+yiU8PpYY5p/xjX+n/1JNQ3mUbarjU+6ZHHDFnsD9VlChiL9axH4QkvBSyLskc
-	 tOQ0CF+OcYwDI3/s5mqMFC7urtMMz9BAJZmrZ61hWdB8d6J4FPZEaMmPU8RFIHOQ3badhaijj/R/
-	 xdBivTPjkW+D115wc9lDnPh9RM7c0qkKzxvjjXS5XaU85rqE9MemdAl1/jm0MesVqEoqLnQ2/Rrt
-	 lfpoQp8JDR9++AuqSGqSlNJ0UnB9ngCkPr55EMbSu/eIihrsTx3xZt+mgJkKqmRA/ureRxQpCtgb
-	 6fM2leAZLhdJwSd/4Y/QTLv1gAPyoTIz1vrmRp0HL2lsAccmszyOhEv/tB2Tj6P7ohPjLbe0UmcS
-	 S8dal4BLcTXkWVoThFxRHaJJraAlOhet0JxmXX87XEMlt1CYM+csOPh3LauWWHm6tLNRPl3I7GVu
-	 xyFmNIYwt1RQL4ymhEAwQoJJbkQx1jpGGzRg4lKhva9DIWPPnn7Xgc09gP2kiggS/AoZKDdnr/id
-	 w8045s//BPkW0IXYH8b0HWKNFzGLQlyVelqN+m4fFQnLHuwQFJFf9WdRvFmclpR/ioK49MKSTpkA
-	 6iaMAZX6fbjqGMHFy1CQhPAk+hzqH7yDkq2u/ue1HgtsXsIS/oln7AFqX3KMeGG0Sz1yjJWUIub9
-	 L32rbyxABfVKKCJaP8OcunbF8H7M9U39Y73JV6YncUvzfqlFg0JLmbQqgTdsRCrC/tl8YH+X4GX3
-	 WJJ9z0sBo+K8h4ToyoxmoykFyGQCwfDvEfgp8Z4Zn1TMq0OxyFzOckeui3uJHAOIK/YnOkcwMcD8
-	 Yr/QBytkonztbFTD+agJ5KEER3RD+e3uRyuJ2mCHVBlB1RwPn2B7ebfiBMEgYtD51naT5fPrxhdT
-	 aqlwYakYpz7p8Km9F3UirbMPa4doiXLXlZazpe8y0EhCdWwQKD9NNjvv1eMEotIRAm28chWhtWfg
-	 cUqp4b3B/vb8UzcaaKYlOgBNfSk3QX+PwnvSjpck6BUQFEBwDK
-X-QQ-XMRINFO: Mp0Kj//9VHAxzExpfF+O8yhSrljjwrznVg==
-From: Shuai Liu <847807867@qq.com>
-To: linux-mtd@lists.infradead.org
-Cc: pratyush@kernel.org,
-	mwalle@kernel.org,
-	takahiro.kuwano@infineon.com,
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=mVvaStjU
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
+	Message-ID; bh=oIEbkwx7ah2+2ffXZyS1J4CXUgMzouvAvJm5LIiJGDA=; b=m
+	VvaStjUd121O05QF/sXW2XRsv1pInInC7RWLl6EVhfq4Lqg3CgyjLkb0t8SosWbe
+	cfdUL02TOmhoiwM9fIR0jeBwU42SiiADsXPoEUqJWSf5uHyPlX+l4c/x07VTFtcQ
+	eOMYQ8XpRdUTa9x6go/VTGR7wivfXO5xSMuxYxO+8o=
+Date: Fri, 23 Oct 2026 17:24:48 +0800 (CST)
+From: zl020895  <zl020895@163.com>
+To: "Krzysztof Kozlowski" <krzk@kernel.org>
+Cc: longzhao@ambarella.com,
+	"Greg Kroah-Hartman" <gregkh@linuxfoundation.org>,
+	"Jiri Slaby" <jirislaby@kernel.org>, linux-serial@vger.kernel.org,
+	"Linus Walleij" <linusw@kernel.org>,
+	"Andy Shevchenko" <andriy.shevchenko@linux.intel.com>,
+	=?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	"Rob Herring" <robh@kernel.org>,
+	"Krzysztof Kozlowski" <krzk+dt@kernel.org>,
+	"Krzysztof Kozlowski" <krzysztof.kozlowski@oss.qualcomm.com>,
+	"Conor Dooley" <conor+dt@kernel.org>, devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH] mtd: spi-nor: fix missing space after comma in legacy flash names
-Date: Fri, 23 Oct 2026 17:24:44 +0800
-X-OQ-MSGID: <20261023092444.3969022-1-847807867@qq.com>
-X-Mailer: git-send-email 2.43.0
+Subject: Re:Re: [PATCH 1/2] dt-bindings: serial: snps-dw-apb-uart: add
+ ambarella,cv75-uart
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
+ 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
+In-Reply-To: <a9e45c44-00ae-4963-b8e5-dbf6ffa18975@kernel.org>
+References: <20261009-cv75-uart-v1-0-38c098efaa99@ambarella.com>
+ <20261009-cv75-uart-v1-1-38c098efaa99@ambarella.com>
+ <a9e45c44-00ae-4963-b8e5-dbf6ffa18975@kernel.org>
+X-NTES-SC: AL_Qu2SAPufuEwj7iaebOkdnUoTj+Y/XMK0uvwk1YdVc/AElgPJ5AIGWXJHHmDEwu6+JAWAnwm7fhJQ+t94fJJe8au8lFxeOm3+sz/3+JE9Rg==
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=UTF-8
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,35 +75,36 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Message-ID: <6883d29c.81aa.1a16813c5a6.Coremail.zl020895@163.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID:eigvCgDnrzjgJ9tqOzJfAA--.2322W
+X-CM-SenderInfo: d2oqjiqyzvqiywtou0bp/xtbC7gCTBWrbJ+Cv6gAA3L
+X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
 
-Add the missing space between string literals in the legacy
-flash_info entries. Cosmetic only, no functional change; silences
-checkpatch ERRORs on these lines.
-
-Signed-off-by: Shuai Liu <847807867@qq.com>
----
- drivers/mtd/spi-nor/core.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/mtd/spi-nor/core.c b/drivers/mtd/spi-nor/core.c
-index 8bc117b46..31cba60bd 100644
---- a/drivers/mtd/spi-nor/core.c
-+++ b/drivers/mtd/spi-nor/core.c
-@@ -3898,11 +3898,11 @@ static const struct spi_device_id spi_nor_dev_ids[] = {
- 	 */
- 	{"at25df321a"},	{"at25df641"},	{"at26df081a"},
- 	{"mx25l4005a"},	{"mx25l1606e"},	{"mx25l6405d"},	{"mx25l12805d"},
--	{"mx25l25635e"},{"mx66l51235l"},
-+	{"mx25l25635e"}, {"mx66l51235l"},
- 	{"n25q064"},	{"n25q128a11"},	{"n25q128a13"},	{"n25q512a"},
- 	{"s25fl256s1"},	{"s25fl512s"},	{"s25sl12801"},	{"s25fl008k"},
- 	{"s25fl064k"},
--	{"sst25vf040b"},{"sst25vf016b"},{"sst25vf032b"},{"sst25wf040"},
-+	{"sst25vf040b"}, {"sst25vf016b"}, {"sst25vf032b"}, {"sst25wf040"},
- 	{"m25p40"},	{"m25p80"},	{"m25p16"},	{"m25p32"},
- 	{"m25p64"},	{"m25p128"},
- 	{"w25x80"},	{"w25x32"},	{"w25q32"},	{"w25q32dw"},
--- 
-2.43.0
-
+CkF0IDIwMjYtMTAtMDkgMTk6MjY6MzIsICJLcnp5c3p0b2YgS296bG93c2tpIiA8a3J6a0BrZXJu
+ZWwub3JnPiB3cm90ZToKPk9uIDA5LzEwLzIwMjYgMTI6NTksIExvbmcgWmhhbyB2aWEgQjQgUmVs
+YXkgd3JvdGU6Cj4+IEZyb206IExvbmcgWmhhbyA8bG9uZ3poYW9AYW1iYXJlbGxhLmNvbT4KPj4g
+Cj4+IEFkZCB0aGUgQW1iYXJlbGxhIENWNzUgY29tcGF0aWJsZSBzdHJpbmcgdG8gdGhlIFN5bm9w
+c3lzIERXIEFQQiBVQVJUCj4+IGJpbmRpbmcuIFRoZSBibG9jayBpcyBBbWJhcmVsbGEgSVAgd2l0
+aCBhIERXLWxpa2UgcmVnaXN0ZXIgbWFwLCBzbyBpdAo+PiBpcyBkZXNjcmliZWQgYXMgYSBEVyBB
+UEIgVUFSVCB2YXJpYW50Lgo+PiAKPj4gQWNrZWQtYnk6IEtyenlzenRvZiBLb3psb3dza2kgPGty
+enlzenRvZi5rb3psb3dza2lAb3NzLnF1YWxjb21tLmNvbT4KPj4gUmV2aWV3ZWQtYnk6IExpbnVz
+IFdhbGxlaWogPGxpbnVzd0BrZXJuZWwub3JnPgo+PiBTaWduZWQtb2ZmLWJ5OiBMb25nIFpoYW8g
+PGxvbmd6aGFvQGFtYmFyZWxsYS5jb20+Cj4+IC0tLQo+PiAgRG9jdW1lbnRhdGlvbi9kZXZpY2V0
+cmVlL2JpbmRpbmdzL3NlcmlhbC9zbnBzLWR3LWFwYi11YXJ0LnlhbWwgfCAxICsKPj4gIDEgZmls
+ZSBjaGFuZ2VkLCAxIGluc2VydGlvbigrKQo+PiAKPj4gZGlmZiAtLWdpdCBhL0RvY3VtZW50YXRp
+b24vZGV2aWNldHJlZS9iaW5kaW5ncy9zZXJpYWwvc25wcy1kdy1hcGItdWFydC55YW1sIGIvRG9j
+dW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL3NlcmlhbC9zbnBzLWR3LWFwYi11YXJ0Lnlh
+bWwKPj4gaW5kZXggNDlmNTFiMDAyODc5Li5jZWM1YzY3OWYxYTkgMTAwNjQ0Cj4+IC0tLSBhL0Rv
+Y3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9zZXJpYWwvc25wcy1kdy1hcGItdWFydC55
+YW1sCj4+ICsrKyBiL0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9zZXJpYWwvc25w
+cy1kdy1hcGItdWFydC55YW1sCj4+IEBAIC01MSw2ICs1MSw3IEBAIHByb3BlcnRpZXM6Cj4+ICAg
+ICAgICAgICAgLSBjb25zdDogcmVuZXNhcyxyem4xLXVhcnQKPj4gICAgICAgIC0gaXRlbXM6Cj4+
+ICAgICAgICAgICAgLSBlbnVtOgo+PiArICAgICAgICAgICAgICAtIGFtYmFyZWxsYSxjdjc1LXVh
+cnQKPgo+Cj5UaGlzIGRlcGVuZHMgb24gdmVuZG9yIHByZWZpeCBwYXRjaCBhdCBsZWFzdCBmcm9t
+IG5leHQgcG9pbnQgb2Ygdmlldy4KPgo+QmVzdCByZWdhcmRzLAo+S3J6eXN6dG9mCgpIaSBLcnp5
+c3p0b2YsIEdyZWcsIEppcmksCgpHZW50bGUgcGluZyBvbiB0aGlzIHNlcmllcy4KClRoZSBhbWJh
+cmVsbGEgcHJlZml4IGlzIGluIGxpbnV4LW5leHQgbm93LgpUaGUgZHJpdmVyIHBhdGNoIGFscmVh
+ZHkgaGFzIFItYiBmcm9tIExpbnVzIFdhbGxlaWosIEFuZHkgYW5kIElscG8uCgpQbGVhc2UgbGV0
+IG1lIGtub3cgaWYgeW91IGhhdmUgYW55IGNvbmNlcm5zLgoKQmVzdCByZWdhcmRzLApMb25nIFpo
+YW8=
