@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792778181;
-	b=c8OzUFmdadJ1WRCou1Rtw4dfTm6ux2Xwquk1vaTwZDKo7MTtupOq68VXFg35vJyn/4Ma
-	 oCEkbV8jJk4z+C169wb7pSiCjjFb7LVk+ZnL3KRyiVfpZlsUusUbAH1vNRtiBEdRLtqZ/
-	 FpQuuJmhRCJsgVH89QIee7etk8XJbR8ETTM+nv/DHNzg2+on4yrio5kOUsRLvujJ2dae3
-	 1t0TLwfTxa//8kJHnD6lw3kVrKc/KXBdFAidvGfpRK+PehalubDI/txl/vsRM0qsSLjKq
-	 vBgGLSCI6dmxCyWvKZXKKRuq2L9grk3qz39WEAeAg1pP4kNAW0fkWoeIonkm8ZzQ8ag==
+	t=1792778172;
+	b=saL0eMBEezxqIvwkE7T38F4eIwDO3rtJiLcXsD1iLJ6twZWipiyMgq7GEeiJvYWv//Tv
+	 4oCVRyFX7JefoTs+uexMIIsklanimGy+/bYLdPCf4+mcLQ+4BwUpasN6ubkxdZPkZ26lp
+	 ZYD3EgGeENyGQieIqCVi0/BgT5Pv7yEj2q6YLX78NY4UG21+7DAVmgUdCSk80oHQWzzIR
+	 SmlK9X50Dqv24HfKWiP5BmsM0bn88Z6pqp5J1nBkRoOQQIWCRx3Kg+oAJFJyasSqNh2nM
+	 SpXsFo1zaHJVBbYyUvmVIY6dAzW+2Sj9N2t67Jmlu5J2qm07bz5GsHedtrHc14w5Yfg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792778181;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792778172;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=z23/XZo8aASqoi1ZJmd8LuMb2eYM/u4/cl3lSNwkFDI=;
-	b=gg034Icp2vqKaTpLg+n01oLZ/oWHUyKKufQnatv3BjyvldQcp+al/kxVF2UdTe9mNUkY
-	 ciYA8758DiZ29u9hGnxHSo6fJSRE9GWS8oCsd54/JECtZ47jOMq9QqpaSzwoQMsOAU4Kx
-	 IIRFDqSB/XvvWhzKqt372CAwv9i3M1/eZFDRoaDPAj+aRFhlw8UeuSNcKSC/7RWjrQKy4
-	 BeA2MJVuNZE9R41TLCuKfVtsnxdfnSztAxLxyxcRIB4+KfPas6CJqCUlMKtyyJzC3eJDr
-	 6azk00AwirpVxVbvNlI9FfhjzUrQeSY5sWu/s3+7VFfUZI15FctEifaPmoRtCJlh0pQ==
+	bh=wRpA4vF4Sk/UfaW67b88A9WROnoA0uJnVaDmwLQ3n0Y=;
+	b=xHGlVRZCVrR2vYXx0NJThyOQfI3cMWx18uDwi/yNQ+6X9noTuYR8WjcRNwQ+t0VGjtJg
+	 9mt6O8I/AWpGsseGTduoeFfTReyZ2jUzCrAbsKbAyVVD94ct4XX54+aRomidY0w3ncFPm
+	 FUQMEKofNkCXZhRMLizkGB9BpVmiWSu4AioPVMz+Prxw8phetjyikZuAfhbW++EBRMWBb
+	 r3S6bI/Vt9Sg8+5XPAkbXR8SR1Bb01HZmdeO4z8jPa3KvD/xktIqKMZvA+2oevzELjfi8
+	 BW0BOMkwXpqNWfFhchpBCYNhCPBXZvbitzrcTZZV5o3FHTfoUkAt5vbWI1wFkvvnDIQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=o1F5Gwge;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FWwHgchn;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2663160A3821;
-	Fri, 23 Oct 2026 17:56:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC7CB606A32E;
+	Fri, 23 Oct 2026 17:56:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=o1F5Gwge
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C80771F031EA;
-	Fri, 23 Oct 2026 17:56:20 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FWwHgchn
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 37CCE1F01828;
+	Fri, 23 Oct 2026 17:56:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792778181;
-	bh=z23/XZo8aASqoi1ZJmd8LuMb2eYM/u4/cl3lSNwkFDI=;
+	s=k20260515; t=1792778171;
+	bh=wRpA4vF4Sk/UfaW67b88A9WROnoA0uJnVaDmwLQ3n0Y=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=o1F5GwgeE7oW/JLFL9C5cY03PF1vRie9ftY0jC4Jzz252iITlvtpwZA4b+xKGKJYL
-	 gYzuuOzfkVfCBAZu+bLVnDvAvnRrf5Ww74YHmFoMFlU9aHso+CcEqvyO4BEe6FUDwU
-	 beGm9TP/YnVUKaQPboBVji8+X10+BRShBYwUaPg4O+/ukJJfa1zDQOcWZIXzC5iPjT
-	 02gwG/8UNIO9fJ3WbbzBvFxpdafEKRo3mkScNPwYHkTiDlLsRbmnBQB+scQDZTLrAj
-	 dLvZuZ2XZHdTosg+h1kBLOBOMVqN0pJtbLe0FVlCXLdYMI6Z2u0eInWBQniqsYOyCQ
-	 sIyYZxMGRFF/w==
+	b=FWwHgchnIVD9LeRYy5DFjoTaMv+/EGjBqLBznWDMfyznjupoFHlKtXXxwvdiLW7to
+	 9ekvs7gfkfeFGS1ZCypDem84Lm4E/a6uFjwvqxpRCeSVXT1Gmgsxyd93mof8GktZ3n
+	 D4+3HSDI2NugcwTVzgMDoiYywdzwhDM8pdltj7X+yTglLuZQ3K6hbvys4qoRxKOWQc
+	 7h5/RuuurnugJ78/irz4xK6XdH/BOpAEL8bQGfqEOurnjiOfYyptH9KnDc43rqOvPJ
+	 Henw5ZqPijnnti0KQgadDqJBUov4nh/tMkL/NpotNXLx8mFogkk3olajFLl85Ml3mA
+	 6V38vVzP89yPA==
 From: Tejun Heo <tj@kernel.org>
 To: sched-ext@lists.linux.dev
 Cc: David Vernet <void@manifault.com>,
@@ -48,9 +48,9 @@ Cc: David Vernet <void@manifault.com>,
 	David Dai <david.dai@linux.dev>,
 	linux-kernel@vger.kernel.org,
 	Tejun Heo <tj@kernel.org>
-Subject: [PATCH 11/17] sched_ext: Fix a cpu idling after put_prev_task_scx() queues its task on the local DSQ
-Date: Fri, 23 Oct 2026 07:56:02 -1000
-Message-ID: <20261023175608.4120910-12-tj@kernel.org>
+Subject: [PATCH 02/17] sched_ext: Clear holding_cpu where the claim is confirmed
+Date: Fri, 23 Oct 2026 07:55:53 -1000
+Message-ID: <20261023175608.4120910-3-tj@kernel.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261023175608.4120910-1-tj@kernel.org>
 References: <20261023175608.4120910-1-tj@kernel.org>
@@ -65,85 +65,121 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-put_prev_task_scx() enqueues a still-runnable task when the pick has settled
-on idle. The insert can land the task on the cpu's own local DSQ, and then
-the cpu must not go idle over it. 7a9df7667963 ("sched_ext: Fix stall when a
-task enqueued with SCX_ENQ_LAST lands back on its CPU's local DSQ")
-reschedules the idle task in that case, but only after the SCX_ENQ_LAST
-insert.
+The bypass load balancer will take tasks off a remote cpu's bypass DSQ with
+unlink_dsq_and_switch_rq_lock() in the following patches and insert them
+into another bypass DSQ. Clearing holding_cpu after the claim is up to each
+claimant, so the balancer would need a clear of its own.
 
-The plain insert, taken when the task can't stay on the cpu, can land on the
-local DSQ too: rescue can admit a task there when its scheduler lacks
-SCX_CAP_BASE on the cpu. Without the resched the cpu idles with the task
-queued until an unrelated wakeup or the rescue timer's escalation.
+unlink_dsq_and_switch_rq_lock() marks a task with holding_cpu for the gap
+between dropping the DSQ lock and taking the task's rq lock, so that a
+dequeue in that gap can tell the claimant it lost. Once the claimant holds
+the rq lock and finds the marker intact, nothing can take the task away
+under it and the marker has no reader left.
 
-Reschedule after either insert. In the following patches, the plain insert
-becomes the common path for bypassed tasks under rescue.
+Each claimant clears it at its own site after that point:
 
-v2: The description's forward reference to the plain insert becoming the
-common path no longer names the following patch.
+ - dispatch_to_local_dsq(), which runs the handshake inline, in its same-rq
+   and fallback branches
+ - scx_proxy_reject_task() for the proxy reject
+ - the dequeue inside deactivate_task() for both remote moves
 
-Fixes: 5fd501744b10 ("sched_ext: Add bandwidth-limited rescue execution for stranded tasks")
+Clear it where the claim is confirmed instead and drop the explicit clears.
+No behavior change.
+
 Signed-off-by: Tejun Heo <tj@kernel.org>
 ---
- kernel/sched/ext/ext.c | 31 ++++++++++++++++++-------------
- 1 file changed, 18 insertions(+), 13 deletions(-)
+ kernel/sched/ext/ext.c      | 19 +++++++++++--------
+ kernel/sched/ext/internal.h | 11 ++++++-----
+ 2 files changed, 17 insertions(+), 13 deletions(-)
 
 diff --git a/kernel/sched/ext/ext.c b/kernel/sched/ext/ext.c
-index 46f956594448..072153416256 100644
+index 07857039aee6..bb36264e626f 100644
 --- a/kernel/sched/ext/ext.c
 +++ b/kernel/sched/ext/ext.c
-@@ -3606,6 +3606,8 @@ static void put_prev_task_scx(struct rq *rq, struct task_struct *p,
- 			 (rq->scx.flags & SCX_RQ_PROXY_PENDING);
- 	bool proxy_block = rq->scx.flags & SCX_RQ_PROXY_BLOCKING;
- 	bool rescue_keep = false;
-+	bool going_idle = !proxy_put && next &&
-+			  sched_class_above(&ext_sched_class, next->sched_class);
+@@ -2829,7 +2829,6 @@ static void scx_proxy_reject_task(struct scx_sched *sch, struct rq *rq,
+ 	lockdep_assert_rq_held(rq);
+ 	WARN_ON_ONCE(p->scx.flags & SCX_TASK_REENQ_REASON_MASK);
  
- 	rq->scx.flags &= ~SCX_RQ_PROXY_PENDING;
+-	p->scx.holding_cpu = -1;
+ 	p->scx.flags |= SCX_TASK_REENQ_PROXY;
+ 	scx_divert_strip_flags(p, &enq_flags);
  
-@@ -3711,25 +3713,28 @@ static void put_prev_task_scx(struct rq *rq, struct task_struct *p,
- 		 * locally runnable and can legitimately go idle with @p still
- 		 * runnable (see do_pick_task_scx()).
+@@ -2863,8 +2862,9 @@ static void scx_proxy_reject_task(struct scx_sched *sch, struct rq *rq,
+  * tell whether we lost to dequeue by testing whether the holding_cpu still
+  * points to this CPU. See scx_dispatch_dequeue() for the counterpart.
+  *
+- * On return, @dsq is unlocked and @src_rq is locked. Returns %true if @p is
+- * still valid and detached from @dsq. %false if lost to dequeue.
++ * On return, @dsq is unlocked and @src_rq is locked. Return %true if @p is
++ * still valid and detached from @dsq, with holding_cpu cleared. Return %false
++ * if @p was lost to a dequeue.
+  */
+ static bool unlink_dsq_and_switch_rq_lock(struct task_struct *p,
+ 					  struct scx_dispatch_q *dsq,
+@@ -2887,11 +2887,13 @@ static bool unlink_dsq_and_switch_rq_lock(struct task_struct *p,
+ 	if (likely(p->scx.holding_cpu == cpu) && !WARN_ON_ONCE(src_rq != task_rq(p))) {
+ 		/*
+ 		 * Keep ->dsq set until we own @src_rq so that a racing dequeue
+-		 * can find @dsq and clear holding_cpu. Once ownership is
+-		 * confirmed, clear it under @src_rq so that deactivate_task()
+-		 * takes the !dsq path instead of retaking @dsq->lock.
++		 * can find @dsq and clear holding_cpu. Once we own @src_rq, the
++		 * handshake is over. Clear ->dsq so that deactivate_task()
++		 * takes the !dsq path instead of retaking @dsq->lock. Clear
++		 * holding_cpu with it so that no caller has to.
  		 */
--		if (!proxy_put && next &&
--		    sched_class_above(&ext_sched_class, next->sched_class) &&
--		    scx_task_can_stay_on_cpu(rq, p)) {
-+		if (going_idle && scx_task_can_stay_on_cpu(rq, p)) {
- 			WARN_ON_ONCE(!sched_core_enabled(rq) &&
- 				     !(sch->ops.flags & SCX_OPS_ENQ_LAST));
- 			scx_do_enqueue_task(rq, p, SCX_ENQ_LAST, -1);
--
--			/*
--			 * A task put on the local DSQ runs, as anywhere else.
--			 * Here the insert can't reschedule on its own: the pick
--			 * has settled on @next and @p is still curr, so
--			 * resched_curr() would flag @p and __schedule() clears
--			 * that right after the pick. Flag @next instead.
--			 */
--			if (p->scx.dsq == &rq->scx.local_dsq)
--				set_tsk_need_resched(next);
- 		} else {
- 			scx_do_enqueue_task(rq, p, 0, -1);
- 		}
-+
-+		/*
-+		 * @p may be on the local DSQ now. With %SCX_ENQ_LAST the
-+		 * scheduler can put the last runnable task there. The plain
-+		 * insert runs when @p cannot stay on this cpu, and rescue can
-+		 * still admit it here.
-+		 *
-+		 * The cpu must not go idle with @p queued on its local DSQ. The
-+		 * usual resched doesn't work: the pick has settled on @next and
-+		 * @p is still curr, so resched_curr() would set need_resched on
-+		 * @p, which __schedule() clears right after the pick. Set it on
-+		 * @next instead.
-+		 */
-+		if (going_idle && p->scx.dsq == &rq->scx.local_dsq)
-+			set_tsk_need_resched(next);
+ 		p->scx.dsq = NULL;
++		p->scx.holding_cpu = -1;
+ 		scx_wait_dispatching(p);
+ 		return true;
  	}
+@@ -3127,20 +3129,21 @@ static void dispatch_to_local_dsq(struct scx_sched *sch, struct rq *rq,
+ 	    !WARN_ON_ONCE(src_rq != task_rq(p))) {
+ 		bool fallback = false;
  
- switch_class:
++		/* the handshake is over, see unlink_dsq_and_switch_rq_lock() */
++		p->scx.holding_cpu = -1;
++
+ 		/*
+ 		 * If @p is staying on the same rq, there's no need to go
+ 		 * through the full deactivate/activate cycle. Optimize by
+ 		 * abbreviating move_remote_task_to_local_dsq().
+ 		 */
+ 		if (src_rq == dst_rq) {
+-			p->scx.holding_cpu = -1;
+ 			scx_dispatch_enqueue(sch, dst_rq, &dst_rq->scx.local_dsq, p,
+ 					     slice, vtime, enq_flags | SCX_ENQ_APPLY_SLICE);
+ 		} else if (unlikely(task_proxy_unsafe_to_move(p))) {
+ 			fallback = true;
+ 			scx_proxy_reject_task(sch, src_rq, p, enq_flags);
+ 		} else if (unlikely(!task_can_run_on_remote_rq(sch, p, dst_rq, true))) {
+-			p->scx.holding_cpu = -1;
+ 			fallback = true;
+ 			scx_dispatch_enqueue(sch, src_rq, find_global_dsq(sch, task_cpu(p)),
+ 					     p, slice, vtime,
+diff --git a/kernel/sched/ext/internal.h b/kernel/sched/ext/internal.h
+index 29e69a83d876..44ede6e6fe1a 100644
+--- a/kernel/sched/ext/internal.h
++++ b/kernel/sched/ext/internal.h
+@@ -2107,12 +2107,13 @@ static const char *scx_enable_state_str[] = {
+  *   4. Lock src_rq (where the task currently lives)
+  *   5. Verify p->scx.holding_cpu == current CPU, if not, dequeue won the
+  *      race (dequeue clears holding_cpu to -1 when it takes the task), in
+- *      this case migration is aborted
+- *   6. If src_rq == dst_rq: clear holding_cpu and enqueue directly
+- *      into dst_rq's local DSQ (no lock swap needed)
++ *      this case migration is aborted. Otherwise the claim is confirmed and
++ *      holding_cpu is cleared here, see unlink_dsq_and_switch_rq_lock()
++ *   6. If src_rq == dst_rq: enqueue directly into dst_rq's local DSQ (no lock
++ *      swap needed)
+  *   7. Otherwise, verify under src_rq lock that the task can be moved to dst_rq
+- *      (CPU affinity, migration_disabled, etc.). If not, clear holding_cpu,
+- *      leave the task on src_rq, and enqueue it on the fallback DSQ.
++ *      (CPU affinity, migration_disabled, etc.). If not, leave the task on
++ *      src_rq, and enqueue it on the fallback DSQ.
+  *   8. Otherwise (i.e. if the task can be moved to dst_rq), call
+  *      move_remote_task_to_local_dsq(), which releases src_rq, locks dst_rq,
+  *      and performs the deactivate/activate migration cycle
 -- 
 2.56.0
 
