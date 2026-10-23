@@ -1,56 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792757816;
-	b=3A5ewMv7i5uceMJ0LTstbFiWdmSUlw923XsrhEELEdma6xmy+Tx7c29UI4iK9WSRoA5h
-	 YUOgvwIcJZPcXiiHMk9tSqsQt93X5l+qpf9vT1xGp/i/fOMdmUXm5umoxdXhuTuhseX4B
-	 rpwYHSMR9aHvri3QuvlKZFkVg0XbD5f3Ar+UkZuzimYAGrJ0j8whWsPect8Lfs8jxefGB
-	 DwL3xc6X69oTRe7jDrHOptMhQdjw831XjCAfld4JsdtyvK1CwuRHurdAVnwlDc5LIrEO7
-	 NLFpvazyBrUc0bApEovRuEzAwlDksbFjg/+mfquL4Q1l+p8Am6r5j/v/OXRrdEMpxIQ==
+	t=1792757817;
+	b=4xg9BSjv0X8ckyJdbimpxNxKmrogCP8OG28SPQQtp3Y++KKrYnH9AqrTXXhej3HxWt54
+	 45kQsOKmbv4A28nFuFxDwSBZqkdVQ1rcG8vNGYBMVKr2YQ7/E1iSWz7Ico/Sowe9Dew/q
+	 IWG3F4DolCFMvA+bDYrJe6sybMOtiewksw2FS9MK0WxqaIWpVl+40Le3OH9KIDdVHIJdQ
+	 +Q/W+BASC+OBmLRy9n3QERGju5mV8dxztvxRpVc6qvnqntuICMxSNlb9vQEU1DG8YsFPh
+	 bZ3Ig9DDajogep8OdBNrfSvHAxpP34btIouJUAg0K7fY7RnN6TJAX0JsF9QDV+ug4Nw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792757816;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792757817;
 	h=Received:DKIM-Signature:Received:From:To:Cc:Subject:Date:Message-ID:
 	 X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=X2plfG3XTbTHe0zFpTJ4P2j54Ro3XfAJZnVjCjb8E3g=;
-	b=wYhGTK7uzW3/nDkeIZovNuNHdM+ZoIokbao83uWXfxpIaUnFvdoWn0ZPtKq2YmThkI4M
-	 YeyLHEhe0eXawMTBuw4D/lY4b3TvuiH4PPsbVJ38rQiFKyHkgXWqs1PipUsusARCsHRPE
-	 xVMyQ49bBDlucHEcekzkprZ3rSfa3HV8iHUTsnNkfc4EKZ4CyWja1a9CYGTgF6BcR+Q+9
-	 SdaDWsGvXPWN1b8gsAJ7dYCptvjas/Bd6Ee+hH2EMb6rl+JfiG6W0xhbbnHuu+sriBXi5
-	 Wl8fKl90GUDahEYpyJ27AV3g4YUDuYLgjLFjqXry+P+eS1MPMOGkGvbuVQOOByMxdDA==
+	bh=WR/BeF+5alqLxZ/FrYoX56UdtOLWZ7XANvmwu22zc+M=;
+	b=v2v3YaApseJN8QVBL19Khpuya9+PXfbX4rJk3ghIpY8MFjjO2Lh6plmagKi3M06JBfXr
+	 ZJpVvx9Hzwn/E++8cyVKkmJFwAFmUxdZKh6DNDJ68h7SS8RtcI/00ZTg45T9AetajGFJw
+	 MAU0Y5retfgu5lZRo80kJ/IlIlCRuOQ6AIlUQmdLJNwuoY0a/VsPcdHytSiUCTUSJZzSs
+	 QWNOM+UbwQAXXsKqevUQKJmCBGud95geNdRqA42ptAWyvMwwLmpyjC9w/d25kV4MKr5O4
+	 XYdABO3WGkqyy0vF9n9sBOyp9Kq5h/chIKrxBEWVaGHGxpGhAoBBLY6ttnd/T0twCAw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dtBufDS+;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="YmP/R8uN";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B730D606A31E;
-	Fri, 23 Oct 2026 12:16:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80588606A331;
+	Fri, 23 Oct 2026 12:16:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dtBufDS+
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B37C1F031E0;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YmP/R8uN
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 66BA61F031E5;
 	Fri, 23 Oct 2026 12:16:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1792757815;
-	bh=X2plfG3XTbTHe0zFpTJ4P2j54Ro3XfAJZnVjCjb8E3g=;
+	bh=WR/BeF+5alqLxZ/FrYoX56UdtOLWZ7XANvmwu22zc+M=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=dtBufDS+Qazi6mdhcaBTanP+ngx1ybDfkwDyr1mOyTxOml1g6JIFrg2EcpsKLKXZ0
-	 kCFQVcqRKccLXN1p/JIbyIkUisqZNpquMqWqnlEHf2UejM73lpn03gnIaTyqw5sT0l
-	 6nbTf4rQXJnxo2Brcm6+YJCZLH0ZS7s8qDeJlNBMCMBDLeEOAUVaPvLwv2dFktkbTe
-	 a/KNsKRg3tQgFbKkftN6MFxhxbKb3gheetufJZxsUKtz9vFUC5yyFQwVd8nSoEqDgP
-	 oBTNljWFawDCdfbMvfLqM0aNpmaW9f/bIWbxHi6pRWOk8gf66GxQtUYeFdXf9OZCmB
-	 wSwd259d6BNTw==
+	b=YmP/R8uN7UYqXlLnzJCFr01ujZE/0qxKGs8ZRsiDultkEQlCMKRtsEOO9bcMEgSsg
+	 08D2BNllktNt/I7lr0NuAlIlpbIs9VGsw2++uYvuxQE2Ltq3dKBEkh4zat7xRhs0Nb
+	 QFv0zDiNkVlJozUuuOuHQOpieNVilUdN10ylbLa9cAMPEjGip5yOKPjJgk1Oov3Snz
+	 fiS4Cxcy96Ilc2e+orBs9XNm3OsCCSr86Fg3iXRsvAkObLk4zHdmeXeCvx1eWU5Bzi
+	 KcUPtlIQ9s6mN6ZwuF+xQiu6nfdix+ZJuW+bSWeeZP+FLtGQxsc/cD+l9nwDI7Q+bE
+	 j0SIqsy/1ZYiw==
 Received: from johan by xi.lan with local (Exim 4.99.5)
 	(envelope-from <johan@kernel.org>)
-	id 1xKECb-00000000mZd-0gKt;
+	id 1xKECb-00000000mZn-0q4m;
 	Fri, 23 Oct 2026 14:16:53 +0200
 From: Johan Hovold <johan@kernel.org>
 To: Johan Hovold <johan@kernel.org>
 Cc: linux-usb@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 08/12] USB: serial: io_edgeport: drop redundant sanity checks
-Date: Fri, 23 Oct 2026 14:15:26 +0200
-Message-ID: <20261023121530.186541-9-johan@kernel.org>
+Subject: [PATCH v2 11/12] USB: serial: io_edgeport: replace atomic command allocations
+Date: Fri, 23 Oct 2026 14:15:29 +0200
+Message-ID: <20261023121530.186541-12-johan@kernel.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261023121530.186541-1-johan@kernel.org>
 References: <20261023121530.186541-1-johan@kernel.org>
@@ -65,92 +65,65 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The serial and port driver data is allocated at probe() before
-registering the ports and will never be NULL when open(), close(),
-write(), throttle() and unthrottle() are called.
-
-Drop the redundant driver data sanity checks.
+With the line settings no longer being updated from the interrupt
+completion handler there is no need for command URBs and buffers to be
+allocated atomically.
 
 Signed-off-by: Johan Hovold <johan@kernel.org>
 ---
- drivers/usb/serial/io_edgeport.c | 29 ++++-------------------------
- 1 file changed, 4 insertions(+), 25 deletions(-)
+ drivers/usb/serial/io_edgeport.c | 11 +++++------
+ 1 file changed, 5 insertions(+), 6 deletions(-)
 
 diff --git a/drivers/usb/serial/io_edgeport.c b/drivers/usb/serial/io_edgeport.c
-index 0fd68faa8427..d00fc99d13dd 100644
+index ebbe8c5370cd..d47c2295a7cf 100644
 --- a/drivers/usb/serial/io_edgeport.c
 +++ b/drivers/usb/serial/io_edgeport.c
-@@ -810,20 +810,13 @@ static void edge_bulk_out_cmd_callback(struct urb *urb)
- static int edge_open(struct tty_struct *tty, struct usb_serial_port *port)
- {
- 	struct edgeport_port *edge_port = usb_get_serial_port_data(port);
-+	struct usb_serial *serial = port->serial;
-+	struct edgeport_serial *edge_serial = usb_get_serial_data(serial);
- 	struct device *dev = &port->dev;
--	struct usb_serial *serial;
--	struct edgeport_serial *edge_serial;
- 	int response;
+@@ -2079,7 +2079,7 @@ static int send_iosp_ext_cmd(struct edgeport_port *edge_port,
+ 	int             length = 0;
+ 	int             status = 0;
  
--	if (edge_port == NULL)
--		return -ENODEV;
+-	buffer = kmalloc(10, GFP_ATOMIC);
++	buffer = kmalloc(10, GFP_KERNEL);
+ 	if (!buffer)
+ 		return -ENOMEM;
+ 
+@@ -2114,7 +2114,7 @@ static int write_cmd_usb(struct edgeport_port *edge_port,
+ 	usb_serial_debug_data(dev, __func__, length, buffer);
+ 
+ 	/* Allocate our next urb */
+-	urb = usb_alloc_urb(0, GFP_ATOMIC);
++	urb = usb_alloc_urb(0, GFP_KERNEL);
+ 	if (!urb)
+ 		return -ENOMEM;
+ 
+@@ -2125,8 +2125,7 @@ static int write_cmd_usb(struct edgeport_port *edge_port,
+ 
+ 	edge_port->commandPending = true;
+ 	usb_anchor_urb(urb, &edge_serial->cmd_anchor);
+-	status = usb_submit_urb(urb, GFP_ATOMIC);
 -
- 	/* see if we've set up our endpoint info yet (can't set it up
- 	   in edge_startup as the structures were not set up at that time.) */
--	serial = port->serial;
--	edge_serial = usb_get_serial_data(serial);
--	if (edge_serial == NULL)
--		return -ENODEV;
- 	if (edge_serial->interrupt_in_buffer == NULL) {
- 		struct usb_serial_port *port0 = serial->port[0];
++	status = usb_submit_urb(urb, GFP_KERNEL);
+ 	if (status) {
+ 		/* something went wrong */
+ 		dev_err(dev, "%s - usb_submit_urb(write command) failed, status = %d\n",
+@@ -2183,7 +2182,7 @@ static int send_cmd_write_baud_rate(struct edgeport_port *edge_port,
+ 	}
  
-@@ -1052,15 +1045,10 @@ static void block_until_tx_empty(struct edgeport_port *edge_port)
-  *****************************************************************************/
- static void edge_close(struct usb_serial_port *port)
- {
--	struct edgeport_serial *edge_serial;
--	struct edgeport_port *edge_port;
-+	struct edgeport_serial *edge_serial = usb_get_serial_data(port->serial);
-+	struct edgeport_port *edge_port = usb_get_serial_port_data(port);
- 	int status;
+ 	/* Alloc memory for the string of commands. */
+-	cmdBuffer =  kmalloc(0x100, GFP_ATOMIC);
++	cmdBuffer = kmalloc(0x100, GFP_KERNEL);
+ 	if (!cmdBuffer)
+ 		return -ENOMEM;
  
--	edge_serial = usb_get_serial_data(port->serial);
--	edge_port = usb_get_serial_port_data(port);
--	if (edge_serial == NULL || edge_port == NULL)
--		return;
--
- 	/* block until tx is empty */
- 	block_until_tx_empty(edge_port);
+@@ -2277,7 +2276,7 @@ static int send_cmd_write_uart_register(struct edgeport_port *edge_port,
+ 	}
  
-@@ -1125,9 +1113,6 @@ static int edge_write(struct tty_struct *tty, struct usb_serial_port *port,
- 	int secondhalf;
- 	unsigned long flags;
+ 	/* Alloc memory for the string of commands. */
+-	cmdBuffer = kmalloc(0x10, GFP_ATOMIC);
++	cmdBuffer = kmalloc(0x10, GFP_KERNEL);
+ 	if (cmdBuffer == NULL)
+ 		return -ENOMEM;
  
--	if (edge_port == NULL)
--		return -ENODEV;
--
- 	/* get a pointer to the Tx fifo */
- 	fifo = &edge_port->txfifo;
- 
-@@ -1384,9 +1369,6 @@ static void edge_throttle(struct tty_struct *tty)
- 	struct edgeport_port *edge_port = usb_get_serial_port_data(port);
- 	int status;
- 
--	if (edge_port == NULL)
--		return;
--
- 	if (!edge_port->open) {
- 		dev_dbg(&port->dev, "%s - port not opened\n", __func__);
- 		return;
-@@ -1424,9 +1406,6 @@ static void edge_unthrottle(struct tty_struct *tty)
- 	struct edgeport_port *edge_port = usb_get_serial_port_data(port);
- 	int status;
- 
--	if (edge_port == NULL)
--		return;
--
- 	if (!edge_port->open) {
- 		dev_dbg(&port->dev, "%s - port not opened\n", __func__);
- 		return;
 -- 
 2.55.0
 
