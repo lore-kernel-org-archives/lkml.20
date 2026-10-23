@@ -1,54 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=13.77.154.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.3
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792759132;
-	b=nd6vhqkBRqJjNC69aGN9HQqlFQCBEAYsK0mmxI81eyAQfslxZ5OO3UKJqYwfgZxUZc5t
-	 eAZdtSJeREjOHH7Gr1sb199goSanuLmtOw92IFhUvajWAKHgCAmTnXsKmUmdxpq9sJtzW
-	 VwuaEom65Jr1qkAfTLO5h53n0nngDEht6xU4Wu0ZTUXwFAaJy8ot5M7SWLdLfbHzAMGDC
-	 d6nlCACM4xnBMIgCs5WmPsl47VoukZ0UT3rH0yDZzcFlpv4nDhjjy83uPMlB7QZdgRfZG
-	 Ae/KMWyBtSttyfui05vg7ygWYkVc2z2HEiMa2R8ChRWegKuBBpmIu9uthIEdnvhzynQ==
+	t=1792759140;
+	b=mQvvMzYTcuik3TDfIsUfF+zbAOJJBZqKvmj0+3iDUViZSgj8clHDhcvoMetPedX8uPJE
+	 XgDA29+G+qamNWYfTHkoC3uUX2y+DsI08fu6hsuVlSvwA6/TA+MYaSw9sP/6R24YioLSj
+	 zl0OCaBJIDLIrxnB8XTBEAYai6Xqqp1x7VC+MVeegk/0hRYQj6lugelAY1bU6ua1cKReL
+	 eN+mzKzg9+lnx4dbkcM1mhxpNMzHLv7z42xdkcL380HFvSHdoJTjP+GZdHTMN/UkXjj8k
+	 8ksEORQpjF3prhlluWFDaD9cG/XPdukOMJq6liLnL5K0ErzOhR0zXIWmCmfOWKE21TA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792759132;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=8JP4fqByo87cANLvRb85F+PSRLIXEoS9coFVAgui0Pc=;
-	b=DuQeMGCXM4rJU5E98BycUqN3V8E4JfX+9Oe/VqTPL4v+MupKm8aq8NWKFPrZxb+iYvwJ
-	 6FNO5FuC2dzs971o83E7DCFwo+pQoHGi1D5oiYkHc+V6a3rhGzTD00tiZjYZ6Y1RZgXeR
-	 eF7qPHMGADXoWYKcP5jFn6sEIKQ7QxXYtIIeQSIVbde+JPK5w4JgmjFbpe+zViH9C0JfY
-	 MNGyDWSlhUU040nqb1i1HwkvUS8angh0x9qdRfSh2RHBaO+FHSz59MnXYpIfC7uCSbcdx
-	 m6d+np+3CNV4e5TG9SskSi9DetIyrO8MS2nak6ALLSzonQtBa+sOkGvpP1bpZQMcw3w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792759140;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=cp05jW7hJV+9rE5FQ+Ld7f2LCLjbgtBVL5t7Y46XhuA=;
+	b=oVeP8fqBvqxhESCW4SnFkEuvzrXXMAjpnmXbC5YmrQTnir9qMO2R4SJqasE1TDK5/TVC
+	 Zrzej6KG5M6QZUpGyCkX0GLILFVldaTvSO+bO+EEl8iWb5LuEWqsUQ9Ei/bK6r6ZiaGj7
+	 F43WxV0hgZAh/jbDM5JmQUppM/XrOgDah5cMLGVZt9K9QVqNFaIsdXqfv3retDicIuffZ
+	 6/THnko5yQSPwsUgLFyCOwbX4E8/0mT1y/O6cWCJBbuqtqxDzZ1RXDlLpibsmYW8jmmXf
+	 neiFlN1bagkTD4dCjPnQGfmMK38BvMzWO9xTFW6yHqEL8nszQ/Xglb5HkQNHXroCCfQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.microsoft.com;
-	spf=pass smtp.mailfrom=linux.microsoft.com;
-	dkim=pass header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=pq2hrQ6u;
-	arc=none smtp.remote-ip=13.77.154.182
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5ACE3606A31A;
-	Fri, 23 Oct 2026 12:38:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5ACE3606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b="NwL/idF7";
+	arc=none smtp.remote-ip=117.135.210.3
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C48E606A322;
+	Fri, 23 Oct 2026 12:38:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8C48E606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=pq2hrQ6u
-Received: by linux.microsoft.com (Postfix, from userid 1216)
-	id 6A68720B7166; Fri, 23 Oct 2026 05:38:43 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 6A68720B7166
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1792759123;
-	bh=8JP4fqByo87cANLvRb85F+PSRLIXEoS9coFVAgui0Pc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=pq2hrQ6uBcLBsWpT7ti5o1M/lM0IUnfldo08t7lEytelDlI//JFZgJrAC9ymbz5mP
-	 2jwVQKBrnt86b/4FfGMlW6IWhrBaFElqm+TD1X7XmooXEmtV0IlJ94qAEs945J4eWz
-	 hw0Ob4XqcxE5uMGVftPDU8i/n6ebgstGsrUEDV78=
-Date: Fri, 23 Oct 2026 08:38:43 -0400
-From: Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>
-To: mhklinux@outlook.com
-Cc: haiyangz@microsoft.com, wei.liu@kernel.org, decui@microsoft.com,
-	linux-kernel@vger.kernel.org, linux-hyperv@vger.kernel.org
-Subject: Re: [PATCH 1/1] Drivers: hv: Remove leftover support for old Hyper-V
- versions
-Message-ID: <attVUxOyEoUVPYEF@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
-References: <20261023030527.1611-1-mhklinux@outlook.com>
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=NwL/idF7
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=cp
+	05jW7hJV+9rE5FQ+Ld7f2LCLjbgtBVL5t7Y46XhuA=; b=NwL/idF7yLcNVy1Sqh
+	wCBArmlZDfE3CETd4QWsLQicQ1DnbCevfOyjT9Nf5WHJ4Txi+50Aq408HisBlz5P
+	ukvpaIcil4sCLfPuJ3cgvXk2hEO+rw0CCAVYffw0vh0PIdp9f7+ICJqC9UfRbcWC
+	BsU40s1CE8mXgqDsdc2XwQRus=
+Received: from hongfeng.mioffice.cn (unknown [])
+	by gzga-smtp-mtada-g1-2 (Coremail) with SMTP id _____wD31_UTVdtq41kmCA--.56769S2;
+	Fri, 23 Oct 2026 20:37:41 +0800 (CST)
+From: Hongfeng Chen <chenhongfeng0212@163.com>
+To: Nhat Pham <nphamcs@gmail.com>
+Cc: Hongfeng Chen <chenhongfeng0212@163.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Barry Song <baohua@kernel.org>,
+	Chengming Zhou <chengming.zhou@linux.dev>,
+	Jens Axboe <axboe@kernel.dk>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Minchan Kim <minchan@kernel.org>,
+	Sergey Senozhatsky <senozhatsky@chromium.org>,
+	Yosry Ahmed <yosry@kernel.org>,
+	Wenchao Hao <haowenchao@xiaomi.com>,
+	Wenchao Hao <haowenchao22@gmail.com>,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	linux-block@vger.kernel.org,
+	Hongfeng Chen <hongfengchen@xiaomi.com>,
+	Hongfeng Chen <chenhongfeng0212@gmail.com>
+Subject: Re: [RFC PATCH v4 0/2] mm/zsmalloc: defer object free to per-cpu batches
+Date: Fri, 23 Oct 2026 20:37:36 +0800
+Message-ID: <20261023123736.1542117-1-chenhongfeng0212@163.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <CAKEwX=ONniSwdiZAe_8NT5XwVj=Mmc-WJs_rWE4Y5snjFg2=Eg@mail.gmail.com>
+References: <20261016120927.3191690-1-hongfengchen@xiaomi.com> <CAKEwX=ONniSwdiZAe_8NT5XwVj=Mmc-WJs_rWE4Y5snjFg2=Eg@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,42 +76,63 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261023030527.1611-1-mhklinux@outlook.com>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD31_UTVdtq41kmCA--.56769S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7WF4UGw15Xw4kAr4kJr4rGrg_yoW8XFyUpF
+	Z3GayxWws5Jr1xKr97Aw48ur18Aw1rGF48JrWSy347ZFn0yFnFkw1kJay8Zw1fAr4Fk3WF
+	yFWktw15trsrZa7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07U2XdbUUUUU=
+X-CM-SenderInfo: hfkh0xxrqjwvtqjqjiqs6rljoofrz/xtbC7hXrBWrbVRW5MAAA3t
 
-On Thu, Oct 22, 2026 at 08:05:27PM -0700, Michael Kelley wrote:
-> When removing support for running Linux guests on Windows Server
-> 2008/2008R2 and Windows 7, one area was missed due to the code
-> comment spelling "2012" incorrectly. Remove that functionality now.
-> 
-> Signed-off-by: Michael Kelley <mhklinux@outlook.com>
+Hi Nhat,
 
-Reviewed-by: Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>
+On Fri, Oct 16, 2026 at 9:09 AM Nhat Pham <nphamcs@gmail.com> wrote:
+> 1. Would memory freeing be slowed down?
 
-> ---
->  drivers/hv/ring_buffer.c | 8 --------
->  1 file changed, 8 deletions(-)
-> 
-> diff --git a/drivers/hv/ring_buffer.c b/drivers/hv/ring_buffer.c
-> index 72f30ab23d1d..d8b085dfdb46 100644
-> --- a/drivers/hv/ring_buffer.c
-> +++ b/drivers/hv/ring_buffer.c
-> @@ -561,14 +561,6 @@ void hv_pkt_iter_close(struct vmbus_channel *channel)
->  	start_read_index = READ_ONCE(rbi->ring_buffer->read_index);
->  	WRITE_ONCE(rbi->ring_buffer->read_index, rbi->priv_read_index);
->  
-> -	/*
-> -	 * Older versions of Hyper-V (before WS2102 and Win8) do not
-> -	 * implement pending_send_sz and simply poll if the host->guest
-> -	 * ring buffer is full.  No signaling is needed or expected.
-> -	 */
-> -	if (!rbi->ring_buffer->feature_bits.feat_pending_send_sz)
-> -		return;
-> -
->  	/*
->  	 * Issue a full memory barrier before making the signaling decision.
->  	 * If reading pending_send_sz were to be reordered and happen
-> -- 
-> 2.25.1
-> 
+I sampled pool->pages_allocated every 1 ms, and measured the time from
+the start of munmap() until the zspages are freed. Three cases are
+tested: 1 process x 256MB, 1 process x 1024MB, and 4 processes x
+256MB. The results are as follows:
+
+  workload                  base      with-patch
+  1 process, 256 MB         14 ms     9 ms
+  1 process, 1024 MB        51 ms     31 ms
+  4 processes, 256 MB       45 ms     24 ms
+
+Memory freeing didn't get slower and it actually got faster.
+
+> 2. Would this introduce isolation issues, especially when this work is
+> not properly accounted?
+
+Yes. The drain runs in an unbound kworker in the root cgroup, so its
+cost is not charged to the killed tenant, and it may take CPU time
+from other tenants. I'd appreciate any suggestions on a clean way to
+handle this.
+
+> Another thing I wonder is, how much of this slowed down is because of
+> zsmalloc's own inefficiency, and how much is because we just have a
+> larger logical footprint
+
+Mostly zsmalloc. I kept the footprint the same (1 GB paged out to zram,
+then munmap()) and only made zs_free() do nothing:
+
+--- a/mm/zsmalloc.c
++++ b/mm/zsmalloc.c
+@@ -1455,6 +1455,8 @@ void zs_free(struct zs_pool *pool, unsigned long handle)
+ 	int fullness;
+ 	struct zspage *zspage_to_free = NULL;
+ 
++	return;
++
+ 	if (IS_ERR_OR_NULL((void *)handle))
+ 		return;
+
+The speedup is as follows:
+
+  machine                   base      with-diff-above   speedup
+  x86, 1024 MB              50.2 ms   20.6 ms           2.44x
+  RK3588 A76, 1024 MB       89.4 ms   23.3 ms           3.84x
+
+Thanks,
+Hongfeng
+
