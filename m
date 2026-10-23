@@ -1,84 +1,84 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792778373;
-	b=aXW97HciY+6iQAYIFy5nNCSwbu0ANLMrXYj1t1YbTQiEFDF3wciwCrHTEOFzQwrbi74I
-	 Wgoodsat7U1cv726LB/j0a7YW4HB5wWBrffzG7O5SwWoDVhsx33ZjxQCWgN913EbC4tlo
-	 4YGBUI64dVduGdAhxLxBn3OyP/A1CVOwG2UHijxXpXqvSg9cCQX3YSu/4mjTMcUuCDFcO
-	 HS4yD03RamL52RjbgkwcldIe2tlRD+yazE3wpjOWMr9cg77Kgml6YoNrO+Sbs1ZojqrAv
-	 uAJI9/Zwv2yOzLBi6lRZhW9FVsuWThK0baCntbBHRqswTlisyxmAEhXZUSicc4OE89A==
+	t=1792778370;
+	b=OX8eNWAQyaNr4SQ08s4YtpCWV8pNTzk15/TAaglomFeeIqeecB6TqqVIDEkU4UX6uK7a
+	 ZMzbY1FsAvGNxu3TzTtP9bOVyjenMnDD9G+7t7ayE/qyT0ij0vXauBzogtq8sxEDenced
+	 S86QlVM6SA3tdkHxIzwIH6YT3vRC5zSl6yeoY52s2IQMtk7mzt2qACRxosTfWb7N03jam
+	 PpYd9YYw7HrXDyz3UAXY6blNO5+qzuKTwl/QHixZ3Gt8/xRhF19NowfNYAyFKZVGMre5B
+	 Pg+qWTbiP6Sq1PJ1eLHtd4Dny8+tUTIhfIDUYP+r5ciCTqOW0mF28zZhDBtTzEem8dg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792778373;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792778370;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=2YMg5NPi7NvaRXzD5WHLcrPWeRT8sqhBxohUakTspaw=;
-	b=ctlD/hVnbcM5H59rd9Klujyb7NiasMBrtcp9+BdlEbbF1vZAGj6uuTDsIkvHuLwoWI84
-	 +RAYQqBJqJZqSx9jZm+ia1rxSWZXK+xc9Gh9YqX6d8lhQBolg2/CnFnqZqEGD9WgYftql
-	 AoDPzuO6ibzNKWVDs1VBVexA9UMMmXnEMzeLHdG62fwAoplI1C7JsD+WG5Q5Wb+sIhe86
-	 XYKPFkEqzPmiat1QmaDdKg1g1wbMjgJ9UctT6llMUBES8ShQG207Et46/2MgsQNLxRdGE
-	 gtrBbMBv7v/KgsxlHaq1wnxW7ZMFb8ftERhMhAypwdyfa3ErT88ZYJV9/bFzVF8TrkQ==
+	bh=BBJheptbrK1Xj6AgFoLSOO83tzUQObgmpiZOvZNyRbc=;
+	b=vvqmgnXQcKH5mbzfYMgx95iebsZEaT6jkp+0YuirvbIhuKYCH0oI1dvEed+60GBlE8ry
+	 T8Ln+5xNvfPmoO2urE5yNFJaf3Gly6ZPfur7EorOzU/8i24HV2OpxaABu4cVsAzCrh7KY
+	 uPgrOGhnocmUkUSku6SdAuytYLF2fme73RP7spPdJIySmClRkj6ye2W38e+DlHESi4rR9
+	 esjLfPeW6PYEEAV4neGJ8nRvoGBMRh6pxhTYV22qQImkEVthWr3Mic+ayfujIjci/78h/
+	 oq2fitm7VqJx29jsXXWcHcUNtAsbCHSOGwcb9TFwxIHX2GdF0cE9go9dz3z/CkXpltw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="jH/5CyJx";
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=S1wCsyAz;
 	arc=none smtp.remote-ip=209.85.128.47
 Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A29860A263C
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 17:59:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8A29860A263C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E00DF606A339
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 17:59:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E00DF606A339
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=jH/5CyJx
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a20c923847so9664105e9.0
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 10:59:33 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=S1wCsyAz
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a20bde60a0so9491755e9.3
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 10:59:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792778372; x=1793383172; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792778368; x=1793383168; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=2YMg5NPi7NvaRXzD5WHLcrPWeRT8sqhBxohUakTspaw=;
-        b=jH/5CyJxasgvY+0HhkFIIm2P0gmCd6I7Z8tSrHqM2RBWOyvZtww24dtS7KOA51Ut4N
-         KaMcTeRuN5SCws1rkHUNAR38QfSLU95B5dSwlw0gxbtXVyW9brsPeEgitDa1uCzyRdsh
-         cKX/O8m+QaDZt5xDYBrSJIk3kbOFB9+mVQBJYabTGfvEEb0k7QoKTdXhm1LLC1TOb0SF
-         +CvNSLxZxDI2WbqiERTyVu0iPklbrkUApbFf+h93/ynY9z4Ee7J4hTFgmlCnwcA8wNjV
-         KZVbRaKp56L9klE+sl0egFwENzL1scaYTKFtwumDEqh+aAIsAUU5p0a7gftDDSuX3B0s
-         TpeA==
+        bh=BBJheptbrK1Xj6AgFoLSOO83tzUQObgmpiZOvZNyRbc=;
+        b=S1wCsyAzFbrPOz3szW9M3HoEJRLbY4JkJT960VF0lYEI9tX6BdSrl9uPcUclDOD0iY
+         shgMpLvvAiVZT7NpFh1ihkfuNTOyBSZA6rzQPMXxVjpd/Pq0yTz4msy9jjmZUXo1WlI1
+         yHSAlCtK0oAk98KFGVlmvEa65UAiip18GfRP0PSYYi810Bez5qZg3TsJaAq+eHMVUGiC
+         bEBzQm1DuRrVEncdKHglsTgNg1Yk4UXUZlt10s0y2L++P0XhNjuAqmO3Jca4JAQwzabD
+         paE/0lA1cl7UNVAmTqqCF+hN2Lq4KYkFVO/siNRPBQqTJMgUvY1Hj9THzYXBMbubZpN4
+         sHUw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792778372; x=1793383172;
+        d=1e100.net; s=20260707; t=1792778368; x=1793383168;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=2YMg5NPi7NvaRXzD5WHLcrPWeRT8sqhBxohUakTspaw=;
-        b=ltKMY1tu/sDi479zEJl11DZBT/yQ2oqSyG/bfyTD9A5F7QJIK07v0I6lOoCdzal1O+
-         mXjND+E54FwZT/6oAo4eSML+eJt6awA0splNyST4TwZlkncj2PFn+deTrna068XZx5yC
-         MV7PvcQ1Nx/D5uVeo7x3MKvbIIOU6+zBgZz68QeFAB4a13vfBuEcMwB/5dwkzu26nbqC
-         DJvxQI3mI9XOvY34t/RUA5nh9G74i7wtXchg2mYUPoEKMqHnnyQd9koEqdCdpwvePngN
-         SYkkby1JDTYZQ23WHhJ9kC46dk5ZwerSwJqUv8F1jTpIDNPoazqGMcHDgOKL5AXpsH03
-         LqUQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxtJgaxg6pCxHCWpD0NgVYoiso+tD8p2PSbqA2EnlczmjFf/ZVanK2kws/MvDn9xcUFstdprxOLNXtpUIE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKNKEewRDGQVg8kUfkiIuDdCd210ns73JZqaZwWMCTIdWRFFZ6m
-	a8EYUD58v3ftvD7Oqr1XtRFCrc+aJkUXC/XtBPNRNisAOYd8yRj7u2ra
-X-Gm-Gg: AYBFou18eMVH9l6OkRe0uWqk0RssrEIFn0yElzPKIoBdqYaLrYuL+mcLExIxZDV8Yz9
-	/9XOmhWbft8rewSVz9PR6ugtIi7lJskDb2KQG700CM9H+teLHMLx9Xp3xdpALn6hFkM6IgIMNm5
-	+SCybeuSfQ8KErwwiHQbJgvgRibFiuExEuXz0hawN9tBFuFhIPBZrDQcBOes8pnGDE41X/9MUII
-	K4IhzpCBped6omXyMdA8nNhU9egiEviP2Iq9B5XJHmvluryyvpAFQoUAH4XjtRWZ9WfNt7P76RT
-	NGXNI4ZXppTg7KJ30DCX0oynbpSlaY7rueMbnZzLPy/52dmdh2NOMeHeGpwxgmJkLVGu52GmZEx
-	sB7tphEHWHowuEA/EQxRsToOv/YSFR16aDrXr6wpTmPMCeWyoLhw5WI8yczDh6Pu/0tmJNrEpJ7
-	L/vw730xJeE5HAaYTY9EM7+J+1N6i8uJ3h4jDpjLPGEuCVhczu7vG8uKMvH58S58keZDhFTIH9q
-	SFiyhNLcvUw3HCtSxyGHdN7pfvJUtApAxF6p6nKyE2Iv2vE5SXRGJQQWxMRye/cNJc5gHfUWmND
-	GYPB3Tjti0kuSzPU3aPmLMChfKVxjaJfsnuZxpuMzZb6p+I3NqA15dAnxTWSkbTTUOFmwkEdIJ8
-	APHpzsS9uUt+On86kzQbyCkqeCeYDHEQMeWKYipSC5Gd/
-X-Received: by 2002:a05:600c:4715:b0:4a1:9661:14b5 with SMTP id 5b1f17b1804b1-4a211eff69dmr54002725e9.29.1792778371771;
-        Fri, 23 Oct 2026 10:59:31 -0700 (PDT)
+        bh=BBJheptbrK1Xj6AgFoLSOO83tzUQObgmpiZOvZNyRbc=;
+        b=aBLrMRrfKOfqFKycVhWVdbqBauk9XIYhzWH6V/45K6RP0c6zvV+EgNqZCZk4bmcQDS
+         Xw/NAGWggHnGnARxg3ttsG+C9vHB2879gj38FXbM45+5QlVXU8tUr6/Zug1grmpydni4
+         CtylIC6hunPn4ZpAphlxGvywJN+Vkzw36fQkwB9xGtpojltenIxGCCxJDsCAhDfmSx+i
+         EylEPNxHl22ycNmiRxmD/qdBt+gluHC+/nUYEn5UWJowFmeGkXppAC9qrMVUsRcXnew4
+         o+0J7T1q5o+yercxAr4uPdfMeZW1Jv+dMv2LURDMLQyh57+HZX0hWxQSkYZoHbLl0ddR
+         7tOg==
+X-Forwarded-Encrypted: i=1; AKwUvBzS/SIuTYSZWR37H6e6/j26fK5/n/ll7goUa3NSyolVgHN3U9RqL96OAWgefMLqOpuumvEVg/9VsGuYMmA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJiWLT1LxrnsDWyfQ4LeiLeKlCx4ythxFPuqtyw/7/iI5VrwV+G
+	7U7mT+YXZz7MsRjcj+2uBLJ7GQmudj6oRIyYHcPncJ6vC7aF1XlE7Go2
+X-Gm-Gg: AYBFou0f9V6iRfVva7JVGhdl1Op7MlVqT4L5ZYyvOXtoeTU0MTet5Bz0FLEcZc7Pdpj
+	I25jkxLmrEgNtxJywKfva9sjLq1armUQzFVc3f2wa5stACDK7NiGch6vaqKiMFFHkA5prC91Oh8
+	52fAyEhnGLZsEt36BiPzy/7gpEZx86JIL8ycOXF054zpXCjYQ79c/LevtTEQk1Ybl/FqaRHaDIn
+	rS5aFDeYpenllMQASkFiBg/FoFYM/wz0x5iL31ZRmuXD8OoAhnObWRtkHJsi0/5GJLB8w76lR9h
+	pEBcNbqruK0s8qWnRL0TBCYYBVHbn7CVmoMR3PdF9utAT4NRHwzcyOpRj0dPffOqu4hi+smx2Pg
+	jkl0STCLCvKZbgJeHypHS1E1KarkbZ5sQCQLHqgroRy7SWFBO1vTJWHWQ+yW6tNip2C5ZNdKcDz
+	DMtjsMoLWV7AoQuBUksXQacBBfkd2zChWXyqOLTeMwZdcAws2fw0s3Gz5OhPp57PlNOSbNNwsXo
+	obVGZWV1tWvqoPDMbcYGJdA+6TWZy7ZIF2WQfUOKq0FT3RJNZMQNvkt/IHMlK8+xlpjp9Gs6d+N
+	JqEhnBAvCbhlbXG35/D791qCStiSRl2+hhuPflZCZhYT+JlaPzIby/d4+g4KfSt1wq/gQ2YusGv
+	B6chhSWzI6VBjm99Agt/VHQCjuna4mY6zW0M65S7NS7+O
+X-Received: by 2002:a05:600c:1909:b0:4a2:1398:dd05 with SMTP id 5b1f17b1804b1-4a21398df21mr47236325e9.16.1792778368304;
+        Fri, 23 Oct 2026 10:59:28 -0700 (PDT)
 Received: from iku.example.org (host86-133-9-17.range86-133.btcentralplus.com. [86.133.9.17])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3d37ca2asm1342800f8f.8.2026.10.23.10.59.30
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3d37ca2asm1342800f8f.8.2026.10.23.10.59.27
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 23 Oct 2026 10:59:31 -0700 (PDT)
+        Fri, 23 Oct 2026 10:59:27 -0700 (PDT)
 From: Prabhakar <prabhakar.csengg@gmail.com>
 X-Google-Original-From: Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 To: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>,
@@ -100,9 +100,9 @@ Cc: linux-iio@vger.kernel.org,
 	Biju Das <biju.das.jz@bp.renesas.com>,
 	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
 	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: [PATCH v3 7/8] iio: adc: rzt2h: Use scan type for ADC scale
-Date: Fri, 23 Oct 2026 18:59:18 +0100
-Message-ID: <20261023175919.160103-8-prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: [PATCH v3 3/8] iio: adc: rzt2h: Add chip-specific configuration
+Date: Fri, 23 Oct 2026 18:59:14 +0100
+Message-ID: <20261023175919.160103-4-prabhakar.mahadev-lad.rj@bp.renesas.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261023175919.160103-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
 References: <20261023175919.160103-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
@@ -119,11 +119,11 @@ Content-Transfer-Encoding: 8bit
 
 From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
-Prepare the driver for RZ/V2H(P) support, where the ADC supports both
-12-bit and 8-bit conversion resolutions.
+Prepare the driver for supporting SoCs with ADC IP that is similar to the
+RZ/T2H ADC but may have different channel configurations.
 
-Use the current IIO scan type to determine the ADC resolution when
-reporting the scale instead of assuming a fixed 12-bit resolution.
+Introduce chip-specific configuration for the channel template and number
+of channels, and use it when setting up the IIO channels and DMA layout.
 
 Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 ---
@@ -131,46 +131,158 @@ v2->v3:
 - No change
 
 v1->v2:
-- Renamed RZT2H_ADC_VREF_MV to RZT2H_ADC_VREF_mV
+- Returned -ENODATA in case device_get_match_data() returns NULL
 ---
- drivers/iio/adc/rzt2h_adc.c | 16 +++++++++++++---
- 1 file changed, 13 insertions(+), 3 deletions(-)
+ drivers/iio/adc/rzt2h_adc.c | 49 ++++++++++++++++++++++++++++---------
+ 1 file changed, 38 insertions(+), 11 deletions(-)
 
 diff --git a/drivers/iio/adc/rzt2h_adc.c b/drivers/iio/adc/rzt2h_adc.c
-index dbe82939acc2..debd5873ed2a 100644
+index 131904d97b8c..2ada8ecb2603 100644
 --- a/drivers/iio/adc/rzt2h_adc.c
 +++ b/drivers/iio/adc/rzt2h_adc.c
-@@ -60,6 +60,8 @@
+@@ -57,15 +57,21 @@
+ #define RZT2H_ADC_DMA_PERIODS		64
+ #define RZT2H_ADC_DMA_BUFFER_SAMPLES	(RZT2H_ADC_DMA_PERIODS * \
  					 RZT2H_ADC_DMA_PERIOD_SAMPLES)
+-#define RZT2H_ADC_DMA_BUFFER_SIZE	(RZT2H_ADC_DMA_BUFFER_SAMPLES * \
+-					 RZT2H_ADC_MAX_CHANNELS * \
+-					 RZT2H_ADC_CHANNEL_BYTES)
  #define RZT2H_ADC_STOP_CYCLES		2
  
-+#define RZT2H_ADC_VREF_mV		1800
++#define RZT2H_ADC_FEATURE_CALIBRATION	BIT(0)
 +
- #define RZT2H_ADC_FEATURE_CALIBRATION	BIT(0)
- #define RZT2H_ADC_FEATURE_SAMPLE_STATE	BIT(1)
++struct rzt2h_adc_chip_info {
++	const struct iio_chan_spec *chan_template;
++	unsigned int num_channels;
++	u8 features;
++};
++
+ struct rzt2h_adc_dma {
+ 	struct dma_chan *chan;
+ 	u16 *buf;
+ 	dma_addr_t addr;
++	size_t buf_size;
  
-@@ -532,10 +534,18 @@ static int rzt2h_adc_read_raw(struct iio_dev *indio_dev,
+ 	unsigned int period_index;
+ 	unsigned int period_bytes;
+@@ -84,6 +90,7 @@ struct rzt2h_adc_dma {
+ struct rzt2h_adc {
+ 	void __iomem *base;
+ 	struct device *dev;
++	const struct rzt2h_adc_chip_info *chip_info;
  
- 		return rzt2h_adc_read_single(adc, chan->channel, val);
+ 	phys_addr_t phys_base;
+ 	struct rzt2h_adc_dma dma;
+@@ -328,7 +335,8 @@ static void rzt2h_adc_dma_callback(void *data)
+ static void rzt2h_adc_dma_calc_layout(struct iio_dev *indio_dev)
+ {
+ 	struct rzt2h_adc *adc = iio_priv(indio_dev);
+-	unsigned int hi = 0, lo = RZT2H_ADC_MAX_CHANNELS - 1;
++	const struct rzt2h_adc_chip_info *chip_info = adc->chip_info;
++	unsigned int hi = 0, lo = chip_info->num_channels - 1;
+ 	const struct iio_chan_spec *chan;
+ 	unsigned int sample_chans;
+ 	unsigned int first_chan;
+@@ -349,7 +357,7 @@ static void rzt2h_adc_dma_calc_layout(struct iio_dev *indio_dev)
+ 	 * width, so pick the smallest power-of-two-aligned block of channels
+ 	 * that covers all enabled channels.
+ 	 */
+-	for (sample_chans = 1; sample_chans < RZT2H_ADC_MAX_CHANNELS; sample_chans <<= 1) {
++	for (sample_chans = 1; sample_chans < chip_info->num_channels; sample_chans <<= 1) {
+ 		first_chan = round_down(lo, sample_chans);
+ 
+ 		if (first_chan + sample_chans > hi)
+@@ -609,8 +617,8 @@ static int rzt2h_adc_parse_properties(struct rzt2h_adc *adc)
+ 	int ret;
+ 
+ 	ret = devm_iio_adc_device_alloc_chaninfo_se(adc->dev,
+-						    &rzt2h_adc_chan_template,
+-						    RZT2H_ADC_MAX_CHANNELS - 1,
++						    adc->chip_info->chan_template,
++						    adc->chip_info->num_channels - 1,
+ 						    &chan_array);
+ 	if (ret < 0)
+ 		return dev_err_probe(adc->dev, ret, "Failed to read channel info");
+@@ -631,7 +639,7 @@ static void rzt2h_adc_free_dma_buf(void *p)
+ {
+ 	struct rzt2h_adc *adc = p;
+ 
+-	dma_free_noncoherent(adc->dev, RZT2H_ADC_DMA_BUFFER_SIZE,
++	dma_free_noncoherent(adc->dev, adc->dma.buf_size,
+ 			     adc->dma.buf, adc->dma.addr, DMA_FROM_DEVICE);
+ }
+ 
+@@ -651,13 +659,16 @@ static int rzt2h_adc_setup_dma(struct iio_dev *indio_dev)
+ 		return 0;
  	}
--	case IIO_CHAN_INFO_SCALE:
--		*val = 1800;
--		*val2 = 12;
-+	case IIO_CHAN_INFO_SCALE: {
-+		const struct iio_scan_type *scan_type;
+ 
+-	adc->dma.buf = dma_alloc_noncoherent(dev, RZT2H_ADC_DMA_BUFFER_SIZE,
++	adc->dma.buf_size = adc->chip_info->num_channels *
++			    RZT2H_ADC_DMA_BUFFER_SAMPLES *
++			    RZT2H_ADC_CHANNEL_BYTES;
++	adc->dma.buf = dma_alloc_noncoherent(dev, adc->dma.buf_size,
+ 					     &adc->dma.addr, DMA_FROM_DEVICE,
+ 					     GFP_KERNEL);
+ 	if (!adc->dma.buf)
+ 		return -ENOMEM;
+ 
+-	dma_sync_single_for_device(dev, adc->dma.addr, RZT2H_ADC_DMA_BUFFER_SIZE,
++	dma_sync_single_for_device(dev, adc->dma.addr, adc->dma.buf_size,
+ 				   DMA_FROM_DEVICE);
+ 
+ 	ret = devm_add_action_or_reset(dev, rzt2h_adc_free_dma_buf, adc);
+@@ -670,6 +681,7 @@ static int rzt2h_adc_setup_dma(struct iio_dev *indio_dev)
+ 
+ static int rzt2h_adc_probe(struct platform_device *pdev)
+ {
++	const struct rzt2h_adc_chip_info *chip_info;
+ 	struct device *dev = &pdev->dev;
+ 	struct iio_dev *indio_dev;
+ 	struct rzt2h_adc *adc;
+@@ -677,11 +689,16 @@ static int rzt2h_adc_probe(struct platform_device *pdev)
+ 	struct clk *adclk;
+ 	int ret;
+ 
++	chip_info = device_get_match_data(dev);
++	if (!chip_info)
++		return -ENODATA;
 +
-+		scan_type = iio_get_current_scan_type(indio_dev, chan);
-+		if (IS_ERR(scan_type))
-+			return PTR_ERR(scan_type);
+ 	indio_dev = devm_iio_device_alloc(dev, sizeof(*adc));
+ 	if (!indio_dev)
+ 		return -ENOMEM;
+ 
+ 	adc = iio_priv(indio_dev);
++	adc->chip_info = chip_info;
+ 	adc->dev = dev;
+ 	init_completion(&adc->completion);
+ 	init_waitqueue_head(&adc->dma.wq);
+@@ -741,8 +758,14 @@ static int rzt2h_adc_probe(struct platform_device *pdev)
+ 	return devm_iio_device_register(dev, indio_dev);
+ }
+ 
++static const struct rzt2h_adc_chip_info rzt2h_adc_info = {
++	.chan_template = &rzt2h_adc_chan_template,
++	.num_channels = 16,
++	.features = RZT2H_ADC_FEATURE_CALIBRATION,
++};
 +
-+		*val = RZT2H_ADC_VREF_mV;
-+		*val2 = scan_type->realbits;
+ static const struct of_device_id rzt2h_adc_match[] = {
+-	{ .compatible = "renesas,r9a09g077-adc" },
++	{ .compatible = "renesas,r9a09g077-adc", .data = &rzt2h_adc_info },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(of, rzt2h_adc_match);
+@@ -750,6 +773,10 @@ MODULE_DEVICE_TABLE(of, rzt2h_adc_match);
+ static int rzt2h_adc_pm_runtime_resume(struct device *dev)
+ {
+ 	struct rzt2h_adc *adc = dev_get_drvdata(dev);
++	const struct rzt2h_adc_chip_info *chip_info = adc->chip_info;
 +
- 		return IIO_VAL_FRACTIONAL_LOG2;
-+	}
- 	case IIO_CHAN_INFO_SAMP_FREQ:
- 		*val = adc->chip_info->sst_to_freq(adc, adc->sst[chan->channel]);
- 		return IIO_VAL_INT;
++	if (!(chip_info->features & RZT2H_ADC_FEATURE_CALIBRATION))
++		return 0;
+ 
+ 	/*
+ 	 * Datasheet Page 2810, Section 41.5.6:
 -- 
 2.55.0
 
