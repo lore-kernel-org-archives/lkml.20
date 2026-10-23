@@ -1,102 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.174
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792743781;
-	b=rkfWMT37UaFW9bnhMlo+ys4Jsu5L6WyNZM0O8cohujnAaqrJHzBaTLo6G4OSnZHdwFTn
-	 ep+CsekrzJS8A+6q0vRolMrI4ehremILqPrnExKMSGCJW6zsHzyvx8aRvuJICKF1GvJ5o
-	 cRTqS46win0kFWQVbn3SxVMvfRN3TiS+8CBC6ZKx6TPIpVO/IFaRRV0PvXLQKNIq5IX4/
-	 5OTPCG8JTp/CQ08u2C8fAxGLZZ4IsYU0n6V4JHl9hDWFWq5Utw95aEiaMHB9AVNE7igkP
-	 X4TrSnvpsAnNsxfMmCccim3rHd+lWrfJzCsu0NrR7E1KyiPGskrjFv2bOO6ehM1lAdA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792743781;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=CnID61DBqXYExMRhfWZPF2Tk54RL2V7LncDliM0Ny80=;
-	b=zsUiXz9vGIof1JmQHEs3+jxWWPZi+gcFFszYLPrAhy0wVPTzFuZ/A2UosMqR/8m2MG0j
-	 i7MLFzDVAb3si5rzkfYdW7LuTJ10Raw/FhH2Rt6f3hNOw4DgGa554zW2fIZOVuJcNg5SQ
-	 euOgqIMJCBQ2+5zDS8IvSLvqeiH7GAMnESGGqR1IAcZuo+2voCkeJ+Am0uFN0MoyxD7qa
-	 yEUhEZWLJTI0/Z6sDcfnR44kpNBsehsxF1F1qcVlF2Ue+GAInAXdCiQwxNK6TBFOe6quY
-	 0Gh3/UHk/IBp/e2SbX7rHLlSn8n8Zny7RFSKgbisrYJb0IlBu5ANgxhiy8cY27vgQiQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=pBThlLg9;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.174
-Received: from mail-vk1-f174.google.com (mail-vk1-f174.google.com [209.85.221.174])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792743859;
+	b=Aj6Ivcp6W8soyg9IxGX2upAe7eZYlyaCnzjqygJbBHZKv+av3P+mtBIgHTeDz2nQC3VC
+	 6UpqaBlba55zHwQNQ0vIoP85cpu3Mxhfl3G6zXNjPrt0A8lTuUQrWy8B0jl5VlVNOlNL1
+	 ehdi4lYafzc6WRrzNTGA4/oShQ7cRk/Ly3XxWznI5dX2YauUgpN7spMG3K6i/22gdOPBN
+	 DZWIXntggyolhJ4voTjgdU0bQ8FKJntgN8lLmrt4zu02etztJxSQjPZ3egrJn/45xldHE
+	 fYugmcYGNEACQfLEdrXbsSmciSqZ5AYETfO0oSqhpbX6N0aUvsktRZh2Q8Y07gjlIPg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792743859;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=mWiKy2uNdp2dmO6iNZ8w+iaJQX4LQ1vYisT9qIA+1bg=;
+	b=lbDdUDS+01r4VzBmTmsjAvCPnJ/2tGEoTHO8Li7f48AIKSILmP2fgl9UjfOhyRYMBQJ+
+	 axY4MFMAj3fipH0pojeZjwZyavbDB7xNzvGVTYe3P15dsTCvnu4GqpR4xCNaUomYzfFgw
+	 F6ZnB+r9Yod3Goq2gIs2lSf4ULgzJPcLjVqgBFYSUk7CloCivyCWhGXKdF3qzs0eqD6Bc
+	 T4aeF9oNo4+bCSJ1oP/tVHje0J6oZ/JSQ8e8Wu7Y6v6BP+Wq7WhajGT4+3tAiEK1ew+so
+	 opcBJtYj2ECqGemNS4gu+CbnEghU8985okzYEYnbzetiU1WCl3MSjG+TlbJV1wt5PhA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QA2FRdq5;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8ED2606A31B
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 08:23:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A8ED2606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEBA5606A31A;
+	Fri, 23 Oct 2026 08:24:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=pBThlLg9
-Received: by mail-vk1-f174.google.com with SMTP id 71dfb90a1353d-5eac3b6b2ceso238833e0c.2
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 01:23:00 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792743779; cv=none;
-        d=google.com; s=arc-20260327;
-        b=L6youuhl8Jsbe41hO3Pk0dnxGcHMhI78mbW6I05YUBiTmI27BQO3mPHYrxwofqp93J
-         DvtBNsOMmec2M5v7n/N4dNrBkMQEOGDJsTozNQtcVGehNDU/R1lanCs7R88/Htg2mJEa
-         bDb1ekC+DbATrjOK2UmCyksoLVTcuxX8d+raLgiP6ySzHo1abUhh/6Ha0yCv7FYvuiYM
-         0ATfNekWtNibwPFOnoVY+O+Y3tr/Q3DACQxTryQ3ldJaZ+0NeHCneVb29khAC5a+iQFw
-         dkWYFJqoaJSFu0FNYwpQY0eI8wX+r9pngoYjQQsfqkFk358pr6Yv18AtU3bjQS7IRzFK
-         LsvA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=CnID61DBqXYExMRhfWZPF2Tk54RL2V7LncDliM0Ny80=;
-        fh=tGykKvQ8i4E+2h1iV63gkZrj37lw6yzwzm9MNmqVV8w=;
-        b=R4iin7WMXRUeqxbi9Fw3r4ihkxeYMNGOBDGvGMpdBbYoXqFpYhjpLur6d7m2ZSvhPs
-         YcNepm0S7NoojAG6kbhHvjb/pnUCWNCUcQBFngPzFPqjCDAXrxFfP4A92f10uWuS6w6h
-         NA/l5kAA+U6OGDlFQEBRRbOGy/x6V1RKRKGvkB9dxFF/cXa+gQBaPAy/t8dIsIZkT35c
-         vjF42j9WfZsLTthOWaL27R6bW+77VU23VBKQ7Sxq7bifrXPhOFVanIl0lLpx9Xu1Pc+S
-         N0JkbEEg5dMyANrCBV7vRCD6mE1zvaDsXo5JPz6lr7KYpRxacSfDOP2Ng4g0k+mQynGF
-         Ts7g==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792743779; x=1793348579; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=CnID61DBqXYExMRhfWZPF2Tk54RL2V7LncDliM0Ny80=;
-        b=pBThlLg9Wjoc1dNzzQ2MNkvpXXZwwfgqFXg8OaxUDOg9A4KNOFTNmM89O1J9PtW+UH
-         6nemQHby/5344u4cN6Dt/dqw0Ht5fE2+OXmur7xj9vfgmp2j0GxFwUWrnSC8aMFk2/jX
-         ulprL88lYSE9g5mEt5OuqFl18Hx2T1bzdXzr1/BjnsCml7oc8bNdyNhK6Fl12tWYUQJw
-         zBRjmi1vuc+yMJItrFAV9R8V6plwWAW9faLqHxCCGf5PRe4bW/+A3w61FSuOD5yBht9M
-         IHrtIDs3dgw4BOUpoLKwD5kB7hcUnmlpjRsJw4SwcY0u0zjxZRZy2J09v6luAPKWFYUj
-         XPlg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792743779; x=1793348579;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=CnID61DBqXYExMRhfWZPF2Tk54RL2V7LncDliM0Ny80=;
-        b=K8KVb7kAgzAid9QIgTuL8YGlJQTRoJEJbOs6LpmoKkrSPQIZ1+2qWBXJDWvIjf3ijs
-         7zAD6PObDi3Hr1GkZvHI8qw6gvQOyjX0aOnNbhSCyE/dC1YuqizEUQ9ibSyz8+qLMXk4
-         RNQHQVT2kT+VjPSarGeKkq4IiR34+lm+caECn35QhGR+jdBpsO8oAuNrE/Ff2DBW490V
-         raucR839TS8CG1Q64jydai3ra0TbC6JHA+dK+WITIIAzHtXnHQ0QnlsmysVaIlxPIBcZ
-         OxcbM63BvsbrR6ZCUyQw0WPwcGBKG0+nJ3J+5BLNMStWA3NWqwmaLMwpM+hjSuzosWpO
-         Fkxg==
-X-Forwarded-Encrypted: i=1; AKwUvBzoppmtr1OhRugFhrUXsY3uMKvSmLluG3VTQN9f1uQlrDaRRPG2RVH3mWpjxYo1uoiMaJaX6bCLLbXcr08=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLcjG9dRkU0T0OzmFf12gKzY11KCepdX6B6ULio0r7/RjfoaYCO
-	UkKgvnw4trP1kUbo++V0XcNPtwu+mYTf3RTNVc9I2qUZVfOkMlYH1SaXh8FQwpZ+PeuJ1ec+jFa
-	0JeULiUfbz62TUJtBPFp4ENIHB8QonNI=
-X-Gm-Gg: AYBFou31QWiuDMw9W4IuD+6BIs2sRv2un6UZTrQseCTxTpU6MGHOWadClLc2g+MGd7e
-	gbUhqL6+9TH4+9N+kXChjyg4fSI+foaC+dVRUtnHuOwOOCUORmtPQ5gT+j251xmINbc8sj06OVF
-	8Gpo4cWioTVNiZZCRngUXsAc7ccjLCqZSbr58pvbbE/UuqRIPYMtzhK5F9Q0SLZCRDHKplk41R3
-	XB6m+dJV4ng6r0qsoD8UwD+RerwGOl3aOf/DTkU0egCbMxJRukwh1etcv2VWqvk9Da4ZvWBWj7U
-	zEl/B1uebKz8RRsBxjhyomB2bnNXkdMKxk6PrcTrJJF42wLvsdWEetIWMjANRuJM1oTIuv3wj6+
-	NMRrjEPTBc68oUMlg6N6QaQeZSGbryMDc4GO1Ui+Csakm43XTrOlToTqkQQzhrZFW4k/9/e0AO3
-	WXUuGwdjvRFrj9YVBOq21+qoRIh29JDuVvsU9H31AVP1unB6gIMiQq3NNXRzGNYnzW/GF/+45ym
-	ZCe6F4lD6Jke4Gh67IbSGK84LvreiTk12oSGLw=
-X-Received: by 2002:a05:6122:3b85:b0:5e9:731b:84f3 with SMTP id
- 71dfb90a1353d-5ec14a6c5damr433520e0c.12.1792743779585; Fri, 23 Oct 2026
- 01:22:59 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QA2FRdq5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A8D141F01825;
+	Fri, 23 Oct 2026 08:24:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792743858;
+	bh=mWiKy2uNdp2dmO6iNZ8w+iaJQX4LQ1vYisT9qIA+1bg=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=QA2FRdq59Z5YayCTXaUlGu5kPgHp87ZyGlXnL/zfkJcWuh41crw1juhEOMcDSCXOG
+	 YpQB/xalslR9JwmoPk/w4j7TYfz4p6jaOZQyYuI4Lvmmx0NVo0+JpytW4A9iLnQQjT
+	 M9+iigJvN6arBhU8a1vixcLonUkeCODClew7iEnE8cDNRXVaaLeDYXYrRqz7ziYnr3
+	 cdt6APUX7g0lGY1VUnWfusEFf8j17iA4ZQGCfCgfJHevA0ls7SnEN2UmhCsTQ4yEb3
+	 ITDhPPJ88GGfGewJ5irLsGrqtAOkwhFqSXg9ICTf7IEM5QGjTGuvBLzI4T59ssTVZQ
+	 3cpOV9u+NqT4Q==
+Message-ID: <a8be1a0b-591b-47d2-be21-137e1cb93dc9@kernel.org>
+Date: Fri, 23 Oct 2026 10:24:08 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,51 +51,95 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261021181626.2004489-1-edumucelli@gmail.com> <undine-1792630374135671788-0c3e675ffc202af4@undined.local>
-In-Reply-To: <undine-1792630374135671788-0c3e675ffc202af4@undined.local>
-From: Eduardo Mucelli <edumucelli@gmail.com>
-Date: Fri, 23 Oct 2026 10:22:23 +0200
-X-Gm-Features: AclHuK9WpOx2XOoSeKunyY_VJs8XYXEI0-YSZhd77j30Ylj2IWLLKn7cIiX0T78
-Message-ID: <CAK0NWSMH0Xn1HrP-sbHgAveF4pR8D2LaSuvTZBX+g9Pzf_UnNw@mail.gmail.com>
-Subject: Re: [PATCH] tools/bootconfig: Fix enabling all events in bconf2ftrace.sh
-To: Masami Hiramatsu <mhiramat@kernel.org>
-Cc: rostedt@goodmis.org, linux-trace-kernel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 01/13] dt-bindings: display: msm: Add Qualcomm DCP
+ bindings
+To: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
+ <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Philipp Stanner <phasta@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+ "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
+ iommu@lists.linux.dev
+References: <20261015-jshekhar-drm-msm-dcp-v1-v1-0-48aad0fe4f72@oss.qualcomm.com>
+ <20261015-jshekhar-drm-msm-dcp-v1-v1-1-48aad0fe4f72@oss.qualcomm.com>
+ <20261015-heavy-clam-of-sunshine-8fe831@quoll>
+ <ae967eb1-cc54-4733-9e89-bc375e1cbfd6@oss.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <ae967eb1-cc54-4733-9e89-bc375e1cbfd6@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Thanks, Masami!
+On 23/10/2026 10:10, Jayant Shekhar wrote:
+>>> +properties:
+>>> +  reg:
+>>> +    maxItems: 1
+>>> +    description: Index of this DSI host among its siblings.
+>>> +
+>>> +  status: true
+>> I see slop, I finished here. Mind this maintainers summit words - if you
+>> use AI, you must use good one, not the shloppy slop.
+> 
+> 
+> Will remove this in v2.
 
-On Thu, Oct 22, 2026 at 2:52=E2=80=AFAM Masami Hiramatsu <mhiramat@kernel.o=
-rg> wrote:
->
-> On Wed, 21 Oct 2026 20:16:26 +0200, Eduardo Mucelli Rezende Oliveira <edu=
-mucelli@gmail.com> wrote:
-> > A bootconfig containing ftrace.event.enable makes bconf2ftrace.sh try t=
-o
-> > write to events/enable/enable. The per-event loop treats the global
-> > enable key as an event named "enable" in a group with the same name.
-> >
-> > Since events/enable is a file, this write fails. With --apply, the scri=
-pt
-> > exits before it reaches the code that enables all events. The same thin=
-g
-> > happens with ftrace.instance.NAME.event.enable.
->
-> Good catch!
->
-> >
-> > Skip the global enable key in the per-event loop and let the existing
-> > global handler write to events/enable.
->
-> This looks good to me. Let me pick it too.
->
-> Thanks!
->
-> --
-> Masami Hiramatsu (Google) <mhiramat@kernel.org>
->
+And please also remove other sloppy-code produced by your AI as well.
 
-
---=20
-Eduardo Mucelli R. Oliveira -- http://eduar.do
+Best regards,
+Krzysztof
