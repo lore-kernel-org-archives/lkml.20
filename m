@@ -1,95 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.56.67
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.170
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792789534;
-	b=G+QLbVQjS0Yz4TkQsPR3EEnfk7e8S5yTYfZeHCeAHFQvNefbbGouoy11zXBpeaENuvM1
-	 kf2y+/4yoLtF+kkFcMDwEEzBM4xuC1zUxIvgn2/QY4kW7yN/Gmn22J8nNmptW5Hg3RUlH
-	 iWHBZZVdO99yOEw6hiv2qe8KOhIHk1zkkY3P/KzLmZJqE+O2C0O3eVuJ1XLVsi+xjRLZ7
-	 4dlQlFsMPNj6Hp+cMY3Kc8zsnd9shGX9Z+GYiQG6w+Ruxy2c1vZ69cDJ6z/VIhQIFJQpK
-	 XDCq201xB8OU2XimjXPCWw/F3oT1arHTcQczKIIUof8VM37V/bMfn10CpbqbDge0W0Q==
+	t=1792789591;
+	b=yat5I9G3JhQFsBO3eFOLt2IvPD2Qg7b7gqXsxkU2aTzBo/Aad0d0HbCULW0IKFaIQePl
+	 5us8DM47qZG+8pQ6iMQklFA8EdxsHmNjU86z0i5bwf6vc3aGXo5rArrS9bGxxOUcEEXis
+	 6kBVJ9HqaCfOVpoor7VcWlMlIMEDj425k6Kpd5Jw6FH5XaRRjG9zvgPQ6xDFZxWnNudFd
+	 iRTUMpPXEBpo/8yQKPEvKgoUVHX4Hdgbj2IsPymYLdbL8d00lXExByybBjgVi+pcRy+A/
+	 4oWwLOisfolQlQdZ/ynDfHySmdemGar4swW1G15NSeqgtTehbiJG7r7qFDd5wMFgoJg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792789534;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:CC:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Originating-IP:X-ClientProxiedBy:
-	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=ya6TeX4jVc1CRBLI4W4H1aQxLIAJ9QqvYV5IQfTpIy4=;
-	b=wKc1fHrbMsUI2DujzhaDP+55VFo3o3w+H4OSRFCby8MO4QEJPW3zmNtSc++rs8+Ky98a
-	 7EgsYwlqwbQGa73DXer0ZsBS9qR//UCqE0eHxNl3XEDUOPQ7Te2wscCZm/eXhUlsC0U8X
-	 ovuaemmsxjyrnsr0dDBYx9vFJmNLd0rV7pdq5cKYP4cQqqBsHSYvjDxy4HnSXDyjbdNqJ
-	 RJpOJDLiErIu/kh+H81rXS2u/8jq3RippvSMjHicZKBGLx3Y2LzrF37IEoGkSNKeiNxQv
-	 rNJVCs38b2VobFY6c7eheZ9mqf+1kSEgOOKGwntKO+WnzRjkvE7qVkr7WWeI3kBPY/Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792789591;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=B81JhG5oBLgzvk4unoyO/Obs8jvRI83INB837bEDY/g=;
+	b=ukISffKTd4AXcqjZu/8jS7/9FadsOlbV5XN7CwNtonzOC8RvhwPKYx8BPv8WTaQvCapG
+	 fICXhieG1f+KudiKC9QiQEdDb8xE1m/hqKamGLYyz1y1eZ5k0SRHJsvYx7DN7/fCoS/yy
+	 YtbA5PBvnXRop8HVSWiEv0NOIQiBD8Tyy65jhgKiuUvNIyTf9Odf/Li66DlxrQd3b10SI
+	 gZblM7BD8cJlFxYqU+unNrB235vMtBkX+novHEGxZjCK4owEXFO2Scvi6BELwvS9hk9ni
+	 MHPNEsarxVDR25Ly5fvXs6ii5JKkNUeHt9nEcSPE8RgwovYXNM6bbMdt6kCKrQdujew==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b="GB4olL5/";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.56.67
-Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010067.outbound.protection.outlook.com [52.101.56.67])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=LbTEuS7U;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.170
+Received: from mail-oi1-f170.google.com (mail-oi1-f170.google.com [209.85.167.170])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27E48606A31A;
-	Fri, 23 Oct 2026 21:05:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 27E48606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D430606A31E
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 21:06:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2D430606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=GB4olL5/
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=rcuYWPVsqLaA1bHwb45m+hFoYp4Eq43A/Uhq6SrMPncr/f+4OwV2pzJ4QEpgXJ/3Nq3zGyzpeQHWXzqqmY5V42FB70D8+meRbVFTnYzXgexMU4UtHgL4Z2hduS49PHZ2Y65QhnIgRTG/CQF7eVLgL6ccBkVqcljyLGs59Rd0lY4or1Q1FClHTzExf2KlqGGnivSBATAln6xegh8YiNc5237RfH7vN6+WE9siDFlcNfk38fvtcUdxu4+c85fjhMFZioF6zDN/nNa7zCENFHLEzMbCX60h9kRGbc13kLGbhvfKgcmv9bxKeMV2fxNJUNcxz1M+bxuttXl2lPoHXjpM4w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ya6TeX4jVc1CRBLI4W4H1aQxLIAJ9QqvYV5IQfTpIy4=;
- b=VSV+As/7HmW7dRvKGiy0EhpP8X/zkTeWMsSJl+ar8m4Y3AEjcuIBuJCQxjV7/NFjTakYp2BjOudyJ5cs4w5g4LJcWhVLOGVBYhJIh5aKDMm1My8tW0AV6ku+W8Qnq8wnhKdwLgCoUY+BDXsXddUtxma+1fHf9/rf/9HVeHhb8rUPq2U2V72FSRIxUJec3ar5XZl0C2222pda+3XwzT0KXvb6Bldzb/FiHJdA5dgVltXYHO/9n4forwswzyvXdUqvrKocscb/hcPyjAM7nGhm/CmAY1pn1ZNTOjkAx7KjPX//nm8h/3zSYbLYuDFIqUaGEioSdxmswk0hCxxVra4Xkw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=baidu.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ya6TeX4jVc1CRBLI4W4H1aQxLIAJ9QqvYV5IQfTpIy4=;
- b=GB4olL5/g/njbTA7BX/mkQBkgfUy7oS4QO1+Ztoh02wbb7bOHdNuHXvn9HGc40wBZweOlWS+45jgnLhYzb/IBQ/GBYzhWjVBWAtA9FfqN9ANqSdQkCbB1O5C2sqAFcf9Pcl18o17JhVVRJw/KENJvkSt376XK4+Lc8NgmISAQ9Y=
-Received: from CH2PR14CA0043.namprd14.prod.outlook.com (2603:10b6:610:56::23)
- by MW4PR12MB5625.namprd12.prod.outlook.com (2603:10b6:303:168::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Fri, 23 Oct
- 2026 21:05:30 +0000
-Received: from DM3PEPF000265C3.namprd03.prod.outlook.com
- (2603:10b6:610:56:cafe::7b) by CH2PR14CA0043.outlook.office365.com
- (2603:10b6:610:56::23) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.546.19 via Frontend Transport; Fri,
- 23 Oct 2026 21:05:30 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- DM3PEPF000265C3.mail.protection.outlook.com (10.167.23.184) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.569.4 via Frontend Transport; Fri, 23 Oct 2026 21:05:28 +0000
-Received: from [10.236.181.175] (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Fri, 23 Oct
- 2026 16:05:28 -0500
-Message-ID: <099f0eea-1ff6-4e1a-91cf-682fd7609808@amd.com>
-Date: Fri, 23 Oct 2026 16:05:27 -0500
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=LbTEuS7U
+Received: by mail-oi1-f170.google.com with SMTP id 5614622812f47-504ae5941faso721209b6e.3
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 14:06:30 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792789590; cv=none;
+        d=google.com; s=arc-20260327;
+        b=V/NtEUJt1opHpfrmOVdcd45mO8dH63jpG+RiEBChSVgNGePSEa5OVKMpDtOM56o7IO
+         6Xp1OpuLpV8CAnwc0d1nQ5Fc8wiXyZLmN6fDyXmT+G/9jx+QNlzXhcqoRXCTxS6jj8Gp
+         1v04w6Byi2XEfZnUKos0Ee5FZBI+bvQs5ZDPDVLNa17YfmMcLnoWSOoSwCZtUs1cOW1X
+         1URI1AKWQ167T7EG5b2UAlY/Gnawjzc0N+w1CTCt+SgbQW3cS3Zf+kfFtDrxjvQDfzrX
+         aB7l7bwvhdK9yrlaUolJgRVm2ZpanQWhMhY+rufJExN57KBzkfL6aaAM8uMpyH1vv8hc
+         OglA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=B81JhG5oBLgzvk4unoyO/Obs8jvRI83INB837bEDY/g=;
+        fh=T3aSI6AKH5d2Zzwk+B2dRPCmH6vW2snXiumWqdVQUxM=;
+        b=Rix3GcsmsJWOnqOxwz7dbyMD6wHz+rM+KfutiiPHFaNl6MtJ5GEc+cQNHkcgnihWgu
+         8HztvTseIlqsciLYjvDWiuLx8P+eUecjxi009SdrkKGvKsCrMtsYTG2s4rFHhaCrcRIO
+         zYrYFyLqm+dOjtcK3+GIAEw/hYcfOe/g09M5+5rVmdTpfmu5oxl2GzWpJgHGhqemLCZa
+         VULaNwI+9wvl81MtRQA5B0RKCW4NQLe2XjXqAQmwDEWRuYCBRqwM9fa0Nl1aKSAcgK9j
+         Pw7AZ9u1ggnUFV1LTmZs70dLLxPmZDDprVxJfdowPHEPq3YgQZlLI7oEHYlpplXjIMbJ
+         kqtQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792789590; x=1793394390; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=B81JhG5oBLgzvk4unoyO/Obs8jvRI83INB837bEDY/g=;
+        b=LbTEuS7Ux8e0j573K7MhU2vm79E8Zc5Vd0Oh3AE4CaPKJdlNISyhaBIfBt/OEA0rxK
+         yKXIdkZQTz8Jhq9pOzh7yG2EIdEursa1+d+FQo9ycmAl6fS8s8djVJXQnrexZr/pJ8I9
+         dPqPg9/sL2VjO45HMToYFi1qNIPCl9VqhlmoXSw/tEd9COrXiOk2svE66Gn+BAMAfoqM
+         j9L0dmGksi7n1cNKSLka5bXT2ReWBxYBSwz5sdgNRP+6SXun4xlPuXLm7XIxsYBKmLq6
+         ar4JVFIZNGHiK81sMw6ieF+Z/xI1PzWjbsxGoVsumIbd81i6ZIsQzag4d8M47mjJNtX7
+         BUpg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792789590; x=1793394390;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=B81JhG5oBLgzvk4unoyO/Obs8jvRI83INB837bEDY/g=;
+        b=1BTEWPba7+t2hWDBs7zbh3doRWp5ch46Zv9bNHLAY0r2Gnajp+y1OssoetXYZu0iF3
+         C/fbNuH4x+bewmExuJktjggqwZyzbUi4YnxTEp9k+eOv/nzzIID5Lo7KR6M0aVSHTMMb
+         lOE8kXD9pRvZYyWnKzdr4pmOszqe1FiyTrOnsWp0CauFKMQLUaRMkKOJWnpoHGYz7pzT
+         JbdYb+DaVygztDEnFxseXBMKNYXJ4Kk2PiMl39BcGSJJqSK3XK46nOP+rXfjrf/RBfIF
+         YQYz3co0PVlen6N8sqf/P0tZ6onDoJeSS1KQH0DmZ6azuUvmj8TcJ/qlNLmaoS0b4dQx
+         k+fg==
+X-Forwarded-Encrypted: i=1; AKwUvBzJzYfp56vNFirTgKk4resJX1I5Wwo2xosLGw3wLdli8w+1cZ8iCsRzvJ0ygKY7G4vFP+zNbPOXq1BIL1I=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJJYTTvQIyuQvTzfQFLxQjn5MuluANSVMvmNMgkmUxaAGYWjvod
+	hzqnxLOYi5W7hNE5+rnlrk8OhWtHiYCHrKgcwOjlZZ2DSHz6SqLDUsUIKb7VEzQOnS2fej7NhXq
+	jUf+yF86coN6YiU1gtzqms/Fy0LiT68Q=
+X-Gm-Gg: AYBFou2EcXIiU7icXsKkNnpGYC8O2gq3+ZMP3a89NExeAOoxsol2/7CXa+c1OZCxVqn
+	WajMuPqWQOZcwvsNdsR7KhSR+86FZTLO/ttmAn/BNVRBI06cDUElBoPP5aMcPuVI5QObFxraT6M
+	KIz++KMWw685NxL51alXbX0XfIYt8HcUhbEFzVtLtkXXPrRxj7hM9ibI5yab5v1iGJzOAKu3VU4
+	55JE3toTsNyS4kRxLTwftcbCzTeqQ8VgMCm/tes/Ni8d/0nT9wjpYKejXMQYHTMCq0oI7TD4gH7
+	fDpOYtGJiMTKSzzdRMX/iQV6AIajE7tJP+fcCHvcW9a0Hs73qazM64gN6n0XJJwlQ5ilgrZJDeI
+	A17gtw0YlHB4GBrUbQ87aLSoO/lENubxzDPry
+X-Received: by 2002:a05:6808:11d0:b0:4f2:6f1a:a34a with SMTP id
+ 5614622812f47-55c00261ddcmr323202b6e.12.1792789590065; Fri, 23 Oct 2026
+ 14:06:30 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,98 +104,99 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] cxl/edac: Fail ECS threshold read for reserved
- encodings
-To: Yili Zhang <zhangyili01@baidu.com>, <jic23@kernel.org>
-CC: <alison.schofield@intel.com>, <dave.jiang@intel.com>, <dave@stgolabs.net>,
-	<djbw@kernel.org>, <linux-cxl@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <shijujose2008@gmail.com>,
-	<vishal.l.verma@intel.com>
-References: <20261021152053.85322-1-zhangyili01@baidu.com>
-Content-Language: en-US
-From: "Cheatham, Benjamin" <benjamin.cheatham@amd.com>
-In-Reply-To: <20261021152053.85322-1-zhangyili01@baidu.com>
+References: <20261022-selftests-bpf-struct-ops-assoc-timer-v6-0-2c0f18e82582@gmail.com>
+In-Reply-To: <20261022-selftests-bpf-struct-ops-assoc-timer-v6-0-2c0f18e82582@gmail.com>
+From: Amery Hung <ameryhung@gmail.com>
+Date: Fri, 23 Oct 2026 14:06:17 -0700
+X-Gm-Features: AclHuK9TRgslO5apNkTHDd2WGpGoCt37hFcjtmqCOM6wGIxqCzpcyynr5JgcoDw
+Message-ID: <CAMB2axOYfDT4HiaWvjJwcBvsXsUL944scQNZjMAPAgJchG26ew@mail.gmail.com>
+Subject: Re: [PATCH bpf-next v6 0/4] bpf: Fix a struct_ops use-after-free
+ behind a flaky assoc_in_timer test
+To: Qiliang Yuan <odys.yuan@gmail.com>
+Cc: Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
+	Ihor Solodrai <ihor.solodrai@linux.dev>, Alexei Starovoitov <ast@kernel.org>, 
+	Daniel Borkmann <daniel@iogearbox.net>, Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
+	Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
+	Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
+	Emil Tsalapatis <emil@etsalapatis.com>, Shuah Khan <shuah@kernel.org>, bpf@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM3PEPF000265C3:EE_|MW4PR12MB5625:EE_
-X-MS-Office365-Filtering-Correlation-Id: b83c3302-2868-491f-b622-08df31495de1
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|82310400026|36860700016|1800799024|7416014|376014|261021121427099003|18002099003|22082099003|3023799007|11063799006|10067099003|261022105027099003|56012099006|261022075727099003;
-X-Microsoft-Antispam-Message-Info:
-	48aRDZk6VEqGALmnWXHdKL2w9TZpXF+TafEfj7JUK6cJSIZqrU8SzMpi3ahAenEnnm5tPPEuNL2PTMu/KB8TsEvx3WfZ+bBO4ZlKjP7M6D6qTb8lSxF4dlSEs5kWtUUqCRy0L7TKiAKCistbHRG/gDGsqi24FQSeu5QRslH2DPiFVeb5k8v9lKx8+midiRYThuvAmloLOpaTIv471FZBHuawsRNfISCkwV09sRdvo59PjREZNZYY9ltpWOr6yVT00IWGEeaQi5FP2VC/Ynm+1PlTppDPAEeRZz+SYvriXHk6/gfoQLMdfBruV4FvI6VmhVMdpna951+gsWZHi6hgxEpO20FsKqXnBnT0CwlT9IaUmU0uCccIFVDPNEwVqByxBh+Kewv3XY62ppYwpkvz6HUkC0e3eworpfvimUFZqQpAM48uiLu9hWS2jI2gGoTESfmvw3qK5arYVQbbCTlqqzvLjClLpEx8pmLwxG8ddIblv5t0SEHXWlfvLyP/mFT9oVOQDmjER00eQomJniNHeejv5Xe+cwduZ7eRFZtfIl0jf5t55NFoUs4QiEybBJsz1XgiKY9D1R7Bh4Usq6/mLKkGMakirF4mCQLyVxAxbaZTfmxfkr6fekZgv+CGGgpYTBlqpUlzr7uUaWqgD8HC5SHPoYBpWckl0g32YnhWpXR9qQ/iUr5UU6DIpAjNMWviU5WM0KclaQSdKa7QYUTX+Q==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(82310400026)(36860700016)(1800799024)(7416014)(376014)(261021121427099003)(18002099003)(22082099003)(3023799007)(11063799006)(10067099003)(261022105027099003)(56012099006)(261022075727099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	8FM1OnfEeFbJTg33Yd8dN0hFtKzPtQFP68ymywRRhfNa9By7sdu4nYmIokhNYB4SWmO9cG7nABfJ9tQzBcCPpd8g+MfTqsBsD7XdOhBuNQ+2HymtXCqnI8/aL+OdAP92fgCpuj7g5W8m/teGe59aXCauNbxdHGqfWdC62c44D6f2kRKOi9bqsvWWFVCKtdoh/qvdlx9v/OjtEyz44pOD6BQNYE1ysXVdjDgB0mUM1rU+ShTBKWpmlxuLcAqde6mquO3OMZsuhv19MuJn/X8SFQ6V1unIgssLcAjDmJPttK2e22zB8oLsvj4olsLSLvoVR3cHeIOmHW6KZojxBd61vXW23iLozfTESLiDgQ8UidC7LbTHTs5mmjgdF/+2guDy22QirmralPzKNQ92W+wnBwSkrq5NVYyOLUz9cPbmBqi7j77XaOrvyRo5g2ZZp/iO
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Oct 2026 21:05:28.6530
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: b83c3302-2868-491f-b622-08df31495de1
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DM3PEPF000265C3.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB5625
+Content-Transfer-Encoding: quoted-printable
 
-On 10/21/2026 10:20 AM, Yili Zhang wrote:
-> cxl_get_ecs_threshold() extracts a 3-bit index (0-7) from the
-> device-supplied ECS config word and uses it to index
-
-Nit: Should probably spell out ECS here for people (like myself) who don't
-know what it means.
-> ecs_supp_threshold[], which only has 6 elements. A device reporting
-> index 6 or 7 causes an out-of-bounds read of adjacent .rodata, whose
-> value is then returned to userspace via the EDAC 'threshold' sysfs
-> attribute (small info leak and wrong reported threshold).
-> 
-> The threshold count field also has reserved encodings 0-2, which
-> currently read as 0 from the sparse lookup table. That behavior is
-> not intentional; it is just an artifact of the array's implicit
-> zero-fill. The ABI documentation only lists 256, 1024 and 4096 as
-> supported values, and the write side (cxl_set_ecs_threshold())
-> rejects everything else, so a reserved encoding can only come from
-> the device reporting it. Rather than documenting 0 as well, make the
-> read fail for all reserved encodings and only ever report the
-> documented values.
-> 
-> None of these encodings can be written through the sysfs write path,
-> and no device is known to report them, so this is hardening against
-> a device returning values not covered by the spec rather than a fix
-> for known hardware.
-> 
-> Convert the cxl_get_ecs_*() helpers to return an int and write the
-> attribute value through an output parameter (u32 * to match the
-> macro), so that errors propagate through the shared
-> CXL_ECS_GET_ATTR() macro to the sysfs read.
-> 
-> Suggested-by: Alison Schofield <alison.schofield@intel.com>
-> Signed-off-by: Yili Zhang <zhangyili01@baidu.com>
+On Thu, Oct 22, 2026 at 1:48=E2=80=AFAM Qiliang Yuan <odys.yuan@gmail.com> =
+wrote:
+>
+> st_ops_assoc_in_timer_no_uref drops every reference to a struct_ops map
+> and expects a timer callback of its prog, 500ms later, to find no
+> struct_ops associated anymore. It fails now and then while test_progs
+> runs other tests in parallel.
+>
+> Since commit 5db69b0fbdc8 ("bpf: Make struct_ops tasks_rcu grace period
+> optional"), a struct_ops map clears the association only after the RCU
+> grace period of bpf_map_put(), so nothing waits for a prog that reads
+> the association in between. A timer callback can then return into a
+> freed trampoline, and the kernel hits an int3 Oops.
+>
+> Patch 1 lets the association be cleared in any context, and patch 2
+> clears it in map_free_pre_rcu(), so that the grace period bpf_map_put()
+> already waits for follows it. Patch 3 adds a test that catches a map
+> freed under a running .test_1. Patch 4 has the timer callback of
+> st_ops_assoc_in_timer_no_uref retry until the association is gone.
+>
+> Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
 > ---
+> V5 -> V6:
+> - Rebase onto current bpf-next
+>
+> V4 -> V5:
+> - Drop the free_after_rcu_gp of struct_ops maps, which is dead now, and
+>   update the comment of free_after_mult_rcu_gp in struct bpf_struct_ops
+>   (Alexei)
+> - Also stop the tests when associating syscall_prog fails (Sashiko)
+>
+> V3 -> V4:
+> - Clear the association in map_free_pre_rcu() instead of deferring the
+>   free of the map (Amery Hung)
+> - Add patch 1, replacing st_ops_assoc_mutex with a spinlock, since
+>   map_free_pre_rcu() may run in softirq
+> - Stop st_ops_assoc_in_timer_free and _no_uref when running syscall_prog
+>   fails, instead of waiting for the timer forever (Sashiko)
+> - Point Fixes of patch 4 at 0e841d19263ab, which added the test, as the
+>   delay left after patch 2 comes from freeing syscall_prog
+>
+> V2 -> V3:
+> - Wait for an RCU tasks trace grace period in patch 1 for every map, so
+>   that progs reading the association under RCU tasks trace, e.g. from a
+>   bpf_wq callback, are waited for too (CI bot)
+>
+> V1 -> V2:
+> - Add patch 1, fixing the use-after-free behind the flaky test (CI bot)
+> - Add patch 2, a test for the use-after-free
+> - Point Fixes of patch 3 at 5db69b0fbdc8 (CI bot)
+> - Move the restarting of the timer into patch 2, which needs it too,
+>   so patch 3 only turns it on for st_ops_assoc_in_timer_no_uref
+> - Rebase onto current bpf-next
+>
+> v5: https://lore.kernel.org/r/20261019-selftests-bpf-struct-ops-assoc-tim=
+er-v5-0-77b2e181e5cc@gmail.com
+> v4: https://lore.kernel.org/r/20261016-selftests-bpf-struct-ops-assoc-tim=
+er-v4-0-9ad31c21220c@gmail.com
+> v3: https://lore.kernel.org/r/20261015-selftests-bpf-struct-ops-assoc-tim=
+er-v3-0-efe643d4b2a3@gmail.com
+> v2: https://lore.kernel.org/r/20261010-selftests-bpf-struct-ops-assoc-tim=
+er-v2-0-d7a43896dbf1@gmail.com
+> v1: https://lore.kernel.org/r/20261009-selftests-bpf-struct-ops-assoc-tim=
+er-v1-1-9a97a9b3d1db@gmail.com
+>
+> ---
+> Qiliang Yuan (4):
+>       bpf: Protect the struct_ops association with a spinlock
+>       bpf: Dissociate struct_ops progs before the grace period of the map
+>       selftests/bpf: Test freeing a struct_ops map under a running prog
+>       selftests/bpf: Wait for the struct_ops map to be freed in assoc_in_=
+timer
+>
 
-I was going to make a suggestion about updating the documentation to mention
-this new behavior, but noticed the other attributes in the ABI docs don't mention
-reads of reserved values resulting in an error. The doc mentions that these attributes
-are implemented by the device's driver (duh), so updating the general docs doesn't make
-much sense.
+For the set
 
-So I'm going to take it a step further and ask if we should be failing the write at all?
-It seems like other driver implementations probably don't, so it would be weird if just the
-CXL driver did. I haven't looked for any other callers, so if CXL is the only user then
-the docs should probably be updated so other implementers can follow the same convention.
-If not, then it may be worth looking at the other call sites to update their behavior.
-
-That may suck to do if multiple subsystems are involved, so if everyone else is fine with CXL being
-different then I guess I am too :)
-
-Thanks,
-Ben
+Reviewed-by: Amery Hung <ameryhung@gmail.com>
