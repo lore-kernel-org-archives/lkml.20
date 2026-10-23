@@ -1,54 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792766134;
-	b=nguzJzCjI/j8cAN2StisqsxV9zI1zlCIUcXQedoI05DlmsIasrS9cRv70Z9KkrBIY6iZ
-	 9+Lgd13hnjpZHJVLOAB2DQZxyic/znUWoyZmQNUz57/CBcwr4bqMF6LC/52aGf0HdnoP3
-	 cwQ+DFvI+ozNgPPWnH2khFS0kfN5YmHIOxvocYXFv3gyHccMej2/JQhEEumvqe8yGdbHr
-	 R1cDyTNM5+Ex96gHu4jwwE32iHbgkAJgYGjjsuzABosQt2Wrnbd+EqTO+HGCSfuYj/luR
-	 lGAUHNbtZGr3xaCUyEmqDFKy43ty3YJvhQ1U1/W89GKI922/p0BGC0Qp1MK+5GaZgdQ==
+	t=1792766307;
+	b=IS60J3hxhwfvLLXmDJ06ZLSVxXMwituQqaeNDfuGA8aadKZeWeSpXkJEOO/yUz8Kq+RC
+	 lMmFk6gMWFeIk4jQ2j3oPCoCzTB15YFFUMy4hlRogWM8pBSfWy9fKBIaAj8GO5+xffeTF
+	 MKRpfLX+aInpr+x7Y85IwyHstZXkw/lKqo2a9WgYIemcxJkbJx6cMwPD4ytLMdaZ6Jc0g
+	 0rIKZ8X3r2nL6ro4quTMwovHhm5DVMvFrjS5bvGINbmN6WI1VC1ZpDst7qbsW/6Y3rvfX
+	 meVhOufVg4QnT53PbL1uf7TUCLHzIZQBS6UURwxEvUqEaBhXEOrfHvlma1f4rsT7lYQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792766134;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792766307;
 	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
 	 MIME-Version:Content-Type:Content-Disposition;
-	bh=1QoN6cdYjd7lccIt+f66hMTmtEPYBbKaaVE8fnfLrr0=;
-	b=wU3F5XOruzLCnC1608QSUWNwATrOWx967HNLdBIsR36T/3V0d16ED0155camqcUJlm7K
-	 Ek8CHBYM+p2gZzlG7I7XfURfK73HcVFhWxrH15QxDWexjDU5V7Ov1TXAAAi1eONv8Umdm
-	 v5Htc4tY94PG3raHnyT6nMUmpwyOolj2584Xq0ViFetiRNf5pax8HZ1xtqCwsNKFDveyb
-	 L33XqAGwbhgqQkuzB+oOg4LguccQmJiBCsb1+LqFCaRYD35kCuU6K0XgpJVHIU9Zb78fK
-	 ssqnfsOvi2DQJxgUthwFk6kr6BT2d4cqhKojWI4ovkIGfpXL+3OoyjqJz2a/wSV28NA==
+	bh=qU64bvFlp+ENXuE1rz63JwkjH8Ea2VGbEf6cWbzCF90=;
+	b=zD/WRi7CYBfyzdCcD4r0NIq1b6S2QQBwiQW0JTpFa+s4qgayBD1NgwgUpN+IQZ3ochLd
+	 N8pEt054hahmEpkbqmSsFxeOiWMITAALNRpvyb0OhM1kiQX0Dw2EnlUR1m3UMsS0HVvLY
+	 qhBWt/ct/gYOmLveRMz73kcLwQSBi8s+yGmyUmIncTEg47Dn5i4Oq4WK9QBKKU2VGb3lG
+	 DT+gRkXuswBo2rf4ifs8fUa4f/fySPJESRFcigC7XeJR7RWh5zY7o5XgEo0Tv010ztsf7
+	 VJxG0otwFwEkNsxAukeN1ryxEFQXdGt1ftco/Lcu7SEUW/XQRd3wVVbbru+01UcgyIA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CR96nJz8;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aZpkLS9Q;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03146606A31A;
-	Fri, 23 Oct 2026 14:35:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA5C3606A31A;
+	Fri, 23 Oct 2026 14:38:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CR96nJz8
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 761E21F01825;
-	Fri, 23 Oct 2026 14:35:33 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aZpkLS9Q
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B7A81F01825;
+	Fri, 23 Oct 2026 14:38:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792766133;
-	bh=1QoN6cdYjd7lccIt+f66hMTmtEPYBbKaaVE8fnfLrr0=;
+	s=k20260515; t=1792766306;
+	bh=qU64bvFlp+ENXuE1rz63JwkjH8Ea2VGbEf6cWbzCF90=;
 	h=Date:From:To:Cc:Subject;
-	b=CR96nJz8Ew3Av5ozmSqGwVxXtRZFk1iQI1GxgjmvketBo7CwFraT3cpr+CTKGc5Fv
-	 snZHDFHP0XXphWI3sx0WDM+zvVmJUuN0fOfg3l4xHuev4S22EHOjxBcyng5OvY4pHl
-	 tz1Q2vt+zghzFISjHXJQ2gXigCKDFt54HGPS40td6x1pPFJouLcEZnrxwKCC9IM6+l
-	 /nWJunz0AWqEf2mVayqle1JIFsEPpzFST6eWkmcLoYBhBX5p5ZLetg8LAAHwKsFHS+
-	 CZx6AJ/4Lj9WNqlaudaqHN1IuMBYuK+ULPvs+cZJQbWEZQp5ChfV2fohuwJFi2+54W
-	 609VsjyYUAmIg==
+	b=aZpkLS9QVI5IJoQph156wZqPepNqXWy6x1TiNFPkS8xyRf/VGTEdWL4jvCWJ5pWU8
+	 BiV0RIusu1IfY6thjQbq930BGVnFImLrtti0vaN/QQXJWsZINSq1gpt0sq2el6Sz8/
+	 nW0ysqP4J7ZczDJNZkqalcXkX6DYL39lTo2KfEQo3FYFQqd68u/XRXL26K5EukPeLa
+	 iisdvsyc62wUcuomvr2sX44WkxFVivp83fPbdL5rOxRZbqbokYrNUMJ0Cdyj6+riHo
+	 avRgHOPmllf6fgUqHINCuRpdadmLC/KaNrzZs9VkvIXH1YDSG8l6QEzYr2JdVAuoGw
+	 /2UaLQhKltlCQ==
 Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
-	id E37261AC5994; Fri, 23 Oct 2026 15:35:30 +0100 (BST)
-Date: Fri, 23 Oct 2026 15:35:30 +0100
+	id 948DF1AC5994; Fri, 23 Oct 2026 15:38:24 +0100 (BST)
+Date: Fri, 23 Oct 2026 15:38:24 +0100
 From: Mark Brown <broonie@kernel.org>
-To: Arnd Bergmann <arnd@arndb.de>, soc@lists.linux.dev
-Cc: Linus Torvalds <torvalds@linux-foundation.org>,
+To: Jonathan Corbet <corbet@lwn.net>
+Cc: Andrew Halaney <andrew@amutable.com>,
+	Christian Brauner <brauner@kernel.org>,
 	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	Linux Next Mailing List <linux-next@vger.kernel.org>
-Subject: linux-next: manual merge of the arm-soc tree with the origin tree
-Message-ID: <attwspRf09lDVPrZ@sirena.co.uk>
+	Linux Next Mailing List <linux-next@vger.kernel.org>,
+	Pasha Tatashin <pasha.tatashin@soleen.com>
+Subject: linux-next: manual merge of the jc_docs tree with the origin tree
+Message-ID: <attxYMtvBc5AMf9U@sirena.co.uk>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,32 +61,31 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="zOAHGtiWWHZFc3B5"
+	protocol="application/pgp-signature"; boundary="GSHtRsGao/p5OMjN"
 Content-Disposition: inline
 
 
---zOAHGtiWWHZFc3B5
+--GSHtRsGao/p5OMjN
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
 Hi all,
 
-Today's linux-next merge of the arm-soc tree got conflicts in:
+Today's linux-next merge of the jc_docs tree got a conflict in:
 
-  drivers/soc/Kconfig
-  drivers/soc/Makefile
+  tools/lib/python/kdoc/xforms_lists.py
 
 between commit:
 
-  2e51c645fee24 ("Merge tag 'soc-drivers-7.4' of git://git.kernel.org/pub/s=
-cm/linux/kernel/git/soc/soc")
+  fd0349aadbb99 ("pid: add helpers to operate on a struct pid array")
 
 =66rom the origin tree and commit:
 
-  3cd9904284fba ("Merge branch 'soc/drivers' into for-next")
+  4180abdb5d938 ("docs: xforms_lists: Handle DECLARE_KHOSER_PTR() struct me=
+mbers")
 
-=66rom the arm-soc tree.
+=66rom the jc_docs tree.
 
 I fixed it up (see below) and can carry the fix as necessary. This
 is now fixed as far as linux-next is concerned, but any non trivial
@@ -93,44 +94,30 @@ is submitted for merging.  You may also want to consider cooperating
 with the maintainer of the conflicting tree to minimise any particularly
 complex conflicts.
 
-diff --combined drivers/soc/Kconfig
-index 483cbdcae1534,be933b2d9c32a..0000000000000
---- a/drivers/soc/Kconfig
-+++ b/drivers/soc/Kconfig
-@@@ -24,8 -24,8 +24,8 @@@ source "drivers/soc/renesas/Kconfig
-  source "drivers/soc/rockchip/Kconfig"
-  source "drivers/soc/samsung/Kconfig"
-  source "drivers/soc/sophgo/Kconfig"
- -source "drivers/soc/starfive/Kconfig"
-  source "drivers/soc/st/Kconfig"
- +source "drivers/soc/starfive/Kconfig"
-  source "drivers/soc/sunxi/Kconfig"
-  source "drivers/soc/tegra/Kconfig"
-  source "drivers/soc/ti/Kconfig"
-diff --combined drivers/soc/Makefile
-index 5a3efd68355cd,5bedcf8d513c4..0000000000000
---- a/drivers/soc/Makefile
-+++ b/drivers/soc/Makefile
-@@@ -30,8 -30,8 +30,8 @@@ obj-y				+=3D renesas
-  obj-y				+=3D rockchip/
-  obj-$(CONFIG_SOC_SAMSUNG)	+=3D samsung/
-  obj-y				+=3D sophgo/
- -obj-y				+=3D starfive/
-  obj-y				+=3D st/
- +obj-y				+=3D starfive/
-  obj-y				+=3D sunxi/
-  obj-$(CONFIG_ARCH_TEGRA)	+=3D tegra/
-  obj-y				+=3D ti/
+diff --cc tools/lib/python/kdoc/xforms_lists.py
+index 320f977c5bac2,161acac90ea3b..0000000000000
+--- a/tools/lib/python/kdoc/xforms_lists.py
++++ b/tools/lib/python/kdoc/xforms_lists.py
+@@@ -45,7 -45,7 +45,8 @@@ class CTransforms
+          (CMatch("DECLARE_HASHTABLE"), r"unsigned long \1[1 << ((\2) - 1)]=
+"),
+          (CMatch("DECLARE_KFIFO"), r"\2 *\1"),
+          (CMatch("DECLARE_KFIFO_PTR"), r"\2 *\1"),
++         (CMatch("DECLARE_KHOSER_PTR"), r"\2 \1"),
+ +        (CMatch("DECLARE_PIDS"), r"struct pid *\1[(\2) + 1]"),
+          (CMatch("(?:__)?DECLARE_FLEX_ARRAY"), r"\1 \2[]"),
+          (CMatch("DEFINE_DMA_UNMAP_ADDR"), r"dma_addr_t \1"),
+          (CMatch("DEFINE_DMA_UNMAP_LEN"), r"__u32 \1"),
 
---zOAHGtiWWHZFc3B5
+--GSHtRsGao/p5OMjN
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQReagvpf3TrrA7BoYYv73Ows9A4iQUCattwsgAKCRAv73Ows9A4
-iafkAP9WiJ9Y7PYhzxpNazQz45hZzMoChDJTV1f53lCJHYJUOAEA0DmsqpgJG+mN
-YShMCQOwe75/P4grI5mDFdA3kEVmqwE=
-=VNnH
+iHUEABYKAB0WIQReagvpf3TrrA7BoYYv73Ows9A4iQUCattxYAAKCRAv73Ows9A4
+iYWrAP9ENFGvZO8IdLltCrwzGlUDn6LBIVBTS6cxXrgrTimbPgD6Av6j4nWRS6Ow
+OZLuNsmq2+3DQiYOdrVfXgtZOiHG0Ag=
+=T2v5
 -----END PGP SIGNATURE-----
 
---zOAHGtiWWHZFc3B5--
+--GSHtRsGao/p5OMjN--
