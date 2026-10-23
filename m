@@ -1,92 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.117.254.33
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792752249;
-	b=gR1Zug2VYPmSjc29p+hDs+O0bvWOLirqwB/Ooojj5RWwpqqpk3Wd6+7SsnM9A18Z108m
-	 umQsCJYvs5GQrO3tNZNX+vWMiIQnhTxDQisApHwg+eNX4pEbpQzI0bO7oH91oLJPqCpYd
-	 igUOAEy+KdMPTOGvOUkbsVdyNuwjHnnkjeuuRP2seYA1c4j2cO0cz90+T3E6X9yHVP0Lr
-	 0nhVrkxzQ45Mz+jvkFBizxuvMiBBjjRVLJ0P00sQrHZQqlhozbqMdNmJo14T/WJVHH39v
-	 M7CW81hRl/cDE7htukQ9DIbTSSoo3M/OM5FUg1gxos6KjzCz4P4ypnGi+Qw/+UwcVLQ==
+	t=1792752339;
+	b=zviN30yV24diyblXPWZc0tAXWMxnTdAzxqQkYRHYiIRzQqzb0wSwzmhmNSnhDtjjI2+z
+	 IhqwfFD9rA/rO0oAOwQgudy2Jnt9Jh0no9ei29OS+O+qFvxJP+nYWs8tYeypjVsUj+zKo
+	 C/MCczLffvYqCAFrhYe1ZeQfLmCa3Yjjauiahz5lFOoliWDbAhvxxmVKsz390vX0Lvrxx
+	 lSHkx1hNfgsZCNaZ/MIf7gTvBXXz3SsjF9kYNVlrCjztmR90NaWHl7X2PYAWfN8VlVAtz
+	 k9FGzPD5fOFFbhsFV/dvhWnl5dd2AIdCaMRrEnt0I59N/jFDZR+MK0G/H98vJYtK6qQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792752249;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=j13J37zaRLVnSoEsPhtFLUTrQib/jdWNau8tT8thTlE=;
-	b=ooXMgB1nfsCTnifPzdx00er+86i+GVxwdHwG09iTiXTji15ilCaGY3FY/owf6xPrxsfl
-	 m7HocH40aXRwQp26f4vqp5upRVWCW/q588ufyv9CoVKmWMW+/tEzvEX7cg7XzObm3plOo
-	 5df3Ri/GOdo036J3mUsc95kb1UCXZOFH0MF3PDQxYfOa02ypwcLVSxJWZmFtQvHyiGB0a
-	 Bo1vsznQ13BQktq6tObsM8LfLiXcy39WxkVedlOgklb/8X9QjV9EtyF3WewQVwRmLrKGx
-	 1vcBzusE1BQOyLAMRNfnekyc/LYzN4e+WawYycH8TKo0h56iU3xDIO59Wr2SK6fsGyg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792752339;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:X-UD-Smtp-Session:Date:
+	 From:To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=b61N7diDmGazKFB3UaE43uvQV68VXVLWOmtAASrPvHY=;
+	b=U6ffPE7cbqEsE3loKY3XOPSOcMSUMYh0WfLmhhuGx0pRZT3SWBVOKJjMqb5Y/9OcTHwK
+	 NO2N5T2pKC5vemVCn9i4gCdeJiMTjrq0eHOCi88qDRVOxRB18Fz9rLDJg1P+C9pesqmVF
+	 1WF5iRrywf+h0Jw7Svlch11CvG/YFA0phqIdtISziHsbSbuF0YSi0rjgxLmuhyVk4VeH9
+	 raHoUVmphgzldpWvPKymaq8fbQuXkgvptFH+tHCUQDEyMdB2p/Kb2AN4tmjx03qsxoATy
+	 qoEVPI/UyZLwLrHNDot2XUs3/T77n+2j59XVvPcXPSh6NCNPPEyA9I9xqfskox0efXw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=TCuCqubO;
-	arc=none smtp.remote-ip=209.85.128.42
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=sang-engineering.com;
+	spf=pass smtp.mailfrom=sang-engineering.com;
+	dkim=pass header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=DKYsAIPw;
+	arc=none smtp.remote-ip=194.117.254.33
+Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8671B606A325
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 10:44:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8671B606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5B9C606A31B
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 10:45:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D5B9C606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=TCuCqubO
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a1fbd52ab6so4528305e9.0
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 03:44:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792752248; x=1793357048; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=j13J37zaRLVnSoEsPhtFLUTrQib/jdWNau8tT8thTlE=;
-        b=TCuCqubOwlyeMtze1v4IPChdCAYoAnpZL+46N5bIXfnmfxqBpQd3UV/GOricdn/7Cm
-         DS5VBC3WNX2c99esq/ojswURrPDyTpOXOuvdHInjiS5/UcTlm7wbCP39udkN16JTW4kp
-         RCiyNN5Axb6s3eAY6ZDGgUtJQ8NuKD4HAcqf11Ul/WXUMJG2rmXxfRQYNGpWQCOAD5vD
-         3TwfnJwPtrmBDIv/7blCJuVbCl4fpcmfpiFYndpq8d7kt7XPtJTTuPJDEBGHBB9SPYDv
-         rsI3WzI8C+LQLFJGsZyiayAg8b3ABtJluBpOmreA+tKet9A3X0vZGbDPEF2QT/TZ8em7
-         MtOg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792752248; x=1793357048;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=j13J37zaRLVnSoEsPhtFLUTrQib/jdWNau8tT8thTlE=;
-        b=d+KYI3canYIEUVKy5hOqkY15WEp0VAcDzi8NHIR5w6J0KZHYiv76L/5pSXCZQ87N5y
-         SLmkLmnII8s4xHgFn8sbOmSfKGsWWDkwf+AjL5WIbwHVy389eXFjZz9d1o61g3AtSmPB
-         cc6mEUzfJkypovhocF5Hodcjg94+t0dm8pWhXPUrP9ADW/t5xJLB2kKzgJ/U4VADF0Wt
-         XiT6EvEwYEDokt9T9HM1CjaOGaXHZp1gEr596zoCxw1pDmqPkPzbUf1bx/ZgJZikdUbn
-         kAwHrEmvr/gtnibUJmV9LWCPzUp9e8pLkcK/XqGGMQL/5s+MFAdnVsp12ahH2/6+KmGx
-         WrUg==
-X-Forwarded-Encrypted: i=1; AKwUvBw5h9N6bsZhmRTTLU6hLfW0137YBTo+b+tBEjWlnrzEScpzEgmOyo+lRAKepk5znPnFWh+kKVLwhuXemH8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL7XrrzgJiNOLd90KBMfaYryj7gkZKlzmUbC2RGpmxw5aI/Ojag
-	SK5ouHwrpvq7xZ/ML789fIE6jEcYdyIG+IxlkXThGGTgHwsaA+GgvCnUx14KcxOUErGPIDoh
-X-Gm-Gg: AYBFou2jUmX3nQau8+WBepsge0zDmUrIG041k0eU077uBJbrrYggJeewO3gzVaZkteY
-	Lzws6R+2xoZXnvYrBnbVOuKPbAqeqj0UOqDrz0VDj5fGWMPXvFR6wRbjpTV30swHS24zDeK4/at
-	LpPPFWBlDs7o4fb3dpWe3838Q8FeDS4GpZlq0C5wChICSUtvr9RQgoTde8YZEmYpAP5ep5Be0Rc
-	WxKuvdEiAyk503WB3d5+zF8Zct6uvHLtZkkdhp8vXYFUHRvyqHmRX6frS/8qys96lBfBewvi0MZ
-	Gu5CsS8SF1bK835o5hkLhOinPsYRMkppa7JDdNsdaObw36SlqJRkAYa1mSS1CHLSyF6YLPXfs0r
-	+xJlEDwNTGf1yDfLc2K17Y8fEOVx7iT2EjOkx7+STsIGUTfXSIFhP2eNaPDLCClf3qyJFi+fZcF
-	zRN78I2zXhAdqk5NfvgMY5wFExXh8O1aQY+/oEAtM7UKLwqzsz/nrXfxw2XF+WqhLamIkSWavXS
-	mcCs/EC4S6+gUt9Xq0hmCVDPKriJjG1iqliGs70vrf+G+QXPSND
-X-Received: by 2002:a05:600c:314f:b0:4a2:cbe:beac with SMTP id 5b1f17b1804b1-4a211ed3908mr26418105e9.23.1792752247565;
-        Fri, 23 Oct 2026 03:44:07 -0700 (PDT)
-Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a215418d9csm20423895e9.2.2026.10.23.03.44.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 23 Oct 2026 03:44:06 -0700 (PDT)
-Date: Fri, 23 Oct 2026 13:44:02 +0300
-From: Dan Carpenter <error27@gmail.com>
-To: Breno Rodrigues Alves <breno3011alves@gmail.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] staging: axis-fifo: remove unused r_mem local variable
-Message-ID: <ats6crcniknWB9ry@stanley.mountain>
-References: <2026102337-headroom-shun-9d45@gregkh>
- <20261023103943.20995-1-breno3011alves@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=DKYsAIPw
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	sang-engineering.com; h=date:from:to:cc:subject:message-id
+	:references:mime-version:content-type:in-reply-to; s=k1; bh=b61N
+	7diDmGazKFB3UaE43uvQV68VXVLWOmtAASrPvHY=; b=DKYsAIPwqA/Di1b5Tizp
+	TFFcsd0MEIIhMyZr0NIH3Q90HchcsSsQQGvYsiBju8er5/1V0o0IgH7QlBzvAfNh
+	/gJpzq+dDtTIwt9SDYaMt2qzEroeMJ3jARFue9aBvkEmSBdq2O3kh0cXk2CEWp8o
+	YKsmxjWdEZJ54jJPEAk9i0Mu0lgcM0nF42YYqZZMERfbYlHqZgDspMBzUGT2r1Uj
+	K/Fywzg4rJG87KGnKUUxQs6jRMDrsOhZWuLtle9FsTuavNAdNor13bA4tNjnuM5s
+	wMxkgq9PwJOCnc2n16/HB7SA3dDeu5emL2Kp7uHFv/+yb6/u2adLQtGehuFjZnhH
+	1g==
+Received: (qmail 1517709 invoked from network); 23 Oct 2026 12:45:35 +0200
+Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 23 Oct 2026 12:45:35 +0200
+X-UD-Smtp-Session: l3s3148p1@cpAfrn9eFpoujnv2
+Date: Fri, 23 Oct 2026 12:45:34 +0200
+From: Wolfram Sang <wsa+renesas@sang-engineering.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Diogo Ivo <diogo.ivo.sx@renesas.com>,
+	Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Frank Li <Frank.Li@nxp.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Linus Walleij <linusw@kernel.org>, linux-i3c@lists.infradead.org,
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org,
+	linux-gpio@vger.kernel.org
+Subject: Re: [PATCH 4/8] i3c: renesas: Add RZ/G3L support
+Message-ID: <ats6zi2lZW09Bs2e@shikoro>
+References: <20261020-divo-ssgrlpcsrc-2966-i3c-v1-0-30a47f25e515@renesas.com>
+ <20261020-divo-ssgrlpcsrc-2966-i3c-v1-4-30a47f25e515@renesas.com>
+ <20261023-thundering-axolotl-of-examination-aaa6ba@quoll>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,32 +80,56 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261023103943.20995-1-breno3011alves@gmail.com>
+In-Reply-To: <20261023-thundering-axolotl-of-examination-aaa6ba@quoll>
 
-On Fri, Oct 23, 2026 at 07:39:43AM -0300, Breno Rodrigues Alves wrote:
-> Remove 'struct resource *r_mem' from axis_fifo_probe().  It is filled
-> in by devm_platform_get_and_ioremap_resource() but never read; pass
-> NULL instead.
+On Fri, Oct 23, 2026 at 10:28:16AM +0200, Krzysztof Kozlowski wrote:
+> On Tue, Oct 20, 2026 at 10:14:58AM +0100, Diogo Ivo wrote:
+> > Add support for the I3C Bus Interface on the Renesas RZ/G3L (R9A08G046)
+> > SoC by adding the renesas,r9a08g046-i3c compatible to the OF match
+> > table.
+> > 
+> > The controller is very similar to the IP on the RZ/G3S. However, for
+> > instance the RZ/G3L variant has no HDR Exit Pattern detection interrupt:
+> > RZ/G3S exposes 17 interrupts, while RZ/G3L exposes 16. A RZ/G3L node
+> > therefore cannot be described with the RZ/G3S compatible, as its bindings
+> > require at least 17 interrupts. The same point applies to RZ/G3E, that
+> > requires 3 clocks while the RZ/G3L requires 2.
+> > 
+> > From the driver point of view there is no difference between the two
+> > SoCs: the driver only consumes the tclk clock, the presetn and tresetn
+> > resets and seven named interrupts (resp, rx, tx, st, sp, tend, nack),
+> > all of which are among the 16 shared ones. No driver changes are needed
+> > besides the new compatible.
+> > 
+> > Signed-off-by: Diogo Ivo <diogo.ivo.sx@renesas.com>
+> > ---
+> >  drivers/i3c/master/renesas-i3c.c | 1 +
+> >  1 file changed, 1 insertion(+)
+> > 
+> > diff --git a/drivers/i3c/master/renesas-i3c.c b/drivers/i3c/master/renesas-i3c.c
+> > index 4fddc1b4fdbb..80a6df1151bf 100644
+> > --- a/drivers/i3c/master/renesas-i3c.c
+> > +++ b/drivers/i3c/master/renesas-i3c.c
+> > @@ -1625,6 +1625,7 @@ static const struct dev_pm_ops renesas_i3c_pm_ops = {
+> >  
+> >  static const struct of_device_id renesas_i3c_of_ids[] = {
+> >  	{ .compatible = "renesas,r9a08g045-i3c" },
+> > +	{ .compatible = "renesas,r9a08g046-i3c" },
 > 
-> This is v2 of a three-change series.  The debugfs_create_dir() check
-> was dropped because debugfs has handled ERR_PTR parents gracefully
-> since 2019 (thanks Greg and Dan for the correction).  The
-> -EINVAL -> -ENOBUFS change was dropped as well, after Dan Carpenter
-> noted that -EINVAL is the common errno for this path and that he
-> would leave the choice to the author.
+> So fully compatible? If so, drop this and express compatibility in the
+> bindings.
 
-This kind of meta commentary goes below the --- cut off line
+Well, this SoC has 16 irqs / 2 clocks. The other variants have 16 / 3
+and 17 / 2. So, to which one should it be compatible? I'd think 17 / 2
+is the easier one.
 
-> 
-> Signed-off-by: Breno Rodrigues Alves <breno3011alves@gmail.com>
-> ---
-  ^^^
-here.
+Or should we even refactor r9a08g047-i3c to be compatible with
+r9a08g045-i3c ? We currently don't use the third clock as well. That
+would mean deprecation of the old plain 'r9a08g047-i3c' binding, of
+course.
 
-https://staticthinking.wordpress.com/2022/07/27/how-to-send-a-v2-patch/
+Opinions?
 
-As always wait until tomorrow to send v3.
-
-regards,
-dan carpenter
+(And yes, hooray to having all permutations per SoC. Waiting for the
+next one to have 17 / 3 :/ )
 
