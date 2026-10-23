@@ -1,62 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.176
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792720607;
-	b=JuN6wNRBJbg7AwOeXHg8LB1l7hseWHx/oH6k7v+j14EtMLZ557C6khWSmXfJr8QTl3tj
-	 0SQDnKnU/wV8xLcxKNuqsRy8YsLPzp1Ppbl3eXLSPt+6OZ6ANU+EWBMq9uWWh8BOrtRMQ
-	 QfSsNHuYFd9dAFVLHD0fSPuj9akdZVCJJxzf3Jj1t6cYlW3O6jHDdE+693S+BttD2LYyr
-	 VQ58GZmHIrFTcb0VA382aQ6ZTn+7sdtnnz6hk1WIuVqRaFGoFUFmEPbPW4KCSDj5RlFwL
-	 tisykACIGjfRxSoouhxijOg9DsuNEDIrN32vj1ZaFNXJ7Mkv+6hakEftPPpqpSu7WqA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792720607;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=oJFZy9ViA1hdkCiyEzcB0JcdRGfXjVzuA0WGwLAmCs4=;
-	b=ZN/eWG0sq/AT9jyhWvCYuWI7NJjtYTi209xViA747dLvDjPghlXyVMFkvT50AhtNw5DC
-	 KLrA7cxzzUxGSqx/l3V+EWIGiXZvdk/El8D05IATXfJE2u5FyMMu0yJ0ajc56xOa7/i7M
-	 XykFbtqg7faKyTTBk6JEPVuh2hh/yKqVswwasg7aFPC5Ak1qxGct189DAsGb/IW13QBPI
-	 c+TmjRC8DIMpHUvz/SJp0ppLrj1b+vXq/IrGlsicEyaTMTVv9kJOCteRpz++VpChwWwWz
-	 pRneu9X/zn5lQDwKXuMhuPBYy3bxS/FsyQZVzdo9DNY6FqMw9ZMb1uZSwbnmlomCBKg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=lFDEReVK;
-	arc=none smtp.remote-ip=95.215.58.176
-Received: from mta1.migadu.com (out-176.mta1.migadu.com [95.215.58.176])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792720617;
+	b=LMz/dfBeKvtYWKe4rMAQjqAspmh+TtqLs7MV2KfJMghOdIs6T7E6M7G8UruzRbrL617T
+	 TR7riupmrUcP9iXgpXdG37Z5c55vqgOla1Y8MPFci/3fHFWK0K/LH2UMfwZrBGCFz3Meq
+	 tmgtK7BUe8efDrVMtnXHecN93lZWBccAcggpGuMUAfIhobdOOz5ksmvS4KsTtfHCuQsUl
+	 St69s2XUCrX8xtYlgtK7SkdX9sduYa4eZJQqg2kS2SBPf2rXvJeSrri9Xy/idmH95+AwR
+	 8oeENCc2caktY4yb8r0PrCvVR63XnAchKK/sAUTTt6g9pSJL6CAZlI3MB/cSo9czd+Q==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792720617;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=DD5cXHejc9AzipRD2mTyljcuDKOHkmSCoSY8IAjL2s8=;
+	b=xlyqHrDCxTlie+NahKDKxpnXShJrnljUx+gRSICJUF0jvieYutzIv9yCEQ7WHDcx5699
+	 ew5JkPQu/5CNTWu7VZoPLFlj0d+QOSWdwVUapiah+IQYHrThDvfsa/uferHc1um2pfQHE
+	 H8ciKy95Q6BDQcj+A0PEn4uyBQaynIKRYByQQLLhcCu6Ev6z681AauQfCbzfs6+7D6fV0
+	 YUMrVU5J2koStypcTTfQvLf+8XMkCTlnVX9Ld7ugTiRF9sX53cO7dRbAB9l+0+jTMAH8Z
+	 IHvCBX8z9Lwu8XSwy/0735VKZ0eNHC8k6Y5cRNHjdGZIzq+ngstrlvaHQWwjtHYnAgg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y7mIabHd;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D39DD606A31D;
+	Fri, 23 Oct 2026 01:56:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y7mIabHd
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1792720616;
+	b=qZebYwdNEKwhm7OI+uB15yb/T0SCpzLSz10iFX6UK10tiwvk+Vsv2hTMWkqyOswbhHFy
+	 Gr45/adKyf+vi9yE3Ru0rX97umNdj4ZShQ4JEjtKdK30NyCzfOGmhYtGh7W6EweUuh5ub
+	 TT72qKCTLqw31sD/xXRIU0akQRRP/kEA77apKhLx2NRWzZC+P5GpJpXrQ3l8z79hCPTQ1
+	 SvwgB14a6ux5x8jaYrLR1xqy8sPVBj9rSK18qsVDGSCuzyUURtaXQnhnUCq6HH8QuuJhg
+	 mfuJgqV+onegVLYb0OJLp85CqtL7gYeirHY878bWvlFOUryv1gpGn5owaSC5IKAzqzw==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1792720616;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=DD5cXHejc9AzipRD2mTyljcuDKOHkmSCoSY8IAjL2s8=;
+	b=Y8U8luhV/GKxHlAcJmFaim2tIJ8L8Ns0luaHN/fXOTyp5nUbKrxZCLjPfDsBR267smEQ
+	 0OuA1LbyPt/xxvFBW+Xq3O8z0EWZZTdpJk8eixw/SB9VYx4TqF5RHzWrnmTcwiIAjX66P
+	 5OP1eAuNMjdfeLlP157aV9p391hwldpFF0461yQdn81tRrZAFYt+nIuv4X/clWdyjeaoG
+	 LoM3LAQCp+VKl2wH4sYwJDJ6ddXUp+hR+plsOy4k5liiUisaBauMheNWwXlqexIxBk0Rl
+	 wTQWcyYHnbPTIj3FEdVhfmPvCiBC2zXRx42noEXxk14jkb9CCljAKMSgBHQZ7ZHBmNQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75681606A31D
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 01:56:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 75681606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=lFDEReVK
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=uX9E3o73V748llMETRdDfpWjDG+k2zeZTW03xJwVkb0=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792720603; v=1; x=1793325403;
- b=lFDEReVKixlCCV8aln0VUOKnuYSlp8pGFtrke7nXPTicTCunZ0H8IlsIY4l4xMkG6xCOdQub
- qnGxz1sHC4r301LLvNBrT/Au2ztMkB7/IAGCmIC3V7Ws1h61Pjg4urSiVsPv8Lf/Z/reEb56Vtk
- q48DpLvM5j1fEAqr7eg9wOq4=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id 1f1f20d373d9e1ae;
-	Fri, 23 Oct 2026 01:56:43 +0000
-X-Mizu-Trace-ID: 1f1f20d373d9e1ae
-X-Migadu-Flow: FLOW_OUT
-Date: Fri, 23 Oct 2026 09:56:32 +0800
-From: Hangbin Liu <hangbin.liu@linux.dev>
-To: Xia Yan <yana06070@163.com>
-Cc: netdev@vger.kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
-	edumazet@kernel.org, horms@kernel.org, kuba@kernel.org,
-	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
-	pabeni@redhat.com, shuah@kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH net v3 1/2] veth: keep carrier off when resizing channels
- with a down peer
-Message-ID: <atq-0HbV71AcQi5t@fedora>
-References: <20261022085842.2527-1-yana06070@163.com>
+	by smtp.kernel.org (Postfix) with ESMTPS id 6C47C1F031E0;
+	Fri, 23 Oct 2026 01:56:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792720616;
+	bh=DD5cXHejc9AzipRD2mTyljcuDKOHkmSCoSY8IAjL2s8=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=Y7mIabHdzV6z2KGIPnxp705MHHUnxmT0GP2Jfovbdcy7qTAQ40N4miwU1KHgbWo2C
+	 G4YB9IvzJo1IafNpAlQ3HkaRoAIvfJsUKTmPUzC5/4/3rCvsps8mI6Ke/x5hA+1WKo
+	 Tm4+m8YLOMPVRN7zciWg43sl2GT6/UE69VR+Wnq4mZIGWK9kJQ9OjTBJpMzHbIMeT5
+	 09wR25kFxJtqLMPzhJ/LGmlo7kTqHRsupIRNBK33hJU/7VmuvUuy+gQwUUpsgSxsRx
+	 4GNiNlQBZT19vhjSX5GbsCl8YetmjCZO772R4AhxcIT4EyUYbh9r7mmJeZTbPhrIPM
+	 7U1JAoYse1rzQ==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id E96D94217E;
+	Fri, 23 Oct 2026 01:56:54 +0000 (UTC)
+From: Xincheng Ji via B4 Relay <devnull+jixincheng.ultrarisc.com@kernel.org>
+Date: Fri, 23 Oct 2026 09:56:44 +0800
+Subject: [PATCH v5 4/7] dt-bindings: timer: Add UltraRISC DP1000 CLINT
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,87 +82,61 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261022085842.2527-1-yana06070@163.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261023-ultrarisc-dts-v5-4-af79dbd6ccec@ultrarisc.com>
+References: <20261023-ultrarisc-dts-v5-0-af79dbd6ccec@ultrarisc.com>
+In-Reply-To: <20261023-ultrarisc-dts-v5-0-af79dbd6ccec@ultrarisc.com>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+ Alexandre Ghiti <alex@ghiti.fr>, Andrew Lunn <andrew@lunn.ch>, 
+ Jia Wang <wangjia@ultrarisc.com>, Xincheng Ji <jixincheng@ultrarisc.com>, 
+ Daniel Lezcano <daniel.lezcano@kernel.org>, 
+ Thomas Gleixner <tglx@kernel.org>, 
+ Samuel Holland <samuel.holland@sifive.com>, 
+ Anup Patel <anup@brainfault.org>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Paul Walmsley <paul.walmsley@sifive.com>, 
+ Palmer Dabbelt <palmer@sifive.com>, Conor Dooley <conor@kernel.org>, 
+ linux-riscv@lists.infradead.org, Conor Dooley <conor.dooley@microchip.com>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792720613; l=964;
+ i=jixincheng@ultrarisc.com; s=20260922; h=from:subject:message-id;
+ bh=H5nCeqGhgsZIHGD5OQKUEdhmWR2MLVPLwQY1q4JBFrk=;
+ b=n5uhlSypA4p4aXoYVjzvbz9AEnBnRmoj57GAOM21f/j4kSd+WxfYzE5Ju0OXSKYsrAwq4MxGo
+ zxGIJLN1aEtBgDI++i/Vika4R3P2eVluElpoXF8iE+neIcBXS9vdPI1
+X-Developer-Key: i=jixincheng@ultrarisc.com; a=ed25519;
+ pk=n848dcS5D6g0vLad/rjp4Gf/1eedTe1a3pYUrkt2260=
+X-Endpoint-Received: by B4 Relay for jixincheng@ultrarisc.com/20260922 with
+ auth_id=1046
+X-Original-From: Xincheng Ji <jixincheng@ultrarisc.com>
+Reply-To: jixincheng@ultrarisc.com
 
-On Thu, Oct 22, 2026 at 04:58:41PM +0800, Xia Yan wrote:
-> veth_set_channels() temporarily turns carrier off while reconfiguring a
-> running interface. It then turns carrier on for both ends without
-> checking whether the peer is administratively up. If only one end is up,
-> changing its channel counts therefore reports LOWER_UP even though the
-> peer remains down.
-> 
-> For example, after creating a pair with two RX and TX queues per end:
-> 
->   ip link set vca up
->   ethtool -L vca rx 1 tx 1
-> 
-> vca incorrectly reports LOWER_UP while vcb is still down.
-> 
-> Only restore carrier when the peer has IFF_UP, matching veth_open().
-> The local interface is already known to be running at this point.
-> 
-> Found during LLM-assisted source review and reproduced with a veth pair
-> in network namespaces, without kernel instrumentation or error injection.
-> With the complete default veth.sh on x86_64 QEMU/KVM (three vCPUs), the
-> four mixed up/down cases fail before the fix and all six carrier cases
-> pass after it. All 55 existing checks pass on both kernels.
-> 
-> Fixes: 4752eeb3d891 ("veth: implement support for set_channel ethtool op")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Xia Yan <yana06070@163.com>
-> ---
-> 
-> Notes:
->     Changes in v3:
->     - Driver code is unchanged from v2.
->     - The companion selftest is now part of veth.sh.
-> 
->     v2: https://lore.kernel.org/netdev/20261020135544.24441-1-yana06070@163.com/
-> 
->     Testing on the v2 baseline 513444cc62e2:
->     - Complete default veth.sh on x86_64 QEMU/KVM, three vCPUs:
->       before: 57 checks pass, four mixed up/down carrier checks fail;
->       after: all 61 checks pass. The 55 existing checks pass on both.
->     - bash -n and git diff --check pass.
->     - If creating the veth pair fails, the case is skipped without
->       masking failures from earlier test cases.
-> 
->     Both patches also apply to net/main ffdf678dd166
->     (application check only, checked on 2026-10-22).
-> 
->     The QEMU guests failed to power off cleanly (initramfs issue) after
->     the tests completed; the exit codes above are the veth.sh results.
-> 
-> 
->  drivers/net/veth.c | 5 +++--
->  1 file changed, 3 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/net/veth.c b/drivers/net/veth.c
-> index 643b97d..4e75830 100644
-> --- a/drivers/net/veth.c
-> +++ b/drivers/net/veth.c
-> @@ -1372,9 +1372,10 @@ static int veth_set_channels(struct net_device *dev,
->  		 * to identify the range we have to disable
->  		 */
->  		veth_disable_range_safe(dev, new_rx_count, old_rx_count);
-> -		netif_carrier_on(dev);
-> -		if (peer)
-> +		if (peer && (peer->flags & IFF_UP)) {
-> +			netif_carrier_on(dev);
->  			netif_carrier_on(peer);
-> +		}
->  	}
->  
->  	/* update XDP supported features */
-> 
-> base-commit: 513444cc62e231a11c9b15ea88de0890da9b2b4f
-> -- 
-> 2.43.0
-> 
+From: Jia Wang <wangjia@ultrarisc.com>
 
-This one looks good to me. I can reproduce the report issue.
+Add compatible string for UltraRISC DP1000 CLINT.
 
-Reviewed-by: Hangbin Liu <liuhangbin@kylinos.cn>
+Signed-off-by: Jia Wang <wangjia@ultrarisc.com>
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+---
+ Documentation/devicetree/bindings/timer/sifive,clint.yaml | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/Documentation/devicetree/bindings/timer/sifive,clint.yaml b/Documentation/devicetree/bindings/timer/sifive,clint.yaml
+index 3673836e14de..878f267d089b 100644
+--- a/Documentation/devicetree/bindings/timer/sifive,clint.yaml
++++ b/Documentation/devicetree/bindings/timer/sifive,clint.yaml
+@@ -40,6 +40,7 @@ properties:
+               - starfive,jh8100-clint   # StarFive JH8100
+               - starfive,jhb100-clint   # StarFive JHB100
+               - tenstorrent,blackhole-clint # Tenstorrent Blackhole
++              - ultrarisc,dp1000-clint  # UltraRISC DP1000
+           - const: sifive,clint0        # SiFive CLINT v0 IP block
+       - items:
+           - {}
+
+-- 
+2.34.1
+
+
