@@ -1,111 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792743218;
-	b=Y/AZi0YIfQ8u6xG353BIwMsDmjcjbg89qJJ96xUpyYRF+hniaHIy/xsfOsFjHqaABYQ5
-	 joelFEEBn8kR7Y46KubyiyDzweK3Mxoaav7C//kj9AsQ86WaZtAy/NR0eg/L7NGFF1E1L
-	 CZTVdcNh0kGq6cqGImUQvHl4rhSuiFxIlEDl+tx7WBtJamzi5tmDmgXw+bB5HnKQ45j1/
-	 soblP5Fk4tJSyVJZevdq844H37zXlKl3H5Wi+GGYeAJjGTT0dWrD/8dQBlzHzBk8Yebfw
-	 CSeG+EqRyXemLPu6ddmQlb8dD1trisf5co9hQ5wPEqeZVc5owNe9sUTtcObTFoNNo3w==
+	t=1792743220;
+	b=TqC5sprhXXVWzXetJnGEI6stAnE8Ep3ZCNtBgs6A1yrtODrS2b+MvpIgRHnbGbtsIHH3
+	 IGa5a3tx3YHRi3dKAdaA0LFaylJpJEyXyFQRYuzTM5+mq4JENDNhUV4GXw73xsNcjL0h3
+	 bUiexNI+vuRgthlLd174lPhrSot2d10KLpcjtHfV8+aDVmziIup/swnD8JdxChTH2X6L6
+	 QVbG3144f0kNS1XpWQlgPwk9TNr0UyENnz06Xu8gIpqEmGDDi5tFEuds39sejABebvRWn
+	 pE2jEpN1t//xgZ5XIJ162a11P9jepoU+T55lW6WLdtD7YCoLGT1JERKRV8T+6FTZFlQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792743218;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Authority-Analysis:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=w1cR5nFuPtaQunkx4EbNjBSTwiut8OwG/7WqorZUh1g=;
-	b=OB2TRQ8hPpI9kHG1M0gu3C1j/dFBPCnGW+iWINDd8WynhPs2yjfMSf5cYwPyIVlSiG17
-	 GEC+vqEpUgJosDsIY2RM59apN+w7q1zEUKLxDB0Qr99s92Er/SIrHCHqVxSg2Q+NirW7b
-	 qsMF+GNrurFbDa3d3Lfao25EK+vEmEWNvGOMM3SVkOPTsKJ/R4BNoySE4wLLjrFUKPqII
-	 3TpuHgpDuXngbMF+6Pup2NflBe8ADtNzSLwYSzaPxsd5QLwwDPadkL0OReYZenJbnUy8m
-	 m+1nR84LnDOCsbe0gT4aM4pGsBX0FgFP4ymqI2Na3t4+1H3e7vLgLcMiM0jI4POwbeQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792743220;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=27SXA+vmEGuB/iEyIhBUtt3xXLRW8UU2/MI+0coluyY=;
+	b=IP0EpbnDmX2ULNxiqqw1OXiU5xdYElIKlBOpyYMefPuoiCRBOl/rGJzElDKU9vhcCHsl
+	 qrr7Pc4UP/9zyzPrAmKtO7u3sWoLONiq44l7tn5FsbfFqKQ0o4AVl6t56iUasJC7IfZcj
+	 FRl40r5M4j2d3HjQs0Uk8JT16W0wuuhiCf7RhHAYDsiVS7r9SnjpqKUqpadxBi30Z0V0F
+	 EeA+DAC1NOogfSPdzhzN1XhbpBJVj/fuuYciTh+vcFEkq09kPaDX/5A5Ryohaglhk7RnH
+	 GaOPKOLSsng4iKPTQl3m1fEIhPRyVZY4H/FLCWgjrfpPiVYTHEynD8BSL9Ql/MxfS+Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=lHATfJfj;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=dcZpvE5W;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cqK7yQj4;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C9C9606A331
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 08:13:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3C9C9606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09431606A33C;
+	Fri, 23 Oct 2026 08:13:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=lHATfJfj;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=dcZpvE5W
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69N7FVqZ588202
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 08:13:37 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	w1cR5nFuPtaQunkx4EbNjBSTwiut8OwG/7WqorZUh1g=; b=lHATfJfjVwc/n1xI
-	Fq5bTkBZGf8usRg/UOewz83RDXzSqmwUREWgpNUmEA4rwpK8AQ5B/iirmxFauo5l
-	T4ELnwXIhbSzqQ5sbFktZNEHIFOFIQfhwn02w/cliaI7ezT1lK+S0nEy2s9r3u9z
-	crmxZsLyVxMNNxEMKr8maaAVRRr9saSLCd6Vvw4vUnE8NtyuSDsBoU/L7L+Wd6fw
-	50LE3njI2BrwrZWDSxJxaKOwLVt8lAYOM0Mc24dnvUKcd8DwsJlD9f0RX+IXRQS/
-	9hR6dKo5NMoNhJNqTqOF5LvN5gcXNzKsWVX9NBCBFhSd042/HX+nB23kVK9/RZnl
-	a2Fp5Q==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hfsmat53s-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 08:13:37 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93e58614290so13925385a.3
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 01:13:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792743216; x=1793348016; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=w1cR5nFuPtaQunkx4EbNjBSTwiut8OwG/7WqorZUh1g=;
-        b=dcZpvE5WQsS6Cu8SqubR/JkWJ8n0oqlL1iy6sb4eOO/afmNAh0rkL4wzFBcq3X2OAT
-         BJaGPH/qv5bKa3zwopCFjd+O9+da9XQV5w3YRJn1NA4n/gYvuMvhzkId+kNkAO/yzvPW
-         jP3DszbrsLZR0OMhdcJ1q7/AEy/ncOsmi04q/ruevKIQ2ds/gg7WH1AgWWMdKQjjLuIy
-         kfQo0MyE+kiAHelfT0RKtutJHNtU1JG3WnX5sHA/hFamwGTz8TgZuz+T2y3+xk27y6rb
-         lGG30qSgekHHBGkxgmjScPc0ep6jsd6kZKNKTX4bZGskrpQJ225y7VSyS9q6+WuF6BSu
-         /a+g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792743216; x=1793348016;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=w1cR5nFuPtaQunkx4EbNjBSTwiut8OwG/7WqorZUh1g=;
-        b=Ci3GWIYX6fRhWPkMwy/jfm+rYszjXB9gLElS5eXz+vo+6Nmwi38xmPgLwEPRgSNngh
-         6gw70reW1g+/Rr7iaSCoAP80qgzjhvDii63tsae3Luqy6tPlqL8hUjIhoj2aTzjwCCYE
-         FoxyQqShiR5srr7C4ievOJF7F397Kq67QotT1ntSwmCQSuYUfuWlsqgj9PA16xUUScOO
-         2S7AQWCNjwxkcHbFFJsvsa4Si1evxXzo+1TUp/c6c9tkfo+HH8JPfAg2UhCqUhOTgOQD
-         voU6OIsqYz0LcOa0ZIpH/6mrre2pxUNLVLDNxXbK9El2jVXTrEWZaMWwt7gz+m/Ajo03
-         iKuw==
-X-Forwarded-Encrypted: i=1; AKwUvBzFHSE5TpavbvTSo0r3Idg3oUgRzOXXOgiRu2CYeONh4IB7NhOdu3aeH9kN0lfNO8KVJN6jClErMjC53J0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI/70vTKknHDFho4/PgcOVmi9FYZSDhu5ZVW/V/edqkuaq4NsJ5
-	nYWnU81C/9P/oRz8jRVs2OPoCxMPeff87Ia+gSlq/nrsgAKOndQVPAkdyQYl0udzLboEZim5h3Y
-	60zKvWETGVxHgddnfE0ezIYaGH4tPq7Mf0aXxel2OnU1Lanyc62lL7BPzRNMZXlJuLqA=
-X-Gm-Gg: AYBFou0aUgF/uzUPWy6Y8r4jF5NROAMeGmhlRLhrFLYOtUIBuvdKHMW2GkoJa4jGuo1
-	Y5LhuA4MjrCGXYSKk6baRPFG5NwKYcWBevsoeJHs3cbkWr87jZQU2ijjBSwZxMLeeeMTXI9w29P
-	mxVLZ7+2gPVBrx7OAdbgVwFjvFbnC+QXZ+9GHGYsM5706GcmicuNhe1Zg9whv9jz4fWl5vOptu2
-	bR+yYoabdtnMUCcyJcx6IysNnn/ZBl1ncN6p3AAWejPTYHERwWG6TjRbvfDH5YjXe0IioE7LOUi
-	tSNqeoNKwYeNapU8wrr7F/hBgybODSx1Ft8EKvE+0mJkUjQgcZ+DKGRj6DTwiJw5PL1DD06UrHL
-	Moh7ygbR/NARsmQmuoDlRmA==
-X-Received: by 2002:a05:620a:90c5:10b0:93f:1fc5:f07b with SMTP id af79cd13be357-93f6f7d8a2cmr297173085a.2.1792743216457;
-        Fri, 23 Oct 2026 01:13:36 -0700 (PDT)
-X-Received: by 2002:a05:620a:90c5:10b0:93f:1fc5:f07b with SMTP id af79cd13be357-93f6f7d8a2cmr297170785a.2.1792743215985;
-        Fri, 23 Oct 2026 01:13:35 -0700 (PDT)
-Received: from [192.168.226.26] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c46b378b3b8sm10988766b.25.2026.10.23.01.13.34
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 23 Oct 2026 01:13:34 -0700 (PDT)
-Message-ID: <63cf18bc-5c89-4a55-aa15-2550dc47c155@oss.qualcomm.com>
-Date: Fri, 23 Oct 2026 10:13:33 +0200
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cqK7yQj4
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E972D1F031E5;
+	Fri, 23 Oct 2026 08:13:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792743219;
+	bh=27SXA+vmEGuB/iEyIhBUtt3xXLRW8UU2/MI+0coluyY=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=cqK7yQj4UCJaAbbQleOvboM7kEt7dB+RBWAU/xf4tVlEfNfIhrAJBMODPCG7PZrR0
+	 83jKIxTDFqSQ+7p3HcSgHql079xOvmEP7WaQn1+6NmMSZ2I6jZjfTf+3y/e1YZZRqE
+	 qmPV+4DDWC2Pe//vbVlEQxNIc6ggTUSlE19O/46KoxhwequqJdyY+86OP5P7/8fu/0
+	 S0/UD+d0h6S9S7ijifdgDl9txFFqFt3ML2efNjjdakaP+14SxSyEzXHiCbaYc2HOKi
+	 +ycyi03f3vhoCBl3P1kxLBPKd8SRg37xdFAb4fxY2+L587ePqx5K46GHx71dtGr5Uu
+	 nPfz0bcdjZwBA==
+Subject: Re: [PATCH net v2 10/14] net: pse-pd: keep the PI data until the PI
+ regulators are gone
+From: netdev-bot+sashiko@kernel.org
+To: github@szelinsky.de
+Cc: o.rempel@pengutronix.de, kory.maincent@bootlin.com, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ horms@kernel.org, kyle.swenson@est.tech, ross@r-sc.ca,
+ netdev-bot+sashiko@kernel.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Date: Fri, 23 Oct 2026 08:13:38 +0000
+Message-ID: <179274321851.3134.15617739337399120885@kernel.org>
+In-Reply-To: <20261020171249.853085-11-github@szelinsky.de>
+References: <20261020171249.853085-11-github@szelinsky.de>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,62 +65,212 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] power: supply: qcom_battmgr: do not report power_now on
- SM8750
-To: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>, linux-pm@vger.kernel.org
-Cc: Sebastian Reichel <sre@kernel.org>, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20261013002124.332111-1-xiaqinghuan@mail.ustc.edu.cn>
- <5bf3636d-be7a-4800-9914-808d2fc5ebd9@oss.qualcomm.com>
- <179259054168.209323.8102186130128474174@mail.ustc.edu.cn>
- <52fc4222-508d-4acf-b38a-7b4e5aeff3cb@oss.qualcomm.com>
- <179274197125.1374502.18211548118625978753@mail.ustc.edu.cn>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <179274197125.1374502.18211548118625978753@mail.ustc.edu.cn>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=V7LoQuni c=1 sm=1 tr=0 ts=6adb1731 cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=IjCPCkZtk2ssS8GsjjsA:9 a=QEXdDO2ut3YA:10 a=NFOGd7dJGGMPyQGDc5-O:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIzMDAzMiBTYWx0ZWRfX19hJh8j+WjK0
- zpkR/wD0thh+FP5WL/emEpgMqE51ONqYM/7UqCwzWuBGmgMIqxnh77XmgqnnRcuT/akZzps+Jfa
- 77vJhGf2UvTZ1aPQVgUqL1AyLJ8yYsc=
-X-Proofpoint-GUID: h9-CqbeDU037NVgj2ksPDL4pNPAya_IV
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIzMDAzMiBTYWx0ZWRfX3B6RBkdiV1hj
- 7OmYbwx8FPdnnXzr6I4D9EfQFncH2NvnLr7Ht1zCEtPm+y2GJupCjNZh8K4J/Bm1Gw1fozyULMW
- pwJ2qk+UWmW0+snTJIExSdh+u9jBN9nJK+ObbIyaTI7SSJdIr78bA3xKq62GBonuoxg/OsZ9H9y
- vkrJa85r+/uPOaJonYkPbsLKatMRz5vIALBbJzq1yUhPFpV74ZMUJyeGCYRUXt/th4HLWvKqU+I
- LFtjQ/VtxkN6riPmWFjp/bOD51HmW1hgqBrdZV27BCpySO9Ihp2HojIF0rwMvbEPy74eQALos4n
- xUKv7akuJBhlNEscSG3tQYjrjozJrS0xrH6a9UyBzzlNbfLmPszCrenPWkm+F+ULcfhIc4uFGCu
- M86WImpmQ2BBdVxQB6efzuBFlv6SE6U4tCvb9rtBZ7v7wMXLQW2wnpSorg8BcDUrq5wFjrdFTls
- M72pXybitFMxj90DKzg==
-X-Proofpoint-ORIG-GUID: h9-CqbeDU037NVgj2ksPDL4pNPAya_IV
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-23_02,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 adultscore=0 impostorscore=0 bulkscore=0 lowpriorityscore=0
- malwarescore=0 priorityscore=1501 phishscore=0 spamscore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610230032
 
-On 10/23/26 9:52 AM, Qianhui Xu wrote:
-> Hi Konrad,
-> 
-> Answering the three questions directly, then what I can offer instead.
-> 
-> (i) Downstream kernel sources
-> 
-> No. I have no downstream kernel source for this device. What I have is
-> the prebuilt Android boot image from the vendor plus its extracted
-> config, so I cannot statically check how their QBG/PMIC GLINK client
-> populates the battery property buffer. Anything I said about the
-> downstream side would be a guess, so I am not going to make one.
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
-Did you try reaching out to the vendor?
+Critical: 0 · High: 1 (1) · Medium: 1 · Low: 0 (1)
 
-Konrad
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
+
+- [High] New AB-BA deadlock between controller unbind and a concurrent
+  consumer regulator_enable()/regulator_disable() on a PI.
+- [Medium] If pi_disable() fails during unbind, the budget kept on the
+  supply can never be given back.
+
+Pre-existing issues:
+- [High] This problem wasn't introduced by this patch, but the patch does
+  not fix it either.
+- [Low] pse_controller_register() returns without kfifo_free() on every
+  failure after kfifo_alloc() (missing callbacks, of_load_pse_pis(), the…
+
+--
+
+net: pse-pd: keep the PI data until the PI regulators are gone
+
+This patch moves the free of the PSE PI array into a devm action that is
+registered before the PI regulators, so the regulator ops no longer read
+freed memory during unbind. It adds a pcdev->unregistering flag, and once
+unregistration starts the PI enable paths fail with -ENODEV. It also makes
+pse_flush_pw_ds() switch off each PI that holds power budget and give that
+budget back to the supply.
+
+> diff --git a/drivers/net/pse-pd/pse_core.c b/drivers/net/pse-pd/pse_core.c
+> index f266cc24f6a27..63217a4808e3f 100644
+> --- a/drivers/net/pse-pd/pse_core.c
+> +++ b/drivers/net/pse-pd/pse_core.c
+
+[ ... ]
+
+> @@ -884,6 +901,27 @@ static void __pse_pw_d_release(struct kref *kref)
+>  	kfree(pw_d);
+>  }
+>  
+> +/* A PI that holds budget is under software power control, and nothing
+> + * controls it once its controller is gone: switch it off, then give the
+> + * budget back. If it cannot be switched off, keep the budget reserved,
+> + * as the PI may still draw it.
+> + */
+> +static void pse_pi_power_off(struct pse_controller_dev *pcdev, int id)
+> +{
+> +	int ret;
+> +
+> +	if (!pcdev->pi[id].pw_allocated_mW)
+> +		return;
+> +
+> +	ret = pcdev->ops->pi_disable ? pcdev->ops->pi_disable(pcdev, id) :
+> +				       -EOPNOTSUPP;
+> +	if (ret) {
+> +		dev_warn(pcdev->dev, "PI %d: cannot switch off: %d\n", id, ret);
+> +		return;
+> +	}
+
+[Severity: Medium]
+If pi_disable() fails here, can anything release this budget later?
+
+pse_flush_pw_ds() clears pw_d right after this returns, whether or not the
+switch-off worked:
+
+	pse_pi_power_off(pcdev, i);
+	pw_d = pcdev->pi[i].pw_d;
+	pcdev->pi[i].pw_d = NULL;
+
+After that, pse_pi_deallocate_pw_budget() always returns early:
+
+	if (!pi->pw_d || !pi->pw_allocated_mW)
+		return;
+
+So neither a later successful _pse_pi_disable() nor a rebind gives the
+budget back to the supply. regulator_put() does not touch
+pw_requested_mW either.
+
+Also, is "the PI may still draw it" true for tps23881?
+tps23881_pi_disable() first writes PWOFF to TPS23881_REG_PW_EN. Only after
+that does it do several I2C read-modify-writes (DISC_EN, DET_CLA_EN,
+power policy). If any of those fails, it returns an error even though the
+port is already unpowered.
+
+pse_pi_take_pw_d() still handles it the same way at the end of the series.
+
+> +	pse_pi_deallocate_pw_budget(&pcdev->pi[id]);
+> +}
+> +
+>  /**
+>   * pse_flush_pw_ds - flush all PSE power domains of a PSE
+>   * @pcdev: a pointer to the initialized PSE controller device
+> @@ -899,6 +937,7 @@ static void pse_flush_pw_ds(struct pse_controller_dev *pcdev)
+>  		 * use it.
+>  		 */
+>  		mutex_lock(&pcdev->lock);
+> +		pse_pi_power_off(pcdev, i);
+>  		pw_d = pcdev->pi[i].pw_d;
+>  		pcdev->pi[i].pw_d = NULL;
+>  		mutex_unlock(&pcdev->lock);
+
+[Severity: High]
+Can this deadlock with a consumer that calls regulator_disable() on the
+same PI?
+
+When a PI has pw_allocated_mW set, this takes the supply regulator lock
+while pcdev->lock is held:
+
+pse_flush_pw_ds()
+  mutex_lock(&pcdev->lock)
+  pse_pi_power_off()
+    pse_pi_deallocate_pw_budget()
+      regulator_free_power_budget(pi->pw_d->supply, ...)
+        regulator_lock(rdev)
+
+The regulator core takes the same locks in the other order. One example
+is an ethtool admin disable, which runs with rtnl held:
+
+pse_ethtool_c33_set_config()
+  regulator_disable(psec->ps)
+    regulator_lock_dependent()
+      regulator_lock_recursive()   /* PI rdev, then supply rdev */
+    _regulator_disable()
+      pse_pi_disable()
+        mutex_lock(&pcdev->lock)
+
+Suppose the ethtool task holds the PI and supply rdev locks and waits on
+pcdev->lock, while the unbind holds pcdev->lock and waits in
+regulator_lock() for the supply rdev. Then neither task can make
+progress. regulator_lock() passes a NULL ww_acquire_ctx, so there is no
+-EDEADLK back-off, and the ethtool task keeps holding rtnl.
+
+pse_controller_unregister() does not remove the PHY's pse_control, so
+this consumer call can run during the unbind. __pse_control_release()
+on PHY removal also calls regulator_disable().
+
+pse_isr() and pse_pi_update_pw_budget() already take these locks in this
+order, but this adds a new case on the teardown path. At the end of the
+series pse_pi_take_pw_d() still calls pse_pi_power_off() under
+pcdev->lock, and the supply handle it uses is the same supply rdev.
+
+> @@ -1088,6 +1127,13 @@ int pse_controller_register(struct pse_controller_dev *pcdev)
+>  	if (ret)
+>  		return ret;
+>  
+> +	/* The PI regulator ops use pcdev->pi until devres unregisters the
+> +	 * regulators, so free it from devres too, after them.
+> +	 */
+> +	ret = devm_add_action_or_reset(pcdev->dev, devm_pse_release_pis, pcdev);
+> +	if (ret)
+> +		return ret;
+
+[Severity: Low]
+This is a pre-existing issue, but this new return skips
+kfifo_free(&pcdev->ntf_fifo), as do the other error returns after
+kfifo_alloc() in pse_controller_register(). devm_pse_controller_register()
+does not call pse_controller_unregister() when registration fails. Does
+that leak the ntf_fifo buffer on every probe failure, including
+-EPROBE_DEFER retries?
+
+This seems to be fixed later in the series by "net: pse-pd: unwind
+allocations when controller registration fails", where every error path
+goes to free_kfifo.
+
+[ ... ]
+
+> @@ -1152,7 +1205,6 @@ void pse_controller_unregister(struct pse_controller_dev *pcdev)
+>  	mutex_unlock(&pse_list_mutex);
+>  	cancel_work_sync(&pcdev->ntf_work);
+>  	pse_flush_pw_ds(pcdev);
+> -	pse_release_pis(pcdev);
+>  	kfifo_free(&pcdev->ntf_fifo);
+>  }
+
+[Severity: High]
+This isn't a bug introduced by this patch, and the patch doesn't fix it
+either: pse_control objects that a PHY still holds after the controller
+unbinds.
+
+pse_controller_unregister() only takes pcdev off pse_controller_list. It
+never walks pcdev->pse_control_head, so each psec keeps its psec->pcdev
+pointer.
+
+After the unbind, devres frees pcdev->pi through devm_pse_release_pis().
+It also frees the driver private data that contains pcdev. The psec is
+only dropped later, in phy_device_remove()->pse_control_put().
+
+Can a later ETHTOOL_MSG_PSE_GET then access freed memory? That command
+has no admin permission flag, and it reaches:
+
+pse_get_pse_attributes()
+  pse_ethtool_get_status()
+    pi = &pcdev->pi[psec->id];
+    mutex_lock(&pcdev->lock);
+
+It then calls ops function pointers loaded from the freed pcdev.
+
+Removing the PHY later has the same problem. __pse_control_release()
+reads psec->pcdev->pi[psec->id].admin_state_enabled and calls
+regulator_disable()/regulator_put() on a regulator whose rdev has
+already been unregistered.
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261020171249.853085-1-github%40szelinsky.de
