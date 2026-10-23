@@ -1,78 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1792720617;
-	b=nM3YzO+7QEeFA2+/RNQ+L7BbklPMfwZW2ppxDTi1e0gmZL2FCdAZGK7VGaP78XvQosRi
-	 NTmi/ACcdaHLdzcvKxNyPCoSeYYP3dVQ9sT4Rzi96YZOaY5ukz5ku/NZjnaChXqoyL3HG
-	 DaAoM5rHDa8dvaLgChJhe8inr5pq52ldbjlZkh1RPZUqmX90DhPMuy/bbFcUu7NtfA7q9
-	 T7WCqkfKSKuE5rXp19wTJvgz89LCtx5xg2ifcB8UWemzJH0bJpYmCBtWm3caeqyIVqKK0
-	 f5aEub4NjiCYsZwwTb5D/v1bEGOrZI/wD24lYBn9dZneAZRjsAF4X5UbPSU4o6XCgaA==
+	b=eV1qUmRmgBRMUjU0JZAl4eJMIv1YfuUUIaC5/J7q/VK1RwE+bYRsYkGamee/9omgAc9z
+	 2s1OgysdkQq4+GGNBJ05E6PUT6fLOV2nI9SSxpjYcZRzwMxo5AC8lHMeuDskaZQTtMwZ/
+	 qsu95DuocdYqRzjShQQ83F64IHMI2M5oRYGI+qV71cWzq5mKpwpZZDaoWXbq5kHe2eGwu
+	 WgS/T9AebZS1XUPPaMSAYASKQ6iQhq6DnEYQw7i5TvTGtC5UrPMkEBAlxhaV75oMBrIB4
+	 L9oSo1qGk786vvEW1ViClcU6Z0MzCNmS0GuHe97NTgWZQTGG5WWUfqBCjuRwj8wGMwQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1792720617;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
 	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
 	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=asQFsxgQNnggINI+MiaVE3YX0MoEnfTw/ot13XBv/9c=;
-	b=lskK5KxoJp28TL3VHO7B440jfXcS3xsZ5rbvDxqFP9jNdTDYJzEUvm3WyAe3+iLfTkul
-	 2SQLe8A/Xz5FoJPZhZcv9CQadGJfpNcflBtML2+K8Wel1V2bkZWsB8VeB5zSG9+Y8hd7d
-	 t7Z7eSiQi+Mpetg/Yffuqj8foq1bVMw3sHbOXVM0GQUYT58Jn9nSDiBXHVPhDoUEjplfZ
-	 V+NJSVJdOXYlIGSF1z5IY4c2OSbg6oGye7AxUgVtAV7TBuAShjBwzSPDE2tbuzoNWUg31
-	 gad2iiwkcEaVAp5mF9Cy7NisYQ8yugXsFuJKK/0kXHM2f7pX6MkOnqyxT7vqzvN0teQ==
+	bh=0UzY1m+EAyJWVSs3KsoWgdS/aUibFQ3ee2IxYj8gwaw=;
+	b=5Uf0jRcyeCmzbQLLFazXNwMzeBT0thqcmUL7YtU430sHsypIVj682HO1byR7I6lbzF9y
+	 KAeLaFdtxvsP0W4PIyFJqKH9CGMVjIdANOQhWoZIuIV9i8/H1BQ7OTEhq7jAR4BF9RWbM
+	 lw/cdRnEdRlpx+uPc/9Z3Q2yjl4+fl7CUruyXsDf/y3163i5neM2Xv4kU/wv4yCfWv9Gm
+	 OWDJhoTnReM3TP5ei+ijY7ii7PFdvZBLAGyz+T/K6/o4OlZgJBn1NFXn3fH3SJ98rY6Ns
+	 d13jo/dST9yASuRVT4orOPJ58BZNiles9cqq0uEw/GmVkChe03p0TDMZlwLcCb0HIsQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ehxK1Whl;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ULDCI9hd;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C15AF606A31B;
-	Fri, 23 Oct 2026 01:56:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D886606A32A;
+	Fri, 23 Oct 2026 01:56:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ehxK1Whl
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ULDCI9hd
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1792720616;
-	b=Kn8KSKvl5LrQjGfrzJlQKuebQVWzTg1MN7U9ruHTEh4IJ5zxQpkH4Rv/QFaXtMODpX/j
-	 aanMpFO3p6uxour/F2+HJ07aCuEgn/cnJpU9/G89YGZ3s9uR5WQsFai9+1UnfTCaSN2hj
-	 qhH09umNwDXDdTUsrwZsxsj/gSznDJb3VciAfll9MOGh5yUYmc7UhWaubCr6Qu7guHoXB
-	 +Bs5o2DjCTsqWTTX1BzyjfwdzPmoWapRYC6UCYYDwBv3qokoVkPtQHH7Jmedrus8SKSYs
-	 V4E+4lLWHqrmt78vs+2hqvFuMZ37zxU9X4K8CEbYHIOuNuZzmvCYqjB3NFInC6fTEsg==
+	t=1792720617;
+	b=joVie6nvAZvkAUKNKgZvQ0Ftq8ZJtWwwssLZn45cY1wAEnIQkvLveakusuBTk8rjrJYM
+	 iHV61lFvf8eCcgMjS0c4Q/8Rcfp0WrwrlJOvwFsh5ahg4pjMfb4+73bBvdHmLGtjlgVXD
+	 XrXCS0WKRCpMadxLzGuKwZVwHzjji4CPWuOTIaAaK8R9k7cEpez6CArup01zEQpvpjWHL
+	 gPfSau9bosXvm5A4aFrmhLuWfXBaKSpsbv6YUNevfn1EO3qFjUL0nqYIMgIVuu7n97R4q
+	 yz3qut8Jh0Trrw347MjhZvL9XVikwyCtLa4dunqV0su0PwUmYVHFa7c9y5MKWPh5feQ==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1792720616;
+	c=relaxed/relaxed; t=1792720617;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To;
-	bh=asQFsxgQNnggINI+MiaVE3YX0MoEnfTw/ot13XBv/9c=;
-	b=3N0eyWDL2whyQlOyP8JF/bPq/l66NM2Yd9fD3jDdY+mXtvHBO0ORPci2b0X7qtJqkRn1
-	 UHhBwGaJX+SwHpLELWEwF5OfsV9k6xNTPXuW0Phgsdoj135TUwWzGzAHykurAYKqmIYEr
-	 o9+c6nsfM0ys+bNoinoi8kNM2r27Lowi/oBU3aqxAKBdy0g8MgWWppdc8cM/iASbQ9CBu
-	 9WDXk9MPUKPouEyX/ePZQR4fth7h8+66108a/87h9lprWERbJgtXYu/r8FWiY7iUCkFZA
-	 lq2lqWwef2b9wHljYA5LbhYRuWAVWzqOh2aj4DRF6gd/PlyzaJ0TjWjA0ydVhcb3aiw==
+	bh=0UzY1m+EAyJWVSs3KsoWgdS/aUibFQ3ee2IxYj8gwaw=;
+	b=fDV+sfybjDpc8ZCWzA/HRrwOrduwtFEQ7uxpSK6MykOaE+7/7L3GLEhZByTfDsr6hfz8
+	 HZyE4D2rBd8MaHvDOGGWza71GUE/Y6eduBPIzMe71tyqd58HTURvQ254iOHpUJPRFTE+s
+	 X7CF/hckk1S8oENuEURqZZpckQpAeY3lGeC/a0BShwHYi2WC5FSdH4VH7zJ8tfvFryORH
+	 b8aoaBQ6tRPpusYpbYgZVaOPerTz+VTVA/Db6ydqLzO9dKMF3bvaO0Jy2mlg7Kg9+7eIO
+	 5kvw6VymoLNDOF4ACCrkIrp0bUIcgb5IAWf+N7cgCpJXFv69NRrab7CMJvBJ8RPQ2ZQ==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 6BCDA1F01825;
+	by smtp.kernel.org (Postfix) with ESMTPS id 6C7771F031E1;
 	Fri, 23 Oct 2026 01:56:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792720616;
-	bh=asQFsxgQNnggINI+MiaVE3YX0MoEnfTw/ot13XBv/9c=;
+	s=k20260515; t=1792720617;
+	bh=0UzY1m+EAyJWVSs3KsoWgdS/aUibFQ3ee2IxYj8gwaw=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=ehxK1WhlIK9DU6dBNyjrgsIEsRnltRg+NI+QuIM5ypIXNwy20ABvloWrGyRgjbx6O
-	 7G7NQ0VmshJnZfQ1p9kiiChMDLwHt7GPrE2RzMoh18HqNS75ccSCwcblJon+qeGf+L
-	 FH+bvSCoxExmgqlMEPA0BTk7TCXsNwMxaM4VkPvhX7ju1APIsQm5WhTK1kbah3aV1r
-	 O+YJDvSRQ31qVtiON68Md6F4eRa46FdkMj+RSXZfc4gHHMRB3+QSybEswaGxnfwiMD
-	 FTIT7mML107DxOTWEU2O1aoVLKnbs1I0wEeeduGzMsKC8u6CZj8Ac8EB4q8+UZWxgA
-	 ynPOBXJW3SKWA==
+	b=ULDCI9hd6iTcssAkWVbQPgnIV8Mju/4Ih0FMYK3WYbmjN9Wp3b9YOiV7qRmaD/iyQ
+	 NmmBPCt5SNYQXfjR06xpiayy56GZZ2B8js+wr8NUuPn86phqT8zpyEu6ixvrLSSUqx
+	 CGz+2fGj9LPxkrSErw53l1bvUg8hA8nzVoLU5HH8xPXOF557tFn67RDISzRL03Tmza
+	 05YiFmzXyc4PbhGP3tpluPFVZCVZre3a5rGKoGXT3vF7IUkU8iboFOjSpENzvbCbUy
+	 izjVwwSEnZqyK5AKNks13Oui9/PPee5o8/NwwYlH33C3DX7yOQxGI7pVcFrEoz75Lc
+	 HqDEL9oxXlXrQ==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id CF6CA42114;
+	by lkml.kernel.org (Postfix) with ESMTP id D8D0942170;
 	Fri, 23 Oct 2026 01:56:54 +0000 (UTC)
 From: Xincheng Ji via B4 Relay <devnull+jixincheng.ultrarisc.com@kernel.org>
-Date: Fri, 23 Oct 2026 09:56:41 +0800
-Subject: [PATCH v5 1/7] dt-bindings: vendor-prefixes: Add shenrongda
+Date: Fri, 23 Oct 2026 09:56:42 +0800
+Subject: [PATCH v5 2/7] dt-bindings: riscv: cpus: Add UltraRISC CP100
+ compatible
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,7 +85,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261023-ultrarisc-dts-v5-1-af79dbd6ccec@ultrarisc.com>
+Message-Id: <20261023-ultrarisc-dts-v5-2-af79dbd6ccec@ultrarisc.com>
 References: <20261023-ultrarisc-dts-v5-0-af79dbd6ccec@ultrarisc.com>
 In-Reply-To: <20261023-ultrarisc-dts-v5-0-af79dbd6ccec@ultrarisc.com>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -101,11 +102,11 @@ Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  Palmer Dabbelt <palmer@sifive.com>, Conor Dooley <conor@kernel.org>, 
  linux-riscv@lists.infradead.org, Conor Dooley <conor.dooley@microchip.com>
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792720613; l=887;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792720613; l=804;
  i=jixincheng@ultrarisc.com; s=20260922; h=from:subject:message-id;
- bh=e/Kow+cCHmWBpSOP+t1oxwgy4BH4snNIyYRmuufij+E=;
- b=ZALZ4W6hYaJRZvUX0ihX5C1JJUjIqOj+UBs91zacodYTvH/Btbh+9Corbw8zhKdnyUUJJxZg4
- AdZE0IlDrZqDn2+lDS+YvdX3VJJjhyiODse2PDGbE41cqMqLTRTnln5
+ bh=4TAyfkBcv/s6Kdb5vlK3fVOCoBkGrwHfHTtS6V/To4w=;
+ b=YPRsvZ3JyFQbubm76Vv+Ad/0G02ACXs2KTmN6BbbIT9M51nVhWN3BIOnd2QvZntJCqCIn7kx1
+ myOEpd9gN5nD0O+wx/eTdgixR+rzHtGEJbyYk7SqUagJz5pomKIMbcJ
 X-Developer-Key: i=jixincheng@ultrarisc.com; a=ed25519;
  pk=n848dcS5D6g0vLad/rjp4Gf/1eedTe1a3pYUrkt2260=
 X-Endpoint-Received: by B4 Relay for jixincheng@ultrarisc.com/20260922 with
@@ -115,28 +116,28 @@ Reply-To: jixincheng@ultrarisc.com
 
 From: Jia Wang <wangjia@ultrarisc.com>
 
-Add Shenzhen Rongda Computer Co., Ltd. to the vendor prefixes.
+Document the UltraRISC CP100 CPU compatible.
 
-Link: http://www.shenrongda.com/
+The CP100 CPU is used in the UltraRISC DP1000 SoC.
+
 Signed-off-by: Jia Wang <wangjia@ultrarisc.com>
 Acked-by: Conor Dooley <conor.dooley@microchip.com>
 ---
- Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
- 1 file changed, 2 insertions(+)
+ Documentation/devicetree/bindings/riscv/cpus.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-index ba2002969373..e100f3993e57 100644
---- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
-+++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-@@ -1507,6 +1507,8 @@ patternProperties:
-     description: SGX Sensortech
-   "^sharp,.*":
-     description: Sharp Corporation
-+  "^shenrongda,.*":
-+    description: Shenzhen Rongda Computer Co., Ltd.
-   "^shift,.*":
-     description: SHIFT GmbH
-   "^shimafuji,.*":
+diff --git a/Documentation/devicetree/bindings/riscv/cpus.yaml b/Documentation/devicetree/bindings/riscv/cpus.yaml
+index 0da219ae6769..85adf72899c9 100644
+--- a/Documentation/devicetree/bindings/riscv/cpus.yaml
++++ b/Documentation/devicetree/bindings/riscv/cpus.yaml
+@@ -67,6 +67,7 @@ properties:
+               - thead,c908
+               - thead,c910
+               - thead,c920
++              - ultrarisc,cp100
+           - const: riscv
+       - items:
+           - enum:
 
 -- 
 2.34.1
