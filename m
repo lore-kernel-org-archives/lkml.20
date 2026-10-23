@@ -1,68 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.15
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792738160;
-	b=on5JhwaBqyrbO7oGsUsWu+mFozOmqT/75gDlG2+f8Joba8aOTNhrke6w7A0KeJSg0jQz
-	 Esb2kVQIZ3KcXASR4vsTRWq7xGTfsgCtWYKXxb3IZNLaZC46C2iJMLX9DdVNGPpYRvGTP
-	 mXH4afLnmFqDqpZHU4N2VwJrpRn5hkAvsNVaid89JH3000rkEgkw417M4OWI5fCkMSeZt
-	 n+B10uHggWk89dOphAvAsQtm+hbKf0UThpusVSLMKihkseEj6HoZ1tSjWkjGAJAaNnK4j
-	 EvcrmFdbZM5xncx+hHcGIgIGTq4LTj3JFbxB1NeBSxoHiMa2gvXpMIkmENdzgfxE88Q==
+	t=1792738182;
+	b=jjbF7s/bfLwaG5po1wokl1LOBuoKsW50yQ8b/kPqeIJHNnKMYHaZDJWnspXKFv8nR7ka
+	 eQMyqDNX+4e6lzMAnoN18y08lkcksc5RuLq3EskaDkYeCsVpNT9gkfcKNYsCGoGbymr/J
+	 IsDKwGbnCayWdEBcEUpGezniHmbKbF3ouWYyjdk5Cn+0RzktmWEkjPSHQJVcnboLjr5qT
+	 kRu01xUb37SQLxYoxI/W3CYymFRWlx6PHT6d+V65TJt6hRyV+Ejeh1XqiEzjA6E5Dn/31
+	 0uVPbxHBLNaqDKJ+rXWGSCiKZz1iUhRoMw6fYGCLOPWP1bjceXSBUXOL67koU020X/g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792738160;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=BwLp3QfU2sOxvBZM8DouICo+apOt//WLVr04keFV3KA=;
-	b=KFNyEy7nlXQwX5cXEABtx/6rWnQLzVjNbLeV8Pc/BuDa+OHRouKC4GcAVooaSeLCo5cY
-	 fdyHj6q5mjG0FY3UGhVHBXgWQbXqNm9+6rrdqNFudpa6bAn+LCCu+T69OGYwiaJewBrWf
-	 n1gvIqJh9UVj2gqOOOLiHTzbEmxV3pZvdHu6yexHnfQQvwXHJxhul4NUdFSJDYy8fC4Jo
-	 k6yHYUR9DHhK1LztonabvsL037UhmfP8gN0rHKIymkL+VQimUL4z3FIw2cW4J7U6093n5
-	 G4O8aCqO5d1FtpK4w8L/KtrigTjVtGtzRuXHnkH3lbUxXst6WEdnu+IY5fCu+5P0bbg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792738182;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:Cc:Subject:Date:
+	 Message-ID:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-Scanned-By;
+	bh=NTq5B2Hm0FOnw+vWb0Xc3ff/4P/VqEFyOk2WyaUnR5I=;
+	b=jnadj3d274VxqPpSSzj9aM/JiPczbrdoHTSKZbucizEKWX+NiwAyxe9T1k6D6e9XUIrG
+	 byY5eo7b9Aq22FJuRrDDQ8Dm7WS92Ddc3xVFpNO1eMgc0YX6yGsHPoiUPxVWexFf2YySN
+	 kK+2HoS/IO8ZdsycTaleqNB+FU155ZdozIBqZix7j4TbDBZTPwJbsAqPezJAnC9CHayNa
+	 lX2xIZjYZVYAuOt6LXw1YsEG2sdNzcJd79Zma3zBPHZNyPJ2tAIbzgkpyN+7eBUm5xeXm
+	 0CniMZCe6OUgPBuwOxBXQ6mErEzYsdJYMHAW0VFdibs8YUaufQlyKvGZ/2FMgKheyfg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ZMd9mc3M;
-	arc=none smtp.remote-ip=198.175.65.15
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=BTmF3BTk;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BF0B606A31D;
-	Fri, 23 Oct 2026 06:49:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7BF0B606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41C80606A32A
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 06:49:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 41C80606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ZMd9mc3M
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792738159; x=1824274159;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=boXZwJMU/3Bv1Xe3K7Nqjbqy3UaF2PKOM3J7JBumcJM=;
-  b=ZMd9mc3MOMmJXntdZOJfSp0keU+I8maH/K4jUbG7wQUky6Cv5nyT+oPN
-   2vi891BmKssjyZIEovjFw80/evC5kWwXexqE+xqKuHSCGiA1Lkr5sGkax
-   eGlO1dcauPDQuJzuwaKlqffaFQw98PHCQLdgMHQ4yfKlpjA1vJ4dNtMu+
-   qZf9i7HrakEeLJmH+KVm8SPikyWyABb4y4tHkHO9ErmTHhYMp8q471HnF
-   JgA4XBpXfRQwppIouzRJVUJ8CfCv+Kyni/Ymq5wOS7d+pBsfvoqS+wLpe
-   hTwewOmb3E4Vh2jCeEopa1uBiBLKHsbz0psdWABwm62g4DFiLKwnMnwpA
-   A==;
-X-CSE-ConnectionGUID: VAbShD2ZT025p+sXznVhzg==
-X-CSE-MsgGUID: upGeNo/aTmW3YBgQnSix/g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11943"; a="1498003"
-X-IronPort-AV: E=Sophos;i="6.27,173,1787036400"; 
-   d="scan'208";a="1498003"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
-  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Oct 2026 23:49:19 -0700
-X-CSE-ConnectionGUID: 6IigzIhqSvKN3h/YLYaUmA==
-X-CSE-MsgGUID: 1pPxJ9cpQ96AIShE8W0lFQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,173,1787036400"; 
-   d="scan'208";a="3465966"
-Received: from binbinwu-mobl.ccr.corp.intel.com (HELO [10.124.245.162]) ([10.124.245.162])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Oct 2026 23:49:12 -0700
-Message-ID: <85872794-1868-406e-8ac0-5d9de522a8cb@linux.intel.com>
-Date: Fri, 23 Oct 2026 14:49:10 +0800
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=BTmF3BTk
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1792738180;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=NTq5B2Hm0FOnw+vWb0Xc3ff/4P/VqEFyOk2WyaUnR5I=;
+	b=BTmF3BTkhksy9U6Cr1orQlHq1FPEEpixNV5qNwDq4Tn4eaIXxEY8apcKEcFxvQYBC8U3h+
+	35DhyTw6e13z6ONV4u/Xb8tqq34zU6It9W6YH+JIpxbxyO5SVWME7t23ndtvJrEufVfeN1
+	JoKuBV4pfItIkwrCPcDVJENEYPw7eZc=
+Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-462-Tk87mULwMgur0MjOnfTSaw-1; Fri,
+ 23 Oct 2026 02:49:33 -0400
+X-MC-Unique: Tk87mULwMgur0MjOnfTSaw-1
+X-Mimecast-MFC-AGG-ID: Tk87mULwMgur0MjOnfTSaw_1792738160
+Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 1A65F1955F05;
+	Fri, 23 Oct 2026 06:49:20 +0000 (UTC)
+Received: from thuth-p1g4.redhat.com (unknown [10.44.48.42])
+	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 0B2AD19540C2;
+	Fri, 23 Oct 2026 06:49:15 +0000 (UTC)
+From: Thomas Huth <thuth@redhat.com>
+To: Arnd Bergmann <arnd@arndb.de>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nicolas Schier <nsc@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Saravana Kannan <saravanak@kernel.org>
+Cc: soc@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-kbuild@vger.kernel.org,
+	=?UTF-8?q?Thomas=20Wei=C3=9Fschuh?= <linux@weissschuh.net>,
+	Nick Desaulniers <ndesaulniers@google.com>,
+	Bill Wendling <morbo@google.com>,
+	Justin Stitt <justinstitt@google.com>,
+	devicetree@vger.kernel.org,
+	llvm@lists.linux.dev
+Subject: [PATCH v5 01/13] of: fdt: Replace __ASSEMBLY__ with __ASSEMBLER__ in of_fdt.h header file
+Date: Fri, 23 Oct 2026 08:48:38 +0200
+Message-ID: <20261023064908.66707-2-thuth@redhat.com>
+In-Reply-To: <20261023064908.66707-1-thuth@redhat.com>
+References: <20261023064908.66707-1-thuth@redhat.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,104 +89,42 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v10 06/28] x86/fred: Export this_cpu_fred_rsp() for KVM
- usage
-To: Sohil Mehta <sohil.mehta@intel.com>, kvm@vger.kernel.org, x86@kernel.org
-Cc: Paolo Bonzini <pbonzini@redhat.com>,
- Sean Christopherson <seanjc@google.com>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>, Thomas Gleixner <tglx@kernel.org>,
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
- Dave Hansen <dave.hansen@linux.intel.com>, "H . Peter Anvin"
- <hpa@zytor.com>, Xin Li <xin@zytor.com>, Andy Lutomirski <luto@kernel.org>,
- Peter Zijlstra <peterz@infradead.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Tom Lendacky <thomas.lendacky@amd.com>, Nikunj A Dadhania <nikunj@amd.com>,
- Shivansh Dhiman <shivansh.dhiman@amd.com>,
- David Woodhouse <dwmw@amazon.co.uk>, Chao Gao <chao.gao@intel.com>,
- Zhao Liu <zhao1.liu@intel.com>, Yosry Ahmed <yosry@kernel.org>,
- David Matlack <dmatlack@google.com>, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org
-References: <20260911213659.2025974-1-sohil.mehta@intel.com>
- <20260911213659.2025974-7-sohil.mehta@intel.com>
-From: Binbin Wu <binbin.wu@linux.intel.com>
-Content-Language: en-US
-In-Reply-To: <20260911213659.2025974-7-sohil.mehta@intel.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
 
-On 9/12/2026 5:36 AM, Sohil Mehta wrote:
-> From: "Xin Li (Intel)" <xin@zytor.com>
-> 
-> Introduce and export this_cpu_fred_rsp() to provide KVM with a self-
-> explanatory interface for retrieving per-CPU FRED regular stacks for
-> stack levels 1->3.
-> 
-> FRED introduced new fields in the VMCS host-state area for stack levels
-> 1–>3 (HOST_IA32_FRED_RSP[123]), which correspond to the per-CPU FRED
-> regular stacks for stack levels 1->3.  KVM must populate these fields
-> each time a vCPU is loaded onto a CPU to ensure a complete valid FRED
-> event delivery context immediately after any VM-Exits.
-> 
-> Signed-off-by: Xin Li (Intel) <xin@zytor.com>
-> Signed-off-by: Sohil Mehta <sohil.mehta@intel.com>
+While the GCC and Clang compilers already define __ASSEMBLER__
+automatically when compiling assembly code, __ASSEMBLY__ is a
+macro that only gets defined by the Makefiles in the kernel.
+This can be very confusing when switching between userspace
+and kernelspace coding, or when dealing with uapi headers that
+rather should use __ASSEMBLER__ instead. So let's standardize now
+on the __ASSEMBLER__ macro that is provided by the compilers.
 
-Reviewed-by: Binbin Wu <binbin.wu@linux.intel.com>
+Signed-off-by: Thomas Huth <thuth@redhat.com>
+---
+ include/linux/of_fdt.h | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-Two nits below.
-
-[...]
-
->  
-> +enum fred_stack_level {
-> +	FRED_STACK_LEVEL_0,
-> +	FRED_STACK_LEVEL_1,
-> +	FRED_STACK_LEVEL_2,
-> +	FRED_STACK_LEVEL_3
-> +};
-> +
-
-[...]
-
->  
-> +unsigned long this_cpu_fred_rsp(enum fred_stack_level lvl)
-> +{
-> +	switch (lvl) {
-> +	case FRED_STACK_LEVEL_0:
-> +		return __this_cpu_read(fred_rsp0);
-> +	case FRED_STACK_LEVEL_1:
-> +		return __this_cpu_ist_top_va(ESTACK_DB);
-> +	case FRED_STACK_LEVEL_2:
-> +		return __this_cpu_ist_top_va(ESTACK_NMI);
-
-Nit:
-How about adding a comment to state NMI and MC share this one? 
-
-
-Also, currently, FRED_{DB,NMI,MC,DF}_STACK_LEVEL are defined as
-number, may be it can be defined using the new added 
-FRED_STACK_LEVEL_{1,2,3}
-
-> +	case FRED_STACK_LEVEL_3:
-> +		return __this_cpu_ist_top_va(ESTACK_DF);
-> +	default:
-> +		BUG();
-> +	}
-> +}
-> +EXPORT_SYMBOL_FOR_KVM(this_cpu_fred_rsp);
-> +
->  /* Must be called after setup_cpu_entry_areas() */
->  void cpu_init_fred_rsps(void)
->  {
-> @@ -84,7 +102,7 @@ void cpu_init_fred_rsps(void)
->  	       FRED_STKLVL(X86_TRAP_DF,  FRED_DF_STACK_LEVEL));
->  
->  	/* The FRED equivalents to IST stacks... */
-> -	wrmsrq(MSR_IA32_FRED_RSP1, __this_cpu_ist_top_va(ESTACK_DB));
-> -	wrmsrq(MSR_IA32_FRED_RSP2, __this_cpu_ist_top_va(ESTACK_NMI));
-> -	wrmsrq(MSR_IA32_FRED_RSP3, __this_cpu_ist_top_va(ESTACK_DF));
-> +	wrmsrq(MSR_IA32_FRED_RSP1, this_cpu_fred_rsp(FRED_STACK_LEVEL_1));
-> +	wrmsrq(MSR_IA32_FRED_RSP2, this_cpu_fred_rsp(FRED_STACK_LEVEL_2));
-> +	wrmsrq(MSR_IA32_FRED_RSP3, this_cpu_fred_rsp(FRED_STACK_LEVEL_3));
->  }
+diff --git a/include/linux/of_fdt.h b/include/linux/of_fdt.h
+index 51dadbaa3d63a..72b452e388eeb 100644
+--- a/include/linux/of_fdt.h
++++ b/include/linux/of_fdt.h
+@@ -16,7 +16,7 @@
+ /* Definitions used by the flattened device tree */
+ #define OF_DT_HEADER		0xd00dfeed	/* marker */
+ 
+-#ifndef __ASSEMBLY__
++#ifndef __ASSEMBLER__
+ 
+ #if defined(CONFIG_OF_FLATTREE)
+ 
+@@ -103,5 +103,5 @@ static inline void unflatten_device_tree(void) {}
+ static inline void unflatten_and_copy_device_tree(void) {}
+ #endif /* CONFIG_OF_EARLY_FLATTREE */
+ 
+-#endif /* __ASSEMBLY__ */
++#endif /* __ASSEMBLER__ */
+ #endif /* _LINUX_OF_FDT_H */
+-- 
+2.56.0
 
