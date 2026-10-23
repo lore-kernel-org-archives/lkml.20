@@ -1,89 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792783949;
-	b=ZVBjsi055aTrnS6GeYEj+LkecCisyyAgG1Mxbe+lQlTELCb30hwYNowTeXkvjBICqEqi
-	 8QjwWr0rolSgV1vN89mfpNy1y98UBs6F6rPbbk/S7SGWQtSWZ9g7P3GrcW321yZ9z8kNN
-	 a8Ft42tptXBrW5rVixCAZXpliEAnjkVV01YtLJEenuKkeE2VoDJUV8dmfvgMX/PZZFEvv
-	 OT3Mr6lth1Afgafv6ghVszSGfMdhkai846JVXAIt4JT9suiECghPZn+0lf7HOQWzWN7Eu
-	 GoozPU0nP9EUhNj/vpl6rSw44K2O1PEJXDfJlEQtkR4puJfCMs2s7kGfQECD/awaUdA==
+	t=1792783987;
+	b=x8mWvk+vxvBmQKPNClZARd8ruD4aidNUMVIn/sOStpPvmolqoGq4tumcGs2hJutHekBL
+	 dfz5agTgHu5LxNxtgNQrHCjWmfZWiDvT/FB5V/D9/iLM6oDA9GmVO5cAYaFdAkPgA6myq
+	 JW/gq9rAMyCX1n9tzrhhIKF7NNTKwsYDcTwln+IkjlP4jbgODwrDUJdpLc56PO7igsWOA
+	 ALJPWQ01cTn7f25B/IXi88IMb3lViJcI3N7ggjxJKcqbL11LG8VO24CCUTIS8Tc63om1e
+	 LwyGQIvIJitDRdAGdazICUxnJUgIoXdq4rJjlSVUDcn14gUBmYdPZ6HIEmVSYRlFRzg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792783949;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792783987;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=xQ0ZY845r5Du+UUOa8gVSKQGxBME1IJCKr0CS/df4CI=;
-	b=ncmuacS+VqTuL2IcOFp0AWKoe49tiE/qZe/WrVB/zb8+e5flnUDCY0v+q/gWs7XIBlow
-	 PuTaSIybyvLHX19Pip2iKyfcphcMuVLhBslhUZfdjE0TFc+LYk0m/Z3Yv3BflZXpkom/G
-	 zwWClJ8ej1Rnt7wGxDw2t1mdLpiRl7e6IUr9+Y7aqxiT2aRV7wzf319SE7eCmBs/22nYb
-	 hqwZeAKG5tSsnryuOwtrLISqnpUpVy0tMqQcK/YuuooaizRseCMH053wUuUczWBeJ0Jap
-	 YWmdI8zgu6TNzv95cMAWu8/luc+ONwpjtJtNnowszgc+y2kPABhL6pVNOWWVe5qRXUg==
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
+	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer;
+	bh=0ra4PwUN4j1XDh0rJxY9+VVsmhyDYrSXY972fJf+hOU=;
+	b=MDw9wZF1IJNxbgJpuEECPs/j3U+WTUiGRLI3IVo7tKRtTAL1aWmseLR1Nk/06kwS5awv
+	 ukoEhzJA6jK/kvY8p3bcrqvKYqtS2BWvDGavg9rUoYBNwsxRIA/pyJLaozySn68271YYl
+	 cmRlrYrTeK+UsIqCQmCbl7yw0leteU8T2QAaPlOERr/VKc0OfSNdeFZVde3YumW9is2to
+	 StSMpFpbZypDJf82W46WDwGhpgBm1N7fkOMyorYKXZ01wLeMfUDeXDKkestu8Z/QS020u
+	 g6y2dNFo8DT1TGeBW4fnlXCz5lS+188vNIx8mDyxfJrwrZvNy6hw98TL0tpqJMriqlw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=colorfullife.com;
-	spf=pass smtp.mailfrom=colorfullife.com;
-	dkim=pass header.d=colorfullife-com.20251104.gappssmtp.com header.i=@colorfullife-com.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=IJwkHIua;
-	arc=none smtp.remote-ip=209.85.128.45
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	dmarc=none header.from=gourry.net;
+	spf=pass smtp.mailfrom=gourry.net;
+	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=cBYc340P;
+	arc=none smtp.remote-ip=209.85.160.172
+Received: from mail-qt1-f172.google.com (mail-qt1-f172.google.com [209.85.160.172])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17EB4606A31B
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 19:32:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 17EB4606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=colorfullife.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=colorfullife.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98AE3606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 19:33:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 98AE3606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=colorfullife-com.20251104.gappssmtp.com header.i=@colorfullife-com.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=IJwkHIua
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a3517554f7so2169845e9.2
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 12:32:28 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=cBYc340P
+Received: by mail-qt1-f172.google.com with SMTP id d75a77b69052e-537548b811aso3599731cf.3
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 12:33:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=colorfullife-com.20251104.gappssmtp.com; s=20251104; t=1792783947; x=1793388747; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=xQ0ZY845r5Du+UUOa8gVSKQGxBME1IJCKr0CS/df4CI=;
-        b=IJwkHIuahlX2XmMgrR2c4biFHA3eskauE3h6uVTKAANKlsfhz+huia0jeSfgkqD9te
-         yCHvIxkXbcIe6zPAb07HORwwUJqgaZefo4YbLOzzVt0oVupxczkq2SHcd4b0OcoBOvWM
-         3hYL93P/HIN94qL9lwUvUC5EkzVD/PRGBVNzmk9ednVd+fxpxY4wdyYivid1PyYPuR/U
-         KkvmryC9htmaxcQkhC7Z5wj+PycuqCkkBhTg8wlkegLM9BKUZbGxxiOAeLS/Slj03CW7
-         kfgNpCvh5LL/du8svsYwsDWWot+MJSqiMqNUbx4EnApPLuFlFacpkDj3CP8OGcXutRx6
-         WbOA==
+        d=gourry.net; s=google; t=1792783985; x=1793388785; darn=vger.kernel.org;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=0ra4PwUN4j1XDh0rJxY9+VVsmhyDYrSXY972fJf+hOU=;
+        b=cBYc340P0fvJdjnLygiXv/SUzYEJfy3u5sn7QUg1tQ0bhXw8u3iMzVAtVo7k1K8PrY
+         SQhbJEKVFrgMY37L1QPxY+u+pFxBNtNw+oJ2GF7RBBeOMvysU3LgVdbaE0IbJ1+SRMzS
+         uBHAYWKb73pLRHW5cTOocw6YxV4EFBJhk14JZ2qwrsTTMdS31LwHXI2fBEyPnXkPIJmY
+         CLcMPZ9uFUcqM711pVjJf1ICh/kqke2g3o9u9LnsKSFDeKnkgQmf/zSkH05D4RemZQ3T
+         QoYlhn44nekLimPTxIsgWmsRWV8VqOsF3/MznLTpmAuCSrgQ29dTZCBxDtGwC16+D5pU
+         wV0g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792783947; x=1793388747;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=xQ0ZY845r5Du+UUOa8gVSKQGxBME1IJCKr0CS/df4CI=;
-        b=rVnHRS5mfsmOAbeOoRGw9TI77E9PV37Rlvrl0BGz+FdiC9cSa8qnrgPamjXtDewYKR
-         mhZKaFxavgaI8AN+DlhtywlivLzXs27UFDb+zGj7VJkYtEcS0NPaDIXTkADJkhPmqQ0n
-         NcGQ6ui0tKxGYUEMGK07zdohRNR08MUWbMy+DRP+JwamQhlr5svwOKYwkk+ApSmRcNng
-         vzr/Em51zMywDNrdj3JNaWJ4hh8QxPz1sWoSRVpzjHoQww3AzDuO6VGl4w1sAC4KpS14
-         h+MeVsjigTgJDvCas6KRhNOQYJZvGaNh/+18rd563IaOBYpCPns18Xijjwp8DOp81t0S
-         D/5w==
-X-Forwarded-Encrypted: i=1; AKwUvBxS3WteWlVId9GRBOrQQgzx8A9WC8qNMVVUs8H2Ry8NAnqLNV4NT/SQzUxIbg4uEFMGiSFwRXv5vowK6lA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL2+A/B96Tg0KzAi2m3FeYyxynwjM0snOk73Kgr27tJj/ZexbH0
-	ZX/Dm41/rzlwTM9eh8qPnuzX9K+h711MkNA55BIBZ/c9Z/3R4p6pS6nRFPQ31aZ4xw==
-X-Gm-Gg: AYBFou237zi5cRZ6S/14ctJAXRuEBlyBqiOzIKfbCjI3VTNAAJGAc/wJGJBEH1alSKA
-	vWeY2vC+GyyiqaPM+821Y0999NAuiSBP/hLFZK+Asn25cZNj11COXH2eZy9c2qX+30d3FWOfFKL
-	kkaHY5I/16MlClQLwAl+FVSXBwCytH/rLRzshANyrtcr+vSbdA/VDlt5lZFIKrFJotIKZzHA5+K
-	1m0DYMXYTFLTFxhKjcJcjImHZK7hlnfEsx/wQcaLk52PoWKnTEtxlO3yDEw9vtf3mEQxMg2Gi5x
-	7WHuwO8HTK6OOfsdfIDEUNi4rK9VKbtF/uopgixtaNiqQu7u/1hW1Z/bjeoFxXzcdDPHHmIhYpw
-	vBLpDRtRD22Fxw3wcZCGOI8P1TzkRyLlE/0udOtY7/bs/TvRWtZOENp0w1KT3IvIXh8Sc3Avkl9
-	R+i8iqEmr/PC2HtSFsD339HXuxJ/IwwLwnAXUDKBH7r4cvA6930C0BmARYJ/HfIxlBruwGoGZt6
-	PbhWF9IpqSOQKAHbuBG/ue+90dmG3+RsHD8MrmhWc/VwcaBmu6q7uYjBMMnO0FW4TXx39IzOFKh
-	4QINmVF67btwpPtsxzpCj4QTCI8VsyLe03oEgNVEpzygLMsNLLTfXv94nqd4It8q74kEAqigv69
-	mtdp0tCsCVNEI/rs=
-X-Received: by 2002:a05:600c:630c:b0:4a2:5ca:767f with SMTP id 5b1f17b1804b1-4a211c64f9emr57232995e9.4.1792783947346;
-        Fri, 23 Oct 2026 12:32:27 -0700 (PDT)
-Received: from ?IPV6:2003:d9:9707:8b00:3fa:3a3e:198d:ab69? (p200300d997078b0003fa3a3e198dab69.dip0.t-ipconnect.de. [2003:d9:9707:8b00:3fa:3a3e:198d:ab69])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a359fb08d5sm14180055e9.1.2026.10.23.12.32.25
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 23 Oct 2026 12:32:26 -0700 (PDT)
-Message-ID: <9a3aa73c-7b62-4f1e-983d-cf22d45ad86b@colorfullife.com>
-Date: Fri, 23 Oct 2026 21:32:25 +0200
+        d=1e100.net; s=20260707; t=1792783985; x=1793388785;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=0ra4PwUN4j1XDh0rJxY9+VVsmhyDYrSXY972fJf+hOU=;
+        b=RComD/N6K5/x7PaZyNfQTEqonek+/q3T/qU3cLdtguIpPIM6l2Zu9F86fiS7SdR8Tw
+         QRVg6tfRG1ril8X0eSYYf2C8PgtTATEjqA7dih2WQqTGEi4KfqtF87+30TCxAHw6S2T0
+         YMXT/kW9iOi+xv58DtWW2hdOjOSUzeHvR4l4ZjeQ1CC4fGy0q2ff8HwOo8HnI0hsnxLm
+         DfEOs0cjfGqIZEn7DeL5QjxyGNcBL6SrM9FW2uW+CzpnAYEIKp6WWDh3du8pI3vxwbsS
+         Mvs/jfZuacuqWb1uLtI6bJQWCdnyhUW9Xxv6INvdIwCkL6AXjHfe5eMzJjZ2KpaZfHQn
+         cKrQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzpm90MivWzfnENqODQgSq2Wm82CyZpyJn/EbFOEEnQqpuesf1DHR89kGwxyJs6weStkoVkEPls7Hezoj8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKifiNYNVcif1xjCmmtPS5hz22H2Kw612KZQl/3RGXQ8/R/uLVR
+	AyFIsPTCkjHuxcVVJT9WarTOoHA74PfcnJvFXUsRCoFO2UJqI52xHbzxoaaIUUqaCExtjDsn3q0
+	pBX/L
+X-Gm-Gg: AYBFou30DVUBkYm8JdF72Jg7aFKF+rTwH0XDui1piIt6keMVYFZq8vg3KI1E1tTpBmg
+	R90HnqM9fzO/6xIcqNnsMhOR6FCaP8unl5QZUNUkpbLHl5nhVREVGqHbcg37/S3fNbtrNFaLqdC
+	Z6iKucN2u0dByAbK4aJicXazvslnxbn5Q5KuK3EmQMZ1Zza1HeLUJdMs60+WIYFfE1KAXXwSSNF
+	GExAaNYqSAhAnnC/Q6JUsAIQeEMy+OY9zYbc0l490a/1tDtMMCJuqI3TSy3mOeBq8gM2m+vWu7H
+	g0qck50rGTv+xf4uWm0ipDOnL/LkSll5uqC9idKvptfWPztgFm7XN+xfpMZ4uJ/LgxBuDZxFaNb
+	Qz10DburtsejabSAbZxwYPdMujhHhsEv6ALMus+rSN1vfA/v7D2K5PD8wpIoaqH0x/QQ04HZYVf
+	tueTfJZ0Jhv67EhsT2zLyMK+g38vuy+utuSU4g3e0f8jz52f2M8YHhIN2QawAsSgEhXK1nYYVPY
+	3bCca+9Ta6WUnUsj3wqxEuv17OQFgOocpavFweCl78V+l+x7hjWMoSf30dN5diqs+znXPv48bvI
+	HikS0lT43tr30OHoPUZ/GUvHk/E=
+X-Received: by 2002:a05:622a:5b97:b0:532:f0a2:ef4 with SMTP id d75a77b69052e-536c25f7a86mr44477151cf.26.1792783985368;
+        Fri, 23 Oct 2026 12:33:05 -0700 (PDT)
+Received: from [192.168.86.58] (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-538394c38easm1748051cf.7.2026.10.23.12.33.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 23 Oct 2026 12:33:04 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,103 +89,36 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/3] ipc/sem: remove obsolete SEMOPM fragmentation
- warning
-To: Yingjie Wang <x-professor@outlook.com>,
- Andrew Morton <akpm@linux-foundation.org>, Alexey Gladkov
- <legion@kernel.org>, "Eric W . Biederman" <ebiederm@xmission.com>
-Cc: Vasily Averin <vasily.averin@linux.dev>,
- Johannes Weiner <hannes@cmpxchg.org>, Shakeel Butt <shakeel.butt@linux.dev>,
- =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>,
- Michal Hocko <mhocko@suse.com>, Alejandro Colomar <alx@kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-mm@kvack.org" <linux-mm@kvack.org>,
- "cgroups@vger.kernel.org" <cgroups@vger.kernel.org>,
- "linux-api@vger.kernel.org" <linux-api@vger.kernel.org>,
- "linux-man@vger.kernel.org" <linux-man@vger.kernel.org>
-References: <cover.1792724953.git.x-professor@outlook.com>
- <cbd5dc183943d2177e5564f6e8ec92499836c7e5.1792724953.git.x-professor@outlook.com>
-Content-Language: en-US
-From: Manfred Spraul <manfred@colorfullife.com>
-In-Reply-To: <cbd5dc183943d2177e5564f6e8ec92499836c7e5.1792724953.git.x-professor@outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH] mm/mempolicy: remove unused mpol_is_preferred_many()
+From: "Gregory Price (Meta)" <gourry@gourry.net>
+To: Sang-Heon Jeon <ekffu200098@gmail.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+ David Hildenbrand <david@kernel.org>, Gregory Price <gourry@gourry.net>, 
+ Joshua Hahn <joshua.hahnjy@gmail.com>, linux-kernel@vger.kernel.org, 
+ linux-mm@kvack.org, Rakie Kim <rakie.kim@sk.com>, 
+ Ying Huang <ying.huang@linux.alibaba.com>, Zi Yan <ziy@nvidia.com>
+In-Reply-To: <20261023161003.59086-1-ekffu200098@gmail.com>
+References: <20261023161003.59086-1-ekffu200098@gmail.com>
+Date: Fri, 23 Oct 2026 15:33:03 -0400
+Message-Id: <179278398385.3414657.5670535479884226120.b4-reply@b4>
+X-Mailer: b4 0.17-dev
 
-Hi Yingjie,
+On 2026-10-24 01:10 +0900, Sang-Heon Jeon wrote:
+> Since commit a492abe28bec ("mm: hugetlb: move mpol interpretation out of
+> dequeue_hugetlb_folio_vma()"), mpol_is_preferred_many() has no callers.
+> 
+> So remove it.
+> 
+> No functional change.
+> 
+> Signed-off-by: Sang-Heon Jeon <ekffu200098@gmail.com>
 
-On 10/23/26 5:19 AM, Yingjie Wang wrote:
-> The UAPI comment advises keeping SEMOPM at or below 1000 because a larger
-> operation array may fail due to physical memory fragmentation.
->
-> Commit e4243b8062c1 ("ipc/sem: play nicer with large nsops allocations")
-> changed the operation array to kvmalloc() specifically to support larger
-> configured limits, with vmalloc fallback when a physically contiguous
-> allocation is unavailable.
->
-> Replace the obsolete warning with a description of the compiled-in
-> default and the runtime sysctl.
->
-> Signed-off-by: Yingjie Wang <x-professor@outlook.com>
-> ---
->   include/uapi/linux/sem.h | 7 +++----
->   1 file changed, 3 insertions(+), 4 deletions(-)
->
-> diff --git a/include/uapi/linux/sem.h b/include/uapi/linux/sem.h
-> index 75aa3b273cd99..cfd772f4c3396 100644
-> --- a/include/uapi/linux/sem.h
-> +++ b/include/uapi/linux/sem.h
-> @@ -71,16 +71,15 @@ struct  seminfo {
->    * The values has been chosen to be larger than necessary for any
->    * known configuration.
->    *
-> - * SEMOPM should not be increased beyond 1000, otherwise there is the
-> - * risk that semop()/semtimedop() fails due to kernel memory fragmentation when
-> - * allocating the sop array.
-> + * SEMOPM is the default maximum number of operations per semop() call. The
-> + * runtime limit can be changed through /proc/sys/kernel/sem.
->    */
->   
->   
->   #define SEMMNI  32000           /* <= IPCMNI  max # of semaphore identifiers */
->   #define SEMMSL  32000           /* <= INT_MAX max num of semaphores per id */
->   #define SEMMNS  (SEMMNI*SEMMSL) /* <= INT_MAX max # of semaphores in system */
-> -#define SEMOPM  500	        /* <= 1 000 max num of ops per semop call */
-> +#define SEMOPM  500	        /* default max num of ops per semop call */
->   #define SEMVMX  32767           /* <= 32767 semaphore maximum value */
->   #define SEMAEM  SEMVMX          /* adjust on exit max value */
->   
+looks good to me
 
-I think there is a conceptual issue, but perhaps it is today not 
-relevant anymore:
+Acked-by: Gregory Price (Meta) <gourry@gourry.net>
 
-The values in uapi/linux/{sem,shm,msg}.h can be adapted as needed: Just 
-change the values to what you need, compile a new kernel and you have a 
-suitable system, even without sysctl compiled in.
-
-Your change breaks this: SEMOPM is both the compiled in value, and the 
-implied limit when _ACCOUNT is used. If someone increases SEMOPM in the 
-header file - suddenly more unaccounted memory can be allocated.
-Perhaps there should be two defines: SEMOPM and e.g. SEMOPM_NOACCOUNT?
-
-SEPMOPM_NOACCOUNT defined in ipc/sem.c, perhaps 500 or 1000.
-
-And SEMOPM remains in the uapi header file.
-
-Minor point: So far, the format of all limits is identical. Could we 
-keep this?
-
-#define VALUE 1234 /* <= 4321, due to whatever reason */
-
-Perhaps something like:
-
-> -#define SEMOPM  500            /* <= 1 000 max num of ops per semop 
-> call */
-> +#define SEMOPM  500            /* <= INT_MAX max num of ops per semop 
-> call */
->
-Reviewed-By: Manfred Spraul <manfred@colorfullife.com>
---
-
-     Manfred
+-- 
+~Gregory
 
