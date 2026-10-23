@@ -1,79 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=139.219.17.121
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792721425;
-	b=kGlXoM6sNE/747V8o+kMNk6c9Kn+faD3vB7Rz4DWJWwK8fcePqLZKJX8f50P74QcYJHQ
-	 s2W2Qwjh0h4/9qG0ok95KLKqbPtEBgmshoH5cuPiG+Dugbv9h5x0cxMNo7mI1knILia6n
-	 ixDzqyvCQAgGJHF+ZrwMc2l5pJMhGIDaFa3v16lX32cn8LuB44xjP84GsjJGwj0x92u9y
-	 /FlDUC/yllVR3QNnHPrroJK2sD1wvAfk/Vit6a3OkomL+dXlF/c7gF0OCBmnpi+yA93oV
-	 o7vt+wa32hCSCxzuhdMGH/1IYiKZFLkUdGNPWvmajgGrTEeBF2PljUW87uXyFS1J9KA==
+	t=1792721593;
+	b=lCSYEbM6hLXtcSArVIHVKaWDsAfVrRSjYFY5JBLRdqpaTRiKzRJ4LspMVdvOYRfEfhnE
+	 VPi/PTOu2wgIZN5kjbPfkx6FHFnWH+jEkNR1UEWeYJEkjyLmA8Wgr31TMfm0tGBA2u8IG
+	 uDKNT8iPrdCt+22ZbtlrPCAul5pttwS5ftcjuMtD7/y9AdASlKtRXjA72ynDJtRFeVWdn
+	 JGKkHLDRC0i+PRtWdsm+F63uCdTDM2YtCMlLhJmDAmk8DH74DCixUembDBLVWz49JzPWW
+	 Z5iLhqXQxkg7Z0o2ohTqdVqUMuLK79+58goxQ2jz1GJ87Y3iPa7k8zptyJ5yswChk4A==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792721425;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=ZlnvUHDwkjxP2Tsft5ngVTUhp+k9A8Q4gjAO6rLkhDQ=;
-	b=nr5/iGlcNV6i5MdakKt2HG1lcaV2PdRnrYecGBnsp0BBN+3qqMyXlYlzbnENTCsLMYFr
-	 QsiUjm7mxbEddS0G2zsZGlsZM0uquXfWIla0pWzxrq5ypKSRao1QYrFj+IoOC1GuzVdNv
-	 wu5d+fbsaU2vn1CTpWEbtHw1brhPCmJbd2iuWklw7fajoe2oevLsPq7dGlisCrljEjPj7
-	 tWm8e9MxqUlhto4LnySgm7SOvPqd3ea5cvk98sDEBrd3YXc9V16JShSGxl2F2zEJJu6ak
-	 ZRBNH2Ur1SlGqSI73yP0VTi3oWpibl5mw9tVI49LVKrxGPwM2vxbJtCwhx3WWyvMatg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792721593;
+	h=DMARC-Filter:Received:Received:From:To:Cc:Subject:Date:Message-Id:
+	 X-Mailer:In-Reply-To:References:Content-Transfer-Encoding:
+	 Content-Type:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=BYeiqVioAvu2AAjmCUZfwu6UVT2OJxDF97usFNixLAQ=;
+	b=RSl64KcWWikC4Q+2oiqlMYk3cGGBFL9RAo7G2ffc6Q7DlFRN4sTDeClZHCXPF43uespp
+	 emVfMZMD8VCjiHmx3vYV6oUjy7Ca7yWGHtkwTAP8hYLEm4oIJfCe6c+WcwTfaigfjrQk/
+	 V4CGSjer7wqLScNkLJ0dNCXV/rfeyvxbdt3OjtG6+tKJhoegBrtgaRWLbFlF07i21Il7G
+	 aJtXstpHD3LKHl0bDzNOZemZsrRHKYgqSpSJBHq/8VccNuWBahSaWHXe2h2JgjlMUGi2r
+	 TKg0F10TbWYe7ixgn960OY22pcChc9yvJZbdhCJgZMgciIfxCZyeN7WVJw9KzoJadAQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V3nUeMnt;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=starfivetech.com;
+	spf=pass smtp.mailfrom=starfivetech.com;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=139.219.17.121
+Received: from CHN02-BJS-obe.outbound.protection.partner.outlook.cn (mail-bjschn02on2121.outbound.protection.partner.outlook.cn [139.219.17.121])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3F77606A328;
-	Fri, 23 Oct 2026 02:10:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V3nUeMnt
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1792721424;
-	b=RUjaWOoJzfVmdHRLd7YVckjFPKPBW/7RpXfyeAjBoIE+Vg9JKClq7Pn95lBXNctAqQam
-	 L0UTvAKhj8YJ23F066xuEmPb/sl2d11ySEZzS2WHBdTzUzhVEO+Xoi5l/lK8MLIBP8fif
-	 6QuagR+rvsV2Sse6cMM/lbwdyGsNKPf8YZ+QCt6QWaDTisD3fwCQJsNCn9bFI0Ya8BRNL
-	 Y50sMZNCWE5+Q6dvhPCGOb9Z1SNKR7o44Ybt1TKxMGLLBuwcd/+dshW+sGC7yDKQSCx+/
-	 oQPXA9HIrPeC/ZLRgcXemdhtpZ10WsVaVCUrklXTSOlg0RYI4sBpQlR/A5qVTgwVqhw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1792721424;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=ZlnvUHDwkjxP2Tsft5ngVTUhp+k9A8Q4gjAO6rLkhDQ=;
-	b=fJ7gq47SwcrzY3uV+2THR/6cUI4+AWseEOdoxNZuecSt5GRHdIdgrWCSMnHqNU9ZUGy2
-	 mxO3EHMtTubz9goHZPNE8W3kokIXgDHKV0oWCEHqrL983IyK3ExHbnmhe1npzSr/G612G
-	 /jJ5an48TilIvq6gpqLjJXoLGTx1fBK1PB2zIiasBee/LSt6XigBmBUE4BMDwtl1XiTGo
-	 ryJXTzS40Ad+jttk9sIMnn7YZ5RxFjJekds+iBseZD+Ak7x2IUgm6XkP7pryM2QVwvBud
-	 FEEQ0nCut6qwDQa91S9GcKFu6bdQuP60Ux5XMEUTDBgyODlonbT719FMDDnShiAlbwg==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id D40F41F01829;
-	Fri, 23 Oct 2026 02:10:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792721424;
-	bh=ZlnvUHDwkjxP2Tsft5ngVTUhp+k9A8Q4gjAO6rLkhDQ=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=V3nUeMnt1lpFpHYtSuN/zxttIpZVW8nF54/E/j5BeQU3dK4a91F1ZEVpZnlFcenxL
-	 PG3mOO0DFMh29AX77n6tUOZ0bcdxqlda7j4dbqnMfym1ykR5mQQggt7VRKTs8i8rF+
-	 fK2wLrhVt7L+oKOCCAeiIa0yCcvSSE31DCXTPYpLpi7lDEr64veNSGbbiDkOxIAF/Z
-	 70d+kCQP2TiXt3kbn4vOWdON+C8Dk67TN1AMb+TcSU4gGitNzpb3Wuc++7Xjodr1Ij
-	 m42xu/Q7zYCCiTmds2OIrSgvt2cFLK9j8M6jZDfGbfQb6pgFWtnxmgmTPIL5Mv9tUK
-	 yQRi9yFB4jXuQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 408C542194;
-	Fri, 23 Oct 2026 02:10:21 +0000 (UTC)
-From: Daejun Park via B4 Relay <devnull+daejun7.park.samsung.com@kernel.org>
-Date: Fri, 23 Oct 2026 11:10:22 +0900
-Subject: [PATCH v2 1/4] nfsd: share the grant slot record between
- delegations and layouts
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B6E6606A323;
+	Fri, 23 Oct 2026 02:13:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0B6E6606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=lOhs77X5ioYIB8zY/MYSYtgZ3vV+MRkcbRA8iZ3Vo07nbfUgpCPn320dxP1fcGCh1F5mQDarKNaa0U9wyozg0YYhlJujxXgBXIO26oEYOwGMk/C1VTvoeY6a+Bj7S1pF8IeqhGvOGB7MuvYMWz9ea/jQNi4US8f0KsjI4zBZSTuDKfwvyYiNvFwZjJ5c/m1SwmN+LBCC6tAUBuJghyiVduPPBuZLd9OMj9nZM+h7MiaQOtfO92XZN4ijHMhr346yRL9cNh6WuY5+e6mEre6nWQkACB2xqAc59EuyKhqBGarQjgSO9nyJFxel11rcO0wSCKC1LXQZ20RTsuKDZLu+GA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=BYeiqVioAvu2AAjmCUZfwu6UVT2OJxDF97usFNixLAQ=;
+ b=RZLhgq3c7aR5/iOHAz4sT1N7s2PXJCA+aeqzUoscIZNGpV/tlGKyoO3o6VYIWtXVBJ2Q32+LIZflMsmYQ7SOhci5OHIWLGfZQA5izECXrFFA8GVaabkDHw91ICC6YLT3DkfkMn1vbtbgHb57F9X+En79BZGl1RHxqdE5uNggPLryTMcX9FDDswhyGSvVg0rpwKniXFokBqsuNAQZ5RXxf6Rkse2GCqEnYypzO9dyVlgCumJq4M9F6aVCBBk0B8j/hoM/OX15VcSD40E7MWlwTtpxJ9xwSWPJVxHbTVtYlz5SeSgm05fZQCIgZf2GYXQZJdoccZ2wleJo/KWzWPa+tQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=starfivetech.com; dmarc=pass action=none
+ header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=starfivetech.com;
+Received: from ZQ0PR01MB1269.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:18::6) by ZQ0PR01MB1303.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:1c::6) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.16; Fri, 23 Oct
+ 2026 02:12:57 +0000
+Received: from ZQ0PR01MB1269.CHNPR01.prod.partner.outlook.cn
+ ([fe80::973:272c:ab11:7570]) by ZQ0PR01MB1269.CHNPR01.prod.partner.outlook.cn
+ ([fe80::973:272c:ab11:7570%4]) with mapi id 15.21.0546.017; Fri, 23 Oct 2026
+ 02:12:56 +0000
+From: "lianfeng.ouyang" <lianfeng.ouyang@starfivetech.com>
+To: Olivia Mackall <olivia@selenic.com>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>
+Cc: linux-crypto@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>
+Subject: [PATCH v10 1/6] dt-bindings: rng: starfive,jh7110-trng: add jhb100, drop jh8100
+Date: Fri, 23 Oct 2026 10:12:43 +0800
+Message-Id: <20261023021248.3763-2-lianfeng.ouyang@starfivetech.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261023021248.3763-1-lianfeng.ouyang@starfivetech.com>
+References: <20261023021248.3763-1-lianfeng.ouyang@starfivetech.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SH0PR01CA0008.CHNPR01.prod.partner.outlook.cn
+ (10.43.109.84) To ZQ0PR01MB1269.CHNPR01.prod.partner.outlook.cn (10.2.3.134)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,325 +92,101 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261023-nfsd-layout-refcall-v2-1-2160bddced0c@samsung.com>
-References: <20261023-nfsd-layout-refcall-v2-0-2160bddced0c@samsung.com>
-In-Reply-To: <20261023-nfsd-layout-refcall-v2-0-2160bddced0c@samsung.com>
-To: Chuck Lever <cel@kernel.org>, Jeff Layton <jlayton@kernel.org>, 
- NeilBrown <neil@brown.name>, Olga Kornievskaia <okorniev@redhat.com>, 
- Dai Ngo <Dai.Ngo@oracle.com>, Tom Talpey <tom@talpey.com>
-Cc: Christoph Hellwig <hch@lst.de>, 
- Benjamin Coddington <ben.coddington@hammerspace.com>, 
- Trond Myklebust <trondmy@kernel.org>, Anna Schumaker <anna@kernel.org>, 
- linux-nfs@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Daejun Park <daejun7.park@samsung.com>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792721421; l=10984;
- i=daejun7.park@samsung.com; s=20261006; h=from:subject:message-id;
- bh=QxHRB7614mP6+oETtTBuCFRB1KVGlQKvj8Q12/DfSdI=;
- b=i9FJEuH2Uv6+d6KTY6L9PHRBUOL+a4YIb3twxCRgzupw10ETrvoPGcdJ9aMHvdQGjW7sUGGuX
- srwN+5zlXMbAQk6nH7857iEEjCEVpv/S5DaKxLbZpEC+tEhAY26ayEu
-X-Developer-Key: i=daejun7.park@samsung.com; a=ed25519;
- pk=4yUfDqGRZTIj0Ik43z1GoMZRWCNm/rgX6uJuM9dtNIg=
-X-Endpoint-Received: by B4 Relay for daejun7.park@samsung.com/20261006 with
- auth_id=1122
-X-Original-From: Daejun Park <daejun7.park@samsung.com>
-Reply-To: daejun7.park@samsung.com
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: ZQ0PR01MB1269:EE_|ZQ0PR01MB1303:EE_
+X-MS-Office365-Filtering-Correlation-Id: 46d7bd3e-5fc4-40eb-11f2-08df30ab2706
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|376014|52116014|1800799024|23010399003|261022105027099003|261022075727099003|38350700014|56012099006|261021121427099003|261021123027099003|261009223027099003|10067099003|3023799007|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	OETF+2EpgXn222QbGBAamRXiSnSJin8XMSpEnifHxuI5BBUOQh/bxYaskQNPfQf6rmN+f8cRNVNNXY1C17vkHvq3YkYZqXRm4PLqf6SsWSOf7zskT4Wue+ATOQ75Ze2zJWhI1RD0ZlL7mspMgj5V1gjO/e2/hkSVHAAOEoFyIvGmd2ibmF1quU+PDYYyABd1DVUXSnt/o94TVqAEpl6B0SAA0URzAut0eQZePr3eeCgUOSRWZkalK6+ppM33K9IuK4FhIxQMCcPbnsRfUprBsPipdsY8iL6DLdoXrJ37Lu0UkgXf/hqvxXIfNUkeO733Vp1m25vwj7UE5MBIefR5Q4wXcjwjrtKeDGIX0SvwhJG0KsPFUEomjD5nZ8Oec0iTakL1VN+m01FO8DwExqUQyNlEX6a2otsLF6Ysa3LksixlA/l91TP16i+Cgno/NzponfiJ5bZstJxLMildbVR959dv/OEJFy6kvKVigsRT9q8N9TaDqhxDK/R1p0OI2+QgF2zl7FM+CQ4E331wedsBDarmz4HyyItbXSwoxjse6gzE9cE8qpkXfT3n56gpR3Pq
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZQ0PR01MB1269.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(52116014)(1800799024)(23010399003)(261022105027099003)(261022075727099003)(38350700014)(56012099006)(261021121427099003)(261021123027099003)(261009223027099003)(10067099003)(3023799007)(18002099003)(22082099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?RCodadUwb6i9ULUTXFjIHwLHJhVZHxPSp7xXwf3bA6HJaGkwDG4HQMv6CNKH?=
+ =?us-ascii?Q?iQumWWzVZJX/ulmBSFxTSHNNoub3DBgqL+43/0s8x7E7NEAgTnWV+HMu4uqj?=
+ =?us-ascii?Q?qj3tcrxKuYmNAAuRIUWno0rabkPyaGADyIBSV2yPcdTyQO8aKS7IGCC6Cw+E?=
+ =?us-ascii?Q?3Ku12zuDX9v7icOR+kauGHatFzTAcTVVDS+n8q82+9JG/aCY1YTiluIpY+ZK?=
+ =?us-ascii?Q?aw8G0eQp9MCYNh7mqu/xgQpu3eWwYA4vYBqXLJOiDtzwTkpazzDwepPflWgu?=
+ =?us-ascii?Q?ZAjSrVWoeOGYV2X0Ts8ekD1nmFyK0TPKNBX9kxSmAZTay6Ad5rWKKmx8Et4q?=
+ =?us-ascii?Q?eZ+P7BNorFl5Irx7ZlW3q4Ufzu8C68bwG+JtwhzzE4HuoPeznELbAL83QVCA?=
+ =?us-ascii?Q?4k+bfMqWkFq4V601sTEEXUL6aHMEM8jdMTr7c3dYl7YwRNfQmp6Tw9wN3tzd?=
+ =?us-ascii?Q?BlNxNRnq2AAh6XhFw+gn2Ed6HC1XQ2mLGxMOYOIdoJFEBSRTM/gtdKyWBNic?=
+ =?us-ascii?Q?ZsorFYSMqc5HdP7WIjwPxz9ra8xZu2rOED4HLn0ecybiuFBQBlcTJAh1WRMH?=
+ =?us-ascii?Q?0qpPVDxVoVUNZZdIPOjbDO9rFUmi4IFkbQBbUg/kE2Lm1W4fYE8wuHOUbdEx?=
+ =?us-ascii?Q?Fb/VNkCB+f0DW3cxl8joc5Tbx7OJxfobFpQDOU1A0bE5bCRaowsMSqI9N6MI?=
+ =?us-ascii?Q?L0V8lc2EgVP3EQK6XOLhR+dIpH1JCiQcKe1r6Ji4vqX2oiAHw17m28VccjCK?=
+ =?us-ascii?Q?e99rGKO6Pyo9V5qtxvNnQQD1tMJWRZikB3R91020HxP5Rfdhpa+JtO6yWjKD?=
+ =?us-ascii?Q?3wX2qTXusQFNRZGRHnhbl7U+4hUjGGovCXORLIzmRvmijO8dyFerIpwnot6W?=
+ =?us-ascii?Q?nzOdUz0uyCx43+sSxIoc73sxgc1ieAVG0VnhFw+dv6etE7aPGi2mESBaNKZ9?=
+ =?us-ascii?Q?2Oy3Kfg+DO3DoQz5yHTE7yPp5sbtv7I52TXjY2PmegOR/MQm2IQZ/QFnOpH7?=
+ =?us-ascii?Q?/cB1TtIwO8+G99mQQ/I7irba9bAZqXjlnKAfADvzQq4EkL9AHcNU6zC1YFYa?=
+ =?us-ascii?Q?f8c0mviETA4DElnZUoDHsl/a3M7kHyN9H13tOicJdO5zi+9ZxWbm++WWd3wT?=
+ =?us-ascii?Q?sC+sYCS0/rtTz0/HEnf6lL+G4vepmtP4E2j7cIVnqIh+iNf4Xppn3K8KEi2K?=
+ =?us-ascii?Q?A4i51qya6epn+QR31qv4tA3bvlcN90eUD9UE6iE6TdXyzLpXgHw16+FwJpJp?=
+ =?us-ascii?Q?vUs3ubumExo/HHbF8rmA2MmqKWVTKuKvSDFKGGLpouMGI3vNp7bKgb9dBxqV?=
+ =?us-ascii?Q?fjqJZRUo2f42FkzXmx/7IR/t4bfk+mSHmecWTcGxwYGBCETd2Yz7Zuw80caL?=
+ =?us-ascii?Q?p3J06/OX/Gfpms8phg+bywr81/gvwvzoW9ByRhXcFvMlwoBBIA6BsM3eF+cx?=
+ =?us-ascii?Q?DXs0e4M0pPcR7n28BBoaDUqwoKAOuAfH4ayIsyJxLGF1FoKjYZKCKYn31YrG?=
+ =?us-ascii?Q?BMlrqt9AtsPoXpLOSqmU12JlGvBfVqfbi92wu4C/WEZFp1jO+ITi4S00eup6?=
+ =?us-ascii?Q?xY//x+VkSOf516jt16OTXZBUP5y+aJva501bvuVPCC29/cbC6JEFGB/jCf3R?=
+ =?us-ascii?Q?Dole8upASeYMtoOZbx9pZmg0aB+Hiv5+acHttbrbcsrxaLHH+DxLecJn31yD?=
+ =?us-ascii?Q?DmnReaHyBemMQDaBSPz3dTWI4UsSmbbJWCEkbuZ5zI2Smr11SMLT8lailY5G?=
+ =?us-ascii?Q?uDG0d0G+Z4EL7Ii7Bid5+369Q9Yxi39b4yopXScvCK8C8ouH24jN?=
+X-OriginatorOrg: starfivetech.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 46d7bd3e-5fc4-40eb-11f2-08df30ab2706
+X-MS-Exchange-CrossTenant-AuthSource: ZQ0PR01MB1269.CHNPR01.prod.partner.outlook.cn
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Oct 2026 02:12:56.2978
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: lLjZfWRBAFSBmYpQURT69jXyiM8WH+e5Amhcq5dVn01bFB14imcJ3+r1xLT4inU1rjXNe0XJ3fWPlmn7whGN3PpouFyTVBiMYWNPArkzTs97p5NWl4JSADTzSg6gu3NJ
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZQ0PR01MB1303
 
-From: Daejun Park <daejun7.park@samsung.com>
+From: Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>
 
-The delegation code remembers the forward-channel slot that carried the
-request that granted a delegation (dl_recall_grant), tests whether the
-client has retired that slot since (nfsd4_recall_grant_slot_retired()),
-and names the request as a referring call in the CB_SEQUENCE of a
-recall. The next two patches need the same for layouts.
+Update the StarFive TRNG DT bindings to reflect current SoC support.
 
-Make the record a type of its own, struct nfsd4_grant_slot, and move the
-code that fills it in, the slot test and the code that adds the
-referring call into nfsd41_record_grant_slot(),
-nfsd41_grant_slot_retired() and nfsd41_cb_referring_grant(), named for
-the session machinery they depend on. The flag that was part of the
-delegation's record stays with the delegation, as
-dl_recall_retired_at_send.
+The obsolete "starfive,jh8100-trng" compatible string is removed since
+  JH8100 SoC is no longer supported. A new "starfive,jhb100-trng"
+  compatible string is added for JHB100 SoC TRNG support.
 
-No change in behavior.
+The maintainer entry is also updated to reflect current ownership as the
+  previous maintainer has resigned.
 
-Signed-off-by: Daejun Park <daejun7.park@samsung.com>
+Signed-off-by: Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
 ---
- fs/nfsd/nfs4state.c | 115 ++++++++++++++++++++++++++++++++++++----------------
- fs/nfsd/state.h     |  24 +++++++----
- 2 files changed, 96 insertions(+), 43 deletions(-)
+ .../devicetree/bindings/rng/starfive,jh7110-trng.yaml  | 10 ++++------
+ 1 file changed, 4 insertions(+), 6 deletions(-)
 
-diff --git a/fs/nfsd/nfs4state.c b/fs/nfsd/nfs4state.c
-index f2b52ba901..735eaa4b7f 100644
---- a/fs/nfsd/nfs4state.c
-+++ b/fs/nfsd/nfs4state.c
-@@ -1291,7 +1291,7 @@ __alloc_init_deleg(struct nfs4_client *clp, struct nfs4_file *fp,
- 	dp->dl_recalled = false;
- 	dp->dl_recall_rejected = false;
- 	dp->dl_recall_grant.valid = false;
--	dp->dl_recall_grant.retired_at_send = false;
-+	dp->dl_recall_retired_at_send = false;
- 	get_nfs4_file(fp);
- 	dp->dl_stid.sc_file = fp;
- 	nfsd4_init_cb(&dp->dl_recall, dp->dl_stid.sc_client,
-@@ -6251,37 +6251,49 @@ bool nfsd_wait_for_delegreturn(struct svc_rqst *rqstp, struct inode *inode)
-  * gen_sessionid() composes a sessionid from the client's clientid and a
-  * sequence counter, so the sequence alone identifies the granting session.
-  */
--static void nfsd4_recall_grant_sessionid(const struct nfs4_delegation *dp,
--					 struct nfsd4_sessionid *sid)
-+static void nfsd41_grant_slot_sessionid(struct nfs4_client *clp,
-+					const struct nfsd4_grant_slot *grant,
-+					struct nfsd4_sessionid *sid)
- {
--	sid->clientid = dp->dl_stid.sc_client->cl_clientid;
--	sid->sequence = dp->dl_recall_grant.sessionid_seq;
-+	sid->clientid = clp->cl_clientid;
-+	sid->sequence = grant->sessionid_seq;
- 	sid->reserved = 0;
- }
+diff --git a/Documentation/devicetree/bindings/rng/starfive,jh7110-trng.yaml b/Documentation/devicetree/bindings/rng/starfive,jh7110-trng.yaml
+index 4639247e9e51..d21769b7d54e 100644
+--- a/Documentation/devicetree/bindings/rng/starfive,jh7110-trng.yaml
++++ b/Documentation/devicetree/bindings/rng/starfive,jh7110-trng.yaml
+@@ -7,15 +7,13 @@ $schema: http://devicetree.org/meta-schemas/core.yaml#
+ title: StarFive SoC TRNG Module
  
--static bool nfsd4_recall_grant_slot_retired(struct nfs4_delegation *dp)
-+/**
-+ * nfsd41_grant_slot_retired - has the client seen the reply to a grant?
-+ * @clp: client that sent the granting request
-+ * @grant: forward-channel slot that carried the request
-+ *
-+ * Context: Takes nn->client_lock.
-+ *
-+ * Return: true if the client has gone on to use the slot for a later
-+ * request, or has given the slot up, so that it must have received the
-+ * reply. False if that cannot be shown, and if @grant is not valid.
-+ */
-+bool nfsd41_grant_slot_retired(struct nfs4_client *clp,
-+			       const struct nfsd4_grant_slot *grant)
- {
--	struct nfs4_client *clp = dp->dl_stid.sc_client;
- 	struct nfsd_net *nn = net_generic(clp->net, nfsd_net_id);
- 	struct nfsd4_session *ses;
- 	struct nfsd4_sessionid sid;
- 	bool retired = false;
- 	void *entry;
+ maintainers:
+-  - Jia Jie Ho <jiajie.ho@starfivetech.com>
++  - Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>
  
--	if (!dp->dl_recall_grant.valid)
-+	if (!grant->valid)
- 		return false;
+ properties:
+   compatible:
+-    oneOf:
+-      - items:
+-          - const: starfive,jh8100-trng
+-          - const: starfive,jh7110-trng
+-      - const: starfive,jh7110-trng
++    enum:
++      - starfive,jh7110-trng
++      - starfive,jhb100-trng
  
--	nfsd4_recall_grant_sessionid(dp, &sid);
-+	nfsd41_grant_slot_sessionid(clp, grant, &sid);
- 
- 	/*
--	 * A missing session does not prove the client saw the grant: a
-+	 * A missing session does not prove the client saw the reply: a
- 	 * DESTROY_SESSION unhashes its own session before the reply to
- 	 * that compound is encoded.
- 	 */
- 	spin_lock(&nn->client_lock);
- 	ses = __find_in_sessionid_hashtbl((struct nfs4_sessionid *)&sid,
- 					  clp->net);
--	entry = ses ? xa_load(&ses->se_slots, dp->dl_recall_grant.slotid) : NULL;
-+	entry = ses ? xa_load(&ses->se_slots, grant->slotid) : NULL;
- 	if (xa_is_value(entry)) {
- 		/*
- 		 * A slot is freed only once the client has acknowledged
-@@ -6294,18 +6306,49 @@ static bool nfsd4_recall_grant_slot_retired(struct nfs4_delegation *dp)
- 
- 		/*
- 		 * A reactivated slot was freed and rebuilt, so the same
--		 * acknowledgment applies. The seqid test errs toward
--		 * revoking: a rebuilt slot restarting at seqid 1 matches
--		 * an old grant.
-+		 * acknowledgment applies. The seqid test errs toward "not
-+		 * retired", the side on which the callers do not take the
-+		 * client's answer at once: a rebuilt slot restarting at
-+		 * seqid 1 matches an old grant.
- 		 */
- 		retired = (slot->sl_flags & NFSD4_SLOT_REUSED) ||
- 			  ((slot->sl_flags & NFSD4_SLOT_INITIALIZED) &&
--			   slot->sl_seqid != dp->dl_recall_grant.seqid);
-+			   slot->sl_seqid != grant->seqid);
- 	}
- 	spin_unlock(&nn->client_lock);
- 	return retired;
- }
- 
-+/**
-+ * nfsd41_cb_referring_grant - name a granting request as referring call
-+ * @cb: callback that refers to state the request created
-+ * @clp: client that sent the request
-+ * @grant: forward-channel slot that carried the request
-+ *
-+ * Does nothing if @grant is not valid.
-+ *
-+ * Context: May sleep. Caller serializes access to @cb, as for
-+ * nfsd41_cb_referring_call().
-+ */
-+void nfsd41_cb_referring_grant(struct nfsd4_callback *cb,
-+			       struct nfs4_client *clp,
-+			       const struct nfsd4_grant_slot *grant)
-+{
-+	struct nfsd4_sessionid sid;
-+
-+	if (!grant->valid)
-+		return;
-+	nfsd41_grant_slot_sessionid(clp, grant, &sid);
-+	nfsd41_cb_referring_call(cb, (struct nfs4_sessionid *)&sid,
-+				 grant->slotid, grant->seqid);
-+}
-+
-+static bool nfsd4_recall_grant_slot_retired(struct nfs4_delegation *dp)
-+{
-+	return nfsd41_grant_slot_retired(dp->dl_stid.sc_client,
-+					 &dp->dl_recall_grant);
-+}
-+
- /*
-  * ->prepare does not run on every send: nfsd4_run_cb_work() skips it
-  * on a requeue, and a retry via rpc_restart_call_prepare() re-enters
-@@ -6315,9 +6358,9 @@ static bool nfsd4_recall_grant_slot_retired(struct nfs4_delegation *dp)
-  */
- static void nfsd4_refresh_recall_grant(struct nfs4_delegation *dp)
- {
--	dp->dl_recall_grant.retired_at_send =
-+	dp->dl_recall_retired_at_send =
- 			nfsd4_recall_grant_slot_retired(dp);
--	if (dp->dl_recall_grant.retired_at_send)
-+	if (dp->dl_recall_retired_at_send)
- 		nfsd41_cb_destroy_referring_call_list(&dp->dl_recall);
- }
- 
-@@ -6345,15 +6388,9 @@ static bool nfsd4_cb_recall_prepare(struct nfsd4_callback *cb)
- 
- 	nfsd4_refresh_recall_grant(dp);
- 
--	if (dp->dl_recall_grant.valid && !dp->dl_recall_grant.retired_at_send) {
--		struct nfsd4_sessionid sid;
--
--		nfsd4_recall_grant_sessionid(dp, &sid);
--		nfsd41_cb_referring_call(&dp->dl_recall,
--					 (struct nfs4_sessionid *)&sid,
--					 dp->dl_recall_grant.slotid,
--					 dp->dl_recall_grant.seqid);
--	}
-+	if (!dp->dl_recall_retired_at_send)
-+		nfsd41_cb_referring_grant(&dp->dl_recall, dp->dl_stid.sc_client,
-+					  &dp->dl_recall_grant);
- 	return true;
- }
- 
-@@ -6405,7 +6442,7 @@ static int nfsd4_cb_recall_done(struct nfsd4_callback *cb,
- 		 * the grant. Trust the rejection only if the slot had
- 		 * retired when this recall was sent.
- 		 */
--		if (dp->dl_recall_grant.retired_at_send) {
-+		if (dp->dl_recall_retired_at_send) {
- 			nfsd4_deleg_recall_rejected(dp);
- 			return 1;
- 		}
-@@ -7014,19 +7051,25 @@ static bool nfsd4_want_read_deleg(const struct nfsd4_open *open)
- 		OPEN4_SHARE_ACCESS_WANT_READ_DELEG;
- }
- 
--static void
--nfs4_delegation_record_grant_slot(struct nfs4_delegation *dp,
--				 const struct nfsd4_compound_state *cstate)
-+/**
-+ * nfsd41_record_grant_slot - remember the slot that carries a request
-+ * @grant: record to fill in
-+ * @cstate: compound state of the request
-+ *
-+ * Leaves @grant alone for a request without a session (NFSv4.0).
-+ */
-+void nfsd41_record_grant_slot(struct nfsd4_grant_slot *grant,
-+			      const struct nfsd4_compound_state *cstate)
- {
- 	const struct nfsd4_sessionid *sid;
- 
- 	if (!cstate->session)
- 		return;
- 	sid = (struct nfsd4_sessionid *)cstate->session->se_sessionid.data;
--	dp->dl_recall_grant.sessionid_seq = sid->sequence;
--	dp->dl_recall_grant.slotid = cstate->slot->sl_index;
--	dp->dl_recall_grant.seqid = cstate->slot->sl_seqid;
--	dp->dl_recall_grant.valid = true;
-+	grant->sessionid_seq = sid->sequence;
-+	grant->slotid = cstate->slot->sl_index;
-+	grant->seqid = cstate->slot->sl_seqid;
-+	grant->valid = true;
- }
- 
- static struct nfs4_delegation *
-@@ -7135,7 +7178,7 @@ nfs4_set_delegation(struct nfsd4_open *open,
- 	 * visible to lease breakers. A conflicting open can drive
- 	 * CB_RECALL to completion from that point on.
- 	 */
--	nfs4_delegation_record_grant_slot(dp, cstate);
-+	nfsd41_record_grant_slot(&dp->dl_recall_grant, cstate);
- 
- 	if (stp->st_stid.sc_export)
- 		dp->dl_stid.sc_export = exp_get(stp->st_stid.sc_export);
-@@ -10771,7 +10814,7 @@ nfsd_get_dir_deleg(struct nfsd4_compound_state *cstate,
- 	dp = alloc_init_dir_deleg(clp, fp);
- 	if (!dp)
- 		goto out_delegees;
--	nfs4_delegation_record_grant_slot(dp, cstate);
-+	nfsd41_record_grant_slot(&dp->dl_recall_grant, cstate);
- 	if (cstate->current_fh.fh_export)
- 		dp->dl_stid.sc_export =
- 			exp_get(cstate->current_fh.fh_export);
-diff --git a/fs/nfsd/state.h b/fs/nfsd/state.h
-index 5f43668486..2c00b334c3 100644
---- a/fs/nfsd/state.h
-+++ b/fs/nfsd/state.h
-@@ -276,6 +276,14 @@ struct nfsd4_cb_notify {
- 	struct nfsd4_callback		ncn_cb;		// notify4 callback
- };
- 
-+/* Forward-channel slot that carried a request which created state */
-+struct nfsd4_grant_slot {
-+	u32			sessionid_seq;
-+	u32			slotid;
-+	u32			seqid;
-+	bool			valid;
-+};
-+
- /*
-  * Represents a delegation stateid. The nfs4_client holds references to these
-  * and they are put when it is being destroyed or when the delegation is
-@@ -315,13 +323,8 @@ struct nfs4_delegation {
- 	bool			dl_setattr;
- 
- 	/* Forward-channel slot that carried the granting request */
--	struct {
--		u32			sessionid_seq;
--		u32			slotid;
--		u32			seqid;
--		bool			valid;
--		bool			retired_at_send;
--	} dl_recall_grant;
-+	struct nfsd4_grant_slot	dl_recall_grant;
-+	bool			dl_recall_retired_at_send;
- 
- 	union {
- 		/* for CB_GETATTR */
-@@ -949,6 +952,13 @@ extern void nfsd41_cb_referring_call(struct nfsd4_callback *cb,
- 				     struct nfs4_sessionid *sessionid,
- 				     u32 slotid, u32 seqno);
- extern void nfsd41_cb_destroy_referring_call_list(struct nfsd4_callback *cb);
-+extern void nfsd41_record_grant_slot(struct nfsd4_grant_slot *grant,
-+				     const struct nfsd4_compound_state *cstate);
-+extern bool nfsd41_grant_slot_retired(struct nfs4_client *clp,
-+				      const struct nfsd4_grant_slot *grant);
-+extern void nfsd41_cb_referring_grant(struct nfsd4_callback *cb,
-+				      struct nfs4_client *clp,
-+				      const struct nfsd4_grant_slot *grant);
- extern void nfsd4_init_cb(struct nfsd4_callback *cb, struct nfs4_client *clp,
- 		const struct nfsd4_callback_ops *ops, enum nfsd4_cb_op op);
- extern bool nfsd4_run_cb(struct nfsd4_callback *cb);
-
+   reg:
+     maxItems: 1
 -- 
 2.43.0
-
 
