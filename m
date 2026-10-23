@@ -1,108 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.40.44.16
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792775370;
-	b=oekEQanjn1Ur7127QsvdP9IO5deqLYETIEJGXgT0+i7nTnB6iamqY9/1TeGKWpliguII
-	 z2YNeX60UarWSVeWvhD7dP9k+dl4oILaNQAMjbyG6X56I8j/76XEPR70Yh807mGOw9Iie
-	 JWls9Ap0qLIkioWp4AxAFNCzHzUJM9bXJ0U0aCUgJh7Q/0mNvMiiJmHONnA8zigRZ7UlJ
-	 x5MyVhtZc+y3XGfDBE3lqsqbjx7/SyUcF2xJn5RHuAIzPU6NIkF17K9yL/2kLtL3ZRVI1
-	 l48/swqfW7q5J7mzFYjAddSNw2B9nAMUyH90XWgxxoNmVmXOavE1OHjeEj8PWgbd9iw==
+	t=1792775398;
+	b=cdsg4C9st+yVvlXdKrzlreGImX/qq/9vMSQ7laXr5Xgg+nOtvNhcFeLvtIeJLugh8IPx
+	 WNJW5AB6yTX61uUgdMB3hO0TVPLFKDD0ZZE03QZfKt32K5sz9nnFx9jQla2ZQwrnNsL2s
+	 ONx9XgHkXcAhr/X5inQopp4f42Na1lQNJbBdY8vE3LDmPxItUJRUWSa2feD3bYY1NSL5/
+	 CZtveO2B9T5vcsQqu2d5t0kB+6k5gmz/Hl9lyAKK6w4Jf1JsuH+mjVVfjWNTGvp4xmZOP
+	 QwyW+30HQpR1KOB4R1wUmRGuH9+4PAvK30JWlPQNmL2Qb+ZfT2AB3l4B6F2kzxC3Qrg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792775370;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-Rspamd-Queue-Id:X-Spam-Level:X-Rspamd-Server:X-Rspamd-Action:
-	 X-Spam-Flag:X-Spamd-Result:X-Spam-Score;
-	bh=67SB6LSP3YZL4fyvJpHJjL1fYzDhmkmSaoMKutRzZoQ=;
-	b=zDeHk3vLiPvIGTaC5/imGzCb4FpPo5o9iEik9Nj7iILJCU/3ssSr4RG/dQLdrd707g+q
-	 GnWMcrcp7I1tNMuv5qMNt0C0ukrhJt7L3T/IkcBbbCpDSI3FLtLMCgM7xFmZxqTgnBpKc
-	 cCJ1kjDZ/pDEJllyNYQmE3tcYgDO0GDz9mx2DTTLor9O2i5XR4yrwUuQOsdnkpaW0aQNt
-	 0eGDeRCz6xwoFpze5BC7Ps5FNZc2RP3aqLkeZGAs9LiiL5cWqwfQx3+zh5ev9iScfdHm6
-	 7//h7JfIPvonSNYa11Il414UyPHatGPUXF1s4L7Sjf9kL5s5tzgPA811oyguKwKLGWw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792775398;
+	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-Spam-Status:X-Rspamd-Server:
+	 X-Stat-Signature:X-Rspamd-Queue-Id:X-Session-Marker:X-Session-ID:
+	 DKIM-Signature:X-HE-Tag:X-HE-Meta;
+	bh=8m4RKkMiiU8bh0E91081ZTnsfbzeWqjKyYPrm7qreTc=;
+	b=QHfUqUfnpFpuhuSzHEf/YbmawHJyU7/M67fv9yEl4KRzJ+X0oufKKvN6vxG9M8nqYwBR
+	 UGDX2ghtXEd37dkKVf+TegQHrdYRtA2qe9jFeOBDhWodM985pG4O+Y4EtfBIXPklBebtW
+	 vrH92Q4dTbjAwSE5tlaoGZENEzfKSUmgOawembMnlDcTzcEWxljbc0w7TWyoecaSp0uY9
+	 ze+44sXEnpcbX1G+xZ+tKvfWJLHWcUsgHYxR98DNjNgCe49sg0qER92DudeNbF/YVWKze
+	 bpHFV6/9LrBB3eGnnKtfapd3tprUsbU9p+O7xLMNec8cZyja/CX5ZGWBJP2HzjNGofw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=HWueAitF;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=73hMXDMw;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=crw8ZLd1;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=WrNmMXSe;
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	dmarc=pass header.from=goodmis.org;
+	spf=pass smtp.mailfrom=goodmis.org;
+	dkim=pass header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=zUOHQ6XH;
+	arc=none smtp.remote-ip=216.40.44.16
+Received: from relay.hostedemail.com (smtprelay0016.hostedemail.com [216.40.44.16])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D58F1606A31D;
-	Fri, 23 Oct 2026 17:09:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D58F1606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73775606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 17:09:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 73775606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=HWueAitF;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=73hMXDMw;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=crw8ZLd1;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=WrNmMXSe
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id E866622166;
-	Fri, 23 Oct 2026 17:09:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1792775368; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=67SB6LSP3YZL4fyvJpHJjL1fYzDhmkmSaoMKutRzZoQ=;
-	b=HWueAitFYISYzSNe5YnyHEb+shlX8K0h7k14BJhPzBH/7EB9lkaz+S2WIPLskS6loSJdvG
-	aUR2ufGJE2HCFhRI/neX9GOF9E09SUh5tnsRlHnKP1mp+RBxUigYVFk6x5H30msdd6hprA
-	ONLQlbOaGFyv52ucs7VwuxW57NFz6rk=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1792775368;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=67SB6LSP3YZL4fyvJpHJjL1fYzDhmkmSaoMKutRzZoQ=;
-	b=73hMXDMwt6yPnVFNBXW0a7ItPpJrVM58oXKVcgDoYb7sxilADmqvuSH+mahIreGVj6Jc9q
-	DZxK56TCIadLHUAA==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=crw8ZLd1;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=WrNmMXSe
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1792775367; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=67SB6LSP3YZL4fyvJpHJjL1fYzDhmkmSaoMKutRzZoQ=;
-	b=crw8ZLd1JuBzD5b00IiO2YPRlqnKODD6XVDQYYxA0MbIaeiiuNmVOd33K2W5PuP2/KhWA0
-	gxHjIOwJ8JSjW5xzj2TcHfbTtyMraZ7Zxxnr53lmvy6LxIdq65njQzO/gIPfcdBlyyHJoD
-	o1owhOMYE6Es66BCTMUp+MNFTxzXdHY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1792775367;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=67SB6LSP3YZL4fyvJpHJjL1fYzDhmkmSaoMKutRzZoQ=;
-	b=WrNmMXSe/Xxlt29YJzdzeNGaBcxolLMTBpi/xUZp2whYbFL/dMDg3iXMI8VskPLoPLwsIS
-	LBorCiVjxe0EWxCA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id F175C133F3;
-	Fri, 23 Oct 2026 17:09:26 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 0J9gI8aU22oYMwAAD6G6ig
-	(envelope-from <pfalcato@suse.de>); Fri, 23 Oct 2026 17:09:26 +0000
-Date: Fri, 23 Oct 2026 18:09:16 +0100
-From: Pedro Falcato <pfalcato@suse.de>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Jann Horn <jannh@google.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org, Nickolai Zeldovich <nickolai@csail.mit.edu>
-Subject: Re: [PATCH] mm/mremap: populate calculated fields in vrm state
- correctly
-Message-ID: <atuUijJitqDu00ZS@pedro-suse.tail5790ac.ts.net>
-References: <20261019-mremap-fix-shrink-charge-v1-1-a3ce209e5360@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=zUOHQ6XH
+Received: from omf14.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay10.hostedemail.com (Postfix) with ESMTP id A2E79C0180;
+	Fri, 23 Oct 2026 17:09:48 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf14.hostedemail.com (Postfix) with ESMTPA id 45F2E30;
+	Fri, 23 Oct 2026 17:09:46 +0000 (UTC)
+Date: Fri, 23 Oct 2026 13:09:43 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Jerome Marchand <jmarchan@redhat.com>
+Cc: Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin
+ <npiggin@gmail.com>, Christophe Leroy <chleroy@kernel.org>, Ritesh Harjani
+ <ritesh.list@gmail.com>, Shrikanth Hegde <sshegde@linux.ibm.com>, Madhavan
+ Srinivasan <maddy@linux.vnet.ibm.com>, Masami Hiramatsu
+ <mhiramat@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] powerpc: Use raw_local_irq_pmu_save/restore() in
+ local_t functions
+Message-ID: <20261023130943.775b2b65@gandalf.local.home>
+In-Reply-To: <20261023155529.3895393-1-jmarchan@redhat.com>
+References: <20261023155529.3895393-1-jmarchan@redhat.com>
+X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -112,80 +64,44 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261019-mremap-fix-shrink-charge-v1-1-a3ce209e5360@kernel.org>
-X-Rspamd-Queue-Id: E866622166
-X-Spam-Level: 
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-13.51 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	RCVD_TLS_ALL(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[9];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.de:dkim,suse.de:email];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	DKIM_TRACE(0.00)[suse.de:+]
-X-Spam-Score: -13.51
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Rspamd-Server: rspamout06
+X-Stat-Signature: dkd49bp7ie9q1ukpuri763w5nzcejt5a
+X-Rspamd-Queue-Id: 45F2E30
+X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
+X-Session-ID: U2FsdGVkX1/0wX9pO02ZWtXsM9Kya2cXD7k+9fbyk8Q=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=8m4RKkMiiU8bh0E91081ZTnsfbzeWqjKyYPrm7qreTc=; b=zUOHQ6XHb8k5FmnnTjDdDC3cfTDXs9E6/Ow/oHOFpxNl40ZCyaAIvD9/OHZjWt99Kx13XgneXmdpyWmrYgdTjUHs7WZtaQkuCTpNi/RVnOwc4FsxqNcY8MsBG2NsCzVkzTY2n3KlyjMw9M4K0i+K5cqtZ6s1TbOyNfqfCuAA7NM=
+X-HE-Tag: 1792775386-597871
+X-HE-Meta: U2FsdGVkX1+KkNW6m+t9S1AvyAQdJ3NdBfSGduko+1ErfnQswKcHgIVurgl/PvL/JYZgmf8Laz9ai/H6APmL94CktNTyzCU4ziuSsE4AoJtKtJPT4o0JpbpQEStgwHWCrfyGHnarg8cpyisnWtMBAXRqYn3ZyHabCoTE6Rg836tC7TeBqxr0c01+lPEdvifHiZoAPB+Pf3gLBa6vsEP6ChfI3/V2TDMZj1k26tGTn+Eerebs0H1aZRWvGy5HjxkDOiFjHmSMkLPoRvR2PRFnJqRpxh0pnWcheDzpmwrgSyHxgD7W2N8g+GWJ+9hX8JzVYqfzayAVNDxQgBEYztu1Yex11WY9JnC1
 
-On Mon, Oct 19, 2026 at 03:28:27PM +0100, Lorenzo Stoakes (ARM) wrote:
-> Commit d5c8aec0542e ("mm/mremap: initial refactor of move_vma()")
-> introduced the vma_remap_struct helper to pass state sanely through
-> mremap() logic.
-> 
-> Part of this state is vrm->delta - equal to the absolute difference between
-> vrm->old_len and vrm->new_len (the old and new lengths of the VMA,
-> respectively).
-> 
-> This value is used to correctly charge accounted VMAs.
-> 
-> When shrinking a VMA, mremap_to() sets vrm->old_len equal to vrm->new_len
-> having performed the shrink of the VMA first, prior to any potential
-> move (e.g. MREMAP_FIXED | MREMAP_MAYMOVE specified).
-> 
-> However it does not recalculate vrm->delta, which results in incorrectly
-> overcharging the VMA.
-> 
-> The charge leaks to Committed_AS globally, meaning a mischievous user can
-> cause allocations to fail across the system in strict overcommit mode.
-> 
-> Resolve the issue by abstracting the update of vrm->delta to
-> vrm_populate_calculated() and invoking this from mremap_to() when
-> vrm->old_len is changed.
-> 
-> Additionally, update vrm->remap_type whose value depends on
-> vrm->delta. The field is not read again after the shrink, but it is the
-> logically correct thing to do and protects against future changes which
-> break this.
-> 
-> Fixes: d5c8aec0542e ("mm/mremap: initial refactor of move_vma()")
-> Cc: stable@vger.kernel.org
-> Reported-by: Nickolai Zeldovich <nickolai@csail.mit.edu>
-> Closes: https://lore.kernel.org/all/20261017233527.797191-1-nickolai@csail.mit.edu/
-> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+On Fri, 23 Oct 2026 17:55:29 +0200
+Jerome Marchand <jmarchan@redhat.com> wrote:
 
-Reviewed-by: Pedro Falcato <pfalcato@suse.de>
+> On ppc64 with CONFIG_TRACE_IRQFLAGS enabled, the ring buffer code can
+> enter in an infinite recursion loop.
+> 
+> The problem occurs because some PowerPC's local_t operations
+> (local_inc/dec in particular) use powerpc_local_irq_pmu_save/restore()
+> which call trace_hardirqs_on/off() to generate trace events. This
+> creates a recursion loop:
+> 
+>   ring_buffer_unlock_commit()
+>     rb_commit()
+>       local_inc(&cpu_buffer->entries)
+>         powerpc_local_irq_pmu_save()
+>           trace_hardirqs_off()
+>             trace event => ring_buffer_unlock_commit()
+>               [INFINITE RECURSION]
 
-As always, thank you for being so responsive in dealing with AI security
-reports :))
+Hmm, the ring buffer has recursion protection that should prevent this. My
+question is, why didn't that work? Yes, I agree with the patch to not have
+local_inc/dec() call anything that can be traced, but if this caused an
+infinite recursion, there's a bug in the ring buffer code I want fixed too.
 
--- 
-Pedro
+The ring buffer has a trace_recursive_lock() that will allow one level of
+recursion and then prevents new commits from happening. The
+trace_recursive_unlock() is called after the rb_commit(). Why did the
+rb_commit() allow an infinite recursion?
+
+-- Steve
