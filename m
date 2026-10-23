@@ -1,68 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792790493;
-	b=WXtvVpn6Dz8lAb/qEeMZzDz1od5E6zsWF0qq0xig8u+9JFZ1cVwoi8J8lYsWGJ1lpGSi
-	 guWFzxHH3aQ6H1oJ8JH4vPTKWqZ3LMpJamCDf0YaRa+iONHe8RO7FWR7iT69rW97BXfAU
-	 LATSNwiBffUWF3ACAmGfIdJ91oORoernikvExpoCNq26oOe4uBHKL33KLCQcLQtG2xe73
-	 2hwcPFslmO4jI7at/uenhza5Ue5xbUYPqJsTTbcG+XxlVCkzFV7bA1wG459vqCH6ct0+M
-	 R7vBW/g424FS0oXYyIffOQa/HRLEVVjOXtAzhJjEo7kYrPpVklJx+PZOSubBgNBNb1A==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792790493;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:References:From:Content-Language:
-	 Autocrypt:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=uPJH9rUiDiuBGBWRfMNxB+icGyCLuKc7Vf2NeFOffTk=;
-	b=0dXt57pmKBevuI2U+q5n2UX9xjbIMpfuiZDvM+DZwaHMoq7qk0DXHfTQtMOQQWaKNnpa
-	 bJMB0IeOJWJE3SR+dgQ2KjBXi/3RMKUOsu8RwVfctV++U7WhQZMAXLN3f9xhnFrm45K6T
-	 kp2RA6alnZa48FKbBlWsfWP4M6o5WyKoK4E8+cn0SAnYPdLwI6MKXzDoni7HW403n6y5N
-	 eFWzhprrw8Cn33Hnkmkfe+Jbs/kh6KY1/86/Tg3AZrH3jnt6v9mCruA8aU68SLtCc/m1X
-	 Tmjfs/ReuRrEeufX3i013AgbJE39dm3ZbJxPxi5BdQDFQjmDTV6rkYptXfuAg6Aw0XA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Qh4Np8TW;
-	arc=none smtp.remote-ip=198.175.65.18
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.41
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792790502;
+	b=C62+I145o27/+SEs6rHD2SU4Yl9C6T/PJ4v7I4TFmmH+WB3ymmniE24SLoD6YODTOeHn
+	 HLBMa7XQx8xB/km7GOUaq3oRWUbhx4tVB6x3JkOBCR4+AUmQsSVgu3Bhownwy/OYL1Hd4
+	 9G+76w3yUeUrwFThRYIZIZ7OCSnWyhGYdnRwmvebg1z+rW9gQSUJwSGLkhoOyt2TM9o+E
+	 C2V7c8LfxGt37DWx1n2egKHe+QG+e5GA8uTIJlHUoJDndwzHXo301/5SGrk9WEH8oUhxc
+	 FWZ09nABjL6mq9OvICKZVtBcr9/XzuJC8VCEuxHkPVDzNUnr257gXHZEsCDwzM/ybIA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792790502;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=AE0GbBfNma+sNfNfxTvMZspamc+IJ62E4ebI4HKJzHI=;
+	b=R0dzLT0s76F9l7j5sM6fduvq1UdIvFg97V/1kyCkYZ4xpollvni/+jkJQdISGGvhvwy3
+	 n4WlZbP4lae0xBc+zatcpRlA7cwzNKKu/M58tIfS2t9BSX83keOmy47YQYivx3B5IAWOW
+	 S2I/rUiNYJo0k36KZrvvr4/EEA9zcB0m8gVPVEJw8RdOejC94D6ETcqb3wJl9mb8p/hXC
+	 6G9KWC5/AH2vk33hpQ2/UPkFHpRG3Tu0gRaed8YGrXL60Fl+zeOKrooCLJosKEP5yxlXl
+	 J8agWU6ToTngUfKpOXnblzmM2munXZkuc+qhL/EbMi4xxboBdbDhdBR2GTvb6IdbcSg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=LNibhi+i;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.41
+Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com [209.85.208.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C50E606A31A;
-	Fri, 23 Oct 2026 21:21:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3C50E606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88FA8606A31B
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 21:21:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 88FA8606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Qh4Np8TW
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792790492; x=1824326492;
-  h=message-id:date:mime-version:subject:to:references:from:
-   in-reply-to:content-transfer-encoding;
-  bh=aG/Bdou1r9pe+8zbQRCaY4qypFhQCp0vvCHrlWqqNoc=;
-  b=Qh4Np8TWIv4vVTFr5RzZidaEDPcPobEKAyyIPfo/2+WxNJy1dRWtpw/I
-   kGLl33yi7CmIjPIKa2thoWLrBsIfiECLYUiLC6OEGcFgAkQ93O1AbT7fn
-   G5gf1U6MqI2e4HwnGGJjNaQS/3wIooYCDoKMA4tTnNgvKZXPlFZ8WelsR
-   ecrcEHb4zmx5Io3ye0UxgbhVsVrz917AU8O6QVhxei/ZqeyyYZBpiIU/9
-   Ol7HT1LatBKZZWyKU0PsIjKqP3kFMtCC5FUmzQLeOnxJ1PyvV9FqnGLR0
-   Nr6UEVxGUw3OSD8EuIMhzil68z3hJSCOPLPfHjSj7c0/GplpFaVq7s9mg
-   A==;
-X-CSE-ConnectionGUID: qgho1o5sS1mlcOSPR8Flbg==
-X-CSE-MsgGUID: +C8hVPniRR2Lk556Cagz5Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11944"; a="1560749"
-X-IronPort-AV: E=Sophos;i="6.27,175,1787036400"; 
-   d="scan'208";a="1560749"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Oct 2026 14:21:28 -0700
-X-CSE-ConnectionGUID: Gv6hCAr5QASp3dkFzOplRw==
-X-CSE-MsgGUID: 0vcg4BatQJqaHOyfMP8IXw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,175,1787036400"; 
-   d="scan'208";a="3669481"
-Received: from vverma7-desk1.amr.corp.intel.com (HELO [10.125.108.4]) ([10.125.108.4])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Oct 2026 14:21:22 -0700
-Message-ID: <5c74f231-46a7-4f37-8fcd-bff84842a923@intel.com>
-Date: Fri, 23 Oct 2026 14:21:20 -0700
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=LNibhi+i
+Received: by mail-ed1-f41.google.com with SMTP id 4fb4d7f45d1cf-6b413b0a974so1448112a12.2
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 14:21:42 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792790501; cv=none;
+        d=google.com; s=arc-20260327;
+        b=CtVgA+GNrKdSnA1Wit0VYZsxWESXmB88O2meQMpZYDCcZ4bGcggj0E4oUvSQ2Bb9bi
+         xF5bX1QNDnAXfCmWvOb3rII7cXp9h0gHekgGUOstCueTiAdcnKf9AHJlQ40Z+FTXUn7/
+         kdD0vJPdCBdfH98g4204vKV+3hA737YuGG95ttrGIzMBoicdZbV0LCB3MyCnd4CmiBjF
+         gdA6ZNweXOXdL34uFa7fNWHJMjQGzs4Djp5vOPOfYgoiRFwEWu1rBziAg4WHWSCoppZB
+         +tAPRM0r60iNa6+K3RCfxa+1IdULos9rvQz2QiEoY9R5nKcg6vzVsPOV/zOy7NhZ8Dfq
+         brPQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=AE0GbBfNma+sNfNfxTvMZspamc+IJ62E4ebI4HKJzHI=;
+        fh=At6wdW2ilCrLTx3ye3Uw1NqGAQ9R4P4sEFzdylL4rBE=;
+        b=GpWazY24FH0QrWhx+oU+r+CCcusQm0HoxablMDyTgcCHhf/cWAQJ9BCAzpSq0fLKpD
+         B038QYdlsxxynKTU1fM1frGBgDZx0mtxF/iGOoZ1d9M7Q02QzqCZMHypeLmiSFLZCoyD
+         7LZAZXa6NW50f18+AT+cNCeCRWUZltTq/0Fa68aWkpxCrZQvpMGYDts6gHxJl/StRPr4
+         T0NEb/8iaVyraMoKQgI3o/qyE6yEIzQRp8c5CLZh8VOA0zxiG/9XRfs2Dm8QyFcgVtCc
+         Bedtk444fnuWPaY+lqseYNq4maaenQsNXztQkf6qUpdj03aTZ1TawR1k2RXtZ9yomLjy
+         yWvw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792790501; x=1793395301; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=AE0GbBfNma+sNfNfxTvMZspamc+IJ62E4ebI4HKJzHI=;
+        b=LNibhi+ilzYWV0TvVwj/ILgZRg3O8BNOUVlDKMjYBbf2alSGrhFE1ImXw0sfRqOrlW
+         3tAwPIgjpg87VEAhnE/KWA8GzYxTANeK7+NOvkfGQc2CVED32HVR+a9GSDQdHyudUEGQ
+         QoJicWJqQngB8VOuawmYrCUD0dsArr7awxJgAoZZJ63udfxlxKKpLXzrSiIK6ih9VDe1
+         vAKuP35JnKk66f33Qg9xjFzX/HHw30ohXb4Cp4T1ahHuz6pfTV5JVwO3U1ITbHx7ISt1
+         x2ZiOK0EfWDd792YmowRViLqOzzTH6wOa2hF9F1Dz2AD+3rbCof+k6BSSj2p0whsLliN
+         99cQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792790501; x=1793395301;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=AE0GbBfNma+sNfNfxTvMZspamc+IJ62E4ebI4HKJzHI=;
+        b=puxomCdvsgP8iyZqIh769h1MVxKw8zvFELMDucJQeyoGwGLpFhlS6rWlLjCgEGw08W
+         atberYFogxcgqZrPpB7pDcx2UpsMBT10u899byea3EAW2/T7seAB5RNUOmyb8X2vlNHN
+         uA9DJiy2NLmGel95W3hZKAhP3Nj4JFYokTspPHl1YSfUiyZbgblxi9RmqPhNhdP1o+lM
+         E+C3Qa6QXHC2rnklEMunJpha+z0ICNenRtdfp/IN7DGLsqqfMryR6Y35NmQq3zb1BUcy
+         QMTgUBk7KcTPG8sVuPQ9szugTgbKQHhnoE2+CGXKqDWM3rFVjEcixP04q5WXzyfdVNrG
+         n+Ew==
+X-Forwarded-Encrypted: i=1; AKwUvBwAwOH0omUpFUdApeTzHwjfUOn5t3QbSD3/Ol+WhdX7tHaq3uUpbr9ARXzu3E7rW8HmJlmXP8o74itcYog=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLCQm0F9FWr0znzgOdxc3qgH3crnHu+VnDFpLsfppGzR8ey9nrO
+	YAYSDtI/VjY6vNJTz46Gb20681j793r6/lwWItysrVuo7Il3G4sksRoVdj7iHSVei0XAtZNPMhm
+	+BOL14zkjAGm5SeS8xSLnewDJHubraOI=
+X-Gm-Gg: AYBFou2PbEMMBBZDo36G6w+z1b6xC5trjCJbkigERed/R9gPcaCxvIxW8JDm6qo1mxl
+	PoyFL6bqMd3ehMFBz1iW7nV2i1y7LJW+QsYrdSRQbZPjNS+EcYLGyhXmK+BS608np74FSDTK8hF
+	KZewXbOedxqdTTAnHWZvTZi6DIPbpYyyqs5lqLSuPN8njTHyoiXHBALcNXHdN+NjYid/ie2p6Ae
+	Tfd1czlYR0atCzjMybv0zDSc/f9Rt4hQdVszLscemGUB2dVYO/G1ADAVX6NsSyUX2UlwNyOF8jK
+	elEPbbR8J4U++LgkSPX8jGbT/S2Pd992vohMNO1emLRkI7Ky0hMdhV0qoEEZY0oUlMoN0Pj1xFR
+	dpLCbN+WZK7b0DdVlTGEH8R9KKjDxaZ5pitsep/fOoPjg0Eknh29mbq8gDPazDjO4ElPdF2wF/0
+	O+rOP/Zw3td2WWxYEIRd7xW/tdp7jmWZ17hSs9QsnTdGrnrUyx8/pcqQBqMMyvL85STYTrf8HjW
+	4qOEb2RRenNO6dkZUwAPmsg9G/BsrJ0DDaDqJsQ/hjVp3Sx/A==
+X-Received: by 2002:a05:6402:1cc4:b0:6ac:bd53:d29a with SMTP id
+ 4fb4d7f45d1cf-6b442a80c06mr508793a12.3.1792790500756; Fri, 23 Oct 2026
+ 14:21:40 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,147 +106,68 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: Kernel Shadow Stacks Versus XFEATURE_MASK_GUEST_SUPERVISOR
-To: Paolo Bonzini <pbonzini@redhat.com>,
- Yang Weijiang <weijiang.yang@intel.com>, "Gao, Chao" <chao.gao@intel.com>,
- "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>,
- Maxim Levitsky <mlevitsk@redhat.com>, John Allen <john.allen@amd.com>,
- LKML <linux-kernel@vger.kernel.org>, peterz@infradead.org,
- kvm@vger.kernel.org, binbin.wu@linux.intel.com,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Thomas Gleixner <tglx@linutronix.de>,
- "Bae, Chang Seok" <chang.seok.bae@intel.com>,
- "Mehta, Sohil" <sohil.mehta@intel.com>
-References: <2f0560df-69fc-4fc1-81fa-447e289ec2df@intel.com>
- <bd608c7c-676a-4b65-97dd-626d0e8a5514@redhat.com>
-From: Dave Hansen <dave.hansen@intel.com>
-Content-Language: en-US
-Autocrypt: addr=dave.hansen@intel.com; keydata=
- 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
-In-Reply-To: <bd608c7c-676a-4b65-97dd-626d0e8a5514@redhat.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20261023190653.70741-1-rosenp@gmail.com> <20261023221424.2722795e@barney>
+ <20261023224140.465903eb@barney> <CAKxU2N_1XgjVPdSrCMYzZx4Rb6yjgEe7kBZYyG4RASyBv5BtMw@mail.gmail.com>
+ <20261023225745.696eef3c@barney>
+In-Reply-To: <20261023225745.696eef3c@barney>
+From: Rosen Penev <rosenp@gmail.com>
+Date: Fri, 23 Oct 2026 14:21:27 -0700
+X-Gm-Features: AclHuK9GRIFtl9lqIXhWNWjMucByyfNnLezcnXbef4n3dCMQ4w9XYcqaCpFWgVM
+Message-ID: <CAKxU2N9i6Dn1yKmd-_9DvET6P_GNctTywWgOBXYd2tWoWKY=Sg@mail.gmail.com>
+Subject: Re: [PATCH wireless] wifi: b43: map the RX buffers DMA_BIDIRECTIONAL
+To: =?UTF-8?Q?Michael_B=C3=BCsch?= <m@bues.ch>
+Cc: linux-wireless@vger.kernel.org, 
+	"open list:B43 WIRELESS DRIVER" <b43-dev@lists.infradead.org>, open list <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 10/23/26 14:00, Paolo Bonzini wrote:
-> On 10/23/26 21:03, Dave Hansen wrote:
-...
-> If you want to quickly work around for your !CONFIG_KVM kernel, I would do
-> 
-> #ifdef CONFIG_KVM
-> /* Supervisor features which are enabled only in guest FPUs */
-> #define XFEATURE_MASK_GUEST_SUPERVISOR  XFEATURE_MASK_CET_KERNEL
-> #else
-> #define XFEATURE_MASK_GUEST_SUPERVISOR  0
-> #endif
+On Fri, Oct 23, 2026 at 1:58=E2=80=AFPM Michael B=C3=BCsch <m@bues.ch> wrot=
+e:
+>
+> On Fri, 23 Oct 2026 13:44:44 -0700
+> Rosen Penev <rosenp@gmail.com> wrote:
+>
+> > All code is tested on an Asus RT-N16. It runs on non-coherent MIPS.
+>
+> Ok.
+>
+> Describe your development process in human language during patch submissi=
+on.
+I assume that would mostly be appropriate for a cover letter.
+> What has been tested?
+> What has not been tested?
+> What was wrong?
+> What has been fixed?
+> Why is this needed?
+> Why do we need bidirectional DMA and most important why wasn't it necessa=
+ry before?
+Because the codepath is not fatal. One or two duplicated frames. Big deal.
+>
+> AI is great for code generation, bug finding, etc.
+> But for patch submission, pull requests and commit messages it's absolute=
+ly unusable.
+> Please don't do it.
+> Write your commit messages manually, please.
+I've been burned by this many times before where maintainers ask me to
+reword or mention something. It's not practical and wastes everyone's
+time, which is why I'm almost banned from netdev.
+>
+> Please make your commit message be to the point and easy to review.
+> And please slow the process down.
+> You don't need to submit patches right away. Keep them in a queue and STA=
+BILIZE them LOCALLY.
+I figure since wireless doesn't depend on the merge window unlike
+wireless-next I can send them whenever.
+>
+> Please do a little bit of research whom to To and Cc. There are scripts f=
+or that.
+Yeah. All of this goes through ./scripts/get_maintainer.pl
 
-Yup, that'd work for sure. Thanks!
-
->> Any thoughts on what we should do?
->>
->> Actually context switching XFEATURE_CET_KERNEL seems kinda silly in a
->> lot of ways. PL0_SSP can always be derived _and_ it isn't actually even
->> needed at context switch time, only when running userspace.
-> 
-> True but, just to understand, what is the performance like if you
-> actually use XSAVES/XRSTORS to update SSP0 on context switches instead
-> of WRMSR+cache?  Hopefully the microcode does a bunch of optimizations
-> as well.
-
-First, we can use WRMSRNS for this MSR, so it's faster than usual.
-Second, on kernel=>kernel context switches that don't go out to
-userspace, it doesn't need to be written at all. It's kinda like the
-user FPU state. Third, I'm actually reusing the fred_ssp0 cache, so
-further reduces the incremental cost. Fourth, it's not _really_
-context-switched. There's never a need to read the register. It can
-always be conjured out of thin air. It's possible to only write the
-register, never read it.
-
-I can benchmark it, but I seriously doubt that an XSAVE/XRSTOR at
-context switch of three fields is going to beat an WRMSRNS of one.
-
->> I could just aggressively blow away my SSP0 cache any time an XRSTOR
->> touches XFEATURE_CET_KERNEL. That would be easy. But it also seems silly
->> that XFEATURE_CET_KERNEL is being blown away at _all_ during normal
->> context switches. Heck, it goes further than that because:
->>
->> fpregs_restore_userregs() does:
->>
->>     restore_fpregs_from_fpstate(fpu->fpstate,
->>                     XFEATURE_MASK_FPSTATE);
->>
->> Where XFEATURE_MASK_FPSTATE contains XFEATURE_MASK_SUPERVISOR_SUPPORTED.
-> 
-> The actual mask used by restore_fpregs_from_fpstate is tighter though,
-> it's "fpu_kernel_cfg.max_features & XFEATURE_MASK_FPSTATE".
-> 
-> Can you replace fpu_kernel_cfg.max_features with some fpstate->xyz
-> (sorry too late to think it through :)) that has CET_KERNEL for the
-> guest FPU and not for the regular one?
-
-Sure I can give that a shot.
-
-There's one minor issue in that we need to init dynamic features which
-_aren't_ in fpstate->xfeatures when context switching. There's a little
-note about this in restore_fpregs_from_fpstate().
-
-I think what you're getting at is that we need _something_ to say that
-KVM fpstates should muck with XFEATURE_CET_KERNEL and task fpstates
-should not, even though the task ones have space for XFEATURE_CET_KERNEL.
-
-That's certainly doable.
-
->> So a "restore_userregs" function is blowing away supervisor state.
->>
->> IOW, I think we're using XFEATURE_MASK_FPSTATE a bit too broadly.
->>
->> I'd like to get to a place where only the KVM code even has
->> XFEATURE_CET_KERNEL in its RFBM.
-> That I agree, but I think it can be handled in {save,restore}
-> _fpregs_to_fpstate().
-
-I think I understand what you're going after at least. I'll poke at it a
-bit more.
-
-Thanks for the thoughts!
+Do note this is an orphaned driver. I expect feature patches to get
+clogged up and Fixes: to get in a bit easier.
+>
+> Thanks a lot.
+>
+> --
+> Michael B=C3=BCsch
+> https://bues.ch/
