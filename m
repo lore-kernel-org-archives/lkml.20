@@ -1,57 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=143.255.12.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792713830;
-	b=Yuw0o7hvqzed2xpXMmKIgAntaX3dByfxq4Le0kB/wjkr6CO/os3JfEaPiA8+m7Fct8oe
-	 E5Um+WZb+GbTQ/m6ANFJgnb6d1MpQYjK5svThUY2w+pBs8pV8sBe3ydfnMoXyoB93HBYn
-	 dQXE1lTVidBVxT8LP6056wJaR94nOxJroFqw+2rXvb926qHPa05r/A1uXo3z564arMgs/
-	 nbX18BvL37t25xDwCEn5doHD3hIvH3Kp2tew+gyHVak34i9PiEflkm78JtbSDJHMkb148
-	 1VpVoTTUbHJl5e1upJTFMunk4P8SYT8k0SvjdMEchPh2ufGSbtHExh8tF/QwJ4xjQPg==
+	t=1792713835;
+	b=JB5zfn2vGd0W6qjFturh9E4u0HRiMtvI46naLY5Ot59iIQC1Mv0Dt2nEkp6wZEg0Eu/z
+	 LRun1AH4aNMKyBXmZSeyksc+7tdmI6lOunlRuUBQWW8iXPVQNfleWcOrrKPmhYtkRkb8Z
+	 EfAUfTwqwrf0iVC8+1G6dpt6ufaarxkBQIojqZOWhQw97JbY2VTapuhc5hmxX8GF2vmWt
+	 8pIK1drosKtDWiCvONYtIqi/lb1SI4JQtsULpfFv9NyTLOpIKSuITAaAf808+zhtFX0y5
+	 2xt4iukm2sCCXNVOrHQwhplCzx/trh9ghxfXrnyNaE/f8hTNfjSa7Lx/jtjIS8Y9Xxw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792713830;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=Cn6QXwaxPtdch10KPOR+oIekKdKvVwE0IAAsg2mm/GE=;
-	b=qYDBcFvXHVkKgqnkcZRRK0j//vBdXDbUAcWVXpOik8dgRaY76oWB1qu3T3Yb/xYJYIvv
-	 d8ydyTbP8fFtNWSuEPqglV/MbElTbaFJZyV2s7gJ632/3jCjJrwDvIXOBv/BNCqmxeg2Q
-	 wR51nxv2ginaV5pc+JHP+Ua4Uei2w4BwKIR0Dv/1+bOZUQH6TxEsNId/DmTrEnRtL+Kfn
-	 RH8i3bBw895DniPbjDJ5jdn/A0MmE4+g3iM3BifOnp32Bc/MUhQ1B01xY6Id5d/uEVsQA
-	 2vX4AxeBSzGe85h3WszjEVKEj0QEaDLRPD25FFW7kf60LTgRT0DCQVEUIt6Qmum0jlg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792713835;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:From:To:Cc:Subject:
+	 In-Reply-To:References:Date:MIME-Version:Content-Type;
+	bh=PgOX6+3fyrgar922il1kaMeJq+lo7U+V9zKoZGSv4+U=;
+	b=hDoLIqhD4+FG9BMFowv339UzKfkUgMU4wNSNysQZEIi1WTg9zLplOg38hnYevPJdwwRs
+	 T/tocTsHE8jAJ611AqTYY1/FJG+7EOcNJkTAnHdU+l+mE8zJTHeFWsQb+MQyc7Au9Pu/E
+	 PAspg6BaYHdWILXFai87rS8CrOSdIzQbbutL94RRlhO+WX5fjVYyb7ewNHf55w+W4xepF
+	 pgjXb6fpMKkCEwVhY3XKOcNcJLkfHFZMGYgv7vSa9Vjv6PBGtVRXU+4u0rSyGHoIZ+AZy
+	 deVwMoYkNcpoluSUKpOmZe3e7+mRX37Je9pLHxyTKU7ubK3oEXI8ERNBgY+IqtLvRCw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="IUipfb/Y";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=manguebit.org;
+	spf=pass smtp.mailfrom=manguebit.org;
+	dkim=pass header.d=manguebit.org header.i=@manguebit.org header.a=rsa-sha256 header.s=dkim header.b=KGHKA+oJ;
+	arc=none smtp.remote-ip=143.255.12.172
+Received: from mx1.manguebit.org (mx1.manguebit.org [143.255.12.172])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C915D606A319;
-	Fri, 23 Oct 2026 00:03:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8047A606A31A;
+	Fri, 23 Oct 2026 00:03:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8047A606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=manguebit.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IUipfb/Y
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 33BDD1F01825;
-	Fri, 23 Oct 2026 00:03:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792713829;
-	bh=Cn6QXwaxPtdch10KPOR+oIekKdKvVwE0IAAsg2mm/GE=;
-	h=From:To:Cc:Subject:Date;
-	b=IUipfb/Ym/PRQX26C11q/QD8ksKvSuEzEQcvP8zW6mmwBxmBnP1747ZTZXuv9teTa
-	 TkSTJWeM0XURDvRWiNAOOR5Db51cBzwmZ/Oa98PB58fCADMqLPApAJ6hxTkiN+dW4v
-	 fRRR6erKMiZywdGa95Dx3zF2ZBwH2x989mWQKB9KGtA6SEnaddbrNEfmBemAxSNFUX
-	 6yHUtWa67qDtrpI7rvGwh718vIaPyPCM86AA4Aftg+la4X8bJZhlSEQnss2sig7b5W
-	 HU6PB6vmklqTo+L2THEa40bWCqWDn/uaOoCCid8CwGCWyiQ2QOqXYubN448UI2Mw7O
-	 6zAIP55UertNg==
-From: Tejun Heo <tj@kernel.org>
-To: sched-ext@lists.linux.dev
-Cc: David Vernet <void@manifault.com>,
-	Andrea Righi <arighi@nvidia.com>,
-	Changwoo Min <changwoo@igalia.com>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	David Dai <david.dai@linux.dev>,
-	linux-kernel@vger.kernel.org,
-	Tejun Heo <tj@kernel.org>
-Subject: [PATCHSET sched_ext/for-7.5] sched_ext: Regenerate the enum tables and drop scx_qmap's last compat lookup
-Date: Thu, 22 Oct 2026 14:03:46 -1000
-Message-ID: <20261023000348.2726436-1-tj@kernel.org>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key, unprotected) header.d=manguebit.org header.i=@manguebit.org header.a=rsa-sha256 header.s=dkim header.b=KGHKA+oJ
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=manguebit.org; s=dkim; h=Content-Type:MIME-Version:Date:References:
+	In-Reply-To:Subject:Cc:To:From:Message-ID:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=PgOX6+3fyrgar922il1kaMeJq+lo7U+V9zKoZGSv4+U=; b=KGHKA+oJKKKEOeDPxFnuKbatgU
+	DF9d0efZvLo56kdY56KAtft6r/pGGvDhA6GBsGbIaxo1VCQI4giE4tkXqkjJZYrTtjIQclhO2hxH6
+	hnGmtzHbdqoP99zSr6NyUu2rE31JV2MgFQ8Y4mYyR+rNUTt8KrvovC9h61m8uKNLSI7wwVxF7VySZ
+	HOMupJwn1F8DocCjMi0sAp5ntWpbqDbgzRyT1xQeQYNoLVgHwFQXNRyDVIOM2ylYyE2XN2szMgCIX
+	H2/szBIp0uHsT/jcChlzUhLhM8sfyUk9I2SRoYYljMpIqBqmRLCK0yZ8OOXhZxJRuHZdNibSRIedz
+	phJ1aXAw==;
+Received: from pc by mx1.manguebit.org with local (Exim 4.100.1)
+	id 1xK2lF-000000002sS-3rki;
+	Thu, 22 Oct 2026 21:03:53 -0300
+Message-ID: <1d601486a9c3fa0045306a1cd031cf8a@manguebit.org>
+From: Paulo Alcantara <pc@manguebit.org>
+To: NeilBrown <neil@brown.name>, Namjae Jeon <linkinjeon@kernel.org>,
+ Alexander Viro <viro@zeniv.linux.org.uk>, Christian Brauner
+ <brauner@kernel.org>
+Cc: Jeff Layton <jlayton@kernel.org>, Jan Kara <jack@suse.cz>,
+ linux-fsdevel@vger.kernel.org, linux-cifs@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 0/3] smb/client(cifs): prepare for VFS locking changes.
+In-Reply-To: <20260929024352.1433257-1-neilb@ownmail.net>
+References: <20260929024352.1433257-1-neilb@ownmail.net>
+Date: Thu, 22 Oct 2026 21:03:53 -0300
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,45 +66,45 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-Hello,
+NeilBrown <neilb@ownmail.net> writes:
 
-This follows up on the scx_qmap compat removal [1]. Andrea pointed out that
-788b494fab1c ("sched_ext: scx_qmap: Drop the compat code") left one compat
-lookup behind: the -B 0 case reads SCX_RESCUE_DISABLE with
-__COMPAT_ENUM_OR_ZERO(). Userspace can read the enumerator only from BTF as
-it is in the kernel-internal enum scx_consts, and the enum lookup tables
-don't list it.
+> The previous version of this series had a couple of problems reported by sashiko,
+> both in 2/3.
+> 1/ an error from cifs_lookup() wasn't handled properly - it should be fatal
+> 2/ The d_is_positive() tested the wrong dentry.
+>
+> Original intro message below.
+> Thanks,
+> NeilBrown
+>
+>
+> I am working on changes to directory locking.  The medium term goal is
+> to lift d_alloc_parallel() locking above i_rwsem, so d_alloc_paralle()
+> can be run unlocked, and consequently cannot be called when ->i_rwsem is
+> held.
+>
+> The requires:
+>  1/ that d_alloc_parallel() not be called while i_rwsem is held.  cifs
+>     does this in a couple of places.  A new interface d_alloc_trylock()
+>     is now available and can be used instead.
+>
+>  2/ a dentry must not be d_drop()ed while an operation is ongoing, as an
+>     unlocked d_alloc_parallel() would then be able to create a new
+>     dentry with the same name.  In particular d_rehash() must be phased
+>     out as it won't be safe.  This particularly affects the mechanism to
+>     block lookups/revalidates while an unlink/rename is happening.  The
+>     mechanism is changed to use one similar to how NFS addresses this
+>     needed, though using the new LOOKUP_PRIVATE flag.
+>
+> The patches depend on patches recently added to the vfs tree.  I would
+> prefer these land in that tree too with an Acked-by or similar from cifs
+> maintainers.
+> ...
 
-The first patch regenerates the two generated enum tables for the enums
-added since the last regeneration. The second adds SCX_RESCUE_DISABLE to the
-lookup tables and drops the compat lookup.
+LGTM.  Thanks Neil.
 
-Verified that -B 0 disables rescue and that the default stays in place
-without it.
+Acked-by: Paulo Alcantara <pc@manguebit.org>
 
-[1] https://lore.kernel.org/r/20261019213221.2919481-1-tj@kernel.org
-
-Based on sched_ext/for-7.5 (bbd3a3288035).
-
-This patchset contains the following 2 patches.
-
- 0001 sched_ext: Regenerate tools autogen enum headers
- 0002 sched_ext: scx_qmap: Read SCX_RESCUE_DISABLE through the enum lookup tables
-
-The patchset is also available in the following git branch:
-
- git://git.kernel.org/pub/scm/linux/kernel/git/tj/sched_ext.git qmap-enums
-
-diffstat follows. Thanks.
-
- tools/sched_ext/include/scx/enum_defs.autogen.h | 11 +++++++++++
- tools/sched_ext/include/scx/enums.autogen.bpf.h |  3 +++
- tools/sched_ext/include/scx/enums.autogen.h     |  1 +
- tools/sched_ext/include/scx/enums_abi.autogen.h | 21 ++++++++++++++++-----
- tools/sched_ext/scx_qmap.c                      |  2 +-
- 5 files changed, 32 insertions(+), 6 deletions(-)
-
---
-tejun
+Christian, feel free take it through vfs tree.
