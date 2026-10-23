@@ -1,115 +1,122 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.150
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792798980;
-	b=MqKmvUpfuQRbjmT+z7PtQjEwVQDYa2QHGKaPI0AmEkN4RCRG4aQRdWytTGP89iCvNStX
-	 D5pAcViYC0autir6OIPakUyV+z6uC7jxiik4/1UR7bR5UOdXFJtsBHAJawB0Pcxw2MEYP
-	 E+ajm0UpNQ7VouhvjpPJC7PBaTcIZOoHz2Gq7S2YH2xZx10IDZfCng/xI9p/L+BoOZMbv
-	 qV06xr6xFtHSuv483m+8JBvPgOafs/nP0zbCFucDJrN91yU8O8+c34NjMHIpB4gBjIbfJ
-	 a5ciU7Tb9mh2gyb3kDm5kbtj2dbljR7W3K7xRfXorICgj9i/S3WFAVfmotCX/F6coRQ==
+	t=1792799169;
+	b=KnMmmdiwvWDsT9NUDFm+hVas8CccJBo7ejQv9zdCxCatjF2pwTBDXbkcEhsReH3+ZKq+
+	 wX0W7X9kPP5CD4qRwrhevPzSPV509DstZboxa+5AUhWCqGaHzHb5o70E8JbvOadiyAdme
+	 AlAeaOBMP6RbMaApbXC+CIuvTj3JVRADJGHjvpSzmhJagha+wfzxqN2cnjKoYGtnTi8Cv
+	 8eQ6lr/rW+cseWOFrjcvH6l8E7NwlS/XKDcNt6dzgSZik4IvxB0mb6lv28xHp2Fw0yjKK
+	 dx7IA2wxg/nDCUoIsgJqVOchm9k0PoyuzoTmi/br5lmhITGYSLAvr6ExUg9Cxh50reQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792798980;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=Z9P74CI0r1RddvuUNcaySIOSlWLt4+nM23rKxRc7/y4=;
-	b=xbj6KQKpeyVj39nbDcwazM5N6rljEq8pfVbO611j2QAxi2uj+l6ST1bB3kR9hM9oIBY0
-	 nFdlzUedlaSaruIVj+LmTVnGROZYNOP1n1FsiEldjpnmBaulUmvfZRQpas/koa6JuWFEh
-	 AeCf7r6fdbgwdm/JqcKm1cjl+NeWlO0xRv6V5rg+my32ejT2oM7yNnXGXvFJfjX4HAzFW
-	 G16KxWaboULXtdqhLy0hoP+Mfi4SlN+jSwKNFJXvnRqQpY55SoTyce8zqg32vUCIxbEsN
-	 5nyIB2K3B6V6O4sr+zxHhC6OHhpE84Ix8cHB6aYG5hyuKxCI1nRZ0H48dsBHYewRI5Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792799169;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
+	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=O5btSrqleegX0p5ha9cygCby9IqJb3FwGDRdWPZ2zaI=;
+	b=0TchOuELSP0UNZ/IPOuQcH6ZWDkgMqgg6v1Edvsy06BSBiv4/ZbAEOK152k7Txaic0G3
+	 Rzc43JjZ05vTE2uHLNF+7v7nStpXQ/4b9QfkIYUuYrAzNKQBpj6+RNcSt55+HB95HEBVv
+	 Os9pbnBbsPnTkuKeCdqAPf1OkpIHrC8pnALmTly9Omp72vged1bW7advxV/Bs9oA2TNZU
+	 rU376sA1TlpjTYEN7mFbgL8m4XbHjALwKT+Ek3w6zVUpT8cs7Tmxu5RzB7I96CXF6aALY
+	 AxNW/KMpjnSMc+9Mg6p629Uv3HVMWbocsIC3lwAKrVPDD8e9gKdhJ6iKUalMtizMuJQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=pobox.com;
-	spf=pass smtp.mailfrom=pobox.com;
-	dkim=pass header.d=pobox.com header.i=@pobox.com header.a=rsa-sha256 header.s=fm1 header.b=awbqjPaQ;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=pkPNel4q;
-	arc=none smtp.remote-ip=202.12.124.150
-Received: from fout-b7-smtp.messagingengine.com (fout-b7-smtp.messagingengine.com [202.12.124.150])
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=VHlN++zG;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=sIa10mhW;
+	arc=none smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AD98606A31D
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 23:42:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2AD98606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4279D606A31B
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 23:46:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4279D606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pobox.com header.i=@pobox.com header.a=rsa-sha256 header.s=fm1 header.b=awbqjPaQ;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=pkPNel4q
-Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
-	by mailfout.stl.internal (Postfix) with ESMTP id 8E26F1D000D7
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 19:42:54 -0400 (EDT)
-Received: from phl-frontend-02 ([10.202.2.161])
-  by phl-compute-02.internal (MEProxy); Fri, 23 Oct 2026 19:42:54 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1792798973;
-	 x=1792885373; bh=Z9P74CI0r1RddvuUNcaySIOSlWLt4+nM23rKxRc7/y4=; b=
-	awbqjPaQGh/daYR/oAq1DC5obfU5HxsZX81vOJ9w7sTVphlGdvYOzLWUl9dm/o4x
-	uFiYAcgzkaCJP9Z6QZTLCoiPtCJuA/ug8/7ePfbBWmi+ixpDAHGLQB4/7h+T9NAW
-	woBBBRfzEWasy1lnzFk/ewKGfNjepVVByjhSbnOv5sGitJozRIeG1TVfitljx2wt
-	ihpyXNGFNUfbf2k+CXTSGf4A/XNnbEWL1YEtXk9T16X6xw5LfNPjfCuS4VG4weby
-	E0OGPIYCe3R4RalkRpdRXoObJeXvqLpfpRScThR6h5+kEBFDyFMnGWtK3gSWRI4u
-	BDTuMxDEP5HQKD2PbQFbkQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1792798973; x=
-	1792885373; bh=Z9P74CI0r1RddvuUNcaySIOSlWLt4+nM23rKxRc7/y4=; b=p
-	kPNel4q0CxPPk7dRjjYaBpGex+SeTRCS+TNmF7byY8wu8RFeNGP05TKThbt+8lS8
-	PAvjPV7NXdIGDftAO+Bp4DrkFaK4bHiS742LPcwwTz88t61Wc120qv7YAHSAPLO5
-	sOA2cCzbEff52Di2G9f61J1dXoBKe0wAEEIFQZGeRf+J8t7ksC9BIaWkO3PJmT6D
-	CnLC0aIOuyz+uAz0DgC5r3tenO6O+W+vOB+b2Qt5Cb/gTKXWq2pIAo2TzpWzadOu
-	+ms+AYTXlC33SIyanx2JDxoCnWAJY9NlIt1QOrVuL6govXRFo3XBt4hpDCdiwC0S
-	MYikdEQgTvYzMTljcPsmQ==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
-	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
-	action=sign d=pobox.com a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1792798973; d=pobox.com;
-	mf=PGJhcnJ5bkBwb2JveC5jb20+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:Atm4b1FnBdbSPv2nH2F2X6l35UpdpagQVm4Reqwc8Es5Ri3
-	F12G+qVTiq1cJ8ccFwTxpSleFwQA5VxGvbDpP/1c7fhtjtGjcdt2cGfGCsTeWjJm
-	u5p6VZ8PMORsl3QZrRFSiW5kLA/kB3M/UA+1AkfvB0vtcLMGfdTDRuzc08tQSE7W
-	5lKLjgVVbXc3Rk6Lja7OWk+66u3AEgtNHhXEMj2QuABWwpft+cgJ9V9393BjYrrB
-	n6ZykRIE6ztg4FoxettGPStSPJE2nQ4kNWeaf4nHOG+5jdp7epBf8wXX2hfBuuBt
-	fJHoHZqSetu02806ZsmJthy4Vb8C5Ti85aPyV4Q==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
-	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
-	action=mi-m=1; hc=14;
-	hn=cc,content-language,content-transfer-encoding,content-type,
-	date,feedback-id,from,in-reply-to,message-id,mime-version,
-	references,subject,to,user-agent;
-Message-Instance: m=1; h=sha256:mpENlhJDLcrNLVWhxJQ8LMFCJakxNviL377s+zp5Th4=:B0xxg13vNGYZtNVdLB67EwJoOy1l46HtwNizRlqqpmI=;
-X-ME-Sender: <xms:_PDbahJx67bZrz4t9bbI8joUjd8Pe9196gzv8gwutnerzTXSwYBu4w>
-    <xme:_PDbatgEfAyv947-SkVsojdPC__su8NfBPz7C7zd4kz33zrNHuzLtpuXoUIAnKsNi
-    P6I3YX_qWhG3P5wEFsNgEJL43sJzL23Xej33rzn5FkhlWX2euKbKZcmug>
-X-ME-Received: <xmr:_PDbaq0tAgNV-JdolvtfjKVJl0AFrNQ-WYZrq5ubuJ9dJuWr9zcZ1hgSazc8BXDYUhpp8izoMUi1ARyuDTZHEWagSOLfBh5I>
-X-ME-Proxy-Cause: dmFkZTGAMV6ryyi2zzDAeZTalQoh5YlTGHDdses31aRzp3bRBC9dX4FojypI65ul7r4nN9
-    Zy/TyM76E6h3Rkowszr56d8pAmGb7qtMcSOxYpUWBn9mTm0ChqC/8S6Ci/gj/5r2HSiHK9
-    69D0gSEGWqwYDPofdDpHbF+tSnltfZzV8Y8l70RnWBM7kDPCUym7J+Eep0wxVLs5LpTPDg
-    oX46IjqvbFgu7VpNeStGxy3wU4OR9qkDQFyn7e85AxRvnjy3pfmXUogDzpdWenMQycERjw
-    tzfD8CnrOOCnvwiLQb3em2YLiQh5zBsd1ZuV0Oo/0UGuchDyOHotYzMAaAHOQ80Pvhy6PC
-    Lu6UthHbKHcYxCyUP2vZD+FDQShN3INDY0qVi/N8w5tI9RGRaHdSPNEWr853DnuWAnUOvh
-    AxlKwYNTlqHFXLR4IOlu8IRqB2T8PodKAmgyhGWTV1dTxOQuIKAIKT4oaJyOLmml/ubwg6
-    PhYZvmYy1ypx3+Tys/lNZvWxgNAVqYloURt0yDoC2EwOWqCwuzel+oNU6ZCDLw24k1vpAx
-    lma/sm0mhvyZczDSYK8Hy3i7PivkADW0qhaqp26657D5jlCW8f42ITF5qAtDey7roml9np
-    zlMqNJ/a6ETE+LQNAiUTb2388VX7wVWS9W3SN5+XX7FXmL55pcEbZTBVoQ8g
-X-ME-Proxy: <xmx:_PDbauaRRPwVUmVEpXKgOJQeqIZUoESDIkzDohWt6cqYVUe_GJ9wCQ>
-    <xmx:_PDbanjHfZP8_GPkGLwuebioiFsSSbzLEmoIX9SsQlVLMzmco00ijQ>
-    <xmx:_PDbauhlH2tOsNmHoGD2MNjCMEZiI9y-zAKtZVcOYm87Pz0EgEBuSw>
-    <xmx:_PDbakBx8jkwJGyVKGrb0us7k7PNoByACPjWEQMdFw0LwjTacbu_aQ>
-    <xmx:_fDbair8B7bsgMCQEfZ55FFH4FDyTAEggOwDJLOyruv0fqDywRPtHQTI>
-Feedback-ID: i6289494f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 23 Oct 2026 19:42:50 -0400 (EDT)
-Message-ID: <d2810142-fd45-485d-b325-f6d494690747@pobox.com>
-Date: Fri, 23 Oct 2026 16:42:49 -0700
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=VHlN++zG;
+	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=sIa10mhW
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1792799167;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=O5btSrqleegX0p5ha9cygCby9IqJb3FwGDRdWPZ2zaI=;
+	b=VHlN++zGfy1mwsOiBdYnmBLsB4sojylTejSLE/kuc5Akk33ecfs1En1h5WXbi8nCY4d38n
+	TogfJ3YbeOxEO5AJnfub0jpplafpDzYvl4M5wPGfeLt169bPG6xhrAf8sZxB2DTW93Uxai
+	J9J8F/eiSRkwLSXOEMsaisAI9ERO6xY=
+Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
+ [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-477-B1a7HxxiOoSYzv4kSS91TQ-1; Fri, 23 Oct 2026 19:46:06 -0400
+X-MC-Unique: B1a7HxxiOoSYzv4kSS91TQ-1
+X-Mimecast-MFC-AGG-ID: B1a7HxxiOoSYzv4kSS91TQ_1792799165
+Received: by mail-wr1-f69.google.com with SMTP id ffacd0b85a97d-48dfdc0f491so731266f8f.1
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 16:46:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1792799165; x=1793403965; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=O5btSrqleegX0p5ha9cygCby9IqJb3FwGDRdWPZ2zaI=;
+        b=sIa10mhWJb9jedb2ALgc++Xo0G/4eTSlD+KEJM2CUAtP3c5YkVLdyK3yGIzz8yVj+/
+         J6yv7jktbVRzlvQI4+4eo0YrTnx0/nmEIM1EQwaDBQHWg+r9J2qDgsR7uEadZaOGfiMB
+         uiSRkc2bM4YOGluGQunjWBrN4h98IkSR5Dct1b6EFrSKlmQLToaUDRCelXQchtcLpwV8
+         rvBnS4evi/VqrT3AG8+qORSkq0xL55ZEwcHbSO97IMch2hBmiH3zCqJHPTS7uKg/vUg9
+         rJgGgSyZVoVo2bhHwq9bsknmDB91ZreqC6pue9eQPL6UU80VdFsARrvHlWGCwyTtSHPx
+         MzqA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792799165; x=1793403965;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=O5btSrqleegX0p5ha9cygCby9IqJb3FwGDRdWPZ2zaI=;
+        b=B5UXMNrI8Zof5h9EBoPBc6OgQ3GnQhOljPWghT3T9g/eaUjnXcw7odzOGO7Z88Hjjx
+         eIk6qbeUa6QN73gmms+y0bXN/dJPtszMN1TL0DS4sTsswOe0x4lq5woxPmE+/R505cz3
+         6oH2jfUcJVeejZ7bRQPB/UVFBF99cqb4XB0D68haXuN3t/CUFhKJ+BRJttWeStvjPjnM
+         NPE2ZZ+zTz00rSdqPjztOhiN6G93716zGW6pEmN85diJFct6LA0a5K5v/Hlw65gB8zYW
+         g/3r3WJquGPsVpeJOdggqXhZB31+oTc66zz0Aa2/ynG0GJ2HhZr/xdvFIWGPUVi8QCRO
+         RIJg==
+X-Gm-Message-State: AFq9FYJ5lYXIphocYewVwijUCXxuMmM8ywIf/AsnVcSBZyuXlPGBzDj9
+	mzE26RUI6BwxJ/kLZ8FVCsVrLzFR4tlbcr6zLxZsBesflRlhypjbEXr0Gqr7Lt2nuKSljHEdYEK
+	q8Jgu8SG3c7GAXuaxYckI1ExDlwvTFWp+GyKfz4D9f7ZtD2snoT6mRyILVQNzmdNPlg==
+X-Gm-Gg: AYBFou15BPNKaVZUmR/7EL9DHz1VLIHqGvOCevbohSZOJpPah9/e+/QBHAQdzcMtGVP
+	m9+7RgqmnfobLHrKNobqOEY5UO35c1RWJfvJzkDahlzi8pHb5QwSpKETpoMDenxERk2UcldrKfZ
+	R/4VdGqnhHeqahcKcwJP3RDHyUpMfRnA+cGQcrCtJVyBnPHeW2SINT0xD2hSrCHkRt4kmOYA9rT
+	RwhZiD8/I1TedqTUNkyRodj//NERcYCaZ1WqhEoqloP/jFMZuJKD2akKbO3L4XbGM7ZFW9RqSNF
+	VFvzBOdcIBOiod0B+/U4sz9JqSJ6wcOR9xL/4aRFK3+RitTg4anrtXfaxOUafi245x4MN5Q=
+X-Received: by 2002:a05:600c:4f4f:b0:4a3:5a42:b29c with SMTP id 5b1f17b1804b1-4a35acbc00bmr6034905e9.26.1792799164678;
+        Fri, 23 Oct 2026 16:46:04 -0700 (PDT)
+X-Received: by 2002:a05:600c:4f4f:b0:4a3:5a42:b29c with SMTP id 5b1f17b1804b1-4a35acbc00bmr6034755e9.26.1792799164158;
+        Fri, 23 Oct 2026 16:46:04 -0700 (PDT)
+Received: from redhat.com ([2a06:c701:73f6:2400:30a8:9e33:7d82:c035])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a359fc1207sm12576005e9.1.2026.10.23.16.46.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 23 Oct 2026 16:46:03 -0700 (PDT)
+Date: Fri, 23 Oct 2026 19:46:00 -0400
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
+Cc: linux-kernel@vger.kernel.org, Chris Arges <carges@cloudflare.com>,
+	=?iso-8859-1?Q?Bj=F6rn_T=F6pel?= <bjorn@kernel.org>,
+	Phil Sutter <phil@nwl.cc>, Jason Wang <jasowangio@gmail.com>,
+	Eugenio =?iso-8859-1?Q?P=E9rez?= <eperezma@redhat.com>,
+	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	netdev@vger.kernel.org, virtualization@lists.linux.dev,
+	Max Krasnyansky <maxk@qualcomm.com>,
+	Rusty Russell <rusty@rustcorp.com.au>,
+	Paulos Yibelo <habte.yibelo@gmail.com>
+Subject: Re: [PATCH net v6 4/5] net: resolve uncommon partial checksums at
+ ingress
+Message-ID: <20261023192005-mutt-send-email-mst@kernel.org>
+References: <cover.1792768096.git.mst@redhat.com>
+ <bd468c7ea5468d6e3827a3c678eee15243615580.1792768096.git.mst@redhat.com>
+ <willemdebruijn.kernel.3ae6f662e1ed8@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -119,33 +126,115 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 7.2 000/242] 7.2.13-rc1 review
-To: Florian Fainelli <f.fainelli@gmail.com>,
- Salvatore Bonaccorso <carnil@debian.org>, Pavel Machek <pavel@nabladev.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "stable # v4 . 9+" <stable@vger.kernel.org>
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, jonathanh@nvidia.com,
- sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
- hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
- sr@sladewatkins.com
-References: <20261023163713.816071858@linuxfoundation.org>
- <atvHKoRHHjKV4l8A@duo.ucw.cz> <atvS68GhCvmAphrQ@eldamar.lan>
- <7540e723-054e-43a2-859d-616010fc7bea@gmail.com>
-Content-Language: en-US
-From: "Barry K. Nathan" <barryn@pobox.com>
-In-Reply-To: <7540e723-054e-43a2-859d-616010fc7bea@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <willemdebruijn.kernel.3ae6f662e1ed8@gmail.com>
 
-On 10/23/26 3:44 PM, Florian Fainelli wrote:
-> Same here as well, bisected down to: a0c935bd1f76 ("fs: add umh argument to struct kernel_clone_args"), it looks like we need to cherry-pick 14adbd5341aa ("fs: stop sharing fs_struct between init_task and pid 1"), with that I can boot a kernel.
+On Fri, Oct 23, 2026 at 03:37:48PM -0400, Willem de Bruijn wrote:
+> Michael S. Tsirkin wrote:
+> > As reported first by Paulos Yibelo <habte.yibelo@gmail.com> (after which
+> > others, credited below, found more ways the bug can affect users) a
+> > virtio net header can place CHECKSUM_PARTIAL at any in-packet offset.
+> > If that state is retained, later checksum completion can modify the
+> > packet after protocol processing has made decisions from it.
+> > 
+> > Let's fix that: let's validate csum_start and csum_offset and only keep
+> > CHECKSUM_PARTIAL when csum_start and csum_offset match a parsed TCP or
+> > UDP header, while handling VLAN headers, IPv4 options and IPv6 extension
+> > headers.  Complete other non-GSO checksums immediately, before any
+> > protocol processing runs.
+> > 
+> > We can't easily "complete the checksum" for GSO we don't recognize - GSO
+> > assumes knowledge of the protocol. We could segment ignoring the
+> > checksum then do whatever csum_start and csum_offset say, but that
+> > seems like an overkill for something that shouldn't happen.
+> > 
+> > There's some risk here:
+> > - non-gso packets which can't be parsed get checksum calculated in
+> >   software, adding performance overhead
+> > - gso packets which can't be parsed get dropped
+> > 
+> > Note that for zero copy, userspace can change the data after the
+> > checksum has been calculated.  This is fundamental to zero copy by
+> > design, and the only outcome is a bad checksum and a packet drop.
+> > 
+> > To mitigate the risks, the following patch will add a sysctl knob to
+> > bypass the resolution. This is reasonable if the setup is such that
+> > there is no protocol processing at all.
+> > 
+> > UDP tunnel headers get the same handling on the inner header.
+> > 
+> > Packets without VIRTIO_NET_HDR_F_NEEDS_CSUM are unaffected.
+> > 
+> > Reported-by: Paulos Yibelo <habte.yibelo@gmail.com>
+> > Reported-by: Chris Arges <carges@cloudflare.com>
+> > Tested-by: Chris Arges <carges@cloudflare.com>
+> > Fixes: f43798c27684 ("tun: Allow GSO using virtio_net_hdr")
+> > Suggested-by: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
+> > Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
+> 
+> A few comments inline. All but one cosmetic. Feel free to ignore
+> those. Please do review the comment from an LLM about the tunnel.
+> Aside from that LGTM.
+> 
 
-I'm experiencing the same problem as everyone else on 7.2.13-rc1, and
-I can confirm that cherry-picking 14adbd5341aa fixes booting for me too
-(tested on both amd64 and arm64).
+...
+
+> > @@ -368,7 +637,20 @@ virtio_net_hdr_tnl_to_skb(struct sk_buff *skb,
+> >  	skb->inner_mac_header = inner_nh + skb_headroom(skb);
+> >  	skb->transport_header = outer_th + skb_headroom(skb);
+> >  	skb->encapsulation = 1;
+> > -	return 0;
+> > +
+> > +	if (!skb_is_gso(skb))
+> > +		skb_shinfo(skb)->gso_type &= ~(SKB_GSO_UDP_TUNNEL_CSUM |
+> > +					       SKB_GSO_UDP_TUNNEL);
+> > +
+> > +	/*
+> > +	 * We know VIRTIO_NET_HDR_F_NEEDS_CSUM was set so __virtio_net_hdr_to_skb
+> > +	 * set CHECKSUM_PARTIAL.
+> > +	 */
+> > +	if (virtio_net_csum_partial_ok_at_offset(skb, gso_inner_type, inner_nh,
+> > +						 inner_proto))
+> > +		return 0;
+> > +
+> > +	return __virtio_net_resolve_csum_partial_mismatch(skb);
+> 
+>     Allowing `!skb_is_gso(skb)` packets through `virtio_net_hdr_tnl_to_skb()`
+>     has a few issues:
+> 
+>     1. When `!skb_is_gso(skb)` and `virtio_net_csum_partial_ok_at_offset()`
+>        returns false, `__virtio_net_resolve_csum_partial_mismatch()` completes
+>        the checksum in software and lets the packet pass, but `skb->encapsulation`,
+>        `skb->inner_protocol`, `skb->inner_transport_header`,
+>        `skb->inner_network_header`, and `skb->inner_mac_header` have already
+>        been populated with the unvalidated `inner_th` (`csum_start`) and
+>        `inner_nh` offsets (unlike `virtio_net_hdr_to_skb()`, which restores
+>        `skb->transport_header`).
+
+Oh right. Hmm. I can just run the check first.
+
+
+>     2. If `!skb_is_gso(skb)` and `VIRTIO_NET_HDR_F_UDP_TUNNEL_CSUM` is set,
+>        clearing `SKB_GSO_UDP_TUNNEL_CSUM` drops the outer UDP checksum request,
+>        since a non-GSO skb can only carry a single `CHECKSUM_PARTIAL` offset
+>        (at `inner_th`).
+
+Right. But it works! Because the checksum is 0 then. I'll ponder what is
+best.
+
+
+>     3. On RX, a non-GSO UDP packet with `CHECKSUM_PARTIAL` at `inner_th` causes
+>        `skb_csum_unnecessary()` (`skb_checksum_start_offset(skb) >= 0`) to treat
+>        the outer UDP checksum as already validated.
+> 
+>     Unlike plain GSO (commit 7c6d2ecbda83), UDP tunnel offload is modern-only and
+>     explicitly requires GSO (`/* The UDP tunnel must carry a GSO packet, but no UFO. */`).
+>     Why not reject `!skb_is_gso(skb)` right after `__virtio_net_hdr_to_skb()`, and
+>     return `-EINVAL` directly if `!virtio_net_csum_partial_ok_at_offset()`?
+
+This will break apps, I think. See 7c6d2ecbda83
+
 -- 
--Barry K. Nathan  <barryn@pobox.com>
+MST
+
