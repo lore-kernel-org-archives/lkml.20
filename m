@@ -1,65 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.121.94.186
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792790942;
-	b=RxD0xfqRipDZ9tv6hTwCxgCbYkSMHe6npERgHFjCkLSKogGkx8NzT8tFKdlzjgxTSeyz
-	 VXNyuHtAVcc04kq5wOk//6DIEdWNM/QXbRO+sKfUG3uIsZ046d1gVr01DsdgtWBzPcMtP
-	 8uLlLgoAmpqfoXBWn5U4AGCmRqz+ud1Z5ohhOEbamdUKGNQ9PLmLhQfRvwjv/BGPnT+ZI
-	 GuSTcplT8Fk+W1JvHsG2dsjOKJV9E/amahgJutkyzkjwryH6Lg7mp0Ec3PMHwejBF8EE9
-	 ppjjrKdZ9vTY+vRvB7HSrTuFGOytlEg/v8HImv8gciW+cM2PHoDO7F9HVtXOASIhIDw==
+	t=1792790962;
+	b=W7EeyVtlvALBl7bKy9JD5KSygVH7YEWeawhcGizfk1cWotCHGA2NuBVZp7XiUo4SPj8R
+	 0XRv/RhTnDd6PJ4ZYPMr3D1+qGSg8H+AwaBNzXT8sH2pcrUqwwkLn+/j4nl1X2zYftixX
+	 bMi2PYwQCeRadzdIo5Kwm//d1W1r36xnMLwIyoKlN7i38nncDdup9ClXOeHqMgubeeW/O
+	 8GKwBK7q8rNNVA+XezdHPw9vAofi0ci9RueuUoOsIGcSxkGUHHA8zd9N+Vhh1trfOoeEJ
+	 CLnVBHZZXwiGyFD/i/adhlhKwX7K8s8IENMbK9LI2nAwE5iS9V59BgKqKu9Aap7sc0w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792790942;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=SPo5JT16y1DaEMxqlX2cvPgpbj/FzZJAHhXrqtgHuJA=;
-	b=PisjVic8YS8iEIisWSmqUjEbp9gikH3RzcuiL/BtRndytX4UKFAfsCw+kBJz613ognN7
-	 0JC9NLf7hNdcOYyKcQK7JpIMHd23ynFagz8VRk7BNeetp3lW3Ls1HcXlp19QhzPL6sXNd
-	 aDOSwk4nGeAbdOHhOR/REzmTcxcccceb2nAARRLd2XajIZuzNRtUmZMJVHh0npSdhpkIH
-	 F4Rbd+48AkKdwWZjhvhyjYUCyVEdzMpelm9Zb7DHVtDpqxAh/fA2tSwDmZ4453lU49vms
-	 EA8AH2KVFKDIwvoC9ZiP9BEdRLLa7Df0ntP/+TparkHOUq7Zlx+7TIOnTL3uPEC9VqQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792790962;
+	h=DMARC-Filter:X-KPN-MessageId:Received:Received:DKIM-Signature:
+	 X-KPN-MID:X-CMASSUN:X-KPN-VerifiedSender:Received:Date:From:To:Cc:
+	 Message-ID:In-Reply-To:References:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-Priority:Importance:X-Originating-IP;
+	bh=P8r/Csn/92j4h8MtHtX1sZoBvM1beEuyAAhxjMFapGU=;
+	b=leSGtLx3jDcJpwtE4V9P/Z2R4hV5H3JDqXT7YOP9MCTM4gqaETTNZxfdzAR15OwGyMY3
+	 ShC0oIymuXz207UlihqV6c2dgANDedCndSkEkqam15tkUozPNQ0Q4wXFyA1lUdSjzyVze
+	 /At9yKBYJomJ8t96JERe3lGyQOT5txChn+hxMVzQDNFp3y/pZL6yiVQBhi5yNvqB3GpcV
+	 soQMN0IGI05mTmEiA1YEnnki1Lut3ezu96aMumwWQ862pNI4RV0OzZjiZKM2NdZmFzT7Z
+	 6/ckxHXntwKw+rjfjkEkgpYhmNonLYijOW28WXIOU2y29dGhwv7XqLvMAqo50U5yLHw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HrDUDY5a;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=xs4all.nl;
+	spf=pass smtp.mailfrom=xs4all.nl;
+	dkim=pass header.d=xs4all.nl header.i=@xs4all.nl header.a=rsa-sha256 header.s=xs4all01 header.b=Cv9qmTOd;
+	arc=none smtp.remote-ip=195.121.94.186
+Received: from ewsoutbound.kpnmail.nl (ewsoutbound.kpnmail.nl [195.121.94.186])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D950606A31B;
-	Fri, 23 Oct 2026 21:29:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2CF2606A320
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 21:29:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D2CF2606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=xs4all.nl
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xs4all.nl
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HrDUDY5a
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D8B5F1F01825;
-	Fri, 23 Oct 2026 21:29:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792790942;
-	bh=SPo5JT16y1DaEMxqlX2cvPgpbj/FzZJAHhXrqtgHuJA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=HrDUDY5aj9SM0a/3NOaJ9YsHk3+5IGEa3m+Rkvwx2rIa4v+OTTJKCbh7fH6yIMBED
-	 0toEaHtWlwbgnUf3NXP7gfEHFC4DaM11EBB0NiwfGeoCl15YWcN0Au1w/b0vy27AQl
-	 85J8EtK5nCXBZvuBeZrkB2HwTmmr7qPGHjBpaTRIN/O/SFQsitCMzU++05bW0wOO+7
-	 ZecSyPBhN8g/Diq+Q1UFTK4zTZYJY/7XODqI0GFs/qAleIp9oQNC/KCs7OBZIs/KGS
-	 1IZu6EfJog8RdMlQsyRBFe3zT93NISPFqkC4n4hYvjeUscEDQp4vd3nk+d5zRqH2Gm
-	 v3HiBSuV757xw==
-Date: Fri, 23 Oct 2026 18:28:59 -0300
-From: Arnaldo Carvalho de Melo <acme@kernel.org>
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: Antoine HURET <antoine.huret@bull.com>, Ingo Molnar <mingo@redhat.com>,
-	Namhyung Kim <namhyung@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	James Clark <james.clark@linaro.org>,
-	Ravi Bangoria <ravi.bangoria@amd.com>,
-	"linux-perf-users@vger.kernel.org" <linux-perf-users@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"regressions@lists.linux.dev" <regressions@lists.linux.dev>
-Subject: Re: [REGRESSION] perf: Rewrite core context handling breaks
- multiplexed cgroup events
-Message-ID: <atvRmz_uGKpiYfMv@phoenix2>
-References: <PR3PR07MB69223331EED5BEBE150375B7849C2@PR3PR07MB6922.eurprd07.prod.outlook.com>
- <20261015111316.GJ4121339@noisy.programming.kicks-ass.net>
- <PR3PR07MB692235BC98DAB96E30E4AB8D849C2@PR3PR07MB6922.eurprd07.prod.outlook.com>
- <20261015132135.GK4121339@noisy.programming.kicks-ass.net>
+	dkim=pass (2048-bit key, unprotected) header.d=xs4all.nl header.i=@xs4all.nl header.a=rsa-sha256 header.s=xs4all01 header.b=Cv9qmTOd
+X-KPN-MessageId: c83ea5f0-cf28-11f1-87e5-00505699b430
+Received: from mta.kpnmail.nl (unknown [10.31.161.190])
+	by ewsoutbound.so.kpn.org (Halon) with ESMTPS
+	id c83ea5f0-cf28-11f1-87e5-00505699b430;
+	Fri, 23 Oct 2026 23:29:09 +0200 (CEST)
+Received: from mtaoutbound.kpnmail.nl (unknown [10.128.135.190])
+	by mta.kpnmail.nl (Halon) with ESMTP
+	id c83dac1e-cf28-11f1-a8ab-0050569977a2;
+	Fri, 23 Oct 2026 23:29:09 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=xs4all.nl; s=xs4all01;
+	h=content-type:mime-version:subject:message-id:to:from:date;
+	bh=P8r/Csn/92j4h8MtHtX1sZoBvM1beEuyAAhxjMFapGU=;
+	b=Cv9qmTOdqfL9hpKDjDDeRhSW+jMdxGpjw5yoMBp7Dw3ot7ZsadfOJ+/LgbxsYYNGHgSSi4rW0kZEb
+	 STgzOljDaEM+voHExGKw618OMl7IigX1EiUt9I+SNRTOZ+yKxgZHzua+0LcLmqyS13vmv1f8IGur80
+	 hFmxkhCo9kvU2QfHuCFIePvidKEYaGXrKuEfv2eMKfSY/rRkrEvTJ1dS3H43rUGA9SgHZF5fe/jB8i
+	 BKTrVyiifXfyIxwh6UTP0Ah82TbeROVKwf+GOj955nUYJjOzeCCI9Ce3atB+Xf4mWlZc/zA0X/cqG9
+	 FPuNPa3YBzkq8o3mYLgFVtMZEyfci8g==
+X-KPN-MID: 33|1IzAEM6rixJ+Yc595J1FUe0NB+J4eIXJuyF9t9cRGlboL+T2pvIhzimUEjN7av8
+ Oy6sJHeKyAQQdxtPBm/jEb/e68SHFGrtc2DtrCD9vBa0=
+X-CMASSUN: 33|hsnx0XdPDNSjIeH+evRzrTLkxbIwPEYQkvUHp9XVoxbyrzMy6+d7WmjjUDON01c
+ uxoxT+DnmkYxVF4FyEYbObg==
+X-KPN-VerifiedSender: Yes
+Received: from cpxoxapps-mh04 (cpxoxapps-mh04.personalcloud.so.kpn.org [10.128.135.210])
+	by mtaoutbound.kpnmail.nl (Halon) with ESMTPSA
+	id c8381e70-cf28-11f1-a030-005056995d6c;
+	Fri, 23 Oct 2026 23:29:09 +0200 (CEST)
+Date: Fri, 23 Oct 2026 23:29:08 +0200 (CEST)
+From: Jori Koolstra <jkoolstra@xs4all.nl>
+To: Shakeel Butt <shakeel.butt@linux.dev>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Tejun Heo <tj@kernel.org>, Christian Brauner <christian@brauner.io>,
+	Meta kernel team <kernel-team@meta.com>,
+	linux-fsdevel@vger.kernel.org, driver-core@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Message-ID: <1780856356.2118300.1792790948991@kpc.webmail.kpnmail.nl>
+In-Reply-To: <ataWrUkD-rqeoFcV@linux.dev>
+References: <20261016220029.3276154-1-shakeel.butt@linux.dev>
+ <atUkrrdfu_ihfmZ8@daedalus> <ataWrUkD-rqeoFcV@linux.dev>
+Subject: Re: [PATCH v3] kernfs: allocate inodes and dentry outside
+ kernfs_rwsem
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,81 +84,87 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261015132135.GK4121339@noisy.programming.kicks-ass.net>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Priority: 3
+Importance: Normal
 
-On Thu, Oct 15, 2026 at 03:21:35PM +0200, Peter Zijlstra wrote:
-> On Thu, Oct 15, 2026 at 12:30:55PM +0000, Antoine HURET wrote:
-> > On Thu, Oct 15, 2026 at 11:13 UTC, Peter Zijlstra wrote:
-> > > /me mutters something about having to go install and learn docker and
-> > > what's wrong with simple shells scripts that poke about in /cgroup
-> > > filesystems :-)
+Hi Shakeel,
 
-> > Fair enough, sorry about that! Next time I'll do plain cgroupfs,
-> > promised :-)
- 
-> FWIW, it might be useful to extend perf-test with a bunch of cgroup
-> tests - this one included. AFAICT we have nothing there atm.
+> Op 19-10-2026 19:34 EDT schreef Shakeel Butt <shakeel.butt@linux.dev>:
+> 
+>  
+> Hi Jori and thanks a lot for taking a look.
+> 
 
-The more the merrier, so far:
+You're welcome! Thanks for looking into this.
 
-acme@phoenix2:~/git/perf-tools-next$ grep -rw cgroup tools/perf/tests/
-tools/perf/tests/expand-cgroup.c:#include "cgroup.h"
-tools/perf/tests/expand-cgroup.c:			pr_debug("cgroup name doesn't match:\n");
-tools/perf/tests/shell/lib/perf_json_output_lint.py:      'cgroup': lambda x: True,
-tools/perf/tests/shell/lock_contention.sh:	echo "Testing perf lock contention --lock-cgroup"
-tools/perf/tests/shell/lock_contention.sh:	perf lock con -a -b --lock-cgroup -E 1 -q -- ${msg_workload} > /dev/null 2> ${result}
-tools/perf/tests/shell/lock_contention.sh:	echo "Testing perf lock contention --cgroup-filter"
-tools/perf/tests/shell/lock_contention.sh:	perf lock con -a -b --lock-cgroup -E 1 -F wait_total -q \
-tools/perf/tests/shell/lock_contention.sh:		echo "[Fail] BPF result should have a cgroup result:" "$(cat "${result}")"
-tools/perf/tests/shell/lock_contention.sh:	cgroup=$(cat "${result}" | awk '{ print $3 }')
-tools/perf/tests/shell/lock_contention.sh:	perf lock con -a -b --lock-cgroup -E 1 -G "${cgroup}" -q \
-tools/perf/tests/shell/lock_contention.sh:		echo "[Fail] BPF result should have a result with cgroup filter:" "$(cat "${cgroup}")"
-tools/perf/tests/shell/record_bpf_filter.sh:  if ! perf record -e task-clock --filter 'cgroup == /' \
-tools/perf/tests/shell/record_bpf_filter.sh:       -a --all-cgroups --synth=cgroup -o "${perfdata}" true 2> /dev/null
-tools/perf/tests/shell/record_bpf_filter.sh:    echo "Cgroup bpf-filter test [Skipped cgroup not supported]"
-tools/perf/tests/shell/record_bpf_filter.sh:  # 'cgroup' requires PERF_SAMPLE_CGROUP flag
-tools/perf/tests/shell/record_bpf_filter.sh:  if ! perf record -e task-clock --filter 'cgroup == /' \
-tools/perf/tests/shell/record_bpf_filter.sh:  if ! perf report -i "${perfdata}" -s cgroup -q | grep -q -F '100.00%'
-tools/perf/tests/shell/record_bpf_filter.sh:    echo "Cgroup bpf-filter test [Failed root cgroup does not have 100%]"
-tools/perf/tests/shell/record.sh:  perf script -i "${perfdata}" -F cgroup 2>/dev/null | grep -q -v "unknown"
-tools/perf/tests/shell/record.sh:    -aB --synth=cgroup --all-cgroups || ret=$?
-tools/perf/tests/shell/trace_summary.sh:# summary only for system wide - cgroup summary mode with BPF
-tools/perf/tests/shell/trace_summary.sh:test_perf_trace "-as --summary-mode=cgroup --bpf-summary"
-tools/perf/tests/shell/trace_summary.sh:# summary with normal output for system wide - cgroup summary mode with BPF
-tools/perf/tests/shell/trace_summary.sh:test_perf_trace "-aS --summary-mode=cgroup --bpf-summary"
-tools/perf/tests/shell/stat_bpf_counters_cgrp.sh:# perf stat --bpf-counters --for-each-cgroup test (no_mlock)
-tools/perf/tests/shell/stat_bpf_counters_cgrp.sh:# skip if --bpf-counters --for-each-cgroup is not supported
-tools/perf/tests/shell/stat_bpf_counters_cgrp.sh:	if ! perf stat -a --bpf-counters --for-each-cgroup / true > /dev/null 2>&1; then
-tools/perf/tests/shell/stat_bpf_counters_cgrp.sh:			echo "Skipping: --bpf-counters --for-each-cgroup not supported"
-tools/perf/tests/shell/stat_bpf_counters_cgrp.sh:			perf --no-pager stat -a --bpf-counters --for-each-cgroup / true || true
-tools/perf/tests/shell/stat_bpf_counters_cgrp.sh:	if [ -d /sys/fs/cgroup/system.slice ] && [ -d /sys/fs/cgroup/user.slice ]; then
-tools/perf/tests/shell/stat_bpf_counters_cgrp.sh:	find_cgroups_self_cgrp=$(grep perf_event /proc/self/cgroup | cut -d: -f3)
-tools/perf/tests/shell/stat_bpf_counters_cgrp.sh:		# cgroup v2 doesn't specify perf_event
-tools/perf/tests/shell/stat_bpf_counters_cgrp.sh:		find_cgroups_self_cgrp=$(grep ^0: /proc/self/cgroup | cut -d: -f3)
-tools/perf/tests/shell/stat_bpf_counters_cgrp.sh:# As cgroup events are cpu-wide, we cannot simply compare the result.
-tools/perf/tests/shell/stat_bpf_counters_cgrp.sh:	check_system_wide_counted_output=$(perf stat -a --bpf-counters --for-each-cgroup ${test_cgroups} -e cpu-clock -x, sleep 1  2>&1)
-tools/perf/tests/shell/stat_bpf_counters_cgrp.sh:	expand_output=$(perf stat -a -x, --bpf-counters --for-each-cgroup / true 2>&1 | wc -l)
-tools/perf/tests/shell/stat_metrics_cgrp.sh:# perf stat metrics --for-each-cgroup test (no_mlock)
-tools/perf/tests/shell/stat_metrics_cgrp.sh:	if [ -d /sys/fs/cgroup/system.slice ] && [ -d /sys/fs/cgroup/user.slice ]
-tools/perf/tests/shell/stat_metrics_cgrp.sh:	find_cgroups_self_cgrp=$(grep perf_event /proc/self/cgroup | cut -d: -f3)
-tools/perf/tests/shell/stat_metrics_cgrp.sh:		# cgroup v2 doesn't specify perf_event
-tools/perf/tests/shell/stat_metrics_cgrp.sh:		find_cgroups_self_cgrp=$(grep ^0: /proc/self/cgroup | cut -d: -f3)
-tools/perf/tests/shell/stat_metrics_cgrp.sh:# Check if metric is reported for each cgroup
-tools/perf/tests/shell/stat_metrics_cgrp.sh:			--for-each-cgroup "${test_cgroups}" \
-tools/perf/tests/shell/stat_metrics_cgrp.sh:		# Find metric lines for this cgroup
-tools/perf/tests/shell/stat_metrics_cgrp.sh:			/)  # The root cgroup, leave unchanged.
-tools/perf/tests/shell/stat_metrics_cgrp.sh:		# We use exact cgroup match with surrounding commas
-tools/perf/tests/shell/stat_metrics_cgrp.sh:			echo "FAIL: No metric lines found for cgroup '${cgrp}'"
-tools/perf/tests/shell/stat_metrics_cgrp.sh:				log_verbose "Enforcing metric check for cgroup '${cgrp}' \
-tools/perf/tests/shell/stat_metrics_cgrp.sh:for cgroup '${cgrp}'"
-tools/perf/tests/shell/stat_metrics_cgrp.sh:					echo "FAIL: Empty metric value for cgroup '${cgrp}'"
-tools/perf/tests/shell/stat_metrics_cgrp.sh:				log_verbose "Skipping metric check for cgroup '${cgrp}' \
-tools/perf/tests/shell/stat_metrics_cgrp.sh:if perf stat -a --bpf-counters --for-each-cgroup / true > /dev/null 2>&1
-tools/perf/tests/sample-parsing.c:		COMP(cgroup);
-tools/perf/tests/sample-parsing.c:		.cgroup		= 114,
-tools/perf/tests/Build:perf-test-y += expand-cgroup.o
-acme@phoenix2:~/git/perf-tools-next$
+> > 
+> > I understand this is intended to have some kind of ownership semantics,
+> > but I must say for such a simple function, I find the contract quite
+> > complex to check. Do we really need an out parameter here?
+> 
+> Not really. I just used it simply call iput(new) without a check. I can change
+> it and make it more like inode_insert5() and let caller do check before calling
+> iput().
+> 
 
-- Arnaldo
+I'd prefer no out parameter then. I actually need the same function, more or less.
+My problem is that I want inode allocation before calling scops->mkdir, so that
+if that goes -ENOMEM, then we don't create the directory. However, since I can
+expect that there's not going to be an inode present, the ilookup is not needed.
+So I guess I need a kernfs_get_inode_locked_fast() or something.
+
+But also, shouldn't we just replicate the structure of iget5_locked() here? Except
+that we pass in an allocated inode. We invoke a lot more code if we rely on iput()
+instead of destroy_inode(). Then maybe we need to use alloc_inode() instead of
+new_inode() as well.
+
+> > 
+> [...]
+> > > @@ -294,7 +298,7 @@ static int kernfs_fill_super(struct super_block *sb, struct kernfs_fs_context *k
+> > >  {
+> > >  	struct kernfs_super_info *info = kernfs_info(sb);
+> > >  	struct kernfs_root *kf_root = kfc->root;
+> > > -	struct inode *inode;
+> > > +	struct inode *inode, *new;
+> > >  	struct dentry *root;
+> > >  
+> > >  	info->sb = sb;
+> > > @@ -314,10 +318,12 @@ static int kernfs_fill_super(struct super_block *sb, struct kernfs_fs_context *k
+> > >  	sb->s_shrink->seeks = 0;
+> > >  
+> > >  	/* get root inode, initialize and unlock it */
+> > > +	new = new_inode(sb);
+> > >  	down_read(&kf_root->kernfs_rwsem);
+> > > -	inode = kernfs_get_inode(sb, info->root->kn);
+> > > +	inode = kernfs_get_inode_locked(sb, info->root->kn, &new);
+> > 
+> > What are you serializing against here? I've been looking at this as well
+> > recently, and I thought we could just get rid of the locking here. But
+> > on second look, I am not so sure what is correct.
+> > 
+> > Is there anything that serializes kernfs_get_tree() with root node
+> > removal?
+> 
+> That is a good question and honestly I didn't know the answer. After digging a
+> bit, I think 07/12 patch [1] of your series is right.
+> 
+> Superblock is still private here and it is added to the supers list after
+> kernfs_fill_super. Root removal is not serialized by kernfs and kernfs users
+> keep the root alive across the mount.
+> 
+
+I am not sure that last statement is true for all kernfs users. I will have to
+verify.
+
+> I can drop the kernfs_fill_super change from my patch and I think your patch
+> will cover it better.
+> 
+
+OK.
+
+> [1] https://lore.kernel.org/20261016143806.2946578-8-jkoolstra@xs4all.nl
+
+Best,
+Jori.
