@@ -1,79 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792723716;
-	b=5JGo/y5jUZaf23dxHipzQtBGXkf+1bbJbBDjZJM3GatKq7nBRbG7Ayies+29qgMAAaLz
-	 wEM9Wk0w0cJLpThXW8l7B0JfsDSHN5TqYP9HkgOsmg2s9b8qZuuu+t1w6RChRpe/ZqNi7
-	 R3dI8J4jmQtkqVWLMRC2iQdCZuAFOBhR9XjwNwiLtLfx8LgOtCwxweBKA8Em8ZBGKBMpn
-	 x2U/lpo/xSuIhSTg3FQ1E5b9qME8tgeiZ0VjlBv0yHyS9rOoc5CCLaQhheN5Y+HwNeWGm
-	 WJS+2Uf5LI5nZwTvBlGuxEqMj7DryqENt8cH1e1gIb9SC4pS1EIJ1PsalPlqicdWwBQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792723716;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=sYPUad7wf9nx72Quy5Ruk07BwWghwmHb9u1ysXV1uHM=;
-	b=ZZAp+dn01Zl6L7p7yTBfNgu2xNLnHW8B07wjMdwkAjdP++33vVphZBJ77Il+UQRvtYAI
-	 MSTrQxwdgR0vwd4YXdmK3vLEZaQJVIXBWrqzPms7dhCOrJIBuoTJA0rzWi59nNCptLYrc
-	 vO5OKU72SVeDZVy9zPJilaPfU2MRc4Mi6igBQBJG+AnLy2ji4yX582wJQLxi5Z08ysd8T
-	 VONcNKmaPgNe6rvGXlEvpo9jUJeFiO0c0Sd/1k+i6CKH6dp+GTS3YloiVEiqzEEFnk98T
-	 f6Q9qACyv1ojmyZO+nLyAOSW3NFTDxEKIRqr87opBGa/EzF3L/4vKq76ayetEg82vPQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Bxbg+q8b;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43687606A31B;
-	Fri, 23 Oct 2026 02:48:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Bxbg+q8b
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1792723716;
-	b=sRoG3ihyucAjdA8Wc5qGEEKKSFK5Oo6r6GmT+wvg0u6o3bR6jkcgQi9LPpl6iDcOCjsx
-	 Ods1Qh2oBA+SO5HEN3nWHkG4TuM/+YrvvVbu/MpV+cGRBjiW9rDf9tYYXSETy9bDPvRxT
-	 4wK9MlJKkMg4/0fSNCwIHkydl9C97OyNAt2tzVGApbtkDW5WeCliEKKTYoScfUB4Slinc
-	 //H4e5+UauUxj+ijktm+AOkLEQ7rejH1nB21Az1T/a/r4rf2zgtQzGivxV01xY/AN8Lhv
-	 H7HjSqa8xKmaa0e2S91S2Qu///FMt+9LlTxQ5VxjMVoyjqFjylattKmlMVnc5SD/1mw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1792723716;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=sYPUad7wf9nx72Quy5Ruk07BwWghwmHb9u1ysXV1uHM=;
-	b=GAdHmSDm5YxjCC6oSnjbCS1Zx1+18mfVN4uD5+8B7MnBbyg/l7oX8Co0a/1stGPIZSwA
-	 XOzBr08oC+Z7i1tUnJEnlmtGy2In3zEiv6F0nsKG3k/htUzCPgZJV8beWO5pZBLNc8CUm
-	 Hhvk7C3W9iryYIm43uo16tMFw6hebMRaI9M/QGMb/3luKtvwVNE61qSBTapk/8hEXJ2F2
-	 lWRjPAtE4UdzxN20lWn7rRsiTq2TeI0iilQBpsEZsF6XptOsfEvyyeziWZPOq9L1oaKyM
-	 u45plrvG2fjfTGeFUM3PtUeKf4QqCKxL86J8njff+pyrIsuadE0cz95ZeBCX3V0r47w==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.227
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792723728;
+	b=NFUGIuLKqfPPMa44qFaaPZ6NVQMIAy/yRt4kVfROXhN6gi+m+QG0dnFT3aKxnmGrm9Hu
+	 KyZqeQkpvZYeMgdtQE1ADuPYz7kvYwWEvClUNRJWO1Pc09Y39rbstx3bKn0VrR8EsrVgK
+	 h94DTzgKY4jzrwFBkMpMz+14yktIqA565MqG+muO9a/c3aHfK8Nr5hKzqNX5mTU3okDD9
+	 C1IpaF3FcrJUUZebfmCiMd+aDfSD5sLuEGwb7Jx5KaqYIjgFk82NSG87lwIF1zAZ67g1n
+	 rO/y8N2b7nRWro++6gRfSXiTu3E+5WmQsVxy3rBv8yo5F33c+qAISCiOvPErY01YSKQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792723728;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:CC:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=m/IkO3f1LZN2+n6Xiaw/jAnFUfPFs7puhs4R49Ji5Go=;
+	b=Sn0EAx+RqBGI1Sn9qa0NZu/KNpmZlHr3jDIG0+NJlSJpQwkcj6bf2EJ2yYDXLPJY/Z07
+	 WUSvp9WHsJjeL2XiJpBo1l5yDp+vAr0guhFY2AHO0oppWOsurgq+k3FEfKERqTeCTo2r1
+	 X9nK2REZKv8i9Izu0tsDq7C4WHfIAlWXM8ulBbUKrpY2DltSM9ZqxBYsr5zBCEU8nr/wA
+	 5Zuep6CLyGk2x/U7UrbmxDWOd421mjzYeFys3q1+d0Dnb8rAqdRzF6pi3cZWvti5rX/im
+	 tI3dlR9q9MMrG60k9E4RXhyvYOjj+tTAzQuGrvngZjUV+syMJ7wP9Y3n4EALCBQioHQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=tsqyZiq7;
+	arc=none smtp.remote-ip=113.46.200.227
+Received: from canpmsgout12.his.huawei.com (canpmsgout12.his.huawei.com [113.46.200.227])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 11E211F01828;
-	Fri, 23 Oct 2026 02:48:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792723716;
-	bh=sYPUad7wf9nx72Quy5Ruk07BwWghwmHb9u1ysXV1uHM=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=Bxbg+q8bD65OWJqKoEnbsrGL9Bhmdx5rngKuLlCt0fVP2FIjtC8yXrAi5HK3LXKTs
-	 bvkFgcQgPUTXs6Lfl0+r+TCmSYdlLPZHPvrkEIWX+BhQA2IfPRGd8UoUogXPZlUTqV
-	 R/tQTl1SBrCoIiR5f364nREGv+JXKCTichmmvsbiOQ749HQAX87Hg5nuvEEvX4mLmt
-	 Tw2p+x1ZPb+mLJvwwGxio5ci5U8kF+wsvURyGb/qlIqiSGBBLYRuCJu3BuwsBLews1
-	 oBM/AHUSZXyiD5jbp/dNvb80kOsuphgi0e+/6cTYWXMpcWHZcjoFnnEAUtcMS3Rl+g
-	 z0toAQLptu/2w==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 77780421B6;
-	Fri, 23 Oct 2026 02:48:34 +0000 (UTC)
-From: Bryam Vargas via B4 Relay <devnull+hexlabsecurity.proton.me@kernel.org>
-Date: Thu, 22 Oct 2026 21:48:35 -0500
-Subject: [PATCH net 2/2] net/iucv: do not count the SHT frame against the
- receive window
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86078606A31E
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 02:48:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 86078606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=tsqyZiq7
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=m/IkO3f1LZN2+n6Xiaw/jAnFUfPFs7puhs4R49Ji5Go=;
+	b=tsqyZiq7V9oAcpYSNj9IJ0am+GiXkzYb/LZPlwU9C3h/RBY8xfbwwX7fSE+dZLQcbT9tPDHxO
+	5MuTjcUesLwT0GE+RzouWLSPnXA0kNyYMTid/mftVg3YnLFBS324Q8VPYn4Q+9a8r6Wq9/ztiz6
+	j0ybQBWw+OdNRGkrww2zAAg=
+Received: from mail.maildlp.com (unknown [172.19.163.15])
+	by canpmsgout12.his.huawei.com (SkyGuard) with ESMTPS id 4j9nXF2LSyznTXp;
+	Fri, 23 Oct 2026 10:48:45 +0800 (CST)
+Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
+	by mail.maildlp.com (Postfix) with ESMTPS id A5C9940578;
+	Fri, 23 Oct 2026 10:48:42 +0800 (CST)
+Received: from huawei.com (10.90.53.73) by kwepemk200008.china.huawei.com
+ (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 23 Oct
+ 2026 10:48:42 +0800
+From: Jinjie Ruan <ruanjinjie@huawei.com>
+To: <james.morse@arm.com>, <ben.horgan@arm.com>, <reinette.chatre@intel.com>,
+	<fenghuay@nvidia.com>, <tony.luck@intel.com>, <Dave.Martin@arm.com>,
+	<babu.moger@amd.com>, <x86@kernel.org>, <linux-kernel@vger.kernel.org>
+CC: <ruanjinjie@huawei.com>
+Subject: [RFC PATCH 00/10] arm_mpam: Add extra MPAM controls in resctrl
+Date: Fri, 23 Oct 2026 10:48:02 +0800
+Message-ID: <20261023024812.232820-1-ruanjinjie@huawei.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,120 +69,96 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261022-b4-disp-b35a9153-v1-2-d74645876195@proton.me>
-References: <20261022-b4-disp-b35a9153-v1-0-d74645876195@proton.me>
-In-Reply-To: <20261022-b4-disp-b35a9153-v1-0-d74645876195@proton.me>
-To: Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, 
- "David S. Miller" <davem@davemloft.net>, Paolo Abeni <pabeni@redhat.com>, 
- Alexandra Winter <wintera@linux.ibm.com>, 
- Thorsten Winkler <twinkler@linux.ibm.com>
-Cc: Nagamani PV <nagamani@linux.ibm.com>, netdev@vger.kernel.org, 
- Hidayath Khan <hidayath@linux.ibm.com>, linux-s390@vger.kernel.org, 
- Simon Horman <horms@kernel.org>, linux-kernel@vger.kernel.org
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792723713; l=4563;
- i=hexlabsecurity@proton.me; s=default; h=from:subject:message-id;
- bh=i2rbsTWNsPxkALKc4wo0Z3Yr7FRV6c4RAQqhDeB17Fg=;
- b=mtTCIJJNIr4U6qmCd9HEdKATkm3vkTAtKDAhWC9QPaWKqVydR4TUzQTZy2PJ9p7KtsGlMeFbV
- 14eVT0k2IsVDYlsv7FgsDhwgJRgLeTYYvsjviZvVuBLaNdrU8uPAwio
-X-Developer-Key: i=hexlabsecurity@proton.me; a=ed25519;
- pk=xw1AhCtQdvuoQc+bOQIYy9o8G++cp4/VniI2G/tc3G8=
-X-Endpoint-Received: by B4 Relay for hexlabsecurity@proton.me/default with
- auth_id=893
-X-Original-From: Bryam Vargas <hexlabsecurity@proton.me>
-Reply-To: hexlabsecurity@proton.me
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: kwepems100002.china.huawei.com (7.221.188.206) To
+ kwepemk200008.china.huawei.com (7.202.194.74)
 
-From: Bryam Vargas <hexlabsecurity@proton.me>
+Hi all,
 
-iucv_sock_recvmsg() counts every HiperSockets frame it consumes in
-msg_recv, the SHT's empty one included, while the peer counts only what
-sendmsg() sends against the window it was granted; the SHT goes out
-through iucv_send_ctrl() uncounted, one per shutdown(SHUT_WR) call. The
-next window update zeroes msg_recv and takes the surplus with it, but
-recvmsg() sends none while frames wait in backlog_skb_q, and an SHT read
-in that state pushes msg_recv past msglimit: WARN_ON(1) fires, the socket
-is closed and the reader gets -EFAULT instead of EOF. A peer that sends
-past its window reaches the same WARN from the network; with
-panic_on_warn that is a remote panic. The SHT frame dates from
-82492a355fac, the WARN and the close from 800c5eb7b5eb.
+Resctrl today only exposes CBM and the MBA bandwidth percentage.
+But MPAM MSCs also have per-PARTID fields for internal priority, capacity
+limits, a bandwidth minimum and the MBW_MAX hard-limit bit. The driver
+already writes these fields, but resctrl has no schemata line for them,
+so userspace can't choose the values.
 
-The SHT reaches recvmsg() as a zero-length frame, like a zero-length
-data frame, so test the length: count only frames that still carry
-data when the read consumes them (rlen; a partial SOCK_STREAM read
-requeues above this point, so each data frame counts once), and close a
-socket over the window without the WARN; -EFAULT is kept and nothing is
-logged. A zero-length data frame sets RCV_SHUTDOWN, after which
-afiucv_hs_callback_rx() drops every later data frame uncounted; the one
-slot this patch no longer credits for it is lost like the slots of the
-frames dropped after it.
+So this series adds those schemata lines:
 
-Fixes: 82492a355fac ("af_iucv: add shutdown for HS transport")
-Fixes: 800c5eb7b5eb ("af_iucv: change net_device handling for HS transport")
-Reported-by: Sashiko <netdev-bot+sashiko@kernel.org>
-Closes: https://lore.kernel.org/netdev/179183431327.434549.446348148837850426@kernel.org/
-Cc: stable@vger.kernel.org
-Signed-off-by: Bryam Vargas <hexlabsecurity@proton.me>
----
-Reproduced on s390x under QEMU TCG (net-next 8df0638138d3 and net
-f4377bf85887, same result) with an emulated HiperSockets adapter under
-the real qeth and qdio drivers: the reader has SO_MSGLIMIT 2 and
-SO_RCVBUF 2304 (the minimum); the peer sends 1 byte twice, which fills
-the window, then calls shutdown(SHUT_WR) 32 times, one SHT each. The
-reader starts once everything has arrived; the receive queue took two
-frames, the rest wait in backlog_skb_q, and with that queue non-empty
-recvmsg() sends no window update, so the first SHT read counts 3
-against a limit of 2: WARN and -EFAULT without the patch, EOF with it.
-With one SHT instead of 32 the queue drains, the update goes out after
-the two reads, and both kernels read EOF.
+- Patch 1 fixes maybe_update_config(): a feature set with value zero
+  counts as no change, so the register is not written again.
+  The controls below can be zero, so this comes first.
 
-Without the patch, the surplus a window update carries for a counted
-SHT is credit the peer never spent, and it takes the peer's msg_sent
-below zero; harmless, since a peer that sent an SHT has SEND_SHUTDOWN
-and its sendmsg() returns -EPIPE. With the patch no SHT is counted, so
-no update carries that surplus.
+- Patches 2-4 add mbw_min/max_limit, cmax/cmin and intpri to
+  mpam_config and write them from mpam_reprogram_ris_partid().
 
-A HiperSockets socket stays in IUCV_BOUND from its SYN until the SYN|ACK
-arrives, and SO_MSGLIMIT is accepted in that state, so msglimit can drop
-below the window the SYN advertised. Hidayath's test for that [1] runs
-against the rework's backlog budget and passes on net-next, where the
-update after every read keeps msg_recv low; measured here with
-SO_RCVBUF at its minimum, so that frames wait in backlog_skb_q, the
-same conforming peer reaches this check (net-next: WARN and -EFAULT
-after two of eight messages; with this patch -EFAULT without the
-WARN). The rework keeps the advertised window in a field of its own
-for that, and this patch only takes the WARN out of its way. That
-iucv_sock_shutdown() sends an SHT on every call is a sender-side oddity
-left alone here; the receiver has to cope with any peer.
+- Patch 5 adds the resource levels, selects the range path by schema_fmt
+  instead of the MBA/SMBA rid, skips the new resources in info/, and sets
+  their default value when a group is created.
 
-[1] https://lore.kernel.org/netdev/51a4a40a-f34b-4d41-b049-69aa53f4dcf5@linux.ibm.com/
----
- net/iucv/af_iucv.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+- Patches 6-7 adjust the fixed-point helpers and clamp cmax_wd.
 
-diff --git a/net/iucv/af_iucv.c b/net/iucv/af_iucv.c
-index 501e758c5e68..a5142081bb6a 100644
---- a/net/iucv/af_iucv.c
-+++ b/net/iucv/af_iucv.c
-@@ -1317,10 +1317,13 @@ static int iucv_sock_recvmsg(struct socket *sock, struct msghdr *msg,
- 		}
- 
- 		consume_skb(skb);
--		if (iucv->transport == AF_IUCV_TRANS_HIPER) {
-+		/* The peer counts only the data it sends against its window;
-+		 * the SHT's empty frame is not among them. Over the window,
-+		 * close without a WARN: a peer reaches this from the network.
-+		 */
-+		if (iucv->transport == AF_IUCV_TRANS_HIPER && rlen) {
- 			atomic_inc(&iucv->msg_recv);
- 			if (atomic_read(&iucv->msg_recv) > iucv->msglimit) {
--				WARN_ON(1);
- 				iucv_sock_close(sk);
- 				return -EFAULT;
- 			}
+- Patches 8-10 add the schemata lines:
+
+  L2MAX/L3MAX       CMAX, percent
+  L2MIN/L3MIN       CMIN, percent
+  MBMIN             MBW_MIN, percent
+  L2PRI/L3PRI/MBPRI INTPRI, raw value
+  MBHDL             HARDLIM, 0 or 1
+  MBOPT             MBW_MAX, raw fraction
+
+The new resources reuse the class, domains and components of L2/L3/MB; only
+the mpam_config field written differs. MBOPT and MBA both write MBW_MAX.
+
+So before this series userspace can only set CBM and the MBA percentage.
+After it, you can do:
+
+  # echo "L3MAX:33751040=50" > schemata
+  # echo "MBHDL:33751040=1" > schemata
+
+A new group starts from each resource's default value, so the new controls
+stay out of the way until schemata is written.
+
+Tested this with a QEMU that has one L2 MSC, one L3 MSC and one
+memory-controller MSC (CMAX_WD 4, INTPRI_WD 2, BWA_WD 16). The guest writes
+every new line and reads it back, for example:
+
+  WRITE-OK   [L3MAX:33751040=50]
+  SCHEMATA: L3MAX:33751040=50
+
+Then reads the MSC registers:
+
+  L3 MSC  partid0: PRI(IN)=2  CMIN=0x3000  CMAX=0x7000
+  mem MSC partid0: PRI(IN)=1  MBW_MIN=0x3fff  MBW_MAX=0x1fff  HARDLIM=Y
+
+CMIN/CMAX are 4-bit fractions (3/16 for 25%, 7/16 for 50%); MBW_MIN is a
+16-bit fraction (0x3fff for 25%); MBOPT writes the raw fraction (8191).
+
+QEMU branch: https://github.com/ruanjinjie-eng/qemu/tree/mpam
+Test cases: https://github.com/ruanjinjie-eng/mpam_testcase
+
+This series is also available at:
+	https://github.com/ruanjinjie-eng/linux/tree/mpam-extra-controls
+
+Jinjie Ruan (10):
+  arm_mpam: Treat adopting a config feature as a change
+  arm_mpam: Carry mbw_min and the hard limit in mpam_config
+  arm_mpam: Carry cmax and cmin in mpam_config
+  arm_mpam: Carry intpri in mpam_config
+  fs/resctrl: Prepare for range-format pseudo resources
+  arm_mpam: Clamp cmax_wd to 16
+  arm_mpam: Generalize the fixed-point conversion helpers
+  arm_mpam: resctrl: Expose the capacity controls as pseudo resources
+  arm_mpam: resctrl: Expose the priority controls as pseudo resources
+  arm_mpam: resctrl: Expose the bandwidth minimum and limit as pseudo
+    resources
+
+ drivers/resctrl/mpam_devices.c  |  59 +++++++--
+ drivers/resctrl/mpam_internal.h |   8 ++
+ drivers/resctrl/mpam_resctrl.c  | 215 +++++++++++++++++++++++++++++++-
+ fs/resctrl/rdtgroup.c           |  15 ++-
+ include/linux/resctrl.h         |  33 ++++-
+ 5 files changed, 307 insertions(+), 23 deletions(-)
 
 -- 
-2.56.0
-
+2.34.1
 
