@@ -1,55 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=13.77.154.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792759002;
-	b=ZBpjJju9uJZEolmjNNaXH8EkpNEYSHLORsG5iNfwGSTxlbjpcH4nBZdefDuCNOv+Yt5U
-	 GtzKLZL5Okyhfx+VfiY0hgjRJCbnLsgdtj0r3PhQVF2Pj3yERwbJIA3hTQ3XKeG7fAr4l
-	 NoLftsgZO5XwA98zp0lWDxhKnSLCDtsGrnC6XUUXnaP0EbLnXJVFGKZkM6XZ4zLjnbEJ2
-	 0h9heWfQkcTKYroGFduuU1CZcHdDcBcTDikmQR4MZKouKegA4Nnqc7q/H+9hg1quiEZXk
-	 LT11Pom4PY9Pxrk3/4Jx+ug6Cj05OEQeNid8Fs/LONbeAfxiqcUlosO9Q+ra12kqqHA==
+	t=1792759132;
+	b=nd6vhqkBRqJjNC69aGN9HQqlFQCBEAYsK0mmxI81eyAQfslxZ5OO3UKJqYwfgZxUZc5t
+	 eAZdtSJeREjOHH7Gr1sb199goSanuLmtOw92IFhUvajWAKHgCAmTnXsKmUmdxpq9sJtzW
+	 VwuaEom65Jr1qkAfTLO5h53n0nngDEht6xU4Wu0ZTUXwFAaJy8ot5M7SWLdLfbHzAMGDC
+	 d6nlCACM4xnBMIgCs5WmPsl47VoukZ0UT3rH0yDZzcFlpv4nDhjjy83uPMlB7QZdgRfZG
+	 Ae/KMWyBtSttyfui05vg7ygWYkVc2z2HEiMa2R8ChRWegKuBBpmIu9uthIEdnvhzynQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792759002;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=RaGtUh8FrKmyPvFMUEoPr3f7XuLh19AsiacLSnrZZP0=;
-	b=v6sr+smcUproQcTTpUhdn9W+cx9ZVp6ursEOQ2nNZvoGGwB9RkNad/6D4ibjj33HtVx1
-	 JnIEVVOQCwrQCP+s1JKxNxTdRNhRLYUx0pISA9IyCfe3Mo5s9O6tkUkglVxei7rp96GvA
-	 P3CP5bEU7obVoANsy0Tz+6sUkXP9KX5ehBtN+UYV0tjkTxQb1qWyPpXipJ4YrypNugheh
-	 vxHZFw3N0p9dGwNFbx6cGLWu7hCvCnmmrSnT+lMLoSHSFnZiZWzpJAgEzHLooBbGa/OZ6
-	 jZAtIoxqGYhgGAOrST5VsHLgJyLe4fg9cT5g4CwAzadIJwWnwH4MkMFtmQsUChoztaw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792759132;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=8JP4fqByo87cANLvRb85F+PSRLIXEoS9coFVAgui0Pc=;
+	b=DuQeMGCXM4rJU5E98BycUqN3V8E4JfX+9Oe/VqTPL4v+MupKm8aq8NWKFPrZxb+iYvwJ
+	 6FNO5FuC2dzs971o83E7DCFwo+pQoHGi1D5oiYkHc+V6a3rhGzTD00tiZjYZ6Y1RZgXeR
+	 eF7qPHMGADXoWYKcP5jFn6sEIKQ7QxXYtIIeQSIVbde+JPK5w4JgmjFbpe+zViH9C0JfY
+	 MNGyDWSlhUU040nqb1i1HwkvUS8angh0x9qdRfSh2RHBaO+FHSz59MnXYpIfC7uCSbcdx
+	 m6d+np+3CNV4e5TG9SskSi9DetIyrO8MS2nak6ALLSzonQtBa+sOkGvpP1bpZQMcw3w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hZxOl6pU;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id C4073606A31A;
-	Fri, 23 Oct 2026 12:36:41 +0000 (UTC)
+	dmarc=pass header.from=linux.microsoft.com;
+	spf=pass smtp.mailfrom=linux.microsoft.com;
+	dkim=pass header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=pq2hrQ6u;
+	arc=none smtp.remote-ip=13.77.154.182
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5ACE3606A31A;
+	Fri, 23 Oct 2026 12:38:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5ACE3606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hZxOl6pU
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 1A4EE1F01825;
-	Fri, 23 Oct 2026 12:36:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792759001;
-	bh=RaGtUh8FrKmyPvFMUEoPr3f7XuLh19AsiacLSnrZZP0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=hZxOl6pU/CfgecAx5DkVSKhlHpRQoUaDuzMvIRHesZZAGqZw2wfIpugp/cCrU4+IO
-	 90LyqQO9VBFPFk49KNCceouIjl2V2muGHR1t520J55Wke/IpdMK7PLE3gIcTf9Vrs8
-	 GBShxEXC2cwqfwAfBTMq/6KsJscRRyUI0s+MSlBOJwQxGS972AhfS21mCPF5gOK0i2
-	 glljXcDdtQkAt87OOi8ZShCL85GGfznuRCSBwtPxCq0Ta3ezG5p/TAAFMq9oBee02Q
-	 hvn+Gi/Tzk1dR6bd8p/kPhEHmisfdO19ZJkD6gS3VtP9CZ+es8Dv+EYkWmmHAaFzc7
-	 hxjh91YXqVl7A==
-Date: Fri, 23 Oct 2026 15:36:37 +0300
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: David Howells <dhowells@redhat.com>
-Cc: keyrings@vger.kernel.org,
-	Linus Torvalds <torvalds@linux-foundation.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	"open list:LIBRARY CODE" <linux-kernel@vger.kernel.org>,
-	Eric Biggers <ebiggers@kernel.org>
-Subject: Re: [PATCH v2 0/6] KEYS: From assoc_array to rhashtable migration
-Message-ID: <attU1XQg7BIvhPag@kernel.org>
-References: <20261023120953.1206778-1-jarkko@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=pq2hrQ6u
+Received: by linux.microsoft.com (Postfix, from userid 1216)
+	id 6A68720B7166; Fri, 23 Oct 2026 05:38:43 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 6A68720B7166
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1792759123;
+	bh=8JP4fqByo87cANLvRb85F+PSRLIXEoS9coFVAgui0Pc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=pq2hrQ6uBcLBsWpT7ti5o1M/lM0IUnfldo08t7lEytelDlI//JFZgJrAC9ymbz5mP
+	 2jwVQKBrnt86b/4FfGMlW6IWhrBaFElqm+TD1X7XmooXEmtV0IlJ94qAEs945J4eWz
+	 hw0Ob4XqcxE5uMGVftPDU8i/n6ebgstGsrUEDV78=
+Date: Fri, 23 Oct 2026 08:38:43 -0400
+From: Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>
+To: mhklinux@outlook.com
+Cc: haiyangz@microsoft.com, wei.liu@kernel.org, decui@microsoft.com,
+	linux-kernel@vger.kernel.org, linux-hyperv@vger.kernel.org
+Subject: Re: [PATCH 1/1] Drivers: hv: Remove leftover support for old Hyper-V
+ versions
+Message-ID: <attVUxOyEoUVPYEF@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
+References: <20261023030527.1611-1-mhklinux@outlook.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,87 +60,40 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261023120953.1206778-1-jarkko@kernel.org>
+In-Reply-To: <20261023030527.1611-1-mhklinux@outlook.com>
 
-On Fri, Oct 23, 2026 at 03:09:20PM +0300, Jarkko Sakkinen wrote:
-> The keyring subsystem depends on assoc_array for searching keys by their
-> description, type and domain. It is the sole user of this data structure,
-> which has during the age of LLMs transformed into a maintenance nightmare.
+On Thu, Oct 22, 2026 at 08:05:27PM -0700, Michael Kelley wrote:
+> When removing support for running Linux guests on Windows Server
+> 2008/2008R2 and Windows 7, one area was missed due to the code
+> comment spelling "2012" incorrectly. Remove that functionality now.
 > 
-> assoc_array needs to be replaced with a data structure meeting the
-> following criteria:
-> 
-> 1. Must be suitable for a sparse key-value store.
-> 2. Must have multiple in-kernel users.
-> 3. Would be nice if it had dedicated maintainers.
-> 
-> rhashtable is likely the best pick from the available options as it is
-> designed for a sparse key space, has dedicated maintainers, and multiple
-> in-kernel users.
-> 
-> CHANGES
-> =======
-> 
-> v2:
-> - Tried to address all the issues pointed out by David and Eric. Tell me
->   if something was ignored, as that would be an unintentional mishap.
-> - Updated and trimmed the source code comments.
-> - For assoc_array_edit I decided to go with two-element pointer array,
->   which shifts a bit what David suggested.
-> - Dropped is_keyring flag. It was so obvious call so I mention it here
->   just in case because too obvious maxes out my self-doubt ;-)
-> - Used cleanup.h primitives where I possibly could especially in order
->   to make fallible initializations more bug-resistant.
-> - The already-ack'd bug fixes are included but will be dropped as soon
->   as I've sent them over to Linus.
-> 
-> VERSIONS
-> ========
-> 
-> - v2:
->   https://lore.kernel.org/keyrings/20261016215326.4110064-1-jarkko@kernel.org/`
-> 
-> Jarkko Sakkinen (6):
->   KEYS: Expand key->{datalen,quotalen} to unsigned int
->   KEYS: Reject descriptions larger than KEY_MAX_DESC_SIZE
->   KEYS: Verify the key identity in __key_unlink_begin
->   KEYS: Introduce keyring_is_empty()
->   KEYS: Replace assoc_array with rhashtable
->   lib: Remove assoc_array
-> 
->  Documentation/core-api/assoc_array.rst        |  564 ------
->  Documentation/core-api/index.rst              |    1 -
->  .../zh_CN/core-api/assoc_array.rst            |  473 -----
->  .../translations/zh_CN/core-api/index.rst     |    1 -
->  drivers/md/dm-verity-verify-sig.c             |    2 +-
->  fs/smb/client/cifsacl.c                       |    6 +-
->  fs/verity/signature.c                         |    2 +-
->  include/keys/keyring-type.h                   |    1 -
->  include/linux/assoc_array.h                   |   88 -
->  include/linux/assoc_array_priv.h              |  178 --
->  include/linux/key.h                           |   27 +-
->  lib/Kconfig                                   |   14 -
->  lib/Makefile                                  |    1 -
->  lib/assoc_array.c                             | 1724 -----------------
->  security/keys/Kconfig                         |    1 -
->  security/keys/internal.h                      |    9 +-
->  security/keys/key.c                           |   30 +-
->  security/keys/keyctl.c                        |    2 -
->  security/keys/keyring.c                       |  871 ++++-----
->  security/keys/request_key.c                   |   24 +-
->  .../dm-verity/test-dm-verity-keyring.sh       |    2 +-
->  21 files changed, 457 insertions(+), 3564 deletions(-)
->  delete mode 100644 Documentation/core-api/assoc_array.rst
->  delete mode 100644 Documentation/translations/zh_CN/core-api/assoc_array.rst
->  delete mode 100644 include/linux/assoc_array.h
->  delete mode 100644 include/linux/assoc_array_priv.h
->  delete mode 100644 lib/assoc_array.c
-> 
-> --
-> 2.47.3
-> 
+> Signed-off-by: Michael Kelley <mhklinux@outlook.com>
 
-I must have typoed my send-email command-line as Eric was supposed to be
-Cc'do to the whole thread, duh. Will be addressed next round, apologies.
+Reviewed-by: Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>
 
-Br, Jarkko
+> ---
+>  drivers/hv/ring_buffer.c | 8 --------
+>  1 file changed, 8 deletions(-)
+> 
+> diff --git a/drivers/hv/ring_buffer.c b/drivers/hv/ring_buffer.c
+> index 72f30ab23d1d..d8b085dfdb46 100644
+> --- a/drivers/hv/ring_buffer.c
+> +++ b/drivers/hv/ring_buffer.c
+> @@ -561,14 +561,6 @@ void hv_pkt_iter_close(struct vmbus_channel *channel)
+>  	start_read_index = READ_ONCE(rbi->ring_buffer->read_index);
+>  	WRITE_ONCE(rbi->ring_buffer->read_index, rbi->priv_read_index);
+>  
+> -	/*
+> -	 * Older versions of Hyper-V (before WS2102 and Win8) do not
+> -	 * implement pending_send_sz and simply poll if the host->guest
+> -	 * ring buffer is full.  No signaling is needed or expected.
+> -	 */
+> -	if (!rbi->ring_buffer->feature_bits.feat_pending_send_sz)
+> -		return;
+> -
+>  	/*
+>  	 * Issue a full memory barrier before making the signaling decision.
+>  	 * If reading pending_send_sz were to be reordered and happen
+> -- 
+> 2.25.1
+> 
