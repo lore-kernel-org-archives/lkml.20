@@ -1,54 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.254.200.92
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.207.22.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792725351;
-	b=rGxEOxLNLx2NOKKPt5tifFkzPbgCOZnli6+pObSWdCGgZk9S1j3aPaPOQLKgzklqY9MU
-	 vla89PIrw4oNci4jwcvm/WgruMNm9qLJSZYNs2bsq7MIa7MGCMhcNMzLxCQffOFGKUkX1
-	 wczxb7U4WHByUU3NMEGoRmsX1yOP6aGjJRNc7qwXkeJKTjYQnbxlLUjQWOgmyCw6Tl9xH
-	 vEpI/8mWEQ6CjQ64zHMDjmMWxDkCKQqdaF1IzvKJgiaL8oF6E4sV71qwCeN8yxbErJSCd
-	 BsFTpCtdU3na74aGcHhT9hrcKYQU4KrKZHasT+dttG0UzkSYjA2lj6POwCtPhhigNtQ==
+	t=1792725360;
+	b=alZy43u8KDDqylU+QySCbpovBgWYhGdqInESEFBfb+mFLzzMKj2lm9Kh+nYBGErncEFZ
+	 VLSbR9Fc5B99EtL2XMO7sjIsntFZdcAuXFJqVwFy0R2NQlgy5uIcl4fuGqagejNTz1/YP
+	 PkczXDIzC11PBJC5ILtURCiZxQOhH3coGE91k1Xz97vaOpyCc51kU4PJdIX8JXJldjSuI
+	 KpBWrynSBvcCsqojh7ZG8Oaaiox9bY2SgXZwNFfjb6rXpcajdtkaIYzg/ImR/O9n/I+IU
+	 TZ4v+m6C9ngkCWp/rejs+ZNsmowv4UZWz3qnProfrxNGsW8dn2/FH8cW8nSbMgcRwGw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792725351;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792725360;
 	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
 	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:From:To:Cc:
-	 Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:
 	 X-QQ-XMRINFO:X-QQ-RECHKSPAM;
-	bh=/+OBVE/Me7wEWOm6ldjM3ZEGj39Ns2tsxw7jm+cZTw4=;
-	b=lEfPN8zg2C+mCQ9JvmYSsTP+avLSwBXH7dN2UPqzU/e7yEf6khOOgU/12FLy50UVvndD
-	 v/Jgf6wsV2YQ+tN190t1k/fYTBumRZKxN+//3myNRMqPUP1n+RkpRSCiY7uRCXxZUQ4qN
-	 VfSSUlfilf2nPscigGcqMkUKmJUMxRum8Tc12R5bkZ+TZtUOB3p3txEiC36vdHc7+B3ZQ
-	 1Uq2yJ8v+Gtqf8VJ3dg89HqtWTpkCpFNWCQA/FZeSGPDhGhN1LRhb42MRoE8R6fSbseVG
-	 4fzcKzeAGTcnSzYodLrkLaP86HPDgrIo+owx3rMyYtmp63pDdvaS3mHlOYyQG27+RZw==
+	bh=MMlf6J75nDVXumN3lYDEd291b9v7/FkjUcwdAXybsaU=;
+	b=16LnXnkUMZwTatEs+QhJvbj06ZWUOgVz0eGI/6QhoXtrvqgZHoOwDabEL0P3gwkthdSy
+	 motx9o9Slz5ixw+GNjanX7T8cpqLF37VhqgeGylaZq9aaVRSmG7oFqgeKzq5SqdRir098
+	 IKJOlLoOiNTjGQwADb41xqe02vWR0OLvI7jnXmW7QlZqxhrI7o/LVnzTlxMy11zNjkOt0
+	 WKKepKheoYOh2gLEAc2pjQzUOgXnmOgfbvNnH159sUbNP3Dym0Yc5w9S8IqF2mcuJQ3p9
+	 hlRhx0Y/flxMKQjZpydf8SdaeRN+sRfpc4FNyBhPD/FFFSB0eTkTysooUsbC03L74cw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=linux.spacemit.com;
 	spf=none smtp.mailfrom=linux.spacemit.com;
-	dkim=pass header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=yIW8yyry;
-	arc=none smtp.remote-ip=54.254.200.92
-Received: from smtpbgsg1.qq.com (smtpbgsg1.qq.com [54.254.200.92])
+	dkim=pass header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=mpPN7P8o;
+	arc=none smtp.remote-ip=54.207.22.56
+Received: from smtpbgbr2.qq.com (smtpbgbr2.qq.com [54.207.22.56])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE308606A31B
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 03:15:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EE308606A31B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CFEB606A326
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 03:15:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9CFEB606A326
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
 Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=yIW8yyry
+	dkim=pass (1024-bit key, unprotected) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=mpPN7P8o
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
-	s=mxsw2412; t=1792725315;
-	bh=/+OBVE/Me7wEWOm6ldjM3ZEGj39Ns2tsxw7jm+cZTw4=;
+	s=mxsw2412; t=1792725326;
+	bh=MMlf6J75nDVXumN3lYDEd291b9v7/FkjUcwdAXybsaU=;
 	h=From:To:Subject:Date:Message-Id:MIME-Version;
-	b=yIW8yyryM/IzPS/Dvrbjlzl39uIowJK3JVaOicEBX9/fBqcrd/hAGTE9y8k/nsfhV
-	 5o0hfGoIkCeXzFRUWfHXUOPrdSQoEMgGJZ9WpvwyykUYhWpNBaekCzX2QpOcioBuFF
-	 2fX/tkOGQ5dG72C+33r1L5mv6luXne8IhDDxRXt8=
-X-QQ-mid: esmtpsz11t1792725309ta2dc2b13
-X-QQ-Originating-IP: fzUFc1qThgCG/nO0+/karSV+umYCChlVbo/2w+Kkn5E=
+	b=mpPN7P8oyG7MZRPLAwPO0wRwyXSz0Oky+3tPv3VA/sggw1ZNuRQH03oNAtwejbsvH
+	 1rzhp5Op60slDz9U4M4gJml8Q4+4xPR+fSVDbPtPThGJWkWbF5I0szWGXHNXb+ZfFv
+	 lwrij86c/KKtKFKABxFRh9NvdQhK8TYpJYM/TxHw=
+X-QQ-mid: esmtpsz11t1792725321t509a5208
+X-QQ-Originating-IP: ohnxhK38InInZiVBUyKsKzYkj35gb18qCuBUfmUW/BI=
 Received: from snode5.. ( [120.237.158.181])
 	by bizesmtp.qq.com (ESMTP) with 
-	id ; Fri, 23 Oct 2026 11:15:05 +0800 (CST)
+	id ; Fri, 23 Oct 2026 11:15:18 +0800 (CST)
 X-QQ-SSF: 0000000000000000000000000000000
 X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 6793098632900412021
+X-BIZMAIL-ID: 16734880007413768572
 EX-QQ-RecipientCnt: 26
 From: Zane Leung <liangzhen@linux.spacemit.com>
 To: gregkh@linuxfoundation.org,
@@ -77,10 +77,12 @@ Cc: mike.leach@arm.com,
 	coresight@lists.linaro.org,
 	linux-riscv@lists.infradead.org,
 	linux-kernel@vger.kernel.org
-Subject: [RFC PATCH 00/24] Add Linux RISC-V trace support via the gtrace framework
-Date: Fri, 23 Oct 2026 11:14:41 +0800
-Message-Id: <20261023031505.2020925-1-liangzhen@linux.spacemit.com>
+Subject: [PATCH 03/24] gtrace: Drop trace format field and helper function
+Date: Fri, 23 Oct 2026 11:14:44 +0800
+Message-Id: <20261023031505.2020925-4-liangzhen@linux.spacemit.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261023031505.2020925-1-liangzhen@linux.spacemit.com>
+References: <20261023031505.2020925-1-liangzhen@linux.spacemit.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,170 +95,193 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-QQ-SENDSIZE: 520
 Feedback-ID: esmtpsz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz6b-0
-X-QQ-XMAILINFO: M8ySnbDbMtGJKj4zvyvI879OdiHX5hCS1xXb7+6QcX4KafcmtH1JY1M+
-	7utCrBxLMrrqRI14g8nx5kBrZbh8ghNcJCdIWNomb9YJUYcLqL1pTORjWJfEZDAWnUgy8P5
-	nERDNsVCvqZV04H4s8whKsFBOsGDmRCj/wUrInpYPu/YhXDOsrh5EQhZqQSmhTB/qwiwpkN
-	BOeIoQ96dBPTrzPhihecRqilOtUH6ii+NHSVqhj74MhyNv0GlMoKvshTfucXiS0rwveP2bv
-	Rh5qonarFI/c32pnZUOK73OcoeMtd+bx+lQpOflj5h77SfQvEQK6QYSUFzvuWFor3dnKBIr
-	nWkDAwqCVN+H2KZZEqS2G+qUaK4CvPDqwas5je8cVy3O+Bzf/2eYRXVcSndo2xPdu9vzP3Q
-	lA29VA62BIhpyS7efoMzpniMRG7EgsO+k0kHAcd2NG82TuSbeLw3FYW6QLHwxRKXd1/x4KK
-	4MvBtXDUVgbzwVSOdpq1KqvEo9aau9agroxj7eMkE5U5iHhI2mMCOyk/w7Y5wQdhZQivQXn
-	PJTzaMI1MD1rw7ODEgOC01Y6czyF6BuUaxXVzKTdyykpd0CjeXmtwJtiuP2+JhIbaOWF2r4
-	6KnBajTMK/D4W2YJKuemLPPbkO0b9YmayXPJpPMkn/hVVAolNtwumYEqD/B8CIq8ZLYlFt5
-	j/XxQNAZzcUexSIVk96+nTxVsVoI0WIeR3A6t0uOJGQclHlIMegYhflDPCW85Zjktp93nyK
-	2pEAFzrCteyV8yE64tA6Y0rAvkkgGRwczQX4Gp8SzVfAgNkF1+CAEAKVfbDIv2xZGWooVEM
-	KHhaAVM1DBEtckNj8/rR6yB8CwylvhD/PY5kNucQ7gfyG4aCDDslIKZRfjwm9uiDcTJERk8
-	PAJq7NHM/8nxByQOWD3yjUfJGagF0wcKf4BIwzeGGufnNQfYwhnrdVvvPhJPntKPbL3/sIY
-	okXmmkHH7T+OZCRa33tlv53TTfWkJkyUXRLjpMhOaFkQIpu63czhq+V/txXcZuTSAxF5OAD
-	Q7WHdSt7/bGQZvM1r9ri0vLiM7CAFJ31kv7ooXcgHA7LQZe4lJjGQVcvw+xYja06d6huYmh
-	OaUSDKNg6+d
+X-QQ-XMAILINFO: MKzYG8XJzx27R8R81WwUnQO5yqrnQNtb51jeKTD97e0S6z0VUhbsgIe5
+	5KurFlbJZJ7FWBfSYIbCdDOeE5aeKoUow9cFBpXzVoou4mQX+7zG4If6buFg9BBQfhaQwsN
+	7/t9Q8GMWnr0p1RW4U7tRNSEkfOFvri6TnX0bJ8Tkdx3YUVMytXPLR0DbJf4j2L1pId+4/4
+	Xv9ooyaQRWdjBk7uU6DGCzQvNearG8IbdIN2OVwK8sVQkiBxdi83627SyXzSPVqcErWEQtl
+	FrsEEismwY8xyuHDjLdC7tFeSzxyTBMkt5EZk0Tl8nD9CnEHrc8qixhQIVLbzDmiZiampTA
+	Wnn2ee8hGfK3yNNCr5W3l6VMDQsOKQMo4T3bz+TFw/e6SyDqzNF/7RW5LlkKpjEx25J3Aum
+	nxVJTeGTjoa6v6Kn+B4c0UaRbTzBJe3Flbbf1mjU389IfT0UDaXGZL3Tnpzi28OnwKBs75O
+	g5EzRZA5iu1oproMnb6j3gHTUaCyGSnyDkpO7q8UjEWBmLmRl0h8jzbEz4Q0WE3q0HhaaEW
+	0Z4zPcleVOikREX3PAjG3XX1MC7bEVe8xvtQdyXmfxLzYzh062c3LrG6KAvSUYRsRNSuW1t
+	O7zYtmg4oiAIr/0DWAkET2nBO5M99bFfxiFliAAYOBRPwlqwksMqGjRvy4xNm8h7Oj3TzCM
+	k6wsc8KbNpgIBuofSvJ+FLbAYgdyS/Dj0HeqelwvEATRf5as9JeVW6HJixf7+2IE/HxjfYu
+	m+Y5LYGAMaZhcHTEehLsSpt3x+e7IsmjQ85+VmZPns+W58+0lG77+Fb8W2qox4Eh0X4PAUW
+	kUlLgRAYgKazT1WKeKE9bbFzrTUIyieTF6kKqwrwMqki49jCKlf7vWI7nQwx5cHPUH/NsWo
+	7UZhU9rhXUixvENNkXZGIgbWg2wXP9xVTjR1thbJh44wDV3P1p0yMoeSm9esRgP7hQb/OAF
+	DLRiMyBz1WyAG0voBLOWr001gkfN0/75GgQejLEoogHzKIFJK0pQnbL3HXmz142rdkjYEwk
+	+vhqm1WXBmgEVhZcqh1N+EhMesSXiVqB9UPtkxrN805f8qn58O
 X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
 X-QQ-RECHKSPAM: 0
 
-This series adds Linux RISC-V trace support via the generic hardware trace
-(gtrace) framework [1].  The RISC-V trace encoder, funnel, ATB bridge, and
-timestamp components are implemented as gtrace components, and the CoreSight
-funnel and TMC (ETB/ETF/ETR) are likewise re-implemented as gtrace components
-so that they can be composed with the RISC-V components into a single trace path.
+Remove the format field from struct gtrace_platform_data and drop
+the associated gtrace_path_aux_format() helper function.
 
-This work supersedes the earlier CoreSight-based RFC [2]. Instead of forcing
-the RISC-V trace IP to conform to the CoreSight device, this series shifts
-the topology onto the gtrace framework to achieve cleaner architectural
-decoupling and shared data paths.
+Signed-off-by: Zane Leung <liangzhen@linux.spacemit.com>
+---
+ drivers/hwtracing/gtrace/gtrace-perf.c      | 15 --------
+ drivers/hwtracing/gtrace/rvtrace-encoder.c  | 39 ---------------------
+ drivers/hwtracing/gtrace/rvtrace-platform.c |  3 +-
+ drivers/hwtracing/gtrace/rvtrace-ramsink.c  |  1 -
+ include/linux/gtrace.h                      |  3 --
+ 5 files changed, 1 insertion(+), 60 deletions(-)
 
-The series includes:
-
-- gtrace sysfs support, exposing per-component attributes (control,
-  features, and timestamp) for configuration and validation
-- gtrace component drivers for the RISC-V trace encoder, funnel, ATB
-  bridge, and timestamp components
-- gtrace component drivers for the CoreSight dynamic funnel and TMC
-  (ETB/ETF/ETR), built on top of the CoreSight platform core APIs
-  (CLAIM/device registration) re-implemented as gtrace components
-- perf PMU support: gtrace event format attributes, per-event configuration
-  parsing, and an AUX flag marking CoreSight-formatted trace data
-- perf tooling: a Nexus (N-Trace) decoder and a gtrace AUX decoder that
-  synthesizes branch samples, including machine-mode instruction access
-
-Verification on K3 SoC:
-The device tree follows [1], with only the compatible properties changed for
-the gtrace components.
-
-# perf list pmu
-  gtrace//                                          [Kernel PMU event]
-
-# perf record -e gtrace// --per-thread uname
-[ perf record: Woken up 1 times to write data ]
-[ perf record: Captured and wrote 1.946 MB perf.data ]
-
-# perf script
-uname  767863          1                          branches:  ffffffff80d18b04 gtrace_poll_bit+0x34 ([kernel.kallsyms]) => ffffffff80d18b12 gtrace_poll_bit+0x42 ([kernel.kallsyms])
-uname  767863          1                          branches:  ffffffff80d18b4e gtrace_poll_bit+0x7e ([kernel.kallsyms]) => ffffffff80d18b6c gtrace_poll_bit+0x9c ([kernel.kallsyms])
-uname  767863          1                          branches:  ffffffff80d1c17a rvtrace_encoder_start+0x112 ([kernel.kallsyms]) => ffffffff80d1c196 rvtrace_encoder_start+0x12e ([kernel.kallsyms])
-uname  767863          1                          branches:  ffffffff80d18782 gtrace_path_start+0xbe ([kernel.kallsyms]) => ffffffff80d18702 gtrace_path_start+0x3e ([kernel.kallsyms])
-uname  767863          1                          branches:  ffffffff80d18712 gtrace_path_start+0x4e ([kernel.kallsyms]) => ffffffff80d18724 gtrace_path_start+0x60 ([kernel.kallsyms])
-...
-
-In per-cpu mode, correlating trace data with the running task requires
-the encoder to emit a context ID.  This depends on writing the task PID
-to the RISC-V scontext CSR on context switch [3].
-
-[1] https://lore.kernel.org/all/20260810152223.3946743-1-mayuresh.chitale@oss.qualcomm.com/
-[2] https://lore.kernel.org/all/20260414034153.3272485-1-liangzhen@linux.spacemit.com/
-[3] https://lore.kernel.org/all/20240329-dev-maxh-lin-452-6-9-v1-0-1534f93b94a7@sifive.com/
-
-Zane Leung (24):
-  gtrace: Move connection release into component unregister
-  gtrace: Initial implementation of gtrace sysfs framework
-  gtrace: Drop trace format field and helper function
-  gtrace: Add RISC-V trace encoder sysfs support
-  gtrace: Introduce some PMU format attributes
-  gtrace: Replace owner PID with perf_event pointer in gtrace_path
-  gtrace: Parse RISC-V Trace encoder config from perf event
-  gtrace: add perf symlink support for gtrace components
-  gtrace: Add port-level start/stop driver callbacks
-  gtrace: Add RISC-V trace funnel driver
-  gtrace: Add RISC-V trace timestamp support
-  gtrace: Add RISC-V trace ATB bridge driver
-  gtrace: Add CoreSight platform core APIs
-  gtrace: Add CoreSight funnel driver
-  gtrace: Only copy AUX data from the path sink
-  perf: Flag whether gtrace AUX data carries CoreSight framing
-  gtrace: Unify default sink selection across CPUs in perf setup
-  gtrace: Add sink-specific buffer alloc/free callbacks
-  gtrace: Add setup_sysfs_buf callback to setup sysfs sink buffer
-  gtrace: Add CoreSight TMC driver support
-  perf tools: riscv: making gtrace PMU listable
-  perf tools: Add Nexus RISC-V Trace decoder
-  perf tools: gtrace: Record and parse trace encoder metadata
-  perf tools: gtrace: Add AUX trace decoder and branch sample synthesis
-
- .../hwtracing/coresight/coresight-tmc-etf.c   |    1 -
- drivers/hwtracing/gtrace/Kconfig              |   70 +
- drivers/hwtracing/gtrace/Makefile             |   12 +-
- drivers/hwtracing/gtrace/coresight-funnel.c   |  430 ++++
- drivers/hwtracing/gtrace/coresight-platform.c |  279 +++
- drivers/hwtracing/gtrace/coresight-tmc-core.c | 1111 ++++++++++
- drivers/hwtracing/gtrace/coresight-tmc-etf.c  |  573 +++++
- drivers/hwtracing/gtrace/coresight-tmc-etr.c  | 1888 +++++++++++++++++
- drivers/hwtracing/gtrace/coresight-tmc.h      |  469 ++++
- drivers/hwtracing/gtrace/coresight.h          |  212 ++
- drivers/hwtracing/gtrace/gtrace-core.c        |  165 +-
- drivers/hwtracing/gtrace/gtrace-perf.c        |  122 +-
- drivers/hwtracing/gtrace/gtrace-sysfs.c       |  452 ++++
- drivers/hwtracing/gtrace/rvtrace-atbbridge.c  |  153 ++
- ...trace-encoder.c => rvtrace-encoder-core.c} |  182 +-
- .../hwtracing/gtrace/rvtrace-encoder-sysfs.c  |  323 +++
- drivers/hwtracing/gtrace/rvtrace-encoder.h    |   61 +
- drivers/hwtracing/gtrace/rvtrace-funnel.c     |  220 ++
- drivers/hwtracing/gtrace/rvtrace-funnel.h     |   29 +
- drivers/hwtracing/gtrace/rvtrace-platform.c   |   26 +-
- drivers/hwtracing/gtrace/rvtrace-ramsink.c    |   11 +-
- drivers/hwtracing/gtrace/rvtrace-timestamp.c  |  336 +++
- drivers/hwtracing/gtrace/rvtrace-timestamp.h  |   44 +
- drivers/hwtracing/gtrace/rvtrace.h            |    5 +
- include/linux/gtrace.h                        |  161 +-
- include/uapi/linux/perf_event.h               |    1 +
- tools/arch/riscv/include/asm/insn.h           |  645 ++++++
- tools/include/uapi/linux/perf_event.h         |    1 +
- tools/perf/arch/riscv/util/Build              |    1 +
- tools/perf/arch/riscv/util/auxtrace.c         |  203 +-
- tools/perf/arch/riscv/util/pmu.c              |   19 +
- tools/perf/builtin-script.c                   |    4 +
- tools/perf/util/Build                         |    1 +
- tools/perf/util/gtrace-decoder.c              | 1283 ++++++++++-
- tools/perf/util/gtrace.h                      |   30 +-
- tools/perf/util/rvtrace-decoder/Build         |    2 +
- .../util/rvtrace-decoder/rvtrace-decoder.c    |  423 ++++
- .../util/rvtrace-decoder/rvtrace-decoder.h    |  122 ++
- .../rvtrace-decoder/rvtrace-ntrace-decoder.c  |  910 ++++++++
- .../rvtrace-decoder/rvtrace-ntrace-decoder.h  |  124 ++
- tools/perf/util/symbol_conf.h                 |    2 +
- 41 files changed, 10926 insertions(+), 180 deletions(-)
- create mode 100644 drivers/hwtracing/gtrace/coresight-funnel.c
- create mode 100644 drivers/hwtracing/gtrace/coresight-platform.c
- create mode 100644 drivers/hwtracing/gtrace/coresight-tmc-core.c
- create mode 100644 drivers/hwtracing/gtrace/coresight-tmc-etf.c
- create mode 100644 drivers/hwtracing/gtrace/coresight-tmc-etr.c
- create mode 100644 drivers/hwtracing/gtrace/coresight-tmc.h
- create mode 100644 drivers/hwtracing/gtrace/coresight.h
- create mode 100644 drivers/hwtracing/gtrace/gtrace-sysfs.c
- create mode 100644 drivers/hwtracing/gtrace/rvtrace-atbbridge.c
- rename drivers/hwtracing/gtrace/{rvtrace-encoder.c => rvtrace-encoder-core.c} (55%)
- create mode 100644 drivers/hwtracing/gtrace/rvtrace-encoder-sysfs.c
- create mode 100644 drivers/hwtracing/gtrace/rvtrace-encoder.h
- create mode 100644 drivers/hwtracing/gtrace/rvtrace-funnel.c
- create mode 100644 drivers/hwtracing/gtrace/rvtrace-funnel.h
- create mode 100644 drivers/hwtracing/gtrace/rvtrace-timestamp.c
- create mode 100644 drivers/hwtracing/gtrace/rvtrace-timestamp.h
- create mode 100644 tools/arch/riscv/include/asm/insn.h
- create mode 100644 tools/perf/arch/riscv/util/pmu.c
- create mode 100644 tools/perf/util/rvtrace-decoder/Build
- create mode 100644 tools/perf/util/rvtrace-decoder/rvtrace-decoder.c
- create mode 100644 tools/perf/util/rvtrace-decoder/rvtrace-decoder.h
- create mode 100644 tools/perf/util/rvtrace-decoder/rvtrace-ntrace-decoder.c
- create mode 100644 tools/perf/util/rvtrace-decoder/rvtrace-ntrace-decoder.h
-
+diff --git a/drivers/hwtracing/gtrace/gtrace-perf.c b/drivers/hwtracing/gtrace/gtrace-perf.c
+index 928f0405c6c1..56713c8ee850 100644
+--- a/drivers/hwtracing/gtrace/gtrace-perf.c
++++ b/drivers/hwtracing/gtrace/gtrace-perf.c
+@@ -167,20 +167,6 @@ static void *gtrace_setup_aux(struct perf_event *event, void **pages,
+ 	return NULL;
+ }
+ 
+-static u64 gtrace_path_aux_format(struct gtrace_path *path)
+-{
+-	struct gtrace_component *src = gtrace_path_source(path);
+-
+-	switch (src->pdata->format) {
+-	case GTRACE_FORMAT_ETRACE:
+-		return PERF_AUX_FLAG_GTRACE_FORMAT_ETRACE;
+-	case GTRACE_FORMAT_NTRACE:
+-		return PERF_AUX_FLAG_GTRACE_FORMAT_NTRACE;
+-	default:
+-		return PERF_AUX_FLAG_GTRACE_FORMAT_UNKNOWN;
+-	}
+-}
+-
+ static void gtrace_event_read(struct perf_event *event)
+ {
+ }
+@@ -295,7 +281,6 @@ static void gtrace_event_stop(struct perf_event *event, int mode)
+ 			return;
+ 		ret = gtrace_path_copyto_auxbuf(path, &event_data->buf, &size, &format);
+ 		WARN_ON_ONCE(ret);
+-		format = gtrace_path_aux_format(path);
+ 		if (READ_ONCE(handle->event)) {
+ 			/* Tag the AUX data with the source's trace format. */
+ 			perf_aux_output_flag(handle, format);
+diff --git a/drivers/hwtracing/gtrace/rvtrace-encoder.c b/drivers/hwtracing/gtrace/rvtrace-encoder.c
+index 1f06b1a2b412..f24780b1ca1e 100644
+--- a/drivers/hwtracing/gtrace/rvtrace-encoder.c
++++ b/drivers/hwtracing/gtrace/rvtrace-encoder.c
+@@ -53,38 +53,11 @@ static void rvtrace_encoder_set_srcid(struct gtrace_platform_data *pdata, u32 sr
+ 	gtrace_write32(pdata, val, RVTRACE_COMPONENT_CTRL_OFFSET);
+ }
+ 
+-/* Set requested trace format and return 0 if hardware supports that format */
+-static int rvtrace_encoder_set_format(struct gtrace_platform_data *pdata)
+-{
+-	u32 val, fmt;
+-
+-	switch (pdata->format) {
+-	case GTRACE_FORMAT_ETRACE:
+-		fmt = RVTRACE_COMPONENT_CTRL_FORMAT_ETRACE;
+-		break;
+-	case GTRACE_FORMAT_NTRACE:
+-		fmt = RVTRACE_COMPONENT_CTRL_FORMAT_NTRACE;
+-		break;
+-	default:
+-		return -EINVAL;
+-	}
+-
+-	val = gtrace_read32(pdata, RVTRACE_COMPONENT_CTRL_OFFSET);
+-	val &= ~(RVTRACE_COMPONENT_CTRL_FORMAT_MASK << RVTRACE_COMPONENT_CTRL_FORMAT_SHIFT);
+-	val |= fmt << RVTRACE_COMPONENT_CTRL_FORMAT_SHIFT;
+-	gtrace_write32(pdata, val, RVTRACE_COMPONENT_CTRL_OFFSET);
+-
+-	val = gtrace_read32(pdata, RVTRACE_COMPONENT_CTRL_OFFSET);
+-	val = (val >> RVTRACE_COMPONENT_CTRL_FORMAT_SHIFT) & RVTRACE_COMPONENT_CTRL_FORMAT_MASK;
+-	return val == fmt ? 0 : -EOPNOTSUPP;
+-}
+-
+ static int rvtrace_encoder_probe(struct gtrace_component *comp)
+ {
+ 	struct gtrace_platform_data *pdata = comp->pdata;
+ 	struct rvtrace_encoder_priv *priv;
+ 	u32 val, hw_srcbits, srcbits;
+-	int ret;
+ 
+ 	if (pdata->bound_cpu < 0) {
+ 		dev_err(&comp->dev, "cpu property missing. Please fix firmware.\n");
+@@ -95,12 +68,6 @@ static int rvtrace_encoder_probe(struct gtrace_component *comp)
+ 	if (!priv)
+ 		return -ENOMEM;
+ 
+-	ret = rvtrace_encoder_set_format(pdata);
+-	if (ret) {
+-		dev_err(&comp->dev, "failed to set format %d\n", pdata->format);
+-		return ret;
+-	}
+-
+ 	/* Check if trTeInhibitSrc is hardwired to 1 */
+ 	val = gtrace_read32(pdata, RVTRACE_COMPONENT_CTRL_OFFSET);
+ 	val &= ~BIT(RVTRACE_COMPONENT_CTRL_INHIBITSRC_SHIFT);
+@@ -144,12 +111,6 @@ static int rvtrace_encoder_start(struct gtrace_component *comp)
+ 	if (priv->srcbits)
+ 		rvtrace_encoder_set_srcid(pdata, priv->srcbits);
+ 
+-	ret = rvtrace_encoder_set_format(pdata);
+-	if (ret) {
+-		dev_err(&comp->dev, "failed to set format %d\n", pdata->format);
+-		return ret;
+-	}
+-
+ 	ret = gtrace_enable_component(comp);
+ 	if (ret) {
+ 		dev_err(&comp->dev, "failed to enable encoder.\n");
+diff --git a/drivers/hwtracing/gtrace/rvtrace-platform.c b/drivers/hwtracing/gtrace/rvtrace-platform.c
+index 189ff0b8bc18..e5c1f47388a2 100644
+--- a/drivers/hwtracing/gtrace/rvtrace-platform.c
++++ b/drivers/hwtracing/gtrace/rvtrace-platform.c
+@@ -78,7 +78,6 @@ static int rvtrace_platform_probe(struct platform_device *pdev)
+ 	pdata->dev = dev;
+ 	pdata->impid = RVTRACE_COMPONENT_IMPID_UNKNOWN;
+ 	pdata->hw_ops = &rvtrace_hw_ops;
+-	pdata->format = (uintptr_t)device_get_match_data(dev);
+ 
+ 	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
+ 	if (!res)
+@@ -146,7 +145,7 @@ static void rvtrace_platform_remove(struct platform_device *pdev)
+ }
+ 
+ static const struct of_device_id rvtrace_platform_match[] = {
+-	{ .compatible = "riscv,trace-component", .data = (void *)GTRACE_FORMAT_ETRACE },
++	{ .compatible = "riscv,trace-component" },
+ 	{}
+ };
+ 
+diff --git a/drivers/hwtracing/gtrace/rvtrace-ramsink.c b/drivers/hwtracing/gtrace/rvtrace-ramsink.c
+index 67b6779aacee..9588c32c5b13 100644
+--- a/drivers/hwtracing/gtrace/rvtrace-ramsink.c
++++ b/drivers/hwtracing/gtrace/rvtrace-ramsink.c
+@@ -161,7 +161,6 @@ static size_t rvtrace_ramsink_copyto_auxbuf(struct gtrace_component *comp,
+ 	dst.cur = buf->pos;
+ 	src.base = priv->va;
+ 	src.len = priv->size;
+-	*format = PERF_AUX_FLAG_GTRACE_FORMAT_ETRACE;
+ 	wp = rvtrace_ramsink_read_pair(comp->pdata, RVTRACE_RAMSINK_WPLOW_OFF);
+ 	wrap = wp & RVTRACE_RAMSINK_WPLOW_WRAP;
+ 	wp &= ~RVTRACE_RAMSINK_WPLOW_WRAP;
+diff --git a/include/linux/gtrace.h b/include/linux/gtrace.h
+index 9945303d2713..0a017f1f888d 100644
+--- a/include/linux/gtrace.h
++++ b/include/linux/gtrace.h
+@@ -96,7 +96,6 @@ struct gtrace_hw_ops {
+  * @bound_cpu:   CPU to which the component is bound, or -1 if unbound. For a
+  *               source component bound to a CPU this must not be -1.
+  * @control_poll_timeout_usecs: Delay in usecs when polling control bits.
+- * @format:      Trace format selected by the platform driver.
+  * @nr_inconns:  Number of input connections.
+  * @inconns:     Array of pointers to input connections.
+  * @nr_outconns: Number of output connections.
+@@ -128,8 +127,6 @@ struct gtrace_platform_data {
+ 	/* Delay in microseconds when polling control register bits */
+ 	int control_poll_timeout_usecs;
+ 
+-	enum gtrace_format format;
+-
+ 	/*
+ 	 * Platform driver must only populate empty pointer array without
+ 	 * any actual input connections.
 -- 
 2.34.1
 
