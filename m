@@ -1,111 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792758742;
-	b=Hy2qjKPCEGGYFmJd9NMTRGupGwaqH+A4ArB0SM3WMN2ndZDjYvFSZMvWV0tYFmj6yhu5
-	 Vhkn2AwH4Oxs40kIV763wnVnjZ3BsnsEf1Bf9TIa/yIHFzNYUimDCEFOQgQrzB0Dx4raO
-	 3pkxVzo3IsJ2eKchYON4a9/Vjj8tiC/KYW0kYAFR2iPDz2vJDk0dloti0M6fTWFGNiY+s
-	 0wV+3gAKDfyndBv9Qyw0bNCInaxk3pAHXFAgMFANOksEuKQy9jiR0ZikBNntyiZf2yCh3
-	 DhfmtEe/OghWmSXLPGKkCC0JIprw+LMSBWqyIaGM7LJZmAK9DmH2rDeCVgKou5jSi5w==
+	t=1792758842;
+	b=DIQ7KHseIJRm4fwGXIC4L+XdZ8HqgAnkERWncIsj2STbAqNKSSjxLUinETsd74B51vc1
+	 1/mGNVaMX8Zl1/rMPcuvRzRj77HujIk71qXWOqnK/B1QznBO+uGXetZLlQ4RPOgkuY6Nk
+	 2b85ZPWRfxlJ/ZTmI0ob9mv9TDncC9pgThZO0zVpevFvBmek4DXKuZbSbWmHijRniPxP6
+	 AlqBoJaiESc34WZg5Z6tgKBvW7N/a5n2fBhJRlKYMkvEZOCZCCudNAQYjx/0t81Vk1kql
+	 QJBkjj66x0hggzjF1g44EcUZISBHSoMhBGAzPh7cNBC0C2cSQpILd/DWVwgBnkMHmig==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792758742;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Authority-Analysis:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=MJtIEZRHfL2+tKH4qspJ2nYCVYpqSi8PgJO1PWzFn14=;
-	b=0Sr63Ift/dJYjAA6i6PCNGtCcRDu/zfiJsQ8NiqtzF1QOldWrTq/2En4Q2hNvm02tvmm
-	 RyCoeEaebjLE5Lt05RAlbbmZMPcf/dYW4U6GcoH5NHkVUgi+0cbSUIog9tlHgNtXLyuNW
-	 Y8e+7rmdwf1kuVi+Qc/aDgd7OPS7TpPZYphLdb0IY/WUw87ozvvHnAAzMAOi9nLFTArI3
-	 tbF/mZSOSMR3WE2p6cAK2F+IzP4JlVjUhdL/bMLy7++MLY4IRZDFLpWV6kTVKsoW1YYai
-	 InqUDVviHZ7p6fYby6zRAivQNRI9fOYjGeFzPrD5WE40jZ/dU1MXqO6vJr6wuv6mJ+g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792758842;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=0rnI9vadXsYD8rBdMbbzshOtJjoEuCkdwfFl2dhThMg=;
+	b=Qw2R7youfVyUhY98lUiqVszVCnmEdobFvUq8wjOVn0tI97cNeHZdmrkZ6tT/PKnRsp1n
+	 02Cyh+XB8yLh2W1VCX6cyBlMdSaJWQujHLUrfYWYZlu+Tl9vgXCPmLUKifI740Wcgux7G
+	 GYEo6o9yVyRxpTjezGVrJ7q+iHTXvP30a0McXWFA0xeMLfjCRMPeR2aHRtZvgD3st1xvH
+	 QjSL6tM6b+yU5vrJL5VO+zs84APy1/zZS6Jor9/q4vRqEWyZe+Q0CbbXBKwh1KXLnHDe5
+	 LkokKxV2P0uqXRlHwHphOBaH0kCcsNFA7GkGAHdMsdjsjxIb4J8OkibbIvbzjDyPFkQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=mbJDyKUM;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=UxIPaKvA;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=fairphone.com;
+	spf=pass smtp.mailfrom=fairphone.com;
+	dkim=pass header.d=fairphone.com header.i=@fairphone.com header.a=rsa-sha256 header.s=fair header.b=pMlORL2I;
+	arc=none smtp.remote-ip=209.85.221.42
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01462606A31B
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 12:32:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 01462606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A4E8606A31F
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 12:34:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3A4E8606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=mbJDyKUM;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=UxIPaKvA
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69NAAVcD1948398
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 12:32:21 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	MJtIEZRHfL2+tKH4qspJ2nYCVYpqSi8PgJO1PWzFn14=; b=mbJDyKUMbsKBTfpd
-	VF8oUL6B3cbqcpONko5rLSZwiSypf+0PUBrTO4nFXhk33eYHiLHJf91mAN5NGP9/
-	GaK6wo6T2ZYGK2XZR3r48ri9/cIHnqCcCspymTQJ5S8LEzxxkyNCm/1kcyRLO4tk
-	2MKFiABwUAcj37rK5cP3+Z3TFPNw0SVlkJE7IQusX3/AhjlfZkOf5GfRz8lLNF9P
-	8MjQPBINN0TchVngglUI4Yew4p10ig5GU1ysk/TuPqvF/JvIB/4vRh4syoDGiqis
-	i/ux/RWC6TTU0N9FDlSxbRiVUnrvs2dlBw34F/DA3pO2zyRDkCULRUxuIj49pv9q
-	f3iRMg==
-Received: from mail-ua1-f72.google.com (mail-ua1-f72.google.com [209.85.222.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hfqmtunpb-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 12:32:21 +0000 (GMT)
-Received: by mail-ua1-f72.google.com with SMTP id a1e0cc1a2514c-988b530df14so15508241.3
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 05:32:21 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=fairphone.com header.i=@fairphone.com header.a=rsa-sha256 header.s=fair header.b=pMlORL2I
+Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-48afcd7ba9bso495780f8f.3
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 05:34:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792758740; x=1793363540; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=MJtIEZRHfL2+tKH4qspJ2nYCVYpqSi8PgJO1PWzFn14=;
-        b=UxIPaKvAEPb/sMLdf8Tq6WKEQIdqsrsNT0os5hPL4o9/aFNMl7FtuAlRey7fuenRsl
-         +zaAN3Z6se16fIuAtkjm0n0noNXLsgKfC0mLTXyt+FH9Ylf+ysqGteh7jl4G08DdE7EP
-         2v3GdwCSsHWorfysTDscin6EcG4Rj4rJKDleYQxgjNo2gEC+VEeJCGg5Ouahq8JexvkW
-         dETKCHXL2f7pyAQ1gUqxVGUbaj+07EOWU+nHtcL35owaptkvifYX/mpNYwH3EUsc22gP
-         e/6wd5VfSFiNURDK8RnWKLBTzQMYcg9356eB9vUhLDBGpyQiQ8WZElGGBGYr/Rsw9zON
-         0p9Q==
+        d=fairphone.com; s=fair; t=1792758839; x=1793363639; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=0rnI9vadXsYD8rBdMbbzshOtJjoEuCkdwfFl2dhThMg=;
+        b=pMlORL2I6+7rhNHqB8En4FG5uhwxzwQF47m2miuC9rrV66FJsPYjqlo7yAdff8y5Rb
+         UrvXjKaBs1IuPVfTNGy7PB3il8E5izR3RNho35cXnFxIAM6ZASelIgsLfg0zIU8GanDS
+         QOgY6HDQR8mokySp6e9XnUwVOmSlihQNYA5In1E7/vYyOUX1gTaP2e+7CJfmEzHqtpXS
+         4hegguegEOf7uVQQHTufUG5dvGf9isXtLLZPooCltDkrlToJxoRwG4vekDuPdDz4GcDe
+         0uOYWV+zoJPTkJLEhSM89XwyIKrob6A0opj+zhUd/dAY0B2Sut1taPxfkyLl2GRZSDxF
+         mIig==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792758740; x=1793363540;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=MJtIEZRHfL2+tKH4qspJ2nYCVYpqSi8PgJO1PWzFn14=;
-        b=hWmmDHChjH1nV3vX53UN6e5KajIsCjBR91/B+K8LMnZdsP94N30Co9QdAUb8HHx++I
-         e1IVvG81hPjl3sGIyZEUg4C13lCB5X6P3n4ObHod5LooGaUvOTILBl1O1q8hPPO5DWuV
-         tYDBDm57s4oXjMwUjqwB17hAnmf6ggHWQCRKBL2mhKzl1Qb/7H1c1mjIxkzabvgIb5iZ
-         DvraFdUn4FQ7LZ3iwMjYNEApFJoxwVj4klnKrKUU/bBBURaKha7cEudi7/ChQvZUxVv2
-         qhZzDh8/NIDLebbzHlTLKFU1zh7LXpQLfdVnjAuU6lW2HFHmu33P9mmzWoXWbRGBomsM
-         qd3Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzEgFgl4fsX+ztuucweedDp9zaoumHnfv9PlDUBYY3V4E+Grti90dzre+I3Liw8ZKbkObI9WmzK+6raz2k=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI5M/TtEfs67ylF/xs8LKXw+f0IKcxHNDBBgUfCqtvU/k6peXv3
-	v06JRmdbZYTdPA2Y8zdGbGdbYzPJ65ZO49/E0XeU9hXIiu4pfh4PaEeHCnfqW8ptT6NnJT3lbp2
-	8jL2KeEjTDQh8JHTxsEgusDWobacYJzELE8VBeL/WfiIhK8QEe+TdFLM/aythQla80k8=
-X-Gm-Gg: AYBFou1wyRj4mW65eApeqj09SX56y/rwrMVlDL10tXUdjSwGMm4agPGiyC9VZ0me5oI
-	SD0g8lrv5kQzMHbaX2qtl6d3epKFrdu/UuLmUcUHvB9nRlnGcbWLNaDo/pzbffkAUtrO/RVSaJC
-	VS9aJhPml5mTaIXWxUd4T8K+VtxxaP5bSHkFuOqg9AWVxjuzN0LBmzF7G+VgSNR1wLaK0XCyi9L
-	FJvXSQEiTs2pD7jlLO0Wo5e/ZbNfWet3TaOO+bVNNRIGd0jvUsG46pgIntzzv1foX/BoO8AkfFo
-	4wGpBk2aW6JZpACZPc1ATMyTzrzDqQAlG7fPLFGgJk0oMfc/pUMKfZc683Ss5s1UDinaMsmLpQ3
-	9Wnue+vO6Wy/mx0nKjSDhZg==
-X-Received: by 2002:a05:6102:8515:20b0:7cc:174b:f7b7 with SMTP id ada2fe7eead31-7ccc2d8f97emr775030137.0.1792758740380;
-        Fri, 23 Oct 2026 05:32:20 -0700 (PDT)
-X-Received: by 2002:a05:6102:8515:20b0:7cc:174b:f7b7 with SMTP id ada2fe7eead31-7ccc2d8f97emr774968137.0.1792758739637;
-        Fri, 23 Oct 2026 05:32:19 -0700 (PDT)
-Received: from [192.168.226.26] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b432cc83d3sm993728a12.27.2026.10.23.05.32.17
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 23 Oct 2026 05:32:18 -0700 (PDT)
-Message-ID: <5114bca8-91bf-4db0-ae12-442d21ebad84@oss.qualcomm.com>
-Date: Fri, 23 Oct 2026 14:32:16 +0200
+        d=1e100.net; s=20260707; t=1792758839; x=1793363639;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=0rnI9vadXsYD8rBdMbbzshOtJjoEuCkdwfFl2dhThMg=;
+        b=isjubxn2WF5grIMMEUwm1UjzsecJLvXOMHU3a3bAP1Qm91m0FxwHer4fimj5gCNOmU
+         8p+BUrcNp93CXUGn01+Ye01YN12wEbrAU+cyammNRJLN99O84VPgdbZcN/qzaPfIqhxu
+         GPzoZg9lijz10PNi/mmpl8K+pq9wwo26Hj3jWUYPvZ9lgz6d7ZU0a6ZYpPpPvAei5PDz
+         g52VrilI+OEvfM0eGd42JQtUZF0x1eqicSapriYzCxImpIjLdSQG2N6cNHpsJ4gwdn7p
+         swL2yQ+4bqoIb9xbx0itMc73vNdo7GnBUBd1n2Vq7D1x4MaheyJoPiJfoyPose9QiqTI
+         Oriw==
+X-Forwarded-Encrypted: i=1; AKwUvBx9MR9+vfyLEexr5gI8oDXNnuUaExmS/IFs3FSXejjTbl/oTjaZKMj2EFpFHWETC+PNh/SSljRkqg9z7i0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI0MDsANCoSaMn/83XV1XlFvIXh7D5lI1/6OCK8BPLRjMoQpsYw
+	I5zBu40jRSYjF3YFVGM6erINmPiLX3u+JOoVmCiaqLwFrIajjcB62U6DpEgkrUyZPEkKh2mJy0B
+	ybzlenjM=
+X-Gm-Gg: AYBFou3oZS1pdET1hNUm8/4xZNpFbvxHjg5xOqH2I0rVbc8gbBnqcp6Fa3nVncrGstB
+	8vfbjY9LqhIv1uFw+eyY3KjKCjW6BMrtVYtwOO+26UEz9BiZXAMBhWLL0RJbT1QSOyBphztke5j
+	bj/ceM2tdCU1VFKooZrAAaINf0/2moYctI+BPGa+VIyf73IkQWaTma8sX3+Na9SEMzMHJ6QBP8n
+	6Go9ycESWmDr4/BsEYIu5OBxpS/EKYPLeR73NOgbgncMl1HYS8ttdQ1LpGS/2MZT4UkcFl0xM89
+	eJt2xmgRF1gcYAp+P6dYbC0/RTtLwU6vjrq9rtoVVRkKcbwxD6lT5MIRX6aop7IjB4zdWRwGfrP
+	tMue7Xo1GDhOM3IoSKCYT2x8/IaTkap9pfNrhINk+CcfyattPN9JrXCbrdjYB/4KYTQyDu3RvMb
+	L3ptUgxmRwPo3uDE6QTixkSdVMJtt1/Arojd2Z8ILmmP5CMDn6u4bmQg3OyzKTsoHCuJddBwFgS
+	8dGzVTiBstkosZTXnIfWmN2k5tRwOUnpCaW1KnnGvoSbDwiL5WO1k4sLDdBv8zo1Wc=
+X-Received: by 2002:a05:6000:4288:b0:48d:cda6:4dd7 with SMTP id ffacd0b85a97d-48e385b4621mr3251773f8f.44.1792758839526;
+        Fri, 23 Oct 2026 05:33:59 -0700 (PDT)
+Received: from [10.221.242.139] ([93.123.20.211])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e37edd26dsm5554766f8f.2.2026.10.23.05.33.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 23 Oct 2026 05:33:58 -0700 (PDT)
+From: Luca Weiss <luca.weiss@fairphone.com>
+Date: Fri, 23 Oct 2026 18:01:55 +0530
+Subject: [PATCH RFC] phy: qcom: snps-femto-v2: clear charger-detection
+ state on entry to host mode
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,101 +92,137 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/3] arm64: dts: qcom: lemans-sa8255p: add ethernet nodes
-To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bartosz Golaszewski <brgl@kernel.org>,
-        Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, netdev@vger.kernel.org
-References: <20261023-sa8255p-emac-dts-v1-0-a34d778ce9ac@oss.qualcomm.com>
- <20261023-sa8255p-emac-dts-v1-3-a34d778ce9ac@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20261023-sa8255p-emac-dts-v1-3-a34d778ce9ac@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=Gt3XaU1C c=1 sm=1 tr=0 ts=6adb53d5 cx=c_pps
- a=ULNsgckmlI/WJG3HAyAuOQ==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=EUspDBNiAAAA:8 a=TV7SFOc1Y2i57lEA1eIA:9 a=QEXdDO2ut3YA:10
- a=1WsBpfsz9X-RYQiigVTh:22
-X-Proofpoint-GUID: 03NQT0DsT7GVnJ1k4ksZELvv3SYM68EA
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIzMDA0OCBTYWx0ZWRfX1YXinp9TcsAM
- SAuyOaDpgt6GJD+4Q7fs24yucS0c6J2Vt7rveK2xGNfWJgJv7pRGcX3pfQDoEC9bNb56AhGHnGY
- 1viWHyOq6yMfFmdT2YBgRTDJtGHa4VmaZxvBL6tyA6xUyBGUn5KNsgQu3k6KDwYQ77Sbwv6jx2L
- c9mLTQ4ax6DK8M/lJUFka9vR/7vNDuVPUX0XpJdAnDxSJreoYyWy6kbdjXeXXCI1uunUc1+IOka
- I3PaU2vgSNXQKG7jj1n0YcYG3m4oDteoz88PAF51tJjGTTS70FWDW++iJJvIom+eux+Eqd9Thc0
- jeVAGxIvKafjjrkoNpzc3BcJKMrpxpeELIsm0o/Jn+L65Nl3lq60bBbw3O/A43LFlk046dUic0h
- t5W8SaIfQ7y6J3R35Q4XIwTXlYWYyTOaAMIzHC6BLwEqxZMkvKyKnZvRePXyec5iy5kesx00vx1
- 4fUu746031tyeqI/V+g==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIzMDA0OCBTYWx0ZWRfXwXORPMWh66c+
- Ot//6wtne6i8gSBwhqm0BMvcdC32IuTPErtKfHMA2S7reZ7QxF3Gm8UolAnqelx7rKV1nq9t6yF
- B5Otmp6QfJeo72jnV2puiDM3hCa6e1g=
-X-Proofpoint-ORIG-GUID: 03NQT0DsT7GVnJ1k4ksZELvv3SYM68EA
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-23_03,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 spamscore=0 suspectscore=0 malwarescore=0 adultscore=0
- clxscore=1015 priorityscore=1501 impostorscore=0 phishscore=0
- lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
- definitions=main-2610230048
+Message-Id: <20261023-phy-qcom-snps-femto-v2-host-v1-1-77cf6a5177cd@fairphone.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQrCMBBA0auUWTvQjhLUreAB3IqLmE7NCE1iJ
+ hal9O5GXf6/eDMoZ2GFfTND5klUYqjRrRpw3oYbo/S1gVoyXUtrTP6NDxdH1JAUBx5LxInQRy2
+ 4cz1treGNMRaqkDIP8vrpZzgdD3D5T31e7+zK14Vl+QAvmyLfhAAAAA==
+X-Change-ID: 20261023-phy-qcom-snps-femto-v2-host-9cd28a6e466a
+To: Vinod Koul <vkoul@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Manivannan Sadhasivam <mani@kernel.org>, 
+ Elson Serrao <elson.serrao@oss.qualcomm.com>, 
+ Konrad Dybcio <konradybcio@kernel.org>
+Cc: ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, Luca Weiss <luca.weiss@fairphone.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792758833; l=4680;
+ i=luca.weiss@fairphone.com; s=20250611; h=from:subject:message-id;
+ bh=c//aO+uFRscbScqkNAvaaqbbKqzdZoy9nP9LH9BBuUw=;
+ b=277h+fYW2NZCq8zkRo74BKyfkAOx+NVESfzGX0KBZvoRuS2vkofYvCJnTaYvxZi3/dHOkgswY
+ Y04w1TMcjHWAe7UVqbc4p+2OsP/gemCutXE9HhiaPolYK099c3tFaUw
+X-Developer-Key: i=luca.weiss@fairphone.com; a=ed25519;
+ pk=O1aw+AAust5lEmgrNJ1Bs7PTY0fEsJm+mdkjExA69q8=
 
-On 10/23/26 11:02 AM, Bartosz Golaszewski wrote:
-> Add the ethernet nodes along with their serdes PHY nodes for the gearvm
-> variant of the lemans ride board. Enable scmi7 and scmi8 to serve the
-> EMACs.
-> 
-> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-> ---
->  arch/arm64/boot/dts/qcom/lemans-gearvm.dtsi      |  28 +++
->  arch/arm64/boot/dts/qcom/lemans-sa8255p-ride.dts | 213 +++++++++++++++++++++++
->  2 files changed, 241 insertions(+)
-> 
-> diff --git a/arch/arm64/boot/dts/qcom/lemans-gearvm.dtsi b/arch/arm64/boot/dts/qcom/lemans-gearvm.dtsi
-> index 4c155cbc79754af632848cd55b738e3ef0511cb5..c64cfd279af458e24fb48083ae549c96cfc07485 100644
-> --- a/arch/arm64/boot/dts/qcom/lemans-gearvm.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/lemans-gearvm.dtsi
-> @@ -58,6 +58,14 @@ &cpufreq_hw {
->  	clock-names = "xo", "alternate";
->  };
->  
-> +&ethernet1 {
-> +	compatible = "qcom,sa8255p-ethqos";
-> +};
-> +
-> +&ethernet0 {
-> +	compatible = "qcom,sa8255p-ethqos";
-> +};
+On QCM6490 (Fairphone 5), the firmware runs BC1.2 charger detection over
+pmic_glink when the phone sinks power from a USB-C dock. It leaves the HS
+PHY in UTMI non-driving mode with the datapath override enabled:
 
-'0' < '1'
+  UTMI_CTRL0 (0x3c)    OPMODE = NONDRIVING                 01 -> 09
+  CFG0 (0x94)          UTMI_PHY_DATAPATH_CTRL_OVERRIDE_EN  00 -> 01
+  HS_PHY_CTRL2 (0x64)  USB2_SUSPEND_N_SEL                  06 -> 0e
 
+Linux never writes these fields. They match the configuration the
+downstream kernel uses for charger detection (its "dpdm" regulator); the
+downstream kernel re-initialises the PHY afterwards. Any femto re-init
+clears the state, but on mainline nothing re-inits the PHY after
+detection. When the dock then swaps the phone to host role, the
+controller cannot drive the bus. The HS chirp fails, the hub enumerates at
+full speed, and SET_ADDRESS times out (-62). The state persists into
+later sessions until the PHY is re-initialised.
 
-> +
->  &firmware {
->  	scm {
->  		memory-region = <&tz_ffi_mem>;
-> @@ -3226,6 +3234,26 @@ cma: linux,cma {
->  	};
->  };
->  
-> +&soc {
-> +	serdes0: phy@8901000 {
-> +		compatible = "qcom,sa8255p-dwmac-sgmii-phy";
+Clear OPMODE and the datapath override when the PHY is set to a host
+mode. usb_add_hcd() sets the root hub PHYs to PHY_MODE_USB_HOST_SS before
+it starts the host controller, so the clear lands before any port
+activity, on every entry to host mode. The clear is idempotent: when dwc3
+sets PHY_MODE_USB_HOST again after host init, it finds the fields clean
+and writes nothing. On platforms where nothing outside this driver
+touches these fields, the function only reads them.
 
-Hmm.. I was hoping Shawn's DT reshuffling would land first
+USB2_SUSPEND_N_SEL is left alone: HS works with it set, and clearing it
+has not been tested.
 
-Are the PHYs hardwired? If so, you can move the phys= reference
-here
+Tested on Fairphone 5 (7.0.8-sc7280) with an i-tec USB-C dock: the
+unpatched kernel failed every sink attach (15/15) and the control arm of
+an A/B on the same image failed 2/2; the patched kernel enumerated HS on
+every latched attach (3/3, with DP and charging working), and has been
+in daily use since.
 
-Konrad
+[This change was developed by "D.R.racer" (with the help of an LLM), who
+ doesn't want to have their legal name referenced. But they agreed on me
+ taking the change.]
 
+Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+---
+I'm mostly sending this to get a feel for whether this would make sense
+in the eyes of the maintainers. This does fix an annoying long-standing
+issue with USB stopping to work, so I'm hoping to find a way forward to
+fix this properly.
+---
+ drivers/phy/qualcomm/phy-qcom-snps-femto-v2.c | 36 +++++++++++++++++++++++++++
+ 1 file changed, 36 insertions(+)
+
+diff --git a/drivers/phy/qualcomm/phy-qcom-snps-femto-v2.c b/drivers/phy/qualcomm/phy-qcom-snps-femto-v2.c
+index 980ad1fb1e2e..e2b9404aac4f 100644
+--- a/drivers/phy/qualcomm/phy-qcom-snps-femto-v2.c
++++ b/drivers/phy/qualcomm/phy-qcom-snps-femto-v2.c
+@@ -226,12 +226,48 @@ static int __maybe_unused qcom_snps_hsphy_runtime_resume(struct device *dev)
+ 	return qcom_snps_hsphy_resume(hsphy);
+ }
+ 
++/*
++ * Charger detection run by firmware (BC1.2 on QCM6490 with pmic_glink) puts the
++ * PHY into UTMI non-driving mode with the datapath override enabled and can
++ * leave it there. The controller then cannot drive the bus, so the HS chirp
++ * fails. Only a PHY re-init clears this, and nothing re-inits the PHY after
++ * detection. Clear the state; this is a no-op unless something outside this
++ * driver set it.
++ */
++static void qcom_snps_hsphy_clear_chg_det(struct qcom_snps_hsphy *hsphy)
++{
++	u32 ctrl0 = readl_relaxed(hsphy->base + USB2_PHY_USB_PHY_UTMI_CTRL0);
++	u32 cfg0 = readl_relaxed(hsphy->base + USB2_PHY_USB_PHY_CFG0);
++
++	if (!(ctrl0 & OPMODE_MASK) && !(cfg0 & UTMI_PHY_DATAPATH_CTRL_OVERRIDE_EN))
++		return;
++
++	dev_dbg(&hsphy->phy->dev,
++		"clearing charger-detection state (ctrl0 %#x cfg0 %#x)\n",
++		ctrl0, cfg0);
++
++	qcom_snps_hsphy_write_mask(hsphy->base, USB2_PHY_USB_PHY_UTMI_CTRL0,
++				   OPMODE_MASK, OPMODE_NORMAL);
++	qcom_snps_hsphy_write_mask(hsphy->base, USB2_PHY_USB_PHY_CFG0,
++				   UTMI_PHY_DATAPATH_CTRL_OVERRIDE_EN, 0);
++}
++
+ static int qcom_snps_hsphy_set_mode(struct phy *phy, enum phy_mode mode,
+ 				    int submode)
+ {
+ 	struct qcom_snps_hsphy *hsphy = phy_get_drvdata(phy);
+ 
+ 	hsphy->mode = mode;
++
++	/*
++	 * Reached from usb_add_hcd() before the host controller starts.
++	 * phy_initialized only changes in .init/.exit, which phy-core runs
++	 * under phy->mutex, like this callback.
++	 */
++	if (hsphy->phy_initialized &&
++	    (mode == PHY_MODE_USB_HOST || mode == PHY_MODE_USB_HOST_SS))
++		qcom_snps_hsphy_clear_chg_det(hsphy);
++
+ 	return 0;
+ }
+ 
+
+---
+base-commit: bd1ecbb61afefc6a8b876ccbc31e9228b44e9eab
+change-id: 20261023-phy-qcom-snps-femto-v2-host-9cd28a6e466a
+
+Best regards,
+--  
+Luca Weiss <luca.weiss@fairphone.com>
 
