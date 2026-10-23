@@ -1,60 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.116
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.121
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792785342;
-	b=1EX1vvSaIoKYAhAoQxyadpvZNgI+Qm+vQ3uZlQfgjLCvh3z7y9S17qXLNZGw+ObV6pjq
-	 FLQh7kQvqO/krtYgeX8onI5X8oj9tqp3j0Cdm3vo37cqkMpwU1TE2o2yUNcO1wls9uZ3A
-	 uyyRP95C7cRgRWtZwqzBdOvd7gFgAt7on9r/pa7ZYUiEJ+gicVCrvogKoakk+j4yxbefT
-	 pDTEu5rNrBvlT7fLWVc4u4eJ96OUuH0sWDcngkoNjPuadBpsui18/oniFR2d5z+CMD8Gb
-	 GH1Lz1K6wCiz0tAph+Bf79Wdeoudi7mtJjXF2pxl4wQRuKnptmXqIIPIISh8CFBQnTg==
+	t=1792785354;
+	b=hE3u3VnC5sy5xl1Z6x4gqHMK5KaAAwWk4uPFRwRkQXiQoLm3ai+ZmEeTplH9vn8DK4Rs
+	 mDYz1clru3+4OHa6fLQfABGE2v6mEcz9FDVoM/qh3Iug25ALrQKex0z6oWgqU+IK/VsBS
+	 Kekd0NYU7iy6oKjJHD9Ll5wDwr7uAxK6xBz0k1i2wDIrDROMnbkgLyUCuqOv7tVz2O8oN
+	 3z3IFxwpLBNWXYz0hGhbncms/BzZ94Kgwh/uEFKJ8HNg5gNt5NWmdxDCABIcVcwQ9SCUN
+	 uMdyIiGW/ZGc+rCKfKryaDt2qg2PyytQ07GjwS11no0OeoShyNz9+7Mvx994RGzdp/w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792785342;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792785354;
 	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
 	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=Vp/AYBTEkmOuhm+udpmABWKXdbZzkeNKf63Ou8UIdq8=;
-	b=LHxyDmNRjdXZHJjCye61KdEeWU68TPOUr5ChiI8D7voHZCUJqBJyp/OsNAmPkBSZG0Cx
-	 sR+ODos3K51CkgVre+Id/LfT2dtqG8kb80OqzgyqscrrrZJnM5MOJ4iWa4cUDyQ/H+E4X
-	 A9FnT510lieWRLOGoh+Dl3dfdYPdJiXV0Hu520T7xoTcwrhm+viIDTIVUSC16CZE4cUyc
-	 8lifbZ/Rh+NrMcUviXRFFpqIYFRkGVM9LfixQNovAh5GT4lWAME+jXW/jO1VQ+zNh6w0g
-	 D+JGW9DcrHM46FG7ziuEShNAZtJ0c+H4TrCy3PZvPirBI4Pi7Q661sAS59cX+Hkv/Ew==
+	bh=XM2mkysUWOsflw19FxDcHSfbtvN10NMJJ+Nz7r/kGkY=;
+	b=HjmikI0B+oCFzfjqaRQVUPPR90CAHwgwLIZjGxMGO1V3vSGJDBAzedtTnNbTUTPeXmHH
+	 qZczzUUjO1ZZRfYfaNgEGoXXqaauausIJrnnuA/xL9htLiqSl9wbcBVEOSRxCfXERYqLx
+	 mvvBvKDcHDuKIBUcsLJycACMn6/hCqMdMIQ3ouHYpgiZGGWZwDF3VP7dmWLTxWKpCWkBu
+	 jioVmPgV1h+HVfW8+yPNgyfADHuW2BG2zO/sDFMyQcXt0tef0oTbv+or0WadaFk2V0ZXj
+	 nN0K3KXS/N/jTU9qS9cbz/xHzmVeTq7JgEsuKdIKy/47w78F9CYzauiS+yQOiBDrmWw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=pm.me;
 	spf=pass smtp.mailfrom=pm.me;
-	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=lo2D6TzA;
-	arc=none smtp.remote-ip=109.224.244.116
-Received: from mail-244116.protonmail.ch (mail-244116.protonmail.ch [109.224.244.116])
+	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b="aOju/ycD";
+	arc=none smtp.remote-ip=109.224.244.121
+Received: from mail-244121.protonmail.ch (mail-244121.protonmail.ch [109.224.244.121])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBF6860A6F48;
-	Fri, 23 Oct 2026 19:55:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BBF6860A6F48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED672606EA7C
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 19:55:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ED672606EA7C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=lo2D6TzA
+	dkim=pass (2048-bit key, unprotected) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=aOju/ycD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1792785339; x=1793044539;
-	bh=Vp/AYBTEkmOuhm+udpmABWKXdbZzkeNKf63Ou8UIdq8=;
+	s=protonmail3; t=1792785351; x=1793044551;
+	bh=XM2mkysUWOsflw19FxDcHSfbtvN10NMJJ+Nz7r/kGkY=;
 	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
 	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
 	 Message-ID:BIMI-Selector;
-	b=lo2D6TzARB9AREKFhgqRBp/EaqgfONqrfBzNiSh0DrHBQHyZbo1tc7KK+jrpOdqfR
-	 JB0IO/NUd/xLq5odGwyNRj8metN09pUFcAyq2USUsI7QtJdQFhuK4HCRvUSOcQXU61
-	 xUlXe+/xyfNopk3CgVUCE6Oyk6nisw/1/9GRLywvVgdf09wXiZ5+2HilOJQZHAvQil
-	 53seUqzoksJyLy408lNa/hq/Q4HpQ8Djf5P4AUZR6jwgttL1Dkie9EGRed8DwmNSj0
-	 FrGoyHwG4kgBOQbGJ1CVrrL6+tQY402/rRzaS8B0ecACPBl5cY5FvU0VlQKmLzdrm1
-	 GQoSTcu42Qttg==
-Date: Fri, 23 Oct 2026 19:55:35 +0000
+	b=aOju/ycDhcq5OYtIYGYMm/qsnsFAQ4gedeEaGRzwkY/WZY6Tt/KhAzf/XaXwppEu1
+	 WdOlP+3ixSepZ6aOd/z0YBuvnQapr1SzBdB5Ldf7Zaq5V8+wl8b9nwNkLJyzvWVfW4
+	 RAjebCy6DlSyjuw6K0logx2ySSjpjbYS1IpIePR1+hHD4o/jYhwH1MFUzOUYGIxv5E
+	 9EiSQbCN6LrjvEJbe+hAMN+hu3DgON5qI9SyYntLfqOSPAusu0g4vNAbUlub2ZW0+O
+	 OjAjRLq/cm4qkPvoiKXyc6y1jaGshTwxTMM56QvlI5H67u1cks7pAKNYfjZmqeZrns
+	 PGbOLTCLOrovw==
+Date: Fri, 23 Oct 2026 19:55:47 +0000
 To: Sakari Ailus <sakari.ailus@linux.intel.com>
 From: Valerii Sokolov <valerii.sokolov@pm.me>
 Cc: Antti Laakso <antti.laakso@linux.intel.com>, Sarang Sapre <sarang.sapre@intel.com>, Divyamani Tripathi <divyamani.tripathi@intel.com>, Manik Bajpai <manik.bajpai@intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, Valerii Sokolov <valerii.sokolov@pm.me>
-Subject: [PATCH v1 02/11] media: intel/ipu6: fix firmware message buffer leak on send failure
-Message-ID: <20261023195446.22578-3-valerii.sokolov@pm.me>
+Subject: [PATCH v1 05/11] media: intel/ipu6: check irq_status mask before calling subdevice ISR
+Message-ID: <20261023195446.22578-6-valerii.sokolov@pm.me>
 In-Reply-To: <20261023195446.22578-1-valerii.sokolov@pm.me>
 References: <20261023195446.22578-1-valerii.sokolov@pm.me>
 Feedback-ID: 17117034:user:proton
-X-Pm-Message-ID: d8912a2165cee8d33450f6b015afae6b4c27c54c
+X-Pm-Message-ID: 7389176dd4dcde24ccdccd52a24cda03d6d47845
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,65 +67,45 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-ipu6_get_fw_msg_buf() moves a message buffer from isys->framebuflist to
-isys->framebuflist_fw. Buffers carrying a frame capture command are
-returned to the free pool when the firmware reports
-IPU6_FW_ISYS_RESP_TYPE_PIN_DATA_READY for them.
+In ipu6_buttress_isr(), ipu6_buttress_call_isr(adev[i]) is called at the
+start of each loop iteration, before checking whether irq_status has the
+corresponding auxiliary device interrupt bit (adev_irq_mask[i]) set.
 
-If sending the command fails, in ipu6_isys_start_stream_firmware() via
-fw_ops->stream_start() or in buf_queue() via fw_ops->stream_capture(),
-the firmware never sees it: both the IPU6 and the IPU7 send paths return
-an error before committing a queue token. No PIN_DATA_READY response
-will ever arrive, so the buffer stays on framebuflist_fw until
-ipu6_cleanup_fw_msg_bufs() reclaims it on the next runtime resume, and
-ipu6_get_fw_msg_buf() has to allocate new buffers in the meantime.
+As a result, the ISYS and PSYS ISRs run on every Buttress interrupt
+regardless of its source, and their return value is then discarded by
+the continue statement. For the ISYS this means ipu6_isys_isr() taking a
+runtime PM reference, masking and unmasking the UNISPART interrupts and
+draining the firmware response queue on interrupts not meant for it.
 
-Return the buffer to the free pool when sending the command fails.
+Check irq_status against adev_irq_mask[i] before calling
+ipu6_buttress_call_isr(adev[i]).
 
-Buffers whose command was sent, but whose stream start then timed out or
-failed, are deliberately left alone: the firmware may still own them,
-and they are reclaimed on the next runtime resume.
-
-Fixes: 3c1dfb5a69cf ("media: intel/ipu6: input system video nodes and buffe=
-r queues")
+Fixes: ab29a2478e70 ("media: intel/ipu6: add IPU6 buttress interface driver=
+")
 Signed-off-by: Valerii Sokolov <valerii.sokolov@pm.me>
 ---
- drivers/media/pci/intel/ipu6/ipu6-isys-queue.c | 4 +++-
- drivers/media/pci/intel/ipu6/ipu6-isys-video.c | 1 +
- 2 files changed, 4 insertions(+), 1 deletion(-)
+ drivers/media/pci/intel/ipu6/ipu6-buttress.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/media/pci/intel/ipu6/ipu6-isys-queue.c b/drivers/media=
-/pci/intel/ipu6/ipu6-isys-queue.c
-index 23d00e1f89..7a38feb911 100644
---- a/drivers/media/pci/intel/ipu6/ipu6-isys-queue.c
-+++ b/drivers/media/pci/intel/ipu6/ipu6-isys-queue.c
-@@ -359,8 +359,10 @@ static void buf_queue(struct vb2_buffer *vb)
- =09ipu6_isys_buffer_list_queue(&bl, IPU6_ISYS_BUFFER_LIST_FL_ACTIVE, 0);
+diff --git a/drivers/media/pci/intel/ipu6/ipu6-buttress.c b/drivers/media/p=
+ci/intel/ipu6/ipu6-buttress.c
+index f1d236054c..debc4ac929 100644
+--- a/drivers/media/pci/intel/ipu6/ipu6-buttress.c
++++ b/drivers/media/pci/intel/ipu6/ipu6-buttress.c
+@@ -364,11 +364,12 @@ irqreturn_t ipu6_buttress_isr(int irq, void *isp_ptr)
+ =09=09writel(irq_status, isp->base + regs->irq_clear);
 =20
- =09ret =3D fw_ops->stream_capture(stream->isys, stream->stream_handle, msg=
-);
--=09if (ret < 0)
-+=09if (ret < 0) {
- =09=09dev_err(dev, "send stream capture failed\n");
-+=09=09ipu6_put_fw_msg_buf(stream->isys, msg);
-+=09}
+ =09=09for (i =3D 0; i < ARRAY_SIZE(adev_irq_mask); i++) {
+-=09=09=09irqreturn_t r =3D ipu6_buttress_call_isr(adev[i]);
++=09=09=09irqreturn_t r;
 =20
- out:
- =09mutex_unlock(&stream->mutex);
-diff --git a/drivers/media/pci/intel/ipu6/ipu6-isys-video.c b/drivers/media=
-/pci/intel/ipu6/ipu6-isys-video.c
-index f394e78db6..c7e2dc1311 100644
---- a/drivers/media/pci/intel/ipu6/ipu6-isys-video.c
-+++ b/drivers/media/pci/intel/ipu6/ipu6-isys-video.c
-@@ -538,6 +538,7 @@ int ipu6_isys_start_stream_firmware(struct ipu6_isys_st=
-ream *stream,
- =09=09=09=09   capture);
- =09if (ret < 0) {
- =09=09dev_err(dev, "can't start streaming (%d)\n", ret);
-+=09=09ipu6_put_fw_msg_buf(stream->isys, msg);
- =09=09goto out_stream_close;
- =09}
+ =09=09=09if (!(irq_status & adev_irq_mask[i]))
+ =09=09=09=09continue;
 =20
++=09=09=09r =3D ipu6_buttress_call_isr(adev[i]);
+ =09=09=09if (r =3D=3D IRQ_WAKE_THREAD) {
+ =09=09=09=09ret =3D IRQ_WAKE_THREAD;
+ =09=09=09=09disable_irqs |=3D adev_irq_mask[i];
 --=20
 2.56.0
 
