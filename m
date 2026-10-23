@@ -1,97 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.52.17
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792725789;
-	b=hZF7XIYJ7lqk0S1+KCNlwWCzirAKB+vjlw6q1AsUE6KWzNUtzNHulfN8O44kVF1SJgEO
-	 5JEkLxBaHoDBKcTDUpCe2+zN/8iOY9rydo9mhTcTNEv6gXBkZaEp/yrGjd0hju+GZBwJe
-	 PvzSu+NnZSyEW6eTC4B/vuvl5zK5vPspd2f48R9iokuJWGfK12fBkEHv84FzTQdEu07Zu
-	 5Nd020W588LH4U7utwfENnx9baGbbltS2+SfovUsIEg48u59TebZnQSutYnXVVW1/IoXr
-	 xzShmkHBvISTGfRKg6OLA5x13d8iaijUaqLp94oIVmHNVZ1B984pIwzxmnPv5LSxBzg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792725789;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:CC:
-	 References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-EOPAttributedMessage:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=HJjD8C0pA4kO19qQzObjadZdZd5ZIr7MUkYHha4SuIw=;
-	b=Gfw4KKvzALU2OQlUzLMn/Mik9GwDXy+OOWRFcOf9Xaj+rbIXF5PQqH9UOn3F7B5MhIRv
-	 ciEGL0Sc7Ztzj9D4OGNhzd5hLKYb5ggDFWtpDppyG4oZw9+qeDMdYzmclulSOgJSTxPZQ
-	 fugP5bOmExwMN3TbL3NcWeGhgvMW1Ae1/1+3KeCg7Gwh4ofxgPaUWpLJAPE9wafltpE2k
-	 3dKFGpniSnrDNdEpvWTb/nkp+DBl4myBhI4/mzFs4QMlIXlx0pc/i1AX4Nzk71IRkh+pk
-	 6/S1E0Eu54ixbXXYylXjHcl7UeBqHorkGu+nV3pnQamAaFH3ydxVe/BLen9kH6r9Vjw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=tMbpgsZA;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.52.17
-Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011017.outbound.protection.outlook.com [52.101.52.17])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.216
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792725889;
+	b=M1t7Dm2XWj2+GcMpjsko8SYnW8Jfij9xOV5m2IED/5yryfFCSF000zuO1GxIs358EADT
+	 GcWmkgmiI5q9Lg/xG8doBKS5EE/wO36HFb8krT02j5jrayw5UHNcCh3AeZ4G/NswSP022
+	 hkbbTd411ecan6KsIGOKDmP3lm5UIOWKHw098DQm1BZaeX6aElovMH3RjAPt6JhsBZ9GB
+	 AslhXvbBHiOmNJHcgimxqichwewDVyh/6vUAZ9QFo5HSDiJl2gsUa/ydPteUhhHjqAAj1
+	 pwOPUjxS6BRayky9uJT0sCt2XVmdVIemH5hI9Ebh1nz9DNMoiqaR23mr2xNTnb8lXBQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792725889;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:References:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=s1Yv71SuyxOXYsD/jAGU72nFY9Ch4hVTWZURPNYFJAw=;
+	b=vXJQ3rf6v1ZZsAyKa/KbwzmSiYGabv0C/COi3SexeIyRzrLTRq52Fs67iV7+NlJ44fvJ
+	 U5cIFNYWyVY1Fm8tcNgR44ie9f5DJCtRAzcd99IbQcIlSgnGHlDvTF5+NImuOVglZKmL4
+	 CT1V5qedlOaRC4To69WVn+zAmF/bdphOD2PaZ9NkBZno1PpKrvy8srCNgxbL8SNVKOVeq
+	 /xz7rkfK95NZSSk5PK5X9S7f42jgHaz61fodURDH+jOhsBO5INF0uO3u4hHnKQyBIUBrb
+	 85x1QLbzLUlutKMLBsPtApLRTB3nJg6Wu4ShFqT3Gw79vrK8jxw4KxGpA6RFrERFHCQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=db6rR0GJ;
+	arc=none smtp.remote-ip=113.46.200.216
+Received: from canpmsgout01.his.huawei.com (canpmsgout01.his.huawei.com [113.46.200.216])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FF0B606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 03:23:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3FF0B606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CDC4606A332
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 03:24:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9CDC4606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=tMbpgsZA
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=iV8PUO2NOlcOHNxeR0fHfI9zGoGnrNtyK3y3nBvxbkyjYE2Da4wg+P72hQZ4SByFbkrROUGPzZWg4W51PXRdBDjM9eAvNLQglsLDyrFsgVQBBFFM/CoBwb3x4a6/hbGpsvYkmzvafAz7WFQ4HXHOdiZIATnTL3bz2iKPZ6ViBB/N66+rzmbJ80x4uQEMj/JJuCnhXZZYT+4Nk7d7ilE61X2cCaYEC+VVIbBgCJGMuLMZ+MsqTmkJh+UFRk6U1cOqZqCSRn2hjMU+WiAn7rNJCg/FSh4bIwAelUnjK4yBQNDYrsvgX8ezW9A+3c57t2v/a5pEgnwRoEha4Gwz5VV7lA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=HJjD8C0pA4kO19qQzObjadZdZd5ZIr7MUkYHha4SuIw=;
- b=BBBfUg9yYzv+PKV62iL/UpeR0Ri0sGxyC7n47qAzo+qV4TK7oxTvjK5VLrngIJtTPlvGlw5lOdtr0s/Z6GMrlmd2xjSRBGLTA5lFF0bVvsf7SVZNyZUGZOHleqUrV3RPvibWbkzH82RLNfVjZidrTheOFIyLZkQ+8bVGERxn9thyuRGCrNGBuhLC0qjPnBmHoLssOLk2HxpGK8yNC/t6K1pSrs88hRrMKOJDW/uwaymAJE8tuKWfRhbYi/131yTW8mna0Vi8O0htpEWWR7bobKAmzRBVKlpigC4w5irckOKmV2kmDqpuDzlh5Tc4xV0o++j4Y9UkXYZBsGJLZM+EGw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=163.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=HJjD8C0pA4kO19qQzObjadZdZd5ZIr7MUkYHha4SuIw=;
- b=tMbpgsZAExuDEMrj/zX14OwvrhMpouADttJdt5pc2Ae8rJotbMHbr/Ji0RI6TXMACd8uW2Dh42BCPhLrt+ynzVsPEG4SNmr+488wfiT6Wt10wMtKPv+0S3P8QvHUaWh9IE8pInINBkRMJqk8mwKEDhJ8xvhdNrh+5FcLw+Bbwkw=
-Received: from PH8P220CA0040.NAMP220.PROD.OUTLOOK.COM (2603:10b6:510:2d9::15)
- by MW6PR12MB8898.namprd12.prod.outlook.com (2603:10b6:303:246::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Fri, 23 Oct
- 2026 03:23:03 +0000
-Received: from PH1PEPF00062F26.namprd02.prod.outlook.com
- (2603:10b6:510:2d9:cafe::34) by PH8P220CA0040.outlook.office365.com
- (2603:10b6:510:2d9::15) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.546.19 via Frontend Transport; Fri,
- 23 Oct 2026 03:23:03 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- PH1PEPF00062F26.mail.protection.outlook.com (10.167.243.55) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.522.6 via Frontend Transport; Fri, 23 Oct 2026 03:23:02 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Thu, 22 Oct
- 2026 22:23:02 -0500
-Received: from [10.85.46.93] (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
- Transport; Thu, 22 Oct 2026 22:22:59 -0500
-Message-ID: <9d1381a4-6f4f-48aa-b76f-fad11e9d5bc9@amd.com>
-Date: Fri, 23 Oct 2026 08:52:58 +0530
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=db6rR0GJ
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=s1Yv71SuyxOXYsD/jAGU72nFY9Ch4hVTWZURPNYFJAw=;
+	b=db6rR0GJZuqqWFRKh5fhIkUVWkdEfj1sS9OFhpqzfJpN71WxyqtyNRXh35QyqpWB5YYSoi+G3
+	iPoE/C4chRv2KpYrxAf4rFnJ4YhTSLPXZ28+xj2HGEQzkjtZkai4/6HS+RqyxZv7N/QHQM01BLt
+	kYtf6+b4PpxBsWDBT9o2AZs=
+Received: from mail.maildlp.com (unknown [172.19.162.144])
+	by canpmsgout01.his.huawei.com (SkyGuard) with ESMTPS id 4j9pKf2Htdz1T4Gd;
+	Fri, 23 Oct 2026 11:24:38 +0800 (CST)
+Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
+	by mail.maildlp.com (Postfix) with ESMTPS id 7F07340538;
+	Fri, 23 Oct 2026 11:24:40 +0800 (CST)
+Received: from [10.67.110.68] (10.67.110.68) by kwepemk200008.china.huawei.com
+ (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 23 Oct
+ 2026 11:24:39 +0800
+Message-ID: <894e51bb-c511-4fa1-90fb-055360cf1f65@huawei.com>
+Date: Fri, 23 Oct 2026 11:24:38 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,96 +63,125 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] sched/pelt: Fix truncation of the PELT period count
-To: Hui Su <sh_def@163.com>, Ingo Molnar <mingo@redhat.com>, Peter Zijlstra
-	<peterz@infradead.org>, Juri Lelli <juri.lelli@redhat.com>, Vincent Guittot
-	<vincent.guittot@linaro.org>
-CC: Dietmar Eggemann <dietmar.eggemann@arm.com>, Steven Rostedt
-	<rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, Mel Gorman
-	<mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>, Kayra Cizmeci
-	<kayracizmeci@gmail.com>, <linux-kernel@vger.kernel.org>
-References: <20261023025207.2967903-1-sh_def@163.com>
-Content-Language: en-US
-From: K Prateek Nayak <kprateek.nayak@amd.com>
-In-Reply-To: <20261023025207.2967903-1-sh_def@163.com>
+Subject: Re: [PATCH v9 0/9] arm_mpam: Introduce Narrow-PARTID feature
+To: "Shaopeng Tan (Fujitsu)" <tan.shaopeng@fujitsu.com>, Zeng Heng
+	<zengheng@picoheart.com>, "tony.luck@intel.com" <tony.luck@intel.com>,
+	"reinette.chatre@intel.com" <reinette.chatre@intel.com>,
+	"Dave.Martin@arm.com" <Dave.Martin@arm.com>, "james.morse@arm.com"
+	<james.morse@arm.com>, "babu.moger@amd.com" <babu.moger@amd.com>,
+	"tglx@kernel.org" <tglx@kernel.org>, "mingo@redhat.com" <mingo@redhat.com>,
+	"bp@alien8.de" <bp@alien8.de>, "dave.hansen@linux.intel.com"
+	<dave.hansen@linux.intel.com>, "hpa@zytor.com" <hpa@zytor.com>,
+	"ben.horgan@arm.com" <ben.horgan@arm.com>, "fenghuay@nvidia.com"
+	<fenghuay@nvidia.com>, "x86@kernel.org" <x86@kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+References: <20261012082337.822258-1-ruanjinjie@huawei.com>
+ <TY4PR01MB16930CE9AD3B1D0AF7BEE6C208B662@TY4PR01MB16930.jpnprd01.prod.outlook.com>
+ <88c6c8cd-5da7-4c28-8d5c-7d6489e5913f@picoheart.com>
+ <TY4PR01MB16930C19CEFB050B742F74AF68B642@TY4PR01MB16930.jpnprd01.prod.outlook.com>
+From: Jinjie Ruan <ruanjinjie@huawei.com>
+In-Reply-To: <TY4PR01MB16930C19CEFB050B742F74AF68B642@TY4PR01MB16930.jpnprd01.prod.outlook.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH1PEPF00062F26:EE_|MW6PR12MB8898:EE_
-X-MS-Office365-Filtering-Correlation-Id: c3237247-1acb-4a50-dd7c-08df30b4f268
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|1800799024|23010399003|82310400026|36860700016|261021121427099003|56012099006|261009223027099003|11063799006|10067099003|22082099003|261021123027099003|18002099003|6133799003|13003099007|261022105027099003;
-X-Microsoft-Antispam-Message-Info:
-	EAB8U1KGseD8zHDjqMWy7GtASFYmwVYpdI6BmxWtrIBg2ncCbyXFRJ6eSDFTvt4RtjmsdGxsX+3JnKDjcbp5fhsQNB+C4I8RszIlvZXzA7XVSFlVnibQp6HCAa//GLKPFFrQGFFZrJPJxVVe029tlAt1Ehd7MO1xRItus9awPOUQH1eIQYyTD31OcAaZMaWZ3Eo6xEoSPI3yLxxWOidNYLbbLhT3YWBrrJdAnraXStsuaXoC4RJZv7rPwxKq9ga2ytW02dP5gvdrcxHFFQeayDKmvxOfNvvynyOdKN5+cRk5P4jAG756rSXS67TL/jv3ChGFYPIa/amljr2pgRV7pZQWZsKb67+p4gWTA7qyzqrWwN54I9bJIM8DWjynn7lDhgaNV9k/f0kduRvK0A2s1OizqsEpfafW39+6GWp3p6R8tEKNt3wr9TOgkemz0qwJpf5Wfm/Or/ljY393kT5iyKY/9T5snhGlckJibzA0752Uc4CnbFAxQ/nVApKgUJCu3DxsDBjlFh7QN/PO+IemGSSUXZ0HlA8AM3BtR0mJZopb9YPgQiA+coiFnnyIuFsoBhHr0p2fTArmIhwf5ZB7iNK/DpRCGwwGt5aPY3q4wWkIFc/zXeviN7v+bl97y2iVXUGbuxlsr1tAGdq0iAuiaPxbh/QHDKuy+gPbBwg50rg=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(23010399003)(82310400026)(36860700016)(261021121427099003)(56012099006)(261009223027099003)(11063799006)(10067099003)(22082099003)(261021123027099003)(18002099003)(6133799003)(13003099007)(261022105027099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	LZ+JpnA5o7IwFF2WORP7Tb61oJ4Qvx0xPhsfYvqV4h52Vb3nI69YsW2LBPnLHYx5zicafnyZ6OY9SLX9DyNh2dSRP1FZb1fN/uWMyiec52rN9uFgAc6xbrYG+qVCFiTnoo69izIBtvIV3RzfUVZxFfUBkMOff4Fiq+F/LMtmUkyx0N5CeWi9DOA4ADZaS/KJt8qLOKe2IHIohdL5I4d6iazerpj6tiNknyXkrx1zqjX/WnaPHevmmIf4UU2OgCGG+fIzS1yMHhU2u1sKeOiY+BwWt4CRfzRuJnJzH9ljV8GnUq8IpnPXjImhh3gI2CM7Odv/9QnIPGuupJjJLwnz6JudUb67sGEqGKo2pd2qNxS0wDCmaXxXnHsn7PZyzwu1887dhRTp9k7Gc1nh1VttZtrxFXrM6dr4Yq9PuCSd+zhFk/tqRv/4Yjn8WUCZSPTy
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Oct 2026 03:23:02.8021
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c3237247-1acb-4a50-dd7c-08df30b4f268
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	PH1PEPF00062F26.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB8898
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: kwepems100002.china.huawei.com (7.221.188.206) To
+ kwepemk200008.china.huawei.com (7.202.194.74)
 
-Hello Hui,
 
-On 10/23/2026 8:22 AM, Hui Su wrote:
-> accumulate_sum() computes the number of elapsed PELT periods in a
-> u64 but returns u32. When the count is a multiple of 2^32, it is
-> truncated to zero even though the PELT sums have been updated.
-> 
-> The caller interprets zero as no period boundary crossed and skips
-> recomputing the averages, leaving *_avg stale relative to *_sum.
-> 
-> Return the period count as u64 so the caller can test it without
-> truncation.
-> 
-> Fixes: a481db34b9be ("sched/fair: Optimize ___update_sched_avg()")
-> Reviewed-by: Vincent Guittot <vincent.guittot@linaro.org>
-> Reviewed-by: Kayra Cizmeci <kayracizmeci@gmail.com>
-> Signed-off-by: Hui Su <sh_def@163.com>
 
-Feel free to include:
+在 2026/10/23 10:53, Shaopeng Tan (Fujitsu) 写道:
+> Hello Jinjie, ZengHeng,
+> 
+> 
+>>>
+>>> I would like to confirm the following points.
+>>>
+>>>  - Is the number of reqPARTIDs per intPARTID dependent on the total number of intPARTIDs and reqPARTIDs?
+>>
+>> Hi Shaopeng,
+>>
+>> You are right,
+>>
+>> reqPARTID % mpam_num_closid(the total number of intPARTIDs) -> intPARTID
+>>
+>> so reqPARTIDs per intPARTID = Total number of reqPARTIDs / Total number
+>> of intPARTIDs
+>>
+>>>  - Given that requirements for the number of control and monitoring groups vary by user,
+>>>    would dynamic configuration of the mapping ratio between intPARTID and reqPARTID be a more suitable approach?
+>>
+>> No, in v8 James has suggested "static first" and avoid exposing user ABI
+>> in multiple places below:
+>>
+>> "I think we should leave anything dynamic here for the further future,
+>>  lets get static partitioning working first"
+>>
+>> "I'd prefer we get the static grouping working first, before we work out
+>> what needs changing in resctrl to do it dynamically"
+>>
+>> "I'd like to avoid exposing user ABI to control this until we get it
+>> working, then we can talk about whether to try making the grouping
+>> dynamically managed by resctrl."
+>>
+>> Link:
+>> https://lore.kernel.org/all/2944b506-a462-42f8-95cf-404241fb27f0@arm.com/
+>> Link:
+>> https://lore.kernel.org/all/ec8bc617-9e74-4749-ab33-39d1079415cc@arm.com/
+>>
+>>
+>>>  - Regarding the mapping logic, some reqPARTIDs may remain unused. Is this the expected behavior?
+>>
+>> As mentioned above, we are implementing the static solution first, so it
+>> is expected behavior that some of the reqpartids are not used.
+>>
+>>>  - Considering that Arm has previously implemented this,
+>>>    are there any gaps between their implementation and Huawei’s requirements?
+>>>    https://lore.kernel.org/linux-arm-kernel/20241212154000.330467-1-Dave.Martin@arm.com/
+>>
+>> I haven't looked at the ARM implementation yet (I'll refer to it later),
+>> but currently the code is being gradually aligned with the maintainer's
+>> review comments.
+> 
+> 
+> My understanding is that if hardware supports PARTID Narrowing, 
+> the feature is automatically enabled in the current driver implementation. 
 
-Reviewed-by: K Prateek Nayak <kprateek.nayak@amd.com>
+Hi Shaopeng,
 
-> ---
-> Changes in v2:
-> - Return the PELT period count as u64.
-> - Add the Fixes tag and Kayra Cizmeci's Reviewed-by.
+Yes, You’ve got it right
+
+> This implies that users cannot disable it even if they wish to do so.
+
+Right.
+
+> Could you please confirm if my understanding is correct?
 > 
-> v1: https://lore.kernel.org/lkml/20261022034930.225042-1-sh_def@163.com/
+> If so, I believe we need a mechanism to explicitly enable or disable this feature. In Dave Martin's proposal, 
+> a partid_per_closid switch was introduced, where partid_per_closid = 1 effectively disables the feature, 
+> while setting it to `N` allows for customization to meet individual user requirements.
 > 
->  kernel/sched/pelt.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+> It would be ideal if we could configure the partid_per_closid value during the MPAM driver load time, 
+> avoiding the need for dynamic changes while the driver is in use. What are your thoughts on this approach?
+
+I agree with the idea of having a switch at initialization time.
+
+But I think it can be added later as an additional feature, and it
+doesn’t conflict with the current implementation.
+
 > 
-> diff --git a/kernel/sched/pelt.c b/kernel/sched/pelt.c
-> index 779eb58a4261..d10d57b6b8ec 100644
-> --- a/kernel/sched/pelt.c
-> +++ b/kernel/sched/pelt.c
-> @@ -99,7 +99,7 @@ static u32 __accumulate_pelt_segments(u64 periods, u32 d1, u32 d3)
->   *      d1 y^p + 1024 \Sum y^n + d3 y^0		(Step 2)
->   *                     n=1
->   */
-> -static __always_inline u32
-> +static __always_inline u64
->  accumulate_sum(u64 delta, struct sched_avg *sa,
->  	       unsigned long load, unsigned long runnable, int running)
->  {
+> Additionally, could you please let me know which branch this patch series is based on?
+
+I rebased on v7.3-rc6.
+
+This series is also available at:
+
+	https://github.com/ruanjinjie-eng/linux/tree/narrow_partid_v10
+
 > 
-> base-commit: a804c5742bff224d4cb4d25dd383554d598be32b
+> 
+> Best regards,
+> Shaopeng TAN
 
 -- 
-Thanks and Regards,
-Prateek
+Best regards,
+Jinjie
 
