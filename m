@@ -1,89 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792795272;
-	b=TtwPKNOkZxy2+Ay7YGYuOFZ66UeDadz2MtpX+/Ye9K41XlN+dAxGzgN5udXBL8TBWMz9
-	 PaoMGkVSpQlmFYpUJPR6sm7Cb1vrgoncXUDmrpRPERqHrIIDQh7y5PD28UDjoBQbXdW3Y
-	 9gFnt5bU8Mk4qaErfwgb4B7G6EiEvVfyx666htpHFpVsm+F8ndO9AnOZ9Sy9rfegEDvwl
-	 0vd994cOB/PWwKSPoSrjMNfcoNnIwX6SiOIQO/QxRBLkS1MTJgz86t4ZFp9wJEhBTGype
-	 2wRv55DpfvbNKK6Du+aDwCNveQ6s9+7DOCzlezl3fKDFEqT8EO4/9cU8HEQY9wH0XwA==
+	t=1792795280;
+	b=42jkTC99UIaZjB2jyA+8tPfmfOX26tOq2I0QS0iL4qkf6iIILjlIfM6JVmiy9nlI/P2g
+	 qLJlNMditzDVnRilx1YYbhFt+EX+IBrMwnphQ9do3yetEtYiaZeFvm6xrGwi3JLtNJn3t
+	 h9gqYNi5aQHTxXvkckn4Dc8XNNFgRf9YePxn8rd2axPCQLhuX4q4u8LG73SzW7KmTnZoJ
+	 szfV3PO4Miua5nNrdnKQJSpQbCzDPQ3alUsK11E8+NaiEFOIOP3gDjy4a2Abvcg0dsnLR
+	 AuFziHZpxrz1Un/B6Y9PmT6/wyPER/jcyt7eqESyU/zPS7V4WT2SBzKAyv/XRPNVJng==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792795272;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792795280;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:Date:Subject:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
 	 References:In-Reply-To:To:Cc:X-Mailer;
-	bh=vTCI+nDxJukp6A5kK1BpAWHpCDcT464wzBcHkx0Jj0Y=;
-	b=3ZmjHc8LWZOqpEKUT8YLPYhGwLnhwt2x+wmqgW3E3+KwI3CBQ8TG/PWelrF3YLTC7R/G
-	 wB8kW2G26pmVwSK9TtjcTdP2gItMnGJQYhsGnwQnIHgVkBPy1rWlaJNvDBPxYaThUyG8x
-	 /iGicAIo1LpoSLQuK4zyB2MI7liEEH1ZH9ELzVpQMdhTRUiTpNWzthqJGK9AKvqPrzi+W
-	 d58264UhztiiC4L+FVR8qiavcc8pAqjUXpdZlbJuCCJBupK4EBiu4wBXkzwqlshN0Qo/j
-	 K/5HYpHx66RmXMzvg0ObEgPh7Aaj8d5/9hXuPinLINVvM0rSO4mPujQmY9TKUMmcvaA==
+	bh=Y0KLuJz5gPCrHo6L9vR73SJxcoll3RT4NU+D9B1cHc0=;
+	b=2rqvXy0sEOaXZCQmSetlO7yeHI/Z3WS/uppZOwP0NM6UHdHJPSe/kLQk2ZF69w9zAGbq
+	 5QlGJhvqWO+UETsE9OvmFwgGsAjwOIYjPM9u8d79Kajam7pkX5ggqX7GoaSspiVh+g2wP
+	 Yrfugfd3Hw5L9bWkRXDVycgZZHBaZABfOdlIpj13DH2opK7wvz+MTWy8z8omgU7pYCkOr
+	 7JwyoeKB+e8OrjduYjoLNio+xFO2toftyBEjoS4GPUyqG8KdzmBrHOQBB1NzRCBiR2y/c
+	 htz7yhRUAI/sPLfhr2U04o80o8TGCUt990ow7SMSV1iVTJBIhoKIKLl1zvb/wPoob9g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=FV7ECvTa;
-	arc=none smtp.remote-ip=209.85.160.49
-Received: from mail-oa1-f49.google.com (mail-oa1-f49.google.com [209.85.160.49])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=XVyxMs25;
+	arc=none smtp.remote-ip=209.85.160.52
+Received: from mail-oa1-f52.google.com (mail-oa1-f52.google.com [209.85.160.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8577B606A328
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 22:41:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8577B606A328
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D9C0606A32E
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 22:41:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5D9C0606A32E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=FV7ECvTa
-Received: by mail-oa1-f49.google.com with SMTP id 586e51a60fabf-4a76f63b243so1783803fac.0
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 15:41:11 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=XVyxMs25
+Received: by mail-oa1-f52.google.com with SMTP id 586e51a60fabf-4a75171af39so505221fac.2
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 15:41:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792795271; x=1793400071; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792795274; x=1793400074; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=vTCI+nDxJukp6A5kK1BpAWHpCDcT464wzBcHkx0Jj0Y=;
-        b=FV7ECvTaiVixQztjBBpuZXi5gImCogaIy6DJ5ak5iOSVc/NuVq3Nfk9DRBYBPkeIeK
-         FklJFz4xWAsLbAkMxSFQG6nUKB2wITk9sgeGz4Q3vAMT+IaFZuYeH5+sypXfpYwGbMnJ
-         7M0rQEuT6v7SxgvS16QqffhCR4WfkbGLW8pxz8aTGYuTPQo4zOu1xgB/mywaZJIOo0p1
-         6uRQZO0t2PsOffzeCVvC8dGJNinqhvPLK1L4bIxAQmKHoarmcO0iDRq0XL5ZtojvpYdC
-         Uqgn1Ev40EpOXz+l4RcyrOqgZkJ4RLIcQmofrftoHbD03cjYoaHig7DAzZKdnFFk3KTf
-         0nJw==
+        bh=Y0KLuJz5gPCrHo6L9vR73SJxcoll3RT4NU+D9B1cHc0=;
+        b=XVyxMs25tqm75yR9XTFFmBmCemr0zRfslnaA1JOoUeygNDke7rQs5GG4clmh5SWr74
+         kroWOy5F4nDYodApPHmpNgQfYyvQsmGDeQqagss+U1HG8Mp8T8AsiB1b50mWMpN2vLS6
+         XQO4rf93Spqmxfjf+3tk3VPVkFWaPhnxPEzoNl6M97KL4XB3m57hEb2iQW6S9i1zPqLm
+         NQIdFQnHjkUNT/n93pri2+qSa0J11ZK6z0v2/Et0edq4PKmiPllAC43ZX+KsroGW7YxH
+         uujXbcntPsvWW9xLgL9pzyFtIVCkLrA7l4x9GqDsQpI6Do9RjWke1kpybRKS3RdHYj3Q
+         bPWQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792795271; x=1793400071;
+        d=1e100.net; s=20260707; t=1792795274; x=1793400074;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=vTCI+nDxJukp6A5kK1BpAWHpCDcT464wzBcHkx0Jj0Y=;
-        b=q8yYbv1pTF+5l6t6gZ+XuldE8j0Qwm2JuL8POMhdl/mu4V7Z+vMlusYCc8uNbB/xgJ
-         20XBQTwsauyOT97Wge/tkbmutbzMA6xbH9fYfwdQuTe7L7rG8c3U1mIlIED88TpDuY9b
-         73Psk2kBfYLMCkknw+/3h8l/9ldj0G0ymEyxyUgTfmA5CxdnJD6X0B7qw+EdjJKUELoD
-         OpKf/67wB6TPtJ1bXt9QHbIIkmgGwwlVlf9Sz2F8nSC3u+mCdQ8CbwI0sZyqDNDhisfU
-         AxEbwXJMqf9cMjnD7WuEqyvSXPU67bF/lCZRa9nBEwfTax+vYbNH5VRWKQaRmJvafomj
-         xPjA==
-X-Gm-Message-State: AFq9FYKJvTpAG5lNg3y/L5bSLQ/PZ9kzYidXPLQo8+QmT+iijfEn4KuH
-	PlY8cv8OERo4W0A4/Rl9n+4/j9xVfTUoVhZdC/WFJ2reMHV3OWfy2rmY
-X-Gm-Gg: AYBFou0imIKqd31wkxFIazB64LFOaqC6oj3/FsU9dO393XB2AecBiv6167nmQ8tWhb0
-	DhsiWK2kG3ACrkCsWM0Nf6/FUtpILINz1CXrYOkp9reHeQgUF6w9SXiaF2pp8G86M+qpd1/Cs00
-	l8MH5k1WGjxyaFcZcg/iSfwamGKNfdE37SF26ouCCu1qS31aPXejhM+w/HbSgH42b7Uef40KxJE
-	XhrHA0BX/ALjWQfDCD3C47K9EWBOnQPvxAm94ijoNh5KwW2qF6A2xLhyAgcOV1OKo00ebUTdsR3
-	YI1OJrjt2iyBkSdcLtBADDUw/a4tLBt6zJKuf4LRMbQ2RzIytnxxUgTnslVc3nZ6qUH/y/vW98E
-	2ujlicaN4u7gzh+qujDihlYC7UPkyylcVEstTZFAjCkrtiiR4HUHNKc4SqrrFt6xyCXWCHm21AF
-	WrkDomRqSfRYvXq42gcDtmd0WHu1vbneF4weIJ2yShZCtmz9xSfZP+P2FbsowGm32mnwyN1QIcm
-	KBMZ0h4ERk7cuKvFRWmsw+kYjqbi11y3W2cZACbuPci1JjVmne6PBBijJMyAQ/OeFds9k0Fc6mN
-	+Iytq02X6OaffsoJZj5GpdeUKQNbyI3vO1T/GuLx6wa6aldYd3O+72weYNkjie47X2Y29Aro+df
-	ZdaQvv4O4nrskesX+8M2P5L9G2VtxD5wYFkS1K42AOg5Fbm4pQJPhgnBBIL/jCuLjMGMdKI9Uq9
-	dVtMs=
-X-Received: by 2002:a05:6871:d3:b0:48f:e0f6:bfec with SMTP id 586e51a60fabf-4a83fa4192bmr357118fac.24.1792795271013;
-        Fri, 23 Oct 2026 15:41:11 -0700 (PDT)
+        bh=Y0KLuJz5gPCrHo6L9vR73SJxcoll3RT4NU+D9B1cHc0=;
+        b=mL7T9l+NkLP7gnFH2weidvjq5KXBPVGTDGdZ8Il+YTuHW4DNJe2Nw3wHVYGOf/IprN
+         3kPTLcjJd9/JD3SqsxA/hQnwg2GF+S0M/fqCUOKXWJC6ZTE2hMweu2/OfgcS952rgOZ6
+         YsaMgm2UWL2vlR47hUOKTNwJRPFgIlfRnrU8Ptz717U3kUfxhb+HFTWYH79m08Adp77h
+         6rzc6Y2lfv9zlsIzy732fn90xvWqaIzuo5lpEEWoM3i459XT1Wnmugc/bF7B/1UY1AX6
+         wtiM79+SJKHPoxkhrSGWFONje6ltfAF930N74xUT3J6i2TfCjnSZsUmrHKtn+TUPgI4D
+         F7aA==
+X-Gm-Message-State: AFq9FYI3Fi93wh95YXWbuqh2Zj6V+zMxWysCURUFXO2TOrOlzDeQT1BD
+	iHCg/1zfABoBHlZIq+4AXaRVQ8s4pWm9cEaycV1UFIduhiKVDIBSaeia
+X-Gm-Gg: AYBFou2SRYH95GbozDJrLHg6SHQHuuNXgJDXeR4WFVsWbuy+YqExPKj0asLkKGEgjV1
+	7jvD24iVxzwEQNnbkUXavVGq8NMIU7d3/7fkwOjwGAYt3ROyFklKG4BiVOlK593D+PurbY6Zufw
+	UpZw6obyolIxT2vjjjOmSq6YV9Tcbiiu8yNIenkKq8YHQE9qp6JT+SVVrIZwYCHgtFpluJ9Hk9G
+	EkQh4LZ3Q8CPG9tEUURlBxezK/Q2V7taeAqk5x5un+KurABZoXL6Jw5lcqJOodhKTrJu2ybPrLQ
+	PVjfTlSCGuJj2Leuh2XZKe9W/p86lKGyFPmkt3dgB/7m1uyaf8J0Qy5WQpZfqumUb3ScRDvJBzp
+	LfOaCYlIKWn1pWt2ZNJukg6Gs+uqJwqrGGH+hRJp1L3J5mDOgoqRpArIGSQXnUiDuYL9nEF6WlZ
+	65g7t/gUuSb4HZaHa1WeUG3u4SxJA2+AznHun7xaLzwo4HevBMx+yvdby1X5Bz02PyI4PTXsBGR
+	h6QSED1At2JYRBF+mPNalz1l1ptKxugnH5F50SzWvYipQy/0hNehzhUB5Hn70WQYznL9FroH6eS
+	8a8DXla1/qvaneFt+3zaOXwMJwMv5lWTVjo2otY7ejclNXuX0CoFv2B8dg66l/ixY7JbcxK5cGN
+	IwgkVeJ8p2oQYh+vTT6e5hWplGhVL/KYKhQB5eMvQV9o5KfCSvpmSQLJOfpzAGY8PoANsRwnRiR
+	heSZA=
+X-Received: by 2002:a05:6870:2250:b0:493:8116:76d0 with SMTP id 586e51a60fabf-4a83f5d3f6dmr515531fac.36.1792795274184;
+        Fri, 23 Oct 2026 15:41:14 -0700 (PDT)
 Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4a8431c012esm226213fac.11.2026.10.23.15.41.09
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4a8431c012esm226213fac.11.2026.10.23.15.41.12
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 23 Oct 2026 15:41:10 -0700 (PDT)
+        Fri, 23 Oct 2026 15:41:13 -0700 (PDT)
 From: James Hilliard <james.hilliard1@gmail.com>
-Date: Fri, 23 Oct 2026 16:41:06 -0600
-Subject: [PATCH v4 1/4] serial: 8250_omap: separate locked TX DMA
- completion processing
+Date: Fri, 23 Oct 2026 16:41:08 -0600
+Subject: [PATCH v4 3/4] serial: 8250: drain canceled TX DMA before reusing
+ its buffer
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,7 +95,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261023-submit-serial-8250-dma-cancel-v1-v4-1-e759de1839de@gmail.com>
+Message-Id: <20261023-submit-serial-8250-dma-cancel-v1-v4-3-e759de1839de@gmail.com>
 References: <20261023-submit-serial-8250-dma-cancel-v1-v4-0-e759de1839de@gmail.com>
 In-Reply-To: <20261023-submit-serial-8250-dma-cancel-v1-v4-0-e759de1839de@gmail.com>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
@@ -109,59 +109,415 @@ Cc: linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org,
  James Hilliard <james.hilliard1@gmail.com>
 X-Mailer: b4 0.15.2
 
-Separate the port-locked completion processing from the DMA callback
-wrapper. Keep the shutdown check and locking in the callback, and retain
-the existing FIFO accounting, delayed register restore and THRI handling
-in the helper.
+uart_flush_buffer() resets the transmit kfifo before calling the driver.
+serial8250_tx_dma_flush() terminates DMA asynchronously and clears
+tx_running, allowing a new write to replace tx_size while the old callback
+is still waiting for the port lock. That callback can then consume bytes
+from the new transmission. Reusing the reset kfifo can also overwrite the
+source of a transfer that has not stopped yet.
 
+Reserve the flushed FIFO storage through serial core before returning
+from the flush callback. Keep tx_running set until a worker synchronizes
+the terminated channel, suppressing old callbacks and new submissions
+during that interval. Return the mapping to CPU ownership before releasing
+the reservation and waking writers. Normal transfers continue to use the
+FIFO directly.
+
+Reuse the locked completion processing after retirement, including OMAP
+delayed register restoration and transmitter-empty handling. Take a runtime
+PM reference around worker UART accesses and drain the worker before
+releasing the channels. Shutdown stops DMA and unmaps its source while
+leaving the FIFO reservation for serial core to release on reopen or
+resume, after the port can accept writes again.
+
+Track a flushed FIFO separately from the transfer length. If termination
+fails, retain the reservation until normal completion and account the
+completed bytes without advancing the reset FIFO. After successful
+cancellation, process a zero-length completion once callbacks have drained.
+
+The race was found by inspecting cancellation and restart while preparing
+H616 UART DMA support.
+
+Fixes: a424a34b8fad ("serial: 8250: Fix TX deadlock when using DMA")
 Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
 ---
- drivers/tty/serial/8250/8250_omap.c | 19 +++++++++++++------
- 1 file changed, 13 insertions(+), 6 deletions(-)
+ drivers/tty/serial/8250/8250.h      |  20 +++++-
+ drivers/tty/serial/8250/8250_dma.c  | 129 ++++++++++++++++++++++++++----------
+ drivers/tty/serial/8250/8250_omap.c |  21 ++++--
+ 3 files changed, 124 insertions(+), 46 deletions(-)
 
-diff --git a/drivers/tty/serial/8250/8250_omap.c b/drivers/tty/serial/8250/8250_omap.c
-index 4805b644ccb1..b6f108d34854 100644
---- a/drivers/tty/serial/8250/8250_omap.c
-+++ b/drivers/tty/serial/8250/8250_omap.c
-@@ -1080,18 +1080,13 @@ static int omap_8250_rx_dma(struct uart_8250_port *p)
+diff --git a/drivers/tty/serial/8250/8250.h b/drivers/tty/serial/8250/8250.h
+index 974a47f24084..9f01fa36fa3c 100644
+--- a/drivers/tty/serial/8250/8250.h
++++ b/drivers/tty/serial/8250/8250.h
+@@ -11,6 +11,7 @@
+ #include <linux/serial_8250.h>
+ #include <linux/serial_core.h>
+ #include <linux/dmaengine.h>
++#include <linux/workqueue.h>
  
- static int omap_8250_tx_dma(struct uart_8250_port *p);
+ #include "../serial_mctrl_gpio.h"
  
--static void omap_8250_dma_tx_complete(void *param)
-+static void omap_8250_tx_dma_complete(struct uart_8250_port *p)
+@@ -19,6 +20,10 @@ struct uart_8250_dma {
+ 	int (*rx_dma)(struct uart_8250_port *p);
+ 	void (*prepare_tx_dma)(struct uart_8250_port *p);
+ 	void (*prepare_rx_dma)(struct uart_8250_port *p);
++	/* Completion processing with the port lock held. */
++	void (*tx_complete)(struct uart_8250_port *p);
++	struct work_struct tx_flush_work;
++	struct uart_8250_port *port;
+ 
+ 	/* Filter function */
+ 	dma_filter_fn		fn;
+@@ -52,7 +57,9 @@ struct uart_8250_dma {
+ 	unsigned char		tx_err;
+ 	unsigned char		rx_running;
+ 	/* Protected by the UART port lock. */
+-	bool			shutting_down;
++	bool			shutting_down:1;
++	bool			tx_terminating:1;
++	bool			tx_flushed:1;
+ };
+ 
+ struct old_serial_port {
+@@ -400,8 +407,15 @@ static inline int is_omap1510_8250(struct uart_8250_port *pt)
+ #endif
+ 
+ #ifdef CONFIG_SERIAL_8250_DMA
++static inline bool serial8250_tx_dma_blocked(struct uart_8250_dma *dma)
++{
++	return dma->shutting_down || dma->tx_terminating;
++}
++
+ extern int serial8250_tx_dma(struct uart_8250_port *);
+ extern void serial8250_tx_dma_flush(struct uart_8250_port *);
++void serial8250_tx_dma_sync_buffer(struct uart_8250_port *p,
++				   struct scatterlist *sgl, unsigned int nents);
+ extern int serial8250_rx_dma(struct uart_8250_port *);
+ extern void serial8250_rx_dma_flush(struct uart_8250_port *);
+ extern int serial8250_request_dma(struct uart_8250_port *);
+@@ -434,7 +448,7 @@ static inline void serial8250_tx_dma_pause(struct uart_8250_port *p)
+ {
+ 	struct uart_8250_dma *dma = p->dma;
+ 
+-	if (!dma->tx_running)
++	if (!dma->tx_running || serial8250_tx_dma_blocked(dma))
+ 		return;
+ 
+ 	dmaengine_pause(dma->txchan);
+@@ -444,7 +458,7 @@ static inline void serial8250_tx_dma_resume(struct uart_8250_port *p)
+ {
+ 	struct uart_8250_dma *dma = p->dma;
+ 
+-	if (!dma->tx_running)
++	if (!dma->tx_running || serial8250_tx_dma_blocked(dma))
+ 		return;
+ 
+ 	dmaengine_resume(dma->txchan);
+diff --git a/drivers/tty/serial/8250/8250_dma.c b/drivers/tty/serial/8250/8250_dma.c
+index 57fc7915adac..fef33615c879 100644
+--- a/drivers/tty/serial/8250/8250_dma.c
++++ b/drivers/tty/serial/8250/8250_dma.c
+@@ -11,24 +11,23 @@
+ 
+ #include "8250.h"
+ 
+-static void __dma_tx_complete(void *param)
++static void serial8250_tx_dma_complete(struct uart_8250_port *p)
  {
 -	struct uart_8250_port	*p = param;
  	struct uart_8250_dma	*dma = p->dma;
  	struct tty_port		*tport = &p->port.state->port;
- 	bool			en_thri = false;
- 	struct omap8250_priv	*priv = p->port.private_data;
+-	unsigned long	flags;
+ 	int		ret;
  
--	guard(uart_port_lock_irqsave)(&p->port);
+-	uart_port_lock_irqsave(&p->port, &flags);
 -	if (dma->shutting_down)
--		return;
+-		goto out;
 -
  	dma_sync_single_for_cpu(dmaengine_get_dma_device(dma->txchan), dma->tx_addr,
  				UART_XMIT_SIZE, DMA_TO_DEVICE);
  
-@@ -1123,6 +1118,18 @@ static void omap_8250_dma_tx_complete(void *param)
- 	}
- }
+ 	dma->tx_running = 0;
  
-+static void omap_8250_dma_tx_complete(void *param)
+-	uart_xmit_advance(&p->port, dma->tx_size);
++	if (dma->tx_flushed) {
++		p->port.icount.tx += dma->tx_size;
++		uart_xmit_unblock(&p->port);
++	} else {
++		uart_xmit_advance(&p->port, dma->tx_size);
++	}
+ 
+ 	if (kfifo_len(&tport->xmit_fifo) < WAKEUP_CHARS)
+ 		uart_write_wakeup(&p->port);
+@@ -36,11 +35,57 @@ static void __dma_tx_complete(void *param)
+ 	ret = serial8250_tx_dma(p);
+ 	if (ret || !dma->tx_running)
+ 		serial8250_set_THRI(p);
++}
+ 
+-out:
+-	uart_port_unlock_irqrestore(&p->port, flags);
++static void __dma_tx_complete(void *param)
 +{
 +	struct uart_8250_port *p = param;
 +	struct uart_8250_dma *dma = p->dma;
 +
 +	guard(uart_port_lock_irqsave)(&p->port);
 +
-+	if (dma->shutting_down)
++	if (serial8250_tx_dma_blocked(dma))
 +		return;
-+	omap_8250_tx_dma_complete(p);
++	serial8250_tx_dma_complete(p);
 +}
 +
- static int omap_8250_tx_dma(struct uart_8250_port *p)
++static void serial8250_tx_dma_flush_work(struct work_struct *work)
++{
++	struct uart_8250_dma *dma = container_of(work, struct uart_8250_dma, tx_flush_work);
++	struct uart_8250_port *p = dma->port;
++
++	/* Neither the channel nor its buffer may be reused before this returns. */
++	dmaengine_synchronize(dma->txchan);
++
++	guard(serial8250_rpm)(p);
++
++	guard(uart_port_lock_irqsave)(&p->port);
++
++	dma->tx_terminating = false;
++	dma->tx_size = 0;
++	if (dma->shutting_down)
++		return;
++	dma->tx_complete(p);
+ }
+ 
++void serial8250_tx_dma_sync_buffer(struct uart_8250_port *p,
++				   struct scatterlist *sgl, unsigned int nents)
++{
++	struct uart_8250_dma *dma = p->dma;
++	struct device *dev = dmaengine_get_dma_device(dma->txchan);
++	struct scatterlist *sg;
++	unsigned int i;
++
++	/* DMA reads the FIFO directly; its occupied ranges remain reserved. */
++	for_each_sg(sgl, sg, nents, i) {
++		size_t offset = sg_dma_address(sg) - dma->tx_addr;
++
++		dma_sync_single_range_for_device(dev, dma->tx_addr, offset,
++						 sg_dma_len(sg), DMA_TO_DEVICE);
++	}
++}
++EXPORT_SYMBOL_GPL(serial8250_tx_dma_sync_buffer);
++
+ static void __dma_rx_complete(struct uart_8250_port *p)
  {
- 	struct uart_8250_dma		*dma = p->dma;
+ 	struct uart_8250_dma	*dma = p->dma;
+@@ -101,7 +146,7 @@ int serial8250_tx_dma(struct uart_8250_port *p)
+ 	int i;
+ 	int ret;
+ 
+-	if (dma->shutting_down)
++	if (serial8250_tx_dma_blocked(dma))
+ 		return 0;
+ 
+ 	if (dma->tx_running) {
+@@ -131,24 +176,25 @@ int serial8250_tx_dma(struct uart_8250_port *p)
+ 		dma->tx_size += sg_dma_len(sg);
+ 
+ 	serial8250_do_prepare_tx_dma(p);
++	serial8250_tx_dma_sync_buffer(p, sgl, ret);
+ 
+ 	desc = dmaengine_prep_slave_sg(dma->txchan, sgl, ret,
+ 				       DMA_MEM_TO_DEV,
+ 				       DMA_PREP_INTERRUPT | DMA_CTRL_ACK);
+ 	if (!desc) {
++		dma_sync_single_for_cpu(dmaengine_get_dma_device(dma->txchan), dma->tx_addr,
++					UART_XMIT_SIZE, DMA_TO_DEVICE);
+ 		ret = -EBUSY;
+ 		goto err;
+ 	}
+ 
+ 	dma->tx_running = 1;
++	dma->tx_flushed = false;
++	dma->tx_complete = serial8250_tx_dma_complete;
+ 	desc->callback = __dma_tx_complete;
+ 	desc->callback_param = p;
+ 
+ 	dma->tx_cookie = dmaengine_submit(desc);
+-
+-	dma_sync_single_for_device(dmaengine_get_dma_device(dma->txchan), dma->tx_addr,
+-				   UART_XMIT_SIZE, DMA_TO_DEVICE);
+-
+ 	dma_async_issue_pending(dma->txchan);
+ 	serial8250_clear_THRI(p);
+ 	dma->tx_err = 0;
+@@ -162,32 +208,31 @@ int serial8250_tx_dma(struct uart_8250_port *p)
+ void serial8250_tx_dma_flush(struct uart_8250_port *p)
+ {
+ 	struct uart_8250_dma *dma = p->dma;
++	int ret;
+ 
+-	if (!dma->tx_running)
++	if (!dma->tx_running || serial8250_tx_dma_blocked(dma))
+ 		return;
+ 
+ 	/*
+ 	 * kfifo_reset() has been called by the serial core, avoid
+-	 * advancing and underflowing in __dma_tx_complete().
++	 * advancing the reset FIFO when the old transfer completes.
+ 	 */
+-	dma->tx_size = 0;
++	dma->tx_flushed = true;
++	/* The core reset the FIFO indices, but DMA may still read its storage. */
++	uart_xmit_block(&p->port);
+ 
+ 	/*
+ 	 * We can't use `dmaengine_terminate_sync` because `uart_flush_buffer` is
+ 	 * holding the uart port spinlock.
+ 	 */
+-	dmaengine_terminate_async(dma->txchan);
+-
+-	/*
+-	 * The callback might or might not run. If it doesn't run, we need to ensure
+-	 * that `tx_running` is cleared so that we can schedule new transactions.
+-	 * If it does run, then the zombie callback will clear `tx_running` again
+-	 * and perform a no-op since `tx_size` was cleared above.
+-	 *
+-	 * In either case, we ASSUME the DMA transaction will terminate before we
+-	 * issue a new `serial8250_tx_dma`.
+-	 */
+-	dma->tx_running = 0;
++	dma->tx_terminating = true;
++	ret = dmaengine_terminate_async(dma->txchan);
++	if (ret) {
++		/* Keep the buffer owned by the transfer until its callback runs. */
++		dma->tx_terminating = false;
++		return;
++	}
++	schedule_work(&dma->tx_flush_work);
+ }
+ 
+ int serial8250_rx_dma(struct uart_8250_port *p)
+@@ -312,21 +357,28 @@ int serial8250_request_dma(struct uart_8250_port *p)
+ 		goto err;
+ 	}
+ 
+-	/* TX buffer */
++	/* Normal TX uses serial core's FIFO; flush reserves it until retirement. */
+ 	dma->tx_addr = dma_map_single(tx_dev, p->port.state->port.xmit_buf,
+ 				      UART_XMIT_SIZE, DMA_TO_DEVICE);
+ 	if (dma_mapping_error(tx_dev, dma->tx_addr)) {
+-		dma_free_coherent(rx_dev, dma->rx_size,
+-				  dma->rx_buf, dma->rx_addr);
+ 		ret = -ENOMEM;
+-		goto err;
++		goto free_rx;
+ 	}
++	dma_sync_single_for_cpu(tx_dev, dma->tx_addr, UART_XMIT_SIZE, DMA_TO_DEVICE);
++
++	dma->port = p;
++	INIT_WORK(&dma->tx_flush_work, serial8250_tx_dma_flush_work);
+ 
+-	scoped_guard(uart_port_lock_irqsave, &p->port)
++	scoped_guard(uart_port_lock_irqsave, &p->port) {
++		dma->tx_terminating = false;
++		dma->tx_flushed = false;
+ 		dma->shutting_down = false;
++	}
+ 	dev_dbg_ratelimited(p->port.dev, "got both dma channels\n");
+ 
+ 	return 0;
++free_rx:
++	dma_free_coherent(rx_dev, dma->rx_size, dma->rx_buf, dma->rx_addr);
+ err:
+ 	dma_release_channel(dma->txchan);
+ release_rx:
+@@ -342,6 +394,8 @@ void serial8250_release_dma(struct uart_8250_port *p)
+ 	if (!dma)
+ 		return;
+ 
++	cancel_work_sync(&dma->tx_flush_work);
++
+ 	/* Release RX resources */
+ 	dmaengine_terminate_sync(dma->rxchan);
+ 	dma->rx_running = 0;
+@@ -356,7 +410,10 @@ void serial8250_release_dma(struct uart_8250_port *p)
+ 			 UART_XMIT_SIZE, DMA_TO_DEVICE);
+ 	dma_release_channel(dma->txchan);
+ 	dma->txchan = NULL;
+-	dma->tx_running = 0;
++	scoped_guard(uart_port_lock_irqsave, &p->port) {
++		dma->tx_running = 0;
++		dma->tx_terminating = false;
++	}
+ 
+ 	dev_dbg_ratelimited(p->port.dev, "dma channels released\n");
+ }
+diff --git a/drivers/tty/serial/8250/8250_omap.c b/drivers/tty/serial/8250/8250_omap.c
+index b6f108d34854..0dcf63bd3d78 100644
+--- a/drivers/tty/serial/8250/8250_omap.c
++++ b/drivers/tty/serial/8250/8250_omap.c
+@@ -1092,7 +1092,12 @@ static void omap_8250_tx_dma_complete(struct uart_8250_port *p)
+ 
+ 	dma->tx_running = 0;
+ 
+-	uart_xmit_advance(&p->port, dma->tx_size);
++	if (dma->tx_flushed) {
++		p->port.icount.tx += dma->tx_size;
++		uart_xmit_unblock(&p->port);
++	} else {
++		uart_xmit_advance(&p->port, dma->tx_size);
++	}
+ 
+ 	if (priv->delayed_restore) {
+ 		priv->delayed_restore = 0;
+@@ -1125,7 +1130,7 @@ static void omap_8250_dma_tx_complete(void *param)
+ 
+ 	guard(uart_port_lock_irqsave)(&p->port);
+ 
+-	if (dma->shutting_down)
++	if (serial8250_tx_dma_blocked(dma))
+ 		return;
+ 	omap_8250_tx_dma_complete(p);
+ }
+@@ -1140,7 +1145,7 @@ static int omap_8250_tx_dma(struct uart_8250_port *p)
+ 	int skip_byte = -1;
+ 	int ret;
+ 
+-	if (dma->shutting_down || dma->tx_running)
++	if (serial8250_tx_dma_blocked(dma) || dma->tx_running)
+ 		return 0;
+ 	if (uart_tx_stopped(&p->port) || kfifo_is_empty(&tport->xmit_fifo)) {
+ 
+@@ -1199,24 +1204,26 @@ static int omap_8250_tx_dma(struct uart_8250_port *p)
+ 		goto err;
+ 	}
+ 
++	serial8250_tx_dma_sync_buffer(p, &sg, 1);
++
+ 	desc = dmaengine_prep_slave_sg(dma->txchan, &sg, 1, DMA_MEM_TO_DEV,
+ 			DMA_PREP_INTERRUPT | DMA_CTRL_ACK);
+ 	if (!desc) {
++		dma_sync_single_for_cpu(dmaengine_get_dma_device(dma->txchan), dma->tx_addr,
++					UART_XMIT_SIZE, DMA_TO_DEVICE);
+ 		ret = -EBUSY;
+ 		goto err;
+ 	}
+ 
+ 	dma->tx_size = sg_dma_len(&sg);
+ 	dma->tx_running = 1;
++	dma->tx_flushed = false;
++	dma->tx_complete = omap_8250_tx_dma_complete;
+ 
+ 	desc->callback = omap_8250_dma_tx_complete;
+ 	desc->callback_param = p;
+ 
+ 	dma->tx_cookie = dmaengine_submit(desc);
+-
+-	dma_sync_single_for_device(dmaengine_get_dma_device(dma->txchan), dma->tx_addr,
+-				   UART_XMIT_SIZE, DMA_TO_DEVICE);
+-
+ 	dma_async_issue_pending(dma->txchan);
+ 	if (dma->tx_err)
+ 		dma->tx_err = 0;
 
 -- 
 2.53.0
