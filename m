@@ -1,111 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.217.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792771630;
-	b=IxBnABJWuX38VsnxaJv5jKfuzU2uuEUQewIS2MwNbr7dBcOm98thDm9mdzZNRXT7P51Z
-	 bnrTUhT8h+Lr8dBljsfgk66se8b9zQE3TL7ZkNPJErnzXtJzP3cLO65/0bZiSEC9nYAmg
-	 K5jkjpqpm6UXafKLzz8OVHr5m3sp3SckNKtZM1VPLpeogjn5BUa8KFqkblNWdWOirrwSL
-	 0F5X6IR6ftTEk9mknpxXlQWFUggBaUyrezJFUnOPW+CDtCwxZBYpnpiYbn2jjxIxQXLRM
-	 gZWvWzitg1ZbAgKlaab6s4aNvrt2LGC8Pi9b6eyr1+i88RwIgiq8pf0K+BpZqGw2JyQ==
+	t=1792771704;
+	b=d76WReqnGs5bwnYr3wzNi8UuV9rGXD2+TI6yrsTTSW7V6lbziSJv424w/V8XA6MmYHNj
+	 2TjNEIannHOmMl2TMPtDDP3082byqzC3PCXKqbcmK7mLcR8TfKIaKgx+p6DtUurPPvJU/
+	 7+PGa1fvQgZKY+UNiEDCEXyHBx2UUHmfdNAOpG/nXuabJLYLJVwBCNXVjhEpxSjApXi7k
+	 VuP0LRBdO5g04fzKU4KMK150WpcKmXufntqHoTk1AxhmGbCsrBFm3mm0PiWo036hssNv/
+	 /R2toT/jiWwX8Rhlk84osubfEN5rWYaEulUmN97fCGCmfMc2+90jHVlpLddbw5AYroQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792771630;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-GUID:X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=/RT/WyKzm7LLtK3pAL7i1tiNS4yPoqapGsrijvnzVW0=;
-	b=TCICxBRh4CgXHViLQFdKHPkpNXbrFV9ebYKv22QmM5XYS2lqhcn87u/XKiuuT60+UGhV
-	 NguQHhjYgNpUl4QlG8E6rbL22mtvgoW+PuFepfufB3uu0OvnSlauT8wvc26T+Vu5uRU0U
-	 t2a+2N8iNohrJBA+PnxvblpF37n0EiEzxSAv1H6FMoKrri+8fwEaILUGc/BZrDhdMQYUR
-	 Rj0I2NJNc7O/hi/KbMNF6sjRMYKYtQfygcPubURTfUOHThbeFVu+hmJBwJovNgZt+Q6Mb
-	 zS+zE5L7znpl4QvhOVkqzlrJz26ITYwzL6OPLFkfttoEVwmhqNFZ9d7hhIjJxPVmiJQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792771704;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=2UFEqIWk1ABImIlxjhgrNeYHYvHVVjBGryjvG31fmWs=;
+	b=WoRJUk7ust+SDEXpd5GaWpKtmNor7BS4kDxyNYetU9di1Pwd1sjzv3QWL6feht451CKQ
+	 uJaIpkT7wj28H18PFK1/XpAYLIToUD2xFUuffVFpnkq/uXKHqwL1kgbma566soWLCUl7c
+	 J3NWh/hJeZSkssHfq2VfnGlQ7GnElOBrWNyWsy973R7BzyhZ5pdKzWGhzSoWCRG2xUXwl
+	 S24+vp/xxT8HUC0s6vlg2fgr2j3nWfFySZOwdybDyVtehXGidQhDl6ouHUxd4NWKKBKJL
+	 VEFksRaYaMISR1Ld9Qvdw3Wh2pPfNQPblaiP4Og/SWJWAklf/c4amPbiyrbC9cMM8lA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b="Nr/AzaKX";
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=ZUlNjkby;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=YhX+D7SF;
+	arc=none smtp.remote-ip=209.85.217.46
+Received: from mail-vs1-f46.google.com (mail-vs1-f46.google.com [209.85.217.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B6CB606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 16:07:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6B6CB606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8345F606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 16:08:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8345F606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Nr/AzaKX;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=ZUlNjkby
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69NG6K5I2216026
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 16:07:08 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	/RT/WyKzm7LLtK3pAL7i1tiNS4yPoqapGsrijvnzVW0=; b=Nr/AzaKXr2gRCpNP
-	y4OEAqJZwrNZusw6nLM0bIbep4EkQkkIk+rrbsT1Hw1MhzdSuzvHil7yNFYxX3Zz
-	MW2+X7wk5qjWuDAnYi7wVWdWGYv1nl4/9HTB6v7SXSc4xi/3aKf4dqDk8Q8NeHyR
-	Tx3PjrtlmWMUH247iupiaBv9yIN+nXpNRElgqGVdJ/NkGmELKd9LT92hEAZiSfSG
-	zD/SvSfjEzfsO6b7S6W0LLyR8653nciVm8Hh4qekiTCE+vLVpIX/dmOim5GADiof
-	R620xpKerCgz9SL8/7eeAAeheo6OugsMtFrib0cg1fo7jhLy558CfBMZ1BDmgfNN
-	sCFyNA==
-Received: from mail-vs1-f70.google.com (mail-vs1-f70.google.com [209.85.217.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hgatc804d-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 16:07:08 +0000 (GMT)
-Received: by mail-vs1-f70.google.com with SMTP id ada2fe7eead31-7cc4149b885so933445137.2
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 09:07:08 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=YhX+D7SF
+Received: by mail-vs1-f46.google.com with SMTP id ada2fe7eead31-7cc013095d4so313323137.2
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 09:08:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792771627; x=1793376427; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/RT/WyKzm7LLtK3pAL7i1tiNS4yPoqapGsrijvnzVW0=;
-        b=ZUlNjkbyGzi7jNjOs3MD7uxc7BbmgcJKJp5izuRY9obFcmYF3NlakLDxAph1rCfmUO
-         ghqKVcgQFB+aP8VLlv/gWXIZCVrIxyGLLGHzsxtJ/C4PjWPS+vQNmydfRogbRLZDlICn
-         E2+8tcGiCLQZNs4bNwHY10BnlJrMrd1Taj5wMWIH78QaiiBfpmTB6QTF1lReRgrlOvAf
-         +7/FWhuxdCDsJwMbbRNzCPi5QfolXlwcSF8O+lXr9uP1smQE+KZBS/NOVL647CS4nZ49
-         6uDyCZK33NOHJ7W/7ORSMxu0WKjdVoOmLGZZN46wHUfObjaooWxyiwCdzqxhfYMkI8R/
-         lMkw==
+        d=gmail.com; s=20251104; t=1792771701; x=1793376501; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=2UFEqIWk1ABImIlxjhgrNeYHYvHVVjBGryjvG31fmWs=;
+        b=YhX+D7SFeouSxmYDZQG70CRyQYgKpRBZJJSl6rd6R5qvaUaGKocsO9pBNW7QgWvzbr
+         9c0rnmbElF8jHtNiPWWJGfsOOjOWESDh3ExWYRYPwdOISiDNSlV4+LxnopvMRd0HGFTb
+         88VyabuEMr8pSlHw8cRS7JMlozKXHBXWm/tCIIMh00+Pm+qGNMfxCOMFZvl6wQKDtaGi
+         ynp25oqzFtAU95qfrgoHtQzDTqRfNLMqqzcOyZDL2wbpsqiX6gHntxfIb/DA8Vikzksl
+         GE+fUmdme0AdiyUifpyoOegT6uzg5W8vxDpRZX6N7VWxQyyv/bxJD+mditgnllkHnbJ9
+         hI3w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792771627; x=1793376427;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1792771701; x=1793376501;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=/RT/WyKzm7LLtK3pAL7i1tiNS4yPoqapGsrijvnzVW0=;
-        b=BU5NXhRmrx6UyeVrljyC72CjUkZntyvf7qGTxKGxHoKDOxoisgivyJTX+YoVw0IwnP
-         knw6DeMhorFo33J568BhvXxjwjCCB9kBMwNDJ690gLCD+0E1P6ws8JZJsnxeirtB3lXs
-         KidYARFieQwq39Q3L9nrqztbeZgsmur/F5vMb571Dr5Nfof0EAqR3/52RzdSrTGYh0mv
-         h0OJUyLZ445WjZRx/gZEs4QLkUf/K5fO/bSJMqxA1blMwYoagaZBDfW+jyWZUAVDc7+M
-         bz3dwZkB4VXbB+BXwl4FNDHxJOWGKiOb8F5Vxr0hs+tU0isjIOYaPinisZEULVnEZzf9
-         NK+g==
-X-Forwarded-Encrypted: i=1; AKwUvBwIdGsZ1rktOqHZeHcR0YL2fswMxJnOSMmTIGjiCRGqxVYKwHh8NRTTQUL5fyAca25gqEMHSG1LlXOigTQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIIZu+DZLeS6iKKneGV6UVQ4MpojkCZnJwPQyS/LQw4BA947b8l
-	Lh4cJuBRqSx+kUI5SbSY8I4lkxUXNOA1299vFquhLF/nHYOAUSUUdUW1ck8v8mHisrrh2lMcBcj
-	rPwWR2OXVWQrDbWe46XUNELXc6QqbwxAjNp1lziH54i7KdA1WIZGmVBKZT3IkJNpPOu4=
-X-Gm-Gg: AYBFou0qAzbDuzkC9YpznIdac3w/XOP8z2nhTxYuLQODV3/cuZ8A3Mz7KVXGUuva8Wq
-	qKWoMPL7900HeWB8bRxL4gtZ9mr018iWA3MrsInSkWQ9b/umRIT4FSQUdOtslkP+dRg7qizOAC3
-	xlYVAFz2LAt4RTxnl6uigp7jWl1ByLWhnkqW2g032Dmw6hLeW09cycYdkztn6yjDzmYkaxhJVBs
-	stvMH9qZbBoOYSfeIMBoKzMNeq/VlSlQW4IC022CEbvLFMBKM39DXh+3bgukaSyh12BkEyHOgl2
-	IuOanffSpOp8qEbLhslOnJgp7KrWVdOdaI37n0OfAnQ4uj+QtlLhbqePWgtig4KQ3ybBLV81x9O
-	TMTey6/TSLMRGAf5Z2DIH0d6hda4+W1Y=
-X-Received: by 2002:a05:6102:4448:b0:7cc:2086:34c9 with SMTP id ada2fe7eead31-7ccc2f58653mr1013128137.2.1792771627459;
-        Fri, 23 Oct 2026 09:07:07 -0700 (PDT)
-X-Received: by 2002:a05:6102:4448:b0:7cc:2086:34c9 with SMTP id ada2fe7eead31-7ccc2f58653mr1013111137.2.1792771626983;
-        Fri, 23 Oct 2026 09:07:06 -0700 (PDT)
-Received: from [192.168.1.73] ([92.247.57.178])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a2a9062d50sm15404525e9.2.2026.10.23.09.07.05
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 23 Oct 2026 09:07:05 -0700 (PDT)
-Message-ID: <559fdf87-368d-4e31-b754-897353898d7a@oss.qualcomm.com>
-Date: Fri, 23 Oct 2026 19:07:04 +0300
+        bh=2UFEqIWk1ABImIlxjhgrNeYHYvHVVjBGryjvG31fmWs=;
+        b=Iq+/0XkBSMp2wqQCenliBLeef6a6E7tO4G+bi465Gh8mJe1119rwVwQEJAGoYm3e7A
+         5Kz92upmWc8GV2QA0JFDYpsczhFA4csG3Il+nxPZbR/CAzNbTZVLqTjZce09H5C/aGcX
+         V9vBrvqvpCorOW3JCWmbrgSYCWZ+tLTGi92pYOVQm4zTZo2JWfzAzrXwsNb/rL+saeuQ
+         r+YByfSwURQT3gX/DMh6lYE1xzvvEDZshyhvAasTrtP1olug5sS/PWoWrYYcPyPr+jDD
+         JqicnliaWNbndHqVDAaSg1fwwUmYBVNziZ386Z1C6gVQiMXsb4GYyU/Uok2YdpnVJXL9
+         TShg==
+X-Forwarded-Encrypted: i=1; AKwUvBynNI1q3IRBmAetTUHngjb/GkmYQsUwRaxpPUC8WedfDrMeEKophFhwQ0lVnMpx41abe07dyLcFLaAhod0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ0g6TvRdsw+LjwVlohvv8kfd/x+WdwqXi0UggPKQyO7NgJnul+
+	OgdkYXhLYPI9ANHZj95AErDGUeyLmR0z1QS/W3vweXxnqvunf4GdxGm7
+X-Gm-Gg: AYBFou0K3lpXtISEc3s8j4O7vHPyXcoJD7kXRfyfWE+5OTVT3EG4E6Jd+oZgia9K3BP
+	1YL5nUSfmqaaFgtdQUdhmPObgSslfUKLA0kqkjRxox7/uJEVXcjltM5S7rW33nZyHNHo80KeT4i
+	xALnHbZ74cBWaKIHbfso6hfvxlBd9sNbFG+nODNouoJHdv3wRO0KKoolZFsu8mU9fgrSGh5Rh6+
+	uRbBSlRShBL5DSEcFJaUuJqUdHfhJZZ3P9druI/1Rb/e/6dJdr9jS5npFzp968sAhMBWOm3KJ0B
+	p70dgsA1xAUcN8mIA2FbPLO6azV/h5qWT3TUbw8TnXXbXdrxAR1qm+KrrETuGuDOtzaByZxkVk6
+	LrWOaLUXWOnc7pHzhoFpReIY6skVXq2HAc8rUIWw5LAbp12zk3IhMZUbSFrpDhsemR6PhnTT0wi
+	fJk1Qh3FGUxyb2qm/YjkTsfrxldb1q/hQEE6fGNjHCaYSjw+rsC5xXlP74uZlQJt5fAIe63gtd2
+	1+H7CVSQ3GO9fs7iREuoZo33eMjH2amZ3hRuOb6lUEGCCe0X/069P1Xjftb3SfeKisBG6t9h125
+	ATmHFKM9y23tdQ2HGTEMAS8=
+X-Received: by 2002:a05:6102:2b9c:b0:7a6:85d6:8ae0 with SMTP id ada2fe7eead31-7ccc307a284mr1053168137.1.1792771701250;
+        Fri, 23 Oct 2026 09:08:21 -0700 (PDT)
+Received: from Biostar-A520MT ([187.94.15.233])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-9910c0112dasm745461241.9.2026.10.23.09.08.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 23 Oct 2026 09:08:20 -0700 (PDT)
+From: Breno Rodrigues Alves <breno3011alves@gmail.com>
+To: linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Breno Rodrigues Alves <breno3011alves@gmail.com>,
+	Anders Larsen <al@alarsen.net>,
+	Alexander Viro <viro@zeniv.linux.org.uk>
+Subject: [PATCH] fs: remove qnx4 filesystem
+Date: Fri, 23 Oct 2026 13:08:05 -0300
+Message-ID: <20261023160806.103901-1-breno3011alves@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,138 +96,975 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/4] media: qcom: camss: clamp VFE clock rates to the
- highest level
-To: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Cc: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-        Gjorgji Rosikopulos <gjorgji.rosikopulos@oss.qualcomm.com>,
-        linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20261023152857.2859767-1-atanas.filipov@oss.qualcomm.com>
- <20261023152857.2859767-2-atanas.filipov@oss.qualcomm.com>
- <CAFEp6-2tC+uFJSG8xOhQdrhfCqoDuhm6q0rYc6cROoUG_r1vtQ@mail.gmail.com>
-Content-Language: en-US
-From: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
-In-Reply-To: <CAFEp6-2tC+uFJSG8xOhQdrhfCqoDuhm6q0rYc6cROoUG_r1vtQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIzMDA2MyBTYWx0ZWRfXyzrnotyZkwa0
- J1KbdTY1P28P8nF/6uuWrfHb92BUASSqEYb0wMkzM4/Rlq3exGeRv1DLtMwocnjeWzfP3WxetcE
- 4XJMlF8K3GCi5XvwI8xuGJx7yCB8zywtsvJCfHn537W/dBLCs2R+XpN7Ptg/hoVqLuNq3RNtahU
- vH0RrLeHS2g09JtzmThtTXhcLXmfRE5+Zua350S+ucYzpLHvaiBfn4uD4PU1qj6DjM6n/9HZypv
- Q5ED7489uc3nne1M0c2Dcdb7pdWPYjnvd+qBNb7yK/bHCPcVWqROUuO5rbZ4N/PZp2r/JRRdZn5
- lb3+jSB5x5YD1xDxq/St9szvrcqAdVCNKVeywVmevhCQKk/SE6PUZcg9eRCgyJIvm8fjtWvxWZr
- 2oxrddYnT/0xgoDlmDOD5BFx4GTpnzImEd9ktSIRVGb8CCQlmm2MFSJKsH9cl2D6cVNUw6+kIy5
- 4MkpW6nbfnFP+DbsTyg==
-X-Proofpoint-GUID: XdD-UrUbeOQwUJrjxHd9ni2E-4IgP93J
-X-Authority-Analysis: v=2.4 cv=Scxi5fRu c=1 sm=1 tr=0 ts=6adb862c cx=c_pps
- a=N1BjEkVkxJi3uNfLdpvX3g==:117 a=ybD9qRDIDfZaXNPQ7Ca20A==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=EUspDBNiAAAA:8 a=OtwWDPiBtiHqWltJD10A:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=crWF4MFLhNY0qMRaF8an:22
-X-Proofpoint-ORIG-GUID: XdD-UrUbeOQwUJrjxHd9ni2E-4IgP93J
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIzMDA2MyBTYWx0ZWRfX06OdG7Z19Now
- WplUrAEUHxHpF3lg90bCqNjBf5bayqOJ0/TEm/yDGvW2msTYH6VUKOYZ0jFjy58kVpG4Kgt2sHL
- TPC/NU3yjobMR7v87ka7Y3t30VM45yM=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-23_04,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 adultscore=0 phishscore=0 priorityscore=1501
- lowpriorityscore=0 impostorscore=0 malwarescore=0 bulkscore=0 spamscore=0
- clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
- definitions=main-2610230063
 
-On 10/23/2026 6:45 PM, Loic Poulain wrote:
-> On Fri, Oct 23, 2026 at 5:29 PM Atanas Filipov
-> <atanas.filipov@oss.qualcomm.com> wrote:
->>
->> The VFE fails to power on when the pixel rate exceeds the highest rate
->> listed for any of its clocks. The rate tables of the VFE clocks are
->> independent and need not have the same number of levels, so a clock
->> with a lower top rate than the VFE core clock, such as the SC7280
->> camnoc_axi clock, makes the VFE reject pixel rates the core clock
->> still supports.
->>
->> Clamp each clock to its highest listed rate instead, and warn that the
->> pixel rate exceeds it when the clock lists more than one rate. Take the
->> clamp into account when another line powers on an already running VFE,
->> so that a clock running at its highest rate does not reject the
->> request.
-> 
-> IMO, this function has become a bit messy. We should split the core
-> clock selection into a dedicated helper, as it is directly tied to the
-> pixel rate. The AXI clock scaling/selection should be handled
-> separately, potentially through the interconnect (ICC) framework (when
-> available).
-> 
-> Regards,
-> Loic
-> 
+The qnx4 filesystem driver has been orphaned and unmaintained for
+decades.  Write support was removed in 2009 as it was never fully
+implemented and was broken.  The remaining code is read-only and has
+no active users.
 
-In any case, I'll split it into at least two parts in the next version.
+Remove the driver entirely, along with its Kconfig entry,
+MAINTAINERS entry, and CREDITS entries.
 
-Regards,
-Atanas
+The QNX4_SUPER_MAGIC value in include/uapi/linux/magic.h is kept for
+userspace ABI compatibility.  The UAPI format headers (qnx4_fs.h,
+qnxtypes.h) and defconfig cleanups will be sent separately.
 
->>
->> Signed-off-by: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
->> ---
->>   drivers/media/platform/qcom/camss/camss-vfe.c | 18 ++++++++++++------
->>   1 file changed, 12 insertions(+), 6 deletions(-)
->>
->> diff --git a/drivers/media/platform/qcom/camss/camss-vfe.c b/drivers/media/platform/qcom/camss/camss-vfe.c
->> index 2680a9914765..87096095b1eb 100644
->> --- a/drivers/media/platform/qcom/camss/camss-vfe.c
->> +++ b/drivers/media/platform/qcom/camss/camss-vfe.c
->> @@ -982,15 +982,13 @@ static int vfe_set_clock_rates(struct vfe_device *vfe)
->>
->>                          camss_add_clock_margin(&min_rate);
->>
->> -                       for (j = 0; j < clock->nfreqs; j++)
->> +                       for (j = 0; j < clock->nfreqs - 1; j++)
->>                                  if (min_rate < clock->freq[j])
->>                                          break;
->>
->> -                       if (j == clock->nfreqs) {
->> -                               dev_err(dev,
->> -                                       "Pixel clock is too high for VFE");
->> -                               return -EINVAL;
->> -                       }
->> +                       if (clock->nfreqs > 1 && min_rate >= clock->freq[j])
->> +                               dev_warn(dev, "Pixel clock is too high for VFE clock %s\n",
->> +                                        clock->name);
->>
->>                          /* if sensor pixel clock is not available */
->>                          /* set highest possible VFE clock rate */
->> @@ -1041,6 +1039,7 @@ static int vfe_check_clock_rates(struct vfe_device *vfe)
->>                  if (vfe_match_clock_names(vfe, clock) && vfe_check_clock_levels(clock)) {
->>                          u64 min_rate = 0;
->>                          unsigned long rate;
->> +                       long max_rate;
->>
->>                          for (j = VFE_LINE_RDI0; j < vfe->res->line_num; j++) {
->>                                  u32 tmp;
->> @@ -1063,6 +1062,13 @@ static int vfe_check_clock_rates(struct vfe_device *vfe)
->>
->>                          camss_add_clock_margin(&min_rate);
->>
->> +                       /* A clock already at its highest rate cannot go higher */
->> +                       max_rate = clk_round_rate(clock->clk, clock->freq[clock->nfreqs - 1]);
->> +                       if (max_rate < 0)
->> +                               return max_rate;
->> +
->> +                       min_rate = min_t(u64, min_rate, max_rate);
->> +
->>                          rate = clk_get_rate(clock->clk);
->>                          if (rate < min_rate)
->>                                  return -EBUSY;
->> --
->> 2.34.1
->>
+Signed-off-by: Breno Rodrigues Alves <breno3011alves@gmail.com>
+---
+ CREDITS          |   3 -
+ MAINTAINERS      |   8 -
+ fs/Kconfig       |   1 -
+ fs/Makefile      |   1 -
+ fs/qnx4/Kconfig  |  16 --
+ fs/qnx4/Makefile |   8 -
+ fs/qnx4/bitmap.c |  45 -----
+ fs/qnx4/dir.c    |  81 ---------
+ fs/qnx4/inode.c  | 436 -----------------------------------------------
+ fs/qnx4/namei.c  | 115 -------------
+ fs/qnx4/qnx4.h   | 106 ------------
+ fs/qnx6/Makefile |   2 +-
+ 12 files changed, 1 insertion(+), 821 deletions(-)
+ delete mode 100644 fs/qnx4/Kconfig
+ delete mode 100644 fs/qnx4/Makefile
+ delete mode 100644 fs/qnx4/bitmap.c
+ delete mode 100644 fs/qnx4/dir.c
+ delete mode 100644 fs/qnx4/inode.c
+ delete mode 100644 fs/qnx4/namei.c
+ delete mode 100644 fs/qnx4/qnx4.h
+
+diff --git a/CREDITS b/CREDITS
+index 882aad786df9..49296288adf4 100644
+--- a/CREDITS
++++ b/CREDITS
+@@ -947,7 +947,6 @@ S: France
+ 
+ N: Frank "Jedi/Sector One" Denis
+ E: j@pureftpd.org
+-D: QNX4 filesystem
+ 
+ N: Peter Denison
+ E: peterd@pnd-pc.demon.co.uk
+@@ -1341,7 +1340,6 @@ E: mid@zigamorph.net
+ 
+ N: Richard "Scuba" A. Frowijn
+ E: scuba@wxs.nl
+-D: QNX4 filesystem
+ 
+ N: Fernando Fuganti
+ E: fuganti@conectiva.com.br
+@@ -2392,7 +2390,6 @@ D: Scalability, Time subsystem
+ 
+ N: Anders Larsen
+ E: al@alarsen.net
+-D: QNX4 filesystem
+ 
+ N: Paul Laufer
+ E: paul@laufernet.com
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 943135302225..9e0354177307 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -22352,14 +22352,6 @@ F:	drivers/leds/leds-qnap-mcu.c
+ F:	drivers/mfd/qnap-mcu.c
+ F:	include/linux/mfd/qnap-mcu.h
+ 
+-QNX4 FILESYSTEM
+-M:	Anders Larsen <al@alarsen.net>
+-S:	Maintained
+-W:	http://www.alarsen.net/linux/qnx4fs/
+-F:	fs/qnx4/
+-F:	include/uapi/linux/qnx4_fs.h
+-F:	include/uapi/linux/qnxtypes.h
+-
+ QNX6 FILESYSTEM
+ S:	Orphan
+ F:	Documentation/filesystems/qnx6.rst
+diff --git a/fs/Kconfig b/fs/Kconfig
+index ca84ee8a85ee..58cbeb507402 100644
+--- a/fs/Kconfig
++++ b/fs/Kconfig
+@@ -321,7 +321,6 @@ source "fs/cramfs/Kconfig"
+ source "fs/squashfs/Kconfig"
+ source "fs/minix/Kconfig"
+ source "fs/omfs/Kconfig"
+-source "fs/qnx4/Kconfig"
+ source "fs/qnx6/Kconfig"
+ source "fs/resctrl/Kconfig"
+ source "fs/romfs/Kconfig"
+diff --git a/fs/Makefile b/fs/Makefile
+index a741172ac6d4..b98c05dbffa1 100644
+--- a/fs/Makefile
++++ b/fs/Makefile
+@@ -94,7 +94,6 @@ obj-$(CONFIG_JFFS2_FS)		+= jffs2/
+ obj-$(CONFIG_UBIFS_FS)		+= ubifs/
+ obj-$(CONFIG_AFFS_FS)		+= affs/
+ obj-$(CONFIG_ROMFS_FS)		+= romfs/
+-obj-$(CONFIG_QNX4FS_FS)		+= qnx4/
+ obj-$(CONFIG_QNX6FS_FS)		+= qnx6/
+ obj-$(CONFIG_AUTOFS_FS)		+= autofs/
+ obj-$(CONFIG_ADFS_FS)		+= adfs/
+diff --git a/fs/qnx4/Kconfig b/fs/qnx4/Kconfig
+deleted file mode 100644
+index a2eb826e76c6..000000000000
+--- a/fs/qnx4/Kconfig
++++ /dev/null
+@@ -1,16 +0,0 @@
+-# SPDX-License-Identifier: GPL-2.0-only
+-config QNX4FS_FS
+-	tristate "QNX4 file system support (read only)"
+-	depends on BLOCK
+-	select BUFFER_HEAD
+-	help
+-	  This is the file system used by the real-time operating systems
+-	  QNX 4 and QNX 6 (the latter is also called QNX RTP).
+-	  Further information is available at <http://www.qnx.com/>.
+-	  Say Y if you intend to mount QNX hard disks or floppies.
+-
+-	  To compile this file system support as a module, choose M here: the
+-	  module will be called qnx4.
+-
+-	  If you don't know whether you need it, then you don't need it:
+-	  answer N.
+diff --git a/fs/qnx4/Makefile b/fs/qnx4/Makefile
+deleted file mode 100644
+index 42d4fc263a3d..000000000000
+--- a/fs/qnx4/Makefile
++++ /dev/null
+@@ -1,8 +0,0 @@
+-# SPDX-License-Identifier: GPL-2.0-only
+-#
+-# Makefile for the linux qnx4-filesystem routines.
+-#
+-
+-obj-$(CONFIG_QNX4FS_FS) += qnx4.o
+-
+-qnx4-objs := inode.o dir.o namei.o bitmap.o
+diff --git a/fs/qnx4/bitmap.c b/fs/qnx4/bitmap.c
+deleted file mode 100644
+index 163afc4ba4b2..000000000000
+--- a/fs/qnx4/bitmap.c
++++ /dev/null
+@@ -1,45 +0,0 @@
+-// SPDX-License-Identifier: GPL-2.0
+-/*
+- * QNX4 file system, Linux implementation.
+- *
+- * Version : 0.2.1
+- *
+- * Using parts of the xiafs filesystem.
+- *
+- * History :
+- *
+- * 28-05-1998 by Richard Frowijn : first release.
+- * 20-06-1998 by Frank Denis : basic optimisations.
+- * 25-06-1998 by Frank Denis : qnx4_is_free, qnx4_set_bitmap, qnx4_bmap .
+- * 28-06-1998 by Frank Denis : qnx4_free_inode (to be fixed) .
+- */
+-
+-#include <linux/buffer_head.h>
+-#include <linux/bitops.h>
+-#include "qnx4.h"
+-
+-unsigned long qnx4_count_free_blocks(struct super_block *sb)
+-{
+-	int start = le32_to_cpu(qnx4_sb(sb)->BitMap->di_first_xtnt.xtnt_blk) - 1;
+-	int total = 0;
+-	int total_free = 0;
+-	int offset = 0;
+-	int size = le32_to_cpu(qnx4_sb(sb)->BitMap->di_size);
+-	struct buffer_head *bh;
+-
+-	while (total < size) {
+-		int bytes = min(size - total, QNX4_BLOCK_SIZE);
+-
+-		if ((bh = sb_bread(sb, start + offset)) == NULL) {
+-			printk(KERN_ERR "qnx4: I/O error in counting free blocks\n");
+-			break;
+-		}
+-		total_free += bytes * BITS_PER_BYTE -
+-				memweight(bh->b_data, bytes);
+-		brelse(bh);
+-		total += bytes;
+-		offset++;
+-	}
+-
+-	return total_free;
+-}
+diff --git a/fs/qnx4/dir.c b/fs/qnx4/dir.c
+deleted file mode 100644
+index a9038d231be4..000000000000
+--- a/fs/qnx4/dir.c
++++ /dev/null
+@@ -1,81 +0,0 @@
+-// SPDX-License-Identifier: GPL-2.0
+-/*
+- * QNX4 file system, Linux implementation.
+- *
+- * Version : 0.2.1
+- *
+- * Using parts of the xiafs filesystem.
+- *
+- * History :
+- *
+- * 28-05-1998 by Richard Frowijn : first release.
+- * 20-06-1998 by Frank Denis : Linux 2.1.99+ & dcache support.
+- */
+-
+-#include <linux/buffer_head.h>
+-#include <linux/filelock.h>
+-#include "qnx4.h"
+-
+-static int qnx4_readdir(struct file *file, struct dir_context *ctx)
+-{
+-	struct inode *inode = file_inode(file);
+-	unsigned int offset;
+-	struct buffer_head *bh;
+-	unsigned long blknum;
+-	int ix, ino;
+-	int size;
+-
+-	QNX4DEBUG((KERN_INFO "qnx4_readdir:i_size = %ld\n", (long) inode->i_size));
+-	QNX4DEBUG((KERN_INFO "pos                 = %ld\n", (long) ctx->pos));
+-
+-	while (ctx->pos < inode->i_size) {
+-		blknum = qnx4_block_map(inode, ctx->pos >> QNX4_BLOCK_SIZE_BITS);
+-		bh = sb_bread(inode->i_sb, blknum);
+-		if (bh == NULL) {
+-			printk(KERN_ERR "qnx4_readdir: bread failed (%ld)\n", blknum);
+-			return 0;
+-		}
+-		ix = (ctx->pos >> QNX4_DIR_ENTRY_SIZE_BITS) % QNX4_INODES_PER_BLOCK;
+-		for (; ix < QNX4_INODES_PER_BLOCK; ix++, ctx->pos += QNX4_DIR_ENTRY_SIZE) {
+-			union qnx4_directory_entry *de;
+-			const char *fname;
+-
+-			offset = ix * QNX4_DIR_ENTRY_SIZE;
+-			de = (union qnx4_directory_entry *) (bh->b_data + offset);
+-
+-			fname = get_entry_fname(de, &size);
+-			if (!fname)
+-				continue;
+-
+-			if (!(de->de_status & QNX4_FILE_LINK)) {
+-				ino = blknum * QNX4_INODES_PER_BLOCK + ix - 1;
+-			} else {
+-				ino = ( le32_to_cpu(de->link.dl_inode_blk) - 1 ) *
+-					QNX4_INODES_PER_BLOCK +
+-					de->link.dl_inode_ndx;
+-			}
+-
+-			QNX4DEBUG((KERN_INFO "qnx4_readdir:%.*s\n", size, fname));
+-			if (!dir_emit(ctx, fname, size, ino, DT_UNKNOWN)) {
+-				brelse(bh);
+-				return 0;
+-			}
+-		}
+-		brelse(bh);
+-	}
+-	return 0;
+-}
+-
+-const struct file_operations qnx4_dir_operations =
+-{
+-	.llseek		= generic_file_llseek,
+-	.read		= generic_read_dir,
+-	.iterate_shared	= qnx4_readdir,
+-	.fsync		= simple_fsync,
+-	.setlease	= generic_setlease,
+-};
+-
+-const struct inode_operations qnx4_dir_inode_operations =
+-{
+-	.lookup		= qnx4_lookup,
+-};
+diff --git a/fs/qnx4/inode.c b/fs/qnx4/inode.c
+deleted file mode 100644
+index 42fcd500fad2..000000000000
+--- a/fs/qnx4/inode.c
++++ /dev/null
+@@ -1,436 +0,0 @@
+-// SPDX-License-Identifier: GPL-2.0-only
+-/*
+- * QNX4 file system, Linux implementation.
+- *
+- * Version : 0.2.1
+- *
+- * Using parts of the xiafs filesystem.
+- *
+- * History :
+- *
+- * 01-06-1998 by Richard Frowijn : first release.
+- * 20-06-1998 by Frank Denis : Linux 2.1.99+ support, boot signature, misc.
+- * 30-06-1998 by Frank Denis : first step to write inodes.
+- */
+-
+-#include <linux/module.h>
+-#include <linux/init.h>
+-#include <linux/slab.h>
+-#include <linux/highuid.h>
+-#include <linux/pagemap.h>
+-#include <linux/buffer_head.h>
+-#include <linux/writeback.h>
+-#include <linux/statfs.h>
+-#include <linux/fs_context.h>
+-#include "qnx4.h"
+-
+-#define QNX4_VERSION  4
+-#define QNX4_BMNAME   ".bitmap"
+-
+-static const struct super_operations qnx4_sops;
+-
+-static struct inode *qnx4_alloc_inode(struct super_block *sb);
+-static void qnx4_free_inode(struct inode *inode);
+-static int qnx4_statfs(struct dentry *, struct kstatfs *);
+-static int qnx4_get_tree(struct fs_context *fc);
+-
+-static const struct super_operations qnx4_sops =
+-{
+-	.alloc_inode	= qnx4_alloc_inode,
+-	.free_inode	= qnx4_free_inode,
+-	.statfs		= qnx4_statfs,
+-};
+-
+-static int qnx4_reconfigure(struct fs_context *fc)
+-{
+-	struct super_block *sb = fc->root->d_sb;
+-	struct qnx4_sb_info *qs;
+-
+-	sync_filesystem(sb);
+-	qs = qnx4_sb(sb);
+-	qs->Version = QNX4_VERSION;
+-	fc->sb_flags |= SB_RDONLY;
+-	return 0;
+-}
+-
+-static const struct fs_context_operations qnx4_context_opts = {
+-	.get_tree	= qnx4_get_tree,
+-	.reconfigure	= qnx4_reconfigure,
+-};
+-
+-static int qnx4_get_block( struct inode *inode, sector_t iblock, struct buffer_head *bh, int create )
+-{
+-	unsigned long phys;
+-
+-	QNX4DEBUG((KERN_INFO "qnx4: qnx4_get_block inode=[%llu] iblock=[%ld]\n", inode->i_ino, iblock));
+-
+-	phys = qnx4_block_map( inode, iblock );
+-	if ( phys ) {
+-		// logical block is before EOF
+-		map_bh(bh, inode->i_sb, phys);
+-	}
+-	return 0;
+-}
+-
+-static inline u32 try_extent(qnx4_xtnt_t *extent, u32 *offset)
+-{
+-	u32 size = le32_to_cpu(extent->xtnt_size);
+-	if (*offset < size)
+-		return le32_to_cpu(extent->xtnt_blk) + *offset - 1;
+-	*offset -= size;
+-	return 0;
+-}
+-
+-unsigned long qnx4_block_map( struct inode *inode, long iblock )
+-{
+-	int ix;
+-	long i_xblk;
+-	struct buffer_head *bh = NULL;
+-	struct qnx4_xblk *xblk = NULL;
+-	struct qnx4_inode_entry *qnx4_inode = qnx4_raw_inode(inode);
+-	u16 nxtnt = le16_to_cpu(qnx4_inode->di_num_xtnts);
+-	u32 offset = iblock;
+-	u32 block = try_extent(&qnx4_inode->di_first_xtnt, &offset);
+-
+-	if (block) {
+-		// iblock is in the first extent. This is easy.
+-	} else {
+-		// iblock is beyond first extent. We have to follow the extent chain.
+-		i_xblk = le32_to_cpu(qnx4_inode->di_xblk);
+-		ix = 0;
+-		while ( --nxtnt > 0 ) {
+-			if ( ix == 0 ) {
+-				// read next xtnt block.
+-				bh = sb_bread(inode->i_sb, i_xblk - 1);
+-				if ( !bh ) {
+-					QNX4DEBUG((KERN_ERR "qnx4: I/O error reading xtnt block [%ld])\n", i_xblk - 1));
+-					return -EIO;
+-				}
+-				xblk = (struct qnx4_xblk*)bh->b_data;
+-				if ( memcmp( xblk->xblk_signature, "IamXblk", 7 ) ) {
+-					QNX4DEBUG((KERN_ERR "qnx4: block at %ld is not a valid xtnt\n", qnx4_inode->i_xblk));
+-					return -EIO;
+-				}
+-			}
+-			block = try_extent(&xblk->xblk_xtnts[ix], &offset);
+-			if (block) {
+-				// got it!
+-				break;
+-			}
+-			if ( ++ix >= xblk->xblk_num_xtnts ) {
+-				i_xblk = le32_to_cpu(xblk->xblk_next_xblk);
+-				ix = 0;
+-				brelse( bh );
+-				bh = NULL;
+-			}
+-		}
+-		if ( bh )
+-			brelse( bh );
+-	}
+-
+-	QNX4DEBUG((KERN_INFO "qnx4: mapping block %ld of inode %llu = %ld\n", iblock, inode->i_ino, block));
+-	return block;
+-}
+-
+-static int qnx4_statfs(struct dentry *dentry, struct kstatfs *buf)
+-{
+-	struct super_block *sb = dentry->d_sb;
+-	u64 id = huge_encode_dev(sb->s_bdev->bd_dev);
+-
+-	buf->f_type    = sb->s_magic;
+-	buf->f_bsize   = sb->s_blocksize;
+-	buf->f_blocks  = le32_to_cpu(qnx4_sb(sb)->BitMap->di_size) * 8;
+-	buf->f_bfree   = qnx4_count_free_blocks(sb);
+-	buf->f_bavail  = buf->f_bfree;
+-	buf->f_namelen = QNX4_NAME_MAX;
+-	buf->f_fsid    = u64_to_fsid(id);
+-
+-	return 0;
+-}
+-
+-/*
+- * Check the root directory of the filesystem to make sure
+- * it really _is_ a qnx4 filesystem, and to check the size
+- * of the directory entry.
+- */
+-static const char *qnx4_checkroot(struct super_block *sb,
+-				  struct qnx4_super_block *s)
+-{
+-	struct buffer_head *bh;
+-	struct qnx4_inode_entry *rootdir;
+-	int rd, rl;
+-	int i, j;
+-
+-	if (s->RootDir.di_fname[0] != '/' || s->RootDir.di_fname[1] != '\0')
+-		return "no qnx4 filesystem (no root dir).";
+-	QNX4DEBUG((KERN_NOTICE "QNX4 filesystem found on dev %s.\n", sb->s_id));
+-	rd = le32_to_cpu(s->RootDir.di_first_xtnt.xtnt_blk) - 1;
+-	rl = le32_to_cpu(s->RootDir.di_first_xtnt.xtnt_size);
+-	for (j = 0; j < rl; j++) {
+-		bh = sb_bread(sb, rd + j);	/* root dir, first block */
+-		if (bh == NULL)
+-			return "unable to read root entry.";
+-		rootdir = (struct qnx4_inode_entry *) bh->b_data;
+-		for (i = 0; i < QNX4_INODES_PER_BLOCK; i++, rootdir++) {
+-			QNX4DEBUG((KERN_INFO "rootdir entry found : [%s]\n", rootdir->di_fname));
+-			if (strcmp(rootdir->di_fname, QNX4_BMNAME) != 0)
+-				continue;
+-			qnx4_sb(sb)->BitMap = kmemdup(rootdir,
+-						      sizeof(struct qnx4_inode_entry),
+-						      GFP_KERNEL);
+-			brelse(bh);
+-			if (!qnx4_sb(sb)->BitMap)
+-				return "not enough memory for bitmap inode";
+-			/* keep bitmap inode known */
+-			return NULL;
+-		}
+-		brelse(bh);
+-	}
+-	return "bitmap file not found.";
+-}
+-
+-static int qnx4_fill_super(struct super_block *s, struct fs_context *fc)
+-{
+-	struct buffer_head *bh;
+-	struct inode *root;
+-	const char *errmsg;
+-	struct qnx4_sb_info *qs;
+-	int silent = fc->sb_flags & SB_SILENT;
+-
+-	qs = kzalloc_obj(struct qnx4_sb_info);
+-	if (!qs)
+-		return -ENOMEM;
+-	s->s_fs_info = qs;
+-
+-	if (!sb_set_blocksize(s, QNX4_BLOCK_SIZE))
+-		return -EINVAL;
+-
+-	s->s_op = &qnx4_sops;
+-	s->s_magic = QNX4_SUPER_MAGIC;
+-	s->s_flags |= SB_RDONLY;	/* Yup, read-only yet */
+-	s->s_time_min = 0;
+-	s->s_time_max = U32_MAX;
+-
+-	/* Check the superblock signature. Since the qnx4 code is
+-	   dangerous, we should leave as quickly as possible
+-	   if we don't belong here... */
+-	bh = sb_bread(s, 1);
+-	if (!bh) {
+-		printk(KERN_ERR "qnx4: unable to read the superblock\n");
+-		return -EINVAL;
+-	}
+-
+- 	/* check before allocating dentries, inodes, .. */
+-	errmsg = qnx4_checkroot(s, (struct qnx4_super_block *) bh->b_data);
+-	brelse(bh);
+-	if (errmsg != NULL) {
+-		if (!silent)
+-			printk(KERN_ERR "qnx4: %s\n", errmsg);
+-		return -EINVAL;
+-	}
+-
+- 	/* does root not have inode number QNX4_ROOT_INO ?? */
+-	root = qnx4_iget(s, QNX4_ROOT_INO * QNX4_INODES_PER_BLOCK);
+-	if (IS_ERR(root)) {
+-		printk(KERN_ERR "qnx4: get inode failed\n");
+-		return PTR_ERR(root);
+- 	}
+-
+- 	s->s_root = d_make_root(root);
+- 	if (s->s_root == NULL)
+- 		return -ENOMEM;
+-
+-	return 0;
+-}
+-
+-static int qnx4_get_tree(struct fs_context *fc)
+-{
+-	return get_tree_bdev(fc, qnx4_fill_super);
+-}
+-
+-static int qnx4_init_fs_context(struct fs_context *fc)
+-{
+-	fc->ops = &qnx4_context_opts;
+-
+-	return 0;
+-}
+-
+-static void qnx4_kill_sb(struct super_block *sb)
+-{
+-	struct qnx4_sb_info *qs = qnx4_sb(sb);
+-	kill_block_super(sb);
+-	if (qs) {
+-		kfree(qs->BitMap);
+-		kfree(qs);
+-	}
+-}
+-
+-static int qnx4_read_folio(struct file *file, struct folio *folio)
+-{
+-	return block_read_full_folio(folio, qnx4_get_block);
+-}
+-
+-static sector_t qnx4_bmap(struct address_space *mapping, sector_t block)
+-{
+-	return generic_block_bmap(mapping,block,qnx4_get_block);
+-}
+-
+-static const struct address_space_operations qnx4_aops = {
+-	.read_folio	= qnx4_read_folio,
+-	.bmap		= qnx4_bmap
+-};
+-
+-struct inode *qnx4_iget(struct super_block *sb, unsigned long ino)
+-{
+-	struct buffer_head *bh;
+-	struct qnx4_inode_entry *raw_inode;
+-	int block;
+-	struct qnx4_inode_entry *qnx4_inode;
+-	struct inode *inode;
+-
+-	inode = iget_locked(sb, ino);
+-	if (!inode)
+-		return ERR_PTR(-ENOMEM);
+-	if (!(inode_state_read_once(inode) & I_NEW))
+-		return inode;
+-
+-	qnx4_inode = qnx4_raw_inode(inode);
+-	inode->i_mode = 0;
+-
+-	QNX4DEBUG((KERN_INFO "reading inode : [%d]\n", ino));
+-	if (!ino) {
+-		printk(KERN_ERR "qnx4: bad inode number on dev %s: %lu is "
+-				"out of range\n",
+-		       sb->s_id, ino);
+-		iget_failed(inode);
+-		return ERR_PTR(-EIO);
+-	}
+-	block = ino / QNX4_INODES_PER_BLOCK;
+-
+-	if (!(bh = sb_bread(sb, block))) {
+-		printk(KERN_ERR "qnx4: major problem: unable to read inode from dev "
+-		       "%s\n", sb->s_id);
+-		iget_failed(inode);
+-		return ERR_PTR(-EIO);
+-	}
+-	raw_inode = ((struct qnx4_inode_entry *) bh->b_data) +
+-	    (ino % QNX4_INODES_PER_BLOCK);
+-
+-	inode->i_mode    = le16_to_cpu(raw_inode->di_mode);
+-	i_uid_write(inode, (uid_t)le16_to_cpu(raw_inode->di_uid));
+-	i_gid_write(inode, (gid_t)le16_to_cpu(raw_inode->di_gid));
+-	set_nlink(inode, le16_to_cpu(raw_inode->di_nlink));
+-	inode->i_size    = le32_to_cpu(raw_inode->di_size);
+-	inode_set_mtime(inode, le32_to_cpu(raw_inode->di_mtime), 0);
+-	inode_set_atime(inode, le32_to_cpu(raw_inode->di_atime), 0);
+-	inode_set_ctime(inode, le32_to_cpu(raw_inode->di_ctime), 0);
+-	inode->i_blocks  = le32_to_cpu(raw_inode->di_first_xtnt.xtnt_size);
+-
+-	memcpy(qnx4_inode, raw_inode, QNX4_DIR_ENTRY_SIZE);
+-	if (S_ISREG(inode->i_mode)) {
+-		inode->i_fop = &generic_ro_fops;
+-		inode->i_mapping->a_ops = &qnx4_aops;
+-		qnx4_i(inode)->mmu_private = inode->i_size;
+-	} else if (S_ISDIR(inode->i_mode)) {
+-		inode->i_op = &qnx4_dir_inode_operations;
+-		inode->i_fop = &qnx4_dir_operations;
+-	} else if (S_ISLNK(inode->i_mode)) {
+-		inode->i_op = &page_symlink_inode_operations;
+-		inode_nohighmem(inode);
+-		inode->i_mapping->a_ops = &qnx4_aops;
+-		qnx4_i(inode)->mmu_private = inode->i_size;
+-	} else {
+-		printk(KERN_ERR "qnx4: bad inode %lu on dev %s\n",
+-			ino, sb->s_id);
+-		iget_failed(inode);
+-		brelse(bh);
+-		return ERR_PTR(-EIO);
+-	}
+-	brelse(bh);
+-	unlock_new_inode(inode);
+-	return inode;
+-}
+-
+-static struct kmem_cache *qnx4_inode_cachep;
+-
+-static struct inode *qnx4_alloc_inode(struct super_block *sb)
+-{
+-	struct qnx4_inode_info *ei;
+-	ei = alloc_inode_sb(sb, qnx4_inode_cachep, GFP_KERNEL);
+-	if (!ei)
+-		return NULL;
+-	return &ei->vfs_inode;
+-}
+-
+-static void qnx4_free_inode(struct inode *inode)
+-{
+-	kmem_cache_free(qnx4_inode_cachep, qnx4_i(inode));
+-}
+-
+-static void init_once(void *foo)
+-{
+-	struct qnx4_inode_info *ei = (struct qnx4_inode_info *) foo;
+-
+-	inode_init_once(&ei->vfs_inode);
+-}
+-
+-static int init_inodecache(void)
+-{
+-	qnx4_inode_cachep = kmem_cache_create("qnx4_inode_cache",
+-					     sizeof(struct qnx4_inode_info),
+-					     0, (SLAB_RECLAIM_ACCOUNT|
+-						SLAB_ACCOUNT),
+-					     init_once);
+-	if (qnx4_inode_cachep == NULL)
+-		return -ENOMEM;
+-	return 0;
+-}
+-
+-static void destroy_inodecache(void)
+-{
+-	/*
+-	 * Make sure all delayed rcu free inodes are flushed before we
+-	 * destroy cache.
+-	 */
+-	rcu_barrier();
+-	kmem_cache_destroy(qnx4_inode_cachep);
+-}
+-
+-static struct file_system_type qnx4_fs_type = {
+-	.owner			= THIS_MODULE,
+-	.name			= "qnx4",
+-	.kill_sb		= qnx4_kill_sb,
+-	.fs_flags		= FS_REQUIRES_DEV,
+-	.init_fs_context	= qnx4_init_fs_context,
+-};
+-MODULE_ALIAS_FS("qnx4");
+-
+-static int __init init_qnx4_fs(void)
+-{
+-	int err;
+-
+-	err = init_inodecache();
+-	if (err)
+-		return err;
+-
+-	err = register_filesystem(&qnx4_fs_type);
+-	if (err) {
+-		destroy_inodecache();
+-		return err;
+-	}
+-
+-	printk(KERN_INFO "QNX4 filesystem 0.2.3 registered.\n");
+-	return 0;
+-}
+-
+-static void __exit exit_qnx4_fs(void)
+-{
+-	unregister_filesystem(&qnx4_fs_type);
+-	destroy_inodecache();
+-}
+-
+-module_init(init_qnx4_fs)
+-module_exit(exit_qnx4_fs)
+-MODULE_DESCRIPTION("QNX4 file system");
+-MODULE_LICENSE("GPL");
+-
+diff --git a/fs/qnx4/namei.c b/fs/qnx4/namei.c
+deleted file mode 100644
+index bb8db6550ca5..000000000000
+--- a/fs/qnx4/namei.c
++++ /dev/null
+@@ -1,115 +0,0 @@
+-// SPDX-License-Identifier: GPL-2.0
+-/* 
+- * QNX4 file system, Linux implementation.
+- * 
+- * Version : 0.2.1
+- * 
+- * Using parts of the xiafs filesystem.
+- * 
+- * History :
+- * 
+- * 01-06-1998 by Richard Frowijn : first release.
+- * 21-06-1998 by Frank Denis : dcache support, fixed error codes.
+- * 04-07-1998 by Frank Denis : first step for rmdir/unlink.
+- */
+-
+-#include <linux/buffer_head.h>
+-#include "qnx4.h"
+-
+-
+-/*
+- * check if the filename is correct. For some obscure reason, qnx writes a
+- * new file twice in the directory entry, first with all possible options at 0
+- * and for a second time the way it is, they want us not to access the qnx
+- * filesystem when whe are using linux.
+- */
+-static int qnx4_match(int len, const char *name,
+-		      struct buffer_head *bh, unsigned long *offset)
+-{
+-	union qnx4_directory_entry *de;
+-	const char *fname;
+-	int fnamelen;
+-
+-	if (bh == NULL) {
+-		printk(KERN_WARNING "qnx4: matching unassigned buffer !\n");
+-		return 0;
+-	}
+-	de = (union qnx4_directory_entry *) (bh->b_data + *offset);
+-	*offset += QNX4_DIR_ENTRY_SIZE;
+-
+-	fname = get_entry_fname(de, &fnamelen);
+-	if (!fname || len != fnamelen)
+-		return 0;
+-
+-	if (strncmp(name, fname, len) == 0)
+-		return 1;
+-
+-	return 0;
+-}
+-
+-static struct buffer_head *qnx4_find_entry(int len, struct inode *dir,
+-	   const char *name, struct qnx4_inode_entry **res_dir, int *ino)
+-{
+-	unsigned long block, offset, blkofs;
+-	struct buffer_head *bh;
+-
+-	*res_dir = NULL;
+-	bh = NULL;
+-	block = offset = blkofs = 0;
+-	while (blkofs * QNX4_BLOCK_SIZE + offset < dir->i_size) {
+-		if (!bh) {
+-			block = qnx4_block_map(dir, blkofs);
+-			if (block)
+-				bh = sb_bread(dir->i_sb, block);
+-			if (!bh) {
+-				blkofs++;
+-				continue;
+-			}
+-		}
+-		*res_dir = (struct qnx4_inode_entry *) (bh->b_data + offset);
+-		if (qnx4_match(len, name, bh, &offset)) {
+-			*ino = block * QNX4_INODES_PER_BLOCK +
+-			    (offset / QNX4_DIR_ENTRY_SIZE) - 1;
+-			return bh;
+-		}
+-		if (offset < bh->b_size) {
+-			continue;
+-		}
+-		brelse(bh);
+-		bh = NULL;
+-		offset = 0;
+-		blkofs++;
+-	}
+-	brelse(bh);
+-	*res_dir = NULL;
+-	return NULL;
+-}
+-
+-struct dentry * qnx4_lookup(struct inode *dir, struct dentry *dentry, unsigned int flags)
+-{
+-	int ino;
+-	struct qnx4_inode_entry *de;
+-	struct qnx4_link_info *lnk;
+-	struct buffer_head *bh;
+-	const char *name = dentry->d_name.name;
+-	int len = dentry->d_name.len;
+-	struct inode *foundinode = NULL;
+-
+-	if (!(bh = qnx4_find_entry(len, dir, name, &de, &ino)))
+-		goto out;
+-	/* The entry is linked, let's get the real info */
+-	if ((de->di_status & QNX4_FILE_LINK) == QNX4_FILE_LINK) {
+-		lnk = (struct qnx4_link_info *) de;
+-		ino = (le32_to_cpu(lnk->dl_inode_blk) - 1) *
+-                    QNX4_INODES_PER_BLOCK +
+-		    lnk->dl_inode_ndx;
+-	}
+-	brelse(bh);
+-
+-	foundinode = qnx4_iget(dir->i_sb, ino);
+-	if (IS_ERR(foundinode))
+-		QNX4DEBUG((KERN_ERR "qnx4: lookup->iget -> error %ld\n",
+-			   PTR_ERR(foundinode)));
+-out:
+-	return d_splice_alias(foundinode, dentry);
+-}
+diff --git a/fs/qnx4/qnx4.h b/fs/qnx4/qnx4.h
+deleted file mode 100644
+index 5c2b1fb6b952..000000000000
+--- a/fs/qnx4/qnx4.h
++++ /dev/null
+@@ -1,106 +0,0 @@
+-/* SPDX-License-Identifier: GPL-2.0 */
+-#include <linux/fs.h>
+-#include <linux/qnx4_fs.h>
+-
+-#define QNX4_DEBUG 0
+-
+-#if QNX4_DEBUG
+-#define QNX4DEBUG(X) printk X
+-#else
+-#define QNX4DEBUG(X) (void) 0
+-#endif
+-
+-struct qnx4_sb_info {
+-	unsigned int		Version;	/* may be useful */
+-	struct qnx4_inode_entry	*BitMap;	/* useful */
+-};
+-
+-struct qnx4_inode_info {
+-	struct qnx4_inode_entry raw;
+-	loff_t mmu_private;
+-	struct inode vfs_inode;
+-};
+-
+-extern struct inode *qnx4_iget(struct super_block *, unsigned long);
+-extern struct dentry *qnx4_lookup(struct inode *dir, struct dentry *dentry, unsigned int flags);
+-extern unsigned long qnx4_count_free_blocks(struct super_block *sb);
+-extern unsigned long qnx4_block_map(struct inode *inode, long iblock);
+-
+-extern const struct inode_operations qnx4_dir_inode_operations;
+-extern const struct file_operations qnx4_dir_operations;
+-extern int qnx4_is_free(struct super_block *sb, long block);
+-
+-static inline struct qnx4_sb_info *qnx4_sb(struct super_block *sb)
+-{
+-	return sb->s_fs_info;
+-}
+-
+-static inline struct qnx4_inode_info *qnx4_i(struct inode *inode)
+-{
+-	return container_of(inode, struct qnx4_inode_info, vfs_inode);
+-}
+-
+-static inline struct qnx4_inode_entry *qnx4_raw_inode(struct inode *inode)
+-{
+-	return &qnx4_i(inode)->raw;
+-}
+-
+-/*
+- * A qnx4 directory entry is an inode entry or link info
+- * depending on the status field in the last byte. The
+- * first byte is where the name start either way, and a
+- * zero means it's empty.
+- *
+- * Also, due to a bug in gcc, we don't want to use the
+- * real (differently sized) name arrays in the inode and
+- * link entries, but always the 'de_name[]' one in the
+- * fake struct entry.
+- *
+- * See
+- *
+- *   https://gcc.gnu.org/bugzilla/show_bug.cgi?id=99578#c6
+- *
+- * for details, but basically gcc will take the size of the
+- * 'name' array from one of the used union entries randomly.
+- *
+- * This use of 'de_name[]' (48 bytes) avoids the false positive
+- * warnings that would happen if gcc decides to use 'inode.di_name'
+- * (16 bytes) even when the pointer and size were to come from
+- * 'link.dl_name' (48 bytes).
+- *
+- * In all cases the actual name pointer itself is the same, it's
+- * only the gcc internal 'what is the size of this field' logic
+- * that can get confused.
+- */
+-union qnx4_directory_entry {
+-	struct {
+-		const char de_name[48];
+-		u8 de_pad[15];
+-		u8 de_status;
+-	};
+-	struct qnx4_inode_entry inode;
+-	struct qnx4_link_info link;
+-};
+-
+-static inline const char *get_entry_fname(union qnx4_directory_entry *de,
+-					  int *size)
+-{
+-	/* Make sure the status byte is in the same place for all structs. */
+-	BUILD_BUG_ON(offsetof(struct qnx4_inode_entry, di_status) !=
+-			offsetof(struct qnx4_link_info, dl_status));
+-	BUILD_BUG_ON(offsetof(struct qnx4_inode_entry, di_status) !=
+-			offsetof(union qnx4_directory_entry, de_status));
+-
+-	if (!de->de_name[0])
+-		return NULL;
+-	if (!(de->de_status & (QNX4_FILE_USED|QNX4_FILE_LINK)))
+-		return NULL;
+-	if (!(de->de_status & QNX4_FILE_LINK))
+-		*size = sizeof(de->inode.di_fname);
+-	else
+-		*size = sizeof(de->link.dl_fname);
+-
+-	*size = strnlen(de->de_name, *size);
+-
+-	return de->de_name;
+-}
+diff --git a/fs/qnx6/Makefile b/fs/qnx6/Makefile
+index bd4e6c8efbc6..8cbb75199aa8 100644
+--- a/fs/qnx6/Makefile
++++ b/fs/qnx6/Makefile
+@@ -1,6 +1,6 @@
+ # SPDX-License-Identifier: GPL-2.0-only
+ #
+-# Makefile for the linux qnx4-filesystem routines.
++# Makefile for the linux qnx6-filesystem routines.
+ #
+ 
+ obj-$(CONFIG_QNX6FS_FS) += qnx6.o
+-- 
+2.56.0
 
