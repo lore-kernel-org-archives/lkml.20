@@ -1,61 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.40.44.15
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792780709;
-	b=o5ecuAypm7zVucSzEIR1jy9UDV29/U+tFYzP2NfPtAA5CMb4qIPx8emVvvy0zLBxIhSc
-	 djPJk29uNtTBDVw5BFOz/sTc/BpcjSZAtKDmpguQkd6sS6MtsyZWorQH/jYJu+/xSP5VP
-	 gabXhAITfUIsBWQpKS3jR7Do///IL0ZMoNBr5A9oiwDuYLjqkuw7aJSfz7J2kAVkZcCW9
-	 NVzpyn80tgf+AnTanisoxHa0UmlJ736ZvITtkfyzzOhdOoCC5i/J1tIERnJb42M9Tb0D4
-	 rV6Qz0y0pMgtmRImPFYR1rZZeCZcry9eDZFeWo+syNwRnR8WAxiImo0VvfX1oVg3iSA==
+	t=1792780862;
+	b=NLZ0gVIAR5uXSAFeBSXKcFlXawmmfw4Qf+xhHza+tCUJP3qQ8sTXSP2+UCez7K5JuZAh
+	 0kH3AmL9PCJVbwd9dWtmbF+w5G3hUsXpqyySI4q654040Zh9F6mapO7AqhovdgkITRfyn
+	 3ZKFePR3NGCIUVg/MCDdkDcJblOmZeKCRveeo3Ma9PmQ0WDUhM0M78VbDMwnkDaGBiV8m
+	 V6Wx0tbYp0K7eKz9QG2CYwPu4x0y3K75UCHd+nBlJuMEVmlV6yU2lS12/ENcj/UsQDzSB
+	 GWVhdVV625bhXhx07AH0CqQ5hRjQ4xxTjq/LmEXl7yTpbp8+CvY8NjKscGdC3nafLkA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792780709;
-	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-Stat-Signature:X-Rspamd-Server:
-	 X-Rspamd-Queue-Id:X-Spam-Status:X-Session-Marker:X-Session-ID:
-	 DKIM-Signature:X-HE-Tag:X-HE-Meta;
-	bh=lCyBiYRSw9SkkQC2KbiCAFmq5F9fmUPyW/UopXiMXiI=;
-	b=DxdGIeUN6tRWoYxEcK276P4YqOZmyZqb19HJBvWpQTD0P/U5jH+iwXfF8+2NMpO4dDr+
-	 KKhMfsFInotGY7iKpcItiS9HskNop4UvqM7l5+JxRok1MbM2okkXcFSQVGc6chJI5Af6C
-	 wX0BNhEA6QlNpEX6C4GqdgC3ImW7NOjtaE5nFUh4rKReKAP+7/4oJ/vGCBR2nbrAOHnx9
-	 z21Y8U67yCJjjbB7U6x9hthUkpv5pmycynPsxi0jR25kCTR1bB3VhISGLyV48pf6K/FYg
-	 mkFLr34jswzdQ0vDJP/sCZQcOaJpp2sXp4co5cWPbn2ULqtCtvQY0mzm18pjHcq8oCQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792780862;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:X-Mailer:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=hvRwUyJ5wl+Vys6kUOnT5y3rEbSPcjUNYAl4hML2kDk=;
+	b=X7LNwxXdQGCjP7OKZhDLznH1Qlljw3x8RYRs7iTxVpWMMIO5p9JgcErDueuxKF0em0Rf
+	 dDiIqEYzn5bQsHjvWXRq9G7zPoM17ICo18eXHK50GQOFG39par25tWyr4X5qEC8xP0O8z
+	 YvQlX6z2Jz81Wuqycmy5xnNh2v0XaZa0VwjQko5Ph+g7uKS+3l05Zjn0ZBYwqrkGwHTay
+	 G264l8F5fFxdaX9GfYNgKI7LMtvq3+w+9jCG6HtZZ8n59RMJkRzEXy3Q035EM5eTLxPSG
+	 iX3coPXLWA5mp53rqfOMFqx0UCQ/zeSx4g7ojO+OruhMBFJvmR7PUlxpae0WQEJ4VMQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=goodmis.org;
-	spf=pass smtp.mailfrom=goodmis.org;
-	dkim=pass header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=AnNmlcfT;
-	arc=none smtp.remote-ip=216.40.44.15
-Received: from relay.hostedemail.com (smtprelay0015.hostedemail.com [216.40.44.15])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=I0Wjdbhg;
+	arc=none smtp.remote-ip=209.85.221.44
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22BD2606A31A;
-	Fri, 23 Oct 2026 18:38:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 22BD2606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FBD5606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 18:41:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8FBD5606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=AnNmlcfT
-Received: from omf18.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay01.hostedemail.com (Postfix) with ESMTP id AC71C1C240B;
-	Fri, 23 Oct 2026 18:38:20 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf18.hostedemail.com (Postfix) with ESMTPA id DBED930;
-	Fri, 23 Oct 2026 18:38:17 +0000 (UTC)
-Date: Fri, 23 Oct 2026 14:38:16 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Andrii Nakryiko <andrii.nakryiko@gmail.com>
-Cc: Vineet Gupta <vineet.gupta@linux.dev>, mhiramat@kernel.org,
- mark.rutland@arm.com, mathieu.desnoyers@efficios.com, andrii@kernel.org,
- peterz@infradead.org, linux-trace-kernel@vger.kernel.org,
- linux-kernel@vger.kernel.org, bpf@vger.kernel.org, kernel-team@meta.com,
- stable@vger.kernel.org
-Subject: Re: [PATCH v4 1/2] tracing: fgraph: allocate shadow stacks inline
- with GFP_NOWAIT
-Message-ID: <20261023143816.48163575@gandalf.local.home>
-In-Reply-To: <CAEf4BzaTYgNwiBtvYoSw1wzuFZchs-2CCP93gh2OeDt-919-eQ@mail.gmail.com>
-References: <20261021174406.2891598-1-vineet.gupta@linux.dev>
-	<20261021174406.2891598-2-vineet.gupta@linux.dev>
-	<CAEf4BzaTYgNwiBtvYoSw1wzuFZchs-2CCP93gh2OeDt-919-eQ@mail.gmail.com>
-X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=I0Wjdbhg
+Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-48e0d1da913so965656f8f.1
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 11:41:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792780861; x=1793385661; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=hvRwUyJ5wl+Vys6kUOnT5y3rEbSPcjUNYAl4hML2kDk=;
+        b=I0Wjdbhg7XVwj5t+d5yzbO5GWQLgCXYLZdjy10Ji8rNNW3VLtWfGFD8LqqUx1iXKOD
+         DiJa4qGY3Xbijfmlub7iZSeDROTwHD/a/wvgmsC4ZUeGTyx2wtFly5cOocBHPYk3aD7N
+         4SjTQyuyuY9RG2orwm4FWpxrwVel3MBF5lyY1AzS/r5i2tz1ThsoZ3lhUmrhOi8k4eVK
+         0bKfj20ZoClJs19w6P9K2W+yxs13xVXy77mZ98+p6Q1KpVphGuIW3bWBoF/lhpmYCgPX
+         5c2fzomJUck2SNNbeXj1bOBExLN0nYG3rKltVtx4hl8dgPvh49oHs73ualcLk3gHT9k3
+         4T/Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792780861; x=1793385661;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=hvRwUyJ5wl+Vys6kUOnT5y3rEbSPcjUNYAl4hML2kDk=;
+        b=Pvl1f8/RRkRzPfL10Qyyo6Yu/8kBXmulYK2CNEI27eZEHJHMkiYatJMjzh7+KGWzOS
+         ePQLjchbTArxhnfrjQbpYtAmF/gqKy6Dqbu2x/+/+AgHRsiy6aIksvXNUYTl0ZyELgWP
+         c+VRg842TWu7Me1o5w/NqY1mDg9rkeUuBcGMkhT7o7ggM6w5KsLnFAx+VniZ1xmjWSWu
+         8cqEYyMe8bMNxBfulUQL4lCMcMycAlwGs33zRvXROSiz8w88L0j1GiUZNcA2oVj8+tFY
+         eaqvyN2wuP73MzmJK6Nrm4iQzxspGIz729sX042td8A2JF5m6GP1agb2IQCdaauCXRJm
+         J9HA==
+X-Forwarded-Encrypted: i=1; AKwUvBxWiiUq7OKCOAsE1B2rVhS7MsooxD/JNNRECuMP/CwJfy8Y+lnn2SnZRcXT/QXmNq+dxIIaWMqBTDfR1Es=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIF0Yq7fnWIuBq13nWvXaEx4SxbJUiXZOlV+yawG+7sgScs7x9+
+	kI3XsZ5VZUi3WVuTxmtOPDLUef9z59HC9EOQCg1UuUdSEaZLWweAgCrd
+X-Gm-Gg: AYBFou1gnB+WFIwdV3oJ1Cu3kNfZbz6s5HKrPwRbp6Uipj+eYTAB2X+DRRd3vaN3S2u
+	MTBfWbPGpvROxCxY88ZwMUEQP1Jp3CKRrBZop/2XFvjgUEnZ6UptSNdE2j35T/2+rKRgdTU2AVc
+	G60TI2pkyy/6B73cR6QfeTs50mbxIZPTkNoilza23pCSK7d1DKmGoJxh9ME1yzxaAhiVdeZW7A0
+	855z96MlPaioZIEj0dEm+19Vl3ISJRZKBskBwA0gfgEPfYGY//huSKz3boLUv9h6a3gLWu8zVfc
+	AqNf0tUZeacG4wTjatHF8xxm8DuLys+G3vhCDquGgX+MBmXvGdC9DNFLln8pS2fuN44eyzS0WgL
+	5lcVlQX0ykcUas40KGVh7Xa1GLpnbaXNaITgcTiIRg5j+vt/Y/k4QuoeRnEd2G4Qty4gY8uzbjM
+	wS42ntX0ldXvf84ip7TiD4Q0u1bfFcN37ymLzZfMAA68a7y/k9GRzCa9badxBRwLE4N05Wzyn35
+	WCsXLXNlFlCdjV3P9vvCAstBKn9yzPOYNmMZZ4X7a2Wa0KqAZjW6wRt7RXoFMDP62OE9ZnOICWx
+	zZI7Y7nj+PnENQa1
+X-Received: by 2002:a5d:5f0a:0:b0:48d:ed0e:6bb4 with SMTP id ffacd0b85a97d-48e2d0ff5e8mr12701841f8f.4.1792780860722;
+        Fri, 23 Oct 2026 11:41:00 -0700 (PDT)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3d3ee6d8sm1432381f8f.14.2026.10.23.11.41.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 23 Oct 2026 11:41:00 -0700 (PDT)
+Date: Fri, 23 Oct 2026 19:40:59 +0100
+From: David Laight <david.laight.linux@gmail.com>
+To: Thorsten Blum <blum@kernel.org>
+Cc: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, "Uwe
+ =?UTF-8?B?S2xlaW5lLUvDtm5pZw==?= (The Capable Hub)"
+ <u.kleine-koenig@baylibre.com>, Zhao Dongdong <zhaodongdong@kylinos.cn>,
+ Takashi Iwai <tiwai@suse.de>, linux-sound@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] ALSA: cmipci: Use strscpy() in snd_cmipci_create()
+Message-ID: <20261023194059.4e307a32@pumpkin>
+In-Reply-To: <20261022164013.95811-2-blum@kernel.org>
+References: <20261022164013.95811-2-blum@kernel.org>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,25 +103,53 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-X-Stat-Signature: 7qkkh75ignt3qewezis49ixkcgfhde8m
-X-Rspamd-Server: rspamout04
-X-Rspamd-Queue-Id: DBED930
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX1+nNobuDoV7+6C+HwMufpBMVCxpRn3jLXo=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=lCyBiYRSw9SkkQC2KbiCAFmq5F9fmUPyW/UopXiMXiI=; b=AnNmlcfTGob/L9YI6qPr8w5mvroGj0tlirC5etc7sp0u5SlTEEpNvehTPR/UJtV0U+a2x804gqc7Rje9ArBnNHY5b0iCAs22aBgg177J+PCINRpdtnCs1m72t9G9aLCrLkcfHrw9eD1itRjjzEQ/NuCmIdmTliemRb4iN7PjvJA=
-X-HE-Tag: 1792780697-920593
-X-HE-Meta: U2FsdGVkX1+PteRbXq2UIOK+GAECd5Q0Wx9sa6R2UvKrl09WwahqwOMj4yNTck+A8TIF3idbEVsy3rZJqMsQrlnD9LWFIvWlAdT/xu4gfjL3ChGmACTjrCEyClIHtzUCPIUekI52BZqOp3ZlufK3FRVZg/sdNWRFYH3Y4ZTPbmiK5Y49ULZmd6G0kFLgTQiZRnuD9Mkqp3QxeH/+upYagkETu19JniqmahR+98laPl+QBlkVo1ZDSPLdv7pQMDsMz9pkSazQHyX4M0qdIdeTeSTV/wgM7Z528boEhYKP9VmJz0RclWdmEReuG7ZWqhOFK6Kgcp3uR+LJS3rbiGef32Qhb7IkWRqA6Z6CfI1rQHvswZd5CXqilg==
 
-On Fri, 23 Oct 2026 11:13:44 -0700
-Andrii Nakryiko <andrii.nakryiko@gmail.com> wrote:
+On Thu, 22 Oct 2026 18:40:11 +0200
+Thorsten Blum <blum@kernel.org> wrote:
 
-> Acked-by: Andrii Nakryiko <andrii@kernel.org>
+> To prepare for removing strlcat() from the kernel [1], use strscpy()
+> instead with the current driver name length as the append offset. Also
+> use size_t in the multi-channel branch to match strlen()'s return type.
 > 
-> I presume this will go through Masami and Steven's tree, is that right?
+> No functional change.
+> 
+> Link: https://github.com/KSPP/linux/issues/370 [1]
+> Signed-off-by: Thorsten Blum <blum@kernel.org>
+> ---
+>  sound/pci/cmipci.c | 10 +++++++---
+>  1 file changed, 7 insertions(+), 3 deletions(-)
+> 
+> diff --git a/sound/pci/cmipci.c b/sound/pci/cmipci.c
+> index 9d9f784e3a8c..5722b722da95 100644
+> --- a/sound/pci/cmipci.c
+> +++ b/sound/pci/cmipci.c
+> @@ -2980,11 +2980,15 @@ static int snd_cmipci_create(struct snd_card *card, struct pci_dev *pci,
+>  		query_chip(cm);
+>  	/* added -MCx suffix for chip supporting multi-channels */
+>  	if (cm->can_multi_ch) {
+> -		int l = strlen(cm->card->driver);
+> +		size_t l = strlen(cm->card->driver);
+> +
+>  		scnprintf(cm->card->driver + l, sizeof(cm->card->driver) - l,
+>  			  "-MC%d", cm->max_channels);
+> -	} else if (cm->can_ac3_sw)
+> -		strlcat(cm->card->driver, "-SWIEC", sizeof(cm->card->driver));
+> +	} else if (cm->can_ac3_sw) {
+> +		size_t l = strlen(cm->card->driver);
+> +
+> +		strscpy(cm->card->driver + l, "-SWIEC", sizeof(cm->card->driver) - l);
+> +	}
 
-Yes, but it came in during the merge window, and since it's just a speed up
-and not fixing something that's broken, I was going to let this go in the
-next merge window. I rather have a change like this sit through a full -rc
-release.
+There are all sorts of reasons for not using strlcat() and various ways
+of changing code so that it doesn't need to do the string concatenation.
+But replacing calls with strlen() and strscpy() is just plain stupid.
 
--- Steve
+It has no benefits and lots of downsides.
+
+David
+
+>  
+>  	cm->dig_status = SNDRV_PCM_DEFAULT_CON_SPDIF;
+>  	cm->dig_pcm_status = SNDRV_PCM_DEFAULT_CON_SPDIF;
+> 
+
