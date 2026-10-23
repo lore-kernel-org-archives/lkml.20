@@ -1,96 +1,115 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792749851;
-	b=0zgW7ZQythRt8IX+AR1lOky4dbjNzTK/x3KAK9Ykqic6DilrS5q9hwdWDsLdqgqYTuIm
-	 rx1r4eqGW56BrQvOAbCA+XWmj3vmJ4bAI7472YBJq9QcsjHzk7YrgpFlB9GoxDSmNAcU0
-	 Yote12QzqZ7XMwxAo9OcxMm/eo7L4kBJI3or0xnk9sCYIKUR5ggB/nYBWyd9BEsrIQnOl
-	 C2N5AzU7JU7jAvp6t1JhZb4sCYDTBTLXRrwDwpqkxDLI1FFSJcKect/MEH3SX4inBlDTd
-	 WRR9TOmjF+9XuUhWbT5yXw6wvlfDzrYKZDN69qq1PIhbcHCLMAZ0daM8FfNOmqB7f9w==
+	t=1792749883;
+	b=Ix3/ct5GtJw4/z/CqSsMxHJoT+LWBDfsxELcjZsYctyRhtovRlNKSdkfnzzDoWaEa8Qy
+	 BghI8lETncM9oDwo+CTEQJHqbt3roqDzk2Kxuf5/2cAmtoAgsk2Nqn6cMKMKeKTsTggl/
+	 MOyHkct3/L2846FNO2oopS9ylaDHA0SdYC2Y/hLKOEKkYakA3QC3H5dk4OL9UcTjOSFOb
+	 Xb+h4za5ZB5FR0tc3qtle5ww8xmeu+OUxHJ7aTERNjpQQmpUXy/JIDm0qygFxQKttpPuk
+	 RHT6G9sTcpem84W+7zGakjrg54vSPD4Vqy2W8JT5A810co2tm6lVz828RYh8afEHhqw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792749851;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=V73NaMs9YDFcFhqg19NWf/Od15pS09vKG0mvNkd46xk=;
-	b=G333DEEQY/VZutmZtpQlGBZRqADrjeOT57cY5dY9qGgUVlf4s0oOZgWAzI6S4nWH2EhT
-	 lmCGMKsHGOav+mu79Mhm//TIcDI8Nk8pxz5iqQKMSBhv0AN3Uobhf9skiZyzUm6GUvF3R
-	 zIgJ1C/hL15+icHwGCxgroT9Rf+wmXrRDRu7JPRJrSqc84PW9k+z34Sa2padMVi2tYQUh
-	 nUdZlqtAnHb1+Ho92Rg0LX/hZD3Sr1G0JnxjyR5jqK1kqcOormqafzLmSeyMcrjvEc/Xc
-	 XJHx1XaSMrMFzhPjFRtGK6GcA2mH5w0+mMSwL2ihfLDXqN8uJ5/bpDIqPk9a/L9sO9w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792749883;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:Received:Date:From:To:Cc:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=hYkBoQ6y82oxG++SCIxFzQ7YeSOVHLZCi1q8tJnSOY8=;
+	b=VG7cQOn6HHuBKMu0O5JPgcbITfZqN+Q+7ZJj8iOafj6n+xSXQpL1H7aiaBUuBf3g1NyD
+	 Y9LMtl63Twqyy50helz7tLRjyg+D9cg8/8oPXCPbgSktC/A6zlJeJe6sjtLkfxa57bNwE
+	 BoYSBciFKdT3yQ4mSjMQFit5mRqQst9l22iPIsjXVpY39zI9jb+u5I3nw54oViReirfWv
+	 oZtPrgnBl0D2VNL/XbeqLAJCGOFIcmIxM+3Ko0iQ0aubE+Q0h0VC/TE98n2EnTD8b12r6
+	 kmNDlGBmjDT862rR3vTIQfHXnJGdMtfo6a2yTTNmv9TucpLiL99UyQSrKA1hzwFbrLQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=mgcrea.io;
-	spf=pass smtp.mailfrom=mg-crea.com;
-	dkim=pass header.d=mg-crea-com.20251104.gappssmtp.com header.i=@mg-crea-com.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=pD3ENHEX;
-	arc=none smtp.remote-ip=209.85.128.53
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Re++0DCN;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=tFcjjcQt;
+	arc=none smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0813160A2609
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 10:04:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0813160A2609
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=mgcrea.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mg-crea.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AFCD606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 10:04:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9AFCD606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mg-crea-com.20251104.gappssmtp.com header.i=@mg-crea-com.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=pD3ENHEX
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a1df146015so4838845e9.0
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 03:04:10 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Re++0DCN;
+	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=tFcjjcQt
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1792749881;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=hYkBoQ6y82oxG++SCIxFzQ7YeSOVHLZCi1q8tJnSOY8=;
+	b=Re++0DCNJmHVmYvBEj3CxMNSvzLAF7nKq3TyP7IJoS3MiYCrecE79mcHPrwFpLIXbHSKhS
+	Zhqv+SzvBK1YWyaNbDTiCEQz1eKESxcbNOXYsiZgvr+XElBboEI4tzBhLX7t0xnx+Qa3q2
+	dCnI74E8f32YldPEvnfkoARl9/QvqR8=
+Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
+ [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-685-gDw9kf2VPtmyIC8H-fSN2A-1; Fri, 23 Oct 2026 06:04:40 -0400
+X-MC-Unique: gDw9kf2VPtmyIC8H-fSN2A-1
+X-Mimecast-MFC-AGG-ID: gDw9kf2VPtmyIC8H-fSN2A_1792749879
+Received: by mail-wr1-f71.google.com with SMTP id ffacd0b85a97d-48af5a07314so425567f8f.2
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 03:04:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=mg-crea-com.20251104.gappssmtp.com; s=20251104; t=1792749849; x=1793354649; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=V73NaMs9YDFcFhqg19NWf/Od15pS09vKG0mvNkd46xk=;
-        b=pD3ENHEX/0beLyGYcidz17WJZ0uTeiJwWm32ILa9UJGSjlt0hcIIZm0wY5dOoAYnMU
-         OSpxOO6qinL9sisdZeYyp7ufwhEm+3BAp1rQJjdg8cO+Hon10yq7etn39shzsPVpPpFj
-         NPQ9DxejOV7jlU3p7N896Ca3CrzNnVSP6IitLLhICBrvtBweSt8mWweHwLUDxVZvNn+Y
-         +i2eMDnqfblrDYsB4bb7ttQKRqvBULEM0wkXH0aVvI755H1GfQIrkZBn9DrjUs3yEUx0
-         MsWLVdhz5uphzF+05i3NBb30uc+kET3QgbkHlMj5MXNSL5Z+dyeqdsOdXxhZbQ6bFzE7
-         JiEA==
+        d=redhat.com; s=google; t=1792749879; x=1793354679; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=hYkBoQ6y82oxG++SCIxFzQ7YeSOVHLZCi1q8tJnSOY8=;
+        b=tFcjjcQtF0RbozmfU/UV6psd2SyNYjk6ltoNL7jCePChJ5UM2bI56csrfBJDx3HxnQ
+         NZvAxFcHQLVCmQcSz+C2OSldtIfAt6p+VQ1YaOkQwLIEIIh8XvO/tY57vVDBA3HPYwP4
+         hZfhxPTv0+n9CK2BRWGV/zi4Z/sXeT2kZXM/miCYE0CdGVChYbJZrI5Z9roT93rD6aot
+         1ocTKYEO8zw010kqq3Zbx03r/kmpkhnGqMEVEseyfESSnfHP3qy02u9okt58+FCGx/lC
+         z9UiMHaxlNrG78vRDe4RAMk6xXJ+4f7e8dySQFF2o3HJd+zTXLtMCUPWToL3F53j2u0m
+         wxmA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792749849; x=1793354649;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=V73NaMs9YDFcFhqg19NWf/Od15pS09vKG0mvNkd46xk=;
-        b=YjobJmAs+tmZo3S3/YwqJm9Ud3HFYGaJgSC7oMxkskCxV6bCQpkBpYhPus092xvlyO
-         i0ujYVf6K8fJEaUoZKJZBZb+qESym5nLnGr/1Yxdby87pmQcBu6JRONnR3oEG8gGmpsG
-         SyFbPIs9/CfTWjKDKmo3mk01+l0P14wOdHTJ5TW3NMBtDo385T2vs4Dp78KPXUvMAzR3
-         JrGJseh3fcgcl17VN9HN4LxeyyMDRMmP7mmO6wkW9NpkZNLKnfwDJ1YG7vLKApS3gFWC
-         +kFHpSDW9knQzFILULaC0TJSU1iP8cWNRVVFgw85X+BoBxh0boX8sGuT8/Cb3WeMTh9P
-         eB4g==
-X-Forwarded-Encrypted: i=1; AKwUvByj+AKZJzX6xam1UViprFzt2AY2xBqMZb1MXYVvGpU8wvQtWDhzzUqwib0l95zNbmDNnSz80q7jyBlXdzk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK27m2foJZmpqCgLb3bJzztBJrRwn4uw197evGsn84QDHIN6qQY
-	1+geWLJzn4yAxhnYMvqvUk06ezD3mTPH1zzO7Mnohi1EyiPCyMjzMh9ttV6lvoLvxI0=
-X-Gm-Gg: AYBFou2sXebGQJbRCeYnfGYr2bLV0uY7zKCnkp8PVzOSwPKPtl6hjhMlt556voCeQvK
-	G9pAaeeQu2CzpFDu3ku0Jfr/1SnTr7AoX+yAhl/bmtTavFWnSJWCkjxEZ7hjgNS8y70cIAs95LB
-	nilYKYR5ZjjRQLC9XteYKziRRakZ09fmQ2pes6os6CHb0BM0yMRBv/A3Dltu/tmrYOVj3Z/O1pF
-	WpsKTt623WvbDhi91qrnEWbENV0QgeAhlhiVxGGSrRnJK7RZSjX4GEmUdeKEAvzC1shU5xIRhdd
-	pQkHly2geut02eX+l0KWu+mnu/bXHq8gF4xchpp+DHa039nAW2Uqpq2y9OCPRKMj9bu5C/h2zMY
-	x2HGTB+FPxW7949Ii/CF3doXQ4F88/nww6YQQiWN5eV21KBoagA5MrtTLZTTsFhLUzWJgboIrTf
-	TCKvxsXwLFW0QwdXQ/QL7R6ehqmHTLlKb7nOIhlm895wvdFaX1p5L2c58oaFafmn/UEry/pSQBu
-	lD7v0Kn2gNKFgwKlfGZ62/5B2FYb2I9rUo6K9Gn5aaHQ82ds150bBLjjzkp2zslEo8JRnfls62I
-	6//ObPvCyfvV1g==
-X-Received: by 2002:a05:600c:3151:b0:4a1:cf60:dcc3 with SMTP id 5b1f17b1804b1-4a211cd5ea8mr28366505e9.29.1792749848033;
-        Fri, 23 Oct 2026 03:04:08 -0700 (PDT)
-Received: from localhost.localdomain ([2a01:e0a:9c3:9990:6877:44a0:5297:9502])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a21045df9dsm75761435e9.8.2026.10.23.03.04.07
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Fri, 23 Oct 2026 03:04:07 -0700 (PDT)
-From: Olivier Louvignes <olivier@mgcrea.io>
-To: Lee Jones <lee@kernel.org>,
-	Chen-Yu Tsai <wens@kernel.org>
-Cc: Olivier Louvignes <olivier@mgcrea.io>,
-	Sebastian Reichel <sre@kernel.org>,
-	linux-pm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 5/7] power: supply: axp20x_usb_power: Add support for the AXP2101
-Date: Fri, 23 Oct 2026 12:03:59 +0200
-Message-ID: <20261023100401.67592-6-olivier@mgcrea.io>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261023100401.67592-1-olivier@mgcrea.io>
-References: <20261023100401.67592-1-olivier@mgcrea.io>
+        d=1e100.net; s=20260707; t=1792749879; x=1793354679;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=hYkBoQ6y82oxG++SCIxFzQ7YeSOVHLZCi1q8tJnSOY8=;
+        b=bHKbuOyCFqm79U8SsmZmKHjjl9VeZa/pblm7YfXi6OpWjyaDLdrQf7NBYe5nUQJqIM
+         GB+gbNx0+qYdTL4uqA83FNVwbw8Ikc6nHRQduSpRFElNBF6SI7lo/nUuOBW8SUUZ55qr
+         bIjj66Da9KT3PWlrIDswHXeW72kDA4GaeMH4cGxDp4qT+Ook+6qmW51PIz7Dp0/J4+dI
+         w6tYHUMCfFP80ZmmrnAeoVqTwM8dSlsKLoAx+uUJzju43hbVfwQbZH/CwgjZI8KVscwC
+         qsRBPcu3aeRrrAQ7yrA5WKgzqSb1Vk6UdiDUTV1JWGzvmtv6O3lFgHt3omAar5SIDDmT
+         acmA==
+X-Forwarded-Encrypted: i=1; AKwUvBxtTtA/BoFoiZ0vMAd/4hFNBYzqurgVwl0vCHrjOF7CiOTobajtqgJLW8JaEGrLYQK/1CQDuHpuqfgxnNA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIWf9+Nie/vwxX7/ckJhzSQ1jUUyVx8AS94K7dUnPm0bJEQy+P5
+	wSonFn65LyuM7DiJDICg8NEeC59RUDnRg5DJKHefkB9UMF5WFHOyXvjuvKEZi0yX9/b2kSZ2FKj
+	mz8kRYLC5NChOXoXYvnTedKbVIt6GddpxlPDbTHhed4hXeOfS8LUcjTSkvmHoN1BhUg==
+X-Gm-Gg: AYBFou0OqfEwyofp5bD76l/bT0qlf09eTjNJriOYdrut0SRcFASpeStrF7P+r4hLnBQ
+	BEPENsF7Xf//7NJeehu3tqC1WpEugPdvVpMN5wHD4cr2locb5u2si2HU0VJochmIpqp6wCmY/hv
+	Zz6V4q+vLuW3wswuZsPzDcp7WfmGlycFuJ8rX8XVZlFDB4JWKUB1xyRHg4kPVvDVAiWr2RpWWWH
+	NU2u45hjhbc6b7e5DF0oiCuCnYi6M6CvPDj1Vcw7+UxMTD19gdaRJyGah84oj87G++qeKIFrWgR
+	j3KPzT5XIXjb2x4cGzkc4gtbdOphthw8eYrrQ5vyY5EK27lSYDDK2pgwM0ZANtNEqoBcYlU=
+X-Received: by 2002:a05:6000:2610:b0:48d:f14a:917f with SMTP id ffacd0b85a97d-48e38594e07mr2598910f8f.2.1792749878664;
+        Fri, 23 Oct 2026 03:04:38 -0700 (PDT)
+X-Received: by 2002:a05:6000:2610:b0:48d:f14a:917f with SMTP id ffacd0b85a97d-48e38594e07mr2598849f8f.2.1792749877952;
+        Fri, 23 Oct 2026 03:04:37 -0700 (PDT)
+Received: from redhat.com ([2a06:c701:73f6:2400:30a8:9e33:7d82:c035])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e37edd26dsm4700642f8f.2.2026.10.23.03.04.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 23 Oct 2026 03:04:37 -0700 (PDT)
+Date: Fri, 23 Oct 2026 06:04:33 -0400
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: Ruben Hakobyan <hruben@meta.com>
+Cc: David Hildenbrand <david@kernel.org>, Breno Leitao <leitao@debian.org>,
+	Atish Patra <atishp@meta.com>, Jason Wang <jasowangio@gmail.com>,
+	Eugenio =?iso-8859-1?Q?P=E9rez?= <eperezma@redhat.com>,
+	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
+	Alexander Duyck <alexander.h.duyck@linux.intel.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	virtualization@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] virtio_balloon: batch large descriptor chains for page
+ reporting
+Message-ID: <20261023042737-mutt-send-email-mst@kernel.org>
+References: <20261023081923.164950-1-hruben@meta.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,167 +119,163 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261023081923.164950-1-hruben@meta.com>
 
-Report whether VBUS is present (bit 5 of the first status register) and
-the input current limit (100 mA to 2 A, in IIN_LIM), and update on the
-VBUS plug-in and removal interrupts. Nothing is written: the AXP2101's
-VBUS input needs no set-up for that.
+Great patch, thanks!
 
-Tested on a HiBy R1: unplugging and replugging the cable gives one
-VBUS_REMOVAL and one VBUS_PLUGIN interrupt, and "online" goes 1, 0, 1.
+On Fri, Oct 23, 2026 at 01:19:19AM -0700, Ruben Hakobyan wrote:
+> The virtio_balloon driver reports a scatter-gather list of free pages
+> to the VMM so it may discard unused pages.
+> 
+> For an arm64 kernel with 64 KiB pages, the default reporting and
+> allocation orders allow entries ranging from 2 MiB to 512 MiB. If the
+> report contains a sufficient number of large entries, we will end up
+> with a descriptor chain that represents over 4 GiB of memory. This
+> violates virtio spec section 2.7.5.2, which requires that the total
+> buffer length of a descriptor chain be at most 4 GiB [1]. A VMM that
+> faithfully follows the spec may stop processing the descriptor chain
+> when it exceeds 4 GiB, and discard less memory than it could. For
+> example, this is the case for the virtio-queue in Rust-VMM [2].
+> 
+> Batch the requests into descriptor chains of at most U32_MAX bytes
+> (4 GiB - 1 byte). We use U32_MAX here so we can conveniently represent
+> the batch length in a u32.
 
-Signed-off-by: Olivier Louvignes <olivier@mgcrea.io>
----
- drivers/power/supply/axp20x_usb_power.c | 86 +++++++++++++++++++++++++
- 1 file changed, 86 insertions(+)
+It's not just a question of convenient, is it?
+Rust is buggy wrt to spec as it allows only U32_MAX.
+So it is also to make it work.
+So should we maybe fix Rust to be spec compliant and allow 2^32 too?
 
-diff --git a/drivers/power/supply/axp20x_usb_power.c b/drivers/power/supply/axp20x_usb_power.c
-index e951b2b64b25..594f0492b18a 100644
---- a/drivers/power/supply/axp20x_usb_power.c
-+++ b/drivers/power/supply/axp20x_usb_power.c
-@@ -31,6 +31,7 @@
- #define AXP20X_PWR_STATUS_VBUS_USED	BIT(4)
- 
- #define AXP717_PWR_STATUS_VBUS_GOOD	BIT(5)
-+#define AXP2101_PWR_STATUS_VBUS_GOOD	BIT(5)
- 
- #define AXP20X_USB_STATUS_VBUS_VALID	BIT(2)
- 
-@@ -172,6 +173,24 @@ static void axp717_usb_power_poll_vbus(struct work_struct *work)
- 	power->old_status = val;
- }
- 
-+static void axp2101_usb_power_poll_vbus(struct work_struct *work)
-+{
-+	struct axp20x_usb_power *power =
-+		container_of(work, struct axp20x_usb_power, vbus_detect.work);
-+	unsigned int val;
-+	int ret;
-+
-+	ret = regmap_read(power->regmap, AXP2101_PMU_STATUS_1, &val);
-+	if (ret)
-+		return;
-+
-+	val &= AXP2101_PWR_STATUS_VBUS_GOOD;
-+	if (val != power->old_status)
-+		power_supply_changed(power->supply);
-+
-+	power->old_status = val;
-+}
-+
- static int axp20x_get_usb_type(struct axp20x_usb_power *power,
- 			       union power_supply_propval *val)
- {
-@@ -315,6 +334,42 @@ static int axp20x_usb_power_get_property(struct power_supply *psy,
- 	return 0;
- }
- 
-+/* Input current limits of AXP2101_IIN_LIM; 6 and 7 are reserved. */
-+static const int axp2101_usb_curr_lim_table[] = {
-+	100000, 500000, 900000, 1000000, 1500000, 2000000,
-+};
-+
-+static int axp2101_usb_power_get_property(struct power_supply *psy,
-+					  enum power_supply_property psp,
-+					  union power_supply_propval *val)
-+{
-+	struct axp20x_usb_power *power = power_supply_get_drvdata(psy);
-+	unsigned int v;
-+	int ret;
-+
-+	switch (psp) {
-+	case POWER_SUPPLY_PROP_INPUT_CURRENT_LIMIT:
-+		ret = regmap_field_read(power->curr_lim_fld, &v);
-+		if (ret)
-+			return ret;
-+		if (v >= ARRAY_SIZE(axp2101_usb_curr_lim_table))
-+			return -EINVAL;
-+		val->intval = axp2101_usb_curr_lim_table[v];
-+		break;
-+	case POWER_SUPPLY_PROP_ONLINE:
-+	case POWER_SUPPLY_PROP_PRESENT:
-+		ret = regmap_read(power->regmap, AXP2101_PMU_STATUS_1, &v);
-+		if (ret)
-+			return ret;
-+		val->intval = !!(v & AXP2101_PWR_STATUS_VBUS_GOOD);
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	return 0;
-+}
-+
- static int axp717_usb_power_get_property(struct power_supply *psy,
- 	enum power_supply_property psp, union power_supply_propval *val)
- {
-@@ -643,6 +698,12 @@ static enum power_supply_property axp22x_usb_power_properties[] = {
- 	POWER_SUPPLY_PROP_INPUT_CURRENT_LIMIT,
- };
- 
-+static enum power_supply_property axp2101_usb_power_properties[] = {
-+	POWER_SUPPLY_PROP_INPUT_CURRENT_LIMIT,
-+	POWER_SUPPLY_PROP_ONLINE,
-+	POWER_SUPPLY_PROP_PRESENT,
-+};
-+
- static enum power_supply_property axp717_usb_power_properties[] = {
- 	POWER_SUPPLY_PROP_HEALTH,
- 	POWER_SUPPLY_PROP_INPUT_CURRENT_LIMIT,
-@@ -682,6 +743,14 @@ static const struct power_supply_desc axp22x_usb_power_desc = {
- 	.set_property = axp20x_usb_power_set_property,
- };
- 
-+static const struct power_supply_desc axp2101_usb_power_desc = {
-+	.name = "axp20x-usb",
-+	.type = POWER_SUPPLY_TYPE_USB,
-+	.properties = axp2101_usb_power_properties,
-+	.num_properties = ARRAY_SIZE(axp2101_usb_power_properties),
-+	.get_property = axp2101_usb_power_get_property,
-+};
-+
- static const struct power_supply_desc axp717_usb_power_desc = {
- 	.name = "axp20x-usb",
- 	.type = POWER_SUPPLY_TYPE_USB,
-@@ -722,6 +791,11 @@ static const char * const axp22x_irq_names[] = {
- 	"VBUS_REMOVAL",
- };
- 
-+static const char * const axp2101_irq_names[] = {
-+	"VBUS_PLUGIN",
-+	"VBUS_REMOVAL",
-+};
-+
- static const char * const axp717_irq_names[] = {
- 	"VBUS_PLUGIN",
- 	"VBUS_REMOVAL",
-@@ -815,6 +889,15 @@ static const struct axp_data axp223_data = {
- 	.axp20x_cfg_adc_reg = axp20x_configure_adc_registers,
- };
- 
-+static const struct axp_data axp2101_data = {
-+	.power_desc	= &axp2101_usb_power_desc,
-+	.irq_names	= axp2101_irq_names,
-+	.num_irq_names	= ARRAY_SIZE(axp2101_irq_names),
-+	.curr_lim_fld	= REG_FIELD(AXP2101_IIN_LIM, 0, 2),
-+	.vbus_needs_polling = false,
-+	.axp20x_read_vbus = &axp2101_usb_power_poll_vbus,
-+};
-+
- static const struct axp_data axp717_data = {
- 	.power_desc     = &axp717_usb_power_desc,
- 	.irq_names      = axp717_irq_names,
-@@ -1056,6 +1139,9 @@ static const struct of_device_id axp20x_usb_power_match[] = {
- 	}, {
- 		.compatible = "x-powers,axp717-usb-power-supply",
- 		.data = &axp717_data,
-+	}, {
-+		.compatible = "x-powers,axp2101-usb-power-supply",
-+		.data = &axp2101_data,
- 	}, {
- 		.compatible = "x-powers,axp813-usb-power-supply",
- 		.data = &axp813_data,
--- 
-2.39.5
+I think we should definitely recommend U32_MAX in the spec
+because otherwise it can not fit in the used length.
+
+
+> 
+> [1] https://docs.oasis-open.org/virtio/virtio/v1.4/virtio-v1.4.html
+> [2]
+> https://github.com/rust-vmm/rust-vmm/blob/9f7250b1555ebe022ea4133fda676e6311040738/vm-virtio/virtio-queue/src/chain.rs#L183-L190
+> 
+> Fixes: b0c504f15471 ("virtio-balloon: add support for providing free page reports to host")
+> Signed-off-by: Ruben Hakobyan <hruben@meta.com>
+> ---
+> The wording in the spec is a bit ambiguous because it uses "chain
+> length" for both descriptor counts and the total size of the memory
+> ranges referenced by the descriptors. My read is that the byte limit
+> applies to the sum of descriptor lengths, which is also what rust-vmm
+> checks.
+
+
+quote what you are referring to please, also in the commit log
+not after ---.
+
+I would also CC virtio-comment@lists.linux.dev - spec should recommend
+U32_MAX.
+
+> 
+> Another option I considered was to limit reporting capacity based
+> on the largest possible block. E.g. for 64 KiB pages, the largest
+> block is 512 MiB, so limit the reporting capacity to 7 to stay
+> below 4GiB. Although simpler, I found that the time to reclaim
+> was quite a bit longer.
+
+
+
+So I was going to apply this actually:
+
+https://lore.kernel.org/all/b541ff170218bd5d45b551b5132e7cf2c490d761.1780906288.git.mst@redhat.com/
+
+which makes the question completely moot.
+
+Does this have any effect on performance?
+
+Thanks!
+
+
+> 
+> I tested this patch on Cloud Hypervisor (which uses Rust-VMM)
+> and QEMU (which doesn't enforce this limit).
+> 
+>  drivers/virtio/virtio_balloon.c | 47 ++++++++++++++++++++++++---------
+>  1 file changed, 35 insertions(+), 12 deletions(-)
+> 
+> diff --git a/drivers/virtio/virtio_balloon.c b/drivers/virtio/virtio_balloon.c
+> index ab3e3d887e00..68ce627c8e04 100644
+> --- a/drivers/virtio/virtio_balloon.c
+> +++ b/drivers/virtio/virtio_balloon.c
+> @@ -15,6 +15,7 @@
+>  #include <linux/slab.h>
+>  #include <linux/module.h>
+>  #include <linux/balloon.h>
+> +#include <linux/limits.h>
+>  #include <linux/oom.h>
+>  #include <linux/wait.h>
+>  #include <linux/mm.h>
+> @@ -207,21 +208,43 @@ static int virtballoon_free_page_report(struct page_reporting_dev_info *pr_dev_i
+>  	struct virtqueue *vq = vb->reporting_vq;
+>  	unsigned int unused, err;
+>  
+> -	/* We should always be able to add these buffers to an empty queue. */
+> -	err = virtqueue_add_inbuf(vq, sg, nents, vb, GFP_NOWAIT);
+> +	while (nents) {
+> +		bool unmark_end;
+> +		struct scatterlist *sg_batch_start = sg;
+> +		u32 batch_len = 0;
+> +		unsigned int batch_nents = 0;
+>  
+> -	/*
+> -	 * In the extremely unlikely case that something has occurred and we
+> -	 * are able to trigger an error we will simply display a warning
+> -	 * and exit without actually processing the pages.
+> -	 */
+> -	if (WARN_ON_ONCE(err))
+> -		return err;
+> +		/*
+> +		 * Virtio spec 2.7.5.2
+
+Please add spec version and chapter title, and quote the
+spec text in question verbatim.
+
+> limits the total buffer length of a
+> +		 * descriptor chain to 2^32 bytes (4 GiB), so split larger
+> +		 * reports into batches no bigger than that size.
+> +		 */
+> +		while (batch_nents < nents &&
+> +		       sg->length <= U32_MAX - batch_len) {
+
+here you actually limit to U32_MAX which is 2^32 - 1 as commit log says.
+
+> +			batch_len += sg->length;
+> +			batch_nents += 1;
+> +			sg = sg_next(sg);
+> +		}
+> +		unmark_end = !sg_is_last(&sg_batch_start[batch_nents - 1]);
+>  
+> -	virtqueue_kick(vq);
+> +		if (unmark_end)
+> +			sg_mark_end(&sg_batch_start[batch_nents - 1]);
+>  
+> -	/* When host has read buffer, this completes via balloon_ack */
+> -	wait_event(vb->acked, virtqueue_get_buf(vq, &unused));
+> +		err = virtqueue_add_inbuf(vq, sg_batch_start, batch_nents, vb,
+> +					  GFP_NOWAIT);
+> +
+> +		if (unmark_end)
+> +			sg_unmark_end(&sg_batch_start[batch_nents - 1]);
+> +
+> +		if (WARN_ON_ONCE(err))
+> +			return err;
+> +
+> +		virtqueue_kick(vq);
+> +
+> +		/* When host has read buffer, this completes via balloon_ack */
+> +		wait_event(vb->acked, virtqueue_get_buf(vq, &unused));
+> +		nents -= batch_nents;
+> +	}
+>  
+>  	return 0;
+>  }
+> -- 
+> 2.53.0-Meta
 
