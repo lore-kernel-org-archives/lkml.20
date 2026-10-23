@@ -1,104 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792743651;
-	b=MnyMAFeJyNNUt57J8m5WJaOfD2E/tgoxlBTECj3llkWN5Q4IvoxjbONXP9fjB/MVTssO
-	 i3KAZrvC5Tms7wVBJSm31zuxhROhcjUbFfaGoU/QLroBBrIKqWngKxQx0/bCU++F2WZje
-	 svdxs8gWtDjB1lk8CWQkIYor/rq2qh6X1qKyUZN3gAyTXGkrJweNyFOLgyYGWag6bgEnV
-	 bD1cXkUmF5M0HTV+ImD8axsCBvDF5PhB+dzvfr5aQx80LB9+zgY0Dia18uiEzxTjVoqVg
-	 VTcvr/gwXLOacEOzyR7M0AVuP8tbDky5ZBHPQLeW43LMUOlqfQS7njth6rlp2kBqXAw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792743651;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
-	 In-Reply-To;
-	bh=SXFzVxbt3rTWSbyQVYsDzyVGHc2RBqghX5A01kRz5f8=;
-	b=blXOJlGff2ZgIr4aVJmyU0gNhYrToIEA0ERYZy89MxnmVdYHfwwlyHk8/cAz0Wbz5RtY
-	 EPZhpRZVuWBkdJ/fpLp4sT14sHk+YeGo8l5uEqYOSTjMB2iCgU1KnCjOK+ObgqruuaRhj
-	 5WY+D7GM4MyeCBJfHCEcK5ShVxqNRPf3/4jm/Li5JpoVvW8HrfxC7iGKbu3s8XPd/Ec92
-	 b88GM7DGVzRBWTDIZmGOT4PHDHOE/MALB6CqBaQh7R0t1hPcPityFHx0yvowiVdnUkjji
-	 1mZcpsAKltozmUa2SXH42ezZbwTGR52fj6EBMjRfHPNufUQ36b5lYFsnDhGHeH9gcsA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=H4AeHGOC;
-	arc=none smtp.remote-ip=209.85.128.49
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792743682;
+	b=qliINtOh9NLXdfSDzOgPCqzor4Qop3V2ldR+4jvUGT1b0MoeTAeBmx+dB0ocN2nnRTcO
+	 NTKYzAfHryc+GMRd7gNd5YHUJXJbjsXtFPdnJJV+YfvW+dvQ4QOsbnV/kVjuelllPLXMs
+	 jj/qbQVzbHww6AeCXg3hvXwGpHVsGrG23vVRF3MJ0av8Oy/JixXeJXWwVCYvUBwGeYxJA
+	 aygqRkFP5bKhId3lMYol9Lrf+TZBlq58NXQ/qrtlZs3Bu2ahFmOqSA3wUFdcGjcCV4y6O
+	 46IIujx41ITTHh1Q3NtI7r79AP8g8tHMbboMP5ulgsFnxM8uIvQixpYPbiYj6QVjtNg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792743682;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=9Ep0HE79/a9+3p5ZBtG4xFmSDb6r9PHiQif27zyrmII=;
+	b=E2jPXbfdrqq+M6p/c/RJ+VV+azNx/GlhGDoNUS1uiovpuRp6z4dVPjaRi/K3cnjkMMF+
+	 z+nF7fpoEAAMCtsQup+DVfUHlwM7FnzEMm1X/Nv3cIiJol0HtpxsLSjfOjZI2p0P3hn2R
+	 ip6V8Q125zM+wdsko0gZiTmLyzbPrpF+Lum3UDgNPOBFUm62NOEIP7spJkKIW97nvmxhY
+	 EjzxqQrX0pV526wj6koT0HDSzFjfrPs7nal/TPqPSKff1SgEOOHdrInRn0X60Orsfq/lP
+	 glPwSUFbfrC+K4fBNA94i0UJv5PLk0L6xQTv6Hl8/hWDxsb8TsBaKG+LajiCzUaEvkQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ExuxVVwF;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27BE4606A322;
+	Fri, 23 Oct 2026 08:21:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ExuxVVwF
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1792743681;
+	b=gJwwxr/JTV5SsavDMzmYJGEKhGdTl4Uft/t7iRcZUAQde+1GwCwuij78G+QK/kbQHZ0V
+	 oFAYrcfZicCE18m4590H3NxPB+1o0E3FeqheRBpS25/ZBKZ9ZRVCIGnOXyscZc4+hLT3y
+	 UOM95IX4iwuyuhWbunwEGE3yhfaXhvuJJOh8doEquL4TQ6TJRr9bV7WytYPfa5XnXrDMK
+	 Nl3/Xh6+yvXaOCNwVDpaemHqICUT3IVTpeBQWVP4JqMUehWPBaRnN+3bc2CtqOYNf8tnx
+	 okMs5CLwXb9h9Vi0Z6AS7HyVimKSl4L5ZEYmmjRoJ7sCqOSNmS9UNuDPVz0io3JrGXg==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1792743681;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=9Ep0HE79/a9+3p5ZBtG4xFmSDb6r9PHiQif27zyrmII=;
+	b=eb8RK/VM9yPik9gWpGFLUxBNgidplRKl0wF0M7/D0J6bFil0w3T0bB1Mv92YXFAH1Ikm
+	 HFXCu0y4wKdFrZGV8LN1XgWqSUoAwFO+6vJBquBgzEiwgkPu0RiSvamk2QCOvJLuzrUU5
+	 ex+bYQF07x485UDlVkPMUAcvT3dCAFsVrHaTweks/NpMH3qJp/GIKps8vypsF0h4VohRC
+	 05cjWZgQTI34g6XoWEtce3d/4p6Lf8ms/mZCnlVGUBiPaqKnr50ajnOEJXLvY5hMDrFzC
+	 ooHaFIGKlgZ6qyPAhhHRtb4oIp67Ht24CZynzfAC7Kreq2MOgt3/kijhj0L4Yp1qe0w==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83C3B606A31F
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 08:20:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 83C3B606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=H4AeHGOC
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a0286c981dso6113765e9.2
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 01:20:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792743649; x=1793348449; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=SXFzVxbt3rTWSbyQVYsDzyVGHc2RBqghX5A01kRz5f8=;
-        b=H4AeHGOCM7ZUSFzB4sjFH1pf83lax+Py/Zk8Gvw+38AgRIDCvWlIst48ESKJeAAou8
-         Uv/RD76Moe2gg4HEpnViGnKeAXxIyTJi5vXOl7Gyp+FOZWXp4iFVVxclMDBIJJw/3r+A
-         SJxKDipX8r+eoM/EcofkTd3u6MsF0L56xgTHf1fsWciXFLNwDHDSRgoc2W8fgc4Qvt4S
-         lbMlwQPlIup6UOr+zJ7/1KGlLBCVAuqu8iGYQC/N6VkalGMU7J6KRSsZheb5Qm8h2QG9
-         uLrH5x0TzEDJOOtRRXHbr6qMUAUg/y1107mMB++PlRwypJotx0Grwrw1yLAq7TiEd98W
-         mYuw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792743649; x=1793348449;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=SXFzVxbt3rTWSbyQVYsDzyVGHc2RBqghX5A01kRz5f8=;
-        b=EVusRSllidbL6+CdFVPthJzXmN0zOgZqeyy0K97JxKpm5FbDD5z7x541sXTLpziREe
-         GDqydHPNS2pqpeso3Vf7CfTOM8w26Le3LFKGV70iVKZ6Vkn1/LArI98VrD55xp0KKvy/
-         NLaaJ//m8MGuRpa138NkEFcNW+jxGVHZ6WRhcsQKaOLglClBzNya01NH2Yyh0VXaCjmo
-         MABNOZ+IOIg5uyrP8Q8fshlZAJ9Uuz9jlpUWs1fZWBfjV16th3JOisJ9JkccZXnjjGbw
-         pROQV44Qf/4FfI1oiJQvG5hwevSVg5qimDHgZ02P86ZZlPyv1RSc2xQMvDVzy6cPwwms
-         VXIQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwdyeebHz4SlMwGGrc21mj3GSXi/iAEBWLIx8c7ctJfIGZYnUjz1bEEH1zv4/uoHE/ZOeif+FOhkhvdKRo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIOY9ybfAdc1JynfhY595ooEYXtD1C9SDyGPRP88AHfjhsa7qiq
-	x7C6HqNDyHR8orESuzaO1zFuqsU56ekxDEvgc0Ej5p3a+mcIn/W+Qzjq6W2YNcSaOw==
-X-Gm-Gg: AYBFou1XHpH+qKEQTbp5oOY5gnKtGQWj9faF/CTR9eTjfOlY1pRV/wQa6ofvdw6eTc0
-	db75zHSirOXeibmNk09HNg31s9MLku4mMRekWA8x1DHik0GIashMasqkeqaFV8aP4uVAggeTp+t
-	s9P/nEKMJb3ztGtdjftCTkw4B34pL6C8bfC9mnjPaDopKyQHHQjlZ7hopWFvbvJ+G3PufrEDo1n
-	2rkXUUqvZJ0hFqS4NmCEkFBCz8GUKWCYSJktB1XBD2tNz0CkmAxSgy2oGYVNf9W8qJ5XMNiTaRC
-	YNDajSBUOBPQpECa/cxng4ULEqJth7IbtpzywTmZ3KBHl8rCDOhk0jL3t5tiiZzK6NocftT5A0S
-	YEWZc7nyokUjo958+e8M+LLj/+TckaWVQTtf7OKHXe3hp9YV1VvprvEJas3B/l8rwCBbRWIKRbR
-	FqFg4Cb6zEs4J1+Z12k6ES0Yb1fAnCpU79CoAvxaoFq6iFj/O6Mn2HizdqvEXE5J5EFqkvsZWkZ
-	I4+HK6XDwFcu18bxkHLY9li4o5veMkBsw2ZT1S2/ukseVfHrTCOSoDSPADULlfRBHPMigTsY7UY
-	EUTdRiAd4oWzihbdxI5XhJR8PA==
-X-Received: by 2002:a05:600c:1c05:b0:4a1:83f0:7c8a with SMTP id 5b1f17b1804b1-4a211c45f89mr27907715e9.1.1792743648308;
-        Fri, 23 Oct 2026 01:20:48 -0700 (PDT)
-Received: from google.com (197.183.140.34.bc.googleusercontent.com. [34.140.183.197])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e38031488sm3623513f8f.24.2026.10.23.01.20.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 23 Oct 2026 01:20:47 -0700 (PDT)
-Date: Fri, 23 Oct 2026 09:20:44 +0100
-From: Vincent Donnefort <vdonnefort@google.com>
-To: Amit Machhiwal <amachhiw@linux.ibm.com>
-Cc: Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	linux-trace-kernel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
-	Michal =?iso-8859-1?Q?Such=E1nek?= <msuchanek@suse.de>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Madhavan Srinivasan <maddy@linux.ibm.com>,
-	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
-	Harsh Prateek Bora <harshpb@linux.ibm.com>,
-	linux-kernel@vger.kernel.org, kvm@vger.kernel.org,
-	kvm-ppc@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v3] ring-buffer: Do not check si_mem_available() before
- deferred init completes
-Message-ID: <atsY3MXXEUe2YopQ@google.com>
-References: <20261016134247.70722-1-amachhiw@linux.ibm.com>
- <20261022181817.49717-1-amachhiw@linux.ibm.com>
- <atsYQtXHRH_cCQ5A@google.com>
+	by smtp.kernel.org (Postfix) with ESMTPS id 3B2EF1F01829;
+	Fri, 23 Oct 2026 08:21:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792743681;
+	bh=9Ep0HE79/a9+3p5ZBtG4xFmSDb6r9PHiQif27zyrmII=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=ExuxVVwF2Is5feRimIBYjpSQnBydP3to/Y5x7TD5Aw1TuUq7KwKVagrp5VP8PW0YQ
+	 KZ2/rfod8F/b+lP8oJJPZEruDgZmbXFDsHZ5HUQFL7kexE22471VsdX1Q7TZRCylrJ
+	 5E02WN9P6xSE3Qp9FwVJp6t5l5rP9kHemyGsprbmseG9QEJMel0wp/uuBCUmKjFv+V
+	 oU8ItOCwWq5m/IEn8DQW/BI9d9CjBIXnNV6d4JXkcGhmi9yGuxVLWd5+eu5Qhv4QgG
+	 aAyuICgeoXSUjY7yxDnHt76fldz3htPvL2plqiEb/Mn3GfGGCKcTYeDCFiEjM+QCUR
+	 MJZOq+/U73JdQ==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id C1B2144423;
+	Fri, 23 Oct 2026 08:21:20 +0000 (UTC)
+From: Ishu Brar via B4 Relay <devnull+patches.brar.si@kernel.org>
+Date: Fri, 23 Oct 2026 13:51:16 +0530
+Subject: [PATCH 1/2] dt-bindings: display: panel: Add Samsung AMS644VK04
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,134 +82,147 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <atsYQtXHRH_cCQ5A@google.com>
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261023-panel-ams644vk04-v1-1-56096aecd0ff@brar.si>
+References: <20261023-panel-ams644vk04-v1-0-56096aecd0ff@brar.si>
+In-Reply-To: <20261023-panel-ams644vk04-v1-0-56096aecd0ff@brar.si>
+To: Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Ishu Brar <patches@brar.si>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792743679; l=3095;
+ i=patches@brar.si; h=from:subject:message-id;
+ bh=Tt1XsfnXS440HSGg/wswJNMW2cDPJCmbAVKWWsAuN2g=;
+ b=o0Gqznn8TvZqQCsIDRMLvYNrNIirR2xp0Z7BhozECpMPgRKrnmjJvRoqtN1rcSdC1jdxyP7SP
+ qe0ujG2FtpoBZOi6xSIfYl3P68RNeLyvT9XrpDjis+we2UuJLFYn+K0
+X-Developer-Key: i=patches@brar.si; a=ed25519;
+ pk=Ds+E23E3ntzjPzuBDyVRkOouclcNI5k75R+N42yJtCk=
+X-Endpoint-Received: by B4 Relay for patches@brar.si/default with
+ auth_id=1189
+X-Original-From: Ishu Brar <patches@brar.si>
+Reply-To: patches@brar.si
+Content-Transfer-Encoding: 7bit
 
-On Fri, Oct 23, 2026 at 09:18:10AM +0100, Vincent Donnefort wrote:
-> On Thu, Oct 22, 2026 at 11:48:17PM +0530, Amit Machhiwal wrote:
-> > During early boot (early_trace_init() called from start_kernel()),
-> > tracing allocates initial ring buffers (temp_buffer, array_buffer, and
-> > snapshot_buffer) for CPU 0.  Later, as secondary CPUs come online during
-> > smp_init(), each CPU's ring buffer is allocated via trace_rb_cpu_prepare().
-> > 
-> > Before attempting page allocation, __rb_allocate_pages() performs a
-> > heuristic check using si_mem_available() to return early with -ENOMEM if
-> > memory appears insufficient.
-> > 
-> > However, on kernels built with CONFIG_DEFERRED_STRUCT_PAGE_INIT=y,
-> > NR_FREE_PAGES only reflects the initial non-deferred pool across the entire
-> > period from early_trace_init() through smp_init().  defer_init() leaves
-> > only a single section per node (e.g.  16 MiB with 64 KB pages) initialized
-> > up-front, and on kernels with large static binary footprints (debug
-> > configurations enabling PAGE_OWNER, DEBUG_PAGEALLOC, KFENCE, or SLUB_DEBUG),
-> > early core initialisations (SLUB caches, vmalloc, static ftrace records)
-> > consume virtually all managed pages in this pool.
-> > 
-> > si_mem_available() therefore returns a false negative (often 0-1 pages)
-> > across both SYSTEM_BOOTING (for the initial CPU 0 buffers) and
-> > SYSTEM_SCHEDULING (for secondary CPU buffers via trace_rb_cpu_prepare()),
-> > causing __rb_allocate_pages() to prematurely abort with -ENOMEM.
-> > 
-> > This failure is false: the buddy allocator is designed to replenish
-> > ZONE_NORMAL on demand via deferred_grow_zone() when an actual allocation
-> > is attempted.  Checking si_mem_available() before calling alloc_pages_node()
-> > short-circuits this on-demand growth entirely.
-> > 
-> > deferred_grow_zone() is only permanently disabled after page_alloc_init_late()
-> > completes (it spawns per-node kthreads and blocks until done), which happens
-> > inside kernel_init_freeable() — before system_state is set to
-> > SYSTEM_FREEING_INITMEM.  Skip the si_mem_available() check until
-> > SYSTEM_FREEING_INITMEM, at which point all deferred pages are initialized
-> > and si_mem_available() is accurate.
-> > 
-> > Wrap the guard in #ifdef CONFIG_DEFERRED_STRUCT_PAGE_INIT so that on kernels
-> > without deferred init the original check is preserved unchanged.
-> > 
-> > Fixes: 2a872fa4e9c8 ("ring-buffer: Check if memory is available before allocation")
-> > Cc: stable@vger.kernel.org
-> > Reported-by: Michal Suchánek <msuchanek@suse.de>
-> > Closes: https://lore.kernel.org/all/arYskzbiaNzBR9MD@kunlun.suse.cz/
-> > Link: https://lore.kernel.org/all/arYskzbiaNzBR9MD@kunlun.suse.cz/
-> > Signed-off-by: Amit Machhiwal <amachhiw@linux.ibm.com>
-> 
-> It is usually good practice to not use in-reply-to to link the series between
-> each other.
-> 
-> > ---
-> > Changes since v2:
-> >  - Rebase on top of upstream ring_buffer.c changes from Vincent Donnefort;
-> >    update threshold to i < (nr_pages << subbuf_order). (Michal Suchánek)
-> > 
-> > Changes since v1:
-> >  - Extend the guard to cover SYSTEM_SCHEDULING as well: smp_init() calls
-> >    trace_rb_cpu_prepare() -> __rb_allocate_pages() before page_alloc_init_late()
-> >    completes, so the false negative window spans both SYSTEM_BOOTING and
-> >    SYSTEM_SCHEDULING. Use system_state >= SYSTEM_FREEING_INITMEM as the correct
-> >    boundary.  (Sashiko, Vincent Donnefort)
-> >  - Wrap in #ifdef CONFIG_DEFERRED_STRUCT_PAGE_INIT to preserve the original
-> >    check unchanged on non-deferred kernels. (Vincent Donnefort)
-> >  - Drop Tested-by: guard condition changed, requesting fresh test.
-> > 
-> >  kernel/trace/ring_buffer.c | 17 +++++++++++++++++
-> >  1 file changed, 17 insertions(+)
-> > 
-> > diff --git a/kernel/trace/ring_buffer.c b/kernel/trace/ring_buffer.c
-> > index 9c4e40847e43..8e5a59a7b69b 100644
-> > --- a/kernel/trace/ring_buffer.c
-> > +++ b/kernel/trace/ring_buffer.c
-> > @@ -2463,10 +2463,27 @@ static int __rb_allocate_pages(struct ring_buffer_per_cpu *cpu_buffer,
-> >  		 * memory. It may not be accurate. But we don't care, we just want
-> >  		 * to prevent doing any allocation when it is obvious that it is
-> >  		 * not going to succeed.
-> > +		 *
-> > +		 * With CONFIG_DEFERRED_STRUCT_PAGE_INIT, NR_FREE_PAGES only
-> > +		 * reflects the initial non-deferred pool during early boot and
-> > +		 * throughout SMP bring-up (smp_init() runs before
-> > +		 * page_alloc_init_late() completes deferred initialization).
-> > +		 * si_mem_available() returns a false negative across this
-> > +		 * entire window while actual allocations succeed by growing the
-> > +		 * zone on demand via deferred_grow_zone(). Only re-enable the
-> > +		 * check from SYSTEM_FREEING_INITMEM onward, after
-> > +		 * page_alloc_init_late() has finished and si_mem_available() is
-> > +		 * accurate.
-> 
-> This is quite a massive comment for something simple: When
-> CONFIG_DEFERRED_STRUCT_PAGE_INIT, si_mem_available() will reflect the actual
-> available memory only after SYSTEM_FREEING_INITMEM.
-> 
-> >  		 */
-> >  		i = si_mem_available();
-> > +#ifdef CONFIG_DEFERRED_STRUCT_PAGE_INIT
-> > +		if (system_state >= SYSTEM_FREEING_INITMEM &&
-> > +		    i < (nr_pages << subbuf_order))
-> > +			return -ENOMEM;
-> > +#else
-> >  		if (i < (nr_pages << subbuf_order))
-> >  			return -ENOMEM;
-> > +#endif
-> 
-> Could we avoid the double i < (nr_pages << subbuf_order) with something like
-> 
-> if (IS_ENABLED(CONFIG_DEFERRED_STRUCT_PAGE_INIT) &&
->     system_state < SYSTEM_FREEING_INITMEM)
->        i = LONG_MAX;
-> 
+From: Ishu Brar <patches@brar.si>
 
-or even i = totalram_pages()? 
+Document the Samsung AMS644VK04, a 6.44 inch 1080x2400 MIPI DSI command
+mode AMOLED panel with DSC that supports 60 Hz and 90 Hz. It is used in
+the OnePlus Nord (SM7250). The panel is powered by three supplies and
+has a reset GPIO.
 
-> >  
-> >  		user_thread = current->mm != NULL;
-> >  	}
-> > 
-> > base-commit: 7be4bc52fd9e0e55dc9a2e0232b89427d2c4b614
-> > -- 
-> > 2.54.0 (Apple Git-157)
-> > 
-> 
-> -- 
-> Vincent
+Signed-off-by: Ishu Brar <patches@brar.si>
+---
+ .../bindings/display/panel/samsung,ams644vk04.yaml | 76 ++++++++++++++++++++++
+ MAINTAINERS                                        |  6 ++
+ 2 files changed, 82 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/display/panel/samsung,ams644vk04.yaml b/Documentation/devicetree/bindings/display/panel/samsung,ams644vk04.yaml
+new file mode 100644
+index 000000000..50f8c516b
+--- /dev/null
++++ b/Documentation/devicetree/bindings/display/panel/samsung,ams644vk04.yaml
+@@ -0,0 +1,76 @@
++# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/display/panel/samsung,ams644vk04.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Samsung AMS644VK04 1080x2400 MIPI-DSI Panel
++
++maintainers:
++  - Ishu Brar <patches@brar.si>
++
++description:
++  The Samsung AMS644VK04 is a 6.44 inch 1080x2400 MIPI-DSI command mode AMOLED
++  panel with DSC, supporting 60 Hz and 90 Hz refresh rates. It is used in the
++  OnePlus Nord.
++
++allOf:
++  - $ref: panel-common.yaml#
++
++properties:
++  compatible:
++    const: samsung,ams644vk04
++
++  reg:
++    maxItems: 1
++
++  vddio-supply:
++    description: I/O voltage rail (1.8 V)
++
++  vdd-supply:
++    description: Panel logic voltage rail (3.0 V)
++
++  vout-supply:
++    description: Panel supply rail (1.28 V)
++
++  reset-gpios: true
++  port: true
++
++required:
++  - compatible
++  - reg
++  - vddio-supply
++  - vdd-supply
++  - vout-supply
++  - reset-gpios
++  - port
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++
++    dsi {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        panel@0 {
++            compatible = "samsung,ams644vk04";
++            reg = <0>;
++
++            vddio-supply = <&vreg_l13a_1p8>;
++            vdd-supply = <&vreg_l18a_3p0>;
++            vout-supply = <&vreg_l7a_1p28>;
++
++            reset-gpios = <&pm8150l_gpios 3 GPIO_ACTIVE_LOW>;
++
++            port {
++                panel_in: endpoint {
++                    remote-endpoint = <&mdss_dsi0_out>;
++                };
++            };
++        };
++    };
++
++...
+diff --git a/MAINTAINERS b/MAINTAINERS
+index a08087fb6..1eec53b0e 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -8462,6 +8462,12 @@ S:	Maintained
+ F:	Documentation/devicetree/bindings/display/panel/raydium,rm69220.yaml
+ F:	drivers/gpu/drm/panel/panel-raydium-rm69220.c
+ 
++DRM DRIVER FOR SAMSUNG AMS644VK04 PANEL
++M:	Ishu Brar <patches@brar.si>
++S:	Maintained
++T:	git https://gitlab.freedesktop.org/drm/misc/kernel.git
++F:	Documentation/devicetree/bindings/display/panel/samsung,ams644vk04.yaml
++
+ DRM DRIVER FOR SAMSUNG DB7430 PANELS
+ M:	Linus Walleij <linusw@kernel.org>
+ S:	Maintained
 
 -- 
-Vincent
+2.56.0
+
+
