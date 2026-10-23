@@ -1,68 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.5
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792741571;
-	b=OzEOxDQtzt/ZPZaZntEgv7YwWCZfF0U/lpOiUIREdZvjliSjylRaC6ob5+BEOfil5XqZ
-	 f25lSuJMa7X6w6vmi8RHrTBBssVsmEEAV4QPZOCzOGqhahp9E5+vHSTf+j4vzEFnsGmn+
-	 09DByY2Lh9+hugRSavp6ngrqpCI24xO3NStBk2/MhHzsuLN2ykqUcasrEzbD3znMuHoNd
-	 I2wJsNVDTQ6ABS6YjZm+9fI/mg2HXxKmYA++qpbuz24uKC7sAZV0cgoUZejDc+9tObkSI
-	 /CFqvn3TcRrgSsGIdpN9/9Yl5wbgf5x6Uh0e9JNrg+VzJwAn7XI4lWVv/4oP1+7HI+Q==
+	t=1792741601;
+	b=nMThCxM9PgrZ2vpTReXSFyFL/wtaP5R7AKHBMTgbhM9YsoYtJZXOGCx5NNJmFSqlQMLo
+	 LLpZ2lf/v9BlH4dOQiVXwTZqn45w5Hlo8LqwC/LT18Y7rgzNm9whz+QA+6hWI0qUjJACV
+	 YCy8yhyHcODEXKUj0Uu38caxBO0uprNwDM3Sm+/x7VBTE+l+dOMKJ1t+LaIkFv7RJe38g
+	 uOhnIOehC0XrazX/qIfYULWaUPK0LiG3l2QhQ9iFXzGC2t/kcBoMINP9Lanle8V71JWrm
+	 lMTsTt1+gSBfXQUvghghHmffZrZ6JCU14TJKZWxFaG829eL4/C5y/PF28iIELSyuOrg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792741571;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=0vmqenTiO/Ur1kCgbPIkOxfDI3diR+fA38SWISXWKiE=;
-	b=cBURQS9KAPllwP0ehE+/XO//xXoEmoz9SIutw7AvnMFZTCOI3se8CSlnQCntj9elx3Ir
-	 axQyhUykP2tguOiFlP1182yWGghLh8OYitZchZwN0KrRbNhqDnRIgNXzJg40HaCLQDsEV
-	 r2NqrkpSpOB/nx6zCLiVHLq5LNHAKfb8GiFz5DEXR9ZEfQWKRvRqze6/Le7cPO99L317a
-	 2wXHc3/mxzPCWBvusi4w3bl2b6aYXUHvZm7Xzi1jBJDXagpiKZoEGmr/fIsUipUmua7Ak
-	 apxgzpifdANWMk8+5LlWn/vTzRvANRuX24L4eV8qWkQQvET8wkf0wr41fs72GdKeOZw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792741601;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=KuBrMsz2C5u6FWjzgp8V8uFD+UU12dr0+LzGx7V9auU=;
+	b=YLQ29HfY7OSu/eAh07xaHbcxXntkZqkyNuDmWvdM0aXAz2+5nAh4XWdwYsljiyDmjxnD
+	 wiSxWUy3dm9ljGTsYT7jbtZtGUPJFzdHqWFYisaqpBcOGBqnL+dBbqG84FzrPvD4AqeU1
+	 7OjwRrUTUJlVqP5NFvwobrlCT94rAvwE38auTbMXE2Pj0hQ9sJjAPpTU1T91LKR1F4Uxo
+	 XMK6S3DRTDxl8i6FUlwB1z+qhtADQMzeL5+BnmmyoQZn7Cp/psBjIpfs2d6k/MCB9HCn7
+	 vXOw5Kmspn15EUiKwIq8z+ollP6vWVN5RA5XejoMsExwoQ1nb4KqmVQr88QcwqYPwmQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=hO6HGJcV;
-	arc=none smtp.remote-ip=198.175.65.11
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=VyaYNaDe;
+	arc=none smtp.remote-ip=117.135.210.5
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87026606A31A;
-	Fri, 23 Oct 2026 07:46:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 87026606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE48F606A31A;
+	Fri, 23 Oct 2026 07:46:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CE48F606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=hO6HGJcV
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792741568; x=1824277568;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=OnTZ37KIWGCoXkclN2187LudGkSSaXGYJfnRi2DcBeg=;
-  b=hO6HGJcV7PZ6NTDk0hwSrSQR/frPm5UxVPj5Ecy04Dc4xZ6gLan4lE1y
-   /iilB67bfAvJjcBvP6j6Tnj6IXFn/59KFR90qbhlciouz0LXxVAJybEf2
-   TRwm9xuoepDnhNKKR84EnyiGMerT9y8m3O92bt8A3NvZnnSC/u5OFifCJ
-   qOeAbLWWwyEmYywH5OoSuWPjsXFABgpiQgg1xwis7+e6XEMakw4y3RC/u
-   OmLjl+tSKaLpmJBhmyk2MkATM50/zdh8shpj7LH2rmpz9wugSX1bpCL/z
-   CSJeOAIl1/PcVDs+lEcWVhT5X4dKkKL0MbBe9ht220Pjq6EPG4a1v9+2a
-   Q==;
-X-CSE-ConnectionGUID: NmfHrBZWTKuWBsgqWswevw==
-X-CSE-MsgGUID: oBGy4B1SRJWJ8MbRlvsLXw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11943"; a="1386527"
-X-IronPort-AV: E=Sophos;i="6.27,173,1787036400"; 
-   d="scan'208";a="1386527"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
-  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Oct 2026 00:46:08 -0700
-X-CSE-ConnectionGUID: w9/qt7pnTJa6k/C8f18DsQ==
-X-CSE-MsgGUID: sZ4QN/vgRpavWmprRCYObA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,173,1787036400"; 
-   d="scan'208";a="3451637"
-Received: from xiaoyaol-hp-g830.ccr.corp.intel.com (HELO [10.124.240.140]) ([10.124.240.140])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Oct 2026 00:46:04 -0700
-Message-ID: <32413bfd-a448-483b-b2b5-7f4ff6cbc56a@intel.com>
-Date: Fri, 23 Oct 2026 15:46:01 +0800
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=VyaYNaDe
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=Ku
+	BrMsz2C5u6FWjzgp8V8uFD+UU12dr0+LzGx7V9auU=; b=VyaYNaDeXX6Jf6MV7v
+	c095IK0Dt0ugwrE0ub/C7S+M/SFhDHi3piUDhuSKMOnXutVKKMaZE5bB6oGq0InN
+	OGCitE+zbQWw/oVrdARMWkr79qHFmgfiSjSCrWJ0+/tqI9WRaz4pD/SysKALvdGn
+	q4NQOcW5jorpGllg+Qafpa0Rg=
+Received: from dinm5CG319492G._sites.dc._msdcs.ad007.siemens.net (unknown [])
+	by gzga-smtp-mtada-g1-4 (Coremail) with SMTP id _____wD3v4jOENtqsIqrBw--.50066S2;
+	Fri, 23 Oct 2026 15:46:22 +0800 (CST)
+From: door_110@163.com
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	linux-input@vger.kernel.org,
+	kairen@siemens.com
+Cc: linux-kernel@vger.kernel.org,
+	Kyle Manna <kyle.manna@fuel7.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] Input: tca8418_keypad - fix debounce disable register configuration
+Date: Fri, 23 Oct 2026 15:44:17 +0800
+Message-Id: <20261023074417.3078016-1-door_110@163.com>
+X-Mailer: git-send-email 2.39.5
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,75 +62,84 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 5/5] KVM: TDX: Validate userspace CPUID input for
- KVM_TDX_INIT_VM
-To: Binbin Wu <binbin.wu@linux.intel.com>, linux-kernel@vger.kernel.org,
- kvm@vger.kernel.org
-Cc: seanjc@google.com, pbonzini@redhat.com, dave.hansen@linux.intel.com,
- andrew.cooper3@citrix.com, nik.borisov@suse.com, kas@kernel.org,
- rick.p.edgecombe@intel.com, chao.gao@intel.com,
- tony.lindgren@linux.intel.com, kishen.maloor@intel.com, dedekind1@gmail.com,
- adrian.hunter@intel.com
-References: <20261016091422.3182216-1-binbin.wu@linux.intel.com>
- <20261016091422.3182216-6-binbin.wu@linux.intel.com>
-Content-Language: en-US
-From: Xiaoyao Li <xiaoyao.li@intel.com>
-In-Reply-To: <20261016091422.3182216-6-binbin.wu@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3v4jOENtqsIqrBw--.50066S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxAF45Zr4UXF43Xr18GFW5Awb_yoW5Wr1kpF
+	y3Jw4Dtwsrtw1DtrsI9F18u34xX397G34ayFyjg347Xr4Uu34jva17KrWfu3WUG3y0vw43
+	trs8GFWY9rn0qr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jYpB-UUUUU=
+X-CM-SenderInfo: xgrr2sqrrqqiywtou0bp/xtbC7g7IG2rbEM5rbQAA3a
 
-On 10/16/2026 5:14 PM, Binbin Wu wrote:
-> Validate the CPUID configuration provided by userspace through
-> KVM_TDX_INIT_VM against KVM's TDX allowlist, and drop the hardcoded
-> denylist-based check.
-> 
-> The TDX module lets the VMM directly configure certain CPUID bits for a TD
-> at initialization time, but KVM must strictly govern which of those bits
-> userspace can set, otherwise a feature that clobbers host state could be
-> enabled behind KVM's back.  The existing denylist rejects only TSX and
-> WAITPKG, and thus would accept any bit that a future TDX module makes
-> configurable, even if KVM knows nothing about the associated feature.
-> 
-> Add tdx_has_unsupported_cpuid_cfg_bit() and reject KVM_TDX_INIT_VM if
-> userspace sets any bit outside of the mask returned by
-> tdx_get_cpuid_cfg_mask(), i.e. the same mask used to filter
-> KVM_TDX_CAPABILITIES.  Don't bother intersecting the userspace input with
-> the bits that the TDX module reports as directly configurable, as the TDX
-> module itself rejects any bit outside that set.
-> 
-> As with the existing check, use the subleaf reported by the TDX module to
-> look up the allowed mask.  For leaves without subleaves, the TDX module's
-> "no subleaf" index is normalized to 0, which matches how such leaves are
-> tracked in reverse_cpuid[].
-> 
-> Note, the change is user-visible, as KVM_TDX_INIT_VM now rejects some
-> input that was previously accepted.  The ABI itself is unchanged: KVM
-> already rejected unsupported CPUID bits, albeit via a denylist, and
-> userspace has always been required to consult KVM_TDX_CAPABILITIES and set
-> only the bits reported as configurable.
-> 
-> The change isn't expected to break userspace or guests:
->  - The newly rejected bits are no longer reported as configurable by
->    KVM_TDX_CAPABILITIES, so userspace that honors KVM_TDX_CAPABILITIES
->    won't set them.
->  - CORE_CAPABILITIES, which older TDX module specs defined as fixed-1, is
->    still allowed.
->  - The dropped features are either obsolete or unsupported by KVM, and in
->    the latter case, a guest relying on them would already have run into
->    problems.
-> 
-> Signed-off-by: Binbin Wu <binbin.wu@linux.intel.com>
-> Reviewed-by: Tony Lindgren <tony.lindgren@linux.intel.com>
+From: RenKai <kairen@siemens.com>
 
-The patch generally looks good to me. However, since it depends on Patch 1,
-which, I assume, is going to be replaced by Sean's series[1]. If that's case,
-the patch will need a rebase and adjust on top.
+The DEBOUNCE_DIS1..3 registers use active-high disable bits:
+writing 0 enables input debounce, while writing 1 disables it.
+The driver currently writes the active row and column masks directly
+to these registers, disabling debounce on the configured pins.
 
-Free feel to add
+Invert the masks so that configured pins have their debounce-disable
+bits cleared and unused pins have them set. Mask DEBOUNCE_DIS3 with
+0x03 to keep reserved bits [7:2] clear.
 
-Reviewed-by: Xiaoyao Li <xiaoyao.li@intel.com>
+Use unsigned row and column masks when constructing the keypad-mode
+configuration, avoiding the existing left shift of a negative value.
 
-if there is no big design change in the end.
+Verified register readback on hardware with a 4x4 keypad:
+  DEBOUNCE_DIS1 (0x29): 0xf0
+  DEBOUNCE_DIS2 (0x2a): 0xf0
+  DEBOUNCE_DIS3 (0x2b): 0x03
 
-[1] https://lore.kernel.org/all/20261022210134.612848-1-seanjc@google.com/
+These values clear the debounce-disable bits for ROW0..3 and COL0..3
+and set them for the unused pins.
+
+Fixes: fb6c721b69d4 ("Input: tca8418_keypad - initial driver release")
+Cc: stable@vger.kernel.org
+Signed-off-by: RenKai <kairen@siemens.com>
+---
+ drivers/input/keyboard/tca8418_keypad.c | 22 +++++++++++++++-------
+ 1 file changed, 15 insertions(+), 7 deletions(-)
+
+diff --git a/drivers/input/keyboard/tca8418_keypad.c b/drivers/input/keyboard/tca8418_keypad.c
+index 3bbd7e652533..92234df25397 100644
+--- a/drivers/input/keyboard/tca8418_keypad.c
++++ b/drivers/input/keyboard/tca8418_keypad.c
+@@ -234,21 +234,29 @@ static irqreturn_t tca8418_irq_handler(int irq, void *dev_id)
+ static int tca8418_configure(struct tca8418_keypad *keypad_data,
+ 			     u32 rows, u32 cols)
+ {
+-	int reg, error = 0;
++	u32 row_mask, col_mask, reg;
++	int error = 0;
+ 
+ 	/* Assemble a mask for row and column registers */
+-	reg  =  ~(~0 << rows);
+-	reg += (~(~0 << cols)) << 8;
++	row_mask = (1U << rows) - 1;
++	col_mask = (1U << cols) - 1;
++	reg = row_mask | (col_mask << 8);
+ 
+ 	/* Set registers to keypad mode */
+ 	error |= tca8418_write_byte(keypad_data, REG_KP_GPIO1, reg);
+ 	error |= tca8418_write_byte(keypad_data, REG_KP_GPIO2, reg >> 8);
+ 	error |= tca8418_write_byte(keypad_data, REG_KP_GPIO3, reg >> 16);
+ 
+-	/* Enable column debouncing */
+-	error |= tca8418_write_byte(keypad_data, REG_DEBOUNCE_DIS1, reg);
+-	error |= tca8418_write_byte(keypad_data, REG_DEBOUNCE_DIS2, reg >> 8);
+-	error |= tca8418_write_byte(keypad_data, REG_DEBOUNCE_DIS3, reg >> 16);
++	/*
++	 * Enable debounce on used rows and columns only.
++	 * In DEBOUNCE_DIS registers: 0 = enabled, 1 = disabled.
++	 */
++	error |= tca8418_write_byte(keypad_data, REG_DEBOUNCE_DIS1,
++				    ~row_mask & 0xff);
++	error |= tca8418_write_byte(keypad_data, REG_DEBOUNCE_DIS2,
++				    ~col_mask & 0xff);
++	error |= tca8418_write_byte(keypad_data, REG_DEBOUNCE_DIS3,
++				    ~(col_mask >> 8) & 0x03);
+ 
+ 	if (error)
+ 		return error;
+-- 
+2.39.5
+
