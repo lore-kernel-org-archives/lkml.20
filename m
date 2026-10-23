@@ -1,119 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792768168;
-	b=CvTh9fmGVHxHYZHuNEEdpq/CxJLjmGLNAMkoSmg19YU/vHlLrp6a/JX9P2StBQZm8c4h
-	 yqQDt/0Hvt25arLLKBUANFS/lTXNrHLkprBY1n+7iMPqPd+pK0bOHxznVClg6xswu2Rxj
-	 dyJ/f6jO5xwlhAGBem8zxyj780bAHYxMigmtIse00qpJj4Dm76KVdFuHveX8+WC7glV/L
-	 YWpmk3kTrqyNflpml7ZfU0dWtyKmRrJFpMjIm0sMCqyK0S19eqaDzey8WqCrDe80Iu3c7
-	 K48YKDlRawFGwHcn3dBkLXaUsdVCOP0NPELPx80hiO4W+gKh4I3Qs/Y/TH78EvubMjQ==
+	t=1792768185;
+	b=3wAsy+nY2yeuFKjGTf5lq5es/MkfeW4sK34203j8ivTaQ75TSMWJGaQgjFNRcuQSYW5P
+	 48EMhW6bLOr18zOw9keFtg0uEYSvwpG7DeZ7RvJ9YNdFTTKjlvK5uhQCvIFeUm86zq7GC
+	 Je/4hzVXz6L9IiGqLkPy6nj9MxWQpPVfnhAL4hsJBwxBe6+opdX2xiyh+sWEuV2YUkedx
+	 kD/7eoUUEA31qvwkELLuJRxf6o8knP13RFWKtfWEmP6XhPXjm2faT668Ui8FTYRsR2b1r
+	 2IiDCTRRcFpw0ZCOgXvJiPoxXZMe4Z6Y81OBSI0RxjPgeFXKWM9V0eQT3jM7kvpsXGw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792768168;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
-	 To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:X-Mailer:X-Mutt-Fcc;
-	bh=6rh8t+ieIZ7gnLjDlx3Ddd6qZJAChVB6q5mpHU4/pfk=;
-	b=O/VQHApaRYteNUIDYx0SEnPg+LeUdKiTxoZyd8NCun8OG/DaYU+KdZV66SD2gwvRrQqS
-	 j26ViZkpPctbhE8QmhlHuK7HSm7H+H9EEmWVExhkwgKOhojtl99zROv7ifKaCqWybE7wK
-	 23wJvbkhn3V1fwvU1ZYkjVlUGE24yTVVjVjn4+8HtGwOzyZlfnnSxZRdAlz0di0m48R0K
-	 WGOEawTHHc4Ht1xwo9U5iHcGSv2/eZjZeTbKeLcb+LPLc8gMAiPMAz6Zpz2TtsmiHZ/Cb
-	 Z9q7N8LTmYSVS4jWq9NvM+F11eyAZs/vcxY226XBF+eRud9lVOHLt2fOOwW+elCA/Zg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792768185;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
+	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:X-Proofpoint-GUID:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=PrqzT7MdVkkSP2KIivdVeNQ5hX+wDdmQ4LEI6M9HuKQ=;
+	b=WQrh5SWWqEJqD0cP5ZB8S/L0/ZzUgAkZinejNm4StJpPAvlnjSB93JUJtyH0/8m3wkZw
+	 Ub7qLuR8emShWtn2BmKTf1eYB/VaWABsKN6ExFFb9i64LukwXfuOG78MvOJPm+hJZFnBN
+	 SCqkpZPuXgjSlwUeQAT+98CbcjKmpOy9PS2xnO1sDciptMLKfSNqbG5/banwMm6O0vKNz
+	 xx4/ilZ08SGjgpbC2EHJDt4LAbsx6IExH1f+LImH5zyzvQjWJE1NIe5wMhyWNiM9rEjQP
+	 XuUs4KRMwNhe9ZW8nfUvZ9DDmhbhPSKhOsIIlHer1FaDxlcFCzDkG53rTKtnI9YZTaA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b="G8Bq/eXH";
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=dDY4doNX;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=oEVilMLM;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=RN3klIfz;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DD84606A32A
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 15:09:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6DD84606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23BFE606A320
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 15:09:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 23BFE606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=G8Bq/eXH;
-	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=dDY4doNX
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1792768167;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=6rh8t+ieIZ7gnLjDlx3Ddd6qZJAChVB6q5mpHU4/pfk=;
-	b=G8Bq/eXHEqFOK803Kc223ZyHThkTwfARiyIaTtQGDAPlzoay1eQvvmxpJLRlmlhtls1cBX
-	PZO5D+huFG47r6e1CpA/lrNT8FGcn+dU2YSRKpymdAJSyLIiPWofAv7LmjlmtIvObaOMBy
-	3BXmtP+KiwML0/GPrYxeUzM4vrXNpEE=
-Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
- [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-70-8hTfFLtMOkeQltdwhxwmcg-1; Fri, 23 Oct 2026 11:09:19 -0400
-X-MC-Unique: 8hTfFLtMOkeQltdwhxwmcg-1
-X-Mimecast-MFC-AGG-ID: 8hTfFLtMOkeQltdwhxwmcg_1792768158
-Received: by mail-wm1-f71.google.com with SMTP id 5b1f17b1804b1-4a2000d5ebeso7743115e9.2
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 08:09:19 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=oEVilMLM;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=RN3klIfz
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69NE65Rr1954963
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 15:09:44 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	PrqzT7MdVkkSP2KIivdVeNQ5hX+wDdmQ4LEI6M9HuKQ=; b=oEVilMLMf1TGim8j
+	RYsGEbuhQX1MKfEADb8cVV6wCacNK7/a+qcHK3dKJP2xCtS25WQtvKYyzwN0dNFX
+	O6gN260cXErrrFNvghZZtsHGt6yutwunFogDx827y8gt4VfbK9RBD1dlRXJ2s5PJ
+	xVDmYpgVnopm3I+eZrELzcc4LfEiWHSWtYX42Wi2A+hJgKtD6O4f7OZl7GhLhKqH
+	YhKGrD/rD9hg3SlleoIZt1BYJBbkDXZ/DAALl+FtJ3Ud9pJzlfTVqAc75Ph7nljU
+	dOls7k84pezVy5VfgLm/LnXi/hELsH+AAtUjy2HBaVcDFgGXqs5PrbdxYB3Tvaf6
+	pNAC4Q==
+Received: from mail-ua1-f72.google.com (mail-ua1-f72.google.com [209.85.222.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hfqmbm9a1-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 15:09:44 +0000 (GMT)
+Received: by mail-ua1-f72.google.com with SMTP id a1e0cc1a2514c-990ca9607c3so630742241.1
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 08:09:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1792768158; x=1793372958; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-disposition:content-type
-         :mime-version:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=6rh8t+ieIZ7gnLjDlx3Ddd6qZJAChVB6q5mpHU4/pfk=;
-        b=dDY4doNXFjNii+YB43UuZLBlZuNsbo/QozyYIv8+DXLGCDTNfGM+jHpgpyxFUKkqqz
-         emtJLJtMhHr9rDVt3x3TudUIErWEY1s24cKnDvM8KjhJEEL0tr4PwRX9A/TaWqTSP62l
-         YfXKfKni2t2oZwou2lH0ToBIH19WW1eAo5WvBOIzi13lKJTKYcdw0VMFbUQ42mbf2rmi
-         Ah3K2PIluBasrBYc3PMQAthIp8dHsXIlXhu1Je18LAkh/oazf5zNDkXXUxV5wlyE7GJL
-         3gUcNUxY6q1H7pKnsyTzWIXk2bJjN/AHKeGRtc7oUrWgsjOvt4wJRoyQOTXRlnpysDFT
-         O2xQ==
+        d=oss.qualcomm.com; s=google; t=1792768183; x=1793372983; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=PrqzT7MdVkkSP2KIivdVeNQ5hX+wDdmQ4LEI6M9HuKQ=;
+        b=RN3klIfzv0fZ0+ivWSk5eHy3qZsev97yeAwqMps4BEWtdVXvyPj9WZvJOj115H7BzM
+         ZgXjqmQT+KckGVL28/h4rT5m5BKdparCx+kXeWGY3vbVo0crGFyH2TrIfAXk0r/gGRqt
+         gjS898+3MXLnPFKTqwyvJIXE8b5mJg98SIe22ECzk9fub6ULkVDDKgBUSkuGE81gdzmY
+         W56tLAFSfjwHbe1gO7E+RZmj9pMWpjGU9VfFX/4ufzrY3LmokR/jwe75ghH3XCjv3mW1
+         +PqNu7Bt+1o/SBPD6noJJB9lzgWSotCS4DDcylqot2KM4DfGbRJ+dnDhQ26GzC6GVedC
+         xsog==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792768158; x=1793372958;
-        h=content-transfer-encoding:content-disposition:content-type
-         :mime-version:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1792768183; x=1793372983;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=6rh8t+ieIZ7gnLjDlx3Ddd6qZJAChVB6q5mpHU4/pfk=;
-        b=AiBtFKZ0ib54Y+8eZkPWG+PE0mlkDP5jzo8zj7nA0Em1c+t91DFka0yAJulHqa5Kwm
-         F3i4hI2vIxY/WXpis7SMMNun78bDkGME/8/Ftqh/lo3zQTj2TBsAz5QhnZv8v5nxhFF9
-         kr1zDRANjR9hZJux6I0kWEBB5zIIl8i5cjnl5lBsiOb09WpdFzePA0NYQZvrqzMuz8kQ
-         wTLhccW6BN+yQYfWd8Y6Ujnp3BaL0F77QTXCIKN9cIE+Uzo0hAOnPh37OGf0U15KRP7g
-         9/HyFl+5xnobNpbIqi49bBPhbkPSoTARQWSv/D+kPZkAb2ycGTWsqmLLlKmUCYAMJRIL
-         kWDw==
-X-Gm-Message-State: AFq9FYInH5QhiHLb5EcRmVT+x9nXcj5mVVvaQETWAsymUmaM7zE1yUF9
-	Dd/tkhPM1MQAXgIrw8IeSHcOXabXz2kxmLa7DHyujUjXUyfTlu8lWP/6N4JtDcwHAvU6pl1W95Y
-	/2CXqKdek96YNju9gU9/wafXAs/iqWLiwm098AiqVD0Tan2nPF+1OQ0choCD/9K/4PAe2KCqPmz
-	TH2iIMb76g2IzqhyZGKLx6Ze7i3ucokXQx5fRoWJcudKw=
-X-Gm-Gg: AYBFou1T/uJPJsFb/PEYqm7gzyn5O7vPTskb2iVSuWzMKoMd4wdurV1ZKRTHEPR66ML
-	JDq/CbDd0WElLA6+FYQ3IkamTfqxrZs8nlq4VscmVZKEzxaYCLujRM/GTRC1izfqv9d9YpAHQdS
-	Oo0FU6OMUHsWhzVZ+CSYhO4GxkUL2XjiXgRsqAlsLNDm22GRUZLcGMiCOMXKcj+JZzAU7pGTbUc
-	JZFKbW34qJLzTl4I0kHB3w4e6W2ElIsAt3dnGXW4JHs6KXqeuhT+i+tcCLUt4Qq/qbLm3RFmUuE
-	Rf3RaMkYRo6+thnQgI/mYRvCnTWJ3DW76ZKsme/AlnMUzI9v9gwpSXhP7hXTuE1hqMPnFJM=
-X-Received: by 2002:a05:600c:a101:b0:4a1:fa27:df7c with SMTP id 5b1f17b1804b1-4a211f2b694mr36183715e9.34.1792768157550;
-        Fri, 23 Oct 2026 08:09:17 -0700 (PDT)
-X-Received: by 2002:a05:600c:a101:b0:4a1:fa27:df7c with SMTP id 5b1f17b1804b1-4a211f2b694mr36183025e9.34.1792768156891;
-        Fri, 23 Oct 2026 08:09:16 -0700 (PDT)
-Received: from redhat.com ([2a06:c701:73f6:2400:30a8:9e33:7d82:c035])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a2b0637460sm10017715e9.8.2026.10.23.08.09.14
+        bh=PrqzT7MdVkkSP2KIivdVeNQ5hX+wDdmQ4LEI6M9HuKQ=;
+        b=hvk0HjgDwFQ2YuqUZAU/DqQ3ei3sUSjCvcYIKxYpPcVvQKvmTPYpG+/eUP4J4KeQqt
+         xyh75rFfbvmwfKyWt029I+T/k6tai/XBr0Y0a+LiZHRTGQIXxdNiUzKbsOzI3GxyFUDL
+         g+aOvO+NncY3pxw92FxqlhhkDA/bgs+TVlr6Nl+qc36TeFxn6h+JqCtgMCSXX5R9sEdT
+         f+5V2n9gHrZCDliBEat/rVHKaoqdO40dk6jR98fDgzh8u6znrGDxKxHQalIwRUmrdXWS
+         8MW0wRjQOBNtvBt0dcLxnE0PeRa94/GeBr1y2Br7/ZvwZk0FM5v2hvseZkapaSuVlDjd
+         YxSQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxJcV6iCY5JkXLYk3MiPWiHEsIL+m6QDXca2JYaR3AdamfubNgz+ML5DjYA8Ia6iZdSGOQn6fRu5M6xUUM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKAasC++vr50l3HK0dAy0dKeFBmdChmStzLoO5AOjFZMDFn1RdL
+	f/xx+E5IlAsNIoX2Ans7v7PvqlQ1oOwImzNEDnHJ7+pyBQA2Kt2+gsmJpGXeK/gzD7QknxDFqm2
+	JEtb1u3aBehjQ2w1ATBpHRBhs1/vHnU25sy+DhccE2TGSM7I/bdZqkjgLXOUQy5ZVRHI=
+X-Gm-Gg: AYBFou0cfZY6WIrxj/M1kDXc9uvKr1JZcr4qwfgjo23FDvBO4XS6xGUVILcVnxVz8Kn
+	+wh1FOroQodesHLXZvregE4ZgERUf1B0u/whH0dTSTuamQlod3dLAVdsPNHClsDsd9scA3rYhT9
+	I2z7Lcd6aHv8IjWKieK3Ch3QJ3PlyrhQEFaEzCbZyC6yBWbCDC/RI5RABbxQp5oA917cmcX+HSl
+	Bu23H1ViOcFjIvhv4vIWIBuZXgR/TSTzfp2dSHisbZIj+/BBtd+i8N8kSxmkShrFSd1UXe7/YcZ
+	0J2LgAZBXGlKxdD1BMLSPArnC216A/3ah3PxzlHckGxPkPbG2Ggk14DfkBm4Sb3VCV1+IXYe6nJ
+	Vxl9m+0/olMTowIAyIy/c7UMXMZSXvujHPqzO1gbubefVWMkWejwotxCQu4tq6F9PepQl64qiwX
+	7TKF5U7Dv+WWSWNPBjU+vH9mhULQOookhv8kf520hgdaaGdAAj8hg=
+X-Received: by 2002:a05:6102:418c:b0:7a7:198a:c2bc with SMTP id ada2fe7eead31-7ccc3414e18mr1076047137.36.1792768183264;
+        Fri, 23 Oct 2026 08:09:43 -0700 (PDT)
+X-Received: by 2002:a05:6102:418c:b0:7a7:198a:c2bc with SMTP id ada2fe7eead31-7ccc3414e18mr1076020137.36.1792768182758;
+        Fri, 23 Oct 2026 08:09:42 -0700 (PDT)
+Received: from QCOM-eG0v1AUPpu.na.qualcomm.com ([2a01:e0a:830:450:d0fb:daf1:3106:3697])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3d4040d3sm323962f8f.27.2026.10.23.08.09.40
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 23 Oct 2026 08:09:15 -0700 (PDT)
-Date: Fri, 23 Oct 2026 11:09:13 -0400
-From: "Michael S. Tsirkin" <mst@redhat.com>
-To: linux-kernel@vger.kernel.org
-Cc: Willem de Bruijn <willemdebruijn.kernel@gmail.com>,
-	Chris Arges <carges@cloudflare.com>,
-	=?utf-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>,
-	Phil Sutter <phil@nwl.cc>, Jason Wang <jasowangio@gmail.com>,
-	Eugenio =?utf-8?B?UMOpcmV6?= <eperezma@redhat.com>,
-	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	netdev@vger.kernel.org, virtualization@lists.linux.dev,
-	Max Krasnyansky <maxk@qualcomm.com>,
-	Rusty Russell <rusty@rustcorp.com.au>
-Subject: [PATCH net v6 0/5] more virtio-net csum hardening
-Message-ID: <cover.1792768096.git.mst@redhat.com>
+        Fri, 23 Oct 2026 08:09:41 -0700 (PDT)
+From: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Date: Fri, 23 Oct 2026 17:09:16 +0200
+Subject: [PATCH v11 5/9] media: Documentation: uapi: Add qcom-camss ISP
+ params documentation
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -123,213 +116,248 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-X-Mailer: git-send-email 2.51.2.2891.g4157995a80.dirty
-X-Mutt-Fcc: =sent
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261023-camss-isp-ope-v11-5-0c2937195298@oss.qualcomm.com>
+References: <20261023-camss-isp-ope-v11-0-0c2937195298@oss.qualcomm.com>
+In-Reply-To: <20261023-camss-isp-ope-v11-0-0c2937195298@oss.qualcomm.com>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+        Loic Poulain <loic.poulain@oss.qualcomm.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Kees Cook <kees@kernel.org>,
+        "Gustavo A. R. Silva" <gustavoars@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Bryan O'Donoghue <bod@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-hardening@vger.kernel.org
+X-Mailer: b4 0.14.2
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIzMDA1OSBTYWx0ZWRfX2aRMbYoh6cJU
+ JjFOAJhAbOAgFpuc56NofyA6GVSXkwvMPOTeJJkbZlzdk9NWojrNoo0gaixp/k0Anc5pWj58OFC
+ dgaDgEPGiH0nUO60F5I4+X6pUI1BIOk=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIzMDA1OSBTYWx0ZWRfX+KbshSKZtIGN
+ v9L+WG6E38MXQJXnaKMnmQf1sZgEsFpSki1o8ZY+DsYgVU384GZSMQBJv6wl6Lcg2GpxCwEC10j
+ uBuudOL84E+Jna36zKRL/3JrhQllzN7ghFWrOrnV22rf5gn+B1nZYkVWDnFDNH5aLTMlv3DbiPR
+ tMZ2rP+1Vo53nUOXXBusT0MufeuePhqnmp5iiJMqjgfQEht0ECALZf8SW+0sKp5qxj+vSqJpBYf
+ /iyXM1dibjKHqPl6mgLHFv6lYZByzV8+mH7iWX4JRJWP71dj9ysVhIN+oFIind5YSmvF1jR8wXI
+ w75S1LiEAMa5PSvX90o6DFJsuTKF9UvjCgpdF8bek75zVwpDYXU85UX1cMK11S1JvmQFKomsbif
+ 0mRFh96CVzjab89KoaJfAHfkOr5A3pjbkROAJclpKILjmLDlkfo/sC/6MQ+R7hz7nrwQyaZi7Ah
+ zgCh+tygHZQgGS/lkmg==
+X-Proofpoint-ORIG-GUID: UC9ztbV6nFIxeXuuoQvW4vnl_eNB9jWg
+X-Authority-Analysis: v=2.4 cv=Nt1E4MdJ c=1 sm=1 tr=0 ts=6adb78b8 cx=c_pps
+ a=ULNsgckmlI/WJG3HAyAuOQ==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=EUspDBNiAAAA:8
+ a=VwQbUJbxAAAA:8 a=Nff7jVtaK1xTle8F27sA:9 a=QEXdDO2ut3YA:10
+ a=1WsBpfsz9X-RYQiigVTh:22
+X-Proofpoint-GUID: UC9ztbV6nFIxeXuuoQvW4vnl_eNB9jWg
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-23_04,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 clxscore=1015 impostorscore=0 suspectscore=0 malwarescore=0
+ phishscore=0 priorityscore=1501 lowpriorityscore=0 bulkscore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610230059
 
+Add documentation for the Qualcomm CAMSS ISP parameters metadata format
+(V4L2_META_FMT_QCOM_ISP_PARAMS). The format is built on the V4L2
+extensible ISP parameters system, with per-block structs defined in the
+qcom-camss-config.h uAPI header, and is designed to be shared by any
+CAMSS ISP engine exposing a parameters metadata output video node. The
+Offline Processing Engine (OPE) ope_params node is the first consumer,
+with additional engines expected to add their own parameter blocks in
+the future.
 
-Okay this seems to be converging.... But sashiko did find some issues I
-thought are best fixed. Specifically I thought of a better way to handle
-short gso in a tunnel - just clear tunnel gso! As a side effect we now
-fix up the checksum for these dodgy packets like we did before, instead
-of a drop. Good. And more false positives that prompted me to write a
-bit more comments. So here goes.
+Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
+---
+ .../userspace-api/media/v4l/meta-formats.rst       |   1 +
+ .../userspace-api/media/v4l/metafmt-qcom-isp.rst   | 147 +++++++++++++++++++++
+ MAINTAINERS                                        |   1 +
+ 3 files changed, 149 insertions(+)
 
-Apologies for reposting so frequently, I know netdev bot will be unhappy
-with that.  But Paulos's report made a lot of publicity, there is a lot
-of people looking into this, so I feel there's value in defending
-against all this class of issues sooner rather than later.
-
-The issues were mostly found by code inspection, but all reproduced by
-me in a VM.
-
-------
-
-As reported first by Paulos Yibelo <habte.yibelo@gmail.com> (after which
-others, credited below, found more ways the bug can affect users):
-
-allowing untrusted hardware to specify csum start/offset for
-CHECKSUM_PARTIAL was not a good idea, because, if it edits the packet
-outside the actual checksum, and depending on the setup, the networking
-stack could be looking at the packet both before and after the edit, and
-seeing different results.
-
-Previously, commit 6785011f8b16 ("ipv4: validate checksum_start before
-completing checksum") validated all known instances where this
-causes the most grief, but the real fix is to make sure
-that either only actual checksum fields are ever edited,
-or the checksum is completed before the net stack looks at it,
-so it is always consistent.
-
-
-This basically goes back to
-what we did before f43798c27684 ("tun: Allow GSO using virtio_net_hdr"),
-except in a narrow list of specified known good cases.
-
-
-Summary of the patchset:
-
-These are probabably net material (and seem to be too big for stable,
-or I would recommend backporting there, too):
-
-  net: account for ingress-resolved virtio net hdr state
-	- accounting, not the fix itself, dependency of the fix
-  um: vector: trim skbs before verifying the header
-	- fixes the um receive path: without it the checksum would be
-	  completed over the unreceived tail of the buffer
-  virtio_net: parse tunnel csum_start little-endian
-	- bugfix, a dependency of validating the header
-  net: resolve uncommon partial checksums at ingress
-	- fix itself
-  net: add a sysctl to opt out of virtio net hdr checksum validation
-	- reducing risk of the fix by adding a sysctl to disable it
-
-These are cleanups, can be deferred to net-next, too:
-
-  net: add ip4_parse()
-
-Fixes: f43798c27684 ("tun: Allow GSO using virtio_net_hdr")
-
-Changes since v1:
-	- reorder patches to fix bisectability, addressing
-	  a comment by Björn Töpel.
-	- code refactoring, different patch splitup,
-	  a sysctl knob to disable as suggested by Willem de Bruijn.
-	- fix a bunch of minor issues spotted by LLMs
-
-
-Changes since v2:
-
-virtio_net: parse tunnel csum_start little-endian
-  - new patch. correctly parsing the header is a dependency
-    of validating it, otherwise i do not know what to validate
-
-net: account for ingress-resolved virtio net hdr state
-  - make rx_csum_sw counter 64 bit so it won't wrap
-    (spotted by LLM review)
-
-net: resolve uncommon partial checksums at ingress
-  - tunnel fixes to bugs noticed by Willem de Bruijn and
-    Chris Arges
-  - restore the csum_offset checks as suggested by Willem
-
-net: add a sysctl to opt out of virtio net hdr checksum validation
-  - the knob is no longer writable by root inside a user
-    namespace: changing it now requires capable(CAP_NET_ADMIN)
-    suggested by Willem de Bruijn
-
-net: add ip4_parse()
-  - comment converted to kernel-doc format (Willem de Bruijn)
-
-um: vector: trim skbs before verifying the header
-  - new patch, found by code review
-
-
-Changes since v3:
-
-net: account for ingress-resolved virtio net hdr state
-  - um: vector: honor virtio net hdr conversion failures
-    folded in (Björn Töpel)
-  - count on tap and virtio_net, too (Willem de Bruijn)
-
-net: resolve uncommon partial checksums at ingress
-  - walk the frame on loopback, too: loopback_xmit() runs
-    eth_type_trans() on it (Willem de Bruijn)
-  - return the mismatch handling directly, GSO is implied in
-    the tunnel path so drop there outright, and fold the helper
-    into its one remaining caller (Willem de Bruijn)
-  - read the IP version through struct iphdr (Willem de Bruijn)
-  - document the ipv6_find_hdr() flags choice
-
-net: add a sysctl to opt out of virtio net hdr checksum validation
-  - renamed to virtio_net_hdr_validate, in case more validation
-    is gated by the same knob later (Willem de Bruijn)
-  - point .data at the value like the neighboring entries,
-    the per-netns registration rebases it, and the handler reads
-    the value directly - no ctl_table copy (Björn Töpel,
-    Willem de Bruijn)
-  - check the opt-out before parsing: with the knob off, packets
-    the parser cannot handle were still dropped (Willem de Bruijn)
-  - include virtio_net.h in net/core/dev.c so the static key
-    definition sees its declaration (build warning reported by
-    Jakub Kicinski)
-
-net: add ip4_parse()
-  - add the missing kernel-doc Return: section
-    (Jakub Kicinski)
-
-
-Changes since v4:
-
-net: account for ingress-resolved virtio net hdr state
-  - count on tun only: dropped the tap, macvtap, ipvtap and
-    virtio_net counters (Willem de Bruijn)
-  - the driver side branches are in their final form here now,
-    moved from "net: resolve uncommon partial checksums at
-    ingress" (Willem de Bruijn)
-
-net: resolve uncommon partial checksums at ingress
-  - no longer touches the drivers (Willem de Bruijn)
-  - a packet too small to be GSO: ignore the tunnel GSO request,
-    same as plain GSO ones, and complete wild metadata in place
-    (sashiko)
-  - document the zero copy interaction (sashiko)
-  - honor a preset skb->protocol on ethernet: the stack uses it,
-    except on loopback which re-parses the frame (sashiko)
-
-net: add a sysctl to opt out of virtio net hdr checksum validation
-  - document the netns lifetime requirement (sashiko)
-
-net: add ip4_parse()
-  - pull the whole header, options included, so that the
-    transport header offset is within the linear data
-    (Willem de Bruijn)
-
-
-Changes since v5:
-
-net: resolve uncommon partial checksums at ingress
-  - read both skb->protocol and the frame ethertype: do not
-    validate when they disagree, instead of preferring the
-    preset protocol; same check after the IP version inference
-    where there is no L2 header (Willem de Bruijn)
-  - pull the IPv4 options in the helper as introduced, with the
-    transport header offset computed before the pull
-    (Willem de Bruijn)
-  - fold the trivial protocol calculation cleanup, formerly a
-    separate patch, in (Willem de Bruijn)
-
-net: add ip4_parse()
-  - the options pull moved to the helper introduction in
-    "net: resolve uncommon partial checksums at ingress"
-
-Tested: full suite on the final tree, tunnel included.
-um part compiled only.
-
-
-Michael S. Tsirkin (5):
-  net: account for ingress-resolved virtio net hdr state
-  um: vector: trim skbs before verifying the header
-  virtio_net: parse tunnel csum_start little-endian
-  net: resolve uncommon partial checksums at ingress
-  net: add a sysctl to opt out of virtio net hdr checksum validation
-
- Documentation/admin-guide/sysctl/net.rst |  19 ++
- arch/um/drivers/vector_kern.c            |   6 +-
- arch/um/drivers/vector_transports.c      |   4 +-
- drivers/net/tap.c                        |   4 +-
- drivers/net/tun.c                        |  41 ++-
- drivers/net/virtio_net.c                 |   2 +-
- include/linux/virtio_net.h               | 319 ++++++++++++++++++++++-
- include/net/netns/core.h                 |   1 +
- net/core/dev.c                           |   7 +
- net/core/net_namespace.c                 |   1 +
- net/core/sysctl_net_core.c               |  50 ++++
- net/packet/af_packet.c                   |   4 +-
- 12 files changed, 441 insertions(+), 17 deletions(-)
+diff --git a/Documentation/userspace-api/media/v4l/meta-formats.rst b/Documentation/userspace-api/media/v4l/meta-formats.rst
+index b5455229837e707c24e134438d5e2fd12cb3bf37..25b46af4d9f7faab37000076c530e9aad5b4a076 100644
+--- a/Documentation/userspace-api/media/v4l/meta-formats.rst
++++ b/Documentation/userspace-api/media/v4l/meta-formats.rst
+@@ -20,6 +20,7 @@ These formats are used for the :ref:`metadata` interface only.
+     metafmt-intel-ipu3
+     metafmt-pisp-be
+     metafmt-pisp-fe
++    metafmt-qcom-isp
+     metafmt-rkisp1
+     metafmt-rppx1
+     metafmt-uvc
+diff --git a/Documentation/userspace-api/media/v4l/metafmt-qcom-isp.rst b/Documentation/userspace-api/media/v4l/metafmt-qcom-isp.rst
+new file mode 100644
+index 0000000000000000000000000000000000000000..da0dd9b0884ea8b3c5fba7b5aa2eb1af80418cae
+--- /dev/null
++++ b/Documentation/userspace-api/media/v4l/metafmt-qcom-isp.rst
+@@ -0,0 +1,147 @@
++.. SPDX-License-Identifier: GPL-2.0
++.. c:namespace:: V4L
++
++.. _v4l2-meta-fmt-qcom-isp-params:
++
++**************************************
++V4L2_META_FMT_QCOM_ISP_PARAMS ('QCIP')
++**************************************
++
++Configuration Parameters
++========================
++
++The ``V4L2_META_FMT_QCOM_ISP_PARAMS`` format carries image processing
++configuration for the ISP engines found in the Qualcomm Camera Subsystem
++(CAMSS). It is passed to a metadata output video node using the
++:c:type:`v4l2_meta_format` interface.
++
++Rather than a single struct containing sub-structs for each configurable area
++of the ISP, parameters use the :ref:`v4l2-isp` parameters system, through which
++groups of parameters are defined as distinct structs or "blocks" which may be
++added to the data member of :c:type:`v4l2_isp_buffer`. Userspace is
++responsible for populating the data member with the blocks that need to be
++configured by the driver. Each block-specific struct embeds
++:c:type:`v4l2_isp_block_header` as its first member and userspace must
++populate the type member with a value from :c:type:`camss_params_block_type`.
++Populated blocks must be placed consecutively in the data member, and the
++combined size of all populated blocks must be set in the data_size member of
++:c:type:`v4l2_isp_buffer`.
++
++The set of supported blocks depends on the CAMSS engine consuming the buffer.
++The block definitions themselves are shared across CAMSS ISPs; currently the
++Offline Processing Engine (OPE) is the only engine consuming them, through its
++``ope_params`` metadata output video node. Additional engines and blocks may be
++added to this format in the future.
++
++A block carrying ``V4L2_ISP_PARAMS_FL_BLOCK_DISABLE`` bypasses the
++corresponding hardware module. Any other block updates the module's
++configuration and leaves it enabled. Blocks omitted from a buffer keep their
++previously programmed configuration and enable state; until userspace submits
++a block for a given module, the driver's default configuration applies.
++
++OPE processing pipeline
++=======================
++
++The OPE is a memory-to-memory engine that reads a Bayer RAW frame from its
++``ope_input`` node and writes a YUV frame to its ``ope_disp_output`` node. The
++parameter blocks configure fixed-function hardware modules that the frame data
++passes through, in the following order:
++
++.. code-block:: none
++
++	 Bayer RAW in            RGB domain                      YUV domain      YUV out
++	 (8/10-bit)   +------+   +------+   +------+   +------+   +------+   +------+   (NV12/NV16/
++	  ----------> |  WB  |-->| DEMO |-->|  CC  |-->| GLUT |-->|CHROMA|-->| DSC  |----------->
++	              +------+   +------+   +------+   +------+   |ENHAN |   +------+    NV24/GREY)
++	                                                         +------+
++
++The stages, and the parameter block that configures each one, are:
++
++.. flat-table:: OPE pipeline stages
++    :header-rows: 1
++    :stub-columns: 0
++
++    * - Stage
++      - Module
++      - Parameter block
++      - Function
++    * - WB
++      - CLC_WB
++      - :c:type:`camss_params_wb_gain`
++      - Per-channel white balance gains and black-level / pedestal offsets,
++        applied to the raw Bayer data.
++    * - DEMO
++      - CLC_DEMO
++      - *(none)*
++      - Demosaic: reconstructs a full-resolution RGB image from the Bayer
++        mosaic. Always enabled; not configurable through this format.
++    * - CC
++      - CLC_CC
++      - :c:type:`camss_params_color_correct`
++      - Color correction matrix applied in the RGB domain.
++    * - GLUT
++      - CLC_GLUT
++      - :c:type:`camss_params_gamma`
++      - Per-channel gamma correction curves (256-entry LUTs).
++    * - CHROMA_ENHAN
++      - CLC_CHROMA_ENHAN
++      - :c:type:`camss_params_chroma_enhan`
++      - RGB to YUV color transfer matrix.
++    * - DSC
++      - Downscaler
++      - *(none)*
++      - Chroma (and, when required, luma) downscaling to produce the requested
++        YUV subsampling, e.g. YUV 4:4:4 to 4:2:2 (NV16) or 4:2:0 (NV12).
++
++The input node accepts 8-bit and 10-bit packed Bayer RAW formats (for example
++``V4L2_PIX_FMT_SRGGB8`` and ``V4L2_PIX_FMT_SRGGB10P``). The output node
++produces semi-planar YUV (``V4L2_PIX_FMT_NV12`` / ``NV21`` / ``NV16`` /
++``NV61`` / ``NV24`` / ``NV42``) or luma-only ``V4L2_PIX_FMT_GREY``. A
++configurable stage is bypassed while its block carries
++``V4L2_ISP_PARAMS_FL_BLOCK_DISABLE``.
++
++The following example populates an OPE parameters buffer with a white balance
++and a gamma correction block:
++
++.. code-block:: c
++
++	struct v4l2_isp_buffer *params =
++		(struct v4l2_isp_buffer *)buffer;
++
++	params->version = V4L2_ISP_VERSION_V1;
++	params->data_size = sizeof(struct camss_params_wb_gain) +
++			    sizeof(struct camss_params_gamma);
++
++	__u8 *data = params->data;
++
++	struct camss_params_wb_gain *wb =
++		(struct camss_params_wb_gain *)data;
++
++	memset(wb, 0, sizeof(*wb));
++	wb->header.type = CAMSS_PARAMS_WB_GAIN;
++	wb->header.flags = V4L2_ISP_PARAMS_FL_BLOCK_ENABLE;
++	wb->header.size = sizeof(struct camss_params_wb_gain);
++
++	/* Unity gain on all three channels (15uQ10, 1024 = 1.0) */
++	wb->g_gain = 1024;
++	wb->b_gain = 1024;
++	wb->r_gain = 1024;
++
++	data += sizeof(struct camss_params_wb_gain);
++
++	struct camss_params_gamma *gamma =
++		(struct camss_params_gamma *)data;
++
++	memset(gamma, 0, sizeof(*gamma));
++	gamma->header.type = CAMSS_PARAMS_GAMMA;
++	gamma->header.flags = V4L2_ISP_PARAMS_FL_BLOCK_ENABLE;
++	gamma->header.size = sizeof(struct camss_params_gamma);
++
++	/* Identity curve (pass-through, gamma 1.0) */
++	for (unsigned int i = 0; i < CAMSS_GAMMA_LUT_SIZE; i++)
++		gamma->glut[i] = gamma->blut[i] = gamma->rlut[i] = i;
++
++Qualcomm CAMSS ISP uAPI data types
++==================================
++
++.. kernel-doc:: include/uapi/linux/qcom-camss-config.h
+diff --git a/MAINTAINERS b/MAINTAINERS
+index f53047aa8d3c103edaab227e7a21e50f6d9fd733..8d48a704e959dcabc8ff45f71f35b832afcf4971 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -22376,6 +22376,7 @@ L:	linux-media@vger.kernel.org
+ S:	Maintained
+ F:	Documentation/admin-guide/media/qcom_camss.rst
+ F:	Documentation/devicetree/bindings/media/qcom,*camss*
++F:	Documentation/userspace-api/media/v4l/metafmt-qcom-isp.rst
+ F:	drivers/media/platform/qcom/camss/
+ 
+ QUALCOMM CLOCK DRIVERS
 
 -- 
-MST
+2.34.1
 
