@@ -1,86 +1,124 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.181
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.155
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792720220;
-	b=ynO2SnJkZJ+lETha+qaJtQw17NuIOlocL7ydpLVL0VNKdZdnUy2ltF1s0kW+vVjojIXI
-	 JnrjUFlTpamg71igcVlaH+fADMlj9HXV9SqFIyedaK4rOU8pJyF1c0y1gLsLkKcTPPOX4
-	 OX22clvLLZusakHGgPL0glS5f/DDxblhJ/XmHIF8cKYYVumubbRfjzGwKPV5gM9xMSoBG
-	 CXFvT5fP25AJO+sl/R3kTs0Mn4Z2QxWm5fyGXaKm2wc8ypJ9+DhE76/EgEJICyUNe/u0+
-	 Gg9UvWtXYgQHeUzA/9eoTc0EWAlJ2LSb3YsRwR0P/L8AyfuJPLcUdE1DZJ28zcqshGA==
+	t=1792720378;
+	b=u7sWJhxO3VGh4sE8tfFjBYpdZ54JBE7LydDKWEOoHqu772T84qpj+h6wwdOb70xoLuBu
+	 dWGgezCL+B5K9l4CCs9w29QUTfRvW7DJcqBHH3wrWZpbGAFSm8Res1AzBq+qEgeM36O5c
+	 O6VSafACJRTqYIK+MUlK3T9DHjDLifYhI24dY/UK1IZaIjyc/Dw6mtUrcToTupZ5d0LQz
+	 WWVYWh24mK+fWZ/PCWAjmd1w+eXHuNfRYMIrtbIhoxEANvjpujTsMD+zoco2ElYa5IKAx
+	 3e5f9CUjrUyAIYn6+b/8jgf8IvnTZpNuIEeruztRRInr1nlc7U0+rqSsw5qwoSxvL5w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792720220;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=X468p48PfOB0WmzJ6kNGiEZKtoooeWVaYKhSdbR2LN8=;
-	b=YaydV/U/WvVbD47vTFPM1SWFl//rw588tZjyVACD3FKGSmsyvAZXvHrLdyDlIf23JlZX
-	 UAByPAb1DhBjWqIIl9Gkyp6GDpTZDRXHxQuf6lz4OkQsXiiCI81aLm0AuN4CEhg+TOd5n
-	 e9RPaknIo16ISD9EgutXx7cTkV9LdkQTYmbMOEJDJeGmbmdqxNkCwEWVuY/uv1KBybiub
-	 xf8Ue2wRI+9srPu1JHWiZTrXCINmIfGNDlWJilq/KwD7CDmO6CcL5WliCXZ61r3Ae2x0M
-	 fJtFT/KTQsAqcwbdBqN9VB6jSyVwfWdJ+BGyNoP/nmSj67eSG6QyhoeLXbYsW+IeIVw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792720378;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:Reply-To:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=cD6ambGXB73ssJDqyApt39o6A0cgIPa1xebyQdqUuRM=;
+	b=rLcYT+PrYIycbqcUSmq58eZWFG2DdeFAEpBPqIwLwsa9YlbfcfgUPHfy0pIyntt8Njsz
+	 UwDJeDKJnbvQEskjcXOKX4U3F1c6Vsc+MvdeeFDKYDxO2EDZclanccCNGTmkvb/TKReKo
+	 CKyTl9hAXnclTuQLdCLnl2MN8tAqJ0YRQblSUlFkZ/Y6N/wd1/hVf0CEA3dRVoL4Lvkae
+	 YsHtQu8uIDfZJdY8mWHHcAOOALG6+icmPHAVIeEKqsqEzmqLKLlv34ee87tK4gBP/nljU
+	 95wHSr1xbiVNFgaf/3Jg7ieFzMtGoVnTfUxUAEyOmGY2nWokYIMVQD8YeHvjMIgLE0w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Rp8a0nB0;
-	arc=none smtp.remote-ip=74.125.82.181
-Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=ownmail.net;
+	spf=pass smtp.mailfrom=ownmail.net;
+	dkim=pass header.d=ownmail.net header.i=@ownmail.net header.a=rsa-sha256 header.s=fm2 header.b=QpP9QY6M;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b="eFjE7Ys/";
+	arc=none smtp.remote-ip=202.12.124.155
+Received: from fhigh-b4-smtp.messagingengine.com (fhigh-b4-smtp.messagingengine.com [202.12.124.155])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63524606A31B
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 01:50:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 63524606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EB60606A319
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 01:52:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5EB60606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ownmail.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ownmail.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Rp8a0nB0
-Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-368581df789so369538eec.1
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 18:50:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792720218; x=1793325018; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=X468p48PfOB0WmzJ6kNGiEZKtoooeWVaYKhSdbR2LN8=;
-        b=Rp8a0nB0sJ+TJDR4hlmpgIpdVyGie5oBwLC0PFdydmMtqnyLfTvFup4nWx4OJIpd2D
-         /0nqKXWsIu5jqq4imY11lyfjYev/8OExuK7Q/OxHuhOu+pzzZpTTeTiYx/F49RMSUzmt
-         GccSr96gdC2DqGPOsPztHQgBSqn1ACJig8rztK0kgxx6Gea9Ck+5Xlj61UOtcZIedsp9
-         2K8Mmg1SrottEj+86QdTk9X5iO+xMAXf8q0Rsd1uy/ZXcFhOOPsyHifwcG2ONoxKcfEW
-         CpkDdF+5YUGAXHkpwXQORt34Ay1acS1LK0wiHEEbMpZhAYUW7HX3YNCtZr6OkoJjolGz
-         H5Qw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792720218; x=1793325018;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=X468p48PfOB0WmzJ6kNGiEZKtoooeWVaYKhSdbR2LN8=;
-        b=DjoyKfq+h/YerKp4xsWERXXc9mmhXAPK9qIJin+TvLIdtp7Vzvnj8o5EQZLptV6cbJ
-         eSKYQegTUvoBDMexIMeMAhgUB5K3HgK94LaTG9bxJrQaWVNlomSnxz7QyOwsqGrSOG5F
-         QF6K0pvLF9oiJJGgJKG2PYuqfJb47j2x0jB529aHLFiIjLJAGzlftZEAynYDm1suVUf8
-         aZsqOkPWoZwFLsp8j8WPR73LNSf/u+eYzwKUicrRupOI7+7EWQHscmrOetzZ6Fh8Kaf6
-         NkyV87kv7ReDMFAIARhU/OEBbpCpRPch0uwL44fVMfx1PT6fo31vZLSLFbEl4NIxzOp9
-         ZXEQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzTWx12GPFzpXpW4Y+1dtb+4hRs1Uh/q/ARIw3+ZK4Due4knXJrjMjYIAMkJhLlpzIDXmJ+b5/DqcNu//M=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIfYbCL1v6fLxV9Csxrv15rwHN4lXA1K9BKam0cKIhMHYsvJ9Il
-	LGFyOjzTFoQaIn5XlYwsjhGzgHXlbT9OYwGL5GzFnPsGn9vgOxSPBDsB
-X-Gm-Gg: AYBFou3+Q+CH/m744+73U6l9fhrU/pPPsXaWnLbGkZS5ow51nEGDl6xfWUJV5EiHZg+
-	2geTPChUTRTLn9WUui88QkPz4nDhBfVPSdEdSAjsaoA77IlfZHmdFHTboAgCuKDG8WFX93ZmgRe
-	0xWuh0cXYC36PhrPk73jtnxgBT1xjDufezlhpkfeIOCpHPiUl6J1W9nbhYESKjXOo3EbMX7NmoL
-	aj1cy5CkYnNalvDLmNPEnKk5QlXbQjwKCHwhwJvy2DpJ2KNDb8q6tPZRcy5jkizOkr7Kpk2WgNa
-	Rbau7+/tLig3jaJXlqnEakauvBjEnNQhX+GV2+RfTw/Ggw0ZG0jhbPuxJOwZRdQCGFn6FgkMErc
-	OULmJbBAOmGecpK89Od1LsKArh2ni66ZVq34ahzcC5yQN++1t099ClnlGpxl+RXap8TJZsG1hOu
-	Y2U2TdIK99+jM62fxqiAKd1z5qkge0tv35XhShMWpc7EJDtTgzr4Jvw3QhyuqBE2PLAAxldaU+u
-	Ah8KNA8qDp5tQ0YR+H6rQJ10kbTlyM2MSeKcTriup9HRHzVLv0=
-X-Received: by 2002:a05:693c:69c3:b0:368:2c6d:ddfe with SMTP id 5a478bee46e88-368afd86765mr4796119eec.9.1792720218428;
-        Thu, 22 Oct 2026 18:50:18 -0700 (PDT)
-Received: from [127.0.1.1] ([23.254.208.9])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369d9c0e60dsm1971091eec.2.2026.10.22.18.50.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 18:50:18 -0700 (PDT)
-From: Qiliang Yuan <odys.yuan@gmail.com>
-Date: Fri, 23 Oct 2026 09:49:49 +0800
-Subject: [PATCH v2 2/2] kasan/test: cover load_unaligned_zeropad()
+	dkim=pass (2048-bit key, unprotected) header.d=ownmail.net header.i=@ownmail.net header.a=rsa-sha256 header.s=fm2 header.b=QpP9QY6M;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=eFjE7Ys/
+Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id DA30E7A01DF
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 21:52:57 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-03.internal (MEProxy); Thu, 22 Oct 2026 21:52:57 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ownmail.net; h=
+	cc:cc:content-transfer-encoding:content-type:date:date:from:from
+	:in-reply-to:message-id:mime-version:reply-to:reply-to:subject
+	:subject:to:to; s=fm2; t=1792720377; x=1792806777; bh=cD6ambGXB7
+	3ssJDqyApt39o6A0cgIPa1xebyQdqUuRM=; b=QpP9QY6MAbuqUjvJ+DIH9BS3/u
+	iW14dS+f+LnhSrqZ0oD67fW5hdjoPEcfmO9FLmi/qqs5asSsSqDWvjUCZlWevqa/
+	wAEcrRh5eevv5TMJGW3HE1QnO5EAs1Ru/60dxdHQopd+HbQdMsZH1cyV3Hbe4GIg
+	LDlKNTDcmIdDqXROjJu2fODCM+vHI4HV52+OmNF+zY9ThAsjbPX4YPdo1QPpc7lI
+	qz+LCaI8PuA33J/CPtQ23TT3akQTUroWo83xc97i1tfCHOmxETABtxLGJU3IT3NV
+	/i6eE2RxwlQLBZW4kjbj/i4zorDD8ca2WYoE+KgD7Wc7uftjbgEp9fLAAR0w==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:message-id:mime-version:reply-to:reply-to:subject
+	:subject:to:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+	fm2; t=1792720377; x=1792806777; bh=cD6ambGXB73ssJDqyApt39o6A0cg
+	IPa1xebyQdqUuRM=; b=eFjE7Ys/awcQQ2GanV7ZgDGv1OSyoMkpdosheOsW3pPn
+	Fh7BSvWjtFwVdxhG7ThkktCWk90XFeR2kg5RlV3XtN4Iw3bLAK5QhpWNNKMXC5Tm
+	yxIDMyNcOpiNSoGZxeeKkEh720q7v/4yTVLazvmG6bXwuv24jf8fTQKjbL6RciVQ
+	o7E3n5Wrww8VXDaWMYYabcmyLLF1P62fZKyEgGu/m4HdRL+sFq2IDoglpWbKBfpY
+	FHNvDoBI3PN/gzIScGH0OXQfXQAZIh79VTCtJToVsuYH2Zl/7LJhh4RU+fosDA6p
+	s29dadf54kIlbzreQD1PGUFTfbojbHzdw4+HpkxJHQ==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
+	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
+	action=sign d=ownmail.net a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1792720377; d=ownmail.net;
+	mf=PG5laWxiQG93bm1haWwubmV0Pg==;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm2:rsa-sha256:CPwwSrzfaU7aGnrCmODJ/Q9PEe8zQoorbtr+UR+woV0HYG2
+	vr4eDIC5wPcxWqCHR5b0XZh4nOlpXXgvxzyRBf2yWgax7chFP5SsEmU7plmb+Uex
+	+XF+N37kWTOciOArdiOQb7hAc3H6vhu8FpvKqAqo2DUi0BGWmgX2cQ+7Rur0bGy7
+	2ngsXY9Bww0J81IpplXGZ+MJ6F5MptNRKKuyBz8JRxlWMeqnD2+LI9GqX+bZzPNQ
+	Aht4HL8RQxwz8AyWGuDoPRekRjtYJYbzmq7XgHunQmNmT1hc9JqD/4RwPFngJmuA
+	PUdzKiAqbJSXHC+9eDoXqtZVWxRGRj5Sgq5vBKQ==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
+	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
+	action=mi-m=1; hc=10;
+	hn=cc,content-transfer-encoding,date,feedback-id,from,
+	message-id,mime-version,reply-to,subject,to;
+Message-Instance: m=1; h=sha256:4JF+ZIJSDd7a16bsXCTNVhi2lGpaY06Nq339RHB4eWw=:cD6ambGXB73ssJDqyApt39o6A0cgIPa1xebyQdqUuRM=;
+X-ME-Sender: <xms:-b3aako_IvVolgK7BOrImE92ONp8rTF8UChink8JxqgFNTOb48_9qw>
+    <xme:-b3aattvHtkJwSRSA_tZjkAkDVxEIu06IKVAxf3DRTZv1UcHsO-bov3-A7MJcENzj
+    Jmj4DAxtQiu5SE2R7zL0dv97Am98eJdgge-21xwhV7neoSV>
+X-ME-Received: <xmr:-b3aaj06di6yjiga3y5hSaCvWMoF7VUgF1ebajmGzx_CmdwwRC0wfJERqj-PQVNg-6Gjh5jlpzcRRm87jFxE9iswshOus7s>
+X-ME-Proxy-Cause: dmFkZTERkwtIMOGUZMHMdY1kHqHFpz+WwWYtGMcExDBZbCYs2pEUua7f29LsxCZoqkDSTD
+    +/WHgNys0etvqLuX1rIqICejHIe8wtKISjKnDpOKPWqIYxCsE1Rs4ylY4TB3oGDg6uRMjn
+    RRoz6QE810emuHDqMQ+daw1Y0EPY+pSTFZ4Yff8B9SHUx8PzjZPrkGWAO7+EMrqIrTEefc
+    +LvVZnRNXDwa3M6fndQBYDQg5o9Cm+VCU2BUbxKZ2p8KVygcMh9wyz2MytjXxl9Uf9DNMb
+    bDq2L55Xs1KIYaMXH4T/8nRgCKwadPwL+U9v2OqNqlsG+87a59trm+c4CjTQmLC+UIAfSj
+    jHTEZjx6UxObjglHaHBnSyP3d/SyEAO3NzIGpc11ct0TF8r9W+N7F/oAdLgT5TaNpIwkHY
+    wRmEqf3r74XvLq9yKj4Ncs0y+yZEZGRYNeT4UPULxL6q6mduEnhu5K2veewu1qrI+iPx05
+    KAY+/tMT8JFl+lgWx+IIJGBNAvn97Lacvh7IYAFhhXvXccAwc9QwjjE4L7PNTCO4FwBxIr
+    axn+0Q4m0ZYI5XMCXbALPo5pR5kBqv0+hnmVZZ+RTFuraIH/C9La5myOc3bhYO+QTkKkTV
+    qOaEDVMKNtx5qXTWY0BNXHaZ9C6NjQfyn4WVtpGENVaeL/tI5Rv8jxAP3FBQ
+X-ME-Proxy: <xmx:-b3aaoER6G_myrOJoMPPjqIsT-WHWUI6Wx4Zx_K1Y7jVqHybOWIRJg>
+    <xmx:-b3aauvCNbq6nzn0CUX_xhFjjrt4pXAJZQslhIsf6HE_MgsnvrxUvA>
+    <xmx:-b3aarowGdPVwT0_cQN-nMebut41GL-e20-NE1xFsPVWK-7YX4P6QQ>
+    <xmx:-b3aalWdc0QZr8rEaLtXW7HrSkvVctuvZWSfipJGaMrrBUsY00LHNw>
+    <xmx:-b3aakjjWEFaFPLo_VVEo-RM8WuE2nKh3k8xDoB5JPfD0ZQP0PjPWMV1>
+Feedback-ID: i9d664b8f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 22 Oct 2026 21:52:54 -0400 (EDT)
+From: NeilBrown <neilb@ownmail.net>
+To: Trond Myklebust <trondmy@kernel.org>,
+	Anna Schumaker <anna@kernel.org>,
+	Alexander Viro <viro@zeniv.linux.org.uk>,
+	Christian Brauner <brauner@kernel.org>
+Cc: Jeff Layton <jlayton@kernel.org>,
+	Jan Kara <jack@suse.cz>,
+	linux-fsdevel@vger.kernel.org,
+	linux-nfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3 0/9] nfs: prepare for locking changes.
+Date: Fri, 23 Oct 2026 12:50:10 +1100
+Message-ID: <20261023015239.2163480-1-neilb@ownmail.net>
+X-Mailer: git-send-email 2.50.0.107.gf914562f5916.dirty
+Reply-To: NeilBrown <neil@brown.name>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -90,113 +128,25 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261023-bug-word-at-a-time-zeropad-kasan-v2-2-be0ecfbae847@gmail.com>
-References: <20261023-bug-word-at-a-time-zeropad-kasan-v2-0-be0ecfbae847@gmail.com>
-In-Reply-To: <20261023-bug-word-at-a-time-zeropad-kasan-v2-0-be0ecfbae847@gmail.com>
-To: Russell King <linux@armlinux.org.uk>, 
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
- Mark Rutland <mark.rutland@arm.com>, 
- Madhavan Srinivasan <maddy@linux.ibm.com>, 
- Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>, 
- "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, 
- "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, 
- Shrikanth Hegde <sshegde@linux.ibm.com>, Paul Walmsley <pjw@kernel.org>, 
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
- Alexandre Ghiti <alex@ghiti.fr>, Heiko Carstens <hca@linux.ibm.com>, 
- Vasily Gorbik <gor@linux.ibm.com>, 
- Alexander Gordeev <agordeev@linux.ibm.com>, 
- Christian Borntraeger <borntraeger@linux.ibm.com>, 
- Sven Schnelle <svens@linux.ibm.com>, Thomas Gleixner <tglx@kernel.org>, 
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
- Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
- "H. Peter Anvin" <hpa@zytor.com>, Shuah Khan <shuah@kernel.org>, 
- Marco Elver <elver@google.com>, Andrey Ryabinin <ryabinin.a.a@gmail.com>, 
- Alexander Potapenko <glider@google.com>, 
- Andrey Konovalov <andreyknvl@gmail.com>, Dmitry Vyukov <dvyukov@google.com>, 
- Vincenzo Frascino <vincenzo.frascino@arm.com>, 
- Andrew Morton <akpm@linux-foundation.org>
-Cc: linux-arm-kernel@lists.infradead.org, Kees Cook <kees@kernel.org>, 
- linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org, 
- linuxppc-dev@lists.ozlabs.org, linux-riscv@lists.infradead.org, 
- linux-s390@vger.kernel.org, linux-kselftest@vger.kernel.org, 
- kasan-dev@googlegroups.com, linux-mm@kvack.org, 
- Qiliang Yuan <odys.yuan@gmail.com>
-X-Mailer: b4 0.13.0
+Content-Transfer-Encoding: 8bit
 
-On architectures with CONFIG_DCACHE_WORD_ACCESS, load_unaligned_zeropad()
-does the word loads of the dcache name compare and of path name
-hashing.
+This v3 adds Anna's Acked-by and fixes three bugs found by Sashiko - all
+error-path related.
 
-None of the KASAN test cases reads memory through it, so nothing
-noticed that KASAN did not check these loads at all.
+1/ patch 5 - make sure d_drop() gets called in all error cases
+2/ patch 8 - dput() sdentry on all error paths
+3/ patch 9 - check error return from d_duplicate() correctly.
 
-Add a case that reads a freed object through load_unaligned_zeropad()
-and expects a report. Skip it with hardware tag-based KASAN, since
-arm64 turns tag checking off for this load:
+Thanks,
+NeilBrown
 
-  kasan_load_unaligned_zeropad, x86_64, generic KASAN
-  without "word-at-a-time: check the first byte in
-  load_unaligned_zeropad()"                                 FAILED
-  with it                                                   PASSED
 
-Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
-Reviewed-by: Andrey Ryabinin <ryabinin.a.a@gmail.com>
----
- mm/kasan/kasan_test_c.c | 24 ++++++++++++++++++++++++
- 1 file changed, 24 insertions(+)
-
-diff --git a/mm/kasan/kasan_test_c.c b/mm/kasan/kasan_test_c.c
-index b9e167ed5be32..c791512f6fc49 100644
---- a/mm/kasan/kasan_test_c.c
-+++ b/mm/kasan/kasan_test_c.c
-@@ -28,6 +28,9 @@
- #include <trace/events/printk.h>
- 
- #include <asm/page.h>
-+#ifdef CONFIG_DCACHE_WORD_ACCESS
-+#include <asm/word-at-a-time.h>
-+#endif
- 
- #include "kasan.h"
- 
-@@ -1673,6 +1676,26 @@ static void kasan_memcmp(struct kunit *test)
- 	kfree(ptr);
- }
- 
-+static void kasan_load_unaligned_zeropad(struct kunit *test)
-+{
-+#ifdef CONFIG_DCACHE_WORD_ACCESS
-+	char *ptr;
-+
-+	/* The tag check is turned off for this load on arm64 with MTE. */
-+	KASAN_TEST_NEEDS_CONFIG_OFF(test, CONFIG_KASAN_HW_TAGS);
-+
-+	ptr = kmalloc(64, GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, ptr);
-+	kfree(ptr);
-+
-+	OPTIMIZER_HIDE_VAR(ptr);
-+	KUNIT_EXPECT_KASAN_FAIL_READ(test,
-+		kasan_int_result = load_unaligned_zeropad(ptr));
-+#else
-+	kunit_skip(test, "Test requires CONFIG_DCACHE_WORD_ACCESS=y");
-+#endif
-+}
-+
- static void kasan_strings(struct kunit *test)
- {
- 	char *ptr;
-@@ -2264,6 +2287,7 @@ static struct kunit_case kasan_kunit_test_cases[] = {
- 	KUNIT_CASE(kasan_alloca_oob_right),
- 	KUNIT_CASE(kasan_memchr),
- 	KUNIT_CASE(kasan_memcmp),
-+	KUNIT_CASE(kasan_load_unaligned_zeropad),
- 	KUNIT_CASE(kasan_strings),
- 	KUNIT_CASE(kasan_bitops_generic),
- 	KUNIT_CASE(kasan_bitops_tags),
-
--- 
-2.43.0
-
+ [PATCH v3 1/9] nfs: fix open-blocking with d_fsdata
+ [PATCH v3 2/9] nfs: fix nfs_call_unlink()
+ [PATCH v3 3/9] nfs: remove d_drop()/d_alloc_parallel() from
+ [PATCH v3 4/9] nfs: use d_splice_alias() in nfs_link()
+ [PATCH v3 5/9] nfs: don't d_drop() before d_splice_alias()
+ [PATCH v3 6/9] nfs: don't d_drop() before d_splice_alias() in
+ [PATCH v3 7/9] nfs: Use d_alloc_trylock() in nfs_prime_dcache()
+ [PATCH v3 8/9] nfs: use d_alloc_trylock() in silly-rename
+ [PATCH v3 9/9] nfs: use d_duplicate()
