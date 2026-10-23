@@ -1,47 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.36.163.20
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792782931;
-	b=GPJZoEPf7CX+fJm9ZAZlTjbBN7OYglcoZIw5U6EsU6wDXzQG8vWc1c8j9VbGiP8gKjHr
-	 8vvTEbSTJJfMXO8pFzD98PWFGePHL2LkHoW28ALRfA1jH738qAHb0rq/N1eW3YN0YV0kC
-	 NXN30wxn8NcvB43BtJ1qGVDz8Wc8VrJ3Tk3F0VBKlRUm2DBvE8sFnV6FL31s9wyoxo9/y
-	 LxeDOZ3g9xJBtC+6oCrXOWcW3gq4NJSgyVxDZN4Ai4p0ob85cwSOYTUXYxIxvlYCiQcHO
-	 RVaOP5tCmKls955YsOysnD/v0nVauls7pHHUy6FyanXO0d2qMoCbVclEVqyr2unS/mw==
+	t=1792782948;
+	b=wQ9OHeTNwUb7qcjZfFkLohTPSxJNQ5Q7XPZYAurTw6LboFZQLoqvpH9aKqKxPfGdNZnI
+	 Gd+mSQ88aJnK8gwPO2i/EaH1GAxxv8l1PwBDyUlbxZ6zZc2sfD5U8I8A63eljFplktHPF
+	 V2DYHehUAg/vcmfvIRz7AnOsVSKiJZPkhyeh9RhlzQqP9Sgk8uPujH00+KONOz73eICFj
+	 7rE9Q8+kyvy+OIbL98ksynKPBllUrdVndgKR3Va1S7dRijfG5hxdd14V/CXRNPP2n3cJg
+	 8KNhRMgDOts9FQyfcMNdOH+fvT3knmgcneBlNA5geDJ9HasM6HDZ/ALNHMjUT3SQh7Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792782931;
-	h=Received:DKIM-Signature:Date:Content-Type:Content-Transfer-Encoding:
-	 MIME-Version:From:Cc:To:In-Reply-To:References:Message-Id:Subject;
-	bh=jAf/ZZGUQiG0sLvlhoisLQBnx7eBtPaDBFZqlZYAcn4=;
-	b=4dnk/4IAqOObmWKupJloVfbH3adlGQXy2bYPc+YaScDwoGGPkMhAij3ucONhUB1jP+UN
-	 FQYrT3cSpfw7QVP+dhtygvpVPi2sqjj1D5vuXXe7NxYuiALmOuLXSwZ1qjvIWx+KGqpm+
-	 RtfAlxfgsC26/06GKE9wu5OZkAsKvoV2QoqUlObdaqKrGW6Oc7BIUMdwF0MKBlC4c4qSX
-	 dcaptezVAgTnV3pc1I75n+luCOYKIjPnWOhADKCt9+5w9LQDr+NrqvB0twM3CrKdVZTcx
-	 ro9Hpbg5YLPyIq+ETTnwdYZEUewZm7rhaIb0XBAEtaAjARXHRKNiuzmXtK722zDUsQg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792782948;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:From:
+	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-SEG-SpamProfiler-Analysis:
+	 X-SEG-SpamProfiler-Score:x-atlnz-ls;
+	bh=GYDpi5RtVlsK0rkun9mc+EYvL0sZ5wpDL9jLCDRL5PE=;
+	b=ZYHCjik3I9FjS/7wGic1HygvwGY3zIIsTSkQI7Iq3h4v4DHHcx1HN1Xzm64Hb237OtB2
+	 bKIfQP8z9NGqn5gQgYZ0dLZsY1AeX1uuN0i3m+kwaXyBpYDkFRLFQUqt84QhLjJCctbYH
+	 jsdgz/O57RkOh4lB+IOe1VShVLBLsuRCsiueBx17YcLd6FGBztYlEgex8Bex5x+1njm0M
+	 A7Qf3EuFUVBUBFXVM0EZ+ia8YXM/cPYVBrUi7PiJ/X29AL9RlLESxK689K6ckiX/6SYPp
+	 5X3IH3xdWwjG+OrvSI3MtZFrrMYXFGGVJUmF6lh+ojjlrgCC6HjEyCY9jd7EbZVAeFQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IcR3oasB;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=alliedtelesis.co.nz;
+	spf=pass smtp.mailfrom=alliedtelesis.co.nz;
+	dkim=pass header.d=alliedtelesis.co.nz header.i=@alliedtelesis.co.nz header.a=rsa-sha256 header.s=mail181024 header.b=CCRfGykf;
+	arc=none smtp.remote-ip=202.36.163.20
+Received: from gate2.alliedtelesis.co.nz (gate2.alliedtelesis.co.nz [202.36.163.20])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48EFB606A320;
-	Fri, 23 Oct 2026 19:15:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E78E1606A320
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 19:15:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E78E1606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=alliedtelesis.co.nz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alliedtelesis.co.nz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IcR3oasB
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 81D571F01825;
-	Fri, 23 Oct 2026 19:15:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792782930;
-	bh=jAf/ZZGUQiG0sLvlhoisLQBnx7eBtPaDBFZqlZYAcn4=;
-	h=Date:From:Cc:To:In-Reply-To:References:Subject;
-	b=IcR3oasBpK7zRcENihfBkoMc8cPK+9KGfkCqsvY6e7buRncm4eB7tHwTlSiqfnNLw
-	 svAhqEsqiICnRr2h0dFr8v/pcpE6sNg+ZnlCUHiLMAMLUxmXT/yzmApZy5/hhcOvt4
-	 mcEEMlutJ7i7+azfDuejOsUr/5yLSAATa0lYHYdrz9g7Oi6v4ZrlRQHjL3uoI1PCor
-	 wdPjZtxKTLEttW6gwU69w+rtDFZdf2bXvAWdIjFtsnu4sA7hAXiYUtBd+m2z+Nx+yz
-	 h5QDmkyfieOBl3kIJuQ1qnk/+RHt09z7KKzJVLtU+YVLS9/xnOSoB0/+Nm5JJrpiO/
-	 WXylhFlRs1vYQ==
-Date: Fri, 23 Oct 2026 14:15:26 -0500
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key, unprotected) header.d=alliedtelesis.co.nz header.i=@alliedtelesis.co.nz header.a=rsa-sha256 header.s=mail181024 header.b=CCRfGykf
+Received: from svr-chch-seg1.atlnz.lc (mmarshal3.atlnz.lc [10.32.18.43])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(Client did not present a certificate)
+	by gate2.alliedtelesis.co.nz (Postfix) with ESMTPS id 3E6112C034E;
+	Sat, 24 Oct 2026 08:15:39 +1300 (NZDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alliedtelesis.co.nz;
+	s=mail181024; t=1792782939;
+	bh=GYDpi5RtVlsK0rkun9mc+EYvL0sZ5wpDL9jLCDRL5PE=;
+	h=From:To:Cc:Subject:Date:From;
+	b=CCRfGykfWdSCc2Jg8sJK3wQfYlYnKpTuILyDQsu7MBwjvLPebwlrGLeXkA5enQmLM
+	 BhNCaz2tt7x4MOtpXOjAWubIlpn1UpmKruQMcwKiZmvREOvvD6Ijfu/ZxMWu4NxROy
+	 3+vueRaQY/Nn14u7mJdWhpHfYVFnLZaxPfL57esUFcMOhETxmPXJqtlwbjF2badSBB
+	 Ds/KmEwMZvpSEu5eReO7mdkXVMnJw4ekxiRXrQQ6zBErqJnwN1RpEbwKMGYZQdrkWU
+	 tWbo1DMK2UXT1UfpGdm3kybdrRPoCNLiHuC44pH1fEqcDwZuZ7jzdwp7mdeEXezHnt
+	 IpNRHB8koZf/w==
+Received: from pat.atlnz.lc (Not Verified[10.32.16.33]) by svr-chch-seg1.atlnz.lc with Trustwave SEG (v8,2,6,11305)
+	id <B6adbb25a0000>; Sat, 24 Oct 2026 08:15:38 +1300
+Received: from carls-dl.ws.atlnz.lc (carls-dl.ws.atlnz.lc [10.33.25.22])
+	by pat.atlnz.lc (Postfix) with ESMTP id EE0ED13ED56;
+	Sat, 24 Oct 2026 08:15:38 +1300 (NZDT)
+Received: by carls-dl.ws.atlnz.lc (Postfix, from userid 1474)
+	id ECF9420388; Sat, 24 Oct 2026 08:15:38 +1300 (NZDT)
+From: Carl Smith <carl.smith@alliedtelesis.co.nz>
+To: wim@linux-watchdog.org,
+	linux@roeck-us.net
+Cc: linux-watchdog@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Carl Smith <carl.smith@alliedtelesis.co.nz>
+Subject: [PATCH] watchdog: octeon-wdt: Add a panic_on_timeout parameter
+Date: Sat, 24 Oct 2026 08:15:30 +1300
+Message-ID: <20261023191530.327734-1-carl.smith@alliedtelesis.co.nz>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,67 +76,59 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-From: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: Peng Fan <peng.fan@nxp.com>, Linus Walleij <linusw@kernel.org>, 
- linux-sound@vger.kernel.org, Liam Girdwood <lgirdwood@gmail.com>, 
- Peter Ujfalusi <peter.ujfalusi@gmail.com>, 
- Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org, 
- Mark Brown <broonie@kernel.org>, Takashi Iwai <tiwai@suse.com>, 
- linux-kernel@vger.kernel.org, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Jaroslav Kysela <perex@perex.cz>
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-In-Reply-To: <20261022-twl4030-extmute-v1-2-3d2dbe260df9@gmail.com>
-References: <20261022-twl4030-extmute-v1-0-3d2dbe260df9@gmail.com>
- <20261022-twl4030-extmute-v1-2-3d2dbe260df9@gmail.com>
-Message-Id: <179278264934.3497392.12554729400771682054.robh@kernel.org>
-Subject: Re: [PATCH 2/2] dt-bindings: mfd: twl4030-audio: document
- preferred name for external mute
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+X-SEG-SpamProfiler-Analysis: v=2.4 cv=FJW4xPos c=1 sm=1 tr=0 ts=6adbb25b a=KLBiSEs5mFS1a/PbTCJxuA==:117 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=LF8zZQ1HZBz04lkw01wA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+X-SEG-SpamProfiler-Score: 0
+x-atlnz-ls: pat
 
+The hardware watchdog period is only a few seconds, so the driver counts
+the heartbeat in software and stops poking the hardware when it expires.
+The resulting reset leaves no record for crash loggers such as mtdoops.
 
-On Thu, 22 Oct 2026 13:29:47 -0700, Dmitry Torokhov wrote:
-> Proper names for GPIOs should use "-gpios" suffix. Now that the
-> twl4030 codec driver has been converted to use GPIO descriptors in
-> commit 178c169a30b0 ("ASoC: codec: twl4030: Convert to GPIO
-> descriptors"), update the binding documentation to list
-> "ti,hs_extmute-gpios" as the preferred property name and mark
-> "ti,hs_extmute_gpio" as deprecated.
-> 
-> Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-> ---
->  Documentation/devicetree/bindings/sound/ti,twl4030-audio.yaml | 8 +++++++-
->  1 file changed, 7 insertions(+), 1 deletion(-)
-> 
+Add a panic_on_timeout module parameter, off by default like softdog's
+soft_panic, that panics when the heartbeat expires. The panic is logged,
+and the hardware watchdog still resets the board.
 
-My bot found errors running 'make dt_binding_check' on your patch:
+Tested on a CN7130 board with mtdoops.
 
-yamllint warnings/errors:
+Signed-off-by: Carl Smith <carl.smith@alliedtelesis.co.nz>
+---
+Note: octeon-wdt doesn't support pretimeouts, so the panic pretimeout gov=
+ernor
+can't be used.
 
-dtschema/dtc warnings/errors:
-/builds/robherring/linux-dt-review/Documentation/devicetree/bindings/sound/ti,twl4030-audio.yaml: properties:codec:properties:ti,hs_extmute-gpios: 'anyOf' conditional failed, one must be fixed:
-	'$ref' is not one of ['maxItems', 'description', 'deprecated']
-		hint: Only "maxItems" is required for a single entry if there are no constraints defined for the values.
-	Additional properties are not allowed ('$ref' was unexpected)
-		hint: Arrays must be described with a combination of minItems/maxItems/items
-	'maxItems' is not one of ['description', 'deprecated', 'const', 'enum', 'minimum', 'maximum', 'multipleOf', 'default', '$ref', 'oneOf']
-	1 is less than the minimum of 2
-		hint: Arrays must be described with a combination of minItems/maxItems/items
-	hint: cell array properties must define how many entries and what the entries are when there is more than one entry.
-	from schema $id: http://devicetree.org/meta-schemas/cell.yaml
+ drivers/watchdog/octeon-wdt-main.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-doc reference errors (make refcheckdocs):
-
-See https://patchwork.kernel.org/project/devicetree/patch/20261022-twl4030-extmute-v1-2-3d2dbe260df9@gmail.com
-
-The base for the series is generally the latest rc1. A different dependency
-should be noted in *this* patch.
-
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
-
-pip3 install dtschema --upgrade
-
-Please check and re-submit after running the above command yourself. Note
-that DT_SCHEMA_FILES can be set to your schema file to speed up checking
-your schema. However, it must be unset to test all examples with your schema.
+diff --git a/drivers/watchdog/octeon-wdt-main.c b/drivers/watchdog/octeon=
+-wdt-main.c
+index 171b46d780e6..d29a63899847 100644
+--- a/drivers/watchdog/octeon-wdt-main.c
++++ b/drivers/watchdog/octeon-wdt-main.c
+@@ -107,6 +107,11 @@ module_param(disable, int, 0444);
+ MODULE_PARM_DESC(disable,
+ 	"Disable the watchdog entirely (default=3D0)");
+=20
++static bool panic_on_timeout;
++module_param(panic_on_timeout, bool, 0444);
++MODULE_PARM_DESC(panic_on_timeout,
++	"Panic when the heartbeat expires, instead of a silent reset (default=3D=
+0)");
++
+ static struct cvmx_boot_vector_element *octeon_wdt_bootvector;
+=20
+ void octeon_wdt_nmi_stage2(void);
+@@ -143,6 +148,8 @@ static irqreturn_t octeon_wdt_poke_irq(int cpl, void =
+*dev_id)
+ 			/* Bad news, you are about to reboot. */
+ 			disable_irq_nosync(cpl);
+ 			cpumask_clear_cpu(cpu, &irq_enabled_cpus);
++			if (panic_on_timeout)
++				panic("Watchdog timeout");
+ 		}
+ 	} else {
+ 		/* Not open, just ping away... */
+--=20
+2.55.0
 
