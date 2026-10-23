@@ -1,108 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792760415;
-	b=hOtow2TLtqvHUIVNPlxNAkgVqrIVv1zIVR96gGOOo+70FVsLALv8EDh2jQmLaixpY6CO
-	 kRzMiijftZQAzj1VltneFroXxQa/ibsEAcMuZmPNPj8Ac0kKwTIlLpgk/doXurUVOaAgo
-	 S5+0TgHpNOlNljh3wBp4OC+WNP9hZ7bfwfUAzAQaxlFPnMNQo6GcYDoFEhVV9y0g5SbF3
-	 Mh8FaLLvJFe+hJDpJH5iIxcmLGtS0ShErsGue/fT82a1BaHmRBL/6yfCcAVO082wwSQwS
-	 ySGDLQtGxDG1Ffoh/6fW7aY1r1xqyt+oPzBhTbGDckERRMolvadQqB3y2mtFxlBdw+g==
+	t=1792760497;
+	b=SoeHns3s4zL0i9/OzqSIZi1RkAvRrUbvUKalYX4lREBWZCzoJqJgGX0i97thzKSING8f
+	 fdBeKTeeM2Sjr5hvzi5nJe+22r49ZQxISKzyMueCPhjjptRbxR1pbgFulnXvuPGqemmR/
+	 vay29j2XJodfPNSpudIDCkOXCzq6hRLetU+YDSRJpEmmnSBut3uAib64O07ax8udbqDt5
+	 lKA1OMKDlLXSCmu7LCvi56za7ydvrQghP/tHTvZcF/qD5Zxft6/GzzWpLV7q/MzYHxJ+1
+	 APN6TJYTzkyPzXB18GLz4QRq0UtMfhgFrdptnhSvPjGA0v7FlGvbUmUnS+PKRWwhqBQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792760415;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-Spamd-Result:X-Spam-Score:X-Spam-Level:X-Spam-Flag;
-	bh=CGkjdIfQ2kWLFqSVO3nPKYQIl8t6u+ZHR5jt0u0MANQ=;
-	b=hF/aMuR8hwBPfbe8vANJp8G46he6I0+THJ6AupOMQ8v/5Ma166Vl3SVUxkPFcBos7Mxg
-	 lPSHom2S//2IBt8qdtj/fT3IKxRqkbWJ9spuKqD7iVyM3c95oYp6eiaf1iDKncZAwg/hw
-	 U6YZpqh6dwW4sM5JJtlDDItOquJTTNzyhhikOdYWPTUUm8eXhjf3lrVUaCcQSNfqENXyx
-	 A5zU8VwYI27Rnw77mt82HNx58Bu9oJypcQ9VBjGU6sPBn9NxFc5Bxh5uMDmmvOX89D7lc
-	 eT4lJYPDbU9b4acu9C6lVtZvbXki5v76BDSjq27LZQ2Qgom+QKQQWOzDq7VP1C4ZIFQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792760497;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=1f6kYcZtrUYkUfjtStdqQg00V0eNduZavh/6mKW3Q/4=;
+	b=PO1Uegme6iIFAE3l/EmXjgwY4ziMKBrhouNMZWEJNdsbxijLKSP3t1XThh2Ym+k19T1I
+	 F5MflRigzaC2ASLcRI3Q3w66mR2CjPGCnafPDCEJzBWPCEHqbN9tasvF4uD3XaxmqrC4o
+	 UR5CCKeyjJmWxf3FfWKQl22qL8Qa//DJEG4CjvuCLYE5T8TTFnjEoeAmdhjY/RhU8b17X
+	 mXHesePIJWZTD95DdPp4UT7nX+6hSJkpmknGblQpERv7pGS4avRcm2ygKBPEDJCku0zn7
+	 njg4PZXzA5J1X+i/CjN1zceusdgKstfT5/nzr7gd2b0531Q8nnsGddQLgtyxnLqYmDg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=nbN2jT0b;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=qmfmHZTn;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=nbN2jT0b;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=qmfmHZTn;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=resnulli.us;
+	spf=pass smtp.mailfrom=resnulli.us;
+	dkim=pass header.d=resnulli.us header.i=@resnulli.us header.a=rsa-sha256 header.s=google header.b=dA+0fYF5;
+	arc=none smtp.remote-ip=209.85.221.46
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9B66606A31D
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 13:00:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E9B66606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A983E606A32D
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 13:01:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A983E606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=resnulli.us
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=resnulli.us
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=nbN2jT0b;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=qmfmHZTn;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=nbN2jT0b;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=qmfmHZTn
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 2A0361F785;
-	Fri, 23 Oct 2026 13:00:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1792760413; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=CGkjdIfQ2kWLFqSVO3nPKYQIl8t6u+ZHR5jt0u0MANQ=;
-	b=nbN2jT0bJ+1hEWNmQMV68E0bK59uevv3wh0s4HgOA6Z77CrVn7bBKopcNV6FBOhOjBxmAK
-	LSQ6mg5Bx/3cn7tFcuwqP8sn3EesbXT/md+yTtFq8JYXM5NxG6yvZzzpy6t6nNZ6QbT9Lp
-	k5Wu/hMJcRI0+VCPD3cMO2Vj0Jx0rss=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1792760413;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=CGkjdIfQ2kWLFqSVO3nPKYQIl8t6u+ZHR5jt0u0MANQ=;
-	b=qmfmHZTnKLgVSgw3CxWFYZZGj6k5bDwHfjuEOGcYuLMqYbdEaU8j9h5cJCy02vJqHx0RVm
-	PU1Kqb1ZznCr4kBg==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1792760413; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=CGkjdIfQ2kWLFqSVO3nPKYQIl8t6u+ZHR5jt0u0MANQ=;
-	b=nbN2jT0bJ+1hEWNmQMV68E0bK59uevv3wh0s4HgOA6Z77CrVn7bBKopcNV6FBOhOjBxmAK
-	LSQ6mg5Bx/3cn7tFcuwqP8sn3EesbXT/md+yTtFq8JYXM5NxG6yvZzzpy6t6nNZ6QbT9Lp
-	k5Wu/hMJcRI0+VCPD3cMO2Vj0Jx0rss=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1792760413;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=CGkjdIfQ2kWLFqSVO3nPKYQIl8t6u+ZHR5jt0u0MANQ=;
-	b=qmfmHZTnKLgVSgw3CxWFYZZGj6k5bDwHfjuEOGcYuLMqYbdEaU8j9h5cJCy02vJqHx0RVm
-	PU1Kqb1ZznCr4kBg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 5915B133F3;
-	Fri, 23 Oct 2026 13:00:12 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id GRe3C1xa22oBKwAAD6G6ig
-	(envelope-from <pfalcato@suse.de>); Fri, 23 Oct 2026 13:00:12 +0000
-Date: Fri, 23 Oct 2026 14:00:10 +0100
-From: Pedro Falcato <pfalcato@suse.de>
-To: Luiz Capitulino <luizcap@redhat.com>
-Cc: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>, 
-	Andrew Morton <akpm@linux-foundation.org>, "Liam R. Howlett" <liam@infradead.org>, 
-	Lorenzo Stoakes <ljs@kernel.org>, Jann Horn <jannh@google.com>, 
-	David Hildenbrand <david@kernel.org>, Jakub Matena <matenajakub@gmail.com>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [REGRESSION] mremap() fails VMA expansion when VM_MIXEDMAP is set
-Message-ID: <attZIKD7GfoNeqbg@pedro-suse.tail5790ac.ts.net>
-References: <20261023023106.515365-1-luizcap@redhat.com>
- <8c53e58c-f7d2-4e98-8d03-7ff1163c1159@kernel.org>
- <9544f4ce-f5d1-498b-91ed-906b37122e31@redhat.com>
+	dkim=pass (2048-bit key, unprotected) header.d=resnulli.us header.i=@resnulli.us header.a=rsa-sha256 header.s=google header.b=dA+0fYF5
+Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-48e09aa5264so505750f8f.2
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 06:01:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=resnulli.us; s=google; t=1792760495; x=1793365295; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=1f6kYcZtrUYkUfjtStdqQg00V0eNduZavh/6mKW3Q/4=;
+        b=dA+0fYF5NJO5vxhD6WsfE3GuOrunJPEPXuH20p/OWeGyCAQgyez/yng8gcWtHHKDRW
+         aNNEpTkgJ/DjomFukcZkpeb6Q7E/kWVRL9G1dBUB0P9OUUvF+ziO60N0H3rvhfPEkMkS
+         8IPds4ztnx4D+xQpBrTJ0QwMrWzos9Yj4MBRMbVDPujBjU79BQGF9Oxb7qG76rknzGE4
+         a5iwk9PZe8SqreUHjx76aszDfzAo9TOoODm74vaYhGYt/lMjoiSK1vLwpZFU3R4Zw7F0
+         7HoIGhXLOxKs0+6hz0CBwmLnam0DcpMdiubzbHtmfRhLHWC4gJvsvSCGUFlitbgTI2Kv
+         /hog==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792760495; x=1793365295;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=1f6kYcZtrUYkUfjtStdqQg00V0eNduZavh/6mKW3Q/4=;
+        b=goIOQm2nxqfKLjdqbGkXo7IGdKYed10kbqCrz4DPioe4jImrgE0aCX5SUxh5eDQYK8
+         Ex2N5FHC9y3kkmeR4f6ySm/55KS1IZROQNrsjpwycgYVw2ri4sZXu//4k1m0MKey2D2E
+         5Z+wC6OnR5M4A7lELACx9SKfv3r59Yz/MQEqEJiPVirt4oPMgc/pwJAzxWPJdcplQFv8
+         MHJso50Ugz5c3h5P/e0EBhMG201Rg+Pp61qhvyzdBe4i2QNE20KbMnCMrI1US0YbeQuB
+         bwbnszEDhZHwsMSNI7BRgFUfnsBYH5Jzd4Ka6vCIFBA17D1Pspoqhf25M9ymTsKSJ34l
+         929A==
+X-Forwarded-Encrypted: i=1; AKwUvBwG9Jh7Fwj0xuqFpE4qRtET874KmD0TPJSaANEvAJG7P45NIIS14wMo5bMH1VdnFp1WakMEo39wmh/goxk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJviztKrhfOjgFhpNfZxLn/O+JnaXCWTQi6KR8NnCKMDcq4kAai
+	yV8MZRMb6LQBTFtm3EhbxYlj+wkwsIZUM4lndh+aVuxmiwB21ESBVDln60o9dC2HiBs=
+X-Gm-Gg: AYBFou1PHGBZYow+AUxDvXuyqDizsyKShDp2WM2qQsA6c7mlJjJAbfKaFB22pzLhlTB
+	5uwhgOaejJ5e0TyrMGZvklVlKX+6OoFOX4M0EmPtybvBVaV+wo1MvnTNtUKb/DeE+sPLnxjd0Zj
+	sTApyDYVZLFoEM+cc6ZEaHhwMXKngCGIR7sDfFMy++vpn2U1oei80Pxgixb+c+WoHVxJqBHjW0S
+	SBCCrw1x0J3DuZqsGnCNvJPUkW3/R9h1YJG9c3gSQT2CVPKnWuB8l/87BF1M9aRUfUPvoCVnHlh
+	PfMKd0OX//Rr5UK9nXhxV2Xc5VRs4M46EMa394/Wbl2u6jE+RAQVfmiLoWK0ZOCPDIE3HUcmYHh
+	znTxQ3bOQdoEKm6LPWtoQmtVfdw0iqsSbvavF4s6FqMQ0lXv/4vjf8qfyodma7xonZ48sH5kQ+A
+	AF4Ux4mIve5+jcbnDcaw+5Q+ebWMLSFaFy40tGR0EMjTsJ51a0ZkIa7DIByxBO24ntFqawWsyak
+	TH2Xzv6UWvnEYpIhwWtYJET2Q9CFnAVfgoab1FACUBo2ztpeRCJQJ9a09cGnZxLMks=
+X-Received: by 2002:a05:600c:19ca:b0:4a2:397:73f6 with SMTP id 5b1f17b1804b1-4a211c8fa81mr35809955e9.8.1792760494721;
+        Fri, 23 Oct 2026 06:01:34 -0700 (PDT)
+Received: from localhost ([140.209.217.211])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a29cdb75cfsm3940865e9.9.2026.10.23.06.01.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 23 Oct 2026 06:01:34 -0700 (PDT)
+Date: Fri, 23 Oct 2026 15:01:30 +0200
+From: Jiri Pirko <jiri@resnulli.us>
+To: Jason Gunthorpe <jgg@nvidia.com>
+Cc: linux-coco@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	linux-api@vger.kernel.org, x86@kernel.org, kvm@vger.kernel.org, linux-doc@vger.kernel.org, 
+	david.quigley@intel.com, lukas@wunner.de, ksinyuk@kernel.org, rodrigo.vivi@intel.com, 
+	cedric.xing@intel.com, sameo@meta.com, drdeeglaze@gmail.com, 
+	James.Bottomley@hansenpartnership.com, aik@amd.com, jpiotrowski@nvidia.com, qinkun@google.com, 
+	pgonda@google.com, jic23@kernel.org, alistair.francis@wdc.com, ankita@nvidia.com, 
+	suzuki.poulose@arm.com, kas@kernel.org, rick.p.edgecombe@intel.com, 
+	elena.reshetova@intel.com, dave.hansen@linux.intel.com, 
+	sathyanarayanan.kuppuswamy@linux.intel.com, peter.fang@intel.com
+Subject: Re: [PATCH RFC 13/20] Documentation: ctlv: Describe how to write a
+ family
+Message-ID: <attaLkZFIGSKLmgZ@FV6GYCPJ69>
+References: <20261015145053.3664509-1-jiri@resnulli.us>
+ <20261015145053.3664509-14-jiri@resnulli.us>
+ <179245258505.58760.3972297562218204862.b4-review@b4>
+ <atjEgLYpgbZNzfkZ@FV6GYCPJ69>
+ <20261021144951.GR3008132@nvidia.com>
+ <atjiW8bnqDZ8zb5t@FV6GYCPJ69>
+ <20261021164857.GT3008132@nvidia.com>
+ <atnGniIHxIV-vzVC@FV6GYCPJ69>
+ <20261022192118.GC3746973@nvidia.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -114,62 +113,51 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <9544f4ce-f5d1-498b-91ed-906b37122e31@redhat.com>
-X-Spamd-Result: default: False [-13.30 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	RCVD_TLS_ALL(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[10];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[kernel.org,linux-foundation.org,infradead.org,google.com,gmail.com,kvack.org,vger.kernel.org];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo]
-X-Spam-Score: -13.30
-X-Spam-Level: 
-X-Spam-Flag: NO
+In-Reply-To: <20261022192118.GC3746973@nvidia.com>
 
-On Fri, Oct 23, 2026 at 08:13:56AM -0400, Luiz Capitulino wrote:
-> 
-> 
-> On 10/23/26 3:16 AM, Vlastimil Babka (SUSE) wrote:
-> > On 10/23/26 04:31, Luiz Capitulino wrote:
-> > > Growing a VM_MIXEDMAP VMA with mremap(), with or without MREMAP_MAYMOVE, fails
-> > > with -ENOMEM when the address range after the VMA is free.
-> > > 
-> > > This regression was introduced in v6.1 by commit ca3d76b0aa80 ("mm: add merging
-> > > after mremap resize"). This commit changed mremap() to use vma_merge() instead
-> > > of vma_adjust() for the expansion case. However, vma_merge() returns NULL for
-> > > a VMA that has any of the VM_SPECIAL flags set.
-> > 
-> > Hi,
-> > 
-> > 6.1 was a rather long time ago. How was it discovered just now? I.e. what
-> > use case broke by the change and prompted creating the reproducer?
-> 
-> The use-case that broke was an application running on an older kernel
-> and accessing a GPFS volume/FS. I was told that GPFS sets VM_MIXEDMAP on
+Thu, Oct 22, 2026 at 09:21:18PM +0200, jgg@nvidia.com wrote:
+>On Thu, Oct 22, 2026 at 10:22:55AM +0200, Jiri Pirko wrote:
+>
+>> >But it does work well here, and matches what rdma and fwctl did as
+>> >well. So maybe iommufd is weird.
+>> 
+>> Well, one CTLV chardev is always backed by one device. I think this 1:1
+>> mapping is clear in the device model. Iommufd indeed looks weird in this
+>> matter.
+>
+>iommufd doesn't do 1:1 with a device..
+>
+>It is more like netlink where it talks to all the devices in the
+>system concurrently.
+>
+>> >> Depends on the user/subsystem. Either families_dump op could be used of
+>> >> udev uvevents that also carry family inheritance chain:
+>> >>     CTLV_FAMILY=ctlv-attestation-tdx
+>> >>     CTLV_COMPATIBLE_0=ctlv
+>> >>     CTLV_COMPATIBLE_1=ctlv-attestation
+>> >>     CTLV_COMPATIBLE_2=ctlv-attestation-tdx
+>> >>     CTLV_COMPATIBLE_N=3
+>> >
+>> >I wouldn't try to link it to udev either, by the time some userspace
+>> >uses the cdev the udev information is gone, and may be unreachable
+>> >from inside a container or similar..
+>> 
+>> This just gives possibility for udev to work properly. Depends on
+>> the user/usecase if it's going to be used or not. Not sure what you mean
+>> by "udev information is gone". Udev might use these uevent info to do
+>> aliases, similar to dev/disk/by-*
+>
+>I don't know if you can encode N compatible strings into a file name.
 
-So the application is growing a file VMA with mremap?
+Yeah, the udev rule would have to have some logic on top of them, sure.
 
-> a VMA because it inserts pages in the process address space with
-> vm_insert_page(). I then asked an LLM to check if there was anything in
 
-FWIW this is really odd for a filesystem to do. I see we have two filesystems
-upstream (at least in 7.3) that do this; that is, cramfs and FUSE DAX. This is
-arguably weird and should be fixed. Perhaps the VM side isn't giving
-filesystems the right flag here.
+>
+>And in a container or something you can't get the uevent, so no client
+>software could rely on this information.
 
--- 
-Pedro
+Okay.
+
+
+>
+>Jason
