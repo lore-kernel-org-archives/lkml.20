@@ -1,82 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.178
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792722686;
-	b=FdCrnGrxTl2h2H2H62Lf+o4JnE1RvdJ+S7TqLP+bJYJWUYwqlH2jH3HLSSMsg3H1tT4K
-	 0ZB1mh1U7d9kWtQgInzuv9F235nLm1WeP9GSNY8RPMhBh2CsetbDiSjjqCKM8IBrUNES3
-	 YP/5cXRzqCB00kEUKD9Geca6ZYiBU0tQY2XKKHVu3Gln4i7uNJ3k7aQTa+eiTEFCVUbtV
-	 E8zCDjkrEG6XcRO7ooenu7J+owYVMzGavPK7Yb+OwGntHvJIzK+gDWae48IOS6jFdLqtR
-	 oyljooIoDh4/W9+EDZk2N35VbeY36/BWuybqiXOvW+QN2OphARrtGT7i7ju6D6m9FaQ==
+	t=1792722693;
+	b=T0vUJMBzbzCpe0KAYlEje7c58774/Z1YR/XQNaQVR+Kw14pizSNZj33z9SS60nj9kgg4
+	 JuYa3wDrdJqdjLNdNkgEAgFNsV26IZtugmJtiCsV2QnlzCbC6AG9seUT4vKF90KIIxLB6
+	 xfMoScxHgDCMrr7HfQqzxpNjmRhA6BXXul/6enh0fw7P7va01fh9qcGp5KtwT15xpc0v+
+	 Nu0L2528bbhZU73qBvQ2RSHv/M6ay99IQG/nvBHYKW6T8imOS+I2CtDdfRQuoAxktZ4N/
+	 0N9FUH4dFZM3BwBbWzpHKlicbd6ameX8GRPtbzaEvNwiy2l/g0Y1gYAQLPY5igozMlw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792722686;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792722693;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=TdC2YU/7lyTzZkxDhw5asx021VZsxqMU4X1jjnTodL8=;
-	b=rETTlcXihgFo2/yWYLW0kyWwn61zC6bu0xlEp5VAiiQfHcZI7yYwF4i36pboNr2vyNTJ
-	 NJKqtb9uPNtlXNYZrNeIr5JsMLIpIai8A3QIeacdJWUGe6AM0tT/XrSjx8lFacUu1u8iZ
-	 jyuABb8Dho8KVFxfly1iBDicE1jIVhNOuYgtmZxIKPEJCO/DmfRXldj9qjz1Qe5pQ8qnf
-	 mYR3ERbHd6w2Ku3R85CCd1Oe/7Aw7HiL+bwv+bQikCPpoZWhAc7gWJOJ4zlw9nrbSwn28
-	 ZjeHNBnQlNO+qa0vxYVWzOQ+wwGQnUJ+QVnjR63XJOCGdkzKhp7b5JNomFHYjNQIFiw==
+	bh=vFsDRt0lNhWFHZQTXpeKzbrFyQk7dRmTZwu6sQNhBXU=;
+	b=FckmaeqDVLrwAvP7/iyAzEhgXXWQMXn4Wap53jaazhU7mzCXO2xhP5AEd4o5K3UlcGyV
+	 In87V1bTCJ6phULfgp9rbGl3Ll9Sjl3vnD8rzy99APyzRafjpFKihvwizXQDXlLmfh9oR
+	 8awtfD/NDC9rpOGy41kZxQl+lkii8hk64XOu7bRvZw5WPzzPv1Drh/1dC/BGhgAOMMrAJ
+	 IT/9y09yqjbR1O8zrtnDBU724XqmftKOfJyyyNT6/E7I6v87Rvln6mlsQ611A3KbzFftm
+	 yk8jS102J3e81yj8vBQn2/pYyzEwEjT8sK91b0ElrGmGiZP3mLR99P83T17n4rwiV+A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=k+LbJpp+;
-	arc=none smtp.remote-ip=209.85.215.178
-Received: from mail-pg1-f178.google.com (mail-pg1-f178.google.com [209.85.215.178])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=CxndZ7Qa;
+	arc=none smtp.remote-ip=209.85.210.172
+Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com [209.85.210.172])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6173606A31B
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 02:31:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D6173606A31B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 486DD606A31B
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 02:31:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 486DD606A31B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=k+LbJpp+
-Received: by mail-pg1-f178.google.com with SMTP id 41be03b00d2f7-cd633ef819bso181759a12.2
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 19:31:25 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=CxndZ7Qa
+Received: by mail-pf1-f172.google.com with SMTP id d2e1a72fcca58-89f85edd210so147751b3a.2
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 19:31:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792722685; x=1793327485; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792722692; x=1793327492; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=TdC2YU/7lyTzZkxDhw5asx021VZsxqMU4X1jjnTodL8=;
-        b=k+LbJpp+2lF6brykMMSEFsfxbR1vyf49x+qykv07u1iRFSOQd9SlLr8vm82HGUsrrT
-         QPInWkto4gnChu6CzZBRxhUSO7QZMSM6rgdhVve91aYe41kgnIcbSU9VMgupSzJ7Bayl
-         Aou4YPXzRixuF6dJe4Nh/v9pCT4TuJzzvFW1D0oLbtKTPG08lunbReR5YH2uXW80N77H
-         YVn9DzUyxATw3BMJZ8rSB34KTGF6xBDeTgtkYvYVy8tK2NA95TGaPvcoLE8saNRi+HWI
-         0wogt+rraOjGFDrb5zRHX1vuq0HUUi71cIoUL0Z+feUvGUabFEn8RaPXiej051CJ0xBc
-         cD/A==
+        bh=vFsDRt0lNhWFHZQTXpeKzbrFyQk7dRmTZwu6sQNhBXU=;
+        b=CxndZ7QaDwRyJ69KpmJUIl5OO5i0QYm1TWc4EqX/gHOag+9SSqnnyq4En1k+nj7LXI
+         zcSPoR9U4zqNpAs9YDAM3b2rkYoPSItPRiE21qUx1no28u6/sTyFxnRxQMjSB5lzQFtf
+         jjpEJ6wmyqaGjW6qPWGDPa0EtLKZmT8buCD+NDKARHNceo8CdcMIMGiaqqQpWpUQ89kW
+         ajExs4efzDrAEHV2shpktzprUWj8r3zCVJgCCvpzyvPfGAy7PbSR2uQvtZWMNhi5hpd+
+         UnAeUL82gdrtMa3H4G1SMJDPNYUTImB1uv+e7kHpIyaLYPIMqYMiKN1rLNkrsJtRbgFr
+         gwUQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792722685; x=1793327485;
+        d=1e100.net; s=20260707; t=1792722692; x=1793327492;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=TdC2YU/7lyTzZkxDhw5asx021VZsxqMU4X1jjnTodL8=;
-        b=W40YFF1r0DnsDbDQJUkN9M3TMNCo0AIcC7U8G5GlyF4IDA8GfhIVZYEDkhAhZbxzCH
-         pChNdPn8O+BVT18sGWFvwVwzZ+R9W+GAe5GptNYXiHYGAhZEhT5BsC0XKjI6BQGLP2bx
-         KiXLafm0sr9jNgw0wUYHPLDSiEStOY2CK77dzhS/FTFR23OnYi72FAAqvT8aZClNaL2m
-         y9wZF4i8RfflzV3wrg4UVOuATjYkl2X/253fg2Qd0yRprxQ6viudH203Q55pt37YF5oB
-         uua+Cd6DLxHOuJHUuoee49ak1HCfL/Hb+F0kOsD44JS1I4ol5K/aoJjXW0Q9r2ZGnhpD
-         CxTw==
-X-Gm-Message-State: AFq9FYIR+eZdZ2Yym3slBVZGRHvnPSST4/TkyHMgFN0PgkJn9Q3dATu/
-	9PojQ/PIK8FWEsl+DjTV93HFibTQN+6IYvmO9+zcu7YBIWST0Fh6OzvF
-X-Gm-Gg: AYBFou1+4hFqh4lbmt6BRCVWwDEtJlo7NyHQdXDdZ7o9O8O5M+oecIYKEgrvLQNfeQB
-	2yNqjXkTeHiERJzHrZec7yqXQblR1PEsHBXrEI8lpv7ayNvus3IN8irNDolJ9w1WNss/jzSXPJT
-	pBo735O4/XBSMNQslZyLlEGggJX1GF6eDBxqiBz0CJQd0xUykrpTdcI9V3mfcPfWmoiOhWTNvmr
-	Ds8tmVzfLjTB/pFncjkxOeQayY9rRsLUWxdo5pv3jdH1GYWbP1yVPzU9MzNPYMOaWFcz4my5vLx
-	8NxN6lZCIegDRAkfEHA06ZmAyI0PBIBdEidcIOJlmoc+vGAEkB4QXStONWxiwSz2bJb90QlK/0s
-	/DppIkMqONJxj5wkgSOYxZq1WozHK/i8+Co/Ofgzu+Z8KP7LO4xLZGWmhpwIk8q7DET9me1brJ1
-	pqZnAf7fsaGDACTgovDKWwzKG6RqcCOAF7K0H68q7Yzkcczlsbs1cXDF8cCsnheLatVLcZS0WqZ
-	CY/K+mNlt7eS+tKXBYm+2H77IWaDTsIwSNrSIgknEiGQMSIz1KNYlnaHCo+efOJ2L6VmhRKpSL0
-	gfvzxDGWMr9GdjJ9MmyjNAxu0IRe6K9A1fEJsJwnKcxjnHyPOKdfVnCOEfD7M76iFM9e/UIK
-X-Received: by 2002:a05:6a21:70cb:b0:3e1:1eca:2214 with SMTP id adf61e73a8af0-3e37668ea73mr712556637.49.1792722685212;
-        Thu, 22 Oct 2026 19:31:25 -0700 (PDT)
+        bh=vFsDRt0lNhWFHZQTXpeKzbrFyQk7dRmTZwu6sQNhBXU=;
+        b=yb7aHaoUfWBownhIdRx+05rX9pr6Au2VvZhpdo289pSE2JfjqBXKFwIXwJxYwivxHb
+         LO86yO1HWryYYlvGh4H5xJ3v4/vjhhhdHm6aTGsxPzEKoRffhT/3OX6ZWXwCOcivBHsp
+         ei5k/kvCKUlhVxQn/ftHScJPKj0CuWfCD5pLc8p2d004SQN5YC1UsYPgQ4c9uintctV+
+         3KehXDUWz0mgFaSiH+Bk4vDWHCcogTgglv1umeNExaJUBuYuFI6ycOB/IHQT7VKfPk8b
+         IQ2ILOYrOeCyv4Ad3fDrTkwFT3Qb4FQVF9Qsb3cXfil8GCamySRWaGPzebtYhja3vuv8
+         ynig==
+X-Gm-Message-State: AFq9FYIpBZx01WhbKAL96MN2+BBHgmjw/W/jOyew3GrhvMxm+JsUo1/p
+	y713x/vLP6c6EEYd62YW00Be0aiEYPvKtr++8r0fedsJ7yfDiHtdkW71
+X-Gm-Gg: AYBFou1TV4geULWqjQfX+SHB7CHOzAyr5O+R85iWsS4Bxc0cw45zLWsSqkWCDYNJsxG
+	oHI6QU12GYb36JafjvflE6rcOG+zXC65MiXYhHZMu1nMwqbxbbnDYrujerf/50P1cJRzox2iNVG
+	uZXb/KjV+4taMGHIb3jpxpD++L23eRqaR3LMvJIUJYCn2aFiSVD/ZDvyuFKZJYZ2YWNZzGobhok
+	UF4Oq80OySghV2AVdX/81EiXzQMloZ19crPY+EW0qjcPj20HF+kvjrHdBO/p9sUffK0Dw+uOr2k
+	wOS9QmNGjf0UvrcBiuAuzq51/WBmDQhLdKlHLFiFdX4rZ+34UhbGVf346zl27vrAImTWhKQIKpu
+	H9LD3DqTZ6huQFK1j4tuMu9Qu3V8M1JbegM0y4We3fxkJunpBTeL3+KPdPVRNDf8DOFGqDMkvkw
+	Ix4vt++X1mBz0TCz2LoqCZsXdlJvWl7MHPjAmRIdAsa4Y/1ZN2p/beq5G+CnpvaCNs9Sm7Fu39U
+	BKpCl30cIC2+yQSiyULNOut398bdc6l+8UffaXuMfp2kjSDIpKkBh6ySy+ijK8Zmiw4aaWQj/Vu
+	i6qETx5SK8/NVg7gzAVeZPlG5UEMvralN2BKk1hRHcCbUfXWNhyD9FoPwk+BKKc1bLTsa1Nc
+X-Received: by 2002:a05:6a20:9c8e:b0:3de:4a1c:a95 with SMTP id adf61e73a8af0-3e376783287mr592947637.91.1792722692511;
+        Thu, 22 Oct 2026 19:31:32 -0700 (PDT)
 Received: from localhost.localdomain ([240e:46c:1d00:19d6:7438:ad54:9ef4:bc36])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd8ba89a40fsm279852a12.14.2026.10.22.19.31.18
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd8ba89a40fsm279852a12.14.2026.10.22.19.31.25
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 22 Oct 2026 19:31:24 -0700 (PDT)
+        Thu, 22 Oct 2026 19:31:31 -0700 (PDT)
 From: Yafang Shao <laoar.shao@gmail.com>
 To: mingo@redhat.com,
 	peterz@infradead.org,
@@ -93,11 +93,10 @@ To: mingo@redhat.com,
 	tim.c.chen@linux.intel.com,
 	yu.c.chen@intel.com
 Cc: linux-kernel@vger.kernel.org,
-	Yafang Shao <laoar.shao@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH 1/2] sched: fix stale get_pref_llc() stub for !CONFIG_SCHED_CACHE
-Date: Fri, 23 Oct 2026 10:31:04 +0800
-Message-ID: <20261023023105.28829-2-laoar.shao@gmail.com>
+	Yafang Shao <laoar.shao@gmail.com>
+Subject: [PATCH 2/2] sched: use static_branch_likely() for the NUMA balancing tick check
+Date: Fri, 23 Oct 2026 10:31:05 +0800
+Message-ID: <20261023023105.28829-3-laoar.shao@gmail.com>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <20261023023105.28829-1-laoar.shao@gmail.com>
 References: <20261023023105.28829-1-laoar.shao@gmail.com>
@@ -112,35 +111,31 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Commit b636fef85bda ("sched/cache: Introduce task_struct->sched_cache_grp
-to fix UAF") switched get_pref_llc() from taking a struct mm_struct * to
-taking the task's struct sched_cache_group *, but only updated the
-CONFIG_SCHED_CACHE definition and its caller: the stub in the
-!CONFIG_SCHED_CACHE branch kept the old mm_struct parameter.
+task_tick_fair() checks sched_numa_balancing on every tick. The
+static_branch_unlikely() annotation reserves the nop for the disabled case,
+so the default configuration (NUMA_BALANCING_DEFAULT_ENABLED=y) pays a
+taken jump per tick. Flip the polarity to static_branch_likely() so that
+the fast path matches the default.
 
-Fixes: b636fef85bda ("sched/cache: Introduce task_struct->sched_cache_grp to fix UAF")
-Cc: <stable@vger.kernel.org> #v7.2.x
 Signed-off-by: Yafang Shao <laoar.shao@gmail.com>
-Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
-Reviewed-by: Chen Yu <yu.c.chen@intel.com>
-Reviewed-by: Tim Chen <tim.c.chen@linux.intel.com>
+Acked-by: Gregory Price (Meta) <gourry@gourry.net>
 ---
  kernel/sched/fair.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-index 57360f5cdde4..973647ad6c2d 100644
+index 973647ad6c2d..71dc47d6114d 100644
 --- a/kernel/sched/fair.c
 +++ b/kernel/sched/fair.c
-@@ -2194,7 +2194,7 @@ void init_sched_mm(struct task_struct *p) { }
- static void task_tick_cache(struct rq *rq, struct task_struct *p) { }
+@@ -15351,7 +15351,7 @@ static void task_tick_fair(struct rq *rq, struct task_struct *curr, int queued)
+ 	if (queued)
+ 		return;
  
- static inline int get_pref_llc(struct task_struct *p,
--			       struct mm_struct *mm)
-+			       struct sched_cache_group *grp)
- {
- 	return -1;
- }
+-	if (static_branch_unlikely(&sched_numa_balancing))
++	if (static_branch_likely(&sched_numa_balancing))
+ 		task_tick_numa(rq, curr);
+ 
+ 	task_tick_cache(rq, curr);
 -- 
 2.52.0
 
