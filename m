@@ -1,92 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792752127;
-	b=ra4YuhB4v95WyLNCD8AaUpnTJoJmv81UWm/KrSrSXT5YKxC6frAhuCLsRgf+Qjm5nyfy
-	 v3tZHyBRiGHwmZef0jefvP6SXoHqfiw2iSPNT8jdKwlga9YNvH+mHEVCQx3KOtCkDzjhi
-	 T/HN0R9Pg8acvyDWrjjgDhOwHkZUYlPIhkkPfMVC19tAKNq4rKldjwVxIX4w6flI/BFAZ
-	 mIA33U6Od56Ks6uvVH3Bqt8vdogozKFphnKRhNJaAh+rj1XMFOVgoVs8QLLr7QvniTj3v
-	 nZjHbhqKZXK/To1pygJBxzdUWt5eIAgCLtNMlMD83ZXE7P1XaKAIqUWKsXbmRdCeDiQ==
+	t=1792752140;
+	b=wCGaE1M4z8eIXxvRgDfQ8kR9Zllg01hZzRWlDE6q6v6K5es6t+fhjUWJGcLo0MdBJ7M/
+	 KC7b1B9jkK+Ae0ljdzKfi/gAXMfJQotwym1R7vZpdaGK5vSSmgz88bYN9nlkVlu05ItXM
+	 8tzQILxWP8NkfEBpum7Jwsm+L19nwGkmmLZoHoqRtejCwGRVWUTJFlrckqjoAqRk+2013
+	 9AfsOPKbNa+XS6xJF0VonjA+6yLAKsAdrMHke9vSTXcnJ5wXXBV61Z2EPMPtNYxMXP3Wq
+	 VNS3ZF7LYA1cnDWClOCK2fFAWtIR95o3sBDFw702102Ojk5XcceqRynaZUplaaIxmCg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792752127;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=/NFK43oOzJfr8L2hy16WF2YSsrjDDXnWtTpY4uSA574=;
-	b=VJkQtoh4xkDDrrcW52Ifj9iubLURiWRLLtyMRox+MXjEyvHAzIAWdyPgS3gtYh692RJW
-	 SXOZFS7AwlKz/X4hBoD6qsDomiizy8W1dQ0xnyGOXLpffZbDXja9t/EKQ5cnG5gMm7zve
-	 UKPG11A/Q9R34rBG+laCLCANcus5qYrzEcfedEiUQ2Cf4xN3LGAxbsrvY8LjUAxy3jqXI
-	 myx+Wzcs8ubOBuNVQzw9KbnmyLooMNDZprvQ/jMcutJUUZKJhVXshAOi0auauXJncjC4O
-	 Tjet+FF4Rm4tjVwgwq49XIuv4L4bo/pckCD/opAAyJ+v0dP4AswpEqrukEyblkldwLA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792752140;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
+	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=ZV4R5OqKmkTH7Oyj6hXbrI9/BN9Vv2ISKszeamvUNBA=;
+	b=h/5jDaBc5Kuh7fLojDmV9oCVGDC1EsR1XYqB0vj8GYlIIlcGUOBE7pgFUfUTd71HNkwW
+	 1NaPf8iuA4m9gGRIWxfyg4mUtdz9JvJzSX9Yqg8uzAMkfZ3OkUR/vURetw5lR7hes3HPo
+	 PcNi5IngC4ID8jeUMKSPixZiYPTz0cZQ3CjeAcydZfRLtWyaeIfL2KCa38AJpo11cVyni
+	 XyUo954befz6jDN5+XrbbgKk0dhTlbBrgT4spgLW6NQJ/JSNpkXEjB228W3OIGhDuDC8l
+	 HKs3/G7Y6uGGNfyxDv1LOTpCmGAEpFq3ab517SP1oN2fHVV45QZpecsXnxcGs/QDb0g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Gpceg3xr;
-	arc=none smtp.remote-ip=209.85.128.52
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=RG+uck3n;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=XVeFS3Es;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06B04606A31B
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 10:42:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 06B04606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EBE3606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 10:42:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9EBE3606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Gpceg3xr
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a2069b9710so6444395e9.2
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 03:42:06 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=RG+uck3n;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=XVeFS3Es
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69NAAZIo2509078
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 10:42:19 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	ZV4R5OqKmkTH7Oyj6hXbrI9/BN9Vv2ISKszeamvUNBA=; b=RG+uck3nZ9z1r3CM
+	B74Z4WRDorlj92BN8xmL15qEPsX1vv/vIiexF1n7O2avMB8DcmJ9NCQdmGC3v9RX
+	QmYXnvgFuWJy1X6+yv4EDZFHmVORh7MHqJz1X7syu37LUA5Oa8HAqaPGEPOwqhZX
+	AqgZeT+zajZRmOMjxzVAVl1sGGOd1utZZtacuAfNx/JhZ3Vrj6Ux+C4kkuzTv02N
+	3lJJMlSRiEF01+iqUm13CcEl7JNHtW0QTKQnpPVg7tc+J3BDY/htSOXRaG/9obTm
+	lgIkjqxoJkOTI91xLegQ+eFT4BMBHYdaZLQoeWnm4ko+RGuhJcFb9zhYy4Agd8pR
+	mAslPA==
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hfsykaq94-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 10:42:18 +0000 (GMT)
+Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-3ad91787a1aso627863a91.1
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 03:42:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792752125; x=1793356925; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/NFK43oOzJfr8L2hy16WF2YSsrjDDXnWtTpY4uSA574=;
-        b=Gpceg3xrXgFA+DKsoVAbMos73W+cLVI9xIoWVPYxVJtjtNr05ux7SDs23k+/70PzsI
-         6ojDF3R00BDPYS0HvJYtimBpCN+l2kUwu9tllEhhcdKwfSTk2Rx4U14HZ4s+4U/3fdnd
-         OGKxYRQnVFE5aLUPoK7dDOTxd4+QVhVFCeIJon8rWJk5Me1dblZKt0txLZakfXBBS9k7
-         ZfxhPQHHGCs/ZyZtF5p9lXvG+neWFtVPae+jykx5xJoqMMj305iNRdGTcIt7DYIVFjhf
-         +i2yhCG+5hUo+QhTr4xxTi3uy9myDX0ycuQP/1yTm1BNExVoPRxPfsseCyVgxXFw3gfv
-         +mXA==
+        d=oss.qualcomm.com; s=google; t=1792752138; x=1793356938; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ZV4R5OqKmkTH7Oyj6hXbrI9/BN9Vv2ISKszeamvUNBA=;
+        b=XVeFS3EsSFTHST8ytd3qPl/s/h1zBTBWZPw27jbL3J2rmltXucmV/KgzcaqUY4iusf
+         yNB9Y6OV5fRrabuBbtJ3QoX03GDFHN2Hood1xZcQr9GvfnFpamyHMxNKQNCPWqj2NVP7
+         xQXj8gh+YI7YH9hZl3yrrf7M18tjOCbjhMu3gg+q1JU9lvtdUV2hpL7mDKGNfhbFMKzh
+         bdxlSK4R5VaVx91+ZUo+5XgfaVQhy4nLiMoyr0KhZshW04Ot72yRz1TAe3IqQxYMoOb5
+         TMpmlEWUFnmzZVXQuUZM+oXgwxAhDzYzk6lsS+5j3hVCIXszowj12TbXPi7TiXJllTBH
+         EjLA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792752125; x=1793356925;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1792752138; x=1793356938;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=/NFK43oOzJfr8L2hy16WF2YSsrjDDXnWtTpY4uSA574=;
-        b=xntQuqUSxt5ATKK71Vau13ZlW5sF+osnWCIJ3SYK5NMa81LEjBb6OZc797MAk3I8Dy
-         qiwPZAd8Qv4tvLffcFbzCFL9u9KQOpcr5Hmnqz2jDPtKq7QdoTalLaASgEnFMTS+1VSk
-         3+Rncz9xnWvM008LHzH33v6DcBhSfWAJNO7XQw8S7VTdF+kOGEcwm5zMNw42YaD1hCqB
-         JXvUwOHrQr/8c5UEDBoHuwvZM1C9HW4+lzA3qxjnerjQH584RzhZT1G/67hwMB3fStP/
-         K3IdbROgZ7PpOy9otRLX+8d7EIOiL3aFJ0jYQpxmgRmLJtRRT1cmyq6RY3u9Yx0Qeg7E
-         9g5g==
-X-Forwarded-Encrypted: i=1; AKwUvBw/4jiL3BCtHBXZ+LkGR7+3CLqWwToeaTsgzI3NH04FZiY4+4x78oeQCbSH4ICCxmJ0stlFCbk7CszzBW0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKGQ0tJ5cnwmXe/6sENNflK/v0R++MY5QkhL0YAENaxAzV5B1F4
-	+FaU+QtDhYbsnzsrLT6l8MOi+rDqh1+NC6a6o3j5sQC8xdPc06O14clLj/i61g==
-X-Gm-Gg: AYBFou2UTaaKlqlgTXa40Duw+tCu8ljJ7OARAyonV1rdobS04YKvqfOmgqGFMcEE6Qh
-	ehJRJq78MsXHE59Gn3UADATh14xsDspCckVnifEhbM9/zEeXz8dc+spi4EBElat01gye4H5uawC
-	ePfsUORmWg804cJsyeBfJeSLUXPEHUbEiis/DLXthYricZUDSmr6961vft5aT45MtRevwOrhXeV
-	XuiZMyhSXewuF20l1bpiEt6gYhZ68lcEUCad5otpWtUh8bHCfhrLWdzZ41kp4YjFq49AZHfNDsw
-	kSoU/03mgvXCoUjuDz0bnfjrMP2N4wTmCzhDHRqE77NfdpnFk9o5O3cm9+vrm87J9B7wyVU18v8
-	TEX1cp5oPJH1redsGqpgg2+aXzjLws0I01V/yt5oSc8KBqRdmQmcLNaO9YVlXyMdfkQMDPep/SX
-	4r/nXTVbK3ATROMslBOYDsXQkxm2Moj36c0MJtQmmb+apPTdsUPsjDSCxHXw+QiLD9RbMnFw0Ed
-	0Qc0UMkVGJFFakbSpkZCs6wsKlquh5+U6XIOARUJa0V2F9AFH/SAS+W0m1K/B7IVagMO4rFkhUr
-	MtpIf5KvnadBVx+DoMoiBbRLXorDIrGiJlRLTSv8oAUtKT71T8dFzRatCi63F1fJP1+klKjLD1N
-	mIzE=
-X-Received: by 2002:a05:600c:4e55:b0:4a1:d41b:5060 with SMTP id 5b1f17b1804b1-4a211ed013emr27247015e9.22.1792752125001;
-        Fri, 23 Oct 2026 03:42:05 -0700 (PDT)
-Received: from omarchy ([2a02:ff0:1e10:93f:e71c:400:f186:eea4])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a210487d16sm66719955e9.15.2026.10.23.03.42.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 23 Oct 2026 03:42:04 -0700 (PDT)
-From: Abdurrahman Karadag <abdurrahmankaradag19@gmail.com>
-To: linux-wireless@vger.kernel.org
-Cc: pkshih@realtek.com,
-	linux-kernel@vger.kernel.org,
-	rtl8821cerfe2@gmail.com
-Subject: [PATCH rtw-next v5] wifi: rtw88: pci: wake the TX queues after restart_hw and interface up
-Date: Fri, 23 Oct 2026 13:41:54 +0300
-Message-ID: <20261023104154.2755289-1-abdurrahmankaradag19@gmail.com>
-X-Mailer: git-send-email 2.56.0
+        bh=ZV4R5OqKmkTH7Oyj6hXbrI9/BN9Vv2ISKszeamvUNBA=;
+        b=rQokgBxjwy9d5DWHasUS0AbmxKJYO4wZKUKesGU8SjYLa5oV1ekc6vq2Vh2/JABnzn
+         gnRZhXc4rYHSl47BIRbRN77l98AgVm2iWPl1BatEolCpnSmY4Q5nVmNk6Qc6UQ72Ef7w
+         L+ULduxwukvvH+sAWxT3NLSC5qrYDH9B13Ze/tMcYHtrDiIfwFPQlVkSyoNlbMxmjj/C
+         T6na24wo1+ALu0CVeRjCVkBD13GhkmCPNlMUFvqYCoprpZcRrNJXBNH7vzztfjK9Lj3Q
+         kIHdu+5Q3t4s/fbhRBsyN8y0XdFhrGzxP+9tAayUWRI08WwMVdg7kl1ZH/LbNe/a6Mzx
+         trmQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzJXT7SmKaCXfx3lF1pUtyUg1tqq4dbvghD99L0RFFJs5laqQyZ2Xel2xLf7zGF7DhhR8As0hn4b/FAR2g=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLYVkL6ZRLUORTIiiowRbBPdd5DHUFmhielJu82tYlPYE4YY6gv
+	CPNCstlcmS/6yEq8s37eUSEacT58eBoNL8y2PrbB0Um1NUJuQCxboDZyPYXR9DB83zByidLLCHn
+	5WxL+8tnQHrXWei/jl+n3xiA21s2zvjfUY9ywZhjdMsKuwiKb83R70BD83Sf+qNnpQ7k=
+X-Gm-Gg: AYBFou1C2/zbaUZZ5U474eyxwr5heCi1iD/7E/9LXKohWhrlKjwf/XWmXC8I3I2gqCc
+	YZ8JrZNPqSuxDIPVtkaEICf63i2VBuNwCBNBY/TeuLdWdLxHhCDfiJNCD5SsGRT5LsNdLa0geIa
+	uUobfBAUVkohopHo3RLe6W5h97TCCOf/FaEdIjnhZEiREZgTkTElCR3Wo1cXCIaMTA3oR8qLXlY
+	95O5O1bwR+BQCXu8p6uN8hana+w5/GZKK6BTVyyEXIR2UdLja4KOfwOQQBbAx4yFaxjv3hpTVMb
+	7qdLtdPP1aqdUll7p3AaYHOkJcDlHQ8MosKqfhzPrjHqQosKEwH3h5INSggXJPVmVfQiduqLlvR
+	1Rn4fGeARDNl/rEHpTEokNkY6qTWxFafMDsgiYIwuCkcQDeoI960KKE2hDTrxl8pYrsoARA==
+X-Received: by 2002:a17:90b:1fc6:b0:3ac:8446:c1a5 with SMTP id 98e67ed59e1d1-3adce7c8b49mr1499399a91.48.1792752137794;
+        Fri, 23 Oct 2026 03:42:17 -0700 (PDT)
+X-Received: by 2002:a17:90b:1fc6:b0:3ac:8446:c1a5 with SMTP id 98e67ed59e1d1-3adce7c8b49mr1499374a91.48.1792752137132;
+        Fri, 23 Oct 2026 03:42:17 -0700 (PDT)
+Received: from [10.133.33.122] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3adcb1d84fasm3107033a91.12.2026.10.23.03.42.10
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 23 Oct 2026 03:42:16 -0700 (PDT)
+Message-ID: <8da9b59f-324b-439e-839d-bad024c8b988@oss.qualcomm.com>
+Date: Fri, 23 Oct 2026 18:42:09 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,85 +115,439 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RESEND RFC] sched_ext: Support RT task within sched_ext
+To: K Prateek Nayak <kprateek.nayak@amd.com>, Tejun Heo <tj@kernel.org>,
+        David Vernet <void@manifault.com>, Andrea Righi <arighi@nvidia.com>,
+        Changwoo Min <changwoo@igalia.com>,
+        Cheng-Yang Chou
+ <yphbchou0911@gmail.com>,
+        Emil Tsalapatis <etsal@meta.com>, Ingo Molnar <mingo@redhat.com>,
+        Peter Zijlstra <peterz@infradead.org>,
+        Juri Lelli <juri.lelli@redhat.com>,
+        Vincent Guittot <vincent.guittot@linaro.org>,
+        Dietmar Eggemann <dietmar.eggemann@arm.com>,
+        Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>,
+        Mel Gorman <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>
+Cc: sched-ext@lists.linux.dev, linux-kernel@vger.kernel.org,
+        trilok.soni@oss.qualcomm.com, aiqun.yu@oss.qualcomm.com,
+        abhijeet.dharmapurikar@oss.qualcomm.com, rohan.tabish@oss.qualcomm.com,
+        guo.chen@oss.qualcomm.com, haojun.zhang@oss.qualcomm.com
+References: <6b295276-4f42-4f46-b5a2-50c3ac83b412@oss.qualcomm.com>
+ <52e9ca5e-0147-4450-928e-5b1c56e5d1a5@amd.com>
+Content-Language: en-US
+From: Tengfei Fan <tengfei.fan@oss.qualcomm.com>
+In-Reply-To: <52e9ca5e-0147-4450-928e-5b1c56e5d1a5@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIzMDA0MSBTYWx0ZWRfX52LQGCtOpcAn
+ B81BhVuq6hA8gUKa0wyNiNurFzUg3APdkF0HonbG9ve+PnZ2B/kcFKMGBkQAfhCgg8MuziGfOck
+ prdbvbWncWSYhs+TzWKXBbPmQQKddMU+W5P8TNCCfSz9li+4ziYm0iSTcuARXTCt+X9/DmS+VOx
+ R0AsTel2gVetnNmjHP5yJJkAkaNC1Q/uro0FKzVUcYwns7KeJEpAC0mX7RTkbMHtCizAsNUKaUc
+ lnAO7sudhENhFxMMdYNkGuYVLkRExGffLwIa4y0npMDEPbhUl/xeN/m9+Fy5ouR0+2BJye+F+KJ
+ lMLKWKrB08VTGUNRuV1IkZGqui8j3cQeoMOh95VL5rJRVQGHt2YU8pQVb2NAnyvm0lU1EOJ9hWN
+ 1xzAVMLmBbWq8ArbKoS3qDmEohn8rGB5ivaMY1CR+2onvA4LZSF/eAe4YnPM8JZgIbHh6tqCHTj
+ BIITorHR4PL3bW3Zk7w==
+X-Proofpoint-ORIG-GUID: XzAOSw636-Eh8j1nmxmYnVKnJgy2vIf_
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIzMDA0MSBTYWx0ZWRfX7g2LWWUviWL2
+ oqGmilKCRk13Mv0yOuxIbrdEP/8MLWaU7VpBfDqZB007AAVhcOWbq/okpjP4hpVkwTLz+Ypf29y
+ pO3ZRqp7QwE+mUd+GHusRlT1jf4gIfc=
+X-Proofpoint-GUID: XzAOSw636-Eh8j1nmxmYnVKnJgy2vIf_
+X-Authority-Analysis: v=2.4 cv=GLKdgeNK c=1 sm=1 tr=0 ts=6adb3a0a cx=c_pps
+ a=RP+M6JBNLl+fLTcSJhASfg==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=OGjWj8McAAAA:8 a=00vWlv48wFHvHUvh4JoA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=iS9zxrgQBfv6-_F4QbHw:22 a=UYjydHh6ynBBc6_pBLvz:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-23_03,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 impostorscore=0 bulkscore=0 spamscore=0 lowpriorityscore=0
+ clxscore=1015 priorityscore=1501 suspectscore=0 malwarescore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610230041
 
-When a TX ring fills, rtw_pci_tx_write() stops the mac80211 queue and
-records it in ring->queue_stopped. The completion loop in
-rtw_pci_tx_isr() is what clears them, and it needs a descriptor to
-complete. If the device goes down first, rtw_pci_dma_release() rewinds
-the indices and frees what was in flight, so nothing is left that
-could. ieee80211_reconfig() does not help either: it wakes only
-IEEE80211_QUEUE_STOP_REASON_SUSPEND, and an interface down/up does not
-reach it at all. TX then stays dead although the device came back.
 
-Reset that state where the device starts, which both
-ieee80211_restart_hw() and an interface down/up reach through
-rtw_core_start(). Gate the wake on ring->queue_stopped so that a
-start which stopped nothing leaves the queues alone. The wake cannot be
-narrowed to the queue the ring-full path stopped: the flag sits on the
-ring, and rtw_tx_queue_mapping() puts management frames and multicast on
-rings of their own whatever queue they came from, so a flag there does
-not name a queue. mac80211 also keeps a single non-refcounted DRIVER
-stop per queue, shared with the scan paths in fw.c, so
-ieee80211_wake_queues() releases whatever holds that slot.
+On 10/16/2026 11:42 AM, K Prateek Nayak wrote:
+> Hello Tengfei,
+>
+> On 10/15/2026 6:17 PM, Tengfei Fan wrote:
+>> Sorry for resending this as plain text. The previous email was rejected
+>> by the sched-ext mailing list because it contained HTML.
+>>
+>> Hi all,
+>>
+>> We would like to discuss how RT tasks can best coordinate with sched_ext
+>> for cpu placement, cpu balance, and sched load reporting to schedutil
+>> governor. This RFC is intended to continue the discussion in email list
+>> from last LPC[1].
+>>
+>> One of the options we would like to explore is allowing sched_ext to
+>> schedule some explicitly selected SCHED_FIFO/SCHED_RR tasks.
+>>
+>> We received feedback from Changwoo that the issue is valid, and in
+>> LAVD sched-ext, they tried affining RT tasks to a limited set of CPUs as a
+>> workaround for the scheduler placement, but we do know that it is not a
+>> flexible enough solution.
+>>
+>> We also had a discussion with Andrea Righi, that he acknowledged that
+>> he understands the scenario and current problem, and he would suggest
+>> not changing the current core scheduler, but instead using bpf ops to
+>> bring the RT tasks under the sched-ext control. We are trying to explore
+>> more on this path, and welcome to suggest or comment here.
+> This doing everything in sched-ext and eBPF attitude needs to change.
+> Sure it is good and all to ship quickly but you'll be left with a
+> sub optimal configuration forever and will always be workign around
+> that.
+>
+> If you have some magic sauce to detect which scx threads are high
+> priority and matters for the KPI, why not just send a signal to a
+> userspace to demote the task temporarily to SCHED_OTHER and then
+> later move it back to RT when the situation allows?
+>
+> You can always use a BPF Map to communicate the pids that need
+> promotion / demotion right? What is stopping you from doing this?
+> I thought that was the feedback from folks at LPC.
+>
+> And if that is not possible, maybe you can convince the folks who
+> originally used the RT (most likely to get around some old issue)
+> that the custom scheduler is good enough to not hamper performance
+> and everything can now be a -20 nice task in sched-ext for
+> scheduler to know that it must be prioritized.
 
-Signed-off-by: Abdurrahman Karadag <abdurrahmankaradag19@gmail.com>
----
-v5:
- - reset the flags before rtw_pci_enable_interrupt(), move it into
-   rtw_pci_reset_tx_queue_state(), and add the blank line before
-   running = true (Ping-Ke Shih)
- - justify the gate by what it does on a start that stopped nothing,
-   and give the cannot-be-narrowed note its actual reason (Luka Gejak)
 
-v4: reset the flags and wake from rtw_pci_start() instead of
-    rtw_reconfig_complete(), so an interface down/up is covered as well,
-    and name restart_hw in the subject (Ping-Ke Shih)
-v3: wake from rtw_reconfig_complete() on RECONFIG_TYPE_RESTART
-v2: wake from rtw_pci_reset_trx_ring(), gated on ring->queue_stopped
-v1: https://lore.kernel.org/linux-wireless/20261002231013.11792-1-abdurrahmankaradag19@gmail.com/
+We are using sched_ext for the current experiments because it gives us a 
+convenient way to test different ideas. If an idea works well, we would 
+be happy to bring the results back to the community and discuss whether 
+a more general solution makes sense.
 
- drivers/net/wireless/realtek/rtw88/pci.c | 19 +++++++++++++++++++
- 1 file changed, 19 insertions(+)
+Simply demoting these tasks to SCHED_OTHER does not fully capture what 
+we need, since we still want these selected RT application threads to 
+retain their RT priority information and behavior. For example, when 
+there is a choice of CPUs, we would prefer them to preempt a less 
+important SCX task rather than an important one, while still allowing 
+them to preempt an important SCX task when there is no better choice.
 
-diff --git a/drivers/net/wireless/realtek/rtw88/pci.c b/drivers/net/wireless/realtek/rtw88/pci.c
-index 66d2e5f..c7ccde8 100644
---- a/drivers/net/wireless/realtek/rtw88/pci.c
-+++ b/drivers/net/wireless/realtek/rtw88/pci.c
-@@ -568,6 +568,23 @@ static void rtw_pci_napi_stop(struct rtw_dev *rtwdev)
- 	napi_disable(&rtwpci->napi);
- }
- 
-+static void rtw_pci_reset_tx_queue_state(struct rtw_dev *rtwdev)
-+{
-+	struct rtw_pci *rtwpci = (struct rtw_pci *)rtwdev->priv;
-+	enum rtw_tx_queue_type queue;
-+	bool wake = false;
-+
-+	lockdep_assert_held(&rtwpci->irq_lock);
-+
-+	for (queue = 0; queue < RTK_MAX_TX_QUEUE_NUM; queue++) {
-+		wake |= rtwpci->tx_rings[queue].queue_stopped;
-+		rtwpci->tx_rings[queue].queue_stopped = false;
-+	}
-+
-+	if (wake)
-+		ieee80211_wake_queues(rtwdev->hw);
-+}
-+
- static int rtw_pci_start(struct rtw_dev *rtwdev)
- {
- 	struct rtw_pci *rtwpci = (struct rtw_pci *)rtwdev->priv;
-@@ -575,6 +592,8 @@ static int rtw_pci_start(struct rtw_dev *rtwdev)
- 	rtw_pci_napi_start(rtwdev);
- 
- 	spin_lock_bh(&rtwpci->irq_lock);
-+	rtw_pci_reset_tx_queue_state(rtwdev);
-+
- 	rtwpci->running = true;
- 	rtw_pci_enable_interrupt(rtwdev, rtwpci, false);
- 	spin_unlock_bh(&rtwpci->irq_lock);
-base-commit: 9b0be45d4d52fd223994e151f169743a97abd290
--- 
-2.56.0
+Following Andrea's suggestion, we will first explore preserving the 
+requested RT policy/priority of these selected application threads as 
+metadata, making them non-RT, and using this metadata for scheduling 
+decisions within sched_ext. We will evaluate whether this can provide 
+the behavior we need, while keeping threads that require native RT 
+behavior in the RT class.
 
+
+>
+>> LPC topic:
+>> [1] https://lpc.events/event/20/contributions/2561/
+>>
+>> Slides:
+>> [2]
+>> https://lpc.events/event/20/contributions/2561/attachments/2025/4612/2026_LPC_Support_RT_tasks_within_sched-ext_.pdf
+>>
+>>
+>> Here is a text-based description of the main idea presented at LPC.
+>> If you already have that context, you can skip the section below.
+>>
+>>
+>> Background
+>> ----------
+>>
+>> In most of the Android gaming, video playback, and livestreaming test
+>> scenarios, non-RT threads work together with RT threads to construct and
+>> consume a frame. Finishing the frame on time without frame jank is a
+>> key performance KPI. A balanced workload across CPUs with fewer
+>> unnecessary CPU frequency bumps is another key power KPI.
+>>
+>> More specifically, taking a gaming scenario for example, UnityMain and
+>> UnityGfxDeviceW are the critical normal threads that have significantly
+>> higher load and usually run on the most performance-efficient cpus in
+>> gold/prime cluster. Other than those high load tasks, the other normal
+>> tasks mostly have similar workloads.
+>>
+>> It has RT threads like the display HAL tasks, SurfaceFlinger, and the
+>> GPU related tasks. Those RT tasks have workloads comparable to those
+>> of other non-high-load normal tasks.
+>>
+>> In our tests, sched_ext runs in switch-all mode, with
+>> SCX_OPS_SWITCH_PARTIAL unset. It schedules the non-RT tasks
+>> covered by this mode. SCHED_FIFO/SCHED_RR tasks still run in
+>> the native RT class.
+>>
+>> Below, we call these non-RT tasks "SCX tasks".
+>> SCHED_DEADLINE tasks are not part of this proposal.
+>>
+>>
+>> Observed problems
+>> -----------------
+>>
+>> cpu placement:
+>>
+>> In our tests, RT tasks can run on CPUs used by important SCX tasks.
+>> This can cause the SCX tasks to be preempted, waiting longer to run,
+>> or lose cache locality.
+>>
+>> Here is a diagram for easier understanding:
+>>
+>>          RT task + important SCX task
+>>                      |
+>>                      v
+>>                   same CPU
+>>                      |
+>>                      v
+>>                CPU contention
+>>                      |
+>>          +-----------+-----------+
+>>          |           |           |
+>>     preemption   longer wait   cache impact
+>>          \           |           /
+>>           \          |          /
+>>            +---------+---------+
+>>                      |
+>>                      v
+>>         SCX work may finish later
+>>
+>> RT tasks have higher priority, so the preemption itself is
+>> expected. However, from the whole scenario perspective, better CPU
+>> placement could reduce this interference when another suitable CPU
+>> is available.
+> Seems like a generic problem, no?
+
+
+This is a generic placement problem. We are currently exploring it in 
+the sched_ext context, as sched_ext provides a convenient way to 
+experiment with different ideas. If we learn something useful from these 
+experiments, we would be happy to share the results with the community 
+and further discuss how this could be developed into a more general 
+solution.
+
+
+>
+>> Load balance:
+>>
+>> RT tasks can be scheduled in the same cluster of non-high load scx
+>> tasks. This can also be a preferred placement decision. While the
+>> load balance within the cluster is also hard to maintain.
+>>
+>> We sometimes see RT and SCX tasks on the same CPU while other CPUs
+>> can become idle very shortly. We need to check whether those newly
+>> idle CPUs can pull and run the scx tasks. While if RT tasks are also
+>> in the same scx scheduler, it is easier to make decisions from a load
+>> balance perspective.
+> This is also a problem with fair but fair scheduler seems to have
+> figured it out well - we have newidle balance to pull tasks and as
+> far as I know, SCX has ops.cpu_release() callaback that can do a
+> re-enqueue to a different.
+>
+> Why is this not enough to move this high priority task away and
+> preempt something else on another CPU?
+
+
+For newidle balance, pulling a preempted SCX task to another CPU may add 
+waiting and migration overhead and hurt cache locality. We would prefer 
+to avoid this when better initial placement is possible.
+
+We have not looked closely at ops.cpu_release() yet. We need to evaluate 
+whether it is sufficient for this case.
+
+
+>
+>> sched util calculation:
+>>
+>> We also see a difference in load tracking. Our implementation
+>> uses a frame-window model for SCX tasks, while the RT load signal
+>> in our setup uses PELT.
+>>
+>> The SCX task load is flat and steady, while the RT task load
+>> sometimes spikes. An unnecessary CPU frequency bump up can be triggered
+>> by RT task load spikes.
+> Wasn't UCLAMP specifically designed to avoid those bumps if they
+> are unnecessary? RT can make sure you preempt first and UCLAMP
+> can ensure you don't boost frequency unnecessarily.
+>
+> I think sched-util will request the highest frequency when an RT
+> task is running but that seems like a more generic problem to
+> solve.
+
+
+In our experiments, we observed cases where the SCX workload utilization 
+was already close to a frequency transition point, and some additional 
+RT load could trigger a frequency bump.
+
+We have not yet verified whether an appropriate uclamp configuration can 
+avoid this unnecessary bump while still providing the performance needed 
+by the RT task.
+
+The RT/schedutil behavior itself is a generic issue. We are currently 
+exploring it in the sched_ext context, as sched_ext provides a 
+convenient way to experiment with different ideas. If we learn something 
+useful from these experiments, we would be happy to share the results 
+with the community and further discuss how this could be developed into 
+a more general solution.
+
+
+>
+>> Why CPU affinity is not enough
+>> ------------------------------
+>>
+>> We could use CPU affinity to keep RT and important SCX tasks
+>> on different CPUs. This could reduce the time they compete
+>> for the same CPU.
+>>
+>> However, CPU affinity is fixed and strictly limits how tasks can move
+>> between CPUs. If the number of background tasks increases, CPUs perferred
+>> for critical SCX tasks may still have spare capacity. With fixed CPU
+>> affinity, non-critical SCX tasks cannot use those CPUs even when doing
+>> so would help balance the system load.
+>>
+>> Ideally, the scheduler should be able to choose CPUs dynamically as
+>> the load changes, while still keeping tasks within their allowed CPU
+>> masks.
+>>
+>> CPU affinity may still help, but it does not provide the
+>> flexibility we want here.
+> If you can consider cpu affinities an option, you can also consider
+> demoting them to SCHED_OTHER as an option no?
+
+
+CPU affinity was not intended as the solution here.
+
+Simply demoting these tasks to SCHED_OTHER would not fully capture what 
+we need, since we still want to retain their requested RT 
+policy/priority as information for scheduling decisions. Following 
+Andrea's suggestion, we will explore keeping these attributes as 
+metadata, making the selected application threads non-RT, and using the 
+metadata within sched_ext to provide the placement behavior we need.
+
+
+>
+>> Possible options
+>> ----------------
+>>
+>> One option is to let sched_ext schedule some explicitly selected RT
+>> threads together with SCX tasks.
+> Who gets to decide this selection of threads?
+
+
+We don't have a final selection mechanism yet. For the initial 
+evaluation of Andrea's suggestion, the selected application threads will 
+be explicitly specified by userspace through a simple configuration, 
+e.g. by PID. This is only intended for validating the approach; we have 
+not settled on how the selection should be made in the final design.
+
+
+>
+>> This could let one scheduler choose CPUs for both selected RT
+>> threads and SCX tasks.
+>>
+>> For example, if other cpu is idle, or running a low priority scx task,
+>> or running a low load scx task, an RT task could use that CPU instead
+>> of a CPU running an important high load SCX task. This could reduce CPU
+>> contention for the frame important KPI and help balance RT and SCX tasks
+>> across CPUs.
+>>
+>> Such placement should remain a preference rather than a fixed
+>> rule. It must respect the RT task's priority, timing needs, and
+>> allowed CPU mask. The other CPU must also have enough capacity.
+> I fail to see how "RT task's priority" is respected if you are
+> suggesting a SCHED_OTHER task can be prioritized over it.
+>
+> Also how do you infer a timing needs of RT? From a traditional
+> theory perspective, if the task is of a higher priority, it
+> always preempts.
+
+
+We are not suggesting that a SCHED_OTHER task should have higher 
+priority than an RT task. What we are describing is a placement 
+preference when selecting a CPU for the RT task. For example, when 
+multiple suitable CPUs are available, we would prefer the RT task to 
+preempt a less important SCX task rather than an important one. If there 
+is no better choice, however, the RT task should still be able to 
+preempt the important SCX task.
+
+The term "timing needs" was not well defined here. For 
+SCHED_FIFO/SCHED_RR tasks, we do not have a separate timing requirement 
+beyond the scheduling policy/priority, so this wording was misleading.
+
+
+>
+>> It could also allow RT and SCX tasks to use the same utilization
+>> model. We would like to study whether this can make the load
+>> signal more stable and reduce late CPU frequency changes.
+>>
+>> Another option is to keep all RT tasks in the native RT
+>> class, but provide enough information for the two schedulers
+>> to better coordinate CPU placement. However, this would also require
+>> placement and load synchronization between the RT scheduling class
+>> and the sched_ext class.
+> This can be a generic optimization too right? If RT task has a
+> choice to be scheduled on a bunch of CPU, maybe there are
+> heuristics that can be used using nice value, CPU load to better
+> place them.
+
+
+This can also be a generic placement optimization. As mentioned above, 
+we are currently exploring it in the sched_ext context, as sched_ext 
+provides a convenient way to experiment with different ideas. If we 
+learn something useful from these experiments, we would be happy to 
+share the results with the community and further discuss how this could 
+be developed into a more general solution.
+
+
+>
+>> After the LPC discussion, we'd like to explore option 1 and use
+>> BPF-only hooks to achieve current needed RT tasks within scx class.
+> I don't like it one bit but what exactly are you planning to do
+> with this BPF op?
+>
+> Direct RT task placement to another CPU? How is the RT scheduler
+> supposed to verify if that alternate placement doesn't violate the
+> RT guarantees? (And please don't say you'll use the ext's dispatch
+> path to do this)
+
+
+The suggestion at LPC came from Andrea. We don't consider to directly 
+place native RT tasks on another CPU through the sched_ext dispatch 
+path. As discussed above, we will instead explore preserving the 
+requested RT policy/priority of selected application threads as BPF 
+metadata, making those threads non-RT, and using the metadata for 
+scheduling decisions within sched_ext.
+
+
+>> One option is to have all RT tasks with a priority lower than the SCX
+>>   helper thread go into sched_ext.
+>>
+>> Migration thread, sched-ext enable/disable threads and IRQ threads need
+>> to remain outside sched_ext. With this option, we will need to verify
+>> more common scenarios. We can explore the first option first.
+>>
+>>
+>> Open questions
+>> --------------
+>>
+>> * Can sched deadline can used to optimize those scenarios?
+>>
+>>    It is possible, of course, so we put it here, welcome to share the
+>>    possible configurations of which tasks goes to deadline. However, here
+>>    we discuss only the topic of plugging RT tasks into and out of
+>>    sched_ext for these scenarios. For different scenarios optimization,
+>>    there is of course no single solution. It still can have different
+>>    scheduler optimization to make a specific tasks a different sched-class.
+>>
+>> * Other ideas?
+> You can always demote these tasks from the userspace bit of
+> sched-ext and there is no explanation in this entire write-up
+> that says why that is bad / insufficient.
+
+
+As mentioned above, simply demoting these tasks to SCHED_OTHER does not 
+fully capture what we need. We still want to retain the RT priority 
+information of these selected application threads and use it for 
+scheduling decisions. For example, when multiple suitable CPUs are 
+available, we would prefer these tasks to preempt a less important SCX 
+task rather than an important one. If there is no better choice, 
+however, they should still be able to preempt an important SCX task.
+
+
+>> We would appreciate feedback on the problem, the possible
+>> directions, and what we should try first.
