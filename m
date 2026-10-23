@@ -1,60 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792787400;
-	b=f8V93qX8qvPeGb/PWulQHb7omtwmbbblUjNS519dUKW8cldpWJXctiUHl01z+ge78A2y
-	 gutjzzTs0SDPtncI+0kifshAnGZhotp7obhWluSWrex2EtKSF5DpcyIXaPWAByUHoMd8J
-	 oYbbPsKIZiSeBbTtZ+3YVtL0pB6hwbt8p/ePnFxLoATXiMGGbzL3PrLAffaQ2rcDP5uLa
-	 752NpcZcxqnL/bCpEXmh5yF5NAGuQ4d7oO/HB9LiPwtzl/AAFPyNkopyJYJJ5VwCEaowf
-	 jQK3+7rmPIUFuRYu+AT9mjx+FGtxNC1jefRNDBVXdPYGu0h06ZDsjyng5dk4PMjXn0g==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792787400;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=S/gS3BlmwBekgqi9/q5oJIhOXINLDyFzJjGA2lorCfA=;
-	b=k4/V6Qyntjg5FimMPjN2q/US1D5pfvaUXkQ4//p6F/yUGFzlfZWhVvau1feIso/3FkwL
-	 dmOWGL0c6oRzS3hzJxdEJDuY1iTNC0d0xv4KxAK1z2F7zjEddURjqqX+PcWO8xQx/0O3Z
-	 esa2u8bdso+QsWF3R4qaTVJNL4isLfzjm3i3xe1hzese9ZAJORkMcdToiwKfCrL0QnTZW
-	 wq5Bqx6L42UdeCi75Cg5rpCsus5ikeOMFydmSfqZVGuxzrYbmv5JCBf5e7IYCcGXvfkyn
-	 epGJFf9Pjc0hmzdLhPtIhKWgjsPoeOC5W/3GL/raqHJO2XATAcP6sg095XNZNCcDIOw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=pass smtp.mailfrom=infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=VV9utfOJ;
-	arc=none smtp.remote-ip=90.155.50.34
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.65.28
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792787585;
+	b=Van4SfO4AFZtdXrd9G0Wlw2BdJxHZkrVxk83Hch59fFC3gktqzZdacaDO8+KajV+aO+/
+	 qi8qs7QJDdtvRSafSY+xozihhll8JUx9NgKGebfdUMA5dlKHFa77xBEdh7VLxav0KF99m
+	 OlcIXppZHX3PVEP69G3Yk4XxZG7J3ngdwFgfeKSAJKmpp59GcvT3Dlm0A/e9UQOUrawqS
+	 R1ysU8TNYTogaYO7m6OuWytcz2oSx3Mtq28gewXNgqWvWYQDKXPu+gcIfEp59JLCpKfcg
+	 PDfnJiyeioop3Z5v6Fs/OL++pF8NJttkPduh33x+2sQsN06wKXlO1yoc6NY3ij//vbw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792787585;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=OYv/zjTPslf0rcsVc+BdF44GfTteNk0YJEHO0aQQVcc=;
+	b=JcdgVvDf9MYVDd8yAySwiAIaKB+mmgbuMy1jYrjUqfi3EVyQAUmyEHi7tbGVcGh+F+np
+	 Uf4w2OEa8+Wr3C2Yg/qO7jUUgSEzj7Q1y/Lexq/wd0C3uQB+MtydYb7yatRFAOfq+Z122
+	 e9NlfiPer5iT0NQeC7K9YlIeb9wh3v83fAnP9YZBpwDcGd9l8NlXNBwmU3RGE6yuo/hQr
+	 Sl8oJoNf1tLOJne6cx3Wfnmj5uCcPZ6toHn+Xt7noVwY1FwNUXTZK8FejvAtADqRd2zgk
+	 QguW7sH9pkSdKteYC0MyzpezwWs8i5x1t6qzh7cRqJni5FzuxpqpxxZIzWgDUVmwPXg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=lxIXM7fH;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.65.28
+Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011028.outbound.protection.outlook.com [52.101.65.28])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBC64606A31D;
-	Fri, 23 Oct 2026 20:29:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EBC64606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7EAC606A31B;
+	Fri, 23 Oct 2026 20:33:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D7EAC606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=VV9utfOJ
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=S/gS3BlmwBekgqi9/q5oJIhOXINLDyFzJjGA2lorCfA=; b=VV9utfOJx1tEJkpEm9BSPQfel2
-	JRPtng5mWajAK1SORvPCY9N6sHojpuqUeUGiEIModXsqcRES58ouPBSI326gmmALL+9ChqFL74ToT
-	eP7RZxNHeudHW8xWqJ0KAitpuAF60i0uUyLvXJzDsexi6ymg8+Ca1dhwvppoPkgNZWNVImCR8U1Xs
-	4zIxFIz0XW4p82xJ4UL3b2nbgxsBDq680HXzc97ELuZQZpAGXWCmhZg/uf9MIkqHyAooKXw7tkwLD
-	cdpkdMOmG+xJjKZA9aHp29+z1EmXFHWweBIW7vPaEmm/Q1/jqWm1LSpRuzYgnDOelPtzo4Z7ViiGe
-	+bXwTtWw==;
-Received: from willy by casper.infradead.org with local (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xKLti-0000000ER5N-2XP1;
-	Fri, 23 Oct 2026 20:29:54 +0000
-Date: Fri, 23 Oct 2026 21:29:54 +0100
-From: Matthew Wilcox <willy@infradead.org>
-To: Nickolai Zeldovich <nickolai@csail.mit.edu>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	linux-fsdevel@vger.kernel.org, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v1] xarray: initialise the offset of a new root node
-Message-ID: <atvDwsWu-FDwtgnt@casper.infradead.org>
-References: <20261012181107.772545-1-nickolai@csail.mit.edu>
+	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=lxIXM7fH
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=qm/L5u/anaMZ25/AtoYF535zARN2KTyr1QJ19PcZP/EL9xxQaWDRAlKYKfuZJC6KH/WWCHDlHdRlf++NAYNGeKA2IadbS/0lsggYO2ym0GVeNMHkfBRyWbQ6Tn9BxxwTJhAb/gWddX/WnrISpgprEb4anzcrHLd2M+NkCT3KzgJqpVnoaDaqiyc9C7iDvcI+SPNFJiCkhGTfMnsS7bNL+wsqUa3y//rcP4WQU5eJRBoIGFqSf4H8492Ata9UdoZXhJRfaTMvBZOfsPzsMehsykBZMlzUdQXDtTaoWdd1gs9fhWZ9vi0RPfWTenrxzALJjmEEthbPqbXxo/mIq/fs5A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=OYv/zjTPslf0rcsVc+BdF44GfTteNk0YJEHO0aQQVcc=;
+ b=sG/K9xZtr9Lgx+v2GKhx2R164AzRbIW0/pjEGdmpC5/Qom6m6e1HVYa+mpkAo5Dw8caK1H0R1KI3kgAVYxYfK7uaxmIzhbJcxp8EUdXgcjsOXWEOgR2e/gqcNWf/qGP8hUSN+0pt8aFmfGSHeomXJoOYpyKwj+UOqD5q9SvKg8iCnnkjDTRCNKilyxa63u0K+RPMWmdcf9isdx8mQABFgxMKUE1EAAct3nca+LqPJ0Kmy9ayrI0hASDpkA4CXoXBpoPnrvY+wb/W3WB6UDgayqUdz1oi6WgsQrdE6aq3n+70n7Z9pGhmLKJZg0K7u2QZJN8J35aprL5sWPTIxJiWBg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=OYv/zjTPslf0rcsVc+BdF44GfTteNk0YJEHO0aQQVcc=;
+ b=lxIXM7fHF8o0F5KJ8BwTf1PDYaqhCXFQ6aHzWLSIiAOqTDvhvGvIXRmf3yXSmXUchJshaZu9vr/OxLzVMG0rmYWhmVYkU/axNUDcGTUpriBWBX+6H9r+7jzzsSKQN53qUjN4ZZ7DtlomrzHj8eIysZyyXo9EBRNapUl9HlvVngGukpmPkR45yi1Ozf1oE5GiNuYWMzxUQ3mTpo/RX+z4NwjNm2M7rNenkmZY5606fD4IgGxIzk42KpZzt6bp2cIM6hhPmTIj7lfqWktmPn/KuVerrWuD0sjJwy3jNZLnuZmn0bd/Uhw/greCyUBXSRObSMIv3WXoU5nZ+8ve8SbQYA==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
+ by AS8PR04MB7816.eurprd04.prod.outlook.com (2603:10a6:20b:2a3::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.19; Fri, 23 Oct
+ 2026 20:33:01 +0000
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b%6]) with mapi id 15.21.0546.012; Fri, 23 Oct 2026
+ 20:33:01 +0000
+Date: Fri, 23 Oct 2026 15:32:51 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: James Hilliard <james.hilliard1@gmail.com>
+Cc: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
+	Chen-Yu Tsai <wens@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>, Arnd Bergmann <arnd@arndb.de>,
+	Maxime Ripard <mripard@kernel.org>,
+	Jens Kuske <jenskuske@gmail.com>,
+	Jean-Francois Moine <moinejf@free.fr>,
+	Hongling Zeng <zenghongling@kylinos.cn>,
+	Chengfeng Ye <cyeaa@connect.ust.hk>,
+	Nguyen Minh Tien <tien.nguyenminh@embeddedlinux.blog>,
+	dmaengine@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org,
+	Sashiko <sashiko-bot@kernel.org>
+Subject: Re: [PATCH v2 3/6] dmaengine: sun6i: serialize channel reassignment
+ with interrupt handling
+Message-ID: <atvEczwQ8Xh9vcAI@SMW015318>
+References: <20261023-submit-sun6i-dma-lifetime-next-v1-v2-0-c9e07cc44bf8@gmail.com>
+ <20261023-submit-sun6i-dma-lifetime-next-v1-v2-3-c9e07cc44bf8@gmail.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261023-submit-sun6i-dma-lifetime-next-v1-v2-3-c9e07cc44bf8@gmail.com>
+X-ClientProxiedBy: DS7P220CA0011.NAMP220.PROD.OUTLOOK.COM
+ (2603:10b6:8:1ca::16) To MI3PR04MB12438.eurprd04.prod.outlook.com
+ (2603:10a6:290:76::14)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,185 +108,97 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261012181107.772545-1-nickolai@csail.mit.edu>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|AS8PR04MB7816:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8b59df03-28fa-4bf9-efce-08df3144d50f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|376014|366016|19092799006|23010399003|1800799024|261022105027099003|261022075727099003|56012099006|10067099003|22082099003|18002099003|4143699003|11063799006|41080700001;
+X-Microsoft-Antispam-Message-Info:
+	ZfAmYOeDLgmZuHkWj81hQrlhq/6g7HJcQSEA6ePNVbW6Y/XOiOFkBzZvNlyo0Ucn8UXpmHej/e1Xncf1niK+uXRiJrkrlbyWUnNueFRHbmvwuhXdWjjk6wDSlnUE7z728wkZ0PSk1oprKu5c3XBo1Wq8NzUmx2kKMq6ZkvqCPlrfXhCn/SI/IsmRXgu55I4VXEcL0cnAgCpeAh4XuOohyfDjub0ykfPqoLp6MCxiJg/YPPB9cbQZ+5pxf4e7s9lmUsl6ZP4L5Upb2Mcm0RIj7Lhkqu1DqMypHor8r2LlPhDrtET5LjRU5k/JapCkTkPvoqS09MrS2YSa3ZDygG+8k30h+ZimSS4dXS9KLicGf7A6rfvszzRaqTPPOFMJUVeAcaOREJjESKSRIPG+2GUEBvcaDhNKTOXHVLEqR+bWI/odwN8FP0+cRMF4aECr941IELWeQdQ9Po6Dpx5SC9kg+Z1P9D0WKuKc9rlwcbGe2Y1CVxs2bK2xQjmivqYBW/VKJTiXpWRT6iJ1DgCC00SZbXsAvprPCMcpzISoOdzVyRyT+JxDBfQ+8MpZ5Cxlaimo1C/0L0fD+0h4npTRW5KB9AGsbUzneH5RlSfoPn9EXKKQ2vEZoPuIYOPKLdysX4CBYbnALoqz+tu98fQlkGqQ7emsZBYMU8uqKc6pk7jyQB0=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(366016)(19092799006)(23010399003)(1800799024)(261022105027099003)(261022075727099003)(56012099006)(10067099003)(22082099003)(18002099003)(4143699003)(11063799006)(41080700001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?pnosb6uW3Vml6YM9akNSpE1oVzlACR5cMMAJOH56LGaVuvlFhauHDX79miA5?=
+ =?us-ascii?Q?n3SAYRgy3XA3nFxBgknUeqFJ1newIjd6p2sVUJPjpCSWRjYqGKsnENtUWjzw?=
+ =?us-ascii?Q?4Jhi3kqH03K/+UXIM1J89/CS3q4kjCtpHvcPUvly9N4Ky/4Hdxo0UrNjI15s?=
+ =?us-ascii?Q?pwMvoeGKAHnQK7B9J7eznchN1+7mklHC65VJh9yxgrz//ixqL84/i7G+PSJt?=
+ =?us-ascii?Q?KC/3b5i+84j0MPTgZUmKM7b+QA2Vil3VzNE1hIpDb9TS4mnTiO20B26q6DO8?=
+ =?us-ascii?Q?KCDKRvy5i+fr0EMRLpougIsxMLIT0zQ87EjtiomA2jl/XS2aMfJmsnGldL/+?=
+ =?us-ascii?Q?kbWyYzD+H2CpjmuZhB3yaXuj70o+qZlo+fxAuNWNO+5eJ+0v/YNDE7qXHdw0?=
+ =?us-ascii?Q?JIdjWBbPSudszaseQoNYET+rTelxOfh/PkUyveq5FPTmRQFLJw31+wFKuclx?=
+ =?us-ascii?Q?HrnqT5GIQ6ST1QcO2iqriKsHfo8+5qZUE7ElmodwOP/fCaaUwnHJ3lX+K2C0?=
+ =?us-ascii?Q?4JD+hEPgei4YvwXC7NtQiUSipq4rPqW4fAjN3Ehsaa6g2P8pUchHK/RjAPZi?=
+ =?us-ascii?Q?Fof+GaQjxLQpqZx64tavgrEHvLzooIVFhf21BK4J0muGfizlhzHGs+Gnwozl?=
+ =?us-ascii?Q?9+2EeJcQ8ELWhkSHAMdeJvKy7kiC5LmIORIxnxmheMn2/iOGEsrRe7NYaJaB?=
+ =?us-ascii?Q?IkyavJDBiP+b6heux0lncXuBHgQjZkTDZQ7JPTbFt5/qvS4G+9Dvqm7WC9LL?=
+ =?us-ascii?Q?nADzP6SwXjMzu9ZS7t/1fAWbEZXfV6cNZ90yIoPaeciD5m2B+vt6/uuNhh4p?=
+ =?us-ascii?Q?lqFE7N282QgWS7M8OeX75A+TqSOLs5blLt7fwZ0R/V20VfeyP7XN0ojJ6zVJ?=
+ =?us-ascii?Q?vAASAt3Bag5gf4eIp+PfbKCX2IChzH/ynd2JDWJIL/lU4QK50zUrdK0aDmcL?=
+ =?us-ascii?Q?R+c0aYhpuq5Do6D6OR618xo7gxjretd9BmbBMxRv3akTIOqNVjVAG8nibmuF?=
+ =?us-ascii?Q?1bcVCToRRxVQ6J96pA6uCtL1KJjmLsj8N7TV/HsfwQiC0rbiKQHipKw1PbdZ?=
+ =?us-ascii?Q?+AOWhn465MwvKiLNt3kMhgNSE+WAOquhd51jegrK3YJua4afNiJLi4fc6etL?=
+ =?us-ascii?Q?leCEHX5Zlpft+atVa28PeYPUyFna+it2Uy6gz3Dj0Suj5CvoDlPb4Ysf9O3j?=
+ =?us-ascii?Q?FOzdkuKbPEWCPxMLpg4Wamgg6wWGIv+kf5SQ004mHtL6Z6SXuJTWvdCu44ZU?=
+ =?us-ascii?Q?AAO0yCEkUY3HO6rIt5HZ3zL9A9xs7GVn4OxgvXy/n/VVnSuaI5h2SabLeTrL?=
+ =?us-ascii?Q?teleQlISAtz8dDvgwet+La9vhF3GVBN/bjrj5QZ7BhZsihca1tQ5eHc5/6VW?=
+ =?us-ascii?Q?4Q01TcBR7Ok9HFFvKy7YPuc3IyLK0w8hVk7l+z/wzNYka+rkyQIMJygDNdD2?=
+ =?us-ascii?Q?hk+AUj+BFY2bTcuesdOVuMUVU7SsaHEs4esPtqbtESnXZATRpPdjYDe+OZS8?=
+ =?us-ascii?Q?TetykXjkvBhi/Hit5RZups+geeTPnJqQ7bc0ViIvoPnO5i/oovMOmGWy+pfo?=
+ =?us-ascii?Q?ls4Dqc2Kf6uMMIel/eSA3evQLHmJiaBGtFJqvJ0hRXNCb41zDrlUcGgaKK7T?=
+ =?us-ascii?Q?oOgyFjv61f7koV4OYDFL6CknfU/HZeZHnMDh2TkEkUB2TfzVIrPH2evQJ0W/?=
+ =?us-ascii?Q?61e7Rdn6GwgqJ1AxlPZpF2OkLKup4QNKy+B7m7bQHIEnehFd+gkyJuZcZfdj?=
+ =?us-ascii?Q?BblDnMuVkQjQ0eQMwGlmkTU+mTmzmMKsr7IPrf5phbP8ZtYVNsKg?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8b59df03-28fa-4bf9-efce-08df3144d50f
+X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Oct 2026 20:33:01.4138
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: mrGfwQ+lLOjlmFs1WmAovFaWv4K+9+Sm4Vv+GNaV/I0ka/FC9emMCHIBmf4GAT6jCxH0QWjvivMH7qldEN+UMv13RCqjZd5YsT7e5OL8ftzgQRHH9kOC8mp+qEqzxXh9
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB7816
 
-
-Same comment about the verbosity of the commit message.
-
-On Mon, Oct 12, 2026 at 02:11:07PM -0400, Nickolai Zeldovich wrote:
-> xas_alloc() sets node->offset only when the new node has a parent.  A
-> root node, allocated by xas_create() for an empty array or by
-> xas_expand() when the tree grows, keeps the offset its slab object had
-> before: radix_tree_node_cachep has a constructor, so the slab does not
-> clear the object, and radix_tree_node_rcu_free() only clears the slots
-> and marks.  A node freed from slot N of its parent comes back as a root
-> with offset N.
-> 
-> xas_expand() stores 0 to the old root's offset just before publishing it
-> as slot 0 of the new root, so the value is right once the expansion is
-> visible, but an RCU walker can see the old value.  The iterators climb
-> out of a node with
-> 
-> 	xas->xa_offset = xas->xa_node->offset + 1;
-> 	xas->xa_node = xa_parent(xas->xa, xas->xa_node);
-> 
-> (xas_find(), xas_find_marked() and __xas_next(); __xas_prev() uses
-> "- 1").  A walker under rcu_read_lock() that reaches the end of the root
-> while another thread expands the tree can load the stale offset before
-> xas_expand() clears it and the parent pointer after xas_expand() sets
-> it.  No reordering is needed: the two loads only have to straddle the
-> two stores.  The walker then continues in the new root at slot
-> (stale offset + 1) while xa_index is the first index of slot 1.  If that
-> slot is populated by then (for example by the store that caused the
-> expansion), the walker returns its entry with the wrong index.  With a
-> root covering 0-63 and a stale offset of 5, xa_for_each() that runs
-> concurrently with xa_store(xa, 384, p) can report p at index 64, and
-> then again at 384; xa_find() stores the wrong index in *indexp.  Any
-> entries in slots 1..5 of the new root are skipped.
-> 
-> The radix tree's radix_tree_node_alloc() always sets the offset, and
-> radix_tree_extend() passes 0 for a new root.  xas_alloc() dropped this
-> for root nodes when the XArray was introduced.
-> 
-> Set the offset of a node allocated without a parent to 0.  A node's
-> offset then never changes while readers can see it: a child's offset is
-> set before the node is published, xas_expand()'s store to the old root
-> writes the value it already has, and the root that xas_shrink() leaves
-> behind was the child in slot 0.  A walker climbing out of a root
-> continues at slot 1 whichever parent pointer it loads.
-> 
-> The new test frees two nodes with non-zero offsets and checks that the
-> roots created by xas_create() and xas_expand() have offset 0.  Its
-> checks use a new XA_WARN_ON(), which warns and carries on, counted like
-> XA_BUG_ON().  The test relies on the slab handing the freed nodes back;
-> without this patch both checks fail in the userspace harness and in the
-> self-test booted on x86_64 and riscv64 under QEMU.  The race itself has
-> no deterministic test.
-
-No, we don't want XA_WARN_ON.  We want XA_BUG_ON so it _stops_.  This
-is really important.
-
-> Found while formally verifying the lockless XArray iterators against the
-> kernel binary.
-> 
-> Fixes: 58d6ea3085f2 ("xarray: Add XArray unconditional store operations")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Nickolai Zeldovich <nickolai@csail.mit.edu>
+On Fri, Oct 23, 2026 at 12:42:37PM -0600, James Hilliard wrote:
+> The allocator changes vchan->phy and pchan->vchan under sdev->lock, but
+> termination reads the physical channel before taking either lock. The IRQ
+> handler also takes an owner snapshot without protecting it. Termination
+> can therefore miss a new assignment or detach an owner while an interrupt
+> is about to complete its descriptor. An IRQ status snapshot can survive
+> reassignment and be applied to the next transfer.
+>
+> Use sdev->lock for physical-channel ownership, pending channels and the
+> shared interrupt registers, nesting vc.lock inside it for descriptor
+> lists and cookie updates. Allocate and start each pending channel in one
+> critical section. Read and acknowledge IRQ status under the same outer
+> lock, and protect cyclic notifications as well as ordinary completions.
+>
+> Clear the active descriptor pointer before publishing finite completion
+> to virt-dma, whose tasklet may free it independently of the allocator.
+> An assigned channel without an active descriptor is ready for the
+> allocator to start its next transfer or release it. This replaces the
+> completed-descriptor pointer and keeps residue queries and termination
+> from consulting a descriptor already handed to virt-dma.
+>
+> Mask and clear a stopped channel's IRQs before releasing its ownership,
+> and clear pending status before starting a new descriptor. Schedule the
+> allocator after termination so other pending channels can use the released
+> physical channel without depending on another device interrupt.
+>
+> This also keeps process-context acquisitions IRQ-safe. Client callbacks
+> remain outside these locks in the virtual-channel completion tasklet.
+>
+> Fixes: 555859308723 ("dmaengine: sun6i: Add driver for the Allwinner A31 DMA controller")
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Closes: https://lore.kernel.org/r/20260706065650.34B131F00A3A@smtp.kernel.org
+> Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
 > ---
-> 
-> Notes:
->     - The patch and its analysis were drafted with an LLM coding assistant
->       and then reviewed and tested as described here and in the commit
->       message.
->     
->     - Reproduction of the race (test build only, not part of this patch): in
->       tools/testing/radix-tree (XA_CHUNK_SHIFT 3), a hook between the two
->       loads of the climb in xas_find() runs the expanding store, i.e. the
->       writer runs after the walker loaded the root's offset and before it
->       loaded the parent.  The root was reallocated from a leaf freed at
->       offset 5.  Without this patch xa_for_each() prints "index 8 entry 48",
->       then "index 48 entry 48"; with it, only "index 48 entry 48".  Nothing
->       was reproduced without the injected hook: the window is two loads wide.
->     
->  lib/test_xarray.c | 50 +++++++++++++++++++++++++++++++++++++++++++++++
->  lib/xarray.c      |  2 ++
->  2 files changed, 52 insertions(+)
-> 
-> diff --git a/lib/test_xarray.c b/lib/test_xarray.c
-> index 5ca0aefee9aa..27988441e71c 100644
-> --- a/lib/test_xarray.c
-> +++ b/lib/test_xarray.c
-> @@ -32,6 +32,22 @@ void xa_dump(const struct xarray *xa) { }
->  } while (0)
->  #endif
->  
-> +/*
-> + * Warn if @x holds and return whether it did, so that the caller can skip
-> + * checks which would not terminate or would not mean anything on the
-> + * broken state.  Counted with tests_run and tests_passed like the rest.
-> + */
-> +#define XA_WARN_ON(xa, x) ({					\
-> +	bool __failed = WARN_ON(x);				\
-> +								\
-> +	tests_run++;						\
-> +	if (__failed)						\
-> +		xa_dump(xa);					\
-> +	else							\
-> +		tests_passed++;					\
-> +	__failed;						\
-> +})
-> +
->  static void *xa_mk_index(unsigned long index)
->  {
->  	return xa_mk_value(index & LONG_MAX);
-> @@ -370,6 +386,39 @@ static noinline void check_xa_shrink(struct xarray *xa)
->  	}
->  }
->  
-> +static noinline void check_xa_root_offset(struct xarray *xa)
-> +{
-> +	DEFINE_XARRAY(tmp);
-> +	struct xa_node *node;
-> +
-> +	/* Free two nodes with non-zero offsets so the slab can reuse them */
-> +	xa_store_index(&tmp, 0, GFP_KERNEL);
-> +	xa_store_index(&tmp, 5UL << XA_CHUNK_SHIFT, GFP_KERNEL);
-> +	xa_store_index(&tmp, 6UL << XA_CHUNK_SHIFT, GFP_KERNEL);
-> +	xa_store_index(&tmp, 7UL << XA_CHUNK_SHIFT, GFP_KERNEL);
-> +	xa_erase_index(&tmp, 5UL << XA_CHUNK_SHIFT);
-> +	xa_erase_index(&tmp, 6UL << XA_CHUNK_SHIFT);
-> +	rcu_barrier();
-> +
-> +	/* A root created by xas_create() must have offset 0 */
-> +	XA_WARN_ON(xa, xa_store_index(xa, 0, GFP_KERNEL));
-> +	XA_WARN_ON(xa, xa_store_index(xa, 1, GFP_KERNEL));
-> +	rcu_read_lock();
-> +	node = xa_to_node(xa_head(xa));
-> +	XA_WARN_ON(xa, node->offset != 0);
-> +	rcu_read_unlock();
-> +
-> +	/* And so must a root created by xas_expand() */
-> +	XA_WARN_ON(xa, xa_store_index(xa, XA_CHUNK_SIZE, GFP_KERNEL));
-> +	rcu_read_lock();
-> +	node = xa_to_node(xa_head(xa));
-> +	XA_WARN_ON(xa, node->offset != 0);
-> +	rcu_read_unlock();
-> +
-> +	xa_destroy(xa);
-> +	xa_destroy(&tmp);
-> +}
-> +
->  static noinline void check_insert(struct xarray *xa)
->  {
->  	unsigned long i;
-> @@ -2235,6 +2284,7 @@ static int xarray_checks(void)
->  	check_xa_load(&array);
->  	check_xa_mark(&array);
->  	check_xa_shrink(&array);
-> +	check_xa_root_offset(&array);
->  	check_xas_erase(&array);
->  	check_insert(&array);
->  	check_cmpxchg(&array);
-> diff --git a/lib/xarray.c b/lib/xarray.c
-> index bfe7bef80f34..720d46e8b14a 100644
-> --- a/lib/xarray.c
-> +++ b/lib/xarray.c
-> @@ -387,6 +387,8 @@ static void *xas_alloc(struct xa_state *xas, unsigned int shift)
->  		parent->count++;
->  		XA_NODE_BUG_ON(node, parent->count > XA_CHUNK_SIZE);
->  		xas_update(xas, parent);
-> +	} else {
-> +		node->offset = 0;
->  	}
->  	XA_NODE_BUG_ON(node, shift > BITS_PER_LONG);
->  	XA_NODE_BUG_ON(node, !list_empty(&node->private_list));
-> 
 
-I think we should include Baoli's addition as well, but other than that,
-I think the patch is correct.  (I have a suspicion that xas->xa_offset
-will be 0 if !parent, so we could just initialise node->offset to
-xas->xa_offset unconditionally, but I'm not sure that level of
-microoptimisation is worth it at this point).
+Is it possible split to more small change? And you almost add sdev->lock,
+any place only use vc.lock without sdev->lock?
+
+Frank
