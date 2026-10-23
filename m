@@ -1,85 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.175
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792770109;
-	b=TDgRtXQv/6QVr+vQLPalZhRKy4m+yZseXFAdzbW/TCht/GsvZywFSscyked9FRSpALMf
-	 IMSxpP1SXgs6/c9NTF1NQr+iPYTs73Z68M3rjGiPWtAJkvv9hO48WjJa5Sy1iNBGEluza
-	 nbV6DQYz+xWHd0lh1lEYn9Obg4ESK8Zxgyfm8vILUCcB8xXPP/DOVI0JcV/gZKudfAA9H
-	 RaNluWtPbK28kPFv6h8rVESCiddvOXVWl2ftgKG4I9O/TP+43hWCN7JTbMREmWsw/SPqA
-	 VANA8tIbW8QFD3JMkG2dnCUz/ivUZ1UDPBV5bIgRzzVmnUhNEAkOeaZXObQMqCIF4tw==
+	t=1792770135;
+	b=CerPWZ2EJ4qTrmyhQb3L0KUNlOyNnE0hNiSvw8IspyfqMAa9FpQbvT7RSiFIhCotIi5V
+	 mP8NEn0wIdaZIY0xGAY2aOuKx5p5iwwgRguF+ihZ0v2YqKRjSKYBMudBSQJquS5wP8Jbt
+	 FtkVfRL/aOnpNcPIujTb1cr4eGss+59GGqd1aWKUpj9qnTIycfaSM3IQ8GLavt87Qw0Dw
+	 o6JG39zStilX/3v0XlqOeK5/DRol6iJXIx2AsY26uraaM0EAfuxnCuza/iot1JkHnLqga
+	 pJbznboYXYo05ClC1p/NsHUSDxOjaY6YY3w1/n9se4ZlyqX3YDFpJIkTguKCZKbXSxg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792770109;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792770135;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=p4zYTNJnmB4RId87xSly9GxhAKztPRW2cESt3l+Nt3I=;
-	b=p/iOjQ9mq1Z0drS9M/dguagkryBrKLlhvaweiYYtw/9V0jhFreO2RumMVFUeZM0x0KVw
-	 ZPNQoWIPlQE4cfLbhzMcTAKPjUWmUI5lzEXDAyv84Roq/IZoU8UMqi12z8RmAELb4jeX1
-	 s3XAScmc9DgQo40tN5CTWTWzHpuT3u5IG+gU1NrLpdF8BOACFRPsfVYyiF8gTMD1iq55Q
-	 j8FwpKL+JDwck3Ze+s7Z5/1qsu3RFA5TZzZJlu5YlbueifyMx/cDIgVqV1/HYU42XzGMU
-	 Qr9gaginnYRcOFDZ+OQBva+OsApfa0q4uySyTPQF8lG2Kny5IGdBUXxtPPStd/OlG3g==
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=rug7Neq15IHiij489G0zvk8NhY0SVtgpPgzc6r/gkrk=;
+	b=D8USOqP98jZ/hNR1PhUABP5qm331FdgDy90NdBTuwNoeSw9tF308cgdkX6PTxEoZ+IgU
+	 MYSDZnN+bzVwGBD7Z4WrWKDh2t9gXnpDne3FK38vFa3oTlG/BwWgHDuWKrpHMrePTPbeR
+	 1+Og6Dr3PjpssnwJOQ+LrZfvuWh9zc6FxY03WDUhqqe9wg0Zbchs2AfifGPznZ8eMCl72
+	 Tdh5g0J+b9Xd18u8fTUE/68BKVpsBiW4IZjsHM5fbv+Qfv3N7L1TuOG/f57WB86PKTeCo
+	 /NaP2elwCbSXf+ELM+CvDmt0XIEXgUoB9Kgo+TgCFwHRGzpWFqPHUNZ2IPP6RJddzcQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=lYDGdzjn;
-	arc=none smtp.remote-ip=209.85.221.51
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
+	dmarc=none header.from=ziepe.ca;
+	spf=pass smtp.mailfrom=ziepe.ca;
+	dkim=pass header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=c27WBFJ2;
+	arc=none smtp.remote-ip=209.85.222.175
+Received: from mail-qk1-f175.google.com (mail-qk1-f175.google.com [209.85.222.175])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E94860A3820
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 15:41:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3E94860A3820
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BEF3606A331
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 15:42:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2BEF3606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=lYDGdzjn
-Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-48b042c0759so719254f8f.2
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 08:41:49 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=c27WBFJ2
+Received: by mail-qk1-f175.google.com with SMTP id af79cd13be357-93f269e335eso106385985a.3
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 08:42:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1792770108; x=1793374908; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=p4zYTNJnmB4RId87xSly9GxhAKztPRW2cESt3l+Nt3I=;
-        b=lYDGdzjn8pKbo+YhF06SzfnDnRwEEHJoSmKxT76rJHZAROQiABUwV1j1d13KMePWX0
-         PaMZbvOu7xKgfKSWKhxwl+GJVcK7sAQU3Oe6PbouioBnfDR9rq6kGFlY1BMJ3w7DStim
-         Ig82unhCaPXT+WRxrp7LU9OU1rjCgc2WXAOZdgL8JOW4tVZLK7EI4nYrlY4xtVXFRaD2
-         cpBCflm39zzfIW6fd4t4DIgs+71qcxLRU2NO4sFjVPatmy4G4SImlp/IOAH1vO7eGndK
-         CcaNIj7jGfza+lqfg1f+fcLTRXbkSck2WE7adfoUVFLaA+L/+3lDOG63cZ1K3+519ZL+
-         rcIA==
+        d=ziepe.ca; s=google; t=1792770134; x=1793374934; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=rug7Neq15IHiij489G0zvk8NhY0SVtgpPgzc6r/gkrk=;
+        b=c27WBFJ20LlEkXwtFWR0pToqFQOALwL+bcaaVuyVwXUk924Vl3bY2TE+HzwUkjjWpt
+         QaaeAPi6z5Ti+PWEFO4B/P+zy2aL4YiNfo4wU22IWJR8UJl5UsOSPZsuUwdq+P5P5bI9
+         72boUzrYkytCjS3Ko/P0xykJ3PbDwA2rQfd47sTgSJkaHkjkNaWVyqh7Xfj2zU9voNek
+         oHWce6+kRLUM7XPX8O2BXEN48XjkeD/eVwT16b3bS4zufHv2bthZ5aNwPUaW3+/wB8mR
+         3LSVs3lqw0vf+xIhH8LUjQVpYyx9cBXBWmBXwJ0sj/UDAKDRx/Nl2/3V8k+ZJ60Qkgg3
+         R0XQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792770108; x=1793374908;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=p4zYTNJnmB4RId87xSly9GxhAKztPRW2cESt3l+Nt3I=;
-        b=FzTjeteiwOxbyX7kv96tRAjOrB4hAMVFXQTKUzwxBtJRH9EgOWtSiAGmgUIt06jk9m
-         51ZQoTV8It23+4NWprUABtS5SubxYLJutM93n6jSP5Ym+dcRp3XJNcDlJ+PXaBuw8N7F
-         hvvpQAiIlnouwDB4Itrl21aljbKlf4aOVmjdjg9kBxuJ1m/e3Z9uUfxs8KM898PK9sep
-         RY3Bju9sxX9vGTssk9wv+Xtv9MwBADlspRL1Mxr48tWXfx8jiUb8PrWe68njKh4789K5
-         v7hBIsp1B+MHfgOPLRka6VjiYuLcxartD+N0xxtHVx1Ugd72+DFiuYcpyN2cSL0YN0UC
-         Hrew==
-X-Forwarded-Encrypted: i=1; AKwUvBwzCT7KvGNYAbN6dZTYRGTEg/g+h+PG198N5bZGQmo8ShMXlmIud7wc5HnvRuJix480kiwEgfNXpfD0EDc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJxHDOGfBrf5eTQkNDIIX10kQiENU3e0TDG+UfqqZFQBcnKQuma
-	l3Dqml9vh1+VtPl5VeNNELLC66EmCPYZffvgeiDYehi6yl1lXugIlQvGTD867Wz1XCM=
-X-Gm-Gg: AYBFou0wj0c/z6+mEVTbSb0pJeuODd7ZkcBJ14ByqyvgQT95ckkbUQ3qorNAjIN39ZU
-	enDZk6AvjlW5pLIyNKhlUq7L49B6ctfJ4hj8chH7wjJazjXmXdPJOeIXbPOl2MWlVCNaFebEqaH
-	OaL+KDcKEBrwiyM0ON01GPBOMaDAECo6gSRFkX1tbQO7dWGVnx7ZDaARw05RwK+CHCTZu1GcVjp
-	6Lj/U11mYxKafgC86tJasgrNi2Y5eYVJRr0dtdxx/IFvpALzXAjT7sYPezxL3wMFc/5PpFTCnR0
-	3dD2rfsHTg9rU6hQGlt+YqdiAnD6SBrls1DQ6w9FA2p9BQm87y0KC0MPDmfC6eJ2XAHbUf01nqO
-	XZoPZSVapuvVO6wLmAQ+Jvu/xG6RHVXNfUx/BojqacJfTtq6bTbljOSfb2ZLr72+NLzshO75ifK
-	Kn70abyHfFpHAepNlUroQdWDHyfZaGychmdvbm9q3HfzWAwu85Ts8asbnJXw1EXbNh4u9oqEX2u
-	tYIocDhk1YywkAounEOPPBWZrmdJH5PDrH4r5D3G2Ioc1Vqdc+DrQZqbvc5Sa5AHjD8
-X-Received: by 2002:a05:6000:178a:b0:48d:f58f:c98 with SMTP id ffacd0b85a97d-48e385a5db6mr4346612f8f.40.1792770107560;
-        Fri, 23 Oct 2026 08:41:47 -0700 (PDT)
-Received: from [192.168.0.167] ([109.76.107.26])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3d400365sm532405f8f.25.2026.10.23.08.41.45
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 23 Oct 2026 08:41:46 -0700 (PDT)
-Message-ID: <99a419c3-81a8-4b37-b9c7-2dd56978162d@linaro.org>
-Date: Fri, 23 Oct 2026 16:41:44 +0100
+        d=1e100.net; s=20260707; t=1792770134; x=1793374934;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=rug7Neq15IHiij489G0zvk8NhY0SVtgpPgzc6r/gkrk=;
+        b=X7pFzslS0bTF9BSB8zttAbUVACT1eeFpAtfS7k3fWRNpQ5gYVlXFKimgIQLNCS8knc
+         gS5cvOhzZ0DRDb1079Y2M5/mO/mpzVy74Sl40vOvYaWA6m8OugxwnbdVxdagG2O1qpOB
+         p7sM4mxD13Ztw3YnJbhDdyqzdecJFnhkM2KF1IkNxISjl3+5PH4/8YeCEfIp1o7o134P
+         1NTXMVNl1hLWsRh6UzL4b2MeM9bwAlXjhSWBHQVSYRrri9fmeJUKlqamIb7nHaxIrffW
+         TvUu1b6u9JWPqoZt7FN9TqvngmKVU9qyeiBCnDcdQ3hQdHDmQpKTfhkpqPjifoXHEJCC
+         VyLA==
+X-Forwarded-Encrypted: i=1; AKwUvBwZ6BC0bWzIYrHipg3nEkbqWFRM55D8lH6Js71lOqXzzp6YM/Dfh1P4Ixsmy23LKVKqY+BTCZalmGQjPq0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKjTwrKk5Jc9Rckp+V+9JCnU3h1+OskP7T1T5jPDRwIenfkdgYF
+	1+yH4I0qfoZDFn8kwsPaEWYU/bYgilGxh9J8Y25n6CMnBZiEynvV6jKEDfS2FfcQUTY=
+X-Gm-Gg: AYBFou2ULOkYaHfmxb1wkE6CdgYgzmqaDRw77q7v60F/0OI+01278lyMpqld/Au+cP3
+	FpGZHrf9Yo9mDjjQpCLLOKqTDTHauyOkAgrySExca7tt17hnGucauMO0gt8rZmyD/WW2dyOE7Ph
+	tWJAGMUnlHNT1XreA0dJVnvKw/fC78oeN53/lqWuq4J4ftvGV8SHMzdzs37zT7ltPr+pQ3c5wkG
+	sXsWMNLSU7SlaGFH0Vu6M9Qzo1KGQWXR54f5oOnclj7DF69ibTXbs3jlultiwSftb4te66nCArw
+	kXNuhjGqs1GFQM3zN9w1uvORfHJZlvh0X480U2Yv5yoQhWkp/R/Bz7MeALLjYZB1Xlm48f7TJ0W
+	mW8gWq4EisR4EOnpsDqBVjApgTUZ/QXDTAakxU/EnO6+5N3dGJ5BevdYhHn5mymN/+Pxxm+JGj2
+	HRR4TdWMXVUH51bZGojzqbPc810dqEDffQRoX/Et59aC3rO6MBzpg9QQBqURj8wJuH2IgVhnwmE
+	Hyl7t3Q8jVK0kQbWv/Y3iPHSZJkho8Ec82fEpQgc7BjwXhmmtg6QogYS05Ey/1glS6d/8TrRyHv
+	fHcX6xP70HARTtqPwoChETA5JIWzyGvW8AMO9A==
+X-Received: by 2002:a05:620a:1a11:b0:93e:5ef8:c794 with SMTP id af79cd13be357-93f6f9648bbmr497429285a.38.1792770134059;
+        Fri, 23 Oct 2026 08:42:14 -0700 (PDT)
+Received: from ziepe.ca (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net. [159.2.239.150])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-94047b362a5sm45129985a.33.2026.10.23.08.42.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 23 Oct 2026 08:42:13 -0700 (PDT)
+Received: from jgg by wakko with local (Exim 4.97)
+	(envelope-from <jgg@ziepe.ca>)
+	id 1xKHPI-0000000Gn79-3Zzp;
+	Fri, 23 Oct 2026 12:42:12 -0300
+Date: Fri, 23 Oct 2026 12:42:12 -0300
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>
+Cc: Jiri Pirko <jiri@resnulli.us>, linux-coco@lists.linux.dev,
+	linux-kernel@vger.kernel.org, linux-api@vger.kernel.org,
+	x86@kernel.org, kvm@vger.kernel.org, linux-doc@vger.kernel.org,
+	david.quigley@intel.com, lukas@wunner.de, ksinyuk@kernel.org,
+	rodrigo.vivi@intel.com, cedric.xing@intel.com, sameo@meta.com,
+	drdeeglaze@gmail.com, James.Bottomley@hansenpartnership.com,
+	aik@amd.com, jpiotrowski@nvidia.com, qinkun@google.com,
+	pgonda@google.com, jic23@kernel.org, alistair.francis@wdc.com,
+	ankita@nvidia.com, suzuki.poulose@arm.com, kas@kernel.org,
+	rick.p.edgecombe@intel.com, elena.reshetova@intel.com,
+	dave.hansen@linux.intel.com,
+	sathyanarayanan.kuppuswamy@linux.intel.com, peter.fang@intel.com
+Subject: Re: [PATCH RFC 00/20] attestation: Add a common subsystem and TDX
+ support
+Message-ID: <20261023154212.GJ3977851@ziepe.ca>
+References: <20261015145053.3664509-1-jiri@resnulli.us>
+ <yq5a7bjajaco.fsf@kernel.org>
+ <atooh7uO2RauUTfY@FV6GYCPJ69>
+ <yq5av76sj10a.fsf@kernel.org>
+ <20261023142038.GE3977851@ziepe.ca>
+ <yq5ase1wiggs.fsf@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,254 +116,60 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 04/13] iommu: of_iommu: Add support for "iommu-ranges"
- on a device node
-To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
- Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
- Abhinav Kumar <abhinav.kumar@linux.dev>, Bryan O'Donoghue <bod@kernel.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Stanimir Varbanov <stanimir.varbanov@linaro.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Stephan Gerhold <stephan.gerhold@linaro.org>,
- "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
- Robin Murphy <robin.murphy@arm.com>, Abel Vesa <abelvesa@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Krzysztof Kozlowski <krzk@kernel.org>, iommu@lists.linux.dev,
- Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-References: <20260926-vpu_iommu_iova_handling-v5-0-0322ca5dc10c@oss.qualcomm.com>
- <20260926-vpu_iommu_iova_handling-v5-4-0322ca5dc10c@oss.qualcomm.com>
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Content-Language: en-GB
-In-Reply-To: <20260926-vpu_iommu_iova_handling-v5-4-0322ca5dc10c@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <yq5ase1wiggs.fsf@kernel.org>
 
-On 26/09/2026 07:34, Vikash Garodia wrote:
-> Reserving an IOVA address using "iommu-addresses" requires it to be
-> placed in the reserved-memory node. But when "iommu-addresses" is the
-> only property being described and there is no backing "reg" (i.e. no
-> actual reserved system memory), it does not really belong under
-> /reserved-memory. A device IOVA range is specific to its own address
-> space, and does not describe the system physical memory to make it
-> qualify under reserved-memory. Given this, place "iommu-addresses"
-> inside reserved-memory only when it is paired with a "reg", otherwise,
-> define it within the device own node. It was discussed here:
-> https://lore.kernel.org/all/662f7093-fb0a-4564-9ca0-98e03e68ba9a@kernel.org
+On Fri, Oct 23, 2026 at 08:58:35PM +0530, Aneesh Kumar K.V wrote:
+> Jason Gunthorpe <jgg@ziepe.ca> writes:
 > 
-> Existing "iommu-addresses" property expects a phandle, which does
-> not make sense when the property is defined within the device node.
-> Introduce a new property, "iommu-ranges", to specify the device
-> specific IOVA ranges when there is no backing "reg".
+> > On Fri, Oct 23, 2026 at 01:34:53PM +0530, Aneesh Kumar K.V wrote:
+> >
+> >> CCA currently takes the device identity index during pdev_create. I am
+> >> investigating how to retrieve the certificate chains for all slots. For
+> >> now, I have implemented the sequence below.
+> >
+> > Yeah, I think the consensus at LPC was this may be a gap in CCA.
 > 
-> Suggested-by: Rob Herring <robh@kernel.org>
-> Co-developed-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-> Signed-off-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-> Signed-off-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
-> ---
->   drivers/iommu/of_iommu.c | 128 ++++++++++++++++++++++++++++++++++++++++++++---
->   1 file changed, 121 insertions(+), 7 deletions(-)
-> 
-> diff --git a/drivers/iommu/of_iommu.c b/drivers/iommu/of_iommu.c
-> index a18bb60f6f3dfdba853b6e16dd2a8616f6a731c7..9766a6944d0e11a6cd8b74b1b89428acffe3dfdf 100644
-> --- a/drivers/iommu/of_iommu.c
-> +++ b/drivers/iommu/of_iommu.c
-> @@ -190,6 +190,111 @@ iommu_resv_region_get_type(struct device *dev,
->   	return IOMMU_RESV_RESERVED;
->   }
->   
-> +/**
-> + * of_iommu_derive_resv_regions - derive reserved regions which
-> + *                                are outside of iommu-ranges
-> + * @dev: device for which to get reserved regions
-> + * @list: reserved region list
-> + *
-> + * A device can describe its own usable IOVA ranges directly on its node
-> + * via "iommu-ranges". Everything not under those ranges is derived
-> + * as a reserved region so the IOMMU allocator won't use it. Entries may
-> + * appear in any order in the property.
-> + */
-> +static void of_iommu_derive_resv_regions(struct device *dev, struct list_head *list)
-> +{
-> +	struct of_iommu_range {
-> +		struct list_head node;
-> +		phys_addr_t start;
-> +		phys_addr_t end;
-> +	} *pos, *new, *next_range;
-> +	int size, prot = IOMMU_READ | IOMMU_WRITE;
-> +	struct iommu_resv_region *region;
-> +	const __be32 *maps, *end;
-> +	struct list_head *prev;
-> +	phys_addr_t next = 0;
-> +	LIST_HEAD(ranges);
-> +
-> +	maps = of_get_property(dev->of_node, "iommu-ranges", &size);
-> +	if (!maps)
-> +		return;
-> +
-> +	end = maps + size / sizeof(__be32);
-> +
-> +	while (maps < end) {
-> +		phys_addr_t iova, iova_end;
-> +		size_t length;
-> +
-> +		maps = of_translate_dma_region(dev->of_node, maps, &iova, &length);
-> +		if (!maps) {
-> +			dev_err(dev, "%pOF: failed to parse iommu-ranges\n",
-> +				dev->of_node);
-> +			break;
-> +		}
-> +
-> +		if (!length)
-> +			continue;
-> +
-> +		iova_end = iova + length - 1;
-> +
-> +		if (iova_end < iova) {
-> +			dev_err(dev, "%pOF: iommu-ranges overflows address space\n",
-> +				dev->of_node);
-> +			continue;
-> +		}
-> +
-> +		prev = &ranges;
-> +		list_for_each_entry(pos, &ranges, node) {
-> +			if (pos->start > iova)
-> +				break;
-> +			prev = &pos->node;
-> +		}
-> +
-> +		new = kmalloc_obj(*new);
-> +		if (!new)
-> +			continue;
-> +
-> +		new->start = iova;
-> +		new->end = iova_end;
-> +		list_add(&new->node, prev);
-> +	}
-> +
-> +	if (list_empty(&ranges))
-> +		return;
-> +
-> +	if (of_dma_is_coherent(dev->of_node))
-> +		prot |= IOMMU_CACHE;
-> +
-> +	list_for_each_entry_safe(pos, next_range, &ranges, node) {
-> +		if (pos->start > next) {
-> +			region = iommu_alloc_resv_region(next, pos->start - next, prot,
-> +							 IOMMU_RESV_RESERVED, GFP_KERNEL);
-> +			if (region)
-> +				list_add_tail(&region->list, list);
-> +		}
-> +
-> +		if (pos->end == PHYS_ADDR_MAX)
-> +			goto exit;
-> +
-> +		if (pos->end >= next)
-> +			next = pos->end + 1;
-> +
-> +		list_del(&pos->node);
-> +		kfree(pos);
-> +	}
-> +
-> +	region = iommu_alloc_resv_region(next, PHYS_ADDR_MAX - next + 1,
-> +					 prot, IOMMU_RESV_RESERVED, GFP_KERNEL);
-> +	if (region)
-> +		list_add_tail(&region->list, list);
-> +
-> +exit:
-> +	list_for_each_entry_safe(pos, next_range, &ranges, node) {
-> +		list_del(&pos->node);
-> +		kfree(pos);
-> +	}
-> +}
-> +
->   /**
->    * of_iommu_get_resv_regions - reserved region driver helper for device tree
->    * @dev: device for which to get reserved regions
-> @@ -214,10 +319,14 @@ void of_iommu_get_resv_regions(struct device *dev, struct list_head *list)
->   
->   		memset(&phys, 0, sizeof(phys));
->   
-> +		maps = of_get_property(it.node, "iommu-addresses", &size);
-> +		if (!maps)
-> +			continue;
-> +
->   		/*
-> -		 * The "reg" property is optional and can be omitted by reserved-memory regions
-> -		 * that represent reservations in the IOVA space, which are regions that should
-> -		 * not be mapped.
-> +		 * "iommu-addresses" must be used in combination with a "reg" that provides
-> +		 * the physical address and size of this memory region, for an identity 1:1
-> +		 * IOVA mapping to that physical memory.
->   		 */
->   		if (of_property_present(it.node, "reg")) {
->   			err = of_address_to_resource(it.node, 0, &phys);
-> @@ -226,11 +335,11 @@ void of_iommu_get_resv_regions(struct device *dev, struct list_head *list)
->   					it.node, err);
->   				continue;
->   			}
-> -		}
-> -
-> -		maps = of_get_property(it.node, "iommu-addresses", &size);
-> -		if (!maps)
-> +		} else {
-> +			dev_err(dev, "%pOF: iommu-addresses requires a reg property\n",
-> +				it.node);
->   			continue;
-> +		}
+> I checked with Alexey, and if I understand him correctly, TIO also needs
+> to establish eight separate connections to retrieve the certificate
+> chains.
 
-The if/else doesn't belong in a path entitled 'Add support for 
-"iommu-ranges"' as this changes he behaviour of iommu-addresses 
-independently of whatever iommu-ranges does.
+Lovely!
 
-The reg update part basically has nothing to do with this series at all 
-i.e. the code you depend on later in this series doesn't declare 
-iommu-addresses so... this is an update to align with a DT schema change.
+> For now, I am trying Jiri's suggestion: use Rust SPDM to fetch the
+> certificate chain and return it via evidence-get. evidence-accept then
+> does pdev-create with the specified slot number and compares the
+> evidence data returned by the RMM with the value cached by Rust SPDM. If
+> they match, it uses the cached value for set_pub_key. This seems to be
+> working. (FVP only supports slot 0, hence only one blob-instance)
 
-https://github.com/devicetree-org/dt-schema/pull/207
+That's a pretty good idea, and works for every arch! Maybe that is
+the best long term direction.
 
-Perhaps splitting this into two patches as an iommu-series would be best.
->   
->   		end = maps + size / sizeof(__be32);
->   
-> @@ -258,6 +367,9 @@ void of_iommu_get_resv_regions(struct device *dev, struct list_head *list)
->   				}
->   				type = iommu_resv_region_get_type(dev, &phys, iova, length);
->   
-> +				if (type != IOMMU_RESV_DIRECT)
-> +					continue;
-> +
+IDK about all this "Caching" stuff, I'm not sure I love the name
+"Cache" to refer to the security important reference certificate
+bundles. It should have a stronger name to reflect how critical it is
+in the entire security design of SPDM. You select the certificates
+once and everything following must match that or something bad has
+happened. It is effectively a key part of the channel binding.
 
-If you look in iommu_resv_region_get_type() you can emit
+But yes, RMM is sort of backwards here, the slot number should come
+with information about the certificates, but I think this is fine to
+have RMM fetch them again and then we just confirm everything matches
+the kernel's target. If we don't do a get prior to connecting then the
+kernel would just adopt the RMM's result as the target certificate
+chain for the slot?
 
-         dev_warn(dev, "treating non-direct mapping [%pr] -> [%pap-%pap] 
-as reservation\n", phys,
-                  &start, &end);
-         return IOMMU_RESV_RESERVED;
+It certainly seems like it should be all sketched out and the uAPI
+confirmed. Given the state of things I don't see an issue with a slot
+0 only initial configuration (ie EOPNOTSUPP the certificate gets) so
+long as the long term resolution is clear.
 
-on a mismatch - which is not what the code will do now. Mismatch will 
-warn and then not map.
+Which is an interesting question for Jiri on CTLV, one of the things
+we have in RDMA is runtime schema pruning. Based on runtime device
+capabilities parts of the schema can be disabled. Can we get there
+with CTLV too? Then introspection could return if the underlying
+implementation supports some of this stuff..
 
-So maybe dev_err() saying you won't map - in the new patch for reg. 
-Either way this isn't a change specific to iommu-ranges.
-
->   				region = iommu_alloc_resv_region(iova, length, prot, type,
->   								 GFP_KERNEL);
->   				if (region)
-> @@ -265,6 +377,8 @@ void of_iommu_get_resv_regions(struct device *dev, struct list_head *list)
->   			}
->   		}
->   	}
-> +
-> +	of_iommu_derive_resv_regions(dev, list);
->   #endif
->   }
->   EXPORT_SYMBOL(of_iommu_get_resv_regions);
-> 
-
+Jason
