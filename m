@@ -1,96 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.48
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792777277;
-	b=T90oMMqVluogPm9maG5iGHjV5w+GnrtIPRwCQueYKFJ3yECVDc9OMGZDfRKH2r33nJG8
-	 Se8D6sB/so1QzEK6yC1eSSHIzQXlBny3N3aFS+V0vVa/HNdjfdU6hFYgPxnBWJZveoT9N
-	 91vU2UvrEypN4FKlmlsmghxFopVlTvuEDwcR9PexaMgYfxbdMPFCv9m2UxiVPnj6IFwwS
-	 1xuCitpfYWOaSsMESksO2CpYJvoenTtEBw7H2DpVXDPvffSlBG7DlrYNAM+3rG8QRvDrs
-	 GrGpsuaNsoEWk5NyebomThbCHY4lo748qNC0V3COU/t2bwiG9++x9HVQWAmWQl/YnPg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792777277;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=truzcLzI1/fzEeSBbN3XZWCls+HY9QGypr22D9AUbNQ=;
-	b=LlhxY17IeIcYv0uwUF4fBACl2iQqtGTsHmU3B6LUtcznPj0ofouO0MhGNdsSc+EX1cPn
-	 NY25tn4SnlYgz/tqmeT4+cIT3Tnd7l7aL09VMXWIr22mhIr6YcBc3tRQjBGacIcGEp5LM
-	 W/a4jfGGm6EoiVvttg4GDTKdEZ/5QzUbP/DOkGNFSVWbMecePAXHUuv9HJnmtGutSAM/c
-	 UEKBRWsoJreSddsjD41smnLBMohImQmoPHw2KudIBad0Ad+IVboHbluTC26JLqnrX3fxf
-	 kCL34xNMKmcvMkijs2St7LfFeJoUuxqAkvjhZ1pOpGhXqWF06/oDGpAV8ULN+aLuNsQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=fwq7HXJ3;
-	arc=none smtp.remote-ip=209.85.167.48
-Received: from mail-lf1-f48.google.com (mail-lf1-f48.google.com [209.85.167.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.222.82.137
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792777312;
+	b=Vasz/YZ7uTMP6ErrO4ye2LNRnZ7JZBaoohqiu/XxjCQTemLn1dmyZwdzvKT0PFrDAqPC
+	 ARImKSZGBv2ZtyI5HTiyYlebvgDXkXE3QGFr1HZIzca1SwSxtgh8kXEwnqnU46/qeTdkv
+	 MxV67UtyFv4oEvwMgaI9YApA86xurajdahzQgJSxDMvp+3UQhVNSXgm2D69QzzNQENmN4
+	 UirwrtPUXptSlvv3q+2/7lJx2aQeH9HGYm+e4ShlZ3LdhbObfTUPGY1KrnY1yKkrp8gOK
+	 Hf3R68/xysJsGz+VeuBj/9dl3PqK8HMEaHT5hfLua8mPBxneUlOw7Ueu4wPzeUIfe3g==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792777312;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:Content-Transfer-Encoding:
+	 Content-Type:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
+	 X-OriginatorOrg:X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-BESS-ID:
+	 X-BESS-VER:X-BESS-Apparent-Source-IP:X-BESS-Parts:
+	 X-BESS-Outbound-Spam-Score:X-BESS-Outbound-Spam-Report:
+	 X-BESS-Outbound-Spam-Status:X-BESS-BRTS-Status;
+	bh=JMLiuEXTyeRJRM8cfS/zqmP13JKkO3+A1ks6AbFobBE=;
+	b=W+t1aoVgdFqOKogtAdubnQGaWtgfRKY+DROhOkZbxnCdnGDvJ/VF5vgTpA6PlUKWpQY+
+	 uA5Stbuq7NF9+LqCmapSuWJpKXSi7dTxcl/Z9yynn0hVZWm04DlM9+uliu0nEaCPqhAmM
+	 8u3GnrSX2LrQnT0xmUSUizcAqYQfhgVARx8yhg1+lwRvJuXv5qUO6AElWaEoXmnsb43M1
+	 9P2KRsEH0Op0t0eJJjUytD44AFetKyaykQbeGW3yLTp/Cup4AyGgOx/NKG+E2DoUja3eq
+	 kWCr1kzp4Rwcz/hLUsmmGbDp2wsL2D4gYL9pCz4kY/85Eqri14TDLWRpVVsZbvLZiZw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=opengear.com;
+	spf=pass smtp.mailfrom=digi.com;
+	dkim=pass header.d=opengear.com header.i=@opengear.com header.a=rsa-sha256 header.s=selector1 header.b=Y8Gz4V1Q;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.222.82.137
+Received: from outbound-ip199b.ess.barracuda.com (outbound-ip199b.ess.barracuda.com [209.222.82.137])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AD71606A31D
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 17:41:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4AD71606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BF3B606A31B;
+	Fri, 23 Oct 2026 17:41:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7BF3B606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opengear.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=digi.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=fwq7HXJ3
-Received: by mail-lf1-f48.google.com with SMTP id 2adb3069b0e04-5bc18f54abbso1057957e87.1
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 10:41:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792777275; x=1793382075; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=truzcLzI1/fzEeSBbN3XZWCls+HY9QGypr22D9AUbNQ=;
-        b=fwq7HXJ3055YN84gik4gwErUSx/7NlBw6Abzp7HJ7SZ23AouCbTUXRGUqc2YRPxA5D
-         Q/qIsx0eCtwq71y6UROQO0s94tvRyE+o74UOkoy+20GzDVNrwSXdjg87lmRwDEvBYiug
-         tHGiLyCKPP/3PH9Sw4QYDFCiSlRfzjIG8RfHuw6EbRyNcPLrA+BfIyKrfH98Gy8gXqvl
-         wk6jHPWeSSETItc++bdi9NftMuVAfrgCRxT0lLWpK3WofE4YWnKwVh72sTQ5mabdAMbQ
-         PbBH97IAH5Z5WQGB+BKC76trV8vqsUTa4inKJA6J/sz04L/tAO872COL+f9CDA8AnLje
-         8EOA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792777275; x=1793382075;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=truzcLzI1/fzEeSBbN3XZWCls+HY9QGypr22D9AUbNQ=;
-        b=2hgAsk08DwxZxrEbXKTRs+o3D6kRWTztkEdxIWao0vHvR1V1gIkA3iBVvY1qQoGHYg
-         z2EqXRiEPc9U83EcvTx+fkvrP4fRLj8qESIDn24bJNQdPLxwoeXhUvOXZez9hSR56XGq
-         6ejz1Nk5f2IZg6s7iczGW4/466pXuoEG59E71GTmvqaQu0RwWbJh4MkMjrhk4Ek3U+rG
-         MFSiq780Mb/ilWi1LwL+pVCkJ6Qmqb4cM4kFER6SeCXnny412jxU3ZkbIejkn7J77R+1
-         0B4COITSCfq0CdrciMLfUj7QvqBh9Z3EwrV/Ijhtr2SN5+Bh4FYiGayNF02kEcSG4S15
-         jlqg==
-X-Forwarded-Encrypted: i=1; AKwUvBxuQv0GDLOswZvoRUlIQ8UAxqf7wXfeVDk09u1DgswUvFpNo3/DgbESZI1gqm8TX33Mi9GF2bozCse3CZM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL1HUEf6+DsjyUl/7RhJ985yza8wm1f4N0DKWJI712lELr8bXgE
-	y12TDQSNb9RnoAg/RKH235Fc7wwpxXHDK0Iy3uBcsoPey/cVTCvAtJ6r
-X-Gm-Gg: AYBFou3osh+swPdPsHgqesRWcv1GvJiUuW+Qs7UouDcoRE2aEFyS+bXWciuHHZ3y42E
-	TFDFM6bH7yXISdXNQFm5mLRUOFRuMmRBFj86O8Aekt0g5tCMqQqoWY4otzcTu0AujeIDd2YfgRF
-	UN4U3MCmCyvKc6o9OnzJTGo5+3rsHuuj81BNzBavUU05NbZ48Wo2AELNkJkIk+td00PVVlYGReG
-	5VO0XeiXlhZ9LbYrALFtn8lk8koJO6ndUud0T00pVgc2u7azNvFCyUaVPUmkcTNAqL/fn+8Xx2Q
-	AU4GwDmbx6jMydeZCy5sBWHlWkOqAX+r4GHb5PHQC53mQYObPnSadWoLCYBdY5e5LL6xOCFuUzZ
-	KrchckhteG0oCdslG6lZQ2OAJAUMH5BWVzSsGeOgVF18xCDqHFi4hB7RCI+0OZ/UW4SPVD6IG+0
-	tJNlbzPjD8QAPVkvvpPS/FaNZhpRa6v63JspyjHTXLhI+BuMEyqVC0RoQ2XmSufwNRKQobwMKjI
-	AZZq8IHsHMP+7C32i9pgUpQ6UAQJ2q6RhCCGWPKWJ6pEVgGYsqidW/bVhyg7Eq7I41o78NdRxHA
-	QMEtlfCoiKYJSSHmKLszwnEvV3MGIV1JlGW2eQQpKaX6F7Dfwg23ETvZUiXtNVn9Wbmg4u4AUKT
-	D7M4xuw==
-X-Received: by 2002:a05:6512:3984:b0:5be:32b8:e32c with SMTP id 2adb3069b0e04-5bfb0b3e2c7mr1148573e87.35.1792777275127;
-        Fri, 23 Oct 2026 10:41:15 -0700 (PDT)
-Received: from x870steellegend.lan (95-25-165-240.broadband.corbina.ru. [95.25.165.240])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bfb670e8acsm59975e87.15.2026.10.23.10.41.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 23 Oct 2026 10:41:14 -0700 (PDT)
-From: Igor Putko <igorpetindev@gmail.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Tejun Heo <tj@kernel.org>,
-	Oliver Neukum <oneukum@suse.com>,
-	linux-usb@vger.kernel.org,
+	dkim=pass (2048-bit key, unprotected) header.d=opengear.com header.i=@opengear.com header.a=rsa-sha256 header.s=selector1 header.b=Y8Gz4V1Q
+Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11020138.outbound.protection.outlook.com [52.101.56.138]) by mx-outbound21-108.us-east-2b.ess.aws.cudaops.com (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NO); Fri, 23 Oct 2026 17:41:19 +0000
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=vYvUjkNMBtcTCr4ibaylj1WOycOSjb7ek6kYBDg3lNB42lGJepHwQV1yaVgxDmiPKmJ88lYnbtNlfgIYW45+Oh6Px03iWEq9GkTSqWDlC2NpFhvKF+lAfU+fnUWV4kXZnNmQDaj2mLqsPldlvRFMz6UZDkY6BKPHrLfhJpuznsNhYbvgRKbGDqIoiLyhqEccjQJTDVyXlWbcliU/btoLMIdOAPvwsClYBWYIAZmWVXMR1+YMT2mU1GiVUKD8CFpSF6MfZHdANbBDRQfI1p66hKLtTMqBRuQ5C4MRe7yFhdH52RqKtw1DxxXmU0mOxYKez0ABUKV7BRkWUZDipvWuGQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=JMLiuEXTyeRJRM8cfS/zqmP13JKkO3+A1ks6AbFobBE=;
+ b=QjUpXvSobfkmWnVvWdaNv2gZj6nZiHC8oNiW6CajgsIIGlG1YZTLium49HgsejqElh/1FjWBURgBpbf27C7j8ARV9yn8dWw5XENdse6TOLo8xduqZL8n9bbld9bFLPeDOSEjBpHBGX0m9KNFN900hLmAZN6k3AI/ZdBnuLxDAfQFBSHviCV/wJWb25L/d2UWS1+En2s8rGgoWms7Yu3nu2ja96knAXMhAUclZoZlQ1vc568sCS0BA7u6M1wbvQENhJ/+YIPlKgOp0sE/YcCx77wMz35FCWGsTXVhwxrQ0TcIZlvQtpaySCXAYfWMVwLRvfhMfQkt8s7gCcy4wbtqwQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=digi.com; dmarc=pass action=none header.from=opengear.com;
+ dkim=pass header.d=opengear.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=opengear.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=JMLiuEXTyeRJRM8cfS/zqmP13JKkO3+A1ks6AbFobBE=;
+ b=Y8Gz4V1QcYi7xwQfyMJThs62SnrVnOu9afDPFwwJ7IShQmRW8iUR47fclWDGMeniF9Ky0T0i+5AQQZi6J8DDqA3+vmO9tb249YLVggHhFWKX8Ozt+4T+yiKFV0RqWT/viywBsn47MFqBfZInmzGiKTrqmEuinBT2ThUgSnnHON0fyFZV1N5ya0IAoAIUawAaCgyd1EovRdl1mFPQeJQxM3sTJaZPD3j4La2EEWSEnG01QYAmYuckuYUHeG/p2FuXNuHt9pmt+vB4XWwMsP12PWZMwGryylEt4yIcRpcMLZiivgXH53h5FS6J1/0YrFPZTBALZy6Jww5DysbBoX2OoA==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=opengear.com;
+Received: from MWHPR1001MB2095.namprd10.prod.outlook.com
+ (2603:10b6:301:32::34) by DS7PR10MB5133.namprd10.prod.outlook.com
+ (2603:10b6:5:3a7::12) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.12; Fri, 23 Oct
+ 2026 17:41:17 +0000
+Received: from MWHPR1001MB2095.namprd10.prod.outlook.com
+ ([fe80::3933:62ac:2729:f017]) by MWHPR1001MB2095.namprd10.prod.outlook.com
+ ([fe80::3933:62ac:2729:f017%7]) with mapi id 15.21.0546.017; Fri, 23 Oct 2026
+ 17:41:17 +0000
+From: Peter Hunt <peter.hunt@opengear.com>
+To: netdev@vger.kernel.org,
+	Loic Poulain <loic.poulain@oss.qualcomm.com>,
+	Sergey Ryazanov <ryazanov.s.a@gmail.com>
+Cc: Johannes Berg <johannes@sipsolutions.net>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Daniele Palmas <dnlplm@gmail.com>,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Igor Putko <igorpetindev@gmail.com>,
-	syzbot+a5b220cacb0618384d5a@syzkaller.appspotmail.com
-Subject: [PATCH] usb: core: hcd: cancel giveback work synchronously on stop
-Date: Fri, 23 Oct 2026 20:40:15 +0300
-Message-ID: <20261023174015.54793-1-igorpetindev@gmail.com>
-X-Mailer: git-send-email 2.47.3
+	Peter Hunt <peter.hunt@opengear.com>
+Subject: [PATCH net] net: wwan: mhi_wwan_ctrl: keep DTR drops and resend state when IP_CTRL binds
+Date: Fri, 23 Oct 2026 11:41:13 -0600
+Message-ID: <20261023174113.2388353-1-peter.hunt@opengear.com>
+X-Mailer: git-send-email 2.43.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SJ0PR03CA0017.namprd03.prod.outlook.com
+ (2603:10b6:a03:33a::22) To MWHPR1001MB2095.namprd10.prod.outlook.com
+ (2603:10b6:301:32::34)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,44 +106,228 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MWHPR1001MB2095:EE_|DS7PR10MB5133:EE_
+X-MS-Office365-Filtering-Correlation-Id: d6f36141-1cf0-4615-244d-08df312cd750
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|7416014|376014|1800799024|366016|18002099003|10067099003|261021123027099003|261021121427099003|11063799006|261022105027099003|261009223027099003|56012099006|261022075727099003;
+X-Microsoft-Antispam-Message-Info:
+	fxZDS5sRnx/V0Z2i+016n7kBDiwqnjlFpAE5aca+d593FT023KYNkxUkT3HtwG2emYu7vOUSqiUvLqSEHZJ6vE1hd1vOW/ASE7TaqTMopH+CuXl9aU7BrCZlHHlmSpgKOLZoTtc+3DhV2UdyAWmhsjwrnsGOQB5OUbieEdE6y2Zc5tsEi74Qn/61/31rD8HS9tXK06O88jxaBwC0UkWRmLkvuDL7COmIiF1icSOpLSt4rOrBM41DqG7fb6IIH1eyDvYQqYxJuFiNat94VFFtcUF6a+zWc3+pmRSQYE2pjy46AXpJef0UNC8q77WeO6gZTWOSbo4VVemKwvRfKj9cMR9nKipzwYbOmyTVTcLtR5Xog14wrY0iPPzdzR2FUN+rF4qWIDJT8/tVsnr2Tr6jI280xYubpzLrMt2hXRWC0m1hjzs5eo0gU2nqP2e6k2ioYByM8kUxzbldnYCN54RDxrE3OWWRRqy4wNhEBsTR7jmYo7VHwYC33O3z1Uk6dy4B6hoj0ow5mjo/EjioSX7OeJI6XtlsvT7ln99ek3fEB84StdVqGzOBXfT1nIsmaT3KgGogvMo7m4OUDBrqDqiSL8NzcywoPNchjm91Bol+tiXe8uISMnV5rYmD8PaFlWBI
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MWHPR1001MB2095.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(376014)(1800799024)(366016)(18002099003)(10067099003)(261021123027099003)(261021121427099003)(11063799006)(261022105027099003)(261009223027099003)(56012099006)(261022075727099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?2D5zxMeu65Fxyit62HfamtGAtaXIwuUfmMlnq5q02m+6UB59qDdNn5uWd4uz?=
+ =?us-ascii?Q?juiHNTwjnxzbruARKkgNGbjo07raWtx3kpMsoaKAs1cChZbIJ40ajawDScUd?=
+ =?us-ascii?Q?KvoIu3Aau87xZL+o1J9gkWYcwe7YxHrPrf/zG2tK/m7rrgeE+GTMd1pv5NzG?=
+ =?us-ascii?Q?IMfmmnnRMPBIqqoFLPqq1xO4Vzra3UoeB30OmjueHBxeHWvRZaAQcwLjruvY?=
+ =?us-ascii?Q?g0hVVLW/3CetlsZwEJaVb3vSUKETXQtMAd6tS4Glef9PwFWr9m3JJ+W7UjAZ?=
+ =?us-ascii?Q?tVzt/jZvR6QxWNA5ytgESn+RSlzieTvn8zjYayOoEAGzRpqjn42t5adt+2+t?=
+ =?us-ascii?Q?bwjCNGEr+KWOYBo22DOuoRwXnFvBEGsMpv7/t0VICdgOinNN8wtNFTWhm9cb?=
+ =?us-ascii?Q?iXy2/KxXoRJiA1U7toCy3QOg3tDdeIQbnCAJvlxQUl1LOvGtiW0a8u16wpJH?=
+ =?us-ascii?Q?A1b36KVzjrz/Qg4zEQ2VMaDvu36C91wDM1t3pv2AvA8ISeS4I1/cZYgsOcEv?=
+ =?us-ascii?Q?zVTL098CLvzUe4PR1hL4qxmraozt+9mi+tyzbxAW6/UzAEOBwzRSK+tnP7Ri?=
+ =?us-ascii?Q?7kHZIYlZizM56mx0boh+eq58eLAJuNejpiZJl2lQ13cZTq2VqsW+mYEjJ3UX?=
+ =?us-ascii?Q?VdpNss29Q9ZKFt25oCGLjYjgwLj8V4Z/Eesyqb1LNJ/SmhSuvWb46wT659K2?=
+ =?us-ascii?Q?73ODypTe68rP371ZLGjbqR/OsfbPwSfJl9DZYQj8xELDwwvJfez85jeYOhEg?=
+ =?us-ascii?Q?/v+ruC+L/uAW3e/36eVCx+2wgjf73kb9rcOUdXrqqXvb0mVmWlDl6UqcTCm8?=
+ =?us-ascii?Q?pr0c8T8ZvElXNNQTBO7T/oBFRnUjqEoaehiaEo9vB7zrOvOj4626aszreLwp?=
+ =?us-ascii?Q?nwRnCsm1VmkP7aQh/Locl8qCVtgef2aLNPEPHxOOe00/A1IUQjCrcVu1SDy5?=
+ =?us-ascii?Q?U+KV3BSvhrOBG7Rls3OFhsqdSmgg/ZfuCFnUxaqkSylJLuINZGyeACowOWX6?=
+ =?us-ascii?Q?MmvEFoTUISw3u7M86XFQqaXohDh9IoBjylfpbg9KO9+r2zoeJxBBWN5Kfrjf?=
+ =?us-ascii?Q?HWIoUg9q9aaSMVI22af8WcJoxyL80q6LI2T5biAlZnw+KnBIk05koCJsDmvz?=
+ =?us-ascii?Q?GSuC3b/t3nPzBxaTWTLBlZ3vHN1Qbu6mgVJp37teb38QjxqKuYjthngDa56t?=
+ =?us-ascii?Q?rZLgVOZ7tGGjUkn5S/jEcDZAetj8N400juJ/iWhaPlERD7LDhxeQWOkLW62i?=
+ =?us-ascii?Q?u2Wos5+/ulZSqj6JIoI9Mp9V8uFRGMM7oxy6zOT0QqdVrvJvOE1oYLXHb1S/?=
+ =?us-ascii?Q?VZWFiwMHa1i14hKeWialUhhBssvHbmC5nVYmIjIdqQWXoOnk9J1gw3N5ZSUI?=
+ =?us-ascii?Q?ObKQnqj0r2/82w46li4s59e6o5ks16JM0liiK1oMqCbl4UEzJJw3QUGpsI1L?=
+ =?us-ascii?Q?6ZVnCfZl9Fm2BCA1FHlWnj2NwU5StkrUsIaaspJsuq1WZrD9gP02rxCxHfCW?=
+ =?us-ascii?Q?7gj3l5tyS6/Z88yyRvQe2dwf1MiqIN+xe/HcxtCpDh6DDe497gwnVJf40ZtO?=
+ =?us-ascii?Q?6kYG87Vn/S6sbo1R3zLjBNEkhTSVYRD7o7qhEJfzBhDVBJKF9409Ty+hrRBG?=
+ =?us-ascii?Q?hy5ZoBLVdts3rbo0+NJMm/FbckjipUsvoom0z2H8hjXNy0Ltuy1AOpXwnZOF?=
+ =?us-ascii?Q?Q9Bm3sptMFMIQSGy8CBj0Ztg7D2y0uQtPLM3V0Q3Fe05Jxmp?=
+X-Exchange-RoutingPolicyChecked:
+	A2cUBtoSPQY2V7mES3Z2vzVRRJKpPnSOtcnj9pY5JJ85F1wiHQgXHYJyViEOUnOVhs+qF0/mxu0ta8whXrTr88pFQPRy6g9UdFRIXBH+reoaPR0omZyBD1rTe1KFMH1hY+PhrZA7ra8NYvPl2O8j9q3qmqf3unaGxykhBWqwFAB9Aa4yFkRlOMce0dVCQyAYzy+u9cm8+cJTFONh4pDRhhYlb90DCD3XbhooTVGQbgQWUYDDY5J3XX5CflTb3Gg02B+3qrsa52GhXdQ8Z2jrDEj4bWGpw5IvkpOYc5GUxZNbxSd7mGYMzIEy/BQuAqbccp3IoqBNSpIDnDtg8Tgg7Q==
+X-OriginatorOrg: opengear.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d6f36141-1cf0-4615-244d-08df312cd750
+X-MS-Exchange-CrossTenant-AuthSource: MWHPR1001MB2095.namprd10.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Oct 2026 17:41:17.1549
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: abb4cdb7-1b7e-483e-a143-7ebfd1184b9e
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: MbUzCBONLIw5/vEj6PzMR8VSOklIFiYIoocQE5OSPICcMLT5D6Ej1oM8LAoF5Nca
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR10MB5133
+X-BESS-ID: 1792777279-105484-20662-31829-1
+X-BESS-VER: 2019.1_20260924.1519
+X-BESS-Apparent-Source-IP: 52.101.56.138
+X-BESS-Parts: H4sIAAAAAAACA4uuVkqtKFGyUioBkjpK+cVKVqaWxuZAVgZQ0NTIyCDJ0DjVKD
+	XNMsUyNTHNMsnA0DzNwtjQJMnY1MhMqTYWACCHntpBAAAA
+X-BESS-Outbound-Spam-Score: 0.00
+X-BESS-Outbound-Spam-Report: Code version 3.2, rules version 3.2.2.277056 [from 
+	cloudscan21-188.us-east-2b.ess.aws.cudaops.com]
+	Rule breakdown below
+	 pts rule name              description
+	---- ---------------------- --------------------------------
+	0.00 BSF_BESS_OUTBOUND      META: BESS Outbound 
+X-BESS-Outbound-Spam-Status: SCORE=0.00 using account:ESS112744 scores of KILL_LEVEL=7.0 tests=BSF_BESS_OUTBOUND
+X-BESS-BRTS-Status:1
 
-When an HCD is stopped/removed (either during module unload, driver
-unbind, or an error path in probe), pending URBs are unlinked and
-completed. However, for root hubs or HCDs with giveback done in BH
-context, the work function usb_giveback_urb_bh() may still be executing
-on another CPU after __usb_hcd_giveback_urb() finishes.
+Two corner cases in the DTR/RTS coalescing, found by the Sashiko review
+of the series that added it.
 
-Since the caller may immediately free the struct usb_hcd via usb_put_hcd()
-after usb_stop_hcd() or usb_remove_hcd(), the running worker accesses
-the embedded giveback_urb_bh structure after it has been freed,
-triggering a slab-use-after-free write detected by KASAN.
+If the IP_CTRL channel binds after an AT port has already signalled
+DTR/RTS, for example after a sysfs unbind and rebind of mhi_wwan_dtr or
+a failed IP_CTRL probe that is retried, the state requested while it was
+unbound never reaches the modem, and the wwan core does not send it
+again unless DTR or RTS changes. Keep a list of the driver's ports and,
+when IP_CTRL binds, resend the current state of every port on that
+controller that has signalled DTR/RTS.
 
-Ensure all giveback work is fully flushed and cancelled in usb_stop_hcd()
-by calling cancel_work_sync() on both high and low priority BHs.
+Coalescing could also let a DTR drop be overtaken by a later raise, for
+example on a quick close and reopen while a retry was pending, so the
+modem never saw DTR go low. A drop matters on its own, a modem set to
+AT&D2 hangs up on it, so remember a pending drop and send it before the
+latest state. Also run the work straight away on a new request instead
+of waiting for a pending retry.
 
-Fixes: 8fea0c8fda30 ("usb: core: hcd: Convert from tasklet to BH workqueue")
-Reported-by: syzbot+a5b220cacb0618384d5a@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspotmail.com/bug?extid=a5b220cacb0618384d5a
-Signed-off-by: Igor Putko <igorpetindev@gmail.com>
+Fixes: d509edf90bc6 ("net: wwan: mhi_wwan_ctrl: drive DTR/RTS via the IP_CTRL channel")
+Signed-off-by: Peter Hunt <peter.hunt@opengear.com>
 ---
- drivers/usb/core/hcd.c | 3 +++
- 1 file changed, 3 insertions(+)
+Follow-up to the v10 review, as Jakub asked:
+https://lore.kernel.org/all/20261020114405.38a06826@kernel.org/
 
-diff --git a/drivers/usb/core/hcd.c b/drivers/usb/core/hcd.c
-index 8e8a5f59b319..0b7d30900f7a 100644
---- a/drivers/usb/core/hcd.c
-+++ b/drivers/usb/core/hcd.c
-@@ -2787,6 +2787,9 @@ static void usb_stop_hcd(struct usb_hcd *hcd)
- 	/* In case the HCD restarted the timer, stop it again. */
- 	clear_bit(HCD_FLAG_POLL_RH, &hcd->flags);
- 	timer_delete_sync(&hcd->rh_timer);
+Tested on a Sierra EM9291 (CM8100): IP_CTRL unbind/rebind with DTR
+cleared and set while unbound, back-to-back DTR drop+raise pairs, bursts
+of 10,000 DTR changes, plus the HUPCL, teardown and lock stress tests
+used for v10.
+
+ drivers/net/wwan/mhi_wwan_ctrl.c | 50 +++++++++++++++++++++++++++++++-
+ 1 file changed, 49 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/net/wwan/mhi_wwan_ctrl.c b/drivers/net/wwan/mhi_wwan_ctrl.c
+index e3c207588956..52b6d3677558 100644
+--- a/drivers/net/wwan/mhi_wwan_ctrl.c
++++ b/drivers/net/wwan/mhi_wwan_ctrl.c
+@@ -15,6 +15,8 @@ enum mhi_wwan_flags {
+ 	MHI_WWAN_DL_CAP,
+ 	MHI_WWAN_UL_CAP,
+ 	MHI_WWAN_RX_REFILL,
++	MHI_WWAN_DTR_SET,	/* ->dtr_rts has been called for this port */
++	MHI_WWAN_DTR_DROP,	/* a DTR drop is still to be sent */
+ };
+ 
+ #define MHI_WWAN_MAX_MTU	0x8000
+@@ -43,6 +45,9 @@ struct mhi_wwan_dtr {
+ };
+ 
+ static LIST_HEAD(mhi_wwan_dtr_list);
++/* All ports, so an IP_CTRL channel that binds late can resend their state */
++static LIST_HEAD(mhi_wwan_port_list);
++/* Protects mhi_wwan_dtr_list and mhi_wwan_port_list */
+ static DEFINE_MUTEX(mhi_wwan_dtr_lock);
+ 
+ struct mhi_wwan_dev {
+@@ -71,7 +76,10 @@ struct mhi_wwan_dev {
+ 	 * changes is coalesced and only the final state has to get through
+ 	 */
+ 	unsigned int dtr_mdmbits;
++	/* State to send for a DTR drop that a later raise would otherwise hide */
++	unsigned int dtr_drop_mdmbits;
+ 	struct delayed_work dtr_work;
++	struct list_head port_node;
+ };
+ 
+ /* Increment RX budget and schedule RX refill if necessary */
+@@ -197,6 +205,21 @@ static void mhi_wwan_ctrl_dtr_work(struct work_struct *work)
+ 						    struct mhi_wwan_dev, dtr_work);
+ 	int ret;
+ 
++	/* A DTR drop matters on its own, e.g. to hang up a modem set to AT&D2,
++	 * so send it before the latest state if DTR has been raised again
++	 */
++	if (test_and_clear_bit(MHI_WWAN_DTR_DROP, &mhiwwan->flags) &&
++	    READ_ONCE(mhiwwan->dtr_mdmbits) & TIOCM_DTR) {
++		ret = mhi_wwan_ctrl_send_dtr(mhiwwan,
++					     READ_ONCE(mhiwwan->dtr_drop_mdmbits));
++		if (ret == -EAGAIN || ret == -ENOMEM) {
++			set_bit(MHI_WWAN_DTR_DROP, &mhiwwan->flags);
++			schedule_delayed_work(&mhiwwan->dtr_work,
++					      msecs_to_jiffies(10));
++			return;
++		}
++	}
 +
-+	cancel_work_sync(&hcd->high_prio_bh.bh);
-+	cancel_work_sync(&hcd->low_prio_bh.bh);
+ 	ret = mhi_wwan_ctrl_send_dtr(mhiwwan, READ_ONCE(mhiwwan->dtr_mdmbits));
+ 	if (ret == -EAGAIN || ret == -ENOMEM)
+ 		schedule_delayed_work(&mhiwwan->dtr_work, msecs_to_jiffies(10));
+@@ -209,9 +232,19 @@ static void mhi_wwan_ctrl_dtr_work(struct work_struct *work)
+ static void mhi_wwan_ctrl_dtr_rts(struct wwan_port *port, unsigned int mdmbits)
+ {
+ 	struct mhi_wwan_dev *mhiwwan = wwan_port_get_drvdata(port);
++	bool drop = (READ_ONCE(mhiwwan->dtr_mdmbits) & TIOCM_DTR) &&
++		    !(mdmbits & TIOCM_DTR);
+ 
++	if (drop)
++		WRITE_ONCE(mhiwwan->dtr_drop_mdmbits, mdmbits);
+ 	WRITE_ONCE(mhiwwan->dtr_mdmbits, mdmbits);
+-	schedule_delayed_work(&mhiwwan->dtr_work, 0);
++	/* Publish the state before the flags the work tests */
++	smp_mb__before_atomic();
++	if (drop)
++		set_bit(MHI_WWAN_DTR_DROP, &mhiwwan->flags);
++	set_bit(MHI_WWAN_DTR_SET, &mhiwwan->flags);
++	/* Run now, even if a retry is already pending */
++	mod_delayed_work(system_wq, &mhiwwan->dtr_work, 0);
  }
  
- /**
+ static int mhi_wwan_ctrl_start(struct wwan_port *port)
+@@ -357,6 +390,10 @@ static int mhi_wwan_ctrl_probe(struct mhi_device *mhi_dev,
+ 
+ 	mhiwwan->wwan_port = port;
+ 
++	mutex_lock(&mhi_wwan_dtr_lock);
++	list_add(&mhiwwan->port_node, &mhi_wwan_port_list);
++	mutex_unlock(&mhi_wwan_dtr_lock);
++
+ 	return 0;
+ };
+ 
+@@ -365,6 +402,11 @@ static void mhi_wwan_ctrl_remove(struct mhi_device *mhi_dev)
+ 	struct mhi_wwan_dev *mhiwwan = dev_get_drvdata(&mhi_dev->dev);
+ 
+ 	wwan_remove_port(mhiwwan->wwan_port);
++
++	mutex_lock(&mhi_wwan_dtr_lock);
++	list_del(&mhiwwan->port_node);
++	mutex_unlock(&mhi_wwan_dtr_lock);
++
+ 	/* Give the DTR/RTS drop from removal one attempt, then stop the work */
+ 	flush_delayed_work(&mhiwwan->dtr_work);
+ 	disable_delayed_work_sync(&mhiwwan->dtr_work);
+@@ -419,6 +461,7 @@ static void mhi_wwan_dtr_dl_xfer_cb(struct mhi_device *mhi_dev,
+ static int mhi_wwan_dtr_probe(struct mhi_device *mhi_dev,
+ 			      const struct mhi_device_id *id)
+ {
++	struct mhi_wwan_dev *mhiwwan;
+ 	struct mhi_wwan_dtr *dtr;
+ 	int ret;
+ 
+@@ -449,6 +492,11 @@ static int mhi_wwan_dtr_probe(struct mhi_device *mhi_dev,
+ 
+ 	mutex_lock(&mhi_wwan_dtr_lock);
+ 	list_add(&dtr->node, &mhi_wwan_dtr_list);
++	/* Resend the state of ports that signalled DTR/RTS before IP_CTRL bound */
++	list_for_each_entry(mhiwwan, &mhi_wwan_port_list, port_node)
++		if (mhiwwan->mhi_dev->mhi_cntrl == dtr->cntrl &&
++		    test_bit(MHI_WWAN_DTR_SET, &mhiwwan->flags))
++			mod_delayed_work(system_wq, &mhiwwan->dtr_work, 0);
+ 	mutex_unlock(&mhi_wwan_dtr_lock);
+ 
+ 	return 0;
 -- 
-2.47.3
+2.43.0
 
