@@ -1,65 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=144.76.98.110
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.173
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792798111;
-	b=OBzUxqAP8KgJP6mvkXmq7Je/skgZZyvUOo2pY/JMU9c5ft7lEkMYOmc5H4BbDH5kmotT
-	 mwhICdWQ6RFpQECDxQ9nHE4bHJ6pguyt8+zlxt9htVnG67SgIqecuGGjjDreCo23ZCfJa
-	 805yPaI+hM3lWItNzB/fg50LPD6z3MS301yQSxomn5md6iBtY5cKOk8kmVNIfxKPQ6gS1
-	 NHtsgm01CnwqfpTnDSbJHEbZ+UkXqHW/Z1vurb+L4P0gXcoX4NFVilEIo0nR4s+ZASjcb
-	 V0g9zPNvSZGpQHdzX26l/1f3vhusvggVRctRRh+bnqD+4bL0873pPlNbqSaEg629+hg==
+	t=1792798269;
+	b=Vb3bqaMkgONVhHs5KHw8hrEwgo+1LfRd2rsFzP6gew+cUmBHpVIKTH/RI2qDIH6mVoKs
+	 6w4SxdX7Y9/CR1PeSSGjhiyX3WBIqJvM4kI9PDGKtZe0kB4EEAJg6oBXJy4yVkwpoX8Re
+	 CXsIQUlZsbXFRZ/8j5Fe/x4Wa4C2qDN1eSJwnGfDYvwiOJs8plGUhS+mDUh9KmkriehqV
+	 pCfr1mqkOn9A7rfmquyglL7FvbwlUVhkOrjpjzZpYOcB1kFTNHcqmjysBeMqW3dP8LwwF
+	 954M34NEUju3ox5C/wIrbJV5QRCJMfXgBiY85NO2wPQQefb3bGcZsIfdXvivu9HvPmQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792798111;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=hDU6f29ghJe9hyJnNDwqo+/sZgn+XaJjPnZBukdTI0w=;
-	b=dzf17H4l2Hc1VrpU0L/0BPW49erhIQ1VIhuuG0AIwoxh7tIFn+1m+3uyfhGrzf3PBe65
-	 /hXJw2ojTPxPD71xYJo2AcFo9FtzTUzXZK//q582Ht0TPijuKdywsXQWKFpJU/TyP7UhH
-	 yZSUZrG7Nig1wVAZwF0whysfDGSmHVcmzvE4fMEFZo2w5VPPuiov738NUbNSkw7X+kKo7
-	 qgsBYQfEutcSiY8ODTY1lzdOWqZxhwWIaf4VIQlosHcEN4CEl3ev3dMSMqJZgMs1zjBeP
-	 LywDF0cqWUdoA7J5iERwkOhZY5Ox3x/zuzUZhEPB2zww2Gu1zBUuf0jOQefA8upi1sw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792798269;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=PWqyUavBnfNEo1DMfRHoVS39e8foN13m8UB6fhUtUw8=;
+	b=qsgbz34Aw5nzSETqnZVs09U5omsv82Jwx1o8sfWRVNVbMrP2F9yLinZoWFSdXm0qVzYx
+	 XrX4q9q6cUBTw9DYpwXeDRavXBJMvEIARQs1nMfSMcExcu1F4Fq2IxMaPag2NuhJfkgym
+	 CrGLQLgjgr4DxLJHRwwX0KyicEbumN1L1RB3aKiApRijNJyVOBeyHY/uxF712w4sAiHCj
+	 1mUX/mn5DnkZ+UPmJNCivYtFIx1V+g3t/SJj1FPWdhc9KZUE572/uqheVW6YsgdsY5r40
+	 14jd2ER49SAGFy+g2eVU8Ggsclr1JfPCeHv6Uc+kb1nFHR0rNNH2PyYy+VMtUuk1f+w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=rojer.me;
-	spf=pass smtp.mailfrom=rojer.me;
-	dkim=pass header.d=rojer.me header.i=@rojer.me header.a=rsa-sha256 header.s=main header.b=gvp6RsKE;
-	arc=none smtp.remote-ip=144.76.98.110
-Received: from mail1.rojer.cloud (mail1.rojer.cloud [144.76.98.110])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=nAA74T8c;
+	arc=none smtp.remote-ip=209.85.214.173
+Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5190A606A324;
-	Fri, 23 Oct 2026 23:28:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5190A606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=rojer.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rojer.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62898606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 23:31:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 62898606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=rojer.me header.i=@rojer.me header.a=rsa-sha256 header.s=main header.b=gvp6RsKE
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=rojer.me; s=main;
-	t=1792798109; bh=4HAcl55rvgbwvXeXRWkrEX0djWNdzZsXCLO+9FVeuok=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=gvp6RsKEk6AFtQtEe+wJ52z6JsnCfWma8e4JABBiZ0huv4OZLCy/2aER4BtOnkczI
-	 q98meknu7VtBAnkSpuB0QSGeAvwrzQRZRwHbftB1NQGexmZ6ZyNq/Gq5L3PQSxKw3F
-	 bJ0bl9B3trQslbcIPSfEftiYtpvd2np/JtYCryHDFebIptK8us9Re5cJ65WWH6JDUC
-	 kiT6EtXlq6Wa1FaQJbRDPfEabLjuFXpBro3Lr/BkYDHGcP3Hq/wBq0IXD7ejVSvGf1
-	 lsXpXD4l768ZMCDUgINocNeoHw0j9UX8rByuWC0n6bw2dQOVw2dat4LNqmwD5dk1AW
-	 eblbBZe1C8u2A==
-Received: from nbf.lan (212-5-142-134.ip.btc-net.bg [212.5.142.134])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail1.rojer.cloud (Postfix) with ESMTPSA id 525C6126B27;
-	Fri, 23 Oct 2026 23:28:29 +0000 (UTC)
-From: Deomid rojer Ryabkov <rojer@rojer.me>
-To: Ulf Hansson <ulfh@kernel.org>
-Cc: linux-mmc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Jensen Huang <jensenhuang@friendlyarm.com>,
-	Deomid rojer Ryabkov <rojer@rojer.me>
-Subject: [PATCH 2/2 alt] mmc: core: sdio: retry without CMD11 if it fails at 1.8V
-Date: Sat, 24 Oct 2026 02:28:28 +0300
-Message-ID: <20261023232828.2983454-1-rojer@rojer.me>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261023232813.2983368-3-rojer@rojer.me>
-References: <20261023232813.2983368-1-rojer@rojer.me> <20261023232813.2983368-3-rojer@rojer.me>
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=nAA74T8c
+Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2ea7f9c11e6so24465ad.0
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 16:31:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1792798269; x=1793403069; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=PWqyUavBnfNEo1DMfRHoVS39e8foN13m8UB6fhUtUw8=;
+        b=nAA74T8cOEJLXMnzpJum2EuGhN6wWZ7houJ5cTni6btqKvu8eDNZNsM6z52TkQNSvf
+         WV4DdlHcZGanwbtWs7vRG2iFqSVr+jdHu3kBZEtXyQQCo+Y1AHZ8rLyamggYaMj8aEsB
+         499r07UlyW9W4VeveVMUVHxGNsesZOT2hsiEC6MozIdgo2t7qlymOHB0FxuI5JUZu0N1
+         kIEVGzbyTqwOL6acytKhR7GY58O9K09BtS3PT3N1wz7Jx0y5LSmeJfKPRyn5T5l5qM7i
+         lUdecUozr9SjmHXZFVou7tKJeaRskqeq4yKSFW1dXcVB/W7hjNZA7JzbJgdWyy9hd86y
+         B2vQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792798269; x=1793403069;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=PWqyUavBnfNEo1DMfRHoVS39e8foN13m8UB6fhUtUw8=;
+        b=yuk7tu864mlREFrOR9EzWAhfYOexohyGUh/+zT+rpjMaTCVWRlMllNQCmYKd3DuxJ4
+         WL2v2g13xsyE52ni1vPHhY0yDhnu8VJcufXuTgchB29NNxIRi4h7pIfS4gye2X3/Nzb5
+         nh1p2AWyZxVjkJxC02pkZidEOlPkG42eloQ5iSL/VNRwh4eHY4j0v82sF+nF/+0BEWy7
+         Z4xdqwMOXeVZZ3l1uHop5u3KGkPerh9XjN+N+dRtr4ae0zafycuxHvs0N07FBLHFM526
+         4ZrBE+0gRJ+izWtkoTbOThJ2utp2q+AG1pjjpYXgp3kkxZdMuiOgR/cCURFdtAe5Q9aB
+         /nmQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzEELiOy+jeuOl6n/7LUrGRR3E8N5h0ZhQgx5A34AMBMCIDT17MtCCXfUq9fCRKa2uL67Qg75KSHC5sL9o=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLMZK+dKHGtebx+f7ICrtay6UKwvtoUKLmXYgJOQWb3pOTz2jc+
+	kz7I4zrY0vs1xcrcPfkkoJd43U6fwRqD/E/B9j8KfsU9Id9mQN6H4YG0r7Jw4Q5GhA==
+X-Gm-Gg: AYBFou0iDPnXYwUxCu3Yo/ByQ7FbzHcR0r+P7q7SyBeNKL/A9ttBYxQmOloRvducNqE
+	dVzozwcmxzWlKTvYgqhx8c2fg15zbc4cdcVPln3nuF1D63eaMxkfkcs4MHZDOqFm/nptH0GEe4i
+	Jb9bQWyjWOA/P3/KYd+V/awerqzjv29wAxO7Ictpmu9ejYpY8LNdLFF7siyl6/d2HlVZT+sQIeZ
+	oacFZg5S3DAM9j0C+UUyY5zhu8bb/RK/5W9d4dHU6Aq3OVUhP0FqbYASP3+G4CUbAGPd5Ie1fuc
+	uOjtSVAsxoJFLjQ6sEaoIgmMewxpoCL3AUBTP9EPJpVWwjZvp6jCGPsMclNNyrdgII/6R/AnAY3
+	jsS5vWb2iw1ln0lmOIswRK+YuYBG2iCR3uVGB9tSbcJlnDfxRjvcoG/6AJXpmUULKFCiBV25/yl
+	OB8rQ7htSVUroBJB9/ToW1Hadsf5jkQl+yt3yet2iMMf+poL6Z+5NrM3gfIfryx0OXVUDHop4bc
+	SC3EAyGgpy0H3H9poGQH9WLQnuvzLH0Mu7JOL1xlKTqaFE41sogOJhYC/Hs3bv9R1YWRLb2ARJ0
+	7Xl4LfKi619gycvCICRbt4TWHa1xIgkLXPEr4aCXw09WGhjh
+X-Received: by 2002:a17:903:1cc:b0:2e6:1917:fa with SMTP id d9443c01a7336-2ea9d12a727mr853705ad.7.1792798268197;
+        Fri, 23 Oct 2026 16:31:08 -0700 (PDT)
+Received: from google.com (163.1.145.34.bc.googleusercontent.com. [34.145.1.163])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3adebb27a1bsm707176a91.15.2026.10.23.16.31.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 23 Oct 2026 16:31:05 -0700 (PDT)
+Date: Fri, 23 Oct 2026 23:31:03 +0000
+From: Samiullah Khawaja <skhawaja@google.com>
+To: Robin Murphy <robin.murphy@arm.com>
+Cc: Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
+	Jason Gunthorpe <jgg@ziepe.ca>, Kevin Tian <kevin.tian@intel.com>, 
+	Alex Williamson <alex@shazbot.org>, iommu@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, Pasha Tatashin <pasha.tatashin@soleen.com>, 
+	David Matlack <dmatlack@google.com>, Lu Baolu <baolu.lu@linux.intel.com>, 
+	Pranjal Shrivastava <praan@google.com>
+Subject: Re: [RFC PATCH 3/3] iommu/arm-smmu-v3: Add support for hitless
+ replace of S1 domains
+Message-ID: <atvppceAqBVx8G9S@google.com>
+References: <20260925011308.3381953-1-skhawaja@google.com>
+ <20260925011308.3381953-4-skhawaja@google.com>
+ <3d1eb92f-3447-49f0-a210-fd4fa015304b@arm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,97 +103,139 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
+In-Reply-To: <3d1eb92f-3447-49f0-a210-fd4fa015304b@arm.com>
 
-Per the SDIO Simplified Specification Version 3.00, section 3.1.2, a card
-whose signalling is already at 1.8V must report S18A = 0 in the R4
-response, and the core relies on that: it only sends CMD11
-(SD_SWITCH_VOLTAGE) when S18A is set.
+On Fri, Oct 23, 2026 at 02:43:28PM +0100, Robin Murphy wrote:
+>On 25/09/2026 2:13 am, Samiullah Khawaja wrote:
+>>S1 domains are programmed by CD entries in the CD table. During a new
+>>domain attach these are updated using write_cd_entry. Since ASID and
+>>TTB0 are in different 64-bit words, the write_cd_entry considers it a
+>>non-hitless update and sets V=0. This means such an update is disruptive
+>>and would generate translation faults if there are ongoing DMAs.
+>>
+>>Replace the CD entries by using an unused temporary ASID in following
+>>sequence to allow hitless replacement of CD entry,
+>>
+>>- Update the CD entry with temporary ASID.
+>>- Update the CD entry with the target TTB0.
+>>- Update the CD entry with the target ASID.
+>>
+>>Signed-off-by: Samiullah Khawaja <skhawaja@google.com>
+>>---
+>>  drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c | 66 ++++++++++++++++++++-
+>>  1 file changed, 64 insertions(+), 2 deletions(-)
+>>
+>>diff --git a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
+>>index 5732f3ba0122..59f4b8cf89f6 100644
+>>--- a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
+>>+++ b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
+>>@@ -1641,6 +1641,68 @@ void arm_smmu_write_cd_entry(struct arm_smmu_master *master, int ssid,
+>>  	arm_smmu_write_entry(&cd_writer.writer, cdptr->data, target->data);
+>>  }
+>>+/* Invalidate every stage-1 TLB entry tagged with @asid. */
+>>+static void arm_smmu_tlb_inv_asid(struct arm_smmu_device *smmu, u16 asid)
+>>+{
+>>+	enum arm_smmu_cmdq_opcode op = (smmu->features & ARM_SMMU_FEAT_E2H) ?
+>>+					       CMDQ_OP_TLBI_EL2_ASID :
+>>+					       CMDQ_OP_TLBI_NH_ASID;
+>>+
+>>+	arm_smmu_cmdq_issue_cmd_with_sync(smmu,
+>>+					  arm_smmu_make_cmd_tlbi(op, asid, 0));
+>>+}
+>
+>Feels like this should probably use the existing invalidation machinery...
 
-Some cards don't follow this. The Realtek RTL8822CS (as fitted on the
-FriendlyElec NanoPi R2S Plus, where the M.2 SDIO bus is wired to a fixed
-1.8V vqmmc) answers CMD5 with S18A = 1 even though the bus is already at
-1.8V. CMD11 then times out, the core drops R4_18V_PRESENT and the card
-ends up in 50 MHz high-speed mode instead of SDR104.
+I see, I can use the arm_smmu_inv_flush_iotlb_tag() to issue
+invalidation for the ASID.
+>
+>>+
+>>+static void arm_smmu_cd_set_asid(struct arm_smmu_cd *cd, u16 asid)
+>>+{
+>>+	cd->data[0] &= ~cpu_to_le64(CTXDESC_CD_0_ASID);
+>>+	cd->data[0] |= cpu_to_le64(FIELD_PREP(CTXDESC_CD_0_ASID, asid));
+>>+}
+>>+
+>>+static void arm_smmu_replace_cd_entry(struct arm_smmu_master *master, int ssid,
+>>+				      struct arm_smmu_cd *cdptr,
+>>+				      const struct arm_smmu_cd *target)
+>>+{
+>>+	struct arm_smmu_device *smmu = master->smmu;
+>>+	struct arm_smmu_cd stage;
+>>+	u32 tmp_asid;
+>>+
+>>+	lockdep_assert_held(&arm_smmu_asid_lock);
+>>+
+>>+	/*
+>>+	 * Nothing is translating through an invalid CD, and an update that
+>>+	 * invalidates one cannot be made hitless anyway.
+>>+	 */
+>>+	if (!(cdptr->data[0] & cpu_to_le64(CTXDESC_CD_0_V)) ||
+>>+	    !(target->data[0] & cpu_to_le64(CTXDESC_CD_0_V)))
+>>+		goto write_directly;
+>>+
+>>+	if (xa_alloc(&arm_smmu_asid_xa, &tmp_asid, XA_ZERO_ENTRY,
+>>+		     XA_LIMIT(1, (1 << smmu->asid_bits) - 1), GFP_KERNEL))
+>>+		goto write_directly;
+>>+
+>>+	/* Copy the existing cd entry and update only the ASID. */
+>>+	stage = *cdptr;
+>>+	arm_smmu_cd_set_asid(&stage, tmp_asid);
+>>+	arm_smmu_write_cd_entry(master, ssid, cdptr, &stage);
+>>+
+>>+	/* Copy the target cd entry and update ASID to the temporary ASID. */
+>>+	stage = *target;
+>>+	arm_smmu_cd_set_asid(&stage, tmp_asid);
+>>+	arm_smmu_write_cd_entry(master, ssid, cdptr, &stage);
+>>+
+>>+	arm_smmu_tlb_inv_asid(smmu, tmp_asid);
+>>+
+>>+	/* Update to the target cd entry as it should be hitless now. */
+>>+	arm_smmu_write_cd_entry(master, ssid, cdptr, target);
+>>+
+>>+	arm_smmu_tlb_inv_asid(smmu, tmp_asid);
+>>+	xa_erase(&arm_smmu_asid_xa, tmp_asid);
+>>+	return;
+>>+
+>>+write_directly:
+>>+	arm_smmu_write_cd_entry(master, ssid, cdptr, target);
+>>+}
+>>+
+>>  void arm_smmu_make_s1_cd(struct arm_smmu_cd *target,
+>>  			 struct arm_smmu_master *master,
+>>  			 struct arm_smmu_domain *smmu_domain)
+>>@@ -3664,8 +3726,8 @@ static int arm_smmu_attach_dev(struct iommu_domain *domain, struct device *dev,
+>>  		struct arm_smmu_cd target_cd;
+>>  		arm_smmu_make_s1_cd(&target_cd, master, smmu_domain);
+>>-		arm_smmu_write_cd_entry(master, IOMMU_NO_PASID, cdptr,
+>>-					&target_cd);
+>>+		arm_smmu_replace_cd_entry(master, IOMMU_NO_PASID, cdptr,
+>>+					  &target_cd);
+>
+>No, we cannot blindly do this for arbitrary ->attach_dev calls - the 
+>majority of S1->S1 transitions are going to be moving back and forth 
+>between the default domain and user domains, where there is zero 
+>expectation, let alone guarantee, that the translations would be 
+>equivalent and thus not liable to lead to TLB conflict aborts or 
+>amalgamation hell.
+>
+>This needs to be in a dedicated "I know what I'm doing and I fully 
+>accept the consequences if I get it wrong" call path.
 
-Keep sending CMD11 as before, but if it fails and the signalling is
-still at 1.8V after the power cycle (i.e. vqmmc can't do 3.3V), there was
-nothing to switch: power-cycle and retry init once without CMD11, keeping
-R4_18V_PRESENT so that UHS init runs:
+Agreed.
 
-  dwmmc_rockchip ff5f0000.mmc: Unexpected CMD11 timeout
-  mmc_host mmc2: Timeout sending command (cmd 0x10202000 arg 0x0 status 0x90202000)
-  mmc2: CMD11 failed at 1.8V, retrying without it
-  dwmmc_rockchip ff5f0000.mmc: Successfully tuned phase to 66
-  mmc2: new ultra high speed SDR104 SDIO card at address 0001
+I will update this to only be triggered with explicit request from the
+Core to satisfy my live update use case where a preserved iommu domain
+is being replaced by a new domain setup by the user.
 
-Cards that handle CMD11 today, compliant or not, are not affected, nor
-are hosts that can switch to 3.3V, as they are back at 3.3V after the
-power cycle. The cost is the failed CMD11 on affected boards: on the
-R2S Plus the card comes up about 0.85s later than when CMD11 is skipped
-outright (1.65-1.71s vs. 0.82-0.83s after boot).
-
-FriendlyElec's BSP for this board works around this with a card
-quirk, MMC_QUIRK_BROKEN_ROCR_S18A[1], matched on the "realtek,rtl8822cs"
-compatible, which drops the switch request whenever this chip is
-present. The misreported S18A is the card's fault, but ignoring it is
-only correct when the bus is already at 1.8V: on a board with a
-switchable vqmmc the same chip would then be run in UHS at 3.3V. A card
-quirk would need knowledge of the board's supply that it doesn't have.
-The core can tell from a failed CMD11 at 1.8V that there was nothing to
-switch, so handle it there, which also takes care of any other card that
-turns out to behave the same way.
-
-[1] https://github.com/friendlyarm/kernel-rockchip/commit/aee62cf7ae16b5ede6c6d92a8ee20e796482754e
-Cc: Jensen Huang <jensenhuang@friendlyarm.com>
-Signed-off-by: Deomid rojer Ryabkov <rojer@rojer.me>
----
-This is an alternative to patch 2/2 ("mmc: core: sdio: skip CMD11 if
-signalling is already 1.8V"); apply one or the other. 2/2 follows the
-spec and skips CMD11; this one keeps sending it and only retries without
-it if it fails at 1.8V, at the cost of ~0.85s on affected boards.
-
- drivers/mmc/core/sdio.c | 14 ++++++++++++--
- 1 file changed, 12 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/mmc/core/sdio.c b/drivers/mmc/core/sdio.c
-index 6787fdf1c5..0a96469fd4 100644
---- a/drivers/mmc/core/sdio.c
-+++ b/drivers/mmc/core/sdio.c
-@@ -665,6 +665,7 @@ static int mmc_sdio_init_card(struct mmc_host *host, u32 ocr,
- 	int retries = 10;
- 	u32 rocr = 0;
- 	u32 ocr_card = ocr;
-+	bool skip_cmd11 = false;
- 
- 	WARN_ON(!host->claimed);
- 
-@@ -737,14 +738,23 @@ static int mmc_sdio_init_card(struct mmc_host *host, u32 ocr,
- 	 * 1.8v, the card sets S18A to 0 in the R4 response. So it will
- 	 * fails to check rocr & R4_18V_PRESENT,  but we still need to
- 	 * try to init uhs card. sdio_read_cccr will take over this task
--	 * to make sure which speed mode should work.
-+	 * to make sure which speed mode should work. Some cards (RTL8822CS)
-+	 * set S18A regardless and then fail CMD11; if that happens at 1.8V,
-+	 * retry without it.
- 	 */
--	if (rocr & ocr & R4_18V_PRESENT) {
-+	if ((rocr & ocr & R4_18V_PRESENT) && !skip_cmd11) {
- 		err = mmc_set_uhs_voltage(host, ocr_card);
- 		if (err == -EAGAIN) {
- 			mmc_sdio_pre_init(host, ocr_card, card);
- 			retries--;
- 			goto try_again;
-+		} else if (err &&
-+			   host->ios.signal_voltage == MMC_SIGNAL_VOLTAGE_180) {
-+			pr_warn("%s: CMD11 failed at 1.8V, retrying without it\n",
-+				mmc_hostname(host));
-+			skip_cmd11 = true;
-+			mmc_sdio_pre_init(host, ocr_card, card);
-+			goto try_again;
- 		} else if (err) {
- 			ocr &= ~R4_18V_PRESENT;
- 		}
--- 
-2.53.0
-
+Thanks,
+Sami
+>
+>Thanks,
+>Robin.
+>
+>>  		arm_smmu_make_cdtable_ste(&target, master, state.ats_enabled,
+>>  					  STRTAB_STE_1_S1DSS_SSID0);
+>>  		arm_smmu_install_ste_for_dev(master, &target);
+>
