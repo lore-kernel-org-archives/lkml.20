@@ -1,60 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.116
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.120
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792785372;
-	b=dW2fjxU0Ei4fhv1Sc0wwHvCg2GNuc+IKVYJYIw8z5O+UR/6Sathlzx19ygHoh1EGVUkq
-	 zjq1WYjh4PbSgycI6KF3BRp8SUP9ePZjF55S4K9845mFyF9TuOcAURsQGjfzyTeXcrjN7
-	 f8jsEDxthdjOpXg4Ryiqsn2jyQu86jOl2w9VleBV5UlN06apfvB5jlr6Gq+pXO1Zo0e2O
-	 YHBUluVKaFj2zf4WolKTtDXRS9g6Hj7vn9YeEWxg0e4QxnfwNomCxo1meB39SiB7b8zhr
-	 SCJkr0r8eGvYD3eUo2Dv1uNjKf0+vFCDJ3xJ2VqRe0AdT55OYhSY+9mK/cAUGOfCpNg==
+	t=1792785378;
+	b=g9dJ+HLtLYtc1hAsAYaoDN05mnvckMlut+oohTAbk8oIRYsXEhYo4BW/lBj0cIs4SiUw
+	 1V0mNIFYzTw3zAPIbg81G51yoxCdt+yg0s+RdhYXiBm+BMNYgiv+6p/OlCgzU0xBlO1g/
+	 r4J0oNsIVNZ5XW8DHQ8zR0+Hhbwl2RM3J2BJn2Mn3Fg/YZgJwSneuf+x9F19cdH+OC+Ku
+	 cPLcwwwSZlSVb36OFEQd7vDvJ9ilelwdk0n7Jrsv6Q5bZ/ux7UUriXeMmQ9L0n49rB2RY
+	 mocWupOW4Qo11OhgdnaZxf1v8kDGhHrOianXAmv3I67pdY9jj/KPfDtM7on00i5l5oQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792785372;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792785378;
 	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
 	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=lCETcVajyZpAk3AyXA1QIP3jXn5xFSvwyuG/CW+/QYg=;
-	b=k/nJ1lGSHTfSyn5nBiZbKoOzYFTgDaMZIWZbvnLW8EB3Wl8wZ7p0HAiAXiT5/iGCk3Ci
-	 QArLKN/IIbtAV056hGIpgLmNaXQ0+uv3a6DgLQR7FMPospeQbDOVrNeEotUg9PN59mGNm
-	 7Hzg0SmukqYtEvLO5Oo9z28xWTsWW8ioXpGK49Bfi0wYPbo9Ovh6VO/Qx6PX9YWpI/ruY
-	 c4garvaREY/bnMLru4Uuppz86qK6+suTimQ53ddIeYAKiuXW6oaLntZ4bfjnD81HyTapu
-	 iSlR1KrBCYBRwa830O+tSdAP8gDzVcPTBu+tFU0f+XFTC3751xul0Ctr4bp1SN7L2zw==
+	bh=55+XzUFAozA2X4gElTBV6jBnwO53UE/AlmVQbWG07bY=;
+	b=Y63Yi2TXtJKPerQMbhe/YNqRtsHUtl8LS0dCZP7z8ziqS5Q4bJij48Rn3ia87MEQTDb2
+	 EB6mKWV7RYSfFrBCKOaWheXB9knssLwDj9Bzv55Gx3lmFoATjeGzuhUgjLbu+osI7bbqj
+	 dwGdrHLiIe1IBgwn3Ie5sfdPh6WHWHtepUu8HQtlm9aHfNxYt3nxNqv+l8nLr/F+B+kjY
+	 1foP0ESlrKHsGU8Bbd6jqJB3fxbqZld9JkYncZMEtbYZXi18OYpLTTx5W0TNIlRrzIi4H
+	 RjxcGKNt6T2FngxsPeRsHIaI/bf2Rqt+VQ1i4jOjAMEf5x/ftxmFzxRYlLOKaKJGUbA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=pm.me;
 	spf=pass smtp.mailfrom=pm.me;
-	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b="RXQdbp/f";
-	arc=none smtp.remote-ip=109.224.244.116
-Received: from mail-244116.protonmail.ch (mail-244116.protonmail.ch [109.224.244.116])
+	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b="UFkFhG/a";
+	arc=none smtp.remote-ip=79.135.106.120
+Received: from mail-106120.protonmail.ch (mail-106120.protonmail.ch [79.135.106.120])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4C1960A2608;
-	Fri, 23 Oct 2026 19:56:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C4C1960A2608
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D482606BED0;
+	Fri, 23 Oct 2026 19:56:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7D482606BED0
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=RXQdbp/f
+	dkim=pass (2048-bit key, unprotected) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=UFkFhG/a
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1792785369; x=1793044569;
-	bh=lCETcVajyZpAk3AyXA1QIP3jXn5xFSvwyuG/CW+/QYg=;
+	s=protonmail3; t=1792785375; x=1793044575;
+	bh=55+XzUFAozA2X4gElTBV6jBnwO53UE/AlmVQbWG07bY=;
 	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
 	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
 	 Message-ID:BIMI-Selector;
-	b=RXQdbp/fANKD9d9ar5CR3gwIzVtDwqqE1wUROft5kd9N/CjD2uomFZgqCTX011H4B
-	 TKtsmhOGLV4fg+sP2RjjEWW+WhmIZpabjk/Y++i6QlVu+IIbevXnWL0XMZX8j2lJ9C
-	 4YXOVIsAkUBNZpbqcSpBD4C5AjVyW6RHS4QLpBsmIt+5f339I1im6j3n+w7hENdDhs
-	 G23yIAvwHKZSGckQCMG7Rtw/AB9Na0k8Ojok00iQzQa21Yd+d13Eoh1o4Y+AOsTf/C
-	 wlZYnJcGi/Z4tBgr8FdQTLazVltcDrPZeDT1a4O3OtuuPNLkei6jGwEl7rRi4I/jpS
-	 5qNRA/4qfxHPw==
-Date: Fri, 23 Oct 2026 19:56:05 +0000
+	b=UFkFhG/a78Fj/2fMYJ/5oNk5GqhpTQkZJEMKj++DTJVXAKjZphQc4PicaHfe+JFEh
+	 a/8wDZB4U1JA7LTAsChJuL0FspYf6uamMtAIGbOW/HVRE8iuMkfZUtZB05Op/RpuQz
+	 UScbszV2G0+raVxn6KI4sGi0wbb0HVh5lrxzUNF5dyExUtxHZUePnm3QGU5Yqh9zzm
+	 5Sr6/TZ/u+biirOvkOtYgDP8dFbSQ071Z1rhZdGcntiGelvSeHshuvLO+kmPiKHQ4u
+	 FXfCuMwIHKjlFwOiXVyWxSf8UHZ2YqenjuVeapYfXCrLoGvY6qalbFNySmePWOc2zn
+	 S53qXtJBwhttA==
+Date: Fri, 23 Oct 2026 19:56:09 +0000
 To: Sakari Ailus <sakari.ailus@linux.intel.com>
 From: Valerii Sokolov <valerii.sokolov@pm.me>
 Cc: Antti Laakso <antti.laakso@linux.intel.com>, Sarang Sapre <sarang.sapre@intel.com>, Divyamani Tripathi <divyamani.tripathi@intel.com>, Manik Bajpai <manik.bajpai@intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, Valerii Sokolov <valerii.sokolov@pm.me>
-Subject: [PATCH v1 10/11] media: intel/ipu6: pass the device to dev_err() in ipu6_mmu_unmap()
-Message-ID: <20261023195446.22578-11-valerii.sokolov@pm.me>
+Subject: [PATCH v1 11/11] media: intel/ipu6: fix EOF sequence logging in ipu6_isys_isr_one()
+Message-ID: <20261023195446.22578-12-valerii.sokolov@pm.me>
 In-Reply-To: <20261023195446.22578-1-valerii.sokolov@pm.me>
 References: <20261023195446.22578-1-valerii.sokolov@pm.me>
 Feedback-ID: 17117034:user:proton
-X-Pm-Message-ID: ce7d1d32a23e3a064cc038474bbe0f39e5a65a24
+X-Pm-Message-ID: 129f05fc72eecc1140259b003285aa82e0d932e4
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,33 +67,40 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-ipu6_mmu_unmap() reports unaligned unmap requests with dev_err(NULL, ...),
-which prints "(NULL device *)" instead of identifying the device. Use
-mmu_info->dev.
+When handling IPU6_FW_ISYS_RESP_TYPE_FRAME_SOF in ipu6_isys_isr_one(),
+stream->seq[stream->seq_index] is populated with the current sequence
+(atomic_read(&stream->sequence) - 1) and stream->seq_index is immediately
+advanced to the next ring buffer slot.
 
-Fixes: 9163d83573e4 ("media: intel/ipu6: add IPU6 DMA mapping API and MMU t=
-able")
+Subsequently, when IPU6_FW_ISYS_RESP_TYPE_FRAME_EOF arrives, logging
+stream->seq[stream->seq_index].sequence reads the next slot in the ring
+buffer rather than the slot written at SOF (logging a stale sequence
+number from IPU6_ISYS_MAX_PARALLEL_SOF - 1 frames ago, or 0 on the first
+frame).
+
+Read atomic_read(&stream->sequence) - 1 directly so the EOF debug message
+logs the current frame sequence number matching SOF.
+
+Fixes: f50c4ca0a820 ("media: intel/ipu6: add the main input system driver")
 Signed-off-by: Valerii Sokolov <valerii.sokolov@pm.me>
 ---
- drivers/media/pci/intel/ipu6/ipu6-mmu.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/media/pci/intel/ipu6/ipu6-fw-isys.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/media/pci/intel/ipu6/ipu6-mmu.c b/drivers/media/pci/in=
-tel/ipu6/ipu6-mmu.c
-index b1c34964ce..f21f3a1e53 100644
---- a/drivers/media/pci/intel/ipu6/ipu6-mmu.c
-+++ b/drivers/media/pci/intel/ipu6/ipu6-mmu.c
-@@ -593,7 +593,8 @@ void ipu6_mmu_unmap(struct ipu6_mmu_info *mmu_info, uns=
-igned long iova,
- =09 * by the hardware
- =09 */
- =09if (!IS_ALIGNED(iova | size, min_pagesz)) {
--=09=09dev_err(NULL, "unaligned: iova 0x%lx size 0x%zx min_pagesz 0x%x\n",
-+=09=09dev_err(mmu_info->dev,
-+=09=09=09"unaligned: iova 0x%lx size 0x%zx min_pagesz 0x%x\n",
- =09=09=09iova, size, min_pagesz);
- =09=09return;
- =09}
+diff --git a/drivers/media/pci/intel/ipu6/ipu6-fw-isys.c b/drivers/media/pc=
+i/intel/ipu6/ipu6-fw-isys.c
+index 5d95fb9234..ad08506b32 100644
+--- a/drivers/media/pci/intel/ipu6/ipu6-fw-isys.c
++++ b/drivers/media/pci/intel/ipu6/ipu6-fw-isys.c
+@@ -651,7 +651,7 @@ int ipu6_isys_isr_one(struct ipu6_bus_device *adev)
+ =09=09dev_dbg(&adev->auxdev.dev,
+ =09=09=09"eof: handle %d: (index %u), timestamp 0x%16.16llx\n",
+ =09=09=09resp->stream_handle,
+-=09=09=09stream->seq[stream->seq_index].sequence, ts);
++=09=09=09atomic_read(&stream->sequence) - 1, ts);
+ =09=09break;
+ =09case IPU6_FW_ISYS_RESP_TYPE_STATS_DATA_READY:
+ =09=09break;
 --=20
 2.56.0
 
