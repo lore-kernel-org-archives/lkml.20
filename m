@@ -1,100 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.127.88
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792747825;
-	b=eS3AbXVlYZLpLOlU6p7jQZFPX3IJrBa95VsRwU4BuXSkRzEcoJDt5u07LmfKrIst5jDS
-	 PJ3TSjzcZWLDU3KLJgVA6YjYxbLEPb0sdGZmwe74yQ0zLVNqTzesvnOAvcR4klem3AmY1
-	 cKEw5aeWTraiQ0aBYGucX037PuEdLrarnB34T3EfTyW8eYCvZgJZ2domofbKYn3zdr7nu
-	 5K35c3lZayc1wX9LmSFT5LgSa/wl2cmZqlzBOWukCDNAZR9gUt+9mUD79dEmNJiQ1FirN
-	 +ZhEz0MFnb++BCCa7zcl0NO07BZjIwsWk0J0WvwNh8oP8KoI93T4rq31xebYBZEE+ug==
+	t=1792747831;
+	b=r+6moLfKDD6UvIPPYrqbFH62R0dnoO46LFxr57BkvaHoCH6UHzJ29kiNo4Kpl8gr+EqM
+	 AfLgSOp4nsdGvdt6dAFlWRRji5YoTo9XnBtvitmgLlwa9iRKoF9wRAj2mHUQmmNO4Ioms
+	 dNlbXHjpFw6jgUUpXwG6RFHvyb/N1aINqkrtIqzwIO5wPZP8HFWdp5vg8+mX8CALmNOgS
+	 ohnu/5t2ITIHTcMwvmKxrprq2Lkqz0pK9oR2Ul6YoKVnGyb3JvQB0G6kDKIkyIVxodQ/x
+	 FMILWaKA4YBkapqEyZHGE501JbjVxB60CfU0zMS+b+y6Ot79jeHisQrsZ3SYT8Qm6fQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792747825;
-	h=DMARC-Filter:Received:Received:X-MS-Exchange-Authentication-Results:
-	 Received-SPF:Received:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:Content-Type:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=O1Ca1J+pdV6OKvlU9na0iOEnhl0GgywNZia5rpit8mg=;
-	b=YxK5xdXWu2CcR/arz01M5ur9qw8HeUrBIKQnnnaeChbdyVcL4YB+ePd7NFpliNPUkAWu
-	 JZrYpli/JHSal8Uvm1WnrBzODSffGE0nQEpdyCmLPc0bt4VNDn2rLh15zkAy8kQxqpa7y
-	 IQBoaiIyIrpkbNA/stED6WJPcXwpS+NjjrtQ63D252pimtskSvWI3zm2sFgYWSMg/pvO3
-	 rRJgWiSlGDOk1kdo1NFdxm8Lhcu/1dKpJ/zlk+DcyJAAMon7VNL9ZbWvjrq0emY40G/mg
-	 JOuv6NgEH/OODwUvjdz9NURtsL+K0whw/KV0tGJTdWQs/bVzVozTlis2B5wnX8MRlQA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792747831;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=VnWonFKCnGuCLyPuz+nEaDV397ceW0847/QSykKmLo4=;
+	b=Qi8XE49cg9gQXmULYp0P2Kp6xshLviRCNjI3oVVjrgXTQgAZgt6SKwTVYQPjd7SNhY49
+	 SadIivyj5+jEO3c1fenTaHE9RpvpmajtwjTGyo1ABVqHcrmHul3j6lDzes5eU7WwYqOGH
+	 pr+T+wXHXtzCAdYKe7sOxJ47Hoy0WidYQIsU0F/89AWbJhBzOEAg2Ygw7XewR9hR9j7Gz
+	 SRJsUh8qCc3ArZ/c9LliIbzNdXJnwYA3zTmU58/+SR/Gg6a2H5Id0aSPj8MwwdBduHgfd
+	 5i1zVzL1Wfkhe370KhQx0OYoPrHqz5NFOYe2w3XOsP09D2Tk3/PJNsBugGoONGb2KHw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=cixtech.com;
-	spf=pass smtp.mailfrom=cixtech.com;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.127.88
-Received: from TYDPR03CU002.outbound.protection.outlook.com (mail-japaneastazon11023088.outbound.protection.outlook.com [52.101.127.88])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Nqyrs+bC;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39A1E606A32A;
-	Fri, 23 Oct 2026 09:30:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 39A1E606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cixtech.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=TZFaA8KWzDloRS6u10IIsrmROPtjmodEA2VtZ4Uo/t/5SydjkQyTEcbihjsgaRWXjFf+hbPfvqEFlKXzp83d4bA2HYGBRY8DwURnMNTlLoH8l+CHEmHRt0rJ4+9nK3gh7k9txyqUEhM0SbVrgnclP0rPbr3yZCSii3Vqtdeuo1Rhb/Z+oiBwGoN+oxe64XDhLhS2a/9ph+dj/r4+bshxCMU6dU84UoiLuhNyRGZFt59wiYqCT7dnGzRvsNEFvfPXqeaFUFJLOIF9aVOANS0eDk4BE2uvQFhLN2HkclvJA0BaSGM479JqPCAB+wQSC4lpCslM1Kx1asR1HyjeOhxqtg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=O1Ca1J+pdV6OKvlU9na0iOEnhl0GgywNZia5rpit8mg=;
- b=FCIYz+g81BRa5DRiSAOWoYKFFsajh206FjzHJHg6a4ybAjnGjKshJB6FNVQvQUyDKaKOcI+3I6QyGc43U2/+vg7CMGHC9rypwklLpE4GGZSvo07SM9aUyvc8VKtvgz2xVll4/D0rmzSCD892Oht9oH2ify3LuH5DYcSRulQsoLygmeNnuD5HxwWlT6qG9tIACOX2n+6MWpAQhTf07HtnXL+3t01uE9L/nCsNurtL6Z6MjnpucbRkujWs0C+1kweat3b3g32GBAiPYz9dQVugzGhYGZyxv4RBKhlURerz24r+hJaR5ULy1dgeXRXxU9AWX2S/Ho2RTgjZscr646L0Xw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 222.71.101.198) smtp.rcpttodomain=arm.com smtp.mailfrom=cixtech.com;
- dmarc=bestguesspass action=none header.from=cixtech.com; dkim=none (message
- not signed); arc=none (0)
-Received: from OS3PR01CA0074.jpnprd01.prod.outlook.com (2603:1096:604:da::7)
- by SEZPR06MB5221.apcprd06.prod.outlook.com (2603:1096:101:74::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.3; Fri, 23 Oct
- 2026 09:30:20 +0000
-Received: from SG1PEPF000082E1.apcprd02.prod.outlook.com
- (2603:1096:604:da:cafe::97) by OS3PR01CA0074.outlook.office365.com
- (2603:1096:604:da::7) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.20 via Frontend Transport; Fri,
- 23 Oct 2026 09:30:19 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 222.71.101.198) smtp.mailfrom=cixtech.com; dkim=none (message not signed)
- header.d=none;dmarc=bestguesspass action=none header.from=cixtech.com;
-Received-SPF: Pass (protection.outlook.com: domain of cixtech.com designates
- 222.71.101.198 as permitted sender) receiver=protection.outlook.com;
- client-ip=222.71.101.198; helo=smtprelay.cixcomputing.com; pr=C
-Received: from smtprelay.cixcomputing.com (222.71.101.198) by
- SG1PEPF000082E1.mail.protection.outlook.com (10.167.240.10) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.546.15 via Frontend Transport; Fri, 23 Oct 2026 09:30:19 +0000
-Received: from ubuntu (unknown [172.20.64.99])
-	by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id D610C4102B40;
-	Fri, 23 Oct 2026 17:30:17 +0800 (CST)
-From: Jelly Jia <Jelly.Jia@cixtech.com>
-To: vkoul@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	robin.murphy@arm.com
-Cc: devicetree@vger.kernel.org,
-	Frank.Li@kernel.org,
-	cix-kernel-upstream@cixtech.com,
-	dmaengine@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Jelly.Jia@cixtech.com
-Subject: [PATCH v4 0/5] dmaengine: arm-dma350: Add slave support and Sky1 integration
-Date: Fri, 23 Oct 2026 17:30:12 +0800
-Message-ID: <20261023093017.3248454-1-Jelly.Jia@cixtech.com>
-X-Mailer: git-send-email 2.55.0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C437060A263F;
+	Fri, 23 Oct 2026 09:30:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Nqyrs+bC
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1792747825;
+	b=iThgoCnk15onlt1ke6F7rjRdvr7xdGIZGYQ5V+ma3+dTatrOGX4T0g2sK/297zaZaovr
+	 nDhRxxicOdRVV9axjKuRypSnH2c6q0gPUkZFteLEnSOjzWtvf/2XRipsp08AjYBAFTNSn
+	 vBLWsbXU4qBufq4bV2UNODSCMMoPQ9zmrHDJAkCoL9ajRp+HW3qVKXfBVnVptHwLchNIw
+	 Rp/zwFJPjI97ysHB1vmO+uVhiMLtOQQyeS6h8rHXOjBZjkUGcoieQ6j+I1Jvrq3lvlpey
+	 FKx883gRh6fJ3GuOgay57u3T5v1Q3awP43t+6OyV8m7nBsHAhIhI9jFHi8MGxUo1xvA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1792747825;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=VnWonFKCnGuCLyPuz+nEaDV397ceW0847/QSykKmLo4=;
+	b=UrMVR/7146fjzRg4T9sQv5M24M3FMOH1cDDtnId8AQDZeUfjGzWit0ReSopYXf3MY+IY
+	 gTgCWVhb++mbhjirPvuYGEfD5W5ZxEnFkCW6swiRowEFG9tVkhGVIylaxOJ6rNBK/wVRk
+	 dpSGwB0pt8dM891PplUxCT9nD3M2+nPw6PXrNknstmrDBy3SXrzeKQOpKIacatdzl50NA
+	 nRgOnwOnhMKXGdXXusfeBKZNsUrsTpdupMHFBF7gFAFZgV91viqZzjT1+sRQg9jQ9BOlv
+	 X0ZUC5evvVOWSwSUbjhfB2dd6OcBIvcLrw1EwQWcF8fReJrWEOp4zVfyIYhFTureioQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 091D51F031E4;
+	Fri, 23 Oct 2026 09:30:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792747825;
+	bh=VnWonFKCnGuCLyPuz+nEaDV397ceW0847/QSykKmLo4=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=Nqyrs+bCFpmag1FHmq5zoyEfmNmWz0W1wS5xRCMF9jzL14Eb9VFceSI5oPLJq+6qI
+	 xCdywNta+y3Vn4fP/KnkUmdgQwMeNHOVkBy1vAZq7coWEdyHDwGNtU1nSENjvvqWUm
+	 z0NNBmAlxACdu3KqUr1lC0Z/cVehdAD+R+pJODuxg7YSsO4t5HR161Ttfv7najtj9e
+	 zbIMlV/fMkIWLcwbRQbTZg3AxT4t7MgK2VfQdd6n8tHhH0c+WbxaXTJNRS8EVwyZjM
+	 RLe3pamIkp1TSTaUBeKTiSbq5b6sI4WwwGWxhA7HtvMLZAHsLom8x1uhBv/6X0iIxQ
+	 NnY8OV71cdqjg==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 7396C4446C;
+	Fri, 23 Oct 2026 09:30:21 +0000 (UTC)
+From: Radu Sabau via B4 Relay <devnull+radu.sabau.analog.com@kernel.org>
+Date: Fri, 23 Oct 2026 12:30:23 +0300
+Subject: [PATCH v4 6/8] iio: imu: adis16607: Add FIFO-based
+ buffered/triggered capture
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,87 +83,496 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SG1PEPF000082E1:EE_|SEZPR06MB5221:EE_
-Content-Type: text/plain
-X-MS-Office365-Filtering-Correlation-Id: e684b4b6-0be5-4681-6807-08df30e8410e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|36860700016|23010399003|376014|1800799024|7416014|6133799003|18002099003|10067099003|56012099006|261009223027099003|261021121427099003|261021123027099003|261022075727099003|261022105027099003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	sZUZIvWukFX1VuY/+d78AAFVaApK4WuoDMvS5sWB02RJ3tuMRA2737rVQLhbGfPnA/RjPjJr560YIRx6dFC07iyyJD531XMQZuQj1ft47CdNFxKDW794PNAavZdHsBfOqgDTZ/zQfgfozqDFdPN1jxXt7f6zgcMenYg1E1dYD/CDfFhDAmnWRy+MCMqgI/K8GGP8ghUlg1KtsBN21J42LQeaniUUYCMwRtxWQS/CUtC2vPG5cmAj9zcmoA7rl4thckcrUzg//E2wH0Jdt2XWjqQ1k5mhNY6BQSG6l2GmNcS2jI6Cv7BRcW8fS8LU46NFG7Fxo3fmyvk/XyTxxUDC2Er4Twdd3lxeyIPCu2F+t++2vP+IeuQaV3yWhrOdcybSi0KqDNCbi5Bx60nBr9MHy+CelTsQNK977pub0kVv7C9xRYXGYLntU+HN6gp11plAVKcSwVPWudxnGd7fiCU4aNI9BdfV6FpXGKli+2UPJRF7NQuKPP/xYXC2LatQ8vcLi+/7wggxRP9WOunUVNxtjEJ/lO62LmRSO96b8I+MBVbcQt2HdlgdoiCg244wbWp1HvAYRvwI1iPBqZQDLt0rkTCaA7eU7zCe6lf4BBSTSlzyVacjefT3f4PjKAPtgw12QPNKfxJzv9Wu/VcNK14t6A==
-X-Forefront-Antispam-Report:
-	CIP:222.71.101.198;CTRY:CN;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtprelay.cixcomputing.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(23010399003)(376014)(1800799024)(7416014)(6133799003)(18002099003)(10067099003)(56012099006)(261009223027099003)(261021121427099003)(261021123027099003)(261022075727099003)(261022105027099003)(3023799007);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	jDPlw0F41p2lyEAV2RygDA2XnxvfzVfFhZSepgqRfmQvit/T0/wcEN1XXwWHPAdT3Dp4/ImFWljbTKyjN68B8T4ISt/kog+JeR7jFx9OvJ4l/m20w2JqLgdk1H+PjT1lLTXw82fTaDSrWhjXlAYbbsj3eNr4Gzb1XST/z8VGMxxUySlR24ybaalerABd+p/1kfH/geXWREGfCQ5VAR+lo7upNZvVlYmkt428sTEUvXaUlfrIZINZy3F+inczZUF9Y5co2j6mK/xPr1r/GAEnhFj5dn7kTt1shW21Q+zKp9+zpg9Y/QfOwYxuhln0/NF7DOiUyg99aN8TEX/Yu3K3NSfmnSKSB3rxYynrUbIknEzjdC5R8I2B3VNDYLqLZTQJyB68MKZPX0ZOwfNQo1mOizAimckoD/Cb4o3XWvxrQTw9DkoALY2yDNzuWuMT2H6m
-X-OriginatorOrg: cixtech.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Oct 2026 09:30:19.0069
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e684b4b6-0be5-4681-6807-08df30e8410e
-X-MS-Exchange-CrossTenant-Id: 0409f77a-e53d-4d23-943e-ccade7cb4811
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0409f77a-e53d-4d23-943e-ccade7cb4811;Ip=[222.71.101.198];Helo=[smtprelay.cixcomputing.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SG1PEPF000082E1.apcprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SEZPR06MB5221
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261023-adis16607-v4-6-a4d541ebfd13@analog.com>
+References: <20261023-adis16607-v4-0-a4d541ebfd13@analog.com>
+In-Reply-To: <20261023-adis16607-v4-0-a4d541ebfd13@analog.com>
+To: Lars-Peter Clausen <lars@metafoo.de>, 
+ Michael Hennerich <Michael.Hennerich@analog.com>, 
+ Nuno Sa <nuno.sa@analog.com>, Jonathan Cameron <jic23@kernel.org>, 
+ David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>, 
+ Alexandru Ardelean <alexandru.ardelean@analog.com>, 
+ Radu Sabau <radu.sabau@analog.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux@analog.com, 
+ Jonathan Cameron <jic23@kernel.org>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792747820; l=15727;
+ i=radu.sabau@analog.com; s=20261001; h=from:subject:message-id;
+ bh=5bO9M+VBZnN3vwynF1gmWkEcYXe12va6iYcUbOFuYgg=;
+ b=supR8dMS0dZxUlRkSLOJfscXI18fnrcoGXRrthdDMkkccMuIVkvmlnk66wIM+6/iEE0lIwf1B
+ CigAnrg+U8aAZxqj7jXdqe7SxrZgjbTMN2N7LcTtQEAMI1q68Hjrkiq
+X-Developer-Key: i=radu.sabau@analog.com; a=ed25519;
+ pk=XOZSO/Ut8qfYw7khL8lUF65Pgl+VLihISyS+Iy9jY8c=
+X-Endpoint-Received: by B4 Relay for radu.sabau@analog.com/20261001 with
+ auth_id=1094
+X-Original-From: Radu Sabau <radu.sabau@analog.com>
+Reply-To: radu.sabau@analog.com
+Content-Transfer-Encoding: 7bit
 
-Hello,
+From: Radu Sabau <radu.sabau@analog.com>
 
-This series adds scatter-gather and cyclic slave transfer support to the
-Arm DMA-350 driver, then describes the clock, reset and DMA address view
-of the CIX Sky1 FCH integration.
+Add buffered capture via the device's hardware FIFO - the only
+capture mode this driver supports. Popping the FIFO uses a dedicated
+command and payload format (FIFO_DATA_CMD, 52 bytes, no checksum),
+handled directly rather than through adislib's generic burst-read
+helpers, which assume one fixed-shape read per trigger rather than a
+variable-count drain loop.
 
-Patch 1 fixes the source-trigger bit. Patch 2 adds peripheral transfers
-with descriptor-owned resource mappings, coherent linked commands and
-hardware-based residue reporting. Patches 3 and 4 document and handle
-optional integration clocks and resets. Patch 5 describes the FCH DMA
-address windows and adds its bus clock.
+The watermark-met condition is signaled via DEV_NOK on the device's
+one interrupt pin, which stays asserted (level-triggered) until
+DIAG_STAT is read and cleared - matching adislib's has_fifo contract.
+DEV_NOK fires on any DIAG_STAT flag, not just FIFO_THRESH_MET, so the
+trigger handler checks that specific bit before popping anything.
+DR_GPIO_MASK stays enabled unconditionally: DR pulses drive the FIFO
+controller's internal sample enqueue, independent of pin routing.
 
-The controller nodes use arm,dma-350 in this revision. The driver changes
-use standard integration resources and introduce no CIX-specific register
-programming. The companion AUDSS interrupt-path series builds on this
-one and manages the AUDSS interrupt gates in the CRU driver.
+Watermark is configurable via the standard hwfifo_set_watermark
+callback and the usual hwfifo_* sysfs attributes.
 
-Changes since v3:
-- Merge command-list synchronization into the slave/cyclic patch. Use
-  descriptor-owned peripheral mappings, a coherent command pool and
-  stable residue sampling; also handle little-endian commands, valid DMA
-  address zero and maxburst in both directions. (Sashiko, v1-v3.)
-- Keep clocks and resets optional and move allOf after required.
-  (Krzysztof.) Use a deasserted reset rather than a reset pulse.
-  (Sashiko, v3.)
-- Describe DMA address windows with dma-ranges and omit memory-region
-  from this series. (Rob.)
-- Move AUDSS and its CRU-owned interrupt gates to the companion series,
-  keeping CRU register accesses out of the DMA driver. (Conor's device
-  separation comments.)
-- Poll STOPCMD with a bounded timeout and retain IRQ and callback cleanup
-  on timeout as best-effort teardown.
-- Keep patch 1 unchanged and retain Frank's Reviewed-by.
+Signed-off-by: Radu Sabau <radu.sabau@analog.com>
+---
+ drivers/iio/imu/adis16607.c | 349 +++++++++++++++++++++++++++++++++++++++++++-
+ 1 file changed, 346 insertions(+), 3 deletions(-)
 
-Link: https://lore.kernel.org/r/20261012084155.2547480-1-Jelly.Jia@cixtech.com
+diff --git a/drivers/iio/imu/adis16607.c b/drivers/iio/imu/adis16607.c
+index 2dda306d7b54..b1f3667d8ce3 100644
+--- a/drivers/iio/imu/adis16607.c
++++ b/drivers/iio/imu/adis16607.c
+@@ -12,6 +12,9 @@
+ #include <linux/iio/buffer.h>
+ #include <linux/iio/iio.h>
+ #include <linux/iio/imu/adis.h>
++#include <linux/iio/sysfs.h>
++#include <linux/iio/trigger_consumer.h>
++#include <linux/interrupt.h>
+ #include <linux/math.h>
+ #include <linux/minmax.h>
+ #include <linux/module.h>
+@@ -42,8 +45,11 @@
+ #define ADIS16607_REG_Y_DELTANG		0x1A
+ #define ADIS16607_REG_Z_DELTANG		0x1C
+ #define ADIS16607_REG_TEMP		0x20
++#define ADIS16607_REG_FIFO_WORD_CNT	0x2B
+ #define ADIS16607_REG_USER_GPIO_CFG	0x2F
+ #define ADIS16607_REG_SPI_HALFDUPLEX	0x32
++#define ADIS16607_REG_USER_DATA_CFG	0x34
++#define ADIS16607_REG_USER_FIFO_CFG	0x35
+ #define ADIS16607_REG_SOFT_RESET	0x36
+ #define ADIS16607_REG_SELF_TEST		0x39
+ #define ADIS16607_REG_DEC_RATE		0x3A
+@@ -54,8 +60,26 @@
+ 
+ /* Masks */
+ #define ADIS16607_RESET_GPIO_MASK	GENMASK(2, 0)
++#define ADIS16607_DR_GPIO_MASK		GENMASK(11, 9)
++#define ADIS16607_DEV_NOK_MASK		GENMASK(14, 12)
++#define ADIS16607_DATA_CNTR_EN_MASK	BIT(14)
++#define ADIS16607_BURST32_MASK		BIT(15)
+ #define ADIS16607_BOOTLOADER_BUSY_MASK	BIT(0)
+ 
++/* FIFO masks */
++#define ADIS16607_FIFO_THR_MASK		GENMASK(10, 0)
++#define ADIS16607_FIFO_FLUSH_MASK	BIT(15)
++#define ADIS16607_FIFO_THR_MET_MASK	BIT(0)
++#define ADIS16607_FIFO_DATA_CMD		0xA9
++
++/* FIFO limits */
++#define ADIS16607_MAX_FIFO_WM		38
++#define ADIS16607_FIFO_WORDS_PER_SAMPLE	26
++#define ADIS16607_FIFO_DATA_LEN		52
++
++/* Burst read - Half-Duplex mode (DATA_CNTR enabled) */
++#define ADIS16607_BURST_CMD_SIZE	4
++
+ /* Self-test registers and masks */
+ #define ADIS16607_REG_SELF_TEST_DATA(x)	((x) + 0x23)
+ #define ADIS16607_SNSR_SELF_TEST_MASK	BIT(6)
+@@ -86,6 +110,11 @@ struct adis16607 {
+ 	const struct adis16607_chip_info *info;
+ 	unsigned long clk_freq_mhz;
+ 	u64 sample_period_ns;
++	u16 fifo_watermark;
++	/* Scratch buffer used for FIFO pop operations, see adis16607_fifo_pop() */
++	u8 fifo_buf[ADIS16607_BURST_CMD_SIZE + ADIS16607_FIFO_DATA_LEN] __aligned(IIO_DMA_MINALIGN);
++	/* IIO buffer for reordered data - sized for max channels */
++	u8 data[64] __aligned(IIO_DMA_MINALIGN);
+ };
+ 
+ enum {
+@@ -215,6 +244,286 @@ static const struct adis_ops adis16607_ops = {
+ 	.reset = adis16607_reset,
+ };
+ 
++/*
++ * FIFO/burst data offsets for each channel (in bytes from the data start,
++ * i.e. after the 4-byte command prefix).
++ * Each 32-bit inertial channel occupies 4 bytes (MSW + LSW), TEMP is 2 bytes.
++ *
++ * FIFO data layout (52 bytes, DATA_CNTR enabled, no checksum):
++ *   Offset 0-3:   ACCEL_X  (32-bit: MSW, LSW)
++ *   Offset 4-7:   ACCEL_Y
++ *   Offset 8-11:  ACCEL_Z
++ *   Offset 12-15: GYRO_X
++ *   Offset 16-19: GYRO_Y
++ *   Offset 20-23: GYRO_Z
++ *   Offset 24-27: DELTVEL_X
++ *   Offset 28-31: DELTVEL_Y
++ *   Offset 32-35: DELTVEL_Z
++ *   Offset 36-39: DELTANG_X
++ *   Offset 40-43: DELTANG_Y
++ *   Offset 44-47: DELTANG_Z
++ *   Offset 48-49: TEMP (16-bit)
++ *   Offset 50-51: DATA_CNTR (16-bit)
++ *
++ * Each 32-bit value encodes 24-bit sensor data as:
++ *   value_24bit = (MSW << 8) | (LSW >> 8)
++ */
++static const u8 adis16607_burst_offsets[] = {
++	[ADIS16607_SCAN_ACCEL_X] = 0,
++	[ADIS16607_SCAN_ACCEL_Y] = 4,
++	[ADIS16607_SCAN_ACCEL_Z] = 8,
++	[ADIS16607_SCAN_GYRO_X] = 12,
++	[ADIS16607_SCAN_GYRO_Y] = 16,
++	[ADIS16607_SCAN_GYRO_Z] = 20,
++	[ADIS16607_SCAN_DELTVEL_X] = 24,
++	[ADIS16607_SCAN_DELTVEL_Y] = 28,
++	[ADIS16607_SCAN_DELTVEL_Z] = 32,
++	[ADIS16607_SCAN_DELTANG_X] = 36,
++	[ADIS16607_SCAN_DELTANG_Y] = 40,
++	[ADIS16607_SCAN_DELTANG_Z] = 44,
++	[ADIS16607_SCAN_TEMP] = 48,
++};
++
++/*
++ * Pop a single sample from FIFO using FIFO_DATA command (0xA9).
++ * Returns the raw FIFO data in the provided buffer.
++ */
++static int adis16607_fifo_pop(struct adis16607 *st, u8 *data)
++{
++	struct spi_message msg;
++	struct spi_transfer xfer = {
++		.tx_buf = st->fifo_buf,
++		.rx_buf = st->fifo_buf,
++		.len = ADIS16607_BURST_CMD_SIZE + ADIS16607_FIFO_DATA_LEN,
++		.bits_per_word = 8,
++	};
++	int ret;
++
++	/* FIFO data command */
++	st->fifo_buf[0] = ADIS16607_FIFO_DATA_CMD;
++	st->fifo_buf[1] = 0;
++	st->fifo_buf[2] = 0;
++	st->fifo_buf[3] = 0;
++
++	spi_message_init(&msg);
++	spi_message_add_tail(&xfer, &msg);
++
++	ret = spi_sync(st->adis.spi, &msg);
++	if (ret)
++		return ret;
++
++	/* Copy data starting after command bytes */
++	memcpy(data, st->fifo_buf + ADIS16607_BURST_CMD_SIZE, ADIS16607_FIFO_DATA_LEN);
++	return 0;
++}
++
++/*
++ * Process a single FIFO sample and push to IIO buffer.
++ * FIFO data format differs from regular burst - no DIAG_STAT, data starts immediately.
++ *
++ * FIFO data layout (52 bytes):
++ *   Offset 0-3:   ACCEL_X (32-bit)
++ *   Offset 4-7:   ACCEL_Y (32-bit)
++ *   Offset 8-11:  ACCEL_Z (32-bit)
++ *   Offset 12-15: GYRO_X (32-bit)
++ *   Offset 16-19: GYRO_Y (32-bit)
++ *   Offset 20-23: GYRO_Z (32-bit)
++ *   Offset 24-27: DELTVEL_X (32-bit)
++ *   Offset 28-31: DELTVEL_Y (32-bit)
++ *   Offset 32-35: DELTVEL_Z (32-bit)
++ *   Offset 36-39: DELTANG_X (32-bit)
++ *   Offset 40-43: DELTANG_Y (32-bit)
++ *   Offset 44-47: DELTANG_Z (32-bit)
++ *   Offset 48-49: TEMP (16-bit)
++ *   Offset 50-51: DATA_CNTR (16-bit)
++ */
++static void adis16607_fifo_push_sample(struct iio_dev *indio_dev,
++				       u8 *fifo_data, s64 timestamp)
++{
++	struct adis16607 *st = iio_priv(indio_dev);
++	u16 msw, lsw;
++	s32 val24;
++	int bit, offset = 0;
++
++	memset(st->data, 0, sizeof(st->data));
++
++	for_each_set_bit(bit, indio_dev->active_scan_mask, indio_dev->masklength) {
++		u8 burst_off;
++
++		/* Skip the soft timestamp channel - it has no burst offset */
++		if (bit >= ARRAY_SIZE(adis16607_burst_offsets))
++			continue;
++
++		burst_off = adis16607_burst_offsets[bit];
++
++		if (bit == ADIS16607_SCAN_TEMP) {
++			/* TEMP is 16-bit */
++			put_unaligned_be16(get_unaligned_be16(&fifo_data[burst_off]),
++					   &st->data[offset]);
++			offset += 2;
++		} else {
++			/* All other channels are 24-bit stored as 32-bit */
++			msw = get_unaligned_be16(&fifo_data[burst_off]);
++			lsw = get_unaligned_be16(&fifo_data[burst_off + 2]);
++			val24 = sign_extend32(((u32)msw << 8) | (lsw >> 8), 23);
++			put_unaligned_be32(val24, &st->data[offset]);
++			offset += 4;
++		}
++	}
++
++	iio_push_to_buffers_with_timestamp(indio_dev, st->data, timestamp);
++}
++
++/*
++ * Trigger handler - reads samples from the device FIFO. Triggered by the
++ * DEV_NOK interrupt, which fires on any DIAG_STAT flag, not just
++ * FIFO_THRESH_MET - the DIAG_STAT read below both checks which flag(s)
++ * raised the interrupt and clears the latched status, and must happen
++ * before any FIFO pop, or we'd pop for nothing on an unrelated flag.
++ */
++static irqreturn_t adis16607_trigger_handler(int irq, void *p)
++{
++	struct iio_poll_func *pf = p;
++	struct iio_dev *indio_dev = pf->indio_dev;
++	struct adis16607 *st = iio_priv(indio_dev);
++	u8 fifo_sample[ADIS16607_FIFO_DATA_LEN];
++	u16 diag_stat, word_cnt, sample_cnt;
++	s64 timestamp;
++	int ret, i;
++
++	mutex_lock(&st->adis.state_lock);
++
++	/* Check if FIFO threshold is met */
++	ret = __adis_read_reg_16(&st->adis, ADIS16607_REG_DIAG_STAT, &diag_stat);
++	if (ret)
++		goto unlock;
++
++	if (!(diag_stat & ADIS16607_FIFO_THR_MET_MASK))
++		goto unlock;
++
++	/* Read FIFO word count */
++	ret = __adis_read_reg_16(&st->adis, ADIS16607_REG_FIFO_WORD_CNT, &word_cnt);
++	if (ret)
++		goto unlock;
++
++	/* Calculate number of complete samples */
++	sample_cnt = word_cnt / ADIS16607_FIFO_WORDS_PER_SAMPLE;
++	if (!sample_cnt)
++		goto unlock;
++
++	/*
++	 * pf->timestamp is the IRQ-fire time, i.e. when the newest (last
++	 * enqueued) sample tipped the FIFO over watermark. The FIFO pops
++	 * oldest-first, so back-date the first popped sample's timestamp by
++	 * the batch duration - the loop then counts back up to pf->timestamp
++	 * for the newest sample, instead of projecting past it.
++	 */
++	timestamp = pf->timestamp - (s64)(sample_cnt - 1) * st->sample_period_ns;
++
++	/* Pop and process each sample */
++	for (i = 0; i < sample_cnt; i++) {
++		ret = adis16607_fifo_pop(st, fifo_sample);
++		if (ret)
++			goto unlock;
++
++		adis16607_fifo_push_sample(indio_dev, fifo_sample, timestamp);
++		timestamp += st->sample_period_ns;
++	}
++
++unlock:
++	mutex_unlock(&st->adis.state_lock);
++	iio_trigger_notify_done(indio_dev->trig);
++	return IRQ_HANDLED;
++}
++
++/* FIFO sysfs attributes */
++IIO_STATIC_CONST_DEVICE_ATTR(hwfifo_watermark_min, "1");
++IIO_STATIC_CONST_DEVICE_ATTR(hwfifo_watermark_max, __stringify(ADIS16607_MAX_FIFO_WM));
++
++static ssize_t hwfifo_watermark_show(struct device *dev,
++				     struct device_attribute *attr,
++				     char *buf)
++{
++	struct iio_dev *indio_dev = dev_to_iio_dev(dev);
++	struct adis16607 *st = iio_priv(indio_dev);
++
++	return sysfs_emit(buf, "%u\n", st->fifo_watermark);
++}
++
++static ssize_t hwfifo_enabled_show(struct device *dev,
++				   struct device_attribute *attr,
++				   char *buf)
++{
++	struct iio_dev *indio_dev = dev_to_iio_dev(dev);
++	struct adis16607 *st = iio_priv(indio_dev);
++	u16 val;
++	int ret;
++
++	ret = adis_read_reg_16(&st->adis, ADIS16607_REG_USER_FIFO_CFG, &val);
++	if (ret)
++		return ret;
++
++	return sysfs_emit(buf, "%d\n", (val & ADIS16607_FIFO_THR_MASK) ? 1 : 0);
++}
++
++static IIO_DEVICE_ATTR_RO(hwfifo_watermark, 0);
++static IIO_DEVICE_ATTR_RO(hwfifo_enabled, 0);
++
++static const struct iio_dev_attr *adis16607_fifo_attributes[] = {
++	&iio_dev_attr_hwfifo_watermark_min,
++	&iio_dev_attr_hwfifo_watermark_max,
++	&iio_dev_attr_hwfifo_watermark,
++	&iio_dev_attr_hwfifo_enabled,
++	NULL
++};
++
++static int adis16607_buffer_postenable(struct iio_dev *indio_dev)
++{
++	struct adis16607 *st = iio_priv(indio_dev);
++	struct adis *adis = &st->adis;
++	u16 threshold;
++	int ret;
++
++	adis_dev_auto_lock(adis);
++
++	/* Flush FIFO to start clean */
++	ret = __adis_write_reg_16(adis, ADIS16607_REG_USER_FIFO_CFG,
++				  ADIS16607_FIFO_FLUSH_MASK);
++	if (ret)
++		return ret;
++
++	/* Enable FIFO with watermark threshold (in word count) */
++	threshold = st->fifo_watermark * ADIS16607_FIFO_WORDS_PER_SAMPLE;
++	return __adis_write_reg_16(adis, ADIS16607_REG_USER_FIFO_CFG,
++				   threshold & ADIS16607_FIFO_THR_MASK);
++}
++
++static int adis16607_buffer_postdisable(struct iio_dev *indio_dev)
++{
++	struct adis16607 *st = iio_priv(indio_dev);
++	struct adis *adis = &st->adis;
++
++	adis_dev_auto_lock(adis);
++
++	/* Disable FIFO */
++	return __adis_write_reg_16(adis, ADIS16607_REG_USER_FIFO_CFG, 0);
++}
++
++static const struct iio_buffer_setup_ops adis16607_buffer_ops = {
++	.postenable = adis16607_buffer_postenable,
++	.postdisable = adis16607_buffer_postdisable,
++};
++
++static int adis16607_set_watermark(struct iio_dev *indio_dev, unsigned int val)
++{
++	struct adis16607 *st = iio_priv(indio_dev);
++
++	val = clamp(val, 1, ADIS16607_MAX_FIFO_WM);
++	st->fifo_watermark = val;
++
++	return 0;
++}
++
+ /*
+  * Check if the delta between two values is within specified range.
+  */
+@@ -306,8 +615,9 @@ static int adis16607_sensor_self_test(struct adis16607 *st)
+  * has handled reset (hardware GPIO or SW reset, adislib's own job) and
+  * before self-test - no mutex is taken here either, matching that
+  * convention. Does the device-specific startup steps adislib has no
+- * concept of: SPI Half-Duplex locking, dev_id verification, and the
+- * bootloader-busy check.
++ * concept of: SPI Half-Duplex locking, dev_id verification, the
++ * bootloader-busy check, enabling 32-bit burst mode + DATA_CNTR, and
++ * the DR/DEV_NOK pin routing.
+  */
+ static int adis16607_post_reset_setup(struct adis *adis)
+ {
+@@ -355,7 +665,29 @@ static int adis16607_post_reset_setup(struct adis *adis)
+ 		return -EBUSY;
+ 	}
+ 
+-	return 0;
++	/* Enable 32-bit burst mode and DATA_CNTR - one-time, used by FIFO pops */
++	ret = __adis_update_bits_base(adis, ADIS16607_REG_USER_DATA_CFG,
++				      ADIS16607_BURST32_MASK | ADIS16607_DATA_CNTR_EN_MASK,
++				      ADIS16607_BURST32_MASK | ADIS16607_DATA_CNTR_EN_MASK, 2);
++	if (ret)
++		return ret;
++
++	/*
++	 * DR_GPIO_MASK and DEV_NOK_MASK are updated here rather than written
++	 * blind, so this doesn't clobber the RESET_GPIO_MASK bit already
++	 * configured earlier in probe(). Per datasheet, DR pulses are what
++	 * drive the FIFO controller's internal enqueue logic. DR and
++	 * DEV_NOK are separate physical pins, so enabling DR_GPIO_MASK here
++	 * does not put DR's full-sample-rate pulses onto the interrupt line
++	 * - DEV_NOK_MASK routes the aggregate "any DIAG_STAT flag asserted"
++	 * signal onto the one physically-wired interrupt pin, which is what
++	 * actually fires on FIFO_THRESH_MET, at the (much lower) watermark
++	 * rate, not the sample rate.
++	 */
++	return __adis_update_bits_base(adis, ADIS16607_REG_USER_GPIO_CFG,
++				       ADIS16607_DR_GPIO_MASK | ADIS16607_DEV_NOK_MASK,
++				       FIELD_PREP(ADIS16607_DR_GPIO_MASK, 1) |
++				       FIELD_PREP(ADIS16607_DEV_NOK_MASK, 1), 2);
+ }
+ 
+ /*
+@@ -669,6 +1001,7 @@ static const struct iio_info adis16607_info = {
+ 	.read_raw = adis16607_read_raw,
+ 	.write_raw = adis16607_write_raw,
+ 	.debugfs_reg_access = adis_debugfs_reg_access,
++	.hwfifo_set_watermark = adis16607_set_watermark,
+ };
+ 
+ static const char * const adis16607_status_error_msgs[] = {
+@@ -690,6 +1023,7 @@ static const struct adis_data adis16607_data = {
+ 	.prod_id_reg = ADIS16607_REG_DEV_ID,
+ 	.prod_id = 0x6000,
+ 	.unmasked_drdy = true,
++	.has_fifo = true,
+ 	.post_reset_setup = adis16607_post_reset_setup,
+ 	.self_test = adis16607_self_test,
+ 	.status_error_msgs = adis16607_status_error_msgs,
+@@ -765,6 +1099,8 @@ static int adis16607_probe(struct spi_device *spi)
+ 	indio_dev->info = &adis16607_info;
+ 	indio_dev->modes = INDIO_DIRECT_MODE;
+ 
++	st->fifo_watermark = ADIS16607_MAX_FIFO_WM;
++
+ 	st->adis.ops = &adis16607_ops;
+ 
+ 	ret = devm_regulator_get_enable(dev, "vdd");
+@@ -803,6 +1139,13 @@ static int adis16607_probe(struct spi_device *spi)
+ 	if (ret)
+ 		return ret;
+ 
++	ret = devm_adis_setup_buffer_and_trigger_with_attrs(&st->adis, indio_dev,
++							    adis16607_trigger_handler,
++							    &adis16607_buffer_ops,
++							    adis16607_fifo_attributes);
++	if (ret)
++		return ret;
++
+ 	ret = devm_iio_device_register(dev, indio_dev);
+ 	if (ret)
+ 		return ret;
 
-Signed-off-by: Jelly Jia <Jelly.Jia@cixtech.com>
-
-Jelly Jia (5):
-  dmaengine: arm-dma350: Fix source trigger bit
-  dmaengine: arm-dma350: Add slave and cyclic transfer support
-  dt-bindings: dma: arm,dma-350: Document optional clocks and resets
-  dmaengine: arm-dma350: Support integration clocks and resets
-  arm64: dts: cix: Describe the Sky1 FCH DMA-350 integration
-
- .../devicetree/bindings/dma/arm,dma-350.yaml  |  16 +-
- arch/arm64/boot/dts/cix/sky1.dtsi             |  36 +-
- drivers/dma/arm-dma350.c                      | 771 +++++++++++++++++-
- 3 files changed, 778 insertions(+), 45 deletions(-)
-
-
-base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
 -- 
-2.54.0
+2.43.0
+
 
