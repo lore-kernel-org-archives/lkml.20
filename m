@@ -1,153 +1,114 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=192.198.163.15
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1792718524;
-	b=pZToCMwHdEow/YtXCUeIFFLy3njunOMN+X1FMV+wx0XSRPrQ3whsaA+zlvSm0r4AUAUW
-	 r+Deauaq8o9WADrw+dl4CE9zylmJv9x6QOclnopXuLNwtICAZA2TcXUpmdAXj/WtAZOBN
-	 XVWRf+020vKkQXNGpyVQ7G80H1FAbqRGoaCp/jAPEGXWgaCO98XeFoXFUjDPitj95TVtm
-	 I+TEDWqkQWswa7Uct6uydCUCGJdfCdCsFehXO8bSn0/lQt4lG9BwV5OUg0RoshgGc+N0b
-	 h6x5BMh+o7dGeo/AzkZOAVLq2AYc3LUtLKrn3dQFtml2RJr7JqZorNO4jd+eErygBHw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792718524;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
-	 Received:Received:Received:Date:From:To:Subject:Message-ID:Reply-To:
-	 References:Content-Type:Content-Disposition:Content-Transfer-Encoding:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-LD-Processed:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
-	bh=V0T1imMTJMX5MhWtX72KUjlwVQer/ULU08YYD0HNh5s=;
-	b=VWzQwZpNy5Bo6OVmdlo6c7kg2Y9xvUunIwV4txTEC54KljADZLSurf70umJjyvv+55xS
-	 +rCShfQjTTy/V+sjKPqO3x8L/u4eddACSM5KUt5c02v3Ez8A3L/ovRPI7ZJJ2qf11irRH
-	 eZV5B2U+lbHAlYVms+7B32ycjp+1JBkcvtlaNaLToqqV9o5IahTjFdAEWChIkyqIMnYJ4
-	 QAkvUONP41cLpMqTgaEG4T3JCW71ymTHinSsxnJQJYRSHZcjjYfiXTe1nx8Udfml/Stbe
-	 b6V5R7UobHlUYzQKCZHzFCL4tXjFKoYTmRvEnVAEmFLk8vVv3SgFYWQK9NfeVRFKIug==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=feCzdF4N;
-	arc=fail smtp.remote-ip=192.198.163.15
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.155
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792718601;
+	b=26hT2raTtQIay7ZWjQw7L5d1sB2jgKR8WJhZ7acKqkwzPiLb60pr3WuhZt7N+ap3Jifu
+	 n9scqv/64r3UEEa4+Fcrgqvno3S2qRNSUgDohOrXnGwQhu0o29Wyty7Cyqfzr1ARiFjIj
+	 bM5Gx3cUh4jXs8kfPc4/5pjR5wHxBrOycnLbKzxem+0vyCdx1JnetVegSz7OpxSxTGJOs
+	 KjyFklE8kTRhA5ssU+7dI70qk3+x7LrvuH9zAnjTgKv8Jho2ABbi0KM2geNHwe62XDFIj
+	 BeeR+xmLGIGzonVcCB85YDCaXJf9SgsOWyVzaDmJk2g80RbK7dyP+ksEPnas2bb+25w==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792718601;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:Content-Type:Content-Transfer-Encoding:MIME-Version:From:To:
+	 Cc:Subject:In-reply-to:References:Date:Message-id:Reply-To;
+	bh=7cFXi0L/JdhyCBHsqgbk8A7Ch3+1Xn76JLKJNL9bMo0=;
+	b=O51ip3/V+WrP1/wJ6vHWcCMaPQEyH8EuHKX1O81I2pPwWP25vxtgfwxj+m4pjiJnh49l
+	 CixwlOfuFxN8qYoUPyrF/z3QCcvS52iRUuMYNLf1RqXbQSpvqoiaHn7SSjcmLZFxmjWz+
+	 PaE+LSXBNGt9rUiC3yisvlN6xjVqKenrngr/bdb3Zds9yqRMsH+y+FHAeaSNVaZe/jaz8
+	 mcXl2DN3EFJL/fGHVjVgwgrok53SBDwDSQH1sstNPmvI4U+10yMVTQxk+4d2b34yYQfrP
+	 j35R/q1DEskdcW76Sqkttl27vyM82DP9mSCxYeb4vSBKyI4OwJSfPxb5J0OuyU3zA3Q==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=ownmail.net;
+	spf=pass smtp.mailfrom=ownmail.net;
+	dkim=pass header.d=ownmail.net header.i=@ownmail.net header.a=rsa-sha256 header.s=fm2 header.b=UfZqc+3Q;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=cmsmFIxe;
+	arc=none smtp.remote-ip=202.12.124.155
+Received: from fhigh-b4-smtp.messagingengine.com (fhigh-b4-smtp.messagingengine.com [202.12.124.155])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD245606A31A;
-	Fri, 23 Oct 2026 01:22:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BD245606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A77FF606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 01:23:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A77FF606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ownmail.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ownmail.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=feCzdF4N
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792718523; x=1824254523;
-  h=date:from:to:subject:message-id:reply-to:references:
-   content-transfer-encoding:in-reply-to:mime-version;
-  bh=otYqGTHaH3f6Fyl1Jn8CkXzvMb0mtujLYi3W7ir+wpo=;
-  b=feCzdF4NPRtcBHjX0mCVYIcTySk+/45Pthwxx0nr49sTZ09Gp5DclQIf
-   WM53j5SWMlc5W7R3RSjmJPzpj6YOzItXp2d/dYoo5LZLrAQ9wBUMfEuHg
-   vo6F3YRIC4O1tMHvRc4xiaZeNQBJvWvliU4kxMl0nyCzOOgwL/R7n/IWd
-   o72USwlFovxTM05v9OSR5OLir78rn2pj3kS/oXU+NP6B2C+3+avhrLdXR
-   42nv2Z+5pTxN0HsAebnC/3B8UpZuWS0fKl9EGAjyNDnC0J+Rzpb7YL7JT
-   At04DQ0F+5+t4f+A+bn0JxwZpVoOnumYfmlKZURLeLoOLTJYv7mFptauy
-   A==;
-X-CSE-ConnectionGUID: 0nHd+QVSQaO47yPjhyx9wQ==
-X-CSE-MsgGUID: vAG/UnLJRCG0auNHcnWcgQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11943"; a="1488382"
-X-IronPort-AV: E=Sophos;i="6.27,173,1787036400"; 
-   d="scan'208";a="1488382"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
-  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Oct 2026 18:22:02 -0700
-X-CSE-ConnectionGUID: b/s3ql3wQ4utDykH00geLQ==
-X-CSE-MsgGUID: 2Tjbsf9rSxa39HPfHJ8tNw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,173,1787036400"; 
-   d="scan'208";a="3895595"
-Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
-  by orviesa010.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Oct 2026 18:22:02 -0700
-Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Thu, 22 Oct 2026 18:22:01 -0700
-Received: from ORSEDG903.ED.cps.intel.com (10.7.248.13) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49 via Frontend Transport; Thu, 22 Oct 2026 18:22:01 -0700
-Received: from CO1PR03CU002.outbound.protection.outlook.com (52.101.46.60) by
- edgegateway.intel.com (134.134.137.113) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Thu, 22 Oct 2026 18:22:01 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=L3aj6pm/rFAczoS7X1nGDmui4NcYWgHauNn+8zINK1Ju8UliPNIPwn2r1L1OY3DOcsiobsa/Tx+8bc00yJvlZnQX7McZQyE9G3LiHsL7ZGOij8H5iiw+5xWx9K3Xl+LY/z7TlsRnCDh9twL1tDD6dj5OeNudef2MZMx/AHtOh4wjJTRg7cz2VlP34pPZEbvCrgFYjeQm8gdql21zZ0mCXArldHisOMGSxtFNA9u050HuQOX+hyYo7aoO4CtYB5ETHDi7LdpE2437kpWXZRhgqpR4a9xfTzk9S7GK4Wi8epnWvsBhSRBH831wmaFoZUTxT4RNnk/PD6updHI7Ctj62Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=BjNu8wTi61Q7X+aqMp1MfJLwVgWlqD7apnA0TZge8N4=;
- b=d3Q2/9q6CdWQv5TBKmyvAzRy4OBXBYxjgYXpTknxrR5AKGctgtVoZYdx6Q3I75Q4YInOQ+F9Eqlh6ApS3bZs2jjIfoPNFNq33nIcccSZeTxRJUSX7DN9WJs2zqmVNCzQTTZJmXcP2LkZVERwjs/vJsl3YSySW7hcpvGWpGcOWimcQv2E762a74WjgRY4wQA1KvFddMnJo/erAe/9rrJmPnmIaz8+09gzqSg3YFbiSZ93e3dsTd3IMfxVimXlHZT8eFbFWSlTVTGcAdNRpG6c8+7M/aPTL8iiKLrH/7TpMD5BEbFpM8G4gq8dMYLyADDow72zLzMso5VQou08UkpilQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from BL0PR11MB3236.namprd11.prod.outlook.com (2603:10b6:208:60::18)
- by BL1PR11MB5272.namprd11.prod.outlook.com (2603:10b6:208:30a::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.16; Fri, 23 Oct
- 2026 01:21:59 +0000
-Received: from BL0PR11MB3236.namprd11.prod.outlook.com
- ([fe80::b026:a3ba:5162:beb2]) by BL0PR11MB3236.namprd11.prod.outlook.com
- ([fe80::b026:a3ba:5162:beb2%5]) with mapi id 15.21.0546.012; Fri, 23 Oct 2026
- 01:21:58 +0000
-Date: Fri, 23 Oct 2026 09:20:59 +0800
-From: Yan Zhao <yan.y.zhao@intel.com>
-To: "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>, "Du, Fan"
-	<fan.du@intel.com>, "kvm@vger.kernel.org" <kvm@vger.kernel.org>, "Li,
- Xiaoyao" <xiaoyao.li@intel.com>, "Hansen, Dave" <dave.hansen@intel.com>,
-	"thomas.lendacky@amd.com" <thomas.lendacky@amd.com>, "vbabka@suse.cz"
-	<vbabka@suse.cz>, "tabba@google.com" <tabba@google.com>, "david@kernel.org"
-	<david@kernel.org>, "kas@kernel.org" <kas@kernel.org>,
-	"binbin.wu@linux.intel.com" <binbin.wu@linux.intel.com>, "seanjc@google.com"
-	<seanjc@google.com>, "pbonzini@redhat.com" <pbonzini@redhat.com>, "Peng, Chao
- P" <chao.p.peng@intel.com>, "ackerleytng@google.com"
-	<ackerleytng@google.com>, "michael.roth@amd.com" <michael.roth@amd.com>,
-	"nik.borisov@suse.com" <nik.borisov@suse.com>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "sagis@google.com" <sagis@google.com>,
-	"Annapurve, Vishal" <vannapurve@google.com>, "Chen, Farrah"
-	<farrah.chen@intel.com>, "Gao, Chao" <chao.gao@intel.com>,
-	"francescolavra.fl@gmail.com" <francescolavra.fl@gmail.com>, "Miao, Jun"
-	<jun.miao@intel.com>, "jgross@suse.com" <jgross@suse.com>,
-	"pgonda@google.com" <pgonda@google.com>, "x86@kernel.org" <x86@kernel.org>
-Subject: Re: [PATCH v4 08/17] KVM: TDX: Adjust the topup count of DPAMT page
- pairs for splitting S-EPT
-Message-ID: <atq2e+gt2+QlZSh+@yzhao56-desk.sh.intel.com>
-Reply-To: Yan Zhao <yan.y.zhao@intel.com>
-References: <ae995b5ec798491c3a5511fc44b6308e9664a53b.camel@intel.com>
- <as8UwKoAaT/1HgNr@yzhao56-desk.sh.intel.com>
- <71682b712350b5270e4a0f5cddceb1da12341b9d.camel@intel.com>
- <atBaxwAG84jlOywE@yzhao56-desk.sh.intel.com>
- <25927de50b85816956e8989f402ff6ccfa8fa0ba.camel@intel.com>
- <atV5fDnckj+3V0D/@yzhao56-desk.sh.intel.com>
- <ca53c3bd37218828822a9b990a0900ca2541fd9e.camel@intel.com>
- <atm6NBNrwYc+Y8yo@yzhao56-desk.sh.intel.com>
- <55ccf641218c6553b2f43f4394b92c23bd8b5d98.camel@intel.com>
- <atqjeaPTXmCfiQmo@yzhao56-desk.sh.intel.com>
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <atqjeaPTXmCfiQmo@yzhao56-desk.sh.intel.com>
-X-ClientProxiedBy: SI3PR02CA0010.apcprd02.prod.outlook.com
- (2603:1096:4:295::19) To BL0PR11MB3236.namprd11.prod.outlook.com
- (2603:10b6:208:60::18)
+	dkim=pass (2048-bit key, unprotected) header.d=ownmail.net header.i=@ownmail.net header.a=rsa-sha256 header.s=fm2 header.b=UfZqc+3Q;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=cmsmFIxe
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id EA0397A014E
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 21:23:18 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-04.internal (MEProxy); Thu, 22 Oct 2026 21:23:18 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ownmail.net; h=
+	cc:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:reply-to:subject:subject:to:to; s=fm2; t=
+	1792718598; x=1792804998; bh=7cFXi0L/JdhyCBHsqgbk8A7Ch3+1Xn76JLK
+	JNL9bMo0=; b=UfZqc+3Qrfv23fsfZc2jvmU7RuFQ/CB0TSGHl3tztznkVS9LqM7
+	u7tpvfZq9C7l71qOZ+tfjia2OgBi6BVDn8ZeNRHSsWtc15OSsiGGbH4P5FmSu4XL
+	hXH0IvFh4K5NEEMEykG2IpTO3rkf/uLChSXzE3/7CqFcu71j1S2uCch/nOMebIFg
+	N+OY8EJpSLd8vzn8zDmmRz1lW8uy3OThMVirxrFNsUh3MkEUrDSCBmAWSIQOFR3o
+	t8oB00oO5c9eveC8hTgi/InXp019gaOPxDsU8DaPRWYGqmfgsCGyBSShFyd4s7g8
+	qyzvhPAs2+HQqWQF8lv1iP9Lp4vCFHAqgbA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1792718598; x=
+	1792804998; bh=7cFXi0L/JdhyCBHsqgbk8A7Ch3+1Xn76JLKJNL9bMo0=; b=c
+	msmFIxeN/qxDjXj7JHu74YT46slPjygG0V4YKZ0ulfTzTIB2SMU/d5W+9bYZQkzO
+	Z9U9BDdFOc/PBjzz8vt2JlQzMpyPDoA43SKp869dWkWRNol/in13WFQu1cgMuJ4T
+	g38w357DCAY3rOla4Uy16+UM4nfm2hJ13WULtrYDvfJLs0StgxJO3u6tbt23fcQf
+	Xo6p1qshEEvLbT/q7KHC5zOfGHt90oLMUE7Z8lqkgmJiJ+tGGr+D4HqNkjuSmou7
+	RPDcIVjqmP9RCyCiuU6Og54Yv0jjZbVzPmkY0LjmHSYon0Ndl3I1UKXdFFTRZsGT
+	Fw3O4OBK3dbe6yheVRr4A==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
+	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
+	action=sign d=ownmail.net a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1792718598; d=ownmail.net;
+	mf=PG5laWxiQG93bm1haWwubmV0Pg==;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm2:rsa-sha256:Hq9TDq8GRoWDAyNYu21X0fa/H+Y0PNP/Yz0pmFC1jUkzZbv
+	QyRgNi8/xL+MYF01F2Z3XA8cxjmIWXiMcu6eH7t53Xj09apLb/vdFsLI20MxIB6U
+	vtREiAvXGdNzR+ss1TarocVrpDiaSXC0Mpk7bmIh0XUOROFXajgMY+uUQ9xX/NPm
+	N4UQOchPzWFC0ECZJpWg8BAX1+okUjsf7hponK9WE/VjMs8COLwQTcVg16bFkpvv
+	v52RSLIFNYSzKks/B9fmCLQQSwOWkgCHgLlx8og2+0sa7o6rxfZgxEpQFTqDJjoS
+	zk5LulPN9d9qfs5LLK9Er51AoHz+FPPFmg3Rv8A==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
+	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
+	action=mi-m=1; hc=13;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,reply-to,
+	subject,to;
+Message-Instance: m=1; h=sha256:YrN/KlqvJbuKZP5+/zhM5/JVYqXjcKZo0i2ywgzsSYM=:hXcREjO32Ld50T+nbL2hR5exmKKcdTu1Lk84ebTml1k=;
+X-ME-Sender: <xms:BrfaamyaXVGxedXYMFvgKLZdAq8aTe1L7ZMtzPVKUFiRKuiY21AcQw>
+    <xme:BrfaaghOoCO7v3toHGHJI6Nxnvf5DQfxG6kyXV4ot6uGHswML_FQ9ODAJltSPLV9L
+    mhPyeIjLcB0yP5G9GYzXnd6wuixkDzGbhmqwAIlO7dzSeCNF5jo>
+X-ME-Received: <xmr:BrfaahqtCgjZh9fnhHbqjalQDsOuvi1S_aC8Dt44_R4I5wsgak7fcHni8MR37xS_W1SwoFZgH1HHm_nUFIh0DPgIRLFJ6vs>
+X-ME-Proxy-Cause: dmFkZTFOPz9kVuRAJKXCexeAqCEJ3ruIe2UMXhbQkPVg2UFXrQecH2TQP0Zr0KlAgTNkSp
+    FQPdZUhOcjOrbo3H82A3HH0nhqFCKDcix67y6wDLuWb2jiToCxZBBM2lrdj+ind51vGAwU
+    GR9ab9wjgvmbx6ujLCAi0MMKBZUaxKiIob5+udC4a7+6gWEoQa4Hiq3BpWTO2vf+gKIp6J
+    vm4y2vlh8d5zJAhFQ4naGPAGMt1hlMHD1YJj5d/Q8aRxan9IWFa6XtjtvQuLnfb4Vf7d4K
+    Cbifv+b2sOwLuGZ/kXWROmW0/wbwEzJjoyEPVRrFkHmHXubXLJQNaPaw7Uw4JI1G5sePuG
+    OhD5y0oLLdgt0FqDcj++kBSuJY9geFZGVApMi9XaTOhDTzNejzdNxccn4QvU+pvqtUDbyE
+    cWofaU+0T+UxBnz2W7juRDB+jnt08EV0bdc0V7KvSwBe0299ybp65cehBMq8VoAJyeMv9B
+    96VdUM+iq0U9/qjH3z0cfywfuuQlBwjuPLzTgPluPvNvwIzfLwHcXPDetLYYkDXbrVUayB
+    mbQNC8VW5APsArPbdFOAvJqMHCjtQdVuEjtpTemJaE/IIMPEIktQuiJr/VdwweJzA4Jtaa
+    9gjf8hrA3mnx68lCNYA9Ao7nbV2k99y3PRkwZt2Hc4DF3lXZ+ihGwtIYdkqw
+X-ME-Proxy: <xmx:Brfaavji7RqzwhfR13ZV_DCsuBKIsH-quVNcy4lpnxBQYhZtVaIUlw>
+    <xmx:BrfaarOOn01-vrZm67Wv3971pvk2uuVoaFX5XWd9UQxuwh9rox6yOQ>
+    <xmx:Brfaahz_WetjwDvrsrgntQ0787cceiiVZLYM67C9eQFVfn40mpURcQ>
+    <xmx:BrfaaloApk53qIOMRg-shDhcJPwjZEd0lV1M4NJUopTm7DZWWNUA9w>
+    <xmx:BrfaaqcDF_DQeZh0rDC46IK5HxHcb8X-UGBenopU5gf6-uiO-OgFxEeb>
+Feedback-ID: i9d664b8f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 22 Oct 2026 21:23:15 -0400 (EDT)
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -157,106 +118,274 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL0PR11MB3236:EE_|BL1PR11MB5272:EE_
-X-MS-Office365-Filtering-Correlation-Id: bb3b547a-44da-4437-ac3c-08df30a407ff
-X-LD-Processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|7416014|376014|366016|1800799024|23010399003|261022105027099003|56012099006|921020|11063799006|4143699003|261009223027099003|261021121427099003|10067099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: Iru9ST0OQSaPHfmDRFJemp7s5m6Z1OLVb/KAjDoMpP6ZAq1EoOjzKcfKW/r1D/Kk/j/4q+Ic67Gw9wie/uNCW1+KDL4znByVlORHYtJv3o2nYg08Mz+05gMnQqxYwNO5lx+lS0ZpmPq9FFzpi651yPX6L1yj+08YlEfY0DpKjd+i+dbyCPiI6i+gHLIdsctU6BW7v5xlhNIQ51RSkzqJnOuAqWy4VKNfBlnNUXAmctsnYu06j4BVcQRlrdhU13R8gRX+a3io9oR970mVVaZSLt6wCJ2oIMOpu0nVwqGyBzPkmDMyTZJaLlsVHHVu0041VWKyWDcoRyncXaIq4yCGVCFS6Opmi6uVBj3U6dAIBMw9i1mMQv6hABH63/972VUSaPxwD6GWOIUWYrl3FJfkwkdzT1lehOMh0hzpFV8v08uaUn/ZBTo0XrcHF2LoDpJCUXoaQO7VDYsIvu/RIkJsdo7d/BaJaurzmK2jXnuuBvNdhD4q0WKn29B7SvDHDnVEQa46JnTj+xNp0sRa4kGJF4/guYuvNOSr6HVPhXPvDOwG/VYv0ZCf/XzXZgLaRrxd9KzsshZu2vr3SKEaSP03mb+sbYB/xeKOncV6tJzcEKurIK+k6f/qC7bz99KFzNq4nRvGtVRx6qOp58KLerDw+SkbLD6mcQrZm5weB9D/kRvBu1sMrnHWP9vzw9YB/EC5FJsW8+GbliPfIonAjFRiWw==
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL0PR11MB3236.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(366016)(1800799024)(23010399003)(261022105027099003)(56012099006)(921020)(11063799006)(4143699003)(261009223027099003)(261021121427099003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?iso-8859-1?Q?9GNut/zPum0QK2WgHg4KZBBSX5X3czEQxoVX0TKwEjFwEYnoppe7eNLd9x?=
- =?iso-8859-1?Q?WDwC/DS/HyQ36VxBO1XVSFh/3UeiVU7sRHcb4MeBWqm9rZGBPt/X+2XnCk?=
- =?iso-8859-1?Q?GxkLcgHO+ayfNv68aM2n1liSd5b0y1s2z8xEQHvhQhq3s7zb2s7kBIkmiO?=
- =?iso-8859-1?Q?bSiAitLT5lUZdbaALVFfeF4RymoRnybe6wmokuArE7yBVUkItcNUxJivoT?=
- =?iso-8859-1?Q?PCaVNRAerkP85ies5XKP3ATCJ/RssmYBVITQiW+h4EiFdMtJtV5FUQ/mhw?=
- =?iso-8859-1?Q?X2+o6IPMNcUMNEH3MH09LPRkGcfdgLjDA+NESqL70gd4Tgjl3xQL6A39IJ?=
- =?iso-8859-1?Q?84q1hyKsv4Tdax5vMC+mIw9rLyYkaXKNeCh0wELnVVr84RU+ORYtfwEhPN?=
- =?iso-8859-1?Q?BvTlhNNPM9utD7SOBttnPhQj7M4Ebu7pkYIZdaWFflJ6DF03raJHKfdgS1?=
- =?iso-8859-1?Q?xrinFEZCUbdnLhuLJM9rnSghvJbf/27thD0ZcepGMezJ8PeukCQeJOIHwr?=
- =?iso-8859-1?Q?KtpO0+qRl+RQjteF77P6gU5epC2q1jAhaYesLGafgQQ4BcI6Tr0ArN2l+e?=
- =?iso-8859-1?Q?NSGXB7e0LPKIiZumR37r2ZnJMJwbazgwAUfl0lGcVnreFWaUVzrwcgN6I3?=
- =?iso-8859-1?Q?yaE3+Swfsd8X5aWr3NZUoAYyK3WjBytoT1GFB9MfYX4LfB0R9ucCNpUWgx?=
- =?iso-8859-1?Q?KIzFvxoOHMY0W0sQMxkbEkS17t/A324+Tc4lA5mbbGs3hKGeJIZFYhc0Pv?=
- =?iso-8859-1?Q?uV0FpqZR88UjCQrsrayHuFs73G/42HGMCTlzfoR2/AiSpQ7OCBq1SYP+u8?=
- =?iso-8859-1?Q?33XNSxEUbGNATTaoFO5KKNslWt4Rt1WfaihA2MyGOWMe8Eg86QNysmtftK?=
- =?iso-8859-1?Q?+N30LJ1t1iYAgbWjH4Bd0dTLDZxUVbDr044WgMkL085JfVt41gpYlrBDKS?=
- =?iso-8859-1?Q?1wNQAzteYyYbUP1AwthLWTxuc1d3wTD6y5MA/B3oGsn72tLF5h97IuOkoG?=
- =?iso-8859-1?Q?vDnfihxPHkqBl1FKn9o97e/0+nbdvsMXbioO16wBLTDYCgbqbrP3liMr7O?=
- =?iso-8859-1?Q?p3mPWqPziSRkycnJg0OCuiffPsNa9uktQQ6eg+k88z2cL7EgAhG/cuS1di?=
- =?iso-8859-1?Q?i9Ibze5JUtt2VkD+QComViL/M2MDRlymuv29zuYplRNjLdi7dr+R85nhGD?=
- =?iso-8859-1?Q?v4mmMqCTx1SqyMfBWbl7XPf3QXnMwN1pGkL/H/RVZjqZvhEkrD/MhpV/7o?=
- =?iso-8859-1?Q?07jAcypTkyV8ABW/77si2ZE2QX+CEwZ5+pZBMy0Yqyx6Lfe/zsXevmXgpV?=
- =?iso-8859-1?Q?QADEe56W69ekhMUi/7+PFunZA+dkEjfbLSDPKl8uqht7V5vmM9mTpQABFX?=
- =?iso-8859-1?Q?J5Nl7E1UY4UtK7QeWLjliTChUEHkANBRZLw8EGhb6fOxOKLN0Ffhu/4QhA?=
- =?iso-8859-1?Q?17cL8Xw0p0sgDrHqsiSp98/nfOcDcI/TALJLIrJHEItBpU2oKgPOEoXyeS?=
- =?iso-8859-1?Q?U+Wsk9VV2/t5NRcmKBFxr8vJB4bSaT/o6Fb4Og6TlUcf+dykuVOqnzjkfX?=
- =?iso-8859-1?Q?UK9gsPI5GZ1l9oItRYjI9rQAy0tOaGzKsGbfxFvc3h9hY/+4Usq6+b4JYj?=
- =?iso-8859-1?Q?lrJ8DrXDYoKzS4kQw4+1zmSyjcADZVCAim/oC5Lx4jH+HI13BxfE0BhZ4P?=
- =?iso-8859-1?Q?5hHoi19bzSE28y4XWEMbmfINIJtBzmiSu1rMExCYyQPT/t2zQMfNsLN/rm?=
- =?iso-8859-1?Q?we7wvv2dMV3CDXZLHaTY5Pk6I51Uzac/ax3PYGhM5ZzYkzLRUc9wDpv9np?=
- =?iso-8859-1?Q?e8CdRNT0zA=3D=3D?=
-X-Exchange-RoutingPolicyChecked: k1/82Tfh3AVaz8mBnXvHrhS58l+tk3gjjzSXklroCEajTXXCTKV49MEVmrHvEw7DmkS0u9avLlFTIWIdFM50Y35bL/UUQU5eK5Jf1o34YymQvWWz6IXg/bvNc31XJq/qhcnz9FnJMXu6yGpVwOHWP6I6tfAz7YaNSwEu3kCunCrjU1Rfz0RuesaUABBF6KF6ksKRwzzqfnzdRC8nq+hn9JuT8mAtZoufPIqnefPafPxEnVOz0DnqBqZVU4QDNNlS0TQkFqSgoKn1oTlzzF7chvAx3Kflg6WszW06zQUDLbqAVLmzlEzi4f8G6LmzICh9awMOFcnLTknqOJ2PgP9kBA==
-X-MS-Exchange-CrossTenant-Network-Message-Id: bb3b547a-44da-4437-ac3c-08df30a407ff
-X-MS-Exchange-CrossTenant-AuthSource: BL0PR11MB3236.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Oct 2026 01:21:58.6915
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: wUtNVy9oWvrQ7uIvlylGyFibDRVh5Yh8COYpRJtZ6SqUKSHHh13t9EqvdLdnqzU907u/ndb0rnIAHz2v9QG8Lw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR11MB5272
-X-OriginatorOrg: intel.com
+From: NeilBrown <neilb@ownmail.net>
+To: "Tom Talpey" <tom@talpey.com>
+Cc: "Paulo Alcantara" <pc@manguebit.org>,
+ "Namjae Jeon" <linkinjeon@kernel.org>,
+ "Alexander Viro" <viro@zeniv.linux.org.uk>,
+ "Christian Brauner" <brauner@kernel.org>, "Jeff Layton" <jlayton@kernel.org>,
+ "Jan Kara" <jack@suse.cz>, linux-fsdevel@vger.kernel.org,
+ linux-cifs@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject:
+ Re: [PATCH 1/3] smb/client: don't unhash and rehash to prevent new opens.
+In-reply-to: <6233e33a-e6e2-4c9d-8372-5aa75f4f3314@talpey.com>
+References: <20260928012812.2890035-1-neilb@ownmail.net>
+  <20260928012812.2890035-2-neilb@ownmail.net>
+  <6233e33a-e6e2-4c9d-8372-5aa75f4f3314@talpey.com>
+Date: Fri, 23 Oct 2026 12:23:11 +1100
+Message-id: <179271859119.2068970.332034501939522955@noble.neil.brown.name>
+Reply-To: NeilBrown <neil@brown.name>
 
-On Fri, Oct 23, 2026 at 07:59:53AM +0800, Yan Zhao wrote:
-> On Thu, Oct 22, 2026 at 11:56:47PM +0800, Edgecombe, Rick P wrote:
-> > On Thu, 2026-10-22 at 15:24 +0800, Yan Zhao wrote:
-> > > static int tdx_topup_external_pamt_cache(struct kvm *kvm, struct kvm_vcpu
-> > > *vcpu,
-> > >                                          bool with_root_spt, int min_nr_spts)
-> > > {
-> > >         struct tdx_pamt_cache *pamt_cache;
-> > >         int dpamt_pairs = min_nr_spts;
-> > > 
-> > >         pamt_cache = tdx_get_pamt_cache(kvm, vcpu);
-> > >         if (!pamt_cache)
-	      if (KVM_BUG_ON(!pamt_cache, kvm))
+On Thu, 22 Oct 2026, Tom Talpey wrote:
+> One nit below...
+>=20
+> On 9/27/2026 9:25 PM, NeilBrown wrote:
+> > From: NeilBrown <neil@brown.name>
+> >=20
+> > smb/client needs to block new opens of the target of unlink and rename
+> > while the operation is progressing.  This stablises d_count() and allows
+> > a determination of whether a "silly-rename" is required.
+> >=20
+> > It currently unhashes the dentry which will cause lookup to block on
+> > the parent directory i_rwsem.  Proposed changes to locking will cause
+> > this approach to stop working as the exclusivity will be provided for
+> > the dentry only, and only while it is hashed.
+> >=20
+> > So we introduce a new machanism similar to that used by nfs.
+> > DCACHE_PRIVATE (given the name DCACHE_BLOCKED) is set when lookups need
+> > to be blocked.  ->d_revalidate checks for this and blocks.  This might
+> > still allow d_count() to increment, but once it has been tested as 1,
+> > there can be no new opens completed.
+> >=20
+> > Unlike unhash which does not need to be reverted on error, and which
+> > must not be reverted on a successful d_move, blocking of opens must
+> > always be reverted.  So we don't block the open until after the last
+> > early "return", and we always unblock on the final "return".
+> >=20
+> > Strictly speaking it is only necessary to block opens before the value
+> > of d_count() is tested under ->d_lock. But we block as early as possible
+> > to discourage new opens from starting.  As open is path-based in cifs a
+> > concurrent rename can be confused a rename of one other the paths.  Once
+> > cifs_open() has generated the full_path it doesn't hold any locks to
+> > prevent a rename from making that path invalid.
+> >=20
+> > The important details of the interlock between __cifs_unlink (which both
+> > unlink and rename use) and "open" are that __cifs_unlink() sets
+> > DCACHE_BLOCKED  *before* testing d_count() which is
+> > in a d_lock locked region,  and cifs_d_revalidate() tests the bit *after*
+> > ->d_lock is taken by e.g. __d_lookup() to increment d_count().
+> > Thus ->d_lock provide serialization between the set and the test
+> > even though the test isn't in a locked region.
+> > (The fact that cifs_d_revalidate() always returned -ECHILD when
+> >   LOOKUP_RCU is important for this sequencing to work as it ensures
+> >   d_revalidate() is called *after* d_count() is incremented).
+> >=20
+> > Signed-off-by: NeilBrown <neil@brown.name>
+> > ---
+> >   fs/smb/client/cifsfs.h |  8 +++++
+> >   fs/smb/client/dir.c    |  3 ++
+> >   fs/smb/client/inode.c  | 68 ++++++++++++++++++++++++------------------
+> >   3 files changed, 50 insertions(+), 29 deletions(-)
+> >=20
+> > diff --git a/fs/smb/client/cifsfs.h b/fs/smb/client/cifsfs.h
+> > index 0c85daa8386e..bcc0fb5c2c9b 100644
+> > --- a/fs/smb/client/cifsfs.h
+> > +++ b/fs/smb/client/cifsfs.h
+> > @@ -42,6 +42,14 @@ static inline unsigned long cifs_get_time(struct dentr=
+y *dentry)
+> >   	return (unsigned long) dentry->d_fsdata;
+> >   }
+> >  =20
+> > +/*
+> > + * This is set to block d_revalidate on a dentry that is being removed -
+> > + * the target of unlink or rename.  This causes any open attempt to
+> > + * block.  There may be existing opens but they can be detected by
+> > + * checking d_count() under ->d_lock.
+> > + */
+> > +#define DCACHE_BLOCKED DCACHE_PRIVATE
+>=20
+> Why the alias? The blocking behavior is reasonable but #defining a
+> flag value which is purely local to this file seems unnecessary and
+> confusing. What if another file in fs/smb/client also overloads the
+> DCACHE_PRIVATE flag, for example. Consider removing this hunk.
 
-If no objection, I'll add KVM_BUG_ON() here to avoid unnecessary repeated retries
-of topup() after such an error occurs, as it would indicate a KVM bug.
 
-> > >                 return -EIO;
-> > > 
-> > >         /* DPAMT page pair for the root SPT has already been installed */
-> > >         if (with_root_spt)
-> > >                 dpamt_pairs -= 1;
-> > > 
-> > >         /* +1 pair for 4KB guest private page */
-> > >         dpamt_pairs += 1;
-> > > 
-> > >         return tdx_topup_pamt_cache(pamt_cache, dpamt_pairs);
-> > > }
-> > 
-> > Yes this looks much clearer than even the upstream code. Do you have any better
-> > ideas than "4KB guest private page" though? Because in the split case it is
-> > actually for 512 guest private pages. We should put an artful comment to explain
-> > both cases while not making it look like something that has a better solution.
-> > Because I'm thinking there isn't one.
-> 
-> What about a comment like
-> 	/*
->          * +1 pair to account for mapping a new 4KB guest page or splitting a
->          * 2MB guest page into 512 4KB pages.
->          */
-> ?
-> 
-> > > In the fault path, mmu_topup_memory_caches() calls:
-> > > r = kvm_x86_call(topup_external_cache)(vcpu->kvm, vcpu, true,
-> > > PT64_ROOT_MAX_LEVEL);
-> > > 
-> > > In the split path, tdp_mmu_alloc_sp_for_split() calls:
-> > > kvm_x86_call(topup_external_cache)(kvm, kvm_get_running_vcpu(), false, 1);
-> > 
+I thought that giving the flag a meaningful name would make the code
+that uses it easier to read. But I'm happy to drop it.
+I'll resend with the IS_ERR_OR_NULL change too.
+
+Thanks,
+NeilBrown
+
+
+
+
+>=20
+> Tom.
+>=20
+>=20
+> > +
+> >   extern struct file_system_type cifs_fs_type, smb3_fs_type;
+> >   extern const struct address_space_operations cifs_addr_ops;
+> >   extern const struct address_space_operations cifs_addr_ops_smallbuf;
+> > diff --git a/fs/smb/client/dir.c b/fs/smb/client/dir.c
+> > index 6fa6d48fdfd3..88fff65320f5 100644
+> > --- a/fs/smb/client/dir.c
+> > +++ b/fs/smb/client/dir.c
+> > @@ -872,6 +872,9 @@ cifs_d_revalidate(struct inode *dir, const struct qst=
+r *name,
+> >   	if (flags & LOOKUP_RCU)
+> >   		return -ECHILD;
+> >  =20
+> > +	/* Wait for pending rename/unlink */
+> > +	wait_var_event(&direntry->d_flags, !(direntry->d_flags & DCACHE_BLOCKED=
+));
+> > +
+> >   	if (d_really_is_positive(direntry)) {
+> >   		int rc;
+> >   		struct inode *inode =3D d_inode(direntry);
+> > diff --git a/fs/smb/client/inode.c b/fs/smb/client/inode.c
+> > index 12ed8db10e00..4d34c5622cd4 100644
+> > --- a/fs/smb/client/inode.c
+> > +++ b/fs/smb/client/inode.c
+> > @@ -1967,24 +1967,31 @@ static int __cifs_unlink(struct inode *dir, struc=
+t dentry *dentry, bool sillyren
+> >   	__u32 dosattr =3D 0, origattr =3D 0;
+> >   	struct TCP_Server_Info *server;
+> >   	struct iattr *attrs =3D NULL;
+> > -	bool rehash =3D false;
+> > +	bool unblock =3D false;
+> >  =20
+> >   	cifs_dbg(FYI, "cifs_unlink, dir=3D0x%p, dentry=3D0x%p\n", dir, dentry);
+> >  =20
+> >   	if (unlikely(cifs_forced_shutdown(cifs_sb)))
+> >   		return smb_EIO(smb_eio_trace_forced_shutdown);
+> >  =20
+> > -	/* Unhash dentry in advance to prevent any concurrent opens */
+> > -	spin_lock(&dentry->d_lock);
+> > -	if (!d_unhashed(dentry)) {
+> > -		__d_drop(dentry);
+> > -		rehash =3D true;
+> > -	}
+> > -	spin_unlock(&dentry->d_lock);
+> > -
+> >   	tlink =3D cifs_sb_tlink(cifs_sb);
+> >   	if (IS_ERR(tlink))
+> >   		return PTR_ERR(tlink);
+> > +
+> > +	/* opens might already be blocked by rename */
+> > +	if (!(dentry->d_flags & DCACHE_BLOCKED)) {
+> > +		/*
+> > +		 * Block opens - and all lookups that involve d_revalidate.
+> > +		 * This guarantees that if another thread tries to open(), it
+> > +		 * will either block, or will increment d_count()
+> > +		 * before we test it below.
+> > +		 */
+> > +		spin_lock(&dentry->d_lock);
+> > +		dentry->d_flags |=3D DCACHE_BLOCKED;
+> > +		spin_unlock(&dentry->d_lock);
+> > +		unblock =3D true;
+> > +	}
+> > +
+> >   	tcon =3D tlink_tcon(tlink);
+> >   	server =3D tcon->ses->server;
+> >  =20
+> > @@ -2107,8 +2114,13 @@ static int __cifs_unlink(struct inode *dir, struct=
+ dentry *dentry, bool sillyren
+> >   	kfree(attrs);
+> >   	free_xid(xid);
+> >   	cifs_put_tlink(tlink);
+> > -	if (rehash)
+> > -		d_rehash(dentry);
+> > +	/* Allow lookups/opens */
+> > +	if (unblock) {
+> > +		spin_lock(&dentry->d_lock);
+> > +		store_release_wake_up(&dentry->d_flags,
+> > +				      dentry->d_flags &~ DCACHE_BLOCKED);
+> > +		spin_unlock(&dentry->d_lock);
+> > +	}
+> >   	return rc;
+> >   }
+> >  =20
+> > @@ -2536,7 +2548,6 @@ cifs_rename2(struct mnt_idmap *idmap, struct inode =
+*source_dir,
+> >   	struct cifs_sb_info *cifs_sb;
+> >   	struct tcon_link *tlink;
+> >   	struct cifs_tcon *tcon;
+> > -	bool rehash =3D false;
+> >   	unsigned int xid;
+> >   	int rc, tmprc;
+> >   	int retry_count =3D 0;
+> > @@ -2552,20 +2563,20 @@ cifs_rename2(struct mnt_idmap *idmap, struct inod=
+e *source_dir,
+> >   	if (unlikely(cifs_forced_shutdown(cifs_sb)))
+> >   		return smb_EIO(smb_eio_trace_forced_shutdown);
+> >  =20
+> > -	/*
+> > -	 * Prevent any concurrent opens on the target by unhashing the dentry.
+> > -	 * VFS already unhashes the target when renaming directories.
+> > -	 */
+> > -	if (d_is_positive(target_dentry) && !d_is_dir(target_dentry)) {
+> > -		if (!d_unhashed(target_dentry)) {
+> > -			d_drop(target_dentry);
+> > -			rehash =3D true;
+> > -		}
+> > -	}
+> > -
+> >   	tlink =3D cifs_sb_tlink(cifs_sb);
+> >   	if (IS_ERR(tlink))
+> >   		return PTR_ERR(tlink);
+> > +
+> > +	/*
+> > +	 * Block opens - and all lookups that involve d_revalidate.
+> > +	 * This guarantees that if another thread tries to open(), it
+> > +	 * will either block, or will increment d_count()
+> > +	 * before we test it in __cifs_unlink().
+> > +	 */
+> > +	spin_lock(&target_dentry->d_lock);
+> > +	target_dentry->d_flags |=3D DCACHE_BLOCKED;
+> > +	spin_unlock(&target_dentry->d_lock);
+> > +
+> >   	tcon =3D tlink_tcon(tlink);
+> >   	server =3D tcon->ses->server;
+> >  =20
+> > @@ -2605,8 +2616,6 @@ cifs_rename2(struct mnt_idmap *idmap, struct inode =
+*source_dir,
+> >   		}
+> >   	}
+> >  =20
+> > -	if (!rc)
+> > -		rehash =3D false;
+> >   	/*
+> >   	 * No-replace is the natural behavior for CIFS, so skip unlink hacks.
+> >   	 */
+> > @@ -2698,8 +2707,6 @@ cifs_rename2(struct mnt_idmap *idmap, struct inode =
+*source_dir,
+> >   			}
+> >   			rc =3D cifs_do_rename(xid, source_dentry, from_name,
+> >   					    target_dentry, to_name);
+> > -			if (!rc)
+> > -				rehash =3D false;
+> >   		}
+> >   	}
+> >  =20
+> > @@ -2713,8 +2720,11 @@ cifs_rename2(struct mnt_idmap *idmap, struct inode=
+ *source_dir,
+> >   	CIFS_I(source_dir)->time =3D CIFS_I(target_dir)->time =3D 0;
+> >  =20
+> >   cifs_rename_exit:
+> > -	if (rehash)
+> > -		d_rehash(target_dentry);
+> > +	/* Allow lookups/opens */
+> > +	spin_lock(&target_dentry->d_lock);
+> > +	store_release_wake_up(&target_dentry->d_flags,
+> > +			      target_dentry->d_flags &~ DCACHE_BLOCKED);
+> > +	spin_unlock(&target_dentry->d_lock);
+> >   	kfree(info_buf_source);
+> >   	free_dentry_path(page2);
+> >   	free_dentry_path(page1);
+> >=20
+> > base-commit: 3879f51857325da9bf3cfb073280257cd16ae067
+>=20
+>=20
+
