@@ -1,64 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792785494;
-	b=bt/VbdSVLJYWFtWXpWMz/OG4DZYf3Rg79jBvX12VwQdQG1/OY30g3TKYNSb8PsMcDKlI
-	 m+K7FOyFyLfaNjAWw0zGyibypKhBAkJRMtHA2OG5+UzrSZ24fcXM7T05JTHVYWyVOId4Z
-	 W+uhGNDvPVQIS6uBM+it/RzFdvTHG8CRgS7njoM9i9+5b9e8Ll9TkRLfNmBKsijzkSBX8
-	 g7Xd9exjkd9+1JkD5gJTta4FrtrhCNFRXz18aLDw5kRK68tsIJT4MB8j8cDBZfORRYL/4
-	 FSRdzo2sNTfSl5ZQgwRmP25Y1jUQqq95Qqq/Ikm49OOOEVhrNSQZaYpSTpSaGazC3Zw==
+	t=1792785528;
+	b=c66xMvrVyBO/lqabwPkre4rmK1o/xZE/kL3tX1IBRrjTjzVcdBl9+vTc3FblIqky0Gw3
+	 gWR9FgA1fPugwoHMI/OIb0nS8Tw8JHHkb3Jd1mfvVkrNDE2irqa1lIlTBsRk6yn6yD8CB
+	 Va1njkv83eCTCAdZ3EAH74vYHL016DJFW5awoUAi4frLyzfJTASmc5UzHx+PIyzMG/mne
+	 txDCHihvikCDU4zpgpyt6cOxSSTaZExygr1I6j2ysLT4/zs9oG8MEuDJRHd4lwaBKUrzP
+	 yam20h910uJMK3/tRIz8WDc6SZVEtHW3fSZLGEB3g2BipyV27FkTXDaoa2F/5vLS+uw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792785494;
-	h=Received:DKIM-Signature:Received:Subject:From:In-Reply-To:References:
-	 X-PR-Tracked-List-Id:X-PR-Tracked-Message-Id:X-PR-Tracked-Remote:
-	 X-PR-Tracked-Commit-Id:X-PR-Merge-Tree:X-PR-Merge-Refname:
-	 X-PR-Merge-Commit-Id:Message-Id:Date:To:Cc;
-	bh=0kB1Eu+OBUcet3f1PztzYQFUl2ZFOUmK+s0rCwLUKcw=;
-	b=w/gqbWScSc7sKyQT2rLylmWgXptpI8vpIe3B0wqE+a5lwicOn+4kzcPJ5clLaMOS81ch
-	 LW2QAKV1QoUQ5O2GdS/XHhZJIdoEOWpIED82y88lrut1oSku1SkJ6Y459U7d+dEA+1Yw4
-	 zFzlAXp404ZLTKRh26uLJg6mg+JvGYkcua8hogw78ZnVe05srPufLvRJp29Xl+zSehR9P
-	 oguIRThCRLJyszCV9d/k+u5IvYe3o3HSaABgOi6rEUrIHFdpQwfrk6q4pAtEnZzJtVDA5
-	 pfky7mk1v58Gt4fLiUnuZAb5uoJSxTWlLvGs4KPWOLeKwBoe9T+0xvJFCsc54dEC4QA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792785528;
+	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:Sender:Reply-to:
+	 To:Subject:Cc:In-Reply-To:References:MIME-Version:Message-ID:Robot-ID:
+	 Robot-Unsubscribe:Precedence:Content-Type:Content-Transfer-Encoding;
+	bh=pmodxiY3Ppb7NKigYhr0+ChfTh+MmQ9h/TkH4AwrA1w=;
+	b=syrJf2Q9shOxlkr2hnoFfv7s5Zg2BMcFlCuF1jCNfn3LqS4LlHnjMm3+PCiuDeBIjyl+
+	 7f3JmIUtAQ7k8RrYNkY6FmqTmVv8sw7vH1pDk+sa1osqRLaFFP2ji4GoHMQ/9B5VoL+5i
+	 CJyNl5rf7VjNScuS7ikMOiMLRAKm3FSEWgmvaASuwzXX1U0Iq5Qk3gK+wXFQvRC53/Okh
+	 RU+tlEe+9Yo9D2MC49HAVnrUNQySrzcjGGfZA3nXRAdveYxRLeLfHIdBz1YorC/rzMHww
+	 NbvQoYTwIwnwAnfdynj55RVHQ1ySY740Q/KL/a/qpWuyFUgzIdOmxlvyom+bqyR+Jdw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mGGGrFYI;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=linutronix.de;
+	spf=pass smtp.mailfrom=linutronix.de;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=LjG0An3f;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=cujhghZW;
+	arc=none smtp.remote-ip=193.142.43.55
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAB33606B2AB
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 19:58:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6578B606A32E;
+	Fri, 23 Oct 2026 19:58:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6578B606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mGGGrFYI
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C68B91F01825;
-	Fri, 23 Oct 2026 19:58:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792785493;
-	bh=0kB1Eu+OBUcet3f1PztzYQFUl2ZFOUmK+s0rCwLUKcw=;
-	h=Subject:From:In-Reply-To:References:Date:To:Cc;
-	b=mGGGrFYIGMqVKqk7/6VAAHYx6RcjgH0tsQSbHjXyGBheHWn2BofKOgbUZ9DvbZBxA
-	 Ukc0nOvEGqpsrJgNyXl0rDgAZ7GPQR9X1eTLjjXidaTcl+N8W6VnJRz0sPaNJqYXcj
-	 vY2w86uwntIf3muIVDHDMln0pS1FRajIFNLzl3+nISZikeE3uXl3Tb37HltUYHNE0W
-	 JVO8z0t6o7qgbF4U8j0Fqo2E8lEUftHojqZy38t08yKH6vLd4N7/Yf8sn2Dz/AimnC
-	 Ak0XzguCadW+Vci1qLAdzjBRaP/sNBqWe7lu++FqO0ynql2lVDYmwWMAQZeMaUxcD7
-	 RwLiszItRT9bA==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id BE549391B153;
-	Fri, 23 Oct 2026 19:58:13 +0000 (UTC)
-Subject: Re: [GIT PULL] Core MM updates for 7.4 (new MM tree)
-From: pr-tracker-bot@kernel.org
-In-Reply-To: <20261023172100.49643-1-david@kernel.org>
-References: <20261023172100.49643-1-david@kernel.org>
-X-PR-Tracked-List-Id: <linux-kernel.vger.kernel.org>
-X-PR-Tracked-Message-Id: <20261023172100.49643-1-david@kernel.org>
-X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/mm/core.git tags/mm-core-7.4-rc1
-X-PR-Tracked-Commit-Id: 07ae95d933b84db98696f23e24de078b251561ff
-X-PR-Merge-Tree: torvalds/linux.git
-X-PR-Merge-Refname: refs/heads/master
-X-PR-Merge-Commit-Id: 2ee2475e15b4ff8fda89a9edcb77dfd871de1386
-Message-Id: <179278549235.1241373.11674189443259173093.pr-tracker-bot@kernel.org>
-Date: Fri, 23 Oct 2026 19:58:12 +0000
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>, Andrew Morton <akpm@linux-foundation.org>, Mike Rapoport <rppt@kernel.org>, Vlastimil Babka <vbabka@kernel.org>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, "David Hildenbrand (Arm)" <david@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=LjG0An3f;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=cujhghZW
+Date: Fri, 23 Oct 2026 19:58:44 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1792785526;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=pmodxiY3Ppb7NKigYhr0+ChfTh+MmQ9h/TkH4AwrA1w=;
+	b=LjG0An3f+zfoR+n/kzT2v9UdOUl+JkExQ5s5XohwCd/tpj7jkKeeyywQIL/SMjH0bsDKuk
+	+9cmoFIL7oEJJ9FPv8l3DDgkCtNb3XGW65Sm0ij1sFvXlTxeUZn1fAt+w+PXYprVN6+bcw
+	tb74+od85Y7JU1Q+RHWjjE74Y1UGiUictnQs3QRxV2VP6nWuUHTwcmj/7QYnpJTm4gDQKr
+	nxGxntr9G92AIlujtFHfWlPTn0a2/KlqBuEbPkngAyacRhWZHHXshkKVDCN1HZypqZwDXU
+	PEX67HrHOZ2fwJ8mdvvWpUf5PASEKlJEsvGsIyuUAxrGNbH1/s5K6oXzk6Dtyg==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1792785526;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=pmodxiY3Ppb7NKigYhr0+ChfTh+MmQ9h/TkH4AwrA1w=;
+	b=cujhghZWLf/jG/oYeSDadTEzY/sKUy4Y8ikqveTo57eutwdACdo1yoAEbUKHdIU9LVfY8W
+	/k0Pk0qztCHlryAw==
+From: tip-bot2 for Thomas =?utf-8?q?Wei=C3=9Fschuh_=28Schneider_Electric=29?=
+ <tip-bot2@linutronix.de>
+Sender: tip-bot2@linutronix.de
+Reply-to: linux-kernel@vger.kernel.org
+To: linux-tip-commits@vger.kernel.org
+Subject: [tip: timers/urgent] timekeeping: Update offsets on sequence counter
+ retry in ktime_get_update_offsets_now()
+Cc: thomas.weissschuh@linutronix.de, Thomas Gleixner <tglx@kernel.org>,
+ stable@vger.kernel.org, x86@kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To:
+ <20261023-timekeeping-clock_was_set_seq-v1-1-61c4c53d031c@linutronix.de>
+References:
+ <20261023-timekeeping-clock_was_set_seq-v1-1-61c4c53d031c@linutronix.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,16 +80,69 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Message-ID: <179278552435.3012171.14073030617954581648.tip-bot2@tip-bot2>
+Robot-ID: <tip-bot2@linutronix.de>
+Robot-Unsubscribe:
+ Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
+Precedence: bulk
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-The pull request you sent on Fri, 23 Oct 2026 19:20:58 +0200:
+The following commit has been merged into the timers/urgent branch of tip:
 
-> git://git.kernel.org/pub/scm/linux/kernel/git/mm/core.git tags/mm-core-7.4-rc1
+Commit-ID:     6541fbc942f3b63bb8bd44e34eee6223e0abe719
+Gitweb:        https://git.kernel.org/tip/6541fbc942f3b63bb8bd44e34eee6223e0a=
+be719
+Author:        Thomas Wei=C3=9Fschuh (Schneider Electric) <thomas.weissschuh@=
+linutronix.de>
+AuthorDate:    Fri, 23 Oct 2026 13:49:17 +02:00
+Committer:     Thomas Gleixner <tglx@kernel.org>
+CommitterDate: Fri, 23 Oct 2026 21:52:01 +02:00
 
-has been merged into torvalds/linux.git:
-https://git.kernel.org/torvalds/c/2ee2475e15b4ff8fda89a9edcb77dfd871de1386
+timekeeping: Update offsets on sequence counter retry in ktime_get_update_off=
+sets_now()
 
-Thank you!
+The sequence counter of the cwsseq target is modified during the
+sequence counter loop. If the loop retries, cwsseq will now match
+but the offsets contain the values from the previous loop iteration.
+These are not guaranteed to be consistent in themselves or with the
+current loops "now.
 
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/prtracker.html
+Save the target's original sequence counter value so that the update
+also happens on loop retries.
+
+Fixes: 868a3e915f7f ("hrtimer: Make offset update smarter")
+Signed-off-by: Thomas Wei=C3=9Fschuh (Schneider Electric) <thomas.weissschuh@=
+linutronix.de>
+Signed-off-by: Thomas Gleixner <tglx@kernel.org>
+Cc: stable@vger.kernel.org
+Link: https://patch.msgid.link/20261023-timekeeping-clock_was_set_seq-v1-1-61=
+c4c53d031c@linutronix.de
+---
+ kernel/time/timekeeping.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/kernel/time/timekeeping.c b/kernel/time/timekeeping.c
+index 1b34282..cae3e51 100644
+--- a/kernel/time/timekeeping.c
++++ b/kernel/time/timekeeping.c
+@@ -2849,6 +2849,7 @@ ktime_t ktime_get_update_offsets_now(u32 *cwsseq, ktime=
+_t *offs_real,
+ 				     ktime_t *offs_boot, ktime_t *offs_tai)
+ {
+ 	struct timekeeper *tk =3D &tk_core.timekeeper;
++	u32 cwsseq_orig =3D *cwsseq;
+ 	unsigned int seq;
+ 	ktime_t base;
+ 	u64 nsecs;
+@@ -2860,7 +2861,7 @@ ktime_t ktime_get_update_offsets_now(u32 *cwsseq, ktime=
+_t *offs_real,
+ 		nsecs =3D timekeeping_get_ns(&tk->tkr_mono);
+ 		base =3D ktime_add_ns(base, nsecs);
+=20
+-		if (*cwsseq !=3D tk->clock_was_set_seq) {
++		if (cwsseq_orig !=3D tk->clock_was_set_seq) {
+ 			*cwsseq =3D tk->clock_was_set_seq;
+ 			*offs_real =3D tk->offs_real;
+ 			*offs_boot =3D tk->offs_boot;
