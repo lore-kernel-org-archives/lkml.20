@@ -1,70 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792726778;
-	b=f0RaOiB3NC50NMVpp0t0bzFV2LorPl4bLFXCn/TO0xRP3o2ogoZE1c6kgC7+mNBY0sjD
-	 9r0H8b4c/tPdYp5HaJDmY7W/BPCU6AAK9re6kCyIvbhGpyGMn1bKLhNzoxwm01hfowq94
-	 rl0q+YaoYLTB2YguwS350ZJENqSda5itpvNm6liEBJAn+OioMa0q9NeAK0zk9KTiWED2J
-	 M3MzlzccLETFlIVpYY4SX5CZj4Og1xujAx5XKgaL3JoliSN9ZLmbwECY29UEmGXrTKEDP
-	 XBICQ4bnZlD4TFwPwKloBblStxycGw4ukJ3vMCIjrwxq+SnIJnrpoRIVQeD7DkTimgg==
+	t=1792726855;
+	b=yCTEnJDArDOf3gCmZ0+qoDTo4QDYM/KB26twvBvDNFaUWSJnEsVfY4vvWPhfXH6jhyAn
+	 zt+3vyQlXQLHkSBEh4IopGttNgxTI+UfoEBVYlBpxfG0r0y6Zz35AyUFmN0M35mimqO53
+	 slKHbigviDb9S82iNw9xtZ423G3gWahVOzI59CfGQd3PByobAeo9yGM/H/Ys0jXrtslw7
+	 HpL3vEXcDnQrIPWs8W4ZN38SeiXKeMyjuHz97/vcOypwR5z9Vy0GD9OLr1YlJWe8tDhx7
+	 hOCZz5S/1778z8R1bvp/CStOSx8wZ6629rTP8QnO33gQ1K51waDmBiskok1Gk5fitNg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792726778;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=h/PHKf5VXGtBGoIbL1o/q0Pk83/Oxg+wK+aNGJFCCa8=;
-	b=QLPBxbfRO27AZCsP9OtgUiJp4j3YznWqECA9922/c7mPqTZXJAD5oHA5Ihx6CE3tzUhN
-	 vNiNSBeIOqWLJC07oGM5f1A2RwB2RZ/E0MS3Z44IwH1lAWV5HIHY9Q/HV9B0F9kV/Ul2Z
-	 pOMPEuAMjSu0savpIJx6kWa7ms9U6+9joSxoeoYhPf0ZLAH+RHpFIWiTYmkOSOMHFVNpc
-	 PH5i0JRkJu+wrXkBIIHOdPZFCwpp17h82RB+hEfKmzhpJL1x/FS+VAvgUNr439k5yv+9g
-	 9TqFqzCRRTR+cXQLsbj7T5QftB1svo8MAucGEDenZg6bteEF3eFYv8Pz+QSpeFFtqZQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792726855;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:X-B4-Tracking:To:Cc:X-Mailer;
+	bh=r84gnXzTqJKBeirbLqju8kxJzezP08DsjHOvlAIc1ig=;
+	b=emB3TQjXYifJT11Dli9sl8YGUjAT2OkbqWXQJHip941J++q/fV7kIyVI4NZeAiJpsDF8
+	 8vbHXl3iv/Zj61omRiO1ebLPSEsoK5ZQpQu/I2ciJgoMoSxDy45mNsF2sMlTWsME3zyoT
+	 oLXJQNGh9L3p1+DqZ1hL6DNBSlGN+ztHed75X90KCuyElKDPG6jh90Aa92xe+1PubEozv
+	 kb55DHRJROJsLplIxJ18G+uAhEOFDH9a5d1pxo6YBrNlcnRlIIif5T+cJpuJRdsQaQriy
+	 CuIeyxUSmMaTzTWX2B/+F+3PPYH+wNy6E8bpVeR52+CPJmRrMMg02L9042EZH5qoZaA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=c1xS0Vgw;
-	arc=none smtp.remote-ip=95.215.58.49
-Received: from mta1.migadu.com (out-49.mta1.migadu.com [95.215.58.49])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=a+BSs70C;
+	arc=none smtp.remote-ip=74.125.82.41
+Received: from mail-dl1-f41.google.com (mail-dl1-f41.google.com [74.125.82.41])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C80C4606A31F
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 03:39:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C80C4606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FE76606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 03:40:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8FE76606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=c1xS0Vgw
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=nyUYoSOqOuJuKO479lHIb4LIHOAdbHMHCwHUsDvcPhs=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792726774; v=1; x=1793331574;
- b=c1xS0VgwSmIWJCeXR1Taxdhv1AQZQAN/vHNT33C7Hb1gPxcM7mlXtCRT5/+fwadj0MRzcwh0
- jG8WnZse0/fu9e5AgyUckxXFoE9aCPHwvyir+c16a6qpqSCQoVlJvw7UaKI+aQddTUUjB0INtrM
- Y3PS8yWDwld7/sVWFLzkc1Ss=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id b7fc172a1acb4739;
-	Fri, 23 Oct 2026 03:39:34 +0000
-X-Mizu-Trace-ID: b7fc172a1acb4739
-X-Migadu-Flow: FLOW_OUT
-From: Lance Yang <lance.yang@linux.dev>
-To: songmuchun@bytedance.com
-Cc: osalvador@suse.de,
-	akpm@linux-foundation.org,
-	rppt@kernel.org,
-	qi.zheng@linux.dev,
-	lance.yang@linux.dev,
-	jthoughton@google.com,
-	david@kernel.org,
-	muchun.song@linux.dev,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 09/12] mm: hugetlb_vmemmap: make vmemmap optimization folio-oriented
-Date: Fri, 23 Oct 2026 11:39:27 +0800
-Message-ID: <20261023033927.35704-1-lance.yang@linux.dev>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20261020115824.823278-8-songmuchun@bytedance.com>
-References: <20261020115824.823278-8-songmuchun@bytedance.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=a+BSs70C
+Received: by mail-dl1-f41.google.com with SMTP id a92af1059eb24-157fe9d771bso536078c88.0
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 20:40:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792726854; x=1793331654; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=r84gnXzTqJKBeirbLqju8kxJzezP08DsjHOvlAIc1ig=;
+        b=a+BSs70CnSHtlqDxy4yOOq7jhBUmuczALQlXzPK6l0MDO2MuwJq2oQgIHgMgAp8gMg
+         VHXgpNjCnNbmaxysLzr8ouqw/KoLtMHjl3+rHGuT8tNo4CLVnS3zqK8X3xCM+DjuTexv
+         HUr46qjvgWgQXufgpyb87UYdbxx/U/QiBD4gkTw6JHNu+f2R4jP8C1jDhQNZHSrhms5+
+         /nhlMx56GiuBMp78+uM94WbcDzf1uVrwufa0rgWXjfdBBNqCCcrrYQ24ZO/2BcVwI7NC
+         JZ8TU/LPi3k69Vk3HATWDsh7/6QZ2IS0w9PL7OLpIJ+IfyzqpLVpVYgN5fr7VVFsS/um
+         Ui3Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792726854; x=1793331654;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=r84gnXzTqJKBeirbLqju8kxJzezP08DsjHOvlAIc1ig=;
+        b=GYLGhLCVMD5MxlBtvq5sOl5C4MVVhkDlswBTORcpLGU8Rdf9vZb1U8jiNrMi14hKta
+         aja7x4dkY1JVC+MBeFRKi5FryfN7GHH0mvxACkBviuhNvi5g+YLvg0nH5Dq6pZsBkXkV
+         egojZg6CdEzSyvLDIti+sVQ1y/3VGo6msyfPLlpONKTZ7jQQAA9Abg+HEPUM5s/FHzaL
+         7dyamC6jP/3SizsxwpobfXi9EjZFPljAhpjmH2eNFjSJKxbpvcipStlJNr4XD+xAwquX
+         7Skzp9kS2heRrGWVmrTNeQIElPR4GPHiPxD+p/PHN8Vz93E1YI9GoYbQszuxTZuxqsSq
+         sXnA==
+X-Forwarded-Encrypted: i=1; AKwUvBy6Yn68raK3Gs5Rr2QaGUbLQMayomts9AtoYSrqUnm/sGc7rva6+R0x/QCZoU2hw77yT9nFneV6qhRV0Cc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIPV11VVk5XEmPVg9vK6qEbA8wZ7iK3MJvc3grVRCzbqPGkfUdf
+	VPcAi76nXt/Vd6ihSgbask0L5iN9W9bgUzJB0shB8mUdoSoa6tmbfwTt
+X-Gm-Gg: AYBFou2+K2T9kgTSR0WzxfFT2csedjJNFpQn2OoWbx+Xovm5L7PTZ4Xi2nAcSQfhdt9
+	tl5Rx/thq3iq9e3x/bB/RvrqvnSennfgmkmwQJiFDtb51O0FShN03zotkIxWXd9kby98H8cMUNu
+	Rd/bvnxIZmY5Ps27dv/9Cl8vFY5mI46QU3MqDy1YeXyrHlsduf0rAmyErxDAVX1j0wTifOgOv42
+	HUqAkPKzIua7xwMgBsIzbag2HQp4qJcIm8PfSuJQyXJA77ydmA+GPY4DkX2NfHlPzZDf5F9/MCi
+	aS0Hwmh+1dDx/7MHDmiaI4b12Dzu+F6gxO77S+6lfId6eTn6wf8C12r/kGAJwEq2Q1jKTHX/HQc
+	fMSVWVwpZsQNqZZQydJtqQ70oA4YQArfHAZaTJORM96upPQpQlOBOQDU+v7T77uk0wdAH58u1MU
+	Ia/nJs2MSWmBqtN7zYEbrXcE8udrAAmTgqNOzoMiD8TInJv9NJbXm9e6AwEwB6SpdCZW3HnFp7u
+	D2tFq7b3lB/ZyN7TpVzWHexyt3efJ1ywayepu8P1Dsy6vZ1IuE=
+X-Received: by 2002:a05:701b:4252:20b0:143:2719:566e with SMTP id a92af1059eb24-195c929683bmr1489574c88.42.1792726853488;
+        Thu, 22 Oct 2026 20:40:53 -0700 (PDT)
+Received: from [127.0.1.1] ([23.254.208.9])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-195e9e9cbdcsm2513150c88.5.2026.10.22.20.40.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 22 Oct 2026 20:40:53 -0700 (PDT)
+From: Qiliang Yuan <odys.yuan@gmail.com>
+Date: Fri, 23 Oct 2026 11:40:49 +0800
+Subject: [PATCH v4] bcache: avoid holding bch_register_lock across
+ cache_set recovery
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,29 +90,307 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261023-feat-bcache-v4-1-a8fddd8eb2f3@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAEDX2moC/33MQQ6CMBCF4auQWVtT2jqgK+9hXAxlgCZCTUsaD
+ eHuFlYujMv3ku9fIHJwHOFSLBA4uej8lIc5FGAHmnoWrs0blFQoK4miY5pFY8kOLLTkMxoqq7Z
+ VkMUzcOdee+12z3twcfbhvceT2t7fnaREKSpJpkFWBq289iO5x9H6EbZO0n+szrauM6s1ntDSt
+ 13X9QM0zkoH4gAAAA==
+To: Coly Li <colyli@fygo.io>, Kent Overstreet <kent.overstreet@linux.dev>
+Cc: Coly Li <colyli@fnnas.com>, linux-bcache@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Qiliang Yuan <odys.yuan@gmail.com>
+X-Mailer: b4 0.13.0
 
+register_cache() holds bch_register_lock across register_cache_set(),
+which recovers a cache set from disk (journal replay, btree check,
+allocator start) before publishing it. The same global mutex serializes
+every sysfs store on cache sets and cached devices, and every
+register_bcache() call.
 
-On Tue, Oct 20, 2026 at 07:58:21PM +0800, Muchun Song wrote:
->Vmemmap optimization operates on one folio at a time, but the current
->interface exposes a raw address range and requires the HugeTLB caller to
->prepare part of the operation.  This splits the common mechanism across
->layers and obscures its natural unit of work.
->
->Make the folio the unit of vmemmap optimization and move the common
->mechanics behind a folio-oriented interface.  This keeps HugeTLB-specific
->eligibility and state in the caller while making the remapping code
->applicable to any eligible folio.
->
->No functional change intended.
->
->Signed-off-by: Muchun Song <songmuchun@bytedance.com>
->---
+Recovery time grows with cache size and device health, so registering
+one cache device stalls unrelated, already running devices. On a Ceph
+OSD node with 12 cache sets on two NVMe drives, udev scripts writing
+congested_read_threshold_us under /sys/fs/bcache/<uuid>/ and
+sequential_cutoff under /sys/block/bcacheN/bcache/, and registration of
+other cache devices, sit in D state for minutes. udevd kills and
+retries those workers every 3 minutes, delaying OSD startup:
 
-Cool, I like having the helper work out the range itself. One less thing
-for callers to get wrong :)
+  INFO: task bcache_cache_se:3496 blocked for more than 121 seconds.
+  Call trace:
+   __mutex_lock.constprop.0+0x1d4/0x5ec
+   mutex_lock+0x50/0x60
+   bch_cache_set_store+0x40/0x80 [bcache]
 
-Nothing jumped out at me, so:
+Drop bch_register_lock in register_cache_set() while recovering a new
+cache set, and take it again to add the kobjects and attach pending
+devices. Keep the cache set on bch_cache_sets so that duplicate
+registrations and bcache_reboot() still see it, and mark it
+CACHE_SET_REGISTERING meanwhile: bch_cached_dev_attach() and the cache
+sysfs files leave it alone, __uuid_write() does not expect the lock, and
+__cache_set_unregister() waits for recovery, as bch_cache_set_error()
+or bcache_reboot() may stop the cache set at any time. Do not publish a
+cache set stopped that way. Take the cache kobject reference before
+recovery, and skip kobject_del() in cache_set_flush() if the cache set
+never reached sysfs. With a cache set recovering for about 15 seconds
+behind dm-delay (200ms reads), each operation started 1 second into
+recovery (3 runs):
 
-Reviewed-by: Lance Yang <lance.yang@linux.dev>
+                                    before (ms)    after (ms)
+  write congested_read_threshold_us   13893-14489    37-42
+  write sequential_cutoff             13889-14486    37-41
+  register another cache device       13923-14510    131-150
+
+Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
+---
+Tested on a KASAN + lockdep kernel in a VM, with a cache set recovering
+behind dm-delay:
+
+- Switching the cache device to dm-error 1, 4, 6 or 9 seconds into
+  recovery: v3 hits a KASAN slab-use-after-free in cache_set_flush()
+  followed by a panic; v4 fails the registration and frees the cache
+  set cleanly.
+- kexec reboot 1 second into recovery: in v3, bcache_reboot() tears the
+  cache set down while it is still being recovered (kernfs WARNs from
+  cache_set_flush()); in v4 the teardown waits for recovery, the cache
+  set is not published, and bcache_reboot() reports "All devices
+  stopped". If recovery outlasts bcache_reboot()'s 10 second wait, it
+  times out as it does for any slow cache set.
+- Registering a copy of the recovering cache device is rejected as a
+  duplicate cache set member right away.
+---
+V3 -> V4:
+- Make __cache_set_unregister() wait for recovery, which
+  bcache_reboot() or bch_cache_set_error() could otherwise tear down
+  concurrently, and do not publish a cache set stopped meanwhile (Coly)
+- Take the cache kobject reference before recovery and skip
+  kobject_del() for a cache set never added to sysfs, fixing a
+  use-after-free when recovery fails
+- Keep run_cache_set() and drop the lock inside register_cache_set()
+  instead of splitting recovery into new helpers
+- Describe the blocked interfaces and their impact, and add before/after
+  data to the commit message (Coly)
+- Use one identity for From and Signed-off-by (Coly)
+- Rebase onto v7.3-5024-g864c07de0c7d
+
+V2 -> V3:
+- Drop the mutex -> rw_semaphore conversion, which did not help stores
+  and raised a KABI concern (Coly)
+- Recover a new cache set without bch_register_lock and take the lock
+  only to publish it
+- Add CACHE_SET_REGISTERING to keep the cache set out of
+  bch_cached_dev_attach() and the cache sysfs files during recovery
+- Keep recovering an existing cache set under the lock
+
+V1 -> V2:
+- Hold the write lock throughout run_cache_set() instead of downgrading
+  it, closing a window where unregister could hit a half-initialized
+  cache set (Coly)
+- Take the write lock in all sysfs store wrappers, including
+  STORE_LOCKED and bch_flash_dev
+- Fix whitespace in the bcache_init() error path
+- bch_register_lock is not exported, so its type change does not affect
+  KABI
+
+v3: https://lore.kernel.org/r/20260706-feat-bcache-v3-1-8824683656ca@gmail.com
+v2: https://lore.kernel.org/r/20260706-feat-bcache-v2-1-70a4b6e246c0@gmail.com
+v1: https://lore.kernel.org/r/20260318-wujing-bcache-v1-1-f0b9aaf3f81d@gmail.com
+---
+ drivers/md/bcache/bcache.h |  4 +++
+ drivers/md/bcache/super.c  | 64 +++++++++++++++++++++++++++++++++-------------
+ drivers/md/bcache/sysfs.c  |  6 +++++
+ 3 files changed, 56 insertions(+), 18 deletions(-)
+
+diff --git a/drivers/md/bcache/bcache.h b/drivers/md/bcache/bcache.h
+index ec9ff97150812..d293e93b8eadf 100644
+--- a/drivers/md/bcache/bcache.h
++++ b/drivers/md/bcache/bcache.h
+@@ -507,11 +507,15 @@ struct gc_stat {
+  * CACHE_SET_IO_DISABLE is set when bcache is stopping the whold cache set, all
+  * external and internal I/O should be denied when this flag is set.
+  *
++ * CACHE_SET_REGISTERING is set while a new cache set is recovered without
++ * bch_register_lock, before it is added to sysfs.
++ *
+  */
+ #define CACHE_SET_UNREGISTERING		0
+ #define	CACHE_SET_STOPPING		1
+ #define	CACHE_SET_RUNNING		2
+ #define CACHE_SET_IO_DISABLE		3
++#define CACHE_SET_REGISTERING		4
+ 
+ struct cache_set {
+ 	struct closure		cl;
+diff --git a/drivers/md/bcache/super.c b/drivers/md/bcache/super.c
+index 97d9adb0bf96b..c209c92b60e91 100644
+--- a/drivers/md/bcache/super.c
++++ b/drivers/md/bcache/super.c
+@@ -503,7 +503,8 @@ static int __uuid_write(struct cache_set *c)
+ 	unsigned int size;
+ 
+ 	closure_init_stack(&cl);
+-	lockdep_assert_held(&bch_register_lock);
++	if (!test_bit(CACHE_SET_REGISTERING, &c->flags))
++		lockdep_assert_held(&bch_register_lock);
+ 
+ 	if (bch_bucket_alloc_set(c, RESERVE_BTREE, &k.key, true))
+ 		return 1;
+@@ -1215,6 +1216,10 @@ int bch_cached_dev_attach(struct cached_dev *dc, struct cache_set *c,
+ 		return -EINVAL;
+ 	}
+ 
++	/* Let register_cache_set() attach it once recovered */
++	if (test_bit(CACHE_SET_REGISTERING, &c->flags))
++		return -EBUSY;
++
+ 	if (dc->sb.block_size < c->cache->sb.block_size) {
+ 		/* Will die */
+ 		pr_err("Couldn't attach %pg: block size less than set's block size\n",
+@@ -1728,7 +1733,8 @@ static CLOSURE_CALLBACK(cache_set_flush)
+ 	bch_cache_accounting_destroy(&c->accounting);
+ 
+ 	kobject_put(&c->internal);
+-	kobject_del(&c->kobj);
++	if (c->kobj.state_in_sysfs)
++		kobject_del(&c->kobj);
+ 
+ 	if (!IS_ERR_OR_NULL(c->gc_thread))
+ 		kthread_stop(c->gc_thread);
+@@ -1828,6 +1834,7 @@ static CLOSURE_CALLBACK(__cache_set_unregister)
+ 	struct bcache_device *d;
+ 	size_t i;
+ 
++	wait_on_bit(&c->flags, CACHE_SET_REGISTERING, TASK_UNINTERRUPTIBLE);
+ 	mutex_lock(&bch_register_lock);
+ 
+ 	for (i = 0; i < c->devices_max_used; i++) {
+@@ -1986,7 +1993,6 @@ struct cache_set *bch_cache_set_alloc(struct cache_sb *sb)
+ static int run_cache_set(struct cache_set *c)
+ {
+ 	const char *err = "cannot allocate memory";
+-	struct cached_dev *dc, *t;
+ 	struct cache *ca = c->cache;
+ 	struct closure cl;
+ 	LIST_HEAD(journal);
+@@ -2137,13 +2143,6 @@ static int run_cache_set(struct cache_set *c)
+ 	if (bch_has_feature_obso_large_bucket(&c->cache->sb))
+ 		pr_err("Detect obsoleted large bucket layout, all attached bcache device will be read-only\n");
+ 
+-	list_for_each_entry_safe(dc, t, &uncached_devices, list)
+-		bch_cached_dev_attach(dc, c, NULL);
+-
+-	flash_devs_run(c);
+-
+-	bch_journal_space_reserve(&c->journal);
+-	set_bit(CACHE_SET_RUNNING, &c->flags);
+ 	return 0;
+ err:
+ 	while (!list_empty(&journal)) {
+@@ -2163,7 +2162,9 @@ static const char *register_cache_set(struct cache *ca)
+ {
+ 	char buf[12];
+ 	const char *err = "cannot allocate memory";
++	struct cached_dev *dc, *t;
+ 	struct cache_set *c;
++	int ret;
+ 
+ 	list_for_each_entry(c, &bch_cache_sets, list)
+ 		if (!memcmp(c->set_uuid, ca->sb.set_uuid, 16)) {
+@@ -2177,6 +2178,25 @@ static const char *register_cache_set(struct cache *ca)
+ 	if (!c)
+ 		return err;
+ 
++	/*
++	 * Drop bch_register_lock while recovering the new cache set, so that
++	 * sysfs and registration of other devices are not blocked meanwhile.
++	 * Keep it on bch_cache_sets for duplicate detection and
++	 * bcache_reboot().
++	 */
++	kobject_get(&ca->kobj);
++	set_bit(CACHE_SET_REGISTERING, &c->flags);
++	list_add(&c->list, &bch_cache_sets);
++	mutex_unlock(&bch_register_lock);
++
++	ret = run_cache_set(c);
++
++	mutex_lock(&bch_register_lock);
++	clear_and_wake_up_bit(CACHE_SET_REGISTERING, &c->flags);
++	err = "failed to run cache set";
++	if (ret < 0 || test_bit(CACHE_SET_STOPPING, &c->flags))
++		goto err;
++
+ 	err = "error creating kobject";
+ 	if (kobject_add(&c->kobj, bcache_kobj, "%pU", c->set_uuid) ||
+ 	    kobject_add(&c->internal, &c->kobj, "internal"))
+@@ -2186,22 +2206,30 @@ static const char *register_cache_set(struct cache *ca)
+ 		goto err;
+ 
+ 	bch_debug_init_cache_set(c);
+-
+-	list_add(&c->list, &bch_cache_sets);
+ found:
+ 	sprintf(buf, "cache%i", ca->sb.nr_this_dev);
+ 	if (sysfs_create_link(&ca->kobj, &c->kobj, "set") ||
+ 	    sysfs_create_link(&c->kobj, &ca->kobj, buf))
+ 		goto err;
+ 
+-	kobject_get(&ca->kobj);
+-	ca->set = c;
+-	ca->set->cache = ca;
++	/* Recover an existing cache set locked, as it is already visible */
++	if (!c->cache) {
++		kobject_get(&ca->kobj);
++		ca->set = c;
++		ca->set->cache = ca;
+ 
+-	err = "failed to run cache set";
+-	if (run_cache_set(c) < 0)
+-		goto err;
++		err = "failed to run cache set";
++		if (run_cache_set(c) < 0)
++			goto err;
++	}
++
++	list_for_each_entry_safe(dc, t, &uncached_devices, list)
++		bch_cached_dev_attach(dc, c, NULL);
+ 
++	flash_devs_run(c);
++
++	bch_journal_space_reserve(&c->journal);
++	set_bit(CACHE_SET_RUNNING, &c->flags);
+ 	return NULL;
+ err:
+ 	bch_cache_set_unregister(c);
+diff --git a/drivers/md/bcache/sysfs.c b/drivers/md/bcache/sysfs.c
+index cfac56caa8047..af970f802dcf5 100644
+--- a/drivers/md/bcache/sysfs.c
++++ b/drivers/md/bcache/sysfs.c
+@@ -1032,6 +1032,9 @@ SHOW(__bch_cache)
+ {
+ 	struct cache *ca = container_of(kobj, struct cache, kobj);
+ 
++	if (ca->set && test_bit(CACHE_SET_REGISTERING, &ca->set->flags))
++		return -EBUSY;
++
+ 	sysfs_hprint(bucket_size,	bucket_bytes(ca));
+ 	sysfs_hprint(block_size,	block_bytes(ca));
+ 	sysfs_print(nbuckets,		ca->sb.nbuckets);
+@@ -1140,6 +1143,9 @@ STORE(__bch_cache)
+ 	if (bcache_is_reboot)
+ 		return -EBUSY;
+ 
++	if (ca->set && test_bit(CACHE_SET_REGISTERING, &ca->set->flags))
++		return -EBUSY;
++
+ 	if (attr == &sysfs_cache_replacement_policy) {
+ 		v = __sysfs_match_string(cache_replacement_policies, -1, buf);
+ 		if (v < 0)
+
+---
+base-commit: 864c07de0c7dcbca58b61625dfa2e461ae63b242
+change-id: 20260706-feat-bcache-30e964a17dd2
+
+Best regards,
+-- 
+Qiliang Yuan <odys.yuan@gmail.com>
+
