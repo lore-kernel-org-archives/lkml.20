@@ -1,95 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.194.53
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792779999;
-	b=jkBNyyKzCp5a0ZVOs5joXyrjjjoU8EsJnXYggS/O7wHwu2scNyzQ4/OUkH4OfpPCFHt4
-	 17lY967rhu5lGfSL7n86531GnnUjnJ1F78ogyT0zXkcyeMf3vU5/aeWuQ0uMeUz5zK+VR
-	 8ks2NKJFDUafuSmCWO3h4NgLl4txdDSJ5Kc9BTDkMXbfYAMbrrUXQwYwty0mBEOvy3xgC
-	 3FY6ZazTVXIMVVpb7TUhCryGSmiSccxu5AcUw0gxxJpH0c53oZgk1S6jR636/ud4m2G4k
-	 EW8u7NIYY0zcASGdQc1eQqxvZbjvFu+b38gQKtDDrAG6M2YQcVCQwBdc/x48hEIn+lQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792779999;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=Bq0Q6xx4U3IJnSIsof3zoEc10hR/y9i3Dq6P/zbAl4s=;
-	b=aA9bOomNoxJn/7SHJ+xcXe1shI92jKGVoBJyBiuMeK8u4z29h5YGu0G7yK+z8dlRbR3y
-	 oAZRgymWjzPitKNstizAyp1GvZwxtsiB2S4HFm5T9XriI3A8hKDq1OLQkZKtHfzky9RMq
-	 gT2yVjDk8klrtnX295aVL4+EOv245tRgMsl8F4Lj0v85xMakedCr68FkKwXM/RajgU3UZ
-	 Hp2DP3Ue8UQN5qg8fplWbTUHBTlRNVYT87I9gf5euZIyZdXGZpcqYlyF4nm1Ov1nb9Wy4
-	 vZm8y3HoW7YLNfZ8t7T7BN15ABcNQ7jvSOKxg4qLj9lhfx0zAyV6cXxFhMvaTxdFY8w==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=BZknUaE9;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.194.53
-Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011053.outbound.protection.outlook.com [40.93.194.53])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.50
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792780013;
+	b=LpL7axlCJmHdL6R30L5GWFlACtVA4GoKdMrPTH5t1BHCpvc8WUAHw4q3pSCP6xoLWANk
+	 Aw3TwUed6mGcZ1WIR8pDl3Px7O1yclj6lBKPXsV/mI0XtRsuDEyQhoLVPhMwiXmQAl+OG
+	 j9RkEW7CUE3+w+6AkDybCNk4GCU5JRtYaQubaZawQDtKgx64EWMZN1PxRxNxcJaI7Lhmi
+	 uOqNeQAEETR1uJeHBYBEJJ9LZZlh0evQZqSE4+g4GkqNBHeooBbBt+dRFbiMt/dqI0rzZ
+	 zv7J8KvK+ehcvn8tQ/eHl7cwLS4MY15E1ExJyAV7G+MKyzFN/h2qaChJ95lDAGnCvsQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792780013;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=8oxptXPm0UTdO9zxzHdUJQ/03E+e6vl9OPFrHOgj4hU=;
+	b=fcPqAkWUxbEpUlASWUo52nM+QVlc+6erPYte/jkgSNAs1jtheIzdQ9ZqvtXt7UzeCW2q
+	 dvld0Mntlh3bMu/E3iBDoP7vtO4zel0taL4NzltoH3aqI8XlgnrJ3wbQz1rGABEjfbqxF
+	 oWIzv07IXCCcUz2VfgnCVd+XD8oBo+CX1Cv7uMmtwf7LsKVUA2IiYpZe6S90YxlhaPW3g
+	 uSikbC+syH5zOyiHbR2DOCKgBoKN3NK8mnSpTUncHWRXNv9rvhd1ASW2iVNL4LshrPHxW
+	 xxpBLmrHEZTMCvyQ0qb6/NsCQ9GUAKhRPgDiT+G23kUmmwa+x27nTyPxk0wmk5hgJJw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=gG04FLN6;
+	arc=none smtp.remote-ip=209.85.221.50
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57E8C606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 18:26:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 57E8C606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A655606A31B
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 18:26:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2A655606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=BZknUaE9
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=qsykA2iR6eSDRK0+PBa7v2m5WXyVm3UL9sdfT0JfLXBuhL61Mg+hFYDzbQi7aXDJhu8F6NHzkMrXNRGtmcagzXeNNxwlu4YFrYhSKd+2Nt4CcVBwMsUGL1yFL4lFopSQc6VboqvJDhZ+LyWo4Gl7Qt2Gq8bE1rxvtG3H/JCM6x+ACpYixgpVh1BwrZHAYrcAjVyPeJ6JiVCKz7MQhIu6DO8IxoBz1kmClYgIEtDkC+4VTobUlHzjjGi65oIx+mwrLgB2cJF3BOvk9ubKY6xP78ifD705MErrYAvhL4CNR0hv8mLbGds+FYwDJtGsupUy4Vye0/31BHbO3ha3aJP5bw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Bq0Q6xx4U3IJnSIsof3zoEc10hR/y9i3Dq6P/zbAl4s=;
- b=JExjSa32zMvY4GiKnAhDeSgLFuMUtdLWhUvzGJV4poXwT21NCvoL3+/IELrGZch4JLu+EO2BhgAFnvr0VIc6Px8FU3oDCOP9BNqNP00/23NIWq+S0Cv0soZ78SRDjhbrcxQLkttOCI1iOPX2JFWooh+Au8Goxo8XqOYSJSAUfcvetQcTCtNbtwKJAsczL/PsT/Ll/tk2EgYMlvL/VBbJ2snDpkF+P0i9yZCgyvhu82t+gzcJZnLD5bx4WM32KZgQiIYhxgB1hDu19P1+VWKkeEdvwWejXtdGB9BGuug7s2aoOhXmZKorvgSZdf0pKNQQeDi8Szw02xXoM/b7O7aNWA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Bq0Q6xx4U3IJnSIsof3zoEc10hR/y9i3Dq6P/zbAl4s=;
- b=BZknUaE9Ag9nUOTkNZG6TAwwHG8XeDo1pVnwWmI8TM+RFCeGyAKO7FXN0NLy8asGVYI/4lpONVX9kc2I1pIJo8HiZcs6ZIHYnHpIL48BV7J+z6UqAylyo5JkFJe6EIzUjnT91ktSkLyioPPzwLOsmzJa0vAYTAcbkPDfnutbXP4=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from SJ2PR12MB9189.namprd12.prod.outlook.com (2603:10b6:a03:55b::15)
- by CH3PR12MB9024.namprd12.prod.outlook.com (2603:10b6:610:176::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.17; Fri, 23 Oct
- 2026 18:26:32 +0000
-Received: from SJ2PR12MB9189.namprd12.prod.outlook.com
- ([fe80::7923:8cd0:a2d8:ac7e]) by SJ2PR12MB9189.namprd12.prod.outlook.com
- ([fe80::7923:8cd0:a2d8:ac7e%5]) with mapi id 15.21.0546.016; Fri, 23 Oct 2026
- 18:26:31 +0000
-Message-ID: <74c73b6f-a6b3-4652-8da1-b5c46ae58809@amd.com>
-Date: Sat, 24 Oct 2026 02:26:26 +0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] drm/amd/display: Fall back to the native mode, not
- the first, on eDP/LVDS
-To: Hugo Sales <hugo@hsal.es>, amd-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- harry.wentland@amd.com, sunpeng.li@amd.com, siqueira@igalia.com,
- alexander.deucher@amd.com
-References: <20261014223041.171317-1-hugo@hsal.es>
- <20261014223041.171317-2-hugo@hsal.es>
-Content-Language: en-US
-From: "Chung, ChiaHsuan (Tom)" <chiahsuan.chung@amd.com>
-In-Reply-To: <20261014223041.171317-2-hugo@hsal.es>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: TP0P295CA0058.TWNP295.PROD.OUTLOOK.COM
- (2603:1096:910:3::17) To SJ2PR12MB9189.namprd12.prod.outlook.com
- (2603:10b6:a03:55b::15)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=gG04FLN6
+Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-48c4be28b82so963885f8f.2
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 11:26:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792780011; x=1793384811; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=8oxptXPm0UTdO9zxzHdUJQ/03E+e6vl9OPFrHOgj4hU=;
+        b=gG04FLN62SWZJQTWBnAsPFuc6TNGJVms+K0uDPT+IGHd/lC0w+Z+gOyI8iSwPYVYUT
+         t23RxuVl4gpUg/wxIsHB1QtA8XLkkSnmQLDsCejf6bMm/w4K1aHPxE7WMbUA2TIE/671
+         axqbO+N0BXg6wzRUISaiVONqh181VnHVLcJ6FOu/eVynt3JPiXfaV00Eu/9yENpUn+i0
+         mr3sA1dNX/ouAahyt2pcb5O7MEOVJYzPbZHf0jC/XnBZLGB933IRgtj7ehaucC7N2mr+
+         Fi74DwEzCtoO/bXcJeFO0yey+Gtevpev5UQ3Kd9Fdzpyy5LsbJFPM6uBRshZ6AAs9DWn
+         TEpQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792780011; x=1793384811;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=8oxptXPm0UTdO9zxzHdUJQ/03E+e6vl9OPFrHOgj4hU=;
+        b=eL4Z0zelXzLEwsh2YGoT3j5wky5kEWLOn1B7GFpmapytJna3SwtbxLSmy9X3tVvVj5
+         ZuW3zCG3sF4ft8IbC+sYyFonarcZCp7BqeaUJpWJ0E8z3w1yKawbeZARlsq2sdFv54fw
+         D3uEJzjTuYmLviLxIjlT3tgI6F2DToOJW023IO9oEZ87u23fc3v9R/Tj66ww4p3HPM44
+         +24KE0+d4W3LcbMHTWgvzyAMzczuLSmwdYKV8VblTlThu+UqcqtLEhrN/J4DFia84LMv
+         QBUQjEJtsz4UPtgLoottq8tyi0aKQN0DTDubNrMA531Oi9mjAYRGthlILsn8Jx/VO2FN
+         SLtg==
+X-Forwarded-Encrypted: i=1; AKwUvBy0c3+Mg3+g2OxQD45uePEsc+QEvKaG41lu7ftKmSvlRRabd+lGqQU0hNRCufPAK2hh6yUxWn/wKDgfBuY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIzqAJoARGtVcb0NfG2wl2sLJCMsIchfiNrNql+UcELB2MPZb7t
+	BaNn2euEnhj/kv7t3INS8aJst2uSUD/WqJEgDeZsgUw1tDHWa+0Y1W45jk1zcg==
+X-Gm-Gg: AYBFou0G1flrf6lkYKREOQd/3jyZYYAe+VKMf1kvPF4ovu4wW5AmfHihnaT44tJqdVO
+	YOow3IOcUhGZGKhbL9QxTrH4kHtRObSlXvQUA0GF5BO4Zlzg2mAxdSKgz/sY6isjJAE8JMC2gcm
+	tD8A33xH7EKO1f2+lOhTo2vT2K3lDGjJ765MnWFR//oBhbs8SR5Jmm19pQyyw1Akk70Q2VgVG/a
+	pEi4WINNlP9AdK2ESm5nmmnYxzDK1YOD4FWzSv53XC1S2JQX/sQLjJ6G/62EK0ut+LqkUh3cowf
+	ZZVfzTUvDJmUlvNHvfRE5/Pqe2ofCSQU2nNikh6deGAnu7qkeMIyc4DbnBHKHbrcM3K/evYkHYW
+	VtFKKUSM7GdgwOG1pKd7yyiw8+OjfChpGZ0kQsV0ka5ali6+zUXk1wUJQl8oRN91W76dxHQ6V18
+	VkLbp4lyTNKlq3A8DEDdDAQg7BSPraLPn8xEgQRSGMtMOw/IHOPtLJ52M6w8e/RESHaWgL8HUtL
+	Kv15oKanlDhWJ4r9NGmyAjyoygUKpw0rPcrYHIeZFkfFsTBQhAoAClQ1X6LKyUec9bGBPS0v3nc
+	34QCSX0A9w==
+X-Received: by 2002:a5d:5f4b:0:b0:48c:49bd:62df with SMTP id ffacd0b85a97d-48e3854ee8fmr5266476f8f.1.1792780011351;
+        Fri, 23 Oct 2026 11:26:51 -0700 (PDT)
+Received: from foxbook (bgu81.neoplus.adsl.tpnet.pl. [83.28.84.81])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3d42f884sm1327266f8f.57.2026.10.23.11.26.50
+        (version=TLS1_2 cipher=AES128-SHA bits=128/128);
+        Fri, 23 Oct 2026 11:26:51 -0700 (PDT)
+Date: Fri, 23 Oct 2026 20:26:45 +0200
+From: Michal Pecio <michal.pecio@gmail.com>
+To: Nicolai Buchwitz <nb@tipi-net.de>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Steve Bayless
+ <steve_bayless@keysight.com>, Guido Kiener <guido@kiener-muenchen.de>,
+ linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, Mathias Nyman <mathias.nyman@intel.com>
+Subject: Re: [PATCH 0/4] usb: usbtmc: fix undersized high-speed bulk packets
+ on xHCI
+Message-ID: <20261023202645.7bf4827a.michal.pecio@gmail.com>
+In-Reply-To: <cae2e837872be0560f7f46e13651059b@tipi-net.de>
+References: <20261020-fix-usbtmc-short-packets-v1-0-903f4d029193@tipi-net.de>
+	<20261020184244.69b78d5e.michal.pecio@gmail.com>
+	<a642dbc2e4ba0efc381c69e26821762a@tipi-net.de>
+	<20261021005654.23517441.michal.pecio@gmail.com>
+	<cae2e837872be0560f7f46e13651059b@tipi-net.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,176 +104,37 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ2PR12MB9189:EE_|CH3PR12MB9024:EE_
-X-MS-Office365-Filtering-Correlation-Id: 42cd7054-b856-4c70-d8b4-08df31332959
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|366016|1800799024|4143699003|11063799006|56012099006|261021135927099003|261009223027099003|261021121427099003|10067099003|18002099003|22082099003|261022105027099003|261022075727099003;
-X-Microsoft-Antispam-Message-Info:
-	Ar4tGYBOuh6/Uc/3HRM0aZxo9QUtS+QOVFkS1oSoZcIsJwLnp2a61DMjVmyqiOmAjp9umxMeEQqx44mjQVThbbXxfOO6ZfyCuV9qCcYHCv6MpM4rbW0baXWNH8aoIIZJYdlK38VD7xNHXJ7u0dAE6D/iJcFWwCtqf6y4GbOg6MtXoZf5eaZHchkjH295dd72DRK9Fh+tgNBQhCgO4rEVhBS7b7o3Vjoea1RdPNvD60IdwjxRSaJshevPv7ch1teJC7PQrlCGZjMHmCd2i/4WM1Q3AmKLTrQTtIkISk8Mbt5hKFWSK3lOO9jTcjSZycFB13Kv13CPYQwnJCibGS2Hs/TB1OMi4cDEyfSMK0qwckAGOi4H3S/BfQvjKV1gGH6XKWF6E0B9rdZBFHB/Y641Ui7Exz+nc9yAJxPaxP71E4X+i2jA1kbKRnX3tw6KEOEG8Cu3YVsdLbcjPJSl8wkuHjbuzZF89B7w7VuyHJVFApG7lVofrgC3Tzmcnazuan4WdUtBxEki6yNouN0MwSeep3UfGxv1o36VYE8hw1SASzyfe/dN1cyH5f+U7uDkumkgKewEic6YcT1zj8+rnauJUrdLq5pdHUw0W19pCYgVLn0=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ2PR12MB9189.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(366016)(1800799024)(4143699003)(11063799006)(56012099006)(261021135927099003)(261009223027099003)(261021121427099003)(10067099003)(18002099003)(22082099003)(261022105027099003)(261022075727099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?OFJEYTFoZG9obnFQRVgveSt5NE4vUHNrSUlJY0x0ZjRFc1IzUFBoMzI3VUVn?=
- =?utf-8?B?WlZYSUhVNFFhU0NNSFRWYjFpU1djV1F3YktrV3ZUWDFDSnA1YnllRVdScGlT?=
- =?utf-8?B?T0JySEJxQ09FVURRRmpjd1g4aVBzaEIwNFQwMkV4M3JWZDJycHFpa29nR29Q?=
- =?utf-8?B?UmFFSlBHN1AyeXFSYnNpcDdvNjdTUWJqMG5YYWJMdHI2SVkxNXI4YXFlcUdx?=
- =?utf-8?B?ZHhHYndYUXNYekc0c2Q5TjdBcytyWFVjUklJcHNmbVdyMzE5YXFtUDl0aXpO?=
- =?utf-8?B?OFMyZ0hCMHd4VVBVWlJOUFliS00yODdkOFE0alNubFRTaGk3amNFNitHbDVv?=
- =?utf-8?B?ZGsweFZSNkR1SGx3Ukt4amlYa0ZmSXZjRi80QXF2bFBobVh6UlpxYWRpVWo0?=
- =?utf-8?B?dTlhSzlBQUVaZ2xxT2JSYnVWSEpiZ0REZjd0VzVEODJGOFR5NjBHZ2ZqMk5z?=
- =?utf-8?B?NGZrMFFPUzFLblQ3T3J3dFFNNURiaXQ3RWFrVVlhUitqd0ZLSUMzSnEyNUhZ?=
- =?utf-8?B?dlpkNzl2SjlreHhlVEtYSjRIcVVLbjh6dDVqYWJkSjBiK2FYWmhGSGtvcUtP?=
- =?utf-8?B?eFZ6RXVxZER1cEZVallBK25XSTNNQlZYbHRUbnk5VTNQWjNGQ0IyRGtBMjhn?=
- =?utf-8?B?T2VXUnVvdHhZNUU5aWpFeEkyZjkzWWhkelMrajZaOGlRMW1BZSt0MEs0WlZr?=
- =?utf-8?B?bVg0V2tLeWc2b2V6a0YvL2tXb1pkY1c4bE1JVC9POGZ0OFhIc3QydEp4aEpy?=
- =?utf-8?B?K2YyVkh0TzN6SmIwWVZ2S0dQN2ZoaXhpQVg3YVFNVkN0VjhVOSs5ZENVditu?=
- =?utf-8?B?ME80U2pTVHlsdEVQN3RZSmdiUWtzakxFQ3hwVm1zWlQvRkFaOXVJMnV5eUgr?=
- =?utf-8?B?enhrSk5qUmNYM3U2TndKWXJkZHVpMDVORkFlMXJZSmw0QksyTDdYMmZsbXU4?=
- =?utf-8?B?TmRPNE0rU1hRVjRMajBWSHFxR09KRngyVFY4enhuQlNuV2JSbVduZ3p5bnlv?=
- =?utf-8?B?VEo4NTZHUWpDeFFRNnpKK21tT3hGSjBvdGZhMCtzRkdQZzNYeEF2VnhZeUMy?=
- =?utf-8?B?YzBlOUJFY3IxSnlFeURjZGpSL2FEeTRxaEZLYjJkQ3VMY2IrRkI4SktpbGxh?=
- =?utf-8?B?MkJkZVdobG0rcmw4OWhUY0U4emNmV1JNZ0xPT0sxRDRXNDRiOEdPangrVExy?=
- =?utf-8?B?SzdvWHFnVzhjMXptK2VMSkM3RGd1dXkvUEI3R3paRmVoMHRUcmh1eWxRa3Zk?=
- =?utf-8?B?bVlKbmRLNEhVcklNc0dEUWJVa1c4dTlhRWZqRjlTZTFwTDVPNnVMS2xnZnBv?=
- =?utf-8?B?Q2x3QzRPMFVaUG9GS3J3Q0NzSTFOcFlNMm96UFVlWE1PQXZnZjFGcjJMQWlV?=
- =?utf-8?B?SVd5Tm9MUlVBcXByc0wrRFVadmN4UEwrVjZmN0c1N0xKT3oyZEFic0xpdURk?=
- =?utf-8?B?MmV4UHBycW5td3AyVE9QRkVHRVBnRGVlNzE5bGF0S1BDMFNlb0RSS0N3UnJ0?=
- =?utf-8?B?eTlpcmVxZmR1empjM0hkVHVYWDBybWVUWkpJM1NJbFBMeW1BenpPbkZOejZF?=
- =?utf-8?B?TVdqSTJ3UWxLZnNoSzRWNEdmQnBVS3JrMnkzS0JHMU9kMW95dFZ1VWREVmFO?=
- =?utf-8?B?OW5qWHNrWWNUS0xHaDN4c0ZJMEFCSXJBNjQ0R0JCbTNUQmNINGp5VDQ4dVhN?=
- =?utf-8?B?WXBtdWZTQ0UxS25yVUphcVNYWXpybE9VMXRGaHBiVjNmMUVkWHVsNlpyanhS?=
- =?utf-8?B?Y1RQR3pIZTNrcEh4WStwQ250eERpWnZ2SEhYa2dxR0JBS3dTUHcya3VLSWpD?=
- =?utf-8?B?amRJZ2VUQjVKeDJMVVhDeU96VWZKQk1veUhjRHcrTjdiaTlQR3pqbzFaa2lJ?=
- =?utf-8?B?Wkp3NVFGZWdLVDhmR2ttSVZrLzRwWWJvRlRZTzhENU9uK3VuaHBCQnBDV215?=
- =?utf-8?B?WnZPZTc4UnRiUDRJVHdrc2RGaDhwZnpjenJGbmJhdndBNXRpVSs5M3RMbUsw?=
- =?utf-8?B?MVFjRlZVTXV0ZFl2TUdxVTYwbVpFZXhBTDNud3hJenJEdm1KM2RNT2J0bm9D?=
- =?utf-8?B?MkJhNTFTQTBOdmgvSFZZWmlQZEVZU0lYUHRsQU56NmVzVmlMTERvUVNHWkli?=
- =?utf-8?B?NDRyb2Z2R3NJMjhxTm04U1FyblUySnBBQW5WalhQejQyZ2t3Y0lrc2g1akla?=
- =?utf-8?B?S3ZXMnk4RFdrYTRNOExFdlRNN1dueWxJZ0VmWUhzLzJESHNiK2wzd2xhTmRH?=
- =?utf-8?B?ZTlpK0xPbmhJaHUyclZweXUzRFpqRVppeFdFb0drMVpMdS9ma2UxNW10c1hT?=
- =?utf-8?Q?s25mxoTHUUyd/vApd/?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 42cd7054-b856-4c70-d8b4-08df31332959
-X-MS-Exchange-CrossTenant-AuthSource: SJ2PR12MB9189.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Oct 2026 18:26:31.8084
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: eMgTSg7PeMAhX/TW4f3OXIkhKX1CEHbz8mWA2B6MXGvvmmycgAAME3pCkBlAmwa/NWrvKgiM5fBAxCwomqoSAw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9024
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
+On Wed, 21 Oct 2026 11:34:19 +0200, Nicolai Buchwitz wrote:
+> I checked on Windows 11 (Intel xHCI, WinUSB + libusb): same
+> descriptors as on Linux (HS, bulk wMaxPacketSize 64), and a single
+> 4096 byte bulk IN read returns the complete 110 byte reply, so it
+> seems, that Windows programs the 64 bytes into the endpoint instead
+> of forcing 512.
 
-On 10/15/2026 6:30 AM, Hugo Sales wrote:
-> Currently, create_stream_for_sink() takes the native timing for a scaled
-> mode from the preferred mode in connector->modes. After fbdev emulation
-> probes with size limits below the native resolution, as it does when
-> video= sets a smaller mode, that mode is no longer in the list
->
-> If that probe is the last one before a suspend, for example after an
-> HDMI hotplug, the resume finds no preferred mode, and the panel is
-> driven with the scaled mode's timing instead of its own
->
-> amdgpu_dm_get_native_mode() copies the preferred mode to the encoder on
-> every probe, before the size limits apply. Fall back to that copy when
-> connector->modes has no preferred mode. Limit this to eDP and LVDS,
-> where amdgpu turns scaling on by itself. On other connectors mode_valid
-> can also leave the preferred mode out, and then the first valid mode is
-> the right fallback
->
-> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/5983
-> Assisted-by: Claude:claude-opus-5-5
-> Signed-off-by: Hugo Sales <hugo@hsal.es>
+Yes, that's what it seems to be doing. I passed a fake storage device
+with weird endpoints to Windows 10 in QEMU and with some debug tracing
+(slot/ep context hexdumps are my addition) I see this:
 
-Hi Hugo,
+usb_xhci_fetch_trb addr 0x0000000139a3c450, CR_CONFIGURE_ENDPOINT, p 0x000000013a18d000, s 0x00000000, c 0x01003001
+usb_xhci_slot_ctx addr 0x000000013a18d020, c 0x68000000 0x00000000 0x00000000 0x00000000
+usb_xhci_ep_ctx addr 0x000000013a18d0a0, ep 4, c 0x00000000 0x00400016 0x39a3cc01 0x00000001 0x00000000
+usb_xhci_ep_ctx addr 0x000000013a18d1c0, ep 13, c 0x00000000 0x00400036 0x375ff001 0x00000001 0x00000000
 
-Thanks for the patch and the detailed analysis.
-This no longer applies to the current amd-staging-drm-next. It
-conflicts with commit 3299935e65c0 ("drm/amd/display: Use separate
-iterator for preferred mode lookup"), which landed after the tree you
-based this on. That commit removed native_mode_found from
-create_stream_for_sink() and now checks preferred_mode directly:
+The 0x0040 in the second field is packet size, and it becomes 0x0400
+when I change to 1024, or 0x0002 with 2050. Windows blindly copies
+those eleven bits here and only gets upset if they are all zero, then
+it resets and enumerates again a few times.
 
-     if (!preferred_mode)
-         preferred_mode = list_first_entry_or_null(...);
+I don't have any out of spec device, so I tunned a Cypress FX2 into
+one - it exactly replays every received packet back to the host. I
+found that power of two sizes from 1 to 512 work, except on Etron HCs
+which only take 512. Guess we could have an exception for those.
 
-Could you rebase the series onto the latest amd-staging-drm-next and
-send a v2? The change should be mechanical: test !preferred_mode
-instead of !native_mode_found, and drop the native_mode_found = true
-assignment. The logic stays the same. Patch 2/2 still applies cleanly.
-Also, the dm_test_fs_caps_hdmi_vsdb and dm_test_fs_caps_pcon_whitelist
-failures you mentioned in the cover letter were fixed by commit
-5ac0b4dd2a1f ("drm/amd/display: Fix FreeSync caps tests after common
-EDID VSDB switch"). With the series rebased that way, the whole
-amdgpu_dm_connector KUnit suite passes on our side, including your new
-tests.
+So this seems very viable. I will turn it into a proper patch and see
+what the maintainers think. Seems better than patching class drivers.
 
-
-Thanks,
-Tom
-
-> ---
->   .../display/amdgpu_dm/amdgpu_dm_connector.c   | 28 +++++++++++++++++++
->   1 file changed, 28 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-> index 428a5f937..a1dc3e287 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-> @@ -257,6 +257,8 @@ STATIC_IFN_KUNIT void update_subconnector_property(struct amdgpu_dm_connector *a
->   EXPORT_IF_KUNIT(update_subconnector_property);
->
->   STATIC_IFN_KUNIT int amdgpu_dm_connector_get_modes(struct drm_connector *connector);
-> +STATIC_IFN_KUNIT struct drm_encoder *amdgpu_dm_connector_to_encoder(
-> +       struct drm_connector *connector);
->
->   STATIC_IFN_KUNIT void amdgpu_dm_fbc_init(struct drm_connector *connector)
->   {
-> @@ -1470,6 +1472,7 @@ create_stream_for_sink(struct drm_connector *connector,
->          struct dc_stream_state *stream = NULL;
->          struct drm_display_mode mode;
->          struct drm_display_mode saved_mode;
-> +       struct drm_display_mode native_mode;
->          struct drm_display_mode *freesync_mode = NULL;
->          bool native_mode_found = false;
->          bool recalculate_timing = false;
-> @@ -1529,6 +1532,31 @@ create_stream_for_sink(struct drm_connector *connector,
->                          break;
->                  }
->          }
-> +
-> +       /*
-> +        * After a probe with size limits smaller than the preferred mode,
-> +        * connector->modes no longer has that mode, and the first mode left
-> +        * would become the stream timing. fbdev emulation probes with limits
-> +        * that video= can set below the native size. The encoder has a copy of
-> +        * the preferred mode from amdgpu_dm_get_native_mode(), made on every
-> +        * probe before the limits apply, so use that copy. Only do this for eDP
-> +        * and LVDS panels, which take only their native timing. On other
-> +        * connectors mode_valid can also reject the preferred mode, and then
-> +        * the first valid mode is the right one
-> +        */
-> +       if (!native_mode_found && aconnector && !aconnector->mst_root && aconnector->drm_edid &&
-> +           (connector->connector_type == DRM_MODE_CONNECTOR_eDP ||
-> +            connector->connector_type == DRM_MODE_CONNECTOR_LVDS)) {
-> +               struct drm_encoder *encoder = amdgpu_dm_connector_to_encoder(connector);
-> +
-> +               if (encoder && to_amdgpu_encoder(encoder)->native_mode.clock) {
-> +                       drm_mode_copy(&native_mode, &to_amdgpu_encoder(encoder)->native_mode);
-> +                       drm_mode_set_crtcinfo(&native_mode, CRTC_INTERLACE_HALVE_V);
-> +                       preferred_mode = &native_mode;
-> +                       native_mode_found = true;
-> +               }
-> +       }
-> +
->          if (!native_mode_found)
->                  preferred_mode = list_first_entry_or_null(
->                                  &connector->modes,
-> --
-> 2.55.0
->
+Regards,
+Michal
