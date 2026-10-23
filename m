@@ -1,91 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.177
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.16
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792740887;
-	b=xmJc6BDkn1f3XP3Yidow8W9owgLd1LerMGiWHGyeZZVlCFqIcbZZCW+aTonZ2bXO6t3S
-	 tDvYUtq6e2sBlyMc59LWGvMbzLjV7NdUeHZTFFmgm0FzyxzvqprXRbfsuOdAWX6gOMDxI
-	 +yC8YwnXHDjfCD99QqPNkAFis+7HgVbouxZ6NkyD+fCppU5Wd7sPxTC/yBjUhLP7IV7+K
-	 90ZEcl1j3pLjagYcjD0nNAYwfo6L/SC6jFz7OohV/LKnIw7654uHl/WU7hrwJX/n1mvFh
-	 zHiZlCI8uPGsrHWn5+96ec+dHVBXR++PfBqL/76hCI/fOAHrwwMwTTbdw2h1xZHKCzA==
+	t=1792740954;
+	b=yzSU4mbu/eCn6OYhB5J3soDFEex0g+JLimjejuoPsePMPhjJMPesUqjTNt3UB3Q7WXxj
+	 YKfyOfPgbqNymCOwD40az0cf46VXkKsB4R030EAuoI6v6vR22jqFFUzhm+z1z6eR9E5ks
+	 LS8n/gmz0OoIJAsmK633QO31yv8EBy//IiOAWJFC4iMxikPxAosY7QIRFQ9EVxipD75tW
+	 5NHKT4NblMwO+VKPKisKneYGLt044a/PZoX/E5Wxn59K/Jj8FkzuDpPc12XRIUMuYU34j
+	 jQQw6xIvEqk6jHgCForfv1ZDVVBfRSFtMrQ+DBASBMDPj7ldK7YYLBRq22d8JIrFZ0w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792740887;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=2tpM4qwPPRxhW556q93X3t6/sYmlkwqaAEQTB2Etyic=;
-	b=WPMzMMJ5sb+UBnROgtOO8zO4pV6vUdTIHCnpL/PrQmITn548RgBnVwbyvi99/zb8gN8s
-	 Nn3n1D97UOEPjysGLpujqlRIHvukY7MrHoRUXroQz6JM0eYOn0CY7IobSxOeeBLQV4sr9
-	 pnoTtiY1g9DlLHtqquQB2PNwj2N2W1qIZLC+aT57y8WVpiysXnS7hhALAL/Go27HIiyWA
-	 sTr/gQAN9jjp5+hsq43Qmtv4+GonpEq5EizyD8sY5tRVaxdi613xF2hXRSGT3nFAdge4J
-	 e6I/UgWjGCmsFU8mrJ5jbQmY2rdqaFv7creOXeuRCelTAWx85NrjLcr64UwkmEp297g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792740954;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=BiSGyXP+QREGK8Wc3PsIZ74qAfaabzY3QdOQ4ZzwHqc=;
+	b=KjPrXTADHD283XwcrsUMOj/tc7Rwjiyjr8ezHFXKiYviJeEFgZZJoQgQ+I1/POVThEzg
+	 ieqJFoGK5NStNhk/3axr0ZvuqA/L07bubZnbD0ju0BfdNKsg8J05egu6lGxLoB6U2189Q
+	 EfQcw3OHo1sZNTkCqxxR05Z6F0RAUc1h1QSslAf5WFdcRklrs7g1TYijTfv4uAl+U29CK
+	 GpnBAxOPSa6efIY387OpnloHMxzmn9r0dX+g/FxOXQFW7S5sJeue1c1JZNzM+ohVKgmeO
+	 FF4DDiT9W+yHRLOFwQeBgAc2JQ1XODS26Qy9bIxecoQFJVylz6xYoK40x8UaaFn5cPQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=X4USJsgp;
-	arc=none smtp.remote-ip=209.85.214.177
-Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=DQqAWdxZ;
+	arc=none smtp.remote-ip=192.198.163.16
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA6E3606A32E
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 07:34:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BA6E3606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 189D2606A31B;
+	Fri, 23 Oct 2026 07:35:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 189D2606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=X4USJsgp
-Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-2e977109392so2997045ad.0
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 00:34:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792740886; x=1793345686; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=2tpM4qwPPRxhW556q93X3t6/sYmlkwqaAEQTB2Etyic=;
-        b=X4USJsgp9JxA5EpAyYe8aLydL46DSNbPwbJi0kiI0mhWflPQ/M/eMTf/QzhvdpJns3
-         twae2P3d37YqaRgrpXtg/lw5LOLDODdegh/tw5SMLihERPY17wrrolsYwJep9ZmwUPGf
-         DYWsH3E3C5GmZgQE71/dIeP87dCkCeJhxHCwbhI6fBwC3hJ9BjG+pVl5Dd0m8HenzgUj
-         jhooj3bqOBBujEfja6XxIIsCHZRQykXaabQNYzI4aekAzXHbDhZ9e8+q8sGXG9VMI2zh
-         ivG8/InhY74SjFOVKV+8ZW+WbRAyEwilMCZiOPz7ZBIh9So81GTK76OGG4AYJ01xfraU
-         NUtg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792740886; x=1793345686;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=2tpM4qwPPRxhW556q93X3t6/sYmlkwqaAEQTB2Etyic=;
-        b=idwQsNq1kldzUHAdE3f1yMlpr50+2hUYB4n3ajugtPnq2D8awhwD7yJr65E6ulwnPs
-         b93nrxuVMtrHwUrzMxw952vuY7VW1rDxJZpnkHIGwouH7oEr3Ygz/lFFXWj5DOJWLvKA
-         fZGcsxDvLG6O0Qcdz/2T3a/njnQ1IfztIcWcZTzPql+/qZi9f+c/O0qrIhJFy4sfISoW
-         p4j508/rIezUk63IGWTf2pyDHsFj9NdOfFi8V1B4LUZ417r2C7F+1OZggcyB3eDtKBll
-         7KQmVHnyvAgQ737gVcgdhdpcipBwr2hJ6ckwvEDDnRbODOZPbB+L7Yrc0IHZtDeIujKo
-         0m4Q==
-X-Forwarded-Encrypted: i=1; AKwUvBypx4ZpmOIuHiV1ifGuxE1DWjNIE1BjHwQg9Ev1LDLX1ww+3ZHE1BouA2Jq2Lbz5IPsCqFd6AWEcDMA6Hk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLm55HtOuvSDK7cfdskWLmAa1GFNIUAeVc0CUzAZC2eW0xO7nxn
-	YfO16XWVAUbWfXptMioZTRlxBYdYN846wl/gxYOYFGys6rkivoSZPY+U
-X-Gm-Gg: AYBFou0P5mNaLOndCf8vA8WktdUBMzsv9ov1kZq5KGR48AIAi51WfwpBadVX0vpRdFy
-	BseJ68wYzDKbWRBljZxtw6c8brdqrs8BP1/Ad3tzR3AcRaXJtCuO7E7bXqSmPAUH5oz1EpVLjGP
-	dgHWu4c6hgk9Rw/nJi9Igy97+krAEg3ZCZ8uLNRXT+9LTwRKxcI1FfMvEHkTOzB/wVSv3jIvIVn
-	uNndGNC9/VgSNSVfxkFdFV+ySqAIsvnrW5PqRKSgbQqyZg/CUqvcxjp4awoKnRssd2Oyg1SZcxG
-	bDnH5zd4sNWpjr4cxWWYqpnzc+yncAZzYOlRgWEG4NCApq1byKeqYpbXrtrviXW0OUdQO+qc+Og
-	P9O+WBermmoOIrqnvjB3+5sxzDz9Sj/lK9/fIA5hCKHebW13dzoJlyK0i3gSS9BDlkey7UD47qk
-	yk6ynBu5p4uxrNx9XwPKEDyRAEoRVN1L9ZHqLiDjM7xBFFh5v8cuvaQy1pNb+JgiJcgHAj6jMNA
-	YYH4Aks5es7bUKIzPwpgA64rQenGC4jyzXmvSkP6KTH74RVzH5cyEDkOEmXfO4LmttIzV8ecQI=
-X-Received: by 2002:a17:90b:558b:b0:3ab:f38:2b41 with SMTP id 98e67ed59e1d1-3adce081433mr1163793a91.39.1792740885915;
-        Fri, 23 Oct 2026 00:34:45 -0700 (PDT)
-Received: from spiderman.taila3fd8c.ts.net ([202.112.47.77])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3adcb1f93fbsm2494372a91.16.2026.10.23.00.34.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 23 Oct 2026 00:34:45 -0700 (PDT)
-From: Li Ximo <lixicaicai@gmail.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Wang Haoran <haoranwangsec@gmail.com>,
-	Li Ximo <lixicaicai@gmail.com>
-Subject: [PATCH] media: pxa_camera: guard list_first_entry() against empty capture list in EOF bottom half
-Date: Fri, 23 Oct 2026 15:34:37 +0800
-Message-Id: <20261023073437.1517305-1-lixicaicai@gmail.com>
-X-Mailer: git-send-email 2.25.1
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=DQqAWdxZ
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792740953; x=1824276953;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=/Hh7+3oi7jgWem1mXOHUTK/RhapmmdmtrNhmLTg9f4w=;
+  b=DQqAWdxZozMRL0zosEI8pkCRSvOz9sZkntt/yD1/mfBMCxX+rkbS8x4M
+   JZ3zTc97noiBs/ywWRzZsEUq/H1kWztFY3OVsZPNFw1Yv2sziQ8S+inCZ
+   YcWyOpa1mRLjX5HsoEefG2ZaXmgvGXTDM4eOx5wti6WJuTPKejwN25yo4
+   +bdy9t8+P3imJXB/+pve3tB1I2qsTrfMdmElYYamED2er/DEaMfZr22e3
+   4bhTY//eq4PWmQj2OSgJfNHpz5aC5lar6fLvOkr5s0AuOHDY7H+Mr/WQT
+   VXxftN0jO65taxPPojQrG9YIbBu2cvoPwHPbXAaYQlI8ifVaamQdrM0Zn
+   A==;
+X-CSE-ConnectionGUID: XPBZJlJKQviMyuB91wJBoQ==
+X-CSE-MsgGUID: Wnd9agbuSwaoXmdE1krRsA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11943"; a="1505345"
+X-IronPort-AV: E=Sophos;i="6.27,173,1787036400"; 
+   d="scan'208";a="1505345"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Oct 2026 00:35:52 -0700
+X-CSE-ConnectionGUID: ueGbc93rS56AUEaQ9aM7oA==
+X-CSE-MsgGUID: QOnkwFSGRVaA92A8tUCSpA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,173,1787036400"; 
+   d="scan'208";a="3946840"
+Received: from xiaoyaol-hp-g830.ccr.corp.intel.com (HELO [10.124.240.140]) ([10.124.240.140])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Oct 2026 00:35:48 -0700
+Message-ID: <a2f3ce61-6451-4464-9d33-07bdcfd2409a@intel.com>
+Date: Fri, 23 Oct 2026 15:35:44 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,55 +72,72 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 2/5] KVM: TDX: Track configurable CPUID bits allowed by
+ KVM
+To: Binbin Wu <binbin.wu@linux.intel.com>, linux-kernel@vger.kernel.org,
+ kvm@vger.kernel.org
+Cc: seanjc@google.com, pbonzini@redhat.com, dave.hansen@linux.intel.com,
+ andrew.cooper3@citrix.com, nik.borisov@suse.com, kas@kernel.org,
+ rick.p.edgecombe@intel.com, chao.gao@intel.com,
+ tony.lindgren@linux.intel.com, kishen.maloor@intel.com, dedekind1@gmail.com,
+ adrian.hunter@intel.com
+References: <20261016091422.3182216-1-binbin.wu@linux.intel.com>
+ <20261016091422.3182216-3-binbin.wu@linux.intel.com>
+Content-Language: en-US
+From: Xiaoyao Li <xiaoyao.li@intel.com>
+In-Reply-To: <20261016091422.3182216-3-binbin.wu@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: Wang Haoran <haoranwangsec@gmail.com>
+On 10/16/2026 5:14 PM, Binbin Wu wrote:
+> Add tdx_cpu_cfg_caps[] to track the subset of TDX directly configurable
+> CPUID feature bits that KVM supports, and initialize it during TDX
+> hardware setup.
+> 
+> The TDX module reports the CPUID bits that the VMM can directly configure
+> for a TD, but KVM can't blindly expose every reported bit to userspace.
+> Some features imply additional state, e.g. MSRs, that KVM must context
+> switch across host/guest transitions to avoid corrupting host state.  The
+> existing hardcoded denylist can't account for such features introduced by
+> future TDX modules.
+> 
+> Aside from a few fixed-1 bits required for basic TDX support, features
+> that can clobber host state are either directly configurable or controlled
+> by TD ATTRIBUTES/XFAM, which KVM already validates.  Thus, an allowlist
+> covering only the directly configurable bits is sufficient.
+> 
+> Organize tdx_cpu_cfg_caps[] like kvm_cpu_caps[] so that the allowlist can
+> be built with feature-name based initializers.  Directly configurable bits
+> that aren't feature flags will be handled when building the per-register
+> masks for KVM_TDX_CAPABILITIES.
+> 
+> Sort the directly configurable CPUID feature bits into three categories:
+> 
+>  1) Features that KVM supports and tracks in kvm_cpu_caps[].  Use
+>     TDX_CFG_F() so that they are also capped by kvm_cpu_caps[].
+> 
+>  2) Features that KVM supports, or can safely allow, but doesn't track in
+>     kvm_cpu_caps[], i.e. MWAIT and HT.  Use TDX_CFG_INDEPENDENT_F().
+> 
+>  3) Features that are obsolete or unsupported by KVM, and thus excluded,
+>     i.e. EST, TM2, CID, SDBG, XTPR, DCA, PN (PSN), ACPI, ACC (TM), PBE,
+>     HLE, RTM, CQM (RDT_M), RDT_A, PREFETCHWT1, WAITPKG, TME, PCONFIG,
+>     CORE_CAPABILITIES, RAO_INT, FRED, and AMX-TRANSPOSE.
+> 
+> Excluding the features in category 3 shouldn't break userspace, as
+> userspace is expected to consult KVM_TDX_CAPABILITIES for the configurable
+> bits before invoking KVM_TDX_INIT_VM.  Nor should it break guests, as the
+> features are either obsolete or unsupported by KVM, and in the latter case,
+> a guest relying on them would already have run into problems.
+> CORE_CAPABILITIES is a special case; it will be allowed separately to
+> accommodate its legacy fixed-1 definition.
+> 
+> Future changes will use tdx_cpu_cfg_caps[] to filter KVM_TDX_CAPABILITIES
+> and to reject unsupported CPUID input to KVM_TDX_INIT_VM, so that directly
+> configurable bits introduced by future TDX modules are neither advertised
+> to nor configurable by userspace until KVM explicitly opts in.
+> 
+> Signed-off-by: Binbin Wu <binbin.wu@linux.intel.com>
 
-list_first_entry() does not return NULL on an empty list; it returns a
-bogus pointer computed by container_of() from the list head.
-pxa_camera_eof_bh_work() calls list_first_entry() on &pcdev->capture
-without checking list_empty() first. The capture list can become empty
-between the EOF interrupt and the execution of the queued bottom-half
-work: pxa_camera_irq() queues eof_bh_work on system_bh_wq on every
-end-of-frame interrupt, and if the DMA completion path runs first,
-pxa_camera_wakeup() removes the last buffer from pcdev->capture (e.g.
-with a single queued buffer) and stops the capture. The already-queued
-bottom half then observes an empty list, obtains the bogus pointer,
-stores it in pcdev->active, and unconditionally writes through it in
-pxa_video_buf_set_actdma() (buf->active_dma = DMA_Y) before starting
-the DMA channels on it, corrupting memory around pcdev and likely
-crashing the kernel. This was found by code audit; we do not have PXA
-hardware to reproduce it.
-
-The sibling function pxa_camera_wakeup(), which operates on the very
-same list and sets the very same pcdev->active, already guards against
-an empty list with list_empty() and pxa_camera_stop_capture(). Add the
-same guard to pxa_camera_eof_bh_work() so both consumers of
-pcdev->capture behave consistently.
-
-Reported-by: Wang Haoran <haoranwangsec@gmail.com>
-Reported-by: Li Ximo <lixicaicai@gmail.com>
-Signed-off-by: Wang Haoran <haoranwangsec@gmail.com>
----
- drivers/media/platform/intel/pxa_camera.c | 5 +++++
- 1 file changed, 5 insertions(+)
-
-diff --git a/drivers/media/platform/intel/pxa_camera.c b/drivers/media/platform/intel/pxa_camera.c
-index 2269d852a..73ce48650 100644
---- a/drivers/media/platform/intel/pxa_camera.c
-+++ b/drivers/media/platform/intel/pxa_camera.c
-@@ -1161,6 +1161,11 @@ static void pxa_camera_eof_bh_work(struct work_struct *t)
- 	cifr = __raw_readl(pcdev->base + CIFR) | CIFR_RESET_F;
- 	__raw_writel(cifr, pcdev->base + CIFR);
- 
-+	if (list_empty(&pcdev->capture)) {
-+		pxa_camera_stop_capture(pcdev);
-+		return;
-+	}
-+
- 	pcdev->active = list_first_entry(&pcdev->capture,
- 					 struct pxa_buffer, queue);
- 	buf = pcdev->active;
--- 
-2.30.2
-
+Reviewed-by: Xiaoyao Li <xiaoyao.li@intel.com>
