@@ -1,100 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.214.180
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.42
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792768361;
-	b=bIU1HBKyHuTUTJKogV33heGi+jLmX2AHKnYEWdESRa9QY6VxohLL/pmMd/N6ugIufbgd
-	 r0u7aOwf4baC8uMwPmvAn/beoIYg7HgSXBAchg2RqoaycYhxIG0H4I7k/TWKP1b/TrGZp
-	 PPn04+GzE3wfamyTPeAcjhfPu6qj9tVZA10d1Y2Hsv+DcT9dokrMP3hLQIM39L7ioPDeD
-	 yh9HdcSELNsaKyRlJbK5lILX/p/qb+gF/ygkXy4/VzVqsDU7cEhFcl30Eo1GLcnQcDiJz
-	 wT81V0zFnzPQivaPXKqb3A0iKkntTIzf9K2iFQAH0xw8kE+5Eaqh3uwawMYEENvCmuQ==
+	t=1792768381;
+	b=F8AhO+PMwz6Q5Zy9Wez0wLA7pZ4GOwofcLHHo0lESZ0rH6fORlmj4LytGoIiDTL1jLH5
+	 9siMMep0qh30AAl++QRofrwMYaqJ86aM6dmhrVtHWt8YcYozE2BX4mQLod/2j3w0LVZOs
+	 DCyMvEge4amiCKVvRiPWMG0PkvmSgf9Tm7BwwFr9jXkyh3cnCCIrNDopOvRinfSCNGUce
+	 /Ik75cgoDF4Dy/BZIos8qPZzkp/nLIU4c/Kzi1rtoe6NIj8tI1PnXC8T8PRMfuY8RD3ZI
+	 RLL6pmemdZVrUbiOrTNVTbTjjERKMLuL9JQC0aFQ2tutYomd/K8mv9iOWc4bj0XTKHw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792768361;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792768381;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
 	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
 	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=GTBZU2NYoxY52zS87kN5cvRsx8+DZYRk/wDlQGdD9fA=;
-	b=KlZyOoLhKyRBOWtxfHbZirz0bkXG593V7tbGaO9ZslcLFhNVPwiGgyXJyzqsyqewhBZc
-	 hpbpyDmSeSQYKL2BWOhcehmT2lU+Y9WUNEQuE2u2O/hfAQCjvmpXaoQitANZ55vv8HLQl
-	 4quVA4akcTHVLrAZkIvW/+KiG9/x0Yle/fa+DhT4vXjYxMvUvgJ1tmKpPmVSt8txKCUv2
-	 oh83zGtTUFuzvPWEknzJxd+bWwWCMBpabnh+eE2G0LTIzh7B6CkwnHhl0Jov19aN4aGFH
-	 Aw5YTf7yQpUIrR7MEE90KS0ufqOWIL9n+yFKRWcBa47LcP/YWZEJ8EafVOCCriqInWA==
+	bh=qg7iB6bscMTGZD77CGgbdOimAao7FC1LowqN4FOrg2M=;
+	b=eyatZylOn2jZBMP0NUnBUukF72EXru5u/ypWSmwu7gjTMJEH305OqvfmYcUDUfo9rvMv
+	 xibyPusbzx6g5ApYEjPxea0Z5/WfbCmMSGLJOyx+flIGq2M2wMuDYA4T27pvLjzUBMbz7
+	 yOxK0KSQxHTviRpfqb/93yy+svuRaHssERdUuh//aLTDN8K/u9XBrCz1GYPcv4YA2iRHR
+	 R/SnMNWu5rRuvGFm1k7qEBaq7B60FWG5ANBSclFNzthv+t+L2KXGlA7XS6PMn6FpeK5ib
+	 EM2fW9Fxe9rMWuoesJpSIDIqfwJLG3Hj26wzBYT3ffE9YjTJfSyeNqmEZrbW8B+d0lQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=FA1ALNrS;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.214.180
-Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=EWGG0AQy;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.42
+Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com [209.85.218.42])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF8D2606A329
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 15:12:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DF8D2606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDE74606A31F
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 15:12:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BDE74606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=FA1ALNrS
-Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-2e8d6fcbba0so61025ad.1
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 08:12:40 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792768360; cv=none;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=EWGG0AQy
+Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c34bff61551so138978366b.2
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 08:12:55 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792768374; cv=none;
         d=google.com; s=arc-20260327;
-        b=km9tQV8QtcxmOUDeQgc82W3Lk0NCYKu5vXEXUctLKgjoqoLh0Gc/Ly00/kkCdfJaBV
-         AAMzYd25830ZLYHzJTy2xEkgjOHUvkeJxLFDFjSY2dIwZ2uyAW2Rzh+6+nucoSpptW5F
-         FWwUHyAxFKiM49GUt0Mu9esXg09gfg7AxKlQsWTk0C9QrtCpHZZ5rMwDGpziraKgMS/3
-         W+qYE8VcbZHWWVbrHZE+kEfxacGrZGESGoMfLgAO2CkaPtmY0q3JyxWbTeUfomi46+73
-         Vkie3cikxTD3c+DCKzCt2n2OYPRDCLlYUCHxsadD5h55M7q/YuSyxPAD5BM7DNWemjHZ
-         FLuA==
+        b=GI814vxj00tSOtsJXUd8he/jgTZq4cX/KqAHvMeoASqwSq8RmwyxAnidOfqOhix4Ez
+         FyA+Mmq5btNV9ivIvJW8GEx6T8XXFlcp0eAs+iSta80ZKTnj6V+jg/mzJU7rhz09N/yv
+         X9Z3VKtyO11WdFbW/BztZaaBREBdJpTkbuVYlvRZTS5WRSnL2RvXleHqTJtcPJ4Jz4nN
+         F4FTONJhT1jqafLl3WGovu0WXpUIMTnCssfTQopIegISxlwz/xMqWwnbQsicqdkaN7wr
+         9EjldkOhgH/sTeHez6GUVvZRerhEvkGyDT/MJRt57d5y+PaaZIpvbfQQT8B7ZYI/5/Oe
+         IBIw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=GTBZU2NYoxY52zS87kN5cvRsx8+DZYRk/wDlQGdD9fA=;
-        fh=q8R75+7daviZqzhRF1PAhNQKkpWiFyb7OG1gqBod28w=;
-        b=HgC6YWNK3EfzG8cNtgNgFVGWkjLDckuhfydpb56Yj0L5IVEtez4c9becnKkDtsdeh2
-         vM427Wl7EBF21F/bu8BYKd2rUO4S1oMXjGvumegSSDBaSEVm/vqzO46QP9cfbkAVJiT4
-         nKc+C4zKgHzK4Gdyd+YP5WUNChbaNu9FxG3A4U919h0Vg+bh9gBWD4vZ2m+snJsas1k+
-         F0H5GkhzuPmtA2PbXNwHMP/3B60FfocXeceKssiK3S3kOEt1UDKP4rquL66GsQ3LknDC
-         mqD+IcMmUbiljGfyX6GkOowgpDKCy9uV0vNn/zHzeEOSMzuyGu58yEvnhvhmt8RsqtMN
-         K/Nw==;
+        bh=qg7iB6bscMTGZD77CGgbdOimAao7FC1LowqN4FOrg2M=;
+        fh=9WqqNt/yNjrSO//kSFIM9qZDOChCZ/RacSYP7qCb2NA=;
+        b=g6y7QdRHM/vgEucuyucEqLrl887pdfrPgUbya0eHHA3xfGCXAKB8RStZnxvxCMdc2X
+         HWJ7k/y51OlRc7W52I8i3CNWoG3wBCioUOE0PbxccGp4Yt+sjA+rDWkEbeKNbMgSTVcq
+         DRxxeNzYXdDj1dkIQWswoKeG/ocHHSZ4wBnHsVNP8Evc6ftlIUZyNrwRuuJphLS1ClNe
+         YzIG+qGyGwM7QVsvyjOhKrUfs1mpLOclhwL7DA0d5m6zxkalMB4oKyMo18i2HLts9JRU
+         wMoVC5r81GQ2pHYY4PzTTaUewW0VB4Feo/L6IlDU0X60TYKiJBe79gNLLZW0XzT/JakX
+         c3uw==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792768360; x=1793373160; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792768374; x=1793373174; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=GTBZU2NYoxY52zS87kN5cvRsx8+DZYRk/wDlQGdD9fA=;
-        b=FA1ALNrSzo+aczkKotmLBVK24drLA8Xv+LZIoCG/tghiGEPsOcpLrHsGB4NxDwOPNO
-         v9btTMfj2TUT2ME7MHLyGcYZn00t5NhDWmYs8B/upCPVYfVMZCuS3SM4lAK64iUiPH9j
-         ncWVdRv9xYCrFdeHYtkXgXq5HdENMASP6P1cLAahsijYt1MlEcBzXVnewQSVcXj75jXo
-         oX+4LvaWMfy1ZHuV+IEdyo+NsjZb9bgThh3R64BMx42FVa43uBb3ClvG48WDeW+ENXjq
-         NJIKXPNKSy/+t3bLequ3La0Aw0+wNUS4fubMk8xHGpDCHB5FH3o0bNKJfcZoFPPsP48j
-         7FsQ==
+        bh=qg7iB6bscMTGZD77CGgbdOimAao7FC1LowqN4FOrg2M=;
+        b=EWGG0AQy2mGqncgCdvHiz4YaQrECiIJLSYoSBJ5NHSMunVaPrfVvlknF0DuKclSyUu
+         qCI+SC31yn2BoepSszw36L8zEOeJf3mj1C+D4RWWBxJtXYB2LTHf6W93JTSrrS2tbVzs
+         /SQReJc0ZT5f5ckNvF9/2aGpl92C17PlbkNdMVJA5oXvMmF+vXB88XDBSUj9y7ltGHUP
+         BTYzibNxNnm+toKAgpaXdQcTZofbUnRLAei86WuXqw/qCERy4xLDn/4N2yb15w5YuWpR
+         tTItHoUSIzfZpdy67qzB/9sXgsSl6pFGsuiTQZ/aoJmzMu5gZzNPmNFlS4+8RELQzJB4
+         YcEA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792768360; x=1793373160;
+        d=1e100.net; s=20260707; t=1792768374; x=1793373174;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=GTBZU2NYoxY52zS87kN5cvRsx8+DZYRk/wDlQGdD9fA=;
-        b=MIG0YDnqXGE9ShoLN1fAyUDrSUPrim0YBBdStYJnwFGYcuwWayLPldAb6XpJNVuwfY
-         u54/LBUfnV6qB16ayFWOb+D46+gy3wDwukk4Rpx89NHINlsDeNrUXvu2PdDQGav/wxFd
-         EB1BU1+OHFlXuGdA3enh03IsVMF1CiFXxxBYPyfoK+fqlLLFqUcPu7miHXpAmrZJup05
-         /XOEGJVoqMT6tRzDWcvTlcudrbGMZcPBM0eP3+pc965YpXUVtUQgjnQee9JyjOusya6N
-         WYdmncGrI/ShfKN0N7h3qT8oe196MT8FGOb3VvTiCmS7AcVVKTspizUnFWaOF+/YqAVQ
-         3o9A==
-X-Forwarded-Encrypted: i=1; AKwUvByn6I8uurcaVW3cJkZ1ZWngsfGLuRJCuyabqqup1U8lWRyBUcOSK1g22JjI0Rqlfl90ko5uUF1cVp4uEZ0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYImb2P1aSrN5LeGErgwnRxhT9BkT99GDFIm9rd3zszqIJaOeC57
-	jdjeEpMoTmIWnGbYRDK53asLo8ixYVPVIJtDTR1MujnygQhAXJYF5bqdFRWqkBuU0C21naqeX2M
-	LR2j/Dozq/UQP9UmBqzqp0FGFmmbOfifXhDmwJdpZ
-X-Gm-Gg: AYBFou0PoxFBcZpKUGStnL18Nf4QESO+5bFdsweMW59Zxynsm9HRZ+/H8x11ngozI+1
-	IYPVEQin4FOfSdsqXuCZGhEO/t74vr1/9IatqG3OMph8rLm4R07CaHnVuk05Sd/9YVlzaO5LdEy
-	uVgod/3/9s9yXf1LLWP9Pfz6WT3g8BzuwR1laiB3QRHn0VR0TLLlo3Ka420L6Prbfo0uP5DlzN7
-	HCpaWa7TFj/3cbtUEUFmz8P4ehgFSWBv0khU+cowDhI+SNyWuUBqh+zXGru7EBatqMDrN36DINR
-	h3lYDSPJ/8spNOL1ZZdc5bBpNz5AsCT9Jydr+/vJwJ8TON+Y0Ac9PuTw74AJKF5VVALVmhUQN9E
-	jASA6uuS2rjNwibisTtr1qrtY7LSO6aC6oWmZ7g==
-X-Received: by 2002:a17:902:e84f:b0:2d0:1aaf:daec with SMTP id
- d9443c01a7336-2ea7f4e1cbemr4092325ad.9.1792768358959; Fri, 23 Oct 2026
- 08:12:38 -0700 (PDT)
+        bh=qg7iB6bscMTGZD77CGgbdOimAao7FC1LowqN4FOrg2M=;
+        b=1Uim8ljS49bvv12XPwARCeWafgZb34QoxLzd7crtrgsGVs82IsycUc3ymyYWNooPWU
+         OYeOZiEIzsCjinc8CXsu/Acq1hMVjqBG9BdBRNYPw2IeZWFd/vJLohPXWwUIpP6XF4k+
+         Je9MfIs6QvthMqqyoPjQGY7wWn0yJDeteF6+jp+i6HJWh5ta2OWEO9oPLeXIB6KB0SU6
+         SLM6HytQpiYZai8R9zP6AZq4zp0uaWzhjno5BYwv1EWBNQU2whfsjj00J+hUTo54GbO9
+         IcGYFU0+I/x6L4T7bPDRFf3U3LFpn5ShMnEnj5oSJm/lDp33xxZGqpJF0zif7iHab9NA
+         dDXQ==
+X-Forwarded-Encrypted: i=1; AKwUvByqO4dik12DE+xMwVcq+YwEniJhMai3N6uHjNtzJb2PHO6vp5RiOCU6ro0gt8IOV27HDEoMwoBUjA+u+0c=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLhOM5NornLQV5xHlYUz/Jsm6PT4Zd1pAaVRl93Pbr+qQYv4fnk
+	AwtWXWdKmctl0NyJC9NxKDDgqeoqB/3sQdm80bDYATN7EaODNFWp17zOUwCrQDfIGzfwsGs7yEn
+	P/e54yorEJLMv36448mcg7rf+4v0bglU=
+X-Gm-Gg: AYBFou2OrFEXpjp8E4lzA6Oi5g/oP8QbN96bBzYfxKwp4rYciBh5y1dDhGUReQmt1G0
+	xI6yMv58LjKACq3+uvvZRJoYGv7MVmpxaRFqOrCtOMc6yXs+L/w8pulSFtSWJhFjAsR9udxNM7t
+	WxMWZSTzT72zOffrHyr60lOYCEEfgIsWYXJCONLLl04+bla39jl58mHb0f7zuFUPuADSJgXrph5
+	Ipa9Gc8WRjRmAnodmZ0FKnQqzzgRr5tCM3G+cRy4TialiaLp58/uHsBKzsQ17n8Ej2BeBEHwh5o
+	9QLs04507fvpVVRH1kL6uBMEcmIpW58fNF1gm//lEVp9rerT6CnqeUK4MI1mOGbbkG3e0JUgzFB
+	ZPJAs5JgEpGOOOmHjmevnwQJq378a320N/p49Ig/z0F1ErNvgCvNUvUSR//LxgkQBU70oKEZxR1
+	vqbwWlkY6wwwACqw58QmCzFjWO4v0DbG8v1h9yMaUdwXHfO9voIFaqWGVHs2Ro+YUN50THMdWde
+	pk3SA/MMrjAMSUR/lDm6YKZiiLfCg==
+X-Received: by 2002:a17:907:3e12:b0:c29:22cf:b0f5 with SMTP id
+ a640c23a62f3a-c46a922dee5mr411130066b.33.1792768373956; Fri, 23 Oct 2026
+ 08:12:53 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,63 +106,112 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261003212241.3432303-1-lrizzo@google.com> <0cc1cac1-a500-489b-9c1b-b49598b5550b@kernel.org>
- <CAMOZA0JaiKsRgDdjHkL_N+MshhcyLSv+cT9SzEbNsC_sumHvOw@mail.gmail.com>
- <b31efcd5-149c-4edf-81a2-1744d363c390@kernel.org> <CAMOZA0+6kAbwgNwGTsCT5AqpwcZKz4pziEGC9UpHkNCVoqrF-Q@mail.gmail.com>
- <20261022201229.GH3381610@ziepe.ca> <CAMOZA0KaanmevmvWS=M3gKfBeborzfCQTiF_xbSeYMWbozG7Mg@mail.gmail.com>
- <20261023140107.GC3977851@ziepe.ca> <CAMOZA0J+MOLv+s4PAvsAK1jbasnbQRyHffZw1VEKutH9Vr6ODw@mail.gmail.com>
- <20261023145023.GH3977851@ziepe.ca>
-In-Reply-To: <20261023145023.GH3977851@ziepe.ca>
-From: Luigi Rizzo <lrizzo@google.com>
-Date: Fri, 23 Oct 2026 17:12:02 +0200
-X-Gm-Features: AclHuK9W5A7aXTPFZUdD2jRhpUmEtp7k-vVQ254ZWcJE4ItfG1TCZYdvtBT8nSc
-Message-ID: <CAMOZA0JfsviAkojjEewehxMq0r0AboS=L6AWafMj4_Azaeg-ww@mail.gmail.com>
-Subject: Re: [RFC: DMA_PMD 00/22] DMA_PMD: PMD_SIZE-backed IO buffer pools
-To: Jason Gunthorpe <jgg@ziepe.ca>
-Cc: "David Hildenbrand (Arm)" <david@kernel.org>, Luigi Rizzo <rizzo.unipi@gmail.com>, 
-	Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, 
-	Christoph Hellwig <hch@lst.de>, Marek Szyprowski <m.szyprowski@samsung.com>, 
-	Andrew Morton <akpm@linux-foundation.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	"David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J . Wysocki" <rafael@kernel.org>, 
-	Danilo Krummrich <dakr@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
-	Jesper Dangaard Brouer <hawk@kernel.org>, Ilias Apalodimas <ilias.apalodimas@linaro.org>, 
-	Willem de Bruijn <willemb@google.com>, Kuniyuki Iwashima <kuniyu@google.com>, 
-	Joshua Washington <joshwash@google.com>, Harshitha Ramamurthy <hramamurthy@google.com>, 
-	Saeed Mahameed <saeedm@nvidia.com>, Tariq Toukan <tariqt@nvidia.com>, 
-	Tony Nguyen <anthony.l.nguyen@intel.com>, Przemek Kitszel <przemyslaw.kitszel@intel.com>, 
-	Alexander Lobakin <aleksander.lobakin@intel.com>, Michael Chan <michael.chan@broadcom.com>, 
-	Pavan Chebbi <pavan.chebbi@broadcom.com>, iommu@lists.linux.dev, netdev@vger.kernel.org, 
-	linux-mm@kvack.org, driver-core@lists.linux.dev, linux-doc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
+References: <20261023-submit-h616-uart-fifo-v1-v1-0-e4a3bae2eba8@gmail.com>
+ <20261023-submit-h616-uart-fifo-v1-v1-2-e4a3bae2eba8@gmail.com> <atseYvQUYvpMFEIM@ashevche-desk.local>
+In-Reply-To: <atseYvQUYvpMFEIM@ashevche-desk.local>
+From: James Hilliard <james.hilliard1@gmail.com>
+Date: Fri, 23 Oct 2026 09:12:40 -0600
+X-Gm-Features: AclHuK8N0aoS8N5_iVP1byTsJlqPWe2cGv2Z_GYIPJWKyo5TvqjUOKI8du6YHIo
+Message-ID: <CADvTj4pRW9q6VyQ=nLi8q0mMF8LgccfO4eqAeqgzzgOkDno1dw@mail.gmail.com>
+Subject: Re: [PATCH 2/3] serial: 8250_dw: configure the Allwinner H616 UART
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby <jirislaby@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	=?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+	Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+	Samuel Holland <samuel@sholland.org>, linux-kernel@vger.kernel.org, 
+	linux-serial@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Fri, Oct 23, 2026 at 4:50=E2=80=AFPM Jason Gunthorpe <jgg@ziepe.ca> wrot=
-e:
+On Fri, Oct 23, 2026 at 2:44=E2=80=AFAM Andy Shevchenko
+<andriy.shevchenko@linux.intel.com> wrote:
 >
-> On Fri, Oct 23, 2026 at 04:30:25PM +0200, Luigi Rizzo wrote:
+> On Fri, Oct 23, 2026 at 01:33:50AM -0600, James Hilliard wrote:
+> > H616 has 256-byte transmit and receive FIFOs, but its optional DesignWa=
+re
+> > component parameter register reads as zero. Generic 16550 probing leave=
+s
+> > the port using the 16-byte FIFO configuration and its trigger-level tab=
+le.
+> > DMA attachment also depends on a FIFO size being available during probe=
+,
+> > so these ports do not reach the existing 8250 DMA path.
+> >
+> > Use a fixed port configuration for the H616 compatible, with a 256-byte
+> > transmit load and the documented receive thresholds of 1, 64, 128 and 2=
+54
+> > bytes. Select the quarter-full receive trigger by default.
+> >
+> > Skip optional-register probing for this fixed configuration. H616 has
+> > debug-divisor and RS485 control registers at the offsets used to detect
+> > DesignWare hardware RS485 and fractional-divisor support. Probing these
+> > offsets writes unrelated registers and can select incompatible callback=
+s.
+> > Keep the BUSY-safe integer divisor hook and software RS485 handling.
+> >
+> > Use the existing SKIP_SET_RATE quirk to keep the UART clock enabled dur=
+ing
+> > termios changes. Its clock is a gate on the shared APB2 source, rather =
+than
+> > an independent baud-rate generator.
+> >
+> > Attach DMA from the fixed configuration before registering the port. Th=
+e
+> > 8250 core installs its FIFO defaults during registration, after the pro=
+be's
+> > FIFO-size test. Configure single-byte RX and TX bursts because the
+> > peripheral request can correspond to just one character. The existing
+> > startup path requests the firmware-described channels and falls back to
+> > PIO when they are unavailable or the port is a kernel console.
+>
+> ...
+>
+> >       /* Internal 8250 only */
+> >       UART_PORT_AIROHA                =3D 124,
+> >       UART_PORT_AIROHA_HS             =3D 125,
+> > +     UART_PORT_DW_APB_256    =3D 126,
+>
+> Why? Besides the poorly chosen name, what prevents us from modifying the
+> corresponding parameters at probe time by leaving the one of the existing
+> types?
 
-Just addressing the last part:
+The new type was primarily a way to reuse the core's FIFO configuration
+table, including the RX trigger mapping. H616 uses thresholds of 1, 64,
+128 and 254 bytes, whereas PORT_16550A maps the same FCR bits to 1, 4, 8
+and 14 bytes. Overriding only fifosize and tx_loadsz would leave
+rx_trig_bytes reporting and selecting the wrong thresholds.
 
-> ...The CC stuff seems
-> actively dangerous. Unconditionally always using CC shared memory for
-> skbs is completely security wrong. What I have traffic flowing inside
-> my VM between containers or something? Does this end up putting those
-> skbs in shared memory even if they never hit a physical NIC?  Same
-> with a TDISP capable NIC, does this unconditionally degrade its
-> security?
+The core already has get_rxtrig/set_rxtrig callbacks, though. I'll rework
+this to retain PORT_16550A, supply the H616 FIFO parameters during setup,
+and use those callbacks for the correct trigger mapping.
 
-the current series was RFC and "unconditional"  just to show the concept.
+>
+> ...
+>
+> >  struct dw8250_platform_data {
+> >       u8 usr_reg;
+> >       u32 cpr_value;
+> > +     /* Use a fixed configuration instead of probing optional register=
+s. */
+> > +     unsigned int type;
+> > +     unsigned int dma_maxburst;
+>
+> This sounds like a hack.  Why do we need type here? The address of platfo=
+rm
+> data is enough, no?
 
-My next version (a trivial change, really) is fully opt-in on a
-per-device and per direction basis.
+The type member selected the new table entry and also identified the
+fixed-configuration path. The matched platform-data pointer can select
+the H616 setup directly, including bypassing the incompatible optional
+register probes. I'll remove the type member and use that instead.
 
-The unencrypted (or pre-mapped) buffers will only be used for traffic
-that hits a device that opted in, and only for the directions that were
-opted in. So we can finely tune the configuration based on hw capabilities,
-threat model and performance requirements.
-
-cheers
-luigi
+>
+> >       unsigned int quirks;
+>
+> --
+> With Best Regards,
+> Andy Shevchenko
+>
+>
