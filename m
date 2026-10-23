@@ -1,70 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792777157;
-	b=FMP3VvdIf6zNHFSlDqLWYW4cq70EERYMRQA64fo/puZ4eYUFuGmFel8j/ahJVmDe1qKf
-	 bBRs4a7hWDEdMttzWm+00ygMw4vBSO+eIN8G2yuaAy3iezdS6mvsEKDDTv1/usMKVf0Pd
-	 DrprNUJ+FZkYMM62K43D8DGKOHoapGGsf8CIr2nXIOMViP01s69fB4beILQlxe2UpDJSW
-	 VOOCJtZ7M/eQFsXIzFPZ6qHBmK3F12HzdKcsV9TtVV4bc9B+DMR75F5IWdt0nBnPEZ/K2
-	 k2dsuc01kn20RU3onqXAoscI5W7blIz2tFHvz3mZHE1g3Ih5Emet4nPclAuXyRJfB+w==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792777157;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=sPGd9aFROxOhz1KFda6cV3QjwhmfwJ0s75CjYBEyrrk=;
-	b=z4ZJZbFuOhmk1atl+7KgAgmz92O/TGthE3f5gpUq0r87nXzO1rG9ESAOFodKh4aK/uL8
-	 uxjSuAFfr6ZLQ5ghXf59Gc73LGCyaxT4jRtF7Kl8cN4mi9dAfuwe1KS1ev3he590vnOHe
-	 MUIhXUxVezW/mv2+5jmxxniMY+lwkwb/olZF+k1IZ5dqk/I2uxkJxQb2zCkZFcoZzmAR2
-	 Z3u+S1So2/22uMjhRYmYGPtIXnIfcSTuYJrTNUSxV8u00nIf/8VVHs+q7kRQwXy2U82Te
-	 Key3tbgPyqEU0jtwQEfEH6Eo/DUL9puQSrlBs2QRO0naE0dCmLOYqpgt4aU291+FrwQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WYqvYP6Z;
-	arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792777191;
+	b=pC+tK5QkUTGcWNLOCnSWLwxxvh3vgqlYETZ7crPxz94BwrFR6Ct4CkmkM6ObeZB2sO6F
+	 K4DGVhfVarkh4AGKygXMd956Ce5af2mXm9ZMNLaZBI6XlOi7V9Ri/ZzCvwpQZjuOYiirV
+	 SrrMPOe4xcJfgpyNbA6lfDU0sitRYG0pNa4jIEij1bDWeueqtwoJ6JqlrzaEbkKoEA4TP
+	 qWRz+5XbT7Oy3C6SJRU+bx6tvUIXMz5QJh+FG6DRi3prQFdw6ru3bf9TY/mc4FTSLetOx
+	 H6tHEjYplprRBZKZ32O1VFdVwEnjbvXAGgj4zZwxZ+weQM7J1mcW1pjPDCY5/oc+jfg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792777191;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=waB3ovVdlrOaRg5kwbOJtqiQowW1jAyrixqhCwCH4EM=;
+	b=XdBwRaFV5Rli3r39VZwDrAEWLhYEmn+djBNcW7puQwQoAYsKNrf+uRS9pbZFj/4bC2sB
+	 Zg/L8sAyvbp4/KMPtrjyA64rWbvYvUv4OU9KccN2t0jQtwrEwtneE4XpOs098vbhiTVoa
+	 3nD+svOrWPDqLMwZijVr99ufCLJWT5kT2VaiUlGQrbky3ILXtDG/OZmVH9uKYsKED/UlC
+	 vIQM6zoYNbL8gvbM8nbNwQyQn//TVHg9x3NZNpdAcSzeDBVIYntzCJEpegp4iYVgzM4qn
+	 CQ0I+ycISWPHRQtaq5SwG3IJTuTCcMnjiVx9x62Kh2gn6WvxyVX1GqzWSgPBqwcIntQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AXejTeFP;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CAD3606A31A;
-	Fri, 23 Oct 2026 17:39:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75E93606A31B;
+	Fri, 23 Oct 2026 17:39:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WYqvYP6Z
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F0831F01825;
-	Fri, 23 Oct 2026 17:39:12 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AXejTeFP
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1792777191;
+	b=KYAgd2nZRfLkXZCyEm3RprqHCgCudBBAFlbBtsCcDRQ3CjvhqJsVohCAMxPJcpg8Y8xN
+	 tjxb2GLnJke5H0etawm8+K6eWnp7amCqBfRmm5GnyPBKBjqnLCgn1oq5Y+90dnZyywSEu
+	 lhIwmIfZHzayC0Wacd/QGmuaamcjtvMfS6iO62q8VEwHbXkR7cSLTSlSPjtoQU+dS34tS
+	 s0ly7VoyjU8CEXeaWkCK8+i97lzG0cqU0SabkGL40Pade7zZKWxVaZkt3zow12EDhpPV1
+	 LNQVQw0cOeyBXwvQfTuLsBpE43Fff68qHG4sOfAHiq+PXDY+BjabZQs1SlvhaQU454Q==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1792777191;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=waB3ovVdlrOaRg5kwbOJtqiQowW1jAyrixqhCwCH4EM=;
+	b=SsVJ+akbXzgOeTGxAHviosfcQQpr0LdjHbEtB+LU+tivksiyfh4bfN6SdE5DITVnCq9d
+	 vwLaRZ4lSPR4w/eMtA/1998hH/n8GjByrlQqj3/gW/fzdPmRMfGfMsPRQT8ikyrJxDSKn
+	 zf4JBGemZHTwFrI+DIxZNp0i6RU87EfzELJERVi005bFVuhV011POZdO2vtoJPUf/nCmO
+	 u5mrZd7pkoRPEsm9UUWs8EtR3BVSjnnTU1kAHw+9v9z649zgB4fUs1WS8o6TdeX4OBPqM
+	 SQDI/Xzpvb+/HXRxTV2wSMH64q+D48X17GfrEK1nQpivRMj73mDU9ZywNjfKCS+oNQw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 8E33C1F01825;
+	Fri, 23 Oct 2026 17:39:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792777156;
-	bh=sPGd9aFROxOhz1KFda6cV3QjwhmfwJ0s75CjYBEyrrk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=WYqvYP6ZKJ4Y4UemFOE4AuTFrSWI3JomDirAvL9Da3Ke2KrGDRXWjZVhzuziC4ORR
-	 Tm2vFQZ9NRMxUiC3qA2csJDV2of7uuHDPiB+rSHJeHYht6zoZtepfwnJgMJNG8xyuG
-	 CMfl4k2/3k0xnisEvDIomqBheiUSsxTABdeC/oLDyzwevo6U7YSvuZExkZhAm0Y/qM
-	 9lUKLzh/yIabOUIayzJC8gG/XhZSqEg2p2B4B/JdRBgWtNjr8kLwuhbQsVw4Ef6Q6+
-	 g+9kW9a5ceQh28XoSBqJIXmDwl3qUecAEWBMWye0HRuIB89cQN+LiAfrus0tPr5Nco
-	 P5TXLa0cMjhQA==
-Date: Fri, 23 Oct 2026 18:39:11 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Rodrigo Alencar <455.rodrigo.alencar@gmail.com>
-Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux@analog.com, devicetree@vger.kernel.org,
-	linux-pwm@vger.kernel.org, linux-doc@vger.kernel.org,
-	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
-	Olivier Moysan <olivier.moysan@foss.st.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Michael Hennerich <Michael.Hennerich@analog.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <ukleinek@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>
-Subject: Re: [PATCH v2 03/10] dt-bindings: iio: frequency: add
- adi,ad9910-axi-backend
-Message-ID: <20261023-boss-matriarch-a1953ccaf539@spud>
-References: <20261022-ad9910-backend-support-v2-0-0ff7f0bff326@analog.com>
- <20261022-ad9910-backend-support-v2-3-0ff7f0bff326@analog.com>
- <20261022-banish-scenic-030717ca503e@spud>
- <hx6lt2u5j5yh3iez5zimolukip4a6ak36rdqridrvaz7bb25hw@6blwtzy2iuat>
+	s=k20260515; t=1792777191;
+	bh=waB3ovVdlrOaRg5kwbOJtqiQowW1jAyrixqhCwCH4EM=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=AXejTeFPl2g76hjcjwYj23tvvyPiO2O9fBFqIp0gibOAKU3RTySfEdImOH2NSaLTB
+	 v8WFO75gZAkCnXocqPuOOGzye3Tq7ejCrodL8fRfD039dKiMobU4snQwLW2FoHV6Uy
+	 g7g6glNTejVPw8vTK+WvuAKeIthwOqINFFXA4gHUt3cCGo3dH4wmqQbgOdb+MmrwiS
+	 U/ptzDjsmG8ZWm61OkPsXm+yqzFFquvLT4u8yABzqlU1RxspiInevzYju4mVsPjHg8
+	 eWbYj2WG3AkCnD6XSKwROyREjI+mmWpqCisrIXL4HsXdTCbd78pJyjwZ/BYscPFcsc
+	 r4644y498UWWQ==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id E6F0944568;
+	Fri, 23 Oct 2026 17:39:48 +0000 (UTC)
+From: Anthony Ruhier via B4 Relay <devnull+aruhier.mailbox.org@kernel.org>
+Date: Fri, 23 Oct 2026 19:39:35 +0200
+Subject: [PATCH] PCI: Disable LTR on Qualcomm WCN7850 [17cb:1107] to allow
+ ASPM L1.2
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,79 +83,85 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="lGRIL5kI7ggZQ17D"
-Content-Disposition: inline
-In-Reply-To: <hx6lt2u5j5yh3iez5zimolukip4a6ak36rdqridrvaz7bb25hw@6blwtzy2iuat>
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261023-quick-wcn7850-v1-1-9a139b9b2c8e@mailbox.org>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzNDAyNj3cLSzORs3fLkPHMLUwPdRHNLI0szi+RkI9M0JaCegqLUtMwKsHn
+ RsRB+cWlSVmpyCcgQpdpaAMlxQMFxAAAA
+X-Change-ID: 20261023-quick-wcn7850-a792968cc25f
+To: Bjorn Helgaas <bhelgaas@google.com>
+Cc: linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Anthony Ruhier <aruhier@mailbox.org>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2159;
+ i=aruhier@mailbox.org; s=2026; h=from:subject:message-id;
+ bh=qVemxmolshXeAK74vDQvvG7KPXw1hF5ybwiK/r2mOek=;
+ b=owGbwMvMwCV2okp4cvOBsLOMp9WSGLJuz37Cz7ZBaGX46ad/bsqxTZD6LcNw0ZBnqkJrwdacm
+ 1pPv7ct6JjIwiDGxWAppshywbLg8eNb0ZO762y6YOawMoEMkRZpYAACFga+3MS8UiMdIz1TbUM9
+ QyBDx4iBi1MApnpDKMP/xMmyzmsuPG+6cth1W+oN4UOPFToOlfhzH0tV85ppVFDLzshw57/Enfl
+ ZHiY5m8+oif48uOj39EBP86wX+2UXXYyvvi3JAQA=
+X-Developer-Key: i=aruhier@mailbox.org; a=openpgp;
+ fpr=F4A378DD8D494AE48EBA554CB00FBC7D08D231D9
+X-Endpoint-Received: by B4 Relay for aruhier@mailbox.org/2026 with
+ auth_id=1292
+X-Original-From: Anthony Ruhier <aruhier@mailbox.org>
+Reply-To: aruhier@mailbox.org
+Content-Transfer-Encoding: 7bit
 
---lGRIL5kI7ggZQ17D
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+From: Anthony Ruhier <aruhier@mailbox.org>
 
-On Fri, Oct 23, 2026 at 08:15:07AM -0300, Rodrigo Alencar wrote:
-> On 22/10/26 19:38, Conor Dooley wrote:
-> > On Thu, Oct 22, 2026 at 12:19:01PM -0300, Rodrigo Alencar via B4 Relay =
-wrote:
-> > > From: Rodrigo Alencar <rodrigo.alencar@analog.com>
-> > >=20
-> > > Add bindings for the AD9910 AXI backend IP core. The FPGA IP core
-> > > interfaces with the data and control pins of the AD9910 DDS, streaming
-> > > data from memory via DMA into the 18-bit parallel data port (F[1:0] a=
-nd
-> > > D[15:0] pins), which is clocked by the PDCLK output of the device. It
-> > > also drives the PROFILE[2:0] pins and the DRCTL pin, which controls t=
-he
-> > > slope direction of the digital ramp generator (DRG). The DRCTL pin is
-> > > driven by a PWM generator, so the IP core is described both as an IIO
-> > > backend and as a PWM provider.
->=20
-> ...
->=20
-> > > +  '#io-backend-cells':
-> > > +    const: 0
-> > > +
-> > > +  '#pwm-cells':
-> > > +    const: 3
-> > > +    description:
-> > > +      The first cell must be 0, as only the DRCTL PWM output is avai=
-lable.
-> >=20
-> > I was about to ack this, but the wording here caught my eye. Are there
-> > other PWMs that are unavailable?
->=20
-> Not for this version of this core. Other signals to control the DDS could=
- be
-> modeled as PWM, e.g. DRHOLD, PROFILE0, OSK... but that is not being consi=
-dered
-> at this stage.
+The WCN7850 Wifi/BT card, found in several Snapdragon X laptops, never
+enters ASPM L1.2 when LTR is enabled. Its firmware reads the
+LTR_L1.2_THRESHOLD set at enumeration and reports an LTR value just
+below it, so the L1.2 entry condition is never met and the link stays in
+L1.1.
 
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
-pw-bot: not-applicable
+Windows does not set LTR Mechanism Enable for this device (verified by
+dumping the ACPI tables), and the link idles in L1.2 normally.
 
-(But maybe consider rewording so that it doesn't sound like there are
-other PWMs that cannot be used)
+Replicate the same behavior: clear PCI_EXP_DEVCTL2_LTR_EN for WCN7850 at
+enumeration and again on resume, as the LTR state is restored there.
 
->=20
-> >=20
-> > > +      The second cell is the PWM period in nanoseconds and the third=
- cell
-> > > +      holds the PWM flags.
->=20
-> --=20
-> Kind regards,
->=20
-> Rodrigo Alencar
+On a Lenovo Yoga Slim 7x (X1E80100) this allows the link to reach L1.2
+and reduces idle power by about 70 mW.
 
---lGRIL5kI7ggZQ17D
-Content-Type: application/pgp-signature; name=signature.asc
+Signed-off-by: Anthony Ruhier <aruhier@mailbox.org>
+---
+ drivers/pci/quirks.c | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
 
------BEGIN PGP SIGNATURE-----
+diff --git a/drivers/pci/quirks.c b/drivers/pci/quirks.c
+index 1aa87a3ef9ed..374c505981a0 100644
+--- a/drivers/pci/quirks.c
++++ b/drivers/pci/quirks.c
+@@ -3795,6 +3795,20 @@ DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_QCOM, 0x1103, quirk_no_bus_reset); /* WCN
+ DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_QCOM, 0x1107, quirk_no_bus_reset); /* WCN7850 */
+ DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_QCOM, 0x0308, quirk_no_bus_reset); /* SDX62/SDX65 */
+ 
++/*
++ * The WCN7850 firmware reports an LTR just below the LTR_L1.2_THRESHOLD it
++ * sees at boot, preventing it to ever enter L1.2.
++ * With LTR disabled the link idles in L1.2, similar to what Windows does.
++ */
++static void quirk_wcn7850_disable_ltr(struct pci_dev *pdev)
++{
++	pcie_capability_clear_word(pdev, PCI_EXP_DEVCTL2,
++				   PCI_EXP_DEVCTL2_LTR_EN);
++}
++DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_QCOM, 0x1107, quirk_wcn7850_disable_ltr);
++DECLARE_PCI_FIXUP_RESUME_EARLY(PCI_VENDOR_ID_QCOM, 0x1107,
++			       quirk_wcn7850_disable_ltr);
++
+ /*
+  * Root port on some Cavium CN8xxx chips do not successfully complete a bus
+  * reset when used with certain child devices.  After the reset, config
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCatubvgAKCRB4tDGHoIJi
-0vKSAQDQFFHMyIEfY+UgNmbkTiIL1nyt6ylahe3+fmkcT8fIxAD/Tcw/FliHpwOB
-As/ewbCO71uqlme5mpXhT1RCHhK8qgw=
-=moiI
------END PGP SIGNATURE-----
+---
+base-commit: 7be4bc52fd9e0e55dc9a2e0232b89427d2c4b614
+change-id: 20261023-quick-wcn7850-a792968cc25f
 
---lGRIL5kI7ggZQ17D--
+Best regards,
+--  
+Anthony Ruhier <aruhier@mailbox.org>
+
+
