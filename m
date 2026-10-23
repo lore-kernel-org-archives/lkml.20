@@ -1,100 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.214.180
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792765864;
-	b=Gacl2R9smmEOrfaoFVLufVA6p8SD7GLLlnqfJffb5Lx4CGvA0DAULeNuleekrSz21i+N
-	 cW3+sol9rUwvrX6OHI6seMD+R4LQXK6uy89oQFOIv2tECYxRszLVFfBgkjLO+dD6lA9P2
-	 CWaPCTWe1g/Zoucj6I9SOzCRFmrarPHkEMW/2V83XBGxkTr4fhINWh07gRV2jNLQiMRwg
-	 HAgKTXoBaKo1LlI4+jLxzUiBgWlbdr/qkTi7cHlZwzwFnib7neZdYrfVxj3oN75FERezI
-	 x6x7LcI6/3UqdeSJ7u8a7cWt6qGJi38NvAQtKvXGLr+0dKoNPO7ceWoKeSX7IbAlokA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792765864;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=s3FkMl8OhjMqOhi3zpzbiZNiNsx48LLQzOlCjP1CveY=;
-	b=3iINfsIVzSC2mXZyJUFi5UvIpX4G8TzDTCw9DE4yWfpUbMAGXPuz9SNcuA3Ywm5tYzV0
-	 rDQwS7FQeCJCsTwSyBoXNhfqOaK4+fFItmsG3QYLitNYZA+Gs7A79IMQOpioqNhzpaS+g
-	 W6w6286+hvSn2M0+qCqPA95rl8XCuVRxRC1bWk2VXgZdtYu1MaSruojNPVmSygjdB+rAR
-	 w8L6gr9U1LYv17WgZkU6neLFJbxSSEsEv/34A6NGVkK3fCon6xTW1BqBIiiRqXf7qkad5
-	 N1fXqhOj057PvFaWlwyX0ZNWoF+YCOxMXJ/cOE3sJ4AJWph8UiZR17/qRCekNpeqlrg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=VVIFg6tb;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.214.180
-Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0A69606A32D
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 14:31:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B0A69606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792765946;
+	b=gidqms27BDcLu9EZ4gzKXMtK+STRpgxCsF7pu3nsfGDSoWoOJ3p0av8vpL9OZCmKFmB3
+	 5fCxddnwuV7dggrShv8IV5hK7MCFf4IvUGO2UiZQx4EWrks6twOFR6ex27WFXukTuu4Zq
+	 R3G4SFs0T5GQwfYAX6ziruqtamvknss6qgWCqohLlc5mncFZXT2XTMYZ96uixyQwiWDjx
+	 V1eC9FlEjzhRg2j/XwnwZpem190ulKZVF8JXUHNareC3C2r7pnNczXsOj5oKJs+3LJqIa
+	 zp9jhubBtBA61DdbA56WmZw1xsPJl+jEt0iIe4G+utKQqcC3pEcSn4d14l7M+ExcHBA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792765946;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
+	bh=ht9Z3A55YoMb47m5RlECsRw+4QcVTY9so4ELYIsdPQo=;
+	b=ei0h9IdVL5NZ5Kp+QVPN4zhPDgPzKOlmuDofk6bDZ++u2xUkYgxiboK46kU11iHKMIj5
+	 sPwpkG3MzIhZMYZ81+o7TSSO+MiLBu1e9Ma+afZMY5UD4+2oNe1lzvJVrJyvUO0RoAC8L
+	 YB3y0BjjcUl1/HMpY2XH3Yr6TNQO9TBn0Rg/wWQcY8xt+E09r0aoDhs5M8pyk+60lBUZm
+	 0mFhdLPS2YVID7FUdkVlTyH5fivQKH/rShifHeW+ifHXoajPxo2HyZv4mw2fFm3IomGrQ
+	 PzWBamSwyaw8dfNZ8hAEM2nz/3HhlPObNdDEdFM5mf78cXdNFBhSCtUUESmbIcSfs5A==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b="aWKGjCs/";
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3725A606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 14:32:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3725A606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=VVIFg6tb
-Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-2e8d6fcbba0so55365ad.1
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 07:31:03 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792765863; cv=none;
-        d=google.com; s=arc-20260327;
-        b=hDE0QcJYsFuWw4mDiYxn+QlXhrGbtR7NGCyYTKkA0yqVJhH1ExAyo4I8BjZijGr+VF
-         nSqEl53S8VVJs62lKdc6435fX0rIKAeMruSEOZ057IRFOmW+us0mHaOp1w+zfOOmmhHA
-         oIpppwFXpV1rMJg9iswMG1RNZGEbdJaraVm1UFoJEB9UE6f7MKaBjR0IBUIsE1ksGOw6
-         FjQYIlS2JetBu5DxM3amwLGQmt2VNQeJzkCFhLZRxlsWI/ID6r+/P+nzX7RzbAQGiVPY
-         GYeWkLV2tzvEF6+c/0DuHDwfa6DkEUHKLbOeqtroTwI0DbEjHQ6CQVcniqdlRC9AH2FH
-         T54g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=s3FkMl8OhjMqOhi3zpzbiZNiNsx48LLQzOlCjP1CveY=;
-        fh=ZpmVr90anozkS0Nmoah5jZpMNC5u2dReuuPFJSU/uuQ=;
-        b=H40JHQB8kCQXajrqR/MvRYMTPsYSavkiFLfCuexfhXY4q4U0Wl8iVl2KawUEcP81I2
-         l+9KEwskmIYsKBYETsdmjPgUyKQGam1YyO6ns6xgNAJFJoIR69qse/MWtB6uAW5qhJAj
-         M3A8JIYmpksDvCxQuTXz7tLIC6Ov3IHdNXJjp3Lt5NYUqaqvICZuKbMv5QGm6XpAe82c
-         MaV4rgvTGVEtgPPlbz9Tg1vacYKYqu8NsZlPAQixbw4Ec+jXcR7snFuJ/nvkw2SGpG4I
-         LQPhLrEOf+RA0y0lVh4AY4TJOIfm6IuTweCWktEpvIb1B5phHK+8K5VO3aGHLLXwFU21
-         5OZA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792765863; x=1793370663; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=s3FkMl8OhjMqOhi3zpzbiZNiNsx48LLQzOlCjP1CveY=;
-        b=VVIFg6tb7WK4WNH/I3L6DFNDUrzYJ8o1O9kJJIOL0mZjbDHHGac5RMiQ5AsP/FqpYv
-         1Dt4Jc4CBdbhHms0jG3oJH6xf8Tj+LzES5uC5C5CYoNAXzPld4yvlCtqXp3+F9mf0spz
-         +3BusVjz7rkrm0ohoVloTAShTDbfxn+Rcr2g/VyGdDdplOcHciqKZgZmgBE4eYfT0qJl
-         qhFR3JTcIYt343vm3g8Uh8JKEgZBCoIcY/Fn5sFRoo7c8899zyI0Y2kjALu+M9xDlJeA
-         7upuI8KJB6SYRwqoRToLV67mbyXPbUJP4w9MoEyNB9cq5p8Kfjr85sCMlI79SsK78Rsf
-         UeKQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792765863; x=1793370663;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=s3FkMl8OhjMqOhi3zpzbiZNiNsx48LLQzOlCjP1CveY=;
-        b=aQKJx09Jn8/znXqM5t3tyybqcgn+0wvjL06w2gt8M46G6EId4NHJchHmnxQwVxUpPP
-         35EI/CDVZtaF6dLSPnuDwzt9zVLmeP//Tz7FExkVLNfHk9U8lBjr41DNK5e9JupO6nR2
-         AIRC1j9wDexURvvYg3Ab4gJVxChbkDQVUEMKaYolrU1sikRm3hi1273vTWJqK+zuxMYv
-         r0ZtQtCkmXT7WAdgEocsyd5P9mDWTEqah4+ZxH4ZeYGawRlUfoDsgoKK7+ZiuCj6DV56
-         29PSfNNbnlCm0NsPRfXF3i5eP6M8vtr23bBB28RtuGttDxXSTPKKBTy0/YFFDsH//15u
-         R7Gw==
-X-Forwarded-Encrypted: i=1; AKwUvBzs7Nrsdb62IlzB57W37MY3VRyQ/0CsW99usKwuNgkO+ehjRY2n6fAog+ILzM4YFxtsO7qqzQLUt1OR8eY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLyCLKGGY4XlacO8YE+Q40p9IoiXDg9cYPa53pEnkJRVQyB/uXu
-	yhRGxdVku9mWDXJljRwNnb066neI2mnemQOTVrob2ORJnsLJfE+YeFRvpTmfENDQ25K/2iosht4
-	xXMkl20sgYU97IfWhrdbka0frY94Macj245fi5Ouw
-X-Gm-Gg: AYBFou1NaWEeqByfNtpxvtopYvh7C8rQqkJlElgy+/7TslpLzzPnpFGNlcs+BlUPgb0
-	CZi5TJqjqdDMA5FTARzOGNgs6F9Si8ISVnAoGetnOqUU3NIveAVoIREI6OEmeoz9nUoe0xlr605
-	CKQM58wU8I5FexzNzO7nz71l4TxMq9HMrMCGzv7r1MnbFOloOD2N5lfLFNw1SksNTwu7Tr/1tOi
-	4ZL8Nx2LkY180B/9H5TKU7+yZVLtni6CSqfRBAEQeWBlHvWJpgRruoOvoy0Bn6/eVcoS5GMDo/D
-	9oKXUTzgx8Pa/N7epGDSlIYe5YscoILvSh5aeLwseXuvWEostQeQ1qUD65ikhPP92qSABtAHvpR
-	/j77T9kpaixo7PK/pYFKmHOElHtGuHS9uvSeEUAnR2yhm94FsC4RrWWu48UA=
-X-Received: by 2002:a17:902:f683:b0:2ea:7180:3abf with SMTP id
- d9443c01a7336-2ea7f512f16mr4025665ad.15.1792765862249; Fri, 23 Oct 2026
- 07:31:02 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=aWKGjCs/
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 2897D1C00
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 07:32:21 -0700 (PDT)
+Received: from [192.168.0.1] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 2114D3F673
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 07:32:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1792765944; bh=anSElN5yBjJkYZBOkU/8sr3NncGEwgUdXZ2Ow2+bIdw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=aWKGjCs/nNp1wHufGyhvLlY+Thv30W0iS/6PfH/0HCAKZ/jObqCz/aUb7X1O03GiA
+	 ImcythXUWVWCvIvMK3v97+FULarkfDFTwtyqcp3XfUt6yWt5HmEeoLDiGd9GMvmArX
+	 8PBT7sZFAsXtWjAVbZmi33h86o8NkENADQtn7QMU=
+Date: Fri, 23 Oct 2026 15:32:11 +0100
+From: Liviu Dudau <liviu.dudau@arm.com>
+To: Lukas Zapolskas <lukas.zapolskas@arm.com>
+Cc: Daniel Almeida <daniel.almeida@collabora.com>,
+	Alice Ryhl <aliceryhl@google.com>,
+	Boris Brezillon <boris.brezillon@collabora.com>,
+	Steven Price <steven.price@arm.com>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+	nd@arm.com
+Subject: Re: [PATCH v7 7/8] drm/panthor: Add suspend, resume and reset
+ handling
+Message-ID: <attv60kGpPPpKfJG@e142607>
+References: <20261011-panthor-performance-counters-v7-0-12c32495062f@arm.com>
+ <20261011-panthor-performance-counters-v7-7-12c32495062f@arm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,127 +69,205 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261003212241.3432303-1-lrizzo@google.com> <0cc1cac1-a500-489b-9c1b-b49598b5550b@kernel.org>
- <CAMOZA0JaiKsRgDdjHkL_N+MshhcyLSv+cT9SzEbNsC_sumHvOw@mail.gmail.com>
- <b31efcd5-149c-4edf-81a2-1744d363c390@kernel.org> <CAMOZA0+6kAbwgNwGTsCT5AqpwcZKz4pziEGC9UpHkNCVoqrF-Q@mail.gmail.com>
- <20261022201229.GH3381610@ziepe.ca> <CAMOZA0KaanmevmvWS=M3gKfBeborzfCQTiF_xbSeYMWbozG7Mg@mail.gmail.com>
- <20261023140107.GC3977851@ziepe.ca>
-In-Reply-To: <20261023140107.GC3977851@ziepe.ca>
-From: Luigi Rizzo <lrizzo@google.com>
-Date: Fri, 23 Oct 2026 16:30:25 +0200
-X-Gm-Features: AclHuK9d7tFq_s1fhJmYPVN1-JncgZCOvwLUHaeunw-YOxbh9iZtFoxmVAkcY88
-Message-ID: <CAMOZA0J+MOLv+s4PAvsAK1jbasnbQRyHffZw1VEKutH9Vr6ODw@mail.gmail.com>
-Subject: Re: [RFC: DMA_PMD 00/22] DMA_PMD: PMD_SIZE-backed IO buffer pools
-To: Jason Gunthorpe <jgg@ziepe.ca>
-Cc: "David Hildenbrand (Arm)" <david@kernel.org>, Luigi Rizzo <rizzo.unipi@gmail.com>, 
-	Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, 
-	Christoph Hellwig <hch@lst.de>, Marek Szyprowski <m.szyprowski@samsung.com>, 
-	Andrew Morton <akpm@linux-foundation.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	"David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J . Wysocki" <rafael@kernel.org>, 
-	Danilo Krummrich <dakr@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
-	Jesper Dangaard Brouer <hawk@kernel.org>, Ilias Apalodimas <ilias.apalodimas@linaro.org>, 
-	Willem de Bruijn <willemb@google.com>, Kuniyuki Iwashima <kuniyu@google.com>, 
-	Joshua Washington <joshwash@google.com>, Harshitha Ramamurthy <hramamurthy@google.com>, 
-	Saeed Mahameed <saeedm@nvidia.com>, Tariq Toukan <tariqt@nvidia.com>, 
-	Tony Nguyen <anthony.l.nguyen@intel.com>, Przemek Kitszel <przemyslaw.kitszel@intel.com>, 
-	Alexander Lobakin <aleksander.lobakin@intel.com>, Michael Chan <michael.chan@broadcom.com>, 
-	Pavan Chebbi <pavan.chebbi@broadcom.com>, iommu@lists.linux.dev, netdev@vger.kernel.org, 
-	linux-mm@kvack.org, driver-core@lists.linux.dev, linux-doc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261011-panthor-performance-counters-v7-7-12c32495062f@arm.com>
 
-On Fri, Oct 23, 2026 at 4:01=E2=80=AFPM Jason Gunthorpe <jgg@ziepe.ca> wrot=
-e:
->
-> On Thu, Oct 22, 2026 at 11:51:40PM +0200, Luigi Rizzo wrote:
-> > On Thu, Oct 22, 2026 at 10:12=E2=80=AFPM Jason Gunthorpe <jgg@ziepe.ca>=
- wrote:
-...
-> > > Can someone explain what outside netdev would use this? And why you
-> > > couldn't do this in the netdev page pool?
-> >
-> > I can try.
-> >
-> > Regarding users, the next target is disks (not included in this series)
->
-> Disks don't use a memory pool, they do IO to folios allocated by the
-> page cache.
+Minor nit: subject line gives the wrong idea about the patch.
 
-I know. As I said I have a separate patch to cover those IO buffers
+On Sun, Oct 11, 2026 at 06:36:54PM +0100, Lukas Zapolskas wrote:
+> The sampler must disable and re-enable counter sampling around
+> suspends, and must re-program the FW interface after a reset to
+> avoid losing data. Additionally, if a request was pending before the
+> reset and it was not acked, the reset will have cleared it, so we toggle
+> the flag and re-request a sample.
+> 
+> Signed-off-by: Lukas Zapolskas <lukas.zapolskas@arm.com>
+> ---
+>  drivers/gpu/drm/panthor/panthor_device.c |  8 ++-
+>  drivers/gpu/drm/panthor/panthor_perf.c   | 83 ++++++++++++++++++++++++++++++++
+>  drivers/gpu/drm/panthor/panthor_perf.h   |  6 +++
+>  3 files changed, 96 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/panthor/panthor_device.c b/drivers/gpu/drm/panthor/panthor_device.c
+> index 535383ef629f..c842480472ac 100644
+> --- a/drivers/gpu/drm/panthor/panthor_device.c
+> +++ b/drivers/gpu/drm/panthor/panthor_device.c
+> @@ -138,6 +138,7 @@ static void panthor_device_reset_work(struct work_struct *work)
+>  	if (!drm_dev_enter(&ptdev->base, &cookie))
+>  		return;
+>  
+> +	panthor_perf_pre_reset(ptdev);
+>  	panthor_sched_pre_reset(ptdev);
+>  	panthor_fw_pre_reset(ptdev, true);
+>  	panthor_mmu_pre_reset(ptdev);
+> @@ -147,6 +148,8 @@ static void panthor_device_reset_work(struct work_struct *work)
+>  	ret = panthor_fw_post_reset(ptdev);
+>  	atomic_set(&ptdev->reset.pending, 0);
+>  	panthor_sched_post_reset(ptdev, ret != 0);
+> +	if (!ret)
+> +		panthor_perf_post_reset(ptdev);
+>  	drm_dev_exit(cookie);
+>  
+>  	if (ret) {
+> @@ -539,8 +542,10 @@ int panthor_device_resume(struct device *dev)
+>  			ret = panthor_device_resume_hw_components(ptdev);
+>  		}
+>  
+> -		if (!ret)
+> +		if (!ret) {
+>  			panthor_sched_resume(ptdev);
+> +			panthor_perf_resume(ptdev);
+> +		}
+>  
+>  		drm_dev_exit(cookie);
+>  
+> @@ -604,6 +609,7 @@ int panthor_device_suspend(struct device *dev)
+>  		/* We prepare everything as if we were resetting the GPU.
+>  		 * The end of the reset will happen in the resume path though.
+>  		 */
+> +		panthor_perf_suspend(ptdev);
+>  		panthor_sched_suspend(ptdev);
+>  		panthor_fw_suspend(ptdev);
+>  		panthor_mmu_suspend(ptdev);
+> diff --git a/drivers/gpu/drm/panthor/panthor_perf.c b/drivers/gpu/drm/panthor/panthor_perf.c
+> index c66ad658a95d..28b02003f9f9 100644
+> --- a/drivers/gpu/drm/panthor/panthor_perf.c
+> +++ b/drivers/gpu/drm/panthor/panthor_perf.c
+> @@ -1798,6 +1798,57 @@ int panthor_perf_session_sample(struct panthor_file *pfile, u32 handle, u64 user
+>  	return err;
+>  }
+>  
+> +/**
+> + * panthor_perf_suspend - Prepare the performance counter subsystem for system suspend.
+> + * @ptdev: Panthor device.
+> + *
+> + * Indicate to the performance counters that the system is suspending.
+> + *
+> + * This function must not be used to handle MCU power state transitions: just before MCU goes
+> + * from on to any inactive state, an automatic sample will be performed by the firmware, and
+> + * the performance counter firmware state will be restored on warm boot.
+> + *
+> + */
+> +void panthor_perf_suspend(struct panthor_device *ptdev)
+> +{
+> +	struct panthor_perf *perf = ptdev->perf;
+> +	int ret;
+> +
+> +	if (!perf)
+> +		return;
+> +
+> +	guard(mutex)(&perf->op_lock);
+> +
+> +	ret = perf_disable(perf);
+> +
+> +	if (ret)
+> +		drm_warn(&ptdev->base, "Could not stop sampling before suspend, err = %d", ret);
+> +}
+> +
+> +/**
+> + * panthor_perf_resume - Resume the performance counter subsystem after system resumption.
+> + * @ptdev: Panthor device.
+> + *
+> + * Indicate to the performance counters that the system has resumed. This must not be used
+> + * to handle MCU state transitions, for the same reasons as detailed in the kerneldoc for
+> + * @panthor_perf_suspend.
+> + */
+> +void panthor_perf_resume(struct panthor_device *ptdev)
+> +{
+> +	struct panthor_perf *perf = ptdev->perf;
+> +	int ret;
+> +
+> +	if (!perf)
+> +		return;
+> +
+> +	guard(mutex)(&perf->op_lock);
+> +
+> +	ret = perf_enable(perf);
+> +
+> +	if (ret)
+> +		drm_warn(&ptdev->base, "Could not resume sampling, err = %d", ret);
+> +}
+> +
+>  /**
+>   * panthor_perf_unplug - Terminate the performance counter subsystem.
+>   * @ptdev: Panthor device.
+> @@ -1868,3 +1919,35 @@ void panthor_perf_pool_destroy(struct panthor_file *pfile)
+>  
+>  	pfile->sessions = NULL;
+>  }
+> +
+> +void panthor_perf_pre_reset(struct panthor_device *ptdev)
+> +{
+> +	if (!ptdev->perf)
+> +		return;
+> +
+> +	guard(mutex)(&ptdev->perf->op_lock);
+> +
+> +	perf_disable(ptdev->perf);
+> +}
+> +
+> +void panthor_perf_post_reset(struct panthor_device *ptdev)
+> +{
+> +	bool rerequest = false;
+> +
+> +	if (!ptdev->perf)
+> +		return;
+> +
+> +	guard(mutex)(&ptdev->perf->op_lock);
+> +
+> +	perf_enable(ptdev->perf);
+> +
+> +	scoped_guard(spinlock_irqsave, &ptdev->perf->pend_lock) {
+> +		rerequest = ptdev->perf->fw_sample_requested;
+> +
+> +		if (rerequest)
+> +			ptdev->perf->fw_sample_requested = false;
+> +	}
+> +
+> +	if (rerequest)
+> +		perf_fw_request_sample(ptdev->perf);
+> +}
+> diff --git a/drivers/gpu/drm/panthor/panthor_perf.h b/drivers/gpu/drm/panthor/panthor_perf.h
+> index 0e1172dbae39..e4a323fe6f0d 100644
+> --- a/drivers/gpu/drm/panthor/panthor_perf.h
+> +++ b/drivers/gpu/drm/panthor/panthor_perf.h
+> @@ -18,6 +18,8 @@ int panthor_perf_pool_create(struct panthor_file *pfile);
+>  void panthor_perf_pool_destroy(struct panthor_file *pfile);
+>  
+>  int panthor_perf_init(struct panthor_device *ptdev);
+> +void panthor_perf_suspend(struct panthor_device *ptdev);
+> +void panthor_perf_resume(struct panthor_device *ptdev);
+>  void panthor_perf_unplug(struct panthor_device *ptdev);
+>  
+>  int panthor_perf_session_create(struct drm_file *file,
+> @@ -30,5 +32,9 @@ int panthor_perf_session_sample(struct panthor_file *pfile, unsigned int handle,
+>  
+>  void panthor_perf_report_irq(struct panthor_device *ptdev, u32 status);
+>  
+> +void panthor_perf_pre_reset(struct panthor_device *ptdev);
+> +
+> +void panthor_perf_post_reset(struct panthor_device *ptdev);
+> +
+>  #endif /* __PANTHOR_PERF_H__ */
+>  
+> 
+> -- 
+> 2.43.0
+> 
 
- block/bio.c                  |  21 +++++
- block/blk-mq-dma.c           |   4 +-
- drivers/iommu/dma-pmd-node.c |   3 +-
- drivers/iommu/dma-pmd-pool.c |  14 ++-
- drivers/iommu/dma-pmd-priv.h |   7 +-
- drivers/iommu/dma-pmd-user.c | 390
-++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-----=
----
- include/linux/dma-pmd.h      |  53 +++++++++++
- mm/filemap.c                 |  27 +++++-
- mm/page-writeback.c          |  13 +++
- mm/readahead.c               |   9 +-
+Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
 
+Best regards,
+Liviu
 
-Disk I/O is still potentially affected by the same problems
-(cost if io mapping/unmapping, iotlb thrashing, bounce buffers
-in confidential computing...)
-
->
-> The only other candiates I know of besides page pool would be the
-> existing dma pool users. I don't think they are so performance
-> sensitive as netdev.
->
-> IOW I think this entire series is only useful to netdev.
-
-Well, the series provide mechanisms to address disk I/O as well.
-
-
->
-> > > It is not a common workload to have the DMA allocator be the one that
-> > > allocates the memory. Usually we are DMA'ing from memory that was
-> > > allocated someplace else.
-> >
-> > Aside from the fact that dma_alloc_attr()/dma_alloc_coherent()
-> > does memory allocation + iova allocation/mapping,
-> > this is not what happens here.
-> > Maybe the confusion comes from one function name
-> > (dma_map_alloc_pages()), but it doesn't map any thing.
->
-> > My code (in this version, and more in the upcoming release)
-> > mainly implements a specialized memory allocator with an
-> > API equivalent to alloc_pages() and variants, but ensures that
-> > the order-N blocks come from contiguous 2MB blocks reserved on the fly.
-> >
-> > The physical addresses of these blocks are recognized by the
-> > "dma allocator" (I suppose you meant the entity that allocates the IOVA=
- range)
-> > so that it can apply specialized IOMMU mappings backed by 2MB IOMMU lea=
-ves.
->
-> Why? This seems completely divergent from how anything else works in
-> DMA mapping, and I don't see a reason for it to be anything like
-> this. Other than it makes page pool work a bit easier
->
-> Frankly this looks like you had AI to transpose a bunch netdev page
-> pool into iommu.
-
-(yes, AI assisted, heavily human-guided).
-Frankly, it's very orthogonal to pagepool, given that it uses pagepool
-for what it does well, and it provides functionality that pagepool
-does not have.
-
-Anyways, reading your next comments, are you suggesting that all
-these functionalities should be implemented as pagepool extensions?
-(2MB mappings and iommu backing, proper allocator of fragments out of large=
-r
-pages, device-less pagepools, multi-domain mappings, pagepool
-as memory provider for skb heads, pagepool as memory provider for descripto=
-r
-rings ?)
-
-cheers
-luigi
+-- 
+====================
+| I would like to |
+| fix the world,  |
+| but they're not |
+| giving me the   |
+ \ source code!  /
+  ---------------
+    ¯\_(ツ)_/¯
