@@ -1,65 +1,132 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792750713;
-	b=bA+hg9tujxPLbKLMhunLQIZKhXqaVQ+Hrql9bkQ0mCw8LlB6Ay+adIGnWXgdftUE3oM6
-	 3UE7suAjM66QO4brD+VEePPYkJ0+AQrp10ZUp+fUUIB51dJJnuO1YTq5jps2SwDrVTkji
-	 YXduq8b6FTaaiW0fM0Kt893lBx2TkXlv3fIdWrebVB7FjxGrNaaQdlmU26SP/qgxoOFfd
-	 rCRwNUdJb1tPgk0gTUFU3o/A1wtSQRp7lviN1DuFtima7KRlgkWQxntq+7mY7a5aXR9ob
-	 YZVXTmvyDSo7aZBPT8POmMNUdpU8xGLNycTlDKFTrQEZzll5xI1sT9sJFMANzr6vXTQ==
+	t=1792750724;
+	b=QWMcY2OJEKMrjmttY73pNL9M24LQ1LIOE7B5JTH0ssbFtpsVnEgpuScpj2vz4tQ+Ndfh
+	 kRkr3S1dAsOux0rqCVYsmG17cT3JUnEWurxm/RqNDMMTDIEDqDSsWWFEEv1qzEiN3TNL4
+	 Z/dGU67pqII7lG9490XVT8CvAsgVHpWEajmeN8MB7CceaoVoj2dPrcHCH8tljtLw/F82h
+	 AIJjVm+keVAa8lKfGhgROXBfaoGwymvfLc3XMIpz9010FyqQZKwu3MykQUqOhqkOVawWs
+	 QQ+eK+wtcC/gA8gYzZcVg+T+EtO1x7K10w0zY+eY2cBnem1OcHje6XQbrjVngzAHBSw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792750713;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=48rUw1Z2YCN0d1r+igM4P0aPkMs18zYpkWGEVt5x0Lg=;
-	b=fdkT9hLKVbfg6s/Vw7wzDuqESHdjfV7lHrKYOJYcdP/A2DJYwEU7kjrJGaTYXJeZizyb
-	 DwGbtguG8P1pJK33dW+QUODJRmwTevQB/YJHdZpVy5kHmGs0IcbS6Dmn1JOMY52dVU9HI
-	 f5iJ5sVht2y507F2+tXn1ZUpf6Vmn04DoRx2Pxi3j0rhzrWItIbNXCSI67uisCoVplkLw
-	 k5dq/x1D6+EIltToQ10WeqezJ5GsBezURudGAgfy2cCFv6LpowbIdrJTZ32Og3kFWS3JO
-	 yHM4L1NmQt0PqzKLD6OfW5BJpxCoUS+63tIyNWa0avdDzoYr3RGBDiWn66XqxvabwlA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792750724;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=YjAarnCifburoEXGvsqsh/sxDLJBq4lP12OGzhjxpF8=;
+	b=Oz39cAoDyAeHX5TlF3ImFt9JJcio024Sn5Cq+GJmky3kSFnpGkLECHvhWdLkf2coqeVj
+	 jSaH/7ZiIBr6oKzXBfcyFXkl6kdQXba2LXv+bu7v3gxfJicjXkiTWbOsEugTNPVYSGJK5
+	 Z3YTVIT+Xm05PQn2cqXPBLHAn+2wPq8EeX+enc2nZ3VB1/bfm4BFnapVC+wlGaWPmUf4p
+	 fs0Re64BkRz4xb3yxgM1bhv6J3VjJbYTKePczi07qdZiN3YPbQfkz9UKSza5kLV9t4TG7
+	 FhXTypgQjP6T0Gz6unWg9itqzxI2IoZCxD55N/abEgS15zjzkqW4IPmMZcXS+o5tXMg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=Gv0tPwNP;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 79CCD606A32E;
-	Fri, 23 Oct 2026 10:18:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 79CCD606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=BcgynjsH;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=YE8GQJzl;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D11C606A321
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 10:18:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8D11C606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=Gv0tPwNP
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 49A5A1650;
-	Fri, 23 Oct 2026 03:18:27 -0700 (PDT)
-Received: from localhost (a085714.arm.com [10.164.19.28])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id BA9CC3F7B4;
-	Fri, 23 Oct 2026 03:18:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1792750710; bh=rDCKGdRiz166rbp3L1GqdW0EbXoka1CMQiZb1poZNJc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Gv0tPwNP8G2Bw0xRprgdfHjdFBGNFMpk/hG8nosXDB1w7Glh9RBzUtz+iqZOceuqt
-	 mV0LBePmBjv5oLWjuqGK9bhC+ApU8fxvizU/c3YNVk8ks5ke0P3dwGpCmBZ76NwIbf
-	 fVBicOBhEo6p+0BCv8JfVzLhwHxKLSqtRnu3CS3g=
-Date: Fri, 23 Oct 2026 15:48:27 +0530
-From: Anshuman Khandual <anshuman.khandual@arm.com>
-To: Muchun Song <songmuchun@bytedance.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	David Hildenbrand <david@kernel.org>, Oscar Salvador <osalvador@suse.de>, 
-	Dave Hansen <dave.hansen@intel.com>, Paul Walmsley <pjw@kernel.org>, 
-	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
-	Alexandre Ghiti <alex@ghiti.fr>, =?utf-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@rivosinc.com>, 
-	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
-	Mark Rutland <mark.rutland@arm.com>, Kevin Brodsky <kevin.brodsky@arm.com>, 
-	Alexander Gordeev <agordeev@linux.ibm.com>, Alistair Popple <apopple@nvidia.com>, linux-mm@kvack.org, 
-	linux-riscv@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org, Muchun Song <muchun.song@linux.dev>
-Subject: Re: [PATCH v3 1/4] mm: fix missing page-table destructor in
- pagetable_free()
-Message-ID: <s5wpe6iiidy6eo5lqs5zqut3d2of3erbxz6xofah4i4n56qxdn@r7vjivchqfil>
-References: <20261023063428.3658761-1-songmuchun@bytedance.com>
- <20261023063428.3658761-2-songmuchun@bytedance.com>
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=BcgynjsH;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=YE8GQJzl
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69NAAZ3k980653
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 10:18:43 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	YjAarnCifburoEXGvsqsh/sxDLJBq4lP12OGzhjxpF8=; b=BcgynjsHOsEyW0p7
+	JmBaDsQ6nFQLkANcOVu+eCxU9MThVEiziIsFIThVRj72ESReWsq/2Fjlue6EMw7f
+	QG7t3qTn0WrzVdngMbQxjibzLT4HeKhh3qX6VnfwOLHzcXvE5ilS23eCh0gfEZ3V
+	gJdN1CF7iZTXsVzV/Da4x6OyFDP+nAvYJbtvKk8g4DpMYruI3A4MmZNNGmIgHFuh
+	HQLr5vagq7d9LX6Hl5Z7FUUkE8k6BcGB7QJFrW6hfi9MgYUijr0hAVom3M6rkMS2
+	cyyjxy/uNB3eb+d6uEcH7zV8JdmH2kJx/yvZVhQwRVX0UqIOddcFZnJf/IIQ9HG7
+	+vI2uA==
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hfsmatn7d-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 10:18:42 +0000 (GMT)
+Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93cb6391e89so153471385a.1
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 03:18:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1792750722; x=1793355522; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=YjAarnCifburoEXGvsqsh/sxDLJBq4lP12OGzhjxpF8=;
+        b=YE8GQJzlyuIDwIzkXS6EO/0vsC7REihvins5pqREw2lJ5PJjl1pPc8vGO91lstg23V
+         PYFf3ZDLCAVT11iD1QaK3DfSR4+OWhlhT0cIcoIOFLJukihXDfo0fILomrH6bUoMS8RE
+         E1Ddl3AXgAy8Vzy2uop749Lg6Ute4hBPt+Bokfg8TsE8m28iuuKSPWfavtZLlvSgAzup
+         Ieau/oLgkKsQ6ZI4QRyQo4tvjQnnw8751/HAgYhq8TCWA9UWiYLa+Bfs+8uOthHI52EY
+         6YM/LEVxpgDZ+lPAIPJjg1gfdHmMnka2eeKNXISkFWrr7ydGRE+jjBNYWyxlHx6jZgj/
+         sZkA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792750722; x=1793355522;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=YjAarnCifburoEXGvsqsh/sxDLJBq4lP12OGzhjxpF8=;
+        b=YCg4df8b4oFTGam16Jx0JAuvpOgURdKEmmz9JZ1CUCs4PJ3P0raQ4CcOE/ic+EequN
+         oYSofFP5yDk3rvmk0PsMePytlQN3RmP4A/GlOYIewzoRgytM/2r8/sx+vFY7tM95Abbd
+         exiG7I4PTxF3sUe6f14wvLsITMaFkR058TLJAeaXOFQVEu4IXuvSbvDtLg5xKd1AncFL
+         8mnX1rr8CBpDsc2ZluoXjPsFoa3lpFIZ+j+tuD8BGpdGo7SmCLpxNrP8iNa443O0Am+P
+         Bn40uVFPK02tamJNAglVr0fFTqehCt/2jEUXHShEJNala5APTiLsMBDl+K4Y0z4pQ422
+         i/Xw==
+X-Forwarded-Encrypted: i=1; AKwUvBzAGlrMzv5ils5X3bRBIdTiE9PkwHyjpcH/Q7Rr3KZxVYKo/s0loLUARf6l309eAw23C2BXUPlAEFIesto=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL/6pQU1d1w50nF1h2B+/wEGODxMOfe3sI2KYxvOK6AGrPxiUAI
+	0RjxtdchBPxYjEqCi83wowpr4rRwYJZQfePfsWI4QxiW6irU1FH2dWPhbFaK1/eesNOgr4ceWxz
+	n8XTtnGBiTHn24pGogjax6hr0ZIk2FJfAw1JL0tOaPcseDEk36mOXjsAB0U7UjDCi860=
+X-Gm-Gg: AYBFou11nIE1UtX0hfqpKL7JSYYOEjsvQdEQ0YYYfzLeTBnBQE1QvXj7kw00owEClAX
+	fjOYgqhhw99TravSfP9LqCMTQhJKFEdiyVJZUT7/z6iq3fEVtVdXtsJibRdVuEykyfdx8tmjnK3
+	n0lNMj3UwSXm/FogVNQD8fLW5wMsuxEeC35Ne1rwxRMpRxx6Fz4Unj3p2cYzqcIo5zDe6jGDuD0
+	CF30zr7rao9TvYfjaoKVoJ5/+MknrIf/0XTOdJpcUr3RC5zacmmyuGlOWkM08rVHdWyAbw+G00o
+	OBUs7i7PIVagf+9P3Jjen85KbBfaCRd68JVWyDnsvOMkM0QY7lEqfc5jdvMz/jJjPBJCxV0EmYU
+	SfdSIXpGtvOff3LUurM8lYCgI02g=
+X-Received: by 2002:a05:620a:298c:b0:93f:2ab9:729e with SMTP id af79cd13be357-93f6f79c238mr362488385a.21.1792750721709;
+        Fri, 23 Oct 2026 03:18:41 -0700 (PDT)
+X-Received: by 2002:a05:620a:298c:b0:93f:2ab9:729e with SMTP id af79cd13be357-93f6f79c238mr362484485a.21.1792750721242;
+        Fri, 23 Oct 2026 03:18:41 -0700 (PDT)
+Received: from brgl-qcom.home ([2a01:cb1d:dc:7e00:8916:7b9b:97a2:6c96])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e38053b8asm3894504f8f.42.2026.10.23.03.18.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 23 Oct 2026 03:18:40 -0700 (PDT)
+From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+To: Bradford Love <brad@nextdimension.cc>, linux-gpio@vger.kernel.org,
+        linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-arm-kernel@lists.infradead.org, linux-mips@vger.kernel.org,
+        linux-media@vger.kernel.org,
+        Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+        Linus Walleij <linusw@kernel.org>,
+        Bartosz Golaszewski <brgl@kernel.org>,
+        Jonathan Corbet <corbet@lwn.net>,
+        Shuah Khan <skhan@linuxfoundation.org>,
+        Daniel Mack <daniel@zonque.org>,
+        Haojian Zhuang <haojian.zhuang@gmail.com>,
+        Robert Jarzmik <robert.jarzmik@free.fr>,
+        Russell King <linux@armlinux.org.uk>,
+        Hauke Mehrtens <hauke@hauke-m.de>,
+        =?UTF-8?q?Rafa=C5=82=20Mi=C5=82ecki?= <zajec5@gmail.com>,
+        Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>
+Subject: Re: [PATCH v1 0/7] gpiolib: kill gpio_request_one()
+Date: Fri, 23 Oct 2026 12:18:38 +0200
+Message-ID: <179275071555.146035.13882849400290683549.b4-ty@oss.qualcomm.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260715185112.1323510-1-andriy.shevchenko@linux.intel.com>
+References: <20260715185112.1323510-1-andriy.shevchenko@linux.intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,113 +136,66 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261023063428.3658761-2-songmuchun@bytedance.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-Authority-Analysis: v=2.4 cv=V7LoQuni c=1 sm=1 tr=0 ts=6adb3482 cx=c_pps
+ a=qKBjSQ1v91RyAK45QCPf5w==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=xyndvWGceNBv60aQF6QA:9 a=QEXdDO2ut3YA:10
+ a=NFOGd7dJGGMPyQGDc5-O:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIzMDAzOSBTYWx0ZWRfX0WHvdIktowI1
+ cIN8YUPfIaC0I3bzlkOWN0rVi6q6a4kj+IBlxAPxTAX4njXzX6D0oIkqvdVwuXtFEDSwWg6WiOH
+ W3z7SEi6LZO9o9gcdYlLbGl6vLAtr0g=
+X-Proofpoint-GUID: H5kxIEL-_PUGcAJd6MXxceK_obGQxzwW
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIzMDAzOSBTYWx0ZWRfX+iRufClmQsd5
+ HJtF7aWz0iFLHHZA53LJJU70s9gs9L3YP4BZTorkJWmKYp+QHAX8lT2kw8uLuJJGAw0c+TnmUin
+ xJnoN7qpE8ZQl1tSiuY8qgoaXxtifjvizWLepHBNvUMPw8VIHtjUPk5SH7QcIG8FvDT/j6xZqVh
+ +3TFMPqJ5w4+k64wmadqcjhgaCmmt6udI/DQ7uIRbrj9sDjMAmbtd0NrMgtyXAx6WulnNy6A3cJ
+ 6rZPAbyWTmpPpjfB85fHQ38txguLND/FI7httwg1+BFpoEEGpphCVGEEqCg4WZYwkf96AdEtrdB
+ ECf+618cbsYXSKmhAu7tTDTlKz2RG+wKkbnCmHzdTWRTtqC/xmvFg/P2wxwW42bJXYmwwxmz5dk
+ uegy9unXiJTyIr75kF95lzhUJr+xWmgvkqF80o4ZXwsXR3cDSQnIZu27GJd0+Q+p83Z/ay+HpOx
+ nH0eajO+ObQapojYJTA==
+X-Proofpoint-ORIG-GUID: H5kxIEL-_PUGcAJd6MXxceK_obGQxzwW
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-23_03,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 adultscore=0 impostorscore=0 bulkscore=0 lowpriorityscore=0
+ malwarescore=0 priorityscore=1501 phishscore=0 spamscore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610230039
 
-On Fri, Oct 23, 2026 at 02:34:25PM +0800, Muchun Song wrote:
-> Since commit 49f599666420 ("mm: call ctor/dtor for kernel PTEs"),
-> pte_alloc_one_kernel() runs the page-table constructor for kernel PTE
-> tables.
-> 
-> HVO (HugeTLB Vmemmap Optimization) uses pte_alloc_one_kernel() when
-> splitting a PMD. Restoring the vmemmap backing pages does not collapse
-> the PTE table, so a later memory hot-remove eventually frees it through
-> pagetable_free() on x86-64. That releases the page without running the
-> matching destructor and leaves NR_PAGETABLE elevated.
-> 
-> Make pagetable_free() the common free-side primitive for page-table
-> pages. It checks PageTable() and runs the destructor only when the
-> constructor state is still present. Callers that explicitly ran
-> pagetable_dtor() have already cleared PageTable(), so they are not
-> destructed twice; pages that never ran a constructor are freed directly.
-> 
-> Fixes: 49f599666420 ("mm: call ctor/dtor for kernel PTEs")
-> Cc: stable@vger.kernel.org # bf9e4e30f353: x86/mm: use pagetable_free()
-> Cc: stable@vger.kernel.org # 39406c05f8f1: x86/mm: Fix freeing of PMD-sized vmemmap pages
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Muchun Song <songmuchun@bytedance.com>
-> Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
-> Reviewed-by: Kevin Brodsky <kevin.brodsky@arm.com>
-> Acked-by: Dave Hansen <dave.hansen@intel.com>
-> Acked-by: David Hildenbrand (Arm) <david@kernel.org>
 
-Reviewed-by: Anshuman Khandual <anshuman.khandual@arm.com>
+On Wed, 15 Jul 2026 20:46:40 +0200, Andy Shevchenko wrote:
+> This is the finilazation of the work announced in the commit 61e1fd2abca4
+> ("gpiolib: legacy: Make sure we kill gpio_request_one() first"). With this
+> small series we kill gpio_request_one() and leave only two legacy calls
+> devm_gpio_request_one() and gpio_request(), where the managed one has only
+> a few users and high chances to be killed soon as well.
+> 
+> The series is supposed to go via GPIO tree (due to nature of the last patch)
+> with possible immutable branch for others. Please, ack.
+> 
+> [...]
 
-> ---
-> v3:
-> - Explain why pagetable_free() does not run the destructor twice
->   (requested by Kevin Brodsky)
-> - Add x86 stable prerequisites (suggested by
->   Jose A. Perez de Azpillaga)
-> - Collect Acked-by from Dave Hansen and David Hildenbrand
-> - Collect Reviewed-by from Jose A. Perez de Azpillaga and Kevin
->   Brodsky
-> 
-> v2:
-> - Move destructor handling from x86 into pagetable_free() (suggested by
->   David Hildenbrand)
-> - Trim and update the commit message (requested by Dave Hansen)
-> ---
->  include/linux/mm.h | 37 ++++++++++++++++++++-----------------
->  1 file changed, 20 insertions(+), 17 deletions(-)
-> 
-> diff --git a/include/linux/mm.h b/include/linux/mm.h
-> index dd09c438fa23..466875c5908b 100644
-> --- a/include/linux/mm.h
-> +++ b/include/linux/mm.h
-> @@ -3812,23 +3812,6 @@ static inline void pagetable_free_kernel(struct ptdesc *pt)
->  	__pagetable_free(pt);
->  }
->  #endif
-> -/**
-> - * pagetable_free - Free pagetables
-> - * @pt:	The page table descriptor
-> - *
-> - * pagetable_free frees the memory of all page tables described by a page
-> - * table descriptor and the memory for the descriptor itself.
-> - */
-> -static inline void pagetable_free(struct ptdesc *pt)
-> -{
-> -	if (ptdesc_test_kernel(pt)) {
-> -		ptdesc_clear_kernel(pt);
-> -		pagetable_free_kernel(pt);
-> -	} else {
-> -		__pagetable_free(pt);
-> -	}
-> -}
-> -
->  #if defined(CONFIG_SPLIT_PTE_PTLOCKS)
->  #if ALLOC_SPLIT_PTLOCKS
->  void __init ptlock_cache_init(void);
-> @@ -3921,6 +3904,26 @@ static inline void pagetable_dtor(struct ptdesc *ptdesc)
->  	lruvec_stat_sub_folio(folio, NR_PAGETABLE);
->  }
->  
-> +/**
-> + * pagetable_free - Free pagetables
-> + * @pt:	The page table descriptor
-> + *
-> + * pagetable_free frees the memory of all page tables described by a page
-> + * table descriptor and the memory for the descriptor itself.
-> + */
-> +static inline void pagetable_free(struct ptdesc *pt)
-> +{
-> +	if (PageTable(ptdesc_page(pt)))
-> +		pagetable_dtor(pt);
-> +
-> +	if (ptdesc_test_kernel(pt)) {
-> +		ptdesc_clear_kernel(pt);
-> +		pagetable_free_kernel(pt);
-> +	} else {
-> +		__pagetable_free(pt);
-> +	}
-> +}
-> +
->  static inline void pagetable_dtor_free(struct ptdesc *ptdesc)
->  {
->  	pagetable_dtor(ptdesc);
-> -- 
-> 2.54.0
-> 
+Applied, thanks!
+
+[1/7] ARM: pxa: spitz: Open code gpio_request_one()
+      https://git.kernel.org/brgl/c/e4c5145a8c42b1ff8c36d209b265d65005fb2a8e
+[2/7] media: em28xx: Split em28xx_pctv_290e_set_lna_gpio() helper
+      https://git.kernel.org/brgl/c/aa6a84558231f61264bd09c8ef013c7bca63db1e
+[3/7] media: em28xx: Open code gpio_request_one()
+      https://git.kernel.org/brgl/c/492c8f997533acc550bc23be73b847f5e7bf3e75
+[4/7] MIPS: BCM47XX: Open code gpio_request_one()
+      https://git.kernel.org/brgl/c/878804621d798dc9eff6148732f74adbc45e99de
+[5/7] MIPS: BCM63XX: Remove one time use ephy_reset_gpio_flags
+      https://git.kernel.org/brgl/c/6eeba9dc60aa6a5e2a617c7e08a6ad4da325c1f9
+[6/7] MIPS: BCM63XX: Open code gpio_request_one()
+      https://git.kernel.org/brgl/c/1805476b1a49aea62787072b28d7a2d5880c53da
+[7/7] gpiolib: Get rid of not used anymore gpio_request_one()
+      https://git.kernel.org/brgl/c/dbc9f76c3ce301c76991574e1944a0d2a8717062
+
+Best regards,
+-- 
+Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
