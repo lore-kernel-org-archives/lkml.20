@@ -1,108 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792778368;
-	b=rwimspXF+7cdEKxcz0cdYhs0me9KujT/MTtx/A2PcmTWpOneXQF4SXBV1db6oweQA5Lg
-	 oge5vnVVfyz5guRN83Es2/ge6LLkaTnxfgTgGMV7Iyz9xuAb8teutTUoZudYzHun27S8X
-	 rEGWjn2JuVJtTv8EUnv5uv/ZtpsvgD/7kS9JUhFb8taHxe29bG+mkh6k246o/NyKqcQag
-	 M90hBrpf5/JF9WxXuD3Sr6eEYyHfQWsP9jzjtCaIxOotMAUWPTvLZDgFyuTWa4pfggMgu
-	 cmNaJqyPLBrhK0uz4p/d0xbq0+JwS0H1V3cljA6YhPqd/daQq57Pazi2iNdjegfoNlg==
+	t=1792778406;
+	b=LeJkcBDaUqHIyMn5pWuKBTy8tt4LwITZ9ST0XT7JmR6FAG1GgXFxg9ish3TesiHfzndC
+	 Eg7WFTkFhwVdCUTwxJtca89dArluDmiUmVWNLgXVuVyvhwoVa5AyNFDAlMlo9kWUJuJ/W
+	 h1sXtAS7LaZ9PRbsE2aqLVR7pvEcBKN7U+gcZZoz8FqKNRLXuqMw7G/8SQWRpURVTlmsN
+	 H5Zb/HIF7WsI/eFe2+Zj4J2Ga0e0bEN9YJGMg7CBrWJQGW22sgQXFNBABaNZZTxm0rb9i
+	 iMApkQVlneiCE7sXgYoRLnKB8ECQzrvux9mAbC/kBhPJynTR1WMYmQAa9QP8YjccOMg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792778368;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=qpKChd7cX2IKr3NLYeu19b4piYqsJmCK1pOKyiliy74=;
-	b=T3gtFjeq/bdLLhsIJU70px9V0O6eNE3YfhDCz4C2K2TcXT2/8ZOqwG309SfFULatqeLD
-	 aLhhKTXRqQFu0NGLC+dByrvaTDsvSnxgZfFdU0H537FK4EWc0933uB+My0g8r6z/GVWSa
-	 CeEI7iKuVuzZlM9mrzDW0pw3F0JPhjH+DvLB/E9OqDK9VlO+5B1F3apZt2voYQaPK1SNw
-	 4kRLbroc54SsTab/QMzHQl2RSwSYfl2YqBZt7e0QpPEh159Jpj4dGEXdsjIjp0RuPQbRU
-	 Y1SKogV3NcLvkQpfvNqtfVkykNPho71NX1WBaYu8zg8DEisSqTbYIB66igzrcfq10Qg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792778406;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=DDp0A+MFigzxNJJ7aGRNaZ0NPm+pvfW+yAUDHzje9B4=;
+	b=mvuh/ex3VAeiE0ss35UGtvsEY7fOBnArCiAQr4DfMj5M+02pWruH59SDQo/m2SWHt16W
+	 ds9cf6743ibK9PI1KaNHpMC4uSd2BVs3PYjJb0eqzmRsd2j/ILtU86uvYGd3y8IzvPDfS
+	 TU0BA9X6J3bh5ysV/xhnI29nyaNWbM0P+SEqE+XIaCdrr4COGX50bmvX9J2l5hI0+4j0G
+	 3ZQrksDga028RVdLVcFIl8IsM/5Sn5Ucla27+ElHbrfVLCMTNQGQ03Kg7CWqdtIs0zSsM
+	 YplLR0PD0CMMd3MFfBPVTybCiOETFzIb2hP4268Z1sjH8RtFVs9M4r1iWHYmiSagJ2w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=FMPVSIPU;
-	arc=none smtp.remote-ip=209.85.221.53
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VfhL0Q0M;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CE12606A31F
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 17:59:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8CE12606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBE30606A31D;
+	Fri, 23 Oct 2026 18:00:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=FMPVSIPU
-Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-48c5358fc28so973057f8f.0
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 10:59:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792778366; x=1793383166; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=qpKChd7cX2IKr3NLYeu19b4piYqsJmCK1pOKyiliy74=;
-        b=FMPVSIPUP4r2nJIpBzw+AnOH4syghw9n89Z8Gr3tcHyhYZgMPSW2wo/l9P2KmSJ6xE
-         JWW0NRo8Cd/tIuttGp9/u6xE7Eg5agM3nbdUJg9/0sJnaA0r6MYoWRVrBBYtC4EG3Bny
-         nhMSK4DUyGvJkJPZWKU+rkgxoGy5Wkh3FW1All8qDORLYNHrFMq+ixmvOR0XjB3fuzWg
-         UGvy3wPcZdItGmCc9upmVxpWcNNdbPdThBM/QOQUbsq8JhbkUQhKlyqxhh0DbCL5IFu8
-         OK3QcDAmweCwbP5xQOoi2yZwNAnRClPpbrAXkmHWqPOGmvQJVb/J9RVmF4KhqIqrCP/j
-         meEA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792778366; x=1793383166;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=qpKChd7cX2IKr3NLYeu19b4piYqsJmCK1pOKyiliy74=;
-        b=hUA30d5AT3+IOnjEnfLrSC0WC9vzWBgHoGla4xHO37bZbh+Gd59FDyewgL2Mql5ybi
-         yWhw9/Wms2cmCcajUQ4+ODi/HvW1yiUbf8sdxMhqeAUxBIBoscClaBW7F8dUObGOemUr
-         7N4w8F5j47x2Gr3PhFWHl24WcEwqxYw161wt1WLzqH8ZkPoeGEmWNGFuGmMfbjcIr3m7
-         mVKpYiskUrHYjk7FuAi6A1kCpP/RfGVPuID/uZzsE0SOT5k1Tb9G7dj7kIKy75XnfUcw
-         aoyTfN7+1TopoJzARCFiOo8ey6jbQzA0nlR8i5GyasxUrSvU1ZzxBA0LcrJpgd054J/j
-         XHPg==
-X-Forwarded-Encrypted: i=1; AKwUvBxmC2DPE1mTK+Y4E1QDg5jZU35wGDOIB3g5DAwR3YN9yPLipm6Wkf8WdnjPJ1U8cYtBLy9lxVL5Xk0wgGk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJFWITkGL46sjGP7S+h1FdN5DEyTm1RSWNL+jMWgEm4YJe2Meze
-	dlmvg5x1m+Rfu7tpUxdE7l2ob2mc/unvendZSAQ58P6rGHwkWPzhb3bb
-X-Gm-Gg: AYBFou2jiorKrJc2NCL5ufB2lqjUqXHbejGBUhEI9TVK47C4ptYL0OF26h9pZxlahKs
-	tj/MiI+QVIHx8HHiEew0+Hvhruo+NZu5ab5wmATA/A0EBJku9eoPMmdDV2mYWo2QKfi3KRfhUaV
-	ZtDaX5ghff3WEbiAb7x6Koau0PXaObMD31d6hyL+/T4O17EkmR9CBNodd6sIHo03UqZ9TyWDmul
-	opgGLlR47OH6yK5K9iMQrdG3rc8DmwoHrU/0E2R2tjO0DFjhKacoz66oYUJfiBrXXhxrr7DontU
-	vuIuWZ1HqviX29lJPa+G1drEQ87pRKTfzHjPX+rknm1SJig73at675kSnrwbz9QGaEb6GPuOGOo
-	byAIN1AAXfiEXv312dMzLd21RBwXevkghLdUbVEiHHiNbpWf5fdMa9ZqZ73TEPH51DEXgM9sHUf
-	9eXWi0jyzFLGANiSKysxQv2rQUB87t9IBG1Z9zh7QawSb7LfheYXb4yl+oQzF8o23UpZWFS9euK
-	6fRRjZ8oorImCGb3Hx01ekUQY6Rg9wSaIcj2dsxqO0P6JxzWCWoQUANxJzJAKtIjf/68jdVkYUL
-	zOBXN0bYlue2xamgOXe0G1JjiR0F97oPeS0TYTZx2WnZDMPJuOl4w9xZRh2cyLhOrJy124SCd5a
-	NhF0g07hCMvBQ8yVYYhcxedSN9ra5Gmxb3d/ibd6O+FUK
-X-Received: by 2002:a05:6000:46c8:b0:488:8384:c382 with SMTP id ffacd0b85a97d-48e385a2ca8mr3518753f8f.49.1792778365736;
-        Fri, 23 Oct 2026 10:59:25 -0700 (PDT)
-Received: from iku.example.org (host86-133-9-17.range86-133.btcentralplus.com. [86.133.9.17])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3d37ca2asm1342800f8f.8.2026.10.23.10.59.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 23 Oct 2026 10:59:25 -0700 (PDT)
-From: Prabhakar <prabhakar.csengg@gmail.com>
-X-Google-Original-From: Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-To: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Andy Shevchenko <andy@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>
-Cc: linux-iio@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Prabhakar <prabhakar.csengg+renesas@gmail.com>,
-	Biju Das <biju.das.jz@bp.renesas.com>,
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: [PATCH v3 0/8] Add ADC driver support for RZ/V2H(P) and RZ/V2N SoCs
-Date: Fri, 23 Oct 2026 18:59:11 +0100
-Message-ID: <20261023175919.160103-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VfhL0Q0M
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 070641F01825;
+	Fri, 23 Oct 2026 18:00:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792778405;
+	bh=DDp0A+MFigzxNJJ7aGRNaZ0NPm+pvfW+yAUDHzje9B4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=VfhL0Q0ME1zf1G0Ev37XUBSIpVC5MhcWS4fPpuj1be0JwpfaiFNLj7MLQf5Zuq330
+	 pZn3wqbBdOrQ0nNxZGThq9eAzYOCthq5WQi4/hbmt5WUKvP9uRCGX7kVo8ZR1GSRnm
+	 PoH9rIP37YRaZ8WvQqSBXdRZBH6b6LP5mb4Toq4d+fpx+BQf8zvNaP+MTJ/9R1Yiv1
+	 tZbB/iY1IjimtxnR4+Oy3yv32SLN9obPKt1gS95vgd9g+qVQBLj07woSOP3nQj1SuP
+	 5+GKyQhMsNqgngZk7yDKPSPZLq99LJ04PEdoHWk9fAsdbFv6mbcvI0I6oVzFBadDi9
+	 DDVTZRn+385og==
+Date: Fri, 23 Oct 2026 19:00:00 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Alex Elder <elder@riscstar.com>
+Cc: p.zabel@pengutronix.de, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, mohd.anwar@oss.qualcomm.com,
+	lorenzo.bianconi@oss.qualcomm.com, danielt@kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Daniel Thompson <daniel@riscstar.com>
+Subject: Re: [PATCH 1/2] dt-bindings: reset: introduce
+ toshiba,tc9564-reset.yaml
+Message-ID: <20261023-bok-thong-0181aa7f3867@spud>
+References: <20261012164354.3872326-1-elder@riscstar.com>
+ <20261012164354.3872326-2-elder@riscstar.com>
+ <20261012-shale-rosy-805c49f6c404@spud>
+ <492396bc-a0f4-4274-9a7c-21fd5fd886b5@riscstar.com>
+ <20261012-numerous-flatworm-9e4cfa659541@spud>
+ <325b8836-61a2-4e1c-98e3-92f0a5177f9d@riscstar.com>
+ <20261013-stump-reactor-055d05dc5b3a@spud>
+ <b904f4ea-e198-488e-a6dd-476d744593da@riscstar.com>
+ <20261022-clench-drum-5907c17cb8d2@spud>
+ <638e0f29-1ec9-4a6a-8777-fecef1bff409@riscstar.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -112,58 +69,53 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="GVAs1dKU9VYJ6n1d"
+Content-Disposition: inline
+In-Reply-To: <638e0f29-1ec9-4a6a-8777-fecef1bff409@riscstar.com>
 
-From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+--GVAs1dKU9VYJ6n1d
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Hi all,
+On Thu, Oct 22, 2026 at 02:05:12PM -0500, Alex Elder wrote:
+> On 10/22/26 1:34 PM, Conor Dooley wrote:
+> > On Wed, Oct 21, 2026 at 02:50:41PM -0500, Alex Elder wrote:
+>=20
+> This syscon driver and "sg2044-topsys.c" are awfully trivial,
+> and they seem like they could be wrapped in something along
+> the lines of "simple-mfd-i2c.c".
 
-This patch series aims to add ADC support for the RZ/V2H(P) and RZ/V2N
-SoCs. The ADC IP on these SoCs is similar to the one found on the RZ/T2H
-SoC but varies slightly in terms of available channels and configuration
-options.
+Yea, I guess there could be some sort of trivial driver that covers
+these syscons with match data that contains the mfd cells and is
+effectively just a probe function that looks like:
+static int _probe(struct platform_device *pdev)
+{
 
-v2->v3:
-- Added Ack from Conor for the DT binding patch
-- Avoided splitting up the ndelay calculation into multiple lines
-  in patch#2
-- rzt2h_adc_pm_runtime_suspend() now checks the return value of
-  reset_control_assert() and returns if non-zero. This is to
-  avoid churn in future patch.
-- In rzt2h_adc_write_scale() used multiplication() operation
-  for comparison by dropping the div_u64_rem in patch #8
+	ret =3D devm_mfd_add_devices(dev, PLATFORM_DEVID_NONE,
+				   match_data.devs,
+				   ARRAY_SIZE(match_data.devs), NULL,
+				   0, NULL);
+	if (ret)
+		return ret;
 
-v1->v2:
-- Dropped using DIV_ROUND_UP_ULL to DIV_ROUND_UP
-- Included time64.h
-- Returned -ENODATA in case device_get_match_data() returns NULL
-- Renamed RZT2H_ADC_VREF_MV to RZT2H_ADC_VREF_mV
-- Updated Kconfig description
-- Included array_size.h
-- Dropped unnecessary extra line in rzt2h_adc_write_scale
+	return devm_of_platform_populate(dev);
+}
 
-v2: https://lore.kernel.org/all/20261009184122.1378797-1-prabhakar.mahadev-lad.rj@bp.renesas.com/
-v1: https://lore.kernel.org/all/20260929124248.237032-1-prabhakar.mahadev-lad.rj@bp.renesas.com/
+The devm_of_platform_populate() you don't need, but there's other
+syscons that could use this that contain subnodes too so might as well
+accommodate them.
 
-Cheers,
-Prabhakar
+--GVAs1dKU9VYJ6n1d
+Content-Type: application/pgp-signature; name=signature.asc
 
-Lad Prabhakar (8):
-  dt-bindings: iio: adc: renesas,r9a09g077-adc: Add RZ/V2H(P) and RZ/V2N
-    support
-  iio: adc: rzt2h: Wait for the analog part to stop after a forced stop
-  iio: adc: rzt2h: Add chip-specific configuration
-  iio: adc: rzt2h: Add optional reset support
-  iio: adc: rzt2h: Prepare for SoCs without sample state registers
-  iio: adc: rzt2h: Prepare for SoCs with different ADC info
-  iio: adc: rzt2h: Use scan type for ADC scale
-  iio: adc: rzt2h: Add support for RZ/V2H(P) SoC
+-----BEGIN PGP SIGNATURE-----
 
- .../iio/adc/renesas,r9a09g077-adc.yaml        |  38 +-
- drivers/iio/adc/Kconfig                       |  10 +-
- drivers/iio/adc/rzt2h_adc.c                   | 327 ++++++++++++++++--
- 3 files changed, 346 insertions(+), 29 deletions(-)
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCatugoAAKCRB4tDGHoIJi
+0r2KAQCd80g6NJ2CllOLxW6dtWZaZUqTuNmkhDXrHyk74T35qQD+PwOWHbI3TGFj
+UdWTac9ync9JrHoKIrmy6eRjwSrt3Qw=
+=h2sz
+-----END PGP SIGNATURE-----
 
--- 
-2.55.0
-
+--GVAs1dKU9VYJ6n1d--
