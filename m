@@ -1,111 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.157
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.118
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792739306;
-	b=DLSAnhDjrv467w2hNZU5rOwud11xWyf1mGTQ6UdSJGzA2kDvFKSCI2iZK8htFS1CKxt4
-	 XM3LMlGpkkY4fweQT8Ig5qA77+F44/JWjrR9IJyCSLoXf4UisGjCpPFcfqrZ2JNJoJN6E
-	 qmZc9DWL0+YM98DPYvERTcUzMgRXfEl9Inxq3NAaIJ0kX594EGe1sEqzalJTueOfshLAZ
-	 +sT35wfrcsIzW2Ln7qUPkaq7A7vN7FIsby39AIKlmh/IrH+z07hR4QCOJNAYsYEzvmpGN
-	 FruVgyWIjBrRycT5cBVUCbWzb7kLP4lUA5MYLyNCZC4lRGR3aEMiAy24nrT2R6bX+FA==
+	t=1792739350;
+	b=vSG23Mkr8lJ8tfT9nvO6/tXW09rmV+Y0QQjlrNMR5ED7aC8PwjQxWDi4tpxJRsL0Bwu/
+	 DVRoyGAjCzXh0wqBdH1IGooXS70N8YIJ0kilwiAl6e9W/vELczPGJ2id0papJLU/mkAT7
+	 AtakOx/qKZuoLE6vZdEKjzjdfFoYLdK8dJIKANz9ODmHWdjVGkaJzTsACbLv/Ec8Gh835
+	 iJyVqdwOqq8BgiTKuFN0cy10pNQPIhilLmaYdRr+ocQUmaBsqGjfSR8iF/Vf6BbI1TyEs
+	 0IviAKxMa18xODhOi3ljZCtI7DDlotO9QywYgdD6oJH/kPIhx6c6gJs0rSdB3x+AUkA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792739306;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
-	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
-	 References:Subject:Content-Type:Content-Transfer-Encoding;
-	bh=82Wx7AX++5oKqGU7LtU3ThMwJm2RmYtBbwXGfMG0TKk=;
-	b=Mp2Ds820QwqCZhM12wNNjrGeLLXSCbP0Cvj3Bdc/Hk8dP5tM8PRMXoLc/eSXjgYMYpCS
-	 I/RThg45huk+JAi08wb8iN1sY39EqI2nhsmEt849xfW1+72xNRbyrNCUaOGSJOH2yHBxv
-	 IkTMEYO/2FHWpAGzMaB/LBy9ezjYTS1e/pv8t373W9h9JdvyKcPfaLKa8+Rqzn5I5BpHD
-	 dXUmssKtukl6H5RERHwWs1/YepmOGdibYCBJUVwmRHrtCcIfuYAnRC6MSxjLmng9bTs8Q
-	 2bxShAwewRh3kFTwGLd4ZYVR4nJoUB0q532hOeiIqUJScM3M7kmqRD8Ipkd85IQ7XrQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792739350;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=gvgYpLS83V3S26ukRbON8rhR0vUKj9WSZRuvm289hrM=;
+	b=DZG3DCcH4UQlKp+pgVtoUlyLwIQ20MR7FwJNcBc9vTNP/henRvGENfTfEHFDpezbZo2k
+	 OMSbp7sWrX6IkXNUoshAiWs+ejWqcQlcnFzO4Tly5pV1Xcm3Nkog470UvZ5Y6nQ7kxSWW
+	 vRy4IFCI4YGikbCDBVF/eOvKNWLVf8ZS2lUVk489Go6i5AHxW1IEWedB+OBrSyTa+xXsx
+	 09OUyyf8ZwzYuUr+6TozVyU9rkYCwCHYvU79QWXGBCuEOfWfQdUdBObhzMBOtQUggDGpG
+	 z7WbHl9EAMu5bdorj11NNPUnPhjQ8awcM5xqIa9HgM9V6z7jL4Iz9xdURZpJh0jaeHA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arndb.de;
-	spf=pass smtp.mailfrom=arndb.de;
-	dkim=pass header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm1 header.b=c19a0Zg+;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=IzH7f6Aq;
-	arc=none smtp.remote-ip=103.168.172.157
-Received: from fhigh-a6-smtp.messagingengine.com (fhigh-a6-smtp.messagingengine.com [103.168.172.157])
+	dmarc=pass header.from=linux.alibaba.com;
+	spf=pass smtp.mailfrom=linux.alibaba.com;
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=XALZvYdj;
+	arc=none smtp.remote-ip=115.124.30.118
+Received: from out30-118.freemail.mail.aliyun.com (out30-118.freemail.mail.aliyun.com [115.124.30.118])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 367E4606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 07:08:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 367E4606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEAA0606A31D;
+	Fri, 23 Oct 2026 07:09:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CEAA0606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm1 header.b=c19a0Zg+;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=IzH7f6Aq
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id 226171400141
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 03:08:24 -0400 (EDT)
-Received: from ams-imap-03 ([10.64.2.23])
-  by ams-compute-02.internal (MEProxy); Fri, 23 Oct 2026 03:08:24 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1792739301;
-	 x=1792825701; bh=82Wx7AX++5oKqGU7LtU3ThMwJm2RmYtBbwXGfMG0TKk=; b=
-	c19a0Zg+QIb2Dbuwv6n4IvjO5KfIy/sxA4HSfKDAn6rECQ/Byrr1Pyh44Nq5MDdj
-	iwqULif5RsC3BS1w6XFP9n4dRNgB5nenXQPKuSCfENHhGU5yczBCDpEEux/Aibi/
-	LKZK/rO4uCLsFmy4lgP3eHsVI1Gz8eqE2TcqkHX3CUHkIP+3EUJBrv8+zyGuegjT
-	c+esDiasbtWVd5/weCbuItM/wNT7dXinhoQ5X7vFuQs4uxfQTMZtqdADUHuiKp5Z
-	TxvefglbYAfArQjtmM4Xt5cpjwnCuuMbiiQvQXoiW6o74rAcqKEaStGLXfBX7SiH
-	AAd8YFBZO8jpbyLg8wu+Wg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1792739301; x=
-	1792825701; bh=82Wx7AX++5oKqGU7LtU3ThMwJm2RmYtBbwXGfMG0TKk=; b=I
-	zH7f6AqSdBND90jz/5bLpcjnO1PPDBhuZE4OpkBx1vaAY8yD9rqtwIy6witS5U1+
-	S1lS/ylH9mGtdgv6yKCiVD3A9yu+/648VkU5v2/eRdRA1cYdt7Bd3oiWhaSUNS4V
-	3dzph5Gf4jboGvFknvocCLLJyNOSgBbFiI7Lw/ICNO0hdD4y0FCqzZ+n9bugYOr2
-	YbWg58f08uQQ7wx3J5Qs9Hk7ec0zsGYY08CZ+9/TJmvkVMQ43yO6IUBRG3xUCU88
-	ue8AGOS7aZULQkk6dOY41G/CJ20jl3T9OMz2vsr+f1Pv+xIomRY+R5VziZgbLoao
-	LGyD35QsFLCjdl3VdmN5Q==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
-	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
-	action=sign d=arndb.de a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1792739301; d=arndb.de;
-	mf=PGFybmRAYXJuZGIuZGU+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:KoN3xNCEdNbfyvnYJ+e1PDf9gFnEE2qtmQV+gRuobcKW4Bv
-	PXy3DARqnspQ6CmVj4S0NvjuRvjZTdr2WxKdHI/89ZLQLr35SZO2aVlp+LEB7X5B
-	t+HJOHhYkkc4KuXWHGMLOigUpkq3lEeV039TA0ufPknJ14LI50U7sXHYBkKOZLL/
-	WKNzetMfwU14qSU5WWpKrgevd3jZD8qrYym9gvcAYTMHC84kBO2bPdIU+xKBHQL3
-	5eAiLexkRGIchQOcXbb+gZaDFaAYbs8iBPCLHETG0wN6Bh0tNm6mzMN8uyR7m9Zn
-	Dt35Hw8d/ifow3+chTPEG9MqZuPSrdSOHo9OcLA==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
-	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:eYicQZ4ZI09WKrUrzJ0vPIeuBu1/hfNmh/I/rUWrrPk=:+RJtS8dO2Obx2wQVHsui0+l0ARPaU3Cr9jdggohi87o=;
-X-ME-Sender: <xms:4gfbahUuKH9ZFY5KUt2iBe70UwKsmprjmKsGsGtWhFiqTNTmKfXzFA>
-    <xme:4gfbasZQbcpiHysVj_uISbnoD1UerQN-OyjtXXa8JuPI9yLF9GOtGPcATxF4jU_dm
-    RpM_Qofbv1hR6juVWtsnGsLy1_Z0ce639xf8rmmFnKhqhdvsC8OiA>
-X-ME-Proxy-Cause: dmFkZTFb9RAUOZ6dUYOBxlsQW6+NOLcFOtIqKejPOpG//e5EOnn73Jow7cHdL9QLax9Vl4
-    mQIG9ImqNAGu2AOcI+PMHEYaRAKaoYQmJe7EicQwC+zm+CfjWQEUMSQSUEWutUtMV/K64S
-    7NGqAup3qVnHlKkxv2vOySnM8AiEed5GpMq/CBjyvQJooi1Qgaq9igJ24H58IGGl/6Hs/X
-    WgvclVdyQXrPhNOotNeI91YZMhViuWzGC/5ZUHXqafqBXL5kQvdcq+vWxIDXPCCcku5puJ
-    vwcnY4JPjjCjK+LC+Ci6JJS53MwVvwlG9lMzBlC1C5tBgLW/vDMVLWcEaFnga+9aB+T1rE
-    qzT7ZwfNA8B0lggFMqhnKL9a6YkWAWcJm9vZVLG3My/pNQdAlF8HouzD7upJANuVRRQSM8
-    4AlFrD4Fg25fI2DHus1/Zlivl0PmZuWxwEQi/QGXvTONaD4nBliL2N+aGDOkYWu159YaaT
-    h+PJ6CDMYG2RRGsMbZ8sFqKKDgbIO00ZMk+0od43T1O4KyfbZLAvLYAgKSwcgVNtuYFZLs
-    sMSNBKzzTt1Q10tUs76oc7XsZGUWS4G9wAvdyBZiVNELcN8XtkNwU3JTwPyQVc32XtWG8i
-    TdOnTnSllV+hE9ztqM9/bDp9vSEr3fdNUA+7F9nt1GFLvkV8o/DQpyKl5xsQ
-X-ME-Proxy: <xmx:4wfbakJDruj2EROYUzs_RBReiWpgVVkuiJzjpAtbLo7gPFJBaFq2Dg>
-    <xmx:4wfbahvLu8po85o_dUQyT7b2crNr5JO5cyZd34ojtGdBdaPzNuSpvw>
-    <xmx:4wfbarIqA0DIFcQjRVUJPTBZcHhBFPD5Io3_fJmK4XF50_n1o5xklw>
-    <xmx:4wfbai_ugRnzpQwGdUHdhovaYc2erGP5Ep-O0FQTW-PP_kqd_UkUrQ>
-    <xmx:5Qfbas9Upsv89iheNnSmX3PtUNzbBvOtC4Wwfou4vhKTUr8ryP1Q41Li>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id 0684032A0093; Fri, 23 Oct 2026 03:08:18 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=XALZvYdj
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1792739345; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=gvgYpLS83V3S26ukRbON8rhR0vUKj9WSZRuvm289hrM=;
+	b=XALZvYdj42xFmcm0u1rx/iNObZBLVDEkt294DpkJwSsVwC2mOKXmBWGRFTRfGllsaBU2aOoBxjEyVt5zt/VfrG7fSJasO91tWRkjQaOcrps3l/kxQ95LcOIoUpO8XY1xBKCRRm/izf4XtW5F50wV1JNcZpUUswnvK8KKfCC/IzM=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R101e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033032089153;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=9;SR=0;TI=SMTPD_---0XDLMPQI_1792739344;
+Received: from 30.221.129.69(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XDLMPQI_1792739344 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Fri, 23 Oct 2026 15:09:05 +0800
+Message-ID: <31b48648-c157-49f1-94d5-d1b927bae1c9@linux.alibaba.com>
+Date: Fri, 23 Oct 2026 15:09:04 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,58 +53,169 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-ThreadId: AJ6RlB2RkjcF
-Date: Fri, 23 Oct 2026 09:07:57 +0200
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: "Florian Fuchs" <fuchsfl@gmail.com>, linux-sh@vger.kernel.org,
- "Yoshinori Sato" <yoshinori.sato@nifty.com>, "Rich Felker" <dalias@libc.org>,
- "John Paul Adrian Glaubitz" <glaubitz@physik.fu-berlin.de>
-Cc: linux-kernel@vger.kernel.org
-Message-Id: <04cfcbc2-0021-4ba2-b3bf-0da3cc82d046@app.fastmail.com>
-In-Reply-To: <20261022233410.2959823-1-fuchsfl@gmail.com>
-References: <20261022233410.2959823-1-fuchsfl@gmail.com>
-Subject: Re: [PATCH] sh: traps: Fix kernel unaligned access fixup in branch delay slots
-Content-Type: text/plain
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4] ocfs2: cache the mount context for dentry lock
+ callbacks
+To: Cen Zhang <zzzccc427@gmail.com>
+Cc: mark@fasheh.com, jlbec@evilplan.org, heming.zhao@suse.com,
+ ocfs2-devel@lists.linux.dev, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, baijiaju1990@gmail.com, jjzuming@gmail.com
+References: <pm-ocfs2-objects-candidate-0012-v9-eeb9084fb29577971229@gmail.com>
+From: Joseph Qi <joseph.qi@linux.alibaba.com>
+In-Reply-To: <pm-ocfs2-objects-candidate-0012-v9-eeb9084fb29577971229@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On Fri, Oct 23, 2026, at 01:34, Florian Fuchs wrote:
-> Commit 75d4d29549e5 ("sh: remove CONFIG_SET_FS support") converted the
-> callers' set_fs(KERNEL_DS) sections, but missed copy_from_user() in
-> handle_delayslot() which relied on the caller's address limit. This also
-> broke delay slot instruction fetching through handle_trapped_io().
->
-> Since the removal of set_fs(), access_ok() rejects kernel addresses, so
-> the fetch always fails for kernel code and the kernel dies with:
->
->   delay-slot-insn faulting in handle_unaligned_delayslot: 0000 [#1]
->
-> The initial instruction fetch in do_address_error() already uses
-> copy_from_kernel_nofault() for kernel mode. So choose the matching
-> instruction-fetch accessor from user_mode(regs) and fetch the
-> instruction.
->
-> Fixes: 75d4d29549e5 ("sh: remove CONFIG_SET_FS support")
-> Signed-off-by: Florian Fuchs <fuchsfl@gmail.com>
 
-Hi Florian,
 
-The patch looks correct to me, but I find it a little confusing:
-
-> @@ -287,8 +287,10 @@ static inline int handle_delayslot(struct pt_regs *regs,
->  	insn_size_t instruction;
->  	void __user *addr = (void __user *)(regs->pc +
->  		instruction_size(old_instruction));
-> +	struct mem_access *insn_ma = user_mode(regs) ?
-> +		&user_mem_access : &kernel_mem_access;
+On 10/20/26 10:25 PM, Cen Zhang wrote:
+> ocfs2_drop_dentry_lock() drops the inode reference before releasing the
+> DENTRY lock. This lets inode eviction release the local inode and open
+> locks before a remote unlink can proceed past the DENTRY lock.
 > 
-> -	if (copy_from_user(&instruction, addr, sizeof(instruction))) {
-> +	if (insn_ma->from(&instruction, addr, sizeof(instruction))) {
->  		/* the instruction-fetch faulted */
->  		if (user_mode(regs))
->  			return -EFAULT;
+> A DLM callback can still arrive before the DENTRY lock has been dropped.
+> ocfs2_get_dentry_osb() obtains the mount context through dl_inode->i_sb,
+> which can access a freed inode when the downconvert thread drops the
+> last inode reference in its post-unlock callback:
+> 
+>   Downconvert thread                     DLM callback thread
+>   ------------------                     -------------------
+>   ocfs2_process_blocked_lock()
+>     ocfs2_dentry_post_unlock()
+>       ocfs2_dentry_lock_put()
+>         ocfs2_drop_dentry_lock()
+>           iput(dl->dl_inode)
+>           [inode reclaimed after RCU]
+>                                          ocfs2_blocking_ast()
+>                                            ocfs2_get_dentry_osb()
+>                                              dl->dl_inode->i_sb
+>           ocfs2_simple_drop_lockres()
+> 
+> Store the mount context in the DENTRY lock resource's l_priv field and
+> use the default mount-context lookup. Recover the containing dentry
+> lock with container_of(), as already done for refcount locks, and remove
+> ocfs2_get_dentry_osb(). ocfs2_dismount_volume() shuts down the DLM before
+> freeing the mount context, so callbacks can use it without accessing the
+> inode. Preserve the existing iput-before-unlock order to avoid delaying
+> local inode and open lock release until after the DENTRY lock is released.
+> 
+> Fixes: 8ed6b23709b3 ("ocfs2: revert iput deferring code in ocfs2_drop_dentry_lock")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Suggested-by: Joseph Qi <joseph.qi@linux.alibaba.com>
+> Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
+> ---
+> Changes in v4:
+> - Drop the convert-worker change from v3. Keep MAYBE_ORPHANED marking before
+>   the extra-reference check, including the dl_count == 0 path needed for
+>   local orphan cleanup.
+> - Retain the osb cache from v2 and the original iput-before-unlock order;
+>   remove the incorrect worker-lifetime claims from the commit message.
+> 
+> Changes in v3:
+> - Move the inode lookup and MAYBE_ORPHANED update after the existing
+>   FREEING/dl_count guard and successful extra-reference acquisition,
+>   addressing Joseph Qi's review.
+> - Keep the osb cache from v2 and preserve iput-before-unlock ordering.
+> 
+> Changes in v2:
+> - Preserve the existing iput-before-unlock order and cache the mount context
+>   in the lock resource's existing l_priv field instead.
+> - Recover the containing dentry lock with container_of() and remove the
+>   inode-dependent mount-context lookup.
+> - Correct the comment describing the dentry lock's inode reference.
+> 
+> Link to v1: https://lore.kernel.org/r/pm-ocfs2-objects-candidate-0012-v5-a0413a339b72c02fc885@gmail.com
+> Link to v2: https://lore.kernel.org/r/pm-ocfs2-objects-candidate-0012-v6-17b58652a3505eeecb0c@gmail.com
+> Link to v3: https://lore.kernel.org/r/pm-ocfs2-objects-candidate-0012-v8-d01e30cb3f465e294c0a@gmail.com
+> 
+>  fs/ocfs2/dcache.h  |  5 ++---
+>  fs/ocfs2/dlmglue.c | 16 ++++------------
+>  2 files changed, 6 insertions(+), 15 deletions(-)
+> 
+> diff --git a/fs/ocfs2/dcache.h b/fs/ocfs2/dcache.h
+> index 7f246c5692d8..046ab9a80769 100644
+> --- a/fs/ocfs2/dcache.h
+> +++ b/fs/ocfs2/dcache.h
+> @@ -17,9 +17,8 @@ struct ocfs2_dentry_lock {
+>  	u64			dl_parent_blkno;
+>  
+>  	/*
+> -	 * The ocfs2_dentry_lock keeps an inode reference until
+> -	 * dl_lockres has been destroyed. This is usually done in
+> -	 * ->d_iput() anyway, so there should be minimal impact.
+> +	 * The inode reference is dropped before dl_lockres is unlocked.
+> +	 * Callbacks must not use it to find the mount context during teardown.
+>  	 */
+>  	struct inode		*dl_inode;
+>  	struct ocfs2_lock_res	dl_lockres;
+> diff --git a/fs/ocfs2/dlmglue.c b/fs/ocfs2/dlmglue.c
+> index 88d946466083..437a726834c8 100644
+> --- a/fs/ocfs2/dlmglue.c
+> +++ b/fs/ocfs2/dlmglue.c
+> @@ -58,7 +58,6 @@ struct ocfs2_mask_waiter {
+>  #endif
+>  };
+>  
+> -static struct ocfs2_super *ocfs2_get_dentry_osb(struct ocfs2_lock_res *lockres);
+>  static struct ocfs2_super *ocfs2_get_inode_osb(struct ocfs2_lock_res *lockres);
+>  static struct ocfs2_super *ocfs2_get_file_osb(struct ocfs2_lock_res *lockres);
+>  static struct ocfs2_super *ocfs2_get_qinfo_osb(struct ocfs2_lock_res *lockres);
+> @@ -258,7 +257,6 @@ static const struct ocfs2_lock_res_ops ocfs2_orphan_scan_lops = {
+>  };
+>  
+>  static const struct ocfs2_lock_res_ops ocfs2_dentry_lops = {
+> -	.get_osb	= ocfs2_get_dentry_osb,
+>  	.post_unlock	= ocfs2_dentry_post_unlock,
+>  	.downconvert_worker = ocfs2_dentry_convert_worker,
+>  	.flags		= 0,
+> @@ -309,7 +307,7 @@ static inline struct ocfs2_dentry_lock *ocfs2_lock_res_dl(struct ocfs2_lock_res
+>  {
+>  	BUG_ON(lockres->l_type != OCFS2_LOCK_TYPE_DENTRY);
+>  
+> -	return (struct ocfs2_dentry_lock *)lockres->l_priv;
+> +	return container_of(lockres, struct ocfs2_dentry_lock, dl_lockres);
+>  }
+>  
+>  static inline struct ocfs2_mem_dqinfo *ocfs2_lock_res_qinfo(struct ocfs2_lock_res *lockres)
+> @@ -610,13 +608,6 @@ static __u64 ocfs2_get_dentry_lock_ino(struct ocfs2_lock_res *lockres)
+>  	return be64_to_cpu(inode_blkno_be);
+>  }
+>  
+> -static struct ocfs2_super *ocfs2_get_dentry_osb(struct ocfs2_lock_res *lockres)
+> -{
+> -	struct ocfs2_dentry_lock *dl = lockres->l_priv;
+> -
+> -	return OCFS2_SB(dl->dl_inode->i_sb);
+> -}
+> -
+>  void ocfs2_dentry_lock_res_init(struct ocfs2_dentry_lock *dl,
+>  				u64 parent, struct inode *inode)
+>  {
+> @@ -624,6 +615,7 @@ void ocfs2_dentry_lock_res_init(struct ocfs2_dentry_lock *dl,
+>  	u64 inode_blkno = OCFS2_I(inode)->ip_blkno;
+>  	__be64 inode_blkno_be = cpu_to_be64(inode_blkno);
+>  	struct ocfs2_lock_res *lockres = &dl->dl_lockres;
+> +	struct ocfs2_super *osb = OCFS2_SB(inode->i_sb);
+>  
+>  	ocfs2_lock_res_init_once(lockres);
+>  
+> @@ -652,9 +644,9 @@ void ocfs2_dentry_lock_res_init(struct ocfs2_dentry_lock *dl,
+>  	memcpy(&lockres->l_name[OCFS2_DENTRY_LOCK_INO_START], &inode_blkno_be,
+>  	       sizeof(__be64));
+>  
+> -	ocfs2_lock_res_init_common(OCFS2_SB(inode->i_sb), lockres,
+> +	ocfs2_lock_res_init_common(osb, lockres,
+>  				   OCFS2_LOCK_TYPE_DENTRY, &ocfs2_dentry_lops,
+> -				   dl);
+> +				   osb);
+>  }
+>  
+>  static void ocfs2_super_lock_res_init(struct ocfs2_lock_res *res,
 
-The "insn_ma" pointer is always the same as the 'ma' argument
-you already pass, as both are set based on 'user_mode(regs)'.
-Why not just use the pointer you already have?
+Don't see any difference between your v2 sent before.
+BTW, it seems v3 is also missing.
 
-       Arnd
+Thanks,
+Joseph
+
