@@ -1,109 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.155
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.146
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792720378;
-	b=u7sWJhxO3VGh4sE8tfFjBYpdZ54JBE7LydDKWEOoHqu772T84qpj+h6wwdOb70xoLuBu
-	 dWGgezCL+B5K9l4CCs9w29QUTfRvW7DJcqBHH3wrWZpbGAFSm8Res1AzBq+qEgeM36O5c
-	 O6VSafACJRTqYIK+MUlK3T9DHjDLifYhI24dY/UK1IZaIjyc/Dw6mtUrcToTupZ5d0LQz
-	 WWVYWh24mK+fWZ/PCWAjmd1w+eXHuNfRYMIrtbIhoxEANvjpujTsMD+zoco2ElYa5IKAx
-	 3e5f9CUjrUyAIYn6+b/8jgf8IvnTZpNuIEeruztRRInr1nlc7U0+rqSsw5qwoSxvL5w==
+	t=1792720392;
+	b=u8jqTlRtjWEP2LU/wITEFrP53KirBqSwrSARz1XhWMoDP+oAGWnTiVaIlg3tsJorhCTV
+	 hQb2JTAbO88z2+NcbXoPQDAcKby/lGa5a1LDvyqFwXuPggmhTH3CaxQkeKm5JYHU8cXAs
+	 pxTvFPBiUXaLHnkW7jPpYiGHmWWGmYadrHcX3zjjFr8zwqIOaM1xsT51Xy5jZ9kEKMt1W
+	 cnl0/P/6Jai2CoTbHeWkEJ2Lp8swuR33Kfz5UW1dhpOrWbo87rDjJ96+bwfuQSI9nrDsU
+	 oYilLgSkuf5d+Clu5me2rLVtZi/aSOduIMA2f7e2ZyWGFGlEtC+cn7LCpYvG6wPNX0g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792720378;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792720392;
 	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
 	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
 	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:Reply-To:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=cD6ambGXB73ssJDqyApt39o6A0cgIPa1xebyQdqUuRM=;
-	b=rLcYT+PrYIycbqcUSmq58eZWFG2DdeFAEpBPqIwLwsa9YlbfcfgUPHfy0pIyntt8Njsz
-	 UwDJeDKJnbvQEskjcXOKX4U3F1c6Vsc+MvdeeFDKYDxO2EDZclanccCNGTmkvb/TKReKo
-	 CKyTl9hAXnclTuQLdCLnl2MN8tAqJ0YRQblSUlFkZ/Y6N/wd1/hVf0CEA3dRVoL4Lvkae
-	 YsHtQu8uIDfZJdY8mWHHcAOOALG6+icmPHAVIeEKqsqEzmqLKLlv34ee87tK4gBP/nljU
-	 95wHSr1xbiVNFgaf/3Jg7ieFzMtGoVnTfUxUAEyOmGY2nWokYIMVQD8YeHvjMIgLE0w==
+	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
+	 References:Reply-To:MIME-Version:Content-Transfer-Encoding;
+	bh=MnDjfXQvhYCS9cbXLtzi/mnGhccb8pedJ31lXybm9f8=;
+	b=TE9POuNq3e7/DXbXQYTbbYUbo3QECMv6Z5qj8b6aU/EhWWPqJZWQzyH9KkvO0tKbfTvP
+	 xl/NtTqY807C5GULzSa/nALI/CPlozxhXoIS29KvxwmoDn+5XSWroIUxdZ+08bEZu0ifL
+	 C+2dDYfppRQPuOzYKt9g8H5RFply/VsPZyUMZhQI74ev5kZWznd0vL2eY2jFk75XWl0X7
+	 MobS/r+OL0T/KzOGSDnGyUJ77Rysd+ooaQ9yY5pjY5B4qBYZP8dBvAW6vqJgwnVjMYdM6
+	 G6hHg0V1MxIwg/0O8E9zcZT7qv2nJaI+m3bvoQppe1rzFEasl+Pk0SbUxaOmatZ/Y0A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=ownmail.net;
 	spf=pass smtp.mailfrom=ownmail.net;
-	dkim=pass header.d=ownmail.net header.i=@ownmail.net header.a=rsa-sha256 header.s=fm2 header.b=QpP9QY6M;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b="eFjE7Ys/";
-	arc=none smtp.remote-ip=202.12.124.155
-Received: from fhigh-b4-smtp.messagingengine.com (fhigh-b4-smtp.messagingengine.com [202.12.124.155])
+	dkim=pass header.d=ownmail.net header.i=@ownmail.net header.a=rsa-sha256 header.s=fm2 header.b="jh/AwZJl";
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=EY2wNQRL;
+	arc=none smtp.remote-ip=202.12.124.146
+Received: from fout-b3-smtp.messagingengine.com (fout-b3-smtp.messagingengine.com [202.12.124.146])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EB60606A319
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 01:52:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5EB60606A319
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 598D9606A326
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 01:53:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 598D9606A326
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ownmail.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ownmail.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ownmail.net header.i=@ownmail.net header.a=rsa-sha256 header.s=fm2 header.b=QpP9QY6M;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=eFjE7Ys/
-Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id DA30E7A01DF
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 21:52:57 -0400 (EDT)
+	dkim=pass (2048-bit key, unprotected) header.d=ownmail.net header.i=@ownmail.net header.a=rsa-sha256 header.s=fm2 header.b=jh/AwZJl;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=EY2wNQRL
+Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
+	by mailfout.stl.internal (Postfix) with ESMTP id D49301D001BB
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 21:53:11 -0400 (EDT)
 Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-03.internal (MEProxy); Thu, 22 Oct 2026 21:52:57 -0400
+  by phl-compute-01.internal (MEProxy); Thu, 22 Oct 2026 21:53:11 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ownmail.net; h=
 	cc:cc:content-transfer-encoding:content-type:date:date:from:from
-	:in-reply-to:message-id:mime-version:reply-to:reply-to:subject
-	:subject:to:to; s=fm2; t=1792720377; x=1792806777; bh=cD6ambGXB7
-	3ssJDqyApt39o6A0cgIPa1xebyQdqUuRM=; b=QpP9QY6MAbuqUjvJ+DIH9BS3/u
-	iW14dS+f+LnhSrqZ0oD67fW5hdjoPEcfmO9FLmi/qqs5asSsSqDWvjUCZlWevqa/
-	wAEcrRh5eevv5TMJGW3HE1QnO5EAs1Ru/60dxdHQopd+HbQdMsZH1cyV3Hbe4GIg
-	LDlKNTDcmIdDqXROjJu2fODCM+vHI4HV52+OmNF+zY9ThAsjbPX4YPdo1QPpc7lI
-	qz+LCaI8PuA33J/CPtQ23TT3akQTUroWo83xc97i1tfCHOmxETABtxLGJU3IT3NV
-	/i6eE2RxwlQLBZW4kjbj/i4zorDD8ca2WYoE+KgD7Wc7uftjbgEp9fLAAR0w==
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:reply-to:subject:subject:to:to; s=fm2; t=1792720391;
+	 x=1792806791; bh=MnDjfXQvhYCS9cbXLtzi/mnGhccb8pedJ31lXybm9f8=; b=
+	jh/AwZJljvqnlvwguxwcMvo4F9J1T83FkwgDzMnRHEcg/ffHX2AMnsoBOrvW0tlo
+	6cwEgTZs6JaD+zfu5JPqk/QpNhcn2kHFRY+2HArKjY8wPNhgKXBVIisUxBIieJuo
+	BdVKa/1yIRUWNf8dHRZzeJJDHUgds134A90svFfeHr4AF2+bLKvwEOd0zu6TdOl2
+	Mzr6Nn5UN9bxuS/1WCJm8H1vUGmuofgHNOVyMRlRl/D5OlRAT1uYLJo3d9II02FS
+	DJkaon3AVT6ZvWCR87tfxwtBYz3eY2YORxqxejkPhSXN6Thq0ZzvzTqYprYmo6MH
+	nrDVvXLOQQey7Bk3i45m/A==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	messagingengine.com; h=cc:cc:content-transfer-encoding
 	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:message-id:mime-version:reply-to:reply-to:subject
-	:subject:to:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
-	fm2; t=1792720377; x=1792806777; bh=cD6ambGXB73ssJDqyApt39o6A0cg
-	IPa1xebyQdqUuRM=; b=eFjE7Ys/awcQQ2GanV7ZgDGv1OSyoMkpdosheOsW3pPn
-	Fh7BSvWjtFwVdxhG7ThkktCWk90XFeR2kg5RlV3XtN4Iw3bLAK5QhpWNNKMXC5Tm
-	yxIDMyNcOpiNSoGZxeeKkEh720q7v/4yTVLazvmG6bXwuv24jf8fTQKjbL6RciVQ
-	o7E3n5Wrww8VXDaWMYYabcmyLLF1P62fZKyEgGu/m4HdRL+sFq2IDoglpWbKBfpY
-	FHNvDoBI3PN/gzIScGH0OXQfXQAZIh79VTCtJToVsuYH2Zl/7LJhh4RU+fosDA6p
-	s29dadf54kIlbzreQD1PGUFTfbojbHzdw4+HpkxJHQ==
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
+	:x-me-sender:x-sasl-enc; s=fm2; t=1792720391; x=1792806791; bh=M
+	nDjfXQvhYCS9cbXLtzi/mnGhccb8pedJ31lXybm9f8=; b=EY2wNQRL0XEeGH3ke
+	fhknkEIyDKCqhvtNNVSABUzQBGg0bxOkxoC3qQ7GJ1RT938JkGTrMzoiU5XJn5vm
+	wJYGoMjUppVjD+2AB60JnKrDdgzpiLzrlTOfApl+IPVY/RasEN0gSZyK+XdkP+Xh
+	OuFglHZnmwdyY44mlWeVn1AomZa7OtM7IMAj/aVu26hx5BQohKggYYP1EuwO7Who
+	vqfw22GO8uLQPHYWF86d0fFh6oeIRg8wl88OJ7/AQXIfpbfTWqvg4y44e9WX4gXs
+	hMpKZq0VJ9WB2sQrRh96ou7xx3ub9+aiTrottcOHM/zNzxXTKhH54ZsiOdQpUE+q
+	sLz0Q==
 X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
 	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
 	action=sign d=ownmail.net a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1792720377; d=ownmail.net;
+DKIM2-Signature: i=1; m=1; t=1792720391; d=ownmail.net;
 	mf=PG5laWxiQG93bm1haWwubmV0Pg==;
 	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:CPwwSrzfaU7aGnrCmODJ/Q9PEe8zQoorbtr+UR+woV0HYG2
-	vr4eDIC5wPcxWqCHR5b0XZh4nOlpXXgvxzyRBf2yWgax7chFP5SsEmU7plmb+Uex
-	+XF+N37kWTOciOArdiOQb7hAc3H6vhu8FpvKqAqo2DUi0BGWmgX2cQ+7Rur0bGy7
-	2ngsXY9Bww0J81IpplXGZ+MJ6F5MptNRKKuyBz8JRxlWMeqnD2+LI9GqX+bZzPNQ
-	Aht4HL8RQxwz8AyWGuDoPRekRjtYJYbzmq7XgHunQmNmT1hc9JqD/4RwPFngJmuA
-	PUdzKiAqbJSXHC+9eDoXqtZVWxRGRj5Sgq5vBKQ==;
+	s=fm2:rsa-sha256:l7H2GhQcSfqdmPb1maN6X/HZ0FfiTbsntOB5pmBYD5eycmA
+	rJAcmi4eTutngFdIGzqqEjCU0zWG6cgczAksYcshdl8QlSi7W0tyVArMxxCbKjag
+	KWI8MYo9B+8hU2dGGVb+uWRMQ4Ai/6COPJdruiUFFUj0znsLpaCjTxThhqfQBD0P
+	KmG0QHQ+0lftoIpL/16R5Ji4U663yXF/h9glXqUqYRYr0Ni4nRUcrF9uQaymIpYq
+	YqeUxiOjAqQE5a0hm4+cQdpZTcY0Nz+7JIM22YyY7ord84aiX+SUgn5fE5IH4apc
+	bXNuwtykVxisT1MsAzM6RbhCfgfZMzJx6F8MlNA==;
 X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
 	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
-	action=mi-m=1; hc=10;
+	action=mi-m=1; hc=12;
 	hn=cc,content-transfer-encoding,date,feedback-id,from,
-	message-id,mime-version,reply-to,subject,to;
-Message-Instance: m=1; h=sha256:4JF+ZIJSDd7a16bsXCTNVhi2lGpaY06Nq339RHB4eWw=:cD6ambGXB73ssJDqyApt39o6A0cgIPa1xebyQdqUuRM=;
-X-ME-Sender: <xms:-b3aako_IvVolgK7BOrImE92ONp8rTF8UChink8JxqgFNTOb48_9qw>
-    <xme:-b3aattvHtkJwSRSA_tZjkAkDVxEIu06IKVAxf3DRTZv1UcHsO-bov3-A7MJcENzj
-    Jmj4DAxtQiu5SE2R7zL0dv97Am98eJdgge-21xwhV7neoSV>
-X-ME-Received: <xmr:-b3aaj06di6yjiga3y5hSaCvWMoF7VUgF1ebajmGzx_CmdwwRC0wfJERqj-PQVNg-6Gjh5jlpzcRRm87jFxE9iswshOus7s>
-X-ME-Proxy-Cause: dmFkZTERkwtIMOGUZMHMdY1kHqHFpz+WwWYtGMcExDBZbCYs2pEUua7f29LsxCZoqkDSTD
-    +/WHgNys0etvqLuX1rIqICejHIe8wtKISjKnDpOKPWqIYxCsE1Rs4ylY4TB3oGDg6uRMjn
-    RRoz6QE810emuHDqMQ+daw1Y0EPY+pSTFZ4Yff8B9SHUx8PzjZPrkGWAO7+EMrqIrTEefc
-    +LvVZnRNXDwa3M6fndQBYDQg5o9Cm+VCU2BUbxKZ2p8KVygcMh9wyz2MytjXxl9Uf9DNMb
-    bDq2L55Xs1KIYaMXH4T/8nRgCKwadPwL+U9v2OqNqlsG+87a59trm+c4CjTQmLC+UIAfSj
-    jHTEZjx6UxObjglHaHBnSyP3d/SyEAO3NzIGpc11ct0TF8r9W+N7F/oAdLgT5TaNpIwkHY
-    wRmEqf3r74XvLq9yKj4Ncs0y+yZEZGRYNeT4UPULxL6q6mduEnhu5K2veewu1qrI+iPx05
-    KAY+/tMT8JFl+lgWx+IIJGBNAvn97Lacvh7IYAFhhXvXccAwc9QwjjE4L7PNTCO4FwBxIr
-    axn+0Q4m0ZYI5XMCXbALPo5pR5kBqv0+hnmVZZ+RTFuraIH/C9La5myOc3bhYO+QTkKkTV
-    qOaEDVMKNtx5qXTWY0BNXHaZ9C6NjQfyn4WVtpGENVaeL/tI5Rv8jxAP3FBQ
-X-ME-Proxy: <xmx:-b3aaoER6G_myrOJoMPPjqIsT-WHWUI6Wx4Zx_K1Y7jVqHybOWIRJg>
-    <xmx:-b3aauvCNbq6nzn0CUX_xhFjjrt4pXAJZQslhIsf6HE_MgsnvrxUvA>
-    <xmx:-b3aarowGdPVwT0_cQN-nMebut41GL-e20-NE1xFsPVWK-7YX4P6QQ>
-    <xmx:-b3aalWdc0QZr8rEaLtXW7HrSkvVctuvZWSfipJGaMrrBUsY00LHNw>
-    <xmx:-b3aakjjWEFaFPLo_VVEo-RM8WuE2nKh3k8xDoB5JPfD0ZQP0PjPWMV1>
+	in-reply-to,message-id,mime-version,references,reply-to,subject,
+	to;
+Message-Instance: m=1; h=sha256:QWIPftl74jpgrYjmKu3JnLpD5/4WxHQ8cn497yenQfE=:Rj8mrG4OhoDtc/K0+ngf1ncfakHuLIQICnf7WPsuw6U=;
+X-ME-Sender: <xms:B77aapvqKnWayVLdxSG-WskzeLeLI1Bl7QLZ7dB93BEjDfqCc82AGA>
+    <xme:B77aalgnZlPQF7SCWvdDVApknBcvQgwqo_itGZowCy9aSWaxuIsGmztMxGcM3jWi5
+    tjnkjZ6yxUTG4bDjxxOv1hUa5RBQPonQZvIROApobS7KzL_kg>
+X-ME-Received: <xmr:B77aanaoFTtDNuOsGqBJ_tEvhQMTSGyXy_2YAco19dxutiG0_t_HaC1hYEMZILcuecNn7qBMnnDF2hID0-PsmlPI9ILm2Nk>
+X-ME-Proxy-Cause: dmFkZTExLsW4SpLCAv0tdT8e4ZPZyVz4IupNhJEO2SD3abqv0hzNCt0wHCU9mnuewgcb3C
+    8m9r5e3YKSPGnPB5PYtZBGCtADj2rC8TRrl1Bc3fUQAcoD/QlA9OXRwyejoKLjNMy4BgBR
+    4LbEnQXkypLxZ3m4X/K/R9IRkdumNmSBKPe/sfK+vfZjOaMBax2CiZaO2EgzLsHG6TJvVg
+    RpN12/waUzArwE0mLwMuNeArpooRt4XVRLhGwsa86uWcBuDyb7Qho3ZSdk2rEHCSbKf9p0
+    4ukEKjRnVkvK5y+ofxTRlX1T622kiTdxG1JD6FQoOO8gRlRh/mERVb6ZQ5j3LkSoNAI4tB
+    AIOXcyscG9mOK229rzjMebCA4vTLFzBu1yge0GP8lsvOXXet8bOwoLv/VVisAMNC0f9rvo
+    3lbQuNynXCErCWqOAGbDZzUMv3dlIUweTHYv2/Sv98SesR5iSKDchXL3t0kgd47Y6WUU1O
+    0chHWEFmSrM2KdDmhGj3F4G0WQtoNoKf/JovhRcfaHMO7Q0V2TcTG6xiGsBUmCDSb0qf7y
+    6Dn5t1An+Icd5I7KxpFM/IENNqo0vNpMNmaXY8i/81L04BdsNs3MDDVoUdglMqQmjU0J6t
+    PAEMa2sVEoJX3AdN4s1POjGg+k4FHx4eIUyx7KkGlBnRSzgIOYkev88DYqVA
+X-ME-Proxy: <xmx:B77aasY1XRdyoK0r8ueakRe3vFC3h3bsozir1YhbGCjInGEiyYMLIg>
+    <xmx:B77aakwySIvjB9VZJ6lqnnCdPNQbfNY2U8ACwBIpUf4BjnXStDA1cg>
+    <xmx:B77aagfDbzM10crvHgoaiMbxh7tEu3358jZDZe9LmgPxyByPDDLR_Q>
+    <xmx:B77aah4WvbUmxOlERb1QHt8AjCoV4GRUOr7cvRV4lrQMiJQD5rDmuw>
+    <xmx:B77aasXfaNEYzKHqy8OTb2JLhqBGpMIoZHVHXfACUXWfJ9QTDqYeg1hC>
 Feedback-ID: i9d664b8f:Fastmail
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 22 Oct 2026 21:52:54 -0400 (EDT)
+ 22 Oct 2026 21:53:08 -0400 (EDT)
 From: NeilBrown <neilb@ownmail.net>
 To: Trond Myklebust <trondmy@kernel.org>,
 	Anna Schumaker <anna@kernel.org>,
@@ -114,10 +117,12 @@ Cc: Jeff Layton <jlayton@kernel.org>,
 	linux-fsdevel@vger.kernel.org,
 	linux-nfs@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 0/9] nfs: prepare for locking changes.
-Date: Fri, 23 Oct 2026 12:50:10 +1100
-Message-ID: <20261023015239.2163480-1-neilb@ownmail.net>
+Subject: [PATCH v3 2/9] nfs: fix nfs_call_unlink()
+Date: Fri, 23 Oct 2026 12:50:12 +1100
+Message-ID: <20261023015239.2163480-3-neilb@ownmail.net>
 X-Mailer: git-send-email 2.50.0.107.gf914562f5916.dirty
+In-Reply-To: <20261023015239.2163480-1-neilb@ownmail.net>
+References: <20261023015239.2163480-1-neilb@ownmail.net>
 Reply-To: NeilBrown <neil@brown.name>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -130,23 +135,37 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This v3 adds Anna's Acked-by and fixes three bugs found by Sashiko - all
-error-path related.
+From: NeilBrown <neil@brown.name>
 
-1/ patch 5 - make sure d_drop() gets called in all error cases
-2/ patch 8 - dput() sdentry on all error paths
-3/ patch 9 - check error return from d_duplicate() correctly.
+nfs_call_unlink() calls d_alloc_parallel() on a dentry which has not had
+the d_hash calculated.  d_alloc_parallel() assume this is calculated and
+doesn't calculate it itself.
+So this will never find an existing dentry and so will not detect
+the races it aims to detect.
 
-Thanks,
-NeilBrown
+This dentry ("alias") is never hashed so there is no lasting
+inconsistency in the dcache.
 
+Fixes: 565277f63c61 ("NFS: Fix a race in sillyrename")
+Signed-off-by: NeilBrown <neil@brown.name>
+---
+ fs/nfs/unlink.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
- [PATCH v3 1/9] nfs: fix open-blocking with d_fsdata
- [PATCH v3 2/9] nfs: fix nfs_call_unlink()
- [PATCH v3 3/9] nfs: remove d_drop()/d_alloc_parallel() from
- [PATCH v3 4/9] nfs: use d_splice_alias() in nfs_link()
- [PATCH v3 5/9] nfs: don't d_drop() before d_splice_alias()
- [PATCH v3 6/9] nfs: don't d_drop() before d_splice_alias() in
- [PATCH v3 7/9] nfs: Use d_alloc_trylock() in nfs_prime_dcache()
- [PATCH v3 8/9] nfs: use d_alloc_trylock() in silly-rename
- [PATCH v3 9/9] nfs: use d_duplicate()
+diff --git a/fs/nfs/unlink.c b/fs/nfs/unlink.c
+index c8d712204e64..11a46a993e11 100644
+--- a/fs/nfs/unlink.c
++++ b/fs/nfs/unlink.c
+@@ -125,6 +125,9 @@ static int nfs_call_unlink(struct dentry *dentry, struct inode *inode, struct nf
+ 	struct dentry *alias;
+ 
+ 	down_read_non_owner(&NFS_I(dir)->rmdir_sem);
++	data->args.name.hash = full_name_hash(dentry->d_parent,
++					      data->args.name.name,
++					      data->args.name.len);
+ 	alias = d_alloc_parallel(dentry->d_parent, &data->args.name);
+ 	if (IS_ERR(alias)) {
+ 		up_read_non_owner(&NFS_I(dir)->rmdir_sem);
+-- 
+2.50.0.107.gf914562f5916.dirty
+
