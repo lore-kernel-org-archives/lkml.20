@@ -1,79 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792743682;
-	b=YsgV+6KjFV8xmrlhW1C1isQqKhjk4/Lf1V1D+c8YSX9MS00l3W6NSm2lZBH10D71gh67
-	 TNAkOKkh3gx5a5Qicb1PJP/45J1cn88DSt9IxDn1MszJfyCrM0S+CVZ1WN9o3/JLVJDQp
-	 t5lUv08VRim5UAaUQru5GPTw1PV+eUwNxqZvNXrjotkUK3mroccl8Z5Z753ehlwALtmHk
-	 bomU5yUzhJOC1w2CtxhiSORqSmNoLjSk+vs4LVPDAngCQmy0F+HvP8T3udllDbJYljZ3y
-	 1WzAfQSJzi3vDwChZ5Ql2UQITvkyt3AcryTvPR1qoaa0P5P9ZqqQv4PQkSa7kxse2mg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792743682;
-	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=M3JE++dbaV8C5sXy1QFm4dJO2E5jczTPA8T3a7KBBrk=;
-	b=w16zx82pgudVUTzTXBqVxg6xJSnmksy3kGu0Hvg39+qMrgHtNK16d8cCoKySSFL/r12D
-	 MVogGAcuZF1VcpEdgCvCX9vXUCj6H+cW1JENusP/FAcGIRqhYUWflstcTp13c0V0J/VFM
-	 2DlvyT/8fYCBqQ4g81aUZnNLj6ys4YnqoJrdCZDwOliL1WXdc6nu5T63Zo/xpPnoL+G5S
-	 eN8oIsQm+oC2wJHCgM4He+7FMPe6tIqRHmaTAX9mYStY52RFxbsIXPbYGkbaE8RkYqfMZ
-	 bBrfxcJlHcDrHdncUsht/rEU32B7+3/1c1pHkFiIhcGcleY0QRJ2ykhlFOF61f7+WXg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N+6aFS12;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1D8B606A321;
-	Fri, 23 Oct 2026 08:21:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N+6aFS12
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1792743681;
-	b=ThYx9QsVXVA2VKk7D0EHSt7nAjUr0vkiF3s20A+KHMNfGsyL5hOkRUfNiJcC50JuQ+Xd
-	 fOCmdkU1sIWji1SL002LEPcLk+Vtu8rcg9KqeEwx5qPb/ujMHclACGUO8GziihqduZ+RV
-	 cww9PtQAxftNBvqJuCLYcCASO2BqI/5uh8rN4/MpneEhIG+CcfOMCc/jRYZxsIlIWIw8e
-	 v6VaGJU1X4AXgQWMv/xcUVq2Kl5H4bUzu6TNdktQWB1LiQ7WPQ5jjeHQEDDHO3BoAqjWH
-	 BFqO4pvu8pbTw+PpoypOdWzuU+DyD8ru9I4wLTxcMhQVX/yhXgt5DNgaaLRvLGVwQoQ==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1792743681;
-	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=M3JE++dbaV8C5sXy1QFm4dJO2E5jczTPA8T3a7KBBrk=;
-	b=m6sxvxUqCeLeFla+kwjCZ3HRXe50LLCh21M7B8rbar0FfETql6bgHxsbjDB9W3GikYsU
-	 tI5gw+XuZr9ylmyes1H6+Jn4C5F8ncCMtngDML0d0Mihecraq5ITCxuTNrVc6eBo8XfEP
-	 u4JW2Y/BtX0OK4DNmAIE98gfQOYkO5Vcaga7MuVUdjvIHkMriQCVjZQLvZMSMsLKrENl/
-	 6DcnnPHAU2PiqA//7mz6zc3EYF8SnHsFguN7BExCYG5UdRFfkP01uIuyi6Ypt5c9jA1YU
-	 Q+RhDrv0TmKLRqGSMum1SE7cK5LbsWpE90LUr4U3khHxlvQjPaZ9SpvCVFnsAW3fpxQ==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=67.231.153.30
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792743695;
+	b=Wee1JZycae9HVoxzKFxpjMQlwtoBwJTFhJyovTCGs+w+t3BAVTmxdNV4BtjbFB05C9mP
+	 n/l3Ez5bLBjqYE7qC+8ISQ49uNnYluVADubK3pC7jcAKv+yaBI79CcHCC2XVI1sTGDRL0
+	 kGdeNr3VucCy4eol1StEV4XJrQdl6dD5Lu5y6WWpHOJh21O4oo7KFGgozcUANi7Hbq5du
+	 aTdgx2/5timxbNwvGICaBTQMfAYaNp4Awg5fWj8H5Bo9sBNdOTv6sewtKxWhv30otZnC3
+	 oweX5krh+hnS2jnWD+3/zIoKDnq0GLmqpK6zCuDx5bKWhx96Fp5CJFkb9C/lXRV+A/A==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792743695;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:From:To:CC:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-Proofpoint-GUID:X-Authority-Analysis:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Virus-Version;
+	bh=p6NHsQh6FnQZ5O5CU2muMwdS/Y29oiEXUuDekOVD+lI=;
+	b=Jg2D0iKEm4RPOQmj8WOLVS4+gKeE3Wx5uTbqtmLBF6s7GG5pEDTuJrF/3cs97OeVSokE
+	 JE3eJIH2hYQ3Ei0BJckrRKLcIO6CUDrQ1F3fq498Zd4bkx3w96oGD5YLOzsSMtcJhhCZE
+	 NSQBTdozcagnB25MBKgiH5j/7AsY/X1zpYEv6hKwoHmLkfAO3opGM2GldaNJCuCZxWXSQ
+	 oIFfBDwywPJlUxTmV+EFAU7lrtfIsT8qYCKxT6qxFoBu211z8Po+xvVY9woh0+9dByvNN
+	 XAF+wcBmlUcMrD2tJrgKVplgfyMrv9tDZ2MIg0GvVmFdejmJaoJntaetI3mDvxZfCjA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=meta.com;
+	spf=pass smtp.mailfrom=meta.com;
+	dkim=pass header.d=meta.com header.i=@meta.com header.a=rsa-sha256 header.s=pps82601-s2048-2026-q3 header.b=Fu036nvQ;
+	arc=none smtp.remote-ip=67.231.153.30
+Received: from mx0b-00082601.pphosted.com (mx0b-00082601.pphosted.com [67.231.153.30])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 2D7DF1F01828;
-	Fri, 23 Oct 2026 08:21:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792743681;
-	bh=M3JE++dbaV8C5sXy1QFm4dJO2E5jczTPA8T3a7KBBrk=;
-	h=From:Subject:Date:To:Cc:Reply-To;
-	b=N+6aFS12MLbAGWDmZpfF+/7NCFW8TKljJ3V1gd0/RAe3OsfQs+QsbaJNZe39dlltf
-	 ccXnCxI3cS7Lub6Zz03u+4u56C11agUXHr06/IzsVd56/JZ2PFCrfpVfmVZJqs/71l
-	 CHPgJNkpOT3MqyU5U1Vu6BHfBSfWjP+svlKanUY6MrbfGsYIj5JBf4J1WXfFalZXFi
-	 SCjnVV3K5BJw5MLkFlwjAVDLoZZ15FE77vV/WKg6ofA1Gvl3/f5e5SShqeJU63P3pw
-	 1sQDzekvp+g3WEWc8JPDPZKnzc8ukn2c6jVVHtupbO0XFHw+70F6wYBul70OEDZO40
-	 UBLviGcv+T4Gg==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id B80FA4441C;
-	Fri, 23 Oct 2026 08:21:20 +0000 (UTC)
-From: Ishu Brar via B4 Relay <devnull+patches.brar.si@kernel.org>
-Subject: [PATCH 0/2] drm/panel: Add Samsung AMS644VK04 panel
-Date: Fri, 23 Oct 2026 13:51:15 +0530
-Message-Id: <20261023-panel-ams644vk04-v1-0-56096aecd0ff@brar.si>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50C2A606A323
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 08:21:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 50C2A606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=meta.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=meta.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=meta.com header.i=@meta.com header.a=rsa-sha256 header.s=pps82601-s2048-2026-q3 header.b=Fu036nvQ
+Received: from pps.filterd (m0109331.ppops.net [127.0.0.1])
+	by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69N7F9PA3370087;
+	Fri, 23 Oct 2026 01:21:08 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
+	:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=pps82601-s2048-2026-q3; bh=p6NHsQh6F
+	nQZ5O5CU2muMwdS/Y29oiEXUuDekOVD+lI=; b=Fu036nvQ3WEPMhkWHrIOM3XX8
+	kaV/aG338cCigSnvGUtXoYFzxQKqZ2zLKSFuzDG9hJ96X7QgB9qUQb50hZx9znCE
+	NbZzSbMHnl/VAXQoijs4tTArmSb87K97i5YVYTb4QO29NFB9QjsBaJU5JMElKN1F
+	a0wLux2Iz+94JPLNgfXBmk6gBMOEpTSWEL+CeorkTmsVMvQQgHa4Oc1nXf4e2Lk0
+	rfo/IdRlBZcuhd/9HEBuHKDAiji5zWP20ghnulGiSfRu+Ra7zZxXD4Z/RKAW5dql
+	LW0i9ORRjPSDTg4bMPD2limTu/OAXX2WObsFqEemB9eafxWbvHdCJ/TACowFQ==
+Received: from mail.thefacebook.com ([163.114.134.16])
+	by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4hf9mx9fp9-4
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+	Fri, 23 Oct 2026 01:21:08 -0700 (PDT)
+Received: from localhost (2620:10d:c085:108::4) by mail.thefacebook.com
+ (2620:10d:c08b:78::2ac9) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.56; Fri, 23 Oct
+ 2026 08:21:06 +0000
+From: Ruben Hakobyan <hruben@meta.com>
+To: "Michael S . Tsirkin" <mst@redhat.com>,
+        David Hildenbrand
+	<david@kernel.org>
+CC: Breno Leitao <leitao@debian.org>, Atish Patra <atishp@meta.com>,
+        "Jason
+ Wang" <jasowangio@gmail.com>,
+        =?UTF-8?q?Eugenio=20P=C3=A9rez?=
+	<eperezma@redhat.com>,
+        Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
+        "Alexander
+ Duyck" <alexander.h.duyck@linux.intel.com>,
+        Andrew Morton
+	<akpm@linux-foundation.org>,
+        <virtualization@lists.linux.dev>, <linux-kernel@vger.kernel.org>
+Subject: [PATCH] virtio_balloon: batch large descriptor chains for page reporting
+Date: Fri, 23 Oct 2026 01:19:19 -0700
+Message-ID: <20261023081923.164950-1-hruben@meta.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,74 +84,141 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMyw6CMBBG4Vchs7ZJOzbE+CrGRYt/cbxU0kFiQ
- nh3iiy/xTkzKYpA6dzMVDCJyidXuEND3T3kHkZu1cSWW2f5aIaQ8TLhra3309N6g3SKHNmDmal
- mQ0GS3395ue7Wb3ygG7cPLcsKOeVzJXQAAAA=
-X-Change-ID: 20261023-panel-ams644vk04-ef8b2b24e222
-To: Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Ishu Brar <patches@brar.si>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792743679; l=1791;
- i=patches@brar.si; h=from:subject:message-id;
- bh=CmyaiwJWwoIMm1mdMGXzb84Z0m35G/pLGpSpkLPfqbk=;
- b=tWJfdchfzzcMsz0ZZmLr/J/rhEsP7HlXepsJOewkxdR9nqjFRuWQScnNSu8dZNObkScA23PTQ
- AjiVFN0U98sDzyZtaohbhJu7AvzvLqfvnWHRoTIyhZHbwRiHwjauXsP
-X-Developer-Key: i=patches@brar.si; a=ed25519;
- pk=Ds+E23E3ntzjPzuBDyVRkOouclcNI5k75R+N42yJtCk=
-X-Endpoint-Received: by B4 Relay for patches@brar.si/default with
- auth_id=1189
-X-Original-From: Ishu Brar <patches@brar.si>
-Reply-To: patches@brar.si
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Proofpoint-GUID: Omy9UxNFoTOB8myOSsMFCBtB-vJiFFj1
+X-Authority-Analysis: v=2.4 cv=G7iJgNk5 c=1 sm=1 tr=0 ts=6adb18f4 cx=c_pps
+ a=CB4LiSf2rd0gKozIdrpkBw==:117 a=CB4LiSf2rd0gKozIdrpkBw==:17
+ a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=7x6HtfJdh03M6CCDgxCd:22
+ a=wpfVPzegXHpEFt3DAXn9:22 a=mkMtH7XpAAAA:8 a=vovA2YXZAAAA:20 a=VabnemYjAAAA:8
+ a=LV-WQNVlgMwP2ZNcymAA:9 a=I9Slk6e--tAXHahELIuT:22 a=gKebqoRLp9LExxC7YDUY:22
+ a=bA3UWDv6hWIuX7UZL3qL:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIzMDAzMiBTYWx0ZWRfX5RHn0ccRY3Ml
+ ky9o5oDxxlRFybnZs3KeOk8IgLegqv3Yahh2CN193WW0jmCW2Rdvoin8tkgtd+0ASH4fnq9IAw9
+ WrBLv6rAdvsdtevjikpuTi8V8iWTFBM=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIzMDAzMiBTYWx0ZWRfX3HENgCL76aT+
+ B5UNIbQlly8qbDPiTF4iQ+tTSENOkkwLcCbBXVjhBtas7kTH5o7VHziBuVQtc93h9RdqW3tu7yE
+ GZocXJCy3y/ANm/EPyd8yRI5/jjB0Zjx74cQZUAflun79JVDQQHUfCu9uWgthmBNFxVOpRsFvMz
+ BNmme7scFMaeXfCJU9AOACGmcTmtapblc8xTcCScmAClop3xsGBGNx6RYsUrbM2+kwl7l6r0rzH
+ yo+4BypdDdhpOXbPRSQDKnKLkNLBq1QGaBVSE9UOMl6gPmtP2Pf34Wmo2JqrU9hMu0MfSSaEnkw
+ l2Lg0v7U6iqhOvxBvG9mPe4PnAyfetvsouINCHi+0IgHT424lB2Qjbv31LZhrNBSP8+1WM01YoV
+ R5ozoJuwh5j8fpIgP0yDrWMRRNwFtNBseanSfNcLVWhEdHQH887qeY/ku8rhcX5x7YPxNAkp0Ln
+ B4fv7k/byhbC89C90rQ==
+X-Proofpoint-ORIG-GUID: Omy9UxNFoTOB8myOSsMFCBtB-vJiFFj1
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-23_02,2026-10-21_02,2025-10-01_01
 
-Add a binding and a driver for the Samsung AMS644VK04, a 6.44 inch
-1080x2400 MIPI DSI command mode AMOLED panel with DSC, used in the
-OnePlus Nord (SM7250).
+The virtio_balloon driver reports a scatter-gather list of free pages
+to the VMM so it may discard unused pages.
 
-The driver describes only the 90 Hz mode for now; the panel also does
-60 Hz, which needs a way to pick the mode from the display pipeline that
-I did not want to invent here.
+For an arm64 kernel with 64 KiB pages, the default reporting and
+allocation orders allow entries ranging from 2 MiB to 512 MiB. If the
+report contains a sufficient number of large entries, we will end up
+with a descriptor chain that represents over 4 GiB of memory. This
+violates virtio spec section 2.7.5.2, which requires that the total
+buffer length of a descriptor chain be at most 4 GiB [1]. A VMM that
+faithfully follows the spec may stop processing the descriptor chain
+when it exceeds 4 GiB, and discard less memory than it could. For
+example, this is the case for the virtio-queue in Rust-VMM [2].
 
-One question for the reviewers: the DSC picture parameter set is the one
-the downstream driver sends (DCS 0x9e, 88 bytes). It differs from what
-drm_dsc_pps_payload_pack() computes for the same geometry, mainly
-first_line_bpg_offset (15 downstream, 12 from the helper) and the last
-rate control ranges. The msm DSI host fills the shared drm_dsc_config
-with the helper values, so the encoder and the panel decoder use
-different rate control parameters; the picture looks correct. If you
-prefer, I can switch to the helper PPS once I have tested that the panel
-accepts it.
+Batch the requests into descriptor chains of at most U32_MAX bytes
+(4 GiB - 1 byte). We use U32_MAX here so we can conveniently represent
+the batch length in a u32.
 
-Tested on a OnePlus Nord with the msm DSI host (a 7.3-rc7 based tree),
-including suspend and resume. The SoC devicetree nodes are not part of
-this series.
+[1] https://docs.oasis-open.org/virtio/virtio/v1.4/virtio-v1.4.html
+[2]
+https://github.com/rust-vmm/rust-vmm/blob/9f7250b1555ebe022ea4133fda676e6311040738/vm-virtio/virtio-queue/src/chain.rs#L183-L190
 
-Signed-off-by: Ishu Brar <patches@brar.si>
+Fixes: b0c504f15471 ("virtio-balloon: add support for providing free page reports to host")
+Signed-off-by: Ruben Hakobyan <hruben@meta.com>
 ---
-Ishu Brar (2):
-      dt-bindings: display: panel: Add Samsung AMS644VK04
-      drm/panel: Add Samsung AMS644VK04 panel driver
+The wording in the spec is a bit ambiguous because it uses "chain
+length" for both descriptor counts and the total size of the memory
+ranges referenced by the descriptors. My read is that the byte limit
+applies to the sum of descriptor lengths, which is also what rust-vmm
+checks.
 
- .../bindings/display/panel/samsung,ams644vk04.yaml |  76 +++++
- MAINTAINERS                                        |   7 +
- drivers/gpu/drm/panel/Kconfig                      |  15 +
- drivers/gpu/drm/panel/Makefile                     |   1 +
- drivers/gpu/drm/panel/panel-samsung-ams644vk04.c   | 373 +++++++++++++++++++++
- 5 files changed, 472 insertions(+)
----
-base-commit: cf5d8e390e2ac2cfa24a50645efdbb9f0eebe65f
-change-id: 20261023-panel-ams644vk04-ef8b2b24e222
+Another option I considered was to limit reporting capacity based
+on the largest possible block. E.g. for 64 KiB pages, the largest
+block is 512 MiB, so limit the reporting capacity to 7 to stay
+below 4GiB. Although simpler, I found that the time to reclaim
+was quite a bit longer.
 
-Best regards,
---  
-Ishu Brar <patches@brar.si>
+I tested this patch on Cloud Hypervisor (which uses Rust-VMM)
+and QEMU (which doesn't enforce this limit).
 
+ drivers/virtio/virtio_balloon.c | 47 ++++++++++++++++++++++++---------
+ 1 file changed, 35 insertions(+), 12 deletions(-)
+
+diff --git a/drivers/virtio/virtio_balloon.c b/drivers/virtio/virtio_balloon.c
+index ab3e3d887e00..68ce627c8e04 100644
+--- a/drivers/virtio/virtio_balloon.c
++++ b/drivers/virtio/virtio_balloon.c
+@@ -15,6 +15,7 @@
+ #include <linux/slab.h>
+ #include <linux/module.h>
+ #include <linux/balloon.h>
++#include <linux/limits.h>
+ #include <linux/oom.h>
+ #include <linux/wait.h>
+ #include <linux/mm.h>
+@@ -207,21 +208,43 @@ static int virtballoon_free_page_report(struct page_reporting_dev_info *pr_dev_i
+ 	struct virtqueue *vq = vb->reporting_vq;
+ 	unsigned int unused, err;
+ 
+-	/* We should always be able to add these buffers to an empty queue. */
+-	err = virtqueue_add_inbuf(vq, sg, nents, vb, GFP_NOWAIT);
++	while (nents) {
++		bool unmark_end;
++		struct scatterlist *sg_batch_start = sg;
++		u32 batch_len = 0;
++		unsigned int batch_nents = 0;
+ 
+-	/*
+-	 * In the extremely unlikely case that something has occurred and we
+-	 * are able to trigger an error we will simply display a warning
+-	 * and exit without actually processing the pages.
+-	 */
+-	if (WARN_ON_ONCE(err))
+-		return err;
++		/*
++		 * Virtio spec 2.7.5.2 limits the total buffer length of a
++		 * descriptor chain to 2^32 bytes (4 GiB), so split larger
++		 * reports into batches no bigger than that size.
++		 */
++		while (batch_nents < nents &&
++		       sg->length <= U32_MAX - batch_len) {
++			batch_len += sg->length;
++			batch_nents += 1;
++			sg = sg_next(sg);
++		}
++		unmark_end = !sg_is_last(&sg_batch_start[batch_nents - 1]);
+ 
+-	virtqueue_kick(vq);
++		if (unmark_end)
++			sg_mark_end(&sg_batch_start[batch_nents - 1]);
+ 
+-	/* When host has read buffer, this completes via balloon_ack */
+-	wait_event(vb->acked, virtqueue_get_buf(vq, &unused));
++		err = virtqueue_add_inbuf(vq, sg_batch_start, batch_nents, vb,
++					  GFP_NOWAIT);
++
++		if (unmark_end)
++			sg_unmark_end(&sg_batch_start[batch_nents - 1]);
++
++		if (WARN_ON_ONCE(err))
++			return err;
++
++		virtqueue_kick(vq);
++
++		/* When host has read buffer, this completes via balloon_ack */
++		wait_event(vb->acked, virtqueue_get_buf(vq, &unused));
++		nents -= batch_nents;
++	}
+ 
+ 	return 0;
+ }
+-- 
+2.53.0-Meta
 
