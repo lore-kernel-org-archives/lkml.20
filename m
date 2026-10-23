@@ -1,81 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=188.40.3.216
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.19
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792734899;
-	b=E8s/eJHfcUgrI8Vw2NakZ/REOHWXJS5djJ1xyVWdNKr7V0l4Cxp67TRYCO7adjBTEpyX
-	 Nc/gAO9h9bfADZzx+RxaSqY6nnjECg70uliYvnPrk0UTEh+whbutE5JohHALYSEA00rDZ
-	 9gjXP4Hp3JXCN7OzckMKkfDM248sInfUr6VXSITxQVrj6JxOZNiZlHDcjEELX2bpMuMiK
-	 OVZN3ZgoDTk2PQDK2VEL8FtHeK9II7z2KSyMRLg78cOg1AtBJPiZCnUkVUOHG1kQxXj/r
-	 zZfhrz9nXL94bKDbGB39heuIvlt/k2ve8SPPqbqi6LVMlAdlfiWhyjHWg+0ceuX8omQ==
+	t=1792735104;
+	b=uOTwf4S7Qkmk7IDGmKera2UAbKSbE0Evss8TOVOTcqNVe8jLHGcNusZv09aTKihozP8D
+	 qXCmW2FozVjT0F+HBvZQ7yYt0zJTVg1+aWge4KQurBSXeDEx7pDa9w51CQQtdCMQA5f39
+	 1t3nk5CbNYrnP/xa5PB3Srz3z3okHqTVm7E6ufGmDAdbJOlmTqSG3sb0PuNKoMl5RG3+1
+	 HHom7XVtSM+XvCnJWZuf+dooi0pTsbMHAB5sLzYQam8Twud7qjw9MGjt+TXEMRSOXI6i9
+	 iFrQszYt6kBN4Jo4F60Y3uxP5kV+Zd6b4l1aG7j2Wcd41lEbP2uurvbCsfsoqdlCrlg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792734899;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:Organization:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:X-Virus-Scanned;
-	bh=iGuLewHE4DgB3b0yCkKQ6+E+7LwsYzeCtRN/Tj5GI20=;
-	b=2tgSLz/hO/OOFpbOohZyhqMtpWz3CPXc5RXf68KbD56TDr/KBW3Wa40raPQ56hAcbKMp
-	 MU//4SdU2Hv5hZXy06/A4lUVX/PfaEjmLvhRV3i4fxyouYL8u75WOfy6k9tSrcVr1HHm1
-	 bODZwy/ZeOzjiFS67a5/lEMX8+ke2W8o3nY0okNJ2I87IlvfkuKe31E1ki31FX5dzyrp9
-	 6ZG31koqYR88GCWmPmhfRdA18R5/iCgUUtseB9a8pfwcFtdIkr5O8SjfdPpTJXwt4UBp9
-	 1IqpiNWJcDRRelUBuwpqVrZvrygYlU85RQ340tAuRX1C3XWwYePwkHOlfAeC3IZhSaw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792735104;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=R65EXrMvOWuGDp90Ia9xcp0VR60LBasxd5jtdZ6NYKI=;
+	b=ftUAFVH4SpVaZYcOM/wpWGD8Rhf+hLzw/Q+eFT/jnUqTtmv3yZB4cMd5MeazYJN583UE
+	 MWy622RGUe/riurSZMEFIwNhjTtv+z1cH47Qo5KOmGgm6K7++G2m/zEey4Hb9NZbgZiY4
+	 JoHiPaXZ4uVbYxkhVBS5Z5ucKpHrTryBRts/LFFyxXv0jnCUYkr2t+MmSDgInyBWGyotO
+	 0SGBUJdZHdIoE5qWtBmVnhbJqXCPktz9z1qYfagLME0b4Nhyr1R0Y0GwT7CioNQsIg0Ra
+	 +R7U35NzOWIFhtINkyjWG8m9MaoxUrrGrycndgf0x3gn7IC9ljSSZsPbtJV9lKb2/Aw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ew.tq-group.com;
-	spf=pass smtp.mailfrom=ew.tq-group.com;
-	dkim=pass header.d=ew.tq-group.com header.i=@ew.tq-group.com header.a=rsa-sha256 header.s=default2602 header.b=chN7L5kR;
-	arc=none smtp.remote-ip=188.40.3.216
-Received: from www537.your-server.de (www537.your-server.de [188.40.3.216])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="TpbZ/h2K";
+	arc=none smtp.remote-ip=192.198.163.19
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BDB3606A31A;
-	Fri, 23 Oct 2026 05:54:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5BDB3606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ew.tq-group.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFDAC606A31A;
+	Fri, 23 Oct 2026 05:58:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DFDAC606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.a=rsa-sha256 header.s=default2602 header.b=chN7L5kR
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=ew.tq-group.com; s=default2602; h=Content-Type:Content-Transfer-Encoding:
-	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender
-	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
-	bh=iGuLewHE4DgB3b0yCkKQ6+E+7LwsYzeCtRN/Tj5GI20=; b=chN7L5kRYkPn6rpcuAsbRekVm3
-	R9qd4xqn/8AEWZClWMq2ZCh2XK0r/d3eeHMOYIpaYFcx1bUwvb0fR2WEHWs8QWZyy4leMoYT99UhF
-	qV4XeL7j9rnyEqjot2zk4ll8tOUB6luN+3PrNoNK8gx505idtX0+OyIYdv3CScJn6Af6JvAt85zxD
-	aLfEjWobfE3rL6OguZwIU+q+n08KHGXjErSTm7zbmpN/0ZuUOShn4wC1dKM7R0EekcAtggZel7SRR
-	PINNMVNG09D0KRz+bac1kJVblhELRfAIHSd1do+bwhrxIvBvmRUWCEds6jA6+Hq6nxvS6YS4mopdB
-	/hTZ4/Tw==;
-Received: from sslproxy05.your-server.de ([78.46.172.2])
-	by www537.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.96.2)
-	(envelope-from <alexander.stein@ew.tq-group.com>)
-	id 1xK8Ew-000IXG-10;
-	Fri, 23 Oct 2026 07:54:54 +0200
-Received: from localhost ([127.0.0.1])
-	by sslproxy05.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <alexander.stein@ew.tq-group.com>)
-	id 1xK8Ew-000J59-19;
-	Fri, 23 Oct 2026 07:54:53 +0200
-From: Alexander Stein <alexander.stein@ew.tq-group.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, linux-arm-kernel@lists.infradead.org
-Cc: devicetree@vger.kernel.org, imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux@ew.tq-group.com, Peng Fan <peng.fan@nxp.com>,
- "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
-Subject:
- Re: [PATCH v2 1/2] arm64: dts: imx8qm-mek: Re-enable A72 cluster after
- ERR050104 workaround
-Date: Fri, 23 Oct 2026 07:54:52 +0200
-Message-ID: <6424356.DvuYhMxLoT@steina-w>
-Organization: TQ-Systems GmbH
-In-Reply-To: <20261023-8qm-v2-1-a8812a888e3c@nxp.com>
-References:
- <20261023-8qm-v2-0-a8812a888e3c@nxp.com>
- <20261023-8qm-v2-1-a8812a888e3c@nxp.com>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=TpbZ/h2K
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792735104; x=1824271104;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=MY2zCagseHT6AI4LZ4aKhSGYc5LnpUrcAqNbCjAsBJs=;
+  b=TpbZ/h2KtjPStL0LG53fXn6zU9ehq+AxH+h4eg906hHReQxdGBMqjRbl
+   pdsqRsJAhM/SdPMggqC9CGUnQVHxjFmgGOgjmb8MdPdso9hv2+8MvOewl
+   8aMpUoVsEnIDKjDXYY5vgaSLVkDUGUNe8yUCZH0eJeKQEuxC6s2pWMeVX
+   IvoojxrINLroCjvvUEre7IPMEdyeH45fcZddxF8NpSQNdSyuSRLe79f+l
+   FB8x67v7PBFa4+tWFsfv7okKsKS1eCBjXiTO0WDvxFBfNotdDdn56domd
+   L4uhJLNZXnkbF1sNdCVc0vcoViy1r0eqWhHIB5tFUwd3ZThZVoiMo2Rr5
+   w==;
+X-CSE-ConnectionGUID: FG3SC8K2SZmM8dPobH18ww==
+X-CSE-MsgGUID: DHIQ1ogESK2r6xMCJVYKFw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11943"; a="1598437"
+X-IronPort-AV: E=Sophos;i="6.27,173,1787036400"; 
+   d="scan'208";a="1598437"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Oct 2026 22:58:23 -0700
+X-CSE-ConnectionGUID: trPy+hzDTlWQ0bMQYawqrw==
+X-CSE-MsgGUID: 8fxvhsDWTJ66y6zIq8gJqg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,173,1787036400"; 
+   d="scan'208";a="3591530"
+Received: from binbinwu-mobl.ccr.corp.intel.com (HELO [10.124.245.162]) ([10.124.245.162])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Oct 2026 22:58:17 -0700
+Message-ID: <9dd75d43-883b-44fd-a68d-3c7916691dfa@linux.intel.com>
+Date: Fri, 23 Oct 2026 13:58:15 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,85 +72,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
-X-Virus-Scanned: Clear (ClamAV 1.4.3/28161/Thu Oct 22 08:24:11 2026)
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v10 04/28] x86/cea: Prefix event stack names with ESTACK_
+To: Sohil Mehta <sohil.mehta@intel.com>, kvm@vger.kernel.org, x86@kernel.org
+Cc: Paolo Bonzini <pbonzini@redhat.com>,
+ Sean Christopherson <seanjc@google.com>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, Thomas Gleixner <tglx@kernel.org>,
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+ Dave Hansen <dave.hansen@linux.intel.com>, "H . Peter Anvin"
+ <hpa@zytor.com>, Xin Li <xin@zytor.com>, Andy Lutomirski <luto@kernel.org>,
+ Peter Zijlstra <peterz@infradead.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Tom Lendacky <thomas.lendacky@amd.com>, Nikunj A Dadhania <nikunj@amd.com>,
+ Shivansh Dhiman <shivansh.dhiman@amd.com>,
+ David Woodhouse <dwmw@amazon.co.uk>, Chao Gao <chao.gao@intel.com>,
+ Zhao Liu <zhao1.liu@intel.com>, Yosry Ahmed <yosry@kernel.org>,
+ David Matlack <dmatlack@google.com>, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org
+References: <20260911213659.2025974-1-sohil.mehta@intel.com>
+ <20260911213659.2025974-5-sohil.mehta@intel.com>
+From: Binbin Wu <binbin.wu@linux.intel.com>
+Content-Language: en-US
+In-Reply-To: <20260911213659.2025974-5-sohil.mehta@intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Peng,
-
-Am Freitag, 23. Oktober 2026, 04:56:59 Mitteleurop=C3=A4ische Sommerzeit sc=
-hrieb Peng Fan (OSS):
-> From: Peng Fan <peng.fan@nxp.com>
->=20
-> The ERR050104 cache coherency workaround for i.MX8QM/8QP has been
-> merged upstream (d44e08dab27d). The workaround addresses the incorrect
-> wiring of upper address bits in the A53 subsystem that corrupts TLBI and
-> IC maintenance operations between A53 and A72 clusters.
->=20
-> Previously the A72 CPUs (cpu@100, cpu@101), the cpu-map, and the
-> cpu1-thermal zone were removed from the MEK board DT to avoid incorrect
-> cross-cluster coherency maintenance. With the software workaround in
-> place, restore all deleted nodes and add A72_0/A72_1 to the PMIC thermal
-> cooling-device map so both clusters are properly managed.
->=20
-> Signed-off-by: Peng Fan <peng.fan@nxp.com>
-
-Maybe it's woth mentioning you are essentially also reverting commit
-bce07345481cd ("arm64: dts: imx8qm-mek: delete A72 thermal zone").
-
-But either way:
-Reviewed-by: Alexander Stein <alexander.stein@ew.tq-group.com>
-
-Best regards
-Alexander
-
-> ---
->  arch/arm64/boot/dts/freescale/imx8qm-mek.dts | 14 +++-----------
->  1 file changed, 3 insertions(+), 11 deletions(-)
->=20
-> diff --git a/arch/arm64/boot/dts/freescale/imx8qm-mek.dts b/arch/arm64/bo=
-ot/dts/freescale/imx8qm-mek.dts
-> index 9e49ac377162b..d346958965026 100644
-> --- a/arch/arm64/boot/dts/freescale/imx8qm-mek.dts
-> +++ b/arch/arm64/boot/dts/freescale/imx8qm-mek.dts
-> @@ -17,16 +17,6 @@ chosen {
->  		stdout-path =3D &lpuart0;
->  	};
-> =20
-> -	cpus {
-> -		/delete-node/ cpu-map;
-> -		/delete-node/ cpu@100;
-> -		/delete-node/ cpu@101;
-> -	};
-> -
-> -	thermal-zones {
-> -		/delete-node/ cpu1-thermal;
-> -	};
-> -
->  	memory@80000000 {
->  		device_type =3D "memory";
->  		reg =3D <0x00000000 0x80000000 0 0x40000000>;
-> @@ -995,7 +985,9 @@ map0 {
->  				cooling-device =3D <&A53_0 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
->  						 <&A53_1 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
->  						 <&A53_2 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-> -						 <&A53_3 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
-> +						 <&A53_3 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-> +						 <&A72_0 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-> +						 <&A72_1 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
->  			};
->  		};
->  	};
->=20
->=20
-
-
-=2D-=20
-TQ-Systems GmbH | M=C3=BChlstra=C3=9Fe 2, Gut Delling | 82229 Seefeld, Germ=
-any
-Amtsgericht M=C3=BCnchen, HRB 105018
-Gesch=C3=A4ftsf=C3=BChrer: Detlef Schneider, R=C3=BCdiger Stahl, Stefan Sch=
-neider
-http://www.tq-group.com/
-
-
+On 9/12/2026 5:36 AM, Sohil Mehta wrote:
+> From: "Xin Li (Intel)" <xin@zytor.com>
+> 
+> Add the ESTACK_ prefix to event stack names to improve clarity and
+> readability.  Without the prefix, names like DF, NMI, and DB are too
+> brief and potentially ambiguous.
+> 
+> This renaming also prepares for converting __this_cpu_ist_top_va from
+> a macro into a function that accepts an enum exception_stack_ordering
+> argument, without requiring changes to existing callsites.
+> 
+> Signed-off-by: Xin Li (Intel) <xin@zytor.com>
+> Signed-off-by: Sohil Mehta <sohil.mehta@intel.com>
+> Acked-by: Dave Hansen <dave.hansen@linux.intel.com>
+Reviewed-by: Binbin Wu <binbin.wu@linux.intel.com>
