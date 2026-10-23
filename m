@@ -1,61 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792788858;
-	b=dqpYSY9cUw75oCvt4GYkPjgRwXQmxk78YUCjuuEZlPRwCeFHWRVP79OU9Q1gfrx502Kj
-	 x63TsaM47APaggY4ndOo3KHKMNA1DG+1F7WECsNresQh0kqGIu7aFvsSxS261zHgezGib
-	 DdAjaTX4AEo009wgcUBZeSPzhKYzilyQA/KHg79D2rQ9svJJdPTJliYMiHqRFAZYAsbFU
-	 H40tWFuIBGfmMcHWHqUaXc3KUFQ7qZA/5Vg1V5f/9GkBUQ/un6d8uAIXBt8cmVKMILGGq
-	 +Bk2/dYQJjr6Hm129YEjaVOgS2dgktHYaFtd67/i0lClltiYTWAfA1QD8tWD22uy49Q==
+	t=1792788963;
+	b=UscSUhf5qDDpRJ4TeBBYoMPDSvTUcb2409rRSk6t5usWOcNfWGYlrtX91n65iKi5jAgF
+	 k78D3epTXBMTBmmLjGFU46o+OBf2mrPVX16zkGCGmxn1jEIhQnDnrO7j/wCCxt1fxN1sK
+	 OuNjGDe2JeOhqGc0JRTsAegoxI4yTSz9fCluNl1y1xZXb99k2p1Vag7LsUuI09OnT/ZCh
+	 hP2l9wkMN7IAHKQCf5zhCNLOuDgHEdvY1F76dWQE53VFioOQjysbWEdx3fmTZ4uZfp9dh
+	 8/H0LGPXPvRM0sRATHeo8mNQksTBsZglepb0ePnjYxiQkJciWoiBhs2YyFHiFJRj/5g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792788858;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=qLesKnQX07URRCq8muPN0FoXP5WmoOhi+vy1DntuvlE=;
-	b=cGGajdSY0vwzWIDKJDjbCf4vz/RUv3zCLHgCqZK13avQ8+5+jWLOuHCu9j0ZPYsLXO/X
-	 E8Ejbk/lO2xbXrFQ/L+dyjrfrjaA+idL6KUosC55FlSNRI9jAZyUnl7LCbuVf+Vkvh/1r
-	 B7k0wqgXVi2x9FOBgOUuv0RJX0ZMhz4DfbMUcvp5PYXTaEAue9njjWAbg1KK75mdNIZ99
-	 NC9Y5VOrTVvBww7FHKHeMHd5poOqYUPujtdeFspvzyBnfoOf4EueUPGGiXFmAnXN1uXUG
-	 bv+SecqenByItALEpV+TuuDqPcasUUCk6fonSq5s3CqmVy/kcXfklXj4nVueCzs0M5g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792788963;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=a31hdiyyDF8ZUUv40jZBEIwm/U5+mj/EC+c4Mf/cga0=;
+	b=e2Ebu1UANA2jBH4UeTC+YOfBV4an/Io48o5Tu6fq/z32ZCeL3fKd+70sLwbHltUgUG0T
+	 uf/y7Hc5FNvtkkOX5KajfZmC08OWJpXxBXBgQGCXmBBbM6F4XGcmoBEZkjTdE+mRGCzgq
+	 pKFWYNJYoV0x27omUE8/iE9yX7wUhzOqhDqevyVD5lEXQj7oop6apVDxCpxImPJP3+FuA
+	 tdKgIC7GtHflGpG6XbWO5/Cz7C5ywfAB8zWiorSQ2WwfdYveBIKSqDRRxpz+Lx0vvCspC
+	 dFeRFDJFg7FiWRt53vSNsc1APKY1ETYaoPE49BiwnpzNTZMAZwhjxO7fPfHNUKnSGRA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ndJ4xRlQ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NKktgR4r;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 168D1606A31A;
-	Fri, 23 Oct 2026 20:54:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00613606A31B;
+	Fri, 23 Oct 2026 20:56:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ndJ4xRlQ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC3B31F01825;
-	Fri, 23 Oct 2026 20:54:14 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NKktgR4r
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A4021F01825;
+	Fri, 23 Oct 2026 20:55:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792788857;
-	bh=qLesKnQX07URRCq8muPN0FoXP5WmoOhi+vy1DntuvlE=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=ndJ4xRlQ2kkWn68/NP5O//oJqTjXVAMw30PvzfkJPW8cdhlKc8pp849PvaYFa1oWv
-	 6NrRkSBTDruyN75wfDvTt9R6CSh/Tqu1CHm7dPefPJEqaGdmA0ABRWSPjl0HVHoFH0
-	 YZeEbSYlgjIeiIYp6s8C3K8cWnl2nE5uphdcp2PiPyivCsqiY8RFAK1hAMh85++JXo
-	 ubPEq3sZm1AOEYevHsKvKfZwj+Wghf6pH0q+UJjN0jkf/MBKzCFahEw0STBk37KaYr
-	 jlLQLtlZCSAc6XWZKbWRO5+drl7x9+MVB1DGuI1J50fzF5XZXy5ld1a64ieajK3vlM
-	 RSWH8ik1C51KA==
-Date: Fri, 23 Oct 2026 21:54:09 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Jesper X Nilsson <jesper.x.nilsson@axis.com>
-Cc: David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
- <nuno.sa@analog.com>, "Andy Shevchenko" <andy@kernel.org>, Rob Herring
- <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, "Stefan Windfeldt-Prytz"
- <stefan.windfeldt-prytz@axis.com>, <linux-iio@vger.kernel.org>,
- <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <kernel@axis.com>
-Subject: Re: [PATCH v2 1/4] dt-bindings: iio: light: opt4001: add opt4041
-Message-ID: <20261023215409.4c4ff7d6@jic23-hlaptop>
-In-Reply-To: <20261023-opt4041-v2-1-ee320812804c@axis.com>
-References: <20261023-opt4041-v2-0-ee320812804c@axis.com>
-	<20261023-opt4041-v2-1-ee320812804c@axis.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=k20260515; t=1792788962;
+	bh=a31hdiyyDF8ZUUv40jZBEIwm/U5+mj/EC+c4Mf/cga0=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=NKktgR4rcKUdiO2NkGJRqzAQyHyNqk4IJRrBJu5OAedX8PNttS1iKxSWrk4vI+QCk
+	 YNzgXsxxdNLNEM0LOhDMdTdWBRlT/hiT8BXaWGx9CzvO241Sp7xjXaQQMlT+li1Vmk
+	 xEV8BbhLNv3aETBLsnUYUea273eBkAXi2UlnleTBUcRzusje/zDVOTo7VpvS4HCzqP
+	 XZZoc2CkOJIPULxNsLE8pm7OWICD3bKx8L75lOJptyqzWNQxaZmKTKNYlZZ0t9JZgf
+	 /4WlgKEJZLnCIM0Tuna+bCKkOB1ER1mWz32qJhFlXkmDKNt4I8eWKojYMQm8qkFp7o
+	 rB+6gAabFfuTQ==
+Message-ID: <cc2e3af6-bb56-41b1-9cde-151797c3068d@kernel.org>
+Date: Fri, 23 Oct 2026 22:55:54 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,69 +51,159 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] arm64/mm: restrict transparent contpte mappings to valid
+ PTEs
+To: Zhao Gongyi <zhaogongyi@bytedance.com>, catalin.marinas@arm.com,
+ will@kernel.org, Ryan Roberts <Ryan.Roberts@arm.com>
+Cc: dev.jain@arm.com, baolin.wang@linux.alibaba.com, lance.yang@linux.dev,
+ mark.rutland@arm.com, akpm@linux-foundation.org, ljs@kernel.org,
+ liam@infradead.org, vbabka@kernel.org, rppt@kernel.org, surenb@google.com,
+ mhocko@suse.com, linux-arm-kernel@lists.infradead.org, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20261013093600.54995-1-zhaogongyi@bytedance.com>
+ <daab2f45-56c2-48ad-a24f-aa4f889e4da2@kernel.org>
+ <e0f60526-bb95-4d39-9a7a-72cdf32ca5b6@bytedance.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <e0f60526-bb95-4d39-9a7a-72cdf32ca5b6@bytedance.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On Fri, 23 Oct 2026 14:30:28 +0200
-Jesper X Nilsson <jesper.x.nilsson@axis.com> wrote:
-
-> Add a new compatible for opt4041. The opt4041 is only available in the
-> SOT-5X3 package. The device is pin compatible with the opt4001-sot-5x3
-> and shares the same properties. The opt4041 has one additional channel
-> compared to opt4001, the extra channel has a wide spectral bandwidth
-> ranging from 380nm to 1000nm.
+On 10/19/26 09:06, Zhao Gongyi wrote:
+> On 10/14/26 5:41 PM, David Hildenbrand (Arm) wrote:
+>> CCing Ryan:
+>>
+>> https://lore.kernel.org/r/20261013093600.54995-1-zhaogongyi@bytedance.com
+>>
+>> On 10/13/26 11:36, Zhao Gongyi wrote:
+>>> The transparent contpte layer treats PTE_CONT as software state: when a
+>>> PTE has PTE_CONT set, the contpte helpers may align the operation to a
+>>> CONT_PTE_SIZE block and operate on the whole block. That invariant only
+>>> makes sense for valid mappings. Explicit users such as hugetlb manage
+>>> their contiguous encodings separately.
+>>>
+>>> contpte_set_ptes() currently sets PTE_CONT from alignment alone. Batched
+>>> set_ptes() users can therefore install present-invalid PTEs with
+>>> PTE_CONT set, for example mprotect(PROT_NONE), NUMA hinting through
+>>> modify_prot_commit_ptes(), fork() copying a PROT_NONE large folio, or a
+>>> PMD split installing PAGE_NONE PTEs.
+>>>
+>>> This is not a hardware programming problem: invalid descriptors are not
+>>> translated, so the hardware ignores descriptor bits such as PTE_CONT. It
+>>> is a software-state problem. Some arm64 fast paths intentionally test
+>>> pte_cont() directly instead of pte_valid_cont(), for example commit
+>>> 9970a9a27ffc ("arm64: mm: implement the architecture-specific
+>>> test_and_clear_young_ptes()"). Fixing the producer side preserves these
+>>> fast paths and covers all consumers.
+>>>
+>>> In the observed failure, mprotect(PROT_NONE) installed a full
+>>> CONT_PTE_SIZE range of present-invalid PTEs with PTE_CONT set.
+>>> MADV_GUARD_INSTALL then zapped one PTE. The nr == 1 clear_full_ptes()
+>>> path only unfolds pte_valid_cont() entries, so the neighbouring
+>>> present-invalid entries kept PTE_CONT while the target entry became a
+>>> guard marker.
+>>
+>> Hm, is there a good reason why we cannot just use the cont-pte bit for all
+>> *present* PTEs, even if HW would not be prepared to benefit (!pte_valid())?
+>>
+>> I guess we really only have to make sure to shatter properly, right?
+>>
 > 
-> Datasheet: https://www.ti.com/lit/gpn/opt4041
-> Signed-off-by: Jesper X Nilsson <jesper.x.nilsson@axis.com>
-> ---
->  Documentation/devicetree/bindings/iio/light/ti,opt4001.yaml | 9 +++++++--
->  1 file changed, 7 insertions(+), 2 deletions(-)
 > 
-> diff --git a/Documentation/devicetree/bindings/iio/light/ti,opt4001.yaml b/Documentation/devicetree/bindings/iio/light/ti,opt4001.yaml
-> index 12b0c7ed5d72..35e9b0deb944 100644
-> --- a/Documentation/devicetree/bindings/iio/light/ti,opt4001.yaml
-> +++ b/Documentation/devicetree/bindings/iio/light/ti,opt4001.yaml
-> @@ -4,7 +4,7 @@
->  $id: http://devicetree.org/schemas/iio/light/ti,opt4001.yaml#
->  $schema: http://devicetree.org/meta-schemas/core.yaml#
->  
-> -title: Texas Instruments OPT4001 Ambient Light Sensor
-> +title: Texas Instruments OPT4001/OPT4041 Ambient Light Sensor
->  
->  maintainers:
->    - Stefan Windfeldt-Prytz <stefan.windfeldt-prytz@axis.com>
-> @@ -13,13 +13,16 @@ description:
->    Ambient light sensor with an i2c interface.
->    Last part of compatible is for the packaging used.
->    Picostar is a 4 pinned SMT and sot-5x3 is a 8 pinned SOT.
-> +  OPT4041 is only available as sot-5x3 and adds a wide band channel.
-
-I guess we keep the compatible naming because some crazy
-person might one day release it in a different package.
-
-J
->    https://www.ti.com/lit/gpn/opt4001
-> +  https://www.ti.com/lit/gpn/opt4041
->  
->  properties:
->    compatible:
->      enum:
->        - ti,opt4001-picostar
->        - ti,opt4001-sot-5x3
-> +      - ti,opt4041-sot-5x3
->  
->    reg:
->      maxItems: 1
-> @@ -39,7 +42,9 @@ allOf:
->        properties:
->          compatible:
->            contains:
-> -            const: ti,opt4001-sot-5x3
-> +            enum:
-> +              - ti,opt4001-sot-5x3
-> +              - ti,opt4041-sot-5x3
->      then:
->        properties:
->          interrupts:
+> Hi David,
 > 
+> Right, there is no architectural restriction preventing PTE_CONT from
+> being used as software grouping state for present-invalid PTEs. For this
+> particular failure, making contpte_try_unfold() recognize something like
+> 
+>          pte_present(pte) && pte_cont(pte)
+> 
+> would make clear_full_ptes(nr == 1) unfold the block before replacing one
+> entry with the guard marker.
+> 
+> My reason for preferring the producer-side fix is that the existing
+> transparent contpte helpers mostly use pte_valid_cont() as the membership
+> test, including contpte_try_unfold(), ptep_get[_lockless](),
+> pte_batch_hint() and contpte_is_consistent(), while some range fast paths
+> test pte_cont() directly.
+> 
+> If present-invalid PTEs are also considered members of a transparent
+> contpte block, I think we should audit the single-PTE modification paths,
+> rather than changing only this clear path. We would likely also need a
+> pte_present_cont() helper: the pte_present() guard matters because the
+> PTE_CONT bit position is part of the swap offset for non-present entries.
+> 
+> There is no hardware benefit while the descriptors are invalid, and
+> set_ptes() can recreate the contiguous encoding when an eligible range is
+> made valid again. For a stable fix, I therefore preferred to stop
+> contpte_set_ptes() from creating present-invalid transparent contpte
+> mappings, which also matches the pte_valid_cont() contract used by most
+> of the existing helpers.
+> 
+> I agree that saying this invariant "only makes sense" for valid mappings
+> is too strong. I will reword that to describe the current helper
+> contract instead.
+> 
+> If preserving the software grouping across PROT_NONE is the intended
+> semantics, I can rework this as a broader unfold-path audit instead.
 
+Hi,
+
+sorry for the late reply.
+
+If we have the spare PTE bit, why shouldn't we just use it?
+
+It will make batching over PTEs faster. And we care about that for present PTEs.
+
+So I don't quite see why the stable fix couldn't just do it right away? Do you
+have a prototype that shows that it would require significant code changes?
+
+-- 
+Cheers,
+
+David
