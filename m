@@ -1,58 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792768069;
-	b=ZWXimMTWu9GXHfGg30n1t+Cj1CdCgzXjB9Tt+Ibt4D9FHxTqB7HO707ordiTcoFWvbXw
-	 23fiXmKLyNhzvfFjB3nQ0D5PQIQHsNmApmUCqoLpPganIqqOdVe/2jzLbCIf3idhvAUCm
-	 Ew/tz/S+7ArXU3yu2o6vbZ92MZo3FpQZ8AdVeBMMYwEwfjmRRsa1/b0J4BOzQOyZnJW0O
-	 egLpvL5UPn5uDRRvkg8/HfkDMFLUeNfwXVqU6jIAJonh+L91zLCdfM59C+uB+usPKwnNU
-	 lWGxG5JsabQGOtn0GibkFr5AlvsllJkq44JaV5r3AeSB34oanxp4/9tbQBzlvZBwa7w==
+	t=1792768071;
+	b=RrQ96joAYO1Ed1qPYcscHotBb86Kp5Tk8nrDjQ0cTCGCPv9w3YQFi0/WEMVboNuTKahu
+	 3t6TqFBetQlNV5lsfRTQV3IS656IBQUJZ+nd/W6unV/RXfFRqzLVzZeiCYgp+7Ko4FP5t
+	 3GSG06T++aw4+5ryOO2mDP61nOoZu1TushEyZVT5WVamIYCtZrCLWW38QVawTuoz6QFq/
+	 ecxIbPCJphDLvOWF/p4E/Nt2vp6AmdQlNwmHVK/1zWfz4YKRz95FAag1rQe9HDOOuHhKR
+	 Jyc6Yl9T6mmxSiBtanHhC/hmvz+5BLqHa7SP7Bm4Zse8/uoIzZCVlG/9oqwsStH9k4Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792768069;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792768071;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:
 	 Content-Transfer-Encoding:In-Reply-To;
-	bh=UE9rWzGH8UjwxdIGL93K25DG+3x5w79Wpt62w3WJdRQ=;
-	b=hSlXGe58xrKhUFMXMHRcHctzQsD6imhVKAA70nRXJAAkmnbnKRdI2rBsVQhQoiyn9S5d
-	 kKbvcf+qPcv/EDXVKKiGeTwATkwNAiDHT7FTg42/musoHs66enGOXRydsVaosunD3txad
-	 WvW8zacEFrcB9dgTD6BlyfIAf/bs2zpoTrLsdVCipwVLFH5Vx87HlH4xr5bZ4ey771Sc2
-	 hsOUs8KQdgVFW6ToFZDIzjbaW6zGgsYgls57DlbvOwZJqEnntBXiaiJc8FA54v/gfE/V6
-	 3f9MUbLpN9CDP7TbuR6PjvCtvGqVFs2ONJpq4yOjhrtYwtQHRDBv0DB12uFtEaAx79g==
+	bh=HYU/VkZ1FqssN6MTPXobWxgICxr4ZfYF36w4a9XkZQU=;
+	b=QzZnjCKG5ftsEK5FcaY5G3kya77qS8XBskagKhGPsNGuiwhRM3HNQhmZ3UvjB9P6ZZ6I
+	 SvdYekhmeXliiOiGwZ4epfhksXmRjPwamh1EU0t5lwTAk94mCcPSucp44txso7G5xPazY
+	 +5j0fpnl7yhdhlSpcXTqO0/dvBU7kuR0aU3+i2pQPF35RZqLqu7+APT2jAnSc298KGZPL
+	 x8mzjC6J3xUICvYFKsCOYiRMZJcrxoPC5BMPrSw99zUSwt4PvMuGZzDENllQH+AIkjviN
+	 MkqImGNEbXeWQDFOB/KXhmUOJqiHMcgF0gyQsbDjA8VwIghfQvdeWi7tYk4htqz628A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cJEZ0WM5;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="idUQ1Md/";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A549E606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 15:07:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B06C6606A321;
+	Fri, 23 Oct 2026 15:07:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cJEZ0WM5
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BCA4F1F01828;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=idUQ1Md/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 486D41F01825;
 	Fri, 23 Oct 2026 15:07:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792768069;
-	bh=UE9rWzGH8UjwxdIGL93K25DG+3x5w79Wpt62w3WJdRQ=;
+	s=k20260515; t=1792768070;
+	bh=HYU/VkZ1FqssN6MTPXobWxgICxr4ZfYF36w4a9XkZQU=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=cJEZ0WM5UpuzEn8HlxGN/fjhCns4vlPF7a3Uvyc0A3B25vvRTO3pNKE34u0xhdC91
-	 Cx8M8BbpsuIphKX4lD6TRtIvwVlGX+x9qut/iqfHoZgsJoBs7yqI7x7KHYisUVwinj
-	 dqLuBV0k8hmCESlZtpjMEOJ1BcvjmURR0YZ4sbGaUaAwaT09b0rAI3YWLjWcIRIk6M
-	 ztWx5HLMlyjgHashYHA+vjfnYqBFio6J/9L8BKcahDECjF52S5qFyepkRKnsxFNiGl
-	 BMLKPENfoYzN5tosPdOcTcsZLzaoahmxVlXS/AhqTWpSeMFF187/oO5aeYMQQ7+XvY
-	 xPGd3XzZcimZQ==
-Date: Fri, 23 Oct 2026 17:07:46 +0200
-From: Frederic Weisbecker <frederic@kernel.org>
-To: Peng Wang <peng_wang@linux.alibaba.com>
-Cc: Anna-Maria Behnsen <anna-maria@linutronix.de>,
-	Ingo Molnar <mingo@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	He Rongguang <herongguang@linux.alibaba.com>,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] tick/nohz: Reevaluate the tick for kicks flushed
- outside hardirq
-Message-ID: <att4QqLE4ZsOJwxN@localhost.localdomain>
-References: <atthrrwRchO2FL8g@localhost.localdomain>
- <20261023145101.8217-1-peng_wang@linux.alibaba.com>
+	b=idUQ1Md/oJ1KixO3jY+8e1oIz9nv2/UKTKzEvO2QelTje1NI4fAaoDpCMeh1i+0Wt
+	 WNHPn5AsJlhzuqvP02GjsNi4afeQ7uGqx7QSshKfwZo8HFGHJcSeyquK0Ok5nj9wKH
+	 FZAtxubPnsVfYiASUL5AwN+2vyu0bYcp9lV8r+RKDRiXt60l5A9uhrZPv2/Ryim+23
+	 ryEShAVoYvZ+zv9j/nOZqFiJIN5eNkN7lk8dSn3IsYWAx2ORMTVePgjfpZpuBO8vqj
+	 votsHjLBADiZA3BAa7IRY1yZFIbSn8KyGowM5dBd7yu/akKx2p76uKQeVjIuJYQxew
+	 xQ4Cqd+huKjPg==
+Date: Fri, 23 Oct 2026 16:07:45 +0100
+From: Simon Horman <horms@kernel.org>
+To: netdev-bot+sashiko@kernel.org
+Cc: yogeshgaur.83@gmail.com, david@ixit.cz, davem@davemloft.net,
+	edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+	ian.ray@gehealthcare.com, oe-linux-nfc@lists.linux.dev,
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+	syzbot+ebbbf06f152da8ea4716@syzkaller.appspotmail.com
+Subject: Re: [PATCH] nfc: nci: drain rx_wq before cmd_wq on unregister
+Message-ID: <20261023150745.GM708417@horms.kernel.org>
+References: <20261005102849.486-1-yogeshgaur.83@gmail.com>
+ <179146631693.434549.10968955013781183787@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,34 +61,37 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261023145101.8217-1-peng_wang@linux.alibaba.com>
+In-Reply-To: <179146631693.434549.10968955013781183787@kernel.org>
 
-Le Fri, Oct 23, 2026 at 10:51:00PM +0800, Peng Wang a �crit :
-> The nohz full kick relies on IRQ exit to reevaluate the tick. However,
-> a remote kick can also be flushed from task context without an IRQ
-> exit guaranteed to follow. If a tick dependency is set or an earlier
-> timer is queued after the idle-exit reevaluation, the required tick
-> update can be delayed until another interrupt.
+On Thu, Oct 08, 2026 at 01:31:56PM +0000, netdev-bot+sashiko@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 2 potential
+> issue(s) to consider.
 > 
-> Reevaluate the tick directly from the callback outside hardirq context.
-> Keep the existing IRQ-exit handling for hardirq callbacks. The offline
-> flush remains harmless because tick_sched_timer_dying() has already
-> cleared TS_FLAG_NOHZ.
+> Critical: 0 · High: 2 (1) · Medium: 0 · Low: 0
 > 
-> Fixes: 4b44a21dd640 ("irq_work, smp: Allow irq_work on call_single_queue")
-> Fixes: a5183862e76f ("tick/nohz: Conditionally restart tick on idle exit")
-> Suggested-by: Frederic Weisbecker <frederic@kernel.org>
-> Co-developed-by: He Rongguang <herongguang@linux.alibaba.com>
-> Signed-off-by: He Rongguang <herongguang@linux.alibaba.com>
-> Signed-off-by: Peng Wang <peng_wang@linux.alibaba.com>
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let patchwork
+> know by including "pw-bot: cr" as a separate line at the end of your reply
+> (one such reply per series is enough).
+> 
+> - [High] The new teardown order in nci_unregister_device() does not cover
+>   a deferred producer of tx_work: the NCI-HCI msg_rx_work, which runs on…
+> - [High] nci_recv_frame() (net/nfc/nci/core.c:1360-1368) tests
+>   NCI_UP/NCI_INIT without a lock, then calls skb_queue_tail(&ndev->rx_q)…
 
-Reviewed-by: Frederic Weisbecker <frederic@kernel.org>
+I believe above issues are also pre-existing.
 
-Thanks a lot!
+> 
+> Pre-existing issues:
+> - [High] This problem was not introduced by this patch, but
+>   nxp_nci_i2c_remove() calls nxp_nci_remove() before…
 
--- 
-Frederic Weisbecker
-SUSE Labs
+There is always more to be done.
+But this patch looks good to me.
+
+Reviewed-by: Simon Horman <horms@kernel.org>
+
