@@ -1,59 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.125.188.123
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792733110;
-	b=Q2ok0ggZcWKDXyoly80woEHcsebEVqndeXt7TO1naOE+icfV24ucj1CDKZkfDT7vgZeA
-	 8NLO8pVtRWiHQfJrbl4IFrzSNUpRDEDXMUMQ0z6o/ahYfiS1MDvsT4YicJtZHbRGH3IU2
-	 DF82cE5HbnR8Q0bnYWSSyOa5TJFxHsn7Xei8Ob6txbr9/cNGcq3yC9GqWJJp+IFrfFw38
-	 JCbFYgYzvO4cwjwaSVCAXtyykhfFrs1MaTn1g3sjjWnRFQuBmNJ0tlkaB7xm6YJzwhetN
-	 sCtcTG+WuZQfrbz+9eZYIcmdkbhuowHpec/92EU3aXEQHDhhz9e9nldrt+wO+2mAqIQ==
+	t=1792733254;
+	b=fkZ+GCTuhtnsyoxgeO2gLybOCDRaXH41RItHQqb+43Z0zRLtkUoRQ5IT7jOcd9gRG8va
+	 JlHOeAZFtVATgee2e4Uw20ICTtHqtI2bOf4loDxBnB9sJTk/3c9M1mBGJhvsvo56H5Gm6
+	 1G42mYgvZdzAGqL4+NxY1mEH9Bc37RuwICnZ1r2tdygWOSpXnwUDWfZRlODviIfbtRc4m
+	 L9Zpk+wxQcWkJWHKKZlJx6syayfgP7cJu0rqbOKhS/WAV4p0z0rk6w6hIXYtycpbWFjXg
+	 jxWv8Nm+ZU1eQ2zwARiRY3UexKPHuPJNGZESnyrHbkv8FMO3OQK7/gX3o8blgjwRY2Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792733110;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	a=rsa-sha256; c=relaxed/relaxed; t=1792733254;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:
+	 X-Google-DKIM-Signature:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=cyzI4zBSE2xeDeBNIxORNXizZCx/789s6rOyDi3sNSk=;
-	b=fF4W3bWzGG1jFg8CLAZ1kyrLnQchdxF8aUtta+XcqAGtJTeo8HeHVjYUQ2VpH8vw7iCr
-	 hF5R2QKaBCkYVPxyWENEcFiK0nwKh+woPXuq0rq3OMN8QqFuNyE0F1vLU1JinVAGaKngs
-	 mrBHIOFsaYaiAu67QJ1dV9QXCC6OWAFElLuQkSz0+Wwhu1pXmMgbIhC/TajTf+aFmZb4o
-	 nK/RT4W7IuYf46s72IduKtAYzImACSG7R3VNWGQS+fAzFLEF5EZkVai++11VcU0Xsy+di
-	 z+v2fxAgqTCI7GuWQ2q9mFLL207zQL2QYmSeNPp9BmE8ZJ2g6jkp9INNoLBEMqoE2mQ==
+	bh=ZvI+4nFpN3qtyujgG6pxLsHDOXRcs/QD5if2ojDqdPs=;
+	b=l4xKxQkL/pOomURNdxXpwNA2qfB6C5xw4sSiFTht1Fdok7xiQbSbe8eHf9UdxohgWN4b
+	 mD/d9PAQPsTVcikMonm5nQVn6jMwwgG2JrJbLfnFX5g+nqfFNqcU8Z3Nx2vehKQfuW8Ia
+	 jHhMh6Wlizyh16gninq869oAqzTztxAdrCc4PzwJkjdN9y9bt124qjawYLRKalGbQUl71
+	 ITnBJJHB84W7rg/qi8ImX9MAkw/2uZCYxGRxtGHEqUHGC8v3OFRoP7tNm2dtSJTpDo2ib
+	 7h1WgUzEZlTKhpFl1zW8ds7pkeijLIWtj4x0V86fbJnWeeIf49T6+ZvMsuuqeHvzT4A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="V/cE/S1j";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=canonical.com;
+	spf=pass smtp.mailfrom=canonical.com;
+	dkim=pass header.d=canonical.com header.i=@canonical.com header.a=rsa-sha256 header.s=20251003 header.b="f5MUU/Pj";
+	arc=none smtp.remote-ip=185.125.188.123
+Received: from smtp-relay-internal-1.canonical.com (smtp-relay-internal-1.canonical.com [185.125.188.123])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07D37606A333;
-	Fri, 23 Oct 2026 05:25:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E982606A328
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 05:27:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6E982606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=canonical.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V/cE/S1j
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B00691F01825;
-	Fri, 23 Oct 2026 05:25:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792733109;
-	bh=cyzI4zBSE2xeDeBNIxORNXizZCx/789s6rOyDi3sNSk=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=V/cE/S1jC5MPh0+BNcBpHn6sHcMmavzYn5+Elhs8PWOPkKm9vG6SscNFaDbNFPvhp
-	 3J6joYnTlNgSbJR90YQr+IjTsMqbI0owMJLTh+FMKfu+x6ZB46SKOo+ZlIbeP0Ju/U
-	 4a7zKlKaQouN3OeN14ZgSIOmapt8uOFjrXKrteMXjZFKgQJ47czYGtAZ528BRCpfNd
-	 4JJaLZchUdQ+97X/WZv1NrgV9RSRHvkhw1MnOrHKmrDNPp1e4unJT8rRUCgTN+/uCw
-	 6+ve9CdXU4ocvJRZkeEodnYonBWlxhW4gopSrYPwYubTSg4on4jNpaIYZzyFH6t4Ag
-	 yopwTh2gcn5Nw==
-From: Tejun Heo <tj@kernel.org>
-To: sched-ext@lists.linux.dev
-Cc: David Vernet <void@manifault.com>,
-	Andrea Righi <arighi@nvidia.com>,
-	Changwoo Min <changwoo@igalia.com>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	David Dai <david.dai@linux.dev>,
-	linux-kernel@vger.kernel.org,
-	Tejun Heo <tj@kernel.org>
-Subject: [PATCH 15/15] sched_ext: Fix queued bypassed tasks stalling when the host loses SCX_CAP_BASE
-Date: Thu, 22 Oct 2026 19:24:52 -1000
-Message-ID: <20261023052452.2889061-16-tj@kernel.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261023052452.2889061-1-tj@kernel.org>
-References: <20261023052452.2889061-1-tj@kernel.org>
+	dkim=pass (4096-bit key, unprotected) header.d=canonical.com header.i=@canonical.com header.a=rsa-sha256 header.s=20251003 header.b=f5MUU/Pj
+Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id 7B24B4012C
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 05:27:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
+	s=20251003; t=1792733251;
+	bh=ZvI+4nFpN3qtyujgG6pxLsHDOXRcs/QD5if2ojDqdPs=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version;
+	b=f5MUU/PjIytUcn28K4zlfezlXbccfh4342/njYhUV5bpOdQsTNHO8GUJYhda9mFOo
+	 XhnCK6k7Dno5n5Q6YP6FRGoCoOWM0qKARMwpOlOM8sfBrdRaRJEV+DkFU+L/TPPjbf
+	 LyAmWhQvjI+seivjM48eBjVjBTNUYDJBzpN0xorYJN+53gP5as5RMxqWVf1MGReXzT
+	 zKChNY/GIi5C7oWANcEBJpcgd/ErhQkT4k4eDwgw5hOhYNzBCUN7g6ZSH8cTo0/x6l
+	 i2lBykdffzLcF3773Q1IloXUU/lPHFMxnFQj+aq6pF5x0PL/3vzELeB9ddwA+EBPG1
+	 wyE4CYR/ohzqcffCRWAJSCftaGqxj3LrdhNpyzDekH+ggUqrmkEpB7DDC6XGOM24v9
+	 FjBBOsTyBGQCamqsK3EVLfzaR+z3Pl6H2AjnTAXcyVX1VP3FuAL5DLvX5XhXd7vwJB
+	 GK0+XQAUcPCyJ5q/hZRhE/rqH+K2KMExQfmUBGa9yOvYDEJOj3Ra4c0od0ZRPHxvoA
+	 q4xBhg7lkLk9budoPTQWXlH6O44eST/TOW9vUAZGigqXfcYsuSWzaeR7O4191isAqv
+	 KcU6PgRaV6ofgM9TzRioW/4u2HjaCLPq6l1VQC0oxSO8oBn8uLQwvo7MLkLUTK4jDt
+	 PQRV5a9Sf0/vD1UEgw1H5Fec=
+Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-33bf1d17dfeso93729eec.2
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 22:27:31 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792733250; x=1793338050;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ZvI+4nFpN3qtyujgG6pxLsHDOXRcs/QD5if2ojDqdPs=;
+        b=JdzxGEbhDztsVR35733KfnOzjECxW1uyLsZ5kofZX2LnVSGRlit1N3OB4T/YeW/uqT
+         Y+rj3aYnpa/R9cUTqqFgCRS2Rktg4CxTPYk24qdfHmnvKl9PgDjwaIun6PkV0cVW7Jqj
+         f1N7Euk2imDXuh1ABOtnUEEM3fJlgPrChdIXcgjqCyivU92utRXgW5FemL0PbsrxgedD
+         9mAuQCpPlgum6QKD1hsCEajnNTQsOyDT0NkRkb6oPkVTxBQalgsI60BwrTyo8ua9+0XV
+         KIiPemjRZGNuIxNN37Soi0JO7mEhSOqNQPttO6loy0Mdtfi4KBNv441EilY7WMDahfkD
+         tHYg==
+X-Gm-Message-State: AFq9FYIM8mvyCgHOF0LTqXpP0ziSXDyIMJBALTrY7ErXc56nd7MNq968
+	g/XPCooX5xNbuAl5pT2LON3EIOV8g63yDbeBCH/+PSfObsGIbokkF4fACgjDEbCO5i+N8Iraa3u
+	zTCCG95kM8PBcSbnq7ODlkB9UvDljZDg+jWuEpjB1xkVXixa9p4cEbU1RzK5AxtwSPhCKlF+ab6
+	vVnN0F+Ez54kb1Eg==
+X-Gm-Gg: AYBFou2xOfB2jXQvCfsEjXGQaIBqWBsgqS+/KKKkTpK4aqupRO/31qUCISkWlNaRZC0
+	P1y3dxg/ryFkiRIsvnPiMiS2NK4fdgfR2Xdbj1m6CRiT4yRvJgHtv409I0hAu6FPYmKvLSZQ+ea
+	33aVz1uhlxxWA+35GLp7ow/riwrR/k2hyh0lrgXot0h3SIwYL87yEc7XCKxENnU5CWhAMOgrJJN
+	znMGKBcYM3FkcYrQCMzSWPAChSgxA5zsODX55o4jsFddHauAIgjWlqAkoGNpko7pIKHZYvDs6uQ
+	tVy17E9vN6AukznGiJhFp9a5ytOPH4M5iI1Lu2AbRNufNwBM+7/YFdsHCbzziSiOG508H1LkEb8
+	ohvo/iztaPGb/V8tYr6RQMvVYgGbs+md5TW1KZHsuIb4JdMnNWpCmgZv2cRePA5Zvmmo/qQhAfc
+	yC/0MHLnBGijV76ofEC+sKxwtN9rFw6w8bVF0mwmzVmLoUY1N+kj5rQeFprtClz3O+2Xted0UL2
+	9CbuVLrARzKDImobvw3NKC7WMB3XLbrdxgxTPUr0Ww=
+X-Received: by 2002:a05:693c:87d1:10b0:367:2bed:e7a5 with SMTP id 5a478bee46e88-369d978c94dmr2892081eec.2.1792733249660;
+        Thu, 22 Oct 2026 22:27:29 -0700 (PDT)
+X-Received: by 2002:a05:693c:87d1:10b0:367:2bed:e7a5 with SMTP id 5a478bee46e88-369d978c94dmr2892036eec.2.1792733249175;
+        Thu, 22 Oct 2026 22:27:29 -0700 (PDT)
+Received: from an-XPS-15-9520.buildd (2001-b011-2008-445c-b47a-213f-cf99-45b4.dynamic-ip6.hinet.net. [2001:b011:2008:445c:b47a:213f:cf99:45b4])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369d9e1a085sm3590098eec.29.2026.10.22.22.27.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 22 Oct 2026 22:27:28 -0700 (PDT)
+From: ChunAn Wu <an.wu@canonical.com>
+To: linux-serial@vger.kernel.org,
+	platform-driver-x86@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	markus.probst@posteo.de,
+	gregkh@linuxfoundation.org,
+	jirislaby@kernel.org,
+	hansg@kernel.org,
+	ilpo.jarvinen@linux.intel.com,
+	mpearson-lenovo@squebb.ca,
+	derekjohn.clark@gmail.com
+Subject: [PATCH v3 1/3] serdev: handle devices without an ACPI or device tree node
+Date: Fri, 23 Oct 2026 13:27:15 +0800
+Message-Id: <20261023052717.2577234-2-an.wu@canonical.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261023052717.2577234-1-an.wu@canonical.com>
+References: <20261023052717.2577234-1-an.wu@canonical.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,350 +118,253 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-A task already queued on a bypass DSQ stalls when the host loses
-SCX_CAP_BASE on that cpu. The cpu's dispatch no longer consumes the DSQ, and
-the task sits there until the host regains BASE or the bypass window ends.
-Sending a bypassed task to rescue at enqueue time covers only a task
-enqueued after the loss, and the balancer no longer donates to a capless
-cpu.
+Serdev clients instantiated by a driver have no ACPI companion and no
+device tree node. Their modalias read returns -ENODEV, their add uevent
+is suppressed, and they cannot be driver-matched, so creators force a
+bind with device_driver_attach().
 
-Have the bypass load balancer drain such a DSQ: a cpu where the host lacks
-BASE is a donor with a target of zero. The target already counts its tasks
-against the cpus that hold BASE, so the donees take them under their
-ordinary fill. The queued-duration threshold doesn't apply to a zero target.
+Resolve both TODOs in the serdev core by modelling matching on the SPI
+bus: add a creator-set modalias to struct serdev_device and an id_table
+to struct serdev_device_driver. ACPI and OF are still tried first;
+clients without their own modalias keep returning -ENODEV. The device
+name, derived from the controller, is unchanged.
 
-The balancer reenqueues a task no donee can take at its home, under the home
-rq lock the move holds there anyway. The enqueue sends the task to rescue
-when the host lacks BASE at home and to the home's bypass DSQ otherwise.
-
-The same reenqueue replaces the put-back for a task that can't run on the
-donee the walk picked for it. That is a cold path: the donee went inactive
-or the task is a proxy-migrated blocked donor. An affinity change while the
-move is in flight dequeues the task and the balancer loses the claim
-instead. A task refused pass after pass costs one counted reenqueue per
-pass, bounded by the reenqueue limit.
-
-Without rescue, the reenqueue of a task homed on the drained cpu lands on
-the DSQ it came from, and it counts toward the reenqueue limit like any
-other. A task stuck that way ends with its scheduler ejected after
-SCX_REENQ_MAX_REPEAT passes, as a pinned task on a cid its scheduler lost
-does today. With a zero interval it is reenqueued once per BASE loss and
-waits for the host to regain BASE, as before.
-
-On a BASE loss, scx_bypass_lb_kick() sets the balancer's timer to expire
-now, so that the drain runs before the next interval, and runs at all when
-the interval is zero. A donee can lose BASE while the balancer is moving
-tasks onto it, and the kick from that loss covers it.
-
-The balancer re-arms with timer_reduce(), which only brings the expiry
-forward, so a loss during a run leaves the timer at now and the next run
-sees it. The arming at bypass dispatch enable uses timer_reduce() too, so
-that a kick landing there is kept.
-
-v2: The description drops an in-flight affinity change from the causes of a
-refused balancer move.
-
-Fixes: 147d1885f390 ("sched_ext: Add the SCX_CAP_ENQ_IMMED cap")
-Signed-off-by: Tejun Heo <tj@kernel.org>
+Signed-off-by: ChunAn Wu <an.wu@canonical.com>
 ---
- kernel/sched/ext/ext.c      | 145 ++++++++++++++++++++++++++----------
- kernel/sched/ext/internal.h |   1 +
- kernel/sched/ext/sub.c      |   8 ++
- 3 files changed, 114 insertions(+), 40 deletions(-)
+Changes in v3:
+- Rename struct serdev_device::name to ::modalias; dev_name() is unchanged
+- Model matching on the SPI bus: add struct serdev_device_id and
+  id_table; drop driver->name matching
+- Add serdev_device_set_modalias() helper and SERDEV_MODULE_PREFIX
+- No MODULE_DEVICE_TABLE(serdev, ...) support: both in-tree firmware-less
+  clients are created by the same module that provides their driver, so
+  udev has nothing to autoload
 
-diff --git a/kernel/sched/ext/ext.c b/kernel/sched/ext/ext.c
-index 913770f66538..c26eefc0e6c5 100644
---- a/kernel/sched/ext/ext.c
-+++ b/kernel/sched/ext/ext.c
-@@ -6515,36 +6515,57 @@ bool scx_hardlockup(int cpu)
- 	return true;
+Changes in v2:
+- Instead of silently returning success with no modalias, use a
+  creator-supplied name as a "serial:<name>" modalias fallback and as
+  the matching key, so clients can bind through normal serdev matching
+
+ MAINTAINERS                      |  1 +
+ drivers/tty/serdev/core.c        | 54 ++++++++++++++++++++++++++++----
+ include/linux/device-id/serdev.h | 16 ++++++++++
+ include/linux/serdev.h           | 34 ++++++++++++++++++++
+ 4 files changed, 99 insertions(+), 6 deletions(-)
+ create mode 100644 include/linux/device-id/serdev.h
+
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 917f3f72e31b..06e67aa5d9b0 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -24905,6 +24905,7 @@ L:	linux-serial@vger.kernel.org
+ S:	Maintained
+ F:	Documentation/devicetree/bindings/serial/serial.yaml
+ F:	drivers/tty/serdev/
++F:	include/linux/device-id/serdev.h
+ F:	include/linux/serdev.h
+ F:	rust/helpers/serdev.c
+ F:	rust/kernel/serdev.rs
+diff --git a/drivers/tty/serdev/core.c b/drivers/tty/serdev/core.c
+index 7500efcdfc21..e178dc57d31b 100644
+--- a/drivers/tty/serdev/core.c
++++ b/drivers/tty/serdev/core.c
+@@ -29,13 +29,21 @@ static DEFINE_IDA(ctrl_ida);
+ static ssize_t modalias_show(struct device *dev,
+ 			     struct device_attribute *attr, char *buf)
+ {
++	const struct serdev_device *serdev = to_serdev_device(dev);
+ 	int len;
+ 
+ 	len = acpi_device_modalias(dev, buf, PAGE_SIZE - 1);
+ 	if (len != -ENODEV)
+ 		return len;
+ 
+-	return of_device_modalias(dev, buf, PAGE_SIZE);
++	len = of_device_modalias(dev, buf, PAGE_SIZE);
++	if (len != -ENODEV)
++		return len;
++
++	if (!serdev->modalias[0])
++		return -ENODEV;
++
++	return sysfs_emit(buf, "%s%s\n", SERDEV_MODULE_PREFIX, serdev->modalias);
+ }
+ static DEVICE_ATTR_RO(modalias);
+ 
+@@ -47,15 +55,22 @@ ATTRIBUTE_GROUPS(serdev_device);
+ 
+ static int serdev_device_uevent(const struct device *dev, struct kobj_uevent_env *env)
+ {
++	const struct serdev_device *serdev = to_serdev_device(dev);
+ 	int rc;
+ 
+-	/* TODO: platform modalias */
+-
+ 	rc = acpi_device_uevent_modalias(dev, env);
+ 	if (rc != -ENODEV)
+ 		return rc;
+ 
+-	return of_device_uevent_modalias(dev, env);
++	rc = of_device_uevent_modalias(dev, env);
++	if (rc != -ENODEV)
++		return rc;
++
++	if (!serdev->modalias[0])
++		return -ENODEV;
++
++	return add_uevent_var(env, "MODALIAS=%s%s", SERDEV_MODULE_PREFIX,
++			      serdev->modalias);
  }
  
-+/**
-+ * bypass_lb_reenq_home - Reenqueue a task at its home from the balancer
-+ * @rq: @p's home rq, locked
-+ * @p: task off any DSQ, taken from the bypass DSQ of @dsq_cpu
-+ * @dsq_cpu: cpu whose bypass DSQ gave up @p
-+ *
-+ * @p came off the bypass DSQ of @dsq_cpu with no donee able to take it. The
-+ * enqueue sends @p to rescue when the host lacks %SCX_CAP_BASE at home and to
-+ * the home's bypass DSQ otherwise, see bypass_enq_target_dsq(). No DSQ lock may
-+ * be held, as the enqueue takes one.
-+ */
-+static void bypass_lb_reenq_home(struct rq *rq, struct task_struct *p, s32 dsq_cpu)
+ static void serdev_device_release(struct device *dev)
+@@ -86,16 +101,43 @@ static const struct device_type serdev_ctrl_type = {
+ 	.release	= serdev_ctrl_release,
+ };
+ 
++static const struct serdev_device_id *serdev_match_id(const struct serdev_device_id *id,
++						      const char *modalias)
 +{
-+	lockdep_assert_rq_held(rq);
++	if (!id || !modalias[0])
++		return NULL;
 +
-+	WARN_ON_ONCE(p->scx.flags & SCX_TASK_REENQ_REASON_MASK);
-+	p->scx.flags |= SCX_TASK_REENQ_CAP;
-+	p->scx.reenq_reason_caps = SCX_CAP_BASE;
-+	p->scx.reenq_reason_cid = __scx_cpu_to_cid(dsq_cpu);
-+	scx_do_enqueue_task(rq, p, SCX_ENQ_REENQ, -1);
++	while (id->name[0]) {
++		if (!strcmp(modalias, id->name))
++			return id;
++		id++;
++	}
++
++	return NULL;
 +}
 +
- /**
-  * bypass_lb_move - Move one task off a bypass DSQ for the balancer
-  * @sch: host sched whose bypass DSQs are balanced
-  * @donor_rq: rq of the cpu whose bypass DSQ gives up @p, locked
-  * @donor_dsq: @sch's bypass DSQ on @donor_rq's cpu, locked
-  * @p: task on @donor_dsq, homed anywhere
-- * @donee: cpu whose bypass DSQ receives @p
-+ * @donee: cpu whose bypass DSQ receives @p, -1 for none
-  *
-  * Take @p off @donor_dsq and insert it into the bypass DSQ of @donee. The
-  * caller picks @donee from @p's affinity alone and task_can_run_on_remote_rq()
-- * can still refuse the move under @p's rq lock. @p then goes back to the head
-- * of @donor_dsq.
-+ * can still refuse the move under @p's rq lock. A task it refuses, or one with
-+ * no donee, is not put back, as the host may no longer consume @donor_dsq.
-+ * bypass_lb_reenq_home() reenqueues it at its home instead, in rescue when the
-+ * host lacks %SCX_CAP_BASE there and on the home's bypass DSQ otherwise.
-  *
-- * The insert runs under @p's rq lock. A task homed on @donor_rq is dequeued in
-- * place. unlink_dsq_and_switch_rq_lock() takes one homed elsewhere off and
-- * switches the rq lock from @donor_rq to its own. The switch can lose to a
-- * dequeue, and @p then belongs to the dequeuer.
-+ * The insert and the reenqueue run under @p's rq lock. A task homed on
-+ * @donor_rq is dequeued in place. unlink_dsq_and_switch_rq_lock() takes one
-+ * homed elsewhere off and switches the rq lock from @donor_rq to its own. The
-+ * switch can lose to a dequeue, and @p then belongs to the dequeuer.
-  *
-  * @donor_rq and @donor_dsq are locked on entry and on return. @donor_dsq is
-  * unlocked in between, and @donor_rq too while the lock is switched, so the
-  * caller's walk must find its place in @donor_dsq again after the call.
-  *
-- * Return the cpu that received @p, or -1 if @p went back onto @donor_dsq or was
-- * lost to a dequeue.
-+ * Return the cpu that received @p, or -1 if @p was lost to a dequeue.
-  */
- static s32 bypass_lb_move(struct scx_sched *sch, struct rq *donor_rq,
- 			  struct scx_dispatch_q *donor_dsq, struct task_struct *p, s32 donee)
+ static int serdev_device_match(struct device *dev, const struct device_driver *drv)
  {
--	struct scx_dispatch_q *dst_dsq;
--	u64 enq_flags;
- 	struct rq *rq = task_rq(p);
- 	s32 ret;
- 
-@@ -6564,20 +6585,21 @@ static s32 bypass_lb_move(struct scx_sched *sch, struct rq *donor_rq,
- 	/*
- 	 * @p's affinity is stable under its rq lock. A task whose donee is its
- 	 * own cpu can always run there, and task_can_run_on_remote_rq() warns
--	 * when asked about a task's own cpu.
-+	 * when asked about a task's own cpu. A @donee of -1 means none, so
-+	 * don't pass it to cpu_rq().
- 	 */
--	if (donee == task_cpu(p) || task_can_run_on_remote_rq(sch, p, cpu_rq(donee), false)) {
--		dst_dsq = scx_bypass_dsq(sch, donee);
--		enq_flags = 0;
-+	if (donee >= 0 && (donee == task_cpu(p) ||
-+			   task_can_run_on_remote_rq(sch, p, cpu_rq(donee), false))) {
-+		scx_dispatch_enqueue(sch, rq, scx_bypass_dsq(sch, donee), p, 0, 0, 0);
- 		ret = donee;
- 	} else {
--		/* back where it was, at the head so that the walk skips it */
--		dst_dsq = donor_dsq;
--		enq_flags = SCX_ENQ_HEAD;
--		ret = -1;
-+		/*
-+		 * No donee, or @p can't run on it. Place @p at home instead,
-+		 * which is rescue when the host lacks %SCX_CAP_BASE there.
-+		 */
-+		bypass_lb_reenq_home(rq, p, cpu_of(donor_rq));
-+		ret = cpu_of(rq);
- 	}
--
--	scx_dispatch_enqueue(sch, rq, dst_dsq, p, 0, 0, enq_flags);
- out:
- 	if (rq != donor_rq)
- 		switch_rq_lock(rq, donor_rq);
-@@ -6600,10 +6622,11 @@ static u32 bypass_lb_cpu(struct scx_sched *sch, s32 donor,
- 	 * All we want to guarantee is reasonable forward progress. No reason to
- 	 * fine tune. Assuming every task on @donor_dsq runs their full slice,
- 	 * consider offloading iff the total queued duration is over the
--	 * threshold.
-+	 * threshold. A zero target is a drain and empties the DSQ regardless.
- 	 */
- 	min_delta_us = READ_ONCE(scx_bypass_lb_intv_us) / SCX_BYPASS_LB_MIN_DELTA_DIV;
--	if (delta < DIV_ROUND_UP(min_delta_us, READ_ONCE(scx_slice_bypass_us)))
-+	if (nr_donor_target &&
-+	    delta < DIV_ROUND_UP(min_delta_us, READ_ONCE(scx_slice_bypass_us)))
++	const struct serdev_device *serdev;
++
+ 	if (!is_serdev_device(dev))
  		return 0;
  
- 	raw_spin_rq_lock_irq(donor_rq);
-@@ -6623,19 +6646,30 @@ static u32 bypass_lb_cpu(struct scx_sched *sch, s32 donor,
- 		if (donor_dsq->nr <= nr_donor_target)
- 			break;
+-	/* TODO: platform matching */
+ 	if (acpi_driver_match_device(dev, drv))
+ 		return 1;
  
--		if (cpumask_empty(donee_mask))
-+		/*
-+		 * Without a donee, a balancing donor has nothing to do. A drain
-+		 * still sends its tasks home.
-+		 */
-+		if (cpumask_empty(donee_mask) && nr_donor_target)
- 			break;
- 
- 		/*
- 		 * A task queued after the walk began, including one the walk
--		 * itself put back, is left for the next pass.
-+		 * itself reenqueued, is left for the next pass.
- 		 */
- 		if (u32_before(cursor.priv, p->scx.dsq_seq))
- 			continue;
- 
-+		/*
-+		 * A task no donee can take is left where it is by a balancing
-+		 * donor and sent home by a drain, see bypass_lb_move().
-+		 */
- 		donee = cpumask_any_and_distribute(donee_mask, p->cpus_ptr);
--		if (donee >= nr_cpu_ids)
--			continue;
-+		if (donee >= nr_cpu_ids) {
-+			if (nr_donor_target)
-+				continue;
-+			donee = -1;
-+		}
- 
- 		/*
- 		 * The move drops @donor_dsq's lock, and the rq lock too when
-@@ -6691,6 +6725,7 @@ static void bypass_lb_node(struct scx_sched *sch, int node)
- 	const struct cpumask *node_mask = cpumask_of_node(node);
- 	struct cpumask *donee_mask = sch->bypass_lb_donee_cpumask;
- 	struct cpumask *resched_mask = sch->bypass_lb_resched_cpumask;
-+	u32 intv_us = READ_ONCE(scx_bypass_lb_intv_us);
- 	u32 nr_tasks = 0, nr_cpus = 0, nr_balanced = 0;
- 	u32 nr_target, nr_donor_target;
- 	u32 before_min = U32_MAX, before_max = 0;
-@@ -6710,7 +6745,7 @@ static void bypass_lb_node(struct scx_sched *sch, int node)
- 		before_max = max(nr, before_max);
- 	}
- 
--	if (!nr_cpus)
-+	if (!nr_tasks)
- 		return;
- 
- 	/*
-@@ -6718,7 +6753,7 @@ static void bypass_lb_node(struct scx_sched *sch, int node)
- 	 * balancing to fill donee CPUs up to $nr_target. Once targets are
- 	 * calculated, find the donee CPUs.
- 	 */
--	nr_target = DIV_ROUND_UP(nr_tasks, nr_cpus);
-+	nr_target = nr_cpus ? DIV_ROUND_UP(nr_tasks, nr_cpus) : 0;
- 	nr_donor_target = DIV_ROUND_UP(nr_target * SCX_BYPASS_LB_DONOR_PCT, 100);
- 
- 	cpumask_clear(donee_mask);
-@@ -6729,18 +6764,28 @@ static void bypass_lb_node(struct scx_sched *sch, int node)
- 			cpumask_set_cpu(cpu, donee_mask);
- 	}
- 
--	/* iterate !donee CPUs and see if they should be offloaded */
-+	/*
-+	 * Offload the !donee cpus. A cpu where the host lost %SCX_CAP_BASE no
-+	 * longer consumes its DSQ. Drain it as a donor with a target of zero. A
-+	 * zero interval disables the balancing, not the drain.
-+	 */
- 	cpumask_clear(resched_mask);
- 	for_each_cpu_and(cpu, cpu_online_mask, node_mask) {
--		if (cpumask_empty(donee_mask))
--			break;
--		if (cpumask_test_cpu(cpu, donee_mask))
-+		u32 target = nr_donor_target;
+-	return of_driver_match_device(dev, drv);
++	if (of_driver_match_device(dev, drv))
++		return 1;
 +
-+		if (unlikely(scx_missing_caps(sch, cpu, SCX_CAP_BASE))) {
-+			/* the mask may predate the loss, keep this cpu out */
-+			cpumask_clear_cpu(cpu, donee_mask);
-+			target = 0;
-+		} else if (!intv_us || cpumask_empty(donee_mask) ||
-+			   cpumask_test_cpu(cpu, donee_mask)) {
- 			continue;
--		if (READ_ONCE(scx_bypass_dsq(sch, cpu)->nr) <= nr_donor_target)
-+		}
-+		if (READ_ONCE(scx_bypass_dsq(sch, cpu)->nr) <= target)
- 			continue;
- 
- 		nr_balanced += bypass_lb_cpu(sch, cpu, donee_mask, resched_mask,
--					     nr_donor_target, nr_target);
-+					     target, nr_target);
- 	}
- 
- 	for_each_cpu(cpu, resched_mask)
-@@ -6779,9 +6824,28 @@ static void scx_bypass_lb_timerfn(struct timer_list *timer)
- 	for_each_node_with_cpus(node)
- 		bypass_lb_node(sch, node);
- 
 +	/*
-+	 * A kick during this run can leave the timer pending at now, see
-+	 * scx_bypass_lb_kick(). timer_reduce() only brings the expiry forward,
-+	 * so that kick is kept.
++	 * Devices which are instantiated by a driver instead of by firmware
++	 * have no ACPI companion and no device tree node, match them by the
++	 * modalias their creator gave them.
 +	 */
- 	intv_us = READ_ONCE(scx_bypass_lb_intv_us);
- 	if (intv_us)
--		mod_timer(timer, jiffies + usecs_to_jiffies(intv_us));
-+		timer_reduce(timer, jiffies + usecs_to_jiffies(intv_us));
++	serdev = to_serdev_device(dev);
++
++	return !!serdev_match_id(to_serdev_device_driver(drv)->id_table,
++				 serdev->modalias);
+ }
+ 
+ /**
+diff --git a/include/linux/device-id/serdev.h b/include/linux/device-id/serdev.h
+new file mode 100644
+index 000000000000..1c3b03b7d501
+--- /dev/null
++++ b/include/linux/device-id/serdev.h
+@@ -0,0 +1,16 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++#ifndef LINUX_DEVICE_ID_SERDEV_H
++#define LINUX_DEVICE_ID_SERDEV_H
++
++/* serdev */
++
++/* Large enough to hold the KBUILD_MODNAME of any serdev client driver */
++#define SERDEV_NAME_SIZE	40
++#define SERDEV_MODULE_PREFIX	"serial:"
++
++struct serdev_device_id {
++	char name[SERDEV_NAME_SIZE];
++	unsigned long driver_data;	/* Data private to the driver */
++};
++
++#endif /* ifndef LINUX_DEVICE_ID_SERDEV_H */
+diff --git a/include/linux/serdev.h b/include/linux/serdev.h
+index b6c3d957ec15..9f91aa3e875d 100644
+--- a/include/linux/serdev.h
++++ b/include/linux/serdev.h
+@@ -7,7 +7,9 @@
+ 
+ #include <linux/types.h>
+ #include <linux/device.h>
++#include <linux/device-id/serdev.h>
+ #include <linux/iopoll.h>
++#include <linux/string.h>
+ #include <linux/uaccess.h>
+ #include <linux/termios.h>
+ #include <linux/delay.h>
+@@ -35,6 +37,10 @@ struct serdev_device_ops {
+  * struct serdev_device - Basic representation of an serdev device
+  * @dev:	Driver model representation of the device.
+  * @nr:		Device number on serdev bus.
++ * @modalias:	Name of the driver to use with this device, or the alias
++ *		for it. Empty for devices enumerated from firmware, which
++ *		are identified through their ACPI companion or their device
++ *		tree node instead. See serdev_device_set_modalias().
+  * @ctrl:	serdev controller managing this device.
+  * @ops:	Device operations.
+  * @write_comp:	Completion used by serdev_device_write() internally
+@@ -43,6 +49,7 @@ struct serdev_device_ops {
+ struct serdev_device {
+ 	struct device dev;
+ 	int nr;
++	char modalias[SERDEV_NAME_SIZE];
+ 	struct serdev_controller *ctrl;
+ 	const struct serdev_device_ops *ops;
+ 	struct completion write_comp;
+@@ -58,12 +65,15 @@ struct serdev_device {
+  * @probe:	binds this driver to a serdev device.
+  * @remove:	unbinds this driver from the serdev device.
+  * @shutdown:	shut down this serdev device.
++ * @id_table:	List of serdev devices supported by this driver, used to
++ *		match devices which are not enumerated from firmware.
+  */
+ struct serdev_device_driver {
+ 	struct device_driver driver;
+ 	int	(*probe)(struct serdev_device *);
+ 	void	(*remove)(struct serdev_device *);
+ 	void	(*shutdown)(struct serdev_device *);
++	const struct serdev_device_id *id_table;
+ };
+ 
+ #define to_serdev_device_driver(d) container_of_const(d, struct serdev_device_driver, driver)
+@@ -135,6 +145,30 @@ static inline void serdev_device_set_client_ops(struct serdev_device *serdev,
+ 	serdev->ops = ops;
+ }
+ 
++/**
++ * serdev_device_set_modalias() - set the modalias of a serdev device
++ * @serdev:	serdev device.
++ * @modalias:	non-empty modalias to use, typically KBUILD_MODNAME of the
++ *		client driver.
++ *
++ * A serdev device is identified by its ACPI companion, by its device tree
++ * node, or by a modalias set by its creator. Serdev devices which are
++ * instantiated by a driver rather than by firmware have neither of the
++ * former, so they must set a modalias before serdev_device_add() to be
++ * identifiable. Doing so reports a SERDEV_MODULE_PREFIX modalias to
++ * userspace and makes the device match an id_table entry of a serdev
++ * device driver.
++ *
++ * Devices enumerated from firmware have no modalias of their own and keep
++ * deriving their modalias and their driver match from firmware only. The
++ * device name is not affected either way.
++ */
++static inline void serdev_device_set_modalias(struct serdev_device *serdev,
++					      const char *modalias)
++{
++	strscpy(serdev->modalias, modalias);
 +}
 +
-+/**
-+ * scx_bypass_lb_kick - Run the bypass load balancer now
-+ * @sch: sched that lost %SCX_CAP_BASE on a cpu
-+ *
-+ * @sch no longer consumes its bypass DSQ on that cpu. Have the balancer drain
-+ * it without waiting for the next interval, see bypass_lb_node(). A loss during
-+ * a run leaves the timer pending at now, and the run that follows sees it.
-+ */
-+void scx_bypass_lb_kick(struct scx_sched *sch)
-+{
-+	if (scx_bypass_dsp_enabled(sch))
-+		mod_timer(&sch->bypass_lb_timer, jiffies);
- }
- 
- static bool inc_bypass_depth(struct scx_sched *sch)
-@@ -6850,11 +6914,12 @@ static void enable_bypass_dsp(struct scx_sched *sch)
- 
- 	/*
- 	 * The LB timer will stop running if bypass dispatch is disabled. Start
--	 * after enabling bypass dispatch.
-+	 * after enabling bypass dispatch. A kick from a BASE loss can have set
-+	 * the timer to expire now in the meantime, see scx_bypass_lb_kick();
-+	 * timer_reduce() keeps that.
- 	 */
--	if (intv_us && !timer_pending(&host->bypass_lb_timer))
--		mod_timer(&host->bypass_lb_timer,
--			  jiffies + usecs_to_jiffies(intv_us));
-+	if (intv_us)
-+		timer_reduce(&host->bypass_lb_timer, jiffies + usecs_to_jiffies(intv_us));
- }
- 
- /* may be called without holding scx_bypass_lock */
-diff --git a/kernel/sched/ext/internal.h b/kernel/sched/ext/internal.h
-index 44ede6e6fe1a..1db313020d6d 100644
---- a/kernel/sched/ext/internal.h
-+++ b/kernel/sched/ext/internal.h
-@@ -2278,6 +2278,7 @@ void scx_cgroup_unlock(void);
- s32 scx_alloc_kern_arena_objs(struct scx_sched *sch);
- void scx_disable_bypass_dsp(struct scx_sched *sch);
- void scx_bypass(struct scx_sched *sch, bool bypass);
-+void scx_bypass_lb_kick(struct scx_sched *sch);
- s32 scx_link_sched(struct scx_sched *sch);
- void scx_unlink_sched(struct scx_sched *sch);
- void scx_disable_dump(struct scx_sched *sch);
-diff --git a/kernel/sched/ext/sub.c b/kernel/sched/ext/sub.c
-index 7668f0d8c9a7..38ce2ffc0ba4 100644
---- a/kernel/sched/ext/sub.c
-+++ b/kernel/sched/ext/sub.c
-@@ -1124,6 +1124,14 @@ void __scx_process_sync_ecaps(struct rq *rq, struct task_struct *prev)
- 		gained = ecaps & ~old;
- 		lost_all |= lost;
- 
-+		/*
-+		 * The bypass DSQ on this cpu is no longer consumed, so drain
-+		 * it. A bypassing sched's own bypass DSQs are empty, as its
-+		 * tasks sit on the host's.
-+		 */
-+		if ((lost & SCX_CAP_BASE) && !scx_bypassing(pcpu->sch, cpu))
-+			scx_bypass_lb_kick(pcpu->sch);
-+
- 		/*
- 		 * Tell the sched and its parent that the sched's effective caps
- 		 * on this cid changed. The invocations are equivalent to the
+ static inline
+ void *serdev_controller_get_drvdata(const struct serdev_controller *ctrl)
+ {
 -- 
-2.56.0
+2.34.1
 
