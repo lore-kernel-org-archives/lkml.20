@@ -1,83 +1,81 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792738213;
-	b=S+4I5wdKkmJj+ZxZPoK2Hi6jAW2YKPnPZecER6lAkAsbZtb4A79DCXzvklE0PX9AIiSk
-	 devvsRROi6Q0wJFHhj0RpinPF23FeQIWyeLkju8O3IT0DLz7LPHkR44TLy4Aw9/A1r7SJ
-	 gVZaX3dFOyk7OG0bJWaX+1lYWxwzrU5kdrgyDNX0vb8ShZQM6wGfSJJ4TdNJlEsWZERkY
-	 7lcbspn8RSoCFWY63lhdHydVzdnm79q3P6t1EmU+E8WVDotFSJNDT3kMfTYrAozdKhxvL
-	 BwV55c6QN+PfN3F1w1RZOhLjRbWO8QykeOJ5MKcDASRUw2WHkzKtrv89Ne296LfPROA==
+	t=1792738219;
+	b=J5sBjdT8X+DHtB4AhajzkWj9xct7mAB1VHQwavJh/qN1bGZ7CT73SIjNVHxJG39amfK9
+	 mJHNsPuVw2nGEa5YbUPZtbooRN4th6iEV9A3QP4MW35ZALaNGq71Uuo+RZiCFXeq/Kmme
+	 LWgh+yspYHgNaRq5LgQOM4CUKFjER1EOPJc85r4ryuoWJhOxrcgEoaZmTRMSsUqRVu5/8
+	 Kg0Xn+4g7RkW5rrMbMg7vMHhhFW4nk726dhJLA3YmiFCIvVLoRAMBtapvUPzb6gXMO+ki
+	 b3zMHhWDcDFAs6YotvJi9Rn1liLY4XZWrG851jR/WDVe57otAAzCi59h+3H/3LDH3mA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792738213;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792738219;
 	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
 	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:Cc:Subject:Date:
 	 Message-ID:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-Scanned-By;
-	bh=nejDhtc2zH2a53Zk+nPufLr4yM9hyCL0i6pc5nIr6t4=;
-	b=07W3vOIhLtiO0Pyrg0FlZXqRs/taT0F8JfKYFgHc5Hqfbrt7ui/lrfG2ow/d5kV3DFPY
-	 Ju37T6N/rovG532ssYpqaCzWdlXTUERMF9trOja2/WJuu32mL8dq9ZTLiwH6QxT+aNXLf
-	 JFpITs5R0+tmbpbiAxaqqVnY2Jvy911VEdGEHg9tDzQa2YX7XEGGZo2zqugAhQzIQqJTb
-	 nnhtgm3a2za+7Hl3EihTcl8WXvgIvv0yAol5ems5vZNbJLKca+b/zW5Nkww95ycl0cR/N
-	 zknvk6NwNlEeAqz/g+m+pC0nT4rAgEVS19OFfh9qGBMWM57agYnZMDWM3D4VWV101lw==
+	bh=g+zDfkV7W3mK9yy6qtJ/PyGkiFHI5UxGEdxpEKnA6Jo=;
+	b=nkdiDRagdn3kXuu/uNH+RVUqevBCEb45Ozk3o34J4Pr5hrLMZfU49f8dVhBFX8ZC9M5I
+	 FXebEA7Tl6Cl6lUi6AiSw0ozEwlmyAMuZhsuYDR2Cn4Nz34H9cSepOBZSw0E9fR8RKc3M
+	 Zgea5NdRe1FcIhuoAKyLmZvqlvJL2kYEeGkeqGT6kFLutLGvfd5M0pDP0kj+6/zEc68++
+	 onMhGyMcfcO17Xoa6Xs1/APG4dqV6G8uoDHVzEUEJ+K+pRUiUThkno+8j4tFAQiYLFOgV
+	 ipiYHYI4avl62xkAeeiAzK0+NmcPt1c3SX7ji/kEE7O3VwK08TjPK047iUus+/154fw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=redhat.com;
 	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=cShnnbJr;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=aoA8uBEQ;
 	arc=none smtp.remote-ip=170.10.129.124
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E39A5606A324
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 06:50:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E39A5606A324
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AE00606A327
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 06:50:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5AE00606A327
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=cShnnbJr
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=aoA8uBEQ
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1792738211;
+	s=mimecast20190719; t=1792738217;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=nejDhtc2zH2a53Zk+nPufLr4yM9hyCL0i6pc5nIr6t4=;
-	b=cShnnbJrawtCzIGRmJGTlmVfhNBxZUulzc010njiu30deGSAZGQ+Z4hRT+YOZU2ElmZreR
-	IdwUk54eHMkTgbb9b+vsPr4tkIBY5s+W8jQSxNeRm/erxRbUgtOd90bFQ2914ccT3kyUrM
-	4ko6ogi8WHgvL3pUdt7oGWFT/YRv9rM=
-Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
+	bh=g+zDfkV7W3mK9yy6qtJ/PyGkiFHI5UxGEdxpEKnA6Jo=;
+	b=aoA8uBEQHb/lafoBEO8ubDeXTFqOOD13cOsw+FSfxzMFt7nTgZFadXgvkvYUUak+RrpPOr
+	eGZGRLdRyYTd8//veRVX5kmsskF1zt+4JJ0pt65G6cPDe5MmX6PpWmrLp8q6MjsBCYoMTm
+	68hIszTwPVO7pZUqHKvydMA5teZwLr4=
+Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
  (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-651-NzagMRgUO46jbLwDG4cMhQ-1; Fri,
- 23 Oct 2026 02:50:04 -0400
-X-MC-Unique: NzagMRgUO46jbLwDG4cMhQ-1
-X-Mimecast-MFC-AGG-ID: NzagMRgUO46jbLwDG4cMhQ_1792738203
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-315-r-jURbIBMXG8ve_GmI9YAQ-1; Fri,
+ 23 Oct 2026 02:50:13 -0400
+X-MC-Unique: r-jURbIBMXG8ve_GmI9YAQ-1
+X-Mimecast-MFC-AGG-ID: r-jURbIBMXG8ve_GmI9YAQ_1792738212
 Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id E514A19560BE;
-	Fri, 23 Oct 2026 06:50:02 +0000 (UTC)
+	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id BAB1D1955BC4;
+	Fri, 23 Oct 2026 06:50:11 +0000 (UTC)
 Received: from thuth-p1g4.redhat.com (unknown [10.44.48.42])
-	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 074231956095;
-	Fri, 23 Oct 2026 06:49:58 +0000 (UTC)
+	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 1B7A41956095;
+	Fri, 23 Oct 2026 06:50:07 +0000 (UTC)
 From: Thomas Huth <thuth@redhat.com>
 To: Arnd Bergmann <arnd@arndb.de>,
 	Nathan Chancellor <nathan@kernel.org>,
 	Nicolas Schier <nsc@kernel.org>,
-	Brian Cain <bcain@kernel.org>
+	Jonathan Corbet <corbet@lwn.net>
 Cc: soc@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	linux-kbuild@vger.kernel.org,
 	=?UTF-8?q?Thomas=20Wei=C3=9Fschuh?= <linux@weissschuh.net>,
-	Brian Cain <brian.cain@oss.qualcomm.com>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	Bill Wendling <morbo@google.com>,
-	Justin Stitt <justinstitt@google.com>,
-	linux-hexagon@vger.kernel.org,
-	llvm@lists.linux.dev
-Subject: [PATCH v5 08/13] hexagon: Replace __ASSEMBLY__ with __ASSEMBLER__ in non-uapi headers
-Date: Fri, 23 Oct 2026 08:48:45 +0200
-Message-ID: <20261023064908.66707-9-thuth@redhat.com>
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	workflows@vger.kernel.org,
+	linux-doc@vger.kernel.org
+Subject: [PATCH v5 10/13] uapi: Replace __ASSEMBLY__ with __ASSEMBLER__ in uapi headers
+Date: Fri, 23 Oct 2026 08:48:47 +0200
+Message-ID: <20261023064908.66707-11-thuth@redhat.com>
 In-Reply-To: <20261023064908.66707-1-thuth@redhat.com>
 References: <20261023064908.66707-1-thuth@redhat.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -92,168 +90,161 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
 
-While the GCC and Clang compilers already define __ASSEMBLER__
-automatically when compiling assembly code, __ASSEMBLY__ is a
-macro that only gets defined by the Makefiles in the kernel.
-This can be very confusing when switching between userspace
-and kernelspace coding, or when dealing with uapi headers that
-rather should use __ASSEMBLER__ instead. So let's standardize now
-on the __ASSEMBLER__ macro that is provided by the compilers.
+__ASSEMBLY__ is only defined by the Makefile of the kernel, so
+this is not really useful for uapi headers (unless the userspace
+Makefile defines it, too). Let's switch to __ASSEMBLER__ which
+gets set automatically by the compiler when compiling assembly
+code.
 
-Acked-by: Brian Cain <brian.cain@oss.qualcomm.com>
 Signed-off-by: Thomas Huth <thuth@redhat.com>
 ---
- arch/hexagon/include/asm/hexagon_vm.h  |  4 ++--
- arch/hexagon/include/asm/mem-layout.h  |  6 +++---
- arch/hexagon/include/asm/page.h        |  4 ++--
- arch/hexagon/include/asm/processor.h   |  4 ++--
- arch/hexagon/include/asm/thread_info.h | 12 ++++++------
- 5 files changed, 15 insertions(+), 15 deletions(-)
+ Documentation/dev-tools/checkuapi.rst | 2 +-
+ include/uapi/linux/a.out.h            | 4 ++--
+ include/uapi/linux/const.h            | 4 ++--
+ include/uapi/linux/edd.h              | 4 ++--
+ include/uapi/linux/hdlc/ioctl.h       | 4 ++--
+ include/uapi/linux/types.h            | 4 ++--
+ tools/include/uapi/linux/const.h      | 4 ++--
+ 7 files changed, 13 insertions(+), 13 deletions(-)
 
-diff --git a/arch/hexagon/include/asm/hexagon_vm.h b/arch/hexagon/include/asm/hexagon_vm.h
-index 9aa2493fe7863..e1e702eb9e12a 100644
---- a/arch/hexagon/include/asm/hexagon_vm.h
-+++ b/arch/hexagon/include/asm/hexagon_vm.h
-@@ -39,7 +39,7 @@
- #define HVM_TRAP1_VMGETREGS		22
- #define HVM_TRAP1_VMTIMEROP		24
+diff --git a/Documentation/dev-tools/checkuapi.rst b/Documentation/dev-tools/checkuapi.rst
+index 9072f21b50b0c..3c9a3a58c24da 100644
+--- a/Documentation/dev-tools/checkuapi.rst
++++ b/Documentation/dev-tools/checkuapi.rst
+@@ -273,7 +273,7 @@ Consider this change::
+     -typedef unsigned __bitwise __poll_t;
+     +typedef unsigned short __bitwise __poll_t;
  
--#ifndef __ASSEMBLY__
-+#ifndef __ASSEMBLER__
+-     #endif /*  __ASSEMBLY__ */
++     #endif /*  __ASSEMBLER__ */
+      #endif /* _UAPI_LINUX_TYPES_H */
+     EOF
  
- enum VM_CACHE_OPS {
- 	hvmc_ickill,
-@@ -178,7 +178,7 @@ static inline long __vmintop_clear(long i)
- 
- #else /* Only assembly code should reference these */
- 
--#endif /* __ASSEMBLY__ */
-+#endif /* __ASSEMBLER__ */
- 
- /*
-  * Constants for virtual instruction parameters and return values
-diff --git a/arch/hexagon/include/asm/mem-layout.h b/arch/hexagon/include/asm/mem-layout.h
-index e2f99413fe56e..8bad920d8928a 100644
---- a/arch/hexagon/include/asm/mem-layout.h
-+++ b/arch/hexagon/include/asm/mem-layout.h
-@@ -25,7 +25,7 @@
-  */
- 
- #ifdef CONFIG_HEXAGON_PHYS_OFFSET
--#ifndef __ASSEMBLY__
-+#ifndef __ASSEMBLER__
- extern unsigned long	__phys_offset;
- #endif
- #define PHYS_OFFSET	__phys_offset
-@@ -44,7 +44,7 @@ extern unsigned long	__phys_offset;
- #define STACK_TOP			TASK_SIZE
- #define STACK_TOP_MAX			TASK_SIZE
- 
--#ifndef __ASSEMBLY__
-+#ifndef __ASSEMBLER__
- enum fixed_addresses {
- 	FIX_KMAP_BEGIN,
- 	FIX_KMAP_END,  /*  check for per-cpuism  */
-@@ -101,7 +101,7 @@ extern int max_kernel_seg;
-  * and pkmap_base begins.
-  */
- #define VMALLOC_END (PKMAP_BASE-PAGE_SIZE*2)
--#endif /*  !__ASSEMBLY__  */
-+#endif /*  !__ASSEMBLER__  */
- 
- 
- #endif /* _ASM_HEXAGON_MEM_LAYOUT_H */
-diff --git a/arch/hexagon/include/asm/page.h b/arch/hexagon/include/asm/page.h
-index 6d82572a7f210..3379b7a700fec 100644
---- a/arch/hexagon/include/asm/page.h
-+++ b/arch/hexagon/include/asm/page.h
-@@ -48,7 +48,7 @@
- #include <vdso/page.h>
- 
- #ifdef __KERNEL__
--#ifndef __ASSEMBLY__
-+#ifndef __ASSEMBLER__
- 
- /*
-  * This is for PFN_DOWN, which mm.h needs.  Seems the right place to pull it in.
-@@ -127,7 +127,7 @@ static inline unsigned long virt_to_pfn(const void *kaddr)
- /* XXX Todo: implement assembly-optimized version of getorder. */
- #include <asm-generic/getorder.h>
- 
--#endif /* ifdef __ASSEMBLY__ */
-+#endif /* ifdef __ASSEMBLER__ */
- #endif /* ifdef __KERNEL__ */
- 
- #endif
-diff --git a/arch/hexagon/include/asm/processor.h b/arch/hexagon/include/asm/processor.h
-index 0cd39c2cdf8f7..b93c2cc4be22e 100644
---- a/arch/hexagon/include/asm/processor.h
-+++ b/arch/hexagon/include/asm/processor.h
-@@ -8,7 +8,7 @@
- #ifndef _ASM_PROCESSOR_H
- #define _ASM_PROCESSOR_H
- 
--#ifndef __ASSEMBLY__
-+#ifndef __ASSEMBLER__
- 
- #include <asm/mem-layout.h>
- #include <asm/registers.h>
-@@ -124,6 +124,6 @@ struct hexagon_switch_stack {
- 	unsigned long		lr;
- };
- 
--#endif /* !__ASSEMBLY__ */
-+#endif /* !__ASSEMBLER__ */
- 
- #endif
-diff --git a/arch/hexagon/include/asm/thread_info.h b/arch/hexagon/include/asm/thread_info.h
-index e90f280b9ce3e..a0da6c694c87b 100644
---- a/arch/hexagon/include/asm/thread_info.h
-+++ b/arch/hexagon/include/asm/thread_info.h
+diff --git a/include/uapi/linux/a.out.h b/include/uapi/linux/a.out.h
+index 5fafde3798e57..cbcc37674e64c 100644
+--- a/include/uapi/linux/a.out.h
++++ b/include/uapi/linux/a.out.h
 @@ -10,7 +10,7 @@
  
- #ifdef __KERNEL__
- 
--#ifndef __ASSEMBLY__
-+#ifndef __ASSEMBLER__
- #include <asm/processor.h>
- #include <asm/registers.h>
- #include <asm/page.h>
-@@ -20,7 +20,7 @@
- #define THREAD_SIZE		(1<<THREAD_SHIFT)
- #define THREAD_SIZE_ORDER	(THREAD_SHIFT - PAGE_SHIFT)
+ #endif /* __STRUCT_EXEC_OVERRIDE__ */
  
 -#ifndef __ASSEMBLY__
 +#ifndef __ASSEMBLER__
  
+ /* these go in the N_MACHTYPE field */
+ enum machine_type {
+@@ -247,5 +247,5 @@ struct relocation_info
+ };
+ #endif /* no N_RELOCATION_INFO_DECLARED.  */
+ 
+-#endif /*__ASSEMBLY__ */
++#endif /*__ASSEMBLER__ */
+ #endif /* _UAPI__A_OUT_GNU_H__ */
+diff --git a/include/uapi/linux/const.h b/include/uapi/linux/const.h
+index 565f309b9df8b..6d89e477fc79c 100644
+--- a/include/uapi/linux/const.h
++++ b/include/uapi/linux/const.h
+@@ -13,7 +13,7 @@
+  * leave it unchanged in asm.
+  */
+ 
+-#ifdef __ASSEMBLY__
++#ifdef __ASSEMBLER__
+ #define _AC(X,Y)	X
+ #define _AT(T,X)	X
+ #else
+@@ -28,7 +28,7 @@
+ #define _BITUL(x)	(_UL(1) << (x))
+ #define _BITULL(x)	(_ULL(1) << (x))
+ 
+-#if !defined(__ASSEMBLY__)
++#if !defined(__ASSEMBLER__)
  /*
-  * This is union'd with the "bottom" of the kernel stack.
-@@ -47,13 +47,13 @@ struct thread_info {
- 	unsigned long		sp;
+  * Missing asm support
+  *
+diff --git a/include/uapi/linux/edd.h b/include/uapi/linux/edd.h
+index 0fe3e02aec653..566f206964862 100644
+--- a/include/uapi/linux/edd.h
++++ b/include/uapi/linux/edd.h
+@@ -53,7 +53,7 @@
+ #define EDD_MBR_SIG_NR_BUF 0x1ea  /* addr of number of MBR signtaures at EDD_MBR_SIG_BUF
+ 				     in boot_params - treat this as 1 byte  */
+ 
+-#ifndef __ASSEMBLY__
++#ifndef __ASSEMBLER__
+ 
+ #define EDD_EXT_FIXED_DISK_ACCESS           (1 << 0)
+ #define EDD_EXT_DEVICE_LOCKING_AND_EJECTING (1 << 1)
+@@ -187,6 +187,6 @@ struct edd {
+ 	unsigned char edd_info_nr;
  };
  
--#else /* !__ASSEMBLY__ */
-+#else /* !__ASSEMBLER__ */
+-#endif				/*!__ASSEMBLY__ */
++#endif				/*!__ASSEMBLER__ */
  
- #include <asm/asm-offsets.h>
- 
--#endif  /* __ASSEMBLY__  */
-+#endif  /* __ASSEMBLER__  */
+ #endif /* _UAPI_LINUX_EDD_H */
+diff --git a/include/uapi/linux/hdlc/ioctl.h b/include/uapi/linux/hdlc/ioctl.h
+index b06341acab5ec..0905383d72aa5 100644
+--- a/include/uapi/linux/hdlc/ioctl.h
++++ b/include/uapi/linux/hdlc/ioctl.h
+@@ -35,7 +35,7 @@
+ #define LMI_CCITT		3 /* ITU-T Annex A */
+ #define LMI_CISCO		4 /* The "original" LMI, aka Gang of Four */
  
 -#ifndef __ASSEMBLY__
 +#ifndef __ASSEMBLER__
  
- #define INIT_THREAD_INFO(tsk)                   \
- {                                               \
-@@ -73,7 +73,7 @@ struct thread_info {
- register struct thread_info *__current_thread_info asm(QUOTED_THREADINFO_REG);
- #define current_thread_info()  __current_thread_info
+ typedef struct {
+ 	unsigned int clock_rate; /* bits per second */
+@@ -90,5 +90,5 @@ typedef struct {
+ 
+ /* PPP doesn't need any info now - supply length = 0 to ioctl */
  
 -#endif /* __ASSEMBLY__ */
 +#endif /* __ASSEMBLER__ */
+ #endif /* __HDLC_IOCTL_H__ */
+diff --git a/include/uapi/linux/types.h b/include/uapi/linux/types.h
+index 48b933938877d..00743f894e7e3 100644
+--- a/include/uapi/linux/types.h
++++ b/include/uapi/linux/types.h
+@@ -4,7 +4,7 @@
  
+ #include <asm/types.h>
+ 
+-#ifndef __ASSEMBLY__
++#ifndef __ASSEMBLER__
+ #ifndef	__KERNEL__
+ #ifndef __EXPORTED_HEADERS__
+ #warning "Attempt to use kernel headers from user space, see https://kernelnewbies.org/KernelHeaders"
+@@ -59,5 +59,5 @@ typedef __u32 __bitwise __wsum;
+ 
+ typedef unsigned __bitwise __poll_t;
+ 
+-#endif /*  __ASSEMBLY__ */
++#endif /*  __ASSEMBLER__ */
+ #endif /* _UAPI_LINUX_TYPES_H */
+diff --git a/tools/include/uapi/linux/const.h b/tools/include/uapi/linux/const.h
+index 565f309b9df8b..6d89e477fc79c 100644
+--- a/tools/include/uapi/linux/const.h
++++ b/tools/include/uapi/linux/const.h
+@@ -13,7 +13,7 @@
+  * leave it unchanged in asm.
+  */
+ 
+-#ifdef __ASSEMBLY__
++#ifdef __ASSEMBLER__
+ #define _AC(X,Y)	X
+ #define _AT(T,X)	X
+ #else
+@@ -28,7 +28,7 @@
+ #define _BITUL(x)	(_UL(1) << (x))
+ #define _BITULL(x)	(_ULL(1) << (x))
+ 
+-#if !defined(__ASSEMBLY__)
++#if !defined(__ASSEMBLER__)
  /*
-  * thread information flags
+  * Missing asm support
+  *
 -- 
 2.56.0
 
