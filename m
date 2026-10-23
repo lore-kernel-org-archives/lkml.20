@@ -1,61 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.181
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792763197;
-	b=dQIG/GMFB5VFoXnzyxF/yFBQNrRzkkddz+8Twf/T0c3HjP39lBH8hNE7s6IyZduMZYca
-	 6YjjniToO+e7+cGLA6f45AeBQH/hcIeg4QpbqBaWwbt0CHwsO0CeFQWnWJohRNrVrFfDw
-	 sLRD0QNlgNYWcin2u0b03R8Xv+KkE+1MURYGBArGrsw3gYVLl3AiCXRvGEplOTtjcvX7n
-	 dpBku701gI+L+AkE5UQPY/DqGU0RVZc8YKx45IPmZOHeAtpY6QIOo1pndS5yiP3/I99ah
-	 FoaT7/lRcydz9qB/2w0s94O+dBwCiO1TB+XbV7NAY9CFBXHoClmPI0nuMEGrIges6zQ==
+	t=1792763195;
+	b=bkOHwdvSj8vbVZsSRmp6goQf881GEulrq2e/YrCqR8sJaPvks9EYMES8bXGq7A/W+X8c
+	 kyOq10GoCHWSxQpDww11Y3qyJmwXF73yhBiDT7SIUzU/6IRiXZo+Rq/cYYuYBNocbt9EN
+	 fhZNp4K/tvrkTZnyxDxDiFojcYqjSPyfYY3pAYgh7o9XTsjKf8qDgQvRC+oU9CNtBfBZ6
+	 sbl47SW6xdmqedLxFLMuRcnq9mRUWn5IABNBAxMbXOxtdTCOiFwuCqd90gav9/yg/7oow
+	 7v1OwOY+dpqKbH7zGlAOjNDNZ+h5VPZ6MZ1ay8MrRF5YJ4FVbipn/4HU8pOg7biYAFg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792763197;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:Auto-Submitted:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=URC7r36kokGjXCV5G6Ei8oKV54JoMbconYpCKkPt2AY=;
-	b=k5Ew64qnx/tMnhYzneWa+POmTuQfuSnN4DyxhQToT8GtcixWOs0BcTpLdN5xJ6jC+OMp
-	 d1BwThMvB65Dc1iOHenhniCQ4Qeqc+jsGZ8vSDlRwV07BeRd4FNdYC/CIuX97d8V4Q7Kv
-	 VZALBBPLzS4sp20J2atS90rPZoMPPlvGUG14++BD2gAjwBSsvpxFwKgO8eigs4EKPUvPb
-	 4+1vXh6ZqX4CRy4VX732K98mlRycPKUsaLZxy5SjuUHhvk8VaemnloyoiVny+IapSVyOr
-	 vjWucKQ1Y9NvliJ0F79IFB9HwDxANVey56dI8k08bOlhIIVb6DRwMbtuS0vjgEIzA9Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792763195;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=x3fqohRU8/o+/rWwlUOj67KW8Xe73r+lpb6xdIN08VU=;
+	b=A14mco3/bsO+1Zmrlj0AqLCr6xOGCoM0JdkD9CI1OWU6OJ9cYelwtZqiOZOWMgJoZ7W3
+	 EU9Ndko9bYSxALy1+sAazpjuxRUcDpKCNKo0AEayt/hFUu9rWcXKKI+/6OOa6CL4HPbSv
+	 MHt8pmuGqPpdIwfA9p8kPTtIzpEGFJYH2LQLjf75ngFUJjgukCVjWzVxged2m8miTx0vZ
+	 W6Rnj0kfXFBbeU3q+cP35bg2n1npHPcXtBHQMI4r9yaK6dVKXze6Sqdqigx5B2cq/oSAK
+	 7sQmj4VQTOnJNgaHdBYxB15gijRfZziO6skp0Ba2grOU3joUPk+rq10Wf9dFWwpJRxA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XJYMPb4O;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=ziepe.ca;
+	spf=pass smtp.mailfrom=ziepe.ca;
+	dkim=pass header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=PxzjRO9V;
+	arc=none smtp.remote-ip=209.85.222.181
+Received: from mail-qk1-f181.google.com (mail-qk1-f181.google.com [209.85.222.181])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13A71606A31D;
-	Fri, 23 Oct 2026 13:46:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68B67606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 13:46:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 68B67606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XJYMPb4O
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 302281F01825;
-	Fri, 23 Oct 2026 13:46:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792763196;
-	bh=URC7r36kokGjXCV5G6Ei8oKV54JoMbconYpCKkPt2AY=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=XJYMPb4O9RR4nN5Z6k7oyB/+pHoMAsfRAQ4sf8+N77qJeSAi40CDRZIQXnkVk/W9x
-	 +xGkdyVdQyN5vvhvzgXJq/bumlWRIZP1D0pcc7Xcs2SrP8RAz1fu55UIMmHadYcfsx
-	 mv0ygw/iAd8tGw1a7lsD0r4C4FXZkeXw46PTnEOBU8VTkgGgvRHtfS9SCAikdN4dOp
-	 6PG+Y4CwDdIHUBcNg80GRkuqBYs86sIhivL69XmF8KzcEKURi2Wn5D6fUi3WQ9C+o/
-	 REyIh00anmMXrGjPEkJV0pllQtKww3dQfCLS4p21OjrnG83Qqj45s2rfpvaaDKwlqF
-	 at/MFli0xnqlQ==
-From: netdev-bot+sinfo@kernel.org
-To: Sicong Huang <congei42@163.com>
-Cc: Edward Cree <ecree.xilinx@gmail.com>, netdev@vger.kernel.org,
- Andrew Lunn <andrew+netdev@lunn.ch>, "David S . Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Kees Cook <kees@kernel.org>,
- linux-net-drivers@amd.com, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net v2] sfc: fix use-after-free of filter_work in
- efx_realloc_channels()
-Date: Fri, 23 Oct 2026 13:46:35 +0000
-Message-ID: <179276319567.3327.5663989857967667834@kernel.org>
-In-Reply-To: <20261023134214.322796-1-congei42@163.com>
-References: <20261023134214.322796-1-congei42@163.com>
-Auto-Submitted: auto-generated
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (2048-bit key, unprotected) header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=PxzjRO9V
+Received: by mail-qk1-f181.google.com with SMTP id af79cd13be357-93f20c3aaa5so75190885a.2
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 06:46:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ziepe.ca; s=google; t=1792763193; x=1793367993; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=x3fqohRU8/o+/rWwlUOj67KW8Xe73r+lpb6xdIN08VU=;
+        b=PxzjRO9VqlHUTCB0sOaU98Y0PltiWC0s+skv6obFUwW6On4M4foy5vHBb2DdVCTz9A
+         OLoR74ZE88/ceo1IBOtsqjQib8bAaoJFKXUo3dwnmCgCZeAzZ2KSsKreRf9XJk24yRbR
+         OyPB+XBWsWnEZrnCibc9X0XnipYyfmqTQUVYFaao1eSAnZb0wjJPg4iug5ikgXWy1X+r
+         EMSz5xTNZA8T3T8QEvbz4KI7+GOuiov5/kAW9kjn5475zpMaCTtBUCFcnyD9yngsqfR0
+         +p+RWLGlMqfsEa0Mk/BT+hr/RUq2e5kjd6CZ2fbZui0TErUt+dmvoPlXrWha9JYPidxF
+         uBkQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792763193; x=1793367993;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=x3fqohRU8/o+/rWwlUOj67KW8Xe73r+lpb6xdIN08VU=;
+        b=h/L1JzoLmL1N3reOINpHP47V2nNz3sBXLcQSC3qhoNsTojVs4AqzLZnsqmWBHWG1vM
+         ooSBSwFC6UgV7kTpaKaZSY7qaSj1jSSqc34g+BvRCCoekSwmdo5dg8ifoRq8HFj8JnX7
+         xc3o9cvItQuhEvipJjSNRBE1piq76C9TuU/7XEwa4XBWlhHzxMRh1JvIOCwCEcH/AGP0
+         7EIWYnD5E7zNkMseVp32YrjsuWBy+F87pXidBJJ5Q6VnDRlfObxA1EYtVIflHYNUhP37
+         AzV8umgQ3ksn2oL19Ign6zKjudS7wmm1tVQ5Den+JGUpAEXQgOribdHxXMhpADrtv/3q
+         GbOw==
+X-Forwarded-Encrypted: i=1; AKwUvBxBQH/fso/tEK6qIoweJVFNkPMMKp+kqqcOYGZRsGZJv+lqNgyhSZX+rGKkWg5zS6Gil9FTls4aIZxFcn0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLNP/TvNHI8poYgtr9L3CLj6wB4sIvR6/oDfw7+hIBThxRRa3nP
+	8go2Oi5F5Z87h214pwP1vljQ9mlr4IDDOxF+ETtw6F8+hP4DkN7CJegzh97FbVXofE0=
+X-Gm-Gg: AYBFou3V5V7QOZbgzMJSOJPR2TvfMsyr7D0Z4WOrqfGhUsL56uNo133eJNvO3qB2Yve
+	AEg16gsXhcCd1q/5e+5ZGUeaLKqb468J3VqKsqtexeZ8qzZ0Ob2X+c7y82dKBlU1096vU7vZaa1
+	ZL8NZCp2qfz8axOSQpHBfWECdOIozjmhPfxZ48SsRpeiokNHUR/085eEOnFGXYMSnm4UGFPM+Nf
+	uXT3yVve6UR7p1iyGzI9/hyeK2NpTYPzjaMSxyskxQJmMRzfQk35HDZBnWa+nOmlbkPqtqxHDOS
+	BPbjkPpe1YcFEvyuMZiBXilA4BYw4uBNHJgYT4ZEL3jTaezb+YSA2WLOKfxsTiYwflZG1NxnJpv
+	XMQu9PHh2Owa8QPgR+ru5aolgkBNx468fguDJRQtGBfy33MEXHXbPpb1vsl3uYS1c0nR7Zm3Jid
+	TZ2+uO7Epd1RBowaf/qUOBm0+Vga0OVpbaEg0lxCc9MRMK/H1lVU9f22C6GG42kBKDeCbcXCL42
+	9j70Wuikx2ALCWNQkX0VKoQCfshF86M07UNvJZz9dnuQ556nt36vg4ZQGcTyfItfVh59x8g4FoO
+	cMxQMTkZz7SEqcZ7K3rHJt/xVqMZloUrzf7Qa+pSLxRII2jF2lUiPoYdiWk=
+X-Received: by 2002:a05:620a:2853:b0:93f:dea:3b7e with SMTP id af79cd13be357-93f6f78721amr391556485a.24.1792763193248;
+        Fri, 23 Oct 2026 06:46:33 -0700 (PDT)
+Received: from ziepe.ca (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net. [159.2.239.150])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-9404722bccbsm21296085a.8.2026.10.23.06.46.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 23 Oct 2026 06:46:31 -0700 (PDT)
+Received: from jgg by wakko with local (Exim 4.97)
+	(envelope-from <jgg@ziepe.ca>)
+	id 1xKFbK-0000000GhDh-3AUl;
+	Fri, 23 Oct 2026 10:46:30 -0300
+Date: Fri, 23 Oct 2026 10:46:30 -0300
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: Robin Murphy <robin.murphy@arm.com>
+Cc: Samiullah Khawaja <skhawaja@google.com>, Joerg Roedel <joro@8bytes.org>,
+	Will Deacon <will@kernel.org>, Kevin Tian <kevin.tian@intel.com>,
+	Alex Williamson <alex@shazbot.org>, iommu@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	Pasha Tatashin <pasha.tatashin@soleen.com>,
+	David Matlack <dmatlack@google.com>,
+	Lu Baolu <baolu.lu@linux.intel.com>,
+	Pranjal Shrivastava <praan@google.com>
+Subject: Re: [RFC PATCH 0/3] iommu/arm-smmu-v3: Add support for hitless
+ replace of CD entries
+Message-ID: <20261023134630.GA3977851@ziepe.ca>
+References: <20260925011308.3381953-1-skhawaja@google.com>
+ <40a2e1a2-138b-42bf-94ea-a42fda128c22@arm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,29 +108,48 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <40a2e1a2-138b-42bf-94ea-a42fda128c22@arm.com>
 
-Hi!
+On Fri, Oct 23, 2026 at 01:10:56PM +0100, Robin Murphy wrote:
+> On 25/09/2026 2:13 am, Samiullah Khawaja wrote:
+> > This patch series adds support for replacing IOMMU domains with S1 page
+> > tables hitlessly, that is without disrupting the ongoing DMAs. This is
+> > one of the dependencies of the Liveupdate IOMMU support for Arm SMMUv3.
+> > 
+> > S1 domains are programmed by CD entries in the CD table. During a new
+> > domain attach these are updated using arm_smmu_write_cd_entry(). Since
+> > ASID and TTB0 are in different 64-bit words, arm_smmu_write_cd_entry()
+> > considers it a non-hitless update and sets V=0. This means such an
+> > update is disruptive and would generate translation faults if there are
+> > ongoing DMAs.
+> > 
+> > Replace the CD entries by using an unused temporary ASID in the
+> > following sequence to allow hitless replacement of CD entry,
+> > 
+> > - Update the CD entry with temporary ASID.
+> > - Update the CD entry with the target TTB0.
+> > - Invalidate the temporary ASID.
+> > - Update the CD entry with target ASID.
+> > - Invalidate and release the temporary ASID.
+> 
+> Why bother transitioning through a 3rd ASID? The old and new pagetables must
+> contain the same translations anyway, so why not just: switch ASID, switch
+> TTB, invalidate old ASID?
 
-This is an automated message. This series looks like a fix, but its
-commit messages seem to be missing some information:
+The target ASID may be in use by another CD someplace else. Doing it
+without the temporary could contaminate it with wrong translations
+from the original TTB0.
 
- - How the issue was discovered, e.g. hit in production, hit during
-   development, syzbot report, manual code inspection, LLM or static
-   analysis tool scan.
+From a driver perspective we don't know why the domain replace
+operation was triggered. iommufd can trigger it for domains that are
+not identical. Corrupting the target ASID when we don't know for sure
+what is happening is not safe.
 
- - Whether the issue was actually triggered, or is only theoretical
-   (e.g. found by code inspection). If it was triggered please include
-   the symptoms, like the stack trace or error messages.
+Obviously Samiullah's use case is hitless between the same translation
+so it doesn't need the extra ASID, but the driver can't know this.
 
- - What hardware the change was tested on. For driver fixes please
-   mention the device (and if relevant firmware version) used for
-   testing, or say that the change was not tested on real hardware.
+Samiullah please include this explanation in a comment..
 
-Please do not repost the series just to address the above. Instead,
-reply to this email with the missing information, so that reviewers
-can take it into account. If the series needs another revision for
-other reasons, please include the information in the commit messages
-then.
-
-The evaluation is done by an LLM so it may be wrong, if you think
-that is the case please reply and explain.
+Jason
