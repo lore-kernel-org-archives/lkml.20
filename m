@@ -1,80 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=68.232.153.233
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792754546;
-	b=bk0Zw0E1gGhcGmBx+OK+x19/9WIhkdyYXT38o3waEsrK7UyFQND/NVcUEAuqNn/vfYvW
-	 sY/gq46EVMTr2yXA24yKhRBzo+J9WWNwSrMMxuz9lXkzNDKl+zH+tEOSuoO5hd6grrl6Z
-	 LUsRDV+UwB9Fr5OA7710GImMB8J/2sWSUuqRIe3Nb1dkXBRDvSUtZx4xhnAOil8VgWvb/
-	 W7HLLwlvp/niRSfKhQInMidAx99+qR2opRSwbVEOO5WWc990FyUkog29ADLe+n1LkgItV
-	 tL6YOq0rkw3eLDoIWWNbx0aNWzRhwPCiRFIkfWeJq6yLIpEX2iDr336qADEoP5WmRXw==
+	t=1792754591;
+	b=SVRo92PqFL6QeXgPsY8jYk0K17v5jX2MGq0hxHgUqry3w9N8nf8fv6vPFMwHucJDf/P6
+	 gi6G8auV5PNKmjhE9teTooSiXTU1z3MxEXw6k+wyjKacFB88fg7RenJNlGq7U3PtZ//Fs
+	 3J2HGhw2eUKd/SBLXtmqROPae9hCsPauRdqCJ0sv2cOGMK+XooJBVgrLdgaglInAWokiu
+	 zUnhDzXIgIvwqgbQJBc+GEDHjhYlyYAYe3qciqjZNKPKg4x6eduIu+y/Gotjkm1LPiitO
+	 b5PjhB6nmqZy0w1dgQnVho1pgGE6KiHMFSa0LpT/E8obiO2dAEt5UFgqkTQV2dIzf7Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792754546;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-Amp-Result:Received:Received:Received:Date:From:To:CC:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=p0TlihYYQqoSl/ttb9fRh6qgpKKXc6u8KsO4l12hhhQ=;
-	b=OvXiW8fan8rs38OnIFNJklO1XNHYqOXDVnt69arbhneY8VFEgIN7uVUBT9dNQAuRVkfz
-	 aQEwvQi1oK6jU/Y7ixwIL9uoMwsktjY0mMb3qq+ra7LJDILRAorHxCFieib6OZ2IMmBNv
-	 6J5KQY8kaMtIu/JqrFvj7hCkmFb0Gr/t3hhz5bHXOzU/Y2CYtt5qIFu6gNfKEJ7T1U3jA
-	 o1e/R6+WMrc9V+ns3GBD9YOLXOelO/NqYsDO1o1PfHA3wr0Mk9BbtmotEGvO3SfUZlh7+
-	 pdnnIcsXHU/YwjR9TIBE2lmkPBvjBv+l9Cb3trnnoAvlE7hMLEvSsRqe8wgX9bOCOSA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792754591;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Rspamd-Queue-Id:X-Spam-Level:
+	 X-Rspamd-Server:X-Rspamd-Action:X-Spam-Flag:X-Spamd-Result:
+	 X-Spam-Score;
+	bh=MWj9q4uajifA/Jb3vbzOHD2Z9r7aAIaHgsTHTJb/MnM=;
+	b=3ImqFtYs/E/j+THhMIHbtEWip5fGxFcw7ticOd92zxBlUC0TeFCgegYxbRsrHalC48ZT
+	 kTKvqptznwAgANzrvNNVSjOXw+i74sx0dopvKPOIn3v5G7K1m5Prfe0US35NZlQpML53C
+	 y0lOcDgdAskOO6Aihg355wWoJh5XLoXLXNVDxFmLsu8xFVnX/H0fifcH7GyS9ZBJl1mQj
+	 ggo+2IOHFYY7VpbT0TqoivJjP8iYHpnKPPeq2HqY9bgDY6tpywVFOBpstZaxzZpKbUnJz
+	 lY6TZCCuDk33vTOJUNZuFQRep0ABcuiB/iifpBpWqE/v4E3Gw1G4D5c0v617LECU+pA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=microchip.com;
-	spf=pass smtp.mailfrom=microchip.com;
-	dkim=pass header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=gvQXlc0q;
-	arc=none smtp.remote-ip=68.232.153.233
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=ikltLxiY;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=nMXFzyBD;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=j9FargvX;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=1ioqEvaB;
+	arc=none smtp.remote-ip=195.135.223.130
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7C31606A31A;
-	Fri, 23 Oct 2026 11:22:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D7C31606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4F0D606A31A;
+	Fri, 23 Oct 2026 11:23:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E4F0D606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=gvQXlc0q
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1792754546; x=1824290546;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=bf1jKkqSPO64+JjX7Tm+y62ZjvX2n1Tqkctim9DDrvs=;
-  b=gvQXlc0qWVXH9Hkf4r/UF2Tai+1jnnkR0rCa+PfOmQ/I/pnTu2BVVct0
-   IJzqFzgMf6NjpJJjvZrqKhk7krwa0EhKaXvZ0dG1xchO1NB7Nwj7DCCc5
-   ue8nO8Xmm6F4c38dxgIeAePAzTesjPrJuL4nzi1SYwGTYIy0nOL2GPBpQ
-   CJ1RVHccSZ2y4t0igOvjiAHyB4T4u1WFsOyx4vL+n6rR1PkxECnoJC6s5
-   6TK5RWnZoeYpvFIjM6xDfDsl2TdNIKaQKfKWLEKoXWJYapfqteINKdZEG
-   Po3GSR1ezJJFHvh7pYCQwhiO1Ym5Vn1FefKZRidRZcX7JUwV7UM7otyi1
-   Q==;
-X-CSE-ConnectionGUID: EPZTHebzRjWrJwg6QVAQtQ==
-X-CSE-MsgGUID: Ll5NRThAStOJaameua4CTQ==
-X-IronPort-AV: E=Sophos;i="6.27,174,1787036400"; 
-   d="scan'208";a="65461676"
-X-Amp-Result: SKIPPED(no attachment in message)
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa3.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 23 Oct 2026 04:22:25 -0700
-Received: from chn-vm-ex01.mchp-main.com (10.10.85.143) by
- chn-vm-ex04.mchp-main.com (10.10.85.152) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.58; Fri, 23 Oct 2026 04:22:24 -0700
-Received: from DEN-DL-M70577 (10.10.85.11) by chn-vm-ex01.mchp-main.com
- (10.10.85.143) with Microsoft SMTP Server id 15.1.2507.58 via Frontend
- Transport; Fri, 23 Oct 2026 04:22:21 -0700
-Date: Fri, 23 Oct 2026 13:22:21 +0200
-From: Daniel Machon <daniel.machon@microchip.com>
-To: Dimitri Daskalakis <dimitri.daskalakis1@gmail.com>
-CC: "David S. Miller" <davem@davemloft.net>, Alexander Duyck
-	<alexanderduyck@fb.com>, Jakub Kicinski <kuba@kernel.org>,
-	<kernel-team@meta.com>, Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet
-	<edumazet@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman
-	<horms@kernel.org>, =?utf-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>,
-	Mohsin Bashir <mohsin.bashr@gmail.com>, Bobby Eshleman
-	<bobbyeshleman@meta.com>, <netdev@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, Dimitri Daskalakis <daskald@meta.com>
-Subject: Re: [PATCH net] eth: fbnic: Correct packet header prefetch
-Message-ID: <20261023112221.cqjcgqtano75hlkn@DEN-DL-M70577>
-References: <20261020172706.1090951-1-dimitri.daskalakis1@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=ikltLxiY;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=nMXFzyBD;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=j9FargvX;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=1ioqEvaB
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id EBC9522142;
+	Fri, 23 Oct 2026 11:23:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1792754589; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=MWj9q4uajifA/Jb3vbzOHD2Z9r7aAIaHgsTHTJb/MnM=;
+	b=ikltLxiYqGewZaPR55z1hoUjQSG0CgtowBuDtRJdDCDaClMXN8iiYDJfnkhAHdmSZKc2Mi
+	AqQK/M0cW6e1Mu5X1Z3Hg2CkcfMm24q8Ipoz/qeZNmjLWQ+ucuOW0v/TCE2tvo+HdWNsmG
+	ozkzc7p9MZE8UwDKwNs4e52VU1+/BNc=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1792754589;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=MWj9q4uajifA/Jb3vbzOHD2Z9r7aAIaHgsTHTJb/MnM=;
+	b=nMXFzyBDrzcEDDi4kKUbVpzee4xfT1GaAeczV9Ugw35IpYFEvjec7FCHBg/1w9ooltKEGn
+	JnEstad4igfPHYAw==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=j9FargvX;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=1ioqEvaB
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1792754588; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=MWj9q4uajifA/Jb3vbzOHD2Z9r7aAIaHgsTHTJb/MnM=;
+	b=j9FargvX71H/V4NpMX+jZAr7YfFCmnu/EzeyoKBiD3oY4NjExjyZP50IB9t9DVta1K4Wf8
+	1dilqlo05sGILOIwYmGjVuUmsBAVgUOFER07wuAp1A8fIEXAxi9Q4MwmIcm3EGGKtHcz93
+	X5G04AScj/a70by2J1UtKQZREXj/Ixo=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1792754588;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=MWj9q4uajifA/Jb3vbzOHD2Z9r7aAIaHgsTHTJb/MnM=;
+	b=1ioqEvaBJQujl2TSOEtmbQTYXJztPL2vNolxbQXCxeqaXlDxAV1uNh3b0oIgOt79FMnhQm
+	xvf0D9H1gCJ+UrAg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 37C20133F6;
+	Fri, 23 Oct 2026 11:23:08 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id tAViApxD22qMQgAAD6G6ig
+	(envelope-from <fmancera@suse.de>); Fri, 23 Oct 2026 11:23:08 +0000
+Message-ID: <91ffac70-3fd6-4644-bfbc-4710af1faa37@suse.de>
+Date: Fri, 23 Oct 2026 13:22:01 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,24 +108,89 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20261020172706.1090951-1-dimitri.daskalakis1@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net] bonding: fix out-of-bounds read of arp_ip_target
+To: Jiayuan Chen <jiayuan.chen@linux.dev>, netdev@vger.kernel.org
+Cc: stable@vger.kernel.org, Jay Vosburgh <jv@jvosburgh.net>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Nikolay Aleksandrov <razor@blackwall.org>, linux-kernel@vger.kernel.org
+References: <20261023104528.232427-1-jiayuan.chen@linux.dev>
+Content-Language: en-US
+From: Fernando Fernandez Mancera <fmancera@suse.de>
+In-Reply-To: <20261023104528.232427-1-jiayuan.chen@linux.dev>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Rspamd-Queue-Id: EBC9522142
+X-Spam-Level: 
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Flag: NO
+X-Spamd-Result: default: False [-12.00 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	XM_UA_NO_VERSION(0.01)[];
+	MX_GOOD(-0.01)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	MIME_TRACE(0.00)[0:+];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	ARC_NA(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	DKIM_TRACE(0.00)[suse.de:+];
+	TO_DN_SOME(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[11];
+	TAGGED_RCPT(0.00)[netdev];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[linux.dev:email,suse.de:dkim,suse.de:email,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo]
+X-Spam-Score: -12.00
 
-> From: Dimitri Daskalakis <daskald@meta.com>
+On 10/23/26 12:45 PM, Jiayuan Chen wrote:
+> arp_ip_target is a module parameter array with BOND_MAX_ARP_TARGETS
+> entries. In the loop parsing it in bond_check_params(), arp_ip_count is
+> the number of accepted targets, while i is the index into
+> arp_ip_target. Invalid and duplicate entries are skipped without
+> bumping arp_ip_count, so bounding the loop with arp_ip_count lets i run
+> past the end of arp_ip_target, e.g. 16 targets with one duplicate:
 > 
-> The existing call to net_prefetch() fetched a stale address. The data
-> pointer is not initialized until after the call to xdp_prepare_buff().
-> Thus, making the prefetch ineffective.
+>    BUG: KASAN: global-out-of-bounds in bond_check_params.constprop.0+0x1148/0x1440
+>    Read of size 8 at addr ffffffff96e9ee00 by task swapper/0/1
+>    Call Trace:
+>     <TASK>
+>     dump_stack_lvl+0x91/0xf0
+>     print_report+0xd1/0x630
+>     kasan_report+0xf3/0x130
+>     __asan_report_load8_noabort+0x14/0x30
+>     bond_check_params.constprop.0+0x1148/0x1440
+>     bonding_init+0x13/0xe0
+>     do_one_initcall+0xe7/0x5b0
+>     kernel_init_freeable+0xa91/0x1120
+>     kernel_init+0x24/0x220
+>     ret_from_fork+0x5b3/0x820
+>     ret_from_fork_asm+0x1a/0x30
+>     </TASK>
 > 
-> Open code the address calcuation to give the prefetch as much time
-> as possible.
+>    The buggy address belongs to the variable:
+>     arp_ip_target+0x80/0xa0
 > 
-> This was found by manual code inspection. No issues have been observed
-> from this.
+> Bound the loop with i instead. arp_ip_count never exceeds i, so it
+> stays within BOND_MAX_ARP_TARGETS too.
 > 
-> Fixes: 9064ab485f04 ("eth: fbnic: Prefetch packet headers on Rx")
-> Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-> Signed-off-by: Dimitri Daskalakis <daskald@meta.com>
+> Fixes: 5a5c5fd48e3b ("bonding: arp_ip_count and arp_targets can be wrong")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
 
-Reviewed-by: Daniel Machon <daniel.machon@microchip.com>
+Reviewed-by: Fernando Fernandez Mancera <fmancera@suse.de>
+
+Thanks!
