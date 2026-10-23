@@ -1,101 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.44
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.47
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792779562;
-	b=D8imjeDHrPuDuFhO23m6WZ3MD8gv548Hy2oSLPJ3FHebfgXE4yudsUbShw4QRXLMDDUe
-	 J2nG2AfJHkvlP+2O9/QZ86oyt+gDviMU26VzPwR8oAeBq8QPX2j1m0UmGxAjCIvkSQzLs
-	 iX5n//vNVhSBhRK9cdq2cnxe+kxQw9YtY8+ToE9sVmSEmnYMn2gQWIqDDFcY+H9orwuiH
-	 +gAPwdkdvv+9psBfj13mHAw46cuxDbf58L4SsdQjCJ01zFWlbn2MmN6FnNZ4322+D/FBW
-	 i3hQga4tOtLDF6nH4vBo0ZyyCUgQ+a8qxEWDAPa0reTRntAF176esTIpEL76vV5eflQ==
+	t=1792779595;
+	b=BoZMM0OMMLsrZLH6VIMR9RmHjVNsTfSqpO0fZ8xvuqYnvciY7Gdu/LGi1qOVKjDA3ff8
+	 p1lkleAZ+xPAqoPUD2Cv43ykXpU4rcpXd1dNGHoXXYkPIb6jT/y84Oc6XkkV/6ikBGKBK
+	 hjKyHrgbJvCCjG7Cbw98BCFyp0W5N+z3uNUEERCdy9UWnYkT6MpjnUL66HCZee8/oZB1S
+	 9zvyW2wd31ymMbYIdHY8XRSDKAsRLi1LhyC+7/GR77lxHTl933TQjMgyhIABJn1SNMmBg
+	 Inq1E8W2M+/xhf3Mw9EeIGyYTpE0XwHnWgTSvG1QnvOZtPGE1RuX0uSvVk63R2cKecw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792779562;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792779595;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
 	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
 	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=Sf63KFDDNNQERzVahv0eOgq9vdaVcq8l5ll+ubDdbTA=;
-	b=Bj3+bn5yL4RYkjag2jDJD7FN1dw6Fh4qRWI2GA883qq4u+gWK8IPnfgShXJ+4G61y5FS
-	 4+MSBRykuszQbajlqLVhsFoLs6u5srwH3uj6otJ86sGX3NXN/5tLApxuOusRawV3+5pLE
-	 xJgIub5g6l1ld2BIBx53C86PBLRDI3wnxU8AKMh7+AFznD90NyghP5X9H6rZYWIEKIGEa
-	 beHm0mOF1tlLz9dGSFMgRMt8h7Y5Tu0Yn1nGyvtEB2Oh0VbVpTkgTZ7JJG9ETn5sJCK7Q
-	 ATmnPkrweGjUPXXX1oNxXLm3cLKvgPahBVpEEkyCZSZ9d44YInAcUy55M1pNpknnvyw==
+	bh=Ib/ri5CDuAjwUK4goxK/03XfhwG7mHhhdijFj1BEbio=;
+	b=p+fp2Di6PKPxyHCsAsGW0FwoeNxLfQw4jq3hT8MzlW6qKjCC3YMAoigTjahHTWunOrFC
+	 3s5ilBJ9qfMqRWqzUod2vr3ASiWzx1EXAQ9WmoLEOfDpU5L+rQLTdLHlAfHgNYjCQcyCL
+	 MfDt1mBUTOMEqiFuqFeqRZNHneJV+wh2ggkcupFYyQ1BII6QrjkLAwwe3/cqNRxrXVNwO
+	 tq9fzmTS8fMiWtI74WQ7NVQ26rkojww8Apey+vlgJoGrSOtW5QAYYXrUjee0UAaEFV2jk
+	 eAApb1Jl9FpEvsU7XBKvFWoKvcMjmP6fQqjYjFWpNqcekJAYj2+LccVLoqrjELJeXAQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=BBDe59so;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.44
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=PTVng4+k;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.47
+Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com [209.85.208.47])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FE4F606A31E
-	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 18:19:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9FE4F606A31E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2894606A31B
+	for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 18:19:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F2894606A31B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=BBDe59so
-Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-48e10a70540so727552f8f.1
-        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 11:19:21 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792779560; cv=none;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=PTVng4+k
+Received: by mail-ed1-f47.google.com with SMTP id 4fb4d7f45d1cf-6b429f71dbeso1111963a12.1
+        for <linux-kernel@vger.kernel.org>; Fri, 23 Oct 2026 11:19:54 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792779593; cv=none;
         d=google.com; s=arc-20260327;
-        b=K8oDMuRQOd77yLz2K2NZWQX5Lf9SI8SI++iVxLJYHWfbiZDs46RcSwCLqifCfhB6yq
-         RyO58yvVF6BcbWHSd7bGBYkVo92YgWIJE2ZskSwhSyTYn9/P1Xp/0Z20x3V24NZ6gNoY
-         PQb32CA4/daKwvZ1hQkwyfIspgFw8w6xPVp7+sNZ/KaMRZnWOUKS6MP/zj9qBdc1jHLO
-         ma+/4Vg2a7ruc/bYD+yOgoqEyjCaf3DLBmX/44Jh1YCnFQYC2GFjhGmgd67up9OgXq+a
-         RgG85NgEjGxCuUsg6ZtBFYJawsMkZ8GIfMT5BHyEHvrJTGLYf4b4JmgRB41bP94uSJnE
-         u1uQ==
+        b=b1sy4HG78/zdANwpG/fWmflh/wv0BjBJ00WndNlcon/YOOLgWy/M51whJhdO3jOaFI
+         X8p+fNsj+0ZVmDZ0Yo8m5JXKLVcR1Bds4FbXFVMYjoZGyeWcGfgvKu5fU/EMOc+Crsqq
+         JaSNKIH34MkuJyklqHjYuOdgI5K0yCJBCdNxCsvC/Tb3/ZWDV8rI/m5bjfEj/h8GbgPl
+         1CNXE+RFndAzXddkmj0/ldqBZohcFYv7wyVyhZJjyeFtLSKbps+vV50pM8aGCDwD3+Gs
+         xb53a01FZ9EJSAvlyMVar5x9NMza7oUulWVWQTs9JT15ykhlAp1w91IUQtT5xTjXofli
+         ozaA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=Sf63KFDDNNQERzVahv0eOgq9vdaVcq8l5ll+ubDdbTA=;
-        fh=iImqOGjBMNB9XZheqNEl/1YjWfXNxGCBWUWoKUeSYqE=;
-        b=a2PO4zpRLu+47QweTsJVn8mn2BJpleeuJPYCO8xdpfGzRhwV+TxdnWXiHqB2MayKrv
-         cPltCYsDMqAOpxSAywsG0CbnPRKlT5JZUj9ApvhTy4/alm4/kljYCrDJiivGYBmISj92
-         NXNJPqs04eHU1CNsBdrirhGMzQ83sU/2oED6/X69O2WNugtbOaV97aqsBHLES/SJYpfc
-         wpscRo0Esv+EbeDS2JqxC9KYEeZcAFQ0AcIWvbWPfFgO/WiMOyXs3BsYKacGDp5JR38Y
-         m5FeWAO6meY9NzxjTzFx7hmZ8UHPcJ3Uzl5cqlncjdgvEnGXL8Lpt28z7QnGaq35EzZ1
-         BG9w==;
+        bh=Ib/ri5CDuAjwUK4goxK/03XfhwG7mHhhdijFj1BEbio=;
+        fh=A82+z+fxOu+EiN+jr5JzotHewVpxBm+GWl+fhtvTa6g=;
+        b=odRy3xk44+STcZn7u0PV9ZAa0VHdjjchU71UsdxeCX7mixhIpAANenJ1OpU6m/qROq
+         NrEfcPPg5E9Cyz37NlTKORtemcZ2oEn7g10HTc6unsamvGhF8jGtVuLEpxkHlvdazBST
+         tMc/Bmi/XIyccHOpX66avVVUSo3zLo16ndh8lhnOla/XeBNhANZVCW7tKmwZzQdQ5vsN
+         V+r8Hh104K2ENh6T463zvLdRR7cipzm8g1uunx12GVL+SZtbrqETMX85X2NY9xSBekgJ
+         BuD+jLPPWwMNpAtClScMVNv/w9Hq5hw5KbIhlOGsKMRMdzbpu2RV/kHYh8PkmYAOsF9y
+         nZug==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792779560; x=1793384360; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792779593; x=1793384393; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=Sf63KFDDNNQERzVahv0eOgq9vdaVcq8l5ll+ubDdbTA=;
-        b=BBDe59sorH3ey9ncvQ8jxLzMaypcvb9JmpozFNmxG+0UhPkZxLLRrMEJP20fzxpkGD
-         qZoKsXRemYlyRqaHAHur/TLtEsnaYJs3FQH9/dFlpU49ktIUx2el7C0xwTlKfA/HbwpQ
-         1yfH8XqLvKpnH/zNGjvyTaSQcAWCdy+NoPdFI/vttof0uje/KCUqhmJr1Pm8a0Pq8P+Q
-         4Llr5QB5O4hx+q5fLA+Rmws34llicN8FlbeCu3vU8CqsNkU+NPGF5GIHhGjOulcEoJQG
-         dCu1xjV2umDDfNfM0w4DHSh4WdMK1ljoaeDCGprHns+5WGMymEqCDl4AuqQfCPdIqXYB
-         G1MA==
+        bh=Ib/ri5CDuAjwUK4goxK/03XfhwG7mHhhdijFj1BEbio=;
+        b=PTVng4+kNSaYoXcW9ZVpky8q6wGS/1f+oQ7ufoyFjtG2Wvv6QzpYc9OETVLucX0YLZ
+         aINQMccPii23lGhCvpB7Ga/Z2ZGb4DGGs49zFY4sLcTgR8U7oab7Zr6cnQUQYX4tiRPN
+         AiZO4ZfMme3RiM0tzElJm3Bud8fqTw0jGC743PLpawmnAd1St4vz6bmHO9/IZnURbz8j
+         ao/O/+j+ZGgdYAMr3rMyOWXc7bM/+o+8ieMjEVgPYfs4nMtscFxszBWe5HVOjizdT1eD
+         CEZGOxfccNgWXBw5eZ5jmaaax3HVC3Bak5/u0+lG8hrtCRQpTq8eNHqNJT8mNRXlSR+a
+         A+gQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792779560; x=1793384360;
+        d=1e100.net; s=20260707; t=1792779593; x=1793384393;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Sf63KFDDNNQERzVahv0eOgq9vdaVcq8l5ll+ubDdbTA=;
-        b=cI5ktkK+AainsENwfPIn+t19eCbyfKJACy7vLCqZ2Q9brQEfgybcBoIvWVT4rl3KkE
-         Mmy5BJSxxkBw5B+tJFeIpoa4NvL2xJtnN4Xaieb7pbKJuzvIrlO1kE0M5fEvKBZ0OWas
-         g3xaRKICEXpTUbYP7MRJZODyCy0ABMxamCa4qsbyzJO3GGGuK5dTpvEr+lDrl8l8oYpp
-         68+Aovsqi+VYpc7bA93TtrSO+DyeAttjz7ZYaV9kirT7Z3Rz5C8H3b4A07V1EBuMEdwM
-         5Wi8e5V6K3IHBrjbZWZDC652/oKPzFm/FT9Tx2MuPb+aaf9WuNLFpCxaynVWW3zsBR/9
-         WULQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzGKyZHupTrDFjI3pLCyxTNGzju+oFqkydUvQFAvaDfOyUotenI4jYy+3qYoLQ8oIKM57bFUMnlVoAnuNA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKpjU0OWu5VnAhS/9Uivam3fd1tGgfqka6SfxOU2vRUKrGCqSbI
-	tYvdiXgvH6VdJY6V8dCp7162XEZnnV593oRIRDbg0QZYEZhVkE1lw2JDVDGcymRAZ+G8/H3Frbs
-	qgtyN/B/YQAbDqdblQgSP6Wwbp57hw0M=
-X-Gm-Gg: AYBFou1ZSnxvD5G1hqT41C90XPx7UQCOLPuRU3hXHCDxe0/+RYDoqRXlAnDXqqLtxeQ
-	6xEjrTJ71uysfMPa5wFK18qQGhMPmsatNYfxoM9OOyw2/ZB1bDclh2FcSmD336aFZ9/KWHC7pPd
-	Kq1jmvSiAaAYhd5pPyL/ADK/BC8YWx20JdZXSWUVDlJxNkg3Q7MvlDxSRq8yGGpj2Kh9nRDAbDM
-	+V6D+Dmzl9RlhlrYEcCOT+v5lmnKa7gk6CWZ467VRW5qsTirrEIH3/ftdN34l7Jo6UR5COYsHTZ
-	LGroG512wnSqZTvHo+R9jB80tEqFgxEDJkuABBLLtK3w+KBDs6d/RFYoy+f4ERLiwEvfL5BaeWn
-	ZinZZybyXMpOgzFoUiBbYkFGru4SC/SeYz215kWhl+TGkfDc60PlPfUn9M+QmuX3nBsVrspogFM
-	+rURKiN+p6mgw8CN4wQE24yqDrGQeAqKf5K9vyan4BxlGf1FA11gBp
-X-Received: by 2002:a05:6000:26d1:b0:48c:4444:f0a2 with SMTP id
- ffacd0b85a97d-48e38546c63mr4724859f8f.7.1792779559823; Fri, 23 Oct 2026
- 11:19:19 -0700 (PDT)
+        bh=Ib/ri5CDuAjwUK4goxK/03XfhwG7mHhhdijFj1BEbio=;
+        b=fmTnECKiPtPN1EnXYFC0A7d59RBrBWnD8qIv96G9VxTTVbZV98lOA+K+IxQkUhWil8
+         2xOIFAjzDwGW4KceWg4c13Dw4oTlQ4CBCa3BoOyjNIt7WPYqQsDpBQkqRFM81e5+Rsog
+         WPwE5GFq16Y2bhlySm+HtYX5Fad8yL/C1UgLd1oiMrm7SBj2AISnAiGu0xWQrzGz+OBy
+         Jba5YbxQvVDFIsLOLoOTnP/f55y6Yn97HtRv8oDU1Ay3l9j+WqtTPy0h6zftMpW0Vsvk
+         xAuXEO7+RH1DH96ewX2fo+HM5g9vI0JMTzmFiIX9HBos3IdPWCcvl2VQRFACCQETxiLs
+         wuIQ==
+X-Forwarded-Encrypted: i=1; AKwUvBze0HOJpVUR5gqvEpZuzUrlHqATQatDVt4ec4XhiL9BaXHj/iX+2q9xyXVzT7HKj+furCm5PpBHdhDV4vU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJNE055S94Do/U5z5kQGbkYhaPV/nUQq4Q4e+eQaLLKKNSpzzQz
+	Zp569WLnnJHFYPK8h8RZA8Fgq4cX0gtSCBo8u8YQmn3GK52g4kJsa95gYfseYdFgTwPpXGZ9xET
+	IRfjmJd4RI3a2eaO+JbO7sy5mKiPLplQ=
+X-Gm-Gg: AYBFou1+WEh79gq/RcvPy8ApII21GAqZ8TdNgPW7roGSbq2DzS6cAXN2MzSLyGPolJl
+	jLhFOB39O31HXwxBO8j9/j99hEmfT/vV4/B/DvXRWY3Phqfs/wL3cQo67/bfYuv2Ligg7WBMXTo
+	cRFcmzEouiaq0DkP4UHotJgvBlDoHJV/DNQMzN39O8ISuIvWijv3Tvy3CPaFeW/QHEYFR4Fs273
+	A50SfhAH53/nxeANgv+nKA2BWVkxR5QTwpOfTjqWdy2vWpMzJxmYY+kldIbnC1Imzco01zKOUed
+	K/hVBYLBmhDOW0SPrqdXQUyUA8JpP3Ty2xqawt4KtVlhdszb/Tm1RplnyN3dzCF9ATO33YySpG9
+	ZzZC2Soa8vF5g1g4YoLP+NgNCYvEvRHN74fqgbTLhhfbct3Au9SSnNkUuAlHBmir2UqCDvrf9P5
+	AvtUaJURrlImELraYju1H9J9lVQC5V+U40xSs3S6+FnBdDQsbFQylmcrfuQ4o/ZddcuyiySYhou
+	ERNNFvjOPHKRlQs3ICC3S1mijWD3DhEJ9Py8StVJyhbLUBBgQ6gJ55X7NUh9tq6OrvS+ig=
+X-Received: by 2002:a05:6402:1ed0:b0:6b1:d439:5c5 with SMTP id
+ 4fb4d7f45d1cf-6b442a82876mr18979a12.3.1792779593007; Fri, 23 Oct 2026
+ 11:19:53 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,77 +106,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261016120927.3191690-1-hongfengchen@xiaomi.com>
- <CAKEwX=ONniSwdiZAe_8NT5XwVj=Mmc-WJs_rWE4Y5snjFg2=Eg@mail.gmail.com> <20261023123736.1542117-1-chenhongfeng0212@163.com>
-In-Reply-To: <20261023123736.1542117-1-chenhongfeng0212@163.com>
-From: Nhat Pham <nphamcs@gmail.com>
-Date: Fri, 23 Oct 2026 11:19:08 -0700
-X-Gm-Features: AclHuK8IXUKXOT1G5BawvIMJ1TanzNZCOYP2ZLn7pIObqIp0SWbrNFngRQ39xBY
-Message-ID: <CAKEwX=M4jTnxmq6cj115Gw4u5jdY7Ex65jPtVTEopW70jGzfuQ@mail.gmail.com>
-Subject: Re: [RFC PATCH v4 0/2] mm/zsmalloc: defer object free to per-cpu batches
-To: Hongfeng Chen <chenhongfeng0212@163.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, Barry Song <baohua@kernel.org>, 
-	Chengming Zhou <chengming.zhou@linux.dev>, Jens Axboe <axboe@kernel.dk>, 
-	Johannes Weiner <hannes@cmpxchg.org>, Minchan Kim <minchan@kernel.org>, 
-	Sergey Senozhatsky <senozhatsky@chromium.org>, Yosry Ahmed <yosry@kernel.org>, 
-	Wenchao Hao <haowenchao@xiaomi.com>, Wenchao Hao <haowenchao22@gmail.com>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, linux-block@vger.kernel.org, 
-	Hongfeng Chen <hongfengchen@xiaomi.com>, Hongfeng Chen <chenhongfeng0212@gmail.com>, 
-	Shakeel Butt <shakeel.butt@linux.dev>
+References: <20261022022343.1409432-1-rosenp@gmail.com> <87o6ckqvsr.fsf@toke.dk>
+In-Reply-To: <87o6ckqvsr.fsf@toke.dk>
+From: Rosen Penev <rosenp@gmail.com>
+Date: Fri, 23 Oct 2026 11:19:41 -0700
+X-Gm-Features: AclHuK9hNtjapAGTuPaNp1z8hxnwNiaSclFMvsF-Bmo9RDpb45Bd-X4aERvn6hw
+Message-ID: <CAKxU2N9m58fCS1L7SQd_yzxcJV0NNyYHcj=jt_BVkrcc5rSOGA@mail.gmail.com>
+Subject: Re: [PATCH ath-next] wifi: ath9k: release the LED GPIO after ath9k_stop()
+To: =?UTF-8?B?VG9rZSBIw7hpbGFuZC1Kw7hyZ2Vuc2Vu?= <toke@toke.dk>
+Cc: linux-wireless@vger.kernel.org, Linus Walleij <linusw@kernel.org>, 
+	Bartosz Golaszewski <brgl@kernel.org>, 
+	=?UTF-8?Q?Giedrius_Statkevi=C4=8Dius?= <giedrius.statkevicius@gmail.com>, 
+	Kalle Valo <kvalo@qca.qualcomm.com>, open list <linux-kernel@vger.kernel.org>, 
+	"open list:GPIO SUBSYSTEM:Keyword:(devm_)?gpio_(request|free|direction|get|set)" <linux-gpio@vger.kernel.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Fri, Oct 23, 2026 at 5:39=E2=80=AFAM Hongfeng Chen <chenhongfeng0212@163=
-.com> wrote:
+On Fri, Oct 23, 2026 at 8:30=E2=80=AFAM Toke H=C3=B8iland-J=C3=B8rgensen <t=
+oke@toke.dk> wrote:
 >
-> Hi Nhat,
+> Rosen Penev <rosenp@gmail.com> writes:
 >
-> On Fri, Oct 16, 2026 at 9:09 AM Nhat Pham <nphamcs@gmail.com> wrote:
-> > 1. Would memory freeing be slowed down?
+> > ath9k_deinit_device() frees the LED pin in ath_deinit_leds() before it
+> > unregisters the hw. ath9k_stop() then switches the LED pin back to an
+> > input with ath9k_hw_gpio_request_in(). For a SoC GPIO outside of the
+> > WMAC, ath9k_hw_gpio_request() takes a new descriptor through
+> > gpiod_get_index() at that point, and nothing releases it again. The
+> > next probe fails with "request GPIO12 failed:-16" and every LED update
+> > hits the WARN_ON() in ath9k_hw_set_gpio(). That request also runs
+> > under sc->sc_pcu_lock, while gpiod_get_index() and
+> > gpiod_set_consumer_name() may sleep.
+> >
+> > Free the LED pin after ieee80211_unregister_hw() instead. This also
+> > frees the pin when the LED class device could not be registered,
+> > which leaked it before.
 >
-> I sampled pool->pages_allocated every 1 ms, and measured the time from
-> the start of munmap() until the zspages are freed. Three cases are
-> tested: 1 process x 256MB, 1 process x 1024MB, and 4 processes x
-> 256MB. The results are as follows:
+> Hmm, instead of reworking the deinit code, how about we just drop the
+> ath9k_hw_gpio_request_in() call from ath9k_stop()? It's an LED pin, why
+> would it ever need to be reset? The commit that introduced that call
+> says it was "for consistency", which seems entirely bogus in this case?
+Why would it be requested and then not? I imagine on rebind it would
+error out in such a case.
 >
->   workload                  base      with-patch
->   1 process, 256 MB         14 ms     9 ms
->   1 process, 1024 MB        51 ms     31 ms
->   4 processes, 256 MB       45 ms     24 ms
->
-> Memory freeing didn't get slower and it actually got faster.
-
-Neat! Thanks for double checking! I assume this is because we're doing
-memory reclamation in parallel with the extra kworker thread?
-
-Which brings me to the next point:
-
->
-> > 2. Would this introduce isolation issues, especially when this work is
-> > not properly accounted?
->
-> Yes. The drain runs in an unbound kworker in the root cgroup, so its
-> cost is not charged to the killed tenant, and it may take CPU time
-> from other tenants. I'd appreciate any suggestions on a clean way to
-> handle this.
-
-I don't have a good solution either... This has been a blocker for
-other work offloading idea too.
-
-+Shakeel, who might have some ideas on this.
-
-But before we do this:
-
->
-> > Another thing I wonder is, how much of this slowed down is because of
-> > zsmalloc's own inefficiency, and how much is because we just have a
-> > larger logical footprint
->
-> Mostly zsmalloc. I kept the footprint the same (1 GB paged out to zram,
-> then munmap()) and only made zs_free() do nothing:
-
-Is there any more juice we can squeeze from zsmalloc in that case?
-
-It would be nice if you can perf zsmalloc freeing. And yeah, maybe we
-can't optimize any further, but let's eliminate that first before we
-rely on offloading.
+> -Toke
